@@ -28,9 +28,10 @@ import javax.xml.stream.XMLInputFactory;
 import javax.xml.stream.XMLStreamConstants;
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
+import mediathek.tool.Funktionen;
 import mediathek.tool.Konstanten;
+import mediathek.tool.Log;
 import mediathekServer.tool.MS_Daten;
-import mediathekServer.tool.MS_Funktionen;
 import mediathekServer.tool.MS_Konstanten;
 import mediathekServer.tool.MS_Log;
 
@@ -61,7 +62,7 @@ public class MS_UpdateSuchen {
     private static boolean checkObNeueVersion(String release) {
         // liefert true, wenn es eine neue Version gibt
         try {
-            String haben = MS_Funktionen.getBuildNr().replace(".", "");
+            String haben = Funktionen.getBuildNr().replace(".", "");
             int intHaben = Integer.parseInt(haben);
             int intRelease = Integer.parseInt(release);
             if (intRelease > intHaben) {

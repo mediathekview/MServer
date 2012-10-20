@@ -19,12 +19,13 @@
  */
 package mediathekServer.tool;
 
-import mediathekServer.Main;
 import java.io.File;
 import java.security.CodeSource;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.ResourceBundle;
+import mediathek.tool.Funktionen;
+import mediathek.tool.Log;
+import mediathekServer.Main;
 
 public class MS_Funktionen {
 
@@ -56,20 +57,6 @@ public class MS_Funktionen {
     }
 
     public static String getVersion() {
-        return MS_Konstanten.VERSION + " [" + getBuildNr() + "]";
-    }
-
-    public static String getBuildNr() {
-        final ResourceBundle rb;
-        String propToken = "BUILD";
-        String msg = "";
-        try {
-            ResourceBundle.clearCache();
-            rb = ResourceBundle.getBundle("version");
-            msg = rb.getString(propToken);
-        } catch (Exception ex) {
-            MS_Log.fehlerMeldung(858741462, MS_Log.class.getName(), "getBuildNr", ex);
-        }
-        return msg;
+        return MS_Konstanten.VERSION + " [" + Funktionen.getBuildNr() + "]";
     }
 }
