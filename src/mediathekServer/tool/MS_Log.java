@@ -19,12 +19,10 @@
  */
 package mediathekServer.tool;
 
-import mediathekServer.Main;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.LinkedList;
-import java.util.ResourceBundle;
 
 public class MS_Log {
 
@@ -36,9 +34,6 @@ public class MS_Log {
         fehlerListe.clear();
     }
 
-//    public static void addAdListener(ListenerMediathekView listener) {
-//        listeners.add(ListenerMediathekView.class, listener);
-//    }
     public static synchronized void versionsMeldungen(String classname) {
         SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss");
         MS_Log.systemMeldung("");

@@ -24,7 +24,6 @@ import java.security.CodeSource;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import mediathek.tool.Funktionen;
-import mediathek.tool.Log;
 import mediathekServer.Main;
 
 public class MS_Funktionen {

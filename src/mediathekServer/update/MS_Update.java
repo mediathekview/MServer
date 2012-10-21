@@ -17,14 +17,15 @@
  * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-package update;
+package mediathekServer.update;
 
 import mediathekServer.tool.MS_Daten;
+import mediathekServer.tool.MS_Funktionen;
 import mediathekUpdate.MediathekUpdate;
 
 public class MS_Update {
 
-    private static String url = "http://176.28.14.91/mediathek1/mv.zip";
+    private static String url = "http://176.28.14.91/mediathek1/ms.zip";
 
     public MS_Update() {
     }
@@ -33,7 +34,8 @@ public class MS_Update {
         boolean ret = true;
         String updateUrl = MS_UpdateSuchen.checkVersion();
         if (!updateUrl.equals("")) {
-            ret = MediathekUpdate.starten(url, "/tmp/m", MS_Daten.getUserAgent());
+            String jarPfad = MS_Funktionen.getPathJar();
+            ret = MediathekUpdate.starten(url, jarPfad, MS_Daten.getUserAgent());
         }
         return ret;
     }

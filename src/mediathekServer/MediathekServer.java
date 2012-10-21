@@ -24,7 +24,7 @@ import mediathekServer.tool.MS_Daten;
 import mediathekServer.tool.MS_Log;
 import mediathekServer.tool.MS_XmlLesen;
 import mediathekServer.tool.MS_XmlSchreiben;
-import update.MS_Update;
+import mediathekServer.update.MS_Update;
 
 public class MediathekServer {
 
