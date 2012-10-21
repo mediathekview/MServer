@@ -30,7 +30,6 @@ import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
 import mediathek.tool.Funktionen;
 import mediathek.tool.Konstanten;
-import mediathek.tool.Log;
 import mediathekServer.tool.MS_Daten;
 import mediathekServer.tool.MS_Konstanten;
 import mediathekServer.tool.MS_Log;

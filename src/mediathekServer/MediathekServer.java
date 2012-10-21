@@ -25,6 +25,7 @@ import mediathekServer.tool.MS_Log;
 import mediathekServer.tool.MS_XmlLesen;
 import mediathekServer.tool.MS_XmlSchreiben;
 import update.MS_UpdateSuchen;
+import update.MS_Updaten;
 
 public class MediathekServer {
 
@@ -64,6 +65,9 @@ public class MediathekServer {
         // ---------------------------
         // Update suchen
         String updateUrl = MS_UpdateSuchen.checkVersion();
+        if (!updateUrl.equals("")) {
+            new MS_Updaten(pfad).updaten();
+        }
         // ---------------------------
         // Filme suchen
         // ---------------------------
