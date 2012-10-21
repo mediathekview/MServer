@@ -24,8 +24,7 @@ import mediathekServer.tool.MS_Daten;
 import mediathekServer.tool.MS_Log;
 import mediathekServer.tool.MS_XmlLesen;
 import mediathekServer.tool.MS_XmlSchreiben;
-import update.MS_UpdateSuchen;
-import update.MS_Updaten;
+import update.MS_Update;
 
 public class MediathekServer {
 
@@ -64,16 +63,17 @@ public class MediathekServer {
     public void starten() {
         // ---------------------------
         // Update suchen
-        String updateUrl = MS_UpdateSuchen.checkVersion();
-        if (!updateUrl.equals("")) {
-            new MS_Updaten(pfad).updaten();
+        if (!MS_Update.updaten()) {
+            MS_Log.fehlerMeldung(852104739, MediathekServer.class.getName(), "Update mit Fehler beendet");
         }
+
         // ---------------------------
         // Filme suchen
+
         // ---------------------------
         // Filmliste hochladen
 
-
+        undTschuess();
     }
 
     private void undTschuess() {

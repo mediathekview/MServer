@@ -19,21 +19,22 @@
  */
 package update;
 
-public class MS_Updaten {
+import mediathekServer.tool.MS_Daten;
+import mediathekUpdate.MediathekUpdate;
 
-    String url;
+public class MS_Update {
 
-    public MS_Updaten(String uurl) {
-        url = uurl;
+    private static String url = "http://176.28.14.91/mediathek1/mv.zip";
+
+    public MS_Update() {
     }
 
-    public boolean updaten() {
-        boolean ret = false;
-
+    public static boolean updaten() {
+        boolean ret = true;
+        String updateUrl = MS_UpdateSuchen.checkVersion();
+        if (!updateUrl.equals("")) {
+            ret = MediathekUpdate.starten(url, "/tmp/m", MS_Daten.getUserAgent());
+        }
         return ret;
     }
-
-
-
-
 }
