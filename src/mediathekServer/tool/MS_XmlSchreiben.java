@@ -47,6 +47,9 @@ public class MS_XmlSchreiben {
             writer.writeCharacters("\n");//neue Zeile
             // System schreibem
             xmlSchreibenDaten(MS_Konstanten.SYSTEM, MS_Konstanten.SYSTEM_COLUMN_NAMES, MS_Daten.system);
+            xmlSchreibenDaten(MS_Konstanten.UPDATE, MS_Konstanten.UPDATE_COLUMN_NAMES, MS_Daten.update);
+            xmlSchreibenDaten(MS_Konstanten.SUCHEN, MS_Konstanten.SUCHEN_COLUMN_NAMES, MS_Daten.suchen);
+            xmlSchreibenDaten(MS_Konstanten.UPLOAD, MS_Konstanten.UPLOAD_COLUMN_NAMES, MS_Daten.upload);
             // Schließen
             writer.writeEndElement();
             writer.writeEndDocument();

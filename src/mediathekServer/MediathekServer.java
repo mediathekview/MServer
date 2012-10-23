@@ -20,6 +20,7 @@
 package mediathekServer;
 
 import java.io.File;
+import mediathekServer.search.MS_FilmeSuchen;
 import mediathekServer.tool.MS_Daten;
 import mediathekServer.tool.MS_Log;
 import mediathekServer.tool.MS_XmlLesen;
@@ -28,10 +29,14 @@ import mediathekServer.update.MS_Update;
 
 public class MediathekServer {
 
-    private String pfad = "";
+    private boolean allesLaden = false;
+    private String output = "";
+    private String imprtUrl = "";
+    private String userAgent = "";
     private MS_Daten msDaten;
 
     public MediathekServer(String[] ar) {
+        String pfad = "";
         if (ar != null) {
             if (ar.length > 0) {
                 if (!ar[0].startsWith("-")) {
@@ -69,10 +74,12 @@ public class MediathekServer {
 
         // ---------------------------
         // Filme suchen
+        if (!MS_FilmeSuchen.filmeSuchen()) {
+            return;
+        }
 
         // ---------------------------
         // Filmliste hochladen
-
         undTschuess();
     }
 

@@ -24,6 +24,9 @@ import java.io.File;
 public class MS_Daten {
 
     public static String[] system = new String[MS_Konstanten.SYSTEM_MAX_ELEM];
+    public static String[] update = new String[MS_Konstanten.UPDATE_MAX_ELEM];
+    public static String[] suchen = new String[MS_Konstanten.SUCHEN_MAX_ELEM];
+    public static String[] upload = new String[MS_Konstanten.UPLOAD_MAX_ELEM];
     public static boolean debug = false;
     //
     private static String basisverzeichnis = "";
@@ -35,6 +38,15 @@ public class MS_Daten {
     private void init() {
         for (int i = 0; i < system.length; ++i) {
             system[i] = "";
+        }
+        for (int i = 0; i < update.length; ++i) {
+            update[i] = "";
+        }
+        for (int i = 0; i < suchen.length; ++i) {
+            suchen[i] = "";
+        }
+        for (int i = 0; i < upload.length; ++i) {
+            upload[i] = "";
         }
     }
 

@@ -46,8 +46,16 @@ public class MS_XmlLesen {
                     if (event == XMLStreamConstants.START_ELEMENT) {
                         //String t = parser.getLocalName();
                         if (parser.getLocalName().equals(MS_Konstanten.SYSTEM)) {
-                            //System
                             get(parser, event, MS_Konstanten.SYSTEM, MS_Konstanten.SYSTEM_COLUMN_NAMES, MS_Daten.system);
+                        }
+                        if (parser.getLocalName().equals(MS_Konstanten.UPDATE)) {
+                            get(parser, event, MS_Konstanten.UPDATE, MS_Konstanten.UPDATE_COLUMN_NAMES, MS_Daten.update);
+                        }
+                        if (parser.getLocalName().equals(MS_Konstanten.SUCHEN)) {
+                            get(parser, event, MS_Konstanten.SUCHEN, MS_Konstanten.SUCHEN_COLUMN_NAMES, MS_Daten.suchen);
+                        }
+                        if (parser.getLocalName().equals(MS_Konstanten.UPLOAD)) {
+                            get(parser, event, MS_Konstanten.UPLOAD, MS_Konstanten.UPLOAD_COLUMN_NAMES, MS_Daten.upload);
                         }
                     }
                 }
