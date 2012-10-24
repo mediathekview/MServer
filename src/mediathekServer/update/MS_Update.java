@@ -32,10 +32,16 @@ public class MS_Update {
 
     public static boolean updaten() {
         boolean ret = true;
+        MS_Daten.logFile.meldung_upate_suchen();
         String updateUrl = MS_UpdateSuchen.checkVersion();
-        if (!updateUrl.equals("")) {
+        if (updateUrl.equals("")) {
+            MS_Daten.logFile.meldung_upate_aktuell();
+        } else {
             String jarPfad = MS_Funktionen.getPathJar();
             ret = MediathekUpdate.starten(url, jarPfad, MS_Daten.getUserAgent());
+            if (ret) {
+                MS_Daten.logFile.meldung_upate_aktualisiert();
+            }
         }
         return ret;
     }

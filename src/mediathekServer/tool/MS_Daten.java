@@ -28,11 +28,13 @@ public class MS_Daten {
     public static String[] suchen = new String[MS_Konstanten.SUCHEN_MAX_ELEM];
     public static String[] upload = new String[MS_Konstanten.UPLOAD_MAX_ELEM];
     public static boolean debug = false;
+    public static MS_LogFile logFile;
     //
     private static String basisverzeichnis = "";
 
     public MS_Daten() {
         init();
+        logFile = new MS_LogFile();
     }
 
     private void init() {
@@ -90,6 +92,19 @@ public class MS_Daten {
 
     public static boolean konfigExistiert() {
         String datei = MS_Daten.getBasisVerzeichnis() + MS_Konstanten.XML_DATEI;
+        if (new File(datei).exists()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public static String getLogDatei() {
+        return MS_Daten.getBasisVerzeichnis() + MS_Konstanten.XML_LOG_FILE;
+    }
+
+    public static boolean logExistiert() {
+        String datei = MS_Daten.getBasisVerzeichnis() + MS_Konstanten.XML_LOG_FILE;
         if (new File(datei).exists()) {
             return true;
         } else {

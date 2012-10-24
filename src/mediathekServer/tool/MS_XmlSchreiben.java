@@ -22,6 +22,7 @@ package mediathekServer.tool;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.OutputStreamWriter;
+import java.util.Iterator;
 import javax.xml.stream.XMLOutputFactory;
 import javax.xml.stream.XMLStreamWriter;
 import mediathek.tool.Konstanten;
@@ -31,6 +32,35 @@ public class MS_XmlSchreiben {
     private static XMLOutputFactory outFactory;
     private static XMLStreamWriter writer;
     private static OutputStreamWriter out = null;
+
+    public static void xmlLogSchreiben() {
+        try {
+            String datei = MS_Daten.getLogDatei();
+            MS_Log.systemMeldung("Log Schreiben");
+            File file = new File(datei);
+            MS_Log.systemMeldung("Start Schreiben nach: " + datei);
+            outFactory = XMLOutputFactory.newInstance();
+            out = new OutputStreamWriter(new FileOutputStream(file), Konstanten.KODIERUNG_UTF);
+            writer = outFactory.createXMLStreamWriter(out);
+            writer.writeStartDocument("UTF-8", "1.0");
+            writer.writeCharacters("\n");//neue Zeile
+            writer.writeStartElement(MS_Konstanten.XML_START);
+            writer.writeCharacters("\n");//neue Zeile
+            // Log schreibem
+            Iterator<MS_LogMeldung> it = MS_Daten.logFile.listeLogMeldungen.iterator();
+            while (it.hasNext()) {
+                xmlSchreibenDaten(MS_LogMeldung.MS_LOG, MS_LogMeldung.MS_LOG_COLUMN_NAMES, it.next().arr);
+            }
+            // Schließen
+            writer.writeEndElement();
+            writer.writeEndDocument();
+            writer.flush();
+            writer.close();
+            MS_Log.systemMeldung("geschrieben!");
+        } catch (Exception ex) {
+            MS_Log.fehlerMeldung(645421039, MS_XmlSchreiben.class.getName(), "xmlDatenSchreiben", ex);
+        }
+    }
 
     public static void xmlDatenSchreiben() {
         try {

@@ -29,9 +29,39 @@ import mediathek.tool.Konstanten;
 
 public class MS_XmlLesen {
 
+    public static void xmlLogLesen() {
+        try {
+            String datei = MS_Daten.getLogDatei();
+            if (new File(datei).exists()) {
+                //nur wenn die Datei schon existiert
+                int event;
+                XMLInputFactory inFactory = XMLInputFactory.newInstance();
+                inFactory.setProperty(XMLInputFactory.IS_COALESCING, Boolean.FALSE);
+                XMLStreamReader parser;
+                InputStreamReader in;
+                in = new InputStreamReader(new FileInputStream(datei), Konstanten.KODIERUNG_UTF);
+                parser = inFactory.createXMLStreamReader(in);
+                while (parser.hasNext()) {
+                    event = parser.next();
+                    if (event == XMLStreamConstants.START_ELEMENT) {
+                        //String t = parser.getLocalName();
+                        if (parser.getLocalName().equals(MS_LogMeldung.MS_LOG)) {
+                            MS_LogMeldung meldung = new MS_LogMeldung();
+                            get(parser, event, MS_LogMeldung.MS_LOG, MS_LogMeldung.MS_LOG_COLUMN_NAMES, meldung.arr);
+                            MS_Daten.logFile.listeLogMeldungen.add(meldung);
+                        }
+                    }
+                }
+            }
+        } catch (Exception ex) {
+            MS_Log.fehlerMeldung(696307458, MS_XmlLesen.class.getName(), "xmlLogLesen", ex);
+        } finally {
+        }
+    }
+
     public static void xmlDatenLesen() {
         try {
-            String datei = MS_Daten.getBasisVerzeichnis() + MS_Konstanten.XML_DATEI;
+            String datei = MS_Daten.getKonfigDatei();
             if (new File(datei).exists()) {
                 //nur wenn die Datei schon existiert
                 int event;

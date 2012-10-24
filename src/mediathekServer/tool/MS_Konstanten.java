@@ -27,6 +27,7 @@ public class MS_Konstanten {
     // Dateien/Verzeichnisse
     public static final String VERZEICHNISS_EINSTELLUNGEN = ".mediathekServer";
     public static final String XML_DATEI = "mediathekServer.xml";
+    public static final String XML_LOG_FILE = "ms_log.xml";
     public static final String ADRESSE_PROGRAMM_VERSION = "http://zdfmediathk.sourceforge.net/version-server.xml";
     // 
     public static final String XML_START = "MediathekServer";

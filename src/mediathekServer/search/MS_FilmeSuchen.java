@@ -19,9 +19,6 @@
  */
 package mediathekServer.search;
 
-import mediathek.MediathekNoGui;
-import mediathekServer.tool.MS_Daten;
-
 public class MS_FilmeSuchen {
 
     private static boolean allesLaden = false;
@@ -31,7 +28,7 @@ public class MS_FilmeSuchen {
 
     public static boolean filmeSuchen() {
         boolean ret = false;
-        new MediathekNoGui(MS_Daten.getBasisVerzeichnis(), allesLaden, output, imprtUrl, userAgent).starten();
+//////////        new MediathekNoGui(MS_Daten.getBasisVerzeichnis(), allesLaden, output, imprtUrl, userAgent).starten();
         ret = true;
         return ret;
     }
