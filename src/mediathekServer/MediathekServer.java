@@ -58,7 +58,6 @@ public class MediathekServer {
             MS_Log.fehlerMeldung(858589654, MediathekServer.class.getName(), new String[]{"Konfig-Datei existiert nicht", MS_Daten.getKonfigDatei()});
             // Demo schriben
             MS_XmlSchreiben.xmlDatenSchreiben();
-            MS_XmlSchreiben.xmlLogSchreiben();
             // und Tschüss
             System.exit(1);
         } else {

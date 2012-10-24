@@ -21,6 +21,8 @@ package mediathekServer.update;
 
 import mediathekServer.tool.MS_Daten;
 import mediathekServer.tool.MS_Funktionen;
+import mediathekServer.tool.MS_Konstanten;
+import mediathekServer.tool.MS_LogMeldung;
 import mediathekUpdate.MediathekUpdate;
 
 public class MS_Update {
@@ -32,15 +34,21 @@ public class MS_Update {
 
     public static boolean updaten() {
         boolean ret = true;
-        MS_Daten.logFile.meldung_upate_suchen();
-        String updateUrl = MS_UpdateSuchen.checkVersion();
-        if (updateUrl.equals("")) {
-            MS_Daten.logFile.meldung_upate_aktuell();
+        if (!MS_Daten.update[MS_Konstanten.UPDATE_AUTO_NR].equals(MS_Konstanten.STR_TRUE)) {
+            // wenn nicht, dann halt nicht
+            MS_Daten.logFile.listeLogMeldungen.add(new MS_LogMeldung(MS_LogMeldung.MS_LOG__UPDATE_NICHT_SUCHEN));
         } else {
-            String jarPfad = MS_Funktionen.getPathJar();
-            ret = MediathekUpdate.starten(url, jarPfad, MS_Daten.getUserAgent());
-            if (ret) {
-                MS_Daten.logFile.meldung_upate_aktualisiert();
+            // nach Update suchen
+            MS_Daten.logFile.listeLogMeldungen.add(new MS_LogMeldung(MS_LogMeldung.MS_LOG__UPDATE_SUCHEN));
+            String updateUrl = MS_UpdateSuchen.checkVersion();
+            if (updateUrl.equals("")) {
+                MS_Daten.logFile.listeLogMeldungen.add(new MS_LogMeldung(MS_LogMeldung.MS_LOG__UPDATE_AKTUELL));
+            } else {
+                String jarPfad = MS_Funktionen.getPathJar();
+                ret = MediathekUpdate.starten(url, jarPfad, MS_Daten.getUserAgent());
+                if (ret) {
+                    MS_Daten.logFile.listeLogMeldungen.add(new MS_LogMeldung(MS_LogMeldung.MS_LOG__UPDATE_AKTUALISIERT));
+                }
             }
         }
         return ret;

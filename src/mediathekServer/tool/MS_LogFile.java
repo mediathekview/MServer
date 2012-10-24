@@ -26,21 +26,15 @@ public class MS_LogFile {
     public LinkedList<MS_LogMeldung> listeLogMeldungen;
 
     public MS_LogFile() {
-        listeLogMeldungen = new LinkedList<MS_LogMeldung>();
+        listeLogMeldungen = new Liste();
     }
 
-    public void meldung_upate_suchen() {
-        MS_LogMeldung meldung = new MS_LogMeldung(MS_LogMeldung.MS_LOG__UPDATE_SUCHEN);
-        listeLogMeldungen.add(meldung);
-    }
+    private class Liste extends LinkedList<MS_LogMeldung> {
 
-    public void meldung_upate_aktuell() {
-        MS_LogMeldung meldung = new MS_LogMeldung(MS_LogMeldung.MS_LOG__UPDATE_AKTUELL);
-        listeLogMeldungen.add(meldung);
-    }
-
-    public void meldung_upate_aktualisiert() {
-        MS_LogMeldung meldung = new MS_LogMeldung(MS_LogMeldung.MS_LOG__UPDATE_AKTUALISIERT);
-        listeLogMeldungen.add(meldung);
+        @Override
+        public boolean add(MS_LogMeldung m) {
+            MS_Log.systemMeldung(m.arr[MS_LogMeldung.MS_LOG_WANN_NR] + ": " + m.arr[MS_LogMeldung.MS_LOG_WAS_NR]);
+            return super.add(m);
+        }
     }
 }

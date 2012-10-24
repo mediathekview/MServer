@@ -22,6 +22,7 @@ package mediathekServer.tool;
 public class MS_LogMeldung {
 
     // Konstanten Logart
+    public static final String MS_LOG__UPDATE_NICHT_SUCHEN = "ms_log__update_nicht_suchen";
     public static final String MS_LOG__UPDATE_SUCHEN = "ms_log__update_suchen";
     public static final String MS_LOG__UPDATE_AKTUELL = "ms_log__update_aktuell";
     public static final String MS_LOG__UPDATE_AKTUALISIERT = "ms_log__update_aktualisiert";
@@ -31,12 +32,10 @@ public class MS_LogMeldung {
     public static final int MS_LOG_WANN_NR = 0;
     public static final String MS_LOG_WAS = "ms_log_was";
     public static final int MS_LOG_WAS_NR = 1;
-    public static final String MS_LOG_ALLES = "ms_log_alles";
-    public static final int MS_LOG_ALLES_NR = 2;
     // Array
     public static final String MS_LOG = "ms_log";
-    public static final int MS_LOG_MAX_ELEM = 3;
-    public static final String[] MS_LOG_COLUMN_NAMES = {MS_LOG_WANN, MS_LOG_WAS, MS_LOG_ALLES};
+    public static final int MS_LOG_MAX_ELEM = 2;
+    public static final String[] MS_LOG_COLUMN_NAMES = {MS_LOG_WANN, MS_LOG_WAS};
     public String[] arr;
 
     public MS_LogMeldung() {

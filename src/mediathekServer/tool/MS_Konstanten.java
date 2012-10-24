@@ -31,6 +31,8 @@ public class MS_Konstanten {
     public static final String ADRESSE_PROGRAMM_VERSION = "http://zdfmediathk.sourceforge.net/version-server.xml";
     // 
     public static final String XML_START = "MediathekServer";
+    public static final String STR_TRUE = "1";
+    public static final String STR_FALSE = "0";
     //
     // Konstanten System
     public static final String SYSTEM_PWD = "system-pwd";
@@ -45,12 +47,12 @@ public class MS_Konstanten {
     public static final String[] SYSTEM_COLUMN_NAMES = {SYSTEM_PWD, SYSTEM_USER_AGENT, SYSTEM_UPDATE_SUCHEN};
     //
     // Konstanten Update
-    public static final String UPDATE_COUNT = "update-count";
-    public static final int UPDATE_COUNT_NR = 0;
+    public static final String UPDATE_AUTO = "update-auto";
+    public static final int UPDATE_AUTO_NR = 0;
     // Array
     public static final String UPDATE = "update";
     public static final int UPDATE_MAX_ELEM = 1;
-    public static final String[] UPDATE_COLUMN_NAMES = {UPDATE_COUNT};
+    public static final String[] UPDATE_COLUMN_NAMES = {UPDATE_AUTO};
     //
     // Konstanten Suchen
     public static final String SUCHEN_ALLES = "suchen-alles";
