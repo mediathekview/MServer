@@ -36,18 +36,18 @@ public class MS_Update {
         boolean ret = true;
         if (!MS_Daten.update[MS_Konstanten.UPDATE_AUTO_NR].equals(MS_Konstanten.STR_TRUE)) {
             // wenn nicht, dann halt nicht
-            MS_Daten.logFile.listeLogMeldungen.add(new MS_LogMeldung(MS_LogMeldung.MS_LOG__UPDATE_NICHT_SUCHEN));
+            MS_Daten.logFile.addLog(new MS_LogMeldung(MS_LogMeldung.MS_LOG__UPDATE_NICHT_SUCHEN));
         } else {
             // nach Update suchen
-            MS_Daten.logFile.listeLogMeldungen.add(new MS_LogMeldung(MS_LogMeldung.MS_LOG__UPDATE_SUCHEN));
+            MS_Daten.logFile.addLog(new MS_LogMeldung(MS_LogMeldung.MS_LOG__UPDATE_SUCHEN));
             String updateUrl = MS_UpdateSuchen.checkVersion();
             if (updateUrl.equals("")) {
-                MS_Daten.logFile.listeLogMeldungen.add(new MS_LogMeldung(MS_LogMeldung.MS_LOG__UPDATE_AKTUELL));
+                MS_Daten.logFile.addLog(new MS_LogMeldung(MS_LogMeldung.MS_LOG__UPDATE_AKTUELL));
             } else {
                 String jarPfad = MS_Funktionen.getPathJar();
                 ret = MediathekUpdate.starten(url, jarPfad, MS_Daten.getUserAgent());
                 if (ret) {
-                    MS_Daten.logFile.listeLogMeldungen.add(new MS_LogMeldung(MS_LogMeldung.MS_LOG__UPDATE_AKTUALISIERT));
+                    MS_Daten.logFile.addLog(new MS_LogMeldung(MS_LogMeldung.MS_LOG__UPDATE_AKTUALISIERT));
                 }
             }
         }

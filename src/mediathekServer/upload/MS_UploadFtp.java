@@ -19,11 +19,11 @@
  */
 package mediathekServer.upload;
 
-import mediathekServer.tool.MS_Log;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
+import mediathekServer.tool.MS_Log;
 import org.apache.commons.net.PrintCommandListener;
 import org.apache.commons.net.ftp.FTP;
 import org.apache.commons.net.ftp.FTPClient;
@@ -35,14 +35,13 @@ import org.apache.commons.net.util.TrustManagerUtils;
 
 public class MS_UploadFtp {
 
-    public static String server = null;
-    public static int port = 0;
-    public static String username = null;
-    public static String password = null;
-    public static String remote = null;
-    public static String local = null;
-
-    public boolean uploadFtp() {
+//    public static String server = null;
+//    public static int port = 0;
+//    public static String username = null;
+//    public static String password = null;
+//    public static String remote = null;
+//    public static String local = null;
+    public boolean uploadFtp(String server, int port, String username, String password, String remote, String local) {
         boolean ret = false;
         boolean binaryTransfer = false;
         boolean localActive = false, useEpsvWithIPv4 = false;

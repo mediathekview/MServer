@@ -20,13 +20,14 @@
 package mediathekServer.tool;
 
 import java.io.File;
+import mediathekServer.MS_Daten.MS_ListeUpload;
 
 public class MS_Daten {
 
     public static String[] system = new String[MS_Konstanten.SYSTEM_MAX_ELEM];
     public static String[] update = new String[MS_Konstanten.UPDATE_MAX_ELEM];
     public static String[] suchen = new String[MS_Konstanten.SUCHEN_MAX_ELEM];
-    public static String[] upload = new String[MS_Konstanten.UPLOAD_MAX_ELEM];
+    public static MS_ListeUpload listeUpload = new MS_ListeUpload();
     public static boolean debug = false;
     public static MS_LogFile logFile;
     //
@@ -46,9 +47,6 @@ public class MS_Daten {
         }
         for (int i = 0; i < suchen.length; ++i) {
             suchen[i] = "";
-        }
-        for (int i = 0; i < upload.length; ++i) {
-            upload[i] = "";
         }
     }
 

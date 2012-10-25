@@ -17,23 +17,21 @@
  * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-package mediathekServer.tool;
+package mediathekServer.MS_Daten;
 
-import java.util.LinkedList;
+import mediathekServer.tool.MS_Konstanten;
 
-public class MS_LogFile {
+public class MS_DatenUpload {
 
-    public LinkedList<MS_LogMeldung> listeLogMeldungen;
+    public static String[] arr = new String[MS_Konstanten.UPLOAD_MAX_ELEM];
 
-    public MS_LogFile() {
-        listeLogMeldungen = new Liste();
+    public MS_DatenUpload() {
+        init();
     }
 
-    public void addLog(MS_LogMeldung m) {
-        MS_Log.systemMeldung(m.arr[MS_LogMeldung.MS_LOG_WANN_NR] + ": " + m.arr[MS_LogMeldung.MS_LOG_WAS_NR]);
-        listeLogMeldungen.add(m);
-    }
-
-    private class Liste extends LinkedList<MS_LogMeldung> {
+    private void init() {
+        for (int i = 0; i < arr.length; ++i) {
+            arr[i] = "";
+        }
     }
 }
