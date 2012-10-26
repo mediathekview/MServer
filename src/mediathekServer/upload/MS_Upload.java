@@ -40,12 +40,13 @@ public class MS_Upload {
         while (it.hasNext()) {
             MS_DatenUpload datenUpload = it.next();
             if (datenUpload.arr[MS_Konstanten.UPLOAD_ART_NR].equals(UPLOAD_ART_COPY)) {
+                copy(datei, datenUpload.arr[MS_Konstanten.UPLOAD_DEST_DIR_NR]);
             }
         }
         return ret;
     }
 
-    public static boolean copy(File in, File out) {
+    public static boolean copy(String in, String out) {
         boolean ret = false;
         FileChannel inChannel = null;
         FileChannel outChannel = null;

@@ -26,6 +26,7 @@ import mediathekServer.tool.MS_Log;
 import mediathekServer.tool.MS_XmlLesen;
 import mediathekServer.tool.MS_XmlSchreiben;
 import mediathekServer.update.MS_Update;
+import mediathekServer.upload.MS_Upload;
 
 public class MediathekServer {
 
@@ -34,6 +35,9 @@ public class MediathekServer {
     private String imprtUrl = "";
     private String userAgent = "";
     private MS_Daten msDaten;
+
+    public MediathekServer() {
+    }
 
     public MediathekServer(String[] ar) {
         String pfad = "";
@@ -57,13 +61,38 @@ public class MediathekServer {
         if (!MS_Daten.konfigExistiert()) {
             MS_Log.fehlerMeldung(858589654, MediathekServer.class.getName(), new String[]{"Konfig-Datei existiert nicht", MS_Daten.getKonfigDatei()});
             // Demo schriben
-            MS_XmlSchreiben.xmlMsterDatenSchreiben();
+            MS_XmlSchreiben.xmlMusterDatenSchreiben();
             // und Tschüss
             System.exit(1);
         } else {
             MS_XmlLesen.xmlDatenLesen();
             MS_XmlLesen.xmlLogLesen();
         }
+    }
+
+    public void musterSchreiben(String[] ar) {
+        String pfad = "";
+        if (ar != null) {
+            if (ar.length > 0) {
+                if (!ar[0].startsWith("-")) {
+                    if (!ar[0].endsWith(File.separator)) {
+                        ar[0] += File.separator;
+                    }
+                    pfad = ar[0];
+                }
+            }
+        }
+        msDaten = new MS_Daten();
+        MS_Daten.setBasisVerzeichnis(pfad);
+        // Infos schreiben
+        MS_Log.startMeldungen(this.getClass().getName());
+        MS_Log.systemMeldung("");
+        MS_Log.systemMeldung("");
+        MS_Log.systemMeldung("Muster Konfig anlegen");
+        // Demo schreiben
+        MS_XmlSchreiben.xmlMusterDatenSchreiben();
+        // und Tschüss
+        System.exit(0);
     }
 
     public void starten() {
@@ -75,12 +104,15 @@ public class MediathekServer {
 
         // ---------------------------
         // Filme suchen
-        if (!MS_FilmeSuchen.filmeSuchen()) {
+        if (!MS_FilmeSuchen.filmeSuchen(allesLaden, output, imprtUrl, userAgent)) {
             return;
         }
 
         // ---------------------------
         // Filmliste hochladen
+        MS_Upload.upload(output);
+
+        // ---------------------------
         undTschuess();
     }
 

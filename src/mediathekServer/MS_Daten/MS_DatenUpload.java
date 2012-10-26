@@ -23,7 +23,7 @@ import mediathekServer.tool.MS_Konstanten;
 
 public class MS_DatenUpload {
 
-    public static String[] arr = new String[MS_Konstanten.UPLOAD_MAX_ELEM];
+    public String[] arr = new String[MS_Konstanten.UPLOAD_MAX_ELEM];
 
     public MS_DatenUpload() {
         init();

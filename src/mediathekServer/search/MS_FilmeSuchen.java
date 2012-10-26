@@ -19,17 +19,20 @@
  */
 package mediathekServer.search;
 
+import mediathek.MediathekNoGui;
+import mediathekServer.tool.MS_Daten;
+import mediathekServer.tool.MS_Log;
+
 public class MS_FilmeSuchen {
 
-    private static boolean allesLaden = false;
-    private static String output = "";
-    private static String imprtUrl = "";
-    private static String userAgent = "";
-
-    public static boolean filmeSuchen() {
+    public static boolean filmeSuchen(boolean allesLaden, String output, String imprtUrl, String userAgent) {
         boolean ret = false;
-//////////        new MediathekNoGui(MS_Daten.getBasisVerzeichnis(), allesLaden, output, imprtUrl, userAgent).starten();
-        ret = true;
+        try {
+            new MediathekNoGui(MS_Daten.getBasisVerzeichnis(), allesLaden, output, imprtUrl, userAgent).starten();
+            ret = true;
+        } catch (Exception ex) {
+            MS_Log.fehlerMeldung(636987308, MS_FilmeSuchen.class.getName(), "filmeSuchen", ex);
+        }
         return ret;
     }
 }

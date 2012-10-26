@@ -63,9 +63,9 @@ public class MS_XmlSchreiben {
         }
     }
 
-    public static void xmlMsterDatenSchreiben() {
+    public static void xmlMusterDatenSchreiben() {
         try {
-            String datei = MS_Daten.getKonfigDatei();
+            String datei = MS_Daten.getKonfigDatei() + "_Muster";
             MS_Log.systemMeldung("Daten Schreiben");
             File file = new File(datei);
             MS_Log.systemMeldung("Start Schreiben nach: " + datei);

@@ -39,6 +39,9 @@ public class Main {
                             MS_Log.versionsMeldungen(this.getClass().getName());
                             System.exit(0);
                         }
+                        if (s.equalsIgnoreCase("-muster")) {
+                            new MediathekServer().musterSchreiben(ar);
+                        }
                     }
                 }
                 new MediathekServer(ar).starten();
