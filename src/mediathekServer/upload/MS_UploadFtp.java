@@ -19,6 +19,7 @@
  */
 package mediathekServer.upload;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -41,9 +42,27 @@ public class MS_UploadFtp {
 //    public static String password = null;
 //    public static String remote = null;
 //    public static String local = null;
-    public boolean uploadFtp(String server, int port, String username, String password, String remote, String local) {
+    public static boolean uploadFtp(String server, String strPort, String username, String password, String destDir, String srcFile) {
         boolean ret = false;
-        boolean binaryTransfer = false;
+
+        String destFile;
+        if (!destDir.endsWith("/")) {
+            destFile = destDir + "/" + srcFile;
+        } else {
+            destFile = destDir + srcFile;
+        }
+
+
+        int port = 0;
+        try {
+            if (!strPort.equals("")) {
+                port = Integer.parseInt(strPort);
+            }
+        } catch (Exception ex) {
+            MS_Log.fehlerMeldung(101203698, MS_UploadFtp.class.getName(), "uploadFtp", ex);
+            port = 0;
+        }
+        boolean binaryTransfer = true;
         boolean localActive = false, useEpsvWithIPv4 = false;
         long keepAliveTimeout = -1;
         int controlKeepAliveReplyTimeout = -1;
@@ -138,8 +157,8 @@ public class MS_UploadFtp {
             }
             ftp.setUseEPSVwithIPv4(useEpsvWithIPv4);
             InputStream input;
-            input = new FileInputStream(local);
-            ftp.storeFile(remote, input);
+            input = new FileInputStream(srcFile);
+            ftp.storeFile(destFile, input);
             input.close();
             ftp.noop(); // check that control connection is working OK
             ftp.logout();

@@ -41,18 +41,30 @@ public class MS_Upload {
             MS_DatenUpload datenUpload = it.next();
             if (datenUpload.arr[MS_Konstanten.UPLOAD_ART_NR].equals(UPLOAD_ART_COPY)) {
                 copy(datei, datenUpload.arr[MS_Konstanten.UPLOAD_DEST_DIR_NR]);
+            } else if (datenUpload.arr[MS_Konstanten.UPLOAD_ART_NR].equals(UPLOAD_ART_FTP)) {
+                // uploadFtp(String server, int port, String username, String password, String remote, String local) {
+                MS_UploadFtp.uploadFtp(datenUpload.arr[MS_Konstanten.UPLOAD_SERVER_NR], datenUpload.arr[MS_Konstanten.UPLOAD_PORT_NR], datenUpload.arr[MS_Konstanten.UPLOAD_USER_NR],
+                        datenUpload.arr[MS_Konstanten.UPLOAD_PWD_NR], datenUpload.arr[MS_Konstanten.UPLOAD_DEST_DIR_NR], datei);
             }
         }
         return ret;
     }
 
-    public static boolean copy(String in, String out) {
+    public static boolean copy(String srcFile, String destDir) {
         boolean ret = false;
         FileChannel inChannel = null;
         FileChannel outChannel = null;
         try {
-            inChannel = new FileInputStream(in).getChannel();
-            outChannel = new FileOutputStream(out).getChannel();
+            String destFile;
+            if (!destDir.endsWith(File.separator)) {
+                destFile = destDir + File.separator + srcFile;
+            } else {
+                destFile = destDir + srcFile;
+            }
+            File destDirFile = new File(destDir);
+            destDirFile.mkdirs();
+            inChannel = new FileInputStream(srcFile).getChannel();
+            outChannel = new FileOutputStream(destFile).getChannel();
             inChannel.transferTo(0, inChannel.size(), outChannel);
         } catch (Exception ex) {
             MS_Log.fehlerMeldung(747452360, MS_Upload.class.getName(), "copy", ex);

@@ -23,6 +23,7 @@ import java.io.File;
 import mediathekServer.search.MS_FilmeSuchen;
 import mediathekServer.tool.MS_Daten;
 import mediathekServer.tool.MS_Log;
+import mediathekServer.tool.MS_Test;
 import mediathekServer.tool.MS_XmlLesen;
 import mediathekServer.tool.MS_XmlSchreiben;
 import mediathekServer.update.MS_Update;
@@ -31,7 +32,7 @@ import mediathekServer.upload.MS_Upload;
 public class MediathekServer {
 
     private boolean allesLaden = false;
-    private String output = "";
+    private String output = "filme.bz2";
     private String imprtUrl = "";
     private String userAgent = "";
     private MS_Daten msDaten;
@@ -98,16 +99,16 @@ public class MediathekServer {
     public void starten() {
         // ---------------------------
         // Update suchen
-        if (!MS_Update.updaten()) {
-            MS_Log.fehlerMeldung(852104739, MediathekServer.class.getName(), "Update mit Fehler beendet");
-        }
+////        if (!MS_Update.updaten()) {
+////            MS_Log.fehlerMeldung(852104739, MediathekServer.class.getName(), "Update mit Fehler beendet");
+////        }
 
         // ---------------------------
         // Filme suchen
-        if (!MS_FilmeSuchen.filmeSuchen(allesLaden, output, imprtUrl, userAgent)) {
-            return;
-        }
-
+////        if (!MS_FilmeSuchen.filmeSuchen(allesLaden, output, imprtUrl, userAgent)) {
+////            return;
+////        }
+        MS_Test.schreiben(output);
         // ---------------------------
         // Filmliste hochladen
         MS_Upload.upload(output);
