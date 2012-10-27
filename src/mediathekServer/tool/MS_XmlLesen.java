@@ -26,6 +26,7 @@ import javax.xml.stream.XMLInputFactory;
 import javax.xml.stream.XMLStreamConstants;
 import javax.xml.stream.XMLStreamReader;
 import mediathek.tool.Konstanten;
+import mediathekServer.MS_Daten.MS_DatenSuchen;
 import mediathekServer.MS_Daten.MS_DatenUpload;
 
 public class MS_XmlLesen {
@@ -83,7 +84,9 @@ public class MS_XmlLesen {
                             get(parser, event, MS_Konstanten.UPDATE, MS_Konstanten.UPDATE_COLUMN_NAMES, MS_Daten.update);
                         }
                         if (parser.getLocalName().equals(MS_Konstanten.SUCHEN)) {
-                            get(parser, event, MS_Konstanten.SUCHEN, MS_Konstanten.SUCHEN_COLUMN_NAMES, MS_Daten.suchen);
+                            MS_DatenSuchen cron = new MS_DatenSuchen();
+                            get(parser, event, MS_Konstanten.SUCHEN, MS_Konstanten.SUCHEN_COLUMN_NAMES, cron.arr);
+                            MS_Daten.listeSuchen.add(cron);
                         }
                         if (parser.getLocalName().equals(MS_Konstanten.UPLOAD)) {
                             MS_DatenUpload upload = new MS_DatenUpload();

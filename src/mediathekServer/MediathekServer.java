@@ -20,13 +20,12 @@
 package mediathekServer;
 
 import java.io.File;
-import mediathekServer.search.MS_FilmeSuchen;
+import mediathekServer.cron.MS_Timer;
 import mediathekServer.tool.MS_Daten;
 import mediathekServer.tool.MS_Log;
 import mediathekServer.tool.MS_Test;
 import mediathekServer.tool.MS_XmlLesen;
 import mediathekServer.tool.MS_XmlSchreiben;
-import mediathekServer.update.MS_Update;
 import mediathekServer.upload.MS_Upload;
 
 public class MediathekServer {
@@ -36,6 +35,7 @@ public class MediathekServer {
     private String imprtUrl = "";
     private String userAgent = "";
     private MS_Daten msDaten;
+    private MS_Timer cron;
 
     public MediathekServer() {
     }
@@ -53,6 +53,7 @@ public class MediathekServer {
             }
         }
         msDaten = new MS_Daten();
+        cron = new MS_Timer();
         MS_Daten.setBasisVerzeichnis(pfad);
         // Infos schreiben
         MS_Log.startMeldungen(this.getClass().getName());

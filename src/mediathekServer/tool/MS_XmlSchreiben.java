@@ -26,6 +26,7 @@ import java.util.Iterator;
 import javax.xml.stream.XMLOutputFactory;
 import javax.xml.stream.XMLStreamWriter;
 import mediathek.tool.Konstanten;
+import mediathekServer.MS_Daten.MS_DatenSuchen;
 import mediathekServer.MS_Daten.MS_DatenUpload;
 
 public class MS_XmlSchreiben {
@@ -79,7 +80,7 @@ public class MS_XmlSchreiben {
             // System schreibem
             xmlSchreibenDaten(MS_Konstanten.SYSTEM, MS_Konstanten.SYSTEM_COLUMN_NAMES, MS_Daten.system);
             xmlSchreibenDaten(MS_Konstanten.UPDATE, MS_Konstanten.UPDATE_COLUMN_NAMES, MS_Daten.update);
-            xmlSchreibenDaten(MS_Konstanten.SUCHEN, MS_Konstanten.SUCHEN_COLUMN_NAMES, MS_Daten.suchen);
+            xmlSchreibenDaten(MS_Konstanten.SUCHEN, MS_Konstanten.SUCHEN_COLUMN_NAMES, new MS_DatenSuchen().arr);
             xmlSchreibenDaten(MS_Konstanten.UPLOAD, MS_Konstanten.UPLOAD_COLUMN_NAMES, new MS_DatenUpload().arr);
             // Schließen
             writer.writeEndElement();

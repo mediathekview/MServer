@@ -55,12 +55,14 @@ public class MS_Konstanten {
     public static final String[] UPDATE_COLUMN_NAMES = {UPDATE_AUTO};
     //
     // Konstanten Suchen
-    public static final String SUCHEN_ALLES = "suchen-alles";
-    public static final int SUCHEN_ALLES_NR = 0;
+    public static final String SUCHEN_WAS = "suchen-was";
+    public static final int SUCHEN_WAS_NR = 0;
+    public static final String SUCHEN_WANN = "suchen-wann";
+    public static final int SUCHEN_WANN_NR = 1;
     // Array
     public static final String SUCHEN = "suchen";
-    public static final int SUCHEN_MAX_ELEM = 1;
-    public static final String[] SUCHEN_COLUMN_NAMES = {SUCHEN_ALLES};
+    public static final int SUCHEN_MAX_ELEM = 2;
+    public static final String[] SUCHEN_COLUMN_NAMES = {SUCHEN_WAS, SUCHEN_WANN};
     //
     //
     // Konstanten Upload
