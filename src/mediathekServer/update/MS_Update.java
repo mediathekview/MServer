@@ -23,7 +23,6 @@ import mediathekServer.tool.MS_Daten;
 import mediathekServer.tool.MS_Funktionen;
 import mediathekServer.tool.MS_Konstanten;
 import mediathekServer.tool.MS_LogMeldung;
-import mediathekUpdate.MediathekUpdate;
 
 public class MS_Update {
 
@@ -45,7 +44,7 @@ public class MS_Update {
                 MS_Daten.logFile.addLog(new MS_LogMeldung(MS_LogMeldung.MS_LOG__UPDATE_AKTUELL));
             } else {
                 String jarPfad = MS_Funktionen.getPathJar();
-                ret = MediathekUpdate.starten(url, jarPfad, MS_Daten.getUserAgent());
+                ret = MS_Updaten.updaten(url, jarPfad, MS_Daten.getUserAgent());
                 if (ret) {
                     MS_Daten.logFile.addLog(new MS_LogMeldung(MS_LogMeldung.MS_LOG__UPDATE_AKTUALISIERT));
                 }
