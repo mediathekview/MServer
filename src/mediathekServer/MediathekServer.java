@@ -35,7 +35,6 @@ public class MediathekServer {
     private String imprtUrl = "";
     private String userAgent = "";
     private MS_Daten msDaten;
-    private MS_Timer cron;
 
     public MediathekServer() {
     }
@@ -53,43 +52,31 @@ public class MediathekServer {
             }
         }
         msDaten = new MS_Daten();
-        cron = new MS_Timer();
         MS_Daten.setBasisVerzeichnis(pfad);
         // Infos schreiben
         MS_Log.startMeldungen(this.getClass().getName());
         MS_Log.systemMeldung("");
         MS_Log.systemMeldung("");
+    }
+
+    public void starten() {
         // los gehts
         if (!MS_Daten.konfigExistiert()) {
             MS_Log.fehlerMeldung(858589654, MediathekServer.class.getName(), new String[]{"Konfig-Datei existiert nicht", MS_Daten.getKonfigDatei()});
-            // Demo schriben
-            MS_XmlSchreiben.xmlMusterDatenSchreiben();
-            // und Tschüss
-            System.exit(1);
+            musterSchreiben(); // und Tschüss
         } else {
             MS_XmlLesen.xmlDatenLesen();
             MS_XmlLesen.xmlLogLesen();
+            MS_Timer timer = new MS_Timer() {
+                @Override
+                public void ping() {
+                    laufen();
+                }
+            };
         }
     }
 
-    public void musterSchreiben(String[] ar) {
-        String pfad = "";
-        if (ar != null) {
-            if (ar.length > 0) {
-                if (!ar[0].startsWith("-")) {
-                    if (!ar[0].endsWith(File.separator)) {
-                        ar[0] += File.separator;
-                    }
-                    pfad = ar[0];
-                }
-            }
-        }
-        msDaten = new MS_Daten();
-        MS_Daten.setBasisVerzeichnis(pfad);
-        // Infos schreiben
-        MS_Log.startMeldungen(this.getClass().getName());
-        MS_Log.systemMeldung("");
-        MS_Log.systemMeldung("");
+    public void musterSchreiben() {
         MS_Log.systemMeldung("Muster Konfig anlegen");
         // Demo schreiben
         MS_XmlSchreiben.xmlMusterDatenSchreiben();
@@ -97,7 +84,11 @@ public class MediathekServer {
         System.exit(0);
     }
 
-    public void starten() {
+    public void laufen() {
+        // erst mal schauen obs was zum tun gibt
+        
+        
+        
         // ---------------------------
         // Update suchen
 ////        if (!MS_Update.updaten()) {

@@ -17,11 +17,23 @@
  * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-
 package mediathekServer.MS_Daten;
 
+import java.util.Date;
 import java.util.LinkedList;
 
-public class MS_ListeSuchen extends LinkedList<MS_DatenSuchen>{
+public class MS_ListeSuchen extends LinkedList<MS_DatenSuchen> {
 
+    ////////////// nach Uhrzeit in die Liste einsorieren
+    public int getNow() {
+        // liefert das erste "i" das in der Zukunft liegt
+        int ret = -1;
+        Date now = new Date();
+        for (int i = 0; i < this.size(); ++i) {
+            if (this.get(i).getDate().compareTo(now) > 0) {
+                return i;
+            }
+        }
+        return ret;
+    }
 }

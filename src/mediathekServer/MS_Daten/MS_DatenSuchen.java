@@ -19,7 +19,10 @@
  */
 package mediathekServer.MS_Daten;
 
+import java.util.Date;
+import mediathekServer.tool.MS_DatumZeit;
 import mediathekServer.tool.MS_Konstanten;
+import mediathekServer.tool.MS_Log;
 
 public class MS_DatenSuchen {
 
@@ -29,5 +32,16 @@ public class MS_DatenSuchen {
         for (int i = 0; i < arr.length; ++i) {
             arr[i] = "";
         }
+    }
+
+    public Date getDate() {
+        Date ret = null;
+        try {
+            ret = MS_DatumZeit.convertDatum(this.arr[MS_Konstanten.SUCHEN_WANN_NR]);
+        } catch (Exception ex) {
+            ret = null;
+            MS_Log.fehlerMeldung(825439079, MS_DatenSuchen.class.getName(), "getDate", ex);
+        }
+        return ret;
     }
 }

@@ -17,11 +17,28 @@
  * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-
 package mediathekServer.cron;
 
-import java.util.Timer;
+public class MS_Timer implements Runnable {
 
-public class MS_Timer extends Timer{
+    private final int WARTEZEIT = 1000; // 1 Sekunde
+    // private final int WARTEZEIT = 1000*60; // 1 Minute
 
+    public void ping() {
+    }
+
+    @Override
+    public synchronized void run() {
+        while (true) {
+            ping();
+            schlafen();
+        }
+    }
+
+    private void schlafen() {
+        try {
+            Thread.sleep(WARTEZEIT);
+        } catch (InterruptedException e) {
+        }
+    }
 }

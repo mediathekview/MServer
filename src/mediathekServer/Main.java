@@ -40,7 +40,7 @@ public class Main {
                             System.exit(0);
                         }
                         if (s.equalsIgnoreCase("-muster")) {
-                            new MediathekServer().musterSchreiben(ar);
+                            new MediathekServer(ar).musterSchreiben();
                         }
                     }
                 }
