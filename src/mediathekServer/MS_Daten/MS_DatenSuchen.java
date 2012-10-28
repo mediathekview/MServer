@@ -19,6 +19,7 @@
  */
 package mediathekServer.MS_Daten;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import mediathekServer.tool.MS_DatumZeit;
 import mediathekServer.tool.MS_Konstanten;
@@ -34,10 +35,11 @@ public class MS_DatenSuchen {
         }
     }
 
-    public Date getTime() {
+    public Date getTimeHeute() {
         Date ret;
+        SimpleDateFormat sdf_zeit = new SimpleDateFormat("dd.MM.yyyy__HH:mm");
         try {
-            ret = MS_DatumZeit.convertTime(this.arr[MS_Konstanten.SUCHEN_WANN_NR]);
+            return sdf_zeit.parse(MS_DatumZeit.getHeute() + "__" + this.arr[MS_Konstanten.SUCHEN_WANN_NR]);
         } catch (Exception ex) {
             ret = null;
             MS_Log.fehlerMeldung(825439079, MS_DatenSuchen.class.getName(), "getTime", ex);
@@ -52,7 +54,7 @@ public class MS_DatenSuchen {
     public boolean starten() {
         // true wenn gestartet werden soll: Auftrag liegt jetzt oder in der Vergangenheit
         Date now = new Date();
-        if (this.getTime().compareTo(now) <= 0) {
+        if (this.getTimeHeute().compareTo(now) <= 0) {
             return true;
         }
         return false;

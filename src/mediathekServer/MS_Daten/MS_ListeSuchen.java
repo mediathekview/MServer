@@ -31,7 +31,8 @@ public class MS_ListeSuchen extends LinkedList<MS_DatenSuchen> {
         // liefert das erste "i" das in der Zukunft liegt
         Date now = new Date();
         for (int i = 0; i < this.size(); ++i) {
-            if (this.get(i).getTime().compareTo(now) > 0) {
+            Date d = this.get(i).getTimeHeute();
+            if (d.compareTo(now) >= 0) {
                 akt = i;
                 break;
             }
@@ -40,6 +41,10 @@ public class MS_ListeSuchen extends LinkedList<MS_DatenSuchen> {
     }
 
     public MS_DatenSuchen naechstes() {
+        if (akt == -1) {
+            // dann hat sich beim Programmstart nichts gefunden
+            return null;
+        }
         ++akt;
         if (akt >= this.size()) {
             // dann wars das

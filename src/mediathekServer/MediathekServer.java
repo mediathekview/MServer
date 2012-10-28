@@ -35,8 +35,9 @@ public class MediathekServer {
 
     private String output = "filme.bz2";
     private String imprtUrl = "";
-    private MS_Daten msDaten;
     private MS_DatenSuchen aktDatenSuchen = null;
+    private MS_Timer timer;
+    private MS_Daten msDaten;
 
     public MediathekServer() {
     }
@@ -70,12 +71,13 @@ public class MediathekServer {
             MS_XmlLesen.xmlDatenLesen();
             MS_XmlLesen.xmlLogLesen();
             aktDatenSuchen = MS_Daten.listeSuchen.erste();
-            MS_Timer timer = new MS_Timer() {
+            timer = new MS_Timer() {
                 @Override
                 public void ping() {
                     laufen();
                 }
             };
+            new Thread(timer).start();
         }
     }
 
