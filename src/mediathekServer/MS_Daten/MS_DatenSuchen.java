@@ -45,6 +45,10 @@ public class MS_DatenSuchen {
         return ret;
     }
 
+    public boolean allesLaden() {
+        return this.arr[MS_Konstanten.SUCHEN_WAS_NR].equals(MS_Konstanten.SUCHEN_ALLES);
+    }
+
     public boolean starten() {
         // true wenn gestartet werden soll: Auftrag liegt jetzt oder in der Vergangenheit
         Date now = new Date();

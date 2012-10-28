@@ -35,16 +35,16 @@ public class MS_Konstanten {
     public static final String STR_FALSE = "0";
     //
     // Konstanten System
-    public static final String SYSTEM_PWD = "system-pwd";
-    public static final int SYSTEM_PWD_NR = 0;
     public static final String SYSTEM_USER_AGENT = "system-user-agent";
-    public static final int SYSTEM_USER_AGENT_NR = 1;
+    public static final int SYSTEM_USER_AGENT_NR = 0;
     public static final String SYSTEM_UPDATE_SUCHEN = "system-update-suchen";
-    public static final int SYSTEM_UPDATE_SUCHEN_NR = 2;
+    public static final int SYSTEM_UPDATE_SUCHEN_NR = 1;
+    public static final String SYSTEM_IMPORT_URL = "system-import-url";
+    public static final int SYSTEM_IMPORT_URL_NR = 2;
     // Array
     public static final String SYSTEM = "system";
     public static final int SYSTEM_MAX_ELEM = 3;
-    public static final String[] SYSTEM_COLUMN_NAMES = {SYSTEM_PWD, SYSTEM_USER_AGENT, SYSTEM_UPDATE_SUCHEN};
+    public static final String[] SYSTEM_COLUMN_NAMES = {SYSTEM_USER_AGENT, SYSTEM_UPDATE_SUCHEN, SYSTEM_IMPORT_URL};
     //
     // Konstanten Update
     public static final String UPDATE_AUTO = "update-auto";
@@ -55,6 +55,9 @@ public class MS_Konstanten {
     public static final String[] UPDATE_COLUMN_NAMES = {UPDATE_AUTO};
     //
     // Konstanten Suchen
+    public static final String SUCHEN_ALLES = "alles";
+    public static final String SUCHEN_UPDATE = "update";
+    //
     public static final String SUCHEN_WAS = "suchen-was";
     public static final int SUCHEN_WAS_NR = 0;
     public static final String SUCHEN_WANN = "suchen-wann";
