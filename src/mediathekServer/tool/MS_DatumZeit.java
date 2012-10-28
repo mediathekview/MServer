@@ -24,6 +24,7 @@ import java.util.Date;
 
 public class MS_DatumZeit {
 
+    private static SimpleDateFormat sdf_zeit = new SimpleDateFormat("HH:mm");
     private static SimpleDateFormat sdf_datum_zeit = new SimpleDateFormat("dd.MM.yyyy__HH:mm:ss");
     private static SimpleDateFormat sdf_datum = new SimpleDateFormat("dd.MM.yyyy");
 
@@ -57,6 +58,15 @@ public class MS_DatumZeit {
             return sdf_datum_zeit.parse(datumZeit);
         } catch (Exception ex) {
             MS_Log.fehlerMeldung(919596320, MS_DatumZeit.class.getName(), datumZeit, ex);
+            return new Date();
+        }
+    }
+
+    public static Date convertTime(String zeit) {
+        try {
+            return sdf_zeit.parse(zeit);
+        } catch (Exception ex) {
+            MS_Log.fehlerMeldung(323601479, MS_DatumZeit.class.getName(), zeit, ex);
             return new Date();
         }
     }

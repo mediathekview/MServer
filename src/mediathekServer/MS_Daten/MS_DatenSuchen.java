@@ -34,14 +34,23 @@ public class MS_DatenSuchen {
         }
     }
 
-    public Date getDate() {
-        Date ret = null;
+    public Date getTime() {
+        Date ret;
         try {
-            ret = MS_DatumZeit.convertDatum(this.arr[MS_Konstanten.SUCHEN_WANN_NR]);
+            ret = MS_DatumZeit.convertTime(this.arr[MS_Konstanten.SUCHEN_WANN_NR]);
         } catch (Exception ex) {
             ret = null;
-            MS_Log.fehlerMeldung(825439079, MS_DatenSuchen.class.getName(), "getDate", ex);
+            MS_Log.fehlerMeldung(825439079, MS_DatenSuchen.class.getName(), "getTime", ex);
         }
         return ret;
+    }
+
+    public boolean starten() {
+        // true wenn gestartet werden soll: Auftrag liegt jetzt oder in der Vergangenheit
+        Date now = new Date();
+        if (this.getTime().compareTo(now) <= 0) {
+            return true;
+        }
+        return false;
     }
 }

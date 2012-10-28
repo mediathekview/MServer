@@ -20,12 +20,15 @@
 package mediathekServer;
 
 import java.io.File;
+import mediathekServer.MS_Daten.MS_DatenSuchen;
 import mediathekServer.cron.MS_Timer;
+import mediathekServer.search.MS_FilmeSuchen;
 import mediathekServer.tool.MS_Daten;
 import mediathekServer.tool.MS_Log;
 import mediathekServer.tool.MS_Test;
 import mediathekServer.tool.MS_XmlLesen;
 import mediathekServer.tool.MS_XmlSchreiben;
+import mediathekServer.update.MS_Update;
 import mediathekServer.upload.MS_Upload;
 
 public class MediathekServer {
@@ -35,6 +38,7 @@ public class MediathekServer {
     private String imprtUrl = "";
     private String userAgent = "";
     private MS_Daten msDaten;
+    private MS_DatenSuchen aktDatenSuchen = null;
 
     public MediathekServer() {
     }
@@ -67,6 +71,7 @@ public class MediathekServer {
         } else {
             MS_XmlLesen.xmlDatenLesen();
             MS_XmlLesen.xmlLogLesen();
+            aktDatenSuchen = MS_Daten.listeSuchen.erste();
             MS_Timer timer = new MS_Timer() {
                 @Override
                 public void ping() {
@@ -85,28 +90,33 @@ public class MediathekServer {
     }
 
     public void laufen() {
-        // erst mal schauen obs was zum tun gibt
-        
-        
-        
-        // ---------------------------
-        // Update suchen
-////        if (!MS_Update.updaten()) {
-////            MS_Log.fehlerMeldung(852104739, MediathekServer.class.getName(), "Update mit Fehler beendet");
-////        }
-
-        // ---------------------------
-        // Filme suchen
-////        if (!MS_FilmeSuchen.filmeSuchen(allesLaden, output, imprtUrl, userAgent)) {
-////            return;
-////        }
-        MS_Test.schreiben(output);
-        // ---------------------------
-        // Filmliste hochladen
-        MS_Upload.upload(output);
-
-        // ---------------------------
-        undTschuess();
+        if (aktDatenSuchen == null) {
+            // erst mal schauen obs was zum tun gibt
+            aktDatenSuchen = MS_Daten.listeSuchen.naechstes();
+        }
+        if (aktDatenSuchen == null) {
+            // fertig für den Tag
+            undTschuess();
+        }
+        if (aktDatenSuchen.starten()) {
+            // wieder ein Durchlauf fällig
+            // ---------------------------
+            // Update suchen
+            if (!MS_Update.updaten()) {
+                MS_Log.fehlerMeldung(852104739, MediathekServer.class.getName(), "Update mit Fehler beendet");
+            }
+            // ---------------------------
+            // Filme suchen
+            if (!MS_FilmeSuchen.filmeSuchen(allesLaden, output, imprtUrl, userAgent)) {
+                // war wohl nix
+                MS_Log.fehlerMeldung(812370895, MediathekServer.class.getName(), "FilmeSuchen mit Fehler beendet");
+                return;
+            }
+            MS_Test.schreiben(output); /////////////
+            // ---------------------------
+            // Filmliste hochladen
+            MS_Upload.upload(output);
+        }
     }
 
     private void undTschuess() {
