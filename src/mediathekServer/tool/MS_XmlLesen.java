@@ -80,9 +80,6 @@ public class MS_XmlLesen {
                         if (parser.getLocalName().equals(MS_Konstanten.SYSTEM)) {
                             get(parser, event, MS_Konstanten.SYSTEM, MS_Konstanten.SYSTEM_COLUMN_NAMES, MS_Daten.system);
                         }
-                        if (parser.getLocalName().equals(MS_Konstanten.UPDATE)) {
-                            get(parser, event, MS_Konstanten.UPDATE, MS_Konstanten.UPDATE_COLUMN_NAMES, MS_Daten.update);
-                        }
                         if (parser.getLocalName().equals(MS_Konstanten.SUCHEN)) {
                             MS_DatenSuchen cron = new MS_DatenSuchen();
                             get(parser, event, MS_Konstanten.SUCHEN, MS_Konstanten.SUCHEN_COLUMN_NAMES, cron.arr);

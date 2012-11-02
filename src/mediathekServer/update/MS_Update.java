@@ -21,33 +21,26 @@ package mediathekServer.update;
 
 import mediathekServer.tool.MS_Daten;
 import mediathekServer.tool.MS_Funktionen;
-import mediathekServer.tool.MS_Konstanten;
-import mediathekServer.tool.MS_LogMeldung;
+import mediathekServer.tool.MS_Log;
 
 public class MS_Update {
-
+    
     private static String url = "http://176.28.14.91/mediathek1/ms.zip";
-
+    
     public MS_Update() {
     }
-
+    
     public static boolean updaten() {
         boolean ret = true;
-        if (!MS_Daten.update[MS_Konstanten.UPDATE_AUTO_NR].equals(MS_Konstanten.STR_TRUE)) {
-            // wenn nicht, dann halt nicht
-            MS_Daten.logFile.addLog(new MS_LogMeldung(MS_LogMeldung.MS_LOG__UPDATE_NICHT_SUCHEN));
+        // nach Update suchen
+        String updateUrl = MS_UpdateSuchen.checkVersion();
+        if (updateUrl.equals("")) {
+            MS_Log.systemMeldung("Programm noch aktuell");
         } else {
-            // nach Update suchen
-            MS_Daten.logFile.addLog(new MS_LogMeldung(MS_LogMeldung.MS_LOG__UPDATE_SUCHEN));
-            String updateUrl = MS_UpdateSuchen.checkVersion();
-            if (updateUrl.equals("")) {
-                MS_Daten.logFile.addLog(new MS_LogMeldung(MS_LogMeldung.MS_LOG__UPDATE_AKTUELL));
-            } else {
-                String jarPfad = MS_Funktionen.getPathJar();
-                ret = MS_Updaten.updaten(url, jarPfad, MS_Daten.getUserAgent());
-                if (ret) {
-                    MS_Daten.logFile.addLog(new MS_LogMeldung(MS_LogMeldung.MS_LOG__UPDATE_AKTUALISIERT));
-                }
+            String jarPfad = MS_Funktionen.getPathJar();
+            ret = MS_Updaten.updaten(url, jarPfad, MS_Daten.getUserAgent());
+            if (ret) {
+                MS_Log.systemMeldung("Programmupdate OK");
             }
         }
         return ret;

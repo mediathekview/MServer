@@ -26,7 +26,6 @@ import mediathekServer.MS_Daten.MS_ListeUpload;
 public class MS_Daten {
 
     public static String[] system = new String[MS_Konstanten.SYSTEM_MAX_ELEM];
-    public static String[] update = new String[MS_Konstanten.UPDATE_MAX_ELEM];
     public static MS_ListeSuchen listeSuchen = new MS_ListeSuchen();
     public static MS_ListeUpload listeUpload = new MS_ListeUpload();
     public static boolean debug = false;
@@ -42,9 +41,6 @@ public class MS_Daten {
     private void init() {
         for (int i = 0; i < system.length; ++i) {
             system[i] = "";
-        }
-        for (int i = 0; i < update.length; ++i) {
-            update[i] = "";
         }
     }
 

@@ -24,6 +24,7 @@ import mediathekServer.MS_Daten.MS_DatenSuchen;
 import mediathekServer.cron.MS_Timer;
 import mediathekServer.search.MS_FilmeSuchen;
 import mediathekServer.tool.MS_Daten;
+import mediathekServer.tool.MS_Konstanten;
 import mediathekServer.tool.MS_Log;
 import mediathekServer.tool.MS_Test;
 import mediathekServer.tool.MS_XmlLesen;
@@ -32,16 +33,16 @@ import mediathekServer.update.MS_Update;
 import mediathekServer.upload.MS_Upload;
 
 public class MediathekServer {
-
+    
     private String output = "filme.bz2";
     private String imprtUrl = "";
     private MS_DatenSuchen aktDatenSuchen = null;
     private MS_Timer timer;
     private MS_Daten msDaten;
-
+    
     public MediathekServer() {
     }
-
+    
     public MediathekServer(String[] ar) {
         String pfad = "";
         if (ar != null) {
@@ -61,7 +62,7 @@ public class MediathekServer {
         MS_Log.systemMeldung("");
         MS_Log.systemMeldung("");
     }
-
+    
     public void starten() {
         // los gehts
         if (!MS_Daten.konfigExistiert()) {
@@ -80,7 +81,7 @@ public class MediathekServer {
             new Thread(timer).start();
         }
     }
-
+    
     public void musterSchreiben() {
         MS_Log.systemMeldung("Muster Konfig anlegen");
         // Demo schreiben
@@ -88,22 +89,24 @@ public class MediathekServer {
         // und Tschüss
         System.exit(0);
     }
-
+    
     public void laufen() {
-        if (aktDatenSuchen == null) {
-            // erst mal schauen obs was zum tun gibt
-            aktDatenSuchen = MS_Daten.listeSuchen.naechstes();
-        }
-        if (aktDatenSuchen == null) {
-            // fertig für den Tag
-            undTschuess();
-        }
-        if (aktDatenSuchen.starten()) {
+////////        if (aktDatenSuchen == null) {
+////////            // erst mal schauen obs was zum tun gibt
+////////            aktDatenSuchen = MS_Daten.listeSuchen.naechstes();
+////////        }
+////////        if (aktDatenSuchen == null) {
+////////            // fertig für den Tag
+////////            undTschuess();
+////////        }
+////////        if (aktDatenSuchen.starten()) {
             // wieder ein Durchlauf fällig
             // ---------------------------
             // Update suchen
-            if (!MS_Update.updaten()) {
-                MS_Log.fehlerMeldung(852104739, MediathekServer.class.getName(), "Update mit Fehler beendet");
+            if (MS_Daten.system[MS_Konstanten.SYSTEM_UPDATE_SUCHEN_NR].equals(MS_Konstanten.STR_TRUE)) {
+                if (!MS_Update.updaten()) {
+                    MS_Log.fehlerMeldung(852104739, MediathekServer.class.getName(), "Update mit Fehler beendet");
+                }
             }
             // ---------------------------
             // Filme suchen
@@ -116,9 +119,9 @@ public class MediathekServer {
             // ---------------------------
             // Filmliste hochladen
             MS_Upload.upload(output);
-        }
+////        }
     }
-
+    
     private void undTschuess() {
         MS_Log.printEndeMeldung();
         MS_XmlSchreiben.xmlLogSchreiben();

@@ -20,10 +20,13 @@
 package mediathekServer.update;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
+import javax.xml.parsers.SAXParser;
+import javax.xml.parsers.SAXParserFactory;
 import javax.xml.stream.XMLInputFactory;
 import javax.xml.stream.XMLStreamConstants;
 import javax.xml.stream.XMLStreamException;
@@ -33,6 +36,7 @@ import mediathek.tool.Konstanten;
 import mediathekServer.tool.MS_Daten;
 import mediathekServer.tool.MS_Konstanten;
 import mediathekServer.tool.MS_Log;
+import org.xml.sax.helpers.DefaultHandler;
 
 public class MS_UpdateSuchen {
 
@@ -88,19 +92,26 @@ public class MS_UpdateSuchen {
         InputStreamReader inReader;
         int timeout = 10000;
         URLConnection conn;
-        conn = new URL(MS_Konstanten.ADRESSE_PROGRAMM_VERSION).openConnection();
+        conn = new URL(MS_Konstanten.PROGRAMM_UPDATE_URL_RSS).openConnection();
         conn.setRequestProperty("User-Agent", MS_Daten.getUserAgent());
         conn.setReadTimeout(timeout);
         conn.setConnectTimeout(timeout);
         inReader = new InputStreamReader(conn.getInputStream(), Konstanten.KODIERUNG_UTF);
         parser = inFactory.createXMLStreamReader(inReader);
+        boolean found = false;
         while (parser.hasNext()) {
             event = parser.next();
             if (event == XMLStreamConstants.START_ELEMENT) {
-                //parsername = parser.getLocalName();
-                if (parser.getLocalName().equals("Program_Release")) {
+                String parsername = parser.getLocalName();
+                if (parser.getLocalName().contains(MS_Konstanten.PROGRAMM_UPDATE_TAG_CDATA_TITEL)) {
+                    found = true;
                     ret[0] = parser.getElementText();
-                } else if (parser.getLocalName().equals("Download_Programm")) {
+                }
+            }
+            if (found && event == XMLStreamConstants.START_ELEMENT) {
+                if (parser.getLocalName().contains(MS_Konstanten.PROGRAMM_UPDATE_TAG_CDATA_TITEL)) {
+                    ret[0] = parser.getElementText();
+                } else if (parser.getLocalName().equals(MS_Konstanten.PROGRAMM_UPDATE_TAG_URL)) {
                     ret[1] = parser.getElementText();
                 }
             }
