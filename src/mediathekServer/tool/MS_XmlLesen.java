@@ -26,8 +26,8 @@ import javax.xml.stream.XMLInputFactory;
 import javax.xml.stream.XMLStreamConstants;
 import javax.xml.stream.XMLStreamReader;
 import mediathek.tool.Konstanten;
-import mediathekServer.MS_Daten.MS_DatenSuchen;
-import mediathekServer.MS_Daten.MS_DatenUpload;
+import mediathekServer.daten.MS_DatenSuchen;
+import mediathekServer.daten.MS_DatenUpload;
 
 public class MS_XmlLesen {
 

@@ -24,12 +24,7 @@ import mediathekServer.tool.MS_Funktionen;
 import mediathekServer.tool.MS_Log;
 
 public class MS_Update {
-    
-    private static String url = "http://176.28.14.91/mediathek1/ms.zip";
-    
-    public MS_Update() {
-    }
-    
+
     public static boolean updaten() {
         boolean ret = true;
         // nach Update suchen
@@ -38,7 +33,7 @@ public class MS_Update {
             MS_Log.systemMeldung("Programm noch aktuell");
         } else {
             String jarPfad = MS_Funktionen.getPathJar();
-            ret = MS_Updaten.updaten(url, jarPfad, MS_Daten.getUserAgent());
+            ret = MS_Updaten.updaten(updateUrl, jarPfad, MS_Daten.getUserAgent());
             if (ret) {
                 MS_Log.systemMeldung("Programmupdate OK");
             }

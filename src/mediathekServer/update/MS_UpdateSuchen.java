@@ -20,13 +20,10 @@
 package mediathekServer.update;
 
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
-import javax.xml.parsers.SAXParser;
-import javax.xml.parsers.SAXParserFactory;
 import javax.xml.stream.XMLInputFactory;
 import javax.xml.stream.XMLStreamConstants;
 import javax.xml.stream.XMLStreamException;
@@ -36,7 +33,6 @@ import mediathek.tool.Konstanten;
 import mediathekServer.tool.MS_Daten;
 import mediathekServer.tool.MS_Konstanten;
 import mediathekServer.tool.MS_Log;
-import org.xml.sax.helpers.DefaultHandler;
 
 public class MS_UpdateSuchen {
 
@@ -67,7 +63,7 @@ public class MS_UpdateSuchen {
         try {
             String haben = Funktionen.getBuildNr().replace(".", "");
             int intHaben = Integer.parseInt(haben);
-            int intRelease = Integer.parseInt(release);
+            int intRelease = Integer.parseInt(release.replace(".", ""));
             if (intRelease > intHaben) {
                 return true;
             }
@@ -78,12 +74,12 @@ public class MS_UpdateSuchen {
     }
 
     private static String[] suchen() throws MalformedURLException, IOException, XMLStreamException {
-        //<?xml version="1.0" encoding="UTF-8"?>
-        //<Mediathek>
-        //    <Program_Name>MediathekServer</Program_Name>
-        //	<Program_Release>20</Program_Release>
-        //    <Download_Programm>https://sourceforge.net/projects/zdfmediathk/</Download_Programm>
-        //</Mediathek>
+        // <title><![CDATA[/Entwicklerversion/MediathekView_3.0.0_2012.10.26.zip]]></title>
+        final String PROGRAMM_UPDATE_TAG_CDATA_TITEL = "MediathekServer";
+        final String PROGRAMM_UPDATE_TAG_TITEL = "title";
+        // <link>http://176.28.14.91/mediathek1/MediathekServer_2012.11.10.zip</link>
+        final String PROGRAMM_UPDATE_TAG_URL = "link";
+        //
         String[] ret = new String[]{""/* release */, ""/* updateUrl */};
         int event;
         XMLInputFactory inFactory = XMLInputFactory.newInstance();
@@ -102,20 +98,21 @@ public class MS_UpdateSuchen {
         while (parser.hasNext()) {
             event = parser.next();
             if (event == XMLStreamConstants.START_ELEMENT) {
-                String parsername = parser.getLocalName();
-                if (parser.getLocalName().contains(MS_Konstanten.PROGRAMM_UPDATE_TAG_CDATA_TITEL)) {
-                    found = true;
-                    ret[0] = parser.getElementText();
+                //String parsername = parser.getLocalName();
+                if (parser.getLocalName().contains(PROGRAMM_UPDATE_TAG_TITEL)) {
+                    String text = parser.getElementText();
+                    if (text.contains(PROGRAMM_UPDATE_TAG_CDATA_TITEL)) {
+                        found = true;
+                        final String s1 = "MediathekServer_";
+                        ret[0] = text.substring(text.indexOf(s1) + s1.length(), text.indexOf(".zip"));
+                    }
                 }
-            }
-            if (found && event == XMLStreamConstants.START_ELEMENT) {
-                if (parser.getLocalName().contains(MS_Konstanten.PROGRAMM_UPDATE_TAG_CDATA_TITEL)) {
-                    ret[0] = parser.getElementText();
-                } else if (parser.getLocalName().equals(MS_Konstanten.PROGRAMM_UPDATE_TAG_URL)) {
+                if (found && parser.getLocalName().equals(PROGRAMM_UPDATE_TAG_URL)) {
                     ret[1] = parser.getElementText();
+                    return ret;
                 }
             }
         }
-        return ret;
+        return null;
     }
 }

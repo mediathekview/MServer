@@ -20,7 +20,7 @@
 package mediathekServer;
 
 import java.io.File;
-import mediathekServer.MS_Daten.MS_DatenSuchen;
+import mediathekServer.daten.MS_DatenSuchen;
 import mediathekServer.cron.MS_Timer;
 import mediathekServer.search.MS_FilmeSuchen;
 import mediathekServer.tool.MS_Daten;

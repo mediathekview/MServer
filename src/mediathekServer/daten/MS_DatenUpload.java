@@ -17,7 +17,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-package mediathekServer.MS_Daten;
+package mediathekServer.daten;
 
 import mediathekServer.tool.MS_Konstanten;
 

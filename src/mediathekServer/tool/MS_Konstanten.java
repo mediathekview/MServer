@@ -28,12 +28,8 @@ public class MS_Konstanten {
     public static final String VERZEICHNISS_EINSTELLUNGEN = ".mediathekServer";
     public static final String XML_DATEI = "mediathekServer.xml";
     public static final String XML_LOG_FILE = "ms_log.xml";
-    public static final String ADRESSE_PROGRAMM_VERSION = "http://zdfmediathk.sourceforge.net/version-server.xml";
-    public static final String PROGRAMM_UPDATE_URL_RSS = "http://sourceforge.net/api/file/index/project-id/222825/mtime/desc/limit/100/rss";
-    //  <title><![CDATA[/Entwicklerversion/MediathekView_3.0.0_2012.10.26.zip]]></title>
-    public static final String PROGRAMM_UPDATE_TAG_CDATA_TITEL = "MediathekView";
-    // <link>http://sourceforge.net/projects/zdfmediathk/files/Entwicklerversion/MediathekView_3.0.0_2012.10.26.zip/download</link>
-    public static final String PROGRAMM_UPDATE_TAG_URL = "link";
+    ///public static final String PROGRAMM_UPDATE_URL_RSS = "http://sourceforge.net/api/file/index/project-id/222825/mtime/desc/limit/100/rss";
+    public static final String PROGRAMM_UPDATE_URL_RSS = "http://176.28.14.91/mediathek1/rss";
     // 
     public static final String XML_START = "MediathekServer";
     public static final String STR_TRUE = "1";

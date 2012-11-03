@@ -26,8 +26,8 @@ import java.util.Iterator;
 import javax.xml.stream.XMLOutputFactory;
 import javax.xml.stream.XMLStreamWriter;
 import mediathek.tool.Konstanten;
-import mediathekServer.MS_Daten.MS_DatenSuchen;
-import mediathekServer.MS_Daten.MS_DatenUpload;
+import mediathekServer.daten.MS_DatenSuchen;
+import mediathekServer.daten.MS_DatenUpload;
 
 public class MS_XmlSchreiben {
 

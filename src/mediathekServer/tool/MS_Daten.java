@@ -20,8 +20,8 @@
 package mediathekServer.tool;
 
 import java.io.File;
-import mediathekServer.MS_Daten.MS_ListeSuchen;
-import mediathekServer.MS_Daten.MS_ListeUpload;
+import mediathekServer.daten.MS_ListeSuchen;
+import mediathekServer.daten.MS_ListeUpload;
 
 public class MS_Daten {
 
