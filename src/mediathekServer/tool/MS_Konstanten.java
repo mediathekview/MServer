@@ -24,6 +24,8 @@ public class MS_Konstanten {
     public static final String VERSION = "1.0";
     public static final String PROGRAMMNAME = "MediathekServer";
     public static final String USER_AGENT_DEFAULT = PROGRAMMNAME + " " + VERSION;
+    public static final int PROGRAMM_EXIT_CODE_UPDATE = 11;
+    public static final String PROGRAMMDATEI_UPDATE = "MediathekServer_update";
     // Dateien/Verzeichnisse
     public static final String VERZEICHNISS_EINSTELLUNGEN = ".mediathekServer";
     public static final String XML_DATEI = "mediathekServer.xml";

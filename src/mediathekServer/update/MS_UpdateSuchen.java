@@ -19,6 +19,9 @@
  */
 package mediathekServer.update;
 
+import java.io.BufferedInputStream;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.MalformedURLException;
@@ -29,6 +32,7 @@ import javax.xml.stream.XMLStreamConstants;
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
 import mediathek.tool.Funktionen;
+import mediathek.tool.GuiFunktionen;
 import mediathek.tool.Konstanten;
 import mediathekServer.tool.MS_Daten;
 import mediathekServer.tool.MS_Konstanten;
@@ -114,5 +118,41 @@ public class MS_UpdateSuchen {
             }
         }
         return null;
+    }
+
+    public static File updateLaden(String url, String zielPfad, String userAgent) {
+        String zielDatei = GuiFunktionen.addsPfad(zielPfad, MS_Konstanten.PROGRAMMDATEI_UPDATE);
+        File ret = new File(zielDatei);
+        int timeout = 10000; //10 Sekunden
+        URLConnection conn;
+        BufferedInputStream in = null;
+        FileOutputStream fOut = null;
+        try {
+            conn = new URL(url).openConnection();
+            conn.setConnectTimeout(timeout);
+            conn.setReadTimeout(timeout);
+            conn.setRequestProperty("User-Agent", userAgent);
+            in = new BufferedInputStream(conn.getInputStream());
+            fOut = new FileOutputStream(ret);
+            final byte[] buffer = new byte[1024];
+            int n;
+            while ((n = in.read(buffer)) != -1) {
+                fOut.write(buffer, 0, n);
+            }
+        } catch (Exception ex) {
+            ret = null;
+            MS_Log.fehlerMeldung(485963614, MS_UpdateSuchen.class.getName(), "updateLaden " + url, ex);
+        } finally {
+            try {
+                if (fOut != null) {
+                    fOut.close();
+                }
+                if (in != null) {
+                    in.close();
+                }
+            } catch (Exception ex) {
+            }
+        }
+        return ret;
     }
 }

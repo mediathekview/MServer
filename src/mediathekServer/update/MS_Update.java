@@ -26,16 +26,16 @@ import mediathekServer.tool.MS_Log;
 public class MS_Update {
 
     public static boolean updaten() {
-        boolean ret = true;
+        boolean ret = false;
         // nach Update suchen
         String updateUrl = MS_UpdateSuchen.checkVersion();
         if (updateUrl.equals("")) {
             MS_Log.systemMeldung("Programm noch aktuell");
         } else {
             String jarPfad = MS_Funktionen.getPathJar();
-            ret = MS_Updaten.updaten(updateUrl, jarPfad, MS_Daten.getUserAgent());
-            if (ret) {
+            if (MS_UpdateSuchen.updateLaden(updateUrl, jarPfad, MS_Daten.getUserAgent()) != null) {
                 MS_Log.systemMeldung("Programmupdate OK");
+                ret = true;
             }
         }
         return ret;

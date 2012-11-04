@@ -10,13 +10,9 @@ cp -r /mnt/daten/software/java/MediathekServer/bin/* /mnt/daten/software/java/Me
 # Aufräumen
 rm /mnt/daten/software/java/MediathekServer/dist/README.TXT
 
+# release
+relNr=$(cat /mnt/daten/software/java/Mediathek_3/src/version.properties | grep BUILD | sed 's#BUILD=##g')
 
 # zip erstellen
 cd /mnt/daten/software/java/MediathekServer/dist/
-datum=$(date +%Y.%m.%d )
-relNr=$(cat /mnt/daten/software/java/Mediathek_3/src/version.properties | grep BUILD | sed 's#BUILD=##g')
-
-
-zip -r MediathekServer_$datum.zip .
 zip -r MediathekServer_$relNr.zip .
- 

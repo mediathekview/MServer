@@ -30,19 +30,18 @@ import mediathekServer.tool.MS_Test;
 import mediathekServer.tool.MS_XmlLesen;
 import mediathekServer.tool.MS_XmlSchreiben;
 import mediathekServer.update.MS_Update;
-import mediathekServer.upload.MS_Upload;
 
 public class MediathekServer {
-    
+
     private String output = "filme.bz2";
     private String imprtUrl = "";
     private MS_DatenSuchen aktDatenSuchen = null;
     private MS_Timer timer;
     private MS_Daten msDaten;
-    
+
     public MediathekServer() {
     }
-    
+
     public MediathekServer(String[] ar) {
         String pfad = "";
         if (ar != null) {
@@ -55,6 +54,12 @@ public class MediathekServer {
                 }
             }
         }
+        for (String s : ar) {
+            if (s.equalsIgnoreCase("-update")) {
+                // tu was zu tun ist
+                MS_Log.systemMeldung("tu was zu tun ist");
+            }
+        }
         msDaten = new MS_Daten();
         MS_Daten.setBasisVerzeichnis(pfad);
         // Infos schreiben
@@ -62,7 +67,7 @@ public class MediathekServer {
         MS_Log.systemMeldung("");
         MS_Log.systemMeldung("");
     }
-    
+
     public void starten() {
         // los gehts
         if (!MS_Daten.konfigExistiert()) {
@@ -75,13 +80,14 @@ public class MediathekServer {
             timer = new MS_Timer() {
                 @Override
                 public void ping() {
-                    laufen();
+/////////                    laufen();
                 }
             };
             new Thread(timer).start();
+            laufen();
         }
     }
-    
+
     public void musterSchreiben() {
         MS_Log.systemMeldung("Muster Konfig anlegen");
         // Demo schreiben
@@ -89,7 +95,7 @@ public class MediathekServer {
         // und Tschüss
         System.exit(0);
     }
-    
+
     public void laufen() {
 ////////        if (aktDatenSuchen == null) {
 ////////            // erst mal schauen obs was zum tun gibt
@@ -100,28 +106,32 @@ public class MediathekServer {
 ////////            undTschuess();
 ////////        }
 ////////        if (aktDatenSuchen.starten()) {
-            // wieder ein Durchlauf fällig
-            // ---------------------------
-            // Update suchen
-            if (MS_Daten.system[MS_Konstanten.SYSTEM_UPDATE_SUCHEN_NR].equals(MS_Konstanten.STR_TRUE)) {
-                if (!MS_Update.updaten()) {
-                    MS_Log.fehlerMeldung(852104739, MediathekServer.class.getName(), "Update mit Fehler beendet");
-                }
+        // wieder ein Durchlauf fällig
+        // ---------------------------
+        // Update suchen
+        MS_Log.systemMeldung("===========================");
+        MS_Log.systemMeldung("Update");
+        if (MS_Daten.system[MS_Konstanten.SYSTEM_UPDATE_SUCHEN_NR].equals(MS_Konstanten.STR_TRUE)) {
+            if (MS_Update.updaten()) {
+                System.exit(MS_Konstanten.PROGRAMM_EXIT_CODE_UPDATE);
             }
-            // ---------------------------
-            // Filme suchen
-            if (!MS_FilmeSuchen.filmeSuchen(aktDatenSuchen.allesLaden(), output, imprtUrl, MS_Daten.getUserAgent())) {
-                // war wohl nix
-                MS_Log.fehlerMeldung(812370895, MediathekServer.class.getName(), "FilmeSuchen mit Fehler beendet");
-                return;
-            }
-            MS_Test.schreiben(output); /////////////
-            // ---------------------------
-            // Filmliste hochladen
-            MS_Upload.upload(output);
+        }
+        // ---------------------------
+        // Filme suchen
+        if (!MS_FilmeSuchen.filmeSuchen(aktDatenSuchen.allesLaden(), output, imprtUrl, MS_Daten.getUserAgent())) {
+            // war wohl nix
+            MS_Log.fehlerMeldung(812370895, MediathekServer.class.getName(), "FilmeSuchen mit Fehler beendet");
+            return;
+        }
+        MS_Test.schreiben(output); /////////////
+        // ---------------------------
+        // Filmliste hochladen
+////////////        MS_Upload.upload(output);
 ////        }
+        undTschuess();
+
     }
-    
+
     private void undTschuess() {
         MS_Log.printEndeMeldung();
         MS_XmlSchreiben.xmlLogSchreiben();
