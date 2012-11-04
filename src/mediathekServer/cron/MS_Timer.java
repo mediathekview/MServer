@@ -21,7 +21,7 @@ package mediathekServer.cron;
 
 public class MS_Timer implements Runnable {
 
-    private final int WARTEZEIT = 1000; // 1 Sekunde
+    private final int WARTEZEIT = 1000 * 10; // 10 Sekunde
     // private final int WARTEZEIT = 1000*60; // 1 Minute
 
     public void ping() {

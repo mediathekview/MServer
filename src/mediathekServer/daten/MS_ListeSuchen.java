@@ -24,32 +24,17 @@ import java.util.LinkedList;
 
 public class MS_ListeSuchen extends LinkedList<MS_DatenSuchen> {
 
-    static int akt = -1;
-
     ////////////// nach Uhrzeit in die Liste einsorieren
     public MS_DatenSuchen erste() {
-        // liefert das erste "i" das in der Zukunft liegt
+        // liefert den ersten Job der in der Zukunft liegt
         Date now = new Date();
-        for (int i = 0; i < this.size(); ++i) {
-            Date d = this.get(i).getTimeHeute();
+        MS_DatenSuchen akt = null;
+        while ((akt = this.poll()) != null) {
+            Date d = akt.getTimeHeute();
             if (d.compareTo(now) >= 0) {
-                akt = i;
-                break;
+                return akt;
             }
         }
-        return akt != -1 ? get(akt) : null;
-    }
-
-    public MS_DatenSuchen naechstes() {
-        if (akt == -1) {
-            // dann hat sich beim Programmstart nichts gefunden
-            return null;
-        }
-        ++akt;
-        if (akt >= this.size()) {
-            // dann wars das
-            akt = -1;
-        }
-        return akt != -1 ? get(akt) : null;
+        return akt;
     }
 }
