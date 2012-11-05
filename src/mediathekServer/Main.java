@@ -1,5 +1,7 @@
 package mediathekServer;
 
+import mediathek.MediathekGui;
+import mediathek.daten.Daten;
 import mediathekServer.tool.MS_Daten;
 import mediathekServer.tool.MS_Log;
 
@@ -29,6 +31,7 @@ public class Main {
         java.awt.EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
+                boolean mv = false;
 
                 if (ar != null) {
                     for (String s : ar) {
@@ -42,9 +45,17 @@ public class Main {
                         if (s.equalsIgnoreCase("-muster")) {
                             new MediathekServer(ar).musterSchreiben();
                         }
+                        if (s.equalsIgnoreCase("-mv")) {
+                            mv = true;
+                        }
                     }
                 }
-                new MediathekServer(ar).starten();
+                if (mv) {
+                    Daten.debug = true;
+                    new MediathekGui(ar).setVisible(true);
+                } else {
+                    new MediathekServer(ar).starten();
+                }
             }
         });
 

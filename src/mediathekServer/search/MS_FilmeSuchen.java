@@ -25,10 +25,10 @@ import mediathekServer.tool.MS_Log;
 
 public class MS_FilmeSuchen {
 
-    public static boolean filmeSuchen(boolean allesLaden, String output, String imprtUrl, String userAgent) {
+    public boolean filmeSuchen(boolean allesLaden, String output, String imprtUrl, String userAgent) {
         boolean ret = false;
         try {
-            new MediathekNoGui(MS_Daten.getBasisVerzeichnis(), allesLaden, output, imprtUrl, userAgent).starten();
+            new MediathekNoGui(MS_Daten.getBasisVerzeichnis(), allesLaden, output, imprtUrl, userAgent).serverStarten();
             ret = true;
         } catch (Exception ex) {
             MS_Log.fehlerMeldung(636987308, MS_FilmeSuchen.class.getName(), "filmeSuchen", ex);
