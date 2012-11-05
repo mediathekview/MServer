@@ -24,7 +24,18 @@ import java.util.LinkedList;
 
 public class MS_ListeSuchen extends LinkedList<MS_DatenSuchen> {
 
-    ////////////// nach Uhrzeit in die Liste einsorieren
+    @Override
+    public boolean add(MS_DatenSuchen d) {
+        // nach Datum sortiert, einfügen
+        for (int i = 0; i < this.size(); ++i) {
+            if (this.get(i).spaeter(d)) {
+                super.add(i, d);
+                return true;
+            }
+        }
+        return super.add(d);
+    }
+
     public MS_DatenSuchen erste() {
         // liefert den ersten Job der in der Zukunft liegt
         Date now = new Date();

@@ -35,6 +35,14 @@ public class MS_DatenSuchen {
         }
     }
 
+    public boolean spaeter(MS_DatenSuchen d) {
+        // Datum ist säter als das von "d"
+        if (this.getTimeHeute().compareTo(d.getTimeHeute()) > 0) {
+            return true;
+        }
+        return false;
+    }
+
     public Date getTimeHeute() {
         Date ret;
         SimpleDateFormat sdf_zeit = new SimpleDateFormat("dd.MM.yyyy__HH:mm");
