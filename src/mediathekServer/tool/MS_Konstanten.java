@@ -29,6 +29,7 @@ public class MS_Konstanten {
     // Dateien/Verzeichnisse
     public static final String VERZEICHNISS_EINSTELLUNGEN = ".mediathekServer";
     public static final String XML_DATEI = "mediathekServer.xml";
+    public static final String FILM_DATEI = "filme.bz2";
     public static final String XML_LOG_FILE = "ms_log.xml";
     ///public static final String PROGRAMM_UPDATE_URL_RSS = "http://sourceforge.net/api/file/index/project-id/222825/mtime/desc/limit/100/rss";
     public static final String PROGRAMM_UPDATE_URL_RSS = "http://176.28.14.91/mediathek1/rss";

@@ -43,6 +43,10 @@ public class MS_DatenSuchen {
         return false;
     }
 
+    public String getZeilDateiName() {
+        return "Filmliste_" + arr[MS_Konstanten.SUCHEN_WANN_NR];
+    }
+
     public Date getTimeHeute() {
         Date ret;
         SimpleDateFormat sdf_zeit = new SimpleDateFormat("dd.MM.yyyy__HH:mm");

@@ -34,37 +34,36 @@ public class MS_Upload {
     public static final String UPLOAD_ART_FTP = "ftp";
     public static final String UPLOAD_ART_COPY = "copy";
 
-    public static boolean upload(String datei) {
+    public static boolean upload( String filmDatei, String zielDateiName) {
         boolean ret = false;
         Iterator<MS_DatenUpload> it = MS_Daten.listeUpload.iterator();
         while (it.hasNext()) {
             MS_DatenUpload datenUpload = it.next();
             if (datenUpload.arr[MS_Konstanten.UPLOAD_ART_NR].equals(UPLOAD_ART_COPY)) {
-                copy(datei, datenUpload.arr[MS_Konstanten.UPLOAD_DEST_DIR_NR]);
+                copy(filmDatei, zielDateiName, datenUpload.arr[MS_Konstanten.UPLOAD_DEST_DIR_NR]);
             } else if (datenUpload.arr[MS_Konstanten.UPLOAD_ART_NR].equals(UPLOAD_ART_FTP)) {
                 // uploadFtp(String server, int port, String username, String password, String remote, String local) {
                 MS_UploadFtp.uploadFtp(datenUpload.arr[MS_Konstanten.UPLOAD_SERVER_NR], datenUpload.arr[MS_Konstanten.UPLOAD_PORT_NR], datenUpload.arr[MS_Konstanten.UPLOAD_USER_NR],
-                        datenUpload.arr[MS_Konstanten.UPLOAD_PWD_NR], datenUpload.arr[MS_Konstanten.UPLOAD_DEST_DIR_NR], datei);
+                        datenUpload.arr[MS_Konstanten.UPLOAD_PWD_NR], datenUpload.arr[MS_Konstanten.UPLOAD_DEST_DIR_NR], filmDatei);
             }
         }
         return ret;
     }
 
-    public static boolean copy(String srcFile, String destDir) {
+    public static boolean copy(String filmDatei, String zielDateiName, String strDestDir) {
         boolean ret = false;
         FileChannel inChannel = null;
         FileChannel outChannel = null;
         try {
-            String destFile;
-            if (!destDir.endsWith(File.separator)) {
-                destFile = destDir + File.separator + srcFile;
+            String strDestDirFile;
+            if (!strDestDir.endsWith(File.separator)) {
+                strDestDirFile = strDestDir + File.separator + zielDateiName;
             } else {
-                destFile = destDir + srcFile;
+                strDestDirFile = strDestDir + zielDateiName;
             }
-            File destDirFile = new File(destDir);
-            destDirFile.mkdirs();
-            inChannel = new FileInputStream(srcFile).getChannel();
-            outChannel = new FileOutputStream(destFile).getChannel();
+            new File(strDestDirFile).mkdirs();
+            inChannel = new FileInputStream(filmDatei).getChannel();
+            outChannel = new FileOutputStream(strDestDirFile).getChannel();
             inChannel.transferTo(0, inChannel.size(), outChannel);
         } catch (Exception ex) {
             MS_Log.fehlerMeldung(747452360, MS_Upload.class.getName(), "copy", ex);

@@ -26,6 +26,7 @@ import mediathekServer.search.MS_FilmeSuchen;
 import mediathekServer.tool.MS_Daten;
 import mediathekServer.tool.MS_Konstanten;
 import mediathekServer.tool.MS_Log;
+import mediathekServer.tool.MS_Test;
 import mediathekServer.tool.MS_XmlLesen;
 import mediathekServer.tool.MS_XmlSchreiben;
 import mediathekServer.update.MS_Update;
@@ -33,7 +34,7 @@ import mediathekServer.upload.MS_Upload;
 
 public class MediathekServer {
 
-    private String output = "filme.bz2";
+    private String filmdatei;
     private String imprtUrl = "";
     private MS_Timer timer;
     private MS_Daten msDaten;
@@ -60,6 +61,7 @@ public class MediathekServer {
         }
         msDaten = new MS_Daten();
         MS_Daten.setBasisVerzeichnis(pfad);
+        filmdatei = MS_Daten.getFilmDatei();
         msFilmeSuchen = new MS_FilmeSuchen();
         // Infos schreiben
         MS_Log.startMeldungen(this.getClass().getName());
@@ -107,9 +109,12 @@ public class MediathekServer {
 //////////        }
 //////////        if (aktDatenSuchen.starten()) {
         // Filme suchen
-//////        filmeSuchen();
+        filmeSuchen();
         // Filme hochladen
-        upload();
+        aktDatenSuchen = new MS_DatenSuchen();
+        aktDatenSuchen.arr[MS_Konstanten.SUCHEN_WAS_NR] = MS_Konstanten.SUCHEN_ALLES;
+        aktDatenSuchen.arr[MS_Konstanten.SUCHEN_WANN_NR] = "12:30";
+        upload(aktDatenSuchen.getZeilDateiName());
         aktDatenSuchen = null;
         // nach Programmupdate suchen
 //////        updateSuchen();
@@ -130,19 +135,17 @@ public class MediathekServer {
     private void filmeSuchen() {
         MS_Log.systemMeldung("===========================");
         MS_Log.systemMeldung("File suchen");
-////////       if (!msFilmeSuchen.filmeSuchen(aktDatenSuchen.allesLaden(), output, imprtUrl, MS_Daten.getUserAgent())) {
-        if (!msFilmeSuchen.filmeSuchen(false, output, imprtUrl, MS_Daten.getUserAgent())) {
-            // war wohl nix
-            MS_Log.fehlerMeldung(812370895, MediathekServer.class.getName(), "FilmeSuchen mit Fehler beendet");
-            return;
-        }
-//        MS_Test.schreiben(output); /////////////
+//////        if (!msFilmeSuchen.filmeSuchen(aktDatenSuchen.allesLaden(), filmdatei, imprtUrl, MS_Daten.getUserAgent())) {
+//////            // war wohl nix
+//////            MS_Log.fehlerMeldung(812370895, MediathekServer.class.getName(), "FilmeSuchen mit Fehler beendet");
+//////        }
+//////        MS_Test.schreiben(filmdatei); /////////////
     }
 
-    private void upload() {
+    private void upload(String zielDateiname) {
         MS_Log.systemMeldung("===========================");
         MS_Log.systemMeldung("Upload");
-        MS_Upload.upload(output);
+        MS_Upload.upload(filmdatei, zielDateiname);
     }
 
     private void undTschuess() {
