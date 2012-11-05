@@ -44,7 +44,7 @@ public class MS_DatenSuchen {
     }
 
     public String getZeilDateiName() {
-        return "Filmliste_" + arr[MS_Konstanten.SUCHEN_WANN_NR];
+        return "Filmliste_" + arr[MS_Konstanten.SUCHEN_WANN_NR].replace(":", "_") + MS_Konstanten.FILM_DATEI.substring(MS_Konstanten.FILM_DATEI.indexOf("."));
     }
 
     public Date getTimeHeute() {

@@ -82,10 +82,6 @@ public class MS_Daten {
         return MS_Daten.getBasisVerzeichnis() + MS_Konstanten.XML_DATEI;
     }
 
-    public static String getFilmDatei() {
-        return MS_Daten.getBasisVerzeichnis() + MS_Konstanten.FILM_DATEI;
-    }
-
     public static boolean konfigExistiert() {
         String datei = MS_Daten.getBasisVerzeichnis() + MS_Konstanten.XML_DATEI;
         if (new File(datei).exists()) {

@@ -73,7 +73,7 @@ public class MS_Konstanten {
     public static final int UPLOAD_USER_NR = 2;
     public static final String UPLOAD_PWD = "upload-pwd";
     public static final int UPLOAD_PWD_NR = 3;
-    public static final String UPLOAD_DEST_DIR = "upload-des-dir";
+    public static final String UPLOAD_DEST_DIR = "upload-dest-dir";
     public static final int UPLOAD_DEST_DIR_NR = 4;
     public static final String UPLOAD_PORT = "upload-port";
     public static final int UPLOAD_PORT_NR = 5;
