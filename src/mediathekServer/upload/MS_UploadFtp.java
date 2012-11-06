@@ -153,8 +153,8 @@ public class MS_UploadFtp {
             }
             ftp.setUseEPSVwithIPv4(useEpsvWithIPv4);
             InputStream input;
-            input = new FileInputStream(filmDateiPfad + filmDateiName);
-            ftp.storeFile(filmDateiName, input);
+            input = new FileInputStream(filmDateiPfad + filmDateiName);///////////
+            ftp.storeFile(destDir + "/" + filmDateiName, input);///////////////
             input.close();
             ftp.noop(); // check that control connection is working OK
             ftp.logout();

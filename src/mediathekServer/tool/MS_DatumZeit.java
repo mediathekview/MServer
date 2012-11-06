@@ -24,7 +24,9 @@ import java.util.Date;
 
 public class MS_DatumZeit {
 
+    private static SimpleDateFormat sdf_stunde_minute = new SimpleDateFormat("HH:mm");
     private static SimpleDateFormat sdf_datum_zeit = new SimpleDateFormat("dd.MM.yyyy__HH:mm:ss");
+    private static SimpleDateFormat sdf_zeit = new SimpleDateFormat("HH:mm:ss");
     private static SimpleDateFormat sdf_datum = new SimpleDateFormat("dd.MM.yyyy");
 
     public static String getJetzt() {
@@ -32,6 +34,14 @@ public class MS_DatumZeit {
         String output;
         today = new Date();
         output = sdf_datum_zeit.format(today);
+        return output;
+    }
+
+    public static String getJetzt_hh_mm() {
+        Date today;
+        String output;
+        today = new Date();
+        output = sdf_stunde_minute.format(today);
         return output;
     }
 
@@ -60,5 +70,4 @@ public class MS_DatumZeit {
             return new Date();
         }
     }
-
 }

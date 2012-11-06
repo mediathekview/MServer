@@ -35,16 +35,26 @@ public class MS_DatenSuchen {
         }
     }
 
+    public boolean jetzt() {
+        return this.arr[MS_Konstanten.SUCHEN_WANN_NR].equals(MS_Konstanten.SUCHEN_WANN_SOFORT);
+    }
+
     public boolean spaeter(MS_DatenSuchen d) {
-        // Datum ist säter als das von "d"
-        if (this.getTimeHeute().compareTo(d.getTimeHeute()) > 0) {
+        // Datum ist später als das von "d"
+        if (jetzt()) {
+            return false;
+        } else if (this.getTimeHeute().compareTo(d.getTimeHeute()) > 0) {
             return true;
         }
         return false;
     }
 
-    public String getZeilDateiName() {
-        return "Filmliste_" + arr[MS_Konstanten.SUCHEN_WANN_NR].replace(":", "_") + MS_Konstanten.FILM_DATEI.substring(MS_Konstanten.FILM_DATEI.indexOf("."));
+    public String getZielDateiName() {
+        if (jetzt()) {
+            return "Filmliste" + MS_Konstanten.FILM_DATEI.substring(MS_Konstanten.FILM_DATEI.indexOf("."));
+        } else {
+            return "Filmliste_" + arr[MS_Konstanten.SUCHEN_WANN_NR].replace(":", "_") + MS_Konstanten.FILM_DATEI.substring(MS_Konstanten.FILM_DATEI.indexOf("."));
+        }
     }
 
     public Date getTimeHeute() {
@@ -64,6 +74,9 @@ public class MS_DatenSuchen {
     }
 
     public boolean starten() {
+        if (jetzt()) {
+            return true;
+        }
         // true wenn gestartet werden soll: Auftrag liegt jetzt oder in der Vergangenheit
         Date now = new Date();
         if (this.getTimeHeute().compareTo(now) <= 0) {

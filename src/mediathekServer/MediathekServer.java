@@ -78,12 +78,11 @@ public class MediathekServer {
             timer = new MS_Timer() {
                 @Override
                 public void ping() {
-////////                    laufen();
+                    laufen();
                 }
             };
             new Thread(timer).start();
         }
-        laufen();
     }
 
     public void musterSchreiben() {
@@ -98,29 +97,29 @@ public class MediathekServer {
         // =====================================
         // erst mal schauen ob was zu tun ist
         // -----------------------------------
-//////////        if (aktDatenSuchen == null) {
-//////////            aktDatenSuchen = MS_Daten.listeSuchen.erste();
-//////////            if (aktDatenSuchen == null) {
-//////////                // fertig für den Tag
-//////////                undTschuess();
-//////////            }
-//////////        }
-//////////        if (aktDatenSuchen.starten()) {
-        ////////////// zum Test
-        aktDatenSuchen = new MS_DatenSuchen();
-        aktDatenSuchen.arr[MS_Konstanten.SUCHEN_WAS_NR] = MS_Konstanten.SUCHEN_ALLES;
-        aktDatenSuchen.arr[MS_Konstanten.SUCHEN_WANN_NR] = "12:30";
+        if (aktDatenSuchen == null) {
+            aktDatenSuchen = MS_Daten.listeSuchen.erste();
+            if (aktDatenSuchen == null) {
+                // fertig für den Tag
+                undTschuess();
+            }
+        }
+        if (aktDatenSuchen.starten()) {
+//        ////////////// zum Test
+//        aktDatenSuchen = new MS_DatenSuchen();
+//        aktDatenSuchen.arr[MS_Konstanten.SUCHEN_WAS_NR] = MS_Konstanten.SUCHEN_ALLES;
+//        aktDatenSuchen.arr[MS_Konstanten.SUCHEN_WANN_NR] = "12:30";
 
-        String filmDateiName = aktDatenSuchen.getZeilDateiName();
+        String filmDateiName = aktDatenSuchen.getZielDateiName();
         String filmDateiPfad = MS_Daten.getBasisVerzeichnis();
         // Filme suchen
         filmeSuchen(filmDateiPfad, filmDateiName);
         // Filme hochladen
-        upload(filmDateiPfad,filmDateiName);
+        upload(filmDateiPfad, filmDateiName);
         aktDatenSuchen = null;
         // nach Programmupdate suchen
 //////        updateSuchen();
-////////        }
+        }
         undTschuess();
     }
 
