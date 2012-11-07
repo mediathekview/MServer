@@ -26,6 +26,7 @@ public class MS_Konstanten {
     public static final String USER_AGENT_DEFAULT = PROGRAMMNAME + " " + VERSION;
     public static final int PROGRAMM_EXIT_CODE_UPDATE = 11;
     public static final String PROGRAMMDATEI_UPDATE = "MediathekServer_update";
+    public static final String DATEINAME_LISTE_FILMLISTEN = "filmlisten.xml";
     // Dateien/Verzeichnisse
     public static final String VERZEICHNISS_EINSTELLUNGEN = ".mediathekServer";
     public static final String XML_DATEI = "mediathekServer.xml";
@@ -75,7 +76,7 @@ public class MS_Konstanten {
     public static final int UPLOAD_ART_NR = 0;
     public static final String UPLOAD_SERVER = "upload-server";
     public static final int UPLOAD_SERVER_NR = 1;
-    public static final String UPLOAD_SERVER_URL_FILME = "upload-server-url-filme";
+    public static final String UPLOAD_SERVER_URL_FILME = "upload-server-url-filmliste";
     public static final int UPLOAD_SERVER_URL_FILME_NR = 2;
     public static final String UPLOAD_USER = "upload-user";
     public static final int UPLOAD_USER_NR = 3;

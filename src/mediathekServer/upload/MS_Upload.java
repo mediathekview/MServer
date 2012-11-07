@@ -29,6 +29,7 @@ import java.nio.channels.FileChannel;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Iterator;
+import mediathek.controller.filmeLaden.importieren.DatenFilmUpdateServer;
 import mediathekServer.daten.MS_DatenUpload;
 import mediathekServer.tool.MS_Daten;
 import mediathekServer.tool.MS_Konstanten;
@@ -38,6 +39,8 @@ public class MS_Upload {
 
     public static final String UPLOAD_ART_FTP = "ftp";
     public static final String UPLOAD_ART_COPY = "copy";
+    private static SimpleDateFormat sdf_zeit = new SimpleDateFormat("HH:mm:ss");
+    private static SimpleDateFormat sdf_datum = new SimpleDateFormat("dd.MM.yyyy");
 
     public static boolean upload(String filmDateiPfad, String filmDateiName) {
         boolean ret = false;
@@ -74,13 +77,13 @@ public class MS_Upload {
         boolean ret = false;
         FileChannel inChannel = null;
         FileChannel outChannel = null;
+        String strDestDirFile;
+        if (!strDestDir.endsWith(File.separator)) {
+            strDestDirFile = strDestDir + File.separator + filmDateiName;
+        } else {
+            strDestDirFile = strDestDir + filmDateiName;
+        }
         try {
-            String strDestDirFile;
-            if (!strDestDir.endsWith(File.separator)) {
-                strDestDirFile = strDestDir + File.separator + filmDateiName;
-            } else {
-                strDestDirFile = strDestDir + filmDateiName;
-            }
             new File(strDestDir).mkdirs();
             inChannel = new FileInputStream(filmDateiPfad + filmDateiName).getChannel();
             outChannel = new FileOutputStream(strDestDirFile).getChannel();
@@ -100,12 +103,43 @@ public class MS_Upload {
                 MS_Log.fehlerMeldung(252160987, MS_Upload.class.getName(), "copy", ex);
             }
         }
+        if (ret) {
+            // Liste der Filmlisten auktualisieren
+            // DatenFilmUpdateServer(String url, String prio, String zeit, String datum, String anzahl) {
+            DatenFilmUpdateServer dfus = new DatenFilmUpdateServer(strDestDirFile, "1", sdf_zeit.format(new Date()), sdf_datum.format(new Date()), "");
+            File f = MS_ListeFilmlisten.filmlisteEintragen(strDestDir, dfus);
+            if (f != null) {
+                String strDestDirFileListe;
+                if (!strDestDir.endsWith(File.separator)) {
+                    strDestDirFileListe = strDestDir + File.separator + MS_Konstanten.DATEINAME_LISTE_FILMLISTEN;
+                } else {
+                    strDestDirFileListe = strDestDir + MS_Konstanten.DATEINAME_LISTE_FILMLISTEN;
+                }
+                try {
+                    inChannel = new FileInputStream(f).getChannel();
+                    outChannel = new FileOutputStream(strDestDirFileListe).getChannel();
+                    inChannel.transferTo(0, inChannel.size(), outChannel);
+                    ret = true;
+                } catch (Exception ex) {
+                    MS_Log.fehlerMeldung(698741230, MS_Upload.class.getName(), "copy", ex);
+                } finally {
+                    try {
+                        if (inChannel != null) {
+                            inChannel.close();
+                        }
+                        if (outChannel != null) {
+                            outChannel.close();
+                        }
+                    } catch (Exception ex) {
+                        MS_Log.fehlerMeldung(718296540, MS_Upload.class.getName(), "copy", ex);
+                    }
+                }
+            }
+        }
         return ret;
     }
 
     private static void melden(String urlFilm) {
-        SimpleDateFormat sdf_zeit = new SimpleDateFormat("HH:mm:ss");
-        SimpleDateFormat sdf_datum = new SimpleDateFormat("dd.MM.yyyy");
         try {
             if (!urlFilm.equals("")) {
                 String zeit = sdf_zeit.format(new Date());
