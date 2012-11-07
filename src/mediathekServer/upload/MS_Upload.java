@@ -57,7 +57,8 @@ public class MS_Upload {
                 // ==============================================================
                 // ftp
                 if (MS_UploadFtp.uploadFtp(datenUpload.arr[MS_Konstanten.UPLOAD_SERVER_NR], datenUpload.arr[MS_Konstanten.UPLOAD_PORT_NR], datenUpload.arr[MS_Konstanten.UPLOAD_USER_NR],
-                        datenUpload.arr[MS_Konstanten.UPLOAD_PWD_NR], filmDateiPfad, filmDateiName, datenUpload.arr[MS_Konstanten.UPLOAD_DEST_DIR_NR])) {
+                        datenUpload.arr[MS_Konstanten.UPLOAD_PWD_NR], filmDateiPfad, filmDateiName, datenUpload.arr[MS_Konstanten.UPLOAD_DEST_DIR_NR],
+                        addUrl(datenUpload.arr[MS_Konstanten.UPLOAD_SERVER_URL_FILME_NR], MS_Konstanten.DATEINAME_LISTE_FILMLISTEN))) {
                     melden(addUrl(datenUpload.arr[MS_Konstanten.UPLOAD_SERVER_URL_FILME_NR], filmDateiName));
                 }
             }

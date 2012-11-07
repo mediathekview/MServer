@@ -19,10 +19,15 @@
  */
 package mediathekServer.upload;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import mediathek.controller.filmeLaden.importieren.DatenFilmUpdateServer;
+import mediathekServer.tool.MS_Konstanten;
 import mediathekServer.tool.MS_Log;
 import org.apache.commons.net.PrintCommandListener;
 import org.apache.commons.net.ftp.FTP;
@@ -35,20 +40,28 @@ import org.apache.commons.net.util.TrustManagerUtils;
 
 public class MS_UploadFtp {
 
+    private static SimpleDateFormat sdf_zeit = new SimpleDateFormat("HH:mm:ss");
+    private static SimpleDateFormat sdf_datum = new SimpleDateFormat("dd.MM.yyyy");
+
 //    public static String server = null;
 //    public static int port = 0;
 //    public static String username = null;
 //    public static String password = null;
 //    public static String remote = null;
 //    public static String local = null;
-    public static boolean uploadFtp(String server, String strPort, String username, String password, String filmDateiPfad, String filmDateiName, String destDir) {
+    public static boolean uploadFtp(String server, String strPort, String username, String password, String filmDateiPfad, String filmDateiName, String destDir, String urlFilmliste) {
         boolean ret = false;
-        String destFile;
+        String destDirFile;
         if (!destDir.endsWith("/")) {
-            destFile = destDir + "/" + filmDateiName;
+            destDirFile = destDir + "/" + filmDateiName;
         } else {
-            destFile = destDir + filmDateiName;
+            destDirFile = destDir + filmDateiName;
         }
+        // Liste der Filmlisten auktualisieren
+        // DatenFilmUpdateServer(String url, String prio, String zeit, String datum, String anzahl) {
+        DatenFilmUpdateServer dfus = new DatenFilmUpdateServer(urlFilmliste, "1", sdf_zeit.format(new Date()), sdf_datum.format(new Date()), "");
+        File filmlisten = MS_ListeFilmlisten.filmlisteEintragen(destDir, dfus);
+        //
         int port = 0;
         try {
             if (!strPort.equals("")) {
@@ -154,9 +167,16 @@ public class MS_UploadFtp {
             ftp.setUseEPSVwithIPv4(useEpsvWithIPv4);
             InputStream input;
             input = new FileInputStream(filmDateiPfad + filmDateiName);///////////
-            ftp.storeFile(destDir + "/" + filmDateiName, input);///////////////
+            ftp.storeFile(destDirFile, input);///////////////
             input.close();
             ftp.noop(); // check that control connection is working OK
+            // listeFilmlisten
+            if (filmlisten != null) {
+                input = new FileInputStream(filmlisten);
+                ftp.storeFile(destDir + "/" + MS_Konstanten.DATEINAME_LISTE_FILMLISTEN, input);///////////////
+                input.close();
+                ftp.noop(); // check that control connection is working OK
+            }
             ftp.logout();
             ret = true; // dann hat alles gepasst
         } catch (FTPConnectionClosedException e) {
