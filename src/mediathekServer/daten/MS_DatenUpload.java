@@ -19,6 +19,7 @@
  */
 package mediathekServer.daten;
 
+import mediathek.tool.GuiFunktionen;
 import mediathekServer.tool.MS_Konstanten;
 
 public class MS_DatenUpload {
@@ -33,5 +34,29 @@ public class MS_DatenUpload {
         for (int i = 0; i < arr.length; ++i) {
             arr[i] = "";
         }
+    }
+
+    public String getServer() {
+        return arr[MS_Konstanten.UPLOAD_SERVER_NR];
+    }
+
+    public String getUrlListeFilmlisten() {
+        return GuiFunktionen.addUrl(arr[MS_Konstanten.UPLOAD_URL_FILMLISTE_NR], MS_Konstanten.DATEINAME_LISTE_FILMLISTEN);
+    }
+
+    public String getUrlFilmliste(String dateinameFilmliste) {
+        return GuiFunktionen.addUrl(arr[MS_Konstanten.UPLOAD_URL_FILMLISTE_NR], dateinameFilmliste);
+    }
+
+    public String getDestDir() {
+        return arr[MS_Konstanten.UPLOAD_DEST_DIR_NR];
+    }
+
+    public String getFilmlisteDestPfadName(String dateinameFilmliste) {
+        return GuiFunktionen.addsPfad(arr[MS_Konstanten.UPLOAD_DEST_DIR_NR], dateinameFilmliste);
+    }
+
+    public String getListeFilmlistenDestPfadName() {
+        return GuiFunktionen.addsPfad(arr[MS_Konstanten.UPLOAD_DEST_DIR_NR], MS_Konstanten.DATEINAME_LISTE_FILMLISTEN);
     }
 }

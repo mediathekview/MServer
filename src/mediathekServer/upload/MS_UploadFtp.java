@@ -28,7 +28,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import mediathek.controller.filmeLaden.importieren.DatenFilmUpdateServer;
 import mediathek.tool.GuiFunktionen;
-import mediathekServer.tool.MS_Konstanten;
+import mediathekServer.daten.MS_DatenUpload;
 import mediathekServer.tool.MS_Log;
 import org.apache.commons.net.PrintCommandListener;
 import org.apache.commons.net.ftp.FTP;
@@ -50,14 +50,15 @@ public class MS_UploadFtp {
 //    public static String password = null;
 //    public static String remote = null;
 //    public static String local = null;
-    public static boolean uploadFtp(String server, String strPort, String username, String password, String filmlistePfad, String filmlisteDateiname, String filmlisteDestDir, String urlFilmliste) {
+    public static boolean uploadFtp(String server, String strPort, String username, String password, String filmlistePfad, String filmlisteDateiname,
+            MS_DatenUpload datenUpload) {
         boolean ret = false;
         // Liste der Filmlisten auktualisieren
         // DatenFilmUpdateServer(String url, String prio, String zeit, String datum, String anzahl) {
-        String filmlisteDestPfadName = GuiFunktionen.addsPfad(filmlisteDestDir, filmlisteDateiname);
-        String listeFilmlistenDestPfadName = GuiFunktionen.addsPfad(filmlisteDestDir, MS_Konstanten.DATEINAME_LISTE_FILMLISTEN);
-        DatenFilmUpdateServer dfus = new DatenFilmUpdateServer(urlFilmliste, "1", sdf_zeit.format(new Date()), sdf_datum.format(new Date()), "");
-        File filmlisten = MS_ListeFilmlisten.filmlisteEintragen(listeFilmlistenDestPfadName, dfus);
+        //String filmlisteDestPfadName = GuiFunktionen.addsPfad(filmlisteDestDir, filmlisteDateiname);
+        //String listeFilmlistenDestPfadName = GuiFunktionen.addsPfad(filmlisteDestDir, MS_Konstanten.DATEINAME_LISTE_FILMLISTEN);
+        DatenFilmUpdateServer dfus = new DatenFilmUpdateServer(datenUpload.getUrlFilmliste(filmlisteDateiname), "1", sdf_zeit.format(new Date()), sdf_datum.format(new Date()), "");
+        File filmlisten = MS_ListeFilmlisten.filmlisteEintragen(datenUpload.getUrlListeFilmlisten(), dfus);
         //
         int port = 0;
         try {
@@ -166,14 +167,14 @@ public class MS_UploadFtp {
             // Filmliste hoch laden
             InputStream input;
             input = new FileInputStream(GuiFunktionen.addsPfad(filmlistePfad, filmlisteDateiname));
-            ftp.storeFile(filmlisteDestPfadName, input);
+            ftp.storeFile(datenUpload.getFilmlisteDestPfadName(filmlisteDateiname), input);
             input.close();
             ftp.noop(); // check that control connection is working OK
             // ==========================
             // Liste der Filmlisten hoch laden
             if (filmlisten != null) {
                 input = new FileInputStream(filmlisten);
-                ftp.storeFile(listeFilmlistenDestPfadName, input);
+                ftp.storeFile(datenUpload.getListeFilmlistenDestPfadName(), input);
                 input.close();
                 ftp.noop(); // check that control connection is working OK
             }

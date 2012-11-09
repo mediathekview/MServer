@@ -50,33 +50,35 @@ public class MS_Upload {
             MS_DatenUpload datenUpload = it.next();
             if (datenUpload.arr[MS_Konstanten.UPLOAD_ART_NR].equals(UPLOAD_ART_COPY)) {
                 // ==============================================================
+                // ==============================================================
                 // kopieren
-                if (copy(filmDateiPfad, filmDateiName, datenUpload.arr[MS_Konstanten.UPLOAD_DEST_DIR_NR], datenUpload.arr[MS_Konstanten.UPLOAD_URL_FILMLISTE_NR])) {
-                    melden(GuiFunktionen.addUrl(datenUpload.arr[MS_Konstanten.UPLOAD_URL_FILMLISTE_NR], filmDateiName));
+                if (copy(filmDateiPfad, filmDateiName, datenUpload)) {
+                    melden(datenUpload.getUrlFilmliste(filmDateiName));
                 }
+                // ==============================================================
             } else if (datenUpload.arr[MS_Konstanten.UPLOAD_ART_NR].equals(UPLOAD_ART_FTP)) {
+                // ==============================================================
                 // ==============================================================
                 // ftp
                 if (MS_UploadFtp.uploadFtp(datenUpload.arr[MS_Konstanten.UPLOAD_SERVER_NR], datenUpload.arr[MS_Konstanten.UPLOAD_PORT_NR], datenUpload.arr[MS_Konstanten.UPLOAD_USER_NR],
-                        datenUpload.arr[MS_Konstanten.UPLOAD_PWD_NR], filmDateiPfad, filmDateiName, datenUpload.arr[MS_Konstanten.UPLOAD_DEST_DIR_NR],
-                        GuiFunktionen.addUrl(datenUpload.arr[MS_Konstanten.UPLOAD_URL_FILMLISTE_NR], MS_Konstanten.DATEINAME_LISTE_FILMLISTEN))) {
-                    melden(GuiFunktionen.addUrl(datenUpload.arr[MS_Konstanten.UPLOAD_URL_FILMLISTE_NR], filmDateiName));
+                        datenUpload.arr[MS_Konstanten.UPLOAD_PWD_NR], filmDateiPfad, filmDateiName,
+                        datenUpload)) {
+                    melden(datenUpload.getUrlFilmliste(filmDateiName));
                 }
+                // ==============================================================
             }
         }
         return ret;
     }
 
-    private static boolean copy(String filmDateiPfad, String filmDateiName, String strDestDir, String urlFilmliste) {
+    private static boolean copy(String filmDateiPfad, String filmDateiName, MS_DatenUpload datenUpload) {
         boolean ret = false;
         FileChannel inChannel = null;
         FileChannel outChannel = null;
-        String strDestDirFile;
-        strDestDirFile = GuiFunktionen.addsPfad(strDestDir, filmDateiName);
         try {
-            new File(strDestDir).mkdirs();
-            inChannel = new FileInputStream(filmDateiPfad + filmDateiName).getChannel();
-            outChannel = new FileOutputStream(strDestDirFile).getChannel();
+            new File(datenUpload.getDestDir()).mkdirs();
+            inChannel = new FileInputStream(GuiFunktionen.addsPfad(filmDateiPfad, filmDateiName)).getChannel();
+            outChannel = new FileOutputStream(datenUpload.getFilmlisteDestPfadName(filmDateiName)).getChannel();
             inChannel.transferTo(0, inChannel.size(), outChannel);
             ret = true;
         } catch (Exception ex) {
@@ -96,13 +98,12 @@ public class MS_Upload {
         if (ret) {
             // Liste der Filmlisten auktualisieren
             // DatenFilmUpdateServer(String url, String prio, String zeit, String datum, String anzahl) {
-            String listeFilmlistenPfadName = GuiFunktionen.addsPfad(strDestDir, MS_Konstanten.DATEINAME_LISTE_FILMLISTEN);
-            DatenFilmUpdateServer dfus = new DatenFilmUpdateServer(urlFilmliste, "1", sdf_zeit.format(new Date()), sdf_datum.format(new Date()), "");
-            File f = MS_ListeFilmlisten.filmlisteEintragen(listeFilmlistenPfadName, dfus);
+            DatenFilmUpdateServer dfus = new DatenFilmUpdateServer(datenUpload.getUrlFilmliste(filmDateiName), "1", sdf_zeit.format(new Date()), sdf_datum.format(new Date()), "");
+            File f = MS_ListeFilmlisten.filmlisteEintragen(datenUpload.getUrlListeFilmlisten(), dfus);
             if (f != null) {
                 try {
                     inChannel = new FileInputStream(f).getChannel();
-                    outChannel = new FileOutputStream(listeFilmlistenPfadName).getChannel();
+                    outChannel = new FileOutputStream(datenUpload.getListeFilmlistenDestPfadName()).getChannel();
                     inChannel.transferTo(0, inChannel.size(), outChannel);
                     ret = true;
                 } catch (Exception ex) {
@@ -124,20 +125,20 @@ public class MS_Upload {
         return ret;
     }
 
-    private static void melden(String urlFilm) {
+    private static void melden(String urlFilmliste) {
         try {
             if (!MS_Daten.system[MS_Konstanten.SYSTEM_UPDATE_PWD_NR].equals("")) {
                 // nur dann gibts was zum Melden
-                if (!urlFilm.equals("")) {
+                if (!urlFilmliste.equals("")) {
                     String zeit = sdf_zeit.format(new Date());
                     String datum = sdf_datum.format(new Date());
-                    System.out.println("Server melden, Datum: " + datum + "  Zeit: " + zeit + "  URL: " + urlFilm);
+                    System.out.println("Server melden, Datum: " + datum + "  Zeit: " + zeit + "  URL: " + urlFilmliste);
                     // wget http://zdfmediathk.sourceforge.net/update.php?pwd=xxxxxxx&zeit=$ZEIT&datum=$DATUM&server=http://176.28.14.91/mediathek1/$2"
                     String urlMelden = MS_Konstanten.UPDATE_SERVER_FILMLISTE
                             + "?pwd=" + MS_Daten.system[MS_Konstanten.SYSTEM_UPDATE_PWD_NR]
                             + "&zeit=" + zeit
                             + "&datum=" + datum
-                            + "&server=" + urlFilm;
+                            + "&server=" + urlFilmliste;
                     int timeout = 10000;
                     URLConnection conn = null;
                     conn = new URL(urlMelden).openConnection();

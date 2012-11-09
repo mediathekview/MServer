@@ -41,10 +41,10 @@ public class MS_ListeFilmlisten {
     private static OutputStreamWriter out = null;
     private static ListeFilmUpdateServer listeFilmUpdateServer = new ListeFilmUpdateServer();
 
-    public static File filmlisteEintragen(String urlDir, DatenFilmUpdateServer input) {
+    public static File filmlisteEintragen(String urlDatei, DatenFilmUpdateServer input) {
         // erst mal die Liste holen
         try {
-            FilmUpdateServerSuchen.getListe(urlDir, listeFilmUpdateServer);
+            FilmUpdateServerSuchen.getListe(urlDatei, listeFilmUpdateServer);
         } catch (Exception ex) {
             Log.fehlerMeldung(347895642, "FilmUpdateServer.suchen", ex);
         }

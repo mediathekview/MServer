@@ -120,7 +120,7 @@ public class MediathekServer {
         // nach Programmupdate suchen
 //////        updateSuchen();
         }
-////        undTschuess();
+        undTschuess();
     }
 
     private void filmeSuchen(String filmDateiPfad, String filmDateiName) {
