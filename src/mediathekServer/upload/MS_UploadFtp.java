@@ -50,24 +50,14 @@ public class MS_UploadFtp {
 //    public static String password = null;
 //    public static String remote = null;
 //    public static String local = null;
-    public static boolean uploadFtp(String server, String strPort, String username, String password, String filmDateiPfad, String filmDateiName, String destDir, String urlFilmliste) {
+    public static boolean uploadFtp(String server, String strPort, String username, String password, String filmlistePfad, String filmlisteDateiname, String filmlisteDestDir, String urlFilmliste) {
         boolean ret = false;
-        String destDirFile;
-        if (!destDir.endsWith("/")) {
-            destDirFile = destDir + "/" + filmDateiName;
-        } else {
-            destDirFile = destDir + filmDateiName;
-        }
         // Liste der Filmlisten auktualisieren
         // DatenFilmUpdateServer(String url, String prio, String zeit, String datum, String anzahl) {
+        String filmlisteDestPfadName = GuiFunktionen.addsPfad(filmlisteDestDir, filmlisteDateiname);
+        String listeFilmlistenDestPfadName = GuiFunktionen.addsPfad(filmlisteDestDir, MS_Konstanten.DATEINAME_LISTE_FILMLISTEN);
         DatenFilmUpdateServer dfus = new DatenFilmUpdateServer(urlFilmliste, "1", sdf_zeit.format(new Date()), sdf_datum.format(new Date()), "");
-        File filmlisten = MS_ListeFilmlisten.filmlisteEintragen(destDir, dfus);
-        String destDirFileFilmlisten;
-        if (!destDir.endsWith("/")) {
-            destDirFileFilmlisten = destDir + "/" + MS_Konstanten.DATEINAME_LISTE_FILMLISTEN;
-        } else {
-            destDirFileFilmlisten = destDir + MS_Konstanten.DATEINAME_LISTE_FILMLISTEN;
-        }
+        File filmlisten = MS_ListeFilmlisten.filmlisteEintragen(listeFilmlistenDestPfadName, dfus);
         //
         int port = 0;
         try {
@@ -175,15 +165,15 @@ public class MS_UploadFtp {
             // ==========================
             // Filmliste hoch laden
             InputStream input;
-            input = new FileInputStream(GuiFunktionen.addsPfad(filmDateiPfad, filmDateiName));
-            ftp.storeFile(destDirFile, input);
+            input = new FileInputStream(GuiFunktionen.addsPfad(filmlistePfad, filmlisteDateiname));
+            ftp.storeFile(filmlisteDestPfadName, input);
             input.close();
             ftp.noop(); // check that control connection is working OK
             // ==========================
             // Liste der Filmlisten hoch laden
             if (filmlisten != null) {
                 input = new FileInputStream(filmlisten);
-                ftp.storeFile(destDirFileFilmlisten, input);
+                ftp.storeFile(listeFilmlistenDestPfadName, input);
                 input.close();
                 ftp.noop(); // check that control connection is working OK
             }

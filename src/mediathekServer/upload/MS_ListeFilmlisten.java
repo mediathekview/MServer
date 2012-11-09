@@ -31,7 +31,6 @@ import mediathek.controller.filmeLaden.importieren.FilmUpdateServerSuchen;
 import mediathek.controller.filmeLaden.importieren.ListeFilmUpdateServer;
 import mediathek.tool.Konstanten;
 import mediathek.tool.Log;
-import mediathekServer.tool.MS_Konstanten;
 import mediathekServer.tool.MS_Log;
 import mediathekServer.tool.MS_XmlSchreiben;
 

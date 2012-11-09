@@ -79,15 +79,15 @@ public class MS_Konstanten {
     public static final String UPLOAD_SERVER = "upload-server";
     public static final int UPLOAD_SERVER_NR = 1;
     public static final String UPLOAD_USER = "upload-user";
-    public static final int UPLOAD_USER_NR = 3;
+    public static final int UPLOAD_USER_NR = 2;
     public static final String UPLOAD_PWD = "upload-pwd";
-    public static final int UPLOAD_PWD_NR = 4;
+    public static final int UPLOAD_PWD_NR = 3;
     public static final String UPLOAD_DEST_DIR = "upload-dest-dir";
-    public static final int UPLOAD_DEST_DIR_NR = 5;
+    public static final int UPLOAD_DEST_DIR_NR = 4;
     public static final String UPLOAD_PORT = "upload-port";
-    public static final int UPLOAD_PORT_NR = 6;
+    public static final int UPLOAD_PORT_NR = 5;
     public static final String UPLOAD_URL_FILMLISTE = "upload-url-filmliste";
-    public static final int UPLOAD_URL_FILMLISTE_NR = 2;
+    public static final int UPLOAD_URL_FILMLISTE_NR = 6;
     // Array
     public static final String UPLOAD = "upload";
     public static final int UPLOAD_MAX_ELEM = 7;

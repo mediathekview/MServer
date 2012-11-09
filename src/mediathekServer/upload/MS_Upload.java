@@ -30,6 +30,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Iterator;
 import mediathek.controller.filmeLaden.importieren.DatenFilmUpdateServer;
+import mediathek.tool.GuiFunktionen;
 import mediathekServer.daten.MS_DatenUpload;
 import mediathekServer.tool.MS_Daten;
 import mediathekServer.tool.MS_Konstanten;
@@ -50,40 +51,28 @@ public class MS_Upload {
             if (datenUpload.arr[MS_Konstanten.UPLOAD_ART_NR].equals(UPLOAD_ART_COPY)) {
                 // ==============================================================
                 // kopieren
-                if (copy(filmDateiPfad, filmDateiName, datenUpload.arr[MS_Konstanten.UPLOAD_DEST_DIR_NR])) {
-                    melden(addUrl(datenUpload.arr[MS_Konstanten.UPLOAD_URL_FILMLISTE_NR], filmDateiName));
+                if (copy(filmDateiPfad, filmDateiName, datenUpload.arr[MS_Konstanten.UPLOAD_DEST_DIR_NR], datenUpload.arr[MS_Konstanten.UPLOAD_URL_FILMLISTE_NR])) {
+                    melden(GuiFunktionen.addUrl(datenUpload.arr[MS_Konstanten.UPLOAD_URL_FILMLISTE_NR], filmDateiName));
                 }
             } else if (datenUpload.arr[MS_Konstanten.UPLOAD_ART_NR].equals(UPLOAD_ART_FTP)) {
                 // ==============================================================
                 // ftp
                 if (MS_UploadFtp.uploadFtp(datenUpload.arr[MS_Konstanten.UPLOAD_SERVER_NR], datenUpload.arr[MS_Konstanten.UPLOAD_PORT_NR], datenUpload.arr[MS_Konstanten.UPLOAD_USER_NR],
                         datenUpload.arr[MS_Konstanten.UPLOAD_PWD_NR], filmDateiPfad, filmDateiName, datenUpload.arr[MS_Konstanten.UPLOAD_DEST_DIR_NR],
-                        addUrl(datenUpload.arr[MS_Konstanten.UPLOAD_URL_FILMLISTE_NR], MS_Konstanten.DATEINAME_LISTE_FILMLISTEN))) {
-                    melden(addUrl(datenUpload.arr[MS_Konstanten.UPLOAD_URL_FILMLISTE_NR], filmDateiName));
+                        GuiFunktionen.addUrl(datenUpload.arr[MS_Konstanten.UPLOAD_URL_FILMLISTE_NR], MS_Konstanten.DATEINAME_LISTE_FILMLISTEN))) {
+                    melden(GuiFunktionen.addUrl(datenUpload.arr[MS_Konstanten.UPLOAD_URL_FILMLISTE_NR], filmDateiName));
                 }
             }
         }
         return ret;
     }
 
-    private static String addUrl(String u1, String u2) {
-        if (u1.endsWith("/")) {
-            return u1 + u2;
-        } else {
-            return u1 + "/" + u2;
-        }
-    }
-
-    private static boolean copy(String filmDateiPfad, String filmDateiName, String strDestDir) {
+    private static boolean copy(String filmDateiPfad, String filmDateiName, String strDestDir, String urlFilmliste) {
         boolean ret = false;
         FileChannel inChannel = null;
         FileChannel outChannel = null;
         String strDestDirFile;
-        if (!strDestDir.endsWith(File.separator)) {
-            strDestDirFile = strDestDir + File.separator + filmDateiName;
-        } else {
-            strDestDirFile = strDestDir + filmDateiName;
-        }
+        strDestDirFile = GuiFunktionen.addsPfad(strDestDir, filmDateiName);
         try {
             new File(strDestDir).mkdirs();
             inChannel = new FileInputStream(filmDateiPfad + filmDateiName).getChannel();
@@ -107,18 +96,13 @@ public class MS_Upload {
         if (ret) {
             // Liste der Filmlisten auktualisieren
             // DatenFilmUpdateServer(String url, String prio, String zeit, String datum, String anzahl) {
-            DatenFilmUpdateServer dfus = new DatenFilmUpdateServer(strDestDirFile, "1", sdf_zeit.format(new Date()), sdf_datum.format(new Date()), "");
-            File f = MS_ListeFilmlisten.filmlisteEintragen(strDestDir, dfus);
+            String listeFilmlistenPfadName = GuiFunktionen.addsPfad(strDestDir, MS_Konstanten.DATEINAME_LISTE_FILMLISTEN);
+            DatenFilmUpdateServer dfus = new DatenFilmUpdateServer(urlFilmliste, "1", sdf_zeit.format(new Date()), sdf_datum.format(new Date()), "");
+            File f = MS_ListeFilmlisten.filmlisteEintragen(listeFilmlistenPfadName, dfus);
             if (f != null) {
-                String strDestDirFileListe;
-                if (!strDestDir.endsWith(File.separator)) {
-                    strDestDirFileListe = strDestDir + File.separator + MS_Konstanten.DATEINAME_LISTE_FILMLISTEN;
-                } else {
-                    strDestDirFileListe = strDestDir + MS_Konstanten.DATEINAME_LISTE_FILMLISTEN;
-                }
                 try {
                     inChannel = new FileInputStream(f).getChannel();
-                    outChannel = new FileOutputStream(strDestDirFileListe).getChannel();
+                    outChannel = new FileOutputStream(listeFilmlistenPfadName).getChannel();
                     inChannel.transferTo(0, inChannel.size(), outChannel);
                     ret = true;
                 } catch (Exception ex) {
