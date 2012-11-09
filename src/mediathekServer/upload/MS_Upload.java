@@ -51,15 +51,15 @@ public class MS_Upload {
                 // ==============================================================
                 // kopieren
                 if (copy(filmDateiPfad, filmDateiName, datenUpload.arr[MS_Konstanten.UPLOAD_DEST_DIR_NR])) {
-                    melden(addUrl(datenUpload.arr[MS_Konstanten.UPLOAD_SERVER_URL_FILME_NR], filmDateiName));
+                    melden(addUrl(datenUpload.arr[MS_Konstanten.UPLOAD_URL_FILMLISTE_NR], filmDateiName));
                 }
             } else if (datenUpload.arr[MS_Konstanten.UPLOAD_ART_NR].equals(UPLOAD_ART_FTP)) {
                 // ==============================================================
                 // ftp
                 if (MS_UploadFtp.uploadFtp(datenUpload.arr[MS_Konstanten.UPLOAD_SERVER_NR], datenUpload.arr[MS_Konstanten.UPLOAD_PORT_NR], datenUpload.arr[MS_Konstanten.UPLOAD_USER_NR],
                         datenUpload.arr[MS_Konstanten.UPLOAD_PWD_NR], filmDateiPfad, filmDateiName, datenUpload.arr[MS_Konstanten.UPLOAD_DEST_DIR_NR],
-                        addUrl(datenUpload.arr[MS_Konstanten.UPLOAD_SERVER_URL_FILME_NR], MS_Konstanten.DATEINAME_LISTE_FILMLISTEN))) {
-                    melden(addUrl(datenUpload.arr[MS_Konstanten.UPLOAD_SERVER_URL_FILME_NR], filmDateiName));
+                        addUrl(datenUpload.arr[MS_Konstanten.UPLOAD_URL_FILMLISTE_NR], MS_Konstanten.DATEINAME_LISTE_FILMLISTEN))) {
+                    melden(addUrl(datenUpload.arr[MS_Konstanten.UPLOAD_URL_FILMLISTE_NR], filmDateiName));
                 }
             }
         }
@@ -142,25 +142,28 @@ public class MS_Upload {
 
     private static void melden(String urlFilm) {
         try {
-            if (!urlFilm.equals("")) {
-                String zeit = sdf_zeit.format(new Date());
-                String datum = sdf_datum.format(new Date());
-                System.out.println("Server melden, Datum: " + datum + "  Zeit: " + zeit + "  URL: " + urlFilm);
-                // wget http://zdfmediathk.sourceforge.net/update.php?pwd=xxxxxxx&zeit=$ZEIT&datum=$DATUM&server=http://176.28.14.91/mediathek1/$2"
-                String urlMelden = MS_Konstanten.UPDATE_SERVER_FILMLISTE
-                        + "?pwd=" + MS_Daten.system[MS_Konstanten.SYSTEM_UPDATE_PWD_NR]
-                        + "&zeit=" + zeit
-                        + "&datum=" + datum
-                        + "&server=" + urlFilm;
-                int timeout = 10000;
-                URLConnection conn = null;
-                conn = new URL(urlMelden).openConnection();
-                conn.setRequestProperty("User-Agent", MS_Daten.getUserAgent());
-                conn.setReadTimeout(timeout);
-                conn.setConnectTimeout(timeout);
-                InputStreamReader inReader = new InputStreamReader(conn.getInputStream(), MS_Konstanten.KODIERUNG_UTF);
-                inReader.read();
-                inReader.close();
+            if (!MS_Daten.system[MS_Konstanten.SYSTEM_UPDATE_PWD_NR].equals("")) {
+                // nur dann gibts was zum Melden
+                if (!urlFilm.equals("")) {
+                    String zeit = sdf_zeit.format(new Date());
+                    String datum = sdf_datum.format(new Date());
+                    System.out.println("Server melden, Datum: " + datum + "  Zeit: " + zeit + "  URL: " + urlFilm);
+                    // wget http://zdfmediathk.sourceforge.net/update.php?pwd=xxxxxxx&zeit=$ZEIT&datum=$DATUM&server=http://176.28.14.91/mediathek1/$2"
+                    String urlMelden = MS_Konstanten.UPDATE_SERVER_FILMLISTE
+                            + "?pwd=" + MS_Daten.system[MS_Konstanten.SYSTEM_UPDATE_PWD_NR]
+                            + "&zeit=" + zeit
+                            + "&datum=" + datum
+                            + "&server=" + urlFilm;
+                    int timeout = 10000;
+                    URLConnection conn = null;
+                    conn = new URL(urlMelden).openConnection();
+                    conn.setRequestProperty("User-Agent", MS_Daten.getUserAgent());
+                    conn.setReadTimeout(timeout);
+                    conn.setConnectTimeout(timeout);
+                    InputStreamReader inReader = new InputStreamReader(conn.getInputStream(), MS_Konstanten.KODIERUNG_UTF);
+                    inReader.read();
+                    inReader.close();
+                }
             }
         } catch (Exception ex) {
             MS_Log.fehlerMeldung(301256907, MS_Upload.class.getName(), "melden", ex);

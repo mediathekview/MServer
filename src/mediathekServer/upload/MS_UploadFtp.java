@@ -27,6 +27,7 @@ import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import mediathek.controller.filmeLaden.importieren.DatenFilmUpdateServer;
+import mediathek.tool.GuiFunktionen;
 import mediathekServer.tool.MS_Konstanten;
 import mediathekServer.tool.MS_Log;
 import org.apache.commons.net.PrintCommandListener;
@@ -61,6 +62,12 @@ public class MS_UploadFtp {
         // DatenFilmUpdateServer(String url, String prio, String zeit, String datum, String anzahl) {
         DatenFilmUpdateServer dfus = new DatenFilmUpdateServer(urlFilmliste, "1", sdf_zeit.format(new Date()), sdf_datum.format(new Date()), "");
         File filmlisten = MS_ListeFilmlisten.filmlisteEintragen(destDir, dfus);
+        String destDirFileFilmlisten;
+        if (!destDir.endsWith("/")) {
+            destDirFileFilmlisten = destDir + "/" + MS_Konstanten.DATEINAME_LISTE_FILMLISTEN;
+        } else {
+            destDirFileFilmlisten = destDir + MS_Konstanten.DATEINAME_LISTE_FILMLISTEN;
+        }
         //
         int port = 0;
         try {
@@ -165,15 +172,18 @@ public class MS_UploadFtp {
                 ftp.enterLocalPassiveMode();
             }
             ftp.setUseEPSVwithIPv4(useEpsvWithIPv4);
+            // ==========================
+            // Filmliste hoch laden
             InputStream input;
-            input = new FileInputStream(filmDateiPfad + filmDateiName);///////////
-            ftp.storeFile(destDirFile, input);///////////////
+            input = new FileInputStream(GuiFunktionen.addsPfad(filmDateiPfad, filmDateiName));
+            ftp.storeFile(destDirFile, input);
             input.close();
             ftp.noop(); // check that control connection is working OK
-            // listeFilmlisten
+            // ==========================
+            // Liste der Filmlisten hoch laden
             if (filmlisten != null) {
                 input = new FileInputStream(filmlisten);
-                ftp.storeFile(destDir + "/" + MS_Konstanten.DATEINAME_LISTE_FILMLISTEN, input);///////////////
+                ftp.storeFile(destDirFileFilmlisten, input);
                 input.close();
                 ftp.noop(); // check that control connection is working OK
             }

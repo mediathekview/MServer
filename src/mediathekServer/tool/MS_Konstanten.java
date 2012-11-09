@@ -42,6 +42,7 @@ public class MS_Konstanten {
     public static final String STR_FALSE = "0";
     public static final String KODIERUNG_UTF = "UTF-8";
     //
+    //
     // Konstanten System
     public static final String SYSTEM_USER_AGENT = "system-user-agent";
     public static final int SYSTEM_USER_AGENT_NR = 0;
@@ -55,6 +56,7 @@ public class MS_Konstanten {
     public static final String SYSTEM = "system";
     public static final int SYSTEM_MAX_ELEM = 4;
     public static final String[] SYSTEM_COLUMN_NAMES = {SYSTEM_USER_AGENT, SYSTEM_UPDATE_SUCHEN, SYSTEM_IMPORT_URL, SYSTEM_UPDATE_PWD};
+    //
     //
     // Konstanten Suchen
     public static final String SUCHEN_ALLES = "alles";
@@ -76,8 +78,6 @@ public class MS_Konstanten {
     public static final int UPLOAD_ART_NR = 0;
     public static final String UPLOAD_SERVER = "upload-server";
     public static final int UPLOAD_SERVER_NR = 1;
-    public static final String UPLOAD_SERVER_URL_FILME = "upload-server-url-filmliste";
-    public static final int UPLOAD_SERVER_URL_FILME_NR = 2;
     public static final String UPLOAD_USER = "upload-user";
     public static final int UPLOAD_USER_NR = 3;
     public static final String UPLOAD_PWD = "upload-pwd";
@@ -86,8 +86,10 @@ public class MS_Konstanten {
     public static final int UPLOAD_DEST_DIR_NR = 5;
     public static final String UPLOAD_PORT = "upload-port";
     public static final int UPLOAD_PORT_NR = 6;
+    public static final String UPLOAD_URL_FILMLISTE = "upload-url-filmliste";
+    public static final int UPLOAD_URL_FILMLISTE_NR = 2;
     // Array
     public static final String UPLOAD = "upload";
     public static final int UPLOAD_MAX_ELEM = 7;
-    public static final String[] UPLOAD_COLUMN_NAMES = {UPLOAD_ART, UPLOAD_SERVER, UPLOAD_SERVER_URL_FILME, UPLOAD_USER, UPLOAD_PWD, UPLOAD_DEST_DIR, UPLOAD_PORT};
+    public static final String[] UPLOAD_COLUMN_NAMES = {UPLOAD_ART, UPLOAD_SERVER, UPLOAD_USER, UPLOAD_PWD, UPLOAD_DEST_DIR, UPLOAD_PORT, UPLOAD_URL_FILMLISTE};
 }
