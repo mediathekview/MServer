@@ -29,7 +29,7 @@ import java.nio.channels.FileChannel;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Iterator;
-import mediathek.controller.filmeLaden.importieren.DatenFilmUpdateServer;
+import mediathek.controller.filmeLaden.importieren.DatenUrlFilmliste;
 import mediathek.tool.GuiFunktionen;
 import mediathekServer.daten.MS_DatenUpload;
 import mediathekServer.tool.MS_Daten;
@@ -98,7 +98,7 @@ public class MS_Upload {
         if (ret) {
             // Liste der Filmlisten auktualisieren
             // DatenFilmUpdateServer(String url, String prio, String zeit, String datum, String anzahl) {
-            DatenFilmUpdateServer dfus = new DatenFilmUpdateServer(datenUpload.getUrlFilmliste(filmDateiName), "1", sdf_zeit.format(new Date()), sdf_datum.format(new Date()), "");
+            DatenUrlFilmliste dfus = new DatenUrlFilmliste(datenUpload.getUrlFilmliste(filmDateiName), "1", sdf_zeit.format(new Date()), sdf_datum.format(new Date()), "");
             File f = MS_ListeFilmlisten.filmlisteEintragen(datenUpload.getUrlListeFilmlisten(), dfus);
             if (f != null) {
                 try {

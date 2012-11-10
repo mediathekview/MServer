@@ -25,10 +25,9 @@ import java.io.OutputStreamWriter;
 import java.util.Iterator;
 import javax.xml.stream.XMLOutputFactory;
 import javax.xml.stream.XMLStreamWriter;
-import mediathek.controller.filmeLaden.importieren.DatenFilmUpdateServer;
-import mediathek.controller.filmeLaden.importieren.FilmUpdateServer;
-import mediathek.controller.filmeLaden.importieren.FilmUpdateServerSuchen;
-import mediathek.controller.filmeLaden.importieren.ListeFilmUpdateServer;
+import mediathek.controller.filmeLaden.importieren.DatenUrlFilmliste;
+import mediathek.controller.filmeLaden.importieren.FilmlistenServer;
+import mediathek.controller.filmeLaden.importieren.ListeUrlFilmlisten;
 import mediathek.tool.Konstanten;
 import mediathek.tool.Log;
 import mediathekServer.tool.MS_Log;
@@ -39,21 +38,21 @@ public class MS_ListeFilmlisten {
     private static XMLOutputFactory outFactory;
     private static XMLStreamWriter writer;
     private static OutputStreamWriter out = null;
-    private static ListeFilmUpdateServer listeFilmUpdateServer = new ListeFilmUpdateServer();
+    private static ListeUrlFilmlisten listeFilmUpdateServer = new ListeUrlFilmlisten();
 
-    public static File filmlisteEintragen(String urlDatei, DatenFilmUpdateServer input) {
+    public static File filmlisteEintragen(String urlDatei, DatenUrlFilmliste input) {
         // erst mal die Liste holen
         try {
-            FilmUpdateServerSuchen.getListe(urlDatei, listeFilmUpdateServer);
+            FilmlistenServer.getFilmlisten(urlDatei, listeFilmUpdateServer);
         } catch (Exception ex) {
             Log.fehlerMeldung(347895642, "FilmUpdateServer.suchen", ex);
         }
         // Einträge mit der URL löschen und dann "input" eintragen
         // gibt immer nur einen Eintrag mit einer URL
-        Iterator<DatenFilmUpdateServer> it = listeFilmUpdateServer.iterator();
+        Iterator<DatenUrlFilmliste> it = listeFilmUpdateServer.iterator();
         while (it.hasNext()) {
-            DatenFilmUpdateServer d = it.next();
-            if (d.arr[FilmUpdateServer.FILM_UPDATE_SERVER_URL_NR].equals(input.arr[FilmUpdateServer.FILM_UPDATE_SERVER_URL_NR])) {
+            DatenUrlFilmliste d = it.next();
+            if (d.arr[FilmlistenServer.FILM_UPDATE_SERVER_URL_NR].equals(input.arr[FilmlistenServer.FILM_UPDATE_SERVER_URL_NR])) {
                 it.remove();
             }
         }
@@ -87,29 +86,29 @@ public class MS_ListeFilmlisten {
             writer.writeCharacters("\n");//neue Zeile
             writer.writeStartElement(TAG_LISTE);
             writer.writeCharacters("\n");//neue Zeile
-            Iterator<DatenFilmUpdateServer> it = listeFilmUpdateServer.iterator();
+            Iterator<DatenUrlFilmliste> it = listeFilmUpdateServer.iterator();
             while (it.hasNext()) {
-                DatenFilmUpdateServer d = it.next();
+                DatenUrlFilmliste d = it.next();
                 writer.writeStartElement(TAG_SERVER);
                 writer.writeCharacters("\n");
                 // Tags schreiben: URL
                 writer.writeCharacters("\t");// Tab
                 writer.writeStartElement(TAG_SERVER_URL_PRIO_1);
-                writer.writeCharacters(d.arr[FilmUpdateServer.FILM_UPDATE_SERVER_URL_NR]);
+                writer.writeCharacters(d.arr[FilmlistenServer.FILM_UPDATE_SERVER_URL_NR]);
                 writer.writeEndElement();
                 writer.writeCharacters("\n");
                 // fertig
                 // Tags schreiben: Datum
                 writer.writeCharacters("\t");// Tab
                 writer.writeStartElement(TAG_SERVER_DATUM);
-                writer.writeCharacters(d.arr[FilmUpdateServer.FILM_UPDATE_SERVER_DATUM_NR]);
+                writer.writeCharacters(d.arr[FilmlistenServer.FILM_UPDATE_SERVER_DATUM_NR]);
                 writer.writeEndElement();
                 writer.writeCharacters("\n");
                 // fertig
                 // Tags schreiben: Zeit
                 writer.writeCharacters("\t");// Tab
                 writer.writeStartElement(TAG_SERVER_ZEIT);
-                writer.writeCharacters(d.arr[FilmUpdateServer.FILM_UPDATE_SERVER_ZEIT_NR]);
+                writer.writeCharacters(d.arr[FilmlistenServer.FILM_UPDATE_SERVER_ZEIT_NR]);
                 writer.writeEndElement();
                 writer.writeCharacters("\n");
                 // fertig

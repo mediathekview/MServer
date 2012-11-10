@@ -20,6 +20,7 @@
 package mediathekServer.daten;
 
 import mediathek.tool.GuiFunktionen;
+import mediathek.tool.Konstanten;
 import mediathekServer.tool.MS_Konstanten;
 
 public class MS_DatenUpload {
@@ -41,7 +42,7 @@ public class MS_DatenUpload {
     }
 
     public String getUrlListeFilmlisten() {
-        return GuiFunktionen.addUrl(arr[MS_Konstanten.UPLOAD_URL_FILMLISTE_NR], MS_Konstanten.DATEINAME_LISTE_FILMLISTEN);
+        return GuiFunktionen.addUrl(arr[MS_Konstanten.UPLOAD_URL_FILMLISTE_NR], Konstanten.DATEINAME_LISTE_FILMLISTEN);
     }
 
     public String getUrlFilmliste(String dateinameFilmliste) {
@@ -57,6 +58,6 @@ public class MS_DatenUpload {
     }
 
     public String getListeFilmlistenDestPfadName() {
-        return GuiFunktionen.addsPfad(arr[MS_Konstanten.UPLOAD_DEST_DIR_NR], MS_Konstanten.DATEINAME_LISTE_FILMLISTEN);
+        return GuiFunktionen.addsPfad(arr[MS_Konstanten.UPLOAD_DEST_DIR_NR], Konstanten.DATEINAME_LISTE_FILMLISTEN);
     }
 }
