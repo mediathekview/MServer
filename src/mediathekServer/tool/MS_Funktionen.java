@@ -21,9 +21,6 @@ package mediathekServer.tool;
 
 import java.io.File;
 import java.security.CodeSource;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import mediathek.tool.Funktionen;
 import mediathekServer.Main;
 
 public class MS_Funktionen {
@@ -41,21 +38,5 @@ public class MS_Funktionen {
             }
         }
         return propFile.getAbsolutePath().replace(pFilePath, "");
-    }
-
-    public static String getCompileDate() {
-        String ret = "";
-        try {
-            //Version
-            Date d = new Date(Main.class.getResource("Main.class").openConnection().getLastModified());
-            ret = new SimpleDateFormat("dd.MM.yyyy, HH:mm").format(d);
-        } catch (Exception ex) {
-            MS_Log.fehlerMeldung(989632104, MS_Log.class.getName(), "getCompileDate", ex);
-        }
-        return ret;
-    }
-
-    public static String getVersion() {
-        return MS_Konstanten.VERSION + " [" + Funktionen.getBuildNr() + "]";
     }
 }

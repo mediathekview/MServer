@@ -35,6 +35,10 @@ public class MS_DatenSuchen {
         }
     }
 
+    public void startMeldung() {
+        MS_Log.systemMeldung("naechster Start: " + this.arr[MS_Konstanten.SUCHEN_WANN_NR]);
+    }
+
     public boolean jetzt() {
         return this.arr[MS_Konstanten.SUCHEN_WANN_NR].equals(MS_Konstanten.SUCHEN_WANN_SOFORT);
     }

@@ -23,6 +23,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.LinkedList;
+import mediathek.tool.Funktionen;
 
 public class MS_Log {
 
@@ -51,8 +52,7 @@ public class MS_Log {
         MS_Log.systemMeldung("freeMemory: " + freeMem / (1024L * 1024L) + " MB");
         MS_Log.systemMeldung("###########################################################");
         //Version
-        MS_Log.systemMeldung("Version: " + MS_Funktionen.getVersion());
-        MS_Log.systemMeldung("Compiledate: " + MS_Funktionen.getCompileDate());
+        MS_Log.systemMeldung(Funktionen.getProgVersionString());
         MS_Log.systemMeldung("Klassenname: " + classname);
         MS_Log.systemMeldung("###########################################################");
     }

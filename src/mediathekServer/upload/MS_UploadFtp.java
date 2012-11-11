@@ -57,7 +57,7 @@ public class MS_UploadFtp {
         // DatenFilmUpdateServer(String url, String prio, String zeit, String datum, String anzahl) {
         //String filmlisteDestPfadName = GuiFunktionen.addsPfad(filmlisteDestDir, filmlisteDateiname);
         //String listeFilmlistenDestPfadName = GuiFunktionen.addsPfad(filmlisteDestDir, MS_Konstanten.DATEINAME_LISTE_FILMLISTEN);
-        DatenUrlFilmliste dfus = new DatenUrlFilmliste(datenUpload.getUrlFilmliste(filmlisteDateiname), "1", sdf_zeit.format(new Date()), sdf_datum.format(new Date()), "");
+        DatenUrlFilmliste dfus = new DatenUrlFilmliste(datenUpload.getUrlFilmliste(filmlisteDateiname), "1", sdf_zeit.format(new Date()), sdf_datum.format(new Date()));
         File filmlisten = MS_ListeFilmlisten.filmlisteEintragen(datenUpload.getUrlListeFilmlisten(), dfus);
         //
         int port = 0;
@@ -69,7 +69,7 @@ public class MS_UploadFtp {
             MS_Log.fehlerMeldung(101203698, MS_UploadFtp.class.getName(), "uploadFtp", ex);
             port = 0;
         }
-        boolean binaryTransfer = false;
+        boolean binaryTransfer = true;
         boolean localActive = false, useEpsvWithIPv4 = false;
         long keepAliveTimeout = -1;
         int controlKeepAliveReplyTimeout = -1;

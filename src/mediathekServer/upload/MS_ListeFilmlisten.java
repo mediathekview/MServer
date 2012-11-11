@@ -30,6 +30,7 @@ import mediathek.controller.filmeLaden.importieren.FilmlistenServer;
 import mediathek.controller.filmeLaden.importieren.ListeUrlFilmlisten;
 import mediathek.tool.Konstanten;
 import mediathek.tool.Log;
+import mediathekServer.tool.MS_Daten;
 import mediathekServer.tool.MS_Log;
 import mediathekServer.tool.MS_XmlSchreiben;
 
@@ -43,9 +44,9 @@ public class MS_ListeFilmlisten {
     public static File filmlisteEintragen(String urlDatei, DatenUrlFilmliste input) {
         // erst mal die Liste holen
         try {
-            FilmlistenServer.getFilmlisten(urlDatei, listeFilmUpdateServer);
+            FilmlistenServer.getFilmlisten(urlDatei, listeFilmUpdateServer, MS_Daten.getUserAgent());
         } catch (Exception ex) {
-            Log.fehlerMeldung(347895642, "FilmUpdateServer.suchen", ex);
+            Log.fehlerMeldung(347895642, "FilmUpdateServer.suchen: " + urlDatei, ex);
         }
         // Einträge mit der URL löschen und dann "input" eintragen
         // gibt immer nur einen Eintrag mit einer URL

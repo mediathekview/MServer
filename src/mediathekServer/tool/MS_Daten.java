@@ -20,6 +20,8 @@
 package mediathekServer.tool;
 
 import java.io.File;
+import mediathek.daten.Daten;
+import mediathek.tool.Konstanten;
 import mediathekServer.daten.MS_ListeSuchen;
 import mediathekServer.daten.MS_ListeUpload;
 
@@ -46,7 +48,7 @@ public class MS_Daten {
 
     public static void setUserAgent(String ua) {
         if (ua.equals("")) {
-            system[MS_Konstanten.SYSTEM_USER_AGENT_NR] = MS_Konstanten.PROGRAMMNAME + "-" + MS_Funktionen.getVersion();
+            system[MS_Konstanten.SYSTEM_USER_AGENT_NR] = MS_Konstanten.PROGRAMMNAME + "-" + Konstanten.VERSION;
         } else {
             system[MS_Konstanten.SYSTEM_USER_AGENT_NR] = ua;
         }
