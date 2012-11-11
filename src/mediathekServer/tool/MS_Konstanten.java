@@ -25,14 +25,14 @@ public class MS_Konstanten {
     public static final String PROGRAMMNAME = "MediathekServer";
     public static final String USER_AGENT_DEFAULT = PROGRAMMNAME + " " + VERSION;
     public static final int PROGRAMM_EXIT_CODE_UPDATE = 11;
-    public static final String PROGRAMMDATEI_UPDATE = "MediathekServer_update";
+    public static final String PROGRAMMDATEI_UPDATE = "MediathekServer_update.zip";
     // Dateien/Verzeichnisse
     public static final String VERZEICHNISS_EINSTELLUNGEN = ".mediathekServer";
     public static final String XML_DATEI = "mediathekServer.xml";
     public static final String FILM_DATEI = "filme.bz2";
     public static final String XML_LOG_FILE = "ms_log.xml";
     ///public static final String PROGRAMM_UPDATE_URL_RSS = "http://sourceforge.net/api/file/index/project-id/222825/mtime/desc/limit/100/rss";
-    public static final String PROGRAMM_UPDATE_URL_RSS = "http://176.28.14.91/mediathek1/rss";
+    public static final String PROGRAMM_UPDATE_URL_RSS = "http://192.168.25.134/update/rss";
     // 
     // Server zum Steuern der Liste der Downloadserver für die Filmlisten
     public static final String UPDATE_SERVER_FILMLISTE = "http://192.168.25.134/update.php";

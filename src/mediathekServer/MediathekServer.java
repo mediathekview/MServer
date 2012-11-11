@@ -94,6 +94,35 @@ public class MediathekServer {
     }
 
     public void laufen() {
+////        MS_Log.systemMeldung("===========================");
+////        MS_Log.systemMeldung("Filme suchen");
+////        MS_Log.systemMeldung("===========================");
+////        MS_Log.systemMeldung("Filme suchen");
+////        MS_Log.systemMeldung("===========================");
+////        MS_Log.systemMeldung("Filme suchen");
+////        MS_Log.systemMeldung("===========================");
+////        MS_Log.systemMeldung("Filme suchen");
+////        MS_Log.systemMeldung("===========================");
+////        MS_Log.systemMeldung("Filme suchen");
+////        MS_Log.systemMeldung("===========================");
+////        MS_Log.systemMeldung("Filme suchen");
+////        MS_Log.systemMeldung("===========================");
+////        MS_Log.systemMeldung("Filme suchen");
+////        MS_Log.systemMeldung("===========================");
+////        MS_Log.systemMeldung("Filme suchen");
+////        MS_Log.systemMeldung("===========================");
+////        MS_Log.systemMeldung("Filme suchen");
+////        MS_Log.systemMeldung("===========================");
+////        MS_Log.systemMeldung("Filme suchen");
+////        MS_Log.systemMeldung("===========================");
+////        MS_Log.systemMeldung("Filme suchen");
+////        MS_Log.systemMeldung("===========================");
+////        MS_Log.systemMeldung("Filme suchen");
+////        MS_Log.systemMeldung("===========================");
+////        MS_Log.systemMeldung("Filme suchen");
+////        MS_Log.systemMeldung("===========================");
+////        MS_Log.systemMeldung("Filme suchen");
+////        System.exit(0);
         // =====================================
         // erst mal schauen ob was zu tun ist
         // -----------------------------------
@@ -102,7 +131,7 @@ public class MediathekServer {
             if (aktDatenSuchen == null) {
                 // fertig für den Tag
                 undTschuess();
-            }else{
+            } else {
                 aktDatenSuchen.startMeldung();
             }
         }
@@ -115,12 +144,12 @@ public class MediathekServer {
             String filmDateiName = aktDatenSuchen.getZielDateiName();
             String filmDateiPfad = MS_Daten.getBasisVerzeichnis();
             // Filme suchen
-            filmeSuchen(filmDateiPfad, filmDateiName);
-            // Filme hochladen
-            upload(filmDateiPfad, filmDateiName);
+//////            filmeSuchen(filmDateiPfad, filmDateiName);
+//////            // Filme hochladen
+//////            upload(filmDateiPfad, filmDateiName);
             aktDatenSuchen = null;
             // nach Programmupdate suchen
-//////        updateSuchen();
+            updateSuchen();
         }
 ///        undTschuess();
     }
@@ -128,10 +157,10 @@ public class MediathekServer {
     private void filmeSuchen(String filmDateiPfad, String filmDateiName) {
         MS_Log.systemMeldung("===========================");
         MS_Log.systemMeldung("Filme suchen");
-        if (!msFilmeSuchen.filmeSuchen(aktDatenSuchen.allesLaden(), filmDateiPfad + filmDateiName, imprtUrl, MS_Daten.getUserAgent())) {
-            // war wohl nix
-            MS_Log.fehlerMeldung(812370895, MediathekServer.class.getName(), "FilmeSuchen mit Fehler beendet");
-        }
+////////        if (!msFilmeSuchen.filmeSuchen(aktDatenSuchen.allesLaden(), filmDateiPfad + filmDateiName, imprtUrl, MS_Daten.getUserAgent())) {
+////////            // war wohl nix
+////////            MS_Log.fehlerMeldung(812370895, MediathekServer.class.getName(), "FilmeSuchen mit Fehler beendet");
+////////        }
         //MS_Test.schreiben(filmDateiPfad + filmDateiName); /////////////
     }
 

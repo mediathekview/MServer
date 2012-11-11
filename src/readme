@@ -1,0 +1,14 @@
+
+Das Programm dient dazu, "MediathekView" zu vorgegebenen Zeiten zu Starten und die Filmlsite zu Laden.
+Die fertige Filmliste kann dann auf Downloadserver kopiert werden.
+Das Programm automatisiert die Benutzung von "MediathekView" zum Erstellen und Anbieten der Filmliste.
+Wird das Progrmm über das Skript gestartet, kann es sich selbst aktuell halten.
+
+
+Wird beim Programmstart keine Konfigurationsdatei gefunden, wird eine Musterdatei angelegt.
+Ist eine Konfigurationsdatei vorhanden, werden die darin festgelgten Aufgaben abgearbeitet.
+Dann beendet sich das Programm wieder.
+
+
+Mit dem Programm ist nicht mehr möglich, als mit "MediathekView" direkt auch möglich wäre.
+ 

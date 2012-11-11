@@ -20,7 +20,6 @@
 package mediathekServer.tool;
 
 import java.io.File;
-import mediathek.daten.Daten;
 import mediathek.tool.Konstanten;
 import mediathekServer.daten.MS_ListeSuchen;
 import mediathekServer.daten.MS_ListeUpload;
@@ -60,22 +59,30 @@ public class MS_Daten {
 
     public static void setBasisVerzeichnis(String b) {
         if (b.equals("")) {
-            basisverzeichnis = getBasisVerzeichnis_(b);
+            basisverzeichnis = getBasisVerzeichnis(b, true);
         } else {
             basisverzeichnis = b;
         }
     }
 
     public static String getBasisVerzeichnis() {
-        return basisverzeichnis;
+        return getBasisVerzeichnis(basisverzeichnis, false);
     }
 
-    private static String getBasisVerzeichnis_(String basis) {
+    private static String getBasisVerzeichnis(String basis, boolean anlegen) {
         String ret;
         if (basis.equals("")) {
             ret = System.getProperty("user.home") + File.separator + MS_Konstanten.VERZEICHNISS_EINSTELLUNGEN + File.separator;
         } else {
             ret = basis;
+        }
+        if (anlegen) {
+            File basisF = new File(ret);
+            if (!basisF.exists()) {
+                if (!basisF.mkdir()) {
+                    MS_Log.fehlerMeldung(1023974998, MS_Daten.class.getName(), "Kann den Ordner zum Speichern der Daten nicht anlegen!");
+                }
+            }
         }
         return ret;
     }
