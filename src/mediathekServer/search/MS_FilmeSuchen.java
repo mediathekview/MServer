@@ -21,14 +21,16 @@ package mediathekServer.search;
 
 import mediathek.MediathekNoGui;
 import mediathekServer.tool.MS_Daten;
+import mediathekServer.tool.MS_Konstanten;
 import mediathekServer.tool.MS_Log;
 
 public class MS_FilmeSuchen {
 
-    public boolean filmeSuchen(boolean allesLaden, String output, String imprtUrl, String userAgent) {
+    public boolean filmeSuchen(boolean allesLaden, String output, String userAgent) {
         boolean ret = false;
         try {
-            new MediathekNoGui(MS_Daten.getBasisVerzeichnis(), allesLaden, output, imprtUrl, userAgent).serverStarten();
+            String importUrl = MS_Daten.system[MS_Konstanten.SYSTEM_IMPORT_URL_NR].toString();
+            new MediathekNoGui(MS_Daten.getBasisVerzeichnis(), allesLaden, output, importUrl, userAgent).serverStarten();
             ret = true;
         } catch (Exception ex) {
             MS_Log.fehlerMeldung(636987308, MS_FilmeSuchen.class.getName(), "filmeSuchen", ex);

@@ -20,6 +20,7 @@
 package mediathekServer.tool;
 
 import java.io.File;
+import mediathek.tool.Funktionen;
 import mediathek.tool.Konstanten;
 import mediathekServer.daten.MS_ListeSuchen;
 import mediathekServer.daten.MS_ListeUpload;
@@ -45,16 +46,12 @@ public class MS_Daten {
         }
     }
 
-    public static void setUserAgent(String ua) {
-        if (ua.equals("")) {
-            system[MS_Konstanten.SYSTEM_USER_AGENT_NR] = MS_Konstanten.PROGRAMMNAME + "-" + Konstanten.VERSION;
-        } else {
-            system[MS_Konstanten.SYSTEM_USER_AGENT_NR] = ua;
-        }
-    }
-
     public static String getUserAgent() {
-        return system[MS_Konstanten.SYSTEM_USER_AGENT_NR];
+        if (system[MS_Konstanten.SYSTEM_USER_AGENT_NR].trim().equals("")) {
+            return MS_Konstanten.PROGRAMMNAME + " " + Konstanten.VERSION + " / " + Funktionen.getBuildNr();
+        } else {
+        }
+        return system[MS_Konstanten.SYSTEM_USER_AGENT_NR].trim();
     }
 
     public static void setBasisVerzeichnis(String b) {

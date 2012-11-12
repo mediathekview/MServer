@@ -33,7 +33,6 @@ import mediathekServer.upload.MS_Upload;
 
 public class MediathekServer {
 
-    private String imprtUrl = "";
     private MS_Timer timer;
     private MS_Daten msDaten;
     MS_DatenSuchen aktDatenSuchen = null;
@@ -127,7 +126,7 @@ public class MediathekServer {
     private void filmeSuchen(String filmDateiPfad, String filmDateiName) {
         MS_Log.systemMeldung("===========================");
         MS_Log.systemMeldung("Filme suchen");
-        if (!msFilmeSuchen.filmeSuchen(aktDatenSuchen.allesLaden(), filmDateiPfad + filmDateiName, imprtUrl, MS_Daten.getUserAgent())) {
+        if (!msFilmeSuchen.filmeSuchen(aktDatenSuchen.allesLaden(), filmDateiPfad + filmDateiName, MS_Daten.getUserAgent())) {
             // war wohl nix
             MS_Log.fehlerMeldung(812370895, MediathekServer.class.getName(), "FilmeSuchen mit Fehler beendet");
         }
