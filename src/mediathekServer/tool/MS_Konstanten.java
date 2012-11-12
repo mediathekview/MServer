@@ -34,8 +34,6 @@ public class MS_Konstanten {
     ///public static final String PROGRAMM_UPDATE_URL_RSS = "http://sourceforge.net/api/file/index/project-id/222825/mtime/desc/limit/100/rss";
     ///public static final String PROGRAMM_UPDATE_URL_RSS = "http://192.168.25.134/update/rss";
     public static final String PROGRAMM_UPDATE_URL_RSS = "http://176.28.14.91/mediathek1/rss";
-
-
 // 
     // Server zum Steuern der Liste der Downloadserver für die Filmlisten
     ///public static final String UPDATE_SERVER_FILMLISTE = "http://192.168.25.134/update.php";
@@ -91,8 +89,11 @@ public class MS_Konstanten {
     public static final int UPLOAD_PORT_NR = 5;
     public static final String UPLOAD_URL_FILMLISTE = "upload-url-filmliste";
     public static final int UPLOAD_URL_FILMLISTE_NR = 6;
+    public static final String UPLOAD_PRIO_FILMLISTE = "upload-prio-filmliste";
+    public static final int UPLOAD_PRIO_FILMLISTE_NR = 7;
     // Array
     public static final String UPLOAD = "upload";
-    public static final int UPLOAD_MAX_ELEM = 7;
-    public static final String[] UPLOAD_COLUMN_NAMES = {UPLOAD_ART, UPLOAD_SERVER, UPLOAD_USER, UPLOAD_PWD, UPLOAD_DEST_DIR, UPLOAD_PORT, UPLOAD_URL_FILMLISTE};
+    public static final int UPLOAD_MAX_ELEM = 8;
+    public static final String[] UPLOAD_COLUMN_NAMES = {UPLOAD_ART, UPLOAD_SERVER, UPLOAD_USER, UPLOAD_PWD,
+        UPLOAD_DEST_DIR, UPLOAD_PORT, UPLOAD_URL_FILMLISTE, UPLOAD_PRIO_FILMLISTE};
 }

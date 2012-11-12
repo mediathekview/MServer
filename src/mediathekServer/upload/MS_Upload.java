@@ -53,7 +53,7 @@ public class MS_Upload {
                 // ==============================================================
                 // kopieren
                 if (copy(filmDateiPfad, filmDateiName, datenUpload)) {
-                    melden(datenUpload.getUrlFilmliste(filmDateiName));
+                    melden(datenUpload.getUrlFilmliste(filmDateiName), datenUpload.getPrio());
                 }
                 // ==============================================================
             } else if (datenUpload.arr[MS_Konstanten.UPLOAD_ART_NR].equals(UPLOAD_ART_FTP)) {
@@ -63,7 +63,7 @@ public class MS_Upload {
                 if (MS_UploadFtp.uploadFtp(datenUpload.arr[MS_Konstanten.UPLOAD_SERVER_NR], datenUpload.arr[MS_Konstanten.UPLOAD_PORT_NR], datenUpload.arr[MS_Konstanten.UPLOAD_USER_NR],
                         datenUpload.arr[MS_Konstanten.UPLOAD_PWD_NR], filmDateiPfad, filmDateiName,
                         datenUpload)) {
-                    melden(datenUpload.getUrlFilmliste(filmDateiName));
+                    melden(datenUpload.getUrlFilmliste(filmDateiName), datenUpload.getPrio());
                 }
                 // ==============================================================
             }
@@ -125,7 +125,7 @@ public class MS_Upload {
         return ret;
     }
 
-    private static void melden(String urlFilmliste) {
+    private static void melden(String urlFilmliste, String prio) {
         try {
             if (!MS_Daten.system[MS_Konstanten.SYSTEM_UPDATE_PWD_NR].equals("")) {
                 // nur dann gibts was zum Melden
@@ -138,6 +138,7 @@ public class MS_Upload {
                             + "?pwd=" + MS_Daten.system[MS_Konstanten.SYSTEM_UPDATE_PWD_NR]
                             + "&zeit=" + zeit
                             + "&datum=" + datum
+                            + (prio.trim().equals("") ? "" : "&prio=" + prio)
                             + "&server=" + urlFilmliste;
                     int timeout = 10000;
                     URLConnection conn = null;

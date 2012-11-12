@@ -60,4 +60,8 @@ public class MS_DatenUpload {
     public String getListeFilmlistenDestPfadName() {
         return GuiFunktionen.addsPfad(arr[MS_Konstanten.UPLOAD_DEST_DIR_NR], Konstanten.DATEINAME_LISTE_FILMLISTEN);
     }
+
+    public String getPrio() {
+        return arr[MS_Konstanten.UPLOAD_PRIO_FILMLISTE_NR];
+    }
 }
