@@ -113,7 +113,7 @@ public class MediathekServer {
             String filmDateiName = aktDatenSuchen.getZielDateiName();
             String filmDateiPfad = MS_Daten.getBasisVerzeichnis();
             // Filme suchen
-////            filmeSuchen(filmDateiPfad, filmDateiName);
+            filmeSuchen(filmDateiPfad, filmDateiName);
             // Filme hochladen
             upload(filmDateiPfad, filmDateiName);
             aktDatenSuchen = null;
