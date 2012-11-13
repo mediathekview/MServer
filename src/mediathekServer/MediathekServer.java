@@ -72,7 +72,7 @@ public class MediathekServer {
             musterSchreiben(); // und Tschüss
         } else {
             MS_XmlLesen.xmlDatenLesen();
-            MS_XmlLesen.xmlLogLesen();
+            updateSuchen(); // erst mal schauen was es neues gibt
             timer = new MS_Timer() {
                 @Override
                 public void ping() {
@@ -151,7 +151,6 @@ public class MediathekServer {
 
     private void undTschuess() {
         MS_Log.printEndeMeldung();
-        MS_XmlSchreiben.xmlLogSchreiben();
         System.exit(0);
     }
 }

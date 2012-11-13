@@ -31,13 +31,11 @@ public class MS_Daten {
     public static MS_ListeSuchen listeSuchen = new MS_ListeSuchen();
     public static MS_ListeUpload listeUpload = new MS_ListeUpload();
     public static boolean debug = false;
-    public static MS_LogFile logFile;
     //
     private static String basisverzeichnis = "";
 
     public MS_Daten() {
         init();
-        logFile = new MS_LogFile();
     }
 
     private void init() {
@@ -98,15 +96,24 @@ public class MS_Daten {
     }
 
     public static String getLogDatei() {
-        return MS_Daten.getBasisVerzeichnis() + MS_Konstanten.XML_LOG_FILE;
-    }
-
-    public static boolean logExistiert() {
-        String datei = MS_Daten.getBasisVerzeichnis() + MS_Konstanten.XML_LOG_FILE;
-        if (new File(datei).exists()) {
-            return true;
-        } else {
-            return false;
+        try {
+            if (system[MS_Konstanten.SYSTEM_LOGDATEI_NR].trim().equals("")) {
+                return MS_Daten.getBasisVerzeichnis() + MS_Konstanten.XML_LOG_FILE;
+            }
+            // Logfile wurde angegeben, prüfen obs geht
+            File logfile = new File(system[MS_Konstanten.SYSTEM_LOGDATEI_NR]);
+            if (logfile.exists()) {
+                return system[MS_Konstanten.SYSTEM_LOGDATEI_NR];
+            }
+            if (logfile.createNewFile()) {
+                return system[MS_Konstanten.SYSTEM_LOGDATEI_NR];
+            } else {
+                return MS_Daten.getBasisVerzeichnis() + MS_Konstanten.XML_LOG_FILE;
+            }
+        } catch (Exception ex) {
+            System.out.println("Logfile anlegen: " + ex.getMessage()); // hier muss direkt geschrieben werden
+            return MS_Daten.getBasisVerzeichnis() + MS_Konstanten.XML_LOG_FILE;
         }
     }
+
 }

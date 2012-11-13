@@ -25,7 +25,7 @@ import java.util.Date;
 public class MS_DatumZeit {
 
     private static SimpleDateFormat sdf_stunde_minute = new SimpleDateFormat("HH:mm");
-    private static SimpleDateFormat sdf_datum_zeit = new SimpleDateFormat("dd.MM.yyyy__HH:mm:ss");
+    private static SimpleDateFormat sdf_datum_zeit = new SimpleDateFormat("dd.MM.yyyy  HH:mm:ss");
     private static SimpleDateFormat sdf_zeit = new SimpleDateFormat("HH:mm:ss");
     private static SimpleDateFormat sdf_datum = new SimpleDateFormat("dd.MM.yyyy");
 

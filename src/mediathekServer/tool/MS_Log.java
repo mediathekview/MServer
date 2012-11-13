@@ -19,6 +19,9 @@
  */
 package mediathekServer.tool;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.OutputStreamWriter;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Iterator;
@@ -30,6 +33,7 @@ public class MS_Log {
     private static LinkedList<Integer[]> fehlerListe = new LinkedList<Integer[]>(); // [Fehlernummer, Anzahl]
     private static Date startZeit = new Date(System.currentTimeMillis());
     private static Date stopZeit = null;
+    private static String logfile = MS_Daten.getLogDatei();
 
     public void resetFehlerListe() {
         fehlerListe.clear();
@@ -37,34 +41,34 @@ public class MS_Log {
 
     public static synchronized void versionsMeldungen(String classname) {
         SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss");
-        MS_Log.systemMeldung("");
-        MS_Log.systemMeldung("");
-        MS_Log.systemMeldung("###########################################################");
-        MS_Log.systemMeldung("###########################################################");
-        MS_Log.systemMeldung("Programmstart: " + sdf.format(startZeit));
-        MS_Log.systemMeldung("###########################################################");
-        MS_Log.systemMeldung("###########################################################");
+        systemMeldung("");
+        systemMeldung("");
+        systemMeldung("###########################################################");
+        systemMeldung("###########################################################");
+        systemMeldung("Programmstart: " + sdf.format(startZeit));
+        systemMeldung("###########################################################");
+        systemMeldung("###########################################################");
         long totalMem = Runtime.getRuntime().totalMemory();
-        MS_Log.systemMeldung("totalMemory: " + totalMem / (1024L * 1024L) + " MB");
+        systemMeldung("totalMemory: " + totalMem / (1024L * 1024L) + " MB");
         long maxMem = Runtime.getRuntime().maxMemory();
-        MS_Log.systemMeldung("maxMemory: " + maxMem / (1024L * 1024L) + " MB");
+        systemMeldung("maxMemory: " + maxMem / (1024L * 1024L) + " MB");
         long freeMem = Runtime.getRuntime().freeMemory();
-        MS_Log.systemMeldung("freeMemory: " + freeMem / (1024L * 1024L) + " MB");
-        MS_Log.systemMeldung("###########################################################");
+        systemMeldung("freeMemory: " + freeMem / (1024L * 1024L) + " MB");
+        systemMeldung("###########################################################");
         //Version
-        MS_Log.systemMeldung(Funktionen.getProgVersionString());
-        MS_Log.systemMeldung("Klassenname: " + classname);
-        MS_Log.systemMeldung("###########################################################");
+        systemMeldung(Funktionen.getProgVersionString());
+        systemMeldung("Klassenname: " + classname);
+        systemMeldung("###########################################################");
     }
 
     public static synchronized void startMeldungen(String classname) {
         versionsMeldungen(classname);
-        MS_Log.systemMeldung("Programmpfad: " + MS_Funktionen.getPathJar());
-        MS_Log.systemMeldung("Verzeichnis Einstellungen: " + MS_Daten.getBasisVerzeichnis());
-        MS_Log.systemMeldung("Useragent: " + MS_Daten.getUserAgent());
-        MS_Log.systemMeldung("###########################################################");
-        MS_Log.systemMeldung("");
-        MS_Log.systemMeldung("");
+        systemMeldung("Programmpfad: " + MS_Funktionen.getPathJar());
+        systemMeldung("Verzeichnis Einstellungen: " + MS_Daten.getBasisVerzeichnis());
+        systemMeldung("Useragent: " + MS_Daten.getUserAgent());
+        systemMeldung("###########################################################");
+        systemMeldung("");
+        systemMeldung("");
     }
 
     public static synchronized void debugMeldung(String text) {
@@ -204,6 +208,44 @@ public class MS_Log {
                 System.out.println(z + txt);
             }
             System.out.println(z + zeile);
+        }
+        // ins Logfile eintragen
+        if (!logfile.equals("")) {
+            File f = new File(logfile);
+            if (f != null) {
+                OutputStreamWriter writer = null;
+                try {
+                    writer = new OutputStreamWriter(new FileOutputStream(f, true));
+
+                    for (int i = 0; i < texte.length; ++i) {
+                        String s = texte[i];
+                        if (i == 0) {
+                            if (texte.length == 1) {
+                                if (s.equals("")) {
+                                    writer.write("\n"); // nur leere Zeile schrieben
+                                } else {
+                                    writer.write(MS_DatumZeit.getJetzt() + "     " + s);
+                                    writer.write("\n");
+                                }
+                            } else {
+                                writer.write(MS_DatumZeit.getJetzt() + "     " + s);
+                                writer.write("\n");
+                            }
+                        } else {
+                            writer.write("                         " + s);
+                            writer.write("\n");
+                        }
+                    }
+                    writer.close();
+                } catch (Exception ex) {
+                    System.out.println("Fehler beim Logfile schreiben: " + ex.getMessage());
+                } finally {
+                    try {
+                        writer.close();
+                    } catch (Exception ex) {
+                    }
+                }
+            }
         }
     }
 }
