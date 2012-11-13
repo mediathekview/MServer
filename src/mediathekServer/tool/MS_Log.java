@@ -219,20 +219,10 @@ public class MS_Log {
 
                     for (int i = 0; i < texte.length; ++i) {
                         String s = texte[i];
-                        if (i == 0) {
-                            if (texte.length == 1) {
-                                if (s.equals("")) {
-                                    writer.write("\n"); // nur leere Zeile schrieben
-                                } else {
-                                    writer.write(MS_DatumZeit.getJetzt() + "     " + s);
-                                    writer.write("\n");
-                                }
-                            } else {
-                                writer.write(MS_DatumZeit.getJetzt() + "     " + s);
-                                writer.write("\n");
-                            }
+                        if (s.equals("")) {
+                            writer.write("\n"); // nur leere Zeile schrieben
                         } else {
-                            writer.write("                         " + s);
+                            writer.write(MS_DatumZeit.getJetzt() + "     " + s);
                             writer.write("\n");
                         }
                     }

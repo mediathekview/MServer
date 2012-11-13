@@ -35,7 +35,8 @@ public class MediathekServer {
 
     private MS_Timer timer;
     private MS_Daten msDaten;
-    MS_DatenSuchen aktDatenSuchen = null;
+    private MS_DatenSuchen aktDatenSuchen = null;
+    private boolean suchen = false;
     MS_FilmeSuchen msFilmeSuchen;
 
     public MediathekServer(String[] ar) {
@@ -61,8 +62,6 @@ public class MediathekServer {
         msFilmeSuchen = new MS_FilmeSuchen();
         // Infos schreiben
         MS_Log.startMeldungen(this.getClass().getName());
-        MS_Log.systemMeldung("");
-        MS_Log.systemMeldung("");
     }
 
     public void starten() {
@@ -76,7 +75,10 @@ public class MediathekServer {
             timer = new MS_Timer() {
                 @Override
                 public void ping() {
-                    laufen();
+                    if (!suchen) {
+                        // beschäftigt
+                        laufen();
+                    }
                 }
             };
             new Thread(timer).start();
@@ -84,7 +86,6 @@ public class MediathekServer {
     }
 
     public void musterSchreiben() {
-        MS_Log.systemMeldung("Muster Konfig anlegen");
         // Demo schreiben
         MS_XmlSchreiben.xmlMusterDatenSchreiben();
         // und Tschüss
@@ -101,14 +102,12 @@ public class MediathekServer {
                 // fertig für den Tag
                 undTschuess();
             } else {
-                aktDatenSuchen.startMeldung();
+                aktDatenSuchen.meldungNaechsterStart();
             }
         }
-        if (aktDatenSuchen.starten()) {
-//        ////////////// zum Test
-//        aktDatenSuchen = new MS_DatenSuchen();
-//        aktDatenSuchen.arr[MS_Konstanten.SUCHEN_WAS_NR] = MS_Konstanten.SUCHEN_ALLES;
-//        aktDatenSuchen.arr[MS_Konstanten.SUCHEN_WANN_NR] = "12:30";
+        if (!suchen && aktDatenSuchen.starten()) {
+            suchen = true;
+            aktDatenSuchen.MeldungStart();
 
             String filmDateiName = aktDatenSuchen.getZielDateiName();
             String filmDateiPfad = MS_Daten.getBasisVerzeichnis();
@@ -117,10 +116,10 @@ public class MediathekServer {
             // Filme hochladen
             upload(filmDateiPfad, filmDateiName);
             aktDatenSuchen = null;
+            suchen = false;
             // nach Programmupdate suchen
             updateSuchen();
         }
-///        undTschuess();
     }
 
     private void filmeSuchen(String filmDateiPfad, String filmDateiName) {

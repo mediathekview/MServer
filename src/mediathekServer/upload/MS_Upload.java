@@ -127,15 +127,17 @@ public class MS_Upload {
 
     private static void melden(String urlFilmliste, String prio) {
         try {
-            if (!MS_Daten.system[MS_Konstanten.SYSTEM_UPDATE_PWD_NR].equals("")) {
+            String pwd = MS_Daten.system[MS_Konstanten.SYSTEM_UPDATE_MELDEN_PWD_NR].trim();
+            String url = MS_Daten.system[MS_Konstanten.SYSTEM_UPDATE_MELDEN_URL_NR].trim();
+            if (!pwd.equals("") && !url.equals("")) {
                 // nur dann gibts was zum Melden
                 if (!urlFilmliste.equals("")) {
                     String zeit = sdf_zeit.format(new Date());
                     String datum = sdf_datum.format(new Date());
                     System.out.println("Server melden, Datum: " + datum + "  Zeit: " + zeit + "  URL: " + urlFilmliste);
                     // wget http://zdfmediathk.sourceforge.net/update.php?pwd=xxxxxxx&zeit=$ZEIT&datum=$DATUM&server=http://176.28.14.91/mediathek1/$2"
-                    String urlMelden = MS_Konstanten.UPDATE_SERVER_FILMLISTE
-                            + "?pwd=" + MS_Daten.system[MS_Konstanten.SYSTEM_UPDATE_PWD_NR]
+                    String urlMelden = url
+                            + "?pwd=" + MS_Daten.system[MS_Konstanten.SYSTEM_UPDATE_MELDEN_PWD_NR]
                             + "&zeit=" + zeit
                             + "&datum=" + datum
                             + (prio.trim().equals("") ? "" : "&prio=" + prio)

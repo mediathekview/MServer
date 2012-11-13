@@ -30,7 +30,7 @@ public class MS_FilmeSuchen {
         boolean ret = false;
         try {
             String importUrl = MS_Daten.system[MS_Konstanten.SYSTEM_IMPORT_URL_NR].toString();
-            new MediathekNoGui(MS_Daten.getBasisVerzeichnis(), allesLaden, output, importUrl, userAgent).serverStarten();
+            new MediathekNoGui(MS_Daten.getBasisVerzeichnis(), allesLaden, output, importUrl, userAgent).serverStarten("BR");
             ret = true;
         } catch (Exception ex) {
             MS_Log.fehlerMeldung(636987308, MS_FilmeSuchen.class.getName(), "filmeSuchen", ex);
