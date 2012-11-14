@@ -97,6 +97,9 @@ public class MS_Daten {
 
     public static String getLogDatei() {
         try {
+            if (system[MS_Konstanten.SYSTEM_LOGDATEI_NR] == null) {
+                return MS_Daten.getBasisVerzeichnis() + MS_Konstanten.XML_LOG_FILE;
+            }
             if (system[MS_Konstanten.SYSTEM_LOGDATEI_NR].trim().equals("")) {
                 return MS_Daten.getBasisVerzeichnis() + MS_Konstanten.XML_LOG_FILE;
             }
@@ -115,5 +118,4 @@ public class MS_Daten {
             return MS_Daten.getBasisVerzeichnis() + MS_Konstanten.XML_LOG_FILE;
         }
     }
-
 }

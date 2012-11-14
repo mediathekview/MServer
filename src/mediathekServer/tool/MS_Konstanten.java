@@ -30,7 +30,7 @@ public class MS_Konstanten {
     public static final String VERZEICHNISS_EINSTELLUNGEN = ".mediathekServer";
     public static final String XML_DATEI = "mediathekServer.xml";
     public static final String FILM_DATEI = "filme.bz2";
-    public static final String XML_LOG_FILE = "ms_log";
+    public static final String XML_LOG_FILE = "msLog";
     ///public static final String PROGRAMM_UPDATE_URL_RSS = "http://sourceforge.net/api/file/index/project-id/222825/mtime/desc/limit/100/rss";
     ///public static final String PROGRAMM_UPDATE_URL_RSS = "http://192.168.25.134/update/rss";
     public static final String PROGRAMM_UPDATE_URL_RSS = "http://176.28.14.91/mediathek1/rss";
@@ -43,21 +43,21 @@ public class MS_Konstanten {
     //
     // Konstanten System
     // zum Melden
-    public static final String SYSTEM_UPDATE_MELDEN_PWD = "system-update-melden-pwd";
+    public static final String SYSTEM_UPDATE_MELDEN_PWD = "system--filmliste-melden-pwd";
     public static final int SYSTEM_UPDATE_MELDEN_PWD_NR = 0;
-    public static final String SYSTEM_UPDATE_MELDEN_URL = "system-update-melden-url";
+    public static final String SYSTEM_UPDATE_MELDEN_URL = "system--filmliste-melden-url";
     public static final int SYSTEM_UPDATE_MELDEN_URL_NR = 1;
-    public static final String SYSTEM_USER_AGENT = "system-user-agent";
-    public static final int SYSTEM_USER_AGENT_NR = 0;
-    public static final String SYSTEM_UPDATE_SUCHEN = "system-update-suchen";
-    public static final int SYSTEM_UPDATE_SUCHEN_NR = 1;
-    public static final String SYSTEM_IMPORT_URL = "system-import-url";
-    public static final int SYSTEM_IMPORT_URL_NR = 2;
-    public static final String SYSTEM_LOGDATEI = "system-logdatei";
-    public static final int SYSTEM_LOGDATEI_NR = 4;
+    public static final String SYSTEM_USER_AGENT = "system--user-agent";
+    public static final int SYSTEM_USER_AGENT_NR = 2;
+    public static final String SYSTEM_UPDATE_SUCHEN = "system--programmupdate-suchen";
+    public static final int SYSTEM_UPDATE_SUCHEN_NR = 3;
+    public static final String SYSTEM_IMPORT_URL = "system--filmliste-import-url";
+    public static final int SYSTEM_IMPORT_URL_NR = 4;
+    public static final String SYSTEM_LOGDATEI = "system--logdatei";
+    public static final int SYSTEM_LOGDATEI_NR = 5;
     // Array
     public static final String SYSTEM = "system";
-    public static final int SYSTEM_MAX_ELEM = 5;
+    public static final int SYSTEM_MAX_ELEM = 6;
     public static final String[] SYSTEM_COLUMN_NAMES = {SYSTEM_UPDATE_MELDEN_PWD, SYSTEM_UPDATE_MELDEN_URL,
         SYSTEM_USER_AGENT, SYSTEM_UPDATE_SUCHEN, SYSTEM_IMPORT_URL, SYSTEM_LOGDATEI};
     //

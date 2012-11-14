@@ -37,6 +37,7 @@ public class MS_FilmeSuchen {
             String importUrl = MS_Daten.system[MS_Konstanten.SYSTEM_IMPORT_URL_NR].toString();
             new MediathekNoGui(MS_Daten.getBasisVerzeichnis(), aktDatenSuchen.allesLaden(), GuiFunktionen.addsPfad(filmDateiPfad, filmDateiName),
                     importUrl, MS_Daten.getUserAgent()).serverStarten(sender);
+            MS_Log.systemMeldung("Filme suchen Ok");
             return;
         } catch (Exception ex) {
             MS_Log.fehlerMeldung(636987308, MS_FilmeSuchen.class.getName(), "filmeSuchen", ex);

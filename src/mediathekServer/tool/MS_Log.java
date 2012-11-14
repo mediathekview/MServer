@@ -43,10 +43,16 @@ public class MS_Log {
         SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss");
         systemMeldung("");
         systemMeldung("");
+        systemmeldung(new String[]{".___  ___.  _______  _______   __       ___   .___________. __    __   _______  __  ___"}, false);
+        systemmeldung(new String[]{"|   \\/   | |   ____||       \\ |  |     /   \\  |           ||  |  |  | |   ____||  |/  /"}, false);
+        systemmeldung(new String[]{"|  \\  /  | |  |__   |  .--.  ||  |    /  ^  \\ `---|  |----`|  |__|  | |  |__   |  '  /"}, false);
+        systemmeldung(new String[]{"|  |\\/|  | |   __|  |  |  |  ||  |   /  /_\\  \\    |  |     |   __   | |   __|  |    <"}, false);
+        systemmeldung(new String[]{"|  |  |  | |  |____ |  '--'  ||  |  /  _____  \\   |  |     |  |  |  | |  |____ |  .  \\"}, false);
+        systemmeldung(new String[]{"|__|  |__| |_______||_______/ |__| /__/     \\__\\  |__|     |__|  |__| |_______||__|\\__\\"}, false);
+        systemMeldung("");
         systemMeldung("###########################################################");
         systemMeldung("###########################################################");
         systemMeldung("Programmstart: " + sdf.format(startZeit));
-        systemMeldung("###########################################################");
         systemMeldung("###########################################################");
         long totalMem = Runtime.getRuntime().totalMemory();
         systemMeldung("totalMemory: " + totalMem / (1024L * 1024L) + " MB");
@@ -196,6 +202,10 @@ public class MS_Log {
     }
 
     private static void systemmeldung(String[] texte) {
+        systemmeldung(texte, true);
+    }
+
+    private static void systemmeldung(String[] texte, boolean datum) {
         final String z = "o ";
         if (texte.length <= 1) {
             System.out.println(z + " " + texte[0]);
@@ -222,7 +232,11 @@ public class MS_Log {
                         if (s.equals("")) {
                             writer.write("\n"); // nur leere Zeile schrieben
                         } else {
-                            writer.write(MS_DatumZeit.getJetzt() + "     " + s);
+                            if (datum) {
+                                writer.write(MS_DatumZeit.getJetzt() + "     " + s);
+                            } else {
+                                writer.write(s);
+                            }
                             writer.write("\n");
                         }
                     }

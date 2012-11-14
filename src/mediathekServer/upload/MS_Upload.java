@@ -70,6 +70,7 @@ public class MS_Upload {
                 // ==============================================================
             }
         }
+        MS_Log.systemMeldung("Upload Ok");
     }
 
     private static boolean copy(String filmDateiPfad, String filmDateiName, MS_DatenUpload datenUpload) {
@@ -130,29 +131,30 @@ public class MS_Upload {
         try {
             String pwd = MS_Daten.system[MS_Konstanten.SYSTEM_UPDATE_MELDEN_PWD_NR].trim();
             String url = MS_Daten.system[MS_Konstanten.SYSTEM_UPDATE_MELDEN_URL_NR].trim();
-            if (!pwd.equals("") && !url.equals("")) {
+            if (!pwd.equals("") && !url.equals("") && !urlFilmliste.equals("")) {
                 // nur dann gibts was zum Melden
-                if (!urlFilmliste.equals("")) {
-                    String zeit = sdf_zeit.format(new Date());
-                    String datum = sdf_datum.format(new Date());
-                    System.out.println("Server melden, Datum: " + datum + "  Zeit: " + zeit + "  URL: " + urlFilmliste);
-                    // wget http://zdfmediathk.sourceforge.net/update.php?pwd=xxxxxxx&zeit=$ZEIT&datum=$DATUM&server=http://176.28.14.91/mediathek1/$2"
-                    String urlMelden = url
-                            + "?pwd=" + MS_Daten.system[MS_Konstanten.SYSTEM_UPDATE_MELDEN_PWD_NR]
-                            + "&zeit=" + zeit
-                            + "&datum=" + datum
-                            + (prio.trim().equals("") ? "" : "&prio=" + prio)
-                            + "&server=" + urlFilmliste;
-                    int timeout = 10000;
-                    URLConnection conn = null;
-                    conn = new URL(urlMelden).openConnection();
-                    conn.setRequestProperty("User-Agent", MS_Daten.getUserAgent());
-                    conn.setReadTimeout(timeout);
-                    conn.setConnectTimeout(timeout);
-                    InputStreamReader inReader = new InputStreamReader(conn.getInputStream(), MS_Konstanten.KODIERUNG_UTF);
-                    inReader.read();
-                    inReader.close();
-                }
+                String zeit = sdf_zeit.format(new Date());
+                String datum = sdf_datum.format(new Date());
+                MS_Log.systemMeldung("URL: " + urlFilmliste);
+                MS_Log.systemMeldung("melden an Server: " + url);
+                MS_Log.systemMeldung("Datum: " + datum + "  Zeit: " + zeit);
+                // wget http://zdfmediathk.sourceforge.net/update.php?pwd=xxxxxxx&zeit=$ZEIT&datum=$DATUM&server=http://176.28.14.91/mediathek1/$2"
+                String urlMelden = url
+                        + "?pwd=" + MS_Daten.system[MS_Konstanten.SYSTEM_UPDATE_MELDEN_PWD_NR]
+                        + "&zeit=" + zeit
+                        + "&datum=" + datum
+                        + (prio.trim().equals("") ? "" : "&prio=" + prio)
+                        + "&server=" + urlFilmliste;
+                int timeout = 10000;
+                URLConnection conn = null;
+                conn = new URL(urlMelden).openConnection();
+                conn.setRequestProperty("User-Agent", MS_Daten.getUserAgent());
+                conn.setReadTimeout(timeout);
+                conn.setConnectTimeout(timeout);
+                InputStreamReader inReader = new InputStreamReader(conn.getInputStream(), MS_Konstanten.KODIERUNG_UTF);
+                inReader.read();
+                inReader.close();
+                MS_Log.systemMeldung("Ok");
             }
         } catch (Exception ex) {
             MS_Log.fehlerMeldung(301256907, MS_Upload.class.getName(), "melden", ex);

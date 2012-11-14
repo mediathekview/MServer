@@ -54,8 +54,12 @@ public class MediathekServer {
         }
         for (String s : ar) {
             if (s.equalsIgnoreCase("-update")) {
+                MS_Log.systemMeldung("");
+                MS_Log.systemMeldung("===========================");
+                MS_Log.systemMeldung("== Nach einem Update ======");
                 // tu was zu tun ist
-                MS_Log.systemMeldung("Nach einem Update");
+                //
+                MS_Log.systemMeldung("---------------------------");
             }
         }
         msDaten = new MS_Daten();
@@ -65,14 +69,13 @@ public class MediathekServer {
     }
 
     public void starten() {
-        // Infos schreiben
-        MS_Log.startMeldungen(this.getClass().getName());
-        // los gehts
         if (!MS_Daten.konfigExistiert()) {
             MS_Log.fehlerMeldung(858589654, MediathekServer.class.getName(), new String[]{"Konfig-Datei existiert nicht", MS_Daten.getKonfigDatei()});
             musterSchreiben(); // und Tschüss
         } else {
             MS_XmlLesen.xmlDatenLesen();
+            // Infos schreiben
+            MS_Log.startMeldungen(this.getClass().getName());
             updateSuchen(); // erst mal schauen was es neues gibt
             timer = new MS_Timer() {
                 @Override
@@ -112,16 +115,20 @@ public class MediathekServer {
             aktDatenSuchen.MeldungStart();
             // ----------------------
             // Filme suchen
+            MS_Log.systemMeldung("");
             MS_Log.systemMeldung("===========================");
             MS_Log.systemMeldung("== Filme suchen ===========");
             msFilmeSuchen.filmeSuchen(aktDatenSuchen);
             MS_Log.systemMeldung("---------------------------");
+            MS_Log.systemMeldung("");
             // ----------------------
             // Filme hochladen
+            MS_Log.systemMeldung("");
             MS_Log.systemMeldung("===========================");
             MS_Log.systemMeldung("== Upload =================");
             msUpload.upload(aktDatenSuchen);
             MS_Log.systemMeldung("---------------------------");
+            MS_Log.systemMeldung("");
             aktDatenSuchen = null;
             suchen = false;
             // ----------------------
@@ -131,14 +138,16 @@ public class MediathekServer {
     }
 
     private void updateSuchen() {
-        MS_Log.systemMeldung("===========================");
-        MS_Log.systemMeldung("== Update =================");
+        MS_Log.systemMeldung("");
+        MS_Log.systemMeldung("================================");
+        MS_Log.systemMeldung("== Programmupdate suchen =======");
         if (MS_Daten.system[MS_Konstanten.SYSTEM_UPDATE_SUCHEN_NR].equals(MS_Konstanten.STR_TRUE)) {
             if (MS_Update.updaten()) {
                 System.exit(MS_Konstanten.PROGRAMM_EXIT_CODE_UPDATE);
             }
         }
         MS_Log.systemMeldung("---------------------------");
+        MS_Log.systemMeldung("");
     }
 
     private void undTschuess() {

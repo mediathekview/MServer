@@ -42,6 +42,9 @@ public class MS_DatenSuchen {
     public void MeldungStart() {
         MS_Log.systemMeldung("Starten: " + this.arr[MS_Konstanten.SUCHEN_WANN_NR]);
         MS_Log.systemMeldung("Suchen:  " + this.arr[MS_Konstanten.SUCHEN_WAS_NR]);
+        if (!this.arr[MS_Konstanten.SUCHEN_SENDER_NR].equals("")) {
+            MS_Log.systemMeldung("Sender:  " + this.arr[MS_Konstanten.SUCHEN_SENDER_NR]);
+        }
     }
 
     public boolean jetzt() {
