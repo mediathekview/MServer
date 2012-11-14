@@ -180,7 +180,7 @@ public class MS_Log {
 
     private static void fehlermeldung_(int fehlerNummer, String klasse, String[] texte) {
         addFehlerNummer(fehlerNummer);
-        final String FEHLER = "Fehler: ";
+        final String FEHLER = "Fehler(" + MS_Konstanten.PROGRAMMNAME + "): ";
         final String z = "*";
         System.out.println(z + z + z + z + z + z + z + z + z + z + z + z + z + z + z + z + z + z + z + z + z + z + z + z + z + z + z + z);
         System.out.println(z + " Fehlernr: " + fehlerNummer);
@@ -196,7 +196,7 @@ public class MS_Log {
     }
 
     private static void systemmeldung(String[] texte) {
-        final String z = ". ";
+        final String z = "o ";
         if (texte.length <= 1) {
             System.out.println(z + " " + texte[0]);
         } else {

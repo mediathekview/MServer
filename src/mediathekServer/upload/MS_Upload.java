@@ -31,6 +31,7 @@ import java.util.Date;
 import java.util.Iterator;
 import mediathek.controller.filmeLaden.importieren.DatenUrlFilmliste;
 import mediathek.tool.GuiFunktionen;
+import mediathekServer.daten.MS_DatenSuchen;
 import mediathekServer.daten.MS_DatenUpload;
 import mediathekServer.tool.MS_Daten;
 import mediathekServer.tool.MS_Konstanten;
@@ -43,8 +44,9 @@ public class MS_Upload {
     private static SimpleDateFormat sdf_zeit = new SimpleDateFormat("HH:mm:ss");
     private static SimpleDateFormat sdf_datum = new SimpleDateFormat("dd.MM.yyyy");
 
-    public static boolean upload(String filmDateiPfad, String filmDateiName) {
-        boolean ret = false;
+    public void upload(MS_DatenSuchen aktDatenSuchen) {
+        String filmDateiName = aktDatenSuchen.getZielDateiName();
+        String filmDateiPfad = MS_Daten.getBasisVerzeichnis();
         Iterator<MS_DatenUpload> it = MS_Daten.listeUpload.iterator();
         while (it.hasNext()) {
             MS_DatenUpload datenUpload = it.next();
@@ -68,7 +70,6 @@ public class MS_Upload {
                 // ==============================================================
             }
         }
-        return ret;
     }
 
     private static boolean copy(String filmDateiPfad, String filmDateiName, MS_DatenUpload datenUpload) {

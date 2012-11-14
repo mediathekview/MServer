@@ -38,6 +38,7 @@ public class MediathekServer {
     private MS_DatenSuchen aktDatenSuchen = null;
     private boolean suchen = false;
     MS_FilmeSuchen msFilmeSuchen;
+    MS_Upload msUpload;
 
     public MediathekServer(String[] ar) {
         String pfad = "";
@@ -60,11 +61,12 @@ public class MediathekServer {
         msDaten = new MS_Daten();
         MS_Daten.setBasisVerzeichnis(pfad);
         msFilmeSuchen = new MS_FilmeSuchen();
-        // Infos schreiben
-        MS_Log.startMeldungen(this.getClass().getName());
+        msUpload = new MS_Upload();
     }
 
     public void starten() {
+        // Infos schreiben
+        MS_Log.startMeldungen(this.getClass().getName());
         // los gehts
         if (!MS_Daten.konfigExistiert()) {
             MS_Log.fehlerMeldung(858589654, MediathekServer.class.getName(), new String[]{"Konfig-Datei existiert nicht", MS_Daten.getKonfigDatei()});
@@ -108,44 +110,35 @@ public class MediathekServer {
         if (!suchen && aktDatenSuchen.starten()) {
             suchen = true;
             aktDatenSuchen.MeldungStart();
-
-            String filmDateiName = aktDatenSuchen.getZielDateiName();
-            String filmDateiPfad = MS_Daten.getBasisVerzeichnis();
+            // ----------------------
             // Filme suchen
-            filmeSuchen(filmDateiPfad, filmDateiName);
+            MS_Log.systemMeldung("===========================");
+            MS_Log.systemMeldung("== Filme suchen ===========");
+            msFilmeSuchen.filmeSuchen(aktDatenSuchen);
+            MS_Log.systemMeldung("---------------------------");
+            // ----------------------
             // Filme hochladen
-            upload(filmDateiPfad, filmDateiName);
+            MS_Log.systemMeldung("===========================");
+            MS_Log.systemMeldung("== Upload =================");
+            msUpload.upload(aktDatenSuchen);
+            MS_Log.systemMeldung("---------------------------");
             aktDatenSuchen = null;
             suchen = false;
+            // ----------------------
             // nach Programmupdate suchen
             updateSuchen();
         }
     }
 
-    private void filmeSuchen(String filmDateiPfad, String filmDateiName) {
-        MS_Log.systemMeldung("===========================");
-        MS_Log.systemMeldung("Filme suchen");
-        if (!msFilmeSuchen.filmeSuchen(aktDatenSuchen.allesLaden(), filmDateiPfad + filmDateiName, MS_Daten.getUserAgent())) {
-            // war wohl nix
-            MS_Log.fehlerMeldung(812370895, MediathekServer.class.getName(), "FilmeSuchen mit Fehler beendet");
-        }
-        //MS_Test.schreiben(filmDateiPfad + filmDateiName); /////////////
-    }
-
-    private void upload(String filmDateiPfad, String filmDateiName) {
-        MS_Log.systemMeldung("===========================");
-        MS_Log.systemMeldung("Upload");
-        MS_Upload.upload(filmDateiPfad, filmDateiName);
-    }
-
     private void updateSuchen() {
         MS_Log.systemMeldung("===========================");
-        MS_Log.systemMeldung("Update");
+        MS_Log.systemMeldung("== Update =================");
         if (MS_Daten.system[MS_Konstanten.SYSTEM_UPDATE_SUCHEN_NR].equals(MS_Konstanten.STR_TRUE)) {
             if (MS_Update.updaten()) {
                 System.exit(MS_Konstanten.PROGRAMM_EXIT_CODE_UPDATE);
             }
         }
+        MS_Log.systemMeldung("---------------------------");
     }
 
     private void undTschuess() {

@@ -19,22 +19,52 @@
  */
 package mediathekServer.search;
 
+import java.util.ArrayList;
 import mediathek.MediathekNoGui;
+import mediathek.tool.GuiFunktionen;
+import mediathekServer.daten.MS_DatenSuchen;
 import mediathekServer.tool.MS_Daten;
 import mediathekServer.tool.MS_Konstanten;
 import mediathekServer.tool.MS_Log;
 
 public class MS_FilmeSuchen {
 
-    public boolean filmeSuchen(boolean allesLaden, String output, String userAgent) {
-        boolean ret = false;
+    public void filmeSuchen(MS_DatenSuchen aktDatenSuchen) {
+        String filmDateiName = aktDatenSuchen.getZielDateiName();
+        String filmDateiPfad = MS_Daten.getBasisVerzeichnis();
+        String sender[] = arrLesen(aktDatenSuchen.arr[MS_Konstanten.SUCHEN_SENDER_NR].trim());
         try {
             String importUrl = MS_Daten.system[MS_Konstanten.SYSTEM_IMPORT_URL_NR].toString();
-            new MediathekNoGui(MS_Daten.getBasisVerzeichnis(), allesLaden, output, importUrl, userAgent).serverStarten("BR");
-            ret = true;
+            new MediathekNoGui(MS_Daten.getBasisVerzeichnis(), aktDatenSuchen.allesLaden(), GuiFunktionen.addsPfad(filmDateiPfad, filmDateiName),
+                    importUrl, MS_Daten.getUserAgent()).serverStarten(sender);
+            return;
         } catch (Exception ex) {
             MS_Log.fehlerMeldung(636987308, MS_FilmeSuchen.class.getName(), "filmeSuchen", ex);
         }
-        return ret;
+        // war wohl nix
+        MS_Log.fehlerMeldung(830469743, MS_FilmeSuchen.class.getName(), "filmeSuchen");
+    }
+
+    private String[] arrLesen(String s) {
+        ArrayList<String> arr = new ArrayList<String>();
+        String tmp = "";
+        s = s.trim();
+        if (s.equals("")) {
+            return null;
+        }
+        for (int i = 0; i < s.length(); ++i) {
+            if (s.charAt(i) == ',') {
+                if (!tmp.equals("")) {
+                    arr.add(tmp);
+                }
+                tmp = "";
+            } else {
+                tmp += s.charAt(i);
+            }
+        }
+        if (!tmp.equals("")) {
+            arr.add(tmp);
+        }
+        return arr.toArray(new String[]{});
     }
 }

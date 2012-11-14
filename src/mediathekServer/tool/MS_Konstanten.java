@@ -71,10 +71,12 @@ public class MS_Konstanten {
     public static final int SUCHEN_WAS_NR = 0;
     public static final String SUCHEN_WANN = "suchen-wann";
     public static final int SUCHEN_WANN_NR = 1;
+    public static final String SUCHEN_SENDER = "suchen-sender";
+    public static final int SUCHEN_SENDER_NR = 2;
     // Array
     public static final String SUCHEN = "suchen";
-    public static final int SUCHEN_MAX_ELEM = 2;
-    public static final String[] SUCHEN_COLUMN_NAMES = {SUCHEN_WAS, SUCHEN_WANN};
+    public static final int SUCHEN_MAX_ELEM = 3;
+    public static final String[] SUCHEN_COLUMN_NAMES = {SUCHEN_WAS, SUCHEN_WANN, SUCHEN_SENDER};
     //
     //
     // Konstanten Upload
