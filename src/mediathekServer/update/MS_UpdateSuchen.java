@@ -79,7 +79,7 @@ public class MS_UpdateSuchen {
 
     private static String[] suchen() throws MalformedURLException, IOException, XMLStreamException {
         // <title><![CDATA[/Entwicklerversion/MediathekView_3.0.0_2012.10.26.zip]]></title>
-        final String PROGRAMM_UPDATE_TAG_CDATA_TITEL = "MediathekServer";
+        final String PROGRAMM_UPDATE_TAG_CDATA_TITEL = "MediathekServer_";
         final String PROGRAMM_UPDATE_TAG_TITEL = "title";
         // <link>http://176.28.14.91/mediathek1/MediathekServer_2012.11.10.zip</link>
         final String PROGRAMM_UPDATE_TAG_URL = "link";

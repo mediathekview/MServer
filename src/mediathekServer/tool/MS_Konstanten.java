@@ -31,10 +31,9 @@ public class MS_Konstanten {
     public static final String XML_DATEI = "mediathekServer.xml";
     public static final String FILM_DATEI = "filme.bz2";
     public static final String XML_LOG_FILE = "msLog";
-    ///public static final String PROGRAMM_UPDATE_URL_RSS = "http://sourceforge.net/api/file/index/project-id/222825/mtime/desc/limit/100/rss";
-    ///public static final String PROGRAMM_UPDATE_URL_RSS = "http://192.168.25.134/update/rss";
-    public static final String PROGRAMM_UPDATE_URL_RSS = "http://176.28.14.91/mediathek1/rss";
-// 
+    public static final String PROGRAMM_UPDATE_URL_RSS = "http://sourceforge.net/api/file/index/project-id/222825/mtime/desc/limit/100/rss";
+    //public static final String PROGRAMM_UPDATE_URL_RSS = "http://192.168.25.134/update/rss";
+    //public static final String PROGRAMM_UPDATE_URL_RSS = "http://176.28.14.91/mediathek1/rss";
     public static final String XML_START = "MediathekServer";
     public static final String STR_TRUE = "1";
     public static final String STR_FALSE = "0";
