@@ -27,7 +27,7 @@ import javax.xml.stream.XMLOutputFactory;
 import javax.xml.stream.XMLStreamWriter;
 import mediathek.controller.filmeLaden.importieren.DatenUrlFilmliste;
 import mediathek.controller.filmeLaden.importieren.FilmlistenServer;
-import mediathek.controller.filmeLaden.importieren.ListeUrlFilmlisten;
+import mediathek.controller.filmeLaden.importieren.ListeDownloadUrlsFilmlisten;
 import mediathek.tool.Konstanten;
 import mediathek.tool.Log;
 import mediathekServer.tool.MS_Daten;
@@ -39,12 +39,12 @@ public class MS_ListeFilmlisten {
     private static XMLOutputFactory outFactory;
     private static XMLStreamWriter writer;
     private static OutputStreamWriter out = null;
-    private static ListeUrlFilmlisten listeFilmUpdateServer = new ListeUrlFilmlisten();
+    private static ListeDownloadUrlsFilmlisten listeFilmUpdateServer = new ListeDownloadUrlsFilmlisten();
 
     public static File filmlisteEintragen(String urlDatei, DatenUrlFilmliste input) {
         // erst mal die Liste holen
         try {
-            FilmlistenServer.getFilmlisten(urlDatei, listeFilmUpdateServer, MS_Daten.getUserAgent());
+            FilmlistenServer.getDownloadUrlsFilmlisten(urlDatei, listeFilmUpdateServer, MS_Daten.getUserAgent());
         } catch (Exception ex) {
             Log.fehlerMeldung(347895642, "FilmUpdateServer.suchen: " + urlDatei, ex);
         }

@@ -92,7 +92,7 @@ public class MediathekServer {
 
     public void musterSchreiben() {
         // Demo schreiben
-        MS_XmlSchreiben.xmlMusterDatenSchreiben();
+        // MS_XmlSchreiben.xmlMusterDatenSchreiben();
         // und Tschüss
         System.exit(0);
     }
