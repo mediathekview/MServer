@@ -20,6 +20,8 @@
 package mediathekServer.tool;
 
 import java.io.File;
+import java.io.FileOutputStream;
+import java.io.OutputStreamWriter;
 import mediathek.tool.Funktionen;
 import mediathek.tool.Konstanten;
 import mediathekServer.daten.MS_ListeSuchen;
@@ -96,26 +98,44 @@ public class MS_Daten {
     }
 
     public static String getLogDatei() {
+        // beim Programmstart wird das Logfile ermittelt
+        // und geleert!
+        String log = "";
         try {
             if (system[MS_Konstanten.SYSTEM_LOGDATEI_NR] == null) {
-                return MS_Daten.getBasisVerzeichnis() + MS_Konstanten.XML_LOG_FILE;
-            }
-            if (system[MS_Konstanten.SYSTEM_LOGDATEI_NR].trim().equals("")) {
-                return MS_Daten.getBasisVerzeichnis() + MS_Konstanten.XML_LOG_FILE;
+                log = MS_Daten.getBasisVerzeichnis() + MS_Konstanten.XML_LOG_FILE;
+            } else if (system[MS_Konstanten.SYSTEM_LOGDATEI_NR].trim().equals("")) {
+                log = MS_Daten.getBasisVerzeichnis() + MS_Konstanten.XML_LOG_FILE;
             }
             // Logfile wurde angegeben, prüfen obs geht
-            File logfile = new File(system[MS_Konstanten.SYSTEM_LOGDATEI_NR]);
+            File logfile = new File(log);
+            File logDir = logfile.getParentFile();
             if (logfile.exists()) {
-                return system[MS_Konstanten.SYSTEM_LOGDATEI_NR];
-            }
-            if (logfile.createNewFile()) {
-                return system[MS_Konstanten.SYSTEM_LOGDATEI_NR];
+                // Logfile löschen
+                OutputStreamWriter writer = null;
+                try {
+                    writer = new OutputStreamWriter(new FileOutputStream(logfile, false));
+                    writer.write("\n"); // nur leere Zeile schrieben
+                    writer.close();
+                } catch (Exception ex) {
+                    System.out.println("Fehler beim Logfile schreiben: " + ex.getMessage());
+                } finally {
+                    try {
+                        writer.close();
+                    } catch (Exception ex) {
+                    }
+                }
             } else {
-                return MS_Daten.getBasisVerzeichnis() + MS_Konstanten.XML_LOG_FILE;
+                boolean b = logDir.mkdirs();
+                if (!logfile.createNewFile()) {
+                    log = "";
+                }
             }
+            system[MS_Konstanten.SYSTEM_LOGDATEI_NR] = log;
+            return log;
         } catch (Exception ex) {
             System.out.println("Logfile anlegen: " + ex.getMessage()); // hier muss direkt geschrieben werden
-            return MS_Daten.getBasisVerzeichnis() + MS_Konstanten.XML_LOG_FILE;
+            return "";
         }
     }
 }

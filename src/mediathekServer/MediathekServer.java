@@ -27,7 +27,6 @@ import mediathekServer.tool.MS_Daten;
 import mediathekServer.tool.MS_Konstanten;
 import mediathekServer.tool.MS_Log;
 import mediathekServer.tool.MS_XmlLesen;
-import mediathekServer.tool.MS_XmlSchreiben;
 import mediathekServer.update.MS_Update;
 import mediathekServer.upload.MS_Upload;
 
@@ -112,7 +111,7 @@ public class MediathekServer {
         }
         if (!suchen && aktDatenSuchen.starten()) {
             suchen = true;
-            aktDatenSuchen.MeldungStart();
+            aktDatenSuchen.meldungStart();
             // ----------------------
             // Filme suchen
             MS_Log.systemMeldung("");

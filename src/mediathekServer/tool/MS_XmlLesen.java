@@ -93,7 +93,7 @@ public class MS_XmlLesen {
                 if (event == XMLStreamConstants.START_ELEMENT) {
                     for (int i = 0; i < maxElem; ++i) {
                         if (parser.getLocalName().equals(xmlNames[i])) {
-                            strRet[i] = parser.getElementText();
+                            strRet[i] = parser.getElementText().trim();
                             break;
                         }
                     }

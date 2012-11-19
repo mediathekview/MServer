@@ -39,7 +39,7 @@ public class MS_DatenSuchen {
         MS_Log.systemMeldung("naechster Start: " + this.arr[MS_Konstanten.SUCHEN_WANN_NR]);
     }
 
-    public void MeldungStart() {
+    public void meldungStart() {
         MS_Log.systemMeldung("Starten: " + this.arr[MS_Konstanten.SUCHEN_WANN_NR]);
         MS_Log.systemMeldung("Suchen:  " + this.arr[MS_Konstanten.SUCHEN_WAS_NR]);
         if (!this.arr[MS_Konstanten.SUCHEN_SENDER_NR].equals("")) {
