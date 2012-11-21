@@ -1,0 +1,14 @@
+
+Das Programm dient dazu, "MediathekView" zu steuern, zu festen Zeiten 
+Starten und die Filmliste Laden und die fertige Filmliste dann auf 
+Downloadserver kopieren.
+
+Das Programm automatisiert die Benutzung von "MediathekView" zum 
+Erstellen und Anbieten der Filmliste und es kann es sich selbst aktuell halten.
+
+Ist eine Konfigurationsdatei vorhanden, werden die darin festgelegten Aufgaben abgearbeitet.
+Dann beendet sich das Programm wieder.
+
+Mit dem Programm ist nicht mehr möglich, als mit "MediathekView" direkt auch möglich wäre.
+
+ 
