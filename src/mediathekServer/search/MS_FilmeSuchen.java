@@ -19,7 +19,10 @@
  */
 package mediathekServer.search;
 
+import java.io.File;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import mediathek.MediathekNoGui;
 import mediathek.tool.GuiFunktionen;
 import mediathekServer.daten.MS_DatenSuchen;
@@ -36,7 +39,7 @@ public class MS_FilmeSuchen {
         try {
             String importUrl = MS_Daten.system[MS_Konstanten.SYSTEM_IMPORT_URL_NR].toString();
             new MediathekNoGui(MS_Daten.getBasisVerzeichnis(), aktDatenSuchen.allesLaden(), GuiFunktionen.addsPfad(filmDateiPfad, filmDateiName),
-                    importUrl, MS_Daten.getUserAgent()).serverStarten(sender);
+                    importUrl, MS_Daten.getUserAgent(), getLogDatei()).serverStarten(sender);
             MS_Log.systemMeldung("Filme suchen Ok");
             return;
         } catch (Exception ex) {
@@ -44,6 +47,27 @@ public class MS_FilmeSuchen {
         }
         // war wohl nix
         MS_Log.fehlerMeldung(830469743, MS_FilmeSuchen.class.getName(), "filmeSuchen");
+    }
+
+    private File getLogDatei() {
+        File logfile = null;
+        String logPfad, logFileName;
+        try {
+            logPfad = MS_Daten.getLogVerzeichnis();
+            // prüfen obs geht
+            logFileName = GuiFunktionen.addsPfad(logPfad, MS_Konstanten.LOG_FILE_NAME_MV + new SimpleDateFormat("yyyy.MM.dd--HH:mm:ss:S").format(new Date()));
+            logfile = new File(logFileName);
+            if (!logfile.exists()) {
+                boolean b = new File(logPfad).mkdirs();
+                if (!logfile.createNewFile()) {
+                    logfile = null;
+                }
+            }
+            return logfile;
+        } catch (Exception ex) {
+            System.out.println("Logfile MV anlegen: " + ex.getMessage()); // hier muss direkt geschrieben werden
+            return null;
+        }
     }
 
     private String[] arrLesen(String s) {

@@ -70,7 +70,15 @@ public class MS_Daten {
     }
 
     public static String getLogVerzeichnis() {
-        return GuiFunktionen.addsPfad(getBasisVerzeichnis(basisverzeichnis, false), MS_Konstanten.LOG_FILE_PFAD);
+        String logPfad;
+        if (system[MS_Konstanten.SYSTEM_PFAD_LOGDATEI_NR] == null) {
+            logPfad = GuiFunktionen.addsPfad(getBasisVerzeichnis(basisverzeichnis, false), MS_Konstanten.LOG_FILE_PFAD);
+        } else if (MS_Daten.system[MS_Konstanten.SYSTEM_PFAD_LOGDATEI_NR].trim().equals("")) {
+            logPfad = GuiFunktionen.addsPfad(getBasisVerzeichnis(basisverzeichnis, false), MS_Konstanten.LOG_FILE_PFAD);
+        } else {
+            logPfad = MS_Daten.system[MS_Konstanten.SYSTEM_PFAD_LOGDATEI_NR].trim();
+        }
+        return logPfad;
     }
 
     private static String getBasisVerzeichnis(String basis, boolean anlegen) {
@@ -109,15 +117,9 @@ public class MS_Daten {
         // und geleert!
         String logPfad, logFileName;
         try {
-            if (system[MS_Konstanten.SYSTEM_PFAD_LOGDATEI_NR] == null) {
-                logPfad = getLogVerzeichnis();
-            } else if (system[MS_Konstanten.SYSTEM_PFAD_LOGDATEI_NR].trim().equals("")) {
-                logPfad = getLogVerzeichnis();
-            } else {
-                logPfad = system[MS_Konstanten.SYSTEM_PFAD_LOGDATEI_NR].trim();
-            }
+            logPfad = getLogVerzeichnis();
             // prüfen obs geht
-            logFileName = GuiFunktionen.addsPfad(logPfad, MS_Konstanten.LOG_FILE_NAME + new SimpleDateFormat("yyyy.MM.dd--HH:mm:ss").format(new Date()));
+            logFileName = GuiFunktionen.addsPfad(logPfad, MS_Konstanten.LOG_FILE_NAME + new SimpleDateFormat("yyyy.MM.dd--HH:mm:ss:S").format(new Date()));
             File logfile = new File(logFileName);
             if (!logfile.exists()) {
                 boolean b = new File(logPfad).mkdirs();
@@ -125,7 +127,6 @@ public class MS_Daten {
                     logFileName = "";
                 }
             }
-            system[MS_Konstanten.SYSTEM_PFAD_LOGDATEI_NR] = logPfad;
             return logFileName;
         } catch (Exception ex) {
             System.out.println("Logfile anlegen: " + ex.getMessage()); // hier muss direkt geschrieben werden

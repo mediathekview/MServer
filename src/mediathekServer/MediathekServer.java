@@ -38,6 +38,7 @@ public class MediathekServer {
     private boolean suchen = false;
     MS_FilmeSuchen msFilmeSuchen;
     MS_Upload msUpload;
+    boolean nachUpdate = false;
 
     public MediathekServer(String[] ar) {
         String pfad = "";
@@ -53,18 +54,22 @@ public class MediathekServer {
         }
         for (String s : ar) {
             if (s.equalsIgnoreCase("-update")) {
-                MS_Log.systemMeldung("");
-                MS_Log.systemMeldung("===========================");
-                MS_Log.systemMeldung("== Nach einem Update ======");
-                // tu was zu tun ist
-                //
-                MS_Log.systemMeldung("---------------------------");
+                nachUpdate = true;
             }
         }
         msDaten = new MS_Daten();
         MS_Daten.setBasisVerzeichnis(pfad);
         msFilmeSuchen = new MS_FilmeSuchen();
         msUpload = new MS_Upload();
+        if (nachUpdate) {
+            MS_Log.systemMeldung("");
+            MS_Log.systemMeldung("===========================");
+            MS_Log.systemMeldung("== Nach einem Update ======");
+            // tu was zu tun ist
+            //
+            MS_Log.systemMeldung("---------------------------");
+
+        }
     }
 
     public void starten() {

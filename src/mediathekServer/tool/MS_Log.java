@@ -63,6 +63,7 @@ public class MS_Log {
         systemMeldung("###########################################################");
         //Version
         systemMeldung(Funktionen.getProgVersionString());
+        systemMeldung("Compiled: " + Funktionen.getCompileDate());
         systemMeldung("Klassenname: " + classname);
         systemMeldung("###########################################################");
     }
