@@ -24,9 +24,11 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import mediathek.MediathekNoGui;
+import mediathek.tool.DatumZeit;
 import mediathek.tool.GuiFunktionen;
 import mediathekServer.daten.MS_DatenSuchen;
 import mediathekServer.tool.MS_Daten;
+import mediathekServer.tool.MS_DatumZeit;
 import mediathekServer.tool.MS_Konstanten;
 import mediathekServer.tool.MS_Log;
 
@@ -55,7 +57,7 @@ public class MS_FilmeSuchen {
         try {
             logPfad = MS_Daten.getLogVerzeichnis();
             // prüfen obs geht
-            logFileName = GuiFunktionen.addsPfad(logPfad, MS_Konstanten.LOG_FILE_NAME_MV + new SimpleDateFormat("yyyy.MM.dd--HH:mm:ss:S").format(new Date()));
+            logFileName = GuiFunktionen.addsPfad(logPfad, MS_DatumZeit.getJetztLogDatei() + MS_Konstanten.LOG_FILE_NAME_MV);
             logfile = new File(logFileName);
             if (!logfile.exists()) {
                 boolean b = new File(logPfad).mkdirs();

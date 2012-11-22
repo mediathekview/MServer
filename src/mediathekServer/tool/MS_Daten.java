@@ -119,7 +119,7 @@ public class MS_Daten {
         try {
             logPfad = getLogVerzeichnis();
             // prüfen obs geht
-            logFileName = GuiFunktionen.addsPfad(logPfad, MS_Konstanten.LOG_FILE_NAME + new SimpleDateFormat("yyyy.MM.dd--HH:mm:ss:S").format(new Date()));
+            logFileName = GuiFunktionen.addsPfad(logPfad, MS_DatumZeit.getJetztLogDatei() + MS_Konstanten.LOG_FILE_NAME);
             File logfile = new File(logFileName);
             if (!logfile.exists()) {
                 boolean b = new File(logPfad).mkdirs();

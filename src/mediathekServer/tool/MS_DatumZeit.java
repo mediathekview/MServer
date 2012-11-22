@@ -26,7 +26,6 @@ public class MS_DatumZeit {
 
     private static SimpleDateFormat sdf_stunde_minute = new SimpleDateFormat("HH:mm");
     private static SimpleDateFormat sdf_datum_zeit = new SimpleDateFormat("dd.MM.yyyy  HH:mm:ss");
-    private static SimpleDateFormat sdf_zeit = new SimpleDateFormat("HH:mm:ss");
     private static SimpleDateFormat sdf_datum = new SimpleDateFormat("dd.MM.yyyy");
 
     public static String getJetzt() {
@@ -35,6 +34,10 @@ public class MS_DatumZeit {
         today = new Date();
         output = sdf_datum_zeit.format(today);
         return output;
+    }
+
+    public static String getJetztLogDatei() {
+        return new SimpleDateFormat("yyyy.MM.dd__HH:mm:ss__").format(new Date());
     }
 
     public static String getJetzt_hh_mm() {
