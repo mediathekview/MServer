@@ -20,11 +20,8 @@
 package mediathekServer.search;
 
 import java.io.File;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import mediathek.MediathekNoGui;
-import mediathek.tool.DatumZeit;
 import mediathek.tool.GuiFunktionen;
 import mediathekServer.daten.MS_DatenSuchen;
 import mediathekServer.tool.MS_Daten;
@@ -52,7 +49,7 @@ public class MS_FilmeSuchen {
     }
 
     private File getLogDatei() {
-        File logfile = null;
+        File logfile;
         String logPfad, logFileName;
         try {
             logPfad = MS_Daten.getLogVerzeichnis();

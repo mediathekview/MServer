@@ -21,8 +21,6 @@ package mediathekServer.daten;
 
 import java.util.Date;
 import java.util.LinkedList;
-import mediathekServer.tool.MS_DatumZeit;
-import mediathekServer.tool.MS_Konstanten;
 
 public class MS_ListeSuchen extends LinkedList<MS_DatenSuchen> {
 
@@ -49,7 +47,6 @@ public class MS_ListeSuchen extends LinkedList<MS_DatenSuchen> {
         MS_DatenSuchen akt = null;
         while ((akt = this.poll()) != null) {
             if (akt.jetzt()) {
-////                akt.arr[MS_Konstanten.SUCHEN_WANN_NR] = MS_DatumZeit.getJetzt_hh_mm();
                 return akt;
             }
             Date d = akt.getTimeHeute();
