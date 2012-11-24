@@ -46,7 +46,7 @@ public class MS_Upload {
 
     public void upload(MS_DatenSuchen aktDatenSuchen) {
         String filmDateiName = aktDatenSuchen.getZielDateiName();
-        String filmDateiPfad = MS_Daten.getBasisVerzeichnis();
+        String filmDateiPfad = MS_Daten.getVerzeichnisFilme();
         Iterator<MS_DatenUpload> it = MS_Daten.listeUpload.iterator();
         while (it.hasNext()) {
             MS_DatenUpload datenUpload = it.next();

@@ -19,13 +19,11 @@
  */
 package mediathekServer.search;
 
-import java.io.File;
 import java.util.ArrayList;
 import mediathek.MediathekNoGui;
 import mediathek.tool.GuiFunktionen;
 import mediathekServer.daten.MS_DatenSuchen;
 import mediathekServer.tool.MS_Daten;
-import mediathekServer.tool.MS_DatumZeit;
 import mediathekServer.tool.MS_Konstanten;
 import mediathekServer.tool.MS_Log;
 
@@ -33,12 +31,12 @@ public class MS_FilmeSuchen {
 
     public void filmeSuchen(MS_DatenSuchen aktDatenSuchen) {
         String filmDateiName = aktDatenSuchen.getZielDateiName();
-        String filmDateiPfad = MS_Daten.getBasisVerzeichnis();
+        String filmDateiPfad = MS_Daten.getVerzeichnisFilme();
         String sender[] = arrLesen(aktDatenSuchen.arr[MS_Konstanten.SUCHEN_SENDER_NR].trim());
         try {
             String importUrl = MS_Daten.system[MS_Konstanten.SYSTEM_IMPORT_URL_NR].toString();
             new MediathekNoGui(MS_Daten.getBasisVerzeichnis(), aktDatenSuchen.allesLaden(), GuiFunktionen.addsPfad(filmDateiPfad, filmDateiName),
-                    importUrl, MS_Daten.getUserAgent(), getLogDatei()).serverStarten(sender);
+                    importUrl, MS_Daten.getUserAgent(), MS_Daten.getLogDatei_mediathekView()).serverStarten(sender);
             MS_Log.systemMeldung("Filme suchen Ok");
             return;
         } catch (Exception ex) {
@@ -46,27 +44,6 @@ public class MS_FilmeSuchen {
         }
         // war wohl nix
         MS_Log.fehlerMeldung(830469743, MS_FilmeSuchen.class.getName(), "filmeSuchen");
-    }
-
-    private File getLogDatei() {
-        File logfile;
-        String logPfad, logFileName;
-        try {
-            logPfad = MS_Daten.getLogVerzeichnis();
-            // prüfen obs geht
-            logFileName = GuiFunktionen.addsPfad(logPfad, MS_DatumZeit.getJetztLogDatei() + MS_Konstanten.LOG_FILE_NAME_MV);
-            logfile = new File(logFileName);
-            if (!logfile.exists()) {
-                boolean b = new File(logPfad).mkdirs();
-                if (!logfile.createNewFile()) {
-                    logfile = null;
-                }
-            }
-            return logfile;
-        } catch (Exception ex) {
-            System.out.println("Logfile MV anlegen: " + ex.getMessage()); // hier muss direkt geschrieben werden
-            return null;
-        }
     }
 
     private String[] arrLesen(String s) {

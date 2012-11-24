@@ -29,7 +29,6 @@ public class MS_Konstanten {
     // Dateien/Verzeichnisse
     public static final String VERZEICHNISS_EINSTELLUNGEN = ".mediathekServer";
     public static final String XML_DATEI = "mediathekServer.xml";
-    public static final String FILM_DATEI = "filme.bz2";
     public static final String LOG_FILE_NAME = "msLog";
     public static final String LOG_FILE_NAME_MV = "mvLog";
     public static final String LOG_FILE_PFAD = "log";

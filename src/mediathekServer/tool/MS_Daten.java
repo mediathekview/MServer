@@ -65,18 +65,6 @@ public class MS_Daten {
         return getBasisVerzeichnis(basisverzeichnis, false);
     }
 
-    public static String getLogVerzeichnis() {
-        String logPfad;
-        if (system[MS_Konstanten.SYSTEM_PFAD_LOGDATEI_NR] == null) {
-            logPfad = GuiFunktionen.addsPfad(getBasisVerzeichnis(basisverzeichnis, false), MS_Konstanten.LOG_FILE_PFAD);
-        } else if (MS_Daten.system[MS_Konstanten.SYSTEM_PFAD_LOGDATEI_NR].trim().equals("")) {
-            logPfad = GuiFunktionen.addsPfad(getBasisVerzeichnis(basisverzeichnis, false), MS_Konstanten.LOG_FILE_PFAD);
-        } else {
-            logPfad = MS_Daten.system[MS_Konstanten.SYSTEM_PFAD_LOGDATEI_NR].trim();
-        }
-        return logPfad;
-    }
-
     private static String getBasisVerzeichnis(String basis, boolean anlegen) {
         String ret;
         if (basis.equals("")) {
@@ -88,7 +76,7 @@ public class MS_Daten {
             File basisF = new File(ret);
             if (!basisF.exists()) {
                 if (!basisF.mkdir()) {
-                    MS_Log.fehlerMeldung(1023974998, MS_Daten.class.getName(), "Kann den Ordner zum Speichern der Daten nicht anlegen!");
+                    MS_Log.fehlerMeldung(1023974998, MS_Daten.class.getName(), new String[]{"Kann den Ordner zum Speichern der Daten nicht anlegen!", ret});
                 }
             }
         }
@@ -108,6 +96,37 @@ public class MS_Daten {
         }
     }
 
+    public static String getVerzeichnisFilme() {
+        String ret = GuiFunktionen.addsPfad(getBasisVerzeichnis(basisverzeichnis, false), "filmelisten");
+        File basisF = new File(ret);
+        if (!basisF.exists()) {
+            if (!basisF.mkdir()) {
+                MS_Log.fehlerMeldung(739851049, MS_Daten.class.getName(), new String[]{"Kann den Ordner zum Speichern der Filmliste nicht anlegen!", ret});
+            }
+        }
+        return ret;
+
+
+    }
+
+    public static String getLogVerzeichnis() {
+        String ret;
+        if (system[MS_Konstanten.SYSTEM_PFAD_LOGDATEI_NR] == null) {
+            ret = GuiFunktionen.addsPfad(getBasisVerzeichnis(basisverzeichnis, false), MS_Konstanten.LOG_FILE_PFAD);
+        } else if (MS_Daten.system[MS_Konstanten.SYSTEM_PFAD_LOGDATEI_NR].trim().equals("")) {
+            ret = GuiFunktionen.addsPfad(getBasisVerzeichnis(basisverzeichnis, false), MS_Konstanten.LOG_FILE_PFAD);
+        } else {
+            ret = MS_Daten.system[MS_Konstanten.SYSTEM_PFAD_LOGDATEI_NR].trim();
+        }
+        File basisF = new File(ret);
+        if (!basisF.exists()) {
+            if (!basisF.mkdir()) {
+                MS_Log.fehlerMeldung(739851049, MS_Daten.class.getName(), new String[]{"Kann den Ordner zum Speichern der Logfiles nicht anlegen!", ret});
+            }
+        }
+        return ret;
+    }
+
     public static String getLogDatei() {
         // beim Programmstart wird das Logfile ermittelt
         // und geleert!
@@ -115,7 +134,7 @@ public class MS_Daten {
         try {
             logPfad = getLogVerzeichnis();
             // prüfen obs geht
-            logFileName = GuiFunktionen.addsPfad(logPfad, MS_DatumZeit.getJetztLogDatei() + MS_Konstanten.LOG_FILE_NAME);
+            logFileName = GuiFunktionen.addsPfad(logPfad, MS_Konstanten.LOG_FILE_NAME + MS_DatumZeit.getJetztLogDatei());
             File logfile = new File(logFileName);
             if (!logfile.exists()) {
                 boolean b = new File(logPfad).mkdirs();
@@ -127,6 +146,27 @@ public class MS_Daten {
         } catch (Exception ex) {
             System.out.println("Logfile anlegen: " + ex.getMessage()); // hier muss direkt geschrieben werden
             return "";
+        }
+    }
+
+    public static File getLogDatei_mediathekView() {
+        File logfile;
+        String logPfad, logFileName;
+        try {
+            logPfad = MS_Daten.getLogVerzeichnis();
+            // prüfen obs geht
+            logFileName = GuiFunktionen.addsPfad(logPfad, MS_Konstanten.LOG_FILE_NAME_MV + MS_DatumZeit.getJetztLogDatei());
+            logfile = new File(logFileName);
+            if (!logfile.exists()) {
+                boolean b = new File(logPfad).mkdirs();
+                if (!logfile.createNewFile()) {
+                    logfile = null;
+                }
+            }
+            return logfile;
+        } catch (Exception ex) {
+            System.out.println("Logfile MV anlegen: " + ex.getMessage()); // hier muss direkt geschrieben werden
+            return null;
         }
     }
 }

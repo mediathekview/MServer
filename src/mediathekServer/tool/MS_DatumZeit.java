@@ -37,7 +37,7 @@ public class MS_DatumZeit {
     }
 
     public static String getJetztLogDatei() {
-        return new SimpleDateFormat("yyyy.MM.dd__HH:mm:ss__").format(new Date());
+        return new SimpleDateFormat("__yyyy.MM.dd__HH:mm:ss").format(new Date());
     }
 
     public static String getJetzt_hh_mm() {

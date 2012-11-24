@@ -62,10 +62,12 @@ public class MS_DatenSuchen {
     }
 
     public String getZielDateiName() {
+        final String FILM_DATEI_SUFF = "bz2";
+        final String FILMDATEI_NAME = "Filmliste";
         if (jetzt()) {
-            return "Filmliste" + MS_Konstanten.FILM_DATEI.substring(MS_Konstanten.FILM_DATEI.indexOf("."));
+            return FILMDATEI_NAME + "." + FILM_DATEI_SUFF;
         } else {
-            return "Filmliste_" + arr[MS_Konstanten.SUCHEN_WANN_NR].replace(":", "_") + MS_Konstanten.FILM_DATEI.substring(MS_Konstanten.FILM_DATEI.indexOf("."));
+            return FILMDATEI_NAME + "_" + arr[MS_Konstanten.SUCHEN_WANN_NR].replace(":", "_") + "." + FILM_DATEI_SUFF;
         }
     }
 
