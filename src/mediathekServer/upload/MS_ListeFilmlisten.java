@@ -25,12 +25,14 @@ import java.io.OutputStreamWriter;
 import java.util.Iterator;
 import javax.xml.stream.XMLOutputFactory;
 import javax.xml.stream.XMLStreamWriter;
+import mediathek.controller.filmeLaden.importieren.DatenFilmlistenServer;
 import mediathek.controller.filmeLaden.importieren.DatenUrlFilmliste;
 import mediathek.controller.filmeLaden.importieren.FilmlistenServer;
 import mediathek.controller.filmeLaden.importieren.ListeDownloadUrlsFilmlisten;
 import mediathek.tool.Konstanten;
 import mediathek.tool.Log;
 import mediathekServer.tool.MS_Daten;
+import mediathekServer.tool.MS_Konstanten;
 import mediathekServer.tool.MS_Log;
 import mediathekServer.tool.MS_XmlSchreiben;
 
@@ -50,10 +52,15 @@ public class MS_ListeFilmlisten {
         }
         // Einträge mit der URL löschen und dann "input" eintragen
         // gibt immer nur einen Eintrag mit einer URL
+        // und zu alte Einträge löschen
         Iterator<DatenUrlFilmliste> it = listeFilmUpdateServer.iterator();
         while (it.hasNext()) {
             DatenUrlFilmliste d = it.next();
             if (d.arr[FilmlistenServer.FILM_UPDATE_SERVER_URL_NR].equals(input.arr[FilmlistenServer.FILM_UPDATE_SERVER_URL_NR])) {
+                it.remove();
+            } else if (d.aelterAls(MS_Konstanten.FILMLISTEN_MAX_ALTER)) {
+                MS_Log.systemMeldung("Filmliste ist zu alt: " + d.arr[DatenFilmlistenServer.FILM_LISTEN_SERVER_URL_NR]);
+                MS_Log.systemMeldung("Erstellt: " + d.arr[FilmlistenServer.FILM_UPDATE_SERVER_DATUM_NR] + ", " + d.arr[FilmlistenServer.FILM_UPDATE_SERVER_ZEIT_NR]);
                 it.remove();
             }
         }
@@ -61,14 +68,6 @@ public class MS_ListeFilmlisten {
         // Liste in Datei schreiben
         return ListeFilmlistenSchreiben();
     }
-//<Mediathek>
-//<Server>
-//<Download_Filme_1>http://176.28.14.91/mediathek1/Mediathek_10.bz2</Download_Filme_1>
-//<Datum>07.11.2012</Datum>
-//<Anzahl/>
-//<Zeit>10:45:06</Zeit>
-//</Server>    
-//<Mediathek>
     private static final String TAG_LISTE = "Mediathek";
     private static final String TAG_SERVER = "Server";
     private static final String TAG_SERVER_URL_PRIO_1 = "Download_Filme_1";
@@ -126,24 +125,5 @@ public class MS_ListeFilmlisten {
             MS_Log.fehlerMeldung(645421039, MS_XmlSchreiben.class.getName(), "xmlDatenSchreiben", ex);
         }
         return tmpFile;
-    }
-
-    private static void xmlSchreibenDaten(String xmlName, String[] xmlSpalten, String[] datenArray) {
-        int xmlMax = datenArray.length;
-        try {
-            writer.writeStartElement(xmlName);
-            writer.writeCharacters("\n");
-            for (int i = 0; i < xmlMax; ++i) {
-                writer.writeCharacters("\t");// Tab
-                writer.writeStartElement(xmlSpalten[i]);
-                writer.writeCharacters(datenArray[i]);
-                writer.writeEndElement();
-                writer.writeCharacters("\n");
-            }
-            writer.writeEndElement();
-            writer.writeCharacters("\n");
-        } catch (Exception ex) {
-            MS_Log.fehlerMeldung(102365897, MS_Log.class.getName(), "xmlSchreibenDaten", ex);
-        }
     }
 }

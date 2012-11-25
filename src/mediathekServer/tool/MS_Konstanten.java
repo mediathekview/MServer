@@ -39,6 +39,8 @@ public class MS_Konstanten {
     public static final String STR_TRUE = "1";
     public static final String STR_FALSE = "0";
     public static final String KODIERUNG_UTF = "UTF-8";
+    // Filmliste die äleter sind werden aus der ListeFilmlisten gelöscht
+    public static final int FILMLISTEN_MAX_ALTER = 3;
     //
     //
     // Konstanten System

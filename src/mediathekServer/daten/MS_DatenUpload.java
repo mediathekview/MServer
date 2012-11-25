@@ -22,6 +22,7 @@ package mediathekServer.daten;
 import mediathek.tool.GuiFunktionen;
 import mediathek.tool.Konstanten;
 import mediathekServer.tool.MS_Konstanten;
+import mediathekServer.upload.MS_Upload;
 
 public class MS_DatenUpload {
 
@@ -41,8 +42,12 @@ public class MS_DatenUpload {
         return arr[MS_Konstanten.UPLOAD_SERVER_NR];
     }
 
-    public String getUrlListeFilmlisten() {
-        return GuiFunktionen.addUrl(arr[MS_Konstanten.UPLOAD_URL_FILMLISTE_NR], Konstanten.DATEINAME_LISTE_FILMLISTEN);
+    public String get_Url_Datei_ListeFilmlisten() {
+        if (arr[MS_Konstanten.UPLOAD_ART_NR].equals(MS_Upload.UPLOAD_ART_COPY)) {
+            return getFilmlisteDestPfadName(Konstanten.DATEINAME_LISTE_FILMLISTEN);
+        } else {
+            return GuiFunktionen.addUrl(arr[MS_Konstanten.UPLOAD_URL_FILMLISTE_NR], Konstanten.DATEINAME_LISTE_FILMLISTEN);
+        }
     }
 
     public String getUrlFilmliste(String dateinameFilmliste) {
