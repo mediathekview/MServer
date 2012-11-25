@@ -41,9 +41,14 @@ public class MS_ListeFilmlisten {
     private static XMLOutputFactory outFactory;
     private static XMLStreamWriter writer;
     private static OutputStreamWriter out = null;
-    private static ListeDownloadUrlsFilmlisten listeFilmUpdateServer = new ListeDownloadUrlsFilmlisten();
+    private static final String TAG_LISTE = "Mediathek";
+    private static final String TAG_SERVER = "Server";
+    private static final String TAG_SERVER_URL_PRIO_1 = "Download_Filme_1";
+    private static final String TAG_SERVER_DATUM = "Datum";
+    private static final String TAG_SERVER_ZEIT = "Zeit";
 
     public static File filmlisteEintragen(String urlDatei, DatenUrlFilmliste input) {
+        ListeDownloadUrlsFilmlisten listeFilmUpdateServer = new ListeDownloadUrlsFilmlisten();
         // erst mal die Liste holen
         try {
             FilmlistenServer.getDownloadUrlsFilmlisten(urlDatei, listeFilmUpdateServer, MS_Daten.getUserAgent());
@@ -66,15 +71,10 @@ public class MS_ListeFilmlisten {
         }
         listeFilmUpdateServer.add(input);
         // Liste in Datei schreiben
-        return ListeFilmlistenSchreiben();
+        return ListeFilmlistenSchreiben(listeFilmUpdateServer);
     }
-    private static final String TAG_LISTE = "Mediathek";
-    private static final String TAG_SERVER = "Server";
-    private static final String TAG_SERVER_URL_PRIO_1 = "Download_Filme_1";
-    private static final String TAG_SERVER_DATUM = "Datum";
-    private static final String TAG_SERVER_ZEIT = "Zeit";
 
-    private static File ListeFilmlistenSchreiben() {
+    private static File ListeFilmlistenSchreiben(ListeDownloadUrlsFilmlisten listeFilmUpdateServer) {
         File tmpFile = null;
         try {
             tmpFile = File.createTempFile("mediathek", null);
