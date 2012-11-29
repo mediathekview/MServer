@@ -27,7 +27,7 @@ import javax.xml.stream.XMLOutputFactory;
 import javax.xml.stream.XMLStreamWriter;
 import mediathek.controller.filmeLaden.importieren.DatenFilmlistenServer;
 import mediathek.controller.filmeLaden.importieren.DatenUrlFilmliste;
-import mediathek.controller.filmeLaden.importieren.FilmlistenServer;
+import mediathek.controller.filmeLaden.importieren.FilmlistenSuchen;
 import mediathek.controller.filmeLaden.importieren.ListeDownloadUrlsFilmlisten;
 import mediathek.tool.Konstanten;
 import mediathek.tool.Log;
@@ -51,7 +51,7 @@ public class MS_ListeFilmlisten {
         ListeDownloadUrlsFilmlisten listeFilmUpdateServer = new ListeDownloadUrlsFilmlisten();
         // erst mal die Liste holen
         try {
-            FilmlistenServer.getDownloadUrlsFilmlisten(urlDatei, listeFilmUpdateServer, MS_Daten.getUserAgent());
+            FilmlistenSuchen.getDownloadUrlsFilmlisten(urlDatei, listeFilmUpdateServer, MS_Daten.getUserAgent());
         } catch (Exception ex) {
             Log.fehlerMeldung(347895642, "FilmUpdateServer.suchen: " + urlDatei, ex);
         }
@@ -61,11 +61,11 @@ public class MS_ListeFilmlisten {
         Iterator<DatenUrlFilmliste> it = listeFilmUpdateServer.iterator();
         while (it.hasNext()) {
             DatenUrlFilmliste d = it.next();
-            if (d.arr[FilmlistenServer.FILM_UPDATE_SERVER_URL_NR].equals(input.arr[FilmlistenServer.FILM_UPDATE_SERVER_URL_NR])) {
+            if (d.arr[FilmlistenSuchen.FILM_UPDATE_SERVER_URL_NR].equals(input.arr[FilmlistenSuchen.FILM_UPDATE_SERVER_URL_NR])) {
                 it.remove();
             } else if (d.aelterAls(MS_Konstanten.FILMLISTEN_MAX_ALTER)) {
                 MS_Log.systemMeldung("Filmliste ist zu alt: " + d.arr[DatenFilmlistenServer.FILM_LISTEN_SERVER_URL_NR]);
-                MS_Log.systemMeldung("Erstellt: " + d.arr[FilmlistenServer.FILM_UPDATE_SERVER_DATUM_NR] + ", " + d.arr[FilmlistenServer.FILM_UPDATE_SERVER_ZEIT_NR]);
+                MS_Log.systemMeldung("Erstellt: " + d.arr[FilmlistenSuchen.FILM_UPDATE_SERVER_DATUM_NR] + ", " + d.arr[FilmlistenSuchen.FILM_UPDATE_SERVER_ZEIT_NR]);
                 it.remove();
             }
         }
@@ -94,21 +94,21 @@ public class MS_ListeFilmlisten {
                 // Tags schreiben: URL
                 writer.writeCharacters("\t");// Tab
                 writer.writeStartElement(TAG_SERVER_URL_PRIO_1);
-                writer.writeCharacters(d.arr[FilmlistenServer.FILM_UPDATE_SERVER_URL_NR]);
+                writer.writeCharacters(d.arr[FilmlistenSuchen.FILM_UPDATE_SERVER_URL_NR]);
                 writer.writeEndElement();
                 writer.writeCharacters("\n");
                 // fertig
                 // Tags schreiben: Datum
                 writer.writeCharacters("\t");// Tab
                 writer.writeStartElement(TAG_SERVER_DATUM);
-                writer.writeCharacters(d.arr[FilmlistenServer.FILM_UPDATE_SERVER_DATUM_NR]);
+                writer.writeCharacters(d.arr[FilmlistenSuchen.FILM_UPDATE_SERVER_DATUM_NR]);
                 writer.writeEndElement();
                 writer.writeCharacters("\n");
                 // fertig
                 // Tags schreiben: Zeit
                 writer.writeCharacters("\t");// Tab
                 writer.writeStartElement(TAG_SERVER_ZEIT);
-                writer.writeCharacters(d.arr[FilmlistenServer.FILM_UPDATE_SERVER_ZEIT_NR]);
+                writer.writeCharacters(d.arr[FilmlistenSuchen.FILM_UPDATE_SERVER_ZEIT_NR]);
                 writer.writeEndElement();
                 writer.writeCharacters("\n");
                 // fertig
