@@ -29,21 +29,57 @@ import mediathekServer.tool.MS_Log;
 
 public class MS_FilmeSuchen {
 
-    public void filmeSuchen(MS_DatenSuchen aktDatenSuchen) {
+    private final int WARTEZEIT_ALLES_LADEN = 1000 * 60 * 110; // 110 Minuten
+    private final int WARTEZEIT_UPDATE_LADEN = 1000 * 60 * 50; // 50 Minuten
+    //private final int WARTEZEIT_UPDATE_LADEN = 1000 * 10;
+
+    public boolean filmeSuchen(MS_DatenSuchen aktDatenSuchen) {
+        boolean ret = true;
         String filmDateiName = aktDatenSuchen.getZielDateiName();
         String filmDateiPfad = MS_Daten.getVerzeichnisFilme();
         String sender[] = arrLesen(aktDatenSuchen.arr[MS_Konstanten.SUCHEN_SENDER_NR].trim());
+        String importUrl = MS_Daten.system[MS_Konstanten.SYSTEM_IMPORT_URL_NR].toString();
         try {
-            String importUrl = MS_Daten.system[MS_Konstanten.SYSTEM_IMPORT_URL_NR].toString();
-            new MediathekNoGui(MS_Daten.getBasisVerzeichnis(), aktDatenSuchen.allesLaden(), GuiFunktionen.addsPfad(filmDateiPfad, filmDateiName),
-                    importUrl, MS_Daten.getUserAgent(), MS_Daten.getLogDatei_mediathekView()).serverStarten(sender);
-            MS_Log.systemMeldung("Filme suchen Ok");
-            return;
+            // ===========================================
+            // den nächsten Suchlauf starten
+            MS_Log.systemMeldung("Filmsuche starten");
+            MediathekNoGui mediathekNoGui = new MediathekNoGui(MS_Daten.getBasisVerzeichnis(),
+                    aktDatenSuchen.allesLaden(),
+                    GuiFunktionen.addsPfad(filmDateiPfad, filmDateiName),
+                    importUrl,
+                    MS_Daten.getUserAgent(),
+                    MS_Daten.getLogDatei_mediathekView());
+            mediathekNoGui.init(sender);
+            Thread t = new Thread(mediathekNoGui);
+            t.start();
+            MS_Log.systemMeldung("Filme suchen gestartet");
+            // ===========================================
+            // warten auf das Ende
+            int warten = aktDatenSuchen.allesLaden() == true ? WARTEZEIT_ALLES_LADEN : WARTEZEIT_UPDATE_LADEN;
+            t.join(warten);
+            // ===========================================
+            // erst mal schauen ob noch was läuft
+            if (t != null) {
+                if (t.isAlive()) {
+                    MS_Log.fehlerMeldung(915147623, MS_FilmeSuchen.class.getName(), "Der letzte Suchlauf läuft noch");
+                    if (mediathekNoGui != null) {
+                        MS_Log.systemMeldung("und wird jetzt gestoppt");
+                        mediathekNoGui.stoppen();
+                    }
+                    t.join(10 * 1000); // 10 Sekunden wegen der 5 Sekunden in MediathekNoGui.run
+                    if (t.isAlive()) {
+                        MS_Log.systemMeldung("und noch gekillt");
+                        ret = false;
+                    }
+                    // nach 3 Sekunden ist Schicht im Schacht
+                    t.stop();
+                }
+            }
         } catch (Exception ex) {
             MS_Log.fehlerMeldung(636987308, MS_FilmeSuchen.class.getName(), "filmeSuchen", ex);
         }
-        // war wohl nix
-        MS_Log.fehlerMeldung(830469743, MS_FilmeSuchen.class.getName(), "filmeSuchen");
+        MS_Log.systemMeldung("filmeSuchen beendet");
+        return ret;
     }
 
     private String[] arrLesen(String s) {

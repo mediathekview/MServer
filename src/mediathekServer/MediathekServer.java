@@ -70,12 +70,18 @@ public class MediathekServer {
             MS_Log.systemMeldung("---------------------------");
 
         }
+        Thread.setDefaultUncaughtExceptionHandler(new Thread.UncaughtExceptionHandler() {
+            @Override
+            public void uncaughtException(Thread t, Throwable e) {
+                MS_Log.fehlerMeldung(97986523, MediathekServer.class.getName(), "Da hat sich ein Thread verabschiedet");
+            }
+        });
     }
 
     public void starten() {
         if (!MS_Daten.konfigExistiert()) {
             MS_Log.fehlerMeldung(858589654, MediathekServer.class.getName(), new String[]{"Konfig-Datei existiert nicht", MS_Daten.getKonfigDatei()});
-            musterSchreiben(); // und Tschüss
+            System.exit(0); // und Tschüss
         } else {
             MS_XmlLesen.xmlDatenLesen();
             // Infos schreiben
@@ -92,13 +98,6 @@ public class MediathekServer {
             };
             new Thread(timer).start();
         }
-    }
-
-    public void musterSchreiben() {
-        // Demo schreiben
-        // MS_XmlSchreiben.xmlMusterDatenSchreiben();
-        // und Tschüss
-        System.exit(0);
     }
 
     public void laufen() {
@@ -120,19 +119,27 @@ public class MediathekServer {
             // ----------------------
             // Filme suchen
             MS_Log.systemMeldung("");
-            MS_Log.systemMeldung("===========================");
-            MS_Log.systemMeldung("== Filme suchen ===========");
-            msFilmeSuchen.filmeSuchen(aktDatenSuchen);
-            MS_Log.systemMeldung("---------------------------");
-            MS_Log.systemMeldung("");
-            // ----------------------
-            // Filme hochladen
-            MS_Log.systemMeldung("");
-            MS_Log.systemMeldung("===========================");
-            MS_Log.systemMeldung("== Upload =================");
-            msUpload.upload(aktDatenSuchen);
-            MS_Log.systemMeldung("---------------------------");
-            MS_Log.systemMeldung("");
+            MS_Log.systemMeldung("==============================");
+            MS_Log.systemMeldung("== Filme suchen ==============");
+            if (!msFilmeSuchen.filmeSuchen(aktDatenSuchen)) {
+                // das Suchen der Filme hat nicht geklappt
+                MS_Log.systemMeldung("== Fehler beim Filme Suchen ==");
+                MS_Log.systemMeldung("==============================");
+                MS_Log.systemMeldung("------------------------------");
+                MS_Log.systemMeldung("");
+            } else {
+                // nur dann gibts was zum Hochladen
+                MS_Log.systemMeldung("-----------------------------");
+                MS_Log.systemMeldung("");
+                // ----------------------
+                // Filme hochladen
+                MS_Log.systemMeldung("");
+                MS_Log.systemMeldung("=============================");
+                MS_Log.systemMeldung("== Upload ===================");
+                msUpload.upload(aktDatenSuchen);
+                MS_Log.systemMeldung("-----------------------------");
+                MS_Log.systemMeldung("");
+            }
             aktDatenSuchen = null;
             suchen = false;
             // ----------------------
