@@ -29,9 +29,6 @@ import mediathekServer.tool.MS_Log;
 
 public class MS_FilmeSuchen {
 
-    private final int WARTEZEIT_ALLES_LADEN = 1000 * 60 * 110; // 110 Minuten
-    private final int WARTEZEIT_UPDATE_LADEN = 1000 * 60 * 50; // 50 Minuten
-    //private final int WARTEZEIT_UPDATE_LADEN = 1000 * 10;
 
     public boolean filmeSuchen(MS_DatenSuchen aktDatenSuchen) {
         boolean ret = true;
@@ -55,7 +52,7 @@ public class MS_FilmeSuchen {
             MS_Log.systemMeldung("Filme suchen gestartet");
             // ===========================================
             // warten auf das Ende
-            int warten = aktDatenSuchen.allesLaden() == true ? WARTEZEIT_ALLES_LADEN : WARTEZEIT_UPDATE_LADEN;
+            int warten = aktDatenSuchen.allesLaden() == true ? MS_Konstanten.WARTEZEIT_ALLES_LADEN : MS_Konstanten.WARTEZEIT_UPDATE_LADEN;
             t.join(warten);
             // ===========================================
             // erst mal schauen ob noch was läuft

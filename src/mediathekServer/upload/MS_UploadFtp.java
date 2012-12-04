@@ -29,6 +29,7 @@ import java.util.Date;
 import mediathek.controller.filmeLaden.importieren.DatenUrlFilmliste;
 import mediathek.tool.GuiFunktionen;
 import mediathekServer.daten.MS_DatenUpload;
+import mediathekServer.tool.MS_Konstanten;
 import mediathekServer.tool.MS_Log;
 import org.apache.commons.net.PrintCommandListener;
 import org.apache.commons.net.ftp.FTP;
@@ -41,159 +42,191 @@ import org.apache.commons.net.util.TrustManagerUtils;
 
 public class MS_UploadFtp {
 
-    private static SimpleDateFormat sdf_zeit = new SimpleDateFormat("HH:mm:ss");
-    private static SimpleDateFormat sdf_datum = new SimpleDateFormat("dd.MM.yyyy");
+    private SimpleDateFormat sdf_zeit = new SimpleDateFormat("HH:mm:ss");
+    private SimpleDateFormat sdf_datum = new SimpleDateFormat("dd.MM.yyyy");
+    private String server, strPort, username, password, filmlistePfad, filmlisteDateiname;
+    private MS_DatenUpload datenUpload;
+    private boolean retFtp = false;
 
-//    public static String server = null;
-//    public static int port = 0;
-//    public static String username = null;
-//    public static String password = null;
-//    public static String remote = null;
-//    public static String local = null;
-    public static boolean uploadFtp(String server, String strPort, String username, String password, String filmlistePfad, String filmlisteDateiname,
-            MS_DatenUpload datenUpload) {
-        boolean ret = false;
-        // Liste der Filmlisten auktualisieren
-        // DatenFilmUpdateServer(String url, String prio, String zeit, String datum, String anzahl) {
-        //String filmlisteDestPfadName = GuiFunktionen.addsPfad(filmlisteDestDir, filmlisteDateiname);
-        //String listeFilmlistenDestPfadName = GuiFunktionen.addsPfad(filmlisteDestDir, MS_Konstanten.DATEINAME_LISTE_FILMLISTEN);
-        DatenUrlFilmliste dfus = new DatenUrlFilmliste(datenUpload.getUrlFilmliste(filmlisteDateiname), "1", sdf_zeit.format(new Date()), sdf_datum.format(new Date()));
-        File filmlisten = MS_ListeFilmlisten.filmlisteEintragen(datenUpload.get_Url_Datei_ListeFilmlisten(), dfus);
-        //
-        int port = 0;
+    public boolean uploadFtp(String server_, String strPort_,
+            String username_, String password_,
+            String filmlistePfad_, String filmlisteDateiname_,
+            MS_DatenUpload datenUpload_) {
         try {
-            if (!strPort.equals("")) {
-                port = Integer.parseInt(strPort);
+            server = server_;
+            strPort = strPort_;
+            username = username_;
+            password = password_;
+            filmlistePfad = filmlistePfad_;
+            filmlisteDateiname = filmlisteDateiname_;
+            datenUpload = datenUpload_;
+            MS_Log.systemMeldung("");
+            MS_Log.systemMeldung("----------------------");
+            MS_Log.systemMeldung("Upload start");
+            MS_Log.systemMeldung("Server: " + server);
+            Ftp f = new Ftp();
+            Thread t = new Thread(f);
+            t.start();
+            t.join(MS_Konstanten.MAX_WARTEN_FTP_UPLOAD);
+            if (t != null) {
+                if (t.isAlive()) {
+                    MS_Log.fehlerMeldung(396958702, MS_UploadFtp.class.getName(), "Der letzte FtpUpload läuft noch");
+                    MS_Log.systemMeldung("und wird gekillt");
+                    t.stop();
+                    retFtp = false;
+                }
             }
         } catch (Exception ex) {
-            MS_Log.fehlerMeldung(101203698, MS_UploadFtp.class.getName(), "uploadFtp", ex);
-            port = 0;
+            MS_Log.fehlerMeldung(739861047, MS_UploadFtp.class.getName(), "uploadFtp", ex);
         }
-        boolean binaryTransfer = true;
-        boolean localActive = false, useEpsvWithIPv4 = false;
-        long keepAliveTimeout = -1;
-        int controlKeepAliveReplyTimeout = -1;
-        String protocol = null; // SSL protocol
-        String trustmgr = null;
-        String proxyHost = null;
-        int proxyPort = 80;
-        String proxyUser = null;
-        String proxyPassword = null;
-        final FTPClient ftp;
-        if (protocol == null) {
-            if (proxyHost != null) {
-                ftp = new FTPHTTPClient(proxyHost, proxyPort, proxyUser, proxyPassword);
-            } else {
-                ftp = new FTPClient();
+        return retFtp;
+    }
+
+    private class Ftp implements Runnable {
+
+        @Override
+        public synchronized void run() {
+            // Liste der Filmlisten auktualisieren
+            // DatenFilmUpdateServer(String url, String prio, String zeit, String datum, String anzahl) {
+            //String filmlisteDestPfadName = GuiFunktionen.addsPfad(filmlisteDestDir, filmlisteDateiname);
+            //String listeFilmlistenDestPfadName = GuiFunktionen.addsPfad(filmlisteDestDir, MS_Konstanten.DATEINAME_LISTE_FILMLISTEN);
+            DatenUrlFilmliste dfus = new DatenUrlFilmliste(datenUpload.getUrlFilmliste(filmlisteDateiname), "1", sdf_zeit.format(new Date()), sdf_datum.format(new Date()));
+            File filmlisten = MS_ListeFilmlisten.filmlisteEintragen(datenUpload.get_Url_Datei_ListeFilmlisten(), dfus);
+            //
+            int port = 0;
+            try {
+                if (!strPort.equals("")) {
+                    port = Integer.parseInt(strPort);
+                }
+            } catch (Exception ex) {
+                MS_Log.fehlerMeldung(101203698, MS_UploadFtp.class.getName(), "uploadFtp", ex);
+                port = 0;
             }
-        } else {
-            FTPSClient ftps;
-            if (protocol.equals("true")) {
-                ftps = new FTPSClient(true);
-            } else if (protocol.equals("false")) {
-                ftps = new FTPSClient(false);
+            boolean binaryTransfer = true;
+            boolean localActive = false, useEpsvWithIPv4 = false;
+            long keepAliveTimeout = -1;
+            int controlKeepAliveReplyTimeout = -1;
+            String protocol = null; // SSL protocol
+            String trustmgr = null;
+            String proxyHost = null;
+            int proxyPort = 80;
+            String proxyUser = null;
+            String proxyPassword = null;
+            final FTPClient ftp;
+            if (protocol == null) {
+                if (proxyHost != null) {
+                    ftp = new FTPHTTPClient(proxyHost, proxyPort, proxyUser, proxyPassword);
+                } else {
+                    ftp = new FTPClient();
+                }
             } else {
-                String prot[] = protocol.split(",");
-                if (prot.length == 1) { // Just protocol
-                    ftps = new FTPSClient(protocol);
-                } else { // protocol,true|false
-                    ftps = new FTPSClient(prot[0], Boolean.parseBoolean(prot[1]));
+                FTPSClient ftps;
+                if (protocol.equals("true")) {
+                    ftps = new FTPSClient(true);
+                } else if (protocol.equals("false")) {
+                    ftps = new FTPSClient(false);
+                } else {
+                    String prot[] = protocol.split(",");
+                    if (prot.length == 1) { // Just protocol
+                        ftps = new FTPSClient(protocol);
+                    } else { // protocol,true|false
+                        ftps = new FTPSClient(prot[0], Boolean.parseBoolean(prot[1]));
+                    }
+                }
+                ftp = ftps;
+                if ("all".equals(trustmgr)) {
+                    ftps.setTrustManager(TrustManagerUtils.getAcceptAllTrustManager());
+                } else if ("valid".equals(trustmgr)) {
+                    ftps.setTrustManager(TrustManagerUtils.getValidateServerCertificateTrustManager());
+                } else if ("none".equals(trustmgr)) {
+                    ftps.setTrustManager(null);
                 }
             }
-            ftp = ftps;
-            if ("all".equals(trustmgr)) {
-                ftps.setTrustManager(TrustManagerUtils.getAcceptAllTrustManager());
-            } else if ("valid".equals(trustmgr)) {
-                ftps.setTrustManager(TrustManagerUtils.getValidateServerCertificateTrustManager());
-            } else if ("none".equals(trustmgr)) {
-                ftps.setTrustManager(null);
+            if (keepAliveTimeout >= 0) {
+                ftp.setControlKeepAliveTimeout(keepAliveTimeout);
             }
-        }
-        if (keepAliveTimeout >= 0) {
-            ftp.setControlKeepAliveTimeout(keepAliveTimeout);
-        }
-        if (controlKeepAliveReplyTimeout >= 0) {
-            ftp.setControlKeepAliveReplyTimeout(controlKeepAliveReplyTimeout);
-        }
-        // suppress login details
-        ftp.addProtocolCommandListener(new PrintCommandListener(new PrintWriter(System.out), true));
-        // connect versuchen
-        try {
-            int reply;
-            if (port > 0) {
-                ftp.connect(server, port);
-            } else {
-                ftp.connect(server);
+            if (controlKeepAliveReplyTimeout >= 0) {
+                ftp.setControlKeepAliveReplyTimeout(controlKeepAliveReplyTimeout);
             }
-            MS_Log.debugMeldung("Connected to " + server + " on " + (port > 0 ? port : ftp.getDefaultPort()));
-            // After connection attempt, you should check the reply code to verify success.
-            reply = ftp.getReplyCode();
-            if (!FTPReply.isPositiveCompletion(reply)) {
-                ftp.disconnect();
-                MS_Log.debugMeldung("FTP server refused connection.");
-                return false;
-            }
-        } catch (IOException e) {
-            if (ftp.isConnected()) {
-                try {
+            // suppress login details
+            ftp.addProtocolCommandListener(new PrintCommandListener(new PrintWriter(System.out), true));
+            // connect versuchen
+            try {
+                int reply;
+                if (port > 0) {
+                    ftp.connect(server, port);
+                } else {
+                    ftp.connect(server);
+                }
+                MS_Log.debugMeldung("Connected to " + server + " on " + (port > 0 ? port : ftp.getDefaultPort()));
+                // After connection attempt, you should check the reply code to verify success.
+                reply = ftp.getReplyCode();
+                if (!FTPReply.isPositiveCompletion(reply)) {
                     ftp.disconnect();
-                } catch (IOException f) {
-                    // do nothing
+                    MS_Log.debugMeldung("FTP server refused connection.");
+                    return;
                 }
+            } catch (IOException e) {
+                if (ftp.isConnected()) {
+                    try {
+                        ftp.disconnect();
+                    } catch (IOException f) {
+                        // do nothing
+                    }
+                }
+                MS_Log.fehlerMeldung(969363254, MS_UploadFtp.class.getName(), "MS_UploadFtp", e);
+                return;
             }
-            MS_Log.fehlerMeldung(969363254, MS_UploadFtp.class.getName(), "MS_UploadFtp", e);
-            return false;
-        }
-        // ==================================
-        // login und Daten übertragen
-        __upload:
-        try {
-            if (!ftp.login(username, password)) {
-                ftp.logout();
-                break __upload;
-            }
-            MS_Log.debugMeldung("Remote system is " + ftp.getSystemType());
-            if (binaryTransfer) {
-                ftp.setFileType(FTP.BINARY_FILE_TYPE);
-            }
-            // passive mode as default
-            if (localActive) {
-                ftp.enterLocalActiveMode();
-            } else {
-                ftp.enterLocalPassiveMode();
-            }
-            ftp.setUseEPSVwithIPv4(useEpsvWithIPv4);
-            // ==========================
-            // Filmliste hoch laden
-            InputStream input;
-            input = new FileInputStream(GuiFunktionen.addsPfad(filmlistePfad, filmlisteDateiname));
-            ftp.storeFile(datenUpload.getFilmlisteDestPfadName(filmlisteDateiname), input);
-            input.close();
-            ftp.noop(); // check that control connection is working OK
-            // ==========================
-            // Liste der Filmlisten hoch laden
-            if (filmlisten != null) {
-                input = new FileInputStream(filmlisten);
-                ftp.storeFile(datenUpload.getListeFilmlistenDestPfadName(), input);
+            // ==================================
+            // login und Daten übertragen
+            __upload:
+            try {
+                if (!ftp.login(username, password)) {
+                    ftp.logout();
+                    break __upload;
+                }
+                MS_Log.debugMeldung("Remote system is " + ftp.getSystemType());
+                if (binaryTransfer) {
+                    ftp.setFileType(FTP.BINARY_FILE_TYPE);
+                }
+                // passive mode as default
+                if (localActive) {
+                    ftp.enterLocalActiveMode();
+                } else {
+                    ftp.enterLocalPassiveMode();
+                }
+                ftp.setUseEPSVwithIPv4(useEpsvWithIPv4);
+                // ==========================
+                // Filmliste hoch laden
+                InputStream input;
+                input = new FileInputStream(GuiFunktionen.addsPfad(filmlistePfad, filmlisteDateiname));
+                ftp.storeFile(datenUpload.getFilmlisteDestPfadName(filmlisteDateiname), input);
                 input.close();
                 ftp.noop(); // check that control connection is working OK
-            }
-            ftp.logout();
-            ret = true; // dann hat alles gepasst
-        } catch (FTPConnectionClosedException e) {
-            MS_Log.fehlerMeldung(646362014, MS_UploadFtp.class.getName(), "MS_UploadFtp", e);
-        } catch (IOException e) {
-            MS_Log.fehlerMeldung(989862047, MS_UploadFtp.class.getName(), "MS_UploadFtp", e);
-        } finally {
-            if (ftp.isConnected()) {
-                try {
-                    ftp.disconnect();
-                } catch (IOException f) {
-                    // do nothing
+                // ==========================
+                // Liste der Filmlisten hoch laden
+                if (filmlisten != null) {
+                    input = new FileInputStream(filmlisten);
+                    ftp.storeFile(datenUpload.getListeFilmlistenDestPfadName(), input);
+                    input.close();
+                    ftp.noop(); // check that control connection is working OK
+                }
+                ftp.logout();
+                retFtp = true; // dann hat alles gepasst
+            } catch (FTPConnectionClosedException e) {
+                MS_Log.fehlerMeldung(646362014, MS_UploadFtp.class.getName(), "MS_UploadFtp", e);
+            } catch (IOException e) {
+                MS_Log.fehlerMeldung(989862047, MS_UploadFtp.class.getName(), "MS_UploadFtp", e);
+            } finally {
+                if (ftp.isConnected()) {
+                    try {
+                        ftp.disconnect();
+                    } catch (IOException f) {
+                        // do nothing
+                    }
                 }
             }
+            // ==================================
         }
-        // ==================================
-        return ret;
     }
 }
