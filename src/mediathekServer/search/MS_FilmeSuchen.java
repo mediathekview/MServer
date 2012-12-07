@@ -29,7 +29,6 @@ import mediathekServer.tool.MS_Log;
 
 public class MS_FilmeSuchen {
 
-
     public boolean filmeSuchen(MS_DatenSuchen aktDatenSuchen) {
         boolean ret = true;
         String filmDateiName = aktDatenSuchen.getZielDateiName();
@@ -39,6 +38,8 @@ public class MS_FilmeSuchen {
         try {
             // ===========================================
             // den nächsten Suchlauf starten
+            MS_Log.systemMeldung("");
+            MS_Log.systemMeldung("-----------------------------------");
             MS_Log.systemMeldung("Filmsuche starten");
             MediathekNoGui mediathekNoGui = new MediathekNoGui(MS_Daten.getBasisVerzeichnis(),
                     aktDatenSuchen.allesLaden(),

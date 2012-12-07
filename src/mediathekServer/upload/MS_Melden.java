@@ -33,7 +33,7 @@ public class MS_Melden {
     private static SimpleDateFormat sdf_zeit = new SimpleDateFormat("HH:mm:ss");
     private static SimpleDateFormat sdf_datum = new SimpleDateFormat("dd.MM.yyyy");
 
-    public static void melden(String urlFilmliste, String prio) {
+    public synchronized void melden(String urlFilmliste, String prio) {
         try {
             String pwd = MS_Daten.system[MS_Konstanten.SYSTEM_UPDATE_MELDEN_PWD_NR].trim();
             String url = MS_Daten.system[MS_Konstanten.SYSTEM_UPDATE_MELDEN_URL_NR].trim();
@@ -41,6 +41,8 @@ public class MS_Melden {
                 // nur dann gibts was zum Melden
                 String zeit = sdf_zeit.format(new Date());
                 String datum = sdf_datum.format(new Date());
+                MS_Log.systemMeldung("");
+                MS_Log.systemMeldung("-----------------------------------");
                 MS_Log.systemMeldung("URL: " + urlFilmliste);
                 MS_Log.systemMeldung("melden an Server: " + url);
                 MS_Log.systemMeldung("Datum: " + datum + "  Zeit: " + zeit);
@@ -60,6 +62,7 @@ public class MS_Melden {
                 inReader.read();
                 inReader.close();
                 MS_Log.systemMeldung("Ok");
+                this.wait(2000); // damit der Server nicht stolpert, max alle 2 Sekunden
             }
         } catch (Exception ex) {
             MS_Log.fehlerMeldung(301256907, MS_Melden.class.getName(), "melden", ex);

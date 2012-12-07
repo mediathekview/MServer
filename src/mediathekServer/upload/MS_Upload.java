@@ -30,6 +30,11 @@ public class MS_Upload {
 
     public static final String UPLOAD_ART_FTP = "ftp";
     public static final String UPLOAD_ART_COPY = "copy";
+    private MS_Melden ms_Melden;
+
+    public MS_Upload() {
+        ms_Melden = new MS_Melden();
+    }
 
     public void upload(MS_DatenSuchen aktDatenSuchen) {
         String filmDateiName = aktDatenSuchen.getZielDateiName();
@@ -41,7 +46,7 @@ public class MS_Upload {
                 // ==============================================================
                 // kopieren
                 if (MS_UploadCopy.copy(filmDateiPfad, filmDateiName, datenUpload)) {
-                    MS_Melden.melden(datenUpload.getUrlFilmliste(filmDateiName), datenUpload.getPrio());
+                    ms_Melden.melden(datenUpload.getUrlFilmliste(filmDateiName), datenUpload.getPrio());
                 }
             } else if (datenUpload.arr[MS_Konstanten.UPLOAD_ART_NR].equals(UPLOAD_ART_FTP)) {
                 // ==============================================================
@@ -49,7 +54,7 @@ public class MS_Upload {
                 if (new MS_UploadFtp().uploadFtp(datenUpload.arr[MS_Konstanten.UPLOAD_SERVER_NR], datenUpload.arr[MS_Konstanten.UPLOAD_PORT_NR], datenUpload.arr[MS_Konstanten.UPLOAD_USER_NR],
                         datenUpload.arr[MS_Konstanten.UPLOAD_PWD_NR], filmDateiPfad, filmDateiName,
                         datenUpload)) {
-                    MS_Melden.melden(datenUpload.getUrlFilmliste(filmDateiName), datenUpload.getPrio());
+                    ms_Melden.melden(datenUpload.getUrlFilmliste(filmDateiName), datenUpload.getPrio());
                 }
             }
         }
