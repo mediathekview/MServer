@@ -20,7 +20,6 @@
 package mediathekServer;
 
 import java.io.File;
-import mediathek.tool.Konstanten;
 import mediathekServer.daten.MS_DatenSuchen;
 import mediathekServer.search.MS_FilmeSuchen;
 import mediathekServer.tool.MS_Daten;
