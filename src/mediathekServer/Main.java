@@ -36,6 +36,7 @@ public class Main {
                 if (ar != null) {
                     for (String s : ar) {
                         if (s.equalsIgnoreCase("-d")) {
+                            Daten.debug = true;
                             MS_Daten.debug = true;
                         }
                         if (s.equalsIgnoreCase("-v")) {

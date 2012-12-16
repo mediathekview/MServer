@@ -46,7 +46,8 @@ public class MS_FilmeSuchen {
                     GuiFunktionen.addsPfad(filmDateiPfad, filmDateiName),
                     importUrl,
                     MS_Daten.getUserAgent(),
-                    MS_Daten.getLogDatei_mediathekView());
+                    MS_Daten.getLogDatei_mediathekView(),
+                    MS_Daten.debug);
             mediathekNoGui.init(sender);
             Thread t = new Thread(mediathekNoGui);
             t.start();

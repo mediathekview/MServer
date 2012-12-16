@@ -62,11 +62,13 @@ public class MS_Konstanten {
     public static final int SYSTEM_IMPORT_URL_NR = 4;
     public static final String SYSTEM_PFAD_LOGDATEI = "system--pfad-logdatei";
     public static final int SYSTEM_PFAD_LOGDATEI_NR = 5;
+    public static final String SYSTEM_DEBUG = "system--debug";
+    public static final int SYSTEM_DEBUG_NR = 6;
     // Array
     public static final String SYSTEM = "system";
-    public static final int SYSTEM_MAX_ELEM = 6;
+    public static final int SYSTEM_MAX_ELEM = 7;
     public static final String[] SYSTEM_COLUMN_NAMES = {SYSTEM_UPDATE_MELDEN_PWD, SYSTEM_UPDATE_MELDEN_URL,
-        SYSTEM_USER_AGENT, SYSTEM_UPDATE_SUCHEN, SYSTEM_IMPORT_URL, SYSTEM_PFAD_LOGDATEI};
+        SYSTEM_USER_AGENT, SYSTEM_UPDATE_SUCHEN, SYSTEM_IMPORT_URL, SYSTEM_PFAD_LOGDATEI, SYSTEM_DEBUG};
     //
     //
     // Konstanten Suchen

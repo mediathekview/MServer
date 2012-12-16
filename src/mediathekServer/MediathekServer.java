@@ -20,6 +20,7 @@
 package mediathekServer;
 
 import java.io.File;
+import mediathek.tool.Konstanten;
 import mediathekServer.daten.MS_DatenSuchen;
 import mediathekServer.search.MS_FilmeSuchen;
 import mediathekServer.tool.MS_Daten;
@@ -84,6 +85,10 @@ public class MediathekServer {
             System.exit(0); // und Tschüss
         } else {
             MS_XmlLesen.xmlDatenLesen();
+            if (MS_Daten.system[MS_Konstanten.SYSTEM_DEBUG_NR].equals(MS_Konstanten.STR_TRUE)) {
+                MS_Daten.debug = true;
+                MS_Log.systemMeldung("== Debug on ======");
+            }
             // Infos schreiben
             MS_Log.startMeldungen(this.getClass().getName());
             updateSuchen(); // erst mal schauen was es neues gibt
