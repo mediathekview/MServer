@@ -67,6 +67,6 @@ public class MS_DatenUpload {
     }
 
     public String getPrio() {
-        return arr[MS_Konstanten.UPLOAD_PRIO_FILMLISTE_NR];
+        return ((arr[MS_Konstanten.UPLOAD_PRIO_FILMLISTE_NR].equals("")) ? "1" : arr[MS_Konstanten.UPLOAD_PRIO_FILMLISTE_NR]);
     }
 }
