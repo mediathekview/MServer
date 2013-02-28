@@ -23,17 +23,13 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.nio.channels.FileChannel;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import mediathek.controller.filmeLaden.importieren.DatenUrlFilmliste;
 import mediathek.tool.GuiFunktionen;
 import mediathekServer.daten.MS_DatenUpload;
+import mediathekServer.tool.MS_Funktionen;
 import mediathekServer.tool.MS_Log;
 
 public class MS_UploadCopy {
-
-    private static SimpleDateFormat sdf_zeit = new SimpleDateFormat("HH:mm:ss");
-    private static SimpleDateFormat sdf_datum = new SimpleDateFormat("dd.MM.yyyy");
 
     public static boolean copy(String filmDateiPfad, String filmDateiName, MS_DatenUpload datenUpload) {
         boolean ret = false;
@@ -67,7 +63,7 @@ public class MS_UploadCopy {
         if (ret) {
             // Liste der Filmlisten auktualisieren
             // DatenFilmUpdateServer(String url, String prio, String zeit, String datum, String anzahl) {
-            DatenUrlFilmliste dfus = new DatenUrlFilmliste(datenUpload.getUrlFilmliste(filmDateiName), "1", sdf_zeit.format(new Date()), sdf_datum.format(new Date()));
+            DatenUrlFilmliste dfus = new DatenUrlFilmliste(datenUpload.getUrlFilmliste(filmDateiName), "1", MS_Funktionen.getTime(), MS_Funktionen.getDate());
             File f = MS_ListeFilmlisten.filmlisteEintragen(datenUpload.get_Url_Datei_ListeFilmlisten(), dfus);
             if (f != null) {
                 try {

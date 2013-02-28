@@ -21,6 +21,9 @@ package mediathekServer.tool;
 
 import java.io.File;
 import java.security.CodeSource;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.SimpleTimeZone;
 import mediathekServer.Main;
 
 public class MS_Funktionen {
@@ -38,5 +41,19 @@ public class MS_Funktionen {
             }
         }
         return propFile.getAbsolutePath().replace(pFilePath, "");
+    }
+
+    public static String getTime() {
+        // liefert die Zeit in der Zeitzone "UTC"
+        SimpleDateFormat sdf_zeit = new SimpleDateFormat("HH:mm:ss");
+        sdf_zeit.setTimeZone(new SimpleTimeZone(SimpleTimeZone.UTC_TIME, "UTC"));
+        return sdf_zeit.format(new Date());
+    }
+
+    public static String getDate() {
+        // liefert das Datum in der Zeitzone "UTC"
+        SimpleDateFormat sdf_datum = new SimpleDateFormat("dd.MM.yyyy");
+        sdf_datum.setTimeZone(new SimpleTimeZone(SimpleTimeZone.UTC_TIME, "UTC"));
+        return sdf_datum.format(new Date());
     }
 }

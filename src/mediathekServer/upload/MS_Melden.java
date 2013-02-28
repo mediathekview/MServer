@@ -22,16 +22,12 @@ package mediathekServer.upload;
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.net.URLConnection;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import mediathekServer.tool.MS_Daten;
+import mediathekServer.tool.MS_Funktionen;
 import mediathekServer.tool.MS_Konstanten;
 import mediathekServer.tool.MS_Log;
 
 public class MS_Melden {
-
-    private static SimpleDateFormat sdf_zeit = new SimpleDateFormat("HH:mm:ss");
-    private static SimpleDateFormat sdf_datum = new SimpleDateFormat("dd.MM.yyyy");
 
     public synchronized void melden(String urlFilmliste, String prio) {
         try {
@@ -39,8 +35,9 @@ public class MS_Melden {
             String url = MS_Daten.system[MS_Konstanten.SYSTEM_UPDATE_MELDEN_URL_NR].trim();
             if (!pwd.equals("") && !url.equals("") && !urlFilmliste.equals("")) {
                 // nur dann gibts was zum Melden
-                String zeit = sdf_zeit.format(new Date());
-                String datum = sdf_datum.format(new Date());
+                // die Zeitzone in der Liste ist "UTC"
+                String zeit = MS_Funktionen.getTime();
+                String datum = MS_Funktionen.getDate();
                 MS_Log.systemMeldung("");
                 MS_Log.systemMeldung("-----------------------------------");
                 MS_Log.systemMeldung("URL: " + urlFilmliste);

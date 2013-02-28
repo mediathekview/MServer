@@ -24,11 +24,10 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import mediathek.controller.filmeLaden.importieren.DatenUrlFilmliste;
 import mediathek.tool.GuiFunktionen;
 import mediathekServer.daten.MS_DatenUpload;
+import mediathekServer.tool.MS_Funktionen;
 import mediathekServer.tool.MS_Konstanten;
 import mediathekServer.tool.MS_Log;
 import org.apache.commons.net.PrintCommandListener;
@@ -42,8 +41,6 @@ import org.apache.commons.net.util.TrustManagerUtils;
 
 public class MS_UploadFtp {
 
-    private SimpleDateFormat sdf_zeit = new SimpleDateFormat("HH:mm:ss");
-    private SimpleDateFormat sdf_datum = new SimpleDateFormat("dd.MM.yyyy");
     private String server, strPort, username, password, filmlistePfad, filmlisteDateiname;
     private MS_DatenUpload datenUpload;
     private boolean retFtp = false;
@@ -90,7 +87,7 @@ public class MS_UploadFtp {
             // DatenFilmUpdateServer(String url, String prio, String zeit, String datum, String anzahl) {
             //String filmlisteDestPfadName = GuiFunktionen.addsPfad(filmlisteDestDir, filmlisteDateiname);
             //String listeFilmlistenDestPfadName = GuiFunktionen.addsPfad(filmlisteDestDir, MS_Konstanten.DATEINAME_LISTE_FILMLISTEN);
-            DatenUrlFilmliste dfus = new DatenUrlFilmliste(datenUpload.getUrlFilmliste(filmlisteDateiname), "1", sdf_zeit.format(new Date()), sdf_datum.format(new Date()));
+            DatenUrlFilmliste dfus = new DatenUrlFilmliste(datenUpload.getUrlFilmliste(filmlisteDateiname), "1", MS_Funktionen.getTime(), MS_Funktionen.getDate());
             File filmlisten = MS_ListeFilmlisten.filmlisteEintragen(datenUpload.get_Url_Datei_ListeFilmlisten(), dfus);
             //
             int port = 0;
