@@ -74,6 +74,7 @@ public class MS_Konstanten {
     // Konstanten Suchen
     public static final String SUCHEN_ALLES = "alles";
     public static final String SUCHEN_UPDATE = "update";
+    public static final String SUCHEN_NEU = "neu";
     public static final String SUCHEN_WANN_SOFORT = "sofort";
     //
     public static final String SUCHEN_SENDER_WIE = "suchen-sender-wie"; // Sender komplett - nur ein Update

@@ -42,7 +42,7 @@ public class MS_DatenSuchen {
     public void meldungStart() {
         MS_Log.systemMeldung("Starten: " + this.arr[MS_Konstanten.SUCHEN_WANN_NR]);
         MS_Log.systemMeldung("Suchen Sender wie:  " + this.arr[MS_Konstanten.SUCHEN_SENDER_WIE_NR]);
-        MS_Log.systemMeldung("Suchen Liste wie:  " + this.arr[MS_Konstanten.SUCHEN_LISTE_WIE_NR]);
+        MS_Log.systemMeldung("Suchen Liste wie:  " + (updateFilmliste() ? "nur ein Update" : "neue Filmliste"));
         if (!this.arr[MS_Konstanten.SUCHEN_SENDER_NR].equals("")) {
             MS_Log.systemMeldung("Sender:  " + this.arr[MS_Konstanten.SUCHEN_SENDER_NR]);
         }
@@ -89,7 +89,12 @@ public class MS_DatenSuchen {
     }
 
     public boolean updateFilmliste() {
-        return this.arr[MS_Konstanten.SUCHEN_LISTE_WIE_NR].equals(MS_Konstanten.SUCHEN_UPDATE);
+        // Ist nichts angegeben, dann ist der Standardwert: Update der Filmliste
+        boolean ret = true;
+        if (this.arr[MS_Konstanten.SUCHEN_LISTE_WIE_NR].equals(MS_Konstanten.SUCHEN_NEU)) {
+            ret = false;
+        }
+        return ret;
     }
 
     public boolean starten() {
