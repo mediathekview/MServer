@@ -43,6 +43,7 @@ public class MS_FilmeSuchen {
             MS_Log.systemMeldung("Filmsuche starten");
             MediathekNoGui mediathekNoGui = new MediathekNoGui(MS_Daten.getBasisVerzeichnis(),
                     aktDatenSuchen.allesLaden(),
+                    aktDatenSuchen.updateFilmliste(),
                     GuiFunktionen.addsPfad(filmDateiPfad, filmDateiName),
                     importUrl,
                     MS_Daten.getUserAgent(),

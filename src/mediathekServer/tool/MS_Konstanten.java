@@ -76,16 +76,18 @@ public class MS_Konstanten {
     public static final String SUCHEN_UPDATE = "update";
     public static final String SUCHEN_WANN_SOFORT = "sofort";
     //
-    public static final String SUCHEN_WAS = "suchen-was";
-    public static final int SUCHEN_WAS_NR = 0;
+    public static final String SUCHEN_SENDER_WIE = "suchen-sender-wie"; // Sender komplett - nur ein Update
+    public static final int SUCHEN_SENDER_WIE_NR = 0;
+    public static final String SUCHEN_LISTE_WIE = "suchen-liste-wie"; // neue Liste / Liste nur aktualisieren
+    public static final int SUCHEN_LISTE_WIE_NR = 1;
     public static final String SUCHEN_WANN = "suchen-wann";
-    public static final int SUCHEN_WANN_NR = 1;
+    public static final int SUCHEN_WANN_NR = 2;
     public static final String SUCHEN_SENDER = "suchen-sender";
-    public static final int SUCHEN_SENDER_NR = 2;
+    public static final int SUCHEN_SENDER_NR = 3;
     // Array
     public static final String SUCHEN = "suchen";
-    public static final int SUCHEN_MAX_ELEM = 3;
-    public static final String[] SUCHEN_COLUMN_NAMES = {SUCHEN_WAS, SUCHEN_WANN, SUCHEN_SENDER};
+    public static final int SUCHEN_MAX_ELEM = 4;
+    public static final String[] SUCHEN_COLUMN_NAMES = {SUCHEN_SENDER_WIE, SUCHEN_LISTE_WIE, SUCHEN_WANN, SUCHEN_SENDER};
     //
     //
     // Konstanten Upload

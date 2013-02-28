@@ -41,7 +41,8 @@ public class MS_DatenSuchen {
 
     public void meldungStart() {
         MS_Log.systemMeldung("Starten: " + this.arr[MS_Konstanten.SUCHEN_WANN_NR]);
-        MS_Log.systemMeldung("Suchen:  " + this.arr[MS_Konstanten.SUCHEN_WAS_NR]);
+        MS_Log.systemMeldung("Suchen Sender wie:  " + this.arr[MS_Konstanten.SUCHEN_SENDER_WIE_NR]);
+        MS_Log.systemMeldung("Suchen Liste wie:  " + this.arr[MS_Konstanten.SUCHEN_LISTE_WIE_NR]);
         if (!this.arr[MS_Konstanten.SUCHEN_SENDER_NR].equals("")) {
             MS_Log.systemMeldung("Sender:  " + this.arr[MS_Konstanten.SUCHEN_SENDER_NR]);
         }
@@ -84,7 +85,11 @@ public class MS_DatenSuchen {
     }
 
     public boolean allesLaden() {
-        return this.arr[MS_Konstanten.SUCHEN_WAS_NR].equals(MS_Konstanten.SUCHEN_ALLES);
+        return this.arr[MS_Konstanten.SUCHEN_SENDER_WIE_NR].equals(MS_Konstanten.SUCHEN_ALLES);
+    }
+
+    public boolean updateFilmliste() {
+        return this.arr[MS_Konstanten.SUCHEN_LISTE_WIE_NR].equals(MS_Konstanten.SUCHEN_UPDATE);
     }
 
     public boolean starten() {
