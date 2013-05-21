@@ -48,6 +48,7 @@ public class Main {
                         }
                     }
                 }
+
                 if (mv) {
                     Daten.debug = true;
                     new MediathekGui(ar).setVisible(true);
