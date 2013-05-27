@@ -20,6 +20,8 @@
 package mediathekServer.upload;
 
 import java.util.Iterator;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import mediathekServer.daten.MS_DatenSuchen;
 import mediathekServer.daten.MS_DatenUpload;
 import mediathekServer.tool.MS_Daten;
@@ -55,6 +57,18 @@ public class MS_Upload {
                         datenUpload.arr[MS_Konstanten.UPLOAD_PWD_NR], filmDateiPfad, filmDateiName,
                         datenUpload)) {
                     ms_Melden.melden(datenUpload.getUrlFilmliste(filmDateiName), datenUpload.getPrio());
+                } else {
+                    try {
+                        // 10 Sekunden warten
+                        this.wait(10 * 1000); // 10 Sekunden warten
+                    } catch (InterruptedException ex) {
+                    }
+                    MS_Log.systemMeldung("2. Versuch Upload FTP");
+                    if (new MS_UploadFtp().uploadFtp(datenUpload.arr[MS_Konstanten.UPLOAD_SERVER_NR], datenUpload.arr[MS_Konstanten.UPLOAD_PORT_NR], datenUpload.arr[MS_Konstanten.UPLOAD_USER_NR],
+                            datenUpload.arr[MS_Konstanten.UPLOAD_PWD_NR], filmDateiPfad, filmDateiName,
+                            datenUpload)) {
+                        ms_Melden.melden(datenUpload.getUrlFilmliste(filmDateiName), datenUpload.getPrio());
+                    }
                 }
             }
         }

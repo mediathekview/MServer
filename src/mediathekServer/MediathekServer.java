@@ -39,6 +39,7 @@ public class MediathekServer {
     MS_FilmeSuchen msFilmeSuchen;
     MS_Upload msUpload;
     boolean nachUpdate = false;
+    boolean nurUpload = false;
 
     public MediathekServer(String[] ar) {
         String pfad = "";
@@ -55,6 +56,9 @@ public class MediathekServer {
         for (String s : ar) {
             if (s.equalsIgnoreCase("-update")) {
                 nachUpdate = true;
+            }
+            if (s.equalsIgnoreCase("-upload")) {
+                nurUpload = true;
             }
         }
         msDaten = new MS_Daten();
