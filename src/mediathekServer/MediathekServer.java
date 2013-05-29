@@ -26,6 +26,7 @@ import mediathekServer.tool.MS_Daten;
 import mediathekServer.tool.MS_Konstanten;
 import mediathekServer.tool.MS_Log;
 import mediathekServer.tool.MS_Timer;
+import mediathekServer.tool.MS_Warten;
 import mediathekServer.tool.MS_XmlLesen;
 import mediathekServer.update.MS_Update;
 import mediathekServer.upload.MS_Upload;
@@ -140,6 +141,9 @@ public class MediathekServer {
                 MS_Log.systemMeldung("-----------------------------");
                 MS_Log.systemMeldung("");
                 // ----------------------
+                // Rechner Zeit zum Abau aller Verbindungen geben
+                new MS_Warten().warten(60);
+                // ----------------------
                 // Filme hochladen
                 MS_Log.systemMeldung("");
                 MS_Log.systemMeldung("=============================");
@@ -154,6 +158,7 @@ public class MediathekServer {
             // nach Programmupdate suchen
             updateSuchen();
         }
+
     }
 
     private void updateSuchen() {
