@@ -63,7 +63,7 @@ public class MS_Upload {
                     // wenns nicht geklappt hat nochmal versuchen
                     new MS_Warten().sekundenWarten(60);
                     MS_Log.systemMeldung("2. Versuch Upload FTP");
-                    if (uploadFtp_(filmDateiPfad, filmDateiName, datenUpload)) {
+                    if (!uploadFtp_(filmDateiPfad, filmDateiName, datenUpload)) {
                         MS_Log.fehlerMeldung(649896079, MS_Upload.class.getName(), "FTP, 2.Versuch nicht geklappe");
                     }
                 }

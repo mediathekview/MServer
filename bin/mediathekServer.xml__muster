@@ -4,11 +4,11 @@
 <!-- Programmeinstellungen -->
 <system>
 	<!-- Useragent  -->
-	<system--user-agent></system--user-agent>
+	<system-user-agent></system-user-agent>
 	<!-- damit kann das automatische Update abschalten [0,1] -->
-	<system--programmupdate-suchen>1</system--programmupdate-suchen>
+	<system-programmupdate-suchen>1</system-programmupdate-suchen>
 	<!-- Die Filmliste kann nach dem Suchen mit noch einer anderen Liste ergänzt werden -->
-	<system--filmliste-import-url>http://176.28.14.91/mediathek1/Mediathek_12.bz2</system--filmliste-import-url>
+	<system-filmliste-import-url>http://176.28.14.91/mediathek1/Mediathek_12.bz2</system-filmliste-import-url>
 </system>
 
 
