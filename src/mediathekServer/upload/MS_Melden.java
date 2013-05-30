@@ -29,7 +29,8 @@ import mediathekServer.tool.MS_Log;
 
 public class MS_Melden {
 
-    public synchronized void melden(String urlFilmliste, String prio) {
+    public synchronized boolean melden(String urlFilmliste, String prio) {
+        boolean ret = false;
         try {
             String pwd = MS_Daten.system[MS_Konstanten.SYSTEM_UPDATE_MELDEN_PWD_NR].trim();
             String url = MS_Daten.system[MS_Konstanten.SYSTEM_UPDATE_MELDEN_URL_NR].trim();
@@ -60,9 +61,11 @@ public class MS_Melden {
                 inReader.close();
                 MS_Log.systemMeldung("Ok");
                 this.wait(2000); // damit der Server nicht stolpert, max alle 2 Sekunden
+                ret = true;
             }
         } catch (Exception ex) {
             MS_Log.fehlerMeldung(301256907, MS_Melden.class.getName(), "melden", ex);
         }
+        return ret;
     }
 }

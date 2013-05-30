@@ -50,19 +50,19 @@ public class MS_Konstanten {
     //
     // Konstanten System
     // zum Melden
-    public static final String SYSTEM_UPDATE_MELDEN_PWD = "system--filmliste-melden-pwd";
+    public static final String SYSTEM_UPDATE_MELDEN_PWD = "system-filmliste-melden-pwd";
     public static final int SYSTEM_UPDATE_MELDEN_PWD_NR = 0;
-    public static final String SYSTEM_UPDATE_MELDEN_URL = "system--filmliste-melden-url";
+    public static final String SYSTEM_UPDATE_MELDEN_URL = "system-filmliste-melden-url";
     public static final int SYSTEM_UPDATE_MELDEN_URL_NR = 1;
-    public static final String SYSTEM_USER_AGENT = "system--user-agent";
+    public static final String SYSTEM_USER_AGENT = "system-user-agent";
     public static final int SYSTEM_USER_AGENT_NR = 2;
-    public static final String SYSTEM_UPDATE_SUCHEN = "system--programmupdate-suchen";
+    public static final String SYSTEM_UPDATE_SUCHEN = "system-programmupdate-suchen";
     public static final int SYSTEM_UPDATE_SUCHEN_NR = 3;
-    public static final String SYSTEM_IMPORT_URL = "system--filmliste-import-url";
+    public static final String SYSTEM_IMPORT_URL = "system-filmliste-import-url";
     public static final int SYSTEM_IMPORT_URL_NR = 4;
-    public static final String SYSTEM_PFAD_LOGDATEI = "system--pfad-logdatei";
+    public static final String SYSTEM_PFAD_LOGDATEI = "system-pfad-logdatei";
     public static final int SYSTEM_PFAD_LOGDATEI_NR = 5;
-    public static final String SYSTEM_DEBUG = "system--debug";
+    public static final String SYSTEM_DEBUG = "system-debug";
     public static final int SYSTEM_DEBUG_NR = 6;
     // Array
     public static final String SYSTEM = "system";

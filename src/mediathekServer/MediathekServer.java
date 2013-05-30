@@ -142,7 +142,7 @@ public class MediathekServer {
                 MS_Log.systemMeldung("");
                 // ----------------------
                 // Rechner Zeit zum Abau aller Verbindungen geben
-                new MS_Warten().warten(60);
+                new MS_Warten().sekundenWarten(60);
                 // ----------------------
                 // Filme hochladen
                 MS_Log.systemMeldung("");

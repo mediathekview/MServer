@@ -25,6 +25,7 @@ import mediathekServer.daten.MS_DatenUpload;
 import mediathekServer.tool.MS_Daten;
 import mediathekServer.tool.MS_Konstanten;
 import mediathekServer.tool.MS_Log;
+import mediathekServer.tool.MS_Warten;
 
 public class MS_Upload {
 
@@ -45,31 +46,51 @@ public class MS_Upload {
             if (datenUpload.arr[MS_Konstanten.UPLOAD_ART_NR].equals(UPLOAD_ART_COPY)) {
                 // ==============================================================
                 // kopieren
-                if (MS_UploadCopy.copy(filmDateiPfad, filmDateiName, datenUpload)) {
-                    ms_Melden.melden(datenUpload.getUrlFilmliste(filmDateiName), datenUpload.getPrio());
+                if (!uploadCopy_(filmDateiPfad, filmDateiName, datenUpload)) {
+                    // ----------------------
+                    // wenns nicht geklappt hat nochmal versuchen
+                    new MS_Warten().sekundenWarten(60);
+                    MS_Log.systemMeldung("2. Versuch Upload copy");
+                    if (!uploadCopy_(filmDateiPfad, filmDateiName, datenUpload)) {
+                        MS_Log.fehlerMeldung(798956236, MS_Upload.class.getName(), "Copy, 2.Versuch nicht geklappe");
+                    }
                 }
             } else if (datenUpload.arr[MS_Konstanten.UPLOAD_ART_NR].equals(UPLOAD_ART_FTP)) {
                 // ==============================================================
                 // ftp
-                if (new MS_UploadFtp().uploadFtp(datenUpload.arr[MS_Konstanten.UPLOAD_SERVER_NR], datenUpload.arr[MS_Konstanten.UPLOAD_PORT_NR], datenUpload.arr[MS_Konstanten.UPLOAD_USER_NR],
-                        datenUpload.arr[MS_Konstanten.UPLOAD_PWD_NR], filmDateiPfad, filmDateiName,
-                        datenUpload)) {
-                    ms_Melden.melden(datenUpload.getUrlFilmliste(filmDateiName), datenUpload.getPrio());
-                } else {
-//                    try {
-//                        // 10 Sekunden warten
-//                        this.wait(10 * 1000); // 10 Sekunden warten
-//                    } catch (Exception ex) {
-//                    }
-//                    MS_Log.systemMeldung("2. Versuch Upload FTP");
-//                    if (new MS_UploadFtp().uploadFtp(datenUpload.arr[MS_Konstanten.UPLOAD_SERVER_NR], datenUpload.arr[MS_Konstanten.UPLOAD_PORT_NR], datenUpload.arr[MS_Konstanten.UPLOAD_USER_NR],
-//                            datenUpload.arr[MS_Konstanten.UPLOAD_PWD_NR], filmDateiPfad, filmDateiName,
-//                            datenUpload)) {
-//                        ms_Melden.melden(datenUpload.getUrlFilmliste(filmDateiName), datenUpload.getPrio());
-//                    }
+                if (!uploadFtp_(filmDateiPfad, filmDateiName, datenUpload)) {
+                    // ----------------------
+                    // wenns nicht geklappt hat nochmal versuchen
+                    new MS_Warten().sekundenWarten(60);
+                    MS_Log.systemMeldung("2. Versuch Upload FTP");
+                    if (uploadFtp_(filmDateiPfad, filmDateiName, datenUpload)) {
+                        MS_Log.fehlerMeldung(649896079, MS_Upload.class.getName(), "FTP, 2.Versuch nicht geklappe");
+                    }
                 }
             }
         }
         MS_Log.systemMeldung("Upload Ok");
+    }
+
+    private boolean uploadFtp_(String filmDateiPfad, String filmDateiName, MS_DatenUpload datenUpload) {
+        boolean ret = false;
+        if (new MS_UploadFtp().uploadFtp(datenUpload.arr[MS_Konstanten.UPLOAD_SERVER_NR], datenUpload.arr[MS_Konstanten.UPLOAD_PORT_NR], datenUpload.arr[MS_Konstanten.UPLOAD_USER_NR],
+                datenUpload.arr[MS_Konstanten.UPLOAD_PWD_NR], filmDateiPfad, filmDateiName, datenUpload)) {
+            if (ms_Melden.melden(datenUpload.getUrlFilmliste(filmDateiName), datenUpload.getPrio())) {
+                ret = true;
+            }
+        }
+        return ret;
+    }
+
+    private boolean uploadCopy_(String filmDateiPfad, String filmDateiName, MS_DatenUpload datenUpload) {
+        boolean ret = false;
+        if (MS_UploadCopy.copy(filmDateiPfad, filmDateiName, datenUpload)) {
+            if (ms_Melden.melden(datenUpload.getUrlFilmliste(filmDateiName), datenUpload.getPrio())) {
+                ret = true;
+            }
+        }
+        return ret;
+
     }
 }
