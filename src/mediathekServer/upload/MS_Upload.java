@@ -52,7 +52,7 @@ public class MS_Upload {
                     new MS_Warten().sekundenWarten(60);
                     MS_Log.systemMeldung("2. Versuch Upload copy");
                     if (!uploadCopy_(filmDateiPfad, filmDateiName, datenUpload)) {
-                        MS_Log.fehlerMeldung(798956236, MS_Upload.class.getName(), "Copy, 2.Versuch nicht geklappe");
+                        MS_Log.fehlerMeldung(798956236, MS_Upload.class.getName(), "Copy, 2.Versuch nicht geklappt");
                     }
                 }
             } else if (datenUpload.arr[MS_Konstanten.UPLOAD_ART_NR].equals(UPLOAD_ART_FTP)) {

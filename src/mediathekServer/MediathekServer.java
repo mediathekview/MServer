@@ -78,7 +78,7 @@ public class MediathekServer {
         Thread.setDefaultUncaughtExceptionHandler(new Thread.UncaughtExceptionHandler() {
             @Override
             public void uncaughtException(Thread t, Throwable e) {
-                MS_Log.fehlerMeldung(97986523, MediathekServer.class.getName(), "Da hat sich ein Thread verabschiedet");
+                MS_Log.fehlerMeldung(97986523, MediathekServer.class.getName(), "Da hat sich ein Thread verabschiedet: " + t.getName());
             }
         });
     }
