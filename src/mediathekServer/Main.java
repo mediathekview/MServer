@@ -1,6 +1,7 @@
 package mediathekServer;
 
 import mediathek.MediathekGui;
+import mediathek.MediathekNoGui;
 import mediathek.daten.Daten;
 import mediathekServer.tool.MS_Daten;
 import mediathekServer.tool.MS_Log;
@@ -26,12 +27,20 @@ import mediathekServer.tool.MS_Log;
  */
 public class Main {
 
+    public Main() {
+    }
+
+    private enum StartupMode {
+
+        MV, SERVER, SENDER_LOESCHEN
+    }
+
     public static void main(String[] args) {
         final String ar[] = args;
         java.awt.EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
-                boolean mv = false;
+                StartupMode state = StartupMode.SERVER;
 
                 if (ar != null) {
                     for (String s : ar) {
@@ -44,16 +53,24 @@ public class Main {
                             System.exit(0);
                         }
                         if (s.equalsIgnoreCase("-mv")) {
-                            mv = true;
+                            state = StartupMode.MV;
+                        }
+                        if (s.equalsIgnoreCase("-S")) {
+                            state = StartupMode.SENDER_LOESCHEN;
                         }
                     }
                 }
-
-                if (mv) {
-                    Daten.debug = true;
-                    new MediathekGui(ar).setVisible(true);
-                } else {
-                    new MediathekServer(ar).starten();
+                switch (state) {
+                    case MV:
+                        Daten.debug = true;
+                        new MediathekGui(ar).setVisible(true);
+                        break;
+                    case SERVER:
+                        new MediathekServer(ar).starten();
+                        break;
+                    case SENDER_LOESCHEN:
+                        new MediathekNoGui(ar).senderLoeschenUndExit();
+                        break;
                 }
             }
         });
