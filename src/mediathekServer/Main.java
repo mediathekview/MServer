@@ -40,23 +40,26 @@ public class Main {
         java.awt.EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
+                String sender = "";
                 StartupMode state = StartupMode.SERVER;
-
                 if (ar != null) {
-                    for (String s : ar) {
-                        if (s.equalsIgnoreCase("-d")) {
+                    for (int i = 0; i < ar.length; ++i) {
+                        if (ar[i].equalsIgnoreCase("-d")) {
                             Daten.debug = true;
                             MS_Daten.debug = true;
                         }
-                        if (s.equalsIgnoreCase("-v")) {
+                        if (ar[i].equalsIgnoreCase("-v")) {
                             MS_Log.versionsMeldungen(this.getClass().getName());
                             System.exit(0);
                         }
-                        if (s.equalsIgnoreCase("-mv")) {
+                        if (ar[i].equalsIgnoreCase("-mv")) {
                             state = StartupMode.MV;
                         }
-                        if (s.equalsIgnoreCase("-S")) {
+                        if (ar[i].equalsIgnoreCase("-S")) {
                             state = StartupMode.SENDER_LOESCHEN;
+                            if (ar.length > i) {
+                                sender = ar[i + 1];
+                            }
                         }
                     }
                 }
@@ -69,7 +72,7 @@ public class Main {
                         new MediathekServer(ar).starten();
                         break;
                     case SENDER_LOESCHEN:
-                        new MediathekNoGui(ar).senderLoeschenUndExit();
+                        new MediathekNoGui(ar).senderLoeschenUndExit(sender);
                         break;
                 }
             }
