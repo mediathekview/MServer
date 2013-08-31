@@ -34,7 +34,8 @@ public class MS_FilmeSuchen {
         String filmDateiName = aktDatenSuchen.getZielDateiName();
         String filmDateiPfad = MS_Daten.getVerzeichnisFilme();
         String sender[] = arrLesen(aktDatenSuchen.arr[MS_Konstanten.SUCHEN_SENDER_NR].trim());
-        String importUrl = MS_Daten.system[MS_Konstanten.SYSTEM_IMPORT_URL_NR].toString();
+        String importUrlExtend = MS_Daten.system[MS_Konstanten.SYSTEM_IMPORT_URL_EXTEND_NR].toString();
+        String importUrlReplace = MS_Daten.system[MS_Konstanten.SYSTEM_IMPORT_URL_REPLACE_NR].toString();
         try {
             // ===========================================
             // den nächsten Suchlauf starten
@@ -45,7 +46,8 @@ public class MS_FilmeSuchen {
                     aktDatenSuchen.allesLaden(),
                     aktDatenSuchen.updateFilmliste(),
                     GuiFunktionen.addsPfad(filmDateiPfad, filmDateiName),
-                    importUrl,
+                    importUrlExtend,
+                    importUrlReplace,
                     MS_Daten.getUserAgent(),
                     MS_Daten.getLogDatei_mediathekView(),
                     MS_Daten.debug);

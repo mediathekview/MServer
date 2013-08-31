@@ -58,17 +58,19 @@ public class MS_Konstanten {
     public static final int SYSTEM_USER_AGENT_NR = 2;
     public static final String SYSTEM_UPDATE_SUCHEN = "system-programmupdate-suchen";
     public static final int SYSTEM_UPDATE_SUCHEN_NR = 3;
-    public static final String SYSTEM_IMPORT_URL = "system-filmliste-import-url";
-    public static final int SYSTEM_IMPORT_URL_NR = 4;
+    public static final String SYSTEM_IMPORT_EXTEND_URL = "system-filmliste-import-url-extend";
+    public static final int SYSTEM_IMPORT_URL_EXTEND_NR = 4;
+    public static final String SYSTEM_IMPORT_URL_REPLACE = "system-filmliste-import-url-replace";
+    public static final int SYSTEM_IMPORT_URL_REPLACE_NR = 5;
     public static final String SYSTEM_PFAD_LOGDATEI = "system-pfad-logdatei";
-    public static final int SYSTEM_PFAD_LOGDATEI_NR = 5;
+    public static final int SYSTEM_PFAD_LOGDATEI_NR = 6;
     public static final String SYSTEM_DEBUG = "system-debug";
-    public static final int SYSTEM_DEBUG_NR = 6;
+    public static final int SYSTEM_DEBUG_NR = 7;
     // Array
     public static final String SYSTEM = "system";
-    public static final int SYSTEM_MAX_ELEM = 7;
+    public static final int SYSTEM_MAX_ELEM = 8;
     public static final String[] SYSTEM_COLUMN_NAMES = {SYSTEM_UPDATE_MELDEN_PWD, SYSTEM_UPDATE_MELDEN_URL,
-        SYSTEM_USER_AGENT, SYSTEM_UPDATE_SUCHEN, SYSTEM_IMPORT_URL, SYSTEM_PFAD_LOGDATEI, SYSTEM_DEBUG};
+        SYSTEM_USER_AGENT, SYSTEM_UPDATE_SUCHEN, SYSTEM_IMPORT_EXTEND_URL, SYSTEM_IMPORT_URL_REPLACE, SYSTEM_PFAD_LOGDATEI, SYSTEM_DEBUG};
     //
     //
     // Konstanten Suchen
