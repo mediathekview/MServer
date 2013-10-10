@@ -7,8 +7,8 @@
 <!-- the Compile on Save feature is turned off for the project. -->
 <!-- You can turn off the Compile on Save (or Deploy on Save) setting -->
 <!-- in the project's Project Properties dialog box.-->
-<project name="MediathekServer" default="default" basedir=".">
-    <description>Builds, tests, and runs the project MediathekServer.</description>
+<project name="MServer" default="default" basedir=".">
+    <description>Builds, tests, and runs the project MServer.</description>
     <import file="nbproject/build-impl.xml"/>
     <!--
 
@@ -59,7 +59,7 @@
 
     An example of overriding the target for project execution could look like this:
 
-        <target name="run" depends="MediathekServer-impl.jar">
+        <target name="run" depends="MServer-impl.jar">
             <exec dir="bin" executable="launcher.exe">
                 <arg file="${dist.jar}"/>
             </exec>
@@ -71,9 +71,16 @@
     nbproject/build-impl.xml file. 
 
     -->
-		<target name="-post-jar">
-			<exec executable="./post_make.sh">
-			</exec>
-		</target>
-		
+	<target name="-pre-compile" >
+		<propertyfile file="${src.dir}\version.properties">
+			<entry key="BUILD" value="1" type="int" operation="+"/>
+			<entry key="DATE" type="date" pattern="dd.MM.yyyy / HH:mm:ss" value="now"/>
+		</propertyfile>
+	</target>
+
+	<target name="-post-jar">
+		<exec executable="./post_make.sh">
+		</exec>
+	</target>
+
 </project>
