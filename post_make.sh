@@ -3,6 +3,7 @@
 # Dateien ins dist-Verzeichnis kopieren
 cp -r /mnt/daten/software/Mediathek/MServer/bin/* /mnt/daten/software/Mediathek/MServer/dist
 cp -r /mnt/daten/software/Mediathek/MServer/src /mnt/daten/software/Mediathek/MServer/dist
+cp -r /mnt/daten/software/Mediathek/MServer/dist/lib/* /mnt/daten/software/Mediathek/MServer/libs
 
 # für Netbeans nochmal
 cp -r /mnt/daten/software/Mediathek/MServer/bin/* /mnt/daten/software/Mediathek/MServer/build
