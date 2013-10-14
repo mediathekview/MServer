@@ -49,8 +49,8 @@ public class MServerXmlSchreiben {
             writer.writeCharacters("\n");//neue Zeile
             // System schreibem
             xmlSchreibenDaten(MServerKonstanten.SYSTEM, MServerKonstanten.SYSTEM_COLUMN_NAMES, MServerDaten.system);
-            xmlSchreibenDaten(MServerKonstanten.SUCHEN, MServerKonstanten.SUCHEN_COLUMN_NAMES, new MServerDatenSuchen().arr);
-            xmlSchreibenDaten(MServerKonstanten.UPLOAD, MServerKonstanten.UPLOAD_COLUMN_NAMES, new MServerDatenUpload().arr);
+            xmlSchreibenDaten(MServerDatenSuchen.SUCHEN, MServerDatenSuchen.SUCHEN_COLUMN_NAMES, new MServerDatenSuchen().arr);
+            xmlSchreibenDaten(MServerDatenUpload.UPLOAD, MServerDatenUpload.UPLOAD_COLUMN_NAMES, new MServerDatenUpload().arr);
             // Schließen
             writer.writeEndElement();
             writer.writeEndDocument();

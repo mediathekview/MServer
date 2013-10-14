@@ -26,9 +26,9 @@ import mServer.tool.MServerDaten;
 import mServer.tool.MServerKonstanten;
 import mServer.tool.MServerLog;
 import mServer.tool.MServerTimer;
-import mServer.tool.MServerWarten;
 import mServer.tool.MServerXmlLesen;
 import mServer.update.MServerUpdate;
+import mServer.upload.MServerMelden;
 import mServer.upload.MServerUpload;
 import msearch.Search;
 
@@ -107,6 +107,24 @@ public class MServer {
                 }
             };
             new Thread(timer).start();
+        }
+    }
+
+    public void urlLoeschen(String url) {
+        if (!MServerDaten.konfigExistiert()) {
+            MServerLog.fehlerMeldung(858589654, MServer.class.getName(), new String[]{"Konfig-Datei existiert nicht", MServerDaten.getKonfigDatei()});
+            System.exit(0); // und Tschüss
+        } else {
+            MServerXmlLesen.xmlDatenLesen();
+            if (MServerDaten.system[MServerKonstanten.SYSTEM_DEBUG_NR].equals(MServerKonstanten.STR_TRUE)) {
+                MServerDaten.debug = true;
+                MServerLog.systemMeldung("== Debug on ======");
+            }
+            // Infos schreiben
+            MServerLog.startMeldungen(this.getClass().getName());
+            MServerLog.systemMeldung("== FilmUrl löschen ======");
+            MServerLog.systemMeldung("Url: " + url);
+            MServerMelden.updateServerLoeschen(url,"");
         }
     }
 

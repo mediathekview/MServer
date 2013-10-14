@@ -25,9 +25,33 @@ import msearch.tool.MSearchConst;
 import msearch.tool.GuiFunktionen;
 
 public class MServerDatenUpload {
+    // Konstanten Upload
 
-    public String[] arr = new String[MServerKonstanten.UPLOAD_MAX_ELEM];
-
+    public static final String UPLOAD = "upload";
+    // Array
+    public static final String UPLOAD_ART = "upload-art";
+    public static final int UPLOAD_ART_NR = 0;
+    public static final String UPLOAD_SERVER = "upload-server";
+    public static final int UPLOAD_SERVER_NR = 1;
+    public static final String UPLOAD_USER = "upload-user";
+    public static final int UPLOAD_USER_NR = 2;
+    public static final String UPLOAD_PWD = "upload-pwd";
+    public static final int UPLOAD_PWD_NR = 3;
+    public static final String UPLOAD_DEST_DIR = "upload-dest-dir";
+    public static final int UPLOAD_DEST_DIR_NR = 4;
+    public static final String UPLOAD_PORT = "upload-port";
+    public static final int UPLOAD_PORT_NR = 5;
+    public static final String UPLOAD_URL_FILMLISTE = "upload-url-filmliste";
+    public static final int UPLOAD_URL_FILMLISTE_NR = 6;
+    public static final String UPLOAD_PRIO_FILMLISTE = "upload-prio-filmliste";
+    public static final int UPLOAD_PRIO_FILMLISTE_NR = 7;
+    public static final String UPLOAD_VORHER_LOESCHEN = "upload-vorher-loeschen";
+    public static final int UPLOAD_VORHER_LOESCHEN_NR = 8;
+    public static final int UPLOAD_MAX_ELEM = 9;
+    public static final String[] UPLOAD_COLUMN_NAMES = {UPLOAD_ART, UPLOAD_SERVER, UPLOAD_USER, UPLOAD_PWD,
+        UPLOAD_DEST_DIR, UPLOAD_PORT, UPLOAD_URL_FILMLISTE, UPLOAD_PRIO_FILMLISTE, UPLOAD_VORHER_LOESCHEN};
+    public String[] arr = new String[UPLOAD_MAX_ELEM];
+    
     public MServerDatenUpload() {
         init();
     }
@@ -39,34 +63,42 @@ public class MServerDatenUpload {
     }
 
     public String getServer() {
-        return arr[MServerKonstanten.UPLOAD_SERVER_NR];
+        return arr[UPLOAD_SERVER_NR];
+    }
+
+    public boolean vorherLoeschen() {
+        return arr[UPLOAD_VORHER_LOESCHEN_NR].equals(MServerKonstanten.STR_TRUE);
     }
 
     public String get_Url_Datei_ListeFilmlisten() {
-        if (arr[MServerKonstanten.UPLOAD_ART_NR].equals(MServerUpload.UPLOAD_ART_COPY)) {
+        if (arr[UPLOAD_ART_NR].equals(MServerUpload.UPLOAD_ART_COPY)) {
             return getFilmlisteDestPfadName(MSearchConst.DATEINAME_LISTE_FILMLISTEN);
         } else {
-            return GuiFunktionen.addUrl(arr[MServerKonstanten.UPLOAD_URL_FILMLISTE_NR], MSearchConst.DATEINAME_LISTE_FILMLISTEN);
+            return GuiFunktionen.addUrl(arr[UPLOAD_URL_FILMLISTE_NR], MSearchConst.DATEINAME_LISTE_FILMLISTEN);
         }
     }
 
     public String getUrlFilmliste(String dateinameFilmliste) {
-        return GuiFunktionen.addUrl(arr[MServerKonstanten.UPLOAD_URL_FILMLISTE_NR], dateinameFilmliste);
+        if (arr[UPLOAD_URL_FILMLISTE_NR].isEmpty()) {
+            return "";
+        } else {
+            return GuiFunktionen.addUrl(arr[UPLOAD_URL_FILMLISTE_NR], dateinameFilmliste);
+        }
     }
 
     public String getDestDir() {
-        return arr[MServerKonstanten.UPLOAD_DEST_DIR_NR];
+        return arr[UPLOAD_DEST_DIR_NR];
     }
 
     public String getFilmlisteDestPfadName(String dateinameFilmliste) {
-        return GuiFunktionen.addsPfad(arr[MServerKonstanten.UPLOAD_DEST_DIR_NR], dateinameFilmliste);
+        return GuiFunktionen.addsPfad(arr[UPLOAD_DEST_DIR_NR], dateinameFilmliste);
     }
 
     public String getListeFilmlistenDestPfadName() {
-        return GuiFunktionen.addsPfad(arr[MServerKonstanten.UPLOAD_DEST_DIR_NR], MSearchConst.DATEINAME_LISTE_FILMLISTEN);
+        return GuiFunktionen.addsPfad(arr[UPLOAD_DEST_DIR_NR], MSearchConst.DATEINAME_LISTE_FILMLISTEN);
     }
 
     public String getPrio() {
-        return ((arr[MServerKonstanten.UPLOAD_PRIO_FILMLISTE_NR].equals("")) ? "1" : arr[MServerKonstanten.UPLOAD_PRIO_FILMLISTE_NR]);
+        return ((arr[UPLOAD_PRIO_FILMLISTE_NR].equals("")) ? "1" : arr[UPLOAD_PRIO_FILMLISTE_NR]).trim();
     }
 }

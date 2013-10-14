@@ -23,7 +23,6 @@ import java.util.Iterator;
 import mServer.daten.MServerDatenSuchen;
 import mServer.daten.MServerDatenUpload;
 import mServer.tool.MServerDaten;
-import mServer.tool.MServerKonstanten;
 import mServer.tool.MServerLog;
 import mServer.tool.MServerWarten;
 
@@ -31,15 +30,13 @@ public class MServerUpload {
 
     public static final String UPLOAD_ART_FTP = "ftp";
     public static final String UPLOAD_ART_COPY = "copy";
-    private MServerMelden ms_Melden;
 
     public MServerUpload() {
-        ms_Melden = new MServerMelden();
     }
 
     public void upload(MServerDatenSuchen aktDatenSuchen) {
-        String filmDateiName = aktDatenSuchen.getExportFilmliste();
-        String filmDateiPfad = MServerDaten.getVerzeichnisFilme();
+        String filmlisteDateiName = aktDatenSuchen.getExportFilmliste();
+        String filmlisteDateiPfad = MServerDaten.getVerzeichnisFilme();
         Iterator<MServerDatenUpload> it = MServerDaten.listeUpload.iterator();
         if (MServerDaten.listeUpload.size() > 0) {
             // nach dem Suchen Rechner Zeit zum Abau aller Verbindungen geben
@@ -47,27 +44,27 @@ public class MServerUpload {
         }
         while (it.hasNext()) {
             MServerDatenUpload datenUpload = it.next();
-            if (datenUpload.arr[MServerKonstanten.UPLOAD_ART_NR].equals(UPLOAD_ART_COPY)) {
+            if (datenUpload.arr[MServerDatenUpload.UPLOAD_ART_NR].equals(UPLOAD_ART_COPY)) {
                 // ==============================================================
                 // kopieren
-                if (!uploadCopy_(filmDateiPfad, filmDateiName, datenUpload)) {
+                if (!uploadCopy_(filmlisteDateiPfad, filmlisteDateiName, datenUpload)) {
                     // ----------------------
                     // wenns nicht geklappt hat nochmal versuchen
                     new MServerWarten().sekundenWarten(60);
                     MServerLog.systemMeldung("2. Versuch Upload copy");
-                    if (!uploadCopy_(filmDateiPfad, filmDateiName, datenUpload)) {
+                    if (!uploadCopy_(filmlisteDateiPfad, filmlisteDateiName, datenUpload)) {
                         MServerLog.fehlerMeldung(798956236, MServerUpload.class.getName(), "Copy, 2.Versuch nicht geklappt");
                     }
                 }
-            } else if (datenUpload.arr[MServerKonstanten.UPLOAD_ART_NR].equals(UPLOAD_ART_FTP)) {
+            } else if (datenUpload.arr[MServerDatenUpload.UPLOAD_ART_NR].equals(UPLOAD_ART_FTP)) {
                 // ==============================================================
                 // ftp
-                if (!uploadFtp_(filmDateiPfad, filmDateiName, datenUpload)) {
+                if (!uploadFtp_(filmlisteDateiPfad, filmlisteDateiName, datenUpload)) {
                     // ----------------------
                     // wenns nicht geklappt hat nochmal versuchen
                     new MServerWarten().sekundenWarten(60);
                     MServerLog.systemMeldung("2. Versuch Upload FTP");
-                    if (!uploadFtp_(filmDateiPfad, filmDateiName, datenUpload)) {
+                    if (!uploadFtp_(filmlisteDateiPfad, filmlisteDateiName, datenUpload)) {
                         MServerLog.fehlerMeldung(649896079, MServerUpload.class.getName(), "FTP, 2.Versuch nicht geklappe");
                     }
                 }
@@ -76,21 +73,21 @@ public class MServerUpload {
         MServerLog.systemMeldung("Upload Ok");
     }
 
-    private boolean uploadFtp_(String filmDateiPfad, String filmDateiName, MServerDatenUpload datenUpload) {
+    private boolean uploadFtp_(String filmlisteDateiPfad, String filmlisteDateiName, MServerDatenUpload datenUpload) {
         boolean ret = false;
-        if (new MServerUploadFtp().uploadFtp(datenUpload.arr[MServerKonstanten.UPLOAD_SERVER_NR], datenUpload.arr[MServerKonstanten.UPLOAD_PORT_NR], datenUpload.arr[MServerKonstanten.UPLOAD_USER_NR],
-                datenUpload.arr[MServerKonstanten.UPLOAD_PWD_NR], filmDateiPfad, filmDateiName, datenUpload)) {
-            if (ms_Melden.melden(datenUpload.getUrlFilmliste(filmDateiName), datenUpload.getPrio())) {
+        if (new MServerUploadFtp().uploadFtp(datenUpload.arr[MServerDatenUpload.UPLOAD_SERVER_NR], datenUpload.arr[MServerDatenUpload.UPLOAD_PORT_NR], datenUpload.arr[MServerDatenUpload.UPLOAD_USER_NR],
+                datenUpload.arr[MServerDatenUpload.UPLOAD_PWD_NR], filmlisteDateiPfad, filmlisteDateiName, datenUpload)) {
+            if (MServerMelden.melden(filmlisteDateiName, datenUpload)) {
                 ret = true;
             }
         }
         return ret;
     }
 
-    private boolean uploadCopy_(String filmDateiPfad, String filmDateiName, MServerDatenUpload datenUpload) {
+    private boolean uploadCopy_(String filmlisteDateiPfad, String filmlisteDateiName, MServerDatenUpload datenUpload) {
         boolean ret = false;
-        if (MServerUploadCopy.copy(filmDateiPfad, filmDateiName, datenUpload)) {
-            if (ms_Melden.melden(datenUpload.getUrlFilmliste(filmDateiName), datenUpload.getPrio())) {
+        if (MServerUploadCopy.copy(filmlisteDateiPfad, filmlisteDateiName, datenUpload)) {
+            if (MServerMelden.melden(filmlisteDateiName, datenUpload)) {
                 ret = true;
             }
         }

@@ -22,12 +22,30 @@ package mServer.daten;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import mServer.tool.MServerDatumZeit;
-import mServer.tool.MServerKonstanten;
 import mServer.tool.MServerLog;
 
 public class MServerDatenSuchen {
 
-    public String[] arr = new String[MServerKonstanten.SUCHEN_MAX_ELEM];
+    // Konstanten Suchen
+    public static final String SUCHEN_ALLES = "alles";
+    public static final String SUCHEN_UPDATE = "update";
+    public static final String SUCHEN_NEU = "neu";
+    public static final String SUCHEN_WANN_SOFORT = "sofort";
+    //
+    public static final String SUCHEN_SENDER_WIE = "suchen-sender-wie"; // Sender komplett - nur ein Update
+    public static final int SUCHEN_SENDER_WIE_NR = 0;
+    public static final String SUCHEN_LISTE_WIE = "suchen-liste-wie"; // neue Liste / Liste nur aktualisieren
+    public static final int SUCHEN_LISTE_WIE_NR = 1;
+    public static final String SUCHEN_WANN = "suchen-wann";
+    public static final int SUCHEN_WANN_NR = 2;
+    public static final String SUCHEN_SENDER = "suchen-sender";
+    public static final int SUCHEN_SENDER_NR = 3;
+    // Array
+    public static final String SUCHEN = "suchen";
+    public static final int SUCHEN_MAX_ELEM = 4;
+    public static final String[] SUCHEN_COLUMN_NAMES = {SUCHEN_SENDER_WIE, SUCHEN_LISTE_WIE, SUCHEN_WANN, SUCHEN_SENDER};
+
+    public String[] arr = new String[SUCHEN_MAX_ELEM];
 
     public MServerDatenSuchen() {
         for (int i = 0; i < arr.length; ++i) {
@@ -36,20 +54,20 @@ public class MServerDatenSuchen {
     }
 
     public void meldungNaechsterStart() {
-        MServerLog.systemMeldung("naechster Start: " + this.arr[MServerKonstanten.SUCHEN_WANN_NR]);
+        MServerLog.systemMeldung("naechster Start: " + this.arr[SUCHEN_WANN_NR]);
     }
 
     public void meldungStart() {
-        MServerLog.systemMeldung("Starten: " + this.arr[MServerKonstanten.SUCHEN_WANN_NR]);
-        MServerLog.systemMeldung("Suchen Sender wie:  " + this.arr[MServerKonstanten.SUCHEN_SENDER_WIE_NR]);
+        MServerLog.systemMeldung("Starten: " + this.arr[SUCHEN_WANN_NR]);
+        MServerLog.systemMeldung("Suchen Sender wie:  " + this.arr[SUCHEN_SENDER_WIE_NR]);
         MServerLog.systemMeldung("Suchen Liste wie:  " + (updateFilmliste() ? "nur ein Update" : "neue Filmliste"));
-        if (!this.arr[MServerKonstanten.SUCHEN_SENDER_NR].equals("")) {
-            MServerLog.systemMeldung("Sender:  " + this.arr[MServerKonstanten.SUCHEN_SENDER_NR]);
+        if (!this.arr[SUCHEN_SENDER_NR].equals("")) {
+            MServerLog.systemMeldung("Sender:  " + this.arr[SUCHEN_SENDER_NR]);
         }
     }
 
     public boolean jetzt() {
-        return this.arr[MServerKonstanten.SUCHEN_WANN_NR].equals(MServerKonstanten.SUCHEN_WANN_SOFORT);
+        return this.arr[SUCHEN_WANN_NR].equals(SUCHEN_WANN_SOFORT);
     }
 
     public boolean spaeter(MServerDatenSuchen d) {
@@ -68,7 +86,7 @@ public class MServerDatenSuchen {
         if (jetzt()) {
             return FILMDATEI_NAME + "." + FILM_DATEI_SUFF;
         } else {
-            return FILMDATEI_NAME + "_" + arr[MServerKonstanten.SUCHEN_WANN_NR].replace(":", "_") + "." + FILM_DATEI_SUFF;
+            return FILMDATEI_NAME + "_" + arr[SUCHEN_WANN_NR].replace(":", "_") + "." + FILM_DATEI_SUFF;
         }
     }
 
@@ -82,7 +100,7 @@ public class MServerDatenSuchen {
         Date ret;
         SimpleDateFormat sdf_zeit = new SimpleDateFormat("dd.MM.yyyy__HH:mm");
         try {
-            return sdf_zeit.parse(MServerDatumZeit.getHeute() + "__" + this.arr[MServerKonstanten.SUCHEN_WANN_NR]);
+            return sdf_zeit.parse(MServerDatumZeit.getHeute() + "__" + this.arr[SUCHEN_WANN_NR]);
         } catch (Exception ex) {
             ret = null;
             MServerLog.fehlerMeldung(825439079, MServerDatenSuchen.class.getName(), "getTime", ex);
@@ -91,13 +109,13 @@ public class MServerDatenSuchen {
     }
 
     public boolean allesLaden() {
-        return this.arr[MServerKonstanten.SUCHEN_SENDER_WIE_NR].equals(MServerKonstanten.SUCHEN_ALLES);
+        return this.arr[SUCHEN_SENDER_WIE_NR].equals(SUCHEN_ALLES);
     }
 
     public boolean updateFilmliste() {
         // Ist nichts angegeben, dann ist der Standardwert: Update der Filmliste
         boolean ret = true;
-        if (this.arr[MServerKonstanten.SUCHEN_LISTE_WIE_NR].equals(MServerKonstanten.SUCHEN_NEU)) {
+        if (this.arr[SUCHEN_LISTE_WIE_NR].equals(SUCHEN_NEU)) {
             ret = false;
         }
         return ret;

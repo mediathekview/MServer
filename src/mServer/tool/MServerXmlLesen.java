@@ -50,14 +50,14 @@ public class MServerXmlLesen {
                         if (parser.getLocalName().equals(MServerKonstanten.SYSTEM)) {
                             get(parser, event, MServerKonstanten.SYSTEM, MServerKonstanten.SYSTEM_COLUMN_NAMES, MServerDaten.system);
                         }
-                        if (parser.getLocalName().equals(MServerKonstanten.SUCHEN)) {
+                        if (parser.getLocalName().equals(MServerDatenSuchen.SUCHEN)) {
                             MServerDatenSuchen cron = new MServerDatenSuchen();
-                            get(parser, event, MServerKonstanten.SUCHEN, MServerKonstanten.SUCHEN_COLUMN_NAMES, cron.arr);
+                            get(parser, event, MServerDatenSuchen.SUCHEN, MServerDatenSuchen.SUCHEN_COLUMN_NAMES, cron.arr);
                             MServerDaten.listeSuchen.add(cron);
                         }
-                        if (parser.getLocalName().equals(MServerKonstanten.UPLOAD)) {
+                        if (parser.getLocalName().equals(MServerDatenUpload.UPLOAD)) {
                             MServerDatenUpload upload = new MServerDatenUpload();
-                            get(parser, event, MServerKonstanten.UPLOAD, MServerKonstanten.UPLOAD_COLUMN_NAMES, upload.arr);
+                            get(parser, event, MServerDatenUpload.UPLOAD, MServerDatenUpload.UPLOAD_COLUMN_NAMES, upload.arr);
                             MServerDaten.listeUpload.add(upload);
                         }
                     }

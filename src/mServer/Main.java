@@ -2,6 +2,7 @@ package mServer;
 
 import mServer.tool.MServerDaten;
 import mServer.tool.MServerLog;
+import mServer.upload.MServerMelden;
 import msearch.Search;
 
 /*
@@ -30,7 +31,7 @@ public class Main {
 
     private enum StartupMode {
 
-        SERVER, SENDER_LOESCHEN
+        SERVER, SENDER_LOESCHEN, URL_LOESCHEN
     }
 
     public static void main(String[] args) {
@@ -40,6 +41,7 @@ public class Main {
             public void run() {
                 String sender = "";
                 String filmDatei = "";
+                String url = "";
                 StartupMode state = StartupMode.SERVER;
                 if (ar != null) {
                     for (int i = 0; i < ar.length; ++i) {
@@ -56,6 +58,12 @@ public class Main {
                                 sender = ar[i + 1];
                             }
                         }
+                        if (ar[i].equalsIgnoreCase("-url")) {
+                            state = StartupMode.URL_LOESCHEN;
+                            if (ar.length > i) {
+                                url = ar[i + 1];
+                            }
+                        }
                         if (ar[i].equalsIgnoreCase("-filmdatei")) {
                             if (ar.length > i) {
                                 filmDatei = ar[i + 1];
@@ -69,6 +77,9 @@ public class Main {
                         break;
                     case SENDER_LOESCHEN:
                         Search.senderLoeschenUndExit(sender, filmDatei);
+                        break;
+                    case URL_LOESCHEN:
+                        new MServer(ar).urlLoeschen(url);
                         break;
                 }
             }

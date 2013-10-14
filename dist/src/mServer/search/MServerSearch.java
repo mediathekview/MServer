@@ -20,10 +20,14 @@
 package mServer.search;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import mServer.daten.MServerDatenSuchen;
+import mServer.daten.MServerDatenUpload;
 import mServer.tool.MServerDaten;
 import mServer.tool.MServerKonstanten;
 import mServer.tool.MServerLog;
+import mServer.tool.MServerWarten;
+import mServer.upload.MServerMelden;
 import msearch.Search;
 import msearch.daten.MSearchConfig;
 import msearch.tool.GuiFunktionen;
@@ -37,9 +41,10 @@ public class MServerSearch {
         boolean ret = true;
         String exportFilmliste = GuiFunktionen.addsPfad(MServerDaten.getVerzeichnisFilme(), aktDatenSuchen.getExportFilmliste());
         String aktFilmliste = GuiFunktionen.addsPfad(MServerDaten.getVerzeichnisFilme(), aktDatenSuchen.getAktFilmliste());
-        sender = arrLesen(aktDatenSuchen.arr[MServerKonstanten.SUCHEN_SENDER_NR].trim());
+        sender = arrLesen(aktDatenSuchen.arr[MServerDatenSuchen.SUCHEN_SENDER_NR].trim());
         String importUrlExtend = MServerDaten.system[MServerKonstanten.SYSTEM_IMPORT_URL_EXTEND_NR].toString();
         String importUrlReplace = MServerDaten.system[MServerKonstanten.SYSTEM_IMPORT_URL_REPLACE_NR].toString();
+        vorherLoeschen();
         try {
             // ===========================================
             // den nächsten Suchlauf starten
@@ -89,6 +94,22 @@ public class MServerSearch {
         }
         MServerLog.systemMeldung("filmeSuchen beendet");
         return ret;
+    }
+
+    private void vorherLoeschen() {
+        // so braucht der Buildserver während des Suchens von keine Downloads anbieten
+        try {
+            Iterator<MServerDatenUpload> it = MServerDaten.listeUpload.iterator();
+            while (it.hasNext()) {
+                MServerDatenUpload datenUpload = it.next();
+                if (datenUpload.vorherLoeschen()) {
+                    new MServerWarten().sekundenWarten(2);// damit der Server nicht stolpert, max alle 2 Sekunden
+                    MServerMelden.updateServerLoeschen("", datenUpload.arr[MServerDatenUpload.UPLOAD_URL_FILMLISTE_NR]);
+                }
+            }
+        } catch (Exception ex) {
+            MServerLog.fehlerMeldung(915152369, MServerSearch.class.getName(), "vorherLoeschen", ex);
+        }
     }
 
     private String[] arrLesen(String s) {
