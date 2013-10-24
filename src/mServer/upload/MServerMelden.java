@@ -41,8 +41,8 @@ public class MServerMelden {
         try {
             new MServerWarten().sekundenWarten(2);// damit der Server nicht stolpert, max alle 2 Sekunden
             String url = mServerDatenUpload.getUrlFilmliste(filmlisteDateiName);
-            String pwd = MServerDaten.system[MServerKonstanten.SYSTEM_UPDATE_MELDEN_PWD_NR].trim();
-            String serverMelden = MServerDaten.system[MServerKonstanten.SYSTEM_UPDATE_MELDEN_URL_NR].trim();
+            String pwd = mServerDatenUpload.arr[MServerDatenUpload.UPLOAD_MELDEN_PWD_NR].trim();
+            String serverMelden = mServerDatenUpload.arr[MServerDatenUpload.UPLOAD_MELDEN_URL_NR].trim();
             if (!pwd.equals("") && !serverMelden.equals("") && !url.equals("")) {
                 // nur dann gibts was zum Melden
                 // die Zeitzone in der Liste ist "UTC"
@@ -77,40 +77,35 @@ public class MServerMelden {
         return ret;
     }
 
-    public static synchronized boolean updateServerLoeschen(String urlFilmliste, String urlServer) {
+    public static synchronized boolean updateServerLoeschen(MServerDatenUpload mServerDatenUpload) {
         boolean ret = false;
         String delUrl = "";
-        if (!urlServer.isEmpty()) {
-            // dann dein letzten Eintrag des Servers in der Liste löschen
-            ListeDownloadUrlsFilmlisten listeDownloadUrlsFilmlisten = updateServerSuchen();
-            Iterator<DatenUrlFilmliste> it = listeDownloadUrlsFilmlisten.iterator();
-            int count = 0;
-            while (count < 5 && it.hasNext()) {
-                // nur in der ersten 5 Einträgen suchen
-                ++count;
-                DatenUrlFilmliste d = it.next();
-                if (d.arr[MSearchFilmlistenSuchen.FILM_UPDATE_SERVER_URL_NR].startsWith(urlServer)) {
-                    delUrl = d.arr[MSearchFilmlistenSuchen.FILM_UPDATE_SERVER_URL_NR];
-                    break;
-                }
+        String pwdMelden = mServerDatenUpload.arr[MServerDatenUpload.UPLOAD_MELDEN_PWD_NR];
+        String urlMelden = mServerDatenUpload.arr[MServerDatenUpload.UPLOAD_MELDEN_URL_NR];
+        // dann den aktuellsten Eintrag des Servers in der Liste löschen
+        ListeDownloadUrlsFilmlisten listeDownloadUrlsFilmlisten = updateServerSuchen();
+        Iterator<DatenUrlFilmliste> it = listeDownloadUrlsFilmlisten.iterator();
+        int count = 0;
+        while (count < 5 && it.hasNext()) {
+            // nur in der ersten 5 Einträgen suchen
+            ++count;
+            DatenUrlFilmliste d = it.next();
+            if (d.arr[MSearchFilmlistenSuchen.FILM_UPDATE_SERVER_URL_NR].startsWith(mServerDatenUpload.arr[MServerDatenUpload.UPLOAD_URL_FILMLISTE_NR])) {
+                delUrl = d.arr[MSearchFilmlistenSuchen.FILM_UPDATE_SERVER_URL_NR];
+                break;
             }
-        } else if (!urlFilmliste.isEmpty()) {
-            // dann eine feste URL löschen
-            delUrl = urlFilmliste;
         }
         try {
-            new MServerWarten().sekundenWarten(2);// damit der Server nicht stolpert, max alle 2 Sekunden
-            String pwd = MServerDaten.system[MServerKonstanten.SYSTEM_UPDATE_MELDEN_PWD_NR].trim();
-            String serverMelden = MServerDaten.system[MServerKonstanten.SYSTEM_UPDATE_MELDEN_URL_NR].trim();
-            if (!pwd.isEmpty() && !serverMelden.isEmpty() && !delUrl.isEmpty()) {
+            if (!pwdMelden.isEmpty() && !urlMelden.isEmpty() && !delUrl.isEmpty()) {
+                new MServerWarten().sekundenWarten(2);// damit der Server nicht stolpert, max alle 2 Sekunden
                 String zeit = MServerFunktionen.getTime();
                 String datum = MServerFunktionen.getDate();
                 MServerLog.systemMeldung("");
                 MServerLog.systemMeldung("------------------------------------------------------------------------");
                 MServerLog.systemMeldung("Server löschen, Datum: " + datum + " Zeit: " + zeit + "  URL: " + delUrl);
-                String urlMelden = serverMelden + "?pwd=" + pwd + "&server=" + delUrl;
+                String delCommand = urlMelden + "?pwd=" + pwdMelden + "&server=" + delUrl;
                 int timeout = 20000;
-                URLConnection conn = new URL(urlMelden).openConnection();
+                URLConnection conn = new URL(delCommand).openConnection();
                 conn.setRequestProperty("User-Agent", MServerDaten.getUserAgent());
                 conn.setReadTimeout(timeout);
                 conn.setConnectTimeout(timeout);
@@ -129,7 +124,7 @@ public class MServerMelden {
     private static ListeDownloadUrlsFilmlisten updateServerSuchen() {
         ListeDownloadUrlsFilmlisten listeDownloadUrlsFilmlisten = new ListeDownloadUrlsFilmlisten();
         try {
-            MSearchFilmlistenSuchen.getDownloadUrlsFilmlisten(MSearchConst.ADRESSE_FILMLISTEN_SERVER, listeDownloadUrlsFilmlisten, MServerKonstanten.USER_AGENT_DEFAULT);
+            MSearchFilmlistenSuchen.getDownloadUrlsFilmlisten(MSearchConst.ADRESSE_FILMLISTEN_SERVER_XML, listeDownloadUrlsFilmlisten, MServerKonstanten.USER_AGENT_DEFAULT);
             listeDownloadUrlsFilmlisten.sort();
         } catch (Exception ex) {
             MServerLog.fehlerMeldung(23447125, MServerMelden.class.getName(), "updateServerSuchen" + ex);

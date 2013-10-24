@@ -44,7 +44,6 @@ public class MServerDatenSuchen {
     public static final String SUCHEN = "suchen";
     public static final int SUCHEN_MAX_ELEM = 4;
     public static final String[] SUCHEN_COLUMN_NAMES = {SUCHEN_SENDER_WIE, SUCHEN_LISTE_WIE, SUCHEN_WANN, SUCHEN_SENDER};
-
     public String[] arr = new String[SUCHEN_MAX_ELEM];
 
     public MServerDatenSuchen() {
@@ -80,9 +79,19 @@ public class MServerDatenSuchen {
         return false;
     }
 
-    public String getExportFilmliste() {
+    public String getExportFilmlisteXml() {
         final String FILM_DATEI_SUFF = "bz2";
-        final String FILMDATEI_NAME = "Filmliste";
+        final String FILMDATEI_NAME = "Filmliste-xml";
+        if (jetzt()) {
+            return FILMDATEI_NAME + "." + FILM_DATEI_SUFF;
+        } else {
+            return FILMDATEI_NAME + "_" + arr[SUCHEN_WANN_NR].replace(":", "_") + "." + FILM_DATEI_SUFF;
+        }
+    }
+
+    public String getExportFilmlisteJson() {
+        final String FILM_DATEI_SUFF = "bz2";
+        final String FILMDATEI_NAME = "Filmliste-json";
         if (jetzt()) {
             return FILMDATEI_NAME + "." + FILM_DATEI_SUFF;
         } else {

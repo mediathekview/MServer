@@ -2,7 +2,6 @@ package mServer;
 
 import mServer.tool.MServerDaten;
 import mServer.tool.MServerLog;
-import mServer.upload.MServerMelden;
 import msearch.Search;
 
 /*
@@ -79,7 +78,8 @@ public class Main {
                         Search.senderLoeschenUndExit(sender, filmDatei);
                         break;
                     case URL_LOESCHEN:
-                        new MServer(ar).urlLoeschen(url);
+                        System.out.println("Geht nicht!!!!");
+                        //new MServer(ar).urlLoeschen(url);
                         break;
                 }
             }

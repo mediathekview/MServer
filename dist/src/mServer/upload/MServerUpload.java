@@ -35,7 +35,7 @@ public class MServerUpload {
     }
 
     public void upload(MServerDatenSuchen aktDatenSuchen) {
-        String filmlisteDateiName = aktDatenSuchen.getExportFilmliste();
+        String filmlisteDateiName = aktDatenSuchen.getExportFilmlisteXml();
         String filmlisteDateiPfad = MServerDaten.getVerzeichnisFilme();
         Iterator<MServerDatenUpload> it = MServerDaten.listeUpload.iterator();
         if (MServerDaten.listeUpload.size() > 0) {
@@ -44,6 +44,11 @@ public class MServerUpload {
         }
         while (it.hasNext()) {
             MServerDatenUpload datenUpload = it.next();
+            if (datenUpload.arr[MServerDatenUpload.UPLOAD_FORMAT_NR].equals(MServerDatenUpload.FORMAT_JSON)) {
+                filmlisteDateiName = aktDatenSuchen.getExportFilmlisteJson();
+            } else {
+                filmlisteDateiName = aktDatenSuchen.getExportFilmlisteXml();
+            }
             if (datenUpload.arr[MServerDatenUpload.UPLOAD_ART_NR].equals(UPLOAD_ART_COPY)) {
                 // ==============================================================
                 // kopieren

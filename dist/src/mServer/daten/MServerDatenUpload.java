@@ -21,12 +21,14 @@ package mServer.daten;
 
 import mServer.tool.MServerKonstanten;
 import mServer.upload.MServerUpload;
-import msearch.tool.MSearchConst;
 import msearch.tool.GuiFunktionen;
+import msearch.tool.MSearchConst;
 
 public class MServerDatenUpload {
     // Konstanten Upload
 
+    public static final String FORMAT_JSON = "json";
+    public static final String FORMAT_XML = "xml";
     public static final String UPLOAD = "upload";
     // Array
     public static final String UPLOAD_ART = "upload-art";
@@ -47,11 +49,18 @@ public class MServerDatenUpload {
     public static final int UPLOAD_PRIO_FILMLISTE_NR = 7;
     public static final String UPLOAD_VORHER_LOESCHEN = "upload-vorher-loeschen";
     public static final int UPLOAD_VORHER_LOESCHEN_NR = 8;
-    public static final int UPLOAD_MAX_ELEM = 9;
+    public static final String UPLOAD_FORMAT = "upload-format";
+    public static final int UPLOAD_FORMAT_NR = 9;
+    public static final String UPLOAD_MELDEN_URL = "upload-melden-url";
+    public static final int UPLOAD_MELDEN_URL_NR = 10;
+    public static final String UPLOAD_MELDEN_PWD = "upload-melden-pwd";
+    public static final int UPLOAD_MELDEN_PWD_NR = 11;
+    public static final int MAX_ELEM = 12;
     public static final String[] UPLOAD_COLUMN_NAMES = {UPLOAD_ART, UPLOAD_SERVER, UPLOAD_USER, UPLOAD_PWD,
-        UPLOAD_DEST_DIR, UPLOAD_PORT, UPLOAD_URL_FILMLISTE, UPLOAD_PRIO_FILMLISTE, UPLOAD_VORHER_LOESCHEN};
-    public String[] arr = new String[UPLOAD_MAX_ELEM];
-    
+        UPLOAD_DEST_DIR, UPLOAD_PORT, UPLOAD_URL_FILMLISTE, UPLOAD_PRIO_FILMLISTE, UPLOAD_VORHER_LOESCHEN,
+        UPLOAD_FORMAT, UPLOAD_MELDEN_URL, UPLOAD_MELDEN_PWD};
+    public String[] arr = new String[MAX_ELEM];
+
     public MServerDatenUpload() {
         init();
     }

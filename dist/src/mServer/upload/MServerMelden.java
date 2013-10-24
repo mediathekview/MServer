@@ -41,8 +41,8 @@ public class MServerMelden {
         try {
             new MServerWarten().sekundenWarten(2);// damit der Server nicht stolpert, max alle 2 Sekunden
             String url = mServerDatenUpload.getUrlFilmliste(filmlisteDateiName);
-            String pwd = MServerDaten.system[MServerKonstanten.SYSTEM_UPDATE_MELDEN_PWD_NR].trim();
-            String serverMelden = MServerDaten.system[MServerKonstanten.SYSTEM_UPDATE_MELDEN_URL_NR].trim();
+            String pwd = mServerDatenUpload.arr[MServerDatenUpload.UPLOAD_MELDEN_PWD_NR].trim();
+            String serverMelden = mServerDatenUpload.arr[MServerDatenUpload.UPLOAD_MELDEN_URL_NR].trim();
             if (!pwd.equals("") && !serverMelden.equals("") && !url.equals("")) {
                 // nur dann gibts was zum Melden
                 // die Zeitzone in der Liste ist "UTC"
@@ -129,7 +129,7 @@ public class MServerMelden {
     private static ListeDownloadUrlsFilmlisten updateServerSuchen() {
         ListeDownloadUrlsFilmlisten listeDownloadUrlsFilmlisten = new ListeDownloadUrlsFilmlisten();
         try {
-            MSearchFilmlistenSuchen.getDownloadUrlsFilmlisten(MSearchConst.ADRESSE_FILMLISTEN_SERVER, listeDownloadUrlsFilmlisten, MServerKonstanten.USER_AGENT_DEFAULT);
+            MSearchFilmlistenSuchen.getDownloadUrlsFilmlisten(MSearchConst.ADRESSE_FILMLISTEN_SERVER_XML, listeDownloadUrlsFilmlisten, MServerKonstanten.USER_AGENT_DEFAULT);
             listeDownloadUrlsFilmlisten.sort();
         } catch (Exception ex) {
             MServerLog.fehlerMeldung(23447125, MServerMelden.class.getName(), "updateServerSuchen" + ex);

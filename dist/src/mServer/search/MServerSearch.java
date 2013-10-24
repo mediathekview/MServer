@@ -35,15 +35,9 @@ import msearch.tool.GuiFunktionen;
 public class MServerSearch {
 
     Search mSearch = null;
-    String sender[] = null;
 
     public boolean filmeSuchen(MServerDatenSuchen aktDatenSuchen) {
         boolean ret = true;
-        String exportFilmliste = GuiFunktionen.addsPfad(MServerDaten.getVerzeichnisFilme(), aktDatenSuchen.getExportFilmliste());
-        String aktFilmliste = GuiFunktionen.addsPfad(MServerDaten.getVerzeichnisFilme(), aktDatenSuchen.getAktFilmliste());
-        sender = arrLesen(aktDatenSuchen.arr[MServerDatenSuchen.SUCHEN_SENDER_NR].trim());
-        String importUrlExtend = MServerDaten.system[MServerKonstanten.SYSTEM_IMPORT_URL_EXTEND_NR].toString();
-        String importUrlReplace = MServerDaten.system[MServerKonstanten.SYSTEM_IMPORT_URL_REPLACE_NR].toString();
         vorherLoeschen();
         try {
             // ===========================================
@@ -54,11 +48,12 @@ public class MServerSearch {
             mSearch = new Search(new String[]{});
             MSearchConfig.senderAllesLaden = aktDatenSuchen.allesLaden();
             MSearchConfig.updateFilmliste = aktDatenSuchen.updateFilmliste();
-            MSearchConfig.dateiFilmliste = aktFilmliste;
-            MSearchConfig.exportFilmliste = exportFilmliste;
-            MSearchConfig.nurSenderLaden = sender;
-            MSearchConfig.importUrl__anhaengen = importUrlExtend;
-            MSearchConfig.importUrl__ersetzen = importUrlReplace;
+            MSearchConfig.dateiFilmliste = GuiFunktionen.addsPfad(MServerDaten.getVerzeichnisFilme(), aktDatenSuchen.getAktFilmliste());
+            MSearchConfig.exportFilmlisteXml = GuiFunktionen.addsPfad(MServerDaten.getVerzeichnisFilme(), aktDatenSuchen.getExportFilmlisteXml());
+            MSearchConfig.exportFilmlisteJson = GuiFunktionen.addsPfad(MServerDaten.getVerzeichnisFilme(), aktDatenSuchen.getExportFilmlisteJson());
+            MSearchConfig.nurSenderLaden = arrLesen(aktDatenSuchen.arr[MServerDatenSuchen.SUCHEN_SENDER_NR].trim());
+            MSearchConfig.importUrl__anhaengen = MServerDaten.system[MServerKonstanten.SYSTEM_IMPORT_URL_EXTEND_NR].toString();
+            MSearchConfig.importUrl__ersetzen = MServerDaten.system[MServerKonstanten.SYSTEM_IMPORT_URL_REPLACE_NR].toString();
             MSearchConfig.setUserAgent(MServerDaten.getUserAgent());
             MSearchConfig.proxyUrl = MServerDaten.system[MServerKonstanten.SYSTEM_PROXY_URL_NR];
             MSearchConfig.proxyPort = MServerDaten.getProxyPort();
