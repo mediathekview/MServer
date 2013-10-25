@@ -28,9 +28,7 @@ import mServer.tool.MServerLog;
 import mServer.tool.MServerTimer;
 import mServer.tool.MServerXmlLesen;
 import mServer.update.MServerUpdate;
-import mServer.upload.MServerMelden;
 import mServer.upload.MServerUpload;
-import msearch.Search;
 
 public class MServer {
 
@@ -110,39 +108,39 @@ public class MServer {
         }
     }
 
-    public void urlLoeschen(String url) {
-        if (!MServerDaten.konfigExistiert()) {
-            MServerLog.fehlerMeldung(858589654, MServer.class.getName(), new String[]{"Konfig-Datei existiert nicht", MServerDaten.getKonfigDatei()});
-            System.exit(0); // und Tschüss
-        } else {
-            MServerXmlLesen.xmlDatenLesen();
-            if (MServerDaten.system[MServerKonstanten.SYSTEM_DEBUG_NR].equals(MServerKonstanten.STR_TRUE)) {
-                MServerDaten.debug = true;
-                MServerLog.systemMeldung("== Debug on ======");
-            }
-            // Infos schreiben
-            MServerLog.startMeldungen(this.getClass().getName());
-            MServerLog.systemMeldung("== FilmUrl löschen ======");
-            MServerLog.systemMeldung("Url: " + url);
-            MServerMelden.updateServerLoeschen(url,"");
-        }
-    }
-
-    public void senderLoeschen(String sender, String filmdatei) {
-        try {
-            if (sender.isEmpty()) {
-                MServerLog.fehlerMeldung(936251478, MServer.class.getName(), "Kein Sender zum löschen angegeben!");
-                System.exit(0); // und Tschüss
-            } else if (filmdatei.isEmpty()) {
-                MServerLog.fehlerMeldung(732657910, MServer.class.getName(), "Keine Filmlistendatei angegeben!");
-                System.exit(0); // und Tschüss
-            } else {
-                Search.senderLoeschenUndExit(sender, filmdatei);
-            }
-        } catch (Exception ex) {
-            MServerLog.fehlerMeldung(915263470, MServer.class.getName(), "Search.senderLoeschen()", ex);
-        }
-    }
+////    public void urlLoeschen(String url) {
+////        if (!MServerDaten.konfigExistiert()) {
+////            MServerLog.fehlerMeldung(858589654, MServer.class.getName(), new String[]{"Konfig-Datei existiert nicht", MServerDaten.getKonfigDatei()});
+////            System.exit(0); // und Tschüss
+////        } else {
+////            MServerXmlLesen.xmlDatenLesen();
+////            if (MServerDaten.system[MServerKonstanten.SYSTEM_DEBUG_NR].equals(MServerKonstanten.STR_TRUE)) {
+////                MServerDaten.debug = true;
+////                MServerLog.systemMeldung("== Debug on ======");
+////            }
+////            // Infos schreiben
+////            MServerLog.startMeldungen(this.getClass().getName());
+////            MServerLog.systemMeldung("== FilmUrl löschen ======");
+////            MServerLog.systemMeldung("Url: " + url);
+////            MServerMelden.updateServerLoeschen(url,"");
+////        }
+////    }
+////
+////    public void senderLoeschen(String sender, String filmdatei) {
+////        try {
+////            if (sender.isEmpty()) {
+////                MServerLog.fehlerMeldung(936251478, MServer.class.getName(), "Kein Sender zum löschen angegeben!");
+////                System.exit(0); // und Tschüss
+////            } else if (filmdatei.isEmpty()) {
+////                MServerLog.fehlerMeldung(732657910, MServer.class.getName(), "Keine Filmlistendatei angegeben!");
+////                System.exit(0); // und Tschüss
+////            } else {
+////                Search.senderLoeschenUndExit(sender, filmdatei);
+////            }
+////        } catch (Exception ex) {
+////            MServerLog.fehlerMeldung(915263470, MServer.class.getName(), "Search.senderLoeschen()", ex);
+////        }
+////    }
 
     public void laufen() {
         // =====================================

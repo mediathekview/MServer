@@ -20,9 +20,9 @@
 package mServer.upload;
 
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.nio.channels.FileChannel;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import mServer.daten.MServerDatenUpload;
 import mServer.tool.MServerFunktionen;
 import mServer.tool.MServerLog;
@@ -33,8 +33,6 @@ public class MServerUploadCopy {
 
     public static boolean copy(String filmDateiPfad, String filmDateiName, MServerDatenUpload datenUpload) {
         boolean ret = false;
-        FileChannel inChannel = null;
-        FileChannel outChannel = null;
         MServerLog.systemMeldung("");
         MServerLog.systemMeldung("----------------------");
         MServerLog.systemMeldung("Copy start");
@@ -42,23 +40,12 @@ public class MServerUploadCopy {
         MServerLog.systemMeldung("Datei: " + filmDateiName);
         try {
             new File(datenUpload.getDestDir()).mkdirs();
-            inChannel = new FileInputStream(GuiFunktionen.addsPfad(filmDateiPfad, filmDateiName)).getChannel();
-            outChannel = new FileOutputStream(datenUpload.getFilmlisteDestPfadName(filmDateiName)).getChannel();
-            inChannel.transferTo(0, inChannel.size(), outChannel);
+            String src = GuiFunktionen.addsPfad(filmDateiPfad, filmDateiName);
+            String dest = datenUpload.getFilmlisteDestPfadName(filmDateiName);
+            Files.copy(Paths.get(src), Paths.get(dest), StandardCopyOption.REPLACE_EXISTING);
             ret = true;
         } catch (Exception ex) {
             MServerLog.fehlerMeldung(747452360, MServerUploadCopy.class.getName(), "copy", ex);
-        } finally {
-            try {
-                if (inChannel != null) {
-                    inChannel.close();
-                }
-                if (outChannel != null) {
-                    outChannel.close();
-                }
-            } catch (Exception ex) {
-                MServerLog.fehlerMeldung(252160987, MServerUploadCopy.class.getName(), "copy", ex);
-            }
         }
         if (ret) {
             // Liste der Filmlisten auktualisieren
@@ -67,23 +54,12 @@ public class MServerUploadCopy {
             File f = MServerListeFilmlisten.filmlisteEintragen(datenUpload.get_Url_Datei_ListeFilmlisten(), dfus);
             if (f != null) {
                 try {
-                    inChannel = new FileInputStream(f).getChannel();
-                    outChannel = new FileOutputStream(datenUpload.getListeFilmlistenDestPfadName()).getChannel();
-                    inChannel.transferTo(0, inChannel.size(), outChannel);
+                    String src = f.getPath();
+                    String dest = datenUpload.getListeFilmlistenDestPfadName();
+                    Files.copy(Paths.get(src), Paths.get(dest), StandardCopyOption.REPLACE_EXISTING);
                     ret = true;
                 } catch (Exception ex) {
                     MServerLog.fehlerMeldung(698741230, MServerUploadCopy.class.getName(), "copy", ex);
-                } finally {
-                    try {
-                        if (inChannel != null) {
-                            inChannel.close();
-                        }
-                        if (outChannel != null) {
-                            outChannel.close();
-                        }
-                    } catch (Exception ex) {
-                        MServerLog.fehlerMeldung(718296540, MServerUploadCopy.class.getName(), "copy", ex);
-                    }
                 }
             }
         }

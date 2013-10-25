@@ -49,31 +49,34 @@ public class MServerKonstanten {
     //
     //
     // Konstanten System
-    // zum Melden
-    public static final String SYSTEM_UPDATE_MELDEN_PWD = "system-filmliste-melden-pwd";
-    public static final int SYSTEM_UPDATE_MELDEN_PWD_NR = 0;
-    public static final String SYSTEM_UPDATE_MELDEN_URL = "system-filmliste-melden-url";
-    public static final int SYSTEM_UPDATE_MELDEN_URL_NR = 1;
+    public static final String SYSTEM_MELDEN_PWD_XML = "system-melden-pwd-xml";
+    public static final int SYSTEM_MELDEN_PWD_XML_NR = 0;
+    public static final String SYSTEM_MELDEN_URL_XML = "system-melden-url-xml";
+    public static final int SYSTEM_MELDEN_URL_XML_NR = 1;
+    public static final String SYSTEM_MELDEN_PWD_JSON = "system-melden-pwd-json";
+    public static final int SYSTEM_MELDEN_PWD_JSON_NR = 2;
+    public static final String SYSTEM_MELDEN_URL_JSON = "system-melden-url-json";
+    public static final int SYSTEM_MELDEN_URL_JSON_NR = 3;
     public static final String SYSTEM_USER_AGENT = "system-user-agent";
-    public static final int SYSTEM_USER_AGENT_NR = 2;
+    public static final int SYSTEM_USER_AGENT_NR = 4;
     public static final String SYSTEM_UPDATE_SUCHEN = "system-programmupdate-suchen";
-    public static final int SYSTEM_UPDATE_SUCHEN_NR = 3;
+    public static final int SYSTEM_UPDATE_SUCHEN_NR = 5;
     public static final String SYSTEM_IMPORT_EXTEND_URL = "system-filmliste-import-url-extend";
-    public static final int SYSTEM_IMPORT_URL_EXTEND_NR = 4;
+    public static final int SYSTEM_IMPORT_URL_EXTEND_NR = 6;
     public static final String SYSTEM_IMPORT_URL_REPLACE = "system-filmliste-import-url-replace";
-    public static final int SYSTEM_IMPORT_URL_REPLACE_NR = 5;
+    public static final int SYSTEM_IMPORT_URL_REPLACE_NR = 7;
     public static final String SYSTEM_PFAD_LOGDATEI = "system-pfad-logdatei";
-    public static final int SYSTEM_PFAD_LOGDATEI_NR = 6;
+    public static final int SYSTEM_PFAD_LOGDATEI_NR = 8;
     public static final String SYSTEM_PROXY_URL = "system-proxy-url";
-    public static final int SYSTEM_PROXY_URL_NR = 7;
+    public static final int SYSTEM_PROXY_URL_NR = 9;
     public static final String SYSTEM_PROXY_PORT = "system-proxy-port";
-    public static final int SYSTEM_PROXY_PORT_NR = 8;
+    public static final int SYSTEM_PROXY_PORT_NR = 10;
     public static final String SYSTEM_DEBUG = "system-debug";
-    public static final int SYSTEM_DEBUG_NR = 9;
+    public static final int SYSTEM_DEBUG_NR = 11;
     // Array
     public static final String SYSTEM = "system";
-    public static final int SYSTEM_MAX_ELEM = 10;
-    public static final String[] SYSTEM_COLUMN_NAMES = {SYSTEM_UPDATE_MELDEN_PWD, SYSTEM_UPDATE_MELDEN_URL,
+    public static final int SYSTEM_MAX_ELEM = 12;
+    public static final String[] SYSTEM_COLUMN_NAMES = {SYSTEM_MELDEN_PWD_XML, SYSTEM_MELDEN_URL_XML, SYSTEM_MELDEN_PWD_JSON, SYSTEM_MELDEN_URL_JSON,
         SYSTEM_USER_AGENT, SYSTEM_UPDATE_SUCHEN, SYSTEM_IMPORT_EXTEND_URL, SYSTEM_IMPORT_URL_REPLACE,
         SYSTEM_PFAD_LOGDATEI, SYSTEM_PROXY_URL, SYSTEM_PROXY_PORT, SYSTEM_DEBUG};
     //

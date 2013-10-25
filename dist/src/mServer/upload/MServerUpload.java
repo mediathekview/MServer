@@ -35,7 +35,7 @@ public class MServerUpload {
     }
 
     public void upload(MServerDatenSuchen aktDatenSuchen) {
-        String filmlisteDateiName = aktDatenSuchen.getExportFilmlisteXml();
+        String filmlisteDateiName ;
         String filmlisteDateiPfad = MServerDaten.getVerzeichnisFilme();
         Iterator<MServerDatenUpload> it = MServerDaten.listeUpload.iterator();
         if (MServerDaten.listeUpload.size() > 0) {

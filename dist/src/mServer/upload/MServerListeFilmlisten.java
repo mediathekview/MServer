@@ -26,23 +26,23 @@ import mServer.tool.MServerKonstanten;
 import mServer.tool.MServerLog;
 import msearch.filmeLaden.DatenFilmlistenServer;
 import msearch.filmeLaden.DatenUrlFilmliste;
-import msearch.filmeLaden.MSearchFilmlistenSuchen;
 import msearch.filmeLaden.ListeDownloadUrlsFilmlisten;
+import msearch.filmeLaden.MSearchFilmlistenSuchen;
 
 public class MServerListeFilmlisten {
 
     public static File filmlisteEintragen(String urlDatei, DatenUrlFilmliste input) {
-        ListeDownloadUrlsFilmlisten listeFilmUpdateServer = new ListeDownloadUrlsFilmlisten();
-        // erst mal die Liste holen
+        ListeDownloadUrlsFilmlisten listeDownloadUrlsFilmlisten = new ListeDownloadUrlsFilmlisten();
+        // erst mal die Liste mit allen Filmlisten holen
         try {
-            MSearchFilmlistenSuchen.getDownloadUrlsFilmlisten(urlDatei, listeFilmUpdateServer, MServerDaten.getUserAgent());
+            MSearchFilmlistenSuchen.getDownloadUrlsFilmlisten(urlDatei, listeDownloadUrlsFilmlisten, MServerDaten.getUserAgent());
         } catch (Exception ex) {
             MServerLog.fehlerMeldung(347895642, MServerListeFilmlisten.class.getName(), urlDatei, ex);
         }
         // Einträge mit der URL löschen und dann "input" eintragen
         // gibt immer nur einen Eintrag mit einer URL
         // und zu alte Einträge löschen
-        Iterator<DatenUrlFilmliste> it = listeFilmUpdateServer.iterator();
+        Iterator<DatenUrlFilmliste> it = listeDownloadUrlsFilmlisten.iterator();
         while (it.hasNext()) {
             DatenUrlFilmliste d = it.next();
             if (d.arr[MSearchFilmlistenSuchen.FILM_UPDATE_SERVER_URL_NR].equals(input.arr[MSearchFilmlistenSuchen.FILM_UPDATE_SERVER_URL_NR])) {
@@ -53,11 +53,11 @@ public class MServerListeFilmlisten {
                 it.remove();
             }
         }
-        listeFilmUpdateServer.add(input);
+        listeDownloadUrlsFilmlisten.add(input);
         // Liste in Datei schreiben
         File f = null;
         try {
-            f = MSearchFilmlistenSuchen.ListeFilmlistenSchreiben(listeFilmUpdateServer);
+            f = MSearchFilmlistenSuchen.ListeFilmlistenSchreiben(listeDownloadUrlsFilmlisten);
         } catch (Exception ex) {
             MServerLog.fehlerMeldung(347895642, MServerListeFilmlisten.class.getName(), urlDatei, ex);
         }

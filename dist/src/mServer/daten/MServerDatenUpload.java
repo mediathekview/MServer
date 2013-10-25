@@ -19,6 +19,7 @@
  */
 package mServer.daten;
 
+import mServer.tool.MServerDaten;
 import mServer.tool.MServerKonstanten;
 import mServer.upload.MServerUpload;
 import msearch.tool.GuiFunktionen;
@@ -51,14 +52,10 @@ public class MServerDatenUpload {
     public static final int UPLOAD_VORHER_LOESCHEN_NR = 8;
     public static final String UPLOAD_FORMAT = "upload-format";
     public static final int UPLOAD_FORMAT_NR = 9;
-    public static final String UPLOAD_MELDEN_URL = "upload-melden-url";
-    public static final int UPLOAD_MELDEN_URL_NR = 10;
-    public static final String UPLOAD_MELDEN_PWD = "upload-melden-pwd";
-    public static final int UPLOAD_MELDEN_PWD_NR = 11;
-    public static final int MAX_ELEM = 12;
+    public static final int MAX_ELEM = 10;
     public static final String[] UPLOAD_COLUMN_NAMES = {UPLOAD_ART, UPLOAD_SERVER, UPLOAD_USER, UPLOAD_PWD,
         UPLOAD_DEST_DIR, UPLOAD_PORT, UPLOAD_URL_FILMLISTE, UPLOAD_PRIO_FILMLISTE, UPLOAD_VORHER_LOESCHEN,
-        UPLOAD_FORMAT, UPLOAD_MELDEN_URL, UPLOAD_MELDEN_PWD};
+        UPLOAD_FORMAT};
     public String[] arr = new String[MAX_ELEM];
 
     public MServerDatenUpload() {
@@ -109,5 +106,29 @@ public class MServerDatenUpload {
 
     public String getPrio() {
         return ((arr[UPLOAD_PRIO_FILMLISTE_NR].equals("")) ? "1" : arr[UPLOAD_PRIO_FILMLISTE_NR]).trim();
+    }
+
+    public String getUrlFilmlistenServer() {
+        if (arr[MServerDatenUpload.UPLOAD_FORMAT_NR].equals(FORMAT_JSON)) {
+            return MSearchConst.ADRESSE_FILMLISTEN_SERVER_JSON;
+        } else {
+            return MSearchConst.ADRESSE_FILMLISTEN_SERVER_XML;
+        }
+    }
+
+    public String getMeldenUrl() {
+        if (arr[MServerDatenUpload.UPLOAD_FORMAT_NR].equals(FORMAT_JSON)) {
+            return MServerDaten.system[MServerKonstanten.SYSTEM_MELDEN_URL_JSON_NR].trim();
+        } else {
+            return MServerDaten.system[MServerKonstanten.SYSTEM_MELDEN_URL_XML_NR].trim();
+        }
+    }
+
+    public String getMeldenPwd() {
+        if (arr[MServerDatenUpload.UPLOAD_FORMAT_NR].equals(FORMAT_JSON)) {
+            return MServerDaten.system[MServerKonstanten.SYSTEM_MELDEN_PWD_JSON_NR].trim();
+        } else {
+            return MServerDaten.system[MServerKonstanten.SYSTEM_MELDEN_PWD_XML_NR].trim();
+        }
     }
 }

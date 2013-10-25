@@ -99,7 +99,7 @@ public class MServerSearch {
                 MServerDatenUpload datenUpload = it.next();
                 if (datenUpload.vorherLoeschen()) {
                     new MServerWarten().sekundenWarten(2);// damit der Server nicht stolpert, max alle 2 Sekunden
-                    MServerMelden.updateServerLoeschen("", datenUpload.arr[MServerDatenUpload.UPLOAD_URL_FILMLISTE_NR]);
+                    MServerMelden.updateServerLoeschen(datenUpload);
                 }
             }
         } catch (Exception ex) {
