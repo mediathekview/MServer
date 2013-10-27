@@ -90,7 +90,8 @@ public class MServerDatenSuchen {
     }
 
     public String getExportFilmlisteJson() {
-        final String FILM_DATEI_SUFF = "bz2";
+        //final String FILM_DATEI_SUFF = "bz2";
+        final String FILM_DATEI_SUFF = "xz";
         final String FILMDATEI_NAME = "Filmliste-json";
         if (jetzt()) {
             return FILMDATEI_NAME + "." + FILM_DATEI_SUFF;
