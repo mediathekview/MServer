@@ -1,0 +1,11 @@
+
+Das Programm dient dazu, die Filmliste zu Laden und die fertige Filmliste auf 
+Downloadserver zu kopieren.
+
+Das Programm kann sich selbst aktuell halten.
+
+Ist eine Konfigurationsdatei vorhanden, werden die darin festgelegten Aufgaben abgearbeitet.
+Dann beendet sich das Programm wieder.
+
+
+ 
