@@ -22,9 +22,9 @@ package mServer.tool;
 import java.io.File;
 import mServer.daten.MServerListeSuchen;
 import mServer.daten.MServerListeUpload;
-import msearch.tool.MSearchConst;
 import msearch.tool.Funktionen;
 import msearch.tool.GuiFunktionen;
+import msearch.tool.MSearchConst;
 
 public class MServerDaten {
 
@@ -105,7 +105,7 @@ public class MServerDaten {
     }
 
     public static String getVerzeichnisFilme() {
-        String ret = GuiFunktionen.addsPfad(getBasisVerzeichnis(basisverzeichnis, false), "filmelisten");
+        String ret = GuiFunktionen.addsPfad(getBasisVerzeichnis(basisverzeichnis, false), MServerKonstanten.VERZEICHNISS_FILMLISTEN);
         File basisF = new File(ret);
         if (!basisF.exists()) {
             if (!basisF.mkdir()) {

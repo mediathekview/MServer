@@ -28,6 +28,7 @@ public class MServerKonstanten {
     public static final String PROGRAMMDATEI_UPDATE = "MServer_update.zip";
     // Dateien/Verzeichnisse
     public static final String VERZEICHNISS_EINSTELLUNGEN = ".mserver";
+    public static final String VERZEICHNISS_FILMLISTEN = "filmlisten";
     public static final String XML_DATEI = "mserver.xml";
     public static final String LOG_FILE_NAME = "msLog";
     public static final String LOG_FILE_NAME_MV = "mvLog";
