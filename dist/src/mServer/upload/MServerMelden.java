@@ -38,13 +38,13 @@ public class MServerMelden {
     public static synchronized boolean melden(String filmlisteDateiName, MServerDatenUpload mServerDatenUpload) {
         boolean ret = false;
         try {
-            new MServerWarten().sekundenWarten(2);// damit der Server nicht stolpert, max alle 2 Sekunden
             String urlFilmliste = mServerDatenUpload.getUrlFilmliste(filmlisteDateiName);
             String pwd = mServerDatenUpload.getMeldenPwd();
             String urlServerMelden = mServerDatenUpload.getMeldenUrl();
             if (!pwd.equals("") && !urlServerMelden.equals("") && !urlFilmliste.equals("")) {
                 // nur dann gibts was zum Melden
                 // die Zeitzone in der Liste ist "UTC"
+                new MServerWarten().sekundenWarten(2);// damit der Server nicht stolpert, max alle 2 Sekunden
                 String zeit = MServerFunktionen.getTime();
                 String datum = MServerFunktionen.getDate();
                 MServerLog.systemMeldung("");
@@ -68,6 +68,9 @@ public class MServerMelden {
                 inReader.read();
                 inReader.close();
                 MServerLog.systemMeldung("Ok");
+                ret = true;
+            } else {
+                // dann soll nicht gemeldet werden
                 ret = true;
             }
         } catch (Exception ex) {

@@ -23,6 +23,7 @@ import java.util.Iterator;
 import mServer.daten.MServerDatenSuchen;
 import mServer.daten.MServerDatenUpload;
 import mServer.tool.MServerDaten;
+import mServer.tool.MServerKonstanten;
 import mServer.tool.MServerLog;
 import mServer.tool.MServerWarten;
 
@@ -35,12 +36,22 @@ public class MServerUpload {
     }
 
     public void upload(MServerDatenSuchen aktDatenSuchen) {
-        String filmlisteDateiName ;
+        // ==================================================
+        // erst einen möglichen (lokalen) Export erledigen
+        String filmlisteDateiName;
         String filmlisteDateiPfad = MServerDaten.getVerzeichnisFilme();
+        if (!MServerDaten.system[MServerKonstanten.SYSTEM_EXPORT_FILE_FILMLISTE_NR].isEmpty()) {
+            filmlisteDateiName = aktDatenSuchen.getExportFilmlisteJson();
+            MServerExport.copy(filmlisteDateiPfad, filmlisteDateiName, MServerDaten.system[MServerKonstanten.SYSTEM_EXPORT_FILE_FILMLISTE_NR]);
+        }
+
+        // ======================================================
+        // ======================================================
+        // jetzt die anderen Uploads erledigen
         Iterator<MServerDatenUpload> it = MServerDaten.listeUpload.iterator();
         if (MServerDaten.listeUpload.size() > 0) {
             // nach dem Suchen Rechner Zeit zum Abau aller Verbindungen geben
-            new MServerWarten().sekundenWarten(60);
+            new MServerWarten().sekundenWarten(30);
         }
         while (it.hasNext()) {
             MServerDatenUpload datenUpload = it.next();
