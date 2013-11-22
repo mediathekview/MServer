@@ -101,7 +101,7 @@ public class MServerDatenSuchen {
     }
 
     public String getAktFilmliste() {
-        final String FILM_DATEI_SUFF = "xml";
+        final String FILM_DATEI_SUFF = "json";
         final String FILMDATEI_NAME = "filme";
         return FILMDATEI_NAME + "." + FILM_DATEI_SUFF;
     }
