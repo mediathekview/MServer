@@ -22,7 +22,7 @@ package mServer.tool;
 import java.io.File;
 import mServer.daten.MServerListeSuchen;
 import mServer.daten.MServerListeUpload;
-import msearch.tool.Funktionen;
+import msearch.tool.MSearchFunktionen;
 import msearch.tool.GuiFunktionen;
 import msearch.tool.MSearchConst;
 
@@ -43,7 +43,7 @@ public class MServerDaten {
 
     public static String getUserAgent() {
         if (system[MServerKonstanten.SYSTEM_USER_AGENT_NR].trim().equals("")) {
-            return MServerKonstanten.PROGRAMMNAME + " " + MSearchConst.VERSION_FILMLISTE + " / " + Funktionen.getBuildNr();
+            return MServerKonstanten.PROGRAMMNAME + " " + MSearchConst.VERSION_FILMLISTE + " / " + MSearchFunktionen.getBuildNr();
         } else {
         }
         return system[MServerKonstanten.SYSTEM_USER_AGENT_NR].trim();

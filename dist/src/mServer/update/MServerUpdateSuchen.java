@@ -35,7 +35,7 @@ import mServer.tool.MServerDaten;
 import mServer.tool.MServerKonstanten;
 import mServer.tool.MServerLog;
 import msearch.tool.MSearchConst;
-import msearch.tool.Funktionen;
+import msearch.tool.MSearchFunktionen;
 import msearch.tool.GuiFunktionen;
 
 public class MServerUpdateSuchen {
@@ -65,7 +65,7 @@ public class MServerUpdateSuchen {
     private static boolean checkObNeueVersion(String release) {
         // liefert true, wenn es eine neue Version gibt
         try {
-            String haben = Funktionen.getBuildNr().replace(".", "");
+            String haben = MSearchFunktionen.getBuildNr().replace(".", "");
             int intHaben = Integer.parseInt(haben);
             int intRelease = Integer.parseInt(release.replace(".", ""));
             if (intRelease > intHaben) {

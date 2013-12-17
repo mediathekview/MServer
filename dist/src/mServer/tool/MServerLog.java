@@ -26,7 +26,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.LinkedList;
-import msearch.tool.Funktionen;
+import msearch.tool.MSearchFunktionen;
 
 public class MServerLog {
 
@@ -62,15 +62,15 @@ public class MServerLog {
         systemMeldung("freeMemory: " + freeMem / (1024L * 1024L) + " MB");
         systemMeldung("###########################################################");
         //Version
-        systemMeldung(Funktionen.getProgVersionString());
-        systemMeldung("Compiled: " + Funktionen.getCompileDate());
+        systemMeldung(MSearchFunktionen.getProgVersionString());
+        systemMeldung("Compiled: " + MSearchFunktionen.getCompileDate());
         systemMeldung("Klassenname: " + classname);
         systemMeldung("###########################################################");
     }
 
     public static synchronized void startMeldungen(String classname) {
         versionsMeldungen(classname);
-        systemMeldung("Programmpfad: " + Funktionen.getPathJar());
+        systemMeldung("Programmpfad: " + MSearchFunktionen.getPathJar());
         systemMeldung("Verzeichnis Einstellungen: " + MServerDaten.getBasisVerzeichnis());
         systemMeldung("Useragent: " + MServerDaten.getUserAgent());
         systemMeldung("###########################################################");
