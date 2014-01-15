@@ -44,8 +44,8 @@ public class MServerKonstanten {
     public static final int FILMLISTEN_MAX_ALTER = 3;
     // Wartezeiten
     public static final int MAX_WARTEN_FTP_UPLOAD = 1000 * 60 * 5; // 5 Minuten
-    public static final int WARTEZEIT_ALLES_LADEN = 1000 * 60 * 110; // 110 Minuten
-    public static final int WARTEZEIT_UPDATE_LADEN = 1000 * 60 * 50; // 50 Minuten
+    public static final int WARTEZEIT_ALLES_LADEN = 1000 * 60 * 120; // 110 Minuten
+    public static final int WARTEZEIT_UPDATE_LADEN = 1000 * 60 * 60; // 50 Minuten
     //public  static final int WARTEZEIT_UPDATE_LADEN = 1000 * 10;
     //
     //

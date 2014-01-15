@@ -75,7 +75,7 @@ public class MServerSearch {
                         MServerLog.systemMeldung("und wird jetzt gestoppt");
                         MSearchConfig.setStop();
                     }
-                    t.join(10 * 1000); // 10 Sekunden wegen der 5 Sekunden in MediathekNoGui.run
+                    t.join(2 * 60 * 1000); // 2 Minuten warten
                     if (t.isAlive()) {
                         MServerLog.systemMeldung("und noch gekillt");
                         ret = false;
