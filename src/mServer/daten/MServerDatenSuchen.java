@@ -120,6 +120,12 @@ public class MServerDatenSuchen {
         return FILMDATEI_NAME + "." + FILM_DATEI_SUFF;
     }
 
+    public String getExportOrgFilmliste() {
+        final String FILM_DATEI_SUFF = "xz";
+        final String FILMDATEI_NAME = "Filmliste-org";
+        return FILMDATEI_NAME + "." + FILM_DATEI_SUFF;
+    }
+
     public Date getTimeHeute() {
         Date ret;
         SimpleDateFormat sdf_zeit = new SimpleDateFormat("dd.MM.yyyy__HH:mm");

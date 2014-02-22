@@ -68,19 +68,22 @@ public class MServerKonstanten {
     public static final int SYSTEM_IMPORT_URL_REPLACE_NR = 7;
     public static final String SYSTEM_EXPORT_FILE_FILMLISTE = "system-export-datei-filmliste"; // die Filmliste (json.xz) kann lokal noch mit einem festen Namen kopiert werden
     public static final int SYSTEM_EXPORT_FILE_FILMLISTE_NR = 8;
+    public static final String SYSTEM_EXPORT_FILE_FILMLISTE_ORG = "system-export-datei-filmliste-org"; // die Filmliste für diff (json.xz) kann lokal noch mit einem festen Namen kopiert werden
+    public static final int SYSTEM_EXPORT_FILE_FILMLISTE_ORG_NR = 9;
     public static final String SYSTEM_PFAD_LOGDATEI = "system-pfad-logdatei";
-    public static final int SYSTEM_PFAD_LOGDATEI_NR = 9;
+    public static final int SYSTEM_PFAD_LOGDATEI_NR = 10;
     public static final String SYSTEM_PROXY_URL = "system-proxy-url";
-    public static final int SYSTEM_PROXY_URL_NR = 10;
+    public static final int SYSTEM_PROXY_URL_NR = 11;
     public static final String SYSTEM_PROXY_PORT = "system-proxy-port";
-    public static final int SYSTEM_PROXY_PORT_NR = 11;
+    public static final int SYSTEM_PROXY_PORT_NR = 12;
     public static final String SYSTEM_DEBUG = "system-debug";
-    public static final int SYSTEM_DEBUG_NR = 12;
+    public static final int SYSTEM_DEBUG_NR = 13;
     // Array
     public static final String SYSTEM = "system";
-    public static final int SYSTEM_MAX_ELEM = 13;
+    public static final int SYSTEM_MAX_ELEM = 14;
     public static final String[] SYSTEM_COLUMN_NAMES = {SYSTEM_MELDEN_PWD_XML, SYSTEM_MELDEN_URL_XML, SYSTEM_MELDEN_PWD_JSON, SYSTEM_MELDEN_URL_JSON,
-        SYSTEM_USER_AGENT, SYSTEM_UPDATE_SUCHEN, SYSTEM_IMPORT_EXTEND_URL, SYSTEM_IMPORT_URL_REPLACE, SYSTEM_EXPORT_FILE_FILMLISTE,
+        SYSTEM_USER_AGENT, SYSTEM_UPDATE_SUCHEN, SYSTEM_IMPORT_EXTEND_URL, SYSTEM_IMPORT_URL_REPLACE,
+        SYSTEM_EXPORT_FILE_FILMLISTE, SYSTEM_EXPORT_FILE_FILMLISTE_ORG,
         SYSTEM_PFAD_LOGDATEI, SYSTEM_PROXY_URL, SYSTEM_PROXY_PORT, SYSTEM_DEBUG};
     //
     //

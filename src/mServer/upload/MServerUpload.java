@@ -44,6 +44,10 @@ public class MServerUpload {
             filmlisteDateiName = aktDatenSuchen.getExportFilmlisteJson();
             MServerExport.copy(filmlisteDateiPfad, filmlisteDateiName, MServerDaten.system[MServerKonstanten.SYSTEM_EXPORT_FILE_FILMLISTE_NR]);
         }
+        if (!MServerDaten.system[MServerKonstanten.SYSTEM_EXPORT_FILE_FILMLISTE_ORG_NR].isEmpty()) {
+            filmlisteDateiName = aktDatenSuchen.getExportOrgFilmliste();
+            MServerExport.copy(filmlisteDateiPfad, filmlisteDateiName, MServerDaten.system[MServerKonstanten.SYSTEM_EXPORT_FILE_FILMLISTE_ORG_NR]);
+        }
 
         // ======================================================
         // ======================================================
