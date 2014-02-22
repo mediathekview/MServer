@@ -106,6 +106,20 @@ public class MServerDatenSuchen {
         return FILMDATEI_NAME + "." + FILM_DATEI_SUFF;
     }
 
+    public String getOrgFilmliste() {
+        // ist die erste Filmliste am Tag gege die dann das diff erstellt wird
+        final String FILM_DATEI_SUFF = "json";
+        final String FILMDATEI_NAME = "filme-org";
+        return FILMDATEI_NAME + "." + FILM_DATEI_SUFF;
+    }
+
+    public String getDiffFilmliste() {
+        // ist dann das diff das erstellt wird
+        final String FILM_DATEI_SUFF = "json";
+        final String FILMDATEI_NAME = "filme-diff";
+        return FILMDATEI_NAME + "." + FILM_DATEI_SUFF;
+    }
+
     public Date getTimeHeute() {
         Date ret;
         SimpleDateFormat sdf_zeit = new SimpleDateFormat("dd.MM.yyyy__HH:mm");
