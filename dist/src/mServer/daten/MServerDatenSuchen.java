@@ -32,18 +32,20 @@ public class MServerDatenSuchen {
     public static final String SUCHEN_NEU = "neu";
     public static final String SUCHEN_WANN_SOFORT = "sofort";
     //
-    public static final String SUCHEN_SENDER_WIE = "suchen-sender-wie"; // Sender komplett - nur ein Update
+    public static final String SUCHEN_SENDER_WIE = "suchen-sender-wie"; // "alles" - dann alles suchen, sonst nur update
     public static final int SUCHEN_SENDER_WIE_NR = 0;
-    public static final String SUCHEN_LISTE_WIE = "suchen-liste-wie"; // neue Liste / Liste nur aktualisieren
+    public static final String SUCHEN_LISTE_WIE = "suchen-liste-wie"; // "neu" - dann neue Liste erstellen, sonst update
     public static final int SUCHEN_LISTE_WIE_NR = 1;
     public static final String SUCHEN_WANN = "suchen-wann";
     public static final int SUCHEN_WANN_NR = 2;
     public static final String SUCHEN_SENDER = "suchen-sender";
     public static final int SUCHEN_SENDER_NR = 3;
+    public static final String SUCHEN_ORG_LISTE = "suchen-org-liste"; // dann wird eine Orgliste erstellt, darauf beziehen sich dann die diff-Files
+    public static final int SUCHEN_ORG_LISTE_NR = 4;
     // Array
     public static final String SUCHEN = "suchen";
-    public static final int SUCHEN_MAX_ELEM = 4;
-    public static final String[] SUCHEN_COLUMN_NAMES = {SUCHEN_SENDER_WIE, SUCHEN_LISTE_WIE, SUCHEN_WANN, SUCHEN_SENDER};
+    public static final int SUCHEN_MAX_ELEM = 5;
+    public static final String[] SUCHEN_COLUMN_NAMES = {SUCHEN_SENDER_WIE, SUCHEN_LISTE_WIE, SUCHEN_WANN, SUCHEN_SENDER, SUCHEN_ORG_LISTE};
     public String[] arr = new String[SUCHEN_MAX_ELEM];
 
     public MServerDatenSuchen() {
@@ -124,6 +126,10 @@ public class MServerDatenSuchen {
         final String FILM_DATEI_SUFF = "xz";
         final String FILMDATEI_NAME = "Filmliste-org";
         return FILMDATEI_NAME + "." + FILM_DATEI_SUFF;
+    }
+
+    public boolean orgListeAnlegen() {
+        return Boolean.parseBoolean(arr[SUCHEN_ORG_LISTE_NR]);
     }
 
     public Date getTimeHeute() {
