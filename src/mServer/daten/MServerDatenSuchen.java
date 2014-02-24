@@ -115,6 +115,12 @@ public class MServerDatenSuchen {
         return FILMDATEI_NAME + "." + FILM_DATEI_SUFF;
     }
 
+    public String getExportOrgFilmliste() {
+        final String FILM_DATEI_SUFF = "xz";
+        final String FILMDATEI_NAME = "Filmliste-org";
+        return FILMDATEI_NAME + "." + FILM_DATEI_SUFF;
+    }
+
     public String getDiffFilmliste() {
         // ist dann das diff das erstellt wird
         final String FILM_DATEI_SUFF = "json";
@@ -122,9 +128,10 @@ public class MServerDatenSuchen {
         return FILMDATEI_NAME + "." + FILM_DATEI_SUFF;
     }
 
-    public String getExportOrgFilmliste() {
+    public String getExportDiffFilmliste() {
+        // ist dann das diff das erstellt wird
         final String FILM_DATEI_SUFF = "xz";
-        final String FILMDATEI_NAME = "Filmliste-org";
+        final String FILMDATEI_NAME = "filme-diff";
         return FILMDATEI_NAME + "." + FILM_DATEI_SUFF;
     }
 

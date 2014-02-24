@@ -48,6 +48,10 @@ public class MServerUpload {
             filmlisteDateiName = aktDatenSuchen.getExportOrgFilmliste();
             MServerExport.copy(filmlisteDateiPfad, filmlisteDateiName, MServerDaten.system[MServerKonstanten.SYSTEM_EXPORT_FILE_FILMLISTE_ORG_NR]);
         }
+        if (!MServerDaten.system[MServerKonstanten.SYSTEM_EXPORT_FILE_FILMLISTE_DIFF_NR].isEmpty()) {
+            filmlisteDateiName = aktDatenSuchen.getExportDiffFilmliste();
+            MServerExport.copy(filmlisteDateiPfad, filmlisteDateiName, MServerDaten.system[MServerKonstanten.SYSTEM_EXPORT_FILE_FILMLISTE_DIFF_NR]);
+        }
 
         // ======================================================
         // ======================================================

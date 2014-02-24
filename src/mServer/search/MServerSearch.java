@@ -46,19 +46,23 @@ public class MServerSearch {
             MServerLog.systemMeldung("-----------------------------------");
             MServerLog.systemMeldung("Filmsuche starten");
             mSearch = new Search(new String[]{});
+            // was und wie
             MSearchConfig.senderAllesLaden = aktDatenSuchen.allesLaden();
             MSearchConfig.updateFilmliste = aktDatenSuchen.updateFilmliste();
+            MSearchConfig.nurSenderLaden = arrLesen(aktDatenSuchen.arr[MServerDatenSuchen.SUCHEN_SENDER_NR].trim());
+            // Filmlisten
             MSearchConfig.dateiFilmliste = GuiFunktionen.addsPfad(MServerDaten.getVerzeichnisFilme(), aktDatenSuchen.getAktFilmliste());
             MSearchConfig.exportFilmlisteXml = GuiFunktionen.addsPfad(MServerDaten.getVerzeichnisFilme(), aktDatenSuchen.getExportFilmlisteXml());
             MSearchConfig.exportFilmlisteJson = GuiFunktionen.addsPfad(MServerDaten.getVerzeichnisFilme(), aktDatenSuchen.getExportFilmlisteJson());
-            if (aktDatenSuchen.orgListeAnlegen()) {
-                MSearchConfig.orgFilmliste = GuiFunktionen.addsPfad(MServerDaten.getVerzeichnisFilme(), aktDatenSuchen.getOrgFilmliste());
-                MSearchConfig.exportOrgFilmliste = GuiFunktionen.addsPfad(MServerDaten.getVerzeichnisFilme(), aktDatenSuchen.getExportOrgFilmliste());
-            }
+            MSearchConfig.orgFilmlisteErstellen = aktDatenSuchen.orgListeAnlegen();
+            MSearchConfig.orgFilmliste = GuiFunktionen.addsPfad(MServerDaten.getVerzeichnisFilme(), aktDatenSuchen.getOrgFilmliste());
+            MSearchConfig.exportOrgFilmliste = GuiFunktionen.addsPfad(MServerDaten.getVerzeichnisFilme(), aktDatenSuchen.getExportOrgFilmliste());
             MSearchConfig.diffFilmliste = GuiFunktionen.addsPfad(MServerDaten.getVerzeichnisFilme(), aktDatenSuchen.getDiffFilmliste());
-            MSearchConfig.nurSenderLaden = arrLesen(aktDatenSuchen.arr[MServerDatenSuchen.SUCHEN_SENDER_NR].trim());
+            MSearchConfig.exportDiffFilmliste = GuiFunktionen.addsPfad(MServerDaten.getVerzeichnisFilme(), aktDatenSuchen.getExportDiffFilmliste());
+            // und noch evtl. ein paar Imports von Filmlisten anderer Server
             MSearchConfig.importUrl__anhaengen = MServerDaten.system[MServerKonstanten.SYSTEM_IMPORT_URL_EXTEND_NR].toString();
             MSearchConfig.importUrl__ersetzen = MServerDaten.system[MServerKonstanten.SYSTEM_IMPORT_URL_REPLACE_NR].toString();
+            // Rest
             MSearchConfig.setUserAgent(MServerDaten.getUserAgent());
             MSearchConfig.proxyUrl = MServerDaten.system[MServerKonstanten.SYSTEM_PROXY_URL_NR];
             MSearchConfig.proxyPort = MServerDaten.getProxyPort();
