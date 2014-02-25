@@ -23,25 +23,32 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import mServer.tool.MServerLog;
-import msearch.tool.GuiFunktionen;
+import msearch.tool.MSearchGuiFunktionen;
 
-public class MServerExport {
+public class MServerCopy {
 
     public static boolean copy(String filmDateiPfad, String filmDateiName, String zielPfadDatei) {
+        try {
+            return copy(MSearchGuiFunktionen.addsPfad(filmDateiPfad, filmDateiName), zielPfadDatei);
+        } catch (Exception ex) {
+            MServerLog.fehlerMeldung(915237563, MServerCopy.class.getName(), "MServerCopy.copy", ex);
+        }
+        return false;
+    }
+
+    public static boolean copy(String filmDateiPfadName, String zielPfadDatei) {
         boolean ret = false;
         MServerLog.systemMeldung("");
         MServerLog.systemMeldung("----------------------");
-        MServerLog.systemMeldung("Export start");
-        MServerLog.systemMeldung("Pfad: " + filmDateiPfad);
-        MServerLog.systemMeldung("Datei: " + filmDateiName);
+        MServerLog.systemMeldung("Copy start");
+        MServerLog.systemMeldung("Datei: " + filmDateiPfadName);
         MServerLog.systemMeldung("Zieldatei: " + zielPfadDatei);
         try {
-            String src = GuiFunktionen.addsPfad(filmDateiPfad, filmDateiName);
             String dest = zielPfadDatei;
-            Files.copy(Paths.get(src), Paths.get(dest), StandardCopyOption.REPLACE_EXISTING);
+            Files.copy(Paths.get(filmDateiPfadName), Paths.get(dest), StandardCopyOption.REPLACE_EXISTING);
             ret = true;
         } catch (Exception ex) {
-            MServerLog.fehlerMeldung(915237563, MServerExport.class.getName(), "export", ex);
+            MServerLog.fehlerMeldung(832164870, MServerCopy.class.getName(), "MServerCopy.copy", ex);
         }
         return ret;
     }

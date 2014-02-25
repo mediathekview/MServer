@@ -36,7 +36,7 @@ import mServer.tool.MServerKonstanten;
 import mServer.tool.MServerLog;
 import msearch.tool.MSearchConst;
 import msearch.tool.MSearchFunktionen;
-import msearch.tool.GuiFunktionen;
+import msearch.tool.MSearchGuiFunktionen;
 
 public class MServerUpdateSuchen {
 
@@ -121,7 +121,7 @@ public class MServerUpdateSuchen {
     }
 
     public static File updateLaden(String url, String zielPfad, String userAgent) {
-        String zielDatei = GuiFunktionen.addsPfad(zielPfad, MServerKonstanten.PROGRAMMDATEI_UPDATE);
+        String zielDatei = MSearchGuiFunktionen.addsPfad(zielPfad, MServerKonstanten.PROGRAMMDATEI_UPDATE);
         File ret = new File(zielDatei);
         int timeout = 10000; //10 Sekunden
         URLConnection conn;

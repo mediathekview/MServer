@@ -30,7 +30,7 @@ import mServer.tool.MServerWarten;
 import mServer.upload.MServerMelden;
 import msearch.Search;
 import msearch.daten.MSearchConfig;
-import msearch.tool.GuiFunktionen;
+import msearch.tool.MSearchGuiFunktionen;
 
 public class MServerSearch {
 
@@ -51,14 +51,11 @@ public class MServerSearch {
             MSearchConfig.updateFilmliste = aktDatenSuchen.updateFilmliste();
             MSearchConfig.nurSenderLaden = arrLesen(aktDatenSuchen.arr[MServerDatenSuchen.SUCHEN_SENDER_NR].trim());
             // Filmlisten
-            MSearchConfig.dateiFilmliste = GuiFunktionen.addsPfad(MServerDaten.getVerzeichnisFilme(), aktDatenSuchen.getAktFilmliste());
-            MSearchConfig.exportFilmlisteXml = GuiFunktionen.addsPfad(MServerDaten.getVerzeichnisFilme(), aktDatenSuchen.getExportFilmlisteXml());
-            MSearchConfig.exportFilmlisteJson = GuiFunktionen.addsPfad(MServerDaten.getVerzeichnisFilme(), aktDatenSuchen.getExportFilmlisteJson());
+            MSearchConfig.dirFilme = MServerDaten.getVerzeichnisFilme();
+            MSearchConfig.exportFilmlisteXml = MSearchGuiFunktionen.addsPfad(MServerDaten.getVerzeichnisFilme(), aktDatenSuchen.getExportFilmlisteXml());
+            MSearchConfig.exportFilmlisteJson = MSearchGuiFunktionen.addsPfad(MServerDaten.getVerzeichnisFilme(), aktDatenSuchen.getExportFilmlisteJson());
             MSearchConfig.orgFilmlisteErstellen = aktDatenSuchen.orgListeAnlegen();
-            MSearchConfig.orgFilmliste = GuiFunktionen.addsPfad(MServerDaten.getVerzeichnisFilme(), aktDatenSuchen.getOrgFilmliste());
-            MSearchConfig.exportOrgFilmliste = GuiFunktionen.addsPfad(MServerDaten.getVerzeichnisFilme(), aktDatenSuchen.getExportOrgFilmliste());
-            MSearchConfig.diffFilmliste = GuiFunktionen.addsPfad(MServerDaten.getVerzeichnisFilme(), aktDatenSuchen.getDiffFilmliste());
-            MSearchConfig.exportDiffFilmliste = GuiFunktionen.addsPfad(MServerDaten.getVerzeichnisFilme(), aktDatenSuchen.getExportDiffFilmliste());
+            MSearchConfig.diffFilmlisteErstellen = true;
             // und noch evtl. ein paar Imports von Filmlisten anderer Server
             MSearchConfig.importUrl__anhaengen = MServerDaten.system[MServerKonstanten.SYSTEM_IMPORT_URL_EXTEND_NR].toString();
             MSearchConfig.importUrl__ersetzen = MServerDaten.system[MServerKonstanten.SYSTEM_IMPORT_URL_REPLACE_NR].toString();

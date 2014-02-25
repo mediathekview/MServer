@@ -26,6 +26,7 @@ import mServer.tool.MServerDaten;
 import mServer.tool.MServerKonstanten;
 import mServer.tool.MServerLog;
 import mServer.tool.MServerWarten;
+import msearch.daten.MSearchConfig;
 
 public class MServerUpload {
 
@@ -42,15 +43,15 @@ public class MServerUpload {
         String filmlisteDateiPfad = MServerDaten.getVerzeichnisFilme();
         if (!MServerDaten.system[MServerKonstanten.SYSTEM_EXPORT_FILE_FILMLISTE_NR].isEmpty()) {
             filmlisteDateiName = aktDatenSuchen.getExportFilmlisteJson();
-            MServerExport.copy(filmlisteDateiPfad, filmlisteDateiName, MServerDaten.system[MServerKonstanten.SYSTEM_EXPORT_FILE_FILMLISTE_NR]);
+            MServerCopy.copy(filmlisteDateiPfad, filmlisteDateiName, MServerDaten.system[MServerKonstanten.SYSTEM_EXPORT_FILE_FILMLISTE_NR]);
         }
         if (!MServerDaten.system[MServerKonstanten.SYSTEM_EXPORT_FILE_FILMLISTE_ORG_NR].isEmpty()) {
-            filmlisteDateiName = aktDatenSuchen.getExportOrgFilmliste();
-            MServerExport.copy(filmlisteDateiPfad, filmlisteDateiName, MServerDaten.system[MServerKonstanten.SYSTEM_EXPORT_FILE_FILMLISTE_ORG_NR]);
+            filmlisteDateiName = MSearchConfig.getPathFilmlist_org_xz();
+            MServerCopy.copy(filmlisteDateiName, MServerDaten.system[MServerKonstanten.SYSTEM_EXPORT_FILE_FILMLISTE_ORG_NR]);
         }
         if (!MServerDaten.system[MServerKonstanten.SYSTEM_EXPORT_FILE_FILMLISTE_DIFF_NR].isEmpty()) {
-            filmlisteDateiName = aktDatenSuchen.getExportDiffFilmliste();
-            MServerExport.copy(filmlisteDateiPfad, filmlisteDateiName, MServerDaten.system[MServerKonstanten.SYSTEM_EXPORT_FILE_FILMLISTE_DIFF_NR]);
+            filmlisteDateiName = MSearchConfig.getPathFilmlist_diff_xz();
+            MServerCopy.copy(filmlisteDateiName, MServerDaten.system[MServerKonstanten.SYSTEM_EXPORT_FILE_FILMLISTE_DIFF_NR]);
         }
 
         // ======================================================

@@ -23,7 +23,7 @@ import java.io.File;
 import mServer.daten.MServerListeSuchen;
 import mServer.daten.MServerListeUpload;
 import msearch.tool.MSearchFunktionen;
-import msearch.tool.GuiFunktionen;
+import msearch.tool.MSearchGuiFunktionen;
 import msearch.tool.MSearchConst;
 
 public class MServerDaten {
@@ -105,7 +105,7 @@ public class MServerDaten {
     }
 
     public static String getVerzeichnisFilme() {
-        String ret = GuiFunktionen.addsPfad(getBasisVerzeichnis(basisverzeichnis, false), MServerKonstanten.VERZEICHNISS_FILMLISTEN);
+        String ret = MSearchGuiFunktionen.addsPfad(getBasisVerzeichnis(basisverzeichnis, false), MServerKonstanten.VERZEICHNISS_FILMLISTEN);
         File basisF = new File(ret);
         if (!basisF.exists()) {
             if (!basisF.mkdir()) {
@@ -120,9 +120,9 @@ public class MServerDaten {
     public static String getLogVerzeichnis() {
         String ret;
         if (system[MServerKonstanten.SYSTEM_PFAD_LOGDATEI_NR] == null) {
-            ret = GuiFunktionen.addsPfad(getBasisVerzeichnis(basisverzeichnis, false), MServerKonstanten.LOG_FILE_PFAD);
+            ret = MSearchGuiFunktionen.addsPfad(getBasisVerzeichnis(basisverzeichnis, false), MServerKonstanten.LOG_FILE_PFAD);
         } else if (MServerDaten.system[MServerKonstanten.SYSTEM_PFAD_LOGDATEI_NR].trim().equals("")) {
-            ret = GuiFunktionen.addsPfad(getBasisVerzeichnis(basisverzeichnis, false), MServerKonstanten.LOG_FILE_PFAD);
+            ret = MSearchGuiFunktionen.addsPfad(getBasisVerzeichnis(basisverzeichnis, false), MServerKonstanten.LOG_FILE_PFAD);
         } else {
             ret = MServerDaten.system[MServerKonstanten.SYSTEM_PFAD_LOGDATEI_NR].trim();
         }
@@ -142,7 +142,7 @@ public class MServerDaten {
         try {
             logPfad = getLogVerzeichnis();
             // prüfen obs geht
-            logFileName = GuiFunktionen.addsPfad(logPfad, MServerKonstanten.LOG_FILE_NAME + MServerDatumZeit.getJetztLogDatei());
+            logFileName = MSearchGuiFunktionen.addsPfad(logPfad, MServerKonstanten.LOG_FILE_NAME + MServerDatumZeit.getJetztLogDatei());
             File logfile = new File(logFileName);
             if (!logfile.exists()) {
                 boolean b = new File(logPfad).mkdirs();
@@ -163,7 +163,7 @@ public class MServerDaten {
         try {
             logPfad = MServerDaten.getLogVerzeichnis();
             // prüfen obs geht
-            logFileName = GuiFunktionen.addsPfad(logPfad, MServerKonstanten.LOG_FILE_NAME_MV + MServerDatumZeit.getJetztLogDatei());
+            logFileName = MSearchGuiFunktionen.addsPfad(logPfad, MServerKonstanten.LOG_FILE_NAME_MV + MServerDatumZeit.getJetztLogDatei());
             logfile = new File(logFileName);
             if (!logfile.exists()) {
                 boolean b = new File(logPfad).mkdirs();

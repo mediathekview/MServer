@@ -29,7 +29,7 @@ import mServer.tool.MServerFunktionen;
 import mServer.tool.MServerKonstanten;
 import mServer.tool.MServerLog;
 import msearch.filmeLaden.DatenUrlFilmliste;
-import msearch.tool.GuiFunktionen;
+import msearch.tool.MSearchGuiFunktionen;
 import org.apache.commons.net.PrintCommandListener;
 import org.apache.commons.net.ftp.FTP;
 import org.apache.commons.net.ftp.FTPClient;
@@ -196,7 +196,7 @@ public class MServerUploadFtp {
                 // ==========================
                 // Filmliste hoch laden
                 InputStream input;
-                input = new FileInputStream(GuiFunktionen.addsPfad(filmlistePfad, filmlisteDateiname));
+                input = new FileInputStream(MSearchGuiFunktionen.addsPfad(filmlistePfad, filmlisteDateiname));
                 ftp.storeFile(datenUpload.getFilmlisteDestPfadName(filmlisteDateiname), input);
                 input.close();
                 ftp.noop(); // check that control connection is working OK

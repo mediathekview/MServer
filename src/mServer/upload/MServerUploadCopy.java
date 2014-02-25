@@ -27,7 +27,7 @@ import mServer.daten.MServerDatenUpload;
 import mServer.tool.MServerFunktionen;
 import mServer.tool.MServerLog;
 import msearch.filmeLaden.DatenUrlFilmliste;
-import msearch.tool.GuiFunktionen;
+import msearch.tool.MSearchGuiFunktionen;
 
 public class MServerUploadCopy {
 
@@ -40,7 +40,7 @@ public class MServerUploadCopy {
         MServerLog.systemMeldung("Datei: " + filmDateiName);
         try {
             new File(datenUpload.getDestDir()).mkdirs();
-            String src = GuiFunktionen.addsPfad(filmDateiPfad, filmDateiName);
+            String src = MSearchGuiFunktionen.addsPfad(filmDateiPfad, filmDateiName);
             String dest = datenUpload.getFilmlisteDestPfadName(filmDateiName);
             Files.copy(Paths.get(src), Paths.get(dest), StandardCopyOption.REPLACE_EXISTING);
             ret = true;

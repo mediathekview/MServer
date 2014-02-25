@@ -22,7 +22,7 @@ package mServer.daten;
 import mServer.tool.MServerDaten;
 import mServer.tool.MServerKonstanten;
 import mServer.upload.MServerUpload;
-import msearch.tool.GuiFunktionen;
+import msearch.tool.MSearchGuiFunktionen;
 import msearch.tool.MSearchConst;
 
 public class MServerDatenUpload {
@@ -80,7 +80,7 @@ public class MServerDatenUpload {
         if (arr[UPLOAD_ART_NR].equals(MServerUpload.UPLOAD_ART_COPY)) {
             return getFilmlisteDestPfadName(MSearchConst.DATEINAME_LISTE_FILMLISTEN);
         } else {
-            return GuiFunktionen.addUrl(arr[UPLOAD_URL_FILMLISTE_NR], MSearchConst.DATEINAME_LISTE_FILMLISTEN);
+            return MSearchGuiFunktionen.addUrl(arr[UPLOAD_URL_FILMLISTE_NR], MSearchConst.DATEINAME_LISTE_FILMLISTEN);
         }
     }
 
@@ -88,7 +88,7 @@ public class MServerDatenUpload {
         if (arr[UPLOAD_URL_FILMLISTE_NR].isEmpty()) {
             return "";
         } else {
-            return GuiFunktionen.addUrl(arr[UPLOAD_URL_FILMLISTE_NR], dateinameFilmliste);
+            return MSearchGuiFunktionen.addUrl(arr[UPLOAD_URL_FILMLISTE_NR], dateinameFilmliste);
         }
     }
 
@@ -97,11 +97,11 @@ public class MServerDatenUpload {
     }
 
     public String getFilmlisteDestPfadName(String dateinameFilmliste) {
-        return GuiFunktionen.addsPfad(arr[UPLOAD_DEST_DIR_NR], dateinameFilmliste);
+        return MSearchGuiFunktionen.addsPfad(arr[UPLOAD_DEST_DIR_NR], dateinameFilmliste);
     }
 
     public String getListeFilmlistenDestPfadName() {
-        return GuiFunktionen.addsPfad(arr[UPLOAD_DEST_DIR_NR], MSearchConst.DATEINAME_LISTE_FILMLISTEN);
+        return MSearchGuiFunktionen.addsPfad(arr[UPLOAD_DEST_DIR_NR], MSearchConst.DATEINAME_LISTE_FILMLISTEN);
     }
 
     public String getPrio() {
