@@ -81,7 +81,7 @@ public class MServerDatenSuchen {
         return false;
     }
 
-    public String getExportFilmlisteXml() {
+    public String getExportXmlName() {
         final String FILM_DATEI_SUFF = "bz2";
         final String FILMDATEI_NAME = "Filmliste-xml";
         if (jetzt()) {
@@ -91,9 +91,7 @@ public class MServerDatenSuchen {
         }
     }
 
-    public String getExportFilmlisteJson() {
-        
-        //final String FILM_DATEI_SUFF = "bz2";
+    public String getExportJsonName() {
         final String FILM_DATEI_SUFF = "xz";
         final String FILMDATEI_NAME = "Filmliste-json";
         if (jetzt()) {
@@ -108,34 +106,29 @@ public class MServerDatenSuchen {
 //        final String FILMDATEI_NAME = "filme";
 //        return FILMDATEI_NAME + "." + FILM_DATEI_SUFF;
 //    }
-
 //    public String getOrgFilmliste() {
 //        // ist die erste Filmliste am Tag gege die dann das diff erstellt wird
 //        final String FILM_DATEI_SUFF = "json";
 //        final String FILMDATEI_NAME = "filme-org";
 //        return FILMDATEI_NAME + "." + FILM_DATEI_SUFF;
 //    }
-
-    public String getExportOrgFilmliste() {
-        final String FILM_DATEI_SUFF = "xz";
-        final String FILMDATEI_NAME = "Filmliste-org";
-        return FILMDATEI_NAME + "." + FILM_DATEI_SUFF;
-    }
-
+//    public String getExportOrgFilmliste() {
+//        final String FILM_DATEI_SUFF = "xz";
+//        final String FILMDATEI_NAME = "Filmliste-org";
+//        return FILMDATEI_NAME + "." + FILM_DATEI_SUFF;
+//    }
 //    public String getDiffFilmliste() {
 //        // ist dann das diff das erstellt wird
 //        final String FILM_DATEI_SUFF = "json";
 //        final String FILMDATEI_NAME = "filme-diff";
 //        return FILMDATEI_NAME + "." + FILM_DATEI_SUFF;
 //    }
-
 //    public String getExportDiffFilmliste() {
 //        // ist dann das diff das erstellt wird
 //        final String FILM_DATEI_SUFF = "xz";
 //        final String FILMDATEI_NAME = "filme-diff";
 //        return FILMDATEI_NAME + "." + FILM_DATEI_SUFF;
 //    }
-
     public boolean orgListeAnlegen() {
         return Boolean.parseBoolean(arr[SUCHEN_ORG_LISTE_NR]);
     }

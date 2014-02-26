@@ -36,7 +36,6 @@ public class MServer {
     private MServerDatenSuchen aktDatenSuchen = null;
     private boolean suchen = false;
     MServerSearch mServerSearch;
-    MServerUpload mServerUpload;
     boolean nachUpdate = false;
     boolean nurUpload = false;
 
@@ -63,7 +62,6 @@ public class MServer {
         MServerDaten.init();
         MServerDaten.setBasisVerzeichnis(pfad);
         mServerSearch = new MServerSearch();
-        mServerUpload = new MServerUpload();
         if (nachUpdate) {
             MServerLog.systemMeldung("");
             MServerLog.systemMeldung("===========================");
@@ -141,7 +139,6 @@ public class MServer {
 ////            MServerLog.fehlerMeldung(915263470, MServer.class.getName(), "Search.senderLoeschen()", ex);
 ////        }
 ////    }
-
     public void laufen() {
         // =====================================
         // erst mal schauen ob was zu tun ist
@@ -182,7 +179,7 @@ public class MServer {
                 MServerLog.systemMeldung("");
                 MServerLog.systemMeldung("===============================");
                 MServerLog.systemMeldung("== Upload =====================");
-                mServerUpload.upload(aktDatenSuchen);
+                MServerUpload.upload(aktDatenSuchen);
                 MServerLog.systemMeldung("== Upload beendet =============");
                 MServerLog.systemMeldung("-------------------------------");
                 MServerLog.systemMeldung("---------------------------------------");

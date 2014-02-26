@@ -29,7 +29,6 @@ import mServer.tool.MServerFunktionen;
 import mServer.tool.MServerKonstanten;
 import mServer.tool.MServerLog;
 import msearch.filmeLaden.DatenUrlFilmliste;
-import msearch.tool.MSearchGuiFunktionen;
 import org.apache.commons.net.PrintCommandListener;
 import org.apache.commons.net.ftp.FTP;
 import org.apache.commons.net.ftp.FTPClient;
@@ -41,21 +40,18 @@ import org.apache.commons.net.util.TrustManagerUtils;
 
 public class MServerUploadFtp {
 
-    private String server, strPort, username, password, filmlistePfad, filmlisteDateiname;
-    private MServerDatenUpload datenUpload;
-    private boolean retFtp = false;
+    private static String server, strPort, username, password, srcPathFile, destFileName;
+    private static MServerDatenUpload datenUpload;
+    private static boolean retFtp = false;
 
-    public boolean uploadFtp(String server_, String strPort_,
-            String username_, String password_,
-            String filmlistePfad_, String filmlisteDateiname_,
-            MServerDatenUpload datenUpload_) {
+    public static boolean uploadFtp(String srcPathFile_, String destFileName_, MServerDatenUpload datenUpload_) {
         try {
-            server = server_;
-            strPort = strPort_;
-            username = username_;
-            password = password_;
-            filmlistePfad = filmlistePfad_;
-            filmlisteDateiname = filmlisteDateiname_;
+            server = datenUpload.arr[MServerDatenUpload.UPLOAD_SERVER_NR];
+            strPort = datenUpload.arr[MServerDatenUpload.UPLOAD_PORT_NR];
+            username = datenUpload.arr[MServerDatenUpload.UPLOAD_USER_NR];
+            password = datenUpload.arr[MServerDatenUpload.UPLOAD_PWD_NR];
+            srcPathFile = srcPathFile_;
+            destFileName = destFileName_;
             datenUpload = datenUpload_;
             MServerLog.systemMeldung("");
             MServerLog.systemMeldung("----------------------");
@@ -79,7 +75,7 @@ public class MServerUploadFtp {
         return retFtp;
     }
 
-    private class Ftp implements Runnable {
+    private static class Ftp implements Runnable {
 
         @Override
         public synchronized void run() {
@@ -87,7 +83,7 @@ public class MServerUploadFtp {
             // DatenFilmUpdateServer(String url, String prio, String zeit, String datum, String anzahl) {
             //String filmlisteDestPfadName = GuiFunktionen.addsPfad(filmlisteDestDir, filmlisteDateiname);
             //String listeFilmlistenDestPfadName = GuiFunktionen.addsPfad(filmlisteDestDir, MS_Konstanten.DATEINAME_LISTE_FILMLISTEN);
-            DatenUrlFilmliste dfus = new DatenUrlFilmliste(datenUpload.getUrlFilmliste(filmlisteDateiname), "1", MServerFunktionen.getTime(), MServerFunktionen.getDate());
+            DatenUrlFilmliste dfus = new DatenUrlFilmliste(datenUpload.getUrlFilmliste(destFileName), "1", MServerFunktionen.getTime(), MServerFunktionen.getDate());
             File filmlisten = MServerListeFilmlisten.filmlisteEintragen(datenUpload.get_Url_Datei_ListeFilmlisten(), dfus);
             //
             int port = 0;
@@ -196,8 +192,8 @@ public class MServerUploadFtp {
                 // ==========================
                 // Filmliste hoch laden
                 InputStream input;
-                input = new FileInputStream(MSearchGuiFunktionen.addsPfad(filmlistePfad, filmlisteDateiname));
-                ftp.storeFile(datenUpload.getFilmlisteDestPfadName(filmlisteDateiname), input);
+                input = new FileInputStream(srcPathFile);
+                ftp.storeFile(datenUpload.getFilmlisteDestPfadName(destFileName), input);
                 input.close();
                 ftp.noop(); // check that control connection is working OK
                 // ==========================

@@ -30,7 +30,6 @@ import mServer.tool.MServerWarten;
 import mServer.upload.MServerMelden;
 import msearch.Search;
 import msearch.daten.MSearchConfig;
-import msearch.tool.MSearchGuiFunktionen;
 
 public class MServerSearch {
 
@@ -52,8 +51,8 @@ public class MServerSearch {
             MSearchConfig.nurSenderLaden = arrLesen(aktDatenSuchen.arr[MServerDatenSuchen.SUCHEN_SENDER_NR].trim());
             // Filmlisten
             MSearchConfig.dirFilme = MServerDaten.getVerzeichnisFilme();
-            MSearchConfig.exportFilmlisteXml = MSearchGuiFunktionen.addsPfad(MServerDaten.getVerzeichnisFilme(), aktDatenSuchen.getExportFilmlisteXml());
-            MSearchConfig.exportFilmlisteJson = MSearchGuiFunktionen.addsPfad(MServerDaten.getVerzeichnisFilme(), aktDatenSuchen.getExportFilmlisteJson());
+//            MSearchConfig.exportFilmlisteXml = MSearchGuiFunktionen.addsPfad(MServerDaten.getVerzeichnisFilme(), aktDatenSuchen.getExportFilmlisteXml());
+//            MSearchConfig.exportFilmlisteJson = MSearchGuiFunktionen.addsPfad(MServerDaten.getVerzeichnisFilme(), aktDatenSuchen.getExportFilmlisteJson());
             MSearchConfig.orgFilmlisteErstellen = aktDatenSuchen.orgListeAnlegen();
             MSearchConfig.diffFilmlisteErstellen = true;
             // und noch evtl. ein paar Imports von Filmlisten anderer Server

@@ -27,25 +27,25 @@ import msearch.tool.MSearchGuiFunktionen;
 
 public class MServerCopy {
 
-    public static boolean copy(String filmDateiPfad, String filmDateiName, String zielPfadDatei) {
+    public static boolean copy(String srcPath, String srcFile, String destPathFile) {
         try {
-            return copy(MSearchGuiFunktionen.addsPfad(filmDateiPfad, filmDateiName), zielPfadDatei);
+            return copy(MSearchGuiFunktionen.addsPfad(srcPath, srcFile), destPathFile);
         } catch (Exception ex) {
             MServerLog.fehlerMeldung(915237563, MServerCopy.class.getName(), "MServerCopy.copy", ex);
         }
         return false;
     }
 
-    public static boolean copy(String filmDateiPfadName, String zielPfadDatei) {
+    public static boolean copy(String srcPathFile, String destPathFile) {
         boolean ret = false;
         MServerLog.systemMeldung("");
         MServerLog.systemMeldung("----------------------");
         MServerLog.systemMeldung("Copy start");
-        MServerLog.systemMeldung("Datei: " + filmDateiPfadName);
-        MServerLog.systemMeldung("Zieldatei: " + zielPfadDatei);
+        MServerLog.systemMeldung("src: " + srcPathFile);
+        MServerLog.systemMeldung("dest: " + destPathFile);
         try {
-            String dest = zielPfadDatei;
-            Files.copy(Paths.get(filmDateiPfadName), Paths.get(dest), StandardCopyOption.REPLACE_EXISTING);
+            String dest = destPathFile;
+            Files.copy(Paths.get(srcPathFile), Paths.get(dest), StandardCopyOption.REPLACE_EXISTING);
             ret = true;
         } catch (Exception ex) {
             MServerLog.fehlerMeldung(832164870, MServerCopy.class.getName(), "MServerCopy.copy", ex);
