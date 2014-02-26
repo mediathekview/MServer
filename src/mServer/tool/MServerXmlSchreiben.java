@@ -24,8 +24,8 @@ import java.io.FileOutputStream;
 import java.io.OutputStreamWriter;
 import javax.xml.stream.XMLOutputFactory;
 import javax.xml.stream.XMLStreamWriter;
-import mServer.daten.MServerDatenSuchen;
 import mServer.daten.MServerDatenUpload;
+import mServer.daten.MServerSearchTask;
 import msearch.tool.MSearchConst;
 
 public class MServerXmlSchreiben {
@@ -49,7 +49,7 @@ public class MServerXmlSchreiben {
             writer.writeCharacters("\n");//neue Zeile
             // System schreibem
             xmlSchreibenDaten(MServerKonstanten.SYSTEM, MServerKonstanten.SYSTEM_COLUMN_NAMES, MServerDaten.system);
-            xmlSchreibenDaten(MServerDatenSuchen.SUCHEN, MServerDatenSuchen.SUCHEN_COLUMN_NAMES, new MServerDatenSuchen().arr);
+            xmlSchreibenDaten(MServerSearchTask.SUCHEN, MServerSearchTask.SUCHEN_COLUMN_NAMES, new MServerSearchTask().arr);
             xmlSchreibenDaten(MServerDatenUpload.UPLOAD, MServerDatenUpload.UPLOAD_COLUMN_NAMES, new MServerDatenUpload().arr);
             // Schließen
             writer.writeEndElement();

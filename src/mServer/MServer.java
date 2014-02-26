@@ -20,7 +20,7 @@
 package mServer;
 
 import java.io.File;
-import mServer.daten.MServerDatenSuchen;
+import mServer.daten.MServerSearchTask;
 import mServer.search.MServerSearch;
 import mServer.tool.MServerDaten;
 import mServer.tool.MServerKonstanten;
@@ -29,11 +29,12 @@ import mServer.tool.MServerTimer;
 import mServer.tool.MServerXmlLesen;
 import mServer.update.MServerUpdate;
 import mServer.upload.MServerUpload;
+import msearch.daten.MSearchConfig;
 
 public class MServer {
 
     private MServerTimer timer;
-    private MServerDatenSuchen aktDatenSuchen = null;
+    private MServerSearchTask aktDatenSuchen = null;
     private boolean suchen = false;
     MServerSearch mServerSearch;
     boolean nachUpdate = false;
@@ -61,7 +62,7 @@ public class MServer {
         }
         MServerDaten.init();
         MServerDaten.setBasisVerzeichnis(pfad);
-        mServerSearch = new MServerSearch();
+
         if (nachUpdate) {
             MServerLog.systemMeldung("");
             MServerLog.systemMeldung("===========================");
@@ -93,6 +94,7 @@ public class MServer {
             // Infos schreiben
             MServerLog.startMeldungen(this.getClass().getName());
             updateSuchen(); // erst mal schauen was es neues gibt
+            mServerSearch = new MServerSearch();
             timer = new MServerTimer() {
                 @Override
                 public void ping() {

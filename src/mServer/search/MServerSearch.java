@@ -21,8 +21,8 @@ package mServer.search;
 
 import java.util.ArrayList;
 import java.util.Iterator;
-import mServer.daten.MServerDatenSuchen;
 import mServer.daten.MServerDatenUpload;
+import mServer.daten.MServerSearchTask;
 import mServer.tool.MServerDaten;
 import mServer.tool.MServerKonstanten;
 import mServer.tool.MServerLog;
@@ -33,9 +33,15 @@ import msearch.daten.MSearchConfig;
 
 public class MServerSearch {
 
-    Search mSearch = null;
+    Search mSearch;
 
-    public boolean filmeSuchen(MServerDatenSuchen aktDatenSuchen) {
+    public MServerSearch() {
+        this.mSearch = null;
+        MSearchConfig.dirFilme = MServerDaten.getVerzeichnisFilme();
+        MSearchConfig.diffFilmlisteErstellen = !MServerDaten.system[MServerKonstanten.SYSTEM_EXPORT_FILE_FILMLISTE_DIFF_NR].isEmpty();
+    }
+
+    public boolean filmeSuchen(MServerSearchTask aktSearchTask) {
         boolean ret = true;
         vorherLoeschen();
         try {
@@ -46,15 +52,10 @@ public class MServerSearch {
             MServerLog.systemMeldung("Filmsuche starten");
             mSearch = new Search(new String[]{});
             // was und wie
-            MSearchConfig.senderAllesLaden = aktDatenSuchen.allesLaden();
-            MSearchConfig.updateFilmliste = aktDatenSuchen.updateFilmliste();
-            MSearchConfig.nurSenderLaden = arrLesen(aktDatenSuchen.arr[MServerDatenSuchen.SUCHEN_SENDER_NR].trim());
-            // Filmlisten
-            MSearchConfig.dirFilme = MServerDaten.getVerzeichnisFilme();
-//            MSearchConfig.exportFilmlisteXml = MSearchGuiFunktionen.addsPfad(MServerDaten.getVerzeichnisFilme(), aktDatenSuchen.getExportFilmlisteXml());
-//            MSearchConfig.exportFilmlisteJson = MSearchGuiFunktionen.addsPfad(MServerDaten.getVerzeichnisFilme(), aktDatenSuchen.getExportFilmlisteJson());
-            MSearchConfig.orgFilmlisteErstellen = aktDatenSuchen.orgListeAnlegen();
-            MSearchConfig.diffFilmlisteErstellen = true;
+            MSearchConfig.senderAllesLaden = aktSearchTask.allesLaden();
+            MSearchConfig.updateFilmliste = aktSearchTask.updateFilmliste();
+            MSearchConfig.nurSenderLaden = arrLesen(aktSearchTask.arr[MServerSearchTask.SUCHEN_SENDER_NR].trim());
+            MSearchConfig.orgFilmlisteErstellen = aktSearchTask.orgListeAnlegen();
             // und noch evtl. ein paar Imports von Filmlisten anderer Server
             MSearchConfig.importUrl__anhaengen = MServerDaten.system[MServerKonstanten.SYSTEM_IMPORT_URL_EXTEND_NR].toString();
             MSearchConfig.importUrl__ersetzen = MServerDaten.system[MServerKonstanten.SYSTEM_IMPORT_URL_REPLACE_NR].toString();
@@ -69,7 +70,7 @@ public class MServerSearch {
             MServerLog.systemMeldung("Filme suchen gestartet");
             // ===========================================
             // warten auf das Ende
-            int warten = aktDatenSuchen.allesLaden() == true ? MServerKonstanten.WARTEZEIT_ALLES_LADEN : MServerKonstanten.WARTEZEIT_UPDATE_LADEN;
+            int warten = aktSearchTask.allesLaden() == true ? MServerKonstanten.WARTEZEIT_ALLES_LADEN : MServerKonstanten.WARTEZEIT_UPDATE_LADEN;
             t.join(warten);
             // ===========================================
             // erst mal schauen ob noch was läuft
@@ -93,6 +94,7 @@ public class MServerSearch {
             MServerLog.fehlerMeldung(636987308, MServerSearch.class.getName(), "filmeSuchen", ex);
         }
         MServerLog.systemMeldung("filmeSuchen beendet");
+        mSearch = null;
         return ret;
     }
 

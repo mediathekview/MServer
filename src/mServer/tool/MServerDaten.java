@@ -22,9 +22,9 @@ package mServer.tool;
 import java.io.File;
 import mServer.daten.MServerListeSuchen;
 import mServer.daten.MServerListeUpload;
+import msearch.tool.MSearchConst;
 import msearch.tool.MSearchFunktionen;
 import msearch.tool.MSearchGuiFunktionen;
-import msearch.tool.MSearchConst;
 
 public class MServerDaten {
 
@@ -113,7 +113,6 @@ public class MServerDaten {
             }
         }
         return ret;
-
 
     }
 

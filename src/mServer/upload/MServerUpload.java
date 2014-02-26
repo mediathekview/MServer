@@ -20,7 +20,7 @@
 package mServer.upload;
 
 import java.util.Iterator;
-import mServer.daten.MServerDatenSuchen;
+import mServer.daten.MServerSearchTask;
 import mServer.daten.MServerDatenUpload;
 import mServer.tool.MServerDaten;
 import mServer.tool.MServerKonstanten;
@@ -33,21 +33,19 @@ public class MServerUpload {
     public static final String UPLOAD_ART_FTP = "ftp";
     public static final String UPLOAD_ART_COPY = "copy";
 
-    public static void upload(MServerDatenSuchen aktDatenSuchen) {
-        // ==================================================
+    public static void upload(MServerSearchTask aktSearchTask) {
         // ==================================================
         // erst lokale Exports erledigen
         if (!MServerDaten.system[MServerKonstanten.SYSTEM_EXPORT_FILE_FILMLISTE_NR].isEmpty()) {
             MServerCopy.copy(MSearchConfig.getPathFilmlist_json_xz(), MServerDaten.system[MServerKonstanten.SYSTEM_EXPORT_FILE_FILMLISTE_NR]);
         }
-        if (!MServerDaten.system[MServerKonstanten.SYSTEM_EXPORT_FILE_FILMLISTE_ORG_NR].isEmpty()) {
+        if (aktSearchTask.orgListeAnlegen() && !MServerDaten.system[MServerKonstanten.SYSTEM_EXPORT_FILE_FILMLISTE_ORG_NR].isEmpty()) {
             MServerCopy.copy(MSearchConfig.getPathFilmlist_org_xz(), MServerDaten.system[MServerKonstanten.SYSTEM_EXPORT_FILE_FILMLISTE_ORG_NR]);
         }
         if (!MServerDaten.system[MServerKonstanten.SYSTEM_EXPORT_FILE_FILMLISTE_DIFF_NR].isEmpty()) {
             MServerCopy.copy(MSearchConfig.getPathFilmlist_diff_xz(), MServerDaten.system[MServerKonstanten.SYSTEM_EXPORT_FILE_FILMLISTE_DIFF_NR]);
         }
 
-        // ======================================================
         // ======================================================
         // jetzt die anderen Uploads erledigen
         String destFileName;
@@ -61,10 +59,10 @@ public class MServerUpload {
             MServerDatenUpload datenUpload = it.next();
             if (datenUpload.arr[MServerDatenUpload.UPLOAD_FORMAT_NR].equals(MServerDatenUpload.FORMAT_JSON)) {
                 srcPathFile = MSearchConfig.getPathFilmlist_json_xz();
-                destFileName = aktDatenSuchen.getExportJsonName();
+                destFileName = aktSearchTask.getExportJsonName();
             } else {
                 srcPathFile = MSearchConfig.getPathFilmlist_xml_bz2();
-                destFileName = aktDatenSuchen.getExportXmlName();
+                destFileName = aktSearchTask.getExportXmlName();
             }
 
             switch (datenUpload.arr[MServerDatenUpload.UPLOAD_ART_NR]) {

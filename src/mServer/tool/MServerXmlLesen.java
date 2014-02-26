@@ -25,8 +25,8 @@ import java.io.InputStreamReader;
 import javax.xml.stream.XMLInputFactory;
 import javax.xml.stream.XMLStreamConstants;
 import javax.xml.stream.XMLStreamReader;
-import mServer.daten.MServerDatenSuchen;
 import mServer.daten.MServerDatenUpload;
+import mServer.daten.MServerSearchTask;
 import msearch.tool.MSearchConst;
 
 public class MServerXmlLesen {
@@ -50,9 +50,9 @@ public class MServerXmlLesen {
                         if (parser.getLocalName().equals(MServerKonstanten.SYSTEM)) {
                             get(parser, event, MServerKonstanten.SYSTEM, MServerKonstanten.SYSTEM_COLUMN_NAMES, MServerDaten.system);
                         }
-                        if (parser.getLocalName().equals(MServerDatenSuchen.SUCHEN)) {
-                            MServerDatenSuchen cron = new MServerDatenSuchen();
-                            get(parser, event, MServerDatenSuchen.SUCHEN, MServerDatenSuchen.SUCHEN_COLUMN_NAMES, cron.arr);
+                        if (parser.getLocalName().equals(MServerSearchTask.SUCHEN)) {
+                            MServerSearchTask cron = new MServerSearchTask();
+                            get(parser, event, MServerSearchTask.SUCHEN, MServerSearchTask.SUCHEN_COLUMN_NAMES, cron.arr);
                             MServerDaten.listeSuchen.add(cron);
                         }
                         if (parser.getLocalName().equals(MServerDatenUpload.UPLOAD)) {

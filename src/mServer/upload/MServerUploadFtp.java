@@ -46,13 +46,13 @@ public class MServerUploadFtp {
 
     public static boolean uploadFtp(String srcPathFile_, String destFileName_, MServerDatenUpload datenUpload_) {
         try {
+            srcPathFile = srcPathFile_;
+            destFileName = destFileName_;
+            datenUpload = datenUpload_;
             server = datenUpload.arr[MServerDatenUpload.UPLOAD_SERVER_NR];
             strPort = datenUpload.arr[MServerDatenUpload.UPLOAD_PORT_NR];
             username = datenUpload.arr[MServerDatenUpload.UPLOAD_USER_NR];
             password = datenUpload.arr[MServerDatenUpload.UPLOAD_PWD_NR];
-            srcPathFile = srcPathFile_;
-            destFileName = destFileName_;
-            datenUpload = datenUpload_;
             MServerLog.systemMeldung("");
             MServerLog.systemMeldung("----------------------");
             MServerLog.systemMeldung("Upload start");

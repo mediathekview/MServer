@@ -24,7 +24,7 @@ import java.util.Date;
 import mServer.tool.MServerDatumZeit;
 import mServer.tool.MServerLog;
 
-public class MServerDatenSuchen {
+public class MServerSearchTask {
 
     // Konstanten Suchen
     public static final String SUCHEN_ALLES = "alles";
@@ -48,7 +48,7 @@ public class MServerDatenSuchen {
     public static final String[] SUCHEN_COLUMN_NAMES = {SUCHEN_SENDER_WIE, SUCHEN_LISTE_WIE, SUCHEN_WANN, SUCHEN_SENDER, SUCHEN_ORG_LISTE};
     public String[] arr = new String[SUCHEN_MAX_ELEM];
 
-    public MServerDatenSuchen() {
+    public MServerSearchTask() {
         for (int i = 0; i < arr.length; ++i) {
             arr[i] = "";
         }
@@ -71,7 +71,7 @@ public class MServerDatenSuchen {
         return this.arr[SUCHEN_WANN_NR].equals(SUCHEN_WANN_SOFORT);
     }
 
-    public boolean spaeter(MServerDatenSuchen d) {
+    public boolean spaeter(MServerSearchTask d) {
         // Datum ist später als das von "d"
         if (jetzt()) {
             return false;
@@ -140,7 +140,7 @@ public class MServerDatenSuchen {
             return sdf_zeit.parse(MServerDatumZeit.getHeute() + "__" + this.arr[SUCHEN_WANN_NR]);
         } catch (Exception ex) {
             ret = null;
-            MServerLog.fehlerMeldung(825439079, MServerDatenSuchen.class.getName(), "getTime", ex);
+            MServerLog.fehlerMeldung(825439079, MServerSearchTask.class.getName(), "getTime", ex);
         }
         return ret;
     }
