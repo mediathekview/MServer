@@ -33,9 +33,9 @@ import mServer.upload.MSVUpload;
 public class MServer {
 
     private MSVTimer timer;
-    private MSVSearchTask aktDatenSuchen = null;
+    private MSVSearchTask aktSearchTask = null;
     private boolean suchen = false;
-    MSVSearch mServerSearch;
+    MSVSearch mSVSearch;
     boolean nachUpdate = false;
     boolean nurUpload = false;
 
@@ -93,7 +93,7 @@ public class MServer {
             // Infos schreiben
             MSVLog.startMeldungen(this.getClass().getName());
             updateSuchen(); // erst mal schauen was es neues gibt
-            mServerSearch = new MSVSearch();
+            mSVSearch = new MSVSearch();
             timer = new MSVTimer() {
                 @Override
                 public void ping() {
@@ -144,25 +144,25 @@ public class MServer {
         // =====================================
         // erst mal schauen ob was zu tun ist
         // -----------------------------------
-        if (aktDatenSuchen == null) {
-            aktDatenSuchen = MSVDaten.listeSuchen.erste();
-            if (aktDatenSuchen == null) {
+        if (aktSearchTask == null) {
+            aktSearchTask = MSVDaten.listeSuchen.erste();
+            if (aktSearchTask == null) {
                 // fertig für den Tag
                 undTschuess();
             } else {
-                aktDatenSuchen.meldungNaechsterStart();
+                aktSearchTask.meldungNaechsterStart();
             }
         }
-        if (!suchen && aktDatenSuchen.starten()) {
+        if (!suchen && aktSearchTask.starten()) {
             suchen = true;
-            aktDatenSuchen.meldungStart();
+            aktSearchTask.meldungStart();
             // ----------------------
             // Filme suchen
             MSVLog.systemMeldung("");
             MSVLog.systemMeldung("======================================");
             MSVLog.systemMeldung("== Filme suchen ======================");
             MSVLog.systemMeldung("--------------------------------------");
-            if (!mServerSearch.filmeSuchen(aktDatenSuchen)) {
+            if (!mSVSearch.filmeSuchen(aktSearchTask)) {
                 // das Suchen der Filme hat nicht geklappt
                 MSVLog.systemMeldung("--------------------------------------");
                 MSVLog.systemMeldung("== Fehler beim Filme Suchen ==========");
@@ -180,20 +180,19 @@ public class MServer {
                 MSVLog.systemMeldung("");
                 MSVLog.systemMeldung("===============================");
                 MSVLog.systemMeldung("== Upload =====================");
-                MSVUpload.upload(aktDatenSuchen);
+                MSVUpload.upload(aktSearchTask);
                 MSVLog.systemMeldung("== Upload beendet =============");
                 MSVLog.systemMeldung("-------------------------------");
                 MSVLog.systemMeldung("---------------------------------------");
                 MSVLog.systemMeldung("");
                 MSVLog.systemMeldung("");
             }
-            aktDatenSuchen = null;
+            aktSearchTask = null;
             suchen = false;
             // ----------------------
             // nach Programmupdate suchen
             updateSuchen();
         }
-
     }
 
     private void updateSuchen() {
