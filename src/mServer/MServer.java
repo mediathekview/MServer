@@ -20,23 +20,22 @@
 package mServer;
 
 import java.io.File;
-import mServer.daten.MServerSearchTask;
-import mServer.search.MServerSearch;
-import mServer.tool.MServerDaten;
-import mServer.tool.MServerKonstanten;
-import mServer.tool.MServerLog;
-import mServer.tool.MServerTimer;
-import mServer.tool.MServerXmlLesen;
-import mServer.update.MServerUpdate;
-import mServer.upload.MServerUpload;
-import msearch.daten.MSearchConfig;
+import mServer.daten.MSVSearchTask;
+import mServer.search.MSVSearch;
+import mServer.tool.MSVDaten;
+import mServer.tool.MSVKonstanten;
+import mServer.tool.MSVLog;
+import mServer.tool.MSVTimer;
+import mServer.tool.MSVXmlLesen;
+import mServer.update.MSVUpdate;
+import mServer.upload.MSVUpload;
 
 public class MServer {
 
-    private MServerTimer timer;
-    private MServerSearchTask aktDatenSuchen = null;
+    private MSVTimer timer;
+    private MSVSearchTask aktDatenSuchen = null;
     private boolean suchen = false;
-    MServerSearch mServerSearch;
+    MSVSearch mServerSearch;
     boolean nachUpdate = false;
     boolean nurUpload = false;
 
@@ -60,42 +59,42 @@ public class MServer {
                 nurUpload = true;
             }
         }
-        MServerDaten.init();
-        MServerDaten.setBasisVerzeichnis(pfad);
+        MSVDaten.init();
+        MSVDaten.setBasisVerzeichnis(pfad);
 
         if (nachUpdate) {
-            MServerLog.systemMeldung("");
-            MServerLog.systemMeldung("===========================");
-            MServerLog.systemMeldung("== Nach einem Update ======");
+            MSVLog.systemMeldung("");
+            MSVLog.systemMeldung("===========================");
+            MSVLog.systemMeldung("== Nach einem Update ======");
             // tu was zu tun ist
             //
-            MServerLog.systemMeldung("---------------------------");
+            MSVLog.systemMeldung("---------------------------");
 
         }
         Thread.setDefaultUncaughtExceptionHandler(new Thread.UncaughtExceptionHandler() {
             @Override
             public void uncaughtException(Thread t, Throwable e) {
-                MServerLog.fehlerMeldung(97986523, MServer.class.getName(), new String[]{"Da hat sich ein Thread verabschiedet: " + t.getName(), e.getMessage()});
+                MSVLog.fehlerMeldung(97986523, MServer.class.getName(), new String[]{"Da hat sich ein Thread verabschiedet: " + t.getName(), e.getMessage()});
                 e.printStackTrace();
             }
         });
     }
 
     public void starten() {
-        if (!MServerDaten.konfigExistiert()) {
-            MServerLog.fehlerMeldung(858589654, MServer.class.getName(), new String[]{"Konfig-Datei existiert nicht", MServerDaten.getKonfigDatei()});
+        if (!MSVDaten.konfigExistiert()) {
+            MSVLog.fehlerMeldung(858589654, MServer.class.getName(), new String[]{"Konfig-Datei existiert nicht", MSVDaten.getKonfigDatei()});
             System.exit(0); // und Tschüss
         } else {
-            MServerXmlLesen.xmlDatenLesen();
-            if (MServerDaten.system[MServerKonstanten.SYSTEM_DEBUG_NR].equals(MServerKonstanten.STR_TRUE)) {
-                MServerDaten.debug = true;
-                MServerLog.systemMeldung("== Debug on ======");
+            MSVXmlLesen.xmlDatenLesen();
+            if (MSVDaten.system[MSVKonstanten.SYSTEM_DEBUG_NR].equals(MSVKonstanten.STR_TRUE)) {
+                MSVDaten.debug = true;
+                MSVLog.systemMeldung("== Debug on ======");
             }
             // Infos schreiben
-            MServerLog.startMeldungen(this.getClass().getName());
+            MSVLog.startMeldungen(this.getClass().getName());
             updateSuchen(); // erst mal schauen was es neues gibt
-            mServerSearch = new MServerSearch();
-            timer = new MServerTimer() {
+            mServerSearch = new MSVSearch();
+            timer = new MSVTimer() {
                 @Override
                 public void ping() {
                     if (!suchen) {
@@ -146,7 +145,7 @@ public class MServer {
         // erst mal schauen ob was zu tun ist
         // -----------------------------------
         if (aktDatenSuchen == null) {
-            aktDatenSuchen = MServerDaten.listeSuchen.erste();
+            aktDatenSuchen = MSVDaten.listeSuchen.erste();
             if (aktDatenSuchen == null) {
                 // fertig für den Tag
                 undTschuess();
@@ -159,34 +158,34 @@ public class MServer {
             aktDatenSuchen.meldungStart();
             // ----------------------
             // Filme suchen
-            MServerLog.systemMeldung("");
-            MServerLog.systemMeldung("======================================");
-            MServerLog.systemMeldung("== Filme suchen ======================");
-            MServerLog.systemMeldung("--------------------------------------");
+            MSVLog.systemMeldung("");
+            MSVLog.systemMeldung("======================================");
+            MSVLog.systemMeldung("== Filme suchen ======================");
+            MSVLog.systemMeldung("--------------------------------------");
             if (!mServerSearch.filmeSuchen(aktDatenSuchen)) {
                 // das Suchen der Filme hat nicht geklappt
-                MServerLog.systemMeldung("--------------------------------------");
-                MServerLog.systemMeldung("== Fehler beim Filme Suchen ==========");
-                MServerLog.systemMeldung("-------------------------------");
-                MServerLog.systemMeldung("");
-                MServerLog.systemMeldung("");
+                MSVLog.systemMeldung("--------------------------------------");
+                MSVLog.systemMeldung("== Fehler beim Filme Suchen ==========");
+                MSVLog.systemMeldung("-------------------------------");
+                MSVLog.systemMeldung("");
+                MSVLog.systemMeldung("");
             } else {
                 // Suchen war OK
-                MServerLog.systemMeldung("== Filme Suchen beendet =======");
-                MServerLog.systemMeldung("-------------------------------");
-                MServerLog.systemMeldung("");
-                MServerLog.systemMeldung("");
+                MSVLog.systemMeldung("== Filme Suchen beendet =======");
+                MSVLog.systemMeldung("-------------------------------");
+                MSVLog.systemMeldung("");
+                MSVLog.systemMeldung("");
                 // nur dann gibts was zum Hochladen
                 // Filme jetzt hochladen
-                MServerLog.systemMeldung("");
-                MServerLog.systemMeldung("===============================");
-                MServerLog.systemMeldung("== Upload =====================");
-                MServerUpload.upload(aktDatenSuchen);
-                MServerLog.systemMeldung("== Upload beendet =============");
-                MServerLog.systemMeldung("-------------------------------");
-                MServerLog.systemMeldung("---------------------------------------");
-                MServerLog.systemMeldung("");
-                MServerLog.systemMeldung("");
+                MSVLog.systemMeldung("");
+                MSVLog.systemMeldung("===============================");
+                MSVLog.systemMeldung("== Upload =====================");
+                MSVUpload.upload(aktDatenSuchen);
+                MSVLog.systemMeldung("== Upload beendet =============");
+                MSVLog.systemMeldung("-------------------------------");
+                MSVLog.systemMeldung("---------------------------------------");
+                MSVLog.systemMeldung("");
+                MSVLog.systemMeldung("");
             }
             aktDatenSuchen = null;
             suchen = false;
@@ -198,22 +197,22 @@ public class MServer {
     }
 
     private void updateSuchen() {
-        MServerLog.systemMeldung("");
-        MServerLog.systemMeldung("=======================================");
-        MServerLog.systemMeldung("== Programmupdate suchen ==============");
-        if (MServerDaten.system[MServerKonstanten.SYSTEM_UPDATE_SUCHEN_NR].equals(MServerKonstanten.STR_TRUE)) {
-            if (MServerUpdate.updaten()) {
-                System.exit(MServerKonstanten.PROGRAMM_EXIT_CODE_UPDATE);
+        MSVLog.systemMeldung("");
+        MSVLog.systemMeldung("=======================================");
+        MSVLog.systemMeldung("== Programmupdate suchen ==============");
+        if (MSVDaten.system[MSVKonstanten.SYSTEM_UPDATE_SUCHEN_NR].equals(MSVKonstanten.STR_TRUE)) {
+            if (MSVUpdate.updaten()) {
+                System.exit(MSVKonstanten.PROGRAMM_EXIT_CODE_UPDATE);
             }
         }
-        MServerLog.systemMeldung("== Programmupdate suchen beendet ======");
-        MServerLog.systemMeldung("---------------------------------------");
-        MServerLog.systemMeldung("");
-        MServerLog.systemMeldung("");
+        MSVLog.systemMeldung("== Programmupdate suchen beendet ======");
+        MSVLog.systemMeldung("---------------------------------------");
+        MSVLog.systemMeldung("");
+        MSVLog.systemMeldung("");
     }
 
     private void undTschuess() {
-        MServerLog.printEndeMeldung();
+        MSVLog.printEndeMeldung();
         System.exit(0);
     }
 }

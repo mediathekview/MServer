@@ -22,33 +22,33 @@ package mServer.upload;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
-import mServer.tool.MServerLog;
+import mServer.tool.MSVLog;
 import msearch.tool.MSearchGuiFunktionen;
 
-public class MServerCopy {
+public class MSVCopy {
 
     public static boolean copy(String srcPath, String srcFile, String destPathFile) {
         try {
             return copy(MSearchGuiFunktionen.addsPfad(srcPath, srcFile), destPathFile);
         } catch (Exception ex) {
-            MServerLog.fehlerMeldung(915237563, MServerCopy.class.getName(), "MServerCopy.copy", ex);
+            MSVLog.fehlerMeldung(915237563, MSVCopy.class.getName(), "MServerCopy.copy", ex);
         }
         return false;
     }
 
     public static boolean copy(String srcPathFile, String destPathFile) {
         boolean ret = false;
-        MServerLog.systemMeldung("");
-        MServerLog.systemMeldung("----------------------");
-        MServerLog.systemMeldung("Copy start");
-        MServerLog.systemMeldung("src: " + srcPathFile);
-        MServerLog.systemMeldung("dest: " + destPathFile);
+        MSVLog.systemMeldung("");
+        MSVLog.systemMeldung("----------------------");
+        MSVLog.systemMeldung("Copy start");
+        MSVLog.systemMeldung("src: " + srcPathFile);
+        MSVLog.systemMeldung("dest: " + destPathFile);
         try {
             String dest = destPathFile;
             Files.copy(Paths.get(srcPathFile), Paths.get(dest), StandardCopyOption.REPLACE_EXISTING);
             ret = true;
         } catch (Exception ex) {
-            MServerLog.fehlerMeldung(832164870, MServerCopy.class.getName(), "MServerCopy.copy", ex);
+            MSVLog.fehlerMeldung(832164870, MSVCopy.class.getName(), "MServerCopy.copy", ex);
         }
         return ret;
     }

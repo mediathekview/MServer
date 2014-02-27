@@ -24,11 +24,11 @@ import java.io.FileOutputStream;
 import java.io.OutputStreamWriter;
 import javax.xml.stream.XMLOutputFactory;
 import javax.xml.stream.XMLStreamWriter;
-import mServer.daten.MServerDatenUpload;
-import mServer.daten.MServerSearchTask;
+import mServer.daten.MSVDatenUpload;
+import mServer.daten.MSVSearchTask;
 import msearch.tool.MSearchConst;
 
-public class MServerXmlSchreiben {
+public class MSVXmlSchreiben {
 
     private static XMLOutputFactory outFactory;
     private static XMLStreamWriter writer;
@@ -36,29 +36,29 @@ public class MServerXmlSchreiben {
 
     public static void xmlMusterDatenSchreiben() {
         try {
-            String datei = MServerDaten.getKonfigDatei() + "_Muster";
-            MServerLog.systemMeldung("Daten Schreiben");
+            String datei = MSVDaten.getKonfigDatei() + "_Muster";
+            MSVLog.systemMeldung("Daten Schreiben");
             File file = new File(datei);
-            MServerLog.systemMeldung("Start Schreiben nach: " + datei);
+            MSVLog.systemMeldung("Start Schreiben nach: " + datei);
             outFactory = XMLOutputFactory.newInstance();
             out = new OutputStreamWriter(new FileOutputStream(file), MSearchConst.KODIERUNG_UTF);
             writer = outFactory.createXMLStreamWriter(out);
             writer.writeStartDocument("UTF-8", "1.0");
             writer.writeCharacters("\n");//neue Zeile
-            writer.writeStartElement(MServerKonstanten.XML_START);
+            writer.writeStartElement(MSVKonstanten.XML_START);
             writer.writeCharacters("\n");//neue Zeile
             // System schreibem
-            xmlSchreibenDaten(MServerKonstanten.SYSTEM, MServerKonstanten.SYSTEM_COLUMN_NAMES, MServerDaten.system);
-            xmlSchreibenDaten(MServerSearchTask.SUCHEN, MServerSearchTask.SUCHEN_COLUMN_NAMES, new MServerSearchTask().arr);
-            xmlSchreibenDaten(MServerDatenUpload.UPLOAD, MServerDatenUpload.UPLOAD_COLUMN_NAMES, new MServerDatenUpload().arr);
+            xmlSchreibenDaten(MSVKonstanten.SYSTEM, MSVKonstanten.SYSTEM_COLUMN_NAMES, MSVDaten.system);
+            xmlSchreibenDaten(MSVSearchTask.SUCHEN, MSVSearchTask.SUCHEN_COLUMN_NAMES, new MSVSearchTask().arr);
+            xmlSchreibenDaten(MSVDatenUpload.UPLOAD, MSVDatenUpload.UPLOAD_COLUMN_NAMES, new MSVDatenUpload().arr);
             // Schließen
             writer.writeEndElement();
             writer.writeEndDocument();
             writer.flush();
             writer.close();
-            MServerLog.systemMeldung("geschrieben!");
+            MSVLog.systemMeldung("geschrieben!");
         } catch (Exception ex) {
-            MServerLog.fehlerMeldung(645421039, MServerXmlSchreiben.class.getName(), "xmlDatenSchreiben", ex);
+            MSVLog.fehlerMeldung(645421039, MSVXmlSchreiben.class.getName(), "xmlDatenSchreiben", ex);
         }
     }
 
@@ -77,7 +77,7 @@ public class MServerXmlSchreiben {
             writer.writeEndElement();
             writer.writeCharacters("\n");
         } catch (Exception ex) {
-            MServerLog.fehlerMeldung(102365897, MServerLog.class.getName(), "xmlSchreibenDaten", ex);
+            MSVLog.fehlerMeldung(102365897, MSVLog.class.getName(), "xmlSchreibenDaten", ex);
         }
     }
 }

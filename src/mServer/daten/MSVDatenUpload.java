@@ -19,13 +19,13 @@
  */
 package mServer.daten;
 
-import mServer.tool.MServerDaten;
-import mServer.tool.MServerKonstanten;
-import mServer.upload.MServerUpload;
+import mServer.tool.MSVDaten;
+import mServer.tool.MSVKonstanten;
+import mServer.upload.MSVUpload;
 import msearch.tool.MSearchGuiFunktionen;
 import msearch.tool.MSearchConst;
 
-public class MServerDatenUpload {
+public class MSVDatenUpload {
     // Konstanten Upload
 
     public static final String FORMAT_JSON = "json";
@@ -58,7 +58,7 @@ public class MServerDatenUpload {
         UPLOAD_FORMAT};
     public String[] arr = new String[MAX_ELEM];
 
-    public MServerDatenUpload() {
+    public MSVDatenUpload() {
         init();
     }
 
@@ -73,11 +73,11 @@ public class MServerDatenUpload {
     }
 
     public boolean vorherLoeschen() {
-        return arr[UPLOAD_VORHER_LOESCHEN_NR].equals(MServerKonstanten.STR_TRUE);
+        return arr[UPLOAD_VORHER_LOESCHEN_NR].equals(MSVKonstanten.STR_TRUE);
     }
 
     public String get_Url_Datei_ListeFilmlisten() {
-        if (arr[UPLOAD_ART_NR].equals(MServerUpload.UPLOAD_ART_COPY)) {
+        if (arr[UPLOAD_ART_NR].equals(MSVUpload.UPLOAD_ART_COPY)) {
             return getFilmlisteDestPfadName(MSearchConst.DATEINAME_LISTE_FILMLISTEN);
         } else {
             return MSearchGuiFunktionen.addUrl(arr[UPLOAD_URL_FILMLISTE_NR], MSearchConst.DATEINAME_LISTE_FILMLISTEN);
@@ -109,7 +109,7 @@ public class MServerDatenUpload {
     }
 
     public String getUrlFilmlistenServer() {
-        if (arr[MServerDatenUpload.UPLOAD_FORMAT_NR].equals(FORMAT_JSON)) {
+        if (arr[MSVDatenUpload.UPLOAD_FORMAT_NR].equals(FORMAT_JSON)) {
             return MSearchConst.ADRESSE_FILMLISTEN_SERVER_JSON;
         } else {
             return MSearchConst.ADRESSE_FILMLISTEN_SERVER_XML;
@@ -117,18 +117,18 @@ public class MServerDatenUpload {
     }
 
     public String getMeldenUrl() {
-        if (arr[MServerDatenUpload.UPLOAD_FORMAT_NR].equals(FORMAT_JSON)) {
-            return MServerDaten.system[MServerKonstanten.SYSTEM_MELDEN_URL_JSON_NR].trim();
+        if (arr[MSVDatenUpload.UPLOAD_FORMAT_NR].equals(FORMAT_JSON)) {
+            return MSVDaten.system[MSVKonstanten.SYSTEM_MELDEN_URL_JSON_NR].trim();
         } else {
-            return MServerDaten.system[MServerKonstanten.SYSTEM_MELDEN_URL_XML_NR].trim();
+            return MSVDaten.system[MSVKonstanten.SYSTEM_MELDEN_URL_XML_NR].trim();
         }
     }
 
     public String getMeldenPwd() {
-        if (arr[MServerDatenUpload.UPLOAD_FORMAT_NR].equals(FORMAT_JSON)) {
-            return MServerDaten.system[MServerKonstanten.SYSTEM_MELDEN_PWD_JSON_NR].trim();
+        if (arr[MSVDatenUpload.UPLOAD_FORMAT_NR].equals(FORMAT_JSON)) {
+            return MSVDaten.system[MSVKonstanten.SYSTEM_MELDEN_PWD_JSON_NR].trim();
         } else {
-            return MServerDaten.system[MServerKonstanten.SYSTEM_MELDEN_PWD_XML_NR].trim();
+            return MSVDaten.system[MSVKonstanten.SYSTEM_MELDEN_PWD_XML_NR].trim();
         }
     }
 }

@@ -22,17 +22,17 @@ package mServer.daten;
 import java.util.Date;
 import java.util.LinkedList;
 
-public class MServerListeSuchen extends LinkedList<MServerSearchTask> {
+public class MSVListeSuchen extends LinkedList<MSVSearchTask> {
 
     @Override
-    public boolean add(MServerSearchTask d) {
+    public boolean add(MSVSearchTask d) {
         if (d.jetzt()) {
             super.addFirst(d);
             return true;
         }
         // nach Datum sortiert, einfügen
         for (int i = 0; i < this.size(); ++i) {
-            MServerSearchTask ds = this.get(i);
+            MSVSearchTask ds = this.get(i);
             if (ds.spaeter(d)) {
                 super.add(i, d);
                 return true;
@@ -41,10 +41,10 @@ public class MServerListeSuchen extends LinkedList<MServerSearchTask> {
         return super.add(d);
     }
 
-    public MServerSearchTask erste() {
+    public MSVSearchTask erste() {
         // liefert den ersten Job der in der Zukunft liegt
         Date now = new Date();
-        MServerSearchTask akt = null;
+        MSVSearchTask akt = null;
         while ((akt = this.poll()) != null) {
             if (akt.jetzt()) {
                 return akt;

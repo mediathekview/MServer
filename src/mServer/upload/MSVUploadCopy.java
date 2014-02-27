@@ -23,28 +23,28 @@ import java.io.File;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
-import mServer.daten.MServerDatenUpload;
-import mServer.tool.MServerFunktionen;
-import mServer.tool.MServerLog;
+import mServer.daten.MSVDatenUpload;
+import mServer.tool.MSVFunktionen;
+import mServer.tool.MSVLog;
 import msearch.filmeLaden.DatenUrlFilmliste;
 
-public class MServerUploadCopy {
+public class MSVUploadCopy {
 
-    public static boolean copy(String srcPathFile, String destFileName, MServerDatenUpload datenUpload) {
+    public static boolean copy(String srcPathFile, String destFileName, MSVDatenUpload datenUpload) {
         boolean ret = false;
         try {
-            MServerLog.systemMeldung("");
-            MServerLog.systemMeldung("UploadCopy");
+            MSVLog.systemMeldung("");
+            MSVLog.systemMeldung("UploadCopy");
             new File(datenUpload.getDestDir()).mkdirs();
             String dest = datenUpload.getFilmlisteDestPfadName(destFileName);
-            MServerCopy.copy(srcPathFile, dest);
+            MSVCopy.copy(srcPathFile, dest);
 
-            MServerLog.systemMeldung("");
-            MServerLog.systemMeldung("und noch melden");
+            MSVLog.systemMeldung("");
+            MSVLog.systemMeldung("und noch melden");
             // Liste der Filmlisten auktualisieren
             // DatenFilmUpdateServer(String url, String prio, String zeit, String datum, String anzahl) {
-            DatenUrlFilmliste dfus = new DatenUrlFilmliste(datenUpload.getUrlFilmliste(destFileName), "1", MServerFunktionen.getTime(), MServerFunktionen.getDate());
-            File f = MServerListeFilmlisten.filmlisteEintragen(datenUpload.get_Url_Datei_ListeFilmlisten(), dfus);
+            DatenUrlFilmliste dfus = new DatenUrlFilmliste(datenUpload.getUrlFilmliste(destFileName), "1", MSVFunktionen.getTime(), MSVFunktionen.getDate());
+            File f = MSVListeFilmlisten.filmlisteEintragen(datenUpload.get_Url_Datei_ListeFilmlisten(), dfus);
             if (f != null) {
                 String src = f.getPath();
                 String destListen = datenUpload.getListeFilmlistenDestPfadName();
@@ -53,7 +53,7 @@ public class MServerUploadCopy {
             }
             ret = true;
         } catch (Exception ex) {
-            MServerLog.fehlerMeldung(747452360, MServerUploadCopy.class.getName(), "copy", ex);
+            MSVLog.fehlerMeldung(747452360, MSVUploadCopy.class.getName(), "copy", ex);
         }
         return ret;
     }

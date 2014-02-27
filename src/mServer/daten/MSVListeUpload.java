@@ -17,27 +17,9 @@
  * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-package mServer.tool;
+package mServer.daten;
 
-public class MServerTimer implements Runnable {
+import java.util.LinkedList;
 
-    private final int WARTEZEIT = 1000 * 10; // 10 Sekunde
-
-    public void ping() {
-    }
-
-    @Override
-    public synchronized void run() {
-        while (true) {
-            ping();
-            schlafen();
-        }
-    }
-
-    private void schlafen() {
-        try {
-            Thread.sleep(WARTEZEIT);
-        } catch (InterruptedException e) {
-        }
-    }
+public class MSVListeUpload extends LinkedList<MSVDatenUpload> {
 }

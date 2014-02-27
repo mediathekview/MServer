@@ -22,7 +22,7 @@ package mServer.tool;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class MServerDatumZeit {
+public class MSVDatumZeit {
 
     private static SimpleDateFormat sdf_stunde_minute = new SimpleDateFormat("HH:mm");
     private static SimpleDateFormat sdf_datum_zeit = new SimpleDateFormat("dd.MM.yyyy  HH:mm:ss");
@@ -60,7 +60,7 @@ public class MServerDatumZeit {
         try {
             return sdf_datum.parse(datum);
         } catch (Exception ex) {
-            MServerLog.fehlerMeldung(852414170, MServerDatumZeit.class.getName(), datum, ex);
+            MSVLog.fehlerMeldung(852414170, MSVDatumZeit.class.getName(), datum, ex);
             return new Date();
         }
     }
@@ -69,7 +69,7 @@ public class MServerDatumZeit {
         try {
             return sdf_datum_zeit.parse(datumZeit);
         } catch (Exception ex) {
-            MServerLog.fehlerMeldung(919596320, MServerDatumZeit.class.getName(), datumZeit, ex);
+            MSVLog.fehlerMeldung(919596320, MSVDatumZeit.class.getName(), datumZeit, ex);
             return new Date();
         }
     }

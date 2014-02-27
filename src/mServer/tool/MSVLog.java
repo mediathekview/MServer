@@ -28,12 +28,12 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import msearch.tool.MSearchFunktionen;
 
-public class MServerLog {
+public class MSVLog {
 
     private static LinkedList<Integer[]> fehlerListe = new LinkedList<>(); // [Fehlernummer, Anzahl]
     private static Date startZeit = new Date(System.currentTimeMillis());
     private static Date stopZeit = null;
-    private static String logfile = MServerDaten.getLogDatei();
+    private static String logfile = MSVDaten.getLogDatei();
 
     public void resetFehlerListe() {
         fehlerListe.clear();
@@ -71,15 +71,15 @@ public class MServerLog {
     public static synchronized void startMeldungen(String classname) {
         versionsMeldungen(classname);
         systemMeldung("Programmpfad: " + MSearchFunktionen.getPathJar());
-        systemMeldung("Verzeichnis Einstellungen: " + MServerDaten.getBasisVerzeichnis());
-        systemMeldung("Useragent: " + MServerDaten.getUserAgent());
+        systemMeldung("Verzeichnis Einstellungen: " + MSVDaten.getBasisVerzeichnis());
+        systemMeldung("Useragent: " + MSVDaten.getUserAgent());
         systemMeldung("###########################################################");
         systemMeldung("");
         systemMeldung("");
     }
 
     public static synchronized void debugMeldung(String text) {
-        if (MServerDaten.debug) {
+        if (MSVDaten.debug) {
             debugmeldung(text);
         }
     }
@@ -187,7 +187,7 @@ public class MServerLog {
 
     private static void fehlermeldung_(int fehlerNummer, String klasse, String[] texte) {
         addFehlerNummer(fehlerNummer);
-        final String FEHLER = "Fehler(" + MServerKonstanten.PROGRAMMNAME + "): ";
+        final String FEHLER = "Fehler(" + MSVKonstanten.PROGRAMMNAME + "): ";
         final String z = "*";
         System.out.println(z + z + z + z + z + z + z + z + z + z + z + z + z + z + z + z + z + z + z + z + z + z + z + z + z + z + z + z);
         System.out.println(z + " Fehlernr: " + fehlerNummer);
@@ -234,7 +234,7 @@ public class MServerLog {
                             writer.write("\n"); // nur leere Zeile schrieben
                         } else {
                             if (datum) {
-                                writer.write(MServerDatumZeit.getJetzt() + "     " + s);
+                                writer.write(MSVDatumZeit.getJetzt() + "     " + s);
                             } else {
                                 writer.write(s);
                             }

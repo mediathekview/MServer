@@ -21,23 +21,23 @@ package mServer.upload;
 
 import java.io.File;
 import java.util.Iterator;
-import mServer.tool.MServerDaten;
-import mServer.tool.MServerKonstanten;
-import mServer.tool.MServerLog;
+import mServer.tool.MSVDaten;
+import mServer.tool.MSVKonstanten;
+import mServer.tool.MSVLog;
 import msearch.filmeLaden.DatenFilmlistenServer;
 import msearch.filmeLaden.DatenUrlFilmliste;
 import msearch.filmeLaden.ListeDownloadUrlsFilmlisten;
 import msearch.filmeLaden.MSearchFilmlistenSuchen;
 
-public class MServerListeFilmlisten {
+public class MSVListeFilmlisten {
 
     public static File filmlisteEintragen(String urlDatei, DatenUrlFilmliste input) {
         ListeDownloadUrlsFilmlisten listeDownloadUrlsFilmlisten = new ListeDownloadUrlsFilmlisten();
         // erst mal die Liste mit allen Filmlisten holen
         try {
-            MSearchFilmlistenSuchen.getDownloadUrlsFilmlisten(urlDatei, listeDownloadUrlsFilmlisten, MServerDaten.getUserAgent());
+            MSearchFilmlistenSuchen.getDownloadUrlsFilmlisten(urlDatei, listeDownloadUrlsFilmlisten, MSVDaten.getUserAgent());
         } catch (Exception ex) {
-            MServerLog.fehlerMeldung(347895642, MServerListeFilmlisten.class.getName(), urlDatei, ex);
+            MSVLog.fehlerMeldung(347895642, MSVListeFilmlisten.class.getName(), urlDatei, ex);
         }
         // Einträge mit der URL löschen und dann "input" eintragen
         // gibt immer nur einen Eintrag mit einer URL
@@ -47,9 +47,9 @@ public class MServerListeFilmlisten {
             DatenUrlFilmliste d = it.next();
             if (d.arr[MSearchFilmlistenSuchen.FILM_UPDATE_SERVER_URL_NR].equals(input.arr[MSearchFilmlistenSuchen.FILM_UPDATE_SERVER_URL_NR])) {
                 it.remove();
-            } else if (d.aelterAls(MServerKonstanten.FILMLISTEN_MAX_ALTER)) {
-                MServerLog.systemMeldung("Filmliste ist zu alt: " + d.arr[DatenFilmlistenServer.FILM_LISTEN_SERVER_URL_NR]);
-                MServerLog.systemMeldung("Erstellt: " + d.arr[MSearchFilmlistenSuchen.FILM_UPDATE_SERVER_DATUM_NR] + ", " + d.arr[MSearchFilmlistenSuchen.FILM_UPDATE_SERVER_ZEIT_NR]);
+            } else if (d.aelterAls(MSVKonstanten.FILMLISTEN_MAX_ALTER)) {
+                MSVLog.systemMeldung("Filmliste ist zu alt: " + d.arr[DatenFilmlistenServer.FILM_LISTEN_SERVER_URL_NR]);
+                MSVLog.systemMeldung("Erstellt: " + d.arr[MSearchFilmlistenSuchen.FILM_UPDATE_SERVER_DATUM_NR] + ", " + d.arr[MSearchFilmlistenSuchen.FILM_UPDATE_SERVER_ZEIT_NR]);
                 it.remove();
             }
         }
@@ -59,7 +59,7 @@ public class MServerListeFilmlisten {
         try {
             f = MSearchFilmlistenSuchen.ListeFilmlistenSchreiben(listeDownloadUrlsFilmlisten);
         } catch (Exception ex) {
-            MServerLog.fehlerMeldung(347895642, MServerListeFilmlisten.class.getName(), urlDatei, ex);
+            MSVLog.fehlerMeldung(347895642, MSVListeFilmlisten.class.getName(), urlDatei, ex);
         }
         return f;
     }

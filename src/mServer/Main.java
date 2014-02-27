@@ -1,7 +1,7 @@
 package mServer;
 
-import mServer.tool.MServerDaten;
-import mServer.tool.MServerLog;
+import mServer.tool.MSVDaten;
+import mServer.tool.MSVLog;
 import msearch.Search;
 
 /*
@@ -45,10 +45,10 @@ public class Main {
                 if (ar != null) {
                     for (int i = 0; i < ar.length; ++i) {
                         if (ar[i].equalsIgnoreCase("-d")) {
-                            MServerDaten.debug = true;
+                            MSVDaten.debug = true;
                         }
                         if (ar[i].equalsIgnoreCase("-v")) {
-                            MServerLog.versionsMeldungen(this.getClass().getName());
+                            MSVLog.versionsMeldungen(this.getClass().getName());
                             System.exit(0);
                         }
                         if (ar[i].equalsIgnoreCase("-sender")) {

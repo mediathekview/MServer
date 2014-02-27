@@ -25,15 +25,15 @@ import java.io.InputStreamReader;
 import javax.xml.stream.XMLInputFactory;
 import javax.xml.stream.XMLStreamConstants;
 import javax.xml.stream.XMLStreamReader;
-import mServer.daten.MServerDatenUpload;
-import mServer.daten.MServerSearchTask;
+import mServer.daten.MSVDatenUpload;
+import mServer.daten.MSVSearchTask;
 import msearch.tool.MSearchConst;
 
-public class MServerXmlLesen {
+public class MSVXmlLesen {
 
     public static void xmlDatenLesen() {
         try {
-            String datei = MServerDaten.getKonfigDatei();
+            String datei = MSVDaten.getKonfigDatei();
             if (new File(datei).exists()) {
                 //nur wenn die Datei schon existiert
                 int event;
@@ -47,24 +47,24 @@ public class MServerXmlLesen {
                     event = parser.next();
                     if (event == XMLStreamConstants.START_ELEMENT) {
                         //String t = parser.getLocalName();
-                        if (parser.getLocalName().equals(MServerKonstanten.SYSTEM)) {
-                            get(parser, event, MServerKonstanten.SYSTEM, MServerKonstanten.SYSTEM_COLUMN_NAMES, MServerDaten.system);
+                        if (parser.getLocalName().equals(MSVKonstanten.SYSTEM)) {
+                            get(parser, event, MSVKonstanten.SYSTEM, MSVKonstanten.SYSTEM_COLUMN_NAMES, MSVDaten.system);
                         }
-                        if (parser.getLocalName().equals(MServerSearchTask.SUCHEN)) {
-                            MServerSearchTask cron = new MServerSearchTask();
-                            get(parser, event, MServerSearchTask.SUCHEN, MServerSearchTask.SUCHEN_COLUMN_NAMES, cron.arr);
-                            MServerDaten.listeSuchen.add(cron);
+                        if (parser.getLocalName().equals(MSVSearchTask.SUCHEN)) {
+                            MSVSearchTask cron = new MSVSearchTask();
+                            get(parser, event, MSVSearchTask.SUCHEN, MSVSearchTask.SUCHEN_COLUMN_NAMES, cron.arr);
+                            MSVDaten.listeSuchen.add(cron);
                         }
-                        if (parser.getLocalName().equals(MServerDatenUpload.UPLOAD)) {
-                            MServerDatenUpload upload = new MServerDatenUpload();
-                            get(parser, event, MServerDatenUpload.UPLOAD, MServerDatenUpload.UPLOAD_COLUMN_NAMES, upload.arr);
-                            MServerDaten.listeUpload.add(upload);
+                        if (parser.getLocalName().equals(MSVDatenUpload.UPLOAD)) {
+                            MSVDatenUpload upload = new MSVDatenUpload();
+                            get(parser, event, MSVDatenUpload.UPLOAD, MSVDatenUpload.UPLOAD_COLUMN_NAMES, upload.arr);
+                            MSVDaten.listeUpload.add(upload);
                         }
                     }
                 }
             }
         } catch (Exception ex) {
-            MServerLog.fehlerMeldung(909078531, MServerXmlLesen.class.getName(), "xmlDatenLesen", ex);
+            MSVLog.fehlerMeldung(909078531, MSVXmlLesen.class.getName(), "xmlDatenLesen", ex);
         } finally {
         }
     }
@@ -102,7 +102,7 @@ public class MServerXmlLesen {
         } catch (Exception ex) {
             ret = false;
             if (log) {
-                MServerLog.fehlerMeldung(201456980, MServerXmlLesen.class.getName(), "get", ex);
+                MSVLog.fehlerMeldung(201456980, MSVXmlLesen.class.getName(), "get", ex);
             }
         }
         return ret;

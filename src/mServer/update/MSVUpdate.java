@@ -17,9 +17,27 @@
  * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-package mServer.daten;
+package mServer.update;
 
-import java.util.LinkedList;
+import mServer.tool.MSVDaten;
+import mServer.tool.MSVFunktionen;
+import mServer.tool.MSVLog;
 
-public class MServerListeUpload extends LinkedList<MServerDatenUpload> {
+public class MSVUpdate {
+
+    public static boolean updaten() {
+        boolean ret = false;
+        // nach Update suchen
+        String updateUrl = MSVUpdateSuchen.checkVersion();
+        if (updateUrl.equals("")) {
+            MSVLog.systemMeldung("Programm noch aktuell");
+        } else {
+            String jarPfad = MSVFunktionen.getPathJar();
+            if (MSVUpdateSuchen.updateLaden(updateUrl, jarPfad, MSVDaten.getUserAgent()) != null) {
+                MSVLog.systemMeldung("Programmupdate OK");
+                ret = true;
+            }
+        }
+        return ret;
+    }
 }

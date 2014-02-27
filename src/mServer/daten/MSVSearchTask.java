@@ -21,10 +21,10 @@ package mServer.daten;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import mServer.tool.MServerDatumZeit;
-import mServer.tool.MServerLog;
+import mServer.tool.MSVDatumZeit;
+import mServer.tool.MSVLog;
 
-public class MServerSearchTask {
+public class MSVSearchTask {
 
     // Konstanten Suchen
     public static final String SUCHEN_ALLES = "alles";
@@ -48,22 +48,22 @@ public class MServerSearchTask {
     public static final String[] SUCHEN_COLUMN_NAMES = {SUCHEN_SENDER_WIE, SUCHEN_LISTE_WIE, SUCHEN_WANN, SUCHEN_SENDER, SUCHEN_ORG_LISTE};
     public String[] arr = new String[SUCHEN_MAX_ELEM];
 
-    public MServerSearchTask() {
+    public MSVSearchTask() {
         for (int i = 0; i < arr.length; ++i) {
             arr[i] = "";
         }
     }
 
     public void meldungNaechsterStart() {
-        MServerLog.systemMeldung("naechster Start: " + this.arr[SUCHEN_WANN_NR]);
+        MSVLog.systemMeldung("naechster Start: " + this.arr[SUCHEN_WANN_NR]);
     }
 
     public void meldungStart() {
-        MServerLog.systemMeldung("Starten: " + this.arr[SUCHEN_WANN_NR]);
-        MServerLog.systemMeldung("Suchen Sender wie:  " + this.arr[SUCHEN_SENDER_WIE_NR]);
-        MServerLog.systemMeldung("Suchen Liste wie:  " + (updateFilmliste() ? "nur ein Update" : "neue Filmliste"));
+        MSVLog.systemMeldung("Starten: " + this.arr[SUCHEN_WANN_NR]);
+        MSVLog.systemMeldung("Suchen Sender wie:  " + this.arr[SUCHEN_SENDER_WIE_NR]);
+        MSVLog.systemMeldung("Suchen Liste wie:  " + (updateFilmliste() ? "nur ein Update" : "neue Filmliste"));
         if (!this.arr[SUCHEN_SENDER_NR].equals("")) {
-            MServerLog.systemMeldung("Sender:  " + this.arr[SUCHEN_SENDER_NR]);
+            MSVLog.systemMeldung("Sender:  " + this.arr[SUCHEN_SENDER_NR]);
         }
     }
 
@@ -71,7 +71,7 @@ public class MServerSearchTask {
         return this.arr[SUCHEN_WANN_NR].equals(SUCHEN_WANN_SOFORT);
     }
 
-    public boolean spaeter(MServerSearchTask d) {
+    public boolean spaeter(MSVSearchTask d) {
         // Datum ist später als das von "d"
         if (jetzt()) {
             return false;
@@ -137,10 +137,10 @@ public class MServerSearchTask {
         Date ret;
         SimpleDateFormat sdf_zeit = new SimpleDateFormat("dd.MM.yyyy__HH:mm");
         try {
-            return sdf_zeit.parse(MServerDatumZeit.getHeute() + "__" + this.arr[SUCHEN_WANN_NR]);
+            return sdf_zeit.parse(MSVDatumZeit.getHeute() + "__" + this.arr[SUCHEN_WANN_NR]);
         } catch (Exception ex) {
             ret = null;
-            MServerLog.fehlerMeldung(825439079, MServerSearchTask.class.getName(), "getTime", ex);
+            MSVLog.fehlerMeldung(825439079, MSVSearchTask.class.getName(), "getTime", ex);
         }
         return ret;
     }

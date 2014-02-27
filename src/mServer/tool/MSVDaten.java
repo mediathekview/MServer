@@ -20,17 +20,17 @@
 package mServer.tool;
 
 import java.io.File;
-import mServer.daten.MServerListeSuchen;
-import mServer.daten.MServerListeUpload;
+import mServer.daten.MSVListeSuchen;
+import mServer.daten.MSVListeUpload;
 import msearch.tool.MSearchConst;
 import msearch.tool.MSearchFunktionen;
 import msearch.tool.MSearchGuiFunktionen;
 
-public class MServerDaten {
+public class MSVDaten {
 
-    public static String[] system = new String[MServerKonstanten.SYSTEM_MAX_ELEM];
-    public static MServerListeSuchen listeSuchen = new MServerListeSuchen();
-    public static MServerListeUpload listeUpload = new MServerListeUpload();
+    public static String[] system = new String[MSVKonstanten.SYSTEM_MAX_ELEM];
+    public static MSVListeSuchen listeSuchen = new MSVListeSuchen();
+    public static MSVListeUpload listeUpload = new MSVListeUpload();
     public static boolean debug = false;
     //
     private static String basisverzeichnis = "";
@@ -42,11 +42,11 @@ public class MServerDaten {
     }
 
     public static String getUserAgent() {
-        if (system[MServerKonstanten.SYSTEM_USER_AGENT_NR].trim().equals("")) {
-            return MServerKonstanten.PROGRAMMNAME + " " + MSearchConst.VERSION_FILMLISTE + " / " + MSearchFunktionen.getBuildNr();
+        if (system[MSVKonstanten.SYSTEM_USER_AGENT_NR].trim().equals("")) {
+            return MSVKonstanten.PROGRAMMNAME + " " + MSearchConst.VERSION_FILMLISTE + " / " + MSearchFunktionen.getBuildNr();
         } else {
         }
-        return system[MServerKonstanten.SYSTEM_USER_AGENT_NR].trim();
+        return system[MSVKonstanten.SYSTEM_USER_AGENT_NR].trim();
     }
 
     public static void setBasisVerzeichnis(String b) {
@@ -58,13 +58,13 @@ public class MServerDaten {
     }
 
     public static int getProxyPort() {
-        if (system[MServerKonstanten.SYSTEM_PROXY_PORT_NR].isEmpty()) {
+        if (system[MSVKonstanten.SYSTEM_PROXY_PORT_NR].isEmpty()) {
             return -1;
         }
         try {
-            return Integer.parseInt(system[MServerKonstanten.SYSTEM_PROXY_PORT_NR]);
+            return Integer.parseInt(system[MSVKonstanten.SYSTEM_PROXY_PORT_NR]);
         } catch (Exception ex) {
-            MServerLog.fehlerMeldung(963487219, MServerDaten.class.getName(), new String[]{"Proxyport falsch: ", system[MServerKonstanten.SYSTEM_PROXY_PORT_NR]});
+            MSVLog.fehlerMeldung(963487219, MSVDaten.class.getName(), new String[]{"Proxyport falsch: ", system[MSVKonstanten.SYSTEM_PROXY_PORT_NR]});
         }
         return -1;
     }
@@ -76,7 +76,7 @@ public class MServerDaten {
     private static String getBasisVerzeichnis(String basis, boolean anlegen) {
         String ret;
         if (basis.equals("")) {
-            ret = System.getProperty("user.home") + File.separator + MServerKonstanten.VERZEICHNISS_EINSTELLUNGEN + File.separator;
+            ret = System.getProperty("user.home") + File.separator + MSVKonstanten.VERZEICHNISS_EINSTELLUNGEN + File.separator;
         } else {
             ret = basis;
         }
@@ -84,7 +84,7 @@ public class MServerDaten {
             File basisF = new File(ret);
             if (!basisF.exists()) {
                 if (!basisF.mkdir()) {
-                    MServerLog.fehlerMeldung(1023974998, MServerDaten.class.getName(), new String[]{"Kann den Ordner zum Speichern der Daten nicht anlegen!", ret});
+                    MSVLog.fehlerMeldung(1023974998, MSVDaten.class.getName(), new String[]{"Kann den Ordner zum Speichern der Daten nicht anlegen!", ret});
                 }
             }
         }
@@ -92,11 +92,11 @@ public class MServerDaten {
     }
 
     public static String getKonfigDatei() {
-        return MServerDaten.getBasisVerzeichnis() + MServerKonstanten.XML_DATEI;
+        return MSVDaten.getBasisVerzeichnis() + MSVKonstanten.XML_DATEI;
     }
 
     public static boolean konfigExistiert() {
-        String datei = MServerDaten.getBasisVerzeichnis() + MServerKonstanten.XML_DATEI;
+        String datei = MSVDaten.getBasisVerzeichnis() + MSVKonstanten.XML_DATEI;
         if (new File(datei).exists()) {
             return true;
         } else {
@@ -105,11 +105,11 @@ public class MServerDaten {
     }
 
     public static String getVerzeichnisFilme() {
-        String ret = MSearchGuiFunktionen.addsPfad(getBasisVerzeichnis(basisverzeichnis, false), MServerKonstanten.VERZEICHNISS_FILMLISTEN);
+        String ret = MSearchGuiFunktionen.addsPfad(getBasisVerzeichnis(basisverzeichnis, false), MSVKonstanten.VERZEICHNISS_FILMLISTEN);
         File basisF = new File(ret);
         if (!basisF.exists()) {
             if (!basisF.mkdir()) {
-                MServerLog.fehlerMeldung(739851049, MServerDaten.class.getName(), new String[]{"Kann den Ordner zum Speichern der Filmliste nicht anlegen!", ret});
+                MSVLog.fehlerMeldung(739851049, MSVDaten.class.getName(), new String[]{"Kann den Ordner zum Speichern der Filmliste nicht anlegen!", ret});
             }
         }
         return ret;
@@ -118,17 +118,17 @@ public class MServerDaten {
 
     public static String getLogVerzeichnis() {
         String ret;
-        if (system[MServerKonstanten.SYSTEM_PFAD_LOGDATEI_NR] == null) {
-            ret = MSearchGuiFunktionen.addsPfad(getBasisVerzeichnis(basisverzeichnis, false), MServerKonstanten.LOG_FILE_PFAD);
-        } else if (MServerDaten.system[MServerKonstanten.SYSTEM_PFAD_LOGDATEI_NR].trim().equals("")) {
-            ret = MSearchGuiFunktionen.addsPfad(getBasisVerzeichnis(basisverzeichnis, false), MServerKonstanten.LOG_FILE_PFAD);
+        if (system[MSVKonstanten.SYSTEM_PFAD_LOGDATEI_NR] == null) {
+            ret = MSearchGuiFunktionen.addsPfad(getBasisVerzeichnis(basisverzeichnis, false), MSVKonstanten.LOG_FILE_PFAD);
+        } else if (MSVDaten.system[MSVKonstanten.SYSTEM_PFAD_LOGDATEI_NR].trim().equals("")) {
+            ret = MSearchGuiFunktionen.addsPfad(getBasisVerzeichnis(basisverzeichnis, false), MSVKonstanten.LOG_FILE_PFAD);
         } else {
-            ret = MServerDaten.system[MServerKonstanten.SYSTEM_PFAD_LOGDATEI_NR].trim();
+            ret = MSVDaten.system[MSVKonstanten.SYSTEM_PFAD_LOGDATEI_NR].trim();
         }
         File basisF = new File(ret);
         if (!basisF.exists()) {
             if (!basisF.mkdir()) {
-                MServerLog.fehlerMeldung(739851049, MServerDaten.class.getName(), new String[]{"Kann den Ordner zum Speichern der Logfiles nicht anlegen!", ret});
+                MSVLog.fehlerMeldung(739851049, MSVDaten.class.getName(), new String[]{"Kann den Ordner zum Speichern der Logfiles nicht anlegen!", ret});
             }
         }
         return ret;
@@ -141,7 +141,7 @@ public class MServerDaten {
         try {
             logPfad = getLogVerzeichnis();
             // prüfen obs geht
-            logFileName = MSearchGuiFunktionen.addsPfad(logPfad, MServerKonstanten.LOG_FILE_NAME + MServerDatumZeit.getJetztLogDatei());
+            logFileName = MSearchGuiFunktionen.addsPfad(logPfad, MSVKonstanten.LOG_FILE_NAME + MSVDatumZeit.getJetztLogDatei());
             File logfile = new File(logFileName);
             if (!logfile.exists()) {
                 boolean b = new File(logPfad).mkdirs();
@@ -160,9 +160,9 @@ public class MServerDaten {
         File logfile;
         String logPfad, logFileName;
         try {
-            logPfad = MServerDaten.getLogVerzeichnis();
+            logPfad = MSVDaten.getLogVerzeichnis();
             // prüfen obs geht
-            logFileName = MSearchGuiFunktionen.addsPfad(logPfad, MServerKonstanten.LOG_FILE_NAME_MV + MServerDatumZeit.getJetztLogDatei());
+            logFileName = MSearchGuiFunktionen.addsPfad(logPfad, MSVKonstanten.LOG_FILE_NAME_MV + MSVDatumZeit.getJetztLogDatei());
             logfile = new File(logFileName);
             if (!logfile.exists()) {
                 boolean b = new File(logPfad).mkdirs();

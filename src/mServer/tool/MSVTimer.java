@@ -17,27 +17,27 @@
  * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-package mServer.update;
+package mServer.tool;
 
-import mServer.tool.MServerDaten;
-import mServer.tool.MServerFunktionen;
-import mServer.tool.MServerLog;
+public class MSVTimer implements Runnable {
 
-public class MServerUpdate {
+    private final int WARTEZEIT = 1000 * 10; // 10 Sekunde
 
-    public static boolean updaten() {
-        boolean ret = false;
-        // nach Update suchen
-        String updateUrl = MServerUpdateSuchen.checkVersion();
-        if (updateUrl.equals("")) {
-            MServerLog.systemMeldung("Programm noch aktuell");
-        } else {
-            String jarPfad = MServerFunktionen.getPathJar();
-            if (MServerUpdateSuchen.updateLaden(updateUrl, jarPfad, MServerDaten.getUserAgent()) != null) {
-                MServerLog.systemMeldung("Programmupdate OK");
-                ret = true;
-            }
+    public void ping() {
+    }
+
+    @Override
+    public synchronized void run() {
+        while (true) {
+            ping();
+            schlafen();
         }
-        return ret;
+    }
+
+    private void schlafen() {
+        try {
+            Thread.sleep(WARTEZEIT);
+        } catch (InterruptedException e) {
+        }
     }
 }

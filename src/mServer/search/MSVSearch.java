@@ -21,69 +21,69 @@ package mServer.search;
 
 import java.util.ArrayList;
 import java.util.Iterator;
-import mServer.daten.MServerDatenUpload;
-import mServer.daten.MServerSearchTask;
-import mServer.tool.MServerDaten;
-import mServer.tool.MServerKonstanten;
-import mServer.tool.MServerLog;
-import mServer.tool.MServerWarten;
-import mServer.upload.MServerMelden;
+import mServer.daten.MSVDatenUpload;
+import mServer.daten.MSVSearchTask;
+import mServer.tool.MSVDaten;
+import mServer.tool.MSVKonstanten;
+import mServer.tool.MSVLog;
+import mServer.tool.MSVWarten;
+import mServer.upload.MSVMelden;
 import msearch.Search;
 import msearch.daten.MSearchConfig;
 
-public class MServerSearch {
+public class MSVSearch {
 
     Search mSearch;
 
-    public MServerSearch() {
+    public MSVSearch() {
         this.mSearch = null;
-        MSearchConfig.dirFilme = MServerDaten.getVerzeichnisFilme();
-        MSearchConfig.diffFilmlisteErstellen = !MServerDaten.system[MServerKonstanten.SYSTEM_EXPORT_FILE_FILMLISTE_DIFF_NR].isEmpty();
+        MSearchConfig.dirFilme = MSVDaten.getVerzeichnisFilme();
+        MSearchConfig.diffFilmlisteErstellen = !MSVDaten.system[MSVKonstanten.SYSTEM_EXPORT_FILE_FILMLISTE_DIFF_NR].isEmpty();
     }
 
-    public boolean filmeSuchen(MServerSearchTask aktSearchTask) {
+    public boolean filmeSuchen(MSVSearchTask aktSearchTask) {
         boolean ret = true;
         vorherLoeschen();
         try {
             // ===========================================
             // den nächsten Suchlauf starten
-            MServerLog.systemMeldung("");
-            MServerLog.systemMeldung("-----------------------------------");
-            MServerLog.systemMeldung("Filmsuche starten");
+            MSVLog.systemMeldung("");
+            MSVLog.systemMeldung("-----------------------------------");
+            MSVLog.systemMeldung("Filmsuche starten");
             mSearch = new Search(new String[]{});
             // was und wie
             MSearchConfig.senderAllesLaden = aktSearchTask.allesLaden();
             MSearchConfig.updateFilmliste = aktSearchTask.updateFilmliste();
-            MSearchConfig.nurSenderLaden = arrLesen(aktSearchTask.arr[MServerSearchTask.SUCHEN_SENDER_NR].trim());
+            MSearchConfig.nurSenderLaden = arrLesen(aktSearchTask.arr[MSVSearchTask.SUCHEN_SENDER_NR].trim());
             MSearchConfig.orgFilmlisteErstellen = aktSearchTask.orgListeAnlegen();
             // und noch evtl. ein paar Imports von Filmlisten anderer Server
-            MSearchConfig.importUrl__anhaengen = MServerDaten.system[MServerKonstanten.SYSTEM_IMPORT_URL_EXTEND_NR].toString();
-            MSearchConfig.importUrl__ersetzen = MServerDaten.system[MServerKonstanten.SYSTEM_IMPORT_URL_REPLACE_NR].toString();
+            MSearchConfig.importUrl__anhaengen = MSVDaten.system[MSVKonstanten.SYSTEM_IMPORT_URL_EXTEND_NR].toString();
+            MSearchConfig.importUrl__ersetzen = MSVDaten.system[MSVKonstanten.SYSTEM_IMPORT_URL_REPLACE_NR].toString();
             // Rest
-            MSearchConfig.setUserAgent(MServerDaten.getUserAgent());
-            MSearchConfig.proxyUrl = MServerDaten.system[MServerKonstanten.SYSTEM_PROXY_URL_NR];
-            MSearchConfig.proxyPort = MServerDaten.getProxyPort();
-            MSearchConfig.debug = MServerDaten.debug;
+            MSearchConfig.setUserAgent(MSVDaten.getUserAgent());
+            MSearchConfig.proxyUrl = MSVDaten.system[MSVKonstanten.SYSTEM_PROXY_URL_NR];
+            MSearchConfig.proxyPort = MSVDaten.getProxyPort();
+            MSearchConfig.debug = MSVDaten.debug;
 
             Thread t = new Thread(mSearch);
             t.start();
-            MServerLog.systemMeldung("Filme suchen gestartet");
+            MSVLog.systemMeldung("Filme suchen gestartet");
             // ===========================================
             // warten auf das Ende
-            int warten = aktSearchTask.allesLaden() == true ? MServerKonstanten.WARTEZEIT_ALLES_LADEN : MServerKonstanten.WARTEZEIT_UPDATE_LADEN;
+            int warten = aktSearchTask.allesLaden() == true ? MSVKonstanten.WARTEZEIT_ALLES_LADEN : MSVKonstanten.WARTEZEIT_UPDATE_LADEN;
             t.join(warten);
             // ===========================================
             // erst mal schauen ob noch was läuft
             if (t != null) {
                 if (t.isAlive()) {
-                    MServerLog.fehlerMeldung(915147623, MServerSearch.class.getName(), "Der letzte Suchlauf läuft noch");
+                    MSVLog.fehlerMeldung(915147623, MSVSearch.class.getName(), "Der letzte Suchlauf läuft noch");
                     if (mSearch != null) {
-                        MServerLog.systemMeldung("und wird jetzt gestoppt");
+                        MSVLog.systemMeldung("und wird jetzt gestoppt");
                         MSearchConfig.setStop();
                     }
                     t.join(2 * 60 * 1000); // 2 Minuten warten
                     if (t.isAlive()) {
-                        MServerLog.systemMeldung("und noch gekillt");
+                        MSVLog.systemMeldung("und noch gekillt");
                         ret = false;
                     }
                     // nach 3 Sekunden ist Schicht im Schacht
@@ -91,9 +91,9 @@ public class MServerSearch {
                 }
             }
         } catch (Exception ex) {
-            MServerLog.fehlerMeldung(636987308, MServerSearch.class.getName(), "filmeSuchen", ex);
+            MSVLog.fehlerMeldung(636987308, MSVSearch.class.getName(), "filmeSuchen", ex);
         }
-        MServerLog.systemMeldung("filmeSuchen beendet");
+        MSVLog.systemMeldung("filmeSuchen beendet");
         mSearch = null;
         return ret;
     }
@@ -101,16 +101,16 @@ public class MServerSearch {
     private void vorherLoeschen() {
         // so braucht der Buildserver während des Suchens von keine Downloads anbieten
         try {
-            Iterator<MServerDatenUpload> it = MServerDaten.listeUpload.iterator();
+            Iterator<MSVDatenUpload> it = MSVDaten.listeUpload.iterator();
             while (it.hasNext()) {
-                MServerDatenUpload datenUpload = it.next();
+                MSVDatenUpload datenUpload = it.next();
                 if (datenUpload.vorherLoeschen()) {
-                    new MServerWarten().sekundenWarten(2);// damit der Server nicht stolpert, max alle 2 Sekunden
-                    MServerMelden.updateServerLoeschen(datenUpload);
+                    new MSVWarten().sekundenWarten(2);// damit der Server nicht stolpert, max alle 2 Sekunden
+                    MSVMelden.updateServerLoeschen(datenUpload);
                 }
             }
         } catch (Exception ex) {
-            MServerLog.fehlerMeldung(915152369, MServerSearch.class.getName(), "vorherLoeschen", ex);
+            MSVLog.fehlerMeldung(915152369, MSVSearch.class.getName(), "vorherLoeschen", ex);
         }
     }
 

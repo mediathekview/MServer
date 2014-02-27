@@ -31,14 +31,14 @@ import javax.xml.stream.XMLInputFactory;
 import javax.xml.stream.XMLStreamConstants;
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
-import mServer.tool.MServerDaten;
-import mServer.tool.MServerKonstanten;
-import mServer.tool.MServerLog;
+import mServer.tool.MSVDaten;
+import mServer.tool.MSVKonstanten;
+import mServer.tool.MSVLog;
 import msearch.tool.MSearchConst;
 import msearch.tool.MSearchFunktionen;
 import msearch.tool.MSearchGuiFunktionen;
 
-public class MServerUpdateSuchen {
+public class MSVUpdateSuchen {
 
     public static String checkVersion() {
         // prüft auf neue Version, dann laden und ersetzen
@@ -57,7 +57,7 @@ public class MServerUpdateSuchen {
                 }
             }
         } catch (Exception ex) {
-            MServerLog.fehlerMeldung(825210369, MServerUpdateSuchen.class.getName(), "checkVersion", ex);
+            MSVLog.fehlerMeldung(825210369, MSVUpdateSuchen.class.getName(), "checkVersion", ex);
         }
         return "";
     }
@@ -72,7 +72,7 @@ public class MServerUpdateSuchen {
                 return true;
             }
         } catch (Exception ex) {
-            MServerLog.fehlerMeldung(784510369, MServerUpdateSuchen.class.getName(), "checkObNeueVersion", ex);
+            MSVLog.fehlerMeldung(784510369, MSVUpdateSuchen.class.getName(), "checkObNeueVersion", ex);
         }
         return false;
     }
@@ -92,8 +92,8 @@ public class MServerUpdateSuchen {
         InputStreamReader inReader;
         int timeout = 10000;
         URLConnection conn;
-        conn = new URL(MServerKonstanten.PROGRAMM_UPDATE_URL_RSS).openConnection();
-        conn.setRequestProperty("User-Agent", MServerDaten.getUserAgent());
+        conn = new URL(MSVKonstanten.PROGRAMM_UPDATE_URL_RSS).openConnection();
+        conn.setRequestProperty("User-Agent", MSVDaten.getUserAgent());
         conn.setReadTimeout(timeout);
         conn.setConnectTimeout(timeout);
         inReader = new InputStreamReader(conn.getInputStream(), MSearchConst.KODIERUNG_UTF);
@@ -121,7 +121,7 @@ public class MServerUpdateSuchen {
     }
 
     public static File updateLaden(String url, String zielPfad, String userAgent) {
-        String zielDatei = MSearchGuiFunktionen.addsPfad(zielPfad, MServerKonstanten.PROGRAMMDATEI_UPDATE);
+        String zielDatei = MSearchGuiFunktionen.addsPfad(zielPfad, MSVKonstanten.PROGRAMMDATEI_UPDATE);
         File ret = new File(zielDatei);
         int timeout = 10000; //10 Sekunden
         URLConnection conn;
@@ -141,7 +141,7 @@ public class MServerUpdateSuchen {
             }
         } catch (Exception ex) {
             ret = null;
-            MServerLog.fehlerMeldung(485963614, MServerUpdateSuchen.class.getName(), "updateLaden " + url, ex);
+            MSVLog.fehlerMeldung(485963614, MSVUpdateSuchen.class.getName(), "updateLaden " + url, ex);
         } finally {
             try {
                 if (fOut != null) {

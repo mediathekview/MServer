@@ -8,10 +8,10 @@ package mServer.tool;
  *
  * @author emil
  */
-public class MServerWarten {
+public class MSVWarten {
 
     public synchronized void sekundenWarten(int sekunden) {
-        MServerLog.systemMeldung("Warten: " + String.valueOf(sekunden) + " Sekunden");
+        MSVLog.systemMeldung("Warten: " + String.valueOf(sekunden) + " Sekunden");
         try {
             while (sekunden > 0) {
                 this.wait(1000 /* 1 Sekunde */);
@@ -20,7 +20,7 @@ public class MServerWarten {
                 System.out.print(String.valueOf(sekunden));
             }
         } catch (Exception ex) {
-            MServerLog.fehlerMeldung(347895642, MServerFunktionen.class.getName(), "Warten nach dem Suchen", ex);
+            MSVLog.fehlerMeldung(347895642, MSVFunktionen.class.getName(), "Warten nach dem Suchen", ex);
         }
         System.out.println("");
     }

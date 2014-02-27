@@ -26,7 +26,7 @@ import java.util.Date;
 import java.util.SimpleTimeZone;
 import mServer.Main;
 
-public class MServerFunktionen {
+public class MSVFunktionen {
 
     public static String getPathJar() {
         String pFilePath = "pFile";
