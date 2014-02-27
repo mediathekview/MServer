@@ -27,7 +27,7 @@ import mServer.tool.MSVLog;
 import msearch.filmeLaden.DatenFilmlistenServer;
 import msearch.filmeLaden.DatenUrlFilmliste;
 import msearch.filmeLaden.ListeDownloadUrlsFilmlisten;
-import msearch.filmeLaden.MSearchFilmlistenSuchen;
+import msearch.filmeLaden.MSFilmlistenSuchen;
 
 public class MSVListeFilmlisten {
 
@@ -35,7 +35,7 @@ public class MSVListeFilmlisten {
         ListeDownloadUrlsFilmlisten listeDownloadUrlsFilmlisten = new ListeDownloadUrlsFilmlisten();
         // erst mal die Liste mit allen Filmlisten holen
         try {
-            MSearchFilmlistenSuchen.getDownloadUrlsFilmlisten(urlDatei, listeDownloadUrlsFilmlisten, MSVDaten.getUserAgent());
+            MSFilmlistenSuchen.getDownloadUrlsFilmlisten(urlDatei, listeDownloadUrlsFilmlisten, MSVDaten.getUserAgent());
         } catch (Exception ex) {
             MSVLog.fehlerMeldung(347895642, MSVListeFilmlisten.class.getName(), urlDatei, ex);
         }
@@ -45,11 +45,11 @@ public class MSVListeFilmlisten {
         Iterator<DatenUrlFilmliste> it = listeDownloadUrlsFilmlisten.iterator();
         while (it.hasNext()) {
             DatenUrlFilmliste d = it.next();
-            if (d.arr[MSearchFilmlistenSuchen.FILM_UPDATE_SERVER_URL_NR].equals(input.arr[MSearchFilmlistenSuchen.FILM_UPDATE_SERVER_URL_NR])) {
+            if (d.arr[MSFilmlistenSuchen.FILM_UPDATE_SERVER_URL_NR].equals(input.arr[MSFilmlistenSuchen.FILM_UPDATE_SERVER_URL_NR])) {
                 it.remove();
             } else if (d.aelterAls(MSVKonstanten.FILMLISTEN_MAX_ALTER)) {
                 MSVLog.systemMeldung("Filmliste ist zu alt: " + d.arr[DatenFilmlistenServer.FILM_LISTEN_SERVER_URL_NR]);
-                MSVLog.systemMeldung("Erstellt: " + d.arr[MSearchFilmlistenSuchen.FILM_UPDATE_SERVER_DATUM_NR] + ", " + d.arr[MSearchFilmlistenSuchen.FILM_UPDATE_SERVER_ZEIT_NR]);
+                MSVLog.systemMeldung("Erstellt: " + d.arr[MSFilmlistenSuchen.FILM_UPDATE_SERVER_DATUM_NR] + ", " + d.arr[MSFilmlistenSuchen.FILM_UPDATE_SERVER_ZEIT_NR]);
                 it.remove();
             }
         }
@@ -57,7 +57,7 @@ public class MSVListeFilmlisten {
         // Liste in Datei schreiben
         File f = null;
         try {
-            f = MSearchFilmlistenSuchen.ListeFilmlistenSchreiben(listeDownloadUrlsFilmlisten);
+            f = MSFilmlistenSuchen.ListeFilmlistenSchreiben(listeDownloadUrlsFilmlisten);
         } catch (Exception ex) {
             MSVLog.fehlerMeldung(347895642, MSVListeFilmlisten.class.getName(), urlDatei, ex);
         }

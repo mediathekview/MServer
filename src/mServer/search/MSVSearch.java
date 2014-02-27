@@ -29,7 +29,7 @@ import mServer.tool.MSVLog;
 import mServer.tool.MSVWarten;
 import mServer.upload.MSVMelden;
 import msearch.Search;
-import msearch.daten.MSearchConfig;
+import msearch.daten.MSConfig;
 
 public class MSVSearch {
 
@@ -37,8 +37,8 @@ public class MSVSearch {
 
     public MSVSearch() {
         this.mSearch = null;
-        MSearchConfig.dirFilme = MSVDaten.getVerzeichnisFilme();
-        MSearchConfig.diffFilmlisteErstellen = !MSVDaten.system[MSVKonstanten.SYSTEM_EXPORT_FILE_FILMLISTE_DIFF_NR].isEmpty();
+        MSConfig.dirFilme = MSVDaten.getVerzeichnisFilme();
+        MSConfig.diffFilmlisteErstellen = !MSVDaten.system[MSVKonstanten.SYSTEM_EXPORT_FILE_FILMLISTE_DIFF_NR].isEmpty();
     }
 
     public boolean filmeSuchen(MSVSearchTask aktSearchTask) {
@@ -52,18 +52,18 @@ public class MSVSearch {
             MSVLog.systemMeldung("Filmsuche starten");
             mSearch = new Search(new String[]{});
             // was und wie
-            MSearchConfig.senderAllesLaden = aktSearchTask.allesLaden();
-            MSearchConfig.updateFilmliste = aktSearchTask.updateFilmliste();
-            MSearchConfig.nurSenderLaden = arrLesen(aktSearchTask.arr[MSVSearchTask.SUCHEN_SENDER_NR].trim());
-            MSearchConfig.orgFilmlisteErstellen = aktSearchTask.orgListeAnlegen();
+            MSConfig.senderAllesLaden = aktSearchTask.allesLaden();
+            MSConfig.updateFilmliste = aktSearchTask.updateFilmliste();
+            MSConfig.nurSenderLaden = arrLesen(aktSearchTask.arr[MSVSearchTask.SUCHEN_SENDER_NR].trim());
+            MSConfig.orgFilmlisteErstellen = aktSearchTask.orgListeAnlegen();
             // und noch evtl. ein paar Imports von Filmlisten anderer Server
-            MSearchConfig.importUrl__anhaengen = MSVDaten.system[MSVKonstanten.SYSTEM_IMPORT_URL_EXTEND_NR].toString();
-            MSearchConfig.importUrl__ersetzen = MSVDaten.system[MSVKonstanten.SYSTEM_IMPORT_URL_REPLACE_NR].toString();
+            MSConfig.importUrl__anhaengen = MSVDaten.system[MSVKonstanten.SYSTEM_IMPORT_URL_EXTEND_NR].toString();
+            MSConfig.importUrl__ersetzen = MSVDaten.system[MSVKonstanten.SYSTEM_IMPORT_URL_REPLACE_NR].toString();
             // Rest
-            MSearchConfig.setUserAgent(MSVDaten.getUserAgent());
-            MSearchConfig.proxyUrl = MSVDaten.system[MSVKonstanten.SYSTEM_PROXY_URL_NR];
-            MSearchConfig.proxyPort = MSVDaten.getProxyPort();
-            MSearchConfig.debug = MSVDaten.debug;
+            MSConfig.setUserAgent(MSVDaten.getUserAgent());
+            MSConfig.proxyUrl = MSVDaten.system[MSVKonstanten.SYSTEM_PROXY_URL_NR];
+            MSConfig.proxyPort = MSVDaten.getProxyPort();
+            MSConfig.debug = MSVDaten.debug;
 
             Thread t = new Thread(mSearch);
             t.start();
@@ -79,7 +79,7 @@ public class MSVSearch {
                     MSVLog.fehlerMeldung(915147623, MSVSearch.class.getName(), "Der letzte Suchlauf läuft noch");
                     if (mSearch != null) {
                         MSVLog.systemMeldung("und wird jetzt gestoppt");
-                        MSearchConfig.setStop();
+                        MSConfig.setStop();
                     }
                     t.join(2 * 60 * 1000); // 2 Minuten warten
                     if (t.isAlive()) {

@@ -34,9 +34,9 @@ import javax.xml.stream.XMLStreamReader;
 import mServer.tool.MSVDaten;
 import mServer.tool.MSVKonstanten;
 import mServer.tool.MSVLog;
-import msearch.tool.MSearchConst;
-import msearch.tool.MSearchFunktionen;
-import msearch.tool.MSearchGuiFunktionen;
+import msearch.tool.MSConst;
+import msearch.tool.MSFunktionen;
+import msearch.tool.MSGuiFunktionen;
 
 public class MSVUpdateSuchen {
 
@@ -65,7 +65,7 @@ public class MSVUpdateSuchen {
     private static boolean checkObNeueVersion(String release) {
         // liefert true, wenn es eine neue Version gibt
         try {
-            String haben = MSearchFunktionen.getBuildNr().replace(".", "");
+            String haben = MSFunktionen.getBuildNr().replace(".", "");
             int intHaben = Integer.parseInt(haben);
             int intRelease = Integer.parseInt(release.replace(".", ""));
             if (intRelease > intHaben) {
@@ -96,7 +96,7 @@ public class MSVUpdateSuchen {
         conn.setRequestProperty("User-Agent", MSVDaten.getUserAgent());
         conn.setReadTimeout(timeout);
         conn.setConnectTimeout(timeout);
-        inReader = new InputStreamReader(conn.getInputStream(), MSearchConst.KODIERUNG_UTF);
+        inReader = new InputStreamReader(conn.getInputStream(), MSConst.KODIERUNG_UTF);
         parser = inFactory.createXMLStreamReader(inReader);
         boolean found = false;
         while (parser.hasNext()) {
@@ -121,7 +121,7 @@ public class MSVUpdateSuchen {
     }
 
     public static File updateLaden(String url, String zielPfad, String userAgent) {
-        String zielDatei = MSearchGuiFunktionen.addsPfad(zielPfad, MSVKonstanten.PROGRAMMDATEI_UPDATE);
+        String zielDatei = MSGuiFunktionen.addsPfad(zielPfad, MSVKonstanten.PROGRAMMDATEI_UPDATE);
         File ret = new File(zielDatei);
         int timeout = 10000; //10 Sekunden
         URLConnection conn;

@@ -26,7 +26,7 @@ import mServer.tool.MSVDaten;
 import mServer.tool.MSVKonstanten;
 import mServer.tool.MSVLog;
 import mServer.tool.MSVWarten;
-import msearch.daten.MSearchConfig;
+import msearch.daten.MSConfig;
 
 public class MSVUpload {
 
@@ -37,13 +37,13 @@ public class MSVUpload {
         // ==================================================
         // erst lokale Exports erledigen
         if (!MSVDaten.system[MSVKonstanten.SYSTEM_EXPORT_FILE_FILMLISTE_NR].isEmpty()) {
-            MSVCopy.copy(MSearchConfig.getPathFilmlist_json_xz(), MSVDaten.system[MSVKonstanten.SYSTEM_EXPORT_FILE_FILMLISTE_NR]);
+            MSVCopy.copy(MSConfig.getPathFilmlist_json_xz(), MSVDaten.system[MSVKonstanten.SYSTEM_EXPORT_FILE_FILMLISTE_NR]);
         }
         if (aktSearchTask.orgListeAnlegen() && !MSVDaten.system[MSVKonstanten.SYSTEM_EXPORT_FILE_FILMLISTE_ORG_NR].isEmpty()) {
-            MSVCopy.copy(MSearchConfig.getPathFilmlist_org_xz(), MSVDaten.system[MSVKonstanten.SYSTEM_EXPORT_FILE_FILMLISTE_ORG_NR]);
+            MSVCopy.copy(MSConfig.getPathFilmlist_org_xz(), MSVDaten.system[MSVKonstanten.SYSTEM_EXPORT_FILE_FILMLISTE_ORG_NR]);
         }
         if (!MSVDaten.system[MSVKonstanten.SYSTEM_EXPORT_FILE_FILMLISTE_DIFF_NR].isEmpty()) {
-            MSVCopy.copy(MSearchConfig.getPathFilmlist_diff_xz(), MSVDaten.system[MSVKonstanten.SYSTEM_EXPORT_FILE_FILMLISTE_DIFF_NR]);
+            MSVCopy.copy(MSConfig.getPathFilmlist_diff_xz(), MSVDaten.system[MSVKonstanten.SYSTEM_EXPORT_FILE_FILMLISTE_DIFF_NR]);
         }
 
         // ======================================================
@@ -58,10 +58,10 @@ public class MSVUpload {
         while (it.hasNext()) {
             MSVDatenUpload datenUpload = it.next();
             if (datenUpload.arr[MSVDatenUpload.UPLOAD_FORMAT_NR].equals(MSVDatenUpload.FORMAT_JSON)) {
-                srcPathFile = MSearchConfig.getPathFilmlist_json_xz();
+                srcPathFile = MSConfig.getPathFilmlist_json_xz();
                 destFileName = aktSearchTask.getExportJsonName();
             } else {
-                srcPathFile = MSearchConfig.getPathFilmlist_xml_bz2();
+                srcPathFile = MSConfig.getPathFilmlist_xml_bz2();
                 destFileName = aktSearchTask.getExportXmlName();
             }
 

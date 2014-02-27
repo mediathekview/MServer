@@ -22,8 +22,8 @@ package mServer.daten;
 import mServer.tool.MSVDaten;
 import mServer.tool.MSVKonstanten;
 import mServer.upload.MSVUpload;
-import msearch.tool.MSearchGuiFunktionen;
-import msearch.tool.MSearchConst;
+import msearch.tool.MSGuiFunktionen;
+import msearch.tool.MSConst;
 
 public class MSVDatenUpload {
     // Konstanten Upload
@@ -78,9 +78,9 @@ public class MSVDatenUpload {
 
     public String get_Url_Datei_ListeFilmlisten() {
         if (arr[UPLOAD_ART_NR].equals(MSVUpload.UPLOAD_ART_COPY)) {
-            return getFilmlisteDestPfadName(MSearchConst.DATEINAME_LISTE_FILMLISTEN);
+            return getFilmlisteDestPfadName(MSConst.DATEINAME_LISTE_FILMLISTEN);
         } else {
-            return MSearchGuiFunktionen.addUrl(arr[UPLOAD_URL_FILMLISTE_NR], MSearchConst.DATEINAME_LISTE_FILMLISTEN);
+            return MSGuiFunktionen.addUrl(arr[UPLOAD_URL_FILMLISTE_NR], MSConst.DATEINAME_LISTE_FILMLISTEN);
         }
     }
 
@@ -88,7 +88,7 @@ public class MSVDatenUpload {
         if (arr[UPLOAD_URL_FILMLISTE_NR].isEmpty()) {
             return "";
         } else {
-            return MSearchGuiFunktionen.addUrl(arr[UPLOAD_URL_FILMLISTE_NR], dateinameFilmliste);
+            return MSGuiFunktionen.addUrl(arr[UPLOAD_URL_FILMLISTE_NR], dateinameFilmliste);
         }
     }
 
@@ -97,11 +97,11 @@ public class MSVDatenUpload {
     }
 
     public String getFilmlisteDestPfadName(String dateinameFilmliste) {
-        return MSearchGuiFunktionen.addsPfad(arr[UPLOAD_DEST_DIR_NR], dateinameFilmliste);
+        return MSGuiFunktionen.addsPfad(arr[UPLOAD_DEST_DIR_NR], dateinameFilmliste);
     }
 
     public String getListeFilmlistenDestPfadName() {
-        return MSearchGuiFunktionen.addsPfad(arr[UPLOAD_DEST_DIR_NR], MSearchConst.DATEINAME_LISTE_FILMLISTEN);
+        return MSGuiFunktionen.addsPfad(arr[UPLOAD_DEST_DIR_NR], MSConst.DATEINAME_LISTE_FILMLISTEN);
     }
 
     public String getPrio() {
@@ -110,9 +110,9 @@ public class MSVDatenUpload {
 
     public String getUrlFilmlistenServer() {
         if (arr[MSVDatenUpload.UPLOAD_FORMAT_NR].equals(FORMAT_JSON)) {
-            return MSearchConst.ADRESSE_FILMLISTEN_SERVER_JSON;
+            return MSConst.ADRESSE_FILMLISTEN_SERVER_JSON;
         } else {
-            return MSearchConst.ADRESSE_FILMLISTEN_SERVER_XML;
+            return MSConst.ADRESSE_FILMLISTEN_SERVER_XML;
         }
     }
 

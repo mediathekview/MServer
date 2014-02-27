@@ -22,9 +22,9 @@ package mServer.tool;
 import java.io.File;
 import mServer.daten.MSVListeSuchen;
 import mServer.daten.MSVListeUpload;
-import msearch.tool.MSearchConst;
-import msearch.tool.MSearchFunktionen;
-import msearch.tool.MSearchGuiFunktionen;
+import msearch.tool.MSConst;
+import msearch.tool.MSFunktionen;
+import msearch.tool.MSGuiFunktionen;
 
 public class MSVDaten {
 
@@ -43,7 +43,7 @@ public class MSVDaten {
 
     public static String getUserAgent() {
         if (system[MSVKonstanten.SYSTEM_USER_AGENT_NR].trim().equals("")) {
-            return MSVKonstanten.PROGRAMMNAME + " " + MSearchConst.VERSION_FILMLISTE + " / " + MSearchFunktionen.getBuildNr();
+            return MSVKonstanten.PROGRAMMNAME + " " + MSConst.VERSION_FILMLISTE + " / " + MSFunktionen.getBuildNr();
         } else {
         }
         return system[MSVKonstanten.SYSTEM_USER_AGENT_NR].trim();
@@ -105,7 +105,7 @@ public class MSVDaten {
     }
 
     public static String getVerzeichnisFilme() {
-        String ret = MSearchGuiFunktionen.addsPfad(getBasisVerzeichnis(basisverzeichnis, false), MSVKonstanten.VERZEICHNISS_FILMLISTEN);
+        String ret = MSGuiFunktionen.addsPfad(getBasisVerzeichnis(basisverzeichnis, false), MSVKonstanten.VERZEICHNISS_FILMLISTEN);
         File basisF = new File(ret);
         if (!basisF.exists()) {
             if (!basisF.mkdir()) {
@@ -119,9 +119,9 @@ public class MSVDaten {
     public static String getLogVerzeichnis() {
         String ret;
         if (system[MSVKonstanten.SYSTEM_PFAD_LOGDATEI_NR] == null) {
-            ret = MSearchGuiFunktionen.addsPfad(getBasisVerzeichnis(basisverzeichnis, false), MSVKonstanten.LOG_FILE_PFAD);
+            ret = MSGuiFunktionen.addsPfad(getBasisVerzeichnis(basisverzeichnis, false), MSVKonstanten.LOG_FILE_PFAD);
         } else if (MSVDaten.system[MSVKonstanten.SYSTEM_PFAD_LOGDATEI_NR].trim().equals("")) {
-            ret = MSearchGuiFunktionen.addsPfad(getBasisVerzeichnis(basisverzeichnis, false), MSVKonstanten.LOG_FILE_PFAD);
+            ret = MSGuiFunktionen.addsPfad(getBasisVerzeichnis(basisverzeichnis, false), MSVKonstanten.LOG_FILE_PFAD);
         } else {
             ret = MSVDaten.system[MSVKonstanten.SYSTEM_PFAD_LOGDATEI_NR].trim();
         }
@@ -141,7 +141,7 @@ public class MSVDaten {
         try {
             logPfad = getLogVerzeichnis();
             // prüfen obs geht
-            logFileName = MSearchGuiFunktionen.addsPfad(logPfad, MSVKonstanten.LOG_FILE_NAME + MSVDatumZeit.getJetztLogDatei());
+            logFileName = MSGuiFunktionen.addsPfad(logPfad, MSVKonstanten.LOG_FILE_NAME + MSVDatumZeit.getJetztLogDatei());
             File logfile = new File(logFileName);
             if (!logfile.exists()) {
                 boolean b = new File(logPfad).mkdirs();
@@ -162,7 +162,7 @@ public class MSVDaten {
         try {
             logPfad = MSVDaten.getLogVerzeichnis();
             // prüfen obs geht
-            logFileName = MSearchGuiFunktionen.addsPfad(logPfad, MSVKonstanten.LOG_FILE_NAME_MV + MSVDatumZeit.getJetztLogDatei());
+            logFileName = MSGuiFunktionen.addsPfad(logPfad, MSVKonstanten.LOG_FILE_NAME_MV + MSVDatumZeit.getJetztLogDatei());
             logfile = new File(logFileName);
             if (!logfile.exists()) {
                 boolean b = new File(logPfad).mkdirs();

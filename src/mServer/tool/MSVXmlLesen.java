@@ -27,7 +27,7 @@ import javax.xml.stream.XMLStreamConstants;
 import javax.xml.stream.XMLStreamReader;
 import mServer.daten.MSVDatenUpload;
 import mServer.daten.MSVSearchTask;
-import msearch.tool.MSearchConst;
+import msearch.tool.MSConst;
 
 public class MSVXmlLesen {
 
@@ -41,7 +41,7 @@ public class MSVXmlLesen {
                 inFactory.setProperty(XMLInputFactory.IS_COALESCING, Boolean.FALSE);
                 XMLStreamReader parser;
                 InputStreamReader in;
-                in = new InputStreamReader(new FileInputStream(datei), MSearchConst.KODIERUNG_UTF);
+                in = new InputStreamReader(new FileInputStream(datei), MSConst.KODIERUNG_UTF);
                 parser = inFactory.createXMLStreamReader(in);
                 while (parser.hasNext()) {
                     event = parser.next();

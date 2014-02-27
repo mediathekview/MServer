@@ -31,7 +31,7 @@ import mServer.tool.MSVLog;
 import mServer.tool.MSVWarten;
 import msearch.filmeLaden.DatenUrlFilmliste;
 import msearch.filmeLaden.ListeDownloadUrlsFilmlisten;
-import msearch.filmeLaden.MSearchFilmlistenSuchen;
+import msearch.filmeLaden.MSFilmlistenSuchen;
 
 public class MSVMelden {
 
@@ -86,7 +86,7 @@ public class MSVMelden {
         String urlServerMelden = mServerDatenUpload.getMeldenUrl();
         // dann den aktuellsten Eintrag des Servers in der Liste löschen
         ListeDownloadUrlsFilmlisten listeDownloadUrlsFilmlisten = new ListeDownloadUrlsFilmlisten();
-        MSearchFilmlistenSuchen.getDownloadUrlsFilmlisten(mServerDatenUpload.getUrlFilmlistenServer(), listeDownloadUrlsFilmlisten, MSVDaten.getUserAgent());
+        MSFilmlistenSuchen.getDownloadUrlsFilmlisten(mServerDatenUpload.getUrlFilmlistenServer(), listeDownloadUrlsFilmlisten, MSVDaten.getUserAgent());
         listeDownloadUrlsFilmlisten.sort();
         Iterator<DatenUrlFilmliste> it = listeDownloadUrlsFilmlisten.iterator();
         int count = 0;
@@ -94,8 +94,8 @@ public class MSVMelden {
             // nur in der ersten 5 Einträgen suchen
             ++count;
             DatenUrlFilmliste d = it.next();
-            if (d.arr[MSearchFilmlistenSuchen.FILM_UPDATE_SERVER_URL_NR].startsWith(mServerDatenUpload.arr[MSVDatenUpload.UPLOAD_URL_FILMLISTE_NR])) {
-                delUrl = d.arr[MSearchFilmlistenSuchen.FILM_UPDATE_SERVER_URL_NR];
+            if (d.arr[MSFilmlistenSuchen.FILM_UPDATE_SERVER_URL_NR].startsWith(mServerDatenUpload.arr[MSVDatenUpload.UPLOAD_URL_FILMLISTE_NR])) {
+                delUrl = d.arr[MSFilmlistenSuchen.FILM_UPDATE_SERVER_URL_NR];
                 break;
             }
         }

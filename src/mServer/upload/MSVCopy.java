@@ -23,13 +23,13 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import mServer.tool.MSVLog;
-import msearch.tool.MSearchGuiFunktionen;
+import msearch.tool.MSGuiFunktionen;
 
 public class MSVCopy {
 
     public static boolean copy(String srcPath, String srcFile, String destPathFile) {
         try {
-            return copy(MSearchGuiFunktionen.addsPfad(srcPath, srcFile), destPathFile);
+            return copy(MSGuiFunktionen.addsPfad(srcPath, srcFile), destPathFile);
         } catch (Exception ex) {
             MSVLog.fehlerMeldung(915237563, MSVCopy.class.getName(), "MServerCopy.copy", ex);
         }

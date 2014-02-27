@@ -26,7 +26,7 @@ import javax.xml.stream.XMLOutputFactory;
 import javax.xml.stream.XMLStreamWriter;
 import mServer.daten.MSVDatenUpload;
 import mServer.daten.MSVSearchTask;
-import msearch.tool.MSearchConst;
+import msearch.tool.MSConst;
 
 public class MSVXmlSchreiben {
 
@@ -41,7 +41,7 @@ public class MSVXmlSchreiben {
             File file = new File(datei);
             MSVLog.systemMeldung("Start Schreiben nach: " + datei);
             outFactory = XMLOutputFactory.newInstance();
-            out = new OutputStreamWriter(new FileOutputStream(file), MSearchConst.KODIERUNG_UTF);
+            out = new OutputStreamWriter(new FileOutputStream(file), MSConst.KODIERUNG_UTF);
             writer = outFactory.createXMLStreamWriter(out);
             writer.writeStartDocument("UTF-8", "1.0");
             writer.writeCharacters("\n");//neue Zeile
