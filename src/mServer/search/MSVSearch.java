@@ -56,6 +56,7 @@ public class MSVSearch {
             MSConfig.updateFilmliste = aktSearchTask.updateFilmliste();
             MSConfig.nurSenderLaden = arrLesen(aktSearchTask.arr[MSVSearchTask.SUCHEN_SENDER_NR].trim());
             MSConfig.orgFilmlisteErstellen = aktSearchTask.orgListeAnlegen();
+            MSConfig.orgFilmliste = MSVDaten.system[MSVKonstanten.SYSTEM_FILMLISTE_ORG_NR];
             // und noch evtl. ein paar Imports von Filmlisten anderer Server
             MSConfig.importUrl__anhaengen = MSVDaten.system[MSVKonstanten.SYSTEM_IMPORT_URL_EXTEND_NR].toString();
             MSConfig.importUrl__ersetzen = MSVDaten.system[MSVKonstanten.SYSTEM_IMPORT_URL_REPLACE_NR].toString();

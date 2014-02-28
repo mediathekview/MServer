@@ -75,7 +75,7 @@ public class Main {
                         new MServer(ar).starten();
                         break;
                     case SENDER_LOESCHEN:
-                        Search.senderLoeschenUndExit(sender, filmDatei);
+////                        Search.senderLoeschenUndExit(sender, filmDatei);
                         break;
                     case URL_LOESCHEN:
                         System.out.println("Geht nicht!!!!");

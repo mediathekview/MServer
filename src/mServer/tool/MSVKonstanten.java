@@ -34,8 +34,6 @@ public class MSVKonstanten {
     public static final String LOG_FILE_NAME_MV = "mvLog";
     public static final String LOG_FILE_PFAD = "log";
     public static final String PROGRAMM_UPDATE_URL_RSS = "http://sourceforge.net/api/file/index/project-id/222825/mtime/desc/limit/100/rss";
-    //public static final String PROGRAMM_UPDATE_URL_RSS = "http://192.168.25.134/update/rss";
-    //public static final String PROGRAMM_UPDATE_URL_RSS = "http://176.28.14.91/mediathek1/rss";
     public static final String XML_START = "MServer";
     public static final String STR_TRUE = "1";
     public static final String STR_FALSE = "0";
@@ -46,7 +44,6 @@ public class MSVKonstanten {
     public static final int MAX_WARTEN_FTP_UPLOAD = 1000 * 60 * 5; // 5 Minuten
     public static final int WARTEZEIT_ALLES_LADEN = 1000 * 60 * 120; // 110 Minuten
     public static final int WARTEZEIT_UPDATE_LADEN = 1000 * 60 * 60; // 50 Minuten
-    //public  static final int WARTEZEIT_UPDATE_LADEN = 1000 * 10;
     //
     //
     // Konstanten System
@@ -72,20 +69,22 @@ public class MSVKonstanten {
     public static final int SYSTEM_EXPORT_FILE_FILMLISTE_ORG_NR = 9;
     public static final String SYSTEM_EXPORT_FILE_FILMLISTE_DIFF = "system-export-datei-filmliste-diff"; // die Filmliste diff (json.xz) kann lokal noch mit einem festen Namen kopiert werden
     public static final int SYSTEM_EXPORT_FILE_FILMLISTE_DIFF_NR = 10;
+    public static final String SYSTEM_FILMLISTE_ORG = "system-filmliste-org"; // die Filmliste aus der diff erstellt wird, wenn leer wird die eigene org verwendet
+    public static final int SYSTEM_FILMLISTE_ORG_NR = 11;
     public static final String SYSTEM_PFAD_LOGDATEI = "system-pfad-logdatei";
-    public static final int SYSTEM_PFAD_LOGDATEI_NR = 11;
+    public static final int SYSTEM_PFAD_LOGDATEI_NR = 12;
     public static final String SYSTEM_PROXY_URL = "system-proxy-url";
-    public static final int SYSTEM_PROXY_URL_NR = 12;
+    public static final int SYSTEM_PROXY_URL_NR = 13;
     public static final String SYSTEM_PROXY_PORT = "system-proxy-port";
-    public static final int SYSTEM_PROXY_PORT_NR = 13;
+    public static final int SYSTEM_PROXY_PORT_NR = 14;
     public static final String SYSTEM_DEBUG = "system-debug";
-    public static final int SYSTEM_DEBUG_NR = 14;
+    public static final int SYSTEM_DEBUG_NR = 15;
     // Array
     public static final String SYSTEM = "system";
-    public static final int SYSTEM_MAX_ELEM = 15;
+    public static final int SYSTEM_MAX_ELEM = 16;
     public static final String[] SYSTEM_COLUMN_NAMES = {SYSTEM_MELDEN_PWD_XML, SYSTEM_MELDEN_URL_XML, SYSTEM_MELDEN_PWD_JSON, SYSTEM_MELDEN_URL_JSON,
         SYSTEM_USER_AGENT, SYSTEM_UPDATE_SUCHEN, SYSTEM_IMPORT_EXTEND_URL, SYSTEM_IMPORT_URL_REPLACE,
-        SYSTEM_EXPORT_FILE_FILMLISTE, SYSTEM_EXPORT_FILE_FILMLISTE_ORG, SYSTEM_EXPORT_FILE_FILMLISTE_DIFF,
+        SYSTEM_EXPORT_FILE_FILMLISTE, SYSTEM_EXPORT_FILE_FILMLISTE_ORG, SYSTEM_EXPORT_FILE_FILMLISTE_DIFF, SYSTEM_FILMLISTE_ORG,
         SYSTEM_PFAD_LOGDATEI, SYSTEM_PROXY_URL, SYSTEM_PROXY_PORT, SYSTEM_DEBUG};
     //
     //
