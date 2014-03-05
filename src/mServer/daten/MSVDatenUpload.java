@@ -22,40 +22,43 @@ package mServer.daten;
 import mServer.tool.MSVDaten;
 import mServer.tool.MSVKonstanten;
 import mServer.upload.MSVUpload;
-import msearch.tool.MSGuiFunktionen;
+import msearch.daten.MSConfig;
 import msearch.tool.MSConst;
+import msearch.tool.MSGuiFunktionen;
 
 public class MSVDatenUpload {
-    // Konstanten Upload
 
-    public static final String FORMAT_JSON = "json";
-    public static final String FORMAT_XML = "xml";
-    public static final String UPLOAD = "upload";
     // Array
-    public static final String UPLOAD_ART = "upload-art";
+    public static final String UPLOAD = "upload";
+    public static final String UPLOAD_ART = "upload-art"; // copy/ftp
     public static final int UPLOAD_ART_NR = 0;
+    public static final String UPLOAD_FORMAT = "upload-format"; // json/xml(altes Format)
+    public static final int UPLOAD_FORMAT_NR = 1;
+    public static final String UPLOAD_LISTE = "upload-liste"; // normal/diff/org --> komplette Liste/diff-Liste/org-Liste
+    public static final int UPLOAD_LISTE_NR = 2;
+
     public static final String UPLOAD_SERVER = "upload-server";
-    public static final int UPLOAD_SERVER_NR = 1;
+    public static final int UPLOAD_SERVER_NR = 3;
     public static final String UPLOAD_USER = "upload-user";
-    public static final int UPLOAD_USER_NR = 2;
+    public static final int UPLOAD_USER_NR = 4;
     public static final String UPLOAD_PWD = "upload-pwd";
-    public static final int UPLOAD_PWD_NR = 3;
+    public static final int UPLOAD_PWD_NR = 5;
     public static final String UPLOAD_DEST_DIR = "upload-dest-dir";
-    public static final int UPLOAD_DEST_DIR_NR = 4;
+    public static final int UPLOAD_DEST_DIR_NR = 6;
     public static final String UPLOAD_PORT = "upload-port";
-    public static final int UPLOAD_PORT_NR = 5;
-    public static final String UPLOAD_URL_FILMLISTE = "upload-url-filmliste";
-    public static final int UPLOAD_URL_FILMLISTE_NR = 6;
+    public static final int UPLOAD_PORT_NR = 7;
+
+    public static final String UPLOAD_URL_FILMLISTE = "upload-url-filmliste"; // ist die dann entstehende Download-URL
+    public static final int UPLOAD_URL_FILMLISTE_NR = 8;
     public static final String UPLOAD_PRIO_FILMLISTE = "upload-prio-filmliste";
-    public static final int UPLOAD_PRIO_FILMLISTE_NR = 7;
-    public static final String UPLOAD_VORHER_LOESCHEN = "upload-vorher-loeschen";
-    public static final int UPLOAD_VORHER_LOESCHEN_NR = 8;
-    public static final String UPLOAD_FORMAT = "upload-format";
-    public static final int UPLOAD_FORMAT_NR = 9;
-    public static final int MAX_ELEM = 10;
-    public static final String[] UPLOAD_COLUMN_NAMES = {UPLOAD_ART, UPLOAD_SERVER, UPLOAD_USER, UPLOAD_PWD,
-        UPLOAD_DEST_DIR, UPLOAD_PORT, UPLOAD_URL_FILMLISTE, UPLOAD_PRIO_FILMLISTE, UPLOAD_VORHER_LOESCHEN,
-        UPLOAD_FORMAT};
+    public static final int UPLOAD_PRIO_FILMLISTE_NR = 9;
+    public static final String UPLOAD_VORHER_LOESCHEN = "upload-vorher-loeschen"; // wird vor dem neuen Suchen aus der Downloadliste gelöscht
+    public static final int UPLOAD_VORHER_LOESCHEN_NR = 10;
+
+    public static final int MAX_ELEM = 11;
+    public static final String[] UPLOAD_COLUMN_NAMES = {UPLOAD_ART, UPLOAD_FORMAT, UPLOAD_LISTE,
+        UPLOAD_SERVER, UPLOAD_USER, UPLOAD_PWD, UPLOAD_DEST_DIR, UPLOAD_PORT,
+        UPLOAD_URL_FILMLISTE, UPLOAD_PRIO_FILMLISTE, UPLOAD_VORHER_LOESCHEN,};
     public String[] arr = new String[MAX_ELEM];
 
     public MSVDatenUpload() {
@@ -70,6 +73,26 @@ public class MSVDatenUpload {
 
     public String getServer() {
         return arr[UPLOAD_SERVER_NR];
+    }
+
+    public String getFilmlisteSrc() {
+        String f;
+        if (arr[MSVDatenUpload.UPLOAD_FORMAT_NR].equals(MSVUpload.FORMAT_XML)) {
+            // altes Format, gibts noch kein Diff
+            f = MSConfig.getPathFilmlist_xml_bz2();
+        } else {
+            switch (arr[MSVDatenUpload.UPLOAD_LISTE_NR]) {
+                case (MSVUpload.LISTE_DIFF):
+                    f = MSConfig.getPathFilmlist_diff_xz();
+                    break;
+                case (MSVUpload.LISTE_ORG):
+                    f = MSConfig.getPathFilmlist_org_xz();
+                    break;
+                default:
+                    f = MSConfig.getPathFilmlist_json_xz();
+            }
+        }
+        return f;
     }
 
     public boolean vorherLoeschen() {
@@ -109,7 +132,7 @@ public class MSVDatenUpload {
     }
 
     public String getUrlFilmlistenServer() {
-        if (arr[MSVDatenUpload.UPLOAD_FORMAT_NR].equals(FORMAT_JSON)) {
+        if (arr[MSVDatenUpload.UPLOAD_FORMAT_NR].equals(MSVUpload.FORMAT_JSON)) {
             return MSConst.ADRESSE_FILMLISTEN_SERVER_JSON;
         } else {
             return MSConst.ADRESSE_FILMLISTEN_SERVER_XML;
@@ -117,7 +140,7 @@ public class MSVDatenUpload {
     }
 
     public String getMeldenUrl() {
-        if (arr[MSVDatenUpload.UPLOAD_FORMAT_NR].equals(FORMAT_JSON)) {
+        if (arr[MSVDatenUpload.UPLOAD_FORMAT_NR].equals(MSVUpload.FORMAT_JSON)) {
             return MSVDaten.system[MSVKonstanten.SYSTEM_MELDEN_URL_JSON_NR].trim();
         } else {
             return MSVDaten.system[MSVKonstanten.SYSTEM_MELDEN_URL_XML_NR].trim();
@@ -125,7 +148,7 @@ public class MSVDatenUpload {
     }
 
     public String getMeldenPwd() {
-        if (arr[MSVDatenUpload.UPLOAD_FORMAT_NR].equals(FORMAT_JSON)) {
+        if (arr[MSVDatenUpload.UPLOAD_FORMAT_NR].equals(MSVUpload.FORMAT_JSON)) {
             return MSVDaten.system[MSVKonstanten.SYSTEM_MELDEN_PWD_JSON_NR].trim();
         } else {
             return MSVDaten.system[MSVKonstanten.SYSTEM_MELDEN_PWD_XML_NR].trim();

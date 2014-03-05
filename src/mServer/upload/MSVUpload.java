@@ -20,8 +20,8 @@
 package mServer.upload;
 
 import java.util.Iterator;
-import mServer.daten.MSVSearchTask;
 import mServer.daten.MSVDatenUpload;
+import mServer.daten.MSVSearchTask;
 import mServer.tool.MSVDaten;
 import mServer.tool.MSVKonstanten;
 import mServer.tool.MSVLog;
@@ -30,8 +30,13 @@ import msearch.daten.MSConfig;
 
 public class MSVUpload {
 
+    // Konstanten Upload
     public static final String UPLOAD_ART_FTP = "ftp";
     public static final String UPLOAD_ART_COPY = "copy";
+    public static final String FORMAT_JSON = "json";
+    public static final String FORMAT_XML = "xml";
+    public static final String LISTE_DIFF = "diff";
+    public static final String LISTE_ORG = "org";
 
     public static void upload(MSVSearchTask aktSearchTask) {
         // ==================================================
@@ -57,13 +62,8 @@ public class MSVUpload {
         }
         while (it.hasNext()) {
             MSVDatenUpload datenUpload = it.next();
-            if (datenUpload.arr[MSVDatenUpload.UPLOAD_FORMAT_NR].equals(MSVDatenUpload.FORMAT_JSON)) {
-                srcPathFile = MSConfig.getPathFilmlist_json_xz();
-                destFileName = aktSearchTask.getExportJsonName();
-            } else {
-                srcPathFile = MSConfig.getPathFilmlist_xml_bz2();
-                destFileName = aktSearchTask.getExportXmlName();
-            }
+            srcPathFile = datenUpload.getFilmlisteSrc();
+            destFileName = aktSearchTask.getExportNameFilmliste(datenUpload);
 
             switch (datenUpload.arr[MSVDatenUpload.UPLOAD_ART_NR]) {
                 case UPLOAD_ART_COPY:

@@ -27,6 +27,7 @@ import javax.xml.stream.XMLStreamConstants;
 import javax.xml.stream.XMLStreamReader;
 import mServer.daten.MSVDatenUpload;
 import mServer.daten.MSVSearchTask;
+import mServer.upload.MSVUpload;
 import msearch.tool.MSConst;
 
 public class MSVXmlLesen {

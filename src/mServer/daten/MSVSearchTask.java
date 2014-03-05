@@ -22,7 +22,10 @@ package mServer.daten;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import mServer.tool.MSVDatumZeit;
+import mServer.tool.MSVKonstanten;
 import mServer.tool.MSVLog;
+import mServer.upload.MSVUpload;
+import msearch.daten.MSConfig;
 
 public class MSVSearchTask {
 
@@ -81,54 +84,38 @@ public class MSVSearchTask {
         return false;
     }
 
-    public String getExportXmlName() {
-        final String FILM_DATEI_SUFF = "bz2";
-        final String FILMDATEI_NAME = "Filmliste-xml";
-        if (jetzt()) {
-            return FILMDATEI_NAME + "." + FILM_DATEI_SUFF;
+    public String getExportNameFilmliste(MSVDatenUpload mSVDatenUpload) {
+        String name;
+        if (mSVDatenUpload.arr[MSVDatenUpload.UPLOAD_FORMAT_NR].equals(MSVUpload.FORMAT_XML)) {
+            // gibts noch kein diff..
+            final String FILM_DATEI_SUFF = "bz2";
+            final String FILMDATEI_NAME = "Filmliste-xml";
+            if (jetzt()) {
+                name = FILMDATEI_NAME + "." + FILM_DATEI_SUFF;
+            } else {
+                name = FILMDATEI_NAME + "_" + arr[SUCHEN_WANN_NR].replace(":", "_") + "." + FILM_DATEI_SUFF;
+            }
         } else {
-            return FILMDATEI_NAME + "_" + arr[SUCHEN_WANN_NR].replace(":", "_") + "." + FILM_DATEI_SUFF;
+            switch (mSVDatenUpload.arr[MSVDatenUpload.UPLOAD_LISTE_NR]) {
+                case (MSVUpload.LISTE_DIFF):
+                    name = MSVKonstanten.NAME_FILMLISTE_DIFF;
+                    break;
+                case (MSVUpload.LISTE_ORG):
+                    name = MSVKonstanten.NAME_FILMLISTE_ORG;
+                    break;
+                default:
+                    final String FILM_DATEI_SUFF = "xz";
+                    final String FILMDATEI_NAME = "Filmliste-json";
+                    if (jetzt()) {
+                        name = FILMDATEI_NAME + "." + FILM_DATEI_SUFF;
+                    } else {
+                        name = FILMDATEI_NAME + "_" + arr[SUCHEN_WANN_NR].replace(":", "_") + "." + FILM_DATEI_SUFF;
+                    }
+            }
         }
+        return name;
     }
 
-    public String getExportJsonName() {
-        final String FILM_DATEI_SUFF = "xz";
-        final String FILMDATEI_NAME = "Filmliste-json";
-        if (jetzt()) {
-            return FILMDATEI_NAME + "." + FILM_DATEI_SUFF;
-        } else {
-            return FILMDATEI_NAME + "_" + arr[SUCHEN_WANN_NR].replace(":", "_") + "." + FILM_DATEI_SUFF;
-        }
-    }
-
-//    public String getAktFilmliste() {
-//        final String FILM_DATEI_SUFF = "json";
-//        final String FILMDATEI_NAME = "filme";
-//        return FILMDATEI_NAME + "." + FILM_DATEI_SUFF;
-//    }
-//    public String getOrgFilmliste() {
-//        // ist die erste Filmliste am Tag gege die dann das diff erstellt wird
-//        final String FILM_DATEI_SUFF = "json";
-//        final String FILMDATEI_NAME = "filme-org";
-//        return FILMDATEI_NAME + "." + FILM_DATEI_SUFF;
-//    }
-//    public String getExportOrgFilmliste() {
-//        final String FILM_DATEI_SUFF = "xz";
-//        final String FILMDATEI_NAME = "Filmliste-org";
-//        return FILMDATEI_NAME + "." + FILM_DATEI_SUFF;
-//    }
-//    public String getDiffFilmliste() {
-//        // ist dann das diff das erstellt wird
-//        final String FILM_DATEI_SUFF = "json";
-//        final String FILMDATEI_NAME = "filme-diff";
-//        return FILMDATEI_NAME + "." + FILM_DATEI_SUFF;
-//    }
-//    public String getExportDiffFilmliste() {
-//        // ist dann das diff das erstellt wird
-//        final String FILM_DATEI_SUFF = "xz";
-//        final String FILMDATEI_NAME = "filme-diff";
-//        return FILMDATEI_NAME + "." + FILM_DATEI_SUFF;
-//    }
     public boolean orgListeAnlegen() {
         return Boolean.parseBoolean(arr[SUCHEN_ORG_LISTE_NR]);
     }
