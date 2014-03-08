@@ -64,6 +64,19 @@ public class MSVUpload {
             MSVDatenUpload datenUpload = it.next();
             srcPathFile = datenUpload.getFilmlisteSrc();
             destFileName = aktSearchTask.getExportNameFilmliste(datenUpload);
+            switch (datenUpload.arr[MSVDatenUpload.UPLOAD_LISTE_NR]) {
+                case (MSVUpload.LISTE_DIFF):
+                    MSVLog.systemMeldung("--------------------------");
+                    MSVLog.systemMeldung("Upload Diff-Liste");
+                    break;
+                case (MSVUpload.LISTE_ORG):
+                    MSVLog.systemMeldung("--------------------------");
+                    MSVLog.systemMeldung("Upload Org-Liste");
+                    break;
+                default:
+                    MSVLog.systemMeldung("--------------------------");
+                    MSVLog.systemMeldung("Upload Filmliste");
+            }
 
             switch (datenUpload.arr[MSVDatenUpload.UPLOAD_ART_NR]) {
                 case UPLOAD_ART_COPY:
