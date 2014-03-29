@@ -90,8 +90,8 @@ public class MSVMelden {
         listeDownloadUrlsFilmlisten.sort();
         Iterator<DatenUrlFilmliste> it = listeDownloadUrlsFilmlisten.iterator();
         int count = 0;
-        while (count < 5 && it.hasNext()) {
-            // nur in der ersten 5 Einträgen suchen
+        while (count < 15 && it.hasNext()) {
+            // nur in den ersten 15 Einträgen suchen
             ++count;
             DatenUrlFilmliste d = it.next();
             if (d.arr[MSFilmlistenSuchen.FILM_UPDATE_SERVER_URL_NR].startsWith(mServerDatenUpload.arr[MSVDatenUpload.UPLOAD_URL_FILMLISTE_NR])) {
