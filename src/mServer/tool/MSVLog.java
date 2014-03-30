@@ -30,10 +30,10 @@ import msearch.tool.MSFunktionen;
 
 public class MSVLog {
 
-    private static LinkedList<Integer[]> fehlerListe = new LinkedList<>(); // [Fehlernummer, Anzahl]
-    private static Date startZeit = new Date(System.currentTimeMillis());
+    private static final LinkedList<Integer[]> fehlerListe = new LinkedList<>(); // [Fehlernummer, Anzahl]
+    private static final Date startZeit = new Date(System.currentTimeMillis());
     private static Date stopZeit = null;
-    private static String logfile = MSVDaten.getLogDatei();
+    private static final String logfile = MSVDaten.getLogDatei();
 
     public void resetFehlerListe() {
         fehlerListe.clear();
