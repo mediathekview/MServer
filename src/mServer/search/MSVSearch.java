@@ -58,8 +58,8 @@ public class MSVSearch {
             MSConfig.orgFilmlisteErstellen = aktSearchTask.orgListeAnlegen();
             MSConfig.orgFilmliste = MSVDaten.system[MSVKonstanten.SYSTEM_FILMLISTE_ORG_NR];
             // und noch evtl. ein paar Imports von Filmlisten anderer Server
-            MSConfig.importUrl__anhaengen = MSVDaten.system[MSVKonstanten.SYSTEM_IMPORT_URL_EXTEND_NR].toString();
-            MSConfig.importUrl__ersetzen = MSVDaten.system[MSVKonstanten.SYSTEM_IMPORT_URL_REPLACE_NR].toString();
+            MSConfig.importUrl__anhaengen = MSVDaten.system[MSVKonstanten.SYSTEM_IMPORT_URL_EXTEND_NR];
+            MSConfig.importUrl__ersetzen = MSVDaten.system[MSVKonstanten.SYSTEM_IMPORT_URL_REPLACE_NR];
             // Rest
             MSConfig.setUserAgent(MSVDaten.getUserAgent());
             MSConfig.proxyUrl = MSVDaten.system[MSVKonstanten.SYSTEM_PROXY_URL_NR];
