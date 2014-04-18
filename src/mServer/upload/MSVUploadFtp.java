@@ -84,7 +84,8 @@ public class MSVUploadFtp {
             //String filmlisteDestPfadName = GuiFunktionen.addsPfad(filmlisteDestDir, filmlisteDateiname);
             //String listeFilmlistenDestPfadName = GuiFunktionen.addsPfad(filmlisteDestDir, MS_Konstanten.DATEINAME_LISTE_FILMLISTEN);
             DatenUrlFilmliste dfus = new DatenUrlFilmliste(datenUpload.getUrlFilmliste(destFileName), "1", MSVFunktionen.getTime(), MSVFunktionen.getDate());
-            File filmlisten = MSVListeFilmlisten.filmlisteEintragen(datenUpload.get_Url_Datei_ListeFilmlisten(), dfus);
+            File filmlisten = null;
+            filmlisten = MSVListeFilmlisten.filmlisteEintragen(datenUpload.get_Url_Datei_ListeFilmlisten(), dfus);
             //
             int port = 0;
             try {
@@ -220,6 +221,12 @@ public class MSVUploadFtp {
                 }
             }
             // ==================================
+            if (filmlisten != null) {
+                try {
+                    filmlisten.delete();
+                } catch (Exception ignore) {
+                }
+            }
         }
     }
 }

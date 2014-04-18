@@ -32,6 +32,7 @@ public class MSVUploadCopy {
 
     public static boolean copy(String srcPathFile, String destFileName, MSVDatenUpload datenUpload) {
         boolean ret = false;
+        File f = null;
         try {
             MSVLog.systemMeldung("");
             MSVLog.systemMeldung("UploadCopy");
@@ -44,7 +45,7 @@ public class MSVUploadCopy {
             // Liste der Filmlisten auktualisieren
             // DatenFilmUpdateServer(String url, String prio, String zeit, String datum, String anzahl) {
             DatenUrlFilmliste dfus = new DatenUrlFilmliste(datenUpload.getUrlFilmliste(destFileName), "1", MSVFunktionen.getTime(), MSVFunktionen.getDate());
-            File f = MSVListeFilmlisten.filmlisteEintragen(datenUpload.get_Url_Datei_ListeFilmlisten(), dfus);
+            f = MSVListeFilmlisten.filmlisteEintragen(datenUpload.get_Url_Datei_ListeFilmlisten(), dfus);
             if (f != null) {
                 String src = f.getPath();
                 String destListen = datenUpload.getListeFilmlistenDestPfadName();
@@ -54,6 +55,12 @@ public class MSVUploadCopy {
             ret = true;
         } catch (Exception ex) {
             MSVLog.fehlerMeldung(747452360, MSVUploadCopy.class.getName(), "copy", ex);
+        }
+        if (f != null) {
+            try {
+                f.delete();
+            } catch (Exception ignore) {
+            }
         }
         return ret;
     }
