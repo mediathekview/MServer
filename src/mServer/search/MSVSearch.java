@@ -82,12 +82,12 @@ public class MSVSearch {
                         MSVLog.systemMeldung("und wird jetzt gestoppt");
                         MSConfig.setStop();
                     }
-                    t.join(2 * 60 * 1000); // 2 Minuten warten
+                    t.join(5 * 60 * 1000); // 5 Minuten warten, das Erstellen/Komprimieren der Liste dauert
                     if (t.isAlive()) {
                         MSVLog.systemMeldung("und noch gekillt");
                         ret = false;
                     }
-                    // nach 3 Sekunden ist Schicht im Schacht
+                    // jetzt ist Schicht im Schacht
                     t.stop();
                 }
             }
