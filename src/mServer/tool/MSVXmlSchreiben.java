@@ -26,7 +26,6 @@ import javax.xml.stream.XMLOutputFactory;
 import javax.xml.stream.XMLStreamWriter;
 import mServer.daten.MSVDatenUpload;
 import mServer.daten.MSVSearchTask;
-import mServer.upload.MSVUpload;
 import msearch.tool.MSConst;
 
 public class MSVXmlSchreiben {

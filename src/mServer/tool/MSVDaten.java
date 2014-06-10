@@ -97,11 +97,7 @@ public class MSVDaten {
 
     public static boolean konfigExistiert() {
         String datei = MSVDaten.getBasisVerzeichnis() + MSVKonstanten.XML_DATEI;
-        if (new File(datei).exists()) {
-            return true;
-        } else {
-            return false;
-        }
+        return new File(datei).exists();
     }
 
     public static String getVerzeichnisFilme() {

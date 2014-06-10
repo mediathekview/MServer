@@ -35,8 +35,6 @@ import org.apache.commons.net.ftp.FTPClient;
 import org.apache.commons.net.ftp.FTPConnectionClosedException;
 import org.apache.commons.net.ftp.FTPHTTPClient;
 import org.apache.commons.net.ftp.FTPReply;
-import org.apache.commons.net.ftp.FTPSClient;
-import org.apache.commons.net.util.TrustManagerUtils;
 
 public class MSVUploadFtp {
 
@@ -100,42 +98,49 @@ public class MSVUploadFtp {
             boolean localActive = false, useEpsvWithIPv4 = false;
             long keepAliveTimeout = -1;
             int controlKeepAliveReplyTimeout = -1;
-            String protocol = null; // SSL protocol
-            String trustmgr = null;
+//            String protocol = null; // SSL protocol
+//            String trustmgr = null;
             String proxyHost = null;
             int proxyPort = 80;
             String proxyUser = null;
             String proxyPassword = null;
             final FTPClient ftp;
-            if (protocol == null) {
-                if (proxyHost != null) {
-                    ftp = new FTPHTTPClient(proxyHost, proxyPort, proxyUser, proxyPassword);
-                } else {
-                    ftp = new FTPClient();
-                }
+//            if (protocol == null) {
+            if (proxyHost != null) {
+                ftp = new FTPHTTPClient(proxyHost, proxyPort, proxyUser, proxyPassword);
             } else {
-                FTPSClient ftps;
-                if (protocol.equals("true")) {
-                    ftps = new FTPSClient(true);
-                } else if (protocol.equals("false")) {
-                    ftps = new FTPSClient(false);
-                } else {
-                    String prot[] = protocol.split(",");
-                    if (prot.length == 1) { // Just protocol
-                        ftps = new FTPSClient(protocol);
-                    } else { // protocol,true|false
-                        ftps = new FTPSClient(prot[0], Boolean.parseBoolean(prot[1]));
-                    }
-                }
-                ftp = ftps;
-                if ("all".equals(trustmgr)) {
-                    ftps.setTrustManager(TrustManagerUtils.getAcceptAllTrustManager());
-                } else if ("valid".equals(trustmgr)) {
-                    ftps.setTrustManager(TrustManagerUtils.getValidateServerCertificateTrustManager());
-                } else if ("none".equals(trustmgr)) {
-                    ftps.setTrustManager(null);
-                }
+                ftp = new FTPClient();
             }
+//            } else {
+//                FTPSClient ftps;
+//                switch (protocol) {
+//                    case "true":
+//                        ftps = new FTPSClient(true);
+//                        break;
+//                    case "false":
+//                        ftps = new FTPSClient(false);
+//                        break;
+//                    default:
+//                        String prot[] = protocol.split(",");
+//                        if (prot.length == 1) { // Just protocol
+//                            ftps = new FTPSClient(protocol);
+//                        } else { // protocol,true|false
+//                            ftps = new FTPSClient(prot[0], Boolean.parseBoolean(prot[1]));
+//                        }   break;
+//                }
+//                ftp = ftps;
+//                if (null != trustmgr) switch (trustmgr) {
+//                    case "all":
+//                        ftps.setTrustManager(TrustManagerUtils.getAcceptAllTrustManager());
+//                        break;
+//                    case "valid":
+//                        ftps.setTrustManager(TrustManagerUtils.getValidateServerCertificateTrustManager());
+//                        break;
+//                    case "none":
+//                        ftps.setTrustManager(null);
+//                        break;
+//                }
+//            }
             if (keepAliveTimeout >= 0) {
                 ftp.setControlKeepAliveTimeout(keepAliveTimeout);
             }

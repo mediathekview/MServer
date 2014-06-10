@@ -50,7 +50,6 @@ public class MSVUploadCopy {
                 String src = f.getPath();
                 String destListen = datenUpload.getListeFilmlistenDestPfadName();
                 Files.copy(Paths.get(src), Paths.get(destListen), StandardCopyOption.REPLACE_EXISTING);
-                ret = true;
             }
             ret = true;
         } catch (Exception ex) {

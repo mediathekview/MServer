@@ -176,13 +176,13 @@ public class MSVLog {
         Iterator<Integer[]> it = fehlerListe.iterator();
         while (it.hasNext()) {
             Integer[] i = it.next();
-            if (i[0].intValue() == nr) {
+            if (i[0] == nr) {
                 i[1]++;
                 return;
             }
         }
         // dann gibts die Nummer noch nicht
-        fehlerListe.add(new Integer[]{new Integer(nr), new Integer(1)});
+        fehlerListe.add(new Integer[]{nr, 1});
     }
 
     private static void fehlermeldung_(int fehlerNummer, String klasse, String[] texte) {

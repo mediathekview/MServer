@@ -24,9 +24,9 @@ import java.util.Date;
 
 public class MSVDatumZeit {
 
-    private static SimpleDateFormat sdf_stunde_minute = new SimpleDateFormat("HH:mm");
-    private static SimpleDateFormat sdf_datum_zeit = new SimpleDateFormat("dd.MM.yyyy  HH:mm:ss");
-    private static SimpleDateFormat sdf_datum = new SimpleDateFormat("dd.MM.yyyy");
+    private static final SimpleDateFormat sdf_stunde_minute = new SimpleDateFormat("HH:mm");
+    private static final SimpleDateFormat sdf_datum_zeit = new SimpleDateFormat("dd.MM.yyyy  HH:mm:ss");
+    private static final SimpleDateFormat sdf_datum = new SimpleDateFormat("dd.MM.yyyy");
 
     public static String getJetzt() {
         Date today;

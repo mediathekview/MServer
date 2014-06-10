@@ -25,7 +25,6 @@ import mServer.tool.MSVDatumZeit;
 import mServer.tool.MSVKonstanten;
 import mServer.tool.MSVLog;
 import mServer.upload.MSVUpload;
-import msearch.daten.MSConfig;
 
 public class MSVSearchTask {
 
@@ -151,9 +150,6 @@ public class MSVSearchTask {
         }
         // true wenn gestartet werden soll: Auftrag liegt jetzt oder in der Vergangenheit
         Date now = new Date();
-        if (this.getTimeHeute().compareTo(now) <= 0) {
-            return true;
-        }
-        return false;
+        return this.getTimeHeute().compareTo(now) <= 0;
     }
 }
