@@ -55,8 +55,7 @@ public class MSVUploadFtp {
             MSVLog.systemMeldung("----------------------");
             MSVLog.systemMeldung("Upload start");
             MSVLog.systemMeldung("Server: " + server);
-            Ftp f = new Ftp();
-            Thread t = new Thread(f);
+            Thread t = new Thread(new Ftp());
             t.start();
             t.join(MSVKonstanten.MAX_WARTEN_FTP_UPLOAD);
             if (t != null) {
@@ -77,15 +76,15 @@ public class MSVUploadFtp {
 
         @Override
         public synchronized void run() {
+            int port = 0;
+            final FTPClient ftp = new FTPClient();
             // Liste der Filmlisten auktualisieren
             // DatenFilmUpdateServer(String url, String prio, String zeit, String datum, String anzahl) {
             //String filmlisteDestPfadName = GuiFunktionen.addsPfad(filmlisteDestDir, filmlisteDateiname);
             //String listeFilmlistenDestPfadName = GuiFunktionen.addsPfad(filmlisteDestDir, MS_Konstanten.DATEINAME_LISTE_FILMLISTEN);
             DatenUrlFilmliste dfus = new DatenUrlFilmliste(datenUpload.getUrlFilmliste(destFileName), "1", MSVFunktionen.getTime(), MSVFunktionen.getDate());
-            File filmlisten = null;
-            filmlisten = MSVListeFilmlisten.filmlisteEintragen(datenUpload.get_Url_Datei_ListeFilmlisten(), dfus);
+            File filmlisten = MSVListeFilmlisten.filmlisteEintragen(datenUpload.get_Url_Datei_ListeFilmlisten(), dfus);
             //
-            int port = 0;
             try {
                 if (!strPort.equals("")) {
                     port = Integer.parseInt(strPort);
@@ -93,59 +92,6 @@ public class MSVUploadFtp {
             } catch (Exception ex) {
                 MSVLog.fehlerMeldung(101203698, MSVUploadFtp.class.getName(), "uploadFtp", ex);
                 port = 0;
-            }
-            boolean binaryTransfer = true;
-            boolean localActive = false, useEpsvWithIPv4 = false;
-            long keepAliveTimeout = -1;
-            int controlKeepAliveReplyTimeout = -1;
-//            String protocol = null; // SSL protocol
-//            String trustmgr = null;
-            String proxyHost = null;
-            int proxyPort = 80;
-            String proxyUser = null;
-            String proxyPassword = null;
-            final FTPClient ftp;
-//            if (protocol == null) {
-            if (proxyHost != null) {
-                ftp = new FTPHTTPClient(proxyHost, proxyPort, proxyUser, proxyPassword);
-            } else {
-                ftp = new FTPClient();
-            }
-//            } else {
-//                FTPSClient ftps;
-//                switch (protocol) {
-//                    case "true":
-//                        ftps = new FTPSClient(true);
-//                        break;
-//                    case "false":
-//                        ftps = new FTPSClient(false);
-//                        break;
-//                    default:
-//                        String prot[] = protocol.split(",");
-//                        if (prot.length == 1) { // Just protocol
-//                            ftps = new FTPSClient(protocol);
-//                        } else { // protocol,true|false
-//                            ftps = new FTPSClient(prot[0], Boolean.parseBoolean(prot[1]));
-//                        }   break;
-//                }
-//                ftp = ftps;
-//                if (null != trustmgr) switch (trustmgr) {
-//                    case "all":
-//                        ftps.setTrustManager(TrustManagerUtils.getAcceptAllTrustManager());
-//                        break;
-//                    case "valid":
-//                        ftps.setTrustManager(TrustManagerUtils.getValidateServerCertificateTrustManager());
-//                        break;
-//                    case "none":
-//                        ftps.setTrustManager(null);
-//                        break;
-//                }
-//            }
-            if (keepAliveTimeout >= 0) {
-                ftp.setControlKeepAliveTimeout(keepAliveTimeout);
-            }
-            if (controlKeepAliveReplyTimeout >= 0) {
-                ftp.setControlKeepAliveReplyTimeout(controlKeepAliveReplyTimeout);
             }
             // suppress login details
             ftp.addProtocolCommandListener(new PrintCommandListener(new PrintWriter(System.out), true));
@@ -170,7 +116,6 @@ public class MSVUploadFtp {
                     try {
                         ftp.disconnect();
                     } catch (IOException f) {
-                        // do nothing
                     }
                 }
                 MSVLog.fehlerMeldung(969363254, MSVUploadFtp.class.getName(), "MS_UploadFtp", e);
@@ -185,21 +130,28 @@ public class MSVUploadFtp {
                     break __upload;
                 }
                 MSVLog.debugMeldung("Remote system is " + ftp.getSystemType());
-                if (binaryTransfer) {
-                    ftp.setFileType(FTP.BINARY_FILE_TYPE);
-                }
-                // passive mode as default
-                if (localActive) {
-                    ftp.enterLocalActiveMode();
-                } else {
-                    ftp.enterLocalPassiveMode();
-                }
-                ftp.setUseEPSVwithIPv4(useEpsvWithIPv4);
+                ftp.setFileType(FTP.BINARY_FILE_TYPE);
+                ftp.enterLocalPassiveMode();
+                ftp.setUseEPSVwithIPv4(false);
                 // ==========================
                 // Filmliste hoch laden
                 InputStream input;
                 input = new FileInputStream(srcPathFile);
-                ftp.storeFile(datenUpload.getFilmlisteDestPfadName(destFileName), input);
+                String dest = datenUpload.getFilmlisteDestPfadName(destFileName);
+                if (datenUpload.rename()) {
+                    MSVLog.debugMeldung("Upload Filmliste + rename");
+                    String dest_tmp = dest + "__";
+                    String dest_old = dest + "_old";
+                    ftp.storeFile(dest_tmp, input);
+                    MSVLog.debugMeldung("Upload Filmliste " + dest_tmp);
+                    ftp.rename(dest, dest_old);
+                    MSVLog.debugMeldung("Rename alte Filmliste " + dest);
+                    ftp.rename(dest_tmp, dest);
+                    MSVLog.debugMeldung("Rename Filmliste " + dest);
+                } else {
+                    ftp.storeFile(dest, input);
+                    MSVLog.debugMeldung("Upload Filmliste " + dest);
+                }
                 input.close();
                 ftp.noop(); // check that control connection is working OK
                 // ==========================

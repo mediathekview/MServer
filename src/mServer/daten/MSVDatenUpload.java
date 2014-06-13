@@ -54,11 +54,13 @@ public class MSVDatenUpload {
     public static final int UPLOAD_PRIO_FILMLISTE_NR = 9;
     public static final String UPLOAD_VORHER_LOESCHEN = "upload-vorher-loeschen"; // wird vor dem neuen Suchen aus der Downloadliste gelöscht
     public static final int UPLOAD_VORHER_LOESCHEN_NR = 10;
+    public static final String UPLOAD_RENAME = "upload-rename"; // vorhandene Datei wird vor dem Überschreiben umbenannt
+    public static final int UPLOAD_RENAME_NR = 11;
 
-    public static final int MAX_ELEM = 11;
+    public static final int MAX_ELEM = 12;
     public static final String[] UPLOAD_COLUMN_NAMES = {UPLOAD_ART, UPLOAD_FORMAT, UPLOAD_LISTE,
         UPLOAD_SERVER, UPLOAD_USER, UPLOAD_PWD, UPLOAD_DEST_DIR, UPLOAD_PORT,
-        UPLOAD_URL_FILMLISTE, UPLOAD_PRIO_FILMLISTE, UPLOAD_VORHER_LOESCHEN,};
+        UPLOAD_URL_FILMLISTE, UPLOAD_PRIO_FILMLISTE, UPLOAD_VORHER_LOESCHEN, UPLOAD_RENAME};
     public String[] arr = new String[MAX_ELEM];
 
     public MSVDatenUpload() {
@@ -97,6 +99,10 @@ public class MSVDatenUpload {
 
     public boolean vorherLoeschen() {
         return arr[UPLOAD_VORHER_LOESCHEN_NR].equals(MSVKonstanten.STR_TRUE);
+    }
+
+    public boolean rename() {
+        return arr[UPLOAD_RENAME_NR].equals(MSVKonstanten.STR_TRUE);
     }
 
     public String get_Url_Datei_ListeFilmlisten() {
