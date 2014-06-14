@@ -22,6 +22,7 @@ package mServer.upload;
 import java.util.Iterator;
 import mServer.daten.MSVDatenUpload;
 import mServer.daten.MSVSearchTask;
+import static mServer.daten.MSVSearchTask.SUCHEN_WANN_NR;
 import mServer.tool.MSVDaten;
 import mServer.tool.MSVKonstanten;
 import mServer.tool.MSVLog;
@@ -35,8 +36,8 @@ public class MSVUpload {
     public static final String UPLOAD_ART_COPY = "copy";
     public static final String FORMAT_JSON = "json";
     public static final String FORMAT_XML = "xml";
+    public static final String LISTE_NORM = "norm";
     public static final String LISTE_DIFF = "diff";
-    public static final String LISTE_ORG = "org";
     public static final String LISTE_AKT = "akt";
 
     public static void upload(MSVSearchTask aktSearchTask) {
@@ -64,15 +65,11 @@ public class MSVUpload {
         while (it.hasNext()) {
             MSVDatenUpload datenUpload = it.next();
             srcPathFile = datenUpload.getFilmlisteSrc();
-            destFileName = aktSearchTask.getExportNameFilmliste(datenUpload);
+            destFileName = getExportNameFilmliste(datenUpload, aktSearchTask);
             switch (datenUpload.arr[MSVDatenUpload.UPLOAD_LISTE_NR]) {
                 case (MSVUpload.LISTE_DIFF):
                     MSVLog.systemMeldung("--------------------------");
                     MSVLog.systemMeldung("Upload Diff-Liste");
-                    break;
-                case (MSVUpload.LISTE_ORG):
-                    MSVLog.systemMeldung("--------------------------");
-                    MSVLog.systemMeldung("Upload Org-Liste");
                     break;
                 case (MSVUpload.LISTE_AKT):
                     MSVLog.systemMeldung("--------------------------");
@@ -116,7 +113,7 @@ public class MSVUpload {
 
     private static boolean uploadFtp_(String srcPathFile, String destFileName, MSVDatenUpload datenUpload) {
         boolean ret = false;
-        if (MSVUploadFtp.uploadFtp(srcPathFile, destFileName, datenUpload)) {
+        if (MSVFtp.uploadFtp(srcPathFile, destFileName, datenUpload)) {
             if (MSVMelden.melden(destFileName, datenUpload)) {
                 ret = true;
             }
@@ -126,7 +123,7 @@ public class MSVUpload {
 
     private static boolean uploadCopy_(String srcPathFile, String destFileName, MSVDatenUpload datenUpload) {
         boolean ret = false;
-        if (MSVUploadCopy.copy(srcPathFile, destFileName, datenUpload)) {
+        if (MSVCopy.copy(srcPathFile, destFileName, datenUpload)) {
             if (MSVMelden.melden(destFileName, datenUpload)) {
                 ret = true;
             }
@@ -134,4 +131,40 @@ public class MSVUpload {
         return ret;
 
     }
+
+    private static String getExportNameFilmliste(MSVDatenUpload mSVDatenUpload, MSVSearchTask mSVSearchTask) {
+        if (!mSVDatenUpload.arr[MSVDatenUpload.UPLOAD_DEST_NAME_NR].isEmpty()) {
+            return mSVDatenUpload.arr[MSVDatenUpload.UPLOAD_DEST_NAME_NR];
+        }
+        String name;
+        if (mSVDatenUpload.arr[MSVDatenUpload.UPLOAD_FORMAT_NR].equals(MSVUpload.FORMAT_XML)) {
+            // gibts noch kein diff..
+            final String FILM_DATEI_SUFF = "bz2";
+            final String FILMDATEI_NAME = "Filmliste-xml";
+            if (mSVSearchTask.sofortSuchen()) {
+                name = FILMDATEI_NAME + "." + FILM_DATEI_SUFF;
+            } else {
+                name = FILMDATEI_NAME + "_" + mSVSearchTask.arr[SUCHEN_WANN_NR].replace(":", "_") + "." + FILM_DATEI_SUFF;
+            }
+        } else {
+            switch (mSVDatenUpload.arr[MSVDatenUpload.UPLOAD_LISTE_NR]) {
+                case (MSVUpload.LISTE_DIFF):
+                    name = MSVKonstanten.NAME_FILMLISTE_DIFF;
+                    break;
+                case (MSVUpload.LISTE_AKT):
+                    name = MSVKonstanten.NAME_FILMLISTE_AKT;
+                    break;
+                default:
+                    final String FILM_DATEI_SUFF = "xz";
+                    final String FILMDATEI_NAME = "Filmliste-json";
+                    if (mSVSearchTask.sofortSuchen()) {
+                        name = FILMDATEI_NAME + "." + FILM_DATEI_SUFF;
+                    } else {
+                        name = FILMDATEI_NAME + "_" + mSVSearchTask.arr[SUCHEN_WANN_NR].replace(":", "_") + "." + FILM_DATEI_SUFF;
+                    }
+            }
+        }
+        return name;
+    }
+
 }

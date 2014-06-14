@@ -35,7 +35,7 @@ import org.apache.commons.net.ftp.FTPClient;
 import org.apache.commons.net.ftp.FTPConnectionClosedException;
 import org.apache.commons.net.ftp.FTPReply;
 
-public class MSVUploadFtp {
+public class MSVFtp {
 
     private static String server, strPort, username, password, srcPathFile, destFileName;
     private static MSVDatenUpload datenUpload;
@@ -59,14 +59,14 @@ public class MSVUploadFtp {
             t.join(MSVKonstanten.MAX_WARTEN_FTP_UPLOAD);
             if (t != null) {
                 if (t.isAlive()) {
-                    MSVLog.fehlerMeldung(396958702, MSVUploadFtp.class.getName(), "Der letzte FtpUpload läuft noch");
+                    MSVLog.fehlerMeldung(396958702, MSVFtp.class.getName(), "Der letzte FtpUpload läuft noch");
                     MSVLog.systemMeldung("und wird gekillt");
                     t.stop();
                     retFtp = false;
                 }
             }
         } catch (Exception ex) {
-            MSVLog.fehlerMeldung(739861047, MSVUploadFtp.class.getName(), "uploadFtp", ex);
+            MSVLog.fehlerMeldung(739861047, MSVFtp.class.getName(), "uploadFtp", ex);
         }
         return retFtp;
     }
@@ -89,7 +89,7 @@ public class MSVUploadFtp {
                     port = Integer.parseInt(strPort);
                 }
             } catch (Exception ex) {
-                MSVLog.fehlerMeldung(101203698, MSVUploadFtp.class.getName(), "uploadFtp", ex);
+                MSVLog.fehlerMeldung(101203698, MSVFtp.class.getName(), "uploadFtp", ex);
                 port = 0;
             }
             // suppress login details
@@ -117,7 +117,7 @@ public class MSVUploadFtp {
                     } catch (IOException f) {
                     }
                 }
-                MSVLog.fehlerMeldung(969363254, MSVUploadFtp.class.getName(), "MS_UploadFtp", e);
+                MSVLog.fehlerMeldung(969363254, MSVFtp.class.getName(), "MS_UploadFtp", e);
                 return;
             }
             // ==================================
@@ -164,9 +164,9 @@ public class MSVUploadFtp {
                 ftp.logout();
                 retFtp = true; // dann hat alles gepasst
             } catch (FTPConnectionClosedException e) {
-                MSVLog.fehlerMeldung(646362014, MSVUploadFtp.class.getName(), "MS_UploadFtp", e);
+                MSVLog.fehlerMeldung(646362014, MSVFtp.class.getName(), "MS_UploadFtp", e);
             } catch (IOException e) {
-                MSVLog.fehlerMeldung(989862047, MSVUploadFtp.class.getName(), "MS_UploadFtp", e);
+                MSVLog.fehlerMeldung(989862047, MSVFtp.class.getName(), "MS_UploadFtp", e);
             } finally {
                 if (ftp.isConnected()) {
                     try {

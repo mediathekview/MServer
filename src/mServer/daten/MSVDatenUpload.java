@@ -21,7 +21,6 @@ package mServer.daten;
 
 import mServer.tool.MSVDaten;
 import mServer.tool.MSVKonstanten;
-import mServer.update.MSVUpdate;
 import mServer.upload.MSVUpload;
 import msearch.daten.MSConfig;
 import msearch.tool.MSConst;
@@ -46,36 +45,36 @@ public class MSVDatenUpload {
     public static final int UPLOAD_PWD_NR = 5;
     public static final String UPLOAD_DEST_DIR = "upload-dest-dir";
     public static final int UPLOAD_DEST_DIR_NR = 6;
+    public static final String UPLOAD_DEST_NAME = "upload-dest-name";
+    public static final int UPLOAD_DEST_NAME_NR = 7;
     public static final String UPLOAD_PORT = "upload-port";
-    public static final int UPLOAD_PORT_NR = 7;
+    public static final int UPLOAD_PORT_NR = 8;
 
     public static final String UPLOAD_URL_FILMLISTE = "upload-url-filmliste"; // ist die dann entstehende Download-URL
-    public static final int UPLOAD_URL_FILMLISTE_NR = 8;
+    public static final int UPLOAD_URL_FILMLISTE_NR = 9;
     public static final String UPLOAD_PRIO_FILMLISTE = "upload-prio-filmliste";
-    public static final int UPLOAD_PRIO_FILMLISTE_NR = 9;
+    public static final int UPLOAD_PRIO_FILMLISTE_NR = 10;
     public static final String UPLOAD_VORHER_LOESCHEN = "upload-vorher-loeschen"; // wird vor dem neuen Suchen aus der Downloadliste gelöscht
-    public static final int UPLOAD_VORHER_LOESCHEN_NR = 10;
-    public static final String UPLOAD_RENAME = "upload-rename"; // vorhandene Datei wird vor dem Überschreiben umbenannt
-    public static final int UPLOAD_RENAME_NR = 11;
+    public static final int UPLOAD_VORHER_LOESCHEN_NR = 11;
+//    public static final String UPLOAD_RENAME = "upload-rename"; // vorhandene Datei wird vor dem Überschreiben umbenannt
+//    public static final int UPLOAD_RENAME_NR = 12;
 
     public static final int MAX_ELEM = 12;
     public static final String[] UPLOAD_COLUMN_NAMES = {UPLOAD_ART, UPLOAD_FORMAT, UPLOAD_LISTE,
-        UPLOAD_SERVER, UPLOAD_USER, UPLOAD_PWD, UPLOAD_DEST_DIR, UPLOAD_PORT,
-        UPLOAD_URL_FILMLISTE, UPLOAD_PRIO_FILMLISTE, UPLOAD_VORHER_LOESCHEN, UPLOAD_RENAME};
+        UPLOAD_SERVER, UPLOAD_USER, UPLOAD_PWD, UPLOAD_DEST_DIR, UPLOAD_DEST_NAME, UPLOAD_PORT,
+        UPLOAD_URL_FILMLISTE, UPLOAD_PRIO_FILMLISTE, UPLOAD_VORHER_LOESCHEN};
     public String[] arr = new String[MAX_ELEM];
 
     public MSVDatenUpload() {
-        init();
-    }
-
-    private void init() {
         for (int i = 0; i < arr.length; ++i) {
             arr[i] = "";
         }
     }
 
-    public String getServer() {
-        return arr[UPLOAD_SERVER_NR];
+    public MSVDatenUpload getCopy() {
+        MSVDatenUpload mSVDatenUpload = new MSVDatenUpload();
+        System.arraycopy(this.arr, 0, mSVDatenUpload.arr, 0, this.arr.length);
+        return mSVDatenUpload;
     }
 
     public String getFilmlisteSrc() {
@@ -87,9 +86,6 @@ public class MSVDatenUpload {
             switch (arr[MSVDatenUpload.UPLOAD_LISTE_NR]) {
                 case (MSVUpload.LISTE_DIFF):
                     f = MSConfig.getPathFilmlist_json_diff_xz();
-                    break;
-                case (MSVUpload.LISTE_ORG):
-                    f = MSConfig.getPathFilmlist_json_org_xz();
                     break;
                 case (MSVUpload.LISTE_AKT): // da unterscheidet sich dann nur der Zieldateiname
                 default:
@@ -104,7 +100,19 @@ public class MSVDatenUpload {
     }
 
     public boolean rename() {
-        return arr[UPLOAD_RENAME_NR].equals(MSVKonstanten.STR_TRUE);
+        boolean ret;
+        switch (arr[MSVDatenUpload.UPLOAD_LISTE_NR]) {
+            case (MSVUpload.LISTE_DIFF):
+                ret = true;
+                break;
+            case (MSVUpload.LISTE_AKT):
+                ret = true;
+                break;
+            default:
+                ret = false;
+        }
+        return ret;
+        //return arr[UPLOAD_RENAME_NR].equals(MSVKonstanten.STR_TRUE);
     }
 
     public String get_Url_Datei_ListeFilmlisten() {

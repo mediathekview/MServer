@@ -22,9 +22,7 @@ package mServer.daten;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import mServer.tool.MSVDatumZeit;
-import mServer.tool.MSVKonstanten;
 import mServer.tool.MSVLog;
-import mServer.upload.MSVUpload;
 
 public class MSVSearchTask {
 
@@ -81,41 +79,6 @@ public class MSVSearchTask {
             return true;
         }
         return false;
-    }
-
-    public String getExportNameFilmliste(MSVDatenUpload mSVDatenUpload) {
-        String name;
-        if (mSVDatenUpload.arr[MSVDatenUpload.UPLOAD_FORMAT_NR].equals(MSVUpload.FORMAT_XML)) {
-            // gibts noch kein diff..
-            final String FILM_DATEI_SUFF = "bz2";
-            final String FILMDATEI_NAME = "Filmliste-xml";
-            if (sofortSuchen()) {
-                name = FILMDATEI_NAME + "." + FILM_DATEI_SUFF;
-            } else {
-                name = FILMDATEI_NAME + "_" + arr[SUCHEN_WANN_NR].replace(":", "_") + "." + FILM_DATEI_SUFF;
-            }
-        } else {
-            switch (mSVDatenUpload.arr[MSVDatenUpload.UPLOAD_LISTE_NR]) {
-                case (MSVUpload.LISTE_DIFF):
-                    name = MSVKonstanten.NAME_FILMLISTE_DIFF;
-                    break;
-                case (MSVUpload.LISTE_ORG):
-                    name = MSVKonstanten.NAME_FILMLISTE_ORG;
-                    break;
-                case (MSVUpload.LISTE_AKT):
-                    name = MSVKonstanten.NAME_FILMLISTE_AKT;
-                    break;
-                default:
-                    final String FILM_DATEI_SUFF = "xz";
-                    final String FILMDATEI_NAME = "Filmliste-json";
-                    if (sofortSuchen()) {
-                        name = FILMDATEI_NAME + "." + FILM_DATEI_SUFF;
-                    } else {
-                        name = FILMDATEI_NAME + "_" + arr[SUCHEN_WANN_NR].replace(":", "_") + "." + FILM_DATEI_SUFF;
-                    }
-            }
-        }
-        return name;
     }
 
     public boolean orgListeAnlegen() {

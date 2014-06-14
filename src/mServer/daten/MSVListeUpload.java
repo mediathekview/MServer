@@ -22,4 +22,16 @@ package mServer.daten;
 import java.util.LinkedList;
 
 public class MSVListeUpload extends LinkedList<MSVDatenUpload> {
+
+    @Override
+    public boolean add(MSVDatenUpload mSVDatenUpload) {
+        String[] was = mSVDatenUpload.arr[MSVDatenUpload.UPLOAD_LISTE_NR].split(",");
+        for (String s : was) {
+            MSVDatenUpload u = mSVDatenUpload.getCopy();
+            u.arr[MSVDatenUpload.UPLOAD_LISTE_NR] = s;
+            super.add(u);
+        }
+        return true;
+    }
+
 }

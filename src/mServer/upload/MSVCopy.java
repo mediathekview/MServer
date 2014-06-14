@@ -19,22 +19,52 @@
  */
 package mServer.upload;
 
+import java.io.File;
 import java.nio.file.Files;
+import java.nio.file.LinkOption;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+import mServer.daten.MSVDatenUpload;
+import mServer.tool.MSVFunktionen;
 import mServer.tool.MSVLog;
-import msearch.tool.MSGuiFunktionen;
+import msearch.filmeLaden.DatenUrlFilmliste;
 
 public class MSVCopy {
 
-//    public static boolean copy(String srcPath, String srcFile, String destPathFile) {
-//        try {
-//            return copy(MSGuiFunktionen.addsPfad(srcPath, srcFile), destPathFile);
-//        } catch (Exception ex) {
-//            MSVLog.fehlerMeldung(915237563, MSVCopy.class.getName(), "MServerCopy.copy", ex);
-//        }
-//        return false;
-//    }
+    public static boolean copy(String srcPathFile, String destFileName, MSVDatenUpload datenUpload) {
+        boolean ret = false;
+        File f = null;
+        try {
+            MSVLog.systemMeldung("");
+            MSVLog.systemMeldung("UploadCopy");
+            new File(datenUpload.getDestDir()).mkdirs();
+            String dest = datenUpload.getFilmlisteDestPfadName(destFileName);
+            copy(srcPathFile, dest, datenUpload.rename());
+
+            MSVLog.systemMeldung("");
+            MSVLog.systemMeldung("und noch melden");
+            // Liste der Filmlisten auktualisieren
+            // DatenFilmUpdateServer(String url, String prio, String zeit, String datum, String anzahl) {
+            DatenUrlFilmliste dfus = new DatenUrlFilmliste(datenUpload.getUrlFilmliste(destFileName), "1", MSVFunktionen.getTime(), MSVFunktionen.getDate());
+            f = MSVListeFilmlisten.filmlisteEintragen(datenUpload.get_Url_Datei_ListeFilmlisten(), dfus);
+            if (f != null) {
+                String src = f.getPath();
+                String destListen = datenUpload.getListeFilmlistenDestPfadName();
+                Files.copy(Paths.get(src), Paths.get(destListen), StandardCopyOption.REPLACE_EXISTING);
+            }
+            ret = true;
+        } catch (Exception ex) {
+            MSVLog.fehlerMeldung(747452360, MSVCopy.class.getName(), "copy", ex);
+        }
+        if (f != null) {
+            try {
+                f.delete();
+            } catch (Exception ignore) {
+            }
+        }
+        return ret;
+    }
+
     public static boolean copy(String srcPathFile, String destPathFile, boolean rename) {
         boolean ret = false;
         MSVLog.systemMeldung("");
@@ -50,9 +80,11 @@ public class MSVCopy {
                 MSVLog.systemMeldung("Copy Filmliste (rename): " + dest);
                 Files.copy(Paths.get(srcPathFile), Paths.get(dest_tmp), StandardCopyOption.REPLACE_EXISTING);
 
-                MSVLog.systemMeldung("Rename alte Filmliste: " + dest_tmp);
-                Files.move(Paths.get(dest), Paths.get(dest_old), StandardCopyOption.REPLACE_EXISTING);
-
+                if (Files.exists(Paths.get(dest), LinkOption.NOFOLLOW_LINKS)) {
+                    // wenns die Datei schon gibt, umbenennen, ist der Normalfall
+                    MSVLog.systemMeldung("Rename alte Filmliste: " + dest_tmp);
+                    Files.move(Paths.get(dest), Paths.get(dest_old), StandardCopyOption.REPLACE_EXISTING);
+                }
                 MSVLog.systemMeldung("Rename neue Filmliste: " + dest);
                 Files.move(Paths.get(dest_tmp), Paths.get(dest), StandardCopyOption.REPLACE_EXISTING);
 
@@ -64,8 +96,9 @@ public class MSVCopy {
             }
             ret = true;
         } catch (Exception ex) {
-            MSVLog.fehlerMeldung(832164870, MSVCopy.class.getName(), "MServerCopy.copy", ex);
+            MSVLog.fehlerMeldung(832164870, MSVCopy.class.getName(), "MSVUploadCopy.copy", ex);
         }
         return ret;
     }
+
 }
