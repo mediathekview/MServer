@@ -69,13 +69,13 @@ public class MSVSearchTask {
         }
     }
 
-    public boolean jetzt() {
+    public boolean sofortSuchen() {
         return this.arr[SUCHEN_WANN_NR].equals(SUCHEN_WANN_SOFORT);
     }
 
     public boolean spaeter(MSVSearchTask d) {
         // Datum ist später als das von "d"
-        if (jetzt()) {
+        if (sofortSuchen()) {
             return false;
         } else if (this.getTimeHeute().compareTo(d.getTimeHeute()) > 0) {
             return true;
@@ -89,7 +89,7 @@ public class MSVSearchTask {
             // gibts noch kein diff..
             final String FILM_DATEI_SUFF = "bz2";
             final String FILMDATEI_NAME = "Filmliste-xml";
-            if (jetzt()) {
+            if (sofortSuchen()) {
                 name = FILMDATEI_NAME + "." + FILM_DATEI_SUFF;
             } else {
                 name = FILMDATEI_NAME + "_" + arr[SUCHEN_WANN_NR].replace(":", "_") + "." + FILM_DATEI_SUFF;
@@ -102,10 +102,13 @@ public class MSVSearchTask {
                 case (MSVUpload.LISTE_ORG):
                     name = MSVKonstanten.NAME_FILMLISTE_ORG;
                     break;
+                case (MSVUpload.LISTE_AKT):
+                    name = MSVKonstanten.NAME_FILMLISTE_AKT;
+                    break;
                 default:
                     final String FILM_DATEI_SUFF = "xz";
                     final String FILMDATEI_NAME = "Filmliste-json";
-                    if (jetzt()) {
+                    if (sofortSuchen()) {
                         name = FILMDATEI_NAME + "." + FILM_DATEI_SUFF;
                     } else {
                         name = FILMDATEI_NAME + "_" + arr[SUCHEN_WANN_NR].replace(":", "_") + "." + FILM_DATEI_SUFF;
@@ -145,7 +148,7 @@ public class MSVSearchTask {
     }
 
     public boolean starten() {
-        if (jetzt()) {
+        if (sofortSuchen()) {
             return true;
         }
         // true wenn gestartet werden soll: Auftrag liegt jetzt oder in der Vergangenheit

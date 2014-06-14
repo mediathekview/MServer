@@ -37,18 +37,19 @@ public class MSVUpload {
     public static final String FORMAT_XML = "xml";
     public static final String LISTE_DIFF = "diff";
     public static final String LISTE_ORG = "org";
+    public static final String LISTE_AKT = "akt";
 
     public static void upload(MSVSearchTask aktSearchTask) {
         // ==================================================
         // erst lokale Exports erledigen
         if (!MSVDaten.system[MSVKonstanten.SYSTEM_EXPORT_FILE_FILMLISTE_NR].isEmpty()) {
-            MSVCopy.copy(MSConfig.getPathFilmlist_json_xz(), MSVDaten.system[MSVKonstanten.SYSTEM_EXPORT_FILE_FILMLISTE_NR]);
+            MSVCopy.copy(MSConfig.getPathFilmlist_json_akt_xz(), MSVDaten.system[MSVKonstanten.SYSTEM_EXPORT_FILE_FILMLISTE_NR], true /*rename*/);
         }
         if (aktSearchTask.orgListeAnlegen() && !MSVDaten.system[MSVKonstanten.SYSTEM_EXPORT_FILE_FILMLISTE_ORG_NR].isEmpty()) {
-            MSVCopy.copy(MSConfig.getPathFilmlist_org_xz(), MSVDaten.system[MSVKonstanten.SYSTEM_EXPORT_FILE_FILMLISTE_ORG_NR]);
+            MSVCopy.copy(MSConfig.getPathFilmlist_json_org_xz(), MSVDaten.system[MSVKonstanten.SYSTEM_EXPORT_FILE_FILMLISTE_ORG_NR], true /*rename*/);
         }
         if (!MSVDaten.system[MSVKonstanten.SYSTEM_EXPORT_FILE_FILMLISTE_DIFF_NR].isEmpty()) {
-            MSVCopy.copy(MSConfig.getPathFilmlist_diff_xz(), MSVDaten.system[MSVKonstanten.SYSTEM_EXPORT_FILE_FILMLISTE_DIFF_NR]);
+            MSVCopy.copy(MSConfig.getPathFilmlist_json_diff_xz(), MSVDaten.system[MSVKonstanten.SYSTEM_EXPORT_FILE_FILMLISTE_DIFF_NR], true /*rename*/);
         }
 
         // ======================================================
@@ -72,6 +73,10 @@ public class MSVUpload {
                 case (MSVUpload.LISTE_ORG):
                     MSVLog.systemMeldung("--------------------------");
                     MSVLog.systemMeldung("Upload Org-Liste");
+                    break;
+                case (MSVUpload.LISTE_AKT):
+                    MSVLog.systemMeldung("--------------------------");
+                    MSVLog.systemMeldung("Upload Akt-Liste");
                     break;
                 default:
                     MSVLog.systemMeldung("--------------------------");

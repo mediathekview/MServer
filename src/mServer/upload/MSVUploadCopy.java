@@ -38,7 +38,7 @@ public class MSVUploadCopy {
             MSVLog.systemMeldung("UploadCopy");
             new File(datenUpload.getDestDir()).mkdirs();
             String dest = datenUpload.getFilmlisteDestPfadName(destFileName);
-            MSVCopy.copy(srcPathFile, dest);
+            MSVCopy.copy(srcPathFile, dest, datenUpload.rename());
 
             MSVLog.systemMeldung("");
             MSVLog.systemMeldung("und noch melden");

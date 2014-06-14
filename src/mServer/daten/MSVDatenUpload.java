@@ -21,6 +21,7 @@ package mServer.daten;
 
 import mServer.tool.MSVDaten;
 import mServer.tool.MSVKonstanten;
+import mServer.update.MSVUpdate;
 import mServer.upload.MSVUpload;
 import msearch.daten.MSConfig;
 import msearch.tool.MSConst;
@@ -34,7 +35,7 @@ public class MSVDatenUpload {
     public static final int UPLOAD_ART_NR = 0;
     public static final String UPLOAD_FORMAT = "upload-format"; // json/xml(altes Format)
     public static final int UPLOAD_FORMAT_NR = 1;
-    public static final String UPLOAD_LISTE = "upload-liste"; // normal/diff/org --> komplette Liste/diff-Liste/org-Liste
+    public static final String UPLOAD_LISTE = "upload-liste"; // normal/diff/org/akt --> komplette Liste/diff-Liste/org-Liste/akt-Liste
     public static final int UPLOAD_LISTE_NR = 2;
 
     public static final String UPLOAD_SERVER = "upload-server";
@@ -85,13 +86,14 @@ public class MSVDatenUpload {
         } else {
             switch (arr[MSVDatenUpload.UPLOAD_LISTE_NR]) {
                 case (MSVUpload.LISTE_DIFF):
-                    f = MSConfig.getPathFilmlist_diff_xz();
+                    f = MSConfig.getPathFilmlist_json_diff_xz();
                     break;
                 case (MSVUpload.LISTE_ORG):
-                    f = MSConfig.getPathFilmlist_org_xz();
+                    f = MSConfig.getPathFilmlist_json_org_xz();
                     break;
+                case (MSVUpload.LISTE_AKT): // da unterscheidet sich dann nur der Zieldateiname
                 default:
-                    f = MSConfig.getPathFilmlist_json_xz();
+                    f = MSConfig.getPathFilmlist_json_akt_xz();
             }
         }
         return f;

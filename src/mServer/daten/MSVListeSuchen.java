@@ -26,7 +26,7 @@ public class MSVListeSuchen extends LinkedList<MSVSearchTask> {
 
     @Override
     public boolean add(MSVSearchTask d) {
-        if (d.jetzt()) {
+        if (d.sofortSuchen()) {
             super.addFirst(d);
             return true;
         }
@@ -46,7 +46,7 @@ public class MSVListeSuchen extends LinkedList<MSVSearchTask> {
         Date now = new Date();
         MSVSearchTask akt = null;
         while ((akt = this.poll()) != null) {
-            if (akt.jetzt()) {
+            if (akt.sofortSuchen()) {
                 return akt;
             }
             Date d = akt.getTimeHeute();

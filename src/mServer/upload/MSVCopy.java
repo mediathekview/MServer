@@ -27,16 +27,15 @@ import msearch.tool.MSGuiFunktionen;
 
 public class MSVCopy {
 
-    public static boolean copy(String srcPath, String srcFile, String destPathFile) {
-        try {
-            return copy(MSGuiFunktionen.addsPfad(srcPath, srcFile), destPathFile);
-        } catch (Exception ex) {
-            MSVLog.fehlerMeldung(915237563, MSVCopy.class.getName(), "MServerCopy.copy", ex);
-        }
-        return false;
-    }
-
-    public static boolean copy(String srcPathFile, String destPathFile) {
+//    public static boolean copy(String srcPath, String srcFile, String destPathFile) {
+//        try {
+//            return copy(MSGuiFunktionen.addsPfad(srcPath, srcFile), destPathFile);
+//        } catch (Exception ex) {
+//            MSVLog.fehlerMeldung(915237563, MSVCopy.class.getName(), "MServerCopy.copy", ex);
+//        }
+//        return false;
+//    }
+    public static boolean copy(String srcPathFile, String destPathFile, boolean rename) {
         boolean ret = false;
         MSVLog.systemMeldung("");
         MSVLog.systemMeldung("----------------------");
@@ -45,7 +44,24 @@ public class MSVCopy {
         MSVLog.systemMeldung("dest: " + destPathFile);
         try {
             String dest = destPathFile;
-            Files.copy(Paths.get(srcPathFile), Paths.get(dest), StandardCopyOption.REPLACE_EXISTING);
+            if (rename) {
+                String dest_tmp = dest + "__";
+                String dest_old = dest + "_old";
+                MSVLog.systemMeldung("Copy Filmliste (rename): " + dest);
+                Files.copy(Paths.get(srcPathFile), Paths.get(dest_tmp), StandardCopyOption.REPLACE_EXISTING);
+
+                MSVLog.systemMeldung("Rename alte Filmliste: " + dest_tmp);
+                Files.move(Paths.get(dest), Paths.get(dest_old), StandardCopyOption.REPLACE_EXISTING);
+
+                MSVLog.systemMeldung("Rename neue Filmliste: " + dest);
+                Files.move(Paths.get(dest_tmp), Paths.get(dest), StandardCopyOption.REPLACE_EXISTING);
+
+                MSVLog.systemMeldung("====================================");
+            } else {
+                MSVLog.systemMeldung("Copy Filmliste: " + dest);
+                Files.copy(Paths.get(srcPathFile), Paths.get(dest), StandardCopyOption.REPLACE_EXISTING);
+                MSVLog.systemMeldung("====================================");
+            }
             ret = true;
         } catch (Exception ex) {
             MSVLog.fehlerMeldung(832164870, MSVCopy.class.getName(), "MServerCopy.copy", ex);
