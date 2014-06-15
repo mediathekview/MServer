@@ -77,13 +77,16 @@ public class MSVFtp {
         public synchronized void run() {
             int port = 0;
             final FTPClient ftp = new FTPClient();
-            // Liste der Filmlisten auktualisieren
-            // DatenFilmUpdateServer(String url, String prio, String zeit, String datum, String anzahl) {
-            //String filmlisteDestPfadName = GuiFunktionen.addsPfad(filmlisteDestDir, filmlisteDateiname);
-            //String listeFilmlistenDestPfadName = GuiFunktionen.addsPfad(filmlisteDestDir, MS_Konstanten.DATEINAME_LISTE_FILMLISTEN);
-            DatenUrlFilmliste dfus = new DatenUrlFilmliste(datenUpload.getUrlFilmliste(destFileName), "1", MSVFunktionen.getTime(), MSVFunktionen.getDate());
-            File filmlisten = MSVListeFilmlisten.filmlisteEintragen(datenUpload.get_Url_Datei_ListeFilmlisten(), dfus);
-            //
+            File filmlisten = null;
+
+            if (datenUpload.aktListeFilmlisten()) {
+                // Liste der Filmlisten auktualisieren
+                MSVLog.systemMeldung("");
+                MSVLog.systemMeldung("und auch die Liste mit Filmlisten-DownloadURLs aktualisieren");
+                DatenUrlFilmliste dfus = new DatenUrlFilmliste(datenUpload.getUrlFilmliste(destFileName), "1", MSVFunktionen.getTime(), MSVFunktionen.getDate());
+                filmlisten = MSVListeFilmlisten.filmlisteEintragen(datenUpload.get_Url_Datei_ListeFilmlisten(), dfus);
+            }
+
             try {
                 if (!strPort.equals("")) {
                     port = Integer.parseInt(strPort);
@@ -92,8 +95,10 @@ public class MSVFtp {
                 MSVLog.fehlerMeldung(101203698, MSVFtp.class.getName(), "uploadFtp", ex);
                 port = 0;
             }
+
             // suppress login details
             ftp.addProtocolCommandListener(new PrintCommandListener(new PrintWriter(System.out), true));
+
             // connect versuchen
             try {
                 int reply;
@@ -103,6 +108,7 @@ public class MSVFtp {
                     ftp.connect(server);
                 }
                 MSVLog.debugMeldung("Connected to " + server + " on " + (port > 0 ? port : ftp.getDefaultPort()));
+
                 // After connection attempt, you should check the reply code to verify success.
                 reply = ftp.getReplyCode();
                 if (!FTPReply.isPositiveCompletion(reply)) {
@@ -120,6 +126,7 @@ public class MSVFtp {
                 MSVLog.fehlerMeldung(969363254, MSVFtp.class.getName(), "MS_UploadFtp", e);
                 return;
             }
+
             // ==================================
             // login und Daten übertragen
             __upload:
@@ -153,6 +160,7 @@ public class MSVFtp {
                 }
                 input.close();
                 ftp.noop(); // check that control connection is working OK
+
                 // ==========================
                 // Liste der Filmlisten hoch laden
                 if (filmlisten != null) {

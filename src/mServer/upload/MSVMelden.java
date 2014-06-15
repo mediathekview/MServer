@@ -32,16 +32,32 @@ import mServer.tool.MSVWarten;
 import msearch.filmeLaden.DatenUrlFilmliste;
 import msearch.filmeLaden.ListeDownloadUrlsFilmlisten;
 import msearch.filmeLaden.MSFilmlistenSuchen;
+import msearch.tool.MSConst;
 
 public class MSVMelden {
 
     public static synchronized boolean melden(String filmlisteDateiName, MSVDatenUpload mServerDatenUpload) {
         boolean ret = false;
+        switch (mServerDatenUpload.arr[MSVDatenUpload.UPLOAD_LISTE_NR]) {
+            case (MSVUpload.LISTE_DIFF):
+                MSVLog.systemMeldung("Liste Diff: nicht melden");
+                return true; // da wird nicht gemeldet
+            case (MSVUpload.LISTE_AKT):
+                MSVLog.systemMeldung("Liste Akt: nicht melden");
+                return true; // da wird nicht gemeldet
+            case (MSVUpload.LISTE_XML):
+            case (MSVUpload.LISTE_JSON):
+            default:
+        }
         try {
             String urlFilmliste = mServerDatenUpload.getUrlFilmliste(filmlisteDateiName);
-            String pwd = mServerDatenUpload.getMeldenPwd();
+            String pwdServerMelden = mServerDatenUpload.getMeldenPwd();
             String urlServerMelden = mServerDatenUpload.getMeldenUrl();
-            if (!pwd.equals("") && !urlServerMelden.equals("") && !urlFilmliste.equals("")) {
+            if (pwdServerMelden.isEmpty() || urlServerMelden.isEmpty() || urlFilmliste.isEmpty()) {
+                // dann soll nicht gemeldet werden
+                MSVLog.systemMeldung("Melden: keine URL, PWD");
+                ret = true;
+            } else {
                 // nur dann gibts was zum Melden
                 // die Zeitzone in der Liste ist "UTC"
                 new MSVWarten().sekundenWarten(2);// damit der Server nicht stolpert, max alle 2 Sekunden
@@ -54,7 +70,7 @@ public class MSVMelden {
                 MSVLog.systemMeldung("Datum: " + datum + "  Zeit: " + zeit);
                 // wget http://zdfmediathk.sourceforge.net/update.php?pwd=xxxxxxx&zeit=$ZEIT&datum=$DATUM&server=http://176.28.14.91/mediathek1/$2"
                 String urlMelden = urlServerMelden
-                        + "?pwd=" + pwd
+                        + "?pwd=" + pwdServerMelden
                         + "&zeit=" + zeit
                         + "&datum=" + datum
                         + (mServerDatenUpload.getPrio().equals("") ? "" : "&prio=" + mServerDatenUpload.getPrio())
@@ -67,10 +83,7 @@ public class MSVMelden {
                 InputStreamReader inReader = new InputStreamReader(conn.getInputStream(), MSVKonstanten.KODIERUNG_UTF);
                 inReader.read();
                 inReader.close();
-                MSVLog.systemMeldung("Ok");
-                ret = true;
-            } else {
-                // dann soll nicht gemeldet werden
+                MSVLog.systemMeldung("Melden: Ok");
                 ret = true;
             }
         } catch (Exception ex) {
@@ -79,51 +92,57 @@ public class MSVMelden {
         return ret;
     }
 
-    public static synchronized boolean updateServerLoeschen(MSVDatenUpload mServerDatenUpload) {
-        boolean ret = false;
-        String delUrl = "";
-        String pwdServerMelden = mServerDatenUpload.getMeldenPwd();
-        String urlServerMelden = mServerDatenUpload.getMeldenUrl();
-        // dann den aktuellsten Eintrag des Servers in der Liste löschen
-        ListeDownloadUrlsFilmlisten listeDownloadUrlsFilmlisten = new ListeDownloadUrlsFilmlisten();
-        MSFilmlistenSuchen.getDownloadUrlsFilmlisten(mServerDatenUpload.getUrlFilmlistenServer(), listeDownloadUrlsFilmlisten, MSVDaten.getUserAgent());
-        listeDownloadUrlsFilmlisten.sort();
-        Iterator<DatenUrlFilmliste> it = listeDownloadUrlsFilmlisten.iterator();
-        int count = 0;
-        while (count < 15 && it.hasNext()) {
-            // nur in den ersten 15 Einträgen suchen
-            ++count;
-            DatenUrlFilmliste d = it.next();
-            if (d.arr[MSFilmlistenSuchen.FILM_UPDATE_SERVER_URL_NR].startsWith(mServerDatenUpload.arr[MSVDatenUpload.UPLOAD_URL_FILMLISTE_NR])) {
-                delUrl = d.arr[MSFilmlistenSuchen.FILM_UPDATE_SERVER_URL_NR];
-                break;
+    public static synchronized void updateServerLoeschen() {
+        // wenn die eigene Server-URL aus der Downloadliste vor dem Suchen gelöscht werden soll
+        if (MSVDaten.system[MSVKonstanten.SYSTEM_URL_VORHER_LOESCHEN_NR].isEmpty()) {
+            return;
+        }
+        String pwdServerMelden = MSVDaten.system[MSVKonstanten.SYSTEM_MELDEN_PWD_JSON_NR].trim(); // nur für die aktuellen interessant
+        String urlServerMelden = MSVDaten.system[MSVKonstanten.SYSTEM_MELDEN_URL_JSON_NR].trim(); // nur für die aktuellen interessant
+        if (pwdServerMelden.isEmpty() || urlServerMelden.isEmpty()) {
+            // dann soll nicht gemeldet werden
+            MSVLog.systemMeldung("DownloadURL vorher löschen: keine URL, PWD");
+        } else {
+            // dann den aktuellsten Eintrag des Servers in der Liste löschen
+            try {
+                String delUrl = "";
+                ListeDownloadUrlsFilmlisten listeDownloadUrlsFilmlisten = new ListeDownloadUrlsFilmlisten();
+                MSFilmlistenSuchen.getDownloadUrlsFilmlisten(MSConst.ADRESSE_FILMLISTEN_SERVER_JSON, listeDownloadUrlsFilmlisten, MSVDaten.getUserAgent());
+                listeDownloadUrlsFilmlisten.sort();
+                Iterator<DatenUrlFilmliste> it = listeDownloadUrlsFilmlisten.iterator();
+                int count = 0;
+                while (count < 45 && it.hasNext()) {
+                    // nur in den ersten 15 Einträgen suchen
+                    ++count;
+                    DatenUrlFilmliste d = it.next();
+                    if (d.arr[MSFilmlistenSuchen.FILM_UPDATE_SERVER_URL_NR].startsWith(MSVDaten.system[MSVKonstanten.SYSTEM_URL_VORHER_LOESCHEN_NR].trim())) {
+                        delUrl = d.arr[MSFilmlistenSuchen.FILM_UPDATE_SERVER_URL_NR];
+                        break;
+                    }
+                }
+                if (!pwdServerMelden.isEmpty() && !urlServerMelden.isEmpty() && !delUrl.isEmpty()) {
+                    new MSVWarten().sekundenWarten(2);// damit der Server nicht stolpert, max alle 2 Sekunden
+                    String zeit = MSVFunktionen.getTime();
+                    String datum = MSVFunktionen.getDate();
+                    MSVLog.systemMeldung("");
+                    MSVLog.systemMeldung("--------------------------------------------------------------------------------");
+                    MSVLog.systemMeldung("Server löschen, URL: " + delUrl);
+                    MSVLog.systemMeldung("                     " + datum + " Zeit: " + zeit);
+                    String delCommand = urlServerMelden + "?pwd=" + pwdServerMelden + "&server=" + delUrl;
+                    int timeout = 20000;
+                    URLConnection conn = new URL(delCommand).openConnection();
+                    conn.setRequestProperty("User-Agent", MSVDaten.getUserAgent());
+                    conn.setReadTimeout(timeout);
+                    conn.setConnectTimeout(timeout);
+                    InputStreamReader inReader = new InputStreamReader(conn.getInputStream(), MSVKonstanten.KODIERUNG_UTF);
+                    inReader.read();
+                    inReader.close();
+                    MSVLog.systemMeldung("Ok");
+                    MSVLog.systemMeldung("--------------------------------------------------------------------------------");
+                }
+            } catch (Exception ex) {
+                MSVLog.fehlerMeldung(649701354, MSVMelden.class.getName(), "Filmliste löschen", ex);
             }
         }
-        try {
-            if (!pwdServerMelden.isEmpty() && !urlServerMelden.isEmpty() && !delUrl.isEmpty()) {
-                new MSVWarten().sekundenWarten(2);// damit der Server nicht stolpert, max alle 2 Sekunden
-                String zeit = MSVFunktionen.getTime();
-                String datum = MSVFunktionen.getDate();
-                MSVLog.systemMeldung("");
-                MSVLog.systemMeldung("--------------------------------------------------------------------------------");
-                MSVLog.systemMeldung("Server löschen, URL: " + delUrl);
-                MSVLog.systemMeldung("                     " + datum + " Zeit: " + zeit);
-                String delCommand = urlServerMelden + "?pwd=" + pwdServerMelden + "&server=" + delUrl;
-                int timeout = 20000;
-                URLConnection conn = new URL(delCommand).openConnection();
-                conn.setRequestProperty("User-Agent", MSVDaten.getUserAgent());
-                conn.setReadTimeout(timeout);
-                conn.setConnectTimeout(timeout);
-                InputStreamReader inReader = new InputStreamReader(conn.getInputStream(), MSVKonstanten.KODIERUNG_UTF);
-                inReader.read();
-                inReader.close();
-                MSVLog.systemMeldung("Ok");
-                MSVLog.systemMeldung("--------------------------------------------------------------------------------");
-                ret = true;
-            }
-        } catch (Exception ex) {
-            MSVLog.fehlerMeldung(649701354, MSVMelden.class.getName(), "Filmliste löschen", ex);
-        }
-        return ret;
     }
 }

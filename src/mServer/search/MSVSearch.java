@@ -20,13 +20,10 @@
 package mServer.search;
 
 import java.util.ArrayList;
-import java.util.Iterator;
-import mServer.daten.MSVDatenUpload;
 import mServer.daten.MSVSearchTask;
 import mServer.tool.MSVDaten;
 import mServer.tool.MSVKonstanten;
 import mServer.tool.MSVLog;
-import mServer.tool.MSVWarten;
 import mServer.upload.MSVMelden;
 import msearch.Search;
 import msearch.daten.MSConfig;
@@ -43,7 +40,7 @@ public class MSVSearch {
 
     public boolean filmeSuchen(MSVSearchTask aktSearchTask) {
         boolean ret = true;
-        vorherLoeschen();
+        MSVMelden.updateServerLoeschen(); // eigene Server-URL aus der Downloadliste löschen
         try {
             // ===========================================
             // den nächsten Suchlauf starten
@@ -97,22 +94,6 @@ public class MSVSearch {
         MSVLog.systemMeldung("filmeSuchen beendet");
         mSearch = null;
         return ret;
-    }
-
-    private void vorherLoeschen() {
-        // so braucht der Buildserver während des Suchens von keine Downloads anbieten
-        try {
-            Iterator<MSVDatenUpload> it = MSVDaten.listeUpload.iterator();
-            while (it.hasNext()) {
-                MSVDatenUpload datenUpload = it.next();
-                if (datenUpload.vorherLoeschen()) {
-                    new MSVWarten().sekundenWarten(2);// damit der Server nicht stolpert, max alle 2 Sekunden
-                    MSVMelden.updateServerLoeschen(datenUpload);
-                }
-            }
-        } catch (Exception ex) {
-            MSVLog.fehlerMeldung(915152369, MSVSearch.class.getName(), "vorherLoeschen", ex);
-        }
     }
 
     private String[] arrLesen(String s) {

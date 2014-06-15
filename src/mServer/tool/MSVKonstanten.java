@@ -80,15 +80,17 @@ public class MSVKonstanten {
     public static final int SYSTEM_PROXY_URL_NR = 13;
     public static final String SYSTEM_PROXY_PORT = "system-proxy-port";
     public static final int SYSTEM_PROXY_PORT_NR = 14;
+    public static final String SYSTEM_URL_VORHER_LOESCHEN = "system-url-vorher-loeschen";
+    public static final int SYSTEM_URL_VORHER_LOESCHEN_NR = 15;
     public static final String SYSTEM_DEBUG = "system-debug";
-    public static final int SYSTEM_DEBUG_NR = 15;
+    public static final int SYSTEM_DEBUG_NR = 16;
     // Array
     public static final String SYSTEM = "system";
-    public static final int SYSTEM_MAX_ELEM = 16;
+    public static final int SYSTEM_MAX_ELEM = 17;
     public static final String[] SYSTEM_COLUMN_NAMES = {SYSTEM_MELDEN_PWD_XML, SYSTEM_MELDEN_URL_XML, SYSTEM_MELDEN_PWD_JSON, SYSTEM_MELDEN_URL_JSON,
         SYSTEM_USER_AGENT, SYSTEM_UPDATE_SUCHEN, SYSTEM_IMPORT_EXTEND_URL, SYSTEM_IMPORT_URL_REPLACE,
         SYSTEM_EXPORT_FILE_FILMLISTE, SYSTEM_EXPORT_FILE_FILMLISTE_ORG, SYSTEM_EXPORT_FILE_FILMLISTE_DIFF, SYSTEM_FILMLISTE_ORG,
-        SYSTEM_PFAD_LOGDATEI, SYSTEM_PROXY_URL, SYSTEM_PROXY_PORT, SYSTEM_DEBUG};
+        SYSTEM_PFAD_LOGDATEI, SYSTEM_PROXY_URL, SYSTEM_PROXY_PORT, SYSTEM_URL_VORHER_LOESCHEN, SYSTEM_DEBUG};
     //
     //
 }
