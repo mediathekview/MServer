@@ -28,7 +28,7 @@ public class MSVKonstanten {
     public static final String PROGRAMMDATEI_UPDATE = "MServer_update.zip";
     // Dateien/Verzeichnisse
     public static final String NAME_FILMLISTE_AKT = "Filmliste-akt.xz";
-    public static final String NAME_FILMLISTE_DIFF = "Filmeliste-diff.xz";
+    public static final String NAME_FILMLISTE_DIFF = "Filmliste-diff.xz";
 
     public static final String VERZEICHNISS_EINSTELLUNGEN = ".mserver";
     public static final String VERZEICHNISS_FILMLISTEN = "filmlisten";
