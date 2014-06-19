@@ -102,18 +102,18 @@ public class MSVDatenUpload {
         }
     }
 
-    public boolean aktListeFilmlisten() {
-        // die Liste mit den Filmlisten-DownloadURLs aktualisieren
-        switch (arr[MSVDatenUpload.UPLOAD_LISTE_NR]) {
-            case (MSVUpload.LISTE_JSON):
-                return true;
-            case (MSVUpload.LISTE_DIFF):
-            case (MSVUpload.LISTE_AKT):
-            case (MSVUpload.LISTE_XML):
-            default:
-                return false;
-        }
-    }
+//    public boolean aktListeFilmlisten() {
+//        // die Liste mit den Filmlisten-DownloadURLs aktualisieren
+//        switch (arr[MSVDatenUpload.UPLOAD_LISTE_NR]) {
+//            case (MSVUpload.LISTE_JSON):
+//                return true;
+//            case (MSVUpload.LISTE_DIFF):
+//            case (MSVUpload.LISTE_AKT):
+//            case (MSVUpload.LISTE_XML):
+//            default:
+//                return false;
+//        }
+//    }
 
     public String get_Url_Datei_ListeFilmlisten() {
         if (arr[UPLOAD_ART_NR].equals(MSVUpload.UPLOAD_ART_COPY)) {

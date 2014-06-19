@@ -29,8 +29,8 @@ import mServer.tool.MSVFunktionen;
 import mServer.tool.MSVKonstanten;
 import mServer.tool.MSVLog;
 import mServer.tool.MSVWarten;
-import msearch.filmeLaden.DatenUrlFilmliste;
-import msearch.filmeLaden.ListeDownloadUrlsFilmlisten;
+import msearch.filmeLaden.DatenFilmlisteUrl;
+import msearch.filmeLaden.ListeFilmlistenUrls;
 import msearch.filmeLaden.MSFilmlistenSuchen;
 import msearch.tool.MSConst;
 
@@ -106,17 +106,17 @@ public class MSVMelden {
             // dann den aktuellsten Eintrag des Servers in der Liste löschen
             try {
                 String delUrl = "";
-                ListeDownloadUrlsFilmlisten listeDownloadUrlsFilmlisten = new ListeDownloadUrlsFilmlisten();
-                MSFilmlistenSuchen.getDownloadUrlsFilmlisten(MSConst.ADRESSE_FILMLISTEN_SERVER_JSON, listeDownloadUrlsFilmlisten, MSVDaten.getUserAgent());
-                listeDownloadUrlsFilmlisten.sort();
-                Iterator<DatenUrlFilmliste> it = listeDownloadUrlsFilmlisten.iterator();
+                ListeFilmlistenUrls listeFilmlistenUrls = new ListeFilmlistenUrls();
+                MSFilmlistenSuchen.getDownloadUrlsFilmlisten(MSConst.ADRESSE_FILMLISTEN_SERVER_JSON, listeFilmlistenUrls, MSVDaten.getUserAgent(), DatenFilmlisteUrl.SERVER_ART_OLD);
+                listeFilmlistenUrls.sort();
+                Iterator<DatenFilmlisteUrl> it = listeFilmlistenUrls.iterator();
                 int count = 0;
                 while (count < 45 && it.hasNext()) {
                     // nur in den ersten 15 Einträgen suchen
                     ++count;
-                    DatenUrlFilmliste d = it.next();
-                    if (d.arr[MSFilmlistenSuchen.FILM_UPDATE_SERVER_URL_NR].startsWith(MSVDaten.system[MSVKonstanten.SYSTEM_URL_VORHER_LOESCHEN_NR].trim())) {
-                        delUrl = d.arr[MSFilmlistenSuchen.FILM_UPDATE_SERVER_URL_NR];
+                    DatenFilmlisteUrl d = it.next();
+                    if (d.arr[DatenFilmlisteUrl.FILM_UPDATE_SERVER_URL_NR].startsWith(MSVDaten.system[MSVKonstanten.SYSTEM_URL_VORHER_LOESCHEN_NR].trim())) {
+                        delUrl = d.arr[DatenFilmlisteUrl.FILM_UPDATE_SERVER_URL_NR];
                         break;
                     }
                 }
