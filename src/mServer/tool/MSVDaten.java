@@ -104,7 +104,7 @@ public class MSVDaten {
         String ret = MSGuiFunktionen.addsPfad(getBasisVerzeichnis(basisverzeichnis, false), MSVKonstanten.VERZEICHNISS_FILMLISTEN);
         File basisF = new File(ret);
         if (!basisF.exists()) {
-            if (!basisF.mkdir()) {
+            if (!basisF.mkdirs()) {
                 MSVLog.fehlerMeldung(739851049, MSVDaten.class.getName(), new String[]{"Kann den Ordner zum Speichern der Filmliste nicht anlegen!", ret});
             }
         }
@@ -123,8 +123,8 @@ public class MSVDaten {
         }
         File basisF = new File(ret);
         if (!basisF.exists()) {
-            if (!basisF.mkdir()) {
-                MSVLog.fehlerMeldung(739851049, MSVDaten.class.getName(), new String[]{"Kann den Ordner zum Speichern der Logfiles nicht anlegen!", ret});
+            if (!basisF.mkdirs()) {
+                MSVLog.fehlerMeldung(958474120, MSVDaten.class.getName(), new String[]{"Kann den Ordner zum Speichern der Logfiles nicht anlegen!", ret});
             }
         }
         return ret;
