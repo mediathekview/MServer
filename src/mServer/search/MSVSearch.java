@@ -47,7 +47,7 @@ public class MSVSearch {
             MSVLog.systemMeldung("");
             MSVLog.systemMeldung("-----------------------------------");
             MSVLog.systemMeldung("Filmsuche starten");
-            mSearch = new Search(new String[]{});
+            mSearch = new Search();
             // was und wie
             MSConfig.senderAllesLaden = aktSearchTask.allesLaden();
             MSConfig.updateFilmliste = aktSearchTask.updateFilmliste();
