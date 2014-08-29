@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<MServer>
+	
+<system>
+	<!-- Useragent  -->
+	<system-user-agent>MServer</system-user-agent>
+	<!-- damit kann das automatische Update abgeschaltet werden -->
+	<system-programmupdate-suchen>0</system-programmupdate-suchen>
+	
+<!--
+	<system-melden-url-xml>http://zdfmediathk.sourceforge.net/update.php</system-melden-url-xml>
+	<system-melden-pwd-xml>EdJi5VflNa3FgrE</system-melden-pwd-xml>
+	<system-melden-url-json>http://zdfmediathk.sourceforge.net/update-json.php</system-melden-url-json>
+	<system-melden-pwd-json>EdJi5VflNa3FgrE</system-melden-pwd-json>
+-->	
+	
+	<system-filmliste-import-url-extend>http://mv-1.df-kunde.de/filme/Filmliste-akt.xz</system-filmliste-import-url-extend>
+	<!-- <system-filmliste-import-url-replace>http://92.51.131.172/akt/filme.xz</system-filmliste-import-url-replace> -->
+	
+	<system-export-datei-filmliste>/tmp/filme.xz</system-export-datei-filmliste>
+	<system-export-datei-filmliste-diff>/tmp/filme-diff.xz</system-export-datei-filmliste-diff>
+	<system-filmliste-org>/tmp/filme-org.xz</system-filmliste-org>
+	
+<!--
+	<system-proxy-url>localhost</system-proxy-url>
+	<system-proxy-port>9050</system-proxy-port>
+	<system-url-vorher-loeschen>http://92.51.131.172/json1</system-url-vorher-loeschen>
+	-->
+
+	<system-debug>1</system-debug>
+</system>
+
+<!-- die Zeiten an denen die Filmliste gesucht werden soll  -->
+<!-- update -->
+<suchen>
+	<suchen-sender-wie>alles</suchen-sender-wie> 
+	<!--		<suchen-sender-wie>update</suchen-sender-wie> -->
+	<suchen-liste-wie>update</suchen-liste-wie>
+	<suchen-wann>sofort</suchen-wann>
+	<!-- <suchen-org-liste>true</suchen-org-liste> -->
+	<suchen-sender>br</suchen-sender>
+</suchen>
+
+
+<!--
+<upload>
+	<upload-art>ftp</upload-art>
+	<upload-liste>xml,json,diff,akt</upload-liste>
+	<upload-server>ftp.mv-1.df-kunde.de</upload-server>
+	<upload-user>421704-ftp</upload-user>
+	<upload-pwd>Xum.8BHvS3</upload-pwd>
+	<upload-dest-dir>/webseiten/mv</upload-dest-dir>
+	<upload-url-filmliste>http://mv-1.df-kunde.de/mv</upload-url-filmliste>
+	<upload-prio-filmliste>2</upload-prio-filmliste>
+</upload>
+
+<upload>
+	<upload-art>ftp</upload-art>
+	<upload-liste>diff</upload-liste>
+	<upload-server>ftp.mv.mynews.de</upload-server>
+	<upload-user>418148-ftp</upload-user>
+	<upload-pwd>BumX.B4wSH</upload-pwd>
+	<upload-dest-dir>/webseiten/mv</upload-dest-dir>
+</upload>
+
+<upload>
+	<upload-art>ftp</upload-art>
+	<upload-server>wp11128329.wp391.webpack.hosteurope.de</upload-server>
+	<upload-user>ftp11128329-mediathek1</upload-user>
+	<upload-pwd>uGfR5-sWaXvF</upload-pwd>
+	<upload-dest-dir>www/xml1</upload-dest-dir>
+	<upload-url-filmliste>http://www.wp11128329.server-he.de/xml1</upload-url-filmliste>
+	<upload-prio-filmliste>4</upload-prio-filmliste>
+	<upload-format>xml</upload-format>
+</upload>
+
+-->
+
+<upload>
+	<upload-art>copy</upload-art>
+	<upload-liste>akt</upload-liste>
+	<upload-dest-dir>/tmp/med/</upload-dest-dir>
+</upload>
+
+
+</MServer>
+
