@@ -26,6 +26,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.LinkedList;
+import java.util.ResourceBundle;
 import msearch.tool.MSFunktionen;
 
 public class MSVLog {
@@ -62,7 +63,7 @@ public class MSVLog {
         systemMeldung("freeMemory: " + freeMem / (1024L * 1024L) + " MB");
         systemMeldung("###########################################################");
         //Version
-        systemMeldung(MSFunktionen.getProgVersionString());
+        systemMeldung(MSVKonstanten.PROGRAMMNAME + MSFunktionen.getProgVersionString());
         systemMeldung("Compiled: " + MSFunktionen.getCompileDate());
         systemMeldung("Klassenname: " + classname);
         systemMeldung("###########################################################");
