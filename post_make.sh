@@ -1,17 +1,28 @@
 #!/bin/sh
 
+dir=`dirname "$0"`
+cd "$dir"
+
 # Dateien ins dist-Verzeichnis kopieren
-cp -r /mnt/daten/software/Mediathek/MServer/res/* /mnt/daten/software/Mediathek/MServer/dist
+cp -r res/* dist
 
 # für Netbeans nochmal
-cp -r /mnt/daten/software/Mediathek/MServer/res/* /mnt/daten/software/Mediathek/MServer/build
+cp -r res/* build
 
 # Aufräumen
-rm /mnt/daten/software/Mediathek/MServer/dist/README.TXT
+rm dist/README.TXT
+
+# Anlegen
+mkdir dist/info
 
 # release
-relNr=$(cat /mnt/daten/software/Mediathek/MServer/src/version.properties | grep BUILD | sed 's#BUILD=##g')
+relNr=$(cat src/version.properties | grep BUILD | sed 's#BUILD=##g')
+datum=$(date +%d.%m.%Y )
+echo Datum: $datum >> dist/info/$relNr.build
+echo MServer Buildnummer: $relNr >> dist/info/$relNr.build
 
 # zip erstellen
-cd /mnt/daten/software/Mediathek/MServer/dist/
+cd dist/
 zip -r MServer_$relNr.zip .
+
+cd $OLDPWD
