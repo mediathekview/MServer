@@ -24,7 +24,6 @@ import mServer.daten.MSVListeSuchen;
 import mServer.daten.MSVListeUpload;
 import msearch.tool.MSConst;
 import msearch.tool.MSFunktionen;
-import msearch.tool.MSGuiFunktionen;
 
 public class MSVDaten {
 
@@ -101,7 +100,7 @@ public class MSVDaten {
     }
 
     public static String getVerzeichnisFilme() {
-        String ret = MSGuiFunktionen.addsPfad(getBasisVerzeichnis(basisverzeichnis, false), MSVKonstanten.VERZEICHNISS_FILMLISTEN);
+        String ret = MSFunktionen.addsPfad(getBasisVerzeichnis(basisverzeichnis, false), MSVKonstanten.VERZEICHNISS_FILMLISTEN);
         File basisF = new File(ret);
         if (!basisF.exists()) {
             if (!basisF.mkdirs()) {
@@ -115,9 +114,9 @@ public class MSVDaten {
     public static String getLogVerzeichnis() {
         String ret;
         if (system[MSVKonstanten.SYSTEM_PFAD_LOGDATEI_NR] == null) {
-            ret = MSGuiFunktionen.addsPfad(getBasisVerzeichnis(basisverzeichnis, false), MSVKonstanten.LOG_FILE_PFAD);
+            ret = MSFunktionen.addsPfad(getBasisVerzeichnis(basisverzeichnis, false), MSVKonstanten.LOG_FILE_PFAD);
         } else if (MSVDaten.system[MSVKonstanten.SYSTEM_PFAD_LOGDATEI_NR].trim().equals("")) {
-            ret = MSGuiFunktionen.addsPfad(getBasisVerzeichnis(basisverzeichnis, false), MSVKonstanten.LOG_FILE_PFAD);
+            ret = MSFunktionen.addsPfad(getBasisVerzeichnis(basisverzeichnis, false), MSVKonstanten.LOG_FILE_PFAD);
         } else {
             ret = MSVDaten.system[MSVKonstanten.SYSTEM_PFAD_LOGDATEI_NR].trim();
         }
@@ -137,7 +136,7 @@ public class MSVDaten {
         try {
             logPfad = getLogVerzeichnis();
             // prüfen obs geht
-            logFileName = MSGuiFunktionen.addsPfad(logPfad, MSVKonstanten.LOG_FILE_NAME + MSVDatumZeit.getJetztLogDatei());
+            logFileName = MSFunktionen.addsPfad(logPfad, MSVKonstanten.LOG_FILE_NAME + MSVDatumZeit.getJetztLogDatei());
             File logfile = new File(logFileName);
             if (!logfile.exists()) {
                 boolean b = new File(logPfad).mkdirs();
@@ -158,7 +157,7 @@ public class MSVDaten {
         try {
             logPfad = MSVDaten.getLogVerzeichnis();
             // prüfen obs geht
-            logFileName = MSGuiFunktionen.addsPfad(logPfad, MSVKonstanten.LOG_FILE_NAME_MV + MSVDatumZeit.getJetztLogDatei());
+            logFileName = MSFunktionen.addsPfad(logPfad, MSVKonstanten.LOG_FILE_NAME_MV + MSVDatumZeit.getJetztLogDatei());
             logfile = new File(logFileName);
             if (!logfile.exists()) {
                 boolean b = new File(logPfad).mkdirs();

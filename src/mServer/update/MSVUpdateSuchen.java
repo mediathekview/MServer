@@ -36,7 +36,6 @@ import mServer.tool.MSVKonstanten;
 import mServer.tool.MSVLog;
 import msearch.tool.MSConst;
 import msearch.tool.MSFunktionen;
-import msearch.tool.MSGuiFunktionen;
 
 public class MSVUpdateSuchen {
 
@@ -121,7 +120,7 @@ public class MSVUpdateSuchen {
     }
 
     public static File updateLaden(String url, String zielPfad, String userAgent) {
-        String zielDatei = MSGuiFunktionen.addsPfad(zielPfad, MSVKonstanten.PROGRAMMDATEI_UPDATE);
+        String zielDatei = MSFunktionen.addsPfad(zielPfad, MSVKonstanten.PROGRAMMDATEI_UPDATE);
         File ret = new File(zielDatei);
         int timeout = 10000; //10 Sekunden
         URLConnection conn;

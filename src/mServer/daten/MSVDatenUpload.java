@@ -24,7 +24,7 @@ import mServer.tool.MSVKonstanten;
 import mServer.upload.MSVUpload;
 import msearch.daten.MSConfig;
 import msearch.tool.MSConst;
-import msearch.tool.MSGuiFunktionen;
+import msearch.tool.MSFunktionen;
 
 public class MSVDatenUpload {
 
@@ -119,7 +119,7 @@ public class MSVDatenUpload {
         if (arr[UPLOAD_ART_NR].equals(MSVUpload.UPLOAD_ART_COPY)) {
             return getFilmlisteDestPfadName(MSConst.DATEINAME_LISTE_FILMLISTEN);
         } else {
-            return MSGuiFunktionen.addUrl(arr[UPLOAD_URL_FILMLISTE_NR], MSConst.DATEINAME_LISTE_FILMLISTEN);
+            return MSFunktionen.addUrl(arr[UPLOAD_URL_FILMLISTE_NR], MSConst.DATEINAME_LISTE_FILMLISTEN);
         }
     }
 
@@ -127,7 +127,7 @@ public class MSVDatenUpload {
         if (arr[UPLOAD_URL_FILMLISTE_NR].isEmpty()) {
             return "";
         } else {
-            return MSGuiFunktionen.addUrl(arr[UPLOAD_URL_FILMLISTE_NR], dateinameFilmliste);
+            return MSFunktionen.addUrl(arr[UPLOAD_URL_FILMLISTE_NR], dateinameFilmliste);
         }
     }
 
@@ -136,11 +136,11 @@ public class MSVDatenUpload {
     }
 
     public String getFilmlisteDestPfadName(String dateinameFilmliste) {
-        return MSGuiFunktionen.addsPfad(arr[UPLOAD_DEST_DIR_NR], dateinameFilmliste);
+        return MSFunktionen.addsPfad(arr[UPLOAD_DEST_DIR_NR], dateinameFilmliste);
     }
 
     public String getListeFilmlistenDestPfadName() {
-        return MSGuiFunktionen.addsPfad(arr[UPLOAD_DEST_DIR_NR], MSConst.DATEINAME_LISTE_FILMLISTEN);
+        return MSFunktionen.addsPfad(arr[UPLOAD_DEST_DIR_NR], MSConst.DATEINAME_LISTE_FILMLISTEN);
     }
 
     public String getPrio() {
