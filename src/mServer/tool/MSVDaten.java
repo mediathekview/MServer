@@ -94,6 +94,10 @@ public class MSVDaten {
         return MSVDaten.getBasisVerzeichnis() + MSVKonstanten.XML_DATEI;
     }
 
+    public static String getUploadDatei() {
+        return MSVDaten.getBasisVerzeichnis() + MSVKonstanten.XML_DATEI_UPLOAD;
+    }
+
     public static boolean konfigExistiert() {
         String datei = MSVDaten.getBasisVerzeichnis() + MSVKonstanten.XML_DATEI;
         return new File(datei).exists();

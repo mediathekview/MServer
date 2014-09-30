@@ -33,6 +33,7 @@ public class MSVKonstanten {
     public static final String VERZEICHNISS_EINSTELLUNGEN = ".mserver";
     public static final String VERZEICHNISS_FILMLISTEN = "filmlisten";
     public static final String XML_DATEI = "mserver.xml";
+    public static final String XML_DATEI_UPLOAD = "upload.xml";
     public static final String LOG_FILE_NAME = "msLog";
     public static final String LOG_FILE_NAME_MV = "mvLog";
     public static final String LOG_FILE_PFAD = "log";

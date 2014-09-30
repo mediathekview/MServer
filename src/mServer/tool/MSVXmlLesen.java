@@ -32,8 +32,12 @@ import msearch.tool.MSConst;
 public class MSVXmlLesen {
 
     public static void xmlDatenLesen() {
+        xmlDatenLesen(MSVDaten.getKonfigDatei());
+        xmlDatenLesen(MSVDaten.getUploadDatei());
+    }
+
+    public static void xmlDatenLesen(String datei) {
         try {
-            String datei = MSVDaten.getKonfigDatei();
             if (new File(datei).exists()) {
                 //nur wenn die Datei schon existiert
                 int event;
