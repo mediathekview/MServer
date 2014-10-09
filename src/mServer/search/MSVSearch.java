@@ -40,7 +40,7 @@ public class MSVSearch {
 
     public boolean filmeSuchen(MSVSearchTask aktSearchTask) {
         boolean ret = true;
-        MSVMelden.updateServerLoeschen(); // eigene Server-URL aus der Downloadliste löschen
+        //MSVMelden.updateServerLoeschen(); // eigene Server-URL aus der Downloadliste löschen
         try {
             // ===========================================
             // den nächsten Suchlauf starten
