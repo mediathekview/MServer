@@ -115,13 +115,13 @@ public class MSVDatenUpload {
 //        }
 //    }
 
-    public String get_Url_Datei_ListeFilmlisten() {
-        if (arr[UPLOAD_ART_NR].equals(MSVUpload.UPLOAD_ART_COPY)) {
-            return getFilmlisteDestPfadName(MSConst.DATEINAME_LISTE_FILMLISTEN);
-        } else {
-            return MSFunktionen.addUrl(arr[UPLOAD_URL_FILMLISTE_NR], MSConst.DATEINAME_LISTE_FILMLISTEN);
-        }
-    }
+//    public String get_Url_Datei_ListeFilmlisten() {
+//        if (arr[UPLOAD_ART_NR].equals(MSVUpload.UPLOAD_ART_COPY)) {
+//            return getFilmlisteDestPfadName(MSConst.DATEINAME_LISTE_FILMLISTEN);
+//        } else {
+//            return MSFunktionen.addUrl(arr[UPLOAD_URL_FILMLISTE_NR], MSConst.DATEINAME_LISTE_FILMLISTEN);
+//        }
+//    }
 
     public String getUrlFilmliste(String dateinameFilmliste) {
         if (arr[UPLOAD_URL_FILMLISTE_NR].isEmpty()) {
@@ -139,9 +139,9 @@ public class MSVDatenUpload {
         return MSFunktionen.addsPfad(arr[UPLOAD_DEST_DIR_NR], dateinameFilmliste);
     }
 
-    public String getListeFilmlistenDestPfadName() {
-        return MSFunktionen.addsPfad(arr[UPLOAD_DEST_DIR_NR], MSConst.DATEINAME_LISTE_FILMLISTEN);
-    }
+//    public String getListeFilmlistenDestPfadName() {
+//        return MSFunktionen.addsPfad(arr[UPLOAD_DEST_DIR_NR], MSConst.DATEINAME_LISTE_FILMLISTEN);
+//    }
 
     public String getPrio() {
         return ((arr[UPLOAD_PRIO_FILMLISTE_NR].equals("")) ? "1" : arr[UPLOAD_PRIO_FILMLISTE_NR]).trim();

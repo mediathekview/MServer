@@ -19,16 +19,13 @@
  */
 package mServer.upload;
 
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
 import mServer.daten.MSVDatenUpload;
-import mServer.tool.MSVFunktionen;
 import mServer.tool.MSVKonstanten;
 import mServer.tool.MSVLog;
-import msearch.filmeLaden.DatenFilmlisteUrl;
 import org.apache.commons.net.PrintCommandListener;
 import org.apache.commons.net.ftp.FTP;
 import org.apache.commons.net.ftp.FTPClient;
@@ -77,15 +74,6 @@ public class MSVFtp {
         public synchronized void run() {
             int port = 0;
             final FTPClient ftp = new FTPClient();
-//            File filmlisten = null;
-//
-//            if (datenUpload.aktListeFilmlisten()) {
-//                // Liste der Filmlisten auktualisieren
-//                MSVLog.systemMeldung("");
-//                MSVLog.systemMeldung("und auch die Liste mit Filmlisten-DownloadURLs aktualisieren");
-//                DatenFilmlisteUrl dfus = new DatenFilmlisteUrl(datenUpload.getUrlFilmliste(destFileName), "1", MSVFunktionen.getTime(), MSVFunktionen.getDate(), DatenFilmlisteUrl.SERVER_ART_OLD);
-//                filmlisten = MSVListeFilmlisten.filmlisteEintragen(datenUpload.get_Url_Datei_ListeFilmlisten(), dfus);
-//            }
 
             try {
                 if (!strPort.equals("")) {
@@ -161,14 +149,6 @@ public class MSVFtp {
                 input.close();
                 ftp.noop(); // check that control connection is working OK
 
-                // ==========================
-                // Liste der Filmlisten hoch laden
-//                if (filmlisten != null) {
-//                    input = new FileInputStream(filmlisten);
-//                    ftp.storeFile(datenUpload.getListeFilmlistenDestPfadName(), input);
-//                    input.close();
-//                    ftp.noop(); // check that control connection is working OK
-//                }
                 ftp.logout();
                 retFtp = true; // dann hat alles gepasst
             } catch (FTPConnectionClosedException e) {
@@ -184,13 +164,6 @@ public class MSVFtp {
                     }
                 }
             }
-            // ==================================
-//            if (filmlisten != null) {
-//                try {
-//                    filmlisten.delete();
-//                } catch (Exception ignore) {
-//                }
-//            }
         }
     }
 }

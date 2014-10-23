@@ -25,9 +25,7 @@ import java.nio.file.LinkOption;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import mServer.daten.MSVDatenUpload;
-import mServer.tool.MSVFunktionen;
 import mServer.tool.MSVLog;
-import msearch.filmeLaden.DatenFilmlisteUrl;
 
 public class MSVCopy {
 
@@ -40,19 +38,6 @@ public class MSVCopy {
             new File(datenUpload.getDestDir()).mkdirs();
             String dest = datenUpload.getFilmlisteDestPfadName(destFileName);
             copy(srcPathFile, dest, datenUpload.rename());
-
-//            if (datenUpload.aktListeFilmlisten()) {
-//                // Liste der Filmlisten auktualisieren
-//                MSVLog.systemMeldung("");
-//                MSVLog.systemMeldung("und noch Liste mit Filmlisten-DownloadURLs aktualisieren");
-//                DatenFilmlisteUrl dfus = new DatenFilmlisteUrl(datenUpload.getUrlFilmliste(destFileName), "1", MSVFunktionen.getTime(), MSVFunktionen.getDate(), DatenFilmlisteUrl.SERVER_ART_OLD);
-//                f = MSVListeFilmlisten.filmlisteEintragen(datenUpload.get_Url_Datei_ListeFilmlisten(), dfus);
-//                if (f != null) {
-//                    String src = f.getPath();
-//                    String destListen = datenUpload.getListeFilmlistenDestPfadName();
-//                    Files.copy(Paths.get(src), Paths.get(destListen), StandardCopyOption.REPLACE_EXISTING);
-//                }
-//            }
             ret = true;
         } catch (Exception ex) {
             MSVLog.fehlerMeldung(747452360, MSVCopy.class.getName(), "copy", ex);

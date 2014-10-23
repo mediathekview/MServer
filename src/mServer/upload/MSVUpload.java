@@ -51,15 +51,15 @@ public class MSVUpload {
         MSVLog.systemMeldung("Start Upload");
         MSVLog.systemMeldung("");
         try {
-            if (!MSVDaten.system[MSVKonstanten.SYSTEM_EXPORT_FILE_FILMLISTE_NR].isEmpty()) {
-                MSVLog.systemMeldung("");
-                MSVLog.systemMeldung("Copy Export Filmliste");
-                MSVCopy.copy(MSConfig.getPathFilmlist_json_akt_xz(), MSVDaten.system[MSVKonstanten.SYSTEM_EXPORT_FILE_FILMLISTE_NR], true /*rename*/);
-            }
             if (aktSearchTask.orgListeAnlegen() && !MSVDaten.system[MSVKonstanten.SYSTEM_EXPORT_FILE_FILMLISTE_ORG_NR].isEmpty()) {
                 MSVLog.systemMeldung("");
                 MSVLog.systemMeldung("Copy Export Filmliste-Org");
                 MSVCopy.copy(MSConfig.getPathFilmlist_json_org_xz(), MSVDaten.system[MSVKonstanten.SYSTEM_EXPORT_FILE_FILMLISTE_ORG_NR], true /*rename*/);
+            }
+            if (!MSVDaten.system[MSVKonstanten.SYSTEM_EXPORT_FILE_FILMLISTE_NR].isEmpty()) {
+                MSVLog.systemMeldung("");
+                MSVLog.systemMeldung("Copy Export Filmliste");
+                MSVCopy.copy(MSConfig.getPathFilmlist_json_akt_xz(), MSVDaten.system[MSVKonstanten.SYSTEM_EXPORT_FILE_FILMLISTE_NR], true /*rename*/);
             }
             if (!MSVDaten.system[MSVKonstanten.SYSTEM_EXPORT_FILE_FILMLISTE_DIFF_NR].isEmpty()) {
                 MSVLog.systemMeldung("");
@@ -186,20 +186,3 @@ public class MSVUpload {
     }
 
 }
-
-
-/*
-
- switch (mSVDatenUpload.arr[MSVDatenUpload.UPLOAD_LISTE_NR]) {
- case (MSVUpload.LISTE_XML):
- break;
- case (MSVUpload.LISTE_JSON):
- break;
- case (MSVUpload.LISTE_DIFF):
- break;
- case (MSVUpload.LISTE_AKT):
- break;
- default:
- }
-
- */

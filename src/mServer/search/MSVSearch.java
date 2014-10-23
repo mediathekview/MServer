@@ -24,7 +24,6 @@ import mServer.daten.MSVSearchTask;
 import mServer.tool.MSVDaten;
 import mServer.tool.MSVKonstanten;
 import mServer.tool.MSVLog;
-import mServer.upload.MSVMelden;
 import msearch.Search;
 import msearch.daten.MSConfig;
 
@@ -40,7 +39,6 @@ public class MSVSearch {
 
     public boolean filmeSuchen(MSVSearchTask aktSearchTask) {
         boolean ret = true;
-        //MSVMelden.updateServerLoeschen(); // eigene Server-URL aus der Downloadliste löschen
         try {
             // ===========================================
             // den nächsten Suchlauf starten
