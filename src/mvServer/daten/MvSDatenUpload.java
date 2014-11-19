@@ -19,12 +19,12 @@
  */
 package mvServer.daten;
 
-import mvServer.tool.MvSDaten;
-import mvServer.tool.MvSKonstanten;
-import mvServer.upload.MvSUpload;
 import msearch.daten.MSConfig;
 import msearch.tool.MSConst;
 import msearch.tool.MSFunktionen;
+import mvServer.tool.MvSDaten;
+import mvServer.tool.MvSKonstanten;
+import mvServer.upload.MvSUpload;
 
 public class MvSDatenUpload {
 
@@ -66,9 +66,9 @@ public class MvSDatenUpload {
     }
 
     public MvSDatenUpload getCopy() {
-        MvSDatenUpload mSVDatenUpload = new MvSDatenUpload();
-        System.arraycopy(this.arr, 0, mSVDatenUpload.arr, 0, this.arr.length);
-        return mSVDatenUpload;
+        MvSDatenUpload mvsDatenUpload = new MvSDatenUpload();
+        System.arraycopy(this.arr, 0, mvsDatenUpload.arr, 0, this.arr.length);
+        return mvsDatenUpload;
     }
 
     public String getFilmlisteSrc() {
@@ -102,27 +102,6 @@ public class MvSDatenUpload {
         }
     }
 
-//    public boolean aktListeFilmlisten() {
-//        // die Liste mit den Filmlisten-DownloadURLs aktualisieren
-//        switch (arr[MSVDatenUpload.UPLOAD_LISTE_NR]) {
-//            case (MSVUpload.LISTE_JSON):
-//                return true;
-//            case (MSVUpload.LISTE_DIFF):
-//            case (MSVUpload.LISTE_AKT):
-//            case (MSVUpload.LISTE_XML):
-//            default:
-//                return false;
-//        }
-//    }
-
-//    public String get_Url_Datei_ListeFilmlisten() {
-//        if (arr[UPLOAD_ART_NR].equals(MSVUpload.UPLOAD_ART_COPY)) {
-//            return getFilmlisteDestPfadName(MSConst.DATEINAME_LISTE_FILMLISTEN);
-//        } else {
-//            return MSFunktionen.addUrl(arr[UPLOAD_URL_FILMLISTE_NR], MSConst.DATEINAME_LISTE_FILMLISTEN);
-//        }
-//    }
-
     public String getUrlFilmliste(String dateinameFilmliste) {
         if (arr[UPLOAD_URL_FILMLISTE_NR].isEmpty()) {
             return "";
@@ -138,10 +117,6 @@ public class MvSDatenUpload {
     public String getFilmlisteDestPfadName(String dateinameFilmliste) {
         return MSFunktionen.addsPfad(arr[UPLOAD_DEST_DIR_NR], dateinameFilmliste);
     }
-
-//    public String getListeFilmlistenDestPfadName() {
-//        return MSFunktionen.addsPfad(arr[UPLOAD_DEST_DIR_NR], MSConst.DATEINAME_LISTE_FILMLISTEN);
-//    }
 
     public String getPrio() {
         return ((arr[UPLOAD_PRIO_FILMLISTE_NR].equals("")) ? "1" : arr[UPLOAD_PRIO_FILMLISTE_NR]).trim();

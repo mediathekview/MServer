@@ -150,20 +150,20 @@ public class MvSUpload {
         }
     }
 
-    private static String getExportNameFilmliste(MvSDatenUpload mSVDatenUpload, MvSSearchTask mSVSearchTask) {
-        if (!mSVDatenUpload.arr[MvSDatenUpload.UPLOAD_DEST_NAME_NR].isEmpty()) {
-            return mSVDatenUpload.arr[MvSDatenUpload.UPLOAD_DEST_NAME_NR];
+    private static String getExportNameFilmliste(MvSDatenUpload mvsDatenUpload, MvSSearchTask mvsSearchTask) {
+        if (!mvsDatenUpload.arr[MvSDatenUpload.UPLOAD_DEST_NAME_NR].isEmpty()) {
+            return mvsDatenUpload.arr[MvSDatenUpload.UPLOAD_DEST_NAME_NR];
         }
         String name;
-        switch (mSVDatenUpload.arr[MvSDatenUpload.UPLOAD_LISTE_NR]) {
+        switch (mvsDatenUpload.arr[MvSDatenUpload.UPLOAD_LISTE_NR]) {
             case (MvSUpload.LISTE_XML):
                 // gibts noch kein diff..
                 final String FILM_DATEI_SUFF_XML = "bz2";
                 final String FILMDATEI_NAME_XML = "Filmliste-xml";
-                if (mSVSearchTask.sofortSuchen()) {
+                if (mvsSearchTask.sofortSuchen()) {
                     name = FILMDATEI_NAME_XML + "." + FILM_DATEI_SUFF_XML;
                 } else {
-                    name = FILMDATEI_NAME_XML + "_" + mSVSearchTask.arr[SUCHEN_WANN_NR].replace(":", "_") + "." + FILM_DATEI_SUFF_XML;
+                    name = FILMDATEI_NAME_XML + "_" + mvsSearchTask.arr[SUCHEN_WANN_NR].replace(":", "_") + "." + FILM_DATEI_SUFF_XML;
                 }
                 break;
             case (MvSUpload.LISTE_DIFF):
@@ -176,10 +176,10 @@ public class MvSUpload {
             default:
                 final String FILM_DATEI_SUFF_JSON = "xz";
                 final String FILMDATEI_NAME_JSON = "Filmliste-json";
-                if (mSVSearchTask.sofortSuchen()) {
+                if (mvsSearchTask.sofortSuchen()) {
                     name = FILMDATEI_NAME_JSON + "." + FILM_DATEI_SUFF_JSON;
                 } else {
-                    name = FILMDATEI_NAME_JSON + "_" + mSVSearchTask.arr[SUCHEN_WANN_NR].replace(":", "_") + "." + FILM_DATEI_SUFF_JSON;
+                    name = FILMDATEI_NAME_JSON + "_" + mvsSearchTask.arr[SUCHEN_WANN_NR].replace(":", "_") + "." + FILM_DATEI_SUFF_JSON;
                 }
         }
         return name;

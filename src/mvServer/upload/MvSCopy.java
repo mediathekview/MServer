@@ -82,7 +82,7 @@ public class MvSCopy {
             }
             ret = true;
         } catch (Exception ex) {
-            MvSLog.fehlerMeldung(832164870, MvSCopy.class.getName(), "MSVUploadCopy.copy", ex);
+            MvSLog.fehlerMeldung(832164870, MvSCopy.class.getName(), "MvSCopy.copy", ex);
         }
         return ret;
     }

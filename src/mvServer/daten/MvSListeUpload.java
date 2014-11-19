@@ -24,10 +24,10 @@ import java.util.LinkedList;
 public class MvSListeUpload extends LinkedList<MvSDatenUpload> {
 
     @Override
-    public boolean add(MvSDatenUpload mSVDatenUpload) {
-        String[] was = mSVDatenUpload.arr[MvSDatenUpload.UPLOAD_LISTE_NR].split(",");
+    public boolean add(MvSDatenUpload mvsDatenUpload) {
+        String[] was = mvsDatenUpload.arr[MvSDatenUpload.UPLOAD_LISTE_NR].split(",");
         for (String s : was) {
-            MvSDatenUpload u = mSVDatenUpload.getCopy();
+            MvSDatenUpload u = mvsDatenUpload.getCopy();
             u.arr[MvSDatenUpload.UPLOAD_LISTE_NR] = s;
             super.add(u);
         }

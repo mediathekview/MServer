@@ -34,7 +34,7 @@ public class MvServer {
     private MvSTimer timer;
     private MvSSearchTask aktSearchTask = null;
     private boolean suchen = false;
-    private MvSSearch mSVSearch;
+    private MvSSearch mvsSearch;
     boolean nachUpdate = false;
     boolean nurUpload = false;
 
@@ -91,8 +91,7 @@ public class MvServer {
             }
             // Infos schreiben
             MvSLog.startMeldungen(this.getClass().getName());
-            updateSuchen(); // erst mal schauen was es neues gibt
-            mSVSearch = new MvSSearch();
+            mvsSearch = new MvSSearch();
             timer = new MvSTimer() {
                 @Override
                 public void ping() {
@@ -128,7 +127,7 @@ public class MvServer {
             MvSLog.systemMeldung("======================================");
             MvSLog.systemMeldung("== Filme suchen ======================");
             MvSLog.systemMeldung("--------------------------------------");
-            if (!mSVSearch.filmeSuchen(aktSearchTask)) {
+            if (!mvsSearch.filmeSuchen(aktSearchTask)) {
                 // das Suchen der Filme hat nicht geklappt
                 MvSLog.systemMeldung("--------------------------------------");
                 MvSLog.systemMeldung("== Fehler beim Filme Suchen ==========");
@@ -155,59 +154,9 @@ public class MvServer {
             }
             aktSearchTask = null;
             suchen = false;
-            // ----------------------
-            // nach Programmupdate suchen
-            updateSuchen();
         }
     }
-////    public void urlLoeschen(String url) {
-////        if (!MServerDaten.konfigExistiert()) {
-////            MServerLog.fehlerMeldung(858589654, MServer.class.getName(), new String[]{"Konfig-Datei existiert nicht", MServerDaten.getKonfigDatei()});
-////            System.exit(0); // und Tschüss
-////        } else {
-////            MServerXmlLesen.xmlDatenLesen();
-////            if (MServerDaten.system[MServerKonstanten.SYSTEM_DEBUG_NR].equals(MServerKonstanten.STR_TRUE)) {
-////                MServerDaten.debug = true;
-////                MServerLog.systemMeldung("== Debug on ======");
-////            }
-////            // Infos schreiben
-////            MServerLog.startMeldungen(this.getClass().getName());
-////            MServerLog.systemMeldung("== FilmUrl löschen ======");
-////            MServerLog.systemMeldung("Url: " + url);
-////            MServerMelden.updateServerLoeschen(url,"");
-////        }
-////    }
-////
-////    public void senderLoeschen(String sender, String filmdatei) {
-////        try {
-////            if (sender.isEmpty()) {
-////                MServerLog.fehlerMeldung(936251478, MServer.class.getName(), "Kein Sender zum löschen angegeben!");
-////                System.exit(0); // und Tschüss
-////            } else if (filmdatei.isEmpty()) {
-////                MServerLog.fehlerMeldung(732657910, MServer.class.getName(), "Keine Filmlistendatei angegeben!");
-////                System.exit(0); // und Tschüss
-////            } else {
-////                Search.senderLoeschenUndExit(sender, filmdatei);
-////            }
-////        } catch (Exception ex) {
-////            MServerLog.fehlerMeldung(915263470, MServer.class.getName(), "Search.senderLoeschen()", ex);
-////        }
-////    }
 
-    private void updateSuchen() {
-//        MSVLog.systemMeldung("");
-//        MSVLog.systemMeldung("=======================================");
-//        MSVLog.systemMeldung("== Programmupdate suchen ==============");
-//        if (MSVDaten.system[MSVKonstanten.SYSTEM_UPDATE_SUCHEN_NR].equals(MSVKonstanten.STR_TRUE)) {
-//            if (MSVUpdate.updaten()) {
-//                System.exit(MSVKonstanten.PROGRAMM_EXIT_CODE_UPDATE);
-//            }
-//        }
-//        MSVLog.systemMeldung("== Programmupdate suchen beendet ======");
-//        MSVLog.systemMeldung("---------------------------------------");
-//        MSVLog.systemMeldung("");
-//        MSVLog.systemMeldung("");
-    }
 
     private void undTschuess() {
         MvSLog.printEndeMeldung();
