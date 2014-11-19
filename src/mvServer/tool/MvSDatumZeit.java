@@ -27,13 +27,10 @@ public class MvSDatumZeit {
     private static final SimpleDateFormat sdf_stunde_minute = new SimpleDateFormat("HH:mm");
     private static final SimpleDateFormat sdf_datum_zeit = new SimpleDateFormat("dd.MM.yyyy  HH:mm:ss");
     private static final SimpleDateFormat sdf_datum = new SimpleDateFormat("dd.MM.yyyy");
+    private static final SimpleDateFormat sdf_datum_yyyy_MM_dd = new SimpleDateFormat("yyyy.MM.dd");
 
     public static String getJetzt() {
-        Date today;
-        String output;
-        today = new Date();
-        output = sdf_datum_zeit.format(today);
-        return output;
+        return sdf_datum_zeit.format(new Date());
     }
 
     public static String getJetztLogDatei() {
@@ -41,19 +38,15 @@ public class MvSDatumZeit {
     }
 
     public static String getJetzt_hh_mm() {
-        Date today;
-        String output;
-        today = new Date();
-        output = sdf_stunde_minute.format(today);
-        return output;
+        return sdf_stunde_minute.format(new Date());
     }
 
     public static String getHeute() {
-        Date today;
-        String output;
-        today = new Date();
-        output = sdf_datum.format(today);
-        return output;
+        return sdf_datum.format(new Date());
+    }
+
+    public static String getHeute_yyyy_MM_dd() {
+        return sdf_datum_yyyy_MM_dd.format(new Date());
     }
 
     public static Date convertDatum(String datum) {

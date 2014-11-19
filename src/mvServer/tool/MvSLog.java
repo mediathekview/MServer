@@ -26,7 +26,6 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.LinkedList;
-import java.util.ResourceBundle;
 import msearch.tool.MSFunktionen;
 
 public class MvSLog {
@@ -42,6 +41,11 @@ public class MvSLog {
 
     public static synchronized void versionsMeldungen(String classname) {
         SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss");
+        systemMeldung("");
+        systemMeldung("");
+        systemMeldung("");
+        systemMeldung("");
+        systemMeldung("");
         systemMeldung("");
         systemMeldung("");
         systemmeldung(new String[]{".___  ___.  _______  _______   __       ___   .___________. __    __   _______  __  ___"}, false);

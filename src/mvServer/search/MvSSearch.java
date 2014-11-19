@@ -20,16 +20,19 @@
 package mvServer.search;
 
 import java.util.ArrayList;
+import msearch.MSearch;
+import msearch.tool.DatumZeit;
+import msearch.tool.MSConfig;
+import msearch.tool.MSLog;
 import mvServer.daten.MvSSearchTask;
 import mvServer.tool.MvSDaten;
+import mvServer.tool.MvSDatumZeit;
 import mvServer.tool.MvSKonstanten;
 import mvServer.tool.MvSLog;
-import msearch.Search;
-import msearch.daten.MSConfig;
 
 public class MvSSearch {
 
-    Search mSearch;
+    MSearch mSearch;
 
     public MvSSearch() {
         this.mSearch = null;
@@ -45,7 +48,7 @@ public class MvSSearch {
             MvSLog.systemMeldung("");
             MvSLog.systemMeldung("-----------------------------------");
             MvSLog.systemMeldung("Filmsuche starten");
-            mSearch = new Search();
+            mSearch = new MSearch();
             // was und wie
             MSConfig.senderAllesLaden = aktSearchTask.allesLaden();
             MSConfig.updateFilmliste = aktSearchTask.updateFilmliste();
@@ -60,6 +63,7 @@ public class MvSSearch {
             MSConfig.proxyUrl = MvSDaten.system[MvSKonstanten.SYSTEM_PROXY_URL_NR];
             MSConfig.proxyPort = MvSDaten.getProxyPort();
             MSConfig.debug = MvSDaten.debug;
+            MSLog.setLogfile(MvSDaten.getLogDatei_msearch());
 
             Thread t = new Thread(mSearch);
             t.start();

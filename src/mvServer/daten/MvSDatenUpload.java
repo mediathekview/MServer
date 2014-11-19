@@ -19,7 +19,7 @@
  */
 package mvServer.daten;
 
-import msearch.daten.MSConfig;
+import msearch.tool.MSConfig;
 import msearch.tool.MSConst;
 import msearch.tool.MSFunktionen;
 import mvServer.tool.MvSDaten;

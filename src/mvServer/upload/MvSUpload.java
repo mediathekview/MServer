@@ -27,7 +27,7 @@ import mvServer.tool.MvSDaten;
 import mvServer.tool.MvSKonstanten;
 import mvServer.tool.MvSLog;
 import mvServer.tool.MvSWarten;
-import msearch.daten.MSConfig;
+import msearch.tool.MSConfig;
 
 public class MvSUpload {
 

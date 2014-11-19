@@ -87,10 +87,14 @@ public class MvServer {
             MvSXmlLesen.xmlDatenLesen();
             if (MvSDaten.system[MvSKonstanten.SYSTEM_DEBUG_NR].equals(MvSKonstanten.STR_TRUE)) {
                 MvSDaten.debug = true;
-                MvSLog.systemMeldung("== Debug on ======");
             }
             // Infos schreiben
             MvSLog.startMeldungen(this.getClass().getName());
+            if (MvSDaten.debug) {
+                MvSLog.systemMeldung("");
+                MvSLog.systemMeldung("== Debug on ======");
+                MvSLog.systemMeldung("");
+            }
             mvsSearch = new MvSSearch();
             timer = new MvSTimer() {
                 @Override
@@ -156,7 +160,6 @@ public class MvServer {
             suchen = false;
         }
     }
-
 
     private void undTschuess() {
         MvSLog.printEndeMeldung();

@@ -34,8 +34,8 @@ public class MvSKonstanten {
     public static final String VERZEICHNISS_FILMLISTEN = "filmlisten";
     public static final String XML_DATEI = "mserver.xml";
     public static final String XML_DATEI_UPLOAD = "upload.xml";
-    public static final String LOG_FILE_NAME = "msLog";
-    public static final String LOG_FILE_NAME_MV = "mvLog";
+    public static final String LOG_FILE_NAME = "MvServer";
+    public static final String LOG_FILE_NAME_MSEARCH = "MSearch";
     public static final String LOG_FILE_PFAD = "log";
     public static final String PROGRAMM_UPDATE_URL_RSS = "http://sourceforge.net/api/file/index/project-id/222825/mtime/desc/limit/100/rss";
     public static final String XML_START = "MServer";
@@ -81,17 +81,15 @@ public class MvSKonstanten {
     public static final int SYSTEM_PROXY_URL_NR = 13;
     public static final String SYSTEM_PROXY_PORT = "system-proxy-port";
     public static final int SYSTEM_PROXY_PORT_NR = 14;
-    public static final String SYSTEM_URL_VORHER_LOESCHEN = "system-url-vorher-loeschen";
-    public static final int SYSTEM_URL_VORHER_LOESCHEN_NR = 15;
     public static final String SYSTEM_DEBUG = "system-debug";
-    public static final int SYSTEM_DEBUG_NR = 16;
+    public static final int SYSTEM_DEBUG_NR = 15;
     // Array
     public static final String SYSTEM = "system";
-    public static final int SYSTEM_MAX_ELEM = 17;
+    public static final int SYSTEM_MAX_ELEM = 16;
     public static final String[] SYSTEM_COLUMN_NAMES = {SYSTEM_MELDEN_PWD_XML, SYSTEM_MELDEN_URL_XML, SYSTEM_MELDEN_PWD_JSON, SYSTEM_MELDEN_URL_JSON,
         SYSTEM_USER_AGENT, SYSTEM_UPDATE_SUCHEN, SYSTEM_IMPORT_EXTEND_URL, SYSTEM_IMPORT_URL_REPLACE,
         SYSTEM_EXPORT_FILE_FILMLISTE, SYSTEM_EXPORT_FILE_FILMLISTE_ORG, SYSTEM_EXPORT_FILE_FILMLISTE_DIFF, SYSTEM_FILMLISTE_ORG,
-        SYSTEM_PFAD_LOGDATEI, SYSTEM_PROXY_URL, SYSTEM_PROXY_PORT, SYSTEM_URL_VORHER_LOESCHEN, SYSTEM_DEBUG};
+        SYSTEM_PFAD_LOGDATEI, SYSTEM_PROXY_URL, SYSTEM_PROXY_PORT, SYSTEM_DEBUG};
     //
     //
 }
