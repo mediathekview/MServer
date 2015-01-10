@@ -29,6 +29,7 @@ public class MvSKonstanten {
     // Dateien/Verzeichnisse
     public static final String NAME_FILMLISTE_AKT = "Filmliste-akt.xz";
     public static final String NAME_FILMLISTE_DIFF = "Filmliste-diff.xz";
+    public static final String NAME_FILMLISTE_XML = "Filmliste-xml.bz2";
 
     public static final String VERZEICHNISS_EINSTELLUNGEN = ".mserver";
     public static final String VERZEICHNISS_FILMLISTEN = "filmlisten";
