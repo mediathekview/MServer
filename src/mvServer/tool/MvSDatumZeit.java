@@ -24,21 +24,12 @@ import java.util.Date;
 
 public class MvSDatumZeit {
 
-    private static final SimpleDateFormat sdf_stunde_minute = new SimpleDateFormat("HH:mm");
     private static final SimpleDateFormat sdf_datum_zeit = new SimpleDateFormat("dd.MM.yyyy  HH:mm:ss");
     private static final SimpleDateFormat sdf_datum = new SimpleDateFormat("dd.MM.yyyy");
     private static final SimpleDateFormat sdf_datum_yyyy_MM_dd = new SimpleDateFormat("yyyy.MM.dd");
 
     public static String getJetzt() {
         return sdf_datum_zeit.format(new Date());
-    }
-
-    public static String getJetztLogDatei() {
-        return new SimpleDateFormat("__yyyy.MM.dd__HH:mm:ss").format(new Date());
-    }
-
-    public static String getJetzt_hh_mm() {
-        return sdf_stunde_minute.format(new Date());
     }
 
     public static String getHeute() {
@@ -49,21 +40,5 @@ public class MvSDatumZeit {
         return sdf_datum_yyyy_MM_dd.format(new Date());
     }
 
-    public static Date convertDatum(String datum) {
-        try {
-            return sdf_datum.parse(datum);
-        } catch (Exception ex) {
-            MvSLog.fehlerMeldung(852414170, MvSDatumZeit.class.getName(), datum, ex);
-            return new Date();
-        }
-    }
 
-    public static Date convertDateTime(String datumZeit) {
-        try {
-            return sdf_datum_zeit.parse(datumZeit);
-        } catch (Exception ex) {
-            MvSLog.fehlerMeldung(919596320, MvSDatumZeit.class.getName(), datumZeit, ex);
-            return new Date();
-        }
-    }
 }

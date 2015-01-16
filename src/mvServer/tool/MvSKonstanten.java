@@ -52,45 +52,35 @@ public class MvSKonstanten {
     //
     //
     // Konstanten System
-    public static final String SYSTEM_MELDEN_PWD_XML = "system-melden-pwd-xml";
-    public static final int SYSTEM_MELDEN_PWD_XML_NR = 0;
-    public static final String SYSTEM_MELDEN_URL_XML = "system-melden-url-xml";
-    public static final int SYSTEM_MELDEN_URL_XML_NR = 1;
-    public static final String SYSTEM_MELDEN_PWD_JSON = "system-melden-pwd-json";
-    public static final int SYSTEM_MELDEN_PWD_JSON_NR = 2;
-    public static final String SYSTEM_MELDEN_URL_JSON = "system-melden-url-json";
-    public static final int SYSTEM_MELDEN_URL_JSON_NR = 3;
-    public static final String SYSTEM_USER_AGENT = "system-user-agent";
-    public static final int SYSTEM_USER_AGENT_NR = 4;
-    public static final String SYSTEM_UPDATE_SUCHEN = "system-programmupdate-suchen";
-    public static final int SYSTEM_UPDATE_SUCHEN_NR = 5;
-    public static final String SYSTEM_IMPORT_EXTEND_URL = "system-filmliste-import-url-extend";
-    public static final int SYSTEM_IMPORT_URL_EXTEND_NR = 6;
-    public static final String SYSTEM_IMPORT_URL_REPLACE = "system-filmliste-import-url-replace";
-    public static final int SYSTEM_IMPORT_URL_REPLACE_NR = 7;
-    public static final String SYSTEM_EXPORT_FILE_FILMLISTE = "system-export-datei-filmliste"; // die Filmliste (json.xz) kann lokal noch mit einem festen Namen kopiert werden
-    public static final int SYSTEM_EXPORT_FILE_FILMLISTE_NR = 8;
-    public static final String SYSTEM_EXPORT_FILE_FILMLISTE_ORG = "system-export-datei-filmliste-org"; // die Filmliste für diff (json.xz) kann lokal noch mit einem festen Namen kopiert werden
-    public static final int SYSTEM_EXPORT_FILE_FILMLISTE_ORG_NR = 9;
-    public static final String SYSTEM_EXPORT_FILE_FILMLISTE_DIFF = "system-export-datei-filmliste-diff"; // die Filmliste diff (json.xz) kann lokal noch mit einem festen Namen kopiert werden
-    public static final int SYSTEM_EXPORT_FILE_FILMLISTE_DIFF_NR = 10;
-    public static final String SYSTEM_FILMLISTE_ORG = "system-filmliste-org"; // die Filmliste aus der diff erstellt wird, wenn leer wird die eigene org verwendet
-    public static final int SYSTEM_FILMLISTE_ORG_NR = 11;
-    public static final String SYSTEM_PFAD_LOGDATEI = "system-pfad-logdatei";
-    public static final int SYSTEM_PFAD_LOGDATEI_NR = 12;
-    public static final String SYSTEM_PROXY_URL = "system-proxy-url";
-    public static final int SYSTEM_PROXY_URL_NR = 13;
-    public static final String SYSTEM_PROXY_PORT = "system-proxy-port";
-    public static final int SYSTEM_PROXY_PORT_NR = 14;
-    public static final String SYSTEM_DEBUG = "system-debug";
-    public static final int SYSTEM_DEBUG_NR = 15;
-    // Array
     public static final String SYSTEM = "system";
-    public static final int SYSTEM_MAX_ELEM = 16;
-    public static final String[] SYSTEM_COLUMN_NAMES = {SYSTEM_MELDEN_PWD_XML, SYSTEM_MELDEN_URL_XML, SYSTEM_MELDEN_PWD_JSON, SYSTEM_MELDEN_URL_JSON,
-        SYSTEM_USER_AGENT, SYSTEM_UPDATE_SUCHEN, SYSTEM_IMPORT_EXTEND_URL, SYSTEM_IMPORT_URL_REPLACE,
+
+    public static final String SYSTEM_USER_AGENT = "system-user-agent";
+    public static final int SYSTEM_USER_AGENT_NR = 0;
+    public static final String SYSTEM_IMPORT_EXTEND_URL = "system-filmliste-import-url-extend";
+    public static final int SYSTEM_IMPORT_URL_EXTEND_NR = 1;
+    public static final String SYSTEM_IMPORT_URL_REPLACE = "system-filmliste-import-url-replace";
+    public static final int SYSTEM_IMPORT_URL_REPLACE_NR = 2;
+    public static final String SYSTEM_EXPORT_FILE_FILMLISTE = "system-export-datei-filmliste"; // die Filmliste (json.xz) kann lokal noch mit einem festen Namen kopiert werden
+    public static final int SYSTEM_EXPORT_FILE_FILMLISTE_NR = 3;
+    public static final String SYSTEM_EXPORT_FILE_FILMLISTE_ORG = "system-export-datei-filmliste-org"; // die Filmliste für diff (json.xz) kann lokal noch mit einem festen Namen kopiert werden
+    public static final int SYSTEM_EXPORT_FILE_FILMLISTE_ORG_NR = 4;
+    public static final String SYSTEM_EXPORT_FILE_FILMLISTE_DIFF = "system-export-datei-filmliste-diff"; // die Filmliste diff (json.xz) kann lokal noch mit einem festen Namen kopiert werden
+    public static final int SYSTEM_EXPORT_FILE_FILMLISTE_DIFF_NR = 5;
+    public static final String SYSTEM_FILMLISTE_ORG = "system-filmliste-org"; // die Filmliste aus der diff erstellt wird, wenn leer wird die eigene org verwendet
+    public static final int SYSTEM_FILMLISTE_ORG_NR = 6;
+    public static final String SYSTEM_PFAD_LOGDATEI = "system-pfad-logdatei";
+    public static final int SYSTEM_PFAD_LOGDATEI_NR = 7;
+    public static final String SYSTEM_PROXY_URL = "system-proxy-url";
+    public static final int SYSTEM_PROXY_URL_NR = 8;
+    public static final String SYSTEM_PROXY_PORT = "system-proxy-port";
+    public static final int SYSTEM_PROXY_PORT_NR = 9;
+    public static final String SYSTEM_DEBUG = "system-debug";
+    public static final int SYSTEM_DEBUG_NR = 10;
+
+    public static final int SYSTEM_MAX_ELEM = 11;
+
+    public static final String[] SYSTEM_COLUMN_NAMES = {
+        SYSTEM_USER_AGENT, SYSTEM_IMPORT_EXTEND_URL, SYSTEM_IMPORT_URL_REPLACE,
         SYSTEM_EXPORT_FILE_FILMLISTE, SYSTEM_EXPORT_FILE_FILMLISTE_ORG, SYSTEM_EXPORT_FILE_FILMLISTE_DIFF, SYSTEM_FILMLISTE_ORG,
         SYSTEM_PFAD_LOGDATEI, SYSTEM_PROXY_URL, SYSTEM_PROXY_PORT, SYSTEM_DEBUG};
-    //
-    //
 }

@@ -35,7 +35,6 @@ public class MvSSearch {
     public MvSSearch() {
         this.mSearch = null;
         MSConfig.dirFilme = MvSDaten.getVerzeichnisFilme();
-        MSConfig.diffFilmlisteErstellen = !MvSDaten.system[MvSKonstanten.SYSTEM_EXPORT_FILE_FILMLISTE_DIFF_NR].isEmpty();
     }
 
     public boolean filmeSuchen(MvSSearchTask aktSearchTask) {

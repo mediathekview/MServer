@@ -20,14 +20,13 @@
 package mvServer.upload;
 
 import java.util.Iterator;
+import msearch.tool.MSConfig;
 import mvServer.daten.MvSDatenUpload;
 import mvServer.daten.MvSSearchTask;
-import static mvServer.daten.MvSSearchTask.SUCHEN_WANN_NR;
 import mvServer.tool.MvSDaten;
 import mvServer.tool.MvSKonstanten;
 import mvServer.tool.MvSLog;
 import mvServer.tool.MvSWarten;
-import msearch.tool.MSConfig;
 
 public class MvSUpload {
 
@@ -37,7 +36,6 @@ public class MvSUpload {
     public static final String FORMAT_JSON = "json";
     public static final String FORMAT_XML = "xml";
     public static final String LISTE_XML = "xml";
-    public static final String LISTE_JSON = "json";
     public static final String LISTE_DIFF = "diff";
     public static final String LISTE_AKT = "akt";
 
@@ -92,9 +90,6 @@ public class MvSUpload {
                     case (MvSUpload.LISTE_XML):
                         MvSLog.systemMeldung("Upload XML-Liste");
                         break;
-                    case (MvSUpload.LISTE_JSON):
-                        MvSLog.systemMeldung("Upload JSON-Liste");
-                        break;
                     default:
                         MvSLog.systemMeldung("Upload Filmliste");
                 }
@@ -122,29 +117,21 @@ public class MvSUpload {
     }
 
     private static void uploadFtp_(String srcPathFile, String destFileName, MvSDatenUpload datenUpload) {
-        if (MvSFtp.uploadFtp(srcPathFile, destFileName, datenUpload)) {
-////            MvSMelden.melden(destFileName, datenUpload);
-        } else {
+        if (!MvSFtp.uploadFtp(srcPathFile, destFileName, datenUpload)) {
             new MvSWarten().sekundenWarten(60);
             MvSLog.systemMeldung("2. Versuch Upload FTP");
-            if (MvSFtp.uploadFtp(srcPathFile, destFileName, datenUpload)) {
-////                MvSMelden.melden(destFileName, datenUpload);
-            } else {
+            if (!MvSFtp.uploadFtp(srcPathFile, destFileName, datenUpload)) {
                 MvSLog.fehlerMeldung(649896079, MvSUpload.class.getName(), "FTP, 2.Versuch nicht geklappe");
             }
         }
     }
 
     private static void uploadCopy_(String srcPathFile, String destFileName, MvSDatenUpload datenUpload) {
-        if (MvSCopy.copy(srcPathFile, destFileName, datenUpload)) {
-////            MvSMelden.melden(destFileName, datenUpload);
-        } else {
+        if (!MvSCopy.copy(srcPathFile, destFileName, datenUpload)) {
             // wenns nicht geklappt hat nochmal versuchen
             new MvSWarten().sekundenWarten(60);
             MvSLog.systemMeldung("2. Versuch Upload copy");
-            if (MvSCopy.copy(srcPathFile, destFileName, datenUpload)) {
-////                MvSMelden.melden(destFileName, datenUpload);
-            } else {
+            if (!MvSCopy.copy(srcPathFile, destFileName, datenUpload)) {
                 MvSLog.fehlerMeldung(798956236, MvSUpload.class.getName(), "Copy, 2.Versuch nicht geklappt");
             }
         }
@@ -158,14 +145,7 @@ public class MvSUpload {
         switch (mvsDatenUpload.arr[MvSDatenUpload.UPLOAD_LISTE_NR]) {
             case (MvSUpload.LISTE_XML):
                 name = MvSKonstanten.NAME_FILMLISTE_XML;
-////                // gibts noch kein diff..
-////                final String FILM_DATEI_SUFF_XML = "bz2";
-////                final String FILMDATEI_NAME_XML = "Filmliste-xml";
-////                if (mvsSearchTask.sofortSuchen()) {
-////                    name = FILMDATEI_NAME_XML + "." + FILM_DATEI_SUFF_XML;
-////                } else {
-////                    name = FILMDATEI_NAME_XML + "_" + mvsSearchTask.arr[SUCHEN_WANN_NR].replace(":", "_") + "." + FILM_DATEI_SUFF_XML;
-////                }
+                // gibts noch kein diff..
                 break;
             case (MvSUpload.LISTE_DIFF):
                 name = MvSKonstanten.NAME_FILMLISTE_DIFF;
@@ -173,15 +153,8 @@ public class MvSUpload {
             case (MvSUpload.LISTE_AKT):
                 name = MvSKonstanten.NAME_FILMLISTE_AKT;
                 break;
-            case (MvSUpload.LISTE_JSON):
             default:
-                final String FILM_DATEI_SUFF_JSON = "xz";
-                final String FILMDATEI_NAME_JSON = "Filmliste-json";
-                if (mvsSearchTask.sofortSuchen()) {
-                    name = FILMDATEI_NAME_JSON + "." + FILM_DATEI_SUFF_JSON;
-                } else {
-                    name = FILMDATEI_NAME_JSON + "_" + mvsSearchTask.arr[SUCHEN_WANN_NR].replace(":", "_") + "." + FILM_DATEI_SUFF_JSON;
-                }
+                name = MvSKonstanten.NAME_FILMLISTE_AKT;
         }
         return name;
     }

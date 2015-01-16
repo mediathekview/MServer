@@ -29,56 +29,39 @@ public class Main {
 
     private enum StartupMode {
 
-        SERVER, SENDER_LOESCHEN, URL_LOESCHEN
+        SERVER, VERSION
     }
 
     public static void main(String[] args) {
         final String ar[] = args;
+
         java.awt.EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
-                String sender = "";
-                String filmDatei = "";
-                String url = "";
                 StartupMode state = StartupMode.SERVER;
+
                 if (ar != null) {
-                    for (int i = 0; i < ar.length; ++i) {
-                        if (ar[i].equalsIgnoreCase("-d")) {
-                            MvSDaten.debug = true;
-                        }
-                        if (ar[i].equalsIgnoreCase("-v")) {
-                            MvSLog.versionsMeldungen(this.getClass().getName());
-                            System.exit(0);
-                        }
-                        if (ar[i].equalsIgnoreCase("-sender")) {
-                            state = StartupMode.SENDER_LOESCHEN;
-                            if (ar.length > i) {
-                                sender = ar[i + 1];
-                            }
-                        }
-                        if (ar[i].equalsIgnoreCase("-url")) {
-                            state = StartupMode.URL_LOESCHEN;
-                            if (ar.length > i) {
-                                url = ar[i + 1];
-                            }
-                        }
-                        if (ar[i].equalsIgnoreCase("-filmdatei")) {
-                            if (ar.length > i) {
-                                filmDatei = ar[i + 1];
-                            }
+                    for (String s : ar) {
+                        s = s.toLowerCase();
+                        switch (s) {
+                            case "-d":
+                                MvSDaten.debug = true;
+                                break;
+                            case "-v":
+                                state = StartupMode.VERSION;
+                                break;
+
                         }
                     }
                 }
+
                 switch (state) {
                     case SERVER:
                         new MvServer(ar).starten();
                         break;
-                    case SENDER_LOESCHEN:
-////                        Search.senderLoeschenUndExit(sender, filmDatei);
-                        break;
-                    case URL_LOESCHEN:
-                        System.out.println("Geht nicht!!!!");
-                        //new MServer(ar).urlLoeschen(url);
+                    case VERSION:
+                        MvSLog.versionsMeldungen(this.getClass().getName());
+                        System.exit(0);
                         break;
                 }
             }

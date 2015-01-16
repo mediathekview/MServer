@@ -35,8 +35,6 @@ public class MvServer {
     private MvSSearchTask aktSearchTask = null;
     private boolean suchen = false;
     private MvSSearch mvsSearch;
-    boolean nachUpdate = false;
-    boolean nurUpload = false;
 
     public MvServer(String[] ar) {
         String pfad = "";
@@ -50,26 +48,9 @@ public class MvServer {
                 }
             }
         }
-        for (String s : ar) {
-            if (s.equalsIgnoreCase("-update")) {
-                nachUpdate = true;
-            }
-            if (s.equalsIgnoreCase("-upload")) {
-                nurUpload = true;
-            }
-        }
         MvSDaten.init();
         MvSDaten.setBasisVerzeichnis(pfad);
 
-        if (nachUpdate) {
-            MvSLog.systemMeldung("");
-            MvSLog.systemMeldung("===========================");
-            MvSLog.systemMeldung("== Nach einem Update ======");
-            // tu was zu tun ist
-            //
-            MvSLog.systemMeldung("---------------------------");
-
-        }
         Thread.setDefaultUncaughtExceptionHandler(new Thread.UncaughtExceptionHandler() {
             @Override
             public void uncaughtException(Thread t, Throwable e) {

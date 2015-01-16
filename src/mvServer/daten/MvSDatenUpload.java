@@ -20,10 +20,7 @@
 package mvServer.daten;
 
 import msearch.tool.MSConfig;
-import msearch.tool.MSConst;
 import msearch.tool.MSFunktionen;
-import mvServer.tool.MvSDaten;
-import mvServer.tool.MvSKonstanten;
 import mvServer.upload.MvSUpload;
 
 public class MvSDatenUpload {
@@ -82,7 +79,6 @@ public class MvSDatenUpload {
                 f = MSConfig.getPathFilmlist_json_diff_xz();
                 break;
             case (MvSUpload.LISTE_AKT):
-            case (MvSUpload.LISTE_JSON):
             default:
                 // da unterscheidet sich dann nur der Zieldateiname
                 f = MSConfig.getPathFilmlist_json_akt_xz();
@@ -96,17 +92,8 @@ public class MvSDatenUpload {
             case (MvSUpload.LISTE_AKT):
                 return true;
             case (MvSUpload.LISTE_XML):
-            case (MvSUpload.LISTE_JSON):
             default:
                 return false;
-        }
-    }
-
-    public String getUrlFilmliste(String dateinameFilmliste) {
-        if (arr[UPLOAD_URL_FILMLISTE_NR].isEmpty()) {
-            return "";
-        } else {
-            return MSFunktionen.addUrl(arr[UPLOAD_URL_FILMLISTE_NR], dateinameFilmliste);
         }
     }
 
@@ -118,45 +105,4 @@ public class MvSDatenUpload {
         return MSFunktionen.addsPfad(arr[UPLOAD_DEST_DIR_NR], dateinameFilmliste);
     }
 
-    public String getPrio() {
-        return ((arr[UPLOAD_PRIO_FILMLISTE_NR].equals("")) ? "1" : arr[UPLOAD_PRIO_FILMLISTE_NR]).trim();
-    }
-
-    public String getUrlFilmlistenServer() {
-        // ist die URL für die Liste mit den Download-URLs der Filmlisten (....xml)
-        switch (arr[MvSDatenUpload.UPLOAD_LISTE_NR]) {
-            case (MvSUpload.LISTE_XML):
-                return MSConst.ADRESSE_FILMLISTEN_SERVER_XML;
-            case (MvSUpload.LISTE_JSON):
-            case (MvSUpload.LISTE_DIFF):
-            case (MvSUpload.LISTE_AKT):
-            default:
-                return MSConst.ADRESSE_FILMLISTEN_SERVER_JSON;
-        }
-    }
-
-    public String getMeldenUrl() {
-        // ist die URL zum Melden einer neuen Download-URL einer Filmliste (....php)
-        switch (arr[MvSDatenUpload.UPLOAD_LISTE_NR]) {
-            case (MvSUpload.LISTE_XML):
-                return MvSDaten.system[MvSKonstanten.SYSTEM_MELDEN_URL_XML_NR].trim();
-            case (MvSUpload.LISTE_DIFF):
-            case (MvSUpload.LISTE_AKT):
-            case (MvSUpload.LISTE_JSON):
-            default:
-                return MvSDaten.system[MvSKonstanten.SYSTEM_MELDEN_URL_JSON_NR].trim();
-        }
-    }
-
-    public String getMeldenPwd() {
-        switch (arr[MvSDatenUpload.UPLOAD_LISTE_NR]) {
-            case (MvSUpload.LISTE_XML):
-                return MvSDaten.system[MvSKonstanten.SYSTEM_MELDEN_PWD_XML_NR].trim();
-            case (MvSUpload.LISTE_DIFF):
-            case (MvSUpload.LISTE_AKT):
-            case (MvSUpload.LISTE_JSON):
-            default:
-                return MvSDaten.system[MvSKonstanten.SYSTEM_MELDEN_PWD_JSON_NR].trim();
-        }
-    }
 }
