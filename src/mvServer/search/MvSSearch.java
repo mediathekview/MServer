@@ -75,15 +75,30 @@ public class MvSSearch {
                 if (t.isAlive()) {
                     MvSLog.fehlerMeldung(915147623, MvSSearch.class.getName(), "Der letzte Suchlauf läuft noch");
                     if (mSearch != null) {
+                        MvSLog.systemMeldung("");
+                        MvSLog.systemMeldung("");
+                        MvSLog.systemMeldung("================================");
+                        MvSLog.systemMeldung("================================");
                         MvSLog.systemMeldung("und wird jetzt gestoppt");
+                        MvSLog.systemMeldung("================================");
+                        MvSLog.systemMeldung("================================");
+                        MvSLog.systemMeldung("");
+                        //und jetzt STOPPEN!!!!!!!!
                         MSConfig.setStop();
                     }
                     t.join(5 * 60 * 1000); // 5 Minuten warten, das Erstellen/Komprimieren der Liste dauert
                     if (t.isAlive()) {
+                        MvSLog.systemMeldung("");
+                        MvSLog.systemMeldung("");
+                        MvSLog.systemMeldung("================================");
+                        MvSLog.systemMeldung("================================");
                         MvSLog.systemMeldung("und noch gekillt");
+                        MvSLog.systemMeldung("================================");
+                        MvSLog.systemMeldung("================================");
+                        MvSLog.systemMeldung("");
                         ret = false;
                     }
-                    // jetzt ist Schicht im Schacht
+                    //jetzt ist Schicht im Schacht
                     t.stop();
                 }
             }
