@@ -84,7 +84,8 @@ public class MvSSearch {
                         MvSLog.systemMeldung("================================");
                         MvSLog.systemMeldung("");
                         //und jetzt STOPPEN!!!!!!!!
-                        MSConfig.setStop();
+                        //MSConfig.setStop();
+                        mSearch.stop();
                     }
                     t.join(5 * 60 * 1000); // 5 Minuten warten, das Erstellen/Komprimieren der Liste dauert
                     if (t.isAlive()) {
