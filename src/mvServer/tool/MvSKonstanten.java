@@ -46,9 +46,9 @@ public class MvSKonstanten {
     // Filmliste die äleter sind werden aus der ListeFilmlisten gelöscht
     public static final int FILMLISTEN_MAX_ALTER = 3;
     // Wartezeiten
-    public static final int MAX_WARTEN_FTP_UPLOAD = 1000 * 60 * 5; // 5 Minuten
-    public static final int WARTEZEIT_ALLES_LADEN = 1000 * 60 * 160; // 160 Minuten
-    public static final int WARTEZEIT_UPDATE_LADEN = 1000 * 60 * 60; // 60 Minuten
+    public static final int MAX_WARTEN_FTP_UPLOAD = 5; // 5 Minuten
+    public static final int WARTEZEIT_ALLES_LADEN = 160; // 160 Minuten
+    public static final int WARTEZEIT_UPDATE_LADEN = 60; // 60 Minuten
     //
     //
     // Konstanten System

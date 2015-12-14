@@ -67,7 +67,8 @@ public class MvSSearch {
             MvSLog.systemMeldung("Filme suchen gestartet");
             // ===========================================
             // warten auf das Ende
-            int warten = aktSearchTask.allesLaden() == true ? MvSKonstanten.WARTEZEIT_ALLES_LADEN : MvSKonstanten.WARTEZEIT_UPDATE_LADEN;
+            //int warten = aktSearchTask.allesLaden() == true ? MvSKonstanten.WARTEZEIT_ALLES_LADEN : MvSKonstanten.WARTEZEIT_UPDATE_LADEN;
+            int warten = 1000 * 60 * aktSearchTask.getWaitTime()/*Minuten*/;
             t.join(warten);
             // ===========================================
             // erst mal schauen ob noch was läuft

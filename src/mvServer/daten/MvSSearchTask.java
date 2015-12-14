@@ -22,6 +22,7 @@ package mvServer.daten;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import mvServer.tool.MvSDatumZeit;
+import mvServer.tool.MvSKonstanten;
 import mvServer.tool.MvSLog;
 
 public class MvSSearchTask {
@@ -42,10 +43,12 @@ public class MvSSearchTask {
     public static final int SUCHEN_SENDER_NR = 3;
     public static final String SUCHEN_ORG_LISTE = "suchen-org-liste"; // dann wird eine Orgliste erstellt, darauf beziehen sich dann die diff-Files
     public static final int SUCHEN_ORG_LISTE_NR = 4;
+    public static final String SUCHEN_MAX_WAIT = "suchen-max-warten"; // der Suchlauf darf max. so lange dauern bis er abgebrochen wird
+    public static final int SUCHEN_MAX_WAIT_NR = 5;
     // Array
     public static final String SUCHEN = "suchen";
-    public static final int SUCHEN_MAX_ELEM = 5;
-    public static final String[] SUCHEN_COLUMN_NAMES = {SUCHEN_SENDER_WIE, SUCHEN_LISTE_WIE, SUCHEN_WANN, SUCHEN_SENDER, SUCHEN_ORG_LISTE};
+    public static final int SUCHEN_MAX_ELEM = 6;
+    public static final String[] SUCHEN_COLUMN_NAMES = {SUCHEN_SENDER_WIE, SUCHEN_LISTE_WIE, SUCHEN_WANN, SUCHEN_SENDER, SUCHEN_ORG_LISTE, SUCHEN_MAX_WAIT};
     public String[] arr = new String[SUCHEN_MAX_ELEM];
 
     public MvSSearchTask() {
@@ -65,6 +68,24 @@ public class MvSSearchTask {
         if (!this.arr[SUCHEN_SENDER_NR].equals("")) {
             MvSLog.systemMeldung("Sender:  " + this.arr[SUCHEN_SENDER_NR]);
         }
+    }
+
+    public int getWaitTime() {
+        int waitTime = MvSKonstanten.WARTEZEIT_UPDATE_LADEN;
+        if (arr[MvSSearchTask.SUCHEN_MAX_WAIT_NR].isEmpty()) {
+            if (allesLaden()) {
+                waitTime = MvSKonstanten.WARTEZEIT_ALLES_LADEN;
+            } else {
+                waitTime = MvSKonstanten.WARTEZEIT_UPDATE_LADEN;
+            }
+        } else {
+            try {
+                waitTime = Integer.parseInt(arr[MvSSearchTask.SUCHEN_MAX_WAIT_NR]);
+            } catch (Exception ignore) {
+                waitTime = MvSKonstanten.WARTEZEIT_UPDATE_LADEN;
+            }
+        }
+        return waitTime;
     }
 
     public boolean sofortSuchen() {
