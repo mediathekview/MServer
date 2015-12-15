@@ -56,10 +56,10 @@ public class MvSKonstanten {
 
     public static final String SYSTEM_USER_AGENT = "system-user-agent";
     public static final int SYSTEM_USER_AGENT_NR = 0;
-    public static final String SYSTEM_IMPORT_EXTEND_URL = "system-filmliste-import-url-extend";
-    public static final int SYSTEM_IMPORT_URL_EXTEND_NR = 1;
-    public static final String SYSTEM_IMPORT_URL_REPLACE = "system-filmliste-import-url-replace";
-    public static final int SYSTEM_IMPORT_URL_REPLACE_NR = 2;
+    public static final String SYSTEM_IMPORT_URL_1 = "system-filmliste-import-url-1";
+    public static final int SYSTEM_IMPORT_URL_1_NR = 1;
+    public static final String SYSTEM_IMPORT_URL_2 = "system-filmliste-import-url-2";
+    public static final int SYSTEM_IMPORT_URL_2_NR = 2;
     public static final String SYSTEM_EXPORT_FILE_FILMLISTE = "system-export-datei-filmliste"; // die Filmliste (json.xz) kann lokal noch mit einem festen Namen kopiert werden
     public static final int SYSTEM_EXPORT_FILE_FILMLISTE_NR = 3;
     public static final String SYSTEM_EXPORT_FILE_FILMLISTE_ORG = "system-export-datei-filmliste-org"; // die Filmliste für diff (json.xz) kann lokal noch mit einem festen Namen kopiert werden
@@ -80,7 +80,7 @@ public class MvSKonstanten {
     public static final int SYSTEM_MAX_ELEM = 11;
 
     public static final String[] SYSTEM_COLUMN_NAMES = {
-        SYSTEM_USER_AGENT, SYSTEM_IMPORT_EXTEND_URL, SYSTEM_IMPORT_URL_REPLACE,
+        SYSTEM_USER_AGENT, SYSTEM_IMPORT_URL_1, SYSTEM_IMPORT_URL_2,
         SYSTEM_EXPORT_FILE_FILMLISTE, SYSTEM_EXPORT_FILE_FILMLISTE_ORG, SYSTEM_EXPORT_FILE_FILMLISTE_DIFF, SYSTEM_FILMLISTE_ORG,
         SYSTEM_PFAD_LOGDATEI, SYSTEM_PROXY_URL, SYSTEM_PROXY_PORT, SYSTEM_DEBUG};
 }

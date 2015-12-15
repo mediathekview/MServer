@@ -53,8 +53,8 @@ public class MvSSearch {
             MSConfig.orgFilmlisteErstellen = aktSearchTask.orgListeAnlegen();
             MSConfig.orgFilmliste = MvSDaten.system[MvSKonstanten.SYSTEM_FILMLISTE_ORG_NR];
             // und noch evtl. ein paar Imports von Filmlisten anderer Server
-            MSConfig.importUrl__anhaengen = MvSDaten.system[MvSKonstanten.SYSTEM_IMPORT_URL_EXTEND_NR];
-            MSConfig.importUrl__ersetzen = MvSDaten.system[MvSKonstanten.SYSTEM_IMPORT_URL_REPLACE_NR];
+            MSConfig.importUrl_1__anhaengen = MvSDaten.system[MvSKonstanten.SYSTEM_IMPORT_URL_1_NR];
+            MSConfig.importUrl_2__anhaengen = MvSDaten.system[MvSKonstanten.SYSTEM_IMPORT_URL_2_NR];
             // Rest
             MSConfig.setUserAgent(MvSDaten.getUserAgent());
             MSConfig.proxyUrl = MvSDaten.system[MvSKonstanten.SYSTEM_PROXY_URL_NR];
@@ -68,8 +68,13 @@ public class MvSSearch {
             // ===========================================
             // warten auf das Ende
             //int warten = aktSearchTask.allesLaden() == true ? MvSKonstanten.WARTEZEIT_ALLES_LADEN : MvSKonstanten.WARTEZEIT_UPDATE_LADEN;
-            int warten = 1000 * 60 * aktSearchTask.getWaitTime()/*Minuten*/;
+            int warten = aktSearchTask.getWaitTime()/*Minuten*/;
+            MvSLog.systemMeldung("Max Laufzeit[Min]: " + warten);
+            MvSLog.systemMeldung("-----------------------------------");
+
+            warten = 1000 * 60 * warten;
             t.join(warten);
+
             // ===========================================
             // erst mal schauen ob noch was läuft
             if (t != null) {
