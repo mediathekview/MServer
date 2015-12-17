@@ -31,7 +31,6 @@ import mvServer.upload.MvSUpload;
 
 public class MvServer {
 
-    private MvSTimer timer;
     private MvSSearchTask aktSearchTask = null;
     private boolean suchen = false;
     private MvSSearch mvsSearch;
@@ -69,19 +68,16 @@ public class MvServer {
             if (MvSDaten.system[MvSKonstanten.SYSTEM_DEBUG_NR].equals(MvSKonstanten.STR_TRUE)) {
                 MvSDaten.debug = true;
             }
+
             // Infos schreiben
             MvSLog.startMeldungen(this.getClass().getName());
-            if (MvSDaten.debug) {
-                MvSLog.systemMeldung("");
-                MvSLog.systemMeldung("== Debug on ======");
-                MvSLog.systemMeldung("");
-            }
+
             mvsSearch = new MvSSearch();
-            timer = new MvSTimer() {
+            MvSTimer timer = new MvSTimer() {
                 @Override
                 public void ping() {
                     if (!suchen) {
-                        // beschäftigt
+                        // nicht beschäftigt
                         laufen();
                     }
                 }
@@ -104,9 +100,10 @@ public class MvServer {
             }
         }
         if (!suchen && aktSearchTask.starten()) {
+            // dann gibts was zu tun
             suchen = true;
             aktSearchTask.meldungStart();
-            // ----------------------
+
             // Filme suchen
             MvSLog.systemMeldung("");
             MvSLog.systemMeldung("======================================");
@@ -119,17 +116,19 @@ public class MvServer {
                 MvSLog.systemMeldung("-------------------------------");
                 MvSLog.systemMeldung("");
                 MvSLog.systemMeldung("");
+
             } else {
                 // Suchen war OK
                 MvSLog.systemMeldung("== Filme Suchen beendet =======");
                 MvSLog.systemMeldung("-------------------------------");
                 MvSLog.systemMeldung("");
                 MvSLog.systemMeldung("");
+
                 // nur dann gibts was zum Hochladen
-                // Filme jetzt hochladen
                 MvSLog.systemMeldung("");
                 MvSLog.systemMeldung("===============================");
                 MvSLog.systemMeldung("== Upload =====================");
+
                 MvSUpload.upload(aktSearchTask);
                 MvSLog.systemMeldung("== Upload beendet =============");
                 MvSLog.systemMeldung("-------------------------------");

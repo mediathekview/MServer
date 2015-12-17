@@ -79,6 +79,11 @@ public class MvSLog {
         systemMeldung("Verzeichnis Einstellungen: " + MvSDaten.getBasisVerzeichnis());
         systemMeldung("Useragent: " + MvSDaten.getUserAgent());
         systemMeldung("###########################################################");
+        if (MvSDaten.debug) {
+            MvSLog.systemMeldung("");
+            MvSLog.systemMeldung("== Debug on ======");
+            MvSLog.systemMeldung("");
+        }
         systemMeldung("");
         systemMeldung("");
     }

@@ -49,16 +49,21 @@ public class MvSUpload {
         MvSLog.systemMeldung("Start Upload");
         MvSLog.systemMeldung("");
         try {
+            // export Org
             if (aktSearchTask.orgListeAnlegen() && !MvSDaten.system[MvSKonstanten.SYSTEM_EXPORT_FILE_FILMLISTE_ORG_NR].isEmpty()) {
                 MvSLog.systemMeldung("");
                 MvSLog.systemMeldung("Copy Export Filmliste-Org");
                 MvSCopy.copy(MSConfig.getPathFilmlist_json_org_xz(), MvSDaten.system[MvSKonstanten.SYSTEM_EXPORT_FILE_FILMLISTE_ORG_NR], true /*rename*/);
             }
+            
+            // export aktuell
             if (!MvSDaten.system[MvSKonstanten.SYSTEM_EXPORT_FILE_FILMLISTE_NR].isEmpty()) {
                 MvSLog.systemMeldung("");
                 MvSLog.systemMeldung("Copy Export Filmliste");
                 MvSCopy.copy(MSConfig.getPathFilmlist_json_akt_xz(), MvSDaten.system[MvSKonstanten.SYSTEM_EXPORT_FILE_FILMLISTE_NR], true /*rename*/);
             }
+            
+            // export diff
             if (!MvSDaten.system[MvSKonstanten.SYSTEM_EXPORT_FILE_FILMLISTE_DIFF_NR].isEmpty()) {
                 MvSLog.systemMeldung("");
                 MvSLog.systemMeldung("Copy Export Filmliste-Diff");
@@ -78,6 +83,7 @@ public class MvSUpload {
                 MvSDatenUpload datenUpload = it.next();
                 srcPathFile = datenUpload.getFilmlisteSrc();
                 destFileName = getExportNameFilmliste(datenUpload, aktSearchTask);
+
                 MvSLog.systemMeldung("");
                 MvSLog.systemMeldung("--------------------------");
                 switch (datenUpload.arr[MvSDatenUpload.UPLOAD_LISTE_NR]) {
@@ -93,6 +99,8 @@ public class MvSUpload {
                     default:
                         MvSLog.systemMeldung("Upload Filmliste");
                 }
+                
+                // und jetzt der Upload/Copy
                 switch (datenUpload.arr[MvSDatenUpload.UPLOAD_ART_NR]) {
                     case UPLOAD_ART_COPY:
                         // ==============================================================
@@ -106,6 +114,7 @@ public class MvSUpload {
                         uploadFtp_(srcPathFile, destFileName, datenUpload);
                         break;
                 }
+                
                 MvSLog.systemMeldung("--------------------------");
                 MvSLog.systemMeldung("");
             }
@@ -118,7 +127,7 @@ public class MvSUpload {
 
     private static void uploadFtp_(String srcPathFile, String destFileName, MvSDatenUpload datenUpload) {
         if (!MvSFtp.uploadFtp(srcPathFile, destFileName, datenUpload)) {
-            new MvSWarten().sekundenWarten(60);
+            new MvSWarten().sekundenWarten(30);
             MvSLog.systemMeldung("2. Versuch Upload FTP");
             if (!MvSFtp.uploadFtp(srcPathFile, destFileName, datenUpload)) {
                 MvSLog.fehlerMeldung(649896079, MvSUpload.class.getName(), "FTP, 2.Versuch nicht geklappe");
@@ -129,7 +138,7 @@ public class MvSUpload {
     private static void uploadCopy_(String srcPathFile, String destFileName, MvSDatenUpload datenUpload) {
         if (!MvSCopy.copy(srcPathFile, destFileName, datenUpload)) {
             // wenns nicht geklappt hat nochmal versuchen
-            new MvSWarten().sekundenWarten(60);
+            new MvSWarten().sekundenWarten(30);
             MvSLog.systemMeldung("2. Versuch Upload copy");
             if (!MvSCopy.copy(srcPathFile, destFileName, datenUpload)) {
                 MvSLog.fehlerMeldung(798956236, MvSUpload.class.getName(), "Copy, 2.Versuch nicht geklappt");

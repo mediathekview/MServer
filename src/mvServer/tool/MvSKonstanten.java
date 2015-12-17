@@ -46,9 +46,9 @@ public class MvSKonstanten {
     // Filmliste die äleter sind werden aus der ListeFilmlisten gelöscht
     public static final int FILMLISTEN_MAX_ALTER = 3;
     // Wartezeiten
-    public static final int MAX_WARTEN_FTP_UPLOAD = 5; // 5 Minuten
-    public static final int WARTEZEIT_ALLES_LADEN = 160; // 160 Minuten
-    public static final int WARTEZEIT_UPDATE_LADEN = 60; // 60 Minuten
+    public static final int MAX_WARTEN_FTP_UPLOAD = 5; // max Dauer für FTP-Upload: 5 Minuten
+    public static final int WARTEZEIT_ALLES_LADEN = 160; // max Dauer fürs alles Suchen: 160 Minuten
+    public static final int WARTEZEIT_UPDATE_LADEN = 60; // max Dauer fürs update-Suchen: 60 Minuten
     //
     //
     // Konstanten System
@@ -56,16 +56,19 @@ public class MvSKonstanten {
 
     public static final String SYSTEM_USER_AGENT = "system-user-agent";
     public static final int SYSTEM_USER_AGENT_NR = 0;
+
     public static final String SYSTEM_IMPORT_URL_1 = "system-filmliste-import-url-1";
     public static final int SYSTEM_IMPORT_URL_1_NR = 1;
     public static final String SYSTEM_IMPORT_URL_2 = "system-filmliste-import-url-2";
     public static final int SYSTEM_IMPORT_URL_2_NR = 2;
+
     public static final String SYSTEM_EXPORT_FILE_FILMLISTE = "system-export-datei-filmliste"; // die Filmliste (json.xz) kann lokal noch mit einem festen Namen kopiert werden
     public static final int SYSTEM_EXPORT_FILE_FILMLISTE_NR = 3;
     public static final String SYSTEM_EXPORT_FILE_FILMLISTE_ORG = "system-export-datei-filmliste-org"; // die Filmliste für diff (json.xz) kann lokal noch mit einem festen Namen kopiert werden
     public static final int SYSTEM_EXPORT_FILE_FILMLISTE_ORG_NR = 4;
     public static final String SYSTEM_EXPORT_FILE_FILMLISTE_DIFF = "system-export-datei-filmliste-diff"; // die Filmliste diff (json.xz) kann lokal noch mit einem festen Namen kopiert werden
     public static final int SYSTEM_EXPORT_FILE_FILMLISTE_DIFF_NR = 5;
+
     public static final String SYSTEM_FILMLISTE_ORG = "system-filmliste-org"; // die Filmliste aus der diff erstellt wird, wenn leer wird die eigene org verwendet
     public static final int SYSTEM_FILMLISTE_ORG_NR = 6;
     public static final String SYSTEM_PFAD_LOGDATEI = "system-pfad-logdatei";

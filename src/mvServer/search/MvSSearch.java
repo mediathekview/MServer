@@ -46,15 +46,18 @@ public class MvSSearch {
             MvSLog.systemMeldung("-----------------------------------");
             MvSLog.systemMeldung("Filmsuche starten");
             mSearch = new MSearch();
+
             // was und wie
             MSConfig.senderAllesLaden = aktSearchTask.allesLaden();
             MSConfig.updateFilmliste = aktSearchTask.updateFilmliste();
             MSConfig.nurSenderLaden = arrLesen(aktSearchTask.arr[MvSSearchTask.SUCHEN_SENDER_NR].trim());
             MSConfig.orgFilmlisteErstellen = aktSearchTask.orgListeAnlegen();
             MSConfig.orgFilmliste = MvSDaten.system[MvSKonstanten.SYSTEM_FILMLISTE_ORG_NR];
+
             // und noch evtl. ein paar Imports von Filmlisten anderer Server
             MSConfig.importUrl_1__anhaengen = MvSDaten.system[MvSKonstanten.SYSTEM_IMPORT_URL_1_NR];
             MSConfig.importUrl_2__anhaengen = MvSDaten.system[MvSKonstanten.SYSTEM_IMPORT_URL_2_NR];
+
             // Rest
             MSConfig.setUserAgent(MvSDaten.getUserAgent());
             MSConfig.proxyUrl = MvSDaten.system[MvSKonstanten.SYSTEM_PROXY_URL_NR];
@@ -90,9 +93,9 @@ public class MvSSearch {
                         MvSLog.systemMeldung("================================");
                         MvSLog.systemMeldung("");
                         //und jetzt STOPPEN!!!!!!!!
-                        //MSConfig.setStop();
                         mSearch.stop();
                     }
+
                     t.join(5 * 60 * 1000); // 5 Minuten warten, das Erstellen/Komprimieren der Liste dauert
                     if (t.isAlive()) {
                         MvSLog.systemMeldung("");
@@ -112,6 +115,7 @@ public class MvSSearch {
         } catch (Exception ex) {
             MvSLog.fehlerMeldung(636987308, MvSSearch.class.getName(), "filmeSuchen", ex);
         }
+
         MvSLog.systemMeldung("filmeSuchen beendet");
         mSearch = null;
         return ret;

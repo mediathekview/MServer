@@ -54,7 +54,7 @@ public class MvSFtp {
             Thread t = new Thread(new Ftp());
             t.start();
 
-            int warten = MvSKonstanten.MAX_WARTEN_FTP_UPLOAD/*Minuten*/;
+            int warten = MvSKonstanten.MAX_WARTEN_FTP_UPLOAD /*Minuten*/;
             MvSLog.systemMeldung("Max Laufzeit FTP[Min]: " + warten);
             MvSLog.systemMeldung("-----------------------------------");
             warten = 1000 * 60 * warten;
