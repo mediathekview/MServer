@@ -53,7 +53,13 @@ public class MvSFtp {
             MvSLog.systemMeldung("Server: " + server);
             Thread t = new Thread(new Ftp());
             t.start();
-            t.join(MvSKonstanten.MAX_WARTEN_FTP_UPLOAD);
+
+            int warten = MvSKonstanten.MAX_WARTEN_FTP_UPLOAD/*Minuten*/;
+            MvSLog.systemMeldung("Max Laufzeit FTP[Min]: " + warten);
+            MvSLog.systemMeldung("-----------------------------------");
+            warten = 1000 * 60 * warten;
+            t.join(warten);
+
             if (t != null) {
                 if (t.isAlive()) {
                     MvSLog.fehlerMeldung(396958702, MvSFtp.class.getName(), "Der letzte FtpUpload läuft noch");
