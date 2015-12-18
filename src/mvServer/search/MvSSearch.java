@@ -48,7 +48,7 @@ public class MvSSearch {
             mSearch = new MSearch();
 
             // was und wie
-            MSConfig.senderAllesLaden = aktSearchTask.allesLaden();
+            MSConfig.senderLoad = aktSearchTask.allesLaden() ? MSConfig.LOAD_BIG : MSConfig.LOAD_UPDATE;
             MSConfig.updateFilmliste = aktSearchTask.updateFilmliste();
             MSConfig.nurSenderLaden = arrLesen(aktSearchTask.arr[MvSSearchTask.SUCHEN_SENDER_NR].trim());
             MSConfig.orgFilmlisteErstellen = aktSearchTask.orgListeAnlegen();
