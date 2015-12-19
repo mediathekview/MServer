@@ -33,7 +33,7 @@ public class MvSLog {
     private static final LinkedList<Integer[]> fehlerListe = new LinkedList<>(); // [Fehlernummer, Anzahl]
     private static final Date startZeit = new Date(System.currentTimeMillis());
     private static Date stopZeit = null;
-    private static final String logfile = MvSDaten.getLogDatei();
+    private static final String logfile = MvSDaten.getLogDatei(MvSKonstanten.LOG_FILE_NAME);
 
     public void resetFehlerListe() {
         fehlerListe.clear();

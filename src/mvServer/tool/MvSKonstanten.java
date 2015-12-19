@@ -47,8 +47,10 @@ public class MvSKonstanten {
     public static final int FILMLISTEN_MAX_ALTER = 3;
     // Wartezeiten
     public static final int MAX_WARTEN_FTP_UPLOAD = 5; // max Dauer für FTP-Upload: 5 Minuten
-    public static final int WARTEZEIT_ALLES_LADEN = 160; // max Dauer fürs alles Suchen: 160 Minuten
-    public static final int WARTEZEIT_UPDATE_LADEN = 60; // max Dauer fürs update-Suchen: 60 Minuten
+    public static final int WAIT_TIME_LOAD_UPDATE = 60; // max Dauer fürs update-Suchen: 60 Minuten
+    public static final int WAIT_TIME_LOAD_BIG = 160; // max Dauer fürs alles Suchen: 160 Minuten
+    public static final int WAIT_TIME_LOAD_MAX = 240; // max Dauer fürs komplette Suchen: 200 Minuten
+
     //
     //
     // Konstanten System
@@ -72,7 +74,7 @@ public class MvSKonstanten {
     public static final String SYSTEM_FILMLISTE_ORG = "system-filmliste-org"; // die Filmliste aus der diff erstellt wird, wenn leer wird die eigene org verwendet
     public static final int SYSTEM_FILMLISTE_ORG_NR = 6;
     public static final String SYSTEM_PFAD_LOGDATEI = "system-pfad-logdatei";
-    public static final int SYSTEM_PFAD_LOGDATEI_NR = 7;
+//    public static final int SYSTEM_PFAD_LOGDATEI_NR = 7;
     public static final String SYSTEM_PROXY_URL = "system-proxy-url";
     public static final int SYSTEM_PROXY_URL_NR = 8;
     public static final String SYSTEM_PROXY_PORT = "system-proxy-port";

@@ -115,31 +115,14 @@ public class MvSDaten {
 
     }
 
-    public static String getLogVerzeichnis() {
-        String ret;
-        if (system[MvSKonstanten.SYSTEM_PFAD_LOGDATEI_NR] == null) {
-            ret = MSFunktionen.addsPfad(getBasisVerzeichnis(basisverzeichnis, false), MvSKonstanten.LOG_FILE_PFAD);
-        } else if (MvSDaten.system[MvSKonstanten.SYSTEM_PFAD_LOGDATEI_NR].trim().equals("")) {
-            ret = MSFunktionen.addsPfad(getBasisVerzeichnis(basisverzeichnis, false), MvSKonstanten.LOG_FILE_PFAD);
-        } else {
-            ret = MvSDaten.system[MvSKonstanten.SYSTEM_PFAD_LOGDATEI_NR].trim();
-        }
-        File basisF = new File(ret);
-        if (!basisF.exists()) {
-            if (!basisF.mkdirs()) {
-                MvSLog.fehlerMeldung(958474120, MvSDaten.class.getName(), new String[]{"Kann den Ordner zum Speichern der Logfiles nicht anlegen!", ret});
-            }
-        }
-        return ret;
-    }
+    public static String getLogDatei(String name) {
+        String logPfad = "", logFileName = "";
 
-    public static String getLogDatei() {
-        // beim Programmstart wird das Logfile ermittelt
-        String logPfad, logFileName;
         try {
-            logPfad = getLogVerzeichnis();
+            logPfad = MSFunktionen.addsPfad(getBasisVerzeichnis(basisverzeichnis, false), MvSKonstanten.LOG_FILE_PFAD);
+
             // prüfen obs geht
-            logFileName = MSFunktionen.addsPfad(logPfad, MvSKonstanten.LOG_FILE_NAME + "__" + MvSDatumZeit.getHeute_yyyy_MM_dd() + ".log");
+            logFileName = MSFunktionen.addsPfad(logPfad, name + "__" + MvSDatumZeit.getHeute_yyyy_MM_dd() + ".log");
             File logfile = new File(logFileName);
             if (!logfile.exists()) {
                 new File(logPfad).mkdirs();
@@ -147,30 +130,14 @@ public class MvSDaten {
                     logFileName = "";
                 }
             }
-            return logFileName;
         } catch (Exception ex) {
-            System.out.println("Logfile anlegen: " + ex.getMessage()); // hier muss direkt geschrieben werden
-            return "";
+            System.out.println("Logfile anlegen: " + name + "\n" + ex.getMessage()); // hier muss direkt geschrieben werden
+            logFileName = "";
         }
-    }
 
-    public static String getLogDatei_msearch() {
-        String logPfad, logFileName;
-        try {
-            logPfad = MvSDaten.getLogVerzeichnis();
-            // prüfen obs geht
-            logFileName = MSFunktionen.addsPfad(logPfad, MvSKonstanten.LOG_FILE_NAME_MSEARCH + "__" + MvSDatumZeit.getHeute_yyyy_MM_dd() + ".log");
-            File logfile = new File(logFileName);
-            if (!logfile.exists()) {
-                new File(logPfad).mkdirs();
-                if (!logfile.createNewFile()) {
-                    logFileName = "";
-                }
-            }
-            return logFileName;
-        } catch (Exception ex) {
-            System.out.println("Logfile MV anlegen: " + ex.getMessage()); // hier muss direkt geschrieben werden
-            return "";
+        if (logFileName.isEmpty()) {
+            MvSLog.fehlerMeldung(912304578, MvSDaten.class.getName(), new String[]{"Kann das Logfile nicht anlegen!", logPfad, logFileName});
         }
+        return logFileName;
     }
 }

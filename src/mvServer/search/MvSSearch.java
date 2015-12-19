@@ -48,7 +48,7 @@ public class MvSSearch {
             mSearch = new MSearch();
 
             // was und wie
-            MSConfig.senderLoad = aktSearchTask.allesLaden() ? MSConfig.LOAD_BIG : MSConfig.LOAD_UPDATE;
+            MSConfig.senderLoad = aktSearchTask.loadHow();
             MSConfig.updateFilmliste = aktSearchTask.updateFilmliste();
             MSConfig.nurSenderLaden = arrLesen(aktSearchTask.arr[MvSSearchTask.SUCHEN_SENDER_NR].trim());
             MSConfig.orgFilmlisteErstellen = aktSearchTask.orgListeAnlegen();
@@ -63,7 +63,7 @@ public class MvSSearch {
             MSConfig.proxyUrl = MvSDaten.system[MvSKonstanten.SYSTEM_PROXY_URL_NR];
             MSConfig.proxyPort = MvSDaten.getProxyPort();
             MSConfig.debug = MvSDaten.debug;
-            MSLog.setLogfile(MvSDaten.getLogDatei_msearch());
+            MSLog.setLogfile(MvSDaten.getLogDatei(MvSKonstanten.LOG_FILE_NAME_MSEARCH));
 
             Thread t = new Thread(mSearch);
             t.start();

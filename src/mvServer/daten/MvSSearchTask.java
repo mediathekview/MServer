@@ -21,6 +21,7 @@ package mvServer.daten;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import msearch.tool.MSConfig;
 import mvServer.tool.MvSDatumZeit;
 import mvServer.tool.MvSKonstanten;
 import mvServer.tool.MvSLog;
@@ -28,12 +29,15 @@ import mvServer.tool.MvSLog;
 public class MvSSearchTask {
 
     // Konstanten Suchen
-    public static final String SUCHEN_ALLES = "alles";
     public static final String SUCHEN_UPDATE = "update";
+    public static final String SUCHEN_BIG = "big";
+    public static final String SUCHEN_BIG_OLD = "alles";
+    public static final String SUCHEN_MAX = "max";
+
     public static final String SUCHEN_NEU = "neu";
     public static final String SUCHEN_WANN_SOFORT = "sofort";
     //
-    public static final String SUCHEN_SENDER_WIE = "suchen-sender-wie"; // "alles" - dann alles suchen, sonst nur update
+    public static final String SUCHEN_SENDER_WIE = "suchen-sender-wie"; // "alles", "max" - dann big/max suchen, sonst nur update
     public static final int SUCHEN_SENDER_WIE_NR = 0;
     public static final String SUCHEN_LISTE_WIE = "suchen-liste-wie"; // "neu" - dann neue Liste erstellen, sonst update
     public static final int SUCHEN_LISTE_WIE_NR = 1;
@@ -71,18 +75,24 @@ public class MvSSearchTask {
     }
 
     public int getWaitTime() {
-        int waitTime = MvSKonstanten.WARTEZEIT_UPDATE_LADEN;
+        int waitTime = MvSKonstanten.WAIT_TIME_LOAD_UPDATE;
         if (arr[MvSSearchTask.SUCHEN_MAX_WAIT_NR].isEmpty()) {
-            if (allesLaden()) {
-                waitTime = MvSKonstanten.WARTEZEIT_ALLES_LADEN;
-            } else {
-                waitTime = MvSKonstanten.WARTEZEIT_UPDATE_LADEN;
+            switch (loadHow()) {
+                case MSConfig.LOAD_UPDATE:
+                    waitTime = MvSKonstanten.WAIT_TIME_LOAD_UPDATE;
+                    break;
+                case MSConfig.LOAD_BIG:
+                    waitTime = MvSKonstanten.WAIT_TIME_LOAD_BIG;
+                    break;
+                case MSConfig.LOAD_MAX:
+                    waitTime = MvSKonstanten.WAIT_TIME_LOAD_MAX;
+                    break;
             }
         } else {
             try {
                 waitTime = Integer.parseInt(arr[MvSSearchTask.SUCHEN_MAX_WAIT_NR]);
             } catch (Exception ignore) {
-                waitTime = MvSKonstanten.WARTEZEIT_UPDATE_LADEN;
+                waitTime = MvSKonstanten.WAIT_TIME_LOAD_UPDATE;
             }
         }
         return waitTime;
@@ -118,8 +128,18 @@ public class MvSSearchTask {
         return ret;
     }
 
-    public boolean allesLaden() {
-        return this.arr[SUCHEN_SENDER_WIE_NR].equals(SUCHEN_ALLES);
+    public int loadHow() {
+        int ret = MSConfig.LOAD_UPDATE;
+        switch (this.arr[SUCHEN_SENDER_WIE_NR]) {
+            case SUCHEN_BIG:
+            case SUCHEN_BIG_OLD:
+                ret = MSConfig.LOAD_BIG;
+                break;
+            case SUCHEN_MAX:
+                ret = MSConfig.LOAD_MAX;
+                break;
+        }
+        return ret;
     }
 
     public boolean updateFilmliste() {
