@@ -8,8 +8,7 @@
         <group name="MV__old"/>
         <group name="Mediathek">
             <file>file:/home/emil/daten/software/mediathek/mvServer/src/mvServer/search/MvSSearch.java</file>
-            <file>file:/home/emil/daten/software/mediathek/mvServer/src/mvServer/daten/MvSSearchTask.java</file>
-            <file>file:/home/emil/daten/software/mediathek/mvServer/src/mvServer/tool/MvSKonstanten.java</file>
         </group>
+        <group name="mvPlayer"/>
     </open-files>
 </project-private>

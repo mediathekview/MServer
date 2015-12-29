@@ -29,15 +29,15 @@ import mvServer.tool.MvSLog;
 public class MvSSearchTask {
 
     // Konstanten Suchen
-    public static final String SUCHEN_UPDATE = "update";
-    public static final String SUCHEN_BIG = "big";
+    public static final String SUCHEN_UPDATE = "short";
+    public static final String SUCHEN_BIG = "long";
     public static final String SUCHEN_BIG_OLD = "alles";
     public static final String SUCHEN_MAX = "max";
 
     public static final String SUCHEN_NEU = "neu";
     public static final String SUCHEN_WANN_SOFORT = "sofort";
     //
-    public static final String SUCHEN_SENDER_WIE = "suchen-sender-wie"; // "alles", "max" - dann big/max suchen, sonst nur update
+    public static final String SUCHEN_SENDER_WIE = "suchen-sender-wie"; // "short", "long", "max" - wenn leer dann nur "short"
     public static final int SUCHEN_SENDER_WIE_NR = 0;
     public static final String SUCHEN_LISTE_WIE = "suchen-liste-wie"; // "neu" - dann neue Liste erstellen, sonst update
     public static final int SUCHEN_LISTE_WIE_NR = 1;
@@ -78,10 +78,10 @@ public class MvSSearchTask {
         int waitTime = MvSKonstanten.WAIT_TIME_LOAD_UPDATE;
         if (arr[MvSSearchTask.SUCHEN_MAX_WAIT_NR].isEmpty()) {
             switch (loadHow()) {
-                case MSConfig.LOAD_UPDATE:
+                case MSConfig.LOAD_SHORT:
                     waitTime = MvSKonstanten.WAIT_TIME_LOAD_UPDATE;
                     break;
-                case MSConfig.LOAD_BIG:
+                case MSConfig.LOAD_LONG:
                     waitTime = MvSKonstanten.WAIT_TIME_LOAD_BIG;
                     break;
                 case MSConfig.LOAD_MAX:
@@ -129,11 +129,11 @@ public class MvSSearchTask {
     }
 
     public int loadHow() {
-        int ret = MSConfig.LOAD_UPDATE;
+        int ret = MSConfig.LOAD_SHORT;
         switch (this.arr[SUCHEN_SENDER_WIE_NR]) {
             case SUCHEN_BIG:
             case SUCHEN_BIG_OLD:
-                ret = MSConfig.LOAD_BIG;
+                ret = MSConfig.LOAD_LONG;
                 break;
             case SUCHEN_MAX:
                 ret = MSConfig.LOAD_MAX;

@@ -48,7 +48,7 @@ public class MvSSearch {
             mSearch = new MSearch();
 
             // was und wie
-            MSConfig.senderLoad = aktSearchTask.loadHow();
+            MSConfig.senderLoadHow = aktSearchTask.loadHow();
             MSConfig.updateFilmliste = aktSearchTask.updateFilmliste();
             MSConfig.nurSenderLaden = arrLesen(aktSearchTask.arr[MvSSearchTask.SUCHEN_SENDER_NR].trim());
             MSConfig.orgFilmlisteErstellen = aktSearchTask.orgListeAnlegen();
@@ -63,6 +63,7 @@ public class MvSSearch {
             MSConfig.proxyUrl = MvSDaten.system[MvSKonstanten.SYSTEM_PROXY_URL_NR];
             MSConfig.proxyPort = MvSDaten.getProxyPort();
             MSConfig.debug = MvSDaten.debug;
+
             MSLog.setLogfile(MvSDaten.getLogDatei(MvSKonstanten.LOG_FILE_NAME_MSEARCH));
 
             Thread t = new Thread(mSearch);
@@ -96,7 +97,7 @@ public class MvSSearch {
                         mSearch.stop();
                     }
 
-                    t.join(5 * 60 * 1000); // 5 Minuten warten, das Erstellen/Komprimieren der Liste dauert
+                    t.join(10 * 60 * 1000); // 10 Minuten warten, das Erstellen/Komprimieren der Liste dauert
                     if (t.isAlive()) {
                         MvSLog.systemMeldung("");
                         MvSLog.systemMeldung("");

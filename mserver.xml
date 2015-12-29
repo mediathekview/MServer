@@ -4,31 +4,27 @@
 <system>
 	<!-- Useragent  -->
 	<system-user-agent>MServer</system-user-agent>
-	<!-- damit kann das automatische Update abgeschaltet werden -->
-	<system-programmupdate-suchen>0</system-programmupdate-suchen>
+
+	<!-- import einer anderen Filmliste zum Ergänzen -->
+	<system-filmliste-import-url-1>http://mv-1.df-kunde.de/filme/Filmliste-akt.xz</system-filmliste-import-url-1>
+	<system-filmliste-import-url-2>http://92.51.131.172/akt/filme.xz</system-filmliste-import-url-2>
 	
-<!--
-	<system-melden-url-xml>http://zdfmediathk.sourceforge.net/update.php</system-melden-url-xml>
-	<system-melden-pwd-xml>EdJi5VflNa3FgrE</system-melden-pwd-xml>
-	<system-melden-url-json>http://zdfmediathk.sourceforge.net/update-json.php</system-melden-url-json>
-	<system-melden-pwd-json>EdJi5VflNa3FgrE</system-melden-pwd-json>
--->	
-	
-	<system-filmliste-import-url-extend>http://mv-1.df-kunde.de/filme/Filmliste-akt.xz</system-filmliste-import-url-extend>
-	<!-- <system-filmliste-import-url-replace>http://92.51.131.172/akt/filme.xz</system-filmliste-import-url-replace> -->
-	
+	<!-- export der erstellten Filmliste -->
 	<system-export-datei-filmliste>/tmp/filme.xz</system-export-datei-filmliste>
+	<system-export-datei-filmliste-org>/tmp/filme-org.xz</system-export-datei-filmliste-org>
 	<system-export-datei-filmliste-diff>/tmp/filme-diff.xz</system-export-datei-filmliste-diff>
+
+	<!-- damit wird die Diff-Liste erstellt -->
 	<system-filmliste-org>/tmp/filme-org.xz</system-filmliste-org>
 	
 <!--
 	<system-proxy-url>localhost</system-proxy-url>
 	<system-proxy-port>9050</system-proxy-port>
-	<system-url-vorher-loeschen>http://92.51.131.172/json1</system-url-vorher-loeschen>
-	-->
+-->
 
 	<system-debug>1</system-debug>
 </system>
+
 
 <!-- die Zeiten an denen die Filmliste gesucht werden soll  -->
 <!-- update -->
