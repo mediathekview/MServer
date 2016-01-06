@@ -19,7 +19,6 @@
  */
 package mvServer.upload;
 
-import java.util.Iterator;
 import msearch.tool.MSConfig;
 import mvServer.daten.MvSDatenUpload;
 import mvServer.daten.MvSSearchTask;
@@ -33,11 +32,8 @@ public class MvSUpload {
     // Konstanten Upload
     public static final String UPLOAD_ART_FTP = "ftp";
     public static final String UPLOAD_ART_COPY = "copy";
-    public static final String FORMAT_JSON = "json";
-    public static final String FORMAT_XML = "xml";
-    public static final String LISTE_XML = "xml";
-    public static final String LISTE_DIFF = "diff";
-    public static final String LISTE_AKT = "akt";
+//    public static final String LISTE_DIFF = "diff";
+//    public static final String LISTE_AKT = "akt";
 
     public static void upload(MvSSearchTask aktSearchTask) {
         // ==================================================
@@ -50,73 +46,60 @@ public class MvSUpload {
         MvSLog.systemMeldung("");
         try {
             // export Org
-            if (aktSearchTask.orgListeAnlegen() && !MvSDaten.system[MvSKonstanten.SYSTEM_EXPORT_FILE_FILMLISTE_ORG_NR].isEmpty()) {
+            if (!MvSDaten.system[MvSKonstanten.SYSTEM_EXPORT_FILMLISTE_ORG_NR].isEmpty() && aktSearchTask.orgListeAnlegen()) {
                 MvSLog.systemMeldung("");
                 MvSLog.systemMeldung("Copy Export Filmliste-Org");
-                MvSCopy.copy(MSConfig.getPathFilmlist_json_org_xz(), MvSDaten.system[MvSKonstanten.SYSTEM_EXPORT_FILE_FILMLISTE_ORG_NR], true /*rename*/);
+                MvSCopy.copy(MSConfig.getPathFilmlist_json_org_xz(), MvSDaten.system[MvSKonstanten.SYSTEM_EXPORT_FILMLISTE_ORG_NR]);
             }
-            
+
             // export aktuell
-            if (!MvSDaten.system[MvSKonstanten.SYSTEM_EXPORT_FILE_FILMLISTE_NR].isEmpty()) {
+            if (!MvSDaten.system[MvSKonstanten.SYSTEM_EXPORT_FILMLISTE_AKT_NR].isEmpty()) {
                 MvSLog.systemMeldung("");
                 MvSLog.systemMeldung("Copy Export Filmliste");
-                MvSCopy.copy(MSConfig.getPathFilmlist_json_akt_xz(), MvSDaten.system[MvSKonstanten.SYSTEM_EXPORT_FILE_FILMLISTE_NR], true /*rename*/);
+                MvSCopy.copy(MSConfig.getPathFilmlist_json_akt_xz(), MvSDaten.system[MvSKonstanten.SYSTEM_EXPORT_FILMLISTE_AKT_NR]);
             }
-            
+
             // export diff
-            if (!MvSDaten.system[MvSKonstanten.SYSTEM_EXPORT_FILE_FILMLISTE_DIFF_NR].isEmpty()) {
+            if (!MvSDaten.system[MvSKonstanten.SYSTEM_EXPORT_FILMLISTE_DIFF_NR].isEmpty()) {
                 MvSLog.systemMeldung("");
                 MvSLog.systemMeldung("Copy Export Filmliste-Diff");
-                MvSCopy.copy(MSConfig.getPathFilmlist_json_diff_xz(), MvSDaten.system[MvSKonstanten.SYSTEM_EXPORT_FILE_FILMLISTE_DIFF_NR], true /*rename*/);
+                MvSCopy.copy(MSConfig.getPathFilmlist_json_diff_xz(), MvSDaten.system[MvSKonstanten.SYSTEM_EXPORT_FILMLISTE_DIFF_NR]);
             }
 
             // ======================================================
-            // jetzt die anderen Uploads erledigen
-            String destFileName;
-            String srcPathFile;
-            Iterator<MvSDatenUpload> it = MvSDaten.listeUpload.iterator();
+            // jetzt die anderen Uploads ins Web erledigen
             if (MvSDaten.listeUpload.size() > 0) {
                 // nach dem Suchen Rechner Zeit zum Abau aller Verbindungen geben
                 new MvSWarten().sekundenWarten(30);
             }
-            while (it.hasNext()) {
-                MvSDatenUpload datenUpload = it.next();
-                srcPathFile = datenUpload.getFilmlisteSrc();
-                destFileName = getExportNameFilmliste(datenUpload, aktSearchTask);
 
-                MvSLog.systemMeldung("");
-                MvSLog.systemMeldung("--------------------------");
-                switch (datenUpload.arr[MvSDatenUpload.UPLOAD_LISTE_NR]) {
-                    case (MvSUpload.LISTE_DIFF):
-                        MvSLog.systemMeldung("Upload Diff-Liste");
-                        break;
-                    case (MvSUpload.LISTE_AKT):
-                        MvSLog.systemMeldung("Upload Akt-Liste");
-                        break;
-                    case (MvSUpload.LISTE_XML):
-                        MvSLog.systemMeldung("Upload XML-Liste");
-                        break;
-                    default:
-                        MvSLog.systemMeldung("Upload Filmliste");
-                }
-                
-                // und jetzt der Upload/Copy
-                switch (datenUpload.arr[MvSDatenUpload.UPLOAD_ART_NR]) {
-                    case UPLOAD_ART_COPY:
-                        // ==============================================================
-                        // kopieren
-                        uploadCopy_(srcPathFile, destFileName, datenUpload);
-                        break;
+            for (MvSDatenUpload datenUpload : MvSDaten.listeUpload) {
+                for (int i = 0; i <= 1; ++i) {
+                    String[] srcPathFile = new String[]{MSConfig.getPathFilmlist_json_diff_xz(), MSConfig.getPathFilmlist_json_akt_xz()};
+                    String[] destFileName = new String[]{MvSKonstanten.NAME_FILMLISTE_DIFF, MvSKonstanten.NAME_FILMLISTE_AKT};
 
-                    case UPLOAD_ART_FTP:
-                        // ==============================================================
-                        // ftp
-                        uploadFtp_(srcPathFile, destFileName, datenUpload);
-                        break;
+                    MvSLog.systemMeldung("");
+                    MvSLog.systemMeldung("--------------------------");
+                    MvSLog.systemMeldung("Upload Liste: " + srcPathFile[i]);
+
+                    // und jetzt der Upload/Copy
+                    switch (datenUpload.arr[MvSDatenUpload.UPLOAD_ART_NR]) {
+                        case UPLOAD_ART_COPY:
+                            // ==============================================================
+                            // kopieren
+                            uploadCopy_(srcPathFile[i], destFileName[i], datenUpload);
+                            break;
+
+                        case UPLOAD_ART_FTP:
+                            // ==============================================================
+                            // ftp
+                            uploadFtp_(srcPathFile[i], destFileName[i], datenUpload);
+                            break;
+                    }
+
+                    MvSLog.systemMeldung("--------------------------");
+                    MvSLog.systemMeldung("");
                 }
-                
-                MvSLog.systemMeldung("--------------------------");
-                MvSLog.systemMeldung("");
             }
         } catch (Exception ex) {
             MvSLog.fehlerMeldung(989620146, MvSUpload.class.getName(), "MS_UploadFtp", ex);
@@ -146,26 +129,21 @@ public class MvSUpload {
         }
     }
 
-    private static String getExportNameFilmliste(MvSDatenUpload mvsDatenUpload, MvSSearchTask mvsSearchTask) {
-        if (!mvsDatenUpload.arr[MvSDatenUpload.UPLOAD_DEST_NAME_NR].isEmpty()) {
-            return mvsDatenUpload.arr[MvSDatenUpload.UPLOAD_DEST_NAME_NR];
-        }
-        String name;
-        switch (mvsDatenUpload.arr[MvSDatenUpload.UPLOAD_LISTE_NR]) {
-            case (MvSUpload.LISTE_XML):
-                name = MvSKonstanten.NAME_FILMLISTE_XML;
-                // gibts noch kein diff..
-                break;
-            case (MvSUpload.LISTE_DIFF):
-                name = MvSKonstanten.NAME_FILMLISTE_DIFF;
-                break;
-            case (MvSUpload.LISTE_AKT):
-                name = MvSKonstanten.NAME_FILMLISTE_AKT;
-                break;
-            default:
-                name = MvSKonstanten.NAME_FILMLISTE_AKT;
-        }
-        return name;
-    }
-
+//    private static String getExportNameFilmliste(MvSDatenUpload mvsDatenUpload, MvSSearchTask mvsSearchTask) {
+//        if (!mvsDatenUpload.arr[MvSDatenUpload.UPLOAD_DEST_NAME_NR].isEmpty()) {
+//            return mvsDatenUpload.arr[MvSDatenUpload.UPLOAD_DEST_NAME_NR];
+//        }
+//        String name;
+//        switch (mvsDatenUpload.arr[MvSDatenUpload.UPLOAD_LISTE_NR]) {
+//            case (MvSUpload.LISTE_DIFF):
+//                name = MvSKonstanten.NAME_FILMLISTE_DIFF;
+//                break;
+//            case (MvSUpload.LISTE_AKT):
+//                name = MvSKonstanten.NAME_FILMLISTE_AKT;
+//                break;
+//            default:
+//                name = MvSKonstanten.NAME_FILMLISTE_AKT;
+//        }
+//        return name;
+//    }
 }

@@ -21,15 +21,11 @@ package mvServer.tool;
 
 public class MvSKonstanten {
 
-    public static final String VERSION = "1.0";
+    public static final String VERSION = "2";
     public static final String PROGRAMMNAME = "MServer";
-    public static final String USER_AGENT_DEFAULT = PROGRAMMNAME + " " + VERSION;
-    public static final int PROGRAMM_EXIT_CODE_UPDATE = 11;
-    public static final String PROGRAMMDATEI_UPDATE = "MServer_update.zip";
     // Dateien/Verzeichnisse
     public static final String NAME_FILMLISTE_AKT = "Filmliste-akt.xz";
     public static final String NAME_FILMLISTE_DIFF = "Filmliste-diff.xz";
-    public static final String NAME_FILMLISTE_XML = "Filmliste-xml.bz2";
 
     public static final String VERZEICHNISS_EINSTELLUNGEN = ".mserver";
     public static final String VERZEICHNISS_FILMLISTEN = "filmlisten";
@@ -38,13 +34,10 @@ public class MvSKonstanten {
     public static final String LOG_FILE_NAME = "MvServer";
     public static final String LOG_FILE_NAME_MSEARCH = "MSearch";
     public static final String LOG_FILE_PFAD = "log";
-    public static final String PROGRAMM_UPDATE_URL_RSS = "http://sourceforge.net/api/file/index/project-id/222825/mtime/desc/limit/100/rss";
     public static final String XML_START = "MServer";
     public static final String STR_TRUE = "1";
     public static final String STR_FALSE = "0";
     public static final String KODIERUNG_UTF = "UTF-8";
-    // Filmliste die äleter sind werden aus der ListeFilmlisten gelöscht
-    public static final int FILMLISTEN_MAX_ALTER = 3;
     // Wartezeiten
     public static final int MAX_WARTEN_FTP_UPLOAD = 5; // max Dauer für FTP-Upload: 5 Minuten
     public static final int WAIT_TIME_LOAD_UPDATE = 60; // max Dauer fürs update-Suchen: 60 Minuten
@@ -64,28 +57,26 @@ public class MvSKonstanten {
     public static final String SYSTEM_IMPORT_URL_2 = "system-filmliste-import-url-2";
     public static final int SYSTEM_IMPORT_URL_2_NR = 2;
 
-    public static final String SYSTEM_EXPORT_FILE_FILMLISTE = "system-export-datei-filmliste"; // die Filmliste (json.xz) kann lokal noch mit einem festen Namen kopiert werden
-    public static final int SYSTEM_EXPORT_FILE_FILMLISTE_NR = 3;
-    public static final String SYSTEM_EXPORT_FILE_FILMLISTE_ORG = "system-export-datei-filmliste-org"; // die Filmliste für diff (json.xz) kann lokal noch mit einem festen Namen kopiert werden
-    public static final int SYSTEM_EXPORT_FILE_FILMLISTE_ORG_NR = 4;
-    public static final String SYSTEM_EXPORT_FILE_FILMLISTE_DIFF = "system-export-datei-filmliste-diff"; // die Filmliste diff (json.xz) kann lokal noch mit einem festen Namen kopiert werden
-    public static final int SYSTEM_EXPORT_FILE_FILMLISTE_DIFF_NR = 5;
+    public static final String SYSTEM_EXPORT_FILMLISTE_AKT = "system-export-datei-filmliste"; // die Filmliste (json.xz) kann lokal noch mit einem festen Namen kopiert werden
+    public static final int SYSTEM_EXPORT_FILMLISTE_AKT_NR = 3;
+    public static final String SYSTEM_EXPORT_FILMLISTE_ORG = "system-export-datei-filmliste-org"; // die Filmliste für ORG (json.xz) kann lokal noch mit einem festen Namen kopiert werden
+    public static final int SYSTEM_EXPORT_FILMLISTE_ORG_NR = 4;
+    public static final String SYSTEM_EXPORT_FILMLISTE_DIFF = "system-export-datei-filmliste-diff"; // die Filmliste diff (json.xz) kann lokal noch mit einem festen Namen kopiert werden
+    public static final int SYSTEM_EXPORT_FILMLISTE_DIFF_NR = 5;
 
     public static final String SYSTEM_FILMLISTE_ORG = "system-filmliste-org"; // die Filmliste aus der diff erstellt wird, wenn leer wird die eigene org verwendet
     public static final int SYSTEM_FILMLISTE_ORG_NR = 6;
-    public static final String SYSTEM_PFAD_LOGDATEI = "system-pfad-logdatei";
-//    public static final int SYSTEM_PFAD_LOGDATEI_NR = 7;
     public static final String SYSTEM_PROXY_URL = "system-proxy-url";
-    public static final int SYSTEM_PROXY_URL_NR = 8;
+    public static final int SYSTEM_PROXY_URL_NR = 7;
     public static final String SYSTEM_PROXY_PORT = "system-proxy-port";
-    public static final int SYSTEM_PROXY_PORT_NR = 9;
+    public static final int SYSTEM_PROXY_PORT_NR = 8;
     public static final String SYSTEM_DEBUG = "system-debug";
-    public static final int SYSTEM_DEBUG_NR = 10;
+    public static final int SYSTEM_DEBUG_NR = 9;
 
-    public static final int SYSTEM_MAX_ELEM = 11;
+    public static final int SYSTEM_MAX_ELEM = 10;
 
     public static final String[] SYSTEM_COLUMN_NAMES = {
         SYSTEM_USER_AGENT, SYSTEM_IMPORT_URL_1, SYSTEM_IMPORT_URL_2,
-        SYSTEM_EXPORT_FILE_FILMLISTE, SYSTEM_EXPORT_FILE_FILMLISTE_ORG, SYSTEM_EXPORT_FILE_FILMLISTE_DIFF, SYSTEM_FILMLISTE_ORG,
-        SYSTEM_PFAD_LOGDATEI, SYSTEM_PROXY_URL, SYSTEM_PROXY_PORT, SYSTEM_DEBUG};
+        SYSTEM_EXPORT_FILMLISTE_AKT, SYSTEM_EXPORT_FILMLISTE_ORG, SYSTEM_EXPORT_FILMLISTE_DIFF, SYSTEM_FILMLISTE_ORG,
+        SYSTEM_PROXY_URL, SYSTEM_PROXY_PORT, SYSTEM_DEBUG};
 }

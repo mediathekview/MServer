@@ -138,20 +138,17 @@ public class MvSFtp {
                 InputStream input;
                 input = new FileInputStream(srcPathFile);
                 String dest = datenUpload.getFilmlisteDestPfadName(destFileName);
-                if (datenUpload.rename()) {
-                    MvSLog.debugMeldung("Upload Filmliste + rename");
-                    String dest_tmp = dest + "__";
-                    String dest_old = dest + "_old";
-                    ftp.storeFile(dest_tmp, input);
-                    MvSLog.debugMeldung("Upload Filmliste " + dest_tmp);
-                    ftp.rename(dest, dest_old);
-                    MvSLog.debugMeldung("Rename alte Filmliste " + dest);
-                    ftp.rename(dest_tmp, dest);
-                    MvSLog.debugMeldung("Rename Filmliste " + dest);
-                } else {
-                    ftp.storeFile(dest, input);
-                    MvSLog.debugMeldung("Upload Filmliste " + dest);
-                }
+
+                MvSLog.debugMeldung("Upload Filmliste + rename");
+                String dest_tmp = dest + "__";
+                String dest_old = dest + "_old";
+                ftp.storeFile(dest_tmp, input);
+                MvSLog.debugMeldung("Upload Filmliste " + dest_tmp);
+                ftp.rename(dest, dest_old);
+                MvSLog.debugMeldung("Rename alte Filmliste " + dest);
+                ftp.rename(dest_tmp, dest);
+                MvSLog.debugMeldung("Rename Filmliste " + dest);
+
                 input.close();
                 ftp.noop(); // check that control connection is working OK
 

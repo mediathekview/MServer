@@ -41,7 +41,7 @@ public class MvSDatenUpload {
     public static final String UPLOAD_DEST_DIR = "upload-dest-dir";
     public static final int UPLOAD_DEST_DIR_NR = 5;
     public static final String UPLOAD_DEST_NAME = "upload-dest-name";
-    public static final int UPLOAD_DEST_NAME_NR = 6;
+//    public static final int UPLOAD_DEST_NAME_NR = 6;
     public static final String UPLOAD_PORT = "upload-port";
     public static final int UPLOAD_PORT_NR = 7;
 
@@ -68,35 +68,20 @@ public class MvSDatenUpload {
         return mvsDatenUpload;
     }
 
-    public String getFilmlisteSrc() {
-        String f;
-        switch (arr[MvSDatenUpload.UPLOAD_LISTE_NR]) {
-            case (MvSUpload.LISTE_XML):
-                // altes Format, gibts noch kein Diff
-                f = MSConfig.getPathFilmlist_xml_bz2();
-                break;
-            case (MvSUpload.LISTE_DIFF):
-                f = MSConfig.getPathFilmlist_json_diff_xz();
-                break;
-            case (MvSUpload.LISTE_AKT):
-            default:
-                // da unterscheidet sich dann nur der Zieldateiname
-                f = MSConfig.getPathFilmlist_json_akt_xz();
-        }
-        return f;
-    }
-
-    public boolean rename() {
-        switch (arr[MvSDatenUpload.UPLOAD_LISTE_NR]) {
-            case (MvSUpload.LISTE_DIFF):
-            case (MvSUpload.LISTE_AKT):
-                return true;
-            case (MvSUpload.LISTE_XML):
-            default:
-                return false;
-        }
-    }
-
+//    public String[] getFilmlisteSrc() {
+//        String[] f = new String[]{MSConfig.getPathFilmlist_json_diff_xz(),
+//            MSConfig.getPathFilmlist_json_akt_xz()};
+//        return f;
+//    }
+//    public boolean rename() {
+//        switch (arr[MvSDatenUpload.UPLOAD_LISTE_NR]) {
+//            case (MvSUpload.LISTE_DIFF):
+//            case (MvSUpload.LISTE_AKT):
+//                return true;
+//            default:
+//                return false;
+//        }
+//    }
     public String getDestDir() {
         return arr[UPLOAD_DEST_DIR_NR];
     }

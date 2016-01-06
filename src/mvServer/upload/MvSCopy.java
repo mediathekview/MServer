@@ -37,7 +37,7 @@ public class MvSCopy {
             MvSLog.systemMeldung("UploadCopy");
             new File(datenUpload.getDestDir()).mkdirs();
             String dest = datenUpload.getFilmlisteDestPfadName(destFileName);
-            copy(srcPathFile, dest, datenUpload.rename());
+            copy(srcPathFile, dest);
             ret = true;
         } catch (Exception ex) {
             MvSLog.fehlerMeldung(747452360, MvSCopy.class.getName(), "copy", ex);
@@ -51,7 +51,7 @@ public class MvSCopy {
         return ret;
     }
 
-    public static boolean copy(String srcPathFile, String destPathFile, boolean rename) {
+    public static boolean copy(String srcPathFile, String destPathFile) {
         boolean ret = false;
         MvSLog.systemMeldung("");
         MvSLog.systemMeldung("----------------------");
@@ -60,26 +60,28 @@ public class MvSCopy {
         MvSLog.systemMeldung("dest: " + destPathFile);
         try {
             String dest = destPathFile;
-            if (rename) {
-                String dest_tmp = dest + "__";
-                String dest_old = dest + "_old";
-                MvSLog.systemMeldung("Copy Filmliste (rename): " + dest);
-                Files.copy(Paths.get(srcPathFile), Paths.get(dest_tmp), StandardCopyOption.REPLACE_EXISTING);
+//            if (rename) {
 
-                if (Files.exists(Paths.get(dest), LinkOption.NOFOLLOW_LINKS)) {
-                    // wenns die Datei schon gibt, umbenennen, ist der Normalfall
-                    MvSLog.systemMeldung("Rename alte Filmliste: " + dest_tmp);
-                    Files.move(Paths.get(dest), Paths.get(dest_old), StandardCopyOption.REPLACE_EXISTING);
-                }
-                MvSLog.systemMeldung("Rename neue Filmliste: " + dest);
-                Files.move(Paths.get(dest_tmp), Paths.get(dest), StandardCopyOption.REPLACE_EXISTING);
+            String dest_tmp = dest + "__";
+            String dest_old = dest + "_old";
+            MvSLog.systemMeldung("Copy Filmliste (rename): " + dest);
+            Files.copy(Paths.get(srcPathFile), Paths.get(dest_tmp), StandardCopyOption.REPLACE_EXISTING);
 
-                MvSLog.systemMeldung("====================================");
-            } else {
-                MvSLog.systemMeldung("Copy Filmliste: " + dest);
-                Files.copy(Paths.get(srcPathFile), Paths.get(dest), StandardCopyOption.REPLACE_EXISTING);
-                MvSLog.systemMeldung("====================================");
+            if (Files.exists(Paths.get(dest), LinkOption.NOFOLLOW_LINKS)) {
+                // wenns die Datei schon gibt, umbenennen, ist der Normalfall
+                MvSLog.systemMeldung("Rename alte Filmliste: " + dest_tmp);
+                Files.move(Paths.get(dest), Paths.get(dest_old), StandardCopyOption.REPLACE_EXISTING);
             }
+            MvSLog.systemMeldung("Rename neue Filmliste: " + dest);
+            Files.move(Paths.get(dest_tmp), Paths.get(dest), StandardCopyOption.REPLACE_EXISTING);
+
+            MvSLog.systemMeldung("====================================");
+
+//            } else {
+//                MvSLog.systemMeldung("Copy Filmliste: " + dest);
+//                Files.copy(Paths.get(srcPathFile), Paths.get(dest), StandardCopyOption.REPLACE_EXISTING);
+//                MvSLog.systemMeldung("====================================");
+//            }
             ret = true;
         } catch (Exception ex) {
             MvSLog.fehlerMeldung(832164870, MvSCopy.class.getName(), "MvSCopy.copy", ex);
