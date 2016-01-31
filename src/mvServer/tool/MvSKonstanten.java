@@ -57,26 +57,30 @@ public class MvSKonstanten {
     public static final String SYSTEM_IMPORT_URL_2 = "system-filmliste-import-url-2";
     public static final int SYSTEM_IMPORT_URL_2_NR = 2;
 
+    public static final String SYSTEM_IMPORT_OLD = "system-filmliste-import-old";
+    public static final int SYSTEM_IMPORT_OLD_NR = 3;
+
     public static final String SYSTEM_EXPORT_FILMLISTE_AKT = "system-export-datei-filmliste"; // die Filmliste (json.xz) kann lokal noch mit einem festen Namen kopiert werden
-    public static final int SYSTEM_EXPORT_FILMLISTE_AKT_NR = 3;
+    public static final int SYSTEM_EXPORT_FILMLISTE_AKT_NR = 4;
     public static final String SYSTEM_EXPORT_FILMLISTE_ORG = "system-export-datei-filmliste-org"; // die Filmliste für ORG (json.xz) kann lokal noch mit einem festen Namen kopiert werden
-    public static final int SYSTEM_EXPORT_FILMLISTE_ORG_NR = 4;
+    public static final int SYSTEM_EXPORT_FILMLISTE_ORG_NR = 5;
     public static final String SYSTEM_EXPORT_FILMLISTE_DIFF = "system-export-datei-filmliste-diff"; // die Filmliste diff (json.xz) kann lokal noch mit einem festen Namen kopiert werden
-    public static final int SYSTEM_EXPORT_FILMLISTE_DIFF_NR = 5;
+    public static final int SYSTEM_EXPORT_FILMLISTE_DIFF_NR = 6;
 
     public static final String SYSTEM_FILMLISTE_ORG = "system-filmliste-org"; // die Filmliste aus der diff erstellt wird, wenn leer wird die eigene org verwendet
-    public static final int SYSTEM_FILMLISTE_ORG_NR = 6;
+    public static final int SYSTEM_FILMLISTE_ORG_NR = 7;
     public static final String SYSTEM_PROXY_URL = "system-proxy-url";
-    public static final int SYSTEM_PROXY_URL_NR = 7;
+    public static final int SYSTEM_PROXY_URL_NR = 8;
     public static final String SYSTEM_PROXY_PORT = "system-proxy-port";
-    public static final int SYSTEM_PROXY_PORT_NR = 8;
+    public static final int SYSTEM_PROXY_PORT_NR = 9;
     public static final String SYSTEM_DEBUG = "system-debug";
-    public static final int SYSTEM_DEBUG_NR = 9;
+    public static final int SYSTEM_DEBUG_NR = 10;
 
-    public static final int SYSTEM_MAX_ELEM = 10;
+    public static final int SYSTEM_MAX_ELEM = 11;
 
     public static final String[] SYSTEM_COLUMN_NAMES = {
-        SYSTEM_USER_AGENT, SYSTEM_IMPORT_URL_1, SYSTEM_IMPORT_URL_2,
+        SYSTEM_USER_AGENT, SYSTEM_IMPORT_URL_1, SYSTEM_IMPORT_URL_2, SYSTEM_IMPORT_OLD,
         SYSTEM_EXPORT_FILMLISTE_AKT, SYSTEM_EXPORT_FILMLISTE_ORG, SYSTEM_EXPORT_FILMLISTE_DIFF, SYSTEM_FILMLISTE_ORG,
-        SYSTEM_PROXY_URL, SYSTEM_PROXY_PORT, SYSTEM_DEBUG};
+        SYSTEM_PROXY_URL, SYSTEM_PROXY_PORT, SYSTEM_DEBUG
+    };
 }

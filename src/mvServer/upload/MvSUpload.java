@@ -129,21 +129,4 @@ public class MvSUpload {
         }
     }
 
-//    private static String getExportNameFilmliste(MvSDatenUpload mvsDatenUpload, MvSSearchTask mvsSearchTask) {
-//        if (!mvsDatenUpload.arr[MvSDatenUpload.UPLOAD_DEST_NAME_NR].isEmpty()) {
-//            return mvsDatenUpload.arr[MvSDatenUpload.UPLOAD_DEST_NAME_NR];
-//        }
-//        String name;
-//        switch (mvsDatenUpload.arr[MvSDatenUpload.UPLOAD_LISTE_NR]) {
-//            case (MvSUpload.LISTE_DIFF):
-//                name = MvSKonstanten.NAME_FILMLISTE_DIFF;
-//                break;
-//            case (MvSUpload.LISTE_AKT):
-//                name = MvSKonstanten.NAME_FILMLISTE_AKT;
-//                break;
-//            default:
-//                name = MvSKonstanten.NAME_FILMLISTE_AKT;
-//        }
-//        return name;
-//    }
 }

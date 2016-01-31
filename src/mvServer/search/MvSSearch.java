@@ -58,6 +58,9 @@ public class MvSSearch {
             MSConfig.importUrl_1__anhaengen = MvSDaten.system[MvSKonstanten.SYSTEM_IMPORT_URL_1_NR];
             MSConfig.importUrl_2__anhaengen = MvSDaten.system[MvSKonstanten.SYSTEM_IMPORT_URL_2_NR];
 
+            // für die alte Filmliste
+            MSConfig.importOld = MvSDaten.system[MvSKonstanten.SYSTEM_IMPORT_OLD_NR];
+
             // Rest
             MSConfig.setUserAgent(MvSDaten.getUserAgent());
             MSConfig.proxyUrl = MvSDaten.system[MvSKonstanten.SYSTEM_PROXY_URL_NR];
@@ -97,7 +100,7 @@ public class MvSSearch {
                         mSearch.stop();
                     }
 
-                    t.join(10 * 60 * 1000); // 10 Minuten warten, das Erstellen/Komprimieren der Liste dauert
+                    t.join(15 * 60 * 1000); // 10 Minuten warten, das Erstellen/Komprimieren der Liste dauert
                     if (t.isAlive()) {
                         MvSLog.systemMeldung("");
                         MvSLog.systemMeldung("");
