@@ -100,7 +100,7 @@ public class MvSSearch {
                         mSearch.stop();
                     }
 
-                    t.join(15 * 60 * 1000); // 10 Minuten warten, das Erstellen/Komprimieren der Liste dauert
+                    t.join(15 * 60 * 1000); // 15 Minuten warten, das Erstellen/Komprimieren der Liste dauert
                     if (t.isAlive()) {
                         MvSLog.systemMeldung("");
                         MvSLog.systemMeldung("");
