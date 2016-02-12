@@ -119,7 +119,21 @@ public class MvSSearch {
         } catch (Exception ex) {
             MvSLog.fehlerMeldung(636987308, MvSSearch.class.getName(), "filmeSuchen", ex);
         }
+        int l = mSearch.getListeFilme().size();
+        MvSLog.systemMeldung("");
+        MvSLog.systemMeldung("");
+        MvSLog.systemMeldung("================================");
+        MvSLog.systemMeldung("Filmliste Anzahl Filme: " + l);
+        if (l < 10_000) {
+            //dann hat was nicht gepasst
+            MvSLog.systemMeldung("   Fehler!!");
+            MvSLog.systemMeldung("================================");
+            ret = false;
+        } else {
+            MvSLog.systemMeldung("   dann ist alles OK");
+            MvSLog.systemMeldung("================================");
 
+        }
         MvSLog.systemMeldung("filmeSuchen beendet");
         mSearch = null;
         return ret;

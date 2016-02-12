@@ -32,8 +32,6 @@ public class MvSUpload {
     // Konstanten Upload
     public static final String UPLOAD_ART_FTP = "ftp";
     public static final String UPLOAD_ART_COPY = "copy";
-//    public static final String LISTE_DIFF = "diff";
-//    public static final String LISTE_AKT = "akt";
 
     public static void upload(MvSSearchTask aktSearchTask) {
         // ==================================================
