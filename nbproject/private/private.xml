@@ -7,9 +7,6 @@
         <group name="Pi"/>
         <group name="MV__old"/>
         <group name="mvPlayer"/>
-        <group name="Mediathek">
-            <file>file:/home/emil/daten/software/mediathek/mvServer/src/mvServer/search/MvSSearch.java</file>
-            <file>file:/home/emil/daten/software/mediathek/mvServer/src/mvServer/upload/MvSUpload.java</file>
-        </group>
+        <group name="Mediathek"/>
     </open-files>
 </project-private>
