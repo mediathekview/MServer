@@ -54,6 +54,9 @@ public class MvSSearch {
             MSConfig.orgFilmlisteErstellen = aktSearchTask.orgListeAnlegen();
             MSConfig.orgFilmliste = MvSDaten.system[MvSKonstanten.SYSTEM_FILMLISTE_ORG_NR];
 
+            // live-steams
+            MSConfig.importLive = MvSDaten.system[MvSKonstanten.SYSTEM_IMPORT_LIVE_NR];
+
             // und noch evtl. ein paar Imports von Filmlisten anderer Server
             MSConfig.importUrl_1__anhaengen = MvSDaten.system[MvSKonstanten.SYSTEM_IMPORT_URL_1_NR];
             MSConfig.importUrl_2__anhaengen = MvSDaten.system[MvSKonstanten.SYSTEM_IMPORT_URL_2_NR];
