@@ -19,7 +19,9 @@
  */
 package mvServer.search;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import msearch.MSearch;
 import msearch.tool.MSConfig;
 import msearch.tool.MSLog;
@@ -96,6 +98,7 @@ public class MvSSearch {
                         MvSLog.systemMeldung("================================");
                         MvSLog.systemMeldung("================================");
                         MvSLog.systemMeldung("und wird jetzt gestoppt");
+                        MvSLog.systemMeldung("Zeit: " + new SimpleDateFormat("dd.MM.yyyy HH:mm:ss").format(new Date()));
                         MvSLog.systemMeldung("================================");
                         MvSLog.systemMeldung("================================");
                         MvSLog.systemMeldung("");
@@ -110,6 +113,7 @@ public class MvSSearch {
                         MvSLog.systemMeldung("================================");
                         MvSLog.systemMeldung("================================");
                         MvSLog.systemMeldung("und noch gekillt");
+                        MvSLog.systemMeldung("Zeit: " + new SimpleDateFormat("dd.MM.yyyy HH:mm:ss").format(new Date()));
                         MvSLog.systemMeldung("================================");
                         MvSLog.systemMeldung("================================");
                         MvSLog.systemMeldung("");
