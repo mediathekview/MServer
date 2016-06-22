@@ -40,9 +40,9 @@ public class MvSKonstanten {
     public static final String KODIERUNG_UTF = "UTF-8";
     // Wartezeiten
     public static final int MAX_WARTEN_FTP_UPLOAD = 5; // max Dauer für FTP-Upload: 5 Minuten
-    public static final int WAIT_TIME_LOAD_UPDATE = 60; // max Dauer fürs update-Suchen: 60 Minuten
-    public static final int WAIT_TIME_LOAD_BIG = 160; // max Dauer fürs alles Suchen: 160 Minuten
-    public static final int WAIT_TIME_LOAD_MAX = 240; // max Dauer fürs komplette Suchen: 200 Minuten
+    public static final int WAIT_TIME_LOAD_UPDATE = 60; // max Dauer fürs update-Suchen in Minuten
+    public static final int WAIT_TIME_LOAD_BIG = 160; // max Dauer fürs alles Suchen in Minuten
+    public static final int WAIT_TIME_LOAD_MAX = 240; // max Dauer fürs komplette Suchen in Minuten
 
     //
     //

@@ -29,9 +29,8 @@ import mvServer.tool.MvSLog;
 public class MvSSearchTask {
 
     // Konstanten Suchen
-    public static final String SUCHEN_UPDATE = "short";
-    public static final String SUCHEN_BIG = "long";
-    public static final String SUCHEN_BIG_OLD = "alles";
+    public static final String SUCHEN_UPDATE = "kurz";
+    public static final String SUCHEN_LONG = "lang";
     public static final String SUCHEN_MAX = "max";
 
     public static final String SUCHEN_NEU = "neu";
@@ -129,15 +128,16 @@ public class MvSSearchTask {
     }
 
     public int loadHow() {
-        int ret = MSConfig.LOAD_SHORT;
+        int ret;
         switch (this.arr[SUCHEN_SENDER_WIE_NR]) {
-            case SUCHEN_BIG:
-            case SUCHEN_BIG_OLD:
+            case SUCHEN_LONG:
                 ret = MSConfig.LOAD_LONG;
                 break;
             case SUCHEN_MAX:
                 ret = MSConfig.LOAD_MAX;
                 break;
+            default:
+                ret = MSConfig.LOAD_SHORT;
         }
         return ret;
     }
