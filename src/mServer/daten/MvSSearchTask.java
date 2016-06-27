@@ -21,7 +21,7 @@ package mServer.daten;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import mSearch.tool.MSConfig;
+import mSearch.Config;
 import mServer.tool.MvSDatumZeit;
 import mServer.tool.MvSKonstanten;
 import mServer.tool.MvSLog;
@@ -77,13 +77,13 @@ public class MvSSearchTask {
         int waitTime = MvSKonstanten.WAIT_TIME_LOAD_UPDATE;
         if (arr[MvSSearchTask.SUCHEN_MAX_WAIT_NR].isEmpty()) {
             switch (loadHow()) {
-                case MSConfig.LOAD_SHORT:
+                case Config.LOAD_SHORT:
                     waitTime = MvSKonstanten.WAIT_TIME_LOAD_UPDATE;
                     break;
-                case MSConfig.LOAD_LONG:
+                case Config.LOAD_LONG:
                     waitTime = MvSKonstanten.WAIT_TIME_LOAD_BIG;
                     break;
-                case MSConfig.LOAD_MAX:
+                case Config.LOAD_MAX:
                     waitTime = MvSKonstanten.WAIT_TIME_LOAD_MAX;
                     break;
             }
@@ -131,13 +131,13 @@ public class MvSSearchTask {
         int ret;
         switch (this.arr[SUCHEN_SENDER_WIE_NR]) {
             case SUCHEN_LONG:
-                ret = MSConfig.LOAD_LONG;
+                ret = Config.LOAD_LONG;
                 break;
             case SUCHEN_MAX:
-                ret = MSConfig.LOAD_MAX;
+                ret = Config.LOAD_MAX;
                 break;
             default:
-                ret = MSConfig.LOAD_SHORT;
+                ret = Config.LOAD_SHORT;
         }
         return ret;
     }

@@ -25,7 +25,7 @@ import java.io.InputStreamReader;
 import javax.xml.stream.XMLInputFactory;
 import javax.xml.stream.XMLStreamConstants;
 import javax.xml.stream.XMLStreamReader;
-import mSearch.tool.MSConst;
+import mSearch.Const;
 import mServer.daten.MvSDatenUpload;
 import mServer.daten.MvSSearchTask;
 
@@ -45,7 +45,7 @@ public class MvSXmlLesen {
                 inFactory.setProperty(XMLInputFactory.IS_COALESCING, Boolean.FALSE);
                 XMLStreamReader parser;
                 InputStreamReader in;
-                in = new InputStreamReader(new FileInputStream(datei), MSConst.KODIERUNG_UTF);
+                in = new InputStreamReader(new FileInputStream(datei), Const.KODIERUNG_UTF);
                 parser = inFactory.createXMLStreamReader(in);
                 while (parser.hasNext()) {
                     event = parser.next();

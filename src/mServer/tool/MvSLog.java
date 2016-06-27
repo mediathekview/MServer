@@ -26,7 +26,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.LinkedList;
-import mSearch.tool.MSFunktionen;
+import mSearch.tool.Functions;
 
 public class MvSLog {
 
@@ -67,15 +67,15 @@ public class MvSLog {
         systemMeldung("freeMemory: " + freeMem / (1024L * 1024L) + " MB");
         systemMeldung("###########################################################");
         //Version
-        systemMeldung(MvSKonstanten.PROGRAMMNAME + MSFunktionen.getProgVersionString());
-        systemMeldung("Compiled: " + MSFunktionen.getCompileDate());
+        systemMeldung(MvSKonstanten.PROGRAMMNAME + Functions.getProgVersionString());
+        systemMeldung("Compiled: " + Functions.getCompileDate());
         systemMeldung("Klassenname: " + classname);
         systemMeldung("###########################################################");
     }
 
     public static synchronized void startMeldungen(String classname) {
         versionsMeldungen(classname);
-        systemMeldung("Programmpfad: " + MSFunktionen.getPathJar());
+        systemMeldung("Programmpfad: " + Functions.getPathJar());
         systemMeldung("Verzeichnis Einstellungen: " + MvSDaten.getBasisVerzeichnis());
         systemMeldung("Useragent: " + MvSDaten.getUserAgent());
         systemMeldung("###########################################################");

@@ -19,8 +19,8 @@
  */
 package mServer.daten;
 
-import mSearch.tool.MSConfig;
-import mSearch.tool.MSFunktionen;
+import mSearch.Config;
+import mSearch.tool.Functions;
 import mServer.upload.MvSUpload;
 
 public class MvSDatenUpload {
@@ -87,7 +87,7 @@ public class MvSDatenUpload {
     }
 
     public String getFilmlisteDestPfadName(String dateinameFilmliste) {
-        return MSFunktionen.addsPfad(arr[UPLOAD_DEST_DIR_NR], dateinameFilmliste);
+        return Functions.addsPfad(arr[UPLOAD_DEST_DIR_NR], dateinameFilmliste);
     }
 
 }

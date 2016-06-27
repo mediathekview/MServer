@@ -19,7 +19,7 @@
  */
 package mServer.upload;
 
-import mSearch.tool.MSConfig;
+import mSearch.Config;
 import mServer.daten.MvSDatenUpload;
 import mServer.daten.MvSSearchTask;
 import mServer.tool.MvSDaten;
@@ -47,21 +47,21 @@ public class MvSUpload {
             if (!MvSDaten.system[MvSKonstanten.SYSTEM_EXPORT_FILMLISTE_ORG_NR].isEmpty() && aktSearchTask.orgListeAnlegen()) {
                 MvSLog.systemMeldung("");
                 MvSLog.systemMeldung("Copy Export Filmliste-Org");
-                MvSCopy.copy(MSConfig.getPathFilmlist_json_org_xz(), MvSDaten.system[MvSKonstanten.SYSTEM_EXPORT_FILMLISTE_ORG_NR]);
+                MvSCopy.copy(Config.getPathFilmlist_json_org_xz(), MvSDaten.system[MvSKonstanten.SYSTEM_EXPORT_FILMLISTE_ORG_NR]);
             }
 
             // export aktuell
             if (!MvSDaten.system[MvSKonstanten.SYSTEM_EXPORT_FILMLISTE_AKT_NR].isEmpty()) {
                 MvSLog.systemMeldung("");
                 MvSLog.systemMeldung("Copy Export Filmliste");
-                MvSCopy.copy(MSConfig.getPathFilmlist_json_akt_xz(), MvSDaten.system[MvSKonstanten.SYSTEM_EXPORT_FILMLISTE_AKT_NR]);
+                MvSCopy.copy(Config.getPathFilmlist_json_akt_xz(), MvSDaten.system[MvSKonstanten.SYSTEM_EXPORT_FILMLISTE_AKT_NR]);
             }
 
             // export diff
             if (!MvSDaten.system[MvSKonstanten.SYSTEM_EXPORT_FILMLISTE_DIFF_NR].isEmpty()) {
                 MvSLog.systemMeldung("");
                 MvSLog.systemMeldung("Copy Export Filmliste-Diff");
-                MvSCopy.copy(MSConfig.getPathFilmlist_json_diff_xz(), MvSDaten.system[MvSKonstanten.SYSTEM_EXPORT_FILMLISTE_DIFF_NR]);
+                MvSCopy.copy(Config.getPathFilmlist_json_diff_xz(), MvSDaten.system[MvSKonstanten.SYSTEM_EXPORT_FILMLISTE_DIFF_NR]);
             }
 
             // ======================================================
@@ -73,7 +73,7 @@ public class MvSUpload {
 
             for (MvSDatenUpload datenUpload : MvSDaten.listeUpload) {
                 for (int i = 0; i <= 1; ++i) {
-                    String[] srcPathFile = new String[]{MSConfig.getPathFilmlist_json_diff_xz(), MSConfig.getPathFilmlist_json_akt_xz()};
+                    String[] srcPathFile = new String[]{Config.getPathFilmlist_json_diff_xz(), Config.getPathFilmlist_json_akt_xz()};
                     String[] destFileName = new String[]{MvSKonstanten.NAME_FILMLISTE_DIFF, MvSKonstanten.NAME_FILMLISTE_AKT};
 
                     MvSLog.systemMeldung("");

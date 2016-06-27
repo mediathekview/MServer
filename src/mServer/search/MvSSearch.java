@@ -23,8 +23,8 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import mSearch.MSearch;
-import mSearch.tool.MSConfig;
-import mSearch.tool.MSLog;
+import mSearch.Config;
+import mSearch.tool.Log;
 import mServer.daten.MvSSearchTask;
 import mServer.tool.MvSDaten;
 import mServer.tool.MvSKonstanten;
@@ -36,7 +36,7 @@ public class MvSSearch {
 
     public MvSSearch() {
         this.mSearch = null;
-        MSConfig.dirFilme = MvSDaten.getVerzeichnisFilme();
+        Config.dirFilme = MvSDaten.getVerzeichnisFilme();
     }
 
     public boolean filmeSuchen(MvSSearchTask aktSearchTask) {
@@ -50,29 +50,29 @@ public class MvSSearch {
             mSearch = new MSearch();
 
             // was und wie
-            MSConfig.senderLoadHow = aktSearchTask.loadHow();
-            MSConfig.updateFilmliste = aktSearchTask.updateFilmliste();
-            MSConfig.nurSenderLaden = arrLesen(aktSearchTask.arr[MvSSearchTask.SUCHEN_SENDER_NR].trim());
-            MSConfig.orgFilmlisteErstellen = aktSearchTask.orgListeAnlegen();
-            MSConfig.orgFilmliste = MvSDaten.system[MvSKonstanten.SYSTEM_FILMLISTE_ORG_NR];
+            Config.senderLoadHow = aktSearchTask.loadHow();
+            Config.updateFilmliste = aktSearchTask.updateFilmliste();
+            Config.nurSenderLaden = arrLesen(aktSearchTask.arr[MvSSearchTask.SUCHEN_SENDER_NR].trim());
+            Config.orgFilmlisteErstellen = aktSearchTask.orgListeAnlegen();
+            Config.orgFilmliste = MvSDaten.system[MvSKonstanten.SYSTEM_FILMLISTE_ORG_NR];
 
             // live-steams
-            MSConfig.importLive = MvSDaten.system[MvSKonstanten.SYSTEM_IMPORT_LIVE_NR];
+            Config.importLive = MvSDaten.system[MvSKonstanten.SYSTEM_IMPORT_LIVE_NR];
 
             // und noch evtl. ein paar Imports von Filmlisten anderer Server
-            MSConfig.importUrl_1__anhaengen = MvSDaten.system[MvSKonstanten.SYSTEM_IMPORT_URL_1_NR];
-            MSConfig.importUrl_2__anhaengen = MvSDaten.system[MvSKonstanten.SYSTEM_IMPORT_URL_2_NR];
+            Config.importUrl_1__anhaengen = MvSDaten.system[MvSKonstanten.SYSTEM_IMPORT_URL_1_NR];
+            Config.importUrl_2__anhaengen = MvSDaten.system[MvSKonstanten.SYSTEM_IMPORT_URL_2_NR];
 
             // für die alte Filmliste
-            MSConfig.importOld = MvSDaten.system[MvSKonstanten.SYSTEM_IMPORT_OLD_NR];
+            Config.importOld = MvSDaten.system[MvSKonstanten.SYSTEM_IMPORT_OLD_NR];
 
             // Rest
-            MSConfig.setUserAgent(MvSDaten.getUserAgent());
-            MSConfig.proxyUrl = MvSDaten.system[MvSKonstanten.SYSTEM_PROXY_URL_NR];
-            MSConfig.proxyPort = MvSDaten.getProxyPort();
-            MSConfig.debug = MvSDaten.debug;
+            Config.setUserAgent(MvSDaten.getUserAgent());
+            Config.proxyUrl = MvSDaten.system[MvSKonstanten.SYSTEM_PROXY_URL_NR];
+            Config.proxyPort = MvSDaten.getProxyPort();
+            Config.debug = MvSDaten.debug;
 
-            MSLog.setLogfile(MvSDaten.getLogDatei(MvSKonstanten.LOG_FILE_NAME_MSEARCH));
+            Log.setLogfile(MvSDaten.getLogDatei(MvSKonstanten.LOG_FILE_NAME_MSEARCH));
 
             Thread t = new Thread(mSearch);
             t.start();

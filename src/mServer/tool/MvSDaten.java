@@ -20,8 +20,8 @@
 package mServer.tool;
 
 import java.io.File;
-import mSearch.tool.MSConst;
-import mSearch.tool.MSFunktionen;
+import mSearch.Const;
+import mSearch.tool.Functions;
 import mServer.daten.MvSListeSuchen;
 import mServer.daten.MvSListeUpload;
 
@@ -42,7 +42,7 @@ public class MvSDaten {
 
     public static String getUserAgent() {
         if (system[MvSKonstanten.SYSTEM_USER_AGENT_NR].trim().equals("")) {
-            return MvSKonstanten.PROGRAMMNAME + " " + MSConst.VERSION_FILMLISTE + " / " + MSFunktionen.getBuildNr();
+            return MvSKonstanten.PROGRAMMNAME + " " + Const.VERSION_FILMLISTE + " / " + Functions.getBuildNr();
         } else {
         }
         return system[MvSKonstanten.SYSTEM_USER_AGENT_NR].trim();
@@ -104,7 +104,7 @@ public class MvSDaten {
     }
 
     public static String getVerzeichnisFilme() {
-        String ret = MSFunktionen.addsPfad(getBasisVerzeichnis(basisverzeichnis, false), MvSKonstanten.VERZEICHNISS_FILMLISTEN);
+        String ret = Functions.addsPfad(getBasisVerzeichnis(basisverzeichnis, false), MvSKonstanten.VERZEICHNISS_FILMLISTEN);
         File basisF = new File(ret);
         if (!basisF.exists()) {
             if (!basisF.mkdirs()) {
@@ -119,10 +119,10 @@ public class MvSDaten {
         String logPfad = "", logFileName = "";
 
         try {
-            logPfad = MSFunktionen.addsPfad(getBasisVerzeichnis(basisverzeichnis, false), MvSKonstanten.LOG_FILE_PFAD);
+            logPfad = Functions.addsPfad(getBasisVerzeichnis(basisverzeichnis, false), MvSKonstanten.LOG_FILE_PFAD);
 
             // prüfen obs geht
-            logFileName = MSFunktionen.addsPfad(logPfad, name + "__" + MvSDatumZeit.getHeute_yyyy_MM_dd() + ".log");
+            logFileName = Functions.addsPfad(logPfad, name + "__" + MvSDatumZeit.getHeute_yyyy_MM_dd() + ".log");
             File logfile = new File(logFileName);
             if (!logfile.exists()) {
                 new File(logPfad).mkdirs();
