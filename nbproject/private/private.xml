@@ -8,9 +8,9 @@
         <group name="MV__old"/>
         <group name="mvPlayer"/>
         <group name="Mediathek">
-            <file>file:/home/emil/daten/software/mediathek/mServer/src/mServer/tool/MvSKonstanten.java</file>
-            <file>file:/home/emil/daten/software/mediathek/mServer/src/mServer/search/MvSSearch.java</file>
-            <file>file:/home/emil/daten/software/mediathek/mServer/src/mServer/daten/MvSSearchTask.java</file>
+            <file>file:/home/emil/daten/software/mediathek/mServer/src/mServer/search/MserverSearch.java</file>
+            <file>file:/home/emil/daten/software/mediathek/mServer/src/mServer/daten/MserverSearchTask.java</file>
+            <file>file:/home/emil/daten/software/mediathek/mServer/src/mServer/tool/MserverKonstanten.java</file>
         </group>
     </open-files>
 </project-private>
