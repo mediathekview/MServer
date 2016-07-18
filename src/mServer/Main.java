@@ -1,7 +1,7 @@
 package mServer;
 
-import mServer.tool.MvSDaten;
-import mServer.tool.MvSLog;
+import mServer.tool.MserverDaten;
+import mServer.tool.MserverLog;
 
 /*
  * MediathekView
@@ -45,7 +45,7 @@ public class Main {
                         s = s.toLowerCase();
                         switch (s) {
                             case "-d":
-                                MvSDaten.debug = true;
+                                MserverDaten.debug = true;
                                 break;
                             case "-v":
                                 state = StartupMode.VERSION;
@@ -57,10 +57,10 @@ public class Main {
 
                 switch (state) {
                     case SERVER:
-                        new MvServer(ar).starten();
+                        new MServer(ar).starten();
                         break;
                     case VERSION:
-                        MvSLog.versionsMeldungen(this.getClass().getName());
+                        MserverLog.versionsMeldungen(this.getClass().getName());
                         System.exit(0);
                         break;
                 }
