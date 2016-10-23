@@ -2,19 +2,23 @@
 <MServer>
 <system>
     <system-user-agent>MServer</system-user-agent>
-    <system-programmupdate-suchen>0</system-programmupdate-suchen>
 
-	<!-- URLs von fertigen Filmlisten die import werden -->
-	<system-filmliste-import-url-1>http://87.230.15.105/akt/filme.xz</system-filmliste-import-url-1>
-    <!-- 
-	<system-filmliste-import-url-2>http://188.68.50.176/akt/filme.xz</system-filmliste-import-url-2>
-	-->
+	<!-- URLs von fertigen Filmlisten die importiert werden
+	<system-filmliste-import-url-1>http://87.230.15.105/akt/filme.xz</system-filmliste-import-url-1> -->
+    <system-filmliste-import-url-2>http://188.68.50.176/akt/filme.xz</system-filmliste-import-url-2>
 
 	<!-- Livestreams die import werden -->
 	<system-filmliste-import-live>live-streams.json</system-filmliste-import-live>
+
+	<!-- Filmliste lokal exportieren
+	<system-export-datei-filmliste>filme.xz</system-export-datei-filmliste>
+	<system-export-datei-filmliste-org>filme-org.xz</system-export-datei-filmliste-org>
+	<system-export-datei-filmliste-diff>filme-diff.xz</system-export-datei-filmliste-diff> -->
 	
-	<!-- die Orginal-Liste nach der die Diff erstellt wird -->
-    <system-filmliste-org>http://87.230.15.105/akt/filme-org.xz</system-filmliste-org>
+	
+	<!-- die Orginal-Liste nach der die Diff erstellt wird
+	<system-filmliste-org>http://87.230.15.105/akt/filme-org.xz</system-filmliste-org> -->
+	<system-filmliste-org>filme-org.xz</system-filmliste-org>
 
     <system-proxy-url></system-proxy-url>
     <system-proxy-port></system-proxy-port>
@@ -26,12 +30,18 @@
 <suchen>
 	<!-- nur kurze Liste erstelen: max, lang, kurz -->
     <suchen-sender-wie>kurz</suchen-sender-wie>
+	
 	<!-- Liste wird neu erstellt: neu, update -->
     <suchen-liste-wie>neu</suchen-liste-wie>
+
 	<!-- wann soll der Suchlauf starten: sofort, 10:00, 12:00 -->
     <suchen-wann>sofort</suchen-wann>
+
 	<!-- wie lang darf der Suchlauf max dauern [min] -->
-    <suchen-max-warten>5</suchen-max-warten>
+    <suchen-max-warten>3</suchen-max-warten>
+	
+	<!-- Orgliste erstellen, erste am Tag: true, false -->
+	<suchen-org-liste>true</suchen-org-liste>
 </suchen>
 
 <!-- upload -->
