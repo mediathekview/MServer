@@ -2,8 +2,9 @@
 
 <!-- uploads -->
 <MServer>
+	
+	<!--
 
-	<!-- 1. Webspace -->
 	<upload>
 		<upload-art>ftp</upload-art>
 		<upload-liste>diff,akt</upload-liste>
@@ -14,6 +15,7 @@
 		<upload-dest-dir>www/filme</upload-dest-dir>
 		<upload-url-filmliste>http://wp11128329.server-he.de/filme</upload-url-filmliste>
 	</upload>
-	
+
+	-->
 	
 </MServer>

@@ -4,7 +4,7 @@
 dir=`dirname "$0"`
 cd "$dir"
 
-./MServer.sh >> ./log/direktStart__`date "+%Y.%m.%d"`.log &
+./MServer.sh >> ./direktStart__`date "+%Y.%m.%d"`.log &
 
 cd $OLDPWD
 echo %% und Tschuess
