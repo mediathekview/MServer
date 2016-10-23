@@ -38,20 +38,16 @@ public class MserverDatenUpload {
     public static final int UPLOAD_PWD_NR = 4;
     public static final String UPLOAD_DEST_DIR = "upload-dest-dir";
     public static final int UPLOAD_DEST_DIR_NR = 5;
-    public static final String UPLOAD_DEST_NAME = "upload-dest-name";
-//    public static final int UPLOAD_DEST_NAME_NR = 6;
     public static final String UPLOAD_PORT = "upload-port";
-    public static final int UPLOAD_PORT_NR = 7;
+    public static final int UPLOAD_PORT_NR = 6;
 
     public static final String UPLOAD_URL_FILMLISTE = "upload-url-filmliste"; // ist die dann entstehende Download-URL
-    public static final int UPLOAD_URL_FILMLISTE_NR = 8;
-    public static final String UPLOAD_PRIO_FILMLISTE = "upload-prio-filmliste";
-    public static final int UPLOAD_PRIO_FILMLISTE_NR = 9;
+    public static final int UPLOAD_URL_FILMLISTE_NR = 7;
 
-    public static final int MAX_ELEM = 10;
+    public static final int MAX_ELEM = 8;
     public static final String[] UPLOAD_COLUMN_NAMES = {UPLOAD_ART, UPLOAD_LISTE,
-        UPLOAD_SERVER, UPLOAD_USER, UPLOAD_PWD, UPLOAD_DEST_DIR, UPLOAD_DEST_NAME, UPLOAD_PORT,
-        UPLOAD_URL_FILMLISTE, UPLOAD_PRIO_FILMLISTE};
+        UPLOAD_SERVER, UPLOAD_USER, UPLOAD_PWD, UPLOAD_DEST_DIR, UPLOAD_PORT,
+        UPLOAD_URL_FILMLISTE};
     public String[] arr = new String[MAX_ELEM];
 
     public MserverDatenUpload() {
@@ -66,20 +62,6 @@ public class MserverDatenUpload {
         return mvsDatenUpload;
     }
 
-//    public String[] getFilmlisteSrc() {
-//        String[] f = new String[]{MSConfig.getPathFilmlist_json_diff_xz(),
-//            MSConfig.getPathFilmlist_json_akt_xz()};
-//        return f;
-//    }
-//    public boolean rename() {
-//        switch (arr[MvSDatenUpload.UPLOAD_LISTE_NR]) {
-//            case (MvSUpload.LISTE_DIFF):
-//            case (MvSUpload.LISTE_AKT):
-//                return true;
-//            default:
-//                return false;
-//        }
-//    }
     public String getDestDir() {
         return arr[UPLOAD_DEST_DIR_NR];
     }

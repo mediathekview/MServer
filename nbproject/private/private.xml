@@ -7,6 +7,23 @@
         <group name="Pi"/>
         <group name="MV__old"/>
         <group name="mvPlayer"/>
-        <group name="Mediathek"/>
+        <group name="Mediathek">
+            <file>file:/home/emil/daten/software/mediathek/mServer/src/mServer/tool/MserverWarten.java</file>
+            <file>file:/home/emil/daten/software/mediathek/mServer/src/mServer/upload/MserverFtp.java</file>
+            <file>file:/home/emil/daten/software/mediathek/mServer/src/mServer/upload/MserverUpload.java</file>
+            <file>file:/home/emil/daten/software/mediathek/mServer/src/mServer/search/MserverSearch.java</file>
+            <file>file:/home/emil/daten/software/mediathek/mServer/src/mServer/daten/MserverSearchTask.java</file>
+            <file>file:/home/emil/daten/software/mediathek/mServer/src/mServer/tool/MserverDaten.java</file>
+            <file>file:/home/emil/daten/software/mediathek/mServer/src/mServer/daten/MserverDatenUpload.java</file>
+            <file>file:/home/emil/daten/software/mediathek/mServer/src/mServer/tool/MserverKonstanten.java</file>
+            <file>file:/home/emil/daten/software/mediathek/mServer/src/mServer/tool/MserverXmlSchreiben.java</file>
+            <file>file:/home/emil/daten/software/mediathek/mServer/src/mServer/upload/MserverCopy.java</file>
+            <file>file:/home/emil/daten/software/mediathek/mServer/src/mServer/daten/MserverListeSuchen.java</file>
+            <file>file:/home/emil/daten/software/mediathek/mServer/src/mServer/tool/MserverTimer.java</file>
+            <file>file:/home/emil/daten/software/mediathek/mServer/src/mServer/tool/MserverLog.java</file>
+            <file>file:/home/emil/daten/software/mediathek/mServer/src/mServer/tool/MserverDatumZeit.java</file>
+            <file>file:/home/emil/daten/software/mediathek/mServer/src/mServer/tool/MserverXmlLesen.java</file>
+            <file>file:/home/emil/daten/software/mediathek/mServer/src/mServer/daten/MserverListeUpload.java</file>
+        </group>
     </open-files>
 </project-private>

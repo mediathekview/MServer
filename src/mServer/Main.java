@@ -1,8 +1,3 @@
-package mServer;
-
-import mServer.tool.MserverDaten;
-import mServer.tool.MserverLog;
-
 /*
  * MediathekView
  * Copyright (C) 2008 W. Xaver
@@ -22,6 +17,11 @@ import mServer.tool.MserverLog;
  * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
+package mServer;
+
+import mServer.tool.MserverDaten;
+import mServer.tool.MserverLog;
+
 public class Main {
 
     public Main() {

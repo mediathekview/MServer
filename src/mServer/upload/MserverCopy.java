@@ -60,7 +60,6 @@ public class MserverCopy {
         MserverLog.systemMeldung("dest: " + destPathFile);
         try {
             String dest = destPathFile;
-//            if (rename) {
 
             String dest_tmp = dest + "__";
             String dest_old = dest + "_old";
@@ -77,11 +76,6 @@ public class MserverCopy {
 
             MserverLog.systemMeldung("====================================");
 
-//            } else {
-//                MvSLog.systemMeldung("Copy Filmliste: " + dest);
-//                Files.copy(Paths.get(srcPathFile), Paths.get(dest), StandardCopyOption.REPLACE_EXISTING);
-//                MvSLog.systemMeldung("====================================");
-//            }
             ret = true;
         } catch (Exception ex) {
             MserverLog.fehlerMeldung(832164870, MserverCopy.class.getName(), "MvSCopy.copy", ex);
