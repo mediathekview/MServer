@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- uploads -->
+<MServer>
+
+	<!-- 1. Webspace -->
+	<upload>
+		<upload-art>ftp</upload-art>
+		<upload-liste>diff,akt</upload-liste>
+		
+		<upload-server>server-he.de</upload-server>
+		<upload-user>ftp11128329</upload-user>
+		<upload-pwd>Geheim</upload-pwd>
+		<upload-dest-dir>www/filme</upload-dest-dir>
+		<upload-url-filmliste>http://wp11128329.server-he.de/filme</upload-url-filmliste>
+	</upload>
+	
+	
+</MServer>
