@@ -4,7 +4,7 @@ apply plugin: 'application'
 
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
-
+mainClassName = 'mServer.Main'
 version = '0.0.1-SNAPSHOT'
 
 sourceSets {
@@ -39,7 +39,5 @@ repositories {
 
 dependencies {
     compile project(':MSearch')
-    compile 'com.fasterxml.jackson.core:jackson-core:2.7.0'
-    compile 'com.jidesoft:jide-oss:3.6.16'
-    compile 'org.tukaani:xz:1.5'
+    compile 'commons-net:commons-net:3.5'
 }
