@@ -1,0 +1,45 @@
+
+apply plugin: 'java'
+apply plugin: 'application'
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+version = '0.0.1-SNAPSHOT'
+
+sourceSets {
+    main {
+        java {
+            srcDirs = ['src']
+        }
+        resources {
+            srcDirs = ['src']
+        }
+    }
+    test {
+        java {
+            srcDirs = ['test']
+        }
+        resources {
+            srcDirs = ['test']
+        }
+    }
+}
+
+compileJava {
+    options.compilerArgs = ['-Xlint:all']
+}
+compileTestJava {
+    options.compilerArgs = ['-Xlint:all']
+}
+
+repositories {
+    jcenter()
+}
+
+dependencies {
+    compile project(':MSearch')
+    compile 'com.fasterxml.jackson.core:jackson-core:2.7.0'
+    compile 'com.jidesoft:jide-oss:3.6.16'
+    compile 'org.tukaani:xz:1.5'
+}
