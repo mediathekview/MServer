@@ -1,1 +1,15 @@
-/home/emil/daten/software/mediathek/.gitignore
+build
+dist/javadoc
+
+nbproject/private/
+nbproject/configs/
+test/
+
+*.class
+*.zip
+*~
+.gitignore
+gitUpdate.sh
+
+start*.sh
+
