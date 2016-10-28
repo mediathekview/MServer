@@ -35,37 +35,32 @@ public class Main {
     public static void main(String[] args) {
         final String ar[] = args;
 
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                StartupMode state = StartupMode.SERVER;
+        StartupMode state = StartupMode.SERVER;
 
-                if (ar != null) {
-                    for (String s : ar) {
-                        s = s.toLowerCase();
-                        switch (s) {
-                            case "-d":
-                                MserverDaten.debug = true;
-                                break;
-                            case "-v":
-                                state = StartupMode.VERSION;
-                                break;
-
-                        }
-                    }
-                }
-
-                switch (state) {
-                    case SERVER:
-                        new MServer(ar).starten();
+        if (ar != null) {
+            for (String s : ar) {
+                s = s.toLowerCase();
+                switch (s) {
+                    case "-d":
+                        MserverDaten.debug = true;
                         break;
-                    case VERSION:
-                        MserverLog.versionsMeldungen(this.getClass().getName());
-                        System.exit(0);
+                    case "-v":
+                        state = StartupMode.VERSION;
                         break;
+
                 }
             }
-        });
+        }
 
+        switch (state) {
+            case SERVER:
+                new MServer(ar).starten();
+                break;
+            case VERSION:
+                MserverLog.versionsMeldungen(Main.class.toString());
+                System.exit(0);
+                break;
+        }
     }
+
 }
