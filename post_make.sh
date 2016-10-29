@@ -5,6 +5,7 @@ cd "$dir"
 
 # Dateien ins dist-Verzeichnis kopieren
 cp -r res/* dist
+cp -r dist/lib/* libs
 
 # für Netbeans nochmal
 cp -r res/* build
