@@ -4,7 +4,8 @@ dist/javadoc
 nbproject/private/
 nbproject/configs/
 test/
-
+.classpath
+.project
 *.class
 *.zip
 *~
@@ -13,3 +14,4 @@ gitUpdate.sh
 
 start*.sh
 
+/bin/
