@@ -27,6 +27,7 @@ import mSearch.MSearch;
 import mSearch.tool.Log;
 import mServer.daten.MserverSearchTask;
 import mServer.tool.MserverDaten;
+import mServer.tool.MserverDatumZeit;
 import mServer.tool.MserverKonstanten;
 import mServer.tool.MserverLog;
 
@@ -65,6 +66,7 @@ public class MserverSearch {
 
             // für die alte Filmliste
             Config.importOld = MserverDaten.system[MserverKonstanten.SYSTEM_IMPORT_OLD_NR];
+            Config.importAkt = MserverDatumZeit.getNameAkt(MserverDaten.system[MserverKonstanten.SYSTEM_IMPORT_AKT_NR]);
 
             // Rest
             Config.setUserAgent(MserverDaten.getUserAgent());

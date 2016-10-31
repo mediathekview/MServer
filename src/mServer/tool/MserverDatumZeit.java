@@ -21,6 +21,7 @@ package mServer.tool;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import mSearch.tool.Functions;
 
 public class MserverDatumZeit {
 
@@ -40,5 +41,12 @@ public class MserverDatumZeit {
         return sdf_datum_yyyy_MM_dd.format(new Date());
     }
 
+    public static String getNameAkt(String path) {
+        // liefert den Namen der Filmliste "akt" von heute
+        if (path.isEmpty()) {
+            return "";
+        }
+        return Functions.addsPfad(path, "Filmliste-" + new SimpleDateFormat("yyyy-MM-dd").format(new Date()) + ".xz");
+    }
 
 }

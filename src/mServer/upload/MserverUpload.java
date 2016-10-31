@@ -22,10 +22,7 @@ package mServer.upload;
 import mSearch.Config;
 import mServer.daten.MserverDatenUpload;
 import mServer.daten.MserverSearchTask;
-import mServer.tool.MserverDaten;
-import mServer.tool.MserverKonstanten;
-import mServer.tool.MserverLog;
-import mServer.tool.MserverWarten;
+import mServer.tool.*;
 
 public class MserverUpload {
 
@@ -43,6 +40,14 @@ public class MserverUpload {
         MserverLog.systemMeldung("Start Upload");
         MserverLog.systemMeldung("");
         try {
+            // export Akt
+            // eine Filmliste mit Datum "HEUTE" exportieren
+            if (!MserverDaten.system[MserverKonstanten.SYSTEM_EXPORT_AKT_NR].isEmpty()) {
+                MserverLog.systemMeldung("");
+                MserverLog.systemMeldung("Copy Export Filmliste");
+                MserverCopy.copy(Config.getPathFilmlist_json_akt_xz(), MserverDatumZeit.getNameAkt(MserverDaten.system[MserverKonstanten.SYSTEM_EXPORT_AKT_NR]));
+            }
+
             // export Org
             if (!MserverDaten.system[MserverKonstanten.SYSTEM_EXPORT_FILMLISTE_ORG_NR].isEmpty() && aktSearchTask.orgListeAnlegen()) {
                 MserverLog.systemMeldung("");
