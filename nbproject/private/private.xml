@@ -10,15 +10,6 @@
         <group name="MV--NEU">
             <file>file:/home/emil/daten/software/mediathek/mServer/src/mServer/Main.java</file>
         </group>
-        <group name="Mediathek">
-            <file>file:/home/emil/daten/software/mediathek/mServer/src/mServer/tool/MserverLog.java</file>
-            <file>file:/home/emil/daten/software/mediathek/mServer/src/mServer/upload/MserverUpload.java</file>
-            <file>file:/home/emil/daten/software/mediathek/mServer/src/mServer/search/MserverSearch.java</file>
-            <file>file:/home/emil/daten/software/mediathek/mServer/src/mServer/tool/MserverDatumZeit.java</file>
-            <file>file:/home/emil/daten/software/mediathek/mServer/src/mServer/Main.java</file>
-            <file>file:/home/emil/daten/software/mediathek/mServer/src/mServer/MServer.java</file>
-            <file>file:/home/emil/daten/software/mediathek/mServer/src/mServer/tool/MserverKonstanten.java</file>
-            <file>file:/home/emil/daten/software/mediathek/mServer/src/mServer/upload/MserverCopy.java</file>
-        </group>
+        <group name="Mediathek"/>
     </open-files>
 </project-private>
