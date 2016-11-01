@@ -5,5 +5,28 @@
 # MServer
 Server zum Steuern des Crawler. Teil von [MediathekView](https://github.com/mediathekview).
 
+# Entwicklung
+
+## Code auschecken
+```bash
+mkdir mediathekview
+cd mediathekview
+git clone https://github.com/mediathekview/MServer.git
+git clone https://github.com/mediathekview/MSearch.git
+```
+
+## Bauen und starten an der Kommandozeile
+```bash
+cd MServer
+./gradlew run
+```
+
+## Entwicklung mit Netbeans
+* Verzeichnisse `MSearch` und `MServer` mit Netbeans öffnen
+
+## Entwicklung mit Eclipse
+* Falls noch nicht vorhanden: [Plugin buildship](https://projects.eclipse.org/projects/tools.buildship) installieren
+* Projekt `MServer` als Gradle-Projekt importieren. `MSearch` wird automatisch mit importiert.
+
 # Autor
 @xaverW
