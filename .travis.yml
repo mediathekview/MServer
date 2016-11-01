@@ -3,6 +3,12 @@ language: java
 jdk:
   - oraclejdk8
 
+install:
+  # Depends on MSearch in ../mSearch. Cloning with ../mSearch does not work.
+  - cd ..
+  - git clone https://github.com/mediathekview/MSearch.git mSearch
+  - cd -
+
 addons:
   sonarqube: true
 env:
