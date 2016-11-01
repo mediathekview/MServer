@@ -71,7 +71,7 @@
     nbproject/build-impl.xml file. 
 
     -->
-	<target depends="clean,compile,test,jar" description="Build and test whole project." name="default"/>
+<!--	<target depends="clean,compile,test,jar" description="Build and test whole project." name="default"/>-->
 	<target name="-pre-compile" >
 		<propertyfile file="${src.dir}\version.properties">
 			<entry key="BUILD" value="1" type="int" operation="+"/>
