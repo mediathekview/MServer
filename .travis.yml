@@ -6,7 +6,7 @@ jdk:
 install:
   # Depends on MSearch in ../mSearch. Cloning with ../mSearch does not work.
   - cd ..
-  - git clone https://github.com/mediathekview/MSearch.git mSearch
+  - git clone https://github.com/mediathekview/MSearch.git MSearch
   - cd -
 
 addons:
