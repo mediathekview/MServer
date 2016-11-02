@@ -1,0 +1,44 @@
+
+apply plugin: 'java'
+apply plugin: 'application'
+apply from: "${project.rootDir}/gradle/eclipse.gradle"
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+mainClassName = 'mServer.Main'
+version = '0.0.1-SNAPSHOT'
+
+sourceSets {
+    main {
+        java {
+            srcDirs = ['src']
+        }
+        resources {
+            srcDirs = ['src']
+        }
+    }
+    test {
+        java {
+            srcDirs = ['test']
+        }
+        resources {
+            srcDirs = ['test']
+        }
+    }
+}
+
+compileJava {
+    options.compilerArgs = ['-Xlint:all']
+}
+compileTestJava {
+    options.compilerArgs = ['-Xlint:all']
+}
+
+repositories {
+    jcenter()
+}
+
+dependencies {
+    compile project(':MSearch')
+    compile 'commons-net:commons-net:3.5'
+}

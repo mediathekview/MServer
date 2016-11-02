@@ -12,4 +12,8 @@ test/
 gitUpdate.sh
 
 start*.sh
-
+/.gradle/
+/bin/
+.classpath
+.project
+.settings/
