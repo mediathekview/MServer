@@ -8,7 +8,7 @@
         <group name="MV__old"/>
         <group name="mvPlayer"/>
         <group name="MV--NEU">
-            <file>file:/home/emil/daten/software/mediathek/mServer/src/mServer/Main.java</file>
+            <file>file:src/mServer/Main.java</file>
         </group>
         <group name="Mediathek"/>
     </open-files>
