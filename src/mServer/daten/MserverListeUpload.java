@@ -23,6 +23,8 @@ import java.util.LinkedList;
 
 public class MserverListeUpload extends LinkedList<MserverDatenUpload> {
 
+    private static final long serialVersionUID = 1L;
+
     @Override
     public boolean add(MserverDatenUpload mvsDatenUpload) {
         String[] was = mvsDatenUpload.arr[MserverDatenUpload.UPLOAD_LISTE_NR].split(",");

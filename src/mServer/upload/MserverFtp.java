@@ -38,6 +38,7 @@ public class MserverFtp {
     private static MserverDatenUpload datenUpload;
     private static boolean retFtp = false;
 
+    @SuppressWarnings("deprecation")
     public static boolean uploadFtp(String srcPathFile_, String destFileName_, MserverDatenUpload datenUpload_) {
         try {
             srcPathFile = srcPathFile_;

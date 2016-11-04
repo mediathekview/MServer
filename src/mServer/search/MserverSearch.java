@@ -40,6 +40,7 @@ public class MserverSearch {
         Config.dirFilme = MserverDaten.getVerzeichnisFilme();
     }
 
+    @SuppressWarnings("deprecation")
     public boolean filmeSuchen(MserverSearchTask aktSearchTask) {
         boolean ret = true;
         try {

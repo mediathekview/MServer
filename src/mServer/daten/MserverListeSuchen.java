@@ -24,6 +24,8 @@ import java.util.LinkedList;
 
 public class MserverListeSuchen extends LinkedList<MserverSearchTask> {
 
+    private static final long serialVersionUID = 1L;
+
     @Override
     public boolean add(MserverSearchTask d) {
         if (d.sofortSuchen()) {
