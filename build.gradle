@@ -1,3 +1,6 @@
+plugins {
+  id 'com.github.johnrengelman.shadow' version '1.2.4'
+}
 
 apply plugin: 'java'
 apply plugin: 'application'
@@ -34,8 +37,12 @@ compileTestJava {
     options.compilerArgs = ['-Xlint:all']
 }
 
+ext {
+    propsFile = file('src/version.properties').absoluteFile
+}
+
+
 task updateVersion << {
-    File propsFile = file('src/version.properties').absoluteFile
     Properties props = new Properties()
     props.load(propsFile.newDataInputStream())
 
@@ -56,6 +63,58 @@ task updateVersion << {
 }
 
 processResources.dependsOn updateVersion
+
+shadowJar {
+   classifier = null
+   version = null
+}
+
+class CreateBuildFileTask extends DefaultTask {
+    @OutputFile
+    File buildFile
+    
+    @InputFile
+    File versionProperties
+    
+    @TaskAction
+    def run() {
+	    Properties props = new Properties()
+        props.load(versionProperties.newDataInputStream())
+	    
+	    String nr = props.getProperty('BUILD')
+	    String buildInfo = "${project.version}-$nr"
+        String date = new Date().format('dd.MM.yyyy HH:mm:ss')
+        logger.lifecycle "Read build number $nr from $versionProperties"
+        logger.lifecycle "Writing build info to $buildFile using data $date"
+        
+        def buildFileWriter = buildFile.newWriter() 
+	    buildFileWriter << "Datum: ${date}\n"
+	    buildFileWriter << "MSearch Buildnummer: ${buildInfo}\n"
+	    buildFileWriter.close()
+    }
+}
+
+task createBuildFile(type: CreateBuildFileTask, dependsOn: updateVersion) {
+    buildFile = file("build/info.build").absoluteFile
+    versionProperties = propsFile
+}
+
+task buildDeliveryPackage(type: Zip, dependsOn: [shadowJar, createBuildFile]) {
+    into('/') {
+        from 'dist'
+        include '*'
+        include 'Copyright/**/*'
+        exclude 'lib'
+        exclude 'info'
+        exclude '*.jar'
+    }
+    into('/') {
+        from shadowJar.outputs
+    }
+    into('/info') {
+        from createBuildFile.outputs
+    }
+}
 
 repositories {
     maven {
