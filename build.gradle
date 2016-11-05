@@ -34,6 +34,29 @@ compileTestJava {
     options.compilerArgs = ['-Xlint:all']
 }
 
+task updateVersion << {
+    File propsFile = file('src/version.properties').absoluteFile
+    Properties props = new Properties()
+    props.load(propsFile.newDataInputStream())
+
+    int nr = Integer.parseInt(props.getProperty('BUILD')) + 1
+    String buildDate = new Date().format('dd.MM.yyyy HH:mm:ss')
+
+	logger.lifecycle "==mserver======================"
+	logger.lifecycle "Version: $version"
+	logger.lifecycle "Number:  $nr"
+	logger.lifecycle "Date:    $buildDate"
+	logger.lifecycle "==mserver======================"
+	
+	props.setProperty('VERSION', project.version)
+	props.setProperty('BUILD', "$nr")
+	props.setProperty('DATE', buildDate)
+	
+	props.store(propsFile.newWriter(), null)
+}
+
+processResources.dependsOn updateVersion
+
 repositories {
     maven {
           url "https://repo.mediathekview.de/repository/maven-public/"
