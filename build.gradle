@@ -1,9 +1,3 @@
-import java.nio.file.Files
-
-plugins {
-  id 'com.github.johnrengelman.shadow' version '1.2.4'
-}
-
 apply plugin: 'java'
 apply plugin: 'application'
 apply from: "${project.rootDir}/gradle/eclipse.gradle"
@@ -52,46 +46,26 @@ task updateVersion << {
 
 processResources.dependsOn updateVersion
 
-task renameAndFillBuildFile(dependsOn: updateVersion) << {
-    Properties props = loadVersionProperties()
-
-    String nr = props.getProperty('BUILD')
-    String buildInfo = "${project.version}-$nr"
-
-    File buildFile = file("res/info/${buildInfo}.build").absoluteFile
-    String date = new Date().format('dd.MM.yyyy HH:mm:ss')
-    logger.lifecycle "Writing build info to $buildFile"
-
-    project.delete(fileTree('res/info') {
-        include '*.build'
-    })
-
-    def buildFileWriter = buildFile.newWriter()
-    buildFileWriter << "Datum: ${date}\n"
-    buildFileWriter << "MSearch Buildnummer: ${buildInfo}\n"
-    buildFileWriter.close()
-}
-
-processResources.dependsOn renameAndFillBuildFile
-
 task copyRuntimeLibs(type: Copy) {
     into "libs"
     from configurations.testRuntime - configurations.runtime
 }
 
-distributions {
-    main {
-        baseName = 'MServer_'+new Date().format('dd.MM.yyyy')
-        contents {
-            from{'res'}
-        }
-    }
+task createBuildFile(type: CreateBuildFileTask, dependsOn: updateVersion) {
+    buildFile = file("build/info.build").absoluteFile
+    versionProperties = propsFile
 }
 
-
-shadowJar {
-   classifier = null
-   version = null
+distributions {
+    main {
+        def date = new Date().format('dd.MM.yyyy')
+        baseName = "MServer_${version}_${date}"
+        contents {
+            from(createBuildFile) {
+                into 'info/'
+            }
+        }
+    }
 }
 
 class CreateBuildFileTask extends DefaultTask {
@@ -116,26 +90,6 @@ class CreateBuildFileTask extends DefaultTask {
 	    buildFileWriter << "Datum: ${date}\n"
 	    buildFileWriter << "MSearch Buildnummer: ${buildInfo}\n"
 	    buildFileWriter.close()
-    }
-}
-
-task createBuildFile(type: CreateBuildFileTask, dependsOn: updateVersion) {
-    buildFile = file("build/info.build").absoluteFile
-    versionProperties = propsFile
-}
-
-task buildDeliveryPackage(type: Zip, dependsOn: [shadowJar, createBuildFile]) {
-    logger.lifecycle 'Building delivery package'
-    into('/') {
-        from 'res'
-        include '*'
-        include 'Copyright/**/*'
-    }
-    into('/') {
-        from shadowJar.outputs
-    }
-    into('/info') {
-        from createBuildFile.outputs
     }
 }
 
