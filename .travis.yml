@@ -1,29 +1,37 @@
 language: java
-
 jdk:
-  - oraclejdk8
-
+- oraclejdk8
 install:
-  # Depends on MSearch in ../mSearch. Cloning with ../mSearch does not work.
-  - cd ..
-  - git clone https://github.com/mediathekview/MSearch.git MSearch
-  - cd -
-
+- cd ..
+- git clone https://github.com/mediathekview/MSearch.git MSearch
+- cd -
 addons:
   sonarqube: true
 env:
   global:
-    -  secure: "pHmSb+3bIvSj1iA5j4MIgRv1ogRH1w7NKlfPxAPDXYq+AQZOyyAhWm/nTMq0mtX9x5RsrM8c7YUN7ds+pTpE5JpcA+rlOSibj+ziDeLhpmDzcBt+YUltTOxP7EVrAAmHBTu7DGjPmTLvfzLfpyGNkv6yuIXNo/oIs6BRMwQ2xHa1QdkQ/gkS6nxgh7UhqtDmNix/idHjX/a5PEX8Qse3ZvKBvt1kgrKcVN1ysOtcHKvhQ5ddMAj+7PM+aLuAPTlysfqMYN1gW+cpWOJrHriV7vGCU6lz34s2yM19wFmRFOo7yht3FhAwH8Rt6aTtwpC3HN5DzwqhcicHQkoyv59KMiBbUBN9w5SGqit+/HtFOQ9vgyV5qo5Il/UkbVGUXXl9WcY+zPV2XTlO3LH5o36Bn+da/HRdmlvveMZT8tJ5137YSQhrQRZdOVEDBWuAZmUiTh94c9u3owU85TFzS97fqWi5bvpbyIU749oGhWGv/zxmOEJmtinnQpUAJqS9fFrXrFFtjdLF6vNYWc1f1y7Xg57pLZYK0NcClWc77QwCX5WHy6VPdj3elIJHyv+3DKQw9VBrfV+bRE4b6uvLuDkllBztYECstYR1uJTOumVnhufc12GrD51m+IRqtzEp4+OlNunKsoInNGsJYyaz3t8VcdAwEN4lTE7Se7ijehIpHRA="
+  - secure: pHmSb+3bIvSj1iA5j4MIgRv1ogRH1w7NKlfPxAPDXYq+AQZOyyAhWm/nTMq0mtX9x5RsrM8c7YUN7ds+pTpE5JpcA+rlOSibj+ziDeLhpmDzcBt+YUltTOxP7EVrAAmHBTu7DGjPmTLvfzLfpyGNkv6yuIXNo/oIs6BRMwQ2xHa1QdkQ/gkS6nxgh7UhqtDmNix/idHjX/a5PEX8Qse3ZvKBvt1kgrKcVN1ysOtcHKvhQ5ddMAj+7PM+aLuAPTlysfqMYN1gW+cpWOJrHriV7vGCU6lz34s2yM19wFmRFOo7yht3FhAwH8Rt6aTtwpC3HN5DzwqhcicHQkoyv59KMiBbUBN9w5SGqit+/HtFOQ9vgyV5qo5Il/UkbVGUXXl9WcY+zPV2XTlO3LH5o36Bn+da/HRdmlvveMZT8tJ5137YSQhrQRZdOVEDBWuAZmUiTh94c9u3owU85TFzS97fqWi5bvpbyIU749oGhWGv/zxmOEJmtinnQpUAJqS9fFrXrFFtjdLF6vNYWc1f1y7Xg57pLZYK0NcClWc77QwCX5WHy6VPdj3elIJHyv+3DKQw9VBrfV+bRE4b6uvLuDkllBztYECstYR1uJTOumVnhufc12GrD51m+IRqtzEp4+OlNunKsoInNGsJYyaz3t8VcdAwEN4lTE7Se7ijehIpHRA=
 script:
-  # other script steps might be done before running the actual SonarQube analysis
-  - ./gradlew assemble
-  - ./gradlew check
-  - sonar-scanner -Dsonar.login=$SONAR_TOKEN
-
+- "./gradlew check"
+- sonar-scanner -Dsonar.login=$SONAR_TOKEN
 before_cache:
-  - rm -f $HOME/.gradle/caches/modules-2/modules-2.lock
+- rm -f $HOME/.gradle/caches/modules-2/modules-2.lock
 cache:
   directories:
-    - $HOME/.gradle/caches/
-    - $HOME/.gradle/wrapper/
-    - $HOME/.sonar/cache/
+  - "$HOME/.gradle/caches/"
+  - "$HOME/.gradle/wrapper/"
+  - "$HOME/.sonar/cache/"
+
+deploy:
+  provider: releases
+  api_key:
+    secure: cBldVX5ejTN1tZGxGLxKqzgnFok+2D8dbUm9DgyF67xV+CYdZbhBB0UsmZaJVFnx8J6aOojZVsgQFF28Xj3c4y2b8DvSjGapdqfZOK5MWU5SOPK8cSXCrIFTK4PPhgNY70FGaMBcxjX3JRPefT85II0dkzMyBfzFIn/qSkbXPeVOh3trrJ91HF2r0VuBwF+YMsdr/3BnDx4iF2hnXdI7aW2s0pS97wp4elPLi445mP+pmlE9oS71NEWd646Xa6IZ+CAzWm9rLDzdvXVHoUCMAyAiCoicWR7lw9N45i5cHbLAfdQXJlvFdyAuqY59OmWQ2CffYeIkru206BdbBaqFpGKHZHbNoePIJLMiCnpoXn8x4jevsr2G51cPd8/1LJlmw6NZ5QebKoGvoKvxCalp92a4F0hCA8uoTx+UMru6xNGN7/NGbBbQ9unB37xuBdpfkqmDILmcLrD3i3L7EzTKcraLeZadUdLuQNdakKluVqA6M3NACQ0Rh3uN9AtBhaSvERs231LQezp20qIxfvEQvogyuaQrGc5Tty6u3BIZ5CrZZuuOvpPr939BkbQTSC1Ki4jYPPbK/9CBHSEAg08aGP4oBsyVt0YUoQMNSddffNidcUh5afINAIE3Mlf1Y+UTVsWCQ2LobDYbwHs/Kbgga7Hdcu1jerwdEK59iWXJlNY=
+  file_glob: true
+  file:
+      - "build/libs/MServer-.*.jar"
+      - "build/MServer.*.zip"
+      - "build/MServer.*.tar"
+  skip_cleanup: true
+  on:
+    tags: true
+
+
