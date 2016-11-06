@@ -61,10 +61,6 @@ distributions {
         def date = new Date().format('dd.MM.yyyy')
         baseName = "MServer_${version}_${date}"
         contents {
-            from 'res'
-            include '*'
-            include 'Copyright/**/*'
-            exclude 'info'
             from(createBuildFile) {
                 into 'info/'
             }
