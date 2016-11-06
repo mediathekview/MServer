@@ -1,3 +1,5 @@
+import java.nio.file.Files
+
 plugins {
   id 'com.github.johnrengelman.shadow' version '1.2.4'
 }
@@ -9,26 +11,7 @@ apply from: "${project.rootDir}/gradle/eclipse.gradle"
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
 mainClassName = 'mServer.Main'
-version = '0.0.1-SNAPSHOT'
-
-sourceSets {
-    main {
-        java {
-            srcDirs = ['src']
-        }
-        resources {
-            srcDirs = ['src']
-        }
-    }
-    test {
-        java {
-            srcDirs = ['test']
-        }
-        resources {
-            srcDirs = ['test']
-        }
-    }
-}
+version = '13'
 
 compileJava {
     options.compilerArgs = ['-Xlint:all']
@@ -38,12 +21,17 @@ compileTestJava {
 }
 
 ext {
-    propsFile = file('src/version.properties').absoluteFile
+    propsFile = file('src/main/resources/version.properties').absoluteFile
 }
 
+def loadVersionProperties() {
+    Properties props = new Properties()
+    props.load(propsFile.newDataInputStream())
+    return props
+}
 
 task updateVersion << {
-    Properties props = new Properties()
+    Properties props = loadVersionProperties()
     props.load(propsFile.newDataInputStream())
 
     int nr = Integer.parseInt(props.getProperty('BUILD')) + 1
@@ -63,6 +51,43 @@ task updateVersion << {
 }
 
 processResources.dependsOn updateVersion
+
+task renameAndFillBuildFile(dependsOn: updateVersion) << {
+    Properties props = loadVersionProperties()
+
+    String nr = props.getProperty('BUILD')
+    String buildInfo = "${project.version}-$nr"
+
+    File buildFile = file("res/info/${buildInfo}.build").absoluteFile
+    String date = new Date().format('dd.MM.yyyy HH:mm:ss')
+    logger.lifecycle "Writing build info to $buildFile"
+
+    project.delete(fileTree('res/info') {
+        include '*.build'
+    })
+
+    def buildFileWriter = buildFile.newWriter()
+    buildFileWriter << "Datum: ${date}\n"
+    buildFileWriter << "MSearch Buildnummer: ${buildInfo}\n"
+    buildFileWriter.close()
+}
+
+processResources.dependsOn renameAndFillBuildFile
+
+task copyRuntimeLibs(type: Copy) {
+    into "libs"
+    from configurations.testRuntime - configurations.runtime
+}
+
+distributions {
+    main {
+        baseName = 'MServer_'+new Date().format('dd.MM.yyyy')
+        contents {
+            from{'res'}
+        }
+    }
+}
+
 
 shadowJar {
    classifier = null
@@ -100,13 +125,11 @@ task createBuildFile(type: CreateBuildFileTask, dependsOn: updateVersion) {
 }
 
 task buildDeliveryPackage(type: Zip, dependsOn: [shadowJar, createBuildFile]) {
+    logger.lifecycle 'Building delivery package'
     into('/') {
-        from 'dist'
+        from 'res'
         include '*'
         include 'Copyright/**/*'
-        exclude 'lib'
-        exclude 'info'
-        exclude '*.jar'
     }
     into('/') {
         from shadowJar.outputs
@@ -125,4 +148,8 @@ repositories {
 dependencies {
     compile project(':MSearch')
     compile 'commons-net:commons-net:3.5'
+    compile 'org.apache.commons:commons-compress:1.12'
+    compile 'org.apache.commons:commons-lang3:3.5'
+    compile 'org.tukaani:xz:1.5'
+    compile 'com.fasterxml.jackson.core:jackson-core:2.7.0'
 }

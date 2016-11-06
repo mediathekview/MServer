@@ -17,3 +17,7 @@ start*.sh
 .classpath
 .project
 .settings/
+
+.idea
+build/
+

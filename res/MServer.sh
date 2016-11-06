@@ -31,11 +31,7 @@ echo %% -------------------------------------
 echo %% 
 
 
-if [ -n "$JAVA_HOME" ]; then
-	$JAVA_HOME/bin/java -Xms256M -Xmx1G -jar ./MServer.jar $dir $*
-else
-	java -Xms256M -Xmx1G -jar ./MServer.jar $dir $*
-fi
+bin/MServer $dir $*
 
 cd $OLDPWD
 
