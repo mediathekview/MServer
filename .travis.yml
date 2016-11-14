@@ -20,11 +20,10 @@ cache:
   - "$HOME/.gradle/caches/"
   - "$HOME/.gradle/wrapper/"
   - "$HOME/.sonar/cache/"
-
 deploy:
   provider: releases
   api_key:
-    secure: cBldVX5ejTN1tZGxGLxKqzgnFok+2D8dbUm9DgyF67xV+CYdZbhBB0UsmZaJVFnx8J6aOojZVsgQFF28Xj3c4y2b8DvSjGapdqfZOK5MWU5SOPK8cSXCrIFTK4PPhgNY70FGaMBcxjX3JRPefT85II0dkzMyBfzFIn/qSkbXPeVOh3trrJ91HF2r0VuBwF+YMsdr/3BnDx4iF2hnXdI7aW2s0pS97wp4elPLi445mP+pmlE9oS71NEWd646Xa6IZ+CAzWm9rLDzdvXVHoUCMAyAiCoicWR7lw9N45i5cHbLAfdQXJlvFdyAuqY59OmWQ2CffYeIkru206BdbBaqFpGKHZHbNoePIJLMiCnpoXn8x4jevsr2G51cPd8/1LJlmw6NZ5QebKoGvoKvxCalp92a4F0hCA8uoTx+UMru6xNGN7/NGbBbQ9unB37xuBdpfkqmDILmcLrD3i3L7EzTKcraLeZadUdLuQNdakKluVqA6M3NACQ0Rh3uN9AtBhaSvERs231LQezp20qIxfvEQvogyuaQrGc5Tty6u3BIZ5CrZZuuOvpPr939BkbQTSC1Ki4jYPPbK/9CBHSEAg08aGP4oBsyVt0YUoQMNSddffNidcUh5afINAIE3Mlf1Y+UTVsWCQ2LobDYbwHs/Kbgga7Hdcu1jerwdEK59iWXJlNY=
+    secure: yZv3QsIr8M1rFEuRpgyYZwrAgeHtd0LVkpG9DIsLLNhboApz9LCMcU0dbYxRYi8A5V3MCD+X/rtWsWHfapIjRcoVAyi8f7YWWvz+dnjwOxKi+gHabonnUvIyFAEr8WE+Br5MYOr0GTYiEhiUMrSLg20wBWlqH5LD1Mp/dYd2e80EWN8jcZJRK/rO1CDa78esgaaBMp1Pb/6+E9jS+fuEpLuKocqacA0eHtRrPtPFbTJdVH9amQxfcF3UfEV7/0D8tGlL2cH3J45zYQ0sg/qnWqv6Vtt6W0x6H3pFrEfrkAww8jvV5sKGxyz1/bqLOQJkF8mCotjGox9pkL97/cyf+s+L3Mcux98fK9u7NOzizfFMYz5GgY1K/q0l7hzfzh6JSVPcZ/hHdH0VRqcUVgqXB//wPgs2JNGLj/nGLyxY7T53U5hJOhsqFyGGcbnpZ+thEWlB5wrbPi5PwKCtWvf+Y6H/AePxCRQEie25lwi+M2MCIPjSUB65mXoQnXy3oQahiYWPU0HIpD0Om9fp6UK5x8LXMAx3DeH6wbI7qB2gylygOxuUm0AmojieOeLaQFVK7cvcy9c2W16xyfDUDczkEnceosCe8b2nK/yifKeOfFU/eUiEdzl9ZZvOMf9y4YImQl0ZlQlvYknPGLK/myGLPlJrJhP92XtSiYESsrWOEFw=
   file_glob: true
   file:
       - "build/libs/MServer-.*.jar"
@@ -33,5 +32,3 @@ deploy:
   skip_cleanup: true
   on:
     tags: true
-
-
