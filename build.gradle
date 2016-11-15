@@ -5,7 +5,7 @@ apply from: "${project.rootDir}/gradle/eclipse.gradle"
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
 mainClassName = 'mServer.Main'
-version = '13'
+version = '2.0.1'
 
 compileJava {
     options.compilerArgs = ['-Xlint:all']
