@@ -19,17 +19,32 @@
  */
 package mServer.tool;
 
+import mServer.MServer;
+
 public class MserverTimer implements Runnable {
 
     private final int WARTEZEIT = 1000 * 10; // 10 Sekunde
+    private MServer mserver;
+
+    public MserverTimer(MServer mserver) {
+        this.mserver = mserver;
+    }
 
     public void ping() {
+        if (!mserver.suchen) {
+            // nicht beschäftigt
+            mserver.laufen();
+        }
     }
 
     @Override
     public synchronized void run() {
         while (true) {
             ping();
+            // let's stop when there was an interrupt
+            if (Thread.currentThread().isInterrupted()) {
+                break;
+            }
             schlafen();
         }
     }
