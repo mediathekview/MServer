@@ -33,7 +33,12 @@ import mServer.upload.MserverUpload;
 public class MServer {
 
     private MserverSearchTask aktSearchTask = null;
-    public boolean suchen = false;
+    private boolean suchen = false;
+
+    public boolean isSuchen() {
+        return suchen;
+    }
+
     private MserverSearch mvsSearch;
 
     public MServer(String[] ar) {

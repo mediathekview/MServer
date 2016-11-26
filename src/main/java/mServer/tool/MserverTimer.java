@@ -31,7 +31,7 @@ public class MserverTimer implements Runnable {
     }
 
     public void ping() {
-        if (!mserver.suchen) {
+        if (!mserver.isSuchen()) {
             // nicht beschäftigt
             mserver.laufen();
         }
