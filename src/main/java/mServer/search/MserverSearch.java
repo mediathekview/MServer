@@ -25,7 +25,7 @@ import java.util.Date;
 import mSearch.Config;
 import mSearch.tool.Log;
 import mServer.daten.MserverSearchTask;
-import mServer.mSearch.MSearch;
+import mServer.crawler.MSearch;
 import mServer.tool.MserverDaten;
 import mServer.tool.MserverDatumZeit;
 import mServer.tool.MserverKonstanten;

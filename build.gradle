@@ -107,3 +107,16 @@ dependencies {
     compile 'org.tukaani:xz:1.5'
     compile 'com.fasterxml.jackson.core:jackson-core:2.7.0'
 }
+
+/**
+ * HOWTO debug:
+ *  1. run "gradle debug"
+ *  2. Call your IDE to connect to a remote java application on port 5005.
+ */
+task debug (type: JavaExec, dependsOn: classes){
+    main = 'mServer.Main'
+    classpath = sourceSets.main.runtimeClasspath
+    args '-gui'
+    debug true
+}
+
