@@ -19,7 +19,6 @@
  */
 package mServer.crawler.gui;
 
-import mServer.crawler.gui.Data;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.OutputStreamWriter;

@@ -19,7 +19,6 @@
  */
 package mServer.crawler.gui;
 
-import mServer.crawler.gui.Data;
 import javax.swing.SwingUtilities;
 import javax.swing.event.EventListenerList;
 import mSearch.Config;
