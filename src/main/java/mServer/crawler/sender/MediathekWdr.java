@@ -491,10 +491,10 @@ public class MediathekWdr extends MediathekReader implements Runnable {
                 DatenFilm film = new DatenFilm(SENDERNAME, thema, filmWebsite, titel, urlNorm, ""/*rtmpURL*/, datum, zeit,
                         dauer, beschreibung);
                 if (!subtitle.isEmpty()) {
-                    film.addUrlSubtitle(subtitle);
+                    crawlerTool.addUrlSubtitle(film, subtitle);
                 }
                 if (!urlKlein.isEmpty()) {
-                    film.addUrlKlein(urlKlein, "");
+                    crawlerTool.addUrlKlein(film, urlKlein, "");
                 }
                 addFilm(film);
             } else {

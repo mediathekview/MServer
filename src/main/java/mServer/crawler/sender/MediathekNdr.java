@@ -342,10 +342,10 @@ public class MediathekNdr extends MediathekReader implements Runnable {
                                 }
                             }
                             DatenFilm film = new DatenFilm(SENDERNAME, thema, filmWebsite, titel, url, ""/*rtmpURL*/, datum, zeit, durationInSeconds, description);
-                            film.addUrlSubtitle(subtitle);
+                            crawlerTool.addUrlSubtitle(film, subtitle);
                             if (url.contains(".hq.")) {
                                 String urlKlein = url.replace(".hq.", ".hi.");
-                                film.addUrlKlein(urlKlein, "");
+                                crawlerTool.addUrlKlein(film, urlKlein, "");
                             }
                             addFilm(film, onlyUrl);
                         } else {
@@ -400,13 +400,13 @@ public class MediathekNdr extends MediathekReader implements Runnable {
             if (!url_xl.isEmpty()) {
                 DatenFilm film = new DatenFilm(SENDERNAME, thema, filmWebsite, titel, url_xl, ""/*rtmpURL*/, datum, zeit, durationInSeconds, description);
                 if (!subtitle.isEmpty()) {
-                    film.addUrlSubtitle(subtitle);
+                    crawlerTool.addUrlSubtitle(film, subtitle);
                 }
                 if (!url_hd.isEmpty()) {
-                    film.addUrlHd(url_hd, "");
+                    crawlerTool.addUrlHd(film, url_hd, "");
                 }
                 if (!url_m.isEmpty()) {
-                    film.addUrlKlein(url_m, "");
+                    crawlerTool.addUrlKlein(film, url_m, "");
                 }
                 addFilm(film);
             } else {

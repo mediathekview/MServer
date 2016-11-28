@@ -167,7 +167,7 @@ public class MediathekSr extends MediathekReader implements Runnable {
                     DatenFilm film = new DatenFilm(SENDERNAME, thema, urlSeite, titel, url, "", datum, "" /*Zeit*/, duration, description);
                     if (!subtitle.isEmpty()) {
                         subtitle = "http://sr-mediathek.sr-online.de/" + subtitle;
-                        film.addUrlSubtitle(subtitle);
+                        crawlerTool.addUrlSubtitle(film, subtitle);
                     }
                     addFilm(film);
                 }

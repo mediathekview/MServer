@@ -337,16 +337,14 @@ public class MediathekMdr extends MediathekReader implements Runnable {
 
                 if (urlMp4.equals("")) {
                     Log.errorLog(326541230, new String[]{"keine URL: " + xmlSite, "Thema: " + thema, " UrlFeed: " + strUrlFeed});
-                } else {
-                    if (!existiertSchon(thema, titel, datum, zeit)) {
-                        meldung(urlMp4);
+                } else if (!existiertSchon(thema, titel, datum, zeit)) {
+                    meldung(urlMp4);
 
-                        DatenFilm film = new DatenFilm(SENDERNAME, thema, urlSendung, titel, urlMp4, ""/*rtmpUrl*/, datum, zeit, duration, description);
-                        film.addUrlKlein(urlMp4_klein, "");
-                        film.addUrlHd(urlHD, "");
-                        film.addUrlSubtitle(subtitle);
-                        addFilm(film);
-                    }
+                    DatenFilm film = new DatenFilm(SENDERNAME, thema, urlSendung, titel, urlMp4, ""/*rtmpUrl*/, datum, zeit, duration, description);
+                    crawlerTool.addUrlKlein(film, urlMp4_klein, "");
+                    crawlerTool.addUrlHd(film, urlHD, "");
+                    crawlerTool.addUrlSubtitle(film, subtitle);
+                    addFilm(film);
                 }
 
             } catch (Exception ex) {

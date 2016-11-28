@@ -320,7 +320,7 @@ public class MediathekKika extends MediathekReader implements Runnable {
                     thema = sendername;
                 }
                 // manuelle Anpassung, Notlösung!!
-                if (thema.equals("ABC-Bär")){
+                if (thema.equals("ABC-Bär")) {
                     thema = "ABC Bär";
                 }
                 //Test <channelName>ABC Bär</channelName>
@@ -395,8 +395,8 @@ public class MediathekKika extends MediathekReader implements Runnable {
                 if (!urlMp4.equals("")) {
                     meldung(urlMp4);
                     DatenFilm film = new DatenFilm(SENDERNAME, thema, urlSendung, titel, urlMp4, ""/*rtmpUrl*/, datum, zeit, duration, beschreibung);
-                    film.addUrlKlein(urlMp4_klein, "");
-                    film.addUrlHd(urlHD, "");
+                    crawlerTool.addUrlKlein(film, urlMp4_klein, "");
+                    crawlerTool.addUrlHd(film, urlHD, "");
                     addFilm(film, urlPruefen);
                 } else {
                     Log.errorLog(963215478, " xml: " + xmlWebsite);

@@ -94,7 +94,8 @@ public class MSearch implements Runnable {
         tmpListe.clear();
         new FilmlisteLesen().readFilmListe(importUrl, tmpListe, 0 /*all days*/);
         Log.sysLog("--> von  Anz. Filme: " + listeFilme.size());
-        listeFilme.addLive(tmpListe);
+        //listeFilme.addLive(tmpListe);
+        new AddOldFilmlist(listeFilme, tmpListe).addLive();
         Log.sysLog("--> nach Anz. Filme: " + listeFilme.size());
         tmpListe.clear();
         System.gc();
@@ -122,7 +123,8 @@ public class MSearch implements Runnable {
         tmpListe.clear();
         new FilmlisteLesen().readFilmListe(importUrl, tmpListe, 0 /*all days*/);
         Log.sysLog("--> von  Anz. Filme: " + listeFilme.size());
-        int anz = listeFilme.updateListeOld(tmpListe);
+        //int anz = listeFilme.updateListeOld(tmpListe);
+        int anz = new AddOldFilmlist(listeFilme, tmpListe).updateListeOld();
         Log.sysLog("    gefunden: " + anz);
         Log.sysLog("--> nach Anz. Filme: " + listeFilme.size());
         tmpListe.clear();

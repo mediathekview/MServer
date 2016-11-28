@@ -261,13 +261,13 @@ public class MediathekZdf extends MediathekReader implements Runnable {
                 urlTauschen(film, urlSendung, mSearchFilmeSuchen);
                 addFilm(film);
                 if (!urlHd.isEmpty()) {
-                    film.addUrlHd(urlHd, "");
+                    crawlerTool.addUrlHd(film, urlHd, "");
                 }
                 if (!urlLow.isEmpty()) {
-                    film.addUrlKlein(urlLow, "");
+                    crawlerTool.addUrlKlein(film, urlLow, "");
                 }
                 if (!subtitle.isEmpty()) {
-                    film.addUrlSubtitle(subtitle);
+                    crawlerTool.addUrlSubtitle(film, subtitle);
                 }
             }
         }
@@ -356,7 +356,7 @@ public class MediathekZdf extends MediathekReader implements Runnable {
             String url_ = film.arr[DatenFilm.FILM_URL].substring(0, film.arr[DatenFilm.FILM_URL].lastIndexOf(from)) + to;
             // zum Testen immer machen!!
             if (urlExists(url_)) {
-                film.addUrlHd(url_, "");
+                crawlerTool.addUrlHd(film, url_, "");
             } else {
                 Log.errorLog(945120147, "urlTauschen: " + urlSeite);
             }
@@ -453,10 +453,10 @@ public class MediathekZdf extends MediathekReader implements Runnable {
             DatenFilm film = new DatenFilm(sender, thema, filmWebsite, titel, url, "" /*urlRtmp*/, datum, zeit,
                     laengeL, beschreibung);
             if (!subtitle.isEmpty()) {
-                film.addUrlSubtitle(subtitle);
+                crawlerTool.addUrlSubtitle(film, subtitle);
             }
-            film.addUrlKlein(urlKlein, "");
-            film.addUrlHd(urlHd, "");
+            crawlerTool.addUrlKlein(film, urlKlein, "");
+            crawlerTool.addUrlHd(film, urlHd, "");
             return film;
         }
     }

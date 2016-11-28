@@ -296,13 +296,13 @@ public class MediathekOrf extends MediathekReader implements Runnable {
                     }
                     DatenFilm film = new DatenFilm(SENDERNAME, thema, strUrlFeed, titel, url, urlRtmp, datum, zeit, duration, description);
                     if (!urlKlein.isEmpty()) {
-                        film.addUrlKlein(urlKlein, urlRtmpKlein);
+                        crawlerTool.addUrlKlein(film, urlKlein, urlRtmpKlein);
                     }
                     if (!urlHD.isEmpty()) {
-                        film.addUrlHd(urlHD, "");
+                        crawlerTool.addUrlHd(film, urlHD, "");
                     }
                     if (!subtitle.isEmpty()) {
-                        film.addUrlSubtitle(subtitle);
+                        crawlerTool.addUrlSubtitle(film, subtitle);
                     }
                     addFilm(film, nurUrlPruefen);
                 } else {

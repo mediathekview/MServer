@@ -245,13 +245,13 @@ public class MediathekSrf extends MediathekReader implements Runnable {
                     DatenFilm film = new DatenFilm(SENDERNAME, theme, urlThema, title, url_normal, ""/*rtmpURL*/, date_str, time, duration, description);
 
                     if (!urlHD.isEmpty()) {
-                        film.addUrlHd(urlHD, "");
+                        crawlerTool.addUrlHd(film, urlHD, "");
                     }
                     if (!url_small.isEmpty()) {
-                        film.addUrlKlein(url_small, "");
+                        crawlerTool.addUrlKlein(film, url_small, "");
                     }
                     if (!subtitle.isEmpty()) {
-                        film.addUrlSubtitle(subtitle);
+                        crawlerTool.addUrlSubtitle(film, subtitle);
                     }
                     addFilm(film);
                 }

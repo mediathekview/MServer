@@ -9,6 +9,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import mSearch.Config;
 import mSearch.Const;
+import mSearch.daten.DatenFilm;
 import mSearch.tool.Functions;
 import mSearch.tool.Log;
 import org.apache.commons.lang3.StringUtils;
@@ -110,6 +111,85 @@ public class crawlerTool {
         } else {
             return Functions.addsPfad(crawlerConfig.dirFilme, nameAktFilmlist);
         }
+    }
+
+    public static void setGeo(DatenFilm film) {
+        switch (film.arr[DatenFilm.FILM_SENDER]) {
+            case Const.ARD:
+            case Const.SWR:
+            case Const.MDR:
+            case Const.BR:
+                if (film.arr[DatenFilm.FILM_URL].startsWith("http://mvideos-geo.daserste.de/") || film.arr[DatenFilm.FILM_URL].startsWith("http://media.ndr.de/progressive_geo/") || film.arr[DatenFilm.FILM_URL].startsWith("http://cdn-storage.br.de/geo/") || film.arr[DatenFilm.FILM_URL].startsWith("http://cdn-sotschi.br.de/geo/b7/") || film.arr[DatenFilm.FILM_URL].startsWith("http://pd-ondemand.swr.de/geo/de/") || film.arr[DatenFilm.FILM_URL].startsWith("http://ondemandgeo.mdr.de/") || film.arr[DatenFilm.FILM_URL].startsWith("http://ondemand-de.wdr.de/")) {
+                    film.arr[DatenFilm.FILM_GEO] = DatenFilm.GEO_DE;
+                }
+                break;
+            case Const.ZDF:
+            case Const.ZDF_TIVI:
+            case Const.DREISAT:
+                if (film.arr[DatenFilm.FILM_URL].startsWith("http://nrodl.zdf.de/de/") || film.arr[DatenFilm.FILM_URL].startsWith("http://rodl.zdf.de/de/") || film.arr[DatenFilm.FILM_URL].startsWith("https://nrodlzdf-a.akamaihd.net/de/")) {
+                    film.arr[DatenFilm.FILM_GEO] = DatenFilm.GEO_DE;
+                } else if (film.arr[DatenFilm.FILM_URL].startsWith("http://nrodl.zdf.de/dach/") || film.arr[DatenFilm.FILM_URL].startsWith("http://rodl.zdf.de/dach/") || film.arr[DatenFilm.FILM_URL].startsWith("https://nrodlzdf-a.akamaihd.net/dach")) {
+                    film.arr[DatenFilm.FILM_GEO] = DatenFilm.GEO_DE + "-" + DatenFilm.GEO_AT + "-" + DatenFilm.GEO_CH;
+                } else if (film.arr[DatenFilm.FILM_URL].startsWith("http://nrodl.zdf.de/ebu/") || film.arr[DatenFilm.FILM_URL].startsWith("http://rodl.zdf.de/ebu/") || film.arr[DatenFilm.FILM_URL].startsWith("https://nrodlzdf-a.akamaihd.net/ebu/")) {
+                    film.arr[DatenFilm.FILM_GEO] = DatenFilm.GEO_DE + "-" + DatenFilm.GEO_AT + "-" + DatenFilm.GEO_CH + "-" + DatenFilm.GEO_EU;
+                }
+                break;
+            case Const.ORF:
+                if (film.arr[DatenFilm.FILM_URL].startsWith("http://apasfpd.apa.at/cms-austria/") || film.arr[DatenFilm.FILM_URL].startsWith("rtmp://apasfw.apa.at/cms-austria/")) {
+                    film.arr[DatenFilm.FILM_GEO] = DatenFilm.GEO_AT;
+                }
+                break;
+            case Const.SRF_PODCAST:
+                if (film.arr[DatenFilm.FILM_URL].startsWith("http://podcasts.srf.ch/ch/audio/")) {
+                    film.arr[DatenFilm.FILM_GEO] = DatenFilm.GEO_CH;
+                }
+                break;
+            case Const.NDR:
+                if (film.arr[DatenFilm.FILM_URL].startsWith("http://media.ndr.de/progressive_geo")) {
+                    film.arr[DatenFilm.FILM_GEO] = DatenFilm.GEO_DE;
+                }
+                break;
+            case Const.KIKA:
+                if (film.arr[DatenFilm.FILM_URL].startsWith("http://pmdgeo.kika.de/")) {
+                    film.arr[DatenFilm.FILM_GEO] = DatenFilm.GEO_DE;
+                }
+                break;
+        }
+    }
+
+    public static void addUrlHd(DatenFilm film, String url, String urlRtmp) {
+        film.arr[DatenFilm.FILM_URL_HD] = url.isEmpty() ? "" : getKlein(film.arr[DatenFilm.FILM_URL], url);
+        film.arr[DatenFilm.FILM_URL_RTMP_HD] = urlRtmp.isEmpty() ? "" : getKlein(film.arr[DatenFilm.FILM_URL_RTMP], urlRtmp);
+    }
+
+    public static void addUrlSubtitle(DatenFilm film, String url) {
+        film.arr[DatenFilm.FILM_URL_SUBTITLE] = url;
+    }
+
+    public static void addUrlKlein(DatenFilm film, String url, String urlRtmp) {
+        film.arr[DatenFilm.FILM_URL_KLEIN] = url.isEmpty() ? "" : getKlein(film.arr[DatenFilm.FILM_URL], url);
+        film.arr[DatenFilm.FILM_URL_RTMP_KLEIN] = urlRtmp.isEmpty() ? "" : getKlein(film.arr[DatenFilm.FILM_URL_RTMP], urlRtmp);
+    }
+
+    private static String getKlein(String url1, String url2) {
+        String ret = "";
+        boolean diff = false;
+        for (int i = 0; i < url2.length(); ++i) {
+            if (url1.length() > i) {
+                if (url1.charAt(i) != url2.charAt(i)) {
+                    if (!diff) {
+                        ret = i + "|";
+                    }
+                    diff = true;
+                }
+            } else {
+                diff = true;
+            }
+            if (diff) {
+                ret += url2.charAt(i);
+            }
+        }
+        return ret;
     }
     
 }

@@ -546,14 +546,14 @@ public class MediathekBr extends MediathekReader implements Runnable {
                     datum, zeit,
                     duration, description);
             if (!urlVerySmall.isEmpty()) {
-                film.addUrlKlein(urlVerySmall, "");
+                crawlerTool.addUrlKlein(film, urlVerySmall, "");
             }
             if (!urlHd.isEmpty()) {
-                film.addUrlHd(urlHd, "");
+                crawlerTool.addUrlHd(film, urlHd, "");
             }
             if (!subtitle.isEmpty()) {
                 subtitle = "http://www.br.de" + subtitle;
-                film.addUrlSubtitle(subtitle);
+                crawlerTool.addUrlSubtitle(film, subtitle);
             }
             addFilm(film);
             meldung(film.arr[DatenFilm.FILM_URL]);

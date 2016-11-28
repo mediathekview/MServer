@@ -231,10 +231,10 @@ public class MediathekArte_de extends MediathekReader implements Runnable {
                                     DatenFilm film = new DatenFilm(sendername, THEMA, urlWeb, titel, urlNormal, "" /*urlRtmp*/,
                                             datum, "" /*zeit*/, duration, beschreibung);
                                     if (!urlHd.isEmpty()) {
-                                        film.addUrlHd(urlHd, "");
+                                        crawlerTool.addUrlHd(film,urlHd, "");
                                     }
                                     if (!urlLow.isEmpty()) {
-                                        film.addUrlKlein(urlLow, "");
+                                        crawlerTool.addUrlKlein(film,urlLow, "");
                                     }
                                     addFilm(film);
                                 }
@@ -446,10 +446,10 @@ public class MediathekArte_de extends MediathekReader implements Runnable {
                 DatenFilm film = new DatenFilm(sendername, thema, filmWebsite, titel, url, "" /*urlRtmp*/,
                         datum, zeit, dauer, beschreibung);
                 if (!urlKlein.isEmpty()) {
-                    film.addUrlKlein(urlKlein, "");
+                    crawlerTool.addUrlKlein(film,urlKlein, "");
                 }
                 if (!urlHd.isEmpty()) {
-                    film.addUrlHd(urlHd, "");
+                    crawlerTool.addUrlHd(film,urlHd, "");
                 }
                 addFilm(film);
             }
@@ -457,7 +457,7 @@ public class MediathekArte_de extends MediathekReader implements Runnable {
             DatenFilm film = new DatenFilm(sendername, thema, filmWebsite, titel, urlKlein, "" /*urlRtmp*/,
                     datum, zeit, dauer, beschreibung);
             if (!urlHd.isEmpty()) {
-                film.addUrlHd(urlHd, "");
+                crawlerTool.addUrlHd(film,urlHd, "");
             }
             addFilm(film);
         } else if (!urlHd.isEmpty()) {

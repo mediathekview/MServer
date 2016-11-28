@@ -29,31 +29,5 @@ public class crawlerConfig {
     public static String[] nurSenderLaden = null; // es wird nur dieser Sender geladen => "senderAllesLaden"=false, "updateFillmliste"=true
     // Verzeichnis zum Speichern der Programmeinstellungen
     public static String dirFilme = ""; // Pfad mit den Filmlisten
-//    private static boolean stop = false; // damit kannn das Laden gestoppt werden
-//
-//    /**
-//     * Damit kann das Suchen abgebrochen werden
-//     */
-//    public static synchronized void setStop() {
-//        stop = true;
-//    }
-//
-//    /**
-//     * Damit kann "stop" gesetzt/rückgesetzt werden
-//     *
-//     * @param set
-//     */
-//    public static synchronized void setStop(boolean set) {
-//        stop = set;
-//    }
-//
-//    /**
-//     * Abfrage, ob ein Abbruch erfogte
-//     *
-//     * @return true/false
-//     */
-//    public static synchronized boolean getStop() {
-//        return stop;
-//    }
 
 }

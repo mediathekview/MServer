@@ -425,13 +425,13 @@ public class MediathekArd extends MediathekReader implements Runnable {
                     String beschreibung = beschreibung(urlSendung);
                     DatenFilm f = new DatenFilm(SENDERNAME, thema, urlSendung, titel, url, ""/*urlRtmp*/, datum, zeit, dauer, beschreibung);
                     if (!urlKl.isEmpty()) {
-                        f.addUrlKlein(urlKl, "");
+                        crawlerTool.addUrlKlein(f, urlKl, "");
                     }
                     if (!urlHD.isEmpty() && !urlHD.equals(url)) {
-                        f.addUrlHd(urlHD, "");
+                        crawlerTool.addUrlHd(f, urlHD, "");
                     }
                     if (!subtitle.isEmpty()) {
-                        f.addUrlSubtitle(subtitle);
+                        crawlerTool.addUrlSubtitle(f, subtitle);
                     }
                     addFilm(f);
                 } else {

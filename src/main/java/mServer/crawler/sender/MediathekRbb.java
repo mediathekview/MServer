@@ -248,10 +248,10 @@ public class MediathekRbb extends MediathekReader implements Runnable {
                     addFilm(film);
                     if (!urlLow.isEmpty()) {
                         urlLow = "http://" + urlLow;
-                        film.addUrlKlein(urlLow, "");
+                        crawlerTool.addUrlKlein(film, urlLow, "");
                     }
                     if (!subtitle.isEmpty()) {
-                        film.addUrlSubtitle(subtitle);
+                        crawlerTool.addUrlSubtitle(film, subtitle);
                     }
                 } else {
                     Log.errorLog(302014569, "keine URL für: " + urlSeite);

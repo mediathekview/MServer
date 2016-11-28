@@ -30,6 +30,7 @@ import mSearch.tool.Log;
 import mSearch.tool.MSStringBuilder;
 import mServer.crawler.FilmeSuchen;
 import mServer.crawler.GetUrl;
+import mServer.crawler.crawlerTool;
 
 public class MediathekHr extends MediathekReader implements Runnable {
 
@@ -216,11 +217,11 @@ public class MediathekHr extends MediathekReader implements Runnable {
                         //DatenFilm film = new DatenFilm(nameSenderMReader, thema, strUrlFeed, titel, url, furl, datum, "");
                         DatenFilm film = new DatenFilm(SENDERNAME, thema, filmSite, titel, url, "", datum, zeit, duration, description);
                         if (!url_low.isEmpty()) {
-                            film.addUrlKlein(url_low, "");
+                            crawlerTool.addUrlKlein(film, url_low, "");
                         }
                         String subtitle = url.replace(".mp4", ".xml");
                         if (urlExists(subtitle)) {
-                            film.addUrlSubtitle(subtitle);
+                            crawlerTool.addUrlSubtitle(film, subtitle);
                         }
                         addFilm(film);
                     } else {

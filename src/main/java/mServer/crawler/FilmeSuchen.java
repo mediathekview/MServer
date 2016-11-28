@@ -314,7 +314,7 @@ public class FilmeSuchen {
         Config.setStop(false);
         startZeit = new Date(System.currentTimeMillis());
         listeFilmeNeu = new ListeFilme();
-        listeFilmeNeu.liveStreamEintragen();
+//        listeFilmeNeu.liveStreamEintragen();
         Log.sysLog("");
         Log.sysLog("=======================================");
         Log.sysLog("Start Filme laden:");

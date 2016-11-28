@@ -27,6 +27,7 @@ import mSearch.tool.Log;
 import mSearch.tool.MSStringBuilder;
 import mServer.crawler.FilmeSuchen;
 import mServer.crawler.GetUrl;
+import mServer.crawler.crawlerTool;
 
 public class MediathekPhoenix extends MediathekReader implements Runnable {
 
@@ -252,8 +253,8 @@ public class MediathekPhoenix extends MediathekReader implements Runnable {
                 DatenFilm film = new DatenFilm(SENDERNAME, thema, filmWebsite, titel, url, "" /*urlRtmp*/, datum, zeit,
                         extractDuration(laenge), beschreibung);
                 addFilm(film);
-                film.addUrlKlein(urlKlein, "");
-                film.addUrlHd(urlHd, "");
+                crawlerTool.addUrlKlein(film, urlKlein, "");
+                crawlerTool.addUrlHd(film, urlHd, "");
             }
         }
 
