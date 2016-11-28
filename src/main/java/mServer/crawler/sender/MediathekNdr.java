@@ -29,7 +29,7 @@ import mSearch.tool.Log;
 import mSearch.tool.MSStringBuilder;
 import mServer.crawler.FilmeSuchen;
 import mServer.crawler.GetUrl;
-import mServer.crawler.crawlerTool;
+import mServer.crawler.CrawlerTool;
 
 public class MediathekNdr extends MediathekReader implements Runnable {
 
@@ -74,7 +74,7 @@ public class MediathekNdr extends MediathekReader implements Runnable {
                 }
                 String url_ = "http://www.ndr.de/mediathek/mediatheksuche105_broadcast-" + url;
                 String[] add = new String[]{url_, thema};
-                if (crawlerTool.loadLongMax()) {
+                if (CrawlerTool.loadLongMax()) {
                     if (!alleSeiteSuchen(url_, thema)) {
                         // dann halt so versuchen
                         listeThemen.addUrl(add);
@@ -91,7 +91,7 @@ public class MediathekNdr extends MediathekReader implements Runnable {
         // http://www.ndr.de/mediathek/sendung_verpasst/epg1490_date-2014-05-17_display-onlyvideo.html
         SimpleDateFormat formatter1 = new SimpleDateFormat("yyyy-MM-dd");
         SimpleDateFormat formatter2 = new SimpleDateFormat("dd.MM.yyyy");
-        int maxTage = crawlerTool.loadLongMax() ? 30 : 20;
+        int maxTage = CrawlerTool.loadLongMax() ? 30 : 20;
         for (int i = 0; i < maxTage; ++i) {
             // https://www.ndr.de/mediathek/sendung_verpasst/epg1490_date-2015-09-05_display-all.html
             final String URL = "http://www.ndr.de/mediathek/sendung_verpasst/epg1490_date-";
@@ -342,10 +342,10 @@ public class MediathekNdr extends MediathekReader implements Runnable {
                                 }
                             }
                             DatenFilm film = new DatenFilm(SENDERNAME, thema, filmWebsite, titel, url, ""/*rtmpURL*/, datum, zeit, durationInSeconds, description);
-                            crawlerTool.addUrlSubtitle(film, subtitle);
+                            CrawlerTool.addUrlSubtitle(film, subtitle);
                             if (url.contains(".hq.")) {
                                 String urlKlein = url.replace(".hq.", ".hi.");
-                                crawlerTool.addUrlKlein(film, urlKlein, "");
+                                CrawlerTool.addUrlKlein(film, urlKlein, "");
                             }
                             addFilm(film, onlyUrl);
                         } else {
@@ -400,13 +400,13 @@ public class MediathekNdr extends MediathekReader implements Runnable {
             if (!url_xl.isEmpty()) {
                 DatenFilm film = new DatenFilm(SENDERNAME, thema, filmWebsite, titel, url_xl, ""/*rtmpURL*/, datum, zeit, durationInSeconds, description);
                 if (!subtitle.isEmpty()) {
-                    crawlerTool.addUrlSubtitle(film, subtitle);
+                    CrawlerTool.addUrlSubtitle(film, subtitle);
                 }
                 if (!url_hd.isEmpty()) {
-                    crawlerTool.addUrlHd(film, url_hd, "");
+                    CrawlerTool.addUrlHd(film, url_hd, "");
                 }
                 if (!url_m.isEmpty()) {
-                    crawlerTool.addUrlKlein(film, url_m, "");
+                    CrawlerTool.addUrlKlein(film, url_m, "");
                 }
                 addFilm(film);
             } else {

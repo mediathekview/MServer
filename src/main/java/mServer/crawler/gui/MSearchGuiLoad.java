@@ -25,7 +25,7 @@ import mSearch.Config;
 import mSearch.filmeSuchen.ListenerFilmeLaden;
 import mSearch.filmeSuchen.ListenerFilmeLadenEvent;
 import mServer.crawler.FilmeSuchen;
-import mServer.crawler.crawlerConfig;
+import mServer.crawler.CrawlerConfig;
 
 public class MSearchGuiLoad {
 
@@ -75,7 +75,7 @@ public class MSearchGuiLoad {
         if (!istAmLaufen) {
             // nicht doppelt starten
             istAmLaufen = true;
-            crawlerConfig.updateFilmliste = filmlisteUpdate;
+            CrawlerConfig.updateFilmliste = filmlisteUpdate;
             msFilmeSuchen.filmeBeimSenderLaden(Data.listeFilme);
         }
     }

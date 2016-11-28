@@ -27,7 +27,7 @@ import mSearch.tool.Log;
 import mSearch.tool.MSStringBuilder;
 import mServer.crawler.FilmeSuchen;
 import mServer.crawler.GetUrl;
-import mServer.crawler.crawlerTool;
+import mServer.crawler.CrawlerTool;
 
 public class MediathekSr extends MediathekReader implements Runnable {
 
@@ -52,7 +52,7 @@ public class MediathekSr extends MediathekReader implements Runnable {
         // seite2: http://sr-mediathek.sr-online.de/index.php?seite=2&f=v&s=2&o=d
         // seite3: http://sr-mediathek.sr-online.de/index.php?seite=2&f=v&s=3&o=d
         int maxSeiten = 15;
-        if (crawlerTool.loadLongMax()) {
+        if (CrawlerTool.loadLongMax()) {
             maxSeiten = 120;
         }
         for (int i = 1; i < maxSeiten; ++i) {
@@ -167,7 +167,7 @@ public class MediathekSr extends MediathekReader implements Runnable {
                     DatenFilm film = new DatenFilm(SENDERNAME, thema, urlSeite, titel, url, "", datum, "" /*Zeit*/, duration, description);
                     if (!subtitle.isEmpty()) {
                         subtitle = "http://sr-mediathek.sr-online.de/" + subtitle;
-                        crawlerTool.addUrlSubtitle(film, subtitle);
+                        CrawlerTool.addUrlSubtitle(film, subtitle);
                     }
                     addFilm(film);
                 }

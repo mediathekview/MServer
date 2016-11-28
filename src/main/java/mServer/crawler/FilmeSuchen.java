@@ -214,7 +214,7 @@ public class FilmeSuchen {
                 Log.sysLog("                                                                                     ");
             }
             mrClear();
-            if (crawlerConfig.updateFilmliste) {
+            if (CrawlerConfig.updateFilmliste) {
                 // alte Filme eintragen wenn angefordert oder nur ein update gesucht wurde
                 //////toDo
                 listeFilmeNeu.updateListe(listeFilmeAlt, true /* über den Index vergleichen */, false /*ersetzen*/);
@@ -318,14 +318,14 @@ public class FilmeSuchen {
         Log.sysLog("");
         Log.sysLog("=======================================");
         Log.sysLog("Start Filme laden:");
-        if (crawlerTool.loadMax()) {
+        if (CrawlerTool.loadMax()) {
             Log.sysLog("Filme laden: max");
-        } else if (crawlerTool.loadLongMax()) {
+        } else if (CrawlerTool.loadLongMax()) {
             Log.sysLog("Filme laden: long");
         } else {
             Log.sysLog("Filme laden: short");
         }
-        if (crawlerConfig.updateFilmliste) {
+        if (CrawlerConfig.updateFilmliste) {
             Log.sysLog("Filmliste: aktualisieren");
         } else {
             Log.sysLog("Filmliste: neue erstellen");

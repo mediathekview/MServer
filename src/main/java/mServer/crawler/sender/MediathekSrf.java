@@ -31,7 +31,7 @@ import mSearch.tool.Log;
 import mSearch.tool.MSStringBuilder;
 import mServer.crawler.FilmeSuchen;
 import mServer.crawler.GetUrl;
-import mServer.crawler.crawlerTool;
+import mServer.crawler.CrawlerTool;
 import org.apache.commons.lang3.StringEscapeUtils;
 
 public class MediathekSrf extends MediathekReader implements Runnable {
@@ -122,7 +122,7 @@ public class MediathekSrf extends MediathekReader implements Runnable {
                 String urlFeed = "http://www.srf.ch/play/tv/episodesfromshow?id=" + urlThema + "&pageNumber=1&layout=json";
                 overviewPageFilm = getUrl.getUri_Utf(SENDERNAME, urlFeed, overviewPageFilm, "");
                 addFilmsFromPage(overviewPageFilm, thema, urlFeed);
-                if (crawlerTool.loadLongMax()) {
+                if (CrawlerTool.loadLongMax()) {
                     String url = urlFeed.substring(0, urlFeed.indexOf("&pageNumber=1"));
                     for (int i = 2; i <= MAX_SEITEN_THEMA; ++i) {
                         if (overviewPageFilm.indexOf("pageNumber=" + i) == -1) {
@@ -151,7 +151,7 @@ public class MediathekSrf extends MediathekReader implements Runnable {
                     break;
                 }
                 ++count;
-                if (!crawlerTool.loadLongMax() && count > MAX_FILME_KURZ) {
+                if (!CrawlerTool.loadLongMax() && count > MAX_FILME_KURZ) {
                     break;
                 }
                 //http://www.srf.ch/play/tv/episodesfromshow?id=c38cc259-b5cd-4ac1-b901-e3fddd901a3d&pageNumber=1&layout=json
@@ -245,13 +245,13 @@ public class MediathekSrf extends MediathekReader implements Runnable {
                     DatenFilm film = new DatenFilm(SENDERNAME, theme, urlThema, title, url_normal, ""/*rtmpURL*/, date_str, time, duration, description);
 
                     if (!urlHD.isEmpty()) {
-                        crawlerTool.addUrlHd(film, urlHD, "");
+                        CrawlerTool.addUrlHd(film, urlHD, "");
                     }
                     if (!url_small.isEmpty()) {
-                        crawlerTool.addUrlKlein(film, url_small, "");
+                        CrawlerTool.addUrlKlein(film, url_small, "");
                     }
                     if (!subtitle.isEmpty()) {
-                        crawlerTool.addUrlSubtitle(film, subtitle);
+                        CrawlerTool.addUrlSubtitle(film, subtitle);
                     }
                     addFilm(film);
                 }

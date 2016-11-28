@@ -9,7 +9,7 @@ package mServer.crawler;
  *
  * @author emil
  */
-public class crawlerConfig {
+public class CrawlerConfig {
 
     //alle Programmeinstellungen
     public static String proxyUrl = "";

@@ -33,7 +33,7 @@ import mSearch.tool.Log;
 import mSearch.tool.MSStringBuilder;
 import mServer.crawler.FilmeSuchen;
 import mServer.crawler.GetUrl;
-import mServer.crawler.crawlerTool;
+import mServer.crawler.CrawlerTool;
 
 public class MediathekWdr extends MediathekReader implements Runnable {
 
@@ -67,7 +67,7 @@ public class MediathekWdr extends MediathekReader implements Runnable {
         addToList__();
 
         addTage();
-        if (crawlerTool.loadLongMax()) {
+        if (CrawlerTool.loadLongMax()) {
             maus();
             rockpalast();
             festival();
@@ -247,7 +247,7 @@ public class MediathekWdr extends MediathekReader implements Runnable {
             // Sendungen auf der Seite
             liste_1.clear();
             liste_1.add(strUrl);
-            if (crawlerTool.loadLongMax()) {
+            if (CrawlerTool.loadLongMax()) {
                 // sonst wars das
                 sendungsSeite1 = getUrl.getUri_Utf(SENDERNAME, strUrl, sendungsSeite1, "");
                 sendungsSeite1.extractList("<ul class=\"pageCounterNavi\">", "</ul>", "<a href=\"/mediathek/video/sendungen/", "\"",
@@ -491,10 +491,10 @@ public class MediathekWdr extends MediathekReader implements Runnable {
                 DatenFilm film = new DatenFilm(SENDERNAME, thema, filmWebsite, titel, urlNorm, ""/*rtmpURL*/, datum, zeit,
                         dauer, beschreibung);
                 if (!subtitle.isEmpty()) {
-                    crawlerTool.addUrlSubtitle(film, subtitle);
+                    CrawlerTool.addUrlSubtitle(film, subtitle);
                 }
                 if (!urlKlein.isEmpty()) {
-                    crawlerTool.addUrlKlein(film, urlKlein, "");
+                    CrawlerTool.addUrlKlein(film, urlKlein, "");
                 }
                 addFilm(film);
             } else {

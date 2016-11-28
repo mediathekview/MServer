@@ -28,7 +28,7 @@ import mSearch.tool.Log;
 import mSearch.tool.MSStringBuilder;
 import mServer.crawler.FilmeSuchen;
 import mServer.crawler.GetUrl;
-import mServer.crawler.crawlerTool;
+import mServer.crawler.CrawlerTool;
 
 public class MediathekArte_de extends MediathekReader implements Runnable {
 
@@ -61,13 +61,13 @@ public class MediathekArte_de extends MediathekReader implements Runnable {
         if (Config.getStop()) {
             meldungThreadUndFertig();
         } else if (listeThemen.size() == 0) {
-            if (crawlerTool.loadLongMax()) {
+            if (CrawlerTool.loadLongMax()) {
                 addConcert();
             } else {
                 meldungThreadUndFertig();
             }
         } else {
-            if (crawlerTool.loadLongMax()) {
+            if (CrawlerTool.loadLongMax()) {
                 addConcert();
             }
             meldungAddMax(listeThemen.size());
@@ -231,10 +231,10 @@ public class MediathekArte_de extends MediathekReader implements Runnable {
                                     DatenFilm film = new DatenFilm(sendername, THEMA, urlWeb, titel, urlNormal, "" /*urlRtmp*/,
                                             datum, "" /*zeit*/, duration, beschreibung);
                                     if (!urlHd.isEmpty()) {
-                                        crawlerTool.addUrlHd(film,urlHd, "");
+                                        CrawlerTool.addUrlHd(film,urlHd, "");
                                     }
                                     if (!urlLow.isEmpty()) {
-                                        crawlerTool.addUrlKlein(film,urlLow, "");
+                                        CrawlerTool.addUrlKlein(film,urlLow, "");
                                     }
                                     addFilm(film);
                                 }
@@ -446,10 +446,10 @@ public class MediathekArte_de extends MediathekReader implements Runnable {
                 DatenFilm film = new DatenFilm(sendername, thema, filmWebsite, titel, url, "" /*urlRtmp*/,
                         datum, zeit, dauer, beschreibung);
                 if (!urlKlein.isEmpty()) {
-                    crawlerTool.addUrlKlein(film,urlKlein, "");
+                    CrawlerTool.addUrlKlein(film,urlKlein, "");
                 }
                 if (!urlHd.isEmpty()) {
-                    crawlerTool.addUrlHd(film,urlHd, "");
+                    CrawlerTool.addUrlHd(film,urlHd, "");
                 }
                 addFilm(film);
             }
@@ -457,7 +457,7 @@ public class MediathekArte_de extends MediathekReader implements Runnable {
             DatenFilm film = new DatenFilm(sendername, thema, filmWebsite, titel, urlKlein, "" /*urlRtmp*/,
                     datum, zeit, dauer, beschreibung);
             if (!urlHd.isEmpty()) {
-                crawlerTool.addUrlHd(film,urlHd, "");
+                CrawlerTool.addUrlHd(film,urlHd, "");
             }
             addFilm(film);
         } else if (!urlHd.isEmpty()) {

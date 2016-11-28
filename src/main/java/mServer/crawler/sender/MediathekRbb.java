@@ -29,7 +29,7 @@ import mSearch.tool.Log;
 import mSearch.tool.MSStringBuilder;
 import mServer.crawler.FilmeSuchen;
 import mServer.crawler.GetUrl;
-import mServer.crawler.crawlerTool;
+import mServer.crawler.CrawlerTool;
 
 public class MediathekRbb extends MediathekReader implements Runnable {
 
@@ -158,7 +158,7 @@ public class MediathekRbb extends MediathekReader implements Runnable {
                 }
 
                 // noch nach weiteren Seiten suchen
-                if (weiter && crawlerTool.loadLongMax()) {
+                if (weiter && CrawlerTool.loadLongMax()) {
                     for (int i = 2; i < 10; ++i) {
                         if (seite1.indexOf("mcontents=page." + i) != -1) {
                             // dann gibts weiter Seiten
@@ -248,10 +248,10 @@ public class MediathekRbb extends MediathekReader implements Runnable {
                     addFilm(film);
                     if (!urlLow.isEmpty()) {
                         urlLow = "http://" + urlLow;
-                        crawlerTool.addUrlKlein(film, urlLow, "");
+                        CrawlerTool.addUrlKlein(film, urlLow, "");
                     }
                     if (!subtitle.isEmpty()) {
-                        crawlerTool.addUrlSubtitle(film, subtitle);
+                        CrawlerTool.addUrlSubtitle(film, subtitle);
                     }
                 } else {
                     Log.errorLog(302014569, "keine URL für: " + urlSeite);

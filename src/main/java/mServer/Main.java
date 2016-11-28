@@ -21,7 +21,7 @@ package mServer;
 
 import javafx.application.Application;
 import mSearch.tool.Log;
-import mServer.crawler.crawlerTool;
+import mServer.crawler.CrawlerTool;
 import mServer.crawler.gui.MSG;
 import mServer.tool.MserverDaten;
 import mServer.tool.MserverLog;
@@ -69,7 +69,7 @@ public class Main {
                 break;
             case GUI:
                 java.awt.EventQueue.invokeLater(() -> {
-                    crawlerTool.startMsg();
+                    CrawlerTool.startMsg();
                     Application.launch(MSG.class, args);
                 });
         }

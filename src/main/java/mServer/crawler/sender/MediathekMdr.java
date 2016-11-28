@@ -30,7 +30,7 @@ import mSearch.tool.Log;
 import mSearch.tool.MSStringBuilder;
 import mServer.crawler.FilmeSuchen;
 import mServer.crawler.GetUrl;
-import mServer.crawler.crawlerTool;
+import mServer.crawler.CrawlerTool;
 
 public class MediathekMdr extends MediathekReader implements Runnable {
 
@@ -226,7 +226,7 @@ public class MediathekMdr extends MediathekReader implements Runnable {
             String url = "";
             while ((pos = seite2.indexOf(muster, pos)) != -1) {
                 ++count;
-                if (!crawlerTool.loadLongMax()) {
+                if (!CrawlerTool.loadLongMax()) {
                     if (count > 5) {
                         return;
                     }
@@ -341,9 +341,9 @@ public class MediathekMdr extends MediathekReader implements Runnable {
                     meldung(urlMp4);
 
                     DatenFilm film = new DatenFilm(SENDERNAME, thema, urlSendung, titel, urlMp4, ""/*rtmpUrl*/, datum, zeit, duration, description);
-                    crawlerTool.addUrlKlein(film, urlMp4_klein, "");
-                    crawlerTool.addUrlHd(film, urlHD, "");
-                    crawlerTool.addUrlSubtitle(film, subtitle);
+                    CrawlerTool.addUrlKlein(film, urlMp4_klein, "");
+                    CrawlerTool.addUrlHd(film, urlHD, "");
+                    CrawlerTool.addUrlSubtitle(film, subtitle);
                     addFilm(film);
                 }
 

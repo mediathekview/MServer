@@ -43,7 +43,7 @@ import mSearch.filmeSuchen.ListenerFilmeLaden;
 import mSearch.filmeSuchen.ListenerFilmeLadenEvent;
 import mSearch.tool.Log;
 import mServer.crawler.GetUrl;
-import mServer.crawler.crawlerConfig;
+import mServer.crawler.CrawlerConfig;
 
 public class PanelSearchController implements Initializable {
 
@@ -106,10 +106,10 @@ public class PanelSearchController implements Initializable {
         mSearchGuiLoad = new MSearchGuiLoad();
 
         rbShort.setSelected(true);
-        crawlerConfig.senderLoadHow = crawlerConfig.LOAD_SHORT;
-        rbShort.setOnAction(e -> crawlerConfig.senderLoadHow = crawlerConfig.LOAD_SHORT);
-        rbLong.setOnAction(e -> crawlerConfig.senderLoadHow = crawlerConfig.LOAD_LONG);
-        rbMax.setOnAction(e -> crawlerConfig.senderLoadHow = crawlerConfig.LOAD_MAX);
+        CrawlerConfig.senderLoadHow = CrawlerConfig.LOAD_SHORT;
+        rbShort.setOnAction(e -> CrawlerConfig.senderLoadHow = CrawlerConfig.LOAD_SHORT);
+        rbLong.setOnAction(e -> CrawlerConfig.senderLoadHow = CrawlerConfig.LOAD_LONG);
+        rbMax.setOnAction(e -> CrawlerConfig.senderLoadHow = CrawlerConfig.LOAD_MAX);
 
         GetUrl.showLoadTime = cbLoadTime.isSelected();
         cbLoadTime.setOnAction(e -> GetUrl.showLoadTime = cbLoadTime.isSelected());
@@ -117,7 +117,7 @@ public class PanelSearchController implements Initializable {
         Config.debug = cbDebug.isSelected();
         cbDebug.setOnAction(e -> Config.debug = cbDebug.isSelected());
 
-        cbUpdate.setOnAction(e -> crawlerConfig.updateFilmliste = cbUpdate.isSelected());
+        cbUpdate.setOnAction(e -> CrawlerConfig.updateFilmliste = cbUpdate.isSelected());
 
         btnAllSender.setOnAction(e -> new Thread(() -> {
             disableButton(true);

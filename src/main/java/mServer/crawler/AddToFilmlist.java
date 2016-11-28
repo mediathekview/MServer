@@ -17,7 +17,7 @@ import mSearch.tool.Log;
  *
  * @author emil
  */
-public class AddOldFilmlist {
+public class AddToFilmlist {
 
     final int COUNTER_MAX = 20;
     int counter = 0;
@@ -25,12 +25,12 @@ public class AddOldFilmlist {
     ListeFilme vonListe;
     ListeFilme listeEinsortieren;
 
-    public AddOldFilmlist(ListeFilme vonListe, ListeFilme listeEinsortieren) {
+    public AddToFilmlist(ListeFilme vonListe, ListeFilme listeEinsortieren) {
         this.vonListe = vonListe;
         this.listeEinsortieren = listeEinsortieren;
     }
 
-    public synchronized void addLive() {
+    public synchronized void addLiveStream() {
         // live-streams einfügen, es werde die vorhandenen ersetzt!
 
         if (listeEinsortieren.size() <= 0) {
@@ -48,7 +48,7 @@ public class AddOldFilmlist {
         listeEinsortieren.forEach(vonListe::add);
     }
 
-    public synchronized int updateListeOld() {
+    public synchronized int addOldList() {
         // in eine vorhandene Liste soll eine andere Filmliste einsortiert werden
         // es werden nur Filme die noch nicht vorhanden sind, einsortiert
         counter = 0;

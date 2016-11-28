@@ -27,7 +27,7 @@ import mSearch.tool.Log;
 import mSearch.tool.MSStringBuilder;
 import mServer.crawler.FilmeSuchen;
 import mServer.crawler.GetUrl;
-import mServer.crawler.crawlerTool;
+import mServer.crawler.CrawlerTool;
 import org.apache.commons.lang3.StringEscapeUtils;
 
 public class MediathekSwr extends MediathekReader implements Runnable {
@@ -50,7 +50,7 @@ public class MediathekSwr extends MediathekReader implements Runnable {
         //Theman suchen
         listeThemen.clear();
         addToList__();
-        if (crawlerTool.loadLongMax()) {
+        if (CrawlerTool.loadLongMax()) {
             addToList_verpasst(); // brauchst eigentlich nicht und dauer zu lange
         }
         if (Config.getStop()) {
@@ -120,7 +120,7 @@ public class MediathekSwr extends MediathekReader implements Runnable {
 
     private class ThemaLaden implements Runnable {
 
-        GetUrl getUrlThemaLaden = new GetUrl(crawlerTool.loadLongMax() ? wartenLang : wartenKurz);
+        GetUrl getUrlThemaLaden = new GetUrl(CrawlerTool.loadLongMax() ? wartenLang : wartenKurz);
         private MSStringBuilder strSeite1 = new MSStringBuilder(Const.STRING_BUFFER_START_BUFFER);
         private MSStringBuilder strSeite2 = new MSStringBuilder(Const.STRING_BUFFER_START_BUFFER);
         ArrayList<String> gefunden = new ArrayList<>();
@@ -158,7 +158,7 @@ public class MediathekSwr extends MediathekReader implements Runnable {
             int max = 0;
             gefunden.clear();
             while (!Config.getStop() && (pos1 = strSeite1.indexOf(MUSTER_URL, pos1)) != -1) {
-                if (!crawlerTool.loadLongMax()) {
+                if (!CrawlerTool.loadLongMax()) {
                     ++max;
                     if (max > 2) {
                         break;
@@ -232,13 +232,13 @@ public class MediathekSwr extends MediathekReader implements Runnable {
                     DatenFilm film = new DatenFilm(SENDERNAME, thema, strUrlFeed, title, normalUrl, ""/*rtmpURL*/, date, time, duration, description);
 
                     if (!urldHd.isEmpty()) {
-                        crawlerTool.addUrlHd(film, urldHd, "");
+                        CrawlerTool.addUrlHd(film, urldHd, "");
                     }
                     if (!smallUrl.isEmpty()) {
-                        crawlerTool.addUrlKlein(film, smallUrl, "");
+                        CrawlerTool.addUrlKlein(film, smallUrl, "");
                     }
                     if (!subtitle.isEmpty()) {
-                        crawlerTool.addUrlSubtitle(film, subtitle);
+                        CrawlerTool.addUrlSubtitle(film, subtitle);
                     }
                     addFilm(film);
                 }

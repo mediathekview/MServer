@@ -30,7 +30,7 @@ import mSearch.tool.Log;
 import mSearch.tool.MSStringBuilder;
 import mServer.crawler.FilmeSuchen;
 import mServer.crawler.GetUrl;
-import mServer.crawler.crawlerTool;
+import mServer.crawler.CrawlerTool;
 
 public class MediathekKika extends MediathekReader implements Runnable {
 
@@ -46,7 +46,7 @@ public class MediathekKika extends MediathekReader implements Runnable {
     void addToList() {
 
         meldungStart();
-        if (crawlerTool.loadLongMax()) {
+        if (CrawlerTool.loadLongMax()) {
             addToListNormal();
         }
         addToListAllVideo();
@@ -201,7 +201,7 @@ public class MediathekKika extends MediathekReader implements Runnable {
                         // die jüngsten Beiträge sind am Ende
                         String s = liste1.get(i);
                         ++count;
-                        if (!crawlerTool.loadLongMax() && count > 4) {
+                        if (!CrawlerTool.loadLongMax() && count > 4) {
                             return;
                         }
                         if (Config.getStop()) {
@@ -209,7 +209,7 @@ public class MediathekKika extends MediathekReader implements Runnable {
                         }
                         if (!ladenSerien_2(s, thema)) {
                             //dann gibts evtl. nix mehr
-                            if (!crawlerTool.loadLongMax()) {
+                            if (!CrawlerTool.loadLongMax()) {
                                 // nur beim kurzen Suchen
                                 ++err;
                                 if (err > 2) {
@@ -276,7 +276,7 @@ public class MediathekKika extends MediathekReader implements Runnable {
             try {
                 seite2 = getUrlIo.getUri_Utf(sendername, url, seite2, "KiKa-Sendungen");
                 loadAllVideo_2(seite2);
-                if (crawlerTool.loadLongMax()) {
+                if (CrawlerTool.loadLongMax()) {
                     seite2.extractList("", "", "<div class=\"bundleNaviItem active\">\n<a href=\"/videos/allevideos/", "\"", "http://www.kika.de/videos/allevideos/", liste);
                     seite2.extractList("", "", "<div class=\"bundleNaviItem \">\n<a href=\"/videos/allevideos/", "\"", "http://www.kika.de/videos/allevideos/", liste);
                 }
@@ -395,8 +395,8 @@ public class MediathekKika extends MediathekReader implements Runnable {
                 if (!urlMp4.equals("")) {
                     meldung(urlMp4);
                     DatenFilm film = new DatenFilm(SENDERNAME, thema, urlSendung, titel, urlMp4, ""/*rtmpUrl*/, datum, zeit, duration, beschreibung);
-                    crawlerTool.addUrlKlein(film, urlMp4_klein, "");
-                    crawlerTool.addUrlHd(film, urlHD, "");
+                    CrawlerTool.addUrlKlein(film, urlMp4_klein, "");
+                    CrawlerTool.addUrlHd(film, urlHD, "");
                     addFilm(film, urlPruefen);
                 } else {
                     Log.errorLog(963215478, " xml: " + xmlWebsite);

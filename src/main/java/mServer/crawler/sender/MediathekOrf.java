@@ -30,7 +30,7 @@ import mSearch.tool.Log;
 import mSearch.tool.MSStringBuilder;
 import mServer.crawler.FilmeSuchen;
 import mServer.crawler.GetUrl;
-import mServer.crawler.crawlerTool;
+import mServer.crawler.CrawlerTool;
 import org.apache.commons.lang3.StringEscapeUtils;
 
 public class MediathekOrf extends MediathekReader implements Runnable {
@@ -53,11 +53,11 @@ public class MediathekOrf extends MediathekReader implements Runnable {
         MSStringBuilder seite = new MSStringBuilder(Const.STRING_BUFFER_START_BUFFER);
         listeThemen.clear();
         meldungStart();
-        if (crawlerTool.loadLongMax()) {
+        if (CrawlerTool.loadLongMax()) {
             bearbeiteAdresseSendung(seite);
         }
         listeSort(listeThemen, 1);
-        int maxTage = crawlerTool.loadLongMax() ? 9 : 2;
+        int maxTage = CrawlerTool.loadLongMax() ? 9 : 2;
         for (int i = 0; i < maxTage; ++i) {
             String vorTagen = getGestern(i).toLowerCase();
             bearbeiteAdresseTag("http://tvthek.orf.at/schedule/" + vorTagen, seite);
@@ -296,13 +296,13 @@ public class MediathekOrf extends MediathekReader implements Runnable {
                     }
                     DatenFilm film = new DatenFilm(SENDERNAME, thema, strUrlFeed, titel, url, urlRtmp, datum, zeit, duration, description);
                     if (!urlKlein.isEmpty()) {
-                        crawlerTool.addUrlKlein(film, urlKlein, urlRtmpKlein);
+                        CrawlerTool.addUrlKlein(film, urlKlein, urlRtmpKlein);
                     }
                     if (!urlHD.isEmpty()) {
-                        crawlerTool.addUrlHd(film, urlHD, "");
+                        CrawlerTool.addUrlHd(film, urlHD, "");
                     }
                     if (!subtitle.isEmpty()) {
-                        crawlerTool.addUrlSubtitle(film, subtitle);
+                        CrawlerTool.addUrlSubtitle(film, subtitle);
                     }
                     addFilm(film, nurUrlPruefen);
                 } else {

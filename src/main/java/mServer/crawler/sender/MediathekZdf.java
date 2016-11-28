@@ -30,7 +30,7 @@ import mSearch.tool.Log;
 import mSearch.tool.MSStringBuilder;
 import mServer.crawler.FilmeSuchen;
 import mServer.crawler.GetUrl;
-import mServer.crawler.crawlerTool;
+import mServer.crawler.CrawlerTool;
 
 public class MediathekZdf extends MediathekReader implements Runnable {
 
@@ -66,7 +66,7 @@ public class MediathekZdf extends MediathekReader implements Runnable {
     private void addDay() {
         //https://www.zdf.de/sendung-verpasst?airtimeDate=2016-10-26
         String date;
-        for (long i = 0; i < (crawlerTool.loadLongMax() ? 300 : 20); ++i) {
+        for (long i = 0; i < (CrawlerTool.loadLongMax() ? 300 : 20); ++i) {
             date = new SimpleDateFormat("yyyy-MM-dd").format(new Date().getTime() - i * (1000 * 60 * 60 * 24));
             String url = "https://www.zdf.de/sendung-verpasst?airtimeDate=" + date;
             listeTage.addUrl(new String[]{url});
@@ -261,13 +261,13 @@ public class MediathekZdf extends MediathekReader implements Runnable {
                 urlTauschen(film, urlSendung, mSearchFilmeSuchen);
                 addFilm(film);
                 if (!urlHd.isEmpty()) {
-                    crawlerTool.addUrlHd(film, urlHd, "");
+                    CrawlerTool.addUrlHd(film, urlHd, "");
                 }
                 if (!urlLow.isEmpty()) {
-                    crawlerTool.addUrlKlein(film, urlLow, "");
+                    CrawlerTool.addUrlKlein(film, urlLow, "");
                 }
                 if (!subtitle.isEmpty()) {
-                    crawlerTool.addUrlSubtitle(film, subtitle);
+                    CrawlerTool.addUrlSubtitle(film, subtitle);
                 }
             }
         }
@@ -356,7 +356,7 @@ public class MediathekZdf extends MediathekReader implements Runnable {
             String url_ = film.arr[DatenFilm.FILM_URL].substring(0, film.arr[DatenFilm.FILM_URL].lastIndexOf(from)) + to;
             // zum Testen immer machen!!
             if (urlExists(url_)) {
-                crawlerTool.addUrlHd(film, url_, "");
+                CrawlerTool.addUrlHd(film, url_, "");
             } else {
                 Log.errorLog(945120147, "urlTauschen: " + urlSeite);
             }
@@ -453,10 +453,10 @@ public class MediathekZdf extends MediathekReader implements Runnable {
             DatenFilm film = new DatenFilm(sender, thema, filmWebsite, titel, url, "" /*urlRtmp*/, datum, zeit,
                     laengeL, beschreibung);
             if (!subtitle.isEmpty()) {
-                crawlerTool.addUrlSubtitle(film, subtitle);
+                CrawlerTool.addUrlSubtitle(film, subtitle);
             }
-            crawlerTool.addUrlKlein(film, urlKlein, "");
-            crawlerTool.addUrlHd(film, urlHd, "");
+            CrawlerTool.addUrlKlein(film, urlKlein, "");
+            CrawlerTool.addUrlHd(film, urlHd, "");
             return film;
         }
     }

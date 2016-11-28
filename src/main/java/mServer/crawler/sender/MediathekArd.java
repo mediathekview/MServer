@@ -27,7 +27,7 @@ import mSearch.tool.Log;
 import mSearch.tool.MSStringBuilder;
 import mServer.crawler.FilmeSuchen;
 import mServer.crawler.GetUrl;
-import mServer.crawler.crawlerTool;
+import mServer.crawler.CrawlerTool;
 
 public class MediathekArd extends MediathekReader implements Runnable {
 
@@ -251,7 +251,7 @@ public class MediathekArd extends MediathekReader implements Runnable {
             }
             while (!Config.getStop() && (pos = seite1.indexOf(MUSTER, pos)) != -1) {
                 ++count;
-                if (!crawlerTool.loadLongMax()) {
+                if (!CrawlerTool.loadLongMax()) {
                     if (count > 5 && !thema.equalsIgnoreCase("alpha-Centauri")) {
                         break;
                     }
@@ -292,7 +292,7 @@ public class MediathekArd extends MediathekReader implements Runnable {
                 filmSuchen2(url, thema, titel, d, datum, zeit, urlSendung);
             }
             if (!Config.getStop() && weiter
-                    && (crawlerTool.loadLongMax() || thema.equalsIgnoreCase("alpha-Centauri"))) {
+                    && (CrawlerTool.loadLongMax() || thema.equalsIgnoreCase("alpha-Centauri"))) {
                 // dann gehts weiter
                 int maxWeiter = 0;
                 int maxTh = 10;
@@ -425,13 +425,13 @@ public class MediathekArd extends MediathekReader implements Runnable {
                     String beschreibung = beschreibung(urlSendung);
                     DatenFilm f = new DatenFilm(SENDERNAME, thema, urlSendung, titel, url, ""/*urlRtmp*/, datum, zeit, dauer, beschreibung);
                     if (!urlKl.isEmpty()) {
-                        crawlerTool.addUrlKlein(f, urlKl, "");
+                        CrawlerTool.addUrlKlein(f, urlKl, "");
                     }
                     if (!urlHD.isEmpty() && !urlHD.equals(url)) {
-                        crawlerTool.addUrlHd(f, urlHD, "");
+                        CrawlerTool.addUrlHd(f, urlHD, "");
                     }
                     if (!subtitle.isEmpty()) {
-                        crawlerTool.addUrlSubtitle(f, subtitle);
+                        CrawlerTool.addUrlSubtitle(f, subtitle);
                     }
                     addFilm(f);
                 } else {

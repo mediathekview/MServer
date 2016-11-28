@@ -27,7 +27,7 @@ import mSearch.tool.Log;
 import mSearch.tool.MSStringBuilder;
 import mServer.crawler.FilmeSuchen;
 import mServer.crawler.GetUrl;
-import mServer.crawler.crawlerTool;
+import mServer.crawler.CrawlerTool;
 
 public class MediathekDw extends MediathekReader implements Runnable {
 
@@ -85,7 +85,7 @@ public class MediathekDw extends MediathekReader implements Runnable {
                 if (url.equals("")) {
                     continue;
                 }
-                if (crawlerTool.loadLongMax()) {
+                if (CrawlerTool.loadLongMax()) {
                     //http://www.dw.com/de/media-center/alle-inhalte/s-100814/filter/programs/3204/sort/date/results/16/
                     //http://www.dw.com/de/media-center/alle-inhalte/s-100814?filter=&programs=17274211&sort=date&results=36
                     url = "http://www.dw.com/de/media-center/alle-inhalte/s-100814?filter=&programs=" + url + "&sort=date&results=100";
@@ -205,10 +205,10 @@ public class MediathekDw extends MediathekReader implements Runnable {
             } else {
                 DatenFilm film = new DatenFilm(SENDERNAME, thema, urlSendung, titel, url, "", datum, ""/*Zeit*/, duration, description);
                 if (!urlLow.isEmpty()) {
-                    crawlerTool.addUrlKlein(film, urlLow, "");
+                    CrawlerTool.addUrlKlein(film, urlLow, "");
                 }
                 if (!urlHd.isEmpty()) {
-                    crawlerTool.addUrlHd(film, urlHd, "");
+                    CrawlerTool.addUrlHd(film, urlHd, "");
                 }
                 addFilm(film);
             }

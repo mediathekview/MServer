@@ -158,9 +158,9 @@ public class GetUrl {
             if ((retCode = conn.getResponseCode()) < 400) {
                 mvIn = new MVInputStream(conn);
             } else if (retCode == 403 || retCode == 408) {
-                if (!crawlerConfig.proxyUrl.isEmpty() && crawlerConfig.proxyPort > 0) {
+                if (!CrawlerConfig.proxyUrl.isEmpty() && CrawlerConfig.proxyPort > 0) {
                     // nur dann verwenden, ein anderer Versuch und wenn möglich, einen Proxy einrichten
-                    SocketAddress saddr = new InetSocketAddress(crawlerConfig.proxyUrl, crawlerConfig.proxyPort);
+                    SocketAddress saddr = new InetSocketAddress(CrawlerConfig.proxyUrl, CrawlerConfig.proxyPort);
                     Proxy proxy = new Proxy(Proxy.Type.SOCKS, saddr);
                     conn = (HttpURLConnection) new URL(addr).openConnection(proxy);
 

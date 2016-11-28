@@ -24,9 +24,9 @@ import java.util.ArrayList;
 import java.util.Date;
 import mSearch.Config;
 import mSearch.tool.Log;
+import mServer.crawler.Crawler;
+import mServer.crawler.CrawlerConfig;
 import mServer.daten.MserverSearchTask;
-import mServer.crawler.MSearch;
-import mServer.crawler.crawlerConfig;
 import mServer.tool.MserverDaten;
 import mServer.tool.MserverDatumZeit;
 import mServer.tool.MserverKonstanten;
@@ -34,11 +34,11 @@ import mServer.tool.MserverLog;
 
 public class MserverSearch {
 
-    MSearch mSearch;
+    Crawler crawler;
 
     public MserverSearch() {
-        this.mSearch = null;
-        crawlerConfig.dirFilme = MserverDaten.getVerzeichnisFilme();
+        this.crawler = null;
+        CrawlerConfig.dirFilme = MserverDaten.getVerzeichnisFilme();
     }
 
     @SuppressWarnings("deprecation")
@@ -50,35 +50,35 @@ public class MserverSearch {
             MserverLog.systemMeldung("");
             MserverLog.systemMeldung("-----------------------------------");
             MserverLog.systemMeldung("Filmsuche starten");
-            mSearch = new MSearch();
+            crawler = new Crawler();
 
             // was und wie
-            crawlerConfig.senderLoadHow = aktSearchTask.loadHow();
-            crawlerConfig.updateFilmliste = aktSearchTask.updateFilmliste();
-            crawlerConfig.nurSenderLaden = arrLesen(aktSearchTask.arr[MserverSearchTask.SUCHEN_SENDER_NR].trim());
-            crawlerConfig.orgFilmlisteErstellen = aktSearchTask.orgListeAnlegen();
-            crawlerConfig.orgFilmliste = MserverDaten.system[MserverKonstanten.SYSTEM_FILMLISTE_ORG_NR];
+            CrawlerConfig.senderLoadHow = aktSearchTask.loadHow();
+            CrawlerConfig.updateFilmliste = aktSearchTask.updateFilmliste();
+            CrawlerConfig.nurSenderLaden = arrLesen(aktSearchTask.arr[MserverSearchTask.SUCHEN_SENDER_NR].trim());
+            CrawlerConfig.orgFilmlisteErstellen = aktSearchTask.orgListeAnlegen();
+            CrawlerConfig.orgFilmliste = MserverDaten.system[MserverKonstanten.SYSTEM_FILMLISTE_ORG_NR];
 
             // live-steams
-            crawlerConfig.importLive = MserverDaten.system[MserverKonstanten.SYSTEM_IMPORT_LIVE_NR];
+            CrawlerConfig.importLive = MserverDaten.system[MserverKonstanten.SYSTEM_IMPORT_LIVE_NR];
 
             // und noch evtl. ein paar Imports von Filmlisten anderer Server
-            crawlerConfig.importUrl_1__anhaengen = MserverDaten.system[MserverKonstanten.SYSTEM_IMPORT_URL_1_NR];
-            crawlerConfig.importUrl_2__anhaengen = MserverDaten.system[MserverKonstanten.SYSTEM_IMPORT_URL_2_NR];
+            CrawlerConfig.importUrl_1__anhaengen = MserverDaten.system[MserverKonstanten.SYSTEM_IMPORT_URL_1_NR];
+            CrawlerConfig.importUrl_2__anhaengen = MserverDaten.system[MserverKonstanten.SYSTEM_IMPORT_URL_2_NR];
 
             // für die alte Filmliste
-            crawlerConfig.importOld = MserverDaten.system[MserverKonstanten.SYSTEM_IMPORT_OLD_NR];
-            crawlerConfig.importAkt = MserverDatumZeit.getNameAkt(MserverDaten.system[MserverKonstanten.SYSTEM_IMPORT_AKT_NR]);
+            CrawlerConfig.importOld = MserverDaten.system[MserverKonstanten.SYSTEM_IMPORT_OLD_NR];
+            CrawlerConfig.importAkt = MserverDatumZeit.getNameAkt(MserverDaten.system[MserverKonstanten.SYSTEM_IMPORT_AKT_NR]);
 
             // Rest
             Config.setUserAgent(MserverDaten.getUserAgent());
-            crawlerConfig.proxyUrl = MserverDaten.system[MserverKonstanten.SYSTEM_PROXY_URL_NR];
-            crawlerConfig.proxyPort = MserverDaten.getProxyPort();
+            CrawlerConfig.proxyUrl = MserverDaten.system[MserverKonstanten.SYSTEM_PROXY_URL_NR];
+            CrawlerConfig.proxyPort = MserverDaten.getProxyPort();
             Config.debug = MserverDaten.debug;
 
             Log.setLogfile(MserverDaten.getLogDatei(MserverKonstanten.LOG_FILE_NAME_MSEARCH));
 
-            Thread t = new Thread(mSearch);
+            Thread t = new Thread(crawler);
             t.start();
             MserverLog.systemMeldung("Filme suchen gestartet");
             // ===========================================
@@ -96,7 +96,7 @@ public class MserverSearch {
             if (t != null) {
                 if (t.isAlive()) {
                     MserverLog.fehlerMeldung(915147623, MserverSearch.class.getName(), "Der letzte Suchlauf läuft noch");
-                    if (mSearch != null) {
+                    if (crawler != null) {
                         MserverLog.systemMeldung("");
                         MserverLog.systemMeldung("");
                         MserverLog.systemMeldung("================================");
@@ -107,7 +107,7 @@ public class MserverSearch {
                         MserverLog.systemMeldung("================================");
                         MserverLog.systemMeldung("");
                         //und jetzt STOPPEN!!!!!!!!
-                        mSearch.stop();
+                        crawler.stop();
                     }
 
                     t.join(20 * 60 * 1000); // 20 Minuten warten, das Erstellen/Komprimieren der Liste dauert
@@ -130,7 +130,7 @@ public class MserverSearch {
         } catch (Exception ex) {
             MserverLog.fehlerMeldung(636987308, MserverSearch.class.getName(), "filmeSuchen", ex);
         }
-        int l = mSearch.getListeFilme().size();
+        int l = crawler.getListeFilme().size();
         MserverLog.systemMeldung("");
         MserverLog.systemMeldung("");
         MserverLog.systemMeldung("================================");
@@ -146,7 +146,7 @@ public class MserverSearch {
 
         }
         MserverLog.systemMeldung("filmeSuchen beendet");
-        mSearch = null;
+        crawler = null;
         return ret;
     }
 

@@ -27,14 +27,14 @@ import mSearch.filmlisten.FilmlisteLesen;
 import mSearch.filmlisten.WriteFilmlistJson;
 import mSearch.tool.Log;
 
-public class MSearch implements Runnable {
+public class Crawler implements Runnable {
 
     private ListeFilme listeFilme = new ListeFilme();
-    private final FilmeSuchen msFilmeSuchen;
+    private final FilmeSuchen filmeSuchen;
     private boolean serverLaufen = false;
 
-    public MSearch() {
-        msFilmeSuchen = new FilmeSuchen();
+    public Crawler() {
+        filmeSuchen = new FilmeSuchen();
     }
 
     @Override
@@ -42,29 +42,29 @@ public class MSearch implements Runnable {
         // für den MServer
         serverLaufen = true;
         Config.setStop(false);//damits vom letzten mal stoppen nicht mehr gesetzt ist, falls es einen harten Abbruch gab
-        if (crawlerConfig.dirFilme.isEmpty()) {
+        if (CrawlerConfig.dirFilme.isEmpty()) {
             Log.sysLog("Kein Pfad der Filmlisten angegeben");
             System.exit(-1);
         }
         // Infos schreiben
-        crawlerTool.startMsg();
+        CrawlerTool.startMsg();
         Log.sysLog("");
         Log.sysLog("");
-        msFilmeSuchen.addAdListener(new ListenerFilmeLaden() {
+        filmeSuchen.addAdListener(new ListenerFilmeLaden() {
             @Override
             public void fertig(ListenerFilmeLadenEvent event) {
                 serverLaufen = false;
             }
         });
         // alte Filmliste laden
-        new FilmlisteLesen().readFilmListe(crawlerTool.getPathFilmlist_json_akt(false /*aktDate*/), listeFilme, 0 /*all days*/);
+        new FilmlisteLesen().readFilmListe(CrawlerTool.getPathFilmlist_json_akt(false /*aktDate*/), listeFilme, 0 /*all days*/);
         // das eigentliche Suchen der Filme bei den Sendern starten
-        if (crawlerConfig.nurSenderLaden == null) {
+        if (CrawlerConfig.nurSenderLaden == null) {
             // alle Sender laden
-            msFilmeSuchen.filmeBeimSenderLaden(listeFilme);
+            filmeSuchen.filmeBeimSenderLaden(listeFilme);
         } else {
             // dann soll nur ein Sender geladen werden
-            msFilmeSuchen.updateSender(crawlerConfig.nurSenderLaden, listeFilme);
+            filmeSuchen.updateSender(CrawlerConfig.nurSenderLaden, listeFilme);
         }
         try {
             while (serverLaufen) {
@@ -95,7 +95,7 @@ public class MSearch implements Runnable {
         new FilmlisteLesen().readFilmListe(importUrl, tmpListe, 0 /*all days*/);
         Log.sysLog("--> von  Anz. Filme: " + listeFilme.size());
         //listeFilme.addLive(tmpListe);
-        new AddOldFilmlist(listeFilme, tmpListe).addLive();
+        new AddToFilmlist(listeFilme, tmpListe).addLiveStream();
         Log.sysLog("--> nach Anz. Filme: " + listeFilme.size());
         tmpListe.clear();
         System.gc();
@@ -124,7 +124,7 @@ public class MSearch implements Runnable {
         new FilmlisteLesen().readFilmListe(importUrl, tmpListe, 0 /*all days*/);
         Log.sysLog("--> von  Anz. Filme: " + listeFilme.size());
         //int anz = listeFilme.updateListeOld(tmpListe);
-        int anz = new AddOldFilmlist(listeFilme, tmpListe).updateListeOld();
+        int anz = new AddToFilmlist(listeFilme, tmpListe).addOldList();
         Log.sysLog("    gefunden: " + anz);
         Log.sysLog("--> nach Anz. Filme: " + listeFilme.size());
         tmpListe.clear();
@@ -134,51 +134,51 @@ public class MSearch implements Runnable {
 
     private void undTschuess() {
         Config.setStop(false); // zurücksetzen!! sonst klappt das Lesen der Importlisten nicht!!!!!
-        listeFilme = msFilmeSuchen.listeFilmeNeu;
+        listeFilme = filmeSuchen.listeFilmeNeu;
         ListeFilme tmpListe = new ListeFilme();
 
         //================================================
         // noch anere Listen importieren
         Log.sysLog("");
-        if (!crawlerConfig.importLive.isEmpty()) {
+        if (!CrawlerConfig.importLive.isEmpty()) {
             // wenn eine ImportUrl angegeben, dann die Filme die noch nicht drin sind anfügen
             Log.sysLog("");
             Log.sysLog("============================================================================");
             Log.sysLog("Live-Streams importieren");
-            importLive(tmpListe, crawlerConfig.importLive);
+            importLive(tmpListe, CrawlerConfig.importLive);
             Log.sysLog("");
         }
-        if (!crawlerConfig.importUrl_1__anhaengen.isEmpty()) {
+        if (!CrawlerConfig.importUrl_1__anhaengen.isEmpty()) {
             // wenn eine ImportUrl angegeben, dann die Filme die noch nicht drin sind anfügen
             Log.sysLog("");
             Log.sysLog("============================================================================");
             Log.sysLog("Filmliste Import 1");
-            importUrl(tmpListe, crawlerConfig.importUrl_1__anhaengen);
+            importUrl(tmpListe, CrawlerConfig.importUrl_1__anhaengen);
             Log.sysLog("");
         }
-        if (!crawlerConfig.importUrl_2__anhaengen.isEmpty()) {
+        if (!CrawlerConfig.importUrl_2__anhaengen.isEmpty()) {
             // wenn eine ImportUrl angegeben, dann die Filme die noch nicht drin sind anfügen
             Log.sysLog("");
             Log.sysLog("============================================================================");
             Log.sysLog("Filmliste Import 2");
-            importUrl(tmpListe, crawlerConfig.importUrl_2__anhaengen);
+            importUrl(tmpListe, CrawlerConfig.importUrl_2__anhaengen);
             Log.sysLog("");
         }
-        if (!crawlerConfig.importAkt.isEmpty()) {
+        if (!CrawlerConfig.importAkt.isEmpty()) {
             // wenn eine ImportUrl angegeben, dann die Filme die noch nicht drin sind anfügen
             // noch prüfen ob Filmliste von heute!
             Log.sysLog("");
             Log.sysLog("============================================================================");
             Log.sysLog("Filmliste Import akt");
-            importUrl(tmpListe, crawlerConfig.importAkt);
+            importUrl(tmpListe, CrawlerConfig.importAkt);
             Log.sysLog("");
         }
-        if (!crawlerConfig.importOld.isEmpty() && crawlerTool.loadLongMax()) {
+        if (!CrawlerConfig.importOld.isEmpty() && CrawlerTool.loadLongMax()) {
             // wenn angeben, dann Filme die noch "gehen" aus einer alten Liste anhängen
             Log.sysLog("");
             Log.sysLog("============================================================================");
             Log.sysLog("Filmliste OLD importieren");
-            importOld(tmpListe, crawlerConfig.importOld);
+            importOld(tmpListe, CrawlerConfig.importOld);
             Log.sysLog("");
         }
 
@@ -192,28 +192,28 @@ public class MSearch implements Runnable {
         Log.sysLog("============================================================================");
         Log.sysLog("");
         Log.sysLog("   --> und schreiben:");
-        new WriteFilmlistJson().filmlisteSchreibenJson(crawlerTool.getPathFilmlist_json_akt(false /*aktDate*/), listeFilme);
-        new WriteFilmlistJson().filmlisteSchreibenJson(crawlerTool.getPathFilmlist_json_akt(true /*aktDate*/), listeFilme);
-        new WriteFilmlistJson().filmlisteSchreibenJson(crawlerTool.getPathFilmlist_json_akt_xz(), listeFilme);
+        new WriteFilmlistJson().filmlisteSchreibenJson(CrawlerTool.getPathFilmlist_json_akt(false /*aktDate*/), listeFilme);
+        new WriteFilmlistJson().filmlisteSchreibenJson(CrawlerTool.getPathFilmlist_json_akt(true /*aktDate*/), listeFilme);
+        new WriteFilmlistJson().filmlisteSchreibenJson(CrawlerTool.getPathFilmlist_json_akt_xz(), listeFilme);
 
         //================================================
         // Org
         Log.sysLog("");
-        if (crawlerConfig.orgFilmlisteErstellen) {
+        if (CrawlerConfig.orgFilmlisteErstellen) {
             // org-Liste anlegen, typ. erste Liste am Tag
             Log.sysLog("");
             Log.sysLog("============================================================================");
-            Log.sysLog("Org-Lilste schreiben: " + crawlerTool.getPathFilmlist_json_org());
-            new WriteFilmlistJson().filmlisteSchreibenJson(crawlerTool.getPathFilmlist_json_org(), listeFilme);
-            new WriteFilmlistJson().filmlisteSchreibenJson(crawlerTool.getPathFilmlist_json_org_xz(), listeFilme);
+            Log.sysLog("Org-Lilste schreiben: " + CrawlerTool.getPathFilmlist_json_org());
+            new WriteFilmlistJson().filmlisteSchreibenJson(CrawlerTool.getPathFilmlist_json_org(), listeFilme);
+            new WriteFilmlistJson().filmlisteSchreibenJson(CrawlerTool.getPathFilmlist_json_org_xz(), listeFilme);
         }
 
         //====================================================
         // noch das diff erzeugen
-        String org = crawlerConfig.orgFilmliste.isEmpty() ? crawlerTool.getPathFilmlist_json_org() : crawlerConfig.orgFilmliste;
+        String org = CrawlerConfig.orgFilmliste.isEmpty() ? CrawlerTool.getPathFilmlist_json_org() : CrawlerConfig.orgFilmliste;
         Log.sysLog("");
         Log.sysLog("============================================================================");
-        Log.sysLog("Diff erzeugen, von: " + org + " nach: " + crawlerTool.getPathFilmlist_json_diff());
+        Log.sysLog("Diff erzeugen, von: " + org + " nach: " + CrawlerTool.getPathFilmlist_json_diff());
         tmpListe.clear();
         ListeFilme diff;
         new FilmlisteLesen().readFilmListe(org, tmpListe, 0 /*all days*/);
@@ -230,8 +230,8 @@ public class MSearch implements Runnable {
             diff = listeFilme.neueFilme(tmpListe);
         }
         Log.sysLog("   --> und schreiben:");
-        new WriteFilmlistJson().filmlisteSchreibenJson(crawlerTool.getPathFilmlist_json_diff(), diff);
-        new WriteFilmlistJson().filmlisteSchreibenJson(crawlerTool.getPathFilmlist_json_diff_xz(), diff);
+        new WriteFilmlistJson().filmlisteSchreibenJson(CrawlerTool.getPathFilmlist_json_diff(), diff);
+        new WriteFilmlistJson().filmlisteSchreibenJson(CrawlerTool.getPathFilmlist_json_diff_xz(), diff);
         Log.sysLog("   --> Anz. Filme Diff: " + diff.size());
 
         //================================================

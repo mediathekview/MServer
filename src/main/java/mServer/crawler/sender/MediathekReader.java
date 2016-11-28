@@ -32,7 +32,7 @@ import mSearch.tool.Log;
 import mServer.crawler.FilmeSuchen;
 import mServer.crawler.GetUrl;
 import mServer.crawler.RunSender;
-import mServer.crawler.crawlerTool;
+import mServer.crawler.CrawlerTool;
 
 public class MediathekReader implements Runnable {
 
@@ -140,7 +140,7 @@ public class MediathekReader implements Runnable {
             film.arr[DatenFilm.FILM_GROESSE] = mSearchFilmeSuchen.listeFilmeAlt.getFileSizeUrl(film.arr[DatenFilm.FILM_URL], film.arr[DatenFilm.FILM_SENDER]);
         }
         film.setUrlHistory();
-        crawlerTool.setGeo(film);
+        CrawlerTool.setGeo(film);
         if (mSearchFilmeSuchen.listeFilmeNeu.addFilmVomSender(film)) {
             // dann ist er neu
             FilmeSuchen.listeSenderLaufen.inc(film.arr[DatenFilm.FILM_SENDER], RunSender.Count.FILME);
@@ -180,7 +180,7 @@ public class MediathekReader implements Runnable {
         max = 0;
         progress = 0;
         Log.sysLog("===============================================================");
-        Log.sysLog("Starten[" + ((crawlerTool.loadLongMax()) ? "alles" : "update") + "] " + sendername + ": " + new SimpleDateFormat("HH:mm:ss").format(new Date()));
+        Log.sysLog("Starten[" + ((CrawlerTool.loadLongMax()) ? "alles" : "update") + "] " + sendername + ": " + new SimpleDateFormat("HH:mm:ss").format(new Date()));
         Log.sysLog("   maxThreadLaufen: " + maxThreadLaufen);
         Log.sysLog("   wartenSeiteLaden: " + wartenSeiteLaden);
         Log.sysLog("");

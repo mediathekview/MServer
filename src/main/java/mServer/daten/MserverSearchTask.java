@@ -22,7 +22,7 @@ package mServer.daten;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import mSearch.Config;
-import mServer.crawler.crawlerConfig;
+import mServer.crawler.CrawlerConfig;
 import mServer.tool.MserverDatumZeit;
 import mServer.tool.MserverKonstanten;
 import mServer.tool.MserverLog;
@@ -78,13 +78,13 @@ public class MserverSearchTask {
         int waitTime = MserverKonstanten.WAIT_TIME_LOAD_UPDATE;
         if (arr[MserverSearchTask.SUCHEN_MAX_WAIT_NR].isEmpty()) {
             switch (loadHow()) {
-                case crawlerConfig.LOAD_SHORT:
+                case CrawlerConfig.LOAD_SHORT:
                     waitTime = MserverKonstanten.WAIT_TIME_LOAD_UPDATE;
                     break;
-                case crawlerConfig.LOAD_LONG:
+                case CrawlerConfig.LOAD_LONG:
                     waitTime = MserverKonstanten.WAIT_TIME_LOAD_BIG;
                     break;
-                case crawlerConfig.LOAD_MAX:
+                case CrawlerConfig.LOAD_MAX:
                     waitTime = MserverKonstanten.WAIT_TIME_LOAD_MAX;
                     break;
             }
@@ -132,13 +132,13 @@ public class MserverSearchTask {
         int ret;
         switch (this.arr[SUCHEN_SENDER_WIE_NR]) {
             case SUCHEN_LONG:
-                ret = crawlerConfig.LOAD_LONG;
+                ret = CrawlerConfig.LOAD_LONG;
                 break;
             case SUCHEN_MAX:
-                ret = crawlerConfig.LOAD_MAX;
+                ret = CrawlerConfig.LOAD_MAX;
                 break;
             default:
-                ret = crawlerConfig.LOAD_SHORT;
+                ret = CrawlerConfig.LOAD_SHORT;
         }
         return ret;
     }
