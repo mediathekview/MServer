@@ -32,6 +32,7 @@ import mSearch.tool.Log;
 import mSearch.tool.MSStringBuilder;
 import mServer.crawler.FilmeSuchen;
 import mServer.crawler.GetUrl;
+import mServer.crawler.crawlerTool;
 import org.apache.commons.lang3.StringEscapeUtils;
 
 public class MediathekBr extends MediathekReader implements Runnable {
@@ -68,7 +69,7 @@ public class MediathekBr extends MediathekReader implements Runnable {
         } else {
             meldungAddMax(listeThemen.size() + listeTage.size());
             // erst hier starten (Archiv, Klassik), sonst beendet er sich/und sucht doch!
-            if (Config.loadLongMax()) {
+            if (crawlerTool.loadLongMax()) {
                 // Archiv durchsuchen
                 Thread thArchiv;
                 thArchiv = new Thread(new ArchivLaden(1, 50));
@@ -84,7 +85,7 @@ public class MediathekBr extends MediathekReader implements Runnable {
                 thArchiv.setName(SENDERNAME);
                 thArchiv.start();
             }
-            if (Config.loadMax()) {
+            if (crawlerTool.loadMax()) {
                 // Archiv durchsuchen
                 Thread thArchiv;
                 thArchiv = new Thread(new ArchivLaden(201, 250));
@@ -175,7 +176,7 @@ public class MediathekBr extends MediathekReader implements Runnable {
             seite1 = getUrlIo.getUri(SENDERNAME, ADRESSE, Const.KODIERUNG_UTF, 5 /* versuche */, seite1, "");
             String url;
             int max_;
-            if (Config.loadLongMax()) {
+            if (crawlerTool.loadLongMax()) {
                 max_ = 21;
             } else {
                 max_ = 7;
@@ -301,7 +302,7 @@ public class MediathekBr extends MediathekReader implements Runnable {
             // <h3>Mehr von <strong>Abendschau</strong></h3>
             // <a href="/mediathek/video/sendungen/abendschau/der-grosse-max-spionageabwehr-100.html" class="teaser link_video contenttype_podcast der-grosse-max-spionageabwehr-100" title="zur Detailseite">
             int pos1, count = 0;
-            int max = (Config.loadLongMax() ? 20 : 0);
+            int max = (crawlerTool.loadLongMax() ? 20 : 0);
             final String STOP = "<h3>Besucher, die dieses Video angesehen haben, sahen auch</h3>";
             int stop = seite.indexOf(STOP);
             if (max > 0) {
@@ -420,7 +421,7 @@ public class MediathekBr extends MediathekReader implements Runnable {
                 if (Config.getStop()) {
                     break;
                 }
-                if (!Config.loadLongMax()) {
+                if (!crawlerTool.loadLongMax()) {
                     ++count;
                     if (count > 20) {
                         break;

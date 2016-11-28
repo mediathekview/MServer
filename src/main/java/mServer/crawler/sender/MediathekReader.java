@@ -32,6 +32,7 @@ import mSearch.tool.Log;
 import mServer.crawler.FilmeSuchen;
 import mServer.crawler.GetUrl;
 import mServer.crawler.RunSender;
+import mServer.crawler.crawlerTool;
 
 public class MediathekReader implements Runnable {
 
@@ -179,7 +180,7 @@ public class MediathekReader implements Runnable {
         max = 0;
         progress = 0;
         Log.sysLog("===============================================================");
-        Log.sysLog("Starten[" + ((Config.loadLongMax()) ? "alles" : "update") + "] " + sendername + ": " + new SimpleDateFormat("HH:mm:ss").format(new Date()));
+        Log.sysLog("Starten[" + ((crawlerTool.loadLongMax()) ? "alles" : "update") + "] " + sendername + ": " + new SimpleDateFormat("HH:mm:ss").format(new Date()));
         Log.sysLog("   maxThreadLaufen: " + maxThreadLaufen);
         Log.sysLog("   wartenSeiteLaden: " + wartenSeiteLaden);
         Log.sysLog("");

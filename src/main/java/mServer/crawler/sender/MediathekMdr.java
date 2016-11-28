@@ -30,6 +30,7 @@ import mSearch.tool.Log;
 import mSearch.tool.MSStringBuilder;
 import mServer.crawler.FilmeSuchen;
 import mServer.crawler.GetUrl;
+import mServer.crawler.crawlerTool;
 
 public class MediathekMdr extends MediathekReader implements Runnable {
 
@@ -225,7 +226,7 @@ public class MediathekMdr extends MediathekReader implements Runnable {
             String url = "";
             while ((pos = seite2.indexOf(muster, pos)) != -1) {
                 ++count;
-                if (!Config.loadLongMax()) {
+                if (!crawlerTool.loadLongMax()) {
                     if (count > 5) {
                         return;
                     }

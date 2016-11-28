@@ -29,6 +29,7 @@ import mSearch.tool.Log;
 import mSearch.tool.MSStringBuilder;
 import mServer.crawler.FilmeSuchen;
 import mServer.crawler.GetUrl;
+import mServer.crawler.crawlerTool;
 
 public class MediathekRbb extends MediathekReader implements Runnable {
 
@@ -157,7 +158,7 @@ public class MediathekRbb extends MediathekReader implements Runnable {
                 }
 
                 // noch nach weiteren Seiten suchen
-                if (weiter && Config.loadLongMax()) {
+                if (weiter && crawlerTool.loadLongMax()) {
                     for (int i = 2; i < 10; ++i) {
                         if (seite1.indexOf("mcontents=page." + i) != -1) {
                             // dann gibts weiter Seiten

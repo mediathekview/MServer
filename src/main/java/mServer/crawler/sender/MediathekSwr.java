@@ -27,6 +27,7 @@ import mSearch.tool.Log;
 import mSearch.tool.MSStringBuilder;
 import mServer.crawler.FilmeSuchen;
 import mServer.crawler.GetUrl;
+import mServer.crawler.crawlerTool;
 import org.apache.commons.lang3.StringEscapeUtils;
 
 public class MediathekSwr extends MediathekReader implements Runnable {
@@ -49,7 +50,7 @@ public class MediathekSwr extends MediathekReader implements Runnable {
         //Theman suchen
         listeThemen.clear();
         addToList__();
-        if (Config.loadLongMax()) {
+        if (crawlerTool.loadLongMax()) {
             addToList_verpasst(); // brauchst eigentlich nicht und dauer zu lange
         }
         if (Config.getStop()) {
@@ -119,7 +120,7 @@ public class MediathekSwr extends MediathekReader implements Runnable {
 
     private class ThemaLaden implements Runnable {
 
-        GetUrl getUrlThemaLaden = new GetUrl(Config.loadLongMax() ? wartenLang : wartenKurz);
+        GetUrl getUrlThemaLaden = new GetUrl(crawlerTool.loadLongMax() ? wartenLang : wartenKurz);
         private MSStringBuilder strSeite1 = new MSStringBuilder(Const.STRING_BUFFER_START_BUFFER);
         private MSStringBuilder strSeite2 = new MSStringBuilder(Const.STRING_BUFFER_START_BUFFER);
         ArrayList<String> gefunden = new ArrayList<>();
@@ -157,7 +158,7 @@ public class MediathekSwr extends MediathekReader implements Runnable {
             int max = 0;
             gefunden.clear();
             while (!Config.getStop() && (pos1 = strSeite1.indexOf(MUSTER_URL, pos1)) != -1) {
-                if (!Config.loadLongMax()) {
+                if (!crawlerTool.loadLongMax()) {
                     ++max;
                     if (max > 2) {
                         break;

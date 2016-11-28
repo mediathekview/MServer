@@ -30,6 +30,7 @@ import mSearch.tool.Log;
 import mSearch.tool.MSStringBuilder;
 import mServer.crawler.FilmeSuchen;
 import mServer.crawler.GetUrl;
+import mServer.crawler.crawlerTool;
 
 public class MediathekKika extends MediathekReader implements Runnable {
 
@@ -45,7 +46,7 @@ public class MediathekKika extends MediathekReader implements Runnable {
     void addToList() {
 
         meldungStart();
-        if (Config.loadLongMax()) {
+        if (crawlerTool.loadLongMax()) {
             addToListNormal();
         }
         addToListAllVideo();
@@ -200,7 +201,7 @@ public class MediathekKika extends MediathekReader implements Runnable {
                         // die jüngsten Beiträge sind am Ende
                         String s = liste1.get(i);
                         ++count;
-                        if (!Config.loadLongMax() && count > 4) {
+                        if (!crawlerTool.loadLongMax() && count > 4) {
                             return;
                         }
                         if (Config.getStop()) {
@@ -208,7 +209,7 @@ public class MediathekKika extends MediathekReader implements Runnable {
                         }
                         if (!ladenSerien_2(s, thema)) {
                             //dann gibts evtl. nix mehr
-                            if (!Config.loadLongMax()) {
+                            if (!crawlerTool.loadLongMax()) {
                                 // nur beim kurzen Suchen
                                 ++err;
                                 if (err > 2) {
@@ -275,7 +276,7 @@ public class MediathekKika extends MediathekReader implements Runnable {
             try {
                 seite2 = getUrlIo.getUri_Utf(sendername, url, seite2, "KiKa-Sendungen");
                 loadAllVideo_2(seite2);
-                if (Config.loadLongMax()) {
+                if (crawlerTool.loadLongMax()) {
                     seite2.extractList("", "", "<div class=\"bundleNaviItem active\">\n<a href=\"/videos/allevideos/", "\"", "http://www.kika.de/videos/allevideos/", liste);
                     seite2.extractList("", "", "<div class=\"bundleNaviItem \">\n<a href=\"/videos/allevideos/", "\"", "http://www.kika.de/videos/allevideos/", liste);
                 }

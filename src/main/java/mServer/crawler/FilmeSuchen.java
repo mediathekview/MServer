@@ -19,27 +19,6 @@
  */
 package mServer.crawler;
 
-import mServer.crawler.sender.MediathekOrf;
-import mServer.crawler.sender.MediathekZdfTivi;
-import mServer.crawler.sender.MediathekKika;
-import mServer.crawler.sender.MediathekRbb;
-import mServer.crawler.sender.MediathekBr;
-import mServer.crawler.sender.MediathekReader;
-import mServer.crawler.sender.MediathekZdf;
-import mServer.crawler.sender.MediathekSr;
-import mServer.crawler.sender.MediathekDw;
-import mServer.crawler.sender.MediathekArte_de;
-import mServer.crawler.sender.MediathekArd;
-import mServer.crawler.sender.MediathekNdr;
-import mServer.crawler.sender.MediathekPhoenix;
-import mServer.crawler.sender.MediathekSrfPod;
-import mServer.crawler.sender.MediathekArte_fr;
-import mServer.crawler.sender.MediathekMdr;
-import mServer.crawler.sender.MediathekSwr;
-import mServer.crawler.sender.MediathekSrf;
-import mServer.crawler.sender.MediathekHr;
-import mServer.crawler.sender.MediathekWdr;
-import mServer.crawler.sender.Mediathek3Sat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -51,6 +30,7 @@ import mSearch.daten.ListeFilme;
 import mSearch.filmeSuchen.ListenerFilmeLaden;
 import mSearch.filmeSuchen.ListenerFilmeLadenEvent;
 import mSearch.tool.Log;
+import mServer.crawler.sender.*;
 
 /**
  * ###########################################################################################################
@@ -234,7 +214,7 @@ public class FilmeSuchen {
                 Log.sysLog("                                                                                     ");
             }
             mrClear();
-            if (Config.updateFilmliste) {
+            if (crawlerConfig.updateFilmliste) {
                 // alte Filme eintragen wenn angefordert oder nur ein update gesucht wurde
                 //////toDo
                 listeFilmeNeu.updateListe(listeFilmeAlt, true /* über den Index vergleichen */, false /*ersetzen*/);
@@ -338,14 +318,14 @@ public class FilmeSuchen {
         Log.sysLog("");
         Log.sysLog("=======================================");
         Log.sysLog("Start Filme laden:");
-        if (Config.loadMax()) {
+        if (crawlerTool.loadMax()) {
             Log.sysLog("Filme laden: max");
-        } else if (Config.loadLongMax()) {
+        } else if (crawlerTool.loadLongMax()) {
             Log.sysLog("Filme laden: long");
         } else {
             Log.sysLog("Filme laden: short");
         }
-        if (Config.updateFilmliste) {
+        if (crawlerConfig.updateFilmliste) {
             Log.sysLog("Filmliste: aktualisieren");
         } else {
             Log.sysLog("Filmliste: neue erstellen");

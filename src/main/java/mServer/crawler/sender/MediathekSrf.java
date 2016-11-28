@@ -31,6 +31,7 @@ import mSearch.tool.Log;
 import mSearch.tool.MSStringBuilder;
 import mServer.crawler.FilmeSuchen;
 import mServer.crawler.GetUrl;
+import mServer.crawler.crawlerTool;
 import org.apache.commons.lang3.StringEscapeUtils;
 
 public class MediathekSrf extends MediathekReader implements Runnable {
@@ -121,7 +122,7 @@ public class MediathekSrf extends MediathekReader implements Runnable {
                 String urlFeed = "http://www.srf.ch/play/tv/episodesfromshow?id=" + urlThema + "&pageNumber=1&layout=json";
                 overviewPageFilm = getUrl.getUri_Utf(SENDERNAME, urlFeed, overviewPageFilm, "");
                 addFilmsFromPage(overviewPageFilm, thema, urlFeed);
-                if (Config.loadLongMax()) {
+                if (crawlerTool.loadLongMax()) {
                     String url = urlFeed.substring(0, urlFeed.indexOf("&pageNumber=1"));
                     for (int i = 2; i <= MAX_SEITEN_THEMA; ++i) {
                         if (overviewPageFilm.indexOf("pageNumber=" + i) == -1) {
@@ -150,7 +151,7 @@ public class MediathekSrf extends MediathekReader implements Runnable {
                     break;
                 }
                 ++count;
-                if (!Config.loadLongMax() && count > MAX_FILME_KURZ) {
+                if (!crawlerTool.loadLongMax() && count > MAX_FILME_KURZ) {
                     break;
                 }
                 //http://www.srf.ch/play/tv/episodesfromshow?id=c38cc259-b5cd-4ac1-b901-e3fddd901a3d&pageNumber=1&layout=json

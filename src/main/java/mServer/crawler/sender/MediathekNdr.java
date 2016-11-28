@@ -29,6 +29,7 @@ import mSearch.tool.Log;
 import mSearch.tool.MSStringBuilder;
 import mServer.crawler.FilmeSuchen;
 import mServer.crawler.GetUrl;
+import mServer.crawler.crawlerTool;
 
 public class MediathekNdr extends MediathekReader implements Runnable {
 
@@ -73,7 +74,7 @@ public class MediathekNdr extends MediathekReader implements Runnable {
                 }
                 String url_ = "http://www.ndr.de/mediathek/mediatheksuche105_broadcast-" + url;
                 String[] add = new String[]{url_, thema};
-                if (Config.loadLongMax()) {
+                if (crawlerTool.loadLongMax()) {
                     if (!alleSeiteSuchen(url_, thema)) {
                         // dann halt so versuchen
                         listeThemen.addUrl(add);
@@ -90,7 +91,7 @@ public class MediathekNdr extends MediathekReader implements Runnable {
         // http://www.ndr.de/mediathek/sendung_verpasst/epg1490_date-2014-05-17_display-onlyvideo.html
         SimpleDateFormat formatter1 = new SimpleDateFormat("yyyy-MM-dd");
         SimpleDateFormat formatter2 = new SimpleDateFormat("dd.MM.yyyy");
-        int maxTage = Config.loadLongMax() ? 30 : 20;
+        int maxTage = crawlerTool.loadLongMax() ? 30 : 20;
         for (int i = 0; i < maxTage; ++i) {
             // https://www.ndr.de/mediathek/sendung_verpasst/epg1490_date-2015-09-05_display-all.html
             final String URL = "http://www.ndr.de/mediathek/sendung_verpasst/epg1490_date-";

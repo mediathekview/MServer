@@ -33,6 +33,7 @@ import mSearch.tool.Log;
 import mSearch.tool.MSStringBuilder;
 import mServer.crawler.FilmeSuchen;
 import mServer.crawler.GetUrl;
+import mServer.crawler.crawlerTool;
 
 public class MediathekWdr extends MediathekReader implements Runnable {
 
@@ -66,7 +67,7 @@ public class MediathekWdr extends MediathekReader implements Runnable {
         addToList__();
 
         addTage();
-        if (Config.loadLongMax()) {
+        if (crawlerTool.loadLongMax()) {
             maus();
             rockpalast();
             festival();
@@ -246,7 +247,7 @@ public class MediathekWdr extends MediathekReader implements Runnable {
             // Sendungen auf der Seite
             liste_1.clear();
             liste_1.add(strUrl);
-            if (Config.loadLongMax()) {
+            if (crawlerTool.loadLongMax()) {
                 // sonst wars das
                 sendungsSeite1 = getUrl.getUri_Utf(SENDERNAME, strUrl, sendungsSeite1, "");
                 sendungsSeite1.extractList("<ul class=\"pageCounterNavi\">", "</ul>", "<a href=\"/mediathek/video/sendungen/", "\"",

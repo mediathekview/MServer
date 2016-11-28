@@ -19,7 +19,6 @@
  */
 package mServer.crawler;
 
-import mServer.crawler.FilmeSuchen;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -159,9 +158,9 @@ public class GetUrl {
             if ((retCode = conn.getResponseCode()) < 400) {
                 mvIn = new MVInputStream(conn);
             } else if (retCode == 403 || retCode == 408) {
-                if (!Config.proxyUrl.isEmpty() && Config.proxyPort > 0) {
+                if (!crawlerConfig.proxyUrl.isEmpty() && crawlerConfig.proxyPort > 0) {
                     // nur dann verwenden, ein anderer Versuch und wenn möglich, einen Proxy einrichten
-                    SocketAddress saddr = new InetSocketAddress(Config.proxyUrl, Config.proxyPort);
+                    SocketAddress saddr = new InetSocketAddress(crawlerConfig.proxyUrl, crawlerConfig.proxyPort);
                     Proxy proxy = new Proxy(Proxy.Type.SOCKS, saddr);
                     conn = (HttpURLConnection) new URL(addr).openConnection(proxy);
 

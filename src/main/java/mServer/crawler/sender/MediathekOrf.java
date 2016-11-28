@@ -30,6 +30,7 @@ import mSearch.tool.Log;
 import mSearch.tool.MSStringBuilder;
 import mServer.crawler.FilmeSuchen;
 import mServer.crawler.GetUrl;
+import mServer.crawler.crawlerTool;
 import org.apache.commons.lang3.StringEscapeUtils;
 
 public class MediathekOrf extends MediathekReader implements Runnable {
@@ -52,11 +53,11 @@ public class MediathekOrf extends MediathekReader implements Runnable {
         MSStringBuilder seite = new MSStringBuilder(Const.STRING_BUFFER_START_BUFFER);
         listeThemen.clear();
         meldungStart();
-        if (Config.loadLongMax()) {
+        if (crawlerTool.loadLongMax()) {
             bearbeiteAdresseSendung(seite);
         }
         listeSort(listeThemen, 1);
-        int maxTage = Config.loadLongMax() ? 9 : 2;
+        int maxTage = crawlerTool.loadLongMax() ? 9 : 2;
         for (int i = 0; i < maxTage; ++i) {
             String vorTagen = getGestern(i).toLowerCase();
             bearbeiteAdresseTag("http://tvthek.orf.at/schedule/" + vorTagen, seite);

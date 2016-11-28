@@ -27,6 +27,7 @@ import mSearch.tool.Log;
 import mSearch.tool.MSStringBuilder;
 import mServer.crawler.FilmeSuchen;
 import mServer.crawler.GetUrl;
+import mServer.crawler.crawlerTool;
 
 public class MediathekArd extends MediathekReader implements Runnable {
 
@@ -250,7 +251,7 @@ public class MediathekArd extends MediathekReader implements Runnable {
             }
             while (!Config.getStop() && (pos = seite1.indexOf(MUSTER, pos)) != -1) {
                 ++count;
-                if (!Config.loadLongMax()) {
+                if (!crawlerTool.loadLongMax()) {
                     if (count > 5 && !thema.equalsIgnoreCase("alpha-Centauri")) {
                         break;
                     }
@@ -291,7 +292,7 @@ public class MediathekArd extends MediathekReader implements Runnable {
                 filmSuchen2(url, thema, titel, d, datum, zeit, urlSendung);
             }
             if (!Config.getStop() && weiter
-                    && (Config.loadLongMax() || thema.equalsIgnoreCase("alpha-Centauri"))) {
+                    && (crawlerTool.loadLongMax() || thema.equalsIgnoreCase("alpha-Centauri"))) {
                 // dann gehts weiter
                 int maxWeiter = 0;
                 int maxTh = 10;

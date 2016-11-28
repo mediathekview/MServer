@@ -69,10 +69,10 @@ public class FileSize {
             // dann über eine Proxy
             if (retCode == 403) {
                 FilmeSuchen.listeSenderLaufen.inc(ssender, RunSender.Count.GET_SIZE_SUM403);
-                if (!Config.proxyUrl.isEmpty() && Config.proxyPort > 0) {
+                if (!crawlerConfig.proxyUrl.isEmpty() && crawlerConfig.proxyPort > 0) {
                     // nur dann verwenden, wenn ein Proxy angegeben
                     try {
-                        SocketAddress saddr = new InetSocketAddress(Config.proxyUrl, Config.proxyPort);
+                        SocketAddress saddr = new InetSocketAddress(crawlerConfig.proxyUrl, crawlerConfig.proxyPort);
                         Proxy proxy = new Proxy(Proxy.Type.SOCKS, saddr);
                         conn = (HttpURLConnection) new URL(url).openConnection(proxy);
                         conn.setRequestProperty("User-Agent", Config.getUserAgent());

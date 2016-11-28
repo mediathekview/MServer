@@ -27,6 +27,7 @@ import mSearch.tool.Log;
 import mSearch.tool.MSStringBuilder;
 import mServer.crawler.FilmeSuchen;
 import mServer.crawler.GetUrl;
+import mServer.crawler.crawlerTool;
 
 public class MediathekSr extends MediathekReader implements Runnable {
 
@@ -51,7 +52,7 @@ public class MediathekSr extends MediathekReader implements Runnable {
         // seite2: http://sr-mediathek.sr-online.de/index.php?seite=2&f=v&s=2&o=d
         // seite3: http://sr-mediathek.sr-online.de/index.php?seite=2&f=v&s=3&o=d
         int maxSeiten = 15;
-        if (Config.loadLongMax()) {
+        if (crawlerTool.loadLongMax()) {
             maxSeiten = 120;
         }
         for (int i = 1; i < maxSeiten; ++i) {

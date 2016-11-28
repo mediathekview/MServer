@@ -30,6 +30,7 @@ import mSearch.tool.Log;
 import mSearch.tool.MSStringBuilder;
 import mServer.crawler.FilmeSuchen;
 import mServer.crawler.GetUrl;
+import mServer.crawler.crawlerTool;
 
 public class MediathekZdf extends MediathekReader implements Runnable {
 
@@ -65,7 +66,7 @@ public class MediathekZdf extends MediathekReader implements Runnable {
     private void addDay() {
         //https://www.zdf.de/sendung-verpasst?airtimeDate=2016-10-26
         String date;
-        for (long i = 0; i < (Config.loadLongMax() ? 300 : 20); ++i) {
+        for (long i = 0; i < (crawlerTool.loadLongMax() ? 300 : 20); ++i) {
             date = new SimpleDateFormat("yyyy-MM-dd").format(new Date().getTime() - i * (1000 * 60 * 60 * 24));
             String url = "https://www.zdf.de/sendung-verpasst?airtimeDate=" + date;
             listeTage.addUrl(new String[]{url});

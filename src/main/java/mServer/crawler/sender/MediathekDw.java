@@ -27,6 +27,7 @@ import mSearch.tool.Log;
 import mSearch.tool.MSStringBuilder;
 import mServer.crawler.FilmeSuchen;
 import mServer.crawler.GetUrl;
+import mServer.crawler.crawlerTool;
 
 public class MediathekDw extends MediathekReader implements Runnable {
 
@@ -84,7 +85,7 @@ public class MediathekDw extends MediathekReader implements Runnable {
                 if (url.equals("")) {
                     continue;
                 }
-                if (Config.loadLongMax()) {
+                if (crawlerTool.loadLongMax()) {
                     //http://www.dw.com/de/media-center/alle-inhalte/s-100814/filter/programs/3204/sort/date/results/16/
                     //http://www.dw.com/de/media-center/alle-inhalte/s-100814?filter=&programs=17274211&sort=date&results=36
                     url = "http://www.dw.com/de/media-center/alle-inhalte/s-100814?filter=&programs=" + url + "&sort=date&results=100";

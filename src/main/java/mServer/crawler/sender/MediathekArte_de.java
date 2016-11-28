@@ -28,6 +28,7 @@ import mSearch.tool.Log;
 import mSearch.tool.MSStringBuilder;
 import mServer.crawler.FilmeSuchen;
 import mServer.crawler.GetUrl;
+import mServer.crawler.crawlerTool;
 
 public class MediathekArte_de extends MediathekReader implements Runnable {
 
@@ -60,13 +61,13 @@ public class MediathekArte_de extends MediathekReader implements Runnable {
         if (Config.getStop()) {
             meldungThreadUndFertig();
         } else if (listeThemen.size() == 0) {
-            if (Config.loadLongMax()) {
+            if (crawlerTool.loadLongMax()) {
                 addConcert();
             } else {
                 meldungThreadUndFertig();
             }
         } else {
-            if (Config.loadLongMax()) {
+            if (crawlerTool.loadLongMax()) {
                 addConcert();
             }
             meldungAddMax(listeThemen.size());

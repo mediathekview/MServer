@@ -28,6 +28,7 @@ import mSearch.tool.Log;
 import mSearch.tool.MSStringBuilder;
 import mServer.crawler.FilmeSuchen;
 import mServer.crawler.GetUrl;
+import mServer.crawler.crawlerTool;
 
 public class Mediathek3Sat extends MediathekReader implements Runnable {
 
@@ -62,7 +63,7 @@ public class Mediathek3Sat extends MediathekReader implements Runnable {
     private void tageLaden() {
         // https://www.3sat.de/mediathek/index.php?datum=20160303&cx=134
         String date;
-        for (int i = 0; i < (Config.loadLongMax() ? 21 : 7); ++i) {
+        for (int i = 0; i < (crawlerTool.loadLongMax() ? 21 : 7); ++i) {
             date = new SimpleDateFormat("yyyyMMdd").format(new Date().getTime() - i * (1000 * 60 * 60 * 24));
             String url = "https://www.3sat.de/mediathek/index.php?datum=" + date + "&cx=134";
             listeThemen.add(new String[]{url, ""});
@@ -131,7 +132,7 @@ public class Mediathek3Sat extends MediathekReader implements Runnable {
 
             final String MUSTER_START = "<div class=\"BoxPicture MediathekListPic\">";
             String url;
-            for (int i = 0; i < (Config.loadLongMax() ? 40 : 5); ++i) {
+            for (int i = 0; i < (crawlerTool.loadLongMax() ? 40 : 5); ++i) {
                 //http://www.3sat.de/mediathek/?type=1&red=nano&mode=verpasst3
                 if (thema.isEmpty()) {
                     // dann ist es aus "TAGE"

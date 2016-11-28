@@ -26,6 +26,7 @@ import mSearch.Config;
 import mSearch.tool.Log;
 import mServer.daten.MserverSearchTask;
 import mServer.crawler.MSearch;
+import mServer.crawler.crawlerConfig;
 import mServer.tool.MserverDaten;
 import mServer.tool.MserverDatumZeit;
 import mServer.tool.MserverKonstanten;
@@ -37,7 +38,7 @@ public class MserverSearch {
 
     public MserverSearch() {
         this.mSearch = null;
-        Config.dirFilme = MserverDaten.getVerzeichnisFilme();
+        crawlerConfig.dirFilme = MserverDaten.getVerzeichnisFilme();
     }
 
     @SuppressWarnings("deprecation")
@@ -52,27 +53,27 @@ public class MserverSearch {
             mSearch = new MSearch();
 
             // was und wie
-            Config.senderLoadHow = aktSearchTask.loadHow();
-            Config.updateFilmliste = aktSearchTask.updateFilmliste();
-            Config.nurSenderLaden = arrLesen(aktSearchTask.arr[MserverSearchTask.SUCHEN_SENDER_NR].trim());
-            Config.orgFilmlisteErstellen = aktSearchTask.orgListeAnlegen();
-            Config.orgFilmliste = MserverDaten.system[MserverKonstanten.SYSTEM_FILMLISTE_ORG_NR];
+            crawlerConfig.senderLoadHow = aktSearchTask.loadHow();
+            crawlerConfig.updateFilmliste = aktSearchTask.updateFilmliste();
+            crawlerConfig.nurSenderLaden = arrLesen(aktSearchTask.arr[MserverSearchTask.SUCHEN_SENDER_NR].trim());
+            crawlerConfig.orgFilmlisteErstellen = aktSearchTask.orgListeAnlegen();
+            crawlerConfig.orgFilmliste = MserverDaten.system[MserverKonstanten.SYSTEM_FILMLISTE_ORG_NR];
 
             // live-steams
-            Config.importLive = MserverDaten.system[MserverKonstanten.SYSTEM_IMPORT_LIVE_NR];
+            crawlerConfig.importLive = MserverDaten.system[MserverKonstanten.SYSTEM_IMPORT_LIVE_NR];
 
             // und noch evtl. ein paar Imports von Filmlisten anderer Server
-            Config.importUrl_1__anhaengen = MserverDaten.system[MserverKonstanten.SYSTEM_IMPORT_URL_1_NR];
-            Config.importUrl_2__anhaengen = MserverDaten.system[MserverKonstanten.SYSTEM_IMPORT_URL_2_NR];
+            crawlerConfig.importUrl_1__anhaengen = MserverDaten.system[MserverKonstanten.SYSTEM_IMPORT_URL_1_NR];
+            crawlerConfig.importUrl_2__anhaengen = MserverDaten.system[MserverKonstanten.SYSTEM_IMPORT_URL_2_NR];
 
             // für die alte Filmliste
-            Config.importOld = MserverDaten.system[MserverKonstanten.SYSTEM_IMPORT_OLD_NR];
-            Config.importAkt = MserverDatumZeit.getNameAkt(MserverDaten.system[MserverKonstanten.SYSTEM_IMPORT_AKT_NR]);
+            crawlerConfig.importOld = MserverDaten.system[MserverKonstanten.SYSTEM_IMPORT_OLD_NR];
+            crawlerConfig.importAkt = MserverDatumZeit.getNameAkt(MserverDaten.system[MserverKonstanten.SYSTEM_IMPORT_AKT_NR]);
 
             // Rest
             Config.setUserAgent(MserverDaten.getUserAgent());
-            Config.proxyUrl = MserverDaten.system[MserverKonstanten.SYSTEM_PROXY_URL_NR];
-            Config.proxyPort = MserverDaten.getProxyPort();
+            crawlerConfig.proxyUrl = MserverDaten.system[MserverKonstanten.SYSTEM_PROXY_URL_NR];
+            crawlerConfig.proxyPort = MserverDaten.getProxyPort();
             Config.debug = MserverDaten.debug;
 
             Log.setLogfile(MserverDaten.getLogDatei(MserverKonstanten.LOG_FILE_NAME_MSEARCH));

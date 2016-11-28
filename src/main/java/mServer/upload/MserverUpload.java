@@ -20,6 +20,7 @@
 package mServer.upload;
 
 import mSearch.Config;
+import mServer.crawler.crawlerTool;
 import mServer.daten.MserverDatenUpload;
 import mServer.daten.MserverSearchTask;
 import mServer.tool.*;
@@ -45,28 +46,28 @@ public class MserverUpload {
             if (!MserverDaten.system[MserverKonstanten.SYSTEM_EXPORT_AKT_NR].isEmpty()) {
                 MserverLog.systemMeldung("");
                 MserverLog.systemMeldung("Copy Export Filmliste");
-                MserverCopy.copy(Config.getPathFilmlist_json_akt_xz(), MserverDatumZeit.getNameAkt(MserverDaten.system[MserverKonstanten.SYSTEM_EXPORT_AKT_NR]));
+                MserverCopy.copy(crawlerTool.getPathFilmlist_json_akt_xz(), MserverDatumZeit.getNameAkt(MserverDaten.system[MserverKonstanten.SYSTEM_EXPORT_AKT_NR]));
             }
 
             // export Org
             if (!MserverDaten.system[MserverKonstanten.SYSTEM_EXPORT_FILMLISTE_ORG_NR].isEmpty() && aktSearchTask.orgListeAnlegen()) {
                 MserverLog.systemMeldung("");
                 MserverLog.systemMeldung("Copy Export Filmliste-Org");
-                MserverCopy.copy(Config.getPathFilmlist_json_org_xz(), MserverDaten.system[MserverKonstanten.SYSTEM_EXPORT_FILMLISTE_ORG_NR]);
+                MserverCopy.copy(crawlerTool.getPathFilmlist_json_org_xz(), MserverDaten.system[MserverKonstanten.SYSTEM_EXPORT_FILMLISTE_ORG_NR]);
             }
 
             // export aktuell
             if (!MserverDaten.system[MserverKonstanten.SYSTEM_EXPORT_FILMLISTE_AKT_NR].isEmpty()) {
                 MserverLog.systemMeldung("");
                 MserverLog.systemMeldung("Copy Export Filmliste");
-                MserverCopy.copy(Config.getPathFilmlist_json_akt_xz(), MserverDaten.system[MserverKonstanten.SYSTEM_EXPORT_FILMLISTE_AKT_NR]);
+                MserverCopy.copy(crawlerTool.getPathFilmlist_json_akt_xz(), MserverDaten.system[MserverKonstanten.SYSTEM_EXPORT_FILMLISTE_AKT_NR]);
             }
 
             // export diff
             if (!MserverDaten.system[MserverKonstanten.SYSTEM_EXPORT_FILMLISTE_DIFF_NR].isEmpty()) {
                 MserverLog.systemMeldung("");
                 MserverLog.systemMeldung("Copy Export Filmliste-Diff");
-                MserverCopy.copy(Config.getPathFilmlist_json_diff_xz(), MserverDaten.system[MserverKonstanten.SYSTEM_EXPORT_FILMLISTE_DIFF_NR]);
+                MserverCopy.copy(crawlerTool.getPathFilmlist_json_diff_xz(), MserverDaten.system[MserverKonstanten.SYSTEM_EXPORT_FILMLISTE_DIFF_NR]);
             }
 
             // ======================================================
@@ -78,7 +79,7 @@ public class MserverUpload {
 
             for (MserverDatenUpload datenUpload : MserverDaten.listeUpload) {
                 for (int i = 0; i <= 1; ++i) {
-                    String[] srcPathFile = new String[]{Config.getPathFilmlist_json_diff_xz(), Config.getPathFilmlist_json_akt_xz()};
+                    String[] srcPathFile = new String[]{crawlerTool.getPathFilmlist_json_diff_xz(), crawlerTool.getPathFilmlist_json_akt_xz()};
                     String[] destFileName = new String[]{MserverKonstanten.NAME_FILMLISTE_DIFF, MserverKonstanten.NAME_FILMLISTE_AKT};
 
                     MserverLog.systemMeldung("");
