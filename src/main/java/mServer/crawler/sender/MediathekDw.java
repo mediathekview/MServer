@@ -1,0 +1,219 @@
+/*
+ * MediathekView
+ * Copyright (C) 2008 W. Xaver
+ * W.Xaver[at]googlemail.com
+ * http://zdfmediathk.sourceforge.net/
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program. If not, see <http://www.gnu.org/licenses/>.
+ */
+package mServer.crawler.sender;
+
+import java.util.ArrayList;
+import mSearch.Config;
+import mSearch.Const;
+import mSearch.daten.DatenFilm;
+import mSearch.tool.Log;
+import mSearch.tool.MSStringBuilder;
+import mServer.crawler.FilmeSuchen;
+import mServer.crawler.GetUrl;
+import mServer.crawler.CrawlerTool;
+
+public class MediathekDw extends MediathekReader implements Runnable {
+
+    public final static String SENDERNAME = Const.DW;
+
+    public MediathekDw(FilmeSuchen ssearch, int startPrio) {
+        super(ssearch, SENDERNAME, /* threads */ 4, /* urlWarten */ 500, startPrio);
+    }
+
+    @Override
+    void addToList() {
+        listeThemen.clear();
+        meldungStart();
+        sendungenLaden();
+        if (Config.getStop()) {
+            meldungThreadUndFertig();
+        } else if (listeThemen.size() == 0) {
+            meldungThreadUndFertig();
+        } else {
+            listeSort(listeThemen, 1);
+            meldungAddMax(listeThemen.size());
+            for (int t = 0; t < maxThreadLaufen; ++t) {
+                //new Thread(new ThemaLaden()).start();
+                Thread th = new Thread(new ThemaLaden());
+                th.setName(SENDERNAME + t);
+                th.start();
+            }
+        }
+    }
+
+    private void sendungenLaden() {
+        final String ADRESSE = "http://www.dw.com/de/media-center/alle-inhalte/s-100814";
+        final String MUSTER_URL = "value=\"";
+        final String MUSTER_START = "<div class=\"label\">Sendungen</div>";
+        MSStringBuilder seite = new MSStringBuilder(Const.STRING_BUFFER_START_BUFFER);
+        seite = getUrlIo.getUri_Utf(SENDERNAME, ADRESSE, seite, "");
+        int pos1, pos2;
+        String url = "", thema = "";
+        pos1 = seite.indexOf(MUSTER_START);
+        if (pos1 == -1) {
+            Log.errorLog(915230456, "Nichts gefunden");
+            return;
+        }
+        pos1 += MUSTER_START.length();
+        int stop = seite.indexOf("</div>", pos1);
+        while ((pos1 = seite.indexOf(MUSTER_URL, pos1)) != -1) {
+            if (pos1 > stop) {
+                break;
+            }
+            try {
+                pos1 += MUSTER_URL.length();
+                if ((pos2 = seite.indexOf("\"", pos1)) != -1) {
+                    url = seite.substring(pos1, pos2);
+                }
+                if (url.equals("")) {
+                    continue;
+                }
+                if (CrawlerTool.loadLongMax()) {
+                    //http://www.dw.com/de/media-center/alle-inhalte/s-100814/filter/programs/3204/sort/date/results/16/
+                    //http://www.dw.com/de/media-center/alle-inhalte/s-100814?filter=&programs=17274211&sort=date&results=36
+                    url = "http://www.dw.com/de/media-center/alle-inhalte/s-100814?filter=&programs=" + url + "&sort=date&results=100";
+                } else {
+                    url = "http://www.dw.com/de/media-center/alle-inhalte/s-100814?filter=&programs=" + url + "&sort=date&results=20";
+                }
+                if ((pos1 = seite.indexOf(">", pos1)) != -1) {
+                    pos1 += 1;
+                    if ((pos2 = seite.indexOf("<", pos1)) != -1) {
+                        thema = seite.substring(pos1, pos2);
+                    }
+                }
+                // in die Liste eintragen
+                String[] add = new String[]{url, thema};
+                listeThemen.addUrl(add);
+            } catch (Exception ex) {
+                Log.errorLog(731245970, ex);
+            }
+        }
+
+    }
+
+    private class ThemaLaden implements Runnable {
+
+        GetUrl getUrl = new GetUrl(wartenSeiteLaden);
+        private MSStringBuilder seite1 = new MSStringBuilder(Const.STRING_BUFFER_START_BUFFER);
+        private MSStringBuilder seite2 = new MSStringBuilder(Const.STRING_BUFFER_START_BUFFER);
+        private ArrayList<String> listUrl = new ArrayList<>();
+
+        @Override
+        public synchronized void run() {
+            try {
+                meldungAddThread();
+                String[] link;
+                while (!Config.getStop() && (link = listeThemen.getListeThemen()) != null) {
+                    meldungProgress(link[0]);
+                    laden(link[0] /* url */, link[1] /* Thema */);
+                }
+            } catch (Exception ex) {
+                Log.errorLog(915423640, ex);
+            }
+            meldungThreadUndFertig();
+        }
+
+        void laden(String urlThema, String thema) {
+
+            final String MUSTER_START = "<div class=\"news searchres hov\">";
+            String urlSendung;
+            meldung(urlThema);
+            seite1 = getUrlIo.getUri_Utf(SENDERNAME, urlThema, seite1, "");
+            int pos1 = 0;
+            String titel;
+            while (!Config.getStop() && (pos1 = seite1.indexOf(MUSTER_START, pos1)) != -1) {
+                pos1 += MUSTER_START.length();
+                urlSendung = seite1.extract("<a href=\"", "\"", pos1);
+                titel = seite1.extract("<h2>", "<", pos1).trim();
+                if (!urlSendung.isEmpty()) {
+                    laden2(urlThema, thema, titel, "http://www.dw.com" + urlSendung);
+                }
+            }
+        }
+
+        void laden2(String urlThema, String thema, String titel, String urlSendung) {
+            String url = "", urlLow = "", urlHd = "";
+            final String ADDURL = "http://tv-download.dw.de/dwtv_video/flv/";
+            meldung(urlThema);
+            seite2 = getUrlIo.getUri_Utf(SENDERNAME, urlSendung, seite2, "");
+
+            seite2.extractList("%22file%22%3A%22", "%22%7D", listUrl);
+            for (String u : listUrl) {
+                u = u.replace("%2F", "/");
+                if (urlLow.isEmpty() && u.endsWith("vp6.flv")) {
+                    urlLow = u;
+                    urlLow = ADDURL + urlLow;
+                }
+                if (url.isEmpty() && u.endsWith("sor.mp4")) {
+                    url = u;
+                    url = ADDURL + url;
+                }
+                if (urlHd.isEmpty() && u.endsWith("avc.mp4")) {
+                    urlHd = u;
+                    urlHd = ADDURL + urlHd;
+                }
+            }
+            listUrl.clear();
+
+            String description = seite2.extract("<meta name=\"description\" content=\"", "\"");
+            String datum = seite2.extract("| DW.COM | ", "\"");
+            String dur = seite2.extract("<strong>Dauer</strong>", "Min.").trim();
+            dur = dur.replace("\n", "");
+            dur = dur.replace("\r", "");
+            long duration = 0;
+            try {
+                if (!dur.equals("")) {
+                    String[] parts = dur.split(":");
+                    long power = 1;
+                    for (int i = parts.length - 1; i >= 0; i--) {
+                        String s = parts[i];
+                        duration += Long.parseLong(parts[i]) * power;
+                        power *= 60;
+                    }
+                }
+            } catch (Exception ex) {
+                Log.errorLog(912034567, "duration: " + dur);
+            }
+
+            if (url.isEmpty() && !urlLow.isEmpty()) {
+                url = urlLow;
+                urlLow = "";
+            }
+            if (url.isEmpty() && !urlHd.isEmpty()) {
+                url = urlHd;
+                urlHd = "";
+            }
+            if (url.isEmpty()) {
+                Log.errorLog(643230120, "empty URL: " + urlSendung);
+            } else {
+                DatenFilm film = new DatenFilm(SENDERNAME, thema, urlSendung, titel, url, "", datum, ""/*Zeit*/, duration, description);
+                if (!urlLow.isEmpty()) {
+                    CrawlerTool.addUrlKlein(film, urlLow, "");
+                }
+                if (!urlHd.isEmpty()) {
+                    CrawlerTool.addUrlHd(film, urlHd, "");
+                }
+                addFilm(film);
+            }
+
+        }
+
+    }
+}

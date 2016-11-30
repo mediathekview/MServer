@@ -19,7 +19,12 @@
  */
 package mServer;
 
+import javafx.application.Application;
+import mSearch.tool.Log;
+import mServer.crawler.CrawlerTool;
+import mServer.crawler.gui.MSG;
 import mServer.tool.MserverDaten;
+import mServer.tool.MserverDatumZeit;
 import mServer.tool.MserverLog;
 
 public class Main {
@@ -29,7 +34,7 @@ public class Main {
 
     private enum StartupMode {
 
-        SERVER, VERSION
+        SERVER, VERSION, GUI
     }
 
     public static void main(String[] args) {
@@ -47,6 +52,9 @@ public class Main {
                     case "-v":
                         state = StartupMode.VERSION;
                         break;
+                    case "-gui":
+                        state = StartupMode.GUI;
+                        break;
 
                 }
             }
@@ -54,12 +62,30 @@ public class Main {
 
         switch (state) {
             case SERVER:
-                new MServer(ar).starten();
+                try {
+                    runServer(ar);
+                } catch (InterruptedException e) {
+                    MserverLog.fehlerMeldung(34975920, Main.class.getName(), "startServer", e);
+                }
                 break;
             case VERSION:
                 MserverLog.versionsMeldungen(Main.class.toString());
                 System.exit(0);
                 break;
+            case GUI:
+                java.awt.EventQueue.invokeLater(() -> {
+                    CrawlerTool.startMsg();
+                    Application.launch(MSG.class, args);
+                });
+        }
+    }
+
+    private static void runServer(String[] ar) throws InterruptedException {
+        while (new MServer(ar).starten()) {
+            long timeToSleep = (MserverDatumZeit.getSecondsUntilNextDay() + 120) * 1000; // 0:02
+            MserverLog.systemMeldung("Schlafenlegen bis zum nächsten Tag (" + timeToSleep + "ms)");
+            Thread.sleep(timeToSleep);
+            MserverLog.systemMeldung("Neustart der Suche");
         }
     }
 

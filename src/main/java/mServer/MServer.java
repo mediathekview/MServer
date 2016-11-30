@@ -20,15 +20,25 @@
 package mServer;
 
 import java.io.File;
+
 import mServer.daten.MserverSearchTask;
 import mServer.search.MserverSearch;
-import mServer.tool.*;
+import mServer.tool.MserverDaten;
+import mServer.tool.MserverKonstanten;
+import mServer.tool.MserverLog;
+import mServer.tool.MserverTimer;
+import mServer.tool.MserverXmlLesen;
 import mServer.upload.MserverUpload;
 
 public class MServer {
 
     private MserverSearchTask aktSearchTask = null;
     private boolean suchen = false;
+
+    public boolean isSuchen() {
+        return suchen;
+    }
+
     private MserverSearch mvsSearch;
 
     public MServer(String[] ar) {
@@ -49,37 +59,43 @@ public class MServer {
         Thread.setDefaultUncaughtExceptionHandler(new Thread.UncaughtExceptionHandler() {
             @Override
             public void uncaughtException(Thread t, Throwable e) {
-                MserverLog.fehlerMeldung(97986523, MServer.class.getName(), new String[]{"Da hat sich ein Thread verabschiedet: " + t.getName(), e.getMessage()});
+                MserverLog.fehlerMeldung(97986523, MServer.class.getName(), new String[] { "Da hat sich ein Thread verabschiedet: " + t.getName(), e.getMessage() });
                 e.printStackTrace();
             }
         });
     }
 
-    public void starten() {
+    public boolean starten() {
         if (!MserverDaten.konfigExistiert()) {
-            MserverLog.fehlerMeldung(858589654, MServer.class.getName(), new String[]{"Konfig-Datei existiert nicht", MserverDaten.getKonfigDatei()});
-            System.exit(0); // und Tschüss
+            MserverLog.fehlerMeldung(858589654, MServer.class.getName(), new String[] { "Konfig-Datei existiert nicht", MserverDaten.getKonfigDatei() });
+            System.exit(1); // und Tschüss
         } else {
             MserverXmlLesen.xmlDatenLesen();
             if (MserverDaten.system[MserverKonstanten.SYSTEM_DEBUG_NR].equals(MserverKonstanten.STR_TRUE)) {
                 MserverDaten.debug = true;
+            }
+            if (MserverDaten.system[MserverKonstanten.SYSTEM_RESTART_AFTER_RUN_NR].equals(MserverKonstanten.STR_TRUE)) {
+                MserverDaten.restart = true;
             }
 
             // Infos schreiben
             MserverLog.startMeldungen(this.getClass().getName());
 
             mvsSearch = new MserverSearch();
-            MserverTimer timer = new MserverTimer() {
-                @Override
-                public void ping() {
-                    if (!suchen) {
-                        // nicht beschäftigt
-                        laufen();
-                    }
+            MserverTimer timer = new MserverTimer(this);
+            Thread thread = new Thread(timer);
+            thread.start();
+            try {
+                // wait for the thread to finish
+                thread.join();
+                if (MserverDaten.restart) {
+                    return true;
                 }
-            };
-            new Thread(timer).start();
+            } catch (InterruptedException e) {
+                MserverLog.fehlerMeldung(42, MServer.class.getName(), "Fehler bei thread.join()", e);
+            }
         }
+        return false;
     }
 
     public void laufen() {
@@ -91,6 +107,7 @@ public class MServer {
             if (aktSearchTask == null) {
                 // fertig für den Tag
                 undTschuess();
+                return;
             } else {
                 aktSearchTask.meldungNaechsterStart();
             }
@@ -139,6 +156,7 @@ public class MServer {
 
     private void undTschuess() {
         MserverLog.printEndeMeldung();
-        System.exit(0);
+        // we need to interrupt the current thread to know that we should stop for today
+        Thread.currentThread().interrupt();
     }
 }

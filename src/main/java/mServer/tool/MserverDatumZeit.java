@@ -20,7 +20,12 @@
 package mServer.tool;
 
 import java.text.SimpleDateFormat;
+import java.time.Duration;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.Date;
+
 import mSearch.tool.Functions;
 
 public class MserverDatumZeit {
@@ -35,6 +40,15 @@ public class MserverDatumZeit {
 
     public static String getHeute() {
         return sdf_datum.format(new Date());
+    }
+
+    public static long getSecondsUntilNextDay() {
+        // now
+        LocalDateTime now = LocalDateTime.now();
+        // tomorrow 0:00
+        LocalDateTime future = LocalDateTime.of(LocalDate.now(), LocalTime.MIDNIGHT).plusDays(1L);
+        Duration duration = Duration.between(now, future);
+        return duration.getSeconds();
     }
 
     public static String getHeute_yyyy_MM_dd() {
