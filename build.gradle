@@ -1,6 +1,7 @@
 apply plugin: 'java'
 apply plugin: 'application'
 apply from: "${project.rootDir}/gradle/eclipse.gradle"
+import java.nio.file.Files
 
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
@@ -8,89 +9,17 @@ mainClassName = 'mServer.Main'
 version = '2.0.1'
 
 compileJava {
+    options.encoding = "UTF-8"
     options.compilerArgs = ['-Xlint:all']
 }
 compileTestJava {
+    options.encoding = "UTF-8"
     options.compilerArgs = ['-Xlint:all']
 }
-
-ext {
-    propsFile = file('src/main/resources/version.properties').absoluteFile
-}
-
-def loadVersionProperties() {
-    Properties props = new Properties()
-    props.load(propsFile.newDataInputStream())
-    return props
-}
-
-task updateVersion << {
-    Properties props = loadVersionProperties()
-    props.load(propsFile.newDataInputStream())
-
-    int nr = Integer.parseInt(props.getProperty('BUILD')) + 1
-    String buildDate = new Date().format('dd.MM.yyyy HH:mm:ss')
-
-	logger.lifecycle "==mserver======================"
-	logger.lifecycle "Version: $version"
-	logger.lifecycle "Number:  $nr"
-	logger.lifecycle "Date:    $buildDate"
-	logger.lifecycle "==mserver======================"
-	
-	props.setProperty('VERSION', project.version)
-	props.setProperty('BUILD', "$nr")
-	props.setProperty('DATE', buildDate)
-	
-	props.store(propsFile.newWriter(), null)
-}
-
-processResources.dependsOn updateVersion
 
 task copyRuntimeLibs(type: Copy) {
     into "libs"
     from configurations.testRuntime - configurations.runtime
-}
-
-task createBuildFile(type: CreateBuildFileTask, dependsOn: updateVersion) {
-    buildFile = file("build/info.build").absoluteFile
-    versionProperties = propsFile
-}
-
-distributions {
-    main {
-        def date = new Date().format('dd.MM.yyyy')
-        baseName = "MServer_${version}_${date}"
-        contents {
-            from(createBuildFile) {
-                into 'info/'
-            }
-        }
-    }
-}
-
-class CreateBuildFileTask extends DefaultTask {
-    @OutputFile
-    File buildFile
-    
-    @InputFile
-    File versionProperties
-    
-    @TaskAction
-    def run() {
-	    Properties props = new Properties()
-        props.load(versionProperties.newDataInputStream())
-	    
-	    String nr = props.getProperty('BUILD')
-	    String buildInfo = "${project.version}-$nr"
-        String date = new Date().format('dd.MM.yyyy HH:mm:ss')
-        logger.lifecycle "Read build number $nr from $versionProperties"
-        logger.lifecycle "Writing build info to $buildFile using data $date"
-        
-        def buildFileWriter = buildFile.newWriter() 
-	    buildFileWriter << "Datum: ${date}\n"
-	    buildFileWriter << "MSearch Buildnummer: ${buildInfo}\n"
-	    buildFileWriter.close()
-    }
 }
 
 repositories {
@@ -106,4 +35,40 @@ dependencies {
     compile 'org.apache.commons:commons-lang3:3.5'
     compile 'org.tukaani:xz:1.5'
     compile 'com.fasterxml.jackson.core:jackson-core:2.7.0'
+}
+
+ext {
+    propsFile = file('src/main/resources/version.properties').absoluteFile
+    if(!propsFile.exists()) {
+        Files.createFile(propsFile.toPath())
+    }
+}
+
+def loadVersionProperties() {
+    Properties props = new Properties()
+    props.load(propsFile.newDataInputStream())
+    return props
+}
+
+task updateVersion << {
+    Properties props = loadVersionProperties()
+    def oldVersion = props.getProperty('VERSION')
+    if(!oldVersion.equals(project.version)) {
+        logger.lifecycle "==mserver======================"
+        logger.lifecycle "Version: $project.version"
+        logger.lifecycle "==mserver======================"
+        props.setProperty('VERSION', project.version)	
+        props.store(propsFile.newWriter(), null)
+    }
+}
+
+processResources.dependsOn updateVersion
+
+distributions {
+    main {
+        baseName = "MServer"
+        contents {
+            from{'dist'}
+        }
+    }
 }
