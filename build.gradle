@@ -1,5 +1,4 @@
 apply plugin: 'java'
-//apply plugin: 'application'
 apply plugin: 'distribution'
 apply from: "${project.rootDir}/gradle/eclipse.gradle"
 import java.nio.file.Files
@@ -8,8 +7,8 @@ import org.apache.tools.ant.filters.ReplaceTokens
 
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
-//mainClassName = 'mServer.Main'
 version = '2.0.1'
+
 def jarName = 'MServer.jar'
 def mainClass = 'mServer.Main'
 
@@ -114,12 +113,3 @@ distributions {
     }
 }
 
-/*
-distributions {
-    main {
-        baseName = "MServer"
-        contents {
-            from{'dist'}
-        }
-    }
-}*/
