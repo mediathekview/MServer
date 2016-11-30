@@ -83,13 +83,15 @@ public class MserverKonstanten {
     public static final int SYSTEM_PROXY_PORT_NR = 12;
     public static final String SYSTEM_DEBUG = "system-debug";
     public static final int SYSTEM_DEBUG_NR = 13;
-
-    public static final int SYSTEM_MAX_ELEM = 14;
+    public static final String SYSTEM_RESTART_AFTER_RUN = "system-restart-after-run";
+    public static final int SYSTEM_RESTART_AFTER_RUN_NR = 14;
 
     public static final String[] SYSTEM_COLUMN_NAMES = {
         SYSTEM_USER_AGENT, SYSTEM_IMPORT_URL_1, SYSTEM_IMPORT_URL_2, SYSTEM_IMPORT_OLD,
         SYSTEM_IMPORT_AKT, SYSTEM_EXPORT_AKT, SYSTEM_IMPORT_LIVE,
         SYSTEM_EXPORT_FILMLISTE_AKT, SYSTEM_EXPORT_FILMLISTE_ORG, SYSTEM_EXPORT_FILMLISTE_DIFF, SYSTEM_FILMLISTE_ORG,
-        SYSTEM_PROXY_URL, SYSTEM_PROXY_PORT, SYSTEM_DEBUG
+        SYSTEM_PROXY_URL, SYSTEM_PROXY_PORT, SYSTEM_DEBUG, SYSTEM_RESTART_AFTER_RUN
     };
+
+    public static final int SYSTEM_MAX_ELEM = SYSTEM_COLUMN_NAMES.length;
 }

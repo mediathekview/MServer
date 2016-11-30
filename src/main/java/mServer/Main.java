@@ -20,6 +20,7 @@
 package mServer;
 
 import mServer.tool.MserverDaten;
+import mServer.tool.MserverDatumZeit;
 import mServer.tool.MserverLog;
 
 public class Main {
@@ -54,12 +55,25 @@ public class Main {
 
         switch (state) {
             case SERVER:
-                new MServer(ar).starten();
+                try {
+                    runServer(ar);
+                } catch (InterruptedException e) {
+                    MserverLog.fehlerMeldung(34975920, Main.class.getName(), "startServer", e);
+                }
                 break;
             case VERSION:
                 MserverLog.versionsMeldungen(Main.class.toString());
                 System.exit(0);
                 break;
+        }
+    }
+
+    private static void runServer(String[] ar) throws InterruptedException {
+        while (new MServer(ar).starten()) {
+            long timeToSleep = (MserverDatumZeit.getSecondsUntilNextDay() + 120) * 1000; // 0:02
+            MserverLog.systemMeldung("Schlafenlegen bis zum nächsten Tag (" + timeToSleep + "ms)");
+            Thread.sleep(timeToSleep);
+            MserverLog.systemMeldung("Neustart der Suche");
         }
     }
 

@@ -20,6 +20,7 @@
 package mServer.tool;
 
 import java.io.File;
+
 import mSearch.Const;
 import mSearch.tool.Functions;
 import mServer.daten.MserverListeSuchen;
@@ -31,13 +32,19 @@ public class MserverDaten {
     public static MserverListeSuchen listeSuchen = new MserverListeSuchen();
     public static MserverListeUpload listeUpload = new MserverListeUpload();
     public static boolean debug = false;
+    public static boolean restart = false;
     //
     private static String basisverzeichnis = "";
 
     public static void init() {
+        listeSuchen = new MserverListeSuchen();
+        listeUpload = new MserverListeUpload();
+        debug = false;
+        restart = false;
         for (int i = 0; i < system.length; ++i) {
             system[i] = "";
         }
+
     }
 
     public static String getUserAgent() {
@@ -63,7 +70,7 @@ public class MserverDaten {
         try {
             return Integer.parseInt(system[MserverKonstanten.SYSTEM_PROXY_PORT_NR]);
         } catch (Exception ex) {
-            MserverLog.fehlerMeldung(963487219, MserverDaten.class.getName(), new String[]{"Proxyport falsch: ", system[MserverKonstanten.SYSTEM_PROXY_PORT_NR]});
+            MserverLog.fehlerMeldung(963487219, MserverDaten.class.getName(), new String[] { "Proxyport falsch: ", system[MserverKonstanten.SYSTEM_PROXY_PORT_NR] });
         }
         return -1;
     }
@@ -83,7 +90,7 @@ public class MserverDaten {
             File basisF = new File(ret);
             if (!basisF.exists()) {
                 if (!basisF.mkdirs()) {
-                    MserverLog.fehlerMeldung(1023974998, MserverDaten.class.getName(), new String[]{"Kann den Ordner zum Speichern der Daten nicht anlegen!", ret});
+                    MserverLog.fehlerMeldung(1023974998, MserverDaten.class.getName(), new String[] { "Kann den Ordner zum Speichern der Daten nicht anlegen!", ret });
                 }
             }
         }
@@ -108,7 +115,7 @@ public class MserverDaten {
         File basisF = new File(ret);
         if (!basisF.exists()) {
             if (!basisF.mkdirs()) {
-                MserverLog.fehlerMeldung(739851049, MserverDaten.class.getName(), new String[]{"Kann den Ordner zum Speichern der Filmliste nicht anlegen!", ret});
+                MserverLog.fehlerMeldung(739851049, MserverDaten.class.getName(), new String[] { "Kann den Ordner zum Speichern der Filmliste nicht anlegen!", ret });
             }
         }
         return ret;
@@ -136,7 +143,7 @@ public class MserverDaten {
         }
 
         if (logFileName.isEmpty()) {
-            MserverLog.fehlerMeldung(912304578, MserverDaten.class.getName(), new String[]{"Kann das Logfile nicht anlegen!", logPfad, logFileName});
+            MserverLog.fehlerMeldung(912304578, MserverDaten.class.getName(), new String[] { "Kann das Logfile nicht anlegen!", logPfad, logFileName });
         }
         return logFileName;
     }
