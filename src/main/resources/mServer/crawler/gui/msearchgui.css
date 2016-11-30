@@ -1,0 +1,14 @@
+/*
+ * Empty Stylesheet file.
+ */
+
+#fxPaneFilmList {
+    -fx-background-color: #cccccc;
+    -fx-background-radius: 10;
+    -fx-background-insets: -5;
+    -fx-padding: 10;
+    -fx-border-radius:  10;
+    -fx-border-color: #666666;
+    -fx-border-width: 3;
+    -fx-effect: dropshadow(gaussian, #665555, 10, 0, 3, 3);
+}

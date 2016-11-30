@@ -72,3 +72,15 @@ distributions {
         }
     }
 }
+
+/**
+ * HOWTO debug:
+ *  1. run "gradle debug"
+ *  2. Call your IDE to connect to a remote java application on port 5005.
+ */
+task debug (type: JavaExec, dependsOn: classes){
+    main = 'mServer.Main'
+    classpath = sourceSets.main.runtimeClasspath
+    args '-gui'
+    debug true
+}

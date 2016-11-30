@@ -19,6 +19,10 @@
  */
 package mServer;
 
+import javafx.application.Application;
+import mSearch.tool.Log;
+import mServer.crawler.CrawlerTool;
+import mServer.crawler.gui.MSG;
 import mServer.tool.MserverDaten;
 import mServer.tool.MserverDatumZeit;
 import mServer.tool.MserverLog;
@@ -30,7 +34,7 @@ public class Main {
 
     private enum StartupMode {
 
-        SERVER, VERSION
+        SERVER, VERSION, GUI
     }
 
     public static void main(String[] args) {
@@ -47,6 +51,9 @@ public class Main {
                         break;
                     case "-v":
                         state = StartupMode.VERSION;
+                        break;
+                    case "-gui":
+                        state = StartupMode.GUI;
                         break;
 
                 }
@@ -65,6 +72,11 @@ public class Main {
                 MserverLog.versionsMeldungen(Main.class.toString());
                 System.exit(0);
                 break;
+            case GUI:
+                java.awt.EventQueue.invokeLater(() -> {
+                    CrawlerTool.startMsg();
+                    Application.launch(MSG.class, args);
+                });
         }
     }
 
