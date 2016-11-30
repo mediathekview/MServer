@@ -1,6 +1,7 @@
 dist/javadoc
 
 nbproject
+.nb-gradle
 test/
 
 *.class
