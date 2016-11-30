@@ -4,11 +4,11 @@
     <system-user-agent>MServer</system-user-agent>
 
 	<!-- URLs von fertigen Filmlisten die importiert werden -->
-	<system-filmliste-import-url-1>http://m1.picn.de/f/Filmliste-diff.xz</system-filmliste-import-url-1>
+	<system-filmliste-import-url-1>http://verteiler1.mediathekview.de/f/Filmliste-diff.xz</system-filmliste-import-url-1>
 	<!-- <system-filmliste-import-url-2>http://m2.picn.de/f/Filmliste-akt.xz</system-filmliste-import-url-2> -->
 	
 	<!-- eine alte Liste importieren, nur bei einem "langen" Suchlauf -->
-	<system-filmliste-import-old>http://m2.picn.de/f/Filmliste-diff.xz</system-filmliste-import-old>
+	<system-filmliste-import-old>http://m1.picn.de/f/Filmliste-diff.xz</system-filmliste-import-old>
 
 	<!-- Livestreams die import werden -->
 	<system-filmliste-import-live>live-streams.json</system-filmliste-import-live>
@@ -57,5 +57,4 @@
 	-->
 
 </MServer>
-
 

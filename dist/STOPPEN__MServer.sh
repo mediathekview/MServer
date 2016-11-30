@@ -1,11 +1,8 @@
 #!/bin/sh
 
-dir=`dirname "$0"`
-cd "$dir"
-
 # falls das Programm vom letzten Start noch läuft
 # wird es beendet
-while [ "$(ps aux | grep "[M]Server-.*.jar")" ]
+while [ "$(ps aux | grep "[M]Server.jar")" ]
 do
 	echo
 	echo ===========================================
@@ -18,21 +15,10 @@ do
 	echo
 
 	# Sollte noch ein gleichnamiger Prozess laufen wird er hiermit beendet
-	kill $(pgrep -f "[M]Server-.*.jar") > /dev/null 2>&1
+	kill $(pgrep -f MServer.jar) > /dev/null 2>&1
+	ps aux | grep "[M]Server.jar" | kill -9 $(cut -c 10-14) > /dev/null 2>&1
 done
 
-
-# jetzt gehts mit dem Start weiter
-echo %% 
-echo %% -------------------------------------
-echo %% Pfad: $dir
-echo %% -------------------------------------
-echo %% 
-
-
-bin/MServer $dir $*
-
-cd $OLDPWD
 
 echo %% und Tschuess
 echo %% -----------------------------------------
