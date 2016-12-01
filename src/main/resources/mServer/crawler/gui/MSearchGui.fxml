@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.effect.*?>
+<?import javafx.geometry.*?>
+<?import java.lang.*?>
+<?import java.net.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="AnchorPane" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="300.0" minWidth="300.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mServer.crawler.gui.MSearchGuiController">
+    <stylesheets>
+        <URL value="@msearchgui.css" />
+    </stylesheets>
+    <children>
+        <VBox layoutX="15.0" layoutY="15.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0">
+            <children>
+
+                <TabPane fx:id="tPane" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" tabClosingPolicy="UNAVAILABLE" VBox.vgrow="ALWAYS">
+                    <tabs>
+                        <Tab text="Suchen">
+                            <content>
+                                <fx:include fx:id="fxPanelSearch" source="PanelSearch.fxml" />
+                            </content>
+                        </Tab>
+                        <Tab text="Löschen">
+                            <content>
+                                <fx:include fx:id="fxPanelDel" source="PanelDel.fxml" />
+                            </content>
+                        </Tab>
+                        <Tab text="Tools">
+                            <content>
+                                <fx:include fx:id="fxPanelTool" source="PanelTool.fxml" />
+                            </content>
+                        </Tab>
+                    </tabs>
+                </TabPane>
+
+                <AnchorPane id="fxPaneFilmList" maxWidth="1.7976931348623157E308">
+                    <children>
+                        <GridPane hgap="10.0" layoutX="14.0" layoutY="14.0" maxWidth="1.7976931348623157E308" vgap="10.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
+                            <columnConstraints>
+                                <ColumnConstraints fillWidth="false" halignment="RIGHT" hgrow="NEVER" minWidth="10.0" />
+                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                <ColumnConstraints hgrow="NEVER" minWidth="10.0" />
+                                <ColumnConstraints hgrow="NEVER" minWidth="10.0" />
+                            </columnConstraints>
+                            <rowConstraints>
+                                <RowConstraints fillHeight="false" minHeight="10.0" vgrow="NEVER" />
+                                <RowConstraints fillHeight="false" minHeight="10.0" vgrow="NEVER" />
+                            </rowConstraints>
+                            <children>
+                                <Label text="Anzahl Filme:" GridPane.rowIndex="1" />
+                                <Label fx:id="lblSum" text="-1" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                <Label text="Filmliste:" />
+                                <Button fx:id="btnSelect" mnemonicParsing="false" text="Auswählen" GridPane.columnIndex="2" />
+                                <Button fx:id="btnSave" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Speichern" GridPane.columnIndex="3" />
+                                <Button fx:id="btnDelete" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Löschen" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+                                <TextField fx:id="txtFilmList" maxWidth="1.7976931348623157E308" GridPane.columnIndex="1">
+                                    <GridPane.margin>
+                                        <Insets />
+                                    </GridPane.margin>
+                                </TextField>
+                            </children>
+                            <padding>
+                                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                            </padding>
+                        </GridPane>
+                    </children>
+                </AnchorPane>
+
+            </children>
+        </VBox>
+    </children>
+    <padding>
+        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+    </padding>
+</AnchorPane>

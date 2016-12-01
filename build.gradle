@@ -1,96 +1,29 @@
 apply plugin: 'java'
-apply plugin: 'application'
+apply plugin: 'distribution'
 apply from: "${project.rootDir}/gradle/eclipse.gradle"
+import java.nio.file.Files
+import java.nio.file.Paths
+import org.apache.tools.ant.filters.ReplaceTokens
 
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
-mainClassName = 'mServer.Main'
-version = '2.0.1'
+version = '2.1.0'
+
+def jarName = 'MServer.jar'
+def mainClass = 'mServer.Main'
 
 compileJava {
+    options.encoding = "UTF-8"
     options.compilerArgs = ['-Xlint:all']
 }
 compileTestJava {
+    options.encoding = "UTF-8"
     options.compilerArgs = ['-Xlint:all']
 }
-
-ext {
-    propsFile = file('src/main/resources/version.properties').absoluteFile
-}
-
-def loadVersionProperties() {
-    Properties props = new Properties()
-    props.load(propsFile.newDataInputStream())
-    return props
-}
-
-task updateVersion << {
-    Properties props = loadVersionProperties()
-    props.load(propsFile.newDataInputStream())
-
-    int nr = Integer.parseInt(props.getProperty('BUILD')) + 1
-    String buildDate = new Date().format('dd.MM.yyyy HH:mm:ss')
-
-	logger.lifecycle "==mserver======================"
-	logger.lifecycle "Version: $version"
-	logger.lifecycle "Number:  $nr"
-	logger.lifecycle "Date:    $buildDate"
-	logger.lifecycle "==mserver======================"
-	
-	props.setProperty('VERSION', project.version)
-	props.setProperty('BUILD', "$nr")
-	props.setProperty('DATE', buildDate)
-	
-	props.store(propsFile.newWriter(), null)
-}
-
-processResources.dependsOn updateVersion
 
 task copyRuntimeLibs(type: Copy) {
     into "libs"
     from configurations.testRuntime - configurations.runtime
-}
-
-task createBuildFile(type: CreateBuildFileTask, dependsOn: updateVersion) {
-    buildFile = file("build/info.build").absoluteFile
-    versionProperties = propsFile
-}
-
-distributions {
-    main {
-        def date = new Date().format('dd.MM.yyyy')
-        baseName = "MServer_${version}_${date}"
-        contents {
-            from(createBuildFile) {
-                into 'info/'
-            }
-        }
-    }
-}
-
-class CreateBuildFileTask extends DefaultTask {
-    @OutputFile
-    File buildFile
-    
-    @InputFile
-    File versionProperties
-    
-    @TaskAction
-    def run() {
-	    Properties props = new Properties()
-        props.load(versionProperties.newDataInputStream())
-	    
-	    String nr = props.getProperty('BUILD')
-	    String buildInfo = "${project.version}-$nr"
-        String date = new Date().format('dd.MM.yyyy HH:mm:ss')
-        logger.lifecycle "Read build number $nr from $versionProperties"
-        logger.lifecycle "Writing build info to $buildFile using data $date"
-        
-        def buildFileWriter = buildFile.newWriter() 
-	    buildFileWriter << "Datum: ${date}\n"
-	    buildFileWriter << "MSearch Buildnummer: ${buildInfo}\n"
-	    buildFileWriter.close()
-    }
 }
 
 repositories {
@@ -107,3 +40,88 @@ dependencies {
     compile 'org.tukaani:xz:1.5'
     compile 'com.fasterxml.jackson.core:jackson-core:2.7.0'
 }
+
+ext {
+    propsFile = file('src/main/resources/version.properties').absoluteFile
+    if(!propsFile.exists()) {
+        Files.createFile(propsFile.toPath())
+    }
+}
+
+def loadVersionProperties() {
+    Properties props = new Properties()
+    props.load(propsFile.newDataInputStream())
+    return props
+}
+
+task updateVersion << {
+    Properties props = loadVersionProperties()
+    def oldVersion = props.getProperty('VERSION')
+    if(!oldVersion.equals(project.version)) {
+        logger.lifecycle "==mserver======================"
+        logger.lifecycle "Version: $project.version"
+        logger.lifecycle "==mserver======================"
+        props.setProperty('VERSION', project.version)	
+        props.store(propsFile.newWriter(), null)
+    }
+}
+
+processResources.dependsOn updateVersion
+
+[distZip, distTar]*.shouldRunAfter compileJava, updateVersion, jar
+
+jar {
+    manifest {
+        attributes(
+                'Main-Class': mainClass,
+                'Class-Path': configurations.runtime.files.collect { "lib/$it.name" }.join(' ')
+        )
+    }
+    archiveName = jarName
+}
+
+distributions {
+    main {
+        baseName = 'MServer'
+        contents {
+            into('lib')
+                    {
+                        from configurations.compile
+                    }
+            from('dist')
+                    {
+                        filesMatching('**/*.sh')
+                                {
+                                    filter(ReplaceTokens, tokens: [JARNAME: jarName])
+                                }
+                        filesMatching('**/*.txt')
+                                {
+                                    filter(ReplaceTokens, tokens: [JARNAME: jarName])
+                                }
+                        filesMatching('**/*.command')
+                                {
+                                    filter(ReplaceTokens, tokens: [JARNAME: jarName])
+                                }
+                    }
+
+            from('build/libs')
+                    {
+                        include '*.jar'
+                    }
+
+        }
+    }
+}
+
+/**
+ * HOWTO debug:
+ *  1. run "gradle debug"
+ *  2. Call your IDE to connect to a remote java application on port 5005.
+ */
+task debug (type: JavaExec, dependsOn: classes){
+    main = 'mServer.Main'
+    classpath = sourceSets.main.runtimeClasspath
+    args '-gui'
+    debug true
+}
+

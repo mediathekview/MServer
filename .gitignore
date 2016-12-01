@@ -1,8 +1,7 @@
-build
 dist/javadoc
 
-nbproject/private/
-nbproject/configs/
+nbproject
+.nb-gradle
 test/
 
 *.class
@@ -20,4 +19,6 @@ start*.sh
 
 .idea
 build/
+
+version.properties
 
