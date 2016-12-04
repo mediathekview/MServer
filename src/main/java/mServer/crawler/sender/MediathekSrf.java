@@ -79,7 +79,7 @@ public class MediathekSrf extends MediathekReader implements Runnable {
             meldungThreadUndFertig();
         } else {
             meldungAddMax(listeThemen.size());
-            for (int t = 0; t < maxThreadLaufen; ++t) {
+            for (int t = 0; t < getMaxThreadLaufen(); ++t) {
                 Thread th = new Thread(new ThemaLaden());
                 th.setName(SENDERNAME + t);
                 th.start();
@@ -89,7 +89,7 @@ public class MediathekSrf extends MediathekReader implements Runnable {
 
     private class ThemaLaden implements Runnable {
 
-        GetUrl getUrl = new GetUrl(wartenSeiteLaden);
+        GetUrl getUrl = new GetUrl(getWartenSeiteLaden());
 
         private final MSStringBuilder film_website = new MSStringBuilder(Const.STRING_BUFFER_START_BUFFER);
         MSStringBuilder overviewPageFilm = new MSStringBuilder(Const.STRING_BUFFER_START_BUFFER);

@@ -62,7 +62,7 @@ public class MediathekKika extends MediathekReader implements Runnable {
             // URLs laufen nur begrenzte Zeit
             // delSenderInAlterListe(SENDERNAME); brauchts wohl nicht mehr
             meldungAddMax(listeThemen.size() + listeAllVideos.size());
-            for (int t = 0; t < maxThreadLaufen; ++t) {
+            for (int t = 0; t < getMaxThreadLaufen(); ++t) {
                 Thread th = new Thread(new ThemaLaden());
                 th.setName(SENDERNAME + t);
                 th.start();
@@ -82,7 +82,7 @@ public class MediathekKika extends MediathekReader implements Runnable {
             seite.extractList("", "", MUSTER_URL, "\"", "http://www.kika.de/sendungen/sendungenabisz100_", liste1);
 
             for (String s : liste1) {
-                seite = getUrlIo.getUri_Utf(sendername, s, seite, "KiKa-Sendungen");
+                seite = getUrlIo.getUri_Utf(getSendername(), s, seite, "KiKa-Sendungen");
                 final String MUSTER_SENDUNGEN_1 = "<h4 class=\"headline\">";
                 final String MUSTER_SENDUNGEN_2 = "<a href=\"/";
                 seite.extractList("", "<!--The bottom navigation -->", MUSTER_SENDUNGEN_1, MUSTER_SENDUNGEN_2, "\"", "http://www.kika.de/", liste2);
@@ -106,7 +106,7 @@ public class MediathekKika extends MediathekReader implements Runnable {
             seite = getUrlIo.getUri(SENDERNAME, ADRESSE, Const.KODIERUNG_UTF, 3, seite, "KiKA: Startseite alle Videos");
             seite.extractList("", "", MUSTER_URL, "\"", "http://www.kika.de/videos/allevideos/allevideos-buendelgruppen100_page-", liste1);
             for (String s1 : liste1) {
-                seite = getUrlIo.getUri_Utf(sendername, s1, seite, "KiKa-Sendungen");
+                seite = getUrlIo.getUri_Utf(getSendername(), s1, seite, "KiKa-Sendungen");
                 seite.extractList("", "", "<div class=\"media mediaA\">\n<a href=\"/", "\"", "http://www.kika.de/", liste2);
             }
             for (String s2 : liste2) {
@@ -119,7 +119,7 @@ public class MediathekKika extends MediathekReader implements Runnable {
 
     private class ThemaLaden implements Runnable {
 
-        GetUrl getUrl = new GetUrl(wartenSeiteLaden);
+        GetUrl getUrl = new GetUrl(getWartenSeiteLaden());
         private MSStringBuilder seite1 = new MSStringBuilder(Const.STRING_BUFFER_START_BUFFER);
         private MSStringBuilder seite2 = new MSStringBuilder(Const.STRING_BUFFER_START_BUFFER);
         private MSStringBuilder seite3 = new MSStringBuilder(Const.STRING_BUFFER_START_BUFFER);
@@ -274,7 +274,7 @@ public class MediathekKika extends MediathekReader implements Runnable {
         void loadAllVideo_1(String url) {
             ArrayList<String> liste = new ArrayList<>();
             try {
-                seite2 = getUrlIo.getUri_Utf(sendername, url, seite2, "KiKa-Sendungen");
+                seite2 = getUrlIo.getUri_Utf(getSendername(), url, seite2, "KiKa-Sendungen");
                 loadAllVideo_2(seite2);
                 if (CrawlerTool.loadLongMax()) {
                     seite2.extractList("", "", "<div class=\"bundleNaviItem active\">\n<a href=\"/videos/allevideos/", "\"", "http://www.kika.de/videos/allevideos/", liste);
@@ -284,7 +284,7 @@ public class MediathekKika extends MediathekReader implements Runnable {
                     if (Config.getStop()) {
                         break;
                     }
-                    seite2 = getUrlIo.getUri_Utf(sendername, u, seite2, "KiKa-Sendungen");
+                    seite2 = getUrlIo.getUri_Utf(getSendername(), u, seite2, "KiKa-Sendungen");
                     loadAllVideo_2(seite2);
                 }
             } catch (Exception ex) {
@@ -315,9 +315,9 @@ public class MediathekKika extends MediathekReader implements Runnable {
 
         void ladenXml(String xmlWebsite, String thema, boolean urlPruefen) {
             try {
-                seite3 = getUrlIo.getUri_Utf(sendername, xmlWebsite, seite3, "" /* Meldung */);
+                seite3 = getUrlIo.getUri_Utf(getSendername(), xmlWebsite, seite3, "" /* Meldung */);
                 if (thema.isEmpty()) {
-                    thema = sendername;
+                    thema = getSendername();
                 }
                 // manuelle Anpassung, Notlösung!!
                 if (thema.equals("ABC-Bär")) {

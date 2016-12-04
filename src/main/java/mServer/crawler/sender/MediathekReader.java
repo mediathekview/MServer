@@ -25,6 +25,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.LinkedList;
+
 import mSearch.Config;
 import mSearch.daten.DatenFilm;
 import mSearch.tool.GermanStringSorter;
@@ -34,128 +35,188 @@ import mServer.crawler.GetUrl;
 import mServer.crawler.RunSender;
 import mServer.crawler.CrawlerTool;
 
-public class MediathekReader implements Runnable {
+public class MediathekReader implements Runnable
+{
 
-    public String sendername = ""; // ist der Name, den der Mediathekreader hat, der ist eindeutig
-    int maxThreadLaufen = 4; // Anzahl der Thread die parallel Suchen
-    int wartenSeiteLaden = 500; //ms, Basiswert zu dem dann der Faktor multipliziert wird, Wartezeit zwischen 2 Websiten beim Absuchen der Sender
-    boolean updateOn = false; //?? brauchts nicht mehr
-    int threads = 0; // aktuelle Anz. laufender Threads
-    int max = 0; // Anz. zu suchender Themen
-    int progress = 0; // Prograss eben
-    int startPrio = 1; // es gibt die Werte: 0->startet sofort, 1->später und 2->zuletzt
-    LinkedListUrl listeThemen = new LinkedListUrl();
-    GetUrl getUrlIo;
-    FilmeSuchen mSearchFilmeSuchen;
+    private String sendername; // ist der Name, den der Mediathekreader hat, der ist eindeutig
+    private int maxThreadLaufen; //4; // Anzahl der Thread die parallel Suchen
+    private int wartenSeiteLaden; //ms, Basiswert zu dem dann der Faktor multipliziert wird, Wartezeit zwischen 2 Websiten beim Absuchen der Sender
+    private int threads; // aktuelle Anz. laufender Threads
+    private int max; // Anz. zu suchender Themen
+    private int progress; // Prograss eben
+    private int startPrio; // es gibt die Werte: 0->startet sofort, 1->später und 2->zuletzt
+    protected GetUrl getUrlIo;
+    protected LinkedListUrl listeThemen;
+    protected FilmeSuchen mSearchFilmeSuchen;
 
-    public MediathekReader(FilmeSuchen mmSearchFilmeSuchen, String name, int ssenderMaxThread, int ssenderWartenSeiteLaden, int sstartPrio) {
-        mSearchFilmeSuchen = mmSearchFilmeSuchen;
-        wartenSeiteLaden = ssenderWartenSeiteLaden;
-        getUrlIo = new GetUrl(ssenderWartenSeiteLaden);
-        sendername = name;
-        maxThreadLaufen = ssenderMaxThread;
-        startPrio = sstartPrio;
+    public MediathekReader(FilmeSuchen aMSearchFilmeSuchen, String aSendername, int aSenderMaxThread, int aSenderWartenSeiteLaden, int aStartPrio)
+    {
+        mSearchFilmeSuchen = aMSearchFilmeSuchen;
+        getUrlIo = new GetUrl(aSenderWartenSeiteLaden);
+
+        maxThreadLaufen = aSenderMaxThread;
+        wartenSeiteLaden = aSenderWartenSeiteLaden;
+        startPrio = aStartPrio;
+        sendername = aSendername;
+
+        threads = 0;
+        max = 0;
+        progress = 0;
+        listeThemen = new LinkedListUrl();
+    }
+
+    public String getSendername()
+    {
+        return sendername;
+    }
+
+    public int getMaxThreadLaufen()
+    {
+        return maxThreadLaufen;
+    }
+
+
+    public int getWartenSeiteLaden()
+    {
+        return wartenSeiteLaden;
+    }
+
+
+    public int getMax()
+    {
+        return max;
+    }
+
+
+    public int getProgress()
+    {
+        return progress;
     }
 
     //===================================
     // public 
     //===================================
-    class LinkedListUrl extends LinkedList<String[]> {
+    class LinkedListUrl extends LinkedList<String[]>
+    {
 
         private static final long serialVersionUID = 1L;
 
         // Hilfsklasse die das einfügen/entnehmen bei mehreren Threads unterstützt
-        synchronized boolean addUrl(String[] e) {
+        synchronized boolean addUrl(String[] e)
+        {
             // e[0] ist immer die URL
-            if (!istInListe(this, e[0], 0)) {
+            if (!istInListe(this, e[0], 0))
+            {
                 return super.add(e);
             }
             return false;
         }
 
-        synchronized String[] getListeThemen() {
+        synchronized String[] getListeThemen()
+        {
             return this.pollFirst();
         }
     }
 
-    public int getStartPrio() {
+    public int getStartPrio()
+    {
         return startPrio;
     }
 
-    public int getThreads() {
-        return maxThreadLaufen;
+    public int getThreads()
+    {
+        return getMaxThreadLaufen();
     }
 
-    public long getWaitTime() {
-        return wartenSeiteLaden;
+    public long getWaitTime()
+    {
+        return getWartenSeiteLaden();
     }
 
-    public boolean checkNameSenderFilmliste(String name) {
+    public boolean checkNameSenderFilmliste(String name)
+    {
         // ist der Name der in der Tabelle Filme angezeigt wird
-        return sendername.equalsIgnoreCase(name);
+        return getSendername().equalsIgnoreCase(name);
     }
 
-    public String getNameSender() {
-        return sendername;
+    public String getNameSender()
+    {
+        return getSendername();
     }
 
-    public void delSenderInAlterListe(String sender) {
+    public void delSenderInAlterListe(String sender)
+    {
         mSearchFilmeSuchen.listeFilmeAlt.deleteAllFilms(sender);
     }
 
-    public void clear() {
+    public void clear()
+    {
         //aufräumen
     }
 
     @Override
-    public void run() {
+    public void run()
+    {
         //alles laden
-        try {
-            updateOn = false;
-            threads = 0;
+        try
+        {
+            threads=0;
             addToList();
-        } catch (Exception ex) {
-            Log.errorLog(397543600, ex, sendername);
+        } catch (Exception ex)
+        {
+            Log.errorLog(397543600, ex, getSendername());
         }
     }
 
-    void addToList() {
+    void addToList()
+    {
         //wird überschrieben, hier werden die Filme gesucht
     }
 
-    void addFilm(DatenFilm film, boolean urlPruefen) {
+    void addFilm(DatenFilm film, boolean urlPruefen)
+    {
         // es werden die gefundenen Filme in die Liste einsortiert
-        if (urlPruefen) {
-            if (mSearchFilmeSuchen.listeFilmeNeu.getFilmByUrl(film.arr[DatenFilm.FILM_URL]) == null) {
+        if (urlPruefen)
+        {
+            if (mSearchFilmeSuchen.listeFilmeNeu.getFilmByUrl(film.arr[DatenFilm.FILM_URL]) == null)
+            {
                 addFilm(film);
             }
-        } else {
+        } else
+        {
             addFilm(film);
         }
     }
 
-    void addFilm(DatenFilm film) {
+    void addFilm(DatenFilm film)
+    {
         // es werden die gefundenen Filme in die Liste einsortiert
-        if (film.arr[DatenFilm.FILM_GROESSE].isEmpty()) {
+        if (film.arr[DatenFilm.FILM_GROESSE].isEmpty())
+        {
             film.arr[DatenFilm.FILM_GROESSE] = mSearchFilmeSuchen.listeFilmeAlt.getFileSizeUrl(film.arr[DatenFilm.FILM_URL], film.arr[DatenFilm.FILM_SENDER]);
         }
         film.setUrlHistory();
         CrawlerTool.setGeo(film);
-        if (mSearchFilmeSuchen.listeFilmeNeu.addFilmVomSender(film)) {
+        if (mSearchFilmeSuchen.listeFilmeNeu.addFilmVomSender(film))
+        {
             // dann ist er neu
             FilmeSuchen.listeSenderLaufen.inc(film.arr[DatenFilm.FILM_SENDER], RunSender.Count.FILME);
         }
     }
 
-    DatenFilm istInFilmListe(String sender, String thema, String titel) {
+    DatenFilm istInFilmListe(String sender, String thema, String titel)
+    {
         return mSearchFilmeSuchen.listeFilmeNeu.istInFilmListe(sender, thema, titel);
     }
 
-    boolean istInListe(LinkedList<String[]> liste, String str, int nr) {
+    boolean istInListe(LinkedList<String[]> liste, String str, int nr)
+    {
         boolean ret = false;
         Iterator<String[]> it = liste.iterator();
-        while (it.hasNext()) {
-            if (it.next()[nr].equals(str)) {
+        while (it.hasNext())
+        {
+            if (it.next()[nr].equals(str))
+            {
                 ret = true;
                 break;
             }
@@ -163,11 +224,14 @@ public class MediathekReader implements Runnable {
         return ret;
     }
 
-    boolean istInListe(LinkedList<String> liste, String str) {
+    boolean istInListe(LinkedList<String> liste, String str)
+    {
         boolean ret = false;
         Iterator<String> it = liste.iterator();
-        while (it.hasNext()) {
-            if (it.next().equals(str)) {
+        while (it.hasNext())
+        {
+            if (it.next().equals(str))
+            {
                 ret = true;
                 break;
             }
@@ -175,114 +239,142 @@ public class MediathekReader implements Runnable {
         return ret;
     }
 
-    synchronized void meldungStart() {
+    synchronized void meldungStart()
+    {
         // meldet den Start eines Suchlaufs
-        max = 0;
-        progress = 0;
+        max=0;
+        progress=0;
         Log.sysLog("===============================================================");
-        Log.sysLog("Starten[" + ((CrawlerTool.loadLongMax()) ? "alles" : "update") + "] " + sendername + ": " + new SimpleDateFormat("HH:mm:ss").format(new Date()));
-        Log.sysLog("   maxThreadLaufen: " + maxThreadLaufen);
-        Log.sysLog("   wartenSeiteLaden: " + wartenSeiteLaden);
+        Log.sysLog("Starten[" + ((CrawlerTool.loadLongMax()) ? "alles" : "update") + "] " + getSendername() + ": " + new SimpleDateFormat("HH:mm:ss").format(new Date()));
+        Log.sysLog("   maxThreadLaufen: " + getMaxThreadLaufen());
+        Log.sysLog("   wartenSeiteLaden: " + getWartenSeiteLaden());
         Log.sysLog("");
-        RunSender runSender = mSearchFilmeSuchen.melden(sendername, max, progress, "" /* text */);
-        runSender.maxThreads = maxThreadLaufen; //runSender ist erst jetzt angelegt
-        runSender.waitOnLoad = wartenSeiteLaden;
+        RunSender runSender = mSearchFilmeSuchen.melden(getSendername(), getMax(), getProgress(), "" /* text */);
+        runSender.maxThreads = getMaxThreadLaufen(); //runSender ist erst jetzt angelegt
+        runSender.waitOnLoad = getWartenSeiteLaden();
     }
 
-    synchronized void meldungAddMax(int mmax) {
-        max += mmax;
-        mSearchFilmeSuchen.melden(sendername, max, progress, "" /* text */);
+    synchronized void meldungAddMax(int mmax)
+    {
+        max=max + mmax;
+        mSearchFilmeSuchen.melden(getSendername(), getMax(), getProgress(), "" /* text */);
     }
 
-    synchronized void meldungAddThread() {
-        ++threads;
-        mSearchFilmeSuchen.melden(sendername, max, progress, "" /* text */);
+    synchronized void meldungAddThread()
+    {
+        threads++;
+        mSearchFilmeSuchen.melden(getSendername(), getMax(), getProgress(), "" /* text */);
     }
 
-    synchronized void meldungProgress(String text) {
-        ++progress;
-        mSearchFilmeSuchen.melden(sendername, max, progress, text);
+    synchronized void meldungProgress(String text)
+    {
+        progress++;
+        mSearchFilmeSuchen.melden(getSendername(), getMax(), getProgress(), text);
     }
 
-    synchronized void meldung(String text) {
-        mSearchFilmeSuchen.melden(sendername, max, progress, text);
+    synchronized void meldung(String text)
+    {
+        mSearchFilmeSuchen.melden(getSendername(), getMax(), getProgress(), text);
     }
 
-    synchronized void meldungThreadUndFertig() {
+    synchronized void meldungThreadUndFertig()
+    {
         // meldet das Ende eines!!! Threads
         // der MediathekReader ist erst fertig wenn alle gestarteten Threads fertig sind!!
-        --threads;
-        if (threads <= 0) {
+        threads--;
+        if (getThreads() <= 0)
+        {
             //wird erst ausgeführt wenn alle Threads beendet sind
-            mSearchFilmeSuchen.meldenFertig(sendername);
-        } else {
+            mSearchFilmeSuchen.meldenFertig(getSendername());
+        } else
+        {
             // läuft noch was
-            mSearchFilmeSuchen.melden(sendername, max, progress, "" /* text */);
+            mSearchFilmeSuchen.melden(getSendername(), getMax(), getProgress(), "" /* text */);
         }
     }
 
     final static int TIMEOUT = 3000; // ms //ToDo evtl. wieder kürzen!!
 
-    public static boolean urlExists(String url) {
+    public static boolean urlExists(String url)
+    {
         // liefert liefert true, wenn es die URL gibt
         // brauchts, um Filmurls zu prüfen
         int retCode;
-        if (!url.toLowerCase().startsWith("http")) {
+        if (!url.toLowerCase().startsWith("http"))
+        {
             return false;
         }
-        try {
+        try
+        {
             HttpURLConnection conn = (HttpURLConnection) new URL(url).openConnection();
             conn.setRequestProperty("User-Agent", Config.getUserAgent());
             conn.setReadTimeout(TIMEOUT);
             conn.setConnectTimeout(TIMEOUT);
-            if ((retCode = conn.getResponseCode()) < 400) {
+            if ((retCode = conn.getResponseCode()) < 400)
+            {
                 return true;
-            } else if (retCode == 403) {
+            } else if (retCode == 403)
+            {
                 // aber sie gibt es :)
                 return true;
             }
             conn.disconnect();
-        } catch (Exception ignored) {
+        } catch (Exception ignored)
+        {
         }
         return false;
     }
 
-    String addsUrl(String pfad1, String pfad2) {
+    String addsUrl(String pfad1, String pfad2)
+    {
         String ret = "";
-        if (pfad1 != null && pfad2 != null) {
-            if (!pfad1.equals("") && !pfad2.equals("")) {
-                if (pfad1.charAt(pfad1.length() - 1) == '/') {
+        if (pfad1 != null && pfad2 != null)
+        {
+            if (!pfad1.equals("") && !pfad2.equals(""))
+            {
+                if (pfad1.charAt(pfad1.length() - 1) == '/')
+                {
                     ret = pfad1.substring(0, pfad1.length() - 1);
-                } else {
+                } else
+                {
                     ret = pfad1;
                 }
-                if (pfad2.charAt(0) == '/') {
+                if (pfad2.charAt(0) == '/')
+                {
                     ret += pfad2;
-                } else {
+                } else
+                {
                     ret += '/' + pfad2;
                 }
             }
         }
-        if (ret.equals("")) {
+        if (ret.equals(""))
+        {
             Log.errorLog(469872800, pfad1 + " " + pfad2);
         }
         return ret;
     }
 
-    static void listeSort(LinkedList<String[]> liste, int stelle) {
+    static void listeSort(LinkedList<String[]> liste, int stelle)
+    {
         //Stringliste alphabetisch sortieren
         GermanStringSorter sorter = GermanStringSorter.getInstance();
-        if (liste != null) {
+        if (liste != null)
+        {
             String str1;
             String str2;
-            for (int i = 1; i < liste.size(); ++i) {
-                for (int k = i; k > 0; --k) {
+            for (int i = 1; i < liste.size(); ++i)
+            {
+                for (int k = i; k > 0; --k)
+                {
                     str1 = liste.get(k - 1)[stelle];
                     str2 = liste.get(k)[stelle];
                     // if (str1.compareToIgnoreCase(str2) > 0) {
-                    if (sorter.compare(str1, str2) > 0) {
+                    if (sorter.compare(str1, str2) > 0)
+                    {
                         liste.add(k - 1, liste.remove(k));
-                    } else {
+                    } else
+                    {
                         break;
                     }
                 }
@@ -290,37 +382,48 @@ public class MediathekReader implements Runnable {
         }
     }
 
-    static long extractDuration(String dauer) {
+    static long extractDuration(String dauer)
+    {
         long dauerInSeconds = 0;
-        if (dauer.isEmpty()) {
+        if (dauer.isEmpty())
+        {
             return 0;
         }
-        try {
-            if (dauer.contains("min")) {
+        try
+        {
+            if (dauer.contains("min"))
+            {
                 dauer = dauer.replace("min", "").trim();
                 dauerInSeconds = Long.parseLong(dauer) * 60;
-            } else {
+            } else
+            {
                 String[] parts = dauer.split(":");
                 long power = 1;
-                for (int i = parts.length - 1; i >= 0; i--) {
+                for (int i = parts.length - 1; i >= 0; i--)
+                {
                     dauerInSeconds += Long.parseLong(parts[i]) * power;
                     power *= 60;
                 }
             }
-        } catch (Exception ex) {
+        } catch (Exception ex)
+        {
             return 0;
         }
         return dauerInSeconds;
     }
 
-    static long extractDurationSec(String dauer) {
+    static long extractDurationSec(String dauer)
+    {
         long dauerInSeconds = 0;
-        if (dauer.isEmpty()) {
+        if (dauer.isEmpty())
+        {
             return 0;
         }
-        try {
+        try
+        {
             dauerInSeconds = Long.parseLong(dauer);
-        } catch (Exception ex) {
+        } catch (Exception ex)
+        {
             return 0;
         }
         return dauerInSeconds;
