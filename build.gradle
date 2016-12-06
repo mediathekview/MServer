@@ -113,6 +113,11 @@ distributions {
     }
 }
 
+task run(type: JavaExec, dependsOn: classes) {
+    main = 'mServer.Main'
+    classpath = sourceSets.main.runtimeClasspath
+}
+
 /**
  * HOWTO debug:
  *  1. run "gradle debug"
