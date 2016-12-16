@@ -7,7 +7,7 @@ import org.apache.tools.ant.filters.ReplaceTokens
 
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
-version = '2.1.0'
+version = '2.2.0'
 
 def jarName = 'MServer.jar'
 def mainClass = 'mServer.Main'
@@ -28,7 +28,7 @@ task copyRuntimeLibs(type: Copy) {
 
 repositories {
     maven {
-          url "https://repo.mediathekview.de/repository/maven-public/"
+        url "https://repo.mediathekview.de/repository/maven-public/"
     }
 }
 
@@ -43,7 +43,7 @@ dependencies {
 
 ext {
     propsFile = file('src/main/resources/version.properties').absoluteFile
-    if(!propsFile.exists()) {
+    if (!propsFile.exists()) {
         Files.createFile(propsFile.toPath())
     }
 }
@@ -57,11 +57,11 @@ def loadVersionProperties() {
 task updateVersion << {
     Properties props = loadVersionProperties()
     def oldVersion = props.getProperty('VERSION')
-    if(!oldVersion.equals(project.version)) {
+    if (!oldVersion.equals(project.version)) {
         logger.lifecycle "==mserver======================"
         logger.lifecycle "Version: $project.version"
         logger.lifecycle "==mserver======================"
-        props.setProperty('VERSION', project.version)	
+        props.setProperty('VERSION', project.version)
         props.store(propsFile.newWriter(), null)
     }
 }
@@ -114,14 +114,32 @@ distributions {
 }
 
 /**
+ * This is how you pass arguments: "./gradlew run -Pargs=arg1,arg2,arg3
+ */
+task run(type: JavaExec, dependsOn: classes) {
+    main = mainClass
+    classpath = sourceSets.main.runtimeClasspath
+
+    if (project.hasProperty('args')) {
+        args(project.args.split(','))
+    }
+
+}
+
+/**
  * HOWTO debug:
  *  1. run "gradle debug"
  *  2. Call your IDE to connect to a remote java application on port 5005.
+ *
+ * This is how you pass arguments: "./gradlew debug -Pargs=arg1,arg2,arg3
  */
-task debug (type: JavaExec, dependsOn: classes){
-    main = 'mServer.Main'
+task debug(type: JavaExec, dependsOn: classes) {
+    main = mainClass
     classpath = sourceSets.main.runtimeClasspath
-    args '-gui'
     debug true
+
+    if (project.hasProperty('args')) {
+        args(project.args.split(','))
+    }
 }
 

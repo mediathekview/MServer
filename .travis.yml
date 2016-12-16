@@ -27,8 +27,8 @@ deploy:
   file_glob: true
   file:
       - "build/libs/MServer-.*.jar"
-      - "build/MServer.*.zip"
-      - "build/MServer.*.tar"
+      - "build/distributions/MServer.*.zip"
+      - "build/distributions/MServer.*.tar"
   skip_cleanup: true
   on:
     tags: true
