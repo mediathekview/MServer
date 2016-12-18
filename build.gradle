@@ -7,7 +7,7 @@ import org.apache.tools.ant.filters.ReplaceTokens
 
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
-version = '2.2.0'
+version = '2.3.0'
 
 def jarName = 'MServer.jar'
 def mainClass = 'mServer.Main'
