@@ -20,15 +20,16 @@
 package mServer.crawler.sender;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import mSearch.Config;
 import mSearch.Const;
 import mSearch.daten.DatenFilm;
 import mSearch.tool.Log;
 import mSearch.tool.MSStringBuilder;
+import mServer.crawler.CrawlerTool;
 import mServer.crawler.FilmeSuchen;
 import mServer.crawler.GetUrl;
-import mServer.crawler.CrawlerTool;
 
 public class MediathekArte_de extends MediathekReader implements Runnable {
 
@@ -40,6 +41,9 @@ public class MediathekArte_de extends MediathekReader implements Runnable {
     String URL_ARTE = "http://www.arte.tv/papi/tvguide/epg/schedule/D/L3/";
     String URL_CONCERT = "http://concert.arte.tv/de/videos/all";
     String URL_CONCERT_NOT_CONTAIN = "-STF";
+    String URL_ARTE_MEDIATHEK = "http://www.arte.tv/guide/de/plus7/alle-videos?date=j-";
+    String TIME_1 = "<li>Sendetermine:</li>";
+    String TIME_2 = "um";
 
     public MediathekArte_de(FilmeSuchen ssearch, int startPrio) {
         super(ssearch, SENDERNAME,/* threads */ 2, /* urlWarten */ 500, startPrio);
@@ -60,7 +64,7 @@ public class MediathekArte_de extends MediathekReader implements Runnable {
         addTage();
         if (Config.getStop()) {
             meldungThreadUndFertig();
-        } else if (listeThemen.size() == 0) {
+        } else if (listeThemen.isEmpty()) {
             if (CrawlerTool.loadLongMax()) {
                 addConcert();
             } else {
@@ -90,15 +94,9 @@ public class MediathekArte_de extends MediathekReader implements Runnable {
     }
 
     private void addTage() {
-        // http://www.arte.tv/papi/tvguide/epg/schedule/D/L3/2013-08-04/2013-8-04.json
-        Date d = new Date();
-        String out1, out2, u;
-        SimpleDateFormat formatter1 = new SimpleDateFormat("yyyy-MM-dd");
-        SimpleDateFormat formatter2 = new SimpleDateFormat("yyyy-M-dd");
+        // http://www.arte.tv/guide/de/plus7/alle-videos?date=j-0
         for (int i = 0; i <= 14; ++i) {
-            out1 = formatter1.format(new Date(d.getTime() - i * (1000 * 60 * 60 * 24)));
-            out2 = formatter2.format(new Date(d.getTime() - i * (1000 * 60 * 60 * 24)));
-            u = URL_ARTE + out1 + "/" + out2 + ".json";
+            String u = URL_ARTE_MEDIATHEK + i;
             listeThemen.add(new String[]{u});
         }
     }
@@ -231,10 +229,10 @@ public class MediathekArte_de extends MediathekReader implements Runnable {
                                     DatenFilm film = new DatenFilm(sendername, THEMA, urlWeb, titel, urlNormal, "" /*urlRtmp*/,
                                             datum, "" /*zeit*/, duration, beschreibung);
                                     if (!urlHd.isEmpty()) {
-                                        CrawlerTool.addUrlHd(film,urlHd, "");
+                                        CrawlerTool.addUrlHd(film, urlHd, "");
                                     }
                                     if (!urlLow.isEmpty()) {
-                                        CrawlerTool.addUrlKlein(film,urlLow, "");
+                                        CrawlerTool.addUrlKlein(film, urlLow, "");
                                     }
                                     addFilm(film);
                                 }
@@ -253,6 +251,8 @@ public class MediathekArte_de extends MediathekReader implements Runnable {
         GetUrl getUrl = new GetUrl(wartenSeiteLaden);
         private final MSStringBuilder seite1 = new MSStringBuilder(Const.STRING_BUFFER_START_BUFFER);
         private final MSStringBuilder seite2 = new MSStringBuilder(Const.STRING_BUFFER_START_BUFFER);
+        private final MSStringBuilder seite3 = new MSStringBuilder(Const.STRING_BUFFER_START_BUFFER);
+        private final ArrayList<String> liste = new ArrayList<>();
 
         @Override
         public void run() {
@@ -261,221 +261,103 @@ public class MediathekArte_de extends MediathekReader implements Runnable {
                 String link[];
                 while (!Config.getStop() && (link = listeThemen.getListeThemen()) != null) {
                     meldungProgress(link[0] /* url */);
-                    addTheman(seite1, seite2, link[0]);
+                    addThemen(link[0]);
                 }
             } catch (Exception ex) {
                 Log.errorLog(894330854, ex, "");
             }
             meldungThreadUndFertig();
         }
-    }
 
-    private void addTheman(MSStringBuilder seite1, MSStringBuilder seite2, String startUrl) {
-        // Datum, Zeit: "BAD":"04/08/2013","BAT":"13:20"
-        final String MUSTER_START = "{\"programId\":";
-        final String MUSTER_URL_JSON = "\"videoStreamUrl\":\"";
-        final String MUSTER_DATUM = "\"BAD\":\"";
-        final String MUSTER_ZEIT = "\"BAT\":\"";
-        final String MUSTER_TITEL = "\"TIT\":\"";
-        final String MUSTER_THEMA = "\"GEN\":\"";
-        String[] arr;
-        seite1 = getUrlIo.getUri_Utf(sendername, startUrl, seite1, "");
-        int posStart = 0, posStop;
-        int pos1;
-        int pos2;
-        int pos;
-        String urlJson;
-        String datum;
-        String zeit;
-        String titel, thema;
-        while ((posStart = seite1.indexOf(MUSTER_START, posStart)) != -1) {
-            posStart += MUSTER_START.length();
-            posStop = seite1.indexOf(MUSTER_START, posStart);
-            urlJson = "";
-            datum = "";
-            zeit = "";
-            titel = "";
-            thema = "";
-            if ((pos1 = seite1.indexOf(MUSTER_URL_JSON, posStart)) != -1) {
-                pos1 += MUSTER_URL_JSON.length();
-                if (posStop == -1 || pos1 < posStop) {
-                    if ((pos2 = seite1.indexOf("\"", pos1)) != -1) {
-                        urlJson = seite1.substring(pos1, pos2);
-                    }
-                }
-            }
-            pos = posStart;
-            while ((pos = seite1.indexOf(MUSTER_DATUM, pos)) != -1) {
-                pos += MUSTER_DATUM.length();
-                if (posStop != -1 && pos > posStop) {
+        private void addThemen(String startUrl) {
+            getUrl.getUri_Utf(sendername, startUrl, seite1, "");
+            seite1.extractList("url&quot;:&quot;http:\\/\\/www.arte.tv", "&quot", liste);
+            for (String s : liste) {
+                if (Config.getStop()) {
                     break;
                 }
-                if (posStop == -1 || pos < posStop) {
-                    if ((pos2 = seite1.indexOf("\"", pos)) != -1) {
-                        datum = seite1.substring(pos, pos2);
-                    }
+                s = "http://www.arte.tv" + s.replace("\\", "");
+                //Datum: url: xx-0 => heute, xx-1 => gestern, ...
+                String date = "";
+                try {
+                    String d = startUrl.substring(startUrl.lastIndexOf("-") + 1);
+                    int iD = Integer.parseInt(d);
+                    SimpleDateFormat form = new SimpleDateFormat("dd.MM.yyyy");
+                    date = form.format(new Date(new Date().getTime() - iD * (1000 * 60 * 60 * 24)));
+                } catch (Exception ignore) {
                 }
-            }
-            pos = posStart;
-            while ((pos = seite1.indexOf(MUSTER_ZEIT, pos)) != -1) {
-                pos += MUSTER_ZEIT.length();
-                if (posStop != -1 && pos > posStop) {
-                    break;
-                }
-                if (posStop == -1 || pos < posStop) {
-                    if ((pos2 = seite1.indexOf("\"", pos)) != -1) {
-                        zeit = seite1.substring(pos, pos2);
-                    }
-                }
-            }
-            if ((pos1 = seite1.indexOf(MUSTER_TITEL, posStart)) != -1) {
-                pos1 += MUSTER_TITEL.length();
-                if (posStop == -1 || pos1 < posStop) {
-                    if ((pos2 = seite1.indexOf("\",", pos1)) != -1) {
-                        titel = seite1.substring(pos1, pos2);
-                        titel = titel.replace("\\", "");
-                    }
-                }
-            }
-            if ((pos1 = seite1.indexOf(MUSTER_THEMA, posStart)) != -1) {
-                pos1 += MUSTER_THEMA.length();
-                if (posStop == -1 || pos1 < posStop) {
-                    if ((pos2 = seite1.indexOf("\"", pos1)) != -1) {
-                        thema = seite1.substring(pos1, pos2);
-                    }
-                }
-            }
-            if (!urlJson.isEmpty()) {
-                arr = new String[]{urlJson, datum, zeit, titel, thema};
-                filmeLaden(seite2, arr);
-            } else {
-//                Log.fehlerMeldung(-956230147, Log.FEHLER_ART_MREADER, "MediathekArte_de.addThemen", "Keine URL: " + startUrl + "**" + count);
+                getFilm1(s, date);
             }
         }
-    }
 
-    void filmeLaden(MSStringBuilder seite, String[] arr) {
-        // url_hd url, url_klein
-        //{"version":"VOF","versionProg":"1","VFO":"HBBTV","VQU":"SQ","VMT":"mp4","VUR":"http://artestras.vo.llnwxd.net/o35/nogeo/HBBTV/042975-013-B_EXT_SQ_2_VOF_00604879_MP4-2200_AMM-HBBTV_EXTRAIT.mp4"},
-        //{"version":"VOF","versionProg":"1","VFO":"HBBTV","VQU":"EQ","VMT":"mp4","VUR":"http://artestras.vo.llnwxd.net/o35/nogeo/HBBTV/042975-013-B_EXT_EQ_2_VOF_00604878_MP4-1500_AMM-HBBTV_EXTRAIT.mp4"},
-        //{"version":"VOF","versionProg":"1","VFO":"HBBTV","VQU":"HQ","VMT":"mp4","VUR":"http://artestras.vo.llnwxd.net/o35/nogeo/HBBTV/042975-013-B_EXT_HQ_2_VOF_00604876_MP4-800_AMM-HBBTV_EXTRAIT.mp4"},
+        private void getFilm1(String filmWebsite, String date) {
+            getUrl.getUri_Utf(sendername, filmWebsite, seite1, "");
+            String title = seite1.extract("<h1 class=\"title\" itemprop=\"name\">", "<");
+            String subtitle = seite1.extract("<h2 class=\"subtitle\">", "<");
+            if (!subtitle.isEmpty() && !title.equals(subtitle)) {
+                title = title + " - " + subtitle;
+            }
+            String thema = seite1.extract("<span class=\"video-meta-genre\">", "<");
+            String description = seite1.extract("<p class=\"program-description-short\">", "<");
+            String duration = seite1.extract("<span class=\"duration\">", "<");
+            long dauer = 0;
+            try {
+                duration = duration.replace("Min.", "");
+                duration = duration.replace("\n", "").trim();
+                dauer = Integer.parseInt(duration) * 60;
+            } catch (Exception ignore) {
+            }
+            String time = seite1.extract(TIME_1, TIME_2, "<"); //Donnerstag, 15. Dezember um 23.30 Uhr
+            time = time.replace("\n", "");
+            time = time.replace("Uhr", "").trim();
+            time = time.replace(".", ":");
+            time = time.replace("h", ":");
+            time = time + ":00";
+            if (time.length() < 8) {
+                time = "0" + time;
+            }
 
-        String datum = "", zeit = "";
-        String urlHd = "", urlKlein = "", url = "";
-        String beschreibung = "";
-        String filmWebsite = "";
-        String dauerStr = "";
-        String titel = "", thema = "", subTitle = "";
-        long dauer = 0;
-        final String MUSTER_BESCHREIBUNG = "\"VDE\":\"";
-        final String MUSTER_FILM_WEBSITE = "\"VUP\":\"";
-        final String MUSTER_URL_HD = "\"HBBTV\",\"VQU\":\"SQ\",\"VMT\":\"mp4\",\"VUR\":\"";
-        final String MUSTER_URL = "HBBTV\",\"VQU\":\"EQ\",\"VMT\":\"mp4\",\"VUR\":\"";
-        final String MUSTER_URL_KLEIN = "HBBTV\",\"VQU\":\"HQ\",\"VMT\":\"mp4\",\"VUR\":\"";
-        final String MUSTER_DAUER = "\"videoDurationSeconds\":";
-        int pos1, pos2;
-        if (Config.getStop()) {
-            return;
-        }
-        meldung(arr[0]);
-        seite = getUrlIo.getUri_Utf(sendername, arr[0], seite, "");
-        if ((pos1 = seite.indexOf(MUSTER_BESCHREIBUNG)) != -1) {
-            pos1 += MUSTER_BESCHREIBUNG.length();
-            if ((pos2 = seite.indexOf("\",", pos1)) != -1) {
-                beschreibung = seite.substring(pos1, pos2);
-                if (!beschreibung.isEmpty() && beschreibung.endsWith("\"")) {
-                    beschreibung = beschreibung.substring(0, beschreibung.length() - 2);
-                }
-            }
-        }
-        if ((pos1 = seite.indexOf(MUSTER_FILM_WEBSITE)) != -1) {
-            pos1 += MUSTER_FILM_WEBSITE.length();
-            if ((pos2 = seite.indexOf("\"", pos1)) != -1) {
-                filmWebsite = seite.substring(pos1, pos2);
-            }
-        }
-        if ((pos1 = seite.indexOf(MUSTER_URL_HD)) != -1) {
-            pos1 += MUSTER_URL_HD.length();
-            if ((pos2 = seite.indexOf("\"", pos1)) != -1) {
-                urlHd = seite.substring(pos1, pos2);
-            }
-        }
-        if ((pos1 = seite.indexOf(MUSTER_URL_KLEIN)) != -1) {
-            pos1 += MUSTER_URL_KLEIN.length();
-            if ((pos2 = seite.indexOf("\"", pos1)) != -1) {
-                urlKlein = seite.substring(pos1, pos2);
-            }
-        }
-        if ((pos1 = seite.indexOf(MUSTER_URL)) != -1) {
-            pos1 += MUSTER_URL.length();
-            if ((pos2 = seite.indexOf("\"", pos1)) != -1) {
-                url = seite.substring(pos1, pos2);
-            }
-        }
-        if ((pos1 = seite.indexOf(MUSTER_DAUER)) != -1) {
-            pos1 += MUSTER_DAUER.length();
-            if ((pos2 = seite.indexOf(",", pos1)) != -1) {
-                dauerStr = seite.substring(pos1, pos2);
-                if (!dauerStr.isEmpty()) {
-                    try {
-                        dauer = Long.parseLong(dauerStr);
-                    } catch (Exception ex) {
-                        dauer = 0;
-                    }
+            String fUrl = seite1.extract("src=\"http://www.arte.tv/player", "\"");
 
-                }
+            if (!fUrl.isEmpty()) {
+                fUrl = "http://www.arte.tv/player" + fUrl;
+                meldung(fUrl);
+                getFilm2(fUrl, filmWebsite, thema, title, description, dauer, date, time);
             }
         }
-        // Datum ändern
-        // arr = new String[]{urlJson, datum, zeit, titel, thema};
-        datum = convertDatum(arr[1]);
-        zeit = convertZeit(arr[2]);
-        titel = arr[3];
-        subTitle = seite.extract("\"VSU\":\"", "\",");
-        subTitle = subTitle.replace("\\\"", "\"");
-        if (!subTitle.isEmpty() && !titel.equals(subTitle)) {
-            titel = titel + " - " + subTitle;
-        }
-        thema = arr[4];
-        if (!url.isEmpty()) {
-            //    public DatenFilm(String ssender, String tthema, String filmWebsite, String ttitel, String uurl, String uurlRtmp,
-            //         String datum, String zeit, long dauerSekunden, String description, String thumbnailUrl, String imageUrl, String[] keywords) {
-            if (!url.endsWith("EXTRAIT.mp4")) {
+
+        private void getFilm2(String urlWeb, String filmWebsite, String thema, String title, String description, long dauer, String date, String time) {
+            getUrl.getUri_Utf(sendername, urlWeb, seite1, "");
+            String urlHd = seite1.extract("\"id\":\"HTTP_MP4_SQ_1\"", "\"url\":\"", "\"").replace("\\", "");
+            String urlNorm = seite1.extract("\"id\":\"HTTP_MP4_EQ_1\"", "\"url\":\"", "\"").replace("\\", "");
+            String urlKlein = seite1.extract("\"id\":\"HTTP_MP4_HQ_1\"", "\"url\":\"", "\"").replace("\\", "");
+
+            if (urlNorm.isEmpty() && !urlKlein.isEmpty()) {
+                urlNorm = urlKlein;
+                urlKlein = "";
+            }
+            if (urlNorm.isEmpty() && !urlHd.isEmpty()) {
+                urlNorm = urlHd;
+                urlHd = "";
+            }
+
+            if (!urlNorm.isEmpty() && !urlNorm.endsWith("EXTRAIT.mp4")) {
                 // http://artestras.vo.llnwxd.net/o35/nogeo/HBBTV/042975-013-B_EXT_SQ_1_VA_00604871_MP4-2200_AMM-HBBTV_EXTRAIT.mp4
                 // sind nur Trailer
-                DatenFilm film = new DatenFilm(sendername, thema, filmWebsite, titel, url, "" /*urlRtmp*/,
-                        datum, zeit, dauer, beschreibung);
+                DatenFilm film = new DatenFilm(sendername, thema, filmWebsite, title, urlNorm, "" /*urlRtmp*/,
+                        date, time, dauer, description);
                 if (!urlKlein.isEmpty()) {
-                    CrawlerTool.addUrlKlein(film,urlKlein, "");
+                    CrawlerTool.addUrlKlein(film, urlKlein, "");
                 }
                 if (!urlHd.isEmpty()) {
-                    CrawlerTool.addUrlHd(film,urlHd, "");
+                    CrawlerTool.addUrlHd(film, urlHd, "");
                 }
                 addFilm(film);
+            } else {
+                Log.errorLog(915263647, "Keine URL: " + filmWebsite);
             }
-        } else if (!urlKlein.isEmpty()) {
-            DatenFilm film = new DatenFilm(sendername, thema, filmWebsite, titel, urlKlein, "" /*urlRtmp*/,
-                    datum, zeit, dauer, beschreibung);
-            if (!urlHd.isEmpty()) {
-                CrawlerTool.addUrlHd(film,urlHd, "");
-            }
-            addFilm(film);
-        } else if (!urlHd.isEmpty()) {
-            DatenFilm film = new DatenFilm(sendername, thema, filmWebsite, titel, urlHd, "" /*urlRtmp*/,
-                    datum, zeit, dauer, beschreibung);
-            addFilm(film);
-        } else {
-            Log.errorLog(963025874, "Keine URL: " + arr[0]);
         }
+
     }
 
-    String convertDatum(String datum) {
-        // "BAD":"04/08/2013","BAT":"13:20"
-        return datum.replace("/", ".");
-    }
-
-    String convertZeit(String zeit) {
-        // "BAD":"04/08/2013","BAT":"13:20"
-        return zeit + ":00";
-    }
 }
