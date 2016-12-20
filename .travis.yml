@@ -5,12 +5,13 @@ addons:
   sonarqube: true
 env:
   global:
-  - secure: pHmSb+3bIvSj1iA5j4MIgRv1ogRH1w7NKlfPxAPDXYq+AQZOyyAhWm/nTMq0mtX9x5RsrM8c7YUN7ds+pTpE5JpcA+rlOSibj+ziDeLhpmDzcBt+YUltTOxP7EVrAAmHBTu7DGjPmTLvfzLfpyGNkv6yuIXNo/oIs6BRMwQ2xHa1QdkQ/gkS6nxgh7UhqtDmNix/idHjX/a5PEX8Qse3ZvKBvt1kgrKcVN1ysOtcHKvhQ5ddMAj+7PM+aLuAPTlysfqMYN1gW+cpWOJrHriV7vGCU6lz34s2yM19wFmRFOo7yht3FhAwH8Rt6aTtwpC3HN5DzwqhcicHQkoyv59KMiBbUBN9w5SGqit+/HtFOQ9vgyV5qo5Il/UkbVGUXXl9WcY+zPV2XTlO3LH5o36Bn+da/HRdmlvveMZT8tJ5137YSQhrQRZdOVEDBWuAZmUiTh94c9u3owU85TFzS97fqWi5bvpbyIU749oGhWGv/zxmOEJmtinnQpUAJqS9fFrXrFFtjdLF6vNYWc1f1y7Xg57pLZYK0NcClWc77QwCX5WHy6VPdj3elIJHyv+3DKQw9VBrfV+bRE4b6uvLuDkllBztYECstYR1uJTOumVnhufc12GrD51m+IRqtzEp4+OlNunKsoInNGsJYyaz3t8VcdAwEN4lTE7Se7ijehIpHRA=
+    - secure: pHmSb+3bIvSj1iA5j4MIgRv1ogRH1w7NKlfPxAPDXYq+AQZOyyAhWm/nTMq0mtX9x5RsrM8c7YUN7ds+pTpE5JpcA+rlOSibj+ziDeLhpmDzcBt+YUltTOxP7EVrAAmHBTu7DGjPmTLvfzLfpyGNkv6yuIXNo/oIs6BRMwQ2xHa1QdkQ/gkS6nxgh7UhqtDmNix/idHjX/a5PEX8Qse3ZvKBvt1kgrKcVN1ysOtcHKvhQ5ddMAj+7PM+aLuAPTlysfqMYN1gW+cpWOJrHriV7vGCU6lz34s2yM19wFmRFOo7yht3FhAwH8Rt6aTtwpC3HN5DzwqhcicHQkoyv59KMiBbUBN9w5SGqit+/HtFOQ9vgyV5qo5Il/UkbVGUXXl9WcY+zPV2XTlO3LH5o36Bn+da/HRdmlvveMZT8tJ5137YSQhrQRZdOVEDBWuAZmUiTh94c9u3owU85TFzS97fqWi5bvpbyIU749oGhWGv/zxmOEJmtinnQpUAJqS9fFrXrFFtjdLF6vNYWc1f1y7Xg57pLZYK0NcClWc77QwCX5WHy6VPdj3elIJHyv+3DKQw9VBrfV+bRE4b6uvLuDkllBztYECstYR1uJTOumVnhufc12GrD51m+IRqtzEp4+OlNunKsoInNGsJYyaz3t8VcdAwEN4lTE7Se7ijehIpHRA=
 script:
-- "./gradlew check build"
-- sonar-scanner -Dsonar.login=$SONAR_TOKEN
+  - "./gradlew check build"
+after_success:
+  - sonar-scanner -Dsonar.login=$SONAR_TOKEN
 before_cache:
-- rm -f $HOME/.gradle/caches/modules-2/modules-2.lock
+  - rm -f $HOME/.gradle/caches/modules-2/modules-2.lock
 cache:
   directories:
   - "$HOME/.gradle/caches/"
@@ -22,8 +23,8 @@ deploy:
     secure: yZv3QsIr8M1rFEuRpgyYZwrAgeHtd0LVkpG9DIsLLNhboApz9LCMcU0dbYxRYi8A5V3MCD+X/rtWsWHfapIjRcoVAyi8f7YWWvz+dnjwOxKi+gHabonnUvIyFAEr8WE+Br5MYOr0GTYiEhiUMrSLg20wBWlqH5LD1Mp/dYd2e80EWN8jcZJRK/rO1CDa78esgaaBMp1Pb/6+E9jS+fuEpLuKocqacA0eHtRrPtPFbTJdVH9amQxfcF3UfEV7/0D8tGlL2cH3J45zYQ0sg/qnWqv6Vtt6W0x6H3pFrEfrkAww8jvV5sKGxyz1/bqLOQJkF8mCotjGox9pkL97/cyf+s+L3Mcux98fK9u7NOzizfFMYz5GgY1K/q0l7hzfzh6JSVPcZ/hHdH0VRqcUVgqXB//wPgs2JNGLj/nGLyxY7T53U5hJOhsqFyGGcbnpZ+thEWlB5wrbPi5PwKCtWvf+Y6H/AePxCRQEie25lwi+M2MCIPjSUB65mXoQnXy3oQahiYWPU0HIpD0Om9fp6UK5x8LXMAx3DeH6wbI7qB2gylygOxuUm0AmojieOeLaQFVK7cvcy9c2W16xyfDUDczkEnceosCe8b2nK/yifKeOfFU/eUiEdzl9ZZvOMf9y4YImQl0ZlQlvYknPGLK/myGLPlJrJhP92XtSiYESsrWOEFw=
   file_glob: true
   file:
-      - build/libs/*.jar
-      - build/distributions/*
+    - build/libs/*.jar
+    - build/distributions/*
   skip_cleanup: true
   on:
     tags: true
