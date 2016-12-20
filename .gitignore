@@ -21,4 +21,5 @@ start*.sh
 build/
 
 version.properties
+RepoZugang.properties
 
