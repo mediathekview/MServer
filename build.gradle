@@ -1,5 +1,6 @@
 apply plugin: 'java'
 apply plugin: 'distribution'
+apply plugin: 'maven'
 apply from: "${project.rootDir}/gradle/eclipse.gradle"
 import java.nio.file.Files
 import java.nio.file.Paths
@@ -7,6 +8,7 @@ import org.apache.tools.ant.filters.ReplaceTokens
 
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
+group = 'de.mediathekview'
 version = '2.3.0'
 
 def jarName = 'MServer.jar'
@@ -46,6 +48,10 @@ ext {
     if (!propsFile.exists()) {
         Files.createFile(propsFile.toPath())
     }
+    repoZugangFile = file('scripte/deploy/RepoZugang.properties').absoluteFile
+    if (!repoZugangFile.exists()) {
+        Files.createFile(repoZugangFile.toPath())
+    }
 }
 
 def loadVersionProperties() {
@@ -53,6 +59,27 @@ def loadVersionProperties() {
     props.load(propsFile.newDataInputStream())
     return props
 }
+
+def loadRepoZugangProperties() {
+    Properties props = new Properties()
+    props.load(repoZugangFile.newDataInputStream())
+    return props
+}
+
+uploadArchives {
+    repositories.mavenDeployer {
+        Properties props = loadRepoZugangProperties()
+        def nexusUser = props.getProperty('repoUser')
+        def nexusPw = props.getProperty('repoPw')
+        repository(url: "https://repo.mediathekview.de/repository/maven-releases/") {
+            authentication(userName:  nexusUser, password:  nexusPw)
+        }
+        snapshotRepository(url: "https://repo.mediathekview.de/repository/maven-snapshots/") {
+            authentication(userName:  nexusUser, password:  nexusPw)
+        }
+    }
+}
+build.dependsOn(install)
 
 task updateVersion << {
     Properties props = loadVersionProperties()
@@ -140,6 +167,32 @@ task debug(type: JavaExec, dependsOn: classes) {
 
     if (project.hasProperty('args')) {
         args(project.args.split(','))
+    }
+}
+
+/**
+ * <b>You don't have to call this. Travis will do it for you if a new releass (tag) will be build!<b/>
+ * Call this so: './gradlew build release -PnexusUser=[NEXUS_USER] -PnexusPw=[NEXUS_PASSWORD]'
+ */
+task release(dependsOn: 'uploadArchives') {
+    doLast {
+        println 'Released Version '+version
+    }
+}
+
+/**
+ * <b>You don't have to call this. Travis will do it for you if you push to develop!<b/>
+ * Call this so: './gradlew build releaseSnapshot -PnexusUser=[NEXUS_USER] -PnexusPw=[NEXUS_PASSWORD]'
+ */
+task releaseSnapshot(dependsOn: 'uploadArchives') {
+    doLast {
+        println 'Released Snapshot Version '+version
+    }
+}
+
+gradle.taskGraph.whenReady {taskGraph ->
+    if (!taskGraph.hasTask(release)) {
+        version = version+'-SNAPSHOT'
     }
 }
 
