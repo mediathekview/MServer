@@ -41,7 +41,8 @@ public class MediathekArte_de extends MediathekReader implements Runnable {
     String URL_ARTE = "http://www.arte.tv/papi/tvguide/epg/schedule/D/L3/";
     String URL_CONCERT = "http://concert.arte.tv/de/videos/all";
     String URL_CONCERT_NOT_CONTAIN = "-STF";
-    String URL_ARTE_MEDIATHEK = "http://www.arte.tv/guide/de/plus7/alle-videos?date=j-";
+    String URL_ARTE_MEDIATHEK_1 = "http://www.arte.tv/guide/de/plus7/videos?day=-";
+    String URL_ARTE_MEDIATHEK_2 = "&page=1&isLoading=true&sort=newest&country=DE";
     String TIME_1 = "<li>Sendetermine:</li>";
     String TIME_2 = "um";
 
@@ -94,9 +95,9 @@ public class MediathekArte_de extends MediathekReader implements Runnable {
     }
 
     private void addTage() {
-        // http://www.arte.tv/guide/de/plus7/alle-videos?date=j-0
+        // http://www.arte.tv/guide/de/plus7/videos?day=-2&page=1&isLoading=true&sort=newest&country=DE
         for (int i = 0; i <= 14; ++i) {
-            String u = URL_ARTE_MEDIATHEK + i;
+            String u = URL_ARTE_MEDIATHEK_1 + i + URL_ARTE_MEDIATHEK_2;
             listeThemen.add(new String[]{u});
         }
     }
@@ -270,8 +271,9 @@ public class MediathekArte_de extends MediathekReader implements Runnable {
         }
 
         private void addThemen(String startUrl) {
+            // http://www.arte.tv/guide/de/plus7/videos?day=-2&page=1&isLoading=true&sort=newest&country=DE
             getUrl.getUri_Utf(sendername, startUrl, seite1, "");
-            seite1.extractList("url&quot;:&quot;http:\\/\\/www.arte.tv", "&quot", liste);
+            seite1.extractList("\"url\":\"http:\\/\\/www.arte.tv", "\"", liste);
             for (String s : liste) {
                 if (Config.getStop()) {
                     break;
@@ -280,7 +282,7 @@ public class MediathekArte_de extends MediathekReader implements Runnable {
                 //Datum: url: xx-0 => heute, xx-1 => gestern, ...
                 String date = "";
                 try {
-                    String d = startUrl.substring(startUrl.lastIndexOf("-") + 1);
+                    String d = startUrl.substring(startUrl.lastIndexOf("day=-") + "day=-".length(), startUrl.indexOf("&page="));
                     int iD = Integer.parseInt(d);
                     SimpleDateFormat form = new SimpleDateFormat("dd.MM.yyyy");
                     date = form.format(new Date(new Date().getTime() - iD * (1000 * 60 * 60 * 24)));
@@ -302,6 +304,7 @@ public class MediathekArte_de extends MediathekReader implements Runnable {
             String duration = seite1.extract("<span class=\"duration\">", "<");
             long dauer = 0;
             try {
+                duration = duration.replace("min", "");
                 duration = duration.replace("Min.", "");
                 duration = duration.replace("\n", "").trim();
                 dauer = Integer.parseInt(duration) * 60;
