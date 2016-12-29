@@ -30,10 +30,10 @@ import mSearch.Config;
 import mSearch.daten.DatenFilm;
 import mSearch.tool.GermanStringSorter;
 import mSearch.tool.Log;
+import mServer.crawler.CrawlerTool;
 import mServer.crawler.FilmeSuchen;
 import mServer.crawler.GetUrl;
 import mServer.crawler.RunSender;
-import mServer.crawler.CrawlerTool;
 
 public class MediathekReader implements Runnable
 {
@@ -195,6 +195,18 @@ public class MediathekReader implements Runnable
         {
             film.arr[DatenFilm.FILM_GROESSE] = mSearchFilmeSuchen.listeFilmeAlt.getFileSizeUrl(film.arr[DatenFilm.FILM_URL], film.arr[DatenFilm.FILM_SENDER]);
         }
+
+//        // zum Testen
+//        if (film.isHD()) {
+//            return;
+//        }
+
+        upgradeUrl(film);
+
+//        if (!film.isHD()) {
+//            return;
+//        }
+
         film.setUrlHistory();
         CrawlerTool.setGeo(film);
         if (mSearchFilmeSuchen.listeFilmeNeu.addFilmVomSender(film))
@@ -295,8 +307,51 @@ public class MediathekReader implements Runnable
 
     final static int TIMEOUT = 3000; // ms //ToDo evtl. wieder kürzen!!
 
-    public static boolean urlExists(String url)
-    {
+    private void upgradeUrl(DatenFilm film) {
+        // versuchen HD anhand der URL zu suchen, wo noch nicht vorhanden
+        if (film.isHD()) {
+            return;
+        }
+
+        // http://media.ndr.de/progressive/2016/0817/TV-20160817-1113-2300.hq.mp4
+        // http://media.ndr.de/progressive/2016/0817/TV-20160817-1113-2300.hd.mp4 -> HD
+        if (film.arr[DatenFilm.FILM_URL].startsWith("http://media.ndr.de") && film.arr[DatenFilm.FILM_URL].endsWith(".hq.mp4")) {
+            String from = film.arr[DatenFilm.FILM_URL];
+            String to = film.arr[DatenFilm.FILM_URL].replace(".hq.mp4", ".hd.mp4");
+            updateHd(from, to, film);
+        }
+
+        // http://cdn-storage.br.de/iLCpbHJGNLT6NK9HsLo6s61luK4C_2rc571S/_AJS/_ArG_2bP_71S/583da0ef-3e92-4648-bb22-1b14d739aa91_C.mp4
+        // http://cdn-storage.br.de/iLCpbHJGNLT6NK9HsLo6s61luK4C_2rc571S/_AJS/_ArG_2bP_71S/583da0ef-3e92-4648-bb22-1b14d739aa91_X.mp4 -> HD
+        if (film.arr[DatenFilm.FILM_URL].startsWith("http://cdn-storage.br.de") && film.arr[DatenFilm.FILM_URL].endsWith("_C.mp4")) {
+            String from = film.arr[DatenFilm.FILM_URL];
+            String to = film.arr[DatenFilm.FILM_URL].replace("_C.mp4", "_X.mp4");
+            updateHd(from, to, film);
+        }
+
+        // http://pd-ondemand.swr.de/das-erste/buffet/904278.l.mp4
+        // http://pd-ondemand.swr.de/das-erste/buffet/904278.xl.mp4 -> HD
+        if (film.arr[DatenFilm.FILM_URL].startsWith("http://pd-ondemand.swr.de") && film.arr[DatenFilm.FILM_URL].endsWith(".l.mp4")) {
+            String from = film.arr[DatenFilm.FILM_URL];
+            String to = film.arr[DatenFilm.FILM_URL].replace(".l.mp4", ".xl.mp4");
+            updateHd(from, to, film);
+        }
+    }
+
+    private void updateHd(String from, String to, DatenFilm film) {
+        if (film.arr[DatenFilm.FILM_URL_HD].isEmpty() && film.arr[DatenFilm.FILM_URL].endsWith(from)) {
+            String url_ = film.arr[DatenFilm.FILM_URL].substring(0, film.arr[DatenFilm.FILM_URL].lastIndexOf(from)) + to;
+            // zum Testen immer machen!!
+            if (urlExists(url_)) {
+                CrawlerTool.addUrlHd(film, url_, "");
+                //Log.sysLog("upgradeUrl: " + film.arr[DatenFilm.FILM_SENDER]);
+            } else {
+                Log.errorLog(945120347, "upgradeUrl: " + from);
+            }
+        }
+    }
+
+    public static boolean urlExists(String url) {
         // liefert liefert true, wenn es die URL gibt
         // brauchts, um Filmurls zu prüfen
         int retCode;
