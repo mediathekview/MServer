@@ -272,7 +272,7 @@ public class MediathekArte_de extends MediathekReader implements Runnable {
 
         private void addThemen(String startUrl) {
             // http://www.arte.tv/guide/de/plus7/videos?day=-2&page=1&isLoading=true&sort=newest&country=DE
-            getUrl.getUri_Utf(sendername, startUrl, seite1, "");
+            getUrl.getUri_Utf(getSendername(), startUrl, seite1, "");
             seite1.extractList("\"url\":\"http:\\/\\/www.arte.tv", "\"", liste);
             for (String s : liste) {
                 if (Config.getStop()) {
@@ -293,7 +293,7 @@ public class MediathekArte_de extends MediathekReader implements Runnable {
         }
 
         private void getFilm1(String filmWebsite, String date) {
-            getUrl.getUri_Utf(sendername, filmWebsite, seite1, "");
+            getUrl.getUri_Utf(getSendername(), filmWebsite, seite1, "");
             String title = seite1.extract("<h1 class=\"title\" itemprop=\"name\">", "<");
             String subtitle = seite1.extract("<h2 class=\"subtitle\">", "<");
             if (!subtitle.isEmpty() && !title.equals(subtitle)) {
@@ -330,7 +330,7 @@ public class MediathekArte_de extends MediathekReader implements Runnable {
         }
 
         private void getFilm2(String urlWeb, String filmWebsite, String thema, String title, String description, long dauer, String date, String time) {
-            getUrl.getUri_Utf(sendername, urlWeb, seite1, "");
+            getUrl.getUri_Utf(getSendername(), urlWeb, seite1, "");
             String urlHd = seite1.extract("\"id\":\"HTTP_MP4_SQ_1\"", "\"url\":\"", "\"").replace("\\", "");
             String urlNorm = seite1.extract("\"id\":\"HTTP_MP4_EQ_1\"", "\"url\":\"", "\"").replace("\\", "");
             String urlKlein = seite1.extract("\"id\":\"HTTP_MP4_HQ_1\"", "\"url\":\"", "\"").replace("\\", "");
@@ -347,7 +347,7 @@ public class MediathekArte_de extends MediathekReader implements Runnable {
             if (!urlNorm.isEmpty() && !urlNorm.endsWith("EXTRAIT.mp4")) {
                 // http://artestras.vo.llnwxd.net/o35/nogeo/HBBTV/042975-013-B_EXT_SQ_1_VA_00604871_MP4-2200_AMM-HBBTV_EXTRAIT.mp4
                 // sind nur Trailer
-                DatenFilm film = new DatenFilm(sendername, thema, filmWebsite, title, urlNorm, "" /*urlRtmp*/,
+                DatenFilm film = new DatenFilm(getSendername(), thema, filmWebsite, title, urlNorm, "" /*urlRtmp*/,
                         date, time, dauer, description);
                 if (!urlKlein.isEmpty()) {
                     CrawlerTool.addUrlKlein(film, urlKlein, "");
