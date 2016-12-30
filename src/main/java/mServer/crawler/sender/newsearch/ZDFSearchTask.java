@@ -61,7 +61,7 @@ public class ZDFSearchTask extends RecursiveTask<Collection<FilmDAO>>
         super();
 
         filmList = new ArrayList<>();
-        gson = new GsonBuilder().registerTypeAdapter(ZDFFilmDTO.class, new ZDFFilmDTODeserializer())
+        gson = new GsonBuilder().registerTypeAdapter(ZDFEntryDTO.class, new ZDFEntryDTODeserializer())
                 .create();
 
         page = aPage;
@@ -98,11 +98,11 @@ public class ZDFSearchTask extends RecursiveTask<Collection<FilmDAO>>
 
             JsonObject baseObject = new Gson().fromJson(jsonOutput, JsonObject.class);
 
-            Type zdfFilmListType = new TypeToken<Collection<ZDFFilmDTO>>()
+            Type zdfFilmListType = new TypeToken<Collection<ZDFEntryDTO>>()
             {
             }.getType();
-            Collection<ZDFFilmDTO> zdfFilmDTOList = gson.fromJson(baseObject.getAsJsonArray(JSON_ELEMENT_RESULTS).toString(), zdfFilmListType);
-            for (ZDFFilmDTO zdfFilmDTO : zdfFilmDTOList)
+            Collection<ZDFEntryDTO> zdfEntryDTOList = gson.fromJson(baseObject.getAsJsonArray(JSON_ELEMENT_RESULTS).toString(), zdfFilmListType);
+            for (ZDFEntryDTO zdfEntryDTO : zdfEntryDTOList)
             {
                 //TODO Run RecursivTask to convert to DAO with all Informations.
             }
