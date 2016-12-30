@@ -5,7 +5,7 @@ import com.google.gson.*;
 import java.lang.reflect.Type;
 
 /**
- * A JSON deserializer to gather the needed informations for a {@link ZDFEntryDTO}.
+ * A JSON deserializer to gather the needed information for a {@link ZDFEntryDTO}.
  */
 public class ZDFEntryDTODeserializer implements JsonDeserializer<ZDFEntryDTO>
 {

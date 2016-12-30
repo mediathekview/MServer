@@ -1,4 +1,4 @@
-package mServer.crawler.sender;
+package mServer.crawler.sender.newsearch;
 
 public enum Qualities
 {

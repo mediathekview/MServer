@@ -1,5 +1,7 @@
 package mServer.crawler.sender;
 
+import mServer.crawler.sender.newsearch.Qualities;
+
 import java.net.URI;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;

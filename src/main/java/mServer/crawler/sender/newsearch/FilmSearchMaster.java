@@ -19,20 +19,9 @@
  */
 package mServer.crawler.sender.newsearch;
 
-import mSearch.Config;
-import mSearch.Const;
 import mSearch.daten.DatenFilm;
-import mSearch.daten.ListeFilme;
-import mSearch.filmeSuchen.ListenerFilmeLaden;
-import mSearch.filmeSuchen.ListenerFilmeLadenEvent;
-import mSearch.tool.Log;
-import mServer.crawler.CrawlerTool;
-import mServer.crawler.ListeRunSender;
-import mServer.crawler.RunSender;
 import mServer.crawler.sender.*;
 
-import javax.swing.event.EventListenerList;
-import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.concurrent.*;
 
@@ -42,7 +31,7 @@ public class FilmSearchMaster
 
     private Collection<Film> filmList;
 
-    private ConcurrentMap<Sender,ForkJoinTask<FilmDAO>> tasks;
+    private ConcurrentMap<Sender,ForkJoinTask<VideoDTO>> tasks;
 
 
 
@@ -53,7 +42,7 @@ public class FilmSearchMaster
     }
 
     public FilmSearchMaster() {
-        tasks = new ConcurrentHashMap<Sender,ForkJoinTask<FilmDAO>>();
+        tasks = new ConcurrentHashMap<Sender,ForkJoinTask<VideoDTO>>();
         addTask(Sender.OLD,new OldRunnerTask());
         addTask(Sender.ZDF,new ZDFSearchTask());
     }

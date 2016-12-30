@@ -15,7 +15,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.concurrent.RecursiveTask;
 
-public class ZDFSearchTask extends RecursiveTask<Collection<FilmDAO>>
+public class ZDFSearchTask extends RecursiveTask<Collection<VideoDTO>>
 {
     private static final String PROPERTY_HAS_VIDEO = "hasVideo";
     private static final String PROPERTY_SEARCHPARAM_Q = "q";
@@ -29,25 +29,25 @@ public class ZDFSearchTask extends RecursiveTask<Collection<FilmDAO>>
     private static final String PROPERTY_SORT_BY = "sortBy";
     private static final String SORT_BY_DATE = "date";
     private static final String PROPERTY_PAGE = "page";
-    public static final String ZDF_BASE_URL = "https://api.zdf.de//search/documents";
-    public static final String HEADER_ACCESS_CONTROL_REQUEST_HEADERS = "Access-Control-Request-Headers";
-    public static final String HEADER_ACCESS_CONTROL_REQUEST_METHOD = "access-control-request-method";
-    public static final String HEADER_API_AUTH = "api-auth";
-    public static final String HEADER_HOST = "host";
-    public static final String HEADER_ORIGIN = "origin";
-    public static final String HEADER_USER_AGENT = "user-agent";
-    public static final String ACCESS_CONTROL_API_AUTH = "api-auth";
-    public static final String ACCESS_CONTROL_REQUEST_METHOD_GET = "GET";
-    public static final String HOST = "api.zdf.de";
-    public static final String ORIGIN = "https://www.zdf.de";
-    public static final String USER_AGENT = "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:50.0) Gecko/20100101 Firefox/50.0";
-    public static final String API_TOKEN = "Bearer f4ba81fa117681c42383194a7103251db2981962";
-    public static final String JSON_ELEMENT_NEXT = "next";
-    public static final String JSON_ELEMENT_RESULTS = "http://zdf.de/rels/search/results";
+    private static final String ZDF_BASE_URL = "https://api.zdf.de//search/documents";
+    private static final String HEADER_ACCESS_CONTROL_REQUEST_HEADERS = "Access-Control-Request-Headers";
+    private static final String HEADER_ACCESS_CONTROL_REQUEST_METHOD = "access-control-request-method";
+    private static final String HEADER_API_AUTH = "api-auth";
+    private static final String HEADER_HOST = "host";
+    private static final String HEADER_ORIGIN = "origin";
+    private static final String HEADER_USER_AGENT = "user-agent";
+    private static final String ACCESS_CONTROL_API_AUTH = "api-auth";
+    private static final String ACCESS_CONTROL_REQUEST_METHOD_GET = "GET";
+    private static final String HOST = "api.zdf.de";
+    private static final String ORIGIN = "https://www.zdf.de";
+    private static final String USER_AGENT = "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:50.0) Gecko/20100101 Firefox/50.0";
+    private static final String API_TOKEN = "Bearer f4ba81fa117681c42383194a7103251db2981962";
+    private static final String JSON_ELEMENT_NEXT = "next";
+    private static final String JSON_ELEMENT_RESULTS = "http://zdf.de/rels/search/results";
     private static DateTimeFormatter DATE_TIME_FORMAT = DateTimeFormatter.ISO_OFFSET_DATE_TIME;
     private final Gson gson;
 
-    private Collection<FilmDAO> filmList;
+    private Collection<VideoDTO> filmList;
 
     private int page;
 
@@ -69,7 +69,7 @@ public class ZDFSearchTask extends RecursiveTask<Collection<FilmDAO>>
 
 
     @Override
-    protected Collection<FilmDAO> compute()
+    protected Collection<VideoDTO> compute()
     {
         try
         {

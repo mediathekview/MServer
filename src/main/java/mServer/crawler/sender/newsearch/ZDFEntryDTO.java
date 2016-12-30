@@ -3,49 +3,49 @@ package mServer.crawler.sender.newsearch;
 import java.io.Serializable;
 
 /**
- * A Data-Transfer-Object to transfer the URL with the general informations and the download informations.
+ * A Data-Transfer-Object to transfer the URL with the general information and the download information.
  */
 public class ZDFEntryDTO implements Serializable
 {
     private static final String BASE_URL = "https://api.zdf.de";
-    private String entryGeneralInformationsUrl; //canonical
-    private String entryDownloadInformationsUrl; //ptmd-template
+    private String entryGeneralInformationUrl; //canonical
+    private String entryDownloadInformationUrl; //ptmd-template
 
-    public ZDFEntryDTO(final String entryGeneralInformationsUrl, final String entryDownloadInformationsUrl)
+    public ZDFEntryDTO(final String entryGeneralInformationUrl, final String entryDownloadInformationUrl)
     {
-        setEntryGeneralInformationsUrl(entryGeneralInformationsUrl);
-        setEntryDownloadInformationsUrl(entryDownloadInformationsUrl);
+        setEntryGeneralInformationUrl(entryGeneralInformationUrl);
+        setEntryDownloadInformationUrl(entryDownloadInformationUrl);
     }
 
-    public String getEntryGeneralInformationsUrl()
+    public String getEntryGeneralInformationUrl()
     {
-        return entryGeneralInformationsUrl;
+        return entryGeneralInformationUrl;
     }
 
-    public void setEntryGeneralInformationsUrl(final String aEntryInformationsUrl)
+    public void setEntryGeneralInformationUrl(final String aEntryInformationsUrl)
     {
         if (aEntryInformationsUrl.contains(BASE_URL))
         {
-            entryGeneralInformationsUrl = aEntryInformationsUrl;
+            entryGeneralInformationUrl = aEntryInformationsUrl;
         } else
         {
-            entryGeneralInformationsUrl = BASE_URL + aEntryInformationsUrl;
+            entryGeneralInformationUrl = BASE_URL + aEntryInformationsUrl;
         }
     }
 
-    public String getEntryDownloadInformationsUrl()
+    public String getEntryDownloadInformationUrl()
     {
-        return entryDownloadInformationsUrl;
+        return entryDownloadInformationUrl;
     }
 
-    public void setEntryDownloadInformationsUrl(final String aEntryDownloadInformationsUrl)
+    public void setEntryDownloadInformationUrl(final String aEntryDownloadInformationsUrl)
     {
         if (aEntryDownloadInformationsUrl.contains(BASE_URL))
         {
-            entryDownloadInformationsUrl = aEntryDownloadInformationsUrl;
+            entryDownloadInformationUrl = aEntryDownloadInformationsUrl;
         } else
         {
-            entryDownloadInformationsUrl = BASE_URL + aEntryDownloadInformationsUrl;
+            entryDownloadInformationUrl = BASE_URL + aEntryDownloadInformationsUrl;
         }
     }
 
@@ -57,17 +57,17 @@ public class ZDFEntryDTO implements Serializable
 
         final ZDFEntryDTO that = (ZDFEntryDTO) o;
 
-        if (getEntryGeneralInformationsUrl() != null ? !getEntryGeneralInformationsUrl().equals(that.getEntryGeneralInformationsUrl()) : that.getEntryGeneralInformationsUrl() != null)
+        if (getEntryGeneralInformationUrl() != null ? !getEntryGeneralInformationUrl().equals(that.getEntryGeneralInformationUrl()) : that.getEntryGeneralInformationUrl() != null)
             return false;
-        return getEntryDownloadInformationsUrl() != null ? getEntryDownloadInformationsUrl().equals(that.getEntryDownloadInformationsUrl()) : that.getEntryDownloadInformationsUrl() == null;
+        return getEntryDownloadInformationUrl() != null ? getEntryDownloadInformationUrl().equals(that.getEntryDownloadInformationUrl()) : that.getEntryDownloadInformationUrl() == null;
 
     }
 
     @Override
     public int hashCode()
     {
-        int result = getEntryGeneralInformationsUrl() != null ? getEntryGeneralInformationsUrl().hashCode() : 0;
-        result = 31 * result + (getEntryDownloadInformationsUrl() != null ? getEntryDownloadInformationsUrl().hashCode() : 0);
+        int result = getEntryGeneralInformationUrl() != null ? getEntryGeneralInformationUrl().hashCode() : 0;
+        result = 31 * result + (getEntryDownloadInformationUrl() != null ? getEntryDownloadInformationUrl().hashCode() : 0);
         return result;
     }
 }
