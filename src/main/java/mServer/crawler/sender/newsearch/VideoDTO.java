@@ -5,5 +5,13 @@ package mServer.crawler.sender.newsearch;
  */
 public class VideoDTO
 {
+    private String topic;
 
+    public String getTopic() {
+        return topic;
+    }
+    
+    public void setTopic(String aTopic) {
+        topic = aTopic;
+    }
 }

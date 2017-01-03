@@ -61,7 +61,9 @@ public class ZDFSearchTask extends RecursiveTask<Collection<VideoDTO>>
         super();
 
         filmList = new ArrayList<>();
-        gson = new GsonBuilder().registerTypeAdapter(ZDFEntryDTO.class, new ZDFEntryDTODeserializer())
+        gson = new GsonBuilder()
+                .registerTypeAdapter(ZDFEntryDTO.class, new ZDFEntryDTODeserializer())
+                .registerTypeAdapter(VideoDTO.class, new ZDFVideoDTODeserializer())
                 .create();
 
         page = aPage;
@@ -86,28 +88,25 @@ public class ZDFSearchTask extends RecursiveTask<Collection<VideoDTO>>
                     .queryParam(PROPERTY_SORT_BY, SORT_BY_DATE)
                     .queryParam(PROPERTY_PAGE, Integer.toString(page));
 
-            ClientResponse response = webResource.header(HEADER_ACCESS_CONTROL_REQUEST_HEADERS, ACCESS_CONTROL_API_AUTH)
-                    .header(HEADER_ACCESS_CONTROL_REQUEST_METHOD, ACCESS_CONTROL_REQUEST_METHOD_GET)
-                    .header(HEADER_API_AUTH, API_TOKEN)
-                    .header(HEADER_HOST, HOST)
-                    .header(HEADER_ORIGIN, ORIGIN)
-                    .header(HEADER_USER_AGENT, USER_AGENT)
-                    .get(ClientResponse.class);
-
-            String jsonOutput = response.getEntity(String.class);
-
-            JsonObject baseObject = new Gson().fromJson(jsonOutput, JsonObject.class);
+            JsonObject baseObject = ExecuteWebResource(webResource);
 
             Type zdfFilmListType = new TypeToken<Collection<ZDFEntryDTO>>()
             {
             }.getType();
-            Collection<ZDFEntryDTO> zdfEntryDTOList = gson.fromJson(baseObject.getAsJsonArray(JSON_ELEMENT_RESULTS).toString(), zdfFilmListType);
+            Collection<ZDFEntryDTO> zdfEntryDTOList = gson.fromJson(baseObject.getAsJsonArray(JSON_ELEMENT_RESULTS), zdfFilmListType);
             for (ZDFEntryDTO zdfEntryDTO : zdfEntryDTOList)
             {
                 //TODO Run RecursivTask to convert to DAO with all Informations.
+                String infoUrl = zdfEntryDTO.getEntryGeneralInformationUrl();
+                WebResource webResourceInfo = client.resource(infoUrl);
+                JsonObject baseObjectInfo = ExecuteWebResource(webResourceInfo);
+                
+                VideoDTO dto = gson.fromJson(baseObjectInfo, VideoDTO.class);
+                filmList.add(dto);
             }
 
-            boolean next = jsonOutput.contains(JSON_ELEMENT_NEXT);
+            
+            boolean next = baseObject.has(JSON_ELEMENT_NEXT);
             if (next)
             {
                 final ZDFSearchTask newTask = new ZDFSearchTask(++page);
@@ -115,11 +114,6 @@ public class ZDFSearchTask extends RecursiveTask<Collection<VideoDTO>>
                 filmList.addAll(newTask.join());
             }
 
-            if (response.getStatus() != 200)
-            {
-                throw new RuntimeException("Failed : HTTP error code : "
-                        + response.getStatus());
-            }
         } catch (Exception e)
         {
 
@@ -127,6 +121,28 @@ public class ZDFSearchTask extends RecursiveTask<Collection<VideoDTO>>
 
         }
         return null;
+    }
+    
+    private JsonObject ExecuteWebResource(WebResource webResource) {
+        ClientResponse response = webResource.header(HEADER_ACCESS_CONTROL_REQUEST_HEADERS, ACCESS_CONTROL_API_AUTH)
+                    .header(HEADER_ACCESS_CONTROL_REQUEST_METHOD, ACCESS_CONTROL_REQUEST_METHOD_GET)
+                    .header(HEADER_API_AUTH, API_TOKEN)
+                    .header(HEADER_HOST, HOST)
+                    .header(HEADER_ORIGIN, ORIGIN)
+                    .header(HEADER_USER_AGENT, USER_AGENT)
+                    .get(ClientResponse.class);
+
+        if (response.getStatus() != 200)
+        {
+            throw new RuntimeException("Failed : HTTP error code : "
+                    + response.getStatus());
+        }
+            
+        String jsonOutput = response.getEntity(String.class);
+
+        JsonObject baseObject = new Gson().fromJson(jsonOutput, JsonObject.class);
+        
+        return baseObject;
     }
 
     public static void main(String... args)

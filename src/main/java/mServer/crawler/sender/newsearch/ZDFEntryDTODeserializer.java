@@ -20,7 +20,7 @@ public class ZDFEntryDTODeserializer implements JsonDeserializer<ZDFEntryDTO>
     {
         JsonObject targetObject = aJsonElement.getAsJsonObject().getAsJsonObject(JSON_OBJ_ELEMENT_TARGET);
         JsonObject mainVideoContentObject = targetObject.getAsJsonObject(JSON_OBJ_ELEMENT_MAIN_VIDEO_CONTENT).getAsJsonObject(JSON_OBJ_ELEMENT_TARGET);
-        final JsonElement entryGeneralInformationUrlElement = mainVideoContentObject.get(JSON_ELEMENT_GENERAL_INFORMATION_URL);
+        final JsonElement entryGeneralInformationUrlElement = targetObject.get(JSON_ELEMENT_GENERAL_INFORMATION_URL);
         final JsonElement entryDownloadInformationUrlElement = mainVideoContentObject.get(JSON_ELEMENT_DOWNLOAD_INFORMATION_URL);
 
 
