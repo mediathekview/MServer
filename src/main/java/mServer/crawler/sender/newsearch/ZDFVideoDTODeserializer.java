@@ -31,7 +31,9 @@ public class ZDFVideoDTODeserializer implements JsonDeserializer<VideoDTO> {
         JsonObject brand = object.getAsJsonObject(JSON_ELEMENT_BRAND);
         if(brand != null) {
             JsonElement topic = brand.get(JSON_ELEMENT_TITLE);
-            dto.setTopic(topic.getAsString());
+            if(topic != null) {
+                dto.setTopic(topic.getAsString());
+            }
         }       
         // nicht immer gesetzt!! muss ein anderer Weg sein!!!
         JsonElement teaserText = object.get(JSON_ELEMENT_TEASERTEXT);
