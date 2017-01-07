@@ -50,6 +50,10 @@ public class ZDFSearchTask extends RecursiveTask<Collection<VideoDTO>>
     private Collection<VideoDTO> filmList;
 
     private int page;
+    
+    private static Type zdfFilmListType  = new TypeToken<Collection<ZDFEntryDTO>>()
+            {
+            }.getType();
 
     ZDFSearchTask()
     {
@@ -64,6 +68,7 @@ public class ZDFSearchTask extends RecursiveTask<Collection<VideoDTO>>
         gson = new GsonBuilder()
                 .registerTypeAdapter(ZDFEntryDTO.class, new ZDFEntryDTODeserializer())
                 .registerTypeAdapter(VideoDTO.class, new ZDFVideoDTODeserializer())
+                .registerTypeAdapter(DownloadDTO.class, new ZDFDownloadDTODeserializer())
                 .create();
 
         page = aPage;
@@ -90,9 +95,6 @@ public class ZDFSearchTask extends RecursiveTask<Collection<VideoDTO>>
 
             JsonObject baseObject = ExecuteWebResource(webResource);
 
-            Type zdfFilmListType = new TypeToken<Collection<ZDFEntryDTO>>()
-            {
-            }.getType();
             Collection<ZDFEntryDTO> zdfEntryDTOList = gson.fromJson(baseObject.getAsJsonArray(JSON_ELEMENT_RESULTS), zdfFilmListType);
             for (ZDFEntryDTO zdfEntryDTO : zdfEntryDTOList)
             {
@@ -103,6 +105,13 @@ public class ZDFSearchTask extends RecursiveTask<Collection<VideoDTO>>
                 
                 VideoDTO dto = gson.fromJson(baseObjectInfo, VideoDTO.class);
                 filmList.add(dto);
+                
+                String downloadUrl = zdfEntryDTO.getEntryDownloadInformationUrl();
+                WebResource webResourceDownload = client.resource(downloadUrl);
+                JsonObject baseObjectDownload = ExecuteWebResource(webResourceDownload);
+                
+                DownloadDTO downloadDto = gson.fromJson(baseObjectDownload, DownloadDTO.class);
+                dto.setDownloadDto(downloadDto);
             }
 
             
@@ -120,7 +129,7 @@ public class ZDFSearchTask extends RecursiveTask<Collection<VideoDTO>>
             e.printStackTrace();
 
         }
-        return null;
+        return filmList;
     }
     
     private JsonObject ExecuteWebResource(WebResource webResource) {
@@ -132,6 +141,8 @@ public class ZDFSearchTask extends RecursiveTask<Collection<VideoDTO>>
                     .header(HEADER_USER_AGENT, USER_AGENT)
                     .get(ClientResponse.class);
 
+        System.out.println(webResource.toString() + ": " + response.getStatus());
+        
         if (response.getStatus() != 200)
         {
             throw new RuntimeException("Failed : HTTP error code : "

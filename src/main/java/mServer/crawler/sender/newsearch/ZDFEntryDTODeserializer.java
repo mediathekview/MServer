@@ -23,7 +23,9 @@ public class ZDFEntryDTODeserializer implements JsonDeserializer<ZDFEntryDTO>
         final JsonElement entryGeneralInformationUrlElement = targetObject.get(JSON_ELEMENT_GENERAL_INFORMATION_URL);
         final JsonElement entryDownloadInformationUrlElement = mainVideoContentObject.get(JSON_ELEMENT_DOWNLOAD_INFORMATION_URL);
 
+        String downloadUrl = entryDownloadInformationUrlElement.getAsString()
+                .replace("{playerId}", "ngplayer_2_3");
 
-        return new ZDFEntryDTO(entryGeneralInformationUrlElement.getAsString(), entryDownloadInformationUrlElement.getAsString());
+        return new ZDFEntryDTO(entryGeneralInformationUrlElement.getAsString(), downloadUrl);
     }
 }
