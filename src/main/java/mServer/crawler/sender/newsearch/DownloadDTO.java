@@ -14,22 +14,26 @@ public class DownloadDTO {
         this.downloadUrls = new HashMap<>();
     }
 
-    public void AddUrl(Qualities quality, String url) {
+    public void addUrl(Qualities quality, String url) {
         downloadUrls.put(quality, url);
     }
     
-    public String GetUrl(Qualities quality) {
-        return downloadUrls.get(quality);
+    public String getUrl(Qualities quality) {
+        String url = downloadUrls.get(quality);
+        if(url == null) {
+            return "";
+        }
+        return url;
     }
     
-    public String GetSubTitleUrl() {
+    public String getSubTitleUrl() {
         if(subTitleUrl == null) {
             return "";
         }
         return subTitleUrl;
     }
     
-    public void SetSubTitleUrl(String aUrl) {
+    public void setSubTitleUrl(String aUrl) {
         subTitleUrl = aUrl;
     }
 }

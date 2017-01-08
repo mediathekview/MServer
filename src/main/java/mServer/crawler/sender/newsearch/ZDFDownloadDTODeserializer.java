@@ -79,7 +79,7 @@ public class ZDFDownloadDTODeserializer implements JsonDeserializer<DownloadDTO>
                             }
                             
                             if(qualityValue != null && uri != null) {
-                                dto.AddUrl(qualityValue, uri);
+                                dto.addUrl(qualityValue, uri);
                             }
                             else {
                                 throw new RuntimeException("either quality or uri is null");
@@ -130,10 +130,10 @@ public class ZDFDownloadDTODeserializer implements JsonDeserializer<DownloadDTO>
                 
                 // prefer xml subtitles
                 if(uriValue.endsWith(RELEVANT_SUBTITLE_TYPE)) {
-                    dto.SetSubTitleUrl(uriValue);
+                    dto.setSubTitleUrl(uriValue);
                     break;
-                } else if(dto.GetSubTitleUrl().isEmpty()) {
-                    dto.SetSubTitleUrl(uriValue);
+                } else if(dto.getSubTitleUrl().isEmpty()) {
+                    dto.setSubTitleUrl(uriValue);
                 }
                 
             }
