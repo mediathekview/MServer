@@ -59,11 +59,10 @@ public class ZDFDownloadDTODeserializer implements JsonDeserializer<DownloadDTO>
                         JsonArray qualityList = formitaet.getAsJsonArray(JSON_ELEMENT_QUALITIES);
                         Iterator<JsonElement> qualityIterator = qualityList.iterator();
                         while(qualityIterator.hasNext()) {
-                            Qualities qualityValue = null;
                             String uri = null;
                             
                             JsonObject quality = qualityIterator.next().getAsJsonObject();
-                            qualityValue = parseVideoQuality(quality);
+                            Qualities qualityValue = parseVideoQuality(quality);
                             
                             // subelement audio
                             JsonElement audio = quality.get(JSON_ELEMENT_AUDIO);
