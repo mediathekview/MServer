@@ -15,7 +15,7 @@ public class VideoDTO
     private DownloadDTO downloadDto;
 
     public String getDate() {
-        return date;
+        return replaceNull(date);
     }
     
     public void setDate(String aDate) {
@@ -23,7 +23,7 @@ public class VideoDTO
     }
     
     public String getDescription() {
-        return description;
+        return replaceNull(description);
     }
     
     public void setDescription(String aDescription) {
@@ -39,7 +39,7 @@ public class VideoDTO
     }
     
     public String getTime() {
-        return time;
+        return replaceNull(time);
     }
     
     public void setTime(String aTime) {
@@ -47,7 +47,7 @@ public class VideoDTO
     }
     
     public String getTitle() {
-        return title;
+        return replaceNull(title);
     }
     
     public void setTitle(String aTitle) {
@@ -55,7 +55,7 @@ public class VideoDTO
     }
 
     public String getTopic() {
-        return topic;
+        return replaceNull(topic);
     }
     
     public void setTopic(String aTopic) {
@@ -63,7 +63,7 @@ public class VideoDTO
     }
     
     public String getWebsiteUrl() {
-        return websiteUrl;
+        return replaceNull(websiteUrl);
     }
     
     public void setWebsiteUrl(String aWebsiteUrl) {
@@ -76,5 +76,12 @@ public class VideoDTO
     
     public void setDownloadDto(DownloadDTO aDto) {
         downloadDto = aDto;
+    }
+    
+    private static String replaceNull(String value) {
+        if(value != null) {
+            return value;
+        }
+        return "";
     }
 }
