@@ -65,8 +65,9 @@ public class ZDFVideoDTODeserializer implements JsonDeserializer<VideoDTO> {
         
         JsonArray broadcastArray = programmItemTarget.getAsJsonArray(JSON_ELEMENT_BROADCAST);
         
-        if(broadcastArray.size() < 1) {
-            throw new RuntimeException("Element does not contain broadcast" + programmItemTarget.getAsString());
+        if(broadcastArray == null || broadcastArray.size() < 1) {
+            System.out.println("no broadcast entry");
+            return;
         }
 
         // array is ordered ascending though the newest broadcast is the last entry
