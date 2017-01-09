@@ -31,8 +31,13 @@ import mServer.crawler.GetUrl;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
 import java.util.List;
+import mServer.crawler.sender.newsearch.DownloadDTO;
+import mServer.crawler.sender.newsearch.Qualities;
+import mServer.crawler.sender.newsearch.VideoDTO;
+import mServer.crawler.sender.newsearch.ZDFSearchTask;
 
 public class MediathekZdf extends MediathekReader implements Runnable
 {
@@ -46,11 +51,48 @@ public class MediathekZdf extends MediathekReader implements Runnable
 
     public MediathekZdf(FilmeSuchen ssearch, int startPrio)
     {
-        super(ssearch, SENDERNAME, 5 /* threads */, 150 /* urlWarten */, startPrio);
+        super(ssearch, SENDERNAME, 0 /* threads */, 150 /* urlWarten */, startPrio);
     }
 
     @Override
-    public void addToList()
+    public void addToList() {
+        meldungStart();
+        meldungAddThread();
+        
+        final ZDFSearchTask newTask = new ZDFSearchTask();
+        newTask.fork();
+        Collection<VideoDTO> filmList = newTask.join();
+        filmList.forEach((video) -> {
+            try {
+                DownloadDTO download = video.getDownloadDto();
+                
+                DatenFilm film = new DatenFilm(SENDERNAME, video.getTopic(), video.getWebsiteUrl() /*urlThema*/,
+                        video.getTitle(), download.getUrl(Qualities.NORMAL), "" /*urlRtmp*/,
+                        video.getDate(), video.getTime(), video.getDuration(), video.getDescription());
+                urlTauschen(film, video.getWebsiteUrl(), mSearchFilmeSuchen);
+                addFilm(film);
+                if (!download.getUrl(Qualities.HD).isEmpty())
+                {
+                    CrawlerTool.addUrlHd(film, download.getUrl(Qualities.HD), "");
+                }
+                if (!download.getUrl(Qualities.SMALL).isEmpty())
+                {
+                    CrawlerTool.addUrlKlein(film, download.getUrl(Qualities.SMALL), "");
+                }
+                if (!download.getSubTitleUrl().isEmpty())
+                {
+                    CrawlerTool.addUrlSubtitle(film, download.getSubTitleUrl());
+                }         
+            } catch (Exception ex) {
+                System.out.println(video.getWebsiteUrl());
+                ex.printStackTrace();
+            }
+        });
+
+        meldungThreadUndFertig();        
+    }
+    
+    public void addToListOld()
     {
         listeThemen.clear();
         meldungStart();
