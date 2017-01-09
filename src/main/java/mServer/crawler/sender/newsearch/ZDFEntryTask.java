@@ -25,6 +25,11 @@ public class ZDFEntryTask extends RecursiveTask<VideoDTO> {
                 .create();
     }
     
+    // execute sync
+    public VideoDTO execute() {
+        return compute();
+    }
+    
     @Override
     protected VideoDTO compute() {
         VideoDTO dto = null;

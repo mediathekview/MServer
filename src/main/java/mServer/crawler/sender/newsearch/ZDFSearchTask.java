@@ -1,13 +1,9 @@
 package mServer.crawler.sender.newsearch;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
-import com.google.gson.reflect.TypeToken;
 
 import com.sun.jersey.api.client.WebResource;
 
-import java.lang.reflect.Type;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -29,19 +25,16 @@ public class ZDFSearchTask extends RecursiveTask<Collection<VideoDTO>>
     private static final String SORT_BY_DATE = "date";
     private static final String PROPERTY_PAGE = "page";
     private static final String JSON_ELEMENT_NEXT = "next";
-    private static final String JSON_ELEMENT_RESULTS = "http://zdf.de/rels/search/results";
     private static DateTimeFormatter DATE_TIME_FORMAT = DateTimeFormatter.ISO_OFFSET_DATE_TIME;
-    private final Gson gson;
 
     private Collection<VideoDTO> filmList;
+    private ZDFClient client;
 
+    private final ZonedDateTime today = ZonedDateTime.now().withHour(0).withMinute(0);
+    
     private int page;
     
-    private static Type zdfFilmListType  = new TypeToken<Collection<ZDFEntryDTO>>()
-            {
-            }.getType();
-
-    ZDFSearchTask()
+    public ZDFSearchTask()
     {
         this(1);
     }
@@ -51,10 +44,7 @@ public class ZDFSearchTask extends RecursiveTask<Collection<VideoDTO>>
         super();
 
         filmList = new ArrayList<>();
-        gson = new GsonBuilder()
-                .registerTypeAdapter(ZDFEntryDTO.class, new ZDFEntryDTODeserializer())
-                .create();
-
+        client = new ZDFClient();
         page = aPage;
     }
 
@@ -64,10 +54,34 @@ public class ZDFSearchTask extends RecursiveTask<Collection<VideoDTO>>
     {
         try
         {
-            ZDFClient client = new ZDFClient();
+            Collection<ZDFSearchPageTask> subTasks = new ArrayList<>();
+            JsonObject baseObject;
+            
+            do {
+                baseObject = loadPage();
 
-            final ZonedDateTime today = ZonedDateTime.now().withHour(0).withMinute(0);
-            WebResource webResource = client.createSearchResource()
+                ZDFSearchPageTask task = new ZDFSearchPageTask(baseObject);
+                task.fork();
+                System.out.println("fork " + page);
+                subTasks.add(task);
+                page++;
+                
+            } while(baseObject.has(JSON_ELEMENT_NEXT));
+            
+            subTasks.forEach(task -> {
+                filmList.addAll(task.join());
+                System.out.println("join " + page);
+            });
+           
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return filmList;
+    }
+    
+    private JsonObject loadPage() {
+        
+        WebResource webResource = client.createSearchResource()
                     .queryParam(PROPERTY_HAS_VIDEO, Boolean.TRUE.toString())
                     .queryParam(PROPERTY_SEARCHPARAM_Q, SEARCH_ALL)
                     .queryParam(PROPERTY_TYPES, TYPE_PAGE_VIDEO)
@@ -77,32 +91,7 @@ public class ZDFSearchTask extends RecursiveTask<Collection<VideoDTO>>
                     .queryParam(PROPERTY_SORT_BY, SORT_BY_DATE)
                     .queryParam(PROPERTY_PAGE, Integer.toString(page));
 
-            JsonObject baseObject = client.execute(webResource);
-
-            Collection<ZDFEntryDTO> zdfEntryDTOList = gson.fromJson(baseObject.getAsJsonArray(JSON_ELEMENT_RESULTS), zdfFilmListType);
-            for (ZDFEntryDTO zdfEntryDTO : zdfEntryDTOList)
-            {
-                final ZDFEntryTask entryTask = new ZDFEntryTask(zdfEntryDTO);
-                entryTask.fork();
-                filmList.add(entryTask.join());
-            }
-
-            
-            boolean next = baseObject.has(JSON_ELEMENT_NEXT);
-            if (next)
-            {
-                final ZDFSearchTask newTask = new ZDFSearchTask(++page);
-                newTask.fork();
-                filmList.addAll(newTask.join());
-            }
-
-        } catch (Exception e)
-        {
-
-            e.printStackTrace();
-
-        }
-        return filmList;
+        return client.execute(webResource);        
     }
     
     public static void main(String... args)
