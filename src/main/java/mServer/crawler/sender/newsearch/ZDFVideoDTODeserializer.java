@@ -86,8 +86,10 @@ public class ZDFVideoDTODeserializer implements JsonDeserializer<VideoDTO> {
     private void parseDuration(VideoDTO dto, JsonObject rootNode) {
         JsonObject mainVideo = rootNode.get(JSON_ELEMENT_MAINVIDEO).getAsJsonObject();
         JsonObject targetMainVideo = mainVideo.get(JSON_ELEMENT_TARGET).getAsJsonObject();
-        int duration = targetMainVideo.get(JSON_ELEMENT_DURATION).getAsInt();
-        dto.setDuration(duration);        
+        JsonElement duration = targetMainVideo.get(JSON_ELEMENT_DURATION);
+        if(duration != null) {
+            dto.setDuration(duration.getAsInt());        
+        }
     }
     
     private void parseDescription(VideoDTO dto, JsonObject rootNode) {

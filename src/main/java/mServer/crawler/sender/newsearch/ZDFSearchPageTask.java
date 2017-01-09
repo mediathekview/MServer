@@ -40,7 +40,11 @@ public class ZDFSearchPageTask extends RecursiveTask<Collection<VideoDTO>> {
         Collection<ZDFEntryDTO> zdfEntryDTOList = gson.fromJson(searchResult.getAsJsonArray(JSON_ELEMENT_RESULTS), ZDFENTRYDTO_COLLECTION_TYPE);
         zdfEntryDTOList.forEach(zdfEntryDTO -> {
             final ZDFEntryTask entryTask = new ZDFEntryTask(zdfEntryDTO);
-            filmList.add(entryTask.execute());
+            
+            VideoDTO dto = entryTask.invoke();
+            if(dto != null) {
+                filmList.add(dto);
+            }
             //entryTask.fork();
             //subTasks.add(entryTask);
         });

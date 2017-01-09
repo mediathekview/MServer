@@ -25,30 +25,30 @@ public class ZDFEntryTask extends RecursiveTask<VideoDTO> {
                 .create();
     }
     
-    // execute sync
-    public VideoDTO execute() {
-        return compute();
-    }
-    
     @Override
     protected VideoDTO compute() {
         VideoDTO dto = null;
-        
-        // read film details
-        String infoUrl = zdfEntryDTO.getEntryGeneralInformationUrl();
-        WebResource webResourceInfo = client.createResource(infoUrl);
-        JsonObject baseObjectInfo = client.execute(webResourceInfo);
-        if(baseObjectInfo != null) {
-            dto = gson.fromJson(baseObjectInfo, VideoDTO.class);
+        try {
+            // read film details
+            String infoUrl = zdfEntryDTO.getEntryGeneralInformationUrl();
+            WebResource webResourceInfo = client.createResource(infoUrl);
+            JsonObject baseObjectInfo = client.execute(webResourceInfo);
+            if(baseObjectInfo != null) {
+                dto = gson.fromJson(baseObjectInfo, VideoDTO.class);
 
-            // read download details
-            String downloadUrl = zdfEntryDTO.getEntryDownloadInformationUrl();
-            WebResource webResourceDownload = client.createResource(downloadUrl);
-            JsonObject baseObjectDownload = client.execute(webResourceDownload);
-            if(baseObjectDownload != null) {
-                DownloadDTO downloadDto = gson.fromJson(baseObjectDownload, DownloadDTO.class);
-                dto.setDownloadDto(downloadDto);
+                // read download details
+                String downloadUrl = zdfEntryDTO.getEntryDownloadInformationUrl();
+                WebResource webResourceDownload = client.createResource(downloadUrl);
+                JsonObject baseObjectDownload = client.execute(webResourceDownload);
+                if(baseObjectDownload != null) {
+                    DownloadDTO downloadDto = gson.fromJson(baseObjectDownload, DownloadDTO.class);
+                    dto.setDownloadDto(downloadDto);
+                }
             }
+        } catch (Exception e) {
+            System.out.println("Exception bei: " + zdfEntryDTO.getEntryGeneralInformationUrl());
+            e.printStackTrace();
+            dto = null;
         }
         
         return dto;

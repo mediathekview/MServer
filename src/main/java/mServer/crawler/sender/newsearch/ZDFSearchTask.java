@@ -62,7 +62,6 @@ public class ZDFSearchTask extends RecursiveTask<Collection<VideoDTO>>
 
                 ZDFSearchPageTask task = new ZDFSearchPageTask(baseObject);
                 task.fork();
-                System.out.println("fork " + page);
                 subTasks.add(task);
                 page++;
                 
@@ -70,7 +69,6 @@ public class ZDFSearchTask extends RecursiveTask<Collection<VideoDTO>>
             
             subTasks.forEach(task -> {
                 filmList.addAll(task.join());
-                System.out.println("join " + page);
             });
            
         } catch (Exception e) {
@@ -80,7 +78,6 @@ public class ZDFSearchTask extends RecursiveTask<Collection<VideoDTO>>
     }
     
     private JsonObject loadPage() {
-        
         WebResource webResource = client.createSearchResource()
                     .queryParam(PROPERTY_HAS_VIDEO, Boolean.TRUE.toString())
                     .queryParam(PROPERTY_SEARCHPARAM_Q, SEARCH_ALL)
