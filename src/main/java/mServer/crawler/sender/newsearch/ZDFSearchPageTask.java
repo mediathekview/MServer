@@ -36,23 +36,24 @@ public class ZDFSearchPageTask extends RecursiveTask<Collection<VideoDTO>> {
     protected Collection<VideoDTO> compute() {
         
         Collection<VideoDTO> filmList = new ArrayList<>();
+        Collection<ZDFEntryTask> subTasks = new ArrayList<>();
         
         Collection<ZDFEntryDTO> zdfEntryDTOList = gson.fromJson(searchResult.getAsJsonArray(JSON_ELEMENT_RESULTS), ZDFENTRYDTO_COLLECTION_TYPE);
         zdfEntryDTOList.forEach(zdfEntryDTO -> {
             final ZDFEntryTask entryTask = new ZDFEntryTask(zdfEntryDTO);
             
-            VideoDTO dto = entryTask.invoke();
+            /*VideoDTO dto = entryTask.invoke();
             if(dto != null) {
                 filmList.add(dto);
-            }
-            //entryTask.fork();
-            //subTasks.add(entryTask);
+            }*/
+            entryTask.fork();
+            subTasks.add(entryTask);
         });
             
         // wait till entry tasks are finished
-        /*subTasks.forEach((task) -> {
+        subTasks.forEach((task) -> {
             filmList.add(task.join());
-        });*/
+        });
 
         return filmList;
     }    
