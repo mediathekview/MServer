@@ -5,6 +5,7 @@ import java.lang.reflect.Type;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import mSearch.tool.Log;
 
 /**
  * A JSON deserializer to gather the needed information for a {@link VideoDTO}.
@@ -59,15 +60,14 @@ public class ZDFVideoDTODeserializer implements JsonDeserializer<VideoDTO> {
     
     private void parseAirtime(VideoDTO dto, JsonObject programmItemTarget) {
         if(programmItemTarget == null) {
-            Log.sysLog("no programmItem entry found: " + dto.g)
-            System.out.println("no programmItem entry");
+            Log.sysLog("no programmItem entry found: " + dto.getWebsiteUrl());
             return;
         }
         
         JsonArray broadcastArray = programmItemTarget.getAsJsonArray(JSON_ELEMENT_BROADCAST);
         
         if(broadcastArray == null || broadcastArray.size() < 1) {
-            System.out.println("no broadcast entry");
+            Log.sysLog("no broadcast entry found: " + dto.getWebsiteUrl());
             return;
         }
 
