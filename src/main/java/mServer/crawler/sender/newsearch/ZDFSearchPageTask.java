@@ -9,6 +9,7 @@ import java.util.ArrayList;
 
 import java.util.Collection;
 import java.util.concurrent.RecursiveTask;
+import mSearch.tool.Log;
 
 /**
  * Task to parse the response of a search page. 
@@ -48,11 +49,13 @@ public class ZDFSearchPageTask extends RecursiveTask<Collection<VideoDTO>> {
             }*/
             entryTask.fork();
             subTasks.add(entryTask);
+            Log.sysLog("EntryTask " + entryTask.hashCode() + " started.");
         });
             
         // wait till entry tasks are finished
         subTasks.forEach((task) -> {
             filmList.add(task.join());
+            Log.sysLog("EntryTask " + task.hashCode() + " finished.");
         });
 
         return filmList;

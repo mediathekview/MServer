@@ -6,6 +6,7 @@ import com.google.gson.JsonObject;
 import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.ClientResponse;
 import com.sun.jersey.api.client.WebResource;
+import mSearch.tool.Log;
 
 /**
  * jersey client of ZDF
@@ -51,13 +52,13 @@ public class ZDFClient {
                     .header(HEADER_USER_AGENT, USER_AGENT)
                     .get(ClientResponse.class);
 
-        System.out.println(webResource.toString() + ": " + response.getStatus());
+        Log.sysLog("Lade Seite: " + webResource.getURI());
         
         if (response.getStatus() != 200)
         {
             if(response.getStatus() == 404) {
                 // just log this error because it's a temporary problem in the zdf mediathek
-                System.out.println("resource not found: " + webResource.getURI().toString());
+                Log.sysLog("Resource not found: " + webResource.getURI());
                 return null;
             } else {
                 throw new RuntimeException("Failed : HTTP error code : "

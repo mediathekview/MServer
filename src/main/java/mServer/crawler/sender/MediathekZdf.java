@@ -62,7 +62,7 @@ public class MediathekZdf extends MediathekReader implements Runnable
         final ZDFSearchTask newTask = new ZDFSearchTask();
         newTask.fork();
         Collection<VideoDTO> filmList = newTask.join();
-        filmList.forEach((video) -> {
+        filmList.parallel().forEach((video) -> {
             try {
                 DownloadDTO download = video.getDownloadDto();
                 
@@ -84,8 +84,7 @@ public class MediathekZdf extends MediathekReader implements Runnable
                     CrawlerTool.addUrlSubtitle(film, download.getSubTitleUrl());
                 }         
             } catch (Exception ex) {
-                System.out.println(video.getWebsiteUrl());
-                ex.printStackTrace();
+                Log.errorLog(496583211, ex, "add film failed: " + video.getWebsiteUrl());
             }
         });
 

@@ -9,6 +9,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.concurrent.RecursiveTask;
+import mSearch.tool.Log;
 
 public class ZDFSearchTask extends RecursiveTask<Collection<VideoDTO>>
 {
@@ -63,16 +64,18 @@ public class ZDFSearchTask extends RecursiveTask<Collection<VideoDTO>>
                 ZDFSearchPageTask task = new ZDFSearchPageTask(baseObject);
                 task.fork();
                 subTasks.add(task);
+                Log.sysLog("SearchTask " + task.hashCode() + " started.");
                 page++;
                 
             } while(baseObject.has(JSON_ELEMENT_NEXT));
             
             subTasks.forEach(task -> {
                 filmList.addAll(task.join());
+                Log.sysLog("SearchTask " + task.hashCode() + " finished.");
             });
            
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (Exception ex) {
+            Log.errorLog(496583201, ex);
         }
         return filmList;
     }
@@ -88,6 +91,8 @@ public class ZDFSearchTask extends RecursiveTask<Collection<VideoDTO>>
                     .queryParam(PROPERTY_SORT_BY, SORT_BY_DATE)
                     .queryParam(PROPERTY_PAGE, Integer.toString(page));
 
+        Log.sysLog("Lade Seite: " + webResource.getURI());
+                
         return client.execute(webResource);        
     }
     

@@ -50,15 +50,16 @@ public class ZDFVideoDTODeserializer implements JsonDeserializer<VideoDTO> {
         parseTopic(dto, rootNode);
         parseDescription(dto, rootNode);
         
+        parseWebsiteUrl(dto, rootNode);
         parseAirtime(dto, programmItemTarget);
         parseDuration(dto, rootNode);
-        parseWebsiteUrl(dto, rootNode);
         
         return dto;    
     }
     
     private void parseAirtime(VideoDTO dto, JsonObject programmItemTarget) {
         if(programmItemTarget == null) {
+            Log.sysLog("no programmItem entry found: " + dto.g)
             System.out.println("no programmItem entry");
             return;
         }

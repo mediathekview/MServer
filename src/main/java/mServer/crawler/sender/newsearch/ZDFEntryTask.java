@@ -6,6 +6,7 @@ import com.google.gson.JsonObject;
 import com.sun.jersey.api.client.WebResource;
 
 import java.util.concurrent.RecursiveTask;
+import mSearch.tool.Log;
 
 /**
  * Searches all information required for a film
@@ -45,9 +46,8 @@ public class ZDFEntryTask extends RecursiveTask<VideoDTO> {
                     dto.setDownloadDto(downloadDto);
                 }
             }
-        } catch (Exception e) {
-            System.out.println("Exception bei: " + zdfEntryDTO.getEntryGeneralInformationUrl());
-            e.printStackTrace();
+        } catch (Exception ex) {
+            Log.errorLog(496583202, ex, "Exception parsing " + zdfEntryDTO.getEntryGeneralInformationUrl());
             dto = null;
         }
         
