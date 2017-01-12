@@ -34,6 +34,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
+import java.util.concurrent.RecursiveTask;
 import mServer.crawler.sender.newsearch.DownloadDTO;
 import mServer.crawler.sender.newsearch.Qualities;
 import mServer.crawler.sender.newsearch.VideoDTO;
@@ -62,36 +63,63 @@ public class MediathekZdf extends MediathekReader implements Runnable
         final ZDFSearchTask newTask = new ZDFSearchTask();
         newTask.fork();
         Collection<VideoDTO> filmList = newTask.join();
+        
+        // Convert new DTO to old DatenFilm class
+        Collection<VideoDtoDatenFilmConverterTask> converterTasks = new ArrayList<>();
         filmList.forEach((video) -> {
-            if(video != null) {
-               try {
-                    DownloadDTO download = video.getDownloadDto();
-
-                    DatenFilm film = new DatenFilm(SENDERNAME, video.getTopic(), video.getWebsiteUrl() /*urlThema*/,
-                            video.getTitle(), download.getUrl(Qualities.NORMAL), "" /*urlRtmp*/,
-                            video.getDate(), video.getTime(), video.getDuration(), video.getDescription());
-                    urlTauschen(film, video.getWebsiteUrl(), mSearchFilmeSuchen);
-                    addFilm(film);
-                    if (!download.getUrl(Qualities.HD).isEmpty())
-                    {
-                        CrawlerTool.addUrlHd(film, download.getUrl(Qualities.HD), "");
-                    }
-                    if (!download.getUrl(Qualities.SMALL).isEmpty())
-                    {
-                        CrawlerTool.addUrlKlein(film, download.getUrl(Qualities.SMALL), "");
-                    }
-                    if (!download.getSubTitleUrl().isEmpty())
-                    {
-                        CrawlerTool.addUrlSubtitle(film, download.getSubTitleUrl());
-                    }         
-                } catch (Exception ex) {
-                    Log.errorLog(496583211, ex, "add film failed: " + video.getWebsiteUrl());
-                }
-            }
+            VideoDtoDatenFilmConverterTask task = new VideoDtoDatenFilmConverterTask(video);
+            task.fork();
+            
+            converterTasks.add(task);
         });
+        
+        converterTasks.forEach(task -> task.join());
 
         meldungThreadUndFertig();        
     }
+    
+
+    private class VideoDtoDatenFilmConverterTask extends RecursiveTask {
+
+        private final VideoDTO video;
+
+        public VideoDtoDatenFilmConverterTask(VideoDTO aVideoDTO) {
+            video = aVideoDTO;
+        }
+
+        @Override
+        protected Object compute() {
+            if(video != null) {
+                   try {
+                        DownloadDTO download = video.getDownloadDto();
+
+                        DatenFilm film = new DatenFilm(SENDERNAME, video.getTopic(), video.getWebsiteUrl() /*urlThema*/,
+                                video.getTitle(), download.getUrl(Qualities.NORMAL), "" /*urlRtmp*/,
+                                video.getDate(), video.getTime(), video.getDuration(), video.getDescription());
+                        urlTauschen(film, video.getWebsiteUrl(), mSearchFilmeSuchen);
+                        addFilm(film);
+                        if (!download.getUrl(Qualities.HD).isEmpty())
+                        {
+                            CrawlerTool.addUrlHd(film, download.getUrl(Qualities.HD), "");
+                        }
+                        if (!download.getUrl(Qualities.SMALL).isEmpty())
+                        {
+                            CrawlerTool.addUrlKlein(film, download.getUrl(Qualities.SMALL), "");
+                        }
+                        if (!download.getSubTitleUrl().isEmpty())
+                        {
+                            CrawlerTool.addUrlSubtitle(film, download.getSubTitleUrl());
+                        }         
+                    } catch (Exception ex) {
+                        Log.errorLog(496583211, ex, "add film failed: " + video.getWebsiteUrl());
+                    }            
+            }
+            return null;
+        }    
+    }
+
+    
+    // OLD Code
     
     public void addToListOld()
     {
