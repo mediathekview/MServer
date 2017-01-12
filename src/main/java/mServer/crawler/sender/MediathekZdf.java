@@ -62,29 +62,31 @@ public class MediathekZdf extends MediathekReader implements Runnable
         final ZDFSearchTask newTask = new ZDFSearchTask();
         newTask.fork();
         Collection<VideoDTO> filmList = newTask.join();
-        filmList.parallel().forEach((video) -> {
-            try {
-                DownloadDTO download = video.getDownloadDto();
-                
-                DatenFilm film = new DatenFilm(SENDERNAME, video.getTopic(), video.getWebsiteUrl() /*urlThema*/,
-                        video.getTitle(), download.getUrl(Qualities.NORMAL), "" /*urlRtmp*/,
-                        video.getDate(), video.getTime(), video.getDuration(), video.getDescription());
-                urlTauschen(film, video.getWebsiteUrl(), mSearchFilmeSuchen);
-                addFilm(film);
-                if (!download.getUrl(Qualities.HD).isEmpty())
-                {
-                    CrawlerTool.addUrlHd(film, download.getUrl(Qualities.HD), "");
+        filmList.forEach((video) -> {
+            if(video != null) {
+               try {
+                    DownloadDTO download = video.getDownloadDto();
+
+                    DatenFilm film = new DatenFilm(SENDERNAME, video.getTopic(), video.getWebsiteUrl() /*urlThema*/,
+                            video.getTitle(), download.getUrl(Qualities.NORMAL), "" /*urlRtmp*/,
+                            video.getDate(), video.getTime(), video.getDuration(), video.getDescription());
+                    urlTauschen(film, video.getWebsiteUrl(), mSearchFilmeSuchen);
+                    addFilm(film);
+                    if (!download.getUrl(Qualities.HD).isEmpty())
+                    {
+                        CrawlerTool.addUrlHd(film, download.getUrl(Qualities.HD), "");
+                    }
+                    if (!download.getUrl(Qualities.SMALL).isEmpty())
+                    {
+                        CrawlerTool.addUrlKlein(film, download.getUrl(Qualities.SMALL), "");
+                    }
+                    if (!download.getSubTitleUrl().isEmpty())
+                    {
+                        CrawlerTool.addUrlSubtitle(film, download.getSubTitleUrl());
+                    }         
+                } catch (Exception ex) {
+                    Log.errorLog(496583211, ex, "add film failed: " + video.getWebsiteUrl());
                 }
-                if (!download.getUrl(Qualities.SMALL).isEmpty())
-                {
-                    CrawlerTool.addUrlKlein(film, download.getUrl(Qualities.SMALL), "");
-                }
-                if (!download.getSubTitleUrl().isEmpty())
-                {
-                    CrawlerTool.addUrlSubtitle(film, download.getSubTitleUrl());
-                }         
-            } catch (Exception ex) {
-                Log.errorLog(496583211, ex, "add film failed: " + video.getWebsiteUrl());
             }
         });
 
