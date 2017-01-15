@@ -3,6 +3,7 @@ package mServer.crawler.sender.newsearch;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
+import com.google.gson.JsonSyntaxException;
 import com.sun.jersey.api.client.WebResource;
 
 import java.util.concurrent.RecursiveTask;
@@ -11,6 +12,7 @@ import mSearch.tool.Log;
 /**
  * Searches all information required for a film
  */
+@SuppressWarnings("serial")
 public class ZDFEntryTask extends RecursiveTask<VideoDTO> {
 
     private final ZDFClient client;
@@ -46,7 +48,7 @@ public class ZDFEntryTask extends RecursiveTask<VideoDTO> {
                     dto.setDownloadDto(downloadDto);
                 }
             }
-        } catch (Exception ex) {
+        } catch (JsonSyntaxException ex) {
             Log.errorLog(496583202, ex, "Exception parsing " + zdfEntryDTO.getEntryGeneralInformationUrl());
             dto = null;
         }

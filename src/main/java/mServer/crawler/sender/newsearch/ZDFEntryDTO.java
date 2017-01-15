@@ -5,7 +5,8 @@ import java.io.Serializable;
 /**
  * A Data-Transfer-Object to transfer the URL with the general information and the download information.
  */
-public class ZDFEntryDTO implements Serializable
+@SuppressWarnings("serial")
+public final class ZDFEntryDTO implements Serializable
 {
     private static final String BASE_URL = "https://api.zdf.de";
     private String entryGeneralInformationUrl; //canonical

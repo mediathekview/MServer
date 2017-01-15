@@ -3,15 +3,14 @@ package mServer.crawler.sender.newsearch;
 import mSearch.daten.DatenFilm;
 import mSearch.daten.ListeFilme;
 import mServer.crawler.FilmeSuchen;
-import mServer.crawler.sender.Film;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.concurrent.RecursiveTask;
 
 /**
  * Created by nicklas on 29.12.16.
  */
+@SuppressWarnings("serial")
 public class OldRunnerTask extends RecursiveTask<Collection<DatenFilm>>
 {
 

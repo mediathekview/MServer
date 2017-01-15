@@ -76,7 +76,8 @@ public class MediathekZdf extends MediathekReader implements Runnable
     }
     
 
-    private class VideoDtoDatenFilmConverterTask extends RecursiveTask {
+    @SuppressWarnings("serial")
+    private class VideoDtoDatenFilmConverterTask extends RecursiveTask<Object> {
 
         private final VideoDTO video;
 

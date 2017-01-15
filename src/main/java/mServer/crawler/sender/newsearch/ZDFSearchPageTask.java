@@ -14,6 +14,7 @@ import mSearch.tool.Log;
 /**
  * Task to parse the response of a search page. 
  */
+@SuppressWarnings("serial")
 public class ZDFSearchPageTask extends RecursiveTask<Collection<VideoDTO>> {
 
     private static final String JSON_ELEMENT_RESULTS = "http://zdf.de/rels/search/results";

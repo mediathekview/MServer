@@ -11,6 +11,7 @@ import java.util.Collection;
 import java.util.concurrent.RecursiveTask;
 import mSearch.tool.Log;
 
+@SuppressWarnings("serial")
 public class ZDFSearchTask extends RecursiveTask<Collection<VideoDTO>>
 {
     private static final String PROPERTY_HAS_VIDEO = "hasVideo";

@@ -11,7 +11,7 @@ public enum GeoLocations
     GEO_EU("EU"),
     GEO_WELT("WELT");
 
-    private String description;
+    private final String description;
 
     GeoLocations(String aDescription)
     {
