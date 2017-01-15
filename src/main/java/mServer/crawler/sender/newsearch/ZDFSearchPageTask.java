@@ -55,8 +55,12 @@ public class ZDFSearchPageTask extends RecursiveTask<Collection<VideoDTO>> {
             
         // wait till entry tasks are finished
         subTasks.forEach((task) -> {
-            filmList.add(task.join());
-            Log.sysLog("EntryTask " + task.hashCode() + " finished.");
+            if(task !=  null) {
+                filmList.add(task.join());
+                Log.sysLog("EntryTask " + task.hashCode() + " finished.");
+            } else {
+                Log.sysLog("Task is null => ???");
+            }
         });
 
         return filmList;
