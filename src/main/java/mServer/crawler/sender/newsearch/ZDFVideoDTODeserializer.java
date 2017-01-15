@@ -5,7 +5,6 @@ import java.lang.reflect.Type;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import mSearch.tool.Log;
 
 /**
  * A JSON deserializer to gather the needed information for a {@link VideoDTO}.
@@ -16,6 +15,7 @@ public class ZDFVideoDTODeserializer implements JsonDeserializer<VideoDTO> {
     private static final String JSON_ELEMENT_BRAND = "http://zdf.de/rels/brand";
     private static final String JSON_ELEMENT_BROADCAST = "http://zdf.de/rels/cmdm/broadcasts";
     private static final String JSON_ELEMENT_DURATION = "duration";
+    private static final String JSON_ELEMENT_EDITORIALDATE = "editorialDate";
     private static final String JSON_ELEMENT_LEADPARAGRAPH = "leadParagraph";
     private static final String JSON_ELEMENT_MAINVIDEO  = "mainVideoContent";
     private static final String JSON_ELEMENT_PROGRAMMITEM = "programmeItem";
@@ -25,7 +25,8 @@ public class ZDFVideoDTODeserializer implements JsonDeserializer<VideoDTO> {
     private static final String JSON_ELEMENT_TITLE = "title";
     private static final String JSON_ELEMENT_TEASERTEXT = "teasertext";
 
-    private final SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssXXX");//2016-10-29T16:15:00+02:00
+    private final SimpleDateFormat sdfEditorialDate = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSXXX");//2016-10-29T16:15:00.000+02:00
+    private final SimpleDateFormat sdfAirtimeBegin = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssXXX");//2016-10-29T16:15:00+02:00
     private final SimpleDateFormat sdfOutTime = new SimpleDateFormat("HH:mm:ss");
     private final SimpleDateFormat sdfOutDay = new SimpleDateFormat("dd.MM.yyyy");
 
@@ -52,31 +53,41 @@ public class ZDFVideoDTODeserializer implements JsonDeserializer<VideoDTO> {
         parseDescription(dto, rootNode);
         
         parseWebsiteUrl(dto, rootNode);
-        parseAirtime(dto, programmItemTarget);
+        parseAirtime(dto, rootNode, programmItemTarget);
         parseDuration(dto, rootNode);
         
         return dto;    
     }
     
-    private void parseAirtime(VideoDTO dto, JsonObject programmItemTarget) {
-        if(programmItemTarget == null) {
-            Log.sysLog("no programmItem entry found: " + dto.getWebsiteUrl());
-            return;
-        }
+    private void parseAirtime(VideoDTO dto, JsonObject rootNode, JsonObject programmItemTarget) {
+        String date;
+        SimpleDateFormat sdf;
         
-        JsonArray broadcastArray = programmItemTarget.getAsJsonArray(JSON_ELEMENT_BROADCAST);
-        
-        if(broadcastArray == null || broadcastArray.size() < 1) {
-            Log.sysLog("no broadcast entry found: " + dto.getWebsiteUrl());
-            return;
-        }
+        // use broadcast airtime if found
+        if(programmItemTarget != null) {
+            JsonArray broadcastArray = programmItemTarget.getAsJsonArray(JSON_ELEMENT_BROADCAST);
 
-        // array is ordered ascending though the newest broadcast is the last entry
-        String begin = broadcastArray.get(broadcastArray.size() - 1).getAsJsonObject().get(JSON_ELEMENT_BEGIN).getAsString();
-        if(!begin.isEmpty()) {
-            dto.setDate(convertDate(begin));
-            dto.setTime(convertTime(begin));
+            if(broadcastArray == null || broadcastArray.size() < 1) {
+                date = getEditorialDate(rootNode);
+                sdf = sdfEditorialDate;
+            } else {
+                // array is ordered ascending though the newest broadcast is the last entry
+                date = broadcastArray.get(broadcastArray.size() - 1).getAsJsonObject().get(JSON_ELEMENT_BEGIN).getAsString();
+                sdf = sdfAirtimeBegin;
+            }
+        } else {
+            // use editorialdate
+            date = getEditorialDate(rootNode);
+            sdf = sdfEditorialDate;
         }
+        if(!date.isEmpty()) {
+            dto.setDate(convertDate(date, sdf));
+            dto.setTime(convertTime(date, sdf));
+        }
+    }
+    
+    private String getEditorialDate(JsonObject rootNode) {
+        return rootNode.get(JSON_ELEMENT_EDITORIALDATE).getAsString();
     }
 
     private void parseWebsiteUrl(VideoDTO dto, JsonObject rootNode) {
@@ -144,7 +155,7 @@ public class ZDFVideoDTODeserializer implements JsonDeserializer<VideoDTO> {
         }
     }
      
-    private String convertDate(String dateValue) {
+    private String convertDate(String dateValue, SimpleDateFormat sdf) {
         try {
             Date filmDate = sdf.parse(dateValue);
             return sdfOutDay.format(filmDate);
@@ -153,7 +164,7 @@ public class ZDFVideoDTODeserializer implements JsonDeserializer<VideoDTO> {
         }
     }
 
-    private String convertTime(String dateValue) {
+    private String convertTime(String dateValue, SimpleDateFormat sdf) {
         try {
             Date filmDate = sdf.parse(dateValue);
             return sdfOutTime.format(filmDate);
