@@ -65,6 +65,7 @@ public class MediathekZdf extends MediathekReader implements Runnable
         Collection<VideoDTO> filmList = newTask.join();
         
         // Convert new DTO to old DatenFilm class
+        Log.sysLog("convert VideoDTO to DatenFilm started...");
         Collection<VideoDtoDatenFilmConverterTask> converterTasks = new ArrayList<>();
         filmList.forEach((video) -> {
             VideoDtoDatenFilmConverterTask task = new VideoDtoDatenFilmConverterTask(video);
@@ -74,7 +75,8 @@ public class MediathekZdf extends MediathekReader implements Runnable
         });
         
         converterTasks.forEach(task -> task.join());
-
+        Log.sysLog("convert VideoDTO to DatenFilm finished.");
+        
         meldungThreadUndFertig();        
     }
     
