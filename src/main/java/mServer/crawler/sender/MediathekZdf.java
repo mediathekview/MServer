@@ -25,7 +25,6 @@ import mSearch.tool.Log;
 import mSearch.tool.MSStringBuilder;
 import mServer.crawler.CrawlerTool;
 import mServer.crawler.FilmeSuchen;
-import mServer.crawler.GetUrl;
 
 import java.util.ArrayList;
 import java.util.Collection;
