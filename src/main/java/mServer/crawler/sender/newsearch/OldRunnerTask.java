@@ -10,10 +10,10 @@ import java.util.concurrent.RecursiveTask;
 /**
  * Created by nicklas on 29.12.16.
  */
-@SuppressWarnings("serial")
 public class OldRunnerTask extends RecursiveTask<Collection<DatenFilm>>
 {
-
+    private static final long serialVersionUID = 1L;
+    
     @Override
     protected Collection<DatenFilm> compute()
     {

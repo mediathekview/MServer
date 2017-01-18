@@ -75,10 +75,11 @@ public class MediathekZdf extends MediathekReader implements Runnable
     }
     
 
-    @SuppressWarnings("serial")
     private class VideoDtoDatenFilmConverterTask extends RecursiveTask<Object> {
 
-        private final VideoDTO video;
+        private static final long serialVersionUID = 1L;
+        
+        private final VideoDTO video;        
 
         public VideoDtoDatenFilmConverterTask(VideoDTO aVideoDTO) {
             video = aVideoDTO;

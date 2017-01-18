@@ -11,7 +11,6 @@ import java.util.Collection;
 import java.util.concurrent.RecursiveTask;
 import mSearch.tool.Log;
 
-@SuppressWarnings("serial")
 public class ZDFSearchTask extends RecursiveTask<Collection<VideoDTO>>
 {
     private static final String PROPERTY_HAS_VIDEO = "hasVideo";
@@ -27,6 +26,9 @@ public class ZDFSearchTask extends RecursiveTask<Collection<VideoDTO>>
     private static final String SORT_BY_DATE = "date";
     private static final String PROPERTY_PAGE = "page";
     private static final String JSON_ELEMENT_NEXT = "next";
+    
+    private static final long serialVersionUID = 1L;
+    
     private static DateTimeFormatter DATE_TIME_FORMAT = DateTimeFormatter.ISO_OFFSET_DATE_TIME;
 
     private Collection<VideoDTO> filmList;

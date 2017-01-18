@@ -12,9 +12,10 @@ import mSearch.tool.Log;
 /**
  * Searches all information required for a film
  */
-@SuppressWarnings("serial")
 public class ZDFEntryTask extends RecursiveTask<VideoDTO> {
 
+    private static final long serialVersionUID = 1L;
+    
     private final ZDFClient client;
     private final ZDFEntryDTO zdfEntryDTO;
     private final Gson gson;
