@@ -13,6 +13,7 @@ public class ZDFVideoDTODeserializer implements JsonDeserializer<VideoDTO> {
 
     private static final String JSON_ELEMENT_BEGIN = "airtimeBegin";
     private static final String JSON_ELEMENT_BRAND = "http://zdf.de/rels/brand";
+    private static final String JSON_ELEMENT_CATEGORY = "http://zdf.de/rels/category";
     private static final String JSON_ELEMENT_BROADCAST = "http://zdf.de/rels/cmdm/broadcasts";
     private static final String JSON_ELEMENT_DURATION = "duration";
     private static final String JSON_ELEMENT_EDITORIALDATE = "editorialDate";
@@ -145,17 +146,28 @@ public class ZDFVideoDTODeserializer implements JsonDeserializer<VideoDTO> {
     
     private void parseTopic(VideoDTO dto, JsonObject rootNode) {
         JsonObject brand = rootNode.getAsJsonObject(JSON_ELEMENT_BRAND);
+        JsonObject category = rootNode.getAsJsonObject(JSON_ELEMENT_CATEGORY);
+
         if(brand != null) {
+            // first use brand
             JsonElement topic = brand.get(JSON_ELEMENT_TITLE);
             if(topic != null) {
                 dto.setTopic(topic.getAsString());
+                return;
             }
-        }          
+        }
+        
+        if(category != null) {
+            // second use category
+            JsonElement topic = category.get(JSON_ELEMENT_TITLE);
+            if(topic != null) {
+                dto.setTopic(topic.getAsString());
+                return;
+            }
+        }
         
         // if no topic found, set topic to title
-        if(dto.getTopic() == null) {
-            dto.setTopic(dto.getTitle());
-        }
+        dto.setTopic(dto.getTitle());
     }
      
     private String convertDate(String dateValue, SimpleDateFormat sdf) {
