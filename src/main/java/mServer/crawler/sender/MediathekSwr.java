@@ -59,7 +59,7 @@ public class MediathekSwr extends MediathekReader implements Runnable {
             meldungThreadUndFertig();
         } else {
             meldungAddMax(listeThemen.size());
-            for (int t = 0; t < maxThreadLaufen; ++t) {
+            for (int t = 0; t < getMaxThreadLaufen(); ++t) {
                 //new Thread(new ThemaLaden()).start();
                 Thread th = new Thread(new ThemaLaden());
                 th.setName(SENDERNAME + t);

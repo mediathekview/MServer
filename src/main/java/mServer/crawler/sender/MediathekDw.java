@@ -49,7 +49,7 @@ public class MediathekDw extends MediathekReader implements Runnable {
         } else {
             listeSort(listeThemen, 1);
             meldungAddMax(listeThemen.size());
-            for (int t = 0; t < maxThreadLaufen; ++t) {
+            for (int t = 0; t < getMaxThreadLaufen(); ++t) {
                 //new Thread(new ThemaLaden()).start();
                 Thread th = new Thread(new ThemaLaden());
                 th.setName(SENDERNAME + t);
@@ -110,7 +110,7 @@ public class MediathekDw extends MediathekReader implements Runnable {
 
     private class ThemaLaden implements Runnable {
 
-        GetUrl getUrl = new GetUrl(wartenSeiteLaden);
+        GetUrl getUrl = new GetUrl(getWartenSeiteLaden());
         private MSStringBuilder seite1 = new MSStringBuilder(Const.STRING_BUFFER_START_BUFFER);
         private MSStringBuilder seite2 = new MSStringBuilder(Const.STRING_BUFFER_START_BUFFER);
         private ArrayList<String> listUrl = new ArrayList<>();

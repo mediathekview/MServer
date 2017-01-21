@@ -76,10 +76,10 @@ public class MediathekArte_de extends MediathekReader implements Runnable {
                 addConcert();
             }
             meldungAddMax(listeThemen.size());
-            for (int t = 0; t < maxThreadLaufen; ++t) {
+            for (int t = 0; t < getMaxThreadLaufen(); ++t) {
                 //new Thread(new ThemaLaden()).start();
                 Thread th = new Thread(new ThemaLaden());
-                th.setName(sendername + t);
+                th.setName(getSendername() + t);
                 th.start();
             }
         }
@@ -87,10 +87,10 @@ public class MediathekArte_de extends MediathekReader implements Runnable {
 
     private void addConcert() {
         Thread th = new Thread(new ConcertLaden(0, 20));
-        th.setName(sendername + "Concert-0");
+        th.setName(getSendername() + "Concert-0");
         th.start();
         th = new Thread(new ConcertLaden(20, 40));
-        th.setName(sendername + "Concert-1");
+        th.setName(getSendername() + "Concert-1");
         th.start();
     }
 
@@ -136,7 +136,7 @@ public class MediathekArte_de extends MediathekReader implements Runnable {
                     urlStart = URL_CONCERT;
                 }
                 meldungProgress(urlStart);
-                seite1 = getUrlIo.getUri_Utf(sendername, urlStart, seite1, "");
+                seite1 = getUrlIo.getUri_Utf(getSendername(), urlStart, seite1, "");
                 int pos1 = 0;
                 String url, urlWeb, titel, urlHd = "", urlLow = "", urlNormal = "", beschreibung, datum, dauer;
                 while (!Config.getStop() && (pos1 = seite1.indexOf(MUSTER_START, pos1)) != -1) {
@@ -166,7 +166,7 @@ public class MediathekArte_de extends MediathekReader implements Runnable {
                         } else {
                             urlWeb = "http://concert.arte.tv" + url;
                             meldung(urlWeb);
-                            seite2 = getUrlIo.getUri_Utf(sendername, urlWeb, seite2, "");
+                            seite2 = getUrlIo.getUri_Utf(getSendername(), urlWeb, seite2, "");
                             // genre: <span class="tag tag-link"><a href="/de/videos/rockpop">rock/pop</a></span> 
                             String genre = seite2.extract("<span class=\"tag tag-link\">", "\">", "<");
                             if (!genre.isEmpty()) {
@@ -176,7 +176,7 @@ public class MediathekArte_de extends MediathekReader implements Runnable {
                             if (url.isEmpty()) {
                                 Log.errorLog(784512698, "keine URL");
                             } else {
-                                seite2 = getUrlIo.getUri_Utf(sendername, url, seite2, "");
+                                seite2 = getUrlIo.getUri_Utf(getSendername(), url, seite2, "");
                                 int p1 = 0;
                                 String a = "\"bitrate\":800";
                                 String b = "\"url\":\"";
@@ -227,7 +227,7 @@ public class MediathekArte_de extends MediathekReader implements Runnable {
                                 if (urlNormal.isEmpty()) {
                                     Log.errorLog(989562301, "keine URL");
                                 } else {
-                                    DatenFilm film = new DatenFilm(sendername, THEMA, urlWeb, titel, urlNormal, "" /*urlRtmp*/,
+                                    DatenFilm film = new DatenFilm(getSendername(), THEMA, urlWeb, titel, urlNormal, "" /*urlRtmp*/,
                                             datum, "" /*zeit*/, duration, beschreibung);
                                     if (!urlHd.isEmpty()) {
                                         CrawlerTool.addUrlHd(film, urlHd, "");
@@ -249,7 +249,7 @@ public class MediathekArte_de extends MediathekReader implements Runnable {
 
     class ThemaLaden implements Runnable {
 
-        GetUrl getUrl = new GetUrl(wartenSeiteLaden);
+        GetUrl getUrl = new GetUrl(getWartenSeiteLaden());
         private final MSStringBuilder seite1 = new MSStringBuilder(Const.STRING_BUFFER_START_BUFFER);
         private final MSStringBuilder seite2 = new MSStringBuilder(Const.STRING_BUFFER_START_BUFFER);
         private final MSStringBuilder seite3 = new MSStringBuilder(Const.STRING_BUFFER_START_BUFFER);
@@ -272,7 +272,7 @@ public class MediathekArte_de extends MediathekReader implements Runnable {
 
         private void addThemen(String startUrl) {
             // http://www.arte.tv/guide/de/plus7/videos?day=-2&page=1&isLoading=true&sort=newest&country=DE
-            getUrl.getUri_Utf(sendername, startUrl, seite1, "");
+            getUrl.getUri_Utf(getSendername(), startUrl, seite1, "");
             seite1.extractList("\"url\":\"http:\\/\\/www.arte.tv", "\"", liste);
             for (String s : liste) {
                 if (Config.getStop()) {
@@ -293,7 +293,7 @@ public class MediathekArte_de extends MediathekReader implements Runnable {
         }
 
         private void getFilm1(String filmWebsite, String date) {
-            getUrl.getUri_Utf(sendername, filmWebsite, seite1, "");
+            getUrl.getUri_Utf(getSendername(), filmWebsite, seite1, "");
             String title = seite1.extract("<h1 class=\"title\" itemprop=\"name\">", "<");
             String subtitle = seite1.extract("<h2 class=\"subtitle\">", "<");
             if (!subtitle.isEmpty() && !title.equals(subtitle)) {
@@ -330,7 +330,7 @@ public class MediathekArte_de extends MediathekReader implements Runnable {
         }
 
         private void getFilm2(String urlWeb, String filmWebsite, String thema, String title, String description, long dauer, String date, String time) {
-            getUrl.getUri_Utf(sendername, urlWeb, seite1, "");
+            getUrl.getUri_Utf(getSendername(), urlWeb, seite1, "");
             String urlHd = seite1.extract("\"id\":\"HTTP_MP4_SQ_1\"", "\"url\":\"", "\"").replace("\\", "");
             String urlNorm = seite1.extract("\"id\":\"HTTP_MP4_EQ_1\"", "\"url\":\"", "\"").replace("\\", "");
             String urlKlein = seite1.extract("\"id\":\"HTTP_MP4_HQ_1\"", "\"url\":\"", "\"").replace("\\", "");
@@ -347,7 +347,7 @@ public class MediathekArte_de extends MediathekReader implements Runnable {
             if (!urlNorm.isEmpty() && !urlNorm.endsWith("EXTRAIT.mp4")) {
                 // http://artestras.vo.llnwxd.net/o35/nogeo/HBBTV/042975-013-B_EXT_SQ_1_VA_00604871_MP4-2200_AMM-HBBTV_EXTRAIT.mp4
                 // sind nur Trailer
-                DatenFilm film = new DatenFilm(sendername, thema, filmWebsite, title, urlNorm, "" /*urlRtmp*/,
+                DatenFilm film = new DatenFilm(getSendername(), thema, filmWebsite, title, urlNorm, "" /*urlRtmp*/,
                         date, time, dauer, description);
                 if (!urlKlein.isEmpty()) {
                     CrawlerTool.addUrlKlein(film, urlKlein, "");
