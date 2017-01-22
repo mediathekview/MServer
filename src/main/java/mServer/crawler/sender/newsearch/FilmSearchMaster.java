@@ -44,7 +44,7 @@ public class FilmSearchMaster
     public FilmSearchMaster() {
         tasks = new ConcurrentHashMap<Sender,ForkJoinTask<VideoDTO>>();
         addTask(Sender.OLD,new OldRunnerTask());
-        addTask(Sender.ZDF,new ZDFSearchTask());
+        addTask(Sender.ZDF,new ZDFSearchTask(15));
     }
 
 

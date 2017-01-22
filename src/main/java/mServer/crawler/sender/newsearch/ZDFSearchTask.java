@@ -28,29 +28,25 @@ public class ZDFSearchTask extends RecursiveTask<Collection<VideoDTO>>
     
     private static final long serialVersionUID = 1L;
     
-    private static DateTimeFormatter DATE_TIME_FORMAT = DateTimeFormatter.ISO_OFFSET_DATE_TIME;
+    private static final DateTimeFormatter DATE_TIME_FORMAT = DateTimeFormatter.ISO_OFFSET_DATE_TIME;
 
-    private Collection<VideoDTO> filmList;
-    private ZDFClient client;
+    private final Collection<VideoDTO> filmList;
+    private final ZDFClient client;
 
     private final ZonedDateTime today = ZonedDateTime.now().withHour(0).withMinute(0);
     
     private int page;
+    private final int days;
     
-    public ZDFSearchTask()
-    {
-        this(1);
-    }
-
-    ZDFSearchTask(int aPage)
+    public ZDFSearchTask(int aDays)
     {
         super();
 
         filmList = new ArrayList<>();
         client = new ZDFClient();
-        page = aPage;
+        page = 1;
+        days = aDays;
     }
-
 
     @Override
     protected Collection<VideoDTO> compute()
@@ -88,7 +84,7 @@ public class ZDFSearchTask extends RecursiveTask<Collection<VideoDTO>>
                     .queryParam(PROPERTY_SEARCHPARAM_Q, SEARCH_ALL)
                     .queryParam(PROPERTY_TYPES, TYPE_PAGE_VIDEO)
                     .queryParam(PROPERTY_SORT_ORDER, SORT_ORDER_DESC)
-                    .queryParam(PROPERTY_DATE_FROM, today.minusDays(15).format(DATE_TIME_FORMAT))
+                    .queryParam(PROPERTY_DATE_FROM, today.minusDays(days).format(DATE_TIME_FORMAT))
                     .queryParam(PROPERTY_DATE_TO, today.plusDays(3).format(DATE_TIME_FORMAT))
                     .queryParam(PROPERTY_SORT_BY, SORT_BY_DATE)
                     .queryParam(PROPERTY_PAGE, Integer.toString(page));
@@ -100,6 +96,6 @@ public class ZDFSearchTask extends RecursiveTask<Collection<VideoDTO>>
     
     public static void main(String... args)
     {
-        new ZDFSearchTask().compute();
+        new ZDFSearchTask(15).compute();
     }
 }

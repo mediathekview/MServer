@@ -54,7 +54,9 @@ public class MediathekZdf extends MediathekReader implements Runnable
         meldungStart();
         meldungAddThread();
         
-        final ZDFSearchTask newTask = new ZDFSearchTask();
+        int days = CrawlerTool.loadLongMax() ? 300 : 20;
+                
+        final ZDFSearchTask newTask = new ZDFSearchTask(days);
         newTask.fork();
         Collection<VideoDTO> filmList = newTask.join();
         
