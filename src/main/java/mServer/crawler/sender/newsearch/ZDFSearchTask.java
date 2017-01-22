@@ -1,14 +1,13 @@
 package mServer.crawler.sender.newsearch;
 
 import com.google.gson.JsonObject;
-
 import com.sun.jersey.api.client.WebResource;
-
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.concurrent.RecursiveTask;
+import mSearch.Config;
 import mSearch.tool.Log;
 
 public class ZDFSearchTask extends RecursiveTask<Collection<VideoDTO>>
@@ -70,7 +69,7 @@ public class ZDFSearchTask extends RecursiveTask<Collection<VideoDTO>>
                 Log.sysLog("SearchTask " + task.hashCode() + " started.");
                 page++;
                 
-            } while(baseObject.has(JSON_ELEMENT_NEXT));
+            } while(!Config.getStop() && baseObject.has(JSON_ELEMENT_NEXT));
             
             subTasks.forEach(task -> {
                 filmList.addAll(task.join());

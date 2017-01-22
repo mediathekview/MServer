@@ -30,6 +30,7 @@ import mSearch.daten.ListeFilme;
 import mSearch.filmeSuchen.ListenerFilmeLaden;
 import mSearch.filmeSuchen.ListenerFilmeLadenEvent;
 import mSearch.tool.Log;
+import mServer.crawler.CrawlerConfig;
 import mServer.crawler.sender.*;
 
 /**

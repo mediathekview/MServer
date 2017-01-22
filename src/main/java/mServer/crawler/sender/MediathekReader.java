@@ -25,7 +25,6 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.LinkedList;
-
 import mSearch.Config;
 import mSearch.daten.DatenFilm;
 import mSearch.tool.GermanStringSorter;
@@ -125,13 +124,13 @@ public class MediathekReader implements Runnable
 
     public int getThreads()
     {
-        return getMaxThreadLaufen();
+        return threads;
     }
 
-    public long getWaitTime()
-    {
-        return getWartenSeiteLaden();
-    }
+//    public long getWaitTime()
+//    {
+//        return getWartenSeiteLaden();
+//    }
 
     public boolean checkNameSenderFilmliste(String name)
     {
