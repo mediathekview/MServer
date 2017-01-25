@@ -6,9 +6,10 @@ import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.stream.*;
 
 import java.util.Collection;
-import java.util.concurrent.RecursiveTask;
+import java.util.concurrent.*;
 import mSearch.tool.Log;
 
 /**
@@ -49,20 +50,15 @@ public class ZDFSearchPageTask extends RecursiveTask<Collection<VideoDTO>> {
             if(dto != null) {
                 filmList.add(dto);
             }*/
-            entryTask.fork();
+            //entryTask.fork();
             subTasks.add(entryTask);
-            Log.sysLog("EntryTask " + entryTask.hashCode() + " started.");
+            Log.sysLog("EntryTask " + entryTask.hashCode() + " added.");
         });
             
         // wait till entry tasks are finished
-        subTasks.forEach((task) -> {
-            if(task !=  null) {
-                filmList.add(task.join());
-                Log.sysLog("EntryTask " + task.hashCode() + " finished.");
-            } else {
-                Log.sysLog("Task is null => ???");
-            }
-        });
+        filmList.addAll(invokeAll(subTasks).parallelStream().map(ForkJoinTask<VideoDTO>::join).
+                                    collect(Collectors.toList()));
+        Log.sysLog("All EntryTasks finished.");
 
         return filmList;
     }    

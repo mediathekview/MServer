@@ -28,7 +28,7 @@ import mServer.crawler.FilmeSuchen;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.concurrent.RecursiveTask;
+import java.util.concurrent.*;
 import mServer.crawler.sender.newsearch.DownloadDTO;
 import mServer.crawler.sender.newsearch.Qualities;
 import mServer.crawler.sender.newsearch.VideoDTO;
@@ -41,6 +41,7 @@ public class MediathekZdf extends MediathekReader implements Runnable
     public static final String URL_PATTERN_SENDUNG_VERPASST = "https://www.zdf.de/sendung-verpasst?airtimeDate=%s";
     public static final String[] KATEGORIE_ENDS = {"A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z", "0+-+9"};
     public static final String KATEGORIEN_URL_PATTERN = "https://www.zdf.de/sendungen-a-z/?group=%s";
+    private static final ForkJoinPool forkJoinPool = ForkJoinPool.commonPool();
     private final MSStringBuilder seite = new MSStringBuilder(Const.STRING_BUFFER_START_BUFFER);
     LinkedListUrl listeTage = new LinkedListUrl();
 
@@ -57,38 +58,36 @@ public class MediathekZdf extends MediathekReader implements Runnable
         int days = CrawlerTool.loadLongMax() ? 300 : 20;
                 
         final ZDFSearchTask newTask = new ZDFSearchTask(days);
-        newTask.fork();
+        forkJoinPool.invoke(newTask);
         Collection<VideoDTO> filmList = newTask.join();
         
         // Convert new DTO to old DatenFilm class
         Log.sysLog("convert VideoDTO to DatenFilm started...");
-        Collection<VideoDtoDatenFilmConverterTask> converterTasks = new ArrayList<>();
+        Collection<VideoDtoDatenFilmConverterAction> converterActions = new ArrayList<>();
         filmList.forEach((video) -> {
-            VideoDtoDatenFilmConverterTask task = new VideoDtoDatenFilmConverterTask(video);
-            task.fork();
-            
-            converterTasks.add(task);
+            VideoDtoDatenFilmConverterAction action = new VideoDtoDatenFilmConverterAction(video);
+            converterActions.add(action);
         });
         
-        converterTasks.forEach(task -> task.join());
+        ForkJoinTask.invokeAll(converterActions);
         Log.sysLog("convert VideoDTO to DatenFilm finished.");
         
         meldungThreadUndFertig();        
     }
     
 
-    private class VideoDtoDatenFilmConverterTask extends RecursiveTask<Object> {
+    private class VideoDtoDatenFilmConverterAction extends RecursiveAction {
 
         private static final long serialVersionUID = 1L;
         
         private final VideoDTO video;        
 
-        public VideoDtoDatenFilmConverterTask(VideoDTO aVideoDTO) {
+        public VideoDtoDatenFilmConverterAction(VideoDTO aVideoDTO) {
             video = aVideoDTO;
         }
 
         @Override
-        protected Object compute() {
+        protected void compute() {
             if(video != null) {
                    try {
                         DownloadDTO download = video.getDownloadDto();
@@ -114,7 +113,6 @@ public class MediathekZdf extends MediathekReader implements Runnable
                         Log.errorLog(496583211, ex, "add film failed: " + video.getWebsiteUrl());
                     }            
             }
-            return null;
         }    
     }
 

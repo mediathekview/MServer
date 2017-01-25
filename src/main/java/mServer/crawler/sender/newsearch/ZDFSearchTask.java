@@ -6,7 +6,8 @@ import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.concurrent.RecursiveTask;
+import java.util.concurrent.*;
+import java.util.stream.*;
 import mSearch.Config;
 import mSearch.tool.Log;
 
@@ -60,17 +61,17 @@ public class ZDFSearchTask extends RecursiveTask<Collection<VideoDTO>>
                 baseObject = loadPage();
 
                 ZDFSearchPageTask task = new ZDFSearchPageTask(baseObject);
-                task.fork();
                 subTasks.add(task);
-                Log.sysLog("SearchTask " + task.hashCode() + " started.");
+                Log.sysLog("SearchTask " + task.hashCode() + " added.");
                 page++;
                 
-            } while(!Config.getStop() && baseObject.has(JSON_ELEMENT_NEXT));
-            
-            subTasks.forEach(task -> {
-                filmList.addAll(task.join());
-                Log.sysLog("SearchTask " + task.hashCode() + " finished.");
-            });
+            } while(!Config.getStop() && baseObject.has(JSON_ELEMENT_NEXT));            
+                filmList.addAll(invokeAll(subTasks).parallelStream()
+                .map(ForkJoinTask<Collection<VideoDTO>>::join)
+                .flatMap(Collection::stream)
+                .collect(Collectors.toList())
+                );
+                Log.sysLog("All SearchTasks finished.");
            
         } catch (Exception ex) {
             Log.errorLog(496583201, ex);
@@ -94,8 +95,4 @@ public class ZDFSearchTask extends RecursiveTask<Collection<VideoDTO>>
         return client.execute(webResource);        
     }
     
-    public static void main(String... args)
-    {
-        new ZDFSearchTask(15).compute();
-    }
 }
