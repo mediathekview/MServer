@@ -4,7 +4,7 @@
     <system-user-agent>MServer</system-user-agent>
 
 	<!-- URLs von fertigen Filmlisten die importiert werden -->
-	<system-filmliste-import-url-1>http://verteiler1.mediathekview.de/f/Filmliste-diff.xz</system-filmliste-import-url-1>
+	<system-filmliste-import-url-1>http://verteiler1.mediathekview.de/Filmliste-diff.xz</system-filmliste-import-url-1>
 	<!-- <system-filmliste-import-url-2>http://m2.picn.de/f/Filmliste-akt.xz</system-filmliste-import-url-2> -->
 	
 	<!-- eine alte Liste importieren, nur bei einem "langen" Suchlauf -->
