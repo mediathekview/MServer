@@ -81,7 +81,7 @@ public class AddToFilmlist {
         .map(DatenFilm::getUrl)
         .collect(Collectors.toList());
         filteredListe.addAll(listeEinsortieren.parallelStream()
-            .filter(film -> vonListe.contains(film) && 
+            .filter(film -> filmUrls.contains(DatenFilm.getUrl(film)) && 
                 FileSize.laengeLong(film.arr[DatenFilm.FILM_URL]) > MIN_SIZE_ADD_OLD)
             .collect(Collectors.toList())
         );
