@@ -6,7 +6,10 @@ import com.google.gson.JsonObject;
 import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.ClientResponse;
 import com.sun.jersey.api.client.WebResource;
+import mSearch.Const;
 import mSearch.tool.Log;
+import mServer.crawler.FilmeSuchen;
+import mServer.crawler.RunSender;
 
 /**
  * jersey client of ZDF
@@ -54,16 +57,31 @@ public class ZDFClient {
 
         Log.sysLog("Lade Seite: " + webResource.getURI());
         
-        if (response.getStatus() != 200)
-        {
+        if (response.getStatus() == 200) {
+            return handleOk(response);
+        } else {
             Log.errorLog(496583258, "Lade Seite " + webResource.getURI() + " fehlgeschlagen: " + response.getStatus());
+            increment(RunSender.Count.FEHLER);
             return null;
         }
-            
-        String jsonOutput = response.getEntity(String.class);
+    }
+    
+    private JsonObject handleOk(ClientResponse response) {
+        increment(RunSender.Count.ANZAHL);
 
-        JsonObject baseObject = gson.fromJson(jsonOutput, JsonObject.class);
+        String jsonOutput = response.getEntity(String.class);
         
-        return baseObject;
+        long bytes = jsonOutput.length();
+        increment(RunSender.Count.SUM_DATA_BYTE, bytes);
+        increment(RunSender.Count.SUM_TRAFFIC_BYTE, bytes);
+
+        return gson.fromJson(jsonOutput, JsonObject.class);        
+    }
+        
+    private void increment(RunSender.Count count) {
+        FilmeSuchen.listeSenderLaufen.inc(Const.ZDF, count);
+    }
+    private void increment(RunSender.Count count, long value) {
+        FilmeSuchen.listeSenderLaufen.inc(Const.ZDF, count, value);
     }
 }
