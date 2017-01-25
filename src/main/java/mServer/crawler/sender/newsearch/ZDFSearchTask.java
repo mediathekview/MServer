@@ -59,13 +59,15 @@ public class ZDFSearchTask extends RecursiveTask<Collection<VideoDTO>>
             
             do {
                 baseObject = loadPage();
-
-                ZDFSearchPageTask task = new ZDFSearchPageTask(baseObject);
-                subTasks.add(task);
-                Log.sysLog("SearchTask " + task.hashCode() + " added.");
-                page++;
+                   
+                if(baseObject != null) {
+                    ZDFSearchPageTask task = new ZDFSearchPageTask(baseObject);
+                    subTasks.add(task);
+                    Log.sysLog("SearchTask " + task.hashCode() + " added.");
+                }
                 
-            } while(!Config.getStop() && baseObject.has(JSON_ELEMENT_NEXT));            
+                page++;
+            } while(!Config.getStop() && baseObject != null && baseObject.has(JSON_ELEMENT_NEXT));            
                 filmList.addAll(invokeAll(subTasks).parallelStream()
                 .map(ForkJoinTask<Collection<VideoDTO>>::join)
                 .flatMap(Collection::stream)

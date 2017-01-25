@@ -56,14 +56,8 @@ public class ZDFClient {
         
         if (response.getStatus() != 200)
         {
-            if(response.getStatus() == 404) {
-                // just log this error because it's a temporary problem in the zdf mediathek
-                Log.sysLog("Resource not found: " + webResource.getURI());
-                return null;
-            } else {
-                throw new RuntimeException("Failed : HTTP error code : "
-                    + response.getStatus());
-            }
+            Log.errorLog(496583258, "Lade Seite " + webResource.getURI() + " fehlgeschlagen: " + response.getStatus());
+            return null;
         }
             
         String jsonOutput = response.getEntity(String.class);

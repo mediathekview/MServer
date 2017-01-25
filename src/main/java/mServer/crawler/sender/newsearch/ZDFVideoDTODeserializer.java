@@ -5,6 +5,7 @@ import java.lang.reflect.Type;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import mSearch.tool.Log;
 
 /**
  * A JSON deserializer to gather the needed information for a {@link VideoDTO}.
@@ -33,31 +34,38 @@ public class ZDFVideoDTODeserializer implements JsonDeserializer<VideoDTO> {
 
     @Override
     public VideoDTO deserialize(final JsonElement aJsonElement, final Type aTypeOfT, final JsonDeserializationContext aJsonDeserializationContext) throws JsonParseException {
-        VideoDTO dto = new VideoDTO();
+        VideoDTO dto = null;
+        try {
+            dto = new VideoDTO();
 
-        JsonObject rootNode = aJsonElement.getAsJsonObject();
-        JsonArray programmItem = rootNode.getAsJsonArray(JSON_ELEMENT_PROGRAMMITEM);
-        JsonObject programmItemTarget = null;
+            JsonObject rootNode = aJsonElement.getAsJsonObject();
+            JsonArray programmItem = rootNode.getAsJsonArray(JSON_ELEMENT_PROGRAMMITEM);
+            JsonObject programmItemTarget = null;
 
-        if(programmItem != null) {
-            if(programmItem.size() > 1) {
-                throw new RuntimeException("Element does not contain programmitem" + rootNode.getAsString());
+            if(programmItem != null) {
+                if(programmItem.size() > 1) {
+                    throw new RuntimeException("Element does not contain programmitem" + rootNode.getAsString());
+                }
+
+                if(programmItem.size() == 1) {
+                    programmItemTarget = programmItem.get(0).getAsJsonObject().get(JSON_ELEMENT_TARGET).getAsJsonObject();
+                } 
             }
 
-            if(programmItem.size() == 1) {
-                programmItemTarget = programmItem.get(0).getAsJsonObject().get(JSON_ELEMENT_TARGET).getAsJsonObject();
-            } 
-        }
+            parseTitle(dto, rootNode, programmItemTarget);     
+            parseTopic(dto, rootNode);
+            parseDescription(dto, rootNode);
 
-        parseTitle(dto, rootNode, programmItemTarget);     
-        parseTopic(dto, rootNode);
-        parseDescription(dto, rootNode);
+            parseWebsiteUrl(dto, rootNode);
+            parseAirtime(dto, rootNode, programmItemTarget);
+            parseDuration(dto, rootNode);
+
+        } catch (Exception ex) {
+            dto = null;
+            Log.errorLog(496583256, ex);
+        }       
         
-        parseWebsiteUrl(dto, rootNode);
-        parseAirtime(dto, rootNode, programmItemTarget);
-        parseDuration(dto, rootNode);
-        
-        return dto;    
+        return dto;
     }
     
     private void parseAirtime(VideoDTO dto, JsonObject rootNode, JsonObject programmItemTarget) {

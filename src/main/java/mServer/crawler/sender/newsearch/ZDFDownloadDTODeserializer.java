@@ -3,6 +3,7 @@ package mServer.crawler.sender.newsearch;
 import com.google.gson.*;
 import java.lang.reflect.Type;
 import java.util.Iterator;
+import mSearch.tool.Log;
 
 /**
  * A JSON deserializer to gather the needed information for a {@link DownloadDTO}.
@@ -25,14 +26,20 @@ public class ZDFDownloadDTODeserializer implements JsonDeserializer<DownloadDTO>
     
     @Override
     public DownloadDTO deserialize(final JsonElement aJsonElement, final Type aTypeOfT, final JsonDeserializationContext aJsonDeserializationContext) throws JsonParseException {
-        DownloadDTO dto = new DownloadDTO();
+        try {
+            DownloadDTO dto = new DownloadDTO();
+
+            JsonObject rootNode = aJsonElement.getAsJsonObject();
+
+            parseVideoUrls(dto, rootNode);
+            parseSubtitle(dto, rootNode);
+
+            return dto;
+        } catch (Exception ex) {
+            Log.errorLog(496583257, ex);
+        }
         
-        JsonObject rootNode = aJsonElement.getAsJsonObject();
-        
-        parseVideoUrls(dto, rootNode);
-        parseSubtitle(dto, rootNode);
-        
-        return dto;
+        return null;
     }
     
     private void parseVideoUrls(DownloadDTO dto, JsonObject rootNode) {

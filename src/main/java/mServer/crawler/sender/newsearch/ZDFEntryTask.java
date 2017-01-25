@@ -39,17 +39,18 @@ public class ZDFEntryTask extends RecursiveTask<VideoDTO> {
             JsonObject baseObjectInfo = client.execute(webResourceInfo);
             if(baseObjectInfo != null) {
                 dto = gson.fromJson(baseObjectInfo, VideoDTO.class);
-
-                // read download details
-                String downloadUrl = zdfEntryDTO.getEntryDownloadInformationUrl();
-                WebResource webResourceDownload = client.createResource(downloadUrl);
-                JsonObject baseObjectDownload = client.execute(webResourceDownload);
-                if(baseObjectDownload != null) {
-                    DownloadDTO downloadDto = gson.fromJson(baseObjectDownload, DownloadDTO.class);
-                    dto.setDownloadDto(downloadDto);
+                if(dto != null) {
+                    // read download details
+                    String downloadUrl = zdfEntryDTO.getEntryDownloadInformationUrl();
+                    WebResource webResourceDownload = client.createResource(downloadUrl);
+                    JsonObject baseObjectDownload = client.execute(webResourceDownload);
+                    if(baseObjectDownload != null) {
+                        DownloadDTO downloadDto = gson.fromJson(baseObjectDownload, DownloadDTO.class);
+                        dto.setDownloadDto(downloadDto);
+                    }
                 }
             }
-        } catch (JsonSyntaxException ex) {
+        } catch (Exception ex) {
             Log.errorLog(496583202, ex, "Exception parsing " + zdfEntryDTO.getEntryGeneralInformationUrl());
             dto = null;
         }
