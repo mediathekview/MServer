@@ -10,6 +10,7 @@ import java.util.stream.*;
 
 import java.util.Collection;
 import java.util.concurrent.*;
+import mSearch.Config;
 import mSearch.tool.Log;
 
 /**
@@ -40,28 +41,25 @@ public class ZDFSearchPageTask extends RecursiveTask<Collection<VideoDTO>> {
     protected Collection<VideoDTO> compute() {
         
         Collection<VideoDTO> filmList = new ArrayList<>();
-        Collection<ZDFEntryTask> subTasks = new ArrayList<>();
+        if(!Config.getStop()) {
+            Collection<ZDFEntryTask> subTasks = new ArrayList<>();
+
+            Collection<ZDFEntryDTO> zdfEntryDTOList = gson.fromJson(searchResult.getAsJsonArray(JSON_ELEMENT_RESULTS), ZDFENTRYDTO_COLLECTION_TYPE);
+            zdfEntryDTOList.forEach(zdfEntryDTO -> {
+                if(zdfEntryDTO != null) {
+                    final ZDFEntryTask entryTask = new ZDFEntryTask(zdfEntryDTO);
+
+                    subTasks.add(entryTask);
+                    Log.sysLog("EntryTask " + entryTask.hashCode() + " added.");
+                }
+            });
+
+            // wait till entry tasks are finished
+            filmList.addAll(invokeAll(subTasks).parallelStream().map(ForkJoinTask<VideoDTO>::join).
+                                        collect(Collectors.toList()));
+            Log.sysLog("All EntryTasks finished.");
+        }
         
-        Collection<ZDFEntryDTO> zdfEntryDTOList = gson.fromJson(searchResult.getAsJsonArray(JSON_ELEMENT_RESULTS), ZDFENTRYDTO_COLLECTION_TYPE);
-        zdfEntryDTOList.forEach(zdfEntryDTO -> {
-            if(zdfEntryDTO != null) {
-                final ZDFEntryTask entryTask = new ZDFEntryTask(zdfEntryDTO);
-
-                /*VideoDTO dto = entryTask.invoke();
-                if(dto != null) {
-                    filmList.add(dto);
-                }*/
-                //entryTask.fork();
-                subTasks.add(entryTask);
-                Log.sysLog("EntryTask " + entryTask.hashCode() + " added.");
-            }
-        });
-            
-        // wait till entry tasks are finished
-        filmList.addAll(invokeAll(subTasks).parallelStream().map(ForkJoinTask<VideoDTO>::join).
-                                    collect(Collectors.toList()));
-        Log.sysLog("All EntryTasks finished.");
-
         return filmList;
     }    
 }

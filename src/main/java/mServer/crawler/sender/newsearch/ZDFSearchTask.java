@@ -52,31 +52,34 @@ public class ZDFSearchTask extends RecursiveTask<Collection<VideoDTO>>
     @Override
     protected Collection<VideoDTO> compute()
     {
-        try
-        {
-            Collection<ZDFSearchPageTask> subTasks = new ArrayList<>();
-            JsonObject baseObject;
-            
-            do {
-                baseObject = loadPage();
-                   
-                if(baseObject != null) {
-                    ZDFSearchPageTask task = new ZDFSearchPageTask(baseObject);
-                    subTasks.add(task);
-                    Log.sysLog("SearchTask " + task.hashCode() + " added.");
-                }
-                
-                page++;
-            } while(!Config.getStop() && baseObject != null && baseObject.has(JSON_ELEMENT_NEXT));            
-                filmList.addAll(invokeAll(subTasks).parallelStream()
-                .map(ForkJoinTask<Collection<VideoDTO>>::join)
-                .flatMap(Collection::stream)
-                .collect(Collectors.toList())
-                );
-                Log.sysLog("All SearchTasks finished.");
-           
-        } catch (Exception ex) {
-            Log.errorLog(496583201, ex);
+        if(!Config.getStop()) {
+            try
+            {
+                Collection<ZDFSearchPageTask> subTasks = new ArrayList<>();
+                JsonObject baseObject;
+
+                do {
+                    baseObject = loadPage();
+
+                    if(baseObject != null) {
+                        ZDFSearchPageTask task = new ZDFSearchPageTask(baseObject);
+                        subTasks.add(task);
+                        Log.sysLog("SearchTask " + task.hashCode() + " added.");
+                    }
+
+                    page++;
+                } while(!Config.getStop() && baseObject != null && baseObject.has(JSON_ELEMENT_NEXT));            
+                    filmList.addAll(invokeAll(subTasks).parallelStream()
+                    .map(ForkJoinTask<Collection<VideoDTO>>::join)
+                    .flatMap(Collection::stream)
+                    .collect(Collectors.toList())
+                    );
+
+                    Log.sysLog("All SearchTasks finished.");
+
+            } catch (Exception ex) {
+                Log.errorLog(496583201, ex);
+            }
         }
         return filmList;
     }
