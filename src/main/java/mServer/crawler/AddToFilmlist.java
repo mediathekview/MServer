@@ -11,6 +11,7 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.stream.Collectors;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import mSearch.Config;
 import mSearch.daten.DatenFilm;
@@ -27,7 +28,7 @@ public class AddToFilmlist {
 
     final int COUNTER_MAX = 20;
     int counter = 0;
-    int treffer = 0;
+    AtomicInteger treffer = new AtomicInteger(0);
     ListeFilme vonListe;
     ListeFilme listeEinsortieren;
 
@@ -58,17 +59,16 @@ public class AddToFilmlist {
         // in eine vorhandene Liste soll eine andere Filmliste einsortiert werden
         // es werden nur Filme die noch nicht vorhanden sind, einsortiert
         counter = 0;
-        treffer = 0;
+        treffer = new AtomicInteger(0);
 
         Collection<DatenFilm> filteredListe = new CopyOnWriteArrayList<>();
 
         // ==============================================
         // nach "Thema-Titel" suchen
         filteredListe.addAll(listeEinsortieren.parallelStream()
-            .filter(film -> vonListe.contains(film) && 
-                FileSize.laengeLong(film.arr[DatenFilm.FILM_URL]) > MIN_SIZE_ADD_OLD)
-            .collect(Collectors.toList())
-        );
+            .filter(film -> !Config.getStop() && vonListe.contains(film) && 
+               FileSize.laengeLong(film.arr[DatenFilm.FILM_URL]) > MIN_SIZE_ADD_OLD)
+            .collect(Collectors.toList()));
        
         Log.sysLog("===== Liste einsortieren Hash =====");
         Log.sysLog("Liste einsortieren, Anzahl: " + listeEinsortieren.size());
@@ -80,11 +80,11 @@ public class AddToFilmlist {
         Collection<String> filmUrls = vonListe.parallelStream()
         .map(DatenFilm::getUrl)
         .collect(Collectors.toList());
+
         filteredListe.addAll(listeEinsortieren.parallelStream()
-            .filter(film -> filmUrls.contains(DatenFilm.getUrl(film)) && 
+            .filter(film -> !Config.getStop() && filmUrls.contains(DatenFilm.getUrl(film)) && 
                 FileSize.laengeLong(film.arr[DatenFilm.FILM_URL]) > MIN_SIZE_ADD_OLD)
-            .collect(Collectors.toList())
-        );
+            .collect(Collectors.toList()));
 
         Log.sysLog("===== Liste einsortieren URL =====");
         Log.sysLog("Liste einsortieren, Anzahl: " + listeEinsortieren.size());
@@ -92,21 +92,27 @@ public class AddToFilmlist {
         Log.sysLog("");
 
         // Rest nehmen wir wenn noch online
-        filteredListe.parallelStream().forEach(this::addOld);        
+        filteredListe.parallelStream().forEach(f ->{
+            if(!Config.getStop())
+            {
+                initFilm(f);
+            }
+        });        
+        vonListe.addAll(filteredListe);
+        
         
         Log.sysLog("===== Liste einsortieren: Noch online =====");
         Log.sysLog("Liste einsortieren, Anzahl: " + filteredListe.size());
-        Log.sysLog("Liste einsortieren, entfernt: " + (filteredListe.size() - treffer));
+        Log.sysLog("Liste einsortieren, entfernt: " + (filteredListe.size() - treffer.get()));
         Log.sysLog("");
-        Log.sysLog("In Liste einsortiert: " + treffer);
+        Log.sysLog("In Liste einsortiert: " + treffer.get());
         Log.sysLog("");
-        return treffer;
+        return treffer.get();
     }
 
-    private synchronized boolean addOld(DatenFilm film) {
-        ++treffer;
+    private void initFilm(DatenFilm film) {
+        treffer.getAndIncrement();
         film.init();
-        return vonListe.add(film);
     }
 
 }
