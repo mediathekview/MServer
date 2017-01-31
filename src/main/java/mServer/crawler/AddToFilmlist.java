@@ -19,11 +19,14 @@ import mSearch.daten.ListeFilme;
 import mSearch.tool.FileSize;
 import mSearch.tool.Log;
 
+
+
 /**
  *
  * @author emil
  */
 public class AddToFilmlist {
+   
     private static final int MIN_SIZE_ADD_OLD = 5;
 
     final int COUNTER_MAX = 20;
@@ -61,49 +64,56 @@ public class AddToFilmlist {
         counter = 0;
         treffer = new AtomicInteger(0);
 
-        Collection<DatenFilm> filteredListe = new CopyOnWriteArrayList<>();
-
         // ==============================================
         // nach "Thema-Titel" suchen
-        filteredListe.addAll(listeEinsortieren.parallelStream()
-            .filter(film -> !Config.getStop() && vonListe.contains(film) && 
-               FileSize.laengeLong(film.arr[DatenFilm.FILM_URL]) > MIN_SIZE_ADD_OLD)
+        Collection<DatenFilm> filteredTopicTitle = new CopyOnWriteArrayList<>();
+        filteredTopicTitle.addAll(listeEinsortieren.parallelStream()
+            .filter(film -> (null == vonListe.istInFilmListe(film.arr[DatenFilm.FILM_SENDER], film.arr[DatenFilm.FILM_THEMA], film.arr[DatenFilm.FILM_TITEL])))
             .collect(Collectors.toList()));
        
         Log.sysLog("===== Liste einsortieren Hash =====");
         Log.sysLog("Liste einsortieren, Anzahl: " + listeEinsortieren.size());
-        Log.sysLog("Liste einsortieren, entfernt: " + (listeEinsortieren.size() - filteredListe.size()));
+        Log.sysLog("Liste einsortieren, entfernt: " + (listeEinsortieren.size() - filteredTopicTitle.size()));
         Log.sysLog("");
 
         // ==============================================
         // nach "URL" suchen
+        Collection<DatenFilm> filteredUrl = new CopyOnWriteArrayList<>();
+
         Collection<String> filmUrls = vonListe.parallelStream()
         .map(DatenFilm::getUrl)
         .collect(Collectors.toList());
 
-        filteredListe.addAll(listeEinsortieren.parallelStream()
-            .filter(film -> !Config.getStop() && filmUrls.contains(DatenFilm.getUrl(film)) && 
-                FileSize.laengeLong(film.arr[DatenFilm.FILM_URL]) > MIN_SIZE_ADD_OLD)
+        int size = filteredTopicTitle.size();
+        
+        filteredUrl.addAll(filteredTopicTitle.parallelStream()
+            .filter(film -> !filmUrls.contains(DatenFilm.getUrl(film)))
             .collect(Collectors.toList()));
 
         Log.sysLog("===== Liste einsortieren URL =====");
-        Log.sysLog("Liste einsortieren, Anzahl: " + listeEinsortieren.size());
-        Log.sysLog("Liste einsortieren, entfernt: " + (listeEinsortieren.size() - filteredListe.size()));
+        Log.sysLog("Liste einsortieren, Anzahl: " + size);
+        Log.sysLog("Liste einsortieren, entfernt: " + (size - filteredUrl.size()));
         Log.sysLog("");
 
         // Rest nehmen wir wenn noch online
-        filteredListe.parallelStream().forEach(f ->{
+        // Prüfung auf online erst am Ende durchführen, damit jeder Film nur einmalig geprüft wird
+        Collection<DatenFilm> filteredOnline = new CopyOnWriteArrayList<>();
+        filteredOnline.addAll(filteredUrl.parallelStream().filter(f -> 
+            !Config.getStop() && FileSize.laengeLong(f.arr[DatenFilm.FILM_URL]) > MIN_SIZE_ADD_OLD
+        )
+        .collect(Collectors.toList()));
+        filteredOnline.parallelStream().forEach(f ->{
             if(!Config.getStop())
             {
                 initFilm(f);
             }
         });        
-        vonListe.addAll(filteredListe);
+        vonListe.addAll(filteredOnline);
         
         
         Log.sysLog("===== Liste einsortieren: Noch online =====");
-        Log.sysLog("Liste einsortieren, Anzahl: " + filteredListe.size());
-        Log.sysLog("Liste einsortieren, entfernt: " + (filteredListe.size() - treffer.get()));
+        Log.sysLog("Liste einsortieren, Anzahl: " + filteredOnline.size());
+        Log.sysLog("Liste einsortieren, entfernt: " + (filteredOnline.size() - treffer.get()));
         Log.sysLog("");
         Log.sysLog("In Liste einsortiert: " + treffer.get());
         Log.sysLog("");
