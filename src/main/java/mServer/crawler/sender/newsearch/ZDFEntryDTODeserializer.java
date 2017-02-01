@@ -3,6 +3,7 @@ package mServer.crawler.sender.newsearch;
 import com.google.gson.*;
 
 import java.lang.reflect.Type;
+import mSearch.tool.Log;
 
 /**
  * A JSON deserializer to gather the needed information for a {@link ZDFEntryDTO}.
@@ -18,14 +19,21 @@ public class ZDFEntryDTODeserializer implements JsonDeserializer<ZDFEntryDTO>
     @Override
     public ZDFEntryDTO deserialize(final JsonElement aJsonElement, final Type aTypeOfT, final JsonDeserializationContext aJsonDeserializationContext) throws JsonParseException
     {
-        JsonObject targetObject = aJsonElement.getAsJsonObject().getAsJsonObject(JSON_OBJ_ELEMENT_TARGET);
-        JsonObject mainVideoContentObject = targetObject.getAsJsonObject(JSON_OBJ_ELEMENT_MAIN_VIDEO_CONTENT).getAsJsonObject(JSON_OBJ_ELEMENT_TARGET);
-        final JsonElement entryGeneralInformationUrlElement = targetObject.get(JSON_ELEMENT_GENERAL_INFORMATION_URL);
-        final JsonElement entryDownloadInformationUrlElement = mainVideoContentObject.get(JSON_ELEMENT_DOWNLOAD_INFORMATION_URL);
+        ZDFEntryDTO dto = null;
+        try {
+            JsonObject targetObject = aJsonElement.getAsJsonObject().getAsJsonObject(JSON_OBJ_ELEMENT_TARGET);
+            JsonObject mainVideoContentObject = targetObject.getAsJsonObject(JSON_OBJ_ELEMENT_MAIN_VIDEO_CONTENT).getAsJsonObject(JSON_OBJ_ELEMENT_TARGET);
+            final JsonElement entryGeneralInformationUrlElement = targetObject.get(JSON_ELEMENT_GENERAL_INFORMATION_URL);
+            final JsonElement entryDownloadInformationUrlElement = mainVideoContentObject.get(JSON_ELEMENT_DOWNLOAD_INFORMATION_URL);
 
-        String downloadUrl = entryDownloadInformationUrlElement.getAsString()
-                .replace("{playerId}", "ngplayer_2_3");
+            String downloadUrl = entryDownloadInformationUrlElement.getAsString()
+                    .replace("{playerId}", "ngplayer_2_3");
 
-        return new ZDFEntryDTO(entryGeneralInformationUrlElement.getAsString(), downloadUrl);
+            dto = new ZDFEntryDTO(entryGeneralInformationUrlElement.getAsString(), downloadUrl);
+        } catch (Exception ex) {
+            Log.errorLog(496583255, ex);
+        }       
+
+        return dto;
     }
 }

@@ -7,6 +7,7 @@ import com.google.gson.JsonSyntaxException;
 import com.sun.jersey.api.client.WebResource;
 
 import java.util.concurrent.RecursiveTask;
+import mSearch.Config;
 import mSearch.tool.Log;
 
 /**
@@ -31,27 +32,32 @@ public class ZDFEntryTask extends RecursiveTask<VideoDTO> {
     
     @Override
     protected VideoDTO compute() {
-        VideoDTO dto = null;
-        try {
-            // read film details
-            String infoUrl = zdfEntryDTO.getEntryGeneralInformationUrl();
-            WebResource webResourceInfo = client.createResource(infoUrl);
-            JsonObject baseObjectInfo = client.execute(webResourceInfo);
-            if(baseObjectInfo != null) {
-                dto = gson.fromJson(baseObjectInfo, VideoDTO.class);
 
-                // read download details
-                String downloadUrl = zdfEntryDTO.getEntryDownloadInformationUrl();
-                WebResource webResourceDownload = client.createResource(downloadUrl);
-                JsonObject baseObjectDownload = client.execute(webResourceDownload);
-                if(baseObjectDownload != null) {
-                    DownloadDTO downloadDto = gson.fromJson(baseObjectDownload, DownloadDTO.class);
-                    dto.setDownloadDto(downloadDto);
+        VideoDTO dto = null;
+
+        if(!Config.getStop()) {
+            try {
+                // read film details
+                String infoUrl = zdfEntryDTO.getEntryGeneralInformationUrl();
+                WebResource webResourceInfo = client.createResource(infoUrl);
+                JsonObject baseObjectInfo = client.execute(webResourceInfo);
+                if(baseObjectInfo != null) {
+                    dto = gson.fromJson(baseObjectInfo, VideoDTO.class);
+                    if(dto != null) {
+                        // read download details
+                        String downloadUrl = zdfEntryDTO.getEntryDownloadInformationUrl();
+                        WebResource webResourceDownload = client.createResource(downloadUrl);
+                        JsonObject baseObjectDownload = client.execute(webResourceDownload);
+                        if(baseObjectDownload != null) {
+                            DownloadDTO downloadDto = gson.fromJson(baseObjectDownload, DownloadDTO.class);
+                            dto.setDownloadDto(downloadDto);
+                        }
+                    }
                 }
+            } catch (Exception ex) {
+                Log.errorLog(496583202, ex, "Exception parsing " + zdfEntryDTO.getEntryGeneralInformationUrl());
+                dto = null;
             }
-        } catch (JsonSyntaxException ex) {
-            Log.errorLog(496583202, ex, "Exception parsing " + zdfEntryDTO.getEntryGeneralInformationUrl());
-            dto = null;
         }
         
         return dto;

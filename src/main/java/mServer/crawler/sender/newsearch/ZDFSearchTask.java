@@ -1,14 +1,14 @@
 package mServer.crawler.sender.newsearch;
 
 import com.google.gson.JsonObject;
-
 import com.sun.jersey.api.client.WebResource;
-
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.concurrent.RecursiveTask;
+import java.util.concurrent.*;
+import java.util.stream.*;
+import mSearch.Config;
 import mSearch.tool.Log;
 
 public class ZDFSearchTask extends RecursiveTask<Collection<VideoDTO>>
@@ -29,56 +29,57 @@ public class ZDFSearchTask extends RecursiveTask<Collection<VideoDTO>>
     
     private static final long serialVersionUID = 1L;
     
-    private static DateTimeFormatter DATE_TIME_FORMAT = DateTimeFormatter.ISO_OFFSET_DATE_TIME;
+    private static final DateTimeFormatter DATE_TIME_FORMAT = DateTimeFormatter.ISO_OFFSET_DATE_TIME;
 
-    private Collection<VideoDTO> filmList;
-    private ZDFClient client;
+    private final Collection<VideoDTO> filmList;
+    private final ZDFClient client;
 
     private final ZonedDateTime today = ZonedDateTime.now().withHour(0).withMinute(0);
     
     private int page;
+    private final int days;
     
-    public ZDFSearchTask()
-    {
-        this(1);
-    }
-
-    ZDFSearchTask(int aPage)
+    public ZDFSearchTask(int aDays)
     {
         super();
 
         filmList = new ArrayList<>();
         client = new ZDFClient();
-        page = aPage;
+        page = 1;
+        days = aDays;
     }
-
 
     @Override
     protected Collection<VideoDTO> compute()
     {
-        try
-        {
-            Collection<ZDFSearchPageTask> subTasks = new ArrayList<>();
-            JsonObject baseObject;
-            
-            do {
-                baseObject = loadPage();
+        if(!Config.getStop()) {
+            try
+            {
+                Collection<ZDFSearchPageTask> subTasks = new ArrayList<>();
+                JsonObject baseObject;
 
-                ZDFSearchPageTask task = new ZDFSearchPageTask(baseObject);
-                task.fork();
-                subTasks.add(task);
-                Log.sysLog("SearchTask " + task.hashCode() + " started.");
-                page++;
-                
-            } while(baseObject.has(JSON_ELEMENT_NEXT));
-            
-            subTasks.forEach(task -> {
-                filmList.addAll(task.join());
-                Log.sysLog("SearchTask " + task.hashCode() + " finished.");
-            });
-           
-        } catch (Exception ex) {
-            Log.errorLog(496583201, ex);
+                do {
+                    baseObject = loadPage();
+
+                    if(baseObject != null) {
+                        ZDFSearchPageTask task = new ZDFSearchPageTask(baseObject);
+                        subTasks.add(task);
+                        Log.sysLog("SearchTask " + task.hashCode() + " added.");
+                    }
+
+                    page++;
+                } while(!Config.getStop() && baseObject != null && baseObject.has(JSON_ELEMENT_NEXT));            
+                    filmList.addAll(invokeAll(subTasks).parallelStream()
+                    .map(ForkJoinTask<Collection<VideoDTO>>::join)
+                    .flatMap(Collection::stream)
+                    .collect(Collectors.toList())
+                    );
+
+                    Log.sysLog("All SearchTasks finished.");
+
+            } catch (Exception ex) {
+                Log.errorLog(496583201, ex);
+            }
         }
         return filmList;
     }
@@ -89,7 +90,7 @@ public class ZDFSearchTask extends RecursiveTask<Collection<VideoDTO>>
                     .queryParam(PROPERTY_SEARCHPARAM_Q, SEARCH_ALL)
                     .queryParam(PROPERTY_TYPES, TYPE_PAGE_VIDEO)
                     .queryParam(PROPERTY_SORT_ORDER, SORT_ORDER_DESC)
-                    .queryParam(PROPERTY_DATE_FROM, today.minusDays(15).format(DATE_TIME_FORMAT))
+                    .queryParam(PROPERTY_DATE_FROM, today.minusDays(days).format(DATE_TIME_FORMAT))
                     .queryParam(PROPERTY_DATE_TO, today.plusDays(3).format(DATE_TIME_FORMAT))
                     .queryParam(PROPERTY_SORT_BY, SORT_BY_DATE)
                     .queryParam(PROPERTY_PAGE, Integer.toString(page));
@@ -99,8 +100,4 @@ public class ZDFSearchTask extends RecursiveTask<Collection<VideoDTO>>
         return client.execute(webResource);        
     }
     
-    public static void main(String... args)
-    {
-        new ZDFSearchTask().compute();
-    }
 }
