@@ -50,7 +50,7 @@ public class MediathekPhoenix extends MediathekReader implements Runnable {
         } else {
             meldungAddMax(listeThemen.size());
             //alles auswerten
-            for (int t = 0; t < maxThreadLaufen; ++t) {
+            for (int t = 0; t < getMaxThreadLaufen(); ++t) {
                 //new Thread(new ThemaLaden()).start();
                 Thread th = new Thread(new ThemaLaden());
                 th.setName(SENDERNAME + t);
@@ -61,7 +61,7 @@ public class MediathekPhoenix extends MediathekReader implements Runnable {
 
     private void addToList_() {
         final String MUSTER = "<li><strong><a href=\"/content/";
-        GetUrl getUrl = new GetUrl(wartenSeiteLaden);
+        GetUrl getUrl = new GetUrl(getWartenSeiteLaden());
         seite = getUrl.getUri(SENDERNAME, "http://www.phoenix.de/content/78905", Const.KODIERUNG_ISO15, 6 /* versuche */, seite, "" /* Meldung */);
         if (seite.length() == 0) {
             Log.errorLog(487512369, "Leere Seite für URL: ");
@@ -89,7 +89,7 @@ public class MediathekPhoenix extends MediathekReader implements Runnable {
 
     private class ThemaLaden implements Runnable {
 
-        GetUrl getUrl = new GetUrl(wartenSeiteLaden);
+        GetUrl getUrl = new GetUrl(getWartenSeiteLaden());
         private final MSStringBuilder seite1 = new MSStringBuilder(Const.STRING_BUFFER_START_BUFFER);
         private final MSStringBuilder seite3 = new MSStringBuilder(Const.STRING_BUFFER_START_BUFFER);
 

@@ -70,7 +70,7 @@ public class MediathekRbb extends MediathekReader implements Runnable {
             meldungThreadUndFertig();
         } else {
             meldungAddMax(listeThemen.size());
-            for (int t = 0; t < maxThreadLaufen; ++t) {
+            for (int t = 0; t < getMaxThreadLaufen(); ++t) {
                 //new Thread(new ThemaLaden()).start();
                 Thread th = new Thread(new ThemaLaden(false /*addTage*/));
                 th.setName(SENDERNAME + t);
@@ -86,7 +86,7 @@ public class MediathekRbb extends MediathekReader implements Runnable {
     private class ThemaLaden implements Runnable {
 
         boolean addTage = false;
-        GetUrl getUrl = new GetUrl(wartenSeiteLaden);
+        GetUrl getUrl = new GetUrl(getWartenSeiteLaden());
         private MSStringBuilder seite1 = new MSStringBuilder(Const.STRING_BUFFER_START_BUFFER);
         private MSStringBuilder seite2 = new MSStringBuilder(Const.STRING_BUFFER_START_BUFFER);
         private MSStringBuilder seite3 = new MSStringBuilder(Const.STRING_BUFFER_START_BUFFER);

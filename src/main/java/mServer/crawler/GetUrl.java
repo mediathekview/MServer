@@ -141,6 +141,7 @@ public class GetUrl {
         }
 
         try {
+            Log.sysLog("Durchsuche: "+addr);
             // conn = url.openConnection(Proxy.NO_PROXY);
             conn = (HttpURLConnection) new URL(addr).openConnection();
             conn.setRequestProperty("User-Agent", Config.getUserAgent());

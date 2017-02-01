@@ -107,6 +107,10 @@ public class CrawlerTool {
     public static void setGeo(DatenFilm film) {
         switch (film.arr[DatenFilm.FILM_SENDER]) {
             case Const.ARD:
+                if (film.arr[DatenFilm.FILM_URL].startsWith("http://pd-videos.daserste.de/de/")) {
+                    film.arr[DatenFilm.FILM_GEO] = DatenFilm.GEO_DE;
+                }
+                break;
             case Const.SWR:
             case Const.MDR:
             case Const.BR:

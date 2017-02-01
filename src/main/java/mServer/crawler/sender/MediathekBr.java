@@ -58,7 +58,7 @@ public class MediathekBr extends MediathekReader implements Runnable {
 
     @Override
     void addToList() {
-        mSearchFilmeSuchen.listeFilmeAlt.getThema(sendername, listeAlleThemenCount_);
+        mSearchFilmeSuchen.listeFilmeAlt.getThema(getSendername(), listeAlleThemenCount_);
         meldungStart();
         getTheman(); // Themen suchen
         getTage(); // Programm der letzten Tage absuchen
@@ -102,7 +102,7 @@ public class MediathekBr extends MediathekReader implements Runnable {
                 thArchiv.start();
             }
             new Thread(new KlassikLaden(), SENDERNAME).start(); // Klassik braucht auch eine Einzelbehandlung
-            for (int t = 0; t < maxThreadLaufen; ++t) {
+            for (int t = 0; t < getMaxThreadLaufen(); ++t) {
                 Thread th = new Thread(new ThemaLaden());
                 th.setName(SENDERNAME + t);
                 th.start();
@@ -209,16 +209,16 @@ public class MediathekBr extends MediathekReader implements Runnable {
 
     @Override
     synchronized void meldungThreadUndFertig() {
-        if (threads <= 1) {
+        if (getThreads() <= 1) {
             //wird erst ausgeführt wenn alle Threads beendet sind
-            mSearchFilmeSuchen.listeFilmeNeu.checkThema(sendername, listeAlleThemenCount_, sendername);
+            mSearchFilmeSuchen.listeFilmeNeu.checkThema(getSendername(), listeAlleThemenCount_, getSendername());
         }
         super.meldungThreadUndFertig();
     }
 
     private class ThemaLaden implements Runnable {
 
-        GetUrl getUrl = new GetUrl(wartenSeiteLaden);
+        GetUrl getUrl = new GetUrl(getWartenSeiteLaden());
         private final MSStringBuilder seite1 = new MSStringBuilder(Const.STRING_BUFFER_START_BUFFER);
         private final MSStringBuilder seite2 = new MSStringBuilder(Const.STRING_BUFFER_START_BUFFER);
         private MSStringBuilder seite3 = new MSStringBuilder(Const.STRING_BUFFER_START_BUFFER);
@@ -371,7 +371,7 @@ public class MediathekBr extends MediathekReader implements Runnable {
 
     private class KlassikLaden implements Runnable {
 
-        GetUrl getUrl = new GetUrl(wartenSeiteLaden);
+        GetUrl getUrl = new GetUrl(getWartenSeiteLaden());
         private final MSStringBuilder seite1 = new MSStringBuilder(Const.STRING_BUFFER_START_BUFFER);
         private final MSStringBuilder seite2 = new MSStringBuilder(Const.STRING_BUFFER_START_BUFFER);
         private final MSStringBuilder seite3 = new MSStringBuilder(Const.STRING_BUFFER_START_BUFFER);
@@ -586,7 +586,7 @@ public class MediathekBr extends MediathekReader implements Runnable {
                 return s;
             }
         }
-        return sendername;
+        return getSendername();
     }
 
     private class ArchivLaden implements Runnable {
@@ -618,7 +618,7 @@ public class MediathekBr extends MediathekReader implements Runnable {
             final String MUSTER_START = "<div class=\"teaser search_result\">";
             MSStringBuilder seiteArchiv1 = new MSStringBuilder(Const.STRING_BUFFER_START_BUFFER);
             MSStringBuilder seiteArchiv2 = new MSStringBuilder(Const.STRING_BUFFER_START_BUFFER);
-            GetUrl getUrl = new GetUrl(wartenSeiteLaden);
+            GetUrl getUrl = new GetUrl(getWartenSeiteLaden());
             for (int i = start; i <= ende; ++i) {
                 if (Config.getStop()) {
                     break;

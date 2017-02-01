@@ -55,7 +55,7 @@ public class MediathekZdfTivi extends MediathekReader implements Runnable {
             meldungThreadUndFertig();
         } else {
             meldungAddMax(listeThemen.size() + listeThemen_3.size());
-            for (int t = 0; t < maxThreadLaufen; ++t) {
+            for (int t = 0; t < getMaxThreadLaufen(); ++t) {
                 Thread th = new Thread(new ThemaLaden());
                 th.setName(SENDERNAME + t);
                 th.start();
@@ -179,7 +179,7 @@ public class MediathekZdfTivi extends MediathekReader implements Runnable {
 
     private class ThemaLaden implements Runnable {
 
-        GetUrl getUrl = new GetUrl(wartenSeiteLaden);
+        GetUrl getUrl = new GetUrl(getWartenSeiteLaden());
         MSStringBuilder seite1 = new MSStringBuilder(Const.STRING_BUFFER_START_BUFFER);
         MSStringBuilder seite2 = new MSStringBuilder(Const.STRING_BUFFER_START_BUFFER);
 

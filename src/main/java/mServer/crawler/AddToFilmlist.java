@@ -5,23 +5,33 @@
  */
 package mServer.crawler;
 
+import java.util.Collection;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.stream.Collectors;
+import java.util.concurrent.atomic.AtomicInteger;
+
 import mSearch.Config;
 import mSearch.daten.DatenFilm;
 import mSearch.daten.ListeFilme;
 import mSearch.tool.FileSize;
 import mSearch.tool.Log;
 
+
+
 /**
  *
  * @author emil
  */
 public class AddToFilmlist {
+   
+    private static final int MIN_SIZE_ADD_OLD = 5;
 
     final int COUNTER_MAX = 20;
     int counter = 0;
-    int treffer = 0;
+    AtomicInteger treffer = new AtomicInteger(0);
     ListeFilme vonListe;
     ListeFilme listeEinsortieren;
 
@@ -52,102 +62,67 @@ public class AddToFilmlist {
         // in eine vorhandene Liste soll eine andere Filmliste einsortiert werden
         // es werden nur Filme die noch nicht vorhanden sind, einsortiert
         counter = 0;
-        treffer = 0;
-        int size = listeEinsortieren.size();
-
-        HashSet<String> hash = new HashSet<>(listeEinsortieren.size() + 1, 1);
+        treffer = new AtomicInteger(0);
 
         // ==============================================
         // nach "Thema-Titel" suchen
-        vonListe.stream().forEach((f) -> hash.add(f.getIndexAddOld()));
-        listeEinsortieren.removeIf((f) -> hash.contains(f.getIndexAddOld()));
-        hash.clear();
-
+        Collection<DatenFilm> filteredTopicTitle = new CopyOnWriteArrayList<>();
+        filteredTopicTitle.addAll(listeEinsortieren.parallelStream()
+            .filter(film -> (null == vonListe.istInFilmListe(film.arr[DatenFilm.FILM_SENDER], film.arr[DatenFilm.FILM_THEMA], film.arr[DatenFilm.FILM_TITEL])))
+            .collect(Collectors.toList()));
+       
         Log.sysLog("===== Liste einsortieren Hash =====");
-        Log.sysLog("Liste einsortieren, Anzahl: " + size);
-        Log.sysLog("Liste einsortieren, entfernt: " + (size - listeEinsortieren.size()));
-        Log.sysLog("Liste einsortieren, noch einsortieren: " + listeEinsortieren.size());
+        Log.sysLog("Liste einsortieren, Anzahl: " + listeEinsortieren.size());
+        Log.sysLog("Liste einsortieren, entfernt: " + (listeEinsortieren.size() - filteredTopicTitle.size()));
         Log.sysLog("");
-        size = listeEinsortieren.size();
 
         // ==============================================
         // nach "URL" suchen
-        vonListe.stream().forEach((f) -> hash.add(DatenFilm.getUrl(f)));
-        listeEinsortieren.removeIf((f) -> hash.contains(DatenFilm.getUrl(f)));
-        hash.clear();
+        Collection<DatenFilm> filteredUrl = new CopyOnWriteArrayList<>();
+
+        Collection<String> filmUrls = vonListe.parallelStream()
+        .map(DatenFilm::getUrl)
+        .collect(Collectors.toList());
+
+        int size = filteredTopicTitle.size();
+        
+        filteredUrl.addAll(filteredTopicTitle.parallelStream()
+            .filter(film -> !filmUrls.contains(DatenFilm.getUrl(film)))
+            .collect(Collectors.toList()));
 
         Log.sysLog("===== Liste einsortieren URL =====");
         Log.sysLog("Liste einsortieren, Anzahl: " + size);
-        Log.sysLog("Liste einsortieren, entfernt: " + (size - listeEinsortieren.size()));
-        Log.sysLog("Liste einsortieren, noch einsortieren: " + listeEinsortieren.size());
+        Log.sysLog("Liste einsortieren, entfernt: " + (size - filteredUrl.size()));
         Log.sysLog("");
-        size = listeEinsortieren.size();
 
         // Rest nehmen wir wenn noch online
-        for (int i = 0; i < COUNTER_MAX; ++i) {
-            new Thread(new AddOld(listeEinsortieren)).start();
-        }
-        int count = 0;
-        final int COUNT_MAX = 300; // 10 Minuten
-        stopOld = false;
-        while (!Config.getStop() && counter > 0) {
-            try {
-                System.out.println("s: " + 2 * (count++) + "  Liste: " + listeEinsortieren.size() + "  Treffer: " + treffer + "   Threads: " + counter);
-                if (count > COUNT_MAX) {
-                    // dann haben wir mehr als 10 Minuten und: Stop
-                    Log.sysLog("===== Liste einsortieren: ABBRUCH =====");
-                    Log.sysLog("COUNT_MAX erreicht [s]: " + COUNT_MAX * 2);
-                    Log.sysLog("");
-                    stopOld = true;
-                }
-                wait(2000);
-            } catch (InterruptedException ignored) {
+        // Prüfung auf online erst am Ende durchführen, damit jeder Film nur einmalig geprüft wird
+        Collection<DatenFilm> filteredOnline = new CopyOnWriteArrayList<>();
+        filteredOnline.addAll(filteredUrl.parallelStream().filter(f -> 
+            !Config.getStop() && FileSize.laengeLong(f.arr[DatenFilm.FILM_URL]) > MIN_SIZE_ADD_OLD
+        )
+        .collect(Collectors.toList()));
+        filteredOnline.parallelStream().forEach(f ->{
+            if(!Config.getStop())
+            {
+                initFilm(f);
             }
-        }
+        });        
+        vonListe.addAll(filteredOnline);
+        
+        
         Log.sysLog("===== Liste einsortieren: Noch online =====");
-        Log.sysLog("Liste einsortieren, Anzahl: " + size);
-        Log.sysLog("Liste einsortieren, entfernt: " + (size - treffer));
+        Log.sysLog("Liste einsortieren, Anzahl: " + filteredOnline.size());
+        Log.sysLog("Liste einsortieren, entfernt: " + (filteredOnline.size() - treffer.get()));
         Log.sysLog("");
-        Log.sysLog("In Liste einsortiert: " + treffer);
+        Log.sysLog("In Liste einsortiert: " + treffer.get());
         Log.sysLog("");
-        return treffer;
-    }
-    private boolean stopOld = false;
-
-    private class AddOld implements Runnable {
-
-        private DatenFilm film;
-        private final ListeFilme listeOld;
-        private final int MIN_SIZE_ADD_OLD = 5; //REST eh nur Trailer
-
-        public AddOld(ListeFilme listeOld) {
-            this.listeOld = listeOld;
-            ++counter;
-        }
-
-        @Override
-        public void run() {
-            while (!stopOld && (film = popOld(listeOld)) != null) {
-                long size = FileSize.laengeLong(film.arr[DatenFilm.FILM_URL]);
-                if (size > MIN_SIZE_ADD_OLD) {
-                    addOld(film);
-                }
-            }
-            --counter;
-        }
+        return treffer.get();
     }
 
-    private synchronized DatenFilm popOld(ListeFilme listeOld) {
-        if (listeOld.size() > 0) {
-            return listeOld.remove(0);
-        }
-        return null;
-    }
-
-    private synchronized boolean addOld(DatenFilm film) {
-        ++treffer;
+    private void initFilm(DatenFilm film) {
+        treffer.getAndIncrement();
         film.init();
-        return vonListe.add(film);
     }
 
 }

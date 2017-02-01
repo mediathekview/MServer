@@ -9,7 +9,7 @@ import org.apache.tools.ant.filters.ReplaceTokens
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
 group = 'de.mediathekview'
-version = '2.4.0'
+version = '2.5.0'
 
 def jarName = 'MServer.jar'
 def mainClass = 'mServer.Main'
@@ -40,7 +40,11 @@ dependencies {
     compile 'org.apache.commons:commons-compress:1.12'
     compile 'org.apache.commons:commons-lang3:3.5'
     compile 'org.tukaani:xz:1.5'
-    compile 'com.fasterxml.jackson.core:jackson-core:2.7.0'
+    compile 'com.google.code.gson:gson:2.8.0'
+    compile 'com.sun.jersey:jersey-client:1.8'
+
+    compile group: 'org.apache.logging.log4j', name: 'log4j-core', version: '2.7'
+
 }
 
 ext {
