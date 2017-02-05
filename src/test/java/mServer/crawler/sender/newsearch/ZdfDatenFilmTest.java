@@ -20,7 +20,7 @@ public class ZdfDatenFilmTest {
             { "topic", "https://rodlzdf-and-so-on.de/12/11.mp4", "zdftopichttps://rodlzdf-and-so-on.de/12/11.mp4" },
             { "topic", "https://nrodlzdf-and-so-on.de/12/11.mp4", "zdftopichttps://rodlzdf-and-so-on.de/12/11.mp4" },
             { "topic", "http://rodlzdf-and-so-on.de/12/11.mp4", "zdftopichttp://rodlzdf-and-so-on.de/12/11.mp4" },
-            { "topic", "http://nrodlzdf-and-so-on.de/12/11.mp4", "zdftopichttp://nrodlzdf-and-so-on.de/12/11.mp4" },
+            { "topic", "http://nrodlzdf-and-so-on.de/12/11.mp4", "zdftopichttp://rodlzdf-and-so-on.de/12/11.mp4" },
         });
     }
     
