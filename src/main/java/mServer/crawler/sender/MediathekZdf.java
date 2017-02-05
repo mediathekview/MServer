@@ -33,6 +33,7 @@ import mServer.crawler.sender.newsearch.DownloadDTO;
 import mServer.crawler.sender.newsearch.Qualities;
 import mServer.crawler.sender.newsearch.VideoDTO;
 import mServer.crawler.sender.newsearch.ZDFSearchTask;
+import mServer.crawler.sender.newsearch.ZdfDatenFilm;
 
 public class MediathekZdf extends MediathekReader implements Runnable
 {
@@ -92,7 +93,7 @@ public class MediathekZdf extends MediathekReader implements Runnable
                    try {
                         DownloadDTO download = video.getDownloadDto();
 
-                        DatenFilm film = new DatenFilm(SENDERNAME, video.getTopic(), video.getWebsiteUrl() /*urlThema*/,
+                        DatenFilm film = new ZdfDatenFilm(SENDERNAME, video.getTopic(), video.getWebsiteUrl() /*urlThema*/,
                                 video.getTitle(), download.getUrl(Qualities.NORMAL), "" /*urlRtmp*/,
                                 video.getDate(), video.getTime(), video.getDuration(), video.getDescription());
                         urlTauschen(film, video.getWebsiteUrl(), mSearchFilmeSuchen);
