@@ -80,8 +80,8 @@ public class ZDFVideoDTODeserializer implements JsonDeserializer<VideoDTO> {
                 date = getEditorialDate(rootNode);
                 sdf = sdfEditorialDate;
             } else {
-                // array is ordered ascending though the newest broadcast is the last entry
-                date = broadcastArray.get(broadcastArray.size() - 1).getAsJsonObject().get(JSON_ELEMENT_BEGIN).getAsString();
+                // array is ordered ascending though the oldest broadcast is the first entry
+                date = broadcastArray.get(0).getAsJsonObject().get(JSON_ELEMENT_BEGIN).getAsString();
                 sdf = sdfAirtimeBegin;
             }
         } else {
