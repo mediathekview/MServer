@@ -128,11 +128,20 @@ public class CrawlerTool {
             case Const.ZDF:
             case Const.ZDF_TIVI:
             case Const.DREISAT:
-                if (film.arr[DatenFilm.FILM_URL].startsWith("http://nrodl.zdf.de/de/") || film.arr[DatenFilm.FILM_URL].startsWith("http://rodl.zdf.de/de/") || film.arr[DatenFilm.FILM_URL].startsWith("https://nrodlzdf-a.akamaihd.net/de/")) {
+                if (film.arr[DatenFilm.FILM_URL].startsWith("http://rodl.zdf.de/de/") || 
+                        film.arr[DatenFilm.FILM_URL].startsWith("http://nrodl.zdf.de/de/") || 
+                        film.arr[DatenFilm.FILM_URL].startsWith("https://rodlzdf-a.akamaihd.net/de/")||
+                        film.arr[DatenFilm.FILM_URL].startsWith("https://nrodlzdf-a.akamaihd.net/de/")) {
                     film.arr[DatenFilm.FILM_GEO] = DatenFilm.GEO_DE;
-                } else if (film.arr[DatenFilm.FILM_URL].startsWith("http://nrodl.zdf.de/dach/") || film.arr[DatenFilm.FILM_URL].startsWith("http://rodl.zdf.de/dach/") || film.arr[DatenFilm.FILM_URL].startsWith("https://nrodlzdf-a.akamaihd.net/dach")) {
+                } else if (film.arr[DatenFilm.FILM_URL].startsWith("http://rodl.zdf.de/dach/") || 
+                        film.arr[DatenFilm.FILM_URL].startsWith("http://nrodl.zdf.de/dach/") || 
+                        film.arr[DatenFilm.FILM_URL].startsWith("https://rodlzdf-a.akamaihd.net/dach")||
+                        film.arr[DatenFilm.FILM_URL].startsWith("https://nrodlzdf-a.akamaihd.net/dach")) {
                     film.arr[DatenFilm.FILM_GEO] = DatenFilm.GEO_DE + "-" + DatenFilm.GEO_AT + "-" + DatenFilm.GEO_CH;
-                } else if (film.arr[DatenFilm.FILM_URL].startsWith("http://nrodl.zdf.de/ebu/") || film.arr[DatenFilm.FILM_URL].startsWith("http://rodl.zdf.de/ebu/") || film.arr[DatenFilm.FILM_URL].startsWith("https://nrodlzdf-a.akamaihd.net/ebu/")) {
+                } else if (film.arr[DatenFilm.FILM_URL].startsWith("http://rodl.zdf.de/ebu/") ||
+                        film.arr[DatenFilm.FILM_URL].startsWith("http://nrodl.zdf.de/ebu/") || 
+                        film.arr[DatenFilm.FILM_URL].startsWith("https://rodlzdf-a.akamaihd.net/ebu/")||
+                        film.arr[DatenFilm.FILM_URL].startsWith("https://nrodlzdf-a.akamaihd.net/ebu/")) {
                     film.arr[DatenFilm.FILM_GEO] = DatenFilm.GEO_DE + "-" + DatenFilm.GEO_AT + "-" + DatenFilm.GEO_CH + "-" + DatenFilm.GEO_EU;
                 }
                 break;
