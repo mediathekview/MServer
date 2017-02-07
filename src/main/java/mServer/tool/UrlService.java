@@ -6,6 +6,7 @@ import mSearch.Config;
 import mSearch.tool.Log;
 
 /**
+ * Contains functions to use on a URL
  */
 public class UrlService {
 
