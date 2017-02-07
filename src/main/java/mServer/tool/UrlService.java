@@ -1,7 +1,6 @@
 package mServer.tool;
 
 import java.net.HttpURLConnection;
-import java.net.URL;
 import mSearch.Config;
 import mSearch.tool.Log;
 
@@ -11,6 +10,15 @@ import mSearch.tool.Log;
 public class UrlService {
 
     final static int TIMEOUT = 3000; // ms    
+    
+    private final UrlBuilder urlBuilder;
+    
+    public UrlService() {
+        urlBuilder = new UrlBuilder();
+    }
+    public UrlService(UrlBuilder urlBuilder) {
+        this.urlBuilder = urlBuilder;
+    }
     
     /**
      * determines the size of the content of an URL
@@ -39,7 +47,7 @@ public class UrlService {
             return ret;
         }
         try {
-            HttpURLConnection conn = (HttpURLConnection) new URL(url).openConnection();
+            HttpURLConnection conn = urlBuilder.openConnection(url);
             conn.setRequestProperty("User-Agent", Config.getUserAgent());
             conn.setReadTimeout(TIMEOUT);
             conn.setConnectTimeout(TIMEOUT);
