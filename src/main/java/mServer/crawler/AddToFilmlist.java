@@ -6,8 +6,6 @@
 package mServer.crawler;
 
 import java.util.Collection;
-import java.util.Collections;
-import java.util.HashSet;
 import java.util.Iterator;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.stream.Collectors;
@@ -16,9 +14,8 @@ import java.util.concurrent.atomic.AtomicInteger;
 import mSearch.Config;
 import mSearch.daten.DatenFilm;
 import mSearch.daten.ListeFilme;
-import mSearch.tool.FileSize;
 import mSearch.tool.Log;
-
+import mServer.tool.UrlService;
 
 
 /**
@@ -29,13 +26,16 @@ public class AddToFilmlist {
    
     private static final int MIN_SIZE_ADD_OLD = 5;
 
+    private final UrlService urlService;
+    
     final int COUNTER_MAX = 20;
     int counter = 0;
     AtomicInteger treffer = new AtomicInteger(0);
     ListeFilme vonListe;
     ListeFilme listeEinsortieren;
 
-    public AddToFilmlist(ListeFilme vonListe, ListeFilme listeEinsortieren) {
+    public AddToFilmlist(ListeFilme vonListe, ListeFilme listeEinsortieren, UrlService urlService) {
+        this.urlService = urlService;        
         this.vonListe = vonListe;
         this.listeEinsortieren = listeEinsortieren;
     }
@@ -99,7 +99,7 @@ public class AddToFilmlist {
         // Prüfung auf online erst am Ende durchführen, damit jeder Film nur einmalig geprüft wird
         Collection<DatenFilm> filteredOnline = new CopyOnWriteArrayList<>();
         filteredOnline.addAll(filteredUrl.parallelStream().filter(f -> 
-            !Config.getStop() && FileSize.laengeLong(f.arr[DatenFilm.FILM_URL]) > MIN_SIZE_ADD_OLD
+            !Config.getStop() && urlService.laengeLong(f.arr[DatenFilm.FILM_URL]) > MIN_SIZE_ADD_OLD
         )
         .collect(Collectors.toList()));
         filteredOnline.parallelStream().forEach(f ->{
