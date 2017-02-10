@@ -26,6 +26,7 @@ import mSearch.Config;
 import mSearch.tool.Log;
 import mServer.crawler.Crawler;
 import mServer.crawler.CrawlerConfig;
+import static mServer.crawler.CrawlerTool.loadLongMax;
 import mServer.daten.MserverSearchTask;
 import mServer.tool.MserverDaten;
 import mServer.tool.MserverDatumZeit;
@@ -109,8 +110,11 @@ public class MserverSearch {
                         //und jetzt STOPPEN!!!!!!!!
                         crawler.stop();
                     }
-
-                    t.join(20 * 60 * 1000); // 20 Minuten warten, das Erstellen/Komprimieren der Liste dauert
+                    int w = 20 * 60 * 1000; // 20 Minuten warten, das Erstellen/Komprimieren der Liste dauert
+                    if (loadLongMax()) {
+                        w = 30 * 60 * 1000; // 30 Minuten bei langen Läufen
+                    }
+                    t.join(w);
                     if (t.isAlive()) {
                         MserverLog.systemMeldung("");
                         MserverLog.systemMeldung("");
