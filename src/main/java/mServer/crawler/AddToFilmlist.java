@@ -7,10 +7,11 @@ package mServer.crawler;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.Iterator;
-import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import java.util.concurrent.atomic.AtomicInteger;
-import java.util.stream.Collectors;
 import mSearch.Config;
 import mSearch.daten.DatenFilm;
 import mSearch.daten.ListeFilme;
@@ -24,8 +25,8 @@ import mSearch.tool.Log;
 public class AddToFilmlist {
 
     final int COUNTER_MAX = 25;
-    int counter = 0;
-    AtomicInteger treffer = new AtomicInteger(0);
+    private AtomicInteger executing = new AtomicInteger(0);
+    private AtomicInteger treffer = new AtomicInteger(0);
     ListeFilme vonListe;
     ListeFilme listeEinsortieren;
     Collection<DatenFilm> filteredOnline = new ArrayList<>();
@@ -56,57 +57,61 @@ public class AddToFilmlist {
     public synchronized int addOldList() {
         // in eine vorhandene Liste soll eine andere Filmliste einsortiert werden
         // es werden nur Filme die noch nicht vorhanden sind, einsortiert
-        counter = 0;
+        executing = new AtomicInteger(0);
         treffer = new AtomicInteger(0);
+
+        mSearch.tool.Duration.staticPing("AddOld-1");
+
+        int size = listeEinsortieren.size();
+        HashSet<String> hash = new HashSet<>(listeEinsortieren.size() + 1, 1);
 
         // ==============================================
         // nach "Thema-Titel" suchen
-        Collection<DatenFilm> filteredTopicTitle = new CopyOnWriteArrayList<>();
-        filteredTopicTitle.addAll(listeEinsortieren.parallelStream()
-                .filter(film -> (null == vonListe.istInFilmListe(film.arr[DatenFilm.FILM_SENDER], film.arr[DatenFilm.FILM_THEMA], film.arr[DatenFilm.FILM_TITEL])))
-                .collect(Collectors.toList()));
+        vonListe.stream().forEach((f) -> hash.add(f.getIndexAddOld()));
+        listeEinsortieren.removeIf((f) -> hash.contains(f.getIndexAddOld()));
+        hash.clear();
 
-        Log.sysLog("===== Liste einsortieren Thema-Titel =====");
-        Log.sysLog("Liste einsortieren, Anzahl: " + listeEinsortieren.size());
-        Log.sysLog("Liste einsortieren, entfernt: " + (listeEinsortieren.size() - filteredTopicTitle.size()));
+        Log.sysLog("===== Liste einsortieren Hash =====");
+        Log.sysLog("Liste einsortieren, Anzahl: " + size);
+        Log.sysLog("Liste einsortieren, entfernt: " + (size - listeEinsortieren.size()));
+        Log.sysLog("Liste einsortieren, noch einsortieren: " + listeEinsortieren.size());
         Log.sysLog("");
+        size = listeEinsortieren.size();
 
         // ==============================================
         // nach "URL" suchen
-        Collection<String> filmUrls = vonListe.parallelStream()
-                .map(DatenFilm::getUrl)
-                .collect(Collectors.toList());
-
-        int size = filteredTopicTitle.size();
-        ListeFilme filteredUrl = new ListeFilme();
-
-        filteredUrl.addAll(filteredTopicTitle.parallelStream()
-                .filter(film -> !filmUrls.contains(DatenFilm.getUrl(film)))
-                .collect(Collectors.toList()));
+        vonListe.stream().forEach((f) -> hash.add(DatenFilm.getUrl(f)));
+        listeEinsortieren.removeIf((f) -> hash.contains(DatenFilm.getUrl(f)));
+        hash.clear();
 
         Log.sysLog("===== Liste einsortieren URL =====");
         Log.sysLog("Liste einsortieren, Anzahl: " + size);
-        Log.sysLog("Liste einsortieren, entfernt: " + (size - filteredUrl.size()));
+        Log.sysLog("Liste einsortieren, entfernt: " + (size - listeEinsortieren.size()));
+        Log.sysLog("Liste einsortieren, noch einsortieren: " + listeEinsortieren.size());
         Log.sysLog("");
+        size = listeEinsortieren.size();
+        mSearch.tool.Duration.staticPing("AddOld-2");
+
+        executing = new AtomicInteger(0);
+        ExecutorService executorService = Executors.newFixedThreadPool(COUNTER_MAX);
+        try {
+            listeEinsortieren.stream().forEach(film -> executorService.execute(new SorterCallable(film)));
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+        }
 
         int count = 0;
         final int COUNT_MAX = 450; // 15 Minuten
-        stopOld = false;
-        size = filteredUrl.size();
-
-        // Rest nehmen wir wenn noch online
-        for (int i = 0; i < COUNTER_MAX; ++i) {
-            new Thread(new AddOld(filteredUrl)).start();
-        }
-        while (!Config.getStop() && counter > 0) {
+        //final int COUNT_MAX = 5; // 15 Minuten
+        while (!Config.getStop() && executing.get() > 0) {
             try {
-                System.out.println("s: " + 2 * (count++) + "  Liste: " + filteredUrl.size() + "  Treffer: " + treffer.get() + "   Threads: " + counter);
+                System.out.println("s: " + 2 * (count++) + "  Liste: " + listeEinsortieren.size() + "  Treffer: " + treffer.get() + "   Threads: " + executing.toString());
                 if (count > COUNT_MAX) {
-                    // dann haben wir mehr als 10 Minuten und: Stop
+                    // dann haben wir mehr als 15 Minuten und: Stop
                     Log.sysLog("===== Liste einsortieren: ABBRUCH =====");
                     Log.sysLog("COUNT_MAX erreicht [s]: " + COUNT_MAX * 2);
                     Log.sysLog("");
-                    stopOld = true;
+                    break;
                 }
                 wait(2000);
             } catch (Exception ex) {
@@ -114,6 +119,7 @@ public class AddToFilmlist {
             }
         }
 
+        executorService.shutdownNow();
         vonListe.addAll(filteredOnline);
 
         Log.sysLog("===== Liste einsortieren: Noch online =====");
@@ -125,36 +131,24 @@ public class AddToFilmlist {
         return treffer.get();
     }
 
-    private boolean stopOld = false;
-
-    private class AddOld implements Runnable {
+    class SorterCallable implements Runnable {
 
         private DatenFilm film;
-        private final ListeFilme listeOld;
         private final int MIN_SIZE_ADD_OLD = 5; //REST eh nur Trailer
 
-        public AddOld(ListeFilme listeOld) {
-            this.listeOld = listeOld;
-            ++counter;
+        SorterCallable(DatenFilm film) {
+            this.film = film;
+            executing.incrementAndGet();
         }
 
         @Override
         public void run() {
-            while (!stopOld && (film = popOld(listeOld)) != null) {
-                long size = FileSize.laengeLong(film.arr[DatenFilm.FILM_URL]);
-                if (size > MIN_SIZE_ADD_OLD) {
-                    addOld(film);
-                }
+            long size = FileSize.laengeLong(film.arr[DatenFilm.FILM_URL]);
+            if (size > MIN_SIZE_ADD_OLD) {
+                addOld(film);
             }
-            --counter;
+            executing.decrementAndGet();
         }
-    }
-
-    private synchronized DatenFilm popOld(ListeFilme listeOld) {
-        if (listeOld.size() > 0) {
-            return listeOld.remove(0);
-        }
-        return null;
     }
 
     private synchronized boolean addOld(DatenFilm film) {
