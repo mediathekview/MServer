@@ -23,8 +23,7 @@ import mSearch.tool.Log;
  */
 public class AddToFilmlist {
 
-    final int COUNTER_MAX = 25;
-    AtomicInteger counter = new AtomicInteger(0);
+    AtomicInteger threadCounter = new AtomicInteger(0);
     AtomicInteger treffer = new AtomicInteger(0);
     ListeFilme vonListe;
     ListeFilme listeEinsortieren;
@@ -56,7 +55,7 @@ public class AddToFilmlist {
     public synchronized int addOldList() {
         // in eine vorhandene Liste soll eine andere Filmliste einsortiert werden
         // es werden nur Filme die noch nicht vorhanden sind, einsortiert
-        counter = new AtomicInteger(0);
+        threadCounter = new AtomicInteger(0);
         treffer = new AtomicInteger(0);
         int size = listeEinsortieren.size();
         HashSet<String> hash = new HashSet<>(listeEinsortieren.size() + 1, 1);
@@ -91,23 +90,24 @@ public class AddToFilmlist {
         Duration.staticPing("AddOld-2");
 
         int count = 0;
-        //final int COUNT_MAX = 450; // 15 Minuten
-        final int COUNT_MAX = 4; // 15 Minuten
+        final int MAX_THREAD = 30;
+        final int MAX_WAIT_TIME = 450; // 450*2=900s -> 15 Minuten
+        //final int MAX_WAIT_TIME = 10; // 10*2=20s
         stopOld = false;
         size = listeEinsortieren.size();
 
         // Rest nehmen wir wenn noch online
-        for (int i = 0; i < COUNTER_MAX; ++i) {
+        for (int i = 0; i < MAX_THREAD; ++i) {
             new Thread(new AddOld(listeEinsortieren)).start();
         }
 
-        while (!Config.getStop() && counter.get() > 0) {
+        while (!Config.getStop() && threadCounter.get() > 0) {
             try {
-                System.out.println("s: " + 2 * (count++) + "  Liste: " + listeEinsortieren.size() + "  Treffer: " + treffer.get() + "   Threads: " + counter);
-                if (count > COUNT_MAX) {
+                System.out.println("sek.: " + 2 * (count++) + "  Liste: " + listeEinsortieren.size() + "  Treffer: " + treffer.get() + "   Threads: " + threadCounter);
+                if (count > MAX_WAIT_TIME) {
                     // dann haben wir mehr als 10 Minuten und: Stop
                     Log.sysLog("===== Liste einsortieren: ABBRUCH =====");
-                    Log.sysLog("COUNT_MAX erreicht [s]: " + COUNT_MAX * 2);
+                    Log.sysLog("COUNT_MAX erreicht [s]: " + MAX_WAIT_TIME * 2);
                     Log.sysLog("");
                     stopOld = true;
                 }
@@ -138,7 +138,7 @@ public class AddToFilmlist {
 
         public AddOld(ListeFilme listeOld) {
             this.listeOld = listeOld;
-            counter.incrementAndGet();
+            threadCounter.incrementAndGet();
         }
 
         @Override
@@ -149,7 +149,7 @@ public class AddToFilmlist {
                     addOld(film);
                 }
             }
-            counter.decrementAndGet();
+            threadCounter.decrementAndGet();
         }
     }
 
