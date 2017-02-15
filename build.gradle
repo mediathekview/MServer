@@ -9,7 +9,7 @@ import org.apache.tools.ant.filters.ReplaceTokens
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
 group = 'de.mediathekview'
-version = '2.5.3'
+version = '2.6.0'
 
 def jarName = 'MServer.jar'
 def mainClass = 'mServer.Main'
@@ -35,7 +35,7 @@ repositories {
 }
 
 dependencies {
-    compile 'de.mediathekview:MSearch:2.1.1'
+    compile 'de.mediathekview:MSearch:2.2.0'
     compile 'commons-net:commons-net:3.5'
     compile 'org.apache.commons:commons-compress:1.12'
     compile 'org.apache.commons:commons-lang3:3.5'
