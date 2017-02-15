@@ -57,7 +57,7 @@ public class ZdfDownloadDTODeserializerTest {
     
     private JsonObject readJson(String filePath) throws IOException {
         URL u = this.getClass().getResource(filePath);
-        Path path = Paths.get(u.getFile().substring(1).replace('/', '\\'));
+        Path path = Paths.get(u.getFile().substring(1));
         String jsonOutput = new String(Files.readAllBytes(path));
         return new Gson().fromJson(jsonOutput, JsonObject.class);        
     }
