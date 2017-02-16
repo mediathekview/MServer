@@ -7,7 +7,7 @@ env:
   global:
     - secure: pHmSb+3bIvSj1iA5j4MIgRv1ogRH1w7NKlfPxAPDXYq+AQZOyyAhWm/nTMq0mtX9x5RsrM8c7YUN7ds+pTpE5JpcA+rlOSibj+ziDeLhpmDzcBt+YUltTOxP7EVrAAmHBTu7DGjPmTLvfzLfpyGNkv6yuIXNo/oIs6BRMwQ2xHa1QdkQ/gkS6nxgh7UhqtDmNix/idHjX/a5PEX8Qse3ZvKBvt1kgrKcVN1ysOtcHKvhQ5ddMAj+7PM+aLuAPTlysfqMYN1gW+cpWOJrHriV7vGCU6lz34s2yM19wFmRFOo7yht3FhAwH8Rt6aTtwpC3HN5DzwqhcicHQkoyv59KMiBbUBN9w5SGqit+/HtFOQ9vgyV5qo5Il/UkbVGUXXl9WcY+zPV2XTlO3LH5o36Bn+da/HRdmlvveMZT8tJ5137YSQhrQRZdOVEDBWuAZmUiTh94c9u3owU85TFzS97fqWi5bvpbyIU749oGhWGv/zxmOEJmtinnQpUAJqS9fFrXrFFtjdLF6vNYWc1f1y7Xg57pLZYK0NcClWc77QwCX5WHy6VPdj3elIJHyv+3DKQw9VBrfV+bRE4b6uvLuDkllBztYECstYR1uJTOumVnhufc12GrD51m+IRqtzEp4+OlNunKsoInNGsJYyaz3t8VcdAwEN4lTE7Se7ijehIpHRA=
 script:
-  - "./gradlew check build --debug --stacktrace"
+  - "./gradlew check build"
   - if [ "$TRAVIS_BRANCH" == "develop" ]; then
       openssl aes-256-cbc -K $encrypted_3a9121b37456_key -iv $encrypted_3a9121b37456_iv 
         -in scripte/deploy/RepoZugang.properties.enc -out scripte/deploy/RepoZugang.properties -d;
