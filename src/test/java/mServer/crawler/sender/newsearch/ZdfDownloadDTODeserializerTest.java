@@ -3,6 +3,8 @@ package mServer.crawler.sender.newsearch;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -41,7 +43,7 @@ public class ZdfDownloadDTODeserializerTest {
     }
     
     @Test
-    public void testDeserialize() throws IOException {
+    public void testDeserialize() throws IOException, URISyntaxException {
         
         JsonObject jsonObject = readJson(jsonFile);
         
@@ -55,9 +57,9 @@ public class ZdfDownloadDTODeserializerTest {
         assertThat(actual.getUrl(Qualities.HD), equalTo(hdQualityUrl));
     }
     
-    private JsonObject readJson(String filePath) throws IOException {
-        URL u = this.getClass().getResource(filePath);
-        Path path = Paths.get(u.getFile());
+    private JsonObject readJson(String filePath) throws IOException, URISyntaxException {
+        URI u = this.getClass().getResource(filePath).toURI();
+        Path path = Paths.get(u);
         String jsonOutput = new String(Files.readAllBytes(path));
         return new Gson().fromJson(jsonOutput, JsonObject.class);        
     }
