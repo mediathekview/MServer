@@ -9,7 +9,7 @@ import org.apache.tools.ant.filters.ReplaceTokens
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
 group = 'de.mediathekview'
-version = '2.6.0'
+version = '2.6.1'
 
 def jarName = 'MServer.jar'
 def mainClass = 'mServer.Main'
