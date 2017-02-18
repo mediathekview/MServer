@@ -31,9 +31,9 @@ import mSearch.daten.DatenFilm;
 import mSearch.tool.DbgMsg;
 import mSearch.tool.Log;
 import mSearch.tool.MSStringBuilder;
+import mServer.crawler.CrawlerTool;
 import mServer.crawler.FilmeSuchen;
 import mServer.crawler.GetUrl;
-import mServer.crawler.CrawlerTool;
 
 public class MediathekWdr extends MediathekReader implements Runnable {
 
@@ -308,6 +308,9 @@ public class MediathekWdr extends MediathekReader implements Runnable {
                     titel = titel.replace("\n", "");
 
                     datum = sendungsSeite2.extract("<p class=\"programInfo\">", "|", pos).trim();
+                    if (datum.length() != 8) {
+                        datum = "";
+                    }
                     dauer = sendungsSeite2.extract("<span class=\"hidden\">L&auml;nge: </span>", "<", pos).trim();
                     try {
                         if (!dauer.equals("")) {
