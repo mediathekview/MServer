@@ -10,6 +10,10 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.concurrent.atomic.AtomicInteger;
+
+import etm.core.configuration.EtmManager;
+import etm.core.monitor.EtmMonitor;
+import etm.core.monitor.EtmPoint;
 import mSearch.Config;
 import mSearch.daten.DatenFilm;
 import mSearch.daten.ListeFilme;
@@ -22,7 +26,7 @@ import mSearch.tool.Log;
  * @author emil
  */
 public class AddToFilmlist {
-
+    private static final EtmMonitor etmMonitor = EtmManager.getEtmMonitor();
     AtomicInteger threadCounter = new AtomicInteger(0);
     AtomicInteger treffer = new AtomicInteger(0);
     ListeFilme vonListe;
@@ -35,6 +39,7 @@ public class AddToFilmlist {
     }
 
     public synchronized void addLiveStream() {
+        EtmPoint performancePoint = etmMonitor.createPoint("AddToFilmlist:addLiveStream");
         // live-streams einfügen, es werde die vorhandenen ersetzt!
 
         if (listeEinsortieren.size() <= 0) {
@@ -50,6 +55,7 @@ public class AddToFilmlist {
             }
         }
         listeEinsortieren.forEach(vonListe::add);
+        performancePoint.collect();
     }
 
     public synchronized int addOldList() {
@@ -64,9 +70,11 @@ public class AddToFilmlist {
 
         // ==============================================
         // nach "Thema-Titel" suchen
+        EtmPoint performancePointThemaTitel = etmMonitor.createPoint("AddToFilmlist:addOldList#themaTitel");
         vonListe.stream().forEach((f) -> hash.add(f.getIndexAddOld()));
         listeEinsortieren.removeIf((f) -> hash.contains(f.getIndexAddOld()));
         hash.clear();
+        performancePointThemaTitel.collect();
 
         Log.sysLog("===== Liste einsortieren Hash =====");
         Log.sysLog("Liste einsortieren, Anzahl: " + size);
@@ -77,9 +85,11 @@ public class AddToFilmlist {
 
         // ==============================================
         // nach "URL" suchen
+        EtmPoint performancePointUrlSuchen = etmMonitor.createPoint("AddToFilmlist:addOldList#UrlSuchen");
         vonListe.stream().forEach((f) -> hash.add(DatenFilm.getUrl(f)));
         listeEinsortieren.removeIf((f) -> hash.contains(DatenFilm.getUrl(f)));
         hash.clear();
+        performancePointUrlSuchen.collect();
 
         Log.sysLog("===== Liste einsortieren URL =====");
         Log.sysLog("Liste einsortieren, Anzahl: " + size);
@@ -143,6 +153,7 @@ public class AddToFilmlist {
 
         @Override
         public void run() {
+            EtmPoint performancePoint = etmMonitor.createPoint("AddOld:run");
             while (!stopOld && (film = popOld(listeOld)) != null) {
                 long size = FileSize.laengeLong(film.arr[DatenFilm.FILM_URL]);
                 if (size > MIN_SIZE_ADD_OLD) {
@@ -150,6 +161,7 @@ public class AddToFilmlist {
                 }
             }
             threadCounter.decrementAndGet();
+            performancePoint.collect();
         }
     }
 

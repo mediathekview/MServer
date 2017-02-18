@@ -44,7 +44,8 @@ dependencies {
     compile 'com.sun.jersey:jersey-client:1.8'
 
     compile group: 'org.apache.logging.log4j', name: 'log4j-core', version: '2.7'
-
+    compile group: 'fm.void.jetm', name: 'jetm', version: '1.2.3'
+    compile group: 'junit', name: 'junit', version: '4.12'
 }
 
 ext {
