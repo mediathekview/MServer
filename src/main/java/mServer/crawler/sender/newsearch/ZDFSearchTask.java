@@ -91,7 +91,7 @@ public class ZDFSearchTask extends RecursiveTask<Collection<VideoDTO>>
                     .queryParam(PROPERTY_TYPES, TYPE_PAGE_VIDEO)
                     .queryParam(PROPERTY_SORT_ORDER, SORT_ORDER_DESC)
                     .queryParam(PROPERTY_DATE_FROM, today.minusDays(days).format(DATE_TIME_FORMAT))
-                    .queryParam(PROPERTY_DATE_TO, today.plusDays(3).format(DATE_TIME_FORMAT))
+                    .queryParam(PROPERTY_DATE_TO, today.plusMonths(1).format(DATE_TIME_FORMAT))
                     .queryParam(PROPERTY_SORT_BY, SORT_BY_DATE)
                     .queryParam(PROPERTY_PAGE, Integer.toString(page));
 
