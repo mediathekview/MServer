@@ -25,18 +25,23 @@ import java.io.InputStreamReader;
 import javax.xml.stream.XMLInputFactory;
 import javax.xml.stream.XMLStreamConstants;
 import javax.xml.stream.XMLStreamReader;
+
+import etm.core.configuration.EtmManager;
+import etm.core.monitor.EtmMonitor;
+import etm.core.monitor.EtmPoint;
 import mSearch.Const;
 import mServer.daten.MserverDatenUpload;
 import mServer.daten.MserverSearchTask;
 
 public class MserverXmlLesen {
-
+    private static final EtmMonitor etmMonitor = EtmManager.getEtmMonitor();
     public static void xmlDatenLesen() {
         xmlDatenLesen(MserverDaten.getKonfigDatei());
         xmlDatenLesen(MserverDaten.getUploadDatei());
     }
 
     public static void xmlDatenLesen(String datei) {
+        EtmPoint performancePoint = etmMonitor.createPoint("MserverXmlLesen:xmlDatenLesen");
         try {
             if (new File(datei).exists()) {
                 //nur wenn die Datei schon existiert
@@ -70,6 +75,7 @@ public class MserverXmlLesen {
         } catch (Exception ex) {
             MserverLog.fehlerMeldung(909078531, MserverXmlLesen.class.getName(), "xmlDatenLesen", ex);
         } finally {
+            performancePoint.collect();
         }
     }
 
@@ -78,6 +84,7 @@ public class MserverXmlLesen {
     }
 
     private static boolean get(XMLStreamReader parser, int event, String xmlElem, String[] xmlNames, String[] strRet, boolean log) {
+        EtmPoint performancePoint = etmMonitor.createPoint("MserverXmlLesen:get");
         boolean ret = true;
         int maxElem = strRet.length;
         for (int i = 0; i < maxElem; ++i) {
@@ -109,6 +116,7 @@ public class MserverXmlLesen {
                 MserverLog.fehlerMeldung(201456980, MserverXmlLesen.class.getName(), "get", ex);
             }
         }
+        performancePoint.collect();
         return ret;
     }
 }
