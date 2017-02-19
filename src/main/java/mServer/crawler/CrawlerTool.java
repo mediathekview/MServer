@@ -125,7 +125,6 @@ public class CrawlerTool {
                     film.arr[DatenFilm.FILM_GEO] = DatenFilm.GEO_DE;
                 }
                 break;
-            case Const.ZDF:
             case Const.ZDF_TIVI:
             case Const.DREISAT:
                 if (film.arr[DatenFilm.FILM_URL].startsWith("http://rodl.zdf.de/de/") || 

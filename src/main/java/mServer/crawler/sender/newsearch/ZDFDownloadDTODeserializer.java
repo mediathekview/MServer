@@ -10,9 +10,11 @@ import mSearch.tool.Log;
  */
 public class ZDFDownloadDTODeserializer implements JsonDeserializer<DownloadDTO> {
     
+    private static final String JSON_ELEMENT_ATTRIBUTES = "attributes";
     private static final String JSON_ELEMENT_AUDIO = "audio";
     private static final String JSON_ELEMENT_CAPTIONS ="captions";
     private static final String JSON_ELEMENT_FORMITAET = "formitaeten";
+    private static final String JSON_ELEMENT_GEOLOCATION = "geoLocation";
     private static final String JSON_ELEMENT_HD = "hd";
     private static final String JSON_ELEMENT_MIMETYPE = "mimeType";
     private static final String JSON_ELEMENT_PRIORITYLIST = "priorityList";
@@ -20,6 +22,12 @@ public class ZDFDownloadDTODeserializer implements JsonDeserializer<DownloadDTO>
     private static final String JSON_ELEMENT_QUALITY = "quality";
     private static final String JSON_ELEMENT_TRACKS = "tracks";
     private static final String JSON_ELEMENT_URI = "uri";
+
+    private static final String JSON_PROPERTY_VALUE = "value";
+    
+    private static final String GEO_LOCATION_DACH = "dach";    
+    private static final String GEO_LOCATION_DE = "de";
+    private static final String GEO_LOCATION_EBU = "ebu";
     
     private static final String RELEVANT_MIME_TYPE = "video/mp4";
     private static final String RELEVANT_SUBTITLE_TYPE = ".xml";
@@ -33,6 +41,7 @@ public class ZDFDownloadDTODeserializer implements JsonDeserializer<DownloadDTO>
 
             parseVideoUrls(dto, rootNode);
             parseSubtitle(dto, rootNode);
+            parseGeoLocation(dto, rootNode);
 
             return dto;
         } catch (Exception ex) {
@@ -40,6 +49,29 @@ public class ZDFDownloadDTODeserializer implements JsonDeserializer<DownloadDTO>
         }
         
         return null;
+    }
+    
+        private void parseGeoLocation(DownloadDTO dto, JsonObject rootNode) {
+        JsonElement attributes = rootNode.get(JSON_ELEMENT_ATTRIBUTES);
+        if(attributes != null) {
+            JsonElement geoLocation = attributes.getAsJsonObject().get(JSON_ELEMENT_GEOLOCATION);
+            if(geoLocation != null) {
+                JsonElement geoValue = geoLocation.getAsJsonObject().get(JSON_PROPERTY_VALUE);
+                if(geoValue != null) {
+                    switch(geoValue.getAsString()) {
+                        case GEO_LOCATION_DACH:
+                            dto.setGeoLocation(GeoLocations.GEO_DE_AT_CH);
+                            break;
+                        case GEO_LOCATION_DE:
+                            dto.setGeoLocation(GeoLocations.GEO_DE);
+                            break;
+                        case GEO_LOCATION_EBU:
+                            dto.setGeoLocation(GeoLocations.GEO_DE_AT_CH_EU);
+                            break;
+                    }
+                }
+            }
+        }
     }
     
     private void parseVideoUrls(DownloadDTO dto, JsonObject rootNode) {
