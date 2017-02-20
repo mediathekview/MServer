@@ -30,6 +30,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.concurrent.*;
 import mServer.crawler.sender.newsearch.DownloadDTO;
+import mServer.crawler.sender.newsearch.GeoLocations;
 import mServer.crawler.sender.newsearch.Qualities;
 import mServer.crawler.sender.newsearch.VideoDTO;
 import mServer.crawler.sender.newsearch.ZDFSearchTask;
@@ -109,7 +110,10 @@ public class MediathekZdf extends MediathekReader implements Runnable
                         if (!download.getSubTitleUrl().isEmpty())
                         {
                             CrawlerTool.addUrlSubtitle(film, download.getSubTitleUrl());
-                        }         
+                        }      
+                        if(download.getGeoLocation() != GeoLocations.GEO_NONE) {
+                            film.arr[DatenFilm.FILM_GEO] = download.getGeoLocation().getDescription();
+                        }
                     } catch (Exception ex) {
                         Log.errorLog(496583211, ex, "add film failed: " + video.getWebsiteUrl());
                     }            
