@@ -33,6 +33,8 @@ import okhttp3.ResponseBody;
 
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.net.SocketTimeoutException;
+import java.net.UnknownHostException;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -119,8 +121,6 @@ public class GetUrl {
                                       String token) {
         EtmPoint performancePoint = EtmManager.getEtmMonitor().createPoint("GetUrl.getUriNew");
 
-        seite.setLength(0);
-
         long start = 0, stop;
 
         if (showLoadTime)
@@ -129,6 +129,8 @@ public class GetUrl {
         long load = 0;
 
         try {
+            seite.setLength(0);
+
             TimeUnit.MILLISECONDS.sleep(100);//wartenBasis
             if (MserverDaten.debug)
                 Log.sysLog("Durchsuche: " + addr);
@@ -156,6 +158,9 @@ public class GetUrl {
                     }
                 }
             }
+        } catch (UnknownHostException | SocketTimeoutException ignored) {
+            if (MserverDaten.debug)
+                printDebugMessage(meldung, addr, sender, versuch, ignored);
         } catch (IOException ex) {
             if (lVersuch) {
                 printDebugMessage(meldung, addr, sender, versuch, ex);
