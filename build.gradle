@@ -9,7 +9,7 @@ import org.apache.tools.ant.filters.ReplaceTokens
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
 group = 'de.mediathekview'
-version = '2.6.2'
+version = '2.7.0'
 
 def jarName = 'MServer.jar'
 def mainClass = 'mServer.Main'
@@ -34,6 +34,10 @@ repositories {
     }
 }
 
+test {
+    exclude '**/*PerformanceTest.class'
+}
+
 dependencies {
     compile 'de.mediathekview:MSearch:2.2.0'
     compile 'commons-net:commons-net:3.5'
@@ -44,7 +48,8 @@ dependencies {
     compile 'com.sun.jersey:jersey-client:1.8'
 
     compile group: 'org.apache.logging.log4j', name: 'log4j-core', version: '2.7'
-
+    compile group: 'fm.void.jetm', name: 'jetm', version: '1.2.3'
+    compile group: 'junit', name: 'junit', version: '4.12'
 }
 
 ext {

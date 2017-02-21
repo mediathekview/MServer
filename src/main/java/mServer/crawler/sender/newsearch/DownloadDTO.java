@@ -7,6 +7,7 @@ import java.util.HashMap;
  */
 public class DownloadDTO {
 
+    private GeoLocations geoLocation;
     private String subTitleUrl;
     private final HashMap<Qualities, String> downloadUrls;
 
@@ -24,6 +25,17 @@ public class DownloadDTO {
             return "";
         }
         return url;
+    }
+    
+    public GeoLocations getGeoLocation() {
+        if(geoLocation == null) {
+            return GeoLocations.GEO_NONE;
+        }        
+        return geoLocation;
+    }
+    
+    public void setGeoLocation(GeoLocations aGeoLocation) {
+        geoLocation = aGeoLocation;
     }
     
     public String getSubTitleUrl() {
