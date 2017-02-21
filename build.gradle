@@ -108,6 +108,8 @@ task updateVersion << {
 processResources.dependsOn updateVersion
 
 [distZip, distTar]*.shouldRunAfter compileJava, updateVersion, jar
+distTar.compression = Compression.GZIP
+distTar.extension = 'tar.gz'
 
 jar {
     manifest {
