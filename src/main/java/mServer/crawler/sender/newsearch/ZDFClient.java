@@ -53,6 +53,7 @@ public class ZDFClient
     public JsonObject execute(WebResource webResource, ZDFClientMode aMode)
     {
         String apiToken = loadApiToken(aMode);
+        
         ClientResponse response = webResource.header(HEADER_ACCESS_CONTROL_REQUEST_HEADERS, ACCESS_CONTROL_API_AUTH)
                 .header(HEADER_ACCESS_CONTROL_REQUEST_METHOD, ACCESS_CONTROL_REQUEST_METHOD_GET)
                 .header(HEADER_API_AUTH, apiToken)
@@ -94,7 +95,7 @@ public class ZDFClient
 
     private String loadApiTokenVideos()
     {
-        return String.format(API_TOKEN_PATTERN, ZDFConfigurationLoader.getInstance().loadConfig());
+        return String.format(API_TOKEN_PATTERN, ZDFConfigurationLoader.getInstance().loadConfig().getApiToken());
     }
 
     private JsonObject handleOk(ClientResponse response)
