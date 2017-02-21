@@ -19,15 +19,16 @@
  */
 package mServer.crawler.sender;
 
-import java.util.ArrayList;
 import mSearch.Config;
 import mSearch.Const;
 import mSearch.daten.DatenFilm;
 import mSearch.tool.Log;
 import mSearch.tool.MSStringBuilder;
+import mServer.crawler.CrawlerTool;
 import mServer.crawler.FilmeSuchen;
 import mServer.crawler.GetUrl;
-import mServer.crawler.CrawlerTool;
+
+import java.util.ArrayList;
 
 public class MediathekDw extends MediathekReader implements Runnable {
 
@@ -63,6 +64,7 @@ public class MediathekDw extends MediathekReader implements Runnable {
         final String MUSTER_URL = "value=\"";
         final String MUSTER_START = "<div class=\"label\">Sendungen</div>";
         MSStringBuilder seite = new MSStringBuilder(Const.STRING_BUFFER_START_BUFFER);
+        GetUrl getUrlIo = new GetUrl(getWartenSeiteLaden());
         seite = getUrlIo.getUri_Utf(SENDERNAME, ADRESSE, seite, "");
         int pos1, pos2;
         String url = "", thema = "";
@@ -82,7 +84,7 @@ public class MediathekDw extends MediathekReader implements Runnable {
                 if ((pos2 = seite.indexOf("\"", pos1)) != -1) {
                     url = seite.substring(pos1, pos2);
                 }
-                if (url.equals("")) {
+                if (url.isEmpty()) {
                     continue;
                 }
                 if (CrawlerTool.loadLongMax()) {
@@ -135,6 +137,7 @@ public class MediathekDw extends MediathekReader implements Runnable {
             final String MUSTER_START = "<div class=\"news searchres hov\">";
             String urlSendung;
             meldung(urlThema);
+            GetUrl getUrlIo = new GetUrl(getWartenSeiteLaden());
             seite1 = getUrlIo.getUri_Utf(SENDERNAME, urlThema, seite1, "");
             int pos1 = 0;
             String titel;
@@ -152,6 +155,7 @@ public class MediathekDw extends MediathekReader implements Runnable {
             String url = "", urlLow = "", urlHd = "";
             final String ADDURL = "http://tv-download.dw.de/dwtv_video/flv/";
             meldung(urlThema);
+            GetUrl getUrlIo = new GetUrl(getWartenSeiteLaden());
             seite2 = getUrlIo.getUri_Utf(SENDERNAME, urlSendung, seite2, "");
 
             seite2.extractList("%22file%22%3A%22", "%22%7D", listUrl);

@@ -19,16 +19,17 @@
  */
 package mServer.crawler.sender;
 
-import java.util.ArrayList;
 import mSearch.Config;
 import mSearch.Const;
 import mSearch.daten.DatenFilm;
 import mSearch.tool.Log;
 import mSearch.tool.MSStringBuilder;
+import mServer.crawler.CrawlerTool;
 import mServer.crawler.FilmeSuchen;
 import mServer.crawler.GetUrl;
-import mServer.crawler.CrawlerTool;
 import org.apache.commons.lang3.StringEscapeUtils;
+
+import java.util.ArrayList;
 
 public class MediathekSwr extends MediathekReader implements Runnable {
 
@@ -78,6 +79,7 @@ public class MediathekSwr extends MediathekReader implements Runnable {
         final String MUSTER_URL = "<a href=\"tvshow.htm?show=";
         final String MUSTER_THEMA = "title=\"";
         MSStringBuilder strSeite = new MSStringBuilder(Const.STRING_BUFFER_START_BUFFER);
+        GetUrl getUrlIo = new GetUrl(getWartenSeiteLaden());
         strSeite = getUrlIo.getUri(SENDERNAME, "http://swrmediathek.de/tvlist.htm", Const.KODIERUNG_UTF, 2, strSeite, "");
         int pos = 0;
         String url;
@@ -107,6 +109,7 @@ public class MediathekSwr extends MediathekReader implements Runnable {
     private void addToList_verpasst() {
         //Theman suchen
         MSStringBuilder strSeite = new MSStringBuilder(Const.STRING_BUFFER_START_BUFFER);
+        GetUrl getUrlIo = new GetUrl(getWartenSeiteLaden());
         strSeite = getUrlIo.getUri(SENDERNAME, "http://swrmediathek.de/sendungverpasst.htm", Const.KODIERUNG_UTF, 2, strSeite, "");
         ArrayList<String> list = new ArrayList<>();
         strSeite.extractList("<ul class=\"progChannelList\" tabindex=\"-1\">", "<div class=\"box mediBoxBorder\"",

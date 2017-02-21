@@ -19,15 +19,16 @@
  */
 package mServer.crawler.sender;
 
-import java.util.ArrayList;
 import mSearch.Config;
 import mSearch.Const;
 import mSearch.daten.DatenFilm;
 import mSearch.tool.Log;
 import mSearch.tool.MSStringBuilder;
+import mServer.crawler.CrawlerTool;
 import mServer.crawler.FilmeSuchen;
 import mServer.crawler.GetUrl;
-import mServer.crawler.CrawlerTool;
+
+import java.util.ArrayList;
 
 public class MediathekSr extends MediathekReader implements Runnable {
 
@@ -99,6 +100,7 @@ public class MediathekSr extends MediathekReader implements Runnable {
         }
 
         private void bearbeiteTage(String urlSeite) {
+            GetUrl getUrlIo = new GetUrl(getWartenSeiteLaden());
             seite1 = getUrlIo.getUri_Utf(SENDERNAME, urlSeite, seite1, "");
             seite1.extractList("<h3 class=\"teaser__text__header\">", "<a href=\"index.php?seite=", "\"", erg);
             for (String url : erg) {

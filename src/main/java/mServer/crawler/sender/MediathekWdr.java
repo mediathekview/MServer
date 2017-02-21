@@ -21,10 +21,6 @@
  */
 package mServer.crawler.sender;
 
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.LinkedList;
 import mSearch.Config;
 import mSearch.Const;
 import mSearch.daten.DatenFilm;
@@ -34,6 +30,11 @@ import mSearch.tool.MSStringBuilder;
 import mServer.crawler.CrawlerTool;
 import mServer.crawler.FilmeSuchen;
 import mServer.crawler.GetUrl;
+
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.LinkedList;
 
 public class MediathekWdr extends MediathekReader implements Runnable {
 
@@ -100,6 +101,7 @@ public class MediathekWdr extends MediathekReader implements Runnable {
     //===================================
     private void rockpalast() {
         try {
+            GetUrl getUrlIo = new GetUrl(getWartenSeiteLaden());
             seite_1 = getUrlIo.getUri(SENDERNAME, ROCKPALAST_URL, Const.KODIERUNG_UTF, 3 /* versuche */, seite_1, "");
             seite_1.extractList("", "", "<a href=\"/mediathek/video", "\"", "http://www1.wdr.de/mediathek/video/", listeRochpalast);
         } catch (Exception ex) {
@@ -111,6 +113,7 @@ public class MediathekWdr extends MediathekReader implements Runnable {
         // http://www.wdrmaus.de/lachgeschichten/mausspots/achterbahn.php5
         final String ROOTADR = "http://www.wdrmaus.de/lachgeschichten/";
         final String ITEM_1 = "<li class=\"filmvorschau\"><a href=\"../lachgeschichten/";
+        GetUrl getUrlIo = new GetUrl(getWartenSeiteLaden());
         seite_1 = getUrlIo.getUri(SENDERNAME, MAUS, Const.KODIERUNG_UTF, 3 /* versuche */, seite_1, "");
         try {
             seite_1.extractList("", "", ITEM_1, "\"", ROOTADR, listeMaus);
@@ -121,6 +124,7 @@ public class MediathekWdr extends MediathekReader implements Runnable {
 
     private void festival() {
         // http://www1.wdr.de/fernsehen/kultur/rockpalast/videos/rockpalastvideos_festivals100.html
+        GetUrl getUrlIo = new GetUrl(getWartenSeiteLaden());
         seite_1 = getUrlIo.getUri(SENDERNAME, ROCKPALAST_FESTIVAL, Const.KODIERUNG_UTF, 3 /* versuche */, seite_1, "");
         try {
             seite_1.extractList("", "", "<a href=\"/fernsehen/rockpalast/events/", "\"", "http://www1.wdr.de/fernsehen/rockpalast/events/", listeFestival);
@@ -148,6 +152,7 @@ public class MediathekWdr extends MediathekReader implements Runnable {
         //Theman suchen
         final String URL = "http://www1.wdr.de/mediathek/video/sendungen-a-z/index.html";
         final String MUSTER_URL = "<a href=\"/mediathek/video/sendungen-a-z/";
+        GetUrl getUrlIo = new GetUrl(getWartenSeiteLaden());
         seite_1 = getUrlIo.getUri_Iso(SENDERNAME, URL, seite_1, "");
         int pos1;
         int pos2;
@@ -161,7 +166,7 @@ public class MediathekWdr extends MediathekReader implements Runnable {
                 if (url.equals("index.html")) {
                     continue;
                 }
-                if (url.equals("")) {
+                if (url.isEmpty()) {
                     Log.errorLog(995122047, "keine URL");
                 } else {
                     url = "http://www1.wdr.de/mediathek/video/sendungen-a-z/" + url;
@@ -176,13 +181,14 @@ public class MediathekWdr extends MediathekReader implements Runnable {
         int pos1 = 0;
         int pos2;
         String url;
+        GetUrl getUrlIo = new GetUrl(getWartenSeiteLaden());
         seite_2 = getUrlIo.getUri_Iso(SENDERNAME, strUrlFeed, seite_2, "");
         meldung(strUrlFeed);
         while (!Config.getStop() && (pos1 = seite_2.indexOf(MUSTER_URL, pos1)) != -1) {
             pos1 += MUSTER_URL.length();
             if ((pos2 = seite_2.indexOf("\"", pos1)) != -1) {
                 url = seite_2.substring(pos1, pos2).trim();
-                if (!url.equals("")) {
+                if (!url.isEmpty()) {
                     url = "http://www1.wdr.de/mediathek/video/sendungen/" + url;
                     //weiter gehts
                     String[] add;

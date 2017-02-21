@@ -21,15 +21,16 @@
  */
 package mServer.crawler.sender;
 
-import java.util.ArrayList;
 import mSearch.Config;
 import mSearch.Const;
 import mSearch.daten.DatenFilm;
 import mSearch.tool.Log;
 import mSearch.tool.MSStringBuilder;
+import mServer.crawler.CrawlerTool;
 import mServer.crawler.FilmeSuchen;
 import mServer.crawler.GetUrl;
-import mServer.crawler.CrawlerTool;
+
+import java.util.ArrayList;
 
 public class MediathekRbb extends MediathekReader implements Runnable {
 
@@ -50,6 +51,7 @@ public class MediathekRbb extends MediathekReader implements Runnable {
         final String URL = "<a href=\"/tv/";
         meldungStart();
         try {
+            GetUrl getUrlIo = new GetUrl(getWartenSeiteLaden());
             seite = getUrlIo.getUri(SENDERNAME, ADRESSE_1, Const.KODIERUNG_UTF, 5 /* versuche */, seite, "" /* Meldung */);
             seite.extractList("", "", URL, "\"", "", liste);
             seite = getUrlIo.getUri(SENDERNAME, ADRESSE_2, Const.KODIERUNG_UTF, 5 /* versuche */, seite, "" /* Meldung */);
@@ -66,7 +68,7 @@ public class MediathekRbb extends MediathekReader implements Runnable {
         }
         if (Config.getStop()) {
             meldungThreadUndFertig();
-        } else if (listeThemen.size() == 0) {
+        } else if (listeThemen.isEmpty()) {
             meldungThreadUndFertig();
         } else {
             meldungAddMax(listeThemen.size());
@@ -123,6 +125,7 @@ public class MediathekRbb extends MediathekReader implements Runnable {
             for (int i = 0; i <= 6; ++i) {
                 urlTage = "http://mediathek.rbb-online.de/tv/sendungVerpasst?topRessort=tv&kanal=5874&tag=" + i;
                 meldungProgress(urlTage);
+                GetUrl getUrlIo = new GetUrl(getWartenSeiteLaden());
                 seite1 = getUrlIo.getUri_Utf(SENDERNAME, urlTage, seite1, "");
                 int pos1 = seite1.indexOf(MUSTER_START);
                 while (!Config.getStop() && (pos1 = seite1.indexOf(MUSTER_URL, pos1)) != -1) {
@@ -143,6 +146,7 @@ public class MediathekRbb extends MediathekReader implements Runnable {
             try {
                 final String URL = "<a href=\"/tv/";
                 final String MUSTER_URL = "<div class=\"media mediaA\">";
+                GetUrl getUrlIo = new GetUrl(getWartenSeiteLaden());
                 seite1 = getUrlIo.getUri_Utf(SENDERNAME, url, seite1, "");
                 int startPos = seite1.indexOf("<div class=\"entry\">");
                 int pos1 = startPos;
@@ -175,6 +179,7 @@ public class MediathekRbb extends MediathekReader implements Runnable {
             try {
                 meldung(urlSeite);
                 String datum = "", zeit = "", thema, title, description, durationInSeconds;
+                GetUrl getUrlIo = new GetUrl(getWartenSeiteLaden());
                 seite2 = getUrlIo.getUri_Utf(SENDERNAME, urlSeite, seite2, "");
                 description = seite2.extract("<meta name=\"description\" content=\"", "\"");
                 durationInSeconds = seite2.extract("<meta property=\"video:duration\" content=\"", "\"");

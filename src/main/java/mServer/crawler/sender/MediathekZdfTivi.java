@@ -19,8 +19,6 @@
  */
 package mServer.crawler.sender;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import mSearch.Config;
 import mSearch.Const;
 import mSearch.daten.DatenFilm;
@@ -28,6 +26,9 @@ import mSearch.tool.Log;
 import mSearch.tool.MSStringBuilder;
 import mServer.crawler.FilmeSuchen;
 import mServer.crawler.GetUrl;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class MediathekZdfTivi extends MediathekReader implements Runnable {
 
@@ -70,6 +71,7 @@ public class MediathekZdfTivi extends MediathekReader implements Runnable {
         //<ns3:text>Ich will die Wahrheit!</ns3:text>
         final String MUSTER_URL = "<ns3:page>/tiviVideos";
         MSStringBuilder seiteTivi_1 = new MSStringBuilder(Const.STRING_BUFFER_START_BUFFER);
+        GetUrl getUrlIo = new GetUrl(getWartenSeiteLaden());
         seiteTivi_1 = getUrlIo.getUri(SENDERNAME, "http://www.tivi.de/tiviVideos/rueckblick?view=flashXml", Const.KODIERUNG_UTF, 6 /* versuche */, seiteTivi_1, "" /* Meldung */);
         if (seiteTivi_1.length() == 0) {
             Log.errorLog(732323698, "Leere Seite");
@@ -109,6 +111,7 @@ public class MediathekZdfTivi extends MediathekReader implements Runnable {
         //<ns3:text>Ich will die Wahrheit!</ns3:text>
         final String MUSTER_URL = "<ns3:page>/tiviVideos/beitrag";
         MSStringBuilder seiteTivi_1 = new MSStringBuilder(Const.STRING_BUFFER_START_BUFFER);
+        GetUrl getUrlIo = new GetUrl(getWartenSeiteLaden());
         seiteTivi_1 = getUrlIo.getUri(SENDERNAME, "http://www.tivi.de/tiviVideos/?view=flashXml", Const.KODIERUNG_UTF, 6 /* versuche */, seiteTivi_1, "" /* Meldung */);
         ///seiteTivi_1 = getUrl.getUri(nameSenderMReader, "http://www.tivi.de/tiviVideos/?view=xml", MSearchConst.KODIERUNG_UTF, 6 /* versuche */, seiteTivi_1, "" /* Meldung */);
         if (seiteTivi_1.length() == 0) {
@@ -145,6 +148,7 @@ public class MediathekZdfTivi extends MediathekReader implements Runnable {
     private void add_3() {
         final String MUSTER_URL = "type=\"broadcast\">";
         MSStringBuilder seiteTivi_1 = new MSStringBuilder(Const.STRING_BUFFER_START_BUFFER);
+        GetUrl getUrlIo = new GetUrl(getWartenSeiteLaden());
         seiteTivi_1 = getUrlIo.getUri(SENDERNAME, "http://www.tivi.de/tiviVideos/navigation?view=flashXml", Const.KODIERUNG_UTF, 6 /* versuche */, seiteTivi_1, "" /* Meldung */);
         if (seiteTivi_1.length() == 0) {
             Log.errorLog(195623078, "Leere Seite");
@@ -165,7 +169,7 @@ public class MediathekZdfTivi extends MediathekReader implements Runnable {
                     }
 //                    url = URLDecoder.decode(url, "UTF-8");
                 }
-                if (url.equals("")) {
+                if (url.isEmpty()) {
                     Log.errorLog(152378787, "keine URL");
                 } else {
                     url = "http://www.tivi.de" + url;
@@ -204,6 +208,7 @@ public class MediathekZdfTivi extends MediathekReader implements Runnable {
 
         private void add_(String url_) {
             final String MUSTER_START = "<ns3:video-teaser>";
+            GetUrl getUrlIo = new GetUrl(getWartenSeiteLaden());
             seite2 = getUrlIo.getUri(SENDERNAME, url_, Const.KODIERUNG_UTF, 1 /* versuche */, seite2, "" /* Meldung */);
             if (seite2.length() == 0) {
                 Log.errorLog(302010698, "Leere Seite");
@@ -215,7 +220,7 @@ public class MediathekZdfTivi extends MediathekReader implements Runnable {
                     pos += MUSTER_START.length();
                     url = seite2.extract("<ns3:page>", "<", pos);
 //                    url = URLDecoder.decode(url, "UTF-8");
-                    if (url.equals("")) {
+                    if (url.isEmpty()) {
                         Log.errorLog(732698720, "keine URL");
                     } else {
                         if (url.contains("%2F")) {

@@ -19,24 +19,26 @@
  */
 package mServer.crawler.sender;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
 import mSearch.Config;
 import mSearch.Const;
 import mSearch.daten.DatenFilm;
 import mSearch.tool.Log;
 import mSearch.tool.MSStringBuilder;
+import mServer.crawler.CrawlerTool;
 import mServer.crawler.FilmeSuchen;
 import mServer.crawler.GetUrl;
-import mServer.crawler.CrawlerTool;
+import org.apache.commons.lang3.time.FastDateFormat;
 
-public class MediathekKika extends MediathekReader implements Runnable {
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+
+public class MediathekKika extends MediathekReader {
 
     public final static String SENDERNAME = Const.KIKA;
     private MSStringBuilder seite = new MSStringBuilder(Const.STRING_BUFFER_START_BUFFER);
-    LinkedListUrl listeAllVideos = new LinkedListUrl();
+    private final LinkedListUrl listeAllVideos = new LinkedListUrl();
 
     public MediathekKika(FilmeSuchen ssearch, int startPrio) {
         super(ssearch, SENDERNAME, /* threads */ 5, /* urlWarten */ 200, startPrio);
@@ -55,7 +57,7 @@ public class MediathekKika extends MediathekReader implements Runnable {
 ////        meldungThreadUndFertig();
         if (Config.getStop()) {
             meldungThreadUndFertig();
-        } else if (listeThemen.size() == 0 && listeAllVideos.size() == 0) {
+        } else if (listeThemen.isEmpty() && listeAllVideos.isEmpty()) {
             meldungThreadUndFertig();
         } else {
             // dann den Sender aus der alten Liste löschen
@@ -70,7 +72,7 @@ public class MediathekKika extends MediathekReader implements Runnable {
         }
     }
 
-    void addToListNormal() {
+    private void addToListNormal() {
         final String ADRESSE = "http://www.kika.de/sendungen/sendungenabisz100.html";
         final String MUSTER_URL = "<a href=\"/sendungen/sendungenabisz100_";
         ArrayList<String> liste1 = new ArrayList<>();
@@ -78,11 +80,12 @@ public class MediathekKika extends MediathekReader implements Runnable {
 
         listeThemen.clear();
         try {
-            seite = getUrlIo.getUri(SENDERNAME, ADRESSE, Const.KODIERUNG_UTF, 3, seite, "KiKA: Startseite");
+            GetUrl getUrl = new GetUrl(100);
+            seite = getUrl.getUri(SENDERNAME, ADRESSE, Const.KODIERUNG_UTF, 3, seite, "KiKA: Startseite");
             seite.extractList("", "", MUSTER_URL, "\"", "http://www.kika.de/sendungen/sendungenabisz100_", liste1);
 
             for (String s : liste1) {
-                seite = getUrlIo.getUri_Utf(getSendername(), s, seite, "KiKa-Sendungen");
+                seite = getUrl.getUri_Utf(getSendername(), s, seite, "KiKa-Sendungen");
                 final String MUSTER_SENDUNGEN_1 = "<h4 class=\"headline\">";
                 final String MUSTER_SENDUNGEN_2 = "<a href=\"/";
                 seite.extractList("", "<!--The bottom navigation -->", MUSTER_SENDUNGEN_1, MUSTER_SENDUNGEN_2, "\"", "http://www.kika.de/", liste2);
@@ -96,17 +99,18 @@ public class MediathekKika extends MediathekReader implements Runnable {
         }
     }
 
-    void addToListAllVideo() {
+    private void addToListAllVideo() {
         final String ADRESSE = "http://www.kika.de/videos/allevideos/allevideos-buendelgruppen100.html";
         final String MUSTER_URL = "<a href=\"/videos/allevideos/allevideos-buendelgruppen100_page-";
         ArrayList<String> liste1 = new ArrayList<>();
         ArrayList<String> liste2 = new ArrayList<>();
 
         try {
-            seite = getUrlIo.getUri(SENDERNAME, ADRESSE, Const.KODIERUNG_UTF, 3, seite, "KiKA: Startseite alle Videos");
+            GetUrl getUrl = new GetUrl(100);
+            seite = getUrl.getUri(SENDERNAME, ADRESSE, Const.KODIERUNG_UTF, 3, seite, "KiKA: Startseite alle Videos");
             seite.extractList("", "", MUSTER_URL, "\"", "http://www.kika.de/videos/allevideos/allevideos-buendelgruppen100_page-", liste1);
             for (String s1 : liste1) {
-                seite = getUrlIo.getUri_Utf(getSendername(), s1, seite, "KiKa-Sendungen");
+                seite = getUrl.getUri_Utf(getSendername(), s1, seite, "KiKa-Sendungen");
                 seite.extractList("", "", "<div class=\"media mediaA\">\n<a href=\"/", "\"", "http://www.kika.de/", liste2);
             }
             for (String s2 : liste2) {
@@ -119,18 +123,17 @@ public class MediathekKika extends MediathekReader implements Runnable {
 
     private class ThemaLaden implements Runnable {
 
-        GetUrl getUrl = new GetUrl(getWartenSeiteLaden());
         private MSStringBuilder seite1 = new MSStringBuilder(Const.STRING_BUFFER_START_BUFFER);
         private MSStringBuilder seite2 = new MSStringBuilder(Const.STRING_BUFFER_START_BUFFER);
         private MSStringBuilder seite3 = new MSStringBuilder(Const.STRING_BUFFER_START_BUFFER);
-        private final SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ");//2014-12-12T09:45:00.000+0100
+        private final FastDateFormat sdf = FastDateFormat.getInstance("yyyy-MM-dd'T'HH:mm:ss.SSSZ");//2014-12-12T09:45:00.000+0100
         private final SimpleDateFormat sdfOutTime = new SimpleDateFormat("HH:mm:ss");
         private final SimpleDateFormat sdfOutDay = new SimpleDateFormat("dd.MM.yyyy");
         private final ArrayList<String> liste1 = new ArrayList<>();
         private final ArrayList<String> liste2 = new ArrayList<>();
 
         @Override
-        public synchronized void run() {
+        public void run() {
             try {
                 meldungAddThread();
                 String[] link;
@@ -152,7 +155,8 @@ public class MediathekKika extends MediathekReader implements Runnable {
             try {
                 liste1.clear();
                 liste2.clear();
-                seite1 = getUrlIo.getUri(SENDERNAME, filmWebsite, Const.KODIERUNG_UTF, 1, seite1, "Themenseite");
+                GetUrl getUrl = new GetUrl(getWartenSeiteLaden());
+                seite1 = getUrl.getUri(SENDERNAME, filmWebsite, Const.KODIERUNG_UTF, 1, seite1, "Themenseite");
                 String thema = seite1.extract("<title>", "<");
                 thema = thema.replace("KiKA -", "").trim();
 //                String url = seite1.extract("<span class=\"moreBtn\">", "<a href=\"", "\"", 0, "Das könnte dir auch gefallen", "");
@@ -183,12 +187,12 @@ public class MediathekKika extends MediathekReader implements Runnable {
                     if (!url.startsWith("http://www.kika.de")) {
                         url = "http://www.kika.de" + url;
                     }
-                    seite1 = getUrlIo.getUri(SENDERNAME, url, Const.KODIERUNG_UTF, 1, seite1, "Themenseite");
+                    seite1 = getUrl.getUri(SENDERNAME, url, Const.KODIERUNG_UTF, 1, seite1, "Themenseite");
                     seite1.extractList("", "<!--The bottom navigation -->", "<div class=\"shortInfos\">", "<a href=\"", "\"", "http://www.kika.de", liste1);
 
                     seite1.extractList("", "", "<div class=\"bundleNaviItem \">", "<a href=\"", "\"", "http://www.kika.de", liste2);
                     for (String s : liste2) {
-                        seite1 = getUrlIo.getUri(SENDERNAME, s, Const.KODIERUNG_UTF, 1, seite1, "Themenseite");
+                        seite1 = getUrl.getUri(SENDERNAME, s, Const.KODIERUNG_UTF, 1, seite1, "Themenseite");
                         seite1.extractList("", "<!--The bottom navigation -->", "<div class=\"shortInfos\">", "<a href=\"", "\"", "http://www.kika.de", liste1);
                     }
                     if (liste1.isEmpty()) {
@@ -232,7 +236,8 @@ public class MediathekKika extends MediathekReader implements Runnable {
             boolean ret = false;
             try {
                 meldung(filmWebsite);
-                seite1 = getUrlIo.getUri(SENDERNAME, filmWebsite, Const.KODIERUNG_UTF, 1, seite1, "Themenseite");
+                GetUrl getUrl = new GetUrl(getWartenSeiteLaden());
+                seite1 = getUrl.getUri(SENDERNAME, filmWebsite, Const.KODIERUNG_UTF, 1, seite1, "Themenseite");
 
                 String xml = seite1.extract("<div class=\"av-playerContainer\"", "setup({dataURL:'", "'");
                 if (xml.isEmpty()) {
@@ -274,7 +279,8 @@ public class MediathekKika extends MediathekReader implements Runnable {
         void loadAllVideo_1(String url) {
             ArrayList<String> liste = new ArrayList<>();
             try {
-                seite2 = getUrlIo.getUri_Utf(getSendername(), url, seite2, "KiKa-Sendungen");
+                GetUrl getUrl = new GetUrl(getWartenSeiteLaden());
+                seite2 = getUrl.getUri_Utf(getSendername(), url, seite2, "KiKa-Sendungen");
                 loadAllVideo_2(seite2);
                 if (CrawlerTool.loadLongMax()) {
                     seite2.extractList("", "", "<div class=\"bundleNaviItem active\">\n<a href=\"/videos/allevideos/", "\"", "http://www.kika.de/videos/allevideos/", liste);
@@ -284,7 +290,7 @@ public class MediathekKika extends MediathekReader implements Runnable {
                     if (Config.getStop()) {
                         break;
                     }
-                    seite2 = getUrlIo.getUri_Utf(getSendername(), u, seite2, "KiKa-Sendungen");
+                    seite2 = getUrl.getUri_Utf(getSendername(), u, seite2, "KiKa-Sendungen");
                     loadAllVideo_2(seite2);
                 }
             } catch (Exception ex) {
@@ -315,7 +321,8 @@ public class MediathekKika extends MediathekReader implements Runnable {
 
         void ladenXml(String xmlWebsite, String thema, boolean urlPruefen) {
             try {
-                seite3 = getUrlIo.getUri_Utf(getSendername(), xmlWebsite, seite3, "" /* Meldung */);
+                GetUrl getUrl = new GetUrl(getWartenSeiteLaden());
+                seite3 = getUrl.getUri_Utf(getSendername(), xmlWebsite, seite3, "" /* Meldung */);
                 if (thema.isEmpty()) {
                     thema = getSendername();
                 }
@@ -351,8 +358,8 @@ public class MediathekKika extends MediathekReader implements Runnable {
                 } else {
                     date = seite3.extract("<webTime>", "<"); // <webTime>08.12.2014 13:16</webTime>
                     if (!date.isEmpty()) {
-                        datum = date.substring(0, date.indexOf(" ")).trim();
-                        zeit = date.substring(date.indexOf(" ")).trim() + ":00";
+                        datum = date.substring(0, date.indexOf(' ')).trim();
+                        zeit = date.substring(date.indexOf(' ')).trim() + ":00";
                     }
                 }
                 String urlSendung = seite3.extract("<broadcastURL>", "<");
@@ -363,7 +370,7 @@ public class MediathekKika extends MediathekReader implements Runnable {
                 try {
                     //<duration>00:03:07</duration>
                     String dauer = seite3.extract("<duration>", "<");
-                    if (!dauer.equals("")) {
+                    if (!dauer.isEmpty()) {
                         String[] parts = dauer.split(":");
                         long power = 1;
                         for (int i = parts.length - 1; i >= 0; i--) {
@@ -392,7 +399,7 @@ public class MediathekKika extends MediathekReader implements Runnable {
                     Log.errorLog(735216987, "leer: " + xmlWebsite);
                 }
 
-                if (!urlMp4.equals("")) {
+                if (!urlMp4.isEmpty()) {
                     meldung(urlMp4);
                     DatenFilm film = new DatenFilm(SENDERNAME, thema, urlSendung, titel, urlMp4, ""/*rtmpUrl*/, datum, zeit, duration, beschreibung);
                     CrawlerTool.addUrlKlein(film, urlMp4_klein, "");

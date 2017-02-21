@@ -19,17 +19,18 @@
  */
 package mServer.crawler.sender;
 
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
 import mSearch.Config;
 import mSearch.Const;
 import mSearch.daten.DatenFilm;
 import mSearch.tool.Log;
 import mSearch.tool.MSStringBuilder;
+import mServer.crawler.CrawlerTool;
 import mServer.crawler.FilmeSuchen;
 import mServer.crawler.GetUrl;
-import mServer.crawler.CrawlerTool;
+
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
 
 public class MediathekNdr extends MediathekReader implements Runnable {
 
@@ -50,6 +51,7 @@ public class MediathekNdr extends MediathekReader implements Runnable {
         listeThemen.clear();
         meldungStart();
         MSStringBuilder seite = new MSStringBuilder(Const.STRING_BUFFER_START_BUFFER);
+        GetUrl getUrlIo = new GetUrl(getWartenSeiteLaden());
         seite = getUrlIo.getUri(SENDERNAME, ADRESSE, Const.KODIERUNG_UTF, 5 /* versuche */, seite, ""/* meldung */);
         int pos = 0;
         int pos1;
@@ -68,7 +70,7 @@ public class MediathekNdr extends MediathekReader implements Runnable {
                 if (pos1 != -1 && pos2 != -1 && pos1 < pos2) {
                     thema = seite.substring(pos1 + 1, pos2);
                 }
-                if (url.equals("")) {
+                if (url.isEmpty()) {
                     Log.errorLog(210367600, "keine Url");
                     continue;
                 }
@@ -103,7 +105,7 @@ public class MediathekNdr extends MediathekReader implements Runnable {
         }
         if (Config.getStop()) {
             meldungThreadUndFertig();
-        } else if (listeThemen.size() == 0) {
+        } else if (listeThemen.isEmpty()) {
             meldungThreadUndFertig();
         } else {
             meldungAddMax(listeThemen.size());
@@ -117,6 +119,7 @@ public class MediathekNdr extends MediathekReader implements Runnable {
 
     private boolean alleSeiteSuchen(String strUrlFeed, String tthema) {
         boolean ret = false;
+        GetUrl getUrlIo = new GetUrl(getWartenSeiteLaden());
         seiteAlle = getUrlIo.getUri(SENDERNAME, strUrlFeed, Const.KODIERUNG_UTF, 3 /* versuche */, seiteAlle, "Thema: " + tthema/* meldung */);
         int pos1 = 0, pos2, anz1, anz2 = 0;
         try {
@@ -180,6 +183,7 @@ public class MediathekNdr extends MediathekReader implements Runnable {
 
         void feedEinerSeiteSuchen(String strUrlFeed, String tthema) {
             final String MUSTER_URL = "<a href=\"";
+            GetUrl getUrlIo = new GetUrl(getWartenSeiteLaden());
             seite1 = getUrlIo.getUri(SENDERNAME, strUrlFeed, Const.KODIERUNG_UTF, 3 /* versuche */, seite1, "Thema: " + tthema/* meldung */);
             int pos = 0;
             String url;
@@ -202,7 +206,7 @@ public class MediathekNdr extends MediathekReader implements Runnable {
                 while (!Config.getStop() && (pos = seite1.indexOf(muster, pos)) != -1) {
                     pos += muster.length();
                     url = seite1.extract(MUSTER_URL, "\"", pos);
-                    if (url.equals("")) {
+                    if (url.isEmpty()) {
                         Log.errorLog(659210274, "keine Url feedEinerSeiteSuchen" + strUrlFeed);
                         continue;
                     }

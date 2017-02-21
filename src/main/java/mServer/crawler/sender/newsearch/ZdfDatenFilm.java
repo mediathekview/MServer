@@ -14,7 +14,7 @@ public class ZdfDatenFilm extends DatenFilm {
         // zdf uses different hosts for load balancing
         // https://rodl..., https://nrodl...
         // ignore the hosts in index to avoid duplicate entries        
-        String url = DatenFilm.getUrl(this);
+        String url = getUrl();
         
         url = url.replaceFirst("https://nrodl", "https://rodl")
                 .replaceFirst("http://nrodl", "http://rodl");

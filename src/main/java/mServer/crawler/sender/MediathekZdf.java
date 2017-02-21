@@ -22,30 +22,25 @@ package mServer.crawler.sender;
 import mSearch.Const;
 import mSearch.daten.DatenFilm;
 import mSearch.tool.Log;
-import mSearch.tool.MSStringBuilder;
 import mServer.crawler.CrawlerTool;
 import mServer.crawler.FilmeSuchen;
+import mServer.crawler.sender.newsearch.*;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.concurrent.*;
-import mServer.crawler.sender.newsearch.DownloadDTO;
-import mServer.crawler.sender.newsearch.GeoLocations;
-import mServer.crawler.sender.newsearch.Qualities;
-import mServer.crawler.sender.newsearch.VideoDTO;
-import mServer.crawler.sender.newsearch.ZDFSearchTask;
-import mServer.crawler.sender.newsearch.ZdfDatenFilm;
+import java.util.concurrent.ForkJoinPool;
+import java.util.concurrent.ForkJoinTask;
+import java.util.concurrent.RecursiveAction;
 
-public class MediathekZdf extends MediathekReader implements Runnable
+public class MediathekZdf extends MediathekReader
 {
 
     public final static String SENDERNAME = Const.ZDF;
-    public static final String URL_PATTERN_SENDUNG_VERPASST = "https://www.zdf.de/sendung-verpasst?airtimeDate=%s";
-    public static final String[] KATEGORIE_ENDS = {"A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z", "0+-+9"};
-    public static final String KATEGORIEN_URL_PATTERN = "https://www.zdf.de/sendungen-a-z/?group=%s";
-    private static final ForkJoinPool forkJoinPool = ForkJoinPool.commonPool();
-    private final MSStringBuilder seite = new MSStringBuilder(Const.STRING_BUFFER_START_BUFFER);
-    LinkedListUrl listeTage = new LinkedListUrl();
+    //    public static final String URL_PATTERN_SENDUNG_VERPASST = "https://www.zdf.de/sendung-verpasst?airtimeDate=%s";
+//    public static final String[] KATEGORIE_ENDS = {"A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z", "0+-+9"};
+//    public static final String KATEGORIEN_URL_PATTERN = "https://www.zdf.de/sendungen-a-z/?group=%s";
+    private final ForkJoinPool forkJoinPool = ForkJoinPool.commonPool();
+//    private final MSStringBuilder seite = new MSStringBuilder(Const.STRING_BUFFER_START_BUFFER);
 
     public MediathekZdf(FilmeSuchen ssearch, int startPrio)
     {
@@ -163,7 +158,7 @@ public class MediathekZdf extends MediathekReader implements Runnable
         if (film.arr[DatenFilm.FILM_URL].endsWith(from))
         {
             String url_ = film.arr[DatenFilm.FILM_URL].substring(0, film.arr[DatenFilm.FILM_URL].lastIndexOf(from)) + to;
-            String l = mSFilmeSuchen.listeFilmeAlt.getFileSizeUrl(url_, film.arr[DatenFilm.FILM_SENDER]);
+            String l = mSFilmeSuchen.listeFilmeAlt.getFileSizeUrl(url_);
             // zum Testen immer machen!!
             if (!l.isEmpty())
             {

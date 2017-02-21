@@ -19,18 +19,19 @@
  */
 package mServer.crawler.sender;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Iterator;
-import java.util.LinkedList;
 import mSearch.Config;
 import mSearch.Const;
 import mSearch.daten.DatenFilm;
 import mSearch.tool.Log;
 import mSearch.tool.MSStringBuilder;
+import mServer.crawler.CrawlerTool;
 import mServer.crawler.FilmeSuchen;
 import mServer.crawler.GetUrl;
-import mServer.crawler.CrawlerTool;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Iterator;
+import java.util.LinkedList;
 
 public class MediathekMdr extends MediathekReader implements Runnable {
 
@@ -67,6 +68,7 @@ public class MediathekMdr extends MediathekReader implements Runnable {
         listeTage.clear();
         listeGesucht.clear();
         meldungStart();
+        GetUrl getUrlIo = new GetUrl(getWartenSeiteLaden());
         seite = getUrlIo.getUri_Utf(SENDERNAME, URL_SENDUNGEN, seite, "");
         int pos = 0;
         int pos1;

@@ -20,20 +20,21 @@
  */
 package mServer.crawler.sender;
 
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
 import mSearch.Config;
 import mSearch.Const;
 import mSearch.daten.DatenFilm;
 import mSearch.tool.Log;
 import mSearch.tool.MSStringBuilder;
+import mServer.crawler.CrawlerTool;
 import mServer.crawler.FilmeSuchen;
 import mServer.crawler.GetUrl;
-import mServer.crawler.CrawlerTool;
 import org.apache.commons.lang3.StringEscapeUtils;
+import org.apache.commons.lang3.time.FastDateFormat;
 
-public class MediathekOrf extends MediathekReader implements Runnable {
+import java.util.ArrayList;
+import java.util.Date;
+
+public class MediathekOrf extends MediathekReader {
 
     public final static String SENDERNAME = Const.ORF;
     private static final String THEMA_TAG = "-1";
@@ -79,7 +80,8 @@ public class MediathekOrf extends MediathekReader implements Runnable {
 
     private void bearbeiteAdresseTag(String adresse, MSStringBuilder seite) {
         // <a href="http://tvthek.orf.at/program/Kultur-heute/3078759/Kultur-Heute/7152535" class="item_inner clearfix">
-        seite = getUrlIo.getUri(SENDERNAME, adresse, Const.KODIERUNG_UTF, 2, seite, "");
+        GetUrl getUrl = new GetUrl(100);
+        seite = getUrl.getUri(SENDERNAME, adresse, Const.KODIERUNG_UTF, 2, seite, "");
         ArrayList<String> al = new ArrayList<>();
         seite.extractList("", "", "<a href=\"http://tvthek.orf.at/profile/", "\"", "http://tvthek.orf.at/profile/", al);
         for (String s : al) {
@@ -92,7 +94,8 @@ public class MediathekOrf extends MediathekReader implements Runnable {
 
     private void bearbeiteAdresseSendung(MSStringBuilder seite) {
         final String URL = "http://tvthek.orf.at/profiles";
-        seite = getUrlIo.getUri(SENDERNAME, URL, Const.KODIERUNG_UTF, 3, seite, "");
+        GetUrl getUrl = new GetUrl(100);
+        seite = getUrl.getUri(SENDERNAME, URL, Const.KODIERUNG_UTF, 3, seite, "");
         ArrayList<String> al = new ArrayList<>();
         try {
             seite.extractList("", "", "<a href=\"/profiles/letter/", "\"", "http://tvthek.orf.at/profiles/letter/", al);
@@ -147,7 +150,8 @@ public class MediathekOrf extends MediathekReader implements Runnable {
         }
 
         private void sendungen(String url) {
-            seite1 = getUrlIo.getUri(SENDERNAME, url, Const.KODIERUNG_UTF, 2, seite1, "");
+            GetUrl getUrl = new GetUrl(100);
+            seite1 = getUrl.getUri(SENDERNAME, url, Const.KODIERUNG_UTF, 2, seite1, "");
             alSendung.clear();
             int start = "http://tvthek.orf.at/profile/".length();
             seite1.extractList("", "", "<a href=\"http://tvthek.orf.at/profile/", "\"", "http://tvthek.orf.at/profile/", alSendung);
@@ -315,7 +319,7 @@ public class MediathekOrf extends MediathekReader implements Runnable {
     public static String getGestern(int tage) {
         try {
             //SimpleDateFormat sdfOut = new SimpleDateFormat("EEEE", Locale.US);
-            SimpleDateFormat sdfOut = new SimpleDateFormat("dd.MM.yyyy");
+            FastDateFormat sdfOut = FastDateFormat.getInstance("dd.MM.yyyy");
             return sdfOut.format(new Date(new Date().getTime() - tage * (1000 * 60 * 60 * 24)));
         } catch (Exception ex) {
             return "";

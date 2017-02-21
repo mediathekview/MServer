@@ -192,10 +192,11 @@ public class Crawler implements Runnable {
         Log.sysLog("============================================================================");
         Log.sysLog("");
         Log.sysLog("   --> und schreiben:");
-        new WriteFilmlistJson().filmlisteSchreibenJson(CrawlerTool.getPathFilmlist_json_akt(false /*aktDate*/), listeFilme);
-        new WriteFilmlistJson().filmlisteSchreibenJson(CrawlerTool.getPathFilmlist_json_akt(true /*aktDate*/), listeFilme);
-        new WriteFilmlistJson().filmlisteSchreibenJson(CrawlerTool.getPathFilmlist_json_akt_xz(), listeFilme);
 
+        final WriteFilmlistJson writer = new WriteFilmlistJson();
+        writer.filmlisteSchreibenJson(CrawlerTool.getPathFilmlist_json_akt(false /*aktDate*/), listeFilme);
+        writer.filmlisteSchreibenJson(CrawlerTool.getPathFilmlist_json_akt(true /*aktDate*/), listeFilme);
+        writer.filmlisteSchreibenJsonCompressed(CrawlerTool.getPathFilmlist_json_akt_xz(), listeFilme);
         //================================================
         // Org
         Log.sysLog("");
@@ -204,8 +205,8 @@ public class Crawler implements Runnable {
             Log.sysLog("");
             Log.sysLog("============================================================================");
             Log.sysLog("Org-Lilste schreiben: " + CrawlerTool.getPathFilmlist_json_org());
-            new WriteFilmlistJson().filmlisteSchreibenJson(CrawlerTool.getPathFilmlist_json_org(), listeFilme);
-            new WriteFilmlistJson().filmlisteSchreibenJson(CrawlerTool.getPathFilmlist_json_org_xz(), listeFilme);
+            writer.filmlisteSchreibenJson(CrawlerTool.getPathFilmlist_json_org(), listeFilme);
+            writer.filmlisteSchreibenJsonCompressed(CrawlerTool.getPathFilmlist_json_org_xz(), listeFilme);
         }
 
         //====================================================
@@ -230,8 +231,8 @@ public class Crawler implements Runnable {
             diff = listeFilme.neueFilme(tmpListe);
         }
         Log.sysLog("   --> und schreiben:");
-        new WriteFilmlistJson().filmlisteSchreibenJson(CrawlerTool.getPathFilmlist_json_diff(), diff);
-        new WriteFilmlistJson().filmlisteSchreibenJson(CrawlerTool.getPathFilmlist_json_diff_xz(), diff);
+        writer.filmlisteSchreibenJson(CrawlerTool.getPathFilmlist_json_diff(), diff);
+        writer.filmlisteSchreibenJsonCompressed(CrawlerTool.getPathFilmlist_json_diff_xz(), diff);
         Log.sysLog("   --> Anz. Filme Diff: " + diff.size());
 
         //================================================

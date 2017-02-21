@@ -19,21 +19,22 @@
  */
 package mServer.crawler.sender;
 
+import mSearch.Config;
+import mSearch.Const;
+import mSearch.daten.DatenFilm;
+import mSearch.tool.Log;
+import mSearch.tool.MSStringBuilder;
+import mServer.crawler.CrawlerTool;
+import mServer.crawler.FilmeSuchen;
+import mServer.crawler.GetUrl;
+import org.apache.commons.lang3.StringEscapeUtils;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.Locale;
-import mSearch.Config;
-import mSearch.Const;
-import mSearch.daten.DatenFilm;
-import mSearch.tool.Log;
-import mSearch.tool.MSStringBuilder;
-import mServer.crawler.FilmeSuchen;
-import mServer.crawler.GetUrl;
-import mServer.crawler.CrawlerTool;
-import org.apache.commons.lang3.StringEscapeUtils;
 
 public class MediathekBr extends MediathekReader implements Runnable {
 
@@ -117,7 +118,7 @@ public class MediathekBr extends MediathekReader implements Runnable {
         final String MUSTER_URL_2 = "video/";
         listeThemen.clear();
         MSStringBuilder seite = new MSStringBuilder(Const.STRING_BUFFER_START_BUFFER);
-        //seite = getUrlIo.getUri_Utf(SENDERNAME, ADRESSE, seite, "");
+        GetUrl getUrlIo = new GetUrl(getWartenSeiteLaden());
         seite = getUrlIo.getUri(SENDERNAME, ADRESSE, Const.KODIERUNG_UTF, 5 /* versuche */, seite, "");
         int pos1 = 0;
         int pos2;
@@ -139,7 +140,7 @@ public class MediathekBr extends MediathekReader implements Runnable {
                     if (!listeAlleThemen.contains(thema)) {
                         listeAlleThemen.add(thema);
                     }
-                    if (url.equals("")
+                    if (url.isEmpty()
                             || (!url.startsWith(MUSTER_URL_1) && !url.startsWith(MUSTER_URL_2))) {
                         continue;
                     }
@@ -173,6 +174,7 @@ public class MediathekBr extends MediathekReader implements Runnable {
         ArrayList<String> al = new ArrayList<>();
         try {
             //seite1 = getUrlIo.getUri_Utf(SENDERNAME, ADRESSE, seite1, "");
+            GetUrl getUrlIo = new GetUrl(getWartenSeiteLaden());
             seite1 = getUrlIo.getUri(SENDERNAME, ADRESSE, Const.KODIERUNG_UTF, 5 /* versuche */, seite1, "");
             String url;
             int max_;
@@ -244,6 +246,7 @@ public class MediathekBr extends MediathekReader implements Runnable {
         }
 
         void laden(String urlThema, String thema, MSStringBuilder seite, boolean weitersuchen) {
+            GetUrl getUrlIo = new GetUrl(getWartenSeiteLaden());
             seite = getUrlIo.getUri_Utf(SENDERNAME, urlThema, seite, "");
             if (seite.length() == 0) {
                 return;
@@ -390,6 +393,7 @@ public class MediathekBr extends MediathekReader implements Runnable {
 
         void laden() {
             MSStringBuilder seite = seite1;
+            GetUrl getUrlIo = new GetUrl(getWartenSeiteLaden());
             getUrlIo.getUri_Utf(SENDERNAME, "http://www.br.de/mediathek/video/br-klassik-mediathek-100.html", seite, "");
             if (seite.length() == 0) {
                 return;
@@ -480,6 +484,7 @@ public class MediathekBr extends MediathekReader implements Runnable {
     private void loadXml(MSStringBuilder seite, String urlXml, String urlThema, String thema, String titel, String description, String datum, String zeit) {
         String dauer;
         long duration = 0;
+        GetUrl getUrlIo = new GetUrl(getWartenSeiteLaden());
         seite = getUrlIo.getUri_Utf(SENDERNAME, urlXml, seite, "");
         if (seite.length() == 0) {
             Log.errorLog(820139701, urlXml);
@@ -489,7 +494,7 @@ public class MediathekBr extends MediathekReader implements Runnable {
         try {
             //<duration>00:03:07</duration>
             dauer = seite.extract("<duration>", "<");
-            if (!dauer.equals("")) {
+            if (!dauer.isEmpty()) {
                 String[] parts = dauer.split(":");
                 duration = 0;
                 long power = 1;

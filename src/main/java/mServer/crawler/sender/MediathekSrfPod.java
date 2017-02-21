@@ -19,9 +19,6 @@
  */
 package mServer.crawler.sender;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Locale;
 import mSearch.Config;
 import mSearch.Const;
 import mSearch.daten.DatenFilm;
@@ -29,6 +26,10 @@ import mSearch.tool.Log;
 import mSearch.tool.MSStringBuilder;
 import mServer.crawler.FilmeSuchen;
 import mServer.crawler.GetUrl;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
 
 public class MediathekSrfPod extends MediathekReader implements Runnable {
 
@@ -49,6 +50,7 @@ public class MediathekSrfPod extends MediathekReader implements Runnable {
         String addr1 = "http://www.srf.ch/podcasts";
         listeThemen.clear();
         meldungStart();
+        GetUrl getUrlIo = new GetUrl(getWartenSeiteLaden());
         seite = getUrlIo.getUri_Utf(SENDERNAME, addr1, seite, "");
         int pos = 0;
         int pos1;
@@ -62,7 +64,7 @@ public class MediathekSrfPod extends MediathekReader implements Runnable {
                 url = seite.substring(pos1, pos2);
                 url = "http://feeds.sf.tv/podcast" + url;
             }
-            if (url.equals("")) {
+            if (url.isEmpty()) {
                 Log.errorLog(698875503, "keine URL");
             } else {
                 String[] add = new String[]{url, ""};

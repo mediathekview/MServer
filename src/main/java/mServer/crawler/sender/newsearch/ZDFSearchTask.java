@@ -2,14 +2,17 @@ package mServer.crawler.sender.newsearch;
 
 import com.google.gson.JsonObject;
 import com.sun.jersey.api.client.WebResource;
+import mSearch.Config;
+import mSearch.tool.Log;
+import mServer.tool.MserverDaten;
+
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.concurrent.*;
-import java.util.stream.*;
-import mSearch.Config;
-import mSearch.tool.Log;
+import java.util.concurrent.ForkJoinTask;
+import java.util.concurrent.RecursiveTask;
+import java.util.stream.Collectors;
 
 public class ZDFSearchTask extends RecursiveTask<Collection<VideoDTO>>
 {
@@ -64,17 +67,19 @@ public class ZDFSearchTask extends RecursiveTask<Collection<VideoDTO>>
                     if(baseObject != null) {
                         ZDFSearchPageTask task = new ZDFSearchPageTask(baseObject);
                         subTasks.add(task);
-                        Log.sysLog("SearchTask " + task.hashCode() + " added.");
+                        if (MserverDaten.debug)
+                            Log.sysLog("SearchTask " + task.hashCode() + " added.");
                     }
 
                     page++;
                 } while(!Config.getStop() && baseObject != null && baseObject.has(JSON_ELEMENT_NEXT));            
                     filmList.addAll(invokeAll(subTasks).parallelStream()
-                    .map(ForkJoinTask<Collection<VideoDTO>>::join)
+                                    .map(ForkJoinTask::join)
                     .flatMap(Collection::stream)
                     .collect(Collectors.toList())
                     );
 
+                if (MserverDaten.debug)
                     Log.sysLog("All SearchTasks finished.");
 
             } catch (Exception ex) {
@@ -95,7 +100,8 @@ public class ZDFSearchTask extends RecursiveTask<Collection<VideoDTO>>
                     .queryParam(PROPERTY_SORT_BY, SORT_BY_DATE)
                     .queryParam(PROPERTY_PAGE, Integer.toString(page));
 
-        Log.sysLog("Lade Seite: " + webResource.getURI());
+        if (MserverDaten.debug)
+            Log.sysLog("Lade Seite: " + webResource.getURI());
                 
         return client.execute(webResource);        
     }
