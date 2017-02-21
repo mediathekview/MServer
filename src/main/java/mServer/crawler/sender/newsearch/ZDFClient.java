@@ -29,7 +29,7 @@ public class ZDFClient
     private static final String ORIGIN = "https://www.zdf.de";
     private static final String USER_AGENT = "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:50.0) Gecko/20100101 Firefox/50.0";
     private static final String API_TOKEN_SEARCH = "Bearer f4ba81fa117681c42383194a7103251db2981962";
-    private static final String API_TOKEN_VIDEOS = "Bearer d2726b6c8c655e42b68b0db26131b15b22bd1a32";
+    private static final String API_TOKEN_PATTERN = "Bearer %s";
 
     private final Client client;
     private final Gson gson;
@@ -83,14 +83,18 @@ public class ZDFClient
                 apiToken = API_TOKEN_SEARCH;
                 break;
             case VIDEO:
-                //TODO load this from https://www.zdf.de/ZDFplayer/configs/zdf/zdf2016/configuration.json
-                apiToken = API_TOKEN_VIDEOS;
+                apiToken = loadApiTokenVideos();
                 break;
             default:
-                apiToken = API_TOKEN_VIDEOS;
+                apiToken = loadApiTokenVideos();
                 break;
         }
         return apiToken;
+    }
+
+    private String loadApiTokenVideos()
+    {
+        return String.format(API_TOKEN_PATTERN, ZDFConfigurationLoader.getInstance().loadConfig());
     }
 
     private JsonObject handleOk(ClientResponse response)
