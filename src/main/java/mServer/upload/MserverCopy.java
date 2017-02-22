@@ -19,19 +19,20 @@
  */
 package mServer.upload;
 
+import mServer.daten.MserverDatenUpload;
+import mServer.tool.MserverLog;
+
 import java.io.File;
 import java.nio.file.Files;
 import java.nio.file.LinkOption;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
-import mServer.daten.MserverDatenUpload;
-import mServer.tool.MserverLog;
 
 public class MserverCopy {
 
     public static boolean copy(String srcPathFile, String destFileName, MserverDatenUpload datenUpload) {
         boolean ret = false;
-        File f = null;
+
         try {
             MserverLog.systemMeldung("");
             MserverLog.systemMeldung("UploadCopy");
@@ -42,12 +43,7 @@ public class MserverCopy {
         } catch (Exception ex) {
             MserverLog.fehlerMeldung(747452360, MserverCopy.class.getName(), "copy", ex);
         }
-        if (f != null) {
-            try {
-                f.delete();
-            } catch (Exception ignore) {
-            }
-        }
+
         return ret;
     }
 
