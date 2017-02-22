@@ -55,20 +55,19 @@ public class MserverCopy {
         MserverLog.systemMeldung("src: " + srcPathFile);
         MserverLog.systemMeldung("dest: " + destPathFile);
         try {
-            String dest = destPathFile;
 
-            String dest_tmp = dest + "__";
-            String dest_old = dest + "_old";
-            MserverLog.systemMeldung("Copy Filmliste (rename): " + dest);
+            String dest_tmp = destPathFile + "__";
+            String dest_old = destPathFile + "_old";
+            MserverLog.systemMeldung("Copy Filmliste (rename): " + destPathFile);
             Files.copy(Paths.get(srcPathFile), Paths.get(dest_tmp), StandardCopyOption.REPLACE_EXISTING);
 
-            if (Files.exists(Paths.get(dest), LinkOption.NOFOLLOW_LINKS)) {
+            if (Files.exists(Paths.get(destPathFile), LinkOption.NOFOLLOW_LINKS)) {
                 // wenns die Datei schon gibt, umbenennen, ist der Normalfall
                 MserverLog.systemMeldung("Rename alte Filmliste: " + dest_tmp);
-                Files.move(Paths.get(dest), Paths.get(dest_old), StandardCopyOption.REPLACE_EXISTING);
+                Files.move(Paths.get(destPathFile), Paths.get(dest_old), StandardCopyOption.REPLACE_EXISTING);
             }
-            MserverLog.systemMeldung("Rename neue Filmliste: " + dest);
-            Files.move(Paths.get(dest_tmp), Paths.get(dest), StandardCopyOption.REPLACE_EXISTING);
+            MserverLog.systemMeldung("Rename neue Filmliste: " + destPathFile);
+            Files.move(Paths.get(dest_tmp), Paths.get(destPathFile), StandardCopyOption.REPLACE_EXISTING);
 
             MserverLog.systemMeldung("====================================");
 
