@@ -31,7 +31,6 @@ public class MserverCopy {
 
     public static boolean copy(String srcPathFile, String destFileName, MserverDatenUpload datenUpload) {
         boolean ret = false;
-        File f = null;
         try {
             MserverLog.systemMeldung("");
             MserverLog.systemMeldung("UploadCopy");
@@ -41,12 +40,6 @@ public class MserverCopy {
             ret = true;
         } catch (Exception ex) {
             MserverLog.fehlerMeldung(747452360, MserverCopy.class.getName(), "copy", ex);
-        }
-        if (f != null) {
-            try {
-                f.delete();
-            } catch (Exception ignore) {
-            }
         }
         return ret;
     }
