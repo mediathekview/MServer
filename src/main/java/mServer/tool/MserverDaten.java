@@ -54,7 +54,7 @@ public class MserverDaten {
 
     public static String getUserAgent() {
         if (system[MserverKonstanten.SYSTEM_USER_AGENT_NR].trim().equals("")) {
-            return MserverKonstanten.PROGRAMMNAME + " " + Const.VERSION_FILMLISTE + " / " + Functions.getBuildNr();
+            return MserverKonstanten.PROGRAMMNAME + " " + Const.VERSION_FILMLISTE + " / " + Functions.getProgVersion().toString();
         } else {
         }
         return system[MserverKonstanten.SYSTEM_USER_AGENT_NR].trim();
