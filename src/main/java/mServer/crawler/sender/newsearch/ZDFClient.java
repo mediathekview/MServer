@@ -9,6 +9,7 @@ import mSearch.Const;
 import mSearch.tool.Log;
 import mServer.crawler.FilmeSuchen;
 import mServer.crawler.RunSender;
+import mServer.tool.MserverDaten;
 
 /**
  * jersey client of ZDF
@@ -56,7 +57,8 @@ public class ZDFClient {
                 .header(HEADER_USER_AGENT, USER_AGENT)
                 .get(ClientResponse.class);
 
-        Log.sysLog("Lade Seite: " + webResource.getURI());
+        if (MserverDaten.debug)
+            Log.sysLog("Lade Seite: " + webResource.getURI());
 
         if (response.getStatus() == 200) {
             return handleOk(response);
