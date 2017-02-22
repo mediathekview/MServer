@@ -14,8 +14,8 @@ import mSearch.Config;
 import mSearch.daten.DatenFilm;
 import mSearch.daten.ListeFilme;
 import mSearch.tool.Duration;
-import mSearch.tool.FileSize;
 import mSearch.tool.Log;
+import mServer.tool.UrlService;
 
 /**
  *
@@ -29,10 +29,12 @@ public class AddToFilmlist {
     ListeFilme vonListe;
     ListeFilme listeEinsortieren;
     Collection<DatenFilm> filteredOnline = new ArrayList<>();
-
-    public AddToFilmlist(ListeFilme vonListe, ListeFilme listeEinsortieren) {
+    UrlService urlService;
+    
+    public AddToFilmlist(ListeFilme vonListe, ListeFilme listeEinsortieren, UrlService urlService) {
         this.vonListe = vonListe;
         this.listeEinsortieren = listeEinsortieren;
+        this.urlService = urlService;
     }
 
     public synchronized void addLiveStream() {
@@ -145,7 +147,7 @@ public class AddToFilmlist {
         @Override
         public void run() {
             while (!stopOld && (film = popOld(listeOld)) != null) {
-                long size = FileSize.laengeLong(film.arr[DatenFilm.FILM_URL]);
+                long size = urlService.laengeLong(film.arr[DatenFilm.FILM_URL]);
                 if (size > MIN_SIZE_ADD_OLD) {
                     addOld(film);
                 }

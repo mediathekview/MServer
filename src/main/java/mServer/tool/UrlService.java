@@ -11,12 +11,12 @@ public class UrlService {
 
     final static int TIMEOUT = 3000; // ms    
     
-    private final UrlBuilder urlBuilder;
+    private final HttpUrlConnectionWrapper urlBuilder;
     
     public UrlService() {
-        urlBuilder = new UrlBuilder();
+        urlBuilder = new HttpUrlConnectionWrapper();
     }
-    public UrlService(UrlBuilder urlBuilder) {
+    public UrlService(HttpUrlConnectionWrapper urlBuilder) {
         this.urlBuilder = urlBuilder;
     }
     

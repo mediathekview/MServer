@@ -30,7 +30,7 @@ public class UrlServiceTest {
     @Before
     public void setUp() throws MalformedURLException, IOException {
         mockConnection = Mockito.mock(HttpURLConnection.class);
-        UrlBuilder mockUrlBuilder = Mockito.mock(UrlBuilder.class);
+        HttpUrlConnectionWrapper mockUrlBuilder = Mockito.mock(HttpUrlConnectionWrapper.class);
         when(mockUrlBuilder.openConnection(anyString())).thenReturn(mockConnection);  
         
         target = new UrlService(mockUrlBuilder);

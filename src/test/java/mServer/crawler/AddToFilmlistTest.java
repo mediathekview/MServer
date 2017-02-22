@@ -13,7 +13,6 @@ import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.*;
 
 public class AddToFilmlistTest {
-/* TODO erstmal auskommentiert, muss an Rückbau der tu testenden Klasse angepasst werden
     private ListeFilme list;
     private ListeFilme listToAdd;
     private UrlService mockUrlService;
@@ -100,5 +99,5 @@ public class AddToFilmlistTest {
         target.addOldList();
         
         assertThat(list.size(), equalTo(2));
-    }*/
+    }
 }

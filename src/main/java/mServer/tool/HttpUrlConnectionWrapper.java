@@ -6,9 +6,9 @@ import java.net.MalformedURLException;
 import java.net.URL;
 
 /**
- * Helper to create a URL from a string to increase testability
+ * Wrapper to create a URL from a string to increase testability
  */
-public class UrlBuilder {
+public class HttpUrlConnectionWrapper {
     
     public HttpURLConnection openConnection(String url) throws MalformedURLException, IOException {
         return (HttpURLConnection) new URL(url).openConnection();
