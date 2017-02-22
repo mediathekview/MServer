@@ -93,11 +93,14 @@ build.dependsOn(install)
 task updateVersion << {
     Properties props = loadVersionProperties()
     def oldVersion = props.getProperty('VERSION')
+    String buildDate = new Date().format('dd.MM.yyyy HH:mm:ss')
     if (!oldVersion.equals(project.version)) {
         logger.lifecycle "==mserver======================"
         logger.lifecycle "Version: $project.version"
+        logger.lifecycle "Baudatum: $buildDate"
         logger.lifecycle "==mserver======================"
         props.setProperty('VERSION', project.version)
+        props.setProperty('DATE', buildDate)
         props.store(propsFile.newWriter(), null)
     }
 }
@@ -105,6 +108,8 @@ task updateVersion << {
 processResources.dependsOn updateVersion
 
 [distZip, distTar]*.shouldRunAfter compileJava, updateVersion, jar
+distTar.compression = Compression.GZIP
+distTar.extension = 'tar.gz'
 
 jar {
     manifest {
@@ -120,31 +125,23 @@ distributions {
     main {
         baseName = 'MServer'
         contents {
-            into('lib')
-                    {
-                        from configurations.compile
-                    }
-            from('dist')
-                    {
-                        filesMatching('**/*.sh')
-                                {
-                                    filter(ReplaceTokens, tokens: [JARNAME: jarName])
-                                }
-                        filesMatching('**/*.txt')
-                                {
-                                    filter(ReplaceTokens, tokens: [JARNAME: jarName])
-                                }
-                        filesMatching('**/*.command')
-                                {
-                                    filter(ReplaceTokens, tokens: [JARNAME: jarName])
-                                }
-                    }
-
-            from('build/libs')
-                    {
-                        include '*.jar'
-                    }
-
+            into('lib') {
+                from configurations.compile
+            }
+            from('dist') {
+                filesMatching('**/*.sh') {
+                    filter(ReplaceTokens, tokens: [JARNAME: jarName])
+                }
+                filesMatching('**/*.txt') {
+                    filter(ReplaceTokens, tokens: [JARNAME: jarName])
+                }
+                filesMatching('**/*.command') {
+                    filter(ReplaceTokens, tokens: [JARNAME: jarName])
+                }
+            }
+            from('build/libs') {
+                include '*.jar'
+            }
         }
     }
 }
@@ -200,7 +197,7 @@ task releaseSnapshot(dependsOn: 'uploadArchives') {
 }
 
 gradle.taskGraph.whenReady {taskGraph ->
-    if (!taskGraph.hasTask(release)) {
+    if (taskGraph.hasTask(releaseSnapshot)) {
         version = version+'-SNAPSHOT'
     }
 }
