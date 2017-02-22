@@ -229,7 +229,7 @@ public class MediathekArd extends MediathekReader {
                 Log.errorLog(765323214, "Leere Seite: " + strUrlFeed);
                 return;
             }
-            int pos = 0;
+            int pos;
             String url, datum, zeit = "", titel, dauer, urlSendung;
             long d = 0;
             int count = 0;
@@ -317,7 +317,7 @@ public class MediathekArd extends MediathekReader {
                     Log.errorLog(915263621, "Leere Seite: " + urlFilm);
                     return;
                 }
-                String url = "", urlMid = "", urlKl = "", urlHD = "";
+                String url, urlMid = "", urlKl = "", urlHD = "";
                 String urlTest = "";
                 liste.clear();
 

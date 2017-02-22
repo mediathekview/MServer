@@ -36,7 +36,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.LinkedList;
 
-public class MediathekWdr extends MediathekReader implements Runnable {
+public class MediathekWdr extends MediathekReader {
 
     public final static String SENDERNAME = Const.WDR;
     private final static String ROCKPALAST_URL = "http://www1.wdr.de/fernsehen/rockpalast/startseite/index.html";
@@ -307,7 +307,7 @@ public class MediathekWdr extends MediathekReader implements Runnable {
             while (!Config.getStop() && (pos = sendungsSeite2.indexOf(MUSTER_URL, pos)) != -1) {
                 pos += MUSTER_URL.length();
                 url = sendungsSeite2.extract("<a href=\"/mediathek/video/sendungen/", "\"", pos);
-                if (!url.equals("")) {
+                if (!url.isEmpty()) {
                     url = "http://www1.wdr.de/mediathek/video/sendungen/" + url;
 
                     titel = sendungsSeite2.extract("<span class=\"hidden\">Video:</span>", "<", pos).trim();
@@ -319,7 +319,7 @@ public class MediathekWdr extends MediathekReader implements Runnable {
                     }
                     dauer = sendungsSeite2.extract("<span class=\"hidden\">L&auml;nge: </span>", "<", pos).trim();
                     try {
-                        if (!dauer.equals("")) {
+                        if (!dauer.isEmpty()) {
                             String[] parts = dauer.split(":");
                             duration = 0;
                             long power = 1;
@@ -387,7 +387,7 @@ public class MediathekWdr extends MediathekReader implements Runnable {
                 thema = sendungsSeite3.extract("{ 'offset': '0' }}\" title=\"", "\"");
                 thema = thema.replace(", WDR", "");
                 if (thema.contains(":")) {
-                    thema = thema.substring(0, thema.indexOf(":"));
+                    thema = thema.substring(0, thema.indexOf(':'));
                 }
                 if (thema.contains(" -")) {
                     thema = thema.substring(0, thema.indexOf(" -"));
@@ -395,7 +395,7 @@ public class MediathekWdr extends MediathekReader implements Runnable {
             }
             // URL suchen
             String url = sendungsSeite3.extract("mediaObj': { 'url': '", "'");
-            if (!url.equals("")) {
+            if (!url.isEmpty()) {
                 addFilm2(filmWebsite, thema, titel, url, dauer, datum, description);
             } else {
                 Log.errorLog(763299001, new String[]{"keine Url: " + filmWebsite});
@@ -444,8 +444,8 @@ public class MediathekWdr extends MediathekReader implements Runnable {
             if (!f4m.isEmpty() && urlNorm.contains("_") && urlNorm.endsWith(".mp4")) {
                 // http://adaptiv.wdr.de/z/medp/ww/fsk0/104/1048369/,1048369_11885064,1048369_11885062,1048369_11885066,.mp4.csmil/manifest.f4m
                 // http://ondemand-ww.wdr.de/medp/fsk0/104/1048369/1048369_11885062.mp4
-                String s1 = urlNorm.substring(urlNorm.lastIndexOf("_") + 1, urlNorm.indexOf(".mp4"));
-                String s2 = urlNorm.substring(0, urlNorm.lastIndexOf("_") + 1);
+                String s1 = urlNorm.substring(urlNorm.lastIndexOf('_') + 1, urlNorm.indexOf(".mp4"));
+                String s2 = urlNorm.substring(0, urlNorm.lastIndexOf('_') + 1);
                 try {
                     int nr = Integer.parseInt(s1);
                     if (f4m.contains(nr + 2 + "")) {
@@ -477,13 +477,13 @@ public class MediathekWdr extends MediathekReader implements Runnable {
             if (datum.isEmpty()) {
                 String d = sendungsSeite4.extract("\"trackerClipAirTime\":\"", "\"");
                 if (d.contains(" ")) {
-                    zeit = d.substring(d.indexOf(" ")) + ":00";
-                    datum = d.substring(0, d.indexOf(" "));
+                    zeit = d.substring(d.indexOf(' ')) + ":00";
+                    datum = d.substring(0, d.indexOf(' '));
                 }
             } else {
                 String d = sendungsSeite4.extract("\"trackerClipAirTime\":\"", "\"");
                 if (d.contains(" ")) {
-                    zeit = d.substring(d.indexOf(" ")) + ":00";
+                    zeit = d.substring(d.indexOf(' ')) + ":00";
                 } else {
                     System.out.println("Zeit");
                 }
@@ -513,8 +513,7 @@ public class MediathekWdr extends MediathekReader implements Runnable {
 
         private String getUrlFromM3u8(String m3u8Url, String qualityIndex) {
             final String CSMIL = "csmil/";
-            String url = m3u8Url.substring(0, m3u8Url.indexOf(CSMIL)) + CSMIL + qualityIndex;
-            return url;
+            return m3u8Url.substring(0, m3u8Url.indexOf(CSMIL)) + CSMIL + qualityIndex;
         }
 
         private void themenSeiteRockpalast() {
@@ -567,7 +566,7 @@ public class MediathekWdr extends MediathekReader implements Runnable {
                     String titel = sendungsSeite1.extract("<title>", "<"); //<title>Achterbahn - MausSpots - Lachgeschichten - Die Seite mit der Maus - WDR Fernsehen</title>
                     titel = titel.replace("\n", "");
                     if (titel.contains("-")) {
-                        titel = titel.substring(0, titel.indexOf("-")).trim();
+                        titel = titel.substring(0, titel.indexOf('-')).trim();
                     }
                     String jsUrl = sendungsSeite1.extract("'mediaObj': { 'url': '", "'");
                     addFilm2(filmWebsite, "MausSpots", titel, jsUrl, 0, "", "");

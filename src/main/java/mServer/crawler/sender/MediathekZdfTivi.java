@@ -30,7 +30,7 @@ import mServer.crawler.GetUrl;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class MediathekZdfTivi extends MediathekReader implements Runnable {
+public class MediathekZdfTivi extends MediathekReader {
 
     public final static String SENDERNAME = Const.ZDF_TIVI;
     private final SimpleDateFormat sdfIn = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSXXX");
@@ -52,7 +52,7 @@ public class MediathekZdfTivi extends MediathekReader implements Runnable {
         add_3();
         if (Config.getStop()) {
             meldungThreadUndFertig();
-        } else if (listeThemen.size() == 0 && listeThemen_3.size() == 0) {
+        } else if (listeThemen.isEmpty() && listeThemen_3.isEmpty()) {
             meldungThreadUndFertig();
         } else {
             meldungAddMax(listeThemen.size() + listeThemen_3.size());
@@ -92,7 +92,7 @@ public class MediathekZdfTivi extends MediathekReader implements Runnable {
                     }
 //                    url = URLDecoder.decode(url, "UTF-8");
                 }
-                if (url.equals("")) {
+                if (url.isEmpty()) {
                     Log.errorLog(309075109, "keine URL");
                 } else {
                     url = "http://www.tivi.de/tiviVideos" + url;
@@ -133,7 +133,7 @@ public class MediathekZdfTivi extends MediathekReader implements Runnable {
                     }
 //                    url = URLDecoder.decode(url, "UTF-8");
                 }
-                if (url.equals("")) {
+                if (url.isEmpty()) {
                     Log.errorLog(915263985, "keine URL");
                 } else {
                     url = "http://www.tivi.de/tiviVideos/beitrag" + url;
@@ -238,7 +238,7 @@ public class MediathekZdfTivi extends MediathekReader implements Runnable {
         private void addTivi_(String url) {
             int pos3;
             long dauerL;
-            String titel, thema, urlFilm, datum, zeit = "", bild, website, dauer, text;
+            String titel, thema, urlFilm, datum, zeit, bild, website, dauer, text;
             try {
                 urlFilm = "";
                 // Film laden
@@ -263,11 +263,11 @@ public class MediathekZdfTivi extends MediathekReader implements Runnable {
                 }
                 try {
                     dauer = dauer.replace("P0Y0M0DT", "");
-                    String h = dauer.substring(0, dauer.indexOf("H"));
+                    String h = dauer.substring(0, dauer.indexOf('H'));
                     int ih = Integer.parseInt(h);
-                    String m = dauer.substring(dauer.indexOf("H") + 1, dauer.indexOf("M"));
+                    String m = dauer.substring(dauer.indexOf('H') + 1, dauer.indexOf('M'));
                     int im = Integer.parseInt(m);
-                    String s = dauer.substring(dauer.indexOf("M") + 1, dauer.indexOf("."));
+                    String s = dauer.substring(dauer.indexOf('M') + 1, dauer.indexOf('.'));
                     int is = Integer.parseInt(s);
                     dauerL = ih * 60 * 60 + im * 60 + is;
                 } catch (Exception ex) {

@@ -80,7 +80,7 @@ public class MediathekSrfPod extends MediathekReader implements Runnable {
                 url = seite.substring(pos1, pos2);
                 url = "http://pod.drs.ch/" + url;
             }
-            if (url.equals("")) {
+            if (url.isEmpty()) {
                 Log.errorLog(698875503,  "keine URL");
             } else {
                 String[] add = new String[]{url, ""};
@@ -89,20 +89,20 @@ public class MediathekSrfPod extends MediathekReader implements Runnable {
         }
         if (Config.getStop()) {
             meldungThreadUndFertig();
-        } else if (listeThemen.size() == 0) {
+        } else if (listeThemen.isEmpty()) {
             meldungThreadUndFertig();
         } else {
             meldungAddMax(listeThemen.size());
             for (int t = 0; t < getMaxThreadLaufen(); ++t) {
                 //new Thread(new ThemaLaden()).start();
-                Thread th = new Thread(new ThemaLaden());
+                Thread th = new ThemaLaden();
                 th.setName(SENDERNAME + t);
                 th.start();
             }
         }
     }
 
-    private class ThemaLaden implements Runnable {
+    private class ThemaLaden extends Thread {
 
         GetUrl getUrl = new GetUrl(getWartenSeiteLaden());
         private MSStringBuilder seite = new MSStringBuilder(Const.STRING_BUFFER_START_BUFFER);
@@ -143,7 +143,7 @@ public class MediathekSrfPod extends MediathekReader implements Runnable {
             long duration = 0;
             String description = "";
             String image = "";
-            String[] keywords = {};
+            String[] keywords;
             try {
                 meldung(strUrlFeed);
                 seite = getUrl.getUri_Utf(SENDERNAME, strUrlFeed, seite, "Thema: " + thema);
@@ -169,7 +169,7 @@ public class MediathekSrfPod extends MediathekReader implements Runnable {
                 while ((pos = seite.indexOf(MUSTER_THEMA_1, pos)) != -1) { //start der Einträge, erster Eintrag ist der Titel
                     pos += MUSTER_THEMA_1.length();
                     pos1 = pos;
-                    int pos5 = 0;
+                    int pos5;
                     String d = "";
                     if ((pos5 = seite.indexOf(MUSTER_DURATION, pos)) != -1) {
                         pos5 += MUSTER_DURATION.length();
@@ -214,7 +214,7 @@ public class MediathekSrfPod extends MediathekReader implements Runnable {
                         pos5 += MUSTER_KEYWORDS.length();
                         if ((pos2 = seite.indexOf("</", pos5)) != -1) {
                             String k = seite.substring(pos5, pos2);
-                            if (k.length() > 0) {
+                            if (!k.isEmpty()) {
                                 keywords = k.split(",");
                                 for (int i = 0; i < keywords.length; i++) {
                                     keywords[i] = keywords[i].trim();
@@ -241,7 +241,7 @@ public class MediathekSrfPod extends MediathekReader implements Runnable {
                                 url = seite.substring(pos1, pos2);
                                 url = "http://" + url;
                             }
-                            if (url.equals("")) {
+                            if (url.isEmpty()) {
                                 Log.errorLog(463820049,   "keine URL: " + strUrlFeed);
                             } else {
                                 // public DatenFilm(String ssender, String tthema, String filmWebsite, String ttitel, String uurl, String datum, String zeit,

@@ -35,7 +35,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class MediathekSrf extends MediathekReader implements Runnable {
+public class MediathekSrf extends MediathekReader {
 
     public final static String SENDERNAME = Const.SRF;
     private final static int MAX_SEITEN_THEMA = 5;
@@ -77,28 +77,25 @@ public class MediathekSrf extends MediathekReader implements Runnable {
 
         if (Config.getStop()) {
             meldungThreadUndFertig();
-        } else if (listeThemen.size() == 0) {
+        } else if (listeThemen.isEmpty()) {
             meldungThreadUndFertig();
         } else {
             meldungAddMax(listeThemen.size());
             for (int t = 0; t < getMaxThreadLaufen(); ++t) {
-                Thread th = new Thread(new ThemaLaden());
+                Thread th = new ThemaLaden();
                 th.setName(SENDERNAME + t);
                 th.start();
             }
         }
     }
 
-    private class ThemaLaden implements Runnable {
+    private class ThemaLaden extends Thread {
 
         GetUrl getUrl = new GetUrl(getWartenSeiteLaden());
 
-        private final MSStringBuilder film_website = new MSStringBuilder(Const.STRING_BUFFER_START_BUFFER);
         MSStringBuilder overviewPageFilm = new MSStringBuilder(Const.STRING_BUFFER_START_BUFFER);
         MSStringBuilder filmPage = new MSStringBuilder(Const.STRING_BUFFER_START_BUFFER);
         MSStringBuilder m3u8Page = new MSStringBuilder(Const.STRING_BUFFER_START_BUFFER);
-        private final static String PATTERN_URL = "\"url\":\"";
-        private final static String PATTERN_URL_END = "\"";
         private final ArrayList<String> urlList = new ArrayList<>();
         private final ArrayList<String> filmList = new ArrayList<>();
 
@@ -288,8 +285,7 @@ public class MediathekSrf extends MediathekReader implements Runnable {
 
         private String getUrlFromM3u8(String m3u8Url, String qualityIndex) {
             final String CSMIL = "csmil/";
-            String url = m3u8Url.substring(0, m3u8Url.indexOf(CSMIL)) + CSMIL + qualityIndex;
-            return url;
+            return m3u8Url.substring(0, m3u8Url.indexOf(CSMIL)) + CSMIL + qualityIndex;
         }
 
         private long extractDuration(MSStringBuilder page) {

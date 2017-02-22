@@ -30,7 +30,7 @@ import mServer.crawler.GetUrl;
 
 import java.util.ArrayList;
 
-public class MediathekSr extends MediathekReader implements Runnable {
+public class MediathekSr extends MediathekReader {
 
     public final static String SENDERNAME = Const.SR;
 
@@ -64,20 +64,20 @@ public class MediathekSr extends MediathekReader implements Runnable {
 
         if (Config.getStop()) {
             meldungThreadUndFertig();
-        } else if (listeThemen.size() == 0) {
+        } else if (listeThemen.isEmpty()) {
             meldungThreadUndFertig();
         } else {
             meldungAddMax(listeThemen.size());
             for (int t = 0; t < getMaxThreadLaufen(); ++t) {
                 //new Thread(new ThemaLaden()).start();
-                Thread th = new Thread(new ThemaLaden());
+                Thread th = new ThemaLaden();
                 th.setName(SENDERNAME + t);
                 th.start();
             }
         }
     }
 
-    private class ThemaLaden implements Runnable {
+    private class ThemaLaden extends Thread {
 
         GetUrl getUrl = new GetUrl(getWartenSeiteLaden());
         private MSStringBuilder seite1 = new MSStringBuilder(Const.STRING_BUFFER_START_BUFFER);
@@ -155,7 +155,7 @@ public class MediathekSr extends MediathekReader implements Runnable {
                     thema = titel.substring(0, titel.indexOf(" – ")).trim();
                     titel = titel.substring(titel.indexOf(" – ") + 3).trim();
                 } else if (titel.contains("(")) {
-                    thema = titel.substring(0, titel.indexOf("(")).trim();
+                    thema = titel.substring(0, titel.indexOf('(')).trim();
                     //titel = titel.substring(titel.indexOf("(") + 1).trim();
                     //titel = titel.replace(")", "");
                 }

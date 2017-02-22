@@ -35,7 +35,7 @@ import java.util.ArrayList;
 public class MediathekRbb extends MediathekReader implements Runnable {
 
     public final static String SENDERNAME = Const.RBB;
-    final static String ROOTADR = "http://mediathek.rbb-online.de";
+    //final static String ROOTADR = "http://mediathek.rbb-online.de";
 
     public MediathekRbb(FilmeSuchen ssearch, int startPrio) {
         super(ssearch, SENDERNAME,/* threads */ 2, /* urlWarten */ 500, startPrio);
@@ -79,13 +79,13 @@ public class MediathekRbb extends MediathekReader implements Runnable {
                 th.start();
             }
             meldungAddMax(7 /* Tage */);
-            Thread th = new Thread(new ThemaLaden(true /*addTage*/));
+            Thread th = new ThemaLaden(true /*addTage*/);
             th.setName(SENDERNAME + "_Tage");
             th.start();
         }
     }
 
-    private class ThemaLaden implements Runnable {
+    private class ThemaLaden extends Thread {
 
         boolean addTage = false;
         GetUrl getUrl = new GetUrl(getWartenSeiteLaden());
@@ -94,6 +94,7 @@ public class MediathekRbb extends MediathekReader implements Runnable {
         private MSStringBuilder seite3 = new MSStringBuilder(Const.STRING_BUFFER_START_BUFFER);
 
         public ThemaLaden(boolean addTage) {
+            super();
             this.addTage = addTage;
         }
 
@@ -148,8 +149,7 @@ public class MediathekRbb extends MediathekReader implements Runnable {
                 final String MUSTER_URL = "<div class=\"media mediaA\">";
                 GetUrl getUrlIo = new GetUrl(getWartenSeiteLaden());
                 seite1 = getUrlIo.getUri_Utf(SENDERNAME, url, seite1, "");
-                int startPos = seite1.indexOf("<div class=\"entry\">");
-                int pos1 = startPos;
+                int pos1 = seite1.indexOf("<div class=\"entry\">");
                 while (!Config.getStop() && (pos1 = seite1.indexOf(MUSTER_URL, pos1)) != -1) {
                     pos1 += MUSTER_URL.length();
                     String urlSeite = seite1.extract(URL, "\"", pos1);
@@ -196,23 +196,23 @@ public class MediathekRbb extends MediathekReader implements Runnable {
                 thema = seite2.extract("<meta name=\"dcterms.isPartOf\" content=\"", "\"");
                 String sub = seite2.extract("<p class=\"subtitle\">", "<");
                 if (sub.contains("|")) {
-                    datum = sub.substring(0, sub.indexOf("|") - 1);
-                    datum = datum.substring(datum.indexOf(" ")).trim();
-                    zeit = datum.substring(datum.indexOf(" ")).trim();
+                    datum = sub.substring(0, sub.indexOf('|') - 1);
+                    datum = datum.substring(datum.indexOf(' ')).trim();
+                    zeit = datum.substring(datum.indexOf(' ')).trim();
                     if (zeit.length() == 5) {
                         zeit = zeit + ":00";
                     }
-                    datum = datum.substring(0, datum.indexOf(" ")).trim();
+                    datum = datum.substring(0, datum.indexOf(' ')).trim();
                     if (datum.length() == 8) {
                         datum = datum.substring(0, 6) + "20" + datum.substring(6);
                     }
                 }
 
-                String urlFilm = urlSeite.substring(urlSeite.indexOf("documentId=") + "documentId=".length(), urlSeite.indexOf("&"));
+                String urlFilm = urlSeite.substring(urlSeite.indexOf("documentId=") + "documentId=".length(), urlSeite.indexOf('&'));
                 // http://mediathek.rbb-online.de/play/media/24938774?devicetype=pc&features=hls
                 urlFilm = "http://mediathek.rbb-online.de/play/media/" + urlFilm + "?devicetype=pc&features=hls";
                 seite3 = getUrlIo.getUri_Utf(SENDERNAME, urlFilm, seite3, "");
-                String urlNormal = "", urlLow = "";
+                String urlNormal, urlLow;
                 urlLow = seite3.extract("\"_quality\":1,\"_server\":\"\",\"_cdn\":\"akamai\",\"_stream\":\"http://", "\"");
                 if (urlLow.isEmpty()) {
                     urlLow = seite3.extract("\"_quality\":1,\"_server\":\"\",\"_cdn\":\"default\",\"_stream\":\"http://", "\"");

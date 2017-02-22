@@ -32,7 +32,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class MediathekArte_de extends MediathekReader implements Runnable {
+public class MediathekArte_de extends MediathekReader {
 
     public final static String SENDERNAME = Const.ARTE_DE;
 
@@ -138,7 +138,7 @@ public class MediathekArte_de extends MediathekReader implements Runnable {
                 GetUrl getUrlIo = new GetUrl(getWartenSeiteLaden());
                 seite1 = getUrlIo.getUri_Utf(getSendername(), urlStart, seite1, "");
                 int pos1 = 0;
-                String url, urlWeb, titel, urlHd = "", urlLow = "", urlNormal = "", beschreibung, datum, dauer;
+                String url, urlWeb, titel, urlHd, urlLow, urlNormal, beschreibung, datum, dauer;
                 while (!Config.getStop() && (pos1 = seite1.indexOf(MUSTER_START, pos1)) != -1) {
                     urlHd = "";
                     urlLow = "";

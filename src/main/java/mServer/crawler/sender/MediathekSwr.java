@@ -31,7 +31,7 @@ import org.apache.commons.lang3.StringEscapeUtils;
 
 import java.util.ArrayList;
 
-public class MediathekSwr extends MediathekReader implements Runnable {
+public class MediathekSwr extends MediathekReader {
 
     private static final int wartenKurz = 2000;
     private static final int wartenLang = 4000;
@@ -56,7 +56,7 @@ public class MediathekSwr extends MediathekReader implements Runnable {
         }
         if (Config.getStop()) {
             meldungThreadUndFertig();
-        } else if (listeThemen.size() == 0) {
+        } else if (listeThemen.isEmpty()) {
             meldungThreadUndFertig();
         } else {
             meldungAddMax(listeThemen.size());
@@ -183,7 +183,7 @@ public class MediathekSwr extends MediathekReader implements Runnable {
                     } else {
                         gefunden.add(url);
                     }
-                    if (url.equals("")) {
+                    if (url.isEmpty()) {
                         Log.errorLog(875012369, "keine URL, Thema: " + thema);
                     } else {
                         url = "http://swrmediathek.de/AjaxEntry?callback=jsonp1347979401564&ekey=" + url;
@@ -246,7 +246,7 @@ public class MediathekSwr extends MediathekReader implements Runnable {
                     addFilm(film);
                 }
             } catch (Exception ex) {
-                Log.errorLog(939584720, thema + " " + urlJson);
+                Log.errorLog(939584720, thema + ' ' + urlJson);
             }
         }
 
@@ -269,13 +269,13 @@ public class MediathekSwr extends MediathekReader implements Runnable {
             String datum = strSeite2.extract(PATTERN_DATE_START, PATTERN_END);
             if (datum.length() < 10) {
                 if (datum.contains(".")) {
-                    if ((datum.substring(0, datum.indexOf("."))).length() != 2) {
-                        datum = "0" + datum;
+                    if ((datum.substring(0, datum.indexOf('.'))).length() != 2) {
+                        datum = '0' + datum;
                     }
                 }
-                if (datum.indexOf(".") != datum.lastIndexOf(".")) {
-                    if ((datum.substring(datum.indexOf(".") + 1, datum.lastIndexOf("."))).length() != 2) {
-                        datum = datum.substring(0, datum.indexOf(".") + 1) + "0" + datum.substring(datum.indexOf(".") + 1);
+                if (datum.indexOf('.') != datum.lastIndexOf('.')) {
+                    if ((datum.substring(datum.indexOf('.') + 1, datum.lastIndexOf('.'))).length() != 2) {
+                        datum = datum.substring(0, datum.indexOf('.') + 1) + '0' + datum.substring(datum.indexOf('.') + 1);
                     }
                 }
             }
@@ -304,7 +304,6 @@ public class MediathekSwr extends MediathekReader implements Runnable {
 
         private String getTime() {
             final String PATTERN_TIME_START = "\"entry_pdateht\":\"";
-            String tmp = "";
             String time = strSeite2.extract(PATTERN_TIME_START, PATTERN_END);
             if (time.length() <= 5) {
                 time = time.trim() + ":00";
@@ -312,13 +311,13 @@ public class MediathekSwr extends MediathekReader implements Runnable {
             time = time.replace(".", ":");
             if (time.length() < 8) {
                 if (time.contains(":")) {
-                    if ((tmp = time.substring(0, time.indexOf(":"))).length() != 2) {
-                        time = "0" + time;
+                    if (time.substring(0, time.indexOf(':')).length() != 2) {
+                        time = '0' + time;
                     }
                 }
-                if (time.indexOf(":") != time.lastIndexOf(":")) {
-                    if ((tmp = time.substring(time.indexOf(":") + 1, time.lastIndexOf(":"))).length() != 2) {
-                        time = time.substring(0, time.indexOf(":") + 1) + "0" + time + time.substring(time.lastIndexOf(":"));
+                if (time.indexOf(':') != time.lastIndexOf(':')) {
+                    if (time.substring(time.indexOf(':') + 1, time.lastIndexOf(':')).length() != 2) {
+                        time = time.substring(0, time.indexOf(':') + 1) + '0' + time + time.substring(time.lastIndexOf(':'));
                     }
                 }
             }

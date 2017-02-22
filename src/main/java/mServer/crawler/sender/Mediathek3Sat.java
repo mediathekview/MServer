@@ -31,7 +31,7 @@ import mServer.crawler.GetUrl;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class Mediathek3Sat extends MediathekReader implements Runnable {
+public class Mediathek3Sat extends MediathekReader {
 
     public final static String SENDERNAME = Const.DREISAT;
 
@@ -47,7 +47,7 @@ public class Mediathek3Sat extends MediathekReader implements Runnable {
         tageLaden();
         if (Config.getStop()) {
             meldungThreadUndFertig();
-        } else if (listeThemen.size() == 0) {
+        } else if (listeThemen.isEmpty()) {
             meldungThreadUndFertig();
         } else {
             listeSort(listeThemen, 1);
@@ -250,7 +250,7 @@ public class Mediathek3Sat extends MediathekReader implements Runnable {
             laenge = strBuffer.extract(LAENGE, "<");
             if (laenge.contains("."))
             {
-                laenge = laenge.substring(0, laenge.indexOf("."));
+                laenge = laenge.substring(0, laenge.indexOf('.'));
             }
             laengeL = extractDuration(laenge);
         }
@@ -258,8 +258,8 @@ public class Mediathek3Sat extends MediathekReader implements Runnable {
         datum = strBuffer.extract(DATUM, "<");
         if (datum.contains(" "))
         {
-            zeit = datum.substring(datum.lastIndexOf(" ")).trim() + ":00";
-            datum = datum.substring(0, datum.lastIndexOf(" ")).trim();
+            zeit = datum.substring(datum.lastIndexOf(' ')).trim() + ":00";
+            datum = datum.substring(0, datum.lastIndexOf(' ')).trim();
         }
 
         //============================================================================
@@ -269,9 +269,9 @@ public class Mediathek3Sat extends MediathekReader implements Runnable {
         final String[] QU_WIDTH_KL = {"688", "480", "432", "320"};
         String url, urlKlein, urlHd, tmp = "";
 
-        urlHd = getUrl(strBuffer, QU_WIDTH_HD, tmp, true);
-        url = getUrl(strBuffer, QU_WIDTH, tmp, true);
-        urlKlein = getUrl(strBuffer, QU_WIDTH_KL, tmp, false);
+        urlHd = getUrl(strBuffer, QU_WIDTH_HD, true);
+        url = getUrl(strBuffer, QU_WIDTH, true);
+        urlKlein = getUrl(strBuffer, QU_WIDTH_KL, false);
 
         if (url.equals(urlKlein))
         {
@@ -284,14 +284,14 @@ public class Mediathek3Sat extends MediathekReader implements Runnable {
         }
 
         //===================================================
-        if (urlHd.isEmpty())
-        {
+        //if (urlHd.isEmpty())
+        //{
             //            MSLog.fehlerMeldung(912024587, "keine URL: " + filmWebsite);
-        }
-        if (urlKlein.isEmpty())
-        {
+        //}
+        //if (urlKlein.isEmpty())
+        //{
             //            MSLog.fehlerMeldung(310254698, "keine URL: " + filmWebsite);
-        }
+        //}
         if (url.isEmpty())
         {
             Log.errorLog(397002891, "keine URL: " + filmWebsite);
@@ -309,8 +309,8 @@ public class Mediathek3Sat extends MediathekReader implements Runnable {
             return film;
         }
     }
-   
-       private static String getUrl(MSStringBuilder strBuffer, String[] arr, String tmp, boolean hd)
+
+    private static String getUrl(MSStringBuilder strBuffer, String[] arr, boolean hd)
     {
         final String URL_ANFANG = "<formitaet basetype=\"h264_aac_mp4_http_na_na\"";
         final String URL_ENDE = "</formitaet>";
@@ -318,7 +318,7 @@ public class Mediathek3Sat extends MediathekReader implements Runnable {
         final String WIDTH = "<width>";
 
         String ret = "";
-        tmp = "";
+        String tmp;
         int posAnfang, posEnde;
         mainloop:
         for (String qual : arr)

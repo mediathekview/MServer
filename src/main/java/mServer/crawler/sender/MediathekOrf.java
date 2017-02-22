@@ -71,7 +71,7 @@ public class MediathekOrf extends MediathekReader {
             meldungAddMax(listeThemen.size());
             for (int t = 0; t < getMaxThreadLaufen(); ++t) {
                 //new Thread(new ThemaLaden()).start();
-                Thread th = new Thread(new ThemaLaden());
+                Thread th = new ThemaLaden();
                 th.setName(SENDERNAME + t);
                 th.start();
             }
@@ -110,17 +110,17 @@ public class MediathekOrf extends MediathekReader {
         }
     }
 
-    private class ThemaLaden implements Runnable {
+    private class ThemaLaden extends Thread {
 
-        GetUrl getUrl = new GetUrl(getWartenSeiteLaden());
+        private final GetUrl getUrl = new GetUrl(getWartenSeiteLaden());
         private MSStringBuilder seite1 = new MSStringBuilder(Const.STRING_BUFFER_START_BUFFER);
         private MSStringBuilder seite2 = new MSStringBuilder(Const.STRING_BUFFER_START_BUFFER);
         private final ArrayList<String> alSendung = new ArrayList<>();
-        private final ArrayList<String> alThemen = new ArrayList<>();
+        //private final ArrayList<String> alThemen = new ArrayList<>();
         private final ArrayList<String> urlList = new ArrayList<>();
 
         @Override
-        public synchronized void run() {
+        public void run() {
             try {
                 meldungAddThread();
                 String[] link;
@@ -153,7 +153,7 @@ public class MediathekOrf extends MediathekReader {
             GetUrl getUrl = new GetUrl(100);
             seite1 = getUrl.getUri(SENDERNAME, url, Const.KODIERUNG_UTF, 2, seite1, "");
             alSendung.clear();
-            int start = "http://tvthek.orf.at/profile/".length();
+            //int start = "http://tvthek.orf.at/profile/".length();
             seite1.extractList("", "", "<a href=\"http://tvthek.orf.at/profile/", "\"", "http://tvthek.orf.at/profile/", alSendung);
             for (String s : alSendung) {
                 try {
@@ -178,16 +178,16 @@ public class MediathekOrf extends MediathekReader {
             long duration = 0;
             String description;
             String tmp;
-            String urlRtmpKlein = "", urlRtmp = "", url = "", urlKlein = "", urlHD = "";
+            String urlRtmpKlein = "", urlRtmp = "", url, urlKlein, urlHD;
             String titel, thema;
             String subtitle;
-            int posStart = 0, posStopAlles = -1, posStopEpisode, pos = 0;
+            int posStart, posStopAlles, posStopEpisode, pos = 0;
             meldung(strUrlFeed);
             thema = seite2.extract("<title>", "vom"); //<title>ABC Bär vom 17.11.2013 um 07.35 Uhr / ORF TVthek</title>
 
             datum = seite2.extract("<span class=\"meta meta_date\">", "<");
             if (datum.contains(",")) {
-                datum = datum.substring(datum.indexOf(",") + 1).trim();
+                datum = datum.substring(datum.indexOf(',') + 1).trim();
             }
             zeit = seite2.extract("<span class=\"meta meta_time\">", "<");
             zeit = zeit.replace("Uhr", "").trim();
@@ -230,7 +230,7 @@ public class MediathekOrf extends MediathekReader {
                 tmp = seite2.extract("&quot;duration&quot;:", ",", pos, posStopEpisode);
                 try {
                     duration = Long.parseLong(tmp) / 1000; // time in milliseconds
-                } catch (Exception ex) {
+                } catch (Exception ignored) {
                 }
 
                 subtitle = seite2.extract("{&quot;src&quot;:&quot;", "&quot", pos, posStopEpisode);
