@@ -244,7 +244,6 @@ public class MediathekArte_de extends MediathekReader {
     }
 
     class ThemaLaden extends Thread {
-        private final GetUrl getUrl = new GetUrl(getWartenSeiteLaden());
         private final MSStringBuilder seite1 = new MSStringBuilder(Const.STRING_BUFFER_START_BUFFER);
         private final ArrayList<String> liste = new ArrayList<>();
 
@@ -265,6 +264,7 @@ public class MediathekArte_de extends MediathekReader {
 
         private void addThemen(String startUrl) {
             // http://www.arte.tv/guide/de/plus7/videos?day=-2&page=1&isLoading=true&sort=newest&country=DE
+            final GetUrl getUrl = new GetUrl(getWartenSeiteLaden());
             getUrl.getUri_Utf(getSendername(), startUrl, seite1, "");
             seite1.extractList("\"url\":\"http:\\/\\/www.arte.tv", "\"", liste);
             for (String s : liste) {
@@ -286,6 +286,7 @@ public class MediathekArte_de extends MediathekReader {
         }
 
         private void getFilm1(String filmWebsite, String date) {
+            final GetUrl getUrl = new GetUrl(getWartenSeiteLaden());
             getUrl.getUri_Utf(getSendername(), filmWebsite, seite1, "");
             String title = seite1.extract("<h1 class=\"title\" itemprop=\"name\">", "<");
             String subtitle = seite1.extract("<h2 class=\"subtitle\">", "<");
@@ -323,6 +324,7 @@ public class MediathekArte_de extends MediathekReader {
         }
 
         private void getFilm2(String urlWeb, String filmWebsite, String thema, String title, String description, long dauer, String date, String time) {
+            final GetUrl getUrl = new GetUrl(getWartenSeiteLaden());
             getUrl.getUri_Utf(getSendername(), urlWeb, seite1, "");
             String urlHd = seite1.extract("\"id\":\"HTTP_MP4_SQ_1\"", "\"url\":\"", "\"").replace("\\", "");
             String urlNorm = seite1.extract("\"id\":\"HTTP_MP4_EQ_1\"", "\"url\":\"", "\"").replace("\\", "");

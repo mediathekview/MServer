@@ -139,7 +139,7 @@ public class MediathekPhoenix extends MediathekReader {
             }
         }
 
-        public void filmHolenId(String thema, String filmWebsite, String urlId, String title_) {
+        private void filmHolenId(String thema, String filmWebsite, String urlId, String title_) {
             if (Config.getStop()) {
                 return;
             }

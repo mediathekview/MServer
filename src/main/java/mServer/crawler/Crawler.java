@@ -79,7 +79,7 @@ public class Crawler implements Runnable {
     public void stop() {
         if (serverLaufen) {
             // nur dann wird noch gesucht
-            Config.setStop();
+            Config.setStop(true);
         }
     }
 

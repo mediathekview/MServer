@@ -27,6 +27,7 @@ import mSearch.tool.MSStringBuilder;
 import mServer.crawler.CrawlerTool;
 import mServer.crawler.FilmeSuchen;
 import mServer.crawler.GetUrl;
+import mServer.tool.MserverDaten;
 
 import java.util.ArrayList;
 
@@ -131,7 +132,7 @@ public class MediathekDw extends MediathekReader implements Runnable {
             meldungThreadUndFertig();
         }
 
-        void laden(String urlThema, String thema) {
+        private void laden(String urlThema, String thema) {
 
             final String MUSTER_START = "<div class=\"news searchres hov\">";
             String urlSendung;
@@ -150,7 +151,7 @@ public class MediathekDw extends MediathekReader implements Runnable {
             }
         }
 
-        void laden2(String urlThema, String thema, String titel, String urlSendung) {
+        private void laden2(String urlThema, String thema, String titel, String urlSendung) {
             String url = "", urlLow = "", urlHd = "";
             final String ADDURL = "http://tv-download.dw.de/dwtv_video/flv/";
             meldung(urlThema);
@@ -186,11 +187,13 @@ public class MediathekDw extends MediathekReader implements Runnable {
                     String[] parts = dur.split(":");
                     long power = 1;
                     for (int i = parts.length - 1; i >= 0; i--) {
-                        String s = parts[i];
                         duration += Long.parseLong(parts[i]) * power;
                         power *= 60;
                     }
                 }
+            } catch (NumberFormatException ex) {
+                if (MserverDaten.debug)
+                    Log.errorLog(912034567, "duration: " + dur);
             } catch (Exception ex) {
                 Log.errorLog(912034567, "duration: " + dur);
             }

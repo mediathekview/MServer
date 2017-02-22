@@ -180,7 +180,7 @@ public class MediathekHr extends MediathekReader {
 
                     String d = seite1.extract(MUSTER_DURATION, END, posItem1);
                     try {
-                        if (!d.equals("")) {
+                        if (!d.isEmpty()) {
                             duration = 0;
                             String[] parts = d.split(":");
                             long power = 1;
@@ -195,8 +195,8 @@ public class MediathekHr extends MediathekReader {
                     description = seite1.extract(MUSTER_DESCRIPTION, END, posItem1);
                     datum = seite1.extract(MUSTER_DATUM, END, posItem1);
                     if (datum.contains(" ")) {
-                        zeit = datum.substring(datum.indexOf(" ")).trim() + ":00";
-                        datum = datum.substring(0, datum.indexOf(" "));
+                        zeit = datum.substring(datum.indexOf(' ')).trim() + ":00";
+                        datum = datum.substring(0, datum.indexOf(' '));
                     }
                     titel = seite1.extract(MUSTER_TITEL, END, posItem1);
 

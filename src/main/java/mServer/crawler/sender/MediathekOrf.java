@@ -316,7 +316,7 @@ public class MediathekOrf extends MediathekReader {
         }
     }
 
-    public static String getGestern(int tage) {
+    private String getGestern(int tage) {
         try {
             //SimpleDateFormat sdfOut = new SimpleDateFormat("EEEE", Locale.US);
             FastDateFormat sdfOut = FastDateFormat.getInstance("dd.MM.yyyy");

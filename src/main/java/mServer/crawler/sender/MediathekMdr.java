@@ -163,7 +163,7 @@ public class MediathekMdr extends MediathekReader {
             meldungThreadUndFertig();
         }
 
-        void addThema(String strUrlFeed) {
+        private void addThema(String strUrlFeed) {
             final String MUSTER = "<div class=\"media mediaA \">";
 
             int pos = 0;
@@ -190,7 +190,7 @@ public class MediathekMdr extends MediathekReader {
             }
         }
 
-        void addTage(String urlSeite) {
+        private void addTage(String urlSeite) {
             final String MUSTER = "<div class=\"media mediaA \">";
 
             int pos = 0;
@@ -280,7 +280,7 @@ public class MediathekMdr extends MediathekReader {
             }
         }
 
-        void addXml(String strUrlFeed, String thema, String xmlSite, String filmSite) {
+        private void addXml(String strUrlFeed, String thema, String xmlSite, String filmSite) {
             final String MUSTER_URL_MP4 = "<progressiveDownloadUrl>";
             String titel, datum, zeit, urlMp4, urlMp4_klein, urlHD, urlSendung, description;
             long duration;

@@ -116,7 +116,7 @@ public class MediathekRbb extends MediathekReader {
             meldungThreadUndFertig();
         }
 
-        void addTage() {
+        private void addTage() {
             // http://mediathek.rbb-online.de/tv/sendungVerpasst?topRessort=tv&kanal=5874&tag=0
             final String MUSTER_START = "<h2 class=\"modHeadline\">7 Tage Rückblick</h2>";
             final String MUSTER_URL = "<div class=\"media mediaA\">";
@@ -142,7 +142,7 @@ public class MediathekRbb extends MediathekReader {
             }
         }
 
-        void addThema(String url, boolean weiter) {
+        private void addThema(String url, boolean weiter) {
             try {
                 final String URL = "<a href=\"/tv/";
                 final String MUSTER_URL = "<div class=\"media mediaA\">";
@@ -174,7 +174,7 @@ public class MediathekRbb extends MediathekReader {
             }
         }
 
-        void addFilme(String urlSeite) {
+        private void addFilme(String urlSeite) {
             try {
                 meldung(urlSeite);
                 String datum = "", zeit = "", thema, title, description, durationInSeconds;

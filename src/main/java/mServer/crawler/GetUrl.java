@@ -40,7 +40,6 @@ import java.util.concurrent.TimeUnit;
  */
 public class GetUrl {
 
-    private final static int WARTEN_NO_BUFFER = 2_000;
     private final static int PAUSE = 1_000;
     public static boolean showLoadTime = false; //DEBUG
     private long wartenBasis = 500;
@@ -99,11 +98,42 @@ public class GetUrl {
         return seite;
     }
 
-    private void updateStatistics(String sender, long bytesWritten) {
+    private void updateStatistics(final String sender, final long bytesWritten) {
         FilmeSuchen.listeSenderLaufen.inc(sender, RunSender.Count.SUM_DATA_BYTE.ordinal(), bytesWritten);
         FilmeSuchen.listeSenderLaufen.inc(sender, RunSender.Count.SUM_TRAFFIC_BYTE.ordinal(), bytesWritten);
 
         FilmeSuchen.listeSenderLaufen.inc(sender, RunSender.Count.SUM_TRAFFIC_LOADART_NIX.ordinal(), bytesWritten);
+    }
+
+    private long webCall(Request request, MSStringBuilder seite, final String kodierung) throws IOException {
+        int load = 0;
+        try (Response response = MVHttpClient.getInstance().getHttpClient().newCall(request).execute();
+             ResponseBody body = response.body()) {
+            if (response.isSuccessful()) {
+                if (body.contentType() != null) {
+                    //valid response
+                    try (InputStreamReader inReader = new InputStreamReader(body.byteStream(), kodierung)) {
+                        final char[] buffer = new char[16 * 1024];
+                        int n;
+                        while (!Config.getStop() && (n = inReader.read(buffer)) != -1) {
+                            // hier wird endlich geladen
+                            seite.append(buffer, 0, n);
+                            load += n;
+                        }
+                    }
+                }
+            }
+        }
+        return load;
+    }
+
+    private Request.Builder createRequestBuilder(String addr, String token) {
+        Request.Builder builder = new Request.Builder().url(addr);
+        if (!token.isEmpty()) {
+            builder.addHeader("Api-Auth", "Bearer " + token);
+        }
+        //FIXME server user-agent not yet set
+        return builder;
     }
 
     private MSStringBuilder getUriNew(String sender, String addr, MSStringBuilder seite,
@@ -119,30 +149,9 @@ public class GetUrl {
             TimeUnit.MILLISECONDS.sleep(100);//wartenBasis
             if (MserverDaten.debug)
                 Log.sysLog("Durchsuche: " + addr);
-            Request.Builder builder = new Request.Builder().url(addr);
-            if (!token.isEmpty()) {
-                builder.addHeader("Api-Auth", "Bearer " + token);
-            }
 
-            Request request = builder.build();
-
-            try (Response response = MVHttpClient.getInstance().getHttpClient().newCall(request).execute();
-                 ResponseBody body = response.body()) {
-                if (response.isSuccessful()) {
-                    if (body.contentType() != null) {
-                        //valid response
-                        try (InputStreamReader inReader = new InputStreamReader(body.byteStream(), kodierung)) {
-                            final char[] buffer = new char[16 * 1024];
-                            int n;
-                            while (!Config.getStop() && (n = inReader.read(buffer)) != -1) {
-                                // hier wird endlich geladen
-                                seite.append(buffer, 0, n);
-                                load += n;
-                            }
-                        }
-                    }
-                }
-            }
+            final Request.Builder builder = createRequestBuilder(addr, token);
+            load = webCall(builder.build(), seite, kodierung);
         } catch (UnknownHostException | SocketTimeoutException ignored) {
             if (MserverDaten.debug)
                 printDebugMessage(meldung, addr, sender, versuch, ignored);
@@ -162,6 +171,7 @@ public class GetUrl {
     }
 
     private void printDebugMessage(String meldung, String addr, String sender, int versuch, Exception ex) {
+        //FIXME caller anzeige ist falsch in exception
         String[] text;
         if (meldung.isEmpty()) {
             text = new String[]{"", "Sender: " + sender + " - Versuche: " + versuch,
@@ -181,7 +191,7 @@ public class GetUrl {
                 Log.errorLog(915263697, text);
                 try {
                     // Pause zum Abbauen von Verbindungen
-                    Thread.sleep(WARTEN_NO_BUFFER);
+                    TimeUnit.SECONDS.sleep(2);
                     FilmeSuchen.listeSenderLaufen.inc(sender, RunSender.Count.NO_BUFFER);
                 } catch (Exception ignored) {
                 }
@@ -191,6 +201,4 @@ public class GetUrl {
                 break;
         }
     }
-
-    private enum HttpCompressionType {NONE, DEFLATE, GZIP}
 }

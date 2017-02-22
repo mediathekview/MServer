@@ -26,6 +26,7 @@ import mSearch.tool.Log;
 import mSearch.tool.MSStringBuilder;
 import mServer.crawler.FilmeSuchen;
 import mServer.crawler.GetUrl;
+import mServer.tool.MserverDaten;
 import org.apache.commons.lang3.time.FastDateFormat;
 
 import java.text.SimpleDateFormat;
@@ -284,7 +285,8 @@ public class MediathekZdfTivi extends MediathekReader {
                         datum = sdfOut_date.format(filmDate);
                         zeit = sdfOut_time.format(filmDate);
                     } catch (NumberFormatException ex) {
-                        Log.errorLog(649600299, ex, "Datum: " + url);
+                        if (MserverDaten.debug)
+                            Log.errorLog(649600299, ex, "Datum: " + url);
                     }
                 }
                 pos3 = 0;

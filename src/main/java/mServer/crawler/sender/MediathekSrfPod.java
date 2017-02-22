@@ -104,7 +104,7 @@ public class MediathekSrfPod extends MediathekReader implements Runnable {
 
     private class ThemaLaden extends Thread {
 
-        GetUrl getUrl = new GetUrl(getWartenSeiteLaden());
+        private final GetUrl getUrl = new GetUrl(getWartenSeiteLaden());
         private MSStringBuilder seite = new MSStringBuilder(Const.STRING_BUFFER_START_BUFFER);
 
         @Override
@@ -122,7 +122,7 @@ public class MediathekSrfPod extends MediathekReader implements Runnable {
             meldungThreadUndFertig();
         }
 
-        void addFilme(String thema, String strUrlFeed) {
+        private void addFilme(String thema, String strUrlFeed) {
             //<title>al dente - Podcasts - Schweizer Fernsehen</title>
             // <h2 class="sf-hl1">al dente vom 28.06.2010</h2>
             // <li><a href="
@@ -258,7 +258,7 @@ public class MediathekSrfPod extends MediathekReader implements Runnable {
         }
     }
 
-    public static String convertDatum(String datum) {
+    private String convertDatum(String datum) {
         //<pubDate>Mon, 03 Jan 2011 17:06:16 +0100</pubDate>
         try {
             SimpleDateFormat sdfIn = new SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss Z", Locale.US);
@@ -272,7 +272,7 @@ public class MediathekSrfPod extends MediathekReader implements Runnable {
         return datum;
     }
 
-    public static String convertTime(String zeit) {
+    private String convertTime(String zeit) {
         //<pubDate>Mon, 03 Jan 2011 17:06:16 +0100</pubDate>
         try {
             SimpleDateFormat sdfIn = new SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss Z", Locale.US);
