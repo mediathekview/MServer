@@ -9,7 +9,7 @@ import org.apache.tools.ant.filters.ReplaceTokens
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
 group = 'de.mediathekview'
-version = '2.7.0'
+version = '2.7.2'
 
 def jarName = 'MServer.jar'
 def mainClass = 'mServer.Main'
@@ -93,11 +93,14 @@ build.dependsOn(install)
 task updateVersion << {
     Properties props = loadVersionProperties()
     def oldVersion = props.getProperty('VERSION')
+    String buildDate = new Date().format('dd.MM.yyyy HH:mm:ss')
     if (!oldVersion.equals(project.version)) {
         logger.lifecycle "==mserver======================"
         logger.lifecycle "Version: $project.version"
+        logger.lifecycle "Baudatum: $buildDate"
         logger.lifecycle "==mserver======================"
         props.setProperty('VERSION', project.version)
+        props.setProperty('DATE', buildDate)
         props.store(propsFile.newWriter(), null)
     }
 }
@@ -105,6 +108,8 @@ task updateVersion << {
 processResources.dependsOn updateVersion
 
 [distZip, distTar]*.shouldRunAfter compileJava, updateVersion, jar
+distTar.compression = Compression.GZIP
+distTar.extension = 'tar.gz'
 
 jar {
     manifest {

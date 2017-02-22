@@ -103,7 +103,7 @@ public class ZDFSearchTask extends RecursiveTask<Collection<VideoDTO>>
         if (MserverDaten.debug)
             Log.sysLog("Lade Seite: " + webResource.getURI());
                 
-        return client.execute(webResource);        
+        return client.execute(webResource, ZDFClient.ZDFClientMode.SEARCH);
     }
     
 }

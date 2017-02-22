@@ -2,7 +2,18 @@ language: java
 jdk:
 - oraclejdk8
 addons:
-  sonarqube: true
+  sonarqube:
+    token:
+      secure: GsJx1wZ11dKiyfEhBjQqclLBY/0bzBvjzX5e8WJHmKbX8dDJgSrPX3K1gpbJ4sxCS/DW++V5Fa6dzeXdn6guWy4ymWTtRaxJamCixpKFOYrplf3wgx/nB2t8F+lAnnSm3aZv/8wvvigcLE/LY4ed/nAKC9LI60Pikvgw3/jnovSgufNi7EAqLtsheIkZYdZ0W20xx1iJ1EMuLeCnb4dj6XNoSyNIerTSNgV5eFX7dSm5rAylIx4eWfKsNbHRRbLLHfqhpdzh9+Zl4zjd9jzLStt3Jg7eYtDR4r8Tsr1ilDWXdhHFD4LEntx4F0hTB4wm+jCqfxdaE4EwEkUPQHJs4in3XPVv1jJszj07TAc94+lfF4cvDG1SnfH3OsisP/nqn1+PUacs+VUnIWJsjKgtLbrreXrwiZErPODMuzq0zXGqz2G7xuQROVZv7zKSHKZtb29996cyp9YUXg0ULHj+NZcp007KaR27fLBFZ8fv5Gamg269kZm30W6OhpzojXp0wMUhvuRdVZC7BvAwVhCauPwu1bpiUiZTcYsBC1F7DkbEzTem50tLhgwsCcl4MV4ovfFsdv7bxMWOgRXCvrM7sivjwYhXuYTJis8gtd7E9r8W8rzB6AI/hM8aS8DPjMizYyLsd8ByF//MIYR2zbJp7Hx0GsEJ8miYosRYIYtlwyE=
+    github_token:
+      secure: yZv3QsIr8M1rFEuRpgyYZwrAgeHtd0LVkpG9DIsLLNhboApz9LCMcU0dbYxRYi8A5V3MCD+X/rtWsWHfapIjRcoVAyi8f7YWWvz+dnjwOxKi+gHabonnUvIyFAEr8WE+Br5MYOr0GTYiEhiUMrSLg20wBWlqH5LD1Mp/dYd2e80EWN8jcZJRK/rO1CDa78esgaaBMp1Pb/6+E9jS+fuEpLuKocqacA0eHtRrPtPFbTJdVH9amQxfcF3UfEV7/0D8tGlL2cH3J45zYQ0sg/qnWqv6Vtt6W0x6H3pFrEfrkAww8jvV5sKGxyz1/bqLOQJkF8mCotjGox9pkL97/cyf+s+L3Mcux98fK9u7NOzizfFMYz5GgY1K/q0l7hzfzh6JSVPcZ/hHdH0VRqcUVgqXB//wPgs2JNGLj/nGLyxY7T53U5hJOhsqFyGGcbnpZ+thEWlB5wrbPi5PwKCtWvf+Y6H/AePxCRQEie25lwi+M2MCIPjSUB65mXoQnXy3oQahiYWPU0HIpD0Om9fp6UK5x8LXMAx3DeH6wbI7qB2gylygOxuUm0AmojieOeLaQFVK7cvcy9c2W16xyfDUDczkEnceosCe8b2nK/yifKeOfFU/eUiEdzl9ZZvOMf9y4YImQl0ZlQlvYknPGLK/myGLPlJrJhP92XtSiYESsrWOEFw=
+    branches:
+      - master
+      - develop
+      - feature/.*
+      - hotfix/.*
+  
+  
 env:
   global:
     - secure: pHmSb+3bIvSj1iA5j4MIgRv1ogRH1w7NKlfPxAPDXYq+AQZOyyAhWm/nTMq0mtX9x5RsrM8c7YUN7ds+pTpE5JpcA+rlOSibj+ziDeLhpmDzcBt+YUltTOxP7EVrAAmHBTu7DGjPmTLvfzLfpyGNkv6yuIXNo/oIs6BRMwQ2xHa1QdkQ/gkS6nxgh7UhqtDmNix/idHjX/a5PEX8Qse3ZvKBvt1kgrKcVN1ysOtcHKvhQ5ddMAj+7PM+aLuAPTlysfqMYN1gW+cpWOJrHriV7vGCU6lz34s2yM19wFmRFOo7yht3FhAwH8Rt6aTtwpC3HN5DzwqhcicHQkoyv59KMiBbUBN9w5SGqit+/HtFOQ9vgyV5qo5Il/UkbVGUXXl9WcY+zPV2XTlO3LH5o36Bn+da/HRdmlvveMZT8tJ5137YSQhrQRZdOVEDBWuAZmUiTh94c9u3owU85TFzS97fqWi5bvpbyIU749oGhWGv/zxmOEJmtinnQpUAJqS9fFrXrFFtjdLF6vNYWc1f1y7Xg57pLZYK0NcClWc77QwCX5WHy6VPdj3elIJHyv+3DKQw9VBrfV+bRE4b6uvLuDkllBztYECstYR1uJTOumVnhufc12GrD51m+IRqtzEp4+OlNunKsoInNGsJYyaz3t8VcdAwEN4lTE7Se7ijehIpHRA=
@@ -14,7 +25,7 @@ script:
       ./gradlew releaseSnapshot;
     fi
 after_success:
-  - sonar-scanner -Dsonar.login=$SONAR_TOKEN
+  - sonar-scanner
   - gzip build/distributions/MServer-*.tar;
   - rm build/distributions/MServer-*.tar.SHA-1;
   - cd build/distributions;for i in `ls -x -1 |grep *.tar.gz`; do sha1sum $i|cut -d' ' -f1 > $i.SHA-1; done; cd ../../;

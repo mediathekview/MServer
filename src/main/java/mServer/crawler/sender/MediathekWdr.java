@@ -273,7 +273,7 @@ public class MediathekWdr extends MediathekReader {
             String url;
             String titel;
             String dauer;
-            String datum;
+            String datum = "";
             String thema;
             long duration = 0;
 
@@ -303,6 +303,44 @@ public class MediathekWdr extends MediathekReader {
                 sendungsSeitenSuchenNeu(strUrl, sendungsSeite2, thema);
             }
 
+            //Lokalzeit
+            // <div class="teaser video">
+            pos = 0;
+            while (!Config.getStop() && (pos = sendungsSeite2.indexOf("<div class=\"teaser video\">", pos)) != -1) {
+                pos += MUSTER_URL.length();
+                url = sendungsSeite2.extract("<a href=\"/mediathek/video/sendungen/", "\"", pos);
+                if (!url.equals("")) {
+                    url = "http://www1.wdr.de/mediathek/video/sendungen/" + url;
+
+                    titel = sendungsSeite2.extract("</span>", "<", pos).trim();
+                    titel = titel.replace("\n", "");
+
+//                    datum = sendungsSeite2.extract("<p class=\"subtitle\">", "|", pos).trim();
+//                    if (datum.length() != 10) {
+//                        datum = "";
+//                    }
+                    dauer = sendungsSeite2.extract("<span class=\"hidden\">L&auml;nge: </span>", "<", pos).trim();
+                    try {
+                        if (!dauer.equals("")) {
+                            String[] parts = dauer.split(":");
+                            duration = 0;
+                            long power = 1;
+                            for (int i = parts.length - 1; i >= 0; i--) {
+                                duration += Long.parseLong(parts[i]) * power;
+                                power *= 60;
+                            }
+                        }
+                    } catch (Exception ex) {
+                        Log.errorLog(915263654, ex, strUrl);
+                    }
+
+                    //weiter gehts
+                    addFilm1(thema, titel, url, duration, datum);
+                } else {
+                    Log.errorLog(731201247, "keine Url" + strUrl);
+                }
+            }
+
             pos = 0;
             while (!Config.getStop() && (pos = sendungsSeite2.indexOf(MUSTER_URL, pos)) != -1) {
                 pos += MUSTER_URL.length();
@@ -313,10 +351,10 @@ public class MediathekWdr extends MediathekReader {
                     titel = sendungsSeite2.extract("<span class=\"hidden\">Video:</span>", "<", pos).trim();
                     titel = titel.replace("\n", "");
 
-                    datum = sendungsSeite2.extract("<p class=\"programInfo\">", "|", pos).trim();
-                    if (datum.length() != 8) {
-                        datum = "";
-                    }
+//                    datum = sendungsSeite2.extract("<p class=\"programInfo\">", "|", pos).trim();
+//                    if (datum.length() != 8) {
+//                        datum = "";
+//                    }
                     dauer = sendungsSeite2.extract("<span class=\"hidden\">L&auml;nge: </span>", "<", pos).trim();
                     try {
                         if (!dauer.isEmpty()) {
