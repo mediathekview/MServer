@@ -22,6 +22,7 @@ package mServer.crawler.sender;
 import mSearch.Const;
 import mSearch.daten.DatenFilm;
 import mSearch.tool.Log;
+import mSearch.tool.MSStringBuilder;
 import mServer.crawler.CrawlerTool;
 import mServer.crawler.FilmeSuchen;
 
@@ -43,7 +44,8 @@ public class MediathekZdf extends MediathekReader implements Runnable
     public static final String[] KATEGORIE_ENDS = {"A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z", "0+-+9"};
     public static final String KATEGORIEN_URL_PATTERN = "https://www.zdf.de/sendungen-a-z/?group=%s";
     private static final ForkJoinPool forkJoinPool = ForkJoinPool.commonPool();
-//    private final MSStringBuilder seite = new MSStringBuilder(Const.STRING_BUFFER_START_BUFFER);
+    @SuppressWarnings("unused") //TODO: Verbessern
+    private final MSStringBuilder seite = new MSStringBuilder(Const.STRING_BUFFER_START_BUFFER);
     LinkedListUrl listeTage = new LinkedListUrl();
 
     public MediathekZdf(FilmeSuchen ssearch, int startPrio)

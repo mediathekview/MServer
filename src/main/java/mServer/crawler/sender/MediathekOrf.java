@@ -113,7 +113,6 @@ public class MediathekOrf extends MediathekReader implements Runnable {
         private MSStringBuilder seite1 = new MSStringBuilder(Const.STRING_BUFFER_START_BUFFER);
         private MSStringBuilder seite2 = new MSStringBuilder(Const.STRING_BUFFER_START_BUFFER);
         private final ArrayList<String> alSendung = new ArrayList<>();
-//        private final ArrayList<String> alThemen = new ArrayList<>();
         private final ArrayList<String> urlList = new ArrayList<>();
 
         @Override
@@ -149,7 +148,6 @@ public class MediathekOrf extends MediathekReader implements Runnable {
         private void sendungen(String url) {
             seite1 = getUrlIo.getUri(SENDERNAME, url, Const.KODIERUNG_UTF, 2, seite1, "");
             alSendung.clear();
-//            int start = "http://tvthek.orf.at/profile/".length();
             seite1.extractList("", "", "<a href=\"http://tvthek.orf.at/profile/", "\"", "http://tvthek.orf.at/profile/", alSendung);
             for (String s : alSendung) {
                 try {

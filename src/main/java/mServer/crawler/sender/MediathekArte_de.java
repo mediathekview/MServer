@@ -246,13 +246,15 @@ public class MediathekArte_de extends MediathekReader implements Runnable {
             }
         }
     }
-
+    
     class ThemaLaden implements Runnable {
 
         GetUrl getUrl = new GetUrl(getWartenSeiteLaden());
         private final MSStringBuilder seite1 = new MSStringBuilder(Const.STRING_BUFFER_START_BUFFER);
-//        private final MSStringBuilder seite2 = new MSStringBuilder(Const.STRING_BUFFER_START_BUFFER);
-//        private final MSStringBuilder seite3 = new MSStringBuilder(Const.STRING_BUFFER_START_BUFFER);
+        @SuppressWarnings("unused") //TODO: Verbessern
+        private final MSStringBuilder seite2 = new MSStringBuilder(Const.STRING_BUFFER_START_BUFFER);
+        @SuppressWarnings("unused") //TODO: Verbessern
+        private final MSStringBuilder seite3 = new MSStringBuilder(Const.STRING_BUFFER_START_BUFFER);
         private final ArrayList<String> liste = new ArrayList<>();
 
         @Override
