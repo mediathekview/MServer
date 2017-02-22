@@ -2,7 +2,6 @@ package mServer.crawler.sender.newsearch;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
-
 import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.ClientResponse;
 import com.sun.jersey.api.client.WebResource;
@@ -14,8 +13,7 @@ import mServer.crawler.RunSender;
 /**
  * jersey client of ZDF
  */
-public class ZDFClient
-{
+public class ZDFClient {
     private static final String ZDF_SEARCH_URL = "https://api.zdf.de/search/documents";
     private static final String HEADER_ACCESS_CONTROL_REQUEST_HEADERS = "Access-Control-Request-Headers";
     private static final String HEADER_ACCESS_CONTROL_REQUEST_METHOD = "access-control-request-method";
@@ -34,24 +32,20 @@ public class ZDFClient
     private final Client client;
     private final Gson gson;
 
-    public ZDFClient()
-    {
+    public ZDFClient() {
         client = Client.create();
         gson = new Gson();
     }
 
-    public WebResource createSearchResource()
-    {
+    public WebResource createSearchResource() {
         return createResource(ZDF_SEARCH_URL);
     }
 
-    public WebResource createResource(String aUrl)
-    {
+    public WebResource createResource(String aUrl) {
         return client.resource(aUrl);
     }
 
-    public JsonObject execute(WebResource webResource, ZDFClientMode aMode)
-    {
+    public JsonObject execute(WebResource webResource, ZDFClientMode aMode) {
         String apiToken = loadApiToken(aMode);
         
         ClientResponse response = webResource.header(HEADER_ACCESS_CONTROL_REQUEST_HEADERS, ACCESS_CONTROL_API_AUTH)
@@ -64,22 +58,18 @@ public class ZDFClient
 
         Log.sysLog("Lade Seite: " + webResource.getURI());
 
-        if (response.getStatus() == 200)
-        {
+        if (response.getStatus() == 200) {
             return handleOk(response);
-        } else
-        {
+        } else {
             Log.errorLog(496583258, "Lade Seite " + webResource.getURI() + " fehlgeschlagen: " + response.getStatus());
             increment(RunSender.Count.FEHLER);
             return null;
         }
     }
 
-    private String loadApiToken(final ZDFClientMode aMode)
-    {
+    private String loadApiToken(final ZDFClientMode aMode) {
         String apiToken;
-        switch (aMode)
-        {
+        switch (aMode) {
             case SEARCH:
                 apiToken = API_TOKEN_SEARCH;
                 break;
@@ -93,13 +83,11 @@ public class ZDFClient
         return apiToken;
     }
 
-    private String loadApiTokenVideos()
-    {
+    private String loadApiTokenVideos() {
         return String.format(API_TOKEN_PATTERN, ZDFConfigurationLoader.getInstance().loadConfig().getApiToken());
     }
 
-    private JsonObject handleOk(ClientResponse response)
-    {
+    private JsonObject handleOk(ClientResponse response) {
         increment(RunSender.Count.ANZAHL);
 
         String jsonOutput = response.getEntity(String.class);
@@ -111,18 +99,15 @@ public class ZDFClient
         return gson.fromJson(jsonOutput, JsonObject.class);
     }
 
-    private void increment(RunSender.Count count)
-    {
+    private void increment(RunSender.Count count) {
         FilmeSuchen.listeSenderLaufen.inc(Const.ZDF, count);
     }
 
-    private void increment(RunSender.Count count, long value)
-    {
+    private void increment(RunSender.Count count, long value) {
         FilmeSuchen.listeSenderLaufen.inc(Const.ZDF, count, value);
     }
 
-    enum ZDFClientMode
-    {
+    enum ZDFClientMode {
         SEARCH, VIDEO;
     }
 }
