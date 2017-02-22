@@ -1,16 +1,11 @@
 package mServer.crawler.sender.newsearch;
 
-import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import java.io.IOException;
-import java.net.URI;
 import java.net.URISyntaxException;
-import java.net.URL;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.Collection;
+import mServer.testhelper.JsonFileReader;
 import static org.hamcrest.CoreMatchers.*;
 import static org.junit.Assert.assertThat;
 import org.junit.Test;
@@ -45,7 +40,7 @@ public class ZdfDownloadDTODeserializerTest {
     @Test
     public void testDeserialize() throws IOException, URISyntaxException {
         
-        JsonObject jsonObject = readJson(jsonFile);
+        JsonObject jsonObject = JsonFileReader.readJson(jsonFile);
         
         ZDFDownloadDTODeserializer target = new ZDFDownloadDTODeserializer();
         DownloadDTO actual = target.deserialize(jsonObject, DownloadDTO.class, null);
@@ -55,12 +50,5 @@ public class ZdfDownloadDTODeserializerTest {
         assertThat(actual.getUrl(Qualities.SMALL), equalTo(smallQualityUrl));
         assertThat(actual.getUrl(Qualities.NORMAL), equalTo(normalQualityUrl));
         assertThat(actual.getUrl(Qualities.HD), equalTo(hdQualityUrl));
-    }
-    
-    private JsonObject readJson(String filePath) throws IOException, URISyntaxException {
-        URI u = this.getClass().getResource(filePath).toURI();
-        Path path = Paths.get(u);
-        String jsonOutput = new String(Files.readAllBytes(path));
-        return new Gson().fromJson(jsonOutput, JsonObject.class);        
     }
 }
