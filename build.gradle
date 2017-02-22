@@ -39,7 +39,7 @@ test {
 }
 
 dependencies {
-    compile 'de.mediathekview:MSearch:2.2.0'
+    compile 'de.mediathekview:MSearch:2.3.0'
     compile 'commons-net:commons-net:3.5'
     compile 'org.apache.commons:commons-compress:1.12'
     compile 'org.apache.commons:commons-lang3:3.5'
