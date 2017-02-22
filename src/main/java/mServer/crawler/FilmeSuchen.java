@@ -25,7 +25,8 @@ import mSearch.daten.ListeFilme;
 import mSearch.filmeSuchen.ListenerFilmeLaden;
 import mSearch.filmeSuchen.ListenerFilmeLadenEvent;
 import mSearch.tool.Log;
-import mServer.crawler.sender.*;
+import mServer.crawler.sender.MediathekKika;
+import mServer.crawler.sender.MediathekReader;
 import org.apache.commons.lang3.time.FastDateFormat;
 
 import javax.swing.event.EventListenerList;
@@ -60,27 +61,27 @@ public class FilmeSuchen {
         // für jeden Sender einen MediathekReader anlegen, mit der Prio ob
         // sofort gestartet oder erst später
         //Reader laden Spaltenweises Laden
-        mediathekListe.add(new MediathekArd(this, 0));
-        mediathekListe.add(new MediathekZdf(this, 1));
-        mediathekListe.add(new MediathekZdfTivi(this, 0));
-        mediathekListe.add(new MediathekArte_de(this, 0));
-        mediathekListe.add(new MediathekArte_fr(this, 0));
-        mediathekListe.add(new Mediathek3Sat(this, 1));
-        mediathekListe.add(new MediathekSwr(this, 0));
-        mediathekListe.add(new MediathekNdr(this, 1));
+//        mediathekListe.add(new MediathekArd(this, 0));
+//        mediathekListe.add(new MediathekZdf(this, 1));
+//        mediathekListe.add(new MediathekZdfTivi(this, 0));
+//        mediathekListe.add(new MediathekArte_de(this, 0));
+//        mediathekListe.add(new MediathekArte_fr(this, 0));
+//        mediathekListe.add(new Mediathek3Sat(this, 1));
+//        mediathekListe.add(new MediathekSwr(this, 0));
+//        mediathekListe.add(new MediathekNdr(this, 1));
         mediathekListe.add(new MediathekKika(this, 0));
-        mediathekListe.add(new MediathekDw(this, 0));
+//        mediathekListe.add(new MediathekDw(this, 0));
         // Spalte 2
-        mediathekListe.add(new MediathekMdr(this, 0));
-        mediathekListe.add(new MediathekWdr(this, 1));
-        mediathekListe.add(new MediathekHr(this, 0));
-        mediathekListe.add(new MediathekRbb(this, 1));
-        mediathekListe.add(new MediathekSr(this, 1));
-        mediathekListe.add(new MediathekBr(this, 0));
-        mediathekListe.add(new MediathekSrf(this, 1));
-        mediathekListe.add(new MediathekSrfPod(this, 0));
-        mediathekListe.add(new MediathekOrf(this, 1));
-        mediathekListe.add(new MediathekPhoenix(this, 1));
+//        mediathekListe.add(new MediathekMdr(this, 0));
+//        mediathekListe.add(new MediathekWdr(this, 1));
+//        mediathekListe.add(new MediathekHr(this, 0));
+//        mediathekListe.add(new MediathekRbb(this, 1));
+//        mediathekListe.add(new MediathekSr(this, 1));
+//        mediathekListe.add(new MediathekBr(this, 0));
+//        mediathekListe.add(new MediathekSrf(this, 1));
+//        mediathekListe.add(new MediathekSrfPod(this, 0));
+//        mediathekListe.add(new MediathekOrf(this, 1));
+//        mediathekListe.add(new MediathekPhoenix(this, 1));
     }
 
     public static String[] getNamenSender() {

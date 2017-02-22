@@ -1,11 +1,13 @@
 package mServer.crawler.sender.newsearch;
 
 import com.google.gson.*;
+import mSearch.tool.Log;
+import mServer.tool.MserverDaten;
+
 import java.lang.reflect.Type;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import mSearch.tool.Log;
 
 /**
  * A JSON deserializer to gather the needed information for a {@link VideoDTO}.
@@ -60,6 +62,9 @@ public class ZDFVideoDTODeserializer implements JsonDeserializer<VideoDTO> {
             parseAirtime(dto, rootNode, programmItemTarget);
             parseDuration(dto, rootNode);
 
+        } catch (UnsupportedOperationException ex) {
+            if (MserverDaten.debug)
+                Log.errorLog(496583256, ex);
         } catch (Exception ex) {
             dto = null;
             Log.errorLog(496583256, ex);

@@ -277,12 +277,14 @@ public class MediathekZdfTivi extends MediathekReader {
                 zeit = "";
                 datum = seite1.extract("<airTime>", "<");
                 //<airTime>2014-01-19T08:35:00.000+01:00</airTime>
-                try {
-                    Date filmDate = sdfIn.parse(datum);
-                    datum = sdfOut_date.format(filmDate);
-                    zeit = sdfOut_time.format(filmDate);
-                } catch (Exception ex) {
-                    Log.errorLog(649600299, ex, "Datum: " + url);
+                if (!datum.isEmpty()) {
+                    try {
+                        Date filmDate = sdfIn.parse(datum);
+                        datum = sdfOut_date.format(filmDate);
+                        zeit = sdfOut_time.format(filmDate);
+                    } catch (NumberFormatException ex) {
+                        Log.errorLog(649600299, ex, "Datum: " + url);
+                    }
                 }
                 pos3 = 0;
                 while ((pos3 = seite1.indexOf("<ns4:quality>veryhigh</ns4:quality>", pos3)) != -1) {
@@ -299,9 +301,6 @@ public class MediathekZdfTivi extends MediathekReader {
                         urlFilm = urlFilm.replace("http://tvdl.zdf.de", "http://nrodl.zdf.de");
                     }
 
-                    // public DatenFilm(String ssender, String tthema, String filmWebsite, String ttitel, String uurl, String uurlRtmp,
-                    //        String datum, String zeit,
-                    //        long dauerSekunden, String description, String imageUrl, String[] keywords) {
                     DatenFilm film = new DatenFilm(SENDERNAME, thema, website, titel, urlFilm, "" /*urlRtmp*/,
                             datum, zeit,
                             dauerL, text);

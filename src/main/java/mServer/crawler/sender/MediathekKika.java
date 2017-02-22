@@ -37,8 +37,8 @@ import java.util.Date;
 public class MediathekKika extends MediathekReader {
 
     public final static String SENDERNAME = Const.KIKA;
+    private final LinkedListUrl2 listeAllVideos = new LinkedListUrl2();
     private MSStringBuilder seite = new MSStringBuilder(Const.STRING_BUFFER_START_BUFFER);
-    private final LinkedListUrl listeAllVideos = new LinkedListUrl();
 
     public MediathekKika(FilmeSuchen ssearch, int startPrio) {
         super(ssearch, SENDERNAME, /* threads */ 5, /* urlWarten */ 200, startPrio);
@@ -53,8 +53,6 @@ public class MediathekKika extends MediathekReader {
         }
         addToListAllVideo();
 
-////        new ThemaLaden().ladenSerien_1("http://www.kika.de/die-schule-der-kleinen-vampire/sendungen/sendung37314.html");
-////        meldungThreadUndFertig();
         if (Config.getStop()) {
             meldungThreadUndFertig();
         } else if (listeThemen.isEmpty() && listeAllVideos.isEmpty()) {
@@ -64,8 +62,8 @@ public class MediathekKika extends MediathekReader {
             // URLs laufen nur begrenzte Zeit
             // delSenderInAlterListe(SENDERNAME); brauchts wohl nicht mehr
             meldungAddMax(listeThemen.size() + listeAllVideos.size());
-            for (int t = 0; t < getMaxThreadLaufen(); ++t) {
-                Thread th = new Thread(new ThemaLaden());
+            for (int t = 0; t < Runtime.getRuntime().availableProcessors(); ++t) {
+                Thread th = new ThemaLaden();
                 th.setName(SENDERNAME + t);
                 th.start();
             }
@@ -121,16 +119,16 @@ public class MediathekKika extends MediathekReader {
         }
     }
 
-    private class ThemaLaden implements Runnable {
+    private class ThemaLaden extends Thread {
 
-        private MSStringBuilder seite1 = new MSStringBuilder(Const.STRING_BUFFER_START_BUFFER);
-        private MSStringBuilder seite2 = new MSStringBuilder(Const.STRING_BUFFER_START_BUFFER);
-        private MSStringBuilder seite3 = new MSStringBuilder(Const.STRING_BUFFER_START_BUFFER);
         private final FastDateFormat sdf = FastDateFormat.getInstance("yyyy-MM-dd'T'HH:mm:ss.SSSZ");//2014-12-12T09:45:00.000+0100
         private final SimpleDateFormat sdfOutTime = new SimpleDateFormat("HH:mm:ss");
         private final SimpleDateFormat sdfOutDay = new SimpleDateFormat("dd.MM.yyyy");
         private final ArrayList<String> liste1 = new ArrayList<>();
         private final ArrayList<String> liste2 = new ArrayList<>();
+        private MSStringBuilder seite1 = new MSStringBuilder(Const.STRING_BUFFER_START_BUFFER);
+        private MSStringBuilder seite2 = new MSStringBuilder(Const.STRING_BUFFER_START_BUFFER);
+        private MSStringBuilder seite3 = new MSStringBuilder(Const.STRING_BUFFER_START_BUFFER);
 
         @Override
         public void run() {
@@ -240,11 +238,8 @@ public class MediathekKika extends MediathekReader {
                 seite1 = getUrl.getUri(SENDERNAME, filmWebsite, Const.KODIERUNG_UTF, 1, seite1, "Themenseite");
 
                 String xml = seite1.extract("<div class=\"av-playerContainer\"", "setup({dataURL:'", "'");
-                if (xml.isEmpty()) {
-//                    MSLog.fehlerMeldung(701025987, "keine XML: " + filmWebsite);
-                } else {
+                if (!xml.isEmpty()) {
                     ret = true;
-//                    xml = "http://www.kika.de" + xml;
                     ladenXml(xml, thema, false /*alle*/);
                 }
             } catch (Exception ex) {
@@ -253,29 +248,6 @@ public class MediathekKika extends MediathekReader {
             return ret;
         }
 
-//        boolean ladenSerien_3(String thema) {
-//            boolean ret = false;
-//            try {
-//                liste1.clear();
-//
-//                seite1.extractList("", "", "setup({dataURL:'", "'", "http://www.kika.de", liste1);
-//                if (liste1.isEmpty()) {
-//                    MSLog.fehlerMeldung(495623014, "keine XML: ");
-//                }
-//                int count = 0;
-//                for (String xml : liste1) {
-//                    if (!MSConfig.loadLongMax() && count > 4) {
-//                        break;
-//                    }
-//
-//                    ret = true;
-//                    ladenXml(xml, thema, false /*alle*/);
-//                }
-//            } catch (Exception ex) {
-//                MSLog.fehlerMeldung(821012459, ex);
-//            }
-//            return ret;
-//        }
         void loadAllVideo_1(String url) {
             ArrayList<String> liste = new ArrayList<>();
             try {
@@ -300,9 +272,9 @@ public class MediathekKika extends MediathekReader {
 
         void loadAllVideo_2(MSStringBuilder sStringBuilder) {
             ArrayList<String> liste = new ArrayList<>();
-            String thema;
+
             try {
-                thema = sStringBuilder.extract("<h1 class=\"headline\">", "<").trim();
+                String thema = sStringBuilder.extract("<h1 class=\"headline\">", "<").trim();
                 if (thema.isEmpty()) {
                     thema = sStringBuilder.extract("<title>KiKA -", "<").trim();
                 }
@@ -367,6 +339,7 @@ public class MediathekKika extends MediathekReader {
                     urlSendung = seite3.extract("<htmlUrl>", "<");
                 }
                 long duration = 0;
+                long runtime = 0;
                 try {
                     //<duration>00:03:07</duration>
                     String dauer = seite3.extract("<duration>", "<");
@@ -415,7 +388,6 @@ public class MediathekKika extends MediathekReader {
 
         private String convertDatum(String datum) {
             //<broadcastDate>2014-12-12T09:45:00.000+0100</broadcastDate>
-            // SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ");
             try {
                 Date filmDate = sdf.parse(datum);
                 datum = sdfOutDay.format(filmDate);
@@ -427,7 +399,6 @@ public class MediathekKika extends MediathekReader {
 
         private String convertTime(String zeit) {
             //<broadcastDate>2014-12-12T09:45:00.000+0100</broadcastDate>
-            // SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSXXX");
             try {
                 Date filmDate = sdf.parse(zeit);
                 zeit = sdfOutTime.format(filmDate);

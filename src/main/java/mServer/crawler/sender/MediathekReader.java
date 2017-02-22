@@ -31,9 +31,7 @@ import okhttp3.Response;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.LinkedList;
-import java.util.Optional;
+import java.util.*;
 
 public class MediathekReader extends Thread {
 
@@ -389,10 +387,29 @@ public class MediathekReader extends Thread {
         }
     }
 
+    @SuppressWarnings("serial")
+    class LinkedListUrl2 extends HashSet<String[]> {
+        public synchronized boolean addUrl(String[] e) {
+            return add(e);
+        }
+
+        public synchronized String[] getListeThemen() {
+            String[] res = null;
+
+            Iterator<String[]> it = iterator();
+            if (it.hasNext()) {
+                res = it.next();
+                remove(res);
+            }
+
+            return res;
+        }
+
+    }
+
+    //FIXME don´t do this, use a set or whatever to be unique
+    @SuppressWarnings("serial")
     class LinkedListUrl extends LinkedList<String[]> {
-
-        private static final long serialVersionUID = 1L;
-
         // Hilfsklasse die das einfügen/entnehmen bei mehreren Threads unterstützt
         synchronized boolean addUrl(String[] e) {
             // e[0] ist immer die URL
