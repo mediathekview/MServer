@@ -3,7 +3,6 @@ package mServer.tool;
 import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
-import java.net.URL;
 import static org.hamcrest.CoreMatchers.equalTo;
 import org.junit.*;
 import static org.junit.Assert.*;
