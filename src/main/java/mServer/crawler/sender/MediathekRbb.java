@@ -86,7 +86,6 @@ public class MediathekRbb extends MediathekReader implements Runnable {
     private class ThemaLaden implements Runnable {
 
         boolean addTage = false;
-        @SuppressWarnings("unused") //TODO: Verbessern
         GetUrl getUrl = new GetUrl(getWartenSeiteLaden());
         private MSStringBuilder seite1 = new MSStringBuilder(Const.STRING_BUFFER_START_BUFFER);
         private MSStringBuilder seite2 = new MSStringBuilder(Const.STRING_BUFFER_START_BUFFER);

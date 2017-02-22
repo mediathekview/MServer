@@ -91,7 +91,6 @@ public class MediathekSrf extends MediathekReader implements Runnable {
 
         GetUrl getUrl = new GetUrl(getWartenSeiteLaden());
 
-        @SuppressWarnings("unused") //TODO: Verbessern
         private final MSStringBuilder film_website = new MSStringBuilder(Const.STRING_BUFFER_START_BUFFER);
         MSStringBuilder overviewPageFilm = new MSStringBuilder(Const.STRING_BUFFER_START_BUFFER);
         MSStringBuilder filmPage = new MSStringBuilder(Const.STRING_BUFFER_START_BUFFER);

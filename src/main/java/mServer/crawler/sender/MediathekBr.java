@@ -218,7 +218,6 @@ public class MediathekBr extends MediathekReader implements Runnable {
 
     private class ThemaLaden implements Runnable {
 
-        @SuppressWarnings("unused") //TODO: Verbessern
 		GetUrl getUrl = new GetUrl(getWartenSeiteLaden());
         private final MSStringBuilder seite1 = new MSStringBuilder(Const.STRING_BUFFER_START_BUFFER);
         private final MSStringBuilder seite2 = new MSStringBuilder(Const.STRING_BUFFER_START_BUFFER);
@@ -372,7 +371,6 @@ public class MediathekBr extends MediathekReader implements Runnable {
 
     private class KlassikLaden implements Runnable {
 
-    	@SuppressWarnings("unused") //TODO: Verbessern
         GetUrl getUrl = new GetUrl(getWartenSeiteLaden());
         private final MSStringBuilder seite1 = new MSStringBuilder(Const.STRING_BUFFER_START_BUFFER);
         private final MSStringBuilder seite2 = new MSStringBuilder(Const.STRING_BUFFER_START_BUFFER);
