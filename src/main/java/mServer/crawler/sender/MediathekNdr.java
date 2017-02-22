@@ -160,7 +160,7 @@ public class MediathekNdr extends MediathekReader implements Runnable {
         private MSStringBuilder seite1 = new MSStringBuilder(Const.STRING_BUFFER_START_BUFFER);
         private MSStringBuilder seite2 = new MSStringBuilder(Const.STRING_BUFFER_START_BUFFER);
         private MSStringBuilder seite3 = new MSStringBuilder(Const.STRING_BUFFER_START_BUFFER);
-        private ArrayList<String> liste = new ArrayList<>();
+        private final ArrayList<String> liste = new ArrayList<>();
 
         @Override
         public synchronized void run() {
@@ -305,7 +305,6 @@ public class MediathekNdr extends MediathekReader implements Runnable {
             final String MUSTER_URL = "3: {src:'http://";
             seite2 = getUrl.getUri_Utf(SENDERNAME, filmWebsite, seite2, "strUrlThema: " + strUrlThema);
             String description = extractDescription(seite2);
-            String[] keywords = extractKeywords(seite2);
             String subtitle = seite2.extract(",tracks: [{ src: \"", "\""); //,tracks: [{ src: "/fernsehen/sendungen/45_min/video-podcast/ut20448.xml", srclang:"de"}]
             if (!subtitle.isEmpty()) {
                 subtitle = "http://www.ndr.de" + subtitle;
@@ -321,27 +320,27 @@ public class MediathekNdr extends MediathekReader implements Runnable {
                     pos1 += MUSTER_URL.length();
                     if ((pos2 = seite2.indexOf("'", pos1)) != -1) {
                         url = seite2.substring(pos1, pos2);
-                        if (!url.equals("")) {
+                        if (!url.isEmpty()) {
                             url = "http://" + url;
                             if (url.contains("http://media.ndr.de/progressive")) {
                                 if (url.contains("hi.mp4")) {
                                     url = url.replace("hi.mp4", "hq.mp4");
                                 }
                             }
-                            if (thema.equals("")) {
+                            if (thema.isEmpty()) {
                                 thema = seite2.extract("<h1>", "<div class=\"subline\">", "<");
                                 if (thema.contains("|")) {
-                                    thema = thema.substring(0, thema.lastIndexOf("|"));
+                                    thema = thema.substring(0, thema.lastIndexOf('|'));
                                     thema = thema.trim();
                                 }
                                 if (thema.contains("-")) {
-                                    thema = thema.substring(0, thema.lastIndexOf("-"));
+                                    thema = thema.substring(0, thema.lastIndexOf('-'));
                                     thema = thema.trim();
                                 }
                                 if (thema.contains("Uhr")) {
                                     thema = "";
                                 }
-                                if (thema.equals("")) {
+                                if (thema.isEmpty()) {
                                     thema = "NDR";
                                 }
                             }
