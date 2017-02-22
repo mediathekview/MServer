@@ -225,7 +225,7 @@ public class AddToFilmlist {
 
             DatenFilm film;
             while (!isInterrupted() && (film = popOld(listeOld)) != null) {
-                EtmPoint performancePoint = etmMonitor.createPoint("AddOld:run");
+//                EtmPoint performancePoint = etmMonitor.createPoint("AddOld:run");
 
                 final String url = film.arr[DatenFilm.FILM_URL];
                 if (film.arr[DatenFilm.FILM_GROESSE].isEmpty()) {
@@ -259,7 +259,7 @@ public class AddToFilmlist {
                         }
                     }
                 }
-                performancePoint.collect();
+//                performancePoint.collect();
             }
             threadCounter.decrementAndGet();
         }
