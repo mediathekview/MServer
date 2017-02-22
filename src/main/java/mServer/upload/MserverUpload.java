@@ -19,7 +19,6 @@
  */
 package mServer.upload;
 
-import mSearch.Config;
 import mServer.crawler.CrawlerTool;
 import mServer.daten.MserverDatenUpload;
 import mServer.daten.MserverSearchTask;

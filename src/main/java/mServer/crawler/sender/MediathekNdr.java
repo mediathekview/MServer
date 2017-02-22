@@ -301,7 +301,7 @@ public class MediathekNdr extends MediathekReader implements Runnable {
             final String MUSTER_URL = "3: {src:'http://";
             seite2 = getUrl.getUri_Utf(SENDERNAME, filmWebsite, seite2, "strUrlThema: " + strUrlThema);
             String description = extractDescription(seite2);
-            String[] keywords = extractKeywords(seite2);
+//            String[] keywords = extractKeywords(seite2);
             String subtitle = seite2.extract(",tracks: [{ src: \"", "\""); //,tracks: [{ src: "/fernsehen/sendungen/45_min/video-podcast/ut20448.xml", srclang:"de"}]
             if (!subtitle.isEmpty()) {
                 subtitle = "http://www.ndr.de" + subtitle;
@@ -422,17 +422,17 @@ public class MediathekNdr extends MediathekReader implements Runnable {
             return desc;
         }
 
-        private String[] extractKeywords(MSStringBuilder page) {
-            String keywords = extractString(page, "<meta name=\"keywords\"  lang=\"de\" content=\"", "\"");
-            if (keywords == null) {
-                return new String[]{""};
-            }
-            String[] k = keywords.split(",");
-            for (int i = 0; i < k.length; i++) {
-                k[i] = k[i].trim();
-            }
-            return k;
-        }
+//        private String[] extractKeywords(MSStringBuilder page) {
+//            String keywords = extractString(page, "<meta name=\"keywords\"  lang=\"de\" content=\"", "\"");
+//            if (keywords == null) {
+//                return new String[]{""};
+//            }
+//            String[] k = keywords.split(",");
+//            for (int i = 0; i < k.length; i++) {
+//                k[i] = k[i].trim();
+//            }
+//            return k;
+//        }
 
         private String extractString(MSStringBuilder source, String startMarker, String endMarker) {
             int start = source.indexOf(startMarker);

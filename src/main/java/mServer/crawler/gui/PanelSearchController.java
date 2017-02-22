@@ -76,7 +76,6 @@ public class PanelSearchController implements Initializable {
     @FXML
     private CheckBox cbUpdate;
 
-    private int i = 0;
     private Button[] buttonSender;
     private String[] senderArray;
     private MSearchGuiLoad mSearchGuiLoad;

@@ -140,7 +140,7 @@ public class MediathekSrfPod extends MediathekReader implements Runnable {
             String datum, zeit;
             long duration = 0;
             String description = "";
-            String image = "";
+//            String image;
             String[] keywords = {};
             try {
                 meldung(strUrlFeed);
@@ -159,9 +159,11 @@ public class MediathekSrfPod extends MediathekReader implements Runnable {
                 int pos3 = seite.indexOf(MUSTER_IMAGE);
                 if (pos3 != -1) {
                     pos3 += MUSTER_IMAGE.length();
+//                     
                     int pos4 = seite.indexOf("\"", pos3);
                     if (pos4 != -1) {
-                        image = seite.substring(pos3, pos4);
+//                        image = 
+                    	seite.substring(pos3, pos4);
                     }
                 }
                 while ((pos = seite.indexOf(MUSTER_THEMA_1, pos)) != -1) { //start der Einträge, erster Eintrag ist der Titel

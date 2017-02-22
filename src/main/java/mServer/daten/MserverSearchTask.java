@@ -21,7 +21,6 @@ package mServer.daten;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import mSearch.Config;
 import mServer.crawler.CrawlerConfig;
 import mServer.tool.MserverDatumZeit;
 import mServer.tool.MserverKonstanten;

@@ -29,7 +29,6 @@ import mSearch.daten.DatenFilm;
 import mSearch.tool.Log;
 import mSearch.tool.MSStringBuilder;
 import mServer.crawler.FilmeSuchen;
-import mServer.crawler.GetUrl;
 import mServer.crawler.CrawlerTool;
 
 public class MediathekKika extends MediathekReader implements Runnable {
@@ -119,7 +118,7 @@ public class MediathekKika extends MediathekReader implements Runnable {
 
     private class ThemaLaden implements Runnable {
 
-        GetUrl getUrl = new GetUrl(getWartenSeiteLaden());
+//        GetUrl getUrl = new GetUrl(getWartenSeiteLaden());
         private MSStringBuilder seite1 = new MSStringBuilder(Const.STRING_BUFFER_START_BUFFER);
         private MSStringBuilder seite2 = new MSStringBuilder(Const.STRING_BUFFER_START_BUFFER);
         private MSStringBuilder seite3 = new MSStringBuilder(Const.STRING_BUFFER_START_BUFFER);

@@ -41,7 +41,6 @@ public class PanelDelController implements Initializable {
     @FXML
     private Label lblSender;
 
-    private int i = 0;
     private Button[] buttonSender;
     private String[] senderArray;
 
