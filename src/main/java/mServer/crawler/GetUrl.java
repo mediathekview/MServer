@@ -19,8 +19,6 @@
  */
 package mServer.crawler;
 
-import etm.core.configuration.EtmManager;
-import etm.core.monitor.EtmPoint;
 import mSearch.Config;
 import mSearch.Const;
 import mSearch.tool.Log;
@@ -101,31 +99,17 @@ public class GetUrl {
         return seite;
     }
 
-    private void updateStatistics(String sender, HttpCompressionType ladeArt, long bytesWritten) {
+    private void updateStatistics(String sender, long bytesWritten) {
         FilmeSuchen.listeSenderLaufen.inc(sender, RunSender.Count.SUM_DATA_BYTE.ordinal(), bytesWritten);
         FilmeSuchen.listeSenderLaufen.inc(sender, RunSender.Count.SUM_TRAFFIC_BYTE.ordinal(), bytesWritten);
-        switch (ladeArt) {
-            case NONE:
-                FilmeSuchen.listeSenderLaufen.inc(sender, RunSender.Count.SUM_TRAFFIC_LOADART_NIX.ordinal(), bytesWritten);
-                break;
-            case DEFLATE:
-                FilmeSuchen.listeSenderLaufen.inc(sender, RunSender.Count.SUM_TRAFFIC_LOADART_DEFLATE.ordinal(), bytesWritten);
-                break;
-            case GZIP:
-                FilmeSuchen.listeSenderLaufen.inc(sender, RunSender.Count.SUM_TRAFFIC_LOADART_GZIP.ordinal(), bytesWritten);
-                break;
-        }
+
+        FilmeSuchen.listeSenderLaufen.inc(sender, RunSender.Count.SUM_TRAFFIC_LOADART_NIX.ordinal(), bytesWritten);
     }
 
     private MSStringBuilder getUriNew(String sender, String addr, MSStringBuilder seite,
                                       String kodierung, String meldung, int versuch, boolean lVersuch,
                                       String token) {
-        EtmPoint performancePoint = EtmManager.getEtmMonitor().createPoint("GetUrl.getUriNew");
-
-        long start = 0, stop;
-
-        if (showLoadTime)
-            start = System.currentTimeMillis();
+//        EtmPoint performancePoint = EtmManager.getEtmMonitor().createPoint("GetUrl.getUriNew");
 
         long load = 0;
 
@@ -170,15 +154,9 @@ public class GetUrl {
             Log.errorLog(973969801, ex, "");
         }
 
-        if (showLoadTime) {
-            stop = System.currentTimeMillis();
-            final long diff = stop - start;
-            System.out.println("\nDauer: " + diff / 1000 + ',' + diff % 1000);
-        }
+        updateStatistics(sender, load);
 
-        updateStatistics(sender, HttpCompressionType.NONE, load);
-
-        performancePoint.collect();
+//        performancePoint.collect();
 
         return seite;
     }

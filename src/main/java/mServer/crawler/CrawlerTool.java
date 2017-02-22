@@ -106,19 +106,14 @@ public class CrawlerTool {
     }
 
     private static void processArd(DatenFilm film) {
-        if (film.arr[DatenFilm.FILM_URL].startsWith("http://pd-videos.daserste.de/de/")) {
-            film.arr[DatenFilm.FILM_GEO] = DatenFilm.GEO_DE;
-        }
-    }
-
-    private static void processArd_Two(DatenFilm film) {
         if (film.arr[DatenFilm.FILM_URL].startsWith("http://mvideos-geo.daserste.de/") ||
                 film.arr[DatenFilm.FILM_URL].startsWith("http://media.ndr.de/progressive_geo/") ||
                 film.arr[DatenFilm.FILM_URL].startsWith("http://cdn-storage.br.de/geo/") ||
                 film.arr[DatenFilm.FILM_URL].startsWith("http://cdn-sotschi.br.de/geo/b7/") ||
                 film.arr[DatenFilm.FILM_URL].startsWith("http://pd-ondemand.swr.de/geo/de/") ||
                 film.arr[DatenFilm.FILM_URL].startsWith("http://ondemandgeo.mdr.de/") ||
-                film.arr[DatenFilm.FILM_URL].startsWith("http://ondemand-de.wdr.de/")) {
+                film.arr[DatenFilm.FILM_URL].startsWith("http://ondemand-de.wdr.de/") ||
+                film.arr[DatenFilm.FILM_URL].startsWith("http://pd-videos.daserste.de/de/")) {
             film.arr[DatenFilm.FILM_GEO] = DatenFilm.GEO_DE;
         }
     }
@@ -163,13 +158,12 @@ public class CrawlerTool {
     public static void setGeo(DatenFilm film) {
         switch (film.arr[DatenFilm.FILM_SENDER]) {
             case Const.ARD:
-                processArd(film);
             case Const.WDR:
             case Const.NDR:
             case Const.SWR:
             case Const.MDR:
             case Const.BR:
-                processArd_Two(film);
+                processArd(film);
                 break;
 
             case Const.ZDF_TIVI:
