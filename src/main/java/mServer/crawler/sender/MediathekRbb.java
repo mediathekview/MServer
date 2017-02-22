@@ -32,7 +32,7 @@ import mServer.crawler.GetUrl;
 
 import java.util.ArrayList;
 
-public class MediathekRbb extends MediathekReader implements Runnable {
+public class MediathekRbb extends MediathekReader {
 
     public final static String SENDERNAME = Const.RBB;
     //final static String ROOTADR = "http://mediathek.rbb-online.de";
@@ -87,8 +87,7 @@ public class MediathekRbb extends MediathekReader implements Runnable {
 
     private class ThemaLaden extends Thread {
 
-        boolean addTage = false;
-        GetUrl getUrl = new GetUrl(getWartenSeiteLaden());
+        private boolean addTage = false;
         private MSStringBuilder seite1 = new MSStringBuilder(Const.STRING_BUFFER_START_BUFFER);
         private MSStringBuilder seite2 = new MSStringBuilder(Const.STRING_BUFFER_START_BUFFER);
         private MSStringBuilder seite3 = new MSStringBuilder(Const.STRING_BUFFER_START_BUFFER);

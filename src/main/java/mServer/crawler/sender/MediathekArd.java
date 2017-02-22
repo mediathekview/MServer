@@ -51,7 +51,7 @@ public class MediathekArd extends MediathekReader {
             meldungAddMax(listeThemen.size());
             listeSort(listeThemen, 1);
             for (int t = 0; t < getMaxThreadLaufen(); ++t) {
-                Thread th = new Thread(new ThemaLaden());
+                Thread th = new ThemaLaden();
                 th.setName(SENDERNAME + t);
                 th.start();
             }
@@ -138,9 +138,7 @@ public class MediathekArd extends MediathekReader {
         }
     }
 
-    private class ThemaLaden implements Runnable {
-
-        private final GetUrl getUrl = new GetUrl(getWartenSeiteLaden());
+    private class ThemaLaden extends Thread {
         private final ArrayList<String> liste = new ArrayList<>();
         private MSStringBuilder seite1 = new MSStringBuilder(Const.STRING_BUFFER_START_BUFFER);
         private MSStringBuilder seite2 = new MSStringBuilder(Const.STRING_BUFFER_START_BUFFER);
@@ -173,6 +171,7 @@ public class MediathekArd extends MediathekReader {
                     break;
                 }
                 String urlTage = "http://www.ardmediathek.de/tv/sendungVerpasst?tag=" + i;
+                final GetUrl getUrl = new GetUrl(getWartenSeiteLaden());
                 seite1 = getUrl.getUri_Utf(SENDERNAME, urlTage, seite1, "");
                 if (seite1.length() == 0) {
                     Log.errorLog(765323214, "Leere Seite: " + urlTage);
@@ -224,6 +223,7 @@ public class MediathekArd extends MediathekReader {
         private static final String MUSTER_FILM_SUCHEN1 = "<div class=\"mediaCon\">";
         private static final String MUSTER_START_FILM_SUCHEN1 = "Beiträge der Sendung";
         private void filmSuchen1(String strUrlFeed, String thema, boolean weiter) {
+            final GetUrl getUrl = new GetUrl(getWartenSeiteLaden());
             seite1 = getUrl.getUri_Utf(SENDERNAME, strUrlFeed, seite1, "");
             if (seite1.length() == 0) {
                 Log.errorLog(765323214, "Leere Seite: " + strUrlFeed);
@@ -312,6 +312,7 @@ public class MediathekArd extends MediathekReader {
             try {
                 String urlFilm = "http://www.ardmediathek.de/play/media/" + urlFilm_ + "?devicetype=pc&features=flash";
                 meldung(urlFilm);
+                final GetUrl getUrl = new GetUrl(getWartenSeiteLaden());
                 seite2 = getUrl.getUri_Utf(SENDERNAME, urlFilm, seite2, "");
                 if (seite2.length() == 0) {
                     Log.errorLog(915263621, "Leere Seite: " + urlFilm);
@@ -467,6 +468,7 @@ public class MediathekArd extends MediathekReader {
              */
             try {
                 meldung(urlSendung);
+                final GetUrl getUrl = new GetUrl(getWartenSeiteLaden());
                 seite2 = getUrl.getUri_Utf(SENDERNAME, urlSendung, seite2, "");
                 if (seite2.length() == 0) {
                     Log.errorLog(612031478, "Leere Seite: " + urlSendung);
@@ -490,6 +492,7 @@ public class MediathekArd extends MediathekReader {
         }
 
         private String beschreibung(String strUrlFeed) {
+            final GetUrl getUrl = new GetUrl(getWartenSeiteLaden());
             seite3 = getUrl.getUri_Utf(SENDERNAME, strUrlFeed, seite3, "");
             if (seite3.length() == 0) {
                 Log.errorLog(784512036, "Leere Seite: " + strUrlFeed);

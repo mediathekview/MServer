@@ -88,8 +88,7 @@ public class MediathekWdr extends MediathekReader {
         } else {
             meldungAddMax(listeThemen.size() + listeTage.size() + listeFestival.size() + listeRochpalast.size() + listeMaus.size());
             for (int t = 0; t < getMaxThreadLaufen(); ++t) {
-                //new Thread(new ThemaLaden()).start();
-                Thread th = new Thread(new ThemaLaden());
+                Thread th = new ThemaLaden();
                 th.setName(SENDERNAME + t);
                 th.start();
             }
@@ -201,14 +200,14 @@ public class MediathekWdr extends MediathekReader {
         }
     }
 
-    private class ThemaLaden implements Runnable {
+    private class ThemaLaden extends Thread {
 
-        GetUrl getUrl = new GetUrl(getWartenSeiteLaden());
+        //private final GetUrl getUrl = new GetUrl(getWartenSeiteLaden());
         private MSStringBuilder sendungsSeite1 = new MSStringBuilder(Const.STRING_BUFFER_START_BUFFER);
         private MSStringBuilder sendungsSeite2 = new MSStringBuilder(Const.STRING_BUFFER_START_BUFFER);
         private MSStringBuilder sendungsSeite3 = new MSStringBuilder(Const.STRING_BUFFER_START_BUFFER);
         private MSStringBuilder sendungsSeite4 = new MSStringBuilder(Const.STRING_BUFFER_START_BUFFER);
-        MSStringBuilder m3u8Page = new MSStringBuilder(Const.STRING_BUFFER_START_BUFFER);
+        private MSStringBuilder m3u8Page = new MSStringBuilder(Const.STRING_BUFFER_START_BUFFER);
         private final ArrayList<String> liste_1 = new ArrayList<>();
         private final ArrayList<String> liste_2 = new ArrayList<>();
 
@@ -255,6 +254,7 @@ public class MediathekWdr extends MediathekReader {
             liste_1.add(strUrl);
             if (CrawlerTool.loadLongMax()) {
                 // sonst wars das
+                final GetUrl getUrl = new GetUrl(getWartenSeiteLaden());
                 sendungsSeite1 = getUrl.getUri_Utf(SENDERNAME, strUrl, sendungsSeite1, "");
                 sendungsSeite1.extractList("<ul class=\"pageCounterNavi\">", "</ul>", "<a href=\"/mediathek/video/sendungen/", "\"",
                         "http://www1.wdr.de/mediathek/video/sendungen/", liste_1);
@@ -281,6 +281,7 @@ public class MediathekWdr extends MediathekReader {
                 // brauchts nicht
                 return;
             }
+            final GetUrl getUrl = new GetUrl(getWartenSeiteLaden());
             sendungsSeite2 = getUrl.getUri_Utf(SENDERNAME, strUrl, sendungsSeite2, "");
             if (sendungsSeite2.length() == 0) {
                 return;
@@ -309,7 +310,7 @@ public class MediathekWdr extends MediathekReader {
             while (!Config.getStop() && (pos = sendungsSeite2.indexOf("<div class=\"teaser video\">", pos)) != -1) {
                 pos += MUSTER_URL.length();
                 url = sendungsSeite2.extract("<a href=\"/mediathek/video/sendungen/", "\"", pos);
-                if (!url.equals("")) {
+                if (!url.isEmpty()) {
                     url = "http://www1.wdr.de/mediathek/video/sendungen/" + url;
 
                     titel = sendungsSeite2.extract("</span>", "<", pos).trim();
@@ -321,7 +322,7 @@ public class MediathekWdr extends MediathekReader {
 //                    }
                     dauer = sendungsSeite2.extract("<span class=\"hidden\">L&auml;nge: </span>", "<", pos).trim();
                     try {
-                        if (!dauer.equals("")) {
+                        if (!dauer.isEmpty()) {
                             String[] parts = dauer.split(":");
                             duration = 0;
                             long power = 1;
@@ -392,6 +393,7 @@ public class MediathekWdr extends MediathekReader {
                     break;
                 }
 
+                final GetUrl getUrl = new GetUrl(getWartenSeiteLaden());
                 seite = getUrl.getUri_Utf(SENDERNAME, ur, seite, "");
                 if (seite.length() == 0) {
                     continue;
@@ -413,6 +415,7 @@ public class MediathekWdr extends MediathekReader {
 
         private void addFilm1(String thema, String titel, String filmWebsite, long dauer, String datum) {
             meldung(filmWebsite);
+            final GetUrl getUrl = new GetUrl(getWartenSeiteLaden());
             sendungsSeite3 = getUrl.getUri_Utf(SENDERNAME, filmWebsite, sendungsSeite3, "");
             if (sendungsSeite3.length() == 0) {
                 return;
@@ -446,6 +449,7 @@ public class MediathekWdr extends MediathekReader {
             final String INDEX_1 = "index_1_av.m3u8"; //klein
             final String INDEX_2 = "index_2_av.m3u8"; //hohe Auflösung
             meldung(urlFilmSuchen);
+            final GetUrl getUrl = new GetUrl(getWartenSeiteLaden());
             sendungsSeite4 = getUrl.getUri_Utf(SENDERNAME, urlFilmSuchen, sendungsSeite4, "");
             if (sendungsSeite4.length() == 0) {
                 return;
@@ -562,6 +566,7 @@ public class MediathekWdr extends MediathekReader {
                         break;
                     }
                     // Konzerte suchen
+                    final GetUrl getUrl = new GetUrl(getWartenSeiteLaden());
                     sendungsSeite1 = getUrl.getUri_Utf(SENDERNAME, urlRock, sendungsSeite1, "");
                     String u = sendungsSeite1.extract("data-extension=\"{ 'mediaObj': { 'url': '", "'");
                     if (!u.isEmpty()) {
@@ -581,6 +586,7 @@ public class MediathekWdr extends MediathekReader {
                         break;
                     }
                     // Konzerte suchen
+                    final GetUrl getUrl = new GetUrl(getWartenSeiteLaden());
                     sendungsSeite1 = getUrl.getUri_Utf(SENDERNAME, urlRock, sendungsSeite1, "");
                     String u = sendungsSeite1.extract("data-extension=\"{ 'mediaObj': { 'url': '", "'");
                     if (!u.isEmpty()) {
@@ -599,6 +605,7 @@ public class MediathekWdr extends MediathekReader {
                     if (Config.getStop()) {
                         break;
                     }
+                    final GetUrl getUrl = new GetUrl(getWartenSeiteLaden());
                     sendungsSeite1 = getUrl.getUri_Utf(SENDERNAME, filmWebsite, sendungsSeite1, "");
 
                     String titel = sendungsSeite1.extract("<title>", "<"); //<title>Achterbahn - MausSpots - Lachgeschichten - Die Seite mit der Maus - WDR Fernsehen</title>

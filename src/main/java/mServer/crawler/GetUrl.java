@@ -51,6 +51,7 @@ public class GetUrl {
         wartenBasis = wwartenBasis;
     }
 
+    @Deprecated
     public MSStringBuilder getUri_Utf(String sender, String addr, MSStringBuilder seite, String meldung) {
         return getUri(sender, addr, Const.KODIERUNG_UTF, 1 /* versuche */, seite, meldung);
     }

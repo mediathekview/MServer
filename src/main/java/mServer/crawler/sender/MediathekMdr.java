@@ -30,10 +30,9 @@ import mServer.crawler.GetUrl;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Iterator;
 import java.util.LinkedList;
 
-public class MediathekMdr extends MediathekReader implements Runnable {
+public class MediathekMdr extends MediathekReader {
 
     public final static String SENDERNAME = Const.MDR;
     private final LinkedList<String> listeTage = new LinkedList<>();
@@ -81,12 +80,12 @@ public class MediathekMdr extends MediathekReader implements Runnable {
             if (pos1 != -1 && pos2 != -1) {
                 url = seite.substring(pos1, pos2);
             }
-            if (url.equals("")) {
+            if (url.isEmpty()) {
                 Log.errorLog(889216307, "keine URL");
             } else {
                 url = MUSTER_ADD + url;
                 if (url.contains("#")) {
-                    url = url.substring(0, url.indexOf("#"));
+                    url = url.substring(0, url.indexOf('#'));
                 }
                 listeThemen.addUrl(new String[]{url});
             }
@@ -101,10 +100,12 @@ public class MediathekMdr extends MediathekReader implements Runnable {
             if (pos1 != -1 && pos2 != -1) {
                 url = seite.substring(pos1, pos2);
             }
-            if (url.equals("")) {
+            if (url.isEmpty()) {
                 Log.errorLog(461225808, "keine URL");
             } else {
                 url = MUSTER_ADD_TAGE + url;
+                //FIXME
+                assert (istInListe(listeTage, url) == (listeTage.contains(url)));
                 if (!istInListe(listeTage, url)) {
                     listeTage.add(url);
                 }
@@ -112,14 +113,14 @@ public class MediathekMdr extends MediathekReader implements Runnable {
         }
         if (Config.getStop()) {
             meldungThreadUndFertig();
-        } else if (listeThemen.size() == 0 && listeTage.size() == 0) {
+        } else if (listeThemen.isEmpty() && listeTage.isEmpty()) {
             meldungThreadUndFertig();
         } else {
             meldungAddMax(listeThemen.size() + listeTage.size());
             listeSort(listeThemen, 0);
             for (int t = 0; t < getMaxThreadLaufen(); ++t) {
                 //new Thread(new ThemaLaden()).start();
-                Thread th = new Thread(new ThemaLaden());
+                Thread th = new ThemaLaden();
                 th.setName(SENDERNAME + t);
                 th.start();
             }
@@ -133,9 +134,9 @@ public class MediathekMdr extends MediathekReader implements Runnable {
         listeGesucht.clear();
     }
 
-    private class ThemaLaden implements Runnable {
+    private class ThemaLaden extends Thread {
 
-        GetUrl getUrl = new GetUrl(getWartenSeiteLaden());
+        private final GetUrl getUrl = new GetUrl(getWartenSeiteLaden());
         private MSStringBuilder seite1 = new MSStringBuilder(Const.STRING_BUFFER_START_BUFFER);
         private MSStringBuilder seiteTage = new MSStringBuilder(Const.STRING_BUFFER_START_BUFFER);
         private MSStringBuilder seite2 = new MSStringBuilder(Const.STRING_BUFFER_START_BUFFER);
@@ -173,7 +174,7 @@ public class MediathekMdr extends MediathekReader implements Runnable {
                     pos += MUSTER.length();
                     url = seite1.extract("<a href=\"/mediathek/fernsehen/", "\"", pos);
                     thema = seite1.extract(" class=\"headline\" title=\"\">", "<", pos);
-                    if (url.equals("")) {
+                    if (url.isEmpty()) {
                         Log.errorLog(952136547, "keine URL: " + strUrlFeed);
                     } else {
                         meldung(url);
@@ -181,7 +182,7 @@ public class MediathekMdr extends MediathekReader implements Runnable {
                         addSendugen(strUrlFeed, thema, url);
                     }
                 }
-                if (url.equals("")) {
+                if (url.isEmpty()) {
                     Log.errorLog(766250249, "keine URL: " + strUrlFeed);
                 }
             } catch (Exception ex) {
@@ -200,7 +201,7 @@ public class MediathekMdr extends MediathekReader implements Runnable {
                     pos += MUSTER.length();
                     url = seiteTage.extract("<a href=\"/mediathek/", "\"", pos);
                     thema = seiteTage.extract(" class=\"headline\" title=\"\">", "<", pos);
-                    if (url.equals("")) {
+                    if (url.isEmpty()) {
                         Log.errorLog(975401478, "keine URL: " + urlSeite);
                     } else {
                         meldung(url);
@@ -208,7 +209,7 @@ public class MediathekMdr extends MediathekReader implements Runnable {
                         addSendug(urlSeite, thema, url);
                     }
                 }
-                if (url.equals("")) {
+                if (url.isEmpty()) {
                     Log.errorLog(930215470, "keine URL: " + urlSeite);
                 }
             } catch (Exception ex) {
@@ -235,7 +236,7 @@ public class MediathekMdr extends MediathekReader implements Runnable {
                 }
                 pos += muster.length();
                 url = seite2.extract("<a href=\"/mediathek/fernsehen/a-z", "\"", pos);
-                if (url.equals("")) {
+                if (url.isEmpty()) {
                     Log.errorLog(915263421, new String[]{"keine URL: " + urlThema, "Thema: " + thema, "UrlFeed: " + strUrlFeed});
                 } else {
                     url = "http://www.mdr.de/mediathek/fernsehen/a-z" + url;
@@ -243,7 +244,7 @@ public class MediathekMdr extends MediathekReader implements Runnable {
                 }
             }
 
-            if (url.equals("")) {
+            if (url.isEmpty()) {
                 Log.errorLog(765213014, new String[]{"keine URL: " + urlThema, "Thema: " + thema, "UrlFeed: " + strUrlFeed});
             }
         }
@@ -266,7 +267,7 @@ public class MediathekMdr extends MediathekReader implements Runnable {
                 if ((pos2 = seite3.indexOf("'", pos)) != -1) {
                     url = seite3.substring(pos1, pos2);
                 }
-                if (url.equals("")) {
+                if (url.isEmpty()) {
                     Log.errorLog(256987304, new String[]{"keine URL: " + urlSendung, "Thema: " + thema, "UrlFeed: " + strUrlFeed});
                 } else {
                     url = url.replace("\\", "");
@@ -274,7 +275,7 @@ public class MediathekMdr extends MediathekReader implements Runnable {
                     addXml(strUrlFeed, thema, url, urlSendung);
                 }
             }
-            if (url.equals("")) {
+            if (url.isEmpty()) {
                 Log.errorLog(256987304, new String[]{"keine URL: " + urlSendung, "Thema: " + thema, "UrlFeed: " + strUrlFeed});
             }
         }
@@ -294,7 +295,7 @@ public class MediathekMdr extends MediathekReader implements Runnable {
                 duration = 0;
                 try {
                     String d = seite4.extract("<duration>", "<");
-                    if (!d.equals("")) {
+                    if (!d.isEmpty()) {
                         String[] parts = d.split(":");
                         duration = 0;
                         long power = 1;
@@ -337,7 +338,7 @@ public class MediathekMdr extends MediathekReader implements Runnable {
                     urlMp4_klein = "";
                 }
 
-                if (urlMp4.equals("")) {
+                if (urlMp4.isEmpty()) {
                     Log.errorLog(326541230, new String[]{"keine URL: " + xmlSite, "Thema: " + thema, " UrlFeed: " + strUrlFeed});
                 } else if (!existiertSchon(thema, titel, datum, zeit)) {
                     meldung(urlMp4);
@@ -390,9 +391,7 @@ public class MediathekMdr extends MediathekReader implements Runnable {
     private synchronized boolean existiertSchon(String thema, String titel, String datum, String zeit) {
         // liefert true wenn schon in der Liste, ansonsten fügt es ein
         boolean gefunden = false;
-        Iterator<String[]> it = listeGesucht.iterator();
-        while (it.hasNext()) {
-            String[] k = it.next();
+        for (String[] k : listeGesucht) {
             if (k[0].equalsIgnoreCase(thema) && k[1].equalsIgnoreCase(titel) && k[2].equalsIgnoreCase(datum) && k[3].equalsIgnoreCase(zeit)) {
                 gefunden = true;
             }

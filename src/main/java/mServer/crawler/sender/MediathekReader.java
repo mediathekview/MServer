@@ -243,27 +243,14 @@ public class MediathekReader extends Thread {
     }*/
 
     boolean istInListe(LinkedList<String[]> liste, String str, int nr) {
-//        boolean ret = false;
         Optional<String[]> opt = liste.parallelStream().filter(f -> f[nr].equals(str)).findAny();
-/*        for (String[] aListe : liste) {
-            if (aListe[nr].equals(str)) {
-                ret = true;
-                break;
-            }
-        }*/
+
         return opt.isPresent();
     }
 
     boolean istInListe(LinkedList<String> liste, String str) {
-        /*boolean ret = false;
-        for (String aListe : liste) {
-            if (aListe.equals(str)) {
-                ret = true;
-                break;
-            }
-        }
-        return ret;*/
         Optional<String> opt = liste.parallelStream().filter(f -> f.equals(str)).findAny();
+
         return opt.isPresent();
     }
 
@@ -388,7 +375,7 @@ public class MediathekReader extends Thread {
     }
 
     @SuppressWarnings("serial")
-    class LinkedListUrl2 extends HashSet<String[]> {
+    class HashSetUrl extends HashSet<String[]> {
         public synchronized boolean addUrl(String[] e) {
             return add(e);
         }

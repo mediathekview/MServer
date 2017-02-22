@@ -35,17 +35,13 @@ import java.util.Date;
 public class MediathekArte_de extends MediathekReader {
 
     public final static String SENDERNAME = Const.ARTE_DE;
-
-    // "Freitag, 02. August um 12:41 Uhr"
-//    SimpleDateFormat sdfZeit = new SimpleDateFormat("HH:mm:ss");
-//    SimpleDateFormat sdfDatum = new SimpleDateFormat("dd.MM.yyyy");
-    String URL_ARTE = "http://www.arte.tv/papi/tvguide/epg/schedule/D/L3/";
-    String URL_CONCERT = "http://concert.arte.tv/de/videos/all";
-    String URL_CONCERT_NOT_CONTAIN = "-STF";
-    String URL_ARTE_MEDIATHEK_1 = "http://www.arte.tv/guide/de/plus7/videos?day=-";
-    String URL_ARTE_MEDIATHEK_2 = "&page=1&isLoading=true&sort=newest&country=DE";
-    String TIME_1 = "<li>Sendetermine:</li>";
-    String TIME_2 = "um";
+    protected String URL_ARTE = "http://www.arte.tv/papi/tvguide/epg/schedule/D/L3/";
+    protected String URL_CONCERT = "http://concert.arte.tv/de/videos/all";
+    protected String URL_CONCERT_NOT_CONTAIN = "-STF";
+    protected String URL_ARTE_MEDIATHEK_1 = "http://www.arte.tv/guide/de/plus7/videos?day=-";
+    protected String URL_ARTE_MEDIATHEK_2 = "&page=1&isLoading=true&sort=newest&country=DE";
+    protected String TIME_1 = "<li>Sendetermine:</li>";
+    protected String TIME_2 = "um";
 
     public MediathekArte_de(FilmeSuchen ssearch, int startPrio) {
         super(ssearch, SENDERNAME,/* threads */ 2, /* urlWarten */ 500, startPrio);
@@ -77,7 +73,7 @@ public class MediathekArte_de extends MediathekReader {
             meldungAddMax(listeThemen.size());
             for (int t = 0; t < getMaxThreadLaufen(); ++t) {
                 //new Thread(new ThemaLaden()).start();
-                Thread th = new Thread(new ThemaLaden());
+                Thread th = new ThemaLaden();
                 th.setName(getSendername() + t);
                 th.start();
             }
@@ -85,10 +81,10 @@ public class MediathekArte_de extends MediathekReader {
     }
 
     private void addConcert() {
-        Thread th = new Thread(new ConcertLaden(0, 20));
+        Thread th = new ConcertLaden(0, 20);
         th.setName(getSendername() + "Concert-0");
         th.start();
-        th = new Thread(new ConcertLaden(20, 40));
+        th = new ConcertLaden(20, 40);
         th.setName(getSendername() + "Concert-1");
         th.start();
     }
@@ -101,11 +97,11 @@ public class MediathekArte_de extends MediathekReader {
         }
     }
 
-    private class ConcertLaden implements Runnable {
+    private class ConcertLaden extends Thread {
 
         private final int start, anz;
-        MSStringBuilder seite1 = new MSStringBuilder(Const.STRING_BUFFER_START_BUFFER);
-        MSStringBuilder seite2 = new MSStringBuilder(Const.STRING_BUFFER_START_BUFFER);
+        private MSStringBuilder seite1 = new MSStringBuilder(Const.STRING_BUFFER_START_BUFFER);
+        private MSStringBuilder seite2 = new MSStringBuilder(Const.STRING_BUFFER_START_BUFFER);
 
         public ConcertLaden(int start, int anz) {
             this.start = start;
@@ -247,12 +243,9 @@ public class MediathekArte_de extends MediathekReader {
         }
     }
 
-    class ThemaLaden implements Runnable {
-
-        GetUrl getUrl = new GetUrl(getWartenSeiteLaden());
+    class ThemaLaden extends Thread {
+        private final GetUrl getUrl = new GetUrl(getWartenSeiteLaden());
         private final MSStringBuilder seite1 = new MSStringBuilder(Const.STRING_BUFFER_START_BUFFER);
-        //private final MSStringBuilder seite2 = new MSStringBuilder(Const.STRING_BUFFER_START_BUFFER);
-        //private final MSStringBuilder seite3 = new MSStringBuilder(Const.STRING_BUFFER_START_BUFFER);
         private final ArrayList<String> liste = new ArrayList<>();
 
         @Override

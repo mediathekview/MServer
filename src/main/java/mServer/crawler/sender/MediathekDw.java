@@ -45,14 +45,14 @@ public class MediathekDw extends MediathekReader implements Runnable {
         sendungenLaden();
         if (Config.getStop()) {
             meldungThreadUndFertig();
-        } else if (listeThemen.size() == 0) {
+        } else if (listeThemen.isEmpty()) {
             meldungThreadUndFertig();
         } else {
             listeSort(listeThemen, 1);
             meldungAddMax(listeThemen.size());
             for (int t = 0; t < getMaxThreadLaufen(); ++t) {
                 //new Thread(new ThemaLaden()).start();
-                Thread th = new Thread(new ThemaLaden());
+                Thread th = new ThemaLaden();
                 th.setName(SENDERNAME + t);
                 th.start();
             }
@@ -110,15 +110,14 @@ public class MediathekDw extends MediathekReader implements Runnable {
 
     }
 
-    private class ThemaLaden implements Runnable {
+    private class ThemaLaden extends Thread {
 
-        GetUrl getUrl = new GetUrl(getWartenSeiteLaden());
         private MSStringBuilder seite1 = new MSStringBuilder(Const.STRING_BUFFER_START_BUFFER);
         private MSStringBuilder seite2 = new MSStringBuilder(Const.STRING_BUFFER_START_BUFFER);
-        private ArrayList<String> listUrl = new ArrayList<>();
+        private final ArrayList<String> listUrl = new ArrayList<>();
 
         @Override
-        public synchronized void run() {
+        public void run() {
             try {
                 meldungAddThread();
                 String[] link;
@@ -183,7 +182,7 @@ public class MediathekDw extends MediathekReader implements Runnable {
             dur = dur.replace("\r", "");
             long duration = 0;
             try {
-                if (!dur.equals("")) {
+                if (!dur.isEmpty()) {
                     String[] parts = dur.split(":");
                     long power = 1;
                     for (int i = parts.length - 1; i >= 0; i--) {

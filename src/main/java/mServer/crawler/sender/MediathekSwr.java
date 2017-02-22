@@ -61,8 +61,7 @@ public class MediathekSwr extends MediathekReader {
         } else {
             meldungAddMax(listeThemen.size());
             for (int t = 0; t < getMaxThreadLaufen(); ++t) {
-                //new Thread(new ThemaLaden()).start();
-                Thread th = new Thread(new ThemaLaden());
+                Thread th = new ThemaLaden();
                 th.setName(SENDERNAME + t);
                 th.start();
             }
@@ -121,12 +120,12 @@ public class MediathekSwr extends MediathekReader {
         }
     }
 
-    private class ThemaLaden implements Runnable {
+    private class ThemaLaden extends Thread {
 
-        GetUrl getUrlThemaLaden = new GetUrl(CrawlerTool.loadLongMax() ? wartenLang : wartenKurz);
+        private final GetUrl getUrlThemaLaden = new GetUrl(CrawlerTool.loadLongMax() ? wartenLang : wartenKurz);
         private MSStringBuilder strSeite1 = new MSStringBuilder(Const.STRING_BUFFER_START_BUFFER);
         private MSStringBuilder strSeite2 = new MSStringBuilder(Const.STRING_BUFFER_START_BUFFER);
-        ArrayList<String> gefunden = new ArrayList<>();
+        private final ArrayList<String> gefunden = new ArrayList<>();
 
         public ThemaLaden() {
         }

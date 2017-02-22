@@ -26,6 +26,7 @@ import mSearch.tool.Log;
 import mSearch.tool.MSStringBuilder;
 import mServer.crawler.FilmeSuchen;
 import mServer.crawler.GetUrl;
+import org.apache.commons.lang3.time.FastDateFormat;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -34,8 +35,8 @@ public class MediathekZdfTivi extends MediathekReader {
 
     public final static String SENDERNAME = Const.ZDF_TIVI;
     private final SimpleDateFormat sdfIn = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSXXX");
-    private final SimpleDateFormat sdfOut_date = new SimpleDateFormat("dd.MM.yyyy");
-    private final SimpleDateFormat sdfOut_time = new SimpleDateFormat("HH:mm:ss");
+    private final FastDateFormat sdfOut_date = FastDateFormat.getInstance("dd.MM.yyyy");
+    private final FastDateFormat sdfOut_time = FastDateFormat.getInstance("HH:mm:ss");
     private final LinkedListUrl listeThemen_3 = new LinkedListUrl();
 
     public MediathekZdfTivi(FilmeSuchen ssearch, int startPrio) {
@@ -57,7 +58,7 @@ public class MediathekZdfTivi extends MediathekReader {
         } else {
             meldungAddMax(listeThemen.size() + listeThemen_3.size());
             for (int t = 0; t < getMaxThreadLaufen(); ++t) {
-                Thread th = new Thread(new ThemaLaden());
+                Thread th = new ThemaLaden();
                 th.setName(SENDERNAME + t);
                 th.start();
             }
@@ -181,11 +182,11 @@ public class MediathekZdfTivi extends MediathekReader {
         }
     }
 
-    private class ThemaLaden implements Runnable {
+    private class ThemaLaden extends Thread {
 
-        GetUrl getUrl = new GetUrl(getWartenSeiteLaden());
-        MSStringBuilder seite1 = new MSStringBuilder(Const.STRING_BUFFER_START_BUFFER);
-        MSStringBuilder seite2 = new MSStringBuilder(Const.STRING_BUFFER_START_BUFFER);
+        private final GetUrl getUrl = new GetUrl(getWartenSeiteLaden());
+        private MSStringBuilder seite1 = new MSStringBuilder(Const.STRING_BUFFER_START_BUFFER);
+        private MSStringBuilder seite2 = new MSStringBuilder(Const.STRING_BUFFER_START_BUFFER);
 
         @Override
         public void run() {

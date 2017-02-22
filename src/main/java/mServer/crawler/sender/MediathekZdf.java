@@ -116,25 +116,7 @@ public class MediathekZdf extends MediathekReader
         }    
     }
 
-    public static void urlTauschen(DatenFilm film, String urlSeite, FilmeSuchen mSFilmeSuchen)
-    {
-        // manuell die Auflösung hochsetzen
-
-        //große URL verbessern
-        changeUrl("2256k_p14v11.mp4", "2328k_p35v11.mp4", film, urlSeite, mSFilmeSuchen);
-        changeUrl("2256k_p14v12.mp4", "2328k_p35v12.mp4", film, urlSeite, mSFilmeSuchen);
-        changeUrl("2296k_p14v13.mp4", "2328k_p35v13.mp4", film, urlSeite, mSFilmeSuchen);
-
-        //klein nach groß
-        changeUrl("1456k_p13v11.mp4", "2328k_p35v11.mp4", film, urlSeite, mSFilmeSuchen);
-        changeUrl("1456k_p13v11.mp4", "2256k_p14v11.mp4", film, urlSeite, mSFilmeSuchen); //wenns nicht geht, dann vielleicht so
-
-        changeUrl("1456k_p13v12.mp4", "2328k_p35v12.mp4", film, urlSeite, mSFilmeSuchen);
-        changeUrl("1456k_p13v12.mp4", "2256k_p14v12.mp4", film, urlSeite, mSFilmeSuchen); //wenns nicht geht, dann vielleicht so
-
-        changeUrl("1496k_p13v13.mp4", "2328k_p35v13.mp4", film, urlSeite, mSFilmeSuchen);
-        changeUrl("1496k_p13v13.mp4", "2296k_p14v13.mp4", film, urlSeite, mSFilmeSuchen); //wenns nicht geht, dann vielleicht so
-
+    private static void updateHdStatus(DatenFilm film, String urlSeite) {
         // manuell die Auflösung für HD setzen, 2 Versuche
         updateHd("1456k_p13v12.mp4", "3328k_p36v12.mp4", film, urlSeite);
         updateHd("2256k_p14v12.mp4", "3328k_p36v12.mp4", film, urlSeite);
@@ -151,6 +133,28 @@ public class MediathekZdf extends MediathekReader
         updateHd("1496k_p13v13.mp4", "3328k_p36v13.mp4", film, urlSeite);
         updateHd("2296k_p14v13.mp4", "3328k_p36v13.mp4", film, urlSeite);
         updateHd("2328k_p35v13.mp4", "3328k_p36v13.mp4", film, urlSeite);
+    }
+
+    private static void modifyUrl(DatenFilm film, String urlSeite, FilmeSuchen mSFilmeSuchen) {
+        //große URL verbessern
+        changeUrl("2256k_p14v11.mp4", "2328k_p35v11.mp4", film, urlSeite, mSFilmeSuchen);
+        changeUrl("2256k_p14v12.mp4", "2328k_p35v12.mp4", film, urlSeite, mSFilmeSuchen);
+        changeUrl("2296k_p14v13.mp4", "2328k_p35v13.mp4", film, urlSeite, mSFilmeSuchen);
+
+        //klein nach groß
+        changeUrl("1456k_p13v11.mp4", "2328k_p35v11.mp4", film, urlSeite, mSFilmeSuchen);
+        changeUrl("1456k_p13v11.mp4", "2256k_p14v11.mp4", film, urlSeite, mSFilmeSuchen); //wenns nicht geht, dann vielleicht so
+
+        changeUrl("1456k_p13v12.mp4", "2328k_p35v12.mp4", film, urlSeite, mSFilmeSuchen);
+        changeUrl("1456k_p13v12.mp4", "2256k_p14v12.mp4", film, urlSeite, mSFilmeSuchen); //wenns nicht geht, dann vielleicht so
+
+        changeUrl("1496k_p13v13.mp4", "2328k_p35v13.mp4", film, urlSeite, mSFilmeSuchen);
+        changeUrl("1496k_p13v13.mp4", "2296k_p14v13.mp4", film, urlSeite, mSFilmeSuchen); //wenns nicht geht, dann vielleicht so
+    }
+
+    public static void urlTauschen(DatenFilm film, String urlSeite, FilmeSuchen mSFilmeSuchen) {
+        modifyUrl(film, urlSeite, mSFilmeSuchen);
+        updateHdStatus(film, urlSeite);
     }
 
     private static void changeUrl(String from, String to, DatenFilm film, String urlSeite, FilmeSuchen mSFilmeSuchen)

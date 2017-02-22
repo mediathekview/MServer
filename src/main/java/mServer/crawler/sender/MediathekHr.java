@@ -33,7 +33,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class MediathekHr extends MediathekReader implements Runnable {
+public class MediathekHr extends MediathekReader {
 
     public final static String SENDERNAME = Const.HR;
     private MSStringBuilder seite = new MSStringBuilder(Const.STRING_BUFFER_START_BUFFER);
@@ -68,7 +68,7 @@ public class MediathekHr extends MediathekReader implements Runnable {
         } else {
             meldungAddMax(listeThemen.size());
             for (int t = 0; t < getMaxThreadLaufen(); ++t) {
-                Thread th = new Thread(new ThemaLaden());
+                Thread th = new ThemaLaden();
                 th.setName(SENDERNAME + t);
                 th.start();
             }
@@ -132,9 +132,9 @@ public class MediathekHr extends MediathekReader implements Runnable {
         }
     }
 
-    private class ThemaLaden implements Runnable {
+    private class ThemaLaden extends Thread {
 
-        GetUrl getUrl = new GetUrl(getWartenSeiteLaden());
+        private final GetUrl getUrl = new GetUrl(getWartenSeiteLaden());
         private MSStringBuilder seite1 = new MSStringBuilder(Const.STRING_BUFFER_START_BUFFER);
         //private MVStringBuilder seite2 = new MVStringBuilder();
 
@@ -213,7 +213,7 @@ public class MediathekHr extends MediathekReader implements Runnable {
                         url_low = "";
                     }
                     if (!url.isEmpty()) {
-                        if (datum.equals("")) {
+                        if (datum.isEmpty()) {
                             datum = getDate(url);
                         }
                         //DatenFilm film = new DatenFilm(nameSenderMReader, thema, strUrlFeed, titel, url, furl, datum, "");

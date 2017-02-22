@@ -69,7 +69,6 @@ public class MediathekSr extends MediathekReader {
         } else {
             meldungAddMax(listeThemen.size());
             for (int t = 0; t < getMaxThreadLaufen(); ++t) {
-                //new Thread(new ThemaLaden()).start();
                 Thread th = new ThemaLaden();
                 th.setName(SENDERNAME + t);
                 th.start();
@@ -79,10 +78,10 @@ public class MediathekSr extends MediathekReader {
 
     private class ThemaLaden extends Thread {
 
-        GetUrl getUrl = new GetUrl(getWartenSeiteLaden());
+        private final GetUrl getUrl = new GetUrl(getWartenSeiteLaden());
         private MSStringBuilder seite1 = new MSStringBuilder(Const.STRING_BUFFER_START_BUFFER);
         private MSStringBuilder seite2 = new MSStringBuilder(Const.STRING_BUFFER_START_BUFFER);
-        ArrayList<String> erg = new ArrayList<>();
+        private final ArrayList<String> erg = new ArrayList<>();
 
         @Override
         public void run() {

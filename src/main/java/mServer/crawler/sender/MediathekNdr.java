@@ -256,7 +256,7 @@ public class MediathekNdr extends MediathekReader implements Runnable {
                         //<span class="icon icon_video" aria-label="L&auml;nge"></span>29:59</div>
                         String duration = seite1.extract("\"L&auml;nge\"></span>", "<", pos).trim();
                         try {
-                            if (!duration.equals("")) {
+                            if (!duration.isEmpty()) {
                                 String[] parts = duration.split(":");
                                 long power = 1;
                                 durationInSeconds = 0;
@@ -272,7 +272,7 @@ public class MediathekNdr extends MediathekReader implements Runnable {
                         String duration = seite1.extract("Video (", ")", pos);
                         duration = duration.replace("min", "").trim();
                         try {
-                            if (!duration.equals("")) {
+                            if (!duration.isEmpty()) {
                                 String[] parts = duration.split(":");
                                 long power = 1;
                                 durationInSeconds = 0;

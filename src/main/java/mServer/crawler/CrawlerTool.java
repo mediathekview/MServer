@@ -5,14 +5,15 @@
  */
 package mServer.crawler;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import mSearch.Config;
 import mSearch.Const;
 import mSearch.daten.DatenFilm;
 import mSearch.tool.Functions;
 import mSearch.tool.Log;
 import org.apache.commons.lang3.StringUtils;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
  *
@@ -104,60 +105,88 @@ public class CrawlerTool {
         }
     }
 
+    private static void processArd(DatenFilm film) {
+        if (film.arr[DatenFilm.FILM_URL].startsWith("http://pd-videos.daserste.de/de/")) {
+            film.arr[DatenFilm.FILM_GEO] = DatenFilm.GEO_DE;
+        }
+    }
+
+    private static void processArd_Two(DatenFilm film) {
+        if (film.arr[DatenFilm.FILM_URL].startsWith("http://mvideos-geo.daserste.de/") ||
+                film.arr[DatenFilm.FILM_URL].startsWith("http://media.ndr.de/progressive_geo/") ||
+                film.arr[DatenFilm.FILM_URL].startsWith("http://cdn-storage.br.de/geo/") ||
+                film.arr[DatenFilm.FILM_URL].startsWith("http://cdn-sotschi.br.de/geo/b7/") ||
+                film.arr[DatenFilm.FILM_URL].startsWith("http://pd-ondemand.swr.de/geo/de/") ||
+                film.arr[DatenFilm.FILM_URL].startsWith("http://ondemandgeo.mdr.de/") ||
+                film.arr[DatenFilm.FILM_URL].startsWith("http://ondemand-de.wdr.de/")) {
+            film.arr[DatenFilm.FILM_GEO] = DatenFilm.GEO_DE;
+        }
+    }
+
+    private static void processZdfPart(DatenFilm film) {
+        if (film.arr[DatenFilm.FILM_URL].startsWith("http://rodl.zdf.de/de/") ||
+                film.arr[DatenFilm.FILM_URL].startsWith("http://nrodl.zdf.de/de/") ||
+                film.arr[DatenFilm.FILM_URL].startsWith("https://rodlzdf-a.akamaihd.net/de/") ||
+                film.arr[DatenFilm.FILM_URL].startsWith("https://nrodlzdf-a.akamaihd.net/de/")) {
+            film.arr[DatenFilm.FILM_GEO] = DatenFilm.GEO_DE;
+        } else if (film.arr[DatenFilm.FILM_URL].startsWith("http://rodl.zdf.de/dach/") ||
+                film.arr[DatenFilm.FILM_URL].startsWith("http://nrodl.zdf.de/dach/") ||
+                film.arr[DatenFilm.FILM_URL].startsWith("https://rodlzdf-a.akamaihd.net/dach") ||
+                film.arr[DatenFilm.FILM_URL].startsWith("https://nrodlzdf-a.akamaihd.net/dach")) {
+            film.arr[DatenFilm.FILM_GEO] = DatenFilm.GEO_DE + "-" + DatenFilm.GEO_AT + "-" + DatenFilm.GEO_CH;
+        } else if (film.arr[DatenFilm.FILM_URL].startsWith("http://rodl.zdf.de/ebu/") ||
+                film.arr[DatenFilm.FILM_URL].startsWith("http://nrodl.zdf.de/ebu/") ||
+                film.arr[DatenFilm.FILM_URL].startsWith("https://rodlzdf-a.akamaihd.net/ebu/") ||
+                film.arr[DatenFilm.FILM_URL].startsWith("https://nrodlzdf-a.akamaihd.net/ebu/")) {
+            film.arr[DatenFilm.FILM_GEO] = DatenFilm.GEO_DE + "-" + DatenFilm.GEO_AT + "-" + DatenFilm.GEO_CH + "-" + DatenFilm.GEO_EU;
+        }
+    }
+
+    private static void processSrfPodcast(DatenFilm film) {
+        if (film.arr[DatenFilm.FILM_URL].startsWith("http://podcasts.srf.ch/ch/audio/")) {
+            film.arr[DatenFilm.FILM_GEO] = DatenFilm.GEO_CH;
+        }
+    }
+
+    private static void processOrf(DatenFilm film) {
+        if (film.arr[DatenFilm.FILM_URL].startsWith("http://apasfpd.apa.at/cms-austria/") || film.arr[DatenFilm.FILM_URL].startsWith("rtmp://apasfw.apa.at/cms-austria/")) {
+            film.arr[DatenFilm.FILM_GEO] = DatenFilm.GEO_AT;
+        }
+    }
+
+    private static void processKiKa(DatenFilm film) {
+        if (film.arr[DatenFilm.FILM_URL].startsWith("http://pmdgeo.kika.de/")) {
+            film.arr[DatenFilm.FILM_GEO] = DatenFilm.GEO_DE;
+        }
+    }
+
     public static void setGeo(DatenFilm film) {
         switch (film.arr[DatenFilm.FILM_SENDER]) {
             case Const.ARD:
-                if (film.arr[DatenFilm.FILM_URL].startsWith("http://pd-videos.daserste.de/de/")) {
-                    film.arr[DatenFilm.FILM_GEO] = DatenFilm.GEO_DE;
-                }
+                processArd(film);
             case Const.WDR:
             case Const.NDR:
             case Const.SWR:
             case Const.MDR:
             case Const.BR:
-                if (film.arr[DatenFilm.FILM_URL].startsWith("http://mvideos-geo.daserste.de/") || 
-                        film.arr[DatenFilm.FILM_URL].startsWith("http://media.ndr.de/progressive_geo/") || 
-                        film.arr[DatenFilm.FILM_URL].startsWith("http://cdn-storage.br.de/geo/") || 
-                        film.arr[DatenFilm.FILM_URL].startsWith("http://cdn-sotschi.br.de/geo/b7/") || 
-                        film.arr[DatenFilm.FILM_URL].startsWith("http://pd-ondemand.swr.de/geo/de/") || 
-                        film.arr[DatenFilm.FILM_URL].startsWith("http://ondemandgeo.mdr.de/") || 
-                        film.arr[DatenFilm.FILM_URL].startsWith("http://ondemand-de.wdr.de/")) {
-                    film.arr[DatenFilm.FILM_GEO] = DatenFilm.GEO_DE;
-                }
+                processArd_Two(film);
                 break;
+
             case Const.ZDF_TIVI:
             case Const.DREISAT:
-                if (film.arr[DatenFilm.FILM_URL].startsWith("http://rodl.zdf.de/de/") || 
-                        film.arr[DatenFilm.FILM_URL].startsWith("http://nrodl.zdf.de/de/") || 
-                        film.arr[DatenFilm.FILM_URL].startsWith("https://rodlzdf-a.akamaihd.net/de/")||
-                        film.arr[DatenFilm.FILM_URL].startsWith("https://nrodlzdf-a.akamaihd.net/de/")) {
-                    film.arr[DatenFilm.FILM_GEO] = DatenFilm.GEO_DE;
-                } else if (film.arr[DatenFilm.FILM_URL].startsWith("http://rodl.zdf.de/dach/") || 
-                        film.arr[DatenFilm.FILM_URL].startsWith("http://nrodl.zdf.de/dach/") || 
-                        film.arr[DatenFilm.FILM_URL].startsWith("https://rodlzdf-a.akamaihd.net/dach")||
-                        film.arr[DatenFilm.FILM_URL].startsWith("https://nrodlzdf-a.akamaihd.net/dach")) {
-                    film.arr[DatenFilm.FILM_GEO] = DatenFilm.GEO_DE + "-" + DatenFilm.GEO_AT + "-" + DatenFilm.GEO_CH;
-                } else if (film.arr[DatenFilm.FILM_URL].startsWith("http://rodl.zdf.de/ebu/") ||
-                        film.arr[DatenFilm.FILM_URL].startsWith("http://nrodl.zdf.de/ebu/") || 
-                        film.arr[DatenFilm.FILM_URL].startsWith("https://rodlzdf-a.akamaihd.net/ebu/")||
-                        film.arr[DatenFilm.FILM_URL].startsWith("https://nrodlzdf-a.akamaihd.net/ebu/")) {
-                    film.arr[DatenFilm.FILM_GEO] = DatenFilm.GEO_DE + "-" + DatenFilm.GEO_AT + "-" + DatenFilm.GEO_CH + "-" + DatenFilm.GEO_EU;
-                }
+                processZdfPart(film);
                 break;
+
             case Const.ORF:
-                if (film.arr[DatenFilm.FILM_URL].startsWith("http://apasfpd.apa.at/cms-austria/") || film.arr[DatenFilm.FILM_URL].startsWith("rtmp://apasfw.apa.at/cms-austria/")) {
-                    film.arr[DatenFilm.FILM_GEO] = DatenFilm.GEO_AT;
-                }
+                processOrf(film);
                 break;
+
             case Const.SRF_PODCAST:
-                if (film.arr[DatenFilm.FILM_URL].startsWith("http://podcasts.srf.ch/ch/audio/")) {
-                    film.arr[DatenFilm.FILM_GEO] = DatenFilm.GEO_CH;
-                }
+                processSrfPodcast(film);
                 break;
+
             case Const.KIKA:
-                if (film.arr[DatenFilm.FILM_URL].startsWith("http://pmdgeo.kika.de/")) {
-                    film.arr[DatenFilm.FILM_GEO] = DatenFilm.GEO_DE;
-                }
+                processKiKa(film);
                 break;
         }
     }

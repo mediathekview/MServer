@@ -36,7 +36,7 @@ import java.util.Date;
 import java.util.LinkedList;
 import java.util.Locale;
 
-public class MediathekBr extends MediathekReader implements Runnable {
+public class MediathekBr extends MediathekReader {
 
     public final static String SENDERNAME = Const.BR;
     private final SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy, HH:mm", Locale.ENGLISH);//08.11.2013, 18:00
@@ -104,7 +104,7 @@ public class MediathekBr extends MediathekReader implements Runnable {
             }
             new Thread(new KlassikLaden(), SENDERNAME).start(); // Klassik braucht auch eine Einzelbehandlung
             for (int t = 0; t < getMaxThreadLaufen(); ++t) {
-                Thread th = new Thread(new ThemaLaden());
+                Thread th = new ThemaLaden();
                 th.setName(SENDERNAME + t);
                 th.start();
             }
@@ -218,7 +218,7 @@ public class MediathekBr extends MediathekReader implements Runnable {
         super.meldungThreadUndFertig();
     }
 
-    private class ThemaLaden implements Runnable {
+    private class ThemaLaden extends Thread {
 
         GetUrl getUrl = new GetUrl(getWartenSeiteLaden());
         private final MSStringBuilder seite1 = new MSStringBuilder(Const.STRING_BUFFER_START_BUFFER);
@@ -227,7 +227,7 @@ public class MediathekBr extends MediathekReader implements Runnable {
         private MSStringBuilder seiteXml = new MSStringBuilder(Const.STRING_BUFFER_START_BUFFER);
 
         @Override
-        public synchronized void run() {
+        public void run() {
             try {
                 meldungAddThread();
                 String[] link;
