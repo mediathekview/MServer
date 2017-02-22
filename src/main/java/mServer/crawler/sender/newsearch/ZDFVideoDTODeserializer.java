@@ -3,11 +3,10 @@ package mServer.crawler.sender.newsearch;
 import com.google.gson.*;
 import mSearch.tool.Log;
 import mServer.tool.MserverDaten;
+import org.apache.commons.lang3.time.FastDateFormat;
 
 import java.lang.reflect.Type;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
 /**
  * A JSON deserializer to gather the needed information for a {@link VideoDTO}.
@@ -29,10 +28,10 @@ public class ZDFVideoDTODeserializer implements JsonDeserializer<VideoDTO> {
     private static final String JSON_ELEMENT_TITLE = "title";
     private static final String JSON_ELEMENT_TEASERTEXT = "teasertext";
 
-    private final SimpleDateFormat sdfEditorialDate = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSXXX");//2016-10-29T16:15:00.000+02:00
-    private final SimpleDateFormat sdfAirtimeBegin = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssXXX");//2016-10-29T16:15:00+02:00
-    private final SimpleDateFormat sdfOutTime = new SimpleDateFormat("HH:mm:ss");
-    private final SimpleDateFormat sdfOutDay = new SimpleDateFormat("dd.MM.yyyy");
+    private final FastDateFormat sdfEditorialDate = FastDateFormat.getInstance("yyyy-MM-dd'T'HH:mm:ss.SSSXXX");//2016-10-29T16:15:00.000+02:00
+    private final FastDateFormat sdfAirtimeBegin = FastDateFormat.getInstance("yyyy-MM-dd'T'HH:mm:ssXXX");//2016-10-29T16:15:00+02:00
+    private final FastDateFormat sdfOutTime = FastDateFormat.getInstance("HH:mm:ss");
+    private final FastDateFormat sdfOutDay = FastDateFormat.getInstance("dd.MM.yyyy");
 
     @Override
     public VideoDTO deserialize(final JsonElement aJsonElement, final Type aTypeOfT, final JsonDeserializationContext aJsonDeserializationContext) throws JsonParseException {
@@ -75,7 +74,7 @@ public class ZDFVideoDTODeserializer implements JsonDeserializer<VideoDTO> {
     
     private void parseAirtime(VideoDTO dto, JsonObject rootNode, JsonObject programmItemTarget) {
         String date;
-        SimpleDateFormat sdf;
+        FastDateFormat sdf;
         
         // use broadcast airtime if found
         if(programmItemTarget != null) {
@@ -182,20 +181,18 @@ public class ZDFVideoDTODeserializer implements JsonDeserializer<VideoDTO> {
         // if no topic found, set topic to title
         dto.setTopic(dto.getTitle());
     }
-     
-    private String convertDate(String dateValue, SimpleDateFormat sdf) {
+
+    private String convertDate(String dateValue, FastDateFormat sdf) {
         try {
-            Date filmDate = sdf.parse(dateValue);
-            return sdfOutDay.format(filmDate);
+            return sdfOutDay.format(sdf.parse(dateValue));
         } catch (ParseException ex) {
             throw new RuntimeException("Date parse exception: " + dateValue);
         }
     }
 
-    private String convertTime(String dateValue, SimpleDateFormat sdf) {
+    private String convertTime(String dateValue, FastDateFormat sdf) {
         try {
-            Date filmDate = sdf.parse(dateValue);
-            return sdfOutTime.format(filmDate);
+            return sdfOutTime.format(sdf.parse(dateValue));
         } catch (ParseException ex) {
             throw new RuntimeException("Date parse exception: " + dateValue);
         }
