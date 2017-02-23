@@ -108,16 +108,20 @@ public class Mediathek3Sat extends MediathekReader {
 
     }
 
+    private final static String[] QU_WIDTH_HD = {"1280"};
+    private final static String[] QU_WIDTH = {"1024", "852", "720", "688", "480", "432", "320"};
+    private final static String[] QU_WIDTH_KL = {"688", "480", "432", "320"};
+    private final static String BESCHREIBUNG = "<detail>";
+    private final static String LAENGE_SEC = "<lengthSec>";
+    private final static String LAENGE = "<length>";
+    private final static String DATUM = "<airtime>";
+    private final static String THEMA = "<originChannelTitle>";
+
     private DatenFilm filmHolenId(GetUrl getUrl, MSStringBuilder strBuffer, String sender, String thema, String titel, String filmWebsite, String urlId) {
         //<teaserimage alt="Harald Lesch im Studio von Abenteuer Forschung" key="298x168">http://www.zdf.de/ZDFmediathek/contentblob/1909108/timg298x168blob/8081564</teaserimage>
         //<detail>Möchten Sie wissen, was Sie in der nächsten Sendung von Abenteuer Forschung erwartet? Harald Lesch informiert Sie.</detail>
         //<length>00:00:34.000</length>
         //<airtime>02.07.2013 23:00</airtime>
-        final String BESCHREIBUNG = "<detail>";
-        final String LAENGE_SEC = "<lengthSec>";
-        final String LAENGE = "<length>";
-        final String DATUM = "<airtime>";
-        final String THEMA = "<originChannelTitle>";
         long laengeL;
 
         String beschreibung, subtitle, laenge, datum, zeit = "";
@@ -167,9 +171,6 @@ public class Mediathek3Sat extends MediathekReader {
 
         //============================================================================
         // und jetzt die FilmURLs
-        final String[] QU_WIDTH_HD = {"1280"};
-        final String[] QU_WIDTH = {"1024", "852", "720", "688", "480", "432", "320"};
-        final String[] QU_WIDTH_KL = {"688", "480", "432", "320"};
         String url, urlKlein, urlHd;
 
         urlHd = getUrl(strBuffer, QU_WIDTH_HD, true);
@@ -248,12 +249,14 @@ public class Mediathek3Sat extends MediathekReader {
         return ret;
     }
 
+    private static final String checkUrlHD_String = "http://www.metafilegenerator.de/ondemand/zdf/hbbtv/";
+
     private String checkUrlHD(String url) {
         String ret = "";
         if (url.startsWith("http") && url.endsWith("mp4")) {
             ret = url;
-            if (ret.startsWith("http://www.metafilegenerator.de/ondemand/zdf/hbbtv/")) {
-                ret = ret.replaceFirst("http://www.metafilegenerator.de/ondemand/zdf/hbbtv/", "http://nrodl.zdf.de/");
+            if (ret.startsWith(checkUrlHD_String)) {
+                ret = ret.replaceFirst(checkUrlHD_String, "http://nrodl.zdf.de/");
             }
         }
         return ret;

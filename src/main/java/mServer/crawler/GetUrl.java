@@ -105,23 +105,29 @@ public class GetUrl {
         FilmeSuchen.listeSenderLaufen.inc(sender, RunSender.Count.SUM_TRAFFIC_LOADART_NIX.ordinal(), bytesWritten);
     }
 
+    private long transferData(ResponseBody body, String kodierung, MSStringBuilder seite) throws IOException {
+        long load = 0;
+        if (body.contentType() != null) {
+            //valid response
+            try (InputStreamReader inReader = new InputStreamReader(body.byteStream(), kodierung)) {
+                final char[] buffer = new char[16 * 1024];
+                int n;
+                while (!Config.getStop() && (n = inReader.read(buffer)) != -1) {
+                    // hier wird endlich geladen
+                    seite.append(buffer, 0, n);
+                    load += n;
+                }
+            }
+        }
+        return load;
+    }
+
     private long webCall(Request request, MSStringBuilder seite, final String kodierung) throws IOException {
-        int load = 0;
+        long load = 0;
         try (Response response = MVHttpClient.getInstance().getHttpClient().newCall(request).execute();
              ResponseBody body = response.body()) {
             if (response.isSuccessful()) {
-                if (body.contentType() != null) {
-                    //valid response
-                    try (InputStreamReader inReader = new InputStreamReader(body.byteStream(), kodierung)) {
-                        final char[] buffer = new char[16 * 1024];
-                        int n;
-                        while (!Config.getStop() && (n = inReader.read(buffer)) != -1) {
-                            // hier wird endlich geladen
-                            seite.append(buffer, 0, n);
-                            load += n;
-                        }
-                    }
-                }
+                load = transferData(body, kodierung, seite);
             }
         }
         return load;
