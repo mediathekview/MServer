@@ -19,6 +19,9 @@
  */
 package mServer.crawler.sender;
 
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
 import mSearch.Config;
 import mSearch.Const;
 import mSearch.daten.DatenFilm;
@@ -27,10 +30,6 @@ import mSearch.tool.MSStringBuilder;
 import mServer.crawler.CrawlerTool;
 import mServer.crawler.FilmeSuchen;
 import mServer.crawler.GetUrl;
-
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
 
 public class MediathekArte_de extends MediathekReader {
 
@@ -244,6 +243,7 @@ public class MediathekArte_de extends MediathekReader {
     }
 
     class ThemaLaden extends Thread {
+
         private final MSStringBuilder seite1 = new MSStringBuilder(Const.STRING_BUFFER_START_BUFFER);
         private final ArrayList<String> liste = new ArrayList<>();
 
@@ -326,9 +326,16 @@ public class MediathekArte_de extends MediathekReader {
         private void getFilm2(String urlWeb, String filmWebsite, String thema, String title, String description, long dauer, String date, String time) {
             final GetUrl getUrl = new GetUrl(getWartenSeiteLaden());
             getUrl.getUri_Utf(getSendername(), urlWeb, seite1, "");
-            String urlHd = seite1.extract("\"id\":\"HTTP_MP4_SQ_1\"", "\"url\":\"", "\"").replace("\\", "");
-            String urlNorm = seite1.extract("\"id\":\"HTTP_MP4_EQ_1\"", "\"url\":\"", "\"").replace("\\", "");
-            String urlKlein = seite1.extract("\"id\":\"HTTP_MP4_HQ_1\"", "\"url\":\"", "\"").replace("\\", "");
+            String urlHd = seite1.extract("_MP4_SQ_1\",\"quality\":\"SQ\"", "\"url\":\"", "\"").replace("\\", "");
+            String urlNorm = seite1.extract("_MP4_EQ_1\",\"quality\":\"EQ\"", "\"url\":\"", "\"").replace("\\", "");
+            String urlKlein = seite1.extract("_MP4_HQ_1\",\"quality\":\"HQ\"", "\"url\":\"", "\"").replace("\\", "");
+
+            // https lässt sich noch?? nicht starten
+            final String http = "http:";
+            final String https = "https:";
+            urlHd = urlHd.replaceFirst(https, http);
+            urlNorm = urlNorm.replaceFirst(https, http);
+            urlKlein = urlKlein.replaceFirst(https, http);
 
             if (urlNorm.isEmpty() && !urlKlein.isEmpty()) {
                 urlNorm = urlKlein;
