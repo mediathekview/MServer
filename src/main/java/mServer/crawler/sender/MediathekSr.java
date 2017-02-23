@@ -123,7 +123,7 @@ public class MediathekSr extends MediathekReader {
 
                 String d = seite2.extract("| Dauer: ", "|").trim();
                 try {
-                    if (!d.equals("")) {
+                    if (!d.isEmpty()) {
                         duration = 0;
                         String[] parts = d.split(":");
                         long power = 1;

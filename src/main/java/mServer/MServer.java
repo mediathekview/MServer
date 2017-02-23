@@ -19,16 +19,12 @@
  */
 package mServer;
 
-import java.io.File;
-
 import mServer.daten.MserverSearchTask;
 import mServer.search.MserverSearch;
-import mServer.tool.MserverDaten;
-import mServer.tool.MserverKonstanten;
-import mServer.tool.MserverLog;
-import mServer.tool.MserverTimer;
-import mServer.tool.MserverXmlLesen;
+import mServer.tool.*;
 import mServer.upload.MserverUpload;
+
+import java.io.File;
 
 public class MServer {
 
@@ -82,8 +78,7 @@ public class MServer {
             MserverLog.startMeldungen(this.getClass().getName());
 
             mvsSearch = new MserverSearch();
-            MserverTimer timer = new MserverTimer(this);
-            Thread thread = new Thread(timer);
+            Thread thread = new MserverTimer(this);
             thread.start();
             try {
                 // wait for the thread to finish
