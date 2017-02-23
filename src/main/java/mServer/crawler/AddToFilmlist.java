@@ -225,11 +225,11 @@ public class AddToFilmlist {
             return localAddList;
         }
 
-        private boolean addOld(DatenFilm film) {
+        private void addOld(DatenFilm film) {
             treffer++;
             film.init();
 
-            return localAddList.add(film);
+            localAddList.add(film);
         }
 
         private synchronized DatenFilm popOld(ListeFilme listeOld) {

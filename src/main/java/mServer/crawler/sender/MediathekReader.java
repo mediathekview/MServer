@@ -19,6 +19,7 @@
  */
 package mServer.crawler.sender;
 
+import mSearch.Const;
 import mSearch.daten.DatenFilm;
 import mSearch.tool.GermanStringSorter;
 import mSearch.tool.Log;
@@ -35,15 +36,15 @@ import java.util.*;
 
 public class MediathekReader extends Thread {
 
-    protected LinkedListUrl listeThemen;
-    protected FilmeSuchen mSearchFilmeSuchen;
     private final String sendername; // ist der Name, den der Mediathekreader hat, der ist eindeutig
     private final int maxThreadLaufen; //4; // Anzahl der Thread die parallel Suchen
     private final int wartenSeiteLaden; //ms, Basiswert zu dem dann der Faktor multipliziert wird, Wartezeit zwischen 2 Websiten beim Absuchen der Sender
+    private final int startPrio; // es gibt die Werte: 0->startet sofort, 1->später und 2->zuletzt
+    protected LinkedListUrl listeThemen;
+    protected FilmeSuchen mSearchFilmeSuchen;
     private int threads; // aktuelle Anz. laufender Threads
     private int max; // Anz. zu suchender Themen
     private int progress; // Prograss eben
-    private final int startPrio; // es gibt die Werte: 0->startet sofort, 1->später und 2->zuletzt
 
     public MediathekReader(FilmeSuchen aMSearchFilmeSuchen, String aSendername, int aSenderMaxThread, int aSenderWartenSeiteLaden, int aStartPrio) {
         mSearchFilmeSuchen = aMSearchFilmeSuchen;
@@ -231,7 +232,7 @@ public class MediathekReader extends Thread {
 //        }
 
         film.setUrlHistory();
-        CrawlerTool.setGeo(film);
+        setGeo(film);
         if (mSearchFilmeSuchen.listeFilmeNeu.addFilmVomSender(film)) {
             // dann ist er neu
             FilmeSuchen.listeSenderLaufen.inc(film.arr[DatenFilm.FILM_SENDER], RunSender.Count.FILME);
@@ -241,6 +242,87 @@ public class MediathekReader extends Thread {
 /*    DatenFilm istInFilmListe(String sender, String thema, String titel) {
         return mSearchFilmeSuchen.listeFilmeNeu.istInFilmListe(sender, thema, titel);
     }*/
+
+    private void processArd(DatenFilm film) {
+        if (film.arr[DatenFilm.FILM_URL].startsWith("http://mvideos-geo.daserste.de/") ||
+                film.arr[DatenFilm.FILM_URL].startsWith("http://media.ndr.de/progressive_geo/") ||
+                film.arr[DatenFilm.FILM_URL].startsWith("http://cdn-storage.br.de/geo/") ||
+                film.arr[DatenFilm.FILM_URL].startsWith("http://cdn-sotschi.br.de/geo/b7/") ||
+                film.arr[DatenFilm.FILM_URL].startsWith("http://pd-ondemand.swr.de/geo/de/") ||
+                film.arr[DatenFilm.FILM_URL].startsWith("http://ondemandgeo.mdr.de/") ||
+                film.arr[DatenFilm.FILM_URL].startsWith("http://ondemand-de.wdr.de/") ||
+                film.arr[DatenFilm.FILM_URL].startsWith("http://pd-videos.daserste.de/de/")) {
+            film.arr[DatenFilm.FILM_GEO] = DatenFilm.GEO_DE;
+        }
+    }
+
+    private void processZdfPart(DatenFilm film) {
+        if (film.arr[DatenFilm.FILM_URL].startsWith("http://rodl.zdf.de/de/") ||
+                film.arr[DatenFilm.FILM_URL].startsWith("http://nrodl.zdf.de/de/") ||
+                film.arr[DatenFilm.FILM_URL].startsWith("https://rodlzdf-a.akamaihd.net/de/") ||
+                film.arr[DatenFilm.FILM_URL].startsWith("https://nrodlzdf-a.akamaihd.net/de/")) {
+            film.arr[DatenFilm.FILM_GEO] = DatenFilm.GEO_DE;
+        } else if (film.arr[DatenFilm.FILM_URL].startsWith("http://rodl.zdf.de/dach/") ||
+                film.arr[DatenFilm.FILM_URL].startsWith("http://nrodl.zdf.de/dach/") ||
+                film.arr[DatenFilm.FILM_URL].startsWith("https://rodlzdf-a.akamaihd.net/dach") ||
+                film.arr[DatenFilm.FILM_URL].startsWith("https://nrodlzdf-a.akamaihd.net/dach")) {
+            film.arr[DatenFilm.FILM_GEO] = DatenFilm.GEO_DE + '-' + DatenFilm.GEO_AT + '-' + DatenFilm.GEO_CH;
+        } else if (film.arr[DatenFilm.FILM_URL].startsWith("http://rodl.zdf.de/ebu/") ||
+                film.arr[DatenFilm.FILM_URL].startsWith("http://nrodl.zdf.de/ebu/") ||
+                film.arr[DatenFilm.FILM_URL].startsWith("https://rodlzdf-a.akamaihd.net/ebu/") ||
+                film.arr[DatenFilm.FILM_URL].startsWith("https://nrodlzdf-a.akamaihd.net/ebu/")) {
+            film.arr[DatenFilm.FILM_GEO] = DatenFilm.GEO_DE + '-' + DatenFilm.GEO_AT + '-' + DatenFilm.GEO_CH + '-' + DatenFilm.GEO_EU;
+        }
+    }
+
+    private void processSrfPodcast(DatenFilm film) {
+        if (film.arr[DatenFilm.FILM_URL].startsWith("http://podcasts.srf.ch/ch/audio/")) {
+            film.arr[DatenFilm.FILM_GEO] = DatenFilm.GEO_CH;
+        }
+    }
+
+    private void processOrf(DatenFilm film) {
+        if (film.arr[DatenFilm.FILM_URL].startsWith("http://apasfpd.apa.at/cms-austria/") || film.arr[DatenFilm.FILM_URL].startsWith("rtmp://apasfw.apa.at/cms-austria/")) {
+            film.arr[DatenFilm.FILM_GEO] = DatenFilm.GEO_AT;
+        }
+    }
+
+    private void processKiKa(DatenFilm film) {
+        if (film.arr[DatenFilm.FILM_URL].startsWith("http://pmdgeo.kika.de/")) {
+            film.arr[DatenFilm.FILM_GEO] = DatenFilm.GEO_DE;
+        }
+    }
+
+    private void setGeo(DatenFilm film) {
+        switch (film.arr[DatenFilm.FILM_SENDER]) {
+            case Const.ARD:
+            case Const.WDR:
+            case Const.NDR:
+            case Const.SWR:
+            case Const.MDR:
+            case Const.BR:
+                processArd(film);
+                break;
+
+            case Const.ZDF_TIVI:
+            case Const.DREISAT:
+                processZdfPart(film);
+                break;
+
+            case Const.ORF:
+                processOrf(film);
+                break;
+
+            case Const.SRF_PODCAST:
+                processSrfPodcast(film);
+                break;
+
+            case Const.KIKA:
+                processKiKa(film);
+                break;
+        }
+
+    }
 
     boolean istInListe(LinkedList<String[]> liste, String str, int nr) {
         Optional<String[]> opt = liste.parallelStream().filter(f -> f[nr].equals(str)).findAny();

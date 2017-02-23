@@ -34,6 +34,19 @@ import java.util.Date;
 public class Mediathek3Sat extends MediathekReader {
 
     public final static String SENDERNAME = Const.DREISAT;
+    private final static String[] QU_WIDTH_HD = {"1280"};
+    private final static String[] QU_WIDTH = {"1024", "852", "720", "688", "480", "432", "320"};
+    private final static String[] QU_WIDTH_KL = {"688", "480", "432", "320"};
+    private final static String BESCHREIBUNG = "<detail>";
+    private final static String LAENGE_SEC = "<lengthSec>";
+    private final static String LAENGE = "<length>";
+    private final static String DATUM = "<airtime>";
+    private final static String THEMA = "<originChannelTitle>";
+    private static final String checkUrlHD_String = "http://www.metafilegenerator.de/ondemand/zdf/hbbtv/";
+    private static final String URL_ANFANG = "<formitaet basetype=\"h264_aac_mp4_http_na_na\"";
+    private static final String URL_ENDE = "</formitaet>";
+    private static final String URL = "<url>";
+    private static final String WIDTH = "<width>";
 
     public Mediathek3Sat(FilmeSuchen ssearch, int startPrio) {
         super(ssearch, SENDERNAME, /* threads */ 2, /* urlWarten */ 500, startPrio);
@@ -76,7 +89,7 @@ public class Mediathek3Sat extends MediathekReader {
         final String MUSTER_URL = "<a class=\"SubItem\" href=\"http://www.3sat.de/mediathek/?red=";
 
         MSStringBuilder seite = new MSStringBuilder(Const.STRING_BUFFER_START_BUFFER);
-        GetUrl getUrlIo = new GetUrl(getWartenSeiteLaden());
+        final GetUrl getUrlIo = new GetUrl(getWartenSeiteLaden());
         seite = getUrlIo.getUri_Utf(SENDERNAME, ADRESSE, seite, "");
         int pos1 = 0;
         int pos2;
@@ -108,38 +121,8 @@ public class Mediathek3Sat extends MediathekReader {
 
     }
 
-    private final static String[] QU_WIDTH_HD = {"1280"};
-    private final static String[] QU_WIDTH = {"1024", "852", "720", "688", "480", "432", "320"};
-    private final static String[] QU_WIDTH_KL = {"688", "480", "432", "320"};
-    private final static String BESCHREIBUNG = "<detail>";
-    private final static String LAENGE_SEC = "<lengthSec>";
-    private final static String LAENGE = "<length>";
-    private final static String DATUM = "<airtime>";
-    private final static String THEMA = "<originChannelTitle>";
-
-    private DatenFilm filmHolenId(GetUrl getUrl, MSStringBuilder strBuffer, String sender, String thema, String titel, String filmWebsite, String urlId) {
-        //<teaserimage alt="Harald Lesch im Studio von Abenteuer Forschung" key="298x168">http://www.zdf.de/ZDFmediathek/contentblob/1909108/timg298x168blob/8081564</teaserimage>
-        //<detail>Möchten Sie wissen, was Sie in der nächsten Sendung von Abenteuer Forschung erwartet? Harald Lesch informiert Sie.</detail>
-        //<length>00:00:34.000</length>
-        //<airtime>02.07.2013 23:00</airtime>
-        long laengeL;
-
-        String beschreibung, subtitle, laenge, datum, zeit = "";
-
-        strBuffer = getUrl.getUri_Utf(sender, urlId, strBuffer, "URL-Filmwebsite: " + filmWebsite);
-        if (strBuffer.length() == 0) {
-            Log.errorLog(398745601, "url: " + urlId);
-            return null;
-        }
-
-        subtitle = strBuffer.extract("<caption>", "<url>http://", "<", "http://");
-        if (subtitle.isEmpty()) {
-            subtitle = strBuffer.extract("<caption>", "<url>https://", "<", "https://");
-            //            if (!subtitle.isEmpty()) {
-            //                System.out.println("Hallo");
-            //            }
-        }
-        beschreibung = strBuffer.extract(BESCHREIBUNG, "<");
+    private String extractBeschreibung(MSStringBuilder strBuffer, final String urlId) {
+        String beschreibung = strBuffer.extract(BESCHREIBUNG, "<");
         if (beschreibung.isEmpty()) {
             beschreibung = strBuffer.extract(BESCHREIBUNG, "</");
             beschreibung = beschreibung.replace("<![CDATA[", "");
@@ -148,11 +131,13 @@ public class Mediathek3Sat extends MediathekReader {
                 Log.errorLog(945123074, "url: " + urlId);
             }
         }
-        if (thema.isEmpty()) {
-            thema = strBuffer.extract(THEMA, "<");
-        }
+        return beschreibung;
+    }
 
-        laenge = strBuffer.extract(LAENGE_SEC, "<");
+    private long extractLaenge(MSStringBuilder strBuffer) {
+        long laengeL;
+
+        String laenge = strBuffer.extract(LAENGE_SEC, "<");
         if (!laenge.isEmpty()) {
             laengeL = extractDurationSec(laenge);
         } else {
@@ -162,8 +147,47 @@ public class Mediathek3Sat extends MediathekReader {
             }
             laengeL = extractDuration(laenge);
         }
+        return laengeL;
+    }
 
-        datum = strBuffer.extract(DATUM, "<");
+    private String extractSubtitle(MSStringBuilder strBuffer) {
+        String subtitle = strBuffer.extract("<caption>", "<url>http://", "<", "http://");
+        if (subtitle.isEmpty()) {
+            subtitle = strBuffer.extract("<caption>", "<url>https://", "<", "https://");
+            //            if (!subtitle.isEmpty()) {
+            //                System.out.println("Hallo");
+            //            }
+        }
+        return subtitle;
+    }
+
+    private DatenFilm filmHolenId(MSStringBuilder strBuffer, String sender, String thema, String titel, String filmWebsite, String urlId) {
+        //<teaserimage alt="Harald Lesch im Studio von Abenteuer Forschung" key="298x168">http://www.zdf.de/ZDFmediathek/contentblob/1909108/timg298x168blob/8081564</teaserimage>
+        //<detail>Möchten Sie wissen, was Sie in der nächsten Sendung von Abenteuer Forschung erwartet? Harald Lesch informiert Sie.</detail>
+        //<length>00:00:34.000</length>
+        //<airtime>02.07.2013 23:00</airtime>
+        long laengeL;
+
+        String zeit = "";
+
+        final GetUrl getUrl = new GetUrl(getWartenSeiteLaden());
+        strBuffer = getUrl.getUri_Utf(sender, urlId, strBuffer, "URL-Filmwebsite: " + filmWebsite);
+        if (strBuffer.length() == 0) {
+            Log.errorLog(398745601, "url: " + urlId);
+            return null;
+        }
+
+        String subtitle = extractSubtitle(strBuffer);
+
+        String beschreibung = extractBeschreibung(strBuffer, urlId);
+
+        if (thema.isEmpty()) {
+            thema = strBuffer.extract(THEMA, "<");
+        }
+
+        laengeL = extractLaenge(strBuffer);
+
+        String datum = strBuffer.extract(DATUM, "<");
         if (datum.contains(" ")) {
             zeit = datum.substring(datum.lastIndexOf(' ')).trim() + ":00";
             datum = datum.substring(0, datum.lastIndexOf(' ')).trim();
@@ -210,11 +234,6 @@ public class Mediathek3Sat extends MediathekReader {
     }
 
     private String getUrl(MSStringBuilder strBuffer, String[] arr, boolean hd) {
-        final String URL_ANFANG = "<formitaet basetype=\"h264_aac_mp4_http_na_na\"";
-        final String URL_ENDE = "</formitaet>";
-        final String URL = "<url>";
-        final String WIDTH = "<width>";
-
         String ret = "";
         String tmp;
         int posAnfang, posEnde;
@@ -249,8 +268,6 @@ public class Mediathek3Sat extends MediathekReader {
         return ret;
     }
 
-    private static final String checkUrlHD_String = "http://www.metafilegenerator.de/ondemand/zdf/hbbtv/";
-
     private String checkUrlHD(String url) {
         String ret = "";
         if (url.startsWith("http") && url.endsWith("mp4")) {
@@ -274,7 +291,6 @@ public class Mediathek3Sat extends MediathekReader {
 
     private class ThemaLaden extends Thread {
 
-        private final GetUrl getUrl = new GetUrl(getWartenSeiteLaden());
         private final MSStringBuilder seite2 = new MSStringBuilder(Const.STRING_BUFFER_START_BUFFER);
         private MSStringBuilder seite1 = new MSStringBuilder(Const.STRING_BUFFER_START_BUFFER);
 
@@ -309,7 +325,7 @@ public class Mediathek3Sat extends MediathekReader {
                     url = urlThema + "&mode=verpasst" + i;
                 }
                 meldung(url);
-                GetUrl getUrlIo = new GetUrl(getWartenSeiteLaden());
+                final GetUrl getUrlIo = new GetUrl(getWartenSeiteLaden());
                 seite1 = getUrlIo.getUri_Utf(SENDERNAME, url, seite1, "");
                 if (seite1.indexOf(MUSTER_START) == -1) {
                     // dann gibts keine weiteren
@@ -336,7 +352,7 @@ public class Mediathek3Sat extends MediathekReader {
                         //http://www.3sat.de/mediathek/xmlservice/web/beitragsDetails?ak=web&id=40860
                         urlId = "http://www.3sat.de/mediathek/xmlservice/web/beitragsDetails?ak=web&id=" + urlId;
                         //meldung(id);
-                        DatenFilm film = filmHolenId(getUrl, seite2, SENDERNAME, thema, titel, urlFilm, urlId);
+                        DatenFilm film = filmHolenId(seite2, SENDERNAME, thema, titel, urlFilm, urlId);
                         if (film != null) {
                             // dann wars gut
                             // jetzt noch manuell die Auflösung hochsetzen
