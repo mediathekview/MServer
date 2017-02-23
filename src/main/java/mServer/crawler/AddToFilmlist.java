@@ -121,7 +121,6 @@ public class AddToFilmlist {
         Log.sysLog("Liste einsortieren, noch einsortieren: " + listeEinsortieren.size());
         Log.sysLog("");
 
-        int count = 0;
         size = listeEinsortieren.size();
         long oldSize = size;
 
@@ -138,9 +137,10 @@ public class AddToFilmlist {
         }
 
         int treffer = 0;
+        int count = 0;
         while (!Config.getStop() && threadCounter.get() > 0) {
             try {
-                System.out.println("sek.: " + 2 * (count++));
+                count++;
                 if (count % 5 == 0) {
                     long curSize = listeEinsortieren.size();
                     System.out.println("Liste: " + curSize);
@@ -153,7 +153,6 @@ public class AddToFilmlist {
             }
         }
 
-        //add all local thread entries to the filmlist
         try {
             if (Config.getStop()) {
                 for (AddOld t : threadList)
@@ -163,6 +162,7 @@ public class AddToFilmlist {
             }
 
             treffer = 0;
+            //add all local thread entries to the filmlist
             for (AddOld t : threadList) {
                 final ArrayList<DatenFilm> localList = t.getLocalAddList();
                 //Log.sysLog("Thread " + t.getName() + " list size: " + localList.size());
