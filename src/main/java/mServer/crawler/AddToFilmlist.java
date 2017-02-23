@@ -25,8 +25,11 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class AddToFilmlist {
-    private static final int MIN_SIZE_ADD_OLD = 5; //REST eh nur Trailer
-    private final static int NUMBER_OF_CPU_CORES = 32;//(Runtime.getRuntime().availableProcessors() * Runtime.getRuntime().availableProcessors()) / 2;
+    /**
+     * Minimum size of films in MiB to be included in new list.
+     */
+    private static final int MIN_SIZE_ADD_OLD = 5;
+    private final static int NUMBER_OF_THREADS = 32;//(Runtime.getRuntime().availableProcessors() * Runtime.getRuntime().availableProcessors()) / 2;
     private final ListeFilme vonListe;
     private final ListeFilme listeEinsortieren;
     /**
@@ -113,7 +116,7 @@ public class AddToFilmlist {
     }
 
     private void startThreads() {
-        for (int i = 0; i < NUMBER_OF_CPU_CORES; ++i) {
+        for (int i = 0; i < NUMBER_OF_THREADS; ++i) {
             ImportOldFilmlistThread t = new ImportOldFilmlistThread(listeEinsortieren, copyClient);
             t.setName("ImportOldFilmlistThread Thread-" + i);
             threadList.add(t);
@@ -204,7 +207,7 @@ public class AddToFilmlist {
     private class ImportOldFilmlistThread extends Thread {
 
         private final ListeFilme listeOld;
-        private final ArrayList<DatenFilm> localAddList = new ArrayList<>((vonListe.size() / NUMBER_OF_CPU_CORES) + 500);
+        private final ArrayList<DatenFilm> localAddList = new ArrayList<>((vonListe.size() / NUMBER_OF_THREADS) + 500);
         private int treffer = 0;
         private OkHttpClient client = null;
 
