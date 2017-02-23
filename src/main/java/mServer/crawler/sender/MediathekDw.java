@@ -207,7 +207,8 @@ public class MediathekDw extends MediathekReader implements Runnable {
                 urlHd = "";
             }
             if (url.isEmpty()) {
-                Log.errorLog(643230120, "empty URL: " + urlSendung);
+                if (MserverDaten.debug)
+                    Log.errorLog(643230120, "empty URL: " + urlSendung);
             } else {
                 DatenFilm film = new DatenFilm(SENDERNAME, thema, urlSendung, titel, url, "", datum, ""/*Zeit*/, duration, description);
                 if (!urlLow.isEmpty()) {

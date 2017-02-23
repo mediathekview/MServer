@@ -27,6 +27,7 @@ import mSearch.tool.MSStringBuilder;
 import mServer.crawler.CrawlerTool;
 import mServer.crawler.FilmeSuchen;
 import mServer.crawler.GetUrl;
+import mServer.tool.MserverDaten;
 import org.apache.commons.lang3.time.FastDateFormat;
 
 import java.text.ParseException;
@@ -335,7 +336,8 @@ public class MediathekKika extends MediathekReader {
                         }
                     }
                 } catch (NumberFormatException ex) {
-                    Log.errorLog(201036547, ex, xmlWebsite);
+                    if (MserverDaten.debug)
+                        Log.errorLog(201036547, ex, xmlWebsite);
                 }
                 // Film-URLs suchen
                 final String MUSTER_URL_MP4 = "<progressiveDownloadUrl>";
@@ -369,10 +371,11 @@ public class MediathekKika extends MediathekReader {
             }
         }
 
+        private final FastDateFormat sdf = FastDateFormat.getInstance("yyyy-MM-dd'T'HH:mm:ss.SSSZ");
+
         private String convertDatum(String datum) {
             //<broadcastDate>2014-12-12T09:45:00.000+0100</broadcastDate>
             try {
-                FastDateFormat sdf = FastDateFormat.getInstance("yyyy-MM-dd'T'HH:mm:ss.SSSZ");
                 FastDateFormat sdfOutDay = FastDateFormat.getInstance("dd.MM.yyyy");
 
                 Date filmDate = sdf.parse(datum);
@@ -386,7 +389,6 @@ public class MediathekKika extends MediathekReader {
         private String convertTime(String zeit) {
             //<broadcastDate>2014-12-12T09:45:00.000+0100</broadcastDate>
             try {
-                FastDateFormat sdf = FastDateFormat.getInstance("yyyy-MM-dd'T'HH:mm:ss.SSSZ");
                 FastDateFormat sdfOutTime = FastDateFormat.getInstance("HH:mm:ss");
 
                 Date filmDate = sdf.parse(zeit);

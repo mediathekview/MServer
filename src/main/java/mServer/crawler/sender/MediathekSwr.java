@@ -27,6 +27,7 @@ import mSearch.tool.MSStringBuilder;
 import mServer.crawler.CrawlerTool;
 import mServer.crawler.FilmeSuchen;
 import mServer.crawler.GetUrl;
+import mServer.tool.MserverDaten;
 import org.apache.commons.lang3.StringEscapeUtils;
 
 import java.util.ArrayList;
@@ -204,7 +205,8 @@ public class MediathekSwr extends MediathekReader {
             try {
                 strSeite2 = getUrlThemaLaden.getUri_Utf(SENDERNAME, urlJson, strSeite2, "");
                 if (strSeite2.length() == 0) {
-                    Log.errorLog(912365478, "Seite leer: " + urlJson);
+                    if (MserverDaten.debug)
+                        Log.errorLog(912365478, "Seite leer: " + urlJson);
                     return;
                 }
                 String title = getTitle();
