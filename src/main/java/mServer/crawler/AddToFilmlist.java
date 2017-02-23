@@ -26,16 +26,13 @@ import java.util.HashSet;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
 
-/**
- * @author emil
- */
 public class AddToFilmlist {
 
     private static final EtmMonitor etmMonitor = EtmManager.getEtmMonitor();
     private static final int MIN_SIZE_ADD_OLD = 5; //REST eh nur Trailer
+    private final static int NUMBER_OF_CPU_CORES = 32;//(Runtime.getRuntime().availableProcessors() * Runtime.getRuntime().availableProcessors()) / 2;
     private final ListeFilme vonListe;
     private final ListeFilme listeEinsortieren;
-    private final int numberOfCpuCores = 32;//(Runtime.getRuntime().availableProcessors() * Runtime.getRuntime().availableProcessors()) / 2;
     private AtomicInteger threadCounter = new AtomicInteger(0);
 
     public AddToFilmlist(ListeFilme vonListe, ListeFilme listeEinsortieren) {
@@ -129,7 +126,7 @@ public class AddToFilmlist {
                 .connectTimeout(5, TimeUnit.SECONDS)
                 .readTimeout(2, TimeUnit.SECONDS)
                 .writeTimeout(2, TimeUnit.SECONDS).build();
-        for (int i = 0; i < numberOfCpuCores; ++i) {
+        for (int i = 0; i < NUMBER_OF_CPU_CORES; ++i) {
             AddOld t = new AddOld(listeEinsortieren, copyClient);
             t.setName("AddOld Thread-" + i);
             threadList.add(t);
@@ -185,7 +182,7 @@ public class AddToFilmlist {
     private class AddOld extends Thread {
 
         private final ListeFilme listeOld;
-        private final ArrayList<DatenFilm> localAddList = new ArrayList<>((vonListe.size() / numberOfCpuCores) + 500);
+        private final ArrayList<DatenFilm> localAddList = new ArrayList<>((vonListe.size() / NUMBER_OF_CPU_CORES) + 500);
         private int treffer = 0;
         private OkHttpClient client = null;
 
