@@ -241,8 +241,6 @@ public class AddToFilmlist {
 
             DatenFilm film;
             while (!isInterrupted() && (film = popOld(listeOld)) != null) {
-//                EtmPoint performancePoint = etmMonitor.createPoint("ImportOldFilmlistThread:run");
-
                 final String url = film.arr[DatenFilm.FILM_URL];
                 if (film.arr[DatenFilm.FILM_GROESSE].isEmpty()) {
                     Request request = new Request.Builder().url(url).head().build();
@@ -275,7 +273,6 @@ public class AddToFilmlist {
                         }
                     }
                 }
-//                performancePoint.collect();
             }
             threadCounter.decrementAndGet();
         }
