@@ -331,14 +331,16 @@ public class MediathekArte_de extends MediathekReader implements Runnable {
 
         private void getFilm2(String urlWeb, String filmWebsite, String thema, String title, String description, long dauer, String date, String time) {
             getUrl.getUri_Utf(getSendername(), urlWeb, seite1, "");
-             String urlHd = seite1.extract("_MP4_SQ_1\",\"quality\":\"SQ\"", "\"url\":\"", "\"").replace("\\", "");
+            String urlHd = seite1.extract("_MP4_SQ_1\",\"quality\":\"SQ\"", "\"url\":\"", "\"").replace("\\", "");
             String urlNorm = seite1.extract("_MP4_EQ_1\",\"quality\":\"EQ\"", "\"url\":\"", "\"").replace("\\", "");
             String urlKlein = seite1.extract("_MP4_HQ_1\",\"quality\":\"HQ\"", "\"url\":\"", "\"").replace("\\", "");
 
             // https lässt sich noch?? nicht starten
-            urlHd = urlHd.replaceFirst("https:", "http:");
-            urlNorm = urlNorm.replaceFirst("https:", "http:");
-            urlKlein = urlKlein.replaceFirst("https:", "http:");
+            final String HTTP = "http:";
+            final String HTTPS = "https:";
+            urlHd = urlHd.replaceFirst(HTTPS, HTTP);
+            urlNorm = urlNorm.replaceFirst(HTTPS, HTTP);
+            urlKlein = urlKlein.replaceFirst(HTTPS, HTTP);
 
             if (urlNorm.isEmpty() && !urlKlein.isEmpty()) {
                 urlNorm = urlKlein;
