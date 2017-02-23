@@ -47,9 +47,9 @@ dependencies {
     compile 'com.google.code.gson:gson:2.8.0'
     compile 'com.sun.jersey:jersey-client:1.8'
     compile 'com.squareup.okhttp3:okhttp:3.6.0'
+    compile 'fm.void.jetm:jetm:1.2.3'
 
     compile group: 'org.apache.logging.log4j', name: 'log4j-core', version: '2.7'
-    compile group: 'fm.void.jetm', name: 'jetm', version: '1.2.3'
     compile group: 'junit', name: 'junit', version: '4.12'
 }
 
