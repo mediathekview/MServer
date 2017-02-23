@@ -47,8 +47,7 @@ public class MserverCopy {
         return ret;
     }
 
-    public static boolean copy(String srcPathFile, String destPathFile) {
-        boolean ret = false;
+    public static void copy(String srcPathFile, String destPathFile) {
         MserverLog.systemMeldung("");
         MserverLog.systemMeldung("----------------------");
         MserverLog.systemMeldung("Copy start");
@@ -70,12 +69,9 @@ public class MserverCopy {
             Files.move(Paths.get(dest_tmp), Paths.get(destPathFile), StandardCopyOption.REPLACE_EXISTING);
 
             MserverLog.systemMeldung("====================================");
-
-            ret = true;
         } catch (Exception ex) {
             MserverLog.fehlerMeldung(832164870, MserverCopy.class.getName(), "MvSCopy.copy", ex);
         }
-        return ret;
     }
 
 }
