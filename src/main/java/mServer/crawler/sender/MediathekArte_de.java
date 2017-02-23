@@ -336,11 +336,11 @@ public class MediathekArte_de extends MediathekReader implements Runnable {
             String urlKlein = seite1.extract("_MP4_HQ_1\",\"quality\":\"HQ\"", "\"url\":\"", "\"").replace("\\", "");
 
             // https lässt sich noch?? nicht starten
-            final String HTTP = "http:";
-            final String HTTPS = "https:";
-            urlHd = urlHd.replaceFirst(HTTPS, HTTP);
-            urlNorm = urlNorm.replaceFirst(HTTPS, HTTP);
-            urlKlein = urlKlein.replaceFirst(HTTPS, HTTP);
+            final String http = "http:";
+            final String https = "https:";
+            urlHd = urlHd.replaceFirst(https, http);
+            urlNorm = urlNorm.replaceFirst(https, http);
+            urlKlein = urlKlein.replaceFirst(https, http);
 
             if (urlNorm.isEmpty() && !urlKlein.isEmpty()) {
                 urlNorm = urlKlein;
