@@ -5,15 +5,13 @@
  */
 package mServer.crawler;
 
-import etm.core.configuration.EtmManager;
-import etm.core.monitor.EtmMonitor;
-import etm.core.monitor.EtmPoint;
 import mSearch.Config;
 import mSearch.daten.DatenFilm;
 import mSearch.daten.ListeFilme;
 import mSearch.tool.Hash;
 import mSearch.tool.Log;
 import mSearch.tool.MVHttpClient;
+import mServer.tool.MserverDaten;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
@@ -27,12 +25,21 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class AddToFilmlist {
-
-    private static final EtmMonitor etmMonitor = EtmManager.getEtmMonitor();
     private static final int MIN_SIZE_ADD_OLD = 5; //REST eh nur Trailer
     private final static int NUMBER_OF_CPU_CORES = 32;//(Runtime.getRuntime().availableProcessors() * Runtime.getRuntime().availableProcessors()) / 2;
     private final ListeFilme vonListe;
     private final ListeFilme listeEinsortieren;
+    /**
+     * A HTTP client with reduced timeout settings.
+     */
+    private final OkHttpClient copyClient = MVHttpClient.getInstance().getHttpClient().newBuilder()
+            .connectTimeout(5, TimeUnit.SECONDS)
+            .readTimeout(2, TimeUnit.SECONDS)
+            .writeTimeout(2, TimeUnit.SECONDS).build();
+    /**
+     * List of all locally started import threads.
+     */
+    private final ArrayList<ImportOldFilmlistThread> threadList = new ArrayList<>();
     private AtomicInteger threadCounter = new AtomicInteger(0);
 
     public AddToFilmlist(ListeFilme vonListe, ListeFilme listeEinsortieren) {
@@ -41,7 +48,6 @@ public class AddToFilmlist {
     }
 
     public synchronized void addLiveStream() {
-        EtmPoint performancePoint = etmMonitor.createPoint("AddToFilmlist:addLiveStream");
         // live-streams einfügen, es werde die vorhandenen ersetzt!
 
         if (listeEinsortieren.size() <= 0) {
@@ -51,12 +57,10 @@ public class AddToFilmlist {
 
         vonListe.removeIf(f -> f.arr[DatenFilm.FILM_THEMA].equals(ListeFilme.THEMA_LIVE));
         listeEinsortieren.forEach(vonListe::add);
-        performancePoint.collect();
     }
 
-    private void performTitleSearch(HashSet<Hash> hash) {
+    private void performTitleSearch(HashSet<Hash> hash, final int size) {
         // nach "Thema-Titel" suchen
-//        EtmPoint performancePointThemaTitel = etmMonitor.createPoint("AddToFilmlist:performTitleSearch");
         vonListe.parallelStream().forEach(f -> {
             synchronized (hash) {
                 hash.add(f.getHashValueIndexAddOld());
@@ -65,12 +69,16 @@ public class AddToFilmlist {
 
         listeEinsortieren.removeIf((f) -> hash.contains(f.getHashValueIndexAddOld()));
         hash.clear();
-//        performancePointThemaTitel.collect();
+
+        Log.sysLog("===== Liste einsortieren Title =====");
+        Log.sysLog("Liste einsortieren, Anzahl: " + size);
+        Log.sysLog("Liste einsortieren, entfernt: " + (size - listeEinsortieren.size()));
+        Log.sysLog("Liste einsortieren, noch einsortieren: " + listeEinsortieren.size());
+        Log.sysLog("");
     }
 
-    private void performUrlSearch(HashSet<Hash> hash) {
+    private void performUrlSearch(HashSet<Hash> hash, final int size) {
         // nach "URL" suchen
-//        EtmPoint performancePointUrlSuchen = etmMonitor.createPoint("AddToFilmlist:performUrlSearch");
         vonListe.parallelStream().forEach(f -> {
             synchronized (hash) {
                 hash.add(f.getHashValueUrl());
@@ -79,14 +87,19 @@ public class AddToFilmlist {
 
         listeEinsortieren.removeIf((f) -> hash.contains(f.getHashValueUrl()));
         hash.clear();
-//        performancePointUrlSuchen.collect();
+
+        Log.sysLog("===== Liste einsortieren URL =====");
+        Log.sysLog("Liste einsortieren, Anzahl: " + size);
+        Log.sysLog("Liste einsortieren, entfernt: " + (size - listeEinsortieren.size()));
+        Log.sysLog("Liste einsortieren, noch einsortieren: " + listeEinsortieren.size());
+        Log.sysLog("");
     }
 
-    public int addOldList() {
-        // in eine vorhandene Liste soll eine andere Filmliste einsortiert werden
-        // es werden nur Filme die noch nicht vorhanden sind, einsortiert
-        threadCounter = new AtomicInteger(0);
-
+    /**
+     * Remove links which don´t start with http.
+     * Remove old film entries which are smaller than MIN_SIZE_ADD_OLD.
+     */
+    private void performInitialCleanup() {
         listeEinsortieren.removeIf(f -> !f.arr[DatenFilm.FILM_URL].toLowerCase().startsWith("http"));
         listeEinsortieren.removeIf(f -> {
             String groesse = f.arr[DatenFilm.FILM_GROESSE];
@@ -97,43 +110,50 @@ public class AddToFilmlist {
             }
 
         });
-        int size = listeEinsortieren.size();
+    }
 
+    private void startThreads() {
+        for (int i = 0; i < NUMBER_OF_CPU_CORES; ++i) {
+            ImportOldFilmlistThread t = new ImportOldFilmlistThread(listeEinsortieren, copyClient);
+            t.setName("ImportOldFilmlistThread Thread-" + i);
+            threadList.add(t);
+            t.start();
+        }
+    }
+
+    private void stopThreads() {
+        if (Config.getStop()) {
+            for (ImportOldFilmlistThread t : threadList)
+                t.interrupt();
+            for (ImportOldFilmlistThread t : threadList) {
+                try {
+                    t.join();
+                } catch (InterruptedException ignored) {
+                }
+            }
+        }
+    }
+
+    public int addOldList() {
+        // in eine vorhandene Liste soll eine andere Filmliste einsortiert werden
+        // es werden nur Filme die noch nicht vorhanden sind, einsortiert
+        threadCounter = new AtomicInteger(0);
         final HashSet<Hash> hash = new HashSet<>(vonListe.size() + 1);
 
-        performTitleSearch(hash);
+        performInitialCleanup();
 
-        Log.sysLog("===== Liste einsortieren Title =====");
-        Log.sysLog("Liste einsortieren, Anzahl: " + size);
-        Log.sysLog("Liste einsortieren, entfernt: " + (size - listeEinsortieren.size()));
-        Log.sysLog("Liste einsortieren, noch einsortieren: " + listeEinsortieren.size());
-        Log.sysLog("");
+        int size = listeEinsortieren.size();
+
+        performTitleSearch(hash, size);
+
         size = listeEinsortieren.size();
-
-        performUrlSearch(hash);
-
-        Log.sysLog("===== Liste einsortieren URL =====");
-        Log.sysLog("Liste einsortieren, Anzahl: " + size);
-        Log.sysLog("Liste einsortieren, entfernt: " + (size - listeEinsortieren.size()));
-        Log.sysLog("Liste einsortieren, noch einsortieren: " + listeEinsortieren.size());
-        Log.sysLog("");
+        performUrlSearch(hash, size);
 
         size = listeEinsortieren.size();
         long oldSize = size;
 
-        final ArrayList<AddOld> threadList = new ArrayList<>();
-        final OkHttpClient copyClient = MVHttpClient.getInstance().getHttpClient().newBuilder()
-                .connectTimeout(5, TimeUnit.SECONDS)
-                .readTimeout(2, TimeUnit.SECONDS)
-                .writeTimeout(2, TimeUnit.SECONDS).build();
-        for (int i = 0; i < NUMBER_OF_CPU_CORES; ++i) {
-            AddOld t = new AddOld(listeEinsortieren, copyClient);
-            t.setName("AddOld Thread-" + i);
-            threadList.add(t);
-            t.start();
-        }
+        startThreads();
 
-        int treffer = 0;
         int count = 0;
         while (!Config.getStop() && threadCounter.get() > 0) {
             try {
@@ -150,26 +170,10 @@ public class AddToFilmlist {
             }
         }
 
-        try {
-            if (Config.getStop()) {
-                for (AddOld t : threadList)
-                    t.interrupt();
-                for (AddOld t : threadList)
-                    t.join();
-            }
+        stopThreads();
 
-            treffer = 0;
-            //add all local thread entries to the filmlist
-            for (AddOld t : threadList) {
-                final ArrayList<DatenFilm> localList = t.getLocalAddList();
-                //Log.sysLog("Thread " + t.getName() + " list size: " + localList.size());
-                vonListe.addAll(localList);
-                localList.clear();
-                treffer += t.getTreffer();
-            }
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
+        final int treffer = retrieveThreadResults();
+
         Log.sysLog("===== Liste einsortieren: Noch online =====");
         Log.sysLog("Liste einsortieren, Anzahl: " + size);
         Log.sysLog("Liste einsortieren, entfernt: " + (size - treffer));
@@ -179,14 +183,32 @@ public class AddToFilmlist {
         return treffer;
     }
 
-    private class AddOld extends Thread {
+    /**
+     * Add all local thread results to the filmlist.
+     *
+     * @return the total number of entries found.
+     */
+    private int retrieveThreadResults() {
+        int treffer = 0;
+        for (ImportOldFilmlistThread t : threadList) {
+            final ArrayList<DatenFilm> localList = t.getLocalAddList();
+            if (MserverDaten.debug)
+                Log.sysLog("Thread " + t.getName() + " list size: " + localList.size());
+            vonListe.addAll(localList);
+            localList.clear();
+            treffer += t.getTreffer();
+        }
+        return treffer;
+    }
+
+    private class ImportOldFilmlistThread extends Thread {
 
         private final ListeFilme listeOld;
         private final ArrayList<DatenFilm> localAddList = new ArrayList<>((vonListe.size() / NUMBER_OF_CPU_CORES) + 500);
         private int treffer = 0;
         private OkHttpClient client = null;
 
-        public AddOld(ListeFilme listeOld, OkHttpClient client) {
+        public ImportOldFilmlistThread(ListeFilme listeOld, OkHttpClient client) {
             this.listeOld = listeOld;
             threadCounter.incrementAndGet();
             this.client = client;
@@ -209,10 +231,7 @@ public class AddToFilmlist {
 
         private synchronized DatenFilm popOld(ListeFilme listeOld) {
             if (!listeOld.isEmpty()) {
-//                EtmPoint performancePoint = etmMonitor.createPoint("AddToFilmlist.popOld:remove");
-                DatenFilm res = listeOld.remove(0);
-//                performancePoint.collect();
-                return res;
+                return listeOld.remove(0);
             } else
                 return null;
         }
@@ -222,7 +241,7 @@ public class AddToFilmlist {
 
             DatenFilm film;
             while (!isInterrupted() && (film = popOld(listeOld)) != null) {
-//                EtmPoint performancePoint = etmMonitor.createPoint("AddOld:run");
+//                EtmPoint performancePoint = etmMonitor.createPoint("ImportOldFilmlistThread:run");
 
                 final String url = film.arr[DatenFilm.FILM_URL];
                 if (film.arr[DatenFilm.FILM_GROESSE].isEmpty()) {
