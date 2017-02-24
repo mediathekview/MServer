@@ -45,6 +45,7 @@ public class MediathekZdf extends MediathekReader
     public MediathekZdf(FilmeSuchen ssearch, int startPrio)
     {
         super(ssearch, SENDERNAME, 0 /* threads */, 150 /* urlWarten */, startPrio);
+        setName("MediathekZdf");
     }
 
     @Override

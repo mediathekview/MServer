@@ -27,6 +27,7 @@ import mSearch.tool.MSStringBuilder;
 import mServer.crawler.CrawlerTool;
 import mServer.crawler.FilmeSuchen;
 import mServer.crawler.GetUrl;
+import mServer.tool.MserverDaten;
 import org.apache.commons.lang3.StringEscapeUtils;
 
 import java.text.ParseException;
@@ -54,7 +55,48 @@ public class MediathekBr extends MediathekReader {
     private final LinkedList<String> listeAlleThemenCount_ = new LinkedList<>();
 
     public MediathekBr(FilmeSuchen ssearch, int startPrio) {
-        super(ssearch, SENDERNAME,/* threads */ 4, /* urlWarten */ 1000, startPrio);
+        super(ssearch, SENDERNAME, 4, 1000, startPrio);
+    }
+
+    private void startArchiveThreads() {
+        if (CrawlerTool.loadLongMax()) {
+            // Archiv durchsuchen
+            Thread thArchiv;
+            thArchiv = new ArchivLaden(1, 50);
+            thArchiv.start();
+            thArchiv = new ArchivLaden(51, 100);
+            thArchiv.start();
+            thArchiv = new ArchivLaden(101, 150);
+            thArchiv.start();
+            thArchiv = new ArchivLaden(151, 200);
+            thArchiv.start();
+        }
+        if (CrawlerTool.loadMax()) {
+            // Archiv durchsuchen
+            Thread thArchiv;
+            thArchiv = new ArchivLaden(201, 250);
+            thArchiv.start();
+            thArchiv = new ArchivLaden(251, 300);
+            thArchiv.start();
+            thArchiv = new ArchivLaden(301, 350);
+            thArchiv.start();
+            thArchiv = new ArchivLaden(351, 400);
+            thArchiv.start();
+        }
+    }
+
+    private void startKlassikThread() {
+        Thread thKlassik = new KlassikLaden();
+        thKlassik.setName(SENDERNAME + "-Klassik");
+        thKlassik.start();
+    }
+
+    private void startCrawlerThreads() {
+        for (int t = 0; t <= getMaxThreadLaufen(); ++t) {
+            Thread th = new ThemaLaden();
+            th.setName(SENDERNAME + t);
+            th.start();
+        }
     }
 
     @Override
@@ -70,48 +112,9 @@ public class MediathekBr extends MediathekReader {
         } else {
             meldungAddMax(listeThemen.size() + listeTage.size());
             // erst hier starten (Archiv, Klassik), sonst beendet er sich/und sucht doch!
-            if (CrawlerTool.loadLongMax()) {
-                // Archiv durchsuchen
-                Thread thArchiv;
-                thArchiv = new ArchivLaden(1, 50);
-                thArchiv.setName(SENDERNAME);
-                thArchiv.start();
-                thArchiv = new ArchivLaden(51, 100);
-                thArchiv.setName(SENDERNAME);
-                thArchiv.start();
-                thArchiv = new ArchivLaden(101, 150);
-                thArchiv.setName(SENDERNAME);
-                thArchiv.start();
-                thArchiv = new ArchivLaden(151, 200);
-                thArchiv.setName(SENDERNAME);
-                thArchiv.start();
-            }
-            if (CrawlerTool.loadMax()) {
-                // Archiv durchsuchen
-                Thread thArchiv;
-                thArchiv = new ArchivLaden(201, 250);
-                thArchiv.setName(SENDERNAME);
-                thArchiv.start();
-                thArchiv = new ArchivLaden(251, 300);
-                thArchiv.setName(SENDERNAME);
-                thArchiv.start();
-                thArchiv = new ArchivLaden(301, 350);
-                thArchiv.setName(SENDERNAME);
-                thArchiv.start();
-                thArchiv = new ArchivLaden(351, 400);
-                thArchiv.setName(SENDERNAME);
-                thArchiv.start();
-            }
-
-            Thread thKlassik = new KlassikLaden();
-            thKlassik.setName(SENDERNAME + "-Klassik");
-            thKlassik.start();
-
-            for (int t = 0; t < getMaxThreadLaufen(); ++t) {
-                Thread th = new ThemaLaden();
-                th.setName(SENDERNAME + t);
-                th.start();
-            }
+            startArchiveThreads();
+            startKlassikThread();
+            startCrawlerThreads();
         }
     }
 
@@ -359,7 +362,8 @@ public class MediathekBr extends MediathekReader {
                 Date filmDate = sdf.parse(datum);
                 datum = sdfOutDay.format(filmDate);
             } catch (ParseException ex) {
-                Log.errorLog(915364789, ex, "Datum: " + datum);
+                if (MserverDaten.debug)
+                    Log.errorLog(915364789, ex, "Datum: " + datum);
             }
             return datum;
         }
@@ -370,7 +374,8 @@ public class MediathekBr extends MediathekReader {
                 Date filmDate = sdf.parse(zeit);
                 zeit = sdfOutTime.format(filmDate);
             } catch (ParseException ex) {
-                Log.errorLog(312154879, ex, "Time: " + zeit);
+                if (MserverDaten.debug)
+                    Log.errorLog(312154879, ex, "Time: " + zeit);
             }
             return zeit;
         }
@@ -603,6 +608,7 @@ public class MediathekBr extends MediathekReader {
         public ArchivLaden(int aanfang, int eende) {
             anfang = aanfang;
             ende = eende;
+            setName(SENDERNAME + "_Archiv_Laden_" + aanfang + '_' + eende);
         }
 
         @Override

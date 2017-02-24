@@ -41,7 +41,7 @@ public class MediathekKika extends MediathekReader {
     private MSStringBuilder seite = new MSStringBuilder(Const.STRING_BUFFER_START_BUFFER);
 
     public MediathekKika(FilmeSuchen ssearch, int startPrio) {
-        super(ssearch, SENDERNAME, 12, /* urlWarten */ 200, startPrio);
+        super(ssearch, SENDERNAME, 16, /* urlWarten */ 200, startPrio);
     }
 
     @Override

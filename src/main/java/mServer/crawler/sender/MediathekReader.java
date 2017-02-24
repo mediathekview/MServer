@@ -214,22 +214,15 @@ public class MediathekReader extends Thread {
         }
     }
 
+    /**
+     * Es werden die gefundenen Filme in die Liste einsortiert.
+     *
+     * @param film der einzufügende Film
+     */
     void addFilm(DatenFilm film) {
-        // es werden die gefundenen Filme in die Liste einsortiert
-        if (film.arr[DatenFilm.FILM_GROESSE].isEmpty()) {
-            film.arr[DatenFilm.FILM_GROESSE] = mSearchFilmeSuchen.listeFilmeAlt.getFileSizeUrl(film.arr[DatenFilm.FILM_URL]);
-        }
-
-//        // zum Testen
-//        if (film.isHD()) {
-//            return;
-//        }
+        film.setFileSize();
 
         upgradeUrl(film);
-
-//        if (!film.isHD()) {
-//            return;
-//        }
 
         film.setUrlHistory();
         setGeo(film);
@@ -238,10 +231,6 @@ public class MediathekReader extends Thread {
             FilmeSuchen.listeSenderLaufen.inc(film.arr[DatenFilm.FILM_SENDER], RunSender.Count.FILME);
         }
     }
-
-/*    DatenFilm istInFilmListe(String sender, String thema, String titel) {
-        return mSearchFilmeSuchen.listeFilmeNeu.istInFilmListe(sender, thema, titel);
-    }*/
 
     private void processArd(DatenFilm film) {
         if (film.arr[DatenFilm.FILM_URL].startsWith("http://mvideos-geo.daserste.de/") ||

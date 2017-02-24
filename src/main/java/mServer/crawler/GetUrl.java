@@ -152,7 +152,7 @@ public class GetUrl {
         try {
             seite.setLength(0);
 
-            TimeUnit.MILLISECONDS.sleep(100);//wartenBasis
+            //TimeUnit.MILLISECONDS.sleep(50);//wartenBasis
             if (MserverDaten.debug)
                 Log.sysLog("Durchsuche: " + addr);
 
