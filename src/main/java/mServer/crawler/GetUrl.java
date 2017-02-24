@@ -85,7 +85,7 @@ public class GetUrl {
                     return seite;
                 } else {
                     FilmeSuchen.listeSenderLaufen.inc(sender, RunSender.Count.FEHLVERSUCHE);
-                    FilmeSuchen.listeSenderLaufen.inc(sender, RunSender.Count.WARTEZEIT_FEHLVERSUCHE.ordinal(), wartenBasis);
+                    FilmeSuchen.listeSenderLaufen.inc(sender, RunSender.Count.WARTEZEIT_FEHLVERSUCHE, wartenBasis);
                     if (letzterVersuch) {
                         // dann wars leider nichts
                         FilmeSuchen.listeSenderLaufen.inc(sender, RunSender.Count.FEHLER);
@@ -99,10 +99,10 @@ public class GetUrl {
     }
 
     private void updateStatistics(final String sender, final long bytesWritten) {
-        FilmeSuchen.listeSenderLaufen.inc(sender, RunSender.Count.SUM_DATA_BYTE.ordinal(), bytesWritten);
-        FilmeSuchen.listeSenderLaufen.inc(sender, RunSender.Count.SUM_TRAFFIC_BYTE.ordinal(), bytesWritten);
+        FilmeSuchen.listeSenderLaufen.inc(sender, RunSender.Count.SUM_DATA_BYTE, bytesWritten);
+        FilmeSuchen.listeSenderLaufen.inc(sender, RunSender.Count.SUM_TRAFFIC_BYTE, bytesWritten);
 
-        FilmeSuchen.listeSenderLaufen.inc(sender, RunSender.Count.SUM_TRAFFIC_LOADART_NIX.ordinal(), bytesWritten);
+        FilmeSuchen.listeSenderLaufen.inc(sender, RunSender.Count.SUM_TRAFFIC_LOADART_NIX, bytesWritten);
     }
 
     private long transferData(ResponseBody body, String kodierung, MSStringBuilder seite) throws IOException {
@@ -191,16 +191,6 @@ public class GetUrl {
             case "Read timed out":
                 text[0] = "TimeOut: ";
                 Log.errorLog(502739817, text);
-                break;
-            case "No buffer space available":
-                text[0] = "No buffer space available";
-                Log.errorLog(915263697, text);
-                try {
-                    // Pause zum Abbauen von Verbindungen
-                    TimeUnit.SECONDS.sleep(2);
-                    FilmeSuchen.listeSenderLaufen.inc(sender, RunSender.Count.NO_BUFFER);
-                } catch (Exception ignored) {
-                }
                 break;
             default:
                 Log.errorLog(379861049, ex, text);
