@@ -19,6 +19,8 @@
  */
 package mServer.crawler.sender;
 
+import etm.core.configuration.EtmManager;
+import etm.core.monitor.EtmPoint;
 import mSearch.Config;
 import mSearch.Const;
 import mSearch.daten.DatenFilm;
@@ -42,6 +44,7 @@ public class MediathekKika extends MediathekReader {
 
     public MediathekKika(FilmeSuchen ssearch, int startPrio) {
         super(ssearch, SENDERNAME, 16, /* urlWarten */ 200, startPrio);
+        setName("MediathekKiKa");
     }
 
     @Override
@@ -62,7 +65,7 @@ public class MediathekKika extends MediathekReader {
             // URLs laufen nur begrenzte Zeit
             // delSenderInAlterListe(SENDERNAME); brauchts wohl nicht mehr
             meldungAddMax(listeThemen.size() + listeAllVideos.size());
-            for (int t = 0; t < getMaxThreadLaufen(); ++t) {
+            for (int t = 0; t <= getMaxThreadLaufen(); ++t) {
                 Thread th = new ThemaLaden();
                 th.setName(SENDERNAME + t);
                 th.start();
@@ -71,6 +74,8 @@ public class MediathekKika extends MediathekReader {
     }
 
     private void addToListNormal() {
+        EtmPoint performancePoint = EtmManager.getEtmMonitor().createPoint("MediathekKiKa.addToListNormal");
+
         final String ADRESSE = "http://www.kika.de/sendungen/sendungenabisz100.html";
         final String MUSTER_URL = "<a href=\"/sendungen/sendungenabisz100_";
         ArrayList<String> liste1 = new ArrayList<>();
@@ -95,9 +100,12 @@ public class MediathekKika extends MediathekReader {
         } catch (Exception ex) {
             Log.errorLog(302025469, ex);
         }
+        performancePoint.collect();
     }
 
     private void addToListAllVideo() {
+        EtmPoint performancePoint = EtmManager.getEtmMonitor().createPoint("MediathekKiKa.addToListAllVideo");
+
         final String ADRESSE = "http://www.kika.de/videos/allevideos/allevideos-buendelgruppen100.html";
         final String MUSTER_URL = "<a href=\"/videos/allevideos/allevideos-buendelgruppen100_page-";
         ArrayList<String> liste1 = new ArrayList<>();
@@ -117,6 +125,7 @@ public class MediathekKika extends MediathekReader {
         } catch (Exception ex) {
             Log.errorLog(732120256, ex);
         }
+        performancePoint.collect();
     }
 
     private class ThemaLaden extends Thread {
@@ -128,6 +137,8 @@ public class MediathekKika extends MediathekReader {
 
         @Override
         public void run() {
+            EtmPoint performancePoint = EtmManager.getEtmMonitor().createPoint("MediathekKiKa::ThemaLaden.run");
+
             try {
                 meldungAddThread();
                 String[] link;
@@ -143,9 +154,12 @@ public class MediathekKika extends MediathekReader {
                 Log.errorLog(915236791, ex);
             }
             meldungThreadUndFertig();
+            performancePoint.collect();
         }
 
         private void ladenSerien_1(String filmWebsite) {
+            EtmPoint performancePoint = EtmManager.getEtmMonitor().createPoint("MediathekKiKa::ThemaLaden.ladenSerien_1");
+
             try {
                 liste1.clear();
                 liste2.clear();
@@ -218,9 +232,12 @@ public class MediathekKika extends MediathekReader {
             } catch (Exception ex) {
                 Log.errorLog(915263147, ex);
             }
+            performancePoint.collect();
         }
 
         private boolean ladenSerien_2(String filmWebsite, String thema) {
+            EtmPoint performancePoint = EtmManager.getEtmMonitor().createPoint("MediathekKiKa::ThemaLaden.ladenSerien_2");
+
             boolean ret = false;
             try {
                 meldung(filmWebsite);
@@ -235,10 +252,13 @@ public class MediathekKika extends MediathekReader {
             } catch (Exception ex) {
                 Log.errorLog(801202145, ex);
             }
+            performancePoint.collect();
             return ret;
         }
 
         private void loadAllVideo_1(String url) {
+            EtmPoint performancePoint = EtmManager.getEtmMonitor().createPoint("MediathekKiKa::ThemaLaden.loadAllVideo_1");
+
             ArrayList<String> liste = new ArrayList<>();
             try {
                 GetUrl getUrl = new GetUrl(getWartenSeiteLaden());
@@ -258,9 +278,12 @@ public class MediathekKika extends MediathekReader {
             } catch (Exception ex) {
                 Log.errorLog(825412369, ex);
             }
+            performancePoint.collect();
         }
 
         private void loadAllVideo_2(MSStringBuilder sStringBuilder) {
+            EtmPoint performancePoint = EtmManager.getEtmMonitor().createPoint("MediathekKiKa::ThemaLaden.loadAllVideo_2");
+
             ArrayList<String> liste = new ArrayList<>();
 
             try {
@@ -279,9 +302,12 @@ public class MediathekKika extends MediathekReader {
             } catch (Exception ex) {
                 Log.errorLog(201036987, ex);
             }
+            performancePoint.collect();
         }
 
         private void ladenXml(String xmlWebsite, String thema, boolean urlPruefen) {
+            EtmPoint performancePoint = EtmManager.getEtmMonitor().createPoint("MediathekKiKa::ThemaLaden.ladenXml");
+
             try {
                 GetUrl getUrl = new GetUrl(getWartenSeiteLaden());
                 seite3 = getUrl.getUri(getSendername(), xmlWebsite, Const.KODIERUNG_UTF, 1, seite3, "");
@@ -369,6 +395,7 @@ public class MediathekKika extends MediathekReader {
             } catch (Exception ex) {
                 Log.errorLog(784512365, ex);
             }
+            performancePoint.collect();
         }
 
         private final FastDateFormat sdf = FastDateFormat.getInstance("yyyy-MM-dd'T'HH:mm:ss.SSSZ");
