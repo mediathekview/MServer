@@ -27,6 +27,8 @@ import mSearch.filmlisten.FilmlisteLesen;
 import mSearch.filmlisten.WriteFilmlistJson;
 import mSearch.tool.Log;
 
+import java.util.concurrent.TimeUnit;
+
 public class Crawler implements Runnable {
 
     private ListeFilme listeFilme = new ListeFilme();
@@ -68,7 +70,7 @@ public class Crawler implements Runnable {
         }
         try {
             while (serverLaufen) {
-                this.wait(5000);
+                TimeUnit.SECONDS.timedWait(this, 5);
             }
         } catch (Exception ex) {
             Log.errorLog(496378742, "run()");
