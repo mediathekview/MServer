@@ -69,7 +69,7 @@ public class MediathekReader extends Thread {
             Request request = new Request.Builder().url(url).head().build();
             boolean result = false;
 
-            try (Response response = MVHttpClient.getInstance().getHttpClient().newCall(request).execute()) {
+            try (Response response = MVHttpClient.getInstance().getReducedTimeOutClient().newCall(request).execute()) {
                 if (response.isSuccessful())
                     result = true;
             } catch (IOException ex) {
