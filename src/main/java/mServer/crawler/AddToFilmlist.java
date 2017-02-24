@@ -33,13 +33,6 @@ public class AddToFilmlist {
     private final ListeFilme vonListe;
     private final ListeFilme listeEinsortieren;
     /**
-     * A HTTP client with reduced timeout settings.
-     */
-    private final OkHttpClient copyClient = MVHttpClient.getInstance().getHttpClient().newBuilder()
-            .connectTimeout(5, TimeUnit.SECONDS)
-            .readTimeout(2, TimeUnit.SECONDS)
-            .writeTimeout(2, TimeUnit.SECONDS).build();
-    /**
      * List of all locally started import threads.
      */
     private final ArrayList<ImportOldFilmlistThread> threadList = new ArrayList<>();
@@ -116,8 +109,9 @@ public class AddToFilmlist {
     }
 
     private void startThreads() {
+        final OkHttpClient client = MVHttpClient.getInstance().getReducedTimeOutClient();
         for (int i = 0; i < NUMBER_OF_THREADS; ++i) {
-            ImportOldFilmlistThread t = new ImportOldFilmlistThread(listeEinsortieren, copyClient);
+            ImportOldFilmlistThread t = new ImportOldFilmlistThread(listeEinsortieren, client);
             t.setName("ImportOldFilmlistThread Thread-" + i);
             threadList.add(t);
             t.start();
