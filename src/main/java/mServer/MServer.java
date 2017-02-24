@@ -52,12 +52,9 @@ public class MServer {
         MserverDaten.init();
         MserverDaten.setBasisVerzeichnis(pfad);
 
-        Thread.setDefaultUncaughtExceptionHandler(new Thread.UncaughtExceptionHandler() {
-            @Override
-            public void uncaughtException(Thread t, Throwable e) {
-                MserverLog.fehlerMeldung(97986523, MServer.class.getName(), new String[] { "Da hat sich ein Thread verabschiedet: " + t.getName(), e.getMessage() });
-                e.printStackTrace();
-            }
+        Thread.setDefaultUncaughtExceptionHandler((t, e) -> {
+            MserverLog.fehlerMeldung(97986523, MServer.class.getName(), new String[]{"Da hat sich ein Thread verabschiedet: " + t.getName(), e.getMessage()});
+            e.printStackTrace();
         });
     }
 
