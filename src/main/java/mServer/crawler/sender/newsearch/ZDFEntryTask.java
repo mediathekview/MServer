@@ -22,7 +22,11 @@ public class ZDFEntryTask extends RecursiveTask<VideoDTO> {
     private final Gson gson;
     
     public ZDFEntryTask(ZDFEntryDTO aEntryDto) {
-        client = new ZDFClient();
+        this(aEntryDto, new ZDFClient());
+    }
+    
+    public ZDFEntryTask(ZDFEntryDTO aEntryDto, ZDFClient zdfClient) {
+        client = zdfClient;
         zdfEntryDTO = aEntryDto;                
         gson = new GsonBuilder()
                 .registerTypeAdapter(VideoDTO.class, new ZDFVideoDTODeserializer())
@@ -55,7 +59,8 @@ public class ZDFEntryTask extends RecursiveTask<VideoDTO> {
                     }
                 }
             } catch (Exception ex) {
-                Log.errorLog(496583202, ex, "Exception parsing " + zdfEntryDTO.getEntryGeneralInformationUrl());
+                
+                Log.errorLog(496583202, ex, "Exception parsing " + (zdfEntryDTO != null ? zdfEntryDTO.getEntryGeneralInformationUrl() : ""));
                 dto = null;
             }
         }
