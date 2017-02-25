@@ -27,9 +27,9 @@ import mSearch.Const;
 import mSearch.daten.DatenFilm;
 import mSearch.tool.Log;
 import mSearch.tool.MSStringBuilder;
+import mServer.crawler.CrawlerTool;
 import mServer.crawler.FilmeSuchen;
 import mServer.crawler.GetUrl;
-import mServer.crawler.CrawlerTool;
 
 public class MediathekNdr extends MediathekReader implements Runnable {
 
@@ -298,7 +298,7 @@ public class MediathekNdr extends MediathekReader implements Runnable {
 
             // http://media.ndr.de/progressive/2012/0820/TV-20120820-2300-0701.hi.mp4
             // rtmpt://cp160844.edgefcs.net/ondemand/mp4:flashmedia/streams/ndr/2012/0820/TV-20120820-2300-0701.hq.mp4
-            final String MUSTER_URL = "3: {src:'http://";
+            final String MUSTER_URL = "itemprop=\"contentUrl\" content=\"https://mediandr-a";
             seite2 = getUrl.getUri_Utf(SENDERNAME, filmWebsite, seite2, "strUrlThema: " + strUrlThema);
             String description = extractDescription(seite2);
             String[] keywords = extractKeywords(seite2);
@@ -313,17 +313,21 @@ public class MediathekNdr extends MediathekReader implements Runnable {
             int pos2;
             String url;
             try {
-                if ((pos1 = seite2.indexOf(MUSTER_URL)) != -1) {
+                // src="/fernsehen/hallondsopplatt162-player_image-2c09ece0-0508-49bf-b4d6-afff2be2115c_theme-ndrde.html"
+                // http://www.ndr.de/fernsehen/hallondsopplatt162-ppjson_image-2c09ece0-0508-49bf-b4d6-afff2be2115c.json
+                // id="pp_hallondsopplatt162"
+                String json = seite2.extract("-player_image-", "_");
+                String pp = seite2.extract("id=\"pp_", "\"");
+                if (!json.isEmpty() && !pp.isEmpty()) {
+                    json = "http://www.ndr.de/fernsehen/" + pp + "-ppjson_image-" + json + ".json";
+                    filmSuchen_2(strUrlThema, thema, titel, filmWebsite, json, datum, zeit, durationInSeconds, description, subtitle);
+
+                } else if ((pos1 = seite2.indexOf(MUSTER_URL)) != -1) {
                     pos1 += MUSTER_URL.length();
-                    if ((pos2 = seite2.indexOf("'", pos1)) != -1) {
+                    if ((pos2 = seite2.indexOf("\"", pos1)) != -1) {
                         url = seite2.substring(pos1, pos2);
                         if (!url.equals("")) {
-                            url = "http://" + url;
-                            if (url.contains("http://media.ndr.de/progressive")) {
-                                if (url.contains("hi.mp4")) {
-                                    url = url.replace("hi.mp4", "hq.mp4");
-                                }
-                            }
+                            url = "http://mediandr-a" + url;
                             if (thema.equals("")) {
                                 thema = seite2.extract("<h1>", "<div class=\"subline\">", "<");
                                 if (thema.contains("|")) {
@@ -352,20 +356,9 @@ public class MediathekNdr extends MediathekReader implements Runnable {
                             Log.errorLog(623657941, "keine URL: " + filmWebsite);
                         }
                     }
-                } else {
-//                    MSLog.fehlerMeldung(698970145, "keine Url: " + filmWebsite);
-                    // src="/fernsehen/hallondsopplatt162-player_image-2c09ece0-0508-49bf-b4d6-afff2be2115c_theme-ndrde.html"
-                    // http://www.ndr.de/fernsehen/hallondsopplatt162-ppjson_image-2c09ece0-0508-49bf-b4d6-afff2be2115c.json
-                    // id="pp_hallondsopplatt162"
 
-                    String json = seite2.extract("-player_image-", "_");
-                    String pp = seite2.extract("id=\"pp_", "\"");
-                    if (json.isEmpty() || pp.isEmpty()) {
-                        Log.errorLog(915230214, "auch keine json-Url: " + filmWebsite);
-                    } else {
-                        json = "http://www.ndr.de/fernsehen/" + pp + "-ppjson_image-" + json + ".json";
-                        filmSuchen_2(strUrlThema, thema, titel, filmWebsite, json, datum, zeit, durationInSeconds, description, subtitle);
-                    }
+                } else {
+                    Log.errorLog(915230214, "auch keine Url: " + filmWebsite);
                 }
             } catch (Exception ex) {
                 Log.errorLog(699830157, ex);
@@ -377,7 +370,7 @@ public class MediathekNdr extends MediathekReader implements Runnable {
 
             seite3 = getUrl.getUri_Utf(SENDERNAME, json, seite3, "strUrlThema: " + strUrlThema);
             String url_hd = "", url_xl = "", url_m = "";
-            seite3.extractList("", "", "\"src\": \"http://media.ndr.de", "\"", "http://media.ndr.de", liste);
+            seite3.extractList("", "", "\"src\": \"https://mediandr", "\"", "https://mediandr", liste);
 
             for (String s : liste) {
                 if (s.endsWith(".hd.mp4")) {
@@ -393,6 +386,12 @@ public class MediathekNdr extends MediathekReader implements Runnable {
                 url_xl = url_m;
                 url_m = "";
             }
+
+            final String http = "http:";
+            final String https = "https:";
+            url_hd = url_hd.replaceFirst(https, http);
+            url_xl = url_xl.replaceFirst(https, http);
+            url_m = url_m.replaceFirst(https, http);
 
             if (subtitle.isEmpty()) {
                 subtitle = seite3.extract("\"tracks\":", "\"/", "\"", "http://www.ndr.de/");

@@ -340,7 +340,6 @@ public class MediathekArd extends MediathekReader implements Runnable {
                 if (seite2.indexOf("quality\":3") >= 0) {
                     if (liste.size() <= 0) {
                         // Fehler
-//                        System.out.println("Test");
                     }
                 }
                 for (String s : liste) {
@@ -352,6 +351,7 @@ public class MediathekArd extends MediathekReader implements Runnable {
                 liste.clear();
 
                 seite2.extractList("\"_quality\":2", "\"_stream\":\"", "\"", liste);
+                seite2.extractList("_quality\":\"auto\",\"_server\":\"\",\"_cdn\":\"flashls\",\"_stream\":\"", "\"", liste);
                 seite2.extractList("\"_quality\":2", "\"_stream\":[\"", "\"", liste);
                 for (String s : liste) {
                     if (s.startsWith("http")) {
