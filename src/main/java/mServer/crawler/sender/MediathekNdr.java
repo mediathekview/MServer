@@ -19,17 +19,19 @@
  */
 package mServer.crawler.sender;
 
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
 import mSearch.Config;
 import mSearch.Const;
 import mSearch.daten.DatenFilm;
 import mSearch.tool.Log;
 import mSearch.tool.MSStringBuilder;
+import mServer.crawler.CrawlerTool;
 import mServer.crawler.FilmeSuchen;
 import mServer.crawler.GetUrl;
-import mServer.crawler.CrawlerTool;
+import mServer.tool.MserverDaten;
+import org.apache.commons.lang3.time.FastDateFormat;
+
+import java.util.ArrayList;
+import java.util.Date;
 
 public class MediathekNdr extends MediathekReader implements Runnable {
 
@@ -303,7 +305,7 @@ public class MediathekNdr extends MediathekReader implements Runnable {
             final String MUSTER_URL = "itemprop=\"contentUrl\" content=\"https://mediandr-a";
             seite2 = getUrl.getUri_Utf(SENDERNAME, filmWebsite, seite2, "strUrlThema: " + strUrlThema);
             String description = extractDescription(seite2);
-            String[] keywords = extractKeywords(seite2);
+            //String[] keywords = extractKeywords(seite2);
             String subtitle = seite2.extract(",tracks: [{ src: \"", "\""); //,tracks: [{ src: "/fernsehen/sendungen/45_min/video-podcast/ut20448.xml", srclang:"de"}]
             if (!subtitle.isEmpty()) {
                 subtitle = "http://www.ndr.de" + subtitle;
@@ -328,9 +330,9 @@ public class MediathekNdr extends MediathekReader implements Runnable {
                     pos1 += MUSTER_URL.length();
                     if ((pos2 = seite2.indexOf("\"", pos1)) != -1) {
                         url = seite2.substring(pos1, pos2);
-                        if (!url.equals("")) {
+                        if (!url.isEmpty()) {
                             url = "http://mediandr-a" + url;
-                            if (thema.equals("")) {
+                            if (thema.isEmpty()) {
                                 thema = seite2.extract("<h1>", "<div class=\"subline\">", "<");
                                 if (thema.contains("|")) {
                                     thema = thema.substring(0, thema.lastIndexOf("|"));
@@ -343,7 +345,7 @@ public class MediathekNdr extends MediathekReader implements Runnable {
                                 if (thema.contains("Uhr")) {
                                     thema = "";
                                 }
-                                if (thema.equals("")) {
+                                if (thema.isEmpty()) {
                                     thema = "NDR";
                                 }
                             }
@@ -423,7 +425,7 @@ public class MediathekNdr extends MediathekReader implements Runnable {
             return desc;
         }
 
-        private String[] extractKeywords(MSStringBuilder page) {
+/*        private String[] extractKeywords(MSStringBuilder page) {
             String keywords = extractString(page, "<meta name=\"keywords\"  lang=\"de\" content=\"", "\"");
             if (keywords == null) {
                 return new String[]{""};
@@ -433,7 +435,7 @@ public class MediathekNdr extends MediathekReader implements Runnable {
                 k[i] = k[i].trim();
             }
             return k;
-        }
+        }*/
 
         private String extractString(MSStringBuilder source, String startMarker, String endMarker) {
             int start = source.indexOf(startMarker);

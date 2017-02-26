@@ -23,7 +23,7 @@ public class ZDFEntryTask extends RecursiveTask<VideoDTO> {
     public ZDFEntryTask(ZDFEntryDTO aEntryDto) {
         this(aEntryDto, new ZDFClient());
     }
-    
+
     public ZDFEntryTask(ZDFEntryDTO aEntryDto, ZDFClient zdfClient) {
         client = zdfClient;
         zdfEntryDTO = aEntryDto;                
@@ -58,7 +58,7 @@ public class ZDFEntryTask extends RecursiveTask<VideoDTO> {
                     }
                 }
             } catch (Exception ex) {
-                
+
                 Log.errorLog(496583202, ex, "Exception parsing " + (zdfEntryDTO != null ? zdfEntryDTO.getEntryGeneralInformationUrl() : ""));
                 dto = null;
             }

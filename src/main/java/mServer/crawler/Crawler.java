@@ -26,7 +26,6 @@ import mSearch.filmeSuchen.ListenerFilmeLadenEvent;
 import mSearch.filmlisten.FilmlisteLesen;
 import mSearch.filmlisten.WriteFilmlistJson;
 import mSearch.tool.Log;
-import mServer.tool.UrlService;
 
 import java.util.concurrent.TimeUnit;
 
@@ -98,7 +97,7 @@ public class Crawler implements Runnable {
         new FilmlisteLesen().readFilmListe(importUrl, tmpListe, 0 /*all days*/);
         Log.sysLog("--> von  Anz. Filme: " + listeFilme.size());
         //listeFilme.addLive(tmpListe);
-        new AddToFilmlist(listeFilme, tmpListe, new UrlService()).addLiveStream();
+        new AddToFilmlist(listeFilme, tmpListe).addLiveStream();
         Log.sysLog("--> nach Anz. Filme: " + listeFilme.size());
         tmpListe.clear();
         System.gc();
@@ -127,7 +126,7 @@ public class Crawler implements Runnable {
         new FilmlisteLesen().readFilmListe(importUrl, tmpListe, 0 /*all days*/);
         Log.sysLog("--> von  Anz. Filme: " + listeFilme.size());
         //int anz = listeFilme.updateListeOld(tmpListe);
-        int anz = new AddToFilmlist(listeFilme, tmpListe, new UrlService()).addOldList();
+        int anz = new AddToFilmlist(listeFilme, tmpListe).addOldList();
         Log.sysLog("    gefunden: " + anz);
         Log.sysLog("--> nach Anz. Filme: " + listeFilme.size());
         tmpListe.clear();
