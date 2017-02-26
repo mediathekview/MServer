@@ -21,7 +21,6 @@ package mServer.crawler.gui;
 
 import javafx.application.Platform;
 import javax.swing.event.EventListenerList;
-import mSearch.Config;
 import mSearch.filmeSuchen.ListenerFilmeLaden;
 import mSearch.filmeSuchen.ListenerFilmeLadenEvent;
 import mServer.crawler.FilmeSuchen;
@@ -29,10 +28,10 @@ import mServer.crawler.CrawlerConfig;
 
 public class MSearchGuiLoad {
 
-    private enum ListenerMelden {
-
-        START, PROGRESS, FINISHED
-    }
+//    private enum ListenerMelden {
+//
+//        START, PROGRESS, FINISHED
+//    }
     public FilmeSuchen msFilmeSuchen;
     private final EventListenerList listeners = new EventListenerList();
     private boolean istAmLaufen = false;

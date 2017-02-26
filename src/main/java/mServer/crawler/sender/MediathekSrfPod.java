@@ -131,7 +131,7 @@ public class MediathekSrfPod extends MediathekReader implements Runnable {
             final String MUSTER_DATE = "<pubDate>";
             final String MUSTER_DURATION = "<itunes:duration>";
             final String MUSTER_DESCRIPTION = "<itunes:summary>";
-            final String MUSTER_IMAGE = "<itunes:image href=\"";
+//            final String MUSTER_IMAGE = "<itunes:image href=\"";
             final String MUSTER_KEYWORDS = "<itunes:keywords>";
             int pos = 0, pos1;
             int pos2;
@@ -140,7 +140,7 @@ public class MediathekSrfPod extends MediathekReader implements Runnable {
             String datum, zeit;
             long duration = 0;
             String description = "";
-            String image = "";
+//            String image;
             String[] keywords = {};
             try {
                 meldung(strUrlFeed);
@@ -156,14 +156,15 @@ public class MediathekSrfPod extends MediathekReader implements Runnable {
                 }
                 // Image of show (unfortunatly we do not have an custom image for each entry
                 // <itunes:image href="http://api-internet.sf.tv/xmlservice/picture/1.0/vis/videogroup/c3d7c0d6-5250-0001-a1ac-edeb183b17d8/0003" />
-                int pos3 = seite.indexOf(MUSTER_IMAGE);
-                if (pos3 != -1) {
-                    pos3 += MUSTER_IMAGE.length();
-                    int pos4 = seite.indexOf("\"", pos3);
-                    if (pos4 != -1) {
-                        image = seite.substring(pos3, pos4);
-                    }
-                }
+//                int pos3 = seite.indexOf(MUSTER_IMAGE);
+//                if (pos3 != -1) {
+//                    pos3 += MUSTER_IMAGE.length();
+//                     
+//                    int pos4 = seite.indexOf("\"", pos3);
+//                    if (pos4 != -1) {
+//                        image =  seite.substring(pos3, pos4);
+//                    }
+//                }
                 while ((pos = seite.indexOf(MUSTER_THEMA_1, pos)) != -1) { //start der Einträge, erster Eintrag ist der Titel
                     pos += MUSTER_THEMA_1.length();
                     pos1 = pos;

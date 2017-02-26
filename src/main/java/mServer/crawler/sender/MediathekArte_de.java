@@ -246,7 +246,7 @@ public class MediathekArte_de extends MediathekReader implements Runnable {
             }
         }
     }
-
+    
     class ThemaLaden implements Runnable {
 
         GetUrl getUrl = new GetUrl(getWartenSeiteLaden());

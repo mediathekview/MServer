@@ -218,7 +218,7 @@ public class MediathekBr extends MediathekReader implements Runnable {
 
     private class ThemaLaden implements Runnable {
 
-        GetUrl getUrl = new GetUrl(getWartenSeiteLaden());
+    	GetUrl getUrl = new GetUrl(getWartenSeiteLaden());
         private final MSStringBuilder seite1 = new MSStringBuilder(Const.STRING_BUFFER_START_BUFFER);
         private final MSStringBuilder seite2 = new MSStringBuilder(Const.STRING_BUFFER_START_BUFFER);
         private MSStringBuilder seite3 = new MSStringBuilder(Const.STRING_BUFFER_START_BUFFER);
@@ -664,8 +664,8 @@ public class MediathekBr extends MediathekReader implements Runnable {
             if (seiteArchiv2.length() == 0) {
 //            MSearchLog.fehlerMeldung(-912036478, MSearchLog.FEHLER_ART_MREADER, MediathekBr.class.getName() + ".addToList_addr", "Leere Seite für URL: " + urlThema);
             }
-            String xmlUrl, urlFilm = "", urlFilmKlein = "", groesse = "", duration = "";
-            long dauer = 0;
+            String xmlUrl;
+
             xmlUrl = seiteArchiv2.extract("setup({dataURL:'", "'");
             if (beschreibung.isEmpty()) {
                 beschreibung = seiteArchiv2.extract("<meta property=\"og:description\" content=\"", "\"");
@@ -680,6 +680,8 @@ public class MediathekBr extends MediathekReader implements Runnable {
                 xmlUrl = "http://www.br.de" + xmlUrl;
                 loadXml(seiteXml, xmlUrl, urlThema, thema, titel, beschreibung, datum, "");
             }
+////		long dauer = 0;
+////		String urlFilm = "", urlFilmKlein = "", groesse = "", duration = "";
 ////            seiteArchiv2 = getUrl.getUri(SENDERNAME, xmlUrl, MSConst.KODIERUNG_UTF, 1 /* versuche */, seiteArchiv2, "" /* Meldung */);
 ////            if (seiteArchiv2.length() == 0) {
 //////                MSearchLog.fehlerMeldung(-397123654, MSearchLog.FEHLER_ART_MREADER, MediathekBr.class.getName() + ".addToList_addr", "Leere Seite für URL: " + urlThema);

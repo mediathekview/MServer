@@ -21,7 +21,6 @@ package mServer.crawler.gui;
 
 import javax.swing.SwingUtilities;
 import javax.swing.event.EventListenerList;
-import mSearch.Config;
 import mSearch.filmeSuchen.ListenerFilmeLaden;
 import mSearch.filmeSuchen.ListenerFilmeLadenEvent;
 import mServer.crawler.FilmeSuchen;

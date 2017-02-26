@@ -237,9 +237,6 @@ public class GetUrl {
                     if (i != null) {
                         i.close();
                     }
-                    if (inReader != null) {
-                        inReader.close();
-                    }
                 } catch (Exception e) {
                     Log.errorLog(645105987, e, "");
                 }

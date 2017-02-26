@@ -183,7 +183,7 @@ public class MediathekDw extends MediathekReader implements Runnable {
                     String[] parts = dur.split(":");
                     long power = 1;
                     for (int i = parts.length - 1; i >= 0; i--) {
-                        String s = parts[i];
+//                        String s = parts[i];
                         duration += Long.parseLong(parts[i]) * power;
                         power *= 60;
                     }

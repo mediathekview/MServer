@@ -301,7 +301,7 @@ public class MediathekSwr extends MediathekReader implements Runnable {
 
         private String getTime() {
             final String PATTERN_TIME_START = "\"entry_pdateht\":\"";
-            String tmp = "";
+//            String tmp = "";
             String time = strSeite2.extract(PATTERN_TIME_START, PATTERN_END);
             if (time.length() <= 5) {
                 time = time.trim() + ":00";
@@ -309,12 +309,14 @@ public class MediathekSwr extends MediathekReader implements Runnable {
             time = time.replace(".", ":");
             if (time.length() < 8) {
                 if (time.contains(":")) {
-                    if ((tmp = time.substring(0, time.indexOf(":"))).length() != 2) {
+//                    if ((tmp = time.substring(0, time.indexOf(":"))).length() != 2) {
+                    if ((time.substring(0, time.indexOf(":"))).length() != 2) {
                         time = "0" + time;
                     }
                 }
                 if (time.indexOf(":") != time.lastIndexOf(":")) {
-                    if ((tmp = time.substring(time.indexOf(":") + 1, time.lastIndexOf(":"))).length() != 2) {
+//                    if ((tmp = time.substring(time.indexOf(":") + 1, time.lastIndexOf(":"))).length() != 2) {
+                    if ((time.substring(time.indexOf(":") + 1, time.lastIndexOf(":"))).length() != 2) {
                         time = time.substring(0, time.indexOf(":") + 1) + "0" + time + time.substring(time.lastIndexOf(":"));
                     }
                 }

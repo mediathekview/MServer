@@ -20,7 +20,6 @@
 package mServer;
 
 import javafx.application.Application;
-import mSearch.tool.Log;
 import mServer.crawler.CrawlerTool;
 import mServer.crawler.gui.MSG;
 import mServer.tool.MserverDaten;

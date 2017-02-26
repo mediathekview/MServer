@@ -95,8 +95,6 @@ public class MediathekSrf extends MediathekReader implements Runnable {
         MSStringBuilder overviewPageFilm = new MSStringBuilder(Const.STRING_BUFFER_START_BUFFER);
         MSStringBuilder filmPage = new MSStringBuilder(Const.STRING_BUFFER_START_BUFFER);
         MSStringBuilder m3u8Page = new MSStringBuilder(Const.STRING_BUFFER_START_BUFFER);
-        private final static String PATTERN_URL = "\"url\":\"";
-        private final static String PATTERN_URL_END = "\"";
         private final ArrayList<String> urlList = new ArrayList<>();
         private final ArrayList<String> filmList = new ArrayList<>();
 
