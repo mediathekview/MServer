@@ -1,6 +1,5 @@
 package mServer.testhelper;
 
-import com.sun.jersey.api.client.WebResource;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import mServer.crawler.sender.newsearch.ZDFClient;
@@ -23,8 +22,6 @@ public class ZDFClientMock {
     }
     
     public void setUp(String url, String jsonFile) throws IOException, URISyntaxException {
-        WebResource mockWebResource = Mockito.mock(WebResource.class);
-        when(mock.createResource(url)).thenReturn(mockWebResource);
-        when(mock.execute(mockWebResource)).thenReturn(JsonFileReader.readJson(jsonFile));
+        when(mock.execute(url)).thenReturn(JsonFileReader.readJson(jsonFile));
     }
 }
