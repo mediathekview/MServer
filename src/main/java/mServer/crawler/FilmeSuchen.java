@@ -25,8 +25,7 @@ import mSearch.daten.ListeFilme;
 import mSearch.filmeSuchen.ListenerFilmeLaden;
 import mSearch.filmeSuchen.ListenerFilmeLadenEvent;
 import mSearch.tool.Log;
-import mServer.crawler.sender.MediathekReader;
-import mServer.crawler.sender.MediathekZdf;
+import mServer.crawler.sender.*;
 import org.apache.commons.lang3.time.FastDateFormat;
 
 import javax.swing.event.EventListenerList;
@@ -61,9 +60,9 @@ public class FilmeSuchen {
         // für jeden Sender einen MediathekReader anlegen, mit der Prio ob
         // sofort gestartet oder erst später
         //Reader laden Spaltenweises Laden
-//        mediathekListe.add(new MediathekArd(this, 0));
+        mediathekListe.add(new MediathekArd(this, 0));
         mediathekListe.add(new MediathekZdf(this, 0));
-/*        mediathekListe.add(new MediathekZdfTivi(this, 0));
+        mediathekListe.add(new MediathekZdfTivi(this, 0));
         mediathekListe.add(new MediathekArte_de(this, 0));
         mediathekListe.add(new MediathekArte_fr(this, 0));
         mediathekListe.add(new Mediathek3Sat(this, 1));
@@ -81,7 +80,7 @@ public class FilmeSuchen {
         mediathekListe.add(new MediathekSrf(this, 1));
         mediathekListe.add(new MediathekSrfPod(this, 0));
         mediathekListe.add(new MediathekOrf(this, 1));
-        mediathekListe.add(new MediathekPhoenix(this, 1));*/
+        mediathekListe.add(new MediathekPhoenix(this, 1));
     }
 
     public static String[] getNamenSender() {
@@ -104,7 +103,7 @@ public class FilmeSuchen {
         mrStarten(0);
         if (!Config.getStop()) {
             // waren und wenn Suchlauf noch nicht abgebrochen weiter mit dem Rest
-            //mrWarten();
+            mrWarten();
             mrStarten(1);
             allStarted = true;
         }
