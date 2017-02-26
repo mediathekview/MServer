@@ -69,8 +69,6 @@ public class ZDFClient
             .queryParam(PROPERTY_DATE_TO, today.plusMonths(monthFuture).format(DATE_TIME_FORMAT))
             .queryParam(PROPERTY_SORT_BY, SORT_BY_DATE)
             .queryParam(PROPERTY_PAGE, Integer.toString(page));
-
-        Log.sysLog("Lade Seite: " + webResource.getURI());
                 
         return execute(webResource, ZDFClient.ZDFClientMode.SEARCH);
     }
