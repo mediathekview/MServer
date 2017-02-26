@@ -19,6 +19,8 @@
  */
 package mServer.tool;
 
+import java.io.File;
+
 import etm.core.configuration.EtmManager;
 import etm.core.monitor.EtmMonitor;
 import etm.core.monitor.EtmPoint;
@@ -26,8 +28,6 @@ import mSearch.Const;
 import mSearch.tool.Functions;
 import mServer.daten.MserverListeSuchen;
 import mServer.daten.MserverListeUpload;
-
-import java.io.File;
 
 public class MserverDaten {
     private static final EtmMonitor etmMonitor = EtmManager.getEtmMonitor();
@@ -53,14 +53,11 @@ public class MserverDaten {
     }
 
     public static String getUserAgent() {
-        String result;
-        if (system[MserverKonstanten.SYSTEM_USER_AGENT_NR].trim().isEmpty()) {
-            result = MserverKonstanten.PROGRAMMNAME + ' ' + Const.VERSION_FILMLISTE + " / " + Functions.getBuildNr();
+        if (system[MserverKonstanten.SYSTEM_USER_AGENT_NR].trim().equals("")) {
+            return MserverKonstanten.PROGRAMMNAME + " " + Const.VERSION_FILMLISTE + " / " + Functions.getProgVersion().toString();
         } else {
-            result = system[MserverKonstanten.SYSTEM_USER_AGENT_NR].trim();
         }
-
-        return result;
+        return system[MserverKonstanten.SYSTEM_USER_AGENT_NR].trim();
     }
 
     public static void setBasisVerzeichnis(String b) {

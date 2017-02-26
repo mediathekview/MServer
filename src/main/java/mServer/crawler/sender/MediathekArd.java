@@ -324,12 +324,11 @@ public class MediathekArd extends MediathekReader {
                 seite2.extractList("{\"_quality\":3,\"_server\":\"\",\"_cdn\":\"default\",\"_stream\":\"", "\"", liste);
                 seite2.extractList("_quality\":3,\"_stream\":[\"", "\"", liste);
                 seite2.extractList("\"_quality\":3,\"_server\":\"\",\"_cdn\":\"akamai\",\"_stream\":\"", "\"", liste);
-//                if (seite2.indexOf("quality\":3") >= 0) {
-//                    if (liste.size() <= 0) {
-                // Fehler
-//                        System.out.println("Test");
-//                    }
-//                }
+                if (seite2.indexOf("quality\":3") >= 0) {
+                    if (liste.size() <= 0) {
+                        // Fehler
+                    }
+                }
                 for (String s : liste) {
                     if (s.startsWith("http")) {
                         urlHD = s;
@@ -339,6 +338,7 @@ public class MediathekArd extends MediathekReader {
                 liste.clear();
 
                 seite2.extractList("\"_quality\":2", "\"_stream\":\"", "\"", liste);
+                seite2.extractList("_quality\":\"auto\",\"_server\":\"\",\"_cdn\":\"flashls\",\"_stream\":\"", "\"", liste);
                 seite2.extractList("\"_quality\":2", "\"_stream\":[\"", "\"", liste);
                 for (String s : liste) {
                     if (s.startsWith("http")) {
