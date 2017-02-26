@@ -19,18 +19,21 @@
  */
 package mServer.crawler.sender;
 
+import etm.core.configuration.EtmManager;
+import etm.core.monitor.EtmPoint;
 import mSearch.Const;
 import mSearch.daten.DatenFilm;
 import mSearch.tool.Log;
 import mServer.crawler.CrawlerTool;
 import mServer.crawler.FilmeSuchen;
+import mServer.crawler.RunSender;
 import mServer.crawler.sender.newsearch.*;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.concurrent.ForkJoinPool;
-import java.util.concurrent.ForkJoinTask;
+import java.util.concurrent.Phaser;
 import java.util.concurrent.RecursiveAction;
+import java.util.concurrent.TimeUnit;
 
 public class MediathekZdf extends MediathekReader
 {
@@ -48,6 +51,8 @@ public class MediathekZdf extends MediathekReader
         setName("MediathekZdf");
     }
 
+    private Phaser phaser = new Phaser();
+
     @Override
     public void addToList() {
         meldungStart();
@@ -58,30 +63,46 @@ public class MediathekZdf extends MediathekReader
         final ZDFSearchTask newTask = new ZDFSearchTask(days);
         forkJoinPool.invoke(newTask);
         Collection<VideoDTO> filmList = newTask.join();
-        
+        System.out.println("VIDEO LIST SIZE: " + filmList.size());
         // Convert new DTO to old DatenFilm class
         Log.sysLog("convert VideoDTO to DatenFilm started...");
-        Collection<VideoDtoDatenFilmConverterAction> converterActions = new ArrayList<>();
-        filmList.forEach((video) -> {
+        EtmPoint perfPoint = EtmManager.getEtmMonitor().createPoint("MediathekZdf.convertVideoDTO");
+
+        ForkJoinPool pool = new ForkJoinPool(Runtime.getRuntime().availableProcessors() * 2);
+        filmList.parallelStream().forEach((video) -> {
             VideoDtoDatenFilmConverterAction action = new VideoDtoDatenFilmConverterAction(video);
-            converterActions.add(action);
+            pool.execute(action);
         });
-        
-        ForkJoinTask.invokeAll(converterActions);
+
+        phaser.arriveAndAwaitAdvance();
+        pool.shutdown();
+        try {
+            // Wait a while for existing tasks to terminate
+            if (!pool.awaitTermination(60, TimeUnit.SECONDS)) {
+                pool.shutdownNow(); // Cancel currently executing tasks
+                // Wait a while for tasks to respond to being cancelled
+                if (!pool.awaitTermination(60, TimeUnit.SECONDS))
+                    System.err.println("Pool did not terminate");
+            }
+        } catch (InterruptedException ie) {
+            // (Re-)Cancel if current thread also interrupted
+            pool.shutdownNow();
+            ie.printStackTrace();
+        }
+        perfPoint.collect();
         Log.sysLog("convert VideoDTO to DatenFilm finished.");
-        
+        //converterActions.clear();
         meldungThreadUndFertig();        
     }
-    
 
+
+    @SuppressWarnings("serial")
     private class VideoDtoDatenFilmConverterAction extends RecursiveAction {
-
-        private static final long serialVersionUID = 1L;
-        
-        private final VideoDTO video;        
+        private final VideoDTO video;
 
         public VideoDtoDatenFilmConverterAction(VideoDTO aVideoDTO) {
             video = aVideoDTO;
+            phaser.register();
         }
 
         @Override
@@ -94,7 +115,13 @@ public class MediathekZdf extends MediathekReader
                                 video.getTitle(), download.getUrl(Qualities.NORMAL), "" /*urlRtmp*/,
                                 video.getDate(), video.getTime(), video.getDuration(), video.getDescription());
                         urlTauschen(film, video.getWebsiteUrl(), mSearchFilmeSuchen);
-                        addFilm(film);
+
+                       //don´t use addFilm here
+                       if (mSearchFilmeSuchen.listeFilmeNeu.addFilmVomSender(film)) {
+                           // dann ist er neu
+                           FilmeSuchen.listeSenderLaufen.inc(film.arr[DatenFilm.FILM_SENDER], RunSender.Count.FILME);
+                       }
+
                         if (!download.getUrl(Qualities.HD).isEmpty())
                         {
                             CrawlerTool.addUrlHd(film, download.getUrl(Qualities.HD), "");
@@ -114,6 +141,7 @@ public class MediathekZdf extends MediathekReader
                         Log.errorLog(496583211, ex, "add film failed: " + video.getWebsiteUrl());
                     }            
             }
+            phaser.arrive();
         }    
     }
 
