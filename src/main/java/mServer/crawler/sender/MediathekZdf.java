@@ -51,7 +51,7 @@ public class MediathekZdf extends MediathekReader
         setName("MediathekZdf");
     }
 
-    private Phaser phaser = new Phaser();
+    private final Phaser phaser = new Phaser();
 
     @Override
     public void addToList() {
@@ -66,23 +66,23 @@ public class MediathekZdf extends MediathekReader
         System.out.println("VIDEO LIST SIZE: " + filmList.size());
         // Convert new DTO to old DatenFilm class
         Log.sysLog("convert VideoDTO to DatenFilm started...");
+
+        ForkJoinPool pool = new ForkJoinPool(Runtime.getRuntime().availableProcessors() * 4);
         EtmPoint perfPoint = EtmManager.getEtmMonitor().createPoint("MediathekZdf.convertVideoDTO");
 
-        ForkJoinPool pool = new ForkJoinPool(Runtime.getRuntime().availableProcessors() * 2);
         filmList.parallelStream().forEach((video) -> {
             VideoDtoDatenFilmConverterAction action = new VideoDtoDatenFilmConverterAction(video);
             pool.execute(action);
         });
 
+        filmList.clear();
         phaser.arriveAndAwaitAdvance();
         pool.shutdown();
         try {
+            System.out.println("Awaiting shutdown");
             // Wait a while for existing tasks to terminate
-            if (!pool.awaitTermination(60, TimeUnit.SECONDS)) {
+            if (!pool.awaitTermination(5, TimeUnit.MINUTES)) {
                 pool.shutdownNow(); // Cancel currently executing tasks
-                // Wait a while for tasks to respond to being cancelled
-                if (!pool.awaitTermination(60, TimeUnit.SECONDS))
-                    System.err.println("Pool did not terminate");
             }
         } catch (InterruptedException ie) {
             // (Re-)Cancel if current thread also interrupted
@@ -91,8 +91,8 @@ public class MediathekZdf extends MediathekReader
         }
         perfPoint.collect();
         Log.sysLog("convert VideoDTO to DatenFilm finished.");
-        //converterActions.clear();
-        meldungThreadUndFertig();        
+
+        meldungThreadUndFertig();
     }
 
 
