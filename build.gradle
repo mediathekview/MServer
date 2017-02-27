@@ -158,7 +158,6 @@ task run(type: JavaExec, dependsOn: classes) {
     if (project.hasProperty('args')) {
         args(project.args.split(','))
     }
-args('-gui')
 }
 
 /**
@@ -176,7 +175,6 @@ task debug(type: JavaExec, dependsOn: classes) {
     if (project.hasProperty('args')) {
         args(project.args.split(','))
     }
-    args('-gui')
 }
 
 /**
