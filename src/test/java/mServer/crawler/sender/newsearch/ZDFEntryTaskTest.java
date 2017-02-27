@@ -1,7 +1,5 @@
 package mServer.crawler.sender.newsearch;
 
-import java.io.IOException;
-import java.net.URISyntaxException;
 import mSearch.Config;
 import mServer.test.ZDFClientMock;
 import static org.hamcrest.CoreMatchers.notNullValue;
@@ -18,7 +16,7 @@ public class ZDFEntryTaskTest {
     }
     
     @Test
-    public void testComputeReturnVideoDTO() throws IOException, URISyntaxException {
+    public void testComputeReturnVideoDTO() {
         
         String generalUrl = "https://api.zdf.de/generalUrl";
         String downloadUrl = "https://api.zdf.de/downloadUrl";

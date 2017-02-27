@@ -1,8 +1,6 @@
 package mServer.crawler.sender.newsearch;
 
 import com.google.gson.JsonObject;
-import java.io.IOException;
-import java.net.URISyntaxException;
 import java.util.Arrays;
 import java.util.Collection;
 import mServer.test.JsonFileReader;
@@ -34,7 +32,7 @@ public class ZdfEntryDTODeserializerParameterizedTest {
     }
     
     @Test
-    public void testDeserialize() throws IOException, URISyntaxException {
+    public void testDeserialize() {
         JsonObject jsonObject = JsonFileReader.readJson(jsonFile);
         
         ZDFEntryDTODeserializer target = new ZDFEntryDTODeserializer();

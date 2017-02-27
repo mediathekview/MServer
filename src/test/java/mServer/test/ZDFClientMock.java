@@ -1,9 +1,6 @@
 package mServer.test;
 
-import java.io.IOException;
-import java.net.URISyntaxException;
 import mServer.crawler.sender.newsearch.ZDFClient;
-import static org.junit.Assert.fail;
 import static org.mockito.Mockito.*;
 import org.mockito.Mockito;
 
@@ -23,10 +20,6 @@ public class ZDFClientMock {
     }
     
     public void setUp(String url, String jsonFile) {
-        try {
         when(mock.execute(url)).thenReturn(JsonFileReader.readJson(jsonFile));
-        } catch(IOException | URISyntaxException ex) {
-            fail("Exception reading jsonFile " + jsonFile + ": " + ex.getMessage());
-        }
     }
 }
