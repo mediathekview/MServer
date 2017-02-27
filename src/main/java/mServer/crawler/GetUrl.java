@@ -19,11 +19,6 @@
  */
 package mServer.crawler;
 
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.SocketTimeoutException;
-import java.net.UnknownHostException;
-import java.util.concurrent.TimeUnit;
 import mSearch.Config;
 import mSearch.Const;
 import mSearch.tool.Log;
@@ -33,6 +28,12 @@ import mServer.tool.MserverDaten;
 import okhttp3.Request;
 import okhttp3.Response;
 import okhttp3.ResponseBody;
+
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.SocketTimeoutException;
+import java.net.UnknownHostException;
+import java.util.concurrent.TimeUnit;
 
 /**
  * ist die Klasse die die HTML-Seite tatsächlich lädt
@@ -69,7 +70,7 @@ public class GetUrl {
             try {
                 if (sender.equals(Const.SWR)) {
                     // funktioniert nur so
-                    TimeUnit.MILLISECONDS.sleep(4000);
+                    TimeUnit.SECONDS.sleep(2);
                 }
                 if (aktVer > 1) {
                     // und noch eine Pause vor dem nächsten Versuch

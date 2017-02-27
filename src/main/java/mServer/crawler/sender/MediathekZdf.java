@@ -33,7 +33,6 @@ import java.util.Collection;
 import java.util.concurrent.ForkJoinPool;
 import java.util.concurrent.Phaser;
 import java.util.concurrent.RecursiveAction;
-import java.util.concurrent.TimeUnit;
 
 public class MediathekZdf extends MediathekReader
 {
@@ -42,7 +41,7 @@ public class MediathekZdf extends MediathekReader
     //    public static final String URL_PATTERN_SENDUNG_VERPASST = "https://www.zdf.de/sendung-verpasst?airtimeDate=%s";
 //    public static final String[] KATEGORIE_ENDS = {"A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z", "0+-+9"};
 //    public static final String KATEGORIEN_URL_PATTERN = "https://www.zdf.de/sendungen-a-z/?group=%s";
-    private final ForkJoinPool forkJoinPool = ForkJoinPool.commonPool();
+    private final ForkJoinPool forkJoinPool = new ForkJoinPool(Runtime.getRuntime().availableProcessors() * 4);
 //    private final MSStringBuilder seite = new MSStringBuilder(Const.STRING_BUFFER_START_BUFFER);
 
     public MediathekZdf(FilmeSuchen ssearch, int startPrio)
@@ -67,24 +66,16 @@ public class MediathekZdf extends MediathekReader
         // Convert new DTO to old DatenFilm class
         Log.sysLog("convert VideoDTO to DatenFilm started...");
 
-        ForkJoinPool pool = new ForkJoinPool(Runtime.getRuntime().availableProcessors() * 4);
         EtmPoint perfPoint = EtmManager.getEtmMonitor().createPoint("MediathekZdf.convertVideoDTO");
 
         filmList.parallelStream().forEach((video) -> {
             VideoDtoDatenFilmConverterAction action = new VideoDtoDatenFilmConverterAction(video);
-            pool.execute(action);
+            forkJoinPool.execute(action);
         });
 
         filmList.clear();
         phaser.arriveAndAwaitAdvance();
-        pool.shutdown();
-        try {
-            if (!pool.awaitTermination(5, TimeUnit.MINUTES)) {
-                pool.shutdownNow();
-            }
-        } catch (InterruptedException ie) {
-            pool.shutdownNow();
-        }
+
         perfPoint.collect();
         Log.sysLog("convert VideoDTO to DatenFilm finished.");
 
