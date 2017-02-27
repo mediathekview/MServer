@@ -19,6 +19,11 @@
  */
 package mServer.crawler;
 
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.SocketTimeoutException;
+import java.net.UnknownHostException;
+import java.util.concurrent.TimeUnit;
 import mSearch.Config;
 import mSearch.Const;
 import mSearch.tool.Log;
@@ -28,12 +33,6 @@ import mServer.tool.MserverDaten;
 import okhttp3.Request;
 import okhttp3.Response;
 import okhttp3.ResponseBody;
-
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.SocketTimeoutException;
-import java.net.UnknownHostException;
-import java.util.concurrent.TimeUnit;
 
 /**
  * ist die Klasse die die HTML-Seite tatsächlich lädt
@@ -68,6 +67,10 @@ public class GetUrl {
         do {
             ++aktVer;
             try {
+                if (sender.equals(Const.SWR)) {
+                    // funktioniert nur so
+                    TimeUnit.MILLISECONDS.sleep(4000);
+                }
                 if (aktVer > 1) {
                     // und noch eine Pause vor dem nächsten Versuch
                     TimeUnit.MILLISECONDS.sleep(PAUSE);
@@ -125,7 +128,7 @@ public class GetUrl {
     private long webCall(Request request, MSStringBuilder seite, final String kodierung) throws IOException {
         long load = 0;
         try (Response response = MVHttpClient.getInstance().getHttpClient().newCall(request).execute();
-             ResponseBody body = response.body()) {
+                ResponseBody body = response.body()) {
             if (response.isSuccessful()) {
                 load = transferData(body, kodierung, seite);
             }
@@ -143,8 +146,8 @@ public class GetUrl {
     }
 
     private MSStringBuilder getUriNew(String sender, String addr, MSStringBuilder seite,
-                                      String kodierung, String meldung, int versuch, boolean lVersuch,
-                                      String token) {
+            String kodierung, String meldung, int versuch, boolean lVersuch,
+            String token) {
 //        EtmPoint performancePoint = EtmManager.getEtmMonitor().createPoint("GetUrl.getUriNew");
 
         long load = 0;
@@ -153,14 +156,16 @@ public class GetUrl {
             seite.setLength(0);
 
             //TimeUnit.MILLISECONDS.sleep(50);//wartenBasis
-            if (MserverDaten.debug)
+            if (MserverDaten.debug) {
                 Log.sysLog("Durchsuche: " + addr);
+            }
 
             final Request.Builder builder = createRequestBuilder(addr, token);
             load = webCall(builder.build(), seite, kodierung);
         } catch (UnknownHostException | SocketTimeoutException ignored) {
-            if (MserverDaten.debug)
+            if (MserverDaten.debug) {
                 printDebugMessage(meldung, addr, sender, versuch, ignored);
+            }
         } catch (IOException ex) {
             if (lVersuch) {
                 printDebugMessage(meldung, addr, sender, versuch, ex);
@@ -172,7 +177,6 @@ public class GetUrl {
         updateStatistics(sender, load);
 
 //        performancePoint.collect();
-
         return seite;
     }
 
@@ -181,11 +185,11 @@ public class GetUrl {
         String[] text;
         if (meldung.isEmpty()) {
             text = new String[]{"", "Sender: " + sender + " - Versuche: " + versuch,
-                    "URL: " + addr};
+                "URL: " + addr};
         } else {
             text = new String[]{"", "Sender: " + sender + " - Versuche: " + versuch,
-                    "URL: " + addr,
-                    meldung};
+                "URL: " + addr,
+                meldung};
         }
         switch (ex.getMessage()) {
             case "Read timed out":
