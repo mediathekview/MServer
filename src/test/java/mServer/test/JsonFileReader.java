@@ -1,4 +1,4 @@
-package mServer.testhelper;
+package mServer.test;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;

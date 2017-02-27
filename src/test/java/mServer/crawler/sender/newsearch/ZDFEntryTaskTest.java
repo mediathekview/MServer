@@ -3,7 +3,7 @@ package mServer.crawler.sender.newsearch;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import mSearch.Config;
-import mServer.testhelper.ZDFClientMock;
+import mServer.test.ZDFClientMock;
 import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.hamcrest.CoreMatchers.nullValue;
 import org.junit.After;
