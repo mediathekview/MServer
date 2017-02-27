@@ -35,27 +35,29 @@ public class ZDFEntryTask extends RecursiveTask<VideoDTO> {
     @Override
     protected VideoDTO compute() {
 
+        if(zdfEntryDTO == null) {
+            return null;
+        }
+        
         VideoDTO dto = null;
 
         if(!Config.getStop()) {
             try {
                 // read film details
-                if(zdfEntryDTO != null) {
-                    String infoUrl = zdfEntryDTO.getEntryGeneralInformationUrl();
-                    JsonObject baseObjectInfo = client.execute(infoUrl);
-                    if(baseObjectInfo != null) {
-                        dto = gson.fromJson(baseObjectInfo, VideoDTO.class);
-                        if(dto != null) {
-                            // read download details
-                            String downloadUrl = zdfEntryDTO.getEntryDownloadInformationUrl();
-                            JsonObject baseObjectDownload = client.execute(downloadUrl);
-                            if(baseObjectDownload != null) {
-                                DownloadDTO downloadDto = gson.fromJson(baseObjectDownload, DownloadDTO.class);
-                                dto.setDownloadDto(downloadDto);
-                            }
+                String infoUrl = zdfEntryDTO.getEntryGeneralInformationUrl();
+                JsonObject baseObjectInfo = client.execute(infoUrl);
+                if(baseObjectInfo != null) {
+                    dto = gson.fromJson(baseObjectInfo, VideoDTO.class);
+                    if(dto != null) {
+                        // read download details
+                        String downloadUrl = zdfEntryDTO.getEntryDownloadInformationUrl();
+                        JsonObject baseObjectDownload = client.execute(downloadUrl);
+                        if(baseObjectDownload != null) {
+                            DownloadDTO downloadDto = gson.fromJson(baseObjectDownload, DownloadDTO.class);
+                            dto.setDownloadDto(downloadDto);
                         }
                     }
-                }
+                }                
             } catch (Exception ex) {
                 
                 Log.errorLog(496583202, ex, "Exception parsing " + zdfEntryDTO.getEntryGeneralInformationUrl());
