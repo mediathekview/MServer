@@ -61,7 +61,7 @@ public class MediathekZdf extends MediathekReader
         int days = CrawlerTool.loadLongMax() ? 300 : 20;
                 
         final ZDFSearchTask newTask = new ZDFSearchTask(days);
-        forkJoinPool.invoke(newTask);
+        forkJoinPool.execute(newTask);
         Collection<VideoDTO> filmList = newTask.join();
         System.out.println("VIDEO LIST SIZE: " + filmList.size());
         // Convert new DTO to old DatenFilm class
@@ -79,15 +79,11 @@ public class MediathekZdf extends MediathekReader
         phaser.arriveAndAwaitAdvance();
         pool.shutdown();
         try {
-            System.out.println("Awaiting shutdown");
-            // Wait a while for existing tasks to terminate
             if (!pool.awaitTermination(5, TimeUnit.MINUTES)) {
-                pool.shutdownNow(); // Cancel currently executing tasks
+                pool.shutdownNow();
             }
         } catch (InterruptedException ie) {
-            // (Re-)Cancel if current thread also interrupted
             pool.shutdownNow();
-            ie.printStackTrace();
         }
         perfPoint.collect();
         Log.sysLog("convert VideoDTO to DatenFilm finished.");
