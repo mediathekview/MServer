@@ -61,6 +61,19 @@ public class GetUrl {
         return getUri(sender, addr, kodierung, maxVersuche, seite, meldung, "");
     }
 
+    public MSStringBuilder getUriWithDelay(String sender, String addr, String kodierung, int maxVersuche, MSStringBuilder seite, String meldung,
+                                           long delay, TimeUnit delayUnit) {
+        final long delayVal = TimeUnit.MILLISECONDS.convert(delay, delayUnit);
+        if (delayVal > 0) {
+            try {
+                TimeUnit.MILLISECONDS.sleep(delayVal);
+            } catch (InterruptedException ignored) {
+            }
+        }
+
+        return getUri(sender, addr, kodierung, maxVersuche, seite, meldung);
+    }
+
     public MSStringBuilder getUri(String sender, String addr, String kodierung, int maxVersuche, MSStringBuilder seite, String meldung, String token) {
         int aktVer = 0;
         boolean letzterVersuch;
@@ -68,10 +81,6 @@ public class GetUrl {
         do {
             ++aktVer;
             try {
-                if (sender.equals(Const.SWR)) {
-                    // funktioniert nur so
-                    TimeUnit.SECONDS.sleep(2);
-                }
                 if (aktVer > 1) {
                     // und noch eine Pause vor dem nächsten Versuch
                     TimeUnit.MILLISECONDS.sleep(PAUSE);

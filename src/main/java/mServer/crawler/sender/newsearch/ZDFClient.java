@@ -5,13 +5,14 @@ import com.google.gson.JsonObject;
 import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.ClientResponse;
 import com.sun.jersey.api.client.WebResource;
-import java.time.ZonedDateTime;
-import java.time.format.DateTimeFormatter;
 import mSearch.Const;
 import mSearch.tool.Log;
 import mServer.crawler.FilmeSuchen;
 import mServer.crawler.RunSender;
 import mServer.tool.MserverDaten;
+
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 
 /**
  * jersey client of ZDF
@@ -56,23 +57,21 @@ public class ZDFClient {
         gson = new Gson();
     }
 
-    public JsonObject executeSearch(int page, int daysPast, int monthFuture)
-    {
+    public JsonObject executeSearch(int page, int daysPast, int monthFuture) {
         WebResource webResource = createResource(ZDF_SEARCH_URL)
-            .queryParam(PROPERTY_HAS_VIDEO, Boolean.TRUE.toString())
-            .queryParam(PROPERTY_SEARCHPARAM_Q, SEARCH_ALL)
-            .queryParam(PROPERTY_TYPES, TYPE_PAGE_VIDEO)
-            .queryParam(PROPERTY_SORT_ORDER, SORT_ORDER_DESC)
-            .queryParam(PROPERTY_DATE_FROM, today.minusDays(daysPast).format(DATE_TIME_FORMAT))
-            .queryParam(PROPERTY_DATE_TO, today.plusMonths(monthFuture).format(DATE_TIME_FORMAT))
-            .queryParam(PROPERTY_SORT_BY, SORT_BY_DATE)
-            .queryParam(PROPERTY_PAGE, Integer.toString(page));
+                .queryParam(PROPERTY_HAS_VIDEO, Boolean.TRUE.toString())
+                .queryParam(PROPERTY_SEARCHPARAM_Q, SEARCH_ALL)
+                .queryParam(PROPERTY_TYPES, TYPE_PAGE_VIDEO)
+                .queryParam(PROPERTY_SORT_ORDER, SORT_ORDER_DESC)
+                .queryParam(PROPERTY_DATE_FROM, today.minusDays(daysPast).format(DATE_TIME_FORMAT))
+                .queryParam(PROPERTY_DATE_TO, today.plusMonths(monthFuture).format(DATE_TIME_FORMAT))
+                .queryParam(PROPERTY_SORT_BY, SORT_BY_DATE)
+                .queryParam(PROPERTY_PAGE, Integer.toString(page));
 
         return execute(webResource, ZDFClient.ZDFClientMode.SEARCH);
     }
 
-    public JsonObject execute(String aUrl)
-    {
+    public JsonObject execute(String aUrl) {
         WebResource webResource = createResource(aUrl);
         return execute(webResource, ZDFClientMode.VIDEO);
     }
@@ -81,8 +80,7 @@ public class ZDFClient {
         return client.resource(url);
     }
 
-    private JsonObject execute(WebResource webResource, ZDFClientMode aMode)
-    {
+    private JsonObject execute(WebResource webResource, ZDFClientMode aMode) {
         String apiToken = loadApiToken(aMode);
         
         ClientResponse response = webResource.header(HEADER_ACCESS_CONTROL_REQUEST_HEADERS, ACCESS_CONTROL_API_AUTH)

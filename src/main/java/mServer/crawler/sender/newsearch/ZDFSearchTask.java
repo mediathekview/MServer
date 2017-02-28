@@ -1,13 +1,10 @@
 package mServer.crawler.sender.newsearch;
 
 import com.google.gson.JsonObject;
-import com.sun.jersey.api.client.WebResource;
 import mSearch.Config;
 import mSearch.tool.Log;
 import mServer.tool.MserverDaten;
 
-import java.time.ZonedDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.concurrent.ForkJoinTask;

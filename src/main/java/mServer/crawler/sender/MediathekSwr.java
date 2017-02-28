@@ -31,6 +31,7 @@ import mServer.tool.MserverDaten;
 import org.apache.commons.lang3.StringEscapeUtils;
 
 import java.util.ArrayList;
+import java.util.concurrent.TimeUnit;
 
 public class MediathekSwr extends MediathekReader {
 
@@ -80,7 +81,7 @@ public class MediathekSwr extends MediathekReader {
         final String MUSTER_THEMA = "title=\"";
         MSStringBuilder strSeite = new MSStringBuilder(Const.STRING_BUFFER_START_BUFFER);
         GetUrl getUrlIo = new GetUrl(getWartenSeiteLaden());
-        strSeite = getUrlIo.getUri(SENDERNAME, "http://swrmediathek.de/tvlist.htm", Const.KODIERUNG_UTF, 2, strSeite, "");
+        strSeite = getUrlIo.getUriWithDelay(SENDERNAME, "http://swrmediathek.de/tvlist.htm", Const.KODIERUNG_UTF, 2, strSeite, "", 4, TimeUnit.SECONDS);
         int pos = 0;
         String url;
         String thema;
@@ -110,7 +111,7 @@ public class MediathekSwr extends MediathekReader {
         //Theman suchen
         MSStringBuilder strSeite = new MSStringBuilder(Const.STRING_BUFFER_START_BUFFER);
         GetUrl getUrlIo = new GetUrl(getWartenSeiteLaden());
-        strSeite = getUrlIo.getUri(SENDERNAME, "http://swrmediathek.de/sendungverpasst.htm", Const.KODIERUNG_UTF, 2, strSeite, "");
+        strSeite = getUrlIo.getUriWithDelay(SENDERNAME, "http://swrmediathek.de/sendungverpasst.htm", Const.KODIERUNG_UTF, 2, strSeite, "", 4, TimeUnit.SECONDS);
         ArrayList<String> list = new ArrayList<>();
         strSeite.extractList("<ul class=\"progChannelList\" tabindex=\"-1\">", "<div class=\"box mediBoxBorder\"",
                 "<a href=\"sendungverpasst.htm?show=&date=", "\"", "http://www.swrmediathek.de/sendungverpasst.htm?show=&date=", list);
@@ -149,7 +150,7 @@ public class MediathekSwr extends MediathekReader {
         private void themenSeitenSuchen(String strUrlFeed, String thema) {
             final String MUSTER_URL = "<a href=\"/player.htm?show=";
             //strSeite1 = getUrl.getUri_Utf(nameSenderMReader, strUrlFeed, strSeite1, thema);
-            strSeite1 = getUrlThemaLaden.getUri(SENDERNAME, strUrlFeed, Const.KODIERUNG_UTF, 2 /* versuche */, strSeite1, thema);
+            strSeite1 = getUrlThemaLaden.getUriWithDelay(SENDERNAME, strUrlFeed, Const.KODIERUNG_UTF, 2 /* versuche */, strSeite1, thema, 4, TimeUnit.SECONDS);
             if (strSeite1.length() == 0) {
                 Log.errorLog(945120365, "Seite leer: " + strUrlFeed);
                 return;
@@ -203,7 +204,7 @@ public class MediathekSwr extends MediathekReader {
             // :"entry_media","attr":{"val0":"flashmedia","val1":"1","val2":"rtmp://fc-ondemand.swr.de/a4332/e6/swr-fernsehen/eisenbahn-romantik/381104.s.flv","val3":"rtmp://fc-ondemand.swr.de/a4332/e6/"},"sub":[]},{"name":"entry_media","attr":{"val0":"flashmedia","val1":"2","val2":"rtmp://fc-ondemand.swr.de/a4332/e6/swr-fernsehen/eisenbahn-romantik/381104.m.flv","val3":"rtmp://fc-ondemand.swr.de/a4332/e6/"},"sub":[]
             // "entry_title":"\"Troika-Tragödie - Verspielt die Regierung unser Steuergeld?\"
             try {
-                strSeite2 = getUrlThemaLaden.getUri_Utf(SENDERNAME, urlJson, strSeite2, "");
+                strSeite2 = getUrlThemaLaden.getUriWithDelay(SENDERNAME, urlJson, Const.KODIERUNG_UTF, 1, strSeite2, "", 4, TimeUnit.SECONDS);
                 if (strSeite2.length() == 0) {
                     if (MserverDaten.debug)
                         Log.errorLog(912365478, "Seite leer: " + urlJson);

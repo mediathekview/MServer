@@ -3,8 +3,6 @@ package mServer.crawler.sender.newsearch;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
-
-import java.util.concurrent.RecursiveTask;
 import mSearch.Config;
 import mSearch.tool.Log;
 
@@ -37,7 +35,7 @@ public class ZDFEntryTask extends RecursiveTask<VideoDTO> {
     @Override
     protected VideoDTO compute() {
 
-        if(zdfEntryDTO == null) {
+        if (zdfEntryDTO == null) {
             return null;
         }
 
