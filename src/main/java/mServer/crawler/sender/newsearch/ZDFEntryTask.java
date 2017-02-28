@@ -3,8 +3,6 @@ package mServer.crawler.sender.newsearch;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
-import com.google.gson.JsonSyntaxException;
-import com.sun.jersey.api.client.WebResource;
 
 import java.util.concurrent.RecursiveTask;
 import mSearch.Config;
@@ -37,30 +35,32 @@ public class ZDFEntryTask extends RecursiveTask<VideoDTO> {
     @Override
     protected VideoDTO compute() {
 
+        if(zdfEntryDTO == null) {
+            return null;
+        }
+        
         VideoDTO dto = null;
 
         if(!Config.getStop()) {
             try {
                 // read film details
                 String infoUrl = zdfEntryDTO.getEntryGeneralInformationUrl();
-                WebResource webResourceInfo = client.createResource(infoUrl);
-                JsonObject baseObjectInfo = client.execute(webResourceInfo, ZDFClient.ZDFClientMode.VIDEO);
+                JsonObject baseObjectInfo = client.execute(infoUrl);
                 if(baseObjectInfo != null) {
                     dto = gson.fromJson(baseObjectInfo, VideoDTO.class);
                     if(dto != null) {
                         // read download details
                         String downloadUrl = zdfEntryDTO.getEntryDownloadInformationUrl();
-                        WebResource webResourceDownload = client.createResource(downloadUrl);
-                        JsonObject baseObjectDownload = client.execute(webResourceDownload, ZDFClient.ZDFClientMode.VIDEO);
+                        JsonObject baseObjectDownload = client.execute(downloadUrl);
                         if(baseObjectDownload != null) {
                             DownloadDTO downloadDto = gson.fromJson(baseObjectDownload, DownloadDTO.class);
                             dto.setDownloadDto(downloadDto);
                         }
                     }
-                }
+                }                
             } catch (Exception ex) {
                 
-                Log.errorLog(496583202, ex, "Exception parsing " + (zdfEntryDTO != null ? zdfEntryDTO.getEntryGeneralInformationUrl() : ""));
+                Log.errorLog(496583202, ex, "Exception parsing " + zdfEntryDTO.getEntryGeneralInformationUrl());
                 dto = null;
             }
         }
