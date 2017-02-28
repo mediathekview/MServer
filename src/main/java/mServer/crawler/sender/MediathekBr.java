@@ -30,6 +30,7 @@ import mServer.crawler.GetUrl;
 import mServer.tool.MserverDaten;
 import org.apache.commons.lang3.StringEscapeUtils;
 
+import java.nio.charset.StandardCharsets;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -126,7 +127,7 @@ public class MediathekBr extends MediathekReader {
         listeThemen.clear();
         MSStringBuilder seite = new MSStringBuilder(Const.STRING_BUFFER_START_BUFFER);
         GetUrl getUrlIo = new GetUrl(getWartenSeiteLaden());
-        seite = getUrlIo.getUri(SENDERNAME, ADRESSE, Const.KODIERUNG_UTF, 5 /* versuche */, seite, "");
+        seite = getUrlIo.getUri(SENDERNAME, ADRESSE, StandardCharsets.UTF_8, 5 /* versuche */, seite, "");
         int pos1;
         int pos2;
         String url = "";
@@ -182,7 +183,7 @@ public class MediathekBr extends MediathekReader {
         try {
             //seite1 = getUrlIo.getUri_Utf(SENDERNAME, ADRESSE, seite1, "");
             GetUrl getUrlIo = new GetUrl(getWartenSeiteLaden());
-            seite1 = getUrlIo.getUri(SENDERNAME, ADRESSE, Const.KODIERUNG_UTF, 5 /* versuche */, seite1, "");
+            seite1 = getUrlIo.getUri(SENDERNAME, ADRESSE, StandardCharsets.UTF_8, 5 /* versuche */, seite1, "");
             String url;
             int max_;
             if (CrawlerTool.loadLongMax()) {
@@ -637,7 +638,7 @@ public class MediathekBr extends MediathekReader {
                 }
                 String adresse = MUSTER_ADRESSE_1 + i + MUSTER_ADRESSE_2;
                 meldungProgress(adresse);
-                seiteArchiv1 = getUrl.getUri(SENDERNAME, adresse, Const.KODIERUNG_UTF, 2 /* versuche */, seiteArchiv1, "" /* Meldung */);
+                seiteArchiv1 = getUrl.getUri(SENDERNAME, adresse, StandardCharsets.UTF_8, 2 /* versuche */, seiteArchiv1, "" /* Meldung */);
 
                 int pos = 0, stop;
                 String url, titel, thema, datum, beschreibung;
@@ -668,7 +669,7 @@ public class MediathekBr extends MediathekReader {
         private void archivAdd1(GetUrl getUrl, MSStringBuilder seiteArchiv2, String urlThema, String thema, String titel, String datum, String beschreibung) {
             // http://www.br.de/service/suche/archiv102.html?documentTypes=video&page=1&sort=date
             meldung(urlThema);
-            seiteArchiv2 = getUrl.getUri(SENDERNAME, urlThema, Const.KODIERUNG_UTF, 1 /* versuche */, seiteArchiv2, "" /* Meldung */);
+            seiteArchiv2 = getUrl.getUri(SENDERNAME, urlThema, StandardCharsets.UTF_8, 1 /* versuche */, seiteArchiv2, "" /* Meldung */);
             String xmlUrl;
 
             xmlUrl = seiteArchiv2.extract("setup({dataURL:'", "'");

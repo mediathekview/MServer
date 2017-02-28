@@ -28,6 +28,7 @@ import mServer.crawler.CrawlerTool;
 import mServer.crawler.FilmeSuchen;
 import mServer.crawler.GetUrl;
 
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 
 public class MediathekPhoenix extends MediathekReader {
@@ -62,7 +63,7 @@ public class MediathekPhoenix extends MediathekReader {
     private void addToList_() {
         final String MUSTER = "<li><strong><a href=\"/content/";
         GetUrl getUrl = new GetUrl(getWartenSeiteLaden());
-        seite = getUrl.getUri(SENDERNAME, "http://www.phoenix.de/content/78905", Const.KODIERUNG_ISO15, 6 /* versuche */, seite, "" /* Meldung */);
+        seite = getUrl.getUri(SENDERNAME, "http://www.phoenix.de/content/78905", StandardCharsets.ISO_8859_1, 6 /* versuche */, seite, "" /* Meldung */);
         if (seite.length() == 0) {
             Log.errorLog(487512369, "Leere Seite für URL: ");
         }

@@ -28,6 +28,7 @@ import mServer.crawler.CrawlerTool;
 import mServer.crawler.FilmeSuchen;
 import mServer.crawler.GetUrl;
 
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 
 public class MediathekArd extends MediathekReader {
@@ -65,11 +66,11 @@ public class MediathekArd extends MediathekReader {
         MSStringBuilder seite = new MSStringBuilder(Const.STRING_BUFFER_START_BUFFER);
         meldungStart();
         GetUrl getUrlIo = new GetUrl(getWartenSeiteLaden());
-        seite = getUrlIo.getUri(SENDERNAME, ADRESSE_THEMA, Const.KODIERUNG_UTF, 5 /* versuche */, seite, "" /* Meldung */);
+        seite = getUrlIo.getUri(SENDERNAME, ADRESSE_THEMA, StandardCharsets.UTF_8, 5 /* versuche */, seite, "" /* Meldung */);
         if (seite.length() == 0) {
             Log.sysLog("ARD: Versuch 2");
             warten(2 * 60 /*Sekunden*/);
-            seite = getUrlIo.getUri(SENDERNAME, ADRESSE_THEMA, Const.KODIERUNG_UTF, 5 /* versuche */, seite, "" /* Meldung */);
+            seite = getUrlIo.getUri(SENDERNAME, ADRESSE_THEMA, StandardCharsets.UTF_8, 5 /* versuche */, seite, "" /* Meldung */);
             if (seite.length() == 0) {
                 Log.errorLog(104689736, "wieder nichts gefunden");
             }
@@ -96,7 +97,7 @@ public class MediathekArd extends MediathekReader {
 
     private void feedSuchen1(String strUrlFeed) {
         GetUrl getUrlIo = new GetUrl(getWartenSeiteLaden());
-        seiteFeed = getUrlIo.getUri(SENDERNAME, strUrlFeed, Const.KODIERUNG_UTF, 2/*max Versuche*/, seiteFeed, "");
+        seiteFeed = getUrlIo.getUri(SENDERNAME, strUrlFeed, StandardCharsets.UTF_8, 2/*max Versuche*/, seiteFeed, "");
         if (seiteFeed.length() == 0) {
             Log.errorLog(207956317, "Leere Seite: " + strUrlFeed);
             return;
@@ -460,7 +461,7 @@ public class MediathekArd extends MediathekReader {
             try {
                 meldung(urlSendung);
                 final GetUrl getUrl = new GetUrl(getWartenSeiteLaden());
-                seite2 = getUrl.getUri(SENDERNAME, urlSendung, Const.KODIERUNG_UTF, 1, seite2, "");
+                seite2 = getUrl.getUri(SENDERNAME, urlSendung, StandardCharsets.UTF_8, 1, seite2, "");
                 if (seite2.length() == 0) {
                     Log.errorLog(612031478, "Leere Seite: " + urlSendung);
                     return;
@@ -484,7 +485,7 @@ public class MediathekArd extends MediathekReader {
 
         private String beschreibung(String strUrlFeed) {
             final GetUrl getUrl = new GetUrl(getWartenSeiteLaden());
-            seite3 = getUrl.getUri(SENDERNAME, strUrlFeed, Const.KODIERUNG_UTF, 1, seite3, "");
+            seite3 = getUrl.getUri(SENDERNAME, strUrlFeed, StandardCharsets.UTF_8, 1, seite3, "");
             if (seite3.length() == 0) {
                 Log.errorLog(784512036, "Leere Seite: " + strUrlFeed);
                 return "";

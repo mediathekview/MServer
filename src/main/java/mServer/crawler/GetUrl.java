@@ -20,7 +20,6 @@
 package mServer.crawler;
 
 import mSearch.Config;
-import mSearch.Const;
 import mSearch.tool.Log;
 import mSearch.tool.MSStringBuilder;
 import mSearch.tool.MVHttpClient;
@@ -33,6 +32,8 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.SocketTimeoutException;
 import java.net.UnknownHostException;
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -50,18 +51,18 @@ public class GetUrl {
 
     @Deprecated
     public MSStringBuilder getUri_Utf(String sender, String addr, MSStringBuilder seite, String meldung) {
-        return getUri(sender, addr, Const.KODIERUNG_UTF, 1 /* versuche */, seite, meldung);
+        return getUri(sender, addr, StandardCharsets.UTF_8, 1 /* versuche */, seite, meldung);
     }
 
     public MSStringBuilder getUri_Iso(String sender, String addr, MSStringBuilder seite, String meldung) {
-        return getUri(sender, addr, Const.KODIERUNG_ISO15, 1 /* versuche */, seite, meldung);
+        return getUri(sender, addr, StandardCharsets.ISO_8859_1, 1 /* versuche */, seite, meldung);
     }
 
-    public MSStringBuilder getUri(String sender, String addr, String kodierung, int maxVersuche, MSStringBuilder seite, String meldung) {
-        return getUri(sender, addr, kodierung, maxVersuche, seite, meldung, "");
+    public MSStringBuilder getUri(String sender, String addr, Charset encoding, int maxVersuche, MSStringBuilder seite, String meldung) {
+        return getUri(sender, addr, encoding, maxVersuche, seite, meldung, "");
     }
 
-    public MSStringBuilder getUriWithDelay(String sender, String addr, String kodierung, int maxVersuche, MSStringBuilder seite, String meldung,
+    public MSStringBuilder getUriWithDelay(String sender, String addr, Charset encoding, int maxVersuche, MSStringBuilder seite, String meldung,
                                            long delay, TimeUnit delayUnit) {
         final long delayVal = TimeUnit.MILLISECONDS.convert(delay, delayUnit);
         if (delayVal > 0) {
@@ -71,10 +72,10 @@ public class GetUrl {
             }
         }
 
-        return getUri(sender, addr, kodierung, maxVersuche, seite, meldung);
+        return getUri(sender, addr, encoding, maxVersuche, seite, meldung);
     }
 
-    public MSStringBuilder getUri(String sender, String addr, String kodierung, int maxVersuche, MSStringBuilder seite, String meldung, String token) {
+    public MSStringBuilder getUri(String sender, String addr, Charset encoding, int maxVersuche, MSStringBuilder seite, String meldung, String token) {
         int aktVer = 0;
         boolean letzterVersuch;
 
@@ -86,7 +87,7 @@ public class GetUrl {
                     TimeUnit.MILLISECONDS.sleep(PAUSE);
                 }
                 letzterVersuch = (aktVer >= maxVersuche);
-                seite = getUriNew(sender, addr, seite, kodierung, meldung, maxVersuche, letzterVersuch, token);
+                seite = getUriNew(sender, addr, seite, encoding, meldung, maxVersuche, letzterVersuch, token);
                 if (seite.length() > 0) {
                     // und nix wie weiter
                     if (Config.debug && aktVer > 1) {
@@ -118,11 +119,11 @@ public class GetUrl {
         FilmeSuchen.listeSenderLaufen.inc(sender, RunSender.Count.SUM_TRAFFIC_LOADART_NIX, bytesWritten);
     }
 
-    private long transferData(ResponseBody body, String kodierung, MSStringBuilder seite) throws IOException {
+    private long transferData(ResponseBody body, Charset encoding, MSStringBuilder seite) throws IOException {
         long load = 0;
         if (body.contentType() != null) {
             //valid response
-            try (InputStreamReader inReader = new InputStreamReader(body.byteStream(), kodierung)) {
+            try (InputStreamReader inReader = new InputStreamReader(body.byteStream(), encoding)) {
                 final char[] buffer = new char[16 * 1024];
                 int n;
                 while (!Config.getStop() && (n = inReader.read(buffer)) != -1) {
@@ -135,12 +136,12 @@ public class GetUrl {
         return load;
     }
 
-    private long webCall(Request request, MSStringBuilder seite, final String kodierung) throws IOException {
+    private long webCall(Request request, MSStringBuilder seite, final Charset encoding) throws IOException {
         long load = 0;
         try (Response response = MVHttpClient.getInstance().getHttpClient().newCall(request).execute();
                 ResponseBody body = response.body()) {
             if (response.isSuccessful()) {
-                load = transferData(body, kodierung, seite);
+                load = transferData(body, encoding, seite);
             }
         }
         return load;
@@ -156,22 +157,20 @@ public class GetUrl {
     }
 
     private MSStringBuilder getUriNew(String sender, String addr, MSStringBuilder seite,
-            String kodierung, String meldung, int versuch, boolean lVersuch,
-            String token) {
-//        EtmPoint performancePoint = EtmManager.getEtmMonitor().createPoint("GetUrl.getUriNew");
+                                      Charset encoding, String meldung, int versuch, boolean lVersuch,
+                                      String token) {
 
         long load = 0;
 
         try {
             seite.setLength(0);
 
-            //TimeUnit.MILLISECONDS.sleep(50);//wartenBasis
             if (MserverDaten.debug) {
                 Log.sysLog("Durchsuche: " + addr);
             }
 
             final Request.Builder builder = createRequestBuilder(addr, token);
-            load = webCall(builder.build(), seite, kodierung);
+            load = webCall(builder.build(), seite, encoding);
         } catch (UnknownHostException | SocketTimeoutException ignored) {
             if (MserverDaten.debug) {
                 printDebugMessage(meldung, addr, sender, versuch, ignored);
@@ -186,7 +185,6 @@ public class GetUrl {
 
         updateStatistics(sender, load);
 
-//        performancePoint.collect();
         return seite;
     }
 

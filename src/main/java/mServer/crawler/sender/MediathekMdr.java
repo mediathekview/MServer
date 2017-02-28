@@ -28,6 +28,7 @@ import mServer.crawler.CrawlerTool;
 import mServer.crawler.FilmeSuchen;
 import mServer.crawler.GetUrl;
 
+import java.nio.charset.StandardCharsets;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.LinkedList;
@@ -169,7 +170,7 @@ public class MediathekMdr extends MediathekReader {
             int pos = 0;
             String thema, url = "";
             try {
-                seite1 = getUrl.getUri(SENDERNAME, strUrlFeed, Const.KODIERUNG_UTF, 2 /* versuche */, seite1, "");
+                seite1 = getUrl.getUri(SENDERNAME, strUrlFeed, StandardCharsets.UTF_8, 2 /* versuche */, seite1, "");
                 while (!Config.getStop() && (pos = seite1.indexOf(MUSTER, pos)) != -1) {
                     pos += MUSTER.length();
                     url = seite1.extract("<a href=\"/mediathek/fernsehen/", "\"", pos);
@@ -196,7 +197,7 @@ public class MediathekMdr extends MediathekReader {
             int pos = 0;
             String thema, url = "";
             try {
-                seiteTage = getUrl.getUri(SENDERNAME, urlSeite, Const.KODIERUNG_UTF, 2 /* versuche */, seiteTage, "");
+                seiteTage = getUrl.getUri(SENDERNAME, urlSeite, StandardCharsets.UTF_8, 2 /* versuche */, seiteTage, "");
                 while (!Config.getStop() && (pos = seiteTage.indexOf(MUSTER, pos)) != -1) {
                     pos += MUSTER.length();
                     url = seiteTage.extract("<a href=\"/mediathek/", "\"", pos);
@@ -218,7 +219,7 @@ public class MediathekMdr extends MediathekReader {
         }
 
         private void addSendugen(String strUrlFeed, String thema, String urlThema) {
-            seite2 = getUrl.getUri(SENDERNAME, urlThema, Const.KODIERUNG_UTF, 2 /* versuche */, seite2, "Thema: " + thema);
+            seite2 = getUrl.getUri(SENDERNAME, urlThema, StandardCharsets.UTF_8, 2 /* versuche */, seite2, "Thema: " + thema);
             final String muster;
             if (seite2.indexOf("div class=\"media mediaA \">") != -1) {
                 muster = "div class=\"media mediaA \">";

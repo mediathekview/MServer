@@ -31,6 +31,7 @@ import mServer.crawler.GetUrl;
 import org.apache.commons.lang3.StringEscapeUtils;
 import org.apache.commons.lang3.time.FastDateFormat;
 
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -81,7 +82,7 @@ public class MediathekOrf extends MediathekReader {
     private void bearbeiteAdresseTag(String adresse, MSStringBuilder seite) {
         // <a href="http://tvthek.orf.at/program/Kultur-heute/3078759/Kultur-Heute/7152535" class="item_inner clearfix">
         GetUrl getUrl = new GetUrl(100);
-        seite = getUrl.getUri(SENDERNAME, adresse, Const.KODIERUNG_UTF, 2, seite, "");
+        seite = getUrl.getUri(SENDERNAME, adresse, StandardCharsets.UTF_8, 2, seite, "");
         ArrayList<String> al = new ArrayList<>();
         seite.extractList("", "", "<a href=\"http://tvthek.orf.at/profile/", "\"", "http://tvthek.orf.at/profile/", al);
         for (String s : al) {
@@ -95,7 +96,7 @@ public class MediathekOrf extends MediathekReader {
     private void bearbeiteAdresseSendung(MSStringBuilder seite) {
         final String URL = "http://tvthek.orf.at/profiles";
         GetUrl getUrl = new GetUrl(100);
-        seite = getUrl.getUri(SENDERNAME, URL, Const.KODIERUNG_UTF, 3, seite, "");
+        seite = getUrl.getUri(SENDERNAME, URL, StandardCharsets.UTF_8, 3, seite, "");
         ArrayList<String> al = new ArrayList<>();
         try {
             seite.extractList("", "", "<a href=\"/profiles/letter/", "\"", "http://tvthek.orf.at/profiles/letter/", al);
@@ -151,7 +152,7 @@ public class MediathekOrf extends MediathekReader {
 
         private void sendungen(String url) {
             GetUrl getUrl = new GetUrl(100);
-            seite1 = getUrl.getUri(SENDERNAME, url, Const.KODIERUNG_UTF, 2, seite1, "");
+            seite1 = getUrl.getUri(SENDERNAME, url, StandardCharsets.UTF_8, 2, seite1, "");
             alSendung.clear();
             //int start = "http://tvthek.orf.at/profile/".length();
             seite1.extractList("", "", "<a href=\"http://tvthek.orf.at/profile/", "\"", "http://tvthek.orf.at/profile/", alSendung);

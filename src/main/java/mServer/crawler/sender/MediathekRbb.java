@@ -30,6 +30,7 @@ import mServer.crawler.CrawlerTool;
 import mServer.crawler.FilmeSuchen;
 import mServer.crawler.GetUrl;
 
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 
 public class MediathekRbb extends MediathekReader {
@@ -52,9 +53,9 @@ public class MediathekRbb extends MediathekReader {
         meldungStart();
         try {
             GetUrl getUrlIo = new GetUrl(getWartenSeiteLaden());
-            seite = getUrlIo.getUri(SENDERNAME, ADRESSE_1, Const.KODIERUNG_UTF, 5 /* versuche */, seite, "" /* Meldung */);
+            seite = getUrlIo.getUri(SENDERNAME, ADRESSE_1, StandardCharsets.UTF_8, 5 /* versuche */, seite, "" /* Meldung */);
             seite.extractList("", "", URL, "\"", "", liste);
-            seite = getUrlIo.getUri(SENDERNAME, ADRESSE_2, Const.KODIERUNG_UTF, 5 /* versuche */, seite, "" /* Meldung */);
+            seite = getUrlIo.getUri(SENDERNAME, ADRESSE_2, StandardCharsets.UTF_8, 5 /* versuche */, seite, "" /* Meldung */);
             seite.extractList("", "", URL, "\"", "", liste);
             for (String s : liste) {
                 if (s.isEmpty() || !s.contains("documentId=")) {

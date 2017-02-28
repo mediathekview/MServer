@@ -30,6 +30,7 @@ import mServer.crawler.GetUrl;
 import mServer.tool.MserverDaten;
 import org.apache.commons.lang3.time.FastDateFormat;
 
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -55,7 +56,7 @@ public class MediathekNdr extends MediathekReader implements Runnable {
 
         MSStringBuilder seite = new MSStringBuilder(Const.STRING_BUFFER_START_BUFFER);
         final GetUrl getUrlIo = new GetUrl(getWartenSeiteLaden());
-        seite = getUrlIo.getUri(SENDERNAME, ADRESSE, Const.KODIERUNG_UTF, 5 /* versuche */, seite, ""/* meldung */);
+        seite = getUrlIo.getUri(SENDERNAME, ADRESSE, StandardCharsets.UTF_8, 5 /* versuche */, seite, ""/* meldung */);
         int pos = 0;
         int pos1;
         int pos2;
@@ -124,7 +125,7 @@ public class MediathekNdr extends MediathekReader implements Runnable {
     private boolean alleSeiteSuchen(String strUrlFeed, String tthema) {
         boolean ret = false;
         GetUrl getUrlIo = new GetUrl(getWartenSeiteLaden());
-        seiteAlle = getUrlIo.getUri(SENDERNAME, strUrlFeed, Const.KODIERUNG_UTF, 3 /* versuche */, seiteAlle, "Thema: " + tthema/* meldung */);
+        seiteAlle = getUrlIo.getUri(SENDERNAME, strUrlFeed, StandardCharsets.UTF_8, 3 /* versuche */, seiteAlle, "Thema: " + tthema/* meldung */);
         int pos1 = 0, pos2, anz1, anz2 = 0;
         try {
             // <a class="square button" href="/mediathek/mediatheksuche105_broadcast-1391_page-5.html" title="Zeige Seite 5">
@@ -210,7 +211,7 @@ public class MediathekNdr extends MediathekReader implements Runnable {
         private void feedEinerSeiteSuchen(String strUrlFeed, String tthema) {
             final String MUSTER_URL = "<a href=\"";
             GetUrl getUrlIo = new GetUrl(getWartenSeiteLaden());
-            seite1 = getUrlIo.getUri(SENDERNAME, strUrlFeed, Const.KODIERUNG_UTF, 3 /* versuche */, seite1, "Thema: " + tthema/* meldung */);
+            seite1 = getUrlIo.getUri(SENDERNAME, strUrlFeed, StandardCharsets.UTF_8, 3 /* versuche */, seite1, "Thema: " + tthema/* meldung */);
             int pos = 0;
             String url;
             String titel;

@@ -31,6 +31,7 @@ import mServer.crawler.CrawlerTool;
 import mServer.crawler.FilmeSuchen;
 import mServer.crawler.GetUrl;
 
+import java.nio.charset.StandardCharsets;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -101,7 +102,7 @@ public class MediathekWdr extends MediathekReader {
     private void rockpalast() {
         try {
             GetUrl getUrlIo = new GetUrl(getWartenSeiteLaden());
-            seite_1 = getUrlIo.getUri(SENDERNAME, ROCKPALAST_URL, Const.KODIERUNG_UTF, 3 /* versuche */, seite_1, "");
+            seite_1 = getUrlIo.getUri(SENDERNAME, ROCKPALAST_URL, StandardCharsets.UTF_8, 3 /* versuche */, seite_1, "");
             seite_1.extractList("", "", "<a href=\"/mediathek/video", "\"", "http://www1.wdr.de/mediathek/video/", listeRochpalast);
         } catch (Exception ex) {
             Log.errorLog(915423698, ex);
@@ -113,7 +114,7 @@ public class MediathekWdr extends MediathekReader {
         final String ROOTADR = "http://www.wdrmaus.de/lachgeschichten/";
         final String ITEM_1 = "<li class=\"filmvorschau\"><a href=\"../lachgeschichten/";
         GetUrl getUrlIo = new GetUrl(getWartenSeiteLaden());
-        seite_1 = getUrlIo.getUri(SENDERNAME, MAUS, Const.KODIERUNG_UTF, 3 /* versuche */, seite_1, "");
+        seite_1 = getUrlIo.getUri(SENDERNAME, MAUS, StandardCharsets.UTF_8, 3 /* versuche */, seite_1, "");
         try {
             seite_1.extractList("", "", ITEM_1, "\"", ROOTADR, listeMaus);
         } catch (Exception ex) {
@@ -124,7 +125,7 @@ public class MediathekWdr extends MediathekReader {
     private void festival() {
         // http://www1.wdr.de/fernsehen/kultur/rockpalast/videos/rockpalastvideos_festivals100.html
         GetUrl getUrlIo = new GetUrl(getWartenSeiteLaden());
-        seite_1 = getUrlIo.getUri(SENDERNAME, ROCKPALAST_FESTIVAL, Const.KODIERUNG_UTF, 3 /* versuche */, seite_1, "");
+        seite_1 = getUrlIo.getUri(SENDERNAME, ROCKPALAST_FESTIVAL, StandardCharsets.UTF_8, 3 /* versuche */, seite_1, "");
         try {
             seite_1.extractList("", "", "<a href=\"/fernsehen/rockpalast/events/", "\"", "http://www1.wdr.de/fernsehen/rockpalast/events/", listeFestival);
         } catch (Exception ex) {
