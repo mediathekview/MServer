@@ -56,6 +56,19 @@ dependencies {
     testCompile "org.mockito:mockito-core:2.+"
 }
 
+configurations.compile {
+    resolutionStrategy.dependencySubstitution {
+        def substituteIfExists = { String moduleName, String projectName ->
+            if(findProject(projectName)) {
+               assert !(project.hasProperty('org.gradle.configureondemand') && Boolean.valueOf(project.getProperty('org.gradle.configureondemand'))) : "org.gradle.configureondemand = true will cause problems when substituting a project"
+               logger.lifecycle "$project: Substituting module '$moduleName' with project $projectName"
+               substitute module(moduleName) with project(projectName)
+            }
+        }
+        substituteIfExists('de.mediathekview:MSearch', ':MSearch')
+    }
+}
+
 ext {
     propsFile = file('src/main/resources/version.properties').absoluteFile
     if (!propsFile.exists()) {
@@ -94,18 +107,20 @@ uploadArchives {
 }
 build.dependsOn(install)
 
-task updateVersion << {
-    Properties props = loadVersionProperties()
-    def oldVersion = props.getProperty('VERSION')
-    String buildDate = new Date().format('dd.MM.yyyy HH:mm:ss')
-    if (!oldVersion.equals(project.version)) {
-        logger.lifecycle "==mserver======================"
-        logger.lifecycle "Version: $project.version"
-        logger.lifecycle "Baudatum: $buildDate"
-        logger.lifecycle "==mserver======================"
-        props.setProperty('VERSION', project.version)
-        props.setProperty('DATE', buildDate)
-        props.store(propsFile.newWriter(), null)
+task updateVersion {
+    doLast {
+        Properties props = loadVersionProperties()
+        def oldVersion = props.getProperty('VERSION')
+        String buildDate = new Date().format('dd.MM.yyyy HH:mm:ss')
+        if (!oldVersion.equals(project.version)) {
+            logger.lifecycle "==mserver======================"
+            logger.lifecycle "Version: $project.version"
+            logger.lifecycle "Baudatum: $buildDate"
+            logger.lifecycle "==mserver======================"
+            props.setProperty('VERSION', project.version)
+            props.setProperty('DATE', buildDate)
+            props.store(propsFile.newWriter(), null)
+        }
     }
 }
 
@@ -160,7 +175,6 @@ task run(type: JavaExec, dependsOn: classes) {
     if (project.hasProperty('args')) {
         args(project.args.split(','))
     }
-
 }
 
 /**

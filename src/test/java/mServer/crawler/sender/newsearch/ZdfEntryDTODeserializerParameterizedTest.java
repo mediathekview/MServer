@@ -1,11 +1,9 @@
 package mServer.crawler.sender.newsearch;
 
 import com.google.gson.JsonObject;
-import java.io.IOException;
-import java.net.URISyntaxException;
 import java.util.Arrays;
 import java.util.Collection;
-import mServer.testhelper.JsonFileReader;
+import mServer.test.JsonFileReader;
 import static org.hamcrest.CoreMatchers.*;
 import static org.junit.Assert.assertThat;
 import org.junit.Test;
@@ -34,7 +32,7 @@ public class ZdfEntryDTODeserializerParameterizedTest {
     }
     
     @Test
-    public void testDeserialize() throws IOException, URISyntaxException {
+    public void testDeserialize() {
         JsonObject jsonObject = JsonFileReader.readJson(jsonFile);
         
         ZDFEntryDTODeserializer target = new ZDFEntryDTODeserializer();
