@@ -19,6 +19,13 @@
  */
 package mServer.crawler;
 
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.SocketTimeoutException;
+import java.net.UnknownHostException;
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
+import java.util.concurrent.TimeUnit;
 import mSearch.Config;
 import mSearch.tool.Log;
 import mSearch.tool.MSStringBuilder;
@@ -28,14 +35,6 @@ import okhttp3.Request;
 import okhttp3.Response;
 import okhttp3.ResponseBody;
 
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.SocketTimeoutException;
-import java.net.UnknownHostException;
-import java.nio.charset.Charset;
-import java.nio.charset.StandardCharsets;
-import java.util.concurrent.TimeUnit;
-
 /**
  * ist die Klasse die die HTML-Seite tatsächlich lädt
  */
@@ -44,9 +43,14 @@ public class GetUrl {
     private final static int PAUSE = 1_000;
     public static boolean showLoadTime = false; //DEBUG
     private long wartenBasis = 500;
+    private long delayVal = TimeUnit.MILLISECONDS.convert(50, TimeUnit.MILLISECONDS);
 
     public GetUrl(long wwartenBasis) {
         wartenBasis = wwartenBasis;
+    }
+
+    public void setDelay(long delay, TimeUnit delayUnit) {
+        delayVal = TimeUnit.MILLISECONDS.convert(delay, delayUnit);
     }
 
     @Deprecated
@@ -63,14 +67,8 @@ public class GetUrl {
     }
 
     public MSStringBuilder getUriWithDelay(String sender, String addr, Charset encoding, int maxVersuche, MSStringBuilder seite, String meldung,
-                                           long delay, TimeUnit delayUnit) {
-        final long delayVal = TimeUnit.MILLISECONDS.convert(delay, delayUnit);
-        if (delayVal > 0) {
-            try {
-                TimeUnit.MILLISECONDS.sleep(delayVal);
-            } catch (InterruptedException ignored) {
-            }
-        }
+            long delay, TimeUnit delayUnit) {
+        setDelay(delay, delayUnit);
 
         return getUri(sender, addr, encoding, maxVersuche, seite, meldung);
     }
@@ -82,6 +80,14 @@ public class GetUrl {
         do {
             ++aktVer;
             try {
+
+                if (delayVal > 0) {
+                    try {
+                        TimeUnit.MILLISECONDS.sleep(delayVal);
+                    } catch (InterruptedException ignored) {
+                    }
+                }
+
                 if (aktVer > 1) {
                     // und noch eine Pause vor dem nächsten Versuch
                     TimeUnit.MILLISECONDS.sleep(PAUSE);
@@ -157,8 +163,8 @@ public class GetUrl {
     }
 
     private MSStringBuilder getUriNew(String sender, String addr, MSStringBuilder seite,
-                                      Charset encoding, String meldung, int versuch, boolean lVersuch,
-                                      String token) {
+            Charset encoding, String meldung, int versuch, boolean lVersuch,
+            String token) {
 
         long load = 0;
 

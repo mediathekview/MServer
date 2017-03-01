@@ -19,20 +19,20 @@
  */
 package mServer.crawler;
 
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.LinkedList;
+import javax.swing.event.EventListenerList;
 import mSearch.Config;
 import mSearch.Const;
 import mSearch.daten.ListeFilme;
 import mSearch.filmeSuchen.ListenerFilmeLaden;
 import mSearch.filmeSuchen.ListenerFilmeLadenEvent;
 import mSearch.tool.Log;
+import mServer.crawler.CrawlerConfig;
 import mServer.crawler.sender.*;
 import org.apache.commons.lang3.time.FastDateFormat;
-
-import javax.swing.event.EventListenerList;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.LinkedList;
 
 /**
  * ###########################################################################################################
@@ -158,11 +158,17 @@ public class FilmeSuchen {
         String zeile;
         RunSender run = listeSenderLaufen.senderFertig(sender);
         if (run != null) {
+
+            long anzahlSeiten = listeSenderLaufen.get(run.sender, RunSender.Count.ANZAHL);
+            final String rate = listeSenderLaufen.getRate(sender);
+
             zeile = "" + '\n';
             zeile += "-------------------------------------------------------------------------------------" + '\n';
             zeile += "Fertig " + sender + ": " + new SimpleDateFormat("HH:mm:ss").format(new Date()) + " Uhr, Filme: " + listeSenderLaufen.get(sender, RunSender.Count.FILME) + '\n';
             int sekunden = run.getLaufzeitSekunden();
             zeile += "     -> Dauer[Min]: " + (sekunden / 60 == 0 ? "<1" : sekunden / 60) + '\n';
+            zeile += "     ->     [kB/s]: " + rate + '\n';
+            zeile += "     ->     Seiten: " + anzahlSeiten + '\n';
             zeile += "     ->       Rest: " + listeSenderLaufen.getSenderRun() + '\n';
             zeile += "-------------------------------------------------------------------------------------" + '\n';
             Log.sysLog(zeile);

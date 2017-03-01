@@ -26,6 +26,7 @@ import java.util.concurrent.atomic.AtomicLong;
 
 @SuppressWarnings("serial")
 public class ListeRunSender extends LinkedList<RunSender> {
+
     private final static String TRENNER = " | ";
     private static final String SENDER = " Sender ";
 
@@ -115,6 +116,17 @@ public class ListeRunSender extends LinkedList<RunSender> {
         return getCounter(sender).counter.get(what).get();
     }
 
+    public String getRate(String sender) {
+        String rate = "";
+        int dauerSender = getSender(sender).getLaufzeitSekunden();
+        long groesseByte = get(sender, RunSender.Count.SUM_TRAFFIC_BYTE);
+        if (groesseByte > 0 && dauerSender > 0) {
+            double doub = (1.0 * groesseByte / dauerSender / 1000); // kB/s
+            rate = doub < 1 ? "<1" : String.format("%.1f", (doub));
+        }
+        return rate;
+    }
+
     public long get(RunSender.Count what) {
         long ret = 0;
         for (RunSender run : this) {
@@ -123,15 +135,14 @@ public class ListeRunSender extends LinkedList<RunSender> {
         return ret;
     }
 
-
     public ArrayList<String> getTextCount(ArrayList<String> ret) {
         getTextCount_(ret, new RunSender.Count[]{RunSender.Count.ANZAHL, RunSender.Count.FILME, RunSender.Count.FEHLER,
-                RunSender.Count.FEHLVERSUCHE, RunSender.Count.WARTEZEIT_FEHLVERSUCHE, RunSender.Count.PROXY});
+            RunSender.Count.FEHLVERSUCHE, RunSender.Count.WARTEZEIT_FEHLVERSUCHE, RunSender.Count.PROXY});
         ret.add("");
         ret.add("");
 
         getTextCount_(ret, new RunSender.Count[]{RunSender.Count.SUM_DATA_BYTE, RunSender.Count.SUM_TRAFFIC_BYTE,
-                RunSender.Count.SUM_TRAFFIC_LOADART_NIX, RunSender.Count.GET_SIZE_SUM, RunSender.Count.GET_SIZE_PROXY});
+            RunSender.Count.SUM_TRAFFIC_LOADART_NIX, RunSender.Count.GET_SIZE_SUM, RunSender.Count.GET_SIZE_PROXY});
 
         ret.add("");
         ret.add("");
