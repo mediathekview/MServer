@@ -19,6 +19,9 @@
  */
 package mServer.crawler.sender;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
 import mSearch.Config;
 import mSearch.Const;
 import mSearch.daten.DatenFilm;
@@ -27,17 +30,13 @@ import mSearch.tool.MSStringBuilder;
 import mServer.crawler.FilmeSuchen;
 import mServer.crawler.GetUrl;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Locale;
-
 public class MediathekSrfPod extends MediathekReader implements Runnable {
 
     public final static String SENDERNAME = Const.SRF_PODCAST;
     private MSStringBuilder seite = new MSStringBuilder(Const.STRING_BUFFER_START_BUFFER);
 
     public MediathekSrfPod(FilmeSuchen ssearch, int startPrio) {
-        super(ssearch, SENDERNAME,/* threads */ 2, /* urlWarten */ 1000, startPrio);
+        super(ssearch, SENDERNAME,/* threads */ 2, /* urlWarten */ 200, startPrio);
     }
 
     @Override

@@ -19,6 +19,13 @@
  */
 package mServer.crawler.sender;
 
+import java.nio.charset.StandardCharsets;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.LinkedList;
+import java.util.Locale;
 import mSearch.Config;
 import mSearch.Const;
 import mSearch.daten.DatenFilm;
@@ -29,14 +36,6 @@ import mServer.crawler.FilmeSuchen;
 import mServer.crawler.GetUrl;
 import mServer.tool.MserverDaten;
 import org.apache.commons.lang3.StringEscapeUtils;
-
-import java.nio.charset.StandardCharsets;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.LinkedList;
-import java.util.Locale;
 
 public class MediathekBr extends MediathekReader {
 
@@ -56,7 +55,7 @@ public class MediathekBr extends MediathekReader {
     private final LinkedList<String> listeAlleThemenCount_ = new LinkedList<>();
 
     public MediathekBr(FilmeSuchen ssearch, int startPrio) {
-        super(ssearch, SENDERNAME, 4, 1000, startPrio);
+        super(ssearch, SENDERNAME, 4, 100, startPrio);
     }
 
     private void startArchiveThreads() {

@@ -19,6 +19,11 @@
  */
 package mServer.crawler.sender;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
 import mSearch.Config;
 import mSearch.Const;
 import mSearch.daten.DatenFilm;
@@ -29,12 +34,6 @@ import mServer.crawler.FilmeSuchen;
 import mServer.crawler.GetUrl;
 import org.apache.commons.lang3.StringEscapeUtils;
 
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-
 public class MediathekSrf extends MediathekReader {
 
     public final static String SENDERNAME = Const.SRF;
@@ -42,7 +41,7 @@ public class MediathekSrf extends MediathekReader {
     private final static int MAX_FILME_KURZ = 6;
 
     public MediathekSrf(FilmeSuchen ssearch, int startPrio) {
-        super(ssearch, SENDERNAME,/* threads */ 3, /* urlWarten */ 400, startPrio);
+        super(ssearch, SENDERNAME,/* threads */ 3, /* urlWarten */ 100, startPrio);
     }
 
     @Override

@@ -19,6 +19,7 @@
  */
 package mServer.crawler.sender;
 
+import java.util.ArrayList;
 import mSearch.Config;
 import mSearch.Const;
 import mSearch.daten.DatenFilm;
@@ -29,14 +30,12 @@ import mServer.crawler.FilmeSuchen;
 import mServer.crawler.GetUrl;
 import mServer.tool.MserverDaten;
 
-import java.util.ArrayList;
-
 public class MediathekDw extends MediathekReader implements Runnable {
 
     public final static String SENDERNAME = Const.DW;
 
     public MediathekDw(FilmeSuchen ssearch, int startPrio) {
-        super(ssearch, SENDERNAME, /* threads */ 4, /* urlWarten */ 500, startPrio);
+        super(ssearch, SENDERNAME, /* threads */ 4, /* urlWarten */ 200, startPrio);
     }
 
     @Override

@@ -20,6 +20,9 @@
  */
 package mServer.crawler.sender;
 
+import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
+import java.util.Date;
 import mSearch.Config;
 import mSearch.Const;
 import mSearch.daten.DatenFilm;
@@ -30,10 +33,6 @@ import mServer.crawler.FilmeSuchen;
 import mServer.crawler.GetUrl;
 import org.apache.commons.lang3.StringEscapeUtils;
 import org.apache.commons.lang3.time.FastDateFormat;
-
-import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
-import java.util.Date;
 
 public class MediathekOrf extends MediathekReader {
 
@@ -47,7 +46,7 @@ public class MediathekOrf extends MediathekReader {
      * @param startPrio
      */
     public MediathekOrf(FilmeSuchen ssearch, int startPrio) {
-        super(ssearch, SENDERNAME, /* threads */ 2, /* urlWarten */ 500, startPrio);
+        super(ssearch, SENDERNAME, /* threads */ 2, /* urlWarten */ 100, startPrio);
     }
 
     @Override

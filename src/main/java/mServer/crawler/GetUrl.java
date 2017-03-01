@@ -42,11 +42,13 @@ public class GetUrl {
 
     private final static int PAUSE = 1_000;
     public static boolean showLoadTime = false; //DEBUG
-    private long wartenBasis = 500;
     private long delayVal = TimeUnit.MILLISECONDS.convert(50, TimeUnit.MILLISECONDS);
 
-    public GetUrl(long wwartenBasis) {
-        wartenBasis = wwartenBasis;
+    public GetUrl() {
+    }
+
+    public GetUrl(long delay) {
+        setDelay(delay, TimeUnit.MILLISECONDS);
     }
 
     public void setDelay(long delay, TimeUnit delayUnit) {
@@ -105,7 +107,7 @@ public class GetUrl {
                     return seite;
                 } else {
                     FilmeSuchen.listeSenderLaufen.inc(sender, RunSender.Count.FEHLVERSUCHE);
-                    FilmeSuchen.listeSenderLaufen.inc(sender, RunSender.Count.WARTEZEIT_FEHLVERSUCHE, wartenBasis);
+                    FilmeSuchen.listeSenderLaufen.inc(sender, RunSender.Count.WARTEZEIT_FEHLVERSUCHE, delayVal);
                     if (letzterVersuch) {
                         // dann wars leider nichts
                         FilmeSuchen.listeSenderLaufen.inc(sender, RunSender.Count.FEHLER);

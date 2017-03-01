@@ -43,11 +43,11 @@ public class MediathekArte_de extends MediathekReader {
     protected String TIME_2 = "um";
 
     public MediathekArte_de(FilmeSuchen ssearch, int startPrio) {
-        super(ssearch, SENDERNAME,/* threads */ 2, /* urlWarten */ 500, startPrio);
+        super(ssearch, SENDERNAME,/* threads */ 2, /* urlWarten */ 200, startPrio);
     }
 
     public MediathekArte_de(FilmeSuchen ssearch, int startPrio, String name) {
-        super(ssearch, name,/* threads */ 2, /* urlWarten */ 500, startPrio);
+        super(ssearch, name,/* threads */ 2, /* urlWarten */ 200, startPrio);
     }
 
     //===================================

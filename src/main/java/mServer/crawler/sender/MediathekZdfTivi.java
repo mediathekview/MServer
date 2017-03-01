@@ -19,6 +19,9 @@
  */
 package mServer.crawler.sender;
 
+import java.nio.charset.StandardCharsets;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import mSearch.Config;
 import mSearch.Const;
 import mSearch.daten.DatenFilm;
@@ -29,10 +32,6 @@ import mServer.crawler.GetUrl;
 import mServer.tool.MserverDaten;
 import org.apache.commons.lang3.time.FastDateFormat;
 
-import java.nio.charset.StandardCharsets;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
 public class MediathekZdfTivi extends MediathekReader {
 
     public final static String SENDERNAME = Const.ZDF_TIVI;
@@ -42,7 +41,7 @@ public class MediathekZdfTivi extends MediathekReader {
     private final LinkedListUrl listeThemen_3 = new LinkedListUrl();
 
     public MediathekZdfTivi(FilmeSuchen ssearch, int startPrio) {
-        super(ssearch, SENDERNAME, 2 /* threads */, 500 /* urlWarten */, startPrio);
+        super(ssearch, SENDERNAME, 2 /* threads */, 50 /* urlWarten */, startPrio);
     }
 
     @Override

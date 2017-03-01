@@ -19,6 +19,9 @@
  */
 package mServer.crawler.sender;
 
+import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
+import java.util.Date;
 import mSearch.Config;
 import mSearch.Const;
 import mSearch.daten.DatenFilm;
@@ -30,17 +33,13 @@ import mServer.crawler.GetUrl;
 import mServer.tool.MserverDaten;
 import org.apache.commons.lang3.time.FastDateFormat;
 
-import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
-import java.util.Date;
-
 public class MediathekNdr extends MediathekReader implements Runnable {
 
     public final static String SENDERNAME = Const.NDR;
     private MSStringBuilder seiteAlle = new MSStringBuilder(Const.STRING_BUFFER_START_BUFFER);
 
     public MediathekNdr(FilmeSuchen ssearch, int startPrio) {
-        super(ssearch, SENDERNAME, /* threads */ 2, /* urlWarten */ 250, startPrio);
+        super(ssearch, SENDERNAME, /* threads */ 2, /* urlWarten */ 50, startPrio);
     }
 
     //-> erste Seite:

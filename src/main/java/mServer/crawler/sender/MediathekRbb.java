@@ -21,6 +21,8 @@
  */
 package mServer.crawler.sender;
 
+import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
 import mSearch.Config;
 import mSearch.Const;
 import mSearch.daten.DatenFilm;
@@ -30,16 +32,13 @@ import mServer.crawler.CrawlerTool;
 import mServer.crawler.FilmeSuchen;
 import mServer.crawler.GetUrl;
 
-import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
-
 public class MediathekRbb extends MediathekReader {
 
     public final static String SENDERNAME = Const.RBB;
     //final static String ROOTADR = "http://mediathek.rbb-online.de";
 
     public MediathekRbb(FilmeSuchen ssearch, int startPrio) {
-        super(ssearch, SENDERNAME,/* threads */ 2, /* urlWarten */ 500, startPrio);
+        super(ssearch, SENDERNAME,/* threads */ 2, /* urlWarten */ 100, startPrio);
     }
 
     @Override

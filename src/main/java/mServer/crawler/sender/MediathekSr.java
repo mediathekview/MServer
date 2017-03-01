@@ -19,6 +19,7 @@
  */
 package mServer.crawler.sender;
 
+import java.util.ArrayList;
 import mSearch.Config;
 import mSearch.Const;
 import mSearch.daten.DatenFilm;
@@ -27,8 +28,6 @@ import mSearch.tool.MSStringBuilder;
 import mServer.crawler.CrawlerTool;
 import mServer.crawler.FilmeSuchen;
 import mServer.crawler.GetUrl;
-
-import java.util.ArrayList;
 
 public class MediathekSr extends MediathekReader {
 
@@ -40,7 +39,7 @@ public class MediathekSr extends MediathekReader {
      * @param startPrio
      */
     public MediathekSr(FilmeSuchen ssearch, int startPrio) {
-        super(ssearch, SENDERNAME, /* threads */ 2, /* urlWarten */ 500, startPrio);
+        super(ssearch, SENDERNAME, /* threads */ 2, /* urlWarten */ 100, startPrio);
     }
 
     /**

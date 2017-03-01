@@ -19,6 +19,8 @@
  */
 package mServer.crawler.sender;
 
+import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
 import mSearch.Config;
 import mSearch.Const;
 import mSearch.daten.DatenFilm;
@@ -27,9 +29,6 @@ import mSearch.tool.MSStringBuilder;
 import mServer.crawler.CrawlerTool;
 import mServer.crawler.FilmeSuchen;
 import mServer.crawler.GetUrl;
-
-import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
 
 public class MediathekArd extends MediathekReader {
 
@@ -40,7 +39,7 @@ public class MediathekArd extends MediathekReader {
     private static final String MUSTER_FEED_SUCHEN = "<div class=\"media mediaA\">";
     private MSStringBuilder seiteFeed = new MSStringBuilder(Const.STRING_BUFFER_START_BUFFER);
     public MediathekArd(FilmeSuchen ssearch, int startPrio) {
-        super(ssearch, SENDERNAME, 8, 250, startPrio);
+        super(ssearch, SENDERNAME, 8, 50, startPrio);
     }
 
     @Override

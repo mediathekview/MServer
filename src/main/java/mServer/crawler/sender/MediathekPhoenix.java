@@ -19,6 +19,8 @@
  */
 package mServer.crawler.sender;
 
+import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
 import mSearch.Config;
 import mSearch.Const;
 import mSearch.daten.DatenFilm;
@@ -28,16 +30,13 @@ import mServer.crawler.CrawlerTool;
 import mServer.crawler.FilmeSuchen;
 import mServer.crawler.GetUrl;
 
-import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
-
 public class MediathekPhoenix extends MediathekReader {
 
     public final static String SENDERNAME = Const.PHOENIX;
     private MSStringBuilder seite = new MSStringBuilder(Const.STRING_BUFFER_START_BUFFER);
 
     public MediathekPhoenix(FilmeSuchen ssearch, int startPrio) {
-        super(ssearch, SENDERNAME, 4 /* threads */, 250 /* urlWarten */, startPrio);
+        super(ssearch, SENDERNAME, 4 /* threads */, 100 /* urlWarten */, startPrio);
     }
 
     @Override
