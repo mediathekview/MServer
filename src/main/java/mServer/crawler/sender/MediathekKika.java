@@ -21,6 +21,10 @@ package mServer.crawler.sender;
 
 import etm.core.configuration.EtmManager;
 import etm.core.monitor.EtmPoint;
+import java.nio.charset.StandardCharsets;
+import java.text.ParseException;
+import java.util.ArrayList;
+import java.util.Date;
 import mSearch.Config;
 import mSearch.Const;
 import mSearch.daten.DatenFilm;
@@ -32,11 +36,6 @@ import mServer.crawler.GetUrl;
 import mServer.tool.MserverDaten;
 import org.apache.commons.lang3.time.FastDateFormat;
 
-import java.nio.charset.StandardCharsets;
-import java.text.ParseException;
-import java.util.ArrayList;
-import java.util.Date;
-
 public class MediathekKika extends MediathekReader {
 
     public final static String SENDERNAME = Const.KIKA;
@@ -44,7 +43,7 @@ public class MediathekKika extends MediathekReader {
     private MSStringBuilder seite = new MSStringBuilder(Const.STRING_BUFFER_START_BUFFER);
 
     public MediathekKika(FilmeSuchen ssearch, int startPrio) {
-        super(ssearch, SENDERNAME, 16, /* urlWarten */ 200, startPrio);
+        super(ssearch, SENDERNAME, 16, /* urlWarten */ 50, startPrio);
         setName("MediathekKiKa");
     }
 
@@ -84,7 +83,7 @@ public class MediathekKika extends MediathekReader {
 
         listeThemen.clear();
         try {
-            GetUrl getUrl = new GetUrl(100);
+            GetUrl getUrl = new GetUrl(getWartenSeiteLaden());
             seite = getUrl.getUri(SENDERNAME, ADRESSE, StandardCharsets.UTF_8, 3, seite, "KiKA: Startseite");
             seite.extractList("", "", MUSTER_URL, "\"", "http://www.kika.de/sendungen/sendungenabisz100_", liste1);
 
@@ -113,7 +112,7 @@ public class MediathekKika extends MediathekReader {
         ArrayList<String> liste2 = new ArrayList<>();
 
         try {
-            GetUrl getUrl = new GetUrl(100);
+            GetUrl getUrl = new GetUrl(getWartenSeiteLaden());
             seite = getUrl.getUri(SENDERNAME, ADRESSE, StandardCharsets.UTF_8, 3, seite, "KiKA: Startseite alle Videos");
             seite.extractList("", "", MUSTER_URL, "\"", "http://www.kika.de/videos/allevideos/allevideos-buendelgruppen100_page-", liste1);
             for (String s1 : liste1) {
