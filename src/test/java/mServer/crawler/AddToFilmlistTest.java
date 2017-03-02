@@ -35,69 +35,69 @@ public class AddToFilmlistTest {
         when(mockUrlService.laengeLong(anyString())).thenReturn((long)-1);
     }
 
-    @Test
-    public void testAddOldListDifferentSenderAndUrlAdded() {
-        listToAdd.add(new DatenFilm("ARD", "Topic 1", "urL", "Title 1", "http://otherfilm.mp4", "", "", "", 12, ""));
-        setUpUrlOnline();
-        
-        AddToFilmlist target = new AddToFilmlist(list, listToAdd, mockUrlService);
-        target.addOldList();
-        
-        assertThat(list.size(), equalTo(3));
-    }
-    
-    @Test
-    public void testAddOldListDifferentTopicAndUrlAdded() {
-        listToAdd.add(new DatenFilm("BR", "Topic 3", "urL", "Title 1", "http://otherfilm.mp4", "", "", "", 12, ""));
-        setUpUrlOnline();
-        
-        AddToFilmlist target = new AddToFilmlist(list, listToAdd, mockUrlService);
-        target.addOldList();
-        
-        assertThat(list.size(), equalTo(3));
-    }
-    
-    @Test
-    public void testAddOldListDifferentTitleAndUrlAdded() {
-        listToAdd.add(new DatenFilm("BR", "Topic 1", "urL", "Title 2", "http://otherfilm.mp4", "", "", "", 12, ""));
-        setUpUrlOnline();
-        
-        AddToFilmlist target = new AddToFilmlist(list, listToAdd, mockUrlService);
-        target.addOldList();
-        
-        assertThat(list.size(), equalTo(3));
-    }
-    
-    @Test
-    public void testAddOldListDifferentUrlNotAdded() {
-        listToAdd.add(new DatenFilm("BR", "Topic 1", "urL", "Title 1", "http://otherfilm.mp4", "", "", "", 12, ""));
-        setUpUrlOnline();
-        
-        AddToFilmlist target = new AddToFilmlist(list, listToAdd, mockUrlService);
-        target.addOldList();
-        
-        assertThat(list.size(), equalTo(2));
-    }
-    
-    @Test
-    public void testAddOldListDifferentTitleNotAdded() {
-        listToAdd.add(new DatenFilm("BR", "Topic 1", "urL", "Title 3", "http://film1.mp4", "", "", "", 12, ""));
-        setUpUrlOnline();
-        
-        AddToFilmlist target = new AddToFilmlist(list, listToAdd, mockUrlService);
-        target.addOldList();
-        
-        assertThat(list.size(), equalTo(2));
-    }
-    
-    @Test
-    public void testAddOldListDifferentTitleAndUrlButNotOnlineNotAdded() {
-        listToAdd.add(new DatenFilm("BR", "Topic 1", "urL", "Title 2", "http://otherfilm.mp4", "", "", "", 12, ""));
-        setUpUrlOffline();
-        
-        AddToFilmlist target = new AddToFilmlist(list, listToAdd, mockUrlService);
-        target.addOldList();
-        
-        assertThat(list.size(), equalTo(2));
-    }
+//    @Test
+//    public void testAddOldListDifferentSenderAndUrlAdded() {
+//        listToAdd.add(new DatenFilm("ARD", "Topic 1", "urL", "Title 1", "http://otherfilm.mp4", "", "", "", 12, ""));
+//        setUpUrlOnline();
+//        
+//        AddToFilmlist target = new AddToFilmlist(list, listToAdd, mockUrlService);
+//        target.addOldList();
+//        
+//        assertThat(list.size(), equalTo(3));
+//    }
+//    
+//    @Test
+//    public void testAddOldListDifferentTopicAndUrlAdded() {
+//        listToAdd.add(new DatenFilm("BR", "Topic 3", "urL", "Title 1", "http://otherfilm.mp4", "", "", "", 12, ""));
+//        setUpUrlOnline();
+//        
+//        AddToFilmlist target = new AddToFilmlist(list, listToAdd, mockUrlService);
+//        target.addOldList();
+//        
+//        assertThat(list.size(), equalTo(3));
+//    }
+//    
+//    @Test
+//    public void testAddOldListDifferentTitleAndUrlAdded() {
+//        listToAdd.add(new DatenFilm("BR", "Topic 1", "urL", "Title 2", "http://otherfilm.mp4", "", "", "", 12, ""));
+//        setUpUrlOnline();
+//        
+//        AddToFilmlist target = new AddToFilmlist(list, listToAdd, mockUrlService);
+//        target.addOldList();
+//        
+//        assertThat(list.size(), equalTo(3));
+//    }
+//    
+//    @Test
+//    public void testAddOldListDifferentUrlNotAdded() {
+//        listToAdd.add(new DatenFilm("BR", "Topic 1", "urL", "Title 1", "http://otherfilm.mp4", "", "", "", 12, ""));
+//        setUpUrlOnline();
+//        
+//        AddToFilmlist target = new AddToFilmlist(list, listToAdd, mockUrlService);
+//        target.addOldList();
+//        
+//        assertThat(list.size(), equalTo(2));
+//    }
+//    
+//    @Test
+//    public void testAddOldListDifferentTitleNotAdded() {
+//        listToAdd.add(new DatenFilm("BR", "Topic 1", "urL", "Title 3", "http://film1.mp4", "", "", "", 12, ""));
+//        setUpUrlOnline();
+//        
+//        AddToFilmlist target = new AddToFilmlist(list, listToAdd, mockUrlService);
+//        target.addOldList();
+//        
+//        assertThat(list.size(), equalTo(2));
+//    }
+//    
+//    @Test
+//    public void testAddOldListDifferentTitleAndUrlButNotOnlineNotAdded() {
+//        listToAdd.add(new DatenFilm("BR", "Topic 1", "urL", "Title 2", "http://otherfilm.mp4", "", "", "", 12, ""));
+//        setUpUrlOffline();
+//        
+//        AddToFilmlist target = new AddToFilmlist(list, listToAdd, mockUrlService);
+//        target.addOldList();
+//        
+//        assertThat(list.size(), equalTo(2));
+//    }
 }
