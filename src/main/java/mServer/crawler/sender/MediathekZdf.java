@@ -21,6 +21,7 @@ package mServer.crawler.sender;
 
 import etm.core.configuration.EtmManager;
 import etm.core.monitor.EtmPoint;
+import mSearch.Config;
 import mSearch.Const;
 import mSearch.daten.DatenFilm;
 import mSearch.tool.Log;
@@ -30,9 +31,7 @@ import mServer.crawler.RunSender;
 import mServer.crawler.sender.newsearch.*;
 
 import java.util.Collection;
-import java.util.concurrent.ForkJoinPool;
-import java.util.concurrent.Phaser;
-import java.util.concurrent.RecursiveAction;
+import java.util.concurrent.*;
 
 public class MediathekZdf extends MediathekReader
 {
@@ -74,14 +73,44 @@ public class MediathekZdf extends MediathekReader
         });
 
         filmList.clear();
-        phaser.arriveAndAwaitAdvance();
+
+        boolean wasInterrupted = false;
+        while (!phaser.isTerminated()) {
+            try {
+                if (Config.getStop()) {
+                    wasInterrupted = true;
+                    shutdownAndAwaitTermination(forkJoinPool, 5, TimeUnit.SECONDS);
+                } else
+                    TimeUnit.SECONDS.sleep(1);
+            } catch (InterruptedException ignored) {
+            }
+        }
+
+        //explicitely shutdown the pool
+        shutdownAndAwaitTermination(forkJoinPool, 60, TimeUnit.SECONDS);
 
         perfPoint.collect();
-        Log.sysLog("convert VideoDTO to DatenFilm finished.");
+        if (wasInterrupted)
+            Log.sysLog("VideoDTO conversion interrupted.");
+        else
+            Log.sysLog("convert VideoDTO to DatenFilm finished.");
 
         meldungThreadUndFertig();
     }
 
+    void shutdownAndAwaitTermination(ExecutorService pool, long delay, TimeUnit delayUnit) {
+        pool.shutdown();
+        try {
+            if (!pool.awaitTermination(delay, delayUnit)) {
+                pool.shutdownNow();
+                if (!pool.awaitTermination(delay, delayUnit))
+                    Log.sysLog("Pool did not terminate");
+            }
+        } catch (InterruptedException ie) {
+            pool.shutdownNow();
+            Thread.currentThread().interrupt();
+        }
+    }
 
     @SuppressWarnings("serial")
     private class VideoDtoDatenFilmConverterAction extends RecursiveAction {
