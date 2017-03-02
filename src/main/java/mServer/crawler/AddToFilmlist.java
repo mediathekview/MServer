@@ -26,37 +26,42 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 public class AddToFilmlist {
     /**
-     * Minimum size of films in MiB to be included in new list.
+     * Minimale Größe von Filmen in MiB um in die neue Liste mit aufgenommen zu werden.
      */
     private static final int MIN_SIZE_ADD_OLD = 5;
     private final static int NUMBER_OF_THREADS = 32;//(Runtime.getRuntime().availableProcessors() * Runtime.getRuntime().availableProcessors()) / 2;
     private final ListeFilme vonListe;
     private final ListeFilme listeEinsortieren;
     /**
-     * List of all locally started import threads.
+     * Liste aller local gestarteten Import-Threads.
      */
     private final ArrayList<ImportOldFilmlistThread> threadList = new ArrayList<>();
     private AtomicInteger threadCounter = new AtomicInteger(0);
+    
 
     public AddToFilmlist(ListeFilme vonListe, ListeFilme listeEinsortieren) {
         this.vonListe = vonListe;
         this.listeEinsortieren = listeEinsortieren;
     }
 
+    /**
+     * Diese Methode fügt Live-Streams hinzu und ersetzt die vorhandenen.
+     */
     public synchronized void addLiveStream() {
-        // live-streams einfügen, es werde die vorhandenen ersetzt!
-
-        if (listeEinsortieren.size() <= 0) {
-            //dann wars wohl nix
-            return;
-        }
+        if (listeEinsortieren.size() <= 0) return;
 
         vonListe.removeIf(f -> f.arr[DatenFilm.FILM_THEMA].equals(ListeFilme.THEMA_LIVE));
         listeEinsortieren.forEach(vonListe::add);
     }
 
+    /**
+     * 
+     * Diese Methode sucht nach "Thema-Titel"
+     * 
+     * @param hash
+     * @param size
+     */
     private void performTitleSearch(HashSet<Hash> hash, final int size) {
-        // nach "Thema-Titel" suchen
         vonListe.parallelStream().forEach(f -> {
             synchronized (hash) {
                 hash.add(f.getHashValueIndexAddOld());
@@ -73,8 +78,14 @@ public class AddToFilmlist {
         Log.sysLog("");
     }
 
+    /**
+     * 
+     * Diese Methode sucht nach einer "URL"
+     * 
+     * @param hash
+     * @param size
+     */
     private void performUrlSearch(HashSet<Hash> hash, final int size) {
-        // nach "URL" suchen
         vonListe.parallelStream().forEach(f -> {
             synchronized (hash) {
                 hash.add(f.getHashValueUrl());
@@ -92,8 +103,8 @@ public class AddToFilmlist {
     }
 
     /**
-     * Remove links which don´t start with http.
-     * Remove old film entries which are smaller than MIN_SIZE_ADD_OLD.
+     * Entfernt Links welche nicht mit http starten und
+     * entfernt alte Filmeinträge welche kleiner als MIN_SIZE_ADD_OLD sind.
      */
     private void performInitialCleanup() {
         listeEinsortieren.removeIf(f -> !f.arr[DatenFilm.FILM_URL].toLowerCase().startsWith("http"));
@@ -130,10 +141,15 @@ public class AddToFilmlist {
             }
         }
     }
-
+    
+    /**
+     * 
+     * Diese Methode sortiert eine vorhandene Liste in eine andere Filmliste ein, 
+     * dabei werden nur nicht vorhandene Filme einsortiert.
+     * 
+     * @return Anzahl der Treffer die einsortiert wurden
+     */
     public int addOldList() {
-        // in eine vorhandene Liste soll eine andere Filmliste einsortiert werden
-        // es werden nur Filme die noch nicht vorhanden sind, einsortiert
         threadCounter = new AtomicInteger(0);
         final HashSet<Hash> hash = new HashSet<>(vonListe.size() + 1);
 
@@ -181,9 +197,10 @@ public class AddToFilmlist {
     }
 
     /**
-     * Add all local thread results to the filmlist.
+     * 
+     * Fügt alle lokalen Thread Ergebnise zu der Filmliste hinzu.
      *
-     * @return the total number of entries found.
+     * @return Die gesamte Anzahl gefundener Einträge.
      */
     private int retrieveThreadResults() {
         int treffer = 0;
