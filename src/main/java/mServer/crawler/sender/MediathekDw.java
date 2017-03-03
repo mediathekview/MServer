@@ -25,16 +25,17 @@ import mSearch.Const;
 import mSearch.daten.DatenFilm;
 import mSearch.tool.Log;
 import mSearch.tool.MSStringBuilder;
+import mServer.crawler.CrawlerTool;
 import mServer.crawler.FilmeSuchen;
 import mServer.crawler.GetUrl;
-import mServer.crawler.CrawlerTool;
+import mServer.tool.MserverDaten;
 
 public class MediathekDw extends MediathekReader implements Runnable {
 
     public final static String SENDERNAME = Const.DW;
 
     public MediathekDw(FilmeSuchen ssearch, int startPrio) {
-        super(ssearch, SENDERNAME, /* threads */ 4, /* urlWarten */ 500, startPrio);
+        super(ssearch, SENDERNAME, /* threads */ 4, /* urlWarten */ 200, startPrio);
     }
 
     @Override
@@ -44,14 +45,14 @@ public class MediathekDw extends MediathekReader implements Runnable {
         sendungenLaden();
         if (Config.getStop()) {
             meldungThreadUndFertig();
-        } else if (listeThemen.size() == 0) {
+        } else if (listeThemen.isEmpty()) {
             meldungThreadUndFertig();
         } else {
             listeSort(listeThemen, 1);
             meldungAddMax(listeThemen.size());
             for (int t = 0; t < getMaxThreadLaufen(); ++t) {
                 //new Thread(new ThemaLaden()).start();
-                Thread th = new Thread(new ThemaLaden());
+                Thread th = new ThemaLaden();
                 th.setName(SENDERNAME + t);
                 th.start();
             }
@@ -63,6 +64,7 @@ public class MediathekDw extends MediathekReader implements Runnable {
         final String MUSTER_URL = "value=\"";
         final String MUSTER_START = "<div class=\"label\">Sendungen</div>";
         MSStringBuilder seite = new MSStringBuilder(Const.STRING_BUFFER_START_BUFFER);
+        GetUrl getUrlIo = new GetUrl(getWartenSeiteLaden());
         seite = getUrlIo.getUri_Utf(SENDERNAME, ADRESSE, seite, "");
         int pos1, pos2;
         String url = "", thema = "";
@@ -82,7 +84,7 @@ public class MediathekDw extends MediathekReader implements Runnable {
                 if ((pos2 = seite.indexOf("\"", pos1)) != -1) {
                     url = seite.substring(pos1, pos2);
                 }
-                if (url.equals("")) {
+                if (url.isEmpty()) {
                     continue;
                 }
                 if (CrawlerTool.loadLongMax()) {
@@ -108,15 +110,14 @@ public class MediathekDw extends MediathekReader implements Runnable {
 
     }
 
-    private class ThemaLaden implements Runnable {
+    private class ThemaLaden extends Thread {
 
-        GetUrl getUrl = new GetUrl(getWartenSeiteLaden());
         private MSStringBuilder seite1 = new MSStringBuilder(Const.STRING_BUFFER_START_BUFFER);
         private MSStringBuilder seite2 = new MSStringBuilder(Const.STRING_BUFFER_START_BUFFER);
-        private ArrayList<String> listUrl = new ArrayList<>();
+        private final ArrayList<String> listUrl = new ArrayList<>();
 
         @Override
-        public synchronized void run() {
+        public void run() {
             try {
                 meldungAddThread();
                 String[] link;
@@ -130,11 +131,12 @@ public class MediathekDw extends MediathekReader implements Runnable {
             meldungThreadUndFertig();
         }
 
-        void laden(String urlThema, String thema) {
+        private void laden(String urlThema, String thema) {
 
             final String MUSTER_START = "<div class=\"news searchres hov\">";
             String urlSendung;
             meldung(urlThema);
+            GetUrl getUrlIo = new GetUrl(getWartenSeiteLaden());
             seite1 = getUrlIo.getUri_Utf(SENDERNAME, urlThema, seite1, "");
             int pos1 = 0;
             String titel;
@@ -148,10 +150,11 @@ public class MediathekDw extends MediathekReader implements Runnable {
             }
         }
 
-        void laden2(String urlThema, String thema, String titel, String urlSendung) {
+        private void laden2(String urlThema, String thema, String titel, String urlSendung) {
             String url = "", urlLow = "", urlHd = "";
             final String ADDURL = "http://tv-download.dw.de/dwtv_video/flv/";
             meldung(urlThema);
+            GetUrl getUrlIo = new GetUrl(getWartenSeiteLaden());
             seite2 = getUrlIo.getUri_Utf(SENDERNAME, urlSendung, seite2, "");
 
             seite2.extractList("%22file%22%3A%22", "%22%7D", listUrl);
@@ -179,15 +182,17 @@ public class MediathekDw extends MediathekReader implements Runnable {
             dur = dur.replace("\r", "");
             long duration = 0;
             try {
-                if (!dur.equals("")) {
+                if (!dur.isEmpty()) {
                     String[] parts = dur.split(":");
                     long power = 1;
                     for (int i = parts.length - 1; i >= 0; i--) {
-                        String s = parts[i];
                         duration += Long.parseLong(parts[i]) * power;
                         power *= 60;
                     }
                 }
+            } catch (NumberFormatException ex) {
+                if (MserverDaten.debug)
+                    Log.errorLog(912034567, "duration: " + dur);
             } catch (Exception ex) {
                 Log.errorLog(912034567, "duration: " + dur);
             }
@@ -201,7 +206,8 @@ public class MediathekDw extends MediathekReader implements Runnable {
                 urlHd = "";
             }
             if (url.isEmpty()) {
-                Log.errorLog(643230120, "empty URL: " + urlSendung);
+                if (MserverDaten.debug)
+                    Log.errorLog(643230120, "empty URL: " + urlSendung);
             } else {
                 DatenFilm film = new DatenFilm(SENDERNAME, thema, urlSendung, titel, url, "", datum, ""/*Zeit*/, duration, description);
                 if (!urlLow.isEmpty()) {

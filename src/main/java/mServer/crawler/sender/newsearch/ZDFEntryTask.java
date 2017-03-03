@@ -3,10 +3,10 @@ package mServer.crawler.sender.newsearch;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
-
-import java.util.concurrent.RecursiveTask;
 import mSearch.Config;
 import mSearch.tool.Log;
+
+import java.util.concurrent.RecursiveTask;
 
 /**
  * Searches all information required for a film
@@ -22,7 +22,7 @@ public class ZDFEntryTask extends RecursiveTask<VideoDTO> {
     public ZDFEntryTask(ZDFEntryDTO aEntryDto) {
         this(aEntryDto, new ZDFClient());
     }
-    
+
     public ZDFEntryTask(ZDFEntryDTO aEntryDto, ZDFClient zdfClient) {
         client = zdfClient;
         zdfEntryDTO = aEntryDto;                
@@ -35,10 +35,10 @@ public class ZDFEntryTask extends RecursiveTask<VideoDTO> {
     @Override
     protected VideoDTO compute() {
 
-        if(zdfEntryDTO == null) {
+        if (zdfEntryDTO == null) {
             return null;
         }
-        
+
         VideoDTO dto = null;
 
         if(!Config.getStop()) {
@@ -57,9 +57,11 @@ public class ZDFEntryTask extends RecursiveTask<VideoDTO> {
                             dto.setDownloadDto(downloadDto);
                         }
                     }
-                }                
+                }
             } catch (Exception ex) {
-                
+
+                Log.errorLog(496583202, ex, "Exception parsing " + (zdfEntryDTO != null ? zdfEntryDTO.getEntryGeneralInformationUrl() : ""));
+
                 Log.errorLog(496583202, ex, "Exception parsing " + zdfEntryDTO.getEntryGeneralInformationUrl());
                 dto = null;
             }

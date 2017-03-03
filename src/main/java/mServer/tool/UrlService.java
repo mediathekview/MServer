@@ -1,8 +1,9 @@
 package mServer.tool;
 
-import java.net.HttpURLConnection;
 import mSearch.Config;
 import mSearch.tool.Log;
+
+import java.net.HttpURLConnection;
 
 /**
  * Contains functions to use on a URL
@@ -10,18 +11,20 @@ import mSearch.tool.Log;
 public class UrlService {
 
     final static int TIMEOUT = 3000; // ms    
-    
+
     private final HttpUrlConnectionWrapper urlBuilder;
-    
+
     public UrlService() {
         urlBuilder = new HttpUrlConnectionWrapper();
     }
+
     public UrlService(HttpUrlConnectionWrapper urlBuilder) {
         this.urlBuilder = urlBuilder;
     }
-    
+
     /**
      * determines the size of the content of an URL
+     *
      * @param url the URL
      * @return the size of the content or -1 if an error occurs
      */

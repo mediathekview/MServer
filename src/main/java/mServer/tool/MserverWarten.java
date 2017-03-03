@@ -19,6 +19,8 @@
  */
 package mServer.tool;
 
+import java.util.concurrent.TimeUnit;
+
 /**
  *
  * @author emil
@@ -29,8 +31,8 @@ public class MserverWarten {
         MserverLog.systemMeldung("Warten: " + String.valueOf(sekunden) + " Sekunden");
         try {
             while (sekunden > 0) {
-                this.wait(1000 /* 1 Sekunde */);
-                sekunden -= 1;
+                TimeUnit.SECONDS.sleep(1);
+                sekunden--;
                 System.out.print("\r");
                 System.out.print(String.valueOf(sekunden));
             }

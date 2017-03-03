@@ -19,14 +19,6 @@
  */
 package mServer.crawler.gui;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.OutputStreamWriter;
-import java.net.URL;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.ResourceBundle;
 import javafx.animation.RotateTransition;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -38,12 +30,21 @@ import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import javafx.util.Duration;
 import mSearch.Config;
-import mSearch.Const;
 import mSearch.filmeSuchen.ListenerFilmeLaden;
 import mSearch.filmeSuchen.ListenerFilmeLadenEvent;
 import mSearch.tool.Log;
-import mServer.crawler.GetUrl;
 import mServer.crawler.CrawlerConfig;
+import mServer.crawler.GetUrl;
+
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.OutputStreamWriter;
+import java.net.URL;
+import java.nio.charset.StandardCharsets;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.ResourceBundle;
 
 public class PanelSearchController implements Initializable {
 
@@ -193,7 +194,7 @@ public class PanelSearchController implements Initializable {
         }
 
         try {
-            OutputStreamWriter out = new OutputStreamWriter(new FileOutputStream(file, true), Const.KODIERUNG_UTF);
+            OutputStreamWriter out = new OutputStreamWriter(new FileOutputStream(file, true), StandardCharsets.UTF_8);
             out.write("===============================================================");
             out.write("===============================================================");
             out.write("\n");

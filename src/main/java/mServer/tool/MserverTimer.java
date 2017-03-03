@@ -21,13 +21,15 @@ package mServer.tool;
 
 import mServer.MServer;
 
-public class MserverTimer implements Runnable {
+import java.util.concurrent.TimeUnit;
 
-    private final int WARTEZEIT = 1000 * 10; // 10 Sekunde
-    private MServer mserver;
+public class MserverTimer extends Thread {
+
+    private final MServer mserver;
 
     public MserverTimer(MServer mserver) {
         this.mserver = mserver;
+        setName("MServerTimer");
     }
 
     public void ping() {
@@ -51,8 +53,8 @@ public class MserverTimer implements Runnable {
 
     private void schlafen() {
         try {
-            Thread.sleep(WARTEZEIT);
-        } catch (InterruptedException e) {
+            TimeUnit.SECONDS.sleep(10);
+        } catch (InterruptedException ignored) {
         }
     }
 }

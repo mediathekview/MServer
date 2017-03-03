@@ -19,8 +19,6 @@
  */
 package mServer.tool;
 
-import java.io.File;
-
 import etm.core.configuration.EtmManager;
 import etm.core.monitor.EtmMonitor;
 import etm.core.monitor.EtmPoint;
@@ -28,6 +26,8 @@ import mSearch.Const;
 import mSearch.tool.Functions;
 import mServer.daten.MserverListeSuchen;
 import mServer.daten.MserverListeUpload;
+
+import java.io.File;
 
 public class MserverDaten {
     private static final EtmMonitor etmMonitor = EtmManager.getEtmMonitor();
@@ -61,7 +61,7 @@ public class MserverDaten {
     }
 
     public static void setBasisVerzeichnis(String b) {
-        if (b.equals("")) {
+        if (b.isEmpty()) {
             basisverzeichnis = getBasisVerzeichnis(b, true);
         } else {
             basisverzeichnis = b;
@@ -86,7 +86,7 @@ public class MserverDaten {
 
     private static String getBasisVerzeichnis(String basis, boolean anlegen) {
         String ret;
-        if (basis.equals("")) {
+        if (basis.isEmpty()) {
             ret = System.getProperty("user.home") + File.separator + MserverKonstanten.VERZEICHNISS_EINSTELLUNGEN + File.separator;
         } else {
             ret = basis;
@@ -128,7 +128,7 @@ public class MserverDaten {
     }
 
     public static String getLogDatei(String name) {
-        String logPfad = "", logFileName = "";
+        String logPfad = "", logFileName;
 
         try {
             logPfad = Functions.addsPfad(getBasisVerzeichnis(basisverzeichnis, false), MserverKonstanten.LOG_FILE_PFAD);
@@ -143,7 +143,7 @@ public class MserverDaten {
                 }
             }
         } catch (Exception ex) {
-            System.out.println("Logfile anlegen: " + name + "\n" + ex.getMessage()); // hier muss direkt geschrieben werden
+            System.out.println("Logfile anlegen: " + name + '\n' + ex.getMessage()); // hier muss direkt geschrieben werden
             logFileName = "";
         }
 

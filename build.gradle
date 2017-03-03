@@ -39,13 +39,15 @@ test {
 }
 
 dependencies {
-    compile 'de.mediathekview:MSearch:2.3.0'
+    compile 'de.mediathekview:MSearch:2.4.0'
     compile 'commons-net:commons-net:3.5'
     compile 'org.apache.commons:commons-compress:1.12'
     compile 'org.apache.commons:commons-lang3:3.5'
     compile 'org.tukaani:xz:1.5'
     compile 'com.google.code.gson:gson:2.8.0'
     compile 'com.sun.jersey:jersey-client:1.8'
+    compile 'com.squareup.okhttp3:okhttp:3.6.0'
+
 
     compile group: 'org.apache.logging.log4j', name: 'log4j-core', version: '2.7'
     compile group: 'fm.void.jetm', name: 'jetm', version: '1.2.3'

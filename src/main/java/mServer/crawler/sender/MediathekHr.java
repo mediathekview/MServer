@@ -28,11 +28,11 @@ import mSearch.daten.DatenFilm;
 import mSearch.tool.Functions;
 import mSearch.tool.Log;
 import mSearch.tool.MSStringBuilder;
+import mServer.crawler.CrawlerTool;
 import mServer.crawler.FilmeSuchen;
 import mServer.crawler.GetUrl;
-import mServer.crawler.CrawlerTool;
 
-public class MediathekHr extends MediathekReader implements Runnable {
+public class MediathekHr extends MediathekReader {
 
     public final static String SENDERNAME = Const.HR;
     private MSStringBuilder seite = new MSStringBuilder(Const.STRING_BUFFER_START_BUFFER);
@@ -44,7 +44,7 @@ public class MediathekHr extends MediathekReader implements Runnable {
      * @param startPrio
      */
     public MediathekHr(FilmeSuchen ssearch, int startPrio) {
-        super(ssearch, SENDERNAME, /* threads */ 2, /* urlWarten */ 500, startPrio);
+        super(ssearch, SENDERNAME, /* threads */ 2, /* urlWarten */ 200, startPrio);
     }
 
     /**
@@ -53,6 +53,7 @@ public class MediathekHr extends MediathekReader implements Runnable {
     @Override
     public void addToList() {
         meldungStart();
+        GetUrl getUrlIo = new GetUrl(getWartenSeiteLaden());
         seite = getUrlIo.getUri_Utf(SENDERNAME, "http://www.hr-online.de/website/fernsehen/sendungen/index.jsp", seite, "");
 
         //TH 7.8.2012 Erst suchen nach Rubrik-URLs, die haben Thema
@@ -61,13 +62,12 @@ public class MediathekHr extends MediathekReader implements Runnable {
 
         if (Config.getStop()) {
             meldungThreadUndFertig();
-        } else if (listeThemen.size() == 0) {
+        } else if (listeThemen.isEmpty()) {
             meldungThreadUndFertig();
         } else {
             meldungAddMax(listeThemen.size());
             for (int t = 0; t < getMaxThreadLaufen(); ++t) {
-                //new Thread(new ThemaLaden()).start();
-                Thread th = new Thread(new ThemaLaden());
+                Thread th = new ThemaLaden();
                 th.setName(SENDERNAME + t);
                 th.start();
             }
@@ -108,18 +108,19 @@ public class MediathekHr extends MediathekReader implements Runnable {
         final String MUSTER = "/website/includes/medianew-playlist.xml.jsp?logic=start_multimedia_document_logic_";
         final String MUSTER_TITEL = "<meta property=\"og:title\" content=\"";
 
+        GetUrl getUrlIo = new GetUrl(getWartenSeiteLaden());
         rubrikSeite = getUrlIo.getUri_Iso(SENDERNAME, rubrikUrl, rubrikSeite, "");
         String url, thema;
 
         // 1. Titel (= Thema) holen
         thema = rubrikSeite.extract(MUSTER_TITEL, "\""); // <meta property="og:title" content="Alle Wetter | Fernsehen | hr-online.de"/>
         if (thema.contains("|")) {
-            thema = thema.substring(0, thema.indexOf("|")).trim();
+            thema = thema.substring(0, thema.indexOf('|')).trim();
         }
 
         // 2. suchen nach XML Liste       
         url = rubrikSeite.extract(MUSTER, "&");
-        if (!url.equals("")) {
+        if (!url.isEmpty()) {
             url = "http://www.hr-online.de/website/includes/medianew-playlist.xml.jsp?logic=start_multimedia_document_logic_" + url;
             String[] add = new String[]{url, thema, rubrikUrl};
             if (!istInListe(listeThemen, url, 0)) {
@@ -130,9 +131,9 @@ public class MediathekHr extends MediathekReader implements Runnable {
         }
     }
 
-    private class ThemaLaden implements Runnable {
+    private class ThemaLaden extends Thread {
 
-        GetUrl getUrl = new GetUrl(getWartenSeiteLaden());
+        private final GetUrl getUrl = new GetUrl(getWartenSeiteLaden());
         private MSStringBuilder seite1 = new MSStringBuilder(Const.STRING_BUFFER_START_BUFFER);
         //private MVStringBuilder seite2 = new MVStringBuilder();
 
@@ -178,7 +179,7 @@ public class MediathekHr extends MediathekReader implements Runnable {
 
                     String d = seite1.extract(MUSTER_DURATION, END, posItem1);
                     try {
-                        if (!d.equals("")) {
+                        if (!d.isEmpty()) {
                             duration = 0;
                             String[] parts = d.split(":");
                             long power = 1;
@@ -193,8 +194,8 @@ public class MediathekHr extends MediathekReader implements Runnable {
                     description = seite1.extract(MUSTER_DESCRIPTION, END, posItem1);
                     datum = seite1.extract(MUSTER_DATUM, END, posItem1);
                     if (datum.contains(" ")) {
-                        zeit = datum.substring(datum.indexOf(" ")).trim() + ":00";
-                        datum = datum.substring(0, datum.indexOf(" "));
+                        zeit = datum.substring(datum.indexOf(' ')).trim() + ":00";
+                        datum = datum.substring(0, datum.indexOf(' '));
                     }
                     titel = seite1.extract(MUSTER_TITEL, END, posItem1);
 
@@ -211,7 +212,7 @@ public class MediathekHr extends MediathekReader implements Runnable {
                         url_low = "";
                     }
                     if (!url.isEmpty()) {
-                        if (datum.equals("")) {
+                        if (datum.isEmpty()) {
                             datum = getDate(url);
                         }
                         //DatenFilm film = new DatenFilm(nameSenderMReader, thema, strUrlFeed, titel, url, furl, datum, "");
