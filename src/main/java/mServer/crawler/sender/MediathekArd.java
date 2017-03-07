@@ -36,10 +36,12 @@ import mServer.crawler.sender.newsearch.Qualities;
 import mServer.tool.M3U8Utils;
 
 import org.apache.commons.lang3.StringUtils;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 
 public class MediathekArd extends MediathekReader {
-
+    private static final Logger LOG = LogManager.getLogger(MediathekArd.class);
     private final static String SENDERNAME = Const.ARD;
     private final static String THEMA_TAGE = "TAGE";
     private static final String ADRESSE_THEMA = "http://www.ardmediathek.de/tv";
@@ -255,18 +257,15 @@ public class MediathekArd extends MediathekReader {
              while (!Config.getStop() && (pos = seite1.indexOf(MUSTER_FILM_SUCHEN1, pos)) != -1)
             {
                 ++count;
-                if (!CrawlerTool.loadLongMax())
+                if (!CrawlerTool.loadLongMax() && count > 5 && !thema.equalsIgnoreCase(THEMA_ALPHA_CENTAURI))
                 {
-                    if (count > 5 && !thema.equalsIgnoreCase(THEMA_ALPHA_CENTAURI))
-                    {
                         break;
-                    }
                 }
                 pos += MUSTER_FILM_SUCHEN1.length();
                 url = seite1.extract("documentId=", "&", pos);
                 if (url.contains("\""))
                 {
-                    url = url.substring(0, url.indexOf("\""));
+                    url = url.substring(0, url.indexOf('"'));
                 }
                 if (url.equals(""))
                 {
@@ -290,6 +289,7 @@ public class MediathekArd extends MediathekReader {
                     d = Long.parseLong(dauer) * 60;
                 } catch (Exception ex)
                 {
+                    LOG.debug("Die dauer konnte nicht als long geparsed werden.",ex);
                 }
                 if (d == 0)
                 {
