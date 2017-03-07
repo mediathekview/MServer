@@ -19,8 +19,10 @@
  */
 package mServer;
 
+import etm.core.configuration.BasicEtmConfigurator;
+import etm.core.configuration.EtmManager;
+import etm.core.renderer.SimpleTextRenderer;
 import javafx.application.Application;
-import mSearch.tool.Log;
 import mServer.crawler.CrawlerTool;
 import mServer.crawler.gui.MSG;
 import mServer.tool.MserverDaten;
@@ -38,12 +40,14 @@ public class Main {
     }
 
     public static void main(String[] args) {
-        final String ar[] = args;
 
         StartupMode state = StartupMode.SERVER;
 
-        if (ar != null) {
-            for (String s : ar) {
+        BasicEtmConfigurator.configure();
+        EtmManager.getEtmMonitor().start();
+
+        if (args != null) {
+            for (String s : args) {
                 s = s.toLowerCase();
                 switch (s) {
                     case "-d":
@@ -63,7 +67,7 @@ public class Main {
         switch (state) {
             case SERVER:
                 try {
-                    runServer(ar);
+                    runServer(args);
                 } catch (InterruptedException e) {
                     MserverLog.fehlerMeldung(34975920, Main.class.getName(), "startServer", e);
                 }
@@ -78,6 +82,9 @@ public class Main {
                     Application.launch(MSG.class, args);
                 });
         }
+
+        EtmManager.getEtmMonitor().render(new SimpleTextRenderer());
+        EtmManager.getEtmMonitor().stop();
     }
 
     private static void runServer(String[] ar) throws InterruptedException {

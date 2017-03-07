@@ -19,23 +19,24 @@
  */
 package mServer.crawler.sender;
 
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import mSearch.Config;
 import mSearch.Const;
 import mSearch.daten.DatenFilm;
 import mSearch.tool.Log;
 import mSearch.tool.MSStringBuilder;
+import mServer.crawler.CrawlerTool;
 import mServer.crawler.FilmeSuchen;
 import mServer.crawler.GetUrl;
-import mServer.crawler.CrawlerTool;
 
-public class MediathekPhoenix extends MediathekReader implements Runnable {
+public class MediathekPhoenix extends MediathekReader {
 
     public final static String SENDERNAME = Const.PHOENIX;
     private MSStringBuilder seite = new MSStringBuilder(Const.STRING_BUFFER_START_BUFFER);
 
     public MediathekPhoenix(FilmeSuchen ssearch, int startPrio) {
-        super(ssearch, SENDERNAME, 4 /* threads */, 250 /* urlWarten */, startPrio);
+        super(ssearch, SENDERNAME, 4 /* threads */, 100 /* urlWarten */, startPrio);
     }
 
     @Override
@@ -45,14 +46,13 @@ public class MediathekPhoenix extends MediathekReader implements Runnable {
         addToList_();
         if (Config.getStop()) {
             meldungThreadUndFertig();
-        } else if (listeThemen.size() == 0) {
+        } else if (listeThemen.isEmpty()) {
             meldungThreadUndFertig();
         } else {
             meldungAddMax(listeThemen.size());
             //alles auswerten
             for (int t = 0; t < getMaxThreadLaufen(); ++t) {
-                //new Thread(new ThemaLaden()).start();
-                Thread th = new Thread(new ThemaLaden());
+                Thread th = new ThemaLaden();
                 th.setName(SENDERNAME + t);
                 th.start();
             }
@@ -62,7 +62,7 @@ public class MediathekPhoenix extends MediathekReader implements Runnable {
     private void addToList_() {
         final String MUSTER = "<li><strong><a href=\"/content/";
         GetUrl getUrl = new GetUrl(getWartenSeiteLaden());
-        seite = getUrl.getUri(SENDERNAME, "http://www.phoenix.de/content/78905", Const.KODIERUNG_ISO15, 6 /* versuche */, seite, "" /* Meldung */);
+        seite = getUrl.getUri(SENDERNAME, "http://www.phoenix.de/content/78905", StandardCharsets.ISO_8859_1, 6 /* versuche */, seite, "" /* Meldung */);
         if (seite.length() == 0) {
             Log.errorLog(487512369, "Leere Seite für URL: ");
         }
@@ -70,13 +70,12 @@ public class MediathekPhoenix extends MediathekReader implements Runnable {
         int pos = 0;
         int pos1;
         int pos2;
-        String url;
         String thema;
         while ((pos = seite.indexOf(MUSTER, pos)) != -1) {
             pos += MUSTER.length();
             pos1 = pos;
             if ((pos2 = seite.indexOf("\"", pos)) != -1) {
-                url = seite.substring(pos1, pos2);
+                String url = seite.substring(pos1, pos2);
                 if (!url.isEmpty()) {
                     url = "http://www.phoenix.de/content/" + url;
                     thema = seite.extract(">", "<", pos);
@@ -87,9 +86,9 @@ public class MediathekPhoenix extends MediathekReader implements Runnable {
         }
     }
 
-    private class ThemaLaden implements Runnable {
+    private class ThemaLaden extends Thread {
 
-        GetUrl getUrl = new GetUrl(getWartenSeiteLaden());
+        private final GetUrl getUrl = new GetUrl(getWartenSeiteLaden());
         private final MSStringBuilder seite1 = new MSStringBuilder(Const.STRING_BUFFER_START_BUFFER);
         private final MSStringBuilder seite3 = new MSStringBuilder(Const.STRING_BUFFER_START_BUFFER);
 
@@ -140,7 +139,7 @@ public class MediathekPhoenix extends MediathekReader implements Runnable {
             }
         }
 
-        public void filmHolenId(String thema, String filmWebsite, String urlId, String title_) {
+        private void filmHolenId(String thema, String filmWebsite, String urlId, String title_) {
             if (Config.getStop()) {
                 return;
             }
@@ -175,12 +174,12 @@ public class MediathekPhoenix extends MediathekReader implements Runnable {
             }
             String zeit = "";
             if (datum.contains(" ")) {
-                zeit = datum.substring(datum.lastIndexOf(" ")).trim() + ":00";
-                datum = datum.substring(0, datum.lastIndexOf(" ")).trim();
+                zeit = datum.substring(datum.lastIndexOf(' ')).trim() + ":00";
+                datum = datum.substring(0, datum.lastIndexOf(' ')).trim();
             }
 
             String url = "", urlKlein = "", urlHd = "";
-            int posAnfang = 0, posEnde = 0, pos1 = 0;
+            int posAnfang = 0, posEnde, pos1;
             final String URL_ANFANG = "<formitaet basetype=\"h264_aac_mp4_http_na_na\"";
             final String URL_ENDE = "</formitaet>";
             final String URL = "<url>";

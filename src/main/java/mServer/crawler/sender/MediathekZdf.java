@@ -19,38 +19,37 @@
  */
 package mServer.crawler.sender;
 
+import etm.core.configuration.EtmManager;
+import etm.core.monitor.EtmPoint;
+import mSearch.Config;
 import mSearch.Const;
 import mSearch.daten.DatenFilm;
 import mSearch.tool.Log;
-import mSearch.tool.MSStringBuilder;
 import mServer.crawler.CrawlerTool;
 import mServer.crawler.FilmeSuchen;
+import mServer.crawler.RunSender;
+import mServer.crawler.sender.newsearch.*;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.concurrent.*;
-import mServer.crawler.sender.newsearch.DownloadDTO;
-import mServer.crawler.sender.newsearch.GeoLocations;
-import mServer.crawler.sender.newsearch.Qualities;
-import mServer.crawler.sender.newsearch.VideoDTO;
-import mServer.crawler.sender.newsearch.ZDFSearchTask;
-import mServer.crawler.sender.newsearch.ZdfDatenFilm;
 
-public class MediathekZdf extends MediathekReader implements Runnable
+public class MediathekZdf extends MediathekReader
 {
 
     public final static String SENDERNAME = Const.ZDF;
-    public static final String URL_PATTERN_SENDUNG_VERPASST = "https://www.zdf.de/sendung-verpasst?airtimeDate=%s";
-    public static final String[] KATEGORIE_ENDS = {"A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z", "0+-+9"};
-    public static final String KATEGORIEN_URL_PATTERN = "https://www.zdf.de/sendungen-a-z/?group=%s";
-    private static final ForkJoinPool forkJoinPool = ForkJoinPool.commonPool();
-    private final MSStringBuilder seite = new MSStringBuilder(Const.STRING_BUFFER_START_BUFFER);
-    LinkedListUrl listeTage = new LinkedListUrl();
+    //    public static final String URL_PATTERN_SENDUNG_VERPASST = "https://www.zdf.de/sendung-verpasst?airtimeDate=%s";
+//    public static final String[] KATEGORIE_ENDS = {"A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z", "0+-+9"};
+//    public static final String KATEGORIEN_URL_PATTERN = "https://www.zdf.de/sendungen-a-z/?group=%s";
+    private final ForkJoinPool forkJoinPool = new ForkJoinPool(Runtime.getRuntime().availableProcessors() * 4);
+//    private final MSStringBuilder seite = new MSStringBuilder(Const.STRING_BUFFER_START_BUFFER);
 
     public MediathekZdf(FilmeSuchen ssearch, int startPrio)
     {
         super(ssearch, SENDERNAME, 0 /* threads */, 150 /* urlWarten */, startPrio);
+        setName("MediathekZdf");
     }
+
+    private final Phaser phaser = new Phaser();
 
     @Override
     public void addToList() {
@@ -60,32 +59,66 @@ public class MediathekZdf extends MediathekReader implements Runnable
         int days = CrawlerTool.loadLongMax() ? 300 : 20;
                 
         final ZDFSearchTask newTask = new ZDFSearchTask(days);
-        forkJoinPool.invoke(newTask);
+        forkJoinPool.execute(newTask);
         Collection<VideoDTO> filmList = newTask.join();
-        
+        System.out.println("VIDEO LIST SIZE: " + filmList.size());
         // Convert new DTO to old DatenFilm class
         Log.sysLog("convert VideoDTO to DatenFilm started...");
-        Collection<VideoDtoDatenFilmConverterAction> converterActions = new ArrayList<>();
-        filmList.forEach((video) -> {
+
+        EtmPoint perfPoint = EtmManager.getEtmMonitor().createPoint("MediathekZdf.convertVideoDTO");
+
+        filmList.parallelStream().forEach((video) -> {
             VideoDtoDatenFilmConverterAction action = new VideoDtoDatenFilmConverterAction(video);
-            converterActions.add(action);
+            forkJoinPool.execute(action);
         });
-        
-        ForkJoinTask.invokeAll(converterActions);
-        Log.sysLog("convert VideoDTO to DatenFilm finished.");
-        
-        meldungThreadUndFertig();        
+
+        filmList.clear();
+
+        boolean wasInterrupted = false;
+        while (!phaser.isTerminated()) {
+            try {
+                if (Config.getStop()) {
+                    wasInterrupted = true;
+                    shutdownAndAwaitTermination(forkJoinPool, 5, TimeUnit.SECONDS);
+                } else
+                    TimeUnit.SECONDS.sleep(1);
+            } catch (InterruptedException ignored) {
+            }
+        }
+
+        //explicitely shutdown the pool
+        shutdownAndAwaitTermination(forkJoinPool, 60, TimeUnit.SECONDS);
+
+        perfPoint.collect();
+        if (wasInterrupted)
+            Log.sysLog("VideoDTO conversion interrupted.");
+        else
+            Log.sysLog("convert VideoDTO to DatenFilm finished.");
+
+        meldungThreadUndFertig();
     }
-    
 
+    void shutdownAndAwaitTermination(ExecutorService pool, long delay, TimeUnit delayUnit) {
+        pool.shutdown();
+        try {
+            if (!pool.awaitTermination(delay, delayUnit)) {
+                pool.shutdownNow();
+                if (!pool.awaitTermination(delay, delayUnit))
+                    Log.sysLog("Pool did not terminate");
+            }
+        } catch (InterruptedException ie) {
+            pool.shutdownNow();
+            Thread.currentThread().interrupt();
+        }
+    }
+
+    @SuppressWarnings("serial")
     private class VideoDtoDatenFilmConverterAction extends RecursiveAction {
-
-        private static final long serialVersionUID = 1L;
-        
-        private final VideoDTO video;        
+        private final VideoDTO video;
 
         public VideoDtoDatenFilmConverterAction(VideoDTO aVideoDTO) {
             video = aVideoDTO;
+            phaser.register();
         }
 
         @Override
@@ -98,7 +131,13 @@ public class MediathekZdf extends MediathekReader implements Runnable
                                 video.getTitle(), download.getUrl(Qualities.NORMAL), "" /*urlRtmp*/,
                                 video.getDate(), video.getTime(), video.getDuration(), video.getDescription());
                         urlTauschen(film, video.getWebsiteUrl(), mSearchFilmeSuchen);
-                        addFilm(film);
+
+                       //don´t use addFilm here
+                       if (mSearchFilmeSuchen.listeFilmeNeu.addFilmVomSender(film)) {
+                           // dann ist er neu
+                           FilmeSuchen.listeSenderLaufen.inc(film.arr[DatenFilm.FILM_SENDER], RunSender.Count.FILME);
+                       }
+
                         if (!download.getUrl(Qualities.HD).isEmpty())
                         {
                             CrawlerTool.addUrlHd(film, download.getUrl(Qualities.HD), "");
@@ -118,28 +157,11 @@ public class MediathekZdf extends MediathekReader implements Runnable
                         Log.errorLog(496583211, ex, "add film failed: " + video.getWebsiteUrl());
                     }            
             }
+            phaser.arrive();
         }    
     }
 
-    public static void urlTauschen(DatenFilm film, String urlSeite, FilmeSuchen mSFilmeSuchen)
-    {
-        // manuell die Auflösung hochsetzen
-
-        //große URL verbessern
-        changeUrl("2256k_p14v11.mp4", "2328k_p35v11.mp4", film, urlSeite, mSFilmeSuchen);
-        changeUrl("2256k_p14v12.mp4", "2328k_p35v12.mp4", film, urlSeite, mSFilmeSuchen);
-        changeUrl("2296k_p14v13.mp4", "2328k_p35v13.mp4", film, urlSeite, mSFilmeSuchen);
-
-        //klein nach groß
-        changeUrl("1456k_p13v11.mp4", "2328k_p35v11.mp4", film, urlSeite, mSFilmeSuchen);
-        changeUrl("1456k_p13v11.mp4", "2256k_p14v11.mp4", film, urlSeite, mSFilmeSuchen); //wenns nicht geht, dann vielleicht so
-
-        changeUrl("1456k_p13v12.mp4", "2328k_p35v12.mp4", film, urlSeite, mSFilmeSuchen);
-        changeUrl("1456k_p13v12.mp4", "2256k_p14v12.mp4", film, urlSeite, mSFilmeSuchen); //wenns nicht geht, dann vielleicht so
-
-        changeUrl("1496k_p13v13.mp4", "2328k_p35v13.mp4", film, urlSeite, mSFilmeSuchen);
-        changeUrl("1496k_p13v13.mp4", "2296k_p14v13.mp4", film, urlSeite, mSFilmeSuchen); //wenns nicht geht, dann vielleicht so
-
+    private static void updateHdStatus(DatenFilm film, String urlSeite) {
         // manuell die Auflösung für HD setzen, 2 Versuche
         updateHd("1456k_p13v12.mp4", "3328k_p36v12.mp4", film, urlSeite);
         updateHd("2256k_p14v12.mp4", "3328k_p36v12.mp4", film, urlSeite);
@@ -158,12 +180,34 @@ public class MediathekZdf extends MediathekReader implements Runnable
         updateHd("2328k_p35v13.mp4", "3328k_p36v13.mp4", film, urlSeite);
     }
 
+    private static void modifyUrl(DatenFilm film, String urlSeite, FilmeSuchen mSFilmeSuchen) {
+        //große URL verbessern
+        changeUrl("2256k_p14v11.mp4", "2328k_p35v11.mp4", film, urlSeite, mSFilmeSuchen);
+        changeUrl("2256k_p14v12.mp4", "2328k_p35v12.mp4", film, urlSeite, mSFilmeSuchen);
+        changeUrl("2296k_p14v13.mp4", "2328k_p35v13.mp4", film, urlSeite, mSFilmeSuchen);
+
+        //klein nach groß
+        changeUrl("1456k_p13v11.mp4", "2328k_p35v11.mp4", film, urlSeite, mSFilmeSuchen);
+        changeUrl("1456k_p13v11.mp4", "2256k_p14v11.mp4", film, urlSeite, mSFilmeSuchen); //wenns nicht geht, dann vielleicht so
+
+        changeUrl("1456k_p13v12.mp4", "2328k_p35v12.mp4", film, urlSeite, mSFilmeSuchen);
+        changeUrl("1456k_p13v12.mp4", "2256k_p14v12.mp4", film, urlSeite, mSFilmeSuchen); //wenns nicht geht, dann vielleicht so
+
+        changeUrl("1496k_p13v13.mp4", "2328k_p35v13.mp4", film, urlSeite, mSFilmeSuchen);
+        changeUrl("1496k_p13v13.mp4", "2296k_p14v13.mp4", film, urlSeite, mSFilmeSuchen); //wenns nicht geht, dann vielleicht so
+    }
+
+    public static void urlTauschen(DatenFilm film, String urlSeite, FilmeSuchen mSFilmeSuchen) {
+        modifyUrl(film, urlSeite, mSFilmeSuchen);
+        updateHdStatus(film, urlSeite);
+    }
+
     private static void changeUrl(String from, String to, DatenFilm film, String urlSeite, FilmeSuchen mSFilmeSuchen)
     {
         if (film.arr[DatenFilm.FILM_URL].endsWith(from))
         {
             String url_ = film.arr[DatenFilm.FILM_URL].substring(0, film.arr[DatenFilm.FILM_URL].lastIndexOf(from)) + to;
-            String l = mSFilmeSuchen.listeFilmeAlt.getFileSizeUrl(url_, film.arr[DatenFilm.FILM_SENDER]);
+            String l = mSFilmeSuchen.listeFilmeAlt.getFileSizeUrl(url_);
             // zum Testen immer machen!!
             if (!l.isEmpty())
             {

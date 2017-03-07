@@ -19,19 +19,20 @@
  */
 package mServer.upload;
 
+import mServer.daten.MserverDatenUpload;
+import mServer.tool.MserverLog;
+
 import java.io.File;
 import java.nio.file.Files;
 import java.nio.file.LinkOption;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
-import mServer.daten.MserverDatenUpload;
-import mServer.tool.MserverLog;
 
 public class MserverCopy {
 
     public static boolean copy(String srcPathFile, String destFileName, MserverDatenUpload datenUpload) {
         boolean ret = false;
-        File f = null;
+
         try {
             MserverLog.systemMeldung("");
             MserverLog.systemMeldung("UploadCopy");
@@ -42,45 +43,35 @@ public class MserverCopy {
         } catch (Exception ex) {
             MserverLog.fehlerMeldung(747452360, MserverCopy.class.getName(), "copy", ex);
         }
-        if (f != null) {
-            try {
-                f.delete();
-            } catch (Exception ignore) {
-            }
-        }
+
         return ret;
     }
 
-    public static boolean copy(String srcPathFile, String destPathFile) {
-        boolean ret = false;
+    public static void copy(String srcPathFile, String destPathFile) {
         MserverLog.systemMeldung("");
         MserverLog.systemMeldung("----------------------");
         MserverLog.systemMeldung("Copy start");
         MserverLog.systemMeldung("src: " + srcPathFile);
         MserverLog.systemMeldung("dest: " + destPathFile);
         try {
-            String dest = destPathFile;
 
-            String dest_tmp = dest + "__";
-            String dest_old = dest + "_old";
-            MserverLog.systemMeldung("Copy Filmliste (rename): " + dest);
+            String dest_tmp = destPathFile + "__";
+            String dest_old = destPathFile + "_old";
+            MserverLog.systemMeldung("Copy Filmliste (rename): " + destPathFile);
             Files.copy(Paths.get(srcPathFile), Paths.get(dest_tmp), StandardCopyOption.REPLACE_EXISTING);
 
-            if (Files.exists(Paths.get(dest), LinkOption.NOFOLLOW_LINKS)) {
+            if (Files.exists(Paths.get(destPathFile), LinkOption.NOFOLLOW_LINKS)) {
                 // wenns die Datei schon gibt, umbenennen, ist der Normalfall
                 MserverLog.systemMeldung("Rename alte Filmliste: " + dest_tmp);
-                Files.move(Paths.get(dest), Paths.get(dest_old), StandardCopyOption.REPLACE_EXISTING);
+                Files.move(Paths.get(destPathFile), Paths.get(dest_old), StandardCopyOption.REPLACE_EXISTING);
             }
-            MserverLog.systemMeldung("Rename neue Filmliste: " + dest);
-            Files.move(Paths.get(dest_tmp), Paths.get(dest), StandardCopyOption.REPLACE_EXISTING);
+            MserverLog.systemMeldung("Rename neue Filmliste: " + destPathFile);
+            Files.move(Paths.get(dest_tmp), Paths.get(destPathFile), StandardCopyOption.REPLACE_EXISTING);
 
             MserverLog.systemMeldung("====================================");
-
-            ret = true;
         } catch (Exception ex) {
             MserverLog.fehlerMeldung(832164870, MserverCopy.class.getName(), "MvSCopy.copy", ex);
         }
-        return ret;
     }
 
 }

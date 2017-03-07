@@ -19,10 +19,6 @@
  */
 package mServer.upload;
 
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.PrintWriter;
 import mServer.daten.MserverDatenUpload;
 import mServer.tool.MserverKonstanten;
 import mServer.tool.MserverLog;
@@ -31,6 +27,11 @@ import org.apache.commons.net.ftp.FTP;
 import org.apache.commons.net.ftp.FTPClient;
 import org.apache.commons.net.ftp.FTPConnectionClosedException;
 import org.apache.commons.net.ftp.FTPReply;
+
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.PrintWriter;
 
 public class MserverFtp {
 
@@ -115,7 +116,7 @@ public class MserverFtp {
                 if (ftp.isConnected()) {
                     try {
                         ftp.disconnect();
-                    } catch (IOException f) {
+                    } catch (IOException ignored) {
                     }
                 }
                 MserverLog.fehlerMeldung(969363254, MserverFtp.class.getName(), "MS_UploadFtp", e);

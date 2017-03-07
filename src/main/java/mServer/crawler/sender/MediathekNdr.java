@@ -19,7 +19,7 @@
  */
 package mServer.crawler.sender;
 
-import java.text.SimpleDateFormat;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Date;
 import mSearch.Config;
@@ -30,6 +30,8 @@ import mSearch.tool.MSStringBuilder;
 import mServer.crawler.CrawlerTool;
 import mServer.crawler.FilmeSuchen;
 import mServer.crawler.GetUrl;
+import mServer.tool.MserverDaten;
+import org.apache.commons.lang3.time.FastDateFormat;
 
 public class MediathekNdr extends MediathekReader implements Runnable {
 
@@ -37,7 +39,7 @@ public class MediathekNdr extends MediathekReader implements Runnable {
     private MSStringBuilder seiteAlle = new MSStringBuilder(Const.STRING_BUFFER_START_BUFFER);
 
     public MediathekNdr(FilmeSuchen ssearch, int startPrio) {
-        super(ssearch, SENDERNAME, /* threads */ 2, /* urlWarten */ 250, startPrio);
+        super(ssearch, SENDERNAME, /* threads */ 2, /* urlWarten */ 50, startPrio);
     }
 
     //-> erste Seite:
@@ -48,9 +50,12 @@ public class MediathekNdr extends MediathekReader implements Runnable {
         final String ADRESSE = "http://www.ndr.de/mediathek/sendungen_a-z/index.html";
         final String MUSTER_URL1 = "<li><a href=\"/mediathek/mediatheksuche105_broadcast-";
         listeThemen.clear();
+
         meldungStart();
+
         MSStringBuilder seite = new MSStringBuilder(Const.STRING_BUFFER_START_BUFFER);
-        seite = getUrlIo.getUri(SENDERNAME, ADRESSE, Const.KODIERUNG_UTF, 5 /* versuche */, seite, ""/* meldung */);
+        final GetUrl getUrlIo = new GetUrl(getWartenSeiteLaden());
+        seite = getUrlIo.getUri(SENDERNAME, ADRESSE, StandardCharsets.UTF_8, 5 /* versuche */, seite, ""/* meldung */);
         int pos = 0;
         int pos1;
         int pos2;
@@ -68,7 +73,7 @@ public class MediathekNdr extends MediathekReader implements Runnable {
                 if (pos1 != -1 && pos2 != -1 && pos1 < pos2) {
                     thema = seite.substring(pos1 + 1, pos2);
                 }
-                if (url.equals("")) {
+                if (url.isEmpty()) {
                     Log.errorLog(210367600, "keine Url");
                     continue;
                 }
@@ -89,26 +94,27 @@ public class MediathekNdr extends MediathekReader implements Runnable {
         // noch "Verpasst" für die letzten Tage einfügen
         // http://www.ndr.de/mediathek/sendung_verpasst/epg1490_date-2014-05-17.html
         // http://www.ndr.de/mediathek/sendung_verpasst/epg1490_date-2014-05-17_display-onlyvideo.html
-        SimpleDateFormat formatter1 = new SimpleDateFormat("yyyy-MM-dd");
-        SimpleDateFormat formatter2 = new SimpleDateFormat("dd.MM.yyyy");
-        int maxTage = CrawlerTool.loadLongMax() ? 30 : 20;
+        FastDateFormat formatter1 = FastDateFormat.getInstance("yyyy-MM-dd");
+        FastDateFormat formatter2 = FastDateFormat.getInstance("dd.MM.yyyy");
+        final int maxTage = CrawlerTool.loadLongMax() ? 30 : 20;
         for (int i = 0; i < maxTage; ++i) {
             // https://www.ndr.de/mediathek/sendung_verpasst/epg1490_date-2015-09-05_display-all.html
             final String URL = "http://www.ndr.de/mediathek/sendung_verpasst/epg1490_date-";
-            String tag = formatter1.format(new Date().getTime() - (1000 * 60 * 60 * 24 * i));
-            String date = formatter2.format(new Date().getTime() - (1000 * 60 * 60 * 24 * i));
+            final String tag = formatter1.format(new Date().getTime() - (1000 * 60 * 60 * 24 * i));
+            final String date = formatter2.format(new Date().getTime() - (1000 * 60 * 60 * 24 * i));
             //String urlString = URL + tag + "_display-onlyvideo.html"; --> stimmt leider nicht immer
-            String urlString = URL + tag + "_display-all.html";
+            final String urlString = URL + tag + "_display-all.html";
             listeThemen.addUrl(new String[]{urlString, date});
         }
+
         if (Config.getStop()) {
             meldungThreadUndFertig();
-        } else if (listeThemen.size() == 0) {
+        } else if (listeThemen.isEmpty()) {
             meldungThreadUndFertig();
         } else {
             meldungAddMax(listeThemen.size());
             for (int t = 0; t < getMaxThreadLaufen(); ++t) {
-                Thread th = new Thread(new ThemaLaden());
+                Thread th = new ThemaLaden();
                 th.setName(SENDERNAME + t);
                 th.start();
             }
@@ -117,7 +123,8 @@ public class MediathekNdr extends MediathekReader implements Runnable {
 
     private boolean alleSeiteSuchen(String strUrlFeed, String tthema) {
         boolean ret = false;
-        seiteAlle = getUrlIo.getUri(SENDERNAME, strUrlFeed, Const.KODIERUNG_UTF, 3 /* versuche */, seiteAlle, "Thema: " + tthema/* meldung */);
+        GetUrl getUrlIo = new GetUrl(getWartenSeiteLaden());
+        seiteAlle = getUrlIo.getUri(SENDERNAME, strUrlFeed, StandardCharsets.UTF_8, 3 /* versuche */, seiteAlle, "Thema: " + tthema/* meldung */);
         int pos1 = 0, pos2, anz1, anz2 = 0;
         try {
             // <a class="square button" href="/mediathek/mediatheksuche105_broadcast-1391_page-5.html" title="Zeige Seite 5">
@@ -151,16 +158,16 @@ public class MediathekNdr extends MediathekReader implements Runnable {
         return ret;
     }
 
-    private class ThemaLaden implements Runnable {
+    private class ThemaLaden extends Thread {
 
-        GetUrl getUrl = new GetUrl(getWartenSeiteLaden());
+        private final GetUrl getUrl = new GetUrl(getWartenSeiteLaden());
         private MSStringBuilder seite1 = new MSStringBuilder(Const.STRING_BUFFER_START_BUFFER);
         private MSStringBuilder seite2 = new MSStringBuilder(Const.STRING_BUFFER_START_BUFFER);
         private MSStringBuilder seite3 = new MSStringBuilder(Const.STRING_BUFFER_START_BUFFER);
-        private ArrayList<String> liste = new ArrayList<>();
+        private final ArrayList<String> liste = new ArrayList<>();
 
         @Override
-        public synchronized void run() {
+        public void run() {
             try {
                 meldungAddThread();
                 String[] link;
@@ -178,16 +185,39 @@ public class MediathekNdr extends MediathekReader implements Runnable {
             meldungThreadUndFertig();
         }
 
-        void feedEinerSeiteSuchen(String strUrlFeed, String tthema) {
+        private long convertDuration(final String duration, final String strUrlFeed) {
+            long durationInSeconds = 0;
+            try {
+                if (!duration.isEmpty()) {
+                    final String[] parts = duration.split(":");
+                    long power = 1;
+                    durationInSeconds = 0;
+                    for (int i = parts.length - 1; i >= 0; i--) {
+                        durationInSeconds += Long.parseLong(parts[i]) * power;
+                        power *= 60;
+                    }
+                }
+            } catch (NumberFormatException ex) {
+                if (MserverDaten.debug)
+                    Log.errorLog(369015497, ex, strUrlFeed);
+            } catch (Exception ex) {
+                Log.errorLog(369015497, ex, strUrlFeed);
+            }
+
+            return durationInSeconds;
+        }
+
+        private void feedEinerSeiteSuchen(String strUrlFeed, String tthema) {
             final String MUSTER_URL = "<a href=\"";
-            seite1 = getUrlIo.getUri(SENDERNAME, strUrlFeed, Const.KODIERUNG_UTF, 3 /* versuche */, seite1, "Thema: " + tthema/* meldung */);
+            GetUrl getUrlIo = new GetUrl(getWartenSeiteLaden());
+            seite1 = getUrlIo.getUri(SENDERNAME, strUrlFeed, StandardCharsets.UTF_8, 3 /* versuche */, seite1, "Thema: " + tthema/* meldung */);
             int pos = 0;
             String url;
             String titel;
             String thema = tthema;
             String datum = "";
             String zeit = "";
-            long durationInSeconds = 0;
+            long durationInSeconds;
             String tmp;
             boolean tage = false;
             try {
@@ -202,7 +232,7 @@ public class MediathekNdr extends MediathekReader implements Runnable {
                 while (!Config.getStop() && (pos = seite1.indexOf(muster, pos)) != -1) {
                     pos += muster.length();
                     url = seite1.extract(MUSTER_URL, "\"", pos);
-                    if (url.equals("")) {
+                    if (url.isEmpty()) {
                         Log.errorLog(659210274, "keine Url feedEinerSeiteSuchen" + strUrlFeed);
                         continue;
                     }
@@ -230,9 +260,8 @@ public class MediathekNdr extends MediathekReader implements Runnable {
                         tmp = seite1.substring(pos, seite1.indexOf("<", pos));
                         datum = tthema;
                         try {
-                            SimpleDateFormat sdfIn = new SimpleDateFormat("HH:mm");
-                            Date filmDate = sdfIn.parse(tmp);
-                            zeit = new SimpleDateFormat("HH:mm:ss").format(filmDate);
+                            Date filmDate = FastDateFormat.getInstance("HH:mm").parse(tmp);
+                            zeit = FastDateFormat.getInstance("HH:mm:ss").format(filmDate);
                         } catch (Exception ex) {
                             Log.errorLog(795623017, "convertDatum: " + strUrlFeed);
                         }
@@ -240,10 +269,9 @@ public class MediathekNdr extends MediathekReader implements Runnable {
                         tmp = seite1.extract("<div class=\"subline\">", "<", pos);
                         tmp = tmp.replace("Uhr", "").trim();
                         try {
-                            SimpleDateFormat sdfIn = new SimpleDateFormat("dd.MM.yyyy HH:mm");
-                            Date filmDate = sdfIn.parse(tmp);
-                            datum = new SimpleDateFormat("dd.MM.yyyy").format(filmDate);
-                            zeit = new SimpleDateFormat("HH:mm:ss").format(filmDate);
+                            Date filmDate = FastDateFormat.getInstance("dd.MM.yyyy HH:mm").parse(tmp);
+                            datum = FastDateFormat.getInstance("dd.MM.yyyy").format(filmDate);
+                            zeit = FastDateFormat.getInstance("HH:mm:ss").format(filmDate);
                         } catch (Exception ex) {
                             Log.errorLog(623657941, "convertDatum: " + strUrlFeed);
                         }
@@ -251,35 +279,11 @@ public class MediathekNdr extends MediathekReader implements Runnable {
                     if (tage) {
                         //<span class="icon icon_video" aria-label="L&auml;nge"></span>29:59</div>
                         String duration = seite1.extract("\"L&auml;nge\"></span>", "<", pos).trim();
-                        try {
-                            if (!duration.equals("")) {
-                                String[] parts = duration.split(":");
-                                long power = 1;
-                                durationInSeconds = 0;
-                                for (int i = parts.length - 1; i >= 0; i--) {
-                                    durationInSeconds += Long.parseLong(parts[i]) * power;
-                                    power *= 60;
-                                }
-                            }
-                        } catch (Exception ex) {
-                            Log.errorLog(369015497, ex, strUrlFeed);
-                        }
+                        durationInSeconds = convertDuration(duration, strUrlFeed);
                     } else {
                         String duration = seite1.extract("Video (", ")", pos);
                         duration = duration.replace("min", "").trim();
-                        try {
-                            if (!duration.equals("")) {
-                                String[] parts = duration.split(":");
-                                long power = 1;
-                                durationInSeconds = 0;
-                                for (int i = parts.length - 1; i >= 0; i--) {
-                                    durationInSeconds += Long.parseLong(parts[i]) * power;
-                                    power *= 60;
-                                }
-                            }
-                        } catch (Exception ex) {
-                            Log.errorLog(369015497, ex, strUrlFeed);
-                        }
+                        durationInSeconds = convertDuration(duration, strUrlFeed);
                     }
                     filmSuchen_1(strUrlFeed, thema, titel, url, datum, zeit, durationInSeconds, tage);
                 }
@@ -288,8 +292,8 @@ public class MediathekNdr extends MediathekReader implements Runnable {
             }
         }
 
-        void filmSuchen_1(String strUrlThema, String thema, String titel, String filmWebsite, String datum, String zeit,
-                long durationInSeconds, boolean onlyUrl) {
+        private void filmSuchen_1(String strUrlThema, String thema, String titel, String filmWebsite, String datum, String zeit,
+                                  long durationInSeconds, boolean onlyUrl) {
             //playlist: [
             //{
             //1: {src:'http://hds.ndr.de/z/2013/0419/TV-20130419-1010-0801.,hi,hq,.mp4.csmil/manifest.f4m', type:"application/f4m+xml"},
@@ -301,7 +305,7 @@ public class MediathekNdr extends MediathekReader implements Runnable {
             final String MUSTER_URL = "itemprop=\"contentUrl\" content=\"https://mediandr-a";
             seite2 = getUrl.getUri_Utf(SENDERNAME, filmWebsite, seite2, "strUrlThema: " + strUrlThema);
             String description = extractDescription(seite2);
-            String[] keywords = extractKeywords(seite2);
+            //String[] keywords = extractKeywords(seite2);
             String subtitle = seite2.extract(",tracks: [{ src: \"", "\""); //,tracks: [{ src: "/fernsehen/sendungen/45_min/video-podcast/ut20448.xml", srclang:"de"}]
             if (!subtitle.isEmpty()) {
                 subtitle = "http://www.ndr.de" + subtitle;
@@ -326,9 +330,9 @@ public class MediathekNdr extends MediathekReader implements Runnable {
                     pos1 += MUSTER_URL.length();
                     if ((pos2 = seite2.indexOf("\"", pos1)) != -1) {
                         url = seite2.substring(pos1, pos2);
-                        if (!url.equals("")) {
+                        if (!url.isEmpty()) {
                             url = "http://mediandr-a" + url;
-                            if (thema.equals("")) {
+                            if (thema.isEmpty()) {
                                 thema = seite2.extract("<h1>", "<div class=\"subline\">", "<");
                                 if (thema.contains("|")) {
                                     thema = thema.substring(0, thema.lastIndexOf("|"));
@@ -341,7 +345,7 @@ public class MediathekNdr extends MediathekReader implements Runnable {
                                 if (thema.contains("Uhr")) {
                                     thema = "";
                                 }
-                                if (thema.equals("")) {
+                                if (thema.isEmpty()) {
                                     thema = "NDR";
                                 }
                             }
@@ -365,8 +369,8 @@ public class MediathekNdr extends MediathekReader implements Runnable {
             }
         }
 
-        void filmSuchen_2(String strUrlThema, String thema, String titel, String filmWebsite, String json, String datum, String zeit,
-                long durationInSeconds, String description, String subtitle) {
+        private void filmSuchen_2(String strUrlThema, String thema, String titel, String filmWebsite, String json, String datum, String zeit,
+                                  long durationInSeconds, String description, String subtitle) {
 
             seite3 = getUrl.getUri_Utf(SENDERNAME, json, seite3, "strUrlThema: " + strUrlThema);
             String url_hd = "", url_xl = "", url_m = "";
@@ -421,7 +425,7 @@ public class MediathekNdr extends MediathekReader implements Runnable {
             return desc;
         }
 
-        private String[] extractKeywords(MSStringBuilder page) {
+/*        private String[] extractKeywords(MSStringBuilder page) {
             String keywords = extractString(page, "<meta name=\"keywords\"  lang=\"de\" content=\"", "\"");
             if (keywords == null) {
                 return new String[]{""};
@@ -431,7 +435,7 @@ public class MediathekNdr extends MediathekReader implements Runnable {
                 k[i] = k[i].trim();
             }
             return k;
-        }
+        }*/
 
         private String extractString(MSStringBuilder source, String startMarker, String endMarker) {
             int start = source.indexOf(startMarker);
