@@ -1,13 +1,13 @@
 package mServer.tool;
 
-import mServer.crawler.sender.newsearch.Qualities;
-import org.apache.commons.lang3.StringUtils;
-
 import java.util.Arrays;
 import java.util.EnumMap;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import mServer.crawler.sender.newsearch.Qualities;
+
+import org.apache.commons.lang3.StringUtils;
 
 /**
  * A class with some Utils to work with M3U8 urls.
