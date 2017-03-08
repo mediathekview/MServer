@@ -39,8 +39,9 @@ public class AddToFilmlistTest {
                     case "/" + FILM_NAME_ONLINE:
                     case "/" + FILM_NAME_ONLINE2:
                         return new MockResponse().setResponseCode(200);
+                    default:
+                        return new MockResponse().setResponseCode(404);
                 }
-                return new MockResponse().setResponseCode(404);
             }
         };
         mockServer.setDispatcher(dispatcher); 
