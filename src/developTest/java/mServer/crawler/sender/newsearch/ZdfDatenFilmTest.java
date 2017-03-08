@@ -17,10 +17,10 @@ public class ZdfDatenFilmTest {
     public static Collection<Object[]> data() {
         return Arrays.asList(new Object[][] {   
             { "my topic", "url", "zdfmy topicurl" },
-            { "topic", "https://rodlzdf-and-so-on.de/12/11.mp4", "zdftopichttps://rodlzdf-and-so-on.de/12/11.mp4" },
-            { "topic", "https://nrodlzdf-and-so-on.de/12/11.mp4", "zdftopichttps://rodlzdf-and-so-on.de/12/11.mp4" },
-            { "topic", "http://rodlzdf-and-so-on.de/12/11.mp4", "zdftopichttp://rodlzdf-and-so-on.de/12/11.mp4" },
-            { "topic", "http://nrodlzdf-and-so-on.de/12/11.mp4", "zdftopichttp://rodlzdf-and-so-on.de/12/11.mp4" },
+            { "topic1", "https://rodlzdf-and-so-on.de/12/11.mp4", "zdftopic1https://rodlzdf-and-so-on.de/12/11.mp4" },
+            { "topic2", "https://nrodlzdf-and-so-on.de/12/11.mp4", "zdftopic2https://rodlzdf-and-so-on.de/12/11.mp4" },
+            { "topic3", "http://rodlzdf-and-so-on.de/12/11.mp4", "zdftopic3http://rodlzdf-and-so-on.de/12/11.mp4" },
+            { "topic4", "http://nrodlzdf-and-so-on.de/12/11.mp4", "zdftopic4http://rodlzdf-and-so-on.de/12/11.mp4" },
         });
     }
     
