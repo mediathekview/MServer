@@ -34,8 +34,78 @@ repositories {
     }
 }
 
+sourceSets {
+    developTest {
+        java {
+            compileClasspath += main.output + test.output
+            runtimeClasspath += main.output + test.output
+            srcDir file('src/developTest/java')
+        }
+        resources.srcDir file('src/developTest/resources')
+    }
+    integrationTest {
+        java {
+            compileClasspath += main.output + test.output
+            runtimeClasspath += main.output + test.output
+            srcDir file('src/integrationTest/java')
+        }
+        resources.srcDir file('src/integrationTest/resources')
+    }
+    performanceTest {
+        java {
+            compileClasspath += main.output + test.output
+            runtimeClasspath += main.output + test.output
+            srcDir file('src/performanceTest/java')
+        }
+        resources.srcDir file('src/performanceTest/resources')
+    }
+}
+
+configurations {
+    developTestCompile.extendsFrom testCompile
+    developTestRuntime.extendsFrom testRuntime
+    integrationTestCompile.extendsFrom testCompile
+    integrationTestRuntime.extendsFrom testRuntime
+    performanceTestCompile.extendsFrom testCompile
+    performanceTestRuntime.extendsFrom testRuntime
+}
+
 test {
-    exclude '**/*PerformanceTest.class'
+}
+
+task developTest(type: Test) {
+    testClassesDir = sourceSets.developTest.output.classesDir
+    classpath = sourceSets.developTest.runtimeClasspath
+    outputs.upToDateWhen { false }
+
+    beforeTest { descriptor ->
+        logger.lifecycle("Running test: " + descriptor)
+    }
+}
+
+task integrationTest(type: Test) {
+    testClassesDir = sourceSets.integrationTest.output.classesDir
+    classpath = sourceSets.integrationTest.runtimeClasspath
+    outputs.upToDateWhen { false }
+
+    beforeTest { descriptor ->
+        logger.lifecycle("Running test: " + descriptor)
+    }
+}
+
+task performanceTest(type: Test) {
+    logger.info("hier")
+    testClassesDir = sourceSets.performanceTest.output.classesDir
+    classpath = sourceSets.performanceTest.runtimeClasspath
+    outputs.upToDateWhen { false }
+    
+    beforeTest { descriptor ->
+        logger.lifecycle("Running test: " + descriptor)
+    }
+}
+
+tasks.withType(Test) {
+    reports.html.destination = file("${reporting.baseDir}/${name}")
 }
 
 dependencies {
@@ -54,6 +124,7 @@ dependencies {
 
     testCompile "junit:junit:4.12"
     testCompile "org.mockito:mockito-core:2.+"
+    testCompile "com.squareup.okhttp3:mockwebserver:3.6.0"
 }
 
 configurations.compile {
