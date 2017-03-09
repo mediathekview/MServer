@@ -19,19 +19,28 @@
  */
 package mServer.crawler.sender;
 
+import java.util.Collection;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.ForkJoinPool;
+import java.util.concurrent.Phaser;
+import java.util.concurrent.RecursiveAction;
+import java.util.concurrent.TimeUnit;
+
+import de.mediathekview.mlib.Config;
+import de.mediathekview.mlib.Const;
+import de.mediathekview.mlib.daten.DatenFilm;
+import de.mediathekview.mlib.tool.Log;
 import etm.core.configuration.EtmManager;
 import etm.core.monitor.EtmPoint;
-import mSearch.Config;
-import mSearch.Const;
-import mSearch.daten.DatenFilm;
-import mSearch.tool.Log;
 import mServer.crawler.CrawlerTool;
 import mServer.crawler.FilmeSuchen;
 import mServer.crawler.RunSender;
-import mServer.crawler.sender.newsearch.*;
-
-import java.util.Collection;
-import java.util.concurrent.*;
+import mServer.crawler.sender.newsearch.DownloadDTO;
+import mServer.crawler.sender.newsearch.GeoLocations;
+import mServer.crawler.sender.newsearch.Qualities;
+import mServer.crawler.sender.newsearch.VideoDTO;
+import mServer.crawler.sender.newsearch.ZDFSearchTask;
+import mServer.crawler.sender.newsearch.ZdfDatenFilm;
 
 public class MediathekZdf extends MediathekReader
 {
@@ -130,10 +139,10 @@ public class MediathekZdf extends MediathekReader
                         DatenFilm film = new ZdfDatenFilm(SENDERNAME, video.getTopic(), video.getWebsiteUrl() /*urlThema*/,
                                 video.getTitle(), download.getUrl(Qualities.NORMAL), "" /*urlRtmp*/,
                                 video.getDate(), video.getTime(), video.getDuration(), video.getDescription());
-                        urlTauschen(film, video.getWebsiteUrl(), mSearchFilmeSuchen);
+                        urlTauschen(film, video.getWebsiteUrl(), mlibFilmeSuchen);
 
                        //don´t use addFilm here
-                       if (mSearchFilmeSuchen.listeFilmeNeu.addFilmVomSender(film)) {
+                       if (mlibFilmeSuchen.listeFilmeNeu.addFilmVomSender(film)) {
                            // dann ist er neu
                            FilmeSuchen.listeSenderLaufen.inc(film.arr[DatenFilm.FILM_SENDER], RunSender.Count.FILME);
                        }

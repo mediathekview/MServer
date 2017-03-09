@@ -19,9 +19,9 @@
  */
 package mServer.tool;
 
-import mServer.MServer;
-
 import java.util.concurrent.TimeUnit;
+
+import mServer.MServer;
 
 public class MserverTimer extends Thread {
 

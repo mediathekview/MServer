@@ -1,6 +1,6 @@
 package mServer.crawler.sender.newsearch;
 
-import mSearch.Config;
+import mlib.Config;
 import mServer.test.ZDFClientMock;
 import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.hamcrest.CoreMatchers.nullValue;

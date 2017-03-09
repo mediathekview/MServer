@@ -19,14 +19,15 @@
  */
 package mServer.tool;
 
-import mSearch.tool.Functions;
-import org.apache.commons.lang3.time.FastDateFormat;
-
 import java.io.FileOutputStream;
 import java.io.OutputStreamWriter;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.LinkedList;
+
+import org.apache.commons.lang3.time.FastDateFormat;
+
+import de.mediathekview.mlib.tool.Functions;
 
 public class MserverLog {
 

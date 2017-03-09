@@ -5,7 +5,8 @@ import com.google.gson.GsonBuilder;
 import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.ClientResponse;
 import com.sun.jersey.api.client.WebResource;
-import mSearch.tool.Log;
+
+import de.mediathekview.mlib.tool.Log;
 
 /**
  * A simple singelton to read the ZDF configuration just once per runtime.

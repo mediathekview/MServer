@@ -26,16 +26,18 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.Locale;
-import mSearch.Config;
-import mSearch.Const;
-import mSearch.daten.DatenFilm;
-import mSearch.tool.Log;
-import mSearch.tool.MSStringBuilder;
+
+import org.apache.commons.lang3.StringEscapeUtils;
+
+import de.mediathekview.mlib.Config;
+import de.mediathekview.mlib.Const;
+import de.mediathekview.mlib.daten.DatenFilm;
+import de.mediathekview.mlib.tool.Log;
+import de.mediathekview.mlib.tool.MSStringBuilder;
 import mServer.crawler.CrawlerTool;
 import mServer.crawler.FilmeSuchen;
 import mServer.crawler.GetUrl;
 import mServer.tool.MserverDaten;
-import org.apache.commons.lang3.StringEscapeUtils;
 
 public class MediathekBr extends MediathekReader {
 
@@ -101,7 +103,7 @@ public class MediathekBr extends MediathekReader {
 
     @Override
     void addToList() {
-        mSearchFilmeSuchen.listeFilmeAlt.getThema(getSendername(), listeAlleThemenCount_);
+        mlibFilmeSuchen.listeFilmeAlt.getThema(getSendername(), listeAlleThemenCount_);
         meldungStart();
         getTheman(); // Themen suchen
         getTage(); // Programm der letzten Tage absuchen
@@ -220,7 +222,7 @@ public class MediathekBr extends MediathekReader {
     synchronized void meldungThreadUndFertig() {
         if (getThreads() <= 1) {
             //wird erst ausgeführt wenn alle Threads beendet sind
-            mSearchFilmeSuchen.listeFilmeNeu.checkThema(getSendername(), listeAlleThemenCount_, getSendername());
+            mlibFilmeSuchen.listeFilmeNeu.checkThema(getSendername(), listeAlleThemenCount_, getSendername());
         }
         super.meldungThreadUndFertig();
     }

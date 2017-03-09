@@ -5,24 +5,24 @@
  */
 package mServer.crawler;
 
-import mSearch.Config;
-import mSearch.daten.DatenFilm;
-import mSearch.daten.ListeFilme;
-import mSearch.tool.Hash;
-import mSearch.tool.Log;
-import mSearch.tool.MVHttpClient;
-import mServer.tool.MserverDaten;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.Response;
-import okhttp3.ResponseBody;
-
 import java.io.IOException;
 import java.net.SocketTimeoutException;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
+
+import de.mediathekview.mlib.Config;
+import de.mediathekview.mlib.daten.DatenFilm;
+import de.mediathekview.mlib.daten.ListeFilme;
+import de.mediathekview.mlib.tool.Hash;
+import de.mediathekview.mlib.tool.Log;
+import de.mediathekview.mlib.tool.MVHttpClient;
+import mServer.tool.MserverDaten;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
+import okhttp3.ResponseBody;
 
 public class AddToFilmlist {
     /**

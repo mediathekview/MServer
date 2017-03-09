@@ -19,22 +19,24 @@
  */
 package mServer.crawler.sender;
 
-import etm.core.configuration.EtmManager;
-import etm.core.monitor.EtmPoint;
 import java.nio.charset.StandardCharsets;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
-import mSearch.Config;
-import mSearch.Const;
-import mSearch.daten.DatenFilm;
-import mSearch.tool.Log;
-import mSearch.tool.MSStringBuilder;
+
+import org.apache.commons.lang3.time.FastDateFormat;
+
+import de.mediathekview.mlib.Config;
+import de.mediathekview.mlib.Const;
+import de.mediathekview.mlib.daten.DatenFilm;
+import de.mediathekview.mlib.tool.Log;
+import de.mediathekview.mlib.tool.MSStringBuilder;
+import etm.core.configuration.EtmManager;
+import etm.core.monitor.EtmPoint;
 import mServer.crawler.CrawlerTool;
 import mServer.crawler.FilmeSuchen;
 import mServer.crawler.GetUrl;
 import mServer.tool.MserverDaten;
-import org.apache.commons.lang3.time.FastDateFormat;
 
 public class MediathekKika extends MediathekReader {
 

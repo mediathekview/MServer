@@ -1,19 +1,20 @@
 package mServer.crawler.sender.newsearch;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.JsonObject;
-import com.google.gson.reflect.TypeToken;
-import mSearch.Config;
-import mSearch.tool.Log;
-import mServer.tool.MserverDaten;
-
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.concurrent.ForkJoinTask;
 import java.util.concurrent.RecursiveTask;
 import java.util.stream.Collectors;
+
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonObject;
+import com.google.gson.reflect.TypeToken;
+
+import de.mediathekview.mlib.Config;
+import de.mediathekview.mlib.tool.Log;
+import mServer.tool.MserverDaten;
 
 /**
  * Task to parse the response of a search page. 

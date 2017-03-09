@@ -19,8 +19,16 @@
  */
 package mServer.search;
 
-import mSearch.Config;
-import mSearch.tool.Log;
+import static mServer.crawler.CrawlerTool.loadLongMax;
+
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.concurrent.TimeUnit;
+
+import org.apache.commons.lang3.time.FastDateFormat;
+
+import de.mediathekview.mlib.Config;
+import de.mediathekview.mlib.tool.Log;
 import mServer.crawler.Crawler;
 import mServer.crawler.CrawlerConfig;
 import mServer.daten.MserverSearchTask;
@@ -28,13 +36,6 @@ import mServer.tool.MserverDaten;
 import mServer.tool.MserverDatumZeit;
 import mServer.tool.MserverKonstanten;
 import mServer.tool.MserverLog;
-import org.apache.commons.lang3.time.FastDateFormat;
-
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.concurrent.TimeUnit;
-
-import static mServer.crawler.CrawlerTool.loadLongMax;
 
 public class MserverSearch {
 

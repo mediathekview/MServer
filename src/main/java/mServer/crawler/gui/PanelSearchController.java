@@ -19,23 +19,6 @@
  */
 package mServer.crawler.gui;
 
-import javafx.animation.RotateTransition;
-import javafx.application.Platform;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
-import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
-import javafx.geometry.Insets;
-import javafx.scene.control.*;
-import javafx.scene.layout.GridPane;
-import javafx.util.Duration;
-import mSearch.Config;
-import mSearch.filmeSuchen.ListenerFilmeLaden;
-import mSearch.filmeSuchen.ListenerFilmeLadenEvent;
-import mSearch.tool.Log;
-import mServer.crawler.CrawlerConfig;
-import mServer.crawler.GetUrl;
-
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.OutputStreamWriter;
@@ -45,6 +28,27 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.ResourceBundle;
+
+import de.mediathekview.mlib.Config;
+import de.mediathekview.mlib.filmesuchen.ListenerFilmeLaden;
+import de.mediathekview.mlib.filmesuchen.ListenerFilmeLadenEvent;
+import de.mediathekview.mlib.tool.Log;
+import javafx.animation.RotateTransition;
+import javafx.application.Platform;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
+import javafx.geometry.Insets;
+import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
+import javafx.scene.control.Label;
+import javafx.scene.control.ProgressBar;
+import javafx.scene.control.RadioButton;
+import javafx.scene.layout.GridPane;
+import javafx.util.Duration;
+import mServer.crawler.CrawlerConfig;
+import mServer.crawler.GetUrl;
 
 public class PanelSearchController implements Initializable {
 
@@ -80,7 +84,7 @@ public class PanelSearchController implements Initializable {
     private int i = 0;
     private Button[] buttonSender;
     private String[] senderArray;
-    private MSearchGuiLoad mSearchGuiLoad;
+    private MSearchGuiLoad mlibGuiLoad;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -104,7 +108,7 @@ public class PanelSearchController implements Initializable {
 
             Config.setStop(true);
         });
-        mSearchGuiLoad = new MSearchGuiLoad();
+        mlibGuiLoad = new MSearchGuiLoad();
 
         rbShort.setSelected(true);
         CrawlerConfig.senderLoadHow = CrawlerConfig.LOAD_SHORT;
@@ -122,7 +126,7 @@ public class PanelSearchController implements Initializable {
 
         btnAllSender.setOnAction(e -> new Thread(() -> {
             disableButton(true);
-            mSearchGuiLoad.filmeBeimSenderSuchen(true);
+            mlibGuiLoad.filmeBeimSenderSuchen(true);
         }).start());
 
         btnLog.setOnAction(e -> writeLog());
@@ -135,7 +139,7 @@ public class PanelSearchController implements Initializable {
         }
         addSender();
 
-        mSearchGuiLoad.addAdListener(new ListenerFilmeLaden() {
+        mlibGuiLoad.addAdListener(new ListenerFilmeLaden() {
             @Override
             public void progress(ListenerFilmeLadenEvent event) {
                 Platform.runLater(() -> {
@@ -169,7 +173,7 @@ public class PanelSearchController implements Initializable {
                     pBar.setProgress(0);
                     lblPercent.setText("");
                     lblSum.setText(Data.listeFilme.size() + "");
-                    Data.mSearchGuiController.lblSum.setText(Data.listeFilme.size() + "");
+                    Data.mlibGuiController.lblSum.setText(Data.listeFilme.size() + "");
 
                     disableButton(false);
                 });
@@ -201,7 +205,7 @@ public class PanelSearchController implements Initializable {
             out.write("--> " + aktTimeStr);
             out.write("\n");
             ArrayList<String> ret;
-            ret = mSearchGuiLoad.msFilmeSuchen.endeMeldung();
+            ret = mlibGuiLoad.msFilmeSuchen.endeMeldung();
             for (String s : ret) {
                 out.write(s);
                 out.write("\n");
@@ -288,7 +292,7 @@ public class PanelSearchController implements Initializable {
             lblProgress.setText("");
             lblSum.setText("");
             disableButton(true);
-            mSearchGuiLoad.updateSender(new String[]{sender} /* senderAllesLaden */);
+            mlibGuiLoad.updateSender(new String[]{sender} /* senderAllesLaden */);
         }
     }
 

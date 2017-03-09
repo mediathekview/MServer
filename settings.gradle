@@ -10,4 +10,4 @@ def includeIfExists(String path) {
   }
 }
 
-includeIfExists('../MSearch')
+includeIfExists('../MLib')

@@ -19,15 +19,15 @@
  */
 package mServer.crawler;
 
-import mSearch.Config;
-import mSearch.daten.ListeFilme;
-import mSearch.filmeSuchen.ListenerFilmeLaden;
-import mSearch.filmeSuchen.ListenerFilmeLadenEvent;
-import mSearch.filmlisten.FilmlisteLesen;
-import mSearch.filmlisten.WriteFilmlistJson;
-import mSearch.tool.Log;
-
 import java.util.concurrent.TimeUnit;
+
+import de.mediathekview.mlib.Config;
+import de.mediathekview.mlib.daten.ListeFilme;
+import de.mediathekview.mlib.filmesuchen.ListenerFilmeLaden;
+import de.mediathekview.mlib.filmesuchen.ListenerFilmeLadenEvent;
+import de.mediathekview.mlib.filmlisten.FilmlisteLesen;
+import de.mediathekview.mlib.filmlisten.WriteFilmlistJson;
+import de.mediathekview.mlib.tool.Log;
 
 public class Crawler implements Runnable {
 

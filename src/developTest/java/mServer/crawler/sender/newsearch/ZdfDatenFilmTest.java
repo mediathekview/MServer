@@ -2,7 +2,7 @@ package mServer.crawler.sender.newsearch;
 
 import java.util.Arrays;
 import java.util.Collection;
-import mSearch.Const;
+import mlib.Const;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

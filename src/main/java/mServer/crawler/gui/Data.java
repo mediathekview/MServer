@@ -19,12 +19,12 @@
  */
 package mServer.crawler.gui;
 
-import mSearch.daten.ListeFilme;
+import de.mediathekview.mlib.daten.ListeFilme;
 
 public class Data {
 
     public static ListeFilme listeFilme = new ListeFilme();
     public static String pathFilmlist = "";
-    public static MSearchGuiController mSearchGuiController = null;
+    public static MSearchGuiController mlibGuiController = null;
 
 }

@@ -19,20 +19,24 @@
  */
 package mServer.crawler.sender;
 
-import mSearch.Const;
-import mSearch.daten.DatenFilm;
-import mSearch.tool.GermanStringSorter;
-import mSearch.tool.Log;
-import mSearch.tool.MVHttpClient;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.Optional;
+
+import de.mediathekview.mlib.Const;
+import de.mediathekview.mlib.daten.DatenFilm;
+import de.mediathekview.mlib.tool.GermanStringSorter;
+import de.mediathekview.mlib.tool.Log;
+import de.mediathekview.mlib.tool.MVHttpClient;
 import mServer.crawler.CrawlerTool;
 import mServer.crawler.FilmeSuchen;
 import mServer.crawler.RunSender;
 import okhttp3.Request;
 import okhttp3.Response;
-
-import java.io.IOException;
-import java.text.SimpleDateFormat;
-import java.util.*;
 
 public class MediathekReader extends Thread {
 
@@ -41,13 +45,13 @@ public class MediathekReader extends Thread {
     private final int wartenSeiteLaden; //ms, Basiswert zu dem dann der Faktor multipliziert wird, Wartezeit zwischen 2 Websiten beim Absuchen der Sender
     private final int startPrio; // es gibt die Werte: 0->startet sofort, 1->später und 2->zuletzt
     protected LinkedListUrl listeThemen;
-    protected FilmeSuchen mSearchFilmeSuchen;
+    protected FilmeSuchen mlibFilmeSuchen;
     private int threads; // aktuelle Anz. laufender Threads
     private int max; // Anz. zu suchender Themen
     private int progress; // Prograss eben
 
     public MediathekReader(FilmeSuchen aMSearchFilmeSuchen, String aSendername, int aSenderMaxThread, int aSenderWartenSeiteLaden, int aStartPrio) {
-        mSearchFilmeSuchen = aMSearchFilmeSuchen;
+        mlibFilmeSuchen = aMSearchFilmeSuchen;
 
         maxThreadLaufen = aSenderMaxThread;
         wartenSeiteLaden = aSenderWartenSeiteLaden;
@@ -181,7 +185,7 @@ public class MediathekReader extends Thread {
 //    }
 
 //    public void delSenderInAlterListe(String sender) {
-//        mSearchFilmeSuchen.listeFilmeAlt.deleteAllFilms(sender);
+//        mlibFilmeSuchen.listeFilmeAlt.deleteAllFilms(sender);
 //    }
 
     public void clear() {
@@ -206,7 +210,7 @@ public class MediathekReader extends Thread {
     void addFilm(DatenFilm film, boolean urlPruefen) {
         // es werden die gefundenen Filme in die Liste einsortiert
         if (urlPruefen) {
-            if (mSearchFilmeSuchen.listeFilmeNeu.getFilmByUrl(film.arr[DatenFilm.FILM_URL]) == null) {
+            if (mlibFilmeSuchen.listeFilmeNeu.getFilmByUrl(film.arr[DatenFilm.FILM_URL]) == null) {
                 addFilm(film);
             }
         } else {
@@ -226,7 +230,7 @@ public class MediathekReader extends Thread {
 
         film.setUrlHistory();
         setGeo(film);
-        if (mSearchFilmeSuchen.listeFilmeNeu.addFilmVomSender(film)) {
+        if (mlibFilmeSuchen.listeFilmeNeu.addFilmVomSender(film)) {
             // dann ist er neu
             FilmeSuchen.listeSenderLaufen.inc(film.arr[DatenFilm.FILM_SENDER], RunSender.Count.FILME);
         }
@@ -334,28 +338,28 @@ public class MediathekReader extends Thread {
         Log.sysLog("   maxThreadLaufen: " + getMaxThreadLaufen());
         Log.sysLog("   wartenSeiteLaden: " + getWartenSeiteLaden());
         Log.sysLog("");
-        RunSender runSender = mSearchFilmeSuchen.melden(getSendername(), getMax(), getProgress(), "" /* text */);
+        RunSender runSender = mlibFilmeSuchen.melden(getSendername(), getMax(), getProgress(), "" /* text */);
         runSender.maxThreads = getMaxThreadLaufen(); //runSender ist erst jetzt angelegt
         runSender.waitOnLoad = getWartenSeiteLaden();
     }
 
     synchronized void meldungAddMax(int mmax) {
         max = max + mmax;
-        mSearchFilmeSuchen.melden(getSendername(), getMax(), getProgress(), "" /* text */);
+        mlibFilmeSuchen.melden(getSendername(), getMax(), getProgress(), "" /* text */);
     }
 
     synchronized void meldungAddThread() {
         threads++;
-        mSearchFilmeSuchen.melden(getSendername(), getMax(), getProgress(), "" /* text */);
+        mlibFilmeSuchen.melden(getSendername(), getMax(), getProgress(), "" /* text */);
     }
 
     synchronized void meldungProgress(String text) {
         progress++;
-        mSearchFilmeSuchen.melden(getSendername(), getMax(), getProgress(), text);
+        mlibFilmeSuchen.melden(getSendername(), getMax(), getProgress(), text);
     }
 
     synchronized void meldung(String text) {
-        mSearchFilmeSuchen.melden(getSendername(), getMax(), getProgress(), text);
+        mlibFilmeSuchen.melden(getSendername(), getMax(), getProgress(), text);
     }
 
     synchronized void meldungThreadUndFertig() {
@@ -364,10 +368,10 @@ public class MediathekReader extends Thread {
         threads--;
         if (getThreads() <= 0) {
             //wird erst ausgeführt wenn alle Threads beendet sind
-            mSearchFilmeSuchen.meldenFertig(getSendername());
+            mlibFilmeSuchen.meldenFertig(getSendername());
         } else {
             // läuft noch was
-            mSearchFilmeSuchen.melden(getSendername(), getMax(), getProgress(), "" /* text */);
+            mlibFilmeSuchen.melden(getSendername(), getMax(), getProgress(), "" /* text */);
         }
     }
 

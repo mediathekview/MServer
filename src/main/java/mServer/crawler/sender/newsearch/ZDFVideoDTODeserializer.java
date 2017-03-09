@@ -1,12 +1,19 @@
 package mServer.crawler.sender.newsearch;
 
-import com.google.gson.*;
-import mSearch.tool.Log;
-import mServer.tool.MserverDaten;
-import org.apache.commons.lang3.time.FastDateFormat;
-
 import java.lang.reflect.Type;
 import java.text.ParseException;
+
+import org.apache.commons.lang3.time.FastDateFormat;
+
+import com.google.gson.JsonArray;
+import com.google.gson.JsonDeserializationContext;
+import com.google.gson.JsonDeserializer;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParseException;
+
+import de.mediathekview.mlib.tool.Log;
+import mServer.tool.MserverDaten;
 
 /**
  * A JSON deserializer to gather the needed information for a {@link VideoDTO}.
