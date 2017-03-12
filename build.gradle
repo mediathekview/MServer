@@ -1,10 +1,16 @@
+import java.nio.file.Files
+import java.nio.file.Paths
+import org.apache.tools.ant.filters.ReplaceTokens
+
+plugins {
+    id "com.github.jk1.dependency-license-report" version "0.3.5"
+}
+
 apply plugin: 'java'
 apply plugin: 'distribution'
 apply plugin: 'maven'
 apply from: "${project.rootDir}/gradle/eclipse.gradle"
-import java.nio.file.Files
-import java.nio.file.Paths
-import org.apache.tools.ant.filters.ReplaceTokens
+
 
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
