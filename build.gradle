@@ -109,7 +109,7 @@ tasks.withType(Test) {
 }
 
 dependencies {
-    /*compile 'de.mediathekview:MLib:3.0.0'*/
+    compile 'de.mediathekview:MLib:3.0.0'
     compile 'commons-net:commons-net:3.5'
     compile 'org.apache.commons:commons-compress:1.12'
     compile 'org.apache.commons:commons-lang3:3.5'
@@ -136,7 +136,7 @@ configurations.compile {
                substitute module(moduleName) with project(projectName)
             }
         }
-        substituteIfExists('de.mediathekview:MSearch', ':MSearch')
+        substituteIfExists('de.mediathekview:MLib', ':MLib')
     }
 }
 
@@ -197,6 +197,14 @@ task updateVersion {
 
 processResources.dependsOn updateVersion
 
+licenseReport {
+    outputDir = "build/Copyright/"
+    excludes = [':MSearch', 'MediathekView:MLib']
+    configurations = ['compile']
+}
+
+processResources.dependsOn generateLicenseReport
+
 [distZip, distTar]*.shouldRunAfter compileJava, updateVersion, jar
 distTar.compression = Compression.GZIP
 distTar.extension = 'tar.gz'
@@ -231,6 +239,9 @@ distributions {
             }
             from('build/libs') {
                 include '*.jar'
+            }
+            from('build') {
+                include 'Copyright/*'
             }
         }
     }
