@@ -50,15 +50,6 @@ public class ZDFEntryTask extends RecursiveTask<VideoDTO>
                 if (baseObjectInfo != null)
                 {
                     dto = gson.fromJson(baseObjectInfo, VideoDTO.class);
-                    try
-                    {
-                        if (baseObjectInfo.getAsString().contains("Varg Venum"))
-                        {
-                            System.out.println("found varg venum");
-                        }
-                    } catch (Exception e)
-                    {
-                    }
                     if (dto != null)
                     {
                         // read download details
