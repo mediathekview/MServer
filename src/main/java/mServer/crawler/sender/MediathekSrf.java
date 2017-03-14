@@ -207,9 +207,16 @@ public class MediathekSrf extends MediathekReader implements Runnable {
 
                 String url3u8 = urlHD.endsWith("m3u8") ? urlHD : url_normal;
 
-//                boolean only = false;
                 if (url3u8.endsWith("m3u8")) {
                     m3u8Page = getUrl.getUri_Utf(SENDERNAME, url3u8, m3u8Page, "");
+                    if (m3u8Page.length() == 0) {
+                        // tauschen https://srfvodhd-vh.akamaihd.net http://hdvodsrforigin-f.akamaihd.net
+                        // ist ein 403
+                        if (url3u8.startsWith("https://srfvodhd-vh.akamaihd.net")) {
+                            url3u8 = url3u8.replaceFirst("https://srfvodhd-vh.akamaihd.net", "http://hdvodsrforigin-f.akamaihd.net");
+                            m3u8Page = getUrl.getUri_Utf(SENDERNAME, url3u8, m3u8Page, "");
+                        }
+                    }
                     if (url3u8.contains("q50,q60")) {
                         if (m3u8Page.indexOf(INDEX_5) != -1) {
                             urlHD = getUrlFromM3u8(url3u8, INDEX_5);
@@ -225,7 +232,6 @@ public class MediathekSrf extends MediathekReader implements Runnable {
                             url_small = getUrlFromM3u8(url3u8, INDEX_1);
                         }
                     } else {
-//                        only = true;
                         System.out.println(url3u8);
                         if (m3u8Page.indexOf(INDEX_0) != -1) {
                             url_normal = getUrlFromM3u8(url3u8, INDEX_0);
@@ -269,9 +275,7 @@ public class MediathekSrf extends MediathekReader implements Runnable {
                     if (!subtitle.isEmpty()) {
                         CrawlerTool.addUrlSubtitle(film, subtitle);
                     }
-//                    if (only) {
                     addFilm(film);
-//                    }
                 }
             } catch (Exception ex) {
                 Log.errorLog(556320087, ex);
