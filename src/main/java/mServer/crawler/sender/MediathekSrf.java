@@ -207,34 +207,34 @@ public class MediathekSrf extends MediathekReader implements Runnable {
 
                 String url3u8 = urlHD.endsWith("m3u8") ? urlHD : url_normal;
 
-                boolean only = false;
-
-                if (url3u8.endsWith("m3u8") && url3u8.contains("q50,q60")) {
+//                boolean only = false;
+                if (url3u8.endsWith("m3u8")) {
                     m3u8Page = getUrl.getUri_Utf(SENDERNAME, url3u8, m3u8Page, "");
-                    if (m3u8Page.indexOf(INDEX_5) != -1) {
-                        urlHD = getUrlFromM3u8(url3u8, INDEX_5);
-                    }
-                    if (m3u8Page.indexOf(INDEX_4) != -1) {
-                        url_normal = getUrlFromM3u8(url3u8, INDEX_4);
-                    } else if (m3u8Page.indexOf(INDEX_3) != -1) {
-                        url_normal = getUrlFromM3u8(url3u8, INDEX_3);
-                    }
-                    if (m3u8Page.indexOf(INDEX_2) != -1) {
-                        url_small = getUrlFromM3u8(url3u8, INDEX_2);
-                    } else if (m3u8Page.indexOf(INDEX_1) != -1) {
-                        url_small = getUrlFromM3u8(url3u8, INDEX_1);
-                    }
-                } else {
-                    only = true;
-                    System.out.println(url3u8);
-                    m3u8Page = getUrl.getUri_Utf(SENDERNAME, url3u8, m3u8Page, "");
-                    if (m3u8Page.indexOf(INDEX_0) != -1) {
-                        url_normal = getUrlFromM3u8(url3u8, INDEX_0);
-                    }
-                    if (m3u8Page.indexOf(INDEX_3) != -1) {
-                        url_small = getUrlFromM3u8(url3u8, INDEX_3);
-                    } else if (m3u8Page.indexOf(INDEX_2) != -1) {
-                        url_small = getUrlFromM3u8(url3u8, INDEX_2);
+                    if (url3u8.contains("q50,q60")) {
+                        if (m3u8Page.indexOf(INDEX_5) != -1) {
+                            urlHD = getUrlFromM3u8(url3u8, INDEX_5);
+                        }
+                        if (m3u8Page.indexOf(INDEX_4) != -1) {
+                            url_normal = getUrlFromM3u8(url3u8, INDEX_4);
+                        } else if (m3u8Page.indexOf(INDEX_3) != -1) {
+                            url_normal = getUrlFromM3u8(url3u8, INDEX_3);
+                        }
+                        if (m3u8Page.indexOf(INDEX_2) != -1) {
+                            url_small = getUrlFromM3u8(url3u8, INDEX_2);
+                        } else if (m3u8Page.indexOf(INDEX_1) != -1) {
+                            url_small = getUrlFromM3u8(url3u8, INDEX_1);
+                        }
+                    } else {
+//                        only = true;
+                        System.out.println(url3u8);
+                        if (m3u8Page.indexOf(INDEX_0) != -1) {
+                            url_normal = getUrlFromM3u8(url3u8, INDEX_0);
+                        }
+                        if (m3u8Page.indexOf(INDEX_3) != -1) {
+                            url_small = getUrlFromM3u8(url3u8, INDEX_3);
+                        } else if (m3u8Page.indexOf(INDEX_2) != -1) {
+                            url_small = getUrlFromM3u8(url3u8, INDEX_2);
+                        }
                     }
                 }
 
@@ -269,7 +269,9 @@ public class MediathekSrf extends MediathekReader implements Runnable {
                     if (!subtitle.isEmpty()) {
                         CrawlerTool.addUrlSubtitle(film, subtitle);
                     }
+//                    if (only) {
                     addFilm(film);
+//                    }
                 }
             } catch (Exception ex) {
                 Log.errorLog(556320087, ex);
