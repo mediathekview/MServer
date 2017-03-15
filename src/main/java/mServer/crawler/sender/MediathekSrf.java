@@ -235,11 +235,9 @@ public class MediathekSrf extends MediathekReader implements Runnable {
                     }
                 }
 
-                if (url_normal.isEmpty()) {
-                    if (!url_small.isEmpty()) {
-                        url_normal = url_small;
-                        url_small = "";
-                    }
+                if (url_normal.isEmpty() && !url_small.isEmpty()) {
+                    url_normal = url_small;
+                    url_small = "";
                 }
                 // https -> http
                 if (url_normal.startsWith("https")) {
@@ -275,13 +273,11 @@ public class MediathekSrf extends MediathekReader implements Runnable {
 
         private void getM3u8(String url3u8) {
             m3u8Page = getUrl.getUri_Utf(SENDERNAME, url3u8, m3u8Page, "");
-            if (m3u8Page.length() == 0) {
+            if (m3u8Page.length() == 0 && url3u8.startsWith("https://srfvodhd-vh.akamaihd.net")) {
                 // tauschen https://srfvodhd-vh.akamaihd.net http://hdvodsrforigin-f.akamaihd.net
                 // ist ein 403
-                if (url3u8.startsWith("https://srfvodhd-vh.akamaihd.net")) {
-                    url3u8 = url3u8.replaceFirst("https://srfvodhd-vh.akamaihd.net", "http://hdvodsrforigin-f.akamaihd.net");
-                    m3u8Page = getUrl.getUri_Utf(SENDERNAME, url3u8, m3u8Page, "");
-                }
+                url3u8 = url3u8.replaceFirst("https://srfvodhd-vh.akamaihd.net", "http://hdvodsrforigin-f.akamaihd.net");
+                m3u8Page = getUrl.getUri_Utf(SENDERNAME, url3u8, m3u8Page, "");
             }
         }
 
