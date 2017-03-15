@@ -22,10 +22,10 @@ package mServer.crawler;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.LinkedList;
+import java.util.concurrent.atomic.AtomicLong;
 
+@SuppressWarnings("serial")
 public class ListeRunSender extends LinkedList<RunSender> {
-
-    private static final long serialVersionUID = 1L;
 
     private final static String TRENNER = " | ";
     private static final String SENDER = " Sender ";
@@ -61,13 +61,15 @@ public class ListeRunSender extends LinkedList<RunSender> {
     }
 
     public String getSenderRun() {
-        String ret = "";
+        final StringBuilder builder = new StringBuilder();
         for (RunSender run : this) {
             if (!run.fertig) {
-                ret += run.sender + " ";
+                builder.append(run.sender);
+                builder.append(' ');
             }
         }
-        return ret;
+
+        return builder.toString();
     }
 
     public int getAnzSenderRun() {
@@ -102,43 +104,45 @@ public class ListeRunSender extends LinkedList<RunSender> {
     }
 
     public void inc(String sender, RunSender.Count what) {
-        inc(sender, what.ordinal(), 1);
+        inc(sender, what, 1);
     }
 
     public void inc(String sender, RunSender.Count what, long i) {
-        inc(sender, what.ordinal(), i);
-    }
-
-    public void inc(String sender, int what, long inc) {
-        getCounter(sender).counter[what] += inc;
+        final AtomicLong counter = getCounter(sender).counter.get(what);
+        counter.addAndGet(i);
     }
 
     public long get(String sender, RunSender.Count what) {
-        return getCounter(sender).counter[what.ordinal()];
+        return getCounter(sender).counter.get(what).get();
     }
 
-    public long get(String sender, int i) {
-        return getCounter(sender).counter[i];
+    public String getRate(String sender) {
+        String rate = "";
+        int dauerSender = getSender(sender).getLaufzeitSekunden();
+        long groesseByte = get(sender, RunSender.Count.SUM_TRAFFIC_BYTE);
+        if (groesseByte > 0 && dauerSender > 0) {
+            double doub = (1.0 * groesseByte / dauerSender / 1000); // kB/s
+            rate = doub < 1 ? "<1" : String.format("%.1f", (doub));
+        }
+        return rate;
     }
 
     public long get(RunSender.Count what) {
         long ret = 0;
         for (RunSender run : this) {
-            ret += run.counter[what.ordinal()];
+            ret += run.counter.get(what).get();
         }
         return ret;
     }
 
     public ArrayList<String> getTextCount(ArrayList<String> ret) {
         getTextCount_(ret, new RunSender.Count[]{RunSender.Count.ANZAHL, RunSender.Count.FILME, RunSender.Count.FEHLER,
-            RunSender.Count.FEHLVERSUCHE, RunSender.Count.WARTEZEIT_FEHLVERSUCHE,
-            RunSender.Count.PROXY, RunSender.Count.NO_BUFFER});
+            RunSender.Count.FEHLVERSUCHE, RunSender.Count.WARTEZEIT_FEHLVERSUCHE, RunSender.Count.PROXY});
         ret.add("");
         ret.add("");
 
         getTextCount_(ret, new RunSender.Count[]{RunSender.Count.SUM_DATA_BYTE, RunSender.Count.SUM_TRAFFIC_BYTE,
-            RunSender.Count.SUM_TRAFFIC_LOADART_NIX, RunSender.Count.SUM_TRAFFIC_LOADART_DEFLATE, RunSender.Count.SUM_TRAFFIC_LOADART_GZIP,
-            RunSender.Count.GET_SIZE_SUM, RunSender.Count.GET_SIZE_SUM403, RunSender.Count.GET_SIZE_PROXY});
+            RunSender.Count.SUM_TRAFFIC_LOADART_NIX, RunSender.Count.GET_SIZE_SUM, RunSender.Count.GET_SIZE_PROXY});
 
         ret.add("");
         ret.add("");
@@ -223,15 +227,13 @@ public class ListeRunSender extends LinkedList<RunSender> {
                 for (RunSender.Count sp : spalten) {
                     if (i == sp.ordinal()) {
                         if (i == RunSender.Count.SUM_DATA_BYTE.ordinal() || i == RunSender.Count.SUM_TRAFFIC_BYTE.ordinal()
-                                || i == RunSender.Count.SUM_TRAFFIC_LOADART_DEFLATE.ordinal()
-                                || i == RunSender.Count.SUM_TRAFFIC_LOADART_GZIP.ordinal()
                                 || i == RunSender.Count.SUM_TRAFFIC_LOADART_NIX.ordinal()) {
-                            zeile += textLaenge(names[i].length(), String.valueOf(RunSender.getStringZaehler(get(run.sender, i)))) + TRENNER;
+                            zeile += textLaenge(names[i].length(), String.valueOf(RunSender.getStringZaehler(get(run.sender, RunSender.Count.values()[i])))) + TRENNER;
                         } else if (i == RunSender.Count.WARTEZEIT_FEHLVERSUCHE.ordinal()) {
-                            long l = get(run.sender, i); // dann sinds ms
+                            long l = get(run.sender, RunSender.Count.values()[i]); // dann sinds ms
                             zeile += textLaenge(names[i].length(), String.valueOf(l == 0 ? "0" : (l < 1000 ? "<1" : l / 1000))) + TRENNER;
                         } else {
-                            zeile += textLaenge(names[i].length(), String.valueOf(get(run.sender, i))) + TRENNER;
+                            zeile += textLaenge(names[i].length(), String.valueOf(get(run.sender, RunSender.Count.values()[i]))) + TRENNER;
                         }
                     }
                 }

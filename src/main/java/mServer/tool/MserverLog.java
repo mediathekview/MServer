@@ -19,25 +19,20 @@
  */
 package mServer.tool;
 
-import java.io.File;
+import mSearch.tool.Functions;
+import org.apache.commons.lang3.time.FastDateFormat;
+
 import java.io.FileOutputStream;
 import java.io.OutputStreamWriter;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Iterator;
 import java.util.LinkedList;
-import mSearch.tool.Functions;
 
 public class MserverLog {
 
     private static final LinkedList<Integer[]> fehlerListe = new LinkedList<>(); // [Fehlernummer, Anzahl]
     private static final Date startZeit = new Date(System.currentTimeMillis());
-    private static Date stopZeit = null;
     private static final String logfile = MserverDaten.getLogDatei(MserverKonstanten.LOG_FILE_NAME);
-
-    public void resetFehlerListe() {
-        fehlerListe.clear();
-    }
 
     public static synchronized void versionsMeldungen(String classname) {
         SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss");
@@ -111,9 +106,7 @@ public class MserverLog {
 
     public static synchronized void fehlerMeldung(int fehlerNummer, String klasse, String[] text, Exception ex) {
         String[] f = new String[text.length + 1];
-        for (int i = 0; i < text.length; ++i) {
-            f[i] = text[i];
-        }
+        System.arraycopy(text, 0, f, 0, text.length);
         f[text.length] = ex.getMessage();
         fehlermeldung_(fehlerNummer, klasse, f);
     }
@@ -127,7 +120,7 @@ public class MserverLog {
     }
 
     public static void printEndeMeldung() {
-        if (fehlerListe.size() == 0) {
+        if (fehlerListe.isEmpty()) {
             systemMeldung("###########################################################");
             systemMeldung(" Keine Fehler :)");
             systemMeldung("###########################################################");
@@ -148,9 +141,7 @@ public class MserverLog {
                 }
             }
             systemMeldung("###########################################################");
-            Iterator<Integer[]> it = fehlerListe.iterator();
-            while (it.hasNext()) {
-                Integer[] integers = it.next();
+            for (Integer[] integers : fehlerListe) {
                 if (integers[0] < 0) {
                     systemMeldung(" Fehlernummer: " + integers[0] + " Anzahl: " + integers[1]);
                 } else {
@@ -160,14 +151,10 @@ public class MserverLog {
             systemMeldung("###########################################################");
         }
         // Laufzeit ausgeben
-        stopZeit = new Date(System.currentTimeMillis());
-        SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss");
-        int minuten;
-        try {
-            minuten = Math.round((stopZeit.getTime() - startZeit.getTime()) / (1000 * 60));
-        } catch (Exception ex) {
-            minuten = -1;
-        }
+        final Date stopZeit = new Date(System.currentTimeMillis());
+        final FastDateFormat sdf = FastDateFormat.getInstance("dd.MM.yyyy HH:mm:ss");
+        final int minuten = Math.round((stopZeit.getTime() - startZeit.getTime()) / (1000 * 60));
+
         systemMeldung("");
         systemMeldung("");
         systemMeldung("###########################################################");
@@ -183,9 +170,7 @@ public class MserverLog {
     }
 
     private static void addFehlerNummer(int nr) {
-        Iterator<Integer[]> it = fehlerListe.iterator();
-        while (it.hasNext()) {
-            Integer[] i = it.next();
+        for (Integer[] i : fehlerListe) {
             if (i[0] == nr) {
                 i[1]++;
                 return;
@@ -201,9 +186,9 @@ public class MserverLog {
         final String z = "*";
         System.out.println(z + z + z + z + z + z + z + z + z + z + z + z + z + z + z + z + z + z + z + z + z + z + z + z + z + z + z + z);
         System.out.println(z + " Fehlernr: " + fehlerNummer);
-        System.out.println(z + " " + FEHLER + klasse);
-        for (int i = 0; i < texte.length; ++i) {
-            System.out.println(z + "           " + texte[i]);
+        System.out.println(z + ' ' + FEHLER + klasse);
+        for (String aTexte : texte) {
+            System.out.println(z + "           " + aTexte);
         }
         System.out.println(z + z + z + z + z + z + z + z + z + z + z + z + z + z + z + z + z + z + z + z + z + z + z + z + z + z + z + z);
     }
@@ -219,48 +204,41 @@ public class MserverLog {
     private static void systemmeldung(String[] texte, boolean datum) {
         final String z = "o ";
         if (texte.length <= 1) {
-            System.out.println(z + " " + texte[0]);
+            System.out.println(z + ' ' + texte[0]);
         } else {
             String zeile = "---------------------------------------";
             String txt;
             System.out.println(z + zeile);
-            for (int i = 0; i < texte.length; ++i) {
-                txt = "| " + texte[i];
+            for (String aTexte : texte) {
+                txt = "| " + aTexte;
                 System.out.println(z + txt);
             }
             System.out.println(z + zeile);
         }
         // ins Logfile eintragen
-        if (!logfile.equals("")) {
-            File f = new File(logfile);
-            if (f != null) {
-                OutputStreamWriter writer = null;
-                try {
-                    writer = new OutputStreamWriter(new FileOutputStream(f, true));
-
-                    for (int i = 0; i < texte.length; ++i) {
-                        String s = texte[i];
-                        if (s.equals("")) {
-                            writer.write("\n"); // nur leere Zeile schrieben
+        if (!logfile.isEmpty()) {
+            try (FileOutputStream fos = new FileOutputStream(logfile, true);
+                 OutputStreamWriter writer = new OutputStreamWriter(fos)) {
+                for (String s : texte) {
+                    if (s.isEmpty()) {
+                        writer.write("\n"); // nur leere Zeile schrieben
+                    } else {
+                        if (datum) {
+                            writer.write(MserverDatumZeit.getJetzt() + "     " + s);
                         } else {
-                            if (datum) {
-                                writer.write(MserverDatumZeit.getJetzt() + "     " + s);
-                            } else {
-                                writer.write(s);
-                            }
-                            writer.write("\n");
+                            writer.write(s);
                         }
-                    }
-                    writer.close();
-                } catch (Exception ex) {
-                    System.out.println("Fehler beim Logfile schreiben: " + ex.getMessage());
-                } finally {
-                    try {
-                        writer.close();
-                    } catch (Exception ex) {
+                        writer.write("\n");
                     }
                 }
+                writer.close();
+            } catch (Exception ex) {
+                System.out.println("Fehler beim Logfile schreiben: " + ex.getMessage());
             }
         }
+    }
+
+    public void resetFehlerListe() {
+        fehlerListe.clear();
     }
 }

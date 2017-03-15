@@ -29,19 +29,19 @@ import mSearch.Const;
 import mSearch.daten.DatenFilm;
 import mSearch.tool.Log;
 import mSearch.tool.MSStringBuilder;
+import mServer.crawler.CrawlerTool;
 import mServer.crawler.FilmeSuchen;
 import mServer.crawler.GetUrl;
-import mServer.crawler.CrawlerTool;
 import org.apache.commons.lang3.StringEscapeUtils;
 
-public class MediathekSrf extends MediathekReader implements Runnable {
+public class MediathekSrf extends MediathekReader {
 
     public final static String SENDERNAME = Const.SRF;
     private final static int MAX_SEITEN_THEMA = 5;
     private final static int MAX_FILME_KURZ = 6;
 
     public MediathekSrf(FilmeSuchen ssearch, int startPrio) {
-        super(ssearch, SENDERNAME,/* threads */ 3, /* urlWarten */ 400, startPrio);
+        super(ssearch, SENDERNAME,/* threads */ 3, /* urlWarten */ 100, startPrio);
     }
 
     @Override
@@ -52,6 +52,7 @@ public class MediathekSrf extends MediathekReader implements Runnable {
         MSStringBuilder seite = new MSStringBuilder(Const.STRING_BUFFER_START_BUFFER);
         listeThemen.clear();
         meldungStart();
+        GetUrl getUrlIo = new GetUrl(getWartenSeiteLaden());
         seite = getUrlIo.getUri_Utf(SENDERNAME, "http://www.srf.ch/play/tv/atozshows/list?layout=json", seite, "");
         int pos = 0;
         int pos1;
@@ -75,28 +76,25 @@ public class MediathekSrf extends MediathekReader implements Runnable {
 
         if (Config.getStop()) {
             meldungThreadUndFertig();
-        } else if (listeThemen.size() == 0) {
+        } else if (listeThemen.isEmpty()) {
             meldungThreadUndFertig();
         } else {
             meldungAddMax(listeThemen.size());
             for (int t = 0; t < getMaxThreadLaufen(); ++t) {
-                Thread th = new Thread(new ThemaLaden());
+                Thread th = new ThemaLaden();
                 th.setName(SENDERNAME + t);
                 th.start();
             }
         }
     }
 
-    private class ThemaLaden implements Runnable {
+    private class ThemaLaden extends Thread {
 
-        GetUrl getUrl = new GetUrl(getWartenSeiteLaden());
+        private final GetUrl getUrl = new GetUrl(getWartenSeiteLaden());
 
-        private final MSStringBuilder film_website = new MSStringBuilder(Const.STRING_BUFFER_START_BUFFER);
-        MSStringBuilder overviewPageFilm = new MSStringBuilder(Const.STRING_BUFFER_START_BUFFER);
-        MSStringBuilder filmPage = new MSStringBuilder(Const.STRING_BUFFER_START_BUFFER);
-        MSStringBuilder m3u8Page = new MSStringBuilder(Const.STRING_BUFFER_START_BUFFER);
-        private final static String PATTERN_URL = "\"url\":\"";
-        private final static String PATTERN_URL_END = "\"";
+        private MSStringBuilder overviewPageFilm = new MSStringBuilder(Const.STRING_BUFFER_START_BUFFER);
+        private MSStringBuilder filmPage = new MSStringBuilder(Const.STRING_BUFFER_START_BUFFER);
+        private MSStringBuilder m3u8Page = new MSStringBuilder(Const.STRING_BUFFER_START_BUFFER);
         private final ArrayList<String> urlList = new ArrayList<>();
         private final ArrayList<String> filmList = new ArrayList<>();
 
@@ -286,8 +284,7 @@ public class MediathekSrf extends MediathekReader implements Runnable {
 
         private String getUrlFromM3u8(String m3u8Url, String qualityIndex) {
             final String CSMIL = "csmil/";
-            String url = m3u8Url.substring(0, m3u8Url.indexOf(CSMIL)) + CSMIL + qualityIndex;
-            return url;
+            return m3u8Url.substring(0, m3u8Url.indexOf(CSMIL)) + CSMIL + qualityIndex;
         }
 
         private long extractDuration(MSStringBuilder page) {

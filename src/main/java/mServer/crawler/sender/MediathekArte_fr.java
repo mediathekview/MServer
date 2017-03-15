@@ -22,7 +22,7 @@ package mServer.crawler.sender;
 import mSearch.Const;
 import mServer.crawler.FilmeSuchen;
 
-public class MediathekArte_fr extends MediathekArte_de implements Runnable {
+public class MediathekArte_fr extends MediathekArte_de {
 
     public final static String SENDERNAME = Const.ARTE_FR;
 
