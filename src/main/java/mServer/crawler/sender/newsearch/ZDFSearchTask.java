@@ -16,7 +16,6 @@ public class ZDFSearchTask extends RecursiveTask<Collection<VideoDTO>>
     private static final String PROPERTY_HAS_VIDEO = "hasVideo";
     private static final String PROPERTY_SEARCHPARAM_Q = "q";
     private static final String SEARCH_ALL = "*";
-    private static final String PROPERTY_TYPES = "types";
     private static final String PROPERTY_SORT_ORDER = "sortOrder";
     private static final String SORT_ORDER_DESC = "desc";
     private static final String PROPERTY_DATE_FROM = "from";
