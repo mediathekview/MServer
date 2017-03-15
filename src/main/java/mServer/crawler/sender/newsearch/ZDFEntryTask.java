@@ -3,27 +3,30 @@ package mServer.crawler.sender.newsearch;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
-import mSearch.Config;
-import mSearch.tool.Log;
 
 import java.util.concurrent.RecursiveTask;
+
+import mSearch.Config;
+import mSearch.tool.Log;
 
 /**
  * Searches all information required for a film
  */
-public class ZDFEntryTask extends RecursiveTask<VideoDTO> {
+public class ZDFEntryTask extends RecursiveTask<VideoDTO>
+{
 
     private static final long serialVersionUID = 1L;
-    
+
     private final ZDFClient client;
     private final ZDFEntryDTO zdfEntryDTO;
     private final Gson gson;
-    
-    public ZDFEntryTask(ZDFEntryDTO aEntryDto) {
+    public ZDFEntryTask(ZDFEntryDTO aEntryDto) 
+    {
         this(aEntryDto, new ZDFClient());
     }
 
-    public ZDFEntryTask(ZDFEntryDTO aEntryDto, ZDFClient zdfClient) {
+    public ZDFEntryTask(ZDFEntryDTO aEntryDto, ZDFClient zdfClient) 
+    {
         client = zdfClient;
         zdfEntryDTO = aEntryDto;                
         gson = new GsonBuilder()
@@ -31,9 +34,10 @@ public class ZDFEntryTask extends RecursiveTask<VideoDTO> {
                 .registerTypeAdapter(DownloadDTO.class, new ZDFDownloadDTODeserializer())
                 .create();
     }
-    
+
     @Override
-    protected VideoDTO compute() {
+    protected VideoDTO compute()
+    {
 
         if (zdfEntryDTO == null) {
             return null;
@@ -41,32 +45,35 @@ public class ZDFEntryTask extends RecursiveTask<VideoDTO> {
 
         VideoDTO dto = null;
 
-        if(!Config.getStop()) {
-            try {
+        if (!Config.getStop())
+        {
+            try
+            {
                 // read film details
                 String infoUrl = zdfEntryDTO.getEntryGeneralInformationUrl();
                 JsonObject baseObjectInfo = client.execute(infoUrl);
-                if(baseObjectInfo != null) {
+                if(baseObjectInfo != null) 
+                {
                     dto = gson.fromJson(baseObjectInfo, VideoDTO.class);
-                    if(dto != null) {
+                    if (dto != null)
+                    {
                         // read download details
                         String downloadUrl = zdfEntryDTO.getEntryDownloadInformationUrl();
                         JsonObject baseObjectDownload = client.execute(downloadUrl);
-                        if(baseObjectDownload != null) {
+                        if(baseObjectDownload != null) 
+                        {
                             DownloadDTO downloadDto = gson.fromJson(baseObjectDownload, DownloadDTO.class);
                             dto.setDownloadDto(downloadDto);
                         }
                     }
                 }
-            } catch (Exception ex) {
-
+            } catch (Exception ex)
+            {
                 Log.errorLog(496583202, ex, "Exception parsing " + (zdfEntryDTO != null ? zdfEntryDTO.getEntryGeneralInformationUrl() : ""));
-
-                Log.errorLog(496583202, ex, "Exception parsing " + zdfEntryDTO.getEntryGeneralInformationUrl());
                 dto = null;
             }
         }
-        
+
         return dto;
-    }    
+    }
 }

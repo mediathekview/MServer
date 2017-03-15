@@ -36,8 +36,6 @@ public class ZDFClient {
     private static final String PROPERTY_HAS_VIDEO = "hasVideo";
     private static final String PROPERTY_SEARCHPARAM_Q = "q";
     private static final String SEARCH_ALL = "*";
-    private static final String PROPERTY_TYPES = "types";
-    private static final String TYPE_PAGE_VIDEO = "page-video";
     private static final String PROPERTY_SORT_ORDER = "sortOrder";
     private static final String SORT_ORDER_DESC = "desc";
     private static final String PROPERTY_DATE_FROM = "from";
@@ -61,7 +59,6 @@ public class ZDFClient {
         WebResource webResource = createResource(ZDF_SEARCH_URL)
                 .queryParam(PROPERTY_HAS_VIDEO, Boolean.TRUE.toString())
                 .queryParam(PROPERTY_SEARCHPARAM_Q, SEARCH_ALL)
-                .queryParam(PROPERTY_TYPES, TYPE_PAGE_VIDEO)
                 .queryParam(PROPERTY_SORT_ORDER, SORT_ORDER_DESC)
                 .queryParam(PROPERTY_DATE_FROM, today.minusDays(daysPast).format(DATE_TIME_FORMAT))
                 .queryParam(PROPERTY_DATE_TO, today.plusMonths(monthFuture).format(DATE_TIME_FORMAT))
