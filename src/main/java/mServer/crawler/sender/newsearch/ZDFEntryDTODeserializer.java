@@ -18,9 +18,9 @@ public class ZDFEntryDTODeserializer implements JsonDeserializer<ZDFEntryDTO>
     private static final String JSON_OBJ_ELEMENT_TARGET = "http://zdf.de/rels/target";
     private static final String JSON_OBJ_ELEMENT_MAIN_VIDEO_CONTENT = "mainVideoContent";
     private static final String JSON_ELEMENT_GENERAL_INFORMATION_URL = "canonical";
-    public static final String JSON_OBJ_VIDEO_PAGE_TEASER = "http://zdf.de/rels/content/video-page-teaser";
-    public static final String PLACEHOLDER_PLAYER_ID = "{playerId}";
-    public static final String PLAYER_ID = "ngplayer_2_3";
+    private static final String JSON_OBJ_VIDEO_PAGE_TEASER = "http://zdf.de/rels/content/video-page-teaser";
+    private static final String PLACEHOLDER_PLAYER_ID = "{playerId}";
+    private static final String PLAYER_ID = "ngplayer_2_3";
 
     @Override
     public ZDFEntryDTO deserialize(final JsonElement aJsonElement, final Type aTypeOfT, final JsonDeserializationContext aJsonDeserializationContext) throws JsonParseException
