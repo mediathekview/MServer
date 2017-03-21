@@ -9,9 +9,6 @@ import com.google.gson.JsonObject;
 import de.mediathekview.mlib.Config;
 import de.mediathekview.mlib.tool.Log;
 
-import mSearch.Config;
-import mSearch.tool.Log;
-
 /**
  * Searches all information required for a film
  */
