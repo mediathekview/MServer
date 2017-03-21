@@ -1,10 +1,16 @@
+import java.nio.file.Files
+import java.nio.file.Paths
+import org.apache.tools.ant.filters.ReplaceTokens
+
+plugins {
+    id "com.github.jk1.dependency-license-report" version "0.3.5"
+}
+
 apply plugin: 'java'
 apply plugin: 'distribution'
 apply plugin: 'maven'
 apply from: "${project.rootDir}/gradle/eclipse.gradle"
-import java.nio.file.Files
-import java.nio.file.Paths
-import org.apache.tools.ant.filters.ReplaceTokens
+
 
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
@@ -109,7 +115,7 @@ tasks.withType(Test) {
 }
 
 dependencies {
-    compile 'de.mediathekview:MSearch:2.4.0'
+    compile 'de.mediathekview:MLib:3.0.0'
     compile 'commons-net:commons-net:3.5'
     compile 'org.apache.commons:commons-compress:1.12'
     compile 'org.apache.commons:commons-lang3:3.5'
@@ -137,7 +143,7 @@ configurations.compile {
                substitute module(moduleName) with project(projectName)
             }
         }
-        substituteIfExists('de.mediathekview:MSearch', ':MSearch')
+        substituteIfExists('de.mediathekview:MLib', ':MLib')
     }
 }
 
@@ -198,6 +204,14 @@ task updateVersion {
 
 processResources.dependsOn updateVersion
 
+licenseReport {
+    outputDir = "build/Copyright/"
+    excludes = [':MSearch', 'MediathekView:MLib']
+    configurations = ['compile']
+}
+
+processResources.dependsOn generateLicenseReport
+
 [distZip, distTar]*.shouldRunAfter compileJava, updateVersion, jar
 distTar.compression = Compression.GZIP
 distTar.extension = 'tar.gz'
@@ -232,6 +246,9 @@ distributions {
             }
             from('build/libs') {
                 include '*.jar'
+            }
+            from('build') {
+                include 'Copyright/*'
             }
         }
     }

@@ -1,6 +1,6 @@
 package mServer.crawler.sender.newsearch;
 
-import mSearch.daten.DatenFilm;
+import de.mediathekview.mlib.daten.DatenFilm;
 
 public class ZdfDatenFilm extends DatenFilm {
 

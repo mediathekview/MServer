@@ -1,12 +1,14 @@
 package mServer.crawler.sender.newsearch;
 
-import mSearch.Config;
-import mServer.test.ZDFClientMock;
 import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.hamcrest.CoreMatchers.nullValue;
-import org.junit.After;
 import static org.junit.Assert.assertThat;
+
+import org.junit.After;
 import org.junit.Test;
+
+import de.mediathekview.mlib.Config;
+import mServer.test.ZDFClientMock;
 
 public class ZDFEntryTaskTest {
 

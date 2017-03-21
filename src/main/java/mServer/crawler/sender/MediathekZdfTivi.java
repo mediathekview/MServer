@@ -22,15 +22,17 @@ package mServer.crawler.sender;
 import java.nio.charset.StandardCharsets;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import mSearch.Config;
-import mSearch.Const;
-import mSearch.daten.DatenFilm;
-import mSearch.tool.Log;
-import mSearch.tool.MSStringBuilder;
+
+import org.apache.commons.lang3.time.FastDateFormat;
+
+import de.mediathekview.mlib.Config;
+import de.mediathekview.mlib.Const;
+import de.mediathekview.mlib.daten.DatenFilm;
+import de.mediathekview.mlib.tool.Log;
+import de.mediathekview.mlib.tool.MSStringBuilder;
 import mServer.crawler.FilmeSuchen;
 import mServer.crawler.GetUrl;
 import mServer.tool.MserverDaten;
-import org.apache.commons.lang3.time.FastDateFormat;
 
 public class MediathekZdfTivi extends MediathekReader {
 
@@ -308,7 +310,7 @@ public class MediathekZdfTivi extends MediathekReader {
                             datum, zeit,
                             dauerL, text);
                     // jetzt noch manuell die Auflösung hochsetzen
-                    MediathekZdf.urlTauschen(film, url, mSearchFilmeSuchen);
+                    MediathekZdf.urlTauschen(film, url, mlibFilmeSuchen);
                     addFilm(film);
                 }
             } catch (Exception ex) {

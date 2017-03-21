@@ -26,10 +26,11 @@ import java.net.UnknownHostException;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.util.concurrent.TimeUnit;
-import mSearch.Config;
-import mSearch.tool.Log;
-import mSearch.tool.MSStringBuilder;
-import mSearch.tool.MVHttpClient;
+
+import de.mediathekview.mlib.Config;
+import de.mediathekview.mlib.tool.Log;
+import de.mediathekview.mlib.tool.MSStringBuilder;
+import de.mediathekview.mlib.tool.MVHttpClient;
 import mServer.tool.MserverDaten;
 import okhttp3.Request;
 import okhttp3.Response;

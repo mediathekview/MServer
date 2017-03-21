@@ -19,7 +19,7 @@
  */
 package mServer.crawler.sender;
 
-import mSearch.Const;
+import de.mediathekview.mlib.Const;
 import mServer.crawler.FilmeSuchen;
 
 public class MediathekArte_fr extends MediathekArte_de {

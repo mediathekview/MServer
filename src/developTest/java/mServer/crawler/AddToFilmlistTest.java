@@ -1,9 +1,9 @@
 package mServer.crawler;
 
 import java.io.IOException;
-import mSearch.Const;
-import mSearch.daten.DatenFilm;
-import mSearch.daten.ListeFilme;
+import de.mediathekview.mlib.Const;
+import de.mediathekview.mlib.daten.DatenFilm;
+import de.mediathekview.mlib.daten.ListeFilme;
 import okhttp3.mockwebserver.*;
 
 import org.junit.*;

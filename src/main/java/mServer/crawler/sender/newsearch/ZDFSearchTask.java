@@ -1,15 +1,16 @@
 package mServer.crawler.sender.newsearch;
 
-import com.google.gson.JsonObject;
-import mSearch.Config;
-import mSearch.tool.Log;
-import mServer.tool.MserverDaten;
-
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.concurrent.ForkJoinTask;
 import java.util.concurrent.RecursiveTask;
 import java.util.stream.Collectors;
+
+import com.google.gson.JsonObject;
+
+import de.mediathekview.mlib.Config;
+import de.mediathekview.mlib.tool.Log;
+import mServer.tool.MserverDaten;
 
 public class ZDFSearchTask extends RecursiveTask<Collection<VideoDTO>>
 {
