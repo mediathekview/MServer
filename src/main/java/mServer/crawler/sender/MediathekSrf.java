@@ -166,6 +166,7 @@ public class MediathekSrf extends MediathekReader {
          * @param theme the theme name of the film
          */
         private void addFilms(String jsonMovieUrl, String themePageUrl, String theme) {
+            final String INDEX_0 = "index_0_av.m3u8";
             final String INDEX_1 = "index_1_av.m3u8";
             final String INDEX_2 = "index_2_av.m3u8";
             final String INDEX_3 = "index_3_av.m3u8";
@@ -203,28 +204,38 @@ public class MediathekSrf extends MediathekReader {
                 String url_small = "";
 
                 String url3u8 = urlHD.endsWith("m3u8") ? urlHD : url_normal;
-                if (url3u8.endsWith("m3u8")) {
-                    m3u8Page = getUrl.getUri_Utf(SENDERNAME, url3u8, m3u8Page, "");
-                    if (m3u8Page.indexOf(INDEX_5) != -1) {
-                        urlHD = getUrlFromM3u8(url3u8, INDEX_5);
-                    }
 
-                    if (m3u8Page.indexOf(INDEX_4) != -1) {
-                        url_normal = getUrlFromM3u8(url3u8, INDEX_4);
-                    } else if (m3u8Page.indexOf(INDEX_3) != -1) {
-                        url_normal = getUrlFromM3u8(url3u8, INDEX_3);
-                    }
-                    if (m3u8Page.indexOf(INDEX_2) != -1) {
-                        url_small = getUrlFromM3u8(url3u8, INDEX_2);
-                    } else if (m3u8Page.indexOf(INDEX_1) != -1) {
-                        url_small = getUrlFromM3u8(url3u8, INDEX_1);
+                if (url3u8.endsWith("m3u8")) {
+                    getM3u8(url3u8);
+                    if (url3u8.contains("q50,q60")) {
+                        if (m3u8Page.indexOf(INDEX_5) != -1) {
+                            urlHD = getUrlFromM3u8(url3u8, INDEX_5);
+                        }
+                        if (m3u8Page.indexOf(INDEX_4) != -1) {
+                            url_normal = getUrlFromM3u8(url3u8, INDEX_4);
+                        } else if (m3u8Page.indexOf(INDEX_3) != -1) {
+                            url_normal = getUrlFromM3u8(url3u8, INDEX_3);
+                        }
+                        if (m3u8Page.indexOf(INDEX_2) != -1) {
+                            url_small = getUrlFromM3u8(url3u8, INDEX_2);
+                        } else if (m3u8Page.indexOf(INDEX_1) != -1) {
+                            url_small = getUrlFromM3u8(url3u8, INDEX_1);
+                        }
+                    } else {
+                        if (m3u8Page.indexOf(INDEX_0) != -1) {
+                            url_normal = getUrlFromM3u8(url3u8, INDEX_0);
+                        }
+                        if (m3u8Page.indexOf(INDEX_3) != -1) {
+                            url_small = getUrlFromM3u8(url3u8, INDEX_3);
+                        } else if (m3u8Page.indexOf(INDEX_2) != -1) {
+                            url_small = getUrlFromM3u8(url3u8, INDEX_2);
+                        }
                     }
                 }
-                if (url_normal.isEmpty()) {
-                    if (!url_small.isEmpty()) {
-                        url_normal = url_small;
-                        url_small = "";
-                    }
+
+                if (url_normal.isEmpty() && !url_small.isEmpty()) {
+                    url_normal = url_small;
+                    url_small = "";
                 }
                 // https -> http
                 if (url_normal.startsWith("https")) {
@@ -255,6 +266,16 @@ public class MediathekSrf extends MediathekReader {
                 }
             } catch (Exception ex) {
                 Log.errorLog(556320087, ex);
+            }
+        }
+
+        private void getM3u8(String url3u8) {
+            m3u8Page = getUrl.getUri_Utf(SENDERNAME, url3u8, m3u8Page, "");
+            if (m3u8Page.length() == 0 && url3u8.startsWith("https://srfvodhd-vh.akamaihd.net")) {
+                // tauschen https://srfvodhd-vh.akamaihd.net http://hdvodsrforigin-f.akamaihd.net
+                // ist ein 403
+                url3u8 = url3u8.replaceFirst("https://srfvodhd-vh.akamaihd.net", "http://hdvodsrforigin-f.akamaihd.net");
+                m3u8Page = getUrl.getUri_Utf(SENDERNAME, url3u8, m3u8Page, "");
             }
         }
 
