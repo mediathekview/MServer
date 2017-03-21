@@ -2,14 +2,16 @@ package mServer.crawler.sender.newsearch;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
+import com.google.gson.JsonElement;
 import java.util.Collection;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.notNullValue;
+import static org.hamcrest.Matchers.greaterThan;
 import static org.junit.Assert.assertThat;
 import org.junit.Test;
 
 public class ZDFIntegrationTest {
- 
+     private static final String JSON_OBJ_ELEMENT_MAIN_VIDEO_CONTENT = "mainVideoContent";
     private static final String JSON_ELEMENT_RESULTS = "http://zdf.de/rels/search/results";
     
     /**
@@ -18,8 +20,8 @@ public class ZDFIntegrationTest {
     @Test
     public void test() {
         JsonObject jsonData = executeSearch();
-        reduceFilms(jsonData);
-        loadFilm(jsonData);
+        JsonObject rawFilm = reduceArray(jsonData);
+        loadFilm(rawFilm);
     } 
     
     /**
@@ -34,15 +36,24 @@ public class ZDFIntegrationTest {
     }
     
     /**
-     * reduces elements in array to 1 to load only one film
+     * Searches the first valid film element.
      */
-    private void reduceFilms(JsonObject jsonData) {
-        JsonArray array = jsonData.getAsJsonArray(JSON_ELEMENT_RESULTS);
+    private JsonObject reduceArray(final JsonObject aJsonData) {
+        JsonArray array = aJsonData.getAsJsonArray(JSON_ELEMENT_RESULTS);
+        
+        boolean hasFistElement = false;
         for(int i = array.size() - 1; i > 0; i--)
         {
-            array.remove(i);
+            JsonElement element = array.get(i);
+            if(!hasFistElement && element.toString().contains(JSON_OBJ_ELEMENT_MAIN_VIDEO_CONTENT))
+            {
+                hasFistElement = true;
+            }else {
+                array.remove(i);
+            }
         }
-        assertThat(array.size(), is(1));              
+        assertThat(array.size(), greaterThan(1));   
+        return aJsonData;
     }
     
     /**
@@ -51,7 +62,7 @@ public class ZDFIntegrationTest {
     private void loadFilm(JsonObject jsonData) {
         ZDFSearchPageTask task = new ZDFSearchPageTask(jsonData);
         Collection<VideoDTO> videos = task.invoke();
-        
+
         assertThat(videos, notNullValue());
         assertThat(videos.size(), is(1));
         videos.forEach(video -> {
