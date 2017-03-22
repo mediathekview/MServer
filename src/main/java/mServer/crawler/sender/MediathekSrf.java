@@ -253,6 +253,10 @@ public class MediathekSrf extends MediathekReader implements Runnable {
                 if (url_normal.isEmpty()) {
                     Log.errorLog(962101451, "Keine URL: " + jsonMovieUrl);
                 } else {
+                    urlHD = checkUrl(urlHD);
+                    url_normal = checkUrl(url_normal);
+                    url_small = checkUrl(url_small);
+
                     DatenFilm film = new DatenFilm(SENDERNAME, theme, urlThema, title, url_normal, ""/*rtmpURL*/, date_str, time, duration, description);
 
                     if (!urlHD.isEmpty()) {
@@ -279,6 +283,14 @@ public class MediathekSrf extends MediathekReader implements Runnable {
                 url3u8 = url3u8.replaceFirst("https://srfvodhd-vh.akamaihd.net", "http://hdvodsrforigin-f.akamaihd.net");
                 m3u8Page = getUrl.getUri_Utf(SENDERNAME, url3u8, m3u8Page, "");
             }
+        }
+
+        private String checkUrl(String url) {
+            // tauschen https://srfvodhd-vh.akamaihd.net http://hdvodsrforigin-f.akamaihd.net
+            // ist ein 403
+            url = url.replaceFirst("https://srfvodhd-vh.akamaihd.net", "http://hdvodsrforigin-f.akamaihd.net");
+            url = url.replaceFirst("http://srfvodhd-vh.akamaihd.net", "http://hdvodsrforigin-f.akamaihd.net");
+            return url;
         }
 
         private String getUrl(MSStringBuilder filmPage, String s1, String s2) {
