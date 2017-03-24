@@ -38,9 +38,15 @@ import mServer.crawler.GetUrl;
 
 public class MediathekSrf extends MediathekReader {
 
-    public final static String SENDERNAME = Const.SRF;
-    private final static int MAX_SEITEN_THEMA = 5;
-    private final static int MAX_FILME_KURZ = 6;
+    public static final String SENDERNAME = Const.SRF;
+    private static final int MAX_SEITEN_THEMA = 5;
+    private static final int MAX_FILME_KURZ = 6;
+    
+    private static final String URL1_M3U8 = "https://srfvodhd-vh.akamaihd.net";
+    private static final String URL2_M3U8 = "http://hdvodsrforigin-f.akamaihd.net";
+    
+    private static final String HTTPS = "https";
+    private static final String HTTP = "http";
 
     public MediathekSrf(FilmeSuchen ssearch, int startPrio) {
         super(ssearch, SENDERNAME,/* threads */ 3, /* urlWarten */ 100, startPrio);
@@ -50,7 +56,7 @@ public class MediathekSrf extends MediathekReader {
     public void addToList() {
         // data-teaser-title="1 gegen 100"
         // data-teaser-url="/sendungen/1gegen100"
-        final String MUSTER = "{\"id\":\"";
+        final String muster = "{\"id\":\"";
         MSStringBuilder seite = new MSStringBuilder(Const.STRING_BUFFER_START_BUFFER);
         listeThemen.clear();
         meldungStart();
@@ -60,8 +66,8 @@ public class MediathekSrf extends MediathekReader {
         int pos1;
         String thema, id;
 
-        while ((pos = seite.indexOf(MUSTER, pos)) != -1) {
-            pos += MUSTER.length();
+        while ((pos = seite.indexOf(muster, pos)) != -1) {
+            pos += muster.length();
             if ((pos1 = seite.indexOf("\"", pos)) != -1) {
                 id = seite.substring(pos, pos1);
                 if (id.length() < 10) {
@@ -76,9 +82,7 @@ public class MediathekSrf extends MediathekReader {
             }
         }
 
-        if (Config.getStop()) {
-            meldungThreadUndFertig();
-        } else if (listeThemen.isEmpty()) {
+        if (Config.getStop() || listeThemen.isEmpty()) {
             meldungThreadUndFertig();
         } else {
             meldungAddMax(listeThemen.size());
@@ -140,8 +144,8 @@ public class MediathekSrf extends MediathekReader {
         }
 
         private void addFilmsFromPage(MSStringBuilder page, String thema, String themePageUrl) {
-            final String BASE_URL_JSON = "http://il.srgssr.ch/integrationlayer/1.0/ue/srf/video/play/";
-            final String END_URL_JSON = ".jsonp";
+            final String baseUrlJson = "http://il.srgssr.ch/integrationlayer/1.0/ue/srf/video/play/";
+            final String endUrlJson = ".jsonp";
             int count = 0;
             filmList.clear();
             page.extractList("{\"id\":\"", "?id=", "\"", filmList);
@@ -155,7 +159,7 @@ public class MediathekSrf extends MediathekReader {
                     break;
                 }
                 //http://www.srf.ch/play/tv/episodesfromshow?id=c38cc259-b5cd-4ac1-b901-e3fddd901a3d&pageNumber=1&layout=json
-                String jsonMovieUrl = BASE_URL_JSON + id + END_URL_JSON;
+                String jsonMovieUrl = baseUrlJson + id + endUrlJson;
                 addFilms(jsonMovieUrl, themePageUrl, thema);
             }
         }
@@ -168,24 +172,24 @@ public class MediathekSrf extends MediathekReader {
          * @param theme the theme name of the film
          */
         private void addFilms(String jsonMovieUrl, String themePageUrl, String theme) {
-            final String INDEX_0 = "index_0_av.m3u8";
-            final String INDEX_1 = "index_1_av.m3u8";
-            final String INDEX_2 = "index_2_av.m3u8";
-            final String INDEX_3 = "index_3_av.m3u8";
-            final String INDEX_4 = "index_4_av.m3u8";
-            final String INDEX_5 = "index_5_av.m3u8";
+            final String index0 = "index_0_av.m3u8";
+            final String index1 = "index_1_av.m3u8";
+            final String index2 = "index_2_av.m3u8";
+            final String index3 = "index_3_av.m3u8";
+            final String index4 = "index_4_av.m3u8";
+            final String index5 = "index_5_av.m3u8";
 
             meldung(jsonMovieUrl);
 
             filmPage = getUrl.getUri_Utf(SENDERNAME, jsonMovieUrl, filmPage, "");
             try {
 
-                String date_str = "";
+                String dateStr = "";
                 String time = "";
                 Date date = extractDateAndTime(filmPage);
                 if (date != null) {
                     DateFormat dfDayMonthYear = new SimpleDateFormat("dd.MM.yyyy");
-                    date_str = dfDayMonthYear.format(date);
+                    dateStr = dfDayMonthYear.format(date);
                     dfDayMonthYear = new SimpleDateFormat("HH:mm:ss");
                     time = dfDayMonthYear.format(date);
                 }
@@ -202,64 +206,68 @@ public class MediathekSrf extends MediathekReader {
                 String subtitle = filmPage.extract("\"TTMLUrl\": \"", "\"");
 
                 String urlHD = getUrl(filmPage, "\"@quality\": \"HD\"", "\"text\": \"");
-                String url_normal = getUrl(filmPage, "\"@quality\": \"SD\"", "\"text\": \"");
-                String url_small = "";
+                String urlNormal = getUrl(filmPage, "\"@quality\": \"SD\"", "\"text\": \"");
+                String urlSmall = "";
 
-                String url3u8 = urlHD.endsWith("m3u8") ? urlHD : url_normal;
+                String url3u8 = urlHD.endsWith("m3u8") ? urlHD : urlNormal;
 
                 if (url3u8.endsWith("m3u8")) {
                     getM3u8(url3u8);
                     if (url3u8.contains("q50,q60")) {
-                        if (m3u8Page.indexOf(INDEX_5) != -1) {
-                            urlHD = getUrlFromM3u8(url3u8, INDEX_5);
+                        if (m3u8Page.indexOf(index5) != -1) {
+                            urlHD = getUrlFromM3u8(url3u8, index5);
                         }
-                        if (m3u8Page.indexOf(INDEX_4) != -1) {
-                            url_normal = getUrlFromM3u8(url3u8, INDEX_4);
-                        } else if (m3u8Page.indexOf(INDEX_3) != -1) {
-                            url_normal = getUrlFromM3u8(url3u8, INDEX_3);
+                        if (m3u8Page.indexOf(index4) != -1) {
+                        	urlNormal = getUrlFromM3u8(url3u8, index4);
+                        } else if (m3u8Page.indexOf(index3) != -1) {
+                        	urlNormal = getUrlFromM3u8(url3u8, index3);
                         }
-                        if (m3u8Page.indexOf(INDEX_2) != -1) {
-                            url_small = getUrlFromM3u8(url3u8, INDEX_2);
-                        } else if (m3u8Page.indexOf(INDEX_1) != -1) {
-                            url_small = getUrlFromM3u8(url3u8, INDEX_1);
+                        if (m3u8Page.indexOf(index2) != -1) {
+                        	urlSmall = getUrlFromM3u8(url3u8, index2);
+                        } else if (m3u8Page.indexOf(index1) != -1) {
+                        	urlSmall = getUrlFromM3u8(url3u8, index1);
                         }
                     } else {
-                        if (m3u8Page.indexOf(INDEX_0) != -1) {
-                            url_normal = getUrlFromM3u8(url3u8, INDEX_0);
+                        if (m3u8Page.indexOf(index0) != -1) {
+                        	urlNormal = getUrlFromM3u8(url3u8, index0);
                         }
-                        if (m3u8Page.indexOf(INDEX_3) != -1) {
-                            url_small = getUrlFromM3u8(url3u8, INDEX_3);
-                        } else if (m3u8Page.indexOf(INDEX_2) != -1) {
-                            url_small = getUrlFromM3u8(url3u8, INDEX_2);
+                        if (m3u8Page.indexOf(index3) != -1) {
+                        	urlSmall = getUrlFromM3u8(url3u8, index3);
+                        } else if (m3u8Page.indexOf(index2) != -1) {
+                        	urlSmall = getUrlFromM3u8(url3u8, index2);
                         }
                     }
                 }
 
-                if (url_normal.isEmpty() && !url_small.isEmpty()) {
-                    url_normal = url_small;
-                    url_small = "";
+                if (urlNormal.isEmpty() && !urlSmall.isEmpty()) {
+                	urlNormal = urlSmall;
+                    urlSmall = "";
                 }
                 // https -> http
-                if (url_normal.startsWith("https")) {
-                    url_normal = url_normal.replaceFirst("https", "http");
+                if (urlNormal.startsWith(HTTPS)) {
+                	urlNormal = urlNormal.replaceFirst(HTTPS, HTTP);
                 }
-                if (url_small.startsWith("https")) {
-                    url_small = url_small.replaceFirst("https", "http");
+                if (urlSmall.startsWith(HTTPS)) {
+                	urlSmall = urlSmall.replaceFirst(HTTPS, HTTP);
                 }
-                if (urlHD.startsWith("https")) {
-                    urlHD = urlHD.replaceFirst("https", "http");
+                if (urlHD.startsWith(HTTPS)) {
+                    urlHD = urlHD.replaceFirst(HTTPS, HTTP);
                 }
 
-                if (url_normal.isEmpty()) {
+                if (urlNormal.isEmpty()) {
                     Log.errorLog(962101451, "Keine URL: " + jsonMovieUrl);
                 } else {
-                    DatenFilm film = new DatenFilm(SENDERNAME, theme, urlThema, title, url_normal, ""/*rtmpURL*/, date_str, time, duration, description);
+                    urlHD = checkUrl(urlHD);
+                    urlNormal = checkUrl(urlNormal);
+                    urlSmall = checkUrl(urlSmall);
+
+                    DatenFilm film = new DatenFilm(SENDERNAME, theme, urlThema, title, urlNormal, ""/*rtmpURL*/, dateStr, time, duration, description);
 
                     if (!urlHD.isEmpty()) {
                         CrawlerTool.addUrlHd(film, urlHD, "");
                     }
-                    if (!url_small.isEmpty()) {
-                        CrawlerTool.addUrlKlein(film, url_small, "");
+                    if (!urlSmall.isEmpty()) {
+                        CrawlerTool.addUrlKlein(film, urlSmall, "");
                     }
                     if (!subtitle.isEmpty()) {
                         CrawlerTool.addUrlSubtitle(film, subtitle);
@@ -273,12 +281,21 @@ public class MediathekSrf extends MediathekReader {
 
         private void getM3u8(String url3u8) {
             m3u8Page = getUrl.getUri_Utf(SENDERNAME, url3u8, m3u8Page, "");
-            if (m3u8Page.length() == 0 && url3u8.startsWith("https://srfvodhd-vh.akamaihd.net")) {
+            if (m3u8Page.length() == 0 && url3u8.startsWith(URL1_M3U8)) {
                 // tauschen https://srfvodhd-vh.akamaihd.net http://hdvodsrforigin-f.akamaihd.net
                 // ist ein 403
-                url3u8 = url3u8.replaceFirst("https://srfvodhd-vh.akamaihd.net", "http://hdvodsrforigin-f.akamaihd.net");
-                m3u8Page = getUrl.getUri_Utf(SENDERNAME, url3u8, m3u8Page, "");
+            	String url3u8Temp;
+            	url3u8Temp = url3u8.replaceFirst(URL1_M3U8, URL2_M3U8);
+                m3u8Page = getUrl.getUri_Utf(SENDERNAME, url3u8Temp, m3u8Page, "");
             }
+        }
+
+        private String checkUrl(String url) {
+            // tauschen https://srfvodhd-vh.akamaihd.net http://hdvodsrforigin-f.akamaihd.net
+            // ist ein 403
+        	String urlTemp;
+            urlTemp = url.replaceFirst(URL1_M3U8, URL2_M3U8);
+            return urlTemp.replaceFirst(URL1_M3U8, URL2_M3U8);
         }
 
         private String getUrl(MSStringBuilder filmPage, String s1, String s2) {
@@ -306,14 +323,14 @@ public class MediathekSrf extends MediathekReader {
         }
 
         private String getUrlFromM3u8(String m3u8Url, String qualityIndex) {
-            final String CSMIL = "csmil/";
-            return m3u8Url.substring(0, m3u8Url.indexOf(CSMIL)) + CSMIL + qualityIndex;
+            final String csmil = "csmil/";
+            return m3u8Url.substring(0, m3u8Url.indexOf(csmil)) + csmil + qualityIndex;
         }
 
         private long extractDuration(MSStringBuilder page) {
             long duration = 0;
-            final String PATTERN_DURATION = "\"duration\":";
-            String d = page.extract(PATTERN_DURATION, ",").trim();
+            final String patternDuration = "\"duration\":";
+            String d = page.extract(patternDuration, ",").trim();
             try {
                 if (!d.isEmpty()) {
                     duration = Long.parseLong(d);
@@ -326,17 +343,17 @@ public class MediathekSrf extends MediathekReader {
         }
 
         private Date extractDateAndTime(MSStringBuilder page) {
-            final String PATTERN_DATE_TIME = "\"publishedDate\": \"";
-            final String PATTERN_END = "\"";
+            final String patternDateTime = "\"publishedDate\": \"";
+            final String patternEnd = "\"";
             DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssX");//2014-12-12T09:45:00+02:00
 
-            String date_str = page.extract("\"AssetMetadatas\"", PATTERN_DATE_TIME, PATTERN_END);
+            String dateStr = page.extract("\"AssetMetadatas\"", patternDateTime, patternEnd);
 
             Date date = null;
             try {
-                date = formatter.parse(date_str);
+                date = formatter.parse(dateStr);
             } catch (ParseException ex) {
-                Log.errorLog(784512304, ex, "Date_STR " + date_str);
+                Log.errorLog(784512304, ex, "Date_STR " + dateStr);
             }
 
             return date;
