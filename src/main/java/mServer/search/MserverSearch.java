@@ -19,14 +19,18 @@
  */
 package mServer.search;
 
-import java.text.SimpleDateFormat;
+import static mServer.crawler.CrawlerTool.loadLongMax;
+
 import java.util.ArrayList;
 import java.util.Date;
-import mSearch.Config;
-import mSearch.tool.Log;
+import java.util.concurrent.TimeUnit;
+
+import org.apache.commons.lang3.time.FastDateFormat;
+
+import de.mediathekview.mlib.Config;
+import de.mediathekview.mlib.tool.Log;
 import mServer.crawler.Crawler;
 import mServer.crawler.CrawlerConfig;
-import static mServer.crawler.CrawlerTool.loadLongMax;
 import mServer.daten.MserverSearchTask;
 import mServer.tool.MserverDaten;
 import mServer.tool.MserverDatumZeit;
@@ -80,6 +84,7 @@ public class MserverSearch {
             Log.setLogfile(MserverDaten.getLogDatei(MserverKonstanten.LOG_FILE_NAME_MSEARCH));
 
             Thread t = new Thread(crawler);
+            t.setName("Crawler");
             t.start();
             MserverLog.systemMeldung("Filme suchen gestartet");
             // ===========================================
@@ -89,8 +94,7 @@ public class MserverSearch {
             MserverLog.systemMeldung("Max Laufzeit[Min]: " + warten);
             MserverLog.systemMeldung("-----------------------------------");
 
-            warten = 1000 * 60 * warten;
-            t.join(warten);
+            TimeUnit.MINUTES.timedJoin(t, warten);
 
             // ===========================================
             // erst mal schauen ob noch was läuft
@@ -103,25 +107,28 @@ public class MserverSearch {
                         MserverLog.systemMeldung("================================");
                         MserverLog.systemMeldung("================================");
                         MserverLog.systemMeldung("und wird jetzt gestoppt");
-                        MserverLog.systemMeldung("Zeit: " + new SimpleDateFormat("dd.MM.yyyy HH:mm:ss").format(new Date()));
+                        MserverLog.systemMeldung("Zeit: " + FastDateFormat.getInstance("dd.MM.yyyy HH:mm:ss").format(new Date()));
                         MserverLog.systemMeldung("================================");
                         MserverLog.systemMeldung("================================");
                         MserverLog.systemMeldung("");
                         //und jetzt STOPPEN!!!!!!!!
                         crawler.stop();
                     }
-                    int w = 20 * 60 * 1000; // 20 Minuten warten, das Erstellen/Komprimieren der Liste dauert
-                    if (loadLongMax()) {
-                        w = 30 * 60 * 1000; // 30 Minuten bei langen Läufen
-                    }
-                    t.join(w);
+
+                    int w;
+                    if (loadLongMax())
+                        w = 30; // 30 Minuten bei langen Läufen
+                    else
+                        w = 20;// 20 Minuten warten, das Erstellen/Komprimieren der Liste dauert
+                    TimeUnit.MINUTES.timedJoin(t, w);
+
                     if (t.isAlive()) {
                         MserverLog.systemMeldung("");
                         MserverLog.systemMeldung("");
                         MserverLog.systemMeldung("================================");
                         MserverLog.systemMeldung("================================");
                         MserverLog.systemMeldung("und noch gekillt");
-                        MserverLog.systemMeldung("Zeit: " + new SimpleDateFormat("dd.MM.yyyy HH:mm:ss").format(new Date()));
+                        MserverLog.systemMeldung("Zeit: " + FastDateFormat.getInstance("dd.MM.yyyy HH:mm:ss").format(new Date()));
                         MserverLog.systemMeldung("================================");
                         MserverLog.systemMeldung("================================");
                         MserverLog.systemMeldung("");

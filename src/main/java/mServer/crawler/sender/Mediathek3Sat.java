@@ -21,21 +21,35 @@ package mServer.crawler.sender;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import mSearch.Config;
-import mSearch.Const;
-import mSearch.daten.DatenFilm;
-import mSearch.tool.Log;
-import mSearch.tool.MSStringBuilder;
+
+import de.mediathekview.mlib.Config;
+import de.mediathekview.mlib.Const;
+import de.mediathekview.mlib.daten.DatenFilm;
+import de.mediathekview.mlib.tool.Log;
+import de.mediathekview.mlib.tool.MSStringBuilder;
+import mServer.crawler.CrawlerTool;
 import mServer.crawler.FilmeSuchen;
 import mServer.crawler.GetUrl;
-import mServer.crawler.CrawlerTool;
 
-public class Mediathek3Sat extends MediathekReader implements Runnable {
+public class Mediathek3Sat extends MediathekReader {
 
     public final static String SENDERNAME = Const.DREISAT;
+    private final static String[] QU_WIDTH_HD = {"1280"};
+    private final static String[] QU_WIDTH = {"1024", "852", "720", "688", "480", "432", "320"};
+    private final static String[] QU_WIDTH_KL = {"688", "480", "432", "320"};
+    private final static String BESCHREIBUNG = "<detail>";
+    private final static String LAENGE_SEC = "<lengthSec>";
+    private final static String LAENGE = "<length>";
+    private final static String DATUM = "<airtime>";
+    private final static String THEMA = "<originChannelTitle>";
+    private static final String checkUrlHD_String = "http://www.metafilegenerator.de/ondemand/zdf/hbbtv/";
+    private static final String URL_ANFANG = "<formitaet basetype=\"h264_aac_mp4_http_na_na\"";
+    private static final String URL_ENDE = "</formitaet>";
+    private static final String URL = "<url>";
+    private static final String WIDTH = "<width>";
 
     public Mediathek3Sat(FilmeSuchen ssearch, int startPrio) {
-        super(ssearch, SENDERNAME, /* threads */ 2, /* urlWarten */ 500, startPrio);
+        super(ssearch, SENDERNAME, /* threads */ 2, /* urlWarten */ 200, startPrio);
     }
 
     @Override
@@ -46,14 +60,13 @@ public class Mediathek3Sat extends MediathekReader implements Runnable {
         tageLaden();
         if (Config.getStop()) {
             meldungThreadUndFertig();
-        } else if (listeThemen.size() == 0) {
+        } else if (listeThemen.isEmpty()) {
             meldungThreadUndFertig();
         } else {
             listeSort(listeThemen, 1);
             meldungAddMax(listeThemen.size());
             for (int t = 0; t < getMaxThreadLaufen(); ++t) {
-                //new Thread(new ThemaLaden()).start();
-                Thread th = new Thread(new ThemaLaden());
+                Thread th = new ThemaLaden();
                 th.setName(SENDERNAME + t);
                 th.start();
             }
@@ -74,8 +87,9 @@ public class Mediathek3Sat extends MediathekReader implements Runnable {
         // ><a class="SubItem" href="?red=kulturzeit">Kulturzeit</a>
         final String ADRESSE = "http://www.3sat.de/mediathek/";
         final String MUSTER_URL = "<a class=\"SubItem\" href=\"http://www.3sat.de/mediathek/?red=";
-        
+
         MSStringBuilder seite = new MSStringBuilder(Const.STRING_BUFFER_START_BUFFER);
+        final GetUrl getUrlIo = new GetUrl(getWartenSeiteLaden());
         seite = getUrlIo.getUri_Utf(SENDERNAME, ADRESSE, seite, "");
         int pos1 = 0;
         int pos2;
@@ -86,7 +100,7 @@ public class Mediathek3Sat extends MediathekReader implements Runnable {
                 if ((pos2 = seite.indexOf("\"", pos1)) != -1) {
                     url = seite.substring(pos1, pos2);
                 }
-                if (url.equals("")) {
+                if (url.isEmpty()) {
                     continue;
                 }
                 if ((pos1 = seite.indexOf(">", pos1)) != -1) {
@@ -101,20 +115,187 @@ public class Mediathek3Sat extends MediathekReader implements Runnable {
                 String[] add = new String[]{"http://www.3sat.de/mediathek/?red=" + url + "&type=1", thema};
                 listeThemen.addUrl(add);
             } catch (Exception ex) {
-                Log.errorLog(915237874,  ex);
+                Log.errorLog(915237874, ex);
             }
         }
 
     }
 
-    private class ThemaLaden implements Runnable {
+    private String extractBeschreibung(MSStringBuilder strBuffer, final String urlId) {
+        String beschreibung = strBuffer.extract(BESCHREIBUNG, "<");
+        if (beschreibung.isEmpty()) {
+            beschreibung = strBuffer.extract(BESCHREIBUNG, "</");
+            beschreibung = beschreibung.replace("<![CDATA[", "");
+            beschreibung = beschreibung.replace("]]>", "");
+            if (beschreibung.isEmpty()) {
+                Log.errorLog(945123074, "url: " + urlId);
+            }
+        }
+        return beschreibung;
+    }
 
-        GetUrl getUrl = new GetUrl(getWartenSeiteLaden());
-        private MSStringBuilder seite1 = new MSStringBuilder(Const.STRING_BUFFER_START_BUFFER);
+    private long extractLaenge(MSStringBuilder strBuffer) {
+        long laengeL;
+
+        String laenge = strBuffer.extract(LAENGE_SEC, "<");
+        if (!laenge.isEmpty()) {
+            laengeL = extractDurationSec(laenge);
+        } else {
+            laenge = strBuffer.extract(LAENGE, "<");
+            if (laenge.contains(".")) {
+                laenge = laenge.substring(0, laenge.indexOf('.'));
+            }
+            laengeL = extractDuration(laenge);
+        }
+        return laengeL;
+    }
+
+    private String extractSubtitle(MSStringBuilder strBuffer) {
+        String subtitle = strBuffer.extract("<caption>", "<url>http://", "<", "http://");
+        if (subtitle.isEmpty()) {
+            subtitle = strBuffer.extract("<caption>", "<url>https://", "<", "https://");
+            //            if (!subtitle.isEmpty()) {
+            //                System.out.println("Hallo");
+            //            }
+        }
+        return subtitle;
+    }
+
+    private DatenFilm filmHolenId(MSStringBuilder strBuffer, String sender, String thema, String titel, String filmWebsite, String urlId) {
+        //<teaserimage alt="Harald Lesch im Studio von Abenteuer Forschung" key="298x168">http://www.zdf.de/ZDFmediathek/contentblob/1909108/timg298x168blob/8081564</teaserimage>
+        //<detail>Möchten Sie wissen, was Sie in der nächsten Sendung von Abenteuer Forschung erwartet? Harald Lesch informiert Sie.</detail>
+        //<length>00:00:34.000</length>
+        //<airtime>02.07.2013 23:00</airtime>
+        long laengeL;
+
+        String zeit = "";
+
+        final GetUrl getUrl = new GetUrl(getWartenSeiteLaden());
+        strBuffer = getUrl.getUri_Utf(sender, urlId, strBuffer, "URL-Filmwebsite: " + filmWebsite);
+        if (strBuffer.length() == 0) {
+            Log.errorLog(398745601, "url: " + urlId);
+            return null;
+        }
+
+        String subtitle = extractSubtitle(strBuffer);
+
+        String beschreibung = extractBeschreibung(strBuffer, urlId);
+
+        if (thema.isEmpty()) {
+            thema = strBuffer.extract(THEMA, "<");
+        }
+
+        laengeL = extractLaenge(strBuffer);
+
+        String datum = strBuffer.extract(DATUM, "<");
+        if (datum.contains(" ")) {
+            zeit = datum.substring(datum.lastIndexOf(' ')).trim() + ":00";
+            datum = datum.substring(0, datum.lastIndexOf(' ')).trim();
+        }
+
+        //============================================================================
+        // und jetzt die FilmURLs
+        String url, urlKlein, urlHd;
+
+        urlHd = getUrl(strBuffer, QU_WIDTH_HD, true);
+        url = getUrl(strBuffer, QU_WIDTH, true);
+        urlKlein = getUrl(strBuffer, QU_WIDTH_KL, false);
+
+        if (url.equals(urlKlein)) {
+            urlKlein = "";
+        }
+        if (url.isEmpty()) {
+            url = urlKlein;
+            urlKlein = "";
+        }
+
+        //===================================================
+        //if (urlHd.isEmpty())
+        //{
+        //            MSLog.fehlerMeldung(912024587, "keine URL: " + filmWebsite);
+        //}
+        //if (urlKlein.isEmpty())
+        //{
+        //            MSLog.fehlerMeldung(310254698, "keine URL: " + filmWebsite);
+        //}
+        if (url.isEmpty()) {
+            Log.errorLog(397002891, "keine URL: " + filmWebsite);
+            return null;
+        } else {
+            DatenFilm film = new DatenFilm(sender, thema, filmWebsite, titel, url, "" /*urlRtmp*/, datum, zeit,
+                    laengeL, beschreibung);
+            if (!subtitle.isEmpty()) {
+                CrawlerTool.addUrlSubtitle(film, subtitle);
+            }
+            CrawlerTool.addUrlKlein(film, urlKlein, "");
+            CrawlerTool.addUrlHd(film, urlHd, "");
+            return film;
+        }
+    }
+
+    private String getUrl(MSStringBuilder strBuffer, String[] arr, boolean hd) {
+        String ret = "";
+        String tmp;
+        int posAnfang, posEnde;
+        mainloop:
+        for (String qual : arr) {
+            posAnfang = 0;
+            while (true) {
+                if ((posAnfang = strBuffer.indexOf(URL_ANFANG, posAnfang)) == -1) {
+                    break;
+                }
+                posAnfang += URL_ANFANG.length();
+                if ((posEnde = strBuffer.indexOf(URL_ENDE, posAnfang)) == -1) {
+                    break;
+                }
+
+                tmp = strBuffer.extract(URL, "<", posAnfang, posEnde);
+                if (strBuffer.extract(WIDTH, "<", posAnfang, posEnde).equals(qual)) {
+                    if (hd) {
+                        ret = checkUrlHD(tmp);
+                    } else {
+                        ret = checkUrl(tmp);
+                    }
+                    if (!ret.isEmpty()) {
+                        break mainloop;
+                    }
+                }
+            }
+        }
+        if (ret.startsWith("http://tvdl.zdf.de")) {
+            ret = ret.replace("http://tvdl.zdf.de", "http://nrodl.zdf.de");
+        }
+        return ret;
+    }
+
+    private String checkUrlHD(String url) {
+        String ret = "";
+        if (url.startsWith("http") && url.endsWith("mp4")) {
+            ret = url;
+            if (ret.startsWith(checkUrlHD_String)) {
+                ret = ret.replaceFirst(checkUrlHD_String, "http://nrodl.zdf.de/");
+            }
+        }
+        return ret;
+    }
+
+    private String checkUrl(String url) {
+        String ret = "";
+        if (url.startsWith("http") && url.endsWith("mp4")) {
+            if (!url.startsWith("http://www.metafilegenerator.de/")) {
+                ret = url;
+            }
+        }
+        return ret;
+    }
+
+    private class ThemaLaden extends Thread {
+
         private final MSStringBuilder seite2 = new MSStringBuilder(Const.STRING_BUFFER_START_BUFFER);
+        private MSStringBuilder seite1 = new MSStringBuilder(Const.STRING_BUFFER_START_BUFFER);
 
         @Override
-        public synchronized void run() {
+        public void run() {
             try {
                 meldungAddThread();
                 String[] link;
@@ -123,12 +304,12 @@ public class Mediathek3Sat extends MediathekReader implements Runnable {
                     laden(link[0] /* url */, link[1] /* Thema */, true);
                 }
             } catch (Exception ex) {
-                Log.errorLog(987452384,  ex);
+                Log.errorLog(987452384, ex);
             }
             meldungThreadUndFertig();
         }
 
-        void laden(String urlThema, String thema, boolean weiter) {
+        private void laden(String urlThema, String thema, boolean weiter) {
 
             final String MUSTER_START = "<div class=\"BoxPicture MediathekListPic\">";
             String url;
@@ -144,6 +325,7 @@ public class Mediathek3Sat extends MediathekReader implements Runnable {
                     url = urlThema + "&mode=verpasst" + i;
                 }
                 meldung(url);
+                final GetUrl getUrlIo = new GetUrl(getWartenSeiteLaden());
                 seite1 = getUrlIo.getUri_Utf(SENDERNAME, url, seite1, "");
                 if (seite1.indexOf(MUSTER_START) == -1) {
                     // dann gibts keine weiteren
@@ -170,18 +352,18 @@ public class Mediathek3Sat extends MediathekReader implements Runnable {
                         //http://www.3sat.de/mediathek/xmlservice/web/beitragsDetails?ak=web&id=40860
                         urlId = "http://www.3sat.de/mediathek/xmlservice/web/beitragsDetails?ak=web&id=" + urlId;
                         //meldung(id);
-                        DatenFilm film = filmHolenId(getUrl, seite2, SENDERNAME, thema, titel, urlFilm, urlId);
+                        DatenFilm film = filmHolenId(seite2, SENDERNAME, thema, titel, urlFilm, urlId);
                         if (film != null) {
                             // dann wars gut
                             // jetzt noch manuell die Auflösung hochsetzen
-                            MediathekZdf.urlTauschen(film, url, mSearchFilmeSuchen);
+                            MediathekZdf.urlTauschen(film, url, mlibFilmeSuchen);
                             addFilm(film);
                             ok = true;
                         }
                     }
                     if (!ok) {
                         // dann mit der herkömmlichen Methode versuchen
-                        Log.errorLog(462313269,  "Thema: " + url);
+                        Log.errorLog(462313269, "Thema: " + url);
                     }
                 }
             }
@@ -190,197 +372,5 @@ public class Mediathek3Sat extends MediathekReader implements Runnable {
                 laden(urlThema + "&mode=verpasst1", thema, false);
             }
         }
-    }
-    
-   public static DatenFilm filmHolenId(GetUrl getUrl, MSStringBuilder strBuffer, String sender, String thema, String titel, String filmWebsite, String urlId)
-    {
-        //<teaserimage alt="Harald Lesch im Studio von Abenteuer Forschung" key="298x168">http://www.zdf.de/ZDFmediathek/contentblob/1909108/timg298x168blob/8081564</teaserimage>
-        //<detail>Möchten Sie wissen, was Sie in der nächsten Sendung von Abenteuer Forschung erwartet? Harald Lesch informiert Sie.</detail>
-        //<length>00:00:34.000</length>
-        //<airtime>02.07.2013 23:00</airtime>
-        final String BESCHREIBUNG = "<detail>";
-        final String LAENGE_SEC = "<lengthSec>";
-        final String LAENGE = "<length>";
-        final String DATUM = "<airtime>";
-        final String THEMA = "<originChannelTitle>";
-        long laengeL;
-
-        String beschreibung, subtitle, laenge, datum, zeit = "";
-
-        strBuffer = getUrl.getUri_Utf(sender, urlId, strBuffer, "URL-Filmwebsite: " + filmWebsite);
-        if (strBuffer.length() == 0)
-        {
-            Log.errorLog(398745601, "url: " + urlId);
-            return null;
-        }
-
-        subtitle = strBuffer.extract("<caption>", "<url>http://", "<", "http://");
-        if (subtitle.isEmpty())
-        {
-            subtitle = strBuffer.extract("<caption>", "<url>https://", "<", "https://");
-            //            if (!subtitle.isEmpty()) {
-            //                System.out.println("Hallo");
-            //            }
-        }
-        beschreibung = strBuffer.extract(BESCHREIBUNG, "<");
-        if (beschreibung.isEmpty())
-        {
-            beschreibung = strBuffer.extract(BESCHREIBUNG, "</");
-            beschreibung = beschreibung.replace("<![CDATA[", "");
-            beschreibung = beschreibung.replace("]]>", "");
-            if (beschreibung.isEmpty())
-            {
-                Log.errorLog(945123074, "url: " + urlId);
-            }
-        }
-        if (thema.isEmpty())
-        {
-            thema = strBuffer.extract(THEMA, "<");
-        }
-
-        laenge = strBuffer.extract(LAENGE_SEC, "<");
-        if (!laenge.isEmpty())
-        {
-            laengeL = extractDurationSec(laenge);
-        } else
-        {
-            laenge = strBuffer.extract(LAENGE, "<");
-            if (laenge.contains("."))
-            {
-                laenge = laenge.substring(0, laenge.indexOf("."));
-            }
-            laengeL = extractDuration(laenge);
-        }
-
-        datum = strBuffer.extract(DATUM, "<");
-        if (datum.contains(" "))
-        {
-            zeit = datum.substring(datum.lastIndexOf(" ")).trim() + ":00";
-            datum = datum.substring(0, datum.lastIndexOf(" ")).trim();
-        }
-
-        //============================================================================
-        // und jetzt die FilmURLs
-        final String[] QU_WIDTH_HD = {"1280"};
-        final String[] QU_WIDTH = {"1024", "852", "720", "688", "480", "432", "320"};
-        final String[] QU_WIDTH_KL = {"688", "480", "432", "320"};
-        String url, urlKlein, urlHd, tmp = "";
-
-        urlHd = getUrl(strBuffer, QU_WIDTH_HD, tmp, true);
-        url = getUrl(strBuffer, QU_WIDTH, tmp, true);
-        urlKlein = getUrl(strBuffer, QU_WIDTH_KL, tmp, false);
-
-        if (url.equals(urlKlein))
-        {
-            urlKlein = "";
-        }
-        if (url.isEmpty())
-        {
-            url = urlKlein;
-            urlKlein = "";
-        }
-
-        //===================================================
-        if (urlHd.isEmpty())
-        {
-            //            MSLog.fehlerMeldung(912024587, "keine URL: " + filmWebsite);
-        }
-        if (urlKlein.isEmpty())
-        {
-            //            MSLog.fehlerMeldung(310254698, "keine URL: " + filmWebsite);
-        }
-        if (url.isEmpty())
-        {
-            Log.errorLog(397002891, "keine URL: " + filmWebsite);
-            return null;
-        } else
-        {
-            DatenFilm film = new DatenFilm(sender, thema, filmWebsite, titel, url, "" /*urlRtmp*/, datum, zeit,
-                    laengeL, beschreibung);
-            if (!subtitle.isEmpty())
-            {
-                CrawlerTool.addUrlSubtitle(film, subtitle);
-            }
-            CrawlerTool.addUrlKlein(film, urlKlein, "");
-            CrawlerTool.addUrlHd(film, urlHd, "");
-            return film;
-        }
-    }
-   
-       private static String getUrl(MSStringBuilder strBuffer, String[] arr, String tmp, boolean hd)
-    {
-        final String URL_ANFANG = "<formitaet basetype=\"h264_aac_mp4_http_na_na\"";
-        final String URL_ENDE = "</formitaet>";
-        final String URL = "<url>";
-        final String WIDTH = "<width>";
-
-        String ret = "";
-        tmp = "";
-        int posAnfang, posEnde;
-        mainloop:
-        for (String qual : arr)
-        {
-            posAnfang = 0;
-            while (true)
-            {
-                if ((posAnfang = strBuffer.indexOf(URL_ANFANG, posAnfang)) == -1)
-                {
-                    break;
-                }
-                posAnfang += URL_ANFANG.length();
-                if ((posEnde = strBuffer.indexOf(URL_ENDE, posAnfang)) == -1)
-                {
-                    break;
-                }
-
-                tmp = strBuffer.extract(URL, "<", posAnfang, posEnde);
-                if (strBuffer.extract(WIDTH, "<", posAnfang, posEnde).equals(qual))
-                {
-                    if (hd)
-                    {
-                        ret = checkUrlHD(tmp);
-                    } else
-                    {
-                        ret = checkUrl(tmp);
-                    }
-                    if (!ret.isEmpty())
-                    {
-                        break mainloop;
-                    }
-                }
-            }
-        }
-        if (ret.startsWith("http://tvdl.zdf.de"))
-        {
-            ret = ret.replace("http://tvdl.zdf.de", "http://nrodl.zdf.de");
-        }
-        return ret;
-    }
-       
-       private static String checkUrlHD(String url)
-    {
-        String ret = "";
-        if (url.startsWith("http") && url.endsWith("mp4"))
-        {
-            ret = url;
-            if (ret.startsWith("http://www.metafilegenerator.de/ondemand/zdf/hbbtv/"))
-            {
-                ret = ret.replaceFirst("http://www.metafilegenerator.de/ondemand/zdf/hbbtv/", "http://nrodl.zdf.de/");
-            }
-        }
-        return ret;
-    }
-
-    private static String checkUrl(String url)
-    {
-        String ret = "";
-        if (url.startsWith("http") && url.endsWith("mp4"))
-        {
-            if (!url.startsWith("http://www.metafilegenerator.de/"))
-            {
-                ret = url;
-            }
-        }
-        return ret;
     }
 }

@@ -23,15 +23,38 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.LinkedList;
+
 import javax.swing.event.EventListenerList;
-import mSearch.Config;
-import mSearch.Const;
-import mSearch.daten.ListeFilme;
-import mSearch.filmeSuchen.ListenerFilmeLaden;
-import mSearch.filmeSuchen.ListenerFilmeLadenEvent;
-import mSearch.tool.Log;
-import mServer.crawler.CrawlerConfig;
-import mServer.crawler.sender.*;
+
+import org.apache.commons.lang3.time.FastDateFormat;
+
+import de.mediathekview.mlib.Config;
+import de.mediathekview.mlib.Const;
+import de.mediathekview.mlib.daten.ListeFilme;
+import de.mediathekview.mlib.filmesuchen.ListenerFilmeLaden;
+import de.mediathekview.mlib.filmesuchen.ListenerFilmeLadenEvent;
+import de.mediathekview.mlib.tool.Log;
+import mServer.crawler.sender.Mediathek3Sat;
+import mServer.crawler.sender.MediathekArd;
+import mServer.crawler.sender.MediathekArte_de;
+import mServer.crawler.sender.MediathekArte_fr;
+import mServer.crawler.sender.MediathekBr;
+import mServer.crawler.sender.MediathekDw;
+import mServer.crawler.sender.MediathekHr;
+import mServer.crawler.sender.MediathekKika;
+import mServer.crawler.sender.MediathekMdr;
+import mServer.crawler.sender.MediathekNdr;
+import mServer.crawler.sender.MediathekOrf;
+import mServer.crawler.sender.MediathekPhoenix;
+import mServer.crawler.sender.MediathekRbb;
+import mServer.crawler.sender.MediathekReader;
+import mServer.crawler.sender.MediathekSr;
+import mServer.crawler.sender.MediathekSrf;
+import mServer.crawler.sender.MediathekSrfPod;
+import mServer.crawler.sender.MediathekSwr;
+import mServer.crawler.sender.MediathekWdr;
+import mServer.crawler.sender.MediathekZdf;
+import mServer.crawler.sender.MediathekZdfTivi;
 
 /**
  * ###########################################################################################################
@@ -53,7 +76,7 @@ public class FilmeSuchen {
     private Date startZeit = new Date();
     private Date stopZeit = new Date();
     private boolean allStarted = false;
-    private final SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss");
+    private final FastDateFormat sdf = FastDateFormat.getInstance("dd.MM.yyyy HH:mm:ss");
 
     public FilmeSuchen() {
         // für jeden Sender einen MediathekReader anlegen, mit der Prio ob
@@ -85,33 +108,6 @@ public class FilmeSuchen {
     public static String[] getNamenSender() {
         // liefert eine Array mit allen Sendernamen
         return Const.SENDER;
-
-//        LinkedList<String> liste = new LinkedList<>();
-//        liste.add(MediathekArd.SENDERNAME);
-//        liste.add(MediathekZdf.SENDERNAME);
-//        liste.add(MediathekZdfTivi.SENDERNAME);
-//        liste.add(MediathekArte_de.SENDERNAME);
-//        liste.add(MediathekArte_fr.SENDERNAME);
-//        liste.add(Mediathek3Sat.SENDERNAME);
-//        liste.add(MediathekSwr.SENDERNAME);
-//        liste.add(MediathekNdr.SENDERNAME);
-//        liste.add(MediathekKika.SENDERNAME);
-//        liste.add(MediathekDw.SENDERNAME);
-//        // Spalte 2
-//        liste.add(MediathekMdr.SENDERNAME);
-//        liste.add(MediathekWdr.SENDERNAME);
-//        liste.add(MediathekHr.SENDERNAME);
-//        liste.add(MediathekRbb.SENDERNAME);
-//        liste.add(MediathekSr.SENDERNAME);
-//        liste.add(MediathekBr.SENDERNAME);
-//        liste.add(MediathekSrf.SENDERNAME);
-//        liste.add(MediathekSrfPod.SENDERNAME);
-//        liste.add(MediathekOrf.SENDERNAME);
-//        liste.add(MediathekPhoenix.SENDERNAME);
-//
-//        GermanStringSorter sorter = GermanStringSorter.getInstance();
-//        Collections.sort(liste, sorter);
-//        return liste.toArray(new String[liste.size()]);
     }
 
     public void addAdListener(ListenerFilmeLaden listener) {
@@ -149,7 +145,7 @@ public class FilmeSuchen {
             for (String s : nameSender) {
                 if (reader.checkNameSenderFilmliste(s)) {
                     starten = true;
-                    new Thread(reader).start();
+                    reader.start();
                 }
             }
         }
@@ -184,13 +180,19 @@ public class FilmeSuchen {
         String zeile;
         RunSender run = listeSenderLaufen.senderFertig(sender);
         if (run != null) {
-            zeile = "" + "\n";
-            zeile += "-------------------------------------------------------------------------------------" + "\n";
-            zeile += "Fertig " + sender + ": " + new SimpleDateFormat("HH:mm:ss").format(new Date()) + " Uhr, Filme: " + listeSenderLaufen.get(sender, RunSender.Count.FILME) + "\n";
+
+            long anzahlSeiten = listeSenderLaufen.get(run.sender, RunSender.Count.ANZAHL);
+            final String rate = listeSenderLaufen.getRate(sender);
+
+            zeile = "" + '\n';
+            zeile += "-------------------------------------------------------------------------------------" + '\n';
+            zeile += "Fertig " + sender + ": " + new SimpleDateFormat("HH:mm:ss").format(new Date()) + " Uhr, Filme: " + listeSenderLaufen.get(sender, RunSender.Count.FILME) + '\n';
             int sekunden = run.getLaufzeitSekunden();
-            zeile += "     -> Dauer[Min]: " + (sekunden / 60 == 0 ? "<1" : sekunden / 60) + "\n";
-            zeile += "     ->       Rest: " + listeSenderLaufen.getSenderRun() + "\n";
-            zeile += "-------------------------------------------------------------------------------------" + "\n";
+            zeile += "     -> Dauer[Min]: " + (sekunden / 60 == 0 ? "<1" : sekunden / 60) + '\n';
+            zeile += "     ->     [kB/s]: " + rate + '\n';
+            zeile += "     ->     Seiten: " + anzahlSeiten + '\n';
+            zeile += "     ->       Rest: " + listeSenderLaufen.getSenderRun() + '\n';
+            zeile += "-------------------------------------------------------------------------------------" + '\n';
             Log.sysLog(zeile);
         }
         if (!allStarted || !listeSenderLaufen.listeFertig()) {
@@ -354,7 +356,8 @@ public class FilmeSuchen {
                 proz = 99;
             }
             text = "  [ ";
-            int a = proz / 10;
+
+            final int a = proz / 10;
             for (int i = 0; i < a; ++i) {
                 text += "#";
             }

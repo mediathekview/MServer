@@ -20,9 +20,9 @@
 package mServer.crawler.gui;
 
 
-import mServer.crawler.gui.Data;
 import java.net.URL;
 import java.util.ResourceBundle;
+
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -98,7 +98,7 @@ public class PanelDelController implements Initializable {
             int after = Data.listeFilme.size();
             lblDeleted.setText(before - after + "");
             lblSender.setText(sender);
-            Data.mSearchGuiController.lblSum.setText(Data.listeFilme.size() + "");
+            Data.mlibGuiController.lblSum.setText(Data.listeFilme.size() + "");
         }
     }
 

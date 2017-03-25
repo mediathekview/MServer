@@ -20,8 +20,8 @@
 package mServer.crawler.gui;
 
 import java.util.List;
+
 import javafx.application.Application;
-import static javafx.application.Application.launch;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -41,7 +41,7 @@ public class MSG extends Application {
     @Override
     public void init() {
         List<String> lp = getParameters().getRaw();
-        if (lp.size() > 0 && !lp.get(0).startsWith("-")) {
+        if (!lp.isEmpty() && !lp.get(0).startsWith("-")) {
             Data.pathFilmlist = lp.get(0);
         }
     }

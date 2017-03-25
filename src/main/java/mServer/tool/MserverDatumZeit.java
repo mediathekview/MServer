@@ -26,7 +26,7 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.Date;
 
-import mSearch.tool.Functions;
+import de.mediathekview.mlib.tool.Functions;
 
 public class MserverDatumZeit {
 
