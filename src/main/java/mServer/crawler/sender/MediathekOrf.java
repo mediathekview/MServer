@@ -20,20 +20,23 @@
  */
 package mServer.crawler.sender;
 
-import java.text.SimpleDateFormat;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Date;
-import mSearch.Config;
-import mSearch.Const;
-import mSearch.daten.DatenFilm;
-import mSearch.tool.Log;
-import mSearch.tool.MSStringBuilder;
+
+import org.apache.commons.lang3.StringEscapeUtils;
+import org.apache.commons.lang3.time.FastDateFormat;
+
+import de.mediathekview.mlib.Config;
+import de.mediathekview.mlib.Const;
+import de.mediathekview.mlib.daten.DatenFilm;
+import de.mediathekview.mlib.tool.Log;
+import de.mediathekview.mlib.tool.MSStringBuilder;
+import mServer.crawler.CrawlerTool;
 import mServer.crawler.FilmeSuchen;
 import mServer.crawler.GetUrl;
-import mServer.crawler.CrawlerTool;
-import org.apache.commons.lang3.StringEscapeUtils;
 
-public class MediathekOrf extends MediathekReader implements Runnable {
+public class MediathekOrf extends MediathekReader {
 
     public final static String SENDERNAME = Const.ORF;
     private static final String THEMA_TAG = "-1";
@@ -45,7 +48,7 @@ public class MediathekOrf extends MediathekReader implements Runnable {
      * @param startPrio
      */
     public MediathekOrf(FilmeSuchen ssearch, int startPrio) {
-        super(ssearch, SENDERNAME, /* threads */ 2, /* urlWarten */ 500, startPrio);
+        super(ssearch, SENDERNAME, /* threads */ 2, /* urlWarten */ 100, startPrio);
     }
 
     @Override
@@ -70,7 +73,7 @@ public class MediathekOrf extends MediathekReader implements Runnable {
             meldungAddMax(listeThemen.size());
             for (int t = 0; t < getMaxThreadLaufen(); ++t) {
                 //new Thread(new ThemaLaden()).start();
-                Thread th = new Thread(new ThemaLaden());
+                Thread th = new ThemaLaden();
                 th.setName(SENDERNAME + t);
                 th.start();
             }
@@ -79,7 +82,8 @@ public class MediathekOrf extends MediathekReader implements Runnable {
 
     private void bearbeiteAdresseTag(String adresse, MSStringBuilder seite) {
         // <a href="http://tvthek.orf.at/program/Kultur-heute/3078759/Kultur-Heute/7152535" class="item_inner clearfix">
-        seite = getUrlIo.getUri(SENDERNAME, adresse, Const.KODIERUNG_UTF, 2, seite, "");
+        GetUrl getUrl = new GetUrl(100);
+        seite = getUrl.getUri(SENDERNAME, adresse, StandardCharsets.UTF_8, 2, seite, "");
         ArrayList<String> al = new ArrayList<>();
         seite.extractList("", "", "<a href=\"http://tvthek.orf.at/profile/", "\"", "http://tvthek.orf.at/profile/", al);
         for (String s : al) {
@@ -92,7 +96,8 @@ public class MediathekOrf extends MediathekReader implements Runnable {
 
     private void bearbeiteAdresseSendung(MSStringBuilder seite) {
         final String URL = "http://tvthek.orf.at/profiles";
-        seite = getUrlIo.getUri(SENDERNAME, URL, Const.KODIERUNG_UTF, 3, seite, "");
+        GetUrl getUrl = new GetUrl(100);
+        seite = getUrl.getUri(SENDERNAME, URL, StandardCharsets.UTF_8, 3, seite, "");
         ArrayList<String> al = new ArrayList<>();
         try {
             seite.extractList("", "", "<a href=\"/profiles/letter/", "\"", "http://tvthek.orf.at/profiles/letter/", al);
@@ -107,17 +112,17 @@ public class MediathekOrf extends MediathekReader implements Runnable {
         }
     }
 
-    private class ThemaLaden implements Runnable {
+    private class ThemaLaden extends Thread {
 
-        GetUrl getUrl = new GetUrl(getWartenSeiteLaden());
+        private final GetUrl getUrl = new GetUrl(getWartenSeiteLaden());
         private MSStringBuilder seite1 = new MSStringBuilder(Const.STRING_BUFFER_START_BUFFER);
         private MSStringBuilder seite2 = new MSStringBuilder(Const.STRING_BUFFER_START_BUFFER);
         private final ArrayList<String> alSendung = new ArrayList<>();
-        private final ArrayList<String> alThemen = new ArrayList<>();
+        //private final ArrayList<String> alThemen = new ArrayList<>();
         private final ArrayList<String> urlList = new ArrayList<>();
 
         @Override
-        public synchronized void run() {
+        public void run() {
             try {
                 meldungAddThread();
                 String[] link;
@@ -147,9 +152,10 @@ public class MediathekOrf extends MediathekReader implements Runnable {
         }
 
         private void sendungen(String url) {
-            seite1 = getUrlIo.getUri(SENDERNAME, url, Const.KODIERUNG_UTF, 2, seite1, "");
+            GetUrl getUrl = new GetUrl(100);
+            seite1 = getUrl.getUri(SENDERNAME, url, StandardCharsets.UTF_8, 2, seite1, "");
             alSendung.clear();
-            int start = "http://tvthek.orf.at/profile/".length();
+            //int start = "http://tvthek.orf.at/profile/".length();
             seite1.extractList("", "", "<a href=\"http://tvthek.orf.at/profile/", "\"", "http://tvthek.orf.at/profile/", alSendung);
             for (String s : alSendung) {
                 try {
@@ -174,16 +180,16 @@ public class MediathekOrf extends MediathekReader implements Runnable {
             long duration = 0;
             String description;
             String tmp;
-            String urlRtmpKlein = "", urlRtmp = "", url = "", urlKlein = "", urlHD = "";
+            String urlRtmpKlein = "", urlRtmp = "", url, urlKlein, urlHD;
             String titel, thema;
             String subtitle;
-            int posStart = 0, posStopAlles = -1, posStopEpisode, pos = 0;
+            int posStart, posStopAlles, posStopEpisode, pos = 0;
             meldung(strUrlFeed);
             thema = seite2.extract("<title>", "vom"); //<title>ABC Bär vom 17.11.2013 um 07.35 Uhr / ORF TVthek</title>
 
             datum = seite2.extract("<span class=\"meta meta_date\">", "<");
             if (datum.contains(",")) {
-                datum = datum.substring(datum.indexOf(",") + 1).trim();
+                datum = datum.substring(datum.indexOf(',') + 1).trim();
             }
             zeit = seite2.extract("<span class=\"meta meta_time\">", "<");
             zeit = zeit.replace("Uhr", "").trim();
@@ -226,7 +232,7 @@ public class MediathekOrf extends MediathekReader implements Runnable {
                 tmp = seite2.extract("&quot;duration&quot;:", ",", pos, posStopEpisode);
                 try {
                     duration = Long.parseLong(tmp) / 1000; // time in milliseconds
-                } catch (Exception ex) {
+                } catch (Exception ignored) {
                 }
 
                 subtitle = seite2.extract("{&quot;src&quot;:&quot;", "&quot", pos, posStopEpisode);
@@ -312,10 +318,10 @@ public class MediathekOrf extends MediathekReader implements Runnable {
         }
     }
 
-    public static String getGestern(int tage) {
+    private String getGestern(int tage) {
         try {
             //SimpleDateFormat sdfOut = new SimpleDateFormat("EEEE", Locale.US);
-            SimpleDateFormat sdfOut = new SimpleDateFormat("dd.MM.yyyy");
+            FastDateFormat sdfOut = FastDateFormat.getInstance("dd.MM.yyyy");
             return sdfOut.format(new Date(new Date().getTime() - tage * (1000 * 60 * 60 * 24)));
         } catch (Exception ex) {
             return "";

@@ -19,11 +19,14 @@
  */
 package mServer.upload;
 
-import mSearch.Config;
 import mServer.crawler.CrawlerTool;
 import mServer.daten.MserverDatenUpload;
 import mServer.daten.MserverSearchTask;
-import mServer.tool.*;
+import mServer.tool.MserverDaten;
+import mServer.tool.MserverDatumZeit;
+import mServer.tool.MserverKonstanten;
+import mServer.tool.MserverLog;
+import mServer.tool.MserverWarten;
 
 public class MserverUpload {
 
@@ -72,7 +75,7 @@ public class MserverUpload {
 
             // ======================================================
             // jetzt die anderen Uploads ins Web erledigen
-            if (MserverDaten.listeUpload.size() > 0) {
+            if (!MserverDaten.listeUpload.isEmpty()) {
                 // nach dem Suchen Rechner Zeit zum Abau aller Verbindungen geben
                 new MserverWarten().sekundenWarten(30);
             }

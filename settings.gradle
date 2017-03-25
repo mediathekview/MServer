@@ -1,0 +1,13 @@
+rootProject.name = 'MServer'
+
+def includeIfExists(String path) {
+  File dir = new File(settingsDir, path)
+  String projectName = ":${dir.name}"
+  if(dir.exists()) {
+    logger.lifecycle "Found project $projectName at $dir"
+    include projectName
+    project(projectName).projectDir = dir
+  }
+}
+
+includeIfExists('../MLib')

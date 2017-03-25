@@ -29,14 +29,14 @@ public class MserverListeSuchen extends LinkedList<MserverSearchTask> {
     @Override
     public boolean add(MserverSearchTask d) {
         if (d.sofortSuchen()) {
-            super.addFirst(d);
+            addFirst(d);
             return true;
         }
         // nach Datum sortiert, einfügen
         for (int i = 0; i < this.size(); ++i) {
             MserverSearchTask ds = this.get(i);
             if (ds.spaeter(d)) {
-                super.add(i, d);
+                add(i, d);
                 return true;
             }
         }

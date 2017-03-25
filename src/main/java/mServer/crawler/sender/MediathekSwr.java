@@ -19,18 +19,23 @@
  */
 package mServer.crawler.sender;
 
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
-import mSearch.Config;
-import mSearch.Const;
-import mSearch.daten.DatenFilm;
-import mSearch.tool.Log;
-import mSearch.tool.MSStringBuilder;
-import mServer.crawler.FilmeSuchen;
-import mServer.crawler.GetUrl;
-import mServer.crawler.CrawlerTool;
+import java.util.concurrent.TimeUnit;
+
 import org.apache.commons.lang3.StringEscapeUtils;
 
-public class MediathekSwr extends MediathekReader implements Runnable {
+import de.mediathekview.mlib.Config;
+import de.mediathekview.mlib.Const;
+import de.mediathekview.mlib.daten.DatenFilm;
+import de.mediathekview.mlib.tool.Log;
+import de.mediathekview.mlib.tool.MSStringBuilder;
+import mServer.crawler.CrawlerTool;
+import mServer.crawler.FilmeSuchen;
+import mServer.crawler.GetUrl;
+import mServer.tool.MserverDaten;
+
+public class MediathekSwr extends MediathekReader {
 
     private static final int wartenKurz = 2000;
     private static final int wartenLang = 4000;
@@ -55,13 +60,12 @@ public class MediathekSwr extends MediathekReader implements Runnable {
         }
         if (Config.getStop()) {
             meldungThreadUndFertig();
-        } else if (listeThemen.size() == 0) {
+        } else if (listeThemen.isEmpty()) {
             meldungThreadUndFertig();
         } else {
             meldungAddMax(listeThemen.size());
             for (int t = 0; t < getMaxThreadLaufen(); ++t) {
-                //new Thread(new ThemaLaden()).start();
-                Thread th = new Thread(new ThemaLaden());
+                Thread th = new ThemaLaden();
                 th.setName(SENDERNAME + t);
                 th.start();
             }
@@ -78,7 +82,8 @@ public class MediathekSwr extends MediathekReader implements Runnable {
         final String MUSTER_URL = "<a href=\"tvshow.htm?show=";
         final String MUSTER_THEMA = "title=\"";
         MSStringBuilder strSeite = new MSStringBuilder(Const.STRING_BUFFER_START_BUFFER);
-        strSeite = getUrlIo.getUri(SENDERNAME, "http://swrmediathek.de/tvlist.htm", Const.KODIERUNG_UTF, 2, strSeite, "");
+        GetUrl getUrlIo = new GetUrl(getWartenSeiteLaden());
+        strSeite = getUrlIo.getUriWithDelay(SENDERNAME, "http://swrmediathek.de/tvlist.htm", StandardCharsets.UTF_8, 2, strSeite, "", 4, TimeUnit.SECONDS);
         int pos = 0;
         String url;
         String thema;
@@ -107,7 +112,8 @@ public class MediathekSwr extends MediathekReader implements Runnable {
     private void addToList_verpasst() {
         //Theman suchen
         MSStringBuilder strSeite = new MSStringBuilder(Const.STRING_BUFFER_START_BUFFER);
-        strSeite = getUrlIo.getUri(SENDERNAME, "http://swrmediathek.de/sendungverpasst.htm", Const.KODIERUNG_UTF, 2, strSeite, "");
+        GetUrl getUrlIo = new GetUrl(getWartenSeiteLaden());
+        strSeite = getUrlIo.getUriWithDelay(SENDERNAME, "http://swrmediathek.de/sendungverpasst.htm", StandardCharsets.UTF_8, 2, strSeite, "", 4, TimeUnit.SECONDS);
         ArrayList<String> list = new ArrayList<>();
         strSeite.extractList("<ul class=\"progChannelList\" tabindex=\"-1\">", "<div class=\"box mediBoxBorder\"",
                 "<a href=\"sendungverpasst.htm?show=&date=", "\"", "http://www.swrmediathek.de/sendungverpasst.htm?show=&date=", list);
@@ -118,12 +124,12 @@ public class MediathekSwr extends MediathekReader implements Runnable {
         }
     }
 
-    private class ThemaLaden implements Runnable {
+    private class ThemaLaden extends Thread {
 
-        GetUrl getUrlThemaLaden = new GetUrl(CrawlerTool.loadLongMax() ? wartenLang : wartenKurz);
+        private final GetUrl getUrlThemaLaden = new GetUrl(CrawlerTool.loadLongMax() ? wartenLang : wartenKurz);
         private MSStringBuilder strSeite1 = new MSStringBuilder(Const.STRING_BUFFER_START_BUFFER);
         private MSStringBuilder strSeite2 = new MSStringBuilder(Const.STRING_BUFFER_START_BUFFER);
-        ArrayList<String> gefunden = new ArrayList<>();
+        private final ArrayList<String> gefunden = new ArrayList<>();
 
         public ThemaLaden() {
         }
@@ -146,7 +152,7 @@ public class MediathekSwr extends MediathekReader implements Runnable {
         private void themenSeitenSuchen(String strUrlFeed, String thema) {
             final String MUSTER_URL = "<a href=\"/player.htm?show=";
             //strSeite1 = getUrl.getUri_Utf(nameSenderMReader, strUrlFeed, strSeite1, thema);
-            strSeite1 = getUrlThemaLaden.getUri(SENDERNAME, strUrlFeed, Const.KODIERUNG_UTF, 2 /* versuche */, strSeite1, thema);
+            strSeite1 = getUrlThemaLaden.getUriWithDelay(SENDERNAME, strUrlFeed, StandardCharsets.UTF_8, 2 /* versuche */, strSeite1, thema, 4, TimeUnit.SECONDS);
             if (strSeite1.length() == 0) {
                 Log.errorLog(945120365, "Seite leer: " + strUrlFeed);
                 return;
@@ -180,7 +186,7 @@ public class MediathekSwr extends MediathekReader implements Runnable {
                     } else {
                         gefunden.add(url);
                     }
-                    if (url.equals("")) {
+                    if (url.isEmpty()) {
                         Log.errorLog(875012369, "keine URL, Thema: " + thema);
                     } else {
                         url = "http://swrmediathek.de/AjaxEntry?callback=jsonp1347979401564&ekey=" + url;
@@ -200,9 +206,10 @@ public class MediathekSwr extends MediathekReader implements Runnable {
             // :"entry_media","attr":{"val0":"flashmedia","val1":"1","val2":"rtmp://fc-ondemand.swr.de/a4332/e6/swr-fernsehen/eisenbahn-romantik/381104.s.flv","val3":"rtmp://fc-ondemand.swr.de/a4332/e6/"},"sub":[]},{"name":"entry_media","attr":{"val0":"flashmedia","val1":"2","val2":"rtmp://fc-ondemand.swr.de/a4332/e6/swr-fernsehen/eisenbahn-romantik/381104.m.flv","val3":"rtmp://fc-ondemand.swr.de/a4332/e6/"},"sub":[]
             // "entry_title":"\"Troika-Tragödie - Verspielt die Regierung unser Steuergeld?\"
             try {
-                strSeite2 = getUrlThemaLaden.getUri_Utf(SENDERNAME, urlJson, strSeite2, "");
+                strSeite2 = getUrlThemaLaden.getUriWithDelay(SENDERNAME, urlJson, StandardCharsets.UTF_8, 1, strSeite2, "", 4, TimeUnit.SECONDS);
                 if (strSeite2.length() == 0) {
-                    Log.errorLog(912365478, "Seite leer: " + urlJson);
+                    if (MserverDaten.debug)
+                        Log.errorLog(912365478, "Seite leer: " + urlJson);
                     return;
                 }
                 String title = getTitle();
@@ -243,7 +250,7 @@ public class MediathekSwr extends MediathekReader implements Runnable {
                     addFilm(film);
                 }
             } catch (Exception ex) {
-                Log.errorLog(939584720, thema + " " + urlJson);
+                Log.errorLog(939584720, thema + ' ' + urlJson);
             }
         }
 
@@ -266,13 +273,13 @@ public class MediathekSwr extends MediathekReader implements Runnable {
             String datum = strSeite2.extract(PATTERN_DATE_START, PATTERN_END);
             if (datum.length() < 10) {
                 if (datum.contains(".")) {
-                    if ((datum.substring(0, datum.indexOf("."))).length() != 2) {
-                        datum = "0" + datum;
+                    if ((datum.substring(0, datum.indexOf('.'))).length() != 2) {
+                        datum = '0' + datum;
                     }
                 }
-                if (datum.indexOf(".") != datum.lastIndexOf(".")) {
-                    if ((datum.substring(datum.indexOf(".") + 1, datum.lastIndexOf("."))).length() != 2) {
-                        datum = datum.substring(0, datum.indexOf(".") + 1) + "0" + datum.substring(datum.indexOf(".") + 1);
+                if (datum.indexOf('.') != datum.lastIndexOf('.')) {
+                    if ((datum.substring(datum.indexOf('.') + 1, datum.lastIndexOf('.'))).length() != 2) {
+                        datum = datum.substring(0, datum.indexOf('.') + 1) + '0' + datum.substring(datum.indexOf('.') + 1);
                     }
                 }
             }
@@ -301,7 +308,6 @@ public class MediathekSwr extends MediathekReader implements Runnable {
 
         private String getTime() {
             final String PATTERN_TIME_START = "\"entry_pdateht\":\"";
-            String tmp = "";
             String time = strSeite2.extract(PATTERN_TIME_START, PATTERN_END);
             if (time.length() <= 5) {
                 time = time.trim() + ":00";
@@ -309,13 +315,13 @@ public class MediathekSwr extends MediathekReader implements Runnable {
             time = time.replace(".", ":");
             if (time.length() < 8) {
                 if (time.contains(":")) {
-                    if ((tmp = time.substring(0, time.indexOf(":"))).length() != 2) {
-                        time = "0" + time;
+                    if (time.substring(0, time.indexOf(':')).length() != 2) {
+                        time = '0' + time;
                     }
                 }
-                if (time.indexOf(":") != time.lastIndexOf(":")) {
-                    if ((tmp = time.substring(time.indexOf(":") + 1, time.lastIndexOf(":"))).length() != 2) {
-                        time = time.substring(0, time.indexOf(":") + 1) + "0" + time + time.substring(time.lastIndexOf(":"));
+                if (time.indexOf(':') != time.lastIndexOf(':')) {
+                    if (time.substring(time.indexOf(':') + 1, time.lastIndexOf(':')).length() != 2) {
+                        time = time.substring(0, time.indexOf(':') + 1) + '0' + time + time.substring(time.lastIndexOf(':'));
                     }
                 }
             }

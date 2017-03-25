@@ -1,9 +1,16 @@
 package mServer.crawler.sender.newsearch;
 
-import com.google.gson.*;
 import java.lang.reflect.Type;
 import java.util.Iterator;
-import mSearch.tool.Log;
+
+import com.google.gson.JsonArray;
+import com.google.gson.JsonDeserializationContext;
+import com.google.gson.JsonDeserializer;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParseException;
+
+import de.mediathekview.mlib.tool.Log;
 
 /**
  * A JSON deserializer to gather the needed information for a {@link DownloadDTO}.
