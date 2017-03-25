@@ -1,11 +1,12 @@
 package mServer.tool;
 
-import mServer.crawler.sender.newsearch.Qualities;
+import java.util.Map;
+
 import org.hamcrest.CoreMatchers;
 import org.junit.Assert;
 import org.junit.Test;
 
-import java.util.Map;
+import mServer.crawler.sender.newsearch.Qualities;
 
 /**
  * A test class for the util class {@link M3U8Utils}.

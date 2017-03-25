@@ -22,13 +22,14 @@ package mServer.tool;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.OutputStreamWriter;
+import java.nio.charset.StandardCharsets;
+
 import javax.xml.stream.XMLOutputFactory;
 import javax.xml.stream.XMLStreamWriter;
 
 import etm.core.configuration.EtmManager;
 import etm.core.monitor.EtmMonitor;
 import etm.core.monitor.EtmPoint;
-import mSearch.Const;
 import mServer.daten.MserverDatenUpload;
 import mServer.daten.MserverSearchTask;
 
@@ -46,7 +47,7 @@ public class MserverXmlSchreiben {
             File file = new File(datei);
             MserverLog.systemMeldung("Start Schreiben nach: " + datei);
             outFactory = XMLOutputFactory.newInstance();
-            out = new OutputStreamWriter(new FileOutputStream(file), Const.KODIERUNG_UTF);
+            out = new OutputStreamWriter(new FileOutputStream(file), StandardCharsets.UTF_8);
             writer = outFactory.createXMLStreamWriter(out);
             writer.writeStartDocument("UTF-8", "1.0");
             writer.writeCharacters("\n");//neue Zeile

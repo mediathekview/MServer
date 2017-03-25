@@ -21,23 +21,27 @@
  */
 package mServer.crawler.sender;
 
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
-import mSearch.Config;
-import mSearch.Const;
-import mSearch.daten.DatenFilm;
-import mSearch.tool.Log;
-import mSearch.tool.MSStringBuilder;
+
+
+import de.mediathekview.mlib.Config;
+import de.mediathekview.mlib.Const;
+import de.mediathekview.mlib.daten.DatenFilm;
+import de.mediathekview.mlib.tool.Log;
+import de.mediathekview.mlib.tool.MSStringBuilder;
+
 import mServer.crawler.CrawlerTool;
 import mServer.crawler.FilmeSuchen;
 import mServer.crawler.GetUrl;
 
-public class MediathekRbb extends MediathekReader implements Runnable {
+public class MediathekRbb extends MediathekReader {
 
     public final static String SENDERNAME = Const.RBB;
-    final static String ROOTADR = "http://mediathek.rbb-online.de";
+    //final static String ROOTADR = "http://mediathek.rbb-online.de";
 
     public MediathekRbb(FilmeSuchen ssearch, int startPrio) {
-        super(ssearch, SENDERNAME,/* threads */ 2, /* urlWarten */ 500, startPrio);
+        super(ssearch, SENDERNAME,/* threads */ 2, /* urlWarten */ 100, startPrio);
     }
 
     @Override
@@ -50,9 +54,10 @@ public class MediathekRbb extends MediathekReader implements Runnable {
         final String URL = "<a href=\"/tv/";
         meldungStart();
         try {
-            seite = getUrlIo.getUri(SENDERNAME, ADRESSE_1, Const.KODIERUNG_UTF, 5 /* versuche */, seite, "" /* Meldung */);
+            GetUrl getUrlIo = new GetUrl(getWartenSeiteLaden());
+            seite = getUrlIo.getUri(SENDERNAME, ADRESSE_1, StandardCharsets.UTF_8, 5 /* versuche */, seite, "" /* Meldung */);
             seite.extractList("", "", URL, "\"", "", liste);
-            seite = getUrlIo.getUri(SENDERNAME, ADRESSE_2, Const.KODIERUNG_UTF, 5 /* versuche */, seite, "" /* Meldung */);
+            seite = getUrlIo.getUri(SENDERNAME, ADRESSE_2, StandardCharsets.UTF_8, 5 /* versuche */, seite, "" /* Meldung */);
             seite.extractList("", "", URL, "\"", "", liste);
             for (String s : liste) {
                 if (s.isEmpty() || !s.contains("documentId=")) {
@@ -66,7 +71,7 @@ public class MediathekRbb extends MediathekReader implements Runnable {
         }
         if (Config.getStop()) {
             meldungThreadUndFertig();
-        } else if (listeThemen.size() == 0) {
+        } else if (listeThemen.isEmpty()) {
             meldungThreadUndFertig();
         } else {
             meldungAddMax(listeThemen.size());
@@ -77,21 +82,21 @@ public class MediathekRbb extends MediathekReader implements Runnable {
                 th.start();
             }
             meldungAddMax(7 /* Tage */);
-            Thread th = new Thread(new ThemaLaden(true /*addTage*/));
+            Thread th = new ThemaLaden(true /*addTage*/);
             th.setName(SENDERNAME + "_Tage");
             th.start();
         }
     }
 
-    private class ThemaLaden implements Runnable {
+    private class ThemaLaden extends Thread {
 
-        boolean addTage = false;
-        GetUrl getUrl = new GetUrl(getWartenSeiteLaden());
+        private boolean addTage = false;
         private MSStringBuilder seite1 = new MSStringBuilder(Const.STRING_BUFFER_START_BUFFER);
         private MSStringBuilder seite2 = new MSStringBuilder(Const.STRING_BUFFER_START_BUFFER);
         private MSStringBuilder seite3 = new MSStringBuilder(Const.STRING_BUFFER_START_BUFFER);
 
         public ThemaLaden(boolean addTage) {
+            super();
             this.addTage = addTage;
         }
 
@@ -114,7 +119,7 @@ public class MediathekRbb extends MediathekReader implements Runnable {
             meldungThreadUndFertig();
         }
 
-        void addTage() {
+        private void addTage() {
             // http://mediathek.rbb-online.de/tv/sendungVerpasst?topRessort=tv&kanal=5874&tag=0
             final String MUSTER_START = "<h2 class=\"modHeadline\">7 Tage Rückblick</h2>";
             final String MUSTER_URL = "<div class=\"media mediaA\">";
@@ -123,6 +128,7 @@ public class MediathekRbb extends MediathekReader implements Runnable {
             for (int i = 0; i <= 6; ++i) {
                 urlTage = "http://mediathek.rbb-online.de/tv/sendungVerpasst?topRessort=tv&kanal=5874&tag=" + i;
                 meldungProgress(urlTage);
+                GetUrl getUrlIo = new GetUrl(getWartenSeiteLaden());
                 seite1 = getUrlIo.getUri_Utf(SENDERNAME, urlTage, seite1, "");
                 int pos1 = seite1.indexOf(MUSTER_START);
                 while (!Config.getStop() && (pos1 = seite1.indexOf(MUSTER_URL, pos1)) != -1) {
@@ -139,13 +145,13 @@ public class MediathekRbb extends MediathekReader implements Runnable {
             }
         }
 
-        void addThema(String url, boolean weiter) {
+        private void addThema(String url, boolean weiter) {
             try {
                 final String URL = "<a href=\"/tv/";
                 final String MUSTER_URL = "<div class=\"media mediaA\">";
+                GetUrl getUrlIo = new GetUrl(getWartenSeiteLaden());
                 seite1 = getUrlIo.getUri_Utf(SENDERNAME, url, seite1, "");
-                int startPos = seite1.indexOf("<div class=\"entry\">");
-                int pos1 = startPos;
+                int pos1 = seite1.indexOf("<div class=\"entry\">");
                 while (!Config.getStop() && (pos1 = seite1.indexOf(MUSTER_URL, pos1)) != -1) {
                     pos1 += MUSTER_URL.length();
                     String urlSeite = seite1.extract(URL, "\"", pos1);
@@ -171,10 +177,11 @@ public class MediathekRbb extends MediathekReader implements Runnable {
             }
         }
 
-        void addFilme(String urlSeite) {
+        private void addFilme(String urlSeite) {
             try {
                 meldung(urlSeite);
                 String datum = "", zeit = "", thema, title, description, durationInSeconds;
+                GetUrl getUrlIo = new GetUrl(getWartenSeiteLaden());
                 seite2 = getUrlIo.getUri_Utf(SENDERNAME, urlSeite, seite2, "");
                 description = seite2.extract("<meta name=\"description\" content=\"", "\"");
                 durationInSeconds = seite2.extract("<meta property=\"video:duration\" content=\"", "\"");
@@ -191,23 +198,25 @@ public class MediathekRbb extends MediathekReader implements Runnable {
                 thema = seite2.extract("<meta name=\"dcterms.isPartOf\" content=\"", "\"");
                 String sub = seite2.extract("<p class=\"subtitle\">", "<");
                 if (sub.contains("|")) {
-                    datum = sub.substring(0, sub.indexOf("|") - 1);
-                    datum = datum.substring(datum.indexOf(" ")).trim();
-                    zeit = datum.substring(datum.indexOf(" ")).trim();
+                    datum = sub.substring(0, sub.indexOf('|') - 1);
+                    datum = datum.substring(datum.indexOf(' ')).trim();
+                    zeit = datum.substring(datum.indexOf(' ')).trim();
                     if (zeit.length() == 5) {
                         zeit = zeit + ":00";
                     }
-                    datum = datum.substring(0, datum.indexOf(" ")).trim();
+                    datum = datum.substring(0, datum.indexOf(' ')).trim();
                     if (datum.length() == 8) {
                         datum = datum.substring(0, 6) + "20" + datum.substring(6);
                     }
                 }
 
+
                 String urlFilm = urlSeite.substring(urlSeite.indexOf("documentId=") + "documentId=".length());
+
                 // http://mediathek.rbb-online.de/play/media/24938774?devicetype=pc&features=hls
                 urlFilm = "http://mediathek.rbb-online.de/play/media/" + urlFilm + "?devicetype=pc&features=hls";
                 seite3 = getUrlIo.getUri_Utf(SENDERNAME, urlFilm, seite3, "");
-                String urlNormal = "", urlLow = "";
+                String urlNormal, urlLow;
                 urlLow = seite3.extract("\"_quality\":1,\"_server\":\"\",\"_cdn\":\"akamai\",\"_stream\":\"http://", "\"");
                 if (urlLow.isEmpty()) {
                     urlLow = seite3.extract("\"_quality\":1,\"_server\":\"\",\"_cdn\":\"default\",\"_stream\":\"http://", "\"");
