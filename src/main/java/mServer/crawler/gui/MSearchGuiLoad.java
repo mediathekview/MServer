@@ -19,13 +19,13 @@
  */
 package mServer.crawler.gui;
 
-import javafx.application.Platform;
 import javax.swing.event.EventListenerList;
-import mSearch.Config;
-import mSearch.filmeSuchen.ListenerFilmeLaden;
-import mSearch.filmeSuchen.ListenerFilmeLadenEvent;
-import mServer.crawler.FilmeSuchen;
+
+import de.mediathekview.mlib.filmesuchen.ListenerFilmeLaden;
+import de.mediathekview.mlib.filmesuchen.ListenerFilmeLadenEvent;
+import javafx.application.Platform;
 import mServer.crawler.CrawlerConfig;
+import mServer.crawler.FilmeSuchen;
 
 public class MSearchGuiLoad {
 

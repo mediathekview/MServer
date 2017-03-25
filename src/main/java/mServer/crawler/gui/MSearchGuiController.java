@@ -22,6 +22,9 @@ package mServer.crawler.gui;
 import java.io.File;
 import java.net.URL;
 import java.util.ResourceBundle;
+
+import de.mediathekview.mlib.filmlisten.FilmlisteLesen;
+import de.mediathekview.mlib.filmlisten.WriteFilmlistJson;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
@@ -29,8 +32,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.FileChooser;
-import mSearch.filmlisten.FilmlisteLesen;
-import mSearch.filmlisten.WriteFilmlistJson;
 
 public class MSearchGuiController implements Initializable {
 
@@ -59,7 +60,7 @@ public class MSearchGuiController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        Data.mSearchGuiController = this;
+        Data.mlibGuiController = this;
 //        System.out.println(fxPanelSearch);
 //        System.out.println(fxPanelSearchController);
 //        System.out.println(fxPanelDel);
