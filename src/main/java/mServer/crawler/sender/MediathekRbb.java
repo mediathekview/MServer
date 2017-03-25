@@ -24,11 +24,13 @@ package mServer.crawler.sender;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 
+
 import de.mediathekview.mlib.Config;
 import de.mediathekview.mlib.Const;
 import de.mediathekview.mlib.daten.DatenFilm;
 import de.mediathekview.mlib.tool.Log;
 import de.mediathekview.mlib.tool.MSStringBuilder;
+
 import mServer.crawler.CrawlerTool;
 import mServer.crawler.FilmeSuchen;
 import mServer.crawler.GetUrl;
@@ -208,7 +210,9 @@ public class MediathekRbb extends MediathekReader {
                     }
                 }
 
-                String urlFilm = urlSeite.substring(urlSeite.indexOf("documentId=") + "documentId=".length(), urlSeite.indexOf('&'));
+
+                String urlFilm = urlSeite.substring(urlSeite.indexOf("documentId=") + "documentId=".length());
+
                 // http://mediathek.rbb-online.de/play/media/24938774?devicetype=pc&features=hls
                 urlFilm = "http://mediathek.rbb-online.de/play/media/" + urlFilm + "?devicetype=pc&features=hls";
                 seite3 = getUrlIo.getUri_Utf(SENDERNAME, urlFilm, seite3, "");
