@@ -27,9 +27,9 @@ import mSearch.Const;
 import mSearch.daten.DatenFilm;
 import mSearch.tool.Log;
 import mSearch.tool.MSStringBuilder;
+import mServer.crawler.CrawlerTool;
 import mServer.crawler.FilmeSuchen;
 import mServer.crawler.GetUrl;
-import mServer.crawler.CrawlerTool;
 
 public class MediathekRbb extends MediathekReader implements Runnable {
 
@@ -121,7 +121,7 @@ public class MediathekRbb extends MediathekReader implements Runnable {
             final String URL = "<a href=\"/tv/";
             String urlTage;
             for (int i = 0; i <= 6; ++i) {
-                urlTage = "http://mediathek.rbb-online.de/tv/sendungVerpasst?topRessort=tv&kanal=5874&tag=" + i;
+                urlTage = "http://mediathek.rbb-online.de/tv/sendungVerpasst?topRessort=tv&tag=" + i;
                 meldungProgress(urlTage);
                 seite1 = getUrlIo.getUri_Utf(SENDERNAME, urlTage, seite1, "");
                 int pos1 = seite1.indexOf(MUSTER_START);
@@ -129,6 +129,7 @@ public class MediathekRbb extends MediathekReader implements Runnable {
                     pos1 += MUSTER_URL.length();
                     String urlSeite = seite1.extract(URL, "\"", pos1);
                     if (!urlSeite.isEmpty()) {
+                        urlSeite = urlSeite.replaceAll("&amp;", "&");
                         urlSeite = "http://mediathek.rbb-online.de/tv/" + urlSeite;
                         addFilme(urlSeite);
                     } else {
@@ -150,6 +151,7 @@ public class MediathekRbb extends MediathekReader implements Runnable {
                     pos1 += MUSTER_URL.length();
                     String urlSeite = seite1.extract(URL, "\"", pos1);
                     if (!urlSeite.isEmpty()) {
+                        urlSeite = urlSeite.replaceAll("&amp;", "&");
                         urlSeite = "http://mediathek.rbb-online.de/tv/" + urlSeite;
                         addFilme(urlSeite);
                     } else {
@@ -203,16 +205,21 @@ public class MediathekRbb extends MediathekReader implements Runnable {
                     }
                 }
 
-                String urlFilm = urlSeite.substring(urlSeite.indexOf("documentId=") + "documentId=".length(), urlSeite.indexOf("&"));
+                String urlFilm = urlSeite.substring(urlSeite.indexOf("documentId=") + "documentId=".length());
                 // http://mediathek.rbb-online.de/play/media/24938774?devicetype=pc&features=hls
                 urlFilm = "http://mediathek.rbb-online.de/play/media/" + urlFilm + "?devicetype=pc&features=hls";
                 seite3 = getUrlIo.getUri_Utf(SENDERNAME, urlFilm, seite3, "");
                 String urlNormal = "", urlLow = "";
+
                 urlLow = seite3.extract("\"_quality\":1,\"_server\":\"\",\"_cdn\":\"akamai\",\"_stream\":\"http://", "\"");
                 if (urlLow.isEmpty()) {
                     urlLow = seite3.extract("\"_quality\":1,\"_server\":\"\",\"_cdn\":\"default\",\"_stream\":\"http://", "\"");
                 }
-                urlNormal = seite3.extract("\"_quality\":3,\"_server\":\"\",\"_cdn\":\"akamai\",\"_stream\":\"http://", "\"");
+
+                urlNormal = seite3.extract("\"_quality\":3,\"_server\":\"\",\"_cdn\":\"akamai\",", "\"_stream\":\"http://", "\"");
+                if (urlNormal.isEmpty()) {
+                    urlNormal = seite3.extract("\"_quality\":3,\"_server\":\"\",\"_cdn\":\"default\"", "\"_stream\":\"http://", "\"");
+                }
                 if (urlNormal.isEmpty()) {
                     urlNormal = seite3.extract("\"_quality\":3,\"_server\":\"\",\"_cdn\":\"default\",\"_stream\":\"http://", "\"");
                 }
