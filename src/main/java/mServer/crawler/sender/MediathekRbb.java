@@ -27,9 +27,9 @@ import mSearch.Const;
 import mSearch.daten.DatenFilm;
 import mSearch.tool.Log;
 import mSearch.tool.MSStringBuilder;
+import mServer.crawler.CrawlerTool;
 import mServer.crawler.FilmeSuchen;
 import mServer.crawler.GetUrl;
-import mServer.crawler.CrawlerTool;
 
 public class MediathekRbb extends MediathekReader implements Runnable {
 
@@ -203,7 +203,7 @@ public class MediathekRbb extends MediathekReader implements Runnable {
                     }
                 }
 
-                String urlFilm = urlSeite.substring(urlSeite.indexOf("documentId=") + "documentId=".length(), urlSeite.indexOf("&"));
+                String urlFilm = urlSeite.substring(urlSeite.indexOf("documentId=") + "documentId=".length());
                 // http://mediathek.rbb-online.de/play/media/24938774?devicetype=pc&features=hls
                 urlFilm = "http://mediathek.rbb-online.de/play/media/" + urlFilm + "?devicetype=pc&features=hls";
                 seite3 = getUrlIo.getUri_Utf(SENDERNAME, urlFilm, seite3, "");
