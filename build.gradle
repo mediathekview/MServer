@@ -45,25 +45,25 @@ sourceSets {
         java {
             compileClasspath += main.output + test.output
             runtimeClasspath += main.output + test.output
-            srcDir file('src/developTest/java')
+            srcDir file('src/test/developTest/java')
         }
-        resources.srcDir file('src/developTest/resources')
+        resources.srcDir file('src/test/developTest/resources')
     }
     integrationTest {
         java {
             compileClasspath += main.output + test.output
             runtimeClasspath += main.output + test.output
-            srcDir file('src/integrationTest/java')
+            srcDir file('src/test/integrationTest/java')
         }
-        resources.srcDir file('src/integrationTest/resources')
+        resources.srcDir file('src/test/integrationTest/resources')
     }
     performanceTest {
         java {
             compileClasspath += main.output + test.output
             runtimeClasspath += main.output + test.output
-            srcDir file('src/performanceTest/java')
+            srcDir file('src/test/performanceTest/java')
         }
-        resources.srcDir file('src/performanceTest/resources')
+        resources.srcDir file('src/test/performanceTest/resources')
     }
 }
 
