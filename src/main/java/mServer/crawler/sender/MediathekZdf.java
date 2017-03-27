@@ -19,13 +19,6 @@
  */
 package mServer.crawler.sender;
 
-import java.util.Collection;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.ForkJoinPool;
-import java.util.concurrent.Phaser;
-import java.util.concurrent.RecursiveAction;
-import java.util.concurrent.TimeUnit;
-
 import de.mediathekview.mlib.Config;
 import de.mediathekview.mlib.Const;
 import de.mediathekview.mlib.daten.DatenFilm;
@@ -35,12 +28,10 @@ import etm.core.monitor.EtmPoint;
 import mServer.crawler.CrawlerTool;
 import mServer.crawler.FilmeSuchen;
 import mServer.crawler.RunSender;
-import mServer.crawler.sender.newsearch.DownloadDTO;
-import mServer.crawler.sender.newsearch.GeoLocations;
-import mServer.crawler.sender.newsearch.Qualities;
-import mServer.crawler.sender.newsearch.VideoDTO;
-import mServer.crawler.sender.newsearch.ZDFSearchTask;
-import mServer.crawler.sender.newsearch.ZdfDatenFilm;
+import mServer.crawler.sender.newsearch.*;
+
+import java.util.Collection;
+import java.util.concurrent.*;
 
 public class MediathekZdf extends MediathekReader
 {
@@ -70,24 +61,26 @@ public class MediathekZdf extends MediathekReader
         final ZDFSearchTask newTask = new ZDFSearchTask(days);
         forkJoinPool.execute(newTask);
         Collection<VideoDTO> filmList = newTask.join();
-        System.out.println("VIDEO LIST SIZE: " + filmList.size());
-        // Convert new DTO to old DatenFilm class
-        Log.sysLog("convert VideoDTO to DatenFilm started...");
 
         EtmPoint perfPoint = EtmManager.getEtmMonitor().createPoint("MediathekZdf.convertVideoDTO");
 
-        filmList.parallelStream().forEach((video) -> {
-            VideoDtoDatenFilmConverterAction action = new VideoDtoDatenFilmConverterAction(video);
-            forkJoinPool.execute(action);
-        });
+        if (!filmList.isEmpty()) {
+            // Convert new DTO to old DatenFilm class
+            Log.sysLog("convert VideoDTO to DatenFilm started...");
+            filmList.parallelStream().forEach((video) -> {
+                VideoDtoDatenFilmConverterAction action = new VideoDtoDatenFilmConverterAction(video);
+                forkJoinPool.execute(action);
+            });
 
-        filmList.clear();
+            filmList.clear();
+        }
 
         boolean wasInterrupted = false;
         while (!phaser.isTerminated()) {
             try {
                 if (Config.getStop()) {
                     wasInterrupted = true;
+                    phaser.forceTermination();
                     shutdownAndAwaitTermination(forkJoinPool, 5, TimeUnit.SECONDS);
                 } else
                     TimeUnit.SECONDS.sleep(1);
