@@ -34,11 +34,6 @@ public class MServer {
 
     private MserverSearchTask aktSearchTask = null;
     private boolean suchen = false;
-
-    public boolean isSuchen() {
-        return suchen;
-    }
-
     private MserverSearch mvsSearch;
 
     public MServer(String[] ar) {
@@ -56,18 +51,19 @@ public class MServer {
         MserverDaten.init();
         MserverDaten.setBasisVerzeichnis(pfad);
 
-        Thread.setDefaultUncaughtExceptionHandler(new Thread.UncaughtExceptionHandler() {
-            @Override
-            public void uncaughtException(Thread t, Throwable e) {
-                MserverLog.fehlerMeldung(97986523, MServer.class.getName(), new String[] { "Da hat sich ein Thread verabschiedet: " + t.getName(), e.getMessage() });
-                e.printStackTrace();
-            }
+        Thread.setDefaultUncaughtExceptionHandler((t, e) -> {
+            MserverLog.fehlerMeldung(97986523, MServer.class.getName(), new String[]{"Da hat sich ein Thread verabschiedet: " + t.getName(), e.getMessage()});
+            e.printStackTrace();
         });
+    }
+
+    public boolean isSuchen() {
+        return suchen;
     }
 
     public boolean starten() {
         if (!MserverDaten.konfigExistiert()) {
-            MserverLog.fehlerMeldung(858589654, MServer.class.getName(), new String[] { "Konfig-Datei existiert nicht", MserverDaten.getKonfigDatei() });
+            MserverLog.fehlerMeldung(858589654, MServer.class.getName(), new String[]{"Konfig-Datei existiert nicht", MserverDaten.getKonfigDatei()});
             System.exit(1); // und Tschüss
         } else {
             MserverXmlLesen.xmlDatenLesen();
@@ -82,12 +78,11 @@ public class MServer {
             MserverLog.startMeldungen(this.getClass().getName());
 
             mvsSearch = new MserverSearch();
-            MserverTimer timer = new MserverTimer(this);
-            Thread thread = new Thread(timer);
-            thread.start();
+            Thread timerThread = new MserverTimer(this);
+            timerThread.start();
             try {
                 // wait for the thread to finish
-                thread.join();
+                timerThread.join();
                 if (MserverDaten.restart) {
                     return true;
                 }
@@ -118,40 +113,54 @@ public class MServer {
             aktSearchTask.meldungStart();
 
             // Filme suchen
-            MserverLog.systemMeldung("");
-            MserverLog.systemMeldung("======================================");
-            MserverLog.systemMeldung("== Filme suchen ======================");
-            MserverLog.systemMeldung("--------------------------------------");
+            printStartMessage();
             if (!mvsSearch.filmeSuchen(aktSearchTask)) {
-                // das Suchen der Filme hat nicht geklappt
-                MserverLog.systemMeldung("--------------------------------------");
-                MserverLog.systemMeldung("== Fehler beim Filme Suchen ==========");
-                MserverLog.systemMeldung("-------------------------------");
-                MserverLog.systemMeldung("");
-                MserverLog.systemMeldung("");
-
+                printErrorMessage();
             } else {
                 // Suchen war OK
-                MserverLog.systemMeldung("== Filme Suchen beendet =======");
-                MserverLog.systemMeldung("-------------------------------");
-                MserverLog.systemMeldung("");
-                MserverLog.systemMeldung("");
-
+                printFinishedMessage();
                 // nur dann gibts was zum Hochladen
-                MserverLog.systemMeldung("");
-                MserverLog.systemMeldung("===============================");
-                MserverLog.systemMeldung("== Upload =====================");
-
-                MserverUpload.upload(aktSearchTask);
-                MserverLog.systemMeldung("== Upload beendet =============");
-                MserverLog.systemMeldung("-------------------------------");
-                MserverLog.systemMeldung("---------------------------------------");
-                MserverLog.systemMeldung("");
-                MserverLog.systemMeldung("");
+                performUpload();
             }
             aktSearchTask = null;
             suchen = false;
         }
+    }
+
+    private void printStartMessage() {
+        MserverLog.systemMeldung("");
+        MserverLog.systemMeldung("======================================");
+        MserverLog.systemMeldung("== Filme suchen ======================");
+        MserverLog.systemMeldung("--------------------------------------");
+    }
+
+    private void performUpload() {
+        MserverLog.systemMeldung("");
+        MserverLog.systemMeldung("===============================");
+        MserverLog.systemMeldung("== Upload =====================");
+
+        MserverUpload.upload(aktSearchTask);
+        MserverLog.systemMeldung("== Upload beendet =============");
+        MserverLog.systemMeldung("-------------------------------");
+        MserverLog.systemMeldung("---------------------------------------");
+        MserverLog.systemMeldung("");
+        MserverLog.systemMeldung("");
+    }
+
+    private void printFinishedMessage() {
+        MserverLog.systemMeldung("== Filme Suchen beendet =======");
+        MserverLog.systemMeldung("-------------------------------");
+        MserverLog.systemMeldung("");
+        MserverLog.systemMeldung("");
+    }
+
+    private void printErrorMessage() {
+// das Suchen der Filme hat nicht geklappt
+        MserverLog.systemMeldung("--------------------------------------");
+        MserverLog.systemMeldung("== Fehler beim Filme Suchen ==========");
+        MserverLog.systemMeldung("-------------------------------");
+        MserverLog.systemMeldung("");
+        MserverLog.systemMeldung("");
     }
 
     private void undTschuess() {

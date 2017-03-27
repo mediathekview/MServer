@@ -3,7 +3,7 @@
 [![Quality Gate](https://sonarqube.com/api/badges/gate?key=mediathekview%3AMServer)](https://sonarqube.com/dashboard/index/mediathekview%3AMServer)
 
 # MServer
-Server zum Steuern des Crawler. Teil von [MediathekView](https://github.com/mediathekview).
+Server zum crawlen der Mediatheken. Teil von [MediathekView](https://github.com/mediathekview).
 
 # Entwicklung
 
@@ -12,7 +12,7 @@ Server zum Steuern des Crawler. Teil von [MediathekView](https://github.com/medi
 mkdir mediathekview
 cd mediathekview
 git clone https://github.com/mediathekview/MServer.git
-git clone https://github.com/mediathekview/MSearch.git
+git clone https://github.com/mediathekview/Mlib.git
 ```
 
 ## Bauen und starten an der Kommandozeile
@@ -22,11 +22,11 @@ cd MServer
 ```
 
 ## Entwicklung mit Netbeans
-* Verzeichnisse `MSearch` und `MServer` mit Netbeans öffnen
+* Verzeichnisse `MLib` und `MServer` mit Netbeans öffnen
 
 ## Entwicklung mit Eclipse
 * Falls noch nicht vorhanden: [Plugin buildship](https://projects.eclipse.org/projects/tools.buildship) installieren
-* Projekt `MServer` als Gradle-Projekt importieren. `MSearch` wird automatisch mit importiert.
+* Projekt `MServer` als Gradle-Projekt importieren. `MLib` wird automatisch mit importiert.
 
 # Autor
 @xaverW

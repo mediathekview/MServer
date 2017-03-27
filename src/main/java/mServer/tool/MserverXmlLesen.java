@@ -22,6 +22,8 @@ package mServer.tool;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
+
 import javax.xml.stream.XMLInputFactory;
 import javax.xml.stream.XMLStreamConstants;
 import javax.xml.stream.XMLStreamReader;
@@ -29,7 +31,6 @@ import javax.xml.stream.XMLStreamReader;
 import etm.core.configuration.EtmManager;
 import etm.core.monitor.EtmMonitor;
 import etm.core.monitor.EtmPoint;
-import mSearch.Const;
 import mServer.daten.MserverDatenUpload;
 import mServer.daten.MserverSearchTask;
 
@@ -50,7 +51,7 @@ public class MserverXmlLesen {
                 inFactory.setProperty(XMLInputFactory.IS_COALESCING, Boolean.FALSE);
                 XMLStreamReader parser;
                 InputStreamReader in;
-                in = new InputStreamReader(new FileInputStream(datei), Const.KODIERUNG_UTF);
+                in = new InputStreamReader(new FileInputStream(datei), StandardCharsets.UTF_8);
                 parser = inFactory.createXMLStreamReader(in);
                 while (parser.hasNext()) {
                     event = parser.next();

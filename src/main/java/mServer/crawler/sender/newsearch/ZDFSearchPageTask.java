@@ -1,17 +1,20 @@
 package mServer.crawler.sender.newsearch;
 
+import java.lang.reflect.Type;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.concurrent.ForkJoinTask;
+import java.util.concurrent.RecursiveTask;
+import java.util.stream.Collectors;
+
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
-import java.lang.reflect.Type;
-import java.util.ArrayList;
-import java.util.stream.*;
 
-import java.util.Collection;
-import java.util.concurrent.*;
-import mSearch.Config;
-import mSearch.tool.Log;
+import de.mediathekview.mlib.Config;
+import de.mediathekview.mlib.tool.Log;
+import mServer.tool.MserverDaten;
 
 /**
  * Task to parse the response of a search page. 
@@ -50,14 +53,16 @@ public class ZDFSearchPageTask extends RecursiveTask<Collection<VideoDTO>> {
                     final ZDFEntryTask entryTask = new ZDFEntryTask(zdfEntryDTO);
 
                     subTasks.add(entryTask);
-                    Log.sysLog("EntryTask " + entryTask.hashCode() + " added.");
+                    if (MserverDaten.debug)
+                        Log.sysLog("EntryTask " + entryTask.hashCode() + " added.");
                 }
             });
 
             // wait till entry tasks are finished
-            filmList.addAll(invokeAll(subTasks).parallelStream().map(ForkJoinTask<VideoDTO>::join).
+            filmList.addAll(invokeAll(subTasks).parallelStream().map(ForkJoinTask::join).
                                         collect(Collectors.toList()));
-            Log.sysLog("All EntryTasks finished.");
+            if (MserverDaten.debug)
+                Log.sysLog("All EntryTasks finished.");
         }
         
         return filmList;

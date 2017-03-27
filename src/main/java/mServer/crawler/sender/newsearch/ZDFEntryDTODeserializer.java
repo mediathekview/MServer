@@ -1,12 +1,18 @@
 package mServer.crawler.sender.newsearch;
 
-import com.google.gson.*;
-
 import java.lang.reflect.Type;
 
-import mSearch.tool.Log;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
+import com.google.gson.JsonDeserializationContext;
+import com.google.gson.JsonDeserializer;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParseException;
+
+import de.mediathekview.mlib.tool.Log;
+
 
 /**
  * A JSON deserializer to gather the needed information for a {@link ZDFEntryDTO}.
@@ -18,9 +24,9 @@ public class ZDFEntryDTODeserializer implements JsonDeserializer<ZDFEntryDTO>
     private static final String JSON_OBJ_ELEMENT_TARGET = "http://zdf.de/rels/target";
     private static final String JSON_OBJ_ELEMENT_MAIN_VIDEO_CONTENT = "mainVideoContent";
     private static final String JSON_ELEMENT_GENERAL_INFORMATION_URL = "canonical";
-    public static final String JSON_OBJ_VIDEO_PAGE_TEASER = "http://zdf.de/rels/content/video-page-teaser";
-    public static final String PLACEHOLDER_PLAYER_ID = "{playerId}";
-    public static final String PLAYER_ID = "ngplayer_2_3";
+    private static final String JSON_OBJ_VIDEO_PAGE_TEASER = "http://zdf.de/rels/content/video-page-teaser";
+    private static final String PLACEHOLDER_PLAYER_ID = "{playerId}";
+    private static final String PLAYER_ID = "ngplayer_2_3";
 
     @Override
     public ZDFEntryDTO deserialize(final JsonElement aJsonElement, final Type aTypeOfT, final JsonDeserializationContext aJsonDeserializationContext) throws JsonParseException

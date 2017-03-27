@@ -10,9 +10,9 @@ do
 	echo
 	echo ===========================================
 	echo ===========================================
-	echo 
+	echo
 	echo 	da lauft noch was!!!!!!
-	echo 
+	echo
 	echo ===========================================
 	echo ===========================================
 	echo
@@ -24,17 +24,17 @@ done
 
 
 # jetzt gehts mit dem Start weiter
-echo %% 
+echo %%
 echo %% -------------------------------------
 echo %% Pfad: $dir
 echo %% -------------------------------------
-echo %% 
+echo %%
 
 
 if [ -n "$JAVA_HOME" ]; then
-	$JAVA_HOME/bin/java -Xms256M -Xmx1G -jar ./MServer.jar $dir $*
+	$JAVA_HOME/bin/java -Xms256M -Xmx2G -jar ./MServer.jar $dir $*
 else
-	java -Xms256M -Xmx1G -jar ./MServer.jar $dir $*
+	java -Xms256M -Xmx2G -jar ./MServer.jar $dir $*
 fi
 
 cd $OLDPWD
