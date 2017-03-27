@@ -1,11 +1,11 @@
 package mServer.crawler.sender.newsearch;
 
-import mSearch.daten.DatenFilm;
-import mSearch.daten.ListeFilme;
-import mServer.crawler.FilmeSuchen;
-
 import java.util.Collection;
 import java.util.concurrent.RecursiveTask;
+
+import de.mediathekview.mlib.daten.DatenFilm;
+import de.mediathekview.mlib.daten.ListeFilme;
+import mServer.crawler.FilmeSuchen;
 
 /**
  * Created by nicklas on 29.12.16.

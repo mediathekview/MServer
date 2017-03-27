@@ -19,7 +19,7 @@
  */
 package mServer.daten;
 
-import mSearch.tool.Functions;
+import de.mediathekview.mlib.tool.Functions;
 
 public class MserverDatenUpload {
 
