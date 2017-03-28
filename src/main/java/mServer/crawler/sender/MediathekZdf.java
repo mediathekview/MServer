@@ -19,6 +19,13 @@
  */
 package mServer.crawler.sender;
 
+import java.util.Collection;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.ForkJoinPool;
+import java.util.concurrent.Phaser;
+import java.util.concurrent.RecursiveAction;
+import java.util.concurrent.TimeUnit;
+
 import de.mediathekview.mlib.Config;
 import de.mediathekview.mlib.Const;
 import de.mediathekview.mlib.daten.DatenFilm;
@@ -28,10 +35,12 @@ import etm.core.monitor.EtmPoint;
 import mServer.crawler.CrawlerTool;
 import mServer.crawler.FilmeSuchen;
 import mServer.crawler.RunSender;
-import mServer.crawler.sender.newsearch.*;
-
-import java.util.Collection;
-import java.util.concurrent.*;
+import mServer.crawler.sender.newsearch.DownloadDTO;
+import mServer.crawler.sender.newsearch.GeoLocations;
+import mServer.crawler.sender.newsearch.Qualities;
+import mServer.crawler.sender.newsearch.VideoDTO;
+import mServer.crawler.sender.newsearch.ZDFSearchTask;
+import mServer.crawler.sender.newsearch.ZdfDatenFilm;
 
 public class MediathekZdf extends MediathekReader
 {
@@ -208,17 +217,17 @@ public class MediathekZdf extends MediathekReader
     {
         if (film.arr[DatenFilm.FILM_URL].endsWith(from))
         {
-            String url_ = film.arr[DatenFilm.FILM_URL].substring(0, film.arr[DatenFilm.FILM_URL].lastIndexOf(from)) + to;
-            String l = mSFilmeSuchen.listeFilmeAlt.getFileSizeUrl(url_);
+            String url = film.arr[DatenFilm.FILM_URL].substring(0, film.arr[DatenFilm.FILM_URL].lastIndexOf(from)) + to;
+            String l = mSFilmeSuchen.listeFilmeAlt.getFileSizeUrl(url);
             // zum Testen immer machen!!
             if (!l.isEmpty())
             {
                 film.arr[DatenFilm.FILM_GROESSE] = l;
-                film.arr[DatenFilm.FILM_URL] = url_;
-            } else if (urlExists(url_))
+                film.arr[DatenFilm.FILM_URL] = url;
+            } else if (urlExists(url))
             {
                 // dann wars wohl nur ein "403er"
-                film.arr[DatenFilm.FILM_URL] = url_;
+                film.arr[DatenFilm.FILM_URL] = url;
             } else
             {
                 Log.errorLog(945120369, "urlTauschen: " + urlSeite);
@@ -230,11 +239,11 @@ public class MediathekZdf extends MediathekReader
     {
         if (film.arr[DatenFilm.FILM_URL_HD].isEmpty() && film.arr[DatenFilm.FILM_URL].endsWith(from))
         {
-            String url_ = film.arr[DatenFilm.FILM_URL].substring(0, film.arr[DatenFilm.FILM_URL].lastIndexOf(from)) + to;
+            String url = film.arr[DatenFilm.FILM_URL].substring(0, film.arr[DatenFilm.FILM_URL].lastIndexOf(from)) + to;
             // zum Testen immer machen!!
-            if (urlExists(url_))
+            if (urlExists(url))
             {
-                CrawlerTool.addUrlHd(film, url_, "");
+                CrawlerTool.addUrlHd(film, url, "");
             } else
             {
                 Log.errorLog(945120147, "urlTauschen: " + urlSeite);
