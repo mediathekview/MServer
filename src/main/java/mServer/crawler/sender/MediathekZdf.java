@@ -70,24 +70,26 @@ public class MediathekZdf extends MediathekReader
         final ZDFSearchTask newTask = new ZDFSearchTask(days);
         forkJoinPool.execute(newTask);
         Collection<VideoDTO> filmList = newTask.join();
-        System.out.println("VIDEO LIST SIZE: " + filmList.size());
-        // Convert new DTO to old DatenFilm class
-        Log.sysLog("convert VideoDTO to DatenFilm started...");
 
         EtmPoint perfPoint = EtmManager.getEtmMonitor().createPoint("MediathekZdf.convertVideoDTO");
 
-        filmList.parallelStream().forEach((video) -> {
-            VideoDtoDatenFilmConverterAction action = new VideoDtoDatenFilmConverterAction(video);
-            forkJoinPool.execute(action);
-        });
+        if (!filmList.isEmpty()) {
+            // Convert new DTO to old DatenFilm class
+            Log.sysLog("convert VideoDTO to DatenFilm started...");
+            filmList.parallelStream().forEach((video) -> {
+                VideoDtoDatenFilmConverterAction action = new VideoDtoDatenFilmConverterAction(video);
+                forkJoinPool.execute(action);
+            });
 
-        filmList.clear();
+            filmList.clear();
+        }
 
         boolean wasInterrupted = false;
         while (!phaser.isTerminated()) {
             try {
                 if (Config.getStop()) {
                     wasInterrupted = true;
+                    phaser.forceTermination();
                     shutdownAndAwaitTermination(forkJoinPool, 5, TimeUnit.SECONDS);
                 } else
                     TimeUnit.SECONDS.sleep(1);
@@ -215,17 +217,17 @@ public class MediathekZdf extends MediathekReader
     {
         if (film.arr[DatenFilm.FILM_URL].endsWith(from))
         {
-            String url_ = film.arr[DatenFilm.FILM_URL].substring(0, film.arr[DatenFilm.FILM_URL].lastIndexOf(from)) + to;
-            String l = mSFilmeSuchen.listeFilmeAlt.getFileSizeUrl(url_);
+            String url = film.arr[DatenFilm.FILM_URL].substring(0, film.arr[DatenFilm.FILM_URL].lastIndexOf(from)) + to;
+            String l = mSFilmeSuchen.listeFilmeAlt.getFileSizeUrl(url);
             // zum Testen immer machen!!
             if (!l.isEmpty())
             {
                 film.arr[DatenFilm.FILM_GROESSE] = l;
-                film.arr[DatenFilm.FILM_URL] = url_;
-            } else if (urlExists(url_))
+                film.arr[DatenFilm.FILM_URL] = url;
+            } else if (urlExists(url))
             {
                 // dann wars wohl nur ein "403er"
-                film.arr[DatenFilm.FILM_URL] = url_;
+                film.arr[DatenFilm.FILM_URL] = url;
             } else
             {
                 Log.errorLog(945120369, "urlTauschen: " + urlSeite);
@@ -237,11 +239,11 @@ public class MediathekZdf extends MediathekReader
     {
         if (film.arr[DatenFilm.FILM_URL_HD].isEmpty() && film.arr[DatenFilm.FILM_URL].endsWith(from))
         {
-            String url_ = film.arr[DatenFilm.FILM_URL].substring(0, film.arr[DatenFilm.FILM_URL].lastIndexOf(from)) + to;
+            String url = film.arr[DatenFilm.FILM_URL].substring(0, film.arr[DatenFilm.FILM_URL].lastIndexOf(from)) + to;
             // zum Testen immer machen!!
-            if (urlExists(url_))
+            if (urlExists(url))
             {
-                CrawlerTool.addUrlHd(film, url_, "");
+                CrawlerTool.addUrlHd(film, url, "");
             } else
             {
                 Log.errorLog(945120147, "urlTauschen: " + urlSeite);
