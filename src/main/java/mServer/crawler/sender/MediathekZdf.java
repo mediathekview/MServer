@@ -159,7 +159,7 @@ public class MediathekZdf extends MediathekReader {
                     Log.errorLog(496583211, ex, "add film failed: " + video.getWebsiteUrl());
                 }
             }
-            phaser.arrive();
+            phaser.arriveAndDeregister();
         }
     }
 
