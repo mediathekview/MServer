@@ -19,42 +19,20 @@
  */
 package mServer.crawler;
 
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.LinkedList;
-
-import javax.swing.event.EventListenerList;
-
-import org.apache.commons.lang3.time.FastDateFormat;
-
 import de.mediathekview.mlib.Config;
 import de.mediathekview.mlib.Const;
 import de.mediathekview.mlib.daten.ListeFilme;
 import de.mediathekview.mlib.filmesuchen.ListenerFilmeLaden;
 import de.mediathekview.mlib.filmesuchen.ListenerFilmeLadenEvent;
 import de.mediathekview.mlib.tool.Log;
-import mServer.crawler.sender.Mediathek3Sat;
-import mServer.crawler.sender.MediathekArd;
-import mServer.crawler.sender.MediathekArte_de;
-import mServer.crawler.sender.MediathekArte_fr;
-import mServer.crawler.sender.MediathekBr;
-import mServer.crawler.sender.MediathekDw;
-import mServer.crawler.sender.MediathekHr;
-import mServer.crawler.sender.MediathekKika;
-import mServer.crawler.sender.MediathekMdr;
-import mServer.crawler.sender.MediathekNdr;
-import mServer.crawler.sender.MediathekOrf;
-import mServer.crawler.sender.MediathekPhoenix;
-import mServer.crawler.sender.MediathekRbb;
-import mServer.crawler.sender.MediathekReader;
-import mServer.crawler.sender.MediathekSr;
-import mServer.crawler.sender.MediathekSrf;
-import mServer.crawler.sender.MediathekSrfPod;
-import mServer.crawler.sender.MediathekSwr;
-import mServer.crawler.sender.MediathekWdr;
-import mServer.crawler.sender.MediathekZdf;
-import mServer.crawler.sender.MediathekZdfTivi;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.LinkedList;
+import javax.swing.event.EventListenerList;
+import mServer.crawler.CrawlerConfig;
+import mServer.crawler.sender.*;
+import org.apache.commons.lang3.time.FastDateFormat;
 
 /**
  * ###########################################################################################################
@@ -145,7 +123,8 @@ public class FilmeSuchen {
             for (String s : nameSender) {
                 if (reader.checkNameSenderFilmliste(s)) {
                     starten = true;
-                    reader.start();
+                    new Thread(reader).start();
+                    //reader.start();
                 }
             }
         }
