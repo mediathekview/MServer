@@ -8,6 +8,7 @@ import com.google.gson.JsonObject;
 import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.ClientResponse;
 import com.sun.jersey.api.client.WebResource;
+import com.sun.jersey.api.client.filter.GZIPContentEncodingFilter;
 
 import de.mediathekview.mlib.Const;
 import de.mediathekview.mlib.tool.Log;
@@ -53,6 +54,7 @@ public class ZDFClient {
 
     public ZDFClient() {
         client = Client.create();
+        client.addFilter(new GZIPContentEncodingFilter(true));
         gson = new Gson();
     }
 
@@ -124,12 +126,11 @@ public class ZDFClient {
     private JsonObject handleOk(ClientResponse response) {
         increment(RunSender.Count.ANZAHL);
 
-        String jsonOutput = response.getEntity(String.class);
-
-        long bytes = jsonOutput.length();
+        long bytes = response.getLength();
         increment(RunSender.Count.SUM_DATA_BYTE, bytes);
         increment(RunSender.Count.SUM_TRAFFIC_BYTE, bytes);
 
+        String jsonOutput = response.getEntity(String.class);
         return gson.fromJson(jsonOutput, JsonObject.class);
     }
 
