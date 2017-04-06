@@ -23,6 +23,7 @@ import etm.core.configuration.BasicEtmConfigurator;
 import etm.core.configuration.EtmManager;
 import etm.core.renderer.SimpleTextRenderer;
 import javafx.application.Application;
+import mServer.check.Check;
 import mServer.crawler.CrawlerTool;
 import mServer.crawler.gui.MSG;
 import mServer.tool.MserverDaten;
@@ -36,7 +37,7 @@ public class Main {
 
     private enum StartupMode {
 
-        SERVER, VERSION, GUI
+        SERVER, VERSION, GUI, CHECK
     }
 
     public static void main(String[] args) {
@@ -59,7 +60,9 @@ public class Main {
                     case "-gui":
                         state = StartupMode.GUI;
                         break;
-
+                    case "-c":
+                        state = StartupMode.CHECK;
+                        break;
                 }
             }
         }
@@ -81,6 +84,10 @@ public class Main {
                     CrawlerTool.startMsg();
                     Application.launch(MSG.class, args);
                 });
+                break;
+            case CHECK:
+                new Check(args).start();
+                System.exit(0);
         }
 
         EtmManager.getEtmMonitor().render(new SimpleTextRenderer());
