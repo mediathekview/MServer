@@ -19,22 +19,20 @@
  */
 package mServer.crawler.sender;
 
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-
-import org.apache.commons.lang3.StringEscapeUtils;
-
 import de.mediathekview.mlib.Config;
 import de.mediathekview.mlib.Const;
 import de.mediathekview.mlib.daten.DatenFilm;
 import de.mediathekview.mlib.tool.Log;
 import de.mediathekview.mlib.tool.MSStringBuilder;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
 import mServer.crawler.CrawlerTool;
 import mServer.crawler.FilmeSuchen;
 import mServer.crawler.GetUrl;
+import org.apache.commons.lang3.StringEscapeUtils;
 
 public class MediathekSrf extends MediathekReader {
 
@@ -43,7 +41,8 @@ public class MediathekSrf extends MediathekReader {
     private static final int MAX_FILME_KURZ = 6;
     
     private static final String URL1_M3U8 = "https://srfvodhd-vh.akamaihd.net";
-    private static final String URL2_M3U8 = "http://hdvodsrforigin-f.akamaihd.net";
+    private static final String URL2_M3U8 = "http://srfvodhd-vh.akamaihd.net";
+    private static final String URL3_M3U8 = "http://hdvodsrforigin-f.akamaihd.net";
     
     private static final String HTTPS = "https";
     private static final String HTTP = "http";
@@ -285,7 +284,14 @@ public class MediathekSrf extends MediathekReader {
                 // tauschen https://srfvodhd-vh.akamaihd.net http://hdvodsrforigin-f.akamaihd.net
                 // ist ein 403
             	String url3u8Temp;
-            	url3u8Temp = url3u8.replaceFirst(URL1_M3U8, URL2_M3U8);
+            	url3u8Temp = url3u8.replaceFirst(URL1_M3U8, URL3_M3U8);
+                m3u8Page = getUrl.getUri_Utf(SENDERNAME, url3u8Temp, m3u8Page, "");
+            }
+            if (m3u8Page.length() == 0 && url3u8.startsWith(URL2_M3U8)) {
+                // tauschen https://srfvodhd-vh.akamaihd.net http://hdvodsrforigin-f.akamaihd.net
+                // ist ein 403
+            	String url3u8Temp;
+            	url3u8Temp = url3u8.replaceFirst(URL2_M3U8, URL3_M3U8);
                 m3u8Page = getUrl.getUri_Utf(SENDERNAME, url3u8Temp, m3u8Page, "");
             }
         }
@@ -294,8 +300,8 @@ public class MediathekSrf extends MediathekReader {
             // tauschen https://srfvodhd-vh.akamaihd.net http://hdvodsrforigin-f.akamaihd.net
             // ist ein 403
         	String urlTemp;
-            urlTemp = url.replaceFirst(URL1_M3U8, URL2_M3U8);
-            return urlTemp.replaceFirst(URL1_M3U8, URL2_M3U8);
+            urlTemp = url.replaceFirst(URL1_M3U8, URL3_M3U8);
+            return urlTemp.replaceFirst(URL2_M3U8, URL3_M3U8);
         }
 
         private String getUrl(MSStringBuilder filmPage, String s1, String s2) {
