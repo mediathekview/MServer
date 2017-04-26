@@ -17,7 +17,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-package mServer.crawler.sender;
+package mServer.crawler.sender.arte;
 
 import de.mediathekview.mlib.Const;
 import mServer.crawler.FilmeSuchen;

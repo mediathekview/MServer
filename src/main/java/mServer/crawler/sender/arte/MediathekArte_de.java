@@ -17,14 +17,16 @@
  * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-package mServer.crawler.sender;
+package mServer.crawler.sender.arte;
 
+import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 import mServer.crawler.CrawlerTool;
 import mServer.crawler.FilmeSuchen;
 import mServer.crawler.GetUrl;
+import mServer.crawler.sender.MediathekReader;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
@@ -39,15 +41,17 @@ import de.mediathekview.mlib.daten.ListeFilme;
 import de.mediathekview.mlib.tool.Log;
 import de.mediathekview.mlib.tool.MSStringBuilder;
 import de.mediathekview.mlib.tool.MVHttpClient;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
-public class MediathekArte_de extends MediathekReader {
-
-    public final static String SENDERNAME = Const.ARTE_DE;
-    protected String URL_ARTE = "http://www.arte.tv/papi/tvguide/epg/schedule/D/L3/";
+public class MediathekArte_de extends MediathekReader
+{
+    private static final Logger LOG = LogManager.getLogger(MediathekArte_de.class);
+    private final static String SENDERNAME = Const.ARTE_DE;
+    private static final String ARTE_API_TAG_URL_PATTERN = "http://www.arte.tv/guide/api/api/program/de/scheduled/%s";
+    private static final DateTimeFormatter ARTE_API_DATEFORMATTER = DateTimeFormatter.ofPattern("yy-MM-dd");
     protected String URL_CONCERT = "http://concert.arte.tv/de/videos/all";
     protected String URL_CONCERT_NOT_CONTAIN = "-STF";
-    protected String URL_ARTE_MEDIATHEK_1 = "http://www.arte.tv/guide/de/plus7/videos?day=-";
-    protected String URL_ARTE_MEDIATHEK_2 = "&page=1&isLoading=true&sort=newest&country=DE";
     protected String TIME_1 = "<li>Sendetermine:</li>";
     protected String TIME_2 = "um";
 
@@ -100,7 +104,7 @@ public class MediathekArte_de extends MediathekReader {
     private void addTage() {
         // http://www.arte.tv/guide/de/plus7/videos?day=-2&page=1&isLoading=true&sort=newest&country=DE
         for (int i = 0; i <= 14; ++i) {
-            String u = "http://www.arte.tv/guide/api/api/program/de/scheduled/" + LocalDate.now().minusDays(i).format(DateTimeFormatter.ofPattern("yy-MM-dd"));
+            String u = String.format(ARTE_API_TAG_URL_PATTERN,LocalDate.now().minusDays(i).format(ARTE_API_DATEFORMATTER));
             listeThemen.add(new String[]{u});
         }
     }
@@ -274,15 +278,20 @@ public class MediathekArte_de extends MediathekReader {
             
             MVHttpClient mvhttpClient = MVHttpClient.getInstance();
             OkHttpClient httpClient = mvhttpClient.getHttpClient();
-            Request request = new Request.Builder().url(url).build();
-             
-            Response response = httpClient.newCall(request).execute();
-            
-            ListeFilme loadedFilme = gson.fromJson(ListeFilme.class, response.body().string());
-            for(DatenFilm film : loadedFilme)
-            {
-                addFilm(film);
-            }
+            Request request = new Request.Builder().url(aUrl).build();
+             try
+             {
+                 Response response = httpClient.newCall(request).execute();
+
+                 ListeFilme loadedFilme = gson.fromJson(response.body().string(), ListeFilme.class);
+                 for (DatenFilm film : loadedFilme)
+                 {
+                     addFilm(film);
+                 }
+             }catch (IOException ioException)
+             {
+                LOG.error("Beim laden der Filme für Arte kam es zu Verbindungsproblemen.",ioException);
+             }
         }
 
     }

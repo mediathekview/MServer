@@ -30,8 +30,10 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.LinkedList;
 import javax.swing.event.EventListenerList;
-import mServer.crawler.CrawlerConfig;
+
 import mServer.crawler.sender.*;
+import mServer.crawler.sender.arte.MediathekArte_de;
+import mServer.crawler.sender.arte.MediathekArte_fr;
 import org.apache.commons.lang3.time.FastDateFormat;
 
 /**

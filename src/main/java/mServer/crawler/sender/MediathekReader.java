@@ -38,7 +38,7 @@ import mServer.crawler.RunSender;
 import okhttp3.Request;
 import okhttp3.Response;
 
-public class MediathekReader extends Thread {
+public abstract class MediathekReader extends Thread {
 
     private final String sendername; // ist der Name, den der Mediathekreader hat, der ist eindeutig
     private final int maxThreadLaufen; //4; // Anzahl der Thread die parallel Suchen
@@ -86,7 +86,7 @@ public class MediathekReader extends Thread {
         }
     }
 
-    static void listeSort(LinkedList<String[]> liste, int stelle) {
+    protected static void listeSort(LinkedList<String[]> liste, int stelle) {
         //Stringliste alphabetisch sortieren
         GermanStringSorter sorter = GermanStringSorter.getInstance();
         if (liste != null) {
@@ -107,7 +107,7 @@ public class MediathekReader extends Thread {
         }
     }
 
-    static long extractDuration(String dauer) {
+    protected static long extractDuration(String dauer) {
         long dauerInSeconds = 0;
         if (dauer.isEmpty()) {
             return 0;
@@ -130,7 +130,7 @@ public class MediathekReader extends Thread {
         return dauerInSeconds;
     }
 
-    static long extractDurationSec(String dauer) {
+    protected static long extractDurationSec(String dauer) {
         long dauerInSeconds;
         if (dauer.isEmpty()) {
             return 0;
@@ -204,11 +204,9 @@ public class MediathekReader extends Thread {
         }
     }
 
-    void addToList() {
-        //wird überschrieben, hier werden die Filme gesucht
-    }
+    protected abstract void addToList();
 
-    void addFilm(DatenFilm film, boolean urlPruefen) {
+    protected void addFilm(DatenFilm film, boolean urlPruefen) {
         // es werden die gefundenen Filme in die Liste einsortiert
         if (urlPruefen) {
             if (mlibFilmeSuchen.listeFilmeNeu.getFilmByUrl(film.arr[DatenFilm.FILM_URL]) == null) {
@@ -224,7 +222,7 @@ public class MediathekReader extends Thread {
      *
      * @param film der einzufügende Film
      */
-    void addFilm(DatenFilm film) {
+    protected void addFilm(DatenFilm film) {
         film.setFileSize();
 
         upgradeUrl(film);
@@ -333,7 +331,7 @@ public class MediathekReader extends Thread {
         return opt.isPresent();
     }
 
-    synchronized void meldungStart() {
+    protected synchronized void meldungStart() {
         // meldet den Start eines Suchlaufs
         max = 0;
         progress = 0;
@@ -347,26 +345,26 @@ public class MediathekReader extends Thread {
         runSender.waitOnLoad = getWartenSeiteLaden();
     }
 
-    synchronized void meldungAddMax(int mmax) {
+    protected synchronized void meldungAddMax(int mmax) {
         max = max + mmax;
         mlibFilmeSuchen.melden(getSendername(), getMax(), getProgress(), "" /* text */);
     }
 
-    synchronized void meldungAddThread() {
+    protected synchronized void meldungAddThread() {
         threads++;
         mlibFilmeSuchen.melden(getSendername(), getMax(), getProgress(), "" /* text */);
     }
 
-    synchronized void meldungProgress(String text) {
+    protected synchronized void meldungProgress(String text) {
         progress++;
         mlibFilmeSuchen.melden(getSendername(), getMax(), getProgress(), text);
     }
 
-    synchronized void meldung(String text) {
+    protected synchronized void meldung(String text) {
         mlibFilmeSuchen.melden(getSendername(), getMax(), getProgress(), text);
     }
 
-    synchronized void meldungThreadUndFertig() {
+    protected synchronized void meldungThreadUndFertig() {
         // meldet das Ende eines!!! Threads
         // der MediathekReader ist erst fertig wenn alle gestarteten Threads fertig sind!!
         threads--;
@@ -379,35 +377,6 @@ public class MediathekReader extends Thread {
         }
     }
 
-//    String addsUrl(String pfad1, String pfad2)
-//    {
-//        String ret = "";
-//        if (pfad1 != null && pfad2 != null)
-//        {
-//            if (!pfad1.isEmpty() && !pfad2.isEmpty())
-//            {
-//                if (pfad1.charAt(pfad1.length() - 1) == '/')
-//                {
-//                    ret = pfad1.substring(0, pfad1.length() - 1);
-//                } else
-//                {
-//                    ret = pfad1;
-//                }
-//                if (pfad2.charAt(0) == '/')
-//                {
-//                    ret += pfad2;
-//                } else
-//                {
-//                    ret += '/' + pfad2;
-//                }
-//            }
-//        }
-//        if (ret.isEmpty())
-//        {
-//            Log.errorLog(469872800, pfad1 + ' ' + pfad2);
-//        }
-//        return ret;
-//    }
 
     private void upgradeUrl(DatenFilm film) {
         // versuchen HD anhand der URL zu suchen, wo noch nicht vorhanden
@@ -475,7 +444,7 @@ public class MediathekReader extends Thread {
 
     //FIXME don´t do this, use a set or whatever to be unique
     @SuppressWarnings("serial")
-    class LinkedListUrl extends LinkedList<String[]> {
+    protected class LinkedListUrl extends LinkedList<String[]> {
         // Hilfsklasse die das einfügen/entnehmen bei mehreren Threads unterstützt
         synchronized boolean addUrl(String[] e) {
             // e[0] ist immer die URL
@@ -485,7 +454,7 @@ public class MediathekReader extends Thread {
             return false;
         }
 
-        synchronized String[] getListeThemen() {
+        public synchronized String[] getListeThemen() {
             return this.pollFirst();
         }
     }

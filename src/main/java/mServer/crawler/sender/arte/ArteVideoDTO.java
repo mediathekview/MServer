@@ -1,4 +1,4 @@
-package mServer.crawler.sender;
+package mServer.crawler.sender.arte;
 
 import java.util.HashMap;
 import java.util.Map;
