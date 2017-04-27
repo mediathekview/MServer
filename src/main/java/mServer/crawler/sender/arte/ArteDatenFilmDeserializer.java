@@ -103,11 +103,11 @@ public class ArteDatenFilmDeserializer implements JsonDeserializer<ListeFilme>
                     if(responseFilmDetails.isSuccessful() && responseVideoDetails.isSuccessful())
                     {
                         ArteVideoDTO video = gson.fromJson(responseVideoDetails.body().string(), ArteVideoDTO.class);
-                        
-                        LocalDateTime dateTime = readDateTime(responseFilmDetails);
+                        String filmDetails = responseFilmDetails.body().string();
+                        LocalDateTime dateTime = readDateTime(filmDetails);
                         
                         //The duration as time so it can be formatted and co.
-                        LocalTime durationAsTime = readDuration(responseFilmDetails);
+                        LocalTime durationAsTime = readDuration(filmDetails);
             
                         film = new DatenFilm(Const.ARTE_DE, thema, urlWeb, titel, video.getUrl(Qualities.NORMAL), "" /*urlRtmp*/,
                                 dateTime.format(DATE_FORMATTER), dateTime.format(TIME_FORMATTER), durationAsTime.toSecondOfDay(), beschreibung);
@@ -131,19 +131,19 @@ public class ArteDatenFilmDeserializer implements JsonDeserializer<ListeFilme>
         return film;
     }
     
-    private LocalDateTime readDateTime(Response aResponse) throws IOException
+    private LocalDateTime readDateTime(String aFilmDetails) throws IOException
     {
-        DateTimeFormatter dateTimeFormatter = new DateTimeFormatterBuilder().appendPattern("EEEE', 'dd'. 'MMMM' um 'H.mm' Uhr'")
+        DateTimeFormatter dateTimeFormatter = new DateTimeFormatterBuilder().appendPattern("EEEE', 'd'. 'MMMM' um 'H.mm' Uhr'")
             .parseDefaulting(ChronoField.HOUR_OF_DAY, 0)
             .parseDefaulting(ChronoField.MINUTE_OF_HOUR, 0)
             .parseDefaulting(ChronoField.SECOND_OF_MINUTE, 0)
             .parseDefaulting(ChronoField.YEAR, 2017)
             .toFormatter(Locale.GERMANY); 
             
-            Matcher matcher = Pattern.compile(REGEX_PATTERN_DATETIME).matcher(aResponse.body().string());
+            Matcher matcher = Pattern.compile(REGEX_PATTERN_DATETIME).matcher(aFilmDetails);
         if(matcher.find())
         {
-            LocalDateTime localDateTime = LocalDateTime.parse(matcher.group(), dateTimeFormatter);
+            LocalDateTime localDateTime = LocalDateTime.parse(matcher.group().trim().replaceAll("\\n", "").replaceAll("\\s{2,}", " "),dateTimeFormatter);
             return localDateTime;
         } else {
             return LocalDateTime.of(LocalDate.now(),LocalTime.MIDNIGHT);
@@ -152,11 +152,11 @@ public class ArteDatenFilmDeserializer implements JsonDeserializer<ListeFilme>
         
     }
     
-    private LocalTime readDuration(Response aResponse) throws IOException
+    private LocalTime readDuration(String aFilmDetails) throws IOException
     {
         LocalTime localTime = LocalTime.MIN;
         
-        Matcher matcher = Pattern.compile(REGEX_PATTERN_DURATION).matcher(aResponse.body().string());
+        Matcher matcher = Pattern.compile(REGEX_PATTERN_DURATION).matcher(aFilmDetails);
         if(matcher.find())
         {
             long durationInMinutes = Long.parseLong(matcher.group());

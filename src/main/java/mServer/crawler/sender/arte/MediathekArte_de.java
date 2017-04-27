@@ -282,12 +282,16 @@ public class MediathekArte_de extends MediathekReader
              {
                  Response response = httpClient.newCall(request).execute();
 
-                 ListeFilme loadedFilme = gson.fromJson(response.body().string(), ListeFilme.class);
-                 for (DatenFilm film : loadedFilme)
+                 if(response.isSuccessful())
                  {
-                     addFilm(film);
-                     System.out.println("Add: "+film.arr[DatenFilm.FILM_TITEL]);
+                     ListeFilme loadedFilme = gson.fromJson(response.body().string(), ListeFilme.class);
+                     for (DatenFilm film : loadedFilme)
+                     {
+                         addFilm(film);
+                         System.out.println("Add: "+film.arr[DatenFilm.FILM_TITEL]);
+                     }
                  }
+
              }catch (IOException ioException)
              {
                 LOG.error("Beim laden der Filme für Arte kam es zu Verbindungsproblemen.",ioException);
