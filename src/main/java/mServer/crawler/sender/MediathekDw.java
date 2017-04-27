@@ -40,7 +40,7 @@ public class MediathekDw extends MediathekReader implements Runnable {
     }
 
     @Override
-    void addToList() {
+    protected void addToList() {
         listeThemen.clear();
         meldungStart();
         sendungenLaden();

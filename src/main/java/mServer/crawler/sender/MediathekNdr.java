@@ -47,7 +47,7 @@ public class MediathekNdr extends MediathekReader implements Runnable {
     //-> erste Seite:
     // <h5><a href="/mediathek/mediatheksuche103_broadcast-30.html">Nordmagazin</a></h5>
     @Override
-    void addToList() {
+    protected void addToList() {
         //<broadcast id="1391" site="ndrfernsehen">45 Min</broadcast>
         final String ADRESSE = "http://www.ndr.de/mediathek/sendungen_a-z/index.html";
         final String MUSTER_URL1 = "<li><a href=\"/mediathek/mediatheksuche105_broadcast-";

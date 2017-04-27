@@ -80,11 +80,10 @@ public class MediathekArte_de extends MediathekReader
             }
         } else {
             if (CrawlerTool.loadLongMax()) {
-                addConcert();
+              //  addConcert();
             }
             meldungAddMax(listeThemen.size());
             for (int t = 0; t < getMaxThreadLaufen(); ++t) {
-                //new Thread(new ThemaLaden()).start();
                 Thread th = new ThemaLaden();
                 th.setName(getSendername() + t);
                 th.start();
@@ -287,6 +286,7 @@ public class MediathekArte_de extends MediathekReader
                  for (DatenFilm film : loadedFilme)
                  {
                      addFilm(film);
+                     System.out.println("Add: "+film.arr[DatenFilm.FILM_TITEL]);
                  }
              }catch (IOException ioException)
              {

@@ -58,7 +58,7 @@ public class MediathekArd extends MediathekReader {
     }
 
     @Override
-    void addToList() {
+    protected void addToList() {
         listeThemen.clear();
         addThema();
         listeThemen.addUrl(new String[]{THEMA_TAGE, ""});
