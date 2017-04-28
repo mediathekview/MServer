@@ -48,8 +48,9 @@ public class MediathekArte_de extends MediathekReader
 {
     private static final Logger LOG = LogManager.getLogger(MediathekArte_de.class);
     private final static String SENDERNAME = Const.ARTE_DE;
-    private static final String ARTE_API_TAG_URL_PATTERN = "http://www.arte.tv/guide/api/api/program/de/scheduled/%s";
+    private static final String ARTE_API_TAG_URL_PATTERN = "http://www.arte.tv/guide/api/api/program/%s/scheduled/%s";
     private static final DateTimeFormatter ARTE_API_DATEFORMATTER = DateTimeFormatter.ofPattern("yy-MM-dd");
+    protected String LANG_CODE = "de";
     protected String URL_CONCERT = "http://concert.arte.tv/de/videos/all";
     protected String URL_CONCERT_NOT_CONTAIN = "-STF";
     protected String TIME_1 = "<li>Sendetermine:</li>";
@@ -80,7 +81,7 @@ public class MediathekArte_de extends MediathekReader
             }
         } else {
             if (CrawlerTool.loadLongMax()) {
-              //  addConcert();
+                addConcert();
             }
             meldungAddMax(listeThemen.size());
             for (int t = 0; t < getMaxThreadLaufen(); ++t) {
@@ -103,7 +104,7 @@ public class MediathekArte_de extends MediathekReader
     private void addTage() {
         // http://www.arte.tv/guide/de/plus7/videos?day=-2&page=1&isLoading=true&sort=newest&country=DE
         for (int i = 0; i <= 14; ++i) {
-            String u = String.format(ARTE_API_TAG_URL_PATTERN,LocalDate.now().minusDays(i).format(ARTE_API_DATEFORMATTER));
+            String u = String.format(ARTE_API_TAG_URL_PATTERN,LANG_CODE,LocalDate.now().minusDays(i).format(ARTE_API_DATEFORMATTER));
             listeThemen.add(new String[]{u});
         }
     }
@@ -273,7 +274,7 @@ public class MediathekArte_de extends MediathekReader
         }
 
         private void addFilmeForTag(String aUrl) {
-            Gson gson = new GsonBuilder().registerTypeAdapter(ListeFilme.class,new ArteDatenFilmDeserializer()).create();
+            Gson gson = new GsonBuilder().registerTypeAdapter(ListeFilme.class,new ArteDatenFilmDeserializer(LANG_CODE)).create();
             
             MVHttpClient mvhttpClient = MVHttpClient.getInstance();
             OkHttpClient httpClient = mvhttpClient.getHttpClient();

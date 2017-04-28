@@ -24,7 +24,7 @@ import mServer.crawler.FilmeSuchen;
 
 public class MediathekArte_fr extends MediathekArte_de {
 
-    public final static String SENDERNAME = Const.ARTE_FR;
+    private final static String SENDERNAME = Const.ARTE_FR;
 
     /**
      *
@@ -33,14 +33,10 @@ public class MediathekArte_fr extends MediathekArte_de {
      */
     public MediathekArte_fr(FilmeSuchen ssearch, int startPrio) {
         super(ssearch, startPrio, SENDERNAME);
-        //URL_ARTE = "http://www.arte.tv/papi/tvguide/epg/schedule/F/L3/";
         URL_CONCERT = "http://concert.arte.tv/fr/videos/all";
         URL_CONCERT_NOT_CONTAIN = "-STA";
-        //http://www.arte.tv/guide/fr/plus7/videos?day=-1&page=2&isLoading=true&limit=24&sort=newest&country=DE
-        //URL_ARTE_MEDIATHEK_1 = "http://www.arte.tv/guide/fr/plus7/videos?day=-";
-        //URL_ARTE_MEDIATHEK_2 = "&page=1&isLoading=true&sort=newest&country=DE";
         TIME_1 = "<li>Diffusion :</li>";
         TIME_2 = "à";
-
+        LANG_CODE = "fr";
     }
 }
