@@ -34,7 +34,7 @@ public class ArteJsonObjectToDatenFilmCallable implements Callable<DatenFilm>
 {
     private static final Logger LOG = LogManager.getLogger(ArteJsonObjectToDatenFilmCallable.class);
     private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM).withLocale(Locale.GERMANY);
-    private static final DateTimeFormatter TIME_FORMATTER = DateTimeFormatter.ofLocalizedTime(FormatStyle.SHORT).withLocale(Locale.GERMANY);
+    private static final DateTimeFormatter TIME_FORMATTER = DateTimeFormatter.ofLocalizedTime(FormatStyle.MEDIUM).withLocale(Locale.GERMANY);
     private static final String JSON_OBJECT_KEY_PROGRAM = "program";
     private static final String JSON_ELEMENT_KEY_TITLE = "title";
     private static final String JSON_ELEMENT_KEY_SUBTITLE = "subtitle";
@@ -44,7 +44,6 @@ public class ArteJsonObjectToDatenFilmCallable implements Callable<DatenFilm>
     private static final String JSON_ELEMENT_KEY_SHORT_DESCRIPTION = "shortDescription";
     
     //1. Non-Capture Group duration, 2. Positive lookbehind for 0 or more non word charackters, 3. One or more numbers, 4. positive lookahed closing span tag
-    private static final String REGEX_PATTERN_DURATION = "(?!:<span class=\"duration\">)(?<=\\W*)\\d+(?=\\s*\\w*\\W*<\\/span>)";
     private static final String REGEX_PATTERN_DATETIME = "(?!:<li class=\"main-programming-broadcast-date\">)(?<=\\W*)\\w*,\\s*\\d+\\.\\s\\w+\\s*\\w+\\s*\\d*\\.\\d*\\s*\\w+(?=\\s*<\\/li>)";
     
     private final JsonObject jsonObject;
@@ -72,7 +71,7 @@ public class ArteJsonObjectToDatenFilmCallable implements Callable<DatenFilm>
                 String thema = !programObject.get(JSON_ELEMENT_KEY_TITLE).isJsonNull() ? programObject.get(JSON_ELEMENT_KEY_TITLE).getAsString() : "";
                 String titel = !programObject.get(JSON_ELEMENT_KEY_SUBTITLE).isJsonNull() ? programObject.get(JSON_ELEMENT_KEY_SUBTITLE).getAsString() : "";
                 String beschreibung = !programObject.get(JSON_ELEMENT_KEY_SHORT_DESCRIPTION).isJsonNull() ? programObject.get(JSON_ELEMENT_KEY_SHORT_DESCRIPTION).getAsString() : "";
-            
+                
                 String urlWeb = programObject.get(JSON_ELEMENT_KEY_URL).getAsString();
     
                 //https://api.arte.tv/api/player/v1/config/[language:de/fr]/[programId]
@@ -96,7 +95,7 @@ public class ArteJsonObjectToDatenFilmCallable implements Callable<DatenFilm>
                         LocalDateTime dateTime = readDateTime(filmDetails);
                         
                         //The duration as time so it can be formatted and co.
-                        LocalTime durationAsTime = readDuration(filmDetails);
+                        LocalTime durationAsTime = durationAsTime(video.getDurationInSeconds());
                        
                         if (video.getVideoUrls().containsKey(Qualities.NORMAL))
                         {
@@ -135,7 +134,6 @@ public class ArteJsonObjectToDatenFilmCallable implements Callable<DatenFilm>
             .parseDefaulting(ChronoField.SECOND_OF_MINUTE, 0)
             .parseDefaulting(ChronoField.YEAR, 2017)
             .toFormatter(Locale.GERMANY); 
-            
             Matcher matcher = Pattern.compile(REGEX_PATTERN_DATETIME).matcher(aFilmDetails);
         if(matcher.find())
         {
@@ -148,16 +146,11 @@ public class ArteJsonObjectToDatenFilmCallable implements Callable<DatenFilm>
         
     }
     
-    private LocalTime readDuration(String aFilmDetails) throws IOException
+    private LocalTime durationAsTime(long aDurationInSeconds) throws IOException
     {
         LocalTime localTime = LocalTime.MIN;
         
-        Matcher matcher = Pattern.compile(REGEX_PATTERN_DURATION).matcher(aFilmDetails);
-        if(matcher.find())
-        {
-            long durationInMinutes = Long.parseLong(matcher.group());
-            localTime = localTime.plusMinutes(durationInMinutes);
-        }
+            localTime = localTime.plusSeconds(aDurationInSeconds);
         
         return localTime;
     }
