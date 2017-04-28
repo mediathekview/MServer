@@ -289,7 +289,6 @@ public class MediathekArte_de extends MediathekReader
                      for (DatenFilm film : loadedFilme)
                      {
                          addFilm(film);
-                         System.out.println("Add: "+film.arr[DatenFilm.FILM_TITEL]);
                      }
                  }
 
