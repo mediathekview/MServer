@@ -15,7 +15,7 @@ apply from: "${project.rootDir}/gradle/eclipse.gradle"
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
 group = 'de.mediathekview'
-version = '3.0.6'
+version = '3.0.7'
 
 def jarName = 'MServer.jar'
 def mainClass = 'mServer.Main'
@@ -115,7 +115,7 @@ tasks.withType(Test) {
 }
 
 dependencies {
-    compile 'de.mediathekview:MLib:3.0.0'
+    compile 'de.mediathekview:MLib:3.0.1'
     compile 'commons-net:commons-net:3.5'
     compile 'org.apache.commons:commons-compress:1.12'
     compile 'org.apache.commons:commons-lang3:3.5'

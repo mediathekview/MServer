@@ -53,7 +53,7 @@ public class Mediathek3Sat extends MediathekReader {
     }
 
     @Override
-    void addToList() {
+   protected void addToList() {
         listeThemen.clear();
         meldungStart();
         sendungenLaden();

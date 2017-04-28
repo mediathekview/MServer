@@ -45,7 +45,7 @@ public class MediathekRbb extends MediathekReader {
     }
 
     @Override
-    void addToList() {
+    protected void addToList() {
         MSStringBuilder seite = new MSStringBuilder(Const.STRING_BUFFER_START_BUFFER);
         // <a href="/tv/kurz-vor-5/Sendung?documentId=16272574&amp;bcastId=16272574" class="textLink">
         ArrayList<String> liste = new ArrayList<>();

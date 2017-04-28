@@ -50,7 +50,7 @@ public class MediathekKika extends MediathekReader {
     }
 
     @Override
-    void addToList() {
+    protected void addToList() {
 
         meldungStart();
         if (CrawlerTool.loadLongMax()) {
