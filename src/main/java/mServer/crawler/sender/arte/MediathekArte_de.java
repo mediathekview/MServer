@@ -17,29 +17,42 @@
  * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-package mServer.crawler.sender;
+package mServer.crawler.sender.arte;
 
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
+import java.io.IOException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
+import mServer.crawler.CrawlerTool;
+import mServer.crawler.FilmeSuchen;
+import mServer.crawler.GetUrl;
+import mServer.crawler.sender.MediathekReader;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
+
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 import de.mediathekview.mlib.Config;
 import de.mediathekview.mlib.Const;
 import de.mediathekview.mlib.daten.DatenFilm;
+import de.mediathekview.mlib.daten.ListeFilme;
 import de.mediathekview.mlib.tool.Log;
 import de.mediathekview.mlib.tool.MSStringBuilder;
-import mServer.crawler.CrawlerTool;
-import mServer.crawler.FilmeSuchen;
-import mServer.crawler.GetUrl;
+import de.mediathekview.mlib.tool.MVHttpClient;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
-public class MediathekArte_de extends MediathekReader {
-
-    public final static String SENDERNAME = Const.ARTE_DE;
-    protected String URL_ARTE = "http://www.arte.tv/papi/tvguide/epg/schedule/D/L3/";
+public class MediathekArte_de extends MediathekReader
+{
+    private static final Logger LOG = LogManager.getLogger(MediathekArte_de.class);
+    private final static String SENDERNAME = Const.ARTE_DE;
+    private static final String ARTE_API_TAG_URL_PATTERN = "http://www.arte.tv/guide/api/api/program/%s/scheduled/%s";
+    private static final DateTimeFormatter ARTE_API_DATEFORMATTER = DateTimeFormatter.ofPattern("yy-MM-dd");
+    protected String LANG_CODE = "de";
     protected String URL_CONCERT = "http://concert.arte.tv/de/videos/all";
     protected String URL_CONCERT_NOT_CONTAIN = "-STF";
-    protected String URL_ARTE_MEDIATHEK_1 = "http://www.arte.tv/guide/de/plus7/videos?day=-";
-    protected String URL_ARTE_MEDIATHEK_2 = "&page=1&isLoading=true&sort=newest&country=DE";
     protected String TIME_1 = "<li>Sendetermine:</li>";
     protected String TIME_2 = "um";
 
@@ -72,7 +85,6 @@ public class MediathekArte_de extends MediathekReader {
             }
             meldungAddMax(listeThemen.size());
             for (int t = 0; t < getMaxThreadLaufen(); ++t) {
-                //new Thread(new ThemaLaden()).start();
                 Thread th = new ThemaLaden();
                 th.setName(getSendername() + t);
                 th.start();
@@ -92,7 +104,7 @@ public class MediathekArte_de extends MediathekReader {
     private void addTage() {
         // http://www.arte.tv/guide/de/plus7/videos?day=-2&page=1&isLoading=true&sort=newest&country=DE
         for (int i = 0; i <= 14; ++i) {
-            String u = URL_ARTE_MEDIATHEK_1 + i + URL_ARTE_MEDIATHEK_2;
+            String u = String.format(ARTE_API_TAG_URL_PATTERN,LANG_CODE,LocalDate.now().minusDays(i).format(ARTE_API_DATEFORMATTER));
             listeThemen.add(new String[]{u});
         }
     }
@@ -245,8 +257,6 @@ public class MediathekArte_de extends MediathekReader {
 
     class ThemaLaden extends Thread {
 
-        private final MSStringBuilder seite1 = new MSStringBuilder(Const.STRING_BUFFER_START_BUFFER);
-        private final ArrayList<String> liste = new ArrayList<>();
 
         @Override
         public void run() {
@@ -255,7 +265,7 @@ public class MediathekArte_de extends MediathekReader {
                 String link[];
                 while (!Config.getStop() && (link = listeThemen.getListeThemen()) != null) {
                     meldungProgress(link[0] /* url */);
-                    addThemen(link[0]);
+                    addFilmeForTag(link[0]);
                 }
             } catch (Exception ex) {
                 Log.errorLog(894330854, ex, "");
@@ -263,105 +273,29 @@ public class MediathekArte_de extends MediathekReader {
             meldungThreadUndFertig();
         }
 
-        private void addThemen(String startUrl) {
-            // http://www.arte.tv/guide/de/plus7/videos?day=-2&page=1&isLoading=true&sort=newest&country=DE
-            final GetUrl getUrl = new GetUrl(getWartenSeiteLaden());
-            getUrl.getUri_Utf(getSendername(), startUrl, seite1, "");
-            seite1.extractList("\"url\":\"http:\\/\\/www.arte.tv", "\"", liste);
-            for (String s : liste) {
-                if (Config.getStop()) {
-                    break;
-                }
-                s = "http://www.arte.tv" + s.replace("\\", "");
-                //Datum: url: xx-0 => heute, xx-1 => gestern, ...
-                String date = "";
-                try {
-                    String d = startUrl.substring(startUrl.lastIndexOf("day=-") + "day=-".length(), startUrl.indexOf("&page="));
-                    int iD = Integer.parseInt(d);
-                    SimpleDateFormat form = new SimpleDateFormat("dd.MM.yyyy");
-                    date = form.format(new Date(new Date().getTime() - iD * (1000 * 60 * 60 * 24)));
-                } catch (Exception ignore) {
-                }
-                getFilm1(s, date);
-            }
-        }
+        private void addFilmeForTag(String aUrl) {
+            Gson gson = new GsonBuilder().registerTypeAdapter(ListeFilme.class,new ArteDatenFilmDeserializer(LANG_CODE)).create();
+            
+            MVHttpClient mvhttpClient = MVHttpClient.getInstance();
+            OkHttpClient httpClient = mvhttpClient.getHttpClient();
+            Request request = new Request.Builder().url(aUrl).build();
+             try
+             {
+                 Response response = httpClient.newCall(request).execute();
 
-        private void getFilm1(String filmWebsite, String date) {
-            final GetUrl getUrl = new GetUrl(getWartenSeiteLaden());
-            getUrl.getUri_Utf(getSendername(), filmWebsite, seite1, "");
-            String title = seite1.extract("<h1 class=\"title\" itemprop=\"name\">", "<");
-            String subtitle = seite1.extract("<h2 class=\"subtitle\">", "<");
-            if (!subtitle.isEmpty() && !title.equals(subtitle)) {
-                title = title + " - " + subtitle;
-            }
-            String thema = seite1.extract("<span class=\"video-meta-genre\">", "<");
-            String description = seite1.extract("<p class=\"program-description-short\">", "<");
-            String duration = seite1.extract("<span class=\"duration\">", "<");
-            long dauer = 0;
-            try {
-                duration = duration.replace("min", "");
-                duration = duration.replace("Min.", "");
-                duration = duration.replace("\n", "").trim();
-                dauer = Integer.parseInt(duration) * 60;
-            } catch (Exception ignore) {
-            }
-            String time = seite1.extract(TIME_1, TIME_2, "<"); //Donnerstag, 15. Dezember um 23.30 Uhr
-            time = time.replace("\n", "");
-            time = time.replace("Uhr", "").trim();
-            time = time.replace(".", ":");
-            time = time.replace("h", ":");
-            time = time + ":00";
-            if (time.length() < 8) {
-                time = '0' + time;
-            }
+                 if(response.isSuccessful())
+                 {
+                     ListeFilme loadedFilme = gson.fromJson(response.body().string(), ListeFilme.class);
+                     for (DatenFilm film : loadedFilme)
+                     {
+                         addFilm(film);
+                     }
+                 }
 
-            String fUrl = seite1.extract("src=\"http://www.arte.tv/player", "\"");
-
-            if (!fUrl.isEmpty()) {
-                fUrl = "http://www.arte.tv/player" + fUrl;
-                meldung(fUrl);
-                getFilm2(fUrl, filmWebsite, thema, title, description, dauer, date, time);
-            }
-        }
-
-        private void getFilm2(String urlWeb, String filmWebsite, String thema, String title, String description, long dauer, String date, String time) {
-            final GetUrl getUrl = new GetUrl(getWartenSeiteLaden());
-            getUrl.getUri_Utf(getSendername(), urlWeb, seite1, "");
-            String urlHd = seite1.extract("_MP4_SQ_1\",\"quality\":\"SQ\"", "\"url\":\"", "\"").replace("\\", "");
-            String urlNorm = seite1.extract("_MP4_EQ_1\",\"quality\":\"EQ\"", "\"url\":\"", "\"").replace("\\", "");
-            String urlKlein = seite1.extract("_MP4_HQ_1\",\"quality\":\"HQ\"", "\"url\":\"", "\"").replace("\\", "");
-
-            // https lässt sich noch?? nicht starten
-            final String http = "http:";
-            final String https = "https:";
-            urlHd = urlHd.replaceFirst(https, http);
-            urlNorm = urlNorm.replaceFirst(https, http);
-            urlKlein = urlKlein.replaceFirst(https, http);
-
-            if (urlNorm.isEmpty() && !urlKlein.isEmpty()) {
-                urlNorm = urlKlein;
-                urlKlein = "";
-            }
-            if (urlNorm.isEmpty() && !urlHd.isEmpty()) {
-                urlNorm = urlHd;
-                urlHd = "";
-            }
-
-            if (!urlNorm.isEmpty() && !urlNorm.endsWith("EXTRAIT.mp4")) {
-                // http://artestras.vo.llnwxd.net/o35/nogeo/HBBTV/042975-013-B_EXT_SQ_1_VA_00604871_MP4-2200_AMM-HBBTV_EXTRAIT.mp4
-                // sind nur Trailer
-                DatenFilm film = new DatenFilm(getSendername(), thema, filmWebsite, title, urlNorm, "" /*urlRtmp*/,
-                        date, time, dauer, description);
-                if (!urlKlein.isEmpty()) {
-                    CrawlerTool.addUrlKlein(film, urlKlein, "");
-                }
-                if (!urlHd.isEmpty()) {
-                    CrawlerTool.addUrlHd(film, urlHd, "");
-                }
-                addFilm(film);
-            } else {
-                Log.errorLog(915263647, "Keine URL: " + filmWebsite);
-            }
+             }catch (IOException ioException)
+             {
+                LOG.error("Beim laden der Filme für Arte kam es zu Verbindungsproblemen.",ioException);
+             }
         }
 
     }

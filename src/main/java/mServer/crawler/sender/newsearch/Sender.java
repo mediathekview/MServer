@@ -5,5 +5,5 @@ package mServer.crawler.sender.newsearch;
  */
 public enum Sender
 {
-    OLD,ZDF;
+    OLD,ZDF,ARTE_DE;
 }

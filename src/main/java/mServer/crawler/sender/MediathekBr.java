@@ -102,7 +102,7 @@ public class MediathekBr extends MediathekReader {
     }
 
     @Override
-    void addToList() {
+   protected void addToList() {
         mlibFilmeSuchen.listeFilmeAlt.getThema(getSendername(), listeAlleThemenCount_);
         meldungStart();
         getTheman(); // Themen suchen
@@ -219,7 +219,7 @@ public class MediathekBr extends MediathekReader {
     }
 
     @Override
-    synchronized void meldungThreadUndFertig() {
+    protected synchronized void meldungThreadUndFertig() {
         if (getThreads() <= 1) {
             //wird erst ausgeführt wenn alle Threads beendet sind
             mlibFilmeSuchen.listeFilmeNeu.checkThema(getSendername(), listeAlleThemenCount_, getSendername());
