@@ -48,10 +48,12 @@ public class ArteJsonObjectToDatenFilmCallable implements Callable<DatenFilm>
     
     private final JsonObject jsonObject;
     private final String langCode;
+    private final String senderName;
     
-    public ArteJsonObjectToDatenFilmCallable(JsonObject aJsonObjec, String aLangCode) {
+    public ArteJsonObjectToDatenFilmCallable(JsonObject aJsonObjec, String aLangCode, String aSenderName) {
         jsonObject = aJsonObjec;
         langCode = aLangCode;
+        senderName = aSenderName;
     }
 
     @Override
@@ -99,7 +101,7 @@ public class ArteJsonObjectToDatenFilmCallable implements Callable<DatenFilm>
                        
                         if (video.getVideoUrls().containsKey(Qualities.NORMAL))
                         {
-                            film = new DatenFilm(Const.ARTE_DE, thema, urlWeb, titel, video.getUrl(Qualities.NORMAL), "" /*urlRtmp*/,
+                            film = new DatenFilm(senderName, thema, urlWeb, titel, video.getUrl(Qualities.NORMAL), "" /*urlRtmp*/,
                                     dateTime.format(DATE_FORMATTER), dateTime.format(TIME_FORMATTER), durationAsTime.toSecondOfDay(), beschreibung);
                             if (video.getVideoUrls().containsKey(Qualities.HD))
                             {
