@@ -55,6 +55,7 @@ public class MediathekArte_de extends MediathekReader
     protected String URL_CONCERT_NOT_CONTAIN = "-STF";
     protected String TIME_1 = "<li>Sendetermine:</li>";
     protected String TIME_2 = "um";
+    private static final String SUFFIX_M3U8 = ".m3u8";
 
     public MediathekArte_de(FilmeSuchen ssearch, int startPrio) {
         super(ssearch, SENDERNAME,/* threads */ 2, /* urlWarten */ 200, startPrio);
@@ -192,7 +193,7 @@ public class MediathekArte_de extends MediathekReader
                                 while ((p1 = seite2.indexOf(a, p1)) != -1) {
                                     p1 += a.length();
                                     urlLow = seite2.extract(b, c, p1).replace("\\", "");
-                                    if (urlLow.endsWith(".m3u8")) {
+                                    if (urlLow.endsWith(SUFFIX_M3U8)) {
                                         urlLow = "";
                                         continue;
                                     }
@@ -205,7 +206,7 @@ public class MediathekArte_de extends MediathekReader
                                 while ((p1 = seite2.indexOf(a, p1)) != -1) {
                                     p1 += a.length();
                                     urlNormal = seite2.extract(b, c, p1).replace("\\", "");
-                                    if (urlNormal.endsWith(".m3u8")) {
+                                    if (urlNormal.endsWith(SUFFIX_M3U8)) {
                                         urlNormal = "";
                                         continue;
                                     }
@@ -218,7 +219,7 @@ public class MediathekArte_de extends MediathekReader
                                 while ((p1 = seite2.indexOf(a, p1)) != -1) {
                                     p1 += a.length();
                                     urlHd = seite2.extract(b, c, p1).replace("\\", "");
-                                    if (urlHd.endsWith(".m3u8")) {
+                                    if (urlHd.endsWith(SUFFIX_M3U8)) {
                                         urlHd = "";
                                         continue;
                                     }

@@ -2,9 +2,6 @@ package mServer.crawler.sender.arte;
 
 import java.io.IOException;
 import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
-import java.time.format.FormatStyle;
-import java.util.Locale;
 import java.util.concurrent.Callable;
 
 import mServer.crawler.CrawlerTool;
@@ -22,7 +19,7 @@ import com.google.gson.JsonObject;
 
 import de.mediathekview.mlib.daten.DatenFilm;
 import de.mediathekview.mlib.tool.MVHttpClient;
-import java.text.ParseException;
+import mServer.tool.MserverDatumZeit;
 import org.apache.commons.lang3.time.FastDateFormat;
 
 public class ArteJsonObjectToDatenFilmCallable implements Callable<DatenFilm>
@@ -41,10 +38,7 @@ public class ArteJsonObjectToDatenFilmCallable implements Callable<DatenFilm>
     private final String langCode;
     private final String senderName;
     
-    private final FastDateFormat sdfOutTime = FastDateFormat.getInstance("HH:mm:ss");
-    private final FastDateFormat sdfOutDay = FastDateFormat.getInstance("dd.MM.yyyy");
-    
-    private final FastDateFormat sdfEditorialDate = FastDateFormat.getInstance("yyyy-MM-dd'T'HH:mm:ssX");//2016-10-29T16:15:00.000+02:00
+    private final FastDateFormat broadcastDate = FastDateFormat.getInstance("yyyy-MM-dd'T'HH:mm:ssX");//2016-10-29T16:15:00Z
     
     public ArteJsonObjectToDatenFilmCallable(JsonObject aJsonObjec, String aLangCode, String aSenderName) {
         jsonObject = aJsonObjec;
@@ -95,13 +89,14 @@ public class ArteJsonObjectToDatenFilmCallable implements Callable<DatenFilm>
                        
                         if (video.getVideoUrls().containsKey(Qualities.NORMAL))
                         {
-                            String date = "", time = "";
+                            String date = ""; 
+                            String time = "";
                             
                             if(jsonObject.has(JSON_ELEMENT_BROADCAST)) {
                                 String broadcastBegin = jsonObject.get(JSON_ELEMENT_BROADCAST).getAsString();
     
-                                date = convertDate(broadcastBegin, sdfEditorialDate);
-                                time = convertTime(broadcastBegin, sdfEditorialDate);
+                                date = MserverDatumZeit.formatDate(broadcastBegin, broadcastDate);
+                                time = MserverDatumZeit.formatTime(broadcastBegin, broadcastDate);
                             }
                             
                             film = new DatenFilm(senderName, thema, urlWeb, titel, video.getUrl(Qualities.NORMAL), "" /*urlRtmp*/,
@@ -130,22 +125,6 @@ public class ArteJsonObjectToDatenFilmCallable implements Callable<DatenFilm>
         return film;
     }
     
-        private String convertDate(String dateValue, FastDateFormat sdf) {
-        try {
-            return sdfOutDay.format(sdf.parse(dateValue));
-        } catch (ParseException ex) {
-            throw new RuntimeException("Date parse exception: " + dateValue);
-        }
-    }
-
-    private String convertTime(String dateValue, FastDateFormat sdf) {
-        try {
-            return sdfOutTime.format(sdf.parse(dateValue));
-        } catch (ParseException ex) {
-            throw new RuntimeException("Date parse exception: " + dateValue);
-        }
-    }  
-     
     private LocalTime durationAsTime(long aDurationInSeconds) throws IOException
     {
         LocalTime localTime = LocalTime.MIN;
