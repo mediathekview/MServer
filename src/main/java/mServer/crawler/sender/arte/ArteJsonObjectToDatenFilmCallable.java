@@ -72,10 +72,7 @@ public class ArteJsonObjectToDatenFilmCallable implements Callable<DatenFilm>
                 
                 Gson gson = new GsonBuilder().registerTypeAdapter(ArteVideoDTO.class, new ArteVideoDeserializer()).create();
     
-                OkHttpClient httpClient = MVHttpClient.getInstance().getHttpClient();
-                Request requestVideoDetails = new Request.Builder().url(videosUrl).build();
-                
-                try(Response responseVideoDetails = httpClient.newCall(requestVideoDetails).execute();)
+                try(Response responseVideoDetails = executeRequest(videosUrl))
                 {
                     if(responseVideoDetails.isSuccessful())
                     {
@@ -96,16 +93,7 @@ public class ArteJsonObjectToDatenFilmCallable implements Callable<DatenFilm>
                                 time = MserverDatumZeit.formatTime(broadcastBegin, broadcastDate);
                             }
                             
-                            film = new DatenFilm(senderName, thema, urlWeb, titel, video.getUrl(Qualities.NORMAL), "" /*urlRtmp*/,
-                                    date, time, durationAsTime.toSecondOfDay(), beschreibung);
-                            if (video.getVideoUrls().containsKey(Qualities.HD))
-                            {
-                                CrawlerTool.addUrlHd(film, video.getUrl(Qualities.HD), "");
-                            }
-                            if (video.getVideoUrls().containsKey(Qualities.SMALL))
-                            {
-                                CrawlerTool.addUrlKlein(film, video.getUrl(Qualities.SMALL), "");
-                            }
+                            film = createFilm(thema, urlWeb, titel, video, date, time, durationAsTime, beschreibung);
                        }else {
                            LOG.debug(String.format("Keine \"normale\" Video URL für den Film \"%s\" mit der URL \"%s\". Video Details URL:\"%s\" ",titel,urlWeb,videosUrl));
                        }
@@ -120,6 +108,27 @@ public class ArteJsonObjectToDatenFilmCallable implements Callable<DatenFilm>
 
         }
         return film;
+    }
+
+    private DatenFilm createFilm(String thema, String urlWeb, String titel, ArteVideoDTO video, String date, String time, LocalTime durationAsTime, String beschreibung) {
+        DatenFilm film = new DatenFilm(senderName, thema, urlWeb, titel, video.getUrl(Qualities.NORMAL), "" /*urlRtmp*/,
+                date, time, durationAsTime.toSecondOfDay(), beschreibung);
+        if (video.getVideoUrls().containsKey(Qualities.HD))
+        {
+            CrawlerTool.addUrlHd(film, video.getUrl(Qualities.HD), "");
+        }
+        if (video.getVideoUrls().containsKey(Qualities.SMALL))
+        {
+            CrawlerTool.addUrlKlein(film, video.getUrl(Qualities.SMALL), "");
+        }
+        return film;
+    }
+    
+    private Response executeRequest(String url) throws IOException {
+        OkHttpClient httpClient = MVHttpClient.getInstance().getHttpClient();
+        Request request = new Request.Builder().url(url).build();
+                
+        return httpClient.newCall(request).execute();   
     }
     
     private LocalTime durationAsTime(long aDurationInSeconds)
