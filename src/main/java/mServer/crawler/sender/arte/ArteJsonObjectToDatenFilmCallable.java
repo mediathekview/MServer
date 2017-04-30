@@ -77,29 +77,22 @@ public class ArteJsonObjectToDatenFilmCallable implements Callable<DatenFilm>
                        
                         if (video.getVideoUrls().containsKey(Qualities.NORMAL))
                         {
-                            String date = ""; 
-                            String time = "";
+                            String broadcastBegin = ""; 
                             
                             if(jsonObject.has(JSON_ELEMENT_BROADCAST)) {
-                                String broadcastBegin = jsonObject.get(JSON_ELEMENT_BROADCAST).getAsString();
-    
-                                date = MserverDatumZeit.formatDate(broadcastBegin, broadcastDate);
-                                time = MserverDatumZeit.formatTime(broadcastBegin, broadcastDate);
+                                broadcastBegin = jsonObject.get(JSON_ELEMENT_BROADCAST).getAsString();    
                             }
                             
-                            film = createFilm(thema, urlWeb, titel, video, date, time, durationAsTime, beschreibung);
-                       }else {
+                            film = createFilm(thema, urlWeb, titel, video, broadcastBegin, durationAsTime, beschreibung);
+                       } else {
                            LOG.debug(String.format("Keine \"normale\" Video URL für den Film \"%s\" mit der URL \"%s\". Video Details URL:\"%s\" ",titel,urlWeb,videosUrl));
                        }
-
                     }
-
                 } catch (IOException ioException)
                 {
                     LOG.error("Beim laden der Informationen eines Filmes für Arte kam es zu Verbindungsproblemen.", ioException);
                 }
             }
-
         }
         return film;
     }
@@ -117,7 +110,11 @@ public class ArteJsonObjectToDatenFilmCallable implements Callable<DatenFilm>
         return !jsonObject.get(elementName).isJsonNull() ? jsonObject.get(elementName).getAsString() : "";        
     }
     
-    private DatenFilm createFilm(String thema, String urlWeb, String titel, ArteVideoDTO video, String date, String time, LocalTime durationAsTime, String beschreibung) {
+    private DatenFilm createFilm(String thema, String urlWeb, String titel, ArteVideoDTO video, String broadcastBegin, LocalTime durationAsTime, String beschreibung) {
+        
+        String date = MserverDatumZeit.formatDate(broadcastBegin, broadcastDate);
+        String time = MserverDatumZeit.formatTime(broadcastBegin, broadcastDate);
+        
         DatenFilm film = new DatenFilm(senderName, thema, urlWeb, titel, video.getUrl(Qualities.NORMAL), "" /*urlRtmp*/,
                 date, time, durationAsTime.toSecondOfDay(), beschreibung);
         if (video.getVideoUrls().containsKey(Qualities.HD))
