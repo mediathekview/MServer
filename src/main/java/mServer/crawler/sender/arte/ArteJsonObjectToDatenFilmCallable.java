@@ -52,22 +52,16 @@ public class ArteJsonObjectToDatenFilmCallable implements Callable<DatenFilm>
         if(jsonObject != null && jsonObject.has(JSON_OBJECT_KEY_PROGRAM))
         {
             JsonObject programObject = jsonObject.get(JSON_OBJECT_KEY_PROGRAM).getAsJsonObject();
-            if(programObject.has(JSON_ELEMENT_KEY_TITLE) && 
-            programObject.has(JSON_ELEMENT_KEY_PROGRAM_ID) && 
-            programObject.has(JSON_ELEMENT_KEY_URL) &&
-            !programObject.get(JSON_ELEMENT_KEY_TITLE).isJsonNull() &&
-            !programObject.get(JSON_ELEMENT_KEY_PROGRAM_ID).isJsonNull() &&
-            !programObject.get(JSON_ELEMENT_KEY_URL).isJsonNull()
-            )
+            if(isValidProgramObject(programObject))
             {
-                String thema = !programObject.get(JSON_ELEMENT_KEY_TITLE).isJsonNull() ? programObject.get(JSON_ELEMENT_KEY_TITLE).getAsString() : "";
-                String titel = !programObject.get(JSON_ELEMENT_KEY_SUBTITLE).isJsonNull() ? programObject.get(JSON_ELEMENT_KEY_SUBTITLE).getAsString() : "";
-                String beschreibung = !programObject.get(JSON_ELEMENT_KEY_SHORT_DESCRIPTION).isJsonNull() ? programObject.get(JSON_ELEMENT_KEY_SHORT_DESCRIPTION).getAsString() : "";
+                String thema = getElementValue(programObject, JSON_ELEMENT_KEY_TITLE);
+                String titel = getElementValue(programObject, JSON_ELEMENT_KEY_SUBTITLE);
+                String beschreibung = getElementValue(programObject, JSON_ELEMENT_KEY_SHORT_DESCRIPTION);
                 
-                String urlWeb = programObject.get(JSON_ELEMENT_KEY_URL).getAsString();
+                String urlWeb = getElementValue(programObject, JSON_ELEMENT_KEY_URL);
     
                 //https://api.arte.tv/api/player/v1/config/[language:de/fr]/[programId]
-                String programId = programObject.get(JSON_ELEMENT_KEY_PROGRAM_ID).getAsString();
+                String programId = getElementValue(programObject, JSON_ELEMENT_KEY_PROGRAM_ID);
                 String videosUrl = String.format(ARTE_VIDEO_INFORMATION_URL_PATTERN, langCode, programId);
                 
                 Gson gson = new GsonBuilder().registerTypeAdapter(ArteVideoDTO.class, new ArteVideoDeserializer()).create();
@@ -110,6 +104,19 @@ public class ArteJsonObjectToDatenFilmCallable implements Callable<DatenFilm>
         return film;
     }
 
+    private static boolean isValidProgramObject(JsonObject programObject) {
+        return programObject.has(JSON_ELEMENT_KEY_TITLE) && 
+            programObject.has(JSON_ELEMENT_KEY_PROGRAM_ID) && 
+            programObject.has(JSON_ELEMENT_KEY_URL) &&
+            !programObject.get(JSON_ELEMENT_KEY_TITLE).isJsonNull() &&
+            !programObject.get(JSON_ELEMENT_KEY_PROGRAM_ID).isJsonNull() &&
+            !programObject.get(JSON_ELEMENT_KEY_URL).isJsonNull();
+    }
+    
+    private static String getElementValue(JsonObject jsonObject, String elementName) {
+        return !jsonObject.get(elementName).isJsonNull() ? jsonObject.get(elementName).getAsString() : "";        
+    }
+    
     private DatenFilm createFilm(String thema, String urlWeb, String titel, ArteVideoDTO video, String date, String time, LocalTime durationAsTime, String beschreibung) {
         DatenFilm film = new DatenFilm(senderName, thema, urlWeb, titel, video.getUrl(Qualities.NORMAL), "" /*urlRtmp*/,
                 date, time, durationAsTime.toSecondOfDay(), beschreibung);
