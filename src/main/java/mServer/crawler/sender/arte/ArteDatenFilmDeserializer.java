@@ -23,10 +23,12 @@ public class ArteDatenFilmDeserializer implements JsonDeserializer<ListeFilme>
 {
     private static final Logger LOG = LogManager.getLogger(ArteDatenFilmDeserializer.class);
     
-    private String langCode;
+    private final String langCode;
+    private final String senderName;
     
-    public ArteDatenFilmDeserializer(String aLangCode) {
+    public ArteDatenFilmDeserializer(String aLangCode, String aSenderName) {
         langCode = aLangCode;
+        senderName = aSenderName;
     }
 
     @Override
@@ -38,7 +40,7 @@ public class ArteDatenFilmDeserializer implements JsonDeserializer<ListeFilme>
         for (JsonElement jsonElement : aJsonElement.getAsJsonArray())
         {
             ExecutorService executor = Executors.newCachedThreadPool();
-            futureFilme.add(executor.submit(new ArteJsonObjectToDatenFilmCallable(jsonElement.getAsJsonObject(),langCode)));
+            futureFilme.add(executor.submit(new ArteJsonObjectToDatenFilmCallable(jsonElement.getAsJsonObject(), langCode, senderName)));
         }
         
         CopyOnWriteArrayList<DatenFilm> finishedFilme = new CopyOnWriteArrayList<>();

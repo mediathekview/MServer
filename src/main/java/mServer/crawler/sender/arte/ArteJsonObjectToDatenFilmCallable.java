@@ -1,17 +1,8 @@
 package mServer.crawler.sender.arte;
 
 import java.io.IOException;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeFormatterBuilder;
-import java.time.format.FormatStyle;
-import java.time.temporal.ChronoField;
-import java.util.Locale;
 import java.util.concurrent.Callable;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import mServer.crawler.CrawlerTool;
 import mServer.crawler.sender.newsearch.Qualities;
@@ -26,15 +17,14 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
 
-import de.mediathekview.mlib.Const;
 import de.mediathekview.mlib.daten.DatenFilm;
 import de.mediathekview.mlib.tool.MVHttpClient;
+import mServer.tool.MserverDatumZeit;
+import org.apache.commons.lang3.time.FastDateFormat;
 
 public class ArteJsonObjectToDatenFilmCallable implements Callable<DatenFilm>
 {
     private static final Logger LOG = LogManager.getLogger(ArteJsonObjectToDatenFilmCallable.class);
-    private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM).withLocale(Locale.GERMANY);
-    private static final DateTimeFormatter TIME_FORMATTER = DateTimeFormatter.ofLocalizedTime(FormatStyle.MEDIUM).withLocale(Locale.GERMANY);
     private static final String JSON_OBJECT_KEY_PROGRAM = "program";
     private static final String JSON_ELEMENT_KEY_TITLE = "title";
     private static final String JSON_ELEMENT_KEY_SUBTITLE = "subtitle";
@@ -42,16 +32,18 @@ public class ArteJsonObjectToDatenFilmCallable implements Callable<DatenFilm>
     private static final String JSON_ELEMENT_KEY_PROGRAM_ID = "programId";
     private static final String ARTE_VIDEO_INFORMATION_URL_PATTERN = "https://api.arte.tv/api/player/v1/config/%s/%s";
     private static final String JSON_ELEMENT_KEY_SHORT_DESCRIPTION = "shortDescription";
-    
-    //1. Non-Capture Group duration, 2. Positive lookbehind for 0 or more non word charackters, 3. One or more numbers, 4. positive lookahed closing span tag
-    private static final String REGEX_PATTERN_DATETIME = "(?!:<li class=\"main-programming-broadcast-date\">)(?<=\\W*)\\w*,\\s*\\d+\\.\\s\\w+\\s*\\w+\\s*\\d*\\.\\d*\\s*\\w+(?=\\s*<\\/li>)";
+    private static final String JSON_ELEMENT_BROADCAST = "broadcastBeginRounded";
     
     private final JsonObject jsonObject;
     private final String langCode;
+    private final String senderName;
     
-    public ArteJsonObjectToDatenFilmCallable(JsonObject aJsonObjec, String aLangCode) {
+    private final FastDateFormat broadcastDate = FastDateFormat.getInstance("yyyy-MM-dd'T'HH:mm:ssX");//2016-10-29T16:15:00Z
+    
+    public ArteJsonObjectToDatenFilmCallable(JsonObject aJsonObjec, String aLangCode, String aSenderName) {
         jsonObject = aJsonObjec;
         langCode = aLangCode;
+        senderName = aSenderName;
     }
 
     @Override
@@ -60,97 +52,94 @@ public class ArteJsonObjectToDatenFilmCallable implements Callable<DatenFilm>
         if(jsonObject != null && jsonObject.has(JSON_OBJECT_KEY_PROGRAM))
         {
             JsonObject programObject = jsonObject.get(JSON_OBJECT_KEY_PROGRAM).getAsJsonObject();
-            if(programObject.has(JSON_ELEMENT_KEY_TITLE) && 
-            programObject.has(JSON_ELEMENT_KEY_PROGRAM_ID) && 
-            programObject.has(JSON_ELEMENT_KEY_URL) &&
-            !programObject.get(JSON_ELEMENT_KEY_TITLE).isJsonNull() &&
-            !programObject.get(JSON_ELEMENT_KEY_PROGRAM_ID).isJsonNull() &&
-            !programObject.get(JSON_ELEMENT_KEY_URL).isJsonNull()
-            )
+            if(isValidProgramObject(programObject))
             {
-                String thema = !programObject.get(JSON_ELEMENT_KEY_TITLE).isJsonNull() ? programObject.get(JSON_ELEMENT_KEY_TITLE).getAsString() : "";
-                String titel = !programObject.get(JSON_ELEMENT_KEY_SUBTITLE).isJsonNull() ? programObject.get(JSON_ELEMENT_KEY_SUBTITLE).getAsString() : "";
-                String beschreibung = !programObject.get(JSON_ELEMENT_KEY_SHORT_DESCRIPTION).isJsonNull() ? programObject.get(JSON_ELEMENT_KEY_SHORT_DESCRIPTION).getAsString() : "";
+                String thema = getElementValue(programObject, JSON_ELEMENT_KEY_TITLE);
+                String titel = getElementValue(programObject, JSON_ELEMENT_KEY_SUBTITLE);
+                String beschreibung = getElementValue(programObject, JSON_ELEMENT_KEY_SHORT_DESCRIPTION);
                 
-                String urlWeb = programObject.get(JSON_ELEMENT_KEY_URL).getAsString();
+                String urlWeb = getElementValue(programObject, JSON_ELEMENT_KEY_URL);
     
                 //https://api.arte.tv/api/player/v1/config/[language:de/fr]/[programId]
-                String programId = programObject.get(JSON_ELEMENT_KEY_PROGRAM_ID).getAsString();
+                String programId = getElementValue(programObject, JSON_ELEMENT_KEY_PROGRAM_ID);
                 String videosUrl = String.format(ARTE_VIDEO_INFORMATION_URL_PATTERN, langCode, programId);
-    
+                
                 Gson gson = new GsonBuilder().registerTypeAdapter(ArteVideoDTO.class, new ArteVideoDeserializer()).create();
     
-                OkHttpClient httpClient = MVHttpClient.getInstance().getHttpClient();
-                Request requestVideoDetails = new Request.Builder().url(videosUrl).build();
-                
-                Request requestFilmDetails = new Request.Builder().url(urlWeb).build();
-    
-                try(Response responseVideoDetails = httpClient.newCall(requestVideoDetails).execute();
-                    Response responseFilmDetails = httpClient.newCall(requestFilmDetails).execute();)
+                try(Response responseVideoDetails = executeRequest(videosUrl))
                 {
-                    if(responseFilmDetails.isSuccessful() && responseVideoDetails.isSuccessful())
+                    if(responseVideoDetails.isSuccessful())
                     {
                         ArteVideoDTO video = gson.fromJson(responseVideoDetails.body().string(), ArteVideoDTO.class);
-                        String filmDetails = responseFilmDetails.body().string();
-                        LocalDateTime dateTime = readDateTime(filmDetails);
                         
                         //The duration as time so it can be formatted and co.
                         LocalTime durationAsTime = durationAsTime(video.getDurationInSeconds());
                        
                         if (video.getVideoUrls().containsKey(Qualities.NORMAL))
                         {
-                            film = new DatenFilm(Const.ARTE_DE, thema, urlWeb, titel, video.getUrl(Qualities.NORMAL), "" /*urlRtmp*/,
-                                    dateTime.format(DATE_FORMATTER), dateTime.format(TIME_FORMATTER), durationAsTime.toSecondOfDay(), beschreibung);
-                            if (video.getVideoUrls().containsKey(Qualities.HD))
-                            {
-                                CrawlerTool.addUrlHd(film, video.getUrl(Qualities.HD), "");
+                            String broadcastBegin = ""; 
+                            
+                            if(jsonObject.has(JSON_ELEMENT_BROADCAST)) {
+                                broadcastBegin = jsonObject.get(JSON_ELEMENT_BROADCAST).getAsString();    
                             }
-                            if (video.getVideoUrls().containsKey(Qualities.SMALL))
-                            {
-                                CrawlerTool.addUrlKlein(film, video.getUrl(Qualities.SMALL), "");
-                            }
-                       }else {
+                            
+                            film = createFilm(thema, urlWeb, titel, video, broadcastBegin, durationAsTime, beschreibung);
+                       } else {
                            LOG.debug(String.format("Keine \"normale\" Video URL für den Film \"%s\" mit der URL \"%s\". Video Details URL:\"%s\" ",titel,urlWeb,videosUrl));
                        }
-
                     }
-
                 } catch (IOException ioException)
                 {
                     LOG.error("Beim laden der Informationen eines Filmes für Arte kam es zu Verbindungsproblemen.", ioException);
                 }
             }
+        }
+        return film;
+    }
 
+    private static boolean isValidProgramObject(JsonObject programObject) {
+        return programObject.has(JSON_ELEMENT_KEY_TITLE) && 
+            programObject.has(JSON_ELEMENT_KEY_PROGRAM_ID) && 
+            programObject.has(JSON_ELEMENT_KEY_URL) &&
+            !programObject.get(JSON_ELEMENT_KEY_TITLE).isJsonNull() &&
+            !programObject.get(JSON_ELEMENT_KEY_PROGRAM_ID).isJsonNull() &&
+            !programObject.get(JSON_ELEMENT_KEY_URL).isJsonNull();
+    }
+    
+    private static String getElementValue(JsonObject jsonObject, String elementName) {
+        return !jsonObject.get(elementName).isJsonNull() ? jsonObject.get(elementName).getAsString() : "";        
+    }
+    
+    private DatenFilm createFilm(String thema, String urlWeb, String titel, ArteVideoDTO video, String broadcastBegin, LocalTime durationAsTime, String beschreibung) {
+        
+        String date = MserverDatumZeit.formatDate(broadcastBegin, broadcastDate);
+        String time = MserverDatumZeit.formatTime(broadcastBegin, broadcastDate);
+        
+        DatenFilm film = new DatenFilm(senderName, thema, urlWeb, titel, video.getUrl(Qualities.NORMAL), "" /*urlRtmp*/,
+                date, time, durationAsTime.toSecondOfDay(), beschreibung);
+        if (video.getVideoUrls().containsKey(Qualities.HD))
+        {
+            CrawlerTool.addUrlHd(film, video.getUrl(Qualities.HD), "");
+        }
+        if (video.getVideoUrls().containsKey(Qualities.SMALL))
+        {
+            CrawlerTool.addUrlKlein(film, video.getUrl(Qualities.SMALL), "");
         }
         return film;
     }
     
-    
-    private LocalDateTime readDateTime(String aFilmDetails) throws IOException
-    {
-        DateTimeFormatter dateTimeFormatter = new DateTimeFormatterBuilder().appendPattern("EEEE', 'd'. 'MMMM' um 'H.mm' Uhr'")
-            .parseDefaulting(ChronoField.HOUR_OF_DAY, 0)
-            .parseDefaulting(ChronoField.MINUTE_OF_HOUR, 0)
-            .parseDefaulting(ChronoField.SECOND_OF_MINUTE, 0)
-            .parseDefaulting(ChronoField.YEAR, 2017)
-            .toFormatter(Locale.GERMANY); 
-            Matcher matcher = Pattern.compile(REGEX_PATTERN_DATETIME).matcher(aFilmDetails);
-        if(matcher.find())
-        {
-            LocalDateTime localDateTime = LocalDateTime.parse(matcher.group().trim().replaceAll("\\n", "").replaceAll("\\s{2,}", " "),dateTimeFormatter);
-            return localDateTime;
-        } else {
-            return LocalDateTime.of(LocalDate.now(),LocalTime.MIDNIGHT);
-        }
-        
-        
+    private Response executeRequest(String url) throws IOException {
+        OkHttpClient httpClient = MVHttpClient.getInstance().getHttpClient();
+        Request request = new Request.Builder().url(url).build();
+                
+        return httpClient.newCall(request).execute();   
     }
     
-    private LocalTime durationAsTime(long aDurationInSeconds) throws IOException
+    private LocalTime durationAsTime(long aDurationInSeconds)
     {
         LocalTime localTime = LocalTime.MIN;
         
-            localTime = localTime.plusSeconds(aDurationInSeconds);
+        localTime = localTime.plusSeconds(aDurationInSeconds);
         
         return localTime;
     }
