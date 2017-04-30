@@ -75,12 +75,9 @@ public class ArteJsonObjectToDatenFilmCallable implements Callable<DatenFilm>
                 OkHttpClient httpClient = MVHttpClient.getInstance().getHttpClient();
                 Request requestVideoDetails = new Request.Builder().url(videosUrl).build();
                 
-                Request requestFilmDetails = new Request.Builder().url(urlWeb).build();
-    
-                try(Response responseVideoDetails = httpClient.newCall(requestVideoDetails).execute();
-                    Response responseFilmDetails = httpClient.newCall(requestFilmDetails).execute();)
+                try(Response responseVideoDetails = httpClient.newCall(requestVideoDetails).execute();)
                 {
-                    if(responseFilmDetails.isSuccessful() && responseVideoDetails.isSuccessful())
+                    if(responseVideoDetails.isSuccessful())
                     {
                         ArteVideoDTO video = gson.fromJson(responseVideoDetails.body().string(), ArteVideoDTO.class);
                         
@@ -125,11 +122,11 @@ public class ArteJsonObjectToDatenFilmCallable implements Callable<DatenFilm>
         return film;
     }
     
-    private LocalTime durationAsTime(long aDurationInSeconds) throws IOException
+    private LocalTime durationAsTime(long aDurationInSeconds)
     {
         LocalTime localTime = LocalTime.MIN;
         
-            localTime = localTime.plusSeconds(aDurationInSeconds);
+        localTime = localTime.plusSeconds(aDurationInSeconds);
         
         return localTime;
     }
