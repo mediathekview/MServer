@@ -27,19 +27,29 @@ import java.time.LocalTime;
 import java.util.Date;
 
 import de.mediathekview.mlib.tool.Functions;
+import java.text.ParseException;
+import org.apache.commons.lang3.time.FastDateFormat;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class MserverDatumZeit {
 
-    private static final SimpleDateFormat sdf_datum_zeit = new SimpleDateFormat("dd.MM.yyyy  HH:mm:ss");
-    private static final SimpleDateFormat sdf_datum = new SimpleDateFormat("dd.MM.yyyy");
-    private static final SimpleDateFormat sdf_datum_yyyy_MM_dd = new SimpleDateFormat("yyyy.MM.dd");
+    private static final Logger LOG = LogManager.getLogger(MserverDatumZeit.class);
+    
+    private static final SimpleDateFormat SDF_DATUM_ZEIT = new SimpleDateFormat("dd.MM.yyyy  HH:mm:ss");
+    private static final SimpleDateFormat SDF_DATUM = new SimpleDateFormat("dd.MM.yyyy");
+    private static final SimpleDateFormat SDF_DATUM_YYYY_MM_DD = new SimpleDateFormat("yyyy.MM.dd");
 
+    private static final FastDateFormat FDF_OUT_TIME = FastDateFormat.getInstance("HH:mm:ss");
+    private static final FastDateFormat FDF_OUT_DAY = FastDateFormat.getInstance("dd.MM.yyyy");
+    
     public static String getJetzt() {
-        return sdf_datum_zeit.format(new Date());
+        return SDF_DATUM_ZEIT.format(new Date());
     }
 
     public static String getHeute() {
-        return sdf_datum.format(new Date());
+        return SDF_DATUM.format(new Date());
     }
 
     public static long getSecondsUntilNextDay() {
@@ -52,7 +62,7 @@ public class MserverDatumZeit {
     }
 
     public static String getHeute_yyyy_MM_dd() {
-        return sdf_datum_yyyy_MM_dd.format(new Date());
+        return SDF_DATUM_YYYY_MM_DD.format(new Date());
     }
 
     public static String getNameAkt(String path) {
@@ -63,4 +73,36 @@ public class MserverDatumZeit {
         return Functions.addsPfad(path, "Filmliste-" + new SimpleDateFormat("yyyy-MM-dd").format(new Date()) + ".xz");
     }
 
+    /**
+     * formats a date/datetime string to the date format used in DatenFilm
+     * @param dateValue the date/datetime value
+     * @param sdf the format of dateValue
+     * @return the formatted date string
+     */
+    public static String formatDate(String dateValue, FastDateFormat sdf) {
+        try {
+            return FDF_OUT_DAY.format(sdf.parse(dateValue));
+        } catch (ParseException ex) {
+            LOG.debug(String.format("Fehler beim Parsen des Datums %s: %s", dateValue, ex.getMessage()));
+        }
+        
+        return "";
+    }
+
+    /**
+     * formats a datetime string to the time format used in DatenFilm
+     * @param dateValue the datetime value
+     * @param sdf the format of dateValue
+     * @return the formatted time string
+     */
+    public static  String formatTime(String dateValue, FastDateFormat sdf) {
+        try {
+            return FDF_OUT_TIME.format(sdf.parse(dateValue));
+        } catch (ParseException ex) {
+            LOG.debug(String.format("Fehler beim Parsen des Datums %s: %s", dateValue, ex.getMessage()));
+        }
+        
+        return "";
+    }  
+         
 }
