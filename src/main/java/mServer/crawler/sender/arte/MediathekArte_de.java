@@ -23,13 +23,8 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
-import mServer.crawler.CrawlerTool;
-import mServer.crawler.FilmeSuchen;
-import mServer.crawler.GetUrl;
-import mServer.crawler.sender.MediathekReader;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.Response;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -41,8 +36,13 @@ import de.mediathekview.mlib.daten.ListeFilme;
 import de.mediathekview.mlib.tool.Log;
 import de.mediathekview.mlib.tool.MSStringBuilder;
 import de.mediathekview.mlib.tool.MVHttpClient;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import mServer.crawler.CrawlerTool;
+import mServer.crawler.FilmeSuchen;
+import mServer.crawler.GetUrl;
+import mServer.crawler.sender.MediathekReader;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 
 public class MediathekArte_de extends MediathekReader
 {
@@ -133,8 +133,9 @@ public class MediathekArte_de extends MediathekReader
         }
 
         private void addConcert(int start, int anz) {
-            final String THEMA = "Concert";
-            final String MUSTER_START = "<div class=\"header-article \">";
+            final String thema = "Concert";
+            final String musterStart = "<div class=\"header-article \">";
+            final String errorMsgKeineURL = "keine URL";
             String urlStart;
             meldungAddMax(anz);
             for (int i = start; !Config.getStop() && i < anz; ++i) {
@@ -148,11 +149,11 @@ public class MediathekArte_de extends MediathekReader
                 seite1 = getUrlIo.getUri_Utf(getSendername(), urlStart, seite1, "");
                 int pos1 = 0;
                 String url, urlWeb, titel, urlHd, urlLow, urlNormal, beschreibung, datum, dauer;
-                while (!Config.getStop() && (pos1 = seite1.indexOf(MUSTER_START, pos1)) != -1) {
+                while (!Config.getStop() && (pos1 = seite1.indexOf(musterStart, pos1)) != -1) {
                     urlHd = "";
                     urlLow = "";
                     urlNormal = "";
-                    pos1 += MUSTER_START.length();
+                    pos1 += musterStart.length();
                     try {
                         url = seite1.extract("<a href=\"", "\"", pos1);
                         titel = seite1.extract("title=\"", "\"", pos1);
@@ -171,7 +172,7 @@ public class MediathekArte_de extends MediathekReader
                             }
                         }
                         if (url.isEmpty()) {
-                            Log.errorLog(825241452, "keine URL");
+                            Log.errorLog(825241452, errorMsgKeineURL);
                         } else {
                             urlWeb = "http://concert.arte.tv" + url;
                             meldung(urlWeb);
@@ -179,11 +180,11 @@ public class MediathekArte_de extends MediathekReader
                             // genre: <span class="tag tag-link"><a href="/de/videos/rockpop">rock/pop</a></span> 
                             String genre = seite2.extract("<span class=\"tag tag-link\">", "\">", "<");
                             if (!genre.isEmpty()) {
-                                beschreibung = genre + '\n' + DatenFilm.cleanDescription(beschreibung, THEMA, titel);
+                                beschreibung = genre + '\n' + DatenFilm.cleanDescription(beschreibung, thema, titel);
                             }
                             url = seite2.extract("arte_vp_url=\"", "\"");
                             if (url.isEmpty()) {
-                                Log.errorLog(784512698, "keine URL");
+                                Log.errorLog(784512698, errorMsgKeineURL);
                             } else {
                                 seite2 = getUrlIo.getUri_Utf(getSendername(), url, seite2, "");
                                 int p1 = 0;
@@ -231,12 +232,12 @@ public class MediathekArte_de extends MediathekReader
                                 if (urlNormal.isEmpty()) {
                                     urlNormal = urlLow;
                                     urlLow = "";
-                                    Log.errorLog(951236487, "keine URL");
+                                    Log.errorLog(951236487, errorMsgKeineURL);
                                 }
                                 if (urlNormal.isEmpty()) {
-                                    Log.errorLog(989562301, "keine URL");
+                                    Log.errorLog(989562301, errorMsgKeineURL);
                                 } else {
-                                    DatenFilm film = new DatenFilm(getSendername(), THEMA, urlWeb, titel, urlNormal, "" /*urlRtmp*/,
+                                    DatenFilm film = new DatenFilm(getSendername(), thema, urlWeb, titel, urlNormal, "" /*urlRtmp*/,
                                             datum, "" /*zeit*/, duration, beschreibung);
                                     if (!urlHd.isEmpty()) {
                                         CrawlerTool.addUrlHd(film, urlHd, "");
