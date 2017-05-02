@@ -30,7 +30,7 @@ public class ArteJsonObjectToDatenFilmCallable implements Callable<DatenFilm>
     private static final String JSON_ELEMENT_KEY_SUBTITLE = "subtitle";
     private static final String JSON_ELEMENT_KEY_URL = "url";
     private static final String JSON_ELEMENT_KEY_PROGRAM_ID = "programId";
-    private static final String ARTE_VIDEO_INFORMATION_URL_PATTERN = "https://api.arte.tv/api/player/v1/config/%s/%s";
+    private static final String ARTE_VIDEO_INFORMATION_URL_PATTERN = "https://api.arte.tv/api/player/v1/config/%s/%s?platform=ARTE_NEXT";
     private static final String JSON_ELEMENT_KEY_SHORT_DESCRIPTION = "shortDescription";
     private static final String JSON_ELEMENT_BROADCAST = "broadcastBeginRounded";
     
