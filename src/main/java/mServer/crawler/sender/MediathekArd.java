@@ -365,6 +365,9 @@ public class MediathekArd extends MediathekReader {
                     }
                 }
                 for (String s : liste) {
+                    if(s.startsWith("//")) {
+                        s = "http:" + s;
+                    }                    
                     if (s.startsWith("http")) {
                         urlHD = s;
                         break;
@@ -375,6 +378,9 @@ public class MediathekArd extends MediathekReader {
 				seite2.extractList("\"_quality\":2", "\"_stream\":\"", "\"", liste);
 				seite2.extractList("\"_quality\":2", "\"_stream\":[\"", "\"", liste);
 				for (String s : liste) {
+                    if(s.startsWith("//")) {
+                        s = "http:" + s;
+                    }                    
 					if (s.startsWith("http")) {
 						if (url.isEmpty()) {
 							url = s;
@@ -388,6 +394,9 @@ public class MediathekArd extends MediathekReader {
 				seite2.extractList("\"_quality\":1", "\"_stream\":\"", "\"", liste);
 				seite2.extractList("\"_quality\":1", "\"_stream\":[\"", "\"", liste);
 				for (String s : liste) {
+                    if(s.startsWith("//")) {
+                        s = "http:" + s;
+                    }                    
 					if (s.startsWith("http")) {
 						urlKl = s;
 						break;
