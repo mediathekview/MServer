@@ -19,19 +19,14 @@
  */
 package mServer.crawler.sender;
 
-import java.io.IOException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.Optional;
-
 import de.mediathekview.mlib.Const;
 import de.mediathekview.mlib.daten.DatenFilm;
 import de.mediathekview.mlib.tool.GermanStringSorter;
 import de.mediathekview.mlib.tool.Log;
 import de.mediathekview.mlib.tool.MVHttpClient;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.*;
 import mServer.crawler.CrawlerTool;
 import mServer.crawler.FilmeSuchen;
 import mServer.crawler.RunSender;
@@ -238,6 +233,8 @@ public abstract class MediathekReader extends Thread {
     private void processArd(DatenFilm film) {
         if (film.arr[DatenFilm.FILM_URL].startsWith("http://mvideos-geo.daserste.de/") ||
                 film.arr[DatenFilm.FILM_URL].startsWith("http://media.ndr.de/progressive_geo/") ||
+                film.arr[DatenFilm.FILM_URL].startsWith("http://mediandr-a.akamaihd.net//progressive_geo/") ||
+                film.arr[DatenFilm.FILM_URL].startsWith("https://pdodswr-a.akamaihd.net/swr/geo/de/") ||
                 film.arr[DatenFilm.FILM_URL].startsWith("http://mediandr-a.akamaihd.net/progressive_geo") ||
                 film.arr[DatenFilm.FILM_URL].startsWith("http://cdn-storage.br.de/geo/") ||
                 film.arr[DatenFilm.FILM_URL].startsWith("http://cdn-sotschi.br.de/geo/b7/") ||
@@ -245,6 +242,7 @@ public abstract class MediathekReader extends Thread {
                 film.arr[DatenFilm.FILM_URL].startsWith("http://ondemandgeo.mdr.de/") ||
                 film.arr[DatenFilm.FILM_URL].startsWith("http://ondemand-de.wdr.de/") ||
                 film.arr[DatenFilm.FILM_URL].startsWith("http://wdr_fs_geo-lh.akamaihd.net") ||
+                film.arr[DatenFilm.FILM_URL].startsWith("http://adaptiv.wdr.de/i/medp/de/") ||
                 film.arr[DatenFilm.FILM_URL].startsWith("http://pd-videos.daserste.de/de/")) {
             film.arr[DatenFilm.FILM_GEO] = DatenFilm.GEO_DE;
         }
