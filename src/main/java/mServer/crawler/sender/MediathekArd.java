@@ -51,6 +51,7 @@ public class MediathekArd extends MediathekReader {
 	private static final String M3U8_PATTERN_END = "\"";
 	private static final String TEXT_START_HTTP = "http";
 	private static final String URL_GET_PARAMETER = "\\?.*";
+        
     private MSStringBuilder seiteFeed = new MSStringBuilder(Const.STRING_BUFFER_START_BUFFER);
     
     public MediathekArd(FilmeSuchen ssearch, int startPrio) {
@@ -365,43 +366,37 @@ public class MediathekArd extends MediathekReader {
                     }
                 }
                 for (String s : liste) {
-                    if(s.startsWith("//")) {
-                        s = "http:" + s;
-                    }                    
-                    if (s.startsWith("http")) {
+                    s = addMissingHttpPrefixIfNecessary(s);           
+                    if (s.startsWith(TEXT_START_HTTP)) {
                         urlHD = s;
                         break;
                     }
                 }
                 liste.clear();
-
-				seite2.extractList("\"_quality\":2", "\"_stream\":\"", "\"", liste);
-				seite2.extractList("\"_quality\":2", "\"_stream\":[\"", "\"", liste);
-				for (String s : liste) {
-                    if(s.startsWith("//")) {
-                        s = "http:" + s;
-                    }                    
-					if (s.startsWith("http")) {
-						if (url.isEmpty()) {
-							url = s;
-						} else {
-							urlMid = s;
-						}
-						break;
-					}
-				}
-				liste.clear();
-				seite2.extractList("\"_quality\":1", "\"_stream\":\"", "\"", liste);
-				seite2.extractList("\"_quality\":1", "\"_stream\":[\"", "\"", liste);
-				for (String s : liste) {
-                    if(s.startsWith("//")) {
-                        s = "http:" + s;
-                    }                    
-					if (s.startsWith("http")) {
-						urlKl = s;
-						break;
-					}
-				}
+                
+                seite2.extractList("\"_quality\":2", "\"_stream\":\"", "\"", liste);
+                seite2.extractList("\"_quality\":2", "\"_stream\":[\"", "\"", liste);
+                for (String s : liste) {
+                    s = addMissingHttpPrefixIfNecessary(s);           
+                    if (s.startsWith(TEXT_START_HTTP)) {
+                        if (url.isEmpty()) {
+                            url = s;
+                        } else {
+                            urlMid = s;
+                        }
+                        break;
+                    }
+                }
+                liste.clear();
+                seite2.extractList("\"_quality\":1", "\"_stream\":\"", "\"", liste);
+                seite2.extractList("\"_quality\":1", "\"_stream\":[\"", "\"", liste);
+                for (String s : liste) {
+                    s = addMissingHttpPrefixIfNecessary(s);           
+                    if (s.startsWith(TEXT_START_HTTP)) {
+                        urlKl = s;
+                        break;
+                    }
+                }
 
 				// No Url found? Try M3U8 / HLS:
 				if (isAllTextsEmpty(url, urlHD, urlMid, urlKl)) {
@@ -476,6 +471,14 @@ public class MediathekArd extends MediathekReader {
 			}
 		}
 
+        private String addMissingHttpPrefixIfNecessary(String aUrl) {
+            if(aUrl.startsWith("//")) {
+                aUrl = TEXT_START_HTTP + ":" + aUrl;
+            }
+            
+            return aUrl;
+        }
+        
         private String getUrl(MSStringBuilder seite) {
             String ret = "";
             seite.extractList("\"_quality\":2,\"_stream\":[", "]", liste);
@@ -485,7 +488,7 @@ public class MediathekArd extends MediathekReader {
 				if (s.contains(",")) {
 					String[] ar = s.split(",");
 					for (String ss : ar) {
-						if (ss.startsWith("http")) {
+						if (ss.startsWith(TEXT_START_HTTP)) {
 							ret = ss;
 						}
 					}
