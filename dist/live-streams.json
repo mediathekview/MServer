@@ -18,7 +18,7 @@
   "X" : [ "ORF", "Livestream", "ORF-2 Livestream", "", "", "", "", "", "http://apasfiisl.apa.at/ipad/orf2ad_q4a/orf.sdp/playlist.m3u8", "http://tvthek.orf.at/live", "", "", "", "", "", "", "", "", "", "" ],
   "X" : [ "ORF", "Livestream", "ORF-3 Livestream", "", "", "", "", "", "http://apasfiisl.apa.at/ipad/orf3_q4a/orf.sdp/playlist.m3u8", "http://tvthek.orf.at/live", "", "", "", "", "", "", "", "", "", "" ],
   "X" : [ "ORF", "Livestream", "ORF-Sport Livestream", "", "", "", "", "", "http://apasfiisl.apa.at/ipad/orfs_q4a/orf.sdp/playlist.m3u8", "http://tvthek.orf.at/live", "", "", "", "", "", "", "", "", "", "" ],
-  "X" : [ "RBB", "Livestream", "RBB Livestream", "", "", "", "", "", "http://rbb_live-lh.akamaihd.net/i/rbb_brandenburg@107638/master.m3u8", "http://www.ardmediathek.de/tv/live?kanal=Alle", "", "", "", "", "", "", "", "", "", "" ],
+  "X" : [ "RBB", "Livestream", "RBB Livestream", "", "", "", "", "", "http://rbblive-lh.akamaihd.net/i/rbb_brandenburg@349369/master.m3u8", "http://www.ardmediathek.de/tv/live?kanal=Alle", "", "", "", "", "", "", "", "", "", "" ],
   "X" : [ "SR", "Livestream", "SR Livestream", "", "", "", "", "", "http://live2_sr-lh.akamaihd.net/i/sr_universal02@107595/master.m3u8", "http://www.ardmediathek.de/tv/live?kanal=Alle", "", "", "", "", "", "", "", "", "", "" ],
   "X" : [ "SWR", "Livestream", "SWR Livestream", "", "", "", "", "", "http://swrbw-lh.akamaihd.net/i/swrbw_live@196738/master.m3u8", "http://www.ardmediathek.de/tv/live?kanal=Alle", "", "", "", "", "", "", "", "", "", "" ],
   "X" : [ "WDR", "Livestream", "WDR Livestream", "", "", "", "", "", "http://wdr_fs_geo-lh.akamaihd.net/i/wdrfs_geogeblockt@112044/master.m3u8", "http://www.ardmediathek.de/tv/live?kanal=Alle", "", "", "", "", "", "", "", "", "", "" ],

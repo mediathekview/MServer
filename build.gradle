@@ -15,7 +15,7 @@ apply from: "${project.rootDir}/gradle/eclipse.gradle"
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
 group = 'de.mediathekview'
-version = '2.7.7'
+version = '3.0.9'
 
 def jarName = 'MServer.jar'
 def mainClass = 'mServer.Main'
@@ -45,25 +45,25 @@ sourceSets {
         java {
             compileClasspath += main.output + test.output
             runtimeClasspath += main.output + test.output
-            srcDir file('src/developTest/java')
+            srcDir file('src/test/developTest/java')
         }
-        resources.srcDir file('src/developTest/resources')
+        resources.srcDir file('src/test/developTest/resources')
     }
     integrationTest {
         java {
             compileClasspath += main.output + test.output
             runtimeClasspath += main.output + test.output
-            srcDir file('src/integrationTest/java')
+            srcDir file('src/test/integrationTest/java')
         }
-        resources.srcDir file('src/integrationTest/resources')
+        resources.srcDir file('src/test/integrationTest/resources')
     }
     performanceTest {
         java {
             compileClasspath += main.output + test.output
             runtimeClasspath += main.output + test.output
-            srcDir file('src/performanceTest/java')
+            srcDir file('src/test/performanceTest/java')
         }
-        resources.srcDir file('src/performanceTest/resources')
+        resources.srcDir file('src/test/performanceTest/resources')
     }
 }
 
@@ -115,7 +115,7 @@ tasks.withType(Test) {
 }
 
 dependencies {
-    compile 'de.mediathekview:MLib:3.0.0'
+    compile 'de.mediathekview:MLib:3.0.1'
     compile 'commons-net:commons-net:3.5'
     compile 'org.apache.commons:commons-compress:1.12'
     compile 'org.apache.commons:commons-lang3:3.5'

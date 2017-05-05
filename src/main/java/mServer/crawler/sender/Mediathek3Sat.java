@@ -53,7 +53,7 @@ public class Mediathek3Sat extends MediathekReader {
     }
 
     @Override
-    void addToList() {
+   protected void addToList() {
         listeThemen.clear();
         meldungStart();
         sendungenLaden();
@@ -86,7 +86,7 @@ public class Mediathek3Sat extends MediathekReader {
     private void sendungenLaden() {
         // ><a class="SubItem" href="?red=kulturzeit">Kulturzeit</a>
         final String ADRESSE = "http://www.3sat.de/mediathek/";
-        final String MUSTER_URL = "<a class=\"SubItem\" href=\"http://www.3sat.de/mediathek/?red=";
+        final String MUSTER_URL = "<a class=\"SubItem\" href=\"//www.3sat.de/mediathek/?red=";
 
         MSStringBuilder seite = new MSStringBuilder(Const.STRING_BUFFER_START_BUFFER);
         final GetUrl getUrlIo = new GetUrl(getWartenSeiteLaden());
@@ -342,7 +342,7 @@ public class Mediathek3Sat extends MediathekReader {
                     // ID
                     // http://www.3sat.de/mediathek/?mode=play&obj=40860
                     // href="http://www.3sat.de/mediathek/?mode=play&amp;obj=54458"
-                    urlId = seite1.extract("href=\"http://www.3sat.de/mediathek/?mode=play&amp;obj=", "\"", pos1);
+                    urlId = seite1.extract("href=\"//www.3sat.de/mediathek/?mode=play&amp;obj=", "\"", pos1);
                     if (urlId.isEmpty()) {
                         //href="?obj=24138"
                         urlId = seite1.extract("href=\"?obj=", "\"", pos1);

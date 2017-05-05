@@ -120,7 +120,22 @@ public class AddToFilmlistTest {
         target.addOldList();
         
         assertThat(list.size(), equalTo(2));
+    }    
+        
+    // Test with list of 100000 different old entries which are online
+    // to ensure the multithreaded onilne check is correct
+    @Test
+    public void testAddHugeFilmList() {
+        for(int i = 0; i < 100000; i++)  {
+            listToAdd.add(createTestFilm(Const.ZDF, "topic " + i, "title " + i, FILM_NAME_ONLINE));
+        }
+
+        AddToFilmlist target = new AddToFilmlist(list, listToAdd);
+        target.addOldList();
+        
+        assertThat(list.size(), equalTo(100002));
     }
+    
     
     private static DatenFilm createTestFilm(String sender, String topic, String title, String filmUrl) {
         DatenFilm film = new DatenFilm(sender, topic, "url", title, baseUrl + filmUrl, "", "", "", 12, "");

@@ -18,6 +18,8 @@ import de.mediathekview.mlib.daten.ListeFilme;
 import de.mediathekview.mlib.tool.Hash;
 import de.mediathekview.mlib.tool.Log;
 import de.mediathekview.mlib.tool.MVHttpClient;
+import java.util.Collections;
+import java.util.List;
 import mServer.tool.MserverDaten;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -104,8 +106,10 @@ public class AddToFilmlist {
 
     private void startThreads() {
         final OkHttpClient client = MVHttpClient.getInstance().getReducedTimeOutClient();
+        
+        List syncList = Collections.synchronizedList(listeEinsortieren);
         for (int i = 0; i < NUMBER_OF_THREADS; ++i) {
-            ImportOldFilmlistThread t = new ImportOldFilmlistThread(listeEinsortieren, client);
+            ImportOldFilmlistThread t = new ImportOldFilmlistThread(syncList, client);
             t.setName("ImportOldFilmlistThread Thread-" + i);
             threadList.add(t);
             t.start();
@@ -197,12 +201,12 @@ public class AddToFilmlist {
 
     private class ImportOldFilmlistThread extends Thread {
 
-        private final ListeFilme listeOld;
+        private final List<DatenFilm> listeOld;
         private final ArrayList<DatenFilm> localAddList = new ArrayList<>((vonListe.size() / NUMBER_OF_THREADS) + 500);
         private int treffer = 0;
         private OkHttpClient client = null;
 
-        public ImportOldFilmlistThread(ListeFilme listeOld, OkHttpClient client) {
+        public ImportOldFilmlistThread(List<DatenFilm> listeOld, OkHttpClient client) {
             this.listeOld = listeOld;
             threadCounter.incrementAndGet();
             this.client = client;
@@ -223,7 +227,7 @@ public class AddToFilmlist {
             localAddList.add(film);
         }
 
-        private synchronized DatenFilm popOld(ListeFilme listeOld) {
+        private synchronized DatenFilm popOld(List<DatenFilm> listeOld) {
             if (!listeOld.isEmpty()) {
                 return listeOld.remove(0);
             } else

@@ -24,11 +24,13 @@ package mServer.crawler.sender;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 
+
 import de.mediathekview.mlib.Config;
 import de.mediathekview.mlib.Const;
 import de.mediathekview.mlib.daten.DatenFilm;
 import de.mediathekview.mlib.tool.Log;
 import de.mediathekview.mlib.tool.MSStringBuilder;
+
 import mServer.crawler.CrawlerTool;
 import mServer.crawler.FilmeSuchen;
 import mServer.crawler.GetUrl;
@@ -43,7 +45,7 @@ public class MediathekRbb extends MediathekReader {
     }
 
     @Override
-    void addToList() {
+    protected void addToList() {
         MSStringBuilder seite = new MSStringBuilder(Const.STRING_BUFFER_START_BUFFER);
         // <a href="/tv/kurz-vor-5/Sendung?documentId=16272574&amp;bcastId=16272574" class="textLink">
         ArrayList<String> liste = new ArrayList<>();
@@ -124,7 +126,7 @@ public class MediathekRbb extends MediathekReader {
             final String URL = "<a href=\"/tv/";
             String urlTage;
             for (int i = 0; i <= 6; ++i) {
-                urlTage = "http://mediathek.rbb-online.de/tv/sendungVerpasst?topRessort=tv&kanal=5874&tag=" + i;
+                urlTage = "http://mediathek.rbb-online.de/tv/sendungVerpasst?topRessort=tv&tag=" + i;
                 meldungProgress(urlTage);
                 GetUrl getUrlIo = new GetUrl(getWartenSeiteLaden());
                 seite1 = getUrlIo.getUri_Utf(SENDERNAME, urlTage, seite1, "");
@@ -133,6 +135,7 @@ public class MediathekRbb extends MediathekReader {
                     pos1 += MUSTER_URL.length();
                     String urlSeite = seite1.extract(URL, "\"", pos1);
                     if (!urlSeite.isEmpty()) {
+                        urlSeite = urlSeite.replaceAll("&amp;", "&");
                         urlSeite = "http://mediathek.rbb-online.de/tv/" + urlSeite;
                         addFilme(urlSeite);
                     } else {
@@ -154,6 +157,7 @@ public class MediathekRbb extends MediathekReader {
                     pos1 += MUSTER_URL.length();
                     String urlSeite = seite1.extract(URL, "\"", pos1);
                     if (!urlSeite.isEmpty()) {
+                        urlSeite = urlSeite.replaceAll("&amp;", "&");
                         urlSeite = "http://mediathek.rbb-online.de/tv/" + urlSeite;
                         addFilme(urlSeite);
                     } else {
@@ -208,16 +212,23 @@ public class MediathekRbb extends MediathekReader {
                     }
                 }
 
-                String urlFilm = urlSeite.substring(urlSeite.indexOf("documentId=") + "documentId=".length(), urlSeite.indexOf('&'));
+
+                String urlFilm = urlSeite.substring(urlSeite.indexOf("documentId=") + "documentId=".length());
                 // http://mediathek.rbb-online.de/play/media/24938774?devicetype=pc&features=hls
                 urlFilm = "http://mediathek.rbb-online.de/play/media/" + urlFilm + "?devicetype=pc&features=hls";
                 seite3 = getUrlIo.getUri_Utf(SENDERNAME, urlFilm, seite3, "");
-                String urlNormal, urlLow;
+                String urlNormal = "", urlLow = "";
+
+
                 urlLow = seite3.extract("\"_quality\":1,\"_server\":\"\",\"_cdn\":\"akamai\",\"_stream\":\"http://", "\"");
                 if (urlLow.isEmpty()) {
                     urlLow = seite3.extract("\"_quality\":1,\"_server\":\"\",\"_cdn\":\"default\",\"_stream\":\"http://", "\"");
                 }
-                urlNormal = seite3.extract("\"_quality\":3,\"_server\":\"\",\"_cdn\":\"akamai\",\"_stream\":\"http://", "\"");
+
+                urlNormal = seite3.extract("\"_quality\":3,\"_server\":\"\",\"_cdn\":\"akamai\",", "\"_stream\":\"http://", "\"");
+                if (urlNormal.isEmpty()) {
+                    urlNormal = seite3.extract("\"_quality\":3,\"_server\":\"\",\"_cdn\":\"default\"", "\"_stream\":\"http://", "\"");
+                }
                 if (urlNormal.isEmpty()) {
                     urlNormal = seite3.extract("\"_quality\":3,\"_server\":\"\",\"_cdn\":\"default\",\"_stream\":\"http://", "\"");
                 }
