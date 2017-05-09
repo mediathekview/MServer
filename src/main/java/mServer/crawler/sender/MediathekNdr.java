@@ -268,15 +268,10 @@ public class MediathekNdr extends MediathekReader implements Runnable {
                             Log.errorLog(795623017, "convertDatum: " + strUrlFeed);
                         }
                     } else {
-                        tmp = seite1.extract("<div class=\"subline\">", "<", pos);
-                        tmp = tmp.replace("Uhr", "").trim();
-                        try {
-                            Date filmDate = FastDateFormat.getInstance("dd.MM.yyyy HH:mm").parse(tmp);
-                            datum = FastDateFormat.getInstance("dd.MM.yyyy").format(filmDate);
-                            zeit = FastDateFormat.getInstance("HH:mm:ss").format(filmDate);
-                        } catch (Exception ex) {
-                            Log.errorLog(623657941, "convertDatum: " + strUrlFeed);
-                        }
+                        tmp = seite1.extract("<div class=\"subline date\">", "<", pos);
+                        String[] dateValues = parseDateTime(tmp, strUrlFeed);
+                        datum = dateValues[0];
+                        zeit = dateValues[1];
                     }
                     if (tage) {
                         //<span class="icon icon_video" aria-label="L&auml;nge"></span>29:59</div>
@@ -292,6 +287,24 @@ public class MediathekNdr extends MediathekReader implements Runnable {
             } catch (Exception ex) {
                 Log.errorLog(693219870, strUrlFeed);
             }
+        }
+        
+            String[] dateValues = new String[2];
+            dateValues[0] = "";
+            dateValues[1] = "";
+            
+            
+            if (!dateTime.isEmpty()) {
+                try {
+                    Date filmDate = FastDateFormat.getInstance("dd.MM.yyyy HH:mm").parse(dateTime);
+                    dateValues[0] = FastDateFormat.getInstance("dd.MM.yyyy").format(filmDate);
+                    dateValues[1] = FastDateFormat.getInstance("HH:mm:ss").format(filmDate);
+                } catch (Exception ex) {
+                    Log.errorLog(623657941, "convertDatum: " + strUrlFeed);
+                }
+            }
+
+            return dateValues;
         }
 
         private void filmSuchen_1(String strUrlThema, String thema, String titel, String filmWebsite, String datum, String zeit,
@@ -322,6 +335,16 @@ public class MediathekNdr extends MediathekReader implements Runnable {
                 // src="/fernsehen/hallondsopplatt162-player_image-2c09ece0-0508-49bf-b4d6-afff2be2115c_theme-ndrde.html"
                 // http://www.ndr.de/fernsehen/hallondsopplatt162-ppjson_image-2c09ece0-0508-49bf-b4d6-afff2be2115c.json
                 // id="pp_hallondsopplatt162"
+                if (datum.isEmpty()) {
+                    String tmp = seite2.extract("<span itemprop=\"datePublished\"", "</");
+                    if ((pos1 = tmp.indexOf(">")) != -1) {
+                        tmp = tmp.substring(pos1 + 1, tmp.length());
+                        String[] dateValues = parseDateTime(tmp, strUrlThema);
+                        datum = dateValues[0];
+                        zeit = dateValues[1];
+                    }
+                }
+                
                 String json = seite2.extract("-player_image-", "_");
                 String pp = seite2.extract("id=\"pp_", "\"");
                 if (!json.isEmpty() && !pp.isEmpty()) {
