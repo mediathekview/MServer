@@ -289,10 +289,12 @@ public class MediathekNdr extends MediathekReader implements Runnable {
             }
         }
         
+        private String[] parseDateTime(String dateTimeValue, String strUrlFeed) {
             String[] dateValues = new String[2];
             dateValues[0] = "";
             dateValues[1] = "";
             
+            String dateTime = dateTimeValue.replace("Uhr", "").trim();
             
             if (!dateTime.isEmpty()) {
                 try {
