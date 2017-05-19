@@ -34,6 +34,8 @@ import mServer.tool.MserverDaten;
 public class MediathekDw extends MediathekReader implements Runnable {
 
     public final static String SENDERNAME = Const.DW;
+    private final static String HTTP = "http";
+    private final static String ADDURL = "http://tv-download.dw.de/dwtv_video/flv/";
 
     public MediathekDw(FilmeSuchen ssearch, int startPrio) {
         super(ssearch, SENDERNAME, /* threads */ 4, /* urlWarten */ 200, startPrio);
@@ -153,25 +155,24 @@ public class MediathekDw extends MediathekReader implements Runnable {
 
         private void laden2(String urlThema, String thema, String titel, String urlSendung) {
             String url = "", urlLow = "", urlHd = "";
-            final String ADDURL = "http://tv-download.dw.de/dwtv_video/flv/";
             meldung(urlThema);
             GetUrl getUrlIo = new GetUrl(getWartenSeiteLaden());
             seite2 = getUrlIo.getUri_Utf(SENDERNAME, urlSendung, seite2, "");
 
             seite2.extractList("%22file%22%3A%22", "%22%7D", listUrl);
+            if (listUrl.isEmpty()) {
+               seite2.extractList("name=\"file_name\" value=\"", "\"", listUrl); 
+            }
             for (String u : listUrl) {
                 u = u.replace("%2F", "/");
                 if (urlLow.isEmpty() && u.endsWith("vp6.flv")) {
-                    urlLow = u;
-                    urlLow = ADDURL + urlLow;
+                    urlLow = AddUrlPrefixIfNecessary(u);
                 }
                 if (url.isEmpty() && u.endsWith("sor.mp4")) {
-                    url = u;
-                    url = ADDURL + url;
+                    url = AddUrlPrefixIfNecessary(u);
                 }
                 if (urlHd.isEmpty() && u.endsWith("avc.mp4")) {
-                    urlHd = u;
-                    urlHd = ADDURL + urlHd;
+                    urlHd = AddUrlPrefixIfNecessary(u);
                 }
             }
             listUrl.clear();
@@ -220,7 +221,13 @@ public class MediathekDw extends MediathekReader implements Runnable {
                 addFilm(film);
             }
 
-        }
-
+        }        
     }
+    
+    private static String AddUrlPrefixIfNecessary(String url) {
+        if (!url.startsWith(HTTP)) {
+            url = ADDURL + url;
+        }            
+        return url;
+    }    
 }
