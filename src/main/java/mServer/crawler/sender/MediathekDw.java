@@ -177,7 +177,7 @@ public class MediathekDw extends MediathekReader implements Runnable {
             listUrl.clear();
 
             String description = seite2.extract("<meta name=\"description\" content=\"", "\"");
-            String datum = seite2.extract("| DW.COM | ", "\"");
+            String datum = seite2.extract("<strong>Datum</strong>", "</li>").trim();
             String dur = seite2.extract("<strong>Dauer</strong>", "Min.").trim();
             dur = dur.replace("\n", "");
             dur = dur.replace("\r", "");
