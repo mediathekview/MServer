@@ -166,13 +166,13 @@ public class MediathekDw extends MediathekReader implements Runnable {
             for (String u : listUrl) {
                 u = u.replace("%2F", "/");
                 if (urlLow.isEmpty() && u.endsWith("vp6.flv")) {
-                    urlLow = AddUrlPrefixIfNecessary(u);
+                    urlLow = addUrlPrefixIfNecessary(u);
                 }
                 if (url.isEmpty() && u.endsWith("sor.mp4")) {
-                    url = AddUrlPrefixIfNecessary(u);
+                    url = addUrlPrefixIfNecessary(u);
                 }
                 if (urlHd.isEmpty() && u.endsWith("avc.mp4")) {
-                    urlHd = AddUrlPrefixIfNecessary(u);
+                    urlHd = addUrlPrefixIfNecessary(u);
                 }
             }
             listUrl.clear();
@@ -224,7 +224,7 @@ public class MediathekDw extends MediathekReader implements Runnable {
         }        
     }
     
-    private static String AddUrlPrefixIfNecessary(String url) {
+    private static String addUrlPrefixIfNecessary(String url) {
         if (!url.startsWith(HTTP)) {
             url = ADDURL + url;
         }            
