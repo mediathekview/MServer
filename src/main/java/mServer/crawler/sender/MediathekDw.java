@@ -34,8 +34,8 @@ import mServer.tool.MserverDaten;
 public class MediathekDw extends MediathekReader implements Runnable {
 
     public final static String SENDERNAME = Const.DW;
-    private final static String HTTP = "http";
     private final static String ADDURL = "http://tv-download.dw.de/dwtv_video/flv/";
+    private final static String HTTP = "http";
 
     public MediathekDw(FilmeSuchen ssearch, int startPrio) {
         super(ssearch, SENDERNAME, /* threads */ 4, /* urlWarten */ 200, startPrio);
@@ -222,12 +222,12 @@ public class MediathekDw extends MediathekReader implements Runnable {
             }
 
         }        
-    }
-    
-    private static String addUrlPrefixIfNecessary(String url) {
-        if (!url.startsWith(HTTP)) {
-            url = ADDURL + url;
-        }            
-        return url;
-    }    
+        
+        private String addUrlPrefixIfNecessary(String url) {
+            if (!url.startsWith(HTTP)) {
+                return ADDURL + url;
+            }            
+            return url;
+        }    
+    }   
 }
