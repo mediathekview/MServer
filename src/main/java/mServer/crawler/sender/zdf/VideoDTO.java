@@ -1,4 +1,4 @@
-package mServer.crawler.sender.newsearch;
+package mServer.crawler.sender.zdf;
 
 /**
  * A  Data-Transfer-Object which contains all needed information for MediathekView.
