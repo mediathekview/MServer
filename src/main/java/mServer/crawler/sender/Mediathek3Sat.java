@@ -19,21 +19,26 @@
  */
 package mServer.crawler.sender;
 
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import de.mediathekview.mlib.Config;
 import de.mediathekview.mlib.Const;
 import de.mediathekview.mlib.daten.DatenFilm;
+import de.mediathekview.mlib.daten.Film;
+import de.mediathekview.mlib.daten.Sender;
 import de.mediathekview.mlib.tool.Log;
 import de.mediathekview.mlib.tool.MSStringBuilder;
+import mServer.crawler.CantCreateFilmException;
 import mServer.crawler.CrawlerTool;
 import mServer.crawler.FilmeSuchen;
 import mServer.crawler.GetUrl;
 
 public class Mediathek3Sat extends MediathekReader {
 
-    public final static String SENDERNAME = Const.DREISAT;
+    public final static Sender SENDER = Sender.DREISAT;
     private final static String[] QU_WIDTH_HD = {"1280"};
     private final static String[] QU_WIDTH = {"1024", "852", "720", "688", "480", "432", "320"};
     private final static String[] QU_WIDTH_KL = {"688", "480", "432", "320"};
@@ -49,7 +54,7 @@ public class Mediathek3Sat extends MediathekReader {
     private static final String WIDTH = "<width>";
 
     public Mediathek3Sat(FilmeSuchen ssearch, int startPrio) {
-        super(ssearch, SENDERNAME, /* threads */ 2, /* urlWarten */ 200, startPrio);
+        super(ssearch, SENDER.getName(), /* threads */ 2, /* urlWarten */ 200, startPrio);
     }
 
     @Override
@@ -67,7 +72,7 @@ public class Mediathek3Sat extends MediathekReader {
             meldungAddMax(listeThemen.size());
             for (int t = 0; t < getMaxThreadLaufen(); ++t) {
                 Thread th = new ThemaLaden();
-                th.setName(SENDERNAME + t);
+                th.setName(SENDER.getName() + t);
                 th.start();
             }
         }
@@ -90,7 +95,7 @@ public class Mediathek3Sat extends MediathekReader {
 
         MSStringBuilder seite = new MSStringBuilder(Const.STRING_BUFFER_START_BUFFER);
         final GetUrl getUrlIo = new GetUrl(getWartenSeiteLaden());
-        seite = getUrlIo.getUri_Utf(SENDERNAME, ADRESSE, seite, "");
+        seite = getUrlIo.getUri_Utf(SENDER.getName(), ADRESSE, seite, "");
         int pos1 = 0;
         int pos2;
         String url = "", thema = "";
@@ -161,7 +166,8 @@ public class Mediathek3Sat extends MediathekReader {
         return subtitle;
     }
 
-    private DatenFilm filmHolenId(MSStringBuilder strBuffer, String sender, String thema, String titel, String filmWebsite, String urlId) {
+    private Film filmHolenId(MSStringBuilder strBuffer, Sender sender, String thema, String titel, String filmWebsite, String urlId) throws CantCreateFilmException
+    {
         //<teaserimage alt="Harald Lesch im Studio von Abenteuer Forschung" key="298x168">http://www.zdf.de/ZDFmediathek/contentblob/1909108/timg298x168blob/8081564</teaserimage>
         //<detail>Möchten Sie wissen, was Sie in der nächsten Sendung von Abenteuer Forschung erwartet? Harald Lesch informiert Sie.</detail>
         //<length>00:00:34.000</length>
@@ -171,7 +177,7 @@ public class Mediathek3Sat extends MediathekReader {
         String zeit = "";
 
         final GetUrl getUrl = new GetUrl(getWartenSeiteLaden());
-        strBuffer = getUrl.getUri_Utf(sender, urlId, strBuffer, "URL-Filmwebsite: " + filmWebsite);
+        strBuffer = getUrl.getUri_Utf(sender.getName(), urlId, strBuffer, "URL-Filmwebsite: " + filmWebsite);
         if (strBuffer.length() == 0) {
             Log.errorLog(398745601, "url: " + urlId);
             return null;
@@ -218,18 +224,31 @@ public class Mediathek3Sat extends MediathekReader {
         //{
         //            MSLog.fehlerMeldung(310254698, "keine URL: " + filmWebsite);
         //}
+        try{
         if (url.isEmpty()) {
             Log.errorLog(397002891, "keine URL: " + filmWebsite);
             return null;
         } else {
-            DatenFilm film = new DatenFilm(sender, thema, filmWebsite, titel, url, "" /*urlRtmp*/, datum, zeit,
-                    laengeL, beschreibung);
+
+            Film film = CrawlerTool.createFilm(sender,
+                    url,
+                    titel,
+                    thema,
+                    datum,
+                    "",
+                    laengeL,
+                    filmWebsite,
+                    beschreibung,
+                    urlHd,
+                    urlKlein);
             if (!subtitle.isEmpty()) {
-                CrawlerTool.addUrlSubtitle(film, subtitle);
+                film.addSubtitle(new URI(subtitle));
             }
-            CrawlerTool.addUrlKlein(film, urlKlein, "");
-            CrawlerTool.addUrlHd(film, urlHd, "");
             return film;
+        }
+        }catch (URISyntaxException uriSyntaxEception)
+        {
+            throw new CantCreateFilmException(uriSyntaxEception);
         }
     }
 
@@ -326,7 +345,7 @@ public class Mediathek3Sat extends MediathekReader {
                 }
                 meldung(url);
                 final GetUrl getUrlIo = new GetUrl(getWartenSeiteLaden());
-                seite1 = getUrlIo.getUri_Utf(SENDERNAME, url, seite1, "");
+                seite1 = getUrlIo.getUri_Utf(SENDER.getName(), url, seite1, "");
                 if (seite1.indexOf(MUSTER_START) == -1) {
                     // dann gibts keine weiteren
                     break;
@@ -352,7 +371,14 @@ public class Mediathek3Sat extends MediathekReader {
                         //http://www.3sat.de/mediathek/xmlservice/web/beitragsDetails?ak=web&id=40860
                         urlId = "http://www.3sat.de/mediathek/xmlservice/web/beitragsDetails?ak=web&id=" + urlId;
                         //meldung(id);
-                        DatenFilm film = filmHolenId(seite2, SENDERNAME, thema, titel, urlFilm, urlId);
+                        Film film = null;
+                        try
+                        {
+                            film = filmHolenId(seite2, SENDER, thema, titel, urlFilm, urlId);
+                        } catch (CantCreateFilmException e)
+                        {
+                            e.printStackTrace();
+                        }
                         if (film != null) {
                             // dann wars gut
                             // jetzt noch manuell die Auflösung hochsetzen

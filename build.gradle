@@ -116,7 +116,7 @@ tasks.withType(Test) {
 }
 
 dependencies {
-    compile 'de.mediathekview:MLib:3.0.1'
+    compile 'de.mediathekview:MLib:3.0.2-SNAPSHOT'
     compile 'commons-net:commons-net:3.5'
     compile 'org.apache.commons:commons-compress:1.12'
     compile 'org.apache.commons:commons-lang3:3.5'
@@ -126,8 +126,8 @@ dependencies {
     compile 'com.squareup.okhttp3:okhttp:3.6.0'
 
 
-    compile group: 'org.apache.logging.log4j', name: 'log4j-core', version: '2.7'
-    compile group: 'fm.void.jetm', name: 'jetm', version: '1.2.3'
+    compile 'org.apache.logging.log4j:log4j-core:2.7'
+    compile 'fm.void.jetm:jetm:1.2.3'
 
     testCompile "junit:junit:4.12"
     testCompile "org.mockito:mockito-core:2.+"
