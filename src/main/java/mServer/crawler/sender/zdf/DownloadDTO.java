@@ -1,4 +1,7 @@
-package mServer.crawler.sender.newsearch;
+package mServer.crawler.sender.zdf;
+
+import de.mediathekview.mlib.daten.GeoLocations;
+import de.mediathekview.mlib.daten.Qualities;
 
 import java.util.HashMap;
 
@@ -47,5 +50,10 @@ public class DownloadDTO {
     
     public void setSubTitleUrl(String aUrl) {
         subTitleUrl = aUrl;
+    }
+
+    public boolean hasUrl(final Qualities aQuality)
+    {
+        return  downloadUrls.containsKey(aQuality);
     }
 }

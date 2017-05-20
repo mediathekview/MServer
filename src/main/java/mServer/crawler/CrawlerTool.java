@@ -11,6 +11,7 @@ import de.mediathekview.mlib.daten.*;
 import de.mediathekview.mlib.tool.Functions;
 import de.mediathekview.mlib.tool.Log;
 import de.mediathekview.mlib.tool.MVHttpClient;
+import mServer.crawler.sender.MediathekReader;
 import mServer.tool.MserverDatumZeit;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -331,6 +332,7 @@ public class CrawlerTool
                 Duration.of(aDurationInSecunds, ChronoUnit.SECONDS),
                 new URI(aUrlWebseite));
 
+        film.addUrl(Qualities.NORMAL,stringToFilmUrl(aUrlNormal));
         if (StringUtils.isNotBlank(aBeschreibung))
         {
             film.setBeschreibung(aBeschreibung);
@@ -344,5 +346,84 @@ public class CrawlerTool
             film.addUrl(Qualities.SMALL, CrawlerTool.stringToFilmUrl(aUrlSmall));
         }
         return film;
+    }
+
+    public static void improveAufloesung(final Film aFilm) throws URISyntaxException
+    {
+        updateNormal(aFilm);
+        updateHD(aFilm);
+    }
+
+
+    public static void updateNormal(Film aFilm) throws URISyntaxException
+    {
+        Map<String, List<String>> urls = new HashMap<>();
+
+        urls.put("2328k_p35v11.mp4", Arrays.asList("2256k_p14v11.mp4"));
+        urls.put("2328k_p35v12.mp4", Arrays.asList("2256k_p14v12.mp4"));
+        urls.put("2328k_p35v13.mp4", Arrays.asList("2296k_p14v13.mp4"));
+        urls.put("2328k_p35v11.mp4", Arrays.asList("1456k_p13v11.mp4"));
+        urls.put("2256k_p14v11.mp4", Arrays.asList("1456k_p13v11.mp4"));
+        urls.put("2328k_p35v12.mp4", Arrays.asList("1456k_p13v12.mp4"));
+        urls.put("2256k_p14v12.mp4", Arrays.asList("1456k_p13v12.mp4"));
+        urls.put("2328k_p35v13.mp4", Arrays.asList("1496k_p13v13.mp4"));
+        urls.put("2296k_p14v13.mp4", Arrays.asList("1496k_p13v13.mp4"));
+
+        updateUrl(urls, aFilm, Qualities.NORMAL);
+    }
+
+    public static void updateHD(Film aFilm) throws URISyntaxException
+    {
+        Map<String, List<String>> urls = new HashMap<>();
+
+        urls.put("3328k_p36v12.mp4", Arrays.asList("1456k_p13v12.mp4", "2256k_p14v12.mp4", "2328k_p35v12.mp4"));
+        urls.put("3256k_p15v12.mp4", Arrays.asList("1456k_p13v12.mp4", "2256k_p14v12.mp4", "2328k_p35v12.mp4"));
+
+        urls.put("3296k_p15v13.mp4", Arrays.asList("1496k_p13v13.mp4", "2296k_p14v13.mp4", "2328k_p35v13.mp4"));
+        urls.put("3328k_p36v13.mp4", Arrays.asList("1496k_p13v13.mp4", "2296k_p14v13.mp4", "2328k_p35v13.mp4"));
+
+        if(aFilm.getUrl(Qualities.NORMAL).toString().contains("media.ndr.de"))
+        {
+            urls.put(".hd.mp4", Arrays.asList(".hq.mp4"));
+        }
+
+        if(aFilm.getUrl(Qualities.NORMAL).toString().contains("cdn-storage.br.de"))
+        {
+            urls.put("_X.mp4", Arrays.asList("_C.mp4"));
+        }
+
+        if(aFilm.getUrl(Qualities.NORMAL).toString().contains("pd-ondemand.swr.de"))
+        {
+            urls.put(".xl.mp4", Arrays.asList(".l.mp4"));
+        }
+
+        updateUrl(urls, aFilm, Qualities.HD);
+    }
+
+    private static void updateUrl(Map<String, List<String>> aUrls, Film aFilm, Qualities aTargetQuality) throws URISyntaxException
+    {
+        String url;
+        if (aFilm.getUrls().containsKey(aTargetQuality))
+        {
+            url = aFilm.getUrl(aTargetQuality).toString();
+        } else
+        {
+            url = aFilm.getUrl(Qualities.NORMAL).toString();
+        }
+
+        for (String betterUrl : aUrls.keySet())
+        {
+            for (String baderUrl : aUrls.get(betterUrl))
+            {
+                if (url.contains(baderUrl)) ;
+                {
+                    url = url.replace(baderUrl, betterUrl);
+                }
+            }
+        }
+        if (MediathekReader.urlExists(url))
+        {
+            aFilm.addUrl(aTargetQuality, stringToFilmUrl(url));
+        }
     }
 }

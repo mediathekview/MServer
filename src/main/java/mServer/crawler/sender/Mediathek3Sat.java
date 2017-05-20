@@ -19,14 +19,8 @@
  */
 package mServer.crawler.sender;
 
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
 import de.mediathekview.mlib.Config;
 import de.mediathekview.mlib.Const;
-import de.mediathekview.mlib.daten.DatenFilm;
 import de.mediathekview.mlib.daten.Film;
 import de.mediathekview.mlib.daten.Sender;
 import de.mediathekview.mlib.tool.Log;
@@ -35,9 +29,17 @@ import mServer.crawler.CantCreateFilmException;
 import mServer.crawler.CrawlerTool;
 import mServer.crawler.FilmeSuchen;
 import mServer.crawler.GetUrl;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Iterator;
 
 public class Mediathek3Sat extends MediathekReader {
-
+    private static final Logger LOG = LogManager.getLogger(Mediathek3Sat.class);
     public final static Sender SENDER = Sender.DREISAT;
     private final static String[] QU_WIDTH_HD = {"1280"};
     private final static String[] QU_WIDTH = {"1024", "852", "720", "688", "480", "432", "320"};
@@ -118,7 +120,7 @@ public class Mediathek3Sat extends MediathekReader {
                 // http://www.3sat.de/mediathek/?red=nano&type=1
                 // type=1 => nur ganze Sendungen
                 String[] add = new String[]{"http://www.3sat.de/mediathek/?red=" + url + "&type=1", thema};
-                listeThemen.addUrl(add);
+                listeThemen.add(add);
             } catch (Exception ex) {
                 Log.errorLog(915237874, ex);
             }
@@ -317,10 +319,13 @@ public class Mediathek3Sat extends MediathekReader {
         public void run() {
             try {
                 meldungAddThread();
-                String[] link;
-                while (!Config.getStop() && (link = listeThemen.getListeThemen()) != null) {
-                    meldungProgress(link[0]);
-                    laden(link[0] /* url */, link[1] /* Thema */, true);
+
+                final Iterator<String[]> themaIterator = listeThemen.iterator();
+                while (!Config.getStop() && themaIterator.hasNext())
+                {
+                    final String[] thema = themaIterator.next();
+                    meldungProgress(thema[0]);
+                    laden(thema[0] /* url */, thema[1] /* Thema */, true);
                 }
             } catch (Exception ex) {
                 Log.errorLog(987452384, ex);
@@ -375,16 +380,18 @@ public class Mediathek3Sat extends MediathekReader {
                         try
                         {
                             film = filmHolenId(seite2, SENDER, thema, titel, urlFilm, urlId);
-                        } catch (CantCreateFilmException e)
-                        {
-                            e.printStackTrace();
-                        }
-                        if (film != null) {
-                            // dann wars gut
-                            // jetzt noch manuell die Auflösung hochsetzen
-                            MediathekZdf.urlTauschen(film, url, mlibFilmeSuchen);
+                            try
+                            {
+                                CrawlerTool.improveAufloesung(film);
+                            }catch (URISyntaxException uriSyntaxEception)
+                            {
+                                LOG.error("Beim verbessern der Auflösung ist ein Fehler aufgetreten",uriSyntaxEception);
+                            }
                             addFilm(film);
                             ok = true;
+                        } catch (CantCreateFilmException cantCreateFilmException)
+                        {
+                            LOG.error(cantCreateFilmException);
                         }
                     }
                     if (!ok) {

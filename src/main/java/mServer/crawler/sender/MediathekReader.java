@@ -19,32 +19,32 @@
  */
 package mServer.crawler.sender;
 
-import de.mediathekview.mlib.daten.DatenFilm;
 import de.mediathekview.mlib.daten.Film;
-import de.mediathekview.mlib.daten.GeoLocations;
 import de.mediathekview.mlib.daten.Qualities;
 import de.mediathekview.mlib.tool.GermanStringSorter;
 import de.mediathekview.mlib.tool.Log;
 import de.mediathekview.mlib.tool.MVHttpClient;
-
-import java.io.IOException;
-import java.text.SimpleDateFormat;
-import java.util.*;
-
 import mServer.crawler.CrawlerTool;
 import mServer.crawler.FilmeSuchen;
 import mServer.crawler.RunSender;
 import okhttp3.Request;
 import okhttp3.Response;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
+import java.io.IOException;
+import java.net.URISyntaxException;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 public abstract class MediathekReader extends Thread
 {
-
+    private static final Logger LOG = LogManager.getLogger(MediathekReader.class);
     private final String sendername; // ist der Name, den der Mediathekreader hat, der ist eindeutig
     private final int maxThreadLaufen; //4; // Anzahl der Thread die parallel Suchen
     private final int wartenSeiteLaden; //ms, Basiswert zu dem dann der Faktor multipliziert wird, Wartezeit zwischen 2 Websiten beim Absuchen der Sender
     private final int startPrio; // es gibt die Werte: 0->startet sofort, 1->später und 2->zuletzt
-    protected LinkedListUrl listeThemen;
+    protected Set<String[]> listeThemen;
     protected FilmeSuchen mlibFilmeSuchen;
     private int threads; // aktuelle Anz. laufender Threads
     private int max; // Anz. zu suchender Themen
@@ -62,7 +62,7 @@ public abstract class MediathekReader extends Thread
         threads = 0;
         max = 0;
         progress = 0;
-        listeThemen = new LinkedListUrl();
+        listeThemen = Collections.synchronizedSet(new HashSet<>());
     }
 
     public static boolean urlExists(String url)
@@ -93,8 +93,9 @@ public abstract class MediathekReader extends Thread
         }
     }
 
-    protected static void listeSort(LinkedList<String[]> liste, int stelle)
+    protected static void listeSort(Set<String[]> aListe, int stelle)
     {
+        List<String[]> liste = new ArrayList<>(aListe);
         //Stringliste alphabetisch sortieren
         GermanStringSorter sorter = GermanStringSorter.getInstance();
         if (liste != null)
@@ -118,6 +119,8 @@ public abstract class MediathekReader extends Thread
                 }
             }
         }
+        aListe.clear();
+        aListe.addAll(liste);
     }
 
     protected static long extractDuration(String dauer)
@@ -187,11 +190,6 @@ public abstract class MediathekReader extends Thread
         return max;
     }
 
-    //    public long getWaitTime()
-    //    {
-    //        return getWartenSeiteLaden();
-    //    }
-
     public int getProgress()
     {
         return progress;
@@ -213,13 +211,6 @@ public abstract class MediathekReader extends Thread
         return getSendername().equalsIgnoreCase(name);
     }
 
-    //    public String getNameSender() {
-    //        return getSendername();
-    //    }
-
-    //    public void delSenderInAlterListe(String sender) {
-    //        mlibFilmeSuchen.listeFilmeAlt.deleteAllFilms(sender);
-    //    }
 
     public void clear()
     {
@@ -242,12 +233,12 @@ public abstract class MediathekReader extends Thread
 
     protected abstract void addToList();
 
-    protected void addFilm(DatenFilm film, boolean urlPruefen)
+    protected void addFilm(Film film, boolean urlPruefen)
     {
         // es werden die gefundenen Filme in die Liste einsortiert
         if (urlPruefen)
         {
-            if (mlibFilmeSuchen.listeFilmeNeu.getFilmByUrl(film.arr[DatenFilm.FILM_URL]) == null)
+            if (mlibFilmeSuchen.listeFilmeNeu.getFilmByUrl(film.getUrl(Qualities.NORMAL).toString()) == null)
             {
                 addFilm(film);
             }
@@ -260,23 +251,27 @@ public abstract class MediathekReader extends Thread
     /**
      * Es werden die gefundenen Filme in die Liste einsortiert.
      *
-     * @param film der einzufügende Film
+     * @param aFilm der einzufügende Film
      */
     protected void addFilm(Film aFilm)
     {
-        upgradeUrl(film);
+        try
+        {
+            CrawlerTool.improveAufloesung(aFilm);
+        } catch (URISyntaxException uriSyntaxEception)
+        {
+            LOG.error("Beim verbessern der Auflösung ist ein Fehler aufgetreten", uriSyntaxEception);
+        }
 
-        film.setUrlHistory();
-        setGeo(film);
-        if (mlibFilmeSuchen.listeFilmeNeu.addFilmVomSender(film))
+        if (mlibFilmeSuchen.listeFilmeNeu.addFilmVomSender(aFilm))
         {
             // dann ist er neu
-            FilmeSuchen.listeSenderLaufen.inc(film.arr[DatenFilm.FILM_SENDER], RunSender.Count.FILME);
+            FilmeSuchen.listeSenderLaufen.inc(aFilm.getSender().getName(), RunSender.Count.FILME);
         }
     }
 
 
-    boolean istInListe(LinkedList<String[]> liste, String str, int nr)
+    boolean istInListe(Set<String[]> liste, String str, int nr)
     {
         Optional<String[]> opt = liste.parallelStream().filter(f -> f[nr].equals(str)).findAny();
 
@@ -345,59 +340,6 @@ public abstract class MediathekReader extends Thread
     }
 
 
-    private void upgradeUrl(DatenFilm film)
-    {
-        // versuchen HD anhand der URL zu suchen, wo noch nicht vorhanden
-        if (film.isHD())
-        {
-            return;
-        }
-
-        // http://media.ndr.de/progressive/2016/0817/TV-20160817-1113-2300.hq.mp4
-        // http://media.ndr.de/progressive/2016/0817/TV-20160817-1113-2300.hd.mp4 -> HD
-        if (film.arr[DatenFilm.FILM_URL].startsWith("http://media.ndr.de") && film.arr[DatenFilm.FILM_URL].endsWith(".hq.mp4"))
-        {
-            String from = film.arr[DatenFilm.FILM_URL];
-            String to = film.arr[DatenFilm.FILM_URL].replace(".hq.mp4", ".hd.mp4");
-            updateHd(from, to, film);
-        }
-
-        // http://cdn-storage.br.de/iLCpbHJGNLT6NK9HsLo6s61luK4C_2rc571S/_AJS/_ArG_2bP_71S/583da0ef-3e92-4648-bb22-1b14d739aa91_C.mp4
-        // http://cdn-storage.br.de/iLCpbHJGNLT6NK9HsLo6s61luK4C_2rc571S/_AJS/_ArG_2bP_71S/583da0ef-3e92-4648-bb22-1b14d739aa91_X.mp4 -> HD
-        if (film.arr[DatenFilm.FILM_URL].startsWith("http://cdn-storage.br.de") && film.arr[DatenFilm.FILM_URL].endsWith("_C.mp4"))
-        {
-            String from = film.arr[DatenFilm.FILM_URL];
-            String to = film.arr[DatenFilm.FILM_URL].replace("_C.mp4", "_X.mp4");
-            updateHd(from, to, film);
-        }
-
-        // http://pd-ondemand.swr.de/das-erste/buffet/904278.l.mp4
-        // http://pd-ondemand.swr.de/das-erste/buffet/904278.xl.mp4 -> HD
-        if (film.arr[DatenFilm.FILM_URL].startsWith("http://pd-ondemand.swr.de") && film.arr[DatenFilm.FILM_URL].endsWith(".l.mp4"))
-        {
-            String from = film.arr[DatenFilm.FILM_URL];
-            String to = film.arr[DatenFilm.FILM_URL].replace(".l.mp4", ".xl.mp4");
-            updateHd(from, to, film);
-        }
-    }
-
-    private void updateHd(String from, String to, DatenFilm film)
-    {
-        if (film.arr[DatenFilm.FILM_URL_HD].isEmpty() && film.arr[DatenFilm.FILM_URL].endsWith(from))
-        {
-            String url_ = film.arr[DatenFilm.FILM_URL].substring(0, film.arr[DatenFilm.FILM_URL].lastIndexOf(from)) + to;
-            // zum Testen immer machen!!
-            if (urlExists(url_))
-            {
-                CrawlerTool.addUrlHd(film, url_, "");
-                //Log.sysLog("upgradeUrl: " + film.arr[DatenFilm.FILM_SENDER]);
-            } else
-            {
-                Log.errorLog(945120347, "upgradeUrl: " + from);
-            }
-        }
-    }
-
     @SuppressWarnings("serial")
     class HashSetUrl extends HashSet<String[]>
     {
@@ -422,24 +364,5 @@ public abstract class MediathekReader extends Thread
 
     }
 
-    //FIXME don´t do this, use a set or whatever to be unique
-    @SuppressWarnings("serial")
-    protected class LinkedListUrl extends LinkedList<String[]>
-    {
-        // Hilfsklasse die das einfügen/entnehmen bei mehreren Threads unterstützt
-        synchronized boolean addUrl(String[] e)
-        {
-            // e[0] ist immer die URL
-            if (!istInListe(this, e[0], 0))
-            {
-                return add(e);
-            }
-            return false;
-        }
 
-        public synchronized String[] getListeThemen()
-        {
-            return this.pollFirst();
-        }
-    }
 }

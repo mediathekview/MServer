@@ -316,11 +316,11 @@ public class MediathekArte_de extends MediathekReader
             try
             {
                 meldungAddThread();
-                String link[];
-                while (!Config.getStop() && (link = listeThemen.getListeThemen()) != null)
+                while (!Config.getStop() && listeThemen.iterator().hasNext())
                 {
-                    meldungProgress(link[0] /* url */);
-                    addFilmeForTag(link[0]);
+                    final String[] thema = listeThemen.iterator().next();
+                    meldungProgress(thema[0] /* url */);
+                    addFilmeForTag(thema[0]);
                 }
             } catch (Exception ex)
             {

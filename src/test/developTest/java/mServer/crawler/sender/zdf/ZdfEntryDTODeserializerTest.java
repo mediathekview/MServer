@@ -1,4 +1,4 @@
-package mServer.crawler.sender.newsearch;
+package mServer.crawler.sender.zdf;
 
 import com.google.gson.JsonObject;
 import mServer.test.JsonFileReader;

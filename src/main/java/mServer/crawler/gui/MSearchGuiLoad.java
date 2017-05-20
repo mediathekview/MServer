@@ -21,6 +21,7 @@ package mServer.crawler.gui;
 
 import javax.swing.event.EventListenerList;
 
+import de.mediathekview.mlib.daten.Sender;
 import de.mediathekview.mlib.filmesuchen.ListenerFilmeLaden;
 import de.mediathekview.mlib.filmesuchen.ListenerFilmeLadenEvent;
 import javafx.application.Platform;
@@ -89,11 +90,6 @@ public class MSearchGuiLoad {
         }
     }
 
-    // #######################################
-    // #######################################
-    public static String[] getSenderNamen() {
-        return FilmeSuchen.getNamenSender();
-    }
 
 //    private void undEnde(MSListenerFilmeLadenEvent event) {
 //        istAmLaufen = false;
