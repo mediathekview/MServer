@@ -129,7 +129,8 @@ public class MediathekPhoenix extends MediathekReader {
         private void addFilme2(String thema, String filmWebsite) {
             // https://www.phoenix.de/php/mediaplayer/data/beitrags_details.php?ak=web&id=980552
             getUrl.getUri_Iso(SENDERNAME, filmWebsite, seite1, "" /* Meldung */);
-            String urlId = seite1.extract("<div class=\"phx_vod\" id=\"phx_vod_", "", "\"", 0, 0, "http://www.phoenix.de/php/mediaplayer/data/beitrags_details.php?ak=web&id=");
+            
+            String urlId = seite1.extract("\"content\":\"", "", "\"", 0, 0, "http://www.phoenix.de/php/mediaplayer/data/beitrags_details.php?ak=web&id=");
 
             String title = seite1.extract("<title>", "<"); //<title>phoenix  - "Gysi geht - Was wird aus der Linken?"</title>
             title = title.replace("phoenix  -", "").trim();
