@@ -61,7 +61,13 @@ public class AddToFilmlist
 
     private void removeExisting(final int size)
     {
-        listeEinsortieren.removeAll(vonListe);
+        Set<Integer> oldHashes = vonListe.stream().map(Film::hashCode).collect(Collectors.toSet());
+        final Map<Integer, Film> newList = listeEinsortieren.stream().collect(Collectors.toMap(Film::hashCode, Function.identity(),
+                (f1, f2) -> f1));
+
+        listeEinsortieren.clear();
+        newList.keySet().removeAll(oldHashes);
+        listeEinsortieren.addAll(newList.values());
 
         Log.sysLog("===== Liste einsortieren Title =====");
         Log.sysLog("Liste einsortieren, Anzahl: " + size);
