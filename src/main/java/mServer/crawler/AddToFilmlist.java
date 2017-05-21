@@ -19,11 +19,11 @@ import okhttp3.ResponseBody;
 
 import java.io.IOException;
 import java.net.SocketTimeoutException;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 import static mServer.crawler.CrawlerTool.getFileSize;
 
@@ -52,15 +52,16 @@ public class AddToFilmlist
 
     public synchronized void addLiveStream()
     {
-        if (listeEinsortieren.size() <= 0) return;
-
-        vonListe.removeIf(f -> f.getThema().equals(THEMA_LIVE));
-        listeEinsortieren.forEach(vonListe::add);
+        if (listeEinsortieren.size() > 0)
+        {
+            vonListe.removeIf(f -> f.getThema().equals(THEMA_LIVE));
+            vonListe.addAll(listeEinsortieren);
+        }
     }
 
     private void removeExisting(final int size)
     {
-        listeEinsortieren.removeIf((f) -> vonListe.contains(f));
+        listeEinsortieren.removeAll(vonListe);
 
         Log.sysLog("===== Liste einsortieren Title =====");
         Log.sysLog("Liste einsortieren, Anzahl: " + size);

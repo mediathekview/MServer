@@ -100,10 +100,10 @@ public class ArteJsonObjectToFilmCallable implements Callable<Film>
                 } catch (IOException ioException)
                 {
                     LOG.fatal("Beim laden der Informationen eines Filmes für Arte kam es zu Verbindungsproblemen.", ioException);
-                    throw new CantCreateFilmException(ioException,film);
+                    throw new CantCreateFilmException(ioException);
                 }catch (URISyntaxException uriSyntaxEception)
                 {
-                    throw new CantCreateFilmException(uriSyntaxEception,film);
+                    throw new CantCreateFilmException(uriSyntaxEception);
                 }
 
             }
