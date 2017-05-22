@@ -1,9 +1,10 @@
 package mServer.crawler.sender.arte;
 
+import de.mediathekview.mlib.daten.Qualities;
+
 import java.util.HashMap;
 import java.util.Map;
 
-import mServer.crawler.sender.newsearch.Qualities;
 
 public class ArteVideoDTO {
     private Map<Qualities,String> videoUrls;

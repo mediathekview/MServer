@@ -21,8 +21,11 @@ package mServer.crawler.gui;
 
 
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 
+import de.mediathekview.mlib.daten.Sender;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -32,7 +35,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 
-public class PanelDelController implements Initializable {
+public class PanelDelController implements Initializable
+{
 
     @FXML
     private GridPane pSender;
@@ -42,39 +46,44 @@ public class PanelDelController implements Initializable {
     private Label lblSender;
 
     private int i = 0;
-    private Button[] buttonSender;
-    private String[] senderArray;
+    private List<Button> buttonSender;
 
     @Override
-    public void initialize(URL url, ResourceBundle rb) {
+    public void initialize(URL url, ResourceBundle rb)
+    {
         initPanelDel();
     }
 
-    private void initPanelDel() {
+    private void initPanelDel()
+    {
         lblDeleted.setText("");
         lblSender.setText("");
-        senderArray = MSearchGuiLoad.getSenderNamen();
-        buttonSender = new Button[senderArray.length];
-        for (int i = 0; i < MSearchGuiLoad.getSenderNamen().length; ++i) {
-            buttonSender[i] = new Button(senderArray[i]);
-            buttonSender[i].setOnAction(new ActionDelSender(senderArray[i]));
+        buttonSender = new ArrayList<Button>();
+        for (Sender sender : Sender.values())
+        {
+            final Button newButton = new Button(sender.getName());
+            newButton.setOnAction(new PanelDelController.ActionDelSender(sender.getName()));
+            buttonSender.add(newButton);
         }
         addSender();
     }
 
-    private void addSender() {
+    private void addSender()
+    {
         pSender.setHgap(10);
         pSender.setVgap(10);
         pSender.setPadding(new Insets(10));
         int zeile = 0, spalte = 0, count = 0;
-        for (String aSender : senderArray) {
-            Button btn = buttonSender[count];
-            btn.setText(aSender);
+        for (Sender aSender : Sender.values())
+        {
+            Button btn = buttonSender.get(count);
+            btn.setText(aSender.getName());
             btn.setMaxWidth(Double.MAX_VALUE);
             pSender.add(btn, spalte, zeile);
 
             ++spalte;
-            if (spalte >= 5) {
+            if (spalte >= 5)
+            {
                 ++zeile;
                 spalte = 0;
             }
@@ -83,16 +92,19 @@ public class PanelDelController implements Initializable {
 
     }
 
-    private class ActionDelSender implements EventHandler<ActionEvent> {
+    private class ActionDelSender implements EventHandler<ActionEvent>
+    {
 
         private final String sender;
 
-        public ActionDelSender(String ssender) {
+        public ActionDelSender(String ssender)
+        {
             sender = ssender;
         }
 
         @Override
-        public void handle(ActionEvent t) {
+        public void handle(ActionEvent t)
+        {
             int before = Data.listeFilme.size();
             Data.listeFilme.deleteAllFilms(sender);
             int after = Data.listeFilme.size();

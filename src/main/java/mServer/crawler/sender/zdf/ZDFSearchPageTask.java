@@ -1,4 +1,4 @@
-package mServer.crawler.sender.newsearch;
+package mServer.crawler.sender.zdf;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
