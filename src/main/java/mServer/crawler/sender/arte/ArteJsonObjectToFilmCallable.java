@@ -31,6 +31,9 @@ public class ArteJsonObjectToFilmCallable implements Callable<Film>
 {
     private static final Logger LOG = LogManager.getLogger(ArteJsonObjectToFilmCallable.class);
     private static final String JSON_OBJECT_KEY_PROGRAM = "program";
+    private static final String JSON_ELEMENT_KEY_CATEGORY = "category";
+    private static final String JSON_ELEMENT_KEY_SUBCATEGORY = "subcategory";
+    private static final String JSON_ELEMENT_KEY_NAME = "name";
     private static final String JSON_ELEMENT_KEY_TITLE = "title";
     private static final String JSON_ELEMENT_KEY_SUBTITLE = "subtitle";
     private static final String JSON_ELEMENT_KEY_URL = "url";
@@ -61,8 +64,9 @@ public class ArteJsonObjectToFilmCallable implements Callable<Film>
             JsonObject programObject = jsonObject.get(JSON_OBJECT_KEY_PROGRAM).getAsJsonObject();
             if (isValidProgramObject(programObject))
             {
-                String thema = getElementValue(programObject, JSON_ELEMENT_KEY_TITLE);
-                String titel = getElementValue(programObject, JSON_ELEMENT_KEY_SUBTITLE);
+                String titel = getTitle(programObject);
+                String thema = getSubject(programObject);
+                
                 String beschreibung = getElementValue(programObject, JSON_ELEMENT_KEY_SHORT_DESCRIPTION);
 
                 String urlWeb = getElementValue(programObject, JSON_ELEMENT_KEY_URL);
@@ -90,10 +94,8 @@ public class ArteJsonObjectToFilmCallable implements Callable<Film>
                             {
                                 broadcastBegin = jsonObject.get(JSON_ELEMENT_BROADCAST).getAsString();
                             }
-
                             film = createFilm(thema, urlWeb, titel, video, LocalDateTime.parse(broadcastBegin, broadcastDateFormat), duration, beschreibung);
-                        } else
-                        {
+                        } else {
                             LOG.debug(String.format("Keine \"normale\" Video URL für den Film \"%s\" mit der URL \"%s\". Video Details URL:\"%s\" ", titel, urlWeb, videosUrl));
                         }
                     }
@@ -109,6 +111,35 @@ public class ArteJsonObjectToFilmCallable implements Callable<Film>
             }
         }
         return film;
+    }
+    
+    private static String getSubject(JsonObject programObject) {
+        String subject;
+        
+        JsonObject catObject = programObject.get(JSON_ELEMENT_KEY_CATEGORY).getAsJsonObject();
+        JsonObject subcatObject = programObject.get(JSON_ELEMENT_KEY_SUBCATEGORY).getAsJsonObject();
+
+        String category = catObject != null ? getElementValue(catObject, JSON_ELEMENT_KEY_NAME) : "";
+        String subcategory = subcatObject != null ? getElementValue(subcatObject, JSON_ELEMENT_KEY_NAME) : "";
+        
+        if(!category.equals(subcategory) && !subcategory.isEmpty()) {
+            subject = category + " - " + subcategory;
+        } else {
+            subject = category;
+        }
+
+        return subject;
+    }
+    
+    private static String getTitle(JsonObject programObject) {
+        String title = getElementValue(programObject, JSON_ELEMENT_KEY_TITLE);
+        String subtitle = getElementValue(programObject, JSON_ELEMENT_KEY_SUBTITLE);
+                
+        if (!title.equals(subtitle) && !subtitle.isEmpty()) {
+            title = title + " - " + subtitle;
+        }        
+        
+        return title;
     }
 
     private static boolean isValidProgramObject(JsonObject programObject)
