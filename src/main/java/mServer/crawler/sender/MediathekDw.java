@@ -34,6 +34,8 @@ import mServer.tool.MserverDaten;
 public class MediathekDw extends MediathekReader implements Runnable {
 
     public final static String SENDERNAME = Const.DW;
+    private final static String ADDURL = "http://tv-download.dw.de/dwtv_video/flv/";
+    private final static String HTTP = "http";
 
     public MediathekDw(FilmeSuchen ssearch, int startPrio) {
         super(ssearch, SENDERNAME, /* threads */ 4, /* urlWarten */ 200, startPrio);
@@ -153,31 +155,30 @@ public class MediathekDw extends MediathekReader implements Runnable {
 
         private void laden2(String urlThema, String thema, String titel, String urlSendung) {
             String url = "", urlLow = "", urlHd = "";
-            final String ADDURL = "http://tv-download.dw.de/dwtv_video/flv/";
             meldung(urlThema);
             GetUrl getUrlIo = new GetUrl(getWartenSeiteLaden());
             seite2 = getUrlIo.getUri_Utf(SENDERNAME, urlSendung, seite2, "");
 
             seite2.extractList("%22file%22%3A%22", "%22%7D", listUrl);
+            if (listUrl.isEmpty()) {
+               seite2.extractList("name=\"file_name\" value=\"", "\"", listUrl); 
+            }
             for (String u : listUrl) {
                 u = u.replace("%2F", "/");
                 if (urlLow.isEmpty() && u.endsWith("vp6.flv")) {
-                    urlLow = u;
-                    urlLow = ADDURL + urlLow;
+                    urlLow = addUrlPrefixIfNecessary(u);
                 }
                 if (url.isEmpty() && u.endsWith("sor.mp4")) {
-                    url = u;
-                    url = ADDURL + url;
+                    url = addUrlPrefixIfNecessary(u);
                 }
                 if (urlHd.isEmpty() && u.endsWith("avc.mp4")) {
-                    urlHd = u;
-                    urlHd = ADDURL + urlHd;
+                    urlHd = addUrlPrefixIfNecessary(u);
                 }
             }
             listUrl.clear();
 
             String description = seite2.extract("<meta name=\"description\" content=\"", "\"");
-            String datum = seite2.extract("| DW.COM | ", "\"");
+            String datum = seite2.extract("<strong>Datum</strong>", "</li>").trim();
             String dur = seite2.extract("<strong>Dauer</strong>", "Min.").trim();
             dur = dur.replace("\n", "");
             dur = dur.replace("\r", "");
@@ -220,7 +221,13 @@ public class MediathekDw extends MediathekReader implements Runnable {
                 addFilm(film);
             }
 
-        }
-
-    }
+        }        
+        
+        private String addUrlPrefixIfNecessary(String url) {
+            if (!url.startsWith(HTTP)) {
+                return ADDURL + url;
+            }            
+            return url;
+        }    
+    }   
 }
