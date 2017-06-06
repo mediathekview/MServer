@@ -220,17 +220,28 @@ public class MediathekRbb extends MediathekReader {
                 String urlNormal = "", urlLow = "";
 
 
-                urlLow = seite3.extract("\"_quality\":1,\"_server\":\"\",\"_cdn\":\"akamai\",\"_stream\":\"http://", "\"");
-                if (urlLow.isEmpty()) {
-                    urlLow = seite3.extract("\"_quality\":1,\"_server\":\"\",\"_cdn\":\"default\",\"_stream\":\"http://", "\"");
+                urlLow = getUrlLow("https");
+                if(urlLow.isEmpty())
+                {
+                    urlLow =getUrlLow("http");
+                    if(!urlLow.isEmpty())
+                    {
+                        urlLow = "http://" + urlLow;
+                    }
+                }else {
+                    urlLow = "https://" + urlLow;
                 }
 
-                urlNormal = seite3.extract("\"_quality\":3,\"_server\":\"\",\"_cdn\":\"akamai\",", "\"_stream\":\"http://", "\"");
-                if (urlNormal.isEmpty()) {
-                    urlNormal = seite3.extract("\"_quality\":3,\"_server\":\"\",\"_cdn\":\"default\"", "\"_stream\":\"http://", "\"");
-                }
-                if (urlNormal.isEmpty()) {
-                    urlNormal = seite3.extract("\"_quality\":3,\"_server\":\"\",\"_cdn\":\"default\",\"_stream\":\"http://", "\"");
+                urlNormal = getUrlNormal("https");
+                if(urlNormal.isEmpty())
+                {
+                    urlNormal =getUrlNormal("http");
+                    if(!urlNormal.isEmpty())
+                    {
+                        urlNormal = "http://" + urlNormal;
+                    }
+                }else {
+                    urlNormal = "https://" + urlNormal;
                 }
                 //http://http-stream.rbb-online.de/rbb/rbbreporter/rbbreporter_20151125_solange_ich_tanze_lebe_ich_WEB_L_16_9_960x544.mp4?url=5
                 if (urlLow.contains("?url=")) {
@@ -258,12 +269,10 @@ public class MediathekRbb extends MediathekReader {
                     Log.errorLog(912012036, "empty für: " + urlSeite);
                 }
                 if (!urlNormal.isEmpty()) {
-                    urlNormal = "http://" + urlNormal;
                     DatenFilm film = new DatenFilm(SENDERNAME, thema, urlSeite, title, urlNormal, "" /*urlRtmp*/,
                             datum, zeit/* zeit */, duration, description);
                     addFilm(film);
                     if (!urlLow.isEmpty()) {
-                        urlLow = "http://" + urlLow;
                         CrawlerTool.addUrlKlein(film, urlLow, "");
                     }
                     if (!subtitle.isEmpty()) {
@@ -275,6 +284,29 @@ public class MediathekRbb extends MediathekReader {
             } catch (Exception ex) {
                 Log.errorLog(541236987, ex);
             }
+        }
+
+        private String getUrlNormal(String aProtocol)
+        {
+            String urlNormal;
+            urlNormal = seite3.extract("\"_quality\":3,\"_server\":\"\",\"_cdn\":\"akamai\",", "\"_stream\":\""+aProtocol+"://", "\"");
+            if (urlNormal.isEmpty()) {
+                urlNormal = seite3.extract("\"_quality\":3,\"_server\":\"\",\"_cdn\":\"default\"", "\"_stream\":\""+aProtocol+"://", "\"");
+            }
+            if (urlNormal.isEmpty()) {
+                urlNormal = seite3.extract("\"_quality\":3,\"_server\":\"\",\"_cdn\":\"default\",\"_stream\":\""+aProtocol+"://", "\"");
+            }
+            return urlNormal;
+        }
+
+        private String getUrlLow(String aProtocol)
+        {
+            String urlLow;
+            urlLow = seite3.extract("\"_quality\":1,\"_server\":\"\",\"_cdn\":\"akamai\",\"_stream\":\""+aProtocol+"://", "\"");
+            if (urlLow.isEmpty()) {
+                urlLow = seite3.extract("\"_quality\":1,\"_server\":\"\",\"_cdn\":\"default\",\"_stream\":\""+aProtocol+"://", "\"");
+            }
+            return urlLow;
         }
 
     }
