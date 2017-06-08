@@ -29,8 +29,8 @@ public class ArteStaticContentDeserializerTest {
         assertThat(actualCategories, notNullValue());
         assertThat(actualCategories, Matchers.containsInAnyOrder("Aktuelles und Gesellschaft", "Kino", "Fernsehfilme und Serien", "Kultur und Pop", "ARTE Concert", "Wissenschaft", "Entdeckung der Welt", "Geschichte"));
 
-        assertThat(actual.getCategoryUrl("Aktuelles und Gesellschaft"), equalTo("http://www.arte.tv/de/videos/aktuelles-und-gesellschaft"));
-        assertThat(actual.getCategoryUrl("Kultur und Pop"), equalTo("http://www.arte.tv/de/videos/kultur-und-pop"));
-        assertThat(actual.getCategoryUrl("Geschichte"), equalTo("http://www.arte.tv/de/videos/geschichte"));
+        assertThat(actual.getCategoryUrl("Aktuelles und Gesellschaft"), equalTo("aktuelles-und-gesellschaft"));
+        assertThat(actual.getCategoryUrl("Kultur und Pop"), equalTo("kultur-und-pop"));
+        assertThat(actual.getCategoryUrl("Geschichte"), equalTo("geschichte"));
     }
 }

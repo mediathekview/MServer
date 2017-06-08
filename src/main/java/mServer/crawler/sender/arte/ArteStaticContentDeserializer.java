@@ -31,7 +31,7 @@ public class ArteStaticContentDeserializer implements JsonDeserializer<ArteInfoD
                     String name = elementObject.get(ELEMENT_CATEGORY_LABEL).getAsString();
                     String url = elementObject.get(ELEMENT_CATEGORY_HREF).getAsString();
                     
-                    dto.addCategory(name, url);
+                    dto.addCategory(name, url.substring(url.lastIndexOf("/") + 1));
                 }
             }
         }
