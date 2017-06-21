@@ -292,11 +292,7 @@ public class MediathekWdr extends MediathekReader {
             if (!th.isEmpty()) {
                 thema = th;
             } else {
-                thema = sendungsSeite2.extract("<title>", "<");
-                thema = thema.replace("- Sendung - Video - Mediathek - WDR", "").trim();
-                if (thema.startsWith("Unser Sendungsarchiv")) {
-                    thema = "";
-                }
+                thema = parseThema(sendungsSeite2);
             }
 
             //Lokalzeit, ..
