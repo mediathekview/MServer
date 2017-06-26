@@ -197,8 +197,10 @@ public class CrawlerTool
                 "pd-ondemand.swr.de/geo/de",
                 "ondemandgeo.mdr.de",
                 "ondemand-de.wdr.de",
+                "ondemand-dach.wdr.de",
                 "wdr_fs_geo-lh.akamaihd.net",
                 "adaptiv.wdr.de/i/medp/de",
+                "adaptiv.wdr.de/i/medp/dach",
                 "pd-videos.daserste.de/de"
         ));
 
