@@ -27,7 +27,10 @@ import java.util.LinkedList;
 
 import org.apache.commons.lang3.time.FastDateFormat;
 
-import de.mediathekview.mlib.tool.Functions;
+import de.mediathekview.mlib.Const;
+import de.mediathekview.mlib.tool.MLibVersion;
+import de.mediathekview.mlib.tool.ProgrammVersion;
+import de.mediathekview.mlib.tool.SystemInfo;
 
 public class MserverLog {
 
@@ -35,7 +38,7 @@ public class MserverLog {
     private static final Date startZeit = new Date(System.currentTimeMillis());
     private static final String logfile = MserverDaten.getLogDatei(MserverKonstanten.LOG_FILE_NAME);
 
-    public static synchronized void versionsMeldungen(String classname) {
+    public static synchronized void versionsMeldungen() {
         SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss");
         systemMeldung("");
         systemMeldung("");
@@ -55,23 +58,26 @@ public class MserverLog {
         systemMeldung("###########################################################");
         systemMeldung("Programmstart: " + sdf.format(startZeit));
         systemMeldung("###########################################################");
-        long totalMem = Runtime.getRuntime().totalMemory();
-        systemMeldung("totalMemory: " + totalMem / (1024L * 1024L) + " MB");
-        long maxMem = Runtime.getRuntime().maxMemory();
-        systemMeldung("maxMemory: " + maxMem / (1024L * 1024L) + " MB");
-        long freeMem = Runtime.getRuntime().freeMemory();
-        systemMeldung("freeMemory: " + freeMem / (1024L * 1024L) + " MB");
+        systemMeldung("totalMemory: " + SystemInfo.getInstance().getRaminfo().getFreeramMB() + " MB");
+        systemMeldung("maxMemory: " + SystemInfo.getInstance().getRaminfo().getMaxramMB() + " MB");
+        systemMeldung("freeMemory: " + SystemInfo.getInstance().getRaminfo().getFreeramMB() + " MB");
         systemMeldung("###########################################################");
         //Version
-        systemMeldung(MserverKonstanten.PROGRAMMNAME + Functions.getProgVersionString());
-        systemMeldung("Compiled: " + Functions.getCompileDate());
-        systemMeldung("Klassenname: " + classname);
+        systemMeldung(MserverKonstanten.PROGRAMMNAME + " " + 
+        				ProgrammVersion.getInstance().getVersionStringFormated(MserverLog.class, MserverKonstanten.PROGRAMMNAME, MserverKonstanten.PROGRAMMVERSION));
+        systemMeldung(Const.PROGRAMMNAME + " " +MLibVersion.getInstance().getVersionStringFormated());
+        systemMeldung("###########################################################");
+        systemMeldung("Java");
+        systemMeldung("Vendor: " + SystemInfo.getInstance().getJavaVersion().getVendor());
+        systemMeldung("VMName: " + SystemInfo.getInstance().getJavaVersion().getVmname());
+        systemMeldung("Version: " + SystemInfo.getInstance().getJavaVersion().getVersion());
+        systemMeldung("Runtime-Version: " + SystemInfo.getInstance().getJavaVersion().getRuntimeversion());
         systemMeldung("###########################################################");
     }
 
-    public static synchronized void startMeldungen(String classname) {
-        versionsMeldungen(classname);
-        systemMeldung("Programmpfad: " + Functions.getPathJar());
+    public static synchronized void startMeldungen() {
+        versionsMeldungen();
+        systemMeldung("Programmpfad: " + SystemInfo.getInstance().getJarpath());
         systemMeldung("Verzeichnis Einstellungen: " + MserverDaten.getBasisVerzeichnis());
         systemMeldung("Useragent: " + MserverDaten.getUserAgent());
         systemMeldung("###########################################################");

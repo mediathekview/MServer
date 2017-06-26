@@ -75,7 +75,7 @@ public class MServer {
             }
 
             // Infos schreiben
-            MserverLog.startMeldungen(this.getClass().getName());
+            MserverLog.startMeldungen();
 
             mvsSearch = new MserverSearch();
             Thread timerThread = new MserverTimer(this);

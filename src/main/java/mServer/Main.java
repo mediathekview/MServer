@@ -73,7 +73,7 @@ public class Main {
                 }
                 break;
             case VERSION:
-                MserverLog.versionsMeldungen(Main.class.toString());
+                MserverLog.versionsMeldungen();
                 System.exit(0);
                 break;
             case GUI:

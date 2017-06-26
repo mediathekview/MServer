@@ -19,10 +19,14 @@
  */
 package mServer.tool;
 
+import de.mediathekview.dto.Version;
+
 public class MserverKonstanten {
 
+	@Deprecated
     public static final String VERSION = "2";
     public static final String PROGRAMMNAME = "MServer";
+    public static final Version PROGRAMMVERSION = new Version(3,2,0,true);
     // Dateien/Verzeichnisse
     public static final String NAME_FILMLISTE_AKT = "Filmliste-akt.xz";
     public static final String NAME_FILMLISTE_DIFF = "Filmliste-diff.xz";

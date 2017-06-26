@@ -5,30 +5,42 @@
  */
 package mServer.crawler;
 
+import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.text.SimpleDateFormat;
+import java.time.Duration;
+import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.UUID;
+
+import org.apache.commons.lang3.StringUtils;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import de.mediathekview.mlib.Config;
-import de.mediathekview.mlib.Const;
-import de.mediathekview.mlib.daten.*;
+import de.mediathekview.mlib.daten.Film;
+import de.mediathekview.mlib.daten.FilmUrl;
+import de.mediathekview.mlib.daten.GeoLocations;
+import de.mediathekview.mlib.daten.Qualities;
+import de.mediathekview.mlib.daten.Sender;
 import de.mediathekview.mlib.tool.Functions;
 import de.mediathekview.mlib.tool.Log;
 import de.mediathekview.mlib.tool.MVHttpClient;
+import de.mediathekview.mlib.tool.SystemInfo;
 import mServer.crawler.sender.MediathekReader;
 import mServer.tool.MserverDatumZeit;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 import okhttp3.ResponseBody;
-import org.apache.commons.lang3.StringUtils;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
-import java.io.IOException;
-import java.net.SocketTimeoutException;
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.text.SimpleDateFormat;
-import java.time.Duration;
-import java.time.temporal.ChronoUnit;
-import java.util.*;
 
 /**
  * @author emil
@@ -47,10 +59,9 @@ public class CrawlerTool
     public static synchronized void startMsg()
     {
         Log.startZeit.setTime(System.currentTimeMillis());
-        Log.versionMsg(Const.PROGRAMMNAME);
         Log.sysLog(Log.LILNE);
         Log.sysLog("");
-        Log.sysLog("Programmpfad: " + Functions.getPathJar());
+        Log.sysLog("Programmpfad: " + SystemInfo.getInstance().getJarpath());
         Log.sysLog("Filmliste: " + getPathFilmlist_json_akt(true /*aktDate*/));
         Log.sysLog("Useragent: " + Config.getUserAgent());
         Log.sysLog("");

@@ -23,6 +23,7 @@ import java.io.File;
 
 import de.mediathekview.mlib.Const;
 import de.mediathekview.mlib.tool.Functions;
+import de.mediathekview.mlib.tool.ProgrammVersion;
 import etm.core.configuration.EtmManager;
 import etm.core.monitor.EtmMonitor;
 import etm.core.monitor.EtmPoint;
@@ -53,9 +54,10 @@ public class MserverDaten {
     }
 
     public static String getUserAgent() {
-        if (system[MserverKonstanten.SYSTEM_USER_AGENT_NR].trim().equals("")) {
-            return MserverKonstanten.PROGRAMMNAME + " " + Const.VERSION_FILMLISTE + " / " + Functions.getProgVersion().toString();
-        } else {
+        if ("".equals(system[MserverKonstanten.SYSTEM_USER_AGENT_NR].trim())) {
+            return MserverKonstanten.PROGRAMMNAME + " " + 
+            		Const.VERSION_FILMLISTE + " / " + 
+            		ProgrammVersion.getInstance().getVersion(MserverDaten.class, MserverKonstanten.PROGRAMMNAME,MserverKonstanten.PROGRAMMVERSION);
         }
         return system[MserverKonstanten.SYSTEM_USER_AGENT_NR].trim();
     }
