@@ -5,9 +5,9 @@ import java.util.EnumMap;
 import java.util.List;
 import java.util.Map;
 
+import de.mediathekview.mlib.daten.Qualities;
 import org.apache.commons.lang3.StringUtils;
 
-import mServer.crawler.sender.newsearch.Qualities;
 
 /**
  * A class with some Utils to work with M3U8 urls.
