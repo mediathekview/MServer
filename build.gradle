@@ -17,7 +17,6 @@ targetCompatibility = 1.8
 group = 'de.mediathekview'
 version = '3.2.0'
 
-
 def jarName = 'MServer.jar'
 def mainClass = 'mServer.Main'
 

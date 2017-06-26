@@ -344,14 +344,8 @@ public class MediathekWdr extends MediathekReader
             if (!th.isEmpty())
             {
                 thema = th;
-            } else
-            {
-                thema = sendungsSeite2.extract("<title>", "<");
-                thema = thema.replace("- Sendung - Video - Mediathek - WDR", "").trim();
-                if (thema.startsWith("Unser Sendungsarchiv"))
-                {
-                    thema = "";
-                }
+            } else {
+                thema = parseThema(sendungsSeite2);
             }
 
             //Lokalzeit, ..
@@ -476,12 +470,8 @@ public class MediathekWdr extends MediathekReader
                 }
                 meldung(strUrl);
 
-                thema = seite.extract("<title>", "<");
-                thema = thema.replace("- Sendung - Video - Mediathek - WDR", "").trim();
-                if (thema.startsWith("Unser Sendungsarchiv"))
-                {
-                    thema = "";
-                }
+                thema = parseThema(seite);
+
 
                 u = seite.extract("data-extension=\"{ 'mediaObj': { 'url': '", "'");
                 if (!u.isEmpty())
@@ -677,6 +667,20 @@ public class MediathekWdr extends MediathekReader
             {
                 Log.errorLog(978451239, new String[]{"keine Url: " + urlFilmSuchen, "UrlThema: " + filmWebsite});
             }
+        }
+        
+        private String parseThema(MSStringBuilder seite) {
+            String thema = seite.extract("<title>", "<");
+            thema = thema.replace("- Sendung - Video - Mediathek - WDR", "")
+                    .replace(" - Sendungen A-Z - Video - Mediathek - WDR", "").trim();
+            if(thema.startsWith("Video:")) {
+                thema = thema.substring(6).trim();
+            }
+            if (thema.startsWith("Unser Sendungsarchiv")) {
+                thema = "";
+            }
+                
+            return thema;
         }
 
         private String getUrlFromM3u8(String m3u8Url, String qualityIndex)
