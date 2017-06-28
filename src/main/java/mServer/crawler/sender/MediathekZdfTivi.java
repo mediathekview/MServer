@@ -242,7 +242,7 @@ public class MediathekZdfTivi extends MediathekReader {
         private void addTivi_(String url) {
             int pos3;
             long dauerL;
-            String titel, thema, urlFilm, datum, zeit, bild, website, dauer, text;
+            String titel, thema, urlFilm, datum, zeit, bild, website, text;
             try {
                 urlFilm = "";
                 // Film laden
@@ -260,24 +260,8 @@ public class MediathekZdfTivi extends MediathekReader {
                     bild = "http://www.tivi.de" + bild;
                 }
                 website = seite1.extract("<link>", "<");
-                dauer = seite1.extract("<ns3:duration>", "<"); //<ns3:duration>P0Y0M0DT0H24M9.000S</ns3:duration>
-                if (dauer.isEmpty()) {
-                    //<duration>P0Y0M0DT0H1M55.000S</duration>
-                    dauer = seite1.extract("<duration>", "<"); //<duration>P0Y0M0DT0H11M0.000S</duration>
-                }
-                try {
-                    dauer = dauer.replace("P0Y0M0DT", "");
-                    String h = dauer.substring(0, dauer.indexOf('H'));
-                    int ih = Integer.parseInt(h);
-                    String m = dauer.substring(dauer.indexOf('H') + 1, dauer.indexOf('M'));
-                    int im = Integer.parseInt(m);
-                    String s = dauer.substring(dauer.indexOf('M') + 1, dauer.indexOf('.'));
-                    int is = Integer.parseInt(s);
-                    dauerL = ih * 60 * 60 + im * 60 + is;
-                } catch (Exception ex) {
-                    dauerL = 0;
-                    Log.errorLog(349761012, ex, "Dauer: " + url);
-                }
+                dauerL = parseDauer(seite1, url);
+
                 zeit = "";
                 datum = seite1.extract("<airTime>", "<");
                 //<airTime>2014-01-19T08:35:00.000+01:00</airTime>
@@ -317,7 +301,39 @@ public class MediathekZdfTivi extends MediathekReader {
                 Log.errorLog(454123698, ex);
             }
         }
+        
+        private long parseDauer(MSStringBuilder seite, String url) {
+            long dauer = 0;
+        
+            try {
+                String duration = seite.extract("<duration>", "<");
+                if (!duration.isEmpty()) {
+                    dauer = parseDuration(duration);
+                }
+                if (dauer == 0) {
+                    String length = seite.extract("<lengthSec>", "<");
+                    dauer = Integer.parseInt(length);
+                }
+            } catch (NumberFormatException ex) {
+                Log.errorLog(349761012, ex, "Dauer: " + url);
+            }
 
+            return dauer;
+        }
+        
+        // Parst Längenangaben im Format P0Y0M0DT0H22M6.000S
+        private long parseDuration(String duration) throws NumberFormatException {
+            
+            duration = duration.replace("P0Y0M0DT", "");
+            String h = duration.substring(0, duration.indexOf('H'));
+            int ih = Integer.parseInt(h);
+            String m = duration.substring(duration.indexOf('H') + 1, duration.indexOf('M'));
+            int im = Integer.parseInt(m);
+            String s = duration.substring(duration.indexOf('M') + 1, duration.indexOf('.'));
+            int is = Integer.parseInt(s);
+            
+            return ih * 60 * 60 + im * 60 + is;
+        }
     }
 
 }
