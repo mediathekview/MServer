@@ -322,14 +322,14 @@ public class MediathekZdfTivi extends MediathekReader {
         }
         
         // Parst Längenangaben im Format P0Y0M0DT0H22M6.000S
-        private long parseDuration(String duration) throws NumberFormatException {
+        private long parseDuration(String duration) {
             
-            duration = duration.replace("P0Y0M0DT", "");
-            String h = duration.substring(0, duration.indexOf('H'));
+            String time = duration.replace("P0Y0M0DT", "");
+            String h = time.substring(0, time.indexOf('H'));
             int ih = Integer.parseInt(h);
-            String m = duration.substring(duration.indexOf('H') + 1, duration.indexOf('M'));
+            String m = time.substring(time.indexOf('H') + 1, time.indexOf('M'));
             int im = Integer.parseInt(m);
-            String s = duration.substring(duration.indexOf('M') + 1, duration.indexOf('.'));
+            String s = time.substring(time.indexOf('M') + 1, time.indexOf('.'));
             int is = Integer.parseInt(s);
             
             return ih * 60 * 60 + im * 60 + is;
