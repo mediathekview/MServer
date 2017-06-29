@@ -21,6 +21,18 @@
  */
 package mServer.crawler.sender;
 
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.nio.charset.StandardCharsets;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.Iterator;
+import java.util.LinkedList;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import de.mediathekview.mlib.Config;
 import de.mediathekview.mlib.Const;
 import de.mediathekview.mlib.daten.Film;
@@ -31,17 +43,6 @@ import de.mediathekview.mlib.tool.MSStringBuilder;
 import mServer.crawler.CrawlerTool;
 import mServer.crawler.FilmeSuchen;
 import mServer.crawler.GetUrl;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.nio.charset.StandardCharsets;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.Iterator;
-import java.util.LinkedList;
 
 public class MediathekWdr extends MediathekReader
 {
@@ -539,8 +540,12 @@ public class MediathekWdr extends MediathekReader
             urlNorm = sendungsSeite4.extract("\"alt\":{\"videoURL\":\"", "\"");
             String f4m = sendungsSeite4.extract("\"dflt\":{\"videoURL\":\"", "\"");
 
-            if (urlNorm.endsWith(".m3u8"))
-            {
+            // Fehlendes Protokoll ergänzen, wenn es fehlt. kommt teilweise vor.
+            String protocol = urlFilmSuchen.substring(0, urlFilmSuchen.indexOf(':'));
+            urlNorm = addProtocolIfMissing(urlNorm, protocol);
+            f4m = addProtocolIfMissing(f4m, protocol);
+            
+            if (urlNorm.endsWith(".m3u8")) {
                 final String urlM3 = urlNorm;
                 m3u8Page = getUrl.getUri_Utf(SENDER.getName(), urlNorm, m3u8Page, "");
                 if (m3u8Page.indexOf(INDEX_2) != -1)
@@ -667,6 +672,16 @@ public class MediathekWdr extends MediathekReader
             {
                 Log.errorLog(978451239, new String[]{"keine Url: " + urlFilmSuchen, "UrlThema: " + filmWebsite});
             }
+        }
+        
+        private String addProtocolIfMissing(String url, String protocol) {
+            if(url.startsWith("//")) {
+                return protocol + ":" + url;
+            } else if(url.startsWith("://")) {
+                return protocol + url;
+            }
+            
+            return url;
         }
         
         private String parseThema(MSStringBuilder seite) {
