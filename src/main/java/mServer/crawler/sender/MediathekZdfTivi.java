@@ -19,6 +19,19 @@
  */
 package mServer.crawler.sender;
 
+import java.net.URISyntaxException;
+import java.nio.charset.StandardCharsets;
+import java.text.SimpleDateFormat;
+import java.util.Collections;
+import java.util.Date;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.Set;
+
+import org.apache.commons.lang3.time.FastDateFormat;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import de.mediathekview.mlib.Config;
 import de.mediathekview.mlib.Const;
 import de.mediathekview.mlib.daten.Film;
@@ -29,14 +42,6 @@ import mServer.crawler.CrawlerTool;
 import mServer.crawler.FilmeSuchen;
 import mServer.crawler.GetUrl;
 import mServer.tool.MserverDaten;
-import org.apache.commons.lang3.time.FastDateFormat;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
-import java.net.URISyntaxException;
-import java.nio.charset.StandardCharsets;
-import java.text.SimpleDateFormat;
-import java.util.*;
 
 public class MediathekZdfTivi extends MediathekReader
 {
@@ -299,14 +304,8 @@ public class MediathekZdfTivi extends MediathekReader
         {
             int pos3;
             long dauerL;
-<<<<<<< HEAD
-            String titel, thema, urlFilm, datum, zeit, bild, website, dauer, text;
-            try
-            {
-=======
             String titel, thema, urlFilm, datum, zeit, bild, website, text;
             try {
->>>>>>> 3.1.8
                 urlFilm = "";
                 // Film laden
                 meldung(url);
@@ -325,32 +324,8 @@ public class MediathekZdfTivi extends MediathekReader
                     bild = "http://www.tivi.de" + bild;
                 }
                 website = seite1.extract("<link>", "<");
-<<<<<<< HEAD
-                dauer = seite1.extract("<ns3:duration>", "<"); //<ns3:duration>P0Y0M0DT0H24M9.000S</ns3:duration>
-                if (dauer.isEmpty())
-                {
-                    //<duration>P0Y0M0DT0H1M55.000S</duration>
-                    dauer = seite1.extract("<duration>", "<"); //<duration>P0Y0M0DT0H11M0.000S</duration>
-                }
-                try
-                {
-                    dauer = dauer.replace("P0Y0M0DT", "");
-                    String h = dauer.substring(0, dauer.indexOf('H'));
-                    int ih = Integer.parseInt(h);
-                    String m = dauer.substring(dauer.indexOf('H') + 1, dauer.indexOf('M'));
-                    int im = Integer.parseInt(m);
-                    String s = dauer.substring(dauer.indexOf('M') + 1, dauer.indexOf('.'));
-                    int is = Integer.parseInt(s);
-                    dauerL = ih * 60 * 60 + im * 60 + is;
-                } catch (Exception ex)
-                {
-                    dauerL = 0;
-                    Log.errorLog(349761012, ex, "Dauer: " + url);
-                }
-=======
                 dauerL = parseDauer(seite1, url);
 
->>>>>>> 3.1.8
                 zeit = "";
                 datum = seite1.extract("<airTime>", "<");
                 //<airTime>2014-01-19T08:35:00.000+01:00</airTime>
