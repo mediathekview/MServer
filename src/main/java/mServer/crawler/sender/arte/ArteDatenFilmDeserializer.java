@@ -21,6 +21,7 @@ import de.mediathekview.mlib.daten.ListeFilme;
 
 public class ArteDatenFilmDeserializer implements JsonDeserializer<ListeFilme>
 {
+    private static final String JSON_ELEMENT_VIDEOS = "videos";
     private static final Logger LOG = LogManager.getLogger(ArteDatenFilmDeserializer.class);
     
     private final String langCode;
@@ -37,7 +38,7 @@ public class ArteDatenFilmDeserializer implements JsonDeserializer<ListeFilme>
         ListeFilme listeFilme = new ListeFilme();
 
         Collection<Future<DatenFilm>> futureFilme = new ArrayList<>();
-        for (JsonElement jsonElement : aJsonElement.getAsJsonArray())
+        for (JsonElement jsonElement : aJsonElement.getAsJsonObject().get(JSON_ELEMENT_VIDEOS).getAsJsonArray())
         {
             ExecutorService executor = Executors.newCachedThreadPool();
             futureFilme.add(executor.submit(new ArteJsonObjectToDatenFilmCallable(jsonElement.getAsJsonObject(), langCode, senderName)));

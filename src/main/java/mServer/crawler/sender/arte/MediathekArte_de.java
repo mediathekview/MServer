@@ -48,8 +48,10 @@ public class MediathekArte_de extends MediathekReader
 {
     private static final Logger LOG = LogManager.getLogger(MediathekArte_de.class);
     private final static String SENDERNAME = Const.ARTE_DE;
-    private static final String ARTE_API_TAG_URL_PATTERN = "http://www.arte.tv/guide/api/api/program/%s/scheduled/%s";
-    private static final DateTimeFormatter ARTE_API_DATEFORMATTER = DateTimeFormatter.ofPattern("yy-MM-dd");
+    private static final String ARTE_API_TAG_URL_PATTERN = "https://api.arte.tv/api/opa/v3/videos?channel=%s&arteSchedulingDay=%s";
+    private static final DateTimeFormatter ARTE_API_DATEFORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+    private static final String AUTH_HEADER = "Authorization";
+    private static final String AUTH_TOKEN = "Bearer Nzc1Yjc1ZjJkYjk1NWFhN2I2MWEwMmRlMzAzNjI5NmU3NWU3ODg4ODJjOWMxNTMxYzEzZGRjYjg2ZGE4MmIwOA";
     protected String LANG_CODE = "de";
     protected String URL_CONCERT = "http://concert.arte.tv/de/videos/all";
     protected String URL_CONCERT_NOT_CONTAIN = "-STF";
@@ -105,7 +107,7 @@ public class MediathekArte_de extends MediathekReader
     private void addTage() {
         // http://www.arte.tv/guide/de/plus7/videos?day=-2&page=1&isLoading=true&sort=newest&country=DE
         for (int i = 0; i <= 14; ++i) {
-            String u = String.format(ARTE_API_TAG_URL_PATTERN,LANG_CODE,LocalDate.now().minusDays(i).format(ARTE_API_DATEFORMATTER));
+            String u = String.format(ARTE_API_TAG_URL_PATTERN,LANG_CODE.toUpperCase(),LocalDate.now().minusDays(i).format(ARTE_API_DATEFORMATTER));
             listeThemen.add(new String[]{u});
         }
     }
@@ -280,7 +282,9 @@ public class MediathekArte_de extends MediathekReader
             
             MVHttpClient mvhttpClient = MVHttpClient.getInstance();
             OkHttpClient httpClient = mvhttpClient.getHttpClient();
-            Request request = new Request.Builder().url(aUrl).build();
+            Request request = new Request.Builder()
+                    .addHeader(AUTH_HEADER, AUTH_TOKEN)
+                    .url(aUrl).build();
              try
              {
                  Response response = httpClient.newCall(request).execute();
