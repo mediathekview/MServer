@@ -105,8 +105,6 @@ public class ArteJsonObjectToDatenFilmCallable implements Callable<DatenFilm>
                           if(responseVideoDetails2.isSuccessful())
                           {
                             JsonObject jsonObjectVideoDetails2 = gson.fromJson(responseVideoDetails2.body().string(), JsonObject.class);
-                            System.out.println("Groesse: "+jsonObjectVideoDetails2
-                                .get("programs").getAsJsonArray().size());
                             if(jsonObjectVideoDetails2.isJsonObject() && 
                                 jsonObjectVideoDetails2.get("programs").getAsJsonArray().size() > 0 &&
                                 jsonObjectVideoDetails2.get("programs").getAsJsonArray().get(0).getAsJsonObject()
