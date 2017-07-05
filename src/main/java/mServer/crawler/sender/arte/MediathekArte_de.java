@@ -46,6 +46,23 @@ import okhttp3.Response;
 
 public class MediathekArte_de extends MediathekReader
 {
+    /*
+     * Informationen zu den ARTE-URLs:
+     * {} sind nur Makierungen, dass es Platzhalter sind, sie gehören nicht zur URL.
+     * 
+     * Allgemeine URL eines Films:  (050169-002-A = ID des Films); (die-spur-der-steine = Titel)
+     * http://www.arte.tv/de/videos/{050169-002-A}/{die-spur-der-steine}
+     * 
+     * Alle Sendungen: (Deutsch = DE; Französisch = FR)
+     * https://api.arte.tv/api/opa/v3/videos?channel={DE}
+     * 
+     * Informationen zum Film: (050169-002-A = ID des Films); (de für deutsch / fr für französisch)
+     * https://api.arte.tv/api/player/v1/config/{de}/{050169-002-A}?platform=ARTE_NEXT
+     * 
+     * Zweite Quelle für Informationen zum Film: (050169-002-A = ID des Films); (de für deutsch / fr für französisch)
+     * https://api.arte.tv/api/opa/v3/programs/{de}/{050169-002-A}
+     * 
+     */
     private static final Logger LOG = LogManager.getLogger(MediathekArte_de.class);
     private final static String SENDERNAME = Const.ARTE_DE;
     private static final String ARTE_API_TAG_URL_PATTERN = "https://api.arte.tv/api/opa/v3/videos?channel=%s&arteSchedulingDay=%s";

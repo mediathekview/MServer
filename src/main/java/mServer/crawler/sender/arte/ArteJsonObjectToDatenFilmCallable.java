@@ -4,12 +4,7 @@ import java.io.IOException;
 import java.time.LocalTime;
 import java.util.concurrent.Callable;
 
-import mServer.crawler.CrawlerTool;
-import mServer.crawler.sender.newsearch.Qualities;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.Response;
-
+import org.apache.commons.lang3.time.FastDateFormat;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -21,8 +16,12 @@ import com.google.gson.JsonObject;
 
 import de.mediathekview.mlib.daten.DatenFilm;
 import de.mediathekview.mlib.tool.MVHttpClient;
+import mServer.crawler.CrawlerTool;
+import mServer.crawler.sender.newsearch.Qualities;
 import mServer.tool.MserverDatumZeit;
-import org.apache.commons.lang3.time.FastDateFormat;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 
 public class ArteJsonObjectToDatenFilmCallable implements Callable<DatenFilm>
 {
@@ -35,8 +34,10 @@ public class ArteJsonObjectToDatenFilmCallable implements Callable<DatenFilm>
     private static final String JSON_ELEMENT_KEY_URL = "url";
     private static final String JSON_ELEMENT_KEY_PROGRAM_ID = "programId";
     private static final String ARTE_VIDEO_INFORMATION_URL_PATTERN = "https://api.arte.tv/api/player/v1/config/%s/%s?platform=ARTE_NEXT";
+//    private static final String ARTE_VIDEO_INFORMATION_URL_PATTERN = "https://api.arte.tv/api/opa/v3/programs/%s/%s?platform=ARTE_NEXT";
     private static final String JSON_ELEMENT_KEY_SHORT_DESCRIPTION = "shortDescription";
     private static final String JSON_ELEMENT_BROADCAST = "broadcastBegin";
+//    private static final String JSON_ELEMENT_BROADCAST = "broadcastBeginRounded";
     
     private final JsonObject jsonObject;
     private final String langCode;
