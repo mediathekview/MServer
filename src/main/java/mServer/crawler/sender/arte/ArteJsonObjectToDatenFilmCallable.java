@@ -34,10 +34,10 @@ public class ArteJsonObjectToDatenFilmCallable implements Callable<DatenFilm>
     private static final String JSON_ELEMENT_KEY_URL = "url";
     private static final String JSON_ELEMENT_KEY_PROGRAM_ID = "programId";
     private static final String ARTE_VIDEO_INFORMATION_URL_PATTERN = "https://api.arte.tv/api/player/v1/config/%s/%s?platform=ARTE_NEXT";
-//    private static final String ARTE_VIDEO_INFORMATION_URL_PATTERN = "https://api.arte.tv/api/opa/v3/programs/%s/%s?platform=ARTE_NEXT";
+    private static final String ARTE_VIDEO_INFORMATION_URL_PATTERN_2 = "https://api.arte.tv/api/opa/v3/programs/%s/%s";
     private static final String JSON_ELEMENT_KEY_SHORT_DESCRIPTION = "shortDescription";
-    private static final String JSON_ELEMENT_BROADCAST = "broadcastBegin";
-//    private static final String JSON_ELEMENT_BROADCAST = "broadcastBeginRounded";
+//    private static final String JSON_ELEMENT_BROADCAST = "broadcastBegin";
+    private static final String JSON_ELEMENT_BROADCAST = "broadcastBeginRounded";
     
     private final JsonObject jsonObject;
     private final String langCode;
@@ -67,6 +67,7 @@ public class ArteJsonObjectToDatenFilmCallable implements Callable<DatenFilm>
             //https://api.arte.tv/api/player/v1/config/[language:de/fr]/[programId]
             String programId = getElementValue(jsonObject, JSON_ELEMENT_KEY_PROGRAM_ID);
             String videosUrl = String.format(ARTE_VIDEO_INFORMATION_URL_PATTERN, langCode, programId);
+            String videosUrlVideoDetails2 = String.format(ARTE_VIDEO_INFORMATION_URL_PATTERN_2, langCode, programId);
 
             Gson gson = new GsonBuilder().registerTypeAdapter(ArteVideoDTO.class, new ArteVideoDeserializer()).create();
 
@@ -85,11 +86,44 @@ public class ArteJsonObjectToDatenFilmCallable implements Callable<DatenFilm>
 
                         // TODO nicht wirklich gut!! teilweise keine Daten, teilweise "krumme" Datumswerte
                         // Stattdessen: links/programs/href aufrufen und broadcastBeginRounded nehmen
-                        if(jsonObject.has(JSON_ELEMENT_BROADCAST)) {
-                            JsonElement jsonBegin = jsonObject.get(JSON_ELEMENT_BROADCAST);
-                            if(jsonBegin != JsonNull.INSTANCE) {
-                                broadcastBegin = jsonBegin.getAsString();    
+                        // TODO: Neu Alex Alles schöner machen!
+//                        if(jsonObject.has(JSON_ELEMENT_BROADCAST)) {
+//                            JsonElement jsonBegin = jsonObject.get(JSON_ELEMENT_BROADCAST);
+//                            if(jsonBegin != JsonNull.INSTANCE) {
+//                                broadcastBegin = jsonBegin.getAsString();    
+//                            }
+//                        }
+                        
+                        MVHttpClient mvhttpClient = MVHttpClient.getInstance();
+                        OkHttpClient httpClient = mvhttpClient.getHttpClient();
+                        Request request = new Request.Builder()
+                                .addHeader(MediathekArte_de.AUTH_HEADER, MediathekArte_de.AUTH_TOKEN)
+                                .url(videosUrlVideoDetails2).build();
+                        
+                        try(Response responseVideoDetails2 = httpClient.newCall(request).execute())
+                        {
+                          if(responseVideoDetails2.isSuccessful())
+                          {
+                            JsonObject jsonObjectVideoDetails2 = gson.fromJson(responseVideoDetails2.body().string(), JsonObject.class);
+                            System.out.println("Groesse: "+jsonObjectVideoDetails2
+                                .get("programs").getAsJsonArray().size());
+                            if(jsonObjectVideoDetails2.isJsonObject() && 
+                                jsonObjectVideoDetails2.get("programs").getAsJsonArray().size() > 0 &&
+                                jsonObjectVideoDetails2.get("programs").getAsJsonArray().get(0).getAsJsonObject()
+                                  .get("broadcastProgrammings").getAsJsonArray().size() > 0 &&
+                                jsonObjectVideoDetails2
+                                  .get("programs").getAsJsonArray().get(0).getAsJsonObject()
+                                  .get("broadcastProgrammings").getAsJsonArray().get(0).getAsJsonObject()
+                                  .has(JSON_ELEMENT_BROADCAST)) {
+                                JsonElement jsonBegin = jsonObjectVideoDetails2
+                                    .get("programs").getAsJsonArray().get(0).getAsJsonObject()
+                                    .get("broadcastProgrammings").getAsJsonArray().get(0).getAsJsonObject()
+                                    .get(JSON_ELEMENT_BROADCAST);
+                                if(jsonBegin != JsonNull.INSTANCE) {
+                                    broadcastBegin = jsonBegin.getAsString();    
+                                }
                             }
+                          }
                         }
 
                         film = createFilm(thema, urlWeb, titel, video, broadcastBegin, durationAsTime, beschreibung);
