@@ -2,6 +2,8 @@ package mServer.crawler.sender.arte;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonNull;
 import com.google.gson.JsonObject;
 import de.mediathekview.mlib.daten.Film;
 import de.mediathekview.mlib.daten.Qualities;
@@ -64,10 +66,7 @@ public class ArteJsonObjectToFilmCallable implements Callable<Film>
         try {
             if(isValidProgramObject(jsonObject))
             {
-                JsonObject programObject = jsonObject.get(JSON_OBJECT_KEY_PROGRAM).getAsJsonObject();
-                if (isValidProgramObject(programObject))
-                {
-                    String titel = getTitle(jsonObject);
+                String titel = getTitle(jsonObject);
                 String thema = getSubject(jsonObject);
     
                 String beschreibung = getElementValue(jsonObject, JSON_ELEMENT_KEY_SHORT_DESCRIPTION);
@@ -150,7 +149,6 @@ public class ArteJsonObjectToFilmCallable implements Callable<Film>
                         throw new CantCreateFilmException(uriSyntaxEception);
                     }
                 }
-            }
         } catch (Exception exception)
         {
             throw new CantCreateFilmException(exception);
