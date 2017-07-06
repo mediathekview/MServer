@@ -145,14 +145,22 @@ public class ArteJsonObjectToDatenFilmCallable implements Callable<DatenFilm>
     }
     
     private static String getSubject(JsonObject programObject) {
+        String category = "";
+        String subcategory = "";
         String subject;
         
-        JsonObject catObject = programObject.get(JSON_ELEMENT_KEY_CATEGORY).getAsJsonObject();
-        JsonObject subcatObject = programObject.get(JSON_ELEMENT_KEY_SUBCATEGORY).getAsJsonObject();
-
-        String category = catObject != null ? getElementValue(catObject, JSON_ELEMENT_KEY_NAME) : "";
-        String subcategory = subcatObject != null ? getElementValue(subcatObject, JSON_ELEMENT_KEY_NAME) : "";
+        JsonElement catElement = programObject.get(JSON_ELEMENT_KEY_CATEGORY);
+        if(!catElement.isJsonNull()) {
+            JsonObject catObject = catElement.getAsJsonObject();
+            category = catObject != null ? getElementValue(catObject, JSON_ELEMENT_KEY_NAME) : "";
+        }
         
+        JsonElement subcatElement = programObject.get(JSON_ELEMENT_KEY_SUBCATEGORY);
+        if(!subcatElement.isJsonNull()) {
+            JsonObject subcatObject = subcatElement.getAsJsonObject();
+            subcategory = subcatObject != null ? getElementValue(subcatObject, JSON_ELEMENT_KEY_NAME) : "";
+        }
+       
         if(!category.equals(subcategory) && !subcategory.isEmpty()) {
             subject = category + " - " + subcategory;
         } else {
@@ -161,7 +169,7 @@ public class ArteJsonObjectToDatenFilmCallable implements Callable<DatenFilm>
 
         return subject;
     }
-    
+
     private static String getTitle(JsonObject programObject) {
         String title = getElementValue(programObject, JSON_ELEMENT_KEY_TITLE);
         String subtitle = getElementValue(programObject, JSON_ELEMENT_KEY_SUBTITLE);
