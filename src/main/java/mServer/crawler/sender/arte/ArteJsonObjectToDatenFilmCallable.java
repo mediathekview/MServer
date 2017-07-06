@@ -10,8 +10,8 @@ import org.apache.logging.log4j.Logger;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
-import com.google.gson.JsonNull;
 import com.google.gson.JsonObject;
 
 import de.mediathekview.mlib.daten.DatenFilm;
@@ -39,6 +39,10 @@ public class ArteJsonObjectToDatenFilmCallable implements Callable<DatenFilm>
     private static final String JSON_ELEMENT_BROADCAST_ELTERNKNOTEN_1 = "programs";
     private static final String JSON_ELEMENT_BROADCAST_ELTERNKNOTEN_2 = "broadcastProgrammings";
     private static final String JSON_ELEMENT_BROADCAST = "broadcastBeginRounded";
+    private static final String JSON_ELEMENT_BROADCASTTYPE = "broadcastType";
+    private static final String BROADCASTTTYPE_FIRST = "FIRST_BROADCAST";
+    private static final String BROADCASTTTYPE_MINOR_RE = "MINOR_REBROADCAST";
+    private static final String BROADCASTTTYPE_MAJOR_RE = "MAJOR_REBROADCAST";
     
     private final JsonObject jsonObject;
     private final String langCode;
@@ -82,49 +86,7 @@ public class ArteJsonObjectToDatenFilmCallable implements Callable<DatenFilm>
 
                     if (video.getVideoUrls().containsKey(Qualities.NORMAL))
                     {
-                        String broadcastBegin = ""; 
-                        
-                        OkHttpClient httpClient = MVHttpClient.getInstance().getHttpClient();
-                        //https://api.arte.tv/api/opa/v3/programs/[language:de/fr]/[programId]
-                        String videosUrlVideoDetails2 = String.format(ARTE_VIDEO_INFORMATION_URL_PATTERN_2, langCode, programId);
-                        Request request = new Request.Builder()
-                                .addHeader(MediathekArte_de.AUTH_HEADER, MediathekArte_de.AUTH_TOKEN)
-                                .url(videosUrlVideoDetails2).build();
-                        
-                        try(Response responseVideoDetails2 = httpClient.newCall(request).execute())
-                        {
-                          if(responseVideoDetails2.isSuccessful())
-                          {
-                            /*
-                             * Grobe Struktur des Json's:
-                             * {
-                             *  "meta": {}
-                             *  "programs": [{                   (JSON_ELEMENT_BROADCAST_ELTERNKNOTEN_1)
-                                  "broadcastProgrammings": [{    (JSON_ELEMENT_BROADCAST_ELTERNKNOTEN_2)
-                                    "broadcastBeginRounded": "2016-07-06T02:40:00Z",     (JSON_ELEMENT_BROADCAST)
-                                  ]}
-                                ]}
-                             * }
-                             */
-                            JsonObject jsonObjectVideoDetails2 = gson.fromJson(responseVideoDetails2.body().string(), JsonObject.class);
-                            if(jsonObjectVideoDetails2.isJsonObject() && 
-                                jsonObjectVideoDetails2.get(JSON_ELEMENT_BROADCAST_ELTERNKNOTEN_1).getAsJsonArray().size() > 0 &&
-                                jsonObjectVideoDetails2.get(JSON_ELEMENT_BROADCAST_ELTERNKNOTEN_1).getAsJsonArray().get(0).getAsJsonObject()
-                                  .get(JSON_ELEMENT_BROADCAST_ELTERNKNOTEN_2).getAsJsonArray().size() > 0 &&
-                                jsonObjectVideoDetails2.get(JSON_ELEMENT_BROADCAST_ELTERNKNOTEN_1).getAsJsonArray().get(0).getAsJsonObject()
-                                  .get(JSON_ELEMENT_BROADCAST_ELTERNKNOTEN_2).getAsJsonArray().get(0).getAsJsonObject()
-                                  .has(JSON_ELEMENT_BROADCAST)) 
-                            {
-                                JsonElement jsonBegin = jsonObjectVideoDetails2
-                                    .get(JSON_ELEMENT_BROADCAST_ELTERNKNOTEN_1).getAsJsonArray().get(0).getAsJsonObject()
-                                    .get(JSON_ELEMENT_BROADCAST_ELTERNKNOTEN_2).getAsJsonArray().get(0).getAsJsonObject()
-                                    .get(JSON_ELEMENT_BROADCAST);
-                                if(jsonBegin != JsonNull.INSTANCE) {
-                                    broadcastBegin = jsonBegin.getAsString();    
-                                }
-                            }
-                          }
-                        }
+                        String broadcastBegin = getBroadcastBegin(gson, programId);                      
 
                         film = createFilm(thema, urlWeb, titel, video, broadcastBegin, durationAsTime, beschreibung);
                    } else {
@@ -142,6 +104,84 @@ public class ArteJsonObjectToDatenFilmCallable implements Callable<DatenFilm>
         }
         
         return film;
+    }
+    
+    private String getBroadcastBegin(Gson gson, String programId) throws IOException {
+        String broadcastBegin = "";
+        
+        OkHttpClient httpClient = MVHttpClient.getInstance().getHttpClient();
+        //https://api.arte.tv/api/opa/v3/programs/[language:de/fr]/[programId]
+        String videosUrlVideoDetails2 = String.format(ARTE_VIDEO_INFORMATION_URL_PATTERN_2, langCode, programId);
+        Request request = new Request.Builder()
+                .addHeader(MediathekArte_de.AUTH_HEADER, MediathekArte_de.AUTH_TOKEN)
+                .url(videosUrlVideoDetails2).build();
+
+        try(Response responseVideoDetails2 = httpClient.newCall(request).execute())
+        {
+          if(responseVideoDetails2.isSuccessful())
+          {
+            /*
+             * Grobe Struktur des Json's:
+             * {
+             *  "meta": {}
+             *  "programs": [{                   (JSON_ELEMENT_BROADCAST_ELTERNKNOTEN_1)
+                  "broadcastProgrammings": [{    (JSON_ELEMENT_BROADCAST_ELTERNKNOTEN_2)
+                    "broadcastBeginRounded": "2016-07-06T02:40:00Z",     (JSON_ELEMENT_BROADCAST)
+                    "broadcastType": MAJOR_REBROADCAST, (JSON_ELEMENT_BROADCAST_TYPE)
+                  ]}
+                ]}
+             * }
+             */
+            JsonObject jsonObjectVideoDetails2 = gson.fromJson(responseVideoDetails2.body().string(), JsonObject.class);
+            if(jsonObjectVideoDetails2.isJsonObject() && 
+                jsonObjectVideoDetails2.get(JSON_ELEMENT_BROADCAST_ELTERNKNOTEN_1).getAsJsonArray().size() > 0 &&
+                jsonObjectVideoDetails2.get(JSON_ELEMENT_BROADCAST_ELTERNKNOTEN_1).getAsJsonArray().get(0).getAsJsonObject()
+                  .get(JSON_ELEMENT_BROADCAST_ELTERNKNOTEN_2).getAsJsonArray().size() > 0) {
+                
+                JsonArray broadcastArray = jsonObjectVideoDetails2
+                    .get(JSON_ELEMENT_BROADCAST_ELTERNKNOTEN_1).getAsJsonArray().get(0).getAsJsonObject()
+                    .get(JSON_ELEMENT_BROADCAST_ELTERNKNOTEN_2).getAsJsonArray();
+                
+                if(broadcastArray.size() > 0) {
+                    String broadcastBeginFirst = "";
+                    String broadcastBeginMajor = "";
+                    String broadcastBeginMinor = "";
+                    
+                    // nach Priorität der BroadcastTypen den relevanten Eintrag suchen
+                    // FIRST_BROADCAST => MAJOR_REBROADCAST => MINOR_REBROADCAST
+                    for(int i = 0; i < broadcastArray.size(); i++) {
+                        JsonObject broadcastObject = broadcastArray.get(i).getAsJsonObject();
+                        if(broadcastObject.has(JSON_ELEMENT_BROADCASTTYPE) && 
+                                broadcastObject.has(JSON_ELEMENT_BROADCAST)) {
+                            String type = broadcastObject.get(JSON_ELEMENT_BROADCASTTYPE).getAsString();
+                            switch(type) {
+                                case BROADCASTTTYPE_FIRST:
+                                    broadcastBeginFirst = broadcastObject.get(JSON_ELEMENT_BROADCAST).getAsString();
+                                    break;
+                                case BROADCASTTTYPE_MAJOR_RE:
+                                    broadcastBeginMajor = broadcastObject.get(JSON_ELEMENT_BROADCAST).getAsString();
+                                    break;
+                                case BROADCASTTTYPE_MINOR_RE:
+                                    broadcastBeginMinor = broadcastObject.get(JSON_ELEMENT_BROADCAST).getAsString();
+                                    break;
+                                default:
+                                    LOG.debug("New broadcasttype: " + type);
+                            }
+                        }
+                    }
+                    
+                    if(!broadcastBeginFirst.isEmpty()) {
+                        broadcastBegin = broadcastBeginFirst;
+                    } else if(!broadcastBeginMajor.isEmpty()) {
+                        broadcastBegin = broadcastBeginMajor;
+                    } else if(!broadcastBeginMinor.isEmpty()) {
+                        broadcastBegin = broadcastBeginMinor;
+                    }
+                }
+            }
+          }
+        }      
+        return broadcastBegin;
     }
     
     private static String getSubject(JsonObject programObject) {
