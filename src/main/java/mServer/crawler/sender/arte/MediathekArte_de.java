@@ -45,9 +45,28 @@ import java.time.format.DateTimeFormatter;
 
 public class MediathekArte_de extends MediathekReader
 {
+    /*
+     * Informationen zu den ARTE-URLs:
+     * {} sind nur Makierungen, dass es Platzhalter sind, sie gehören nicht zur URL.
+     * 
+     * Allgemeine URL eines Films:  (050169-002-A = ID des Films); (die-spur-der-steine = Titel)
+     * http://www.arte.tv/de/videos/{050169-002-A}/{die-spur-der-steine}
+     * 
+     * Alle Sendungen: (Deutsch = DE; Französisch = FR)
+     * https://api.arte.tv/api/opa/v3/videos?channel={DE}
+     * 
+     * Informationen zum Film: (050169-002-A = ID des Films); (de für deutsch / fr für französisch)
+     * https://api.arte.tv/api/player/v1/config/{de}/{050169-002-A}?platform=ARTE_NEXT
+     * 
+     * Zweite Quelle für Informationen zum Film: (050169-002-A = ID des Films); (de für deutsch / fr für französisch)
+     * https://api.arte.tv/api/opa/v3/programs/{de}/{050169-002-A}
+     * 
+     */
     private static final Logger LOG = LogManager.getLogger(MediathekArte_de.class);
-    private static final String ARTE_API_TAG_URL_PATTERN = "http://www.arte.tv/guide/api/api/program/%s/scheduled/%s";
-    private static final DateTimeFormatter ARTE_API_DATEFORMATTER = DateTimeFormatter.ofPattern("yy-MM-dd");
+    private static final String ARTE_API_TAG_URL_PATTERN = "https://api.arte.tv/api/opa/v3/videos?channel=%s&arteSchedulingDay=%s";
+    private static final DateTimeFormatter ARTE_API_DATEFORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+    public static final String AUTH_HEADER = "Authorization";
+    public static final String AUTH_TOKEN = "Bearer Nzc1Yjc1ZjJkYjk1NWFhN2I2MWEwMmRlMzAzNjI5NmU3NWU3ODg4ODJjOWMxNTMxYzEzZGRjYjg2ZGE4MmIwOA";
     protected String LANG_CODE = "de";
     protected String URL_CONCERT = "http://concert.arte.tv/de/videos/all";
     protected String URL_CONCERT_NOT_CONTAIN = "-STF";
@@ -118,9 +137,8 @@ public class MediathekArte_de extends MediathekReader
     private void addTage()
     {
         // http://www.arte.tv/guide/de/plus7/videos?day=-2&page=1&isLoading=true&sort=newest&country=DE
-        for (int i = 0; i <= 14; ++i)
-        {
-            String u = String.format(ARTE_API_TAG_URL_PATTERN, LANG_CODE, LocalDate.now().minusDays(i).format(ARTE_API_DATEFORMATTER));
+        for (int i = 0; i <= 14; ++i) {
+            String u = String.format(ARTE_API_TAG_URL_PATTERN,LANG_CODE.toUpperCase(),LocalDate.now().minusDays(i).format(ARTE_API_DATEFORMATTER));
             listeThemen.add(new String[]{u});
         }
     }
@@ -335,10 +353,12 @@ public class MediathekArte_de extends MediathekReader
 
             MVHttpClient mvhttpClient = MVHttpClient.getInstance();
             OkHttpClient httpClient = mvhttpClient.getHttpClient();
-            Request request = new Request.Builder().url(aUrl).build();
-            try
-            {
-                Response response = httpClient.newCall(request).execute();
+            Request request = new Request.Builder()
+                    .addHeader(AUTH_HEADER, AUTH_TOKEN)
+                    .url(aUrl).build();
+             try
+             {
+                 Response response = httpClient.newCall(request).execute();
 
                 if (response.isSuccessful())
                 {

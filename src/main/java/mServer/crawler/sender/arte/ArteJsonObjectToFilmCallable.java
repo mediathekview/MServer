@@ -30,7 +30,6 @@ import java.util.concurrent.Callable;
 public class ArteJsonObjectToFilmCallable implements Callable<Film>
 {
     private static final Logger LOG = LogManager.getLogger(ArteJsonObjectToFilmCallable.class);
-    private static final String JSON_OBJECT_KEY_PROGRAM = "program";
     private static final String JSON_ELEMENT_KEY_CATEGORY = "category";
     private static final String JSON_ELEMENT_KEY_SUBCATEGORY = "subcategory";
     private static final String JSON_ELEMENT_KEY_NAME = "name";
@@ -39,7 +38,10 @@ public class ArteJsonObjectToFilmCallable implements Callable<Film>
     private static final String JSON_ELEMENT_KEY_URL = "url";
     private static final String JSON_ELEMENT_KEY_PROGRAM_ID = "programId";
     private static final String ARTE_VIDEO_INFORMATION_URL_PATTERN = "https://api.arte.tv/api/player/v1/config/%s/%s?platform=ARTE_NEXT";
+    private static final String ARTE_VIDEO_INFORMATION_URL_PATTERN_2 = "https://api.arte.tv/api/opa/v3/programs/%s/%s"; // Für broadcastBeginRounded
     private static final String JSON_ELEMENT_KEY_SHORT_DESCRIPTION = "shortDescription";
+    private static final String JSON_ELEMENT_BROADCAST_ELTERNKNOTEN_1 = "programs";
+    private static final String JSON_ELEMENT_BROADCAST_ELTERNKNOTEN_2 = "broadcastProgrammings";
     private static final String JSON_ELEMENT_BROADCAST = "broadcastBeginRounded";
 
     private final JsonObject jsonObject;
@@ -59,61 +61,104 @@ public class ArteJsonObjectToFilmCallable implements Callable<Film>
     public Film call() throws CantCreateFilmException
     {
         Film film = null;
-        if (jsonObject != null && jsonObject.has(JSON_OBJECT_KEY_PROGRAM))
-        {
-            JsonObject programObject = jsonObject.get(JSON_OBJECT_KEY_PROGRAM).getAsJsonObject();
-            if (isValidProgramObject(programObject))
+        try {
+            if(isValidProgramObject(jsonObject))
             {
-                String titel = getTitle(programObject);
-                String thema = getSubject(programObject);
-                
-                String beschreibung = getElementValue(programObject, JSON_ELEMENT_KEY_SHORT_DESCRIPTION);
-
-                String urlWeb = getElementValue(programObject, JSON_ELEMENT_KEY_URL);
-
-                //https://api.arte.tv/api/player/v1/config/[language:de/fr]/[programId]
-                String programId = getElementValue(programObject, JSON_ELEMENT_KEY_PROGRAM_ID);
+                JsonObject programObject = jsonObject.get(JSON_OBJECT_KEY_PROGRAM).getAsJsonObject();
+                if (isValidProgramObject(programObject))
+                {
+                    String titel = getTitle(jsonObject);
+                String thema = getSubject(jsonObject);
+    
+                String beschreibung = getElementValue(jsonObject, JSON_ELEMENT_KEY_SHORT_DESCRIPTION);
+    
+                String urlWeb = getElementValue(jsonObject, JSON_ELEMENT_KEY_URL);
+    
+                //https://api.arte.tv/api/player/v1/config/[language:de/fr]/[programId]?platform=ARTE_NEXT
+                String programId = getElementValue(jsonObject, JSON_ELEMENT_KEY_PROGRAM_ID);
                 String videosUrl = String.format(ARTE_VIDEO_INFORMATION_URL_PATTERN, langCode, programId);
-
-                Gson gson = new GsonBuilder().registerTypeAdapter(ArteVideoDTO.class, new ArteVideoDeserializer()).create();
-
-                try (Response responseVideoDetails = executeRequest(videosUrl))
-                {
-                    if (responseVideoDetails.isSuccessful())
+    
+    
+                    Gson gson = new GsonBuilder().registerTypeAdapter(ArteVideoDTO.class, new ArteVideoDeserializer()).create();
+    
+                    try (Response responseVideoDetails = executeRequest(videosUrl))
                     {
-                        ArteVideoDTO video = gson.fromJson(responseVideoDetails.body().string(), ArteVideoDTO.class);
-
-                        //The duration as time so it can be formatted and co.
-                        Duration duration = Duration.of(video.getDurationInSeconds(), ChronoUnit.SECONDS);
-
-                        if (video.getVideoUrls().containsKey(Qualities.NORMAL))
+                        if (responseVideoDetails.isSuccessful())
                         {
-                            String broadcastBegin = "";
-
-                            if (jsonObject.has(JSON_ELEMENT_BROADCAST))
+                            ArteVideoDTO video = gson.fromJson(responseVideoDetails.body().string(), ArteVideoDTO.class);
+    
+                            //The duration as time so it can be formatted and co.
+                            Duration duration = Duration.of(video.getDurationInSeconds(), ChronoUnit.SECONDS);
+    
+                            if (video.getVideoUrls().containsKey(Qualities.NORMAL))
                             {
-                                broadcastBegin = jsonObject.get(JSON_ELEMENT_BROADCAST).getAsString();
+                                String broadcastBegin = "";
+    
+                                OkHttpClient httpClient = MVHttpClient.getInstance().getHttpClient();
+                            //https://api.arte.tv/api/opa/v3/programs/[language:de/fr]/[programId]
+                            String videosUrlVideoDetails2 = String.format(ARTE_VIDEO_INFORMATION_URL_PATTERN_2, langCode, programId);
+                            Request request = new Request.Builder()
+                                    .addHeader(MediathekArte_de.AUTH_HEADER, MediathekArte_de.AUTH_TOKEN)
+                                    .url(videosUrlVideoDetails2).build();
+                            
+                            try(Response responseVideoDetails2 = httpClient.newCall(request).execute())
+                            {
+                              if(responseVideoDetails2.isSuccessful())
+                              {
+                                /*
+                                 * Grobe Struktur des Json's:
+                                 * {
+                                 *  "meta": {}
+                                 *  "programs": [{                   (JSON_ELEMENT_BROADCAST_ELTERNKNOTEN_1)
+                                      "broadcastProgrammings": [{    (JSON_ELEMENT_BROADCAST_ELTERNKNOTEN_2)
+                                        "broadcastBeginRounded": "2016-07-06T02:40:00Z",     (JSON_ELEMENT_BROADCAST)
+                                      ]}
+                                    ]}
+                                 * }
+                                 */
+                                JsonObject jsonObjectVideoDetails2 = gson.fromJson(responseVideoDetails2.body().string(), JsonObject.class);
+                                if(jsonObjectVideoDetails2.isJsonObject() && 
+                                    jsonObjectVideoDetails2.get(JSON_ELEMENT_BROADCAST_ELTERNKNOTEN_1).getAsJsonArray().size() > 0 &&
+                                    jsonObjectVideoDetails2.get(JSON_ELEMENT_BROADCAST_ELTERNKNOTEN_1).getAsJsonArray().get(0).getAsJsonObject()
+                                      .get(JSON_ELEMENT_BROADCAST_ELTERNKNOTEN_2).getAsJsonArray().size() > 0 &&
+                                    jsonObjectVideoDetails2.get(JSON_ELEMENT_BROADCAST_ELTERNKNOTEN_1).getAsJsonArray().get(0).getAsJsonObject()
+                                      .get(JSON_ELEMENT_BROADCAST_ELTERNKNOTEN_2).getAsJsonArray().get(0).getAsJsonObject()
+                                      .has(JSON_ELEMENT_BROADCAST)) 
+                                {
+                                    JsonElement jsonBegin = jsonObjectVideoDetails2
+                                        .get(JSON_ELEMENT_BROADCAST_ELTERNKNOTEN_1).getAsJsonArray().get(0).getAsJsonObject()
+                                        .get(JSON_ELEMENT_BROADCAST_ELTERNKNOTEN_2).getAsJsonArray().get(0).getAsJsonObject()
+                                        .get(JSON_ELEMENT_BROADCAST);
+                                    if(jsonBegin != JsonNull.INSTANCE) {
+                                        broadcastBegin = jsonBegin.getAsString();    
+                                    }
+                                }
+                              }
                             }
-                            film = createFilm(thema, urlWeb, titel, video, LocalDateTime.parse(broadcastBegin, broadcastDateFormat), duration, beschreibung);
-                        } else {
-                            LOG.debug(String.format("Keine \"normale\" Video URL für den Film \"%s\" mit der URL \"%s\". Video Details URL:\"%s\" ", titel, urlWeb, videosUrl));
+                                
+                                film = createFilm(thema, urlWeb, titel, video, LocalDateTime.parse(broadcastBegin, broadcastDateFormat), duration, beschreibung);
+                            } else {
+                                LOG.debug(String.format("Keine \"normale\" Video URL für den Film \"%s\" mit der URL \"%s\". Video Details URL:\"%s\" ", titel, urlWeb, videosUrl));
+                            }
                         }
+                    } catch (IOException ioException)
+                    {
+                        LOG.fatal("Beim laden der Informationen eines Filmes für Arte kam es zu Verbindungsproblemen.", ioException);
+                        throw new CantCreateFilmException(ioException);
+                    }catch (URISyntaxException uriSyntaxEception)
+                    {
+                        throw new CantCreateFilmException(uriSyntaxEception);
                     }
-                } catch (IOException ioException)
-                {
-                    LOG.fatal("Beim laden der Informationen eines Filmes für Arte kam es zu Verbindungsproblemen.", ioException);
-                    throw new CantCreateFilmException(ioException);
-                }catch (URISyntaxException uriSyntaxEception)
-                {
-                    throw new CantCreateFilmException(uriSyntaxEception);
                 }
-
             }
+        } catch (Exception exception)
+        {
+            throw new CantCreateFilmException(exception);
         }
         return film;
     }
     
-    private static String getSubject(JsonObject programObject) {
+    private String getSubject(JsonObject programObject) {
         String subject;
         
         JsonObject catObject = programObject.get(JSON_ELEMENT_KEY_CATEGORY).getAsJsonObject();
@@ -131,7 +176,7 @@ public class ArteJsonObjectToFilmCallable implements Callable<Film>
         return subject;
     }
     
-    private static String getTitle(JsonObject programObject) {
+    private String getTitle(JsonObject programObject) {
         String title = getElementValue(programObject, JSON_ELEMENT_KEY_TITLE);
         String subtitle = getElementValue(programObject, JSON_ELEMENT_KEY_SUBTITLE);
                 
@@ -142,19 +187,19 @@ public class ArteJsonObjectToFilmCallable implements Callable<Film>
         return title;
     }
 
-    private static boolean isValidProgramObject(JsonObject programObject)
+    private boolean isValidProgramObject(JsonObject programObject)
     {
-        return programObject.has(JSON_ELEMENT_KEY_TITLE) &&
-                programObject.has(JSON_ELEMENT_KEY_PROGRAM_ID) &&
-                programObject.has(JSON_ELEMENT_KEY_URL) &&
-                !programObject.get(JSON_ELEMENT_KEY_TITLE).isJsonNull() &&
-                !programObject.get(JSON_ELEMENT_KEY_PROGRAM_ID).isJsonNull() &&
-                !programObject.get(JSON_ELEMENT_KEY_URL).isJsonNull();
+        return programObject.has(JSON_ELEMENT_KEY_TITLE) && 
+            programObject.has(JSON_ELEMENT_KEY_PROGRAM_ID) && 
+            programObject.has(JSON_ELEMENT_KEY_URL) &&
+            !programObject.get(JSON_ELEMENT_KEY_TITLE).isJsonNull() &&
+            !programObject.get(JSON_ELEMENT_KEY_PROGRAM_ID).isJsonNull() &&
+            !programObject.get(JSON_ELEMENT_KEY_URL).isJsonNull();
     }
 
-    private static String getElementValue(JsonObject jsonObject, String elementName)
+    private String getElementValue(JsonObject jsonObject, String elementName)
     {
-        return !jsonObject.get(elementName).isJsonNull() ? jsonObject.get(elementName).getAsString() : "";
+        return !jsonObject.get(elementName).isJsonNull() ? jsonObject.get(elementName).getAsString() : "";        
     }
 
     private Film createFilm(final String aThema,

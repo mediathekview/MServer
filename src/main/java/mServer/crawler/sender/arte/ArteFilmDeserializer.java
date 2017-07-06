@@ -17,6 +17,7 @@ import java.util.concurrent.*;
 
 public class ArteFilmDeserializer implements JsonDeserializer<ListeFilme>
 {
+    private static final String JSON_ELEMENT_VIDEOS = "videos";
     private static final Logger LOG = LogManager.getLogger(ArteFilmDeserializer.class);
     
     private final String langCode;
@@ -33,7 +34,8 @@ public class ArteFilmDeserializer implements JsonDeserializer<ListeFilme>
         ListeFilme listeFilme = new ListeFilme();
 
         Collection<Future<Film>> futureFilme = new ArrayList<>();
-        for (JsonElement jsonElement : aJsonElement.getAsJsonArray())
+        
+        for (JsonElement jsonElement : aJsonElement.getAsJsonObject().get(JSON_ELEMENT_VIDEOS).getAsJsonArray())
         {
             ExecutorService executor = Executors.newCachedThreadPool();
             futureFilme.add(executor.submit(new ArteJsonObjectToFilmCallable(jsonElement.getAsJsonObject(), langCode, sender)));
