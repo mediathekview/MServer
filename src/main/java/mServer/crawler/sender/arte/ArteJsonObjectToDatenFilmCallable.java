@@ -4,28 +4,28 @@ import java.io.IOException;
 import java.time.LocalTime;
 import java.util.concurrent.Callable;
 
-import mServer.crawler.CrawlerTool;
-import mServer.crawler.sender.newsearch.Qualities;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.Response;
-
+import org.apache.commons.lang3.time.FastDateFormat;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonNull;
 import com.google.gson.JsonObject;
 
 import de.mediathekview.mlib.daten.DatenFilm;
 import de.mediathekview.mlib.tool.MVHttpClient;
+import mServer.crawler.CrawlerTool;
+import mServer.crawler.sender.newsearch.Qualities;
 import mServer.tool.MserverDatumZeit;
-import org.apache.commons.lang3.time.FastDateFormat;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 
 public class ArteJsonObjectToDatenFilmCallable implements Callable<DatenFilm>
 {
     private static final Logger LOG = LogManager.getLogger(ArteJsonObjectToDatenFilmCallable.class);
-    private static final String JSON_OBJECT_KEY_PROGRAM = "program";
     private static final String JSON_ELEMENT_KEY_CATEGORY = "category";
     private static final String JSON_ELEMENT_KEY_SUBCATEGORY = "subcategory";
     private static final String JSON_ELEMENT_KEY_NAME = "name";
@@ -34,7 +34,10 @@ public class ArteJsonObjectToDatenFilmCallable implements Callable<DatenFilm>
     private static final String JSON_ELEMENT_KEY_URL = "url";
     private static final String JSON_ELEMENT_KEY_PROGRAM_ID = "programId";
     private static final String ARTE_VIDEO_INFORMATION_URL_PATTERN = "https://api.arte.tv/api/player/v1/config/%s/%s?platform=ARTE_NEXT";
+    private static final String ARTE_VIDEO_INFORMATION_URL_PATTERN_2 = "https://api.arte.tv/api/opa/v3/programs/%s/%s"; // Für broadcastBeginRounded
     private static final String JSON_ELEMENT_KEY_SHORT_DESCRIPTION = "shortDescription";
+    private static final String JSON_ELEMENT_BROADCAST_ELTERNKNOTEN_1 = "programs";
+    private static final String JSON_ELEMENT_BROADCAST_ELTERNKNOTEN_2 = "broadcastProgrammings";
     private static final String JSON_ELEMENT_BROADCAST = "broadcastBeginRounded";
     
     private final JsonObject jsonObject;
@@ -52,52 +55,92 @@ public class ArteJsonObjectToDatenFilmCallable implements Callable<DatenFilm>
     @Override
     public DatenFilm call() {
         DatenFilm film = null;
-        if(jsonObject != null && jsonObject.has(JSON_OBJECT_KEY_PROGRAM))
+        try {
+        if(isValidProgramObject(jsonObject))
         {
-            JsonObject programObject = jsonObject.get(JSON_OBJECT_KEY_PROGRAM).getAsJsonObject();
-            if(isValidProgramObject(programObject))
+            String titel = getTitle(jsonObject);
+            String thema = getSubject(jsonObject);
+
+            String beschreibung = getElementValue(jsonObject, JSON_ELEMENT_KEY_SHORT_DESCRIPTION);
+
+            String urlWeb = getElementValue(jsonObject, JSON_ELEMENT_KEY_URL);
+
+            //https://api.arte.tv/api/player/v1/config/[language:de/fr]/[programId]?platform=ARTE_NEXT
+            String programId = getElementValue(jsonObject, JSON_ELEMENT_KEY_PROGRAM_ID);
+            String videosUrl = String.format(ARTE_VIDEO_INFORMATION_URL_PATTERN, langCode, programId);
+
+            Gson gson = new GsonBuilder().registerTypeAdapter(ArteVideoDTO.class, new ArteVideoDeserializer()).create();
+
+            try(Response responseVideoDetails = executeRequest(videosUrl))
             {
-                String titel = getTitle(programObject);
-                String thema = getSubject(programObject);
-                
-                String beschreibung = getElementValue(programObject, JSON_ELEMENT_KEY_SHORT_DESCRIPTION);
-                
-                String urlWeb = getElementValue(programObject, JSON_ELEMENT_KEY_URL);
-    
-                //https://api.arte.tv/api/player/v1/config/[language:de/fr]/[programId]
-                String programId = getElementValue(programObject, JSON_ELEMENT_KEY_PROGRAM_ID);
-                String videosUrl = String.format(ARTE_VIDEO_INFORMATION_URL_PATTERN, langCode, programId);
-                
-                Gson gson = new GsonBuilder().registerTypeAdapter(ArteVideoDTO.class, new ArteVideoDeserializer()).create();
-    
-                try(Response responseVideoDetails = executeRequest(videosUrl))
+                if(responseVideoDetails.isSuccessful())
                 {
-                    if(responseVideoDetails.isSuccessful())
+                    ArteVideoDTO video = gson.fromJson(responseVideoDetails.body().string(), ArteVideoDTO.class);
+
+                    //The duration as time so it can be formatted and co.
+                    LocalTime durationAsTime = durationAsTime(video.getDurationInSeconds());
+
+                    if (video.getVideoUrls().containsKey(Qualities.NORMAL))
                     {
-                        ArteVideoDTO video = gson.fromJson(responseVideoDetails.body().string(), ArteVideoDTO.class);
+                        String broadcastBegin = ""; 
                         
-                        //The duration as time so it can be formatted and co.
-                        LocalTime durationAsTime = durationAsTime(video.getDurationInSeconds());
-                       
-                        if (video.getVideoUrls().containsKey(Qualities.NORMAL))
+                        OkHttpClient httpClient = MVHttpClient.getInstance().getHttpClient();
+                        //https://api.arte.tv/api/opa/v3/programs/[language:de/fr]/[programId]
+                        String videosUrlVideoDetails2 = String.format(ARTE_VIDEO_INFORMATION_URL_PATTERN_2, langCode, programId);
+                        Request request = new Request.Builder()
+                                .addHeader(MediathekArte_de.AUTH_HEADER, MediathekArte_de.AUTH_TOKEN)
+                                .url(videosUrlVideoDetails2).build();
+                        
+                        try(Response responseVideoDetails2 = httpClient.newCall(request).execute())
                         {
-                            String broadcastBegin = ""; 
-                            
-                            if(jsonObject.has(JSON_ELEMENT_BROADCAST)) {
-                                broadcastBegin = jsonObject.get(JSON_ELEMENT_BROADCAST).getAsString();    
+                          if(responseVideoDetails2.isSuccessful())
+                          {
+                            /*
+                             * Grobe Struktur des Json's:
+                             * {
+                             *  "meta": {}
+                             *  "programs": [{                   (JSON_ELEMENT_BROADCAST_ELTERNKNOTEN_1)
+                                  "broadcastProgrammings": [{    (JSON_ELEMENT_BROADCAST_ELTERNKNOTEN_2)
+                                    "broadcastBeginRounded": "2016-07-06T02:40:00Z",     (JSON_ELEMENT_BROADCAST)
+                                  ]}
+                                ]}
+                             * }
+                             */
+                            JsonObject jsonObjectVideoDetails2 = gson.fromJson(responseVideoDetails2.body().string(), JsonObject.class);
+                            if(jsonObjectVideoDetails2.isJsonObject() && 
+                                jsonObjectVideoDetails2.get(JSON_ELEMENT_BROADCAST_ELTERNKNOTEN_1).getAsJsonArray().size() > 0 &&
+                                jsonObjectVideoDetails2.get(JSON_ELEMENT_BROADCAST_ELTERNKNOTEN_1).getAsJsonArray().get(0).getAsJsonObject()
+                                  .get(JSON_ELEMENT_BROADCAST_ELTERNKNOTEN_2).getAsJsonArray().size() > 0 &&
+                                jsonObjectVideoDetails2.get(JSON_ELEMENT_BROADCAST_ELTERNKNOTEN_1).getAsJsonArray().get(0).getAsJsonObject()
+                                  .get(JSON_ELEMENT_BROADCAST_ELTERNKNOTEN_2).getAsJsonArray().get(0).getAsJsonObject()
+                                  .has(JSON_ELEMENT_BROADCAST)) 
+                            {
+                                JsonElement jsonBegin = jsonObjectVideoDetails2
+                                    .get(JSON_ELEMENT_BROADCAST_ELTERNKNOTEN_1).getAsJsonArray().get(0).getAsJsonObject()
+                                    .get(JSON_ELEMENT_BROADCAST_ELTERNKNOTEN_2).getAsJsonArray().get(0).getAsJsonObject()
+                                    .get(JSON_ELEMENT_BROADCAST);
+                                if(jsonBegin != JsonNull.INSTANCE) {
+                                    broadcastBegin = jsonBegin.getAsString();    
+                                }
                             }
-                            
-                            film = createFilm(thema, urlWeb, titel, video, broadcastBegin, durationAsTime, beschreibung);
-                       } else {
-                           LOG.debug(String.format("Keine \"normale\" Video URL für den Film \"%s\" mit der URL \"%s\". Video Details URL:\"%s\" ", titel, urlWeb, videosUrl));
-                       }
-                    }
-                } catch (IOException ioException)
-                {
-                    LOG.error("Beim laden der Informationen eines Filmes für Arte kam es zu Verbindungsproblemen.", ioException);
+                          }
+                        }
+
+                        film = createFilm(thema, urlWeb, titel, video, broadcastBegin, durationAsTime, beschreibung);
+                   } else {
+                       LOG.debug(String.format("Keine \"normale\" Video URL für den Film \"%s\" mit der URL \"%s\". Video Details URL:\"%s\" ", titel, urlWeb, videosUrl));
+                   }
                 }
+            } catch (IOException ioException)
+            {
+                LOG.error("Beim laden der Informationen eines Filmes für Arte kam es zu Verbindungsproblemen.", ioException);
             }
         }
+        } catch(Exception e) {
+            e.printStackTrace();
+            LOG.error(e);
+        }
+        
         return film;
     }
     
