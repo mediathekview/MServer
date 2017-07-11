@@ -81,7 +81,7 @@ public class ArteVideoDetailsDeserializer implements JsonDeserializer<ArteVideoD
 
             if(broadcastObject.has(JSON_ELEMENT_BROADCASTTYPE) && 
                     broadcastObject.has(JSON_ELEMENT_BROADCAST)) {
-                String value = this.getBroadcastDate(broadcastObject);
+                String value = this.getBroadcastDateConsideringCatchupRights(broadcastObject);
 
                 if(!value.isEmpty()) {
                     String type = broadcastObject.get(JSON_ELEMENT_BROADCASTTYPE).getAsString();
@@ -128,7 +128,7 @@ public class ArteVideoDetailsDeserializer implements JsonDeserializer<ArteVideoD
      * @param broadcastObject 
      * @return der Beginn der Ausstrahlung oder ""
      */
-    private String getBroadcastDate(JsonObject broadcastObject) {
+    private String getBroadcastDateConsideringCatchupRights(JsonObject broadcastObject) {
         String broadcastDate = "";
         
         JsonElement elementBegin = broadcastObject.get(JSON_ELEMENT_BROADCAST_CATCHUPRIGHTS_BEGIN);
@@ -144,12 +144,10 @@ public class ArteVideoDetailsDeserializer implements JsonDeserializer<ArteVideoD
                 Calendar endDate = Calendar.getInstance();
                 endDate.setTime(broadcastDateFormat.parse(end));
 
-                if(DateWithoutTimeComparer.compare(today, beginDate) >= 0 && DateWithoutTimeComparer.compare(today, endDate) <= 0) {
+                if((DateWithoutTimeComparer.compare(today, beginDate) >= 0 && DateWithoutTimeComparer.compare(today, endDate) <= 0)
+                    || (DateWithoutTimeComparer.compare(today, beginDate) < 0)) {
                     // wenn das heutige Datum zwischen begin und end liegt,
                     // dann ist es die aktuelle Ausstrahlung
-                    broadcastDate = broadcastObject.get(JSON_ELEMENT_BROADCAST).getAsString();
-                } else if(DateWithoutTimeComparer.compare(today, beginDate) < 0) {
-                    // ansonsten die zukünftige verwenden
                     broadcastDate = broadcastObject.get(JSON_ELEMENT_BROADCAST).getAsString();
                 }
                 
