@@ -15,6 +15,7 @@ import mServer.crawler.CrawlerTool;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
+import java.time.format.DateTimeParseException;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -222,29 +223,30 @@ public class ArteJsonObjectToFilmCallable implements Callable<Film>
     private String getBroadcastDate(JsonObject broadcastObject) {
         String broadcastDate = "";
         try {
-        JsonElement elementBegin = broadcastObject.get(JSON_ELEMENT_BROADCAST_CATCHUPRIGHTS_BEGIN);
-        JsonElement elementEnd = broadcastObject.get(JSON_ELEMENT_BROADCAST_CATCHUPRIGHTS_END);
-        if (!elementBegin.isJsonNull() && !elementEnd.isJsonNull()) {
-            String begin = elementBegin.getAsString();
-            String end = elementEnd.getAsString();
-
-            LocalDateTime beginDate = LocalDateTime.parse(begin, broadcastDateFormat);
-            LocalDateTime endDate = LocalDateTime.parse(end, broadcastDateFormat);
-
-            if(LocalDate.now().compareTo(beginDate.toLocalDate()) >= 0 && LocalDate.now().compareTo(endDate.toLocalDate()) <= 0) {
-                // wenn das heutige Datum zwischen begin und end liegt,
-                // dann ist es die aktuelle Ausstrahlung
-                broadcastDate = broadcastObject.get(JSON_ELEMENT_BROADCAST).getAsString();
-            } else if(LocalDate.now().compareTo(beginDate.toLocalDate()) < 0) {
-                // ansonsten die zukünftige verwenden
-                broadcastDate = broadcastObject.get(JSON_ELEMENT_BROADCAST).getAsString();
-            }
-        } else {
-            String broadcast = broadcastObject.get(JSON_ELEMENT_BROADCAST).getAsString();
-            LocalDateTime broadcastDateTime = LocalDateTime.parse(broadcast, broadcastDateFormat);
-            
-            if((LocalDate.now().compareTo(broadcastDateTime.toLocalDate()) >= 0) {
-                broadcastDate = broadcast;
+            JsonElement elementBegin = broadcastObject.get(JSON_ELEMENT_BROADCAST_CATCHUPRIGHTS_BEGIN);
+            JsonElement elementEnd = broadcastObject.get(JSON_ELEMENT_BROADCAST_CATCHUPRIGHTS_END);
+            if (!elementBegin.isJsonNull() && !elementEnd.isJsonNull()) {
+                String begin = elementBegin.getAsString();
+                String end = elementEnd.getAsString();
+    
+                LocalDateTime beginDate = LocalDateTime.parse(begin, broadcastDateFormat);
+                LocalDateTime endDate = LocalDateTime.parse(end, broadcastDateFormat);
+    
+                if(LocalDate.now().compareTo(beginDate.toLocalDate()) >= 0 && LocalDate.now().compareTo(endDate.toLocalDate()) <= 0) {
+                    // wenn das heutige Datum zwischen begin und end liegt,
+                    // dann ist es die aktuelle Ausstrahlung
+                    broadcastDate = broadcastObject.get(JSON_ELEMENT_BROADCAST).getAsString();
+                } else if(LocalDate.now().compareTo(beginDate.toLocalDate()) < 0) {
+                    // ansonsten die zukünftige verwenden
+                    broadcastDate = broadcastObject.get(JSON_ELEMENT_BROADCAST).getAsString();
+                }
+            } else {
+                String broadcast = broadcastObject.get(JSON_ELEMENT_BROADCAST).getAsString();
+                LocalDateTime broadcastDateTime = LocalDateTime.parse(broadcast, broadcastDateFormat);
+                
+                if(LocalDate.now().compareTo(broadcastDateTime.toLocalDate()) >= 0) {
+                    broadcastDate = broadcast;
+                }
             }
         }catch(DateTimeParseException dateTimeParseException)
         {
