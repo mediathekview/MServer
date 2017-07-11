@@ -106,7 +106,7 @@ public class ArteJsonObjectToDatenFilmCallable implements Callable<DatenFilm>
     }
     
     private ArteVideoDetailsDTO getVideoDetails(Gson gson, String programId) throws IOException {
-        ArteVideoDetailsDTO details = null;
+        ArteVideoDetailsDTO details = new ArteVideoDetailsDTO();
         
         OkHttpClient httpClient = MVHttpClient.getInstance().getHttpClient();
         //https://api.arte.tv/api/opa/v3/programs/[language:de/fr]/[programId]
