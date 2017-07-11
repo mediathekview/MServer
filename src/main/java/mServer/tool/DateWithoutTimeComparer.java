@@ -4,6 +4,9 @@ import java.util.Calendar;
 
 public class DateWithoutTimeComparer {
     
+    private DateWithoutTimeComparer() {
+    }
+    
     public static int compare(Calendar c1, Calendar c2) {
         if (c1.get(Calendar.YEAR) != c2.get(Calendar.YEAR)) {
             return c1.get(Calendar.YEAR) - c2.get(Calendar.YEAR);

@@ -3,9 +3,6 @@ package mServer.crawler.sender.arte;
 public class ArteVideoDetailsDTO {
     private String broadcastBegin = "";
     
-    public ArteVideoDetailsDTO() {
-    }
-    
     public String getBroadcastBegin() {
         return this.broadcastBegin;
     }

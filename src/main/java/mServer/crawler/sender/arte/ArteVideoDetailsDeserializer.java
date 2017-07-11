@@ -15,19 +15,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 public class ArteVideoDetailsDeserializer implements JsonDeserializer<ArteVideoDetailsDTO> {
-
-    /*
-     * Grobe Struktur des Json's:
-     * {
-     *  "meta": {}
-     *  "programs": [{                   (JSON_ELEMENT_BROADCAST_ELTERNKNOTEN_1)
-          "broadcastProgrammings": [{    (JSON_ELEMENT_BROADCAST_ELTERNKNOTEN_2)
-            "broadcastBeginRounded": "2016-07-06T02:40:00Z",     (JSON_ELEMENT_BROADCAST)
-            "broadcastType": MAJOR_REBROADCAST, (JSON_ELEMENT_BROADCAST_TYPE)
-          ]}
-        ]}
-     * }
-     */    
+ 
     private static final String JSON_ELEMENT_BROADCAST_ELTERNKNOTEN_1 = "programs";
     private static final String JSON_ELEMENT_BROADCAST_ELTERNKNOTEN_2 = "broadcastProgrammings";
     private static final String JSON_ELEMENT_BROADCAST = "broadcastBeginRounded";
@@ -181,10 +169,8 @@ public class ArteVideoDetailsDeserializer implements JsonDeserializer<ArteVideoD
                 broadcastObject.has(JSON_ELEMENT_BROADCAST)) {
                 String type = broadcastObject.get(JSON_ELEMENT_BROADCASTTYPE).getAsString();
                 
-                switch(type) {
-                    case BROADCASTTTYPE_FIRST:
-                        broadcastDate = (broadcastObject.get(JSON_ELEMENT_BROADCAST).getAsString());
-                        break;
+                if(type.equals(BROADCASTTTYPE_FIRST)) {
+                    broadcastDate = (broadcastObject.get(JSON_ELEMENT_BROADCAST).getAsString());
                 }
             }
         }
