@@ -10,19 +10,14 @@ import org.apache.logging.log4j.Logger;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
 import de.mediathekview.mlib.daten.DatenFilm;
 import de.mediathekview.mlib.tool.MVHttpClient;
-import java.text.ParseException;
 import java.util.Calendar;
-import java.util.Date;
-import java.util.logging.Level;
 import mServer.crawler.CrawlerTool;
 import mServer.crawler.sender.newsearch.Qualities;
-import mServer.tool.DateWithoutTimeComparer;
 import mServer.tool.MserverDatumZeit;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -46,13 +41,15 @@ public class ArteJsonObjectToDatenFilmCallable implements Callable<DatenFilm>
     private final String langCode;
     private final String senderName;
     
+    private final Calendar today;
+    
     private final FastDateFormat broadcastDateFormat = FastDateFormat.getInstance("yyyy-MM-dd'T'HH:mm:ssX");//2016-10-29T16:15:00Z
     
     public ArteJsonObjectToDatenFilmCallable(JsonObject aJsonObjec, String aLangCode, String aSenderName) {
         jsonObject = aJsonObjec;
         langCode = aLangCode;
         senderName = aSenderName;
-        
+        today = Calendar.getInstance();
     }
 
     @Override
@@ -74,7 +71,7 @@ public class ArteJsonObjectToDatenFilmCallable implements Callable<DatenFilm>
 
             Gson gson = new GsonBuilder()
                     .registerTypeAdapter(ArteVideoDTO.class, new ArteVideoDeserializer())
-                    .registerTypeAdapter(ArteVideoDetailsDTO.class, new ArteVideoDetailsDeserializer())
+                    .registerTypeAdapter(ArteVideoDetailsDTO.class, new ArteVideoDetailsDeserializer(today))
                     .create();
 
             try(Response responseVideoDetails = executeRequest(videosUrl))

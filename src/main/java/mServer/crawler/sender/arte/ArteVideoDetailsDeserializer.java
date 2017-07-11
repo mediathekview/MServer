@@ -44,8 +44,8 @@ public class ArteVideoDetailsDeserializer implements JsonDeserializer<ArteVideoD
 
     private final Calendar today;
 
-    public ArteVideoDetailsDeserializer() {
-        today = Calendar.getInstance();
+    public ArteVideoDetailsDeserializer(Calendar aToday) {
+        today = aToday;
     }
     
     @Override
@@ -69,9 +69,11 @@ public class ArteVideoDetailsDeserializer implements JsonDeserializer<ArteVideoD
                 // dabei die "aktuellste" Ausstrahlung verwenden
                 for(int i = 0; i < broadcastArray.size(); i++) {
                     JsonObject broadcastObject = broadcastArray.get(i).getAsJsonObject();
+                    
                     if(broadcastObject.has(JSON_ELEMENT_BROADCASTTYPE) && 
                             broadcastObject.has(JSON_ELEMENT_BROADCAST)) {
                         String value = this.getBroadcastDate(broadcastObject);
+                        
                         if(!value.isEmpty()) {
                             String type = broadcastObject.get(JSON_ELEMENT_BROADCASTTYPE).getAsString();
                             switch(type) {
@@ -98,9 +100,16 @@ public class ArteVideoDetailsDeserializer implements JsonDeserializer<ArteVideoD
                 } else if(!broadcastBeginMinor.isEmpty()) {
                     detailsDTO.setBroadcastBegin(broadcastBeginMinor);
                 }
+                
+                // wenn kein Ausstrahlungsdatum vorhanden, dann die erste Ausstrahlung nehmen
+                // egal, wann die CatchupRights liegen, damit ein "sinnvolles" Datum vorhanden ist
+                if(detailsDTO.getBroadcastBegin().isEmpty()) {
+                    detailsDTO.setBroadcastBegin(getFirstBroadcastDateIgnoringCatchupRights(broadcastArray));
+                }
             } else {
                 // keine Ausstrahlungen verfügbar => catchupRightsBegin verwenden
                 JsonElement elementBegin = programElement.get(JSON_ELEMENT_BROADCAST_CATCHUPRIGHTS_BEGIN);
+                
                 if(!elementBegin.isJsonNull()) {
                     detailsDTO.setBroadcastBegin(elementBegin.getAsString());
                 }
@@ -124,6 +133,7 @@ public class ArteVideoDetailsDeserializer implements JsonDeserializer<ArteVideoD
         
         JsonElement elementBegin = broadcastObject.get(JSON_ELEMENT_BROADCAST_CATCHUPRIGHTS_BEGIN);
         JsonElement elementEnd = broadcastObject.get(JSON_ELEMENT_BROADCAST_CATCHUPRIGHTS_END);
+        
         if (!elementBegin.isJsonNull() && !elementEnd.isJsonNull()) {
             String begin = elementBegin.getAsString();
             String end = elementEnd.getAsString();
@@ -152,14 +162,33 @@ public class ArteVideoDetailsDeserializer implements JsonDeserializer<ArteVideoD
             try {
                 Calendar broadcastCal = Calendar.getInstance();
                 broadcastCal.setTime(broadcastDateFormat.parse(broadcast));
+                broadcastDate = broadcast;
                 
-                if(DateWithoutTimeComparer.compare(today, broadcastCal) >= 0) {
-                    broadcastDate = broadcast;
-                }
             } catch (ParseException ex) {
                 LOG.debug(ex);
             }            
         }
         return broadcastDate;
     }    
+    
+    private static String getFirstBroadcastDateIgnoringCatchupRights(JsonArray broadcastArray) {
+        String broadcastDate = "";
+        
+        for(int i = 0; i < broadcastArray.size(); i++) {
+            JsonObject broadcastObject = broadcastArray.get(i).getAsJsonObject();
+            
+            if(broadcastObject.has(JSON_ELEMENT_BROADCASTTYPE) && 
+                broadcastObject.has(JSON_ELEMENT_BROADCAST)) {
+                String type = broadcastObject.get(JSON_ELEMENT_BROADCASTTYPE).getAsString();
+                
+                switch(type) {
+                    case BROADCASTTTYPE_FIRST:
+                        broadcastDate = (broadcastObject.get(JSON_ELEMENT_BROADCAST).getAsString());
+                        break;
+                }
+            }
+        }
+        
+        return broadcastDate;
+    }
 }
