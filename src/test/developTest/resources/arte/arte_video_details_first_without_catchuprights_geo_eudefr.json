@@ -305,8 +305,8 @@
             "videoRightsEnd": "2017-08-15T03:00:00Z",
             "videoAvailable": true,
             "geoblocking": {
-                "code": "ALL",
-                "label": "Weltweit verfügbar"
+                "code": "EUR_DE_FR",
+                "label": "Verfügbar in den deutsch- und französischsprachigen Ländern Europas"
             },
             "programId": "074849-004-A",
             "language": "de",

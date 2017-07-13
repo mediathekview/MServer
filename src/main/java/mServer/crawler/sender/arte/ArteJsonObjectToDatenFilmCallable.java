@@ -17,6 +17,7 @@ import de.mediathekview.mlib.daten.DatenFilm;
 import de.mediathekview.mlib.tool.MVHttpClient;
 import java.util.Calendar;
 import mServer.crawler.CrawlerTool;
+import mServer.crawler.sender.newsearch.GeoLocations;
 import mServer.crawler.sender.newsearch.Qualities;
 import mServer.tool.MserverDatumZeit;
 import okhttp3.OkHttpClient;
@@ -87,7 +88,7 @@ public class ArteJsonObjectToDatenFilmCallable implements Callable<DatenFilm>
                     {
                         ArteVideoDetailsDTO details = getVideoDetails(gson, programId);                      
 
-                        film = createFilm(thema, urlWeb, titel, video, details.getBroadcastBegin(), durationAsTime, beschreibung);
+                        film = createFilm(thema, urlWeb, titel, video, details, durationAsTime, beschreibung);
                    } else {
                        LOG.debug(String.format("Keine \"normale\" Video URL für den Film \"%s\" mit der URL \"%s\". Video Details URL:\"%s\" ", titel, urlWeb, videosUrl));
                    }
@@ -175,8 +176,9 @@ public class ArteJsonObjectToDatenFilmCallable implements Callable<DatenFilm>
         return !jsonObject.get(elementName).isJsonNull() ? jsonObject.get(elementName).getAsString() : "";        
     }
     
-    private DatenFilm createFilm(String thema, String urlWeb, String titel, ArteVideoDTO video, String broadcastBegin, LocalTime durationAsTime, String beschreibung) {
+    private DatenFilm createFilm(String thema, String urlWeb, String titel, ArteVideoDTO video, ArteVideoDetailsDTO details, LocalTime durationAsTime, String beschreibung) {
         
+        String broadcastBegin = details.getBroadcastBegin();
         String date = MserverDatumZeit.formatDate(broadcastBegin, broadcastDateFormat);
         String time = MserverDatumZeit.formatTime(broadcastBegin, broadcastDateFormat);
         
@@ -190,6 +192,11 @@ public class ArteJsonObjectToDatenFilmCallable implements Callable<DatenFilm>
         {
             CrawlerTool.addUrlKlein(film, video.getUrl(Qualities.SMALL), "");
         }
+
+        if (details.getGeoLocation() != GeoLocations.GEO_NONE) {
+            film.arr[DatenFilm.FILM_GEO] = details.getGeoLocation().getDescription();
+        }
+
         return film;
     }
     
