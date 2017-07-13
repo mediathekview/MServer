@@ -1,10 +1,10 @@
-package mServer.crawler.progress.listeners;
+package de.mediathekview.mserver.progress.listeners;
 
+import de.mediathekview.mlib.daten.Sender;
 import de.mediathekview.mlib.messages.MessageUtil;
-import mServer.crawler.progress.CrawlerProgress;
-import mServer.crawler.progress.CrawlerProgressListener;
-import mServer.messages.ServerMessages;
-import org.apache.logging.log4j.core.jmx.Server;
+import de.mediathekview.mserver.progress.CrawlerProgress;
+import de.mediathekview.mserver.progress.CrawlerProgressListener;
+import de.mediathekview.mserver.messages.ServerMessages;
 
 /**
  * A abstract message listner which consumes crawler progress an generates messages from it.
@@ -13,15 +13,16 @@ public abstract class AbstractMessageListener implements CrawlerProgressListener
 {
 
     @Override
-    public void updateCrawlerProgess(final CrawlerProgress aCrawlerProgress)
+    public void updateCrawlerProgess(Sender aSender, final CrawlerProgress aCrawlerProgress)
     {
         newMessage(String.format(MessageUtil.getInstance().loadMessageText(ServerMessages.CRAWLER_PROGRESS),
+                aSender.getName(),
                 aCrawlerProgress.calcProgressInPercent(),
-                aCrawlerProgress.calcActualErrorQuoteInPercent(),
                 aCrawlerProgress.calcProgressErrorQuoteInPercent(),
                 aCrawlerProgress.getActualCount(),
+                aCrawlerProgress.getMaxCount(),
                 aCrawlerProgress.getErrorCount(),
-                aCrawlerProgress.getMaxCount()));
+                aCrawlerProgress.calcActualErrorQuoteInPercent()));
     }
 
     abstract void newMessage(String aMessage);

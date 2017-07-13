@@ -1,4 +1,4 @@
-package mServer.messages;
+package de.mediathekview.mserver.messages;
 
 import de.mediathekview.mlib.messages.Message;
 import de.mediathekview.mlib.messages.MessageTypes;
