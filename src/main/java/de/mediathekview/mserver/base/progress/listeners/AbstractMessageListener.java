@@ -1,10 +1,10 @@
-package de.mediathekview.mserver.progress.listeners;
+package de.mediathekview.mserver.base.progress.listeners;
 
 import de.mediathekview.mlib.daten.Sender;
 import de.mediathekview.mlib.messages.MessageUtil;
-import de.mediathekview.mserver.progress.CrawlerProgress;
-import de.mediathekview.mserver.progress.CrawlerProgressListener;
-import de.mediathekview.mserver.messages.ServerMessages;
+import de.mediathekview.mserver.base.messages.ServerMessages;
+import de.mediathekview.mserver.base.progress.CrawlerProgress;
+import de.mediathekview.mserver.base.progress.CrawlerProgressListener;
 
 /**
  * A abstract message listner which consumes crawler progress an generates messages from it.

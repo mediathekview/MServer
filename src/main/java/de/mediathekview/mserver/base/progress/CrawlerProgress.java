@@ -1,4 +1,4 @@
-package de.mediathekview.mserver.progress;
+package de.mediathekview.mserver.base.progress;
 
 /**
  * A POJO to store the crawler progress information.

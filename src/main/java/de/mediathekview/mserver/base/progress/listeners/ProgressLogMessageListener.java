@@ -1,4 +1,4 @@
-package de.mediathekview.mserver.progress.listeners;
+package de.mediathekview.mserver.base.progress.listeners;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 

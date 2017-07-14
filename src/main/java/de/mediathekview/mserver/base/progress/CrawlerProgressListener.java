@@ -1,4 +1,4 @@
-package de.mediathekview.mserver.progress;
+package de.mediathekview.mserver.base.progress;
 import de.mediathekview.mlib.daten.Sender;
 /**
  * A abstract listener for listeners which get crawler progress updates.
