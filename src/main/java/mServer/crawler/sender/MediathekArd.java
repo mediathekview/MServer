@@ -46,8 +46,8 @@ public class MediathekArd extends MediathekReader {
     private static final Logger LOG = LogManager.getLogger(MediathekArd.class);
     private final static Sender SENDER = Sender.ARD;
     private final static String THEMA_TAGE = "TAGE";
-    private static final String ADRESSE_THEMA = "http://www.ardmediathek.de/tv";
-    private static final String MUSTER_URL_THEMA = "<a href=\"/tv/sendungen-a-z?buchstabe=";
+    private static final String ADRESSE_THEMA = "http://www.ardmediathek.de/tv/sendungen-a-z?buchstabe=";
+    private static final String MUSTER_URL_THEMA = "<a href=\"/tv/";
     private static final String MUSTER_FEED_SUCHEN = "<div class=\"media mediaA\">";
     private static final String M3U8_PATTERN_START = "_quality\":\"auto\",\"_server\":\"\",\"_cdn\":\"flashls\",\"_stream\":\"";
 	private static final String M3U8_PATTERN_END = "\"";

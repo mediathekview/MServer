@@ -42,7 +42,7 @@ public abstract class AbstractCrawler
     private AtomicLong actualCount;
     private AtomicLong errorCount;
 
-    AbstractCrawler(ForkJoinPool aForkJoinPool, Collection<MessageListener> aMessageListeners, CrawlerProgressListener... aProgressListeners)
+    public AbstractCrawler(ForkJoinPool aForkJoinPool, Collection<MessageListener> aMessageListeners, CrawlerProgressListener... aProgressListeners)
     {
         forkJoinPool = aForkJoinPool;
         maxCount = new AtomicLong(0);
@@ -60,15 +60,34 @@ public abstract class AbstractCrawler
     protected abstract Sender getSender();
     protected abstract void startCrawling();
 
-    void updateProgress()
+    public long incrementAndGetActualCount()
+    {
+        return actualCount.incrementAndGet();
+    }
+    public long incrementAndGetMaxCount()
+    {
+        return actualCount.incrementAndGet();
+    }
+
+    public long incrementAndGetErrorCount()
+    {
+        return actualCount.incrementAndGet();
+    }
+
+    public void updateProgress()
     {
         CrawlerProgress progress = new CrawlerProgress(maxCount.get(),actualCount.get(),errorCount.get());
         progressListeners.parallelStream().forEach(l -> l.updateCrawlerProgess(getSender(),progress));
     }
     
-    void printMessage(Message aMessage, Object... args)
+    public void printMessage(Message aMessage, Object... args)
     {
         messageListeners.parallelStream().forEach(l -> l.consumeMessage(aMessage,args));
+    }
+
+    public void printErrorMessage()
+    {
+        printMessage(ServerMessages.CRAWLER_ERROR,getSender());
     }
     
     
