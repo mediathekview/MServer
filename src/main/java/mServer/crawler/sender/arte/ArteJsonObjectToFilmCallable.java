@@ -6,12 +6,15 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
 import de.mediathekview.mlib.daten.Film;
+import de.mediathekview.mlib.daten.GeoLocations;
 import de.mediathekview.mlib.daten.Qualities;
 import de.mediathekview.mlib.daten.Sender;
 import de.mediathekview.mlib.tool.MVHttpClient;
 import mServer.crawler.CantCreateFilmException;
 import mServer.crawler.CrawlerTool;
+
 import java.time.LocalDateTime;
+
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
@@ -24,6 +27,7 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.time.Duration;
 import java.time.temporal.ChronoUnit;
+import java.util.Collection;
 import java.util.UUID;
 import java.util.concurrent.Callable;
 
@@ -87,7 +91,7 @@ public class ArteJsonObjectToFilmCallable implements Callable<Film>
                             {
                                 ArteVideoDetailsDTO details = getVideoDetails(gson, programId);
                                 
-                                film = createFilm(thema, urlWeb, titel, video, details.getBroadcastBegin(), duration, beschreibung);
+                                film = createFilm(thema, urlWeb, titel, video, details, duration, beschreibung);
                             } else {
                                 LOG.debug(String.format("Keine \"normale\" Video URL für den Film \"%s\" mit der URL \"%s\". Video Details URL:\"%s\" ", titel, urlWeb, videosUrl));
                             }
@@ -185,13 +189,18 @@ public class ArteJsonObjectToFilmCallable implements Callable<Film>
                             final String aUrlWeb,
                             final String aTitel,
                             final ArteVideoDTO aVideo,
-                            final LocalDateTime aBroadcastBegin,
+                            final ArteVideoDetailsDTO aArteVideoDetails,
                             final Duration aDuration,
                             final String aBeschreibung) throws URISyntaxException
     {
 
+        Collection<GeoLocations> geoLocations = CrawlerTool.getGeoLocations(sender,aVideo.getUrl(Qualities.NORMAL));
+        if (aArteVideoDetails.getGeoLocation() != GeoLocations.GEO_NONE) {
+            geoLocations.remove(GeoLocations.GEO_NONE);
+            geoLocations.add(aArteVideoDetails.getGeoLocation());
+        }
 
-        Film film = new Film(UUID.randomUUID(), CrawlerTool.getGeoLocations(sender,aVideo.getUrl(Qualities.NORMAL)), sender, aTitel, aThema, aBroadcastBegin, aDuration, new URI(aUrlWeb));
+        Film film = new Film(UUID.randomUUID(), geoLocations, sender, aTitel, aThema, aArteVideoDetails.getBroadcastBegin(), aDuration, new URI(aUrlWeb));
         film.setBeschreibung(aBeschreibung);
         for(Qualities quality : aVideo.getVideoUrls().keySet())
         {

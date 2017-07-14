@@ -1,0 +1,250 @@
+{
+    "meta": {
+        "programs": {
+            "page": 1,
+            "limit": 50,
+            "pages": 1,
+            "totalCount": 1,
+            "href": "https://api.arte.tv/api/opa/v3/programs/de/076465-000-A",
+            "links": {
+                "first": {
+                    "href": "https://api.arte.tv/api/opa/v3/programs/de/076465-000-A?page=1"
+                }
+            }
+        }
+    },
+    "programs": [
+        {
+            "durationSeconds": 1508,
+            "views": 6722,
+            "broadcastProgrammings": [],
+            "videos": [
+                {
+                    "id": "076465-000-A_SHOW_ARTE_NEXT_DE_de",
+                    "illico": false,
+                    "title": "Syrien: Die Schlacht um Raqqa",
+                    "subtitle": "ARTE Reportage",
+                    "programId": "076465-000-A",
+                    "platform": "ARTE_NEXT",
+                    "mainPlatformCode": "INFO",
+                    "kind": "SHOW",
+                    "kindLabel": "PROGRAMM",
+                    "url": "http://www.arte.tv/de/videos/076465-000-A/syrien-die-schlacht-um-raqqa",
+                    "permalink": "http://www.arte.tv/de/videos/076465-000-A/permalink",
+                    "videoRightsBegin": "2017-06-30T13:00:00Z",
+                    "previewRightsBegin": "2017-06-30T13:00:00Z",
+                    "videoRightsEnd": "2020-06-27T21:59:00Z",
+                    "oEmbed": "https://api.arte.tv/api/player/v1/oembed/de/076465-000-A?platform=ARTE_NEXT",
+                    "mainProgramming": true,
+                    "durationSeconds": 1508,
+                    "availableScreens": [
+                        "desktop",
+                        "mobile",
+                        "tv"
+                    ],
+                    "caseCode": 512,
+                    "case": "ARTE REPORTAGE",
+                    "genrePresseCode": 0,
+                    "genrePresse": "Andere",
+                    "mainPlatform": true,
+                    "geoblockingZone": "ALL",
+                    "tracking": {
+                        "tablet": {
+                            "ANDROID": "https://st.arte.tv/api/multimedia/v1/076465-000/A/de/ARTE_NEXT/TABLET/ANDROID/pixel.gif"
+                        },
+                        "mobile": {
+                            "ANDROID": "https://st.arte.tv/api/multimedia/v1/076465-000/A/de/ARTE_NEXT/MOBILE/ANDROID/pixel.gif"
+                        }
+                    },
+                    "markings": [],
+                    "mainImage": {
+                        "name": "076465-000-A_12566.jpg",
+                        "extension": "jpg",
+                        "caption": null,
+                        "url": "https://static-cdn.arte.tv/resize/pNf49UXVFCA33rXBx6m2TWWkW8M=/trim:top-left:30/940x530/smart/filters:strip_icc()/apios/Img_data/12/076465-000-A_12566.jpg",
+                        "imageId": "2120960",
+                        "programId": "076465-000-A",
+                        "language": "de",
+                        "copyright": "",
+                        "creationDate": "2017-06-30T12:58:12Z",
+                        "lastModified": "2017-07-03T08:30:18Z",
+                        "width": 940,
+                        "height": 530,
+                        "keyframe": true,
+                        "alternateResolutions": [],
+                        "type": "KEYFRAME"
+                    },
+                    "category": {
+                        "code": "ACT",
+                        "name": "Aktuelles und Gesellschaft",
+                        "order": 1
+                    },
+                    "subcategory": {
+                        "code": "ENQ",
+                        "name": "Reportagen und Recherchen",
+                        "order": 2
+                    },
+                    "links": {
+                        "videoStreams": {
+                            "iOS": {
+                                "href": "https://api.arte.tv/api/opa/v3/videoStreams?programId=076465-000-A&reassembly=A&platform=ARTE_NEXT&channel=DE&language=de&kind=SHOW&protocol=HLS&quality=SQ%2CXQ&limit=100"
+                            },
+                            "android": {
+                                "href": "https://api.arte.tv/api/opa/v3/videoStreams?programId=076465-000-A&reassembly=A&platform=ARTE_NEXT&channel=DE&language=de&kind=SHOW&protocol=HTTP%2CHLS&quality=XQ%2CMQ%2CSQ%2CEQ&limit=100"
+                            },
+                            "hbbtv": {
+                                "href": "https://api.arte.tv/api/opa/v3/videoStreams?programId=076465-000-A&reassembly=A&platform=ARTE_NEXT&channel=DE&language=de&kind=SHOW&protocol=HTTP&quality=EQ%2CSQ%2CHQ&mediaType=mp4&profileAmm=%24nin%3AAMM-YTFR-HAB%2CAMM-YTFR%2CAMM-DT&limit=100"
+                            }
+                        }
+                    }
+                }
+            ],
+            "mainBroadcastProgramming": null,
+            "catchupAvailable": true,
+            "catchupRightsBegin": "2017-06-30T13:00:00Z",
+            "catchupRightsEnd": "2020-06-27T21:59:00Z",
+            "displayAudioVersions": [],
+            "collections": [],
+            "publishBegin": "2017-06-09T13:00:00Z",
+            "publishEnd": "2020-07-18T21:59:00Z",
+            "publishPressBegin": null,
+            "publishPressEnd": null,
+            "videoRightsBegin": "2017-06-30T13:00:00Z",
+            "videoRightsEnd": "2020-06-27T21:59:00Z",
+            "videoAvailable": true,
+            "geoblocking": {
+                "code": "ALL",
+                "label": "Weltweit verfügbar"
+            },
+            "programId": "076465-000-A",
+            "language": "de",
+            "kind": "SHOW",
+            "programType": "BROADCAST",
+            "title": "Syrien: Die Schlacht um Raqqa",
+            "subtitle": "ARTE Reportage",
+            "originalTitle": "Raqqa",
+            "originalLanguage": {
+                "arteCode": "PLU",
+                "label": "mehrsprachig"
+            },
+            "tags": [],
+            "twitterAccount": null,
+            "twitterHashTag": null,
+            "shortDescription": "Die kurdischen Kämpfer der Koalition kämpfen in Raqqa unter dem Banner der sogenannten Demokratischen Kräfte Syriens, einer Armee von 30 000 Soldatinnen und Soldaten, unterstützt von den Luftschlägen der Internationalen Koalition. Erster Etappensieg war die Rückeroberung des Staudamms von Tabqa, 40 Kilometer vor der Stadt. ",
+            "fullDescription": null,
+            "teaserText": "Die kurdischen Kämpfer der Internationalen Koalition kämpfen jetzt Haus für Haus gegen den IS.\n ",
+            "shortPressText": null,
+            "additionalPressText": null,
+            "headerText": null,
+            "producer": "KHEOPS PROD",
+            "productionYear": 2017,
+            "shootingDate": "2017-05-21T22:00:00Z",
+            "allowEmbed": true,
+            "mainImage": {
+                "name": "076465-000-A_12566.jpg",
+                "extension": "jpg",
+                "caption": null,
+                "url": "https://static-cdn.arte.tv/resize/pNf49UXVFCA33rXBx6m2TWWkW8M=/trim:top-left:30/940x530/smart/filters:strip_icc()/apios/Img_data/12/076465-000-A_12566.jpg",
+                "imageId": "2120960",
+                "programId": "076465-000-A",
+                "language": "de",
+                "copyright": "",
+                "creationDate": "2017-06-30T12:58:12Z",
+                "lastModified": "2017-07-03T08:30:18Z",
+                "width": 940,
+                "height": 530,
+                "keyframe": true,
+                "alternateResolutions": [],
+                "type": "KEYFRAME"
+            },
+            "bannerImage": null,
+            "parents": [],
+            "partners": [],
+            "director": "Sophie Nivelle-Cardinale",
+            "casting": [],
+            "crew": [
+                {
+                    "name": "Sophie Nivelle-Cardinale",
+                    "activity": "Autor",
+                    "activityCode": "AUT",
+                    "characterName": null
+                },
+                {
+                    "name": "Sophie Nivelle-Cardinale",
+                    "activity": "Regie",
+                    "activityCode": "REA",
+                    "characterName": null
+                }
+            ],
+            "caseCode": 512,
+            "case": "ARTE REPORTAGE",
+            "genrePresseCode": 0,
+            "genrePresse": "Andere",
+            "url": "http://www.arte.tv/de/videos/076465-000-A/syrien-die-schlacht-um-raqqa",
+            "permalink": "http://www.arte.tv/de/videos/076465-000-A/permalink",
+            "categories": [
+                {
+                    "code": "ACT",
+                    "name": "Aktuelles & Gesellschaft",
+                    "order": 1
+                }
+            ],
+            "category": {
+                "code": "ACT",
+                "name": "Aktuelles und Gesellschaft",
+                "order": 1
+            },
+            "subcategory": {
+                "code": "ENQ",
+                "name": "Reportagen und Recherchen",
+                "order": 2
+            },
+            "deletedAt": null,
+            "legalBan": "NONE",
+            "productionCountries": [
+                {
+                    "arteCode": "FRA",
+                    "isoAlpha2Code": "FR",
+                    "label": "Frankreich"
+                }
+            ],
+            "clusters": [
+                {
+                    "clusterId": "JTE",
+                    "title": "ARTE Reportage"
+                }
+            ],
+            "season": 0,
+            "episode": 0,
+            "totalEpisodes": 0,
+            "kindLabel": "PROGRAMM",
+            "platformLabel": "INFO",
+            "videoLibrary": true,
+            "displayTechnicalInformations": [],
+            "webLinks": [],
+            "children": null,
+            "viewsPeriod": 163,
+            "markings": [],
+            "creationDate": "2017-06-08T11:35:57Z",
+            "lastModified": "2017-07-03T14:45:05Z",
+            "id": "076465-000-A_de",
+            "platform": "INFO",
+            "ageRating": 0,
+            "imageColor": {
+                "code": "COLOR",
+                "label": "Farbfilm"
+            },
+            "videoOnDemand": null,
+            "livestreamRights": true,
+            "warning": null,
+            "links": {
+                "broadcastProgrammings": {
+                    "href": "https://api.arte.tv/api/opa/v3/broadcastProgrammings?programId=076465-000-A&language=de&country=DE"
+                },
+                "broadcasts": {
+                    "href": "https://api.arte.tv/api/opa/v3/programs/076465-000-A/broadcastProgrammings?language=de&country=DE"
+                }
+            }
+        }
+    ]
+}
