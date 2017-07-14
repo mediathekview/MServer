@@ -9,6 +9,7 @@ import com.google.gson.JsonParseException;
 import java.lang.reflect.Type;
 import java.text.ParseException;
 import java.util.Calendar;
+import mServer.crawler.sender.newsearch.GeoLocations;
 import mServer.tool.DateWithoutTimeComparer;
 import org.apache.commons.lang3.time.FastDateFormat;
 import org.apache.logging.log4j.LogManager;
@@ -57,11 +58,43 @@ public class ArteVideoDetailsDeserializer implements JsonDeserializer<ArteVideoD
                     detailsDTO.setBroadcastBegin(elementBegin.getAsString());
                 }
             }
+            
+            detailsDTO.setGeoLocation(getGeoLocation(programElement));
         }
             
         return detailsDTO;
     }
 
+    private GeoLocations getGeoLocation(JsonObject programElement) {
+        GeoLocations geo = GeoLocations.GEO_NONE;
+        
+        if(programElement.has("geoblocking")) {
+            JsonElement geoElement = programElement.get("geoblocking");
+            if(!geoElement.isJsonNull()) {
+                JsonObject geoObject = geoElement.getAsJsonObject();
+                if(!geoObject.isJsonNull() && geoObject.has("code")) {
+                    String code = geoObject.get("code").getAsString();
+                    switch(code) {
+                        case "DE_FR":
+                        case "EUR_DE_FR":
+                            geo = GeoLocations.GEO_DE_FR;
+                            break;
+                        case "SAT":
+                            geo = GeoLocations.GEO_EU;
+                            break;
+                        case "ALL":
+                            geo = GeoLocations.GEO_NONE;
+                            break;
+                        default:
+                            LOG.debug("New ARTE GeoLocation: " + code);
+                    }
+                }
+            }
+        }
+        
+        return geo;
+    }
+    
     /**
      * ermittelt Ausstrahlungsdatum aus der Liste der Ausstrahlungen
      * @param broadcastArray

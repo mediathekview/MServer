@@ -221,8 +221,8 @@ PECIALE"
             "videoRightsEnd": "2018-12-31T22:59:00Z",
             "videoAvailable": true,
             "geoblocking": {
-                "code": "ALL",
-                "label": "Weltweit verfügbar"
+                "code": "SAT",
+                "label": "Verfügbar in Europa"
             },
             "programId": "071363-001-A",
             "language": "de",

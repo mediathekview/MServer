@@ -244,10 +244,14 @@ public abstract class MediathekReader extends Thread {
                 film.arr[DatenFilm.FILM_URL].startsWith("http://ondemand-de.wdr.de/") ||
                 film.arr[DatenFilm.FILM_URL].startsWith("http://wdr_fs_geo-lh.akamaihd.net") ||
                 film.arr[DatenFilm.FILM_URL].startsWith("http://adaptiv.wdr.de/i/medp/de/") ||
+                film.arr[DatenFilm.FILM_URL].startsWith("http://wdradaptiv-vh.akamaihd.net/i/medp/ondemand/de/") ||
+                film.arr[DatenFilm.FILM_URL].startsWith("http://wdrmedien-a.akamaihd.net/medp/ondemand/de/") ||
                 film.arr[DatenFilm.FILM_URL].startsWith("http://pd-videos.daserste.de/de/")) {
             film.arr[DatenFilm.FILM_GEO] = DatenFilm.GEO_DE;
         }
         if (film.arr[DatenFilm.FILM_URL].startsWith("http://ondemand-dach.wdr.de/") ||
+                film.arr[DatenFilm.FILM_URL].startsWith("http://wdradaptiv-vh.akamaihd.net/i/medp/ondemand/dach/") ||
+                film.arr[DatenFilm.FILM_URL].startsWith("http://wdrmedien-a.akamaihd.net/medp/ondemand/dach/") ||
                 film.arr[DatenFilm.FILM_URL].startsWith("http://adaptiv.wdr.de/i/medp/dach/")) {
             film.arr[DatenFilm.FILM_GEO] = GeoLocations.GEO_DE_AT_CH.getDescription();
         }
