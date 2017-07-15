@@ -6,6 +6,7 @@ import org.jsoup.nodes.Document;
 
 import java.util.LinkedHashSet;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.RecursiveTask;
 
@@ -22,11 +23,11 @@ public class ArdSendungsfolgenOverviewPageCrawler extends AbstractArdOverviewPag
     @Override
     protected AbstractArdOverviewPageCrawlerTask createNewOwnInstance()
     {
-        return new ArdSendungenOverviewPageCrawler(crawler,  urlsToCrawl);
+        return new ArdSendungsfolgenOverviewPageCrawler(crawler,  urlsToCrawl);
     }
 
     @Override
-    protected RecursiveTask<LinkedHashSet<Film>> createTask(final ConcurrentLinkedQueue<String> aUrlsToCrawl, Map<String,String> aUrlsSendezeitenMap)
+    protected RecursiveTask<LinkedHashSet<Film>> createTask(final ConcurrentLinkedQueue<String> aUrlsToCrawl, ConcurrentHashMap<String,String> aUrlsSendezeitenMap)
     {
         return new ArdSendungTask(crawler, aUrlsToCrawl, aUrlsSendezeitenMap);
     }

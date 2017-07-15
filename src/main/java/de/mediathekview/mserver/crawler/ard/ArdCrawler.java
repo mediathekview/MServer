@@ -7,6 +7,7 @@ import de.mediathekview.mserver.base.CategoriesAZ;
 import de.mediathekview.mserver.base.progress.CrawlerProgressListener;
 import de.mediathekview.mserver.crawler.AbstractCrawler;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.LinkedHashSet;
@@ -56,6 +57,11 @@ public class ArdCrawler extends AbstractCrawler
         {
             dayUrlsToCrawl.add(String.format(ARD_DAY_BASE_URL, i));
         }
-        return new ArdSendungsfolgenOverviewPageCrawler(this, aDocument, aUrl, dayUrlsToCrawl);
+        return new ArdSendungsfolgenOverviewPageCrawler(this, dayUrlsToCrawl);
     }
+
+public static void main(String... args){
+    final ArdCrawler crawler = new ArdCrawler(ForkJoinPool.commonPool(), new ArrayList<>());
+    crawler.start();
+}
 }

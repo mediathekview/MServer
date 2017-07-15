@@ -5,6 +5,7 @@ import de.mediathekview.mserver.crawler.AbstractUrlTask;
 import org.jsoup.nodes.Document;
 
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
 /**
@@ -13,9 +14,9 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 public class ArdSendungTask extends AbstractUrlTask
 {
 
-    private final Map<String, String> urlsSendezeitenMap;
+    private final ConcurrentHashMap<String, String> urlsSendezeitenMap;
 
-    public ArdSendungTask(final AbstractCrawler aCrawler, final ConcurrentLinkedQueue<String> aUrlsToCrawl, Map<String,String> aUrlsSendezeitenMap)
+    public ArdSendungTask(final AbstractCrawler aCrawler, final ConcurrentLinkedQueue<String> aUrlsToCrawl, ConcurrentHashMap<String,String> aUrlsSendezeitenMap)
     {
         super(aCrawler, aUrlsToCrawl);
         urlsSendezeitenMap = aUrlsSendezeitenMap;
@@ -31,7 +32,7 @@ public class ArdSendungTask extends AbstractUrlTask
     protected void processDocument(final String aUrl, final Document aDocument)
     {
         String sendezeitAsText = urlsSendezeitenMap.get(aUrl);
-
+        System.out.println(aUrl+" "+sendezeitAsText);
     }
 
 }

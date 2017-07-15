@@ -18,7 +18,7 @@ group = 'de.mediathekview'
 version = '3.2.0'
 
 def jarName = 'MServer.jar'
-def mainClass = 'mServer.Main'
+def mainClass = 'de.mediathekview.mserver.crawler.ard.ArdCrawler'
 
 compileJava {
     options.encoding = "UTF-8"
