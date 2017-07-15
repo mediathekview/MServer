@@ -38,7 +38,7 @@ public class CrawlerProgress
      */
     public float calcProgressInPercent()
     {
-        return actualCount * 100 / maxCount;
+            return maxCount > 0 ? actualCount * 100f / maxCount : 0f;
     }
 
     /**
@@ -47,7 +47,7 @@ public class CrawlerProgress
      */
     public float calcActualErrorQuoteInPercent()
     {
-        return errorCount * 100 / actualCount;
+        return maxCount > 0 ? errorCount * 100f / actualCount : 0f;
     }
 
     /**
@@ -56,6 +56,6 @@ public class CrawlerProgress
      */
     public float calcProgressErrorQuoteInPercent()
     {
-        return errorCount * 100 / maxCount;
+        return maxCount > 0 ? errorCount * 100f / maxCount : 0f;
     }
 }

@@ -12,9 +12,12 @@ import org.apache.commons.lang3.concurrent.ConcurrentUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.time.Duration;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.Timer;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.ConcurrentSkipListSet;
@@ -35,7 +38,7 @@ public abstract class AbstractCrawler
     protected ForkJoinPool forkJoinPool;
     private Collection<CrawlerProgressListener> progressListeners;
     private Collection<MessageListener> messageListeners;
-    
+
     protected Collection<Film> films;
 
     private AtomicLong maxCount;
@@ -47,58 +50,65 @@ public abstract class AbstractCrawler
         forkJoinPool = aForkJoinPool;
         maxCount = new AtomicLong(0);
         actualCount = new AtomicLong(0);
-        
+        errorCount = new AtomicLong(0);
+
         progressListeners = new ArrayList<>();
         progressListeners.addAll(Arrays.asList(aProgressListeners));
-        
+
         messageListeners = new ArrayList<>();
         messageListeners.addAll(aMessageListeners);
-        
+
         films = new ArrayList<>();
     }
 
-    protected abstract Sender getSender();
+    public abstract Sender getSender();
+
     protected abstract void startCrawling();
 
     public long incrementAndGetActualCount()
     {
         return actualCount.incrementAndGet();
     }
+
     public long incrementAndGetMaxCount()
     {
-        return actualCount.incrementAndGet();
+        return maxCount.incrementAndGet();
     }
 
     public long incrementAndGetErrorCount()
     {
-        return actualCount.incrementAndGet();
+        return errorCount.incrementAndGet();
     }
 
     public void updateProgress()
     {
-        CrawlerProgress progress = new CrawlerProgress(maxCount.get(),actualCount.get(),errorCount.get());
-        progressListeners.parallelStream().forEach(l -> l.updateCrawlerProgess(getSender(),progress));
+        CrawlerProgress progress = new CrawlerProgress(maxCount.get(), actualCount.get(), errorCount.get());
+        progressListeners.parallelStream().forEach(l -> l.updateCrawlerProgess(getSender(), progress));
     }
-    
+
     public void printMessage(Message aMessage, Object... args)
     {
-        messageListeners.parallelStream().forEach(l -> l.consumeMessage(aMessage,args));
+        messageListeners.parallelStream().forEach(l -> l.consumeMessage(aMessage, args));
     }
 
     public void printErrorMessage()
     {
-        printMessage(ServerMessages.CRAWLER_ERROR,getSender());
+        printMessage(ServerMessages.CRAWLER_ERROR, getSender());
     }
-    
-    
+
+
     public void start()
     {
-        printMessage(ServerMessages.CRAWLER_START,getSender());
-        startCrawling();
-        //films.addAll(forkJoinPool.invokeAll(tasks).stream().map(RecursiveTask::join).collect(Collectors.toList()));
-        
-    }
-    
+        printMessage(ServerMessages.CRAWLER_START, getSender());
+        LocalTime startTime = LocalTime.now();
 
-    
+        updateProgress();
+        startCrawling();
+
+        LocalTime endTime = LocalTime.now();
+        printMessage(ServerMessages.CRAWLER_END, getSender(), Duration.between(startTime,endTime).toMinutes());
+
+    }
+
+
 }

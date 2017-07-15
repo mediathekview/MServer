@@ -14,7 +14,7 @@ import java.util.concurrent.RecursiveTask;
 /**
  * Recursively crawls a Website.
  */
-public abstract class AbstractUrlTask extends RecursiveTask<LinkedHashSet<Film>>
+public abstract class AbstractUrlTask<T> extends RecursiveTask<LinkedHashSet<T>>
 {
     private static final Logger LOG = LogManager.getLogger(AbstractUrlTask.class);
     private static final String LOAD_DOCUMENT_ERRORTEXTPATTERN = "Something terrible happened while crawl the %s page \"%s\".";
@@ -22,17 +22,17 @@ public abstract class AbstractUrlTask extends RecursiveTask<LinkedHashSet<Film>>
     protected final ConcurrentLinkedQueue<String> urlsToCrawl;
     protected AbstractCrawler crawler;
 
-    protected LinkedHashSet<Film> crawledFilms;
+    protected LinkedHashSet<T> filmTasks;
 
     public AbstractUrlTask(AbstractCrawler aCrawler, ConcurrentLinkedQueue<String> aUrlsToCrawl)
     {
         crawler = aCrawler;
         urlsToCrawl = aUrlsToCrawl;
-        crawledFilms = new LinkedHashSet<>();
+        filmTasks = new LinkedHashSet<>();
     }
 
     @Override
-    protected LinkedHashSet<Film> compute()
+    protected LinkedHashSet<T> compute()
     {
         final String urlToCrawl = urlsToCrawl.poll();
 
@@ -41,16 +41,15 @@ public abstract class AbstractUrlTask extends RecursiveTask<LinkedHashSet<Film>>
             crawlPage(urlToCrawl);
         } else
         {
-            AbstractUrlTask otherTask = createNewOwnInstance();
+            AbstractUrlTask<T> otherTask = createNewOwnInstance();
             otherTask.fork();
             crawlPage(urlToCrawl);
-            crawledFilms.addAll(otherTask.join());
+            filmTasks.addAll(otherTask.join());
         }
-
-        return crawledFilms;
+        return filmTasks;
     }
 
-    protected abstract AbstractUrlTask createNewOwnInstance();
+    protected abstract AbstractUrlTask<T> createNewOwnInstance();
 
     private void crawlPage(String aUrl)
     {
