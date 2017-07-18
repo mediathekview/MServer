@@ -14,7 +14,7 @@ import mServer.crawler.sender.newsearch.Qualities;
  */
 public class M3U8Utils {
 	public static final String M3U8_WDR_URL_BEGIN = "adaptiv.wdr.de/i/medp/";
-	public static final String M3U8_WDR_URL_ALTERNATIV_BEGIN = "adaptiv.wdr.de/i/medp/";
+	public static final String M3U8_WDR_URL_ALTERNATIV_BEGIN = "wdradaptiv-vh.akamaihd.net/i/medp/";
 	private static final String REGEX_FIRST_USELESS_COMMA = "^,";
 	private static final String M3U8_WDR_QUALITIES_USELESS_END = ",.mp4.csmil";
 	private static final String REGION_WELTWEIT = "weltweit";
