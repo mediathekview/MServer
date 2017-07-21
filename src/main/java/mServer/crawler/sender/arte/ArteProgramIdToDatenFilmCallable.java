@@ -2,7 +2,6 @@ package mServer.crawler.sender.arte;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.google.gson.JsonObject;
 import de.mediathekview.mlib.daten.DatenFilm;
 import de.mediathekview.mlib.tool.MVHttpClient;
 import java.io.IOException;
@@ -100,10 +99,6 @@ public class ArteProgramIdToDatenFilmCallable implements Callable<DatenFilm> {
           }
         }      
         return details;
-    }
-    
-    private static String getElementValue(JsonObject jsonObject, String elementName) {
-        return !jsonObject.get(elementName).isJsonNull() ? jsonObject.get(elementName).getAsString() : "";        
     }
     
     private DatenFilm createFilm(String thema, String urlWeb, String titel, ArteVideoDTO video, ArteVideoDetailsDTO details, LocalTime durationAsTime, String beschreibung) {

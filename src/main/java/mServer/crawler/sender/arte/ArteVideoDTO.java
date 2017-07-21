@@ -6,7 +6,7 @@ import java.util.Map;
 import mServer.crawler.sender.newsearch.Qualities;
 
 public class ArteVideoDTO {
-    private Map<Qualities,String> videoUrls;
+    private final Map<Qualities,String> videoUrls;
     private long durationInSeconds;
     
     public ArteVideoDTO()

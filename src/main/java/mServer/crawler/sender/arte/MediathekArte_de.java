@@ -28,7 +28,6 @@ import org.apache.logging.log4j.Logger;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.google.gson.JsonElement;
 
 import de.mediathekview.mlib.Config;
 import de.mediathekview.mlib.Const;
@@ -420,10 +419,9 @@ public class MediathekArte_de extends MediathekReader
             
             // alle programIds verarbeiten
             ListeFilme loadedFilme = loadPrograms(dto);
-            for (DatenFilm film : loadedFilme)
-            {
+            loadedFilme.forEach((film) -> {
                 addFilm(film);
-            }
+            });
         }
 
         private ListeFilme loadPrograms(ArteCategoryFilmsDTO dto) {
