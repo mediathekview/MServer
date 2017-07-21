@@ -22,7 +22,6 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.io.IOException;
-import java.net.SocketTimeoutException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.text.SimpleDateFormat;
@@ -197,12 +196,18 @@ public class CrawlerTool
                 "pd-ondemand.swr.de/geo/de",
                 "ondemandgeo.mdr.de",
                 "ondemand-de.wdr.de",
-                "ondemand-dach.wdr.de",
                 "wdr_fs_geo-lh.akamaihd.net",
                 "adaptiv.wdr.de/i/medp/de",
-                "adaptiv.wdr.de/i/medp/dach",
-                "pd-videos.daserste.de/de"
+                "pd-videos.daserste.de/de",
+                "wdradaptiv-vh.akamaihd.net/i/medp/ondemand/de",
+                "wdrmedien-a.akamaihd.net/medp/ondemand/de"
         ));
+        geoUrls.put(GeoLocations.GEO_DE_AT_CH, Arrays.asList(
+                "ondemand-dach.wdr.de",
+                "wdradaptiv-vh.akamaihd.net/i/medp/ondemand/dach",
+                "wdrmedien-a.akamaihd.net/medp/ondemand/dach",
+                "adaptiv.wdr.de/i/medp/dach"
+         ));        
 
         return getGeolocationsForGeoUrls(geoUrls, aUrl);
     }

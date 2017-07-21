@@ -16,6 +16,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import de.mediathekview.mlib.daten.GeoLocations;
 
 public class ArteVideoDetailsDeserializer implements JsonDeserializer<ArteVideoDetailsDTO> {
  
@@ -62,11 +63,43 @@ public class ArteVideoDetailsDeserializer implements JsonDeserializer<ArteVideoD
 
                 }
             }
+            
+            detailsDTO.setGeoLocation(getGeoLocation(programElement));
         }
             
         return detailsDTO;
     }
 
+    private GeoLocations getGeoLocation(JsonObject programElement) {
+        GeoLocations geo = GeoLocations.GEO_NONE;
+        
+        if(programElement.has("geoblocking")) {
+            JsonElement geoElement = programElement.get("geoblocking");
+            if(!geoElement.isJsonNull()) {
+                JsonObject geoObject = geoElement.getAsJsonObject();
+                if(!geoObject.isJsonNull() && geoObject.has("code")) {
+                    String code = geoObject.get("code").getAsString();
+                    switch(code) {
+                        case "DE_FR":
+                        case "EUR_DE_FR":
+                            geo = GeoLocations.GEO_DE_FR;
+                            break;
+                        case "SAT":
+                            geo = GeoLocations.GEO_DE_AT_CH_EU;
+                            break;
+                        case "ALL":
+                            geo = GeoLocations.GEO_NONE;
+                            break;
+                        default:
+                            LOG.debug("New ARTE GeoLocation: " + code);
+                    }
+                }
+            }
+        }
+        
+        return geo;
+    }
+    
     /**
      * ermittelt Ausstrahlungsdatum aus der Liste der Ausstrahlungen
      * @param broadcastArray

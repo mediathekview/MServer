@@ -270,7 +270,6 @@ public abstract class MediathekReader extends Thread
         }
     }
 
-
     boolean istInListe(Set<String[]> liste, String str, int nr)
     {
         Optional<String[]> opt = liste.parallelStream().filter(f -> f[nr].equals(str)).findAny();
