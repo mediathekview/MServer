@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import mServer.test.JsonFileReader;
+import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.notNullValue;
 import org.hamcrest.Matchers;
 import static org.junit.Assert.assertThat;
@@ -18,18 +19,20 @@ public class ArteCategoryFilmListDeserializerTest {
     @Parameterized.Parameters
     public static Collection<Object[]> data() {
         return Arrays.asList(new Object[][] {   
-            { "/arte/arte_films_of_category_page1.json", new String[] { "073658-000-A", "053299-141-A", "072401-061-A", "072401-059-A", "072401-060-A", "076512-000-A", "076511-000-A", "076510-000-A", "053299-140-A", "072401-058-A" } },
-            { "/arte/arte_films_of_category_page_last.json", new String[] { "072401-011-A" } },
+            { "/arte/arte_films_of_category_page1.json", new String[] { "073658-000-A", "053299-141-A", "072401-061-A", "072401-059-A", "072401-060-A", "076512-000-A", "076511-000-A", "076510-000-A", "053299-140-A", "072401-058-A" }, 23 },
+            { "/arte/arte_films_of_category_page_last.json", new String[] { "072401-011-A" }, 3 },
         });
     }
     
     private final String jsonFile;
     private final String[] expectedProgramIds;
+    private final int expectedPages;
     private final ArteCategoryFilmListDeserializer target;
     
-    public ArteCategoryFilmListDeserializerTest(String aJsonFile, String[] aProgramIds) {
+    public ArteCategoryFilmListDeserializerTest(String aJsonFile, String[] aProgramIds, int aPages) {
         jsonFile = aJsonFile;
         expectedProgramIds = aProgramIds;
+        expectedPages = aPages;
         this.target = new ArteCategoryFilmListDeserializer();
     }
     
@@ -41,6 +44,7 @@ public class ArteCategoryFilmListDeserializerTest {
         ArteCategoryFilmsDTO actual = target.deserialize(jsonObject, ArteCategoryFilmsDTO.class, null);
         
         assertThat(actual, notNullValue());
+        assertThat(actual.getPages(), equalTo(expectedPages));
         ArrayList<String> actualProgramIds = actual.getProgramIds();
         assertThat(actualProgramIds, Matchers.containsInAnyOrder(expectedProgramIds));
     }   

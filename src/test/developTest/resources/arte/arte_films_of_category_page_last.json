@@ -1,10 +1,10 @@
 {
    "meta":{
       "videos":{
-         "page":23,
+         "page":3,
          "limit":10,
-         "pages":23,
-         "totalCount":221,
+         "pages":3,
+         "totalCount":21,
          "href":"https://api.arte.tv/api/opa/v3/videos?availableScreens=desktop&imageSize=940x530%2C625x224%2C1920x1080%2C720x406%2C400x225&page=23&videoLibrary=true&subcategory.code=ACC&language=de&limit=10&platform=ARTE_NEXT&sort=-videoRightsBegin",
          "links":{
             "first":{

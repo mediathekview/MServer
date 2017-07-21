@@ -3,6 +3,7 @@ package mServer.crawler.sender.arte;
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonDeserializer;
 import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
 import java.lang.reflect.Type;
 import org.apache.logging.log4j.LogManager;
@@ -14,6 +15,8 @@ import org.apache.logging.log4j.Logger;
  */
 public class ArteCategoryFilmListDeserializer implements JsonDeserializer<ArteCategoryFilmsDTO> {
     
+    private static final String JSON_ELEMENT_META = "meta";
+    private static final String JSON_ELEMENT_PAGES = "pages";
     private static final String JSON_ELEMENT_VIDEOS = "videos";
     private static final String JSON_ELEMENT_URL = "url";
     
@@ -31,9 +34,25 @@ public class ArteCategoryFilmListDeserializer implements JsonDeserializer<ArteCa
                 dto.addProgramId(programId);
             }
         }
+            
+        dto.setPages(getPages(aJsonElement.getAsJsonObject()));
         
         return dto;
     }    
+    
+    private static int getPages(JsonObject aJsonObject) {
+        int pages = 0;
+        
+        JsonElement meta = aJsonObject.get(JSON_ELEMENT_META);
+        if(!meta.isJsonNull()) {
+            JsonElement videos = meta.getAsJsonObject().get(JSON_ELEMENT_VIDEOS);
+            if(!videos.isJsonNull()) {
+                pages = videos.getAsJsonObject().get(JSON_ELEMENT_PAGES).getAsInt();
+            }
+        }
+        
+        return pages;
+    }
     
     /**
      * Ermittelt aus der Url /{language}/video/{programId}/{text} die ProgramId eines Films
