@@ -30,6 +30,7 @@ public class ArteVideoDetailsDeserializer implements JsonDeserializer<ArteVideoD
     private static final String JSON_ELEMENT_BROADCAST_ELTERNKNOTEN_2 = "broadcastProgrammings";
     private static final String JSON_ELEMENT_BROADCAST = "broadcastBeginRounded";
     private static final String JSON_ELEMENT_BROADCASTTYPE = "broadcastType";
+    private static final String JSON_ELEMENT_BROADCAST_VIDEORIGHTS_BEGIN = "videoRightsBegin";
     private static final String JSON_ELEMENT_BROADCAST_CATCHUPRIGHTS_BEGIN = "catchupRightsBegin";
     private static final String JSON_ELEMENT_BROADCAST_CATCHUPRIGHTS_END = "catchupRightsEnd";
     private static final String BROADCASTTTYPE_FIRST = "FIRST_BROADCAST";
@@ -73,11 +74,12 @@ public class ArteVideoDetailsDeserializer implements JsonDeserializer<ArteVideoD
                 detailsDTO.setBroadcastBegin(getBroadcastDate(broadcastArray));
             } else {
                 // keine Ausstrahlungen verfügbar => catchupRightsBegin verwenden
-                JsonElement elementBegin = programElement.get(JSON_ELEMENT_BROADCAST_CATCHUPRIGHTS_BEGIN);
-                
-                if(!elementBegin.isJsonNull()) {
-                    detailsDTO.setBroadcastBegin(elementBegin.getAsString());
+                // wenn es die auch nicht gibt => videoRightsBegin verwenden
+                String begin = getElementValue(programElement, JSON_ELEMENT_BROADCAST_CATCHUPRIGHTS_BEGIN);
+                if(begin.isEmpty()) {
+                    begin = getElementValue(programElement, JSON_ELEMENT_BROADCAST_VIDEORIGHTS_BEGIN);
                 }
+                detailsDTO.setBroadcastBegin(begin);
             }
             
             detailsDTO.setGeoLocation(getGeoLocation(programElement));
@@ -217,7 +219,11 @@ public class ArteVideoDetailsDeserializer implements JsonDeserializer<ArteVideoD
         // wenn kein Ausstrahlungsdatum vorhanden, dann die erste Ausstrahlung nehmen
         // egal, wann die CatchupRights liegen, damit ein "sinnvolles" Datum vorhanden ist
         if(broadcastDate.isEmpty()) {
-            broadcastDate = getFirstBroadcastDateIgnoringCatchupRights(broadcastArray);
+            broadcastDate = getBroadcastDateIgnoringCatchupRights(broadcastArray, BROADCASTTTYPE_FIRST);
+        }        
+        // wenn immer noch leer, dann die Major-Ausstrahlung verwenden
+        if(broadcastDate.isEmpty()) {
+            broadcastDate = getBroadcastDateIgnoringCatchupRights(broadcastArray, BROADCASTTTYPE_MAJOR_RE);
         }        
         
         return broadcastDate;
@@ -274,11 +280,9 @@ public class ArteVideoDetailsDeserializer implements JsonDeserializer<ArteVideoD
     }    
     
     /***
-     * liefert das erste Ausstrahlungsdatum ohne Berücksichtigung der CatchupRights
-     * @param broadcastArray
-     * @return 
+     * liefert die erste Ausstrahlung des Typs ohne Berücksichtigung der CatchupRights
      */
-    private static String getFirstBroadcastDateIgnoringCatchupRights(JsonArray broadcastArray) {
+    private static String getBroadcastDateIgnoringCatchupRights(JsonArray broadcastArray, String broadcastType) {
         String broadcastDate = "";
         
         for(int i = 0; i < broadcastArray.size(); i++) {
@@ -288,7 +292,7 @@ public class ArteVideoDetailsDeserializer implements JsonDeserializer<ArteVideoD
                 broadcastObject.has(JSON_ELEMENT_BROADCAST)) {
                 String type = broadcastObject.get(JSON_ELEMENT_BROADCASTTYPE).getAsString();
                 
-                if(type.equals(BROADCASTTTYPE_FIRST)) {
+                if(type.equals(broadcastType)) {
                     broadcastDate = (broadcastObject.get(JSON_ELEMENT_BROADCAST).getAsString());
                 }
             }
