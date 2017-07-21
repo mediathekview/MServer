@@ -28,6 +28,7 @@ import org.apache.logging.log4j.Logger;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.JsonElement;
 
 import de.mediathekview.mlib.Config;
 import de.mediathekview.mlib.Const;
@@ -36,6 +37,12 @@ import de.mediathekview.mlib.daten.ListeFilme;
 import de.mediathekview.mlib.tool.Log;
 import de.mediathekview.mlib.tool.MSStringBuilder;
 import de.mediathekview.mlib.tool.MVHttpClient;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 import mServer.crawler.CrawlerTool;
 import mServer.crawler.FilmeSuchen;
 import mServer.crawler.GetUrl;
@@ -66,6 +73,12 @@ public class MediathekArte_de extends MediathekReader
     private static final Logger LOG = LogManager.getLogger(MediathekArte_de.class);
     private final static String SENDERNAME = Const.ARTE_DE;
     private static final String ARTE_API_TAG_URL_PATTERN = "https://api.arte.tv/api/opa/v3/videos?channel=%s&arteSchedulingDay=%s";
+    
+    private static final String URL_STATIC_CONTENT = "https://static-cdn.arte.tv/components/src/header/assets/locales/%s.json?ver=%s";
+    private static final String URL_CATEGORY = "http://www.arte.tv/guide/api/api/pages/category/%s/web/%s";
+    private static final String URL_SUBCATEGORY = "http://www.arte.tv/guide/api/api/videos/%s/subcategory/%s?page=%s";
+    private static final String VERSION_STATIC_CONTENT = "2.3.13";
+
     private static final DateTimeFormatter ARTE_API_DATEFORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd");
     public static final String AUTH_HEADER = "Authorization";
     public static final String AUTH_TOKEN = "Bearer Nzc1Yjc1ZjJkYjk1NWFhN2I2MWEwMmRlMzAzNjI5NmU3NWU3ODg4ODJjOWMxNTMxYzEzZGRjYjg2ZGE4MmIwOA";
@@ -90,28 +103,77 @@ public class MediathekArte_de extends MediathekReader
     @Override
     public void addToList() {
         meldungStart();
-        addTage();
         if (Config.getStop()) {
             meldungThreadUndFertig();
-        } else if (listeThemen.isEmpty()) {
-            if (CrawlerTool.loadLongMax()) {
-                addConcert();
-            } else {
-                meldungThreadUndFertig();
-            }
         } else {
             if (CrawlerTool.loadLongMax()) {
-                addConcert();
-            }
-            meldungAddMax(listeThemen.size());
-            for (int t = 0; t < getMaxThreadLaufen(); ++t) {
-                Thread th = new ThemaLaden();
-                th.setName(getSendername() + t);
-                th.start();
+                addCategories();
+                meldungAddMax(listeThemen.size());
+                for (int t = 0; t < getMaxThreadLaufen(); ++t) {
+                    Thread th = new CategoryLoader();
+                    th.setName(getSendername() + t);
+                    th.start();
+                }
+                
+            } else {
+                addTage();
+                meldungAddMax(listeThemen.size());
+                for (int t = 0; t < getMaxThreadLaufen(); ++t) {
+                    Thread th = new ThemaLaden();
+                    th.setName(getSendername() + t);
+                    th.start();
+                }
             }
         }
     }
 
+    private void addCategories() {
+        Gson gson = new GsonBuilder()
+                .registerTypeAdapter(ArteInfoDTO.class,new ArteStaticContentDeserializer())
+                .registerTypeAdapter(ArteCategoryDTO.class,new ArteCategoryDeserializer())
+                .create();
+        
+        String url = String.format(URL_STATIC_CONTENT,LANG_CODE.toLowerCase(),VERSION_STATIC_CONTENT);
+        
+        MVHttpClient mvhttpClient = MVHttpClient.getInstance();
+        OkHttpClient httpClient = mvhttpClient.getHttpClient();
+        Request request = new Request.Builder()
+                    .addHeader(AUTH_HEADER, AUTH_TOKEN)
+                    .url(url).build();
+        try
+        {
+            Response response = httpClient.newCall(request).execute();
+
+            if(response.isSuccessful())
+            {
+                ArteInfoDTO info = gson.fromJson(response.body().string(), ArteInfoDTO.class);
+                info.getCategories().forEach(category -> {
+                    String categoryUrl = String.format(URL_CATEGORY, LANG_CODE.toLowerCase(), info.getCategoryUrl(category));
+                    Request requestCategory = new Request.Builder()
+                                .addHeader(AUTH_HEADER, AUTH_TOKEN)
+                                .url(categoryUrl).build();
+                    Response responseCategory;
+                    try {
+                        responseCategory = httpClient.newCall(requestCategory).execute();
+                        if(responseCategory.isSuccessful()) {
+                            ArteCategoryDTO categoryDto = gson.fromJson(responseCategory.body().string(), ArteCategoryDTO.class);
+                            categoryDto.getSubCategories().forEach(subCategory -> {
+                                String subCategoryUrl = String.format(URL_SUBCATEGORY, LANG_CODE.toLowerCase(), subCategory, 1);
+                                listeThemen.add(new String[]{ subCategory, subCategoryUrl });
+                            });
+                        }
+                    } catch (IOException ioException) {
+                        LOG.error("Beim laden der Filme für Arte kam es zu Verbindungsproblemen.",ioException);
+                    }
+                });
+            }
+
+        } catch (IOException ioException)
+        {
+           LOG.error("Beim laden der Filme für Arte kam es zu Verbindungsproblemen.",ioException);
+        }
+    }
+    
     private void addConcert() {
         Thread th = new ConcertLaden(0, 20);
         th.setName(getSendername() + "Concert-0");
@@ -323,4 +385,100 @@ public class MediathekArte_de extends MediathekReader
 
     }
 
+    class CategoryLoader extends Thread {
+
+        @Override
+        public void run() {
+            try {
+                meldungAddThread();
+                String link[];
+                while (!Config.getStop() && (link = listeThemen.getListeThemen()) != null) {
+                    meldungProgress(link[0] + "/" + link[1] /* url */);
+                    loadSubCategory(link[0], link[1]);
+                }
+            } catch (Exception ex) {
+                Log.errorLog(894330854, ex, "");
+            }
+            meldungThreadUndFertig();
+        }
+
+        private void loadSubCategory(String aCategory, String aUrl) {
+            Gson gson = new GsonBuilder().registerTypeAdapter(ArteCategoryFilmsDTO.class,new ArteCategoryFilmListDeserializer()).create();
+            
+            // erste Seite laden
+            ArteCategoryFilmsDTO dto = loadSubCategoryPage(gson, aUrl);
+            if(dto != null) {
+                // weitere Seiten laden und zu programId-liste des ersten DTO hinzufügen
+                for(int i = 1; i < dto.getPages(); i++) {
+                    String url = String.format(URL_SUBCATEGORY, LANG_CODE.toLowerCase(), aCategory, i);
+                    ArteCategoryFilmsDTO nextDto = loadSubCategoryPage(gson, url);
+                    if(nextDto != null) {
+                        nextDto.getProgramIds().forEach(programId -> dto.addProgramId(programId));
+                    }
+                }
+            }
+            
+            // alle programIds verarbeiten
+            ListeFilme loadedFilme = loadPrograms(dto);
+            for (DatenFilm film : loadedFilme)
+            {
+                addFilm(film);
+            }
+        }
+
+        private ListeFilme loadPrograms(ArteCategoryFilmsDTO dto) {
+            ListeFilme listeFilme = new ListeFilme();
+
+            Collection<Future<DatenFilm>> futureFilme = new ArrayList<>();
+            dto.getProgramIds().forEach(programId -> {
+                ExecutorService executor = Executors.newCachedThreadPool();
+                futureFilme.add(executor.submit(new ArteProgramIdToDatenFilmCallable(programId, LANG_CODE, SENDERNAME)));
+            });
+            
+            CopyOnWriteArrayList<DatenFilm> finishedFilme = new CopyOnWriteArrayList<>();
+            futureFilme.parallelStream().forEach(e -> {
+                try{
+                    DatenFilm finishedFilm = e.get();
+                    if(finishedFilm!=null)
+                    {
+                        finishedFilme.add(finishedFilm);
+                    }
+                }catch(Exception exception)
+                {
+                    LOG.error("Es ist ein Fehler beim lesen der Arte Filme aufgetreten.",exception);
+                }
+
+                });
+
+            listeFilme.addAll(finishedFilme);
+            return listeFilme;
+        }
+        
+        private ArteCategoryFilmsDTO loadSubCategoryPage(Gson gson, String aUrl) {
+            MVHttpClient mvhttpClient = MVHttpClient.getInstance();
+            OkHttpClient httpClient = mvhttpClient.getHttpClient();
+            Request request = new Request.Builder()
+                    .addHeader(AUTH_HEADER, AUTH_TOKEN)
+                    .url(aUrl).build();
+            
+            ArteCategoryFilmsDTO dto = null;
+            
+             try
+             {
+                 Response response = httpClient.newCall(request).execute();
+
+                 if(response.isSuccessful())
+                 {
+                     // erste Seite lesen
+                     dto = gson.fromJson(response.body().string(), ArteCategoryFilmsDTO.class);
+                 }
+
+             }catch (IOException ioException)
+             {
+                LOG.error("Beim laden der Filme für Arte kam es zu Verbindungsproblemen.",ioException);
+             }    
+             
+             return dto;
+        }
+    }
 }
