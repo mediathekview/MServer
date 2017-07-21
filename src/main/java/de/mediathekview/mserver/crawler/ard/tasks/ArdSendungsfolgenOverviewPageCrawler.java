@@ -21,7 +21,6 @@ public class ArdSendungsfolgenOverviewPageCrawler extends AbstractArdOverviewPag
     private static final String SELECTOR_TEXT_LINK = ".textLink[href^=/tv/]";
     private static final String SELECTOR_DACHZEILE = ".dachzeile";
     private static final String TIME_REGEX_PATTERN = "\\d{2}:\\d{2}";
-    //private static final String SELECTOR_SUB_PAGES = "div.controls.paging div.entry > a[href~=.*\\.(10|[2-9])\\b]";
     private static final String SELECTOR_SUB_PAGES = "div.controls.paging div.entry > a[href~=.*\\.[2-3]\\b]";
 
     public ArdSendungsfolgenOverviewPageCrawler(final AbstractCrawler aCrawler, final ConcurrentLinkedQueue<String> aUrlsToCrawl)
