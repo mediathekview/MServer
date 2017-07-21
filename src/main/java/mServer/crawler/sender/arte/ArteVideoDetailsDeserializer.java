@@ -16,7 +16,16 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 public class ArteVideoDetailsDeserializer implements JsonDeserializer<ArteVideoDetailsDTO> {
- 
+
+    private static final String JSON_ELEMENT_KEY_CATEGORY = "category";
+    private static final String JSON_ELEMENT_KEY_SUBCATEGORY = "subcategory";
+    private static final String JSON_ELEMENT_KEY_NAME = "name";
+    private static final String JSON_ELEMENT_KEY_TITLE = "title";
+    private static final String JSON_ELEMENT_KEY_SUBTITLE = "subtitle";
+    private static final String JSON_ELEMENT_KEY_URL = "url";
+    private static final String JSON_ELEMENT_KEY_PROGRAM_ID = "programId";
+    private static final String JSON_ELEMENT_KEY_SHORT_DESCRIPTION = "shortDescription";
+    
     private static final String JSON_ELEMENT_BROADCAST_ELTERNKNOTEN_1 = "programs";
     private static final String JSON_ELEMENT_BROADCAST_ELTERNKNOTEN_2 = "broadcastProgrammings";
     private static final String JSON_ELEMENT_BROADCAST = "broadcastBeginRounded";
@@ -46,6 +55,18 @@ public class ArteVideoDetailsDeserializer implements JsonDeserializer<ArteVideoD
                 
             JsonObject programElement = aJsonElement.getAsJsonObject()
                 .get(JSON_ELEMENT_BROADCAST_ELTERNKNOTEN_1).getAsJsonArray().get(0).getAsJsonObject();
+
+            String titel = getTitle(programElement);
+            String thema = getSubject(programElement);
+
+            String beschreibung = getElementValue(programElement, JSON_ELEMENT_KEY_SHORT_DESCRIPTION);
+
+            String urlWeb = getElementValue(programElement, JSON_ELEMENT_KEY_URL);
+               detailsDTO.setDescription(beschreibung);
+               detailsDTO.setTheme(thema);
+               detailsDTO.setTitle(titel);
+               detailsDTO.setWebsite(urlWeb);
+
             JsonArray broadcastArray = programElement.get(JSON_ELEMENT_BROADCAST_ELTERNKNOTEN_2).getAsJsonArray();
 
             if(broadcastArray.size() > 0) {
@@ -65,6 +86,56 @@ public class ArteVideoDetailsDeserializer implements JsonDeserializer<ArteVideoD
         return detailsDTO;
     }
 
+    private static String getSubject(JsonObject programObject) {
+        String category = "";
+        String subcategory = "";
+        String subject;
+        
+        JsonElement catElement = programObject.get(JSON_ELEMENT_KEY_CATEGORY);
+        if(!catElement.isJsonNull()) {
+            JsonObject catObject = catElement.getAsJsonObject();
+            category = catObject != null ? getElementValue(catObject, JSON_ELEMENT_KEY_NAME) : "";
+        }
+        
+        JsonElement subcatElement = programObject.get(JSON_ELEMENT_KEY_SUBCATEGORY);
+        if(!subcatElement.isJsonNull()) {
+            JsonObject subcatObject = subcatElement.getAsJsonObject();
+            subcategory = subcatObject != null ? getElementValue(subcatObject, JSON_ELEMENT_KEY_NAME) : "";
+        }
+       
+        if(!category.equals(subcategory) && !subcategory.isEmpty()) {
+            subject = category + " - " + subcategory;
+        } else {
+            subject = category;
+        }
+
+        return subject;
+    }
+
+    private static String getTitle(JsonObject programObject) {
+        String title = getElementValue(programObject, JSON_ELEMENT_KEY_TITLE);
+        String subtitle = getElementValue(programObject, JSON_ELEMENT_KEY_SUBTITLE);
+                
+        if (!title.equals(subtitle) && !subtitle.isEmpty()) {
+            title = title + " - " + subtitle;
+        }        
+        
+        return title;
+    }
+
+    private static boolean isValidProgramObject(JsonObject programObject) {
+        return programObject.has(JSON_ELEMENT_KEY_TITLE) && 
+            programObject.has(JSON_ELEMENT_KEY_PROGRAM_ID) && 
+            programObject.has(JSON_ELEMENT_KEY_URL) &&
+            !programObject.get(JSON_ELEMENT_KEY_TITLE).isJsonNull() &&
+            !programObject.get(JSON_ELEMENT_KEY_PROGRAM_ID).isJsonNull() &&
+            !programObject.get(JSON_ELEMENT_KEY_URL).isJsonNull();
+    }
+    
+    private static String getElementValue(JsonObject jsonObject, String elementName) {
+        return !jsonObject.get(elementName).isJsonNull() ? jsonObject.get(elementName).getAsString() : "";        
+    }
+    
     private GeoLocations getGeoLocation(JsonObject programElement) {
         GeoLocations geo = GeoLocations.GEO_NONE;
         
