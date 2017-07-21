@@ -25,7 +25,7 @@ public class ArteVideoDetailsDeserializerTest {
         return Arrays.asList(new Object[][] {   
             { "/arte/arte_video_details_first_several_minors_geo_defr.json", "2017-07-10T18:15:00Z", GeoLocations.GEO_DE_FR },
             { "/arte/arte_video_details_several_majors_minors_geo_null.json", "2017-08-01T16:25:00Z", GeoLocations.GEO_NONE },
-            { "/arte/arte_video_details_first_with_catchuprights_past_geo_sat.json", "2017-05-22T11:36:00Z", GeoLocations.GEO_EU },
+            { "/arte/arte_video_details_first_with_catchuprights_past_geo_sat.json", "2017-05-22T11:36:00Z", GeoLocations.GEO_DE_AT_CH_EU },
             { "/arte/arte_video_details_first_without_catchuprights_geo_eudefr.json", "2017-07-16T23:30:00Z", GeoLocations.GEO_DE_FR },
             { "/arte/arte_video_details_no_broadcastprogrammings_geo_all.json", "2017-06-30T13:00:00Z", GeoLocations.GEO_NONE },
         });
