@@ -14,19 +14,12 @@ import org.apache.commons.lang3.StringUtils;
  */
 public class M3U8Utils {
 	public static final String M3U8_WDR_URL_BEGIN = "adaptiv.wdr.de/i/medp/";
-<<<<<<< HEAD
-	public static final String M3U8_WDR_URL_ALTERNATIV_BEGIN = "adaptiv.wdr.de/i/medp/";
-=======
 	public static final String M3U8_WDR_URL_ALTERNATIV_BEGIN = "wdradaptiv-vh.akamaihd.net/i/medp/";
->>>>>>> hotfix/m3u8ToMp4
 	private static final String REGEX_FIRST_USELESS_COMMA = "^,";
 	private static final String M3U8_WDR_QUALITIES_USELESS_END = ",.mp4.csmil";
 	private static final String REGION_WELTWEIT = "weltweit";
 	private static final String REGION_WELTWEIT_DOMAIN = "ww";
-<<<<<<< HEAD
-=======
 	private static final String REGEX_ALL_BEFORE_PATTERN = ".*";
->>>>>>> hotfix/m3u8ToMp4
 	public static final String WDR_MP4_URL_PATTERN = "http://ondemand-%s.wdr.de/medp/%s/%s/%s/%s.mp4";
 
 	private M3U8Utils() {
@@ -47,11 +40,7 @@ public class M3U8Utils {
 	public static Map<Qualities, String> gatherUrlsFromWdrM3U8(String aWDRM3U8Url) {
 		Map<Qualities, String> urlAndQualities = new EnumMap<>(Qualities.class);
 		if (aWDRM3U8Url.contains(M3U8_WDR_URL_BEGIN) || aWDRM3U8Url.contains(M3U8_WDR_URL_ALTERNATIV_BEGIN)) {
-<<<<<<< HEAD
-			String m3u8Url = aWDRM3U8Url.replace(M3U8_WDR_URL_BEGIN, "").replace(M3U8_WDR_URL_ALTERNATIV_BEGIN, "");
-=======
 			String m3u8Url = aWDRM3U8Url.replaceAll(REGEX_ALL_BEFORE_PATTERN+M3U8_WDR_URL_BEGIN, "").replaceAll(REGEX_ALL_BEFORE_PATTERN+M3U8_WDR_URL_ALTERNATIV_BEGIN, "");
->>>>>>> hotfix/m3u8ToMp4
 			urlAndQualities.putAll(convertM3U8Url(m3u8Url));
 		}
 		return urlAndQualities;
