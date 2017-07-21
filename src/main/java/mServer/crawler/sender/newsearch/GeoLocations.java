@@ -7,6 +7,7 @@ public enum GeoLocations
 {
     GEO_NONE(""), // nur in .. zu sehen
     GEO_DE("DE"),
+    GEO_DE_FR("DE-FR"),
     GEO_AT("AT"),
     GEO_CH("CH"),
     GEO_EU("EU"),

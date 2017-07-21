@@ -292,11 +292,7 @@ public class MediathekWdr extends MediathekReader {
             if (!th.isEmpty()) {
                 thema = th;
             } else {
-                thema = sendungsSeite2.extract("<title>", "<");
-                thema = thema.replace("- Sendung - Video - Mediathek - WDR", "").trim();
-                if (thema.startsWith("Unser Sendungsarchiv")) {
-                    thema = "";
-                }
+                thema = parseThema(sendungsSeite2);
             }
 
             //Lokalzeit, ..
@@ -401,11 +397,7 @@ public class MediathekWdr extends MediathekReader {
                 }
                 meldung(strUrl);
 
-                thema = seite.extract("<title>", "<");
-                thema = thema.replace("- Sendung - Video - Mediathek - WDR", "").trim();
-                if (thema.startsWith("Unser Sendungsarchiv")) {
-                    thema = "";
-                }
+                thema = parseThema(seite);
 
                 u = seite.extract("data-extension=\"{ 'mediaObj': { 'url': '", "'");
                 if (!u.isEmpty()) {
@@ -462,6 +454,11 @@ public class MediathekWdr extends MediathekReader {
             urlNorm = sendungsSeite4.extract("\"alt\":{\"videoURL\":\"", "\"");
             String f4m = sendungsSeite4.extract("\"dflt\":{\"videoURL\":\"", "\"");
 
+            // Fehlendes Protokoll ergänzen, wenn es fehlt. kommt teilweise vor.
+            String protocol = urlFilmSuchen.substring(0, urlFilmSuchen.indexOf(':'));
+            urlNorm = addProtocolIfMissing(urlNorm, protocol);
+            f4m = addProtocolIfMissing(f4m, protocol);
+            
             if (urlNorm.endsWith(".m3u8")) {
                 final String urlM3 = urlNorm;
                 m3u8Page = getUrl.getUri_Utf(SENDERNAME, urlNorm, m3u8Page, "");
@@ -552,6 +549,30 @@ public class MediathekWdr extends MediathekReader {
             } else {
                 Log.errorLog(978451239, new String[]{"keine Url: " + urlFilmSuchen, "UrlThema: " + filmWebsite});
             }
+        }
+        
+        private String addProtocolIfMissing(String url, String protocol) {
+            if(url.startsWith("//")) {
+                return protocol + ":" + url;
+            } else if(url.startsWith("://")) {
+                return protocol + url;
+            }
+            
+            return url;
+        }
+        
+        private String parseThema(MSStringBuilder seite) {
+            String thema = seite.extract("<title>", "<");
+            thema = thema.replace("- Sendung - Video - Mediathek - WDR", "")
+                    .replace(" - Sendungen A-Z - Video - Mediathek - WDR", "").trim();
+            if(thema.startsWith("Video:")) {
+                thema = thema.substring(6).trim();
+            }
+            if (thema.startsWith("Unser Sendungsarchiv")) {
+                thema = "";
+            }
+                
+            return thema;
         }
 
         private String getUrlFromM3u8(String m3u8Url, String qualityIndex) {

@@ -1,0 +1,766 @@
+{
+    "meta": {
+        "programs": {
+            "page": 1,
+            "limit": 50,
+            "pages": 1,
+            "totalCount": 1,
+            "href": "https://api.arte.tv/api/opa/v3/programs/de/068339-000-A",
+            "links": {
+                "first": {
+                    "href": "https://api.arte.tv/api/opa/v3/programs/de/068339-000-A?page=1"
+                }
+            }
+        }
+    },
+    "programs": [
+        {
+            "durationSeconds": 7598,
+            "views": 48008,
+            "broadcastProgrammings": [
+                {
+                    "broadcastBeginRounded": "2017-07-10T18:15:00Z",
+                    "durationRounded": 7680,
+                    "arteSchedulingDay": "2017-07-10",
+                    "broadcastType": "FIRST_BROADCAST",
+                    "broadcastBegin": "2017-07-10T18:16:02Z",
+                    "broadcastEnd": "2017-07-10T20:22:40Z",
+                    "origins": [
+                        {
+                            "label": "ZDF",
+                            "order": 1
+                        },
+                        {
+                            "label": "ARTE F",
+                            "order": 2
+                        }
+                    ],
+                    "premiere": true,
+                    "case": {
+                        "code": 214,
+                        "label": "CINEMA CLASSIQUE"
+                    },
+                    "catchupRightsBegin": null,
+                    "catchupRightsEnd": null
+                },
+                {
+                    "broadcastBeginRounded": "2017-07-12T11:45:00Z",
+                    "durationRounded": 7620,
+                    "arteSchedulingDay": "2017-07-12",
+                    "broadcastType": "MINOR_REBROADCAST",
+                    "broadcastBegin": "2017-07-12T11:42:47Z",
+                    "broadcastEnd": "2017-07-12T13:49:25Z",
+                    "origins": [
+                        {
+                            "label": "ZDF",
+                            "order": 1
+                        },
+                        {
+                            "label": "ARTE F",
+                            "order": 2
+                        }
+                    ],
+                    "premiere": false,
+                    "case": {
+                        "code": 214,
+                        "label": "CINEMA CLASSIQUE"
+                    },
+                    "catchupRightsBegin": null,
+                    "catchupRightsEnd": null
+                },
+                {
+                    "broadcastBeginRounded": "2017-07-17T11:45:00Z",
+                    "durationRounded": 7680,
+                    "arteSchedulingDay": "2017-07-17",
+                    "broadcastType": "MINOR_REBROADCAST",
+                    "broadcastBegin": "2017-07-17T11:42:46Z",
+                    "broadcastEnd": "2017-07-17T13:49:24Z",
+                    "origins": [
+                        {
+                            "label": "ZDF",
+                            "order": 1
+                        },
+                        {
+                            "label": "ARTE F",
+                            "order": 2
+                        }
+                    ],
+                    "premiere": false,
+                    "case": {
+                        "code": 214,
+                        "label": "CINEMA CLASSIQUE"
+                    },
+                    "catchupRightsBegin": null,
+                    "catchupRightsEnd": null
+                }
+            ],
+            "videos": [
+                {
+                    "id": "PWA13085_TRAILER_ARTE_NEXT_DE_de",
+                    "illico": false,
+                    "title": "Detective Dee und der Fluch des Seeungeheuers",
+                    "subtitle": null,
+                    "programId": "PWA13085",
+                    "platform": "ARTE_NEXT",
+                    "mainPlatformCode": null,
+                    "kind": "TRAILER",
+                    "kindLabel": "TRAILER",
+                    "url": null,
+                    "permalink": null,
+                    "videoRightsBegin": "2017-05-01T18:15:00Z",
+                    "previewRightsBegin": "2017-05-01T18:15:00Z",
+                    "videoRightsEnd": "2017-07-31T18:15:00Z",
+                    "oEmbed": "https://api.arte.tv/api/player/v1/oembed/de/PWA13085?platform=ARTE_NEXT",
+                    "mainProgramming": true,
+                    "durationSeconds": 30,
+                    "availableScreens": [
+                        "desktop",
+                        "mobile",
+                        "tv"
+                    ],
+                    "caseCode": 0,
+                    "case": "INCONNU",
+                    "genrePresseCode": 0,
+                    "genrePresse": "Andere",
+                    "mainPlatform": true,
+                    "geoblockingZone": "ALL",
+                    "tracking": {
+                        "tablet": {
+                            "ANDROID": "https://st.arte.tv/api/multimedia/v1/PWA13085/de/ARTE_NEXT/TABLET/ANDROID/pixel.gif"
+                        },
+                        "mobile": {
+                            "ANDROID": "https://st.arte.tv/api/multimedia/v1/PWA13085/de/ARTE_NEXT/MOBILE/ANDROID/pixel.gif"
+                        }
+                    },
+                    "markings": [],
+                    "mainImage": {
+                        "name": "068339-000-A_2021979.jpg",
+                        "extension": "jpg",
+                        "caption": "Wird es Detektiv Dee (Mark Chao) gelingen, die Kurtisane Yin Ruiji (Angelababy) zu beschützen?",
+                        "url": "https://static-cdn.arte.tv/resize/4PBJVBwOMEq44pMbmeoyJnGed7c=/940x530/smart/filters:strip_icc()/apios/Img_data/29/068339-000-A_2021979.jpg",
+                        "imageId": "2021979",
+                        "programId": "068339-000-A",
+                        "language": "de",
+                        "copyright": "© Huayi Brothers Media Corp.",
+                        "creationDate": "2017-05-23T10:01:32Z",
+                        "lastModified": "2017-06-19T16:42:56Z",
+                        "width": 940,
+                        "height": 530,
+                        "keyframe": false,
+                        "alternateResolutions": [],
+                        "type": "DEFAULT"
+                    },
+                    "category": {
+                        "code": "AUT",
+                        "name": "Andere",
+                        "order": 9
+                    },
+                    "subcategory": {
+                        "code": "AUT",
+                        "name": "Andere",
+                        "order": 9
+                    },
+                    "links": {
+                        "videoStreams": {
+                            "iOS": {
+                                "href": "https://api.arte.tv/api/opa/v3/videoStreams?programId=PWA13085&platform=ARTE_NEXT&channel=DE&language=de&kind=TRAILER&protocol=HLS&quality=SQ%2CXQ&limit=100"
+                            },
+                            "android": {
+                                "href": "https://api.arte.tv/api/opa/v3/videoStreams?programId=PWA13085&platform=ARTE_NEXT&channel=DE&language=de&kind=TRAILER&protocol=HTTP%2CHLS&quality=XQ%2CMQ%2CSQ%2CEQ&limit=100"
+                            },
+                            "hbbtv": {
+                                "href": "https://api.arte.tv/api/opa/v3/videoStreams?programId=PWA13085&platform=ARTE_NEXT&channel=DE&language=de&kind=TRAILER&protocol=HTTP&quality=EQ%2CSQ%2CHQ&mediaType=mp4&profileAmm=%24nin%3AAMM-YTFR-HAB%2CAMM-YTFR%2CAMM-DT&limit=100"
+                            }
+                        }
+                    }
+                },
+                {
+                    "id": "PWA13085_TRAILER_TVGUIDE_DE_de",
+                    "illico": false,
+                    "title": "Detective Dee und der Fluch des Seeungeheuers",
+                    "subtitle": null,
+                    "programId": "PWA13085",
+                    "platform": "TVGUIDE",
+                    "mainPlatformCode": null,
+                    "kind": "TRAILER",
+                    "kindLabel": "TRAILER",
+                    "url": null,
+                    "permalink": null,
+                    "videoRightsBegin": "2017-05-01T18:15:00Z",
+                    "previewRightsBegin": "2017-05-01T18:15:00Z",
+                    "videoRightsEnd": "2017-07-31T18:15:00Z",
+                    "oEmbed": "https://api.arte.tv/api/player/v1/oembed/de/PWA13085?platform=TVGUIDE",
+                    "mainProgramming": true,
+                    "durationSeconds": 30,
+                    "availableScreens": [
+                        "desktop",
+                        "mobile",
+                        "tv"
+                    ],
+                    "caseCode": 0,
+                    "case": "INCONNU",
+                    "genrePresseCode": 0,
+                    "genrePresse": "Andere",
+                    "mainPlatform": true,
+                    "geoblockingZone": "ALL",
+                    "tracking": {
+                        "tablet": {
+                            "ANDROID": "https://st.arte.tv/api/multimedia/v1/PWA13085/de/TVGUIDE/TABLET/ANDROID/pixel.gif"
+                        },
+                        "mobile": {
+                            "ANDROID": "https://st.arte.tv/api/multimedia/v1/PWA13085/de/TVGUIDE/MOBILE/ANDROID/pixel.gif"
+                        }
+                    },
+                    "markings": [],
+                    "mainImage": {
+                        "name": "068339-000-A_2021979.jpg",
+                        "extension": "jpg",
+                        "caption": "Wird es Detektiv Dee (Mark Chao) gelingen, die Kurtisane Yin Ruiji (Angelababy) zu beschützen?",
+                        "url": "https://static-cdn.arte.tv/resize/4PBJVBwOMEq44pMbmeoyJnGed7c=/940x530/smart/filters:strip_icc()/apios/Img_data/29/068339-000-A_2021979.jpg",
+                        "imageId": "2021979",
+                        "programId": "068339-000-A",
+                        "language": "de",
+                        "copyright": "© Huayi Brothers Media Corp.",
+                        "creationDate": "2017-05-23T10:01:32Z",
+                        "lastModified": "2017-06-19T16:42:56Z",
+                        "width": 940,
+                        "height": 530,
+                        "keyframe": false,
+                        "alternateResolutions": [],
+                        "type": "DEFAULT"
+                    },
+                    "category": {
+                        "code": "AUT",
+                        "name": "Andere",
+                        "order": 9
+                    },
+                    "subcategory": {
+                        "code": "AUT",
+                        "name": "Andere",
+                        "order": 9
+                    },
+                    "links": {
+                        "videoStreams": {
+                            "iOS": {
+                                "href": "https://api.arte.tv/api/opa/v3/videoStreams?programId=PWA13085&platform=TVGUIDE&channel=DE&language=de&kind=TRAILER&protocol=HLS&quality=SQ%2CXQ&limit=100"
+                            },
+                            "android": {
+                                "href": "https://api.arte.tv/api/opa/v3/videoStreams?programId=PWA13085&platform=TVGUIDE&channel=DE&language=de&kind=TRAILER&protocol=HTTP%2CHLS&quality=XQ%2CMQ%2CSQ%2CEQ&limit=100"
+                            },
+                            "hbbtv": {
+                                "href": "https://api.arte.tv/api/opa/v3/videoStreams?programId=PWA13085&platform=TVGUIDE&channel=DE&language=de&kind=TRAILER&protocol=HTTP&quality=EQ%2CSQ%2CHQ&mediaType=mp4&profileAmm=%24nin%3AAMM-YTFR-HAB%2CAMM-YTFR%2CAMM-DT&limit=100"
+                            }
+                        }
+                    }
+                },
+                {
+                    "id": "068339-000-A_CLIP_EXTRAIT_DE_de",
+                    "illico": false,
+                    "title": "Detective Dee und der Fluch des Seeungeheuers",
+                    "subtitle": null,
+                    "programId": "068339-000-A",
+                    "platform": "EXTRAIT",
+                    "mainPlatformCode": "CINEMA",
+                    "kind": "CLIP",
+                    "kindLabel": "AUSSCHNITT",
+                    "url": "http://www.arte.tv/de/videos/068339-000-A/detective-dee-und-der-fluch-des-seeungeheuers",
+                    "permalink": "http://www.arte.tv/de/videos/068339-000-A/permalink",
+                    "videoRightsBegin": "2017-06-26T11:42:46Z",
+                    "previewRightsBegin": "2017-06-26T11:42:46Z",
+                    "videoRightsEnd": "2017-07-24T11:42:46Z",
+                    "oEmbed": "https://api.arte.tv/api/player/v1/oembed/de/068339-000-A?platform=EXTRAIT",
+                    "mainProgramming": true,
+                    "durationSeconds": 129,
+                    "availableScreens": [
+                        "desktop",
+                        "mobile",
+                        "tv"
+                    ],
+                    "caseCode": 614,
+                    "case": "CINEMA DIMANCHE PRIME TIME",
+                    "genrePresseCode": 5,
+                    "genrePresse": "Spielfilm",
+                    "mainPlatform": false,
+                    "geoblockingZone": "ALL",
+                    "tracking": {
+                        "tablet": {
+                            "ANDROID": "https://st.arte.tv/api/multimedia/v1/068339-000/A/de/EXTRAIT/TABLET/ANDROID/pixel.gif"
+                        },
+                        "mobile": {
+                            "ANDROID": "https://st.arte.tv/api/multimedia/v1/068339-000/A/de/EXTRAIT/MOBILE/ANDROID/pixel.gif"
+                        }
+                    },
+                    "markings": [],
+                    "mainImage": {
+                        "name": "068339-000-A_2021979.jpg",
+                        "extension": "jpg",
+                        "caption": "Wird es Detektiv Dee (Mark Chao) gelingen, die Kurtisane Yin Ruiji (Angelababy) zu beschützen?",
+                        "url": "https://static-cdn.arte.tv/resize/4PBJVBwOMEq44pMbmeoyJnGed7c=/940x530/smart/filters:strip_icc()/apios/Img_data/29/068339-000-A_2021979.jpg",
+                        "imageId": "2021979",
+                        "programId": "068339-000-A",
+                        "language": "de",
+                        "copyright": "© Huayi Brothers Media Corp.",
+                        "creationDate": "2017-05-23T10:01:32Z",
+                        "lastModified": "2017-07-08T04:54:00Z",
+                        "width": 940,
+                        "height": 530,
+                        "keyframe": false,
+                        "alternateResolutions": [],
+                        "type": "DEFAULT"
+                    },
+                    "category": {
+                        "code": "CIN",
+                        "name": "Kino",
+                        "order": 2
+                    },
+                    "subcategory": {
+                        "code": "FLM",
+                        "name": "Filme",
+                        "order": 1
+                    },
+                    "links": {
+                        "videoStreams": {
+                            "iOS": {
+                                "href": "https://api.arte.tv/api/opa/v3/videoStreams?programId=068339-000-A&reassembly=A&platform=EXTRAIT&channel=DE&language=de&kind=CLIP&protocol=HLS&quality=SQ%2CXQ&limit=100"
+                            },
+                            "android": {
+                                "href": "https://api.arte.tv/api/opa/v3/videoStreams?programId=068339-000-A&reassembly=A&platform=EXTRAIT&channel=DE&language=de&kind=CLIP&protocol=HTTP%2CHLS&quality=XQ%2CMQ%2CSQ%2CEQ&limit=100"
+                            },
+                            "hbbtv": {
+                                "href": "https://api.arte.tv/api/opa/v3/videoStreams?programId=068339-000-A&reassembly=A&platform=EXTRAIT&channel=DE&language=de&kind=CLIP&protocol=HTTP&quality=EQ%2CSQ%2CHQ&mediaType=mp4&profileAmm=%24nin%3AAMM-YTFR-HAB%2CAMM-YTFR%2CAMM-DT&limit=100"
+                            }
+                        }
+                    }
+                },
+                {
+                    "id": "068339-000-A_SHOW_ARTE_NEXT_DE_de",
+                    "illico": false,
+                    "title": "Detective Dee und der Fluch des Seeungeheuers",
+                    "subtitle": null,
+                    "programId": "068339-000-A",
+                    "platform": "ARTE_NEXT",
+                    "mainPlatformCode": "CINEMA",
+                    "kind": "SHOW",
+                    "kindLabel": "PROGRAMM",
+                    "url": "http://www.arte.tv/de/videos/068339-000-A/detective-dee-und-der-fluch-des-seeungeheuers",
+                    "permalink": "http://www.arte.tv/de/videos/068339-000-A/permalink",
+                    "videoRightsBegin": "2017-07-10T03:00:00Z",
+                    "previewRightsBegin": "2017-07-10T03:00:00Z",
+                    "videoRightsEnd": "2017-07-16T21:59:00Z",
+                    "oEmbed": "https://api.arte.tv/api/player/v1/oembed/de/068339-000-A?platform=ARTE_NEXT",
+                    "mainProgramming": true,
+                    "durationSeconds": 7598,
+                    "availableScreens": [
+                        "desktop",
+                        "mobile",
+                        "tv"
+                    ],
+                    "caseCode": 614,
+                    "case": "CINEMA DIMANCHE PRIME TIME",
+                    "genrePresseCode": 5,
+                    "genrePresse": "Spielfilm",
+                    "mainPlatform": true,
+                    "geoblockingZone": "ALL",
+                    "tracking": {
+                        "tablet": {
+                            "ANDROID": "https://st.arte.tv/api/multimedia/v1/068339-000/A/de/ARTE_NEXT/TABLET/ANDROID/pixel.gif"
+                        },
+                        "mobile": {
+                            "ANDROID": "https://st.arte.tv/api/multimedia/v1/068339-000/A/de/ARTE_NEXT/MOBILE/ANDROID/pixel.gif"
+                        }
+                    },
+                    "markings": [],
+                    "mainImage": {
+                        "name": "068339-000-A_2021979.jpg",
+                        "extension": "jpg",
+                        "caption": "Wird es Detektiv Dee (Mark Chao) gelingen, die Kurtisane Yin Ruiji (Angelababy) zu beschützen?",
+                        "url": "https://static-cdn.arte.tv/resize/4PBJVBwOMEq44pMbmeoyJnGed7c=/940x530/smart/filters:strip_icc()/apios/Img_data/29/068339-000-A_2021979.jpg",
+                        "imageId": "2021979",
+                        "programId": "068339-000-A",
+                        "language": "de",
+                        "copyright": "© Huayi Brothers Media Corp.",
+                        "creationDate": "2017-05-23T10:01:32Z",
+                        "lastModified": "2017-07-08T04:54:00Z",
+                        "width": 940,
+                        "height": 530,
+                        "keyframe": false,
+                        "alternateResolutions": [],
+                        "type": "DEFAULT"
+                    },
+                    "category": {
+                        "code": "CIN",
+                        "name": "Kino",
+                        "order": 2
+                    },
+                    "subcategory": {
+                        "code": "FLM",
+                        "name": "Filme",
+                        "order": 1
+                    },
+                    "links": {
+                        "videoStreams": {
+                            "iOS": {
+                                "href": "https://api.arte.tv/api/opa/v3/videoStreams?programId=068339-000-A&reassembly=A&platform=ARTE_NEXT&channel=DE&language=de&kind=SHOW&protocol=HLS&quality=SQ%2CXQ&limit=100"
+                            },
+                            "android": {
+                                "href": "https://api.arte.tv/api/opa/v3/videoStreams?programId=068339-000-A&reassembly=A&platform=ARTE_NEXT&channel=DE&language=de&kind=SHOW&protocol=HTTP%2CHLS&quality=XQ%2CMQ%2CSQ%2CEQ&limit=100"
+                            },
+                            "hbbtv": {
+                                "href": "https://api.arte.tv/api/opa/v3/videoStreams?programId=068339-000-A&reassembly=A&platform=ARTE_NEXT&channel=DE&language=de&kind=SHOW&protocol=HTTP&quality=EQ%2CSQ%2CHQ&mediaType=mp4&profileAmm=%24nin%3AAMM-YTFR-HAB%2CAMM-YTFR%2CAMM-DT&limit=100"
+                            }
+                        }
+                    }
+                }
+            ],
+            "mainBroadcastProgramming": {
+                "broadcastBeginRounded": "2017-07-10T18:15:00Z",
+                "durationRounded": 7680,
+                "arteSchedulingDay": "2017-07-10",
+                "broadcastType": "FIRST_BROADCAST",
+                "broadcastBegin": "2017-07-10T18:16:02Z",
+                "broadcastEnd": "2017-07-10T20:22:40Z",
+                "origins": [
+                    {
+                        "label": "ZDF",
+                        "order": 1
+                    },
+                    {
+                        "label": "ARTE F",
+                        "order": 2
+                    }
+                ],
+                "premiere": true,
+                "case": {
+                    "code": 214,
+                    "label": "CINEMA CLASSIQUE"
+                },
+                "catchupRightsBegin": null,
+                "catchupRightsEnd": null
+            },
+            "catchupAvailable": true,
+            "catchupRightsBegin": "2017-07-10T03:00:00Z",
+            "catchupRightsEnd": "2017-07-16T21:59:00Z",
+            "displayAudioVersions": [
+                {
+                    "code": "DE",
+                    "shortLabel": "DE",
+                    "label": "Synchronisation",
+                    "icon": {
+                        "class": "arte-icon--de",
+                        "sprite": "https://static-cdn.arte.tv/static/styleguide/icomoon/symbol-defs.svg",
+                        "svg": "https://static-cdn.arte.tv/static/styleguide/icomoon/SVG/icon--de.svg",
+                        "png": "https://static-cdn.arte.tv/static/styleguide/icomoon/PNG/icon--de.png"
+                    }
+                }
+            ],
+            "collections": [
+                {
+                    "collectionId": "RC-014815",
+                    "kind": "TOPIC",
+                    "platform": "ARTE_NEXT",
+                    "offline": "2017-07-23T21:59:00Z",
+                    "online": "2017-07-07T03:00:00Z",
+                    "title": "Asien im Fokus",
+                    "subtitle": null,
+                    "mainImage": {
+                        "name": "RC-014815-A_2126375.jpg",
+                        "extension": "jpg",
+                        "caption": "Asien",
+                        "url": "https://static-cdn.arte.tv/resize/wiBrmuwmyKm_kJKhBv3Q_exxptg=/940x530/smart/filters:strip_icc()/apios/Img_data/20/RC-014815-A_2126375.jpg",
+                        "imageId": "2126375",
+                        "programId": "RC-014815",
+                        "language": "de",
+                        "copyright": "",
+                        "creationDate": "2017-07-06T13:14:07Z",
+                        "lastModified": "2017-07-07T14:08:23Z",
+                        "width": 940,
+                        "height": 530,
+                        "keyframe": false,
+                        "alternateResolutions": [],
+                        "type": "DEFAULT"
+                    },
+                    "shortDescription": "Tauchen Sie ein in die faszinierende Kultur Asiens! Ob Fantasy, Action oder bewegende Gesellschaftsporträts, mit unserer Filmauswahl kommen Sie auf jeden Fall auf Ihre Kosten.",
+                    "order": 1,
+                    "href": "https://api.arte.tv/api/opa/v3/collections?collectionId=RC-014815&language=de&platform=ARTE_NEXT"
+                }
+            ],
+            "publishBegin": "2017-06-19T03:00:00Z",
+            "publishEnd": "2017-08-06T21:59:00Z",
+            "publishPressBegin": "2017-05-08T18:16:02Z",
+            "publishPressEnd": "2017-07-17T18:16:02Z",
+            "videoRightsBegin": "2017-07-10T03:00:00Z",
+            "videoRightsEnd": "2017-07-16T21:59:00Z",
+            "videoAvailable": true,
+            "geoblocking": {
+                "code": "DE_FR",
+                "label": "Verfügbar in Deutschland und Frankreich"
+            },
+            "programId": "068339-000-A",
+            "language": "de",
+            "kind": "SHOW",
+            "programType": "BROADCAST",
+            "title": "Detective Dee und der Fluch des Seeungeheuers",
+            "subtitle": null,
+            "originalTitle": "(Di Renjie: Shen du long wang)",
+            "originalLanguage": {
+                "arteCode": "CHI",
+                "label": "Chinesisch"
+            },
+            "tags": [],
+            "twitterAccount": null,
+            "twitterHashTag": null,
+            "shortDescription": "Raffiniertes Fantasy-Spektakel über die Lehrjahre eines chinesischen Sherlock Holmes: Das China der Tang-Dynastie wird nicht nur von ausländischen Feinden angegriffen, sondern auch von einem geheimnisvollen Seeungeheuer bedroht. Auf den Spuren einer großangelegten Intrige wird das Können des jungen Detektivs Dee (Mark Chao) auf eine harte Probe gestellt.",
+            "fullDescription": "China zur Zeit der Tang-Dynastie: Das Reich von Kaiser Gaozong und Kaiserin Wu Zetian wird durch ausländische Angreifer und höfische Ränkespiele bedroht. Zudem soll ein mythisches Seeungeheuer sein Unwesen treiben, das ganze Flotten vernichtet und auch an Land für Angst und Schrecken sorgt. Als der junge Detektiv Dee gerade in der Hauptstadt des Reiches ankommt, um dort den kaiserlichen Sicherheitsgarden beizutreten, herrscht große Panik. Chefermittler Yuchi Zhenjin soll die rätselhaften Geschehnisse aufklären. Doch es ist Dee, der entdeckt, dass verbotene Liebschaften und ein teuflischer Fluch die Gründe für das Chaos sind. Um das Kaiserreich zu retten, muss Dee seine größten Stärken ausspielen: Cleverness im Denken und Gewandtheit im Kampf. Auf den Erfolg des ersten Films mit dem chinesischen Ermittler, „Detective Dee und das Geheimnis der Phantomflammen“ aus dem Jahr 2010, einer wilden Mischung aus Fantasy-Spektakel, Martial-Arts-Film, Krimi, Romanze und Komödie, folgte 2013 ein Prequel. Der zweite Film zeigt einen jüngeren Dee mit neuen Facetten. Grundlage der Figur ist ein Beamter der Tang-Dynastie mit Namen Di Renjie, der dem holländischen Autor Robert van Gulik zur Blaupause für seinen Romanhelden „Richter Di“ diente. Dieser löst einem chinesischen Sherlock Holmes gleich Kriminalfälle. Hark Tsui übernahm dieses Konzept für seine Blockbuster, entwickelte aber eigene Abenteuer. Wie der Vorgänger wurde der Nachfolgefilm zum spektakulären, aufwendig inszenierten Unterhaltungsfilm mit einer überraschenden Geschichte und wunderbar choreographierten Martial-Arts-Kämpfen.",
+            "teaserText": "Raffiniertes Fantasy-Spektakel über die Lehrjahre eines chinesischen Sherlock Holmes.",
+            "shortPressText": "Raffiniertes Fantasy-Spektakel über die Lehrjahre eines chinesischen Sherlock Holmes: Das China der Tang-Dynastie wird nicht nur von ausländischen Feinden angegriffen, sondern auch von einem geheimnisvollen Seeungeheuer bedroht. Im Zentrum des männlichen Sehnen steht eine junge Kurtisane, die den Neid der Kaiserin erntet. Auf den Spuren einer großangelegten Intrige wird das Können des jungen Detektivs Dee auf eine harte Probe gestellt.",
+            "additionalPressText": "Der Regisseur Hark Tsui ist bekannt für seine typischen Spezialeffekte im Hongkong-Kino. Seine Tätigkeit als Regisseur und Produzent garniert er ab und zu mit schauspielerische Einlagen im Stil eines chinesischen Tarantino. Hark wurde in Vietnam geboren und wuchs in Hongkong auf, studierte aber in Amerika. Nach seinem Studium arbeitete er zwei Jahre bei einem New Yorker Fernsehsender und engagierte sich in Kulturprojekten für New Yorker mit chinesischen Wurzeln.",
+            "headerText": "Spielfilm von Hark Tsuiv (China 2013, 129 Min)",
+            "producer": null,
+            "productionYear": 2013,
+            "shootingDate": null,
+            "allowEmbed": true,
+            "mainImage": {
+                "name": "068339-000-A_2021979.jpg",
+                "extension": "jpg",
+                "caption": "Wird es Detektiv Dee (Mark Chao) gelingen, die Kurtisane Yin Ruiji (Angelababy) zu beschützen?",
+                "url": "https://static-cdn.arte.tv/resize/4PBJVBwOMEq44pMbmeoyJnGed7c=/940x530/smart/filters:strip_icc()/apios/Img_data/29/068339-000-A_2021979.jpg",
+                "imageId": "2021979",
+                "programId": "068339-000-A",
+                "language": "de",
+                "copyright": "© Huayi Brothers Media Corp.",
+                "creationDate": "2017-05-23T10:01:32Z",
+                "lastModified": "2017-07-08T04:54:00Z",
+                "width": 940,
+                "height": 530,
+                "keyframe": false,
+                "alternateResolutions": [],
+                "type": "DEFAULT"
+            },
+            "bannerImage": null,
+            "parents": [],
+            "partners": [],
+            "director": "Hark Tsuiv",
+            "casting": [
+                {
+                    "name": "Mark Chao",
+                    "activity": "Darsteller",
+                    "activityCode": "ACT",
+                    "characterName": "Detektiv Dee Renjie"
+                },
+                {
+                    "name": "Carina Lau",
+                    "activity": "Darsteller",
+                    "activityCode": "ACT",
+                    "characterName": "Kaiserin Wu Zetian"
+                },
+                {
+                    "name": "Sheng Chien",
+                    "activity": "Darsteller",
+                    "activityCode": "ACT",
+                    "characterName": "Kaiser"
+                },
+                {
+                    "name": "Angelababy",
+                    "activity": "Darsteller",
+                    "activityCode": "ACT",
+                    "characterName": "Yin Ruiji"
+                },
+                {
+                    "name": "Feng Shaofeng",
+                    "activity": "Darsteller",
+                    "activityCode": "ACT",
+                    "characterName": "Yuchi Zhenjin"
+                },
+                {
+                    "name": "Lin Gengxin",
+                    "activity": "Darsteller",
+                    "activityCode": "ACT",
+                    "characterName": "Shatuo Zhong"
+                }
+            ],
+            "crew": [
+                {
+                    "name": "Sung Fai Choi",
+                    "activity": "Kamera",
+                    "activityCode": "IMA",
+                    "characterName": null
+                },
+                {
+                    "name": "Boyang Yu",
+                    "activity": "Schnitt",
+                    "activityCode": "MON",
+                    "characterName": null
+                },
+                {
+                    "name": "Kenji Kawai",
+                    "activity": "Musik",
+                    "activityCode": "MUS",
+                    "characterName": null
+                },
+                {
+                    "name": "Huayi Brothers Media Corporation",
+                    "activity": "Produktion",
+                    "activityCode": "PRD",
+                    "characterName": null
+                },
+                {
+                    "name": "Film Workshop",
+                    "activity": "Produktion",
+                    "activityCode": "PRD",
+                    "characterName": null
+                },
+                {
+                    "name": "Pixeltree studio",
+                    "activity": "Produktion",
+                    "activityCode": "PRD",
+                    "characterName": null
+                },
+                {
+                    "name": "Kuo-fu Chen",
+                    "activity": "Produzent/-in",
+                    "activityCode": "PRO",
+                    "characterName": null
+                },
+                {
+                    "name": "Nansun Shi",
+                    "activity": "Produzent/-in",
+                    "activityCode": "PRO",
+                    "characterName": null
+                },
+                {
+                    "name": "Hark Tsui",
+                    "activity": "Produzent/-in",
+                    "activityCode": "PRO",
+                    "characterName": null
+                },
+                {
+                    "name": "Hark Tsuiv",
+                    "activity": "Regie",
+                    "activityCode": "REA",
+                    "characterName": null
+                },
+                {
+                    "name": "Chia-lu Chang",
+                    "activity": "Drehbuch",
+                    "activityCode": "SCE",
+                    "characterName": null
+                },
+                {
+                    "name": "Kuo-fu Chen",
+                    "activity": "Drehbuch",
+                    "activityCode": "SCE",
+                    "characterName": null
+                },
+                {
+                    "name": "Hark Tsui",
+                    "activity": "Drehbuch",
+                    "activityCode": "SCE",
+                    "characterName": null
+                }
+            ],
+            "caseCode": 614,
+            "case": "CINEMA DIMANCHE PRIME TIME",
+            "genrePresseCode": 5,
+            "genrePresse": "Spielfilm",
+            "url": "http://www.arte.tv/de/videos/068339-000-A/detective-dee-und-der-fluch-des-seeungeheuers",
+            "permalink": "http://www.arte.tv/de/videos/068339-000-A/permalink",
+            "categories": [
+                {
+                    "code": "CIN",
+                    "name": "Kino",
+                    "order": 3
+                }
+            ],
+            "category": {
+                "code": "CIN",
+                "name": "Kino",
+                "order": 2
+            },
+            "subcategory": {
+                "code": "FLM",
+                "name": "Filme",
+                "order": 1
+            },
+            "deletedAt": null,
+            "legalBan": "NONE",
+            "productionCountries": [
+                {
+                    "arteCode": "CPR",
+                    "isoAlpha2Code": "CN",
+                    "label": "China"
+                }
+            ],
+            "clusters": [
+                {
+                    "clusterId": "FIL",
+                    "title": "Kino auf ARTE"
+                }
+            ],
+            "season": 0,
+            "episode": 0,
+            "totalEpisodes": 0,
+            "kindLabel": "PROGRAMM",
+            "platformLabel": "CINEMA",
+            "videoLibrary": true,
+            "displayTechnicalInformations": [
+                {
+                    "code": "WID",
+                    "shortLabel": "16:9",
+                    "label": "16:9",
+                    "icon": {
+                        "class": "arte-icon--widescreen",
+                        "sprite": "https://static-cdn.arte.tv/static/styleguide/icomoon/symbol-defs.svg",
+                        "svg": "https://static-cdn.arte.tv/static/styleguide/icomoon/SVG/icon--widescreen.svg",
+                        "png": "https://static-cdn.arte.tv/static/styleguide/icomoon/PNG/icon--widescreen.png"
+                    }
+                },
+                {
+                    "code": "HD",
+                    "shortLabel": "HD",
+                    "label": "HDTV",
+                    "icon": {
+                        "class": "arte-icon--hd",
+                        "sprite": "https://static-cdn.arte.tv/static/styleguide/icomoon/symbol-defs.svg",
+                        "svg": "https://static-cdn.arte.tv/static/styleguide/icomoon/SVG/icon--hd.svg",
+                        "png": "https://static-cdn.arte.tv/static/styleguide/icomoon/PNG/icon--hd.png"
+                    }
+                },
+                {
+                    "code": "DOL",
+                    "shortLabel": "Dolby",
+                    "label": "Dolby Digital",
+                    "icon": {
+                        "class": "arte-icon--dolby",
+                        "sprite": "https://static-cdn.arte.tv/static/styleguide/icomoon/symbol-defs.svg",
+                        "svg": "https://static-cdn.arte.tv/static/styleguide/icomoon/SVG/icon--dolby.svg",
+                        "png": "https://static-cdn.arte.tv/static/styleguide/icomoon/PNG/icon--dolby.png"
+                    }
+                }
+            ],
+            "webLinks": [],
+            "children": null,
+            "viewsPeriod": 16504,
+            "markings": [],
+            "creationDate": "2016-05-03T15:32:44Z",
+            "lastModified": "2017-07-10T12:39:22Z",
+            "id": "068339-000-A_de",
+            "platform": "CINEMA",
+            "ageRating": 12,
+            "imageColor": {
+                "code": "COLOR",
+                "label": "Farbfilm"
+            },
+            "videoOnDemand": null,
+            "livestreamRights": false,
+            "warning": null,
+            "links": {
+                "broadcastProgrammings": {
+                    "href": "https://api.arte.tv/api/opa/v3/broadcastProgrammings?programId=068339-000-A&language=de&country=DE"
+                },
+                "broadcasts": {
+                    "href": "https://api.arte.tv/api/opa/v3/programs/068339-000-A/broadcastProgrammings?language=de&country=DE"
+                }
+            }
+        }
+    ]
+}
