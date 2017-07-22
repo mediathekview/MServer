@@ -34,6 +34,20 @@ public class ArdVideoInfoDTO
         return videoUrls;
     }
 
+    public Qualities getDefaultQuality()
+    {
+        if(videoUrls.containsKey(Qualities.NORMAL))
+        {
+            return Qualities.NORMAL;
+        }
+        return videoUrls.keySet().iterator().next();
+    }
+
+    public String getDefaultVideoUrl()
+    {
+        return videoUrls.get(getDefaultQuality());
+    }
+
     public String put(final Qualities key, final String value)
     {
         return videoUrls.put(key, value);

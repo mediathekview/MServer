@@ -22,6 +22,7 @@ public class ArdCrawler extends AbstractCrawler
     public static final String ARD_BASE_URL = "http://www.ardmediathek.de";
     private static final String ARD_CATEGORY_BASE_URL = ARD_BASE_URL + "/tv/sendungen-a-z?buchstabe=%s";
     private static final String ARD_DAY_BASE_URL = ARD_BASE_URL + "/tv/sendungVerpasst?tag=%d";
+    private static final int MAX_DAYS_TO_CRAWL = 6;
 
     public ArdCrawler(ForkJoinPool aForkJoinPool, Collection<MessageListener> aMessageListeners, CrawlerProgressListener... aProgressListeners)
     {
@@ -53,16 +54,16 @@ public class ArdCrawler extends AbstractCrawler
     private RecursiveTask<LinkedHashSet<RecursiveTask<LinkedHashSet<Film>>>> createCategoriesOverviewPageCrawler()
     {
         ConcurrentLinkedQueue<String> categoryUrlsToCrawl = new ConcurrentLinkedQueue<>();
-        Arrays.stream(CategoriesAZ.values()).map(c -> String.format(ARD_CATEGORY_BASE_URL, c.getKey())).forEach(categoryUrlsToCrawl::add);
+        Arrays.stream(CategoriesAZ.values()).map(c -> String.format(ARD_CATEGORY_BASE_URL, c.getKey())).forEach(categoryUrlsToCrawl::offer);
         return new ArdSendungenOverviewPageCrawler(this, categoryUrlsToCrawl);
     }
 
     private RecursiveTask<LinkedHashSet<RecursiveTask<LinkedHashSet<Film>>>> createDaysOverviewPageCrawler()
     {
         ConcurrentLinkedQueue<String> dayUrlsToCrawl = new ConcurrentLinkedQueue<>();
-        for (int i = 0; i < 6; i++)
+        for (int i = 0; i < MAX_DAYS_TO_CRAWL; i++)
         {
-            dayUrlsToCrawl.add(String.format(ARD_DAY_BASE_URL, i));
+            dayUrlsToCrawl.offer(String.format(ARD_DAY_BASE_URL, i));
         }
         return new ArdSendungsfolgenOverviewPageCrawler(this, dayUrlsToCrawl);
     }
@@ -72,8 +73,8 @@ public class ArdCrawler extends AbstractCrawler
         List<MessageListener> messageListeners = new ArrayList<>();
         messageListeners.add(new LogMessageListener());
 
-        final ArdCrawler crawler = new ArdCrawler(new ForkJoinPool(1000), messageListeners, new ProgressLogMessageListener());
+        final ArdCrawler crawler = new ArdCrawler(new ForkJoinPool(), messageListeners, new ProgressLogMessageListener());
         crawler.start();
-        System.out.println("FINISH");
+        crawler.getFilms().forEach(System.out::println);
     }
 }

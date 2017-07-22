@@ -65,7 +65,7 @@ public class ArdSendungsfolgenOverviewPageCrawler extends AbstractArdOverviewPag
             String url = elementToSendungUrl(element);
             subPages.add(url);
         }
-        this.urlsToCrawl.addAll(subPages);
+        //this.urlsToCrawl.addAll(subPages);
     }
 
     private String getSendezeitFromDachzeile(final String aDachzeileValue)

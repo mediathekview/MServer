@@ -92,7 +92,7 @@ public class ArdSendungTask extends AbstractUrlTask
             Sender sender = getSenderFromName(basicInfo.getSenderName());
 
             Film newFilm = new Film(UUID.randomUUID(),
-                    CrawlerTool.getGeoLocations(sender, videoInfo.getVideoUrls().get(Qualities.NORMAL)),
+                    CrawlerTool.getGeoLocations(sender, videoInfo.getDefaultVideoUrl()),
                     sender,
                     basicInfo.getTitle(),
                     basicInfo.getThema(),

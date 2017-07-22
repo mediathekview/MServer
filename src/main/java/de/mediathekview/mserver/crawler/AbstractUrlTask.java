@@ -18,6 +18,7 @@ public abstract class AbstractUrlTask<T> extends RecursiveTask<LinkedHashSet<T>>
 {
     private static final Logger LOG = LogManager.getLogger(AbstractUrlTask.class);
     private static final String LOAD_DOCUMENT_ERRORTEXTPATTERN = "Something terrible happened while crawl the %s page \"%s\".";
+    private static final int URLS_PER_TASK = 25;
 
     protected final ConcurrentLinkedQueue<String> urlsToCrawl;
     protected AbstractCrawler crawler;
@@ -34,16 +35,20 @@ public abstract class AbstractUrlTask<T> extends RecursiveTask<LinkedHashSet<T>>
     @Override
     protected LinkedHashSet<T> compute()
     {
-        final String urlToCrawl = urlsToCrawl.poll();
-
-        if (urlsToCrawl.isEmpty())
+        final ConcurrentLinkedQueue<String> urlsToCrawlSubset = new ConcurrentLinkedQueue<>();
+        for(int i=0; i <urlsToCrawl.size() && i < URLS_PER_TASK; i++)
         {
-            crawlPage(urlToCrawl);
+            urlsToCrawlSubset.offer(urlsToCrawl.poll());
+        }
+
+        if (urlsToCrawl.size() <= URLS_PER_TASK)
+        {
+            crawlPage(urlsToCrawlSubset);
         } else
         {
             AbstractUrlTask<T> otherTask = createNewOwnInstance();
             otherTask.fork();
-            crawlPage(urlToCrawl);
+            crawlPage(urlsToCrawlSubset);
             filmTasks.addAll(otherTask.join());
         }
         return filmTasks;
@@ -51,17 +56,20 @@ public abstract class AbstractUrlTask<T> extends RecursiveTask<LinkedHashSet<T>>
 
     protected abstract AbstractUrlTask<T> createNewOwnInstance();
 
-    private void crawlPage(String aUrl)
+    private void crawlPage(ConcurrentLinkedQueue<String> aUrls)
     {
-        try
+        for(String url : aUrls)
         {
-            Document document = Jsoup.connect(aUrl).get();
-            processDocument(aUrl,document);
-        } catch (IOException ioException)
-        {
-            LOG.fatal(String.format(LOAD_DOCUMENT_ERRORTEXTPATTERN,crawler.getSender().getName(), aUrl), ioException);
-            crawler.printErrorMessage();
-            throw new RuntimeException(ioException);
+            try
+            {
+                Document document = Jsoup.connect(url).get();
+                processDocument(url, document);
+            } catch (IOException ioException)
+            {
+                LOG.fatal(String.format(LOAD_DOCUMENT_ERRORTEXTPATTERN, crawler.getSender().getName(), url), ioException);
+                crawler.printErrorMessage();
+                throw new RuntimeException(ioException);
+            }
         }
     }
 

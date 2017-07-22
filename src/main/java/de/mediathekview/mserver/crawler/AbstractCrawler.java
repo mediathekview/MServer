@@ -14,10 +14,7 @@ import org.apache.logging.log4j.Logger;
 
 import java.time.Duration;
 import java.time.LocalTime;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Timer;
+import java.util.*;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.ConcurrentSkipListSet;
@@ -106,9 +103,13 @@ public abstract class AbstractCrawler
         startCrawling();
 
         LocalTime endTime = LocalTime.now();
-        printMessage(ServerMessages.CRAWLER_END, getSender(), Duration.between(startTime,endTime).toMinutes());
+        CrawlerProgress progress = new CrawlerProgress(maxCount.get(), actualCount.get(), errorCount.get());
+        printMessage(ServerMessages.CRAWLER_END, getSender(), Duration.between(startTime,endTime).toMinutes(),actualCount.get(),errorCount.get(),progress.calcActualErrorQuoteInPercent());
 
     }
 
-
+    public Collection<Film> getFilms()
+    {
+        return new HashSet<>(films);
+    }
 }
