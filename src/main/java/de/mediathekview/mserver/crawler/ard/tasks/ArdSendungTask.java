@@ -43,9 +43,6 @@ public class ArdSendungTask extends AbstractUrlTask
     private static final String LOAD_DOCUMENT_ERRORTEXTPATTERN = "Something terrible happened while convert \"%s\" to a film.";
     private static final String URL_BASE_PATTERN_BASIC_INFO = "http://www.ardmediathek.de/play/sola/%s";
     private static final String URL_BASE_PATTERN_VIDEO_INFO = "http://www.ardmediathek.de/play/media/%s?devicetype=pc&features=flash";
-    private static final Type QUALITY_MAP_TYPE = new TypeToken<Map<Qualities, String>>()
-    {
-    }.getType();
     private static final String SELECTOR_CLIP_INFO = "div.modClipinfo p.subtitle";
     private static final String SPLITTERATOR_CLIP_INFO = "\\s\\|\\s";
     private static final String REGEX_PATTERN_NUMBERS = "\\d+";
