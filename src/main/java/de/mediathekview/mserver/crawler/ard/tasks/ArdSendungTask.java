@@ -36,7 +36,7 @@ import java.util.regex.Pattern;
 /**
  * Recursively crawls the ARD Sendungsfolge page.
  */
-public class ArdSendungTask extends AbstractUrlTask
+public class ArdSendungTask extends AbstractUrlTask<Film>
 {
     private static final Logger LOG = LogManager.getLogger(ArdSendungTask.class);
     private static final String REGEX_PATTERN_DOCUMENT_ID = "(?<=&documentId=)\\d+";
@@ -56,7 +56,7 @@ public class ArdSendungTask extends AbstractUrlTask
     }
 
     @Override
-    protected AbstractUrlTask createNewOwnInstance()
+    protected ArdSendungTask createNewOwnInstance()
     {
         return new ArdSendungTask(crawler, urlsToCrawl, urlsSendezeitenMap);
     }
@@ -104,7 +104,7 @@ public class ArdSendungTask extends AbstractUrlTask
             filmTasks.add(newFilm);
         } catch (Exception exception)
         {
-            LOG.error(String.format(LOAD_DOCUMENT_ERRORTEXTPATTERN, crawler.getSender().getName(), aUrl), exception);
+            LOG.error(String.format(LOAD_DOCUMENT_ERRORTEXTPATTERN, crawler.getSender().getName()), exception);
             crawler.printErrorMessage();
             crawler.incrementAndGetErrorCount();
         }
@@ -164,8 +164,7 @@ public class ArdSendungTask extends AbstractUrlTask
     private String getDocumentIdFromUrl(final String aUrl)
     {
         Matcher documentIdRegexMatcher = Pattern.compile(REGEX_PATTERN_DOCUMENT_ID).matcher(aUrl);
-        documentIdRegexMatcher.find();
-        return documentIdRegexMatcher.group();
+        return documentIdRegexMatcher.find() ? documentIdRegexMatcher.group() : "";
     }
 
 }

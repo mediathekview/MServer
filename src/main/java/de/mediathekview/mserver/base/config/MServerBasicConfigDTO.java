@@ -5,10 +5,6 @@ package de.mediathekview.mserver.base.config;
  */
 public class MServerBasicConfigDTO
 {
-    /**
-     * The maximum amount of cpu threads to be used.
-     */
-    private Integer maximumCpuThreads;
 
     /**
      * The maximum amount of URLs to be processed per task.
@@ -33,15 +29,6 @@ public class MServerBasicConfigDTO
      */
     private Integer maximumDaysForSendungVerpasstSection;
 
-    public Integer getMaximumCpuThreads()
-    {
-        return maximumCpuThreads;
-    }
-
-    public void setMaximumCpuThreads(final Integer aMaximumCpuThreads)
-    {
-        maximumCpuThreads = aMaximumCpuThreads;
-    }
 
     public Integer getMaximumUrlsPerTask()
     {
@@ -91,8 +78,6 @@ public class MServerBasicConfigDTO
 
         final MServerBasicConfigDTO that = (MServerBasicConfigDTO) aO;
 
-        if (getMaximumCpuThreads() != null ? !getMaximumCpuThreads().equals(that.getMaximumCpuThreads()) : that.getMaximumCpuThreads() != null)
-            return false;
         if (getMaximumUrlsPerTask() != null ? !getMaximumUrlsPerTask().equals(that.getMaximumUrlsPerTask()) : that.getMaximumUrlsPerTask() != null)
             return false;
         if (getMaximumCrawlDurationInMinutes() != null ? !getMaximumCrawlDurationInMinutes().equals(that.getMaximumCrawlDurationInMinutes()) : that.getMaximumCrawlDurationInMinutes() != null)
@@ -105,8 +90,7 @@ public class MServerBasicConfigDTO
     @Override
     public int hashCode()
     {
-        int result = getMaximumCpuThreads() != null ? getMaximumCpuThreads().hashCode() : 0;
-        result = 31 * result + (getMaximumUrlsPerTask() != null ? getMaximumUrlsPerTask().hashCode() : 0);
+        int result = getMaximumUrlsPerTask() != null ? getMaximumUrlsPerTask().hashCode() : 0;
         result = 31 * result + (getMaximumCrawlDurationInMinutes() != null ? getMaximumCrawlDurationInMinutes().hashCode() : 0);
         result = 31 * result + (getMaximumSubpages() != null ? getMaximumSubpages().hashCode() : 0);
         result = 31 * result + (getMaximumDaysForSendungVerpasstSection() != null ? getMaximumDaysForSendungVerpasstSection().hashCode() : 0);

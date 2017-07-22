@@ -10,8 +10,16 @@ import java.util.*;
  */
 public class MServerConfigDTO extends MServerBasicConfigDTO implements ConfigDTO
 {
-
-    private Map<Sender,MServerBasicConfigDTO> senderConfigurations;
+    /**
+     * The maximum amount of cpu threads to be used.
+     */
+    private Integer maximumCpuThreads;
+    /**
+     * The maximum duration in minutes the server should run.<br>
+     * If set to 0 the server runs without a time limit.
+     */
+    private Integer maximumServerDurationInMinutes;
+    private Map<Sender, MServerBasicConfigDTO> senderConfigurations;
 
     public MServerConfigDTO()
     {
@@ -28,6 +36,26 @@ public class MServerConfigDTO extends MServerBasicConfigDTO implements ConfigDTO
         senderConfigurations = aSenderConfigurations;
     }
 
+    public Integer getMaximumCpuThreads()
+    {
+        return maximumCpuThreads;
+    }
+
+    public void setMaximumCpuThreads(final Integer aMaximumCpuThreads)
+    {
+        maximumCpuThreads = aMaximumCpuThreads;
+    }
+
+    public Integer getMaximumServerDurationInMinutes()
+    {
+        return maximumServerDurationInMinutes;
+    }
+
+    public void setMaximumServerDurationInMinutes(final Integer aMaximumServerDurationInMinutes)
+    {
+        maximumServerDurationInMinutes = aMaximumServerDurationInMinutes;
+    }
+
     @Override
     public boolean equals(final Object aO)
     {
@@ -37,6 +65,10 @@ public class MServerConfigDTO extends MServerBasicConfigDTO implements ConfigDTO
 
         final MServerConfigDTO that = (MServerConfigDTO) aO;
 
+        if (getMaximumCpuThreads() != null ? !getMaximumCpuThreads().equals(that.getMaximumCpuThreads()) : that.getMaximumCpuThreads() != null)
+            return false;
+        if (getMaximumServerDurationInMinutes() != null ? !getMaximumServerDurationInMinutes().equals(that.getMaximumServerDurationInMinutes()) : that.getMaximumServerDurationInMinutes() != null)
+            return false;
         return getSenderConfigurations() != null ? getSenderConfigurations().equals(that.getSenderConfigurations()) : that.getSenderConfigurations() == null;
     }
 
@@ -44,6 +76,8 @@ public class MServerConfigDTO extends MServerBasicConfigDTO implements ConfigDTO
     public int hashCode()
     {
         int result = super.hashCode();
+        result = 31 * result + (getMaximumCpuThreads() != null ? getMaximumCpuThreads().hashCode() : 0);
+        result = 31 * result + (getMaximumServerDurationInMinutes() != null ? getMaximumServerDurationInMinutes().hashCode() : 0);
         result = 31 * result + (getSenderConfigurations() != null ? getSenderConfigurations().hashCode() : 0);
         return result;
     }

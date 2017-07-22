@@ -21,7 +21,9 @@ public class ArdSendungsfolgenOverviewPageCrawler extends AbstractArdOverviewPag
     private static final String SELECTOR_TEXT_LINK = ".textLink[href^=/tv/]";
     private static final String SELECTOR_DACHZEILE = ".dachzeile";
     private static final String TIME_REGEX_PATTERN = "\\d{2}:\\d{2}";
-    private static final String SELECTOR_SUB_PAGES = "div.controls.paging div.entry > a[href~=.*\\.[2-3]\\b]";
+    private static final String SELECTOR_SUB_PAGES_PATTERN = "div.controls.paging div.entry > a[href~=.*\\.[%s]\\b]";
+    private static final String SELECTOR_SUB_PAGES_SEPPERATOR = "-";
+    private static final int FIRST_SUBPAGE_ID = 2;
 
     public ArdSendungsfolgenOverviewPageCrawler(final AbstractCrawler aCrawler, final ConcurrentLinkedQueue<String> aUrlsToCrawl)
     {
@@ -39,7 +41,10 @@ public class ArdSendungsfolgenOverviewPageCrawler extends AbstractArdOverviewPag
     {
         ConcurrentHashMap<String, String> urlsSendezeitenMap = new ConcurrentHashMap<>();
         ConcurrentLinkedQueue<String> sendungUrls = new ConcurrentLinkedQueue<>();
-        findSubPages(aDocument);
+        if (config.getMaximumSubpages() > 0)
+        {
+            findSubPages(aDocument);
+        }
 
         final Elements textLinkElements = aDocument.select(SELECTOR_TEXT_LINK);
         for (Element element : textLinkElements)
@@ -59,13 +64,13 @@ public class ArdSendungsfolgenOverviewPageCrawler extends AbstractArdOverviewPag
     private void findSubPages(final Document aDocument)
     {
         LinkedHashSet<String> subPages = new LinkedHashSet<>();
-        final Elements elements = aDocument.select(SELECTOR_SUB_PAGES);
+        final Elements elements = aDocument.select(getSelectorSubPages());
         for (Element element : elements)
         {
             String url = elementToSendungUrl(element);
             subPages.add(url);
         }
-        //this.urlsToCrawl.addAll(subPages);
+        this.urlsToCrawl.addAll(subPages);
     }
 
     private String getSendezeitFromDachzeile(final String aDachzeileValue)
@@ -85,4 +90,17 @@ public class ArdSendungsfolgenOverviewPageCrawler extends AbstractArdOverviewPag
         return new ArdSendungTask(crawler, aUrlsToCrawl, aUrlsSendezeitenMap);
     }
 
+    private String getSelectorSubPages()
+    {
+        String subPageIndicator;
+        if (config.getMaximumSubpages() == 1)
+        {
+            subPageIndicator = Integer.toString(FIRST_SUBPAGE_ID);
+        } else
+        {
+            subPageIndicator = new StringBuilder().append(FIRST_SUBPAGE_ID).append(SELECTOR_SUB_PAGES_SEPPERATOR).append(2 + config.getMaximumSubpages()).toString();
+        }
+
+        return String.format(SELECTOR_SUB_PAGES_PATTERN, subPageIndicator);
+    }
 }

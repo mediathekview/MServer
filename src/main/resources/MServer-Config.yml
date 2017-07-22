@@ -1,0 +1,36 @@
+MServer:
+#### Server configurations ####
+       # The maximum amount of days going to past will be crawled for the "Sendung Verpasst?" section.
+      maximumDaysForSendungVerpasstSection: 6
+
+      # The maximum amount of cpu threads to be used.
+      maximumCpuThreads: 40
+
+      # The maximum duration in minutes the server should run.<br>
+      # If set to 0 the server runs without a time limit.
+      maximumServerDurationInMinutes: 0
+
+#### Default crawler configurations ####
+       # The maximum amount of URLs to be processed per task.
+      maximumUrlsPerTask: 25
+
+       # The maximum duration in minutes a crawler may run.
+      maximumCrawlDurationInMinutes: 30
+
+       # The maximum amount of sub pages to be crawled.<br>
+       # Example: If a Sendung overview side has 10 pages with videos for this Sendung and
+       # the amount set by this is 5 then the crawler crawls pages 1 to 5.
+      maximumSubpages: 3
+
+
+#### Specific crawler configurations ####
+      senderConfigurations:
+#        ARD:
+          # The maximum amount of URLs to be processed per task.
+#          maximumUrlsPerTask: 25
+          # The maximum duration in minutes a crawler may run.
+#          maximumCrawlDurationInMinutes: 30
+          # The maximum amount of sub pages to be crawled.<br>
+          # Example: If a Sendung overview side has 10 pages with videos for this Sendung and
+          # the amount set by this is 5 then the crawler crawls pages 1 to 5.
+#          maximumSubpages: 3

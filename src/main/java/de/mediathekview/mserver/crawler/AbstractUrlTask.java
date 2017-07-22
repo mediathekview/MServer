@@ -1,6 +1,9 @@
 package de.mediathekview.mserver.crawler;
 
 import de.mediathekview.mlib.daten.Film;
+import de.mediathekview.mserver.base.config.MServerBasicConfigDTO;
+import de.mediathekview.mserver.base.config.MServerConfigDTO;
+import de.mediathekview.mserver.base.config.MServerConfigManager;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.jsoup.Jsoup;
@@ -18,9 +21,9 @@ public abstract class AbstractUrlTask<T> extends RecursiveTask<LinkedHashSet<T>>
 {
     private static final Logger LOG = LogManager.getLogger(AbstractUrlTask.class);
     private static final String LOAD_DOCUMENT_ERRORTEXTPATTERN = "Something terrible happened while crawl the %s page \"%s\".";
-    private static final int URLS_PER_TASK = 25;
 
     protected final ConcurrentLinkedQueue<String> urlsToCrawl;
+    protected final MServerBasicConfigDTO config;
     protected AbstractCrawler crawler;
 
     protected LinkedHashSet<T> filmTasks;
@@ -30,18 +33,19 @@ public abstract class AbstractUrlTask<T> extends RecursiveTask<LinkedHashSet<T>>
         crawler = aCrawler;
         urlsToCrawl = aUrlsToCrawl;
         filmTasks = new LinkedHashSet<>();
+        config = MServerConfigManager.getInstance().getConfig(crawler.getSender());
     }
 
     @Override
     protected LinkedHashSet<T> compute()
     {
         final ConcurrentLinkedQueue<String> urlsToCrawlSubset = new ConcurrentLinkedQueue<>();
-        for(int i=0; i <urlsToCrawl.size() && i < URLS_PER_TASK; i++)
+        for(int i=0; i <urlsToCrawl.size() && i < config.getMaximumUrlsPerTask(); i++)
         {
             urlsToCrawlSubset.offer(urlsToCrawl.poll());
         }
 
-        if (urlsToCrawl.size() <= URLS_PER_TASK)
+        if (urlsToCrawl.size() <= config.getMaximumUrlsPerTask())
         {
             crawlPage(urlsToCrawlSubset);
         } else
