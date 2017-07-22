@@ -105,14 +105,14 @@ public class ArdSendungTask extends AbstractUrlTask
             }
             addUrls(newFilm,videoInfo.getVideoUrls());
             filmTasks.add(newFilm);
-            crawler.incrementAndGetActualCount();
-            crawler.updateProgress();
         } catch (Exception exception)
         {
             LOG.error(String.format(LOAD_DOCUMENT_ERRORTEXTPATTERN, crawler.getSender().getName(), aUrl), exception);
             crawler.printErrorMessage();
             crawler.incrementAndGetErrorCount();
         }
+        crawler.incrementAndGetActualCount();
+        crawler.updateProgress();
     }
 
     private void addUrls(final Film aFilm, final Map<Qualities, String> aVideoUrls) throws URISyntaxException

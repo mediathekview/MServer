@@ -81,6 +81,7 @@ public class ArdVideoInfoJsonDeserializer implements JsonDeserializer<ArdVideoIn
 
     private String videoElementToUrl(final JsonElement aVideoElement)
     {
+        //TODO: Check if begins with something linke "mp3:" or "mp4:" and replace with the content of "_server".
         return aVideoElement.getAsJsonObject().get(ELEMENT_STREAM).getAsString();
     }
 }
