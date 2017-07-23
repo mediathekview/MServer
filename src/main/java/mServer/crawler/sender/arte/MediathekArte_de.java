@@ -33,7 +33,6 @@ import de.mediathekview.mlib.Const;
 import de.mediathekview.mlib.daten.DatenFilm;
 import de.mediathekview.mlib.daten.ListeFilme;
 import de.mediathekview.mlib.tool.Log;
-import de.mediathekview.mlib.tool.MSStringBuilder;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -43,7 +42,6 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 import mServer.crawler.CrawlerTool;
 import mServer.crawler.FilmeSuchen;
-import mServer.crawler.GetUrl;
 import mServer.crawler.sender.MediathekReader;
 
 public class MediathekArte_de extends MediathekReader
@@ -64,6 +62,11 @@ public class MediathekArte_de extends MediathekReader
      * Zweite Quelle für Informationen zum Film: (050169-002-A = ID des Films); (de für deutsch / fr für französisch)
      * https://api.arte.tv/api/opa/v3/programs/{de}/{050169-002-A}
      * 
+     * Hintergrundinfos zum Laden der Filme nach Kategorien im langen Lauf:
+     * 1. statische Informationen über verfügbare Kategorien laden: URL_STATIC_CONTENT
+     * 2. für jede Kategorie die Unterkategorien ermitteln: URL_CATEGORY
+     * 3. für jede Unterkategorie die enthaltenen ProgramId ermitteln: URL_SUBCATEGORY
+     * 4. für alle ProgramIds die Videoinformationen laden (wie kurze Variante)
      */
     private static final Logger LOG = LogManager.getLogger(MediathekArte_de.class);
     private final static String SENDERNAME = Const.ARTE_DE;
@@ -80,7 +83,6 @@ public class MediathekArte_de extends MediathekReader
     protected String URL_CONCERT_NOT_CONTAIN = "-STF";
     protected String TIME_1 = "<li>Sendetermine:</li>";
     protected String TIME_2 = "um";
-    private static final String SUFFIX_M3U8 = ".m3u8";
 
     public MediathekArte_de(FilmeSuchen ssearch, int startPrio) {
         super(ssearch, SENDERNAME,/* threads */ 2, /* urlWarten */ 200, startPrio);
@@ -154,168 +156,12 @@ public class MediathekArte_de extends MediathekReader
         ArteInfoDTO infoDTO = ArteHttpClient.executeRequest(LOG, gson, url, ArteInfoDTO.class);
         return infoDTO;
     } 
-    
-    private void addConcert() {
-        Thread th = new ConcertLaden(0, 20);
-        th.setName(getSendername() + "Concert-0");
-        th.start();
-        th = new ConcertLaden(20, 40);
-        th.setName(getSendername() + "Concert-1");
-        th.start();
-    }
 
     private void addTage() {
         // http://www.arte.tv/guide/de/plus7/videos?day=-2&page=1&isLoading=true&sort=newest&country=DE
         for (int i = 0; i <= 14; ++i) {
             String u = String.format(ARTE_API_TAG_URL_PATTERN,LANG_CODE.toUpperCase(),LocalDate.now().minusDays(i).format(ARTE_API_DATEFORMATTER));
             listeThemen.add(new String[]{u});
-        }
-    }
-
-    private class ConcertLaden extends Thread {
-
-        private final int start, anz;
-        private MSStringBuilder seite1 = new MSStringBuilder(Const.STRING_BUFFER_START_BUFFER);
-        private MSStringBuilder seite2 = new MSStringBuilder(Const.STRING_BUFFER_START_BUFFER);
-
-        public ConcertLaden(int start, int anz) {
-            this.start = start;
-            this.anz = anz;
-        }
-
-        @Override
-        public void run() {
-            try {
-                meldungAddThread();
-                addConcert(start, anz);
-            } catch (Exception ex) {
-                Log.errorLog(787452309, ex, "");
-            }
-            meldungThreadUndFertig();
-        }
-
-        private void addConcert(int start, int anz) {
-            final String thema = "Concert";
-            final String musterStart = "<div class=\"header-article \">";
-            final String errorMsgKeineURL = "keine URL";
-            String urlStart;
-            meldungAddMax(anz);
-            for (int i = start; !Config.getStop() && i < anz; ++i) {
-                if (i > 0) {
-                    urlStart = URL_CONCERT + "?page=" + i;
-                } else {
-                    urlStart = URL_CONCERT;
-                }
-                meldungProgress(urlStart);
-                GetUrl getUrlIo = new GetUrl(getWartenSeiteLaden());
-                seite1 = getUrlIo.getUri_Utf(getSendername(), urlStart, seite1, "");
-                int pos1 = 0;
-                String url, urlWeb, titel, urlHd, urlLow, urlNormal, beschreibung, datum, dauer;
-                while (!Config.getStop() && (pos1 = seite1.indexOf(musterStart, pos1)) != -1) {
-                    urlHd = "";
-                    urlLow = "";
-                    urlNormal = "";
-                    pos1 += musterStart.length();
-                    try {
-                        url = seite1.extract("<a href=\"", "\"", pos1);
-                        titel = seite1.extract("title=\"", "\"", pos1);
-                        datum = seite1.extract("<span class=\"date-container\">", "<", pos1).trim();
-                        beschreibung = seite1.extract("property=\"content:encoded\">", "<", pos1);
-                        dauer = seite1.extract("<span class=\"time-container\">", "<", pos1).trim();
-                        dauer = dauer.replace("\"", "");
-                        int duration = 0;
-                        if (!dauer.isEmpty()) {
-                            String[] parts = dauer.split(":");
-                            duration = 0;
-                            long power = 1;
-                            for (int ii = parts.length - 1; ii >= 0; ii--) {
-                                duration += Long.parseLong(parts[ii]) * power;
-                                power *= 60;
-                            }
-                        }
-                        if (url.isEmpty()) {
-                            Log.errorLog(825241452, errorMsgKeineURL);
-                        } else {
-                            urlWeb = "http://concert.arte.tv" + url;
-                            meldung(urlWeb);
-                            seite2 = getUrlIo.getUri_Utf(getSendername(), urlWeb, seite2, "");
-                            // genre: <span class="tag tag-link"><a href="/de/videos/rockpop">rock/pop</a></span> 
-                            String genre = seite2.extract("<span class=\"tag tag-link\">", "\">", "<");
-                            if (!genre.isEmpty()) {
-                                beschreibung = genre + '\n' + DatenFilm.cleanDescription(beschreibung, thema, titel);
-                            }
-                            url = seite2.extract("arte_vp_url=\"", "\"");
-                            if (url.isEmpty()) {
-                                Log.errorLog(784512698, errorMsgKeineURL);
-                            } else {
-                                seite2 = getUrlIo.getUri_Utf(getSendername(), url, seite2, "");
-                                int p1 = 0;
-                                String a = "\"bitrate\":800";
-                                String b = "\"url\":\"";
-                                String c = "\"";
-                                while ((p1 = seite2.indexOf(a, p1)) != -1) {
-                                    p1 += a.length();
-                                    urlLow = seite2.extract(b, c, p1).replace("\\", "");
-                                    if (urlLow.endsWith(SUFFIX_M3U8)) {
-                                        urlLow = "";
-                                        continue;
-                                    }
-                                    if (!urlLow.contains(URL_CONCERT_NOT_CONTAIN)) {
-                                        break;
-                                    }
-                                }
-                                a = "\"bitrate\":1500";
-                                p1 = 0;
-                                while ((p1 = seite2.indexOf(a, p1)) != -1) {
-                                    p1 += a.length();
-                                    urlNormal = seite2.extract(b, c, p1).replace("\\", "");
-                                    if (urlNormal.endsWith(SUFFIX_M3U8)) {
-                                        urlNormal = "";
-                                        continue;
-                                    }
-                                    if (!urlNormal.contains(URL_CONCERT_NOT_CONTAIN)) {
-                                        break;
-                                    }
-                                }
-                                a = "\"bitrate\":2200";
-                                p1 = 0;
-                                while ((p1 = seite2.indexOf(a, p1)) != -1) {
-                                    p1 += a.length();
-                                    urlHd = seite2.extract(b, c, p1).replace("\\", "");
-                                    if (urlHd.endsWith(SUFFIX_M3U8)) {
-                                        urlHd = "";
-                                        continue;
-                                    }
-                                    if (!urlHd.contains(URL_CONCERT_NOT_CONTAIN)) {
-                                        break;
-                                    }
-                                }
-
-                                if (urlNormal.isEmpty()) {
-                                    urlNormal = urlLow;
-                                    urlLow = "";
-                                    Log.errorLog(951236487, errorMsgKeineURL);
-                                }
-                                if (urlNormal.isEmpty()) {
-                                    Log.errorLog(989562301, errorMsgKeineURL);
-                                } else {
-                                    DatenFilm film = new DatenFilm(getSendername(), thema, urlWeb, titel, urlNormal, "" /*urlRtmp*/,
-                                            datum, "" /*zeit*/, duration, beschreibung);
-                                    if (!urlHd.isEmpty()) {
-                                        CrawlerTool.addUrlHd(film, urlHd, "");
-                                    }
-                                    if (!urlLow.isEmpty()) {
-                                        CrawlerTool.addUrlKlein(film, urlLow, "");
-                                    }
-                                    addFilm(film);
-                                }
-                            }
-                        }
-                    } catch (Exception ex) {
-                        Log.errorLog(465623121, ex);
-                    }
-                }
-            }
         }
     }
 
@@ -350,6 +196,9 @@ public class MediathekArte_de extends MediathekReader
         }
     }
 
+    /**
+     * Lädt die Filme für jede Kategorie
+     */
     class CategoryLoader extends Thread {
 
         @Override
