@@ -24,7 +24,7 @@ public class ArdCrawler extends AbstractCrawler
     private static final String ARD_CATEGORY_BASE_URL = ARD_BASE_URL + "/tv/sendungen-a-z?buchstabe=%s";
     private static final String ARD_DAY_BASE_URL = ARD_BASE_URL + "/tv/sendungVerpasst?tag=%d";
 
-    public ArdCrawler(ForkJoinPool aForkJoinPool, Collection<MessageListener> aMessageListeners, CrawlerProgressListener... aProgressListeners)
+    public ArdCrawler(ForkJoinPool aForkJoinPool, Collection<MessageListener> aMessageListeners, Collection<CrawlerProgressListener> aProgressListeners)
     {
         super(aForkJoinPool, aMessageListeners, aProgressListeners);
 

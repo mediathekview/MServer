@@ -56,7 +56,7 @@ public class ArdSendungsfolgenOverviewPageCrawler extends AbstractArdOverviewPag
             urlsSendezeitenMap.put(url, sendezeitAsText);
         }
         crawler.updateProgress();
-        filmTasks.add(createTask(sendungUrls, urlsSendezeitenMap));
+        taskResults.add(createTask(sendungUrls, urlsSendezeitenMap));
 
 
     }

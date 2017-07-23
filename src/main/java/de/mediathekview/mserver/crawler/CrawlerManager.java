@@ -10,13 +10,13 @@ import de.mediathekview.mserver.base.config.MServerConfigDTO;
 import de.mediathekview.mserver.base.config.MServerConfigManager;
 import de.mediathekview.mserver.base.messages.ServerMessages;
 import de.mediathekview.mserver.base.progress.CrawlerProgressListener;
+import de.mediathekview.mserver.base.progress.listeners.ProgressLogMessageListener;
 import de.mediathekview.mserver.crawler.ard.ArdCrawler;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
-import java.time.temporal.ChronoUnit;
 import java.util.*;
 import java.util.concurrent.*;
 
@@ -29,7 +29,6 @@ public class CrawlerManager
     private static CrawlerManager instance;
     private final MServerConfigDTO config;
     private final ForkJoinPool forkJoinPool;
-    private static final long TIMEOUT_SLEEP_MILLIS = Duration.of(1, ChronoUnit.MINUTES).toMillis();
     private final Filmlist filmlist;
     private final ExecutorService executorService;
     private Collection<CrawlerProgressListener> progressListeners;
@@ -62,7 +61,7 @@ public class CrawlerManager
 
     private void initializeCrawler()
     {
-        crawlerMap.put(Sender.ARD, new ArdCrawler(forkJoinPool, messageListeners, progressListeners.toArray(new CrawlerProgressListener[progressListeners.size()])));
+        crawlerMap.put(Sender.ARD, new ArdCrawler(forkJoinPool, messageListeners, progressListeners));
     }
 
     public void startCrawlerForSender(Sender aSender)
@@ -132,10 +131,14 @@ public class CrawlerManager
 
     public static void main(String... args)
     {
+        List<ProgressLogMessageListener> progressListeners = new ArrayList<>();
+        progressListeners.add(new ProgressLogMessageListener());
+
         List<MessageListener> messageListeners = new ArrayList<>();
         messageListeners.add(new LogMessageListener());
 
         final CrawlerManager manager = CrawlerManager.getInstance();
+        manager.addAllProgressListener(progressListeners);
         manager.addAllMessageListener(messageListeners);
         manager.start();
     }
@@ -160,16 +163,7 @@ public class CrawlerManager
             LocalDateTime beginTime = LocalDateTime.now();
             while (isRun)
             {
-                if (Duration.between(beginTime, LocalDateTime.now()).toMinutes() < config.getMaximumServerDurationInMinutes())
-                {
-                    try
-                    {
-                        Thread.sleep(TIMEOUT_SLEEP_MILLIS);
-                    } catch (InterruptedException interruptedException)
-                    {
-                        LOG.debug("The server TimeoutRunner has been interrupted.", interruptedException);
-                    }
-                } else
+                if (Duration.between(beginTime, LocalDateTime.now()).toMinutes() > config.getMaximumServerDurationInMinutes())
                 {
                     forkJoinPool.shutdownNow();
                     printMessage(ServerMessages.SERVER_TIMEOUT);

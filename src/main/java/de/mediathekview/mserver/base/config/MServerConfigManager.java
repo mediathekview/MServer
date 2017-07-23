@@ -2,21 +2,13 @@ package de.mediathekview.mserver.base.config;
 
 import de.mediathekview.mlib.config.ConfigManager;
 import de.mediathekview.mlib.daten.Sender;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
-import java.net.URISyntaxException;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 
 /**
  * A {@link ConfigManager} for {@link MServerConfigDTO}.
  */
 public class MServerConfigManager extends ConfigManager<MServerConfigDTO>
 {
-    private static final Logger LOG = LogManager.getLogger(MServerConfigManager.class);
-    private static final String DEFAULT_CONFIG_FILE = "MServer-Config.yml";
-    private static final String CONFIG_NAME_MSERVER = "MServer";
+    private static final String DEFAULT_CONFIG_FILE = "MServer-Config.yaml";
     private static MServerConfigManager instance;
 
     public static MServerConfigManager getInstance()
@@ -28,23 +20,10 @@ public class MServerConfigManager extends ConfigManager<MServerConfigDTO>
         return instance;
     }
 
-    private Path configFilePath;
 
     private MServerConfigManager()
     {
-        try
-        {
-            configFilePath = Paths.get(getClass().getClassLoader().getResource(DEFAULT_CONFIG_FILE).toURI());
-        } catch (URISyntaxException exception)
-        {
-            LOG.debug("Can't load the default config file path.", exception);
-            configFilePath = Paths.get(DEFAULT_CONFIG_FILE);
-        }
-    }
-
-    public void setConfigFilePath(final Path aConfigFilePath)
-    {
-        configFilePath = aConfigFilePath;
+        super();
     }
 
     /**
@@ -59,16 +38,12 @@ public class MServerConfigManager extends ConfigManager<MServerConfigDTO>
     }
 
     @Override
-    public Path getConfigFilePath()
+    public String getConfigFileName()
     {
-        return configFilePath;
+        return DEFAULT_CONFIG_FILE;
     }
 
-    @Override
-    protected String getConfigName()
-    {
-        return CONFIG_NAME_MSERVER;
-    }
+
 
     @Override
     protected Class<MServerConfigDTO> getConfigClass()

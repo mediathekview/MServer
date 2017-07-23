@@ -18,6 +18,9 @@ public class ArdVideoInfoJsonDeserializer implements JsonDeserializer<ArdVideoIn
     private static final String ELEMENT_MEDIA_STREAM_ARRAY = "_mediaStreamArray";
     private static final String ELEMENT_SUBTITLE_URL = "_subtitleUrl";
     private static final String ELEMENT_QUALITY = "_quality";
+    private static final String URL_PREFIX_PATTERN = "\\w+:";
+    private static final String URL_PATTERN = "\\w+.*";
+    private static final String ELEMENT_SERVER = "_server";
 
     @Override
     public ArdVideoInfoDTO deserialize(final JsonElement aJsonElement, final Type aType, final JsonDeserializationContext aJsonDeserializationContext) throws JsonParseException
@@ -39,6 +42,8 @@ public class ArdVideoInfoJsonDeserializer implements JsonDeserializer<ArdVideoIn
             final JsonElement vidoeElement = mediaStreamArray.get(i);
             String qualityAsText = vidoeElement.getAsJsonObject().get(ELEMENT_QUALITY).getAsString();
 
+            String baseUrl = vidoeElement.getAsJsonObject().has(ELEMENT_SERVER) ? vidoeElement.getAsJsonObject().get(ELEMENT_SERVER).getAsString() : "";
+
             int qualityNumber;
             try
             {
@@ -49,10 +54,10 @@ public class ArdVideoInfoJsonDeserializer implements JsonDeserializer<ArdVideoIn
                 qualityNumber = -1;
             }
 
-            if(qualityNumber > 0 || mediaStreamArray.size() == 1)
+            if (qualityNumber > 0 || mediaStreamArray.size() == 1)
             {
                 Qualities quality = getQualityForNumber(qualityNumber);
-                videoInfo.put(quality, videoElementToUrl(vidoeElement));
+                videoInfo.put(quality, videoElementToUrl(vidoeElement, baseUrl));
             }
         }
 
@@ -79,9 +84,13 @@ public class ArdVideoInfoJsonDeserializer implements JsonDeserializer<ArdVideoIn
         }
     }
 
-    private String videoElementToUrl(final JsonElement aVideoElement)
+    private String videoElementToUrl(final JsonElement aVideoElement, String aBaseUrl)
     {
-        //TODO: Check if begins with something linke "mp3:" or "mp4:" and replace with the content of "_server".
-        return aVideoElement.getAsJsonObject().get(ELEMENT_STREAM).getAsString();
+        String url = aVideoElement.getAsJsonObject().get(ELEMENT_STREAM).getAsString();
+        if (url.matches(URL_PREFIX_PATTERN + URL_PATTERN))
+        {
+            url = url.replaceFirst(URL_PREFIX_PATTERN, aBaseUrl);
+        }
+        return url;
     }
 }

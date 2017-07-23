@@ -9,9 +9,11 @@ import de.mediathekview.mserver.base.config.MServerConfigManager;
 import de.mediathekview.mserver.base.messages.ServerMessages;
 import de.mediathekview.mserver.base.progress.CrawlerProgress;
 import de.mediathekview.mserver.base.progress.CrawlerProgressListener;
+import de.mediathekview.mserver.crawler.ard.tasks.ArdSendungTask;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.math.BigInteger;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -19,7 +21,9 @@ import java.time.temporal.ChronoUnit;
 import java.util.*;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ForkJoinPool;
+import java.util.concurrent.ForkJoinTask;
 import java.util.concurrent.RecursiveTask;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicLong;
 
 /**
@@ -27,8 +31,6 @@ import java.util.concurrent.atomic.AtomicLong;
  */
 public abstract class AbstractCrawler implements Callable<LinkedHashSet<Film>>
 {
-    private static final Logger LOG = LogManager.getLogger(AbstractCrawler.class);
-    private static final long TIMEOUT_SLEEP_MILLIS = Duration.of(1, ChronoUnit.MINUTES).toMillis();
     protected final MServerBasicConfigDTO config;
     protected ForkJoinPool forkJoinPool;
     private Collection<CrawlerProgressListener> progressListeners;
@@ -42,18 +44,16 @@ public abstract class AbstractCrawler implements Callable<LinkedHashSet<Film>>
     private AtomicLong actualCount;
     private AtomicLong errorCount;
 
-    public AbstractCrawler(ForkJoinPool aForkJoinPool, Collection<MessageListener> aMessageListeners, CrawlerProgressListener... aProgressListeners)
+    public AbstractCrawler(ForkJoinPool aForkJoinPool, Collection<MessageListener> aMessageListeners, Collection<CrawlerProgressListener> aProgressListeners)
     {
         forkJoinPool = aForkJoinPool;
         maxCount = new AtomicLong(0);
         actualCount = new AtomicLong(0);
         errorCount = new AtomicLong(0);
 
-        progressListeners = new ArrayList<>();
-        progressListeners.addAll(Arrays.asList(aProgressListeners));
+        progressListeners = aProgressListeners;
 
-        messageListeners = new ArrayList<>();
-        messageListeners.addAll(aMessageListeners);
+        messageListeners = aMessageListeners;
 
         filmTasks = new LinkedHashSet<>();
         config = MServerConfigManager.getInstance().getConfig(getSender());
@@ -113,8 +113,8 @@ public abstract class AbstractCrawler implements Callable<LinkedHashSet<Film>>
 
         LocalTime endTime = LocalTime.now();
         CrawlerProgress progress = new CrawlerProgress(maxCount.get(), actualCount.get(), errorCount.get());
-        printMessage(ServerMessages.CRAWLER_END, getSender(), Duration.between(startTime, endTime).toMinutes(), actualCount.get(), errorCount.get(), progress.calcActualErrorQuoteInPercent());
         timeoutRunner.stop();
+        printMessage(ServerMessages.CRAWLER_END, getSender(), Duration.between(startTime, endTime).toMinutes(), actualCount.get(), errorCount.get(), progress.calcActualErrorQuoteInPercent());
         return films;
     }
 
@@ -149,16 +149,7 @@ public abstract class AbstractCrawler implements Callable<LinkedHashSet<Film>>
             LocalDateTime beginTime = LocalDateTime.now();
             while (isRun)
             {
-                if (Duration.between(beginTime, LocalDateTime.now()).toMinutes() < config.getMaximumCrawlDurationInMinutes())
-                {
-                    try
-                    {
-                        Thread.sleep(TIMEOUT_SLEEP_MILLIS);
-                    } catch (InterruptedException interruptedException)
-                    {
-                        LOG.debug("The crawler TimeoutRunner has been interrupted.", interruptedException);
-                    }
-                } else
+                if (Duration.between(beginTime, LocalDateTime.now()).toMinutes() > config.getMaximumCrawlDurationInMinutes())
                 {
                     forkJoinPool.shutdownNow();
                     printMessage(ServerMessages.CRAWLER_TIMEOUT, getSender().getName());

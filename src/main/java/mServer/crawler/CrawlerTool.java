@@ -42,6 +42,7 @@ public class CrawlerTool
     public static final String nameDiffFilmlist_xz = "filme-diff.xz"; // ist ein diff der aktuellen zur ORG Filmliste, xz komprimiert
     public static final String nameOrgFilmlist = "filme-org.json"; // ist die "ORG" Filmliste, typ. die erste am Tag
     public static final String nameAktFilmlist_xz = "filme.xz"; // ist die aktuelle Filmliste, xz komprimiert
+    private static final String RTMP = "rtmp";
 
     public static synchronized void startMsg()
     {
@@ -140,6 +141,12 @@ public class CrawlerTool
     public static long getFileSize(URI aURI)
     {
         long fileSize = 0;
+
+        if(aURI.toString().contains(RTMP))
+        {
+            //Cant get the size of rtmp.
+            return -1;
+        }
 
         OkHttpClient client = MVHttpClient.getInstance().getReducedTimeOutClient();
         Request request = new Request.Builder().url(aURI.toString()).head().build();

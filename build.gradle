@@ -1,6 +1,6 @@
-import java.nio.file.Files
-import java.nio.file.Paths
 import org.apache.tools.ant.filters.ReplaceTokens
+
+import java.nio.file.Files
 
 plugins {
     id "com.github.jk1.dependency-license-report" version "0.3.5"
@@ -15,7 +15,7 @@ apply from: "${project.rootDir}/gradle/eclipse.gradle"
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
 group = 'de.mediathekview'
-version = '3.2.0'
+version = '4.0.0'
 
 def jarName = 'MServer.jar'
 def mainClass = 'de.mediathekview.mserver.crawler.CrawlerManager'

@@ -49,7 +49,7 @@ public class ArdSendungenOverviewPageCrawler extends AbstractArdOverviewPageCraw
             }
         }
         crawler.updateProgress();
-        filmTasks.addAll(createTask(sendungUrls,urlsSendezeitenMap).invoke());
+        taskResults.addAll(createTask(sendungUrls,urlsSendezeitenMap).invoke());
 
 
     }

@@ -2,7 +2,6 @@ package de.mediathekview.mserver.crawler.ard.tasks;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.google.gson.reflect.TypeToken;
 import de.mediathekview.mlib.daten.Film;
 import de.mediathekview.mlib.daten.Qualities;
 import de.mediathekview.mlib.daten.Sender;
@@ -20,7 +19,6 @@ import org.apache.logging.log4j.Logger;
 import org.jsoup.nodes.Document;
 
 import java.io.InputStreamReader;
-import java.lang.reflect.Type;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
@@ -101,7 +99,7 @@ public class ArdSendungTask extends AbstractUrlTask<Film>
                 newFilm.addSubtitle(new URI(videoInfo.getSubtitleUrl()));
             }
             addUrls(newFilm,videoInfo.getVideoUrls());
-            filmTasks.add(newFilm);
+            taskResults.add(newFilm);
         } catch (Exception exception)
         {
             LOG.error(String.format(LOAD_DOCUMENT_ERRORTEXTPATTERN, crawler.getSender().getName()), exception);

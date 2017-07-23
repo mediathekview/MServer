@@ -1,8 +1,6 @@
 package de.mediathekview.mserver.crawler;
 
-import de.mediathekview.mlib.daten.Film;
 import de.mediathekview.mserver.base.config.MServerBasicConfigDTO;
-import de.mediathekview.mserver.base.config.MServerConfigDTO;
 import de.mediathekview.mserver.base.config.MServerConfigManager;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -26,13 +24,13 @@ public abstract class AbstractUrlTask<T> extends RecursiveTask<LinkedHashSet<T>>
     protected final MServerBasicConfigDTO config;
     protected AbstractCrawler crawler;
 
-    protected LinkedHashSet<T> filmTasks;
+    protected LinkedHashSet<T> taskResults;
 
     public AbstractUrlTask(AbstractCrawler aCrawler, ConcurrentLinkedQueue<String> aUrlsToCrawl)
     {
         crawler = aCrawler;
         urlsToCrawl = aUrlsToCrawl;
-        filmTasks = new LinkedHashSet<>();
+        taskResults = new LinkedHashSet<>();
         config = MServerConfigManager.getInstance().getConfig(crawler.getSender());
     }
 
@@ -53,9 +51,9 @@ public abstract class AbstractUrlTask<T> extends RecursiveTask<LinkedHashSet<T>>
             AbstractUrlTask<T> otherTask = createNewOwnInstance();
             otherTask.fork();
             crawlPage(urlsToCrawlSubset);
-            filmTasks.addAll(otherTask.join());
+            taskResults.addAll(otherTask.join());
         }
-        return filmTasks;
+        return taskResults;
     }
 
     protected abstract AbstractUrlTask<T> createNewOwnInstance();
