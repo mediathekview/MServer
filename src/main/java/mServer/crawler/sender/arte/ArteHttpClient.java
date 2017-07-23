@@ -31,6 +31,8 @@ public class ArteHttpClient {
             try (Response response = httpClient.newCall(request).execute()) {
                 if(response.isSuccessful()) {
                     result = gson.fromJson(response.body().string(), aDtoType);
+                } else {
+                    logger.error(String.format("ARTE Request '%s' failed: %s", aUrl, response.code()));
                 }
             }
             
