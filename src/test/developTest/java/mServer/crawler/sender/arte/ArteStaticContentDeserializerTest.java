@@ -30,7 +30,12 @@ public class ArteStaticContentDeserializerTest {
         assertThat(actualCategories, Matchers.containsInAnyOrder("Aktuelles und Gesellschaft", "Kino", "Fernsehfilme und Serien", "Kultur und Pop", "ARTE Concert", "Wissenschaft", "Entdeckung der Welt", "Geschichte"));
 
         assertThat(actual.getCategoryUrl("Aktuelles und Gesellschaft"), equalTo("aktuelles-und-gesellschaft"));
-        assertThat(actual.getCategoryUrl("Kultur und Pop"), equalTo("kultur-und-pop"));
+        assertThat(actual.getCategoryUrl("ARTE Concert"), equalTo("arte-concert"));
+        assertThat(actual.getCategoryUrl("Entdeckung der Welt"), equalTo("entdeckung-der-welt"));
+        assertThat(actual.getCategoryUrl("Fernsehfilme und Serien"), equalTo("fernsehfilme-und-serien"));
         assertThat(actual.getCategoryUrl("Geschichte"), equalTo("geschichte"));
+        assertThat(actual.getCategoryUrl("Kino"), equalTo("kino"));
+        assertThat(actual.getCategoryUrl("Kultur und Pop"), equalTo("kultur-und-pop"));
+        assertThat(actual.getCategoryUrl("Wissenschaft"), equalTo("wissenschaft"));
     }
 }
