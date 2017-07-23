@@ -3,7 +3,6 @@ package mServer.crawler.sender.arte;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import de.mediathekview.mlib.daten.DatenFilm;
-import de.mediathekview.mlib.tool.MVHttpClient;
 import java.io.IOException;
 import java.time.LocalTime;
 import java.util.Calendar;
@@ -12,9 +11,6 @@ import mServer.crawler.CrawlerTool;
 import mServer.crawler.sender.newsearch.GeoLocations;
 import mServer.crawler.sender.newsearch.Qualities;
 import mServer.tool.MserverDatumZeit;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.Response;
 import org.apache.commons.lang3.time.FastDateFormat;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -54,50 +50,31 @@ public class ArteProgramIdToDatenFilmCallable implements Callable<DatenFilm> {
                 .create();
 
         String videosUrl = String.format(ARTE_VIDEO_INFORMATION_URL_PATTERN, langCode, programId);
-        
-        try(Response responseVideoDetails = executeRequest(videosUrl))
-        {
-            if(responseVideoDetails.isSuccessful())
+        ArteVideoDTO video = ArteHttpClient.executeRequest(LOG, gson, videosUrl, ArteVideoDTO.class);
+
+        if(video != null) {
+            //The duration as time so it can be formatted and co.
+            LocalTime durationAsTime = durationAsTime(video.getDurationInSeconds());
+
+            if (video.getVideoUrls().containsKey(Qualities.NORMAL))
             {
-                ArteVideoDTO video = gson.fromJson(responseVideoDetails.body().string(), ArteVideoDTO.class);
-
-                //The duration as time so it can be formatted and co.
-                LocalTime durationAsTime = durationAsTime(video.getDurationInSeconds());
-
-                if (video.getVideoUrls().containsKey(Qualities.NORMAL))
-                {
-                    ArteVideoDetailsDTO details = getVideoDetails(gson, programId);                      
-
+                ArteVideoDetailsDTO details = getVideoDetails(gson, programId);                      
+                if(details != null) {
                     film = createFilm(details.getTheme(), details.getWebsite(), details.getTitle(), video, details, durationAsTime, details.getDescription());
-               } else {
-                   LOG.debug(String.format("Keine \"normale\" Video URL für den Film \"%s\"", programId));
-               }
-            }
-        } catch (IOException ioException)
-        {
-            LOG.error("Beim laden der Informationen eines Filmes für Arte kam es zu Verbindungsproblemen.", ioException);
-        }        
+                }
+           } else {
+               LOG.debug(String.format("Keine \"normale\" Video URL für den Film \"%s\"", programId));
+           }
+        }
 
         return film;
     }
 
     private ArteVideoDetailsDTO getVideoDetails(Gson gson, String programId) throws IOException {
-        ArteVideoDetailsDTO details = new ArteVideoDetailsDTO();
         
-        OkHttpClient httpClient = MVHttpClient.getInstance().getHttpClient();
         //https://api.arte.tv/api/opa/v3/programs/[language:de/fr]/[programId]
         String videosUrlVideoDetails2 = String.format(ARTE_VIDEO_INFORMATION_URL_PATTERN_2, langCode, programId);
-        Request request = new Request.Builder()
-                .addHeader(MediathekArte_de.AUTH_HEADER, MediathekArte_de.AUTH_TOKEN)
-                .url(videosUrlVideoDetails2).build();
-
-        try(Response responseVideoDetails2 = httpClient.newCall(request).execute())
-        {
-          if(responseVideoDetails2.isSuccessful())
-          {
-            details = gson.fromJson(responseVideoDetails2.body().string(), ArteVideoDetailsDTO.class);
-          }
-        }      
+        ArteVideoDetailsDTO details = ArteHttpClient.executeRequest(LOG, gson, videosUrlVideoDetails2, ArteVideoDetailsDTO.class);
         return details;
     }
     
@@ -123,13 +100,6 @@ public class ArteProgramIdToDatenFilmCallable implements Callable<DatenFilm> {
         }
 
         return film;
-    }
-    
-    private Response executeRequest(String url) throws IOException {
-        OkHttpClient httpClient = MVHttpClient.getInstance().getHttpClient();
-        Request request = new Request.Builder().url(url).build();
-                
-        return httpClient.newCall(request).execute();   
     }
     
     private LocalTime durationAsTime(long aDurationInSeconds)

@@ -19,7 +19,6 @@
  */
 package mServer.crawler.sender.arte;
 
-import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
@@ -35,9 +34,9 @@ import de.mediathekview.mlib.daten.DatenFilm;
 import de.mediathekview.mlib.daten.ListeFilme;
 import de.mediathekview.mlib.tool.Log;
 import de.mediathekview.mlib.tool.MSStringBuilder;
-import de.mediathekview.mlib.tool.MVHttpClient;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -46,9 +45,6 @@ import mServer.crawler.CrawlerTool;
 import mServer.crawler.FilmeSuchen;
 import mServer.crawler.GetUrl;
 import mServer.crawler.sender.MediathekReader;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.Response;
 
 public class MediathekArte_de extends MediathekReader
 {
@@ -79,8 +75,6 @@ public class MediathekArte_de extends MediathekReader
     private static final String VERSION_STATIC_CONTENT = "2.3.13";
 
     private static final DateTimeFormatter ARTE_API_DATEFORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-    public static final String AUTH_HEADER = "Authorization";
-    public static final String AUTH_TOKEN = "Bearer Nzc1Yjc1ZjJkYjk1NWFhN2I2MWEwMmRlMzAzNjI5NmU3NWU3ODg4ODJjOWMxNTMxYzEzZGRjYjg2ZGE4MmIwOA";
     protected String LANG_CODE = "de";
     protected String URL_CONCERT = "http://concert.arte.tv/de/videos/all";
     protected String URL_CONCERT_NOT_CONTAIN = "-STF";
@@ -132,46 +126,34 @@ public class MediathekArte_de extends MediathekReader
                 .registerTypeAdapter(ArteCategoryDTO.class,new ArteCategoryDeserializer())
                 .create();
         
-        String url = String.format(URL_STATIC_CONTENT,LANG_CODE.toLowerCase(),VERSION_STATIC_CONTENT);
-        
-        MVHttpClient mvhttpClient = MVHttpClient.getInstance();
-        OkHttpClient httpClient = mvhttpClient.getHttpClient();
-        Request request = new Request.Builder()
-                    .addHeader(AUTH_HEADER, AUTH_TOKEN)
-                    .url(url).build();
-        try
-        {
-            Response response = httpClient.newCall(request).execute();
-
-            if(response.isSuccessful())
-            {
-                ArteInfoDTO info = gson.fromJson(response.body().string(), ArteInfoDTO.class);
-                info.getCategories().forEach(category -> {
-                    String categoryUrl = String.format(URL_CATEGORY, LANG_CODE.toLowerCase(), info.getCategoryUrl(category));
-                    Request requestCategory = new Request.Builder()
-                                .addHeader(AUTH_HEADER, AUTH_TOKEN)
-                                .url(categoryUrl).build();
-                    Response responseCategory;
-                    try {
-                        responseCategory = httpClient.newCall(requestCategory).execute();
-                        if(responseCategory.isSuccessful()) {
-                            ArteCategoryDTO categoryDto = gson.fromJson(responseCategory.body().string(), ArteCategoryDTO.class);
-                            categoryDto.getSubCategories().forEach(subCategory -> {
-                                String subCategoryUrl = String.format(URL_SUBCATEGORY, LANG_CODE.toLowerCase(), subCategory, 1);
-                                listeThemen.add(new String[]{ subCategory, subCategoryUrl });
-                            });
-                        }
-                    } catch (IOException ioException) {
-                        LOG.error("Beim laden der Filme für Arte kam es zu Verbindungsproblemen.",ioException);
-                    }
-                });
-            }
-
-        } catch (IOException ioException)
-        {
-           LOG.error("Beim laden der Filme für Arte kam es zu Verbindungsproblemen.",ioException);
+        ArteInfoDTO infoDTO = readCategories(gson);
+        if(infoDTO != null) {
+            addSubCategories(infoDTO, gson);
         }
     }
+    
+    private void addSubCategories(ArteInfoDTO info, Gson gson) {
+        info.getCategories().forEach(category -> {
+            String categoryUrl = String.format(URL_CATEGORY, LANG_CODE.toLowerCase(), info.getCategoryUrl(category));
+            ArteCategoryDTO categoryDto = ArteHttpClient.executeRequest(LOG, gson, categoryUrl, ArteCategoryDTO.class);
+            
+            if(categoryDto != null) {
+                List<String> subCategories = categoryDto.getSubCategories();
+                for(int i = 0; i < subCategories.size(); i++) {
+                    String subCategory = subCategories.get(i);
+                    String subCategoryUrl = String.format(URL_SUBCATEGORY, LANG_CODE.toLowerCase(), subCategory, 1);
+                    listeThemen.add(new String[]{ subCategory, subCategoryUrl });
+
+                }                    
+            }
+        });        
+    }
+    
+    private ArteInfoDTO readCategories(Gson gson) {
+        String url = String.format(URL_STATIC_CONTENT,LANG_CODE.toLowerCase(),VERSION_STATIC_CONTENT);
+        ArteInfoDTO infoDTO = ArteHttpClient.executeRequest(LOG, gson, url, ArteInfoDTO.class);
+        return infoDTO;
+    } 
     
     private void addConcert() {
         Thread th = new ConcertLaden(0, 20);
@@ -358,30 +340,14 @@ public class MediathekArte_de extends MediathekReader
         private void addFilmeForTag(String aUrl) {
             Gson gson = new GsonBuilder().registerTypeAdapter(ListeFilme.class,new ArteDatenFilmDeserializer(LANG_CODE, getSendername())).create();
             
-            MVHttpClient mvhttpClient = MVHttpClient.getInstance();
-            OkHttpClient httpClient = mvhttpClient.getHttpClient();
-            Request request = new Request.Builder()
-                    .addHeader(AUTH_HEADER, AUTH_TOKEN)
-                    .url(aUrl).build();
-             try
-             {
-                 Response response = httpClient.newCall(request).execute();
-
-                 if(response.isSuccessful())
-                 {
-                     ListeFilme loadedFilme = gson.fromJson(response.body().string(), ListeFilme.class);
-                     for (DatenFilm film : loadedFilme)
-                     {
-                         addFilm(film);
-                     }
-                 }
-
-             }catch (IOException ioException)
-             {
-                LOG.error("Beim laden der Filme für Arte kam es zu Verbindungsproblemen.",ioException);
-             }
+            ListeFilme loadedFilme = ArteHttpClient.executeRequest(LOG, gson, aUrl, ListeFilme.class);
+            if(loadedFilme != null) {
+                for (DatenFilm film : loadedFilme)
+                {
+                    addFilm(film);
+                }
+            }
         }
-
     }
 
     class CategoryLoader extends Thread {
@@ -415,13 +381,13 @@ public class MediathekArte_de extends MediathekReader
                         nextDto.getProgramIds().forEach(programId -> dto.addProgramId(programId));
                     }
                 }
+
+                // alle programIds verarbeiten
+                ListeFilme loadedFilme = loadPrograms(dto);
+                loadedFilme.forEach((film) -> {
+                    addFilm(film);
+                });
             }
-            
-            // alle programIds verarbeiten
-            ListeFilme loadedFilme = loadPrograms(dto);
-            loadedFilme.forEach((film) -> {
-                addFilm(film);
-            });
         }
 
         private ListeFilme loadPrograms(ArteCategoryFilmsDTO dto) {
@@ -453,30 +419,7 @@ public class MediathekArte_de extends MediathekReader
         }
         
         private ArteCategoryFilmsDTO loadSubCategoryPage(Gson gson, String aUrl) {
-            MVHttpClient mvhttpClient = MVHttpClient.getInstance();
-            OkHttpClient httpClient = mvhttpClient.getHttpClient();
-            Request request = new Request.Builder()
-                    .addHeader(AUTH_HEADER, AUTH_TOKEN)
-                    .url(aUrl).build();
-            
-            ArteCategoryFilmsDTO dto = null;
-            
-             try
-             {
-                 Response response = httpClient.newCall(request).execute();
-
-                 if(response.isSuccessful())
-                 {
-                     // erste Seite lesen
-                     dto = gson.fromJson(response.body().string(), ArteCategoryFilmsDTO.class);
-                 }
-
-             }catch (IOException ioException)
-             {
-                LOG.error("Beim laden der Filme für Arte kam es zu Verbindungsproblemen.",ioException);
-             }    
-             
-             return dto;
+            return ArteHttpClient.executeRequest(LOG, gson, aUrl, ArteCategoryFilmsDTO.class);
         }
     }
 }
