@@ -80,7 +80,7 @@ public class ArteVideoDetailsDeserializer implements JsonDeserializer<ArteVideoD
                             geo = GeoLocations.GEO_DE_FR;
                             break;
                         case "SAT":
-                            geo = GeoLocations.GEO_EU;
+                            geo = GeoLocations.GEO_DE_AT_CH_EU;
                             break;
                         case "ALL":
                             geo = GeoLocations.GEO_NONE;
