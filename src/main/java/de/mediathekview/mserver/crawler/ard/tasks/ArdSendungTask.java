@@ -2,17 +2,20 @@ package de.mediathekview.mserver.crawler.ard.tasks;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+
 import de.mediathekview.mlib.daten.Film;
 import de.mediathekview.mlib.daten.Qualities;
 import de.mediathekview.mlib.daten.Sender;
 import de.mediathekview.mserver.crawler.AbstractCrawler;
 import de.mediathekview.mserver.crawler.AbstractUrlTask;
+import de.mediathekview.mserver.crawler.ard.ArdSendungBasicInformation;
 import de.mediathekview.mserver.crawler.ard.json.ArdBasicInfoDTO;
 import de.mediathekview.mserver.crawler.ard.json.ArdBasicInfoJsonDeserializer;
 import de.mediathekview.mserver.crawler.ard.json.ArdVideoInfoDTO;
 import de.mediathekview.mserver.crawler.ard.json.ArdVideoInfoJsonDeserializer;
 import mServer.crawler.CrawlerTool;
 import mServer.tool.MserverDatumZeit;
+
 import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -34,7 +37,7 @@ import java.util.regex.Pattern;
 /**
  * Recursively crawls the ARD Sendungsfolge page.
  */
-public class ArdSendungTask extends AbstractUrlTask<Film>
+public class ArdSendungTask extends AbstractUrlTask<Film,ArdSendungBasicInformation>
 {
     private static final Logger LOG = LogManager.getLogger(ArdSendungTask.class);
     private static final String REGEX_PATTERN_DOCUMENT_ID = "(?<=&documentId=)\\d+";
@@ -45,22 +48,20 @@ public class ArdSendungTask extends AbstractUrlTask<Film>
     private static final String SPLITTERATOR_CLIP_INFO = "\\s\\|\\s";
     private static final String REGEX_PATTERN_NUMBERS = "\\d+";
 
-    private final ConcurrentHashMap<String, String> urlsSendezeitenMap;
 
-    public ArdSendungTask(final AbstractCrawler aCrawler, final ConcurrentLinkedQueue<String> aUrlsToCrawl, ConcurrentHashMap<String, String> aUrlsSendezeitenMap)
+    public ArdSendungTask(final AbstractCrawler aCrawler, final ConcurrentLinkedQueue<ArdSendungBasicInformation> aArdSendungBasicInformation)
     {
-        super(aCrawler, aUrlsToCrawl);
-        urlsSendezeitenMap = aUrlsSendezeitenMap;
+        super(aCrawler, aArdSendungBasicInformation);
     }
 
     @Override
     protected ArdSendungTask createNewOwnInstance()
     {
-        return new ArdSendungTask(crawler, urlsToCrawl, urlsSendezeitenMap);
+        return new ArdSendungTask(crawler, urlsToCrawl);
     }
 
     @Override
-    protected void processDocument(final String aUrl, final Document aDocument)
+    protected void processDocument(final ArdSendungBasicInformation aUrlDTO, final Document aDocument)
     {
         try
         {
@@ -68,8 +69,8 @@ public class ArdSendungTask extends AbstractUrlTask<Film>
             String datumAsText = gatherDatum(clipInfo);
             int dauerInMinutes = gatherDauerInMinutes(clipInfo);
 
-            String sendezeitAsText = urlsSendezeitenMap.get(aUrl);
-            String documentId = getDocumentIdFromUrl(aUrl);
+            String sendezeitAsText = aUrlDTO.getSendezeitAsText();
+            String documentId = getDocumentIdFromUrl(aUrlDTO.getUrl());
 
             Gson gson = createGson();
             ArdBasicInfoDTO basicInfo = gson.fromJson(
@@ -93,7 +94,7 @@ public class ArdSendungTask extends AbstractUrlTask<Film>
                     basicInfo.getThema(),
                     MserverDatumZeit.parseDateTime(datumAsText, sendezeitAsText),
                     Duration.of(dauerInMinutes, ChronoUnit.MINUTES),
-                    new URI(aUrl));
+                    new URI(aUrlDTO.getUrl()));
             if(StringUtils.isNotBlank(videoInfo.getSubtitleUrl()))
             {
                 newFilm.addSubtitle(new URI(videoInfo.getSubtitleUrl()));

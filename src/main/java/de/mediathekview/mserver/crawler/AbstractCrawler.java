@@ -10,6 +10,7 @@ import de.mediathekview.mserver.base.messages.ServerMessages;
 import de.mediathekview.mserver.base.progress.CrawlerProgress;
 import de.mediathekview.mserver.base.progress.CrawlerProgressListener;
 import de.mediathekview.mserver.crawler.ard.tasks.ArdSendungTask;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -20,6 +21,7 @@ import java.time.LocalTime;
 import java.time.temporal.ChronoUnit;
 import java.util.*;
 import java.util.concurrent.Callable;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ForkJoinPool;
 import java.util.concurrent.ForkJoinTask;
 import java.util.concurrent.RecursiveTask;
@@ -29,7 +31,7 @@ import java.util.concurrent.atomic.AtomicLong;
 /**
  * A basic crawler task.
  */
-public abstract class AbstractCrawler implements Callable<LinkedHashSet<Film>>
+public abstract class AbstractCrawler implements Callable<Set<Film>>
 {
     protected final MServerBasicConfigDTO config;
     protected ForkJoinPool forkJoinPool;
@@ -37,8 +39,8 @@ public abstract class AbstractCrawler implements Callable<LinkedHashSet<Film>>
     private Collection<MessageListener> messageListeners;
 
 
-    protected LinkedHashSet<RecursiveTask<LinkedHashSet<Film>>> filmTasks;
-    protected LinkedHashSet<Film> films;
+    protected RecursiveTask<Set<Film>> filmTask;
+    protected Set<Film> films;
 
     private AtomicLong maxCount;
     private AtomicLong actualCount;
@@ -55,15 +57,14 @@ public abstract class AbstractCrawler implements Callable<LinkedHashSet<Film>>
 
         messageListeners = aMessageListeners;
 
-        filmTasks = new LinkedHashSet<>();
         config = MServerConfigManager.getInstance().getConfig(getSender());
 
-        films = new LinkedHashSet<>();
+        films = ConcurrentHashMap.newKeySet();
     }
 
     public abstract Sender getSender();
 
-    protected abstract Collection<RecursiveTask<LinkedHashSet<Film>>> createCrawlerTasks();
+    protected abstract RecursiveTask<Set<Film>> createCrawlerTask();
 
     public long incrementAndGetActualCount()
     {
@@ -98,7 +99,7 @@ public abstract class AbstractCrawler implements Callable<LinkedHashSet<Film>>
 
 
     @Override
-    public LinkedHashSet<Film> call()
+    public Set<Film> call()
     {
         TimeoutRunner timeoutRunner = new TimeoutRunner();
         Thread timeoutRunnerThread = new Thread(timeoutRunner);
@@ -108,8 +109,8 @@ public abstract class AbstractCrawler implements Callable<LinkedHashSet<Film>>
         LocalTime startTime = LocalTime.now();
 
         updateProgress();
-        filmTasks.addAll(createCrawlerTasks());
-        runFilmTasks();
+        filmTask = createCrawlerTask();
+        films.addAll(forkJoinPool.invoke(filmTask));
 
         LocalTime endTime = LocalTime.now();
         CrawlerProgress progress = new CrawlerProgress(maxCount.get(), actualCount.get(), errorCount.get());
@@ -118,15 +119,10 @@ public abstract class AbstractCrawler implements Callable<LinkedHashSet<Film>>
         return films;
     }
 
-    private void runFilmTasks()
-    {
-        filmTasks.forEach(forkJoinPool::execute);
-        filmTasks.parallelStream().map(RecursiveTask::join).forEach(films::addAll);
-    }
 
     public void stop()
     {
-        filmTasks.parallelStream().forEach(t -> t.cancel(true));
+        filmTask.cancel(true);
     }
 
     private class TimeoutRunner implements Runnable

@@ -1,26 +1,21 @@
 package de.mediathekview.mserver.crawler.ard;
 
+import de.mediathekview.mserver.crawler.CrawlerUrlsDTO;
+
 /**
  * Basic information about ARD Sendungen.
  */
-public class ArdSendungBasicInformation
+public class ArdSendungBasicInformation extends CrawlerUrlsDTO
 {
-    private String url;
     private String sendezeitAsText;
 
-    public ArdSendungBasicInformation(final String url, final String sendezeitAsText)
+    public ArdSendungBasicInformation(final String aUrl, final String aSendezeitAsText)
     {
-        this.url = url;
-        this.sendezeitAsText = sendezeitAsText;
+        super(aUrl);
+        sendezeitAsText = aSendezeitAsText;
     }
 
-    public String getUrl()
-    {
-        return url;
-    }
-
-    public void setUrl(final String url)
-    {
-        this.url = url;
+    public String getSendezeitAsText() {
+        return sendezeitAsText;
     }
 }

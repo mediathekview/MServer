@@ -2,6 +2,9 @@ package de.mediathekview.mserver.crawler.ard.tasks;
 
 import de.mediathekview.mlib.daten.Film;
 import de.mediathekview.mserver.crawler.AbstractCrawler;
+import de.mediathekview.mserver.crawler.CrawlerUrlsDTO;
+import de.mediathekview.mserver.crawler.ard.ArdSendungBasicInformation;
+
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
@@ -23,9 +26,10 @@ public class ArdSendungsfolgenOverviewPageCrawler extends AbstractArdOverviewPag
     private static final String TIME_REGEX_PATTERN = "\\d{2}:\\d{2}";
     private static final String SELECTOR_SUB_PAGES_PATTERN = "div.controls.paging div.entry > a[href~=.*\\.[%s]\\b]";
     private static final String SELECTOR_SUB_PAGES_SEPPERATOR = "-";
+    private static final String SUBPAGE_URL_PART = "mcontents=page.";
     private static final int FIRST_SUBPAGE_ID = 2;
 
-    public ArdSendungsfolgenOverviewPageCrawler(final AbstractCrawler aCrawler, final ConcurrentLinkedQueue<String> aUrlsToCrawl)
+    public ArdSendungsfolgenOverviewPageCrawler(final AbstractCrawler aCrawler, final ConcurrentLinkedQueue<CrawlerUrlsDTO> aUrlsToCrawl)
     {
         super(aCrawler, aUrlsToCrawl);
     }
@@ -37,40 +41,44 @@ public class ArdSendungsfolgenOverviewPageCrawler extends AbstractArdOverviewPag
     }
 
     @Override
-    protected void processDocument(final String aUrl, final Document aDocument)
+    protected void processDocument(final CrawlerUrlsDTO aUrlDTO, final Document aDocument)
     {
-        ConcurrentHashMap<String, String> urlsSendezeitenMap = new ConcurrentHashMap<>();
-        ConcurrentLinkedQueue<String> sendungUrls = new ConcurrentLinkedQueue<>();
-        if (config.getMaximumSubpages() > 0)
+        ArdSendungsfolgenOverviewPageCrawler subpageCrawler = null;
+        if (!aUrlDTO.getUrl().contains(SUBPAGE_URL_PART) && config.getMaximumSubpages() > 0)
         {
-            findSubPages(aDocument);
+            subpageCrawler = findSubPages(aDocument);
+            subpageCrawler.fork();
         }
 
         final Elements textLinkElements = aDocument.select(SELECTOR_TEXT_LINK);
         for (Element element : textLinkElements)
         {
             String url = elementToSendungUrl(element);
-            sendungUrls.add(url);
             crawler.incrementAndGetMaxCount();
             String sendezeitAsText = getSendezeitFromDachzeile(element.select(SELECTOR_DACHZEILE).text());
-            urlsSendezeitenMap.put(url, sendezeitAsText);
+            taskResults.add(new ArdSendungBasicInformation(url, sendezeitAsText));
         }
+        
+        if(subpageCrawler != null )
+        {
+            taskResults.addAll(subpageCrawler.join());
+        }
+
         crawler.updateProgress();
-        taskResults.add(createTask(sendungUrls, urlsSendezeitenMap));
 
 
     }
 
-    private void findSubPages(final Document aDocument)
+    private ArdSendungsfolgenOverviewPageCrawler findSubPages(final Document aDocument)
     {
-        LinkedHashSet<String> subPages = new LinkedHashSet<>();
+        ConcurrentLinkedQueue<CrawlerUrlsDTO> subPages = new ConcurrentLinkedQueue<>();
         final Elements elements = aDocument.select(getSelectorSubPages());
         for (Element element : elements)
         {
             String url = elementToSendungUrl(element);
-            subPages.add(url);
+            subPages.add(new CrawlerUrlsDTO(url));
         }
-        this.urlsToCrawl.addAll(subPages);
+        return new ArdSendungsfolgenOverviewPageCrawler(crawler,subPages);
     }
 
     private String getSendezeitFromDachzeile(final String aDachzeileValue)
@@ -83,11 +91,6 @@ public class ArdSendungsfolgenOverviewPageCrawler extends AbstractArdOverviewPag
         {
             return "";
         }
-    }
-
-    private RecursiveTask<LinkedHashSet<Film>> createTask(final ConcurrentLinkedQueue<String> aUrlsToCrawl, ConcurrentHashMap<String, String> aUrlsSendezeitenMap)
-    {
-        return new ArdSendungTask(crawler, aUrlsToCrawl, aUrlsSendezeitenMap);
     }
 
     private String getSelectorSubPages()

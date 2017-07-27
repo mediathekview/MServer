@@ -3,7 +3,10 @@ package de.mediathekview.mserver.crawler.ard.tasks;
 import de.mediathekview.mlib.daten.Film;
 import de.mediathekview.mserver.crawler.AbstractCrawler;
 import de.mediathekview.mserver.crawler.AbstractUrlTask;
+import de.mediathekview.mserver.crawler.CrawlerUrlsDTO;
 import de.mediathekview.mserver.crawler.ard.ArdCrawler;
+import de.mediathekview.mserver.crawler.ard.ArdSendungBasicInformation;
+
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 
@@ -14,12 +17,12 @@ import java.util.concurrent.RecursiveTask;
 /**
  * Recursively crawls the ARD overview pages.
  */
-public abstract class AbstractArdOverviewPageCrawlerTask extends AbstractUrlTask<RecursiveTask<LinkedHashSet<Film>>>
+public abstract class AbstractArdOverviewPageCrawlerTask extends AbstractUrlTask<ArdSendungBasicInformation,CrawlerUrlsDTO> 
 {
     static final String SELECTOR_MEDIA_LINK = "a.mediaLink[href^=/tv/]";
     private static final String ATTR_HREF = "href";
 
-    AbstractArdOverviewPageCrawlerTask(AbstractCrawler aCrawler, ConcurrentLinkedQueue<String> aUrlsToCrawl)
+    AbstractArdOverviewPageCrawlerTask(AbstractCrawler aCrawler, ConcurrentLinkedQueue<CrawlerUrlsDTO> aUrlsToCrawl)
     {
         super(aCrawler, aUrlsToCrawl);
     }
@@ -28,7 +31,7 @@ public abstract class AbstractArdOverviewPageCrawlerTask extends AbstractUrlTask
     protected abstract AbstractArdOverviewPageCrawlerTask createNewOwnInstance();
 
     @Override
-    protected abstract void processDocument(final String aUrl, final Document aDocument);
+    protected abstract void processDocument(final CrawlerUrlsDTO aUrlDTO, final Document aDocument);
 
 
     String elementToSendungUrl(final Element aElement)

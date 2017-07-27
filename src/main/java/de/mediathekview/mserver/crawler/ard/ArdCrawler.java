@@ -10,6 +10,8 @@ import de.mediathekview.mserver.base.config.MServerConfigManager;
 import de.mediathekview.mserver.base.progress.CrawlerProgressListener;
 import de.mediathekview.mserver.base.progress.listeners.ProgressLogMessageListener;
 import de.mediathekview.mserver.crawler.AbstractCrawler;
+import de.mediathekview.mserver.crawler.CrawlerUrlsDTO;
+import de.mediathekview.mserver.crawler.ard.tasks.ArdSendungTask;
 import de.mediathekview.mserver.crawler.ard.tasks.ArdSendungenOverviewPageCrawler;
 import de.mediathekview.mserver.crawler.ard.tasks.ArdSendungsfolgenOverviewPageCrawler;
 
@@ -36,33 +38,33 @@ public class ArdCrawler extends AbstractCrawler
         return Sender.ARD;
     }
 
-    protected Collection<RecursiveTask<LinkedHashSet<Film>>> createCrawlerTasks()
+    protected RecursiveTask<Set<Film>> createCrawlerTask()
     {
-        final RecursiveTask<LinkedHashSet<RecursiveTask<LinkedHashSet<Film>>>> categoriesTask = createCategoriesOverviewPageCrawler();
-        final RecursiveTask<LinkedHashSet<RecursiveTask<LinkedHashSet<Film>>>> daysTask = createDaysOverviewPageCrawler();
+        final RecursiveTask<Set<ArdSendungBasicInformation>> categoriesTask = createCategoriesOverviewPageCrawler();
+        final RecursiveTask<Set<ArdSendungBasicInformation>> daysTask = createDaysOverviewPageCrawler();
         forkJoinPool.execute(categoriesTask);
         forkJoinPool.execute(daysTask);
 
-        Collection<RecursiveTask<LinkedHashSet<Film>>> crawlerTasks = new ArrayList<>();
-        crawlerTasks.addAll(categoriesTask.join());
-        crawlerTasks.addAll(daysTask.join());
+        ConcurrentLinkedQueue<ArdSendungBasicInformation> ardSendungBasicInformation = new ConcurrentLinkedQueue<>();
+        ardSendungBasicInformation.addAll(categoriesTask.join());
+        ardSendungBasicInformation.addAll(daysTask.join());
 
-        return crawlerTasks;
+        return new ArdSendungTask(this, ardSendungBasicInformation);
     }
 
-    private RecursiveTask<LinkedHashSet<RecursiveTask<LinkedHashSet<Film>>>> createCategoriesOverviewPageCrawler()
+    private RecursiveTask<Set<ArdSendungBasicInformation>> createCategoriesOverviewPageCrawler()
     {
-        ConcurrentLinkedQueue<String> categoryUrlsToCrawl = new ConcurrentLinkedQueue<>();
-        Arrays.stream(CategoriesAZ.values()).map(c -> String.format(ARD_CATEGORY_BASE_URL, c.getKey())).forEach(categoryUrlsToCrawl::offer);
+        ConcurrentLinkedQueue<CrawlerUrlsDTO> categoryUrlsToCrawl = new ConcurrentLinkedQueue<>();
+        Arrays.stream(CategoriesAZ.values()).map(c -> new CrawlerUrlsDTO(String.format(ARD_CATEGORY_BASE_URL, c.getKey()))).forEach(categoryUrlsToCrawl::offer);
         return new ArdSendungenOverviewPageCrawler(this, categoryUrlsToCrawl);
     }
 
-    private RecursiveTask<LinkedHashSet<RecursiveTask<LinkedHashSet<Film>>>> createDaysOverviewPageCrawler()
+    private RecursiveTask<Set<ArdSendungBasicInformation>> createDaysOverviewPageCrawler()
     {
-        ConcurrentLinkedQueue<String> dayUrlsToCrawl = new ConcurrentLinkedQueue<>();
+        ConcurrentLinkedQueue<CrawlerUrlsDTO> dayUrlsToCrawl = new ConcurrentLinkedQueue<>();
         for (int i = 0; i < config.getMaximumDaysForSendungVerpasstSection(); i++)
         {
-            dayUrlsToCrawl.offer(String.format(ARD_DAY_BASE_URL, i));
+            dayUrlsToCrawl.offer(new CrawlerUrlsDTO(String.format(ARD_DAY_BASE_URL, i)));
         }
         return new ArdSendungsfolgenOverviewPageCrawler(this, dayUrlsToCrawl);
     }

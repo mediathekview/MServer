@@ -2,6 +2,9 @@ package de.mediathekview.mserver.crawler.ard.tasks;
 
 import de.mediathekview.mlib.daten.Film;
 import de.mediathekview.mserver.crawler.AbstractCrawler;
+import de.mediathekview.mserver.crawler.CrawlerUrlsDTO;
+import de.mediathekview.mserver.crawler.ard.ArdSendungBasicInformation;
+
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
@@ -20,37 +23,34 @@ public class ArdSendungenOverviewPageCrawler extends AbstractArdOverviewPageCraw
     private static final String SELECTOR_DATE = ".date";
     private static final String SELECTOR_ENTRY = ".entry";
 
-    public ArdSendungenOverviewPageCrawler(final AbstractCrawler aCrawler, final ConcurrentLinkedQueue<String> aUrlsToCrawl)
+    public ArdSendungenOverviewPageCrawler(final AbstractCrawler aCrawler, final ConcurrentLinkedQueue<CrawlerUrlsDTO> aUrlsToCrawl)
     {
         super(aCrawler, aUrlsToCrawl);
     }
 
     @Override
-    protected void processDocument(final String aUrl, final Document aDocument)
+    protected void processDocument(final CrawlerUrlsDTO aUrlDTO, final Document aDocument)
     {
-        ConcurrentHashMap<String,String> urlsSendezeitenMap = new ConcurrentHashMap<>();
-        ConcurrentLinkedQueue<String> sendungUrls = new ConcurrentLinkedQueue<>();
-        if(aUrl.contains(URL_PART_SENDUNG_VERPASST))
+        if(aUrlDTO.getUrl().contains(URL_PART_SENDUNG_VERPASST))
         {
             final Elements entryElements = aDocument.select(SELECTOR_ENTRY);
             for(Element element : entryElements)
             {
                 String url = elementToSendungUrl(element.select(SELECTOR_MEDIA_LINK).first());
-                sendungUrls.add(url);
                 String sendezeitAsText = element.select(SELECTOR_DATE).text();
-                urlsSendezeitenMap.put(url,sendezeitAsText);
+                taskResults.add(new ArdSendungBasicInformation(url,sendezeitAsText));
             }
         }else
         {
+            ConcurrentLinkedQueue<CrawlerUrlsDTO> sendungUrls = new ConcurrentLinkedQueue<>();
             Elements elements = aDocument.select(SELECTOR_MEDIA_LINK);
             for (Element mediaLinkElement : elements)
             {
-                sendungUrls.add(elementToSendungUrl(mediaLinkElement));
+                sendungUrls.add(new CrawlerUrlsDTO(elementToSendungUrl(mediaLinkElement)));
             }
+            taskResults.addAll(createTask(sendungUrls).invoke());
         }
         crawler.updateProgress();
-        taskResults.addAll(createTask(sendungUrls,urlsSendezeitenMap).invoke());
-
 
     }
 
@@ -60,7 +60,7 @@ public class ArdSendungenOverviewPageCrawler extends AbstractArdOverviewPageCraw
         return new ArdSendungenOverviewPageCrawler(crawler,urlsToCrawl);
     }
 
-    private RecursiveTask<LinkedHashSet<RecursiveTask<LinkedHashSet<Film>>>> createTask(final ConcurrentLinkedQueue<String> aUrlsToCrawl,ConcurrentHashMap<String,String> aUrlsSendezeitenMap)
+    private AbstractArdOverviewPageCrawlerTask createTask(final ConcurrentLinkedQueue<CrawlerUrlsDTO> aUrlsToCrawl)
     {
         return new ArdSendungsfolgenOverviewPageCrawler(crawler,aUrlsToCrawl);
     }

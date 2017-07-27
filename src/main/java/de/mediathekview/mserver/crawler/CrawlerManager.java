@@ -80,8 +80,8 @@ public class CrawlerManager
     {
         try
         {
-            final List<Future<LinkedHashSet<Film>>> results = executorService.invokeAll(Arrays.asList(aCrawlers));
-            for (Future<LinkedHashSet<Film>> result : results)
+            final List<Future<Set<Film>>> results = executorService.invokeAll(Arrays.asList(aCrawlers));
+            for (Future<Set<Film>> result : results)
             {
                 filmlist.addAll(result.get());
             }
