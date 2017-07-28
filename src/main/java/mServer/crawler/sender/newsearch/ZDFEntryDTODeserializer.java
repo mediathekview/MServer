@@ -34,24 +34,17 @@ public class ZDFEntryDTODeserializer implements JsonDeserializer<ZDFEntryDTO>
         ZDFEntryDTO dto = null;
         try
         {
-            JsonObject targetObject = aJsonElement.getAsJsonObject().getAsJsonObject(JSON_OBJ_ELEMENT_TARGET);
-            if (null == targetObject)
+            JsonObject targetObject = aJsonElement.getAsJsonObject();
+            JsonObject mainVideoContentObject;
+            if (!targetObject.has(JSON_OBJ_ELEMENT_MAIN_VIDEO_CONTENT) && targetObject.has(JSON_OBJ_VIDEO_PAGE_TEASER) && targetObject.getAsJsonObject(JSON_OBJ_VIDEO_PAGE_TEASER).has(JSON_OBJ_ELEMENT_MAIN_VIDEO_CONTENT))
             {
-                LOG.error("Can't find an JSON Target Object Element for Entry.");
-                LOG.debug("Entry: " + aJsonElement.toString());
-            } else
-            {
-                JsonObject mainVideoContentObject;
-                if (!targetObject.has(JSON_OBJ_ELEMENT_MAIN_VIDEO_CONTENT) && targetObject.has(JSON_OBJ_VIDEO_PAGE_TEASER) && targetObject.getAsJsonObject(JSON_OBJ_VIDEO_PAGE_TEASER).has(JSON_OBJ_ELEMENT_MAIN_VIDEO_CONTENT))
-                {
-                    targetObject = targetObject.getAsJsonObject(JSON_OBJ_VIDEO_PAGE_TEASER);
-                }
+                targetObject = targetObject.getAsJsonObject(JSON_OBJ_VIDEO_PAGE_TEASER);
+            }
 
-                mainVideoContentObject = targetObject.getAsJsonObject(JSON_OBJ_ELEMENT_MAIN_VIDEO_CONTENT);
-                if (mainVideoContentObject != null)
-                {
-                    dto = buildZDFEntryDTO(targetObject, mainVideoContentObject);
-                }
+            mainVideoContentObject = targetObject.getAsJsonObject(JSON_OBJ_ELEMENT_MAIN_VIDEO_CONTENT);
+            if (mainVideoContentObject != null)
+            {
+                dto = buildZDFEntryDTO(targetObject, mainVideoContentObject);
             }
         } catch (Exception ex)
         {
