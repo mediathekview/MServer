@@ -49,13 +49,14 @@ public class ZDFSearchTask extends RecursiveTask<Collection<VideoDTO>>
                     if(baseObject != null) {
                         ZDFSearchPageTask task = new ZDFSearchPageTask(baseObject);
                         subTasks.add(task);
+                        task.fork();
                         if (MserverDaten.debug)
                             Log.sysLog("SearchTask " + task.hashCode() + " added.");
                     }
 
                     page++;
                 } while(!Config.getStop() && baseObject != null && baseObject.has(JSON_ELEMENT_NEXT));            
-                    filmList.addAll(invokeAll(subTasks).parallelStream()
+                    filmList.addAll(subTasks.parallelStream()
                                     .map(ForkJoinTask::join)
                     .flatMap(Collection::stream)
                     .collect(Collectors.toList())
