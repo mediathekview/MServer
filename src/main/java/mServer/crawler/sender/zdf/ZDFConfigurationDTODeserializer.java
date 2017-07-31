@@ -2,6 +2,9 @@ package mServer.crawler.sender.zdf;
 
 import java.lang.reflect.Type;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonDeserializer;
 import com.google.gson.JsonElement;
@@ -14,7 +17,8 @@ import de.mediathekview.mlib.tool.Log;
  * A JSON deserializer to gather the needed information for a {@link ZDFConfigurationDTO}.
  */
 public class ZDFConfigurationDTODeserializer implements JsonDeserializer<ZDFConfigurationDTO> {
-
+    private static final Logger LOG = LogManager.getLogger(ZDFConfigurationDTODeserializer.class);
+    private static final String FALLBACK_TOKEN = "d2726b6c8c655e42b68b0db26131b15b22bd1a32";
     public static final String JSON_ELEMENT_API_TOKEN = "apiToken";
 
     @Override
@@ -23,8 +27,18 @@ public class ZDFConfigurationDTODeserializer implements JsonDeserializer<ZDFConf
         try {
             JsonObject targetObject = aJsonElement.getAsJsonObject();
             JsonElement apiTokenElement = targetObject.get(JSON_ELEMENT_API_TOKEN);
+            
+            String apiToken;
+            if(apiTokenElement == null || apiTokenElement.isJsonNull())
+            {
+                LOG.error("Can't load the API Token for ZDF. Using the fallback.");
+                apiToken = FALLBACK_TOKEN;
+            }else {
+                apiToken = apiTokenElement.getAsString();
+                
+            }
 
-            String apiToken = apiTokenElement.getAsString();
+            
 
             dto = new ZDFConfigurationDTO(apiToken);
         } catch (Exception ex) {
