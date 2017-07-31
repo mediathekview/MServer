@@ -149,6 +149,7 @@ public abstract class AbstractCrawler implements Callable<Set<Film>>
                 {
                     forkJoinPool.shutdownNow();
                     printMessage(ServerMessages.CRAWLER_TIMEOUT, getSender().getName());
+                    stop();
                 }
             }
         }

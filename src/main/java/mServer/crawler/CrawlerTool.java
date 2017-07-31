@@ -148,7 +148,7 @@ public class CrawlerTool
             return -1;
         }
 
-        OkHttpClient client = MVHttpClient.getInstance().getReducedTimeOutClient();
+        OkHttpClient client = MVHttpClient.getInstance().getSSLUnsafeClient();
         Request request = new Request.Builder().url(aURI.toString()).head().build();
         try (Response response = client.newCall(request).execute();
              ResponseBody body = response.body())

@@ -167,6 +167,7 @@ public class CrawlerManager
                 {
                     forkJoinPool.shutdownNow();
                     printMessage(ServerMessages.SERVER_TIMEOUT);
+                    stop();
                 }
             }
         }
