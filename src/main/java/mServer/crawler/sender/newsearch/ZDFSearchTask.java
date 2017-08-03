@@ -2,6 +2,7 @@ package mServer.crawler.sender.newsearch;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ForkJoinTask;
 import java.util.concurrent.RecursiveTask;
 import java.util.stream.Collectors;
@@ -40,7 +41,7 @@ public class ZDFSearchTask extends RecursiveTask<Collection<VideoDTO>>
         if(!Config.getStop()) {
             try
             {
-                Collection<ZDFSearchPageTask> subTasks = new ArrayList<>();
+                Collection<ZDFSearchPageTask> subTasks = ConcurrentHashMap.newKeySet();
                 JsonObject baseObject;
 
                 do {
