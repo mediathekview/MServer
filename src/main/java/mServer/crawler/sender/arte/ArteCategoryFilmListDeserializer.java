@@ -55,14 +55,15 @@ public class ArteCategoryFilmListDeserializer implements JsonDeserializer<ArteCa
     }
     
     /**
-     * Ermittelt aus der Url /{language}/video/{programId}/{text} die ProgramId eines Films
+     * Ermittelt aus der Url /{language}/videos/{programId}/{text} bzw.
+     * http://www.arte.tv/{language}/videos/{programId}/{text} die ProgramId eines Films
      * @param aUrl
      * @return 
      */
     private static String parseUrl(String aUrl) {
         String[] urlParts = aUrl.split("/");
-        if(urlParts.length == 5) {
-            return urlParts[3];
+        if(urlParts.length >= 5) {
+            return urlParts[urlParts.length-2];
         }
         
         LOG.error("URL contains invalid parts: " + aUrl);
