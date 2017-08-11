@@ -63,15 +63,20 @@ public class ZDFEntryDTODeserializer implements JsonDeserializer<ZDFEntryDTO>
         return dto;
     }
 
-    private ZDFEntryDTO buildZDFEntryDTO(JsonObject aTargetObject, final JsonObject aMainVideoContentObject)
+    private ZDFEntryDTO buildZDFEntryDTO(JsonObject aTargetObject, final JsonObject aMainVideoContentObject) throws NoDownloadInformationException
     {
         JsonObject elementTargetObject = aMainVideoContentObject.getAsJsonObject(JSON_OBJ_ELEMENT_TARGET);
         final JsonElement entryGeneralInformationUrlElement = aTargetObject.get(JSON_ELEMENT_GENERAL_INFORMATION_URL);
-        final JsonElement entryDownloadInformationUrlElement = elementTargetObject.get(JSON_ELEMENT_DOWNLOAD_INFORMATION_URL);
+        if(elementTargetObject.has(JSON_ELEMENT_DOWNLOAD_INFORMATION_URL))
+        {
+            final JsonElement entryDownloadInformationUrlElement = elementTargetObject.get(JSON_ELEMENT_DOWNLOAD_INFORMATION_URL);
 
-        String downloadUrl = entryDownloadInformationUrlElement.getAsString()
-                .replace(PLACEHOLDER_PLAYER_ID, PLAYER_ID);
+            String downloadUrl = entryDownloadInformationUrlElement.getAsString()
+                    .replace(PLACEHOLDER_PLAYER_ID, PLAYER_ID);
 
-        return new ZDFEntryDTO(entryGeneralInformationUrlElement.getAsString(), downloadUrl);
+            return new ZDFEntryDTO(entryGeneralInformationUrlElement.getAsString(), downloadUrl);
+        }else {
+            throw new NoDownloadInformationException();
+        }
     }
 }

@@ -18,7 +18,8 @@ import mServer.tool.MserverDaten;
 /**
  * A JSON deserializer to gather the needed information for a {@link VideoDTO}.
  */
-public class ZDFVideoDTODeserializer implements JsonDeserializer<VideoDTO> {
+public class ZDFVideoDTODeserializer implements JsonDeserializer<VideoDTO>
+{
 
     private static final String JSON_ELEMENT_BEGIN = "airtimeBegin";
     private static final String JSON_ELEMENT_BRAND = "http://zdf.de/rels/brand";
@@ -27,7 +28,7 @@ public class ZDFVideoDTODeserializer implements JsonDeserializer<VideoDTO> {
     private static final String JSON_ELEMENT_DURATION = "duration";
     private static final String JSON_ELEMENT_EDITORIALDATE = "editorialDate";
     private static final String JSON_ELEMENT_LEADPARAGRAPH = "leadParagraph";
-    private static final String JSON_ELEMENT_MAINVIDEO  = "mainVideoContent";
+    private static final String JSON_ELEMENT_MAINVIDEO = "mainVideoContent";
     private static final String JSON_ELEMENT_PROGRAMMITEM = "programmeItem";
     private static final String JSON_ELEMENT_SHARING_URL = "http://zdf.de/rels/sharing-url";
     private static final String JSON_ELEMENT_SUBTITLE = "subtitle";
@@ -41,26 +42,23 @@ public class ZDFVideoDTODeserializer implements JsonDeserializer<VideoDTO> {
     private final FastDateFormat sdfOutDay = FastDateFormat.getInstance("dd.MM.yyyy");
 
     @Override
-    public VideoDTO deserialize(final JsonElement aJsonElement, final Type aTypeOfT, final JsonDeserializationContext aJsonDeserializationContext) throws JsonParseException {
+    public VideoDTO deserialize(final JsonElement aJsonElement, final Type aTypeOfT, final JsonDeserializationContext aJsonDeserializationContext) throws JsonParseException
+    {
         VideoDTO dto = null;
-        try {
+        try
+        {
             dto = new VideoDTO();
 
             JsonObject rootNode = aJsonElement.getAsJsonObject();
-            JsonArray programmItem = rootNode.getAsJsonArray(JSON_ELEMENT_PROGRAMMITEM);
             JsonObject programmItemTarget = null;
 
-            if(programmItem != null) {
-                if(programmItem.size() > 1) {
-                    throw new RuntimeException("Element does not contain programmitem" + rootNode.getAsString());
-                }
-
-                if(programmItem.size() == 1) {
-                    programmItemTarget = programmItem.get(0).getAsJsonObject().get(JSON_ELEMENT_TARGET).getAsJsonObject();
-                } 
+            if (rootNode.has(JSON_ELEMENT_PROGRAMMITEM) && !rootNode.get(JSON_ELEMENT_PROGRAMMITEM).isJsonNull())
+            {
+                JsonArray programmItem = rootNode.getAsJsonArray(JSON_ELEMENT_PROGRAMMITEM);
+                programmItemTarget = programmItem.get(0).getAsJsonObject().get(JSON_ELEMENT_TARGET).getAsJsonObject();
             }
 
-            parseTitle(dto, rootNode, programmItemTarget);     
+            parseTitle(dto, rootNode, programmItemTarget);
             parseTopic(dto, rootNode);
             parseDescription(dto, rootNode);
 
@@ -68,140 +66,175 @@ public class ZDFVideoDTODeserializer implements JsonDeserializer<VideoDTO> {
             parseAirtime(dto, rootNode, programmItemTarget);
             parseDuration(dto, rootNode);
 
-        } catch (UnsupportedOperationException ex) {
+        } catch (UnsupportedOperationException ex)
+        {
             if (MserverDaten.debug)
                 Log.errorLog(496583256, ex);
-        } catch (Exception ex) {
+        } catch (Exception ex)
+        {
             dto = null;
             Log.errorLog(496583256, ex);
-        }       
-        
+        }
+
         return dto;
     }
-    
-    private void parseAirtime(VideoDTO dto, JsonObject rootNode, JsonObject programmItemTarget) {
+
+    private void parseAirtime(VideoDTO dto, JsonObject rootNode, JsonObject programmItemTarget)
+    {
         String date;
         FastDateFormat sdf;
-        
+
         // use broadcast airtime if found
-        if(programmItemTarget != null) {
+        if (programmItemTarget != null)
+        {
             JsonArray broadcastArray = programmItemTarget.getAsJsonArray(JSON_ELEMENT_BROADCAST);
 
-            if(broadcastArray == null || broadcastArray.size() < 1) {
+            if (broadcastArray == null || broadcastArray.size() < 1)
+            {
                 date = getEditorialDate(rootNode);
                 sdf = sdfEditorialDate;
-            } else {
+            } else
+            {
                 // array is ordered ascending though the oldest broadcast is the first entry
                 date = broadcastArray.get(0).getAsJsonObject().get(JSON_ELEMENT_BEGIN).getAsString();
                 sdf = sdfAirtimeBegin;
             }
-        } else {
+        } else
+        {
             // use editorialdate
             date = getEditorialDate(rootNode);
             sdf = sdfEditorialDate;
         }
-        if(!date.isEmpty()) {
+        if (!date.isEmpty())
+        {
             dto.setDate(convertDate(date, sdf));
             dto.setTime(convertTime(date, sdf));
         }
     }
-    
-    private String getEditorialDate(JsonObject rootNode) {
+
+    private String getEditorialDate(JsonObject rootNode)
+    {
         return rootNode.get(JSON_ELEMENT_EDITORIALDATE).getAsString();
     }
 
-    private void parseWebsiteUrl(VideoDTO dto, JsonObject rootNode) {
+    private void parseWebsiteUrl(VideoDTO dto, JsonObject rootNode)
+    {
         String websiteUrl = rootNode.get(JSON_ELEMENT_SHARING_URL).getAsString();
         dto.setWebsiteUrl(websiteUrl);
     }
-    
-    private void parseDuration(VideoDTO dto, JsonObject rootNode) {
+
+    private void parseDuration(VideoDTO dto, JsonObject rootNode)
+    {
         JsonElement mainVideoElement = rootNode.get(JSON_ELEMENT_MAINVIDEO);
-        if(mainVideoElement != null) {
+        if (mainVideoElement != null)
+        {
             JsonObject mainVideo = mainVideoElement.getAsJsonObject();
             JsonObject targetMainVideo = mainVideo.get(JSON_ELEMENT_TARGET).getAsJsonObject();
             JsonElement duration = targetMainVideo.get(JSON_ELEMENT_DURATION);
-            if(duration != null) {
-                dto.setDuration(duration.getAsInt());        
+            if (duration != null)
+            {
+                dto.setDuration(duration.getAsInt());
             }
         }
     }
-    
-    private void parseDescription(VideoDTO dto, JsonObject rootNode) {
+
+    private void parseDescription(VideoDTO dto, JsonObject rootNode)
+    {
         JsonElement leadParagraph = rootNode.get(JSON_ELEMENT_LEADPARAGRAPH);
-        if(leadParagraph != null) {
+        if (leadParagraph != null)
+        {
             dto.setDescription(leadParagraph.getAsString());
-        } else {
+        } else
+        {
             JsonElement teaserText = rootNode.get(JSON_ELEMENT_TEASERTEXT);
-            if(teaserText != null) {
+            if (teaserText != null)
+            {
                 dto.setDescription(teaserText.getAsString());
-            }       
+            }
         }
     }
-    
-    private void parseTitle(VideoDTO dto, JsonObject rootNode, JsonObject target) {
+
+    private void parseTitle(VideoDTO dto, JsonObject rootNode, JsonObject target)
+    {
 
         // use property "title" if found
         JsonElement titleElement = rootNode.get(JSON_ELEMENT_TITLE);
-        if(titleElement != null) {
+        if (titleElement != null)
+        {
             JsonElement subTitleElement = rootNode.get(JSON_ELEMENT_SUBTITLE);
-            if(subTitleElement != null) {
+            if (subTitleElement != null)
+            {
                 dto.setTitle(titleElement.getAsString() + " - " + subTitleElement.getAsString());
-            } else {
+            } else
+            {
                 dto.setTitle(titleElement.getAsString());
             }
-        } else {
+        } else
+        {
             // programmItem target required to determine title
             String title = target.get(JSON_ELEMENT_TITLE).getAsString();
             String subTitle = target.get(JSON_ELEMENT_SUBTITLE).getAsString();
 
-            if(subTitle.isEmpty()) {
+            if (subTitle.isEmpty())
+            {
                 dto.setTitle(title);
-            } else {
+            } else
+            {
                 dto.setTitle(title + " - " + subTitle);
-            }       
+            }
         }
     }
-    
-    private void parseTopic(VideoDTO dto, JsonObject rootNode) {
+
+    private void parseTopic(VideoDTO dto, JsonObject rootNode)
+    {
         JsonObject brand = rootNode.getAsJsonObject(JSON_ELEMENT_BRAND);
         JsonObject category = rootNode.getAsJsonObject(JSON_ELEMENT_CATEGORY);
 
-        if(brand != null) {
+        if (brand != null)
+        {
             // first use brand
             JsonElement topic = brand.get(JSON_ELEMENT_TITLE);
-            if(topic != null) {
+            if (topic != null)
+            {
                 dto.setTopic(topic.getAsString());
                 return;
             }
         }
-        
-        if(category != null) {
+
+        if (category != null)
+        {
             // second use category
             JsonElement topic = category.get(JSON_ELEMENT_TITLE);
-            if(topic != null) {
+            if (topic != null)
+            {
                 dto.setTopic(topic.getAsString());
                 return;
             }
         }
-        
+
         // if no topic found, set topic to title
         dto.setTopic(dto.getTitle());
     }
 
-    private String convertDate(String dateValue, FastDateFormat sdf) {
-        try {
+    private String convertDate(String dateValue, FastDateFormat sdf)
+    {
+        try
+        {
             return sdfOutDay.format(sdf.parse(dateValue));
-        } catch (ParseException ex) {
+        } catch (ParseException ex)
+        {
             throw new RuntimeException("Date parse exception: " + dateValue);
         }
     }
 
-    private String convertTime(String dateValue, FastDateFormat sdf) {
-        try {
+    private String convertTime(String dateValue, FastDateFormat sdf)
+    {
+        try
+        {
             return sdfOutTime.format(sdf.parse(dateValue));
-        } catch (ParseException ex) {
+        } catch (ParseException ex)
+        {
             throw new RuntimeException("Date parse exception: " + dateValue);
         }
-    }     
+    }
 }
