@@ -1,4 +1,4 @@
-package de.mediathekview.mserver.crawler;
+package de.mediathekview.mserver.crawler.basic;
 
 public class CrawlerUrlsDTO {
     private String url;

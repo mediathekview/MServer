@@ -1,18 +1,14 @@
 package de.mediathekview.mserver.crawler.ard.tasks;
 
-import de.mediathekview.mlib.daten.Film;
-import de.mediathekview.mserver.crawler.AbstractCrawler;
-import de.mediathekview.mserver.crawler.CrawlerUrlsDTO;
+import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
+import de.mediathekview.mserver.crawler.basic.CrawlerUrlsDTO;
 import de.mediathekview.mserver.crawler.ard.ArdSendungBasicInformation;
 
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
-import java.util.LinkedHashSet;
-import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentLinkedQueue;
-import java.util.concurrent.RecursiveTask;
 
 /**
  * Recursively crawls the ARD Sendungen overview pages.

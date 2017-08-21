@@ -2,15 +2,11 @@ package de.mediathekview.mserver.crawler.ard;
 
 import de.mediathekview.mlib.daten.Film;
 import de.mediathekview.mlib.daten.Sender;
-import de.mediathekview.mlib.messages.listener.LogMessageListener;
 import de.mediathekview.mlib.messages.listener.MessageListener;
 import de.mediathekview.mserver.base.CategoriesAZ;
-import de.mediathekview.mserver.base.config.MServerBasicConfigDTO;
-import de.mediathekview.mserver.base.config.MServerConfigManager;
-import de.mediathekview.mserver.base.progress.CrawlerProgressListener;
-import de.mediathekview.mserver.base.progress.listeners.ProgressLogMessageListener;
-import de.mediathekview.mserver.crawler.AbstractCrawler;
-import de.mediathekview.mserver.crawler.CrawlerUrlsDTO;
+import de.mediathekview.mlib.progress.CrawlerProgressListener;
+import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
+import de.mediathekview.mserver.crawler.basic.CrawlerUrlsDTO;
 import de.mediathekview.mserver.crawler.ard.tasks.ArdSendungTask;
 import de.mediathekview.mserver.crawler.ard.tasks.ArdSendungenOverviewPageCrawler;
 import de.mediathekview.mserver.crawler.ard.tasks.ArdSendungsfolgenOverviewPageCrawler;

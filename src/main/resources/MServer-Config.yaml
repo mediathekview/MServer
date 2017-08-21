@@ -3,7 +3,7 @@
     maximumDaysForSendungVerpasstSection: 6
 
     # The maximum amount of cpu threads to be used.
-    maximumCpuThreads: 40
+    maximumCpuThreads: 80
 
     # The maximum duration in minutes the server should run.<br>
     # If set to 0 the server runs without a time limit.
@@ -11,7 +11,7 @@
 
 #### Default crawler configurations ####
      # The maximum amount of URLs to be processed per task.
-    maximumUrlsPerTask: 25
+    maximumUrlsPerTask: 50
 
      # The maximum duration in minutes a crawler may run.
     maximumCrawlDurationInMinutes: 30

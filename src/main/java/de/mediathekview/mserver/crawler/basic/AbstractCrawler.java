@@ -1,4 +1,4 @@
-package de.mediathekview.mserver.crawler;
+package de.mediathekview.mserver.crawler.basic;
 
 import de.mediathekview.mlib.daten.Film;
 import de.mediathekview.mlib.daten.Sender;
@@ -7,25 +7,17 @@ import de.mediathekview.mlib.messages.listener.MessageListener;
 import de.mediathekview.mserver.base.config.MServerBasicConfigDTO;
 import de.mediathekview.mserver.base.config.MServerConfigManager;
 import de.mediathekview.mserver.base.messages.ServerMessages;
-import de.mediathekview.mserver.base.progress.CrawlerProgress;
-import de.mediathekview.mserver.base.progress.CrawlerProgressListener;
-import de.mediathekview.mserver.crawler.ard.tasks.ArdSendungTask;
+import de.mediathekview.mlib.progress.CrawlerProgress;
+import de.mediathekview.mlib.progress.CrawlerProgressListener;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
-import java.math.BigInteger;
 import java.time.Duration;
-import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.time.temporal.ChronoUnit;
-import java.util.*;
+import java.util.Collection;
+import java.util.Set;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ForkJoinPool;
-import java.util.concurrent.ForkJoinTask;
 import java.util.concurrent.RecursiveTask;
-import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicLong;
 
 /**
@@ -101,9 +93,16 @@ public abstract class AbstractCrawler implements Callable<Set<Film>>
     @Override
     public Set<Film> call()
     {
-        TimeoutRunner timeoutRunner = new TimeoutRunner();
-        Thread timeoutRunnerThread = new Thread(timeoutRunner);
-        timeoutRunnerThread.start();
+        TimeoutTask timeoutRunner = new TimeoutTask(config.getMaximumCrawlDurationInMinutes())
+        {
+            @Override
+            public void shutdown()
+            {
+                forkJoinPool.shutdownNow();
+                printMessage(ServerMessages.CRAWLER_TIMEOUT, getSender().getName());
+            }
+        };
+        timeoutRunner.start();
 
         printMessage(ServerMessages.CRAWLER_START, getSender());
         LocalTime startTime = LocalTime.now();
@@ -114,7 +113,7 @@ public abstract class AbstractCrawler implements Callable<Set<Film>>
 
         LocalTime endTime = LocalTime.now();
         CrawlerProgress progress = new CrawlerProgress(maxCount.get(), actualCount.get(), errorCount.get());
-        timeoutRunner.stop();
+        timeoutRunner.stopTimeout();
         printMessage(ServerMessages.CRAWLER_END, getSender(), Duration.between(startTime, endTime).toMinutes(), actualCount.get(), errorCount.get(), progress.calcActualErrorQuoteInPercent());
         return films;
     }
@@ -125,33 +124,5 @@ public abstract class AbstractCrawler implements Callable<Set<Film>>
         filmTask.cancel(true);
     }
 
-    private class TimeoutRunner implements Runnable
-    {
-        private boolean isRun;
 
-        private TimeoutRunner()
-        {
-            isRun = true;
-        }
-
-        public void stop()
-        {
-            isRun = false;
-        }
-
-        @Override
-        public void run()
-        {
-            LocalDateTime beginTime = LocalDateTime.now();
-            while (isRun)
-            {
-                if (Duration.between(beginTime, LocalDateTime.now()).toMinutes() > config.getMaximumCrawlDurationInMinutes())
-                {
-                    forkJoinPool.shutdownNow();
-                    printMessage(ServerMessages.CRAWLER_TIMEOUT, getSender().getName());
-                    stop();
-                }
-            }
-        }
-    }
 }

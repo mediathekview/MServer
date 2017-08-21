@@ -1,5 +1,6 @@
 package de.mediathekview.mserver.crawler;
 
+import de.mediathekview.mlib.AbstractManager;
 import de.mediathekview.mlib.daten.Film;
 import de.mediathekview.mlib.daten.Filmlist;
 import de.mediathekview.mlib.daten.Sender;
@@ -9,21 +10,21 @@ import de.mediathekview.mlib.messages.listener.MessageListener;
 import de.mediathekview.mserver.base.config.MServerConfigDTO;
 import de.mediathekview.mserver.base.config.MServerConfigManager;
 import de.mediathekview.mserver.base.messages.ServerMessages;
-import de.mediathekview.mserver.base.progress.CrawlerProgressListener;
-import de.mediathekview.mserver.base.progress.listeners.ProgressLogMessageListener;
+import de.mediathekview.mlib.progress.CrawlerProgressListener;
+import de.mediathekview.mserver.progress.listeners.ProgressLogMessageListener;
 import de.mediathekview.mserver.crawler.ard.ArdCrawler;
+import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
+import de.mediathekview.mserver.crawler.basic.TimeoutTask;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.time.Duration;
-import java.time.LocalDateTime;
 import java.util.*;
 import java.util.concurrent.*;
 
 /**
  * A manager to control the crawler.
  */
-public class CrawlerManager
+public class CrawlerManager extends AbstractManager
 {
     private static final Logger LOG = LogManager.getLogger(CrawlerManager.class);
     private static CrawlerManager instance;
@@ -31,8 +32,6 @@ public class CrawlerManager
     private final ForkJoinPool forkJoinPool;
     private final Filmlist filmlist;
     private final ExecutorService executorService;
-    private Collection<CrawlerProgressListener> progressListeners;
-    private Collection<MessageListener> messageListeners;
 
     public static CrawlerManager getInstance()
     {
@@ -53,8 +52,6 @@ public class CrawlerManager
         forkJoinPool = new ForkJoinPool(config.getMaximumCpuThreads());
 
         crawlerMap = new EnumMap<>(Sender.class);
-        progressListeners = new ArrayList<>();
-        messageListeners = new ArrayList<>();
         filmlist = new Filmlist();
         initializeCrawler();
     }
@@ -94,14 +91,22 @@ public class CrawlerManager
 
     public void start()
     {
-        TimeoutRunner timeoutRunner = new TimeoutRunner();
+        TimeoutTask timeoutRunner = new TimeoutTask(config.getMaximumServerDurationInMinutes())
+        {
+            @Override
+            public void shutdown()
+            {
+                forkJoinPool.shutdownNow();
+                printMessage(ServerMessages.SERVER_TIMEOUT);
+            }
+        };
+
         if (config.getMaximumServerDurationInMinutes() != null && config.getMaximumServerDurationInMinutes() > 0)
         {
-            Thread timeoutRunnerThread = new Thread(timeoutRunner);
-            timeoutRunnerThread.start();
+            timeoutRunner.start();
         }
         runCrawlers(crawlerMap.values().toArray(new AbstractCrawler[crawlerMap.size()]));
-        timeoutRunner.stop();
+        timeoutRunner.stopTimeout();
     }
 
     private void printMessage(Message aMessage, Object... args)
@@ -109,25 +114,6 @@ public class CrawlerManager
         messageListeners.parallelStream().forEach(l -> l.consumeMessage(aMessage, args));
     }
 
-    public boolean addProgressListener(final CrawlerProgressListener aCrawlerProgressListener)
-    {
-        return progressListeners.add(aCrawlerProgressListener);
-    }
-
-    public boolean addMessageListener(final MessageListener aMessageListener)
-    {
-        return messageListeners.add(aMessageListener);
-    }
-
-    public boolean addAllProgressListener(final Collection<? extends CrawlerProgressListener> c)
-    {
-        return progressListeners.addAll(c);
-    }
-
-    public boolean addAllMessageListener(final Collection<? extends MessageListener> c)
-    {
-        return messageListeners.addAll(c);
-    }
 
     public static void main(String... args)
     {
@@ -143,33 +129,5 @@ public class CrawlerManager
         manager.start();
     }
 
-    private class TimeoutRunner implements Runnable
-    {
-        private boolean isRun;
 
-        private TimeoutRunner()
-        {
-            isRun = true;
-        }
-
-        public void stop()
-        {
-            isRun = false;
-        }
-
-        @Override
-        public void run()
-        {
-            LocalDateTime beginTime = LocalDateTime.now();
-            while (isRun)
-            {
-                if (Duration.between(beginTime, LocalDateTime.now()).toMinutes() > config.getMaximumServerDurationInMinutes())
-                {
-                    forkJoinPool.shutdownNow();
-                    printMessage(ServerMessages.SERVER_TIMEOUT);
-                    stop();
-                }
-            }
-        }
-    }
 }

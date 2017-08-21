@@ -1,19 +1,21 @@
-package de.mediathekview.mserver.base.progress.listeners;
+package de.mediathekview.mserver.progress.listeners;
 
 import de.mediathekview.mlib.daten.Sender;
 import de.mediathekview.mlib.messages.MessageUtil;
+import de.mediathekview.mlib.progress.Progress;
+import de.mediathekview.mlib.progress.ProgressListener;
+import de.mediathekview.mlib.progress.SenderProgressListener;
 import de.mediathekview.mserver.base.messages.ServerMessages;
-import de.mediathekview.mserver.base.progress.CrawlerProgress;
-import de.mediathekview.mserver.base.progress.CrawlerProgressListener;
 
 /**
- * A abstract message listner which consumes crawler progress an generates messages from it.
+ * A abstract message listner which consumes crawler progress and generates messages from it.
  */
-public abstract class AbstractMessageListener implements CrawlerProgressListener
+public abstract class AbstractMessageListener implements SenderProgressListener
 {
 
+
     @Override
-    public void updateCrawlerProgess(Sender aSender, final CrawlerProgress aCrawlerProgress)
+    public void updateProgess(Sender aSender,Progress aCrawlerProgress)
     {
         newMessage(String.format(MessageUtil.getInstance().loadMessageText(ServerMessages.CRAWLER_PROGRESS),
                 aSender.getName(),

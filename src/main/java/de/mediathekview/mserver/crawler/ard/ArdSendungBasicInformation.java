@@ -1,6 +1,6 @@
 package de.mediathekview.mserver.crawler.ard;
 
-import de.mediathekview.mserver.crawler.CrawlerUrlsDTO;
+import de.mediathekview.mserver.crawler.basic.CrawlerUrlsDTO;
 
 /**
  * Basic information about ARD Sendungen.

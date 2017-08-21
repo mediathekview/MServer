@@ -1,4 +1,4 @@
-package de.mediathekview.mserver.crawler;
+package de.mediathekview.mserver.crawler.basic;
 
 import de.mediathekview.mserver.base.config.MServerBasicConfigDTO;
 import de.mediathekview.mserver.base.config.MServerConfigManager;
@@ -9,13 +9,10 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 
 import java.io.IOException;
-import java.util.LinkedHashSet;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.RecursiveTask;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 /**
  * Recursively crawls a Website.
