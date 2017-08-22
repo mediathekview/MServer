@@ -1,32 +1,39 @@
 package mServer.crawler.sender.arte;
 
-import java.io.IOException;
-import java.time.LocalTime;
-import java.util.concurrent.Callable;
-
-import org.apache.commons.lang3.time.FastDateFormat;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
-import de.mediathekview.mlib.daten.DatenFilm;
+import de.mediathekview.mlib.daten.Film;
+import de.mediathekview.mlib.daten.GeoLocations;
+import de.mediathekview.mlib.daten.Qualities;
+import de.mediathekview.mlib.daten.Sender;
 import de.mediathekview.mlib.tool.MVHttpClient;
-import java.util.Calendar;
+import mServer.crawler.CantCreateFilmException;
 import mServer.crawler.CrawlerTool;
-import mServer.crawler.sender.newsearch.GeoLocations;
-import mServer.crawler.sender.newsearch.Qualities;
-import mServer.tool.MserverDatumZeit;
+
+import java.time.LocalDateTime;
+
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
-public class ArteJsonObjectToDatenFilmCallable implements Callable<DatenFilm>
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
+import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.time.Duration;
+import java.time.temporal.ChronoUnit;
+import java.util.Collection;
+import java.util.UUID;
+import java.util.concurrent.Callable;
+
+public class ArteJsonObjectToFilmCallable implements Callable<Film>
 {
-    private static final Logger LOG = LogManager.getLogger(ArteJsonObjectToDatenFilmCallable.class);
+    private static final Logger LOG = LogManager.getLogger(ArteJsonObjectToFilmCallable.class);
     private static final String JSON_ELEMENT_KEY_CATEGORY = "category";
     private static final String JSON_ELEMENT_KEY_SUBCATEGORY = "subcategory";
     private static final String JSON_ELEMENT_KEY_NAME = "name";
@@ -37,76 +44,75 @@ public class ArteJsonObjectToDatenFilmCallable implements Callable<DatenFilm>
     private static final String ARTE_VIDEO_INFORMATION_URL_PATTERN = "https://api.arte.tv/api/player/v1/config/%s/%s?platform=ARTE_NEXT";
     private static final String ARTE_VIDEO_INFORMATION_URL_PATTERN_2 = "https://api.arte.tv/api/opa/v3/programs/%s/%s"; // Für broadcastBeginRounded
     private static final String JSON_ELEMENT_KEY_SHORT_DESCRIPTION = "shortDescription";
-    
+
     private final JsonObject jsonObject;
     private final String langCode;
-    private final String senderName;
-    
-    private final Calendar today;
-    
-    private final FastDateFormat broadcastDateFormat = FastDateFormat.getInstance("yyyy-MM-dd'T'HH:mm:ssX");//2016-10-29T16:15:00Z
-    
-    public ArteJsonObjectToDatenFilmCallable(JsonObject aJsonObjec, String aLangCode, String aSenderName) {
+    private final Sender sender;
+
+    public ArteJsonObjectToFilmCallable(JsonObject aJsonObjec, String aLangCode, Sender aSender)
+    {
         jsonObject = aJsonObjec;
         langCode = aLangCode;
-        senderName = aSenderName;
-        today = Calendar.getInstance();
+        sender = aSender;
     }
 
     @Override
-    public DatenFilm call() {
-        DatenFilm film = null;
+    public Film call() throws CantCreateFilmException
+    {
+        Film film = null;
         try {
-        if(isValidProgramObject(jsonObject))
-        {
-            String titel = getTitle(jsonObject);
+            if(isValidProgramObject(jsonObject))
+            {
+                 String titel = getTitle(jsonObject);
             String thema = getSubject(jsonObject);
 
             String beschreibung = getElementValue(jsonObject, JSON_ELEMENT_KEY_SHORT_DESCRIPTION);
 
             String urlWeb = getElementValue(jsonObject, JSON_ELEMENT_KEY_URL);
 
-            //https://api.arte.tv/api/player/v1/config/[language:de/fr]/[programId]?platform=ARTE_NEXT
+    
+                 //https://api.arte.tv/api/player/v1/config/[language:de/fr]/[programId]?platform=ARTE_NEXT
             String programId = getElementValue(jsonObject, JSON_ELEMENT_KEY_PROGRAM_ID);
             String videosUrl = String.format(ARTE_VIDEO_INFORMATION_URL_PATTERN, langCode, programId);
-
-            Gson gson = new GsonBuilder()
-                    .registerTypeAdapter(ArteVideoDTO.class, new ArteVideoDeserializer())
-                    .registerTypeAdapter(ArteVideoDetailsDTO.class, new ArteVideoDetailsDeserializer(today))
-                    .create();
-
-            try(Response responseVideoDetails = executeRequest(videosUrl))
-            {
-                if(responseVideoDetails.isSuccessful())
-                {
-                    ArteVideoDTO video = gson.fromJson(responseVideoDetails.body().string(), ArteVideoDTO.class);
-
-                    //The duration as time so it can be formatted and co.
-                    LocalTime durationAsTime = durationAsTime(video.getDurationInSeconds());
-
-                    if (video.getVideoUrls().containsKey(Qualities.NORMAL))
+    
+    
+                    Gson gson = new GsonBuilder().registerTypeAdapter(ArteVideoDTO.class, new ArteVideoDeserializer()).create();
+    
+                    try (Response responseVideoDetails = executeRequest(videosUrl))
                     {
-                        ArteVideoDetailsDTO details = getVideoDetails(gson, programId);                      
-
-                        film = createFilm(thema, urlWeb, titel, video, details, durationAsTime, beschreibung);
-                   } else {
-                       LOG.debug(String.format("Keine \"normale\" Video URL für den Film \"%s\" mit der URL \"%s\". Video Details URL:\"%s\" ", titel, urlWeb, videosUrl));
-                   }
+                        if (responseVideoDetails.isSuccessful())
+                        {
+                            ArteVideoDTO video = gson.fromJson(responseVideoDetails.body().string(), ArteVideoDTO.class);
+    
+                            //The duration as time so it can be formatted and co.
+                            Duration duration = Duration.of(video.getDurationInSeconds(), ChronoUnit.SECONDS);
+    
+                            if (video.getVideoUrls().containsKey(Qualities.NORMAL))
+                            {
+                                ArteVideoDetailsDTO details = getVideoDetails(gson, programId);
+                                
+                                film = createFilm(thema, urlWeb, titel, video, details, duration, beschreibung);
+                            } else {
+                                LOG.debug(String.format("Keine \"normale\" Video URL für den Film \"%s\" mit der URL \"%s\". Video Details URL:\"%s\" ", titel, urlWeb, videosUrl));
+                            }
+                        }
+                    } catch (IOException ioException)
+                    {
+                        LOG.fatal("Beim laden der Informationen eines Filmes für Arte kam es zu Verbindungsproblemen.", ioException);
+                        throw new CantCreateFilmException(ioException);
+                    }catch (URISyntaxException uriSyntaxEception)
+                    {
+                        throw new CantCreateFilmException(uriSyntaxEception);
+                    }
                 }
-            } catch (IOException ioException)
-            {
-                LOG.error("Beim laden der Informationen eines Filmes für Arte kam es zu Verbindungsproblemen.", ioException);
-            }
+        } catch (Exception exception)
+        {
+            throw new CantCreateFilmException(exception);
         }
-        } catch(Exception e) {
-            e.printStackTrace();
-            LOG.error(e);
-        }
-        
         return film;
     }
     
-    private ArteVideoDetailsDTO getVideoDetails(Gson gson, String programId) throws IOException {
+      private ArteVideoDetailsDTO getVideoDetails(Gson gson, String programId) throws IOException {
         ArteVideoDetailsDTO details = new ArteVideoDetailsDTO();
         
         OkHttpClient httpClient = MVHttpClient.getInstance().getHttpClient();
@@ -126,7 +132,8 @@ public class ArteJsonObjectToDatenFilmCallable implements Callable<DatenFilm>
         return details;
     }
     
-    private static String getSubject(JsonObject programObject) {
+    
+    private String getSubject(JsonObject programObject) {
         String category = "";
         String subcategory = "";
         String subject;
@@ -151,8 +158,8 @@ public class ArteJsonObjectToDatenFilmCallable implements Callable<DatenFilm>
 
         return subject;
     }
-
-    private static String getTitle(JsonObject programObject) {
+    
+    private String getTitle(JsonObject programObject) {
         String title = getElementValue(programObject, JSON_ELEMENT_KEY_TITLE);
         String subtitle = getElementValue(programObject, JSON_ELEMENT_KEY_SUBTITLE);
                 
@@ -163,7 +170,8 @@ public class ArteJsonObjectToDatenFilmCallable implements Callable<DatenFilm>
         return title;
     }
 
-    private static boolean isValidProgramObject(JsonObject programObject) {
+    private boolean isValidProgramObject(JsonObject programObject)
+    {
         return programObject.has(JSON_ELEMENT_KEY_TITLE) && 
             programObject.has(JSON_ELEMENT_KEY_PROGRAM_ID) && 
             programObject.has(JSON_ELEMENT_KEY_URL) &&
@@ -171,48 +179,42 @@ public class ArteJsonObjectToDatenFilmCallable implements Callable<DatenFilm>
             !programObject.get(JSON_ELEMENT_KEY_PROGRAM_ID).isJsonNull() &&
             !programObject.get(JSON_ELEMENT_KEY_URL).isJsonNull();
     }
-    
-    private static String getElementValue(JsonObject jsonObject, String elementName) {
+
+    private String getElementValue(JsonObject jsonObject, String elementName)
+    {
         return !jsonObject.get(elementName).isJsonNull() ? jsonObject.get(elementName).getAsString() : "";        
     }
-    
-    private DatenFilm createFilm(String thema, String urlWeb, String titel, ArteVideoDTO video, ArteVideoDetailsDTO details, LocalTime durationAsTime, String beschreibung) {
-        
-        String broadcastBegin = details.getBroadcastBegin();
-        String date = MserverDatumZeit.formatDate(broadcastBegin, broadcastDateFormat);
-        String time = MserverDatumZeit.formatTime(broadcastBegin, broadcastDateFormat);
-        
-        DatenFilm film = new DatenFilm(senderName, thema, urlWeb, titel, video.getUrl(Qualities.NORMAL), "" /*urlRtmp*/,
-                date, time, durationAsTime.toSecondOfDay(), beschreibung);
-        if (video.getVideoUrls().containsKey(Qualities.HD))
-        {
-            CrawlerTool.addUrlHd(film, video.getUrl(Qualities.HD), "");
-        }
-        if (video.getVideoUrls().containsKey(Qualities.SMALL))
-        {
-            CrawlerTool.addUrlKlein(film, video.getUrl(Qualities.SMALL), "");
+
+    private Film createFilm(final String aThema,
+                            final String aUrlWeb,
+                            final String aTitel,
+                            final ArteVideoDTO aVideo,
+                            final ArteVideoDetailsDTO aArteVideoDetails,
+                            final Duration aDuration,
+                            final String aBeschreibung) throws URISyntaxException
+    {
+
+        Collection<GeoLocations> geoLocations = CrawlerTool.getGeoLocations(sender,aVideo.getUrl(Qualities.NORMAL));
+        if (aArteVideoDetails.getGeoLocation() != GeoLocations.GEO_NONE) {
+            geoLocations.remove(GeoLocations.GEO_NONE);
+            geoLocations.add(aArteVideoDetails.getGeoLocation());
         }
 
-        if (details.getGeoLocation() != GeoLocations.GEO_NONE) {
-            film.arr[DatenFilm.FILM_GEO] = details.getGeoLocation().getDescription();
+        Film film = new Film(UUID.randomUUID(), geoLocations, sender, aTitel, aThema, aArteVideoDetails.getBroadcastBegin(), aDuration, new URI(aUrlWeb));
+        film.setBeschreibung(aBeschreibung);
+        for(Qualities quality : aVideo.getVideoUrls().keySet())
+        {
+            film.addUrl(quality, CrawlerTool.stringToFilmUrl(aVideo.getUrl(quality)));
         }
-
         return film;
     }
-    
-    private Response executeRequest(String url) throws IOException {
+
+    private Response executeRequest(String url) throws IOException
+    {
         OkHttpClient httpClient = MVHttpClient.getInstance().getHttpClient();
         Request request = new Request.Builder().url(url).build();
-                
-        return httpClient.newCall(request).execute();   
+
+        return httpClient.newCall(request).execute();
     }
-    
-    private LocalTime durationAsTime(long aDurationInSeconds)
-    {
-        LocalTime localTime = LocalTime.MIN;
-        
-        localTime = localTime.plusSeconds(aDurationInSeconds);
-        
-        return localTime;
-    }
+
 }

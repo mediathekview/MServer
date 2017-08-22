@@ -5,31 +5,34 @@
  */
 package mServer.crawler;
 
-import java.io.IOException;
-import java.net.SocketTimeoutException;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.concurrent.TimeUnit;
-import java.util.concurrent.atomic.AtomicInteger;
-
 import de.mediathekview.mlib.Config;
-import de.mediathekview.mlib.daten.DatenFilm;
+import de.mediathekview.mlib.daten.Film;
 import de.mediathekview.mlib.daten.ListeFilme;
-import de.mediathekview.mlib.tool.Hash;
+import de.mediathekview.mlib.daten.Qualities;
 import de.mediathekview.mlib.tool.Log;
 import de.mediathekview.mlib.tool.MVHttpClient;
-import java.util.Collections;
-import java.util.List;
 import mServer.tool.MserverDaten;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 import okhttp3.ResponseBody;
 
-public class AddToFilmlist {
+import java.io.IOException;
+import java.net.SocketTimeoutException;
+import java.util.*;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicInteger;
+import java.util.function.Function;
+import java.util.stream.Collectors;
+
+import static mServer.crawler.CrawlerTool.getFileSize;
+
+public class AddToFilmlist
+{
     /**
      * Minimum size of films in MiB to be included in new list.
      */
+    private static final String THEMA_LIVE = "Livestream";
     private static final int MIN_SIZE_ADD_OLD = 5;
     private final static int NUMBER_OF_THREADS = 32;//(Runtime.getRuntime().availableProcessors() * Runtime.getRuntime().availableProcessors()) / 2;
     private final ListeFilme vonListe;
@@ -39,29 +42,32 @@ public class AddToFilmlist {
      */
     private final ArrayList<ImportOldFilmlistThread> threadList = new ArrayList<>();
     private AtomicInteger threadCounter = new AtomicInteger(0);
-    
 
-    public AddToFilmlist(ListeFilme vonListe, ListeFilme listeEinsortieren) {
+
+    public AddToFilmlist(ListeFilme vonListe, ListeFilme listeEinsortieren)
+    {
         this.vonListe = vonListe;
         this.listeEinsortieren = listeEinsortieren;
     }
 
-    public synchronized void addLiveStream() {
-        if (listeEinsortieren.size() <= 0) return;
-
-        vonListe.removeIf(f -> f.arr[DatenFilm.FILM_THEMA].equals(ListeFilme.THEMA_LIVE));
-        listeEinsortieren.forEach(vonListe::add);
+    public synchronized void addLiveStream()
+    {
+        if (listeEinsortieren.size() > 0)
+        {
+            vonListe.removeIf(f -> f.getThema().equals(THEMA_LIVE));
+            vonListe.addAll(listeEinsortieren);
+        }
     }
 
-    private void performTitleSearch(HashSet<Hash> hash, final int size) {
-        vonListe.parallelStream().forEach(f -> {
-            synchronized (hash) {
-                hash.add(f.getHashValueIndexAddOld());
-            }
-        });
+    private void removeExisting(final int size)
+    {
+        Set<Integer> oldHashes = vonListe.stream().map(Film::hashCode).collect(Collectors.toSet());
+        final Map<Integer, Film> newList = listeEinsortieren.stream().collect(Collectors.toMap(Film::hashCode, Function.identity(),
+                (f1, f2) -> f1));
 
-        listeEinsortieren.removeIf((f) -> hash.contains(f.getHashValueIndexAddOld()));
-        hash.clear();
+        listeEinsortieren.clear();
+        newList.keySet().removeAll(oldHashes);
+        listeEinsortieren.addAll(newList.values());
 
         Log.sysLog("===== Liste einsortieren Title =====");
         Log.sysLog("Liste einsortieren, Anzahl: " + size);
@@ -70,45 +76,24 @@ public class AddToFilmlist {
         Log.sysLog("");
     }
 
-    private void performUrlSearch(HashSet<Hash> hash, final int size) {
-        vonListe.parallelStream().forEach(f -> {
-            synchronized (hash) {
-                hash.add(f.getHashValueUrl());
-            }
-        });
-
-        listeEinsortieren.removeIf((f) -> hash.contains(f.getHashValueUrl()));
-        hash.clear();
-
-        Log.sysLog("===== Liste einsortieren URL =====");
-        Log.sysLog("Liste einsortieren, Anzahl: " + size);
-        Log.sysLog("Liste einsortieren, entfernt: " + (size - listeEinsortieren.size()));
-        Log.sysLog("Liste einsortieren, noch einsortieren: " + listeEinsortieren.size());
-        Log.sysLog("");
-    }
 
     /**
      * Remove links which don´t start with http.
--    * Remove old film entries which are smaller than MIN_SIZE_ADD_OLD.
+     * -    * Remove old film entries which are smaller than MIN_SIZE_ADD_OLD.
      */
-    private void performInitialCleanup() {
-        listeEinsortieren.removeIf(f -> !f.arr[DatenFilm.FILM_URL].toLowerCase().startsWith("http"));
-        listeEinsortieren.removeIf(f -> {
-            String groesse = f.arr[DatenFilm.FILM_GROESSE];
-            if (groesse.isEmpty())
-                return false;
-            else {
-                return Long.parseLong(groesse) < MIN_SIZE_ADD_OLD;
-            }
-
-        });
+    private void performInitialCleanup()
+    {
+        listeEinsortieren.removeIf(f -> !f.getUrl(Qualities.NORMAL).toString().toLowerCase().startsWith("http"));
+        listeEinsortieren.removeIf(f -> f.getFileSize(Qualities.NORMAL) != null && f.getFileSize(Qualities.NORMAL) < MIN_SIZE_ADD_OLD);
     }
 
-    private void startThreads() {
+    private void startThreads()
+    {
         final OkHttpClient client = MVHttpClient.getInstance().getReducedTimeOutClient();
-        
+
         List syncList = Collections.synchronizedList(listeEinsortieren);
-        for (int i = 0; i < NUMBER_OF_THREADS; ++i) {
+        for (int i = 0; i < NUMBER_OF_THREADS; ++i)
+        {
             ImportOldFilmlistThread t = new ImportOldFilmlistThread(syncList, client);
             t.setName("ImportOldFilmlistThread Thread-" + i);
             threadList.add(t);
@@ -116,35 +101,36 @@ public class AddToFilmlist {
         }
     }
 
-    private void stopThreads() {
-        if (Config.getStop()) {
+    private void stopThreads()
+    {
+        if (Config.getStop())
+        {
             for (ImportOldFilmlistThread t : threadList)
                 t.interrupt();
-            for (ImportOldFilmlistThread t : threadList) {
-                try {
+            for (ImportOldFilmlistThread t : threadList)
+            {
+                try
+                {
                     t.join();
-                } catch (InterruptedException ignored) {
+                } catch (InterruptedException ignored)
+                {
                 }
             }
         }
     }
-    
+
     /*
      * Diese Methode sortiert eine vorhandene Liste in eine andere Filmliste ein, 
      * dabei werden nur nicht vorhandene Filme einsortiert.
      */
-    public int addOldList() {
+    public int addOldList()
+    {
         threadCounter = new AtomicInteger(0);
-        final HashSet<Hash> hash = new HashSet<>(vonListe.size() + 1);
-
         performInitialCleanup();
 
         int size = listeEinsortieren.size();
 
-        performTitleSearch(hash, size);
-
-        size = listeEinsortieren.size();
-        performUrlSearch(hash, size);
+        removeExisting(size);
 
         size = listeEinsortieren.size();
         long oldSize = size;
@@ -152,17 +138,21 @@ public class AddToFilmlist {
         startThreads();
 
         int count = 0;
-        while (!Config.getStop() && threadCounter.get() > 0) {
-            try {
+        while (!Config.getStop() && threadCounter.get() > 0)
+        {
+            try
+            {
                 count++;
-                if (count % 5 == 0) {
+                if (count % 5 == 0)
+                {
                     long curSize = listeEinsortieren.size();
                     System.out.println("Liste: " + curSize);
                     System.out.println("Entfernte Einträge: " + ((oldSize - curSize)));
                     oldSize = curSize;
                 }
                 TimeUnit.SECONDS.sleep(2);
-            } catch (Exception ex) {
+            } catch (Exception ex)
+            {
                 Log.errorLog(978451205, ex, "Fehler beim Import Old");
             }
         }
@@ -181,15 +171,16 @@ public class AddToFilmlist {
     }
 
     /**
-     * 
      * Add all local thread results to the filmlist.
      *
      * @return the total number of entries found.
      */
-    private int retrieveThreadResults() {
+    private int retrieveThreadResults()
+    {
         int treffer = 0;
-        for (ImportOldFilmlistThread t : threadList) {
-            final ArrayList<DatenFilm> localList = t.getLocalAddList();
+        for (ImportOldFilmlistThread t : threadList)
+        {
+            final ArrayList<Film> localList = t.getLocalAddList();
             if (MserverDaten.debug)
                 Log.sysLog("Thread " + t.getName() + " list size: " + localList.size());
             vonListe.addAll(localList);
@@ -199,74 +190,76 @@ public class AddToFilmlist {
         return treffer;
     }
 
-    private class ImportOldFilmlistThread extends Thread {
+    private class ImportOldFilmlistThread extends Thread
+    {
 
-        private final List<DatenFilm> listeOld;
-        private final ArrayList<DatenFilm> localAddList = new ArrayList<>((vonListe.size() / NUMBER_OF_THREADS) + 500);
+        private final List<Film> listeOld;
+        private final ArrayList<Film> localAddList = new ArrayList<>((vonListe.size() / NUMBER_OF_THREADS) + 500);
         private int treffer = 0;
         private OkHttpClient client = null;
 
-        public ImportOldFilmlistThread(List<DatenFilm> listeOld, OkHttpClient client) {
+        public ImportOldFilmlistThread(List<Film> listeOld, OkHttpClient client)
+        {
             this.listeOld = listeOld;
             threadCounter.incrementAndGet();
             this.client = client;
         }
 
-        public int getTreffer() {
+        public int getTreffer()
+        {
             return treffer;
         }
 
-        public ArrayList<DatenFilm> getLocalAddList() {
+        public ArrayList<Film> getLocalAddList()
+        {
             return localAddList;
         }
 
-        private void addOld(DatenFilm film) {
+        private void addOld(Film film)
+        {
             treffer++;
-            film.init();
 
             localAddList.add(film);
         }
 
-        private synchronized DatenFilm popOld(List<DatenFilm> listeOld) {
-            if (!listeOld.isEmpty()) {
+        private synchronized Film popOld(List<Film> listeOld)
+        {
+            if (!listeOld.isEmpty())
+            {
                 return listeOld.remove(0);
             } else
                 return null;
         }
 
         @Override
-        public void run() {
+        public void run()
+        {
 
-            DatenFilm film;
-            while (!isInterrupted() && (film = popOld(listeOld)) != null) {
-                final String url = film.arr[DatenFilm.FILM_URL];
-                if (film.arr[DatenFilm.FILM_GROESSE].isEmpty()) {
-                    Request request = new Request.Builder().url(url).head().build();
-                    try (Response response = client.newCall(request).execute();
-                         ResponseBody body = response.body()) {
-                        if (response.isSuccessful()) {
-                            long respLength = body.contentLength();
-                            if (respLength < 1_000_000) {
-                                respLength = -1;
-                            } else if (respLength > 1_000_000) {
-                                respLength /= 1_000_000;
-                            }
+            Film film;
+            while (!isInterrupted() && (film = popOld(listeOld)) != null)
+            {
+                final String url = film.getUrl(Qualities.NORMAL).toString();
+                if (film.getFileSize(Qualities.NORMAL) == null)
+                {
+                    long fileSize = CrawlerTool.getFileSize(film.getUrl(Qualities.NORMAL));
 
-                            if (respLength > MIN_SIZE_ADD_OLD)
-                                addOld(film);
-                        }
-                    } catch (SocketTimeoutException ignored) {
-                    } catch (IOException ex) {
-                        ex.printStackTrace();
+                    if (fileSize > MIN_SIZE_ADD_OLD)
+                    {
+                        addOld(film);
                     }
-                } else {
-                    if (Long.parseLong(film.arr[DatenFilm.FILM_GROESSE]) > MIN_SIZE_ADD_OLD) {
+                } else
+                {
+                    if (film.getFileSize(Qualities.NORMAL) != null && film.getFileSize(Qualities.NORMAL) > MIN_SIZE_ADD_OLD)
+                    {
                         Request request = new Request.Builder().url(url).head().build();
-                        try (Response response = client.newCall(request).execute()) {
+                        try (Response response = client.newCall(request).execute())
+                        {
                             if (response.isSuccessful())
                                 addOld(film);
-                        } catch (SocketTimeoutException ignored) {
-                        } catch (IOException ex) {
+                        } catch (SocketTimeoutException ignored)
+                        {
+                        } catch (IOException ex)
+                        {
                             ex.printStackTrace();
                         }
                     }

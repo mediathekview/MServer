@@ -4,7 +4,6 @@ import com.google.gson.JsonObject;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Collection;
-import mServer.crawler.sender.newsearch.GeoLocations;
 import mServer.test.JsonFileReader;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.notNullValue;
@@ -12,9 +11,14 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 @RunWith(Parameterized.class)
 public class ArteVideoDetailsDeserializerTest {
+    private static final DateTimeFormatter broadcastDateFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ssX");//2016-10-29T16:15:00Z
     
     @Parameterized.Parameters
     public static Collection<Object[]> data() {
@@ -28,10 +32,10 @@ public class ArteVideoDetailsDeserializerTest {
     }
     
     private final String jsonFile;
-    private final String expectedBroadcastBegin;
     private final GeoLocations geo;
+    private final LocalDateTime expectedBroadcastBegin;
 
-    public ArteVideoDetailsDeserializerTest(String aJsonFile, String aExpectedBroadcastBegin, GeoLocations aGeo) {
+    public ArteVideoDetailsDeserializerTest(String aJsonFile, LocalDateTime aExpectedBroadcastBegin, GeoLocations aGeo) {
         this.jsonFile = aJsonFile;
         this.expectedBroadcastBegin = aExpectedBroadcastBegin;
         this.geo = aGeo;
@@ -42,10 +46,7 @@ public class ArteVideoDetailsDeserializerTest {
         
         JsonObject jsonObject = JsonFileReader.readJson(jsonFile);
         
-        Calendar today = Calendar.getInstance();
-        today.set(2017, 6, 11); // 11.07.2017 als heute verwenden
-        
-        ArteVideoDetailsDeserializer target = new ArteVideoDetailsDeserializer(today);
+        ArteVideoDetailsDeserializer target = new ArteVideoDetailsDeserializer();
         ArteVideoDetailsDTO actual = target.deserialize(jsonObject, ArteVideoDetailsDTO.class, null);
         
         assertThat(actual, notNullValue());
