@@ -1,20 +1,22 @@
 package de.mediathekview.mserver.crawler.ard;
 
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Set;
+import java.util.concurrent.ConcurrentLinkedQueue;
+import java.util.concurrent.ForkJoinPool;
+import java.util.concurrent.RecursiveTask;
+
 import de.mediathekview.mlib.daten.Film;
 import de.mediathekview.mlib.daten.Sender;
 import de.mediathekview.mlib.messages.listener.MessageListener;
 import de.mediathekview.mserver.base.CategoriesAZ;
-import de.mediathekview.mlib.progress.CrawlerProgressListener;
-import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
-import de.mediathekview.mserver.crawler.basic.CrawlerUrlsDTO;
 import de.mediathekview.mserver.crawler.ard.tasks.ArdSendungTask;
 import de.mediathekview.mserver.crawler.ard.tasks.ArdSendungenOverviewPageCrawler;
 import de.mediathekview.mserver.crawler.ard.tasks.ArdSendungsfolgenOverviewPageCrawler;
-
-import java.util.*;
-import java.util.concurrent.ConcurrentLinkedQueue;
-import java.util.concurrent.ForkJoinPool;
-import java.util.concurrent.RecursiveTask;
+import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
+import de.mediathekview.mserver.crawler.basic.CrawlerUrlsDTO;
+import de.mediathekview.mserver.progress.listeners.SenderProgressListener;
 
 public class ArdCrawler extends AbstractCrawler
 {
@@ -22,7 +24,7 @@ public class ArdCrawler extends AbstractCrawler
     private static final String ARD_CATEGORY_BASE_URL = ARD_BASE_URL + "/tv/sendungen-a-z?buchstabe=%s";
     private static final String ARD_DAY_BASE_URL = ARD_BASE_URL + "/tv/sendungVerpasst?tag=%d";
 
-    public ArdCrawler(ForkJoinPool aForkJoinPool, Collection<MessageListener> aMessageListeners, Collection<CrawlerProgressListener> aProgressListeners)
+    public ArdCrawler(ForkJoinPool aForkJoinPool, Collection<MessageListener> aMessageListeners, Collection<SenderProgressListener> aProgressListeners)
     {
         super(aForkJoinPool, aMessageListeners, aProgressListeners);
 
