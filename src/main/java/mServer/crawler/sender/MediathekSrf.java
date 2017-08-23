@@ -25,17 +25,19 @@ import de.mediathekview.mlib.daten.Film;
 import de.mediathekview.mlib.daten.Sender;
 import de.mediathekview.mlib.tool.Log;
 import de.mediathekview.mlib.tool.MSStringBuilder;
-import mServer.crawler.CrawlerTool;
-import mServer.crawler.FilmeSuchen;
-import mServer.crawler.GetUrl;
-import org.apache.commons.lang3.StringEscapeUtils;
-
-import java.net.URI;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Scanner;
+import java.net.URI;
+
+import mServer.crawler.CrawlerTool;
+import mServer.crawler.FilmeSuchen;
+import mServer.crawler.GetUrl;
+import org.apache.commons.lang3.StringEscapeUtils;
+import org.apache.commons.lang3.StringUtils;
 import java.util.Iterator;
 
 public class MediathekSrf extends MediathekReader
@@ -51,6 +53,9 @@ public class MediathekSrf extends MediathekReader
 
     private static final String HTTPS = "https";
     private static final String HTTP = "http";
+    private static final String SRF_TOPIC_PAGE_URL = "http://www.srf.ch/play/v2/tv/topicList?layout=json";
+    private static final String SRF_DATA_BLOCK_BEGIN_PATTERN = "data-teaser=\"";
+    private static final char SRF_DATA_BLOCK_END = '"';
 
     public MediathekSrf(FilmeSuchen ssearch, int startPrio)
     {
@@ -67,7 +72,7 @@ public class MediathekSrf extends MediathekReader
         listeThemen.clear();
         meldungStart();
         GetUrl getUrlIo = new GetUrl(getWartenSeiteLaden());
-        seite = getUrlIo.getUri_Utf(SENDER.getName(), "http://www.srf.ch/play/tv/atozshows/list?layout=json", seite, "");
+        seite = getUrlIo.getUri_Utf(SENDER.getName(), SRF_TOPIC_PAGE_URL, seite, "");
         int pos = 0;
         int pos1;
         String thema, id;
@@ -124,7 +129,6 @@ public class MediathekSrf extends MediathekReader
             try
             {
                 meldungAddThread();
-
                 final Iterator<String[]> themaIterator = listeThemen.iterator();
                 while (!Config.getStop() && themaIterator.hasNext())
                 {
@@ -144,6 +148,8 @@ public class MediathekSrf extends MediathekReader
 
             try
             {
+                //Not possible actually.
+                /*if (CrawlerTool.loadLongMax())
                 String urlFeed = "http://www.srf.ch/play/tv/episodesfromshow?id=" + urlThema + "&pageNumber=1&layout=json";
                 overviewPageFilm = getUrl.getUri_Utf(SENDER.getName(), urlFeed, overviewPageFilm, "");
                 addFilmsFromPage(overviewPageFilm, thema, urlFeed);
@@ -162,11 +168,18 @@ public class MediathekSrf extends MediathekReader
                             addFilmsFromPage(overviewPageFilm, thema, urlThema);
                         }
                     }
-                }
+                }*/
             } catch (Exception ex)
             {
                 Log.errorLog(195926364, ex);
             }
+        }
+
+        private String extractSrfTopicData(final String aPageContent)
+        {
+            int dataBlockBegin = aPageContent.indexOf(SRF_DATA_BLOCK_BEGIN_PATTERN)+SRF_DATA_BLOCK_BEGIN_PATTERN.length();
+            String tempData = aPageContent.substring(dataBlockBegin);
+            return StringEscapeUtils.unescapeHtml4(tempData.substring(0, tempData.indexOf(SRF_DATA_BLOCK_END)));
         }
 
         private void addFilmsFromPage(MSStringBuilder page, String thema, String themePageUrl)
@@ -213,6 +226,7 @@ public class MediathekSrf extends MediathekReader
             meldung(jsonMovieUrl);
 
             filmPage = getUrl.getUri_Utf(SENDER.getName(), jsonMovieUrl, filmPage, "");
+            
             try
             {
 
@@ -338,6 +352,7 @@ public class MediathekSrf extends MediathekReader
         private void getM3u8(String url3u8)
         {
             m3u8Page = getUrl.getUri_Utf(SENDER.getName(), url3u8, m3u8Page, "");
+            
             if (m3u8Page.length() == 0 && url3u8.startsWith(URL1_M3U8))
             {
                 // tauschen https://srfvodhd-vh.akamaihd.net http://hdvodsrforigin-f.akamaihd.net
