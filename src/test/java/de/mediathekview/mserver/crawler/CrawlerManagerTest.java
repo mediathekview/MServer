@@ -93,7 +93,8 @@ public class CrawlerManagerTest implements MessageListener
         }
         else
         {
-            LOG.info("%s: %s", aMessage.getMessageType().name(), MessageUtil.getInstance().loadMessageText(aMessage));
+            LOG.info(String.format("%s: %s", aMessage.getMessageType().name(),
+                    String.format(MessageUtil.getInstance().loadMessageText(aMessage), aParameters)));
         }
 
     }
