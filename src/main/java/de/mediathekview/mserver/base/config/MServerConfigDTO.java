@@ -2,83 +2,148 @@ package de.mediathekview.mserver.base.config;
 
 import de.mediathekview.mlib.config.ConfigDTO;
 import de.mediathekview.mlib.daten.Sender;
+import de.mediathekview.mlib.filmlisten.FilmlistFormats;
 
 import java.util.*;
 
 /**
  * A POJO with the configs for MServer.
  */
-public class MServerConfigDTO extends MServerBasicConfigDTO implements ConfigDTO
-{
-    /**
-     * The maximum amount of cpu threads to be used.
-     */
-    private Integer maximumCpuThreads;
-    /**
-     * The maximum duration in minutes the server should run.<br>
-     * If set to 0 the server runs without a time limit.
-     */
-    private Integer maximumServerDurationInMinutes;
-    private Map<Sender, MServerBasicConfigDTO> senderConfigurations;
+public class MServerConfigDTO extends MServerBasicConfigDTO implements ConfigDTO {
+	/**
+	 * The maximum amount of cpu threads to be used.
+	 */
+	private Integer maximumCpuThreads;
+	/**
+	 * The maximum duration in minutes the server should run.<br>
+	 * If set to 0 the server runs without a time limit.
+	 */
+	private Integer maximumServerDurationInMinutes;
+	private Map<Sender, MServerBasicConfigDTO> senderConfigurations;
+	private Set<FilmlistFormats> filmlistSaveFormats;
+	private Map<FilmlistFormats, String> filmlistSavePaths;
+	private FilmlistFormats filmlistImportFormat;
+	private String filmlistImportLocation;
 
-    public MServerConfigDTO()
-    {
-        senderConfigurations = new EnumMap<>(Sender.class);
-    }
+	public MServerConfigDTO() {
+		senderConfigurations = new EnumMap<>(Sender.class);
+		filmlistSaveFormats = new HashSet<>();
+		filmlistSavePaths = new EnumMap<>(FilmlistFormats.class);
+	}
 
-    public Map<Sender, MServerBasicConfigDTO> getSenderConfigurations()
-    {
-        return senderConfigurations;
-    }
+	public Map<Sender, MServerBasicConfigDTO> getSenderConfigurations() {
+		return senderConfigurations;
+	}
 
-    public void setSenderConfigurations(final Map<Sender, MServerBasicConfigDTO> aSenderConfigurations)
-    {
-        senderConfigurations = aSenderConfigurations;
-    }
+	public void setSenderConfigurations(final Map<Sender, MServerBasicConfigDTO> aSenderConfigurations) {
+		senderConfigurations = aSenderConfigurations;
+	}
 
-    public Integer getMaximumCpuThreads()
-    {
-        return maximumCpuThreads;
-    }
+	public Integer getMaximumCpuThreads() {
+		return maximumCpuThreads;
+	}
 
-    public void setMaximumCpuThreads(final Integer aMaximumCpuThreads)
-    {
-        maximumCpuThreads = aMaximumCpuThreads;
-    }
+	public void setMaximumCpuThreads(final Integer aMaximumCpuThreads) {
+		maximumCpuThreads = aMaximumCpuThreads;
+	}
 
-    public Integer getMaximumServerDurationInMinutes()
-    {
-        return maximumServerDurationInMinutes;
-    }
+	public Integer getMaximumServerDurationInMinutes() {
+		return maximumServerDurationInMinutes;
+	}
 
-    public void setMaximumServerDurationInMinutes(final Integer aMaximumServerDurationInMinutes)
-    {
-        maximumServerDurationInMinutes = aMaximumServerDurationInMinutes;
-    }
+	public void setMaximumServerDurationInMinutes(final Integer aMaximumServerDurationInMinutes) {
+		maximumServerDurationInMinutes = aMaximumServerDurationInMinutes;
+	}
 
-    @Override
-    public boolean equals(final Object aO)
-    {
-        if (this == aO) return true;
-        if (aO == null || getClass() != aO.getClass()) return false;
-        if (!super.equals(aO)) return false;
+	public Set<FilmlistFormats> getFilmlistSaveFormats() {
+		return filmlistSaveFormats;
+	}
 
-        final MServerConfigDTO that = (MServerConfigDTO) aO;
+	public Map<FilmlistFormats, String> getFilmlistSavePaths() {
+		return filmlistSavePaths;
+	}
 
-        if (getMaximumCpuThreads() != null ? !getMaximumCpuThreads().equals(that.getMaximumCpuThreads()) : that.getMaximumCpuThreads() != null)
-            return false;
-        if (getMaximumServerDurationInMinutes() != null ? !getMaximumServerDurationInMinutes().equals(that.getMaximumServerDurationInMinutes()) : that.getMaximumServerDurationInMinutes() != null)
-            return false;
-        return getSenderConfigurations() != null ? getSenderConfigurations().equals(that.getSenderConfigurations()) : that.getSenderConfigurations() == null;
-    }
+	public void setFilmlistSaveFormats(Set<FilmlistFormats> filmlistSaveFormats) {
+		this.filmlistSaveFormats = filmlistSaveFormats;
+	}
 
-    @Override
-    public int hashCode()
-    {
-        int result = super.hashCode();
-        result = 31 * result + (getMaximumCpuThreads() != null ? getMaximumCpuThreads().hashCode() : 0);
-        result = 31 * result + (getMaximumServerDurationInMinutes() != null ? getMaximumServerDurationInMinutes().hashCode() : 0);
-        result = 31 * result + (getSenderConfigurations() != null ? getSenderConfigurations().hashCode() : 0);
-        return result;
-    }
+	public void setFilmlistSavePaths(Map<FilmlistFormats, String> filmlistSavePaths) {
+		this.filmlistSavePaths = filmlistSavePaths;
+	}
+
+	public FilmlistFormats getFilmlistImportFormat() {
+		return filmlistImportFormat;
+	}
+
+	public void setFilmlistImportFormat(FilmlistFormats filmlistImportFormat) {
+		this.filmlistImportFormat = filmlistImportFormat;
+	}
+
+	public String getFilmlistImportLocation() {
+		return filmlistImportLocation;
+	}
+
+	public void setFilmlistImportLocation(String filmlistImportLocation) {
+		this.filmlistImportLocation = filmlistImportLocation;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = super.hashCode();
+		result = prime * result + ((filmlistImportFormat == null) ? 0 : filmlistImportFormat.hashCode());
+		result = prime * result + ((filmlistImportLocation == null) ? 0 : filmlistImportLocation.hashCode());
+		result = prime * result + ((filmlistSaveFormats == null) ? 0 : filmlistSaveFormats.hashCode());
+		result = prime * result + ((filmlistSavePaths == null) ? 0 : filmlistSavePaths.hashCode());
+		result = prime * result + ((maximumCpuThreads == null) ? 0 : maximumCpuThreads.hashCode());
+		result = prime * result
+				+ ((maximumServerDurationInMinutes == null) ? 0 : maximumServerDurationInMinutes.hashCode());
+		result = prime * result + ((senderConfigurations == null) ? 0 : senderConfigurations.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (!super.equals(obj))
+			return false;
+		if (!(obj instanceof MServerConfigDTO))
+			return false;
+		MServerConfigDTO other = (MServerConfigDTO) obj;
+		if (filmlistImportFormat != other.filmlistImportFormat)
+			return false;
+		if (filmlistImportLocation == null) {
+			if (other.filmlistImportLocation != null)
+				return false;
+		} else if (!filmlistImportLocation.equals(other.filmlistImportLocation))
+			return false;
+		if (filmlistSaveFormats == null) {
+			if (other.filmlistSaveFormats != null)
+				return false;
+		} else if (!filmlistSaveFormats.equals(other.filmlistSaveFormats))
+			return false;
+		if (filmlistSavePaths == null) {
+			if (other.filmlistSavePaths != null)
+				return false;
+		} else if (!filmlistSavePaths.equals(other.filmlistSavePaths))
+			return false;
+		if (maximumCpuThreads == null) {
+			if (other.maximumCpuThreads != null)
+				return false;
+		} else if (!maximumCpuThreads.equals(other.maximumCpuThreads))
+			return false;
+		if (maximumServerDurationInMinutes == null) {
+			if (other.maximumServerDurationInMinutes != null)
+				return false;
+		} else if (!maximumServerDurationInMinutes.equals(other.maximumServerDurationInMinutes))
+			return false;
+		if (senderConfigurations == null) {
+			if (other.senderConfigurations != null)
+				return false;
+		} else if (!senderConfigurations.equals(other.senderConfigurations))
+			return false;
+		return true;
+	}
+
 }

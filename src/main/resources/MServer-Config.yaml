@@ -8,6 +8,28 @@
     # The maximum duration in minutes the server should run.<br>
     # If set to 0 the server runs without a time limit.
     maximumServerDurationInMinutes: 0
+    
+    # The formats in which the filmlist should be saved to.
+    # Possible are: JSON, OLD_JSON, JSON_COMPRESSED, OLD_JSON_COMPRESSED
+    filmlistSaveFormats:
+      - JSON
+      - OLD_JSON
+      - JSON_COMPRESSED
+      - OLD_JSON_COMPRESSED
+    
+    # The paths where which filmlist should be safed to.
+    filmlistSavePaths:
+      JSON: ~/.mserver/filmlist/filmliste.json
+      OLD_JSON: ~/.mserver/filmlist/filmliste_old.json
+      JSON_COMPRESSED: ~/.mserver/filmlist/filmliste.json.xz
+      OLD_JSON_COMPRESSED: ~/.mserver/filmlist/filmliste_old.json.xz
+    
+    # The format of the film list to import.
+    # Possible are: JSON, OLD_JSON, JSON_COMPRESSED, OLD_JSON_COMPRESSED
+    filmlistImportFormat: OLD_JSON
+    
+    # The path/URL of the film list to import.
+    filmlistImportLocation: https://verteiler1.mediathekview.de/Filmliste-akt.xz
 
 #### Default crawler configurations ####
      # The maximum amount of URLs to be processed per task.
