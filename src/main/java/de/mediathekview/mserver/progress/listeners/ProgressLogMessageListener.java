@@ -1,11 +1,10 @@
 package de.mediathekview.mserver.progress.listeners;
 
-import de.mediathekview.mlib.daten.Sender;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
 import java.time.Duration;
 import java.time.LocalDateTime;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class ProgressLogMessageListener extends AbstractMessageListener
 {
@@ -22,7 +21,8 @@ public class ProgressLogMessageListener extends AbstractMessageListener
     /**
      * Consumes the progress message and prints it via the logger.
      */
-    public void newMessage(String aMessage)
+    @Override
+    public void newMessage(final String aMessage)
     {
         if (lastLog == null || Duration.between(lastLog, LocalDateTime.now()).getSeconds() >= MIN_SECONDS_BETWEEN_LOGS)
         {
