@@ -1,10 +1,13 @@
 package de.mediathekview.mserver.base.config;
 
+import java.util.EnumMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
+
 import de.mediathekview.mlib.config.ConfigDTO;
 import de.mediathekview.mlib.daten.Sender;
 import de.mediathekview.mlib.filmlisten.FilmlistFormats;
-
-import java.util.*;
 
 /**
  * A POJO with the configs for MServer.
@@ -20,6 +23,10 @@ public class MServerConfigDTO extends MServerBasicConfigDTO implements ConfigDTO
 	 */
 	private Integer maximumServerDurationInMinutes;
 	private Map<Sender, MServerBasicConfigDTO> senderConfigurations;
+
+	private Set<Sender> senderExcluded;
+	private Set<Sender> senderIncluded;
+
 	private Set<FilmlistFormats> filmlistSaveFormats;
 	private Map<FilmlistFormats, String> filmlistSavePaths;
 	private FilmlistFormats filmlistImportFormat;
@@ -27,6 +34,8 @@ public class MServerConfigDTO extends MServerBasicConfigDTO implements ConfigDTO
 
 	public MServerConfigDTO() {
 		senderConfigurations = new EnumMap<>(Sender.class);
+		senderExcluded = new HashSet<>();
+		senderIncluded = new HashSet<>();
 		filmlistSaveFormats = new HashSet<>();
 		filmlistSavePaths = new EnumMap<>(FilmlistFormats.class);
 	}
@@ -99,6 +108,8 @@ public class MServerConfigDTO extends MServerBasicConfigDTO implements ConfigDTO
 		result = prime * result
 				+ ((maximumServerDurationInMinutes == null) ? 0 : maximumServerDurationInMinutes.hashCode());
 		result = prime * result + ((senderConfigurations == null) ? 0 : senderConfigurations.hashCode());
+		result = prime * result + ((senderExcluded == null) ? 0 : senderExcluded.hashCode());
+		result = prime * result + ((senderIncluded == null) ? 0 : senderIncluded.hashCode());
 		return result;
 	}
 
@@ -143,7 +154,33 @@ public class MServerConfigDTO extends MServerBasicConfigDTO implements ConfigDTO
 				return false;
 		} else if (!senderConfigurations.equals(other.senderConfigurations))
 			return false;
+		if (senderExcluded == null) {
+			if (other.senderExcluded != null)
+				return false;
+		} else if (!senderExcluded.equals(other.senderExcluded))
+			return false;
+		if (senderIncluded == null) {
+			if (other.senderIncluded != null)
+				return false;
+		} else if (!senderIncluded.equals(other.senderIncluded))
+			return false;
 		return true;
 	}
 
+	public Set<Sender> getSenderExcluded() {
+		return senderExcluded;
+	}
+
+	public void setSenderExcluded(Set<Sender> senderExcluded) {
+		this.senderExcluded = senderExcluded;
+	}
+
+	public Set<Sender> getSenderIncluded() {
+		return senderIncluded;
+	}
+
+	public void setSenderIncluded(Set<Sender> senderIncluded) {
+		this.senderIncluded = senderIncluded;
+	}
+	
 }
