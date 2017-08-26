@@ -1,39 +1,41 @@
 package de.mediathekview.mserver.crawler.ard.tasks;
 
-import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
-import de.mediathekview.mserver.crawler.basic.AbstractUrlTask;
-import de.mediathekview.mserver.crawler.basic.CrawlerUrlsDTO;
-import de.mediathekview.mserver.crawler.ard.ArdCrawler;
-import de.mediathekview.mserver.crawler.ard.ArdSendungBasicInformation;
+import java.util.concurrent.ConcurrentLinkedQueue;
 
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 
-import java.util.concurrent.ConcurrentLinkedQueue;
+import de.mediathekview.mserver.crawler.ard.ArdCrawler;
+import de.mediathekview.mserver.crawler.ard.ArdSendungBasicInformation;
+import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
+import de.mediathekview.mserver.crawler.basic.AbstractUrlTask;
+import de.mediathekview.mserver.crawler.basic.CrawlerUrlsDTO;
 
 /**
  * Recursively crawls the ARD overview pages.
  */
-public abstract class AbstractArdOverviewPageCrawlerTask extends AbstractUrlTask<ArdSendungBasicInformation,CrawlerUrlsDTO> 
+public abstract class AbstractArdOverviewPageCrawlerTask
+        extends AbstractUrlTask<ArdSendungBasicInformation, CrawlerUrlsDTO>
 {
+    private static final long serialVersionUID = -7890265200149231518L;
     static final String SELECTOR_MEDIA_LINK = "a.mediaLink[href^=/tv/]";
     private static final String ATTR_HREF = "href";
 
-    AbstractArdOverviewPageCrawlerTask(AbstractCrawler aCrawler, ConcurrentLinkedQueue<CrawlerUrlsDTO> aUrlsToCrawl)
+    AbstractArdOverviewPageCrawlerTask(final AbstractCrawler aCrawler,
+            final ConcurrentLinkedQueue<CrawlerUrlsDTO> aUrlsToCrawl)
     {
         super(aCrawler, aUrlsToCrawl);
     }
 
-
+    @Override
     protected abstract AbstractArdOverviewPageCrawlerTask createNewOwnInstance();
 
     @Override
     protected abstract void processDocument(final CrawlerUrlsDTO aUrlDTO, final Document aDocument);
 
-
     String elementToSendungUrl(final Element aElement)
     {
-        String sendungUrl = aElement.attr(ATTR_HREF);
+        final String sendungUrl = aElement.attr(ATTR_HREF);
         return ArdCrawler.ARD_BASE_URL + sendungUrl;
     }
 

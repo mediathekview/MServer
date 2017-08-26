@@ -3,6 +3,7 @@ package de.mediathekview.mserver.base.progress;
 import java.util.ArrayList;
 import java.util.Collection;
 
+import de.mediathekview.mlib.messages.Message;
 import de.mediathekview.mlib.messages.listener.MessageListener;
 import de.mediathekview.mserver.progress.listeners.SenderProgressListener;
 
@@ -35,5 +36,10 @@ public abstract class AbstractManager
     public boolean addAllMessageListener(final Collection<? extends MessageListener> c)
     {
         return messageListeners.addAll(c);
+    }
+
+    protected void printMessage(final Message aMessage, final Object... args)
+    {
+        messageListeners.parallelStream().forEach(l -> l.consumeMessage(aMessage, args));
     }
 }

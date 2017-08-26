@@ -1,17 +1,17 @@
 package de.mediathekview.mserver.crawler.ard.json;
 
-import de.mediathekview.mlib.daten.Qualities;
-import de.mediathekview.mlib.daten.Sender;
-
 import java.util.HashMap;
 import java.util.Map;
 
+import de.mediathekview.mlib.daten.Qualities;
+
 /**
- *  Video information from http://www.ardmediathek.de/play/media/[documentId]?devicetype=pc&features=flash.
+ * Video information from
+ * http://www.ardmediathek.de/play/media/[documentId]?devicetype=pc&features=flash.
  */
 public class ArdVideoInfoDTO
 {
-    private Map<Qualities,String> videoUrls;
+    private final Map<Qualities, String> videoUrls;
     private String subtitleUrl;
 
     public ArdVideoInfoDTO()
@@ -36,7 +36,7 @@ public class ArdVideoInfoDTO
 
     public Qualities getDefaultQuality()
     {
-        if(videoUrls.containsKey(Qualities.NORMAL))
+        if (videoUrls.containsKey(Qualities.NORMAL))
         {
             return Qualities.NORMAL;
         }

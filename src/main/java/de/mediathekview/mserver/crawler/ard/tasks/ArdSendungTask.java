@@ -1,26 +1,5 @@
 package de.mediathekview.mserver.crawler.ard.tasks;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-
-import de.mediathekview.mlib.daten.Film;
-import de.mediathekview.mlib.daten.Qualities;
-import de.mediathekview.mlib.daten.Sender;
-import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
-import de.mediathekview.mserver.crawler.basic.AbstractUrlTask;
-import de.mediathekview.mserver.crawler.ard.ArdSendungBasicInformation;
-import de.mediathekview.mserver.crawler.ard.json.ArdBasicInfoDTO;
-import de.mediathekview.mserver.crawler.ard.json.ArdBasicInfoJsonDeserializer;
-import de.mediathekview.mserver.crawler.ard.json.ArdVideoInfoDTO;
-import de.mediathekview.mserver.crawler.ard.json.ArdVideoInfoJsonDeserializer;
-import mServer.crawler.CrawlerTool;
-import mServer.tool.MserverDatumZeit;
-
-import org.apache.commons.lang3.StringUtils;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-import org.jsoup.nodes.Document;
-
 import java.io.InputStreamReader;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -28,27 +7,52 @@ import java.net.URL;
 import java.time.Duration;
 import java.time.temporal.ChronoUnit;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.apache.commons.lang3.StringUtils;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.jsoup.nodes.Document;
+
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
+import de.mediathekview.mlib.daten.Film;
+import de.mediathekview.mlib.daten.Qualities;
+import de.mediathekview.mlib.daten.Sender;
+import de.mediathekview.mserver.crawler.ard.ArdSendungBasicInformation;
+import de.mediathekview.mserver.crawler.ard.json.ArdBasicInfoDTO;
+import de.mediathekview.mserver.crawler.ard.json.ArdBasicInfoJsonDeserializer;
+import de.mediathekview.mserver.crawler.ard.json.ArdVideoInfoDTO;
+import de.mediathekview.mserver.crawler.ard.json.ArdVideoInfoJsonDeserializer;
+import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
+import de.mediathekview.mserver.crawler.basic.AbstractUrlTask;
+import mServer.crawler.CrawlerTool;
+import mServer.tool.MserverDatumZeit;
+
 /**
  * Recursively crawls the ARD Sendungsfolge page.
  */
-public class ArdSendungTask extends AbstractUrlTask<Film,ArdSendungBasicInformation>
+public class ArdSendungTask extends AbstractUrlTask<Film, ArdSendungBasicInformation>
 {
+    private static final long serialVersionUID = -1528093537733110822L;
     private static final Logger LOG = LogManager.getLogger(ArdSendungTask.class);
     private static final String REGEX_PATTERN_DOCUMENT_ID = "(?<=&documentId=)\\d+";
-    private static final String LOAD_DOCUMENT_ERRORTEXTPATTERN = "Something terrible happened while convert \"%s\" to a film.";
+    private static final String LOAD_DOCUMENT_ERRORTEXTPATTERN =
+            "Something terrible happened while convert \"%s\" to a film.";
     private static final String URL_BASE_PATTERN_BASIC_INFO = "http://www.ardmediathek.de/play/sola/%s";
-    private static final String URL_BASE_PATTERN_VIDEO_INFO = "http://www.ardmediathek.de/play/media/%s?devicetype=pc&features=flash";
+    private static final String URL_BASE_PATTERN_VIDEO_INFO =
+            "http://www.ardmediathek.de/play/media/%s?devicetype=pc&features=flash";
     private static final String SELECTOR_CLIP_INFO = "div.modClipinfo p.subtitle";
     private static final String SPLITTERATOR_CLIP_INFO = "\\s\\|\\s";
     private static final String REGEX_PATTERN_NUMBERS = "\\d+";
 
-
-    public ArdSendungTask(final AbstractCrawler aCrawler, final ConcurrentLinkedQueue<ArdSendungBasicInformation> aArdSendungBasicInformation)
+    public ArdSendungTask(final AbstractCrawler aCrawler,
+            final ConcurrentLinkedQueue<ArdSendungBasicInformation> aArdSendungBasicInformation)
     {
         super(aCrawler, aArdSendungBasicInformation);
     }
@@ -65,42 +69,33 @@ public class ArdSendungTask extends AbstractUrlTask<Film,ArdSendungBasicInformat
         try
         {
             final String[] clipInfo = getClipInfo(aDocument);
-            String datumAsText = gatherDatum(clipInfo);
-            int dauerInMinutes = gatherDauerInMinutes(clipInfo);
+            final String datumAsText = gatherDatum(clipInfo);
+            final int dauerInMinutes = gatherDauerInMinutes(clipInfo);
 
-            String sendezeitAsText = aUrlDTO.getSendezeitAsText();
-            String documentId = getDocumentIdFromUrl(aUrlDTO.getUrl());
+            final String sendezeitAsText = aUrlDTO.getSendezeitAsText();
+            final String documentId = getDocumentIdFromUrl(aUrlDTO.getUrl());
 
-            Gson gson = createGson();
-            ArdBasicInfoDTO basicInfo = gson.fromJson(
-                    new InputStreamReader(
-                            new URL(buildBasicInfoUrl(documentId)
-                            ).openStream())
-                    , ArdBasicInfoDTO.class);
+            final Gson gson = createGson();
+            final ArdBasicInfoDTO basicInfo = gson.fromJson(
+                    new InputStreamReader(new URL(buildBasicInfoUrl(documentId)).openStream()), ArdBasicInfoDTO.class);
 
-            ArdVideoInfoDTO videoInfo = gson.fromJson(
-                    new InputStreamReader(
-                            new URL(buildVideoInfoUrl(documentId)
-                            ).openStream())
-                    , ArdVideoInfoDTO.class);
+            final ArdVideoInfoDTO videoInfo = gson.fromJson(
+                    new InputStreamReader(new URL(buildVideoInfoUrl(documentId)).openStream()), ArdVideoInfoDTO.class);
 
-            Sender sender = getSenderFromName(basicInfo.getSenderName());
+            final Sender sender = getSenderFromName(basicInfo.getSenderName());
 
-            Film newFilm = new Film(UUID.randomUUID(),
-                    CrawlerTool.getGeoLocations(sender, videoInfo.getDefaultVideoUrl()),
-                    sender,
-                    basicInfo.getTitle(),
-                    basicInfo.getThema(),
-                    MserverDatumZeit.parseDateTime(datumAsText, sendezeitAsText),
-                    Duration.of(dauerInMinutes, ChronoUnit.MINUTES),
-                    new URI(aUrlDTO.getUrl()));
-            if(StringUtils.isNotBlank(videoInfo.getSubtitleUrl()))
+            final Film newFilm = new Film(UUID.randomUUID(),
+                    CrawlerTool.getGeoLocations(sender, videoInfo.getDefaultVideoUrl()), sender, basicInfo.getTitle(),
+                    basicInfo.getThema(), MserverDatumZeit.parseDateTime(datumAsText, sendezeitAsText),
+                    Duration.of(dauerInMinutes, ChronoUnit.MINUTES), new URI(aUrlDTO.getUrl()));
+            if (StringUtils.isNotBlank(videoInfo.getSubtitleUrl()))
             {
                 newFilm.addSubtitle(new URI(videoInfo.getSubtitleUrl()));
             }
-            addUrls(newFilm,videoInfo.getVideoUrls());
+            addUrls(newFilm, videoInfo.getVideoUrls());
             taskResults.add(newFilm);
-        } catch (Exception exception)
+        }
+        catch (final Exception exception)
         {
             LOG.error(String.format(LOAD_DOCUMENT_ERRORTEXTPATTERN, crawler.getSender().getName()), exception);
             crawler.printErrorMessage();
@@ -112,9 +107,9 @@ public class ArdSendungTask extends AbstractUrlTask<Film,ArdSendungBasicInformat
 
     private void addUrls(final Film aFilm, final Map<Qualities, String> aVideoUrls) throws URISyntaxException
     {
-        for(Qualities qualitiy : aVideoUrls.keySet())
+        for (final Entry<Qualities, String> qualitiesEntry : aVideoUrls.entrySet())
         {
-            aFilm.addUrl(qualitiy, CrawlerTool.stringToFilmUrl(aVideoUrls.get(qualitiy)));
+            aFilm.addUrl(qualitiesEntry.getKey(), CrawlerTool.stringToFilmUrl(qualitiesEntry.getValue()));
         }
     }
 
@@ -130,14 +125,14 @@ public class ArdSendungTask extends AbstractUrlTask<Film,ArdSendungBasicInformat
 
     private int gatherDauerInMinutes(final String[] aClipInfo)
     {
-        Matcher numberMatcher = Pattern.compile(REGEX_PATTERN_NUMBERS).matcher(aClipInfo[1]);
+        final Matcher numberMatcher = Pattern.compile(REGEX_PATTERN_NUMBERS).matcher(aClipInfo[1]);
         numberMatcher.find();
         return Integer.parseInt(numberMatcher.group());
     }
 
     private Sender getSenderFromName(final String aSenderName)
     {
-        Sender foundSender = Sender.getSenderByName(aSenderName);
+        final Sender foundSender = Sender.getSenderByName(aSenderName);
         return foundSender == null ? Sender.ARD : foundSender;
     }
 
@@ -153,15 +148,13 @@ public class ArdSendungTask extends AbstractUrlTask<Film,ArdSendungBasicInformat
 
     private Gson createGson()
     {
-        return new GsonBuilder()
-                .registerTypeAdapter(ArdBasicInfoDTO.class, new ArdBasicInfoJsonDeserializer())
-                .registerTypeAdapter(ArdVideoInfoDTO.class, new ArdVideoInfoJsonDeserializer())
-                .create();
+        return new GsonBuilder().registerTypeAdapter(ArdBasicInfoDTO.class, new ArdBasicInfoJsonDeserializer())
+                .registerTypeAdapter(ArdVideoInfoDTO.class, new ArdVideoInfoJsonDeserializer()).create();
     }
 
     private String getDocumentIdFromUrl(final String aUrl)
     {
-        Matcher documentIdRegexMatcher = Pattern.compile(REGEX_PATTERN_DOCUMENT_ID).matcher(aUrl);
+        final Matcher documentIdRegexMatcher = Pattern.compile(REGEX_PATTERN_DOCUMENT_ID).matcher(aUrl);
         return documentIdRegexMatcher.find() ? documentIdRegexMatcher.group() : "";
     }
 

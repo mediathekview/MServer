@@ -11,8 +11,8 @@
     
     # These Sender will NOT be crawled.
     # If no Sender are included the server will crawl all Sender but these.
-    senderExcluded:
-      - ARD
+    #senderExcluded:
+    #  - ARD
     
     # If set only these Sender will be crawled all other will be ignored.
     #senderIncluded:
@@ -35,7 +35,7 @@
     
     # The format of the film list to import.
     # Possible are: JSON, OLD_JSON, JSON_COMPRESSED, OLD_JSON_COMPRESSED
-    filmlistImportFormat: OLD_JSON
+    filmlistImportFormat: OLD_JSON_COMPRESSED
     
     # The path/URL of the film list to import.
     filmlistImportLocation: https://verteiler1.mediathekview.de/Filmliste-akt.xz
