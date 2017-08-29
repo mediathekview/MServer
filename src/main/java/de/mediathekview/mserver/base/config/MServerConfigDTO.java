@@ -1,7 +1,5 @@
 package de.mediathekview.mserver.base.config;
 
-import org.apache.logging.log4j.Level;
-
 import java.util.EnumMap;
 import java.util.HashSet;
 import java.util.Map;
@@ -33,16 +31,9 @@ public class MServerConfigDTO extends MServerBasicConfigDTO implements ConfigDTO
 	private Map<FilmlistFormats, String> filmlistSavePaths;
 	private FilmlistFormats filmlistImportFormat;
 	private String filmlistImportLocation;
-	
-	private Level logLevelConsole;
-    private Level logLevelFile;
-    private Boolean logActivateConsole;
-    private Boolean logActivateFile;
-    private Boolean logActivateRollingFileAppend;
-    private String logPatternConsole;
-    private String logPatternFile;
-    private String logFileSavePath;
-    private String logFileRollingPattern;
+
+	private MServerFTPSettings ftpSettings;
+	private MServerLogSettingsDTO logSettings;
 
 	public MServerConfigDTO() {
 		senderConfigurations = new EnumMap<>(Sender.class);
@@ -50,6 +41,8 @@ public class MServerConfigDTO extends MServerBasicConfigDTO implements ConfigDTO
 		senderIncluded = new HashSet<>();
 		filmlistSaveFormats = new HashSet<>();
 		filmlistSavePaths = new EnumMap<>(FilmlistFormats.class);
+		ftpSettings = new MServerFTPSettings();
+		logSettings = new MServerLogSettingsDTO();
 	}
 
 	public Map<Sender, MServerBasicConfigDTO> getSenderConfigurations() {
@@ -116,6 +109,8 @@ public class MServerConfigDTO extends MServerBasicConfigDTO implements ConfigDTO
 		result = prime * result + ((filmlistImportLocation == null) ? 0 : filmlistImportLocation.hashCode());
 		result = prime * result + ((filmlistSaveFormats == null) ? 0 : filmlistSaveFormats.hashCode());
 		result = prime * result + ((filmlistSavePaths == null) ? 0 : filmlistSavePaths.hashCode());
+		result = prime * result + ((ftpSettings == null) ? 0 : ftpSettings.hashCode());
+		result = prime * result + ((logSettings == null) ? 0 : logSettings.hashCode());
 		result = prime * result + ((maximumCpuThreads == null) ? 0 : maximumCpuThreads.hashCode());
 		result = prime * result
 				+ ((maximumServerDurationInMinutes == null) ? 0 : maximumServerDurationInMinutes.hashCode());
@@ -150,6 +145,16 @@ public class MServerConfigDTO extends MServerBasicConfigDTO implements ConfigDTO
 			if (other.filmlistSavePaths != null)
 				return false;
 		} else if (!filmlistSavePaths.equals(other.filmlistSavePaths))
+			return false;
+		if (ftpSettings == null) {
+			if (other.ftpSettings != null)
+				return false;
+		} else if (!ftpSettings.equals(other.ftpSettings))
+			return false;
+		if (logSettings == null) {
+			if (other.logSettings != null)
+				return false;
+		} else if (!logSettings.equals(other.logSettings))
 			return false;
 		if (maximumCpuThreads == null) {
 			if (other.maximumCpuThreads != null)
@@ -194,5 +199,21 @@ public class MServerConfigDTO extends MServerBasicConfigDTO implements ConfigDTO
 	public void setSenderIncluded(Set<Sender> senderIncluded) {
 		this.senderIncluded = senderIncluded;
 	}
-	
+
+	public MServerFTPSettings getFtpSettings() {
+		return ftpSettings;
+	}
+
+	public void setFtpSettings(MServerFTPSettings ftpSettings) {
+		this.ftpSettings = ftpSettings;
+	}
+
+	public MServerLogSettingsDTO getLogSettings() {
+		return logSettings;
+	}
+
+	public void setLogSettings(MServerLogSettingsDTO logSettings) {
+		this.logSettings = logSettings;
+	}
+
 }

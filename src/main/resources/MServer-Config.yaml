@@ -65,38 +65,68 @@
         # the amount set by this is 5 then the crawler crawls pages 1 to 5.
 #          maximumSubpages: 3
 
-#### Logging configurations ####
+#### FTP ####
+  ftpSettings:
+    # En- / disables FTP
+    ftpEnabled: false
+    
+    # The FTP server url
+    # Required if enabled
+    # ftpUrl: ftp://ftp.example.com/
+    
+    # The paths where to safe the film list files on the server and which to safe on it.
+    # WARNING: You can only set the path for film list formats you listed in "filmlistSaveFormats".
+    # Required if enabled
+     ftpTargetFilePaths: 
+       JSON: /var/www/mediathekview/filmlisten/filmliste.json
+       OLD_JSON: /var/www/mediathekview/filmlisten/filmliste_old.json
+       JSON_COMPRESSED: /var/www/mediathekview/filmlisten/filmliste.json.xz
+       OLD_JSON_COMPRESSED: /var/www/mediathekview/filmlisten/filmliste_old.json.xz
+    
+    # The FTP port of the server.
+    # Optional, if not set the default will be used.
+    # ftpPort: 21
+    
+    # The username of the FTP user.
+    # Optional but required if password is set.
+    # ftpUsername: ftpUser
+    
+    # The password of the FTP user.
+    # Optional but required if the username is set.
+    # ftpPassword: !fTpSeCuReD
 
-    # The log level for the console.
-    # Can be: DEBUG, INFO, WARN, ERROR, FATAL
-    logLevelConsole: WARN
-    
-    # The log level for the log file.
-    # Can be: DEBUG, INFO, WARN, ERROR, FATAL
-    logLevelFile: INFO
-    
-    # Should be logged to console?
-    logActivateConsole: true
-    
-    # Should be logged to console?
-    logActivateFile: true
-    
-    # En- or disables the rolling file appender.
-    # If enabled the rolling file appender creates a new log file for every run.
-    # See: https://logging.apache.org/log4j/2.0/manual/appenders.html#RollingFileAppender
-    logActivateRollingFileAppend: true
-    
-    # The output pattern of the console log.
-    # See: https://logging.apache.org/log4j/2.0/manual/layouts.html#PatternLayout
-    logPatternConsole: %d{HH:mm:ss.SSS} %highlight{%d [%t] %-5level: %msg%n%throwable}
-    
-    # The output pattern of the file log.
-    # See: https://logging.apache.org/log4j/2.0/manual/layouts.html#PatternLayout
-    logPatternFile: %d{HH:mm:ss.SSS} %d [%t] %-5level: %msg%n%throwable
-    
-    # The path where the actual log file should be safed to.
-    logFileSavePath: logs/server.log
-    
-    # The pattern of the file name of the archived log files.
-    # See: https://logging.apache.org/log4j/2.0/manual/appenders.html#RollingFileAppender
-    logFileRollingPattern: logs/$${date:yyyy-MM}/server-%d{MM-dd-yyyy}-%i.log.gz
+#### Logging ####
+    logSettings:
+      # The log level for the console.
+      # Can be: DEBUG, INFO, WARN, ERROR, FATAL
+      logLevelConsole: WARN
+      
+      # The log level for the log file.
+      # Can be: DEBUG, INFO, WARN, ERROR, FATAL
+      logLevelFile: INFO
+      
+      # Should be logged to console?
+      logActivateConsole: true
+      
+      # Should be logged to console?
+      logActivateFile: true
+      
+      # En- or disables the rolling file appender.
+      # If enabled the rolling file appender creates a new log file for every run.
+      # See: https://logging.apache.org/log4j/2.0/manual/appenders.html#RollingFileAppender
+      logActivateRollingFileAppend: true
+      
+      # The output pattern of the console log.
+      # See: https://logging.apache.org/log4j/2.0/manual/layouts.html#PatternLayout
+      logPatternConsole: "%d{HH:mm:ss.SSS} %highlight{%d [%t] %-5level: %msg%n%throwable}"
+      
+      # The output pattern of the file log.
+      # See: https://logging.apache.org/log4j/2.0/manual/layouts.html#PatternLayout
+      logPatternFile: "%d{HH:mm:ss.SSS} %d [%t] %-5level: %msg%n%throwable"
+      
+      # The path where the actual log file should be safed to.
+      logFileSavePath: logs/server.log
+      
+      # The pattern of the file name of the archived log files.
+      # See: https://logging.apache.org/log4j/2.0/manual/appenders.html#RollingFileAppender
+      logFileRollingPattern: logs/$${date:yyyy-MM}/server-%d{MM-dd-yyyy}-%i.log.gz

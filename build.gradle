@@ -34,6 +34,12 @@ task copyRuntimeLibs(type: Copy) {
     from configurations.testRuntime - configurations.runtime
 }
 
+task copyTestResources(type: Copy) {
+    from "${projectDir}/src/test/resources"
+    into "${buildDir}/classes/test"
+}
+processTestResources.dependsOn copyTestResources
+
 repositories {
     mavenLocal()
     maven {
