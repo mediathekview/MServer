@@ -1,5 +1,7 @@
 package de.mediathekview.mserver.base.config;
 
+import org.apache.logging.log4j.Level;
+
 import java.util.EnumMap;
 import java.util.HashSet;
 import java.util.Map;
@@ -31,6 +33,16 @@ public class MServerConfigDTO extends MServerBasicConfigDTO implements ConfigDTO
 	private Map<FilmlistFormats, String> filmlistSavePaths;
 	private FilmlistFormats filmlistImportFormat;
 	private String filmlistImportLocation;
+	
+	private Level logLevelConsole;
+    private Level logLevelFile;
+    private Boolean logActivateConsole;
+    private Boolean logActivateFile;
+    private Boolean logActivateRollingFileAppend;
+    private String logPatternConsole;
+    private String logPatternFile;
+    private String logFileSavePath;
+    private String logFileRollingPattern;
 
 	public MServerConfigDTO() {
 		senderConfigurations = new EnumMap<>(Sender.class);
