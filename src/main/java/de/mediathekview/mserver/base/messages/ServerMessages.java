@@ -25,8 +25,11 @@ public enum ServerMessages implements Message
     FILMLIST_IMPORT_FILE_NO_READ_PERMISSION("filmlistImportFileNoReadPermission", MessageTypes.FATAL_ERROR),
     NO_FILMLIST_IMPORT_FORMAT_IN_CONFIG("noFilmlistImportFormatInConfig", MessageTypes.FATAL_ERROR),
     NO_FILMLIST_IMPORT_LOCATION_IN_CONFIG("noFilmlistImportLocationInConfig", MessageTypes.FATAL_ERROR),
-    FILMLIST_FTP_UPLOAD_ERROR("filmlistFtpUploadError", MessageTypes.FATAL_ERROR),
-    FTP_FILE_SIZE_ERROR("ftpFileSizeError", MessageTypes.FATAL_ERROR);
+    FTP_UPLOAD_ERROR("ftpUploadError", MessageTypes.ERROR),
+    FTP_URL_ERROR("ftpUrlError", MessageTypes.ERROR),
+    FILMLIST_FTP_UPLOAD_ERROR("filmlistFtpUploadError", MessageTypes.ERROR),
+    FTP_FILE_SIZE_ERROR("ftpFileSizeError", MessageTypes.ERROR),
+    FTP_FORMAT_NOT_IN_SAVE_FORMATS("ftpFormatNotInSaveFormats", MessageTypes.ERROR);
 
     private String messageKey;
     private MessageTypes messageType;
