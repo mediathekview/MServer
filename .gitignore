@@ -22,3 +22,4 @@ build/
 version.properties
 RepoZugang.properties
 
+/logs/

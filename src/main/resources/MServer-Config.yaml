@@ -104,7 +104,7 @@
       
       # The log level for the log file.
       # Can be: DEBUG, INFO, WARN, ERROR, FATAL
-      logLevelFile: DEBUG
+      logLevelFile: ERROR
       
       # Should be logged to console?
       logActivateConsole: true

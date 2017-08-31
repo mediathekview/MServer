@@ -1,6 +1,5 @@
 package de.mediathekview.mserver.base.uploader.ftp;
 
-import java.net.URL;
 import java.util.Optional;
 
 import de.mediathekview.mserver.base.uploader.UploadTarget;
@@ -10,10 +9,10 @@ public class FtpUploadTarget implements UploadTarget
     private Optional<String> username;
     private Optional<String> password;
     private Optional<Integer> port;
-    private final URL serverUrl;
+    private final String serverUrl;
     private final String targetPath;
 
-    public FtpUploadTarget(final URL aServerUrl, final String aTargetPath)
+    public FtpUploadTarget(final String aServerUrl, final String aTargetPath)
     {
         super();
         serverUrl = aServerUrl;
@@ -44,7 +43,7 @@ public class FtpUploadTarget implements UploadTarget
         password = aPassword;
     }
 
-    public URL getServerUrl()
+    public String getServerUrl()
     {
         return serverUrl;
     }
