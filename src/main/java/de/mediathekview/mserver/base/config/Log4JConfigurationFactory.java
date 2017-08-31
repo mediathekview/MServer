@@ -10,7 +10,7 @@ import org.apache.logging.log4j.core.config.Configuration;
 import org.apache.logging.log4j.core.config.ConfigurationFactory;
 import org.apache.logging.log4j.core.config.ConfigurationSource;
 import org.apache.logging.log4j.core.config.Order;
-import org.apache.logging.log4j.core.config.builder.api.AppenderComponentBuilder;
+import org.apache.logging.log4j.core.config.builder.api.*;
 import org.apache.logging.log4j.core.config.builder.api.ConfigurationBuilder;
 import org.apache.logging.log4j.core.config.builder.impl.BuiltConfiguration;
 import org.apache.logging.log4j.core.config.plugins.Plugin;
@@ -21,61 +21,112 @@ public class Log4JConfigurationFactory extends ConfigurationFactory
 {
     private static final String APPENDER_NAME_STDERR = "Stderr";
     private static final String APPENDER_NAME_STDOUT = "Stdout";
+    private static final String APPENDER_NAME_FILE = "file";
+    private static final String APPENDER_NAME_ROLLING_FILE = "rollingfile";
     private static final String LAYOUT_PATTERN = "PatternLayout";
     private static final String FILTER_THRESHOLD = "ThresholdFilter";
     private static final String ATTRIBUTE_LEVEL = "level";
     private static final String ATTRIBUTE_PATTERN = "pattern";
     private static final String ATTRIBUTE_TARGET = "target";
     private static final String CONSOLE = "CONSOLE";
+    
+    private static MServerLogSettingsDTO logSettings;
 
-    static Configuration createConfiguration(final String name, final ConfigurationBuilder<BuiltConfiguration> builder)
+    static Configuration createConfiguration(final String name, final ConfigurationBuilder<BuiltConfiguration> aBuilder)
     {
-        final MServerLogSettingsDTO logSettings = MServerConfigManager.getInstance().getConfig().getLogSettings();
+        logSettings = MServerConfigManager.getInstance().getConfig().getLogSettings();
 
-        builder.setConfigurationName(name);
-        builder.setStatusLevel(Level.ERROR);
-
-        if (logSettings.getLogActivateConsole() != null && logSettings.getLogActivateConsole())
+        aBuilder.setConfigurationName(name);
+        //aBuilder.setStatusLevel(Level.ERROR);
+        
+        RootLoggerComponentBuilder rootLogger = aBuilder.newRootLogger(logSettings.getLogLevelConsole());
+        if (logSettings.getLogActivateConsole())
         {
-            final AppenderComponentBuilder consoleOutAppenderBuilder =
-                    builder.newAppender(APPENDER_NAME_STDOUT, CONSOLE).addAttribute(ATTRIBUTE_TARGET,
+            addConsoleOutBuilder(aBuilder);
+            addConsoleErrBuilder(aBuilder);
+            rootLogger.add(aBuilder.newAppenderRef(APPENDER_NAME_STDOUT));
+            rootLogger.add(aBuilder.newAppenderRef(APPENDER_NAME_STDERR));
+        }
+        
+        if (logSettings.getLogActivateFile())
+        {
+            addFileBuilder(aBuilder);
+            if(logSettings.getLogActivateRollingFileAppend())
+            {
+                rootLogger.add(aBuilder.newAppenderRef(APPENDER_NAME_ROLLING_FILE));
+            } else {
+                rootLogger.add(aBuilder.newAppenderRef(APPENDER_NAME_FILE));
+            }
+
+        }
+
+        aBuilder.add(rootLogger);
+        return aBuilder.build();
+    }
+
+    private static void addFileBuilder(final ConfigurationBuilder<BuiltConfiguration> aBuilder)
+    {
+        ComponentBuilder triggeringPolicy = aBuilder.newComponent("Policies")
+        .addComponent(aBuilder.newComponent("OnStartupTriggeringPolicy"));
+ 
+        AppenderComponentBuilder appenderBuilder;
+        
+        if(logSettings.getLogActivateRollingFileAppend())
+        {
+            appenderBuilder = aBuilder.newAppender(APPENDER_NAME_ROLLING_FILE, "RollingFile");
+            
+            appenderBuilder.addAttribute("filePattern", filePattern)
+                           .addComponent(triggeringPolicy);
+        } else {
+            appenderBuilder = aBuilder.newAppender(APPENDER_NAME_FILE, "File");
+        }
+        
+        appenderBuilder.addAttribute("fileName", logSettings.getLogFileSavePath());
+        
+        addPattern(aBuilder, appenderBuilder, logSettings.getLogPatternFile());
+        
+        appenderBuilder.add(aBuilder.newFilter(FILTER_THRESHOLD,
+            Filter.Result.NEUTRAL, Filter.Result.DENY)
+            .addAttribute(ATTRIBUTE_LEVEL, logSettings.getLogLevelFile()));
+        
+        aBuilder.add(appenderBuilder);
+
+    }
+
+    private static void addConsoleOutBuilder(final ConfigurationBuilder<BuiltConfiguration> aBuilder)
+    {
+        final AppenderComponentBuilder consoleOutAppenderBuilder =
+                    aBuilder.newAppender(APPENDER_NAME_STDOUT, CONSOLE).addAttribute(ATTRIBUTE_TARGET,
                             ConsoleAppender.Target.SYSTEM_OUT);
 
-            addConsolePattern(builder, logSettings, consoleOutAppenderBuilder);
-             consoleOutAppenderBuilder.add(builder.newFilter(FILTER_THRESHOLD,
+            addPattern(aBuilder, consoleOutAppenderBuilder,logSettings.getLogPatternConsole());
+             consoleOutAppenderBuilder.add(aBuilder.newFilter(FILTER_THRESHOLD,
              Filter.Result.DENY, Filter.Result.NEUTRAL)
              .addAttribute(ATTRIBUTE_LEVEL, Level.ERROR));
 
-            builder.add(consoleOutAppenderBuilder);
-
-            final AppenderComponentBuilder consoleErrAppenderBuilder =
-                    builder.newAppender(APPENDER_NAME_STDERR, CONSOLE).addAttribute(ATTRIBUTE_TARGET,
+            aBuilder.add(consoleOutAppenderBuilder);
+    }
+    
+    private static void addConsoleErrBuilder(final ConfigurationBuilder<BuiltConfiguration> aBuilder)
+    {
+        final AppenderComponentBuilder consoleErrAppenderBuilder =
+                    aBuilder.newAppender(APPENDER_NAME_STDERR, CONSOLE).addAttribute(ATTRIBUTE_TARGET,
                             ConsoleAppender.Target.SYSTEM_ERR);
 
-            addConsolePattern(builder, logSettings, consoleErrAppenderBuilder);
+            addPattern(aBuilder, consoleErrAppenderBuilder,logSettings.getLogPatternConsole());
 
              consoleErrAppenderBuilder
-             .add(builder.newFilter(FILTER_THRESHOLD, Filter.Result.ACCEPT,
+             .add(aBuilder.newFilter(FILTER_THRESHOLD, Filter.Result.ACCEPT,
              Filter.Result.DENY)
              .addAttribute(ATTRIBUTE_LEVEL, Level.ERROR));
 
-            builder.add(consoleErrAppenderBuilder);
-        }
-
-        builder.add(builder.newLogger("org.apache.logging.log4j", Level.DEBUG)
-                .add(builder.newAppenderRef(APPENDER_NAME_STDOUT)).addAttribute("additivity", false));
-        builder.add(builder.newRootLogger(logSettings.getLogLevelConsole())
-        .add(builder.newAppenderRef(APPENDER_NAME_STDOUT))
-        .add(builder.newAppenderRef(APPENDER_NAME_STDERR))
-        );
-        return builder.build();
+            aBuilder.add(consoleErrAppenderBuilder);
     }
-
-    private static void addConsolePattern(final ConfigurationBuilder<BuiltConfiguration> aBuilder,
-            final MServerLogSettingsDTO aLogSettings, final AppenderComponentBuilder aConsoleAppenderBuilder)
+    private static void addPattern(final ConfigurationBuilder<BuiltConfiguration> aBuilder,
+            final AppenderComponentBuilder aAppenderBuilder, String aPattern)
     {
-        aConsoleAppenderBuilder.add(aBuilder.newLayout(LAYOUT_PATTERN).addAttribute(ATTRIBUTE_PATTERN,
-                aLogSettings.getLogPatternConsole()));
+        aAppenderBuilder.add(aBuilder.newLayout(LAYOUT_PATTERN).addAttribute(ATTRIBUTE_PATTERN,
+                aPattern));
     }
 
     @Override
@@ -88,8 +139,8 @@ public class Log4JConfigurationFactory extends ConfigurationFactory
     public Configuration getConfiguration(final LoggerContext loggerContext, final String name,
             final URI configLocation)
     {
-        final ConfigurationBuilder<BuiltConfiguration> builder = newConfigurationBuilder();
-        return createConfiguration(name, builder);
+        final ConfigurationBuilder<BuiltConfiguration> aBuilder = newConfigurationBuilder();
+        return createConfiguration(name, aBuilder);
     }
 
     @Override

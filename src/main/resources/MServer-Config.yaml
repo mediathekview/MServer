@@ -104,7 +104,7 @@
       
       # The log level for the log file.
       # Can be: DEBUG, INFO, WARN, ERROR, FATAL
-      logLevelFile: INFO
+      logLevelFile: DEBUG
       
       # Should be logged to console?
       logActivateConsole: true
@@ -130,4 +130,4 @@
       
       # The pattern of the file name of the archived log files.
       # See: https://logging.apache.org/log4j/2.0/manual/appenders.html#RollingFileAppender
-      logFileRollingPattern: logs/$${date:yyyy-MM}/server-%d{MM-dd-yyyy}-%i.log.gz
+      logFileRollingPattern: logs/${date:yyyy-MM}/server-%d{MM-dd-yyyy}-%i.log

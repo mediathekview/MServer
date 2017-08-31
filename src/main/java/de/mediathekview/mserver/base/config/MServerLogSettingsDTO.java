@@ -15,6 +15,16 @@ public class MServerLogSettingsDTO {
 	
 	public MServerLogSettingsDTO() {
 		super();
+		
+		logLevelConsole = Level.INFO;
+		logLevelFile = Level.ERROR;
+		logActivateConsole = true;
+		logActivateFile = true;
+		logActivateRollingFileAppend = true;
+        logPatternConsole = "%d{HH:mm:ss.SSS} %highlight{%d [%t] %-5level: %msg%n%throwable}";
+        logPatternFile = "%d{HH:mm:ss.SSS} %d [%t] %-5level: %msg%n%throwable";
+        logFileSavePath = "logs/server.log";
+        logFileRollingPattern = "logs/$${date:yyyy-MM}/server-%d{MM-dd-yyyy}-%i.log";
 	}
 	
 	public Level getLogLevelConsole() {
