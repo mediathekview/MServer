@@ -26,6 +26,7 @@ public class Log4JConfigurationFactory extends ConfigurationFactory
     private static final String ATTRIBUTE_LEVEL = "level";
     private static final String ATTRIBUTE_PATTERN = "pattern";
     private static final String ATTRIBUTE_TARGET = "target";
+    private static final String CONSOLE = "CONSOLE";
 
     static Configuration createConfiguration(final String name, final ConfigurationBuilder<BuiltConfiguration> builder)
     {
@@ -37,42 +38,36 @@ public class Log4JConfigurationFactory extends ConfigurationFactory
         if (logSettings.getLogActivateConsole() != null && logSettings.getLogActivateConsole())
         {
             final AppenderComponentBuilder consoleOutAppenderBuilder =
-                    builder.newAppender(APPENDER_NAME_STDOUT, "CONSOLE").addAttribute(ATTRIBUTE_TARGET,
+                    builder.newAppender(APPENDER_NAME_STDOUT, CONSOLE).addAttribute(ATTRIBUTE_TARGET,
                             ConsoleAppender.Target.SYSTEM_OUT);
 
             addConsolePattern(builder, logSettings, consoleOutAppenderBuilder);
-
-            // consoleOutAppenderBuilder
-            // .add(builder.newFilter(FILTER_THRESHOLD, Filter.Result.ACCEPT,
-            // Filter.Result.NEUTRAL)
-            // .addAttribute(ATTRIBUTE_LEVEL,
-            // logSettings.getLogLevelConsole()));
-            // consoleOutAppenderBuilder.add(builder.newFilter(FILTER_THRESHOLD,
-            // Filter.Result.DENY, Filter.Result.ACCEPT)
-            // .addAttribute(ATTRIBUTE_LEVEL, Level.ERROR));
+             consoleOutAppenderBuilder.add(builder.newFilter(FILTER_THRESHOLD,
+             Filter.Result.DENY, Filter.Result.NEUTRAL)
+             .addAttribute(ATTRIBUTE_LEVEL, Level.ERROR));
 
             builder.add(consoleOutAppenderBuilder);
 
             final AppenderComponentBuilder consoleErrAppenderBuilder =
-                    builder.newAppender(APPENDER_NAME_STDERR, "CONSOLE").addAttribute(ATTRIBUTE_TARGET,
+                    builder.newAppender(APPENDER_NAME_STDERR, CONSOLE).addAttribute(ATTRIBUTE_TARGET,
                             ConsoleAppender.Target.SYSTEM_ERR);
 
             addConsolePattern(builder, logSettings, consoleErrAppenderBuilder);
 
-            consoleErrAppenderBuilder
-                    .add(builder.newFilter(FILTER_THRESHOLD, Filter.Result.ACCEPT, Filter.Result.NEUTRAL)
-                            .addAttribute(ATTRIBUTE_LEVEL, logSettings.getLogLevelConsole()));
-            // consoleErrAppenderBuilder
-            // .add(builder.newFilter(FILTER_THRESHOLD, Filter.Result.ACCEPT,
-            // Filter.Result.NEUTRAL)
-            // .addAttribute(ATTRIBUTE_LEVEL, Level.ERROR));
+             consoleErrAppenderBuilder
+             .add(builder.newFilter(FILTER_THRESHOLD, Filter.Result.ACCEPT,
+             Filter.Result.DENY)
+             .addAttribute(ATTRIBUTE_LEVEL, Level.ERROR));
 
             builder.add(consoleErrAppenderBuilder);
         }
 
         builder.add(builder.newLogger("org.apache.logging.log4j", Level.DEBUG)
                 .add(builder.newAppenderRef(APPENDER_NAME_STDOUT)).addAttribute("additivity", false));
-        builder.add(builder.newRootLogger(Level.ERROR).add(builder.newAppenderRef(APPENDER_NAME_STDOUT)));
+        builder.add(builder.newRootLogger(logSettings.getLogLevelConsole())
+        .add(builder.newAppenderRef(APPENDER_NAME_STDOUT))
+        .add(builder.newAppenderRef(APPENDER_NAME_STDERR))
+        );
         return builder.build();
     }
 
