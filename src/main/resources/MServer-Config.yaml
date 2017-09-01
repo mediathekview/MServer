@@ -1,6 +1,4 @@
 #### Server configurations ####
-     # The maximum amount of days going to past will be crawled for the "Sendung Verpasst?" section.
-    maximumDaysForSendungVerpasstSection: 6
 
     # The maximum amount of cpu threads to be used.
     maximumCpuThreads: 80
@@ -28,10 +26,10 @@
     
     # The paths where which filmlist should be safed to.
     filmlistSavePaths:
-      JSON: ~/.mserver/filmlist/filmliste.json
-      OLD_JSON: ~/.mserver/filmlist/filmliste_old.json
-      JSON_COMPRESSED: ~/.mserver/filmlist/filmliste.json.xz
-      OLD_JSON_COMPRESSED: ~/.mserver/filmlist/filmliste_old.json.xz
+      JSON: filmliste.json
+      OLD_JSON: filmliste_old.json
+      JSON_COMPRESSED: filmliste.json.xz
+      OLD_JSON_COMPRESSED: filmliste_old.json.xz
     
     # The format of the film list to import.
     # Possible are: JSON, OLD_JSON, JSON_COMPRESSED, OLD_JSON_COMPRESSED
@@ -51,6 +49,10 @@
      # Example: If a Sendung overview side has 10 pages with videos for this Sendung and
      # the amount set by this is 5 then the crawler crawls pages 1 to 5.
     maximumSubpages: 3
+    
+    # The maximum amount of days going to past will be crawled for the "Sendung Verpasst?" section.
+    maximumDaysForSendungVerpasstSection: 6
+    
 
 
 #### Specific crawler configurations ####
@@ -78,11 +80,11 @@
         # The paths where to safe the film list files on the server and which to safe on it.
         # WARNING: You can only set the path for film list formats you listed in "filmlistSaveFormats".
         # Required if enabled
-        ftpTargetFilePaths: 
-         JSON: /var/www/mediathekview/filmlisten/filmliste.json
-         OLD_JSON: /var/www/mediathekview/filmlisten/filmliste_old.json
-         JSON_COMPRESSED: /var/www/mediathekview/filmlisten/filmliste.json.xz
-         OLD_JSON_COMPRESSED: /var/www/mediathekview/filmlisten/filmliste_old.json.xz
+        #ftpTargetFilePaths: 
+        # JSON: /var/www/mediathekview/filmlisten/filmliste.json
+        # OLD_JSON: /var/www/mediathekview/filmlisten/filmliste_old.json
+        # JSON_COMPRESSED: /var/www/mediathekview/filmlisten/filmliste.json.xz
+        # OLD_JSON_COMPRESSED: /var/www/mediathekview/filmlisten/filmliste_old.json.xz
       
       # The FTP port of the server.
       # Optional, if not set the default will be used.
