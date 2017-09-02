@@ -95,6 +95,17 @@ public class CrawlerManager extends AbstractManager
         crawlerMap.put(Sender.ARD, new ArdCrawler(forkJoinPool, messageListeners, progressListeners));
     }
 
+    /**
+     * Starts the crawler for the given {@link Sender}.<br>
+     * <br>
+     * <b>WARNING:</b> If no crawler is listed for {@link Sender} a
+     * {@link IllegalArgumentException} will be thrown.<br>
+     * You can ensure if there is a crawler for {@link Sender} with
+     * {@link CrawlerManager#getAviableSenderToCrawl}.
+     *
+     * @param aSender
+     *            The Sender which crawler to start.
+     */
     public void startCrawlerForSender(final Sender aSender)
     {
         if (crawlerMap.containsKey(aSender))
@@ -107,6 +118,11 @@ public class CrawlerManager extends AbstractManager
             throw new IllegalArgumentException(
                     String.format("There is no registered crawler for the Sender \"%s\"", aSender.getName()));
         }
+    }
+
+    public Set<Sender> getAviableSenderToCrawl()
+    {
+        return new HashSet<>(crawlerMap.keySet());
     }
 
     private void runCrawlers(final AbstractCrawler... aCrawlers)
@@ -126,6 +142,10 @@ public class CrawlerManager extends AbstractManager
         }
     }
 
+    /**
+     * Runs all crawler and starts a timer for
+     * {@link MServerConfigDTO#getMaximumServerDurationInMinutes()}.
+     */
     public void start()
     {
         final TimeoutTask timeoutRunner = createTimeoutTask();
@@ -162,6 +182,11 @@ public class CrawlerManager extends AbstractManager
         return crawlerToRun;
     }
 
+    /**
+     * Saves the actual film list for each {@link FilmlistFormats} of
+     * {@link MServerConfigDTO#getFilmlistSaveFormats()} in a file with the path
+     * of {@link MServerConfigDTO#getFilmlistSavePaths()}.
+     */
     public void saveFilmlist()
     {
         if (checkConfigForFilmlistSave())
@@ -196,6 +221,16 @@ public class CrawlerManager extends AbstractManager
         return missingSavePathFormats.isEmpty();
     }
 
+    /**
+     * Saves the actual film list with the given {@link FilmlistFormats} to the
+     * given path.
+     *
+     * @param aSavePath
+     *            The path where to save the film list.
+     * @param aFormat
+     *            The {@link FilmlistFormats} in which the film list should be
+     *            saved to.
+     */
     public void saveFilmlist(final Path aSavePath, final FilmlistFormats aFormat)
     {
         final Path filteredSavePath = filterPath(aSavePath);
@@ -242,6 +277,11 @@ public class CrawlerManager extends AbstractManager
         return Paths.get(aSavePath.toString().replaceFirst(HOME_PATTERN, USER_HOME_PATH));
     }
 
+    /**
+     * Imports the film list with the given
+     * {@link MServerConfigDTO#getFilmlistImportFormat()} of
+     * {@link MServerConfigDTO#getFilmlistImportLocation()}.
+     */
     public void importFilmlist()
     {
         if (checkConfigForFilmlistImport())
@@ -267,6 +307,18 @@ public class CrawlerManager extends AbstractManager
         return true;
     }
 
+    /**
+     * Imports the film list with the given {@link FilmlistFormats} and the
+     * given location.
+     *
+     * @param aFormat
+     *            The{@link FilmlistFormats} to import.
+     * @param aFilmlistLocation
+     *            The given location from which to import. If it starts with
+     *            <code>http</code> or <code>https</code> it tries to import
+     *            from URL. Otherwise it tries to import from the given Location
+     *            as a file path.
+     */
     public void importFilmlist(final FilmlistFormats aFormat, final String aFilmlistLocation)
     {
         try
@@ -292,6 +344,22 @@ public class CrawlerManager extends AbstractManager
         }
     }
 
+    /**
+     * Uploads, if enabled trough {@link MServerFTPSettings#getFtpEnabled()},
+     * the film list with each
+     * {@link MServerFTPSettings#getFtpTargetFilePaths()} to
+     * {@link MServerFTPSettings#getFtpUrl()}.<br>
+     * <br>
+     * It will use the default port 21 or if set the port of
+     * {@link MServerFTPSettings#getFtpPort()}. <br>
+     * <br>
+     * It will use the credentials {@link MServerFTPSettings#getFtpUsername()}
+     * with {@link MServerFTPSettings#getFtpPassword()}.<br>
+     * <br>
+     * <b>WARNING:</b> It can only upload {@link FilmlistFormats} which are
+     * saved before and listed in
+     * {@link MServerConfigDTO#getFilmlistSavePaths()}.
+     */
     public void uploadFilmlist()
     {
         final MServerFTPSettings ftpSettings = config.getFtpSettings();
@@ -323,6 +391,20 @@ public class CrawlerManager extends AbstractManager
         }
     }
 
+    /**
+     * Uploads the given {@link FilmlistFormats} whit the settings of the given
+     * {@link FtpUploadTarget}.<br>
+     * <br>
+     * <b>WARNING:</b> It can only upload {@link FilmlistFormats} which are
+     * saved before and listed in
+     * {@link MServerConfigDTO#getFilmlistSavePaths()}.<br>
+     * <br>
+     *
+     * @param aFilmlistFormat
+     *            The {@link FilmlistFormats} to upload.
+     * @param aFtpUploadTarget
+     *            The settings where to upload to of {@link FtpUploadTarget}.
+     */
     public void uploadFilmlist(final FilmlistFormats aFilmlistFormat, final FtpUploadTarget aFtpUploadTarget)
     {
         if (config.getFilmlistSaveFormats().contains(aFilmlistFormat))
@@ -335,6 +417,15 @@ public class CrawlerManager extends AbstractManager
         }
     }
 
+    /**
+     * Uploads the file with the given path to the location set in the given
+     * {@link FtpUploadTarget}.
+     *
+     * @param aFilmlistPath
+     *            The path of the file to upload.
+     * @param aFtpUploadTarget
+     *            The upload settings.
+     */
     public void uploadFilmlist(final Path aFilmlistPath, final FtpUploadTarget aFtpUploadTarget)
     {
         final FtpUploadTask ftpUploadTask = new FtpUploadTask(aFilmlistPath, aFtpUploadTarget);
