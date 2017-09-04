@@ -42,4 +42,9 @@ public abstract class AbstractManager
     {
         messageListeners.parallelStream().forEach(l -> l.consumeMessage(aMessage, args));
     }
+
+    public boolean removeSenderProgressListener(final SenderProgressListener aSenderProgressListener)
+    {
+        return progressListeners.remove(aSenderProgressListener);
+    }
 }

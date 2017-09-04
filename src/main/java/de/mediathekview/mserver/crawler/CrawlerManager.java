@@ -106,18 +106,23 @@ public class CrawlerManager extends AbstractManager
      * @param aSender
      *            The Sender which crawler to start.
      */
-    public void startCrawlerForSender(final Sender aSender)
+    public void startCrawlerForSender(final Sender... aSenders)
     {
-        if (crawlerMap.containsKey(aSender))
+        final Collection<AbstractCrawler> crawlers = new ArrayList<>();
+        for (final Sender sender : aSenders)
         {
-            final AbstractCrawler crawler = crawlerMap.get(aSender);
-            runCrawlers(crawler);
+
+            if (crawlerMap.containsKey(sender))
+            {
+                crawlers.add(crawlerMap.get(sender));
+            }
+            else
+            {
+                throw new IllegalArgumentException(
+                        String.format("There is no registered crawler for the Sender \"%s\"", sender.getName()));
+            }
         }
-        else
-        {
-            throw new IllegalArgumentException(
-                    String.format("There is no registered crawler for the Sender \"%s\"", aSender.getName()));
-        }
+        runCrawlers(crawlers.toArray(new AbstractCrawler[crawlers.size()]));
     }
 
     public Set<Sender> getAviableSenderToCrawl()
