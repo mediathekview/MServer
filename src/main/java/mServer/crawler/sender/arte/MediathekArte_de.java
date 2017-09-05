@@ -104,11 +104,11 @@ public class MediathekArte_de extends MediathekReader
             if (CrawlerTool.loadLongMax()) {
                 addCategories();
                 meldungAddMax(listeThemen.size());
-                for (int t = 0; t < getMaxThreadLaufen(); ++t) {
-                    Thread th = new CategoryLoader();
-                    th.setName(getSendername() + t);
-                    th.start();
-                }
+
+                // nur einen Thread verwenden, da der CategoryLoader selbst parallelisiert
+                Thread th = new CategoryLoader();
+                th.setName(getSendername());
+                th.start();
                 
             } else {
                 addTage();
@@ -242,9 +242,13 @@ public class MediathekArte_de extends MediathekReader
         private ListeFilme loadPrograms(ArteCategoryFilmsDTO dto) {
             ListeFilme listeFilme = new ListeFilme();
 
+            // Poolgröße beschränken, da ARTE bei zu vielen Anfragen Errorcode 502/504 liefert
+            // 20 als Poolgröße funktioniert bei Tests ohne Probleme, 
+            // u.U. könnte das nach entsprechenden Tests auch erhöht werden
+            ExecutorService executor = Executors.newFixedThreadPool(20);
+            
             Collection<Future<DatenFilm>> futureFilme = new ArrayList<>();
             dto.getProgramIds().forEach(programId -> {
-                ExecutorService executor = Executors.newCachedThreadPool();
                 futureFilme.add(executor.submit(new ArteProgramIdToDatenFilmCallable(programId, LANG_CODE, SENDERNAME)));
             });
             
