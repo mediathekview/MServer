@@ -51,16 +51,16 @@ public class ZDFSearchPageTask extends RecursiveTask<Collection<VideoDTO>> {
             zdfEntryDTOList.forEach(zdfEntryDTO -> {
                 if(zdfEntryDTO != null) {
                     final ZDFEntryTask entryTask = new ZDFEntryTask(zdfEntryDTO);
-
+                    entryTask.fork();
                     subTasks.add(entryTask);
                     if (MserverDaten.debug)
                         Log.sysLog("EntryTask " + entryTask.hashCode() + " added.");
                 }
             });
 
+
             // wait till entry tasks are finished
-            filmList.addAll(invokeAll(subTasks).parallelStream().map(ForkJoinTask::join).
-                                        collect(Collectors.toList()));
+            subTasks.forEach(t -> filmList.add(t.join()));
             if (MserverDaten.debug)
                 Log.sysLog("All EntryTasks finished.");
         }
