@@ -1,0 +1,295 @@
+
+{
+    "languages": {
+        "fr": "Français",
+        "de": "Deutsch",
+        "en": "English",
+        "es": "Español",
+        "pl": "Polski"
+    },
+    "sso": {
+        "login": "Sich einloggen",
+        "logged": "Angemeldet",
+        "logout": "Abmelden",
+        "load": "Lädt...",
+        "text": "Eine Sendung, ein Magazin, ein Konzert ...<br/>Ganz ARTE wie Sie wollen,<br />wann Sie wollen, wo Sie wollen.",
+        "link": "Mehr zum ARTE Club",
+        "menu1": "Zum ARTE Club",
+        "menu2": "Mein Profil ändern",
+        "menu3": "Abmelden",
+        "link3": "http://www.arte.tv",
+        "default_pseudo": "Mein Profil",
+        "sinscrire": "Anmelden",
+        "logo": "logo-mon-arte-de.png"
+    },
+    "menu": {
+        "more": "mehr",
+        "open_mobile": "Menu",
+        "fr": "Français",
+        "de": "Deutsch",
+        "en": "English",
+        "es": "Español",
+        "pl": "Polski"
+    },
+    "cookiebanner": {
+        "text": "Wir verwenden bei Ihrem Besuch auf unserer Webseite Cookies. Indem Sie unsere Webseite benutzen, stimmen Sie unseren Datenschutzrichtlinien zu.",
+        "more_href": "http://www.arte.tv/sites/de/services/cookies-auf-arte-webseiten/",
+        "more_label": "Mehr zum Thema",
+        "close_href": "http://www.arte.tv/sites/de/services/cookies-auf-arte-webseiten/",
+        "close_label": "OK"
+    },
+    "stats": {
+        "xtsite": "428450"
+    },
+    "header": {
+        "link_arte": "http://www.arte.tv/de/"
+    },
+
+
+    "mainLinks" : [
+        {
+            "label": "Home",
+            "href": "http://www.arte.tv/de/"
+        },
+        {
+            "label": "Programm",
+            "href": "http://www.arte.tv/de/guide/"
+        },
+        {
+            "label": "Live",
+            "href": "http://www.arte.tv/de/live/"
+        }
+    ],
+    "searchLink" : {
+        "label": "Suche",
+        "href": "http://www.arte.tv/de/search/"
+    },
+    "myArte" : {
+        "label": "Mein ARTE"
+    },
+    "mainLinksEurope" : [
+        {
+            "label": "Newsletter",
+            "href": "http://www.arte.tv/newsletter/"
+        },
+        {
+            "label": "Suche",
+            "href": "http://www.arte.tv/guide/de/search/"
+        },
+        {
+            "label": "Über ARTE",
+            "href": "http://www.arte.tv/sites/de/corporate/des-programmes-pour-tous-2/?lang=de"
+        }
+    ],
+    "categoryLinks" : [
+        {
+            "label": "Aktuelles und Gesellschaft",
+            "href": "http://www.arte.tv/de/videos/aktuelles-und-gesellschaft",
+            "links" : [
+                {
+                    "label": "ARTE Journal",
+                    "href": ""
+                },
+                {
+                    "label": "Perspektivwechsel",
+                    "href": ""
+                },
+                {
+                    "label": "Kultur News",
+                    "href": ""
+                },
+                {
+                    "label": "Hintergrund",
+                    "href": ""
+                },
+                {
+                    "label": "Recherchen und Reportagen",
+                    "href": ""
+                },
+                {
+                    "label": "Junior",
+                    "href": ""
+                }
+            ]
+        },
+        {
+            "label": "Kino",
+            "href": "http://www.arte.tv/de/videos/kino",
+            "links" : [
+                {
+                    "label": "Rund um den Film",
+                    "href": ""
+                },
+                {
+                    "label": "Kurzfilme",
+                    "href": ""
+                },
+                {
+                    "label": "Filme",
+                    "href": ""
+                },
+                {
+                    "label": "Stummfilme",
+                    "href": ""
+                },
+                {
+                    "label": "Filmgrößen",
+                    "href": ""
+                }
+            ]
+        },
+        {
+            "label": "Fernsehfilme und Serien",
+            "href": "http://www.arte.tv/de/videos/fernsehfilme-und-serien",
+            "links" : [
+                {
+                    "label": "Kurz und witzig",
+                    "href": ""
+                },
+                {
+                    "label": "Fernsehfilme",
+                    "href": ""
+                },
+                {
+                    "label": "Serien",
+                    "href": ""
+                },
+                {
+                    "label": "Webserien",
+                    "href": ""
+                }
+            ]
+        },
+        {
+            "label": "Kultur und Pop",
+            "href": "http://www.arte.tv/de/videos/kultur-und-pop",
+            "links" : [
+                {
+                    "label": "Kunst",
+                    "href": ""
+                },
+                {
+                    "label": "Popkultur",
+                    "href": ""
+                },
+                {
+                    "label": "Ideenwelten",
+                    "href": ""
+                }
+            ]
+        },
+        {
+            "label": "ARTE Concert",
+            "href": "https://www.arte.tv/de/videos/arte-concert/",
+            "links": [
+                {
+                    "label": "Bühnen-Performance",
+                    "href": "http://www.arte.tv/de/art/"
+                },
+                {
+                    "label": "Klassik",
+                    "href": "http://www.arte.tv/de/classique/"
+                },
+                {
+                    "label": "Jazz",
+                    "href": "http://www.arte.tv/de/jazz/"
+                },
+                {
+                    "label": "Pop",
+                    "href": "http://www.arte.tv/de/musique/"
+                },
+                {
+                    "label": "Weltmusik",
+                    "href": "http://www.arte.tv/de/monde/"
+                }
+            ]
+        },
+        {
+            "label": "Wissenschaft",
+            "href": "http://www.arte.tv/de/videos/wissenschaft",
+            "links" : [
+                {
+                    "label": "Wissen kompakt",
+                    "href": ""
+                },
+                {
+                    "label": "Umwelt und Natur",
+                    "href": ""
+                },
+                {
+                    "label": "Gesundheit und Medizin",
+                    "href": ""
+                },
+                {
+                    "label": "Technik und Innovation",
+                    "href": ""
+                }
+            ]
+        },
+        {
+            "label": "Entdeckung der Welt",
+            "href": "http://www.arte.tv/de/videos/entdeckung-der-welt",
+            "links" : [
+                {
+                    "label": "Kulinarik",
+                    "href": ""
+                },
+                {
+                    "label": "Reisen",
+                    "href": ""
+                },
+                {
+                    "label": "Natur und Tiere",
+                    "href": ""
+                },
+                {
+                    "label": "Leben anderswo",
+                    "href": ""
+                }
+            ]
+        },
+        {
+            "label": "Geschichte",
+            "href": "http://www.arte.tv/de/videos/geschichte",
+            "links" : [
+                {
+                    "label": "Die Zeit vor dem 20. Jahrhundert",
+                    "href": ""
+                },
+                {
+                    "label": "Biographien",
+                    "href": ""
+                },
+                {
+                    "label": "Das 20. Jahrhundert",
+                    "href": ""
+                }
+            ]
+        }
+    ],
+    "otherLinks" : [
+        {
+            "label": "Die Creative-Auswahl entdecken",
+            "href": "http://www.arte.tv/de/creative/",
+            "classLink": "next-menu-nav__menu-item-link--creative",
+            "icon": {
+                "tag" : "<i class='next-menu-creative-icon'></i>"
+            }
+        },
+        {
+            "label": "ARTE 360°",
+            "href": "http://sites.arte.tv/360/de",
+            "icon": {
+                "tag" : "<i class='header-next-icon-next-external-link'></i>"
+            }
+        },
+        {
+            "label": "ARTE Magazin",
+            "href": "http://www.arte.tv/sites/de/das-arte-magazin/",
+            "icon": {
+                "tag" : "<i class='header-next-icon-next-external-link'></i>"
+            }
+        }
+    ]
+
+}
