@@ -19,26 +19,31 @@
  */
 package mServer.crawler.sender;
 
-import java.util.ArrayList;
-
 import de.mediathekview.mlib.Config;
 import de.mediathekview.mlib.Const;
-import de.mediathekview.mlib.daten.DatenFilm;
+import de.mediathekview.mlib.daten.Film;
+import de.mediathekview.mlib.daten.Sender;
 import de.mediathekview.mlib.tool.Log;
 import de.mediathekview.mlib.tool.MSStringBuilder;
 import mServer.crawler.CrawlerTool;
 import mServer.crawler.FilmeSuchen;
 import mServer.crawler.GetUrl;
 import mServer.tool.MserverDaten;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
+import java.net.URISyntaxException;
+import java.util.ArrayList;
+import java.util.Iterator;
 
 public class MediathekDw extends MediathekReader implements Runnable {
-
-    public final static String SENDERNAME = Const.DW;
+    private static final Logger LOG = LogManager.getLogger(MediathekDw.class);
+    public final static Sender SENDER = Sender.DW;
     private final static String ADDURL = "http://tv-download.dw.de/dwtv_video/flv/";
     private final static String HTTP = "http";
 
     public MediathekDw(FilmeSuchen ssearch, int startPrio) {
-        super(ssearch, SENDERNAME, /* threads */ 4, /* urlWarten */ 200, startPrio);
+        super(ssearch, SENDER.getName(), /* threads */ 4, /* urlWarten */ 200, startPrio);
     }
 
     @Override
@@ -56,7 +61,7 @@ public class MediathekDw extends MediathekReader implements Runnable {
             for (int t = 0; t < getMaxThreadLaufen(); ++t) {
                 //new Thread(new ThemaLaden()).start();
                 Thread th = new ThemaLaden();
-                th.setName(SENDERNAME + t);
+                th.setName(SENDER.getName() + t);
                 th.start();
             }
         }
@@ -68,7 +73,7 @@ public class MediathekDw extends MediathekReader implements Runnable {
         final String MUSTER_START = "<div class=\"label\">Sendungen</div>";
         MSStringBuilder seite = new MSStringBuilder(Const.STRING_BUFFER_START_BUFFER);
         GetUrl getUrlIo = new GetUrl(getWartenSeiteLaden());
-        seite = getUrlIo.getUri_Utf(SENDERNAME, ADRESSE, seite, "");
+        seite = getUrlIo.getUri_Utf(SENDER.getName(), ADRESSE, seite, "");
         int pos1, pos2;
         String url = "", thema = "";
         pos1 = seite.indexOf(MUSTER_START);
@@ -105,7 +110,7 @@ public class MediathekDw extends MediathekReader implements Runnable {
                 }
                 // in die Liste eintragen
                 String[] add = new String[]{url, thema};
-                listeThemen.addUrl(add);
+                listeThemen.add(add);
             } catch (Exception ex) {
                 Log.errorLog(731245970, ex);
             }
@@ -123,10 +128,12 @@ public class MediathekDw extends MediathekReader implements Runnable {
         public void run() {
             try {
                 meldungAddThread();
-                String[] link;
-                while (!Config.getStop() && (link = listeThemen.getListeThemen()) != null) {
-                    meldungProgress(link[0]);
-                    laden(link[0] /* url */, link[1] /* Thema */);
+                final Iterator<String[]> themaIterator = listeThemen.iterator();
+                while (!Config.getStop() && themaIterator.hasNext())
+                {
+                    final String[] thema = themaIterator.next();
+                    meldungProgress(thema[0]);
+                    laden(thema[0] /* url */, thema[1] /* Thema */);
                 }
             } catch (Exception ex) {
                 Log.errorLog(915423640, ex);
@@ -140,7 +147,7 @@ public class MediathekDw extends MediathekReader implements Runnable {
             String urlSendung;
             meldung(urlThema);
             GetUrl getUrlIo = new GetUrl(getWartenSeiteLaden());
-            seite1 = getUrlIo.getUri_Utf(SENDERNAME, urlThema, seite1, "");
+            seite1 = getUrlIo.getUri_Utf(SENDER.getName(), urlThema, seite1, "");
             int pos1 = 0;
             String titel;
             while (!Config.getStop() && (pos1 = seite1.indexOf(MUSTER_START, pos1)) != -1) {
@@ -157,7 +164,7 @@ public class MediathekDw extends MediathekReader implements Runnable {
             String url = "", urlLow = "", urlHd = "";
             meldung(urlThema);
             GetUrl getUrlIo = new GetUrl(getWartenSeiteLaden());
-            seite2 = getUrlIo.getUri_Utf(SENDERNAME, urlSendung, seite2, "");
+            seite2 = getUrlIo.getUri_Utf(SENDER.getName(), urlSendung, seite2, "");
 
             seite2.extractList("%22file%22%3A%22", "%22%7D", listUrl);
             if (listUrl.isEmpty()) {
@@ -211,14 +218,23 @@ public class MediathekDw extends MediathekReader implements Runnable {
                 if (MserverDaten.debug)
                     Log.errorLog(643230120, "empty URL: " + urlSendung);
             } else {
-                DatenFilm film = new DatenFilm(SENDERNAME, thema, urlSendung, titel, url, "", datum, ""/*Zeit*/, duration, description);
-                if (!urlLow.isEmpty()) {
-                    CrawlerTool.addUrlKlein(film, urlLow, "");
-                }
-                if (!urlHd.isEmpty()) {
-                    CrawlerTool.addUrlHd(film, urlHd, "");
-                }
+                try{
+                Film film = CrawlerTool.createFilm(SENDER,
+                        url,
+                        titel,
+                        thema,
+                        datum,
+                        "",
+                        duration,
+                        urlSendung,
+                        description,
+                        urlHd,
+                        urlLow);
                 addFilm(film);
+                } catch (URISyntaxException uriSyntaxEception)
+                {
+                    LOG.error(String.format("Der Film \"%s - %s\" konnte nicht umgewandelt werden.", thema, titel), uriSyntaxEception);
+                }
             }
 
         }        
