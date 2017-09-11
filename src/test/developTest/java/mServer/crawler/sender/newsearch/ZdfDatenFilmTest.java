@@ -14,7 +14,7 @@ import de.mediathekview.mlib.Const;
 
 @RunWith(Parameterized.class)
 public class ZdfDatenFilmTest {
-    @Parameters
+/*    @Parameters
     public static Collection<Object[]> data() {
         return Arrays.asList(new Object[][] {   
             { "my topic", "url", "zdfmy topicurl" },
@@ -36,5 +36,5 @@ public class ZdfDatenFilmTest {
     @Test
     public void testGetIndex() {
         assertEquals(expectedIndex, target.getIndex());
-    }
+    }*/
 }
