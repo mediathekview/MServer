@@ -25,11 +25,10 @@ import java.io.OutputStreamWriter;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.ResourceBundle;
+import java.util.*;
 
 import de.mediathekview.mlib.Config;
+import de.mediathekview.mlib.daten.Sender;
 import de.mediathekview.mlib.filmesuchen.ListenerFilmeLaden;
 import de.mediathekview.mlib.filmesuchen.ListenerFilmeLadenEvent;
 import de.mediathekview.mlib.tool.Log;
@@ -82,8 +81,7 @@ public class PanelSearchController implements Initializable {
     private CheckBox cbUpdate;
 
     private int i = 0;
-    private Button[] buttonSender;
-    private String[] senderArray;
+    private ArrayList<Button> buttonSender;
     private MSearchGuiLoad mlibGuiLoad;
 
     @Override
@@ -131,11 +129,11 @@ public class PanelSearchController implements Initializable {
 
         btnLog.setOnAction(e -> writeLog());
 
-        senderArray = MSearchGuiLoad.getSenderNamen();
-        buttonSender = new Button[senderArray.length];
-        for (int i = 0; i < MSearchGuiLoad.getSenderNamen().length; ++i) {
-            buttonSender[i] = new Button(senderArray[i]);
-            buttonSender[i].setOnAction(new ActionLoadSender(senderArray[i]));
+        buttonSender = new ArrayList<Button>();
+        for (Sender sender : Sender.values()) {
+            final Button newButton = new Button(sender.getName());
+            newButton.setOnAction(new ActionLoadSender(sender.getName()));
+            buttonSender.add(newButton);
         }
         addSender();
 
@@ -197,8 +195,8 @@ public class PanelSearchController implements Initializable {
             }
         }
 
-        try {
-            OutputStreamWriter out = new OutputStreamWriter(new FileOutputStream(file, true), StandardCharsets.UTF_8);
+        try(OutputStreamWriter out = new OutputStreamWriter(new FileOutputStream(file, true), StandardCharsets.UTF_8);) {
+
             out.write("===============================================================");
             out.write("===============================================================");
             out.write("\n");
@@ -238,9 +236,9 @@ public class PanelSearchController implements Initializable {
         pSender.setVgap(10);
         pSender.setPadding(new Insets(10));
         int zeile = 0, spalte = 0, count = 0;
-        for (String aSender : senderArray) {
-            Button btn = buttonSender[count];
-            btn.setText(aSender);
+        for (Sender aSender : Sender.values()) {
+            Button btn = buttonSender.get(count);
+            btn.setText(aSender.getName());
             btn.setMaxWidth(Double.MAX_VALUE);
             pSender.add(btn, spalte, zeile);
 
