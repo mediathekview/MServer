@@ -209,6 +209,15 @@ public class MediathekArte_de extends MediathekReader
      */
     class CategoryLoader extends Thread {
 
+        private final ExecutorService executor;
+        
+        public CategoryLoader() {
+            // Poolgröße beschränken, da ARTE bei zu vielen Anfragen Errorcode 502/504 liefert
+            // 20 als Poolgröße funktioniert bei Tests ohne Probleme, 
+            // u.U. könnte das nach entsprechenden Tests auch erhöht werden
+             executor = Executors.newFixedThreadPool(20);
+        }
+        
         @Override
         public void run()
         {
@@ -223,6 +232,8 @@ public class MediathekArte_de extends MediathekReader
             } catch (Exception ex)
             {
                 Log.errorLog(894330854, ex, "");
+            } finally {
+                executor.shutdown();
             }
             meldungThreadUndFertig();
         }
@@ -253,11 +264,6 @@ public class MediathekArte_de extends MediathekReader
         private ListeFilme loadPrograms(ArteCategoryFilmsDTO dto) {
             ListeFilme listeFilme = new ListeFilme();
 
-            // Poolgröße beschränken, da ARTE bei zu vielen Anfragen Errorcode 502/504 liefert
-            // 20 als Poolgröße funktioniert bei Tests ohne Probleme, 
-            // u.U. könnte das nach entsprechenden Tests auch erhöht werden
-            ExecutorService executor = Executors.newFixedThreadPool(20);
-            
             Collection<Future<Film>> futureFilme = new ArrayList<>();
             dto.getProgramIds().forEach(programId -> {
                 futureFilme.add(executor.submit(new ArteProgramIdToDatenFilmCallable(programId, LANG_CODE, sender)));
