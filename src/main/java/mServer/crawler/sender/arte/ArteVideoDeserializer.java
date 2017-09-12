@@ -1,14 +1,9 @@
 package mServer.crawler.sender.arte;
 
+import com.google.gson.*;
+import de.mediathekview.mlib.daten.Qualities;
+
 import java.lang.reflect.Type;
-
-import mServer.crawler.sender.newsearch.Qualities;
-
-import com.google.gson.JsonDeserializationContext;
-import com.google.gson.JsonDeserializer;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParseException;
 
 public class ArteVideoDeserializer implements JsonDeserializer<ArteVideoDTO> {
     private static final String JSON_OBJECT_KEY_PLAYER = "videoJsonPlayer";

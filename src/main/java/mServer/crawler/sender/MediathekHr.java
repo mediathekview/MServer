@@ -19,13 +19,10 @@
  */
 package mServer.crawler.sender;
 
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-
 import de.mediathekview.mlib.Config;
 import de.mediathekview.mlib.Const;
-import de.mediathekview.mlib.daten.DatenFilm;
+import de.mediathekview.mlib.daten.Film;
+import de.mediathekview.mlib.daten.Sender;
 import de.mediathekview.mlib.tool.Functions;
 import de.mediathekview.mlib.tool.Log;
 import de.mediathekview.mlib.tool.MSStringBuilder;
@@ -33,9 +30,15 @@ import mServer.crawler.CrawlerTool;
 import mServer.crawler.FilmeSuchen;
 import mServer.crawler.GetUrl;
 
+import java.net.URI;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.Iterator;
+
 public class MediathekHr extends MediathekReader {
 
-    public final static String SENDERNAME = Const.HR;
+    public final static Sender SENDER = Sender.HR;
     private MSStringBuilder seite = new MSStringBuilder(Const.STRING_BUFFER_START_BUFFER);
     private MSStringBuilder rubrikSeite = new MSStringBuilder(Const.STRING_BUFFER_START_BUFFER);
 
@@ -45,7 +48,7 @@ public class MediathekHr extends MediathekReader {
      * @param startPrio
      */
     public MediathekHr(FilmeSuchen ssearch, int startPrio) {
-        super(ssearch, SENDERNAME, /* threads */ 2, /* urlWarten */ 200, startPrio);
+        super(ssearch, SENDER.getName(), /* threads */ 2, /* urlWarten */ 200, startPrio);
     }
 
     /**
@@ -55,7 +58,7 @@ public class MediathekHr extends MediathekReader {
     public void addToList() {
         meldungStart();
         GetUrl getUrlIo = new GetUrl(getWartenSeiteLaden());
-        seite = getUrlIo.getUri_Utf(SENDERNAME, "http://www.hr-online.de/website/fernsehen/sendungen/index.jsp", seite, "");
+        seite = getUrlIo.getUri_Utf(SENDER.getName(), "http://www.hr-online.de/website/fernsehen/sendungen/index.jsp", seite, "");
 
         //TH 7.8.2012 Erst suchen nach Rubrik-URLs, die haben Thema
         bearbeiteRubrik(seite);
@@ -69,7 +72,7 @@ public class MediathekHr extends MediathekReader {
             meldungAddMax(listeThemen.size());
             for (int t = 0; t < getMaxThreadLaufen(); ++t) {
                 Thread th = new ThemaLaden();
-                th.setName(SENDERNAME + t);
+                th.setName(SENDER.getName() + t);
                 th.start();
             }
         }
@@ -110,7 +113,7 @@ public class MediathekHr extends MediathekReader {
         final String MUSTER_TITEL = "<meta property=\"og:title\" content=\"";
 
         GetUrl getUrlIo = new GetUrl(getWartenSeiteLaden());
-        rubrikSeite = getUrlIo.getUri_Iso(SENDERNAME, rubrikUrl, rubrikSeite, "");
+        rubrikSeite = getUrlIo.getUri_Iso(SENDER.getName(), rubrikUrl, rubrikSeite, "");
         String url, thema;
 
         // 1. Titel (= Thema) holen
@@ -142,11 +145,13 @@ public class MediathekHr extends MediathekReader {
         public void run() {
             try {
                 meldungAddThread();
-                String link[];
-                while (!Config.getStop() && (link = listeThemen.getListeThemen()) != null) {
-                    meldungProgress(link[0] /*url*/);
+                final Iterator<String[]> themaIterator = listeThemen.iterator();
+                while (!Config.getStop() && themaIterator.hasNext())
+                {
+                    final String[] thema = themaIterator.next();
+                    meldungProgress(thema[0] /*url*/);
                     seite.setLength(0);
-                    addFilme(link[0]/*url*/, link[1]/*thema*/, link[2]/*filmsite*/);
+                    addFilme(thema[0]/*url*/, thema[1]/*thema*/, thema[2]/*filmsite*/);
                 }
             } catch (Exception ex) {
                 Log.errorLog(894330854, ex);
@@ -167,7 +172,7 @@ public class MediathekHr extends MediathekReader {
             final String MUSTER_DESCRIPTION = "<description>";
             final String END = "</";
             meldung(xmlWebsite);
-            seite1 = getUrl.getUri_Iso(SENDERNAME, xmlWebsite, seite1, "");
+            seite1 = getUrl.getUri_Iso(SENDER.getName(), xmlWebsite, seite1, "");
             try {
                 int posItem1 = 0;
                 String url = "", url_low;
@@ -216,14 +221,20 @@ public class MediathekHr extends MediathekReader {
                         if (datum.isEmpty()) {
                             datum = getDate(url);
                         }
-                        //DatenFilm film = new DatenFilm(nameSenderMReader, thema, strUrlFeed, titel, url, furl, datum, "");
-                        DatenFilm film = new DatenFilm(SENDERNAME, thema, filmSite, titel, url, "", datum, zeit, duration, description);
-                        if (!url_low.isEmpty()) {
-                            CrawlerTool.addUrlKlein(film, url_low, "");
-                        }
+                        Film film = CrawlerTool.createFilm(SENDER,
+                                url,
+                                titel,
+                                thema,
+                                datum,
+                                zeit,
+                                duration,
+                                filmSite,
+                                description,
+                                "",
+                                url_low);
                         String subtitle = url.replace(".mp4", ".xml");
                         if (urlExists(subtitle)) {
-                            CrawlerTool.addUrlSubtitle(film, subtitle);
+                            film.addSubtitle(new URI(subtitle));
                         }
                         addFilm(film);
                     } else {
