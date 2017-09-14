@@ -21,8 +21,6 @@ package mServer.crawler.sender;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.google.gson.JsonSyntaxException;
-import com.google.gson.stream.MalformedJsonException;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.EnumMap;
@@ -429,10 +427,10 @@ public class MediathekArd extends MediathekReader {
                         url = url.substring(0, url.indexOf("?url="));
                     }
                     if (urlKl.contains("?url=")) {
-                        urlKl = url.substring(0, urlKl.indexOf("?url="));
+                        urlKl = urlKl.substring(0, urlKl.indexOf("?url="));
                     }
                     if (urlHD.contains("?url=")) {
-                        urlHD = url.substring(0, urlHD.indexOf("?url="));
+                        urlHD = urlHD.substring(0, urlHD.indexOf("?url="));
                     }
 
                     String beschreibung = beschreibung(urlSendung);
