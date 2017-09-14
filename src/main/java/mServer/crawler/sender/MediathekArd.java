@@ -454,14 +454,6 @@ public class MediathekArd extends MediathekReader {
                 Log.errorLog(762139874, ex);
             }
         }
-
-        private String addMissingHttpPrefixIfNecessary(String aUrl) {
-            if(aUrl.startsWith("//")) {
-                aUrl = TEXT_START_HTTP + ":" + aUrl;
-            }
-            
-            return aUrl;
-        }
         
         private String getUrl(MSStringBuilder seite) {
             String ret = "";
