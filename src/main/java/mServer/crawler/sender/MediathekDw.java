@@ -19,6 +19,8 @@
  */
 package mServer.crawler.sender;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import java.util.ArrayList;
 
 import de.mediathekview.mlib.Config;
@@ -29,6 +31,9 @@ import de.mediathekview.mlib.tool.MSStringBuilder;
 import mServer.crawler.CrawlerTool;
 import mServer.crawler.FilmeSuchen;
 import mServer.crawler.GetUrl;
+import mServer.crawler.sender.dw.DwVideoDTO;
+import mServer.crawler.sender.dw.DwVideoDeserializer;
+import mServer.crawler.sender.newsearch.Qualities;
 import mServer.tool.MserverDaten;
 
 public class MediathekDw extends MediathekReader implements Runnable {
@@ -36,7 +41,8 @@ public class MediathekDw extends MediathekReader implements Runnable {
     public final static String SENDERNAME = Const.DW;
     private final static String ADDURL = "http://tv-download.dw.de/dwtv_video/flv/";
     private final static String HTTP = "http";
-
+    private final static String URL_VIDEO_JSON = "http://www.dw.com/playersources/v-";
+    
     public MediathekDw(FilmeSuchen ssearch, int startPrio) {
         super(ssearch, SENDERNAME, /* threads */ 4, /* urlWarten */ 200, startPrio);
     }
@@ -176,6 +182,23 @@ public class MediathekDw extends MediathekReader implements Runnable {
                 }
             }
             listUrl.clear();
+            
+            if (url.isEmpty()) {
+                // wenn keine URL vorhanden ist, 
+                // dann URLs ermitteln über Anfrage nach playersourcen 
+                String id = seite2.extract("<input type=\"hidden\" name=\"media_id\" value=\"", "\"");
+                
+                GetUrl getUrlVideo = new GetUrl(getWartenSeiteLaden());
+                MSStringBuilder seiteVideo = new MSStringBuilder();
+                seiteVideo = getUrlVideo.getUri_Utf(SENDERNAME, URL_VIDEO_JSON + id, seiteVideo, "");
+
+                if (seiteVideo.length() > 0) {
+                    Gson gson = new GsonBuilder().registerTypeAdapter(DwVideoDTO.class,new DwVideoDeserializer()).create();
+                    DwVideoDTO dto = gson.fromJson(seiteVideo.substring(0), DwVideoDTO.class); 
+                    url = dto.getUrl(Qualities.NORMAL);
+                    urlHd = dto.getUrl(Qualities.HD);
+                }
+            }
 
             String description = seite2.extract("<meta name=\"description\" content=\"", "\"");
             String datum = seite2.extract("<strong>Datum</strong>", "</li>").trim();
