@@ -164,6 +164,15 @@ public class CrawlerManager extends AbstractManager
         timeoutRunner.stopTimeout();
     }
 
+    /**
+     * This stops all running crawler.
+     */
+    public void stop()
+    {
+        forkJoinPool.shutdown();
+        executorService.shutdown();
+    }
+
     private Set<AbstractCrawler> getCrawlerToRun()
     {
         final Set<AbstractCrawler> crawlerToRun = new HashSet<>();

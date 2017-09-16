@@ -20,6 +20,7 @@ import org.jsoup.nodes.Document;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.JsonSyntaxException;
 
 import de.mediathekview.mlib.daten.Film;
 import de.mediathekview.mlib.daten.Qualities;
@@ -39,6 +40,7 @@ import mServer.tool.MserverDatumZeit;
  */
 public class ArdSendungTask extends AbstractUrlTask<Film, ArdSendungBasicInformation>
 {
+    private static final String JSON_SYNTAX_ERROR = "The site \"%s\" for the \"%s\" crawler in't a valid JSON page.";
     private static final long serialVersionUID = -1528093537733110822L;
     private static final Logger LOG = LogManager.getLogger(ArdSendungTask.class);
     private static final String REGEX_PATTERN_DOCUMENT_ID = "(?<=&documentId=)\\d+";
@@ -94,6 +96,12 @@ public class ArdSendungTask extends AbstractUrlTask<Film, ArdSendungBasicInforma
             }
             addUrls(newFilm, videoInfo.getVideoUrls());
             taskResults.add(newFilm);
+        }
+        catch (final JsonSyntaxException jsonSyntaxException)
+        {
+            LOG.error(String.format(JSON_SYNTAX_ERROR, aUrlDTO.getUrl(), crawler.getSender().getName()));
+            crawler.printErrorMessage();
+            crawler.incrementAndGetErrorCount();
         }
         catch (final Exception exception)
         {

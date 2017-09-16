@@ -23,92 +23,104 @@ import de.mediathekview.mserver.progress.listeners.SenderProgressListener;
 /**
  * A basic crawler task.
  */
-public abstract class AbstractCrawler implements Callable<Set<Film>> {
-	protected final MServerBasicConfigDTO config;
-	protected ForkJoinPool forkJoinPool;
-	private Collection<SenderProgressListener> progressListeners;
-	private Collection<MessageListener> messageListeners;
+public abstract class AbstractCrawler implements Callable<Set<Film>>
+{
+    protected final MServerBasicConfigDTO config;
+    protected ForkJoinPool forkJoinPool;
+    private final Collection<SenderProgressListener> progressListeners;
+    private final Collection<MessageListener> messageListeners;
 
-	protected RecursiveTask<Set<Film>> filmTask;
-	protected Set<Film> films;
+    protected RecursiveTask<Set<Film>> filmTask;
+    protected Set<Film> films;
 
-	private AtomicLong maxCount;
-	private AtomicLong actualCount;
-	private AtomicLong errorCount;
+    private final AtomicLong maxCount;
+    private final AtomicLong actualCount;
+    private final AtomicLong errorCount;
 
-	public AbstractCrawler(ForkJoinPool aForkJoinPool, Collection<MessageListener> aMessageListeners,
-			Collection<SenderProgressListener> aProgressListeners) {
-		forkJoinPool = aForkJoinPool;
-		maxCount = new AtomicLong(0);
-		actualCount = new AtomicLong(0);
-		errorCount = new AtomicLong(0);
+    public AbstractCrawler(final ForkJoinPool aForkJoinPool, final Collection<MessageListener> aMessageListeners,
+            final Collection<SenderProgressListener> aProgressListeners)
+    {
+        forkJoinPool = aForkJoinPool;
+        maxCount = new AtomicLong(0);
+        actualCount = new AtomicLong(0);
+        errorCount = new AtomicLong(0);
 
-		progressListeners = aProgressListeners;
+        progressListeners = aProgressListeners;
 
-		messageListeners = aMessageListeners;
+        messageListeners = aMessageListeners;
 
-		config = MServerConfigManager.getInstance().getConfig(getSender());
+        config = MServerConfigManager.getInstance().getConfig(getSender());
 
-		films = ConcurrentHashMap.newKeySet();
-	}
+        films = ConcurrentHashMap.newKeySet();
+    }
 
-	public abstract Sender getSender();
+    public abstract Sender getSender();
 
-	protected abstract RecursiveTask<Set<Film>> createCrawlerTask();
+    protected abstract RecursiveTask<Set<Film>> createCrawlerTask();
 
-	public long incrementAndGetActualCount() {
-		return actualCount.incrementAndGet();
-	}
+    public long incrementAndGetActualCount()
+    {
+        return actualCount.incrementAndGet();
+    }
 
-	public long incrementAndGetMaxCount() {
-		return maxCount.incrementAndGet();
-	}
+    public long incrementAndGetMaxCount()
+    {
+        return maxCount.incrementAndGet();
+    }
 
-	public long incrementAndGetErrorCount() {
-		return errorCount.incrementAndGet();
-	}
+    public long incrementAndGetErrorCount()
+    {
+        return errorCount.incrementAndGet();
+    }
 
-	public void updateProgress() {
-		Progress progress = new Progress(maxCount.get(), actualCount.get(), errorCount.get());
-		progressListeners.parallelStream().forEach(l -> l.updateProgess(getSender(), progress));
-	}
+    public void updateProgress()
+    {
+        final Progress progress = new Progress(maxCount.get(), actualCount.get(), errorCount.get());
+        progressListeners.parallelStream().forEach(l -> l.updateProgess(getSender(), progress));
+    }
 
-	private void printMessage(Message aMessage, Object... args) {
-		messageListeners.parallelStream().forEach(l -> l.consumeMessage(aMessage, args));
-	}
+    protected void printMessage(final Message aMessage, final Object... args)
+    {
+        messageListeners.parallelStream().forEach(l -> l.consumeMessage(aMessage, args));
+    }
 
-	public void printErrorMessage() {
-		printMessage(ServerMessages.CRAWLER_ERROR, getSender());
-	}
+    public void printErrorMessage()
+    {
+        printMessage(ServerMessages.CRAWLER_ERROR, getSender());
+    }
 
-	@Override
-	public Set<Film> call() {
-		TimeoutTask timeoutRunner = new TimeoutTask(config.getMaximumCrawlDurationInMinutes()) {
-			@Override
-			public void shutdown() {
-				forkJoinPool.shutdownNow();
-				printMessage(ServerMessages.CRAWLER_TIMEOUT, getSender().getName());
-			}
-		};
-		timeoutRunner.start();
+    @Override
+    public Set<Film> call()
+    {
+        final TimeoutTask timeoutRunner = new TimeoutTask(config.getMaximumCrawlDurationInMinutes())
+        {
+            @Override
+            public void shutdown()
+            {
+                forkJoinPool.shutdownNow();
+                printMessage(ServerMessages.CRAWLER_TIMEOUT, getSender().getName());
+            }
+        };
+        timeoutRunner.start();
 
-		printMessage(ServerMessages.CRAWLER_START, getSender());
-		LocalTime startTime = LocalTime.now();
+        printMessage(ServerMessages.CRAWLER_START, getSender());
+        final LocalTime startTime = LocalTime.now();
 
-		updateProgress();
-		filmTask = createCrawlerTask();
-		films.addAll(forkJoinPool.invoke(filmTask));
+        updateProgress();
+        filmTask = createCrawlerTask();
+        films.addAll(forkJoinPool.invoke(filmTask));
 
-		LocalTime endTime = LocalTime.now();
-		Progress progress = new Progress(maxCount.get(), actualCount.get(), errorCount.get());
-		timeoutRunner.stopTimeout();
-		printMessage(ServerMessages.CRAWLER_END, getSender(), Duration.between(startTime, endTime).toMinutes(),
-				actualCount.get(), errorCount.get(), progress.calcActualErrorQuoteInPercent());
-		return films;
-	}
+        final LocalTime endTime = LocalTime.now();
+        final Progress progress = new Progress(maxCount.get(), actualCount.get(), errorCount.get());
+        timeoutRunner.stopTimeout();
+        printMessage(ServerMessages.CRAWLER_END, getSender(), Duration.between(startTime, endTime).toMinutes(),
+                actualCount.get(), errorCount.get(), progress.calcActualErrorQuoteInPercent());
+        return films;
+    }
 
-	public void stop() {
-		filmTask.cancel(true);
-	}
+    public void stop()
+    {
+        filmTask.cancel(true);
+    }
 
 }

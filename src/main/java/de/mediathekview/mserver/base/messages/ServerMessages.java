@@ -13,6 +13,7 @@ public enum ServerMessages implements Message
     CRAWLER_END("crawlerEnd", MessageTypes.INFO),
     CRAWLER_ERROR("crawlerError", MessageTypes.ERROR),
     CRAWLER_TIMEOUT("crawlerTimeout", MessageTypes.ERROR),
+    CRAWLER_DOCUMENT_LOAD_ERROR("crawlerDocumentLoadError", MessageTypes.DEBUG),
     SERVER_TIMEOUT("serverTimeout", MessageTypes.FATAL_ERROR),
     SERVER_ERROR("serverError", MessageTypes.FATAL_ERROR),
     FILMLIST_SAVE_PATH_MISSING_RIGHTS("filmlistSavePathMissingRights", MessageTypes.FATAL_ERROR),
