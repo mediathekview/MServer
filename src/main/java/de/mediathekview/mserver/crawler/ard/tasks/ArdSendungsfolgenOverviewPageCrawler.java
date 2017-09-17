@@ -33,9 +33,10 @@ public class ArdSendungsfolgenOverviewPageCrawler extends AbstractArdOverviewPag
     }
 
     @Override
-    protected AbstractArdOverviewPageCrawlerTask createNewOwnInstance()
+    protected AbstractArdOverviewPageCrawlerTask
+            createNewOwnInstance(final ConcurrentLinkedQueue<CrawlerUrlsDTO> aURLsToCrawl)
     {
-        return new ArdSendungsfolgenOverviewPageCrawler(crawler, urlsToCrawl);
+        return new ArdSendungsfolgenOverviewPageCrawler(crawler, aURLsToCrawl);
     }
 
     @Override

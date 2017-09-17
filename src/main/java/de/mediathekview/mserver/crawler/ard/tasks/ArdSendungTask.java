@@ -8,6 +8,7 @@ import java.time.Duration;
 import java.time.temporal.ChronoUnit;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Optional;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.regex.Matcher;
@@ -60,9 +61,9 @@ public class ArdSendungTask extends AbstractUrlTask<Film, ArdSendungBasicInforma
     }
 
     @Override
-    protected ArdSendungTask createNewOwnInstance()
+    protected ArdSendungTask createNewOwnInstance(final ConcurrentLinkedQueue<ArdSendungBasicInformation> aURLsToCrawl)
     {
-        return new ArdSendungTask(crawler, urlsToCrawl);
+        return new ArdSendungTask(crawler, aURLsToCrawl);
     }
 
     @Override
@@ -140,8 +141,8 @@ public class ArdSendungTask extends AbstractUrlTask<Film, ArdSendungBasicInforma
 
     private Sender getSenderFromName(final String aSenderName)
     {
-        final Sender foundSender = Sender.getSenderByName(aSenderName);
-        return foundSender == null ? Sender.ARD : foundSender;
+        final Optional<Sender> foundSender = Sender.getSenderByName(aSenderName);
+        return foundSender.isPresent() ? foundSender.get() : Sender.ARD;
     }
 
     private String buildBasicInfoUrl(final String aDocumentId)

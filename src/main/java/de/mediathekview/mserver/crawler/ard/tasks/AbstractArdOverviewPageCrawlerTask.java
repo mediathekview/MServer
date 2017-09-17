@@ -28,7 +28,8 @@ public abstract class AbstractArdOverviewPageCrawlerTask
     }
 
     @Override
-    protected abstract AbstractArdOverviewPageCrawlerTask createNewOwnInstance();
+    protected abstract AbstractArdOverviewPageCrawlerTask
+            createNewOwnInstance(ConcurrentLinkedQueue<CrawlerUrlsDTO> aURLsToCrawl);
 
     @Override
     protected abstract void processDocument(final CrawlerUrlsDTO aUrlDTO, final Document aDocument);

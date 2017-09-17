@@ -28,7 +28,7 @@ public abstract class AbstractUrlTask<T, D extends CrawlerUrlsDTO> extends Recur
             "Something terrible happened while crawl the %s page \"%s\".";
     private static final String LOAD_DOCUMENT_HTTPERROR = "Some HTTP error happened while crawl the %s page \"%s\".";
 
-    protected final ConcurrentLinkedQueue<D> urlsToCrawl;
+    private final ConcurrentLinkedQueue<D> urlsToCrawl;
     protected final MServerBasicConfigDTO config;
     protected AbstractCrawler crawler;
 
@@ -45,39 +45,33 @@ public abstract class AbstractUrlTask<T, D extends CrawlerUrlsDTO> extends Recur
     @Override
     protected Set<T> compute()
     {
-        LOG.debug(Thread.currentThread().getId() + " Starting new Task with " + urlsToCrawl.size() + " left.");
-        final ConcurrentLinkedQueue<D> urlsToCrawlSubset = new ConcurrentLinkedQueue<>();
-        for (int i = 0; i < urlsToCrawl.size() && i < config.getMaximumUrlsPerTask(); i++)
+        if (urlsToCrawl.size() <= config.getMaximumUrlsPerTask())
         {
-            urlsToCrawlSubset.offer(urlsToCrawl.poll());
-        }
-        LOG.debug(Thread.currentThread().getId() + " Crated a Subset with " + urlsToCrawlSubset.size() + ".");
-        LOG.debug(Thread.currentThread().getId() + " Now the Urls to crawl only left " + urlsToCrawl.size() + ".");
-
-        if (urlsToCrawl.isEmpty())
-        {
-            LOG.debug(Thread.currentThread().getId() + " Crawling the subset.");
-            crawlPage(urlsToCrawlSubset);
+            crawlPage(urlsToCrawl);
         }
         else
         {
-            LOG.debug(Thread.currentThread().getId() + " Creating a new Task and crawling the subset.");
-            final ConcurrentLinkedQueue<AbstractUrlTask<T, D>> subTasks = new ConcurrentLinkedQueue<>();
-            for (int i = 0; i < urlsToCrawl.size() / config.getMaximumUrlsPerTask(); i++)
-            {
-                final AbstractUrlTask<T, D> otherTask = createNewOwnInstance();
-                otherTask.fork();
-                subTasks.offer(otherTask);
-            }
-
-            crawlPage(urlsToCrawlSubset);
-
-            subTasks.parallelStream().forEach(t -> taskResults.addAll(t.join()));
+            final AbstractUrlTask<T, D> rightTask = createNewOwnInstance(createSubSet(urlsToCrawl));
+            final AbstractUrlTask<T, D> leftTask = createNewOwnInstance(urlsToCrawl);
+            leftTask.fork();
+            taskResults.addAll(rightTask.compute());
+            taskResults.addAll(leftTask.join());
         }
         return taskResults;
     }
 
-    protected abstract AbstractUrlTask<T, D> createNewOwnInstance();
+    private ConcurrentLinkedQueue<D> createSubSet(final ConcurrentLinkedQueue<D> aBaseQueue)
+    {
+        final int halfSize = aBaseQueue.size() / 2;
+        final ConcurrentLinkedQueue<D> urlsToCrawlSubset = new ConcurrentLinkedQueue<>();
+        for (int i = 0; i < halfSize; i++)
+        {
+            urlsToCrawlSubset.offer(aBaseQueue.poll());
+        }
+        return urlsToCrawlSubset;
+    }
+
+    protected abstract AbstractUrlTask<T, D> createNewOwnInstance(ConcurrentLinkedQueue<D> aURLsToCrawl);
 
     private void crawlPage(final ConcurrentLinkedQueue<D> aUrls)
     {
