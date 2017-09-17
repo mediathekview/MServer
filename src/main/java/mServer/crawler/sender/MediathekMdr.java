@@ -19,6 +19,13 @@
  */
 package mServer.crawler.sender;
 
+import java.net.URL;
+import java.nio.charset.StandardCharsets;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Iterator;
+import java.util.LinkedList;
+
 import de.mediathekview.mlib.Config;
 import de.mediathekview.mlib.Const;
 import de.mediathekview.mlib.daten.Film;
@@ -29,25 +36,20 @@ import mServer.crawler.CrawlerTool;
 import mServer.crawler.FilmeSuchen;
 import mServer.crawler.GetUrl;
 
-import java.net.URI;
-import java.nio.charset.StandardCharsets;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Iterator;
-import java.util.LinkedList;
-
-public class MediathekMdr extends MediathekReader {
+public class MediathekMdr extends MediathekReader
+{
 
     public final static Sender SENDER = Sender.MDR;
     private final LinkedList<String> listeTage = new LinkedList<>();
-    private final LinkedList<String[]> listeGesucht = new LinkedList<>(); //thema,titel,datum,zeit
+    private final LinkedList<String[]> listeGesucht = new LinkedList<>(); // thema,titel,datum,zeit
 
     /**
      *
      * @param ssearch
      * @param startPrio
      */
-    public MediathekMdr(FilmeSuchen ssearch, int startPrio) {
+    public MediathekMdr(final FilmeSuchen ssearch, final int startPrio)
+    {
         super(ssearch, SENDER.getName(), /* threads */ 3, /* urlWarten */ 200, startPrio);
     }
 
@@ -55,12 +57,15 @@ public class MediathekMdr extends MediathekReader {
      *
      */
     @Override
-    public void addToList() {
-        // <a href="/mediathek/fernsehen/a-z/sendungenabisz100_inheritancecontext-header_letter-A_numberofelements-1_zc-ef89b6fa.html#letternavi
+    public void addToList()
+    {
+        // <a
+        // href="/mediathek/fernsehen/a-z/sendungenabisz100_inheritancecontext-header_letter-A_numberofelements-1_zc-ef89b6fa.html#letternavi
 
         final String URL_SENDUNGEN = "http://www.mdr.de/mediathek/fernsehen/a-z/index.html";
         final String MUSTER = "<a href=\"/mediathek/fernsehen/a-z/sendungenabisz100_inheritancecontext-header_letter";
-        final String MUSTER_ADD = "http://www.mdr.de/mediathek/fernsehen/a-z/sendungenabisz100_inheritancecontext-header_letter";
+        final String MUSTER_ADD =
+                "http://www.mdr.de/mediathek/fernsehen/a-z/sendungenabisz100_inheritancecontext-header_letter";
 
         final String URL_TAGE = "http://www.mdr.de/mediathek/fernsehen/index.html";
         final String MUSTER_TAGE = "<a href=\"/mediathek/fernsehen/sendung-verpasst--100_date-";
@@ -71,60 +76,79 @@ public class MediathekMdr extends MediathekReader {
         listeTage.clear();
         listeGesucht.clear();
         meldungStart();
-        GetUrl getUrlIo = new GetUrl(getWartenSeiteLaden());
+        final GetUrl getUrlIo = new GetUrl(getWartenSeiteLaden());
         seite = getUrlIo.getUri_Utf(SENDER.getName(), URL_SENDUNGEN, seite, "");
         int pos = 0;
         int pos1;
         int pos2;
         String url = "";
-        while ((pos = seite.indexOf(MUSTER, pos)) != -1) {
+        while ((pos = seite.indexOf(MUSTER, pos)) != -1)
+        {
             pos += MUSTER.length();
             pos1 = pos;
             pos2 = seite.indexOf("\"", pos);
-            if (pos1 != -1 && pos2 != -1) {
+            if (pos1 != -1 && pos2 != -1)
+            {
                 url = seite.substring(pos1, pos2);
             }
-            if (url.isEmpty()) {
+            if (url.isEmpty())
+            {
                 Log.errorLog(889216307, "keine URL");
-            } else {
+            }
+            else
+            {
                 url = MUSTER_ADD + url;
-                if (url.contains("#")) {
+                if (url.contains("#"))
+                {
                     url = url.substring(0, url.indexOf('#'));
                 }
-                listeThemen.add(new String[]{url});
+                listeThemen.add(new String[]
+                { url });
             }
         }
         seite = getUrlIo.getUri_Utf(SENDER.getName(), URL_TAGE, seite, "");
         pos = 0;
         url = "";
-        while ((pos = seite.indexOf(MUSTER_TAGE, pos)) != -1) {
+        while ((pos = seite.indexOf(MUSTER_TAGE, pos)) != -1)
+        {
             pos += MUSTER_TAGE.length();
             pos1 = pos;
             pos2 = seite.indexOf("\"", pos);
-            if (pos1 != -1 && pos2 != -1) {
+            if (pos1 != -1 && pos2 != -1)
+            {
                 url = seite.substring(pos1, pos2);
             }
-            if (url.isEmpty()) {
+            if (url.isEmpty())
+            {
                 Log.errorLog(461225808, "keine URL");
-            } else {
+            }
+            else
+            {
                 url = MUSTER_ADD_TAGE + url;
-                //FIXME
-                assert (istInListe(listeTage, url) == (listeTage.contains(url)));
-                if (!istInListe(listeTage, url)) {
+                // FIXME
+                assert istInListe(listeTage, url) == listeTage.contains(url);
+                if (!istInListe(listeTage, url))
+                {
                     listeTage.add(url);
                 }
             }
         }
-        if (Config.getStop()) {
+        if (Config.getStop())
+        {
             meldungThreadUndFertig();
-        } else if (listeThemen.isEmpty() && listeTage.isEmpty()) {
+        }
+        else if (listeThemen.isEmpty() && listeTage.isEmpty())
+        {
             meldungThreadUndFertig();
-        } else {
+        }
+        else
+        {
             meldungAddMax(listeThemen.size() + listeTage.size());
             listeSort(listeThemen, 0);
-            for (int t = 0; t < getMaxThreadLaufen(); ++t) {
-                //new Thread(new ThemaLaden()).start();
-                Thread th = new ThemaLaden();
+            for (int t = 0; t < getMaxThreadLaufen(); ++t)
+            {
+                // new Thread(new ThemaLaden()).start();
+                final Thread th = new ThemaLaden();
                 th.setName(SENDER.getName() + t);
                 th.start();
             }
@@ -132,13 +156,15 @@ public class MediathekMdr extends MediathekReader {
     }
 
     @Override
-    public void clear() {
+    public void clear()
+    {
         listeThemen.clear();
         listeTage.clear();
         listeGesucht.clear();
     }
 
-    private class ThemaLaden extends Thread {
+    private class ThemaLaden extends Thread
+    {
 
         private final GetUrl getUrl = new GetUrl(getWartenSeiteLaden());
         private MSStringBuilder seite1 = new MSStringBuilder(Const.STRING_BUFFER_START_BUFFER);
@@ -148,8 +174,10 @@ public class MediathekMdr extends MediathekReader {
         private MSStringBuilder seite4 = new MSStringBuilder(Const.STRING_BUFFER_START_BUFFER);
 
         @Override
-        public void run() {
-            try {
+        public void run()
+        {
+            try
+            {
                 meldungAddThread();
                 final Iterator<String[]> themaIterator = listeThemen.iterator();
                 while (!Config.getStop() && themaIterator.hasNext())
@@ -159,103 +187,141 @@ public class MediathekMdr extends MediathekReader {
                     addThema(thema[0]);
                 }
                 String url;
-                while (!Config.getStop() && (url = getListeTage()) != null) {
+                while (!Config.getStop() && (url = getListeTage()) != null)
+                {
                     meldungProgress(url);
                     addTage(url);
                 }
-            } catch (Exception ex) {
+            }
+            catch (final Exception ex)
+            {
                 Log.errorLog(115896304, ex);
             }
             meldungThreadUndFertig();
         }
 
-        private void addThema(String strUrlFeed) {
+        private void addThema(final String strUrlFeed)
+        {
             final String MUSTER = "<div class=\"media mediaA \">";
 
             int pos = 0;
             String thema, url = "";
-            try {
-                seite1 = getUrl.getUri(SENDER.getName(), strUrlFeed, StandardCharsets.UTF_8, 2 /* versuche */, seite1, "");
-                while (!Config.getStop() && (pos = seite1.indexOf(MUSTER, pos)) != -1) {
+            try
+            {
+                seite1 = getUrl.getUri(SENDER.getName(), strUrlFeed, StandardCharsets.UTF_8,
+                        2 /* versuche */, seite1, "");
+                while (!Config.getStop() && (pos = seite1.indexOf(MUSTER, pos)) != -1)
+                {
                     pos += MUSTER.length();
                     url = seite1.extract("<a href=\"/mediathek/fernsehen/", "\"", pos);
                     thema = seite1.extract(" class=\"headline\" title=\"\">", "<", pos);
-                    if (url.isEmpty()) {
+                    if (url.isEmpty())
+                    {
                         Log.errorLog(952136547, "keine URL: " + strUrlFeed);
-                    } else {
+                    }
+                    else
+                    {
                         meldung(url);
                         url = "http://www.mdr.de/mediathek/fernsehen/" + url;
                         addSendugen(strUrlFeed, thema, url);
                     }
                 }
-                if (url.isEmpty()) {
+                if (url.isEmpty())
+                {
                     Log.errorLog(766250249, "keine URL: " + strUrlFeed);
                 }
-            } catch (Exception ex) {
+            }
+            catch (final Exception ex)
+            {
                 Log.errorLog(316874602, ex);
             }
         }
 
-        private void addTage(String urlSeite) {
+        private void addTage(final String urlSeite)
+        {
             final String MUSTER = "<div class=\"media mediaA \">";
 
             int pos = 0;
             String thema, url = "";
-            try {
-                seiteTage = getUrl.getUri(SENDER.getName(), urlSeite, StandardCharsets.UTF_8, 2 /* versuche */, seiteTage, "");
-                while (!Config.getStop() && (pos = seiteTage.indexOf(MUSTER, pos)) != -1) {
+            try
+            {
+                seiteTage = getUrl.getUri(SENDER.getName(), urlSeite, StandardCharsets.UTF_8,
+                        2 /* versuche */, seiteTage, "");
+                while (!Config.getStop() && (pos = seiteTage.indexOf(MUSTER, pos)) != -1)
+                {
                     pos += MUSTER.length();
                     url = seiteTage.extract("<a href=\"/mediathek/", "\"", pos);
                     thema = seiteTage.extract(" class=\"headline\" title=\"\">", "<", pos);
-                    if (url.isEmpty()) {
+                    if (url.isEmpty())
+                    {
                         Log.errorLog(975401478, "keine URL: " + urlSeite);
-                    } else {
+                    }
+                    else
+                    {
                         meldung(url);
                         url = "http://www.mdr.de/mediathek/" + url;
                         addSendug(urlSeite, thema, url);
                     }
                 }
-                if (url.isEmpty()) {
+                if (url.isEmpty())
+                {
                     Log.errorLog(930215470, "keine URL: " + urlSeite);
                 }
-            } catch (Exception ex) {
+            }
+            catch (final Exception ex)
+            {
                 Log.errorLog(102540897, ex);
             }
         }
 
-        private void addSendugen(String strUrlFeed, String thema, String urlThema) {
-            seite2 = getUrl.getUri(SENDER.getName(), urlThema, StandardCharsets.UTF_8, 2 /* versuche */, seite2, "Thema: " + thema);
+        private void addSendugen(final String strUrlFeed, final String thema, final String urlThema)
+        {
+            seite2 = getUrl.getUri(SENDER.getName(), urlThema, StandardCharsets.UTF_8,
+                    2 /* versuche */, seite2, "Thema: " + thema);
             final String muster;
-            if (seite2.indexOf("div class=\"media mediaA \">") != -1) {
+            if (seite2.indexOf("div class=\"media mediaA \">") != -1)
+            {
                 muster = "div class=\"media mediaA \">";
-            } else {
+            }
+            else
+            {
                 muster = "<span class=\"broadcastSeriesTitle\">";
             }
             int pos = 0, count = 0;
             String url = "";
-            while ((pos = seite2.indexOf(muster, pos)) != -1) {
+            while ((pos = seite2.indexOf(muster, pos)) != -1)
+            {
                 ++count;
-                if (!CrawlerTool.loadLongMax()) {
-                    if (count > 5) {
+                if (!CrawlerTool.loadLongMax())
+                {
+                    if (count > 5)
+                    {
                         return;
                     }
                 }
                 pos += muster.length();
                 url = seite2.extract("<a href=\"/mediathek/fernsehen/a-z", "\"", pos);
-                if (url.isEmpty()) {
-                    Log.errorLog(915263421, new String[]{"keine URL: " + urlThema, "Thema: " + thema, "UrlFeed: " + strUrlFeed});
-                } else {
+                if (url.isEmpty())
+                {
+                    Log.errorLog(915263421, new String[]
+                    { "keine URL: " + urlThema, "Thema: " + thema, "UrlFeed: " + strUrlFeed });
+                }
+                else
+                {
                     url = "http://www.mdr.de/mediathek/fernsehen/a-z" + url;
                     addSendug(strUrlFeed, thema, url);
                 }
             }
 
-            if (url.isEmpty()) {
-                Log.errorLog(765213014, new String[]{"keine URL: " + urlThema, "Thema: " + thema, "UrlFeed: " + strUrlFeed});
+            if (url.isEmpty())
+            {
+                Log.errorLog(765213014, new String[]
+                { "keine URL: " + urlThema, "Thema: " + thema, "UrlFeed: " + strUrlFeed });
             }
         }
 
-        private void addSendug(String strUrlFeed, String thema, String urlSendung) {
+        private void addSendug(final String strUrlFeed, final String thema, final String urlSendung)
+        {
             final String MUSTER_XML = "'playerXml':'";
             final String MUSTER_ADD = "http://www.mdr.de";
             seite3 = getUrl.getUri_Utf(SENDER.getName(), urlSendung, seite3, "Thema: " + thema);
@@ -263,157 +329,193 @@ public class MediathekMdr extends MediathekReader {
             int pos1;
             int pos2;
             String url = "";
-            int stop = seite3.indexOf("Meistgeklickt");
-            while ((pos = seite3.indexOf(MUSTER_XML, pos)) != -1) {
-                if (stop > 0 && pos > stop) {
+            final int stop = seite3.indexOf("Meistgeklickt");
+            while ((pos = seite3.indexOf(MUSTER_XML, pos)) != -1)
+            {
+                if (stop > 0 && pos > stop)
+                {
                     break;
                 }
                 pos += MUSTER_XML.length();
                 pos1 = pos;
-                if ((pos2 = seite3.indexOf("'", pos)) != -1) {
+                if ((pos2 = seite3.indexOf("'", pos)) != -1)
+                {
                     url = seite3.substring(pos1, pos2);
                 }
-                if (url.isEmpty()) {
-                    Log.errorLog(256987304, new String[]{"keine URL: " + urlSendung, "Thema: " + thema, "UrlFeed: " + strUrlFeed});
-                } else {
+                if (url.isEmpty())
+                {
+                    Log.errorLog(256987304, new String[]
+                    { "keine URL: " + urlSendung, "Thema: " + thema, "UrlFeed: " + strUrlFeed });
+                }
+                else
+                {
                     url = url.replace("\\", "");
                     url = MUSTER_ADD + url;
                     addXml(strUrlFeed, thema, url, urlSendung);
                 }
             }
-            if (url.isEmpty()) {
-                Log.errorLog(256987304, new String[]{"keine URL: " + urlSendung, "Thema: " + thema, "UrlFeed: " + strUrlFeed});
+            if (url.isEmpty())
+            {
+                Log.errorLog(256987304, new String[]
+                { "keine URL: " + urlSendung, "Thema: " + thema, "UrlFeed: " + strUrlFeed });
             }
         }
 
-        private void addXml(String strUrlFeed, String thema, String xmlSite, String filmSite) {
+        private void addXml(final String strUrlFeed, final String thema, final String xmlSite, final String filmSite)
+        {
             final String MUSTER_URL_MP4 = "<progressiveDownloadUrl>";
             String titel, datum, zeit, urlMp4, urlMp4_klein, urlHD, urlSendung, description;
             long duration;
 
-            try {
+            try
+            {
                 seite4 = getUrl.getUri_Utf(SENDER.getName(), xmlSite, seite4, "Thema: " + thema);
-                if (seite4.length() == 0) {
+                if (seite4.length() == 0)
+                {
                     Log.errorLog(903656532, xmlSite);
                     return;
                 }
 
                 duration = 0;
-                try {
-                    String d = seite4.extract("<duration>", "<");
-                    if (!d.isEmpty()) {
-                        String[] parts = d.split(":");
+                try
+                {
+                    final String d = seite4.extract("<duration>", "<");
+                    if (!d.isEmpty())
+                    {
+                        final String[] parts = d.split(":");
                         duration = 0;
                         long power = 1;
-                        for (int i = parts.length - 1; i >= 0; i--) {
+                        for (int i = parts.length - 1; i >= 0; i--)
+                        {
                             duration += Long.parseLong(parts[i]) * power;
                             power *= 60;
                         }
                     }
-                } catch (Exception ex) {
+                }
+                catch (final Exception ex)
+                {
                     Log.errorLog(313698749, ex, xmlSite);
                 }
 
                 titel = seite4.extract("<title>", "<");
                 description = seite4.extract("<teaserText>", "<");
-                String subtitle = seite4.extract("<videoSubtitleUrl>", "<");
+                final String subtitle = seite4.extract("<videoSubtitleUrl>", "<");
                 datum = seite4.extract("<broadcastStartDate>", "<");
-                if (datum.isEmpty()) {
+                if (datum.isEmpty())
+                {
                     datum = seite4.extract("<datetimeOfBroadcasting>", "<");
                 }
-                if (datum.isEmpty()) {
+                if (datum.isEmpty())
+                {
                     datum = seite4.extract("<webTime>", "<");
                 }
                 zeit = convertZeitXml(datum);
                 datum = convertDatumXml(datum);
                 urlSendung = seite4.extract("<htmlUrl>", "<");
-                if (urlSendung.isEmpty()) {
+                if (urlSendung.isEmpty())
+                {
                     urlSendung = filmSite;
                 }
 
                 // Film-URLs suchen
                 urlHD = seite4.extract("| MP4 Web XL |", MUSTER_URL_MP4, "<");
                 urlMp4 = seite4.extract("| MP4 Web L |", MUSTER_URL_MP4, "<");
-                if (urlMp4.isEmpty()) {
+                if (urlMp4.isEmpty())
+                {
                     urlMp4 = seite4.extract("| MP4 Web L+ |", MUSTER_URL_MP4, "<");
                 }
                 urlMp4_klein = seite4.extract("| MP4 Web M |", MUSTER_URL_MP4, "<");
 
-                if (urlMp4.isEmpty()) {
+                if (urlMp4.isEmpty())
+                {
                     urlMp4 = urlMp4_klein;
                     urlMp4_klein = "";
                 }
 
-                if (urlMp4.isEmpty()) {
-                    Log.errorLog(326541230, new String[]{"keine URL: " + xmlSite, "Thema: " + thema, " UrlFeed: " + strUrlFeed});
-                } else if (!existiertSchon(thema, titel, datum, zeit)) {
+                if (urlMp4.isEmpty())
+                {
+                    Log.errorLog(326541230, new String[]
+                    { "keine URL: " + xmlSite, "Thema: " + thema, " UrlFeed: " + strUrlFeed });
+                }
+                else if (!existiertSchon(thema, titel, datum, zeit))
+                {
                     meldung(urlMp4);
 
-                    Film film = CrawlerTool.createFilm(SENDER,
-                            urlMp4,
-                            titel,
-                            thema,
-                            datum,
-                            zeit,
-                            duration,
-                            urlSendung,
-                            description,
-                            urlHD,
-                            urlMp4_klein);
-                    if (!subtitle.isEmpty()) {
-                        film.addSubtitle(new URI(subtitle));
+                    final Film film = CrawlerTool.createFilm(SENDER, urlMp4, titel, thema, datum, zeit, duration,
+                            urlSendung, description, urlHD, urlMp4_klein);
+                    if (!subtitle.isEmpty())
+                    {
+                        film.addSubtitle(new URL(subtitle));
                     }
                     addFilm(film);
                 }
 
-            } catch (Exception ex) {
+            }
+            catch (final Exception ex)
+            {
                 Log.errorLog(446286970, ex);
             }
         }
     }
 
-    private String convertDatumXml(String datum) {
-        //<broadcastStartDate>23.08.2012 22:05</broadcastStartDate>
-        try {
-            SimpleDateFormat sdfIn = new SimpleDateFormat("dd.MM.yyyy HH:mm");
-            Date filmDate = sdfIn.parse(datum);
+    private String convertDatumXml(String datum)
+    {
+        // <broadcastStartDate>23.08.2012 22:05</broadcastStartDate>
+        try
+        {
+            final SimpleDateFormat sdfIn = new SimpleDateFormat("dd.MM.yyyy HH:mm");
+            final Date filmDate = sdfIn.parse(datum);
             SimpleDateFormat sdfOut;
             sdfOut = new SimpleDateFormat("dd.MM.yyyy");
             datum = sdfOut.format(filmDate);
-        } catch (Exception ex) {
+        }
+        catch (final Exception ex)
+        {
             Log.errorLog(435209987, ex);
         }
         return datum;
     }
 
-    private String convertZeitXml(String datum) {
-        //<broadcastStartDate>23.08.2012 22:05</broadcastStartDate>
-        try {
-            SimpleDateFormat sdfIn = new SimpleDateFormat("dd.MM.yyyy HH:mm");
-            Date filmDate = sdfIn.parse(datum);
+    private String convertZeitXml(String datum)
+    {
+        // <broadcastStartDate>23.08.2012 22:05</broadcastStartDate>
+        try
+        {
+            final SimpleDateFormat sdfIn = new SimpleDateFormat("dd.MM.yyyy HH:mm");
+            final Date filmDate = sdfIn.parse(datum);
             SimpleDateFormat sdfOut;
             sdfOut = new SimpleDateFormat("HH:mm:ss");
             datum = sdfOut.format(filmDate);
-        } catch (Exception ex) {
+        }
+        catch (final Exception ex)
+        {
             Log.errorLog(102658736, ex);
         }
         return datum;
     }
 
-    private synchronized String getListeTage() {
+    private synchronized String getListeTage()
+    {
         return listeTage.pollFirst();
     }
 
-    private synchronized boolean existiertSchon(String thema, String titel, String datum, String zeit) {
+    private synchronized boolean existiertSchon(final String thema, final String titel, final String datum,
+            final String zeit)
+    {
         // liefert true wenn schon in der Liste, ansonsten fügt es ein
         boolean gefunden = false;
-        for (String[] k : listeGesucht) {
-            if (k[0].equalsIgnoreCase(thema) && k[1].equalsIgnoreCase(titel) && k[2].equalsIgnoreCase(datum) && k[3].equalsIgnoreCase(zeit)) {
+        for (final String[] k : listeGesucht)
+        {
+            if (k[0].equalsIgnoreCase(thema) && k[1].equalsIgnoreCase(titel) && k[2].equalsIgnoreCase(datum)
+                    && k[3].equalsIgnoreCase(zeit))
+            {
                 gefunden = true;
             }
         }
-        if (!gefunden) {
-            listeGesucht.add(new String[]{thema, titel, datum, zeit});
+        if (!gefunden)
+        {
+            listeGesucht.add(new String[]
+            { thema, titel, datum, zeit });
         }
         return gefunden;
     }

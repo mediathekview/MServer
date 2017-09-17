@@ -1,17 +1,25 @@
 package de.mediathekview.mserver.crawler.ard.json;
 
-import com.google.gson.*;
-import de.mediathekview.mlib.daten.Qualities;
+import java.lang.reflect.Type;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.lang.reflect.Type;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonDeserializationContext;
+import com.google.gson.JsonDeserializer;
+import com.google.gson.JsonElement;
+
+import de.mediathekview.mlib.daten.Qualities;
 
 /**
- * Converts json with basic video from http://www.ardmediathek.de/play/media/[documentId]?devicetype=pc&features=flash to a map of {@link Qualities} with corresponding urls.
+ * Converts json with basic video from
+ * http://www.ardmediathek.de/play/media/[documentId]?devicetype=pc&features=flash
+ * to a map of {@link Qualities} with corresponding urls.
  */
 public class ArdVideoInfoJsonDeserializer implements JsonDeserializer<ArdVideoInfoDTO>
 {
+    private static final String PROTOCOL_RTMP = "rtmp";
     private static final Logger LOG = LogManager.getLogger(ArdVideoInfoJsonDeserializer.class);
     private static final String ELEMENT_STREAM = "_stream";
     private static final String ELEMENT_MEDIA_ARRAY = "_mediaArray";
@@ -23,45 +31,51 @@ public class ArdVideoInfoJsonDeserializer implements JsonDeserializer<ArdVideoIn
     private static final String ELEMENT_SERVER = "_server";
 
     @Override
-    public ArdVideoInfoDTO deserialize(final JsonElement aJsonElement, final Type aType, final JsonDeserializationContext aJsonDeserializationContext) throws JsonParseException
+    public ArdVideoInfoDTO deserialize(final JsonElement aJsonElement, final Type aType,
+            final JsonDeserializationContext aJsonDeserializationContext)
     {
-        ArdVideoInfoDTO videoInfo = new ArdVideoInfoDTO();
+        final ArdVideoInfoDTO videoInfo = new ArdVideoInfoDTO();
         final JsonElement subtitleElement = aJsonElement.getAsJsonObject().get(ELEMENT_SUBTITLE_URL);
         if (subtitleElement != null)
         {
             videoInfo.setSubtitleUrl(subtitleElement.getAsString());
         }
 
-        final JsonArray mediaStreamArray = aJsonElement.getAsJsonObject()
-                .getAsJsonArray(ELEMENT_MEDIA_ARRAY).get(0)
-                .getAsJsonObject()
-                .getAsJsonArray(ELEMENT_MEDIA_STREAM_ARRAY);
+        final JsonArray mediaStreamArray = aJsonElement.getAsJsonObject().getAsJsonArray(ELEMENT_MEDIA_ARRAY).get(0)
+                .getAsJsonObject().getAsJsonArray(ELEMENT_MEDIA_STREAM_ARRAY);
 
         for (int i = 0; i < mediaStreamArray.size(); i++)
         {
             final JsonElement vidoeElement = mediaStreamArray.get(i);
-            String qualityAsText = vidoeElement.getAsJsonObject().get(ELEMENT_QUALITY).getAsString();
+            final String qualityAsText = vidoeElement.getAsJsonObject().get(ELEMENT_QUALITY).getAsString();
 
-            String baseUrl = vidoeElement.getAsJsonObject().has(ELEMENT_SERVER) ? vidoeElement.getAsJsonObject().get(ELEMENT_SERVER).getAsString() : "";
-
-            int qualityNumber;
-            try
+            final String baseUrl = vidoeElement.getAsJsonObject().has(ELEMENT_SERVER)
+                    ? vidoeElement.getAsJsonObject().get(ELEMENT_SERVER).getAsString()
+                    : "";
+            if (baseUrl.startsWith(PROTOCOL_RTMP))
             {
-                qualityNumber = Integer.parseInt(qualityAsText);
-            } catch (NumberFormatException numberFormatException)
-            {
-                LOG.debug("Can't convert quality %s to an integer.", qualityAsText, numberFormatException);
-                qualityNumber = -1;
+                LOG.debug("Found an Sendung with the old RTMP format: " + videoElementToUrl(vidoeElement, baseUrl));
             }
-
-            if (qualityNumber > 0 || mediaStreamArray.size() == 1)
+            else
             {
-                Qualities quality = getQualityForNumber(qualityNumber);
-                videoInfo.put(quality, videoElementToUrl(vidoeElement, baseUrl));
+                int qualityNumber;
+                try
+                {
+                    qualityNumber = Integer.parseInt(qualityAsText);
+                }
+                catch (final NumberFormatException numberFormatException)
+                {
+                    LOG.debug("Can't convert quality %s to an integer.", qualityAsText, numberFormatException);
+                    qualityNumber = -1;
+                }
+
+                if (qualityNumber > 0 || mediaStreamArray.size() == 1)
+                {
+                    final Qualities quality = getQualityForNumber(qualityNumber);
+                    videoInfo.put(quality, videoElementToUrl(vidoeElement, baseUrl));
+                }
             }
         }
-
-
         return videoInfo;
     }
 
@@ -69,22 +83,22 @@ public class ArdVideoInfoJsonDeserializer implements JsonDeserializer<ArdVideoIn
     {
         switch (i)
         {
-            case 0:
-                return Qualities.VERY_SMALL;
+        case 0:
+            return Qualities.VERY_SMALL;
 
-            case 1:
-                return Qualities.SMALL;
+        case 1:
+            return Qualities.SMALL;
 
-            case 2:
-            default:
-                return Qualities.NORMAL;
+        case 2:
+        default:
+            return Qualities.NORMAL;
 
-            case 3:
-                return Qualities.HD;
+        case 3:
+            return Qualities.HD;
         }
     }
 
-    private String videoElementToUrl(final JsonElement aVideoElement, String aBaseUrl)
+    private String videoElementToUrl(final JsonElement aVideoElement, final String aBaseUrl)
     {
         String url = aVideoElement.getAsJsonObject().get(ELEMENT_STREAM).getAsString();
         if (url.matches(URL_PREFIX_PATTERN + URL_PATTERN))

@@ -7,8 +7,7 @@ package mServer.crawler;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
-import java.net.URI;
-import java.net.URISyntaxException;
+import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.time.Duration;
 import java.time.temporal.ChronoUnit;
@@ -185,70 +184,64 @@ public class CrawlerTool
         }
     }
 
-    public static long getFileSize(final URI aURI)
+    public static long getFileSize(final URL aURL)
     {
         long fileSize = 0;
 
-        if (aURI.toString().contains(RTMP))
+        if (aURL.toString().contains(RTMP))
         {
             // Cant get the size of rtmp.
             return -1;
         }
 
         final OkHttpClient client = MVHttpClient.getInstance().getSSLUnsafeClient();
-        try
+        final Request request = new Request.Builder().url(aURL).head().build();
+        try (Response response = client.newCall(request).execute(); ResponseBody body = response.body())
         {
-            final Request request = new Request.Builder().url(aURI.toURL()).head().build();
-            try (Response response = client.newCall(request).execute(); ResponseBody body = response.body())
+            if (response.isSuccessful())
             {
-                if (response.isSuccessful())
+                long respLength = body.contentLength();
+                if (respLength < 1_000_000)
                 {
-                    long respLength = body.contentLength();
-                    if (respLength < 1_000_000)
-                    {
-                        respLength = -1;
-                    }
-                    else if (respLength > 1_000_000)
-                    {
-                        respLength /= 1_000_000;
-                    }
-                    fileSize = respLength;
+                    respLength = -1;
                 }
-            }
-            catch (final IOException ioException)
-            {
-                LOG.error(String.format("Die größe der Url \"%s\" konnte nicht ermittelt werden.", aURI), ioException);
+                else if (respLength > 1_000_000)
+                {
+                    respLength /= 1_000_000;
+                }
+                fileSize = respLength;
             }
         }
-        catch (final MalformedURLException malformedURLException)
+        catch (final IOException ioException)
         {
-            LOG.error(String.format("Invalid URL: \"%s\"", aURI.toString()), malformedURLException);
+            LOG.error(String.format("Die größe der Url \"%s\" konnte nicht ermittelt werden.", aURL), ioException);
         }
 
         return fileSize;
+
     }
 
-    public static FilmUrl uriToFilmUrl(final URI aURI)
+    public static FilmUrl uriToFilmUrl(final URL aURL)
     {
-        return new FilmUrl(aURI, getFileSize(aURI));
+        return new FilmUrl(aURL, getFileSize(aURL));
     }
 
-    public static FilmUrl stringToFilmUrl(final String aUrl) throws URISyntaxException
+    public static FilmUrl stringToFilmUrl(final String aUrl) throws MalformedURLException
     {
 
         try
         {
             if (aUrl.startsWith(URL_START_WITHOUT_PROTOCOL_PATTERN))
             {
-                return uriToFilmUrl(new URI(HTTPS + aUrl));
+                return uriToFilmUrl(new URL(HTTPS + aUrl));
             }
-            return uriToFilmUrl(new URI(aUrl));
+            return uriToFilmUrl(new URL(aUrl));
 
         }
-        catch (final URISyntaxException uriSyntaxException)
+        catch (final MalformedURLException aMalformedURLException)
         {
             LOG.error(String.format("Die URL \"%s\" ist kaputt.", aUrl));
-            throw uriSyntaxException;
+            throw aMalformedURLException;
         }
     }
 
@@ -362,11 +355,11 @@ public class CrawlerTool
     public static Film createFilm(final Sender aSender, final String aUrlNormal, final String aTitel,
             final String aThema, final String aDatum, final String aZeit, final long aDurationInSecunds,
             final String aUrlWebseite, final String aBeschreibung, final String aUrlHd, final String aUrlSmall)
-            throws URISyntaxException
+            throws MalformedURLException
     {
         final Film film = new Film(UUID.randomUUID(), CrawlerTool.getGeoLocations(aSender, aUrlNormal), aSender, aTitel,
                 aThema, MserverDatumZeit.parseDateTime(aDatum, aZeit),
-                Duration.of(aDurationInSecunds, ChronoUnit.SECONDS), new URI(aUrlWebseite));
+                Duration.of(aDurationInSecunds, ChronoUnit.SECONDS), new URL(aUrlWebseite));
 
         film.addUrl(Qualities.NORMAL, stringToFilmUrl(aUrlNormal));
         if (StringUtils.isNotBlank(aBeschreibung))
@@ -384,13 +377,13 @@ public class CrawlerTool
         return film;
     }
 
-    public static void improveAufloesung(final Film aFilm) throws URISyntaxException
+    public static void improveAufloesung(final Film aFilm) throws MalformedURLException
     {
         updateNormal(aFilm);
         updateHD(aFilm);
     }
 
-    public static void updateNormal(final Film aFilm) throws URISyntaxException
+    public static void updateNormal(final Film aFilm) throws MalformedURLException
     {
         final Map<String, List<String>> urls = new HashMap<>();
 
@@ -407,7 +400,7 @@ public class CrawlerTool
         updateUrl(urls, aFilm, Qualities.NORMAL);
     }
 
-    public static void updateHD(final Film aFilm) throws URISyntaxException
+    public static void updateHD(final Film aFilm) throws MalformedURLException
     {
         final Map<String, List<String>> urls = new HashMap<>();
 
@@ -436,7 +429,7 @@ public class CrawlerTool
     }
 
     private static void updateUrl(final Map<String, List<String>> aUrls, final Film aFilm,
-            final Qualities aTargetQuality) throws URISyntaxException
+            final Qualities aTargetQuality) throws MalformedURLException
     {
         String url;
         if (aFilm.getUrls().containsKey(aTargetQuality))

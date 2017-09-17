@@ -4,11 +4,9 @@ import static org.hamcrest.CoreMatchers.equalTo;
 import static org.junit.Assert.assertThat;
 
 import java.io.IOException;
-import java.net.URI;
-import java.net.URISyntaxException;
+import java.net.MalformedURLException;
+import java.net.URL;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
@@ -28,7 +26,6 @@ import okhttp3.mockwebserver.RecordedRequest;
 
 public class AddToFilmlistTest
 {
-    private static final Logger LOG = LogManager.getLogger(AddToFilmlistTest.class);
     private static final String FILM_NAME_ONLINE = "onlinefilm.mp4";
     private static final String FILM_NAME_ONLINE2 = "onlinefilm2.mp4";
     private static final String FILM_TOPIC1 = "Topic 1";
@@ -39,8 +36,6 @@ public class AddToFilmlistTest
     private static final String FILM_TITLE3 = "Title 3";
 
     private static MockWebServer mockServer;
-    private static String baseUrl;
-
     private ListeFilme list;
     private ListeFilme listToAdd;
 
@@ -67,7 +62,6 @@ public class AddToFilmlistTest
         };
         mockServer.setDispatcher(dispatcher);
         mockServer.start();
-        baseUrl = mockServer.url("").toString();
     }
 
     @AfterClass
@@ -77,7 +71,7 @@ public class AddToFilmlistTest
     }
 
     @Before
-    public void setUp() throws URISyntaxException
+    public void setUp() throws MalformedURLException
     {
         listToAdd = new ListeFilme();
         list = new ListeFilme();
@@ -86,7 +80,7 @@ public class AddToFilmlistTest
     }
 
     @Test
-    public void testAddOldListDifferentSenderAndUrlAdded() throws URISyntaxException
+    public void testAddOldListDifferentSenderAndUrlAdded() throws MalformedURLException
     {
         listToAdd.add(createTestFilm(Sender.ARD, FILM_TOPIC1, FILM_TITLE1, FILM_NAME_ONLINE));
 
@@ -97,7 +91,7 @@ public class AddToFilmlistTest
     }
 
     @Test
-    public void testAddOldListDifferentTopicAndUrlAdded() throws URISyntaxException
+    public void testAddOldListDifferentTopicAndUrlAdded() throws MalformedURLException
     {
         listToAdd.add(createTestFilm(Sender.BR, FILM_TOPIC3, FILM_TITLE1, FILM_NAME_ONLINE));
 
@@ -108,7 +102,7 @@ public class AddToFilmlistTest
     }
 
     @Test
-    public void testAddOldListDifferentTitleAndUrlAdded() throws URISyntaxException
+    public void testAddOldListDifferentTitleAndUrlAdded() throws MalformedURLException
     {
         listToAdd.add(createTestFilm(Sender.BR, FILM_TOPIC1, FILM_TITLE2, FILM_NAME_ONLINE));
 
@@ -119,7 +113,7 @@ public class AddToFilmlistTest
     }
 
     @Test
-    public void testAddOldListDifferentUrlNotAdded() throws URISyntaxException
+    public void testAddOldListDifferentUrlNotAdded() throws MalformedURLException
     {
         listToAdd.add(createTestFilm(Sender.BR, FILM_TOPIC1, FILM_TITLE1, FILM_NAME_ONLINE2));
 
@@ -130,7 +124,7 @@ public class AddToFilmlistTest
     }
 
     @Test
-    public void testAddOldListDifferentTitleAdded() throws URISyntaxException
+    public void testAddOldListDifferentTitleAdded() throws MalformedURLException
     {
         listToAdd.add(createTestFilm(Sender.BR, FILM_TOPIC1, FILM_TITLE3, FILM_NAME_ONLINE));
 
@@ -141,7 +135,7 @@ public class AddToFilmlistTest
     }
 
     @Test
-    public void testAddOldListDifferentTitleAndUrlButNotOnlineNotAdded() throws URISyntaxException
+    public void testAddOldListDifferentTitleAndUrlButNotOnlineNotAdded() throws MalformedURLException
     {
         listToAdd.add(createTestFilm(Sender.BR, FILM_TOPIC1, FILM_TITLE2, "imnotonline.mp4"));
 
@@ -154,7 +148,7 @@ public class AddToFilmlistTest
     // Test with list of 100000 different old entries which are online
     // to ensure the multithreaded onilne check is correct
     @Test
-    public void testAddHugeFilmList() throws URISyntaxException
+    public void testAddHugeFilmList() throws MalformedURLException
     {
         for (int i = 0; i < 100000; i++)
         {
@@ -169,10 +163,10 @@ public class AddToFilmlistTest
     }
 
     private static Film createTestFilm(final Sender sender, final String topic, final String title,
-            final String filmUrl) throws URISyntaxException
+            final String filmUrl) throws MalformedURLException
     {
         final Film film = CrawlerTool.createFilm(sender, filmUrl, title, topic, "", "", 12, "url", "", "", "");
-        film.addUrl(Qualities.NORMAL, new FilmUrl(new URI(filmUrl), 10l));
+        film.addUrl(Qualities.NORMAL, new FilmUrl(new URL(filmUrl), 10l));
 
         return film;
     }

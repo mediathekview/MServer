@@ -19,6 +19,22 @@
  */
 package mServer.crawler.sender;
 
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Date;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Optional;
+import java.util.Set;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import de.mediathekview.mlib.daten.Film;
 import de.mediathekview.mlib.daten.Qualities;
 import de.mediathekview.mlib.tool.GermanStringSorter;
@@ -29,28 +45,28 @@ import mServer.crawler.FilmeSuchen;
 import mServer.crawler.RunSender;
 import okhttp3.Request;
 import okhttp3.Response;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
-import java.io.IOException;
-import java.net.URISyntaxException;
-import java.text.SimpleDateFormat;
-import java.util.*;
 
 public abstract class MediathekReader extends Thread
 {
     private static final Logger LOG = LogManager.getLogger(MediathekReader.class);
-    private final String sendername; // ist der Name, den der Mediathekreader hat, der ist eindeutig
-    private final int maxThreadLaufen; //4; // Anzahl der Thread die parallel Suchen
-    private final int wartenSeiteLaden; //ms, Basiswert zu dem dann der Faktor multipliziert wird, Wartezeit zwischen 2 Websiten beim Absuchen der Sender
-    private final int startPrio; // es gibt die Werte: 0->startet sofort, 1->später und 2->zuletzt
+    private final String sendername; // ist der Name, den der Mediathekreader
+                                     // hat, der ist eindeutig
+    private final int maxThreadLaufen; // 4; // Anzahl der Thread die parallel
+                                       // Suchen
+    private final int wartenSeiteLaden; // ms, Basiswert zu dem dann der Faktor
+                                        // multipliziert wird, Wartezeit
+                                        // zwischen 2 Websiten beim Absuchen der
+                                        // Sender
+    private final int startPrio; // es gibt die Werte: 0->startet sofort,
+                                 // 1->später und 2->zuletzt
     protected Set<String[]> listeThemen;
     protected FilmeSuchen mlibFilmeSuchen;
     private int threads; // aktuelle Anz. laufender Threads
     private int max; // Anz. zu suchender Themen
     private int progress; // Prograss eben
 
-    public MediathekReader(FilmeSuchen aMSearchFilmeSuchen, String aSendername, int aSenderMaxThread, int aSenderWartenSeiteLaden, int aStartPrio)
+    public MediathekReader(final FilmeSuchen aMSearchFilmeSuchen, final String aSendername, final int aSenderMaxThread,
+            final int aSenderWartenSeiteLaden, final int aStartPrio)
     {
         mlibFilmeSuchen = aMSearchFilmeSuchen;
 
@@ -65,16 +81,17 @@ public abstract class MediathekReader extends Thread
         listeThemen = Collections.synchronizedSet(new HashSet<>());
     }
 
-    public static boolean urlExists(String url)
+    public static boolean urlExists(final String url)
     {
         // liefert liefert true, wenn es die URL gibt
         // brauchts, um Filmurls zu prüfen
         if (!url.toLowerCase().startsWith("http"))
         {
             return false;
-        } else
+        }
+        else
         {
-            Request request = new Request.Builder().url(url).head().build();
+            final Request request = new Request.Builder().url(url).head().build();
             boolean result = false;
 
             try (Response response = MVHttpClient.getInstance().getReducedTimeOutClient().newCall(request).execute())
@@ -83,7 +100,8 @@ public abstract class MediathekReader extends Thread
                 {
                     result = true;
                 }
-            } catch (IOException ex)
+            }
+            catch (final IOException ex)
             {
                 ex.printStackTrace();
                 result = false;
@@ -93,11 +111,11 @@ public abstract class MediathekReader extends Thread
         }
     }
 
-    protected static void listeSort(Set<String[]> aListe, int stelle)
+    protected static void listeSort(final Set<String[]> aListe, final int stelle)
     {
-        List<String[]> liste = new ArrayList<>(aListe);
-        //Stringliste alphabetisch sortieren
-        GermanStringSorter sorter = GermanStringSorter.getInstance();
+        final List<String[]> liste = new ArrayList<>(aListe);
+        // Stringliste alphabetisch sortieren
+        final GermanStringSorter sorter = GermanStringSorter.getInstance();
         if (liste != null)
         {
             String str1;
@@ -112,7 +130,8 @@ public abstract class MediathekReader extends Thread
                     if (sorter.compare(str1, str2) > 0)
                     {
                         liste.add(k - 1, liste.remove(k));
-                    } else
+                    }
+                    else
                     {
                         break;
                     }
@@ -136,9 +155,10 @@ public abstract class MediathekReader extends Thread
             {
                 dauer = dauer.replace("min", "").trim();
                 dauerInSeconds = Long.parseLong(dauer) * 60;
-            } else
+            }
+            else
             {
-                String[] parts = dauer.split(":");
+                final String[] parts = dauer.split(":");
                 long power = 1;
                 for (int i = parts.length - 1; i >= 0; i--)
                 {
@@ -146,14 +166,15 @@ public abstract class MediathekReader extends Thread
                     power *= 60;
                 }
             }
-        } catch (Exception ex)
+        }
+        catch (final Exception ex)
         {
             return 0;
         }
         return dauerInSeconds;
     }
 
-    protected static long extractDurationSec(String dauer)
+    protected static long extractDurationSec(final String dauer)
     {
         long dauerInSeconds;
         if (dauer.isEmpty())
@@ -163,7 +184,8 @@ public abstract class MediathekReader extends Thread
         try
         {
             dauerInSeconds = Long.parseLong(dauer);
-        } catch (Exception ex)
+        }
+        catch (final Exception ex)
         {
             return 0;
         }
@@ -205,27 +227,27 @@ public abstract class MediathekReader extends Thread
         return threads;
     }
 
-    public boolean checkNameSenderFilmliste(String name)
+    public boolean checkNameSenderFilmliste(final String name)
     {
         // ist der Name der in der Tabelle Filme angezeigt wird
         return getSendername().equalsIgnoreCase(name);
     }
 
-
     public void clear()
     {
-        //aufräumen
+        // aufräumen
     }
 
     @Override
     public void run()
     {
-        //alles laden
+        // alles laden
         try
         {
             threads = 0;
             addToList();
-        } catch (Exception ex)
+        }
+        catch (final Exception ex)
         {
             Log.errorLog(397543600, ex, getSendername());
         }
@@ -233,7 +255,7 @@ public abstract class MediathekReader extends Thread
 
     protected abstract void addToList();
 
-    protected void addFilm(Film film, boolean urlPruefen)
+    protected void addFilm(final Film film, final boolean urlPruefen)
     {
         // es werden die gefundenen Filme in die Liste einsortiert
         if (urlPruefen)
@@ -242,7 +264,8 @@ public abstract class MediathekReader extends Thread
             {
                 addFilm(film);
             }
-        } else
+        }
+        else
         {
             addFilm(film);
         }
@@ -251,16 +274,18 @@ public abstract class MediathekReader extends Thread
     /**
      * Es werden die gefundenen Filme in die Liste einsortiert.
      *
-     * @param aFilm der einzufügende Film
+     * @param aFilm
+     *            der einzufügende Film
      */
-    protected void addFilm(Film aFilm)
+    protected void addFilm(final Film aFilm)
     {
         try
         {
             CrawlerTool.improveAufloesung(aFilm);
-        } catch (URISyntaxException uriSyntaxEception)
+        }
+        catch (final MalformedURLException malformedURLException)
         {
-            LOG.error("Beim verbessern der Auflösung ist ein Fehler aufgetreten", uriSyntaxEception);
+            LOG.error("Beim verbessern der Auflösung ist ein Fehler aufgetreten", malformedURLException);
         }
 
         if (mlibFilmeSuchen.listeFilmeNeu.addFilmVomSender(aFilm))
@@ -270,16 +295,16 @@ public abstract class MediathekReader extends Thread
         }
     }
 
-    boolean istInListe(Set<String[]> liste, String str, int nr)
+    boolean istInListe(final Set<String[]> liste, final String str, final int nr)
     {
-        Optional<String[]> opt = liste.parallelStream().filter(f -> f[nr].equals(str)).findAny();
+        final Optional<String[]> opt = liste.parallelStream().filter(f -> f[nr].equals(str)).findAny();
 
         return opt.isPresent();
     }
 
-    boolean istInListe(LinkedList<String> liste, String str)
+    boolean istInListe(final LinkedList<String> liste, final String str)
     {
-        Optional<String> opt = liste.parallelStream().filter(f -> f.equals(str)).findAny();
+        final Optional<String> opt = liste.parallelStream().filter(f -> f.equals(str)).findAny();
 
         return opt.isPresent();
     }
@@ -290,34 +315,39 @@ public abstract class MediathekReader extends Thread
         max = 0;
         progress = 0;
         Log.sysLog("===============================================================");
-        Log.sysLog("Starten[" + ((CrawlerTool.loadLongMax()) ? "alles" : "update") + "] " + getSendername() + ": " + new SimpleDateFormat("HH:mm:ss").format(new Date()));
+        Log.sysLog("Starten[" + (CrawlerTool.loadLongMax() ? "alles" : "update") + "] " + getSendername() + ": "
+                + new SimpleDateFormat("HH:mm:ss").format(new Date()));
         Log.sysLog("   maxThreadLaufen: " + getMaxThreadLaufen());
         Log.sysLog("   wartenSeiteLaden: " + getWartenSeiteLaden());
         Log.sysLog("");
-        RunSender runSender = mlibFilmeSuchen.melden(getSendername(), getMax(), getProgress(), "" /* text */);
-        runSender.maxThreads = getMaxThreadLaufen(); //runSender ist erst jetzt angelegt
+        final RunSender runSender = mlibFilmeSuchen.melden(getSendername(), getMax(), getProgress(),
+                "" /* text */);
+        runSender.maxThreads = getMaxThreadLaufen(); // runSender ist erst jetzt
+                                                     // angelegt
         runSender.waitOnLoad = getWartenSeiteLaden();
     }
 
-    protected synchronized void meldungAddMax(int mmax)
+    protected synchronized void meldungAddMax(final int mmax)
     {
         max = max + mmax;
-        mlibFilmeSuchen.melden(getSendername(), getMax(), getProgress(), "" /* text */);
+        mlibFilmeSuchen.melden(getSendername(), getMax(), getProgress(),
+                "" /* text */);
     }
 
     protected synchronized void meldungAddThread()
     {
         threads++;
-        mlibFilmeSuchen.melden(getSendername(), getMax(), getProgress(), "" /* text */);
+        mlibFilmeSuchen.melden(getSendername(), getMax(), getProgress(),
+                "" /* text */);
     }
 
-    protected synchronized void meldungProgress(String text)
+    protected synchronized void meldungProgress(final String text)
     {
         progress++;
         mlibFilmeSuchen.melden(getSendername(), getMax(), getProgress(), text);
     }
 
-    protected synchronized void meldung(String text)
+    protected synchronized void meldung(final String text)
     {
         mlibFilmeSuchen.melden(getSendername(), getMax(), getProgress(), text);
     }
@@ -325,24 +355,26 @@ public abstract class MediathekReader extends Thread
     protected synchronized void meldungThreadUndFertig()
     {
         // meldet das Ende eines!!! Threads
-        // der MediathekReader ist erst fertig wenn alle gestarteten Threads fertig sind!!
+        // der MediathekReader ist erst fertig wenn alle gestarteten Threads
+        // fertig sind!!
         threads--;
         if (getThreads() <= 0)
         {
-            //wird erst ausgeführt wenn alle Threads beendet sind
+            // wird erst ausgeführt wenn alle Threads beendet sind
             mlibFilmeSuchen.meldenFertig(getSendername());
-        } else
+        }
+        else
         {
             // läuft noch was
-            mlibFilmeSuchen.melden(getSendername(), getMax(), getProgress(), "" /* text */);
+            mlibFilmeSuchen.melden(getSendername(), getMax(), getProgress(),
+                    "" /* text */);
         }
     }
-
 
     @SuppressWarnings("serial")
     class HashSetUrl extends HashSet<String[]>
     {
-        public synchronized boolean addUrl(String[] e)
+        public synchronized boolean addUrl(final String[] e)
         {
             return add(e);
         }
@@ -351,7 +383,7 @@ public abstract class MediathekReader extends Thread
         {
             String[] res = null;
 
-            Iterator<String[]> it = iterator();
+            final Iterator<String[]> it = iterator();
             if (it.hasNext())
             {
                 res = it.next();
@@ -362,6 +394,5 @@ public abstract class MediathekReader extends Thread
         }
 
     }
-
 
 }

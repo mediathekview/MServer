@@ -19,6 +19,13 @@
  */
 package mServer.crawler.sender;
 
+import java.net.MalformedURLException;
+import java.util.ArrayList;
+import java.util.Iterator;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import de.mediathekview.mlib.Config;
 import de.mediathekview.mlib.Const;
 import de.mediathekview.mlib.daten.Film;
@@ -29,104 +36,127 @@ import mServer.crawler.CrawlerTool;
 import mServer.crawler.FilmeSuchen;
 import mServer.crawler.GetUrl;
 import mServer.tool.MserverDaten;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
-import java.net.URISyntaxException;
-import java.util.ArrayList;
-import java.util.Iterator;
-
-public class MediathekDw extends MediathekReader implements Runnable {
+public class MediathekDw extends MediathekReader implements Runnable
+{
     private static final Logger LOG = LogManager.getLogger(MediathekDw.class);
     public final static Sender SENDER = Sender.DW;
     private final static String ADDURL = "http://tv-download.dw.de/dwtv_video/flv/";
     private final static String HTTP = "http";
 
-    public MediathekDw(FilmeSuchen ssearch, int startPrio) {
+    public MediathekDw(final FilmeSuchen ssearch, final int startPrio)
+    {
         super(ssearch, SENDER.getName(), /* threads */ 4, /* urlWarten */ 200, startPrio);
     }
 
     @Override
-    protected void addToList() {
+    protected void addToList()
+    {
         listeThemen.clear();
         meldungStart();
         sendungenLaden();
-        if (Config.getStop()) {
+        if (Config.getStop())
+        {
             meldungThreadUndFertig();
-        } else if (listeThemen.isEmpty()) {
+        }
+        else if (listeThemen.isEmpty())
+        {
             meldungThreadUndFertig();
-        } else {
+        }
+        else
+        {
             listeSort(listeThemen, 1);
             meldungAddMax(listeThemen.size());
-            for (int t = 0; t < getMaxThreadLaufen(); ++t) {
-                //new Thread(new ThemaLaden()).start();
-                Thread th = new ThemaLaden();
+            for (int t = 0; t < getMaxThreadLaufen(); ++t)
+            {
+                // new Thread(new ThemaLaden()).start();
+                final Thread th = new ThemaLaden();
                 th.setName(SENDER.getName() + t);
                 th.start();
             }
         }
     }
 
-    private void sendungenLaden() {
+    private void sendungenLaden()
+    {
         final String ADRESSE = "http://www.dw.com/de/media-center/alle-inhalte/s-100814";
         final String MUSTER_URL = "value=\"";
         final String MUSTER_START = "<div class=\"label\">Sendungen</div>";
         MSStringBuilder seite = new MSStringBuilder(Const.STRING_BUFFER_START_BUFFER);
-        GetUrl getUrlIo = new GetUrl(getWartenSeiteLaden());
+        final GetUrl getUrlIo = new GetUrl(getWartenSeiteLaden());
         seite = getUrlIo.getUri_Utf(SENDER.getName(), ADRESSE, seite, "");
         int pos1, pos2;
         String url = "", thema = "";
         pos1 = seite.indexOf(MUSTER_START);
-        if (pos1 == -1) {
+        if (pos1 == -1)
+        {
             Log.errorLog(915230456, "Nichts gefunden");
             return;
         }
         pos1 += MUSTER_START.length();
-        int stop = seite.indexOf("</div>", pos1);
-        while ((pos1 = seite.indexOf(MUSTER_URL, pos1)) != -1) {
-            if (pos1 > stop) {
+        final int stop = seite.indexOf("</div>", pos1);
+        while ((pos1 = seite.indexOf(MUSTER_URL, pos1)) != -1)
+        {
+            if (pos1 > stop)
+            {
                 break;
             }
-            try {
+            try
+            {
                 pos1 += MUSTER_URL.length();
-                if ((pos2 = seite.indexOf("\"", pos1)) != -1) {
+                if ((pos2 = seite.indexOf("\"", pos1)) != -1)
+                {
                     url = seite.substring(pos1, pos2);
                 }
-                if (url.isEmpty()) {
+                if (url.isEmpty())
+                {
                     continue;
                 }
-                if (CrawlerTool.loadLongMax()) {
-                    //http://www.dw.com/de/media-center/alle-inhalte/s-100814/filter/programs/3204/sort/date/results/16/
-                    //http://www.dw.com/de/media-center/alle-inhalte/s-100814?filter=&programs=17274211&sort=date&results=36
-                    url = "http://www.dw.com/de/media-center/alle-inhalte/s-100814?filter=&programs=" + url + "&sort=date&results=100";
-                } else {
-                    url = "http://www.dw.com/de/media-center/alle-inhalte/s-100814?filter=&programs=" + url + "&sort=date&results=20";
+                if (CrawlerTool.loadLongMax())
+                {
+                    // http://www.dw.com/de/media-center/alle-inhalte/s-100814/filter/programs/3204/sort/date/results/16/
+                    // http://www.dw.com/de/media-center/alle-inhalte/s-100814?filter=&programs=17274211&sort=date&results=36
+                    url = "http://www.dw.com/de/media-center/alle-inhalte/s-100814?filter=&programs=" + url
+                            + "&sort=date&results=100";
                 }
-                if ((pos1 = seite.indexOf(">", pos1)) != -1) {
+                else
+                {
+                    url = "http://www.dw.com/de/media-center/alle-inhalte/s-100814?filter=&programs=" + url
+                            + "&sort=date&results=20";
+                }
+                if ((pos1 = seite.indexOf(">", pos1)) != -1)
+                {
                     pos1 += 1;
-                    if ((pos2 = seite.indexOf("<", pos1)) != -1) {
+                    if ((pos2 = seite.indexOf("<", pos1)) != -1)
+                    {
                         thema = seite.substring(pos1, pos2);
                     }
                 }
                 // in die Liste eintragen
-                String[] add = new String[]{url, thema};
+                final String[] add = new String[]
+                { url, thema };
                 listeThemen.add(add);
-            } catch (Exception ex) {
+            }
+            catch (final Exception ex)
+            {
                 Log.errorLog(731245970, ex);
             }
         }
 
     }
 
-    private class ThemaLaden extends Thread {
+    private class ThemaLaden extends Thread
+    {
 
         private MSStringBuilder seite1 = new MSStringBuilder(Const.STRING_BUFFER_START_BUFFER);
         private MSStringBuilder seite2 = new MSStringBuilder(Const.STRING_BUFFER_START_BUFFER);
         private final ArrayList<String> listUrl = new ArrayList<>();
 
         @Override
-        public void run() {
-            try {
+        public void run()
+        {
+            try
+            {
                 meldungAddThread();
                 final Iterator<String[]> themaIterator = listeThemen.iterator();
                 while (!Config.getStop() && themaIterator.hasNext())
@@ -135,115 +165,138 @@ public class MediathekDw extends MediathekReader implements Runnable {
                     meldungProgress(thema[0]);
                     laden(thema[0] /* url */, thema[1] /* Thema */);
                 }
-            } catch (Exception ex) {
+            }
+            catch (final Exception ex)
+            {
                 Log.errorLog(915423640, ex);
             }
             meldungThreadUndFertig();
         }
 
-        private void laden(String urlThema, String thema) {
+        private void laden(final String urlThema, final String thema)
+        {
 
             final String MUSTER_START = "<div class=\"news searchres hov\">";
             String urlSendung;
             meldung(urlThema);
-            GetUrl getUrlIo = new GetUrl(getWartenSeiteLaden());
+            final GetUrl getUrlIo = new GetUrl(getWartenSeiteLaden());
             seite1 = getUrlIo.getUri_Utf(SENDER.getName(), urlThema, seite1, "");
             int pos1 = 0;
             String titel;
-            while (!Config.getStop() && (pos1 = seite1.indexOf(MUSTER_START, pos1)) != -1) {
+            while (!Config.getStop() && (pos1 = seite1.indexOf(MUSTER_START, pos1)) != -1)
+            {
                 pos1 += MUSTER_START.length();
                 urlSendung = seite1.extract("<a href=\"", "\"", pos1);
                 titel = seite1.extract("<h2>", "<", pos1).trim();
-                if (!urlSendung.isEmpty()) {
+                if (!urlSendung.isEmpty())
+                {
                     laden2(urlThema, thema, titel, "http://www.dw.com" + urlSendung);
                 }
             }
         }
 
-        private void laden2(String urlThema, String thema, String titel, String urlSendung) {
+        private void laden2(final String urlThema, final String thema, final String titel, final String urlSendung)
+        {
             String url = "", urlLow = "", urlHd = "";
             meldung(urlThema);
-            GetUrl getUrlIo = new GetUrl(getWartenSeiteLaden());
+            final GetUrl getUrlIo = new GetUrl(getWartenSeiteLaden());
             seite2 = getUrlIo.getUri_Utf(SENDER.getName(), urlSendung, seite2, "");
 
             seite2.extractList("%22file%22%3A%22", "%22%7D", listUrl);
-            if (listUrl.isEmpty()) {
-               seite2.extractList("name=\"file_name\" value=\"", "\"", listUrl); 
+            if (listUrl.isEmpty())
+            {
+                seite2.extractList("name=\"file_name\" value=\"", "\"", listUrl);
             }
-            for (String u : listUrl) {
+            for (String u : listUrl)
+            {
                 u = u.replace("%2F", "/");
-                if (urlLow.isEmpty() && u.endsWith("vp6.flv")) {
+                if (urlLow.isEmpty() && u.endsWith("vp6.flv"))
+                {
                     urlLow = addUrlPrefixIfNecessary(u);
                 }
-                if (url.isEmpty() && u.endsWith("sor.mp4")) {
+                if (url.isEmpty() && u.endsWith("sor.mp4"))
+                {
                     url = addUrlPrefixIfNecessary(u);
                 }
-                if (urlHd.isEmpty() && u.endsWith("avc.mp4")) {
+                if (urlHd.isEmpty() && u.endsWith("avc.mp4"))
+                {
                     urlHd = addUrlPrefixIfNecessary(u);
                 }
             }
             listUrl.clear();
 
-            String description = seite2.extract("<meta name=\"description\" content=\"", "\"");
-            String datum = seite2.extract("<strong>Datum</strong>", "</li>").trim();
+            final String description = seite2.extract("<meta name=\"description\" content=\"", "\"");
+            final String datum = seite2.extract("<strong>Datum</strong>", "</li>").trim();
             String dur = seite2.extract("<strong>Dauer</strong>", "Min.").trim();
             dur = dur.replace("\n", "");
             dur = dur.replace("\r", "");
             long duration = 0;
-            try {
-                if (!dur.isEmpty()) {
-                    String[] parts = dur.split(":");
+            try
+            {
+                if (!dur.isEmpty())
+                {
+                    final String[] parts = dur.split(":");
                     long power = 1;
-                    for (int i = parts.length - 1; i >= 0; i--) {
+                    for (int i = parts.length - 1; i >= 0; i--)
+                    {
                         duration += Long.parseLong(parts[i]) * power;
                         power *= 60;
                     }
                 }
-            } catch (NumberFormatException ex) {
+            }
+            catch (final NumberFormatException ex)
+            {
                 if (MserverDaten.debug)
+                {
                     Log.errorLog(912034567, "duration: " + dur);
-            } catch (Exception ex) {
+                }
+            }
+            catch (final Exception ex)
+            {
                 Log.errorLog(912034567, "duration: " + dur);
             }
 
-            if (url.isEmpty() && !urlLow.isEmpty()) {
+            if (url.isEmpty() && !urlLow.isEmpty())
+            {
                 url = urlLow;
                 urlLow = "";
             }
-            if (url.isEmpty() && !urlHd.isEmpty()) {
+            if (url.isEmpty() && !urlHd.isEmpty())
+            {
                 url = urlHd;
                 urlHd = "";
             }
-            if (url.isEmpty()) {
+            if (url.isEmpty())
+            {
                 if (MserverDaten.debug)
-                    Log.errorLog(643230120, "empty URL: " + urlSendung);
-            } else {
-                try{
-                Film film = CrawlerTool.createFilm(SENDER,
-                        url,
-                        titel,
-                        thema,
-                        datum,
-                        "",
-                        duration,
-                        urlSendung,
-                        description,
-                        urlHd,
-                        urlLow);
-                addFilm(film);
-                } catch (URISyntaxException uriSyntaxEception)
                 {
-                    LOG.error(String.format("Der Film \"%s - %s\" konnte nicht umgewandelt werden.", thema, titel), uriSyntaxEception);
+                    Log.errorLog(643230120, "empty URL: " + urlSendung);
+                }
+            }
+            else
+            {
+                try
+                {
+                    final Film film = CrawlerTool.createFilm(SENDER, url, titel, thema, datum, "", duration, urlSendung,
+                            description, urlHd, urlLow);
+                    addFilm(film);
+                }
+                catch (final MalformedURLException malformedURLException)
+                {
+                    LOG.error(String.format("Der Film \"%s - %s\" konnte nicht umgewandelt werden.", thema, titel),
+                            malformedURLException);
                 }
             }
 
-        }        
-        
-        private String addUrlPrefixIfNecessary(String url) {
-            if (!url.startsWith(HTTP)) {
+        }
+
+        private String addUrlPrefixIfNecessary(final String url)
+        {
+            if (!url.startsWith(HTTP))
+            {
                 return ADDURL + url;
-            }            
+            }
             return url;
-        }    
-    }   
+        }
+    }
 }

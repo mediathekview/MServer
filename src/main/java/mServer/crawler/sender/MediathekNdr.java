@@ -1,9 +1,9 @@
-/*    
+/*
  *    MediathekView
  *    Copyright (C) 2008   W. Xaver
  *    W.Xaver[at]googlemail.com
  *    http://zdfmediathk.sourceforge.net/
- *    
+ *
  *    This program is free software: you can redistribute it and/or modify
  *    it under the terms of the GNU General Public License as published by
  *    the Free Software Foundation, either version 3 of the License, or
@@ -19,6 +19,17 @@
  */
 package mServer.crawler.sender;
 
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.Iterator;
+
+import org.apache.commons.lang3.time.FastDateFormat;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import de.mediathekview.mlib.Config;
 import de.mediathekview.mlib.Const;
 import de.mediathekview.mlib.daten.Film;
@@ -29,16 +40,6 @@ import mServer.crawler.CrawlerTool;
 import mServer.crawler.FilmeSuchen;
 import mServer.crawler.GetUrl;
 import mServer.tool.MserverDaten;
-import org.apache.commons.lang3.time.FastDateFormat;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.Iterator;
 
 public class MediathekNdr extends MediathekReader implements Runnable
 {
@@ -46,17 +47,18 @@ public class MediathekNdr extends MediathekReader implements Runnable
     public final static Sender SENDER = Sender.NDR;
     private MSStringBuilder seiteAlle = new MSStringBuilder(Const.STRING_BUFFER_START_BUFFER);
 
-    public MediathekNdr(FilmeSuchen ssearch, int startPrio)
+    public MediathekNdr(final FilmeSuchen ssearch, final int startPrio)
     {
         super(ssearch, SENDER.getName(), /* threads */ 2, /* urlWarten */ 50, startPrio);
     }
 
-    //-> erste Seite:
-    // <h5><a href="/mediathek/mediatheksuche103_broadcast-30.html">Nordmagazin</a></h5>
+    // -> erste Seite:
+    // <h5><a
+    // href="/mediathek/mediatheksuche103_broadcast-30.html">Nordmagazin</a></h5>
     @Override
     protected void addToList()
     {
-        //<broadcast id="1391" site="ndrfernsehen">45 Min</broadcast>
+        // <broadcast id="1391" site="ndrfernsehen">45 Min</broadcast>
         final String ADRESSE = "http://www.ndr.de/mediathek/sendungen_a-z/index.html";
         final String MUSTER_URL1 = "<li><a href=\"/mediathek/mediatheksuche105_broadcast-";
         listeThemen.clear();
@@ -65,7 +67,8 @@ public class MediathekNdr extends MediathekReader implements Runnable
 
         MSStringBuilder seite = new MSStringBuilder(Const.STRING_BUFFER_START_BUFFER);
         final GetUrl getUrlIo = new GetUrl(getWartenSeiteLaden());
-        seite = getUrlIo.getUri(SENDER.getName(), ADRESSE, StandardCharsets.UTF_8, 5 /* versuche */, seite, ""/* meldung */);
+        seite = getUrlIo.getUri(SENDER.getName(), ADRESSE, StandardCharsets.UTF_8,
+                5 /* versuche */, seite, ""/* meldung */);
         int pos = 0;
         int pos1;
         int pos2;
@@ -92,8 +95,9 @@ public class MediathekNdr extends MediathekReader implements Runnable
                     Log.errorLog(210367600, "keine Url");
                     continue;
                 }
-                String url_ = "http://www.ndr.de/mediathek/mediatheksuche105_broadcast-" + url;
-                String[] add = new String[]{url_, thema};
+                final String url_ = "http://www.ndr.de/mediathek/mediatheksuche105_broadcast-" + url;
+                final String[] add = new String[]
+                { url_, thema };
                 if (CrawlerTool.loadLongMax())
                 {
                     if (!alleSeiteSuchen(url_, thema))
@@ -101,11 +105,13 @@ public class MediathekNdr extends MediathekReader implements Runnable
                         // dann halt so versuchen
                         listeThemen.add(add);
                     }
-                } else
+                }
+                else
                 {
                     listeThemen.add(add);
                 }
-            } catch (Exception ex)
+            }
+            catch (final Exception ex)
             {
                 Log.errorLog(332945670, ex);
             }
@@ -113,47 +119,54 @@ public class MediathekNdr extends MediathekReader implements Runnable
         // noch "Verpasst" für die letzten Tage einfügen
         // http://www.ndr.de/mediathek/sendung_verpasst/epg1490_date-2014-05-17.html
         // http://www.ndr.de/mediathek/sendung_verpasst/epg1490_date-2014-05-17_display-onlyvideo.html
-        FastDateFormat formatter1 = FastDateFormat.getInstance("yyyy-MM-dd");
-        FastDateFormat formatter2 = FastDateFormat.getInstance("dd.MM.yyyy");
+        final FastDateFormat formatter1 = FastDateFormat.getInstance("yyyy-MM-dd");
+        final FastDateFormat formatter2 = FastDateFormat.getInstance("dd.MM.yyyy");
         final int maxTage = CrawlerTool.loadLongMax() ? 30 : 20;
         for (int i = 0; i < maxTage; ++i)
         {
             // https://www.ndr.de/mediathek/sendung_verpasst/epg1490_date-2015-09-05_display-all.html
             final String URL = "http://www.ndr.de/mediathek/sendung_verpasst/epg1490_date-";
-            final String tag = formatter1.format(new Date().getTime() - (1000 * 60 * 60 * 24 * i));
-            final String date = formatter2.format(new Date().getTime() - (1000 * 60 * 60 * 24 * i));
-            //String urlString = URL + tag + "_display-onlyvideo.html"; --> stimmt leider nicht immer
+            final String tag = formatter1.format(new Date().getTime() - 1000 * 60 * 60 * 24 * i);
+            final String date = formatter2.format(new Date().getTime() - 1000 * 60 * 60 * 24 * i);
+            // String urlString = URL + tag + "_display-onlyvideo.html"; -->
+            // stimmt leider nicht immer
             final String urlString = URL + tag + "_display-all.html";
-            listeThemen.add(new String[]{urlString, date});
+            listeThemen.add(new String[]
+            { urlString, date });
         }
 
         if (Config.getStop())
         {
             meldungThreadUndFertig();
-        } else if (listeThemen.isEmpty())
+        }
+        else if (listeThemen.isEmpty())
         {
             meldungThreadUndFertig();
-        } else
+        }
+        else
         {
             meldungAddMax(listeThemen.size());
             for (int t = 0; t < getMaxThreadLaufen(); ++t)
             {
-                Thread th = new ThemaLaden();
+                final Thread th = new ThemaLaden();
                 th.setName(SENDER.getName() + t);
                 th.start();
             }
         }
     }
 
-    private boolean alleSeiteSuchen(String strUrlFeed, String tthema)
+    private boolean alleSeiteSuchen(final String strUrlFeed, final String tthema)
     {
         boolean ret = false;
-        GetUrl getUrlIo = new GetUrl(getWartenSeiteLaden());
-        seiteAlle = getUrlIo.getUri(SENDER.getName(), strUrlFeed, StandardCharsets.UTF_8, 3 /* versuche */, seiteAlle, "Thema: " + tthema/* meldung */);
+        final GetUrl getUrlIo = new GetUrl(getWartenSeiteLaden());
+        seiteAlle = getUrlIo.getUri(SENDER.getName(), strUrlFeed, StandardCharsets.UTF_8,
+                3 /* versuche */, seiteAlle, "Thema: " + tthema/* meldung */);
         int pos1 = 0, pos2, anz1, anz2 = 0;
         try
         {
-            // <a class="square button" href="/mediathek/mediatheksuche105_broadcast-1391_page-5.html" title="Zeige Seite 5">
+            // <a class="square button"
+            // href="/mediathek/mediatheksuche105_broadcast-1391_page-5.html"
+            // title="Zeige Seite 5">
             // http://www.ndr.de/mediathek/mediatheksuche105_broadcast-30_page-1.html
             final String WEITER = " title=\"Zeige Seite ";
             while ((pos1 = seiteAlle.indexOf(WEITER, pos1)) != -1)
@@ -161,7 +174,7 @@ public class MediathekNdr extends MediathekReader implements Runnable
                 pos1 += WEITER.length();
                 if ((pos2 = seiteAlle.indexOf("\"", pos1)) != -1)
                 {
-                    String anz = seiteAlle.substring(pos1, pos2);
+                    final String anz = seiteAlle.substring(pos1, pos2);
                     try
                     {
                         anz1 = Integer.parseInt(anz);
@@ -169,7 +182,8 @@ public class MediathekNdr extends MediathekReader implements Runnable
                         {
                             anz2 = anz1;
                         }
-                    } catch (Exception ex)
+                    }
+                    catch (final Exception ex)
                     {
                         Log.errorLog(643208979, strUrlFeed);
                     }
@@ -178,13 +192,17 @@ public class MediathekNdr extends MediathekReader implements Runnable
             for (int i = 2; i <= anz2 && i <= 10; ++i)
             {
                 // geht bei 2 los da das ja schon die erste Seite ist!
-                //das:   http://www.ndr.de/mediathek/mediatheksuche105_broadcast-30.html
-                // wird: http://www.ndr.de/mediathek/mediatheksuche105_broadcast-30_page-3.html
-                String url_ = strUrlFeed.replace(".html", "_page-" + i + ".html");
-                listeThemen.add(new String[]{url_, tthema});
+                // das:
+                // http://www.ndr.de/mediathek/mediatheksuche105_broadcast-30.html
+                // wird:
+                // http://www.ndr.de/mediathek/mediatheksuche105_broadcast-30_page-3.html
+                final String url_ = strUrlFeed.replace(".html", "_page-" + i + ".html");
+                listeThemen.add(new String[]
+                { url_, tthema });
                 ret = true;
             }
-        } catch (Exception ex)
+        }
+        catch (final Exception ex)
         {
             Log.errorLog(913047821, strUrlFeed);
         }
@@ -214,12 +232,14 @@ public class MediathekNdr extends MediathekReader implements Runnable
                     {
                         meldungProgress(thema[1]);
                         feedEinerSeiteSuchen(thema[0], thema[1] /* thema */);
-                    } catch (Exception ex)
+                    }
+                    catch (final Exception ex)
                     {
                         Log.errorLog(336901211, ex);
                     }
                 }
-            } catch (Exception ex)
+            }
+            catch (final Exception ex)
             {
                 Log.errorLog(554632590, ex);
             }
@@ -242,11 +262,15 @@ public class MediathekNdr extends MediathekReader implements Runnable
                         power *= 60;
                     }
                 }
-            } catch (NumberFormatException ex)
+            }
+            catch (final NumberFormatException ex)
             {
                 if (MserverDaten.debug)
+                {
                     Log.errorLog(369015497, ex, strUrlFeed);
-            } catch (Exception ex)
+                }
+            }
+            catch (final Exception ex)
             {
                 Log.errorLog(369015497, ex, strUrlFeed);
             }
@@ -254,11 +278,12 @@ public class MediathekNdr extends MediathekReader implements Runnable
             return durationInSeconds;
         }
 
-        private void feedEinerSeiteSuchen(String strUrlFeed, String tthema)
+        private void feedEinerSeiteSuchen(final String strUrlFeed, final String tthema)
         {
             final String MUSTER_URL = "<a href=\"";
-            GetUrl getUrlIo = new GetUrl(getWartenSeiteLaden());
-            seite1 = getUrlIo.getUri(SENDER.getName(), strUrlFeed, StandardCharsets.UTF_8, 3 /* versuche */, seite1, "Thema: " + tthema/* meldung */);
+            final GetUrl getUrlIo = new GetUrl(getWartenSeiteLaden());
+            seite1 = getUrlIo.getUri(SENDER.getName(), strUrlFeed, StandardCharsets.UTF_8,
+                    3 /* versuche */, seite1, "Thema: " + tthema/* meldung */);
             int pos = 0;
             String url;
             String titel;
@@ -276,7 +301,8 @@ public class MediathekNdr extends MediathekReader implements Runnable
                 {
                     muster = "<strong class=\"time\">";
                     tage = true;
-                } else
+                }
+                else
                 {
                     muster = "<span class=\"icon icon_video\"></span>";
                 }
@@ -295,7 +321,9 @@ public class MediathekNdr extends MediathekReader implements Runnable
                     }
                     if (tage)
                     {
-                        // <h3><a href="/fernsehen/epg/import/Rote-Rosen,sendung64120.html" title="Rote Rosen"  >Rote Rosen (1725)</a></h3>
+                        // <h3><a
+                        // href="/fernsehen/epg/import/Rote-Rosen,sendung64120.html"
+                        // title="Rote Rosen" >Rote Rosen (1725)</a></h3>
                         thema = seite1.extract(MUSTER_URL, " title=\"", "\"", pos, 0, "");
                         titel = seite1.extract(MUSTER_URL, ">", "<", pos, 0, "");
                         if (titel.contains("(Wdh.)"))
@@ -309,7 +337,8 @@ public class MediathekNdr extends MediathekReader implements Runnable
                             titel = titel.substring(titel.indexOf(" - "));
                             titel = titel.replace(" - ", "").trim();
                         }
-                    } else
+                    }
+                    else
                     {
                         titel = seite1.extract(" title=\"", "\"", pos);
                         titel = titel.replace("Zum Video:", "").trim();
@@ -320,25 +349,29 @@ public class MediathekNdr extends MediathekReader implements Runnable
                         datum = tthema;
                         try
                         {
-                            Date filmDate = FastDateFormat.getInstance("HH:mm").parse(tmp);
+                            final Date filmDate = FastDateFormat.getInstance("HH:mm").parse(tmp);
                             zeit = FastDateFormat.getInstance("HH:mm:ss").format(filmDate);
-                        } catch (Exception ex)
+                        }
+                        catch (final Exception ex)
                         {
                             Log.errorLog(795623017, "convertDatum: " + strUrlFeed);
                         }
-                    } else
+                    }
+                    else
                     {
                         tmp = seite1.extract("<div class=\"subline date\">", "<", pos);
-                        String[] dateValues = parseDateTime(tmp, strUrlFeed);
+                        final String[] dateValues = parseDateTime(tmp, strUrlFeed);
                         datum = dateValues[0];
                         zeit = dateValues[1];
                     }
                     if (tage)
                     {
-                        //<span class="icon icon_video" aria-label="L&auml;nge"></span>29:59</div>
-                        String duration = seite1.extract("\"L&auml;nge\"></span>", "<", pos).trim();
+                        // <span class="icon icon_video"
+                        // aria-label="L&auml;nge"></span>29:59</div>
+                        final String duration = seite1.extract("\"L&auml;nge\"></span>", "<", pos).trim();
                         durationInSeconds = convertDuration(duration, strUrlFeed);
-                    } else
+                    }
+                    else
                     {
                         String duration = seite1.extract("Video (", ")", pos);
                         duration = duration.replace("min", "").trim();
@@ -346,28 +379,30 @@ public class MediathekNdr extends MediathekReader implements Runnable
                     }
                     filmSuchen_1(strUrlFeed, thema, titel, url, datum, zeit, durationInSeconds, tage);
                 }
-            } catch (Exception ex)
+            }
+            catch (final Exception ex)
             {
                 Log.errorLog(693219870, strUrlFeed);
             }
         }
 
-        private String[] parseDateTime(String dateTimeValue, String strUrlFeed)
+        private String[] parseDateTime(final String dateTimeValue, final String strUrlFeed)
         {
-            String[] dateValues = new String[2];
+            final String[] dateValues = new String[2];
             dateValues[0] = "";
             dateValues[1] = "";
 
-            String dateTime = dateTimeValue.replace("Uhr", "").trim();
+            final String dateTime = dateTimeValue.replace("Uhr", "").trim();
 
             if (!dateTime.isEmpty())
             {
                 try
                 {
-                    Date filmDate = FastDateFormat.getInstance("dd.MM.yyyy HH:mm").parse(dateTime);
+                    final Date filmDate = FastDateFormat.getInstance("dd.MM.yyyy HH:mm").parse(dateTime);
                     dateValues[0] = FastDateFormat.getInstance("dd.MM.yyyy").format(filmDate);
                     dateValues[1] = FastDateFormat.getInstance("HH:mm:ss").format(filmDate);
-                } catch (Exception ex)
+                }
+                catch (final Exception ex)
                 {
                     Log.errorLog(623657941, "convertDatum: " + strUrlFeed);
                 }
@@ -376,27 +411,37 @@ public class MediathekNdr extends MediathekReader implements Runnable
             return dateValues;
         }
 
-        private void filmSuchen_1(String strUrlThema, String thema, String titel, String filmWebsite, String datum, String zeit,
-                                  long durationInSeconds, boolean onlyUrl)
+        private void filmSuchen_1(final String strUrlThema, String thema, final String titel, final String filmWebsite,
+                String datum, String zeit, final long durationInSeconds, final boolean onlyUrl)
         {
-            //playlist: [
-            //{
-            //1: {src:'http://hds.ndr.de/z/2013/0419/TV-20130419-1010-0801.,hi,hq,.mp4.csmil/manifest.f4m', type:"application/f4m+xml"},
-            //2: {src:'http://hls.ndr.de/i/2013/0419/TV-20130419-1010-0801.,lo,hi,hq,.mp4.csmil/master.m3u8', type:"application/x-mpegURL"},
-            //3: {src:'http://media.ndr.de/progressive/2013/0419/TV-20130419-1010-0801.hi.mp4', type:"video/mp4"},
+            // playlist: [
+            // {
+            // 1:
+            // {src:'http://hds.ndr.de/z/2013/0419/TV-20130419-1010-0801.,hi,hq,.mp4.csmil/manifest.f4m',
+            // type:"application/f4m+xml"},
+            // 2:
+            // {src:'http://hls.ndr.de/i/2013/0419/TV-20130419-1010-0801.,lo,hi,hq,.mp4.csmil/master.m3u8',
+            // type:"application/x-mpegURL"},
+            // 3:
+            // {src:'http://media.ndr.de/progressive/2013/0419/TV-20130419-1010-0801.hi.mp4',
+            // type:"video/mp4"},
 
             // http://media.ndr.de/progressive/2012/0820/TV-20120820-2300-0701.hi.mp4
             // rtmpt://cp160844.edgefcs.net/ondemand/mp4:flashmedia/streams/ndr/2012/0820/TV-20120820-2300-0701.hq.mp4
             final String MUSTER_URL = "itemprop=\"contentUrl\" content=\"https://mediandr-a";
             seite2 = getUrl.getUri_Utf(SENDER.getName(), filmWebsite, seite2, "strUrlThema: " + strUrlThema);
-            String description = extractDescription(seite2);
-            //String[] keywords = extractKeywords(seite2);
-            String subtitle = seite2.extract(",tracks: [{ src: \"", "\""); //,tracks: [{ src: "/fernsehen/sendungen/45_min/video-podcast/ut20448.xml", srclang:"de"}]
+            final String description = extractDescription(seite2);
+            // String[] keywords = extractKeywords(seite2);
+            String subtitle = seite2.extract(",tracks: [{ src: \"", "\""); // ,tracks:
+                                                                           // [{
+                                                                           // src:
+                                                                           // "/fernsehen/sendungen/45_min/video-podcast/ut20448.xml",
+                                                                           // srclang:"de"}]
             if (!subtitle.isEmpty())
             {
                 subtitle = "http://www.ndr.de" + subtitle;
-                //            } else {
-                //                System.out.println("Test");
+                // } else {
+                // System.out.println("Test");
             }
             meldung(filmWebsite);
             int pos1;
@@ -413,20 +458,22 @@ public class MediathekNdr extends MediathekReader implements Runnable
                     if ((pos1 = tmp.indexOf(">")) != -1)
                     {
                         tmp = tmp.substring(pos1 + 1, tmp.length());
-                        String[] dateValues = parseDateTime(tmp, strUrlThema);
+                        final String[] dateValues = parseDateTime(tmp, strUrlThema);
                         datum = dateValues[0];
                         zeit = dateValues[1];
                     }
                 }
 
                 String json = seite2.extract("-player_image-", "_");
-                String pp = seite2.extract("id=\"pp_", "\"");
+                final String pp = seite2.extract("id=\"pp_", "\"");
                 if (!json.isEmpty() && !pp.isEmpty())
                 {
                     json = "http://www.ndr.de/fernsehen/" + pp + "-ppjson_image-" + json + ".json";
-                    filmSuchen_2(strUrlThema, thema, titel, filmWebsite, json, datum, zeit, durationInSeconds, description, subtitle);
+                    filmSuchen_2(strUrlThema, thema, titel, filmWebsite, json, datum, zeit, durationInSeconds,
+                            description, subtitle);
 
-                } else if ((pos1 = seite2.indexOf(MUSTER_URL)) != -1)
+                }
+                else if ((pos1 = seite2.indexOf(MUSTER_URL)) != -1)
                 {
                     pos1 += MUSTER_URL.length();
                     if ((pos2 = seite2.indexOf("\"", pos1)) != -1)
@@ -462,61 +509,59 @@ public class MediathekNdr extends MediathekReader implements Runnable
                             if (url.contains(".hq."))
                             {
                                 urlKlein = url.replace(".hq.", ".hi.");
-                            } else
+                            }
+                            else
                             {
                                 urlKlein = "";
                             }
 
-                            Film film = CrawlerTool.createFilm(SENDER,
-                                    url,
-                                    titel,
-                                    thema,
-                                    datum,
-                                    zeit,
-                                    durationInSeconds,
-                                    filmWebsite,
-                                    description,
-                                    "",
-                                    urlKlein);
+                            final Film film = CrawlerTool.createFilm(SENDER, url, titel, thema, datum, zeit,
+                                    durationInSeconds, filmWebsite, description, "", urlKlein);
                             if (!subtitle.isEmpty())
                             {
-                                film.addSubtitle(new URI(subtitle));
+                                film.addSubtitle(new URL(subtitle));
                             }
 
                             addFilm(film, onlyUrl);
-                        } else
+                        }
+                        else
                         {
                             Log.errorLog(623657941, "keine URL: " + filmWebsite);
                         }
                     }
 
-                } else
+                }
+                else
                 {
                     Log.errorLog(915230214, "auch keine Url: " + filmWebsite);
                 }
-            } catch (Exception ex)
+            }
+            catch (final Exception ex)
             {
                 Log.errorLog(699830157, ex);
             }
         }
 
-        private void filmSuchen_2(String strUrlThema, String thema, String titel, String filmWebsite, String json, String datum, String zeit,
-                                  long durationInSeconds, String description, String subtitle)
+        private void filmSuchen_2(final String strUrlThema, final String thema, final String titel,
+                final String filmWebsite, final String json, final String datum, final String zeit,
+                final long durationInSeconds, final String description, String subtitle)
         {
 
             seite3 = getUrl.getUri_Utf(SENDER.getName(), json, seite3, "strUrlThema: " + strUrlThema);
             String url_hd = "", url_xl = "", url_m = "";
             seite3.extractList("", "", "\"src\": \"https://mediandr", "\"", "https://mediandr", liste);
 
-            for (String s : liste)
+            for (final String s : liste)
             {
                 if (s.endsWith(".hd.mp4"))
                 {
                     url_hd = s;
-                } else if (s.endsWith(".hq.mp4"))
+                }
+                else if (s.endsWith(".hq.mp4"))
                 {
                     url_xl = s;
-                } else if (s.endsWith(".hi.mp4"))
+                }
+                else if (s.endsWith(".hi.mp4"))
                 {
                     url_m = s;
                 }
@@ -542,35 +587,29 @@ public class MediathekNdr extends MediathekReader implements Runnable
             {
                 try
                 {
-                    Film film = CrawlerTool.createFilm(SENDER,
-                            url_xl,
-                            titel,
-                            thema,
-                            datum,
-                            zeit,
-                            durationInSeconds,
-                            filmWebsite,
-                            description,
-                            url_hd,
-                            url_m);
+                    final Film film = CrawlerTool.createFilm(SENDER, url_xl, titel, thema, datum, zeit,
+                            durationInSeconds, filmWebsite, description, url_hd, url_m);
                     if (!subtitle.isEmpty())
                     {
-                        film.addSubtitle(new URI(subtitle));
+                        film.addSubtitle(new URL(subtitle));
                     }
                     addFilm(film);
-                } catch (URISyntaxException uriSyntaxEception)
-                {
-                    LOG.error(String.format("Der Film \"%s - %s\" konnte nicht umgewandelt werden.", thema, titel), uriSyntaxEception);
                 }
-            } else
+                catch (final MalformedURLException malformedURLException)
+                {
+                    LOG.error(String.format("Der Film \"%s - %s\" konnte nicht umgewandelt werden.", thema, titel),
+                            malformedURLException);
+                }
+            }
+            else
             {
                 Log.errorLog(915234210, "keine URL im json: " + filmWebsite);
             }
         }
 
-        private String extractDescription(MSStringBuilder page)
+        private String extractDescription(final MSStringBuilder page)
         {
-            String desc = extractString(page, "<meta property=\"og:description\" content=\"", "\"");
+            final String desc = extractString(page, "<meta property=\"og:description\" content=\"", "\"");
             if (desc == null)
             {
                 return "";
@@ -578,19 +617,16 @@ public class MediathekNdr extends MediathekReader implements Runnable
             return desc;
         }
 
-/*        private String[] extractKeywords(MSStringBuilder page) {
-            String keywords = extractString(page, "<meta name=\"keywords\"  lang=\"de\" content=\"", "\"");
-            if (keywords == null) {
-                return new String[]{""};
-            }
-            String[] k = keywords.split(",");
-            for (int i = 0; i < k.length; i++) {
-                k[i] = k[i].trim();
-            }
-            return k;
-        }*/
+        /*
+         * private String[] extractKeywords(MSStringBuilder page) { String
+         * keywords = extractString(page,
+         * "<meta name=\"keywords\"  lang=\"de\" content=\"", "\""); if
+         * (keywords == null) { return new String[]{""}; } String[] k =
+         * keywords.split(","); for (int i = 0; i < k.length; i++) { k[i] =
+         * k[i].trim(); } return k; }
+         */
 
-        private String extractString(MSStringBuilder source, String startMarker, String endMarker)
+        private String extractString(final MSStringBuilder source, final String startMarker, final String endMarker)
         {
             int start = source.indexOf(startMarker);
             if (start == -1)
@@ -598,7 +634,7 @@ public class MediathekNdr extends MediathekReader implements Runnable
                 return null;
             }
             start = start + startMarker.length();
-            int end = source.indexOf(endMarker, start);
+            final int end = source.indexOf(endMarker, start);
             if (end == -1)
             {
                 return null;

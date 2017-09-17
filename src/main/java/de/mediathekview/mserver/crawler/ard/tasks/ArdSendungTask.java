@@ -1,8 +1,7 @@
 package de.mediathekview.mserver.crawler.ard.tasks;
 
 import java.io.InputStreamReader;
-import java.net.URI;
-import java.net.URISyntaxException;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.time.Duration;
 import java.time.temporal.ChronoUnit;
@@ -41,6 +40,7 @@ import mServer.tool.MserverDatumZeit;
  */
 public class ArdSendungTask extends AbstractUrlTask<Film, ArdSendungBasicInformation>
 {
+    private static final String NO_VALID_URL = "Can't find a valid URL for \"%s\" from \"%s\".";
     private static final String JSON_SYNTAX_ERROR = "The site \"%s\" for the \"%s\" crawler in't a valid JSON page.";
     private static final long serialVersionUID = -1528093537733110822L;
     private static final Logger LOG = LogManager.getLogger(ArdSendungTask.class);
@@ -86,17 +86,26 @@ public class ArdSendungTask extends AbstractUrlTask<Film, ArdSendungBasicInforma
                     new InputStreamReader(new URL(buildVideoInfoUrl(documentId)).openStream()), ArdVideoInfoDTO.class);
 
             final Sender sender = getSenderFromName(basicInfo.getSenderName());
-
-            final Film newFilm = new Film(UUID.randomUUID(),
-                    CrawlerTool.getGeoLocations(sender, videoInfo.getDefaultVideoUrl()), sender, basicInfo.getTitle(),
-                    basicInfo.getThema(), MserverDatumZeit.parseDateTime(datumAsText, sendezeitAsText),
-                    Duration.of(dauerInMinutes, ChronoUnit.MINUTES), new URI(aUrlDTO.getUrl()));
-            if (StringUtils.isNotBlank(videoInfo.getSubtitleUrl()))
+            if (videoInfo.getVideoUrls().isEmpty())
             {
-                newFilm.addSubtitle(new URI(videoInfo.getSubtitleUrl()));
+                LOG.error(String.format(NO_VALID_URL, aUrlDTO.getUrl(), crawler.getSender().getName()));
+                crawler.printErrorMessage();
+                crawler.incrementAndGetErrorCount();
             }
-            addUrls(newFilm, videoInfo.getVideoUrls());
-            taskResults.add(newFilm);
+            else
+            {
+                final Film newFilm =
+                        new Film(UUID.randomUUID(), CrawlerTool.getGeoLocations(sender, videoInfo.getDefaultVideoUrl()),
+                                sender, basicInfo.getTitle(), basicInfo.getThema(),
+                                MserverDatumZeit.parseDateTime(datumAsText, sendezeitAsText),
+                                Duration.of(dauerInMinutes, ChronoUnit.MINUTES), new URL(aUrlDTO.getUrl()));
+                if (StringUtils.isNotBlank(videoInfo.getSubtitleUrl()))
+                {
+                    newFilm.addSubtitle(new URL(videoInfo.getSubtitleUrl()));
+                }
+                addUrls(newFilm, videoInfo.getVideoUrls());
+                taskResults.add(newFilm);
+            }
         }
         catch (final JsonSyntaxException jsonSyntaxException)
         {
@@ -114,7 +123,7 @@ public class ArdSendungTask extends AbstractUrlTask<Film, ArdSendungBasicInforma
         crawler.updateProgress();
     }
 
-    private void addUrls(final Film aFilm, final Map<Qualities, String> aVideoUrls) throws URISyntaxException
+    private void addUrls(final Film aFilm, final Map<Qualities, String> aVideoUrls) throws MalformedURLException
     {
         for (final Entry<Qualities, String> qualitiesEntry : aVideoUrls.entrySet())
         {
