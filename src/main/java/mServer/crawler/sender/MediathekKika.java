@@ -265,7 +265,9 @@ public class MediathekKika extends MediathekReader {
             try {
                 GetUrl getUrl = new GetUrl(getWartenSeiteLaden());
                 seite2 = getUrl.getUri(getSendername(), url, StandardCharsets.UTF_8, 1, seite2, "KiKa-Sendungen");
-                loadAllVideo_2(seite2);
+                
+                String urlPartSendung = getUrlPartSendung(url);
+                loadAllVideo_2(seite2, urlPartSendung);
                 if (CrawlerTool.loadLongMax()) {
                     seite2.extractList("", "", "<div class=\"bundleNaviItem active\">\n<a href=\"/videos/allevideos/", "\"", "http://www.kika.de/videos/allevideos/", liste);
                     seite2.extractList("", "", "<div class=\"bundleNaviItem \">\n<a href=\"/videos/allevideos/", "\"", "http://www.kika.de/videos/allevideos/", liste);
@@ -275,15 +277,28 @@ public class MediathekKika extends MediathekReader {
                         break;
                     }
                     seite2 = getUrl.getUri(getSendername(), u, StandardCharsets.UTF_8, 1, seite2, "KiKa-Sendungen");
-                    loadAllVideo_2(seite2);
+                    loadAllVideo_2(seite2, urlPartSendung);
                 }
             } catch (Exception ex) {
                 Log.errorLog(825412369, ex);
             }
             performancePoint.collect();
         }
+        
+        /**
+         * Extrahiert aus der URL den Teil, der den Sendungsnamen beinhaltet
+         * Beispiel-URL: http://www.kika.de/kikaninchen/sendungen/sendung100266.html
+         * Rückgabe: kikaninchen
+         * @param url die URL
+         * @return der Sendungsname aus der URL
+         */
+        private String getUrlPartSendung(String url) {
+            String[] parts = url.split("/");
+            String urlPartSendung = parts[3];
+            return urlPartSendung;
+        }
 
-        private void loadAllVideo_2(MSStringBuilder sStringBuilder) {
+        private void loadAllVideo_2(MSStringBuilder sStringBuilder, String urlPartSendung) {
             EtmPoint performancePoint = EtmManager.getEtmMonitor().createPoint("MediathekKiKa::ThemaLaden.loadAllVideo_2");
 
             ArrayList<String> liste = new ArrayList<>();
@@ -295,8 +310,15 @@ public class MediathekKika extends MediathekReader {
                 }
 
                 sStringBuilder.extractList(".setup({dataURL:'", "'", liste);
+                
                 for (String s : liste) {
                     if (Config.getStop()) {
+                        break;
+                    }
+                    
+                    // URL nur verarbeiten, wenn diese sich auf die gleiche Sendung bezieht
+                    // nötig, da teilweise Links zu anderen Trailern und Sendungen gefunden werden
+                    if(!s.contains(urlPartSendung)) {
                         break;
                     }
                     ladenXml(s /* url */, thema, true /*nur neue URLs*/);
@@ -428,5 +450,4 @@ public class MediathekKika extends MediathekReader {
             return zeit;
         }
     }
-
 }
