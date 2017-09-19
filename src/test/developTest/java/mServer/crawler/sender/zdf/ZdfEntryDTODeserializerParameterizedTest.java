@@ -1,10 +1,8 @@
-package mServer.crawler.sender.newsearch;
+package mServer.crawler.sender.zdf;
 
 import com.google.gson.JsonObject;
 import java.util.Arrays;
 import java.util.Collection;
-import mServer.crawler.sender.zdf.ZDFEntryDTO;
-import mServer.crawler.sender.zdf.ZDFEntryDTODeserializer;
 import mServer.test.JsonFileReader;
 import static org.hamcrest.CoreMatchers.*;
 import static org.junit.Assert.assertThat;
