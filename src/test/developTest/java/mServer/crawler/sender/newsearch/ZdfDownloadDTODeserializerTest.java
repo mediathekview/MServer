@@ -1,8 +1,11 @@
 package mServer.crawler.sender.newsearch;
 
 import com.google.gson.JsonObject;
+import de.mediathekview.mlib.daten.Qualities;
 import java.util.Arrays;
 import java.util.Collection;
+import mServer.crawler.sender.zdf.DownloadDTO;
+import mServer.crawler.sender.zdf.ZDFDownloadDTODeserializer;
 import mServer.test.JsonFileReader;
 import static org.hamcrest.CoreMatchers.*;
 import static org.junit.Assert.assertThat;

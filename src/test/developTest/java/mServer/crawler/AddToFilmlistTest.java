@@ -1,17 +1,23 @@
 package mServer.crawler;
 
 import java.io.IOException;
-import de.mediathekview.mlib.Const;
-import de.mediathekview.mlib.daten.DatenFilm;
-import de.mediathekview.mlib.daten.ListeFilme;
+import java.lang.reflect.Field;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.util.Map;
+
+import de.mediathekview.mlib.daten.*;
 import okhttp3.mockwebserver.*;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.junit.*;
 
 import static org.hamcrest.CoreMatchers.*;
 import static org.junit.Assert.*;
 
 public class AddToFilmlistTest {
+    private static final Logger LOG = LogManager.getLogger(AddToFilmlistTest.class);
     private static final String FILM_NAME_ONLINE = "onlinefilm.mp4";
     private static final String FILM_NAME_ONLINE2 = "onlinefilm2.mp4";
     private static final String FILM_TOPIC1 = "Topic 1";
@@ -55,16 +61,18 @@ public class AddToFilmlistTest {
     }
 
     @Before
-    public void setUp() {
+    public void setUp() throws URISyntaxException
+    {
         listToAdd = new ListeFilme();
         list = new ListeFilme();
-        list.add(createTestFilm(Const.BR, FILM_TOPIC1, FILM_TITLE1, "film1.mp4"));
-        list.add(createTestFilm(Const.BR, FILM_TOPIC2, FILM_TITLE1, "film2.mp4"));
+        list.add(createTestFilm(Sender.BR, FILM_TOPIC1, FILM_TITLE1, "film1.mp4"));
+        list.add(createTestFilm(Sender.BR, FILM_TOPIC2, FILM_TITLE1, "film2.mp4"));
     }
 
     @Test
-    public void testAddOldListDifferentSenderAndUrlAdded() {
-        listToAdd.add(createTestFilm(Const.ARD, FILM_TOPIC1, FILM_TITLE1, FILM_NAME_ONLINE));
+    public void testAddOldListDifferentSenderAndUrlAdded() throws URISyntaxException
+    {
+        listToAdd.add(createTestFilm(Sender.ARD, FILM_TOPIC1, FILM_TITLE1, FILM_NAME_ONLINE));
         
         AddToFilmlist target = new AddToFilmlist(list, listToAdd);
         target.addOldList();
@@ -73,8 +81,9 @@ public class AddToFilmlistTest {
     }
     
     @Test
-    public void testAddOldListDifferentTopicAndUrlAdded() {
-        listToAdd.add(createTestFilm(Const.BR, FILM_TOPIC3, FILM_TITLE1, FILM_NAME_ONLINE));
+    public void testAddOldListDifferentTopicAndUrlAdded() throws URISyntaxException
+    {
+        listToAdd.add(createTestFilm(Sender.BR, FILM_TOPIC3, FILM_TITLE1, FILM_NAME_ONLINE));
         
         AddToFilmlist target = new AddToFilmlist(list, listToAdd);
         target.addOldList();
@@ -83,8 +92,9 @@ public class AddToFilmlistTest {
     }
     
     @Test
-    public void testAddOldListDifferentTitleAndUrlAdded() {
-        listToAdd.add(createTestFilm(Const.BR, FILM_TOPIC1, FILM_TITLE2, FILM_NAME_ONLINE));
+    public void testAddOldListDifferentTitleAndUrlAdded() throws URISyntaxException
+    {
+        listToAdd.add(createTestFilm(Sender.BR, FILM_TOPIC1, FILM_TITLE2, FILM_NAME_ONLINE));
         
         AddToFilmlist target = new AddToFilmlist(list, listToAdd);
         target.addOldList();
@@ -93,8 +103,9 @@ public class AddToFilmlistTest {
     }
     
     @Test
-    public void testAddOldListDifferentUrlNotAdded() {
-        listToAdd.add(createTestFilm(Const.BR, FILM_TOPIC1, FILM_TITLE1, FILM_NAME_ONLINE2));
+    public void testAddOldListDifferentUrlNotAdded() throws URISyntaxException
+    {
+        listToAdd.add(createTestFilm(Sender.BR, FILM_TOPIC1, FILM_TITLE1, FILM_NAME_ONLINE2));
         
         AddToFilmlist target = new AddToFilmlist(list, listToAdd);
         target.addOldList();
@@ -103,8 +114,9 @@ public class AddToFilmlistTest {
     }
     
     @Test
-    public void testAddOldListDifferentTitleAdded() {
-        listToAdd.add(createTestFilm(Const.BR, FILM_TOPIC1, FILM_TITLE3, FILM_NAME_ONLINE));
+    public void testAddOldListDifferentTitleAdded() throws URISyntaxException
+    {
+        listToAdd.add(createTestFilm(Sender.BR, FILM_TOPIC1, FILM_TITLE3, FILM_NAME_ONLINE));
         
         AddToFilmlist target = new AddToFilmlist(list, listToAdd);
         target.addOldList();
@@ -113,8 +125,9 @@ public class AddToFilmlistTest {
     }
     
     @Test
-    public void testAddOldListDifferentTitleAndUrlButNotOnlineNotAdded() {
-        listToAdd.add(createTestFilm(Const.BR, FILM_TOPIC1, FILM_TITLE2, "imnotonline.mp4"));
+    public void testAddOldListDifferentTitleAndUrlButNotOnlineNotAdded() throws URISyntaxException
+    {
+        listToAdd.add(createTestFilm(Sender.BR, FILM_TOPIC1, FILM_TITLE2, "imnotonline.mp4"));
         
         AddToFilmlist target = new AddToFilmlist(list, listToAdd);
         target.addOldList();
@@ -125,9 +138,11 @@ public class AddToFilmlistTest {
     // Test with list of 100000 different old entries which are online
     // to ensure the multithreaded onilne check is correct
     @Test
-    public void testAddHugeFilmList() {
+    public void testAddHugeFilmList() throws URISyntaxException
+    {
         for(int i = 0; i < 100000; i++)  {
-            listToAdd.add(createTestFilm(Const.ZDF, "topic " + i, "title " + i, FILM_NAME_ONLINE));
+                listToAdd.add(createTestFilm(Sender.ZDF, "topic " + i, "title " + i, FILM_NAME_ONLINE));
+
         }
 
         AddToFilmlist target = new AddToFilmlist(list, listToAdd);
@@ -137,10 +152,22 @@ public class AddToFilmlistTest {
     }
     
     
-    private static DatenFilm createTestFilm(String sender, String topic, String title, String filmUrl) {
-        DatenFilm film = new DatenFilm(sender, topic, "url", title, baseUrl + filmUrl, "", "", "", 12, "");
-        film.arr[DatenFilm.FILM_GROESSE] = "10";
-        
+    private static Film createTestFilm(Sender sender, String topic, String title, String filmUrl) throws URISyntaxException
+    {
+        Film film = CrawlerTool.createFilm(
+                sender,
+                filmUrl,
+                title,
+                topic,
+                "",
+                "",
+                12,
+                "url",
+                "",
+                "",
+                "");
+        film.addUrl(Qualities.NORMAL,new FilmUrl(new URI(filmUrl),10l));
+
         return film;
     }
 }
