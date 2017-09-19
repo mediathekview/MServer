@@ -25,6 +25,7 @@ import com.google.gson.GsonBuilder;
 import de.mediathekview.mlib.Config;
 import de.mediathekview.mlib.Const;
 import de.mediathekview.mlib.daten.Film;
+import de.mediathekview.mlib.daten.Qualities;
 import de.mediathekview.mlib.daten.Sender;
 import de.mediathekview.mlib.tool.Log;
 import de.mediathekview.mlib.tool.MSStringBuilder;
@@ -33,7 +34,6 @@ import mServer.crawler.FilmeSuchen;
 import mServer.crawler.GetUrl;
 import mServer.crawler.sender.dw.DwVideoDTO;
 import mServer.crawler.sender.dw.DwVideoDeserializer;
-import mServer.crawler.sender.newsearch.Qualities;
 import mServer.tool.MserverDaten;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -198,7 +198,7 @@ public class MediathekDw extends MediathekReader implements Runnable {
                 
                 GetUrl getUrlVideo = new GetUrl(getWartenSeiteLaden());
                 MSStringBuilder seiteVideo = new MSStringBuilder();
-                seiteVideo = getUrlVideo.getUri_Utf(SENDERNAME, URL_VIDEO_JSON + id, seiteVideo, "");
+                seiteVideo = getUrlVideo.getUri_Utf(SENDER.getName(), URL_VIDEO_JSON + id, seiteVideo, "");
 
                 if (seiteVideo.length() > 0) {
                     Gson gson = new GsonBuilder().registerTypeAdapter(DwVideoDTO.class,new DwVideoDeserializer()).create();
