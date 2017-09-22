@@ -41,7 +41,7 @@ import org.apache.logging.log4j.Logger;
 import de.mediathekview.mlib.Config;
 import de.mediathekview.mlib.Const;
 import de.mediathekview.mlib.daten.Film;
-import de.mediathekview.mlib.daten.Qualities;
+import de.mediathekview.mlib.daten.Resolution;
 import de.mediathekview.mlib.daten.Sender;
 import de.mediathekview.mlib.tool.Log;
 import de.mediathekview.mlib.tool.MSStringBuilder;
@@ -737,7 +737,7 @@ public class MediathekBr extends MediathekReader
                 }
                 if (StringUtils.isNotBlank(urlVerySmall))
                 {
-                    film.addUrl(Qualities.VERY_SMALL, CrawlerTool.stringToFilmUrl(urlVerySmall));
+                    film.addUrl(Resolution.VERY_SMALL, CrawlerTool.stringToFilmUrl(urlVerySmall));
                 }
                 addFilm(film);
                 meldung(urlNormal);

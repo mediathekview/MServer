@@ -39,7 +39,7 @@ import org.apache.logging.log4j.Logger;
 import de.mediathekview.mlib.Config;
 import de.mediathekview.mlib.daten.Film;
 import de.mediathekview.mlib.daten.GeoLocations;
-import de.mediathekview.mlib.daten.Qualities;
+import de.mediathekview.mlib.daten.Resolution;
 import de.mediathekview.mlib.daten.Sender;
 import de.mediathekview.mlib.tool.Log;
 import etm.core.configuration.EtmManager;
@@ -183,13 +183,13 @@ public class MediathekZdf extends MediathekReader
                     {
                         film.setBeschreibung(video.getDescription());
                     }
-                    if (download.hasUrl(Qualities.HD))
+                    if (download.hasUrl(Resolution.HD))
                     {
-                        film.addUrl(Qualities.HD, CrawlerTool.stringToFilmUrl(download.getUrl(Qualities.HD)));
+                        film.addUrl(Resolution.HD, CrawlerTool.stringToFilmUrl(download.getUrl(Resolution.HD)));
                     }
-                    if (download.hasUrl(Qualities.SMALL))
+                    if (download.hasUrl(Resolution.SMALL))
                     {
-                        film.addUrl(Qualities.SMALL, CrawlerTool.stringToFilmUrl(download.getUrl(Qualities.SMALL)));
+                        film.addUrl(Resolution.SMALL, CrawlerTool.stringToFilmUrl(download.getUrl(Resolution.SMALL)));
                     }
 
                     if (StringUtils.isNotBlank(download.getSubTitleUrl()))

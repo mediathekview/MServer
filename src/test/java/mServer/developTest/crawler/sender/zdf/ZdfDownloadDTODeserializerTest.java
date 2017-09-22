@@ -13,7 +13,7 @@ import org.junit.runners.Parameterized;
 
 import com.google.gson.JsonObject;
 
-import de.mediathekview.mlib.daten.Qualities;
+import de.mediathekview.mlib.daten.Resolution;
 import mServer.crawler.sender.zdf.DownloadDTO;
 import mServer.crawler.sender.zdf.ZDFDownloadDTODeserializer;
 import mServer.developTest.test.JsonFileReader;
@@ -65,8 +65,8 @@ public class ZdfDownloadDTODeserializerTest
 
         assertThat(actual, notNullValue());
         assertThat(actual.getSubTitleUrl(), equalTo(subtitleUrl));
-        assertThat(actual.getUrl(Qualities.SMALL), equalTo(smallQualityUrl));
-        assertThat(actual.getUrl(Qualities.NORMAL), equalTo(normalQualityUrl));
-        assertThat(actual.getUrl(Qualities.HD), equalTo(hdQualityUrl));
+        assertThat(actual.getUrl(Resolution.SMALL), equalTo(smallQualityUrl));
+        assertThat(actual.getUrl(Resolution.NORMAL), equalTo(normalQualityUrl));
+        assertThat(actual.getUrl(Resolution.HD), equalTo(hdQualityUrl));
     }
 }

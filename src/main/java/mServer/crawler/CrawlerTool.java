@@ -30,7 +30,7 @@ import de.mediathekview.mlib.Const;
 import de.mediathekview.mlib.daten.Film;
 import de.mediathekview.mlib.daten.FilmUrl;
 import de.mediathekview.mlib.daten.GeoLocations;
-import de.mediathekview.mlib.daten.Qualities;
+import de.mediathekview.mlib.daten.Resolution;
 import de.mediathekview.mlib.daten.Sender;
 import de.mediathekview.mlib.tool.Functions;
 import de.mediathekview.mlib.tool.Log;
@@ -361,18 +361,18 @@ public class CrawlerTool
                 aThema, MserverDatumZeit.parseDateTime(aDatum, aZeit),
                 Duration.of(aDurationInSecunds, ChronoUnit.SECONDS), new URL(aUrlWebseite));
 
-        film.addUrl(Qualities.NORMAL, stringToFilmUrl(aUrlNormal));
+        film.addUrl(Resolution.NORMAL, stringToFilmUrl(aUrlNormal));
         if (StringUtils.isNotBlank(aBeschreibung))
         {
             film.setBeschreibung(aBeschreibung);
         }
         if (StringUtils.isNotBlank(aUrlHd))
         {
-            film.addUrl(Qualities.HD, CrawlerTool.stringToFilmUrl(aUrlHd));
+            film.addUrl(Resolution.HD, CrawlerTool.stringToFilmUrl(aUrlHd));
         }
         if (StringUtils.isNotBlank(aUrlSmall))
         {
-            film.addUrl(Qualities.SMALL, CrawlerTool.stringToFilmUrl(aUrlSmall));
+            film.addUrl(Resolution.SMALL, CrawlerTool.stringToFilmUrl(aUrlSmall));
         }
         return film;
     }
@@ -397,7 +397,7 @@ public class CrawlerTool
         urls.put("2328k_p35v13.mp4", Arrays.asList("1496k_p13v13.mp4"));
         urls.put("2296k_p14v13.mp4", Arrays.asList("1496k_p13v13.mp4"));
 
-        updateUrl(urls, aFilm, Qualities.NORMAL);
+        updateUrl(urls, aFilm, Resolution.NORMAL);
     }
 
     public static void updateHD(final Film aFilm) throws MalformedURLException
@@ -410,26 +410,26 @@ public class CrawlerTool
         urls.put("3296k_p15v13.mp4", Arrays.asList("1496k_p13v13.mp4", "2296k_p14v13.mp4", "2328k_p35v13.mp4"));
         urls.put("3328k_p36v13.mp4", Arrays.asList("1496k_p13v13.mp4", "2296k_p14v13.mp4", "2328k_p35v13.mp4"));
 
-        if (aFilm.getUrl(Qualities.NORMAL).toString().contains("media.ndr.de"))
+        if (aFilm.getUrl(Resolution.NORMAL).toString().contains("media.ndr.de"))
         {
             urls.put(".hd.mp4", Arrays.asList(".hq.mp4"));
         }
 
-        if (aFilm.getUrl(Qualities.NORMAL).toString().contains("cdn-storage.br.de"))
+        if (aFilm.getUrl(Resolution.NORMAL).toString().contains("cdn-storage.br.de"))
         {
             urls.put("_X.mp4", Arrays.asList("_C.mp4"));
         }
 
-        if (aFilm.getUrl(Qualities.NORMAL).toString().contains("pd-ondemand.swr.de"))
+        if (aFilm.getUrl(Resolution.NORMAL).toString().contains("pd-ondemand.swr.de"))
         {
             urls.put(".xl.mp4", Arrays.asList(".l.mp4"));
         }
 
-        updateUrl(urls, aFilm, Qualities.HD);
+        updateUrl(urls, aFilm, Resolution.HD);
     }
 
     private static void updateUrl(final Map<String, List<String>> aUrls, final Film aFilm,
-            final Qualities aTargetQuality) throws MalformedURLException
+            final Resolution aTargetQuality) throws MalformedURLException
     {
         String url;
         if (aFilm.getUrls().containsKey(aTargetQuality))
@@ -438,7 +438,7 @@ public class CrawlerTool
         }
         else
         {
-            url = aFilm.getUrl(Qualities.NORMAL).toString();
+            url = aFilm.getUrl(Resolution.NORMAL).toString();
         }
 
         for (final String betterUrl : aUrls.keySet())

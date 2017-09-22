@@ -33,7 +33,7 @@ import org.apache.logging.log4j.Logger;
 import de.mediathekview.mlib.Config;
 import de.mediathekview.mlib.Const;
 import de.mediathekview.mlib.daten.Film;
-import de.mediathekview.mlib.daten.Qualities;
+import de.mediathekview.mlib.daten.Resolution;
 import de.mediathekview.mlib.daten.Sender;
 import de.mediathekview.mlib.tool.Log;
 import de.mediathekview.mlib.tool.MSStringBuilder;
@@ -483,18 +483,18 @@ public class MediathekArd extends MediathekReader
                 // No Url found? Try M3U8 / HLS:
                 if (isAllTextsEmpty(url, urlHD, urlMid, urlKl))
                 {
-                    final Map<Qualities, String> urls = searchForUrlsWithM3U8(seite2);
-                    if (urls.containsKey(Qualities.SMALL))
+                    final Map<Resolution, String> urls = searchForUrlsWithM3U8(seite2);
+                    if (urls.containsKey(Resolution.SMALL))
                     {
-                        urlKl = urls.get(Qualities.SMALL);
+                        urlKl = urls.get(Resolution.SMALL);
                     }
-                    if (urls.containsKey(Qualities.NORMAL))
+                    if (urls.containsKey(Resolution.NORMAL))
                     {
-                        urlMid = urls.get(Qualities.NORMAL);
+                        urlMid = urls.get(Resolution.NORMAL);
                     }
-                    if (urls.containsKey(Qualities.HD))
+                    if (urls.containsKey(Resolution.HD))
                     {
-                        urlHD = urls.get(Qualities.HD);
+                        urlHD = urls.get(Resolution.HD);
                     }
                 }
 
@@ -677,12 +677,12 @@ public class MediathekArd extends MediathekReader
      *
      * @param aSeiteStringExtractor
      *            The Seite.
-     * @return A Map containing the URLs and Qualities which was found. An empty
+     * @return A Map containing the URLs and Resolution which was found. An empty
      *         Map if nothing was found.
      */
-    private Map<Qualities, String> searchForUrlsWithM3U8(final MSStringBuilder aSeiteStringExtractor)
+    private Map<Resolution, String> searchForUrlsWithM3U8(final MSStringBuilder aSeiteStringExtractor)
     {
-        final Map<Qualities, String> urls = new EnumMap<>(Qualities.class);
+        final Map<Resolution, String> urls = new EnumMap<>(Resolution.class);
 
         final ArrayList<String> patternMatches = new ArrayList<>();
         aSeiteStringExtractor.extractList(M3U8_PATTERN_START, M3U8_PATTERN_END, patternMatches);
@@ -706,7 +706,7 @@ public class MediathekArd extends MediathekReader
             }
             else
             {
-                urls.put(Qualities.NORMAL, m3u8Url);
+                urls.put(Resolution.NORMAL, m3u8Url);
             }
         }
 

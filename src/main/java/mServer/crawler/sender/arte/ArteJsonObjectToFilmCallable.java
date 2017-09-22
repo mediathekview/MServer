@@ -19,7 +19,7 @@ import com.google.gson.JsonObject;
 
 import de.mediathekview.mlib.daten.Film;
 import de.mediathekview.mlib.daten.GeoLocations;
-import de.mediathekview.mlib.daten.Qualities;
+import de.mediathekview.mlib.daten.Resolution;
 import de.mediathekview.mlib.daten.Sender;
 import de.mediathekview.mlib.tool.MVHttpClient;
 import mServer.crawler.CantCreateFilmException;
@@ -87,7 +87,7 @@ public class ArteJsonObjectToFilmCallable implements Callable<Film>
                         // The duration as time so it can be formatted and co.
                         final Duration duration = Duration.of(video.getDurationInSeconds(), ChronoUnit.SECONDS);
 
-                        if (video.getVideoUrls().containsKey(Qualities.NORMAL))
+                        if (video.getVideoUrls().containsKey(Resolution.NORMAL))
                         {
                             final ArteVideoDetailsDTO details = getVideoDetails(gson, programId);
 
@@ -205,7 +205,7 @@ public class ArteJsonObjectToFilmCallable implements Callable<Film>
     {
 
         final Collection<GeoLocations> geoLocations =
-                CrawlerTool.getGeoLocations(sender, aVideo.getUrl(Qualities.NORMAL));
+                CrawlerTool.getGeoLocations(sender, aVideo.getUrl(Resolution.NORMAL));
         if (aArteVideoDetails.getGeoLocation() != GeoLocations.GEO_NONE)
         {
             geoLocations.remove(GeoLocations.GEO_NONE);
@@ -215,7 +215,7 @@ public class ArteJsonObjectToFilmCallable implements Callable<Film>
         final Film film = new Film(UUID.randomUUID(), geoLocations, sender, aTitel, aThema,
                 aArteVideoDetails.getBroadcastBegin(), aDuration, new URL(aUrlWeb));
         film.setBeschreibung(aBeschreibung);
-        for (final Qualities quality : aVideo.getVideoUrls().keySet())
+        for (final Resolution quality : aVideo.getVideoUrls().keySet())
         {
             film.addUrl(quality, CrawlerTool.stringToFilmUrl(aVideo.getUrl(quality)));
         }

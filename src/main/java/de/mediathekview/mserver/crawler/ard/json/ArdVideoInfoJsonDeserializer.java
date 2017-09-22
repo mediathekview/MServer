@@ -10,12 +10,12 @@ import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonDeserializer;
 import com.google.gson.JsonElement;
 
-import de.mediathekview.mlib.daten.Qualities;
+import de.mediathekview.mlib.daten.Resolution;
 
 /**
  * Converts json with basic video from
  * http://www.ardmediathek.de/play/media/[documentId]?devicetype=pc&features=flash
- * to a map of {@link Qualities} with corresponding urls.
+ * to a map of {@link Resolution} with corresponding urls.
  */
 public class ArdVideoInfoJsonDeserializer implements JsonDeserializer<ArdVideoInfoDTO>
 {
@@ -71,7 +71,7 @@ public class ArdVideoInfoJsonDeserializer implements JsonDeserializer<ArdVideoIn
 
                 if (qualityNumber > 0 || mediaStreamArray.size() == 1)
                 {
-                    final Qualities quality = getQualityForNumber(qualityNumber);
+                    final Resolution quality = getQualityForNumber(qualityNumber);
                     videoInfo.put(quality, videoElementToUrl(vidoeElement, baseUrl));
                 }
             }
@@ -79,22 +79,22 @@ public class ArdVideoInfoJsonDeserializer implements JsonDeserializer<ArdVideoIn
         return videoInfo;
     }
 
-    private Qualities getQualityForNumber(final int i)
+    private Resolution getQualityForNumber(final int i)
     {
         switch (i)
         {
         case 0:
-            return Qualities.VERY_SMALL;
+            return Resolution.VERY_SMALL;
 
         case 1:
-            return Qualities.SMALL;
+            return Resolution.SMALL;
 
         case 2:
         default:
-            return Qualities.NORMAL;
+            return Resolution.NORMAL;
 
         case 3:
-            return Qualities.HD;
+            return Resolution.HD;
         }
     }
 

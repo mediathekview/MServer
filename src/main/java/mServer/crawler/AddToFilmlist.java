@@ -8,7 +8,7 @@ package mServer.crawler;
 import de.mediathekview.mlib.Config;
 import de.mediathekview.mlib.daten.Film;
 import de.mediathekview.mlib.daten.ListeFilme;
-import de.mediathekview.mlib.daten.Qualities;
+import de.mediathekview.mlib.daten.Resolution;
 import de.mediathekview.mlib.tool.Log;
 import de.mediathekview.mlib.tool.MVHttpClient;
 import mServer.tool.MserverDaten;
@@ -83,8 +83,8 @@ public class AddToFilmlist
      */
     private void performInitialCleanup()
     {
-        listeEinsortieren.removeIf(f -> !f.getUrl(Qualities.NORMAL).toString().toLowerCase().startsWith("http"));
-        listeEinsortieren.removeIf(f -> f.getFileSize(Qualities.NORMAL) != null && f.getFileSize(Qualities.NORMAL) < MIN_SIZE_ADD_OLD);
+        listeEinsortieren.removeIf(f -> !f.getUrl(Resolution.NORMAL).toString().toLowerCase().startsWith("http"));
+        listeEinsortieren.removeIf(f -> f.getFileSize(Resolution.NORMAL) != null && f.getFileSize(Resolution.NORMAL) < MIN_SIZE_ADD_OLD);
     }
 
     private void startThreads()
@@ -238,10 +238,10 @@ public class AddToFilmlist
             Film film;
             while (!isInterrupted() && (film = popOld(listeOld)) != null)
             {
-                final String url = film.getUrl(Qualities.NORMAL).toString();
-                if (film.getFileSize(Qualities.NORMAL) == null)
+                final String url = film.getUrl(Resolution.NORMAL).toString();
+                if (film.getFileSize(Resolution.NORMAL) == null)
                 {
-                    long fileSize = CrawlerTool.getFileSize(film.getUrl(Qualities.NORMAL));
+                    long fileSize = CrawlerTool.getFileSize(film.getUrl(Resolution.NORMAL));
 
                     if (fileSize > MIN_SIZE_ADD_OLD)
                     {
@@ -249,7 +249,7 @@ public class AddToFilmlist
                     }
                 } else
                 {
-                    if (film.getFileSize(Qualities.NORMAL) != null && film.getFileSize(Qualities.NORMAL) > MIN_SIZE_ADD_OLD)
+                    if (film.getFileSize(Resolution.NORMAL) != null && film.getFileSize(Resolution.NORMAL) > MIN_SIZE_ADD_OLD)
                     {
                         Request request = new Request.Builder().url(url).head().build();
                         try (Response response = client.newCall(request).execute())

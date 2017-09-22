@@ -3,7 +3,7 @@ package de.mediathekview.mserver.crawler.ard.json;
 import java.util.HashMap;
 import java.util.Map;
 
-import de.mediathekview.mlib.daten.Qualities;
+import de.mediathekview.mlib.daten.Resolution;
 
 /**
  * Video information from
@@ -11,7 +11,7 @@ import de.mediathekview.mlib.daten.Qualities;
  */
 public class ArdVideoInfoDTO
 {
-    private final Map<Qualities, String> videoUrls;
+    private final Map<Resolution, String> videoUrls;
     private String subtitleUrl;
 
     public ArdVideoInfoDTO()
@@ -29,26 +29,26 @@ public class ArdVideoInfoDTO
         this.subtitleUrl = subtitleUrl;
     }
 
-    public Map<Qualities, String> getVideoUrls()
+    public Map<Resolution, String> getVideoUrls()
     {
         return videoUrls;
     }
 
-    public Qualities getDefaultQuality()
+    public Resolution getDefaultResolution()
     {
-        if (videoUrls.containsKey(Qualities.NORMAL))
+        if (videoUrls.containsKey(Resolution.NORMAL))
         {
-            return Qualities.NORMAL;
+            return Resolution.NORMAL;
         }
         return videoUrls.keySet().iterator().next();
     }
 
     public String getDefaultVideoUrl()
     {
-        return videoUrls.get(getDefaultQuality());
+        return videoUrls.get(getDefaultResolution());
     }
 
-    public String put(final Qualities key, final String value)
+    public String put(final Resolution key, final String value)
     {
         return videoUrls.put(key, value);
     }

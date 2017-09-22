@@ -36,7 +36,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import de.mediathekview.mlib.daten.Film;
-import de.mediathekview.mlib.daten.Qualities;
+import de.mediathekview.mlib.daten.Resolution;
 import de.mediathekview.mlib.tool.GermanStringSorter;
 import de.mediathekview.mlib.tool.Log;
 import de.mediathekview.mlib.tool.MVHttpClient;
@@ -260,7 +260,7 @@ public abstract class MediathekReader extends Thread
         // es werden die gefundenen Filme in die Liste einsortiert
         if (urlPruefen)
         {
-            if (mlibFilmeSuchen.listeFilmeNeu.getFilmByUrl(film.getUrl(Qualities.NORMAL).toString()) == null)
+            if (mlibFilmeSuchen.listeFilmeNeu.getFilmByUrl(film.getUrl(Resolution.NORMAL).toString()) == null)
             {
                 addFilm(film);
             }

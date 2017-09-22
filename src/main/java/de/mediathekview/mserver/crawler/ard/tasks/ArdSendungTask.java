@@ -23,7 +23,7 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.JsonSyntaxException;
 
 import de.mediathekview.mlib.daten.Film;
-import de.mediathekview.mlib.daten.Qualities;
+import de.mediathekview.mlib.daten.Resolution;
 import de.mediathekview.mlib.daten.Sender;
 import de.mediathekview.mserver.crawler.ard.ArdSendungBasicInformation;
 import de.mediathekview.mserver.crawler.ard.json.ArdBasicInfoDTO;
@@ -123,11 +123,11 @@ public class ArdSendungTask extends AbstractUrlTask<Film, ArdSendungBasicInforma
         crawler.updateProgress();
     }
 
-    private void addUrls(final Film aFilm, final Map<Qualities, String> aVideoUrls) throws MalformedURLException
+    private void addUrls(final Film aFilm, final Map<Resolution, String> aVideoUrls) throws MalformedURLException
     {
-        for (final Entry<Qualities, String> qualitiesEntry : aVideoUrls.entrySet())
+        for (final Entry<Resolution, String> ResolutionEntry : aVideoUrls.entrySet())
         {
-            aFilm.addUrl(qualitiesEntry.getKey(), CrawlerTool.stringToFilmUrl(qualitiesEntry.getValue()));
+            aFilm.addUrl(ResolutionEntry.getKey(), CrawlerTool.stringToFilmUrl(ResolutionEntry.getValue()));
         }
     }
 

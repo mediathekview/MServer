@@ -15,7 +15,7 @@ import org.junit.Test;
 import de.mediathekview.mlib.daten.Film;
 import de.mediathekview.mlib.daten.FilmUrl;
 import de.mediathekview.mlib.daten.ListeFilme;
-import de.mediathekview.mlib.daten.Qualities;
+import de.mediathekview.mlib.daten.Resolution;
 import de.mediathekview.mlib.daten.Sender;
 import mServer.crawler.AddToFilmlist;
 import mServer.crawler.CrawlerTool;
@@ -166,7 +166,7 @@ public class AddToFilmlistTest
             final String filmUrl) throws MalformedURLException
     {
         final Film film = CrawlerTool.createFilm(sender, filmUrl, title, topic, "", "", 12, "url", "", "", "");
-        film.addUrl(Qualities.NORMAL, new FilmUrl(new URL(filmUrl), 10l));
+        film.addUrl(Resolution.NORMAL, new FilmUrl(new URL(filmUrl), 10l));
 
         return film;
     }
