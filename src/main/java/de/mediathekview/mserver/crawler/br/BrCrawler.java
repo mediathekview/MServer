@@ -14,11 +14,10 @@ import de.mediathekview.mlib.messages.listener.MessageListener;
 import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
 import de.mediathekview.mserver.crawler.br.tasks.BrAllSendungenTask;
 import de.mediathekview.mserver.crawler.br.tasks.BrSendungDetailsTask;
-import de.mediathekview.mserver.crawler.br.tasks.BrSendungenMissedTask;
+import de.mediathekview.mserver.crawler.br.tasks.BrMissedSendungsFolgenTask;
 import de.mediathekview.mserver.progress.listeners.SenderProgressListener;
 
 public class BrCrawler extends AbstractCrawler {
-  private static final String BASE_URL = "https://beta.mediathek.br.de/";
 
   public BrCrawler(final ForkJoinPool aForkJoinPool,
       final Collection<MessageListener> aMessageListeners,
@@ -32,11 +31,11 @@ public class BrCrawler extends AbstractCrawler {
   }
 
   private RecursiveTask<Set<String>> createAllSendungenOverviewCrawler() {
-    return new BrAllSendungenTask(this);
+    return new BrAllSendungenTask(this, forkJoinPool);
   }
 
   private Callable<Set<String>> createMissedFilmsCrawler() {
-    return new BrSendungenMissedTask(this);
+    return new BrMissedSendungsFolgenTask(this);
   }
 
   @Override
@@ -49,10 +48,10 @@ public class BrCrawler extends AbstractCrawler {
     final ConcurrentLinkedQueue<String> brFilmIds = new ConcurrentLinkedQueue<>();
     try {
       brFilmIds.addAll(missedFilmIds.get());
-    } catch (InterruptedException e) {
+    } catch (final InterruptedException e) {
       // TODO Auto-generated catch block
       e.printStackTrace();
-    } catch (ExecutionException e) {
+    } catch (final ExecutionException e) {
       // TODO Auto-generated catch block
       e.printStackTrace();
     }
