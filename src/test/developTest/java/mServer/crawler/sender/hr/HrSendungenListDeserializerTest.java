@@ -1,6 +1,5 @@
 package mServer.crawler.sender.hr;
 
-import de.mediathekview.mlib.tool.MSStringBuilder;
 import java.util.List;
 import mServer.test.HtmlFileReader;
 import static org.hamcrest.CoreMatchers.equalTo;
@@ -11,8 +10,6 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 public class HrSendungenListDeserializerTest {
-    
-    
     
     @Test
     public void deserializeTest() {
