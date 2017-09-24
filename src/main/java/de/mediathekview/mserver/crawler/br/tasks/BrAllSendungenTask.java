@@ -59,6 +59,7 @@ public class BrAllSendungenTask extends RecursiveTask<Set<String>> {
       crawler.printErrorMessage();
       allSendungen = new BrIdsDTO();
     }
+    LOG.debug(String.format("Found %d Sendungen.", allSendungen.getIds().size()));
     return allSendungen.getIds();
   }
 

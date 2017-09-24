@@ -59,6 +59,7 @@ public class BrSendungsFolgenDeserializer implements JsonDeserializer<BrIdsDTO> 
           if (node.has(JSON_ELEMENT_ID)) {
             results.add(node.get(JSON_ELEMENT_ID).getAsString());
             crawler.incrementAndGetMaxCount();
+            crawler.updateProgress();
           }
         }
       }

@@ -53,12 +53,13 @@ public class BrSendungenIdsDeserializer implements JsonDeserializer<BrIdsDTO> {
       return Optional.empty();
     }
 
-    final JsonObject seriesIndexAllSeries = data.getAsJsonObject(JSON_ELEMENT_VIEWER);
-    if (!seriesIndexAllSeries.has(JSON_ELEMENT_SERIES_INDEX_ALL_SERIES)) {
+    final JsonObject viewer = data.getAsJsonObject(JSON_ELEMENT_VIEWER);
+    if (!viewer.has(JSON_ELEMENT_SERIES_INDEX_ALL_SERIES)) {
       return Optional.empty();
     }
 
-
+    final JsonObject seriesIndexAllSeries =
+        viewer.getAsJsonObject(JSON_ELEMENT_SERIES_INDEX_ALL_SERIES);
     if (!seriesIndexAllSeries.has(JSON_ELEMENT_EDGES)) {
       return Optional.empty();
     }

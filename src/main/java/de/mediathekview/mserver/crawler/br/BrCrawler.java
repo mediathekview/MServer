@@ -52,11 +52,13 @@ public class BrCrawler extends AbstractCrawler {
     final ConcurrentLinkedQueue<String> brFilmIds = new ConcurrentLinkedQueue<>();
     try {
       brFilmIds.addAll(missedFilmIds.get());
+      LOG.debug(String.format("Found %d films in missing films.", missedFilmIds.get().size()));
     } catch (InterruptedException | ExecutionException exception) {
       LOG.fatal("Something wen't terrible wrong on gatherin the missed Films");
       printErrorMessage();
     }
     brFilmIds.addAll(sendungenFilmsTask.join());
+    LOG.debug(String.format("Found %d films in all Sendungen.", sendungenFilmsTask.join().size()));
 
     return new BrSendungDetailsTask(this, brFilmIds);
   }

@@ -29,6 +29,8 @@ import de.mediathekview.mserver.crawler.br.BrCrawler;
 import mServer.crawler.CrawlerTool;
 
 public class BrFilmDeserializer implements JsonDeserializer<Optional<Film>> {
+  private static final String ERROR_NO_START_TEMPLATE =
+      "The BR film \"%s\" has no broadcast start so it will using the actual date and time.";
   private static final String HD = "HD";
   private static final String ERROR_WEBSITE_URL =
       "The Website Url \"%s\" can't be converted to a java URL Obj.";
@@ -100,9 +102,11 @@ public class BrFilmDeserializer implements JsonDeserializer<Optional<Film>> {
 
   private void addDescriptions(final Optional<Film> aNewFilm, final JsonObject aDetailClip) {
     if (aNewFilm.isPresent()) {
-      if (aDetailClip.has(JSON_ELEMENT_DESCRIPTION)) {
+      if (aDetailClip.has(JSON_ELEMENT_DESCRIPTION)
+          && !aDetailClip.get(JSON_ELEMENT_DESCRIPTION).isJsonNull()) {
         aNewFilm.get().setBeschreibung(aDetailClip.get(JSON_ELEMENT_DESCRIPTION).getAsString());
-      } else if (aDetailClip.has(JSON_ELEMENT_SHORT_DESCRIPTION)) {
+      } else if (aDetailClip.has(JSON_ELEMENT_SHORT_DESCRIPTION)
+          && !aDetailClip.get(JSON_ELEMENT_SHORT_DESCRIPTION).isJsonNull()) {
         aNewFilm.get()
             .setBeschreibung(aDetailClip.get(JSON_ELEMENT_SHORT_DESCRIPTION).getAsString());
       }
@@ -154,11 +158,18 @@ public class BrFilmDeserializer implements JsonDeserializer<Optional<Film>> {
 
   private Optional<Film> createFilm(final JsonObject aDetailClip) {
     final Optional<JsonElement> start = getBroadcastStart(aDetailClip);
-    if (start.isPresent() && aDetailClip.has(JSON_ELEMENT_TITLE)
-        && aDetailClip.has(JSON_ELEMENT_KICKER) && aDetailClip.has(JSON_ELEMENT_DURATION)) {
+    if (aDetailClip.has(JSON_ELEMENT_TITLE) && aDetailClip.has(JSON_ELEMENT_KICKER)
+        && aDetailClip.has(JSON_ELEMENT_DURATION)) {
       final String title = aDetailClip.get(JSON_ELEMENT_TITLE).getAsString();
       final String thema = aDetailClip.get(JSON_ELEMENT_KICKER).getAsString();
-      final LocalDateTime time = toTime(start.get().getAsString());
+
+      final LocalDateTime time;
+      if (start.isPresent()) {
+        time = toTime(start.get().getAsString());
+      } else {
+        time = LocalDateTime.now();
+        LOG.error(String.format(ERROR_NO_START_TEMPLATE, filmId));
+      }
       final Duration duration = toDuration(aDetailClip.get(JSON_ELEMENT_DURATION).getAsLong());
 
       final String website = String.format(FILM_WEBSITE_TEMPLATE, BrCrawler.BASE_URL, filmId);
@@ -171,7 +182,17 @@ public class BrFilmDeserializer implements JsonDeserializer<Optional<Film>> {
         crawler.printErrorMessage();
       }
     } else {
-      printMissingDetails(JSON_ELEMENT_VIEWER);
+      if (!aDetailClip.has(JSON_ELEMENT_TITLE)) {
+        printMissingDetails(JSON_ELEMENT_TITLE);
+      }
+
+      if (!aDetailClip.has(JSON_ELEMENT_KICKER)) {
+        printMissingDetails(JSON_ELEMENT_KICKER);
+      }
+
+      if (!aDetailClip.has(JSON_ELEMENT_DURATION)) {
+        printMissingDetails(JSON_ELEMENT_DURATION);
+      }
     }
     return Optional.empty();
   }

@@ -1,5 +1,7 @@
 package de.mediathekview.mserver.crawler.br.tasks;
 
+import java.lang.reflect.Type;
+import java.util.Optional;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentLinkedQueue;
@@ -14,13 +16,13 @@ import org.apache.logging.log4j.Logger;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonSyntaxException;
+import com.google.gson.reflect.TypeToken;
 import de.mediathekview.mlib.daten.Film;
 import de.mediathekview.mserver.base.Consts;
 import de.mediathekview.mserver.base.config.MServerBasicConfigDTO;
 import de.mediathekview.mserver.base.config.MServerConfigManager;
 import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
 import de.mediathekview.mserver.crawler.br.json.BrFilmDeserializer;
-import de.mediathekview.mserver.crawler.br.json.BrIdsDTO;
 
 public class BrSendungDetailsTask extends RecursiveTask<Set<Film>> {
   private static final long serialVersionUID = 5682617879894452978L;
@@ -62,16 +64,20 @@ public class BrSendungDetailsTask extends RecursiveTask<Set<Film>> {
       final Client client = ClientBuilder.newClient();
       final WebTarget target = client.target(Consts.BR_API_URL);
 
+      final Type optionalFilmType = new TypeToken<Optional<Film>>() {}.getType();
       final Gson gson = new GsonBuilder()
-          .registerTypeAdapter(BrIdsDTO.class, new BrFilmDeserializer(crawler, aFilmId)).create();
+          .registerTypeAdapter(optionalFilmType, new BrFilmDeserializer(crawler, aFilmId)).create();
 
 
       final String response = target.request(MediaType.APPLICATION_JSON_TYPE).post(
           Entity.entity(String.format(QUERY_TEMPLATE, aFilmId), MediaType.APPLICATION_JSON_TYPE),
           String.class);
-
-      convertedFilms.add(gson.fromJson(response, Film.class));
-      crawler.incrementAndGetActualCount();
+      final Optional<Film> film = gson.fromJson(response, optionalFilmType);
+      if (film.isPresent()) {
+        convertedFilms.add(film.get());
+        crawler.incrementAndGetActualCount();
+        crawler.updateProgress();
+      }
     } catch (final JsonSyntaxException jsonSyntaxException) {
       LOG.error("The json syntax for the BR task to get Sendungsdetails has an error.",
           jsonSyntaxException);

@@ -417,7 +417,7 @@ public class CrawlerManager extends AbstractManager {
       }
     } catch (ExecutionException | InterruptedException exception) {
       printMessage(ServerMessages.SERVER_ERROR);
-      LOG.debug("Something went wrong while exeuting the crawlers.", exception);
+      LOG.fatal("Something went wrong while exeuting the crawlers.", exception);
     }
   }
 
