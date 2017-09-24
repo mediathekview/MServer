@@ -7,6 +7,7 @@ import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonDeserializer;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
 
 public class BrSendungsFolgenDeserializer implements JsonDeserializer<BrIdsDTO> {
   private static final String JSON_ELEMENT_EDGES = "edges";
@@ -17,7 +18,11 @@ public class BrSendungsFolgenDeserializer implements JsonDeserializer<BrIdsDTO> 
   private static final String JSON_ELEMENT_DATA = "data";
   private static final String JSON_ELEMENT_ID = "id";
   private static final String JSON_ELEMENT_NODE = "node";
+  private final AbstractCrawler crawler;
 
+  public BrSendungsFolgenDeserializer(final AbstractCrawler aCrawler) {
+    crawler = aCrawler;
+  }
 
   /**
    * Resolves the Sendung ids which are needed to get the Sendung details.<br>
@@ -53,6 +58,7 @@ public class BrSendungsFolgenDeserializer implements JsonDeserializer<BrIdsDTO> 
           final JsonObject node = ebdgeObj.getAsJsonObject(JSON_ELEMENT_NODE);
           if (node.has(JSON_ELEMENT_ID)) {
             results.add(node.get(JSON_ELEMENT_ID).getAsString());
+            crawler.incrementAndGetMaxCount();
           }
         }
       }

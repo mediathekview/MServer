@@ -13,14 +13,19 @@ import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.Entity;
 import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.MediaType;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.JsonSyntaxException;
 import de.mediathekview.mserver.base.Consts;
 import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
 import de.mediathekview.mserver.crawler.br.json.BrIdsDTO;
 import de.mediathekview.mserver.crawler.br.json.BrSendungenIdsDeserializer;
 
 public class BrAllSendungenTask extends RecursiveTask<Set<String>> {
+
+  private static final Logger LOG = LogManager.getLogger(BrAllSendungenTask.class);
   private static final long serialVersionUID = 8178190311832356223L;
 
   private static final String QUERY =
@@ -35,16 +40,25 @@ public class BrAllSendungenTask extends RecursiveTask<Set<String>> {
   }
 
   private Set<String> getAllSendungenIds() {
-    final Client client = ClientBuilder.newClient();
-    final WebTarget target = client.target(Consts.BR_API_URL);
-    final Gson gson = new GsonBuilder()
-        .registerTypeAdapter(BrIdsDTO.class, new BrSendungenIdsDeserializer()).create();
+    BrIdsDTO allSendungen;
+    try {
+      final Client client = ClientBuilder.newClient();
+      final WebTarget target = client.target(Consts.BR_API_URL);
+      final Gson gson = new GsonBuilder()
+          .registerTypeAdapter(BrIdsDTO.class, new BrSendungenIdsDeserializer()).create();
 
 
-    final String response = target.request(MediaType.APPLICATION_JSON_TYPE)
-        .post(Entity.entity(QUERY, MediaType.APPLICATION_JSON_TYPE), String.class);
+      final String response = target.request(MediaType.APPLICATION_JSON_TYPE)
+          .post(Entity.entity(QUERY, MediaType.APPLICATION_JSON_TYPE), String.class);
 
-    final BrIdsDTO allSendungen = gson.fromJson(response, BrIdsDTO.class);
+      allSendungen = gson.fromJson(response, BrIdsDTO.class);
+    } catch (final JsonSyntaxException jsonSyntaxException) {
+      LOG.error("The json syntax for the BR task to get all Sendungen has an error.",
+          jsonSyntaxException);
+      crawler.incrementAndGetErrorCount();
+      crawler.printErrorMessage();
+      allSendungen = new BrIdsDTO();
+    }
     return allSendungen.getIds();
   }
 
@@ -64,9 +78,11 @@ public class BrAllSendungenTask extends RecursiveTask<Set<String>> {
       for (final ForkJoinTask<Set<String>> featureSendungsfolgenTask : futureSendungsfolgenTasks) {
         results.addAll(featureSendungsfolgenTask.get());
       }
-    } catch (InterruptedException | ExecutionException e) {
-      // TODO Auto-generated catch block
-      e.printStackTrace();
+    } catch (InterruptedException | ExecutionException exception) {
+      LOG.error("Something wen't terrible wrong while getting the Folgen for a BR Sendung.",
+          exception);
+      crawler.incrementAndGetErrorCount();
+      crawler.printErrorMessage();
     }
 
     return results;
