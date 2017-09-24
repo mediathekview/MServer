@@ -1,35 +1,31 @@
 package mServer.crawler.sender.arte;
 
-import java.lang.reflect.Type;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.concurrent.CopyOnWriteArrayList;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.Future;
-
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonDeserializer;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParseException;
-
-import de.mediathekview.mlib.daten.DatenFilm;
+import de.mediathekview.mlib.daten.Film;
 import de.mediathekview.mlib.daten.ListeFilme;
+import de.mediathekview.mlib.daten.Sender;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
-public class ArteDatenFilmDeserializer implements JsonDeserializer<ListeFilme>
+import java.lang.reflect.Type;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.concurrent.*;
+
+public class ArteFilmDeserializer implements JsonDeserializer<ListeFilme>
 {
     private static final String JSON_ELEMENT_VIDEOS = "videos";
-    private static final Logger LOG = LogManager.getLogger(ArteDatenFilmDeserializer.class);
+    private static final Logger LOG = LogManager.getLogger(ArteFilmDeserializer.class);
     
     private final String langCode;
-    private final String senderName;
+    private final Sender sender;
     
-    public ArteDatenFilmDeserializer(String aLangCode, String aSenderName) {
+    public ArteFilmDeserializer(String aLangCode, Sender aSender) {
         langCode = aLangCode;
-        senderName = aSenderName;
+        sender = aSender;
     }
 
     @Override
@@ -37,17 +33,18 @@ public class ArteDatenFilmDeserializer implements JsonDeserializer<ListeFilme>
     {
         ListeFilme listeFilme = new ListeFilme();
 
-        Collection<Future<DatenFilm>> futureFilme = new ArrayList<>();
+        Collection<Future<Film>> futureFilme = new ArrayList<>();
+        
         for (JsonElement jsonElement : aJsonElement.getAsJsonObject().get(JSON_ELEMENT_VIDEOS).getAsJsonArray())
         {
             ExecutorService executor = Executors.newCachedThreadPool();
-            futureFilme.add(executor.submit(new ArteJsonObjectToDatenFilmCallable(jsonElement.getAsJsonObject(), langCode, senderName)));
+            futureFilme.add(executor.submit(new ArteJsonObjectToFilmCallable(jsonElement.getAsJsonObject(), langCode, sender)));
         }
         
-        CopyOnWriteArrayList<DatenFilm> finishedFilme = new CopyOnWriteArrayList<>();
+        CopyOnWriteArrayList<Film> finishedFilme = new CopyOnWriteArrayList<>();
         futureFilme.parallelStream().forEach(e -> {
             try{
-                DatenFilm finishedFilm = e.get();
+                Film finishedFilm = e.get();
                 if(finishedFilm!=null)
                 {
                     finishedFilme.add(finishedFilm);
