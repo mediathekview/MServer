@@ -33,7 +33,11 @@ public enum ServerMessages implements Message
     FTP_FORMAT_NOT_IN_SAVE_FORMATS("ftpFormatNotInSaveFormats", MessageTypes.ERROR),
     UI_TO_MANY_ARGUMENTS("uiToManyArguments", MessageTypes.ERROR),
     UI_UNKNOWN_ARGUMENT("uiUnknownArgument", MessageTypes.FATAL_ERROR),
-    UI_GENERATE_DEFAULT_CONFIG_FILE_FAILED("uiGenerateDefaultConfigFileFailed", MessageTypes.FATAL_ERROR);
+    UI_GENERATE_DEFAULT_CONFIG_FILE_FAILED("uiGenerateDefaultConfigFileFailed", MessageTypes.FATAL_ERROR),
+    
+    DEBUG_MSSING_SENDUNGFOLGEN_COUNT("debugMissingSendungfolgenCount",MessageTypes.DEBUG),
+    DEBUG_ALL_SENDUNG_COUNT("debugAllSendungCount",MessageTypes.DEBUG),
+    DEBUG_ALL_SENDUNG_FOLGEN_COUNT("debugAllSendungFolgenCount",MessageTypes.DEBUG);
 
     private String messageKey;
     private MessageTypes messageType;

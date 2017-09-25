@@ -13,6 +13,7 @@ import org.apache.logging.log4j.Logger;
 import de.mediathekview.mlib.daten.Film;
 import de.mediathekview.mlib.daten.Sender;
 import de.mediathekview.mlib.messages.listener.MessageListener;
+import de.mediathekview.mserver.base.messages.ServerMessages;
 import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
 import de.mediathekview.mserver.crawler.br.tasks.BrAllSendungenTask;
 import de.mediathekview.mserver.crawler.br.tasks.BrMissedSendungsFolgenTask;
@@ -52,13 +53,15 @@ public class BrCrawler extends AbstractCrawler {
     final ConcurrentLinkedQueue<String> brFilmIds = new ConcurrentLinkedQueue<>();
     try {
       brFilmIds.addAll(missedFilmIds.get());
-      LOG.debug(String.format("Found %d films in missing films.", missedFilmIds.get().size()));
+      printMessage(ServerMessages.DEBUG_MSSING_SENDUNGFOLGEN_COUNT, getSender().getName(),
+          missedFilmIds.get().size());
     } catch (InterruptedException | ExecutionException exception) {
-      LOG.fatal("Something wen't terrible wrong on gatherin the missed Films");
+      LOG.fatal("Something wen't terrible wrong on gathering the missed Films");
       printErrorMessage();
     }
     brFilmIds.addAll(sendungenFilmsTask.join());
-    LOG.debug(String.format("Found %d films in all Sendungen.", sendungenFilmsTask.join().size()));
+    printMessage(ServerMessages.DEBUG_ALL_SENDUNG_FOLGEN_COUNT, getSender().getName(),
+        sendungenFilmsTask.join().size());
 
     return new BrSendungDetailsTask(this, brFilmIds);
   }

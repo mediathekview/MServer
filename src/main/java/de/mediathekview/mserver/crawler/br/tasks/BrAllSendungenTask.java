@@ -19,6 +19,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonSyntaxException;
 import de.mediathekview.mserver.base.Consts;
+import de.mediathekview.mserver.base.messages.ServerMessages;
 import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
 import de.mediathekview.mserver.crawler.br.json.BrIdsDTO;
 import de.mediathekview.mserver.crawler.br.json.BrSendungenIdsDeserializer;
@@ -31,8 +32,8 @@ public class BrAllSendungenTask extends RecursiveTask<Set<String>> {
   private static final String QUERY =
       "{\"query\":\"query SeriesIndexRefetchQuery(\\n  $seriesFilter: SeriesFilter\\n) {\\n  viewer {\\n    ...SeriesIndex_viewer_19SNIy\\n    id\\n  }\\n}\\n\\nfragment SeriesIndex_viewer_19SNIy on Viewer {\\n  seriesIndexAllSeries: allSeries(first: 1000, orderBy: TITLE_ASC, filter: $seriesFilter) {\\n    edges {\\n      node {\\n        __typename\\n        id\\n        title\\n        ...SeriesTeaserBox_node\\n        ...TeaserListItem_node\\n      }\\n    }\\n  }\\n}\\n\\nfragment SeriesTeaserBox_node on Node {\\n  __typename\\n  id\\n  ... on CreativeWorkInterface {\\n    ...TeaserImage_creativeWorkInterface\\n  }\\n  ... on SeriesInterface {\\n    ...SubscribeAction_series\\n    subscribed\\n    title\\n  }\\n}\\n\\nfragment TeaserListItem_node on Node {\\n  __typename\\n  id\\n  ... on CreativeWorkInterface {\\n    ...TeaserImage_creativeWorkInterface\\n  }\\n  ... on ClipInterface {\\n    title\\n  }\\n}\\n\\nfragment TeaserImage_creativeWorkInterface on CreativeWorkInterface {\\n  id\\n  kicker\\n  title\\n   }\\n\\nfragment SubscribeAction_series on SeriesInterface {\\n  id\\n  subscribed\\n}\\n\",\"variables\":{\"seriesFilter\":{\"title\":{\"startsWith\":\"*\"},\"audioOnly\":{\"eq\":false},\"status\":{\"id\":{\"eq\":\"Status:http://ard.de/ontologies/lifeCycle#published\"}}}}}";
 
-  private final ForkJoinPool forkJoinPool;
-  private final AbstractCrawler crawler;
+  private final transient ForkJoinPool forkJoinPool;
+  private final transient AbstractCrawler crawler;
 
   public BrAllSendungenTask(final AbstractCrawler aCrawler, final ForkJoinPool aForkJoinPool) {
     crawler = aCrawler;
@@ -59,7 +60,8 @@ public class BrAllSendungenTask extends RecursiveTask<Set<String>> {
       crawler.printErrorMessage();
       allSendungen = new BrIdsDTO();
     }
-    LOG.debug(String.format("Found %d Sendungen.", allSendungen.getIds().size()));
+    crawler.printMessage(ServerMessages.DEBUG_ALL_SENDUNG_COUNT, crawler.getSender().getName(),
+        allSendungen.getIds().size());
     return allSendungen.getIds();
   }
 

@@ -30,7 +30,7 @@ import mServer.crawler.CrawlerTool;
 
 public class BrFilmDeserializer implements JsonDeserializer<Optional<Film>> {
   private static final String ERROR_NO_START_TEMPLATE =
-      "The BR film \"%s\" has no broadcast start so it will using the actual date and time.";
+      "The BR film \"%s - %s\" has no broadcast start so it will using the actual date and time.";
   private static final String HD = "HD";
   private static final String ERROR_WEBSITE_URL =
       "The Website Url \"%s\" can't be converted to a java URL Obj.";
@@ -85,16 +85,21 @@ public class BrFilmDeserializer implements JsonDeserializer<Optional<Film>> {
   @Override
   public Optional<Film> deserialize(final JsonElement aElement, final Type aType,
       final JsonDeserializationContext aContext) {
-    final Optional<JsonObject> viewer = getViewer(aElement.getAsJsonObject());
-    if (viewer.isPresent()) {
+    try {
+      final Optional<JsonObject> viewer = getViewer(aElement.getAsJsonObject());
+      if (viewer.isPresent()) {
 
-      final Optional<JsonObject> detailClip = getDetailClip(viewer.get());
+        final Optional<JsonObject> detailClip = getDetailClip(viewer.get());
 
-      return buildFilm(detailClip, viewer.get());
+        return buildFilm(detailClip, viewer.get());
 
 
-    } else {
-      printMissingDetails(JSON_ELEMENT_VIEWER);
+      } else {
+        printMissingDetails(JSON_ELEMENT_VIEWER);
+      }
+    } catch (final UnsupportedOperationException unsupportedOperationException) {
+      // This will happen when a element is JsonNull.
+      LOG.error("BR: A needed JSON element is JsonNull.", unsupportedOperationException);
     }
 
     return Optional.empty();
@@ -168,7 +173,7 @@ public class BrFilmDeserializer implements JsonDeserializer<Optional<Film>> {
         time = toTime(start.get().getAsString());
       } else {
         time = LocalDateTime.now();
-        LOG.error(String.format(ERROR_NO_START_TEMPLATE, filmId));
+        LOG.debug(String.format(ERROR_NO_START_TEMPLATE, thema, title));
       }
       final Duration duration = toDuration(aDetailClip.get(JSON_ELEMENT_DURATION).getAsLong());
 
@@ -293,10 +298,12 @@ public class BrFilmDeserializer implements JsonDeserializer<Optional<Film>> {
         final JsonObject videoProfile = aNode.getAsJsonObject(JSON_ELEMENT_VIDEO_PROFILE);
         if (videoProfile.has(JSON_ELEMENT_ID)) {
           if (videoProfile.has(JSON_ELEMENT_WIDTH)) {
-
-            return Optional.of(new BrUrlDTO(aNode.get(JSON_ELEMENT_PUBLIC_LOCATION).getAsString(),
-                videoProfile.get(JSON_ELEMENT_WIDTH).getAsInt(),
-                videoProfile.get(JSON_ELEMENT_ID).getAsString()));
+            if (!videoProfile.get(JSON_ELEMENT_WIDTH).isJsonNull()
+                && !videoProfile.get(JSON_ELEMENT_ID).isJsonNull()) {
+              return Optional.of(new BrUrlDTO(aNode.get(JSON_ELEMENT_PUBLIC_LOCATION).getAsString(),
+                  videoProfile.get(JSON_ELEMENT_WIDTH).getAsInt(),
+                  videoProfile.get(JSON_ELEMENT_ID).getAsString()));
+            }
 
           } else {
             printMissingDetails(JSON_ELEMENT_VIDEO_PROFILE + " -> " + JSON_ELEMENT_WIDTH);
