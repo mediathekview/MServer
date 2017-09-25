@@ -2,6 +2,8 @@ package mServer.crawler.sender.hr;
 
 import de.mediathekview.mlib.Const;
 import de.mediathekview.mlib.daten.DatenFilm;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
@@ -15,18 +17,26 @@ public class HrSendungDeserializer {
     private static final String HTML_TAG_STRONG = "strong";
     private static final String HTML_TAG_TIME = "time";
     private static final String HTML_TAG_VIDEO = "video";
+    private static final String HTML_ATTRIBUTE_DATETIME = "datetime";
     private static final String HTML_ATTRIBUTE_DURATION = "data-duration";
     private static final String HTML_ATTRIBUTE_SRC = "src";
+
+    private final DateTimeFormatter dateFormatHtml = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mmZ");
+    private final DateTimeFormatter dateFormatDatenFilm = DateTimeFormatter.ofPattern("dd.MM.yyyy");
+    private final DateTimeFormatter timeFormatDatenFilm = DateTimeFormatter.ofPattern("HH:mm:ss");
 
     public DatenFilm deserialize(String theme, String documentUrl, Document document) {
         
         String broadcast = getBroadcast(document);
+        LocalDateTime d = LocalDateTime.parse(broadcast, dateFormatHtml);
+        String date = d.format(dateFormatDatenFilm);
+        String time = d.format(timeFormatDatenFilm);
         String title = getTitle(document);
         String videoUrl = getVideoUrl(document);
         long duration = getDuration(document);
         String description = getDescription(document);
         
-        DatenFilm film = new DatenFilm(Const.HR, theme, documentUrl, title, videoUrl, "", broadcast, broadcast, duration, description);
+        DatenFilm film = new DatenFilm(Const.HR, theme, documentUrl, title, videoUrl, "", date, time, duration, description);
         
         return film;
     }
@@ -34,17 +44,15 @@ public class HrSendungDeserializer {
     private String getBroadcast(Document document) {
         String broadcast = "";
         
-        Elements broadcastElements = document.select(QUERY_BROADCAST);
+        Element broadcastElement = document.select(QUERY_BROADCAST).first();
         
-        for(int i = 0; i < broadcastElements.size(); i++) {
-            Elements children = broadcastElements.get(i).children();
-        
-            for(int j = 0; j < children.size(); j++) {
-                Element child = children.get(j);
-                
-                if(child.tagName().compareToIgnoreCase(HTML_TAG_TIME) == 0) {
-                    broadcast = child.text();
-                }
+        Elements children = broadcastElement.children();
+
+        for(int j = 0; j < children.size(); j++) {
+            Element child = children.get(j);
+
+            if(child.tagName().compareToIgnoreCase(HTML_TAG_TIME) == 0) {
+                broadcast = child.attr(HTML_ATTRIBUTE_DATETIME);
             }
         }
         

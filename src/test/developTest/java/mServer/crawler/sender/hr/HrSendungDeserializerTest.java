@@ -21,7 +21,7 @@ public class HrSendungDeserializerTest {
                 "Von Marienbad nach Karlsbad",
                 "http://www.hr.gl-systemhaus.de/video/as/servicereisen/2017_09/hrLogo_170919120157_0193742_512x288-25p-500kbit.mp4",
                 "",
-                "19.09.17",
+                "19.09.2017",
                 "18:50:00",
                 1506,
                 "\"service: reisen\" begibt sich auf eine ganz besondere Trinkkur durch Böhmen und entdeckt dabei nicht nur bemerkenswerte Heilquellen, sondern auch modernere Therapie-Formen wie das Bierwellness."
