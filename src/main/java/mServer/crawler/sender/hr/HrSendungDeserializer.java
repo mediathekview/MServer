@@ -27,12 +27,16 @@ public class HrSendungDeserializer {
 
     public DatenFilm deserialize(String theme, String documentUrl, Document document) {
         
+        String videoUrl = getVideoUrl(document);
+        if (videoUrl == null || videoUrl.isEmpty()) {
+            return null;
+        }
+        
         String broadcast = getBroadcast(document);
         LocalDateTime d = LocalDateTime.parse(broadcast, dateFormatHtml);
         String date = d.format(dateFormatDatenFilm);
         String time = d.format(timeFormatDatenFilm);
         String title = getTitle(document);
-        String videoUrl = getVideoUrl(document);
         long duration = getDuration(document);
         String description = getDescription(document);
         

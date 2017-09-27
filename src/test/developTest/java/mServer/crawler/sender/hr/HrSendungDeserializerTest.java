@@ -5,6 +5,7 @@ import de.mediathekview.mlib.daten.DatenFilm;
 import mServer.test.HtmlFileReader;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.notNullValue;
+import static org.hamcrest.CoreMatchers.nullValue;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import static org.junit.Assert.assertThat;
@@ -13,7 +14,7 @@ import org.junit.Test;
 public class HrSendungDeserializerTest {
     
     @Test
-    public void deserializeTest() {
+    public void deserializeTestWithVideo() {
         DatenFilm expected = new DatenFilm(
                 Const.HR, 
                 "service: reisen", 
@@ -37,5 +38,29 @@ public class HrSendungDeserializerTest {
         for(int i = 0; i < actual.arr.length; i++) {
             assertThat(actual.arr[i], equalTo(expected.arr[i]));
         }
+    }
+    
+        @Test
+    public void deserializeTestWithoutVideo() {
+        DatenFilm expected = new DatenFilm(
+                Const.HR, 
+                "service: reisen", 
+                "http://www.hr-fernsehen.de/sendungen-a-z/service-reisen/sendungen/service-reisen,sendung-13268.html",
+                "Von Marienbad nach Karlsbad",
+                "http://www.hr.gl-systemhaus.de/video/as/servicereisen/2017_09/hrLogo_170919120157_0193742_512x288-25p-500kbit.mp4",
+                "",
+                "19.09.2017",
+                "18:50:00",
+                1506,
+                "\"service: reisen\" begibt sich auf eine ganz besondere Trinkkur durch Böhmen und entdeckt dabei nicht nur bemerkenswerte Heilquellen, sondern auch modernere Therapie-Formen wie das Bierwellness."
+        );
+        
+        String html = HtmlFileReader.readHtmlPage("/hr/hr_sendung_detail_without_video.html");
+        Document document = Jsoup.parse(html);
+        
+        HrSendungDeserializer target = new HrSendungDeserializer();
+        DatenFilm actual = target.deserialize("heimspiel!", "http://www.hr-fernsehen.de/sendungen-a-z/heimspiel/sendungen/sobiech-und-stein-im-heimspiel,sendung-13662.html", document);
+        
+        assertThat(actual, nullValue());
     }
 }
