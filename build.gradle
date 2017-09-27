@@ -157,8 +157,8 @@ def loadRepoZugangProperties() {
 uploadArchives {
     repositories.mavenDeployer {
         Properties props = loadRepoZugangProperties()
-        def nexusUser = props.getProperty('repoUser')
-        def nexusPw = props.getProperty('repoPw')
+        def nexusUser = project.hasProperty('nexusUser') ? project.property('nexusUser') : props.getProperty('repoUser')
+        def nexusPw = project.hasProperty('nexusPw') ? project.property('nexusPw') : props.getProperty('repoPw')
         repository(url: "https://repo.mediathekview.de/repository/maven-releases/") {
             authentication(userName:  nexusUser, password:  nexusPw)
         }
