@@ -156,6 +156,7 @@ def loadRepoZugangProperties() {
 
 uploadArchives {
     repositories.mavenDeployer {
+        uniqueVersion=false
         Properties props = loadRepoZugangProperties()
         def nexusUser = project.hasProperty('nexusUser') ? project.property('nexusUser') : props.getProperty('repoUser')
         def nexusPw = project.hasProperty('nexusPw') ? project.property('nexusPw') : props.getProperty('repoPw')
