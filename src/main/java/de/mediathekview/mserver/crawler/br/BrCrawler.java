@@ -8,16 +8,21 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ForkJoinPool;
 import java.util.concurrent.Future;
 import java.util.concurrent.RecursiveTask;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import de.mediathekview.mlib.daten.Film;
 import de.mediathekview.mlib.daten.Sender;
 import de.mediathekview.mlib.messages.listener.MessageListener;
+import de.mediathekview.mserver.base.messages.ServerMessages;
 import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
 import de.mediathekview.mserver.crawler.br.tasks.BrAllSendungenTask;
-import de.mediathekview.mserver.crawler.br.tasks.BrSendungDetailsTask;
 import de.mediathekview.mserver.crawler.br.tasks.BrMissedSendungsFolgenTask;
+import de.mediathekview.mserver.crawler.br.tasks.BrSendungDetailsTask;
 import de.mediathekview.mserver.progress.listeners.SenderProgressListener;
 
 public class BrCrawler extends AbstractCrawler {
+  private static final Logger LOG = LogManager.getLogger(BrCrawler.class);
+  public static final String BASE_URL = "https://beta.mediathek.br.de";
 
   public BrCrawler(final ForkJoinPool aForkJoinPool,
       final Collection<MessageListener> aMessageListeners,
@@ -48,14 +53,15 @@ public class BrCrawler extends AbstractCrawler {
     final ConcurrentLinkedQueue<String> brFilmIds = new ConcurrentLinkedQueue<>();
     try {
       brFilmIds.addAll(missedFilmIds.get());
-    } catch (final InterruptedException e) {
-      // TODO Auto-generated catch block
-      e.printStackTrace();
-    } catch (final ExecutionException e) {
-      // TODO Auto-generated catch block
-      e.printStackTrace();
+      printMessage(ServerMessages.DEBUG_MSSING_SENDUNGFOLGEN_COUNT, getSender().getName(),
+          missedFilmIds.get().size());
+    } catch (InterruptedException | ExecutionException exception) {
+      LOG.fatal("Something wen't terrible wrong on gathering the missed Films");
+      printErrorMessage();
     }
     brFilmIds.addAll(sendungenFilmsTask.join());
+    printMessage(ServerMessages.DEBUG_ALL_SENDUNG_FOLGEN_COUNT, getSender().getName(),
+        sendungenFilmsTask.join().size());
 
     return new BrSendungDetailsTask(this, brFilmIds);
   }

@@ -1,6 +1,5 @@
 package de.mediathekview.mserver.crawler.br.json;
 
-import java.util.Collection;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentSkipListSet;
@@ -15,10 +14,6 @@ public class BrIdsDTO {
 
   public boolean add(final String aId) {
     return ids.add(aId);
-  }
-
-  public boolean addAll(final Collection<? extends String> aIds) {
-    return ids.addAll(aIds);
   }
 
   public Set<String> getIds() {
