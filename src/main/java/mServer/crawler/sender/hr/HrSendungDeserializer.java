@@ -27,28 +27,36 @@ public class HrSendungDeserializer {
 
     public DatenFilm deserialize(String theme, String documentUrl, Document document) {
         
-        String videoUrl = getVideoUrl(document);
-        if (videoUrl == null || videoUrl.isEmpty()) {
+        String date = "", description, time = "", title, videoUrl;
+        long duration;
+        
+        // nur Einträge mit Video weiterverarbeiten
+        videoUrl = getVideoUrl(document);
+        if (videoUrl.isEmpty()) {
             return null;
         }
         
         String broadcast = getBroadcast(document);
-        LocalDateTime d = LocalDateTime.parse(broadcast, dateFormatHtml);
-        String date = d.format(dateFormatDatenFilm);
-        String time = d.format(timeFormatDatenFilm);
-        String title = getTitle(document);
-        long duration = getDuration(document);
-        String description = getDescription(document);
+        if (!broadcast.isEmpty()) {
+            LocalDateTime d = LocalDateTime.parse(broadcast, dateFormatHtml);
+            date = d.format(dateFormatDatenFilm);
+            time = d.format(timeFormatDatenFilm);
+        }
+
+        title = getTitle(document);
+        duration = getDuration(document);
+        description = getDescription(document);
         
-        DatenFilm film = new DatenFilm(Const.HR, theme, documentUrl, title, videoUrl, "", date, time, duration, description);
-        
-        return film;
+        return new DatenFilm(Const.HR, theme, documentUrl, title, videoUrl, "", date, time, duration, description);
     }
     
     private String getBroadcast(Document document) {
         String broadcast = "";
         
         Element broadcastElement = document.select(QUERY_BROADCAST).first();
+        if (broadcastElement == null) {
+            return broadcast;
+        }
         
         Elements children = broadcastElement.children();
 

@@ -2,6 +2,7 @@ package mServer.crawler.sender.hr;
 
 import java.util.ArrayList;
 import java.util.List;
+import mServer.crawler.sender.MediathekReader;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
@@ -42,12 +43,18 @@ public class HrSendungenListDeserializer {
     }
     
     /**
-     * URL anpassen, so dass diese direkt die Übersicht der Folgen beinhaltet
+     * URL anpassen, so dass diese direkt die Übersicht der Folgen beinhaltet,
+     * sofern diese Seite existiert!
      * @param url URL zu Startseite der Sendung
      * @return URL zu der Folgenübersicht der Sendung
      */
     private String prepareUrl(String url) {
         // "sendungen" muss vor index.html eingefügt werden
-        return url.replaceAll("index.html", "sendungen/index.html");
+        String preparedUrl = url.replaceAll("index.html", "sendungen/index.html");
+        if (MediathekReader.urlExists(preparedUrl)) {
+            return preparedUrl;
+        }
+        
+        return url;
     }
 }
