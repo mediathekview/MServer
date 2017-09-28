@@ -33,7 +33,7 @@ public class HrSendungenListDeserializer {
             if(!url.contains("daserste")) {
                 HrSendungenDto dto = new HrSendungenDto();
                 dto.setTheme(theme);
-                dto.setUrl(prepareUrl(url));
+                dto.setUrl(prepareUrl(theme, url));
 
                 dtos.add(dto);
             }
@@ -45,11 +45,18 @@ public class HrSendungenListDeserializer {
     /**
      * URL anpassen, so dass diese direkt die Übersicht der Folgen beinhaltet,
      * sofern diese Seite existiert!
+     * Damit wird das unnötige Einlesen einer Zwischenseite gespart.
+     * @param theme Thema der Sendung
      * @param url URL zu Startseite der Sendung
      * @return URL zu der Folgenübersicht der Sendung
      */
-    private String prepareUrl(String url) {
-        // "sendungen" muss vor index.html eingefügt werden
+    private String prepareUrl(String theme, String url) {
+        // Sonderseite für Hessenschau verwenden
+        if (theme.contains("hessenschau")) {
+            return "http://www.hessenschau.de/tv-sendung/sendungsarchiv/index.html";
+        } 
+
+        // bei allen anderen, probieren, ob eine URL mit "sendungen" vor index.html existiert
         String preparedUrl = url.replaceAll("index.html", "sendungen/index.html");
         if (MediathekReader.urlExists(preparedUrl)) {
             return preparedUrl;

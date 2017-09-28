@@ -72,32 +72,27 @@ public class MediathekHr extends MediathekReader {
             dtos.forEach(dto -> {
                 try {
                     if (!Config.getStop()) {
-                        if (dto.getTheme().contains("hessenschau")) {
-                            // TODO...
+                        Document overviewDocument = Jsoup.connect(dto.getUrl()).get();
+                        meldungProgress(dto.getUrl());
+                        List<String> detailUrls = overviewDeserializer.deserialize(overviewDocument);
+                        detailUrls.forEach(detailUrl -> {
+                            if (!Config.getStop()) {
+                                try {
+                                    Document detailDocument = Jsoup.connect(detailUrl).get();
+                                    DatenFilm film = sendungDeserializer.deserialize(dto.getTheme(), detailUrl, detailDocument);
 
-                        } else {
-                            Document overviewDocument = Jsoup.connect(dto.getUrl()).get();
-                            meldungProgress(dto.getUrl());
-                            List<String> detailUrls = overviewDeserializer.deserialize(overviewDocument);
-                            detailUrls.forEach(detailUrl -> {
-                                if (!Config.getStop()) {
-                                    try {
-                                        Document detailDocument = Jsoup.connect(detailUrl).get();
-                                        DatenFilm film = sendungDeserializer.deserialize(dto.getTheme(), detailUrl, detailDocument);
-
-                                        if (film != null) {
-                                            String subtitle = film.getUrl().replace(".mp4", ".xml");
-                                            if (urlExists(subtitle)) {
-                                                CrawlerTool.addUrlSubtitle(film, subtitle);
-                                            }
-                                            addFilm(film);
+                                    if (film != null) {
+                                        String subtitle = film.getUrl().replace(".mp4", ".xml");
+                                        if (urlExists(subtitle)) {
+                                            CrawlerTool.addUrlSubtitle(film, subtitle);
                                         }
-                                    } catch (IOException ex1) {
-                                        Log.errorLog(894651554, ex1);
+                                        addFilm(film);
                                     }
+                                } catch (IOException ex1) {
+                                    Log.errorLog(894651554, ex1);
                                 }
-                            });
-                        }
+                            }
+                        });
                     }
                 } catch (IOException ex1) {
                     Log.errorLog(894651554, ex1);

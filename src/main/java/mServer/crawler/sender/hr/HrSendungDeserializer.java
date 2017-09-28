@@ -4,15 +4,20 @@ import de.mediathekview.mlib.Const;
 import de.mediathekview.mlib.daten.DatenFilm;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 public class HrSendungDeserializer {
     
-    private static final String QUERY_BROADCAST = "li.c-airdates__entry";
+    private static final String QUERY_BROADCAST1 = "li.c-airdates__entry";
+    private static final String QUERY_BROADCAST2 = "p.byline--s";
     private static final String QUERY_DESCRIPTION = "p.copytext__text";
-    private static final String QUERY_TITLE = "p.c-programHeader__subline";
+    private static final String QUERY_TITLE1 = "p.c-programHeader__subline";
+    private static final String QUERY_TITLE2 = "span.c-contentHeader__headline";
     private static final String HTML_TAG_SOURCE = "source";
     private static final String HTML_TAG_STRONG = "strong";
     private static final String HTML_TAG_TIME = "time";
@@ -25,6 +30,8 @@ public class HrSendungDeserializer {
     private final DateTimeFormatter dateFormatDatenFilm = DateTimeFormatter.ofPattern("dd.MM.yyyy");
     private final DateTimeFormatter timeFormatDatenFilm = DateTimeFormatter.ofPattern("HH:mm:ss");
 
+    private static final Logger LOG = LogManager.getLogger(HrSendungDeserializer.class);
+    
     public DatenFilm deserialize(String theme, String documentUrl, Document document) {
         
         String date = "", description, time = "", title, videoUrl;
@@ -38,9 +45,13 @@ public class HrSendungDeserializer {
         
         String broadcast = getBroadcast(document);
         if (!broadcast.isEmpty()) {
-            LocalDateTime d = LocalDateTime.parse(broadcast, dateFormatHtml);
-            date = d.format(dateFormatDatenFilm);
-            time = d.format(timeFormatDatenFilm);
+            try {
+                LocalDateTime d = LocalDateTime.parse(prepareBroadcast(broadcast), dateFormatHtml);
+                date = d.format(dateFormatDatenFilm);
+                time = d.format(timeFormatDatenFilm);
+            } catch(DateTimeParseException ex) {
+               LOG.error(documentUrl, ex);
+            }
         }
 
         title = getTitle(document);
@@ -50,12 +61,24 @@ public class HrSendungDeserializer {
         return new DatenFilm(Const.HR, theme, documentUrl, title, videoUrl, "", date, time, duration, description);
     }
     
+    private String prepareBroadcast(String broadcast) {
+        if(broadcast.length() == 10) {
+            // add time
+            broadcast += "T00:00+0200";
+        }
+        
+        return broadcast;
+    }
+    
     private String getBroadcast(Document document) {
         String broadcast = "";
         
-        Element broadcastElement = document.select(QUERY_BROADCAST).first();
+        Element broadcastElement = document.select(QUERY_BROADCAST1).first();
         if (broadcastElement == null) {
-            return broadcast;
+            broadcastElement = document.select(QUERY_BROADCAST2).first();
+            if(broadcastElement == null) {
+                return broadcast;
+            }
         }
         
         Elements children = broadcastElement.children();
@@ -108,7 +131,10 @@ public class HrSendungDeserializer {
     private String getTitle(Document document) {
         String title = "";
         
-        Element titleElement = document.select(QUERY_TITLE).first();
+        Element titleElement = document.select(QUERY_TITLE1).first();
+        if(titleElement == null) {
+            titleElement = document.select(QUERY_TITLE2).first();
+        }
         if(titleElement != null) {
             title = titleElement.text();
         }
