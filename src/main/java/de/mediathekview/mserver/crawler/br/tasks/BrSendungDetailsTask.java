@@ -96,8 +96,7 @@ public class BrSendungDetailsTask extends RecursiveTask<Set<Film>> {
     } else {
       final BrSendungDetailsTask rightTask =
           new BrSendungDetailsTask(crawler, createSubSet(filmIds));
-      final BrSendungDetailsTask leftTask =
-          new BrSendungDetailsTask(crawler, createSubSet(filmIds));
+      final BrSendungDetailsTask leftTask = new BrSendungDetailsTask(crawler, filmIds);
       leftTask.fork();
       convertedFilms.addAll(rightTask.compute());
       convertedFilms.addAll(leftTask.join());
