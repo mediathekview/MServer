@@ -413,7 +413,7 @@ public class CrawlerManager extends AbstractManager {
     try {
       final List<Future<Set<Film>>> results = executorService.invokeAll(Arrays.asList(aCrawlers));
       for (final Future<Set<Film>> result : results) {
-        filmlist.addAll(result.get());
+        filmlist.addAllFilms(result.get());
       }
     } catch (ExecutionException | InterruptedException exception) {
       printMessage(ServerMessages.SERVER_ERROR);
