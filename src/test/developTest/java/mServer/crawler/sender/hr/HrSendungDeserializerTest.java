@@ -1,4 +1,4 @@
-package de.mediathekview.mserver.crawler.sender.hr;
+package mServer.crawler.sender.hr;
 
 import de.mediathekview.mlib.Const;
 import de.mediathekview.mlib.daten.DatenFilm;

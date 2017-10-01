@@ -1,4 +1,4 @@
-package de.mediathekview.mserver.crawler.sender.hr;
+package mServer.crawler.sender.hr;
 
 import java.util.Arrays;
 import java.util.Collection;

@@ -30,9 +30,9 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 import mServer.crawler.FilmeSuchen;
-import de.mediathekview.mserver.crawler.sender.hr.HrSendungOverviewCallable;
-import de.mediathekview.mserver.crawler.sender.hr.HrSendungenDto;
-import de.mediathekview.mserver.crawler.sender.hr.HrSendungenListDeserializer;
+import mServer.crawler.sender.hr.HrSendungOverviewCallable;
+import mServer.crawler.sender.hr.HrSendungenDto;
+import mServer.crawler.sender.hr.HrSendungenListDeserializer;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
