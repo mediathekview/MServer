@@ -30,21 +30,14 @@ public class HrSendungOverviewCallable implements Callable<ListeFilme> {
             if (!Config.getStop()) {
                 Document overviewDocument = Jsoup.connect(dto.getUrl()).get();
                 List<String> detailUrls = overviewDeserializer.deserialize(overviewDocument);
+                
                 detailUrls.forEach(detailUrl -> {
+                    
                     if (!Config.getStop()) {
-                        try {
-                            Document detailDocument = Jsoup.connect(detailUrl).get();
-                            DatenFilm film = sendungDeserializer.deserialize(dto.getTheme(), detailUrl, detailDocument);
-
-                            if (film != null) {
-                                String subtitle = film.getUrl().replace(".mp4", ".xml");
-                                if (urlExists(subtitle)) {
-                                    CrawlerTool.addUrlSubtitle(film, subtitle);
-                                }
-                                list.add(film);
-                            }
-                        } catch (IOException ex1) {
-                            Log.errorLog(894651554, ex1);
+                        DatenFilm film = handleFilmDetails(detailUrl);
+                        
+                        if(film != null) {
+                            list.add(film);
                         }
                     }
                 });
@@ -55,4 +48,23 @@ public class HrSendungOverviewCallable implements Callable<ListeFilme> {
         return list;
     }
     
+    private DatenFilm handleFilmDetails(String url) {
+        try {
+            Document detailDocument = Jsoup.connect(url).get();
+            DatenFilm film = sendungDeserializer.deserialize(dto.getTheme(), url, detailDocument);
+
+            if (film != null) {
+                String subtitle = film.getUrl().replace(".mp4", ".xml");
+                
+                if (urlExists(subtitle)) {
+                    CrawlerTool.addUrlSubtitle(film, subtitle);
+                }
+                return film;
+            }
+        } catch (IOException ex1) {
+            Log.errorLog(894651554, ex1);
+        }        
+        
+        return null;
+    }
 }

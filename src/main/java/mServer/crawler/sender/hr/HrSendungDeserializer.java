@@ -34,7 +34,11 @@ public class HrSendungDeserializer {
     
     public DatenFilm deserialize(String theme, String documentUrl, Document document) {
         
-        String date = "", description, time = "", title, videoUrl;
+        String date = "";
+        String description;
+        String time = "";
+        String title;
+        String videoUrl;
         long duration;
         
         // nur Einträge mit Video weiterverarbeiten

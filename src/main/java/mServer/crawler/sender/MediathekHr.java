@@ -20,14 +20,12 @@
 package mServer.crawler.sender;
 
 import de.mediathekview.mlib.Const;
-import de.mediathekview.mlib.daten.DatenFilm;
 import de.mediathekview.mlib.daten.ListeFilme;
 import de.mediathekview.mlib.tool.Log;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
@@ -43,9 +41,9 @@ import org.jsoup.nodes.Document;
 
 public class MediathekHr extends MediathekReader {
 
-    public final static String SENDERNAME = Const.HR;
+    public static final String SENDERNAME = Const.HR;
     
-    private final static String URL_SENDUNGEN = "http://www.hr-fernsehen.de/sendungen-a-z/index.html";
+    private static final String URL_SENDUNGEN = "http://www.hr-fernsehen.de/sendungen-a-z/index.html";
     
     private static final Logger LOG = LogManager.getLogger(MediathekHr.class);
     /**
