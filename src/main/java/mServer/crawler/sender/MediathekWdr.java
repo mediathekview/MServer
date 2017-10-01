@@ -33,6 +33,8 @@ import de.mediathekview.mlib.daten.DatenFilm;
 import de.mediathekview.mlib.tool.DbgMsg;
 import de.mediathekview.mlib.tool.Log;
 import de.mediathekview.mlib.tool.MSStringBuilder;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import mServer.crawler.CrawlerTool;
 import mServer.crawler.FilmeSuchen;
 import mServer.crawler.GetUrl;
@@ -43,6 +45,10 @@ public class MediathekWdr extends MediathekReader {
     private final static String ROCKPALAST_URL = "http://www1.wdr.de/fernsehen/rockpalast/startseite/index.html";
     private final static String ROCKPALAST_FESTIVAL = "http://www1.wdr.de/fernsehen/rockpalast/events/index.html";
     private final static String MAUS = "http://www.wdrmaus.de/lachgeschichten/spots.php5";
+    
+    private final static String URL_PATTERN_START = "data-extension='{\"mediaObj\":{\"url\":\"";
+    private final static String URL_PATTERN_END = "\"";
+
     private final ArrayList<String> listeFestival = new ArrayList<>();
     private final ArrayList<String> listeRochpalast = new ArrayList<>();
     private final ArrayList<String> listeMaus = new ArrayList<>();
@@ -428,10 +434,11 @@ public class MediathekWdr extends MediathekReader {
                 }
             }
             // URL suchen
-            String url = sendungsSeite3.extract("mediaObj': { 'url': '", "'");
+            String url = sendungsSeite3.extract(URL_PATTERN_START, URL_PATTERN_END);
             if (!url.isEmpty()) {
                 addFilm2(filmWebsite, thema, titel, url, dauer, datum, description);
             } else {
+                Logger.getLogger("x").log(Level.SEVERE, filmWebsite);
                 Log.errorLog(763299001, new String[]{"keine Url: " + filmWebsite});
             }
 
