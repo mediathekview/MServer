@@ -1,4 +1,4 @@
-package mServer.crawler.sender.hr;
+package de.mediathekview.mserver.crawler.sender.hr;
 
 public class HrSendungenDto {
 
