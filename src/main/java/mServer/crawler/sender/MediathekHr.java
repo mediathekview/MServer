@@ -19,18 +19,24 @@
  */
 package mServer.crawler.sender;
 
-import de.mediathekview.mlib.Config;
 import de.mediathekview.mlib.Const;
 import de.mediathekview.mlib.daten.DatenFilm;
+import de.mediathekview.mlib.daten.ListeFilme;
 import de.mediathekview.mlib.tool.Log;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
-import mServer.crawler.CrawlerTool;
+import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 import mServer.crawler.FilmeSuchen;
-import mServer.crawler.sender.hr.HrSendungDeserializer;
-import mServer.crawler.sender.hr.HrSendungOverviewDeserializer;
+import mServer.crawler.sender.hr.HrSendungOverviewCallable;
 import mServer.crawler.sender.hr.HrSendungenDto;
 import mServer.crawler.sender.hr.HrSendungenListDeserializer;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -41,6 +47,7 @@ public class MediathekHr extends MediathekReader {
     
     private final static String URL_SENDUNGEN = "http://www.hr-fernsehen.de/sendungen-a-z/index.html";
     
+    private static final Logger LOG = LogManager.getLogger(MediathekHr.class);
     /**
      *
      * @param ssearch
@@ -57,51 +64,45 @@ public class MediathekHr extends MediathekReader {
     public void addToList() {
         meldungStart();
         
-        List<HrSendungenDto> dtos;
+        List<HrSendungenDto> dtos = new ArrayList<>();
         
-        // TODO Parallelisierung
         try {
             final Document document = Jsoup.connect(URL_SENDUNGEN).get();
             HrSendungenListDeserializer deserializer = new HrSendungenListDeserializer();
-            HrSendungOverviewDeserializer overviewDeserializer = new HrSendungOverviewDeserializer();
-            HrSendungDeserializer sendungDeserializer = new HrSendungDeserializer();
 
             dtos = deserializer.deserialize(document);
-            meldungAddMax(dtos.size());
-            
-            dtos.forEach(dto -> {
-                try {
-                    if (!Config.getStop()) {
-                        Document overviewDocument = Jsoup.connect(dto.getUrl()).get();
-                        meldungProgress(dto.getUrl());
-                        List<String> detailUrls = overviewDeserializer.deserialize(overviewDocument);
-                        detailUrls.forEach(detailUrl -> {
-                            if (!Config.getStop()) {
-                                try {
-                                    Document detailDocument = Jsoup.connect(detailUrl).get();
-                                    DatenFilm film = sendungDeserializer.deserialize(dto.getTheme(), detailUrl, detailDocument);
-
-                                    if (film != null) {
-                                        String subtitle = film.getUrl().replace(".mp4", ".xml");
-                                        if (urlExists(subtitle)) {
-                                            CrawlerTool.addUrlSubtitle(film, subtitle);
-                                        }
-                                        addFilm(film);
-                                    }
-                                } catch (IOException ex1) {
-                                    Log.errorLog(894651554, ex1);
-                                }
-                            }
-                        });
-                    }
-                } catch (IOException ex1) {
-                    Log.errorLog(894651554, ex1);
-                }
-                
-            });
         } catch (IOException ex) {
             Log.errorLog(894651554, ex);
         }
+        
+        meldungAddMax(dtos.size());
+
+        Collection<Future<ListeFilme>> futureFilme = new ArrayList<>();
+
+        dtos.forEach(dto -> {
+
+            ExecutorService executor = Executors.newCachedThreadPool();
+            futureFilme.add(executor.submit(new HrSendungOverviewCallable(dto)));
+            meldungProgress(dto.getUrl());
+        });
+
+        futureFilme.parallelStream().forEach(e -> {
+
+            try {
+                ListeFilme filmList = e.get();
+                if(filmList != null) {
+                    filmList.forEach(film -> {
+                        if(film != null) {
+                            addFilm(film);
+                        }
+                    });
+                }
+            } catch(Exception exception)
+            {
+                LOG.error("Es ist ein Fehler beim lesen der HR Filme aufgetreten.",exception);
+            }
+        });
+
         meldungThreadUndFertig();
     }
 }
