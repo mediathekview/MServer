@@ -7,18 +7,25 @@ import static org.junit.Assert.assertThat;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Collection;
-
+import mServer.test.JsonFileReader;
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.CoreMatchers.notNullValue;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 import com.google.gson.JsonObject;
+import de.mediathekview.mlib.daten.GeoLocations;
 
-import mServer.crawler.sender.newsearch.GeoLocations;
 import mServer.test.JsonFileReader;
 
 @RunWith(Parameterized.class)
 public class ArteVideoDetailsDeserializerTest {
+    private static final DateTimeFormatter broadcastDateFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ssX");//2016-10-29T16:15:00Z
     
     @Parameterized.Parameters
     public static Collection<Object[]> data() {
@@ -34,16 +41,18 @@ public class ArteVideoDetailsDeserializerTest {
     }
     
     private final String jsonFile;
-    private final String expectedBroadcastBegin;
+
     private final String expectedTheme;
     private final String expectedTitle;
     private final String expectedWebsite;
     private final String expectedDescription;
+
     private final GeoLocations geo;
+    private final LocalDateTime expectedBroadcastBegin;
 
     public ArteVideoDetailsDeserializerTest(String aJsonFile, String aTheme, String aTitle, String aDescription, String aWebsite, String aExpectedBroadcastBegin, GeoLocations aGeo) {
         this.jsonFile = aJsonFile;
-        this.expectedBroadcastBegin = aExpectedBroadcastBegin;
+        this.expectedBroadcastBegin = LocalDateTime.parse(aExpectedBroadcastBegin, broadcastDateFormat);
         this.expectedTheme = aTheme;
         this.expectedTitle = aTitle;
         this.expectedDescription = aDescription;
@@ -56,10 +65,7 @@ public class ArteVideoDetailsDeserializerTest {
         
         JsonObject jsonObject = JsonFileReader.readJson(jsonFile);
         
-        Calendar today = Calendar.getInstance();
-        today.set(2017, 6, 11); // 11.07.2017 als heute verwenden
-        
-        ArteVideoDetailsDeserializer target = new ArteVideoDetailsDeserializer(today);
+        ArteVideoDetailsDeserializer target = new ArteVideoDetailsDeserializer();
         ArteVideoDetailsDTO actual = target.deserialize(jsonObject, ArteVideoDetailsDTO.class, null);
         
         assertThat(actual, notNullValue());

@@ -2,7 +2,7 @@ package mServer.crawler.sender.dw;
 
 import java.util.HashMap;
 import java.util.Map;
-import mServer.crawler.sender.newsearch.Qualities;
+import de.mediathekview.mlib.daten.Qualities;
 
 public class DwVideoDTO {
 
