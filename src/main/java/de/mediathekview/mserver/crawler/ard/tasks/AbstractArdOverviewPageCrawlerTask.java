@@ -8,14 +8,14 @@ import org.jsoup.nodes.Element;
 import de.mediathekview.mserver.crawler.ard.ArdCrawler;
 import de.mediathekview.mserver.crawler.ard.ArdSendungBasicInformation;
 import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
-import de.mediathekview.mserver.crawler.basic.AbstractUrlTask;
+import de.mediathekview.mserver.crawler.basic.AbstractDocumentTask;
 import de.mediathekview.mserver.crawler.basic.CrawlerUrlsDTO;
 
 /**
  * Recursively crawls the ARD overview pages.
  */
 public abstract class AbstractArdOverviewPageCrawlerTask
-        extends AbstractUrlTask<ArdSendungBasicInformation, CrawlerUrlsDTO>
+        extends AbstractDocumentTask<ArdSendungBasicInformation, CrawlerUrlsDTO>
 {
     private static final long serialVersionUID = -7890265200149231518L;
     static final String SELECTOR_MEDIA_LINK = "a.mediaLink[href^=/tv/]";

@@ -3,12 +3,14 @@ package de.mediathekview.mserver.crawler.dreisat.parser;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
+import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.time.format.FormatStyle;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Locale;
+import java.util.Optional;
+import java.util.UUID;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -17,12 +19,16 @@ import org.apache.logging.log4j.Logger;
 import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
+import de.mediathekview.mlib.daten.Film;
 import de.mediathekview.mlib.daten.GeoLocations;
+import de.mediathekview.mlib.daten.Sender;
+import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
 
-public class DreisatXMLDetailsReader {
+public class DreisatFilmDetailsReader {
+  private static final String ELEMENT_BASENAME = "basename";
   private static final DateTimeFormatter DATE_TIME_FORMATTER =
-      DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM).withLocale(Locale.GERMANY);
-  private static final Logger LOG = LogManager.getLogger(DreisatXMLDetailsReader.class);
+      DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm", Locale.GERMANY);
+  private static final Logger LOG = LogManager.getLogger(DreisatFilmDetailsReader.class);
   private static final String ERROR_NO_START_TEMPLATE =
       "The 3Sat film \"%s - %s\" has no broadcast start so it will using the actual date and time.";
   private static final String ELEMENT_ORIGIN_CHANNEL_TITLE = "originChannelTitle";
@@ -33,12 +39,17 @@ public class DreisatXMLDetailsReader {
   private static final String ELEMENT_DETAIL = "detail";
   private static final String ELEMENT_TITLE = "title";
   private final URL xmlUrl;
+  private final URL website;
+  private final AbstractCrawler crawler;
 
-  public DreisatXMLDetailsReader(final URL aXmlUrl) {
+  public DreisatFilmDetailsReader(final AbstractCrawler aCrawler, final URL aXmlUrl,
+      final URL aWebsite) {
+    crawler = aCrawler;
     xmlUrl = aXmlUrl;
+    website = aWebsite;
   }
 
-  public void readDetails() {
+  public Optional<Film> readDetails() {
     final DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
     try (InputStream xmlStream = xmlUrl.openStream()) {
       final DocumentBuilder builder = factory.newDocumentBuilder();
@@ -51,9 +62,10 @@ public class DreisatXMLDetailsReader {
       final NodeList geoLocNodes = document.getElementsByTagName(ELEMENT_GEOLOCATION);
       final NodeList dateNodes = document.getElementsByTagName(ELEMENT_AIRTIME);
       final NodeList alternativeDateNodes = document.getElementsByTagName(ELEMENT_ONLINEAIRTIME);
+      final NodeList filmUrlsApiUrlNodes = document.getElementsByTagName(ELEMENT_BASENAME);
 
-      if (titleNodes.getLength() > 0 && themaNodes.getLength() > 0
-          && durationNodes.getLength() > 0) {
+      if (titleNodes.getLength() > 0 && themaNodes.getLength() > 0 && durationNodes.getLength() > 0
+          && filmUrlsApiUrlNodes.getLength() > 0) {
         final String thema = themaNodes.item(0).getNodeValue();
         final String title = titleNodes.item(0).getNodeValue();
 
@@ -71,23 +83,32 @@ public class DreisatXMLDetailsReader {
 
           time = LocalDateTime.parse(dateNodes.item(0).getNodeValue(), DATE_TIME_FORMATTER);
         } else if (alternativeDateNodes.getLength() > 0) {
-
+          time =
+              LocalDateTime.parse(alternativeDateNodes.item(0).getNodeValue(), DATE_TIME_FORMATTER);
         } else {
           time = LocalDateTime.now();
           LOG.debug(String.format(ERROR_NO_START_TEMPLATE, thema, title));
         }
 
-        // final Film newFilm = new Film(UUID.randomUUID(), geoLocations, Sender.DREISAT, title,
-        // thema,
-        // aTime, aDauer, aWebsite);
+        final Duration dauer = Duration.ZERO;
+
+        final Film newFilm = new Film(UUID.randomUUID(), geoLocations, Sender.DREISAT, title, thema,
+            time, dauer, website);
+
+        if (descriptionNodes.getLength() > 0) {
+          newFilm.setBeschreibung(descriptionNodes.item(0).getNodeValue());
+        }
+        return Optional.of(newFilm);
       }
 
 
     } catch (SAXException | IOException | ParserConfigurationException exception) {
-      // TODO Auto-generated catch block
-      exception.printStackTrace();
+      LOG.fatal(String.format(
+          "Something went teribble wrong on getting the film details for the 3Sat film \"%s\".",
+          website.toString()), exception);
+      crawler.incrementAndGetErrorCount();
+      crawler.printErrorMessage();
     }
+    return Optional.empty();
   }
-
-
 }

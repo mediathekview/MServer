@@ -29,14 +29,14 @@ import de.mediathekview.mserver.crawler.ard.json.ArdBasicInfoJsonDeserializer;
 import de.mediathekview.mserver.crawler.ard.json.ArdVideoInfoDTO;
 import de.mediathekview.mserver.crawler.ard.json.ArdVideoInfoJsonDeserializer;
 import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
-import de.mediathekview.mserver.crawler.basic.AbstractUrlTask;
+import de.mediathekview.mserver.crawler.basic.AbstractDocumentTask;
 import mServer.crawler.CrawlerTool;
 import mServer.tool.MserverDatumZeit;
 
 /**
  * Recursively crawls the ARD Sendungsfolge page.
  */
-public class ArdSendungTask extends AbstractUrlTask<Film, ArdSendungBasicInformation> {
+public class ArdSendungTask extends AbstractDocumentTask<Film, ArdSendungBasicInformation> {
   private static final String NO_VALID_URL = "Can't find a valid URL for \"%s\" from \"%s\".";
   private static final long serialVersionUID = -1528093537733110822L;
   private static final Logger LOG = LogManager.getLogger(ArdSendungTask.class);
