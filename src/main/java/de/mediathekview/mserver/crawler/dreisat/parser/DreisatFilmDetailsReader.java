@@ -38,8 +38,11 @@ public class DreisatFilmDetailsReader {
   private static final String ELEMENT_LENGTH = "length";
   private static final String ELEMENT_DETAIL = "detail";
   private static final String ELEMENT_TITLE = "title";
+  private static final String API_URL_PATTERN =
+      "http://tmd.3sat.de/tmd/2/ngplayer_2_3/vod/ptmd/3sat/%s/2";
   private final URL xmlUrl;
   private final URL website;
+
   private final AbstractCrawler crawler;
 
   public DreisatFilmDetailsReader(final AbstractCrawler aCrawler, final URL aXmlUrl,
@@ -94,7 +97,7 @@ public class DreisatFilmDetailsReader {
 
         final Film newFilm = new Film(UUID.randomUUID(), geoLocations, Sender.DREISAT, title, thema,
             time, dauer, website);
-
+        loadVideoUrls(newFilm, filmUrlsApiUrlNodes.item(0).getNodeValue());
         if (descriptionNodes.getLength() > 0) {
           newFilm.setBeschreibung(descriptionNodes.item(0).getNodeValue());
         }
@@ -110,5 +113,11 @@ public class DreisatFilmDetailsReader {
       crawler.printErrorMessage();
     }
     return Optional.empty();
+  }
+
+  private void loadVideoUrls(final Film aNewFilm, final String aApiID) {
+    // final URL apiUrl = String.format(API_URL_PATTERN, aApiID);
+    // TODO
+
   }
 }
