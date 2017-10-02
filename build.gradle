@@ -15,7 +15,7 @@ apply from: "${project.rootDir}/gradle/eclipse.gradle"
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
 group = 'de.mediathekview'
-version = '3.1.23'
+version = '3.1.24'
 
 def jarName = 'MServer.jar'
 def mainClass = 'mServer.Main'
@@ -124,7 +124,7 @@ dependencies {
     compile 'com.google.code.gson:gson:2.8.0'
     compile 'com.sun.jersey:jersey-client:1.8'
     compile 'com.squareup.okhttp3:okhttp:3.6.0'
-
+    compile 'org.jsoup:jsoup:1.10.3'
 
     compile group: 'org.apache.logging.log4j', name: 'log4j-core', version: '2.7'
     compile group: 'fm.void.jetm', name: 'jetm', version: '1.2.3'
