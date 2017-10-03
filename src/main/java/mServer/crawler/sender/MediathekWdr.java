@@ -33,11 +33,17 @@ import de.mediathekview.mlib.daten.DatenFilm;
 import de.mediathekview.mlib.tool.DbgMsg;
 import de.mediathekview.mlib.tool.Log;
 import de.mediathekview.mlib.tool.MSStringBuilder;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.io.IOException;
+import java.util.List;
 import mServer.crawler.CrawlerTool;
 import mServer.crawler.FilmeSuchen;
 import mServer.crawler.GetUrl;
+import mServer.crawler.sender.wdr.WdrSendungOverviewDeserializer;
+import mServer.crawler.sender.wdr.WdrSendungOverviewDto;
+import mServer.crawler.sender.wdr.WdrVideoDetailsDeserializer;
+
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
 
 public class MediathekWdr extends MediathekReader {
 
@@ -275,6 +281,19 @@ public class MediathekWdr extends MediathekReader {
         }
 
         private void sendungsSeitenSuchen2(String strUrl, String th) {
+            try {
+                Document filmDocument = Jsoup.connect(strUrl).get();
+                WdrSendungOverviewDeserializer deserializer = new WdrSendungOverviewDeserializer();
+                WdrSendungOverviewDto dto = deserializer.deserialize("http://www1.wdr.de", filmDocument);
+                dto.getUrls().forEach(url -> {
+                    addFilm1(dto.getTheme(), url);
+                });
+            } catch(IOException ex) {
+                Log.errorLog(763299001, ex);
+            }
+            
+        }
+       /* private void sendungsSeitenSuchen2(String strUrl, String th) {
             final String MUSTER_URL = "<div class=\"teaser hideTeasertext\">";
             int pos;
             String url;
@@ -380,13 +399,13 @@ public class MediathekWdr extends MediathekReader {
                     Log.errorLog(646432970, "keine Url" + strUrl);
                 }
             }
-        }
+        }*/
 
         private void sendungsSeitenSuchenNeu(String strUrl, MSStringBuilder seite, String thema) {
             //Lokalzeit, ..
             String u = seite.extract("data-extension=\"{ 'mediaObj': { 'url': '", "'");
             if (!u.isEmpty()) {
-                addFilm2(strUrl, thema, "", u, 0, "", "");
+//                addFilm2(strUrl, thema, "", u, 0, "", "");
             }
 
             liste_2.clear();
@@ -407,11 +426,25 @@ public class MediathekWdr extends MediathekReader {
 
                 u = seite.extract("data-extension=\"{ 'mediaObj': { 'url': '", "'");
                 if (!u.isEmpty()) {
-                    addFilm2(strUrl, thema, "", u, 0, "", "");
+//                    addFilm2(strUrl, thema, "", u, 0, "", "");
                 }
             }
         }
 
+        private void addFilm1(String thema, String filmWebsite) {
+            meldung(filmWebsite);
+            try {
+                Document filmDocument = Jsoup.connect(filmWebsite).get();
+                WdrVideoDetailsDeserializer deserializer = new WdrVideoDetailsDeserializer();
+                DatenFilm film = deserializer.deserialize(thema, filmDocument);
+                if(film != null) {
+                    addFilm(film);
+                }
+            } catch(IOException ex) {
+                Log.errorLog(763299001, ex);
+            }
+        }
+            /*
         private void addFilm1(String thema, String titel, String filmWebsite, long dauer, String datum) {
             meldung(filmWebsite);
             final GetUrl getUrl = new GetUrl(getWartenSeiteLaden());
@@ -441,7 +474,6 @@ public class MediathekWdr extends MediathekReader {
                 Logger.getLogger("x").log(Level.SEVERE, filmWebsite);
                 Log.errorLog(763299001, new String[]{"keine Url: " + filmWebsite});
             }
-
         }
 
         private void addFilm2(String filmWebsite, String thema, String titel, String urlFilmSuchen, long dauer, String datum, String beschreibung) {
@@ -544,7 +576,7 @@ public class MediathekWdr extends MediathekReader {
                         return;
                     }
                 }
-                DatenFilm film = new DatenFilm(SENDERNAME, thema, filmWebsite, titel, urlNorm, ""/*rtmpURL*/, datum, zeit,
+                DatenFilm film = new DatenFilm(SENDERNAME, thema, filmWebsite, titel, urlNorm, "", datum, zeit,
                         dauer, beschreibung);
                 if (!subtitle.isEmpty()) {
                     CrawlerTool.addUrlSubtitle(film, subtitle);
@@ -556,7 +588,7 @@ public class MediathekWdr extends MediathekReader {
             } else {
                 Log.errorLog(978451239, new String[]{"keine Url: " + urlFilmSuchen, "UrlThema: " + filmWebsite});
             }
-        }
+        }*/
         
         private String addProtocolIfMissing(String url, String protocol) {
             if(url.startsWith("//")) {
@@ -599,7 +631,7 @@ public class MediathekWdr extends MediathekReader {
                     sendungsSeite1 = getUrl.getUri_Utf(SENDERNAME, urlRock, sendungsSeite1, "");
                     String u = sendungsSeite1.extract("data-extension=\"{ 'mediaObj': { 'url': '", "'");
                     if (!u.isEmpty()) {
-                        addFilm2(urlRock, "Rockpalast", "", u, 0, "", "");
+//                        addFilm2(urlRock, "Rockpalast", "", u, 0, "", "");
                     }
                 }
             } catch (Exception ex) {
@@ -619,7 +651,7 @@ public class MediathekWdr extends MediathekReader {
                     sendungsSeite1 = getUrl.getUri_Utf(SENDERNAME, urlRock, sendungsSeite1, "");
                     String u = sendungsSeite1.extract("data-extension=\"{ 'mediaObj': { 'url': '", "'");
                     if (!u.isEmpty()) {
-                        addFilm2(urlRock, "Rockpalast - Festival", "", u, 0, "", "");
+//                        addFilm2(urlRock, "Rockpalast - Festival", "", u, 0, "", "");
                     }
                 }
             } catch (Exception ex) {
@@ -643,7 +675,7 @@ public class MediathekWdr extends MediathekReader {
                         titel = titel.substring(0, titel.indexOf('-')).trim();
                     }
                     String jsUrl = sendungsSeite1.extract("'mediaObj': { 'url': '", "'");
-                    addFilm2(filmWebsite, "MausSpots", titel, jsUrl, 0, "", "");
+//                    addFilm2(filmWebsite, "MausSpots", titel, jsUrl, 0, "", "");
                 }
             } catch (Exception ex) {
                 Log.errorLog(915263698, ex);
