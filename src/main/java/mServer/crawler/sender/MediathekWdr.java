@@ -30,11 +30,9 @@ import java.util.LinkedList;
 import de.mediathekview.mlib.Config;
 import de.mediathekview.mlib.Const;
 import de.mediathekview.mlib.daten.DatenFilm;
-import de.mediathekview.mlib.tool.DbgMsg;
 import de.mediathekview.mlib.tool.Log;
 import de.mediathekview.mlib.tool.MSStringBuilder;
 import java.io.IOException;
-import java.util.List;
 import mServer.crawler.CrawlerTool;
 import mServer.crawler.FilmeSuchen;
 import mServer.crawler.GetUrl;
@@ -52,9 +50,6 @@ public class MediathekWdr extends MediathekReader {
     private final static String ROCKPALAST_FESTIVAL = "http://www1.wdr.de/fernsehen/rockpalast/events/index.html";
     private final static String MAUS = "http://www.wdrmaus.de/lachgeschichten/spots.php5";
     
-    private final static String URL_PATTERN_START = "data-extension='{\"mediaObj\":{\"url\":\"";
-    private final static String URL_PATTERN_END = "\"";
-
     private final ArrayList<String> listeFestival = new ArrayList<>();
     private final ArrayList<String> listeRochpalast = new ArrayList<>();
     private final ArrayList<String> listeMaus = new ArrayList<>();
@@ -80,7 +75,7 @@ public class MediathekWdr extends MediathekReader {
         meldungStart();
         addToList__();
 
-        addTage();
+//        addTage();
         if (CrawlerTool.loadLongMax()) {
             maus();
             rockpalast();
@@ -249,9 +244,10 @@ public class MediathekWdr extends MediathekReader {
                     meldungProgress(link[0]);
                 }
                 String url;
+                // TODO
                 while (!Config.getStop() && (url = getListeTage()) != null) {
                     meldungProgress(url);
-                    sendungsSeitenSuchen2(url, SENDERNAME);
+                    sendungsSeitenSuchen2(url, SENDERNAME, false);
                 }
 
             } catch (Exception ex) {
@@ -276,23 +272,67 @@ public class MediathekWdr extends MediathekReader {
                 if (Config.getStop()) {
                     break;
                 }
-                sendungsSeitenSuchen2(u, "");
+                
+                sendungsSeitenSuchen2(u, "", false);
             }
         }
 
-        private void sendungsSeitenSuchen2(String strUrl, String th) {
+        private void sendungsSeitenSuchen2(String strUrl, String parentTheme, boolean recursive) {
+            if(!isUrlRelevant(strUrl)) {
+                return;
+            }
+            
             try {
                 Document filmDocument = Jsoup.connect(strUrl).get();
-                WdrSendungOverviewDeserializer deserializer = new WdrSendungOverviewDeserializer();
-                WdrSendungOverviewDto dto = deserializer.deserialize("http://www1.wdr.de", filmDocument);
+                WdrSendungOverviewDto dto = overviewDeserializer.deserialize("http://www1.wdr.de", filmDocument);
+                
+                // das ermittelte Thema nicht verwenden, wenn es sich um 
+                // einen Aufruf innerhalb einer Rekursion handelt, denn dann
+                // muss das initial ermittelte Thema verwendet werden
+                final String theme;
+                if(parentTheme.isEmpty()) {
+                    theme = dto.getTheme();
+                } else {
+                    theme = parentTheme;
+                }
+                
                 dto.getUrls().forEach(url -> {
-                    addFilm1(dto.getTheme(), url);
+                    if (!Config.getStop()) {
+                        if(isUrlRelevant(url)) {
+                            addFilm1(theme, url, recursive);
+                        }
+                    }
                 });
             } catch(IOException ex) {
                 Log.errorLog(763299001, ex);
             }
             
         }
+        private WdrSendungOverviewDeserializer overviewDeserializer;
+
+        public ThemaLaden() {
+            overviewDeserializer = new WdrSendungOverviewDeserializer();
+        }
+        
+        /***
+         * Filtert URLs heraus, die nicht durchsucht werden sollen
+         * Hintergrund: diese URLs verweisen auf andere und führen bei der Suche
+         * im Rahmen der Rekursion zu endlosen Suchen
+         * @param url zu prüfende URL
+         * @return true, wenn die URL verarbeitet werden soll, sonst false
+         */
+        private boolean isUrlRelevant(String url) {
+            // die Indexseite der Lokalzeit herausfiltern, da alle Beiträge
+            // um die Lokalzeitenseiten der entsprechenden Regionen gefunden werden
+            if(url.endsWith("lokalzeit/index.html")) {
+                return false;
+            } else if(url.contains("wdr.de/hilfe")) {
+                return false;
+            }
+            
+            return true;
+        }
+        
        /* private void sendungsSeitenSuchen2(String strUrl, String th) {
             final String MUSTER_URL = "<div class=\"teaser hideTeasertext\">";
             int pos;
@@ -431,14 +471,19 @@ public class MediathekWdr extends MediathekReader {
             }
         }
 
-        private void addFilm1(String thema, String filmWebsite) {
+        private void addFilm1(String theme, String filmWebsite, boolean recursive) {
             meldung(filmWebsite);
             try {
                 Document filmDocument = Jsoup.connect(filmWebsite).get();
                 WdrVideoDetailsDeserializer deserializer = new WdrVideoDetailsDeserializer();
-                DatenFilm film = deserializer.deserialize(thema, filmDocument);
-                if(film != null) {
+                DatenFilm film = deserializer.deserialize(theme, filmDocument);
+                
+                if (film != null) {
                     addFilm(film);
+                } else if (!recursive && CrawlerTool.loadLongMax()){
+                    // bei langer Suche eine Rekursionstufe durchführen, damit 
+                    // weitere Beiträge (z.B. Lokalzeit) gefunden werden
+                    sendungsSeitenSuchen2(filmWebsite, theme, true);
                 }
             } catch(IOException ex) {
                 Log.errorLog(763299001, ex);
