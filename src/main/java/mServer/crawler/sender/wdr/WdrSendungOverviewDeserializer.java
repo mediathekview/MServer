@@ -6,7 +6,8 @@ import org.jsoup.select.Elements;
 public class WdrSendungOverviewDeserializer extends HtmlDeserializerBase {
 
     private static final String QUERY_URL = "div.hideTeasertext > a";
-    private static final String QUERY_URL_LOKALZEIT_VIDEO_TEASER = "div.teaser.video > a";
+    private static final String QUERY_URL_LOKALZEIT_VIDEO_TEASER = "div.teaser.video > a";    
+    private static final String QUERY_URL_LOKALZEIT_MEHR = "h3.headline > a";
     private static final String HTML_ATTRIBUTE_HREF = "href";
     private static final String META_PROPERTY_THEME = "og:title";
     
@@ -17,6 +18,7 @@ public class WdrSendungOverviewDeserializer extends HtmlDeserializerBase {
         
         addUrls(dto, urlRoot, document, QUERY_URL);
         addUrls(dto, urlRoot, document, QUERY_URL_LOKALZEIT_VIDEO_TEASER);
+        addUrls(dto, urlRoot, document, QUERY_URL_LOKALZEIT_MEHR);
             
         return dto;
     }
