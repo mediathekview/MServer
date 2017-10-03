@@ -1,5 +1,8 @@
 package mServer.crawler.sender.wdr;
 
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import de.mediathekview.mlib.Const;
 import de.mediathekview.mlib.daten.DatenFilm;
 import de.mediathekview.mlib.tool.MSStringBuilder;
@@ -20,8 +23,11 @@ public class WdrVideoDetailsDeserializer extends HtmlDeserializerBase {
     private static final String META_ITEMPROP_DESCRIPTION = "description";
     private static final String META_ITEMPROP_TITLE = "name";
     private static final String META_ITEMPROP_WEBSITE = "url";
-    private static final String META_PROPERTY_DATE = "video:release_date";
+    private static final String META_PROPERTY_DATE = "dcterms.date";
     private static final String META_PROPERTY_DURATION = "video:duration";
+    
+    private static final String JSON_ELEMENT_MEDIAOBJ = "mediaObj";
+    private static final String JSON_ATTRIBUTE_URL = "url";
     
     private static final Logger LOG = LogManager.getLogger(WdrVideoDetailsDeserializer.class);    
     
@@ -47,7 +53,7 @@ public class WdrVideoDetailsDeserializer extends HtmlDeserializerBase {
             duration = Long.parseLong(durationString);
         }
         
-        String dateTime = getMetaValue(document, QUERY_META_PROPERTY, META_PROPERTY_DATE);
+        String dateTime = getMetaValue(document, QUERY_META_NAME, META_PROPERTY_DATE);
         if (!dateTime.isEmpty()) {
             try {
                 LocalDateTime d = LocalDateTime.parse(dateTime, DateTimeFormatter.ISO_OFFSET_DATE_TIME);
@@ -58,7 +64,7 @@ public class WdrVideoDetailsDeserializer extends HtmlDeserializerBase {
             }
         }
         
-        String jsUrl = getVideoUrl(document);
+        String jsUrl = getVideoJavaScriptUrl(document);
         if(jsUrl.isEmpty()) {
             return null;
         }
@@ -83,7 +89,7 @@ public class WdrVideoDetailsDeserializer extends HtmlDeserializerBase {
     }
     
     
-    private String getVideoUrl(Document document) {
+    private String getVideoJavaScriptUrl(Document document) {
         // Die URL für das Video steht nicht direkt im HTML
         // stattdessen ist ein JavaScript eingebettet, dass die Video-Infos enthält
         
@@ -91,11 +97,16 @@ public class WdrVideoDetailsDeserializer extends HtmlDeserializerBase {
         
         Element urlElement = document.select(QUERY_URL).first();
         if(urlElement != null) {
-            urlJs = urlElement.attr("data-extension");
+            String extension = urlElement.attr("data-extension");
             
-            int indexEnd = urlJs.lastIndexOf("\"");
-            int indexStart = urlJs.lastIndexOf("\"", indexEnd-1);
-            urlJs = urlJs.substring(indexStart + 1, indexEnd);
+            JsonParser jsonParser = new JsonParser();
+            JsonElement element = jsonParser.parse(extension);
+            if(element != null && element.getAsJsonObject().has(JSON_ELEMENT_MEDIAOBJ)) {
+                JsonElement mediaObjElement = element.getAsJsonObject().get(JSON_ELEMENT_MEDIAOBJ);
+                if(mediaObjElement != null && mediaObjElement.getAsJsonObject().has(JSON_ATTRIBUTE_URL)) {
+                    urlJs = mediaObjElement.getAsJsonObject().get(JSON_ATTRIBUTE_URL).getAsString();
+                }
+            }
         }
         
         return urlJs;
