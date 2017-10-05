@@ -25,6 +25,7 @@ import de.mediathekview.mserver.crawler.basic.CrawlerUrlsDTO;
  *
  */
 public class DreisatOverviewpageTask extends AbstractDocumentTask<CrawlerUrlsDTO, CrawlerUrlsDTO> {
+  private static final String ATTRIBUTE_CLASS = "class";
   private static final Logger LOG = LogManager.getLogger(DreisatOverviewpageTask.class);
   private static final long serialVersionUID = -5344360936192332131L;
   private static final String ELEMENT_CLASS_SENDUNG_LINK = ".BoxHeadline .MediathekLink";
@@ -45,8 +46,8 @@ public class DreisatOverviewpageTask extends AbstractDocumentTask<CrawlerUrlsDTO
   }
 
   private Optional<Integer> getMaxSubpageNumber(final Document aDocument) {
-    final Elements lastSubpageLinkElements =
-        aDocument.getElementsByClass(ELEMENT_CLASS_LAST_SUBPAGE_LINK);
+    final Elements lastSubpageLinkElements = aDocument
+        .getElementsByAttributeValueContaining(ATTRIBUTE_CLASS, ELEMENT_CLASS_LAST_SUBPAGE_LINK);
     if (!lastSubpageLinkElements.isEmpty()) {
       if (lastSubpageLinkElements.hasAttr(Consts.ATTRIBUTE_HREF)) {
         final String lastSubpageLink = lastSubpageLinkElements.attr(Consts.ATTRIBUTE_HREF);
@@ -98,7 +99,9 @@ public class DreisatOverviewpageTask extends AbstractDocumentTask<CrawlerUrlsDTO
       subpageCrawler = processSubpages(aUrlDTO, aDocument);
     }
 
-    final Elements sendungLinkElements = aDocument.getElementsByClass(ELEMENT_CLASS_SENDUNG_LINK);
+    // TODO method wont find anything:
+    final Elements sendungLinkElements = aDocument
+        .getElementsByAttributeValueContaining(ATTRIBUTE_CLASS, ELEMENT_CLASS_SENDUNG_LINK);
     for (final Element sendungLinkElement : sendungLinkElements) {
       if (sendungLinkElement.hasAttr(Consts.ATTRIBUTE_HREF)) {
         taskResults.add(new CrawlerUrlsDTO(sendungLinkElement.attr(Consts.ATTRIBUTE_HREF)));

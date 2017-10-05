@@ -2,6 +2,7 @@ package de.mediathekview.mserver.crawler.dreisat.parser;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.net.URL;
 import java.time.Duration;
 import java.time.LocalDateTime;
@@ -9,6 +10,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Locale;
+import java.util.Map.Entry;
 import java.util.Optional;
 import java.util.UUID;
 import javax.xml.parsers.DocumentBuilder;
@@ -19,10 +21,16 @@ import org.apache.logging.log4j.Logger;
 import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import de.mediathekview.mlib.daten.Film;
 import de.mediathekview.mlib.daten.GeoLocations;
+import de.mediathekview.mlib.daten.Resolution;
 import de.mediathekview.mlib.daten.Sender;
 import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
+import de.mediathekview.mserver.crawler.zdf.json.DownloadDTO;
+import de.mediathekview.mserver.crawler.zdf.json.ZDFDownloadDTODeserializer;
+import mServer.crawler.CrawlerTool;
 
 public class DreisatFilmDetailsReader {
   private static final String ELEMENT_BASENAME = "basename";
@@ -95,13 +103,26 @@ public class DreisatFilmDetailsReader {
 
         final Duration dauer = Duration.ZERO;
 
-        final Film newFilm = new Film(UUID.randomUUID(), geoLocations, Sender.DREISAT, title, thema,
-            time, dauer, website);
-        loadVideoUrls(newFilm, filmUrlsApiUrlNodes.item(0).getNodeValue());
-        if (descriptionNodes.getLength() > 0) {
-          newFilm.setBeschreibung(descriptionNodes.item(0).getNodeValue());
+        final URL apiUrl =
+            new URL(String.format(API_URL_PATTERN, filmUrlsApiUrlNodes.item(0).getNodeValue()));
+        final Gson gson = new GsonBuilder()
+            .registerTypeAdapter(DownloadDTO.class, new ZDFDownloadDTODeserializer()).create();
+
+        try (InputStreamReader gsonInputStreamReader = new InputStreamReader(apiUrl.openStream())) {
+          final DownloadDTO downloadInfos = gson.fromJson(gsonInputStreamReader, DownloadDTO.class);
+          geoLocations.add(downloadInfos.getGeoLocation());
+          final Film newFilm = new Film(UUID.randomUUID(), geoLocations, Sender.DREISAT, title,
+              thema, time, dauer, website);
+          newFilm.addSubtitle(new URL(downloadInfos.getSubTitleUrl()));
+          for (final Entry<Resolution, String> url : downloadInfos.getDownloadUrls().entrySet()) {
+            newFilm.addUrl(url.getKey(), CrawlerTool.stringToFilmUrl(url.getValue()));
+          }
+
+          if (descriptionNodes.getLength() > 0) {
+            newFilm.setBeschreibung(descriptionNodes.item(0).getNodeValue());
+          }
+          return Optional.of(newFilm);
         }
-        return Optional.of(newFilm);
       }
 
 
@@ -115,9 +136,4 @@ public class DreisatFilmDetailsReader {
     return Optional.empty();
   }
 
-  private void loadVideoUrls(final Film aNewFilm, final String aApiID) {
-    // final URL apiUrl = String.format(API_URL_PATTERN, aApiID);
-    // TODO
-
-  }
 }
