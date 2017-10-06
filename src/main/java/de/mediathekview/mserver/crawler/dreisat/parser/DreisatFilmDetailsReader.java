@@ -43,7 +43,7 @@ public class DreisatFilmDetailsReader {
   private static final String ELEMENT_ONLINEAIRTIME = "onlineairtime";
   private static final String ELEMENT_AIRTIME = "airtime";
   private static final String ELEMENT_GEOLOCATION = "geolocation";
-  private static final String ELEMENT_LENGTH = "length";
+  private static final String ELEMENT_LENGTH = "lengthSec";
   private static final String ELEMENT_DETAIL = "detail";
   private static final String ELEMENT_TITLE = "title";
   private static final String API_URL_PATTERN =
@@ -90,10 +90,9 @@ public class DreisatFilmDetailsReader {
         geoLocations.add(geoLocation);
 
         LocalDateTime time;
-        if (dateNodes.getLength() > 0) {
-
+        if (dateNodes.getLength() > 0 && dateNodes.item(0).getNodeValue() != null) {
           time = LocalDateTime.parse(dateNodes.item(0).getNodeValue(), DATE_TIME_FORMATTER);
-        } else if (alternativeDateNodes.getLength() > 0) {
+        } else if (alternativeDateNodes.getLength() > 0 && alternativeDateNodes.item(0).getNodeValue() != null) {
           time =
               LocalDateTime.parse(alternativeDateNodes.item(0).getNodeValue(), DATE_TIME_FORMATTER);
         } else {
@@ -101,7 +100,13 @@ public class DreisatFilmDetailsReader {
           LOG.debug(String.format(ERROR_NO_START_TEMPLATE, thema, title));
         }
 
-        final Duration dauer = Duration.ZERO;
+        final Duration dauer;
+        if(durationNodes.item(0).getNodeValue()!=null)
+        {
+            dauer = Duration.ofSeconds(Integer.parseInt(durationNodes.item(0).getNodeValue()));
+        }else {
+            dauer = Duration.ZERO;
+        }
 
         final URL apiUrl =
             new URL(String.format(API_URL_PATTERN, filmUrlsApiUrlNodes.item(0).getNodeValue()));

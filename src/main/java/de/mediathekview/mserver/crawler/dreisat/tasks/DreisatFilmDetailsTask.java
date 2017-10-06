@@ -38,7 +38,7 @@ public class DreisatFilmDetailsTask extends AbstractUrlTask<Film, CrawlerUrlsDTO
     final Optional<Integer> id = getIdFromUrl(aUrl);
     if (id.isPresent()) {
       try {
-        return Optional.of(new URL(String.format(XML_SERVICE_URL_PATTERN, id)));
+        return Optional.of(new URL(String.format(XML_SERVICE_URL_PATTERN, id.get())));
       } catch (final MalformedURLException malformedURLException) {
         LOG.fatal("Something went terrible wrong on getting the film details for 3Sat.",
             malformedURLException);

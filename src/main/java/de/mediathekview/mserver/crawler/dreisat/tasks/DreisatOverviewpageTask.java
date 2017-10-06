@@ -47,7 +47,7 @@ public class DreisatOverviewpageTask extends AbstractDocumentTask<CrawlerUrlsDTO
 
   private Optional<Integer> getMaxSubpageNumber(final Document aDocument) {
     final Elements lastSubpageLinkElements = aDocument
-        .getElementsByAttributeValueContaining(ATTRIBUTE_CLASS, ELEMENT_CLASS_LAST_SUBPAGE_LINK);
+        .select( ELEMENT_CLASS_LAST_SUBPAGE_LINK);
     if (!lastSubpageLinkElements.isEmpty()) {
       if (lastSubpageLinkElements.hasAttr(Consts.ATTRIBUTE_HREF)) {
         final String lastSubpageLink = lastSubpageLinkElements.attr(Consts.ATTRIBUTE_HREF);
@@ -93,20 +93,20 @@ public class DreisatOverviewpageTask extends AbstractDocumentTask<CrawlerUrlsDTO
   @Override
   protected void processDocument(final CrawlerUrlsDTO aUrlDTO, final Document aDocument) {
     Optional<AbstractDocumentTask<CrawlerUrlsDTO, CrawlerUrlsDTO>> subpageCrawler;
-    if (aUrlDTO.getUrl().matches(".*" + SUBPAGE_LINK_EXTENSION_TEMPLATE + ".*")) {
+    if (aUrlDTO.getUrl().matches(".*" + SUBPAGE_LINK_EXTENSION + ".*")) {
       subpageCrawler = Optional.empty();
     } else {
       subpageCrawler = processSubpages(aUrlDTO, aDocument);
     }
 
-    // TODO method wont find anything:
     final Elements sendungLinkElements = aDocument
-        .getElementsByAttributeValueContaining(ATTRIBUTE_CLASS, ELEMENT_CLASS_SENDUNG_LINK);
+        .select( ELEMENT_CLASS_SENDUNG_LINK);
     for (final Element sendungLinkElement : sendungLinkElements) {
       if (sendungLinkElement.hasAttr(Consts.ATTRIBUTE_HREF)) {
         taskResults.add(new CrawlerUrlsDTO(sendungLinkElement.attr(Consts.ATTRIBUTE_HREF)));
         if (countMax) {
           crawler.incrementAndGetMaxCount();
+          crawler.updateProgress();
         }
       }
     }

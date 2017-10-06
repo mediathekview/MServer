@@ -1,11 +1,12 @@
 package de.mediathekview.mserver.crawler.basic;
 
 public class CrawlerUrlsDTO {
+  private static final String HTTPS ="https:";
   private String url;
 
   public CrawlerUrlsDTO(final String aUrl) {
-    url = aUrl;
-  }
+   setUrl(aUrl);
+   }
 
   @Override
   public boolean equals(final Object obj) {
@@ -43,6 +44,10 @@ public class CrawlerUrlsDTO {
 
   public void setUrl(final String aUrl) {
     url = aUrl;
+      if(url.startsWith("//"))
+      {
+            url = HTTPS+url;      
+      }
   }
 
 }

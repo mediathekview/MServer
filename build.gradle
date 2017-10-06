@@ -25,7 +25,7 @@ group = 'de.mediathekview'
 version = '4.0.0'
 
 def jarName = 'MServer.jar'
-def mainClass = 'de.mediathekview.mserver.crawler.CrawlerManager'
+def mainClass = 'de.mediathekview.mserver.ui.config.MServerConfigUI'
 
 compileJava {
     options.encoding = "UTF-8"
