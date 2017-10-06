@@ -32,6 +32,7 @@ public class DreisatOverviewpageTask extends AbstractDocumentTask<CrawlerUrlsDTO
   private static final String ELEMENT_CLASS_LAST_SUBPAGE_LINK =
       ".mediathek_search_navi .ClnNextNblEnd";
   private static final String SUBPAGE_LINK_EXTENSION = "&mode=verpasst";
+  private static final String SUBPAGE_EXIST_REGEX = ".*" + SUBPAGE_LINK_EXTENSION + ".*";
   private static final String SUBPAGE_LINK_EXTENSION_TEMPLATE = SUBPAGE_LINK_EXTENSION + "%d";
   private static final String REGEX_MAX_SUBPAGE_NUMBER = "(?<=verpasst)\\d+";
   private final boolean countMax;
@@ -93,7 +94,7 @@ public class DreisatOverviewpageTask extends AbstractDocumentTask<CrawlerUrlsDTO
   @Override
   protected void processDocument(final CrawlerUrlsDTO aUrlDTO, final Document aDocument) {
     Optional<AbstractDocumentTask<CrawlerUrlsDTO, CrawlerUrlsDTO>> subpageCrawler;
-    if (aUrlDTO.getUrl().matches(".*" + SUBPAGE_LINK_EXTENSION + ".*")) {
+    if (aUrlDTO.getUrl().matches(SUBPAGE_EXIST_REGEX)) {
       subpageCrawler = Optional.empty();
     } else {
       subpageCrawler = processSubpages(aUrlDTO, aDocument);

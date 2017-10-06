@@ -13,14 +13,13 @@ import java.util.Locale;
 import java.util.Map.Entry;
 import java.util.Optional;
 import java.util.UUID;
-import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.w3c.dom.Document;
-import org.w3c.dom.NodeList;
-import org.xml.sax.SAXException;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.parser.Parser;
+import org.jsoup.select.Elements;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import de.mediathekview.mlib.daten.Film;
@@ -63,26 +62,25 @@ public class DreisatFilmDetailsReader {
   public Optional<Film> readDetails() {
     final DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
     try (InputStream xmlStream = xmlUrl.openStream()) {
-      final DocumentBuilder builder = factory.newDocumentBuilder();
-      final Document document = builder.parse(xmlStream);
-      final NodeList titleNodes = document.getElementsByTagName(ELEMENT_TITLE);
-      final NodeList themaNodes = document.getElementsByTagName(ELEMENT_ORIGIN_CHANNEL_TITLE);
+      final Document doc = Jsoup.connect(xmlUrl.toString()).parser(Parser.xmlParser()).get();
+      final Elements titleNodes = doc.getElementsByTag(ELEMENT_TITLE);
+      final Elements themaNodes = doc.getElementsByTag(ELEMENT_ORIGIN_CHANNEL_TITLE);
 
-      final NodeList descriptionNodes = document.getElementsByTagName(ELEMENT_DETAIL);
-      final NodeList durationNodes = document.getElementsByTagName(ELEMENT_LENGTH);
-      final NodeList geoLocNodes = document.getElementsByTagName(ELEMENT_GEOLOCATION);
-      final NodeList dateNodes = document.getElementsByTagName(ELEMENT_AIRTIME);
-      final NodeList alternativeDateNodes = document.getElementsByTagName(ELEMENT_ONLINEAIRTIME);
-      final NodeList filmUrlsApiUrlNodes = document.getElementsByTagName(ELEMENT_BASENAME);
+      final Elements descriptionNodes = doc.getElementsByTag(ELEMENT_DETAIL);
+      final Elements durationNodes = doc.getElementsByTag(ELEMENT_LENGTH);
+      final Elements geoLocNodes = doc.getElementsByTag(ELEMENT_GEOLOCATION);
+      final Elements dateNodes = doc.getElementsByTag(ELEMENT_AIRTIME);
+      final Elements alternativeDateNodes = doc.getElementsByTag(ELEMENT_ONLINEAIRTIME);
+      final Elements filmUrlsApiUrlNodes = doc.getElementsByTag(ELEMENT_BASENAME);
 
-      if (titleNodes.getLength() > 0 && themaNodes.getLength() > 0 && durationNodes.getLength() > 0
-          && filmUrlsApiUrlNodes.getLength() > 0) {
-        final String thema = themaNodes.item(0).getNodeValue();
-        final String title = titleNodes.item(0).getNodeValue();
+      if (!titleNodes.isEmpty() && !themaNodes.isEmpty() && !durationNodes.isEmpty()
+          && !filmUrlsApiUrlNodes.isEmpty()) {
+        final String thema = themaNodes.get(0).text();
+        final String title = titleNodes.get(0).text();
 
         GeoLocations geoLocation;
-        if (geoLocNodes.getLength() > 0) {
-          geoLocation = GeoLocations.getFromDescription(geoLocNodes.item(0).getNodeValue());
+        if (!geoLocNodes.isEmpty()) {
+          geoLocation = GeoLocations.getFromDescription(geoLocNodes.get(0).text());
         } else {
           geoLocation = GeoLocations.GEO_NONE;
         }
@@ -90,26 +88,24 @@ public class DreisatFilmDetailsReader {
         geoLocations.add(geoLocation);
 
         LocalDateTime time;
-        if (dateNodes.getLength() > 0 && dateNodes.item(0).getNodeValue() != null) {
-          time = LocalDateTime.parse(dateNodes.item(0).getNodeValue(), DATE_TIME_FORMATTER);
-        } else if (alternativeDateNodes.getLength() > 0 && alternativeDateNodes.item(0).getNodeValue() != null) {
-          time =
-              LocalDateTime.parse(alternativeDateNodes.item(0).getNodeValue(), DATE_TIME_FORMATTER);
+        if (!dateNodes.isEmpty() && dateNodes.get(0).text() != null) {
+          time = LocalDateTime.parse(dateNodes.get(0).text(), DATE_TIME_FORMATTER);
+        } else if (!alternativeDateNodes.isEmpty() && alternativeDateNodes.get(0).text() != null) {
+          time = LocalDateTime.parse(alternativeDateNodes.get(0).text(), DATE_TIME_FORMATTER);
         } else {
           time = LocalDateTime.now();
           LOG.debug(String.format(ERROR_NO_START_TEMPLATE, thema, title));
         }
 
         final Duration dauer;
-        if(durationNodes.item(0).getNodeValue()!=null)
-        {
-            dauer = Duration.ofSeconds(Integer.parseInt(durationNodes.item(0).getNodeValue()));
-        }else {
-            dauer = Duration.ZERO;
+        if (durationNodes.get(0).text() != null) {
+          dauer = Duration.ofSeconds(Integer.parseInt(durationNodes.get(0).text()));
+        } else {
+          dauer = Duration.ZERO;
         }
 
         final URL apiUrl =
-            new URL(String.format(API_URL_PATTERN, filmUrlsApiUrlNodes.item(0).getNodeValue()));
+            new URL(String.format(API_URL_PATTERN, filmUrlsApiUrlNodes.get(0).text()));
         final Gson gson = new GsonBuilder()
             .registerTypeAdapter(DownloadDTO.class, new ZDFDownloadDTODeserializer()).create();
 
@@ -123,15 +119,15 @@ public class DreisatFilmDetailsReader {
             newFilm.addUrl(url.getKey(), CrawlerTool.stringToFilmUrl(url.getValue()));
           }
 
-          if (descriptionNodes.getLength() > 0) {
-            newFilm.setBeschreibung(descriptionNodes.item(0).getNodeValue());
+          if (!descriptionNodes.isEmpty()) {
+            newFilm.setBeschreibung(descriptionNodes.get(0).text());
           }
           return Optional.of(newFilm);
         }
       }
 
 
-    } catch (SAXException | IOException | ParserConfigurationException exception) {
+    } catch (final IOException exception) {
       LOG.fatal(String.format(
           "Something went teribble wrong on getting the film details for the 3Sat film \"%s\".",
           website.toString()), exception);
