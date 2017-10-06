@@ -56,15 +56,15 @@ public class WdrSendungDayDeserializerTest {
         String html = HtmlFileReader.readHtmlPage(htmlFile);
         Document document = Jsoup.parse(html);
         
-        List<WdrSendungOverviewDto> actual = target.deserialize("http://www1.wdr.de", document);
+        List<WdrSendungDto> actual = target.deserialize(document);
 
         assertThat(actual, notNullValue());  
         assertThat(actual.size(), equalTo(expectedSendungen.length));
         for(int i = 0; i < actual.size(); i++) {
-            WdrSendungOverviewDto actualDto = actual.get(i);
+            WdrSendungDto actualDto = actual.get(i);
             assertThat(actualDto.getTheme(), equalTo(expectedSendungen[i][0]));
-            assertThat(actualDto.getUrls().size(), equalTo(1));
-            assertThat(actualDto.getUrls().get(0), equalTo(expectedSendungen[i][1]));
+            assertThat(actualDto.getVideoUrls().size(), equalTo(1));
+            assertThat(actualDto.getVideoUrls().get(0), equalTo(expectedSendungen[i][1]));
         }
     }
 }

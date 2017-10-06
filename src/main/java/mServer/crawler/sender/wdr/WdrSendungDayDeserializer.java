@@ -6,13 +6,13 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
-public class WdrSendungDayDeserializer extends HtmlDeserializerBase {
+public class WdrSendungDayDeserializer extends WdrDeserializerBase {
     
     private static final String QUERY_URL = "div.hideTeasertext > a";
     private static final String QUERY_THEME = "h3.ressort > a";
     
-    public List<WdrSendungOverviewDto> deserialize(String urlRoot, Document document) {
-        List<WdrSendungOverviewDto> list = new ArrayList<>();
+    public List<WdrSendungDto> deserialize(Document document) {
+        List<WdrSendungDto> list = new ArrayList<>();
         
         Elements themeElements = document.select(QUERY_THEME);
         Elements urlElements = document.select(QUERY_URL);
@@ -20,13 +20,13 @@ public class WdrSendungDayDeserializer extends HtmlDeserializerBase {
         if (themeElements.size() == urlElements.size()) {
             for (int i = 0; i < themeElements.size(); i++) {
                 String theme = getTheme(themeElements.get(i), urlElements.get(i));
-                String url = getUrl(urlRoot, urlElements.get(i).attr(HTML_ATTRIBUTE_HREF));
+                String url = addDomainIfNecessary(urlElements.get(i).attr(HTML_ATTRIBUTE_HREF));
 
                 // Hilfe-URLs ignorieren
                 if (!url.contains("/hilfe/")) {
-                    WdrSendungOverviewDto dto = new WdrSendungOverviewDto();
+                    WdrSendungDto dto = new WdrSendungDto();
                     dto.setTheme(theme);
-                    dto.addUrl(url);
+                    dto.addVideoUrl(url);
 
                     list.add(dto);
                 }
@@ -52,16 +52,5 @@ public class WdrSendungDayDeserializer extends HtmlDeserializerBase {
         }
         
         return theme;
-    }
-    
-    private String getUrl(String urlRoot, String url) {
-        
-        if(url != null && !url.isEmpty()) {
-            if(url.startsWith("/")) {
-                url = urlRoot + url;
-            }
-
-        }
-        return url;
     }
 }

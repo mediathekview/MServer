@@ -37,9 +37,10 @@ import java.util.List;
 import mServer.crawler.CrawlerTool;
 import mServer.crawler.FilmeSuchen;
 import mServer.crawler.GetUrl;
+import mServer.crawler.sender.wdr.WdrLetterPageDeserializer;
 import mServer.crawler.sender.wdr.WdrSendungDayDeserializer;
 import mServer.crawler.sender.wdr.WdrSendungOverviewDeserializer;
-import mServer.crawler.sender.wdr.WdrSendungOverviewDto;
+import mServer.crawler.sender.wdr.WdrSendungDto;
 import mServer.crawler.sender.wdr.WdrVideoDetailsDeserializer;
 
 import org.jsoup.Jsoup;
@@ -57,7 +58,6 @@ public class MediathekWdr extends MediathekReader {
     private final ArrayList<String> listeMaus = new ArrayList<>();
     private final LinkedList<String> listeTage = new LinkedList<>();
     private MSStringBuilder seite_1 = new MSStringBuilder(Const.STRING_BUFFER_START_BUFFER);
-    private MSStringBuilder seite_2 = new MSStringBuilder(Const.STRING_BUFFER_START_BUFFER);
 
     public MediathekWdr(FilmeSuchen ssearch, int startPrio) {
         super(ssearch, SENDERNAME,/* threads */ 3, /* urlWarten */ 100, startPrio);
@@ -167,7 +167,7 @@ public class MediathekWdr extends MediathekReader {
         int pos1;
         int pos2;
         String url;
-        themenSeitenSuchen(URL); // ist die erste Seite: "a"
+        listeThemen.addUrl(new String[]{URL, ""}); // ist die erste Seite: "a"
         pos1 = seite_1.indexOf("<strong>A</strong>");
         while (!Config.getStop() && (pos1 = seite_1.indexOf(MUSTER_URL, pos1)) != -1) {
             pos1 += MUSTER_URL.length();
@@ -180,33 +180,8 @@ public class MediathekWdr extends MediathekReader {
                     Log.errorLog(995122047, "keine URL");
                 } else {
                     url = "http://www1.wdr.de/mediathek/video/sendungen-a-z/" + url;
-                    themenSeitenSuchen(url);
+                    listeThemen.addUrl(new String[]{url, ""});
                 }
-            }
-        }
-    }
-
-    private void themenSeitenSuchen(String strUrlFeed) {
-        final String MUSTER_URL = "<a href=\"/mediathek/video/sendungen/";
-        int pos1 = 0;
-        int pos2;
-        String url;
-        GetUrl getUrlIo = new GetUrl(getWartenSeiteLaden());
-        seite_2 = getUrlIo.getUri_Iso(SENDERNAME, strUrlFeed, seite_2, "");
-        meldung(strUrlFeed);
-        while (!Config.getStop() && (pos1 = seite_2.indexOf(MUSTER_URL, pos1)) != -1) {
-            pos1 += MUSTER_URL.length();
-            if ((pos2 = seite_2.indexOf("\"", pos1)) != -1) {
-                url = seite_2.substring(pos1, pos2).trim();
-                if (!url.isEmpty()) {
-                    url = "http://www1.wdr.de/mediathek/video/sendungen/" + url;
-                    //weiter gehts
-                    String[] add;
-                    add = new String[]{url, ""};
-                    listeThemen.addUrl(add);
-                }
-            } else {
-                Log.errorLog(375862100, "keine Url" + strUrlFeed);
             }
         }
     }
@@ -214,10 +189,10 @@ public class MediathekWdr extends MediathekReader {
     private class ThemaLaden extends Thread {
 
         private MSStringBuilder sendungsSeite1 = new MSStringBuilder(Const.STRING_BUFFER_START_BUFFER);
-        private final ArrayList<String> liste_1 = new ArrayList<>();
         
         private final WdrSendungDayDeserializer dayDeserializer = new WdrSendungDayDeserializer();
         private final WdrSendungOverviewDeserializer overviewDeserializer = new WdrSendungOverviewDeserializer();
+        private final WdrLetterPageDeserializer letterPageDeserializer = new WdrLetterPageDeserializer();
 
         @Override
         public void run() {
@@ -261,17 +236,8 @@ public class MediathekWdr extends MediathekReader {
             
             try {
                 Document filmDocument = Jsoup.connect(url).get();
-                List<WdrSendungOverviewDto> dtos = dayDeserializer.deserialize("http://www1.wdr.de", filmDocument);
-                
-                dtos.forEach(dto -> {
-                    if (!Config.getStop()) {
-                        if(isUrlRelevant(url)) {
-                            // Flag für Rekursion auf true setzen, da keine weitere Rekursion erfolgen soll
-                            // da auf der Seite eines Tages nur Film-Links vorhanden
-                            parseFilmPage(dto.getTheme(), dto.getUrls().get(0), true);
-                        }
-                    }
-                });
+                List<WdrSendungDto> dtos = dayDeserializer.deserialize(filmDocument);
+                parse(dtos, false);
                 
             } catch(IOException ex) {
                 Log.errorLog(763299001, ex);
@@ -280,25 +246,43 @@ public class MediathekWdr extends MediathekReader {
 
         private void parseLetterPage(String strUrl) {
             meldung(strUrl);
-            // Sendungen auf der Seite
-            liste_1.clear();
-            liste_1.add(strUrl);
-            if (CrawlerTool.loadLongMax()) {
-                // sonst wars das
-                final GetUrl getUrl = new GetUrl(getWartenSeiteLaden());
-                sendungsSeite1 = getUrl.getUri_Utf(SENDERNAME, strUrl, sendungsSeite1, "");
-                sendungsSeite1.extractList("<ul class=\"pageCounterNavi\">", "</ul>", "<a href=\"/mediathek/video/sendungen/", "\"",
-                        "http://www1.wdr.de/mediathek/video/sendungen/", liste_1);
-            }
-            for (String u : liste_1) {
-                if (Config.getStop()) {
-                    break;
-                }
+            
+            if(Config.getStop()) {
+                return;
+            }                
+            
+            try {
+                Document document = Jsoup.connect(strUrl).get();
+                List<WdrSendungDto> sendungen = letterPageDeserializer.deserialize(document);
+                parse(sendungen, false);
                 
-                parseSendungOverviewPage(u, "", false);
+            } catch(IOException ex) {
+                Log.errorLog(763299002, ex);
             }
         }
 
+        private void parse(List<WdrSendungDto> sendungen, boolean recursive) {
+            sendungen.forEach(sendung -> {
+                parse(sendung, recursive);
+            });            
+        }
+        
+        private void parse(WdrSendungDto sendung, boolean recursive) {
+            if (!Config.getStop()) {
+                sendung.getOverviewUrls().forEach(url -> {
+                    if(isUrlRelevant(url) && !recursive) {
+                        parseSendungOverviewPage(url, sendung.getTheme(), true);
+                    }
+                });
+
+                sendung.getVideoUrls().forEach(url -> {
+                    if(isUrlRelevant(url)) {
+                        parseFilmPage(url, sendung.getTheme());
+                    }
+                });
+            }            
+        }
+        
         private void parseSendungOverviewPage(String strUrl, String parentTheme, boolean recursive) {
             if(!isUrlRelevant(strUrl)) {
                 return;
@@ -306,25 +290,12 @@ public class MediathekWdr extends MediathekReader {
             
             try {
                 Document filmDocument = Jsoup.connect(strUrl).get();
-                WdrSendungOverviewDto dto = overviewDeserializer.deserialize("http://www1.wdr.de", filmDocument);
+                WdrSendungDto dto = overviewDeserializer.deserialize(filmDocument);
+                dto.setTheme(parentTheme);
                 
-                // das ermittelte Thema nicht verwenden, wenn es sich um 
-                // einen Aufruf innerhalb einer Rekursion handelt, denn dann
-                // muss das initial ermittelte Thema verwendet werden
-                final String theme;
-                if(parentTheme.isEmpty()) {
-                    theme = dto.getTheme();
-                } else {
-                    theme = parentTheme;
-                }
-                
-                dto.getUrls().forEach(url -> {
-                    if (!Config.getStop()) {
-                        if(isUrlRelevant(url)) {
-                            parseFilmPage(theme, url, recursive);
-                        }
-                    }
-                });
+                parse(dto, recursive);
+            } catch(StackOverflowError err) {
+                return;
             } catch(IOException ex) {
                 Log.errorLog(763299001, ex);
             }
@@ -350,8 +321,13 @@ public class MediathekWdr extends MediathekReader {
             return true;
         }
 
-        private void parseFilmPage(String theme, String filmWebsite, boolean recursive) {
+        private void parseFilmPage(String filmWebsite, String theme) {
             meldung(filmWebsite);
+            
+            if(Config.getStop()) {
+                return;
+            }
+            
             try {
                 Document filmDocument = Jsoup.connect(filmWebsite).get();
                 WdrVideoDetailsDeserializer deserializer = new WdrVideoDetailsDeserializer();
@@ -359,10 +335,6 @@ public class MediathekWdr extends MediathekReader {
                 
                 if (film != null) {
                     addFilm(film);
-                } else if (!recursive && CrawlerTool.loadLongMax()){
-                    // bei langer Suche eine Rekursionstufe durchführen, damit 
-                    // weitere Beiträge (z.B. Lokalzeit) gefunden werden
-                    parseSendungOverviewPage(filmWebsite, theme, true);
                 }
             } catch(IOException ex) {
                 Log.errorLog(763299001, ex);
@@ -377,7 +349,7 @@ public class MediathekWdr extends MediathekReader {
                         break;
                     }
                     
-                    parseFilmPage("Rockpalast", urlRock, true);
+                    parseFilmPage(urlRock, "Rockpalast");
                 }
             } catch (Exception ex) {
                 Log.errorLog(696963025, ex);
@@ -391,7 +363,7 @@ public class MediathekWdr extends MediathekReader {
                     if (Config.getStop()) {
                         break;
                     }
-                    parseFilmPage("Rockpalast - Festival", urlRock, true);
+                    parseFilmPage(urlRock, "Rockpalast - Festival");
                 }
             } catch (Exception ex) {
                 Log.errorLog(915263698, ex);
