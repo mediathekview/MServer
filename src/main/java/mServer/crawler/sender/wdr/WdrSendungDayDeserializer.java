@@ -42,14 +42,15 @@ public class WdrSendungDayDeserializer extends WdrDeserializerBase {
         String theme = themeElement.text();
         
         // Sonderbehandlung für Thema: bei bestimmten Wörtern das Thema aus Videotitel ermitteln
-        if (theme.compareToIgnoreCase("Video") == 0
-           || theme.compareToIgnoreCase("Unterhaltung") == 0
-           || theme.compareToIgnoreCase("Film") == 0) {
+        if(theme.compareToIgnoreCase("Film") == 0) {
+            // Aus Film -> Fernsehfilm machen, damit das Thema zu Sendung A-Z passt
+            theme = "Fernsehfilm";
+        } else if (theme.compareToIgnoreCase("Video") == 0) {
             String[] titleParts = urlElement.attr(HTML_ATTRIBUTE_TITLE).split("-");
             if(titleParts.length >= 1) {
                 theme = titleParts[0].replace(", WDR", "").trim();
             }
-        }
+        } 
         
         return theme;
     }

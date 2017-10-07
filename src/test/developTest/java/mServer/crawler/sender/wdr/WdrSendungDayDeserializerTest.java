@@ -27,12 +27,12 @@ public class WdrSendungDayDeserializerTest {
                     { "Aktuelle Stunde", "http://www1.wdr.de/mediathek/video/sendungen/aktuelle-stunde/video-aktuelle-stunde-2150.html" },
                     { "Taminas ReiseTest", "http://www1.wdr.de/mediathek/video/sendungen/video-taminas-reisetest-radtouren--kurztrip-auf-zwei-raedern-104.html" },
                     { "Münsterland Giro 2017", "http://www1.wdr.de/mediathek/video/sendungen/video-muensterland-giro--104.html" },
-                    { "Ein Herz und eine Seele", "http://www1.wdr.de/mediathek/video/sendungen/unterhaltung/video-ein-herz-und-eine-seele---besuch-aus-der-ostzone-100.html" },
+                    { "Unterhaltung", "http://www1.wdr.de/mediathek/video/sendungen/unterhaltung/video-ein-herz-und-eine-seele---besuch-aus-der-ostzone-100.html" },
                     { "Servicezeit", "http://www1.wdr.de/mediathek/video/sendungen/servicezeit/video-bjoern-freitags-streetfood-duell-pulled-korean-bbq-taco-100.html" },
                     { "Lecker an Bord", "http://www1.wdr.de/mediathek/video/sendungen/lecker-an-bord/video-kaffee-bier-und-historisches-brot--100.html" },
                     { "Flussgeschichten", "http://www1.wdr.de/mediathek/video/sendungen/video-flussgeschichten---die-ruhr-104.html" },
-                    { "Ein Hausboot zum Verlieben", "http://www1.wdr.de/mediathek/video/sendungen/fernsehfilm/video-ein-hausboot-zum-verlieben-100.html" },
-                    { "Die Farben der Liebe", "http://www1.wdr.de/mediathek/video/sendungen/fernsehfilm/video-die-farben-der-liebe-102.html" },
+                    { "Fernsehfilm", "http://www1.wdr.de/mediathek/video/sendungen/fernsehfilm/video-ein-hausboot-zum-verlieben-100.html" },
+                    { "Fernsehfilm", "http://www1.wdr.de/mediathek/video/sendungen/fernsehfilm/video-die-farben-der-liebe-102.html" },
                 }
             }
         });
