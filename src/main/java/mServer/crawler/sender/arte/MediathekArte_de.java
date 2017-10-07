@@ -19,19 +19,12 @@
  */
 package mServer.crawler.sender.arte;
 
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-
 import de.mediathekview.mlib.Config;
-import de.mediathekview.mlib.Const;
-import de.mediathekview.mlib.daten.DatenFilm;
+import de.mediathekview.mlib.daten.Film;
 import de.mediathekview.mlib.daten.ListeFilme;
+import de.mediathekview.mlib.daten.Sender;
 import de.mediathekview.mlib.tool.Log;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -43,6 +36,12 @@ import java.util.concurrent.Future;
 import mServer.crawler.CrawlerTool;
 import mServer.crawler.FilmeSuchen;
 import mServer.crawler.sender.MediathekReader;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 public class MediathekArte_de extends MediathekReader
 {
@@ -69,7 +68,6 @@ public class MediathekArte_de extends MediathekReader
      * 4. für alle ProgramIds die Videoinformationen laden (wie kurze Variante)
      */
     private static final Logger LOG = LogManager.getLogger(MediathekArte_de.class);
-    private final static String SENDERNAME = Const.ARTE_DE;
     private static final String ARTE_API_TAG_URL_PATTERN = "https://api.arte.tv/api/opa/v3/videos?channel=%s&arteSchedulingDay=%s";
     
     private static final String URL_STATIC_CONTENT = "https://static-cdn.arte.tv/components/src/header/assets/locales/%s.json?ver=%s";
@@ -84,19 +82,26 @@ public class MediathekArte_de extends MediathekReader
     protected String TIME_1 = "<li>Sendetermine:</li>";
     protected String TIME_2 = "um";
 
-    public MediathekArte_de(FilmeSuchen ssearch, int startPrio) {
-        super(ssearch, SENDERNAME,/* threads */ 2, /* urlWarten */ 200, startPrio);
+    private Sender sender;
+
+    public MediathekArte_de(FilmeSuchen ssearch, int startPrio)
+    {
+        super(ssearch, Sender.ARTE_DE.getName(),/* threads */ 2, /* urlWarten */ 200, startPrio);
+        sender = Sender.ARTE_DE;
     }
 
-    public MediathekArte_de(FilmeSuchen ssearch, int startPrio, String name) {
-        super(ssearch, name,/* threads */ 2, /* urlWarten */ 200, startPrio);
+    public MediathekArte_de(FilmeSuchen ssearch, int startPrio, Sender aSender)
+    {
+        super(ssearch, aSender.getName(),/* threads */ 2, /* urlWarten */ 200, startPrio);
+        sender = aSender;
     }
 
     //===================================
     // public
     //===================================
     @Override
-    public void addToList() {
+    public void addToList()
+    {
         meldungStart();
         if (Config.getStop()) {
             meldungThreadUndFertig();
@@ -157,7 +162,8 @@ public class MediathekArte_de extends MediathekReader
         return infoDTO;
     } 
 
-    private void addTage() {
+    private void addTage()
+    {
         // http://www.arte.tv/guide/de/plus7/videos?day=-2&page=1&isLoading=true&sort=newest&country=DE
         for (int i = 0; i <= 14; ++i) {
             String u = String.format(ARTE_API_TAG_URL_PATTERN,LANG_CODE.toUpperCase(),LocalDate.now().minusDays(i).format(ARTE_API_DATEFORMATTER));
@@ -167,15 +173,17 @@ public class MediathekArte_de extends MediathekReader
 
     class ThemaLaden extends Thread {
 
-
         @Override
-        public void run() {
-            try {
+        public void run()
+        {
+            try
+            {
                 meldungAddThread();
-                String link[];
-                while (!Config.getStop() && (link = listeThemen.getListeThemen()) != null) {
-                    meldungProgress(link[0] /* url */);
-                    addFilmeForTag(link[0]);
+
+                while (!Config.getStop() && listeThemen.iterator().hasNext()) {
+                    final String[] thema = listeThemen.iterator().next();
+                    meldungProgress(thema[0] /* url */);
+                    addFilmeForTag(thema[0]);
                 }
             } catch (Exception ex) {
                 Log.errorLog(894330854, ex, "");
@@ -184,11 +192,11 @@ public class MediathekArte_de extends MediathekReader
         }
 
         private void addFilmeForTag(String aUrl) {
-            Gson gson = new GsonBuilder().registerTypeAdapter(ListeFilme.class,new ArteDatenFilmDeserializer(LANG_CODE, getSendername())).create();
+            Gson gson = new GsonBuilder().registerTypeAdapter(ListeFilme.class,new ArteFilmDeserializer(LANG_CODE, sender)).create();
             
             ListeFilme loadedFilme = ArteHttpClient.executeRequest(LOG, gson, aUrl, ListeFilme.class);
             if(loadedFilme != null) {
-                for (DatenFilm film : loadedFilme)
+                for (Film film : loadedFilme)
                 {
                     addFilm(film);
                 }
@@ -211,15 +219,18 @@ public class MediathekArte_de extends MediathekReader
         }
         
         @Override
-        public void run() {
-            try {
+        public void run()
+        {
+            try
+            {
                 meldungAddThread();
-                String link[];
-                while (!Config.getStop() && (link = listeThemen.getListeThemen()) != null) {
-                    meldungProgress(link[0] + "/" + link[1] /* url */);
-                    loadSubCategory(link[0], link[1]);
+                while (!Config.getStop() && listeThemen.iterator().hasNext()) {
+                    final String[] thema = listeThemen.iterator().next();
+                    meldungProgress(thema[0] + "/" + thema[1] /* url */);
+                    loadSubCategory(thema[0], thema[1]);
                 }
-            } catch (Exception ex) {
+            } catch (Exception ex)
+            {
                 Log.errorLog(894330854, ex, "");
             } finally {
                 executor.shutdown();
@@ -253,15 +264,15 @@ public class MediathekArte_de extends MediathekReader
         private ListeFilme loadPrograms(ArteCategoryFilmsDTO dto) {
             ListeFilme listeFilme = new ListeFilme();
 
-            Collection<Future<DatenFilm>> futureFilme = new ArrayList<>();
+            Collection<Future<Film>> futureFilme = new ArrayList<>();
             dto.getProgramIds().forEach(programId -> {
-                futureFilme.add(executor.submit(new ArteProgramIdToDatenFilmCallable(programId, LANG_CODE, getSendername())));
+                futureFilme.add(executor.submit(new ArteProgramIdToDatenFilmCallable(programId, LANG_CODE, sender)));
             });
             
-            CopyOnWriteArrayList<DatenFilm> finishedFilme = new CopyOnWriteArrayList<>();
+            CopyOnWriteArrayList<Film> finishedFilme = new CopyOnWriteArrayList<>();
             futureFilme.parallelStream().forEach(e -> {
                 try{
-                    DatenFilm finishedFilm = e.get();
+                    Film finishedFilm = e.get();
                     if(finishedFilm!=null)
                     {
                         finishedFilme.add(finishedFilm);
