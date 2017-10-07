@@ -96,7 +96,7 @@ public class WdrSendungCallable implements Callable<ListeFilme> {
             
             try {
                 Document filmDocument = Jsoup.connect(filmWebsite).get();
-                WdrVideoDetailsDeserializer deserializer = new WdrVideoDetailsDeserializer();
+                WdrVideoDetailsDeserializer deserializer = new WdrVideoDetailsDeserializer(new WdrUrlLoader());
                 DatenFilm film = deserializer.deserialize(theme, filmDocument);
 
                 return film;

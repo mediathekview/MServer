@@ -1,17 +1,14 @@
 package mServer.crawler.sender.wdr;
 
 import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import de.mediathekview.mlib.Const;
 import de.mediathekview.mlib.daten.DatenFilm;
-import de.mediathekview.mlib.tool.MSStringBuilder;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import mServer.crawler.CrawlerTool;
-import mServer.crawler.GetUrl;
-import static mServer.crawler.sender.MediathekWdr.SENDERNAME;
+import mServer.crawler.sender.newsearch.Qualities;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.jsoup.nodes.Document;
@@ -31,13 +28,13 @@ public class WdrVideoDetailsDeserializer extends HtmlDeserializerBase {
     
     private static final Logger LOG = LogManager.getLogger(WdrVideoDetailsDeserializer.class);    
     
-    private static final int INDEX_URL_SMALL = 0;
-    private static final int INDEX_URL_NORMAL = 1;
-    private static final int INDEX_URL_HD = 2;
-    private static final int INDEX_URL_SUBTITLE = 3;
-    
+    private final WdrVideoUrlParser videoUrlParser;
     private final DateTimeFormatter dateFormatDatenFilm = DateTimeFormatter.ofPattern("dd.MM.yyyy");
     private final DateTimeFormatter timeFormatDatenFilm = DateTimeFormatter.ofPattern("HH:mm:ss");
+
+    public WdrVideoDetailsDeserializer(WdrUrlLoader aUrlLoader) {
+       videoUrlParser = new WdrVideoUrlParser(aUrlLoader);
+    }
     
     public DatenFilm deserialize(String theme, Document document) {
         
@@ -74,18 +71,19 @@ public class WdrVideoDetailsDeserializer extends HtmlDeserializerBase {
             theme = t;
         }
         
-        String[] videos = parseJs(jsUrl);
-        if(!videos[INDEX_URL_NORMAL].isEmpty()) {
-            DatenFilm film = new DatenFilm(Const.WDR, theme, website, title, videos[INDEX_URL_NORMAL], "", date, time, duration, description);
+        WdrVideoDto videoDto = videoUrlParser.parse(jsUrl); 
+        
+        if(!videoDto.getUrl(Qualities.NORMAL).isEmpty()) {
+            DatenFilm film = new DatenFilm(Const.WDR, theme, website, title, videoDto.getUrl(Qualities.NORMAL), "", date, time, duration, description);
 
-            if (!videos[INDEX_URL_SUBTITLE].isEmpty()) {
-                CrawlerTool.addUrlSubtitle(film, videos[INDEX_URL_SUBTITLE]);
+            if (!videoDto.getSubtitleUrl().isEmpty()) {
+                CrawlerTool.addUrlSubtitle(film, videoDto.getSubtitleUrl());
             }
-            if (!videos[INDEX_URL_SMALL].isEmpty()) {
-                CrawlerTool.addUrlKlein(film, videos[INDEX_URL_SMALL], "");
+            if (!videoDto.getUrl(Qualities.SMALL).isEmpty()) {
+                CrawlerTool.addUrlKlein(film, videoDto.getUrl(Qualities.SMALL), "");
             }
-            if (!videos[INDEX_URL_HD].isEmpty()) {
-                CrawlerTool.addUrlHd(film, videos[INDEX_URL_HD], "");
+            if (!videoDto.getUrl(Qualities.HD).isEmpty()) {
+                CrawlerTool.addUrlHd(film, videoDto.getUrl(Qualities.HD), "");
             }
 
             return film;
@@ -137,107 +135,6 @@ public class WdrVideoDetailsDeserializer extends HtmlDeserializerBase {
         
         return urlJs;
     }
-    
-    private String addProtocolIfMissing(String url, String protocol) {
-        if(url.startsWith("//")) {
-            return protocol + ":" + url;
-        } else if(url.startsWith("://")) {
-            return protocol + url;
-        }
-
-        return url;
-    }
-    
-    private String getUrlFromM3u8(String m3u8Url, String qualityIndex) {
-        final String CSMIL = "csmil/";
-        return m3u8Url.substring(0, m3u8Url.indexOf(CSMIL)) + CSMIL + qualityIndex;
-    }
-    
-    // TODO diese Methode gehört noch umgebaut!!!
-    private String[] parseJs(String jsUrl) {
-        String[] videoUrls = new String[] { "", "", "", "" };
-        
-        MSStringBuilder sendungsSeite4 = new MSStringBuilder(Const.STRING_BUFFER_START_BUFFER);
-        MSStringBuilder m3u8Page = new MSStringBuilder(Const.STRING_BUFFER_START_BUFFER);
-        
-        final String INDEX_0 = "index_0_av.m3u8"; //kleiner
-        final String INDEX_1 = "index_1_av.m3u8"; //klein
-        final String INDEX_2 = "index_2_av.m3u8"; //hohe Auflösung
-        final GetUrl getUrl = new GetUrl(100);
-
-        try {
-            sendungsSeite4 = getUrl.getUri_Utf(Const.WDR, jsUrl, sendungsSeite4, "");
-            if (sendungsSeite4.length() == 0) {
-                return videoUrls;
-            }
-        } catch (Exception ex) {
-            LOG.error(ex);
-            return videoUrls;
-        }
-        String urlNorm, urlHd = "", urlKlein = "";
-
-        // URL suchen
-        urlNorm = sendungsSeite4.extract("\"alt\":{\"videoURL\":\"", "\"");
-        String f4m = sendungsSeite4.extract("\"dflt\":{\"videoURL\":\"", "\"");
-
-        // Fehlendes Protokoll ergänzen, wenn es fehlt. kommt teilweise vor.
-        String protocol = jsUrl.substring(0, jsUrl.indexOf(':'));
-        urlNorm = addProtocolIfMissing(urlNorm, protocol);
-        f4m = addProtocolIfMissing(f4m, protocol);
-
-        if (urlNorm.endsWith(".m3u8")) {
-            final String urlM3 = urlNorm;
-            m3u8Page = getUrl.getUri_Utf(SENDERNAME, urlNorm, m3u8Page, "");
-            if (m3u8Page.indexOf(INDEX_2) != -1) {
-                urlNorm = getUrlFromM3u8(urlM3, INDEX_2);
-            } else if (m3u8Page.indexOf(INDEX_1) != -1) {
-                urlNorm = getUrlFromM3u8(urlM3, INDEX_1);
-            }
-            if (m3u8Page.indexOf(INDEX_0) != -1) {
-                urlKlein = getUrlFromM3u8(urlM3, INDEX_0);
-            } else if (m3u8Page.indexOf(INDEX_1) != -1) {
-                urlKlein = getUrlFromM3u8(urlM3, INDEX_1);
-            }
-
-            if (urlNorm.isEmpty() && !urlKlein.isEmpty()) {
-                urlNorm = urlKlein;
-            }
-            if (urlNorm.equals(urlKlein)) {
-                urlKlein = "";
-            }
-        }
-
-        if (!f4m.isEmpty() && urlNorm.contains("_") && urlNorm.endsWith(".mp4")) {
-            // http://adaptiv.wdr.de/z/medp/ww/fsk0/104/1048369/,1048369_11885064,1048369_11885062,1048369_11885066,.mp4.csmil/manifest.f4m
-            // http://ondemand-ww.wdr.de/medp/fsk0/104/1048369/1048369_11885062.mp4
-            String s1 = urlNorm.substring(urlNorm.lastIndexOf('_') + 1, urlNorm.indexOf(".mp4"));
-            String s2 = urlNorm.substring(0, urlNorm.lastIndexOf('_') + 1);
-            try {
-                int nr = Integer.parseInt(s1);
-                if (f4m.contains(nr + 2 + "")) {
-                    urlHd = s2 + (nr + 2) + ".mp4";
-                }
-                if (f4m.contains(nr + 4 + "")) {
-                    urlKlein = s2 + (nr + 4) + ".mp4";
-                }
-            } catch (Exception ignore) {
-            }
-            if (!urlHd.isEmpty()) {
-                if (urlKlein.isEmpty()) {
-                    urlKlein = urlNorm;
-                }
-                urlNorm = urlHd;
-            }
-        }
-
-        String subtitle = sendungsSeite4.extract("\"captionURL\":\"", "\"");
-
-        videoUrls[INDEX_URL_SMALL] = urlKlein;
-        videoUrls[INDEX_URL_NORMAL] = urlNorm;
-        videoUrls[INDEX_URL_HD] = urlHd;
-        videoUrls[INDEX_URL_SUBTITLE] = subtitle;
-        
-        return videoUrls;
-    }
 }
+
 
