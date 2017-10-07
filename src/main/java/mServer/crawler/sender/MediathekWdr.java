@@ -29,28 +29,21 @@ import java.util.LinkedList;
 
 import de.mediathekview.mlib.Config;
 import de.mediathekview.mlib.Const;
-import de.mediathekview.mlib.daten.DatenFilm;
 import de.mediathekview.mlib.daten.ListeFilme;
 import de.mediathekview.mlib.tool.Log;
 import de.mediathekview.mlib.tool.MSStringBuilder;
-import java.io.IOException;
 import java.util.Collection;
-import java.util.List;
-import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 import mServer.crawler.FilmeSuchen;
 import mServer.crawler.GetUrl;
+import mServer.crawler.sender.wdr.WdrDayPageCallable;
 import mServer.crawler.sender.wdr.WdrLetterPageCallable;
 import mServer.crawler.sender.wdr.WdrSendungDayDeserializer;
-import mServer.crawler.sender.wdr.WdrSendungDto;
-import mServer.crawler.sender.wdr.WdrSendungCallable;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
 
 public class MediathekWdr extends MediathekReader {
 
@@ -62,10 +55,12 @@ public class MediathekWdr extends MediathekReader {
     private final ArrayList<String> listeFestival = new ArrayList<>();
     private final ArrayList<String> listeRochpalast = new ArrayList<>();
     private final ArrayList<String> listeMaus = new ArrayList<>();
-    private final LinkedList<String> listeTage = new LinkedList<>();
+    private final LinkedList<String> dayUrls = new LinkedList<>();
     private final LinkedList<String> letterPageUrls = new LinkedList<>();
     private MSStringBuilder seite_1 = new MSStringBuilder(Const.STRING_BUFFER_START_BUFFER);
 
+    Collection<Future<ListeFilme>> futureFilme = new ArrayList<>();
+    
     private static final Logger LOG = LogManager.getLogger(MediathekWdr.class);
     
     public MediathekWdr(FilmeSuchen ssearch, int startPrio) {
@@ -83,41 +78,22 @@ public class MediathekWdr extends MediathekReader {
         
         if (Config.getStop()) {
             meldungThreadUndFertig();
-        } else if (letterPageUrls.isEmpty()) {
+        } else if (letterPageUrls.isEmpty()  && dayUrls.isEmpty()) {
             meldungThreadUndFertig();
         } else {
-            meldungAddMax(letterPageUrls.size());
+            meldungAddMax(letterPageUrls.size() + dayUrls.size());
             
-            runLetterPages();
+            startLetterPages();
+            startDayPages();
+            
+            addFilms();
             
             meldungThreadUndFertig();
         }
     }
     
-    private void fillLists() {
-        addSendungBuchstabe(); 
-    }
-    
-    private void clearLists() {
-        letterPageUrls.clear();
-        
-        listeThemen.clear();
-        listeTage.clear();
-        listeFestival.clear();
-        listeRochpalast.clear();
-        listeMaus.clear();
-    }
-    
-    private void runLetterPages() {
-        Collection<Future<ListeFilme>> futureFilme = new ArrayList<>();
-        
-        letterPageUrls.forEach(url -> {
-            ExecutorService executor = Executors.newCachedThreadPool();
-            futureFilme.add(executor.submit(new WdrLetterPageCallable(url)));
-            meldungProgress(url);
-        });            
-        
-        futureFilme.parallelStream().forEach(e -> {
+    private void addFilms() {
+         futureFilme.parallelStream().forEach(e -> {
             try {
                 ListeFilme filmList = e.get();
                 if(filmList != null) {
@@ -131,7 +107,40 @@ public class MediathekWdr extends MediathekReader {
             {
                 LOG.error("Es ist ein Fehler beim lesen der WDR Filme aufgetreten.",exception);
             }
-        });
+        });       
+    }
+    
+    private void fillLists() {
+        addLetterPages();
+        addDayPages();
+    }
+    
+    private void clearLists() {
+        letterPageUrls.clear();
+        dayUrls.clear();
+        
+        listeThemen.clear();
+        listeFestival.clear();
+        listeRochpalast.clear();
+        listeMaus.clear();
+    }
+    
+    private void startLetterPages() {
+        
+        letterPageUrls.forEach(url -> {
+            ExecutorService executor = Executors.newCachedThreadPool();
+            futureFilme.add(executor.submit(new WdrLetterPageCallable(url)));
+            meldungProgress(url);
+        });            
+    }
+    
+    private void startDayPages() {
+        
+        dayUrls.forEach(url -> {
+            ExecutorService executor = Executors.newCachedThreadPool();
+            futureFilme.add(executor.submit(new WdrDayPageCallable(url)));
+            meldungProgress(url);
+        });            
     }
             
     /*
@@ -212,7 +221,7 @@ public class MediathekWdr extends MediathekReader {
         }
     }
 
-    private void addTage() {
+    private void addDayPages() {
         // Sendung verpasst, da sind einige die nicht in einer "Sendung" enthalten sind
         // URLs nach dem Muster bauen:
         // http://www1.wdr.de/mediathek/video/sendungverpasst/sendung-verpasst-100~_tag-27022016.html
@@ -222,11 +231,11 @@ public class MediathekWdr extends MediathekReader {
             final String URL = "http://www1.wdr.de/mediathek/video/sendungverpasst/sendung-verpasst-100~_tag-";
             tag = formatter.format(new Date().getTime() - (1000 * 60 * 60 * 24 * i));
             String urlString = URL + tag + ".html";
-            listeTage.add(urlString);
+            dayUrls.add(urlString);
         }
     }
 
-    private void addSendungBuchstabe() {
+    private void addLetterPages() {
         // http://www1.wdr.de/mediathek/video/sendungen/abisz-b100.html
         //Theman suchen
         final String URL = "http://www1.wdr.de/mediathek/video/sendungen-a-z/index.html";
@@ -368,7 +377,7 @@ public class MediathekWdr extends MediathekReader {
     }
 
     private synchronized String getListeTage() {
-        return listeTage.pollFirst();
+        return dayUrls.pollFirst();
     }
 
 }
