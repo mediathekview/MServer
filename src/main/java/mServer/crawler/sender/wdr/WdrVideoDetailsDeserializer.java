@@ -68,6 +68,12 @@ public class WdrVideoDetailsDeserializer extends HtmlDeserializerBase {
         if(jsUrl.isEmpty()) {
             return null;
         }
+        
+        String t = getTheme(document, title);
+        if(!t.isEmpty()) {
+            theme = t;
+        }
+        
         String[] videos = parseJs(jsUrl);
         if(!videos[INDEX_URL_NORMAL].isEmpty()) {
             DatenFilm film = new DatenFilm(Const.WDR, theme, website, title, videos[INDEX_URL_NORMAL], "", date, time, duration, description);
@@ -88,6 +94,26 @@ public class WdrVideoDetailsDeserializer extends HtmlDeserializerBase {
         return null;        
     }
     
+    private String getTheme(Document document, String title) {
+        String theme = "";
+        Element titleElement = document.select("title").first();
+        
+        if(titleElement != null) {
+            theme = titleElement.text()
+                    .replace(" - Sendungen A-Z - Video - Mediathek - WDR", "")
+                    .replace("- Sendung - Video - Mediathek - WDR", "")
+                    .replace(title, "");
+            
+            if(theme.startsWith("Video:")) {
+                theme = theme.substring(6).trim();
+            }
+            if(theme.startsWith("- ")) {
+                theme = theme.substring(2).trim();
+            }
+        }
+        
+        return theme;
+    }
     
     private String getVideoJavaScriptUrl(Document document) {
         // Die URL für das Video steht nicht direkt im HTML
