@@ -30,18 +30,24 @@ import java.util.LinkedList;
 import de.mediathekview.mlib.Config;
 import de.mediathekview.mlib.Const;
 import de.mediathekview.mlib.daten.DatenFilm;
+import de.mediathekview.mlib.daten.ListeFilme;
 import de.mediathekview.mlib.tool.Log;
 import de.mediathekview.mlib.tool.MSStringBuilder;
 import java.io.IOException;
+import java.util.Collection;
 import java.util.List;
-import mServer.crawler.CrawlerTool;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 import mServer.crawler.FilmeSuchen;
 import mServer.crawler.GetUrl;
-import mServer.crawler.sender.wdr.WdrLetterPageDeserializer;
+import mServer.crawler.sender.wdr.WdrLetterPageCallable;
 import mServer.crawler.sender.wdr.WdrSendungDayDeserializer;
-import mServer.crawler.sender.wdr.WdrSendungOverviewDeserializer;
 import mServer.crawler.sender.wdr.WdrSendungDto;
-import mServer.crawler.sender.wdr.WdrVideoDetailsDeserializer;
+import mServer.crawler.sender.wdr.WdrSendungCallable;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -57,8 +63,11 @@ public class MediathekWdr extends MediathekReader {
     private final ArrayList<String> listeRochpalast = new ArrayList<>();
     private final ArrayList<String> listeMaus = new ArrayList<>();
     private final LinkedList<String> listeTage = new LinkedList<>();
+    private final LinkedList<String> letterPageUrls = new LinkedList<>();
     private MSStringBuilder seite_1 = new MSStringBuilder(Const.STRING_BUFFER_START_BUFFER);
 
+    private static final Logger LOG = LogManager.getLogger(MediathekWdr.class);
+    
     public MediathekWdr(FilmeSuchen ssearch, int startPrio) {
         super(ssearch, SENDERNAME,/* threads */ 3, /* urlWarten */ 100, startPrio);
     }
@@ -66,6 +75,66 @@ public class MediathekWdr extends MediathekReader {
     //===================================
     // public
     //===================================
+    @Override
+    public synchronized void addToList() {
+        clearLists();
+        meldungStart();
+        fillLists();        
+        
+        if (Config.getStop()) {
+            meldungThreadUndFertig();
+        } else if (letterPageUrls.isEmpty()) {
+            meldungThreadUndFertig();
+        } else {
+            meldungAddMax(letterPageUrls.size());
+            
+            runLetterPages();
+            
+            meldungThreadUndFertig();
+        }
+    }
+    
+    private void fillLists() {
+        addSendungBuchstabe(); 
+    }
+    
+    private void clearLists() {
+        letterPageUrls.clear();
+        
+        listeThemen.clear();
+        listeTage.clear();
+        listeFestival.clear();
+        listeRochpalast.clear();
+        listeMaus.clear();
+    }
+    
+    private void runLetterPages() {
+        Collection<Future<ListeFilme>> futureFilme = new ArrayList<>();
+        
+        letterPageUrls.forEach(url -> {
+            ExecutorService executor = Executors.newCachedThreadPool();
+            futureFilme.add(executor.submit(new WdrLetterPageCallable(url)));
+            meldungProgress(url);
+        });            
+        
+        futureFilme.parallelStream().forEach(e -> {
+            try {
+                ListeFilme filmList = e.get();
+                if(filmList != null) {
+                    filmList.forEach(film -> {
+                        if(film != null) {
+                            addFilm(film);
+                        }
+                    });
+                }
+            } catch(Exception exception)
+            {
+                LOG.error("Es ist ein Fehler beim lesen der WDR Filme aufgetreten.",exception);
+            }
+        });
+    }
+            
+    /*
     @Override
     public synchronized void addToList() {
         //Theman suchen
@@ -105,7 +174,7 @@ public class MediathekWdr extends MediathekReader {
             }
         }
     }
-
+*/
     //===================================
     // private
     //===================================
@@ -167,7 +236,7 @@ public class MediathekWdr extends MediathekReader {
         int pos1;
         int pos2;
         String url;
-        listeThemen.addUrl(new String[]{URL, ""}); // ist die erste Seite: "a"
+        letterPageUrls.add(URL); // ist die erste Seite: "a"
         pos1 = seite_1.indexOf("<strong>A</strong>");
         while (!Config.getStop() && (pos1 = seite_1.indexOf(MUSTER_URL, pos1)) != -1) {
             pos1 += MUSTER_URL.length();
@@ -180,7 +249,7 @@ public class MediathekWdr extends MediathekReader {
                     Log.errorLog(995122047, "keine URL");
                 } else {
                     url = "http://www1.wdr.de/mediathek/video/sendungen-a-z/" + url;
-                    listeThemen.addUrl(new String[]{url, ""});
+                    letterPageUrls.add(url);
                 }
             }
         }
@@ -191,8 +260,6 @@ public class MediathekWdr extends MediathekReader {
         private MSStringBuilder sendungsSeite1 = new MSStringBuilder(Const.STRING_BUFFER_START_BUFFER);
         
         private final WdrSendungDayDeserializer dayDeserializer = new WdrSendungDayDeserializer();
-        private final WdrSendungOverviewDeserializer overviewDeserializer = new WdrSendungOverviewDeserializer();
-        private final WdrLetterPageDeserializer letterPageDeserializer = new WdrLetterPageDeserializer();
 
         @Override
         public void run() {
@@ -212,7 +279,7 @@ public class MediathekWdr extends MediathekReader {
                                 addFilmeMaus();
                                 break;
                             default:
-                                parseLetterPage(link[0] /* url */);
+                   //             addFilmsLetterPage(link[0] /* url */);
                                 break;
                         }
                     }
@@ -222,7 +289,7 @@ public class MediathekWdr extends MediathekReader {
                 
                 while (!Config.getStop() && (url = getListeTage()) != null) {
                     meldungProgress(url);
-                    parseDayPage(url);
+                  //  parseDayPage(url);
                 }
 
             } catch (Exception ex) {
@@ -230,7 +297,7 @@ public class MediathekWdr extends MediathekReader {
             }
             meldungThreadUndFertig();
         }
-        
+        /*
         private void parseDayPage(String url) {
             meldung(url);
             
@@ -242,105 +309,10 @@ public class MediathekWdr extends MediathekReader {
             } catch(IOException ex) {
                 Log.errorLog(763299001, ex);
             }            
-        }
+        }*/
 
-        private void parseLetterPage(String strUrl) {
-            meldung(strUrl);
-            
-            if(Config.getStop()) {
-                return;
-            }                
-            
-            try {
-                Document document = Jsoup.connect(strUrl).get();
-                List<WdrSendungDto> sendungen = letterPageDeserializer.deserialize(document);
-                parse(sendungen, false);
-                
-            } catch(IOException ex) {
-                Log.errorLog(763299002, ex);
-            }
-        }
-
-        private void parse(List<WdrSendungDto> sendungen, boolean recursive) {
-            sendungen.forEach(sendung -> {
-                parse(sendung, recursive);
-            });            
-        }
-        
-        private void parse(WdrSendungDto sendung, boolean recursive) {
-            if (!Config.getStop()) {
-                sendung.getOverviewUrls().forEach(url -> {
-                    if(isUrlRelevant(url) && !recursive) {
-                        parseSendungOverviewPage(url, sendung.getTheme(), true);
-                    }
-                });
-
-                sendung.getVideoUrls().forEach(url -> {
-                    if(isUrlRelevant(url)) {
-                        parseFilmPage(url, sendung.getTheme());
-                    }
-                });
-            }            
-        }
-        
-        private void parseSendungOverviewPage(String strUrl, String parentTheme, boolean recursive) {
-            if(!isUrlRelevant(strUrl)) {
-                return;
-            }
-            
-            try {
-                Document filmDocument = Jsoup.connect(strUrl).get();
-                WdrSendungDto dto = overviewDeserializer.deserialize(filmDocument);
-                dto.setTheme(parentTheme);
-                
-                parse(dto, recursive);
-            } catch(StackOverflowError err) {
-                return;
-            } catch(IOException ex) {
-                Log.errorLog(763299001, ex);
-            }
-            
-        }
-
-        /***
-         * Filtert URLs heraus, die nicht durchsucht werden sollen
-         * Hintergrund: diese URLs verweisen auf andere und führen bei der Suche
-         * im Rahmen der Rekursion zu endlosen Suchen
-         * @param url zu prüfende URL
-         * @return true, wenn die URL verarbeitet werden soll, sonst false
-         */
-        private boolean isUrlRelevant(String url) {
-            // die Indexseite der Lokalzeit herausfiltern, da alle Beiträge
-            // um die Lokalzeitenseiten der entsprechenden Regionen gefunden werden
-            if(url.endsWith("lokalzeit/index.html")) {
-                return false;
-            } else if(url.contains("wdr.de/hilfe")) {
-                return false;
-            }
-            
-            return true;
-        }
-
-        private void parseFilmPage(String filmWebsite, String theme) {
-            meldung(filmWebsite);
-            
-            if(Config.getStop()) {
-                return;
-            }
-            
-            try {
-                Document filmDocument = Jsoup.connect(filmWebsite).get();
-                WdrVideoDetailsDeserializer deserializer = new WdrVideoDetailsDeserializer();
-                DatenFilm film = deserializer.deserialize(theme, filmDocument);
-                
-                if (film != null) {
-                    addFilm(film);
-                }
-            } catch(IOException ex) {
-                Log.errorLog(763299001, ex);
-            }
-        }
  
+        
         private void themenSeiteRockpalast() {
             try {
                 for (String urlRock : listeRochpalast) {
@@ -349,7 +321,7 @@ public class MediathekWdr extends MediathekReader {
                         break;
                     }
                     
-                    parseFilmPage(urlRock, "Rockpalast");
+                  // TODO  parseFilmPage(urlRock, "Rockpalast");
                 }
             } catch (Exception ex) {
                 Log.errorLog(696963025, ex);
@@ -363,7 +335,7 @@ public class MediathekWdr extends MediathekReader {
                     if (Config.getStop()) {
                         break;
                     }
-                    parseFilmPage(urlRock, "Rockpalast - Festival");
+                // TODO    parseFilmPage(urlRock, "Rockpalast - Festival");
                 }
             } catch (Exception ex) {
                 Log.errorLog(915263698, ex);
@@ -386,7 +358,7 @@ public class MediathekWdr extends MediathekReader {
                         titel = titel.substring(0, titel.indexOf('-')).trim();
                     }
                     String jsUrl = sendungsSeite1.extract("'mediaObj': { 'url': '", "'");
-//                    addFilm2(filmWebsite, "MausSpots", titel, jsUrl, 0, "", "");
+//    TODO                addFilm2(filmWebsite, "MausSpots", titel, jsUrl, 0, "", "");
                 }
             } catch (Exception ex) {
                 Log.errorLog(915263698, ex);
