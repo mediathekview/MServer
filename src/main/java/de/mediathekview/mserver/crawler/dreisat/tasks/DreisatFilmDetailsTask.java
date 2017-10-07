@@ -65,6 +65,8 @@ public class DreisatFilmDetailsTask extends AbstractUrlTask<Film, CrawlerUrlsDTO
             .readDetails();
         if (newFilm.isPresent()) {
           taskResults.add(newFilm.get());
+          crawler.incrementAndGetActualCount();
+          crawler.updateProgress();
         }
       }
     } catch (final MalformedURLException malformedURLException) {

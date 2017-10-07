@@ -3,6 +3,8 @@ package de.mediathekview.mserver.crawler.dreisat.parser;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.lang.reflect.Type;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.time.Duration;
 import java.time.LocalDateTime;
@@ -13,7 +15,6 @@ import java.util.Locale;
 import java.util.Map.Entry;
 import java.util.Optional;
 import java.util.UUID;
-import javax.xml.parsers.DocumentBuilderFactory;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.jsoup.Jsoup;
@@ -22,6 +23,7 @@ import org.jsoup.parser.Parser;
 import org.jsoup.select.Elements;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.reflect.TypeToken;
 import de.mediathekview.mlib.daten.Film;
 import de.mediathekview.mlib.daten.GeoLocations;
 import de.mediathekview.mlib.daten.Resolution;
@@ -45,8 +47,9 @@ public class DreisatFilmDetailsReader {
   private static final String ELEMENT_LENGTH = "lengthSec";
   private static final String ELEMENT_DETAIL = "detail";
   private static final String ELEMENT_TITLE = "title";
+  private static final String ELEMENT_STREAM_VERSION = "streamVersion";
   private static final String API_URL_PATTERN =
-      "http://tmd.3sat.de/tmd/2/ngplayer_2_3/vod/ptmd/3sat/%s/2";
+      "http://tmd.3sat.de/tmd/2/ngplayer_2_3/vod/ptmd/3sat/%s/%d";
   private final URL xmlUrl;
   private final URL website;
 
@@ -60,7 +63,6 @@ public class DreisatFilmDetailsReader {
   }
 
   public Optional<Film> readDetails() {
-    final DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
     try (InputStream xmlStream = xmlUrl.openStream()) {
       final Document doc = Jsoup.connect(xmlUrl.toString()).parser(Parser.xmlParser()).get();
       final Elements titleNodes = doc.getElementsByTag(ELEMENT_TITLE);
@@ -72,52 +74,28 @@ public class DreisatFilmDetailsReader {
       final Elements dateNodes = doc.getElementsByTag(ELEMENT_AIRTIME);
       final Elements alternativeDateNodes = doc.getElementsByTag(ELEMENT_ONLINEAIRTIME);
       final Elements filmUrlsApiUrlNodes = doc.getElementsByTag(ELEMENT_BASENAME);
+      final Elements streamVersionNodes = doc.getElementsByTag(ELEMENT_STREAM_VERSION);
 
       if (!titleNodes.isEmpty() && !themaNodes.isEmpty() && !durationNodes.isEmpty()
-          && !filmUrlsApiUrlNodes.isEmpty()) {
+          && !filmUrlsApiUrlNodes.isEmpty() && !streamVersionNodes.isEmpty()) {
         final String thema = themaNodes.get(0).text();
         final String title = titleNodes.get(0).text();
 
-        GeoLocations geoLocation;
-        if (!geoLocNodes.isEmpty()) {
-          geoLocation = GeoLocations.getFromDescription(geoLocNodes.get(0).text());
-        } else {
-          geoLocation = GeoLocations.GEO_NONE;
-        }
-        final Collection<GeoLocations> geoLocations = new ArrayList<>();
-        geoLocations.add(geoLocation);
+        final LocalDateTime time = parseTime(dateNodes, alternativeDateNodes, thema, title);
+        final Duration dauer = parseDauer(durationNodes);
 
-        LocalDateTime time;
-        if (!dateNodes.isEmpty() && dateNodes.get(0).text() != null) {
-          time = LocalDateTime.parse(dateNodes.get(0).text(), DATE_TIME_FORMATTER);
-        } else if (!alternativeDateNodes.isEmpty() && alternativeDateNodes.get(0).text() != null) {
-          time = LocalDateTime.parse(alternativeDateNodes.get(0).text(), DATE_TIME_FORMATTER);
-        } else {
-          time = LocalDateTime.now();
-          LOG.debug(String.format(ERROR_NO_START_TEMPLATE, thema, title));
-        }
+        final int streamVersion = parseStreamVersion(streamVersionNodes);
+        final Optional<DownloadDTO> downloadInfos =
+            getDownloadInfos(filmUrlsApiUrlNodes, streamVersion);
+        if (downloadInfos.isPresent()) {
+          final Collection<GeoLocations> geoLocations = new ArrayList<>();
+          geoLocations.add(GeoLocations.find(geoLocNodes.get(0).text())
+              .orElse(downloadInfos.get().getGeoLocation().orElse(GeoLocations.GEO_NONE)));
 
-        final Duration dauer;
-        if (durationNodes.get(0).text() != null) {
-          dauer = Duration.ofSeconds(Integer.parseInt(durationNodes.get(0).text()));
-        } else {
-          dauer = Duration.ZERO;
-        }
-
-        final URL apiUrl =
-            new URL(String.format(API_URL_PATTERN, filmUrlsApiUrlNodes.get(0).text()));
-        final Gson gson = new GsonBuilder()
-            .registerTypeAdapter(DownloadDTO.class, new ZDFDownloadDTODeserializer()).create();
-
-        try (InputStreamReader gsonInputStreamReader = new InputStreamReader(apiUrl.openStream())) {
-          final DownloadDTO downloadInfos = gson.fromJson(gsonInputStreamReader, DownloadDTO.class);
-          geoLocations.add(downloadInfos.getGeoLocation());
           final Film newFilm = new Film(UUID.randomUUID(), geoLocations, Sender.DREISAT, title,
               thema, time, dauer, website);
-          newFilm.addSubtitle(new URL(downloadInfos.getSubTitleUrl()));
-          for (final Entry<Resolution, String> url : downloadInfos.getDownloadUrls().entrySet()) {
-            newFilm.addUrl(url.getKey(), CrawlerTool.stringToFilmUrl(url.getValue()));
-          }
+          addSubtitle(downloadInfos.get(), newFilm);
+          addUrls(downloadInfos.get(), newFilm);
 
           if (!descriptionNodes.isEmpty()) {
             newFilm.setBeschreibung(descriptionNodes.get(0).text());
@@ -135,6 +113,62 @@ public class DreisatFilmDetailsReader {
       crawler.printErrorMessage();
     }
     return Optional.empty();
+  }
+
+  private void addSubtitle(final DownloadDTO downloadInfos, final Film newFilm)
+      throws MalformedURLException {
+    final Optional<String> subtitle = downloadInfos.getSubTitleUrl();
+    if (subtitle.isPresent()) {
+      newFilm.addSubtitle(new URL(subtitle.get()));
+    }
+  }
+
+  private void addUrls(final DownloadDTO downloadInfos, final Film newFilm)
+      throws MalformedURLException {
+    for (final Entry<Resolution, String> url : downloadInfos.getDownloadUrls().entrySet()) {
+      newFilm.addUrl(url.getKey(), CrawlerTool.stringToFilmUrl(url.getValue()));
+    }
+  }
+
+  private Optional<DownloadDTO> getDownloadInfos(final Elements aFilmUrlsApiUrlNodes,
+      final int aStreamVersion) throws IOException {
+    final URL apiUrl =
+        new URL(String.format(API_URL_PATTERN, aFilmUrlsApiUrlNodes.get(0).text(), aStreamVersion));
+    final Type downloadDtoType = new TypeToken<Optional<DownloadDTO>>() {}.getType();
+    final Gson gson = new GsonBuilder()
+        .registerTypeAdapter(downloadDtoType, new ZDFDownloadDTODeserializer()).create();
+
+    try (InputStreamReader gsonInputStreamReader = new InputStreamReader(apiUrl.openStream())) {
+      return gson.fromJson(gsonInputStreamReader, downloadDtoType);
+    }
+  }
+
+  private Duration parseDauer(final Elements durationNodes) {
+    final Duration dauer;
+    if (durationNodes.get(0).text() != null) {
+      dauer = Duration.ofSeconds(Integer.parseInt(durationNodes.get(0).text()));
+    } else {
+      dauer = Duration.ZERO;
+    }
+    return dauer;
+  }
+
+  private int parseStreamVersion(final Elements aStreamVersionNodes) {
+    return Integer.parseInt(aStreamVersionNodes.get(0).text());
+  }
+
+  private LocalDateTime parseTime(final Elements dateNodes, final Elements alternativeDateNodes,
+      final String thema, final String title) {
+    LocalDateTime time;
+    if (!dateNodes.isEmpty() && dateNodes.get(0).text() != null) {
+      time = LocalDateTime.parse(dateNodes.get(0).text(), DATE_TIME_FORMATTER);
+    } else if (!alternativeDateNodes.isEmpty() && alternativeDateNodes.get(0).text() != null) {
+      time = LocalDateTime.parse(alternativeDateNodes.get(0).text(), DATE_TIME_FORMATTER);
+    } else {
+      time = LocalDateTime.now();
+      LOG.debug(String.format(ERROR_NO_START_TEMPLATE, thema, title));
+    }
+    return time;
   }
 
 }

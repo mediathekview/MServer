@@ -1,6 +1,8 @@
 package de.mediathekview.mserver.crawler.zdf.json;
 
-import java.util.HashMap;
+import java.util.EnumMap;
+import java.util.Map;
+import java.util.Optional;
 import de.mediathekview.mlib.daten.GeoLocations;
 import de.mediathekview.mlib.daten.Resolution;
 
@@ -9,42 +11,37 @@ import de.mediathekview.mlib.daten.Resolution;
  */
 public class DownloadDTO {
 
-  private GeoLocations geoLocation;
-  private String subTitleUrl;
-  private final HashMap<Resolution, String> downloadUrls;
+  private Optional<GeoLocations> geoLocation;
+  private Optional<String> subTitleUrl;
+  private final Map<Resolution, String> downloadUrls;
 
   public DownloadDTO() {
-    downloadUrls = new HashMap<>();
+    downloadUrls = new EnumMap<>(Resolution.class);
+    geoLocation = Optional.empty();
+    subTitleUrl = Optional.empty();
   }
 
   public void addUrl(final Resolution quality, final String url) {
     downloadUrls.put(quality, url);
   }
 
-  public HashMap<Resolution, String> getDownloadUrls() {
+  public Map<Resolution, String> getDownloadUrls() {
     return downloadUrls;
   }
 
-  public GeoLocations getGeoLocation() {
-    if (geoLocation == null) {
-      return GeoLocations.GEO_NONE;
-    }
+  public Optional<GeoLocations> getGeoLocation() {
     return geoLocation;
   }
 
-  public String getSubTitleUrl() {
-    if (subTitleUrl == null) {
-      return "";
-    }
+  public Optional<String> getSubTitleUrl() {
     return subTitleUrl;
   }
 
-  public String getUrl(final Resolution quality) {
-    final String url = downloadUrls.get(quality);
-    if (url == null) {
-      return "";
+  public Optional<String> getUrl(final Resolution resolution) {
+    if (downloadUrls.containsKey(resolution)) {
+      return Optional.of(downloadUrls.get(resolution));
     }
-    return url;
+    return Optional.empty();
   }
 
   public boolean hasUrl(final Resolution aQuality) {
@@ -52,10 +49,10 @@ public class DownloadDTO {
   }
 
   public void setGeoLocation(final GeoLocations aGeoLocation) {
-    geoLocation = aGeoLocation;
+    geoLocation = Optional.of(aGeoLocation);
   }
 
   public void setSubTitleUrl(final String aUrl) {
-    subTitleUrl = aUrl;
+    subTitleUrl = Optional.of(aUrl);
   }
 }
