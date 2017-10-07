@@ -3,7 +3,7 @@ package mServer.crawler.sender.wdr;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
-import mServer.test.HtmlFileReader;
+import mServer.test.TestFileReader;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.notNullValue;
 import org.jsoup.Jsoup;
@@ -53,7 +53,7 @@ public class WdrSendungDayDeserializerTest {
     @Test
     public void deserializeTest() {
         
-        String html = HtmlFileReader.readHtmlPage(htmlFile);
+        String html = TestFileReader.readFile(htmlFile);
         Document document = Jsoup.parse(html);
         
         List<WdrSendungDto> actual = target.deserialize(document);
