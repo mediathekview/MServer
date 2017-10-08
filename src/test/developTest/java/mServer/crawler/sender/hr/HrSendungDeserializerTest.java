@@ -8,7 +8,7 @@ import java.net.URISyntaxException;
 import java.time.Duration;
 import java.util.Arrays;
 import java.util.Collection;
-import mServer.test.HtmlFileReader;
+import mServer.test.TestFileReader;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.hamcrest.CoreMatchers.nullValue;
@@ -78,7 +78,7 @@ public class HrSendungDeserializerTest {
     
     @Test
     public void deserializeTestWithVideo() throws URISyntaxException {
-        String html = HtmlFileReader.readHtmlPage(htmlFile);
+        String html = TestFileReader.readFile(htmlFile);
         Document document = Jsoup.parse(html);
         
         HrSendungDeserializer target = new HrSendungDeserializer();
@@ -97,7 +97,7 @@ public class HrSendungDeserializerTest {
     
     @Test
     public void deserializeTestWithoutVideo() throws URISyntaxException {
-        String html = HtmlFileReader.readHtmlPage("/hr/hr_sendung_detail_without_video.html");
+        String html = TestFileReader.readFile("/hr/hr_sendung_detail_without_video.html");
         Document document = Jsoup.parse(html);
         
         HrSendungDeserializer target = new HrSendungDeserializer();
