@@ -1,10 +1,10 @@
 package de.mediathekview.mserver.crawler.basic;
 
-public class CrawlerUrlsDTO {
+public class CrawlerUrlDTO {
   private static final String HTTPS ="https:";
   private String url;
 
-  public CrawlerUrlsDTO(final String aUrl) {
+  public CrawlerUrlDTO(final String aUrl) {
    setUrl(aUrl);
    }
 
@@ -19,7 +19,7 @@ public class CrawlerUrlsDTO {
     if (getClass() != obj.getClass()) {
       return false;
     }
-    final CrawlerUrlsDTO other = (CrawlerUrlsDTO) obj;
+    final CrawlerUrlDTO other = (CrawlerUrlDTO) obj;
     if (url == null) {
       if (other.url != null) {
         return false;

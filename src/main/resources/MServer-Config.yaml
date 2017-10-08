@@ -14,7 +14,7 @@
     
     # If set only these Sender will be crawled all other will be ignored.
     senderIncluded:
-     - DREISAT
+     - FUNK
     
     # The formats in which the filmlist should be saved to.
     # Possible are: JSON, OLD_JSON, JSON_COMPRESSED, OLD_JSON_COMPRESSED

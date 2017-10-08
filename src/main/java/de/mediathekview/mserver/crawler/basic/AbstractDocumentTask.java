@@ -12,7 +12,7 @@ import de.mediathekview.mserver.base.messages.ServerMessages;
 /**
  * Recursively crawls a Website.
  */
-public abstract class AbstractDocumentTask<T, D extends CrawlerUrlsDTO>
+public abstract class AbstractDocumentTask<T, D extends CrawlerUrlDTO>
     extends AbstractUrlTask<T, D> {
   private static final long serialVersionUID = -4124779055395250981L;
   private static final Logger LOG = LogManager.getLogger(AbstractDocumentTask.class);

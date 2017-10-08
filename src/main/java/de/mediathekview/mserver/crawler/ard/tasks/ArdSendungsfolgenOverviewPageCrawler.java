@@ -10,7 +10,7 @@ import org.jsoup.select.Elements;
 
 import de.mediathekview.mserver.crawler.ard.ArdSendungBasicInformation;
 import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
-import de.mediathekview.mserver.crawler.basic.CrawlerUrlsDTO;
+import de.mediathekview.mserver.crawler.basic.CrawlerUrlDTO;
 
 /**
  * Recursively crawls the ARD Sendungsfolgen overview pages.
@@ -27,20 +27,20 @@ public class ArdSendungsfolgenOverviewPageCrawler extends AbstractArdOverviewPag
     private static final int FIRST_SUBPAGE_ID = 2;
 
     public ArdSendungsfolgenOverviewPageCrawler(final AbstractCrawler aCrawler,
-            final ConcurrentLinkedQueue<CrawlerUrlsDTO> aUrlsToCrawl)
+            final ConcurrentLinkedQueue<CrawlerUrlDTO> aUrlsToCrawl)
     {
         super(aCrawler, aUrlsToCrawl);
     }
 
     @Override
     protected AbstractArdOverviewPageCrawlerTask
-            createNewOwnInstance(final ConcurrentLinkedQueue<CrawlerUrlsDTO> aURLsToCrawl)
+            createNewOwnInstance(final ConcurrentLinkedQueue<CrawlerUrlDTO> aURLsToCrawl)
     {
         return new ArdSendungsfolgenOverviewPageCrawler(crawler, aURLsToCrawl);
     }
 
     @Override
-    protected void processDocument(final CrawlerUrlsDTO aUrlDTO, final Document aDocument)
+    protected void processDocument(final CrawlerUrlDTO aUrlDTO, final Document aDocument)
     {
         ArdSendungsfolgenOverviewPageCrawler subpageCrawler = null;
         if (!aUrlDTO.getUrl().contains(SUBPAGE_URL_PART) && config.getMaximumSubpages() > 0)
@@ -69,12 +69,12 @@ public class ArdSendungsfolgenOverviewPageCrawler extends AbstractArdOverviewPag
 
     private ArdSendungsfolgenOverviewPageCrawler findSubPages(final Document aDocument)
     {
-        final ConcurrentLinkedQueue<CrawlerUrlsDTO> subPages = new ConcurrentLinkedQueue<>();
+        final ConcurrentLinkedQueue<CrawlerUrlDTO> subPages = new ConcurrentLinkedQueue<>();
         final Elements elements = aDocument.select(getSelectorSubPages());
         for (final Element element : elements)
         {
             final String url = elementToSendungUrl(element);
-            subPages.add(new CrawlerUrlsDTO(url));
+            subPages.add(new CrawlerUrlDTO(url));
         }
         return new ArdSendungsfolgenOverviewPageCrawler(crawler, subPages);
     }

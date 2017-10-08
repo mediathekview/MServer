@@ -8,7 +8,7 @@ import org.jsoup.select.Elements;
 
 import de.mediathekview.mserver.crawler.ard.ArdSendungBasicInformation;
 import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
-import de.mediathekview.mserver.crawler.basic.CrawlerUrlsDTO;
+import de.mediathekview.mserver.crawler.basic.CrawlerUrlDTO;
 
 /**
  * Recursively crawls the ARD Sendungen overview pages.
@@ -21,13 +21,13 @@ public class ArdSendungenOverviewPageCrawler extends AbstractArdOverviewPageCraw
     private static final String SELECTOR_ENTRY = ".entry";
 
     public ArdSendungenOverviewPageCrawler(final AbstractCrawler aCrawler,
-            final ConcurrentLinkedQueue<CrawlerUrlsDTO> aUrlsToCrawl)
+            final ConcurrentLinkedQueue<CrawlerUrlDTO> aUrlsToCrawl)
     {
         super(aCrawler, aUrlsToCrawl);
     }
 
     @Override
-    protected void processDocument(final CrawlerUrlsDTO aUrlDTO, final Document aDocument)
+    protected void processDocument(final CrawlerUrlDTO aUrlDTO, final Document aDocument)
     {
         if (aUrlDTO.getUrl().contains(URL_PART_SENDUNG_VERPASST))
         {
@@ -41,11 +41,11 @@ public class ArdSendungenOverviewPageCrawler extends AbstractArdOverviewPageCraw
         }
         else
         {
-            final ConcurrentLinkedQueue<CrawlerUrlsDTO> sendungUrls = new ConcurrentLinkedQueue<>();
+            final ConcurrentLinkedQueue<CrawlerUrlDTO> sendungUrls = new ConcurrentLinkedQueue<>();
             final Elements elements = aDocument.select(SELECTOR_MEDIA_LINK);
             for (final Element mediaLinkElement : elements)
             {
-                sendungUrls.add(new CrawlerUrlsDTO(elementToSendungUrl(mediaLinkElement)));
+                sendungUrls.add(new CrawlerUrlDTO(elementToSendungUrl(mediaLinkElement)));
             }
             taskResults.addAll(createTask(sendungUrls).invoke());
         }
@@ -55,12 +55,12 @@ public class ArdSendungenOverviewPageCrawler extends AbstractArdOverviewPageCraw
 
     @Override
     protected AbstractArdOverviewPageCrawlerTask
-            createNewOwnInstance(final ConcurrentLinkedQueue<CrawlerUrlsDTO> aURLsToCrawl)
+            createNewOwnInstance(final ConcurrentLinkedQueue<CrawlerUrlDTO> aURLsToCrawl)
     {
         return new ArdSendungenOverviewPageCrawler(crawler, aURLsToCrawl);
     }
 
-    private AbstractArdOverviewPageCrawlerTask createTask(final ConcurrentLinkedQueue<CrawlerUrlsDTO> aUrlsToCrawl)
+    private AbstractArdOverviewPageCrawlerTask createTask(final ConcurrentLinkedQueue<CrawlerUrlDTO> aUrlsToCrawl)
     {
         return new ArdSendungsfolgenOverviewPageCrawler(crawler, aUrlsToCrawl);
     }

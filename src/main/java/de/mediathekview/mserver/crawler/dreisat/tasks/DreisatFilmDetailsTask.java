@@ -11,10 +11,10 @@ import org.apache.logging.log4j.Logger;
 import de.mediathekview.mlib.daten.Film;
 import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
 import de.mediathekview.mserver.crawler.basic.AbstractUrlTask;
-import de.mediathekview.mserver.crawler.basic.CrawlerUrlsDTO;
+import de.mediathekview.mserver.crawler.basic.CrawlerUrlDTO;
 import de.mediathekview.mserver.crawler.dreisat.parser.DreisatFilmDetailsReader;
 
-public class DreisatFilmDetailsTask extends AbstractUrlTask<Film, CrawlerUrlsDTO> {
+public class DreisatFilmDetailsTask extends AbstractUrlTask<Film, CrawlerUrlDTO> {
   private static final Logger LOG = LogManager.getLogger(DreisatFilmDetailsTask.class);
   private static final long serialVersionUID = -7520416794362009338L;
   private static final String XML_SERVICE_URL_PATTERN =
@@ -22,7 +22,7 @@ public class DreisatFilmDetailsTask extends AbstractUrlTask<Film, CrawlerUrlsDTO
   private static final String ID_URL_REGEX_PATTERN = "(?<=obj=)\\d+";
 
   public DreisatFilmDetailsTask(final AbstractCrawler aCrawler,
-      final ConcurrentLinkedQueue<CrawlerUrlsDTO> aUrlToCrawlDTOs) {
+      final ConcurrentLinkedQueue<CrawlerUrlDTO> aUrlToCrawlDTOs) {
     super(aCrawler, aUrlToCrawlDTOs);
   }
 
@@ -50,13 +50,13 @@ public class DreisatFilmDetailsTask extends AbstractUrlTask<Film, CrawlerUrlsDTO
   }
 
   @Override
-  protected AbstractUrlTask<Film, CrawlerUrlsDTO> createNewOwnInstance(
-      final ConcurrentLinkedQueue<CrawlerUrlsDTO> aURLsToCrawl) {
+  protected AbstractUrlTask<Film, CrawlerUrlDTO> createNewOwnInstance(
+      final ConcurrentLinkedQueue<CrawlerUrlDTO> aURLsToCrawl) {
     return new DreisatFilmDetailsTask(crawler, aURLsToCrawl);
   }
 
   @Override
-  protected void processUrl(final CrawlerUrlsDTO aUrlDTO) {
+  protected void processUrl(final CrawlerUrlDTO aUrlDTO) {
     Optional<Film> newFilm;
     try {
       final Optional<URL> xmlUrl = getXMLUrl(aUrlDTO.getUrl());

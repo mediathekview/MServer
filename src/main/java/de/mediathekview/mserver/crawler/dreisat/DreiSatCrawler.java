@@ -13,7 +13,7 @@ import de.mediathekview.mlib.daten.Film;
 import de.mediathekview.mlib.daten.Sender;
 import de.mediathekview.mlib.messages.listener.MessageListener;
 import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
-import de.mediathekview.mserver.crawler.basic.CrawlerUrlsDTO;
+import de.mediathekview.mserver.crawler.basic.CrawlerUrlDTO;
 import de.mediathekview.mserver.crawler.dreisat.tasks.DreisatFilmDetailsTask;
 import de.mediathekview.mserver.crawler.dreisat.tasks.DreisatOverviewpageTask;
 import de.mediathekview.mserver.progress.listeners.SenderProgressListener;
@@ -35,15 +35,15 @@ public class DreiSatCrawler extends AbstractCrawler {
     return Sender.DREISAT;
   }
 
-  private ConcurrentLinkedQueue<CrawlerUrlsDTO> getSendungenAZUrls() {
-    final ConcurrentLinkedQueue<CrawlerUrlsDTO> sendungUrls = new ConcurrentLinkedQueue<>();
-    sendungUrls.add(new CrawlerUrlsDTO(SENDUNGEN_AZ_URL));
+  private ConcurrentLinkedQueue<CrawlerUrlDTO> getSendungenAZUrls() {
+    final ConcurrentLinkedQueue<CrawlerUrlDTO> sendungUrls = new ConcurrentLinkedQueue<>();
+    sendungUrls.add(new CrawlerUrlDTO(SENDUNGEN_AZ_URL));
     return sendungUrls;
   }
 
-  private ConcurrentLinkedQueue<CrawlerUrlsDTO> getSendungVerpasstUrls() {
-    final ConcurrentLinkedQueue<CrawlerUrlsDTO> sendungVerpasstUrls = new ConcurrentLinkedQueue<>();
-    sendungVerpasstUrls.add(new CrawlerUrlsDTO(SENDUNG_VERPASST_BASE_URL));
+  private ConcurrentLinkedQueue<CrawlerUrlDTO> getSendungVerpasstUrls() {
+    final ConcurrentLinkedQueue<CrawlerUrlDTO> sendungVerpasstUrls = new ConcurrentLinkedQueue<>();
+    sendungVerpasstUrls.add(new CrawlerUrlDTO(SENDUNG_VERPASST_BASE_URL));
     return sendungVerpasstUrls;
   }
 
@@ -52,18 +52,18 @@ public class DreiSatCrawler extends AbstractCrawler {
 
     final DreisatOverviewpageTask sendungenTask = new DreisatOverviewpageTask(this,
         getSendungenAZUrls(), false, config.getMaximumDaysForSendungVerpasstSection());
-    final Set<CrawlerUrlsDTO> sendungUrls = forkJoinPool.invoke(sendungenTask);
+    final Set<CrawlerUrlDTO> sendungUrls = forkJoinPool.invoke(sendungenTask);
 
     final DreisatOverviewpageTask sendungsfolgenTask = new DreisatOverviewpageTask(this,
         new ConcurrentLinkedQueue<>(sendungUrls), true, config.getMaximumSubpages());
-    final ForkJoinTask<Set<CrawlerUrlsDTO>> featureFendungsfolgenFilmUrls =
+    final ForkJoinTask<Set<CrawlerUrlDTO>> featureFendungsfolgenFilmUrls =
         forkJoinPool.submit(sendungsfolgenTask);
 
 
     final DreisatOverviewpageTask sendungVerpasstTask = new DreisatOverviewpageTask(this,
         getSendungVerpasstUrls(), true, config.getMaximumSubpages());
 
-    final ConcurrentLinkedQueue<CrawlerUrlsDTO> filmUrls = new ConcurrentLinkedQueue<>();
+    final ConcurrentLinkedQueue<CrawlerUrlDTO> filmUrls = new ConcurrentLinkedQueue<>();
     try {
       filmUrls.addAll(forkJoinPool.invoke(sendungVerpasstTask));
       filmUrls.addAll(featureFendungsfolgenFilmUrls.get());

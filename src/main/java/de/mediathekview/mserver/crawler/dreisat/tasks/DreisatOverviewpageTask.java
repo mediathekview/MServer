@@ -12,7 +12,7 @@ import org.jsoup.select.Elements;
 import de.mediathekview.mserver.base.Consts;
 import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
 import de.mediathekview.mserver.crawler.basic.AbstractDocumentTask;
-import de.mediathekview.mserver.crawler.basic.CrawlerUrlsDTO;
+import de.mediathekview.mserver.crawler.basic.CrawlerUrlDTO;
 
 /**
  * Crawles overview pages like "http://www.3sat.de/mediathek/?mode=verpasst" or
@@ -24,8 +24,7 @@ import de.mediathekview.mserver.crawler.basic.CrawlerUrlsDTO;
  *         <b>Skype:</b> Nicklas2751<br/>
  *
  */
-public class DreisatOverviewpageTask extends AbstractDocumentTask<CrawlerUrlsDTO, CrawlerUrlsDTO> {
-  private static final String ATTRIBUTE_CLASS = "class";
+public class DreisatOverviewpageTask extends AbstractDocumentTask<CrawlerUrlDTO, CrawlerUrlDTO> {
   private static final Logger LOG = LogManager.getLogger(DreisatOverviewpageTask.class);
   private static final long serialVersionUID = -5344360936192332131L;
   private static final String ELEMENT_CLASS_SENDUNG_LINK = ".BoxHeadline .MediathekLink";
@@ -39,7 +38,7 @@ public class DreisatOverviewpageTask extends AbstractDocumentTask<CrawlerUrlsDTO
   private final int maxSubpages;
 
   public DreisatOverviewpageTask(final AbstractCrawler aCrawler,
-      final ConcurrentLinkedQueue<CrawlerUrlsDTO> aUrlToCrawlDTOs, final boolean aCountMax,
+      final ConcurrentLinkedQueue<CrawlerUrlDTO> aUrlToCrawlDTOs, final boolean aCountMax,
       final int aMaxSubpages) {
     super(aCrawler, aUrlToCrawlDTOs);
     countMax = aCountMax;
@@ -47,8 +46,7 @@ public class DreisatOverviewpageTask extends AbstractDocumentTask<CrawlerUrlsDTO
   }
 
   private Optional<Integer> getMaxSubpageNumber(final Document aDocument) {
-    final Elements lastSubpageLinkElements = aDocument
-        .select( ELEMENT_CLASS_LAST_SUBPAGE_LINK);
+    final Elements lastSubpageLinkElements = aDocument.select(ELEMENT_CLASS_LAST_SUBPAGE_LINK);
     if (!lastSubpageLinkElements.isEmpty()) {
       if (lastSubpageLinkElements.hasAttr(Consts.ATTRIBUTE_HREF)) {
         final String lastSubpageLink = lastSubpageLinkElements.attr(Consts.ATTRIBUTE_HREF);
@@ -68,16 +66,16 @@ public class DreisatOverviewpageTask extends AbstractDocumentTask<CrawlerUrlsDTO
     return Optional.empty();
   }
 
-  private Optional<AbstractDocumentTask<CrawlerUrlsDTO, CrawlerUrlsDTO>> processSubpages(
-      final CrawlerUrlsDTO aUrlDTO, final Document aDocument) {
+  private Optional<AbstractDocumentTask<CrawlerUrlDTO, CrawlerUrlDTO>> processSubpages(
+      final CrawlerUrlDTO aUrlDTO, final Document aDocument) {
     final Optional<Integer> maxSubpageNumber = getMaxSubpageNumber(aDocument);
     if (maxSubpageNumber.isPresent()) {
-      final ConcurrentLinkedQueue<CrawlerUrlsDTO> subpageUrls = new ConcurrentLinkedQueue<>();
+      final ConcurrentLinkedQueue<CrawlerUrlDTO> subpageUrls = new ConcurrentLinkedQueue<>();
       for (int i = 1; i < maxSubpageNumber.get() && i < maxSubpages; i++) {
-        subpageUrls.add(new CrawlerUrlsDTO(
+        subpageUrls.add(new CrawlerUrlDTO(
             aUrlDTO.getUrl() + String.format(SUBPAGE_LINK_EXTENSION_TEMPLATE, i)));
       }
-      final AbstractDocumentTask<CrawlerUrlsDTO, CrawlerUrlsDTO> subpageCrawler =
+      final AbstractDocumentTask<CrawlerUrlDTO, CrawlerUrlDTO> subpageCrawler =
           createNewOwnInstance(subpageUrls);
       subpageCrawler.fork();
       return Optional.of(subpageCrawler);
@@ -86,25 +84,24 @@ public class DreisatOverviewpageTask extends AbstractDocumentTask<CrawlerUrlsDTO
   }
 
   @Override
-  protected AbstractDocumentTask<CrawlerUrlsDTO, CrawlerUrlsDTO> createNewOwnInstance(
-      final ConcurrentLinkedQueue<CrawlerUrlsDTO> aURLsToCrawl) {
+  protected AbstractDocumentTask<CrawlerUrlDTO, CrawlerUrlDTO> createNewOwnInstance(
+      final ConcurrentLinkedQueue<CrawlerUrlDTO> aURLsToCrawl) {
     return new DreisatOverviewpageTask(crawler, aURLsToCrawl, countMax, maxSubpages);
   }
 
   @Override
-  protected void processDocument(final CrawlerUrlsDTO aUrlDTO, final Document aDocument) {
-    Optional<AbstractDocumentTask<CrawlerUrlsDTO, CrawlerUrlsDTO>> subpageCrawler;
+  protected void processDocument(final CrawlerUrlDTO aUrlDTO, final Document aDocument) {
+    Optional<AbstractDocumentTask<CrawlerUrlDTO, CrawlerUrlDTO>> subpageCrawler;
     if (aUrlDTO.getUrl().matches(SUBPAGE_EXIST_REGEX)) {
       subpageCrawler = Optional.empty();
     } else {
       subpageCrawler = processSubpages(aUrlDTO, aDocument);
     }
 
-    final Elements sendungLinkElements = aDocument
-        .select( ELEMENT_CLASS_SENDUNG_LINK);
+    final Elements sendungLinkElements = aDocument.select(ELEMENT_CLASS_SENDUNG_LINK);
     for (final Element sendungLinkElement : sendungLinkElements) {
       if (sendungLinkElement.hasAttr(Consts.ATTRIBUTE_HREF)) {
-        taskResults.add(new CrawlerUrlsDTO(sendungLinkElement.attr(Consts.ATTRIBUTE_HREF)));
+        taskResults.add(new CrawlerUrlDTO(sendungLinkElement.attr(Consts.ATTRIBUTE_HREF)));
         if (countMax) {
           crawler.incrementAndGetMaxCount();
           crawler.updateProgress();

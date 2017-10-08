@@ -14,7 +14,7 @@ import de.mediathekview.mserver.crawler.ard.tasks.ArdSendungTask;
 import de.mediathekview.mserver.crawler.ard.tasks.ArdSendungenOverviewPageCrawler;
 import de.mediathekview.mserver.crawler.ard.tasks.ArdSendungsfolgenOverviewPageCrawler;
 import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
-import de.mediathekview.mserver.crawler.basic.CrawlerUrlsDTO;
+import de.mediathekview.mserver.crawler.basic.CrawlerUrlDTO;
 import de.mediathekview.mserver.progress.listeners.SenderProgressListener;
 
 public class ArdCrawler extends AbstractCrawler {
@@ -35,17 +35,17 @@ public class ArdCrawler extends AbstractCrawler {
   }
 
   private RecursiveTask<Set<ArdSendungBasicInformation>> createCategoriesOverviewPageCrawler() {
-    final ConcurrentLinkedQueue<CrawlerUrlsDTO> categoryUrlsToCrawl = new ConcurrentLinkedQueue<>();
+    final ConcurrentLinkedQueue<CrawlerUrlDTO> categoryUrlsToCrawl = new ConcurrentLinkedQueue<>();
     Arrays.stream(CategoriesAZ.values())
-        .map(c -> new CrawlerUrlsDTO(String.format(ARD_CATEGORY_BASE_URL, c.getKey())))
+        .map(c -> new CrawlerUrlDTO(String.format(ARD_CATEGORY_BASE_URL, c.getKey())))
         .forEach(categoryUrlsToCrawl::offer);
     return new ArdSendungenOverviewPageCrawler(this, categoryUrlsToCrawl);
   }
 
   private RecursiveTask<Set<ArdSendungBasicInformation>> createDaysOverviewPageCrawler() {
-    final ConcurrentLinkedQueue<CrawlerUrlsDTO> dayUrlsToCrawl = new ConcurrentLinkedQueue<>();
+    final ConcurrentLinkedQueue<CrawlerUrlDTO> dayUrlsToCrawl = new ConcurrentLinkedQueue<>();
     for (int i = 0; i < config.getMaximumDaysForSendungVerpasstSection(); i++) {
-      dayUrlsToCrawl.offer(new CrawlerUrlsDTO(String.format(ARD_DAY_BASE_URL, i)));
+      dayUrlsToCrawl.offer(new CrawlerUrlDTO(String.format(ARD_DAY_BASE_URL, i)));
     }
     return new ArdSendungsfolgenOverviewPageCrawler(this, dayUrlsToCrawl);
   }

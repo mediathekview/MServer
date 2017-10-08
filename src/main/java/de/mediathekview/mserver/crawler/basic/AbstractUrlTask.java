@@ -10,7 +10,7 @@ import de.mediathekview.mserver.base.config.MServerConfigManager;
 /**
  * Recursively crawls a Website.
  */
-public abstract class AbstractUrlTask<T, D extends CrawlerUrlsDTO> extends RecursiveTask<Set<T>> {
+public abstract class AbstractUrlTask<T, D extends CrawlerUrlDTO> extends RecursiveTask<Set<T>> {
   private static final long serialVersionUID = -4077156510484515410L;
 
   private final ConcurrentLinkedQueue<D> urlsToCrawl;
