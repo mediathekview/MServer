@@ -29,7 +29,7 @@ public class WdrUrlLoader {
             }
             
         } catch (IOException ex) {
-            LOG.error("Beim laden der Filme für Arte kam es zu Verbindungsproblemen.", ex);
+            LOG.error("Beim laden der Filme für WDR kam es zu Verbindungsproblemen.", ex);
         }
 
         return result;
