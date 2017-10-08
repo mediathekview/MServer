@@ -200,7 +200,8 @@ public class CrawlerTool
                 "adaptiv.wdr.de/i/medp/de",
                 "pd-videos.daserste.de/de",
                 "wdradaptiv-vh.akamaihd.net/i/medp/ondemand/de",
-                "wdrmedien-a.akamaihd.net/medp/ondemand/de"
+                "wdrmedien-a.akamaihd.net/medp/ondemand/de",
+                "pdvideosdaserste-a.akamaihd.net/de/"
         ));
         geoUrls.put(GeoLocations.GEO_DE_AT_CH, Arrays.asList(
                 "ondemand-dach.wdr.de",
