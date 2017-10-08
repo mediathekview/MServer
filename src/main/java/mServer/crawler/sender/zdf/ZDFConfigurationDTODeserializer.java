@@ -1,4 +1,4 @@
-package mServer.crawler.sender.newsearch;
+package mServer.crawler.sender.zdf;
 
 import java.lang.reflect.Type;
 
@@ -18,7 +18,7 @@ import de.mediathekview.mlib.tool.Log;
  */
 public class ZDFConfigurationDTODeserializer implements JsonDeserializer<ZDFConfigurationDTO> {
     private static final Logger LOG = LogManager.getLogger(ZDFConfigurationDTODeserializer.class);
-    private static final String FALLBACK_TOKEN = "d2726b6c8c655e42b68b0db26131b15b22bd1a32";
+    private static final String FALLBACK_TOKEN = "69c4eddbe0cf82b2a9277e8106a711db314a3008";
     public static final String JSON_ELEMENT_API_TOKEN = "apiToken";
 
     @Override

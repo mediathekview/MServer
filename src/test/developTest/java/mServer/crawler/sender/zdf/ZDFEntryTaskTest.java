@@ -1,4 +1,4 @@
-package mServer.crawler.sender.newsearch;
+package mServer.crawler.sender.zdf;
 
 import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.hamcrest.CoreMatchers.nullValue;
@@ -8,9 +8,6 @@ import org.junit.After;
 import org.junit.Test;
 
 import de.mediathekview.mlib.Config;
-import mServer.crawler.sender.zdf.VideoDTO;
-import mServer.crawler.sender.zdf.ZDFEntryDTO;
-import mServer.crawler.sender.zdf.ZDFEntryTask;
 import mServer.test.ZDFClientMock;
 
 public class ZDFEntryTaskTest {
