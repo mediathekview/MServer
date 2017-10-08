@@ -14,7 +14,7 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 
 @RunWith(Parameterized.class)
-public class WdrSendungDayDeserializerTest {
+public class WdrDayPageDeserializerTest {
     @Parameterized.Parameters
     public static Collection<Object[]> data() {
         return Arrays.asList(new Object[][] {  
@@ -41,13 +41,13 @@ public class WdrSendungDayDeserializerTest {
     private final String htmlFile;
     private final String[][] expectedSendungen;
     
-    private final WdrSendungDayDeserializer target;
+    private final WdrDayPageDeserializer target;
     
-    public WdrSendungDayDeserializerTest(String aHtmlFile, String[][] aSendungen) {
+    public WdrDayPageDeserializerTest(String aHtmlFile, String[][] aSendungen) {
         htmlFile = aHtmlFile;
         expectedSendungen = aSendungen;
         
-        target = new WdrSendungDayDeserializer();
+        target = new WdrDayPageDeserializer();
     }
     
     @Test

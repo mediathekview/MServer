@@ -76,7 +76,6 @@ public class WdrSendungCallable implements Callable<ListeFilme> {
          * @return true, wenn die URL verarbeitet werden soll, sonst false
          */
         private boolean isUrlRelevant(String url) {
-            // TODO ist die Methode noch nötig?
             // die Indexseite der Lokalzeit herausfiltern, da alle Beiträge
             // um die Lokalzeitenseiten der entsprechenden Regionen gefunden werden
             if(url.endsWith("lokalzeit/index.html")) {

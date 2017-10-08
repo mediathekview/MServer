@@ -3,7 +3,6 @@ package mServer.crawler.sender.wdr;
 import java.util.Arrays;
 import java.util.Collection;
 import mServer.crawler.CrawlerConfig;
-import mServer.crawler.CrawlerTool;
 import mServer.test.TestFileReader;
 import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.hamcrest.CoreMatchers.nullValue;

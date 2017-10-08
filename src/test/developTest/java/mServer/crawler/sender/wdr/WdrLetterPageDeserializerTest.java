@@ -35,7 +35,7 @@ public class WdrLetterPageDeserializerTest {
     private final String htmlFile;
     private final String[][] expectedSendungen;
     
-    private WdrLetterPageDeserializer target;
+    private final WdrLetterPageDeserializer target;
 
     public WdrLetterPageDeserializerTest(String aHtmlFile, String[][] aSendungen) {
         htmlFile = aHtmlFile;

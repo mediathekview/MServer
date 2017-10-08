@@ -6,7 +6,7 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
-public class WdrSendungDayDeserializer extends WdrDeserializerBase {
+public class WdrDayPageDeserializer extends WdrDeserializerBase {
     
     private static final String QUERY_URL = "div.hideTeasertext > a";
     private static final String QUERY_THEME = "h3.ressort > a";

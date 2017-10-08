@@ -19,7 +19,7 @@ import org.jsoup.nodes.Document;
 
 public class WdrDayPageCallable implements Callable<ListeFilme> {
 
-    private final WdrSendungDayDeserializer dayPageSerializer = new WdrSendungDayDeserializer();
+    private final WdrDayPageDeserializer dayPageSerializer = new WdrDayPageDeserializer();
     private final String url;
     
     public WdrDayPageCallable(String aUrl) {
