@@ -21,7 +21,6 @@
  */
 package mServer.crawler.sender;
 
-import java.nio.charset.StandardCharsets;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -40,7 +39,6 @@ import mServer.crawler.FilmeSuchen;
 import mServer.crawler.GetUrl;
 import mServer.crawler.sender.wdr.WdrDayPageCallable;
 import mServer.crawler.sender.wdr.WdrLetterPageCallable;
-import mServer.crawler.sender.wdr.WdrSendungDayDeserializer;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -48,13 +46,7 @@ import org.apache.logging.log4j.Logger;
 public class MediathekWdr extends MediathekReader {
 
     public final static String SENDERNAME = Const.WDR;
-    private final static String ROCKPALAST_URL = "http://www1.wdr.de/fernsehen/rockpalast/startseite/index.html";
-    private final static String ROCKPALAST_FESTIVAL = "http://www1.wdr.de/fernsehen/rockpalast/events/index.html";
-    private final static String MAUS = "http://www.wdrmaus.de/lachgeschichten/spots.php5";
     
-    private final ArrayList<String> listeFestival = new ArrayList<>();
-    private final ArrayList<String> listeRochpalast = new ArrayList<>();
-    private final ArrayList<String> listeMaus = new ArrayList<>();
     private final LinkedList<String> dayUrls = new LinkedList<>();
     private final LinkedList<String> letterPageUrls = new LinkedList<>();
     private MSStringBuilder seite_1 = new MSStringBuilder(Const.STRING_BUFFER_START_BUFFER);
@@ -118,11 +110,6 @@ public class MediathekWdr extends MediathekReader {
     private void clearLists() {
         letterPageUrls.clear();
         dayUrls.clear();
-        
-        listeThemen.clear();
-        listeFestival.clear();
-        listeRochpalast.clear();
-        listeMaus.clear();
     }
     
     private void startLetterPages() {
@@ -141,84 +128,6 @@ public class MediathekWdr extends MediathekReader {
             futureFilme.add(executor.submit(new WdrDayPageCallable(url)));
             meldungProgress(url);
         });            
-    }
-            
-    /*
-    @Override
-    public synchronized void addToList() {
-        //Theman suchen
-        listeThemen.clear();
-        listeTage.clear();
-        listeFestival.clear();
-        listeRochpalast.clear();
-        listeMaus.clear();
-        meldungStart();
-        addSendungBuchstabe();
-        addTage();
-        
-        if (CrawlerTool.loadLongMax()) {
-            maus();
-            rockpalast();
-            festival();
-            // damit sie auch gestartet werden (im idealfall in unterschiedlichen Threads
-            String[] add = new String[]{ROCKPALAST_URL, "Rockpalast"};
-            listeThemen.addUrl(add);
-            // TODO das funktioniert noch nicht!!!
-            //String[] add = new String[]{ROCKPALAST_FESTIVAL, "Rockpalast"};
-            //listeThemen.addUrl(add);
-            add = new String[]{MAUS, "Maus"};
-            listeThemen.addUrl(add);
-        }
-
-        if (Config.getStop()) {
-            meldungThreadUndFertig();
-        } else if (listeThemen.isEmpty() && listeTage.isEmpty() && listeFestival.isEmpty() && listeRochpalast.isEmpty() && listeMaus.isEmpty()) {
-            meldungThreadUndFertig();
-        } else {
-            meldungAddMax(listeThemen.size() + listeTage.size() + listeFestival.size() + listeRochpalast.size() + listeMaus.size());
-            for (int t = 0; t < getMaxThreadLaufen(); ++t) {
-                Thread th = new ThemaLaden();
-                th.setName(SENDERNAME + t);
-                th.start();
-            }
-        }
-    }
-*/
-    //===================================
-    // private
-    //===================================
-    private void rockpalast() {
-        try {
-            GetUrl getUrlIo = new GetUrl(getWartenSeiteLaden());
-            seite_1 = getUrlIo.getUri(SENDERNAME, ROCKPALAST_URL, StandardCharsets.UTF_8, 3 /* versuche */, seite_1, "");
-            seite_1.extractList("", "", "<a href=\"/mediathek/video", "\"", "http://www1.wdr.de/mediathek/video/", listeRochpalast);
-        } catch (Exception ex) {
-            Log.errorLog(915423698, ex);
-        }
-    }
-
-    private void maus() {
-        // http://www.wdrmaus.de/lachgeschichten/mausspots/achterbahn.php5
-        final String ROOTADR = "http://www.wdrmaus.de/lachgeschichten/";
-        final String ITEM_1 = "<li class=\"filmvorschau\"><a href=\"../lachgeschichten/";
-        GetUrl getUrlIo = new GetUrl(getWartenSeiteLaden());
-        seite_1 = getUrlIo.getUri(SENDERNAME, MAUS, StandardCharsets.UTF_8, 3 /* versuche */, seite_1, "");
-        try {
-            seite_1.extractList("", "", ITEM_1, "\"", ROOTADR, listeMaus);
-        } catch (Exception ex) {
-            Log.errorLog(975456987, ex);
-        }
-    }
-
-    private void festival() {
-        // http://www1.wdr.de/fernsehen/kultur/rockpalast/videos/rockpalastvideos_festivals100.html
-        GetUrl getUrlIo = new GetUrl(getWartenSeiteLaden());
-        seite_1 = getUrlIo.getUri(SENDERNAME, ROCKPALAST_FESTIVAL, StandardCharsets.UTF_8, 3 /* versuche */, seite_1, "");
-        try {
-            seite_1.extractList("", "", "<a href=\"/fernsehen/rockpalast/events/", "\"", "http://www1.wdr.de/fernsehen/rockpalast/events/", listeFestival);
-        } catch (Exception ex) {
-            Log.errorLog(432365698, ex);
-        }
     }
 
     private void addDayPages() {
@@ -263,121 +172,4 @@ public class MediathekWdr extends MediathekReader {
             }
         }
     }
-
-    private class ThemaLaden extends Thread {
-
-        private MSStringBuilder sendungsSeite1 = new MSStringBuilder(Const.STRING_BUFFER_START_BUFFER);
-        
-        private final WdrSendungDayDeserializer dayDeserializer = new WdrSendungDayDeserializer();
-
-        @Override
-        public void run() {
-            try {
-                meldungAddThread();
-                String[] link;
-                while (!Config.getStop() && (link = listeThemen.getListeThemen()) != null) {
-                    if (null != link[0]) {
-                        switch (link[0]) {
-                            case ROCKPALAST_URL:
-                                themenSeiteRockpalast();
-                                break;
-                            case ROCKPALAST_FESTIVAL:
-                                themenSeiteFestival();
-                                break;
-                            case MAUS:
-                                addFilmeMaus();
-                                break;
-                            default:
-                   //             addFilmsLetterPage(link[0] /* url */);
-                                break;
-                        }
-                    }
-                    meldungProgress(link[0]);
-                }
-                String url;
-                
-                while (!Config.getStop() && (url = getListeTage()) != null) {
-                    meldungProgress(url);
-                  //  parseDayPage(url);
-                }
-
-            } catch (Exception ex) {
-                Log.errorLog(633250489, ex);
-            }
-            meldungThreadUndFertig();
-        }
-        /*
-        private void parseDayPage(String url) {
-            meldung(url);
-            
-            try {
-                Document filmDocument = Jsoup.connect(url).get();
-                List<WdrSendungDto> dtos = dayDeserializer.deserialize(filmDocument);
-                parse(dtos, false);
-                
-            } catch(IOException ex) {
-                Log.errorLog(763299001, ex);
-            }            
-        }*/
-
- 
-        
-        private void themenSeiteRockpalast() {
-            try {
-                for (String urlRock : listeRochpalast) {
-                    meldungProgress(urlRock);
-                    if (Config.getStop()) {
-                        break;
-                    }
-                    
-                  // TODO  parseFilmPage(urlRock, "Rockpalast");
-                }
-            } catch (Exception ex) {
-                Log.errorLog(696963025, ex);
-            }
-        }
-
-        private void themenSeiteFestival() {
-            try {
-                for (String urlRock : listeFestival) {
-                    meldungProgress(urlRock);
-                    if (Config.getStop()) {
-                        break;
-                    }
-                // TODO    parseFilmPage(urlRock, "Rockpalast - Festival");
-                }
-            } catch (Exception ex) {
-                Log.errorLog(915263698, ex);
-            }
-        }
-
-        private void addFilmeMaus() {
-            try {
-                for (String filmWebsite : listeMaus) {
-                    meldungProgress(filmWebsite);
-                    if (Config.getStop()) {
-                        break;
-                    }
-                    final GetUrl getUrl = new GetUrl(getWartenSeiteLaden());
-                    sendungsSeite1 = getUrl.getUri_Utf(SENDERNAME, filmWebsite, sendungsSeite1, "");
-
-                    String titel = sendungsSeite1.extract("<title>", "<"); //<title>Achterbahn - MausSpots - Lachgeschichten - Die Seite mit der Maus - WDR Fernsehen</title>
-                    titel = titel.replace("\n", "");
-                    if (titel.contains("-")) {
-                        titel = titel.substring(0, titel.indexOf('-')).trim();
-                    }
-                    String jsUrl = sendungsSeite1.extract("'mediaObj': { 'url': '", "'");
-//    TODO                addFilm2(filmWebsite, "MausSpots", titel, jsUrl, 0, "", "");
-                }
-            } catch (Exception ex) {
-                Log.errorLog(915263698, ex);
-            }
-        }
-
-    }
-
-    private synchronized String getListeTage() {
-        return dayUrls.pollFirst();
-    }
-
 }
