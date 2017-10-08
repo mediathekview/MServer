@@ -23,16 +23,16 @@ public class WdrSendungCallable implements Callable<ListeFilme> {
     @Override
     public ListeFilme call() {
         
-        return parse(dto, false);
+        return parse(dto, 0);
     }
     
-    private ListeFilme parse(WdrSendungDto aDto, boolean recursive) {
+    private ListeFilme parse(WdrSendungDto aDto, int recoursiveCall) {
         ListeFilme list = new ListeFilme();
         
         if (!Config.getStop()) {
             aDto.getOverviewUrls().forEach(url -> {
-                if(isUrlRelevant(url) && !recursive) {
-                    list.addAll(parseSendungOverviewPage(url, aDto.getTheme(), true));
+                if(isUrlRelevant(url) && recoursiveCall < 2) {
+                    list.addAll(parseSendungOverviewPage(url, aDto.getTheme(), recoursiveCall+1));
                 }
             });
 
@@ -49,7 +49,7 @@ public class WdrSendungCallable implements Callable<ListeFilme> {
         return list;
     }
     
-    private Collection<DatenFilm> parseSendungOverviewPage(String strUrl, String parentTheme, boolean recursive) {
+    private Collection<DatenFilm> parseSendungOverviewPage(String strUrl, String parentTheme, int recoursiveCall) {
         
         if(!isUrlRelevant(strUrl)) {
             return new ArrayList<>();
@@ -60,7 +60,7 @@ public class WdrSendungCallable implements Callable<ListeFilme> {
             WdrSendungDto sendungDto = overviewDeserializer.deserialize(filmDocument);
             sendungDto.setTheme(parentTheme);
 
-            return parse(sendungDto, recursive);
+            return parse(sendungDto, recoursiveCall);
         } catch(IOException ex) {
             Log.errorLog(763299001, ex);
         }
