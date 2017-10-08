@@ -77,7 +77,7 @@ public class HrSendungDeserializerTest {
     }
     
     @Test
-    public void deserializeTestWithVideo() {
+    public void deserializeTestWithVideo() throws URISyntaxException {
         String html = TestFileReader.readFile(htmlFile);
         Document document = Jsoup.parse(html);
         
@@ -96,7 +96,7 @@ public class HrSendungDeserializerTest {
     }
     
     @Test
-    public void deserializeTestWithoutVideo() {
+    public void deserializeTestWithoutVideo() throws URISyntaxException {
         String html = TestFileReader.readFile("/hr/hr_sendung_detail_without_video.html");
         Document document = Jsoup.parse(html);
         
