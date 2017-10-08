@@ -1,45 +1,42 @@
 package mServer.crawler.sender.arte;
 
-import java.util.concurrent.Callable;
-
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
 import com.google.gson.JsonObject;
 
-import de.mediathekview.mlib.daten.DatenFilm;
+import de.mediathekview.mlib.daten.Film;
+import de.mediathekview.mlib.daten.Sender;
+import mServer.crawler.CantCreateFilmException;
 
-public class ArteJsonObjectToDatenFilmCallable implements Callable<DatenFilm>
+import java.util.concurrent.Callable;
+
+public class ArteJsonObjectToFilmCallable implements Callable<Film>
 {
-    private static final Logger LOG = LogManager.getLogger(ArteJsonObjectToDatenFilmCallable.class);
-    
     private static final String JSON_ELEMENT_KEY_PROGRAM_ID = "programId";
-    
+
     private final JsonObject jsonObject;
     private final String langCode;
-    private final String senderName;
-    
-   
-    public ArteJsonObjectToDatenFilmCallable(JsonObject aJsonObjec, String aLangCode, String aSenderName) {
+    private final Sender sender;
+
+    public ArteJsonObjectToFilmCallable(JsonObject aJsonObjec, String aLangCode, Sender aSender)
+    {
         jsonObject = aJsonObjec;
         langCode = aLangCode;
-        senderName = aSenderName;
+        sender = aSender;
     }
 
     @Override
-    public DatenFilm call() {
-        DatenFilm film = null;
+    public Film call() throws CantCreateFilmException
+    {
+        Film film = null;
         try {
             if(isValidProgramObject(jsonObject))
             {
                 String programId = getElementValue(jsonObject, JSON_ELEMENT_KEY_PROGRAM_ID);
-                film = new ArteProgramIdToDatenFilmCallable(programId, langCode, senderName).call();
+                film = new ArteProgramIdToDatenFilmCallable(programId, langCode, sender).call();
             }
-        } catch(Exception e) {
-            e.printStackTrace();
-            LOG.error(e);
+        } catch(Exception exception) {
+            throw new CantCreateFilmException(exception);
+
         }
-        
         return film;
     }
     
@@ -50,5 +47,6 @@ public class ArteJsonObjectToDatenFilmCallable implements Callable<DatenFilm>
     private static boolean isValidProgramObject(JsonObject programObject) {
         return programObject.has(JSON_ELEMENT_KEY_PROGRAM_ID) && 
             !programObject.get(JSON_ELEMENT_KEY_PROGRAM_ID).isJsonNull();
+
     }
 }
