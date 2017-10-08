@@ -21,27 +21,29 @@ package mServer.crawler.sender;
 
 import de.mediathekview.mlib.Config;
 import de.mediathekview.mlib.Const;
-import de.mediathekview.mlib.daten.DatenFilm;
+import de.mediathekview.mlib.daten.Film;
+import de.mediathekview.mlib.daten.Sender;
 import de.mediathekview.mlib.tool.Log;
 import de.mediathekview.mlib.tool.MSStringBuilder;
-
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Scanner;
+import java.net.URI;
 
 import mServer.crawler.CrawlerTool;
 import mServer.crawler.FilmeSuchen;
 import mServer.crawler.GetUrl;
 import org.apache.commons.lang3.StringEscapeUtils;
 import org.apache.commons.lang3.StringUtils;
+import java.util.Iterator;
 
 public class MediathekSrf extends MediathekReader
 {
 
-    public static final String SENDERNAME = Const.SRF;
+    public static final Sender SENDER = Sender.SRF;
     private static final int MAX_SEITEN_THEMA = 5;
     private static final int MAX_FILME_KURZ = 6;
 
@@ -57,7 +59,7 @@ public class MediathekSrf extends MediathekReader
 
     public MediathekSrf(FilmeSuchen ssearch, int startPrio)
     {
-        super(ssearch, SENDERNAME,/* threads */ 3, /* urlWarten */ 100, startPrio);
+        super(ssearch, SENDER.getName(),/* threads */ 3, /* urlWarten */ 100, startPrio);
     }
 
     @Override
@@ -70,7 +72,7 @@ public class MediathekSrf extends MediathekReader
         listeThemen.clear();
         meldungStart();
         GetUrl getUrlIo = new GetUrl(getWartenSeiteLaden());
-        seite = getUrlIo.getUri_Utf(SENDERNAME, SRF_TOPIC_PAGE_URL, seite, "");
+        seite = getUrlIo.getUri_Utf(SENDER.getName(), SRF_TOPIC_PAGE_URL, seite, "");
         int pos = 0;
         int pos1;
         String thema, id;
@@ -90,7 +92,7 @@ public class MediathekSrf extends MediathekReader
                 {
                     thema = seite.extract("\"title\":\"", "\"", pos1);
                     thema = StringEscapeUtils.unescapeJava(thema).trim();
-                    listeThemen.addUrl(new String[]{id, thema});
+                    listeThemen.add(new String[]{id, thema});
                 }
             }
         }
@@ -104,7 +106,7 @@ public class MediathekSrf extends MediathekReader
             for (int t = 0; t < getMaxThreadLaufen(); ++t)
             {
                 Thread th = new ThemaLaden();
-                th.setName(SENDERNAME + t);
+                th.setName(SENDER.getName() + t);
                 th.start();
             }
         }
@@ -127,12 +129,12 @@ public class MediathekSrf extends MediathekReader
             try
             {
                 meldungAddThread();
-                String link[];
-
-                while (!Config.getStop() && (link = listeThemen.getListeThemen()) != null)
+                final Iterator<String[]> themaIterator = listeThemen.iterator();
+                while (!Config.getStop() && themaIterator.hasNext())
                 {
-                    meldungProgress(link[0] /* url */);
-                    addFilme(link[0]/*url*/, link[1]/*thema*/);
+                    final String[] thema = themaIterator.next();
+                    meldungProgress(thema[0] /* url */);
+                    addFilme(thema[0]/*url*/, thema[1]/*thema*/);
                 }
             } catch (Exception ex)
             {
@@ -146,12 +148,12 @@ public class MediathekSrf extends MediathekReader
 
             try
             {
-                String urlFeed = "http://www.srf.ch/play/v2/tv/topic/" + urlThema + "/latest";
-                overviewPageFilm = new MSStringBuilder();
-                overviewPageFilm.append(extractSrfTopicData(getUrl.getUri_Utf(SENDERNAME, urlFeed, overviewPageFilm, "").substring(0)).toCharArray());
-                addFilmsFromPage(overviewPageFilm, thema, urlFeed);
                 //Not possible actually.
                 /*if (CrawlerTool.loadLongMax())
+                String urlFeed = "http://www.srf.ch/play/tv/episodesfromshow?id=" + urlThema + "&pageNumber=1&layout=json";
+                overviewPageFilm = getUrl.getUri_Utf(SENDER.getName(), urlFeed, overviewPageFilm, "");
+                addFilmsFromPage(overviewPageFilm, thema, urlFeed);
+                if (CrawlerTool.loadLongMax())
                 {
                     String url = urlFeed.substring(0, urlFeed.indexOf("&pageNumber=1"));
                     for (int i = 2; i <= MAX_SEITEN_THEMA; ++i)
@@ -162,7 +164,7 @@ public class MediathekSrf extends MediathekReader
                         } else
                         {
                             // dann gibts weitere Seiten
-                            overviewPageFilm = getUrl.getUri_Utf(SENDERNAME, url + "&pageNumber=" + i + "&layout=json", overviewPageFilm, "");
+                            overviewPageFilm = getUrl.getUri_Utf(SENDER.getName(), url + "&pageNumber=" + i + "&layout=json", overviewPageFilm, "");
                             addFilmsFromPage(overviewPageFilm, thema, urlThema);
                         }
                     }
@@ -223,7 +225,8 @@ public class MediathekSrf extends MediathekReader
 
             meldung(jsonMovieUrl);
 
-            filmPage = getUrl.getUri_Utf(SENDERNAME, jsonMovieUrl, filmPage, "");
+            filmPage = getUrl.getUri_Utf(SENDER.getName(), jsonMovieUrl, filmPage, "");
+            
             try
             {
 
@@ -323,19 +326,20 @@ public class MediathekSrf extends MediathekReader
                     urlNormal = checkUrl(urlNormal);
                     urlSmall = checkUrl(urlSmall);
 
-                    DatenFilm film = new DatenFilm(SENDERNAME, theme, urlThema, title, urlNormal, ""/*rtmpURL*/, dateStr, time, duration, description);
-
-                    if (!urlHD.isEmpty())
-                    {
-                        CrawlerTool.addUrlHd(film, urlHD, "");
-                    }
-                    if (!urlSmall.isEmpty())
-                    {
-                        CrawlerTool.addUrlKlein(film, urlSmall, "");
-                    }
+                    Film film = CrawlerTool.createFilm(SENDER,
+                            urlNormal,
+                            title,
+                            theme,
+                            dateStr,
+                            time,
+                            duration,
+                            urlThema,
+                            description,
+                            urlHD,
+                            urlSmall);
                     if (!subtitle.isEmpty())
                     {
-                        CrawlerTool.addUrlSubtitle(film, subtitle);
+                        film.addSubtitle(new URI(subtitle));
                     }
                     addFilm(film);
                 }
@@ -347,14 +351,15 @@ public class MediathekSrf extends MediathekReader
 
         private void getM3u8(String url3u8)
         {
-            m3u8Page = getUrl.getUri_Utf(SENDERNAME, url3u8, m3u8Page, "");
+            m3u8Page = getUrl.getUri_Utf(SENDER.getName(), url3u8, m3u8Page, "");
+            
             if (m3u8Page.length() == 0 && url3u8.startsWith(URL1_M3U8))
             {
                 // tauschen https://srfvodhd-vh.akamaihd.net http://hdvodsrforigin-f.akamaihd.net
                 // ist ein 403
                 String url3u8Temp;
                 url3u8Temp = url3u8.replaceFirst(URL1_M3U8, URL3_M3U8);
-                m3u8Page = getUrl.getUri_Utf(SENDERNAME, url3u8Temp, m3u8Page, "");
+                m3u8Page = getUrl.getUri_Utf(SENDER.getName(), url3u8Temp, m3u8Page, "");
             }
             if (m3u8Page.length() == 0 && url3u8.startsWith(URL2_M3U8))
             {
@@ -362,7 +367,7 @@ public class MediathekSrf extends MediathekReader
                 // ist ein 403
                 String url3u8Temp;
                 url3u8Temp = url3u8.replaceFirst(URL2_M3U8, URL3_M3U8);
-                m3u8Page = getUrl.getUri_Utf(SENDERNAME, url3u8Temp, m3u8Page, "");
+                m3u8Page = getUrl.getUri_Utf(SENDER.getName(), url3u8Temp, m3u8Page, "");
             }
         }
 
