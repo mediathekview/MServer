@@ -282,7 +282,7 @@ public class MediathekNdr extends MediathekReader implements Runnable {
                         duration = duration.replace("min", "").trim();
                         durationInSeconds = convertDuration(duration, strUrlFeed);
                     }
-                    filmSuchen_1(strUrlFeed, thema, titel, url, datum, zeit, durationInSeconds, tage);
+                    filmSuchen_1(strUrlFeed, thema, titel, url, datum, zeit, durationInSeconds);
                 }
             } catch (Exception ex) {
                 Log.errorLog(693219870, strUrlFeed);
@@ -310,7 +310,7 @@ public class MediathekNdr extends MediathekReader implements Runnable {
         }
 
         private void filmSuchen_1(String strUrlThema, String thema, String titel, String filmWebsite, String datum, String zeit,
-                                  long durationInSeconds, boolean onlyUrl) {
+                                  long durationInSeconds) {
             //playlist: [
             //{
             //1: {src:'http://hds.ndr.de/z/2013/0419/TV-20130419-1010-0801.,hi,hq,.mp4.csmil/manifest.f4m', type:"application/f4m+xml"},
@@ -319,7 +319,6 @@ public class MediathekNdr extends MediathekReader implements Runnable {
 
             // http://media.ndr.de/progressive/2012/0820/TV-20120820-2300-0701.hi.mp4
             // rtmpt://cp160844.edgefcs.net/ondemand/mp4:flashmedia/streams/ndr/2012/0820/TV-20120820-2300-0701.hq.mp4
-            final String MUSTER_URL = "itemprop=\"contentUrl\" content=\"https://mediandr-a";
             seite2 = getUrl.getUri_Utf(SENDERNAME, filmWebsite, seite2, "strUrlThema: " + strUrlThema);
             String description = extractDescription(seite2);
             //String[] keywords = extractKeywords(seite2);
