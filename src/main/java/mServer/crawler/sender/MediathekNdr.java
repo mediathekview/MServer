@@ -344,7 +344,7 @@ public class MediathekNdr extends MediathekReader implements Runnable
                         duration = duration.replace("min", "").trim();
                         durationInSeconds = convertDuration(duration, strUrlFeed);
                     }
-                    filmSuchen_1(strUrlFeed, thema, titel, url, datum, zeit, durationInSeconds, tage);
+                    filmSuchen_1(strUrlFeed, thema, titel, url, datum, zeit, durationInSeconds);
                 }
             } catch (Exception ex)
             {
@@ -377,7 +377,7 @@ public class MediathekNdr extends MediathekReader implements Runnable
         }
 
         private void filmSuchen_1(String strUrlThema, String thema, String titel, String filmWebsite, String datum, String zeit,
-                                  long durationInSeconds, boolean onlyUrl)
+                                  long durationInSeconds) 
         {
             //playlist: [
             //{
@@ -387,7 +387,6 @@ public class MediathekNdr extends MediathekReader implements Runnable
 
             // http://media.ndr.de/progressive/2012/0820/TV-20120820-2300-0701.hi.mp4
             // rtmpt://cp160844.edgefcs.net/ondemand/mp4:flashmedia/streams/ndr/2012/0820/TV-20120820-2300-0701.hq.mp4
-            final String MUSTER_URL = "itemprop=\"contentUrl\" content=\"https://mediandr-a";
             seite2 = getUrl.getUri_Utf(SENDER.getName(), filmWebsite, seite2, "strUrlThema: " + strUrlThema);
             String description = extractDescription(seite2);
             //String[] keywords = extractKeywords(seite2);
@@ -400,8 +399,6 @@ public class MediathekNdr extends MediathekReader implements Runnable
             }
             meldung(filmWebsite);
             int pos1;
-            int pos2;
-            String url;
             try
             {
                 // src="/fernsehen/hallondsopplatt162-player_image-2c09ece0-0508-49bf-b4d6-afff2be2115c_theme-ndrde.html"
@@ -419,79 +416,12 @@ public class MediathekNdr extends MediathekReader implements Runnable
                     }
                 }
 
-                String json = seite2.extract("-player_image-", "_");
-                String pp = seite2.extract("id=\"pp_", "\"");
-                if (!json.isEmpty() && !pp.isEmpty())
-                {
-                    json = "http://www.ndr.de/fernsehen/" + pp + "-ppjson_image-" + json + ".json";
+                String json = seite2.extract("<meta itemprop=\"embedURL\" content=\"", "\"");
+                if (!json.isEmpty()) {
+                    json = json.replace("-player.html", "-ardjson.json");
                     filmSuchen_2(strUrlThema, thema, titel, filmWebsite, json, datum, zeit, durationInSeconds, description, subtitle);
 
-                } else if ((pos1 = seite2.indexOf(MUSTER_URL)) != -1)
-                {
-                    pos1 += MUSTER_URL.length();
-                    if ((pos2 = seite2.indexOf("\"", pos1)) != -1)
-                    {
-                        url = seite2.substring(pos1, pos2);
-                        if (!url.isEmpty())
-                        {
-                            url = "http://mediandr-a" + url;
-                            if (thema.isEmpty())
-                            {
-                                thema = seite2.extract("<h1>", "<div class=\"subline\">", "<");
-                                if (thema.contains("|"))
-                                {
-                                    thema = thema.substring(0, thema.lastIndexOf("|"));
-                                    thema = thema.trim();
-                                }
-                                if (thema.contains("-"))
-                                {
-                                    thema = thema.substring(0, thema.lastIndexOf("-"));
-                                    thema = thema.trim();
-                                }
-                                if (thema.contains("Uhr"))
-                                {
-                                    thema = "";
-                                }
-                                if (thema.isEmpty())
-                                {
-                                    thema = "NDR";
-                                }
-                            }
-
-                            String urlKlein;
-                            if (url.contains(".hq."))
-                            {
-                                urlKlein = url.replace(".hq.", ".hi.");
-                            } else
-                            {
-                                urlKlein = "";
-                            }
-
-                            Film film = CrawlerTool.createFilm(SENDER,
-                                    url,
-                                    titel,
-                                    thema,
-                                    datum,
-                                    zeit,
-                                    durationInSeconds,
-                                    filmWebsite,
-                                    description,
-                                    "",
-                                    urlKlein);
-                            if (!subtitle.isEmpty())
-                            {
-                                film.addSubtitle(new URI(subtitle));
-                            }
-
-                            addFilm(film, onlyUrl);
-                        } else
-                        {
-                            Log.errorLog(623657941, "keine URL: " + filmWebsite);
-                        }
-                    }
-
-                } else
-                {
+                } else {
                     Log.errorLog(915230214, "auch keine Url: " + filmWebsite);
                 }
             } catch (Exception ex)
@@ -506,7 +436,7 @@ public class MediathekNdr extends MediathekReader implements Runnable
 
             seite3 = getUrl.getUri_Utf(SENDER.getName(), json, seite3, "strUrlThema: " + strUrlThema);
             String url_hd = "", url_xl = "", url_m = "";
-            seite3.extractList("", "", "\"src\": \"https://mediandr", "\"", "https://mediandr", liste);
+            seite3.extractList("", "", "\"_stream\": \"https://mediandr", "\"", "https://mediandr", liste);
 
             for (String s : liste)
             {
