@@ -21,8 +21,6 @@ env:
 script:
   - ./gradlew check developTest build
   - if [ "$TRAVIS_BRANCH" == "develop" ] && [ "$TRAVIS_PULL_REQUEST" == "false" ]; then
-      openssl aes-256-cbc -K $encrypted_3a9121b37456_key -iv $encrypted_3a9121b37456_iv 
-        -in scripte/deploy/RepoZugang.properties.enc -out scripte/deploy/RepoZugang.properties -d;
       ./gradlew releaseSnapshot;
     fi
 after_success:
@@ -36,8 +34,6 @@ cache:
   - "$HOME/.sonar/cache/"
   
 before_deploy:
-  - openssl aes-256-cbc -K $encrypted_3a9121b37456_key -iv $encrypted_3a9121b37456_iv 
-    -in scripte/deploy/RepoZugang.properties.enc -out scripte/deploy/RepoZugang.properties -d
   - ./gradlew release
 deploy:
   provider: releases
