@@ -21,32 +21,29 @@ import de.mediathekview.mserver.crawler.basic.CrawlerUrlDTO;
  *         <b>Skype:</b> Nicklas2751<br/>
  *
  */
-public abstract class AbstractFunkRestTask<T> extends AbstractRestTask<T> {
+public abstract class AbstractFunkRestTask<T, R, D extends CrawlerUrlDTO>
+    extends AbstractRestTask<T, D> {
   private static final String ENCODING_GZIP = "gzip";
   private static final String HEADER_ACCEPT_ENCODING = "Accept-Encoding";
   private static final long serialVersionUID = -1090560363478964885L;
-  private final transient Gson gson;
-  protected final boolean incrementMaxCount;
 
   public AbstractFunkRestTask(final AbstractCrawler aCrawler,
-      final ConcurrentLinkedQueue<CrawlerUrlDTO> aUrlToCrawlDTOs, final boolean aIncrementMaxCount,
-      final Optional<String> aAuthKey) {
+      final ConcurrentLinkedQueue<D> aUrlToCrawlDTOs, final Optional<String> aAuthKey) {
     super(aCrawler, aUrlToCrawlDTOs, aAuthKey);
-    incrementMaxCount = aIncrementMaxCount;
-    gson = new GsonBuilder().registerTypeAdapter(getType(), getParser()).create();
   }
 
 
-  protected abstract Object getParser();
+  protected abstract Object getParser(D aDTO);
 
 
   protected abstract Type getType();
 
-  protected abstract void postProcessing(T aResponseObj, CrawlerUrlDTO aUrlDTO);
+  protected abstract void postProcessing(R aResponseObj, D aDTO);
 
 
   @Override
-  protected void processRestTarget(final CrawlerUrlDTO aUrlDTO, final WebTarget aTarget) {
+  protected void processRestTarget(final D aDTO, final WebTarget aTarget) {
+    final Gson gson = new GsonBuilder().registerTypeAdapter(getType(), getParser(aDTO)).create();
     Builder request = aTarget.request();
     if (authKey.isPresent()) {
       request = request.header(HEADER_AUTHORIZATION, authKey.get());
@@ -56,13 +53,8 @@ public abstract class AbstractFunkRestTask<T> extends AbstractRestTask<T> {
 
 
     final String jsonOutput = response.readEntity(String.class);
-    final T responseObj = gson.fromJson(jsonOutput, getType());
-    taskResults.add(responseObj);
-    postProcessing(responseObj, aUrlDTO);
-    if (incrementMaxCount) {
-      crawler.incrementAndGetMaxCount();
-      crawler.updateProgress();
-    }
+    final R responseObj = gson.fromJson(jsonOutput, getType());
+    postProcessing(responseObj, aDTO);
   }
 
 }

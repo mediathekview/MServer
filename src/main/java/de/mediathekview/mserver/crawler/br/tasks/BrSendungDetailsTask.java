@@ -77,8 +77,6 @@ public class BrSendungDetailsTask extends RecursiveTask<Set<Film>> {
         convertedFilms.add(film.get());
         crawler.incrementAndGetActualCount();
         crawler.updateProgress();
-      } else {
-        crawler.incrementAndGetErrorCount();
       }
     } catch (final JsonSyntaxException jsonSyntaxException) {
       LOG.error("The json syntax for the BR task to get Sendungsdetails has an error.",

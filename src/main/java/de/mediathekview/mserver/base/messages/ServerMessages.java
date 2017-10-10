@@ -37,7 +37,9 @@ public enum ServerMessages implements Message
     
     DEBUG_MSSING_SENDUNGFOLGEN_COUNT("debugMissingSendungfolgenCount",MessageTypes.DEBUG),
     DEBUG_ALL_SENDUNG_COUNT("debugAllSendungCount",MessageTypes.DEBUG),
-    DEBUG_ALL_SENDUNG_FOLGEN_COUNT("debugAllSendungFolgenCount",MessageTypes.DEBUG);
+    DEBUG_ALL_SENDUNG_FOLGEN_COUNT("debugAllSendungFolgenCount",MessageTypes.DEBUG), 
+    DEBUG_INVALID_URL("debugInvalidUrl",MessageTypes.DEBUG),
+    DEBUG_MISSING_ELEMENT("debugMissingElement",MessageTypes.DEBUG);
 
     private String messageKey;
     private MessageTypes messageType;
