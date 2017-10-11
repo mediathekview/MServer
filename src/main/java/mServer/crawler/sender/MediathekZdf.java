@@ -61,6 +61,15 @@ public class MediathekZdf extends MediathekReader {
         forkJoinPool.execute(newTask);
         Collection<VideoDTO> filmList = newTask.join();
 
+        convertToDto(filmList);
+
+        //explicitely shutdown the pool
+        shutdownAndAwaitTermination(forkJoinPool, 60, TimeUnit.SECONDS);
+
+        meldungThreadUndFertig();
+    }
+    
+    void convertToDto(Collection<VideoDTO> filmList) {
         EtmPoint perfPoint = EtmManager.getEtmMonitor().createPoint("MediathekZdf.convertVideoDTO");
 
         if (!filmList.isEmpty()) {
@@ -72,33 +81,30 @@ public class MediathekZdf extends MediathekReader {
             });
 
             filmList.clear();
-        }
-
-        boolean wasInterrupted = false;
-        while (!phaser.isTerminated()) {
-            try {
-                if (Config.getStop()) {
-                    wasInterrupted = true;
-                    phaser.forceTermination();
-                    shutdownAndAwaitTermination(forkJoinPool, 5, TimeUnit.SECONDS);
-                } else {
-                    TimeUnit.SECONDS.sleep(1);
+            
+            boolean wasInterrupted = false;
+            while (!phaser.isTerminated()) {
+                try {
+                    if (Config.getStop()) {
+                        wasInterrupted = true;
+                        phaser.forceTermination();
+                        shutdownAndAwaitTermination(forkJoinPool, 5, TimeUnit.SECONDS);
+                    } else {
+                        TimeUnit.SECONDS.sleep(1);
+                    }
+                } catch (InterruptedException ignored) {
                 }
-            } catch (InterruptedException ignored) {
             }
-        }
 
-        //explicitely shutdown the pool
-        shutdownAndAwaitTermination(forkJoinPool, 60, TimeUnit.SECONDS);
 
+            if (wasInterrupted) {
+                Log.sysLog("VideoDTO conversion interrupted.");
+            } else {
+                Log.sysLog("convert VideoDTO to DatenFilm finished.");
+            }            
+        }        
+        
         perfPoint.collect();
-        if (wasInterrupted) {
-            Log.sysLog("VideoDTO conversion interrupted.");
-        } else {
-            Log.sysLog("convert VideoDTO to DatenFilm finished.");
-        }
-
-        meldungThreadUndFertig();
     }
 
     void shutdownAndAwaitTermination(ExecutorService pool, long delay, TimeUnit delayUnit) {
