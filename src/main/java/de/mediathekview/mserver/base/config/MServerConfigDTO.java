@@ -1,6 +1,7 @@
 package de.mediathekview.mserver.base.config;
 
 import java.util.EnumMap;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
@@ -27,6 +28,8 @@ public class MServerConfigDTO extends MServerBasicConfigDTO implements ConfigDTO
 
     private Set<Sender> senderExcluded;
     private Set<Sender> senderIncluded;
+    
+    private Map<String,ScheduleDTO> schedules;
 
     private Set<FilmlistFormats> filmlistSaveFormats;
     private Map<FilmlistFormats, String> filmlistSavePaths;
@@ -42,6 +45,7 @@ public class MServerConfigDTO extends MServerBasicConfigDTO implements ConfigDTO
         senderExcluded = new HashSet<>();
         senderIncluded = new HashSet<>();
         filmlistSaveFormats = new HashSet<>();
+        schedules = new HashMap<>();
         filmlistSavePaths = new EnumMap<>(FilmlistFormats.class);
         ftpSettings = new MServerFTPSettings();
         logSettings = new MServerLogSettingsDTO();
@@ -130,6 +134,17 @@ public class MServerConfigDTO extends MServerBasicConfigDTO implements ConfigDTO
     {
         this.filmlistImportLocation = filmlistImportLocation;
     }
+    public Map<String,ScheduleDTO> getSchedules() {
+        return schedules;
+    }
+    public void setSchedules(Map<String,ScheduleDTO> schedules) {
+        this.schedules = schedules;
+    }
+    
+    public boolean hasSchedules()
+    {
+        return schedules != null && !schedules.isEmpty();
+    }
 
     @Override
     public int hashCode()
@@ -138,6 +153,7 @@ public class MServerConfigDTO extends MServerBasicConfigDTO implements ConfigDTO
         int result = super.hashCode();
         result = prime * result + (filmlistImportFormat == null ? 0 : filmlistImportFormat.hashCode());
         result = prime * result + (filmlistImportLocation == null ? 0 : filmlistImportLocation.hashCode());
+        result = prime * result + (schedules == null ? 0 : schedules.hashCode());
         result = prime * result + (filmlistSaveFormats == null ? 0 : filmlistSaveFormats.hashCode());
         result = prime * result + (filmlistSavePaths == null ? 0 : filmlistSavePaths.hashCode());
         result = prime * result + (ftpSettings == null ? 0 : ftpSettings.hashCode());
@@ -179,6 +195,17 @@ public class MServerConfigDTO extends MServerBasicConfigDTO implements ConfigDTO
             }
         }
         else if (!filmlistImportLocation.equals(other.filmlistImportLocation))
+        {
+            return false;
+        }
+        if (schedules == null)
+        {
+            if (other.schedules != null)
+            {
+                return false;
+            }
+        }
+        else if (!schedules.equals(other.schedules))
         {
             return false;
         }

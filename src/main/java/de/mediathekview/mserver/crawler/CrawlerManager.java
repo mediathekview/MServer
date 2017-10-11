@@ -21,9 +21,12 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ForkJoinPool;
 import java.util.concurrent.Future;
+import java.util.concurrent.ScheduledExecutorService;
 import java.util.stream.Collectors;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
 import de.mediathekview.mlib.daten.Film;
 import de.mediathekview.mlib.daten.Filmlist;
 import de.mediathekview.mlib.daten.Sender;
@@ -33,6 +36,7 @@ import de.mediathekview.mlib.progress.ProgressListener;
 import de.mediathekview.mserver.base.config.MServerConfigDTO;
 import de.mediathekview.mserver.base.config.MServerConfigManager;
 import de.mediathekview.mserver.base.config.MServerFTPSettings;
+import de.mediathekview.mserver.base.config.ScheduleDTO;
 import de.mediathekview.mserver.base.messages.ServerMessages;
 import de.mediathekview.mserver.base.progress.AbstractManager;
 import de.mediathekview.mserver.base.uploader.ftp.FtpUploadTarget;
@@ -61,7 +65,7 @@ public class CrawlerManager extends AbstractManager {
   private final MServerConfigDTO config;
   private final ForkJoinPool forkJoinPool;
   private final Filmlist filmlist;
-  private final ExecutorService executorService;
+  private final ScheduledExecutorService executorService;
 
   private final Map<Sender, AbstractCrawler> crawlerMap;
 
@@ -72,7 +76,7 @@ public class CrawlerManager extends AbstractManager {
     super();
     config = MServerConfigManager.getInstance().getConfig();
 
-    executorService = Executors.newFixedThreadPool(config.getMaximumCpuThreads());
+    executorService = Executors.newScheduledThreadPool(config.getMaximumCpuThreads());
     forkJoinPool = new ForkJoinPool(config.getMaximumCpuThreads());
 
     crawlerMap = new EnumMap<>(Sender.class);
@@ -186,9 +190,26 @@ public class CrawlerManager extends AbstractManager {
 
   /**
    * Runs all crawler and starts a timer for
-   * {@link MServerConfigDTO#getMaximumServerDurationInMinutes()}.
+   * {@link MServerConfigDTO#getMaximumServerDurationInMinutes()}.<br>
+   * When configured it will be restart the crawlers after the configured schedules.
    */
   public void start() {
+      startCrawlers();
+      if(config.hasSchedules())
+      {
+          for(Entry<String, ScheduleDTO> schedule : config.getSchedules().entrySet())
+          {
+            LOG.info(String.format("Started scheduler %s. The crawlers will run every %d %s",schedule.getKey(),schedule.getValue().getDuration(),schedule.getValue().getUnit().name()));
+            executorService.scheduleAtFixedRate(new ServerTask(), schedule.getValue().getDuration(), schedule.getValue().getDuration(), schedule.getValue().getUnit());
+          }   
+      }
+  }
+  
+  /**
+   * Runs all crawler and starts a timer for
+   * {@link MServerConfigDTO#getMaximumServerDurationInMinutes()}.
+   */
+  public void startCrawlers() {
     final TimeoutTask timeoutRunner = createTimeoutTask();
 
     if (config.getMaximumServerDurationInMinutes() != null
