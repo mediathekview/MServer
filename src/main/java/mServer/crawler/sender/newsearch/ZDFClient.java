@@ -18,7 +18,7 @@ import mServer.tool.MserverDaten;
  * jersey client of ZDF
  */
 public class ZDFClient {
-  enum ZDFClientMode {
+  public enum ZDFClientMode {
     SEARCH, VIDEO;
   }
 
@@ -37,7 +37,6 @@ public class ZDFClient {
   private static final String ORIGIN = "https://www.zdf.de";
   private static final String USER_AGENT =
       "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:50.0) Gecko/20100101 Firefox/50.0";
-  private static final String API_TOKEN_SEARCH = "Bearer 309fa9bc88933de7256f4f6f6c5d3373cc36517c";
 
   private static final String API_TOKEN_PATTERN = "Bearer %s";
   private static final String PROPERTY_HAS_VIDEO = "hasVideo";
@@ -129,23 +128,7 @@ public class ZDFClient {
   }
 
   private String loadApiToken(final ZDFClientMode aMode) {
-    String apiToken;
-    switch (aMode) {
-      case SEARCH:
-        apiToken = API_TOKEN_SEARCH;
-        break;
-      case VIDEO:
-        apiToken = loadApiTokenVideos();
-        break;
-      default:
-        apiToken = loadApiTokenVideos();
-        break;
-    }
-    return apiToken;
-  }
-
-  private String loadApiTokenVideos() {
-    return String.format(API_TOKEN_PATTERN,
-        ZDFConfigurationLoader.getInstance().loadConfig().getApiToken());
+    return String.format(API_TOKEN_PATTERN, 
+        ZDFConfigurationLoader.getInstance().loadConfig().getApiToken(aMode));
   }
 }
