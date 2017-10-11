@@ -2,7 +2,7 @@ package mServer.crawler.sender.newsearch;
 
 import java.util.Arrays;
 import java.util.Collection;
-import mServer.test.HtmlFileReader;
+import mServer.test.TestFileReader;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.notNullValue;
 import org.jsoup.Jsoup;
@@ -39,7 +39,7 @@ public class ZdfIndexPageDeserializerTest {
     
     @Test
     public void deserializeTestIndexPageWithBearer() {
-        String htmlPage = HtmlFileReader.readHtmlPage(htmlFile);
+        String htmlPage = TestFileReader.readFile(htmlFile);
         Document document = Jsoup.parse(htmlPage);
         
         ZDFConfigurationDTO actual = target.deserialize(document);
