@@ -1,20 +1,18 @@
 package mServer.crawler.sender.newsearch;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.sun.jersey.api.client.Client;
-import com.sun.jersey.api.client.ClientResponse;
-import com.sun.jersey.api.client.WebResource;
-
 import de.mediathekview.mlib.tool.Log;
+import java.io.IOException;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
 
 /**
- * A simple singelton to read the ZDF configuration just once per runtime.
+ * A simple singleton to read the ZDF configuration just once per runtime.
  */
 public class ZDFConfigurationLoader {
-    public static final String ZDF_CONFIGURATION_URL = "https://www.zdf.de/ZDFplayer/configs/zdf/zdf2016/configuration.json";
-    private static final String USER_AGENT = "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:50.0) Gecko/20100101 Firefox/50.0";
-    private static final String HEADER_USER_AGENT = "user-agent";
+    public static final String ZDF_BEARER_URL = "https://www.zdf.de/";
+    private static final String FALLBACK_TOKEN_SEARCH = "309fa9bc88933de7256f4f6f6c5d3373cc36517c";
+    private static final String FALLBACK_TOKEN_VIDEO = "69c4eddbe0cf82b2a9277e8106a711db314a3008";
+    
     private static ZDFConfigurationLoader instance;
 
     private ZDFConfigurationDTO config;
@@ -32,21 +30,29 @@ public class ZDFConfigurationLoader {
 
     public ZDFConfigurationDTO loadConfig() {
         if (config == null) {
-            WebResource webResource = Client.create().resource(ZDF_CONFIGURATION_URL);
-            ClientResponse response = webResource
-                    .header(HEADER_USER_AGENT, USER_AGENT)
-                    .get(ClientResponse.class);
+            
+            Document document;
+            try {
+                document = Jsoup.connect(ZDF_BEARER_URL).get();
+                ZdfIndexPageDeserializer deserializer = new ZdfIndexPageDeserializer();
+                config = deserializer.deserialize(document);
+                
+                if(config.getApiToken(ZDFClient.ZDFClientMode.SEARCH).isEmpty()) {
+                    Log.sysLog("Fallback token für SEARCH verwenden.");
+                    config.setApiToken(ZDFClient.ZDFClientMode.SEARCH, FALLBACK_TOKEN_SEARCH);
+                }
+                if(config.getApiToken(ZDFClient.ZDFClientMode.VIDEO).isEmpty()) {
+                    Log.sysLog("Fallback token für VIDEO verwenden.");
+                    config.setApiToken(ZDFClient.ZDFClientMode.VIDEO, FALLBACK_TOKEN_VIDEO);
+                }
 
-            if (response.getStatus() == 200) {
-                Gson gson = new GsonBuilder()
-                        .registerTypeAdapter(ZDFConfigurationDTO.class, new ZDFConfigurationDTODeserializer())
-                        .create();
-                config = gson.fromJson(response.getEntity(String.class), ZDFConfigurationDTO.class);
-            } else {
-                Log.errorLog(496583428, "Lade der Config Seite " + webResource.getURI() + " fehlgeschlagen: " + response.getStatus());
-                config = new ZDFConfigurationDTO("");
+            } catch (IOException ex) {
+                Log.errorLog(561515615, ex);
+                
+                config = new ZDFConfigurationDTO();
+                config.setApiToken(ZDFClient.ZDFClientMode.SEARCH, FALLBACK_TOKEN_SEARCH);
+                config.setApiToken(ZDFClient.ZDFClientMode.VIDEO, FALLBACK_TOKEN_VIDEO);
             }
-
         }
         return config;
     }
