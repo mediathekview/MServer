@@ -17,16 +17,13 @@ import java.util.Map.Entry;
 import java.util.Optional;
 import java.util.Set;
 import java.util.concurrent.ExecutionException;
-import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ForkJoinPool;
 import java.util.concurrent.Future;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.stream.Collectors;
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
 import de.mediathekview.mlib.daten.Film;
 import de.mediathekview.mlib.daten.Filmlist;
 import de.mediathekview.mlib.daten.Sender;
@@ -71,6 +68,7 @@ public class CrawlerManager extends AbstractManager {
 
   private final FilmlistManager filmlistManager;
   private final Collection<ProgressListener> ftpProgressListeners;
+  private Object differenceList;
 
   private CrawlerManager() {
     super();
@@ -134,10 +132,23 @@ public class CrawlerManager extends AbstractManager {
       }
 
       if (importedFilmlist.isPresent()) {
-        filmlist.merge(importedFilmlist.get());
+        differenceList = filmlist.merge(importedFilmlist.get());
       }
     } catch (final IOException ioException) {
       LOG.fatal(String.format(FILMLIST_IMPORT_ERROR_TEMPLATE, aFilmlistLocation), ioException);
+    }
+  }
+
+  /**
+   * Saves the actual difference film list for each {@link FilmlistFormats} of
+   * {@link MServerConfigDTO#getFilmlistSaveFormats()} in a file with the path of
+   * {@link MServerConfigDTO#getFilmlistSavePaths()}.
+   */
+  // TODO
+  public void saveDifferenceFilmlist() {
+    if (checkConfigForFilmlistSave()) {
+      config.getFilmlistSaveFormats()
+          .forEach(f -> saveFilmlist(Paths.get(config.getFilmlistSavePaths().get(f)), f));
     }
   }
 
@@ -194,31 +205,16 @@ public class CrawlerManager extends AbstractManager {
    * When configured it will be restart the crawlers after the configured schedules.
    */
   public void start() {
-      startCrawlers();
-      if(config.hasSchedules())
-      {
-          for(Entry<String, ScheduleDTO> schedule : config.getSchedules().entrySet())
-          {
-            LOG.info(String.format("Started scheduler %s. The crawlers will run every %d %s",schedule.getKey(),schedule.getValue().getDuration(),schedule.getValue().getUnit().name()));
-            executorService.scheduleAtFixedRate(new ServerTask(), schedule.getValue().getDuration(), schedule.getValue().getDuration(), schedule.getValue().getUnit());
-          }   
+    startCrawlers();
+    if (config.hasSchedules()) {
+      for (final Entry<String, ScheduleDTO> schedule : config.getSchedules().entrySet()) {
+        LOG.info(String.format("Started scheduler %s. The crawlers will run every %d %s",
+            schedule.getKey(), schedule.getValue().getDuration(),
+            schedule.getValue().getUnit().name()));
+        executorService.scheduleAtFixedRate(new ServerTask(), schedule.getValue().getDuration(),
+            schedule.getValue().getDuration(), schedule.getValue().getUnit());
       }
-  }
-  
-  /**
-   * Runs all crawler and starts a timer for
-   * {@link MServerConfigDTO#getMaximumServerDurationInMinutes()}.
-   */
-  public void startCrawlers() {
-    final TimeoutTask timeoutRunner = createTimeoutTask();
-
-    if (config.getMaximumServerDurationInMinutes() != null
-        && config.getMaximumServerDurationInMinutes() > 0) {
-      timeoutRunner.start();
     }
-    final Set<AbstractCrawler> crawlerToRun = getCrawlerToRun();
-    runCrawlers(crawlerToRun.toArray(new AbstractCrawler[crawlerToRun.size()]));
-    timeoutRunner.stopTimeout();
   }
 
   /**
@@ -243,6 +239,22 @@ public class CrawlerManager extends AbstractManager {
       }
     }
     runCrawlers(crawlers.toArray(new AbstractCrawler[crawlers.size()]));
+  }
+
+  /**
+   * Runs all crawler and starts a timer for
+   * {@link MServerConfigDTO#getMaximumServerDurationInMinutes()}.
+   */
+  public void startCrawlers() {
+    final TimeoutTask timeoutRunner = createTimeoutTask();
+
+    if (config.getMaximumServerDurationInMinutes() != null
+        && config.getMaximumServerDurationInMinutes() > 0) {
+      timeoutRunner.start();
+    }
+    final Set<AbstractCrawler> crawlerToRun = getCrawlerToRun();
+    runCrawlers(crawlerToRun.toArray(new AbstractCrawler[crawlerToRun.size()]));
+    timeoutRunner.stopTimeout();
   }
 
   /**
