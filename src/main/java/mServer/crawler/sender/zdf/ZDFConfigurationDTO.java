@@ -1,27 +1,22 @@
 package mServer.crawler.sender.zdf;
 
 import java.io.Serializable;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * A Data-Transfer-Object to transfer the ZDF configuration information.
  */
 public class ZDFConfigurationDTO implements Serializable {
     private static final long serialVersionUID = -445386435734116784L;
-    private String apiToken;
+    private final Map<ZDFClient.ZDFClientMode, String> apiToken = new HashMap<>();
 
-    /**
-     * @param aApiToken The ZDF api authentication token.
-     */
-    public ZDFConfigurationDTO(final String aApiToken) {
-        setApiToken(aApiToken);
+    public String getApiToken(ZDFClient.ZDFClientMode aClientMode) {
+        return apiToken.getOrDefault(aClientMode, "");
     }
 
-    public String getApiToken() {
-        return apiToken;
-    }
-
-    public void setApiToken(final String aApiToken) {
-        apiToken = aApiToken;
+    public void setApiToken(ZDFClient.ZDFClientMode aClientMode, final String aApiToken) {
+        apiToken.put(aClientMode, aApiToken);
     }
 
     @Override
@@ -31,12 +26,12 @@ public class ZDFConfigurationDTO implements Serializable {
 
         final ZDFConfigurationDTO that = (ZDFConfigurationDTO) o;
 
-        return getApiToken() != null ? getApiToken().equals(that.getApiToken()) : that.getApiToken() == null;
+        return getApiToken(ZDFClient.ZDFClientMode.SEARCH) != null ? getApiToken(ZDFClient.ZDFClientMode.SEARCH).equals(that.getApiToken(ZDFClient.ZDFClientMode.SEARCH)) : that.getApiToken(ZDFClient.ZDFClientMode.SEARCH) == null;
     }
 
     @Override
     public int hashCode() {
-        return getApiToken() != null ? getApiToken().hashCode() : 0;
+        return getApiToken(ZDFClient.ZDFClientMode.SEARCH) != null ? getApiToken(ZDFClient.ZDFClientMode.SEARCH).hashCode() : 0;
     }
 
 }
