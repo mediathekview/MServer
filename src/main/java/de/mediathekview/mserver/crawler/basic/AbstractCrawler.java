@@ -97,8 +97,20 @@ public abstract class AbstractCrawler implements Callable<Set<Film>> {
     printMessage(ServerMessages.CRAWLER_ERROR, getSender());
   }
 
+  public void printInvalidUrlErrorMessage(final String aInvalidUrl) {
+    incrementAndGetErrorCount();
+    updateProgress();
+    printMessage(ServerMessages.DEBUG_INVALID_URL, getSender().getName(), aInvalidUrl);
+  }
+
   public void printMessage(final Message aMessage, final Object... args) {
     messageListeners.parallelStream().forEach(l -> l.consumeMessage(aMessage, args));
+  }
+
+  public void printMissingElementErrorMessage(final String aMissingElementName) {
+    incrementAndGetErrorCount();
+    updateProgress();
+    printMessage(ServerMessages.DEBUG_MISSING_ELEMENT, getSender().getName(), aMissingElementName);
   }
 
   public void stop() {

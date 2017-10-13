@@ -24,6 +24,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import de.mediathekview.mlib.daten.Film;
 import de.mediathekview.mlib.daten.Resolution;
+import de.mediathekview.mserver.base.messages.ServerMessages;
 import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
 import de.mediathekview.mserver.crawler.br.BrCrawler;
 import mServer.crawler.CrawlerTool;
@@ -118,30 +119,32 @@ public class BrFilmDeserializer implements JsonDeserializer<Optional<Film>> {
     }
   }
 
-  private void addUrls(final Optional<Film> aNewFilm, final JsonObject viewer) {
+  private boolean addUrls(final Optional<Film> aNewFilm, final JsonObject viewer) {
     final Set<BrUrlDTO> urls = edgesToUrls(viewer);
     if (aNewFilm.isPresent()) {
-      try {
-        if (!urls.isEmpty()) {
-          // Sorts the urls by width descending, then it limits the amount to four to get the four
-          // best.
-          final List<BrUrlDTO> bestUrls =
-              urls.stream().sorted(Comparator.comparingInt(BrUrlDTO::getWidth).reversed()).limit(4)
-                  .collect(Collectors.toList());
-          boolean hasHdSet = false;
-          for (int id = 0; id < bestUrls.size(); id++) {
-            final Resolution resolution = getResolution(id, bestUrls.get(id), hasHdSet);
-            hasHdSet = hasHdSet || Resolution.HD == resolution;
+      if (!urls.isEmpty()) {
+        // Sorts the urls by width descending, then it limits the amount to four to get the four
+        // best.
+        final List<BrUrlDTO> bestUrls =
+            urls.stream().sorted(Comparator.comparingInt(BrUrlDTO::getWidth).reversed()).limit(4)
+                .collect(Collectors.toList());
+        boolean hasHdSet = false;
+        for (int id = 0; id < bestUrls.size(); id++) {
+          final Resolution resolution = getResolution(id, bestUrls.get(id), hasHdSet);
+          hasHdSet = hasHdSet || Resolution.HD == resolution;
+          try {
             aNewFilm.get().addUrl(resolution,
                 CrawlerTool.uriToFilmUrl(new URL(bestUrls.get(id).getUrl())));
+            return true;
+          } catch (final MalformedURLException malformedURLException) {
+            LOG.fatal(ERROR_VIDEO_URL, malformedURLException);
+            crawler.printMessage(ServerMessages.DEBUG_INVALID_URL, crawler.getSender().getName(),
+                bestUrls.get(id).getUrl());
           }
         }
-      } catch (final MalformedURLException malformedURLException) {
-        LOG.fatal(ERROR_VIDEO_URL, malformedURLException);
-        crawler.incrementAndGetErrorCount();
-        crawler.printErrorMessage();
       }
     }
+    return false;
 
   }
 
@@ -150,14 +153,18 @@ public class BrFilmDeserializer implements JsonDeserializer<Optional<Film>> {
     if (detailClip.isPresent()) {
       newFilm = createFilm(detailClip.get());
       addDescriptions(newFilm, detailClip.get());
-      addUrls(newFilm, viewer);
+      if (addUrls(newFilm, viewer)) {
+        return newFilm;
+      } else {
+        crawler.incrementAndGetErrorCount();
+        crawler.updateProgress();
+      }
       // TODO GEO locations
       // TODO Subtitle
     } else {
       printMissingDetails(JSON_ELEMENT_DETAIL_CLIP);
-      newFilm = Optional.empty();
     }
-    return newFilm;
+    return Optional.empty();
   }
 
 
@@ -325,8 +332,7 @@ public class BrFilmDeserializer implements JsonDeserializer<Optional<Film>> {
 
   private void printMissingDetails(final String aMissingJsonElement) {
     LOG.error(String.format(ERROR_MISSING_DETAIL_TEMPLATE, aMissingJsonElement));
-    crawler.incrementAndGetErrorCount();
-    crawler.printErrorMessage();
+    crawler.printMissingElementErrorMessage(aMissingJsonElement);
   }
 
   private Duration toDuration(final long aSeconds) {

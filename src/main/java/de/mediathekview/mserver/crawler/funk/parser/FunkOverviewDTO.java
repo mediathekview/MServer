@@ -6,8 +6,8 @@ import java.util.List;
 import java.util.Optional;
 import de.mediathekview.mserver.crawler.basic.CrawlerUrlDTO;
 
-public class FunkOverviewDTO {
-  private final List<CrawlerUrlDTO> urls;
+public class FunkOverviewDTO<T extends CrawlerUrlDTO> {
+  private final List<T> urls;
   private Optional<Integer> nextPageId;
 
   public FunkOverviewDTO() {
@@ -16,13 +16,14 @@ public class FunkOverviewDTO {
     nextPageId = Optional.empty();
   }
 
-  public boolean addAllUrls(final Collection<? extends CrawlerUrlDTO> aUrls) {
+  public boolean addAllUrls(final Collection<? extends T> aUrls) {
     return urls.addAll(aUrls);
   }
 
-  public boolean addUrl(final CrawlerUrlDTO aUrl) {
+  public boolean addUrl(final T aUrl) {
     return urls.add(aUrl);
   }
+
 
   @Override
   public boolean equals(final Object obj) {
@@ -35,9 +36,9 @@ public class FunkOverviewDTO {
     if (getClass() != obj.getClass()) {
       return false;
     }
-    final FunkOverviewDTO other = (FunkOverviewDTO) obj;
-    if (nextPageId == null) {
-      if (other.nextPageId != null) {
+    final FunkOverviewDTO<?> other = (FunkOverviewDTO<?>) obj;
+    if (nextPageId.isPresent()) {
+      if (!other.nextPageId.isPresent()) {
         return false;
       }
     } else if (!nextPageId.equals(other.nextPageId)) {
@@ -57,7 +58,7 @@ public class FunkOverviewDTO {
     return nextPageId;
   }
 
-  public List<CrawlerUrlDTO> getUrls() {
+  public List<T> getUrls() {
     return urls;
   }
 
@@ -65,7 +66,7 @@ public class FunkOverviewDTO {
   public int hashCode() {
     final int prime = 31;
     int result = 1;
-    result = prime * result + (nextPageId == null ? 0 : nextPageId.hashCode());
+    result = prime * result + (nextPageId.isPresent() ? 0 : nextPageId.hashCode());
     result = prime * result + (urls == null ? 0 : urls.hashCode());
     return result;
   }

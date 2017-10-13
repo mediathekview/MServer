@@ -19,15 +19,14 @@ import org.glassfish.jersey.message.GZipEncoder;
  *
  * @param <T>
  */
-public abstract class AbstractRestTask<T> extends AbstractUrlTask<T, CrawlerUrlDTO> {
+public abstract class AbstractRestTask<T, D extends CrawlerUrlDTO> extends AbstractUrlTask<T, D> {
   private static final long serialVersionUID = 2590729915326002860L;
   protected static final String HEADER_AUTHORIZATION = "Authorization";
   protected final transient Optional<String> authKey;
   private final Client client;
 
   public AbstractRestTask(final AbstractCrawler aCrawler,
-      final ConcurrentLinkedQueue<CrawlerUrlDTO> aUrlToCrawlDTOs,
-      final Optional<String> aAuthKey) {
+      final ConcurrentLinkedQueue<D> aUrlToCrawlDTOs, final Optional<String> aAuthKey) {
     super(aCrawler, aUrlToCrawlDTOs);
     authKey = aAuthKey;
 
@@ -38,13 +37,13 @@ public abstract class AbstractRestTask<T> extends AbstractUrlTask<T, CrawlerUrlD
   }
 
 
-  protected abstract void processRestTarget(CrawlerUrlDTO aUrlDTO, WebTarget aTarget);
+  protected abstract void processRestTarget(D aDTO, WebTarget aTarget);
 
 
   @Override
-  protected void processUrl(final CrawlerUrlDTO aUrlDTO) {
-    final WebTarget target = client.target(aUrlDTO.getUrl());
-    processRestTarget(aUrlDTO, target);
+  protected void processUrl(final D aDTO) {
+    final WebTarget target = client.target(aDTO.getUrl());
+    processRestTarget(aDTO, target);
   }
 
 }

@@ -73,11 +73,8 @@ public class BrSendungDetailsTask extends RecursiveTask<Set<Film>> {
             convertedFilms.add(film.get());
             crawler.incrementAndGetActualCount();
             crawler.updateProgress();
-        } else {
-            crawler.incrementAndGetErrorCount();
         }
     });
-
   }
 
   @Override
