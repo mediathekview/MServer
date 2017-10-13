@@ -1,18 +1,17 @@
 package de.mediathekview.mserver.crawler.br.tasks;
 
+import java.net.URL;
 import java.time.LocalDateTime;
 import java.util.Set;
 import java.util.concurrent.Callable;
-import javax.ws.rs.client.Client;
-import javax.ws.rs.client.ClientBuilder;
-import javax.ws.rs.client.Entity;
-import javax.ws.rs.client.WebTarget;
-import javax.ws.rs.core.MediaType;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.google.gson.JsonSyntaxException;
+
+import de.mediathekview.mlib.communication.WebAccessHelper;
 import de.mediathekview.mserver.base.Consts;
 import de.mediathekview.mserver.base.config.MServerBasicConfigDTO;
 import de.mediathekview.mserver.base.config.MServerConfigManager;
@@ -29,7 +28,8 @@ public class BrSendungsFolgenTask implements Callable<Set<String>> {
   private final MServerBasicConfigDTO config;
   private final String sendungsReihenId;
   private final AbstractCrawler crawler;
-
+  private BrIdsDTO sendungsFolgen; 
+    
   public BrSendungsFolgenTask(final AbstractCrawler aCrawler, final String aSendungsReihenId) {
     crawler = aCrawler;
     config = MServerConfigManager.getInstance().getConfig(aCrawler.getSender());
@@ -38,33 +38,23 @@ public class BrSendungsFolgenTask implements Callable<Set<String>> {
 
   @Override
   public Set<String> call() {
-    BrIdsDTO sendungsFolgen;
-    try {
-      final Client client = ClientBuilder.newClient();
-      final WebTarget target = client.target(Consts.BR_API_URL);
+    sendungsFolgen = new BrIdsDTO();
+  
+    BrWebAccessHelper.handleWebAccessExecution(LOG, crawler, () -> {
 
-      final Gson gson = new GsonBuilder()
-          .registerTypeAdapter(BrIdsDTO.class, new BrSendungsFolgenDeserializer(crawler)).create();
-
-      // 2017-09-19T16:52:25.559Z
-      final String todayDateString = LocalDateTime.now().format(Consts.BR_FORMATTER);
-      final int folgenCount = config.getMaximumSubpages() + 1 * VIRTUAL_PAGE_COUNT;
-      final String response =
-          target.request(MediaType.APPLICATION_JSON_TYPE)
-              .post(
-                  Entity.entity(String.format(QUERY_TEMPLATE, sendungsReihenId, folgenCount,
-                      folgenCount, todayDateString), MediaType.APPLICATION_JSON_TYPE),
-                  String.class);
-      sendungsFolgen = gson.fromJson(response, BrIdsDTO.class);
-
-    } catch (final JsonSyntaxException jsonSyntaxException) {
-      LOG.error(String.format(Consts.JSON_SYNTAX_ERROR,
-          Consts.BR_API_URL + " with " + sendungsReihenId, crawler.getSender().getName()),
-          jsonSyntaxException);
-      crawler.incrementAndGetErrorCount();
-      crawler.printErrorMessage();
-      sendungsFolgen = new BrIdsDTO();
-    }
+        final Gson gson = new GsonBuilder()
+                .registerTypeAdapter(BrIdsDTO.class, new BrSendungsFolgenDeserializer(crawler)).create();
+        
+        // 2017-09-19T16:52:25.559Z
+        final String todayDateString = LocalDateTime.now().format(Consts.BR_FORMATTER);
+        final int folgenCount = config.getMaximumSubpages() + 1 * VIRTUAL_PAGE_COUNT;
+        
+        final String response = WebAccessHelper.getJsonResultFromPostAccess(new URL(Consts.BR_API_URL), String.format(QUERY_TEMPLATE, sendungsReihenId, folgenCount,
+                folgenCount, todayDateString));
+        
+        sendungsFolgen = gson.fromJson(response, BrIdsDTO.class);
+    });
+    
     return sendungsFolgen.getIds();
   }
 
