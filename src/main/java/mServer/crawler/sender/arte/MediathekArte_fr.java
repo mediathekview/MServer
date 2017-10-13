@@ -20,19 +20,20 @@
 package mServer.crawler.sender.arte;
 
 import de.mediathekview.mlib.Const;
+import de.mediathekview.mlib.daten.Sender;
 import mServer.crawler.FilmeSuchen;
 
-public class MediathekArte_fr extends MediathekArte_de {
+public class MediathekArte_fr extends MediathekArte_de
+{
 
-    private final static String SENDERNAME = Const.ARTE_FR;
 
     /**
-     *
      * @param ssearch
      * @param startPrio
      */
-    public MediathekArte_fr(FilmeSuchen ssearch, int startPrio) {
-        super(ssearch, startPrio, SENDERNAME);
+    public MediathekArte_fr(FilmeSuchen ssearch, int startPrio)
+    {
+        super(ssearch, startPrio, Sender.ARTE_FR);
         URL_CONCERT = "http://concert.arte.tv/fr/videos/all";
         URL_CONCERT_NOT_CONTAIN = "-STA";
         TIME_1 = "<li>Diffusion :</li>";

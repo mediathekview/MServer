@@ -7,7 +7,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
 import java.lang.reflect.Type;
-import mServer.crawler.sender.newsearch.Qualities;
+import de.mediathekview.mlib.daten.Qualities;
 
 public class DwVideoDeserializer implements JsonDeserializer<DwVideoDTO> {
     

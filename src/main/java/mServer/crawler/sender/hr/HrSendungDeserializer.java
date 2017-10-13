@@ -1,10 +1,12 @@
 package mServer.crawler.sender.hr;
 
-import de.mediathekview.mlib.Const;
-import de.mediathekview.mlib.daten.DatenFilm;
+import de.mediathekview.mlib.daten.Film;
+import de.mediathekview.mlib.daten.Sender;
+import java.net.URISyntaxException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import mServer.crawler.CrawlerTool;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.jsoup.nodes.Document;
@@ -32,7 +34,7 @@ public class HrSendungDeserializer {
 
     private static final Logger LOG = LogManager.getLogger(HrSendungDeserializer.class);
     
-    public DatenFilm deserialize(String theme, String documentUrl, Document document) {
+    public Film deserialize(String theme, String documentUrl, Document document) throws URISyntaxException {
         
         String date = "";
         String description;
@@ -62,7 +64,7 @@ public class HrSendungDeserializer {
         duration = getDuration(document);
         description = getDescription(document);
         
-        return new DatenFilm(Const.HR, theme, documentUrl, title, videoUrl, "", date, time, duration, description);
+        return CrawlerTool.createFilm(Sender.HR, videoUrl, title, theme, date, time, duration, documentUrl, description, "", "");
     }
     
     private String prepareBroadcast(String broadcast) {
