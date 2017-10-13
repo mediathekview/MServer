@@ -1,7 +1,7 @@
 package mServer.crawler.sender.wdr;
 
 import de.mediathekview.mlib.Config;
-import de.mediathekview.mlib.daten.DatenFilm;
+import de.mediathekview.mlib.daten.Film;
 import de.mediathekview.mlib.daten.ListeFilme;
 import de.mediathekview.mlib.tool.Log;
 import java.io.IOException;
@@ -38,7 +38,7 @@ public class WdrSendungCallable implements Callable<ListeFilme> {
 
             aDto.getVideoUrls().forEach(url -> {
                 if(isUrlRelevant(url)) {
-                    DatenFilm film = parseFilmPage(url, aDto.getTheme());
+                    Film film = parseFilmPage(url, aDto.getTheme());
                     if(film != null) {
                         list.add(film);
                     }
@@ -49,7 +49,7 @@ public class WdrSendungCallable implements Callable<ListeFilme> {
         return list;
     }
     
-    private Collection<DatenFilm> parseSendungOverviewPage(String strUrl, String parentTheme, int recoursiveCall) {
+    private Collection<Film> parseSendungOverviewPage(String strUrl, String parentTheme, int recoursiveCall) {
         
         if(!isUrlRelevant(strUrl)) {
             return new ArrayList<>();
@@ -87,7 +87,7 @@ public class WdrSendungCallable implements Callable<ListeFilme> {
             return true;
         }
 
-        private DatenFilm parseFilmPage(String filmWebsite, String theme) {
+        private Film parseFilmPage(String filmWebsite, String theme) {
             
             if(Config.getStop()) {
                 return null;
@@ -96,7 +96,7 @@ public class WdrSendungCallable implements Callable<ListeFilme> {
             try {
                 Document filmDocument = Jsoup.connect(filmWebsite).get();
                 WdrVideoDetailsDeserializer deserializer = new WdrVideoDetailsDeserializer(new WdrUrlLoader());
-                DatenFilm film = deserializer.deserialize(theme, filmDocument);
+                Film film = deserializer.deserialize(theme, filmDocument);
 
                 return film;
             } catch(IOException ex) {
