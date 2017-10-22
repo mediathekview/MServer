@@ -91,7 +91,7 @@ public class MediathekHr extends MediathekReader {
             meldungProgress(dto.getUrl());
         });
 
-        futureFilme.parallelStream().forEach(e -> {
+        futureFilme.forEach(e -> {
             try {
                 ListeFilme filmList = e.get();
                 if(filmList != null) {
