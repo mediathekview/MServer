@@ -1,8 +1,8 @@
 package mServer.crawler.sender.wdr;
 
+import de.mediathekview.mlib.daten.Qualities;
 import java.util.Arrays;
 import java.util.Collection;
-import mServer.crawler.sender.newsearch.Qualities;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.junit.Assert.assertThat;
