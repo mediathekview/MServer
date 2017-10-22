@@ -464,10 +464,10 @@ public class MediathekNdr extends MediathekReader implements Runnable
             url_xl = url_xl.replaceFirst(https, http);
             url_m = url_m.replaceFirst(https, http);
 
-            if (subtitle.isEmpty())
-            {
-                subtitle = seite3.extract("\"tracks\":", "\"/", "\"", "http://www.ndr.de/");
+            if (subtitle.isEmpty()) {
+                subtitle = seite3.extract("\"_subtitleUrl\":", "\"/", "\"", "http://www.ndr.de/");
             }
+
             if (!url_xl.isEmpty())
             {
                 try
