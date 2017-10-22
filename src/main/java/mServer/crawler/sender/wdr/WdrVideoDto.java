@@ -1,9 +1,8 @@
 package mServer.crawler.sender.wdr;
 
+import de.mediathekview.mlib.daten.Qualities;
 import java.util.HashMap;
 import java.util.Map;
-
-import mServer.crawler.sender.newsearch.Qualities;
 
 public class WdrVideoDto {
     private final Map<Qualities,String> videoUrls;
