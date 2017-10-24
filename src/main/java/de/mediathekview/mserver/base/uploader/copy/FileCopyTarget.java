@@ -7,11 +7,11 @@ import de.mediathekview.mserver.base.uploader.UploadTarget;
 public class FileCopyTarget implements UploadTarget {
     private Path targetFolderPath;
     
-    public FileCopyTarget(Path aTargetFolderPath) {
-        targetFolderPath = aTargetFolderPath;
+    public FileCopyTarget(Path aTargetPath) {
+        targetFolderPath = aTargetPath;
     }
     
-    public Path getTargetFolderPath() {
+    public Path getTargetPath() {
         return targetFolderPath;
     }
 }
