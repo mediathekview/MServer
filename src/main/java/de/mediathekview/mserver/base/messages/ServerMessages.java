@@ -35,6 +35,8 @@ public enum ServerMessages implements Message
     UI_UNKNOWN_ARGUMENT("uiUnknownArgument", MessageTypes.FATAL_ERROR),
     UI_GENERATE_DEFAULT_CONFIG_FILE_FAILED("uiGenerateDefaultConfigFileFailed", MessageTypes.FATAL_ERROR),
     
+    FILE_COPY_ERROR("fileCopyError", MessageTypes.ERROR),
+    
     DEBUG_MSSING_SENDUNGFOLGEN_COUNT("debugMissingSendungfolgenCount",MessageTypes.DEBUG),
     DEBUG_ALL_SENDUNG_COUNT("debugAllSendungCount",MessageTypes.DEBUG),
     DEBUG_ALL_SENDUNG_FOLGEN_COUNT("debugAllSendungFolgenCount",MessageTypes.DEBUG), 

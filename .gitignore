@@ -2,6 +2,7 @@ dist/javadoc
 
 nbproject
 .nb-gradle
+test/
 
 *.class
 *.zip
@@ -22,4 +23,3 @@ build/
 version.properties
 RepoZugang.properties
 
-/logs/
