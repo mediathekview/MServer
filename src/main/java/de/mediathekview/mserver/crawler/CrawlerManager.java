@@ -32,10 +32,13 @@ import de.mediathekview.mlib.filmlisten.FilmlistManager;
 import de.mediathekview.mlib.progress.ProgressListener;
 import de.mediathekview.mserver.base.config.MServerConfigDTO;
 import de.mediathekview.mserver.base.config.MServerConfigManager;
+import de.mediathekview.mserver.base.config.MServerCopySettings;
 import de.mediathekview.mserver.base.config.MServerFTPSettings;
 import de.mediathekview.mserver.base.config.ScheduleDTO;
 import de.mediathekview.mserver.base.messages.ServerMessages;
 import de.mediathekview.mserver.base.progress.AbstractManager;
+import de.mediathekview.mserver.base.uploader.copy.FileCopyTarget;
+import de.mediathekview.mserver.base.uploader.copy.FileCopyTask;
 import de.mediathekview.mserver.base.uploader.ftp.FtpUploadTarget;
 import de.mediathekview.mserver.base.uploader.ftp.FtpUploadTask;
 import de.mediathekview.mserver.crawler.ard.ArdCrawler;
@@ -67,8 +70,9 @@ public class CrawlerManager extends AbstractManager {
   private final Map<Sender, AbstractCrawler> crawlerMap;
 
   private final FilmlistManager filmlistManager;
+  private final Collection<ProgressListener> copyProgressListeners;
   private final Collection<ProgressListener> ftpProgressListeners;
-  private Object differenceList;
+  private Filmlist differenceList;
 
   private CrawlerManager() {
     super();
@@ -81,6 +85,7 @@ public class CrawlerManager extends AbstractManager {
     filmlist = new Filmlist();
     filmlistManager = FilmlistManager.getInstance();
     ftpProgressListeners = new ArrayList<>();
+    copyProgressListeners = new ArrayList<>();
     initializeCrawler();
   }
 
@@ -91,13 +96,63 @@ public class CrawlerManager extends AbstractManager {
     return instance;
   }
 
+  public boolean addAllCopyProgressListener(
+      final Collection<? extends ProgressListener> aCopyProgressListener) {
+    return copyProgressListeners.addAll(aCopyProgressListener);
+  }
+
   public boolean addAllFTPProgressListener(
       final Collection<? extends ProgressListener> aFTPProgressListener) {
     return ftpProgressListeners.addAll(aFTPProgressListener);
   }
 
+  public boolean addCopyProgressListener(final ProgressListener aCopyProgressListener) {
+    return copyProgressListeners.add(aCopyProgressListener);
+  }
+
   public boolean addFTPProgressListener(final ProgressListener aFTPProgressListener) {
     return ftpProgressListeners.add(aFTPProgressListener);
+  }
+
+  public void copyFilmlist() {
+    final MServerCopySettings copySettings = config.getCopySettings();
+    if (copySettings.getCopyEnabled() != null && copySettings.getCopyEnabled()) {
+      for (final Entry<FilmlistFormats, String> copyEntry : copySettings.getCopyTargetFilePaths()
+          .entrySet()) {
+        copyFilmlist(copyEntry.getKey(), new FileCopyTarget(Paths.get(copyEntry.getValue())),
+            false);
+      }
+      for (final Entry<FilmlistFormats, String> copyEntry : copySettings
+          .getCopyTargetDiffFilePaths().entrySet()) {
+        copyFilmlist(copyEntry.getKey(), new FileCopyTarget(Paths.get(copyEntry.getValue())), true);
+      }
+    }
+  }
+
+  public void copyFilmlist(final FilmlistFormats aFilmlistFormat,
+      final FileCopyTarget aFileCopyTarget, final boolean isDiffList) {
+    Set<FilmlistFormats> formats;
+    Map<FilmlistFormats, String> paths;
+    if (isDiffList) {
+      formats = config.getFilmlistDiffSavePaths().keySet();
+      paths = config.getFilmlistDiffSavePaths();
+    } else {
+      formats = config.getFilmlistSaveFormats();
+      paths = config.getFilmlistSavePaths();
+    }
+
+    if (formats.contains(aFilmlistFormat)) {
+      copyFilmlist(Paths.get(paths.get(aFilmlistFormat)), aFileCopyTarget);
+    } else {
+      printMessage(ServerMessages.FORMAT_NOT_IN_SAVE_FORMATS, aFilmlistFormat);
+    }
+  }
+
+  public void copyFilmlist(final Path aFilmlistPath, final FileCopyTarget aFileCopyTarget) {
+    final FileCopyTask copyUploadTask = new FileCopyTask(aFilmlistPath, aFileCopyTarget);
+    copyUploadTask.addAllMessageListener(messageListeners);
+    copyUploadTask.addAllProgressListener(copyProgressListeners);
+    executorService.execute(copyUploadTask);
   }
 
   public Set<Sender> getAviableSenderToCrawl() {
@@ -144,12 +199,9 @@ public class CrawlerManager extends AbstractManager {
    * {@link MServerConfigDTO#getFilmlistSaveFormats()} in a file with the path of
    * {@link MServerConfigDTO#getFilmlistSavePaths()}.
    */
-  // TODO
   public void saveDifferenceFilmlist() {
-    if (checkConfigForFilmlistSave()) {
-      config.getFilmlistSaveFormats()
-          .forEach(f -> saveFilmlist(Paths.get(config.getFilmlistSavePaths().get(f)), f));
-    }
+    config.getFilmlistDiffSavePaths().entrySet()
+        .forEach(f -> saveFilmlist(Paths.get(f.getValue()), f.getKey()));
   }
 
   /**
@@ -171,6 +223,18 @@ public class CrawlerManager extends AbstractManager {
    * @param aFormat The {@link FilmlistFormats} in which the film list should be saved to.
    */
   public void saveFilmlist(final Path aSavePath, final FilmlistFormats aFormat) {
+    saveFilmlist(aSavePath, aFormat, false);
+  }
+
+  /**
+   * Saves the actual film list with the given {@link FilmlistFormats} to the given path.
+   *
+   * @param aSavePath The path where to save the film list.
+   * @param aFormat The {@link FilmlistFormats} in which the film list should be saved to.
+   * @param aIsDiff When true the diff list will be saved instead of the full film list.
+   */
+  public void saveFilmlist(final Path aSavePath, final FilmlistFormats aFormat,
+      final boolean aIsDiff) {
     final Path filteredSavePath = filterPath(aSavePath);
 
     Path filmlistFileSafePath;
@@ -187,7 +251,11 @@ public class CrawlerManager extends AbstractManager {
     if (Files.exists(filmlistFileSafePath.getParent())) {
       if (Files.isWritable(filmlistFileSafePath.getParent())) {
         filmlistManager.addAllMessageListener(messageListeners);
-        filmlistManager.save(aFormat, filmlist, filmlistFileSafePath);
+        if (aIsDiff) {
+          filmlistManager.save(aFormat, differenceList, filmlistFileSafePath);
+        } else {
+          filmlistManager.save(aFormat, filmlist, filmlistFileSafePath);
+        }
 
       } else {
         printMessage(ServerMessages.FILMLIST_SAVE_PATH_MISSING_RIGHTS,
@@ -267,7 +335,8 @@ public class CrawlerManager extends AbstractManager {
 
   /**
    * Uploads, if enabled trough {@link MServerFTPSettings#getFtpEnabled()}, the film list with each
-   * {@link MServerFTPSettings#getFtpTargetFilePaths()} to
+   * {@link MServerFTPSettings#getFtpTargetFilePaths()} and
+   * {@link MServerFTPSettings#getFtpTargetDiffFilePaths()}} to
    * {@link MServerFTPSettings#getFtpUrl()}.<br>
    * <br>
    * It will use the default port 21 or if set the port of {@link MServerFTPSettings#getFtpPort()}.
@@ -284,23 +353,11 @@ public class CrawlerManager extends AbstractManager {
     if (ftpSettings.getFtpEnabled() != null && ftpSettings.getFtpEnabled()) {
       for (final Entry<FilmlistFormats, String> ftpFilePathsEntry : ftpSettings
           .getFtpTargetFilePaths().entrySet()) {
-        FtpUploadTarget ftpUploadTarget;
-        ftpUploadTarget =
-            new FtpUploadTarget(ftpSettings.getFtpUrl(), ftpFilePathsEntry.getValue());
-
-        if (ftpSettings.getFtpPort() != null) {
-          ftpUploadTarget.setPort(Optional.of(ftpSettings.getFtpPort()));
-        }
-
-        if (ftpSettings.getFtpUsername() != null) {
-          ftpUploadTarget.setUsername(Optional.of(ftpSettings.getFtpUsername()));
-        }
-
-        if (ftpSettings.getFtpPassword() != null) {
-          ftpUploadTarget.setPassword(Optional.of(ftpSettings.getFtpPassword()));
-        }
-
-        uploadFilmlist(ftpFilePathsEntry.getKey(), ftpUploadTarget);
+        uploadFTPEntry(ftpSettings, ftpFilePathsEntry, false);
+      }
+      for (final Entry<FilmlistFormats, String> ftpDiffFilePathsEntry : ftpSettings
+          .getFtpTargetDiffFilePaths().entrySet()) {
+        uploadFTPEntry(ftpSettings, ftpDiffFilePathsEntry, true);
       }
     }
   }
@@ -317,12 +374,21 @@ public class CrawlerManager extends AbstractManager {
    * @param aFtpUploadTarget The settings where to upload to of {@link FtpUploadTarget}.
    */
   public void uploadFilmlist(final FilmlistFormats aFilmlistFormat,
-      final FtpUploadTarget aFtpUploadTarget) {
-    if (config.getFilmlistSaveFormats().contains(aFilmlistFormat)) {
-      uploadFilmlist(Paths.get(config.getFilmlistSavePaths().get(aFilmlistFormat)),
-          aFtpUploadTarget);
+      final FtpUploadTarget aFtpUploadTarget, final boolean isDiffList) {
+    Set<FilmlistFormats> formats;
+    Map<FilmlistFormats, String> paths;
+    if (isDiffList) {
+      formats = config.getFilmlistDiffSavePaths().keySet();
+      paths = config.getFilmlistDiffSavePaths();
     } else {
-      printMessage(ServerMessages.FTP_FORMAT_NOT_IN_SAVE_FORMATS, aFilmlistFormat);
+      formats = config.getFilmlistSaveFormats();
+      paths = config.getFilmlistSavePaths();
+    }
+
+    if (formats.contains(aFilmlistFormat)) {
+      uploadFilmlist(Paths.get(paths.get(aFilmlistFormat)), aFtpUploadTarget);
+    } else {
+      printMessage(ServerMessages.FORMAT_NOT_IN_SAVE_FORMATS, aFilmlistFormat);
     }
   }
 
@@ -457,6 +523,26 @@ public class CrawlerManager extends AbstractManager {
       printMessage(ServerMessages.SERVER_ERROR);
       LOG.fatal("Something went wrong while exeuting the crawlers.", exception);
     }
+  }
+
+  private void uploadFTPEntry(final MServerFTPSettings ftpSettings,
+      final Entry<FilmlistFormats, String> ftpFilePathsEntry, final boolean aIsDiffList) {
+    FtpUploadTarget ftpUploadTarget;
+    ftpUploadTarget = new FtpUploadTarget(ftpSettings.getFtpUrl(), ftpFilePathsEntry.getValue());
+
+    if (ftpSettings.getFtpPort() != null) {
+      ftpUploadTarget.setPort(Optional.of(ftpSettings.getFtpPort()));
+    }
+
+    if (ftpSettings.getFtpUsername() != null) {
+      ftpUploadTarget.setUsername(Optional.of(ftpSettings.getFtpUsername()));
+    }
+
+    if (ftpSettings.getFtpPassword() != null) {
+      ftpUploadTarget.setPassword(Optional.of(ftpSettings.getFtpPassword()));
+    }
+
+    uploadFilmlist(ftpFilePathsEntry.getKey(), ftpUploadTarget, aIsDiffList);
   }
 
 }

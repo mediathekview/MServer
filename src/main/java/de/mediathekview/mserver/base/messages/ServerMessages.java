@@ -30,10 +30,13 @@ public enum ServerMessages implements Message
     FTP_URL_ERROR("ftpUrlError", MessageTypes.ERROR),
     FILMLIST_FTP_UPLOAD_ERROR("filmlistFtpUploadError", MessageTypes.ERROR),
     FTP_FILE_SIZE_ERROR("ftpFileSizeError", MessageTypes.ERROR),
-    FTP_FORMAT_NOT_IN_SAVE_FORMATS("ftpFormatNotInSaveFormats", MessageTypes.ERROR),
+    FORMAT_NOT_IN_SAVE_FORMATS("formatNotInSaveFormats", MessageTypes.ERROR),
     UI_TO_MANY_ARGUMENTS("uiToManyArguments", MessageTypes.ERROR),
     UI_UNKNOWN_ARGUMENT("uiUnknownArgument", MessageTypes.FATAL_ERROR),
     UI_GENERATE_DEFAULT_CONFIG_FILE_FAILED("uiGenerateDefaultConfigFileFailed", MessageTypes.FATAL_ERROR),
+    
+    FILE_COPY_ERROR("fileCopyError", MessageTypes.ERROR),
+    FILE_COPY_TARGET_EXISTS("fileCopyTargetExists",MessageTypes.WARNING),
     
     DEBUG_MSSING_SENDUNGFOLGEN_COUNT("debugMissingSendungfolgenCount",MessageTypes.DEBUG),
     DEBUG_ALL_SENDUNG_COUNT("debugAllSendungCount",MessageTypes.DEBUG),

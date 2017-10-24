@@ -31,9 +31,11 @@ public class MServerConfigDTO extends MServerBasicConfigDTO implements ConfigDTO
 
   private Set<FilmlistFormats> filmlistSaveFormats;
   private Map<FilmlistFormats, String> filmlistSavePaths;
+  private final Map<FilmlistFormats, String> filmlistDiffSavePaths;
   private FilmlistFormats filmlistImportFormat;
   private String filmlistImportLocation;
 
+  private final MServerCopySettings copySettings;
   private MServerFTPSettings ftpSettings;
   private MServerLogSettingsDTO logSettings;
 
@@ -44,6 +46,8 @@ public class MServerConfigDTO extends MServerBasicConfigDTO implements ConfigDTO
     filmlistSaveFormats = new HashSet<>();
     schedules = new HashMap<>();
     filmlistSavePaths = new EnumMap<>(FilmlistFormats.class);
+    filmlistDiffSavePaths = new EnumMap<>(FilmlistFormats.class);
+    copySettings = new MServerCopySettings();
     ftpSettings = new MServerFTPSettings();
     logSettings = new MServerLogSettingsDTO();
 
@@ -70,10 +74,24 @@ public class MServerConfigDTO extends MServerBasicConfigDTO implements ConfigDTO
     if (!super.equals(obj)) {
       return false;
     }
-    if (!(obj instanceof MServerConfigDTO)) {
+    if (getClass() != obj.getClass()) {
       return false;
     }
     final MServerConfigDTO other = (MServerConfigDTO) obj;
+    if (copySettings == null) {
+      if (other.copySettings != null) {
+        return false;
+      }
+    } else if (!copySettings.equals(other.copySettings)) {
+      return false;
+    }
+    if (filmlistDiffSavePaths == null) {
+      if (other.filmlistDiffSavePaths != null) {
+        return false;
+      }
+    } else if (!filmlistDiffSavePaths.equals(other.filmlistDiffSavePaths)) {
+      return false;
+    }
     if (filmlistImportFormat != other.filmlistImportFormat) {
       return false;
     }
@@ -82,13 +100,6 @@ public class MServerConfigDTO extends MServerBasicConfigDTO implements ConfigDTO
         return false;
       }
     } else if (!filmlistImportLocation.equals(other.filmlistImportLocation)) {
-      return false;
-    }
-    if (schedules == null) {
-      if (other.schedules != null) {
-        return false;
-      }
-    } else if (!schedules.equals(other.schedules)) {
       return false;
     }
     if (filmlistSaveFormats == null) {
@@ -133,6 +144,13 @@ public class MServerConfigDTO extends MServerBasicConfigDTO implements ConfigDTO
     } else if (!maximumServerDurationInMinutes.equals(other.maximumServerDurationInMinutes)) {
       return false;
     }
+    if (schedules == null) {
+      if (other.schedules != null) {
+        return false;
+      }
+    } else if (!schedules.equals(other.schedules)) {
+      return false;
+    }
     if (senderConfigurations == null) {
       if (other.senderConfigurations != null) {
         return false;
@@ -155,6 +173,14 @@ public class MServerConfigDTO extends MServerBasicConfigDTO implements ConfigDTO
       return false;
     }
     return true;
+  }
+
+  public MServerCopySettings getCopySettings() {
+    return copySettings;
+  }
+
+  public Map<FilmlistFormats, String> getFilmlistDiffSavePaths() {
+    return filmlistDiffSavePaths;
   }
 
   public FilmlistFormats getFilmlistImportFormat() {
@@ -209,10 +235,12 @@ public class MServerConfigDTO extends MServerBasicConfigDTO implements ConfigDTO
   public int hashCode() {
     final int prime = 31;
     int result = super.hashCode();
+    result = prime * result + (copySettings == null ? 0 : copySettings.hashCode());
+    result =
+        prime * result + (filmlistDiffSavePaths == null ? 0 : filmlistDiffSavePaths.hashCode());
     result = prime * result + (filmlistImportFormat == null ? 0 : filmlistImportFormat.hashCode());
     result =
         prime * result + (filmlistImportLocation == null ? 0 : filmlistImportLocation.hashCode());
-    result = prime * result + (schedules == null ? 0 : schedules.hashCode());
     result = prime * result + (filmlistSaveFormats == null ? 0 : filmlistSaveFormats.hashCode());
     result = prime * result + (filmlistSavePaths == null ? 0 : filmlistSavePaths.hashCode());
     result = prime * result + (ftpSettings == null ? 0 : ftpSettings.hashCode());
@@ -220,6 +248,7 @@ public class MServerConfigDTO extends MServerBasicConfigDTO implements ConfigDTO
     result = prime * result + (maximumCpuThreads == null ? 0 : maximumCpuThreads.hashCode());
     result = prime * result
         + (maximumServerDurationInMinutes == null ? 0 : maximumServerDurationInMinutes.hashCode());
+    result = prime * result + (schedules == null ? 0 : schedules.hashCode());
     result = prime * result + (senderConfigurations == null ? 0 : senderConfigurations.hashCode());
     result = prime * result + (senderExcluded == null ? 0 : senderExcluded.hashCode());
     result = prime * result + (senderIncluded == null ? 0 : senderIncluded.hashCode());
@@ -280,3 +309,4 @@ public class MServerConfigDTO extends MServerBasicConfigDTO implements ConfigDTO
   }
 
 }
+
