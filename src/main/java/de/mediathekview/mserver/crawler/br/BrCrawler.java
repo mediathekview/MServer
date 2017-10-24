@@ -22,7 +22,7 @@ import de.mediathekview.mserver.progress.listeners.SenderProgressListener;
 
 public class BrCrawler extends AbstractCrawler {
   private static final Logger LOG = LogManager.getLogger(BrCrawler.class);
-  public static final String BASE_URL = "https://beta.mediathek.br.de";
+  public static final String BASE_URL = "https://www.br.de/mediathek/";
 
   public BrCrawler(final ForkJoinPool aForkJoinPool,
       final Collection<MessageListener> aMessageListeners,
