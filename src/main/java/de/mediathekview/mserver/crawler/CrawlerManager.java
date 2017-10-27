@@ -274,15 +274,6 @@ public class CrawlerManager extends AbstractManager {
    */
   public void start() {
     startCrawlers();
-    if (config.hasSchedules()) {
-      for (final Entry<String, ScheduleDTO> schedule : config.getSchedules().entrySet()) {
-        LOG.info(String.format("Started scheduler %s. The crawlers will run every %d %s",
-            schedule.getKey(), schedule.getValue().getDuration(),
-            schedule.getValue().getUnit().name()));
-        executorService.scheduleAtFixedRate(new ServerTask(), schedule.getValue().getDuration(),
-            schedule.getValue().getDuration(), schedule.getValue().getUnit());
-      }
-    }
   }
 
   /**
@@ -323,6 +314,18 @@ public class CrawlerManager extends AbstractManager {
     final Set<AbstractCrawler> crawlerToRun = getCrawlerToRun();
     runCrawlers(crawlerToRun.toArray(new AbstractCrawler[crawlerToRun.size()]));
     timeoutRunner.stopTimeout();
+  }
+
+  public void startScheduling() {
+    if (config.hasSchedules()) {
+      for (final Entry<String, ScheduleDTO> schedule : config.getSchedules().entrySet()) {
+        LOG.info(String.format("Started scheduler %s. The crawlers will run every %d %s",
+            schedule.getKey(), schedule.getValue().getDuration(),
+            schedule.getValue().getUnit().name()));
+        executorService.scheduleAtFixedRate(new ServerTask(), schedule.getValue().getDuration(),
+            schedule.getValue().getDuration(), schedule.getValue().getUnit());
+      }
+    }
   }
 
   /**

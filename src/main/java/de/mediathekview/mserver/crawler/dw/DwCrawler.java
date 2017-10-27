@@ -11,6 +11,9 @@ import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
 import de.mediathekview.mserver.progress.listeners.SenderProgressListener;
 
 public class DwCrawler extends AbstractCrawler {
+  public static final String BASE_URL = "http://www.dw.com/";
+  private static final String SENDUNG_VERPASST_URL =
+      BASE_URL + "de/media-center/sendung-verpasst/s-100815";
 
   public DwCrawler(final ForkJoinPool aForkJoinPool,
       final Collection<MessageListener> aMessageListeners,
