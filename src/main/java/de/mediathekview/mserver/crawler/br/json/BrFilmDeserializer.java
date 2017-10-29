@@ -15,13 +15,16 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.UUID;
 import java.util.stream.Collectors;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
 import com.google.gson.JsonArray;
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonDeserializer;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+
 import de.mediathekview.mlib.daten.Film;
 import de.mediathekview.mlib.daten.Resolution;
 import de.mediathekview.mserver.base.messages.ServerMessages;
@@ -30,317 +33,296 @@ import de.mediathekview.mserver.crawler.br.BrCrawler;
 import mServer.crawler.CrawlerTool;
 
 public class BrFilmDeserializer implements JsonDeserializer<Optional<Film>> {
-  private static final String ERROR_NO_START_TEMPLATE =
-      "The BR film \"%s - %s\" has no broadcast start so it will using the actual date and time.";
-  private static final String HD = "HD";
-  private static final String ERROR_WEBSITE_URL =
-      "The Website Url \"%s\" can't be converted to a java URL Obj.";
-  private static final String FILM_WEBSITE_TEMPLATE = "%s/video/%s";
-  private static final String ERROR_MISSING_DETAIL_TEMPLATE =
-      "A BR film can't be created because of missing details. The JSON element \"%s\" is missing.";
+    private static final String ERROR_NO_START_TEMPLATE = "The BR film \"%s - %s\" has no broadcast start so it will using the actual date and time.";
+    private static final String ERROR_WEBSITE_URL = "The Website Url \"%s\" can't be converted to a java URL Obj.";
+    private static final String FILM_WEBSITE_TEMPLATE = "%s/video/%s";
+    private static final String ERROR_MISSING_DETAIL_TEMPLATE = "A BR film can't be created because of missing details. The JSON element \"%s\" is missing.";
 
-  private static final Logger LOG = LogManager.getLogger(BrFilmDeserializer.class);
+    private static final Logger LOG = LogManager.getLogger(BrFilmDeserializer.class);
 
-  private static final String JSON_ELEMENT_DATA = "data";
-  private static final String JSON_ELEMENT_VIEWER = "viewer";
-  private static final String JSON_ELEMENT_CLIP = "clip";
-  private static final String JSON_ELEMENT_VIDEO_FILES = "videoFiles";
-  private static final String JSON_ELEMENT_EDGES = "edges";
-  private static final String JSON_ELEMENT_NODE = "node";
-  private static final String JSON_ELEMENT_ID = "id";
+    private static final String JSON_ELEMENT_DATA = "data";
+    private static final String JSON_ELEMENT_VIEWER = "viewer";
+    private static final String JSON_ELEMENT_CLIP = "clip";
+    private static final String JSON_ELEMENT_VIDEO_FILES = "videoFiles";
+    private static final String JSON_ELEMENT_EDGES = "edges";
+    private static final String JSON_ELEMENT_NODE = "node";
+    private static final String JSON_ELEMENT_ID = "id";
 
-  private static final String JSON_ELEMENT_DETAIL_CLIP = "detailClip";
-  private static final String JSON_ELEMENT_TITLE = "title";
-  private static final String JSON_ELEMENT_KICKER = "kicker";
-  private static final String JSON_ELEMENT_DURATION = "duration";
-  private static final String JSON_ELEMENT_BROADCASTS = "broadcasts";
-  private static final String JSON_ELEMENT_START = "start";
-  private static final String JSON_ELEMENT_SHORT_DESCRIPTION = "shortDescription";
-  private static final String JSON_ELEMENT_DESCRIPTION = "description";
-  private static final String JSON_ELEMENT_PUBLIC_LOCATION = "publicLocation";
+    private static final String JSON_ELEMENT_DETAIL_CLIP = "detailClip";
+    private static final String JSON_ELEMENT_TITLE = "title";
+    private static final String JSON_ELEMENT_KICKER = "kicker";
+    private static final String JSON_ELEMENT_DURATION = "duration";
+    private static final String JSON_ELEMENT_BROADCASTS = "broadcasts";
+    private static final String JSON_ELEMENT_START = "start";
+    private static final String JSON_ELEMENT_SHORT_DESCRIPTION = "shortDescription";
+    private static final String JSON_ELEMENT_DESCRIPTION = "description";
+    private static final String JSON_ELEMENT_PUBLIC_LOCATION = "publicLocation";
 
-  private static final String JSON_ELEMENT_VIDEO_PROFILE = "videoProfile";
-  private static final String JSON_ELEMENT_WIDTH = "width";
-  private static final String ERROR_VIDEO_URL = "A video url can't be converted to a Java URL.";
+    private static final String JSON_ELEMENT_VIDEO_PROFILE = "videoProfile";
+    private static final String JSON_ELEMENT_WIDTH = "width";
+    private static final String ERROR_VIDEO_URL = "A video url can't be converted to a Java URL.";
 
+    private final AbstractCrawler crawler;
+    private final String filmId;
 
-  private final AbstractCrawler crawler;
-  private final String filmId;
-
-  public BrFilmDeserializer(final AbstractCrawler aCrawler, final String aFilmId) {
-    crawler = aCrawler;
-    filmId = aFilmId;
-  }
-
-  /**
-   * Resolves the Film details which and creates a Film of it.<br>
-   * The data has this structure:
-   * <code>data -> viewer -> clip -> videoFiles -> edges[] -> node -> id</code><br>
-   * <code>data -> viewer -> detailClip -> title</code><br>
-   * <code>data -> viewer -> detailClip -> kicker</code><br>
-   * <code>data -> viewer -> detailClip -> duration</code><br>
-   * <code>data -> viewer -> detailClip -> broadcasts -> edges[0] -> node -> start</code><br>
-   * Optional: <code>data -> viewer -> detailClip -> shortDescription</code><br>
-   * Optional: <code>data -> viewer -> detailClip -> description</code>
-   */
-  @Override
-  public Optional<Film> deserialize(final JsonElement aElement, final Type aType,
-      final JsonDeserializationContext aContext) {
-    try {
-      final Optional<JsonObject> viewer = getViewer(aElement.getAsJsonObject());
-      if (viewer.isPresent()) {
-
-        final Optional<JsonObject> detailClip = getDetailClip(viewer.get());
-
-        return buildFilm(detailClip, viewer.get());
-
-
-      } else {
-        printMissingDetails(JSON_ELEMENT_VIEWER);
-      }
-    } catch (final UnsupportedOperationException unsupportedOperationException) {
-      // This will happen when a element is JsonNull.
-      LOG.error("BR: A needed JSON element is JsonNull.", unsupportedOperationException);
+    public BrFilmDeserializer(final AbstractCrawler aCrawler, final String aFilmId) {
+        crawler = aCrawler;
+        filmId = aFilmId;
     }
 
-    return Optional.empty();
-  }
+    /**
+     * Resolves the Film details which and creates a Film of it.<br>
+     * The data has this structure:
+     * <code>data -> viewer -> clip -> videoFiles -> edges[] -> node -> id</code><br>
+     * <code>data -> viewer -> detailClip -> title</code><br>
+     * <code>data -> viewer -> detailClip -> kicker</code><br>
+     * <code>data -> viewer -> detailClip -> duration</code><br>
+     * <code>data -> viewer -> detailClip -> broadcasts -> edges[0] -> node -> start</code><br>
+     * Optional: <code>data -> viewer -> detailClip -> shortDescription</code><br>
+     * Optional: <code>data -> viewer -> detailClip -> description</code>
+     */
+    @Override
+    public Optional<Film> deserialize(final JsonElement aElement, final Type aType,
+            final JsonDeserializationContext aContext) {
+        try {
+            final Optional<JsonObject> viewer = getViewer(aElement.getAsJsonObject());
+            if (viewer.isPresent()) {
 
-  private void addDescriptions(final Optional<Film> aNewFilm, final JsonObject aDetailClip) {
-    if (aNewFilm.isPresent()) {
-      if (aDetailClip.has(JSON_ELEMENT_DESCRIPTION)
-          && !aDetailClip.get(JSON_ELEMENT_DESCRIPTION).isJsonNull()) {
-        aNewFilm.get().setBeschreibung(aDetailClip.get(JSON_ELEMENT_DESCRIPTION).getAsString());
-      } else if (aDetailClip.has(JSON_ELEMENT_SHORT_DESCRIPTION)
-          && !aDetailClip.get(JSON_ELEMENT_SHORT_DESCRIPTION).isJsonNull()) {
-        aNewFilm.get()
-            .setBeschreibung(aDetailClip.get(JSON_ELEMENT_SHORT_DESCRIPTION).getAsString());
-      }
-    }
-  }
+                final Optional<JsonObject> detailClip = getDetailClip(viewer.get());
 
-  private boolean addUrls(final Optional<Film> aNewFilm, final JsonObject viewer) {
-    final Set<BrUrlDTO> urls = edgesToUrls(viewer);
-    if (aNewFilm.isPresent()) {
-      if (!urls.isEmpty()) {
-        // Sorts the urls by width descending, then it limits the amount to four to get the four
-        // best.
-        final List<BrUrlDTO> bestUrls =
-            urls.stream().sorted(Comparator.comparingInt(BrUrlDTO::getWidth).reversed()).limit(4)
-                .collect(Collectors.toList());
-        boolean hasHdSet = false;
-        for (int id = 0; id < bestUrls.size(); id++) {
-          final Resolution resolution = getResolution(id, bestUrls.get(id), hasHdSet);
-          hasHdSet = hasHdSet || Resolution.HD == resolution;
-          try {
-            aNewFilm.get().addUrl(resolution,
-                CrawlerTool.uriToFilmUrl(new URL(bestUrls.get(id).getUrl())));
-            return true;
-          } catch (final MalformedURLException malformedURLException) {
-            LOG.fatal(ERROR_VIDEO_URL, malformedURLException);
-            crawler.printMessage(ServerMessages.DEBUG_INVALID_URL, crawler.getSender().getName(),
-                bestUrls.get(id).getUrl());
-          }
+                return buildFilm(detailClip, viewer.get());
+
+            } else {
+                printMissingDetails(JSON_ELEMENT_VIEWER);
+            }
+        } catch (final UnsupportedOperationException unsupportedOperationException) {
+            // This will happen when a element is JsonNull.
+            LOG.error("BR: A needed JSON element is JsonNull.", unsupportedOperationException);
         }
-      }
+
+        return Optional.empty();
     }
-    return false;
 
-  }
-
-  private Optional<Film> buildFilm(final Optional<JsonObject> detailClip, final JsonObject viewer) {
-    final Optional<Film> newFilm;
-    if (detailClip.isPresent()) {
-      newFilm = createFilm(detailClip.get());
-      addDescriptions(newFilm, detailClip.get());
-      if (addUrls(newFilm, viewer)) {
-        return newFilm;
-      } else {
-        crawler.incrementAndGetErrorCount();
-        crawler.updateProgress();
-      }
-      // TODO GEO locations
-      // TODO Subtitle
-    } else {
-      printMissingDetails(JSON_ELEMENT_DETAIL_CLIP);
-    }
-    return Optional.empty();
-  }
-
-
-  private Optional<Film> createFilm(final JsonObject aDetailClip) {
-    final Optional<JsonElement> start = getBroadcastStart(aDetailClip);
-    if (aDetailClip.has(JSON_ELEMENT_TITLE) && aDetailClip.has(JSON_ELEMENT_KICKER)
-        && aDetailClip.has(JSON_ELEMENT_DURATION)) {
-      final String title = aDetailClip.get(JSON_ELEMENT_TITLE).getAsString();
-      final String thema = aDetailClip.get(JSON_ELEMENT_KICKER).getAsString();
-
-      final LocalDateTime time;
-      if (start.isPresent()) {
-        time = toTime(start.get().getAsString());
-      } else {
-        time = LocalDateTime.now();
-        LOG.debug(String.format(ERROR_NO_START_TEMPLATE, thema, title));
-      }
-      final Duration duration = toDuration(aDetailClip.get(JSON_ELEMENT_DURATION).getAsLong());
-
-      final String website = String.format(FILM_WEBSITE_TEMPLATE, BrCrawler.BASE_URL, filmId);
-      try {
-        return Optional.of(new Film(UUID.randomUUID(), new ArrayList<>(), crawler.getSender(),
-            title, thema, time, duration, new URL(website)));
-      } catch (final MalformedURLException malformedURLException) {
-        LOG.fatal(String.format(ERROR_WEBSITE_URL, website), malformedURLException);
-        crawler.incrementAndGetErrorCount();
-        crawler.printErrorMessage();
-      }
-    } else {
-      if (!aDetailClip.has(JSON_ELEMENT_TITLE)) {
-        printMissingDetails(JSON_ELEMENT_TITLE);
-      }
-
-      if (!aDetailClip.has(JSON_ELEMENT_KICKER)) {
-        printMissingDetails(JSON_ELEMENT_KICKER);
-      }
-
-      if (!aDetailClip.has(JSON_ELEMENT_DURATION)) {
-        printMissingDetails(JSON_ELEMENT_DURATION);
-      }
-    }
-    return Optional.empty();
-  }
-
-  private Set<BrUrlDTO> edgesToUrls(final JsonObject viewer) {
-    final Set<BrUrlDTO> urls = new HashSet<>();
-    final Optional<JsonArray> edges = getVideoFileEdges(viewer);
-    if (edges.isPresent()) {
-      for (final JsonElement edge : edges.get()) {
-        final JsonObject ebdgeObj = edge.getAsJsonObject();
-        if (ebdgeObj.has(JSON_ELEMENT_NODE)) {
-          final JsonObject node = ebdgeObj.getAsJsonObject(JSON_ELEMENT_NODE);
-          final Optional<BrUrlDTO> url = nodeToUrl(node);
-          if (url.isPresent()) {
-            urls.add(url.get());
-          }
+    private void addDescriptions(final Optional<Film> aNewFilm, final JsonObject aDetailClip) {
+        if (aNewFilm.isPresent()) {
+            if (aDetailClip.has(JSON_ELEMENT_DESCRIPTION) && !aDetailClip.get(JSON_ELEMENT_DESCRIPTION).isJsonNull()) {
+                aNewFilm.get().setBeschreibung(aDetailClip.get(JSON_ELEMENT_DESCRIPTION).getAsString());
+            } else if (aDetailClip.has(JSON_ELEMENT_SHORT_DESCRIPTION)
+                    && !aDetailClip.get(JSON_ELEMENT_SHORT_DESCRIPTION).isJsonNull()) {
+                aNewFilm.get().setBeschreibung(aDetailClip.get(JSON_ELEMENT_SHORT_DESCRIPTION).getAsString());
+            }
         }
-      }
-    }
-    return urls;
-  }
-
-  private Optional<JsonElement> getBroadcastStart(final JsonObject aDetailClip) {
-    if (!aDetailClip.has(JSON_ELEMENT_BROADCASTS)) {
-      return Optional.empty();
     }
 
-    final JsonObject broadcast = aDetailClip.getAsJsonObject(JSON_ELEMENT_BROADCASTS);
-    if (!broadcast.has(JSON_ELEMENT_EDGES)) {
-      return Optional.empty();
+    private boolean addUrls(final Optional<Film> aNewFilm, final JsonObject viewer) {
+        final Set<BrUrlDTO> urls = edgesToUrls(viewer);
+        boolean hasURLs = false;
+        if (aNewFilm.isPresent() && !urls.isEmpty()) {
+            // Sorts the urls by width descending 
+            final List<BrUrlDTO> bestUrls = urls.stream().sorted(Comparator.comparingInt(BrUrlDTO::getWidth).reversed())
+                    .collect(Collectors.toList());
+
+            for (int id = 0; id < bestUrls.size(); id++) {
+                final Resolution resolution = Resolution
+                        .getResolutionFromArdAudioVideoOrdinalsByProfileName(bestUrls.get(id).getVideoProfile());
+                try {
+                    if(!aNewFilm.get().getUrls().containsKey(resolution)) {
+                        aNewFilm.get().addUrl(resolution, CrawlerTool.uriToFilmUrl(new URL(bestUrls.get(id).getUrl())));
+                        hasURLs = true;
+                    }
+                } catch (final MalformedURLException malformedURLException) {
+                    LOG.fatal(ERROR_VIDEO_URL, malformedURLException);
+                    crawler.printMessage(ServerMessages.DEBUG_INVALID_URL, crawler.getSender().getName(),
+                            bestUrls.get(id).getUrl());
+                }
+            }
+        }
+        return hasURLs;
+
     }
 
-    final JsonArray edges = broadcast.getAsJsonArray(JSON_ELEMENT_EDGES);
-    if (edges.size() <= 0) {
-      return Optional.empty();
+    private Optional<Film> buildFilm(final Optional<JsonObject> detailClip, final JsonObject viewer) {
+        final Optional<Film> newFilm;
+        if (detailClip.isPresent()) {
+            newFilm = createFilm(detailClip.get());
+            addDescriptions(newFilm, detailClip.get());
+            if (addUrls(newFilm, viewer)) {
+                return newFilm;
+            } else {
+                crawler.incrementAndGetErrorCount();
+                crawler.updateProgress();
+            }
+            // TODO GEO locations
+            // TODO Subtitle
+        } else {
+            printMissingDetails(JSON_ELEMENT_DETAIL_CLIP);
+        }
+        return Optional.empty();
     }
 
-    final JsonObject node = edges.get(0).getAsJsonObject();
-    if (!node.has(JSON_ELEMENT_START)) {
-      return Optional.empty();
-    }
+    private Optional<Film> createFilm(final JsonObject aDetailClip) {
+        final Optional<JsonElement> start = getBroadcastStart(aDetailClip);
+        if (aDetailClip.has(JSON_ELEMENT_TITLE) && aDetailClip.has(JSON_ELEMENT_KICKER)
+                && aDetailClip.has(JSON_ELEMENT_DURATION)) {
+            final String title = aDetailClip.get(JSON_ELEMENT_TITLE).getAsString();
+            final String thema = aDetailClip.get(JSON_ELEMENT_KICKER).getAsString();
 
-    return Optional.of(node.get(JSON_ELEMENT_START));
-  }
+            final LocalDateTime time;
+            if (start.isPresent()) {
+                time = toTime(start.get().getAsString());
+            } else {
+                time = LocalDateTime.now();
+                LOG.debug(String.format(ERROR_NO_START_TEMPLATE, thema, title));
+            }
+            final Duration duration = toDuration(aDetailClip.get(JSON_ELEMENT_DURATION).getAsLong());
 
-  private Optional<JsonObject> getDetailClip(final JsonObject aViewer) {
-    if (!aViewer.has(JSON_ELEMENT_DETAIL_CLIP)) {
-      return Optional.empty();
-    }
-
-    return Optional.of(aViewer.getAsJsonObject(JSON_ELEMENT_DETAIL_CLIP));
-  }
-
-  private Resolution getResolution(final int aId, final BrUrlDTO url, final boolean hasHdSet) {
-    if (hasHdSet && url.getVideoProfile().endsWith(HD)) {
-      return Resolution.HD;
-    } else {
-      final List<Resolution> resulutions = Resolution.getFromBestToLowest();
-      final int nonHdIndex = aId + 1;
-      return nonHdIndex < resulutions.size() ? resulutions.get(nonHdIndex) : Resolution.VERY_SMALL;
-    }
-  }
-
-  private Optional<JsonArray> getVideoFileEdges(final JsonObject aViewer) {
-    if (!aViewer.has(JSON_ELEMENT_CLIP)) {
-      return Optional.empty();
-    }
-
-    final JsonObject clip = aViewer.getAsJsonObject(JSON_ELEMENT_CLIP);
-    if (!clip.has(JSON_ELEMENT_VIDEO_FILES)) {
-      return Optional.empty();
-    }
-
-    final JsonObject videoFiles = clip.getAsJsonObject(JSON_ELEMENT_VIDEO_FILES);
-    if (!videoFiles.has(JSON_ELEMENT_EDGES)) {
-      return Optional.empty();
-    }
-
-    return Optional.of(videoFiles.getAsJsonArray(JSON_ELEMENT_EDGES));
-  }
-
-  private Optional<JsonObject> getViewer(final JsonObject aBaseObject) {
-    if (!aBaseObject.has(JSON_ELEMENT_DATA)) {
-      return Optional.empty();
-    }
-
-    final JsonObject data = aBaseObject.getAsJsonObject(JSON_ELEMENT_DATA);
-    if (!data.has(JSON_ELEMENT_VIEWER)) {
-      return Optional.empty();
-    }
-
-    return Optional.of(data.getAsJsonObject(JSON_ELEMENT_VIEWER));
-  }
-
-  private Optional<BrUrlDTO> nodeToUrl(final JsonObject aNode) {
-    if (aNode.has(JSON_ELEMENT_PUBLIC_LOCATION)) {
-      if (aNode.has(JSON_ELEMENT_VIDEO_PROFILE)) {
-        final JsonObject videoProfile = aNode.getAsJsonObject(JSON_ELEMENT_VIDEO_PROFILE);
-        if (videoProfile.has(JSON_ELEMENT_ID)) {
-          if (videoProfile.has(JSON_ELEMENT_WIDTH)) {
-            if (!videoProfile.get(JSON_ELEMENT_WIDTH).isJsonNull()
-                && !videoProfile.get(JSON_ELEMENT_ID).isJsonNull()) {
-              return Optional.of(new BrUrlDTO(aNode.get(JSON_ELEMENT_PUBLIC_LOCATION).getAsString(),
-                  videoProfile.get(JSON_ELEMENT_WIDTH).getAsInt(),
-                  videoProfile.get(JSON_ELEMENT_ID).getAsString()));
+            final String website = String.format(FILM_WEBSITE_TEMPLATE, BrCrawler.BASE_URL, filmId);
+            try {
+                return Optional.of(new Film(UUID.randomUUID(), new ArrayList<>(), crawler.getSender(), title, thema,
+                        time, duration, new URL(website)));
+            } catch (final MalformedURLException malformedURLException) {
+                LOG.fatal(String.format(ERROR_WEBSITE_URL, website), malformedURLException);
+                crawler.incrementAndGetErrorCount();
+                crawler.printErrorMessage();
+            }
+        } else {
+            if (!aDetailClip.has(JSON_ELEMENT_TITLE)) {
+                printMissingDetails(JSON_ELEMENT_TITLE);
             }
 
-          } else {
-            printMissingDetails(JSON_ELEMENT_VIDEO_PROFILE + " -> " + JSON_ELEMENT_WIDTH);
-          }
+            if (!aDetailClip.has(JSON_ELEMENT_KICKER)) {
+                printMissingDetails(JSON_ELEMENT_KICKER);
+            }
 
-        } else {
-          printMissingDetails(JSON_ELEMENT_VIDEO_PROFILE + " -> " + JSON_ELEMENT_ID);
+            if (!aDetailClip.has(JSON_ELEMENT_DURATION)) {
+                printMissingDetails(JSON_ELEMENT_DURATION);
+            }
+        }
+        return Optional.empty();
+    }
+
+    private Set<BrUrlDTO> edgesToUrls(final JsonObject viewer) {
+        final Set<BrUrlDTO> urls = new HashSet<>();
+        final Optional<JsonArray> edges = getVideoFileEdges(viewer);
+        if (edges.isPresent()) {
+            for (final JsonElement edge : edges.get()) {
+                final JsonObject ebdgeObj = edge.getAsJsonObject();
+                if (ebdgeObj.has(JSON_ELEMENT_NODE)) {
+                    final JsonObject node = ebdgeObj.getAsJsonObject(JSON_ELEMENT_NODE);
+                    final Optional<BrUrlDTO> url = nodeToUrl(node);
+                    if (url.isPresent()) {
+                        urls.add(url.get());
+                    }
+                }
+            }
+        }
+        return urls;
+    }
+
+    private Optional<JsonElement> getBroadcastStart(final JsonObject aDetailClip) {
+        if (!aDetailClip.has(JSON_ELEMENT_BROADCASTS)) {
+            return Optional.empty();
         }
 
-      } else {
-        printMissingDetails(JSON_ELEMENT_VIDEO_PROFILE);
-      }
+        final JsonObject broadcast = aDetailClip.getAsJsonObject(JSON_ELEMENT_BROADCASTS);
+        if (!broadcast.has(JSON_ELEMENT_EDGES)) {
+            return Optional.empty();
+        }
 
-    } else {
-      printMissingDetails(JSON_ELEMENT_PUBLIC_LOCATION);
+        final JsonArray edges = broadcast.getAsJsonArray(JSON_ELEMENT_EDGES);
+        if (edges.size() <= 0) {
+            return Optional.empty();
+        }
+
+        final JsonObject node = edges.get(0).getAsJsonObject();
+        if (!node.has(JSON_ELEMENT_START)) {
+            return Optional.empty();
+        }
+
+        return Optional.of(node.get(JSON_ELEMENT_START));
     }
-    return Optional.empty();
-  }
 
-  private void printMissingDetails(final String aMissingJsonElement) {
-    LOG.error(String.format(ERROR_MISSING_DETAIL_TEMPLATE, aMissingJsonElement));
-    crawler.printMissingElementErrorMessage(aMissingJsonElement);
-  }
+    private Optional<JsonObject> getDetailClip(final JsonObject aViewer) {
+        if (!aViewer.has(JSON_ELEMENT_DETAIL_CLIP)) {
+            return Optional.empty();
+        }
 
-  private Duration toDuration(final long aSeconds) {
-    return Duration.of(aSeconds, ChronoUnit.SECONDS);
-  }
+        return Optional.of(aViewer.getAsJsonObject(JSON_ELEMENT_DETAIL_CLIP));
+    }
 
-  private LocalDateTime toTime(final String aStart) {
-    return LocalDateTime.parse(aStart, DateTimeFormatter.ISO_INSTANT);
-  }
+    private Optional<JsonArray> getVideoFileEdges(final JsonObject aViewer) {
+        if (!aViewer.has(JSON_ELEMENT_CLIP)) {
+            return Optional.empty();
+        }
+
+        final JsonObject clip = aViewer.getAsJsonObject(JSON_ELEMENT_CLIP);
+        if (!clip.has(JSON_ELEMENT_VIDEO_FILES)) {
+            return Optional.empty();
+        }
+
+        final JsonObject videoFiles = clip.getAsJsonObject(JSON_ELEMENT_VIDEO_FILES);
+        if (!videoFiles.has(JSON_ELEMENT_EDGES)) {
+            return Optional.empty();
+        }
+
+        return Optional.of(videoFiles.getAsJsonArray(JSON_ELEMENT_EDGES));
+    }
+
+    private Optional<JsonObject> getViewer(final JsonObject aBaseObject) {
+        if (!aBaseObject.has(JSON_ELEMENT_DATA)) {
+            return Optional.empty();
+        }
+
+        final JsonObject data = aBaseObject.getAsJsonObject(JSON_ELEMENT_DATA);
+        if (!data.has(JSON_ELEMENT_VIEWER)) {
+            return Optional.empty();
+        }
+
+        return Optional.of(data.getAsJsonObject(JSON_ELEMENT_VIEWER));
+    }
+
+    private Optional<BrUrlDTO> nodeToUrl(final JsonObject aNode) {
+        if (aNode.has(JSON_ELEMENT_PUBLIC_LOCATION)) {
+            if (aNode.has(JSON_ELEMENT_VIDEO_PROFILE)) {
+                final JsonObject videoProfile = aNode.getAsJsonObject(JSON_ELEMENT_VIDEO_PROFILE);
+                if (videoProfile.has(JSON_ELEMENT_ID)) {
+                    if (videoProfile.has(JSON_ELEMENT_WIDTH)) {
+                        if (!videoProfile.get(JSON_ELEMENT_WIDTH).isJsonNull()
+                                && !videoProfile.get(JSON_ELEMENT_ID).isJsonNull()) {
+                            return Optional.of(new BrUrlDTO(aNode.get(JSON_ELEMENT_PUBLIC_LOCATION).getAsString(),
+                                    videoProfile.get(JSON_ELEMENT_WIDTH).getAsInt(),
+                                    videoProfile.get(JSON_ELEMENT_ID).getAsString()));
+                        }
+
+                    } else {
+                        printMissingDetails(JSON_ELEMENT_VIDEO_PROFILE + " -> " + JSON_ELEMENT_WIDTH);
+                    }
+
+                } else {
+                    printMissingDetails(JSON_ELEMENT_VIDEO_PROFILE + " -> " + JSON_ELEMENT_ID);
+                }
+
+            } else {
+                printMissingDetails(JSON_ELEMENT_VIDEO_PROFILE);
+            }
+
+        } else {
+            printMissingDetails(JSON_ELEMENT_PUBLIC_LOCATION);
+        }
+        return Optional.empty();
+    }
+
+    private void printMissingDetails(final String aMissingJsonElement) {
+        LOG.error(String.format(ERROR_MISSING_DETAIL_TEMPLATE, aMissingJsonElement));
+        crawler.printMissingElementErrorMessage(aMissingJsonElement);
+    }
+
+    private Duration toDuration(final long aSeconds) {
+        return Duration.of(aSeconds, ChronoUnit.SECONDS);
+    }
+
+    private LocalDateTime toTime(final String aStart) {
+        return LocalDateTime.parse(aStart, DateTimeFormatter.ISO_INSTANT);
+    }
 
 }
