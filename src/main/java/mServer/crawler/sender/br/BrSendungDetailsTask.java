@@ -1,5 +1,11 @@
 package mserver.crawler.sender.br;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonSyntaxException;
+import com.google.gson.reflect.TypeToken;
+import de.mediathekview.mlib.Config;
+import de.mediathekview.mlib.daten.DatenFilm;
 import java.lang.reflect.Type;
 import java.util.Optional;
 import java.util.Set;
@@ -11,15 +17,10 @@ import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.Entity;
 import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.MediaType;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.JsonSyntaxException;
-import com.google.gson.reflect.TypeToken;
-import de.mediathekview.mlib.daten.DatenFilm;
 import mServer.crawler.sender.MediathekReader;
 import mServer.crawler.sender.br.Consts;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class BrSendungDetailsTask extends RecursiveTask<Set<DatenFilm>> {
   private static final int MAXIMUM_URLS_PER_TASK = 50;
@@ -56,6 +57,10 @@ public class BrSendungDetailsTask extends RecursiveTask<Set<DatenFilm>> {
   }
 
   private void filmIdToFilm(final String aFilmId) {
+    if (Config.getStop()) {
+      return;
+    }
+      
     try {
       final Client client = ClientBuilder.newClient();
       final WebTarget target = client.target(Consts.BR_API_URL);
