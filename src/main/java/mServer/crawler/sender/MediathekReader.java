@@ -364,7 +364,7 @@ public abstract class MediathekReader extends Thread {
         mlibFilmeSuchen.melden(getSendername(), getMax(), getProgress(), "" /* text */);
     }
 
-    protected synchronized void meldungProgress(String text) {
+    public synchronized void meldungProgress(String text) {
         progress++;
         mlibFilmeSuchen.melden(getSendername(), getMax(), getProgress(), text);
     }

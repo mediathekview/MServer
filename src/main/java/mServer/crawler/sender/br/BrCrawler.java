@@ -66,12 +66,15 @@ public class BrCrawler extends MediathekReader {
     final ConcurrentLinkedQueue<String> brFilmIds = new ConcurrentLinkedQueue<>();
     try {
       brFilmIds.addAll(missedFilmIds.get());
-      LOG.debug("BR Anzahl fehlende Sendungen: " + missedFilmIds.get().size());
+      LOG.debug("BR Anzahl verpasste Sendungen: " + missedFilmIds.get().size());
     } catch (InterruptedException | ExecutionException exception) {
       LOG.fatal("Something wen't terrible wrong on gathering the missed Films", exception);
     }
     brFilmIds.addAll(sendungenFilmsTask.join());
     LOG.debug("BR Anzahl: " + sendungenFilmsTask.join().size());
+
+    int max = (brFilmIds.size() / BrSendungDetailsTask.MAXIMUM_URLS_PER_TASK) + 1;
+    meldungAddMax(max);
 
     return new BrSendungDetailsTask(this, brFilmIds);
   }
