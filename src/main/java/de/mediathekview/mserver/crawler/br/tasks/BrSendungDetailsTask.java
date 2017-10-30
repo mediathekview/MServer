@@ -1,22 +1,21 @@
 package de.mediathekview.mserver.crawler.br.tasks;
 
 import java.lang.reflect.Type;
+import java.net.URL;
 import java.util.Optional;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.RecursiveTask;
-import javax.ws.rs.client.Client;
-import javax.ws.rs.client.ClientBuilder;
-import javax.ws.rs.client.Entity;
-import javax.ws.rs.client.WebTarget;
-import javax.ws.rs.core.MediaType;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.google.gson.JsonSyntaxException;
 import com.google.gson.reflect.TypeToken;
+
+import de.mediathekview.mlib.communication.WebAccessHelper;
 import de.mediathekview.mlib.daten.Film;
 import de.mediathekview.mserver.base.Consts;
 import de.mediathekview.mserver.base.config.MServerBasicConfigDTO;
@@ -60,31 +59,22 @@ public class BrSendungDetailsTask extends RecursiveTask<Set<Film>> {
   }
 
   private void filmIdToFilm(final String aFilmId) {
-    try {
-      final Client client = ClientBuilder.newClient();
-      final WebTarget target = client.target(Consts.BR_API_URL);
+      
+    BrWebAccessHelper.handleWebAccessExecution(LOG, crawler, () -> {
+        
+        final Type optionalFilmType = new TypeToken<Optional<Film>>() {}.getType();
+        final Gson gson = new GsonBuilder()
+                .registerTypeAdapter(optionalFilmType, new BrFilmDeserializer(crawler, aFilmId)).create();
 
-      final Type optionalFilmType = new TypeToken<Optional<Film>>() {}.getType();
-      final Gson gson = new GsonBuilder()
-          .registerTypeAdapter(optionalFilmType, new BrFilmDeserializer(crawler, aFilmId)).create();
-
-
-      final String response = target.request(MediaType.APPLICATION_JSON_TYPE).post(
-          Entity.entity(String.format(QUERY_TEMPLATE, aFilmId), MediaType.APPLICATION_JSON_TYPE),
-          String.class);
-      final Optional<Film> film = gson.fromJson(response, optionalFilmType);
-      if (film.isPresent()) {
-        convertedFilms.add(film.get());
-        crawler.incrementAndGetActualCount();
-        crawler.updateProgress();
-      }
-    } catch (final JsonSyntaxException jsonSyntaxException) {
-      LOG.error("The json syntax for the BR task to get Sendungsdetails has an error.",
-          jsonSyntaxException);
-      crawler.incrementAndGetErrorCount();
-      crawler.printErrorMessage();
-    }
-
+        final String response = WebAccessHelper.getJsonResultFromPostAccess(new URL(Consts.BR_API_URL), String.format(QUERY_TEMPLATE, aFilmId));
+        
+        final Optional<Film> film = gson.fromJson(response, optionalFilmType);
+        if (film.isPresent()) {
+            convertedFilms.add(film.get());
+            crawler.incrementAndGetActualCount();
+            crawler.updateProgress();
+        }
+    });
   }
 
   @Override
