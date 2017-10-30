@@ -20,6 +20,13 @@ import de.mediathekview.mserver.crawler.basic.CrawlerUrlDTO;
 import de.mediathekview.mserver.crawler.dw.DwCrawler;
 
 public class DWUebersichtTask extends AbstractDocumentTask<URL, CrawlerUrlDTO> {
+  private static final String PARAMETER_RESULTS = "results";
+  private static final String PARAMETER_VALUE_SORT = "date";
+  private static final String PARAMETER_VALUE_TYPE = "18";
+  private static final String PARAMETER_VALUE_FILTER = "";
+  private static final String PARAMETER_SORT = "sort";
+  private static final String PARAMETER_TYPE = "type";
+  private static final String PARAMETER_FILTER = "filter";
   private static final String ADD_PAGE_NUMBER = ".addPage .number";
   private static final long serialVersionUID = 2080583393530906001L;
   private static final Logger LOG = LogManager.getLogger(DWUebersichtTask.class);
@@ -33,9 +40,9 @@ public class DWUebersichtTask extends AbstractDocumentTask<URL, CrawlerUrlDTO> {
 
   private String addBaseParameters(final String aUrl) {
     String newUrl;
-    newUrl = UrlUtils.changeOrAddParameter(aUrl, "filter", "");
-    newUrl = UrlUtils.changeOrAddParameter(newUrl, "type", "18");
-    newUrl = UrlUtils.changeOrAddParameter(newUrl, "sort", "date");
+    newUrl = UrlUtils.changeOrAddParameter(aUrl, PARAMETER_FILTER, PARAMETER_VALUE_FILTER);
+    newUrl = UrlUtils.changeOrAddParameter(newUrl, PARAMETER_TYPE, PARAMETER_VALUE_TYPE);
+    newUrl = UrlUtils.changeOrAddParameter(newUrl, PARAMETER_SORT, PARAMETER_VALUE_SORT);
     return newUrl;
   }
 
@@ -46,7 +53,7 @@ public class DWUebersichtTask extends AbstractDocumentTask<URL, CrawlerUrlDTO> {
     final ConcurrentLinkedQueue<CrawlerUrlDTO> nextPageUrls = new ConcurrentLinkedQueue<>();
     nextPageUrls
         .offer(new CrawlerUrlDTO(UrlUtils.changeOrAddParameter(addBaseParameters(aUrlDTO.getUrl()),
-            "results", resultsCount.orElse(0).toString())));
+            PARAMETER_RESULTS, resultsCount.orElse(0).toString())));
     return Optional.of(createNewOwnInstance(nextPageUrls));
   }
 
@@ -81,9 +88,7 @@ public class DWUebersichtTask extends AbstractDocumentTask<URL, CrawlerUrlDTO> {
         nextPageTask = Optional.empty();
       } else {
         nextPageTask = createNextPageCrawler(aUrlDTO);
-        if (nextPageTask.isPresent()) {
-          nextPageTask.get().fork();
-        }
+        nextPageTask.get().fork();
       }
 
 
