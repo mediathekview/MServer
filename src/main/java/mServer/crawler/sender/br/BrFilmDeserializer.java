@@ -46,6 +46,7 @@ public class BrFilmDeserializer implements JsonDeserializer<Optional<DatenFilm>>
   private static final String JSON_ELEMENT_EDGES = "edges";
   private static final String JSON_ELEMENT_NODE = "node";
   private static final String JSON_ELEMENT_ID = "id";
+  private static final String JSON_ELEMENT_CAPTION_FILES = "captionFiles";
 
   private static final String JSON_ELEMENT_DETAIL_CLIP = "detailClip";
   private static final String JSON_ELEMENT_TITLE = "title";
@@ -154,20 +155,43 @@ public class BrFilmDeserializer implements JsonDeserializer<Optional<DatenFilm>>
     if (detailClip.isPresent()) {
       String description = getDescriptions(detailClip.get());
       Map<Resolution, String> urls = getUrls(viewer);
+      
       if(urls.containsKey(Resolution.NORMAL)) {
-        newFilm = createFilm(detailClip.get(), description, urls);
+        Optional<String> subTitle = getSubtitleUrl(viewer);
+        newFilm = createFilm(detailClip.get(), description, subTitle, urls);
         return newFilm;
       }
       // TODO GEO locations
-      // TODO Subtitle
     } else {
       printMissingDetails(JSON_ELEMENT_DETAIL_CLIP);
     }
     return Optional.empty();
   }
 
+  private Optional<String> getSubtitleUrl(JsonObject viewer) {
+    if(viewer.has(JSON_ELEMENT_CLIP)) {
+      JsonObject clip = viewer.getAsJsonObject(JSON_ELEMENT_CLIP);
+      if(clip.has(JSON_ELEMENT_CAPTION_FILES)) {
+        JsonObject captionFiles = clip.getAsJsonObject(JSON_ELEMENT_CAPTION_FILES);
+        if(captionFiles.has(JSON_ELEMENT_EDGES)) {
+          JsonArray edges = captionFiles.getAsJsonArray(JSON_ELEMENT_EDGES);
+          if (edges.size() > 0) {
+            for (JsonElement edge : edges) {
+              if(edge.getAsJsonObject().has(JSON_ELEMENT_NODE)) {
+                JsonObject node = edge.getAsJsonObject().getAsJsonObject(JSON_ELEMENT_NODE);
+                if(node.has(JSON_ELEMENT_PUBLIC_LOCATION)) {
+                  return Optional.of(node.get(JSON_ELEMENT_PUBLIC_LOCATION).getAsString());
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+    return Optional.empty();
+  }
 
-  private Optional<DatenFilm> createFilm(final JsonObject aDetailClip, String aDescription, Map<Resolution, String> aUrls) {
+  private Optional<DatenFilm> createFilm(final JsonObject aDetailClip, String aDescription, Optional<String> aSubTitle, Map<Resolution, String> aUrls) {
     final Optional<JsonElement> start = getBroadcastStart(aDetailClip);
     if (aDetailClip.has(JSON_ELEMENT_TITLE) && aDetailClip.has(JSON_ELEMENT_KICKER)
         && aDetailClip.has(JSON_ELEMENT_DURATION)) {
@@ -194,6 +218,9 @@ public class BrFilmDeserializer implements JsonDeserializer<Optional<DatenFilm>>
       }
       if (aUrls.containsKey(Resolution.HD)) {
           CrawlerTool.addUrlHd(film, aUrls.get(Resolution.HD), "");
+      }
+      if (aSubTitle.isPresent()) {
+        CrawlerTool.addUrlSubtitle(film, aSubTitle.get());
       }
               
       return Optional.of(film);
