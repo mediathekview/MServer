@@ -3,18 +3,11 @@ package mserver.crawler.sender.br;
 import java.time.LocalDateTime;
 import java.util.Set;
 import java.util.concurrent.Callable;
-import javax.ws.rs.client.Client;
-import javax.ws.rs.client.ClientBuilder;
-import javax.ws.rs.client.Entity;
-import javax.ws.rs.client.WebTarget;
-import javax.ws.rs.core.MediaType;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.google.gson.JsonSyntaxException;
 import java.net.URL;
-import static mServer.crawler.sender.MediathekBr.SENDERNAME;
 import mServer.crawler.sender.MediathekReader;
 import mServer.crawler.sender.br.Consts;
 

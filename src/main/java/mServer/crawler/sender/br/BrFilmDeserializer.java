@@ -25,7 +25,6 @@ import mServer.crawler.CrawlerTool;
 import mServer.crawler.sender.br.Resolution;
 import static mServer.crawler.sender.MediathekBr.SENDERNAME;
 import mServer.crawler.sender.MediathekReader;
-import mServer.crawler.sender.newsearch.Qualities;
 
 public class BrFilmDeserializer implements JsonDeserializer<Optional<DatenFilm>> {
   private static final String ERROR_NO_START_TEMPLATE =

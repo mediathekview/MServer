@@ -102,7 +102,7 @@ public enum Resolution {
    * <li>Very Small = < 512 width</li>
    * </ul>
    *
-   * @param profileName
+   * @param width
    * @return
    */
   public static Resolution getResolutionFromWidth(final int width) {
