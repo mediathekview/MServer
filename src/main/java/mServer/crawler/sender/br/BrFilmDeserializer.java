@@ -133,9 +133,9 @@ public class BrFilmDeserializer implements JsonDeserializer<Optional<DatenFilm>>
         final List<BrUrlDTO> bestUrls =
             urls.stream().sorted(Comparator.comparingInt(BrUrlDTO::getWidth).reversed()).limit(3)
                 .collect(Collectors.toList());
-        boolean hasHdSet = false;
+        
         for (int id = 0; id < bestUrls.size(); id++) {
-          final Resolution resolution = getResolution(id, bestUrls.get(id), hasHdSet);
+          final Resolution resolution = Resolution.getResolutionFromArdAudioVideoOrdinalsByProfileName(bestUrls.get(id).getVideoProfile());
           final String url = bestUrls.get(id).getUrl();
           
           if (url != null) {
@@ -266,16 +266,6 @@ public class BrFilmDeserializer implements JsonDeserializer<Optional<DatenFilm>>
     }
 
     return Optional.of(aViewer.getAsJsonObject(JSON_ELEMENT_DETAIL_CLIP));
-  }
-
-  private mServer.crawler.sender.br.Resolution getResolution(final int aId, final BrUrlDTO url, final boolean hasHdSet) {
-    if (hasHdSet && url.getVideoProfile().endsWith(HD)) {
-      return Resolution.HD;
-    } else {
-      final List<Resolution> resulutions = Resolution.getFromBestToLowest();
-      final int nonHdIndex = aId + 1;
-      return nonHdIndex < resulutions.size() ? resulutions.get(nonHdIndex) : Resolution.VERY_SMALL;
-    }
   }
 
   private Optional<JsonArray> getVideoFileEdges(final JsonObject aViewer) {

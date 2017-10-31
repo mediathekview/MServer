@@ -14,6 +14,7 @@ import org.apache.logging.log4j.Logger;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonSyntaxException;
+import java.net.URL;
 import mServer.crawler.sender.MediathekReader;
 import mServer.crawler.sender.br.Consts;
 
@@ -28,6 +29,8 @@ public class BrMissedSendungsFolgenTask implements Callable<Set<String>> {
 
   private final int maximumDays;
   
+  private BrIdsDTO missedSendungsFolgen;
+  
   public BrMissedSendungsFolgenTask(final MediathekReader aCrawler, int aMaximumDays) {
     crawler = aCrawler;
     maximumDays = aMaximumDays;
@@ -36,10 +39,9 @@ public class BrMissedSendungsFolgenTask implements Callable<Set<String>> {
 
   @Override
   public Set<String> call() {
-    BrIdsDTO missedSendungsFolgen;
-    try {
-      final Client client = ClientBuilder.newClient();
-      final WebTarget target = client.target(Consts.BR_API_URL);
+    missedSendungsFolgen = new BrIdsDTO();
+    
+    BrWebAccessHelper.handleWebAccessExecution(LOG, crawler, () -> {
 
       // 2017-09-19T16:52:25.559Z
       final String fromDateString =
@@ -53,21 +55,10 @@ public class BrMissedSendungsFolgenTask implements Callable<Set<String>> {
           .registerTypeAdapter(BrIdsDTO.class, new BrMissedSendungsFolgenDeserializer(crawler))
           .create();
 
-
-      final String response = target.request(MediaType.APPLICATION_JSON_TYPE)
-          .post(Entity.entity(String.format(QUERY_TEMPLATE, toDateString, fromDateString),
-              MediaType.APPLICATION_JSON_TYPE), String.class);
+      final String response = WebAccessHelper.getJsonResultFromPostAccess(new URL(Consts.BR_API_URL), String.format(QUERY_TEMPLATE, toDateString, fromDateString));
       missedSendungsFolgen = gson.fromJson(response, BrIdsDTO.class);
-    } catch (final JsonSyntaxException jsonSyntaxException) {
-      LOG.error("The json syntax for the BR task to get all Sendungsfolgen has an error.",
-          jsonSyntaxException);
-      //crawler.incrementAndGetErrorCount();
-      //crawler.printErrorMessage();
-      missedSendungsFolgen = new BrIdsDTO();
-    } catch(Exception e) {
-      LOG.error(e);
-      missedSendungsFolgen = new BrIdsDTO();
-    }
+    });
+    
     return missedSendungsFolgen.getIds();
   }
 }

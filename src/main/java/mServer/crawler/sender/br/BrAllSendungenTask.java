@@ -18,6 +18,7 @@ import org.apache.logging.log4j.Logger;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonSyntaxException;
+import java.net.URL;
 import mServer.crawler.sender.MediathekReader;
 import mServer.crawler.sender.br.Consts;
 
@@ -32,31 +33,24 @@ public class BrAllSendungenTask extends RecursiveTask<Set<String>> {
   private final transient ForkJoinPool forkJoinPool;
   private final transient MediathekReader crawler;
 
+  private BrIdsDTO allSendungen;
+  
   public BrAllSendungenTask(final MediathekReader aCrawler, final ForkJoinPool aForkJoinPool) {
     crawler = aCrawler;
     forkJoinPool = aForkJoinPool;
   }
 
   private Set<String> getAllSendungenIds() {
-    BrIdsDTO allSendungen;
-    try {
-      final Client client = ClientBuilder.newClient();
-      final WebTarget target = client.target(Consts.BR_API_URL);
-      final Gson gson = new GsonBuilder()
-          .registerTypeAdapter(BrIdsDTO.class, new BrSendungenIdsDeserializer()).create();
+    allSendungen = new BrIdsDTO();
+    
+    BrWebAccessHelper.handleWebAccessExecution(LOG, crawler, () -> {
+        final Gson gson = new GsonBuilder()
+                .registerTypeAdapter(BrIdsDTO.class, new BrSendungenIdsDeserializer()).create();
+        final String response = WebAccessHelper.getJsonResultFromPostAccess(new URL(Consts.BR_API_URL), QUERY);
+        
+        allSendungen = gson.fromJson(response, BrIdsDTO.class);  
+    });
 
-
-      final String response = target.request(MediaType.APPLICATION_JSON_TYPE)
-          .post(Entity.entity(QUERY, MediaType.APPLICATION_JSON_TYPE), String.class);
-
-      allSendungen = gson.fromJson(response, BrIdsDTO.class);
-    } catch (final JsonSyntaxException jsonSyntaxException) {
-      LOG.error("The json syntax for the BR task to get all Sendungen has an error.",
-          jsonSyntaxException);
-      //crawler.incrementAndGetErrorCount();
-      //crawler.printErrorMessage();
-      allSendungen = new BrIdsDTO();
-    }
     LOG.debug("BR Anzahl Sendungen: " + allSendungen.getIds().size());
     return allSendungen.getIds();
   }

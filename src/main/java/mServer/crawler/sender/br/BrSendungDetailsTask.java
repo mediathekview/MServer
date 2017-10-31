@@ -7,6 +7,7 @@ import com.google.gson.reflect.TypeToken;
 import de.mediathekview.mlib.Config;
 import de.mediathekview.mlib.daten.DatenFilm;
 import java.lang.reflect.Type;
+import java.net.URL;
 import java.util.Optional;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
@@ -63,30 +64,21 @@ public class BrSendungDetailsTask extends RecursiveTask<Set<DatenFilm>> {
       return;
     }
       
-    try {
-      final Client client = ClientBuilder.newClient();
-      final WebTarget target = client.target(Consts.BR_API_URL);
-
-      final Type optionalFilmType = new TypeToken<Optional<DatenFilm>>() {}.getType();
-      final Gson gson = new GsonBuilder()
-          .registerTypeAdapter(optionalFilmType, new BrFilmDeserializer(crawler, aFilmId)).create();
-
-
-      final String response = target.request(MediaType.APPLICATION_JSON_TYPE).post(
-          Entity.entity(String.format(QUERY_TEMPLATE, aFilmId), MediaType.APPLICATION_JSON_TYPE),
-          String.class);
-      final Optional<DatenFilm> film = gson.fromJson(response, optionalFilmType);
-      if (film.isPresent()) {
-        convertedFilms.add(film.get());
-        //crawler.incrementAndGetActualCount();
-        //crawler.updateProgress();
-      }
-    } catch (final JsonSyntaxException jsonSyntaxException) {
-      LOG.error("The json syntax for the BR task to get Sendungsdetails has an error.",
-          jsonSyntaxException);
-      //crawler.incrementAndGetErrorCount();
-      //crawler.printErrorMessage();
-    }
+    BrWebAccessHelper.handleWebAccessExecution(LOG, crawler, () -> {
+        
+        final Type optionalFilmType = new TypeToken<Optional<DatenFilm>>() {}.getType();
+        final Gson gson = new GsonBuilder()
+                .registerTypeAdapter(optionalFilmType, new BrFilmDeserializer(crawler, aFilmId)).create();
+ 
+        final String response = WebAccessHelper.getJsonResultFromPostAccess(new URL(Consts.BR_API_URL), String.format(QUERY_TEMPLATE, aFilmId));
+        
+        final Optional<DatenFilm> film = gson.fromJson(response, optionalFilmType);
+        if (film.isPresent()) {
+            convertedFilms.add(film.get());
+            //crawler.incrementAndGetActualCount();
+            //crawler.updateProgress();
+        }
+    });
 
   }
 

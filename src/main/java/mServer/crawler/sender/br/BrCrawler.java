@@ -1,5 +1,6 @@
 package mserver.crawler.sender.br;
 
+import de.mediathekview.mlib.Config;
 import de.mediathekview.mlib.Const;
 import de.mediathekview.mlib.daten.DatenFilm;
 import java.util.Set;
@@ -36,7 +37,9 @@ public class BrCrawler extends MediathekReader {
     Set<DatenFilm> films = forkJoinPool.invoke(filmTask);
     
     films.forEach(film -> {
-      addFilm(film);
+      if(!Config.getStop()) {
+        addFilm(film);
+      }
     });
     
     meldungThreadUndFertig();

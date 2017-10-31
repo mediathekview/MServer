@@ -57,6 +57,67 @@ public enum Resolution {
     return getNextResolutionByDirection(startingResolution, CountingDirection.LOWER);
   }
 
+  /**
+   * Derzeit sind folgende ARD AudioVideo Ordinals bekannt:<br>
+   * <ul>
+   * <li>HD = 1280 width</li>
+   * <li>Premium = 969 width</li>
+   * <li>Large = 640 width</li>
+   * <li>Standard = 512 width</li>
+   * <li>Mobile = 480 width</li>
+   * <li>Mobile_S = 320 width</li>
+   * </ul>
+   *
+   * @param profileName
+   * @return
+   */
+  public static Resolution getResolutionFromArdAudioVideoOrdinalsByProfileName(
+      final String profileName) {
+    if (profileName.endsWith("HD")) {
+      return Resolution.HD;
+    }
+    if (profileName.endsWith("Premium")) {
+      return Resolution.HD;
+    }
+    if (profileName.endsWith("Large")) {
+      return Resolution.NORMAL;
+    }
+    if (profileName.endsWith("Standard")) {
+      return Resolution.SMALL;
+    }
+    if (profileName.endsWith("Mobile")) {
+      return Resolution.SMALL;
+    }
+
+    return Resolution.VERY_SMALL;
+
+  }
+
+  /**
+   * The following width size limits are relevant:<br>
+   * <ul>
+   * <li>HD = >= 969 width</li>
+   * <li>Normal = >= 640 width</li>
+   * <li>Small = >= 512 width</li>
+   * <li>Very Small = < 512 width</li>
+   * </ul>
+   *
+   * @param profileName
+   * @return
+   */
+  public static Resolution getResolutionFromWidth(final int width) {
+    if (width >= 969) {
+      return Resolution.HD;
+    }
+    if (width >= 640) {
+      return Resolution.NORMAL;
+    }
+    if (width >= 512) {
+      return Resolution.SMALL;
+    }
+    return Resolution.VERY_SMALL;
+  }
+
   static Resolution getNextResolutionByDirection(final Resolution startingResolution,
       final CountingDirection direction) {
     try {
@@ -66,6 +127,7 @@ public enum Resolution {
       return startingResolution;
     }
   }
+
 
   static Resolution getResoultionByResolutionSize(final int searchedResolutionSize)
       throws NoSuchElementException {
@@ -82,7 +144,6 @@ public enum Resolution {
   public String getDescription() {
     return description;
   }
-
 
   public int getResolutionSize() {
     return resolutionSize;
