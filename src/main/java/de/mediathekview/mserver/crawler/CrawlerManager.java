@@ -46,6 +46,7 @@ import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
 import de.mediathekview.mserver.crawler.basic.TimeoutTask;
 import de.mediathekview.mserver.crawler.br.BrCrawler;
 import de.mediathekview.mserver.crawler.dreisat.DreiSatCrawler;
+import de.mediathekview.mserver.crawler.dw.DwCrawler;
 import de.mediathekview.mserver.crawler.funk.FunkCrawler;
 
 /**
@@ -514,6 +515,7 @@ public class CrawlerManager extends AbstractManager {
     crawlerMap.put(Sender.DREISAT,
         new DreiSatCrawler(forkJoinPool, messageListeners, progressListeners));
     crawlerMap.put(Sender.FUNK, new FunkCrawler(forkJoinPool, messageListeners, progressListeners));
+    crawlerMap.put(Sender.DW, new DwCrawler(forkJoinPool, messageListeners, progressListeners));
   }
 
   private void runCrawlers(final AbstractCrawler... aCrawlers) {
