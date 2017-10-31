@@ -47,6 +47,7 @@ public class BrFilmDeserializer implements JsonDeserializer<Optional<Film>> {
     private static final String JSON_ELEMENT_EDGES = "edges";
     private static final String JSON_ELEMENT_NODE = "node";
     private static final String JSON_ELEMENT_ID = "id";
+    private static final String JSON_ELEMENT_CAPTION_FILES = "captionFiles";
 
     private static final String JSON_ELEMENT_DETAIL_CLIP = "detailClip";
     private static final String JSON_ELEMENT_TITLE = "title";
@@ -146,6 +147,15 @@ public class BrFilmDeserializer implements JsonDeserializer<Optional<Film>> {
         if (detailClip.isPresent()) {
             newFilm = createFilm(detailClip.get());
             addDescriptions(newFilm, detailClip.get());
+            if (getSubtitleUrl(viewer).isPresent()) {
+                try {
+                    newFilm.get().addSubtitle(new URL(getSubtitleUrl(viewer).get()));
+                } catch (final MalformedURLException malformedURLException) {
+                    LOG.fatal(ERROR_VIDEO_URL, malformedURLException);
+                    crawler.printMessage(ServerMessages.DEBUG_INVALID_URL, crawler.getSender().getName(),
+                            getSubtitleUrl(viewer).get());
+                }
+            }
             if (addUrls(newFilm, viewer)) {
                 return newFilm;
             } else {
@@ -153,9 +163,33 @@ public class BrFilmDeserializer implements JsonDeserializer<Optional<Film>> {
                 crawler.updateProgress();
             }
             // TODO GEO locations
-            // TODO Subtitle
         } else {
             printMissingDetails(JSON_ELEMENT_DETAIL_CLIP);
+        }
+        return Optional.empty();
+    }
+
+    private Optional<String> getSubtitleUrl(JsonObject viewer) {
+        if(viewer.has(JSON_ELEMENT_CLIP)) {
+            JsonObject clip = viewer.getAsJsonObject(JSON_ELEMENT_CLIP);
+            if(clip.has(JSON_ELEMENT_CAPTION_FILES)) {
+                JsonObject captionFiles = clip.getAsJsonObject(JSON_ELEMENT_CAPTION_FILES);
+                if(captionFiles.has(JSON_ELEMENT_EDGES)) {
+                    JsonArray edges = captionFiles.getAsJsonArray(JSON_ELEMENT_EDGES);
+                    if (edges.size() > 0) {
+                        for (JsonElement edge : edges) {
+                            if(edge.getAsJsonObject().has(JSON_ELEMENT_NODE)) {
+                                JsonObject node = edge.getAsJsonObject().getAsJsonObject(JSON_ELEMENT_NODE);
+                                if(node.has(JSON_ELEMENT_PUBLIC_LOCATION)) {
+                                    return Optional.of(node.get(JSON_ELEMENT_PUBLIC_LOCATION).getAsString());
+                                }
+                            }
+                            
+                        }
+                    }
+                }
+            }
+            
         }
         return Optional.empty();
     }
