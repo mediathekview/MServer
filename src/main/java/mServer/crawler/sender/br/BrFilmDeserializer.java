@@ -121,8 +121,8 @@ public class BrFilmDeserializer implements JsonDeserializer<Optional<DatenFilm>>
     return description;
   }
 
-  private Map<Qualities, String> getUrls(final JsonObject viewer) {
-    Map<Qualities, String> urlMap = new HashMap<>();
+  private Map<Resolution, String> getUrls(final JsonObject viewer) {
+    Map<Resolution, String> urlMap = new HashMap<>();
     
     final Set<BrUrlDTO> urls = edgesToUrls(viewer);
       if (!urls.isEmpty()) {
@@ -138,15 +138,9 @@ public class BrFilmDeserializer implements JsonDeserializer<Optional<DatenFilm>>
           final Resolution resolution = Resolution.getResolutionFromArdAudioVideoOrdinalsByProfileName(bestUrls.get(id).getVideoProfile());
           final String url = bestUrls.get(id).getUrl();
           
-          if (url != null) {
-            if (resolution == Resolution.HD) {
-              urlMap.put(Qualities.HD, url);
-            } else {
-              if (urlMap.containsKey(Qualities.NORMAL)) {
-                urlMap.put(Qualities.SMALL, url);
-              } else {
-                urlMap.put(Qualities.NORMAL, url);
-              }
+          if (url != null && !url.isEmpty()) {
+            if (!urlMap.containsKey(resolution)) {
+              urlMap.put(resolution, url);
             }
           }
         }
@@ -159,8 +153,8 @@ public class BrFilmDeserializer implements JsonDeserializer<Optional<DatenFilm>>
     final Optional<DatenFilm> newFilm;
     if (detailClip.isPresent()) {
       String description = getDescriptions(detailClip.get());
-      Map<Qualities, String> urls = getUrls(viewer);
-      if(urls.containsKey(Qualities.NORMAL)) {
+      Map<Resolution, String> urls = getUrls(viewer);
+      if(urls.containsKey(Resolution.NORMAL)) {
         newFilm = createFilm(detailClip.get(), description, urls);
         return newFilm;
       }
@@ -173,7 +167,7 @@ public class BrFilmDeserializer implements JsonDeserializer<Optional<DatenFilm>>
   }
 
 
-  private Optional<DatenFilm> createFilm(final JsonObject aDetailClip, String aDescription, Map<Qualities, String> aUrls) {
+  private Optional<DatenFilm> createFilm(final JsonObject aDetailClip, String aDescription, Map<Resolution, String> aUrls) {
     final Optional<JsonElement> start = getBroadcastStart(aDetailClip);
     if (aDetailClip.has(JSON_ELEMENT_TITLE) && aDetailClip.has(JSON_ELEMENT_KICKER)
         && aDetailClip.has(JSON_ELEMENT_DURATION)) {
@@ -192,14 +186,14 @@ public class BrFilmDeserializer implements JsonDeserializer<Optional<DatenFilm>>
       final String timeValue = time.format(timeFormatDatenFilm);
 
       final String website = String.format(FILM_WEBSITE_TEMPLATE, BrCrawler.BASE_URL, filmId);
-      DatenFilm film = new DatenFilm(SENDERNAME, thema, website, title, aUrls.get(Qualities.NORMAL),"",
+      DatenFilm film = new DatenFilm(SENDERNAME, thema, website, title, aUrls.get(Resolution.NORMAL),"",
               dateValue, timeValue, duration.getSeconds(), aDescription);
               
-      if (aUrls.containsKey(Qualities.SMALL)) {
-          CrawlerTool.addUrlKlein(film, aUrls.get(Qualities.SMALL), "");
+      if (aUrls.containsKey(Resolution.SMALL)) {
+          CrawlerTool.addUrlKlein(film, aUrls.get(Resolution.SMALL), "");
       }
-      if (aUrls.containsKey(Qualities.HD)) {
-          CrawlerTool.addUrlHd(film, aUrls.get(Qualities.HD), "");
+      if (aUrls.containsKey(Resolution.HD)) {
+          CrawlerTool.addUrlHd(film, aUrls.get(Resolution.HD), "");
       }
               
       return Optional.of(film);
