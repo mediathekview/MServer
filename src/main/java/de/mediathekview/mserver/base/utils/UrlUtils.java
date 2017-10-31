@@ -36,16 +36,14 @@ public final class UrlUtils {
     newUrlBuilder.append(splittedUrl[0]);
 
     if (splittedUrl.length == 2) {
-      final String cleanedParameters = splittedUrl[1]
+      final String cleanedParameters = splittedUrl[1] + URL_TO_PARAMETERS_SPLITTERATOR
           .replaceAll(String.format(URL_PARAMETER_REPLACEMENT_REGEX_PATTERN, aParameter), "")
           .replaceAll(REGEX_ESCAPOR + WRONG_PARAMETER_START, URL_TO_PARAMETERS_SPLITTERATOR);
+
+      newUrlBuilder.append(URL_TO_PARAMETERS_SPLITTERATOR);
       newUrlBuilder.append(cleanedParameters);
-      if (!cleanedParameters.endsWith(URL_PARAMETER_SEPPERATOR)) {
-        if (cleanedParameters.isEmpty()) {
-          newUrlBuilder.append(URL_TO_PARAMETERS_SPLITTERATOR);
-        } else {
-          newUrlBuilder.append(URL_PARAMETER_SEPPERATOR);
-        }
+      if (!cleanedParameters.endsWith(URL_PARAMETER_SEPPERATOR) && !cleanedParameters.isEmpty()) {
+        newUrlBuilder.append(URL_PARAMETER_SEPPERATOR);
       }
     } else {
       newUrlBuilder.append(URL_TO_PARAMETERS_SPLITTERATOR);
