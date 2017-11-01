@@ -46,6 +46,7 @@ public class BrFilmDeserializer implements JsonDeserializer<Optional<DatenFilm>>
   private static final String JSON_ELEMENT_NODE = "node";
   private static final String JSON_ELEMENT_ID = "id";
   private static final String JSON_ELEMENT_CAPTION_FILES = "captionFiles";
+  private static final String JSON_ELEMENT_EPISODEOF = "episodeOf";
 
   private static final String JSON_ELEMENT_DETAIL_CLIP = "detailClip";
   private static final String JSON_ELEMENT_TITLE = "title";
@@ -190,12 +191,33 @@ public class BrFilmDeserializer implements JsonDeserializer<Optional<DatenFilm>>
     return Optional.empty();
   }
 
+  private String getTheme(final JsonObject aDetailClip) {
+    
+    String theme = "";
+    
+    if (aDetailClip.has(JSON_ELEMENT_EPISODEOF)) {
+      JsonElement element = aDetailClip.get(JSON_ELEMENT_EPISODEOF);
+      if (!element.isJsonNull()) {
+        JsonObject episodeOf = aDetailClip.getAsJsonObject(JSON_ELEMENT_EPISODEOF);
+        if (episodeOf.has(JSON_ELEMENT_TITLE)) {
+          theme = episodeOf.get(JSON_ELEMENT_TITLE).getAsString();
+        }
+      }
+    }
+    
+    if (theme.isEmpty()) {
+      theme = aDetailClip.get(JSON_ELEMENT_KICKER).getAsString();
+    }
+    
+    return theme;
+  }
+  
   private Optional<DatenFilm> createFilm(final JsonObject aDetailClip, String aDescription, Optional<String> aSubTitle, Map<Resolution, String> aUrls) {
     final Optional<JsonElement> start = getBroadcastStart(aDetailClip);
     if (aDetailClip.has(JSON_ELEMENT_TITLE) && aDetailClip.has(JSON_ELEMENT_KICKER)
         && aDetailClip.has(JSON_ELEMENT_DURATION)) {
       final String title = aDetailClip.get(JSON_ELEMENT_TITLE).getAsString();
-      final String thema = aDetailClip.get(JSON_ELEMENT_KICKER).getAsString();
+      final String thema = getTheme(aDetailClip);
 
       final LocalDateTime time;
       if (start.isPresent()) {
