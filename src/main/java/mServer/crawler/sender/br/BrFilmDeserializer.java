@@ -156,12 +156,11 @@ public class BrFilmDeserializer implements JsonDeserializer<Optional<DatenFilm>>
       String description = getDescriptions(detailClip.get());
       Map<Resolution, String> urls = getUrls(viewer);
       
-      if(urls.containsKey(Resolution.NORMAL)) {
+      if(urls.containsKey(Resolution.NORMAL) && MediathekReader.urlExists(urls.get(Resolution.NORMAL))) {
         Optional<String> subTitle = getSubtitleUrl(viewer);
         newFilm = createFilm(detailClip.get(), description, subTitle, urls);
         return newFilm;
       }
-      // TODO GEO locations
     } else {
       printMissingDetails(JSON_ELEMENT_DETAIL_CLIP);
     }
