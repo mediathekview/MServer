@@ -34,7 +34,7 @@ import javax.swing.event.EventListenerList;
 import mServer.crawler.sender.*;
 import mServer.crawler.sender.arte.MediathekArte_de;
 import mServer.crawler.sender.arte.MediathekArte_fr;
-import mserver.crawler.sender.br.BrCrawler;
+import mServer.crawler.sender.br.BrCrawler;
 import org.apache.commons.lang3.time.FastDateFormat;
 
 /**

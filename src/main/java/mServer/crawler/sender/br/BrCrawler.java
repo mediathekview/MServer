@@ -1,4 +1,4 @@
-package mserver.crawler.sender.br;
+package mServer.crawler.sender.br;
 
 import de.mediathekview.mlib.Config;
 import de.mediathekview.mlib.Const;

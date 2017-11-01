@@ -7,7 +7,7 @@
  * 
  */
 // Ist eigentlich aus MLib in der neuen Architektur, aber für den neuen BR-Crawler erstmal hierher kopiert
-package mserver.crawler.sender.br;
+package mServer.crawler.sender.br;
 
 import de.mediathekview.mlib.Const;
 import java.net.URL;

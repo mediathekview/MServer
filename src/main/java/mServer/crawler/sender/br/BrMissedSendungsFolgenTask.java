@@ -1,4 +1,4 @@
-package mserver.crawler.sender.br;
+package mServer.crawler.sender.br;
 
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;

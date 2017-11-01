@@ -1,4 +1,4 @@
-package mserver.crawler.sender.br;
+package mServer.crawler.sender.br;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;

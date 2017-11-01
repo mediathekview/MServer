@@ -8,7 +8,7 @@
  * (c) 2017 by Sascha Wiegandt
  */
 // Ist eigentlich aus MLib in der neuen Architektur, aber für den neuen BR-Crawler erstmal hierher kopiert
-package mserver.crawler.sender.br;
+package mServer.crawler.sender.br;
 
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;

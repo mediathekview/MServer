@@ -7,7 +7,7 @@
  * 
  * (c) 2017 by Sascha Wiegandt
  */
-package mserver.crawler.sender.br;
+package mServer.crawler.sender.br;
 
 import java.net.MalformedURLException;
 

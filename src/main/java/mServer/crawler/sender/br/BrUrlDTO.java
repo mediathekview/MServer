@@ -1,4 +1,4 @@
-package mserver.crawler.sender.br;
+package mServer.crawler.sender.br;
 
 public class BrUrlDTO {
   private final String url;
