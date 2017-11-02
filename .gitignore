@@ -19,6 +19,6 @@ start*.sh
 .idea
 build/
 
-/src/main/resources/version.properties
+version.properties
 RepoZugang.properties
 

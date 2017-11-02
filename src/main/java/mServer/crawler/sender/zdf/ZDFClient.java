@@ -1,4 +1,4 @@
-package mServer.crawler.sender.newsearch;
+package mServer.crawler.sender.zdf;
 
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
@@ -8,7 +8,7 @@ import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.ClientResponse;
 import com.sun.jersey.api.client.WebResource;
 import com.sun.jersey.api.client.filter.GZIPContentEncodingFilter;
-import de.mediathekview.mlib.Const;
+import de.mediathekview.mlib.daten.Sender;
 import de.mediathekview.mlib.tool.Log;
 import mServer.crawler.FilmeSuchen;
 import mServer.crawler.RunSender;
@@ -119,13 +119,13 @@ public class ZDFClient {
     return gson.fromJson(jsonOutput, JsonObject.class);
   }
 
-  private void increment(final RunSender.Count count) {
-    FilmeSuchen.listeSenderLaufen.inc(Const.ZDF, count);
-  }
+    private void increment(RunSender.Count count) {
+        FilmeSuchen.listeSenderLaufen.inc(Sender.ZDF.getName(), count);
+    }
 
-  private void increment(final RunSender.Count count, final long value) {
-    FilmeSuchen.listeSenderLaufen.inc(Const.ZDF, count, value);
-  }
+    private void increment(RunSender.Count count, long value) {
+        FilmeSuchen.listeSenderLaufen.inc(Sender.ZDF.getName(), count, value);
+    }
 
   private String loadApiToken(final ZDFClientMode aMode) {
     return String.format(API_TOKEN_PATTERN, 

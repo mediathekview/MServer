@@ -77,7 +77,7 @@ public class MSearchGuiController implements Initializable {
         } else {
             txtFilmList.setText(Data.pathFilmlist);
         }
-        new FilmlisteLesen().readFilmListe(txtFilmList.getText(), Data.listeFilme, 0 /*all days*/);
+        Data.listeFilme.addAll(new FilmlisteLesen().readFilmListe(txtFilmList.getText(), 0 /*all days*/));
         lblSum.setText(Data.listeFilme.size() + "");
         btnDelete.setOnAction(e -> {
             Data.listeFilme.clear();

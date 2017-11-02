@@ -19,12 +19,20 @@
  */
 package mServer.crawler.sender;
 
+import de.mediathekview.mlib.Config;
 import de.mediathekview.mlib.Const;
+import de.mediathekview.mlib.daten.Film;
 import de.mediathekview.mlib.daten.ListeFilme;
+import de.mediathekview.mlib.daten.Sender;
+import de.mediathekview.mlib.tool.Functions;
 import de.mediathekview.mlib.tool.Log;
 import java.io.IOException;
+import java.net.URI;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -41,8 +49,7 @@ import org.jsoup.nodes.Document;
 
 public class MediathekHr extends MediathekReader {
 
-    public static final String SENDERNAME = Const.HR;
-    
+    public final static Sender SENDER = Sender.HR;
     private static final String URL_SENDUNGEN = "http://www.hr-fernsehen.de/sendungen-a-z/index.html";
     
     private static final Logger LOG = LogManager.getLogger(MediathekHr.class);
@@ -52,7 +59,7 @@ public class MediathekHr extends MediathekReader {
      * @param startPrio
      */
     public MediathekHr(FilmeSuchen ssearch, int startPrio) {
-        super(ssearch, SENDERNAME, /* threads */ 2, /* urlWarten */ 200, startPrio);
+        super(ssearch, SENDER.getName(), /* threads */ 2, /* urlWarten */ 200, startPrio);
     }
 
     /**
@@ -85,7 +92,6 @@ public class MediathekHr extends MediathekReader {
         });
 
         futureFilme.forEach(e -> {
-
             try {
                 ListeFilme filmList = e.get();
                 if(filmList != null) {
