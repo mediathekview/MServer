@@ -290,7 +290,12 @@ public class BrFilmDeserializer implements JsonDeserializer<Optional<Film>> {
             return Optional.empty();
         }
 
-        final JsonObject node = edges.get(0).getAsJsonObject();
+        final JsonObject arrayItem = edges.get(0).getAsJsonObject();
+        if (!arrayItem.has(JSON_ELEMENT_NODE)) {
+            return Optional.empty();
+        }
+    
+        final JsonObject node = arrayItem.getAsJsonObject(JSON_ELEMENT_NODE);
         if (!node.has(JSON_ELEMENT_START)) {
             return Optional.empty();
         }
@@ -378,7 +383,7 @@ public class BrFilmDeserializer implements JsonDeserializer<Optional<Film>> {
     }
 
     private LocalDateTime toTime(final String aStart) {
-        return LocalDateTime.parse(aStart, DateTimeFormatter.ISO_INSTANT);
+        return LocalDateTime.parse(aStart, DateTimeFormatter.ISO_OFFSET_DATE_TIME);
     }
 
 }
