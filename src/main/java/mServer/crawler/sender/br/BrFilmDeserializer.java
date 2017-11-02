@@ -22,7 +22,6 @@ import de.mediathekview.mlib.daten.DatenFilm;
 import java.util.HashMap;
 import java.util.Map;
 import mServer.crawler.CrawlerTool;
-import mServer.crawler.sender.br.Resolution;
 import static mServer.crawler.sender.MediathekBr.SENDERNAME;
 import mServer.crawler.sender.MediathekReader;
 
@@ -292,8 +291,13 @@ public class BrFilmDeserializer implements JsonDeserializer<Optional<DatenFilm>>
     if (edges.size() <= 0) {
       return Optional.empty();
     }
-
-    final JsonObject node = edges.get(0).getAsJsonObject();
+    
+    final JsonObject arrayItem = edges.get(0).getAsJsonObject();
+    if (!arrayItem.has(JSON_ELEMENT_NODE)) {
+      return Optional.empty();
+    }
+    
+    final JsonObject node = arrayItem.getAsJsonObject(JSON_ELEMENT_NODE);
     if (!node.has(JSON_ELEMENT_START)) {
       return Optional.empty();
     }
@@ -381,7 +385,7 @@ public class BrFilmDeserializer implements JsonDeserializer<Optional<DatenFilm>>
   }
 
   private LocalDateTime toTime(final String aStart) {
-    return LocalDateTime.parse(aStart, DateTimeFormatter.ISO_INSTANT);
+    return LocalDateTime.parse(aStart, DateTimeFormatter.ISO_OFFSET_DATE_TIME);
   }
 
 }
