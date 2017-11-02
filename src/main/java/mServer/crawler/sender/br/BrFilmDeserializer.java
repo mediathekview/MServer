@@ -218,15 +218,20 @@ public class BrFilmDeserializer implements JsonDeserializer<Optional<DatenFilm>>
       final String thema = getTheme(aDetailClip);
 
       final LocalDateTime time;
+      final String dateValue;
+      final String timeValue;
       if (start.isPresent()) {
         time = toTime(start.get().getAsString());
+        dateValue = time.format(dateFormatDatenFilm);
+        timeValue = time.format(timeFormatDatenFilm);
       } else {
         time = LocalDateTime.now();
         LOG.debug(String.format(ERROR_NO_START_TEMPLATE, thema, title));
+        dateValue = "";
+        timeValue = "";
       }
+
       final Duration duration = toDuration(aDetailClip.get(JSON_ELEMENT_DURATION).getAsLong());
-      final String dateValue = time.format(dateFormatDatenFilm);
-      final String timeValue = time.format(timeFormatDatenFilm);
 
       final String website = String.format(FILM_WEBSITE_TEMPLATE, BrCrawler.BASE_URL, filmId);
       DatenFilm film = new DatenFilm(SENDERNAME, thema, website, title, aUrls.get(Resolution.NORMAL),"",
