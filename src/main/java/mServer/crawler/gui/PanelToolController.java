@@ -33,9 +33,6 @@ import javafx.scene.media.MediaView;
 import javafx.stage.FileChooser;
 
 public class PanelToolController implements Initializable {
-
-    @FXML
-    private Button btnCheck;
     @FXML
     private Button btnPlay;
     @FXML
@@ -54,7 +51,6 @@ public class PanelToolController implements Initializable {
     }
 
     private void initPanelTool() {
-        btnCheck.setOnAction(e -> Data.listeFilme.check());
         btnPlay.setOnAction(e -> play());
         btnPath.setOnAction(e -> getPath());
         btnStop.setOnAction(e -> stop());

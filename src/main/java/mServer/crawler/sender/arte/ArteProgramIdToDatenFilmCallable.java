@@ -2,51 +2,48 @@ package mServer.crawler.sender.arte;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import de.mediathekview.mlib.daten.DatenFilm;
+import de.mediathekview.mlib.daten.Film;
+import de.mediathekview.mlib.daten.GeoLocations;
+import de.mediathekview.mlib.daten.Qualities;
+import de.mediathekview.mlib.daten.Sender;
 import java.io.IOException;
-import java.time.LocalTime;
-import java.util.Calendar;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.time.Duration;
+import java.time.temporal.ChronoUnit;
+import java.util.Collection;
+import java.util.UUID;
 import java.util.concurrent.Callable;
 import mServer.crawler.CrawlerTool;
-import mServer.crawler.sender.newsearch.GeoLocations;
-import mServer.crawler.sender.newsearch.Qualities;
-import mServer.tool.MserverDatumZeit;
-import org.apache.commons.lang3.time.FastDateFormat;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 /**
  * Liest anhand einer ProgramId die Daten eines Films
  */
-public class ArteProgramIdToDatenFilmCallable implements Callable<DatenFilm> {
+public class ArteProgramIdToDatenFilmCallable implements Callable<Film> {
     private static final Logger LOG = LogManager.getLogger(ArteProgramIdToDatenFilmCallable.class);
 
     private static final String ARTE_VIDEO_INFORMATION_URL_PATTERN = "https://api.arte.tv/api/player/v1/config/%s/%s?platform=ARTE_NEXT";
     private static final String ARTE_VIDEO_INFORMATION_URL_PATTERN_2 = "https://api.arte.tv/api/opa/v3/programs/%s/%s"; // Für broadcastBeginRounded
     
-    private final FastDateFormat broadcastDateFormat = FastDateFormat.getInstance("yyyy-MM-dd'T'HH:mm:ssX");//2016-10-29T16:15:00Z
-    
     private final String programId;
     private final String langCode;
-    private final String senderName;
+    private final Sender sender;
     
-    private final Calendar today;
-    
-    
-    public ArteProgramIdToDatenFilmCallable(String aProgramId, String aLangCode, String aSenderName) {
+    public ArteProgramIdToDatenFilmCallable(String aProgramId, String aLangCode, Sender aSender) {
         programId = aProgramId;
         langCode = aLangCode;
-        senderName = aSenderName;
-        today = Calendar.getInstance();
+        sender = aSender;
     }
     
     @Override
-    public DatenFilm call() throws Exception {
-        DatenFilm film = null;
+    public Film call() throws Exception {
+        Film film = null;
         
         Gson gson = new GsonBuilder()
                 .registerTypeAdapter(ArteVideoDTO.class, new ArteVideoDeserializer())
-                .registerTypeAdapter(ArteVideoDetailsDTO.class, new ArteVideoDetailsDeserializer(today))
+                .registerTypeAdapter(ArteVideoDetailsDTO.class, new ArteVideoDetailsDeserializer())
                 .create();
 
         String videosUrl = String.format(ARTE_VIDEO_INFORMATION_URL_PATTERN, langCode, programId);
@@ -54,13 +51,13 @@ public class ArteProgramIdToDatenFilmCallable implements Callable<DatenFilm> {
 
         if(video != null) {
             //The duration as time so it can be formatted and co.
-            LocalTime durationAsTime = durationAsTime(video.getDurationInSeconds());
+            Duration duration = Duration.of(video.getDurationInSeconds(), ChronoUnit.SECONDS);
 
             if (video.getVideoUrls().containsKey(Qualities.NORMAL))
             {
                 ArteVideoDetailsDTO details = getVideoDetails(gson, programId);                      
                 if(details != null) {
-                    film = createFilm(details.getTheme(), details.getWebsite(), details.getTitle(), video, details, durationAsTime, details.getDescription());
+                    film = createFilm(details.getTheme(), details.getWebsite(), details.getTitle(), video, details, duration, details.getDescription());
                 }
            } else {
                LOG.debug(String.format("Keine \"normale\" Video URL für den Film \"%s\"", programId));
@@ -78,36 +75,21 @@ public class ArteProgramIdToDatenFilmCallable implements Callable<DatenFilm> {
         return details;
     }
     
-    private DatenFilm createFilm(String thema, String urlWeb, String titel, ArteVideoDTO video, ArteVideoDetailsDTO details, LocalTime durationAsTime, String beschreibung) {
+    private Film createFilm(String thema, String urlWeb, String titel, ArteVideoDTO video, ArteVideoDetailsDTO details, Duration duration, String beschreibung) throws URISyntaxException {
         
-        String broadcastBegin = details.getBroadcastBegin();
-        String date = MserverDatumZeit.formatDate(broadcastBegin, broadcastDateFormat);
-        String time = MserverDatumZeit.formatTime(broadcastBegin, broadcastDateFormat);
-        
-        DatenFilm film = new DatenFilm(senderName, thema, urlWeb, titel, video.getUrl(Qualities.NORMAL), "" /*urlRtmp*/,
-                date, time, durationAsTime.toSecondOfDay(), beschreibung);
-        if (video.getVideoUrls().containsKey(Qualities.HD))
-        {
-            CrawlerTool.addUrlHd(film, video.getUrl(Qualities.HD), "");
-        }
-        if (video.getVideoUrls().containsKey(Qualities.SMALL))
-        {
-            CrawlerTool.addUrlKlein(film, video.getUrl(Qualities.SMALL), "");
-        }
-
+        Collection<GeoLocations> geoLocations = CrawlerTool.getGeoLocations(sender, video.getUrl(Qualities.NORMAL));
         if (details.getGeoLocation() != GeoLocations.GEO_NONE) {
-            film.arr[DatenFilm.FILM_GEO] = details.getGeoLocation().getDescription();
+            geoLocations.remove(GeoLocations.GEO_NONE);
+            geoLocations.add(details.getGeoLocation());
         }
+        
+        Film film = new Film(UUID.randomUUID(), geoLocations, sender, titel, thema, details.getBroadcastBegin(), duration, new URI(urlWeb));
+        film.setBeschreibung(beschreibung);
+        for(Qualities quality : video.getVideoUrls().keySet())
+        {
+            film.addUrl(quality, CrawlerTool.stringToFilmUrl(video.getUrl(quality)));
+        }                
 
         return film;
     }
-    
-    private LocalTime durationAsTime(long aDurationInSeconds)
-    {
-        LocalTime localTime = LocalTime.MIN;
-        
-        localTime = localTime.plusSeconds(aDurationInSeconds);
-        
-        return localTime;
-    }    
 }

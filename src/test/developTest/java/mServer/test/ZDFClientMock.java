@@ -1,6 +1,6 @@
 package mServer.test;
 
-import mServer.crawler.sender.newsearch.ZDFClient;
+import mServer.crawler.sender.zdf.ZDFClient;
 import static org.mockito.Mockito.*;
 import org.mockito.Mockito;
 

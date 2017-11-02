@@ -1,4 +1,4 @@
-package mServer.crawler.sender.newsearch;
+package mServer.crawler.sender.zdf;
 
 import de.mediathekview.mlib.tool.Log;
 import java.io.IOException;
