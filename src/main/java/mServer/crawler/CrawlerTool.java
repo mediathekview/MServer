@@ -284,6 +284,7 @@ public class CrawlerTool
         Map<GeoLocations, List<String>> geoUrls = new HashMap<>();
         geoUrls.put(GeoLocations.GEO_AT, Arrays.asList(
                 "pmdgeo.kika.de",
+                "pmdgeokika-a.akamaihd.net",
                 "kika_geo-lh.akamaihd.net"
         ));
 
