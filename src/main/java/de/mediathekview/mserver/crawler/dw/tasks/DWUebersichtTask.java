@@ -47,14 +47,18 @@ public class DWUebersichtTask extends AbstractDocumentTask<URL, CrawlerUrlDTO> {
   }
 
   private Optional<AbstractUrlTask<URL, CrawlerUrlDTO>> createNextPageCrawler(
-      final CrawlerUrlDTO aUrlDTO) {
+      final CrawlerUrlDTO aUrlDTO, final Elements aFoundNextSiteLink) {
     final Optional<Integer> resultsCount = gatherResultsCount(aUrlDTO);
+    final Optional<Integer> nextPageCount = getNextSiteCount(aFoundNextSiteLink);
 
     final ConcurrentLinkedQueue<CrawlerUrlDTO> nextPageUrls = new ConcurrentLinkedQueue<>();
-    nextPageUrls
-        .offer(new CrawlerUrlDTO(UrlUtils.changeOrAddParameter(addBaseParameters(aUrlDTO.getUrl()),
-            PARAMETER_RESULTS, resultsCount.orElse(0).toString())));
-    return Optional.of(createNewOwnInstance(nextPageUrls));
+    if (resultsCount.isPresent() && nextPageCount.isPresent()) {
+      nextPageUrls.offer(
+          new CrawlerUrlDTO(UrlUtils.changeOrAddParameter(addBaseParameters(aUrlDTO.getUrl()),
+              PARAMETER_RESULTS, Integer.toString(resultsCount.get() + nextPageCount.get()))));
+      return Optional.of(createNewOwnInstance(nextPageUrls));
+    }
+    return Optional.empty();
   }
 
   private Optional<Integer> gatherResultsCount(final CrawlerUrlDTO aUrlDTO) {
@@ -64,9 +68,19 @@ public class DWUebersichtTask extends AbstractDocumentTask<URL, CrawlerUrlDTO> {
       try {
         return Optional.of(Integer.parseInt(resultsRegexMatcher.group()));
       } catch (final NumberFormatException numberFormatException) {
-        LOG.debug("Something wen't teribble wrong on gathering the results count for DW.",
+        LOG.error("Something wen't wrong on gathering the results count for DW.",
             numberFormatException);
       }
+    }
+    return Optional.empty();
+  }
+
+  private Optional<Integer> getNextSiteCount(final Elements aFoundNextSiteLink) {
+    try {
+      return Optional.of(Integer.parseInt(aFoundNextSiteLink.text()));
+    } catch (final NumberFormatException numberFormatException) {
+      LOG.error("Something wen't wrong on gathering the next page results count for DW.",
+          numberFormatException);
     }
     return Optional.empty();
   }
@@ -81,14 +95,17 @@ public class DWUebersichtTask extends AbstractDocumentTask<URL, CrawlerUrlDTO> {
   protected void processDocument(final CrawlerUrlDTO aUrlDTO, final Document aDocument) {
     try {
       final Elements foundLinks = aDocument.select(SENDUNG_LINK_SELEKTOR);
+      foundLinks.addAll(aDocument.select(".news a"));
       final Elements foundNextSiteLink = aDocument.select(ADD_PAGE_NUMBER);
 
       Optional<AbstractUrlTask<URL, CrawlerUrlDTO>> nextPageTask;
       if (foundNextSiteLink.isEmpty()) {
         nextPageTask = Optional.empty();
       } else {
-        nextPageTask = createNextPageCrawler(aUrlDTO);
-        nextPageTask.get().fork();
+        nextPageTask = createNextPageCrawler(aUrlDTO, foundNextSiteLink);
+        if (nextPageTask.isPresent()) {
+          nextPageTask.get().fork();
+        }
       }
 
 

@@ -113,7 +113,12 @@ public class DWFilmDetailsTask extends AbstractDocumentTask<Film, CrawlerUrlDTO>
     final Optional<String> thema = HtmlDocumentUtils.getElementString(ELEMENT_THEMA, aDocument);
     final Optional<String> dateText = HtmlDocumentUtils.getElementString(ELEMENT_DATUM, aDocument);
     final Optional<String> dauerText = HtmlDocumentUtils.getElementString(ELEMENT_DAUER, aDocument);
-    final Optional<Duration> dauer = parseDuration(dauerText);
+    final Optional<Duration> dauer;
+    if (dauerText.isPresent()) {
+      dauer = parseDuration(dauerText);
+    } else {
+      dauer = Optional.empty();
+    }
 
     if (titel.isPresent()) {
       if (thema.isPresent()) {
