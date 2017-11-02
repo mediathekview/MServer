@@ -193,6 +193,8 @@ public class CrawlerTool
                 "mediandr-a.akamaihd.net/progressive_geo",
                 "cdn-storage.br.de/geo",
                 "cdn-sotschi.br.de/geo/b7",
+                "cdn-storage.br.de/geo/",
+                "cdn-sotschi.br.de/geo/b7/",
                 "pd-ondemand.swr.de/geo/de",
                 "ondemandgeo.mdr.de",
                 "ondemand-de.wdr.de",
