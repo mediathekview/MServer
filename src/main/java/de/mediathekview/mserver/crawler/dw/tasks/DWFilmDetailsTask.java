@@ -7,7 +7,6 @@ import java.time.Duration;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
-import java.util.ArrayList;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Optional;
@@ -25,6 +24,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import de.mediathekview.mlib.daten.Film;
+import de.mediathekview.mlib.daten.FilmUrl;
 import de.mediathekview.mlib.daten.Resolution;
 import de.mediathekview.mserver.base.utils.HtmlDocumentUtils;
 import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
@@ -33,6 +33,7 @@ import de.mediathekview.mserver.crawler.basic.AbstractUrlTask;
 import de.mediathekview.mserver.crawler.basic.CrawlerUrlDTO;
 import de.mediathekview.mserver.crawler.dw.DwCrawler;
 import de.mediathekview.mserver.crawler.dw.parser.DWDownloadUrlsParser;
+import mServer.crawler.CrawlerTool;
 
 public class DWFilmDetailsTask extends AbstractDocumentTask<Film, CrawlerUrlDTO> {
   private static final String URL_SPLITTERATOR = "/";
@@ -40,17 +41,17 @@ public class DWFilmDetailsTask extends AbstractDocumentTask<Film, CrawlerUrlDTO>
   private static final Logger LOG = LogManager.getLogger(DWFilmDetailsTask.class);
   private static final String ELEMENT_THEMA = ".artikel";
   private static final String ELEMENT_TITEL = ".group h1";
-  private static final String ELEMENT_DATUM = ".group li:eq(1)";
-  private static final String ELEMENT_DAUER = ".group li:eq(2)";
+  private static final String ELEMENT_DATUM = ".group li:eq(0)";
+  private static final String ELEMENT_DAUER = ".group li:eq(1)";
   private static final String DOWNLOAD_DETAILS_URL_TEMPLATE =
-      DwCrawler.BASE_URL + "playersources/%s";
+      DwCrawler.BASE_URL + "/playersources/%s";
   private static final String CHAR_TO_REMOVE_FROM_PAGE_ID = "a";
 
   private static final String DATE_REGEX_PATTERN = "(?<=Datum\\s)[\\.\\d]+";
   private static final String DAUER_REGEX_PATTERN = "(?<=Dauer\\s)\\d+:\\d+";
 
   private static final DateTimeFormatter DATE_FORMATTER =
-      DateTimeFormatter.ofLocalizedDate(FormatStyle.SHORT).withLocale(Locale.GERMAN);
+      DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM).withLocale(Locale.GERMAN);
 
   public DWFilmDetailsTask(final AbstractCrawler aCrawler,
       final ConcurrentLinkedQueue<CrawlerUrlDTO> aUrlToCrawlDTOs) {
@@ -68,7 +69,7 @@ public class DWFilmDetailsTask extends AbstractDocumentTask<Film, CrawlerUrlDTO>
 
       final Type urlMapType = new TypeToken<Map<Resolution, URL>>() {}.getType();
       final Gson gson =
-          new GsonBuilder().registerTypeAdapter(urlMapType, DWDownloadUrlsParser.class).create();
+          new GsonBuilder().registerTypeAdapter(urlMapType, new DWDownloadUrlsParser()).create();
 
       film.addAllUrls(gson.fromJson(response, urlMapType));
     } catch (final MalformedURLException malformedURLException) {
@@ -126,10 +127,16 @@ public class DWFilmDetailsTask extends AbstractDocumentTask<Film, CrawlerUrlDTO>
           final Optional<LocalDate> time = parseDate(dateText);
 
           try {
-            final Film newFilm = new Film(UUID.randomUUID(), new ArrayList<>(), crawler.getSender(),
-                titel.get(), thema.get(), time.orElse(LocalDate.now()).atStartOfDay(), dauer.get(),
-                new URL(aUrlDTO.getUrl()));
+            final Film newFilm = new Film(UUID.randomUUID(), crawler.getSender(), titel.get(),
+                thema.get(), time.orElse(LocalDate.now()).atStartOfDay(), dauer.get());
+            newFilm.setWebsite(new URL(aUrlDTO.getUrl()));
             addDownloadUrls(aUrlDTO, newFilm);
+
+            final Optional<FilmUrl> defaultUrl = newFilm.getDefaultUrl();
+            if (defaultUrl.isPresent()) {
+              newFilm.setGeoLocations(CrawlerTool.getGeoLocations(crawler.getSender(),
+                  defaultUrl.get().getUrl().toString()));
+            }
 
             taskResults.add(newFilm);
             crawler.incrementAndGetActualCount();

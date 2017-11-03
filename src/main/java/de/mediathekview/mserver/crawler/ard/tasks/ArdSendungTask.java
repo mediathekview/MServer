@@ -133,11 +133,12 @@ public class ArdSendungTask extends AbstractDocumentTask<Film, ArdSendungBasicIn
         crawler.printErrorMessage();
         crawler.incrementAndGetErrorCount();
       } else {
-        final Film newFilm = new Film(UUID.randomUUID(),
-            CrawlerTool.getGeoLocations(sender, videoInfo.getDefaultVideoUrl()), sender,
-            basicInfo.getTitle(), basicInfo.getThema(),
-            MserverDatumZeit.parseDateTime(datumAsText, sendezeitAsText),
-            Duration.of(dauerInMinutes, ChronoUnit.MINUTES), new URL(aUrlDTO.getUrl()));
+        final Film newFilm = new Film(UUID.randomUUID(), sender, basicInfo.getTitle(),
+            basicInfo.getThema(), MserverDatumZeit.parseDateTime(datumAsText, sendezeitAsText),
+            Duration.of(dauerInMinutes, ChronoUnit.MINUTES));
+        newFilm
+            .setGeoLocations(CrawlerTool.getGeoLocations(sender, videoInfo.getDefaultVideoUrl()));
+        newFilm.setWebsite(new URL(aUrlDTO.getUrl()));
         if (StringUtils.isNotBlank(videoInfo.getSubtitleUrl())) {
           newFilm.addSubtitle(new URL(videoInfo.getSubtitleUrl()));
         }

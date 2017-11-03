@@ -95,7 +95,9 @@ public class DWUebersichtTask extends AbstractDocumentTask<URL, CrawlerUrlDTO> {
   protected void processDocument(final CrawlerUrlDTO aUrlDTO, final Document aDocument) {
     try {
       final Elements foundLinks = aDocument.select(SENDUNG_LINK_SELEKTOR);
-      foundLinks.addAll(aDocument.select(".news a"));
+      if (foundLinks.isEmpty()) {
+        foundLinks.addAll(aDocument.select(".searchres a"));
+      }
       final Elements foundNextSiteLink = aDocument.select(ADD_PAGE_NUMBER);
 
       Optional<AbstractUrlTask<URL, CrawlerUrlDTO>> nextPageTask;

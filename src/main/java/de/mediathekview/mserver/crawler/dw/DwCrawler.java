@@ -36,12 +36,20 @@ public class DwCrawler extends AbstractCrawler {
 
   @Override
   protected RecursiveTask<Set<Film>> createCrawlerTask() {
-    final ConcurrentLinkedQueue<CrawlerUrlDTO> startUrls = new ConcurrentLinkedQueue<>();
-    startUrls.offer(new CrawlerUrlDTO(SENDUNG_VERPASST_URL));
-    startUrls.offer(new CrawlerUrlDTO(ALLE_INHALTE_URL));
+    final ConcurrentLinkedQueue<CrawlerUrlDTO> sendungVerpasstStartUrls =
+        new ConcurrentLinkedQueue<>();
+    sendungVerpasstStartUrls.offer(new CrawlerUrlDTO(SENDUNG_VERPASST_URL));
+    final DWUebersichtTask sendungverpasstUebersichtTask =
+        new DWUebersichtTask(this, sendungVerpasstStartUrls);
+    final Set<URL> sendungverpasstFolgenUrls = forkJoinPool.invoke(sendungverpasstUebersichtTask);
 
+    final ConcurrentLinkedQueue<CrawlerUrlDTO> startUrls = new ConcurrentLinkedQueue<>();
+    startUrls.offer(new CrawlerUrlDTO(ALLE_INHALTE_URL));
+    startUrls.addAll(
+        sendungverpasstFolgenUrls.stream().map(CrawlerUrlDTO::new).collect(Collectors.toList()));
     final DWUebersichtTask uebersichtTask = new DWUebersichtTask(this, startUrls);
     final Set<URL> sendungFolgenUrls = forkJoinPool.invoke(uebersichtTask);
+
 
     return new DWFilmDetailsTask(this, new ConcurrentLinkedQueue<>(
         sendungFolgenUrls.stream().map(CrawlerUrlDTO::new).collect(Collectors.toList())));

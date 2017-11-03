@@ -8,7 +8,6 @@ import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
-import java.util.ArrayList;
 import java.util.Optional;
 import java.util.UUID;
 import org.apache.logging.log4j.LogManager;
@@ -18,6 +17,7 @@ import com.google.gson.JsonDeserializer;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import de.mediathekview.mlib.daten.Film;
+import de.mediathekview.mlib.daten.FilmUrl;
 import de.mediathekview.mlib.daten.Resolution;
 import de.mediathekview.mlib.daten.Sender;
 import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
@@ -99,13 +99,19 @@ public class FunkFilmDeserializer implements JsonDeserializer<Optional<Film>> {
       final Duration dauer = loadDuration(attributeObj.get(JSON_ELEMENT_DURATION).getAsLong());
 
       try {
-        final Film newFilm = new Film(UUID.randomUUID(), new ArrayList<>(), Sender.FUNK, titel,
-            thema, time, dauer, new URL(website));
+        final Film newFilm = new Film(UUID.randomUUID(), Sender.FUNK, titel, thema, time, dauer);
+        newFilm.setWebsite(new URL(website));
 
         final String downloadUrl = attributeObj.get(JSON_ELEMENT_DOWNLOAD_URL).getAsString();
         if (setDownloadUrl(newFilm, downloadUrl)) {
           if (hasElements(attributeObj, JSON_ELEMENT_SHORT_DESCRIPTION)) {
             newFilm.setBeschreibung(attributeObj.get(JSON_ELEMENT_SHORT_DESCRIPTION).getAsString());
+          }
+
+          final Optional<FilmUrl> defaultUrl = newFilm.getDefaultUrl();
+          if (defaultUrl.isPresent()) {
+            newFilm.setGeoLocations(CrawlerTool.getGeoLocations(crawler.getSender(),
+                defaultUrl.get().getUrl().toString()));
           }
 
           return Optional.of(newFilm);

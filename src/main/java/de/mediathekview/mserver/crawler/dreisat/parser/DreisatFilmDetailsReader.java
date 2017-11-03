@@ -25,6 +25,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import de.mediathekview.mlib.daten.Film;
+import de.mediathekview.mlib.daten.FilmUrl;
 import de.mediathekview.mlib.daten.GeoLocations;
 import de.mediathekview.mlib.daten.Resolution;
 import de.mediathekview.mlib.daten.Sender;
@@ -92,10 +93,18 @@ public class DreisatFilmDetailsReader {
           geoLocations.add(GeoLocations.find(geoLocNodes.get(0).text())
               .orElse(downloadInfos.get().getGeoLocation().orElse(GeoLocations.GEO_NONE)));
 
-          final Film newFilm = new Film(UUID.randomUUID(), geoLocations, Sender.DREISAT, title,
-              thema, time, dauer, website);
+          final Film newFilm =
+              new Film(UUID.randomUUID(), Sender.DREISAT, title, thema, time, dauer);
+          newFilm.setGeoLocations(geoLocations);
+          newFilm.setWebsite(website);
           addSubtitle(downloadInfos.get(), newFilm);
           addUrls(downloadInfos.get(), newFilm);
+
+          final Optional<FilmUrl> defaultUrl = newFilm.getDefaultUrl();
+          if (defaultUrl.isPresent()) {
+            newFilm.setGeoLocations(CrawlerTool.getGeoLocations(crawler.getSender(),
+                defaultUrl.get().getUrl().toString()));
+          }
 
           if (!descriptionNodes.isEmpty()) {
             newFilm.setBeschreibung(descriptionNodes.get(0).text());

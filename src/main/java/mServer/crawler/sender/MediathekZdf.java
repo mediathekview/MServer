@@ -1,21 +1,17 @@
 /*
- * MediathekView
- * Copyright (C) 2008 W. Xaver
- * W.Xaver[at]googlemail.com
+ * MediathekView Copyright (C) 2008 W. Xaver W.Xaver[at]googlemail.com
  * http://zdfmediathk.sourceforge.net/
  *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * any later version.
+ * This program is free software: you can redistribute it and/or modify it under the terms of the
+ * GNU General Public License as published by the Free Software Foundation, either version 3 of the
+ * License, or any later version.
  *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
- * GNU General Public License for more details.
+ * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without
+ * even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+ * General Public License for more details.
  *
- * You should have received a copy of the GNU General Public License
- * along with this program. If not, see <http://www.gnu.org/licenses/>.
+ * You should have received a copy of the GNU General Public License along with this program. If
+ * not, see <http://www.gnu.org/licenses/>.
  */
 package mServer.crawler.sender;
 
@@ -31,11 +27,9 @@ import java.util.concurrent.ForkJoinPool;
 import java.util.concurrent.Phaser;
 import java.util.concurrent.RecursiveAction;
 import java.util.concurrent.TimeUnit;
-
 import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
 import de.mediathekview.mlib.Config;
 import de.mediathekview.mlib.daten.Film;
 import de.mediathekview.mlib.daten.GeoLocations;
@@ -52,175 +46,147 @@ import mServer.crawler.sender.zdf.VideoDTO;
 import mServer.crawler.sender.zdf.ZDFSearchTask;
 import mServer.tool.MserverDatumZeit;
 
-public class MediathekZdf extends MediathekReader
-{
-    private static final Logger LOG = LogManager.getLogger(MediathekZdf.class);
-    public final static Sender SENDER = Sender.ZDF;
-    private ForkJoinPool forkJoinPool;
+public class MediathekZdf extends MediathekReader {
+  @SuppressWarnings("serial")
+  private class VideoDtoDatenFilmConverterAction extends RecursiveAction {
 
-    public MediathekZdf(final FilmeSuchen ssearch, final int startPrio)
-    {
-        super(ssearch, SENDER.getName(), 0 /* threads */, 150 /* urlWarten */, startPrio);
-        setName("MediathekZdf");
+    private final VideoDTO video;
+
+    public VideoDtoDatenFilmConverterAction(final VideoDTO aVideoDTO) {
+      video = aVideoDTO;
+      phaser.register();
     }
-
-    private final Phaser phaser = new Phaser();
 
     @Override
-    public void addToList()
-    {
-        meldungStart();
-        meldungAddThread();
+    protected void compute() {
+      if (video != null) {
+        try {
+          final DownloadDTO download = video.getDownloadDto();
 
-        final int days = CrawlerTool.loadLongMax() ? 300 : 20;
+          final Collection<GeoLocations> geoLocations = new ArrayList<>();
+          geoLocations.add(download.getGeoLocation());
 
-        final ZDFSearchTask newTask = new ZDFSearchTask(days);
-        forkJoinPool = new ForkJoinPool(Runtime.getRuntime().availableProcessors() * 4);
-        forkJoinPool.execute(newTask);
-        final Collection<VideoDTO> filmList = newTask.join();
+          final Film film = new Film(UUID.randomUUID(), SENDER, video.getTitle(), video.getTopic(),
+              MserverDatumZeit.parseDateTime(video.getDate(), video.getTime()),
+              Duration.of(video.getDuration(), ChronoUnit.SECONDS));
+          film.setGeoLocations(geoLocations);
+          film.setWebsite(new URL(video.getWebsiteUrl()));
 
-        final EtmPoint perfPoint = EtmManager.getEtmMonitor().createPoint("MediathekZdf.convertVideoDTO");
+          if (StringUtils.isNotBlank(video.getDescription())) {
+            film.setBeschreibung(video.getDescription());
+          }
+          if (download.hasUrl(Resolution.HD)) {
+            film.addUrl(Resolution.HD, CrawlerTool.stringToFilmUrl(download.getUrl(Resolution.HD)));
+          }
+          if (download.hasUrl(Resolution.SMALL)) {
+            film.addUrl(Resolution.SMALL,
+                CrawlerTool.stringToFilmUrl(download.getUrl(Resolution.SMALL)));
+          }
 
-        if (!filmList.isEmpty())
-        {
-            // Convert new DTO to old DatenFilm class
-            Log.sysLog("convert VideoDTO to DatenFilm started...");
-            filmList.parallelStream().forEach((video) -> {
-                final VideoDtoDatenFilmConverterAction action = new VideoDtoDatenFilmConverterAction(video);
-                forkJoinPool.execute(action);
-            });
+          if (StringUtils.isNotBlank(download.getSubTitleUrl())) {
+            film.addSubtitle(new URL(download.getSubTitleUrl()));
+          }
 
-            filmList.clear();
+          try {
+            CrawlerTool.improveAufloesung(film);
+          } catch (final MalformedURLException malformedURLException) {
+            LOG.error("Beim verbessern der Auflösung ist ein Fehler aufgetreten",
+                malformedURLException);
+          }
+
+          // don´t use addFilm here
+          if (mlibFilmeSuchen.listeFilmeNeu.addFilmVomSender(film)) {
+            // dann ist er neu
+            FilmeSuchen.listeSenderLaufen.inc(film.getSender().getName(), RunSender.Count.FILME);
+          }
+
+        } catch (final Exception ex) {
+          Log.errorLog(496583211, ex, "add film failed: " + video.getWebsiteUrl());
         }
+      }
+      phaser.arriveAndDeregister();
+    }
+  }
 
-        boolean wasInterrupted = false;
-        while (!phaser.isTerminated())
-        {
-            try
-            {
-                if (Config.getStop())
-                {
-                    wasInterrupted = true;
-                    phaser.forceTermination();
-                    shutdownAndAwaitTermination(forkJoinPool, 5, TimeUnit.SECONDS);
-                }
-                else
-                {
-                    TimeUnit.SECONDS.sleep(1);
-                }
-            }
-            catch (final InterruptedException ignored)
-            {
-            }
-        }
+  private static final Logger LOG = LogManager.getLogger(MediathekZdf.class);
+  public final static Sender SENDER = Sender.ZDF;
 
-        // explicitely shutdown the pool
-        shutdownAndAwaitTermination(forkJoinPool, 60, TimeUnit.SECONDS);
+  private ForkJoinPool forkJoinPool;
 
-        perfPoint.collect();
-        if (wasInterrupted)
-        {
-            Log.sysLog("VideoDTO conversion interrupted.");
-        }
-        else
-        {
-            Log.sysLog("convert VideoDTO to DatenFilm finished.");
-        }
+  private final Phaser phaser = new Phaser();
 
-        meldungThreadUndFertig();
+  public MediathekZdf(final FilmeSuchen ssearch, final int startPrio) {
+    super(ssearch, SENDER.getName(), 0 /* threads */, 150 /* urlWarten */, startPrio);
+    setName("MediathekZdf");
+  }
+
+  @Override
+  public void addToList() {
+    meldungStart();
+    meldungAddThread();
+
+    final int days = CrawlerTool.loadLongMax() ? 300 : 20;
+
+    final ZDFSearchTask newTask = new ZDFSearchTask(days);
+    forkJoinPool = new ForkJoinPool(Runtime.getRuntime().availableProcessors() * 4);
+    forkJoinPool.execute(newTask);
+    final Collection<VideoDTO> filmList = newTask.join();
+
+    final EtmPoint perfPoint =
+        EtmManager.getEtmMonitor().createPoint("MediathekZdf.convertVideoDTO");
+
+    if (!filmList.isEmpty()) {
+      // Convert new DTO to old DatenFilm class
+      Log.sysLog("convert VideoDTO to DatenFilm started...");
+      filmList.parallelStream().forEach((video) -> {
+        final VideoDtoDatenFilmConverterAction action = new VideoDtoDatenFilmConverterAction(video);
+        forkJoinPool.execute(action);
+      });
+
+      filmList.clear();
     }
 
-    void shutdownAndAwaitTermination(final ExecutorService pool, final long delay, final TimeUnit delayUnit)
-    {
-        pool.shutdown();
-        try
-        {
-            if (!pool.awaitTermination(delay, delayUnit))
-            {
-                pool.shutdownNow();
-                if (!pool.awaitTermination(delay, delayUnit))
-                {
-                    Log.sysLog("Pool did not terminate");
-                }
-            }
+    boolean wasInterrupted = false;
+    while (!phaser.isTerminated()) {
+      try {
+        if (Config.getStop()) {
+          wasInterrupted = true;
+          phaser.forceTermination();
+          shutdownAndAwaitTermination(forkJoinPool, 5, TimeUnit.SECONDS);
+        } else {
+          TimeUnit.SECONDS.sleep(1);
         }
-        catch (final InterruptedException ie)
-        {
-            pool.shutdownNow();
-            Thread.currentThread().interrupt();
-        }
+      } catch (final InterruptedException ignored) {
+      }
     }
 
-    @SuppressWarnings("serial")
-    private class VideoDtoDatenFilmConverterAction extends RecursiveAction
-    {
+    // explicitely shutdown the pool
+    shutdownAndAwaitTermination(forkJoinPool, 60, TimeUnit.SECONDS);
 
-        private final VideoDTO video;
-
-        public VideoDtoDatenFilmConverterAction(final VideoDTO aVideoDTO)
-        {
-            video = aVideoDTO;
-            phaser.register();
-        }
-
-        @Override
-        protected void compute()
-        {
-            if (video != null)
-            {
-                try
-                {
-                    final DownloadDTO download = video.getDownloadDto();
-
-                    final Collection<GeoLocations> geoLocations = new ArrayList<>();
-                    geoLocations.add(download.getGeoLocation());
-
-                    final Film film = new Film(UUID.randomUUID(), geoLocations, SENDER, video.getTitle(),
-                            video.getTopic(), MserverDatumZeit.parseDateTime(video.getDate(), video.getTime()),
-                            Duration.of(video.getDuration(), ChronoUnit.SECONDS), new URL(video.getWebsiteUrl()));
-
-                    if (StringUtils.isNotBlank(video.getDescription()))
-                    {
-                        film.setBeschreibung(video.getDescription());
-                    }
-                    if (download.hasUrl(Resolution.HD))
-                    {
-                        film.addUrl(Resolution.HD, CrawlerTool.stringToFilmUrl(download.getUrl(Resolution.HD)));
-                    }
-                    if (download.hasUrl(Resolution.SMALL))
-                    {
-                        film.addUrl(Resolution.SMALL, CrawlerTool.stringToFilmUrl(download.getUrl(Resolution.SMALL)));
-                    }
-
-                    if (StringUtils.isNotBlank(download.getSubTitleUrl()))
-                    {
-                        film.addSubtitle(new URL(download.getSubTitleUrl()));
-                    }
-
-                    try
-                    {
-                        CrawlerTool.improveAufloesung(film);
-                    }
-                    catch (final MalformedURLException malformedURLException)
-                    {
-                        LOG.error("Beim verbessern der Auflösung ist ein Fehler aufgetreten", malformedURLException);
-                    }
-
-                    // don´t use addFilm here
-                    if (mlibFilmeSuchen.listeFilmeNeu.addFilmVomSender(film))
-                    {
-                        // dann ist er neu
-                        FilmeSuchen.listeSenderLaufen.inc(film.getSender().getName(), RunSender.Count.FILME);
-                    }
-
-                }
-                catch (final Exception ex)
-                {
-                    Log.errorLog(496583211, ex, "add film failed: " + video.getWebsiteUrl());
-                }
-            }
-            phaser.arriveAndDeregister();
-        }
+    perfPoint.collect();
+    if (wasInterrupted) {
+      Log.sysLog("VideoDTO conversion interrupted.");
+    } else {
+      Log.sysLog("convert VideoDTO to DatenFilm finished.");
     }
+
+    meldungThreadUndFertig();
+  }
+
+  void shutdownAndAwaitTermination(final ExecutorService pool, final long delay,
+      final TimeUnit delayUnit) {
+    pool.shutdown();
+    try {
+      if (!pool.awaitTermination(delay, delayUnit)) {
+        pool.shutdownNow();
+        if (!pool.awaitTermination(delay, delayUnit)) {
+          Log.sysLog("Pool did not terminate");
+        }
+      }
+    } catch (final InterruptedException ie) {
+      pool.shutdownNow();
+      Thread.currentThread().interrupt();
+    }
+  }
 
 }
