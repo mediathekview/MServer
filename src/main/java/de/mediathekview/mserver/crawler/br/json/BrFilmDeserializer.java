@@ -22,7 +22,6 @@ import com.google.gson.JsonDeserializer;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import de.mediathekview.mlib.daten.Film;
-import de.mediathekview.mlib.daten.FilmUrl;
 import de.mediathekview.mlib.daten.Resolution;
 import de.mediathekview.mserver.base.messages.ServerMessages;
 import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
@@ -143,11 +142,6 @@ public class BrFilmDeserializer implements JsonDeserializer<Optional<Film>> {
               bestUrls.get(id).getUrl());
         }
       }
-      final Optional<FilmUrl> defaultUrl = aNewFilm.get().getDefaultUrl();
-      if (defaultUrl.isPresent()) {
-        aNewFilm.get().setGeoLocations(
-            CrawlerTool.getGeoLocations(crawler.getSender(), defaultUrl.get().getUrl().toString()));
-      }
     }
     return hasURLs;
 
@@ -158,13 +152,15 @@ public class BrFilmDeserializer implements JsonDeserializer<Optional<Film>> {
     if (detailClip.isPresent()) {
       newFilm = createFilm(detailClip.get());
       addDescriptions(newFilm, detailClip.get());
-      if (getSubtitleUrl(viewer).isPresent()) {
+
+      final Optional<String> subtitleUrl = getSubtitleUrl(viewer);
+      if (newFilm.isPresent() && subtitleUrl.isPresent()) {
         try {
-          newFilm.get().addSubtitle(new URL(getSubtitleUrl(viewer).get()));
+          newFilm.get().addSubtitle(new URL(subtitleUrl.get()));
         } catch (final MalformedURLException malformedURLException) {
           LOG.fatal(ERROR_VIDEO_URL, malformedURLException);
           crawler.printMessage(ServerMessages.DEBUG_INVALID_URL, crawler.getSender().getName(),
-              getSubtitleUrl(viewer).get());
+              subtitleUrl.get());
         }
       }
       if (addUrls(newFilm, viewer)) {
@@ -257,7 +253,12 @@ public class BrFilmDeserializer implements JsonDeserializer<Optional<Film>> {
       return Optional.empty();
     }
 
-    final JsonObject node = edges.get(0).getAsJsonObject();
+    final JsonObject arrayItem = edges.get(0).getAsJsonObject();
+    if (!arrayItem.has(JSON_ELEMENT_NODE)) {
+      return Optional.empty();
+    }
+
+    final JsonObject node = arrayItem.getAsJsonObject(JSON_ELEMENT_NODE);
     if (!node.has(JSON_ELEMENT_START)) {
       return Optional.empty();
     }
@@ -288,12 +289,10 @@ public class BrFilmDeserializer implements JsonDeserializer<Optional<Film>> {
                   return Optional.of(node.get(JSON_ELEMENT_PUBLIC_LOCATION).getAsString());
                 }
               }
-
             }
           }
         }
       }
-
     }
     return Optional.empty();
   }
@@ -391,7 +390,7 @@ public class BrFilmDeserializer implements JsonDeserializer<Optional<Film>> {
   }
 
   private LocalDateTime toTime(final String aStart) {
-    return LocalDateTime.parse(aStart, DateTimeFormatter.ISO_INSTANT);
+    return LocalDateTime.parse(aStart, DateTimeFormatter.ISO_OFFSET_DATE_TIME);
   }
 
 }
