@@ -67,7 +67,7 @@ public class DWFilmDetailsTask extends AbstractDocumentTask<Film, CrawlerUrlDTO>
       final WebTarget target = ClientBuilder.newClient().target(new URL(downloadUrl).toString());
       final String response = target.request(MediaType.APPLICATION_JSON_TYPE).get(String.class);
 
-      final Type urlMapType = new TypeToken<Map<Resolution, URL>>() {}.getType();
+      final Type urlMapType = new TypeToken<Map<Resolution, FilmUrl>>() {}.getType();
       final Gson gson =
           new GsonBuilder().registerTypeAdapter(urlMapType, new DWDownloadUrlsParser()).create();
 

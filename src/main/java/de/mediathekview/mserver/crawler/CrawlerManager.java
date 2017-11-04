@@ -22,8 +22,10 @@ import java.util.concurrent.ForkJoinPool;
 import java.util.concurrent.Future;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.stream.Collectors;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
 import de.mediathekview.mlib.daten.Film;
 import de.mediathekview.mlib.daten.Filmlist;
 import de.mediathekview.mlib.daten.Sender;
@@ -34,7 +36,6 @@ import de.mediathekview.mserver.base.config.MServerConfigDTO;
 import de.mediathekview.mserver.base.config.MServerConfigManager;
 import de.mediathekview.mserver.base.config.MServerCopySettings;
 import de.mediathekview.mserver.base.config.MServerFTPSettings;
-import de.mediathekview.mserver.base.config.ScheduleDTO;
 import de.mediathekview.mserver.base.messages.ServerMessages;
 import de.mediathekview.mserver.base.progress.AbstractManager;
 import de.mediathekview.mserver.base.uploader.copy.FileCopyTarget;
@@ -317,17 +318,6 @@ public class CrawlerManager extends AbstractManager {
     timeoutRunner.stopTimeout();
   }
 
-  public void startScheduling() {
-    if (config.hasSchedules()) {
-      for (final Entry<String, ScheduleDTO> schedule : config.getSchedules().entrySet()) {
-        LOG.info(String.format("Started scheduler %s. The crawlers will run every %d %s",
-            schedule.getKey(), schedule.getValue().getDuration(),
-            schedule.getValue().getUnit().name()));
-        executorService.scheduleAtFixedRate(new ServerTask(), schedule.getValue().getDuration(),
-            schedule.getValue().getDuration(), schedule.getValue().getUnit());
-      }
-    }
-  }
 
   /**
    * This stops all running crawler.
@@ -549,5 +539,9 @@ public class CrawlerManager extends AbstractManager {
 
     uploadFilmlist(ftpFilePathsEntry.getKey(), ftpUploadTarget, aIsDiffList);
   }
+
+public ScheduledExecutorService getExecutorService() {
+	return executorService;
+}
 
 }
