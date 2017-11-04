@@ -18,7 +18,7 @@ import mServer.crawler.FilmeSuchen;
 import mServer.crawler.RunSender;
 import mServer.crawler.sender.MediathekReader;
 
-public class BrWebAccessHelper<V> {
+public class BrWebAccessHelper {
 
     private BrWebAccessHelper() {}
   
