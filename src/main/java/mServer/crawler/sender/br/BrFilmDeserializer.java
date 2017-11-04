@@ -124,28 +124,24 @@ public class BrFilmDeserializer implements JsonDeserializer<Optional<DatenFilm>>
     Map<Resolution, String> urlMap = new HashMap<>();
     
     final Set<BrUrlDTO> urls = edgesToUrls(viewer);
-      if (!urls.isEmpty()) {
-        // TODO ist das wirklich sinnvoll? 
-        // TODO bei drei guten Qualitäten ist Dateigröße für die schlechte immer noch ziemlich 
-        // Sorts the urls by width descending, then it limits the amount to three to get the three
-        // best.
-        final List<BrUrlDTO> bestUrls =
-            urls.stream().sorted(Comparator.comparingInt(BrUrlDTO::getWidth).reversed()).limit(3)
-                .collect(Collectors.toList());
-        
-        for (int id = 0; id < bestUrls.size(); id++) {
-          final Resolution resolution = Resolution.getResolutionFromArdAudioVideoOrdinalsByProfileName(bestUrls.get(id).getVideoProfile());
-          final String url = bestUrls.get(id).getUrl();
-          
-          if (url != null && !url.isEmpty()) {
-            if (!urlMap.containsKey(resolution)) {
-              urlMap.put(resolution, url);
-            }
-          }
+    if (!urls.isEmpty()) {
+      // Sorts the urls by width descending, then it limits the amount to three to get the three
+      // best.
+      final List<BrUrlDTO> bestUrls =
+          urls.stream().sorted(Comparator.comparingInt(BrUrlDTO::getWidth).reversed()).limit(3)
+              .collect(Collectors.toList());
+
+      for (int id = 0; id < bestUrls.size(); id++) {
+        final Resolution resolution = Resolution.getResolutionFromArdAudioVideoOrdinalsByProfileName(bestUrls.get(id).getVideoProfile());
+        final String url = bestUrls.get(id).getUrl();
+
+        if (url != null && !url.isEmpty() && !urlMap.containsKey(resolution)) {
+          urlMap.put(resolution, url);
         }
       }
+    }
+    
     return urlMap;
-
   }
 
   private Optional<DatenFilm> buildFilm(final Optional<JsonObject> detailClip, final JsonObject viewer) {
@@ -379,7 +375,6 @@ public class BrFilmDeserializer implements JsonDeserializer<Optional<DatenFilm>>
 
   private void printMissingDetails(final String aMissingJsonElement) {
     LOG.error(String.format(ERROR_MISSING_DETAIL_TEMPLATE, aMissingJsonElement));
-    //crawler.printMissingElementErrorMessage(aMissingJsonElement);
   }
 
   private Duration toDuration(final long aSeconds) {

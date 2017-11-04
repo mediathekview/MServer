@@ -19,8 +19,10 @@ import mServer.crawler.FilmeSuchen;
 import mServer.crawler.RunSender;
 
 public class WebAccessHelper {
-    
-    public static String getJsonResultFromPostAccess(URL serverUrl, String request) throws IllegalArgumentException {
+  
+    private WebAccessHelper() {}  
+  
+    public static String getJsonResultFromPostAccess(URL serverUrl, String request) {
         if(null == serverUrl)
             throw new IllegalArgumentException("Es wurde keine gültige ServerURL angegeben");
         

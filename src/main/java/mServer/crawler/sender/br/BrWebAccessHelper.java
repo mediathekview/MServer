@@ -14,10 +14,14 @@ import java.net.MalformedURLException;
 import org.apache.logging.log4j.Logger;
 
 import com.google.gson.JsonSyntaxException;
+import mServer.crawler.FilmeSuchen;
+import mServer.crawler.RunSender;
 import mServer.crawler.sender.MediathekReader;
 
 public class BrWebAccessHelper<V> {
 
+    private BrWebAccessHelper() {}
+  
     public static void handleWebAccessExecution(Logger log, MediathekReader crawler, BrWebAccessExecution action) {
         try {
             action.run();
@@ -32,7 +36,6 @@ public class BrWebAccessHelper<V> {
     
     private static void handleError(String errorMessage, Exception e, Logger log, MediathekReader crawler) {
         log.error(errorMessage, e);
-        //crawler.incrementAndGetErrorCount();
-        //crawler.printErrorMessage();
+        FilmeSuchen.listeSenderLaufen.inc(crawler.getSendername(), RunSender.Count.FEHLER);
     }
 }

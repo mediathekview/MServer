@@ -19,9 +19,10 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 public class BrCrawler extends MediathekReader {
+
   public final static String SENDERNAME = Const.BR;
-  private static final Logger LOG = LogManager.getLogger(BrCrawler.class);
-  public static final String BASE_URL = "https://www.br.de/mediathek/";
+  public final static String BASE_URL = "https://www.br.de/mediathek/";
+  private final static Logger LOG = LogManager.getLogger(BrCrawler.class);
 
   private final ForkJoinPool forkJoinPool;
   

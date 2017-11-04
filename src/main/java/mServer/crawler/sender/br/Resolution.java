@@ -129,8 +129,7 @@ public enum Resolution {
   }
 
 
-  static Resolution getResoultionByResolutionSize(final int searchedResolutionSize)
-      throws NoSuchElementException {
+  static Resolution getResoultionByResolutionSize(final int searchedResolutionSize) {
     for (final Resolution currentResolution : Resolution.values()) {
       if (searchedResolutionSize == currentResolution.getResolutionSize()) {
         return currentResolution;

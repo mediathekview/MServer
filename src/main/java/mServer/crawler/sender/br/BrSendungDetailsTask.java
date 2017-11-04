@@ -68,8 +68,6 @@ public class BrSendungDetailsTask extends RecursiveTask<Set<DatenFilm>> {
         final Optional<DatenFilm> film = gson.fromJson(response, optionalFilmType);
         if (film.isPresent()) {
             convertedFilms.add(film.get());
-            //crawler.incrementAndGetActualCount();
-            //crawler.updateProgress();
         }
     });
 
