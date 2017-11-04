@@ -9,7 +9,6 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import java.net.URL;
 import mServer.crawler.sender.MediathekReader;
-import mServer.crawler.sender.br.Consts;
 
 public class BrSendungsFolgenTask implements Callable<Set<String>> {
 

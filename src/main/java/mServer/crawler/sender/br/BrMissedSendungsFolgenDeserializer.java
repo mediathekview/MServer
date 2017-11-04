@@ -47,8 +47,6 @@ public class BrMissedSendungsFolgenDeserializer implements JsonDeserializer<BrId
           final JsonObject node = ebdgeObj.getAsJsonObject(JSON_ELEMENT_NODE);
           if (node.has(JSON_ELEMENT_ID)) {
             results.add(node.get(JSON_ELEMENT_ID).getAsString());
-            //crawler.incrementAndGetMaxCount();
-            //crawler.updateProgress();
           }
         }
       }

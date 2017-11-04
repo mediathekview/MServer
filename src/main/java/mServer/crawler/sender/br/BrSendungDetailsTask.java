@@ -13,7 +13,6 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.RecursiveTask;
 import mServer.crawler.sender.MediathekReader;
-import mServer.crawler.sender.br.Consts;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
