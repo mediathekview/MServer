@@ -13,8 +13,9 @@ import org.apache.logging.log4j.Logger;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import java.net.URL;
+import mServer.crawler.FilmeSuchen;
+import mServer.crawler.RunSender;
 import mServer.crawler.sender.MediathekReader;
-import mServer.crawler.sender.br.Consts;
 
 public class BrAllSendungenTask extends RecursiveTask<Set<String>> {
 
@@ -68,8 +69,7 @@ public class BrAllSendungenTask extends RecursiveTask<Set<String>> {
     } catch (InterruptedException | ExecutionException exception) {
       LOG.error("Something wen't terrible wrong while getting the Folgen for a BR Sendung.",
           exception);
-      //crawler.incrementAndGetErrorCount();
-      //crawler.printErrorMessage();
+      FilmeSuchen.listeSenderLaufen.inc(crawler.getSendername(), RunSender.Count.FEHLER);
     }
 
     return results;

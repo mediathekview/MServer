@@ -22,6 +22,8 @@ import de.mediathekview.mlib.daten.DatenFilm;
 import java.util.HashMap;
 import java.util.Map;
 import mServer.crawler.CrawlerTool;
+import mServer.crawler.FilmeSuchen;
+import mServer.crawler.RunSender;
 import static mServer.crawler.sender.MediathekBr.SENDERNAME;
 import mServer.crawler.sender.MediathekReader;
 
@@ -29,8 +31,6 @@ public class BrFilmDeserializer implements JsonDeserializer<Optional<DatenFilm>>
   private static final String ERROR_NO_START_TEMPLATE =
       "The BR film \"%s - %s\" has no broadcast start so it will using the actual date and time.";
   private static final String HD = "HD";
-  private static final String ERROR_WEBSITE_URL =
-      "The Website Url \"%s\" can't be converted to a java URL Obj.";
   private static final String FILM_WEBSITE_TEMPLATE = "%s/video/%s";
   private static final String ERROR_MISSING_DETAIL_TEMPLATE =
       "A BR film can't be created because of missing details. The JSON element \"%s\" is missing.";
@@ -59,8 +59,6 @@ public class BrFilmDeserializer implements JsonDeserializer<Optional<DatenFilm>>
 
   private static final String JSON_ELEMENT_VIDEO_PROFILE = "videoProfile";
   private static final String JSON_ELEMENT_WIDTH = "width";
-  private static final String ERROR_VIDEO_URL = "A video url can't be converted to a Java URL.";
-
 
   private final MediathekReader crawler;
   private final String filmId;
@@ -102,6 +100,7 @@ public class BrFilmDeserializer implements JsonDeserializer<Optional<DatenFilm>>
     } catch (final UnsupportedOperationException unsupportedOperationException) {
       // This will happen when a element is JsonNull.
       LOG.error("BR: A needed JSON element is JsonNull.", unsupportedOperationException);
+      FilmeSuchen.listeSenderLaufen.inc(crawler.getSendername(), RunSender.Count.FEHLER);
     }
 
     return Optional.empty();
@@ -217,15 +216,13 @@ public class BrFilmDeserializer implements JsonDeserializer<Optional<DatenFilm>>
       final String title = aDetailClip.get(JSON_ELEMENT_TITLE).getAsString();
       final String thema = getTheme(aDetailClip);
 
-      final LocalDateTime time;
       final String dateValue;
       final String timeValue;
       if (start.isPresent()) {
-        time = toTime(start.get().getAsString());
+        final LocalDateTime time = toTime(start.get().getAsString());
         dateValue = time.format(dateFormatDatenFilm);
         timeValue = time.format(timeFormatDatenFilm);
       } else {
-        time = LocalDateTime.now();
         LOG.debug(String.format(ERROR_NO_START_TEMPLATE, thema, title));
         dateValue = "";
         timeValue = "";
