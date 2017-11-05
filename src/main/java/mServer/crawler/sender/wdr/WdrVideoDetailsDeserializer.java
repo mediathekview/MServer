@@ -3,12 +3,16 @@ package mServer.crawler.sender.wdr;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
 import de.mediathekview.mlib.Const;
-import de.mediathekview.mlib.daten.DatenFilm;
+import de.mediathekview.mlib.daten.Film;
+import de.mediathekview.mlib.daten.Qualities;
+import de.mediathekview.mlib.daten.Sender;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.util.logging.Level;
 import mServer.crawler.CrawlerTool;
-import mServer.crawler.sender.newsearch.Qualities;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.jsoup.nodes.Document;
@@ -36,7 +40,7 @@ public class WdrVideoDetailsDeserializer extends HtmlDeserializerBase {
        videoUrlParser = new WdrVideoUrlParser(aUrlLoader);
     }
     
-    public DatenFilm deserialize(String theme, Document document) {
+    public Film deserialize(String theme, Document document) {
         
         String date = "";
         String description = getMetaValue(document, QUERY_META_ITEMPROP, META_ITEMPROP_DESCRIPTION);
@@ -74,19 +78,28 @@ public class WdrVideoDetailsDeserializer extends HtmlDeserializerBase {
         WdrVideoDto videoDto = videoUrlParser.parse(jsUrl); 
         
         if(!videoDto.getUrl(Qualities.NORMAL).isEmpty()) {
-            DatenFilm film = new DatenFilm(Const.WDR, theme, website, title, videoDto.getUrl(Qualities.NORMAL), "", date, time, duration, description);
+            try {
+                Film film = CrawlerTool.createFilm(Sender.WDR,
+                    videoDto.getUrl(Qualities.NORMAL),
+                    title,
+                    theme,
+                    date,
+                    time,
+                    duration,
+                    website,
+                    description,
+                    videoDto.getUrl(Qualities.HD),
+                    videoDto.getUrl(Qualities.SMALL));
 
-            if (!videoDto.getSubtitleUrl().isEmpty()) {
-                CrawlerTool.addUrlSubtitle(film, videoDto.getSubtitleUrl());
+                if (!videoDto.getSubtitleUrl().isEmpty())
+                {
+                    film.addSubtitle(new URI(videoDto.getSubtitleUrl()));
+                }
+    
+                return film;
+            } catch (URISyntaxException ex) {
+                LOG.error(ex);
             }
-            if (!videoDto.getUrl(Qualities.SMALL).isEmpty()) {
-                CrawlerTool.addUrlKlein(film, videoDto.getUrl(Qualities.SMALL), "");
-            }
-            if (!videoDto.getUrl(Qualities.HD).isEmpty()) {
-                CrawlerTool.addUrlHd(film, videoDto.getUrl(Qualities.HD), "");
-            }
-
-            return film;
         }
         
         return null;        
