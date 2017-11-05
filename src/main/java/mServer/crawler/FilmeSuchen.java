@@ -36,6 +36,7 @@ import javax.swing.event.EventListenerList;
 import mServer.crawler.sender.*;
 import mServer.crawler.sender.arte.MediathekArte_de;
 import mServer.crawler.sender.arte.MediathekArte_fr;
+import mServer.crawler.sender.br.BrCrawler;
 import org.apache.commons.lang3.time.FastDateFormat;
 
 /**
@@ -80,7 +81,7 @@ public class FilmeSuchen {
         mediathekListe.add(new MediathekHr(this, 0));
         mediathekListe.add(new MediathekRbb(this, 1));
         mediathekListe.add(new MediathekSr(this, 1));
-        mediathekListe.add(new MediathekBr(this, 0));
+        mediathekListe.add(new BrCrawler(this, 0));
         mediathekListe.add(new MediathekSrf(this, 1));
         mediathekListe.add(new MediathekSrfPod(this, 0));
         mediathekListe.add(new MediathekOrf(this, 1));
