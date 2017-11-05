@@ -14,7 +14,7 @@ apply from: "${project.rootDir}/gradle/eclipse.gradle"
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
 group = 'de.mediathekview'
-version = '3.1.32'
+version = '3.1.34'
 
 def jarName = 'MServer.jar'
 def mainClass = 'mServer.Main'
