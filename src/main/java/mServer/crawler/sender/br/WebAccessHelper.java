@@ -9,7 +9,7 @@
 // Ist eigentlich aus MLib in der neuen Architektur, aber für den neuen BR-Crawler erstmal hierher kopiert
 package mServer.crawler.sender.br;
 
-import de.mediathekview.mlib.Const;
+import de.mediathekview.mlib.daten.Sender;
 import java.net.URL;
 
 import javax.ws.rs.client.Entity;
@@ -31,7 +31,7 @@ public class WebAccessHelper {
         String result = target.request(MediaType.APPLICATION_JSON_TYPE)
                               .post(Entity.entity(request, MediaType.APPLICATION_JSON_TYPE), String.class);
 
-        FilmeSuchen.listeSenderLaufen.inc(Const.BR, RunSender.Count.ANZAHL);
+        FilmeSuchen.listeSenderLaufen.inc(Sender.BR.getName(), RunSender.Count.ANZAHL);
         
         return result;
     }

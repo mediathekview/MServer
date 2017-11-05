@@ -18,16 +18,18 @@ import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonDeserializer;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import de.mediathekview.mlib.daten.DatenFilm;
+import de.mediathekview.mlib.daten.Film;
+import de.mediathekview.mlib.daten.Sender;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.HashMap;
 import java.util.Map;
 import mServer.crawler.CrawlerTool;
 import mServer.crawler.FilmeSuchen;
 import mServer.crawler.RunSender;
-import static mServer.crawler.sender.MediathekBr.SENDERNAME;
 import mServer.crawler.sender.MediathekReader;
 
-public class BrFilmDeserializer implements JsonDeserializer<Optional<DatenFilm>> {
+public class BrFilmDeserializer implements JsonDeserializer<Optional<Film>> {
   private static final String ERROR_NO_START_TEMPLATE =
       "The BR film \"%s - %s\" has no broadcast start so it will using the actual date and time.";
   private static final String HD = "HD";
@@ -83,7 +85,7 @@ public class BrFilmDeserializer implements JsonDeserializer<Optional<DatenFilm>>
    * Optional: <code>data -> viewer -> detailClip -> description</code>
    */
   @Override
-  public Optional<DatenFilm> deserialize(final JsonElement aElement, final Type aType,
+  public Optional<Film> deserialize(final JsonElement aElement, final Type aType,
       final JsonDeserializationContext aContext) {
     try {
       final Optional<JsonObject> viewer = getViewer(aElement.getAsJsonObject());
@@ -97,9 +99,9 @@ public class BrFilmDeserializer implements JsonDeserializer<Optional<DatenFilm>>
       } else {
         printMissingDetails(JSON_ELEMENT_VIEWER);
       }
-    } catch (final UnsupportedOperationException unsupportedOperationException) {
+    } catch (final UnsupportedOperationException | URISyntaxException expection) {
       // This will happen when a element is JsonNull.
-      LOG.error("BR: A needed JSON element is JsonNull.", unsupportedOperationException);
+      LOG.error("BR: A needed JSON element is JsonNull.", expection);
       FilmeSuchen.listeSenderLaufen.inc(crawler.getSendername(), RunSender.Count.FEHLER);
     }
 
@@ -144,8 +146,8 @@ public class BrFilmDeserializer implements JsonDeserializer<Optional<DatenFilm>>
     return urlMap;
   }
 
-  private Optional<DatenFilm> buildFilm(final Optional<JsonObject> detailClip, final JsonObject viewer) {
-    final Optional<DatenFilm> newFilm;
+  private Optional<Film> buildFilm(final Optional<JsonObject> detailClip, final JsonObject viewer) throws URISyntaxException {
+    final Optional<Film> newFilm;
     if (detailClip.isPresent()) {
       String description = getDescriptions(detailClip.get());
       Map<Resolution, String> urls = getUrls(viewer);
@@ -205,7 +207,7 @@ public class BrFilmDeserializer implements JsonDeserializer<Optional<DatenFilm>>
     return theme;
   }
   
-  private Optional<DatenFilm> createFilm(final JsonObject aDetailClip, String aDescription, Optional<String> aSubTitle, Map<Resolution, String> aUrls) {
+  private Optional<Film> createFilm(final JsonObject aDetailClip, String aDescription, Optional<String> aSubTitle, Map<Resolution, String> aUrls) throws URISyntaxException {
     final Optional<JsonElement> start = getBroadcastStart(aDetailClip);
     if (aDetailClip.has(JSON_ELEMENT_TITLE) && aDetailClip.has(JSON_ELEMENT_KICKER)
         && aDetailClip.has(JSON_ELEMENT_DURATION)) {
@@ -227,17 +229,14 @@ public class BrFilmDeserializer implements JsonDeserializer<Optional<DatenFilm>>
       final Duration duration = toDuration(aDetailClip.get(JSON_ELEMENT_DURATION).getAsLong());
 
       final String website = String.format(FILM_WEBSITE_TEMPLATE, BrCrawler.BASE_URL, filmId);
-      DatenFilm film = new DatenFilm(SENDERNAME, thema, website, title, aUrls.get(Resolution.NORMAL),"",
-              dateValue, timeValue, duration.getSeconds(), aDescription);
-              
-      if (aUrls.containsKey(Resolution.SMALL)) {
-          CrawlerTool.addUrlKlein(film, aUrls.get(Resolution.SMALL), "");
-      }
-      if (aUrls.containsKey(Resolution.HD)) {
-          CrawlerTool.addUrlHd(film, aUrls.get(Resolution.HD), "");
-      }
+      
+      Film film = CrawlerTool.createFilm(Sender.BR, 
+              aUrls.get(Resolution.NORMAL),
+              title, thema, dateValue, timeValue,
+              duration.getSeconds(), website, aDescription, 
+              aUrls.get(Resolution.HD), aUrls.get(Resolution.SMALL));
       if (aSubTitle.isPresent()) {
-        CrawlerTool.addUrlSubtitle(film, aSubTitle.get());
+        film.addSubtitle(new URI(aSubTitle.get()));
       }
               
       return Optional.of(film);
