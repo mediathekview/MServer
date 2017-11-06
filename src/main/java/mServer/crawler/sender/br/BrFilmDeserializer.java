@@ -19,6 +19,8 @@ import com.google.gson.JsonDeserializer;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import de.mediathekview.mlib.daten.DatenFilm;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.util.HashMap;
 import java.util.Map;
 import mServer.crawler.CrawlerTool;
@@ -59,6 +61,8 @@ public class BrFilmDeserializer implements JsonDeserializer<Optional<DatenFilm>>
 
   private static final String JSON_ELEMENT_VIDEO_PROFILE = "videoProfile";
   private static final String JSON_ELEMENT_WIDTH = "width";
+
+  private static final ZoneId ZONE_ID = ZoneId.of( "Europe/Berlin" );
 
   private final MediathekReader crawler;
   private final String filmId;
@@ -382,7 +386,10 @@ public class BrFilmDeserializer implements JsonDeserializer<Optional<DatenFilm>>
   }
 
   private LocalDateTime toTime(final String aStart) {
-    return LocalDateTime.parse(aStart, DateTimeFormatter.ISO_OFFSET_DATE_TIME);
+    LocalDateTime local = LocalDateTime.parse(aStart, DateTimeFormatter.ISO_OFFSET_DATE_TIME);
+    ZonedDateTime zoned = local.atZone(ZONE_ID);
+    int hoursToAdd = zoned.getOffset().getTotalSeconds()/3600;
+    return local.plusHours(hoursToAdd);
   }
 
 }
