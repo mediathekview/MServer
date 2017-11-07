@@ -6,6 +6,8 @@ import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
 
+import de.mediathekview.mlib.daten.Resolution;
+
 public enum Resolution {
   HD(3, "HD"), NORMAL(2, "Normal"), SMALL(1, "Klein"), VERY_SMALL(0, "Sehr klein");
 
@@ -60,12 +62,12 @@ public enum Resolution {
   /**
    * Derzeit sind folgende ARD AudioVideo Ordinals bekannt:<br>
    * <ul>
-   * <li>HD = 1280 width</li>
-   * <li>Premium = 969 width</li>
-   * <li>Large = 640 width</li>
-   * <li>Standard = 512 width</li>
-   * <li>Mobile = 480 width</li>
-   * <li>Mobile_S = 320 width</li>
+   * <li>HD = 1280 width x 720 height</li>
+   * <li>Premium = 969 width x 540 height</li>
+   * <li>Large = 640 width x 360 height</li>
+   * <li>Standard = 512 width x 288 height</li>
+   * <li>Mobile = 480 width x 270 height</li>
+   * <li>Mobile_S = 320 width x 180 height</li>
    * </ul>
    *
    * @param profileName
@@ -77,16 +79,19 @@ public enum Resolution {
       return Resolution.HD;
     }
     if (profileName.endsWith("Premium")) {
-      return Resolution.HD;
-    }
-    if (profileName.endsWith("Large")) {
       return Resolution.NORMAL;
     }
-    if (profileName.endsWith("Standard")) {
+    if (profileName.endsWith("Large")) {
       return Resolution.SMALL;
     }
+    if (profileName.endsWith("Standard")) {
+      return Resolution.VERY_SMALL;
+    }
     if (profileName.endsWith("Mobile")) {
-      return Resolution.SMALL;
+      return Resolution.VERY_SMALL;
+    }
+    if (profileName.endsWith("Mobile_S")) {
+        return Resolution.VERY_SMALL;
     }
 
     return Resolution.VERY_SMALL;
@@ -96,28 +101,28 @@ public enum Resolution {
   /**
    * The following width size limits are relevant:<br>
    * <ul>
-   * <li>HD = >= 969 width</li>
-   * <li>Normal = >= 640 width</li>
-   * <li>Small = >= 512 width</li>
-   * <li>Very Small = < 512 width</li>
+   * <li>HD = >= 1280 width</li>
+   * <li>Normal = >= 969 width</li>
+   * <li>Small = >= 640 width</li>
+   * <li>Very Small = < 640 width</li>
    * </ul>
    *
-   * @param width
+   * @param profileName
    * @return
    */
   public static Resolution getResolutionFromWidth(final int width) {
-    if (width >= 969) {
+    if (width >= 1280) {
       return Resolution.HD;
     }
-    if (width >= 640) {
+    if (width >= 969) {
       return Resolution.NORMAL;
     }
-    if (width >= 512) {
+    if (width >= 640) {
       return Resolution.SMALL;
     }
     return Resolution.VERY_SMALL;
   }
-
+  
   static Resolution getNextResolutionByDirection(final Resolution startingResolution,
       final CountingDirection direction) {
     try {
