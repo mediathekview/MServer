@@ -4,7 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import de.mediathekview.mlib.Config;
-import de.mediathekview.mlib.daten.DatenFilm;
+import de.mediathekview.mlib.daten.Film;
 import java.lang.reflect.Type;
 import java.net.URL;
 import java.util.Optional;
@@ -16,7 +16,7 @@ import mServer.crawler.sender.MediathekReader;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-public class BrSendungDetailsTask extends RecursiveTask<Set<DatenFilm>> {
+public class BrSendungDetailsTask extends RecursiveTask<Set<Film>> {
   public static final int MAXIMUM_URLS_PER_TASK = 50;
   private static final long serialVersionUID = 5682617879894452978L;
   private static final Logger LOG = LogManager.getLogger(BrSendungDetailsTask.class);
@@ -25,7 +25,7 @@ public class BrSendungDetailsTask extends RecursiveTask<Set<DatenFilm>> {
 
   private final transient MediathekReader crawler;
   private final ConcurrentLinkedQueue<String> filmIds;
-  private final transient Set<DatenFilm> convertedFilms;
+  private final transient Set<Film> convertedFilms;
 
   public BrSendungDetailsTask(final MediathekReader aCrawler,
       final ConcurrentLinkedQueue<String> aBrFilmIds) {
@@ -59,13 +59,13 @@ public class BrSendungDetailsTask extends RecursiveTask<Set<DatenFilm>> {
       
     BrWebAccessHelper.handleWebAccessExecution(LOG, crawler, () -> {
         
-        final Type optionalFilmType = new TypeToken<Optional<DatenFilm>>() {}.getType();
+        final Type optionalFilmType = new TypeToken<Optional<Film>>() {}.getType();
         final Gson gson = new GsonBuilder()
                 .registerTypeAdapter(optionalFilmType, new BrFilmDeserializer(crawler, aFilmId)).create();
  
         final String response = WebAccessHelper.getJsonResultFromPostAccess(new URL(Consts.BR_API_URL), String.format(QUERY_TEMPLATE, aFilmId));
         
-        final Optional<DatenFilm> film = gson.fromJson(response, optionalFilmType);
+        final Optional<Film> film = gson.fromJson(response, optionalFilmType);
         if (film.isPresent()) {
             convertedFilms.add(film.get());
         }
@@ -74,7 +74,7 @@ public class BrSendungDetailsTask extends RecursiveTask<Set<DatenFilm>> {
   }
 
   @Override
-  protected Set<DatenFilm> compute() {
+  protected Set<Film> compute() {
     if (filmIds.size() <= MAXIMUM_URLS_PER_TASK) {
       filmIdsToFilms(filmIds);
     } else {

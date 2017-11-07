@@ -5,23 +5,36 @@
  */
 package mServer.crawler;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
-import org.apache.commons.lang3.StringUtils;
-
 import de.mediathekview.mlib.Config;
 import de.mediathekview.mlib.Const;
-import de.mediathekview.mlib.daten.DatenFilm;
+import de.mediathekview.mlib.daten.*;
 import de.mediathekview.mlib.tool.Functions;
 import de.mediathekview.mlib.tool.Log;
+import de.mediathekview.mlib.tool.MVHttpClient;
+import mServer.crawler.sender.MediathekReader;
+import mServer.tool.MserverDatumZeit;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
+import okhttp3.ResponseBody;
+import org.apache.commons.lang3.StringUtils;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
+import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.text.SimpleDateFormat;
+import java.time.Duration;
+import java.time.temporal.ChronoUnit;
+import java.util.*;
 
 /**
- *
  * @author emil
  */
-public class CrawlerTool {
-
+public class CrawlerTool
+{
+    private static final Logger LOG = LogManager.getLogger(CrawlerTool.class);
     public static final String nameOrgFilmlist_xz = "filme-org.xz"; // ist die "ORG" Filmliste, typ. die erste am Tag, xz komprimiert
     public static final String nameDiffFilmlist = "filme-diff.json"; // ist ein diff der aktuellen zur ORG Filmliste
     // Namen der Filmlisten im: Konfig-Ordner/filmlisten/
@@ -30,7 +43,8 @@ public class CrawlerTool {
     public static final String nameOrgFilmlist = "filme-org.json"; // ist die "ORG" Filmliste, typ. die erste am Tag
     public static final String nameAktFilmlist_xz = "filme.xz"; // ist die aktuelle Filmliste, xz komprimiert
 
-    public static synchronized void startMsg() {
+    public static synchronized void startMsg()
+    {
         Log.startZeit.setTime(System.currentTimeMillis());
         Log.versionMsg(Const.PROGRAMMNAME);
         Log.sysLog(Log.LILNE);
@@ -41,104 +55,387 @@ public class CrawlerTool {
         Log.sysLog("");
         Log.sysLog(Log.LILNE);
         Log.sysLog("");
-        if (loadLongMax()) {
+        if (loadLongMax())
+        {
             Log.sysLog("Laden:  alles");
-        } else {
+        } else
+        {
             Log.sysLog("Laden:  nur update");
         }
-        if (CrawlerConfig.updateFilmliste) {
+        if (CrawlerConfig.updateFilmliste)
+        {
             Log.sysLog("Filmliste:  nur updaten");
-        } else {
+        } else
+        {
             Log.sysLog("Filmliste:  neu erstellen");
         }
         Log.sysLog("ImportURL 1:  " + CrawlerConfig.importUrl_1__anhaengen);
         Log.sysLog("ImportURL 2:  " + CrawlerConfig.importUrl_2__anhaengen);
         Log.sysLog("ImportOLD:  " + CrawlerConfig.importOld);
         Log.sysLog("ImportAkt:  " + CrawlerConfig.importAkt);
-        if (CrawlerConfig.nurSenderLaden != null) {
+        if (CrawlerConfig.nurSenderLaden != null)
+        {
             Log.sysLog("Nur Sender laden:  " + StringUtils.join(CrawlerConfig.nurSenderLaden, ','));
         }
         Log.sysLog("");
         Log.sysLog(Log.LILNE);
     }
 
-    public static boolean loadShort() {
+    public static boolean loadShort()
+    {
         return CrawlerConfig.senderLoadHow == CrawlerConfig.LOAD_SHORT;
     }
 
-    public static boolean loadLong() {
+    public static boolean loadLong()
+    {
         return CrawlerConfig.senderLoadHow == CrawlerConfig.LOAD_LONG;
     }
 
-    public static boolean loadMax() {
+    public static boolean loadMax()
+    {
         return CrawlerConfig.senderLoadHow == CrawlerConfig.LOAD_MAX;
     }
 
-    public static boolean loadLongMax() {
+    public static boolean loadLongMax()
+    {
         return CrawlerConfig.senderLoadHow >= CrawlerConfig.LOAD_LONG;
     }
 
-    public static String getPathFilmlist_json_org_xz() {
+    public static String getPathFilmlist_json_org_xz()
+    {
         return Functions.addsPfad(CrawlerConfig.dirFilme, nameOrgFilmlist_xz);
     }
 
-    public static String getPathFilmlist_json_diff_xz() {
+    public static String getPathFilmlist_json_diff_xz()
+    {
         return Functions.addsPfad(CrawlerConfig.dirFilme, nameDiffFilmlist_xz);
     }
 
-    public static String getPathFilmlist_json_diff() {
+    public static String getPathFilmlist_json_diff()
+    {
         return Functions.addsPfad(CrawlerConfig.dirFilme, nameDiffFilmlist);
     }
 
-    public static String getPathFilmlist_json_akt_xz() {
+    public static String getPathFilmlist_json_akt_xz()
+    {
         return Functions.addsPfad(CrawlerConfig.dirFilme, nameAktFilmlist_xz);
     }
 
-    public static String getPathFilmlist_json_org() {
+    public static String getPathFilmlist_json_org()
+    {
         return Functions.addsPfad(CrawlerConfig.dirFilme, nameOrgFilmlist);
     }
 
-    public static String getPathFilmlist_json_akt(boolean aktDate) {
-        if (aktDate) {
+    public static String getPathFilmlist_json_akt(boolean aktDate)
+    {
+        if (aktDate)
+        {
             return Functions.addsPfad(CrawlerConfig.dirFilme, new SimpleDateFormat("yyyy.MM.dd__HH.mm.ss").format(new Date()) + "__" + nameAktFilmlist);
-        } else {
+        } else
+        {
             return Functions.addsPfad(CrawlerConfig.dirFilme, nameAktFilmlist);
         }
     }
 
-    public static void addUrlHd(DatenFilm film, String url, String urlRtmp) {
-        film.arr[DatenFilm.FILM_URL_HD] = url.isEmpty() ? "" : getKlein(film.arr[DatenFilm.FILM_URL], url);
-        film.arr[DatenFilm.FILM_URL_RTMP_HD] = urlRtmp.isEmpty() ? "" : getKlein(film.arr[DatenFilm.FILM_URL_RTMP], urlRtmp);
-    }
+    public static long getFileSize(URI aURI)
+    {
+        long fileSize = 0;
 
-    public static void addUrlSubtitle(DatenFilm film, String url) {
-        film.arr[DatenFilm.FILM_URL_SUBTITLE] = url;
-    }
-
-    public static void addUrlKlein(DatenFilm film, String url, String urlRtmp) {
-        film.arr[DatenFilm.FILM_URL_KLEIN] = url.isEmpty() ? "" : getKlein(film.arr[DatenFilm.FILM_URL], url);
-        film.arr[DatenFilm.FILM_URL_RTMP_KLEIN] = urlRtmp.isEmpty() ? "" : getKlein(film.arr[DatenFilm.FILM_URL_RTMP], urlRtmp);
-    }
-
-    private static String getKlein(String url1, String url2) {
-        String ret = "";
-        boolean diff = false;
-        for (int i = 0; i < url2.length(); ++i) {
-            if (url1.length() > i) {
-                if (url1.charAt(i) != url2.charAt(i)) {
-                    if (!diff) {
-                        ret = i + "|";
-                    }
-                    diff = true;
+        OkHttpClient client = MVHttpClient.getInstance().getReducedTimeOutClient();
+        Request request = new Request.Builder().url(aURI.toString()).head().build();
+        try (Response response = client.newCall(request).execute();
+             ResponseBody body = response.body())
+        {
+            if (response.isSuccessful())
+            {
+                long respLength = body.contentLength();
+                if (respLength < 1_000_000)
+                {
+                    respLength = -1;
+                } else if (respLength > 1_000_000)
+                {
+                    respLength /= 1_000_000;
                 }
-            } else {
-                diff = true;
+                fileSize = respLength;
             }
-            if (diff) {
-                ret += url2.charAt(i);
+        } catch (IOException ioException)
+        {
+            LOG.error(String.format("Die größe der Url \"%s\" konnte nicht ermittelt werden.", aURI), ioException);
+        }
+        return fileSize;
+    }
+
+    public static FilmUrl uriToFilmUrl(URI aURI)
+    {
+        return new FilmUrl(aURI, getFileSize(aURI));
+    }
+
+    public static FilmUrl stringToFilmUrl(final String aUrl) throws URISyntaxException
+    {
+        try
+        {
+            return uriToFilmUrl(new URI(aUrl));
+        } catch (URISyntaxException uriSyntaxException)
+        {
+            LOG.error(String.format("Die URL \"%s\" ist kaputt.", aUrl));
+            throw uriSyntaxException;
+        }
+    }
+
+    private static Collection<GeoLocations> getGeoLocationsArd(String aUrl)
+    {
+        Map<GeoLocations, List<String>> geoUrls = new HashMap<>();
+        geoUrls.put(GeoLocations.GEO_DE, Arrays.asList(
+                "mvideos-geo.daserste.de",
+                "media.ndr.de/progressive_geo",
+                "mediandr-a.akamaihd.net//progressive_geo",
+                "pdodswr-a.akamaihd.net/swr/geo/de",
+                "mediandr-a.akamaihd.net/progressive_geo",
+                "cdn-storage.br.de/geo",
+                "cdn-sotschi.br.de/geo/b7",
+                "cdn-storage.br.de/geo/",
+                "cdn-sotschi.br.de/geo/b7/",
+                "pd-ondemand.swr.de/geo/de",
+                "ondemandgeo.mdr.de",
+                "ondemand-de.wdr.de",
+                "wdr_fs_geo-lh.akamaihd.net",
+                "adaptiv.wdr.de/i/medp/de",
+                "pd-videos.daserste.de/de",
+                "wdradaptiv-vh.akamaihd.net/i/medp/ondemand/de",
+                "wdrmedien-a.akamaihd.net/medp/ondemand/de",
+                "pdvideosdaserste-a.akamaihd.net/de/",
+                "odgeomdr-a.akamaihd.net/"
+        ));
+        geoUrls.put(GeoLocations.GEO_DE_AT_CH, Arrays.asList(
+                "ondemand-dach.wdr.de",
+                "wdradaptiv-vh.akamaihd.net/i/medp/ondemand/dach",
+                "wdrmedien-a.akamaihd.net/medp/ondemand/dach",
+                "adaptiv.wdr.de/i/medp/dach"
+         ));        
+
+        return getGeolocationsForGeoUrls(geoUrls, aUrl);
+    }
+
+    private static Collection<GeoLocations> getGeolocationsForGeoUrls(Map<GeoLocations, List<String>> aGeoUrls, String aUrl)
+    {
+        Collection<GeoLocations> geoLocations = new HashSet<>();
+
+        for (GeoLocations geoLocation : aGeoUrls.keySet())
+        {
+            for (String geoUrl : aGeoUrls.get(geoLocation))
+            {
+                if (aUrl.contains(geoUrl))
+                {
+                    geoLocations.add(geoLocation);
+                }
             }
         }
-        return ret;
+
+        if (geoLocations.isEmpty())
+        {
+            geoLocations.add(GeoLocations.GEO_NONE);
+        }
+        return geoLocations;
     }
 
+    private static Collection<GeoLocations> getGeoLocationsZdfPart(String aUrl)
+    {
+        Map<GeoLocations, List<String>> geoUrls = new HashMap<>();
+        geoUrls.put(GeoLocations.GEO_DE, Arrays.asList(
+                "rodl.zdf.de/de",
+                "rodlzdf-a.akamaihd.net/de"
+        ));
+
+        geoUrls.put(GeoLocations.GEO_DE_AT_CH, Arrays.asList(
+                "rodl.zdf.de/dach",
+                "rodlzdf-a.akamaihd.net/dach"
+        ));
+
+        geoUrls.put(GeoLocations.GEO_DE_AT_CH_EU, Arrays.asList(
+                "rodl.zdf.de/ebu",
+                "rodlzdf-a.akamaihd.net/ebu"
+        ));
+        return getGeolocationsForGeoUrls(geoUrls, aUrl);
+    }
+
+    private static Collection<GeoLocations> getGeoLocationsSrfPodcast(String aUrl)
+    {
+        Map<GeoLocations, List<String>> geoUrls = new HashMap<>();
+        geoUrls.put(GeoLocations.GEO_CH, Arrays.asList(
+                "podcasts.srf.ch/ch/audio"
+        ));
+
+        return getGeolocationsForGeoUrls(geoUrls, aUrl);
+    }
+
+    private static Collection<GeoLocations> getGeoLocationsOrf(String aUrl)
+    {
+        Map<GeoLocations, List<String>> geoUrls = new HashMap<>();
+        geoUrls.put(GeoLocations.GEO_AT, Arrays.asList(
+                "apasfpd.apa.at/cms-austria",
+                "apasfw.apa.at/cms-austria"
+        ));
+
+        return getGeolocationsForGeoUrls(geoUrls, aUrl);
+    }
+
+    private static Collection<GeoLocations> getGeoLocationsKiKa(String aUrl)
+    {
+        Map<GeoLocations, List<String>> geoUrls = new HashMap<>();
+        geoUrls.put(GeoLocations.GEO_AT, Arrays.asList(
+                "pmdgeo.kika.de",
+                "pmdgeokika-a.akamaihd.net",
+                "kika_geo-lh.akamaihd.net"
+        ));
+
+        return getGeolocationsForGeoUrls(geoUrls, aUrl);
+    }
+
+    public static Collection<GeoLocations> getGeoLocations(final Sender aSender, final String aUrl)
+    {
+        switch (aSender)
+        {
+            case ARD:
+            case WDR:
+            case NDR:
+            case SWR:
+            case MDR:
+            case BR:
+                return getGeoLocationsArd(aUrl);
+
+            case ZDF_TIVI:
+            case DREISAT:
+                return getGeoLocationsZdfPart(aUrl);
+
+            case ORF:
+                return getGeoLocationsOrf(aUrl);
+
+            case SRF_PODCAST:
+                return getGeoLocationsSrfPodcast(aUrl);
+
+            case KIKA:
+                return getGeoLocationsKiKa(aUrl);
+            default:
+                Collection<GeoLocations> geoLocations = new ArrayList<>();
+                geoLocations.add(GeoLocations.GEO_NONE);
+                return geoLocations;
+        }
+
+    }
+
+    public static Film createFilm(Sender aSender,
+                                  String aUrlNormal,
+                                  String aTitel,
+                                  String aThema,
+                                  String aDatum,
+                                  String aZeit,
+                                  long aDurationInSecunds,
+                                  String aUrlWebseite,
+                                  String aBeschreibung,
+                                  String aUrlHd,
+                                  String aUrlSmall) throws URISyntaxException
+    {
+        Film film = new Film(UUID.randomUUID(),
+                CrawlerTool.getGeoLocations(aSender, aUrlNormal),
+                aSender,
+                aTitel,
+                aThema,
+                MserverDatumZeit.parseDateTime(aDatum, aZeit),
+                Duration.of(aDurationInSecunds, ChronoUnit.SECONDS),
+                new URI(aUrlWebseite));
+
+        film.addUrl(Qualities.NORMAL,stringToFilmUrl(aUrlNormal));
+        if (StringUtils.isNotBlank(aBeschreibung))
+        {
+            film.setBeschreibung(aBeschreibung);
+        }
+        if (StringUtils.isNotBlank(aUrlHd))
+        {
+            film.addUrl(Qualities.HD, CrawlerTool.stringToFilmUrl(aUrlHd));
+        }
+        if (StringUtils.isNotBlank(aUrlSmall))
+        {
+            film.addUrl(Qualities.SMALL, CrawlerTool.stringToFilmUrl(aUrlSmall));
+        }
+        return film;
+    }
+
+    public static void improveAufloesung(final Film aFilm) throws URISyntaxException
+    {
+        updateNormal(aFilm);
+        updateHD(aFilm);
+    }
+
+
+    public static void updateNormal(Film aFilm) throws URISyntaxException
+    {
+        Map<String, List<String>> urls = new HashMap<>();
+
+        urls.put("2328k_p35v11.mp4", Arrays.asList("2256k_p14v11.mp4"));
+        urls.put("2328k_p35v12.mp4", Arrays.asList("2256k_p14v12.mp4"));
+        urls.put("2328k_p35v13.mp4", Arrays.asList("2296k_p14v13.mp4"));
+        urls.put("2328k_p35v11.mp4", Arrays.asList("1456k_p13v11.mp4"));
+        urls.put("2256k_p14v11.mp4", Arrays.asList("1456k_p13v11.mp4"));
+        urls.put("2328k_p35v12.mp4", Arrays.asList("1456k_p13v12.mp4"));
+        urls.put("2256k_p14v12.mp4", Arrays.asList("1456k_p13v12.mp4"));
+        urls.put("2328k_p35v13.mp4", Arrays.asList("1496k_p13v13.mp4"));
+        urls.put("2296k_p14v13.mp4", Arrays.asList("1496k_p13v13.mp4"));
+
+        updateUrl(urls, aFilm, Qualities.NORMAL);
+    }
+
+    public static void updateHD(Film aFilm) throws URISyntaxException
+    {
+        Map<String, List<String>> urls = new HashMap<>();
+
+        urls.put("3328k_p36v12.mp4", Arrays.asList("1456k_p13v12.mp4", "2256k_p14v12.mp4", "2328k_p35v12.mp4"));
+        urls.put("3256k_p15v12.mp4", Arrays.asList("1456k_p13v12.mp4", "2256k_p14v12.mp4", "2328k_p35v12.mp4"));
+
+        urls.put("3296k_p15v13.mp4", Arrays.asList("1496k_p13v13.mp4", "2296k_p14v13.mp4", "2328k_p35v13.mp4"));
+        urls.put("3328k_p36v13.mp4", Arrays.asList("1496k_p13v13.mp4", "2296k_p14v13.mp4", "2328k_p35v13.mp4"));
+
+        if(aFilm.getUrl(Qualities.NORMAL).toString().contains("media.ndr.de"))
+        {
+            urls.put(".hd.mp4", Arrays.asList(".hq.mp4"));
+        }
+
+        if(aFilm.getUrl(Qualities.NORMAL).toString().contains("cdn-storage.br.de"))
+        {
+            urls.put("_X.mp4", Arrays.asList("_C.mp4"));
+        }
+
+        if(aFilm.getUrl(Qualities.NORMAL).toString().contains("pd-ondemand.swr.de"))
+        {
+            urls.put(".xl.mp4", Arrays.asList(".l.mp4"));
+        }
+
+        updateUrl(urls, aFilm, Qualities.HD);
+    }
+
+    private static void updateUrl(Map<String, List<String>> aUrls, Film aFilm, Qualities aTargetQuality) throws URISyntaxException
+    {
+        String url;
+        if (aFilm.getUrls().containsKey(aTargetQuality))
+        {
+            url = aFilm.getUrl(aTargetQuality).toString();
+        } else
+        {
+            url = aFilm.getUrl(Qualities.NORMAL).toString();
+        }
+
+        for (String betterUrl : aUrls.keySet())
+        {
+            for (String baderUrl : aUrls.get(betterUrl))
+            {
+                if (url.contains(baderUrl)) ;
+                {
+                    url = url.replace(baderUrl, betterUrl);
+                }
+            }
+        }
+        if (MediathekReader.urlExists(url))
+        {
+            aFilm.addUrl(aTargetQuality, stringToFilmUrl(url));
+        }
+    }
 }

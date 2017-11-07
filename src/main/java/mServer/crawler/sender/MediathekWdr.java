@@ -24,11 +24,16 @@ package mServer.crawler.sender;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.LinkedList;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import de.mediathekview.mlib.Config;
 import de.mediathekview.mlib.Const;
 import de.mediathekview.mlib.daten.ListeFilme;
+import de.mediathekview.mlib.daten.Sender;
 import de.mediathekview.mlib.tool.Log;
 import de.mediathekview.mlib.tool.MSStringBuilder;
 import java.util.Collection;
@@ -42,21 +47,22 @@ import mServer.crawler.sender.wdr.WdrLetterPageCallable;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-
-public class MediathekWdr extends MediathekReader {
-
-    public final static String SENDERNAME = Const.WDR;
+public class MediathekWdr extends MediathekReader
+{
+    private static final Logger LOG = LogManager.getLogger(MediathekWdr.class);
+    
+    public final static Sender SENDER = Sender.WDR;
     
     private final LinkedList<String> dayUrls = new LinkedList<>();
     private final LinkedList<String> letterPageUrls = new LinkedList<>();
+
     private MSStringBuilder seite_1 = new MSStringBuilder(Const.STRING_BUFFER_START_BUFFER);
 
     Collection<Future<ListeFilme>> futureFilme = new ArrayList<>();
     
-    private static final Logger LOG = LogManager.getLogger(MediathekWdr.class);
-    
-    public MediathekWdr(FilmeSuchen ssearch, int startPrio) {
-        super(ssearch, SENDERNAME,/* threads */ 3, /* urlWarten */ 100, startPrio);
+    public MediathekWdr(FilmeSuchen ssearch, int startPrio)
+    {
+        super(ssearch, SENDER.getName(),/* threads */ 3, /* urlWarten */ 100, startPrio);
     }
 
     //===================================
@@ -136,7 +142,8 @@ public class MediathekWdr extends MediathekReader {
         // http://www1.wdr.de/mediathek/video/sendungverpasst/sendung-verpasst-100~_tag-27022016.html
         SimpleDateFormat formatter = new SimpleDateFormat("ddMMyyyy");
         String tag;
-        for (int i = 0; i < 14; ++i) {
+        for (int i = 1; i < 14; ++i)
+        {
             final String URL = "http://www1.wdr.de/mediathek/video/sendungverpasst/sendung-verpasst-100~_tag-";
             tag = formatter.format(new Date().getTime() - (1000 * 60 * 60 * 24 * i));
             String urlString = URL + tag + ".html";
@@ -144,28 +151,34 @@ public class MediathekWdr extends MediathekReader {
         }
     }
 
-    private void addLetterPages() {
+    private void addLetterPages() 
+    {
         // http://www1.wdr.de/mediathek/video/sendungen/abisz-b100.html
         //Theman suchen
         final String URL = "http://www1.wdr.de/mediathek/video/sendungen-a-z/index.html";
         final String MUSTER_URL = "<a href=\"/mediathek/video/sendungen-a-z/";
         GetUrl getUrlIo = new GetUrl(getWartenSeiteLaden());
-        seite_1 = getUrlIo.getUri_Iso(SENDERNAME, URL, seite_1, "");
+        seite_1 = getUrlIo.getUri_Iso(SENDER.getName(), URL, seite_1, "");
         int pos1;
         int pos2;
         String url;
         letterPageUrls.add(URL); // ist die erste Seite: "a"
         pos1 = seite_1.indexOf("<strong>A</strong>");
-        while (!Config.getStop() && (pos1 = seite_1.indexOf(MUSTER_URL, pos1)) != -1) {
+        while (!Config.getStop() && (pos1 = seite_1.indexOf(MUSTER_URL, pos1)) != -1)
+        {
             pos1 += MUSTER_URL.length();
-            if ((pos2 = seite_1.indexOf("\"", pos1)) != -1) {
+            if ((pos2 = seite_1.indexOf("\"", pos1)) != -1)
+            {
                 url = seite_1.substring(pos1, pos2);
-                if (url.equals("index.html")) {
+                if (url.equals("index.html"))
+                {
                     continue;
                 }
-                if (url.isEmpty()) {
+                if (url.isEmpty())
+                {
                     Log.errorLog(995122047, "keine URL");
-                } else {
+                } else
+                {
                     url = "http://www1.wdr.de/mediathek/video/sendungen-a-z/" + url;
                     letterPageUrls.add(url);
                 }

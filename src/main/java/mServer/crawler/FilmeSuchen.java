@@ -22,11 +22,13 @@ package mServer.crawler;
 import de.mediathekview.mlib.Config;
 import de.mediathekview.mlib.Const;
 import de.mediathekview.mlib.daten.ListeFilme;
+import de.mediathekview.mlib.daten.Sender;
 import de.mediathekview.mlib.filmesuchen.ListenerFilmeLaden;
 import de.mediathekview.mlib.filmesuchen.ListenerFilmeLadenEvent;
 import de.mediathekview.mlib.tool.Log;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
 import java.util.LinkedList;
 import javax.swing.event.EventListenerList;
@@ -86,9 +88,9 @@ public class FilmeSuchen {
         mediathekListe.add(new MediathekPhoenix(this, 1));
     }
 
-    public static String[] getNamenSender() {
+    public static Collection<String> getNamenSender() {
         // liefert eine Array mit allen Sendernamen
-        return Const.SENDER;
+        return Sender.getSenderNamen();
     }
 
     public void addAdListener(ListenerFilmeLaden listener) {
