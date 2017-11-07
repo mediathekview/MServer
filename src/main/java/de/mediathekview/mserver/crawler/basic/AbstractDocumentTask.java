@@ -10,7 +10,16 @@ import org.jsoup.nodes.Document;
 import de.mediathekview.mserver.base.messages.ServerMessages;
 
 /**
- * Recursively crawls a Website.
+ * This is a abstract task based on {@link AbstractUrlTask} which takes a
+ * {@link ConcurrentLinkedQueue} of {@link D} and loads the URL with JSOUP as {@link Document}.
+ *
+ * @author Nicklas Wiegandt (Nicklas2751)<br/>
+ *         <b>Mail:</b> nicklas@wiegandt.eu<br/>
+ *         <b>Jabber:</b> nicklas2751@elaon.de<br/>
+ *
+ * @param <T> The type of objects which will be created from this task.
+ * @param <D> A sub type of {@link CrawlerUrlDTO} which this task will use to create the result
+ *        objects.
  */
 public abstract class AbstractDocumentTask<T, D extends CrawlerUrlDTO>
     extends AbstractUrlTask<T, D> {
@@ -27,6 +36,13 @@ public abstract class AbstractDocumentTask<T, D extends CrawlerUrlDTO>
   }
 
 
+  /**
+   * In this method you have to use the JSOUP {@link Document} to create a object of the return type
+   * {@link T}. Add the results to {@link AbstractUrlTask#taskResults}.
+   *
+   * @param aUrlDTO A DTO containing at least the URL of the given document.
+   * @param aDocument The JSOUP {@link Document}.
+   */
   protected abstract void processDocument(final D aUrlDTO, final Document aDocument);
 
 

@@ -79,6 +79,12 @@ public abstract class AbstractCrawler implements Callable<Set<Film>> {
     return films;
   }
 
+  /**
+   * This method should just return the entry of {@link Sender} for the Sender which this crawler is
+   * for.
+   *
+   * @return The sender which this crawler is for.
+   */
   public abstract Sender getSender();
 
   public long incrementAndGetActualCount() {
@@ -122,6 +128,12 @@ public abstract class AbstractCrawler implements Callable<Set<Film>> {
     progressListeners.parallelStream().forEach(l -> l.updateProgess(getSender(), progress));
   }
 
+  /**
+   * This the method where the "magic" happens. In this method you have to create a
+   * {@link RecursiveTask} which gathers a set of {@link Film}.
+   *
+   * @return The found films.
+   */
   protected abstract RecursiveTask<Set<Film>> createCrawlerTask();
 
 }

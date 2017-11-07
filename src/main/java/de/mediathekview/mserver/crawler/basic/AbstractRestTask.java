@@ -10,14 +10,16 @@ import org.glassfish.jersey.message.DeflateEncoder;
 import org.glassfish.jersey.message.GZipEncoder;
 
 /**
- * A abstract task to process REST Api urls.
+ * This task is based on {@link AbstractUrlTask} which takes a {@link ConcurrentLinkedQueue} of
+ * {@link D} and loads the URL with REST as {@link WebTarget}.
  *
  * @author Nicklas Wiegandt (Nicklas2751)<br/>
  *         <b>Mail:</b> nicklas@wiegandt.eu<br/>
  *         <b>Jabber:</b> nicklas2751@elaon.de<br/>
- *         <b>Skype:</b> Nicklas2751<br/>
  *
- * @param <T>
+ * @param <T> The type of objects which will be created from this task.
+ * @param <D> A sub type of {@link CrawlerUrlDTO} which this task will use to create the result
+ *        objects.
  */
 public abstract class AbstractRestTask<T, D extends CrawlerUrlDTO> extends AbstractUrlTask<T, D> {
   private static final long serialVersionUID = 2590729915326002860L;
@@ -37,6 +39,13 @@ public abstract class AbstractRestTask<T, D extends CrawlerUrlDTO> extends Abstr
   }
 
 
+  /**
+   * In this method you have to use the {@link WebTarget} to create a object of the return type
+   * {@link T}. Add the results to {@link AbstractUrlTask#taskResults}.
+   *
+   * @param aDTO A DTO containing at least the URL of the given document.
+   * @param aTarget The {@link WebTarget}.
+   */
   protected abstract void processRestTarget(D aDTO, WebTarget aTarget);
 
 
