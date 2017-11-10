@@ -66,6 +66,8 @@ public class MediathekArd extends MediathekReader {
 	private static final String M3U8_PATTERN_END = "\"";
 	private static final String TEXT_START_HTTP = "http";
 	private static final String URL_GET_PARAMETER = "\\?.*";
+    private static final String SUFFIX_URL_NORMAL = "/960-1.mp4";
+    private static final String SUFFIX_URL_HD = "/1280-1.mp4";
         
     private MSStringBuilder seiteFeed = new MSStringBuilder(Const.STRING_BUFFER_START_BUFFER);
     
@@ -391,6 +393,8 @@ public class MediathekArd extends MediathekReader {
                 }
                 if (dto.getUrl(Qualities.HD) != null) {
                     urlHD = dto.getUrl(Qualities.HD);
+                } else if (!url.isEmpty()) {
+                  urlHD = determineHdFromNormal(url);
                 }
 
                 if (url.isEmpty()) {
@@ -470,6 +474,21 @@ public class MediathekArd extends MediathekReader {
 				Log.errorLog(762139874, ex);
 			}
 		}
+        
+        // Versucht aus der normalen Url eine HD-Url zu bauen
+        private String determineHdFromNormal(String urlNormal) {
+          String urlHd = "";
+          
+          // für URLs, die auf /960-1.mp4 enden, prüfen ob eine URL auf /1280-1.mp4 existiert
+          if (urlNormal.endsWith(SUFFIX_URL_NORMAL)) {
+            String urlTemp = urlNormal.replaceAll(SUFFIX_URL_NORMAL, SUFFIX_URL_HD);
+            if (urlExists(urlTemp)) {
+              urlHd = urlTemp;
+            }
+          }
+          
+          return urlHd;
+        }
         
         private String getUrl(MSStringBuilder seite) {
             String ret = "";
