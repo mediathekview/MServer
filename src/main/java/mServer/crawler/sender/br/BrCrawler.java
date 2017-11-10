@@ -2,7 +2,8 @@ package mServer.crawler.sender.br;
 
 import de.mediathekview.mlib.Config;
 import de.mediathekview.mlib.Const;
-import de.mediathekview.mlib.daten.DatenFilm;
+import de.mediathekview.mlib.daten.Film;
+import de.mediathekview.mlib.daten.Sender;
 import java.util.Set;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ConcurrentLinkedQueue;
@@ -20,7 +21,7 @@ import org.apache.logging.log4j.Logger;
 
 public class BrCrawler extends MediathekReader {
 
-  public static final String SENDERNAME = Const.BR;
+  public static final String SENDERNAME = Sender.BR.getName();
   public static final String BASE_URL = "https://www.br.de/mediathek/";
   private static final Logger LOG = LogManager.getLogger(BrCrawler.class);
 
@@ -37,8 +38,8 @@ public class BrCrawler extends MediathekReader {
     meldungStart();
     
     try {
-      RecursiveTask<Set<DatenFilm>> filmTask = createCrawlerTask();
-      Set<DatenFilm> films = forkJoinPool.invoke(filmTask);
+      RecursiveTask<Set<Film>> filmTask = createCrawlerTask();
+      Set<Film> films = forkJoinPool.invoke(filmTask);
 
       LOG.info("BR Filme einsortieren...");
 
@@ -89,7 +90,7 @@ public class BrCrawler extends MediathekReader {
     return new BrMissedSendungsFolgenTask(this, maximumDays);
   }
 
-  protected RecursiveTask<Set<DatenFilm>> createCrawlerTask() {
+  protected RecursiveTask<Set<Film>> createCrawlerTask() {
     final Callable<Set<String>> missedFilmsTask = createMissedFilmsCrawler();
     final RecursiveTask<Set<String>> sendungenFilmsTask = createAllSendungenOverviewCrawler();
     final Future<Set<String>> missedFilmIds = forkJoinPool.submit(missedFilmsTask);

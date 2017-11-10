@@ -19,23 +19,26 @@
  */
 package mServer.crawler.sender;
 
-import java.nio.charset.StandardCharsets;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.LinkedList;
-
 import de.mediathekview.mlib.Config;
 import de.mediathekview.mlib.Const;
-import de.mediathekview.mlib.daten.DatenFilm;
+import de.mediathekview.mlib.daten.Film;
+import de.mediathekview.mlib.daten.Sender;
 import de.mediathekview.mlib.tool.Log;
 import de.mediathekview.mlib.tool.MSStringBuilder;
 import mServer.crawler.CrawlerTool;
 import mServer.crawler.FilmeSuchen;
 import mServer.crawler.GetUrl;
 
+import java.net.URI;
+import java.nio.charset.StandardCharsets;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Iterator;
+import java.util.LinkedList;
+
 public class MediathekMdr extends MediathekReader {
 
-    public final static String SENDERNAME = Const.MDR;
+    public final static Sender SENDER = Sender.MDR;
     private final LinkedList<String> listeTage = new LinkedList<>();
     private final LinkedList<String[]> listeGesucht = new LinkedList<>(); //thema,titel,datum,zeit
 
@@ -45,7 +48,7 @@ public class MediathekMdr extends MediathekReader {
      * @param startPrio
      */
     public MediathekMdr(FilmeSuchen ssearch, int startPrio) {
-        super(ssearch, SENDERNAME, /* threads */ 3, /* urlWarten */ 200, startPrio);
+        super(ssearch, SENDER.getName(), /* threads */ 3, /* urlWarten */ 200, startPrio);
     }
 
     /**
@@ -69,7 +72,7 @@ public class MediathekMdr extends MediathekReader {
         listeGesucht.clear();
         meldungStart();
         GetUrl getUrlIo = new GetUrl(getWartenSeiteLaden());
-        seite = getUrlIo.getUri_Utf(SENDERNAME, URL_SENDUNGEN, seite, "");
+        seite = getUrlIo.getUri_Utf(SENDER.getName(), URL_SENDUNGEN, seite, "");
         int pos = 0;
         int pos1;
         int pos2;
@@ -88,10 +91,10 @@ public class MediathekMdr extends MediathekReader {
                 if (url.contains("#")) {
                     url = url.substring(0, url.indexOf('#'));
                 }
-                listeThemen.addUrl(new String[]{url});
+                listeThemen.add(new String[]{url});
             }
         }
-        seite = getUrlIo.getUri_Utf(SENDERNAME, URL_TAGE, seite, "");
+        seite = getUrlIo.getUri_Utf(SENDER.getName(), URL_TAGE, seite, "");
         pos = 0;
         url = "";
         while ((pos = seite.indexOf(MUSTER_TAGE, pos)) != -1) {
@@ -122,7 +125,7 @@ public class MediathekMdr extends MediathekReader {
             for (int t = 0; t < getMaxThreadLaufen(); ++t) {
                 //new Thread(new ThemaLaden()).start();
                 Thread th = new ThemaLaden();
-                th.setName(SENDERNAME + t);
+                th.setName(SENDER.getName() + t);
                 th.start();
             }
         }
@@ -148,10 +151,12 @@ public class MediathekMdr extends MediathekReader {
         public void run() {
             try {
                 meldungAddThread();
-                String[] link;
-                while (!Config.getStop() && (link = listeThemen.getListeThemen()) != null) {
-                    meldungProgress(link[0]);
-                    addThema(link[0]);
+                final Iterator<String[]> themaIterator = listeThemen.iterator();
+                while (!Config.getStop() && themaIterator.hasNext())
+                {
+                    final String[] thema = themaIterator.next();
+                    meldungProgress(thema[0]);
+                    addThema(thema[0]);
                 }
                 String url;
                 while (!Config.getStop() && (url = getListeTage()) != null) {
@@ -170,7 +175,7 @@ public class MediathekMdr extends MediathekReader {
             int pos = 0;
             String thema, url = "";
             try {
-                seite1 = getUrl.getUri(SENDERNAME, strUrlFeed, StandardCharsets.UTF_8, 2 /* versuche */, seite1, "");
+                seite1 = getUrl.getUri(SENDER.getName(), strUrlFeed, StandardCharsets.UTF_8, 2 /* versuche */, seite1, "");
                 while (!Config.getStop() && (pos = seite1.indexOf(MUSTER, pos)) != -1) {
                     pos += MUSTER.length();
                     url = seite1.extract("<a href=\"/mediathek/fernsehen/", "\"", pos);
@@ -197,7 +202,7 @@ public class MediathekMdr extends MediathekReader {
             int pos = 0;
             String thema, url = "";
             try {
-                seiteTage = getUrl.getUri(SENDERNAME, urlSeite, StandardCharsets.UTF_8, 2 /* versuche */, seiteTage, "");
+                seiteTage = getUrl.getUri(SENDER.getName(), urlSeite, StandardCharsets.UTF_8, 2 /* versuche */, seiteTage, "");
                 while (!Config.getStop() && (pos = seiteTage.indexOf(MUSTER, pos)) != -1) {
                     pos += MUSTER.length();
                     url = seiteTage.extract("<a href=\"/mediathek/", "\"", pos);
@@ -219,7 +224,7 @@ public class MediathekMdr extends MediathekReader {
         }
 
         private void addSendugen(String strUrlFeed, String thema, String urlThema) {
-            seite2 = getUrl.getUri(SENDERNAME, urlThema, StandardCharsets.UTF_8, 2 /* versuche */, seite2, "Thema: " + thema);
+            seite2 = getUrl.getUri(SENDER.getName(), urlThema, StandardCharsets.UTF_8, 2 /* versuche */, seite2, "Thema: " + thema);
             final String muster;
             if (seite2.indexOf("div class=\"media mediaA \">") != -1) {
                 muster = "div class=\"media mediaA \">";
@@ -253,7 +258,7 @@ public class MediathekMdr extends MediathekReader {
         private void addSendug(String strUrlFeed, String thema, String urlSendung) {
             final String MUSTER_XML = "'playerXml':'";
             final String MUSTER_ADD = "http://www.mdr.de";
-            seite3 = getUrl.getUri_Utf(SENDERNAME, urlSendung, seite3, "Thema: " + thema);
+            seite3 = getUrl.getUri_Utf(SENDER.getName(), urlSendung, seite3, "Thema: " + thema);
             int pos = 0;
             int pos1;
             int pos2;
@@ -287,7 +292,7 @@ public class MediathekMdr extends MediathekReader {
             long duration;
 
             try {
-                seite4 = getUrl.getUri_Utf(SENDERNAME, xmlSite, seite4, "Thema: " + thema);
+                seite4 = getUrl.getUri_Utf(SENDER.getName(), xmlSite, seite4, "Thema: " + thema);
                 if (seite4.length() == 0) {
                     Log.errorLog(903656532, xmlSite);
                     return;
@@ -344,10 +349,20 @@ public class MediathekMdr extends MediathekReader {
                 } else if (!existiertSchon(thema, titel, datum, zeit)) {
                     meldung(urlMp4);
 
-                    DatenFilm film = new DatenFilm(SENDERNAME, thema, urlSendung, titel, urlMp4, ""/*rtmpUrl*/, datum, zeit, duration, description);
-                    CrawlerTool.addUrlKlein(film, urlMp4_klein, "");
-                    CrawlerTool.addUrlHd(film, urlHD, "");
-                    CrawlerTool.addUrlSubtitle(film, subtitle);
+                    Film film = CrawlerTool.createFilm(SENDER,
+                            urlMp4,
+                            titel,
+                            thema,
+                            datum,
+                            zeit,
+                            duration,
+                            urlSendung,
+                            description,
+                            urlHD,
+                            urlMp4_klein);
+                    if (!subtitle.isEmpty()) {
+                        film.addSubtitle(new URI(subtitle));
+                    }
                     addFilm(film);
                 }
 

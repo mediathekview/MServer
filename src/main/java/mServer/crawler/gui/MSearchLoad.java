@@ -81,11 +81,6 @@ public class MSearchLoad {
         }
     }
 
-    // #######################################
-    // #######################################
-    public String[] getSenderNamen() {
-        return FilmeSuchen.getNamenSender();
-    }
 
     private void undEnde(ListenerFilmeLadenEvent event) {
         istAmLaufen = false;
