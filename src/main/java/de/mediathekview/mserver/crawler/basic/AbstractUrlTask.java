@@ -12,10 +12,10 @@ import de.mediathekview.mserver.base.config.MServerConfigManager;
  * {@link D}. It splits the URLs on instances of it self based on the crawler configuration and
  * calls the {@link this#processUrl(CrawlerUrlDTO)} for each.
  *
- * @author Nicklas Wiegandt (Nicklas2751)<br/>
- *         <b>Mail:</b> nicklas@wiegandt.eu<br/>
- *         <b>Jabber:</b> nicklas2751@elaon.de<br/>
- *         <b>Skype:</b> Nicklas2751<br/>
+ * @author Nicklas Wiegandt (Nicklas2751)<br>
+ *         <b>Mail:</b> nicklas@wiegandt.eu<br>
+ *         <b>Jabber:</b> nicklas2751@elaon.de<br>
+ *         <b>Riot.im:</b> nicklas2751:matrix.elaon.de<br>
  *
  * @param <T> The type of objects which will be created from this task.
  * @param <D> A sub type of {@link CrawlerUrlDTO} which this task will use to create the result
