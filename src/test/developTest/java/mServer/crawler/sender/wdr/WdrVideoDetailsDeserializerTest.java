@@ -2,7 +2,7 @@ package mServer.crawler.sender.wdr;
 
 import de.mediathekview.mlib.Const;
 import de.mediathekview.mlib.daten.Film;
-import de.mediathekview.mlib.daten.Qualities;
+import de.mediathekview.mlib.daten.Resolution;
 import de.mediathekview.mlib.daten.Sender;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -80,13 +80,13 @@ public class WdrVideoDetailsDeserializerTest {
         assertThat(actual.getWebsite(), equalTo(new URI(expectedWebsite)));
         assertThat(actual.getTime().toString(), equalTo(expectedTime));
         assertThat(actual.getDuration(), equalTo(expectedDuration));
-        assertThat(actual.getUrl(Qualities.NORMAL), equalTo(new URI(expectedVideoUrlNormal)));
-        assertThat(actual.getUrl(Qualities.SMALL), equalTo(new URI(expectedVideoUrlSmall)));
+        assertThat(actual.getUrl(Resolution.NORMAL), equalTo(new URI(expectedVideoUrlNormal)));
+        assertThat(actual.getUrl(Resolution.SMALL), equalTo(new URI(expectedVideoUrlSmall)));
         
         if(expectedVideoUrlHd.isEmpty()) {
             assertThat(actual.hasHD(), equalTo(false));
         } else {
-            assertThat(actual.getUrl(Qualities.HD), equalTo(new URI(expectedVideoUrlHd)));
+            assertThat(actual.getUrl(Resolution.HD), equalTo(new URI(expectedVideoUrlHd)));
         }
         
         if(expectedSubtitle.isEmpty()) {

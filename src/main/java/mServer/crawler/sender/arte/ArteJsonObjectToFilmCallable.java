@@ -18,6 +18,7 @@ import de.mediathekview.mlib.daten.Film;
 import de.mediathekview.mlib.daten.GeoLocations;
 import de.mediathekview.mlib.daten.Resolution;
 import de.mediathekview.mlib.daten.Sender;
+import de.mediathekview.mlib.tool.MVHttpClient;
 import mServer.crawler.CantCreateFilmException;
 import mServer.crawler.CrawlerTool;
 import okhttp3.OkHttpClient;
@@ -186,7 +187,7 @@ public class ArteJsonObjectToFilmCallable implements Callable<Film> {
     final String videosUrlVideoDetails2 =
         String.format(ARTE_VIDEO_INFORMATION_URL_PATTERN_2, langCode, programId);
     final Request request =
-        new Request.Builder().addHeader(MediathekArte_de.AUTH_HEADER, MediathekArte_de.AUTH_TOKEN)
+        new Request.Builder().addHeader(ArteHttpClient.AUTH_HEADER, ArteHttpClient.AUTH_TOKEN)
             .url(videosUrlVideoDetails2).build();
 
     try (Response responseVideoDetails2 = httpClient.newCall(request).execute()) {

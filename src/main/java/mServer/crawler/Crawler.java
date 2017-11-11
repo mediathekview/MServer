@@ -63,10 +63,8 @@ public class Crawler implements Runnable {
     // das eigentliche Suchen der Filme bei den Sendern starten
     if (CrawlerConfig.nurSenderLaden == null) {
       // alle Sender laden
-      filmeSuchen.filmeBeimSenderLaden(listeFilme);
     } else {
       // dann soll nur ein Sender geladen werden
-      filmeSuchen.updateSender(CrawlerConfig.nurSenderLaden, listeFilme);
     }
     try {
       while (serverLaufen) {
@@ -126,7 +124,6 @@ public class Crawler implements Runnable {
 
   private void undTschuess() {
     Config.setStop(false); // zurücksetzen!! sonst klappt das Lesen der Importlisten nicht!!!!!
-    listeFilme = filmeSuchen.listeFilmeNeu;
 
     // ================================================
     // noch anere Listen importieren

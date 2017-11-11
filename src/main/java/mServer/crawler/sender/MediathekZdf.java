@@ -40,7 +40,6 @@ import etm.core.configuration.EtmManager;
 import etm.core.monitor.EtmPoint;
 import mServer.crawler.CrawlerTool;
 import mServer.crawler.FilmeSuchen;
-import mServer.crawler.RunSender;
 import mServer.crawler.sender.zdf.DownloadDTO;
 import mServer.crawler.sender.zdf.VideoDTO;
 import mServer.crawler.sender.zdf.ZDFSearchTask;
@@ -95,10 +94,10 @@ public class MediathekZdf extends MediathekReader {
           }
 
           // don´t use addFilm here
-          if (mlibFilmeSuchen.listeFilmeNeu.addFilmVomSender(film)) {
-            // dann ist er neu
-            FilmeSuchen.listeSenderLaufen.inc(film.getSender().getName(), RunSender.Count.FILME);
-          }
+          // if (mlibFilmeSuchen.listeFilmeNeu.addFilmVomSender(film)) {
+          // // dann ist er neu
+          // FilmeSuchen.listeSenderLaufen.inc(film.getSender().getName(), RunSender.Count.FILME);
+          // }
 
         } catch (final Exception ex) {
           Log.errorLog(496583211, ex, "add film failed: " + video.getWebsiteUrl());

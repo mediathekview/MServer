@@ -1,6 +1,6 @@
 package mServer.crawler.sender.wdr;
 
-import de.mediathekview.mlib.daten.Qualities;
+import de.mediathekview.mlib.daten.Resolution;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -71,21 +71,21 @@ public class WdrVideoUrlParser {
         
         resolutionUrlMap.forEach((key, value) -> {
             if(key >= 1280)  {
-                dto.addVideo(Qualities.HD, value);
+                dto.addVideo(Resolution.HD, value);
             } else if(key >= 960) {
-                dto.addVideo(Qualities.NORMAL, value);
-            } else if(key >= 640 && dto.getUrl(Qualities.NORMAL).isEmpty()) {
-                dto.addVideo(Qualities.NORMAL, value);
+                dto.addVideo(Resolution.NORMAL, value);
+            } else if(key >= 640 && dto.getUrl(Resolution.NORMAL).isEmpty()) {
+                dto.addVideo(Resolution.NORMAL, value);
             } else if(key >= 512) {
-                dto.addVideo(Qualities.SMALL, value);
-            } else if(dto.getUrl(Qualities.SMALL).isEmpty()) {
-                dto.addVideo(Qualities.SMALL, value);
+                dto.addVideo(Resolution.SMALL, value);
+            } else if(dto.getUrl(Resolution.SMALL).isEmpty()) {
+                dto.addVideo(Resolution.SMALL, value);
             }
         });
 
         // Zur Sicherheit: wenn NORMAL nicht gefüllt, aber SMALL, dann NORMAL=SMALL
-        if(dto.getUrl(Qualities.NORMAL).isEmpty() && !dto.getUrl(Qualities.SMALL).isEmpty()) {
-            dto.addVideo(Qualities.NORMAL, dto.getUrl(Qualities.SMALL));
+        if(dto.getUrl(Resolution.NORMAL).isEmpty() && !dto.getUrl(Resolution.SMALL).isEmpty()) {
+            dto.addVideo(Resolution.NORMAL, dto.getUrl(Resolution.SMALL));
         }
     }
     
@@ -116,9 +116,9 @@ public class WdrVideoUrlParser {
             urlNormal = urlHd;
         }        
         
-        dto.addVideo(Qualities.SMALL, urlSmall);
-        dto.addVideo(Qualities.NORMAL, urlNormal);
-        dto.addVideo(Qualities.HD, urlHd);
+        dto.addVideo(Resolution.SMALL, urlSmall);
+        dto.addVideo(Resolution.NORMAL, urlNormal);
+        dto.addVideo(Resolution.HD, urlHd);
     }
     
     /**

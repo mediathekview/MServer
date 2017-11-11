@@ -139,18 +139,11 @@ public class ZDFClient {
       case SEARCH:
         apiToken = API_TOKEN_SEARCH;
         break;
-      case VIDEO:
-        apiToken = loadApiTokenVideos();
-        break;
       default:
-        apiToken = loadApiTokenVideos();
+        apiToken = ZDFConfigurationLoader.getInstance().loadConfig().getApiToken(aMode);
         break;
     }
     return apiToken;
   }
 
-  private String loadApiTokenVideos() {
-    return String.format(API_TOKEN_PATTERN,
-        ZDFConfigurationLoader.getInstance().loadConfig().getApiToken());
-  }
 }

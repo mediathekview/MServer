@@ -1,7 +1,7 @@
 package mServer.crawler.sender.hr;
 
 import de.mediathekview.mlib.daten.Film;
-import de.mediathekview.mlib.daten.Qualities;
+import de.mediathekview.mlib.daten.Resolution;
 import de.mediathekview.mlib.daten.Sender;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -92,7 +92,7 @@ public class HrSendungDeserializerTest {
         assertThat(actual.getTime().toString(), equalTo(expectedDateTime));
         assertThat(actual.getWebsite(), equalTo(new URI(expectedWebsite)));
         assertThat(actual.getDuration(), equalTo(expectedDuration));
-        assertThat(actual.getUrl(Qualities.NORMAL), equalTo(new URI(expectedVideoUrl)));
+        assertThat(actual.getUrl(Resolution.NORMAL), equalTo(new URI(expectedVideoUrl)));
     }
     
     @Test
