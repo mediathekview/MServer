@@ -9,8 +9,8 @@ import de.mediathekview.mserver.crawler.basic.AbstractUrlTask;
 import de.mediathekview.mserver.crawler.basic.CrawlerUrlDTO;
 
 /**
- * A task to gather film URLs for NDR from "Sendung Verpasst?".
- * 
+ * A recursive task to gather film URLs for NDR from "Sendung Verpasst?".
+ *
  * @author Nicklas Wiegandt (Nicklas2751)<br>
  *         <b>Mail:</b> nicklas@wiegandt.eu<br>
  *         <b>Jabber:</b> nicklas2751@elaon.de<br>
