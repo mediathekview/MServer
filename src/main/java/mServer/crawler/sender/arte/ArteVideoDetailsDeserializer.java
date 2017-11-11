@@ -16,11 +16,21 @@ import java.time.format.DateTimeParseException;
 import de.mediathekview.mlib.daten.GeoLocations;
 
 public class ArteVideoDetailsDeserializer implements JsonDeserializer<ArteVideoDetailsDTO> {
- 
+
+    private static final String JSON_ELEMENT_KEY_CATEGORY = "category";
+    private static final String JSON_ELEMENT_KEY_SUBCATEGORY = "subcategory";
+    private static final String JSON_ELEMENT_KEY_NAME = "name";
+    private static final String JSON_ELEMENT_KEY_TITLE = "title";
+    private static final String JSON_ELEMENT_KEY_SUBTITLE = "subtitle";
+    private static final String JSON_ELEMENT_KEY_URL = "url";
+    private static final String JSON_ELEMENT_KEY_PROGRAM_ID = "programId";
+    private static final String JSON_ELEMENT_KEY_SHORT_DESCRIPTION = "shortDescription";
+    
     private static final String JSON_ELEMENT_BROADCAST_ELTERNKNOTEN_1 = "programs";
     private static final String JSON_ELEMENT_BROADCAST_ELTERNKNOTEN_2 = "broadcastProgrammings";
     private static final String JSON_ELEMENT_BROADCAST = "broadcastBeginRounded";
     private static final String JSON_ELEMENT_BROADCASTTYPE = "broadcastType";
+    private static final String JSON_ELEMENT_BROADCAST_VIDEORIGHTS_BEGIN = "videoRightsBegin";
     private static final String JSON_ELEMENT_BROADCAST_CATCHUPRIGHTS_BEGIN = "catchupRightsBegin";
     private static final String JSON_ELEMENT_BROADCAST_CATCHUPRIGHTS_END = "catchupRightsEnd";
     private static final String BROADCASTTTYPE_FIRST = "FIRST_BROADCAST";
@@ -41,24 +51,30 @@ public class ArteVideoDetailsDeserializer implements JsonDeserializer<ArteVideoD
                 
             JsonObject programElement = aJsonElement.getAsJsonObject()
                 .get(JSON_ELEMENT_BROADCAST_ELTERNKNOTEN_1).getAsJsonArray().get(0).getAsJsonObject();
+
+            String titel = getTitle(programElement);
+            String thema = getSubject(programElement);
+
+            String beschreibung = getElementValue(programElement, JSON_ELEMENT_KEY_SHORT_DESCRIPTION);
+
+            String urlWeb = getElementValue(programElement, JSON_ELEMENT_KEY_URL);
+               detailsDTO.setDescription(beschreibung);
+               detailsDTO.setTheme(thema);
+               detailsDTO.setTitle(titel);
+               detailsDTO.setWebsite(urlWeb);
+
             JsonArray broadcastArray = programElement.get(JSON_ELEMENT_BROADCAST_ELTERNKNOTEN_2).getAsJsonArray();
 
             if(broadcastArray.size() > 0) {
                 detailsDTO.setBroadcastBegin(getBroadcastDate(broadcastArray));
             } else {
                 // keine Ausstrahlungen verfügbar => catchupRightsBegin verwenden
-                JsonElement elementBegin = programElement.get(JSON_ELEMENT_BROADCAST_CATCHUPRIGHTS_BEGIN);
-                
-                if(!elementBegin.isJsonNull()) {
-                    try {
-                        detailsDTO.setBroadcastBegin(LocalDateTime.parse(elementBegin.getAsString(),broadcastDateFormat));
-                    }catch(DateTimeParseException dateTimeParseException)
-                    {
-                        LOG.error("Can't parse a broadcast relevant date.",dateTimeParseException);
-                        detailsDTO.setBroadcastBegin(LocalDateTime.now());
-                    }
-
+                // wenn es die auch nicht gibt => videoRightsBegin verwenden
+                String begin = getElementValue(programElement, JSON_ELEMENT_BROADCAST_CATCHUPRIGHTS_BEGIN);
+                if(begin.isEmpty()) {
+                    begin = getElementValue(programElement, JSON_ELEMENT_BROADCAST_VIDEORIGHTS_BEGIN);
                 }
+                detailsDTO.setBroadcastBegin(LocalDateTime.parse(begin,broadcastDateFormat));
             }
             
             detailsDTO.setGeoLocation(getGeoLocation(programElement));
@@ -67,6 +83,56 @@ public class ArteVideoDetailsDeserializer implements JsonDeserializer<ArteVideoD
         return detailsDTO;
     }
 
+    private static String getSubject(JsonObject programObject) {
+        String category = "";
+        String subcategory = "";
+        String subject;
+        
+        JsonElement catElement = programObject.get(JSON_ELEMENT_KEY_CATEGORY);
+        if(!catElement.isJsonNull()) {
+            JsonObject catObject = catElement.getAsJsonObject();
+            category = catObject != null ? getElementValue(catObject, JSON_ELEMENT_KEY_NAME) : "";
+        }
+        
+        JsonElement subcatElement = programObject.get(JSON_ELEMENT_KEY_SUBCATEGORY);
+        if(!subcatElement.isJsonNull()) {
+            JsonObject subcatObject = subcatElement.getAsJsonObject();
+            subcategory = subcatObject != null ? getElementValue(subcatObject, JSON_ELEMENT_KEY_NAME) : "";
+        }
+       
+        if(!category.equals(subcategory) && !subcategory.isEmpty()) {
+            subject = category + " - " + subcategory;
+        } else {
+            subject = category;
+        }
+
+        return subject;
+    }
+
+    private static String getTitle(JsonObject programObject) {
+        String title = getElementValue(programObject, JSON_ELEMENT_KEY_TITLE);
+        String subtitle = getElementValue(programObject, JSON_ELEMENT_KEY_SUBTITLE);
+                
+        if (!title.equals(subtitle) && !subtitle.isEmpty()) {
+            title = title + " - " + subtitle;
+        }        
+        
+        return title;
+    }
+
+    private static boolean isValidProgramObject(JsonObject programObject) {
+        return programObject.has(JSON_ELEMENT_KEY_TITLE) && 
+            programObject.has(JSON_ELEMENT_KEY_PROGRAM_ID) && 
+            programObject.has(JSON_ELEMENT_KEY_URL) &&
+            !programObject.get(JSON_ELEMENT_KEY_TITLE).isJsonNull() &&
+            !programObject.get(JSON_ELEMENT_KEY_PROGRAM_ID).isJsonNull() &&
+            !programObject.get(JSON_ELEMENT_KEY_URL).isJsonNull();
+    }
+    
+    private static String getElementValue(JsonObject jsonObject, String elementName) {
+        return !jsonObject.get(elementName).isJsonNull() ? jsonObject.get(elementName).getAsString() : "";        
+    }
+    
     private GeoLocations getGeoLocation(JsonObject programElement) {
         GeoLocations geo = GeoLocations.GEO_NONE;
         
@@ -147,8 +213,13 @@ public class ArteVideoDetailsDeserializer implements JsonDeserializer<ArteVideoD
 
         // wenn kein Ausstrahlungsdatum vorhanden, dann die erste Ausstrahlung nehmen
         // egal, wann die CatchupRights liegen, damit ein "sinnvolles" Datum vorhanden ist
+
         if(broadcastDate == null) {
-            broadcastDate = getFirstBroadcastDateIgnoringCatchupRights(broadcastArray);
+            broadcastDate = getBroadcastDateIgnoringCatchupRights(broadcastArray, BROADCASTTTYPE_FIRST);
+        }        
+        // wenn immer noch leer, dann die Major-Ausstrahlung verwenden
+        if(broadcastDate == null) {
+            broadcastDate = getBroadcastDateIgnoringCatchupRights(broadcastArray, BROADCASTTTYPE_MAJOR_RE);
         }        
         
         return broadcastDate;
@@ -197,12 +268,10 @@ public class ArteVideoDetailsDeserializer implements JsonDeserializer<ArteVideoD
     }    
     
     /***
-     * liefert das erste Ausstrahlungsdatum ohne Berücksichtigung der CatchupRights
-     * @param broadcastArray
-     * @return 
+     * liefert die erste Ausstrahlung des Typs ohne Berücksichtigung der CatchupRights
      */
-    private LocalDateTime getFirstBroadcastDateIgnoringCatchupRights(JsonArray broadcastArray) {
-        LocalDateTime broadcastDate = LocalDateTime.now();
+    private LocalDateTime getBroadcastDateIgnoringCatchupRights(JsonArray broadcastArray, String broadcastType) {
+        LocalDateTime broadcastDate = null;
         
         for(int i = 0; i < broadcastArray.size(); i++) {
             JsonObject broadcastObject = broadcastArray.get(i).getAsJsonObject();
@@ -211,9 +280,9 @@ public class ArteVideoDetailsDeserializer implements JsonDeserializer<ArteVideoD
                 broadcastObject.has(JSON_ELEMENT_BROADCAST)) {
                 String type = broadcastObject.get(JSON_ELEMENT_BROADCASTTYPE).getAsString();
                 
-                if(type.equals(BROADCASTTTYPE_FIRST)) {
+                if(type.equals(broadcastType)) {
                     try {
-                        broadcastDate = LocalDateTime.parse((broadcastObject.get(JSON_ELEMENT_BROADCAST).getAsString()), broadcastDateFormat);
+			broadcastDate = LocalDateTime.parse(broadcastObject.get(JSON_ELEMENT_BROADCAST).getAsString(), broadcastDateFormat);
                     }catch(DateTimeParseException dateTimeParseException)
                     {
                         LOG.error("Can't parse a broadcast relevant date.",dateTimeParseException);

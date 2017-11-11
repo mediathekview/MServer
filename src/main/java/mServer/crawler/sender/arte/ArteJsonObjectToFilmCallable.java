@@ -18,7 +18,6 @@ import de.mediathekview.mlib.daten.Film;
 import de.mediathekview.mlib.daten.GeoLocations;
 import de.mediathekview.mlib.daten.Resolution;
 import de.mediathekview.mlib.daten.Sender;
-import de.mediathekview.mlib.tool.MVHttpClient;
 import mServer.crawler.CantCreateFilmException;
 import mServer.crawler.CrawlerTool;
 import okhttp3.OkHttpClient;

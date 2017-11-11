@@ -40,6 +40,8 @@ import de.mediathekview.mlib.tool.MSStringBuilder;
 import mServer.crawler.CrawlerTool;
 import mServer.crawler.FilmeSuchen;
 import mServer.crawler.GetUrl;
+import mServer.crawler.sender.ard.ArdVideoDTO;
+import mServer.crawler.sender.ard.ArdVideoDeserializer;
 import mServer.tool.M3U8Utils;
 
 public class MediathekArd extends MediathekReader
@@ -466,6 +468,12 @@ public class MediathekArd extends MediathekReader
                         }
                         break;
                     }
+                    if (urls.containsKey(Qualities.NORMAL)) {
+                        urlMid = urls.get(Qualities.NORMAL);
+                    }
+                    if (urls.containsKey(Qualities.HD)) {
+                        urlHD = urls.get(Qualities.HD);
+                    }
                 }
                 liste.clear();
                 seite2.extractList("\"_quality\":1", "\"_stream\":\"", "\"", liste);
@@ -479,6 +487,7 @@ public class MediathekArd extends MediathekReader
                         break;
                     }
                 }
+                if (!url.isEmpty()) {
 
                 // No Url found? Try M3U8 / HLS:
                 if (isAllTextsEmpty(url, urlHD, urlMid, urlKl))

@@ -28,6 +28,7 @@ import java.util.Iterator;
 import de.mediathekview.mlib.Config;
 import de.mediathekview.mlib.Const;
 import de.mediathekview.mlib.daten.Film;
+import de.mediathekview.mlib.daten.ListeFilme;
 import de.mediathekview.mlib.daten.Sender;
 import de.mediathekview.mlib.tool.Functions;
 import de.mediathekview.mlib.tool.Log;
@@ -40,9 +41,9 @@ public class MediathekHr extends MediathekReader
 {
 
     public final static Sender SENDER = Sender.HR;
-    private MSStringBuilder seite = new MSStringBuilder(Const.STRING_BUFFER_START_BUFFER);
-    private MSStringBuilder rubrikSeite = new MSStringBuilder(Const.STRING_BUFFER_START_BUFFER);
-
+    private static final String URL_SENDUNGEN = "http://www.hr-fernsehen.de/sendungen-a-z/index.html";
+    
+    private static final Logger LOG = LogManager.getLogger(MediathekHr.class);
     /**
      *
      * @param ssearch
@@ -86,7 +87,8 @@ public class MediathekHr extends MediathekReader
                 th.start();
             }
         }
-    }
+        
+        meldungAddMax(dtos.size());
 
     private void bearbeiteTage(final MSStringBuilder seite)
     {
@@ -302,7 +304,7 @@ public class MediathekHr extends MediathekReader
             {
                 Log.errorLog(487774126, ex);
             }
-        }
+        });
 
         private String getDate(final String url)
         {

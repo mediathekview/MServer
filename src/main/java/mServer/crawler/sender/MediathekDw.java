@@ -29,12 +29,15 @@ import org.apache.logging.log4j.Logger;
 import de.mediathekview.mlib.Config;
 import de.mediathekview.mlib.Const;
 import de.mediathekview.mlib.daten.Film;
+import de.mediathekview.mlib.daten.Qualities;
 import de.mediathekview.mlib.daten.Sender;
 import de.mediathekview.mlib.tool.Log;
 import de.mediathekview.mlib.tool.MSStringBuilder;
 import mServer.crawler.CrawlerTool;
 import mServer.crawler.FilmeSuchen;
 import mServer.crawler.GetUrl;
+import mServer.crawler.sender.dw.DwVideoDTO;
+import mServer.crawler.sender.dw.DwVideoDeserializer;
 import mServer.tool.MserverDaten;
 
 public class MediathekDw extends MediathekReader implements Runnable
@@ -224,6 +227,15 @@ public class MediathekDw extends MediathekReader implements Runnable
                 }
             }
             listUrl.clear();
+            
+            if (url.isEmpty()) {
+                // wenn keine URL vorhanden ist, 
+                // dann URLs ermitteln über Anfrage nach playersourcen 
+                String id = seite2.extract("<input type=\"hidden\" name=\"media_id\" value=\"", "\"");
+                
+                GetUrl getUrlVideo = new GetUrl(getWartenSeiteLaden());
+                MSStringBuilder seiteVideo = new MSStringBuilder();
+                seiteVideo = getUrlVideo.getUri_Utf(SENDER.getName(), URL_VIDEO_JSON + id, seiteVideo, "");
 
             final String description = seite2.extract("<meta name=\"description\" content=\"", "\"");
             final String datum = seite2.extract("<strong>Datum</strong>", "</li>").trim();

@@ -1,0 +1,342 @@
+{
+    "meta": {
+        "programs": {
+            "page": 1,
+            "limit": 50,
+            "pages": 1,
+            "totalCount": 1,
+            "href": "https:\/\/api.arte.tv\/api\/opa\/v3\/programs\/de\/076845-002-A",
+            "links": {
+                "first": {
+                    "href": "https:\/\/api.arte.tv\/api\/opa\/v3\/programs\/de\/076845-002-A?page=1"
+                }
+            }
+        }
+    },
+    "programs": [
+        {
+            "durationSeconds": 1772,
+            "views": 1529,
+            "broadcastProgrammings": [],
+            "videos": [
+                {
+                    "id": "076845-002-A_SHOW_ARTE_NEXT_DE_de",
+                    "illico": false,
+                    "title": "Absolutely Fabulous 20-Jahre-Special: Identity",
+                    "subtitle": null,
+                    "programId": "076845-002-A",
+                    "platform": "ARTE_NEXT",
+                    "mainPlatformCode": "CINEMA",
+                    "kind": "SHOW",
+                    "kindLabel": "PROGRAMM",
+                    "url": "http:\/\/www.arte.tv\/de\/videos\/076845-002-A\/absolutely-fabulous-20-jahre-special-identity",
+                    "permalink": "http:\/\/www.arte.tv\/de\/videos\/076845-002-A\/permalink",
+                    "videoRightsBegin": "2017-07-13T14:08:00Z",
+                    "previewRightsBegin": "2017-07-13T14:08:00Z",
+                    "videoRightsEnd": "2017-08-31T21:59:00Z",
+                    "oEmbed": "https:\/\/api.arte.tv\/api\/player\/v1\/oembed\/de\/076845-002-A?platform=ARTE_NEXT",
+                    "mainProgramming": true,
+                    "durationSeconds": 1772,
+                    "availableScreens": [
+                        "desktop",
+                        "mobile",
+                        "tv"
+                    ],
+                    "caseCode": 998,
+                    "case": "HORS CASE",
+                    "genrePresseCode": 0,
+                    "genrePresse": "Andere",
+                    "mainPlatform": true,
+                    "geoblockingZone": "ALL",
+                    "tracking": {
+                        "tablet": {
+                            "ANDROID": "https:\/\/st.arte.tv\/api\/multimedia\/v1\/076845-002\/A\/de\/ARTE_NEXT\/TABLET\/ANDROID\/pixel.gif"
+                        },
+                        "mobile": {
+                            "ANDROID": "https:\/\/st.arte.tv\/api\/multimedia\/v1\/076845-002\/A\/de\/ARTE_NEXT\/MOBILE\/ANDROID\/pixel.gif"
+                        }
+                    },
+                    "markings": [],
+                    "mainImage": {
+                        "name": "076845-002-A_14762.jpg",
+                        "extension": "jpg",
+                        "caption": null,
+                        "url": "https:\/\/static-cdn.arte.tv\/resize\/GJVjrBFlRz619_LA2tv6L6rBCcQ=\/trim:top-left:30\/940x530\/smart\/filters:strip_icc()\/apios\/Img_data\/16\/076845-002-A_14762.jpg",
+                        "imageId": "2131399",
+                        "programId": "076845-002-A",
+                        "language": "de",
+                        "copyright": "",
+                        "creationDate": "2017-07-13T14:08:03Z",
+                        "lastModified": "2017-07-13T14:29:22Z",
+                        "width": 940,
+                        "height": 530,
+                        "keyframe": true,
+                        "alternateResolutions": [],
+                        "type": "KEYFRAME"
+                    },
+                    "category": {
+                        "code": "SER",
+                        "name": "Fernsehfilme und Serien",
+                        "order": 3
+                    },
+                    "subcategory": {
+                        "code": "SES",
+                        "name": "Serien",
+                        "order": 1
+                    },
+                    "isMainVideo": true,
+                    "links": {
+                        "videoStreams": {
+                            "iOS": {
+                                "href": "https:\/\/api.arte.tv\/api\/opa\/v3\/videoStreams?programId=076845-002-A&reassembly=A&platform=ARTE_NEXT&channel=DE&language=de&kind=SHOW&protocol=HLS&quality=SQ%2CXQ&limit=100"
+                            },
+                            "android": {
+                                "href": "https:\/\/api.arte.tv\/api\/opa\/v3\/videoStreams?programId=076845-002-A&reassembly=A&platform=ARTE_NEXT&channel=DE&language=de&kind=SHOW&protocol=HTTP%2CHLS&quality=XQ%2CMQ%2CSQ%2CEQ&limit=100"
+                            },
+                            "hbbtv": {
+                                "href": "https:\/\/api.arte.tv\/api\/opa\/v3\/videoStreams?programId=076845-002-A&reassembly=A&platform=ARTE_NEXT&channel=DE&language=de&kind=SHOW&protocol=HTTP&quality=EQ%2CSQ%2CHQ&mediaType=mp4&profileAmm=%24nin%3AAMM-YTFR-HAB%2CAMM-YTFR%2CAMM-DT&limit=100"
+                            }
+                        }
+                    }
+                }
+            ],
+            "mainVideo": {
+                "id": "076845-002-A_SHOW_ARTE_NEXT_DE_de",
+                "illico": false,
+                "title": "Absolutely Fabulous 20-Jahre-Special: Identity",
+                "subtitle": null,
+                "programId": "076845-002-A",
+                "platform": "ARTE_NEXT",
+                "mainPlatformCode": "CINEMA",
+                "kind": "SHOW",
+                "kindLabel": "PROGRAMM",
+                "url": "http:\/\/www.arte.tv\/de\/videos\/076845-002-A\/absolutely-fabulous-20-jahre-special-identity",
+                "permalink": "http:\/\/www.arte.tv\/de\/videos\/076845-002-A\/permalink",
+                "videoRightsBegin": "2017-07-13T14:08:00Z",
+                "previewRightsBegin": "2017-07-13T14:08:00Z",
+                "videoRightsEnd": "2017-08-31T21:59:00Z",
+                "oEmbed": "https:\/\/api.arte.tv\/api\/player\/v1\/oembed\/de\/076845-002-A?platform=ARTE_NEXT",
+                "mainProgramming": true,
+                "durationSeconds": 1772,
+                "availableScreens": [
+                    "desktop",
+                    "mobile",
+                    "tv"
+                ],
+                "caseCode": 998,
+                "case": "HORS CASE",
+                "genrePresseCode": 0,
+                "genrePresse": "Andere",
+                "mainPlatform": true,
+                "geoblockingZone": "ALL",
+                "tracking": {
+                    "tablet": {
+                        "ANDROID": "https:\/\/st.arte.tv\/api\/multimedia\/v1\/076845-002\/A\/de\/ARTE_NEXT\/TABLET\/ANDROID\/pixel.gif"
+                    },
+                    "mobile": {
+                        "ANDROID": "https:\/\/st.arte.tv\/api\/multimedia\/v1\/076845-002\/A\/de\/ARTE_NEXT\/MOBILE\/ANDROID\/pixel.gif"
+                    }
+                },
+                "markings": [],
+                "mainImage": {
+                    "name": "076845-002-A_14762.jpg",
+                    "extension": "jpg",
+                    "caption": null,
+                    "url": "https:\/\/static-cdn.arte.tv\/resize\/GJVjrBFlRz619_LA2tv6L6rBCcQ=\/trim:top-left:30\/940x530\/smart\/filters:strip_icc()\/apios\/Img_data\/16\/076845-002-A_14762.jpg",
+                    "imageId": "2131399",
+                    "programId": "076845-002-A",
+                    "language": "de",
+                    "copyright": "",
+                    "creationDate": "2017-07-13T14:08:03Z",
+                    "lastModified": "2017-07-13T14:29:22Z",
+                    "width": 940,
+                    "height": 530,
+                    "keyframe": true,
+                    "alternateResolutions": [],
+                    "type": "KEYFRAME"
+                },
+                "category": {
+                    "code": "SER",
+                    "name": "Fernsehfilme und Serien",
+                    "order": 3
+                },
+                "subcategory": {
+                    "code": "SES",
+                    "name": "Serien",
+                    "order": 1
+                },
+                "isMainVideo": true,
+                "links": {
+                    "videoStreams": {
+                        "iOS": {
+                            "href": "https:\/\/api.arte.tv\/api\/opa\/v3\/videoStreams?programId=076845-002-A&reassembly=A&platform=ARTE_NEXT&channel=DE&language=de&kind=SHOW&protocol=HLS&quality=SQ%2CXQ&limit=100"
+                        },
+                        "android": {
+                            "href": "https:\/\/api.arte.tv\/api\/opa\/v3\/videoStreams?programId=076845-002-A&reassembly=A&platform=ARTE_NEXT&channel=DE&language=de&kind=SHOW&protocol=HTTP%2CHLS&quality=XQ%2CMQ%2CSQ%2CEQ&limit=100"
+                        },
+                        "hbbtv": {
+                            "href": "https:\/\/api.arte.tv\/api\/opa\/v3\/videoStreams?programId=076845-002-A&reassembly=A&platform=ARTE_NEXT&channel=DE&language=de&kind=SHOW&protocol=HTTP&quality=EQ%2CSQ%2CHQ&mediaType=mp4&profileAmm=%24nin%3AAMM-YTFR-HAB%2CAMM-YTFR%2CAMM-DT&limit=100"
+                        }
+                    }
+                }
+            },
+            "mainBroadcastProgramming": null,
+            "catchupAvailable": false,
+            "catchupRightsBegin": null,
+            "catchupRightsEnd": null,
+            "displayAudioVersions": [],
+            "collections": [
+                {
+                    "collectionId": "RC-014803",
+                    "kind": "TV_SERIES",
+                    "platform": "ARTE_NEXT",
+                    "offline": "2017-08-31T21:59:00Z",
+                    "online": "2017-07-10T08:30:00Z",
+                    "title": "Absolutely Fabulous (Staffel 1)",
+                    "subtitle": null,
+                    "mainImage": {
+                        "name": "RC-014803-A_2130532.jpg",
+                        "extension": "jpg",
+                        "caption": "abfab",
+                        "url": "https:\/\/static-cdn.arte.tv\/resize\/I-4Jl5AOaGd1xWewkuvmCI2T3_4=\/940x530\/smart\/filters:strip_icc()\/apios\/Img_data\/7\/RC-014803-A_2130532.jpg",
+                        "imageId": "2130532",
+                        "programId": "RC-014803",
+                        "language": "de",
+                        "copyright": "",
+                        "creationDate": "2017-07-11T08:46:19Z",
+                        "lastModified": "2017-07-11T08:46:19Z",
+                        "width": 940,
+                        "height": 530,
+                        "keyframe": false,
+                        "alternateResolutions": [],
+                        "type": "DEFAULT"
+                    },
+                    "shortDescription": "Britisch, zeitlos und zum Schreien komisch. Edina, die modebesessene PR-Agentin und ihre beste Freundin Patsy kommen für den \"Summer of Fish 'n' Chips\" zurück zu ARTE. Nichts ist ihnen zu diskret, kein Star zu groß und kein Kleid zu klein. Entdecken und wiederentdecken Sie Jennifer Saunders und Joanna Lumleys Talent in Staffel 1, zusätzlich zu drei Sonderfolgen der Kultserie.",
+                    "order": 8,
+                    "href": "https:\/\/api.arte.tv\/api\/opa\/v3\/collections?collectionId=RC-014803&language=de&platform=ARTE_NEXT"
+                }
+            ],
+            "publishBegin": "2017-06-21T14:08:00Z",
+            "publishEnd": "2017-09-22T21:59:00Z",
+            "publishPressBegin": null,
+            "publishPressEnd": null,
+            "videoRightsBegin": "2017-07-13T14:08:00Z",
+            "videoRightsEnd": "2017-08-31T21:59:00Z",
+            "videoAvailable": true,
+            "geoblocking": {
+                "code": "ALL",
+                "label": "Weltweit verfügbar"
+            },
+            "programId": "076845-002-A",
+            "language": "de",
+            "kind": "SHOW",
+            "programType": "INTERNET",
+            "title": "Absolutely Fabulous 20-Jahre-Special: Identity",
+            "subtitle": null,
+            "originalTitle": "Absolutely Fabulous spécial 20 ans : Xmas 2011: Identity",
+            "originalLanguage": {
+                "arteCode": "ANG",
+                "label": "Englisch"
+            },
+            "tags": [
+                "Frau",
+                "Vereinigtes Königreich",
+                "Humor"
+            ],
+            "twitterAccount": null,
+            "twitterHashTag": null,
+            "shortDescription": "Patsy hat ein Identitätsproblem. Nachdem sie jahrelang immer ihr wahres Alter verleugnet hat, fällt ihr nun nicht mehr ein wie alt sie eigentlich ist. Freundin Edina hilft ihr natürlich gerne bei der Suche nach der eigenen Identität. Deren Tochter Saffy, die aus dem Gefängnis entlassen wurde, hat derweil mit anderen Problemen zu kämpfen...",
+            "fullDescription": null,
+            "teaserText": "Die fabulösen Ladies aus \"Absolutely Fabulous\" sind nach 20 Jahren für drei Sonderfolgen zurück.",
+            "shortPressText": null,
+            "additionalPressText": null,
+            "headerText": null,
+            "producer": "BBC WORLDWIDE FRANCE",
+            "productionYear": 2011,
+            "shootingDate": null,
+            "allowEmbed": true,
+            "mainImage": {
+                "name": "076845-002-A_14762.jpg",
+                "extension": "jpg",
+                "caption": null,
+                "url": "https:\/\/static-cdn.arte.tv\/resize\/GJVjrBFlRz619_LA2tv6L6rBCcQ=\/trim:top-left:30\/940x530\/smart\/filters:strip_icc()\/apios\/Img_data\/16\/076845-002-A_14762.jpg",
+                "imageId": "2131399",
+                "programId": "076845-002-A",
+                "language": "de",
+                "copyright": "",
+                "creationDate": "2017-07-13T14:08:03Z",
+                "lastModified": "2017-07-13T14:29:22Z",
+                "width": 940,
+                "height": 530,
+                "keyframe": true,
+                "alternateResolutions": [],
+                "type": "KEYFRAME"
+            },
+            "bannerImage": null,
+            "parents": [],
+            "partners": [],
+            "director": null,
+            "casting": [],
+            "crew": [],
+            "caseCode": 998,
+            "case": "HORS CASE",
+            "genrePresseCode": 0,
+            "genrePresse": "Andere",
+            "url": "http:\/\/www.arte.tv\/de\/videos\/076845-002-A\/absolutely-fabulous-20-jahre-special-identity",
+            "permalink": "http:\/\/www.arte.tv\/de\/videos\/076845-002-A\/permalink",
+            "categories": [
+                {
+                    "code": "FLM",
+                    "name": "Filme",
+                    "order": 1
+                }
+            ],
+            "category": {
+                "code": "SER",
+                "name": "Fernsehfilme und Serien",
+                "order": 3
+            },
+            "subcategory": {
+                "code": "SES",
+                "name": "Serien",
+                "order": 1
+            },
+            "deletedAt": null,
+            "legalBan": "NONE",
+            "productionCountries": [
+                {
+                    "arteCode": "UK",
+                    "isoAlpha2Code": "UK",
+                    "label": "Großbritannien"
+                }
+            ],
+            "clusters": [],
+            "season": 0,
+            "episode": 0,
+            "totalEpisodes": 0,
+            "kindLabel": "PROGRAMM",
+            "platformLabel": "CINEMA",
+            "videoLibrary": true,
+            "displayTechnicalInformations": [],
+            "webLinks": [],
+            "children": [],
+            "viewsPeriod": 385,
+            "markings": [],
+            "oEmbed": "https:\/\/api.arte.tv\/api\/player\/v1\/oembed\/de\/076845-002-A",
+            "creationDate": "2017-06-21T10:01:30Z",
+            "lastModified": "2017-07-13T14:35:19Z",
+            "id": "076845-002-A_de",
+            "platform": "CINEMA",
+            "ageRating": 0,
+            "imageColor": null,
+            "videoOnDemand": null,
+            "livestreamRights": true,
+            "warning": null,
+            "links": {
+                "broadcasts": {
+                    "href": "https:\/\/api.arte.tv\/api\/opa\/v3\/programs\/076845-002-A\/broadcastProgrammings?language=de&country=DE"
+                }
+            }
+        }
+    ]
+}

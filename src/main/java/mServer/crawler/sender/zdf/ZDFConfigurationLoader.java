@@ -6,9 +6,12 @@ import org.glassfish.jersey.client.ClientResponse;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import de.mediathekview.mlib.tool.Log;
+import java.io.IOException;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
 
 /**
- * A simple singelton to read the ZDF configuration just once per runtime.
+ * A simple singleton to read the ZDF configuration just once per runtime.
  */
 public class ZDFConfigurationLoader {
   public static final String ZDF_CONFIGURATION_URL =

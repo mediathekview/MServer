@@ -52,6 +52,9 @@ public class MediathekSrf extends MediathekReader
 
     private static final String HTTPS = "https";
     private static final String HTTP = "http";
+    private static final String SRF_TOPIC_PAGE_URL = "http://www.srf.ch/play/v2/tv/topicList?layout=json";
+    private static final String SRF_DATA_BLOCK_BEGIN_PATTERN = "data-teaser=\"";
+    private static final char SRF_DATA_BLOCK_END = '"';
 
     public MediathekSrf(final FilmeSuchen ssearch, final int startPrio)
     {
@@ -128,7 +131,6 @@ public class MediathekSrf extends MediathekReader
             try
             {
                 meldungAddThread();
-
                 final Iterator<String[]> themaIterator = listeThemen.iterator();
                 while (!Config.getStop() && themaIterator.hasNext())
                 {
@@ -225,6 +227,7 @@ public class MediathekSrf extends MediathekReader
             meldung(jsonMovieUrl);
 
             filmPage = getUrl.getUri_Utf(SENDER.getName(), jsonMovieUrl, filmPage, "");
+            
             try
             {
 
@@ -347,6 +350,7 @@ public class MediathekSrf extends MediathekReader
         private void getM3u8(final String url3u8)
         {
             m3u8Page = getUrl.getUri_Utf(SENDER.getName(), url3u8, m3u8Page, "");
+            
             if (m3u8Page.length() == 0 && url3u8.startsWith(URL1_M3U8))
             {
                 // tauschen https://srfvodhd-vh.akamaihd.net

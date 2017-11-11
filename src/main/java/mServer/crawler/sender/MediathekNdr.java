@@ -377,7 +377,7 @@ public class MediathekNdr extends MediathekReader implements Runnable
                         duration = duration.replace("min", "").trim();
                         durationInSeconds = convertDuration(duration, strUrlFeed);
                     }
-                    filmSuchen_1(strUrlFeed, thema, titel, url, datum, zeit, durationInSeconds, tage);
+                    filmSuchen_1(strUrlFeed, thema, titel, url, datum, zeit, durationInSeconds);
                 }
             }
             catch (final Exception ex)
@@ -428,7 +428,6 @@ public class MediathekNdr extends MediathekReader implements Runnable
 
             // http://media.ndr.de/progressive/2012/0820/TV-20120820-2300-0701.hi.mp4
             // rtmpt://cp160844.edgefcs.net/ondemand/mp4:flashmedia/streams/ndr/2012/0820/TV-20120820-2300-0701.hq.mp4
-            final String MUSTER_URL = "itemprop=\"contentUrl\" content=\"https://mediandr-a";
             seite2 = getUrl.getUri_Utf(SENDER.getName(), filmWebsite, seite2, "strUrlThema: " + strUrlThema);
             final String description = extractDescription(seite2);
             // String[] keywords = extractKeywords(seite2);
@@ -445,8 +444,6 @@ public class MediathekNdr extends MediathekReader implements Runnable
             }
             meldung(filmWebsite);
             int pos1;
-            int pos2;
-            String url;
             try
             {
                 // src="/fernsehen/hallondsopplatt162-player_image-2c09ece0-0508-49bf-b4d6-afff2be2115c_theme-ndrde.html"
@@ -549,7 +546,7 @@ public class MediathekNdr extends MediathekReader implements Runnable
 
             seite3 = getUrl.getUri_Utf(SENDER.getName(), json, seite3, "strUrlThema: " + strUrlThema);
             String url_hd = "", url_xl = "", url_m = "";
-            seite3.extractList("", "", "\"src\": \"https://mediandr", "\"", "https://mediandr", liste);
+            seite3.extractList("", "", "\"_stream\": \"https://mediandr", "\"", "https://mediandr", liste);
 
             for (final String s : liste)
             {
@@ -579,10 +576,10 @@ public class MediathekNdr extends MediathekReader implements Runnable
             url_xl = url_xl.replaceFirst(https, http);
             url_m = url_m.replaceFirst(https, http);
 
-            if (subtitle.isEmpty())
-            {
-                subtitle = seite3.extract("\"tracks\":", "\"/", "\"", "http://www.ndr.de/");
+            if (subtitle.isEmpty()) {
+                subtitle = seite3.extract("\"_subtitleUrl\":", "\"/", "\"", "http://www.ndr.de/");
             }
+
             if (!url_xl.isEmpty())
             {
                 try

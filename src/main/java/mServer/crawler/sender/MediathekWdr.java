@@ -35,28 +35,31 @@ import org.apache.logging.log4j.Logger;
 
 import de.mediathekview.mlib.Config;
 import de.mediathekview.mlib.Const;
-import de.mediathekview.mlib.daten.Film;
+import de.mediathekview.mlib.daten.ListeFilme;
 import de.mediathekview.mlib.daten.Sender;
-import de.mediathekview.mlib.tool.DbgMsg;
 import de.mediathekview.mlib.tool.Log;
 import de.mediathekview.mlib.tool.MSStringBuilder;
-import mServer.crawler.CrawlerTool;
+import java.util.Collection;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 import mServer.crawler.FilmeSuchen;
 import mServer.crawler.GetUrl;
+import mServer.crawler.sender.wdr.WdrDayPageCallable;
+import mServer.crawler.sender.wdr.WdrLetterPageCallable;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class MediathekWdr extends MediathekReader
 {
     private static final Logger LOG = LogManager.getLogger(MediathekWdr.class);
+    
     public final static Sender SENDER = Sender.WDR;
-    private final static String ROCKPALAST_URL = "http://www1.wdr.de/fernsehen/rockpalast/startseite/index.html";
-    private final static String ROCKPALAST_FESTIVAL = "http://www1.wdr.de/fernsehen/rockpalast/events/index.html";
-    private final static String MAUS = "http://www.wdrmaus.de/lachgeschichten/spots.php5";
-    private final ArrayList<String> listeFestival = new ArrayList<>();
-    private final ArrayList<String> listeRochpalast = new ArrayList<>();
-    private final ArrayList<String> listeMaus = new ArrayList<>();
-    private final LinkedList<String> listeTage = new LinkedList<>();
+    
+    private final LinkedList<String> dayUrls = new LinkedList<>();
+    private final LinkedList<String> letterPageUrls = new LinkedList<>();
+
     private MSStringBuilder seite_1 = new MSStringBuilder(Const.STRING_BUFFER_START_BUFFER);
-    private MSStringBuilder seite_2 = new MSStringBuilder(Const.STRING_BUFFER_START_BUFFER);
 
     public MediathekWdr(final FilmeSuchen ssearch, final int startPrio)
     {
@@ -116,7 +119,7 @@ public class MediathekWdr extends MediathekReader
                 th.setName(SENDER.getName() + t);
                 th.start();
             }
-        }
+        });       
     }
 
     // ===================================
@@ -172,6 +175,15 @@ public class MediathekWdr extends MediathekReader
             Log.errorLog(432365698, ex);
         }
     }
+    
+    private void startDayPages() {
+        
+        dayUrls.forEach(url -> {
+            ExecutorService executor = Executors.newCachedThreadPool();
+            futureFilme.add(executor.submit(new WdrDayPageCallable(url)));
+            meldungProgress(url);
+        });            
+    }
 
     private void addTage()
     {
@@ -190,7 +202,7 @@ public class MediathekWdr extends MediathekReader
         }
     }
 
-    private void addToList__()
+    private void addLetterPages() 
     {
         // http://www1.wdr.de/mediathek/video/sendungen/abisz-b100.html
         // Theman suchen
@@ -201,7 +213,7 @@ public class MediathekWdr extends MediathekReader
         int pos1;
         int pos2;
         String url;
-        themenSeitenSuchen(URL); // ist die erste Seite: "a"
+        letterPageUrls.add(URL); // ist die erste Seite: "a"
         pos1 = seite_1.indexOf("<strong>A</strong>");
         while (!Config.getStop() && (pos1 = seite_1.indexOf(MUSTER_URL, pos1)) != -1)
         {
@@ -220,7 +232,7 @@ public class MediathekWdr extends MediathekReader
                 else
                 {
                     url = "http://www1.wdr.de/mediathek/video/sendungen-a-z/" + url;
-                    themenSeitenSuchen(url);
+                    letterPageUrls.add(url);
                 }
             }
         }
