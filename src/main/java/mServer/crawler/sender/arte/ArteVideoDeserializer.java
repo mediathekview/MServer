@@ -1,7 +1,7 @@
 package mServer.crawler.sender.arte;
 
 import com.google.gson.*;
-import de.mediathekview.mlib.daten.Qualities;
+import de.mediathekview.mlib.daten.Resolution;
 
 import java.lang.reflect.Type;
 
@@ -23,26 +23,26 @@ public class ArteVideoDeserializer implements JsonDeserializer<ArteVideoDTO> {
             JsonObject vsrJsonObject = playerObject.get(JSON_OBJECT_KEY_VSR).getAsJsonObject();
             if(vsrJsonObject.has("HTTPS_HQ_1"))//small 640*360
             {
-              arteVideoDTO.addVideo(Qualities.SMALL, getVideoUrl(vsrJsonObject, "HTTPS_HQ_1"));
+              arteVideoDTO.addVideo(Resolution.SMALL, getVideoUrl(vsrJsonObject, "HTTPS_HQ_1"));
             } else if(vsrJsonObject.has("HTTPS_MP4_HQ_1")) 
             {
-                arteVideoDTO.addVideo(Qualities.SMALL, getVideoUrl(vsrJsonObject, "HTTPS_MP4_HQ_1"));
+                arteVideoDTO.addVideo(Resolution.SMALL, getVideoUrl(vsrJsonObject, "HTTPS_MP4_HQ_1"));
             }
             
             if(vsrJsonObject.has("HTTPS_EQ_1"))//norm 720*406
             {
-                arteVideoDTO.addVideo(Qualities.NORMAL, getVideoUrl(vsrJsonObject, "HTTPS_EQ_1"));
+                arteVideoDTO.addVideo(Resolution.NORMAL, getVideoUrl(vsrJsonObject, "HTTPS_EQ_1"));
             } else if(vsrJsonObject.has("HTTPS_MP4_EQ_1")) 
             {
-                arteVideoDTO.addVideo(Qualities.NORMAL, getVideoUrl(vsrJsonObject, "HTTPS_MP4_EQ_1"));
+                arteVideoDTO.addVideo(Resolution.NORMAL, getVideoUrl(vsrJsonObject, "HTTPS_MP4_EQ_1"));
             }
             
             if(vsrJsonObject.has("HTTPS_SQ_1"))//hd 1280*720
             {
-                arteVideoDTO.addVideo(Qualities.HD, getVideoUrl(vsrJsonObject, "HTTPS_SQ_1"));
+                arteVideoDTO.addVideo(Resolution.HD, getVideoUrl(vsrJsonObject, "HTTPS_SQ_1"));
             } else if(vsrJsonObject.has("HTTPS_MP4_SQ_1")) 
             {
-                arteVideoDTO.addVideo(Qualities.HD, getVideoUrl(vsrJsonObject, "HTTPS_MP4_SQ_1"));
+                arteVideoDTO.addVideo(Resolution.HD, getVideoUrl(vsrJsonObject, "HTTPS_MP4_SQ_1"));
             }
             
             if(!playerObject.get(JSON_ELEMENT_KEY_VIDEO_DURATION_SECONDS).isJsonNull())

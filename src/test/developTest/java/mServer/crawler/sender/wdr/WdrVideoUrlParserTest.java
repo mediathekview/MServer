@@ -1,6 +1,6 @@
 package mServer.crawler.sender.wdr;
 
-import de.mediathekview.mlib.daten.Qualities;
+import de.mediathekview.mlib.daten.Resolution;
 import java.util.Arrays;
 import java.util.Collection;
 import static org.hamcrest.CoreMatchers.equalTo;
@@ -48,9 +48,9 @@ public class WdrVideoUrlParserTest {
         WdrVideoDto actual = target.parse(jsUrl);
         
         assertThat(actual, notNullValue());
-        assertThat(actual.getUrl(Qualities.SMALL), equalTo(expectedUrlSmall));
-        assertThat(actual.getUrl(Qualities.NORMAL), equalTo(expectedUrlNormal));
-        assertThat(actual.getUrl(Qualities.HD), equalTo(expectedUrlHd));
+        assertThat(actual.getUrl(Resolution.SMALL), equalTo(expectedUrlSmall));
+        assertThat(actual.getUrl(Resolution.NORMAL), equalTo(expectedUrlNormal));
+        assertThat(actual.getUrl(Resolution.HD), equalTo(expectedUrlHd));
         assertThat(actual.getSubtitleUrl(), equalTo(expectedUrlSubtitle));
     }
 }

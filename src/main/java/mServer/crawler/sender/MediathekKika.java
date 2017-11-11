@@ -19,6 +19,12 @@
  */
 package mServer.crawler.sender;
 
+import java.nio.charset.StandardCharsets;
+import java.text.ParseException;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.Iterator;
+import org.apache.commons.lang3.time.FastDateFormat;
 import de.mediathekview.mlib.Config;
 import de.mediathekview.mlib.Const;
 import de.mediathekview.mlib.daten.Film;
@@ -31,13 +37,6 @@ import mServer.crawler.CrawlerTool;
 import mServer.crawler.FilmeSuchen;
 import mServer.crawler.GetUrl;
 import mServer.tool.MserverDaten;
-import org.apache.commons.lang3.time.FastDateFormat;
-
-import java.nio.charset.StandardCharsets;
-import java.text.ParseException;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.Iterator;
 
 public class MediathekKika extends MediathekReader {
 

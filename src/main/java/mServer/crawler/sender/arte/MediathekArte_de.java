@@ -266,7 +266,7 @@ public class MediathekArte_de extends MediathekReader
 
             Collection<Future<Film>> futureFilme = new ArrayList<>();
             dto.getProgramIds().forEach(programId -> {
-                futureFilme.add(executor.submit(new ArteProgramIdToDatenFilmCallable(programId, LANG_CODE, sender)));
+                futureFilme.add(executor.submit(new ArteProgramIdToFilmCallable(programId, LANG_CODE, sender)));
             });
             
             CopyOnWriteArrayList<Film> finishedFilme = new CopyOnWriteArrayList<>();

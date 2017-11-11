@@ -19,6 +19,12 @@
  */
 package mServer.crawler.sender;
 
+import java.net.MalformedURLException;
+import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
+import java.util.Iterator;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import de.mediathekview.mlib.Config;
 import de.mediathekview.mlib.Const;
 import de.mediathekview.mlib.daten.Film;
@@ -28,13 +34,6 @@ import de.mediathekview.mlib.tool.MSStringBuilder;
 import mServer.crawler.CrawlerTool;
 import mServer.crawler.FilmeSuchen;
 import mServer.crawler.GetUrl;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
-import java.net.URISyntaxException;
-import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
-import java.util.Iterator;
 
 public class MediathekPhoenix extends MediathekReader
 {
@@ -42,7 +41,7 @@ public class MediathekPhoenix extends MediathekReader
     public final static Sender SENDER = Sender.PHOENIX;
     private MSStringBuilder seite = new MSStringBuilder(Const.STRING_BUFFER_START_BUFFER);
 
-    public MediathekPhoenix(FilmeSuchen ssearch, int startPrio)
+    public MediathekPhoenix(final FilmeSuchen ssearch, final int startPrio)
     {
         super(ssearch, SENDER.getName(), 4 /* threads */, 100 /* urlWarten */, startPrio);
     }
@@ -56,16 +55,18 @@ public class MediathekPhoenix extends MediathekReader
         if (Config.getStop())
         {
             meldungThreadUndFertig();
-        } else if (listeThemen.isEmpty())
+        }
+        else if (listeThemen.isEmpty())
         {
             meldungThreadUndFertig();
-        } else
+        }
+        else
         {
             meldungAddMax(listeThemen.size());
-            //alles auswerten
+            // alles auswerten
             for (int t = 0; t < getMaxThreadLaufen(); ++t)
             {
-                Thread th = new ThemaLaden();
+                final Thread th = new ThemaLaden();
                 th.setName(SENDER.getName() + t);
                 th.start();
             }
@@ -75,8 +76,9 @@ public class MediathekPhoenix extends MediathekReader
     private void addToList_()
     {
         final String MUSTER = "<li><strong><a href=\"/content/";
-        GetUrl getUrl = new GetUrl(getWartenSeiteLaden());
-        seite = getUrl.getUri(SENDER.getName(), "http://www.phoenix.de/content/78905", StandardCharsets.ISO_8859_1, 6 /* versuche */, seite, "" /* Meldung */);
+        final GetUrl getUrl = new GetUrl(getWartenSeiteLaden());
+        seite = getUrl.getUri(SENDER.getName(), "http://www.phoenix.de/content/78905", StandardCharsets.ISO_8859_1,
+                6 /* versuche */, seite, "" /* Meldung */);
         if (seite.length() == 0)
         {
             Log.errorLog(487512369, "Leere Seite für URL: ");
@@ -98,7 +100,8 @@ public class MediathekPhoenix extends MediathekReader
                     url = "http://www.phoenix.de/content/" + url;
                     thema = seite.extract(">", "<", pos);
                     thema = thema.replace("\"", "");
-                    listeThemen.add(new String[]{url, thema});
+                    listeThemen.add(new String[]
+                    { url, thema });
                 }
             }
         }
@@ -125,21 +128,23 @@ public class MediathekPhoenix extends MediathekReader
                     addFilme1(thema[0]/* url */, thema[1]/* Thema */);
                     meldungProgress(thema[0]);
                 }
-            } catch (Exception ex)
+            }
+            catch (final Exception ex)
             {
                 Log.errorLog(825263641, ex);
             }
             meldungThreadUndFertig();
         }
 
-        private void addFilme1(String url, String thema)
+        private void addFilme1(final String url, final String thema)
         {
             try
             {
                 getUrl.getUri_Iso(SENDER.getName(), url, seite1, "Thema: " + thema);
-                ArrayList<String> liste = new ArrayList<>();
-                seite1.extractList("<div class=\"linkliste2\">", "", "<li><a href=\"/content/", "\"", "http://www.phoenix.de/content/", liste);
-                for (String urlThema : liste)
+                final ArrayList<String> liste = new ArrayList<>();
+                seite1.extractList("<div class=\"linkliste2\">", "", "<li><a href=\"/content/", "\"",
+                        "http://www.phoenix.de/content/", liste);
+                for (final String urlThema : liste)
                 {
                     if (Config.getStop())
                     {
@@ -148,33 +153,39 @@ public class MediathekPhoenix extends MediathekReader
                     meldung(urlThema);
                     addFilme2(thema, urlThema);
                 }
-            } catch (Exception ex)
+            }
+            catch (final Exception ex)
             {
                 Log.errorLog(741258410, ex, url);
             }
         }
 
-        private void addFilme2(String thema, String filmWebsite)
+        private void addFilme2(final String thema, final String filmWebsite)
         {
             // https://www.phoenix.de/php/mediaplayer/data/beitrags_details.php?ak=web&id=980552
 
-            getUrl.getUri_Iso(SENDER.getName(), filmWebsite, seite1, "" /* Meldung */);
-            
-            String urlId = seite1.extract("\"content\":\"", "", "\"", 0, 0, "http://www.phoenix.de/php/mediaplayer/data/beitrags_details.php?ak=web&id=");
+            getUrl.getUri_Iso(SENDER.getName(), filmWebsite, seite1,
+                    "" /* Meldung */);
 
+            final String urlId = seite1.extract("\"content\":\"", "", "\"", 0, 0,
+                    "http://www.phoenix.de/php/mediaplayer/data/beitrags_details.php?ak=web&id=");
 
-            String title = seite1.extract("<title>", "<"); //<title>phoenix  - "Gysi geht - Was wird aus der Linken?"</title>
+            String title = seite1.extract("<title>", "<"); // <title>phoenix -
+                                                           // "Gysi geht - Was
+                                                           // wird aus der
+                                                           // Linken?"</title>
             title = title.replace("phoenix  -", "").trim();
             if (!urlId.isEmpty())
             {
                 filmHolenId(thema, filmWebsite, urlId, title);
-            } else
+            }
+            else
             {
                 Log.errorLog(912546987, filmWebsite);
             }
         }
 
-        private void filmHolenId(String thema, String filmWebsite, String urlId, String title_)
+        private void filmHolenId(final String thema, final String filmWebsite, final String urlId, final String title_)
         {
             if (Config.getStop())
             {
@@ -206,9 +217,9 @@ public class MediathekPhoenix extends MediathekReader
             beschreibung = beschreibung.replaceAll("\n", "");
             beschreibung = beschreibung.replaceAll("", "-");
 
-            String laenge = seite3.extract("<lengthSec>", "<");
-            //<onlineairtime>19.09.2014 10:53</onlineairtime>
-            //<airtime>01.01.1970 01:00</airtime>
+            final String laenge = seite3.extract("<lengthSec>", "<");
+            // <onlineairtime>19.09.2014 10:53</onlineairtime>
+            // <airtime>01.01.1970 01:00</airtime>
             String datum = seite3.extract("<airtime>", "<");
             if (datum.startsWith("01.01.1970"))
             {
@@ -298,7 +309,8 @@ public class MediathekPhoenix extends MediathekReader
             if (url.isEmpty())
             {
                 Log.errorLog(952102014, "keine URL: " + filmWebsite);
-            } else
+            }
+            else
             {
                 if (url.startsWith("http://tvdl.zdf.de"))
                 {
@@ -314,21 +326,14 @@ public class MediathekPhoenix extends MediathekReader
                 }
                 try
                 {
-                    Film film = CrawlerTool.createFilm(SENDER,
-                            url,
-                            titel,
-                            thema,
-                            datum,
-                            zeit,
-                            extractDuration(laenge),
-                            filmWebsite,
-                            beschreibung,
-                            urlHd,
-                            urlKlein);
+                    final Film film = CrawlerTool.createFilm(SENDER, url, titel, thema, datum, zeit,
+                            extractDuration(laenge), filmWebsite, beschreibung, urlHd, urlKlein);
                     addFilm(film);
-                } catch (URISyntaxException uriSyntaxEception)
+                }
+                catch (final MalformedURLException malformedURLException)
                 {
-                    LOG.error(String.format("Der Film \"%s - %s\" konnte nicht umgewandelt werden.", thema, titel), uriSyntaxEception);
+                    LOG.error(String.format("Der Film \"%s - %s\" konnte nicht umgewandelt werden.", thema, titel),
+                            malformedURLException);
                 }
             }
         }

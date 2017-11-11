@@ -3,7 +3,7 @@ package mServer.crawler.sender.ard;
 import com.google.gson.JsonObject;
 import java.util.Arrays;
 import java.util.Collection;
-import de.mediathekview.mlib.daten.Qualities;
+import de.mediathekview.mlib.daten.Resolution;
 import mServer.test.JsonFileReader;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.notNullValue;
@@ -46,8 +46,8 @@ public class ArdVideoDeserializerTest {
         ArdVideoDTO actual = target.deserialize(jsonObject, ArdVideoDTO.class, null);
         
         assertThat(actual, notNullValue());
-        assertThat(actual.getUrl(Qualities.SMALL), equalTo(expectedUrlSmall));
-        assertThat(actual.getUrl(Qualities.NORMAL), equalTo(expectedUrlNormal));
-        assertThat(actual.getUrl(Qualities.HD), equalTo(expectedUrlHd));
+        assertThat(actual.getUrl(Resolution.SMALL), equalTo(expectedUrlSmall));
+        assertThat(actual.getUrl(Resolution.NORMAL), equalTo(expectedUrlNormal));
+        assertThat(actual.getUrl(Resolution.HD), equalTo(expectedUrlHd));
     }    
 }

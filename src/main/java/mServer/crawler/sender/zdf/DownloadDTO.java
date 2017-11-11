@@ -1,7 +1,7 @@
 package mServer.crawler.sender.zdf;
 
 import de.mediathekview.mlib.daten.GeoLocations;
-import de.mediathekview.mlib.daten.Qualities;
+import de.mediathekview.mlib.daten.Resolution;
 
 import java.util.HashMap;
 
@@ -12,17 +12,17 @@ public class DownloadDTO {
 
     private GeoLocations geoLocation;
     private String subTitleUrl;
-    private final HashMap<Qualities, String> downloadUrls;
+    private final HashMap<Resolution, String> downloadUrls;
 
     public DownloadDTO() {
         this.downloadUrls = new HashMap<>();
     }
 
-    public void addUrl(Qualities quality, String url) {
+    public void addUrl(Resolution quality, String url) {
         downloadUrls.put(quality, url);
     }
     
-    public String getUrl(Qualities quality) {
+    public String getUrl(Resolution quality) {
         String url = downloadUrls.get(quality);
         if(url == null) {
             return "";
@@ -52,7 +52,7 @@ public class DownloadDTO {
         subTitleUrl = aUrl;
     }
 
-    public boolean hasUrl(final Qualities aQuality)
+    public boolean hasUrl(final Resolution aQuality)
     {
         return  downloadUrls.containsKey(aQuality);
     }

@@ -1,13 +1,13 @@
 package mServer.crawler.sender.arte;
 
-import de.mediathekview.mlib.daten.Qualities;
+import de.mediathekview.mlib.daten.Resolution;
 
 import java.util.HashMap;
 import java.util.Map;
 
 
 public class ArteVideoDTO {
-    private final Map<Qualities,String> videoUrls;
+    private Map<Resolution,String> videoUrls;
     private long durationInSeconds;
     
     public ArteVideoDTO()
@@ -16,17 +16,17 @@ public class ArteVideoDTO {
         durationInSeconds = 0;
     }
     
-    public void addVideo(Qualities aQualitie, String aUrl)
+    public void addVideo(Resolution aQualitie, String aUrl)
     {
         videoUrls.put(aQualitie,aUrl);
     }
     
-    public Map<Qualities,String> getVideoUrls()
+    public Map<Resolution,String> getVideoUrls()
     {
         return videoUrls;
     }
     
-    public String getUrl(Qualities aQualitie)
+    public String getUrl(Resolution aQualitie)
     {
         return videoUrls.get(aQualitie);
     }

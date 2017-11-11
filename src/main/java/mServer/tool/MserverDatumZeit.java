@@ -136,6 +136,7 @@ public class MserverDatumZeit
     {
         try
         {
+            LocalTime time;
             if (StringUtils.isBlank(aDate))
             {
                 return null;
@@ -143,16 +144,44 @@ public class MserverDatumZeit
 
             if (StringUtils.isBlank(aTime))
             {
-                return LocalDateTime.of(LocalDate.parse(aDate, DF_DATUM), LocalTime.MIDNIGHT);
+                time = LocalTime.MIDNIGHT;
+            }else
+            {
+                time = tryToParseTime(aTime);
             }
 
-            return LocalDateTime.parse(aDate + " " + aTime, DF_DATUM_ZEIT);
+
+            return LocalDateTime.of(LocalDate.parse(aDate, DF_DATUM), time);
         } catch (DateTimeParseException ex)
         {
             LOG.debug(String.format("Fehler beim Parsen des Datums %s und der Zeit %s: %s", aDate, aTime, ex.getMessage()));
         }
 
         return null;
+    }
+
+    private static LocalTime tryToParseTime(final String aTime)
+    {
+        try
+        {
+            return parseTime(FormatStyle.LONG, aTime);
+        } catch (DateTimeParseException dateTimeParseException2)
+        {
+            LOG.debug(String.format("Can't parse time \"%s\" for german format LONG tying MEDIUM now...",aTime), dateTimeParseException2);
+        }
+        try
+        {
+            return parseTime(FormatStyle.MEDIUM, aTime);
+        } catch (DateTimeParseException dateTimeParseException3)
+        {
+            LOG.debug(String.format("Can't parse time \"%s\" for german format MEDIUM tying SHORT now...",aTime), dateTimeParseException3);
+            return parseTime(FormatStyle.SHORT, aTime);
+        }
+    }
+
+    private static LocalTime parseTime(final FormatStyle aFormatStyle, String aTime)
+    {
+        return LocalTime.parse(aTime, DateTimeFormatter.ofLocalizedTime(aFormatStyle).withLocale(Locale.GERMANY));
     }
 
     /**
