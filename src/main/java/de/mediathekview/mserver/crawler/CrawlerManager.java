@@ -22,10 +22,8 @@ import java.util.concurrent.ForkJoinPool;
 import java.util.concurrent.Future;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.stream.Collectors;
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
 import de.mediathekview.mlib.daten.Film;
 import de.mediathekview.mlib.daten.Filmlist;
 import de.mediathekview.mlib.daten.Sender;
@@ -49,6 +47,7 @@ import de.mediathekview.mserver.crawler.br.BrCrawler;
 import de.mediathekview.mserver.crawler.dreisat.DreiSatCrawler;
 import de.mediathekview.mserver.crawler.dw.DwCrawler;
 import de.mediathekview.mserver.crawler.funk.FunkCrawler;
+import de.mediathekview.mserver.crawler.ndr.NdrCrawler;
 
 /**
  * A manager to control the crawler.
@@ -159,6 +158,10 @@ public class CrawlerManager extends AbstractManager {
 
   public Set<Sender> getAviableSenderToCrawl() {
     return new HashSet<>(crawlerMap.keySet());
+  }
+
+  public ScheduledExecutorService getExecutorService() {
+    return executorService;
   }
 
   /**
@@ -302,6 +305,7 @@ public class CrawlerManager extends AbstractManager {
     runCrawlers(crawlers.toArray(new AbstractCrawler[crawlers.size()]));
   }
 
+
   /**
    * Runs all crawler and starts a timer for
    * {@link MServerConfigDTO#getMaximumServerDurationInMinutes()}.
@@ -317,7 +321,6 @@ public class CrawlerManager extends AbstractManager {
     runCrawlers(crawlerToRun.toArray(new AbstractCrawler[crawlerToRun.size()]));
     timeoutRunner.stopTimeout();
   }
-
 
   /**
    * This stops all running crawler.
@@ -506,6 +509,7 @@ public class CrawlerManager extends AbstractManager {
         new DreiSatCrawler(forkJoinPool, messageListeners, progressListeners));
     crawlerMap.put(Sender.FUNK, new FunkCrawler(forkJoinPool, messageListeners, progressListeners));
     crawlerMap.put(Sender.DW, new DwCrawler(forkJoinPool, messageListeners, progressListeners));
+    crawlerMap.put(Sender.NDR, new NdrCrawler(forkJoinPool, messageListeners, progressListeners));
   }
 
   private void runCrawlers(final AbstractCrawler... aCrawlers) {
@@ -539,9 +543,5 @@ public class CrawlerManager extends AbstractManager {
 
     uploadFilmlist(ftpFilePathsEntry.getKey(), ftpUploadTarget, aIsDiffList);
   }
-
-public ScheduledExecutorService getExecutorService() {
-	return executorService;
-}
 
 }

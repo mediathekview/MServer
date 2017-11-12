@@ -1,6 +1,6 @@
 package de.mediathekview.mserver.crawler.ard.json;
 
-import java.util.HashMap;
+import java.util.EnumMap;
 import java.util.Map;
 import de.mediathekview.mlib.daten.Resolution;
 
@@ -13,7 +13,7 @@ public class ArdVideoInfoDTO {
   private String subtitleUrl;
 
   public ArdVideoInfoDTO() {
-    videoUrls = new HashMap<>();
+    videoUrls = new EnumMap<>(Resolution.class);
   }
 
   public Resolution getDefaultQuality() {
@@ -42,4 +42,5 @@ public class ArdVideoInfoDTO {
   public void setSubtitleUrl(final String subtitleUrl) {
     this.subtitleUrl = subtitleUrl;
   }
+
 }
