@@ -48,6 +48,7 @@ import de.mediathekview.mserver.crawler.dreisat.DreiSatCrawler;
 import de.mediathekview.mserver.crawler.dw.DwCrawler;
 import de.mediathekview.mserver.crawler.funk.FunkCrawler;
 import de.mediathekview.mserver.crawler.ndr.NdrCrawler;
+import de.mediathekview.mserver.crawler.srf.SrfCrawler;
 
 /**
  * A manager to control the crawler.
@@ -510,6 +511,7 @@ public class CrawlerManager extends AbstractManager {
     crawlerMap.put(Sender.FUNK, new FunkCrawler(forkJoinPool, messageListeners, progressListeners));
     crawlerMap.put(Sender.DW, new DwCrawler(forkJoinPool, messageListeners, progressListeners));
     crawlerMap.put(Sender.NDR, new NdrCrawler(forkJoinPool, messageListeners, progressListeners));
+    crawlerMap.put(Sender.SRF, new SrfCrawler(forkJoinPool, messageListeners, progressListeners));
   }
 
   private void runCrawlers(final AbstractCrawler... aCrawlers) {
