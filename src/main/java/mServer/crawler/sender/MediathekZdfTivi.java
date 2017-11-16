@@ -19,236 +19,323 @@
  */
 package mServer.crawler.sender;
 
+import java.net.MalformedURLException;
 import java.nio.charset.StandardCharsets;
 import java.text.SimpleDateFormat;
+import java.util.Collections;
 import java.util.Date;
-
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.Set;
 import org.apache.commons.lang3.time.FastDateFormat;
-
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import de.mediathekview.mlib.Config;
 import de.mediathekview.mlib.Const;
-import de.mediathekview.mlib.daten.DatenFilm;
+import de.mediathekview.mlib.daten.Film;
+import de.mediathekview.mlib.daten.Sender;
 import de.mediathekview.mlib.tool.Log;
 import de.mediathekview.mlib.tool.MSStringBuilder;
+import mServer.crawler.CrawlerTool;
 import mServer.crawler.FilmeSuchen;
 import mServer.crawler.GetUrl;
 import mServer.tool.MserverDaten;
 
-public class MediathekZdfTivi extends MediathekReader {
-
-    public final static String SENDERNAME = Const.ZDF_TIVI;
+public class MediathekZdfTivi extends MediathekReader
+{
+    private static final Logger LOG = LogManager.getLogger(MediathekZdfTivi.class);
+    public final static Sender SENDER = Sender.ZDF_TIVI;
     private final SimpleDateFormat sdfIn = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSXXX");
     private final FastDateFormat sdfOut_date = FastDateFormat.getInstance("dd.MM.yyyy");
     private final FastDateFormat sdfOut_time = FastDateFormat.getInstance("HH:mm:ss");
-    private final LinkedListUrl listeThemen_3 = new LinkedListUrl();
+    private final Set<String[]> listeThemen_3;
 
-    public MediathekZdfTivi(FilmeSuchen ssearch, int startPrio) {
-        super(ssearch, SENDERNAME, 2 /* threads */, 50 /* urlWarten */, startPrio);
+    public MediathekZdfTivi(final FilmeSuchen ssearch, final int startPrio)
+    {
+        super(ssearch, SENDER.getName(), 2 /* threads */, 50 /* urlWarten */, startPrio);
+        listeThemen_3 = Collections.synchronizedSet(new HashSet<>());
     }
 
     @Override
-    public synchronized void addToList() {
-        //Theman suchen
+    public synchronized void addToList()
+    {
+        // Theman suchen
         listeThemen.clear();
         meldungStart();
         add_1();
         add_2();
         add_3();
-        if (Config.getStop()) {
+        if (Config.getStop())
+        {
             meldungThreadUndFertig();
-        } else if (listeThemen.isEmpty() && listeThemen_3.isEmpty()) {
+        }
+        else if (listeThemen.isEmpty() && listeThemen_3.isEmpty())
+        {
             meldungThreadUndFertig();
-        } else {
+        }
+        else
+        {
             meldungAddMax(listeThemen.size() + listeThemen_3.size());
-            for (int t = 0; t < getMaxThreadLaufen(); ++t) {
-                Thread th = new ThemaLaden();
-                th.setName(SENDERNAME + t);
+            for (int t = 0; t < getMaxThreadLaufen(); ++t)
+            {
+                final Thread th = new ThemaLaden();
+                th.setName(SENDER.getName() + t);
                 th.start();
             }
         }
     }
 
-    private void add_1() {
-        //<ns3:headline>Nachrichten</ns3:headline>
-        //<ns3:image>/tiviVideos/contentblob/2063212/tivi9teaserbild/9050138</ns3:image>
-        //<ns3:page>/tiviVideos/beitrag/pur%2B+Sendungen/895212/2063212?view=flashXml</ns3:page>
-        //<ns3:text>Ich will die Wahrheit!</ns3:text>
+    private void add_1()
+    {
+        // <ns3:headline>Nachrichten</ns3:headline>
+        // <ns3:image>/tiviVideos/contentblob/2063212/tivi9teaserbild/9050138</ns3:image>
+        // <ns3:page>/tiviVideos/beitrag/pur%2B+Sendungen/895212/2063212?view=flashXml</ns3:page>
+        // <ns3:text>Ich will die Wahrheit!</ns3:text>
         final String MUSTER_URL = "<ns3:page>/tiviVideos";
         MSStringBuilder seiteTivi_1 = new MSStringBuilder(Const.STRING_BUFFER_START_BUFFER);
-        GetUrl getUrlIo = new GetUrl(getWartenSeiteLaden());
-        seiteTivi_1 = getUrlIo.getUri(SENDERNAME, "http://www.tivi.de/tiviVideos/rueckblick?view=flashXml", StandardCharsets.UTF_8, 6 /* versuche */, seiteTivi_1, "" /* Meldung */);
-        if (seiteTivi_1.length() == 0) {
+        final GetUrl getUrlIo = new GetUrl(getWartenSeiteLaden());
+        seiteTivi_1 = getUrlIo.getUri(SENDER.getName(), "http://www.tivi.de/tiviVideos/rueckblick?view=flashXml",
+                StandardCharsets.UTF_8, 6 /* versuche */, seiteTivi_1,
+                "" /* Meldung */);
+        if (seiteTivi_1.length() == 0)
+        {
             Log.errorLog(732323698, "Leere Seite");
         }
         int pos = 0;
         int pos1;
         int pos2;
         String url;
-        try {
-            while ((pos = seiteTivi_1.indexOf(MUSTER_URL, pos)) != -1) {
+        try
+        {
+            while ((pos = seiteTivi_1.indexOf(MUSTER_URL, pos)) != -1)
+            {
                 url = "";
                 pos += MUSTER_URL.length();
                 pos1 = pos;
-                if ((pos2 = seiteTivi_1.indexOf("<", pos1)) != -1) {
+                if ((pos2 = seiteTivi_1.indexOf("<", pos1)) != -1)
+                {
                     url = seiteTivi_1.substring(pos1, pos2);
-                    if (url.contains("%2F")) {
+                    if (url.contains("%2F"))
+                    {
                         url = url.replace("%2F", "/");
                     }
-//                    url = URLDecoder.decode(url, "UTF-8");
+                    // url = URLDecoder.decode(url, "UTF-8");
                 }
-                if (url.isEmpty()) {
+                if (url.isEmpty())
+                {
                     Log.errorLog(309075109, "keine URL");
-                } else {
+                }
+                else
+                {
                     url = "http://www.tivi.de/tiviVideos" + url;
-                    listeThemen.addUrl(new String[]{url});
+                    listeThemen.add(new String[]
+                    { url });
                 }
             }
-        } catch (Exception ex) {
+        }
+        catch (final Exception ex)
+        {
             Log.errorLog(302010498, ex);
         }
     }
 
-    private void add_2() {
-        //<ns3:headline>Nachrichten</ns3:headline>
-        //<ns3:image>/tiviVideos/contentblob/2063212/tivi9teaserbild/9050138</ns3:image>
-        //<ns3:page>/tiviVideos/beitrag/pur%2B+Sendungen/895212/2063212?view=flashXml</ns3:page>
-        //<ns3:text>Ich will die Wahrheit!</ns3:text>
+    private void add_2()
+    {
+        // <ns3:headline>Nachrichten</ns3:headline>
+        // <ns3:image>/tiviVideos/contentblob/2063212/tivi9teaserbild/9050138</ns3:image>
+        // <ns3:page>/tiviVideos/beitrag/pur%2B+Sendungen/895212/2063212?view=flashXml</ns3:page>
+        // <ns3:text>Ich will die Wahrheit!</ns3:text>
         final String MUSTER_URL = "<ns3:page>/tiviVideos/beitrag";
         MSStringBuilder seiteTivi_1 = new MSStringBuilder(Const.STRING_BUFFER_START_BUFFER);
-        GetUrl getUrlIo = new GetUrl(getWartenSeiteLaden());
-        seiteTivi_1 = getUrlIo.getUri(SENDERNAME, "http://www.tivi.de/tiviVideos/?view=flashXml", StandardCharsets.UTF_8, 6 /* versuche */, seiteTivi_1, "" /* Meldung */);
-        ///seiteTivi_1 = getUrl.getUri(nameSenderMReader, "http://www.tivi.de/tiviVideos/?view=xml", MSearchConst.KODIERUNG_UTF, 6 /* versuche */, seiteTivi_1, "" /* Meldung */);
-        if (seiteTivi_1.length() == 0) {
+        final GetUrl getUrlIo = new GetUrl(getWartenSeiteLaden());
+        seiteTivi_1 = getUrlIo.getUri(SENDER.getName(), "http://www.tivi.de/tiviVideos/?view=flashXml",
+                StandardCharsets.UTF_8, 6 /* versuche */, seiteTivi_1,
+                "" /* Meldung */);
+        /// seiteTivi_1 = getUrl.getUri(nameSenderMReader,
+        /// "http://www.tivi.de/tiviVideos/?view=xml",
+        /// MSearchConst.KODIERUNG_UTF, 6 /* versuche */, seiteTivi_1, "" /*
+        /// Meldung */);
+        if (seiteTivi_1.length() == 0)
+        {
             Log.errorLog(645121326, "Leere Seite");
         }
         int pos = 0;
         int pos1;
         int pos2;
         String url;
-        try {
-            while ((pos = seiteTivi_1.indexOf(MUSTER_URL, pos)) != -1) {
+        try
+        {
+            while ((pos = seiteTivi_1.indexOf(MUSTER_URL, pos)) != -1)
+            {
                 url = "";
                 pos += MUSTER_URL.length();
                 pos1 = pos;
-                if ((pos2 = seiteTivi_1.indexOf("<", pos1)) != -1) {
+                if ((pos2 = seiteTivi_1.indexOf("<", pos1)) != -1)
+                {
                     url = seiteTivi_1.substring(pos1, pos2);
-                    if (url.contains("%2F")) {
+                    if (url.contains("%2F"))
+                    {
                         url = url.replace("%2F", "/");
                     }
-//                    url = URLDecoder.decode(url, "UTF-8");
+                    // url = URLDecoder.decode(url, "UTF-8");
                 }
-                if (url.isEmpty()) {
+                if (url.isEmpty())
+                {
                     Log.errorLog(915263985, "keine URL");
-                } else {
+                }
+                else
+                {
                     url = "http://www.tivi.de/tiviVideos/beitrag" + url;
-                    listeThemen.addUrl(new String[]{url});
+                    listeThemen.add(new String[]
+                    { url });
                 }
             }
-        } catch (Exception ex) {
+        }
+        catch (final Exception ex)
+        {
             Log.errorLog(730169702, ex);
         }
     }
 
-    private void add_3() {
+    private void add_3()
+    {
         final String MUSTER_URL = "type=\"broadcast\">";
         MSStringBuilder seiteTivi_1 = new MSStringBuilder(Const.STRING_BUFFER_START_BUFFER);
-        GetUrl getUrlIo = new GetUrl(getWartenSeiteLaden());
-        seiteTivi_1 = getUrlIo.getUri(SENDERNAME, "http://www.tivi.de/tiviVideos/navigation?view=flashXml", StandardCharsets.UTF_8, 6 /* versuche */, seiteTivi_1, "" /* Meldung */);
-        if (seiteTivi_1.length() == 0) {
+        final GetUrl getUrlIo = new GetUrl(getWartenSeiteLaden());
+        seiteTivi_1 = getUrlIo.getUri(SENDER.getName(), "http://www.tivi.de/tiviVideos/navigation?view=flashXml",
+                StandardCharsets.UTF_8, 6 /* versuche */, seiteTivi_1,
+                "" /* Meldung */);
+        if (seiteTivi_1.length() == 0)
+        {
             Log.errorLog(195623078, "Leere Seite");
         }
         int pos = 0;
         int pos1;
         int pos2;
         String url;
-        try {
-            while ((pos = seiteTivi_1.indexOf(MUSTER_URL, pos)) != -1) {
+        try
+        {
+            while ((pos = seiteTivi_1.indexOf(MUSTER_URL, pos)) != -1)
+            {
                 url = "";
                 pos += MUSTER_URL.length();
                 pos1 = pos;
-                if ((pos2 = seiteTivi_1.indexOf("<", pos1)) != -1) {
+                if ((pos2 = seiteTivi_1.indexOf("<", pos1)) != -1)
+                {
                     url = seiteTivi_1.substring(pos1, pos2);
-                    if (url.contains("%2F")) {
+                    if (url.contains("%2F"))
+                    {
                         url = url.replace("%2F", "/");
                     }
-//                    url = URLDecoder.decode(url, "UTF-8");
+                    // url = URLDecoder.decode(url, "UTF-8");
                 }
-                if (url.isEmpty()) {
+                if (url.isEmpty())
+                {
                     Log.errorLog(152378787, "keine URL");
-                } else {
+                }
+                else
+                {
                     url = "http://www.tivi.de" + url;
-                    listeThemen_3.addUrl(new String[]{url});
+                    listeThemen_3.add(new String[]
+                    { url });
                 }
             }
-        } catch (Exception ex) {
+        }
+        catch (final Exception ex)
+        {
             Log.errorLog(906037912, ex);
         }
     }
 
-    private class ThemaLaden extends Thread {
+    private class ThemaLaden extends Thread
+    {
 
         private final GetUrl getUrl = new GetUrl(getWartenSeiteLaden());
         private MSStringBuilder seite1 = new MSStringBuilder(Const.STRING_BUFFER_START_BUFFER);
         private MSStringBuilder seite2 = new MSStringBuilder(Const.STRING_BUFFER_START_BUFFER);
 
         @Override
-        public void run() {
-            try {
+        public void run()
+        {
+            try
+            {
                 meldungAddThread();
-                String[] link;
-                while (!Config.getStop() && (link = listeThemen.getListeThemen()) != null) {
-                    addTivi_(link[0] /* url */);
-                    meldungProgress(link[0]);
+                final Iterator<String[]> themaIterator = listeThemen.iterator();
+                while (!Config.getStop() && themaIterator.hasNext())
+                {
+                    final String[] thema = themaIterator.next();
+                    addTivi_(thema[0] /* url */);
+                    meldungProgress(thema[0]);
                 }
-                while (!Config.getStop() && (link = listeThemen_3.getListeThemen()) != null) {
-                    add_(link[0] /* url */);
-                    meldungProgress(link[0]);
+                final Iterator<String[]> themenIterator = listeThemen_3.iterator();
+                while (!Config.getStop() && themenIterator.hasNext())
+                {
+                    final String[] thema = themenIterator.next();
+                    add_(thema[0] /* url */);
+                    meldungProgress(thema[0]);
                 }
-            } catch (Exception ex) {
+            }
+            catch (final Exception ex)
+            {
                 Log.errorLog(731214569, ex);
             }
             meldungThreadUndFertig();
         }
 
-        private void add_(String url_) {
+        private void add_(final String url_)
+        {
             final String MUSTER_START = "<ns3:video-teaser>";
-            GetUrl getUrlIo = new GetUrl(getWartenSeiteLaden());
-            seite2 = getUrlIo.getUri(SENDERNAME, url_, StandardCharsets.UTF_8, 1 /* versuche */, seite2, "" /* Meldung */);
-            if (seite2.length() == 0) {
+            final GetUrl getUrlIo = new GetUrl(getWartenSeiteLaden());
+            seite2 = getUrlIo.getUri(SENDER.getName(), url_, StandardCharsets.UTF_8,
+                    1 /* versuche */, seite2, "" /* Meldung */);
+            if (seite2.length() == 0)
+            {
                 Log.errorLog(302010698, "Leere Seite");
             }
             int pos = 0;
             String url;
-            try {
-                while (!Config.getStop() && (pos = seite2.indexOf(MUSTER_START, pos)) != -1) {
+            try
+            {
+                while (!Config.getStop() && (pos = seite2.indexOf(MUSTER_START, pos)) != -1)
+                {
                     pos += MUSTER_START.length();
                     url = seite2.extract("<ns3:page>", "<", pos);
-//                    url = URLDecoder.decode(url, "UTF-8");
-                    if (url.isEmpty()) {
+                    // url = URLDecoder.decode(url, "UTF-8");
+                    if (url.isEmpty())
+                    {
                         Log.errorLog(732698720, "keine URL");
-                    } else {
-                        if (url.contains("%2F")) {
+                    }
+                    else
+                    {
+                        if (url.contains("%2F"))
+                        {
                             url = url.replace("%2F", "/");
                         }
                         url = "http://www.tivi.de" + url;
                         addTivi_(url);
                     }
                 }
-            } catch (Exception ex) {
+            }
+            catch (final Exception ex)
+            {
                 Log.errorLog(701212145, ex);
             }
         }
 
-        private void addTivi_(String url) {
+        private void addTivi_(final String url)
+        {
             int pos3;
             long dauerL;
             String titel, thema, urlFilm, datum, zeit, bild, website, text;
-            try {
+            try
+            {
                 urlFilm = "";
                 // Film laden
                 meldung(url);
-                seite1 = getUrl.getUri_Utf(SENDERNAME, url, seite1, "" /* Meldung */);
-                if (seite1.length() == 0) {
+                seite1 = getUrl.getUri_Utf(SENDER.getName(), url, seite1,
+                        "" /* Meldung */);
+                if (seite1.length() == 0)
+                {
                     Log.errorLog(301649897, "Leere Seite Tivi-2: " + url);
                     return;
                 }
@@ -256,7 +343,8 @@ public class MediathekZdfTivi extends MediathekReader {
                 titel = seite1.extract("<subtitle>", "<");
                 text = seite1.extract("<text>", "<");
                 bild = seite1.extract("<image>", "<");
-                if (!bild.isEmpty()) {
+                if (!bild.isEmpty())
+                {
                     bild = "http://www.tivi.de" + bild;
                 }
                 website = seite1.extract("<link>", "<");
@@ -264,74 +352,101 @@ public class MediathekZdfTivi extends MediathekReader {
 
                 zeit = "";
                 datum = seite1.extract("<airTime>", "<");
-                //<airTime>2014-01-19T08:35:00.000+01:00</airTime>
-                if (!datum.isEmpty()) {
-                    try {
-                        Date filmDate = sdfIn.parse(datum);
+                // <airTime>2014-01-19T08:35:00.000+01:00</airTime>
+                if (!datum.isEmpty())
+                {
+                    try
+                    {
+                        final Date filmDate = sdfIn.parse(datum);
                         datum = sdfOut_date.format(filmDate);
                         zeit = sdfOut_time.format(filmDate);
-                    } catch (NumberFormatException ex) {
+                    }
+                    catch (final NumberFormatException ex)
+                    {
                         if (MserverDaten.debug)
+                        {
                             Log.errorLog(649600299, ex, "Datum: " + url);
+                        }
                     }
                 }
                 pos3 = 0;
-                while ((pos3 = seite1.indexOf("<ns4:quality>veryhigh</ns4:quality>", pos3)) != -1) {
+                while ((pos3 = seite1.indexOf("<ns4:quality>veryhigh</ns4:quality>", pos3)) != -1)
+                {
                     pos3 += 5;
                     urlFilm = seite1.extract("<ns4:url>", "<", pos3);
-                    if (urlFilm.startsWith("http") && urlFilm.endsWith("mp4") && !urlFilm.contains("metafilegenerator")) {
+                    if (urlFilm.startsWith("http") && urlFilm.endsWith("mp4") && !urlFilm.contains("metafilegenerator"))
+                    {
                         break;
                     }
                 }
-                if (urlFilm.isEmpty()) {
+                if (urlFilm.isEmpty())
+                {
                     Log.errorLog(159876234, "kein Film: " + url);
-                } else {
-                    if (urlFilm.startsWith("http://tvdl.zdf.de")) {
+                }
+                else
+                {
+                    if (urlFilm.startsWith("http://tvdl.zdf.de"))
+                    {
                         urlFilm = urlFilm.replace("http://tvdl.zdf.de", "http://nrodl.zdf.de");
                     }
 
-                    DatenFilm film = new DatenFilm(SENDERNAME, thema, website, titel, urlFilm, "" /*urlRtmp*/,
-                            datum, zeit,
-                            dauerL, text);
+                    final Film film =
+                            CrawlerTool.createFilm(SENDER, url, titel, thema, datum, zeit, dauerL, website, "", "", "");
                     // jetzt noch manuell die Auflösung hochsetzen
-                    MediathekZdf.urlTauschen(film, url, mlibFilmeSuchen);
+                    try
+                    {
+                        CrawlerTool.improveAufloesung(film);
+                    }
+                    catch (final MalformedURLException uriSyntaxEception)
+                    {
+                        LOG.error("Beim verbessern der Auflösung ist ein Fehler aufgetreten", uriSyntaxEception);
+                    }
                     addFilm(film);
                 }
-            } catch (Exception ex) {
+            }
+            catch (final Exception ex)
+            {
                 Log.errorLog(454123698, ex);
             }
         }
-        
-        private long parseDauer(MSStringBuilder seite, String url) {
+
+        private long parseDauer(final MSStringBuilder seite, final String url)
+        {
             long dauer = 0;
-        
-            try {
-                String duration = seite.extract("<duration>", "<");
-                if (!duration.isEmpty()) {
+
+            try
+            {
+                final String duration = seite.extract("<duration>", "<");
+                if (!duration.isEmpty())
+                {
                     dauer = parseDuration(duration);
                 }
-                if (dauer == 0) {
-                    String length = seite.extract("<lengthSec>", "<");
+                if (dauer == 0)
+                {
+                    final String length = seite.extract("<lengthSec>", "<");
                     dauer = Integer.parseInt(length);
                 }
-            } catch (NumberFormatException ex) {
+            }
+            catch (final NumberFormatException ex)
+            {
                 Log.errorLog(349761012, ex, "Dauer: " + url);
             }
 
             return dauer;
         }
-        
+
         // Parst Längenangaben im Format P0Y0M0DT0H22M6.000S
-        private long parseDuration(String duration) {
-            
-            String time = duration.replace("P0Y0M0DT", "");
-            String h = time.substring(0, time.indexOf('H'));
-            int ih = Integer.parseInt(h);
-            String m = time.substring(time.indexOf('H') + 1, time.indexOf('M'));
-            int im = Integer.parseInt(m);
-            String s = time.substring(time.indexOf('M') + 1, time.indexOf('.'));
-            int is = Integer.parseInt(s);
-            
+        private long parseDuration(final String duration)
+        {
+
+            final String time = duration.replace("P0Y0M0DT", "");
+            final String h = time.substring(0, time.indexOf('H'));
+            final int ih = Integer.parseInt(h);
+            final String m = time.substring(time.indexOf('H') + 1, time.indexOf('M'));
+            final int im = Integer.parseInt(m);
+            final String s = time.substring(time.indexOf('M') + 1, time.indexOf('.'));
+            final int is = Integer.parseInt(s);
+
             return ih * 60 * 60 + im * 60 + is;
         }
     }

@@ -1,23 +1,30 @@
-import java.nio.file.Files
-import java.nio.file.Paths
 import org.apache.tools.ant.filters.ReplaceTokens
 
-plugins {
-    id "com.github.jk1.dependency-license-report" version "0.3.5"
-}
+import java.nio.file.Files
 
 apply plugin: 'java'
 apply plugin: 'distribution'
 apply plugin: 'maven'
 apply from: "${project.rootDir}/gradle/eclipse.gradle"
+buildscript {
+  repositories {
+    maven {
+      url "https://plugins.gradle.org/m2/"
+    }
+  }
+  dependencies {
+    classpath "gradle.plugin.com.github.jk1:gradle-license-report:0.3.12"
+  }
+}
+apply plugin: "com.github.jk1.dependency-license-report"
 
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
 group = 'de.mediathekview'
-version = '3.1.34'
+version = '4.0.0'
 
 def jarName = 'MServer.jar'
-def mainClass = 'mServer.Main'
+def mainClass = 'de.mediathekview.mserver.ui.config.MServerConfigUI'
 
 compileJava {
     options.encoding = "UTF-8"
@@ -33,38 +40,17 @@ task copyRuntimeLibs(type: Copy) {
     from configurations.testRuntime - configurations.runtime
 }
 
+task copyTestResources(type: Copy) {
+    from "${projectDir}/src/test/resources"
+    into "${buildDir}/classes/test"
+}
+processTestResources.dependsOn copyTestResources
+
 repositories {
     mavenLocal()
     mavenCentral()
     maven {
         url "https://packagecloud.io/mediathekview/MediathekView/maven2"
-    }
-}
-
-sourceSets {
-    developTest {
-        java {
-            compileClasspath += main.output + test.output
-            runtimeClasspath += main.output + test.output
-            srcDir file('src/test/developTest/java')
-        }
-        resources.srcDir file('src/test/developTest/resources')
-    }
-    integrationTest {
-        java {
-            compileClasspath += main.output + test.output
-            runtimeClasspath += main.output + test.output
-            srcDir file('src/test/integrationTest/java')
-        }
-        resources.srcDir file('src/test/integrationTest/resources')
-    }
-    performanceTest {
-        java {
-            compileClasspath += main.output + test.output
-            runtimeClasspath += main.output + test.output
-            srcDir file('src/test/performanceTest/java')
-        }
-        resources.srcDir file('src/test/performanceTest/resources')
     }
 }
 
@@ -79,33 +65,29 @@ configurations {
 }
 
 test {
+	exclude 'mServer/developTest/**'
+	exclude 'mServer/integrationTest/**'
+	exclude 'mServer/performanceTest/**'
 }
 
 task developTest(type: Test) {
-    testClassesDir = sourceSets.developTest.output.classesDir
-    classpath = sourceSets.developTest.runtimeClasspath
-    outputs.upToDateWhen { false }
-
+    include 'mServer/developTest/**'
+    
     beforeTest { descriptor ->
         logger.lifecycle("Running test: " + descriptor)
     }
 }
 
 task integrationTest(type: Test) {
-    testClassesDir = sourceSets.integrationTest.output.classesDir
-    classpath = sourceSets.integrationTest.runtimeClasspath
-    outputs.upToDateWhen { false }
-
-    beforeTest { descriptor ->
-        logger.lifecycle("Running test: " + descriptor)
-    }
+	include 'mServer/integrationTest/**'
+	    
+	beforeTest { descriptor ->
+		logger.lifecycle("Running test: " + descriptor)
+	}
 }
 
 task performanceTest(type: Test) {
-    logger.info("hier")
-    testClassesDir = sourceSets.performanceTest.output.classesDir
-    classpath = sourceSets.performanceTest.runtimeClasspath
-    outputs.upToDateWhen { false }
+    include 'mServer/performanceTest/**'
     
     beforeTest { descriptor ->
         logger.lifecycle("Running test: " + descriptor)
@@ -117,24 +99,24 @@ tasks.withType(Test) {
 }
 
 dependencies {
-    compile 'de.mediathekview:MLib:3.0.1'
+    compile 'de.mediathekview:MLib:4.0.0-SNAPSHOT'
     compile 'commons-net:commons-net:3.5'
     compile 'org.apache.commons:commons-compress:1.12'
     compile 'org.apache.commons:commons-lang3:3.5'
     compile 'org.tukaani:xz:1.5'
     compile 'com.google.code.gson:gson:2.8.0'
     compile 'org.glassfish.jersey.core:jersey-client:2.25'
-    compile 'com.sun.jersey:jersey-client:1.8'
     compile 'com.squareup.okhttp3:okhttp:3.6.0'
     compile 'org.jsoup:jsoup:1.10.3'
 
-    compile group: 'org.apache.logging.log4j', name: 'log4j-core', version: '2.7'
-    compile group: 'fm.void.jetm', name: 'jetm', version: '1.2.3'
+    compile 'org.apache.logging.log4j:log4j-core:2.7'
+    compile 'fm.void.jetm:jetm:1.2.3'
 
     testCompile "junit:junit:4.12"
     testCompile "org.mockito:mockito-core:2.+"
     testCompile "com.squareup.okhttp3:mockwebserver:3.6.0"
     testCompile "org.hamcrest:hamcrest-all:1.3"
+    testCompile "org.mockftpserver:MockFtpServer:2.7.1"
     deployerJars "io.packagecloud.maven.wagon:maven-packagecloud-wagon:0.0.6"
 }
 
@@ -167,7 +149,7 @@ def loadVersionProperties() {
 uploadArchives {
     repositories.mavenDeployer {
         configuration = configurations.deployerJars
-        uniqueVersion=false
+        uniqueVersion=true
         def repoPw;
         
         if(project.hasProperty('repoPw'))
@@ -303,7 +285,7 @@ task releaseSnapshot(dependsOn: 'uploadArchives') {
 }
 
 gradle.taskGraph.whenReady {taskGraph ->
-    if (taskGraph.hasTask(releaseSnapshot)) {
+    if (!taskGraph.hasTask(release)) {
         version = version+'-SNAPSHOT'
     }
 }

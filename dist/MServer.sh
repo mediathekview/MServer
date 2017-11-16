@@ -32,9 +32,9 @@ echo %%
 
 
 if [ -n "$JAVA_HOME" ]; then
-	$JAVA_HOME/bin/java -Xms256M -Xmx2G -jar ./MServer.jar $dir $*
+	$JAVA_HOME/bin/java -Xms256M -Xmx2G -jar ./MServer.jar
 else
-	java -Xms256M -Xmx2G -jar ./MServer.jar $dir $*
+	java -Xms256M -Xmx2G -jar ./MServer.jar
 fi
 
 cd $OLDPWD

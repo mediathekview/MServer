@@ -21,27 +21,32 @@ package mServer.crawler.sender;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.Locale;
-
 import de.mediathekview.mlib.Config;
 import de.mediathekview.mlib.Const;
-import de.mediathekview.mlib.daten.DatenFilm;
+import de.mediathekview.mlib.daten.Film;
+import de.mediathekview.mlib.daten.Sender;
 import de.mediathekview.mlib.tool.Log;
 import de.mediathekview.mlib.tool.MSStringBuilder;
+import mServer.crawler.CrawlerTool;
 import mServer.crawler.FilmeSuchen;
 import mServer.crawler.GetUrl;
 
-public class MediathekSrfPod extends MediathekReader implements Runnable {
+public class MediathekSrfPod extends MediathekReader implements Runnable
+{
 
-    public final static String SENDERNAME = Const.SRF_PODCAST;
+    public final static Sender SENDER = Sender.SRF_PODCAST;
     private MSStringBuilder seite = new MSStringBuilder(Const.STRING_BUFFER_START_BUFFER);
 
-    public MediathekSrfPod(FilmeSuchen ssearch, int startPrio) {
-        super(ssearch, SENDERNAME,/* threads */ 2, /* urlWarten */ 200, startPrio);
+    public MediathekSrfPod(FilmeSuchen ssearch, int startPrio)
+    {
+        super(ssearch, SENDER.getName(),/* threads */ 2, /* urlWarten */ 200, startPrio);
     }
 
     @Override
-    public void addToList() {
+    public void addToList()
+    {
         //Liste von http://www.sf.tv/podcasts/index.php holen
         //http://www.podcast.sf.tv/Podcasts/al-dente
         // class="" href="/Podcasts/al-dente" rel="2" >
@@ -51,78 +56,97 @@ public class MediathekSrfPod extends MediathekReader implements Runnable {
         listeThemen.clear();
         meldungStart();
         GetUrl getUrlIo = new GetUrl(getWartenSeiteLaden());
-        seite = getUrlIo.getUri_Utf(SENDERNAME, addr1, seite, "");
+        seite = getUrlIo.getUri_Utf(SENDER.getName(), addr1, seite, "");
         int pos = 0;
         int pos1;
         int pos2;
         String url = "";
-        while (!Config.getStop() && (pos = seite.indexOf(MUSTER_1, pos)) != -1) {
+        while (!Config.getStop() && (pos = seite.indexOf(MUSTER_1, pos)) != -1)
+        {
             pos += MUSTER_1.length();
             pos1 = pos;
             pos2 = seite.indexOf("\"", pos);
-            if (pos1 != -1 && pos2 != -1) {
+            if (pos1 != -1 && pos2 != -1)
+            {
                 url = seite.substring(pos1, pos2);
                 url = "http://feeds.sf.tv/podcast" + url;
             }
-            if (url.isEmpty()) {
+            if (url.isEmpty())
+            {
                 Log.errorLog(698875503, "keine URL");
-            } else {
+            } else
+            {
                 String[] add = new String[]{url, ""};
-                listeThemen.addUrl(add);
+                listeThemen.add(add);
             }
         }
         pos = 0;
-        while (!Config.getStop() && (pos = seite.indexOf(MUSTER_2, pos)) != -1) {
+        while (!Config.getStop() && (pos = seite.indexOf(MUSTER_2, pos)) != -1)
+        {
             pos += MUSTER_2.length();
             pos1 = pos;
             pos2 = seite.indexOf("\"", pos);
-            if (pos1 != -1 && pos2 != -1) {
+            if (pos1 != -1 && pos2 != -1)
+            {
                 url = seite.substring(pos1, pos2);
                 url = "http://pod.drs.ch/" + url;
             }
-            if (url.isEmpty()) {
-                Log.errorLog(698875503,  "keine URL");
-            } else {
+            if (url.isEmpty())
+            {
+                Log.errorLog(698875503, "keine URL");
+            } else
+            {
                 String[] add = new String[]{url, ""};
-                listeThemen.addUrl(add);
+                listeThemen.add(add);
             }
         }
-        if (Config.getStop()) {
+        if (Config.getStop())
+        {
             meldungThreadUndFertig();
-        } else if (listeThemen.isEmpty()) {
+        } else if (listeThemen.isEmpty())
+        {
             meldungThreadUndFertig();
-        } else {
+        } else
+        {
             meldungAddMax(listeThemen.size());
-            for (int t = 0; t < getMaxThreadLaufen(); ++t) {
+            for (int t = 0; t < getMaxThreadLaufen(); ++t)
+            {
                 //new Thread(new ThemaLaden()).start();
                 Thread th = new ThemaLaden();
-                th.setName(SENDERNAME + t);
+                th.setName(SENDER.getName() + t);
                 th.start();
             }
         }
     }
 
-    private class ThemaLaden extends Thread {
+    private class ThemaLaden extends Thread
+    {
 
         private final GetUrl getUrl = new GetUrl(getWartenSeiteLaden());
         private MSStringBuilder seite = new MSStringBuilder(Const.STRING_BUFFER_START_BUFFER);
 
         @Override
-        public void run() {
-            try {
+        public void run()
+        {
+            try
+            {
                 meldungAddThread();
-                String link[];
-                while (!Config.getStop() && (link = listeThemen.getListeThemen()) != null) {
-                    meldungProgress(link[0] /* url */);
-                    addFilme(link[1], link[0] /* url */);
+                final Iterator<String[]> themaIterator = listeThemen.iterator();
+                while (!Config.getStop() && themaIterator.hasNext())
+                {
+                    final String[] thema = themaIterator.next();
+                    meldungProgress(thema[0] /* url */);
+                    addFilme(thema[1], thema[0] /* url */);
                 }
-            } catch (Exception ex) {
-                Log.errorLog(286931004,   ex);
+            } catch (Exception ex)
+            {
+                Log.errorLog(286931004, ex);
             }
             meldungThreadUndFertig();
         }
 
-        private void addFilme(String thema, String strUrlFeed) {
+        private void addFilme(String thema, String strUrlFeed)
+        {
             //<title>al dente - Podcasts - Schweizer Fernsehen</title>
             // <h2 class="sf-hl1">al dente vom 28.06.2010</h2>
             // <li><a href="
@@ -144,144 +168,189 @@ public class MediathekSrfPod extends MediathekReader implements Runnable {
             String description = "";
             String image = "";
             String[] keywords;
-            try {
+            try
+            {
                 meldung(strUrlFeed);
-                seite = getUrl.getUri_Utf(SENDERNAME, strUrlFeed, seite, "Thema: " + thema);
-                if ((pos1 = seite.indexOf(MUSTER_THEMA_1)) != -1) {
+                seite = getUrl.getUri_Utf(SENDER.getName(), strUrlFeed, seite, "Thema: " + thema);
+                if ((pos1 = seite.indexOf(MUSTER_THEMA_1)) != -1)
+                {
                     pos1 = pos1 + MUSTER_THEMA_1.length();
                 }
-                if ((pos2 = seite.indexOf(MUSTER_THEMA_2, pos1)) != -1) {
+                if ((pos2 = seite.indexOf(MUSTER_THEMA_2, pos1)) != -1)
+                {
                     thema = seite.substring(pos1, pos2).trim();
-//                        if (thema.contains(" ")) {
-//                            thema = thema.substring(0, thema.indexOf(" "));
-//                        }
+                    //                        if (thema.contains(" ")) {
+                    //                            thema = thema.substring(0, thema.indexOf(" "));
+                    //                        }
                 }
                 // Image of show (unfortunatly we do not have an custom image for each entry
                 // <itunes:image href="http://api-internet.sf.tv/xmlservice/picture/1.0/vis/videogroup/c3d7c0d6-5250-0001-a1ac-edeb183b17d8/0003" />
                 int pos3 = seite.indexOf(MUSTER_IMAGE);
-                if (pos3 != -1) {
+                if (pos3 != -1)
+                {
                     pos3 += MUSTER_IMAGE.length();
                     int pos4 = seite.indexOf("\"", pos3);
-                    if (pos4 != -1) {
+                    if (pos4 != -1)
+                    {
                         image = seite.substring(pos3, pos4);
                     }
                 }
-                while ((pos = seite.indexOf(MUSTER_THEMA_1, pos)) != -1) { //start der Einträge, erster Eintrag ist der Titel
+                while ((pos = seite.indexOf(MUSTER_THEMA_1, pos)) != -1)
+                { //start der Einträge, erster Eintrag ist der Titel
                     pos += MUSTER_THEMA_1.length();
                     pos1 = pos;
                     int pos5;
                     String d = "";
-                    if ((pos5 = seite.indexOf(MUSTER_DURATION, pos)) != -1) {
+                    if ((pos5 = seite.indexOf(MUSTER_DURATION, pos)) != -1)
+                    {
                         pos5 += MUSTER_DURATION.length();
-                        if ((pos2 = seite.indexOf("</", pos5)) != -1) {
+                        if ((pos2 = seite.indexOf("</", pos5)) != -1)
+                        {
                             d = seite.substring(pos5, pos2);
-                            if (!d.isEmpty()) {
-                                try {
-                                    if (d.contains(".")) {
+                            if (!d.isEmpty())
+                            {
+                                try
+                                {
+                                    if (d.contains("."))
+                                    {
                                         d = d.replace(".", ""); // sind dann ms
                                         duration = Long.parseLong(d);
                                         duration = duration / 1000;
-                                    } else if (d.contains(":")) {
+                                    } else if (d.contains(":"))
+                                    {
                                         duration = 0;
                                         String[] parts = d.split(":");
                                         long power = 1;
-                                        for (int i = parts.length - 1; i >= 0; i--) {
+                                        for (int i = parts.length - 1; i >= 0; i--)
+                                        {
                                             duration += Long.parseLong(parts[i]) * power;
                                             power *= 60;
                                         }
-                                    } else {
+                                    } else
+                                    {
                                         // unfortunately the duration tag can be empty :-(
                                         duration = Long.parseLong(d);
                                     }
-                                } catch (Exception ex) {
-                                    Log.errorLog(915263987,   "d: " + d);
+                                } catch (Exception ex)
+                                {
+                                    Log.errorLog(915263987, "d: " + d);
                                 }
                             }
                         }
                     }
-                    if (duration == 0) {
-                        if (!d.equals("0")) {
-                            Log.errorLog(915159637,   "keine Dauer");
+                    if (duration == 0)
+                    {
+                        if (!d.equals("0"))
+                        {
+                            Log.errorLog(915159637, "keine Dauer");
                         }
                     }
-                    if ((pos5 = seite.indexOf(MUSTER_DESCRIPTION, pos)) != -1) {
+                    if ((pos5 = seite.indexOf(MUSTER_DESCRIPTION, pos)) != -1)
+                    {
                         pos5 += MUSTER_DESCRIPTION.length();
-                        if ((pos2 = seite.indexOf("</", pos5)) != -1) {
+                        if ((pos2 = seite.indexOf("</", pos5)) != -1)
+                        {
                             description = seite.substring(pos5, pos2);
                         }
                     }
-                    if ((pos5 = seite.indexOf(MUSTER_KEYWORDS, pos)) != -1) {
+                    if ((pos5 = seite.indexOf(MUSTER_KEYWORDS, pos)) != -1)
+                    {
                         pos5 += MUSTER_KEYWORDS.length();
-                        if ((pos2 = seite.indexOf("</", pos5)) != -1) {
+                        if ((pos2 = seite.indexOf("</", pos5)) != -1)
+                        {
                             String k = seite.substring(pos5, pos2);
-                            if (!k.isEmpty()) {
+                            if (!k.isEmpty())
+                            {
                                 keywords = k.split(",");
-                                for (int i = 0; i < keywords.length; i++) {
+                                for (int i = 0; i < keywords.length; i++)
+                                {
                                     keywords[i] = keywords[i].trim();
                                 }
                             }
                         }
                     }
-                    if ((pos2 = seite.indexOf(MUSTER_THEMA_2, pos1)) != -1) {
+                    if ((pos2 = seite.indexOf(MUSTER_THEMA_2, pos1)) != -1)
+                    {
                         titel = seite.substring(pos1, pos2).trim();
                         datum = "";
                         zeit = "";
                         int p1, p2;
-                        if ((p1 = seite.indexOf(MUSTER_DATE, pos1)) != -1) {
+                        if ((p1 = seite.indexOf(MUSTER_DATE, pos1)) != -1)
+                        {
                             p1 += MUSTER_DATE.length();
-                            if ((p2 = seite.indexOf("<", p1)) != -1) {
+                            if ((p2 = seite.indexOf("<", p1)) != -1)
+                            {
                                 String tmp = seite.substring(p1, p2);
                                 datum = convertDatum(tmp);
                                 zeit = convertTime(tmp);
                             }
                         }
-                        if ((pos1 = seite.indexOf(MUSTER_URL_1, pos1)) != -1) {
+                        if ((pos1 = seite.indexOf(MUSTER_URL_1, pos1)) != -1)
+                        {
                             pos1 += MUSTER_URL_1.length();
-                            if ((pos2 = seite.indexOf("\"", pos1)) != -1) {
+                            if ((pos2 = seite.indexOf("\"", pos1)) != -1)
+                            {
                                 url = seite.substring(pos1, pos2);
                                 url = "http://" + url;
                             }
-                            if (url.isEmpty()) {
-                                Log.errorLog(463820049,   "keine URL: " + strUrlFeed);
-                            } else {
-                                // public DatenFilm(String ssender, String tthema, String filmWebsite, String ttitel, String uurl, String datum, String zeit,
-                                //      long duration, String description, String thumbnailUrl, String imageUrl, String[] keywords) {
-                                addFilm(new DatenFilm(SENDERNAME, thema, strUrlFeed, titel, url, ""/*rtmpURL*/, datum, zeit,
-                                        duration, description));
+                            if (url.isEmpty())
+                            {
+                                Log.errorLog(463820049, "keine URL: " + strUrlFeed);
+                            } else
+                            {
+                                Film film = CrawlerTool.createFilm(SENDER,
+                                        url,
+                                        titel,
+                                        thema,
+                                        datum,
+                                        zeit,
+                                        duration,
+                                        strUrlFeed,
+                                        description,
+                                        "",
+                                        "");
+                                addFilm(film);
                             }
                         }
                     }
                 }
-            } catch (Exception ex) {
-                Log.errorLog(496352007,   ex);
+            } catch (Exception ex)
+            {
+                Log.errorLog(496352007, ex);
             }
         }
     }
 
-    private String convertDatum(String datum) {
+    private String convertDatum(String datum)
+    {
         //<pubDate>Mon, 03 Jan 2011 17:06:16 +0100</pubDate>
-        try {
+        try
+        {
             SimpleDateFormat sdfIn = new SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss Z", Locale.US);
             Date filmDate = sdfIn.parse(datum);
             SimpleDateFormat sdfOut;
             sdfOut = new SimpleDateFormat("dd.MM.yyyy");
             datum = sdfOut.format(filmDate);
-        } catch (Exception ex) {
-            Log.errorLog(649600299,  ex);
+        } catch (Exception ex)
+        {
+            Log.errorLog(649600299, ex);
         }
         return datum;
     }
 
-    private String convertTime(String zeit) {
+    private String convertTime(String zeit)
+    {
         //<pubDate>Mon, 03 Jan 2011 17:06:16 +0100</pubDate>
-        try {
+        try
+        {
             SimpleDateFormat sdfIn = new SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss Z", Locale.US);
             Date filmDate = sdfIn.parse(zeit);
             SimpleDateFormat sdfOut;
             sdfOut = new SimpleDateFormat("HH:mm:ss");
             zeit = sdfOut.format(filmDate);
-        } catch (Exception ex) {
-            Log.errorLog(663259004,  ex);
+        } catch (Exception ex)
+        {
+            Log.errorLog(663259004, ex);
         }
         return zeit;
     }

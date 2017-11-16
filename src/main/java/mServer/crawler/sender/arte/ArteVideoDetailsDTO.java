@@ -1,30 +1,36 @@
 package mServer.crawler.sender.arte;
+import java.time.LocalDateTime;
+import de.mediathekview.mlib.daten.GeoLocations;
 
-import mServer.crawler.sender.newsearch.GeoLocations;
 
 public class ArteVideoDetailsDTO {
-    private String broadcastBegin = "";
-    private GeoLocations geo = GeoLocations.GEO_NONE;
 
     private String title = "";
     private String theme = "";
     private String description = "";
     private String website = "";
 
-    public String getBroadcastBegin() {
-        return this.broadcastBegin;
+    private LocalDateTime broadcastBegin;;
+    private GeoLocations geoLocation;
+    
+    public ArteVideoDetailsDTO() {
+        geoLocation = GeoLocations.GEO_NONE;
     }
     
-    public void setBroadcastBegin(String aBroadcastBegin) {
-        this.broadcastBegin = aBroadcastBegin;
+    public LocalDateTime getBroadcastBegin() {
+        return broadcastBegin;
+    }
+    
+    public void setBroadcastBegin(LocalDateTime aBroadcastBegin) {
+        broadcastBegin = aBroadcastBegin;
     }
     
     public GeoLocations getGeoLocation() {
-        return this.geo;
+        return geoLocation;
     }
     
-    public void setGeoLocation(GeoLocations aGeo) {
-        this.geo = aGeo;
+    public void setGeoLocation(GeoLocations aGeoLocation) {
+        geoLocation = aGeoLocation;
     }
     
     public String getTitle() {

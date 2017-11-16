@@ -19,64 +19,83 @@
  */
 package mServer.crawler.sender;
 
+import java.net.URL;
 import java.util.ArrayList;
-
+import java.util.Iterator;
 import de.mediathekview.mlib.Config;
 import de.mediathekview.mlib.Const;
-import de.mediathekview.mlib.daten.DatenFilm;
+import de.mediathekview.mlib.daten.Film;
+import de.mediathekview.mlib.daten.Sender;
 import de.mediathekview.mlib.tool.Log;
 import de.mediathekview.mlib.tool.MSStringBuilder;
 import mServer.crawler.CrawlerTool;
 import mServer.crawler.FilmeSuchen;
 import mServer.crawler.GetUrl;
 
-public class MediathekSr extends MediathekReader {
+public class MediathekSr extends MediathekReader
+{
 
-    public final static String SENDERNAME = Const.SR;
+    public final static Sender SENDER = Sender.SR;
+    private static final String SUBTITLE_PREFIX = "http://sr-mediathek.sr-online.de/";
 
     /**
-     *
      * @param ssearch
      * @param startPrio
      */
-    public MediathekSr(FilmeSuchen ssearch, int startPrio) {
-        super(ssearch, SENDERNAME, /* threads */ 2, /* urlWarten */ 100, startPrio);
+    public MediathekSr(final FilmeSuchen ssearch, final int startPrio)
+    {
+        super(ssearch, SENDER.getName(), /* threads */ 2, /* urlWarten */ 100, startPrio);
     }
 
     /**
      *
      */
     @Override
-    public void addToList() {
+    public void addToList()
+    {
         meldungStart();
-        // seite1: http://sr-mediathek.sr-online.de/index.php?seite=2&f=v&s=1&o=d
-        // seite2: http://sr-mediathek.sr-online.de/index.php?seite=2&f=v&s=2&o=d
-        // seite3: http://sr-mediathek.sr-online.de/index.php?seite=2&f=v&s=3&o=d
+        // seite1:
+        // http://sr-mediathek.sr-online.de/index.php?seite=2&f=v&s=1&o=d
+        // seite2:
+        // http://sr-mediathek.sr-online.de/index.php?seite=2&f=v&s=2&o=d
+        // seite3:
+        // http://sr-mediathek.sr-online.de/index.php?seite=2&f=v&s=3&o=d
         int maxSeiten = 15;
-        if (CrawlerTool.loadLongMax()) {
+        if (CrawlerTool.loadLongMax())
+        {
             maxSeiten = 120;
         }
-        for (int i = 1; i < maxSeiten; ++i) {
-            //                                 http://www.sr-mediathek.de/index.php?seite=2&f=v&s=1&o=d
-            String[] add = new String[]{"http://www.sr-mediathek.de/index.php?seite=2&f=v&s=" + i + "&o=d", ""/*thema*/};
+        for (int i = 1; i < maxSeiten; ++i)
+        {
+            // http://www.sr-mediathek.de/index.php?seite=2&f=v&s=1&o=d
+            final String[] add = new String[]
+            { "http://www.sr-mediathek.de/index.php?seite=2&f=v&s=" + i + "&o=d",
+                    ""/* thema */ };
             listeThemen.add(add);
         }
 
-        if (Config.getStop()) {
+        if (Config.getStop())
+        {
             meldungThreadUndFertig();
-        } else if (listeThemen.isEmpty()) {
+        }
+        else if (listeThemen.isEmpty())
+        {
             meldungThreadUndFertig();
-        } else {
+        }
+        else
+        {
             meldungAddMax(listeThemen.size());
-            for (int t = 0; t < getMaxThreadLaufen(); ++t) {
-                Thread th = new ThemaLaden();
-                th.setName(SENDERNAME + t);
+            for (int t = 0; t < getMaxThreadLaufen(); ++t)
+            {
+                final Thread th = new ThemaLaden();
+                th.setName(SENDER.getName() + t);
                 th.start();
             }
         }
     }
 
-    private class ThemaLaden extends Thread {
+    private class ThemaLaden extends Thread
+    {
 
         private final GetUrl getUrl = new GetUrl(getWartenSeiteLaden());
         private MSStringBuilder seite1 = new MSStringBuilder(Const.STRING_BUFFER_START_BUFFER);
@@ -84,26 +103,35 @@ public class MediathekSr extends MediathekReader {
         private final ArrayList<String> erg = new ArrayList<>();
 
         @Override
-        public void run() {
-            try {
+        public void run()
+        {
+            try
+            {
                 meldungAddThread();
-                String link[];
-                while (!Config.getStop() && (link = listeThemen.getListeThemen()) != null) {
-                    meldungProgress(link[0] /*url*/);
-                    bearbeiteTage(link[0]/*url*/);
+                final Iterator<String[]> themaIterator = listeThemen.iterator();
+                while (!Config.getStop() && themaIterator.hasNext())
+                {
+                    final String[] thema = themaIterator.next();
+                    meldungProgress(thema[0] /* url */);
+                    bearbeiteTage(thema[0]/* url */);
                 }
-            } catch (Exception ex) {
+            }
+            catch (final Exception ex)
+            {
                 Log.errorLog(951236547, ex);
             }
             meldungThreadUndFertig();
         }
 
-        private void bearbeiteTage(String urlSeite) {
-            GetUrl getUrlIo = new GetUrl(getWartenSeiteLaden());
-            seite1 = getUrlIo.getUri_Utf(SENDERNAME, urlSeite, seite1, "");
+        private void bearbeiteTage(final String urlSeite)
+        {
+            final GetUrl getUrlIo = new GetUrl(getWartenSeiteLaden());
+            seite1 = getUrlIo.getUri_Utf(SENDER.getName(), urlSeite, seite1, "");
             seite1.extractList("<h3 class=\"teaser__text__header\">", "<a href=\"index.php?seite=", "\"", erg);
-            for (String url : erg) {
-                if (Config.getStop()) {
+            for (final String url : erg)
+            {
+                if (Config.getStop())
+                {
                     break;
                 }
                 addFilme("http://www.sr-mediathek.de/index.php?seite=" + url);
@@ -111,68 +139,96 @@ public class MediathekSr extends MediathekReader {
             erg.clear();
         }
 
-        private void addFilme(String urlSeite) {
+        private void addFilme(final String urlSeite)
+        {
             meldung(urlSeite);
-            seite2 = getUrl.getUri_Utf(SENDERNAME, urlSeite, seite2, "");
-            try {
+            seite2 = getUrl.getUri_Utf(SENDER.getName(), urlSeite, seite2, "");
+            try
+            {
                 String url;
                 String datum;
-                String titel, thema = SENDERNAME;
+                String titel, thema = SENDER.getName();
                 long duration = 0;
                 String description;
 
-                String d = seite2.extract("| Dauer: ", "|").trim();
-                try {
-                    if (!d.isEmpty()) {
+                final String d = seite2.extract("| Dauer: ", "|").trim();
+                try
+                {
+                    if (!d.isEmpty())
+                    {
                         duration = 0;
-                        String[] parts = d.split(":");
+                        final String[] parts = d.split(":");
                         long power = 1;
-                        for (int i = parts.length - 1; i >= 0; i--) {
+                        for (int i = parts.length - 1; i >= 0; i--)
+                        {
                             duration += Long.parseLong(parts[i]) * power;
                             power *= 60;
                         }
                     }
-                } catch (Exception ex) {
+                }
+                catch (final Exception ex)
+                {
                     Log.errorLog(732012546, "d: " + d);
                 }
                 description = seite2.extract("<meta property=\"og:description\" content=\"", "\"");
                 datum = seite2.extract("Video | ", "|").trim();
-                // <title>SR-Mediathek.de: Wir im Saarland – Warten aufs Christkind</title>
-                // <title>SR-Mediathek.de: mags spezial: Innewennzisch-Ausewennzisch (08.10.2015)</title>
-                // <title>SR-Mediathek.de: Wir im Saarland – Ein Kommissar als Zeitschenker (20.11.2015)</title>
+                // <title>SR-Mediathek.de: Wir im Saarland – Warten aufs
+                // Christkind</title>
+                // <title>SR-Mediathek.de: mags spezial:
+                // Innewennzisch-Ausewennzisch (08.10.2015)</title>
+                // <title>SR-Mediathek.de: Wir im Saarland – Ein Kommissar als
+                // Zeitschenker (20.11.2015)</title>
                 titel = seite2.extract("<title>", "<");
-                if (titel.startsWith("SR-Mediathek.de:")) {
+                if (titel.startsWith("SR-Mediathek.de:"))
+                {
                     titel = titel.replaceFirst("SR-Mediathek.de:", "");
                 }
-                if (titel.contains(" - ")) {
+                if (titel.contains(" - "))
+                {
                     thema = titel.substring(0, titel.indexOf(" - ")).trim();
                     titel = titel.substring(titel.indexOf(" - ") + 3).trim();
-                } else if (titel.contains(": ")) {
+                }
+                else if (titel.contains(": "))
+                {
                     thema = titel.substring(0, titel.indexOf(": ")).trim();
                     titel = titel.substring(titel.indexOf(": ") + 2).trim();
-                } else if (titel.contains(" – ")) {
+                }
+                else if (titel.contains(" – "))
+                {
                     thema = titel.substring(0, titel.indexOf(" – ")).trim();
                     titel = titel.substring(titel.indexOf(" – ") + 3).trim();
-                } else if (titel.contains("(")) {
-                    thema = titel.substring(0, titel.indexOf('(')).trim();
-                    //titel = titel.substring(titel.indexOf("(") + 1).trim();
-                    //titel = titel.replace(")", "");
                 }
-                String subtitle = seite2.extract("http_get.utPath", "= '", "'"); //http_get.utPath             = 'ut/AB_20150228.xml';
+                else if (titel.contains("("))
+                {
+                    thema = titel.substring(0, titel.indexOf('(')).trim();
+                    // titel = titel.substring(titel.indexOf("(") + 1).trim();
+                    // titel = titel.replace(")", "");
+                }
+                String subtitle = seite2.extract("http_get.utPath", "= '", "'"); // http_get.utPath
+                                                                                 // =
+                                                                                 // 'ut/AB_20150228.xml';
                 url = seite2.extract("var mediaURLs = ['", "'");
-                if (url.isEmpty()) {
+                if (url.isEmpty())
+                {
                     Log.errorLog(301245789, "keine URL für: " + urlSeite);
-                } else {
-                    // DatenFilm(String ssender, String tthema, String urlThema, String ttitel, String uurl, String uurlorg, String uurlRtmp, String datum, String zeit) {
-                    //DatenFilm film = new DatenFilm(nameSenderMReader, thema, strUrlFeed, titel, url, furl, datum, "");
-                    DatenFilm film = new DatenFilm(SENDERNAME, thema, urlSeite, titel, url, "", datum, "" /*Zeit*/, duration, description);
-                    if (!subtitle.isEmpty()) {
-                        subtitle = "http://sr-mediathek.sr-online.de/" + subtitle;
-                        CrawlerTool.addUrlSubtitle(film, subtitle);
+                }
+                else
+                {
+                    if (!subtitle.isEmpty() && !subtitle.startsWith(SUBTITLE_PREFIX))
+                    {
+                        subtitle = SUBTITLE_PREFIX + subtitle;
+                    }
+                    final Film film = CrawlerTool.createFilm(SENDER, url, titel, thema, datum, "", duration, urlSeite,
+                            description, "", "");
+                    if (!subtitle.isEmpty())
+                    {
+                        film.addSubtitle(new URL(subtitle));
                     }
                     addFilm(film);
                 }
-            } catch (Exception ex) {
+            }
+            catch (final Exception ex)
+            {
                 Log.errorLog(402583366, ex);
             }
         }
