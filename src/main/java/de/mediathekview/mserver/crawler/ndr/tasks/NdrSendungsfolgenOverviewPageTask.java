@@ -2,6 +2,7 @@ package de.mediathekview.mserver.crawler.ndr.tasks;
 
 import java.util.Optional;
 import java.util.concurrent.ConcurrentLinkedQueue;
+import java.util.regex.Pattern;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.jsoup.nodes.Document;
@@ -28,7 +29,8 @@ public class NdrSendungsfolgenOverviewPageTask
   private static final String ATTRIBUTE_HREF = "href";
   private static final String FILM_URL_SELECTOR = ".module .teaser h2 a";
   private static final String URL_END = ".html";
-  private static final String SUBPAGE_URL_PART = "_page-%d+";
+  private static final String SUBPAGE_URL_PART_REGEX_PATTERN = "_page-\\d+";
+  private static final String SUBPAGE_URL_PART_PATTERN = "_page-%d";
 
   public NdrSendungsfolgenOverviewPageTask(final AbstractCrawler aCrawler,
       final ConcurrentLinkedQueue<CrawlerUrlDTO> aUrlToCrawlDTOs) {
@@ -38,8 +40,8 @@ public class NdrSendungsfolgenOverviewPageTask
   private NdrSendungsfolgenOverviewPageTask findSubPages(final Document aDocument,
       final String aPageURl) {
     final ConcurrentLinkedQueue<CrawlerUrlDTO> subPages = new ConcurrentLinkedQueue<>();
-    final Elements subpageElements = aDocument.select(".pagination li a span:not(\".icon\")");
-    if (subpageElements.isEmpty()) {
+    final Elements subpageElements = aDocument.select(".pagination li a span:not(.icon)");
+    if (!subpageElements.isEmpty()) {
       final Element lastSubpageElement = subpageElements.last();
       try {
         final int lastSubpageId = Integer.parseInt(lastSubpageElement.text());
@@ -51,9 +53,11 @@ public class NdrSendungsfolgenOverviewPageTask
           maxSubpageId = lastSubpageId;
         }
 
-        for (int i = 1; i <= maxSubpageId; i++) {
-          subPages.add(
-              new CrawlerUrlDTO(aPageURl.replace(URL_END, String.format(SUBPAGE_URL_PART, i))));
+        for (int i = 2; i <= maxSubpageId; i++) {
+          if (!Pattern.compile(SUBPAGE_URL_PART_REGEX_PATTERN).matcher(aPageURl).find()) {
+            subPages.add(new CrawlerUrlDTO(
+                aPageURl.replace(URL_END, String.format(SUBPAGE_URL_PART_PATTERN + URL_END, i))));
+          }
         }
       } catch (final NumberFormatException numberFormatException) {
         LOG.error(String.format("Can't parse the subpage id: \"%s\" for: \"%s\".",
@@ -72,7 +76,8 @@ public class NdrSendungsfolgenOverviewPageTask
   @Override
   protected void processDocument(final CrawlerUrlDTO aUrlDTO, final Document aDocument) {
     Optional<NdrSendungsfolgenOverviewPageTask> subpageCrawler;
-    if (!aUrlDTO.getUrl().contains(SUBPAGE_URL_PART) && config.getMaximumSubpages() > 0) {
+    if (!aUrlDTO.getUrl().contains(SUBPAGE_URL_PART_REGEX_PATTERN)
+        && config.getMaximumSubpages() > 0) {
       subpageCrawler = Optional.of(findSubPages(aDocument, aUrlDTO.getUrl()));
       subpageCrawler.get().fork();
     } else {
