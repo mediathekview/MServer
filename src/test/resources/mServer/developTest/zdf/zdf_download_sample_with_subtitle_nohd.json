@@ -1,0 +1,370 @@
+{
+   "attributes" : {
+      "downloadAllowed" : {
+         "profile" : "http://zdf.de/rels/streams/ptmd/attributes/attribute",
+         "value" : false
+      },
+      "duration" : {
+         "profile" : "http://zdf.de/rels/streams/ptmd/attributes/attribute",
+         "value" : 5288000
+      },
+      "fsk" : {
+         "profile" : "http://zdf.de/rels/streams/ptmd/attributes/attribute",
+         "value" : "none"
+      },
+      "geoLocation" : {
+         "profile" : "http://zdf.de/rels/streams/ptmd/attributes/attribute",
+         "value" : "none"
+      },
+      "profile" : "http://zdf.de/rels/streams/ptmd/attributes"
+   },
+   "basename" : "170212_sendung2_sof",
+   "captions" : [
+      {
+         "class" : "hoh",
+         "format" : "ebu-tt-d-basic-de",
+         "language" : "deu",
+         "offset" : 0,
+         "profile" : "http://zdf.de/rels/streams/ptmd/caption",
+         "uri" : "https://utstreaming.zdf.de/mtt/zdf/17/02/170212_sendung2_sof/3/F1011017_hoh_deu_Lindstroem_Liebesreigen_in_Samlund_120217.xml"
+      },
+      {
+         "class" : "hoh",
+         "format" : "webvtt",
+         "language" : "deu",
+         "offset" : 0,
+         "profile" : "http://zdf.de/rels/streams/ptmd/caption",
+         "uri" : "https://utstreaming.zdf.de/mtt/zdf/17/02/170212_sendung2_sof/3/F1011017_hoh_deu_Lindstroem_Liebesreigen_in_Samlund_120217.vtt"
+      }
+   ],
+   "documentVersion" : 2,
+   "mandant" : "mediathek",
+   "playerId" : "ngplayer_2_3",
+   "priorityList" : [
+      {
+         "formitaeten" : [
+            {
+               "facets" : [],
+               "isAdaptive" : true,
+               "mimeType" : "application/x-mpegURL",
+               "profile" : "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet",
+               "qualities" : [
+                  {
+                     "audio" : {
+                        "profile" : "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality/audio",
+                        "tracks" : [
+                           {
+                              "cdn" : "akamai",
+                              "class" : "main",
+                              "language" : "deu",
+                              "profile" : "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality/audio/track",
+                              "uri" : "https://zdfvodnone-vh.akamaihd.net/i/meta-files/zdf/smil/m3u8/300/17/02/170212_sendung2_sof/3/170212_sendung2_sof.smil/master.m3u8"
+                           }
+                        ]
+                     },
+                     "hd" : true,
+                     "profile" : "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality",
+                     "quality" : "auto"
+                  },
+                  {
+                     "audio" : {
+                        "profile" : "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality/audio",
+                        "tracks" : [
+                           {
+                              "cdn" : "akamai",
+                              "class" : "main",
+                              "language" : "deu",
+                              "profile" : "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality/audio/track",
+                              "uri" : "https://zdfvodnone-vh.akamaihd.net/i/meta-files/zdf/smil/m3u8/300/17/02/170212_sendung2_sof/3/170212_sendung2_sof.smil/master.m3u8"
+                           }
+                        ]
+                     },
+                     "hd" : true,
+                     "profile" : "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality",
+                     "quality" : "high"
+                  },
+                  {
+                     "audio" : {
+                        "profile" : "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality/audio",
+                        "tracks" : [
+                           {
+                              "cdn" : "akamai",
+                              "class" : "main",
+                              "language" : "deu",
+                              "profile" : "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality/audio/track",
+                              "uri" : "https://zdfvodnone-vh.akamaihd.net/i/meta-files/zdf/smil/m3u8/200/17/02/170212_sendung2_sof/3/170212_sendung2_sof.smil/master.m3u8"
+                           }
+                        ]
+                     },
+                     "hd" : false,
+                     "profile" : "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality",
+                     "quality" : "med"
+                  }
+               ],
+               "type" : "h264_aac_ts_http_m3u8_http"
+            }
+         ],
+         "profile" : "http://zdf.de/rels/streams/ptmd/priority-list-item"
+      },
+      {
+         "formitaeten" : [
+            {
+               "facets" : [
+                  "progressive"
+               ],
+               "isAdaptive" : false,
+               "mimeType" : "video/mp4",
+               "profile" : "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet",
+               "qualities" : [
+                  {
+                     "audio" : {
+                        "profile" : "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality/audio",
+                        "tracks" : [
+                           {
+                              "cdn" : "akamai",
+                              "class" : "main",
+                              "language" : "deu",
+                              "profile" : "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality/audio/track",
+                              "uri" : "https://nrodlzdf-a.akamaihd.net/none/zdf/17/02/170212_sendung2_sof/3/170212_sendung2_sof_1496k_p13v13.mp4"
+                           }
+                        ]
+                     },
+                     "hd" : false,
+                     "mimeCodec" : "avc1.4d001f,mp4a.40.5",
+                     "profile" : "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality",
+                     "quality" : "veryhigh"
+                  },
+                  {
+                     "audio" : {
+                        "profile" : "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality/audio",
+                        "tracks" : [
+                           {
+                              "cdn" : "akamai",
+                              "class" : "main",
+                              "language" : "deu",
+                              "profile" : "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality/audio/track",
+                              "uri" : "https://nrodlzdf-a.akamaihd.net/none/zdf/17/02/170212_sendung2_sof/3/170212_sendung2_sof_476k_p9v13.mp4"
+                           }
+                        ]
+                     },
+                     "hd" : false,
+                     "mimeCodec" : "avc1.4d001f,mp4a.40.5",
+                     "profile" : "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality",
+                     "quality" : "high"
+                  },
+                  {
+                     "audio" : {
+                        "profile" : "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality/audio",
+                        "tracks" : [
+                           {
+                              "cdn" : "akamai",
+                              "class" : "main",
+                              "language" : "deu",
+                              "profile" : "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality/audio/track",
+                              "uri" : "https://nrodlzdf-a.akamaihd.net/none/zdf/17/02/170212_sendung2_sof/3/170212_sendung2_sof_229k_p7v13.mp4"
+                           }
+                        ]
+                     },
+                     "hd" : false,
+                     "mimeCodec" : "avc1.4d001f,mp4a.40.5",
+                     "profile" : "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality",
+                     "quality" : "low"
+                  }
+               ],
+               "type" : "h264_aac_mp4_http_na_na"
+            }
+         ],
+         "profile" : "http://zdf.de/rels/streams/ptmd/priority-list-item"
+      },
+      {
+         "formitaeten" : [
+            {
+               "facets" : [
+                  "restriction_useragent"
+               ],
+               "isAdaptive" : false,
+               "mimeType" : "video/mp4",
+               "profile" : "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet",
+               "qualities" : [
+                  {
+                     "audio" : {
+                        "profile" : "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality/audio",
+                        "tracks" : [
+                           {
+                              "cdn" : "akamai",
+                              "class" : "main",
+                              "language" : "deu",
+                              "profile" : "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality/audio/track",
+                              "uri" : "https://rodlzdf-a.akamaihd.net/none/zdf/17/02/170212_sendung2_sof/3/170212_sendung2_sof_1496k_p13v13.mp4"
+                           }
+                        ]
+                     },
+                     "hd" : false,
+                     "mimeCodec" : "avc1.4d001f,mp4a.40.5",
+                     "profile" : "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality",
+                     "quality" : "veryhigh"
+                  },
+                  {
+                     "audio" : {
+                        "profile" : "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality/audio",
+                        "tracks" : [
+                           {
+                              "cdn" : "akamai",
+                              "class" : "main",
+                              "language" : "deu",
+                              "profile" : "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality/audio/track",
+                              "uri" : "https://rodlzdf-a.akamaihd.net/none/zdf/17/02/170212_sendung2_sof/3/170212_sendung2_sof_476k_p9v13.mp4"
+                           }
+                        ]
+                     },
+                     "hd" : false,
+                     "mimeCodec" : "avc1.4d001f,mp4a.40.5",
+                     "profile" : "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality",
+                     "quality" : "high"
+                  }
+               ],
+               "type" : "h264_aac_mp4_http_na_na"
+            }
+         ],
+         "profile" : "http://zdf.de/rels/streams/ptmd/priority-list-item"
+      },
+      {
+         "formitaeten" : [
+            {
+               "facets" : [
+                  "progressive"
+               ],
+               "isAdaptive" : false,
+               "mimeType" : "video/webm",
+               "profile" : "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet",
+               "qualities" : [
+                  {
+                     "audio" : {
+                        "profile" : "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality/audio",
+                        "tracks" : [
+                           {
+                              "cdn" : "akamai",
+                              "class" : "main",
+                              "language" : "deu",
+                              "profile" : "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality/audio/track",
+                              "uri" : "https://nrodlzdf-a.akamaihd.net/none/zdf/17/02/170212_sendung2_sof/3/170212_sendung2_sof_1496k_p18v13.webm"
+                           }
+                        ]
+                     },
+                     "hd" : false,
+                     "mimeCodec" : "vp8,vorbis",
+                     "profile" : "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality",
+                     "quality" : "veryhigh"
+                  },
+                  {
+                     "audio" : {
+                        "profile" : "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality/audio",
+                        "tracks" : [
+                           {
+                              "cdn" : "akamai",
+                              "class" : "main",
+                              "language" : "deu",
+                              "profile" : "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality/audio/track",
+                              "uri" : "https://nrodlzdf-a.akamaihd.net/none/zdf/17/02/170212_sendung2_sof/3/170212_sendung2_sof_776k_p17v13.webm"
+                           }
+                        ]
+                     },
+                     "hd" : false,
+                     "mimeCodec" : "vp8,vorbis",
+                     "profile" : "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality",
+                     "quality" : "high"
+                  },
+                  {
+                     "audio" : {
+                        "profile" : "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality/audio",
+                        "tracks" : [
+                           {
+                              "cdn" : "akamai",
+                              "class" : "main",
+                              "language" : "deu",
+                              "profile" : "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality/audio/track",
+                              "uri" : "https://nrodlzdf-a.akamaihd.net/none/zdf/17/02/170212_sendung2_sof/3/170212_sendung2_sof_282k_p16v13.webm"
+                           }
+                        ]
+                     },
+                     "hd" : false,
+                     "mimeCodec" : "vp8,vorbis",
+                     "profile" : "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality",
+                     "quality" : "low"
+                  }
+               ],
+               "type" : "vp8_vorbis_webm_http_na_na"
+            }
+         ],
+         "profile" : "http://zdf.de/rels/streams/ptmd/priority-list-item"
+      },
+      {
+         "formitaeten" : [
+            {
+               "facets" : [],
+               "isAdaptive" : true,
+               "mimeType" : "application/f4m+xml",
+               "profile" : "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet",
+               "qualities" : [
+                  {
+                     "audio" : {
+                        "profile" : "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality/audio",
+                        "tracks" : [
+                           {
+                              "cdn" : "akamai",
+                              "class" : "main",
+                              "language" : "deu",
+                              "profile" : "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality/audio/track",
+                              "uri" : "http://zdf_hdflash_none-f.akamaihd.net/z/meta-files/zdf/smil/f4m/300/17/02/170212_sendung2_sof/3/170212_sendung2_sof.smil/manifest.f4m"
+                           }
+                        ]
+                     },
+                     "hd" : true,
+                     "profile" : "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality",
+                     "quality" : "auto"
+                  },
+                  {
+                     "audio" : {
+                        "profile" : "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality/audio",
+                        "tracks" : [
+                           {
+                              "cdn" : "akamai",
+                              "class" : "main",
+                              "language" : "deu",
+                              "profile" : "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality/audio/track",
+                              "uri" : "http://zdf_hdflash_none-f.akamaihd.net/z/meta-files/zdf/smil/f4m/300/17/02/170212_sendung2_sof/3/170212_sendung2_sof.smil/manifest.f4m"
+                           }
+                        ]
+                     },
+                     "hd" : true,
+                     "profile" : "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality",
+                     "quality" : "high"
+                  },
+                  {
+                     "audio" : {
+                        "profile" : "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality/audio",
+                        "tracks" : [
+                           {
+                              "cdn" : "akamai",
+                              "class" : "main",
+                              "language" : "deu",
+                              "profile" : "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality/audio/track",
+                              "uri" : "http://zdf_hdflash_none-f.akamaihd.net/z/meta-files/zdf/smil/f4m/200/17/02/170212_sendung2_sof/3/170212_sendung2_sof.smil/manifest.f4m"
+                           }
+                        ]
+                     },
+                     "hd" : false,
+                     "profile" : "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality",
+                     "quality" : "med"
+                  }
+               ],
+               "type" : "h264_aac_f4f_http_f4m_http"
+            }
+         ],
+         "profile" : "http://zdf.de/rels/streams/ptmd/priority-list-item"
+      }
+   ],
+   "profile" : "http://zdf.de/rels/streams/ptmd",
+   "self" : "/tmd/2/ngplayer_2_3/vod/ptmd/mediathek/170212_sendung2_sof/3",
+   "version" : 3
+}

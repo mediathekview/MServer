@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<MServer>
+<system>
+    <system-user-agent>MServer</system-user-agent>
+
+	<!-- URLs von fertigen Filmlisten die importiert werden -->
+	<system-filmliste-import-url-1>http://verteiler1.mediathekview.de/Filmliste-diff.xz</system-filmliste-import-url-1>
+	<!-- <system-filmliste-import-url-2>http://verteiler2.mediathekview.de/Filmliste-akt.xz</system-filmliste-import-url-2> -->
+
+	<!-- eine alte Liste importieren, nur bei einem "langen" Suchlauf -->
+	<system-filmliste-import-old>http://verteiler1.mediathekview.de/Filmliste-akt.xz</system-filmliste-import-old>
+
+	<!-- Livestreams die import werden -->
+	<system-filmliste-import-live>live-streams.json</system-filmliste-import-live>
+
+	<!-- Filmliste lokal exportieren
+	<system-export-datei-filmliste>filme.xz</system-export-datei-filmliste>
+	<system-export-datei-filmliste-org>filme-org.xz</system-export-datei-filmliste-org>
+	<system-export-datei-filmliste-diff>filme-diff.xz</system-export-datei-filmliste-diff> -->
+
+
+	<!-- die Orginal-Liste nach der die Diff erstellt wird -->
+	<system-filmliste-org>filme-org.xz</system-filmliste-org>
+
+    <system-proxy-url></system-proxy-url>
+    <system-proxy-port></system-proxy-port>
+    <system-debug>1</system-debug>
+</system>
+
+
+<!-- die Zeiten an denen die Filmliste gesucht werden soll  -->
+<suchen>
+	<!-- nur kurze Liste erstelen: max, lang, kurz -->
+    <suchen-sender-wie>lang</suchen-sender-wie>
+
+	<!-- Liste wird neu erstellt: neu, update -->
+    <suchen-liste-wie>neu</suchen-liste-wie>
+
+	<!-- wann soll der Suchlauf starten: sofort, 10:00, 12:00 -->
+    <suchen-wann>sofort</suchen-wann>
+
+	<!-- wie lang darf der Suchlauf max dauern [min] -->
+    <suchen-max-warten>60</suchen-max-warten>
+
+	<!-- Orgliste erstellen, erste am Tag: true, false -->
+	<suchen-org-liste>true</suchen-org-liste>
+</suchen>
+
+<!-- upload -->
+
+	<!--
+	<upload>
+		<upload-art>copy</upload-art>
+		<upload-liste>diff,akt</upload-liste>
+		<upload-dest-dir>/tmp/filme</upload-dest-dir>
+	</upload>
+	-->
+
+</MServer>
