@@ -26,6 +26,8 @@ import de.mediathekview.mlib.daten.Resolution;
 import de.mediathekview.mserver.base.messages.ServerMessages;
 import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
 import de.mediathekview.mserver.crawler.br.BrCrawler;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import mServer.crawler.CrawlerTool;
 
 public class BrFilmDeserializer implements JsonDeserializer<Optional<Film>> {
@@ -63,6 +65,8 @@ public class BrFilmDeserializer implements JsonDeserializer<Optional<Film>> {
   private static final String JSON_ELEMENT_WIDTH = "width";
   private static final String ERROR_VIDEO_URL = "A video url can't be converted to a Java URL.";
 
+  private static final ZoneId ZONE_ID = ZoneId.of( "Europe/Berlin" );
+  
   private final AbstractCrawler crawler;
   private final String filmId;
 
@@ -390,7 +394,10 @@ public class BrFilmDeserializer implements JsonDeserializer<Optional<Film>> {
   }
 
   private LocalDateTime toTime(final String aStart) {
-    return LocalDateTime.parse(aStart, DateTimeFormatter.ISO_OFFSET_DATE_TIME);
+    LocalDateTime local = LocalDateTime.parse(aStart, DateTimeFormatter.ISO_OFFSET_DATE_TIME);
+    ZonedDateTime zoned = local.atZone(ZONE_ID);
+    int hoursToAdd = zoned.getOffset().getTotalSeconds()/3600;
+    return local.plusHours(hoursToAdd);  
   }
 
 }
