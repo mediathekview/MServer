@@ -46,7 +46,7 @@ public class SrfSendungenOverviewPageTaskTest {
   public void test() throws Exception {
     
     JsoupMock.mock(SrfSendungenOverviewPageTask.OVERVIEW_PAGE_URL, htmlFile);
-    Set<CrawlerUrlDTO> actual = target.call();
+    Set<String> actual = target.call();
     assertThat(actual, notNullValue());
     assertThat(actual.size(), equalTo(expectedUrls));
   }
