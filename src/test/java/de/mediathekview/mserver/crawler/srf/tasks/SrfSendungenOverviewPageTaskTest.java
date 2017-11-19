@@ -25,7 +25,7 @@ public class SrfSendungenOverviewPageTaskTest {
   @Parameterized.Parameters
     public static Collection<Object[]> data() {
         return Arrays.asList(new Object[][] {  
-            { "/srf/srf_overview_page_no_data_Attribute.htm", 0 },
+            { "/srf/srf_overview_page_no_data_attribute.htm", 0 },
             { "/srf/srf_overview_page_no_div_with_class.htm", 0 },
             { "/srf/srf_overview_page.htm", 161 },
         });
