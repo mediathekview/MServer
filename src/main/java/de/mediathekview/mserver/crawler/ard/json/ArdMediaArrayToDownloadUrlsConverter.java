@@ -4,6 +4,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.EnumMap;
 import java.util.Map;
+import java.util.Optional;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import com.google.gson.JsonArray;
@@ -14,9 +15,9 @@ import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
 
 public class ArdMediaArrayToDownloadUrlsConverter {
 
+  private static final String ELEMENT_STREAM = "_stream";
   private static final Logger LOG =
       LogManager.getLogger(ArdMediaArrayToDownloadUrlsConverter.class);
-  private static final String ELEMENT_STREAM = "_stream";
   private static final String URL_PREFIX_PATTERN = "\\w+:";
   private static final String URL_PATTERN = "\\w+.*";
   private static final String ELEMENT_MEDIA_ARRAY = "_mediaArray";
@@ -40,12 +41,17 @@ public class ArdMediaArrayToDownloadUrlsConverter {
       final String qualityAsText =
           vidoeElement.getAsJsonObject().get(ELEMENT_QUALITY).getAsString();
 
-      final String baseUrl = vidoeElement.getAsJsonObject().has(ELEMENT_SERVER)
-          ? vidoeElement.getAsJsonObject().get(ELEMENT_SERVER).getAsString()
-          : "";
-      if (baseUrl.startsWith(PROTOCOL_RTMP)) {
+      Optional<String> baseUrl = vidoeElement.getAsJsonObject().has(ELEMENT_SERVER)
+          ? Optional.of(vidoeElement.getAsJsonObject().get(ELEMENT_SERVER).getAsString())
+          : Optional.empty();
+      if (!baseUrl.isPresent() || baseUrl.get().isEmpty()) {
+        baseUrl = vidoeElement.getAsJsonObject().has(ELEMENT_STREAM)
+            ? Optional.of(vidoeElement.getAsJsonObject().get(ELEMENT_STREAM).getAsString())
+            : Optional.empty();
+      }
+      if (baseUrl.isPresent() && baseUrl.get().startsWith(PROTOCOL_RTMP)) {
         LOG.debug("Found an Sendung with the old RTMP format: "
-            + videoElementToUrl(vidoeElement, baseUrl));
+            + videoElementToUrl(vidoeElement, baseUrl.get()));
       } else {
         int qualityNumber;
         try {
@@ -58,7 +64,7 @@ public class ArdMediaArrayToDownloadUrlsConverter {
 
         if (qualityNumber > 0 || mediaStreamArray.size() == 1) {
           final Resolution quality = getQualityForNumber(qualityNumber);
-          final String downloadUrl = videoElementToUrl(vidoeElement, baseUrl);
+          final String downloadUrl = videoElementToUrl(vidoeElement, baseUrl.get());
           try {
             downloadUrls.put(quality, new URL(downloadUrl));
           } catch (final MalformedURLException malformedURLException) {
