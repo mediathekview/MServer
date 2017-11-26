@@ -1,11 +1,10 @@
 package de.mediathekview.mserver.crawler.srf.tasks;
 
 import de.mediathekview.mserver.crawler.basic.CrawlerUrlDTO;
-import de.mediathekview.mserver.crawler.srf.tasks.SrfSendungenOverviewPageTask;
 import de.mediathekview.mserver.testhelper.JsoupMock;
 import java.util.Arrays;
 import java.util.Collection;
-import java.util.Set;
+import java.util.concurrent.ConcurrentLinkedQueue;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.notNullValue;
 import org.jsoup.Jsoup;
@@ -46,7 +45,7 @@ public class SrfSendungenOverviewPageTaskTest {
   public void test() throws Exception {
     
     JsoupMock.mock(SrfSendungenOverviewPageTask.OVERVIEW_PAGE_URL, htmlFile);
-    Set<String> actual = target.call();
+    ConcurrentLinkedQueue<CrawlerUrlDTO> actual = target.call();
     assertThat(actual, notNullValue());
     assertThat(actual.size(), equalTo(expectedUrls));
   }

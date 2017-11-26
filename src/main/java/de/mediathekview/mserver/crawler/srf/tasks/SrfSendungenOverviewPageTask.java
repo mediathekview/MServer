@@ -2,17 +2,18 @@ package de.mediathekview.mserver.crawler.srf.tasks;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import de.mediathekview.mserver.crawler.basic.CrawlerUrlDTO;
 import de.mediathekview.mserver.crawler.srf.parser.SrfSendungenOverviewJsonDeserializer;
 import java.io.IOException;
-import java.util.HashSet;
 import java.util.Set;
 import java.util.concurrent.Callable;
+import java.util.concurrent.ConcurrentLinkedQueue;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 
-public class SrfSendungenOverviewPageTask implements Callable<Set<String>> {
+public class SrfSendungenOverviewPageTask implements Callable<ConcurrentLinkedQueue<CrawlerUrlDTO>> {
 
   private static final Logger LOG = LogManager.getLogger(SrfSendungenOverviewPageTask.class);
   public static final String OVERVIEW_PAGE_URL = "https://www.srf.ch/play/v2/tv/shows";
@@ -20,8 +21,8 @@ public class SrfSendungenOverviewPageTask implements Callable<Set<String>> {
   private static final String ATTRIBUTE_DATA = "data-alphabetical-sections";
   
   @Override
-  public Set<String> call() throws Exception {
-    final Set<String> results = new HashSet<>();
+  public ConcurrentLinkedQueue<CrawlerUrlDTO> call() throws Exception {
+    final ConcurrentLinkedQueue<CrawlerUrlDTO> results = new ConcurrentLinkedQueue<>();
     
     try {
       final Document document = Jsoup.connect(OVERVIEW_PAGE_URL).get();

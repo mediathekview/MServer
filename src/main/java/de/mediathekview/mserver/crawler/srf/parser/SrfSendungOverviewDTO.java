@@ -1,6 +1,5 @@
 package de.mediathekview.mserver.crawler.srf.parser;
 
-import de.mediathekview.mserver.crawler.basic.CrawlerUrlDTO;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;

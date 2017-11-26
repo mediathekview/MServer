@@ -1,6 +1,5 @@
 package de.mediathekview.mserver.crawler.srf.parser;
 
-import com.google.gson.JsonArray;
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonDeserializer;
 import com.google.gson.JsonElement;
@@ -20,11 +19,15 @@ public class SrfSendungOverviewJsonDeserializer implements JsonDeserializer<SrfS
   public SrfSendungOverviewDTO deserialize(JsonElement aJsonElement, Type aType, JsonDeserializationContext aJdc) throws JsonParseException {
     
     SrfSendungOverviewDTO dto = new SrfSendungOverviewDTO();
-    
+    try {
     JsonObject object = aJsonElement.getAsJsonObject();
     parseNextPage(dto, object);
     parseEpisodes(dto, object);
-    
+    } catch(Exception e) {
+      if(e != null) {
+        
+      }
+    }
     return dto;
   }
   
