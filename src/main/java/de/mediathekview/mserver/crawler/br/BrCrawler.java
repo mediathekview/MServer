@@ -13,6 +13,7 @@ import org.apache.logging.log4j.Logger;
 import de.mediathekview.mlib.daten.Film;
 import de.mediathekview.mlib.daten.Sender;
 import de.mediathekview.mlib.messages.listener.MessageListener;
+import de.mediathekview.mserver.base.config.MServerConfigManager;
 import de.mediathekview.mserver.base.messages.ServerMessages;
 import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
 import de.mediathekview.mserver.crawler.br.tasks.BrAllSendungenTask;
@@ -25,9 +26,10 @@ public class BrCrawler extends AbstractCrawler {
   public static final String BASE_URL = "https://www.br.de/mediathek/";
 
   public BrCrawler(final ForkJoinPool aForkJoinPool,
-      final Collection<MessageListener> aMessageListeners,
-      final Collection<SenderProgressListener> aProgressListeners) {
-    super(aForkJoinPool, aMessageListeners, aProgressListeners);
+          final Collection<MessageListener> aMessageListeners,
+          final Collection<SenderProgressListener> aProgressListeners,
+          final MServerConfigManager rootConfig) {
+      super(aForkJoinPool, aMessageListeners, aProgressListeners, rootConfig);
   }
 
   @Override

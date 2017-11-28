@@ -14,6 +14,7 @@ import com.google.gson.GsonBuilder;
 
 import de.mediathekview.mlib.communication.WebAccessHelper;
 import de.mediathekview.mserver.base.Consts;
+import de.mediathekview.mserver.base.config.CrawlerUrlType;
 import de.mediathekview.mserver.base.config.MServerBasicConfigDTO;
 import de.mediathekview.mserver.base.config.MServerConfigManager;
 import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
@@ -34,7 +35,7 @@ public class BrMissedSendungsFolgenTask implements Callable<Set<String>> {
 
   public BrMissedSendungsFolgenTask(final AbstractCrawler aCrawler) {
     crawler = aCrawler;
-    config = MServerConfigManager.getInstance().getConfig(aCrawler.getSender());
+    config = MServerConfigManager.getInstance().getSenderConfig(aCrawler.getSender());
   }
 
 
@@ -55,7 +56,7 @@ public class BrMissedSendungsFolgenTask implements Callable<Set<String>> {
       final Gson gson = new GsonBuilder()
               .registerTypeAdapter(BrIdsDTO.class, new BrMissedSendungsFolgenDeserializer(crawler))
               .create();
-      final String response = WebAccessHelper.getJsonResultFromPostAccess(new URL(Consts.BR_API_URL), String.format(QUERY_TEMPLATE, toDateString, fromDateString));
+      final String response = WebAccessHelper.getJsonResultFromPostAccess(crawler.getRuntimeConfig().getSingleCrawlerURL(CrawlerUrlType.BR_API_URL), String.format(QUERY_TEMPLATE, toDateString, fromDateString));
         
       missedSendungsFolgen = gson.fromJson(response, BrIdsDTO.class);
     });

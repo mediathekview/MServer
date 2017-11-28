@@ -46,7 +46,7 @@ public abstract class AbstractUrlTask<T, D extends CrawlerUrlDTO> extends Recurs
     crawler = aCrawler;
     urlsToCrawl = aUrlToCrawlDTOs;
     taskResults = ConcurrentHashMap.newKeySet();
-    config = MServerConfigManager.getInstance().getConfig(crawler.getSender());
+    config = MServerConfigManager.getInstance().getSenderConfig(crawler.getSender());
   }
 
   private void crawlPage(final ConcurrentLinkedQueue<D> aUrls) {

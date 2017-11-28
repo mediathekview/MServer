@@ -12,6 +12,7 @@ import org.apache.logging.log4j.Logger;
 import de.mediathekview.mlib.daten.Film;
 import de.mediathekview.mlib.daten.Sender;
 import de.mediathekview.mlib.messages.listener.MessageListener;
+import de.mediathekview.mserver.base.config.MServerConfigManager;
 import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
 import de.mediathekview.mserver.crawler.basic.CrawlerUrlDTO;
 import de.mediathekview.mserver.crawler.dreisat.tasks.DreisatFilmDetailsTask;
@@ -26,8 +27,8 @@ public class DreiSatCrawler extends AbstractCrawler {
 
   public DreiSatCrawler(final ForkJoinPool aForkJoinPool,
       final Collection<MessageListener> aMessageListeners,
-      final Collection<SenderProgressListener> aProgressListeners) {
-    super(aForkJoinPool, aMessageListeners, aProgressListeners);
+      final Collection<SenderProgressListener> aProgressListeners, final MServerConfigManager rootConfig) {
+    super(aForkJoinPool, aMessageListeners, aProgressListeners, rootConfig);
   }
 
   @Override
@@ -51,17 +52,17 @@ public class DreiSatCrawler extends AbstractCrawler {
   protected RecursiveTask<Set<Film>> createCrawlerTask() {
 
     final DreisatOverviewpageTask sendungenTask = new DreisatOverviewpageTask(this,
-        getSendungenAZUrls(), false, config.getMaximumDaysForSendungVerpasstSection());
+        getSendungenAZUrls(), false, crawlerConfig.getMaximumDaysForSendungVerpasstSection());
     final Set<CrawlerUrlDTO> sendungUrls = forkJoinPool.invoke(sendungenTask);
 
     final DreisatOverviewpageTask sendungsfolgenTask = new DreisatOverviewpageTask(this,
-        new ConcurrentLinkedQueue<>(sendungUrls), true, config.getMaximumSubpages());
+        new ConcurrentLinkedQueue<>(sendungUrls), true, crawlerConfig.getMaximumSubpages());
     final ForkJoinTask<Set<CrawlerUrlDTO>> featureFendungsfolgenFilmUrls =
         forkJoinPool.submit(sendungsfolgenTask);
 
 
     final DreisatOverviewpageTask sendungVerpasstTask = new DreisatOverviewpageTask(this,
-        getSendungVerpasstUrls(), true, config.getMaximumSubpages());
+        getSendungVerpasstUrls(), true, crawlerConfig.getMaximumSubpages());
 
     final ConcurrentLinkedQueue<CrawlerUrlDTO> filmUrls = new ConcurrentLinkedQueue<>();
     try {
