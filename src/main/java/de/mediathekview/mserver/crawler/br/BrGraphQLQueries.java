@@ -14,6 +14,8 @@ import java.util.List;
 
 public class BrGraphQLQueries {
     
+    
+    
     private static final String JSON_GRAPHQL_HEADER = "{\"query\":\"";
     
     public static String getQuery2GetFilmCount() {

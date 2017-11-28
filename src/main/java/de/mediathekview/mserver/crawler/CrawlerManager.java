@@ -49,6 +49,7 @@ import de.mediathekview.mserver.crawler.br.BrCrawler;
 import de.mediathekview.mserver.crawler.dreisat.DreiSatCrawler;
 import de.mediathekview.mserver.crawler.dw.DwCrawler;
 import de.mediathekview.mserver.crawler.funk.FunkCrawler;
+import de.mediathekview.mserver.crawler.ndr.NdrCrawler;
 
 /**
  * A manager to control the crawler.
@@ -160,6 +161,10 @@ public class CrawlerManager extends AbstractManager {
 
   public Set<Sender> getAviableSenderToCrawl() {
     return new HashSet<>(crawlerMap.keySet());
+  }
+
+  public ScheduledExecutorService getExecutorService() {
+    return executorService;
   }
 
   /**
@@ -318,7 +323,6 @@ public class CrawlerManager extends AbstractManager {
     runCrawlers(crawlerToRun.toArray(new AbstractCrawler[crawlerToRun.size()]));
     timeoutRunner.stopTimeout();
   }
-
 
   /**
    * This stops all running crawler.
@@ -507,6 +511,7 @@ public class CrawlerManager extends AbstractManager {
         new DreiSatCrawler(forkJoinPool, messageListeners, progressListeners, rootConfig));
     crawlerMap.put(Sender.FUNK, new FunkCrawler(forkJoinPool, messageListeners, progressListeners, rootConfig));
     crawlerMap.put(Sender.DW, new DwCrawler(forkJoinPool, messageListeners, progressListeners, rootConfig));
+    crawlerMap.put(Sender.NDR, new NdrCrawler(forkJoinPool, messageListeners, progressListeners, rootConfig));
   }
 
   private void runCrawlers(final AbstractCrawler... aCrawlers) {
@@ -540,9 +545,5 @@ public class CrawlerManager extends AbstractManager {
 
     uploadFilmlist(ftpFilePathsEntry.getKey(), ftpUploadTarget, aIsDiffList);
   }
-
-public ScheduledExecutorService getExecutorService() {
-	return executorService;
-}
 
 }

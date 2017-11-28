@@ -25,9 +25,9 @@ import de.mediathekview.mserver.progress.listeners.SenderProgressListener;
 
 public class NdrCrawler extends AbstractCrawler {
   private static final Logger LOG = LogManager.getLogger(NdrCrawler.class);
-  public static final String NDR_BASE_URL = "http://www.ndr.de/mediathek";
+  public static final String NDR_BASE_URL = "http://www.ndr.de/mediathek/";
   private static final String SENDUNG_VERPASST_URL_TEMPLATE =
-      NDR_BASE_URL + "/sendung_verpasst/epg1490_date-%s_display-all.html";
+      NDR_BASE_URL + "sendung_verpasst/epg1490_date-%s_display-all.html";
   private static final DateTimeFormatter URL_DATE_TIME_FORMATTER = DateTimeFormatter.ISO_LOCAL_DATE;
 
   public NdrCrawler(final ForkJoinPool aForkJoinPool,

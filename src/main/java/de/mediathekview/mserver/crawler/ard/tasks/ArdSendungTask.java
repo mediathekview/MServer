@@ -74,7 +74,8 @@ public class ArdSendungTask extends AbstractDocumentTask<Film, ArdSendungBasicIn
   private Gson createGson() {
     return new GsonBuilder()
         .registerTypeAdapter(ArdBasicInfoDTO.class, new ArdBasicInfoJsonDeserializer())
-        .registerTypeAdapter(ArdVideoInfoDTO.class, new ArdVideoInfoJsonDeserializer()).create();
+        .registerTypeAdapter(ArdVideoInfoDTO.class, new ArdVideoInfoJsonDeserializer(crawler))
+        .create();
   }
 
   private String gatherDatum(final String[] aClipInfo) {
