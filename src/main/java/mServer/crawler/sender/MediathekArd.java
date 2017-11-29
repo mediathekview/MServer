@@ -466,7 +466,7 @@ public class MediathekArd extends MediathekReader {
           String urlHd = "";
           
           // Dateiname extrahieren
-          int indexLastSlash = urlNormal.lastIndexOf("/");
+          int indexLastSlash = urlNormal.lastIndexOf('/');
           if (indexLastSlash > 0) {
             String fileName = urlNormal.substring(indexLastSlash + 1);
             String path = urlNormal.substring(0, indexLastSlash + 1);
