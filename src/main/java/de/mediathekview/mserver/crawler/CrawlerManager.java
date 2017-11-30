@@ -50,6 +50,7 @@ import de.mediathekview.mserver.crawler.dreisat.DreiSatCrawler;
 import de.mediathekview.mserver.crawler.dw.DwCrawler;
 import de.mediathekview.mserver.crawler.funk.FunkCrawler;
 import de.mediathekview.mserver.crawler.ndr.NdrCrawler;
+import de.mediathekview.mserver.crawler.srf.SrfCrawler;
 
 /**
  * A manager to control the crawler.
@@ -507,11 +508,11 @@ public class CrawlerManager extends AbstractManager {
   private void initializeCrawler(MServerConfigManager rootConfig) {
     crawlerMap.put(Sender.ARD, new ArdCrawler(forkJoinPool, messageListeners, progressListeners, rootConfig));
     crawlerMap.put(Sender.BR, new BrCrawler(forkJoinPool, messageListeners, progressListeners, rootConfig));
-    crawlerMap.put(Sender.DREISAT,
-        new DreiSatCrawler(forkJoinPool, messageListeners, progressListeners, rootConfig));
+    crawlerMap.put(Sender.DREISAT, new DreiSatCrawler(forkJoinPool, messageListeners, progressListeners, rootConfig));
     crawlerMap.put(Sender.FUNK, new FunkCrawler(forkJoinPool, messageListeners, progressListeners, rootConfig));
     crawlerMap.put(Sender.DW, new DwCrawler(forkJoinPool, messageListeners, progressListeners, rootConfig));
     crawlerMap.put(Sender.NDR, new NdrCrawler(forkJoinPool, messageListeners, progressListeners, rootConfig));
+    crawlerMap.put(Sender.SRF, new SrfCrawler(forkJoinPool, messageListeners, progressListeners, rootConfig));
   }
 
   private void runCrawlers(final AbstractCrawler... aCrawlers) {
