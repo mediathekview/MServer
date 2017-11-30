@@ -9,8 +9,9 @@
  */
 package de.mediathekview.mserver.crawler.br;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
 
 public class BrGraphQLQueries {
     
@@ -22,11 +23,11 @@ public class BrGraphQLQueries {
         
         StringBuilder sb = new StringBuilder();
         
-        List<String> keys = new ArrayList<>();
-        keys.add("programmeFilter");
+        Map<String, String> variableMap = new HashMap<>();
+        variableMap.put("programmeFilter", "{\"status\":{\"id\":{\"eq\":\"av:http://ard.de/ontologies/lifeCycle#published\"}},\"broadcasts\":{\"start\":{\"gte\":\"1970-01-01T05:00:00.000Z\",\"lte\":\"2017-11-14T05:00:00.000Z\"}}}");
         
         sb.append(JSON_GRAPHQL_HEADER);
-        sb.append(getGraphQLHeaderWithVariable("MediathekViewCountFilms", keys));
+        sb.append(getGraphQLHeaderWithVariable("MediathekViewCountFilms",  variableMap.keySet()));
         
         sb.append("  viewer {");
         sb.append("    ...on Viewer {");
@@ -42,20 +43,21 @@ public class BrGraphQLQueries {
         sb.append("    }");
         sb.append("  }");
         sb.append("}");
-        sb.append("\",\"variables\":{\"programmeFilter\":{\"status\":{\"id\":{\"eq\":\"av:http://ard.de/ontologies/lifeCycle#published\"}},\"broadcasts\":{\"start\":{\"gte\":\"1970-01-01T05:00:00.000Z\",\"lte\":\"2017-11-14T05:00:00.000Z\"}}}}}");
+        sb.append(getGraphQLFooterWithVariable(variableMap));
         
         return sb.toString();
         
         
     }
     
-    static String getGraphQLHeaderWithVariable(String queryName, List<String> variableKeys) {
+    static String getGraphQLHeaderWithVariable(String queryName, Collection<String> variableKeys) {
         
         StringBuilder sb = new StringBuilder();
 
         sb.append("query ");
         sb.append(queryName);
         sb.append("(");
+        
         
         
         for (String varialeKey : variableKeys) {
@@ -69,6 +71,31 @@ public class BrGraphQLQueries {
         }
         
         sb.append(") {");
+        
+        return sb.toString();
+        
+    }
+    
+    static String getGraphQLFooterWithVariable(Map<String, String> variableMap) {
+
+        StringBuilder sb = new StringBuilder();
+        
+        sb.append("\""); // JSON Abschluss nach der GraphQL Query
+        
+        if(variableMap.size() > 0) {
+            sb.append(",\"variables\":{");
+            variableMap.forEach( (variableName, variableContent) -> {
+                if(sb.charAt(sb.length() - 1)!='{') { // Nur wenn es mehr als eine Variable ist wird ein Komma gebraucht
+                    sb.append(",");
+                }
+                sb.append("\"");
+                sb.append(variableName);
+                sb.append("\":");
+                sb.append(variableContent);
+                
+            });
+        }
+        sb.append("}}");
         
         return sb.toString();
         

@@ -14,6 +14,7 @@ import static org.junit.Assert.assertEquals;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.collections4.map.HashedMap;
 import org.junit.After;
 import org.junit.Test;
 
@@ -38,6 +39,16 @@ public class BrGraphQLQueriesTest {
         keys.add(variableName);
         
         assertEquals("query MediathekViewCountFilms(  $programmeFilter: ProgrammeFilter!) {", BrGraphQLQueries.getGraphQLHeaderWithVariable(queryTitle, keys));
+        
+    }
+    
+    @Test
+    public void testFooterGeneratorWithOneVariable() throws Exception {
+        
+        HashedMap<String, String> graphQLVariables = new HashedMap<>();
+        graphQLVariables.put("isClip", "\"true\"");
+        
+        assertEquals("\",\"variables\":{\"isClip\":\"true\"}}", BrGraphQLQueries.getGraphQLFooterWithVariable(graphQLVariables));
         
     }
     
