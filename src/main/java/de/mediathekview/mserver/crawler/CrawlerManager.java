@@ -22,8 +22,10 @@ import java.util.concurrent.ForkJoinPool;
 import java.util.concurrent.Future;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.stream.Collectors;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
 import de.mediathekview.mlib.daten.Film;
 import de.mediathekview.mlib.daten.Filmlist;
 import de.mediathekview.mlib.daten.Sender;
@@ -78,7 +80,8 @@ public class CrawlerManager extends AbstractManager {
 
   private CrawlerManager() {
     super();
-    config = MServerConfigManager.getInstance().getConfig();
+    MServerConfigManager rootConfig = MServerConfigManager.getInstance();
+    config = rootConfig.getConfig();
 
     executorService = Executors.newScheduledThreadPool(config.getMaximumCpuThreads());
     forkJoinPool = new ForkJoinPool(config.getMaximumCpuThreads());
@@ -88,7 +91,7 @@ public class CrawlerManager extends AbstractManager {
     filmlistManager = FilmlistManager.getInstance();
     ftpProgressListeners = new ArrayList<>();
     copyProgressListeners = new ArrayList<>();
-    initializeCrawler();
+    initializeCrawler(rootConfig);
   }
 
   public static CrawlerManager getInstance() {
@@ -306,7 +309,6 @@ public class CrawlerManager extends AbstractManager {
     runCrawlers(crawlers.toArray(new AbstractCrawler[crawlers.size()]));
   }
 
-
   /**
    * Runs all crawler and starts a timer for
    * {@link MServerConfigDTO#getMaximumServerDurationInMinutes()}.
@@ -503,15 +505,14 @@ public class CrawlerManager extends AbstractManager {
     return Optional.empty();
   }
 
-  private void initializeCrawler() {
-    crawlerMap.put(Sender.ARD, new ArdCrawler(forkJoinPool, messageListeners, progressListeners));
-    crawlerMap.put(Sender.BR, new BrCrawler(forkJoinPool, messageListeners, progressListeners));
-    crawlerMap.put(Sender.DREISAT,
-        new DreiSatCrawler(forkJoinPool, messageListeners, progressListeners));
-    crawlerMap.put(Sender.FUNK, new FunkCrawler(forkJoinPool, messageListeners, progressListeners));
-    crawlerMap.put(Sender.DW, new DwCrawler(forkJoinPool, messageListeners, progressListeners));
-    crawlerMap.put(Sender.NDR, new NdrCrawler(forkJoinPool, messageListeners, progressListeners));
-    crawlerMap.put(Sender.SRF, new SrfCrawler(forkJoinPool, messageListeners, progressListeners));
+  private void initializeCrawler(MServerConfigManager rootConfig) {
+    crawlerMap.put(Sender.ARD, new ArdCrawler(forkJoinPool, messageListeners, progressListeners, rootConfig));
+    crawlerMap.put(Sender.BR, new BrCrawler(forkJoinPool, messageListeners, progressListeners, rootConfig));
+    crawlerMap.put(Sender.DREISAT, new DreiSatCrawler(forkJoinPool, messageListeners, progressListeners, rootConfig));
+    crawlerMap.put(Sender.FUNK, new FunkCrawler(forkJoinPool, messageListeners, progressListeners, rootConfig));
+    crawlerMap.put(Sender.DW, new DwCrawler(forkJoinPool, messageListeners, progressListeners, rootConfig));
+    crawlerMap.put(Sender.NDR, new NdrCrawler(forkJoinPool, messageListeners, progressListeners, rootConfig));
+    crawlerMap.put(Sender.SRF, new SrfCrawler(forkJoinPool, messageListeners, progressListeners, rootConfig));
   }
 
   private void runCrawlers(final AbstractCrawler... aCrawlers) {

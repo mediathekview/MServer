@@ -9,6 +9,7 @@ import java.util.concurrent.RecursiveTask;
 import de.mediathekview.mlib.daten.Film;
 import de.mediathekview.mlib.daten.Sender;
 import de.mediathekview.mlib.messages.listener.MessageListener;
+import de.mediathekview.mserver.base.config.MServerConfigManager;
 import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
 import de.mediathekview.mserver.crawler.basic.CrawlerUrlDTO;
 import de.mediathekview.mserver.crawler.funk.parser.FunkOverviewDTO;
@@ -24,8 +25,8 @@ public class FunkCrawler extends AbstractCrawler {
 
   public FunkCrawler(final ForkJoinPool aForkJoinPool,
       final Collection<MessageListener> aMessageListeners,
-      final Collection<SenderProgressListener> aProgressListeners) {
-    super(aForkJoinPool, aMessageListeners, aProgressListeners);
+      final Collection<SenderProgressListener> aProgressListeners, final MServerConfigManager rootConfig) {
+    super(aForkJoinPool, aMessageListeners, aProgressListeners, rootConfig);
   }
 
   @Override

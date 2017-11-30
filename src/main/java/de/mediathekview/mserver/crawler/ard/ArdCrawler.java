@@ -10,6 +10,7 @@ import de.mediathekview.mlib.daten.Film;
 import de.mediathekview.mlib.daten.Sender;
 import de.mediathekview.mlib.messages.listener.MessageListener;
 import de.mediathekview.mserver.base.CategoriesAZ;
+import de.mediathekview.mserver.base.config.MServerConfigManager;
 import de.mediathekview.mserver.crawler.ard.tasks.ArdSendungTask;
 import de.mediathekview.mserver.crawler.ard.tasks.ArdSendungenOverviewPageCrawler;
 import de.mediathekview.mserver.crawler.ard.tasks.ArdSendungsfolgenOverviewPageCrawler;
@@ -25,8 +26,8 @@ public class ArdCrawler extends AbstractCrawler {
 
   public ArdCrawler(final ForkJoinPool aForkJoinPool,
       final Collection<MessageListener> aMessageListeners,
-      final Collection<SenderProgressListener> aProgressListeners) {
-    super(aForkJoinPool, aMessageListeners, aProgressListeners);
+      final Collection<SenderProgressListener> aProgressListeners, final MServerConfigManager rootConfig) {
+    super(aForkJoinPool, aMessageListeners, aProgressListeners, rootConfig);
   }
 
   @Override
@@ -44,7 +45,7 @@ public class ArdCrawler extends AbstractCrawler {
 
   private RecursiveTask<Set<ArdSendungBasicInformation>> createDaysOverviewPageCrawler() {
     final ConcurrentLinkedQueue<CrawlerUrlDTO> dayUrlsToCrawl = new ConcurrentLinkedQueue<>();
-    for (int i = 0; i < config.getMaximumDaysForSendungVerpasstSection(); i++) {
+    for (int i = 0; i < crawlerConfig.getMaximumDaysForSendungVerpasstSection(); i++) {
       dayUrlsToCrawl.offer(new CrawlerUrlDTO(String.format(ARD_DAY_BASE_URL, i)));
     }
     return new ArdSendungsfolgenOverviewPageCrawler(this, dayUrlsToCrawl);

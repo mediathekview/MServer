@@ -18,6 +18,7 @@ import com.google.gson.GsonBuilder;
 
 import de.mediathekview.mlib.communication.WebAccessHelper;
 import de.mediathekview.mserver.base.Consts;
+import de.mediathekview.mserver.base.config.CrawlerUrlType;
 import de.mediathekview.mserver.base.messages.ServerMessages;
 import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
 import de.mediathekview.mserver.crawler.br.json.BrIdsDTO;
@@ -47,7 +48,7 @@ public class BrAllSendungenTask extends RecursiveTask<Set<String>> {
     BrWebAccessHelper.handleWebAccessExecution(LOG, crawler, () -> {
         final Gson gson = new GsonBuilder()
                 .registerTypeAdapter(BrIdsDTO.class, new BrSendungenIdsDeserializer()).create();
-        final String response = WebAccessHelper.getJsonResultFromPostAccess(new URL(Consts.BR_API_URL), QUERY);
+        final String response = WebAccessHelper.getJsonResultFromPostAccess(crawler.getRuntimeConfig().getSingleCrawlerURL(CrawlerUrlType.BR_API_URL), QUERY);
         
         allSendungen = gson.fromJson(response, BrIdsDTO.class);  
     });

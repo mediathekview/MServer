@@ -27,10 +27,10 @@ import de.mediathekview.mserver.crawler.ndr.parser.NdrFilmDeserializer;
 
 public class NdrSendungsfolgedetailsTask extends AbstractDocumentTask<Film, CrawlerUrlDTO> {
   private static final String SRC_ARGUMENT = "src";
-  private static final String TIME_PATTERN = "dd.MM.yyyy hh:mm Uhr";
+  private static final String TIME_PATTERN = "dd.MM.yyyy HH:mm 'Uhr'";
   private static final String IFRAME_SELECTOR = ".stagePlayer iframe";
-  private static final String TIME_SELECTOR = ".textinfo .subline span:eq(2)";
-  private static final String THEMA_SELECTOR = ".textinfo .subline span:eq(1)";
+  private static final String TIME_SELECTOR = ".textinfo .subline span:eq(1)";
+  private static final String THEMA_SELECTOR = ".textinfo .subline span:eq(0)";
   private static final String TITLE_SELECTOR = ".textinfo h1";
   private static final long serialVersionUID = 1614807484305273437L;
   private static final String ENCODING_GZIP = "gzip";
@@ -84,7 +84,7 @@ public class NdrSendungsfolgedetailsTask extends AbstractDocumentTask<Film, Craw
     final String jsonOutput = response.readEntity(String.class);
 
     final Gson gson = new GsonBuilder().registerTypeAdapter(OPTIONAL_FILM_TYPE_TOKEN,
-        new NdrFilmDeserializer(crawler, aUrlDTO.getUrl(), titel, thema, time)).create();
+        new NdrFilmDeserializer(crawler, titel, aUrlDTO.getUrl(), thema, time)).create();
 
     final Optional<Film> newFilm = gson.fromJson(jsonOutput, OPTIONAL_FILM_TYPE_TOKEN);
     if (newFilm.isPresent()) {

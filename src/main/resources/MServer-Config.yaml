@@ -67,6 +67,8 @@
     # The maximum amount of days going to past will be crawled for the "Sendung Verpasst?" section.
     maximumDaysForSendungVerpasstSection: 30
     
+    crawlerURLs:
+      BR_API_URL: https://proxy-base.master.mango.express/graphql
 
 
 #### Specific crawler configurations ####
@@ -143,11 +145,11 @@
     logSettings:
       # The log level for the console.
       # Can be: DEBUG, INFO, WARN, ERROR, FATAL
-      logLevelConsole: DEBUG
+      logLevelConsole: INFO
       
       # The log level for the log file.
       # Can be: DEBUG, INFO, WARN, ERROR, FATAL
-      logLevelFile: DEBUG
+      logLevelFile: INFO
       
       # Should be logged to console?
       logActivateConsole: true

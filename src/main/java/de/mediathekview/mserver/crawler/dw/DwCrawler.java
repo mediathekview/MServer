@@ -10,6 +10,7 @@ import java.util.stream.Collectors;
 import de.mediathekview.mlib.daten.Film;
 import de.mediathekview.mlib.daten.Sender;
 import de.mediathekview.mlib.messages.listener.MessageListener;
+import de.mediathekview.mserver.base.config.MServerConfigManager;
 import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
 import de.mediathekview.mserver.crawler.basic.CrawlerUrlDTO;
 import de.mediathekview.mserver.crawler.dw.tasks.DWFilmDetailsTask;
@@ -25,8 +26,8 @@ public class DwCrawler extends AbstractCrawler {
 
   public DwCrawler(final ForkJoinPool aForkJoinPool,
       final Collection<MessageListener> aMessageListeners,
-      final Collection<SenderProgressListener> aProgressListeners) {
-    super(aForkJoinPool, aMessageListeners, aProgressListeners);
+      final Collection<SenderProgressListener> aProgressListeners, final MServerConfigManager rootConfig) {
+    super(aForkJoinPool, aMessageListeners, aProgressListeners, rootConfig);
   }
 
   @Override

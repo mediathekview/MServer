@@ -18,6 +18,7 @@ import com.google.gson.reflect.TypeToken;
 import de.mediathekview.mlib.communication.WebAccessHelper;
 import de.mediathekview.mlib.daten.Film;
 import de.mediathekview.mserver.base.Consts;
+import de.mediathekview.mserver.base.config.CrawlerUrlType;
 import de.mediathekview.mserver.base.config.MServerBasicConfigDTO;
 import de.mediathekview.mserver.base.config.MServerConfigManager;
 import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
@@ -37,7 +38,7 @@ public class BrSendungDetailsTask extends RecursiveTask<Set<Film>> {
       final ConcurrentLinkedQueue<String> aBrFilmIds) {
     crawler = aCrawler;
     filmIds = aBrFilmIds;
-    config = MServerConfigManager.getInstance().getConfig(aCrawler.getSender());
+    config = MServerConfigManager.getInstance().getSenderConfig(aCrawler.getSender());
     convertedFilms = ConcurrentHashMap.newKeySet();
   }
 
@@ -66,7 +67,7 @@ public class BrSendungDetailsTask extends RecursiveTask<Set<Film>> {
         final Gson gson = new GsonBuilder()
                 .registerTypeAdapter(optionalFilmType, new BrFilmDeserializer(crawler, aFilmId)).create();
 
-        final String response = WebAccessHelper.getJsonResultFromPostAccess(new URL(Consts.BR_API_URL), String.format(QUERY_TEMPLATE, aFilmId));
+        final String response = WebAccessHelper.getJsonResultFromPostAccess(crawler.getRuntimeConfig().getSingleCrawlerURL(CrawlerUrlType.BR_API_URL), String.format(QUERY_TEMPLATE, aFilmId));
         
         final Optional<Film> film = gson.fromJson(response, optionalFilmType);
         if (film.isPresent()) {

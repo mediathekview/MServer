@@ -14,6 +14,7 @@ import org.apache.logging.log4j.Logger;
 import de.mediathekview.mlib.daten.Film;
 import de.mediathekview.mlib.daten.Sender;
 import de.mediathekview.mlib.messages.listener.MessageListener;
+import de.mediathekview.mserver.base.config.MServerConfigManager;
 import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
 import de.mediathekview.mserver.crawler.basic.CrawlerUrlDTO;
 import de.mediathekview.mserver.crawler.ndr.tasks.NdrSendungVerpasstTask;
@@ -31,8 +32,8 @@ public class NdrCrawler extends AbstractCrawler {
 
   public NdrCrawler(final ForkJoinPool aForkJoinPool,
       final Collection<MessageListener> aMessageListeners,
-      final Collection<SenderProgressListener> aProgressListeners) {
-    super(aForkJoinPool, aMessageListeners, aProgressListeners);
+      final Collection<SenderProgressListener> aProgressListeners, final MServerConfigManager rootConfig) {
+    super(aForkJoinPool, aMessageListeners, aProgressListeners, rootConfig);
   }
 
   @Override
@@ -42,7 +43,7 @@ public class NdrCrawler extends AbstractCrawler {
 
   private ConcurrentLinkedQueue<CrawlerUrlDTO> getSendungVerpasstStartUrls() {
     final ConcurrentLinkedQueue<CrawlerUrlDTO> urls = new ConcurrentLinkedQueue<>();
-    for (int i = 0; i < config.getMaximumDaysForSendungVerpasstSection(); i++) {
+    for (int i = 0; i < crawlerConfig.getMaximumDaysForSendungVerpasstSection(); i++) {
       urls.add(new CrawlerUrlDTO(String.format(SENDUNG_VERPASST_URL_TEMPLATE,
           LocalDateTime.now().minus(i, ChronoUnit.DAYS).format(URL_DATE_TIME_FORMATTER))));
     }

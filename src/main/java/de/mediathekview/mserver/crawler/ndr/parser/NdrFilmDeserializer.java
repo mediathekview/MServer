@@ -22,7 +22,7 @@ import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
 import mServer.crawler.CrawlerTool;
 
 public class NdrFilmDeserializer implements JsonDeserializer<Optional<Film>> {
-  private static final String ELEMENT_DURATION = "duration";
+  private static final String ELEMENT_DURATION = "_duration";
   private static final String ELEMENT_MEDIA_ARRAY = "_mediaArray";
   private static final Logger LOG = LogManager.getLogger(NdrFilmDeserializer.class);
   private final AbstractCrawler crawler;
@@ -53,8 +53,7 @@ public class NdrFilmDeserializer implements JsonDeserializer<Optional<Film>> {
       final Film newFilm =
           new Film(UUID.randomUUID(), crawler.getSender(), title, thema, time, dauer);
 
-      ArdMediaArrayToDownloadUrlsConverter.toDownloadUrls(baseObj.get(ELEMENT_MEDIA_ARRAY), crawler)
-          .entrySet()
+      ArdMediaArrayToDownloadUrlsConverter.toDownloadUrls(baseObj, crawler).entrySet()
           .forEach(e -> newFilm.addUrl(e.getKey(), CrawlerTool.uriToFilmUrl(e.getValue())));
 
       final Optional<FilmUrl> defaultUrl = newFilm.getDefaultUrl();
