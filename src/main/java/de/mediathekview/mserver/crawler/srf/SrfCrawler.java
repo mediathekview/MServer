@@ -3,6 +3,7 @@ package de.mediathekview.mserver.crawler.srf;
 import de.mediathekview.mlib.daten.Film;
 import de.mediathekview.mlib.daten.Sender;
 import de.mediathekview.mlib.messages.listener.MessageListener;
+import de.mediathekview.mserver.base.config.MServerConfigManager;
 import de.mediathekview.mserver.base.messages.ServerMessages;
 import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
 import de.mediathekview.mserver.crawler.basic.CrawlerUrlDTO;
@@ -23,8 +24,8 @@ public class SrfCrawler extends AbstractCrawler {
 
   private static final Logger LOG = LogManager.getLogger(SrfCrawler.class);  
 
-  public SrfCrawler(ForkJoinPool aForkJoinPool, Collection<MessageListener> aMessageListeners, Collection<SenderProgressListener> aProgressListeners) {
-    super(aForkJoinPool, aMessageListeners, aProgressListeners);
+  public SrfCrawler(ForkJoinPool aForkJoinPool, Collection<MessageListener> aMessageListeners, Collection<SenderProgressListener> aProgressListeners, MServerConfigManager rootConfig) {
+    super(aForkJoinPool, aMessageListeners, aProgressListeners, rootConfig);
   }
 
   @Override
