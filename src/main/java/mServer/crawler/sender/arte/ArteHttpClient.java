@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import de.mediathekview.mlib.tool.MVHttpClient;
 import java.io.IOException;
 import java.util.logging.Level;
+import okhttp3.Call;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
@@ -27,14 +28,31 @@ public class ArteHttpClient {
             OkHttpClient httpClient = mvhttpClient.getHttpClient();
             Request request = new Request.Builder()
                     .addHeader(AUTH_HEADER, AUTH_TOKEN)
+                    .addHeader("User-Agent", "Fiddler")
                     .url(aUrl).build();
-            try (Response response = httpClient.newCall(request).execute()) {
-                if(response.isSuccessful()) {
-                    result = gson.fromJson(response.body().string(), aDtoType);
-                } else {
-                    logger.error(String.format("ARTE Request '%s' failed: %s", aUrl, response.code()));
-                }
-            }
+            
+            boolean stop = false;
+            
+            do {
+              Call call = httpClient.newCall(request);
+              try (Response response = call.execute()) {
+                  if(response.isSuccessful()) {
+                      result = gson.fromJson(response.body().string(), aDtoType);
+                      stop = true;
+                  } else {
+                      if(response.code() != 429) {
+                        logger.error(String.format("ARTE Request '%s' failed: %s", aUrl, response.code()));
+                        stop = true;
+                      } else {
+                        // bei 429 (too many requests) warten und nochmal versuchen
+                        try {
+                          Thread.sleep(500);
+                        } catch (InterruptedException ex) {
+                        }
+                      }
+                  }
+              }
+            } while(!stop);
             
         } catch (IOException ex) {
             logger.error("Beim laden der Filme für Arte kam es zu Verbindungsproblemen.", ex);
