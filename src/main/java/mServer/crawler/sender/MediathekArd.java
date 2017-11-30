@@ -35,6 +35,8 @@ import de.mediathekview.mlib.Const;
 import de.mediathekview.mlib.daten.DatenFilm;
 import de.mediathekview.mlib.tool.Log;
 import de.mediathekview.mlib.tool.MSStringBuilder;
+import java.util.HashSet;
+import java.util.Set;
 import mServer.crawler.CrawlerTool;
 import mServer.crawler.FilmeSuchen;
 import mServer.crawler.GetUrl;
@@ -55,8 +57,8 @@ public class MediathekArd extends MediathekReader {
 	private static final String M3U8_PATTERN_END = "\"";
 	private static final String TEXT_START_HTTP = "http";
 	private static final String URL_GET_PARAMETER = "\\?.*";
-    private static final String SUFFIX_URL_NORMAL = "/960-1.mp4";
-    private static final String SUFFIX_URL_HD = "/1280-1.mp4";
+    private static final String URL_PART_NORMAL = "960";
+    private static final String URL_PART_HD = "1280";
         
     private MSStringBuilder seiteFeed = new MSStringBuilder(Const.STRING_BUFFER_START_BUFFER);
     
@@ -463,16 +465,45 @@ public class MediathekArd extends MediathekReader {
         private String determineHdFromNormal(String urlNormal) {
           String urlHd = "";
           
-          // für URLs, die auf /960-1.mp4 enden, prüfen ob eine URL auf /1280-1.mp4 existiert
-          if (urlNormal.endsWith(SUFFIX_URL_NORMAL)) {
-            String urlTemp = urlNormal.replaceAll(SUFFIX_URL_NORMAL, SUFFIX_URL_HD);
-            if (urlExists(urlTemp)) {
-              urlHd = urlTemp;
+          // Dateiname extrahieren
+          int indexLastSlash = urlNormal.lastIndexOf('/');
+          if (indexLastSlash > 0) {
+            String fileName = urlNormal.substring(indexLastSlash + 1);
+            String path = urlNormal.substring(0, indexLastSlash + 1);
+
+            // für URLs, die mit 960 beginnen, prüfen ob eine mit 1280 auch existiert
+            if (fileName.startsWith(URL_PART_NORMAL)) {
+              Set<String> urls = buildPossibleHdUrls(path, fileName);
+              
+              for (String url : urls)  {
+                if (urlExists(url)) {
+                  urlHd = url;
+                  break;
+                }
+              }
             }
           }
           
           return urlHd;
         }
+        
+        // Aus der bisherigen URL mögliche HD-URLs bauen
+        // Beispiele für normale URLs: 960-1.mp4, 960-1_1.mp4, 960-3.mp4
+        // Beispiele für HD-URLs: 1280-1.mp4, 1280-1_1.mp4, 1280-3.mp4
+        // Leider existiert aber keine 1:1-Abbildung von normaler URL auf HD-URL
+        // Deshalb werden mehrere mögliche Urls erstellt und dann durchprobiert
+        private Set<String> buildPossibleHdUrls(String path, String fileName) {
+          // erste Url: 960 durch 1280 ersetzen
+          String hdFileName1 = fileName.replace(URL_PART_NORMAL, URL_PART_HD);
+          // zweite Url: wenn URL _1.mp4 lautet => _1 entfernen, sonst _1 hinzufügen
+          String hdFileName2 = hdFileName1.endsWith("_1.mp4") ? hdFileName1.replace("_1", "") : hdFileName1.replace(".mp4", "_1.mp4");
+          
+          Set<String> urls = new HashSet<>();
+          urls.add(path + hdFileName1);
+          urls.add(path + hdFileName2);
+
+          return urls;
+        } 
         
         private String getUrl(MSStringBuilder seite) {
             String ret = "";
