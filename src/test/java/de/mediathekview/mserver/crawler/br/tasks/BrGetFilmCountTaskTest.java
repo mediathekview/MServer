@@ -10,6 +10,7 @@
 package de.mediathekview.mserver.crawler.br.tasks;
 
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -41,9 +42,9 @@ public class BrGetFilmCountTaskTest {
     public WireMockRule wireMockRule = new WireMockRule(8589); // No-args constructor defaults to port 8080
 
     @Test
-    public void testGetCorrectGraphQLResponseRight() throws InterruptedException, ExecutionException, IOException {
+    public void testGetCorrectGraphQLResponseRight() throws InterruptedException, ExecutionException, IOException, URISyntaxException {
         ClassLoader classLoader = getClass().getClassLoader();
-        String expectedJSONresult = new String(Files.readAllBytes(Paths.get(classLoader.getResource("de/mediathekview/mserver/crawler/br/tasks/filmCountResultGraphQL.json").getFile().substring(1)))); 
+        String expectedJSONresult = new String(Files.readAllBytes(Paths.get(classLoader.getResource("de/mediathekview/mserver/crawler/br/tasks/filmCountResultGraphQL.json").toURI()))); 
         
         wireMockRule.stubFor(post(urlEqualTo("/myBrRequets"))
                     .willReturn(aResponse()
