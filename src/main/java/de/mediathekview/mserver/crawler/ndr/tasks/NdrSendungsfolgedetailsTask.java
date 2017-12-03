@@ -3,12 +3,15 @@ package de.mediathekview.mserver.crawler.ndr.tasks;
 import java.lang.reflect.Type;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.Optional;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.Response;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.glassfish.jersey.client.filter.EncodingFilter;
 import org.glassfish.jersey.message.DeflateEncoder;
 import org.glassfish.jersey.message.GZipEncoder;
@@ -26,6 +29,7 @@ import de.mediathekview.mserver.crawler.basic.CrawlerUrlDTO;
 import de.mediathekview.mserver.crawler.ndr.parser.NdrFilmDeserializer;
 
 public class NdrSendungsfolgedetailsTask extends AbstractDocumentTask<Film, CrawlerUrlDTO> {
+  private static final Logger LOG = LogManager.getLogger(NdrSendungsfolgedetailsTask.class);
   private static final String SRC_ARGUMENT = "src";
   private static final String TIME_PATTERN = "dd.MM.yyyy HH:mm 'Uhr'";
   private static final String IFRAME_SELECTOR = ".stagePlayer iframe";
@@ -58,7 +62,14 @@ public class NdrSendungsfolgedetailsTask extends AbstractDocumentTask<Film, Craw
 
   private LocalDateTime parseTime(final String aText) {
     // Parse dates like: 12.11.2017 23:15 Uhr
-    return LocalDateTime.parse(aText, DateTimeFormatter.ofPattern(TIME_PATTERN));
+    try {
+      return LocalDateTime.parse(aText, DateTimeFormatter.ofPattern(TIME_PATTERN));
+    } catch (final DateTimeParseException dateTimeParseException) {
+      LOG.debug(
+          String.format("The NDR date time \"%s\" can't be parsed. Using actual date time.", aText),
+          dateTimeParseException);
+      return LocalDateTime.now();
+    }
   }
 
   @Override
@@ -71,34 +82,39 @@ public class NdrSendungsfolgedetailsTask extends AbstractDocumentTask<Film, Craw
   protected void processDocument(final CrawlerUrlDTO aUrlDTO, final Document aDocument) {
 
     final Elements titleElement = aDocument.select(TITLE_SELECTOR);
-    final String titel = titleElement.first().text();
-    final Elements themaElement = aDocument.select(THEMA_SELECTOR);
-    final String thema = themaElement.first().text();
-    final Elements timeElement = aDocument.select(TIME_SELECTOR);
-    final LocalDateTime time = parseTime(timeElement.text());
-    final String additionalVideoInfoUrl =
-        extractAdditionalVideoInfoUrl(aDocument.select(IFRAME_SELECTOR).first());
-
-    final WebTarget target = client.target(additionalVideoInfoUrl);
-    final Response response = target.request().header(HEADER_ACCEPT_ENCODING, ENCODING_GZIP).get();
-    final String jsonOutput = response.readEntity(String.class);
-
-    final Gson gson = new GsonBuilder().registerTypeAdapter(OPTIONAL_FILM_TYPE_TOKEN,
-        new NdrFilmDeserializer(crawler, titel, aUrlDTO.getUrl(), thema, time)).create();
-
-    final Optional<Film> newFilm = gson.fromJson(jsonOutput, OPTIONAL_FILM_TYPE_TOKEN);
-    if (newFilm.isPresent()) {
-      final Elements descriptionElement = aDocument.select(".textinfo p");
-      if (!descriptionElement.isEmpty()) {
-        newFilm.get().setBeschreibung(descriptionElement.first().text());
-      }
-      taskResults.add(newFilm.get());
-      crawler.incrementAndGetActualCount();
+    if (titleElement.isEmpty()) {
+      crawler.printMissingElementErrorMessage("title");
     } else {
-      crawler.printErrorMessage();
-      crawler.incrementAndGetErrorCount();
+      final String titel = titleElement.first().text();
+      final Elements themaElement = aDocument.select(THEMA_SELECTOR);
+      final String thema = themaElement.first().text();
+      final Elements timeElement = aDocument.select(TIME_SELECTOR);
+      final LocalDateTime time = parseTime(timeElement.text());
+      final String additionalVideoInfoUrl =
+          extractAdditionalVideoInfoUrl(aDocument.select(IFRAME_SELECTOR).first());
+
+      final WebTarget target = client.target(additionalVideoInfoUrl);
+      final Response response =
+          target.request().header(HEADER_ACCEPT_ENCODING, ENCODING_GZIP).get();
+      final String jsonOutput = response.readEntity(String.class);
+
+      final Gson gson = new GsonBuilder().registerTypeAdapter(OPTIONAL_FILM_TYPE_TOKEN,
+          new NdrFilmDeserializer(crawler, titel, aUrlDTO.getUrl(), thema, time)).create();
+
+      final Optional<Film> newFilm = gson.fromJson(jsonOutput, OPTIONAL_FILM_TYPE_TOKEN);
+      if (newFilm.isPresent()) {
+        final Elements descriptionElement = aDocument.select(".textinfo p");
+        if (!descriptionElement.isEmpty()) {
+          newFilm.get().setBeschreibung(descriptionElement.first().text());
+        }
+        taskResults.add(newFilm.get());
+        crawler.incrementAndGetActualCount();
+      } else {
+        crawler.printErrorMessage();
+        crawler.incrementAndGetErrorCount();
+      }
+      crawler.updateProgress();
     }
-    crawler.updateProgress();
   }
 
 }
