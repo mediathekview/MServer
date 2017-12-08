@@ -11,14 +11,14 @@ package de.mediathekview.mserver.crawler.br.graphql.variables;
 
 import java.util.List;
 import java.util.stream.Collectors;
+import org.apache.logging.log4j.util.Strings;
 import de.mediathekview.mserver.crawler.br.graphql.AbstractVariable;
-import joptsimple.internal.Strings;
 
 public class VariableList extends AbstractVariable<List<AbstractVariable>> {
 
   public VariableList(String name, List<AbstractVariable> values) {
     super(name, values);
-    if(Strings.isNullOrEmpty(name))
+    if(Strings.isBlank(name))
       this.name = "variables";
   }
 
