@@ -50,6 +50,21 @@ public class BrGraphQLQueries {
         
     }
     
+    public static String getQuery2GetAllClipIds(int clipCount, String cursor) {
+      
+      StringBuilder sb = new StringBuilder();
+      
+      Map<String, String> variableMap = new HashMap();
+      variableMap.put("triggerSearch", "true");
+      variableMap.put("clipCount", String.valueOf(clipCount));
+      variableMap.put("clipFilter", "{\"audioOnly\":{\"eq\":false},\"essences\":{\"empty\":{\"eq\":false}}}");
+      
+      
+      
+      return sb.toString();
+      
+    }
+    
     static String getGraphQLHeaderWithVariable(String queryName, Collection<String> variableKeys) {
         
         StringBuilder sb = new StringBuilder();
