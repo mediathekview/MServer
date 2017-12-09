@@ -8,6 +8,7 @@ import java.util.logging.Level;
 import okhttp3.Call;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
+import okhttp3.Request.Builder;
 import okhttp3.Response;
 import org.apache.logging.log4j.Logger;
 
@@ -32,10 +33,7 @@ public class ArteHttpClient {
           
             MVHttpClient mvhttpClient = MVHttpClient.getInstance();
             OkHttpClient httpClient = mvhttpClient.getHttpClient();
-            Request request = new Request.Builder()
-                    .addHeader(AUTH_HEADER, AUTH_TOKEN)
-                    .addHeader(USER_AGENT, USER_AGENT_VALUE)
-                    .url(aUrl).build();
+            Request request = createRequest(aUrl);
             
             boolean stop = false;
             
@@ -65,5 +63,17 @@ public class ArteHttpClient {
         }
 
         return result;
+    }
+    
+    private static Request createRequest(String aUrl) {
+      Builder builder = new Request.Builder();
+      
+      // nur bei opa-Anfragen muss eine Authentifzierung erfolgen
+      if (aUrl.contains("/opa/")) {
+        builder = builder.addHeader(AUTH_HEADER, AUTH_TOKEN);
+      }
+
+      return builder.addHeader(USER_AGENT, USER_AGENT_VALUE)
+        .url(aUrl).build();      
     }
 }
