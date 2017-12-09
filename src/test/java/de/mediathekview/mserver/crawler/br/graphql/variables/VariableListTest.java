@@ -10,8 +10,8 @@
 package de.mediathekview.mserver.crawler.br.graphql.variables;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
-import java.util.ArrayList;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertFalse;
 import java.util.LinkedList;
 import java.util.List;
 import org.junit.After;
@@ -30,15 +30,38 @@ public class VariableListTest {
     simpleList.add(triggerSearchTrue);
     VariableList simpleListContainer = new VariableList(simpleList);
     
-    assertEquals("\"variables\":{\"triggerSearch\":true}", simpleListContainer.getVariableOrDefaulNull());
+    assertEquals("\"variables\":{\"triggerSearch\":true}", simpleListContainer.getJSONFromVariableOrDefaulNull());
   }
   
   @Test
   public void testNullList() {
     VariableList nullList = new VariableList("nullVariable", (List<AbstractVariable>) null);
-    assertEquals("\"nullVariable\":null", nullList.getVariableOrDefaulNull());
+    assertEquals("\"nullVariable\":null", nullList.getJSONFromVariableOrDefaulNull());
   }
   
+  @Test
+  public void testThatSublistsNotMarkedAsRootList() {
+    BooleanVariable bv = new BooleanVariable("bv", false);
+    IntegerVariable iv = new IntegerVariable("iv", 50);
+    List<AbstractVariable> subList = new LinkedList<>();
+    subList.add(bv);
+    subList.add(iv);
+    VariableList subVl = new VariableList("SubList", subList);
+    
+    assertTrue(subVl.isRootElement()); // Till now the Sublist is a RootList
+    
+    StringVariable sv = new StringVariable("sv", "text");
+    FloatVariable fv = new FloatVariable("fv", 0.001);
+    List<AbstractVariable> rootList = new LinkedList<>();
+    rootList.add(sv);
+    rootList.add(subVl);
+    rootList.add(fv);
+    
+    VariableList rootVl = new VariableList(rootList);
+    assertTrue(rootVl.isRootElement());
+    rootVl.getValue().stream().filter(VariableList.class::isInstance).map(VariableList.class::cast).forEach(v -> assertFalse(v.isRootElement()));
+    
+  }
   
   @Test
   public void testRealBRExample() {
@@ -64,7 +87,7 @@ public class VariableListTest {
     
     VariableList variables = new VariableList(variablesList);
     
-    assertEquals("\"variables\":{\"triggerSearch\":true,\"clipCount\":5000,\"clipFilter\":{\"audioOnly\":{\"eq\":false},\"essences\":{\"empty\":{\"eq\":false}}}}", variables.getVariableOrDefaulNull());
+    assertEquals("\"variables\":{\"triggerSearch\":true,\"clipCount\":5000,\"clipFilter\":{\"audioOnly\":{\"eq\":false},\"essences\":{\"empty\":{\"eq\":false}}}}", variables.getJSONFromVariableOrDefaulNull());
     
   }
 

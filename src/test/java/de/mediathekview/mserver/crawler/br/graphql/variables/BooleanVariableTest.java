@@ -21,19 +21,19 @@ public class BooleanVariableTest {
   @Test
   public void testBooleanVariableIsTrue() {
     BooleanVariable graphQLVariable = new BooleanVariable("triggerSearch", true);
-    assertEquals("\"triggerSearch\":true", graphQLVariable.getVariableOrDefaulNull());
+    assertEquals("\"triggerSearch\":true", graphQLVariable.getJSONFromVariableOrDefaulNull());
   }
 
   @Test
   public void testBooleanVariableIsFalse() {
     BooleanVariable graphQLVariable = new BooleanVariable("eq", false);
-    assertEquals("\"eq\":false", graphQLVariable.getVariableOrDefaulNull());
+    assertEquals("\"eq\":false", graphQLVariable.getJSONFromVariableOrDefaulNull());
   }
 
   @Test
   public void testBooleanVariableIsNull() {
     BooleanVariable graphQLVariable = new BooleanVariable("eq", (Boolean)null);
-    assertEquals("\"eq\":null", graphQLVariable.getVariableOrDefaulNull());
+    assertEquals("\"eq\":null", graphQLVariable.getJSONFromVariableOrDefaulNull());
   }
 
 }

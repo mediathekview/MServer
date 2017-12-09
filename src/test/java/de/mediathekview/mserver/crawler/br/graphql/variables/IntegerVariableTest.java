@@ -21,25 +21,25 @@ public class IntegerVariableTest {
   @Test
   public void testIntegerVariableWithoutSign() {
     IntegerVariable graphQLVariable = new IntegerVariable("clipCount", 24);
-    assertEquals("\"clipCount\":24", graphQLVariable.getVariableOrDefaulNull());
+    assertEquals("\"clipCount\":24", graphQLVariable.getJSONFromVariableOrDefaulNull());
   }
 
   @Test
   public void testIntegerVariableWithNegativeSign() {
     IntegerVariable graphQLVariable = new IntegerVariable("seriesCount", -12);
-    assertEquals("\"seriesCount\":-12", graphQLVariable.getVariableOrDefaulNull());
+    assertEquals("\"seriesCount\":-12", graphQLVariable.getJSONFromVariableOrDefaulNull());
   }
 
   @Test
   public void testIntegerVariableWithPostiveSign() {
     IntegerVariable graphQLVariable = new IntegerVariable("height", +180);
-    assertEquals("\"height\":180", graphQLVariable.getVariableOrDefaulNull());
+    assertEquals("\"height\":180", graphQLVariable.getJSONFromVariableOrDefaulNull());
   }
 
   @Test
   public void testIntegerVariableWithNull() {
     IntegerVariable graphQLVariable = new IntegerVariable("height", (Integer)null);
-    assertEquals("\"height\":null", graphQLVariable.getVariableOrDefaulNull());
+    assertEquals("\"height\":null", graphQLVariable.getJSONFromVariableOrDefaulNull());
   }
   
 

@@ -32,8 +32,16 @@ public abstract class AbstractVariable<T> {
     return getVariableWithDoubleQuoteSurrounding(this.name) + ":";
   }
   
-  public String getVariableOrDefaulNull() {
+  public String getJSONFromVariableOrDefaulNull() {
     return null == this.value ? getAsJSONWithoutValue() + "null" : getVariable();
+  }
+
+  public synchronized String getName() {
+    return name;
+  }
+
+  public synchronized T getValue() {
+    return value;
   }
   
 }

@@ -20,19 +20,19 @@ public class StringVariableTest {
   @Test
   public void testNormalString() {
     StringVariable graphQLVariable = new StringVariable("broadcasterId", "av:http://ard.de/ontologies/ard#BR_Fernsehen");
-    assertEquals("\"broadcasterId\":\"av:http://ard.de/ontologies/ard#BR_Fernsehen\"", graphQLVariable.getVariableOrDefaulNull());
+    assertEquals("\"broadcasterId\":\"av:http://ard.de/ontologies/ard#BR_Fernsehen\"", graphQLVariable.getJSONFromVariableOrDefaulNull());
   }
 
   @Test
   public void testStringWithQuotes() {
     StringVariable graphQLVariable = new StringVariable("term", "\"Fit - auch ohne Sport!\". Wie das geht");
-    assertEquals("\"term\":\"\\\"Fit - auch ohne Sport!\\\". Wie das geht\"", graphQLVariable.getVariableOrDefaulNull());
+    assertEquals("\"term\":\"\\\"Fit - auch ohne Sport!\\\". Wie das geht\"", graphQLVariable.getJSONFromVariableOrDefaulNull());
   }
 
   @Test
   public void testNullString() {
     StringVariable graphQLVariable = new StringVariable("term", (String)null);
-    assertEquals("\"term\":null", graphQLVariable.getVariableOrDefaulNull());
+    assertEquals("\"term\":null", graphQLVariable.getJSONFromVariableOrDefaulNull());
   }
   
 }

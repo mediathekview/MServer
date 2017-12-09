@@ -21,19 +21,19 @@ public class FloatVariableTest {
   @Test
   public void testMaxFloatValue() {
     FloatVariable graphQLVariable = new FloatVariable("degress", Double.MAX_VALUE);
-    assertEquals("\"degress\":1.7976931348623157E308", graphQLVariable.getVariableOrDefaulNull());
+    assertEquals("\"degress\":1.7976931348623157E308", graphQLVariable.getJSONFromVariableOrDefaulNull());
   }
 
   @Test
   public void testMinFloatValue() {
     FloatVariable graphQLVariable = new FloatVariable("negativeDegress", Double.MIN_VALUE);
-    assertEquals("\"negativeDegress\":4.9E-324", graphQLVariable.getVariableOrDefaulNull());
+    assertEquals("\"negativeDegress\":4.9E-324", graphQLVariable.getJSONFromVariableOrDefaulNull());
   }
 
   @Test
   public void testNullFloatValue() {
     FloatVariable graphQLVariable = new FloatVariable("lenght", (Double)null);
-    assertEquals("\"lenght\":null", graphQLVariable.getVariableOrDefaulNull());
+    assertEquals("\"lenght\":null", graphQLVariable.getJSONFromVariableOrDefaulNull());
   }
   
   
