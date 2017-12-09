@@ -37,9 +37,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.Future;
 import mServer.crawler.CrawlerTool;
 import mServer.crawler.FilmeSuchen;
 import mServer.crawler.sender.MediathekReader;
@@ -105,10 +102,11 @@ public class MediathekArte_de extends MediathekReader
                 addCategories();
                 meldungAddMax(listeThemen.size());
 
-                // nur einen Thread verwenden, da der CategoryLoader selbst parallelisiert
-                Thread th = new CategoryLoader();
-                th.setName(getSendername());
-                th.start();
+                for (int t = 0; t < getMaxThreadLaufen(); ++t) {
+                  Thread th = new CategoryLoader();
+                  th.setName(getSendername() + t);
+                  th.start();
+                }
                 
             } else {
                 addTage();
@@ -188,10 +186,9 @@ public class MediathekArte_de extends MediathekReader
             
             ListeFilme loadedFilme = ArteHttpClient.executeRequest(LOG, gson, aUrl, ListeFilme.class);
             if(loadedFilme != null) {
-                for (DatenFilm film : loadedFilme)
-                {
-                    addFilm(film);
-                }
+              loadedFilme.forEach((film) -> {
+                addFilm(film);
+              });
             }
         }
     }
@@ -200,15 +197,6 @@ public class MediathekArte_de extends MediathekReader
      * Lädt die Filme für jede Kategorie
      */
     class CategoryLoader extends Thread {
-
-        private final ExecutorService executor;
-        
-        public CategoryLoader() {
-            // Poolgröße beschränken, da ARTE bei zu vielen Anfragen Errorcode 502/504 liefert
-            // 20 als Poolgröße funktioniert bei Tests ohne Probleme, 
-            // u.U. könnte das nach entsprechenden Tests auch erhöht werden
-             executor = Executors.newFixedThreadPool(20);
-        }
         
         @Override
         public void run() {
@@ -221,8 +209,6 @@ public class MediathekArte_de extends MediathekReader
                 }
             } catch (Exception ex) {
                 Log.errorLog(894330854, ex, "");
-            } finally {
-                executor.shutdown();
             }
             meldungThreadUndFertig();
         }
@@ -253,22 +239,25 @@ public class MediathekArte_de extends MediathekReader
         private ListeFilme loadPrograms(ArteCategoryFilmsDTO dto) {
             ListeFilme listeFilme = new ListeFilme();
 
-            Collection<Future<DatenFilm>> futureFilme = new ArrayList<>();
+            Collection<DatenFilm> futureFilme = new ArrayList<>();
             dto.getProgramIds().forEach(programId -> {
-                futureFilme.add(executor.submit(new ArteProgramIdToDatenFilmCallable(programId, LANG_CODE, getSendername())));
+              try {
+                futureFilme.add(new ArteProgramIdToDatenFilmCallable(programId, LANG_CODE, getSendername()).call());
+              } catch (Exception exception) {
+                LOG.error("Es ist ein Fehler beim lesen der Arte Filme aufgetreten.", exception);
+              }
             });
             
             CopyOnWriteArrayList<DatenFilm> finishedFilme = new CopyOnWriteArrayList<>();
-            futureFilme.parallelStream().forEach(e -> {
-                try{
-                    DatenFilm finishedFilm = e.get();
-                    if(finishedFilm!=null)
+            futureFilme.parallelStream().forEach(finishedFilm -> {
+                try {
+                    if(finishedFilm != null)
                     {
                         finishedFilme.add(finishedFilm);
                     }
-                }catch(Exception exception)
+                } catch(Exception exception)
                 {
-                    LOG.error("Es ist ein Fehler beim lesen der Arte Filme aufgetreten.",exception);
+                    LOG.error("Es ist ein Fehler beim lesen der Arte Filme aufgetreten.", exception);
                 }
 
                 });
