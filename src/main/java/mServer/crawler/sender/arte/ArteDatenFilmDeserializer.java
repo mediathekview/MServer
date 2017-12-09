@@ -4,9 +4,6 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.concurrent.CopyOnWriteArrayList;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.Future;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -37,18 +34,16 @@ public class ArteDatenFilmDeserializer implements JsonDeserializer<ListeFilme>
     {
         ListeFilme listeFilme = new ListeFilme();
 
-        Collection<Future<DatenFilm>> futureFilme = new ArrayList<>();
+        Collection<DatenFilm> futureFilme = new ArrayList<>();
         for (JsonElement jsonElement : aJsonElement.getAsJsonObject().get(JSON_ELEMENT_VIDEOS).getAsJsonArray())
         {
-            ExecutorService executor = Executors.newCachedThreadPool();
-            futureFilme.add(executor.submit(new ArteJsonObjectToDatenFilmCallable(jsonElement.getAsJsonObject(), langCode, senderName)));
+            futureFilme.add(new ArteJsonObjectToDatenFilmCallable(jsonElement.getAsJsonObject(), langCode, senderName).call());
         }
         
         CopyOnWriteArrayList<DatenFilm> finishedFilme = new CopyOnWriteArrayList<>();
-        futureFilme.parallelStream().forEach(e -> {
+        futureFilme.parallelStream().forEach(finishedFilm -> {
             try{
-                DatenFilm finishedFilm = e.get();
-                if(finishedFilm!=null)
+                if (finishedFilm != null)
                 {
                     finishedFilme.add(finishedFilm);
                 }
