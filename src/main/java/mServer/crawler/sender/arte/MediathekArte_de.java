@@ -73,8 +73,8 @@ public class MediathekArte_de extends MediathekReader
     private static final String ARTE_API_TAG_URL_PATTERN = "https://api.arte.tv/api/opa/v3/videos?channel=%s&arteSchedulingDay=%s";
     
     private static final String URL_STATIC_CONTENT = "https://static-cdn.arte.tv/components/src/header/assets/locales/%s.json?ver=%s";
-    private static final String URL_CATEGORY = "http://www.arte.tv/guide/api/api/pages/category/%s/web/%s";
-    private static final String URL_SUBCATEGORY = "http://www.arte.tv/guide/api/api/videos/%s/subcategory/%s?page=%s";
+    private static final String URL_CATEGORY = "https://www.arte.tv/guide/api/api/pages/category/%s/web/%s";
+    private static final String URL_SUBCATEGORY = "https://www.arte.tv/guide/api/api/videos/%s/subcategory/%s/?page=%s";
     private static final String VERSION_STATIC_CONTENT = "2.3.13";
 
     private static final DateTimeFormatter ARTE_API_DATEFORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd");
