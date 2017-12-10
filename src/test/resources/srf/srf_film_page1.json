@@ -1,0 +1,151 @@
+{
+   "chapterUrn" : "urn:srf:video:22b9dd2c-d1fd-463b-91de-d804eda74889",
+   "episode" : {
+      "id" : "1a52b5a9-60bf-40ff-bec5-023adfc5a2fd",
+      "title" : "1 gegen 100 vom 17.05.2010",
+      "publishedDate" : "2010-05-17T20:07:06+02:00",
+      "imageUrl" : "https://ws.srf.ch/asset/image/audio/ecba1e1f-45c0-46d6-b124-a2e3fa3ece05/WEBVISUAL/1475676626"
+   },
+   "show" : {
+      "id" : "6fd27ab0-d10f-450f-aaa9-836f1cac97bd",
+      "vendor" : "SRF",
+      "transmission" : "TV",
+      "urn" : "urn:srf:show:tv:6fd27ab0-d10f-450f-aaa9-836f1cac97bd",
+      "title" : "1 gegen 100",
+      "lead" : "1 Kandidat (Kandidatin), 100 Gegner (Gegnerinnen): In der härtesten Quiz-Show der Schweiz, stellt Moderatorin Susanne Kunz knifflige Fragen.",
+      "description" : "1 Kandidat (Kandidatin), 100 Gegner (Gegnerinnen): In der härtesten Quiz-Show der Schweiz, stellt Moderatorin Susanne Kunz knifflige Fragen.",
+      "imageUrl" : "https://ws.srf.ch/asset/image/audio/ecba1e1f-45c0-46d6-b124-a2e3fa3ece05/WEBVISUAL/1475676626",
+      "imageTitle" : "1 gegen 100",
+      "bannerImageUrl" : "https://ws.srf.ch/asset/image/audio/ecba1e1f-45c0-46d6-b124-a2e3fa3ece05/HEADER_SRF_PLAYER/1462351244.jpg",
+      "homepageUrl" : "https://www.srf.ch/sendungen/1gegen100",
+      "podcastSubscriptionUrl" : "https://www.srf.ch/podcasts",
+      "primaryChannelId" : "23FFBE1B-65CE-4188-ADD2-C724186C2C9F"
+   },
+   "channel" : {
+      "id" : "23FFBE1B-65CE-4188-ADD2-C724186C2C9F",
+      "title" : "SRF 1",
+      "imageUrl" : "https://ws.srf.ch/asset/image/audio/7ec11b90-b120-4d77-915c-0cd4cef1c5fe/LOGO_RESPONSIVE/1436176214.png",
+      "imageTitle" : "Logo",
+      "transmission" : "TV"
+   },
+   "chapterList" : [ {
+      "id" : "22b9dd2c-d1fd-463b-91de-d804eda74889",
+      "mediaType" : "VIDEO",
+      "vendor" : "SRF",
+      "urn" : "urn:srf:video:22b9dd2c-d1fd-463b-91de-d804eda74889",
+      "title" : "17. Mai 2010",
+      "description" : "Spannung pur, wenn Susanne Kunz die Frage stellt und der Kandidat zwar eine Ahnung hat aber nicht ganz sicher ist ob die Antwort stimmt. Dann wird es im Studio «1 gegen 100» ruhig und man spürt die Anspannung des Kandidaten förmlich. Nimmt er nun einen Joker zur Hilfe oder setzt er alles auf eine Karte und riskiert, ohne Geld und als Verlierer vom Platz zu gehen? Köpfchen, Mut und Taktik sind gefragt. «1 gegen 100» - die härteste Quiz-Show der Schweiz, Montag, 20.05 h, SF1.",
+      "imageUrl" : "https://ws.srf.ch/asset/image/audio/e90cadec-62e5-43e5-b387-b749d9d2e39a/EPISODE_IMAGE/1376780303.jpg",
+      "imageTitle" : "17. Mai 2010",
+      "type" : "EPISODE",
+      "date" : "2010-05-17T20:07:06+02:00",
+      "duration" : 3305100,
+      "displayable" : true,
+      "position" : 0,
+      "noEmbed" : false,
+      "markIn" : 0,
+      "markOut" : 3305100,
+      "analyticsData" : {
+         "ns_st_ep" : "17. Mai 2010",
+         "ns_st_ty" : "Video",
+         "ns_st_ci" : "22b9dd2c-d1fd-463b-91de-d804eda74889",
+         "ns_st_el" : "3305100",
+         "ns_st_cl" : "3305100",
+         "ns_st_sl" : "3305100",
+         "srg_mgeobl" : "false",
+         "ns_st_tp" : "1",
+         "ns_st_cn" : "1",
+         "ns_st_pn" : "1"
+      },
+      "analyticsMetadata" : {
+         "media_segment" : "17. Mai 2010",
+         "media_type" : "Video",
+         "media_segment_id" : "22b9dd2c-d1fd-463b-91de-d804eda74889",
+         "media_episode_length" : "3305",
+         "media_segment_length" : "3305",
+         "media_is_geoblocked" : "false",
+         "media_urn" : "urn:srf:video:22b9dd2c-d1fd-463b-91de-d804eda74889"
+      },
+      "eventData" : "$e7bb961b0a2717b2$ac8715fe2c6bc907752633a189b712cc9663be77ceae17c1cdbc36454c3d7a94d60bd22e116867a5ce92a596f4013f941c384a105d9b6f59452c7f424dcb168f52b61c3629ef578901caad4565010be08e5cd181ca592bbc13b2dab30408a58ad31be1e64c76ae9d3d20af1198418df43f3a6d88f6cf0500a5da5893f23f984d0d1a40122a83de15bc2c13969fce667c6ebcefd9feb8ee4071dd98c01bb6b879bb5a22c1577d65935d457f8a65a6ec665ee5f67145e4facf2025c2a7ab23e3446a55fded1ab29edb54a2859714458985cf77ecf6ee2101189bdb42257dee3143e884e8a88caba238d99e57607febd18a96733cafcdd0e2e9696273bf3792e23ca8e74582bd1704347299b198c273e9ad5b9daf42933b0ddb9f3add767fe3e50a5f27af5f83389b6402085b328be99dbf3c86b231fcf26b0b50fe4d586a03aba92155206b166dfa35a2d57e9da12ad1770f2d39ceb4d723d17c8e19d7e76bcc6d0f1c660ffe6e21ba4f14ed1aab64e859c1a33584189672eba066465b43cdb44ce5ff6591b4e72eea8e5a0bda6bc450aab5934b9c4f0c1a114cc7412ea543600f3e18039c731caff57cc85d9dd64f097475b86a0e83a5a765eb843cb2feb9bf3f",
+      "resourceList" : [ {
+         "url" : "https://hdvodsrforigin-f.akamaihd.net/i/vod/1gegen100/2010/05/1gegen100_20100517_200706_web_h264_16zu9_,lq1,mq1,hq1,.mp4.csmil/master.m3u8?start=0.0&end=3305.1",
+         "quality" : "SD",
+         "protocol" : "HLS",
+         "encoding" : "H264",
+         "mimeType" : "application/x-mpegURL",
+         "presentation" : "DEFAULT",
+         "streaming" : "HLS",
+         "dvr" : false,
+         "live" : false,
+         "mediaContainer" : "MP4",
+         "audioCodec" : "UNKNOWN",
+         "videoCodec" : "H264",
+         "analyticsData" : {
+            "srg_mqual" : "SD",
+            "srg_mpres" : "DEFAULT"
+         },
+         "analyticsMetadata" : {
+            "media_streaming_quality" : "SD",
+            "media_special_format" : "DEFAULT",
+            "media_url" : "https://hdvodsrforigin-f.akamaihd.net/i/vod/1gegen100/2010/05/1gegen100_20100517_200706_web_h264_16zu9_,lq1,mq1,hq1,.mp4.csmil/master.m3u8?start=0.0&end=3305.1"
+         }
+      }, {
+         "url" : "http://hdvodsrforigin-f.akamaihd.net/z/vod/1gegen100/2010/05/1gegen100_20100517_200706_web_h264_16zu9_,lq1,mq1,hq1,.mp4.csmil/manifest.f4m?start=0.0&end=3305.1",
+         "quality" : "SD",
+         "protocol" : "HDS",
+         "encoding" : "H264",
+         "mimeType" : "application/adobe-f4m",
+         "presentation" : "DEFAULT",
+         "streaming" : "HDS",
+         "dvr" : false,
+         "live" : false,
+         "mediaContainer" : "MP4",
+         "audioCodec" : "UNKNOWN",
+         "videoCodec" : "H264",
+         "analyticsData" : {
+            "srg_mqual" : "SD",
+            "srg_mpres" : "DEFAULT"
+         },
+         "analyticsMetadata" : {
+            "media_streaming_quality" : "SD",
+            "media_special_format" : "DEFAULT",
+            "media_url" : "http://hdvodsrforigin-f.akamaihd.net/z/vod/1gegen100/2010/05/1gegen100_20100517_200706_web_h264_16zu9_,lq1,mq1,hq1,.mp4.csmil/manifest.f4m?start=0.0&end=3305.1"
+         }
+      } ]
+   } ],
+   "analyticsData" : {
+      "srg_pr_id" : "1a52b5a9-60bf-40ff-bec5-023adfc5a2fd",
+      "srg_plid" : "6fd27ab0-d10f-450f-aaa9-836f1cac97bd",
+      "ns_st_pl" : "1 gegen 100",
+      "ns_st_pr" : "1 gegen 100 vom 17.05.2010",
+      "ns_st_dt" : "2010-05-17",
+      "ns_st_li" : "0",
+      "srg_unit" : "SRF",
+      "srg_c1" : "Unterhaltung",
+      "srg_c2" : "full",
+      "srg_wo" : "0",
+      "srg_tv_id" : "2d9f1e17-f3c4-4bd2-81c9-23ee3bd05e03",
+      "srg_fullLength" : "full"
+   },
+   "analyticsMetadata" : {
+      "media_episode_id" : "1a52b5a9-60bf-40ff-bec5-023adfc5a2fd",
+      "media_show_id" : "6fd27ab0-d10f-450f-aaa9-836f1cac97bd",
+      "media_show" : "1 gegen 100",
+      "media_episode" : "1 gegen 100 vom 17.05.2010",
+      "media_is_livestream" : "false",
+      "media_full_length" : "full",
+      "media_enterprise_units" : "SRF",
+      "media_joker1" : "Unterhaltung",
+      "media_is_web_only" : "false",
+      "media_tv_id" : "2d9f1e17-f3c4-4bd2-81c9-23ee3bd05e03",
+      "media_thumbnail" : "https://ws.srf.ch/asset/image/audio/e90cadec-62e5-43e5-b387-b749d9d2e39a/EPISODE_IMAGE/1376780303.jpg/scale/width/344",
+      "media_publication_date" : "2010-05-17",
+      "media_publication_time" : "20:07:06",
+      "media_publication_datetime" : "2010-05-17T20:07:06+02:00",
+      "media_content_group" : "Unterhaltung",
+      "media_channel_id" : "23FFBE1B-65CE-4188-ADD2-C724186C2C9F",
+      "media_channel_name" : "SRF 1",
+      "media_since_publication_d" : "2763",
+      "media_since_publication_h" : "66330"
+   }
+}
