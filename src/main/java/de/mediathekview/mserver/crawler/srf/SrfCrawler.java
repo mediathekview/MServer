@@ -8,6 +8,7 @@ import de.mediathekview.mserver.base.messages.ServerMessages;
 import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
 import de.mediathekview.mserver.crawler.basic.CrawlerUrlDTO;
 import de.mediathekview.mserver.crawler.srf.parser.SrfSendungOverviewDTO;
+import de.mediathekview.mserver.crawler.srf.tasks.SrfFilmDetailTask;
 import de.mediathekview.mserver.crawler.srf.tasks.SrfSendungOverviewPageTask;
 import de.mediathekview.mserver.crawler.srf.tasks.SrfSendungenOverviewPageTask;
 import de.mediathekview.mserver.progress.listeners.SenderProgressListener;
@@ -48,9 +49,14 @@ public class SrfCrawler extends AbstractCrawler {
         new ConcurrentLinkedQueue<>();
       dtos.addAll(task.join());
       
-      // TODO Filme verarbeiten
-      if(dtos!=null) {
+      // TODO der "Convert" auf CrawlerUrlDTO-Array sollte anders gelöst werden!!!
+      if (dtos!=null) {
+        final ConcurrentLinkedQueue<CrawlerUrlDTO> urlDtos = new ConcurrentLinkedQueue<>();
+        dtos.forEach((dto) -> {
+          urlDtos.addAll(dto.getUrls());
+        });
         
+        return new SrfFilmDetailTask(this, urlDtos);
       }
     } catch (InterruptedException | ExecutionException ex) {
       LOG.fatal("Exception in SRF crawler.", ex);

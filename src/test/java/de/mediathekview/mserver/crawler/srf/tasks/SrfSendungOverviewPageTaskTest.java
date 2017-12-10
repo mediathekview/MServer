@@ -3,37 +3,18 @@ package de.mediathekview.mserver.crawler.srf.tasks;
 import static com.github.tomakehurst.wiremock.client.WireMock.aResponse;
 import static com.github.tomakehurst.wiremock.client.WireMock.get;
 import static com.github.tomakehurst.wiremock.client.WireMock.urlEqualTo;
-import com.github.tomakehurst.wiremock.junit.WireMockRule;
-import de.mediathekview.mlib.messages.listener.MessageListener;
-import de.mediathekview.mserver.base.config.MServerConfigManager;
 import de.mediathekview.mserver.crawler.basic.CrawlerUrlDTO;
-import de.mediathekview.mserver.crawler.srf.SrfCrawler;
 import de.mediathekview.mserver.crawler.srf.parser.SrfSendungOverviewDTO;
-import de.mediathekview.mserver.progress.listeners.SenderProgressListener;
 import de.mediathekview.mserver.testhelper.FileReader;
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Optional;
 import java.util.Set;
-import java.util.concurrent.ConcurrentLinkedQueue;
-import java.util.concurrent.ForkJoinPool;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.notNullValue;
 import org.hamcrest.Matchers;
 import static org.junit.Assert.assertThat;
-import org.junit.Before;
-import org.junit.Rule;
 import org.junit.Test;
 
-public class SrfSendungOverviewPageTaskTest {
-  
-  @Rule
-  public WireMockRule wireMockRule = new WireMockRule(8589);
-
-  @Before
-  public void setUp() {
-    
-  }
+public class SrfSendungOverviewPageTaskTest extends SrfTaskTestBase {
   
   @Test
   public void testOverviewWithSinglePage() {
@@ -77,16 +58,7 @@ public class SrfSendungOverviewPageTaskTest {
     assertThat(actual.size(), equalTo(0));
   }  
   
-  private static Set<SrfSendungOverviewDTO> executeTask(String requestUrl) {
-    ConcurrentLinkedQueue<CrawlerUrlDTO> input = new ConcurrentLinkedQueue<>();
-    input.add(new CrawlerUrlDTO("http://localhost:8589" + requestUrl));
-    
-    ForkJoinPool forkJoinPool = new ForkJoinPool();
-    Collection<MessageListener> nachrichten = new ArrayList<>() ;
-    Collection<SenderProgressListener> fortschritte = new ArrayList<>();
-    MServerConfigManager rootConfig = MServerConfigManager.getInstance("MServer-JUnit-Config.yaml");
-    
-    SrfCrawler crawler = new SrfCrawler(forkJoinPool, nachrichten, fortschritte, rootConfig);
-    return new SrfSendungOverviewPageTask(crawler, input).invoke();    
+  private Set<SrfSendungOverviewDTO> executeTask(String aRequestUrl) {
+    return new SrfSendungOverviewPageTask(createCrawler(), createCrawlerUrlDto(aRequestUrl)).invoke();    
   }
 }

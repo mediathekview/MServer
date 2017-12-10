@@ -222,7 +222,7 @@ public class SrfFilmJsonDeserializer implements JsonDeserializer<Optional<Film>>
   private class ChapterListData {
 
     Duration duration;
-    String description;
+    String description = "";
     String videoUrl;
   }
 }
