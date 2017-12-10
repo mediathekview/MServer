@@ -21,7 +21,7 @@ public class SrfSendungenOverviewJsonDeserializer implements JsonDeserializer<Se
   private static final String ELEMENT_ID = "id";
 
   // id, month-year, number of films per page
-  private static final String URL = "https://www.srf.ch/play/v2/tv/show/%s/latestEpisodes/tillMonth/%s?numberOfEpisodes=%d&layout=json";
+  private static final String URL = "https://www.srf.ch/play/v2/tv/show/%s/latestEpisodes?numberOfEpisodes=%d&tillMonth=%s&layout=json";
   private static final int FILMS_PER_PAGE = 10;
   
   private static final Logger LOG = LogManager.getLogger(SrfSendungenOverviewJsonDeserializer.class);
@@ -71,7 +71,7 @@ public class SrfSendungenOverviewJsonDeserializer implements JsonDeserializer<Se
     if (entryObject.has(ELEMENT_ID)) {
       String id = entryObject.get(ELEMENT_ID).getAsString();
 
-      String url = String.format(URL, id, monthYear, FILMS_PER_PAGE); 
+      String url = String.format(URL, id, FILMS_PER_PAGE, monthYear); 
       
       return Optional.of(url);
     }
