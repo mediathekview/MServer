@@ -62,7 +62,7 @@ public class SrfSendungOverviewJsonDeserializer implements JsonDeserializer<SrfS
   }
   
   private String getUrl(String aId) {
-    return String.format("https://il.srgssr.ch/integrationlayer/2.0/srf/mediaComposition/video/%s.json&onlyChapters=true", aId);
+    return String.format("https://il.srgssr.ch/integrationlayer/2.0/srf/mediaComposition/video/%s.json", aId);
   }
   
 }
