@@ -1,9 +1,14 @@
 package de.mediathekview.mserver.crawler.srf.parser;
 
+import static com.github.tomakehurst.wiremock.client.WireMock.aResponse;
+import static com.github.tomakehurst.wiremock.client.WireMock.get;
+import static com.github.tomakehurst.wiremock.client.WireMock.urlEqualTo;
+import com.github.tomakehurst.wiremock.junit.WireMockRule;
 import com.google.gson.JsonElement;
 import de.mediathekview.mlib.daten.Film;
 import de.mediathekview.mlib.daten.Resolution;
 import de.mediathekview.mlib.daten.Sender;
+import de.mediathekview.mserver.testhelper.FileReader;
 import de.mediathekview.mserver.testhelper.JsonFileReader;
 import java.time.Duration;
 import java.time.LocalDateTime;
@@ -11,13 +16,23 @@ import java.time.temporal.ChronoUnit;
 import java.util.Optional;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.junit.Assert.assertThat;
+import org.junit.Rule;
 import org.junit.Test;
 
 public class SrfFilmJsonDeserializerTest {
 
+  @Rule
+  public WireMockRule wireMockRule = new WireMockRule(8589);
+  
   @Test
   public void test() {
     JsonElement jsonElement = JsonFileReader.readJson("/srf/srf_film_page1.json");
+    
+    String m3u8Body = FileReader.readFile("/srf/srf_film_page1.m3u8");
+    wireMockRule.stubFor(get(urlEqualTo("/i/vod/1gegen100/2010/05/1gegen100_20100517_200706_web_h264_16zu9_,lq1,mq1,hq1,.mp4.csmil/master.m3u8?start=0.0&end=3305.1"))
+            .willReturn(aResponse()
+                    .withStatus(200)
+                    .withBody(m3u8Body)));
     
     SrfFilmJsonDeserializer target = new SrfFilmJsonDeserializer();
     Optional<Film> actual = target.deserialize(jsonElement, Film.class, null);
