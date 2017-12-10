@@ -38,10 +38,10 @@ public class SrfSendungOverviewPageTaskTest {
   @Test
   public void testOverviewWithSinglePage() {
     String[] expectedUrls = new String[] { 
-      "https://il.srgssr.ch/integrationlayer/2.0/srf/mediaComposition/video/69cf918f-185a-4806-92f6-031e7f09844d.json&onlyChapters=true",
-      "https://il.srgssr.ch/integrationlayer/2.0/srf/mediaComposition/video/4eb1dbdf-dab8-4690-ba93-fdbafebbd5de.json&onlyChapters=true",
-      "https://il.srgssr.ch/integrationlayer/2.0/srf/mediaComposition/video/af4c9505-c265-49f6-86c8-67fe90dd0a2f.json&onlyChapters=true",
-      "https://il.srgssr.ch/integrationlayer/2.0/srf/mediaComposition/video/22b9dd2c-d1fd-463b-91de-d804eda74889.json&onlyChapters=true"
+      "https://il.srgssr.ch/integrationlayer/2.0/srf/mediaComposition/video/69cf918f-185a-4806-92f6-031e7f09844d.json",
+      "https://il.srgssr.ch/integrationlayer/2.0/srf/mediaComposition/video/4eb1dbdf-dab8-4690-ba93-fdbafebbd5de.json",
+      "https://il.srgssr.ch/integrationlayer/2.0/srf/mediaComposition/video/af4c9505-c265-49f6-86c8-67fe90dd0a2f.json",
+      "https://il.srgssr.ch/integrationlayer/2.0/srf/mediaComposition/video/22b9dd2c-d1fd-463b-91de-d804eda74889.json"
     };
 
     String requestUrl = "/play/v2/tv/show/c5a89422-4580-0001-4f24-1889dc30d730/latestEpisodes?numberOfEpisodes=10&tillMonth=12-2017&layout=json";
