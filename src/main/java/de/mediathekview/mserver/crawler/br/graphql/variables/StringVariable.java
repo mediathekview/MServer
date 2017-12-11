@@ -21,6 +21,4 @@ public class StringVariable extends AbstractVariable<String> {
     return getAsJSONWithoutValue() + getVariableWithDoubleQuoteSurrounding(this.value.replaceAll("\"", "\\\\\""));
   }
 
-  
-  
 }

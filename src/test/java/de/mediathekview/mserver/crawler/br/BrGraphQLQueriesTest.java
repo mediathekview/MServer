@@ -8,12 +8,14 @@
 package de.mediathekview.mserver.crawler.br;
 
 import static org.junit.Assert.assertEquals;
-import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
 import org.junit.After;
 import org.junit.Test;
+import de.mediathekview.mserver.crawler.br.graphql.AbstractVariable;
+import de.mediathekview.mserver.crawler.br.graphql.variables.BooleanVariable;
+import de.mediathekview.mserver.crawler.br.graphql.variables.StringVariable;
+import de.mediathekview.mserver.crawler.br.graphql.variables.VariableList;
 
 public class BrGraphQLQueriesTest {
 
@@ -28,53 +30,29 @@ public class BrGraphQLQueriesTest {
   }
 
   @Test
-  public void testCreateHeaderWithOneVariable() throws Exception {
-
+  public void testCreateHeaderWithOneStringVariable() {
     String queryTitle = "MediathekViewCountFilms";
-    List<String> keys = new ArrayList<>();
-    String variableName = "programmeFilter";
 
-    keys.add(variableName);
-
-    assertEquals("query MediathekViewCountFilms(  $programmeFilter: ProgrammeFilter!) {",
-        BrGraphQLQueries.getGraphQLHeaderWithVariable(queryTitle, keys));
-
-  }
-
-  @Test
-  public void testFooterGeneratorWithOneVariable() throws Exception {
-
-    HashMap<String, String> graphQLVariables = new HashMap<>();
-    graphQLVariables.put("isClip", "\"true\"");
-
-    assertEquals("\",\"variables\":{\"isClip\":\"true\"}}",
-        BrGraphQLQueries.getGraphQLFooterWithVariable(graphQLVariables));
-
-  }
-
-  @Test
-  public void testFooterGeneratorWithTwoVariables() throws Exception {
-
-    HashMap<String, String> graphQLVariables = new HashMap<>();
-    graphQLVariables.put("isClip", "true");
-    graphQLVariables.put("isLivestream", "false");
-
-    assertEquals("\",\"variables\":{\"isClip\":true,\"isLivestream\":false}}",
-        BrGraphQLQueries.getGraphQLFooterWithVariable(graphQLVariables));
-
-
-  }
-
-  @Test
-  public void testFooterGeneratorWithDifferentVariableTypes() throws Exception {
+    StringVariable sv = new StringVariable("programmeFilter", "text");
+    List<AbstractVariable> rootList = new LinkedList<>();
+    rootList.add(sv);
+    VariableList vl = new VariableList(rootList);
     
-    Map<String, String> graphQLVariables = new HashMap<>();
-    graphQLVariables.put("triggerSearch", "true");
-    graphQLVariables.put("clipCount", String.valueOf(1000));
-    graphQLVariables.put("clipFilter", "{\"audioOnly\":{\"eq\":false},\"essences\":{\"empty\":{\"eq\":false}}}");
-
-    assertEquals("\",\"variables\":{\"clipFilter\":{\"audioOnly\":{\"eq\":false},\"essences\":{\"empty\":{\"eq\":false}}},\"clipCount\":1000,\"triggerSearch\":true}}", 
-        BrGraphQLQueries.getGraphQLFooterWithVariable(graphQLVariables));
+    assertEquals("query MediathekViewCountFilms(  $programmeFilter: String) {", BrGraphQLQueries.getGraphQLHeaderWithVariable(queryTitle, vl));
+    
   }
   
+  @Test
+  public void testFooterGenerator() throws Exception {
+
+    BooleanVariable bv = new BooleanVariable("isClip", true);
+    List<AbstractVariable> rootList = new LinkedList<>();
+    rootList.add(bv);
+    VariableList rootElement = new VariableList(rootList);
+
+    assertEquals("\",\"variables\":{\"isClip\":true}}",
+        BrGraphQLQueries.getGraphQLFooterWithVariable(rootElement));
+
+  }
+
 }
