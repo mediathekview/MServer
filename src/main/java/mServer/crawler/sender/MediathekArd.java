@@ -226,6 +226,7 @@ public class MediathekArd extends MediathekReader {
                         titel = seite1.extract("<h4 class=\"headline\">", "<", pos);
                         dauer = seite1.extract("<p class=\"subtitle\">", "<", pos);
                         try {
+                            dauer = dauer.split("|")[0];
                             dauer = dauer.replace("Min.", "").trim();
                             dauer = dauer.replace("| UT", "").trim();
                             d = Long.parseLong(dauer) * 60;
