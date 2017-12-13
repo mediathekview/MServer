@@ -5,9 +5,9 @@ import java.util.EnumMap;
 import java.util.List;
 import java.util.Map;
 
+import de.mediathekview.mlib.daten.Resolution;
 import org.apache.commons.lang3.StringUtils;
 
-import mServer.crawler.sender.newsearch.Qualities;
 
 /**
  * A class with some Utils to work with M3U8 urls.
@@ -16,7 +16,7 @@ public class M3U8Utils {
 	public static final String M3U8_WDR_URL_BEGIN = "adaptiv.wdr.de/i/medp/";
 	public static final String M3U8_WDR_URL_ALTERNATIV_BEGIN = "wdradaptiv-vh.akamaihd.net/i/medp/";
 	private static final String REGEX_FIRST_USELESS_COMMA = "^,";
-	private static final String M3U8_WDR_QUALITIES_USELESS_END = ",.mp4.csmil";
+	private static final String M3U8_WDR_Resolution_USELESS_END = ",.mp4.csmil";
 	private static final String REGION_WELTWEIT = "weltweit";
 	private static final String REGION_WELTWEIT_DOMAIN = "ww";
 	private static final String REGEX_ALL_BEFORE_PATTERN = ".*";
@@ -34,20 +34,20 @@ public class M3U8Utils {
 	 *
 	 * @param aWDRM3U8Url
 	 *            The M3U8 URL.
-	 * @return A Map containing the URLs and Qualities which was found. An empty
+	 * @return A Map containing the URLs and Resolution which was found. An empty
 	 *         Map if nothing was found.
 	 */
-	public static Map<Qualities, String> gatherUrlsFromWdrM3U8(String aWDRM3U8Url) {
-		Map<Qualities, String> urlAndQualities = new EnumMap<>(Qualities.class);
+	public static Map<Resolution, String> gatherUrlsFromWdrM3U8(String aWDRM3U8Url) {
+		Map<Resolution, String> urlAndResolution = new EnumMap<>(Resolution.class);
 		if (aWDRM3U8Url.contains(M3U8_WDR_URL_BEGIN) || aWDRM3U8Url.contains(M3U8_WDR_URL_ALTERNATIV_BEGIN)) {
 			String m3u8Url = aWDRM3U8Url.replaceAll(REGEX_ALL_BEFORE_PATTERN+M3U8_WDR_URL_BEGIN, "").replaceAll(REGEX_ALL_BEFORE_PATTERN+M3U8_WDR_URL_ALTERNATIV_BEGIN, "");
-			urlAndQualities.putAll(convertM3U8Url(m3u8Url));
+			urlAndResolution.putAll(convertM3U8Url(m3u8Url));
 		}
-		return urlAndQualities;
+		return urlAndResolution;
 	}
 
-	private static Map<? extends Qualities, ? extends String> convertM3U8Url(String m3u8Url) {
-		Map<Qualities, String> urlAndQualities = new EnumMap<>(Qualities.class);
+	private static Map<? extends Resolution, ? extends String> convertM3U8Url(String m3u8Url) {
+		Map<Resolution, String> urlAndResolution = new EnumMap<>(Resolution.class);
 		String[] splittedM3U8Url = StringUtils.split(m3u8Url, '/');
 		if (splittedM3U8Url.length >= 6) {
 			String region = splittedM3U8Url[0];
@@ -64,37 +64,37 @@ public class M3U8Utils {
 			if (StringUtils.isNoneEmpty(region, fsk, unkownNumber, videoId, urlQualityPartsText)) {
 				// Remove useless begin and end.
 				urlQualityPartsText = urlQualityPartsText.replaceFirst(REGEX_FIRST_USELESS_COMMA, "")
-						.replaceFirst(M3U8_WDR_QUALITIES_USELESS_END, "");
+						.replaceFirst(M3U8_WDR_Resolution_USELESS_END, "");
 
-				urlAndQualities.putAll(gatherQualities(region, fsk, unkownNumber, videoId, urlQualityPartsText));
+				urlAndResolution.putAll(gatherResolution(region, fsk, unkownNumber, videoId, urlQualityPartsText));
 			}
 			// The remaining is irrelevant.
 		}
-		return urlAndQualities;
+		return urlAndResolution;
 	}
 
-	private static Map<? extends Qualities, ? extends String> gatherQualities(String region, String fsk,
+	private static Map<? extends Resolution, ? extends String> gatherResolution(String region, String fsk,
 			String unkownNumber, String videoId, String urlQualityPartsText) {
-		Map<Qualities, String> urlAndQualities = new EnumMap<>(Qualities.class);
+		Map<Resolution, String> urlAndResolution = new EnumMap<>(Resolution.class);
 		List<String> urlQualityParts = Arrays.asList(StringUtils.split(urlQualityPartsText, ','));
 		if (urlQualityParts.size() == 1) {
-			urlAndQualities.put(Qualities.SMALL,
+			urlAndResolution.put(Resolution.SMALL,
 					String.format(WDR_MP4_URL_PATTERN, region, fsk, unkownNumber, videoId, urlQualityParts.get(0)));
 		} else if (urlQualityParts.size() == 2) {
-			urlAndQualities.put(Qualities.SMALL,
+			urlAndResolution.put(Resolution.SMALL,
 					String.format(WDR_MP4_URL_PATTERN, region, fsk, unkownNumber, videoId, urlQualityParts.get(0)));
-			urlAndQualities.put(Qualities.NORMAL,
+			urlAndResolution.put(Resolution.NORMAL,
 					String.format(WDR_MP4_URL_PATTERN, region, fsk, unkownNumber, videoId, urlQualityParts.get(1)));
 		} else if (urlQualityParts.size() >= 3) {
 			List<String> bestThreeUrlQualityParts = urlQualityParts.subList(urlQualityParts.size() - 3,
 					urlQualityParts.size());
-			urlAndQualities.put(Qualities.SMALL, String.format(WDR_MP4_URL_PATTERN, region, fsk, unkownNumber, videoId,
+			urlAndResolution.put(Resolution.SMALL, String.format(WDR_MP4_URL_PATTERN, region, fsk, unkownNumber, videoId,
 					bestThreeUrlQualityParts.get(0)));
-			urlAndQualities.put(Qualities.NORMAL, String.format(WDR_MP4_URL_PATTERN, region, fsk, unkownNumber, videoId,
+			urlAndResolution.put(Resolution.NORMAL, String.format(WDR_MP4_URL_PATTERN, region, fsk, unkownNumber, videoId,
 					bestThreeUrlQualityParts.get(1)));
-			urlAndQualities.put(Qualities.HD, String.format(WDR_MP4_URL_PATTERN, region, fsk, unkownNumber, videoId,
+			urlAndResolution.put(Resolution.HD, String.format(WDR_MP4_URL_PATTERN, region, fsk, unkownNumber, videoId,
 					bestThreeUrlQualityParts.get(2)));
 		}
-		return urlAndQualities;
+		return urlAndResolution;
 	}
 }

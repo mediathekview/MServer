@@ -24,35 +24,45 @@ import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+import java.time.format.FormatStyle;
 import java.util.Date;
 
 import de.mediathekview.mlib.tool.Functions;
+
 import java.text.ParseException;
+import java.util.Locale;
+
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.time.FastDateFormat;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-public class MserverDatumZeit {
+public class MserverDatumZeit
+{
 
     private static final Logger LOG = LogManager.getLogger(MserverDatumZeit.class);
-    
-    private static final SimpleDateFormat SDF_DATUM_ZEIT = new SimpleDateFormat("dd.MM.yyyy  HH:mm:ss");
-    private static final SimpleDateFormat SDF_DATUM = new SimpleDateFormat("dd.MM.yyyy");
-    private static final SimpleDateFormat SDF_DATUM_YYYY_MM_DD = new SimpleDateFormat("yyyy.MM.dd");
 
-    private static final FastDateFormat FDF_OUT_TIME = FastDateFormat.getInstance("HH:mm:ss");
-    private static final FastDateFormat FDF_OUT_DAY = FastDateFormat.getInstance("dd.MM.yyyy");
-    
-    public static String getJetzt() {
-        return SDF_DATUM_ZEIT.format(new Date());
+    private static final DateTimeFormatter DF_DATUM_ZEIT = DateTimeFormatter.ofLocalizedDateTime(FormatStyle.MEDIUM).withLocale(Locale.GERMANY);
+    private static final DateTimeFormatter DF_DATUM = DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM).withLocale(Locale.GERMANY);
+    private static final DateTimeFormatter DF_DATUM_YYYY_MM_DD = DateTimeFormatter.ofPattern("yyyy.MM.dd");
+
+    private static final DateTimeFormatter DF_OUT_TIME = DateTimeFormatter.ofPattern("HH:mm:ss");
+
+    public static String getJetzt()
+    {
+        return DF_DATUM_ZEIT.format(LocalDateTime.now());
     }
 
-    public static String getHeute() {
-        return SDF_DATUM.format(new Date());
+    public static String getHeute()
+    {
+        return DF_DATUM.format(LocalDateTime.now());
     }
 
-    public static long getSecondsUntilNextDay() {
+    public static long getSecondsUntilNextDay()
+    {
         // now
         LocalDateTime now = LocalDateTime.now();
         // tomorrow 0:00
@@ -61,13 +71,16 @@ public class MserverDatumZeit {
         return duration.getSeconds();
     }
 
-    public static String getHeute_yyyy_MM_dd() {
-        return SDF_DATUM_YYYY_MM_DD.format(new Date());
+    public static String getHeute_yyyy_MM_dd()
+    {
+        return DF_DATUM_YYYY_MM_DD.format(LocalDateTime.now());
     }
 
-    public static String getNameAkt(String path) {
+    public static String getNameAkt(String path)
+    {
         // liefert den Namen der Filmliste "akt" von heute
-        if (path.isEmpty()) {
+        if (path.isEmpty())
+        {
             return "";
         }
         return Functions.addsPfad(path, "Filmliste-" + new SimpleDateFormat("yyyy-MM-dd").format(new Date()) + ".xz");
@@ -75,34 +88,120 @@ public class MserverDatumZeit {
 
     /**
      * formats a date/datetime string to the date format used in DatenFilm
-     * @param dateValue the date/datetime value
-     * @param sdf the format of dateValue
+     *
+     * @param dateValue          the date/datetime value
+     * @param aDateTimeFormatter the format of dateValue
      * @return the formatted date string
      */
-    public static String formatDate(String dateValue, FastDateFormat sdf) {
-        try {
-            return FDF_OUT_DAY.format(sdf.parse(dateValue));
-        } catch (ParseException ex) {
+    public static String formatDate(String dateValue, DateTimeFormatter aDateTimeFormatter)
+    {
+        try
+        {
+            return DF_DATUM.format(aDateTimeFormatter.parse(dateValue));
+        } catch (DateTimeParseException ex)
+        {
             LOG.debug(String.format("Fehler beim Parsen des Datums %s: %s", dateValue, ex.getMessage()));
         }
-        
+
         return "";
     }
 
     /**
-     * formats a datetime string to the time format used in DatenFilm
-     * @param dateValue the datetime value
-     * @param sdf the format of dateValue
-     * @return the formatted time string
+     * Parse a date/datetime string.
+     *
+     * @param dateValue the date/datetime value
+     * @return the date
      */
-    public static  String formatTime(String dateValue, FastDateFormat sdf) {
-        try {
-            return FDF_OUT_TIME.format(sdf.parse(dateValue));
-        } catch (ParseException ex) {
+    public static LocalDate parseDate(String dateValue)
+    {
+        try
+        {
+            return LocalDate.parse(dateValue, DF_DATUM);
+        } catch (DateTimeParseException ex)
+        {
             LOG.debug(String.format("Fehler beim Parsen des Datums %s: %s", dateValue, ex.getMessage()));
         }
-        
+
+        return null;
+    }
+
+    /**
+     * Parse a date/datetime string.
+     *
+     * @param aDate the date value
+     * @param aTime the time value
+     * @return the dateTime
+     */
+    public static LocalDateTime parseDateTime(String aDate, String aTime)
+    {
+        try
+        {
+            LocalTime time;
+            if (StringUtils.isBlank(aDate))
+            {
+                return null;
+            }
+
+            if (StringUtils.isBlank(aTime))
+            {
+                time = LocalTime.MIDNIGHT;
+            }else
+            {
+                time = tryToParseTime(aTime);
+            }
+
+
+            return LocalDateTime.of(LocalDate.parse(aDate, DF_DATUM), time);
+        } catch (DateTimeParseException ex)
+        {
+            LOG.debug(String.format("Fehler beim Parsen des Datums %s und der Zeit %s: %s", aDate, aTime, ex.getMessage()));
+        }
+
+        return null;
+    }
+
+    private static LocalTime tryToParseTime(final String aTime)
+    {
+        try
+        {
+            return parseTime(FormatStyle.LONG, aTime);
+        } catch (DateTimeParseException dateTimeParseException2)
+        {
+            LOG.debug(String.format("Can't parse time \"%s\" for german format LONG tying MEDIUM now...",aTime), dateTimeParseException2);
+        }
+        try
+        {
+            return parseTime(FormatStyle.MEDIUM, aTime);
+        } catch (DateTimeParseException dateTimeParseException3)
+        {
+            LOG.debug(String.format("Can't parse time \"%s\" for german format MEDIUM tying SHORT now...",aTime), dateTimeParseException3);
+            return parseTime(FormatStyle.SHORT, aTime);
+        }
+    }
+
+    private static LocalTime parseTime(final FormatStyle aFormatStyle, String aTime)
+    {
+        return LocalTime.parse(aTime, DateTimeFormatter.ofLocalizedTime(aFormatStyle).withLocale(Locale.GERMANY));
+    }
+
+    /**
+     * formats a datetime string to the time format used in DatenFilm
+     *
+     * @param dateValue          the datetime value
+     * @param aDateTimeFormatter the format of dateValue
+     * @return the formatted time string
+     */
+    public static String formatTime(String dateValue, DateTimeFormatter aDateTimeFormatter)
+    {
+        try
+        {
+            return DF_OUT_TIME.format(aDateTimeFormatter.parse(dateValue));
+        } catch (DateTimeParseException ex)
+        {
+            LOG.debug(String.format("Fehler beim Parsen des Datums %s: %s", dateValue, ex.getMessage()));
+        }
+
         return "";
-    }  
-         
+    }
+
 }

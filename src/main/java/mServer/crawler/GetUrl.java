@@ -35,107 +35,134 @@ import mServer.tool.MserverDaten;
 import okhttp3.Request;
 import okhttp3.Response;
 import okhttp3.ResponseBody;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 /**
  * ist die Klasse die die HTML-Seite tatsächlich lädt
  */
-public class GetUrl {
-
+public class GetUrl
+{
+    private static final Logger LOG = LogManager.getLogger(GetUrl.class);
     private final static int PAUSE = 1_000;
     public static boolean showLoadTime = false; //DEBUG
     private long delayVal = TimeUnit.MILLISECONDS.convert(50, TimeUnit.MILLISECONDS);
 
-    public GetUrl() {
+    public GetUrl()
+    {
     }
 
-    public GetUrl(long delay) {
+    public GetUrl(long delay)
+    {
         setDelay(delay, TimeUnit.MILLISECONDS);
     }
 
-    public void setDelay(long delay, TimeUnit delayUnit) {
+    public void setDelay(long delay, TimeUnit delayUnit)
+    {
         delayVal = TimeUnit.MILLISECONDS.convert(delay, delayUnit);
     }
 
     @Deprecated
-    public MSStringBuilder getUri_Utf(String sender, String addr, MSStringBuilder seite, String meldung) {
+    public MSStringBuilder getUri_Utf(String sender, String addr, MSStringBuilder seite, String meldung)
+    {
         return getUri(sender, addr, StandardCharsets.UTF_8, 1 /* versuche */, seite, meldung);
     }
 
-    public MSStringBuilder getUri_Iso(String sender, String addr, MSStringBuilder seite, String meldung) {
+    public MSStringBuilder getUri_Iso(String sender, String addr, MSStringBuilder seite, String meldung)
+    {
         return getUri(sender, addr, StandardCharsets.ISO_8859_1, 1 /* versuche */, seite, meldung);
     }
 
-    public MSStringBuilder getUri(String sender, String addr, Charset encoding, int maxVersuche, MSStringBuilder seite, String meldung) {
+    public MSStringBuilder getUri(String sender, String addr, Charset encoding, int maxVersuche, MSStringBuilder seite, String meldung)
+    {
         return getUri(sender, addr, encoding, maxVersuche, seite, meldung, "");
     }
 
     public MSStringBuilder getUriWithDelay(String sender, String addr, Charset encoding, int maxVersuche, MSStringBuilder seite, String meldung,
-            long delay, TimeUnit delayUnit) {
+                                           long delay, TimeUnit delayUnit)
+    {
         setDelay(delay, delayUnit);
 
         return getUri(sender, addr, encoding, maxVersuche, seite, meldung);
     }
 
-    public MSStringBuilder getUri(String sender, String addr, Charset encoding, int maxVersuche, MSStringBuilder seite, String meldung, String token) {
+    public MSStringBuilder getUri(String sender, String addr, Charset encoding, int maxVersuche, MSStringBuilder seite, String meldung, String token)
+    {
         int aktVer = 0;
         boolean letzterVersuch;
 
-        do {
+        do
+        {
             ++aktVer;
-            try {
+            try
+            {
 
-                if (delayVal > 0) {
-                    try {
+                if (delayVal > 0)
+                {
+                    try
+                    {
                         TimeUnit.MILLISECONDS.sleep(delayVal);
-                    } catch (InterruptedException ignored) {
+                    } catch (InterruptedException ignored)
+                    {
                     }
                 }
 
-                if (aktVer > 1) {
+                if (aktVer > 1)
+                {
                     // und noch eine Pause vor dem nächsten Versuch
                     TimeUnit.MILLISECONDS.sleep(PAUSE);
                 }
                 letzterVersuch = (aktVer >= maxVersuche);
                 seite = getUriNew(sender, addr, seite, encoding, meldung, maxVersuche, letzterVersuch, token);
-                if (seite.length() > 0) {
+                if (seite.length() > 0)
+                {
                     // und nix wie weiter
-                    if (Config.debug && aktVer > 1) {
+                    if (Config.debug && aktVer > 1)
+                    {
                         String text = sender + " [" + aktVer + '/' + maxVersuche + "] ~~~> " + addr;
                         Log.sysLog(text);
                     }
                     // nur dann zählen
                     FilmeSuchen.listeSenderLaufen.inc(sender, RunSender.Count.ANZAHL);
                     return seite;
-                } else {
+                } else
+                {
                     FilmeSuchen.listeSenderLaufen.inc(sender, RunSender.Count.FEHLVERSUCHE);
                     FilmeSuchen.listeSenderLaufen.inc(sender, RunSender.Count.WARTEZEIT_FEHLVERSUCHE, delayVal);
-                    if (letzterVersuch) {
+                    if (letzterVersuch)
+                    {
                         // dann wars leider nichts
                         FilmeSuchen.listeSenderLaufen.inc(sender, RunSender.Count.FEHLER);
                     }
                 }
-            } catch (Exception ex) {
+            } catch (Exception ex)
+            {
                 Log.errorLog(698963200, ex, sender);
             }
         } while (!Config.getStop() && aktVer < maxVersuche);
         return seite;
     }
 
-    private void updateStatistics(final String sender, final long bytesWritten) {
+    private void updateStatistics(final String sender, final long bytesWritten)
+    {
         FilmeSuchen.listeSenderLaufen.inc(sender, RunSender.Count.SUM_DATA_BYTE, bytesWritten);
         FilmeSuchen.listeSenderLaufen.inc(sender, RunSender.Count.SUM_TRAFFIC_BYTE, bytesWritten);
 
         FilmeSuchen.listeSenderLaufen.inc(sender, RunSender.Count.SUM_TRAFFIC_LOADART_NIX, bytesWritten);
     }
 
-    private long transferData(ResponseBody body, Charset encoding, MSStringBuilder seite) throws IOException {
+    private long transferData(ResponseBody body, Charset encoding, MSStringBuilder seite) throws IOException
+    {
         long load = 0;
-        if (body.contentType() != null) {
+        if (body.contentType() != null)
+        {
             //valid response
-            try (InputStreamReader inReader = new InputStreamReader(body.byteStream(), encoding)) {
+            try (InputStreamReader inReader = new InputStreamReader(body.byteStream(), encoding))
+            {
                 final char[] buffer = new char[16 * 1024];
                 int n;
-                while (!Config.getStop() && (n = inReader.read(buffer)) != -1) {
+                while (!Config.getStop() && (n = inReader.read(buffer)) != -1)
+                {
                     // hier wird endlich geladen
                     seite.append(buffer, 0, n);
                     load += n;
@@ -145,20 +172,25 @@ public class GetUrl {
         return load;
     }
 
-    private long webCall(Request request, MSStringBuilder seite, final Charset encoding) throws IOException {
+    private long webCall(Request request, MSStringBuilder seite, final Charset encoding) throws IOException
+    {
         long load = 0;
         try (Response response = MVHttpClient.getInstance().getHttpClient().newCall(request).execute();
-                ResponseBody body = response.body()) {
-            if (response.isSuccessful()) {
+             ResponseBody body = response.body())
+        {
+            if (response.isSuccessful())
+            {
                 load = transferData(body, encoding, seite);
             }
         }
         return load;
     }
 
-    private Request.Builder createRequestBuilder(String addr, String token) {
+    private Request.Builder createRequestBuilder(String addr, String token)
+    {
         Request.Builder builder = new Request.Builder().url(addr);
-        if (!token.isEmpty()) {
+        if (!token.isEmpty())
+        {
             builder.addHeader("Api-Auth", "Bearer " + token);
         }
         //FIXME server user-agent not yet set
@@ -166,29 +198,37 @@ public class GetUrl {
     }
 
     private MSStringBuilder getUriNew(String sender, String addr, MSStringBuilder seite,
-            Charset encoding, String meldung, int versuch, boolean lVersuch,
-            String token) {
+                                      Charset encoding, String meldung, int versuch, boolean lVersuch,
+                                      String token)
+    {
 
         long load = 0;
 
-        try {
+        try
+        {
             seite.setLength(0);
 
-            if (MserverDaten.debug) {
-                Log.sysLog("Durchsuche: " + addr);
+            if (MserverDaten.debug)
+            {
+                LOG.debug("Durchsuche: " + addr);
             }
 
             final Request.Builder builder = createRequestBuilder(addr, token);
             load = webCall(builder.build(), seite, encoding);
-        } catch (UnknownHostException | SocketTimeoutException ignored) {
-            if (MserverDaten.debug) {
+        } catch (UnknownHostException | SocketTimeoutException ignored)
+        {
+            if (MserverDaten.debug)
+            {
                 printDebugMessage(meldung, addr, sender, versuch, ignored);
             }
-        } catch (IOException ex) {
-            if (lVersuch) {
+        } catch (IOException ex)
+        {
+            if (lVersuch)
+            {
                 printDebugMessage(meldung, addr, sender, versuch, ex);
             }
-        } catch (Exception ex) {
+        } catch (Exception ex)
+        {
             Log.errorLog(973969801, ex, "");
         }
 
@@ -197,18 +237,22 @@ public class GetUrl {
         return seite;
     }
 
-    private void printDebugMessage(String meldung, String addr, String sender, int versuch, Exception ex) {
+    private void printDebugMessage(String meldung, String addr, String sender, int versuch, Exception ex)
+    {
         //FIXME caller anzeige ist falsch in exception
         String[] text;
-        if (meldung.isEmpty()) {
+        if (meldung.isEmpty())
+        {
             text = new String[]{"", "Sender: " + sender + " - Versuche: " + versuch,
-                "URL: " + addr};
-        } else {
+                    "URL: " + addr};
+        } else
+        {
             text = new String[]{"", "Sender: " + sender + " - Versuche: " + versuch,
-                "URL: " + addr,
-                meldung};
+                    "URL: " + addr,
+                    meldung};
         }
-        switch (ex.getMessage()) {
+        switch (ex.getMessage())
+        {
             case "Read timed out":
                 text[0] = "TimeOut: ";
                 Log.errorLog(502739817, text);

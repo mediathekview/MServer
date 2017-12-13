@@ -1,0 +1,232 @@
+{
+   "nextPageUrl":"/play/v2/tv/show/6fd27ab0-d10f-450f-aaa9-836f1cac97bd/latestEpisodes/tillMonth/12-2017?nextPageHash=09e12b6f403c2da8bfde15a1c99070d4f1c58eef3c29b0ea2f598fc7a2dcbbae313cfdfbbe05cc5893d619409e53baba5c75cbee20dad0631f4f560b6e4084a21f6d2a8264018f47a564cdea2a9099a708af136b02c7288f22c1c24f3e62269a839ac673cb33b4a8",
+   "show":{
+      "id":"6fd27ab0-d10f-450f-aaa9-836f1cac97bd",
+      "title":"1 gegen 100",
+      "description":"1 Kandidat (Kandidatin), 100 Gegner (Gegnerinnen): In der härtesten Quiz-Show der Schweiz, stellt Moderatorin Susanne Kunz knifflige Fragen.",
+      "lead":"1 Kandidat (Kandidatin), 100 Gegner (Gegnerinnen): In der härtesten Quiz-Show der Schweiz, stellt Moderatorin Susanne Kunz knifflige Fragen.",
+      "episodeCount":{
+         "isDefined":false,
+         "isAtLeastOne":false
+      },
+      "imageUrl":"https://ws.srf.ch/asset/image/audio/ecba1e1f-45c0-46d6-b124-a2e3fa3ece05/WEBVISUAL/1475676626",
+      "bannerImageUrl":"https://ws.srf.ch/asset/image/audio/ecba1e1f-45c0-46d6-b124-a2e3fa3ece05/HEADER_SRF_PLAYER/1462351244.jpg",
+      "imageTitle":"1 gegen 100",
+      "overviewUrl":"/play/tv/sendung/1-gegen-100?id=6fd27ab0-d10f-450f-aaa9-836f1cac97bd",
+      "absoluteOverviewUrl":"https://www.srf.ch/play/tv/sendung/1-gegen-100?id=6fd27ab0-d10f-450f-aaa9-836f1cac97bd",
+      "urlToLatestEpisode":"/play/v2/tv/show/6fd27ab0-d10f-450f-aaa9-836f1cac97bd/latestEpisode/redirect"
+   },
+   "episodes":[
+      {
+         "id":"e3720c24-58b9-4056-b098-17acbf97f9a6",
+         "title":"Versucht sein Glück: René Schlauri aus Lupfig im Kanton Aargau",
+         "description":"Der 53jährige Bauleiter möchte mit seinem Gewinn eine Reise in die Südsee machen. Zuerst muss er aber seine Reise durch den Fragendschungel antreten. Nach 4 gespielten Fragen hat der 2-fache Vater noch alle Joker und bereits 22‘000 Franken erspielt.",
+         "imageUrl":"https://ws.srf.ch/asset/image/audio/2b26ae4a-71fa-45c1-b78d-3dce2eaf16df/EPISODE_IMAGE/1509998885.jpg",
+         "showId":"6fd27ab0-d10f-450f-aaa9-836f1cac97bd",
+         "showTitle":"1 gegen 100",
+         "detailUrl":"/play/tv/1-gegen-100/video/versucht-sein-glueck-rene-schlauri-aus-lupfig-im-kanton-aargau?id=e3720c24-58b9-4056-b098-17acbf97f9a6",
+         "absoluteDetailUrl":"https://www.srf.ch/play/tv/1-gegen-100/video/versucht-sein-glueck-rene-schlauri-aus-lupfig-im-kanton-aargau?id=e3720c24-58b9-4056-b098-17acbf97f9a6",
+         "popupUrl":"/play/tv/popupvideoplayer?id=e3720c24-58b9-4056-b098-17acbf97f9a6",
+         "popupText":"Video «Versucht sein Glück: René Schlauri aus Lupfig im Kanton Aargau» im Pop-up abspielen.",
+         "duration":"53:05",
+         "date":"06.11.2017, 20:09 Uhr",
+         "isEditorPick":false,
+         "segments":[
+
+         ],
+         "subtitle":"1 gegen 100 06.11.2017, 20:09 Uhr",
+         "publishDatePhrase":"06.11.2017, 20:09 Uhr",
+         "views":3167
+      },
+      {
+         "id":"c19eeb6c-c168-40a3-a205-4298a18576aa",
+         "title":"Will hoch hinaus: André Martin aus Sissach im Kanton Basel",
+         "description":"Der 33jährige Sissacher ist ein Mann mit Ausdauer. Beim Jungfrau Marathon hat der Ingenieur gelernt seine Kräfte einzuteilen. Ausdauer und Kraft braucht es auch heute auf der Quiz-Insel. Nach 4 gespielten Fragen hat er knapp 7'000 Franken erspielt und hat noch einen Joker und den Doppel Joker.",
+         "imageUrl":"https://ws.srf.ch/asset/image/audio/18412b5c-c844-4e54-bcda-d64950c97d06/EPISODE_IMAGE/1509394085.jpg",
+         "showId":"6fd27ab0-d10f-450f-aaa9-836f1cac97bd",
+         "showTitle":"1 gegen 100",
+         "detailUrl":"/play/tv/1-gegen-100/video/will-hoch-hinaus-andre-martin-aus-sissach-im-kanton-basel?id=c19eeb6c-c168-40a3-a205-4298a18576aa",
+         "absoluteDetailUrl":"https://www.srf.ch/play/tv/1-gegen-100/video/will-hoch-hinaus-andre-martin-aus-sissach-im-kanton-basel?id=c19eeb6c-c168-40a3-a205-4298a18576aa",
+         "popupUrl":"/play/tv/popupvideoplayer?id=c19eeb6c-c168-40a3-a205-4298a18576aa",
+         "popupText":"Video «Will hoch hinaus: André Martin aus Sissach im Kanton Basel» im Pop-up abspielen.",
+         "duration":"52:47",
+         "date":"30.10.2017, 20:09 Uhr",
+         "isEditorPick":false,
+         "segments":[
+
+         ],
+         "subtitle":"1 gegen 100 30.10.2017, 20:09 Uhr",
+         "publishDatePhrase":"30.10.2017, 20:09 Uhr",
+         "views":2456
+      },
+      {
+         "id":"d38b05d8-20f8-409a-b1de-b8a3b4be021e",
+         "title":"Vom St. Galler Rheintal: Franz Südmeyer aus Heerbrugg",
+         "description":"Der 59jährige Deutsche ist vor 30 Jahren in die Schweiz gekommen und wegen der Liebe hiergeblieben. Der Leiter eines Alterszentrums hat bis jetzt bei «1 gegen 100» 19‘000 Franken erspielt, hat aber nur noch 2 Joker um die noch übrigen 76 Gegner zu bezwingen.",
+         "imageUrl":"https://ws.srf.ch/asset/image/audio/765f0eef-2ef7-4974-9643-6f1496065723/EPISODE_IMAGE/1508785578.jpg",
+         "showId":"6fd27ab0-d10f-450f-aaa9-836f1cac97bd",
+         "showTitle":"1 gegen 100",
+         "detailUrl":"/play/tv/1-gegen-100/video/vom-st--galler-rheintal-franz-suedmeyer-aus-heerbrugg?id=d38b05d8-20f8-409a-b1de-b8a3b4be021e",
+         "absoluteDetailUrl":"https://www.srf.ch/play/tv/1-gegen-100/video/vom-st--galler-rheintal-franz-suedmeyer-aus-heerbrugg?id=d38b05d8-20f8-409a-b1de-b8a3b4be021e",
+         "popupUrl":"/play/tv/popupvideoplayer?id=d38b05d8-20f8-409a-b1de-b8a3b4be021e",
+         "popupText":"Video «Vom St. Galler Rheintal: Franz Südmeyer aus Heerbrugg» im Pop-up abspielen.",
+         "duration":"53:18",
+         "date":"23.10.2017, 20:07 Uhr",
+         "isEditorPick":false,
+         "segments":[
+
+         ],
+         "subtitle":"1 gegen 100 23.10.2017, 20:07 Uhr",
+         "publishDatePhrase":"23.10.2017, 20:07 Uhr",
+         "views":1396
+      },
+      {
+         "id":"f58c940d-89bc-4f7d-9fb4-a4634fac1b32",
+         "title":"Wie viel weiss Larissa Hochuli aus Oberkulm AG?",
+         "description":"Die 19jährige Gymnasiastin aus Oberkulm im Kanton Aargau schreibt gerade an ihrer Maturaarbeit. Heute muss Larissa Hochuli aber zuerst einmal ihr Wissen im «1 gegen 100» Studio gegen 100 Gegner testen.",
+         "imageUrl":"https://ws.srf.ch/asset/image/audio/1c19f316-e18a-4ca9-a069-2b5f36c1afb5/EPISODE_IMAGE/1508181078.jpg",
+         "showId":"6fd27ab0-d10f-450f-aaa9-836f1cac97bd",
+         "showTitle":"1 gegen 100",
+         "detailUrl":"/play/tv/1-gegen-100/video/wie-viel-weiss-larissa-hochuli-aus-oberkulm-ag?id=f58c940d-89bc-4f7d-9fb4-a4634fac1b32",
+         "absoluteDetailUrl":"https://www.srf.ch/play/tv/1-gegen-100/video/wie-viel-weiss-larissa-hochuli-aus-oberkulm-ag?id=f58c940d-89bc-4f7d-9fb4-a4634fac1b32",
+         "popupUrl":"/play/tv/popupvideoplayer?id=f58c940d-89bc-4f7d-9fb4-a4634fac1b32",
+         "popupText":"Video «Wie viel weiss Larissa Hochuli aus Oberkulm AG?» im Pop-up abspielen.",
+         "duration":"53:14",
+         "date":"16.10.2017, 20:09 Uhr",
+         "isEditorPick":false,
+         "segments":[
+
+         ],
+         "subtitle":"1 gegen 100 16.10.2017, 20:09 Uhr",
+         "publishDatePhrase":"16.10.2017, 20:09 Uhr",
+         "views":6010
+      },
+      {
+         "id":"18a0ec86-4829-44e0-8261-d647d7907c7c",
+         "title":"Toller Start von Daniel Fleischmann aus Amriswil TG",
+         "description":"Der 24jährige Primarlehrer möchte sich mit einem Gewinn vielleicht eine schöne Uhr kaufen. Bis jetzt sieht es gut aus, er hat fast 50‘000 Franken erspielt und hat noch 2 Joker. Doch bevor er als Gewinner von der Spielinsel gehen kann muss er noch 55 Gegner bezwingen.",
+         "imageUrl":"https://ws.srf.ch/asset/image/audio/3491db41-194a-486b-a86c-44d3be47e9c2/EPISODE_IMAGE/1507576011.jpg",
+         "showId":"6fd27ab0-d10f-450f-aaa9-836f1cac97bd",
+         "showTitle":"1 gegen 100",
+         "detailUrl":"/play/tv/1-gegen-100/video/toller-start-von-daniel-fleischmann-aus-amriswil-tg?id=18a0ec86-4829-44e0-8261-d647d7907c7c",
+         "absoluteDetailUrl":"https://www.srf.ch/play/tv/1-gegen-100/video/toller-start-von-daniel-fleischmann-aus-amriswil-tg?id=18a0ec86-4829-44e0-8261-d647d7907c7c",
+         "popupUrl":"/play/tv/popupvideoplayer?id=18a0ec86-4829-44e0-8261-d647d7907c7c",
+         "popupText":"Video «Toller Start von Daniel Fleischmann aus Amriswil TG» im Pop-up abspielen.",
+         "duration":"53:07",
+         "date":"09.10.2017, 20:08 Uhr",
+         "isEditorPick":false,
+         "segments":[
+
+         ],
+         "subtitle":"1 gegen 100 09.10.2017, 20:08 Uhr",
+         "publishDatePhrase":"09.10.2017, 20:08 Uhr",
+         "views":2672
+      },
+      {
+         "id":"001f4ea3-72a0-40d1-ad6e-1e584f0b9222",
+         "title":"Versucht sein Glück auf der Quiz-Insel: Kari Scheidegger",
+         "description":"Der im Bündnerland lebende Pensionär war früher Bergführer und Schreiner. Auch bei «1 gegen 100» hat der 74jährige schon den ersten Berg erklommen und bereits 86 Gegner weggespielt.",
+         "imageUrl":"https://ws.srf.ch/asset/image/audio/32acc03f-2f4d-4161-b236-f3aba44f05de/EPISODE_IMAGE/1506971484.jpg",
+         "showId":"6fd27ab0-d10f-450f-aaa9-836f1cac97bd",
+         "showTitle":"1 gegen 100",
+         "detailUrl":"/play/tv/1-gegen-100/video/versucht-sein-glueck-auf-der-quiz-insel-kari-scheidegger?id=001f4ea3-72a0-40d1-ad6e-1e584f0b9222",
+         "absoluteDetailUrl":"https://www.srf.ch/play/tv/1-gegen-100/video/versucht-sein-glueck-auf-der-quiz-insel-kari-scheidegger?id=001f4ea3-72a0-40d1-ad6e-1e584f0b9222",
+         "popupUrl":"/play/tv/popupvideoplayer?id=001f4ea3-72a0-40d1-ad6e-1e584f0b9222",
+         "popupText":"Video «Versucht sein Glück auf der Quiz-Insel: Kari Scheidegger» im Pop-up abspielen.",
+         "duration":"52:54",
+         "date":"02.10.2017, 20:09 Uhr",
+         "isEditorPick":false,
+         "segments":[
+
+         ],
+         "subtitle":"1 gegen 100 02.10.2017, 20:09 Uhr",
+         "publishDatePhrase":"02.10.2017, 20:09 Uhr",
+         "views":2711
+      },
+      {
+         "id":"d588365b-b2e8-47ff-9e23-1ae2510c6f97",
+         "title":"Toller Start von Gabriela Hüppi aus Rafz im Kanton Zürich",
+         "description":"Die 54jährige Rafzerin reist einmal pro Monat in die Provence in ihr Landhaus und möchte später ganz nach Frankreich auswandern. Dank ihrem Wissen und dem Einsatz von zwei Jokern spielte sie in der letzten «1 gegen 100» Sendung 41 Gegner weg.",
+         "imageUrl":"https://ws.srf.ch/asset/image/audio/a9bb5a8c-a98c-40fa-8e18-2ce4ec3b91e9/EPISODE_IMAGE/1506366436.jpg",
+         "showId":"6fd27ab0-d10f-450f-aaa9-836f1cac97bd",
+         "showTitle":"1 gegen 100",
+         "detailUrl":"/play/tv/1-gegen-100/video/toller-start-von-gabriela-hueppi-aus-rafz-im-kanton-zuerich?id=d588365b-b2e8-47ff-9e23-1ae2510c6f97",
+         "absoluteDetailUrl":"https://www.srf.ch/play/tv/1-gegen-100/video/toller-start-von-gabriela-hueppi-aus-rafz-im-kanton-zuerich?id=d588365b-b2e8-47ff-9e23-1ae2510c6f97",
+         "popupUrl":"/play/tv/popupvideoplayer?id=d588365b-b2e8-47ff-9e23-1ae2510c6f97",
+         "popupText":"Video «Toller Start von Gabriela Hüppi aus Rafz im Kanton Zürich» im Pop-up abspielen.",
+         "duration":"53:13",
+         "date":"25.09.2017, 20:08 Uhr",
+         "isEditorPick":false,
+         "segments":[
+
+         ],
+         "subtitle":"1 gegen 100 25.09.2017, 20:08 Uhr",
+         "publishDatePhrase":"25.09.2017, 20:08 Uhr",
+         "views":3661
+      },
+      {
+         "id":"63ff41bb-5ab3-4b3a-bc02-5bea921447dc",
+         "title":"Frisch am Start: Chiara Gisin aus Gelterkinden",
+         "description":"Die 18jährige aus dem Kanton Basel-Landschaft ist Veganerin und ihr Traum ist, später ein veganes Lebensmittelgeschäft zu eröffnen. Zuerst muss sie aber nächsten Sommer die Maturaprüfung bestehen und dafür jetzt noch ein bisschen die Schulbank drücken.",
+         "imageUrl":"https://ws.srf.ch/asset/image/audio/83db2ac6-3dc3-4370-9988-ff7eed58bbe1/EPISODE_IMAGE/1505813239.png",
+         "showId":"6fd27ab0-d10f-450f-aaa9-836f1cac97bd",
+         "showTitle":"1 gegen 100",
+         "detailUrl":"/play/tv/1-gegen-100/video/frisch-am-start-chiara-gisin-aus-gelterkinden?id=63ff41bb-5ab3-4b3a-bc02-5bea921447dc",
+         "absoluteDetailUrl":"https://www.srf.ch/play/tv/1-gegen-100/video/frisch-am-start-chiara-gisin-aus-gelterkinden?id=63ff41bb-5ab3-4b3a-bc02-5bea921447dc",
+         "popupUrl":"/play/tv/popupvideoplayer?id=63ff41bb-5ab3-4b3a-bc02-5bea921447dc",
+         "popupText":"Video «Frisch am Start: Chiara Gisin aus Gelterkinden» im Pop-up abspielen.",
+         "duration":"52:43",
+         "date":"18.09.2017, 20:10 Uhr",
+         "isEditorPick":false,
+         "segments":[
+
+         ],
+         "subtitle":"1 gegen 100 18.09.2017, 20:10 Uhr",
+         "publishDatePhrase":"18.09.2017, 20:10 Uhr",
+         "views":2925
+      },
+      {
+         "id":"de2b5dc4-e5b5-4ba0-a05d-a2ce4ce1bb46",
+         "title":"Mitten im Spiel: Daniel Knüsel aus Luzern",
+         "description":"Der 37jährige Berufsschullehrer hat sich am Schluss der letzten Sendung auf die Spielinsel gespielt. Der Luzerner ist oft auf dem Rennvelo unterwegs und kann dabei gut abschalten.",
+         "imageUrl":"https://ws.srf.ch/asset/image/audio/f4a93b47-c3f0-41c3-8037-bf1e3c5c52b0/EPISODE_IMAGE/1505813182.png",
+         "showId":"6fd27ab0-d10f-450f-aaa9-836f1cac97bd",
+         "showTitle":"1 gegen 100",
+         "detailUrl":"/play/tv/1-gegen-100/video/mitten-im-spiel-daniel-knuesel-aus-luzern?id=de2b5dc4-e5b5-4ba0-a05d-a2ce4ce1bb46",
+         "absoluteDetailUrl":"https://www.srf.ch/play/tv/1-gegen-100/video/mitten-im-spiel-daniel-knuesel-aus-luzern?id=de2b5dc4-e5b5-4ba0-a05d-a2ce4ce1bb46",
+         "popupUrl":"/play/tv/popupvideoplayer?id=de2b5dc4-e5b5-4ba0-a05d-a2ce4ce1bb46",
+         "popupText":"Video «Mitten im Spiel: Daniel Knüsel aus Luzern» im Pop-up abspielen.",
+         "duration":"53:09",
+         "date":"11.09.2017, 20:07 Uhr",
+         "isEditorPick":false,
+         "segments":[
+
+         ],
+         "subtitle":"1 gegen 100 11.09.2017, 20:07 Uhr",
+         "publishDatePhrase":"11.09.2017, 20:07 Uhr",
+         "views":2831
+      },
+      {
+         "id":"99dbaab8-36e3-4f12-bf5f-34f197ed0777",
+         "title":"Hat das Spielen im Blut: Jill Bigger 24 aus Diepoldsau",
+         "description":"Jill Bigger aus dem Rheintal im Kanton St. Gallen hatte das Glück am Ende der letzten Sendung von «1 gegen 100» noch ausgewählt zu werden. Der Bauingenieurwesen-Student startet frisch ins Spiel gegen 100 hartnäckige Gegner.",
+         "imageUrl":"https://ws.srf.ch/asset/image/audio/1ac81154-94a0-42ac-998e-c8d2b724d8f0/EPISODE_IMAGE/1504552106.jpg",
+         "showId":"6fd27ab0-d10f-450f-aaa9-836f1cac97bd",
+         "showTitle":"1 gegen 100",
+         "detailUrl":"/play/tv/1-gegen-100/video/hat-das-spielen-im-blut-jill-bigger-24-aus-diepoldsau?id=99dbaab8-36e3-4f12-bf5f-34f197ed0777",
+         "absoluteDetailUrl":"https://www.srf.ch/play/tv/1-gegen-100/video/hat-das-spielen-im-blut-jill-bigger-24-aus-diepoldsau?id=99dbaab8-36e3-4f12-bf5f-34f197ed0777",
+         "popupUrl":"/play/tv/popupvideoplayer?id=99dbaab8-36e3-4f12-bf5f-34f197ed0777",
+         "popupText":"Video «Hat das Spielen im Blut: Jill Bigger 24 aus Diepoldsau» im Pop-up abspielen.",
+         "duration":"52:25",
+         "date":"04.09.2017, 20:08 Uhr",
+         "isEditorPick":false,
+         "segments":[
+
+         ],
+         "subtitle":"1 gegen 100 04.09.2017, 20:08 Uhr",
+         "publishDatePhrase":"04.09.2017, 20:08 Uhr",
+         "views":2676
+      }
+   ],
+   "episodesAvailableForSelectedMonth":false
+}
