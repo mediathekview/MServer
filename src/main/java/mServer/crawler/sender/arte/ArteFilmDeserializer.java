@@ -13,7 +13,8 @@ import org.apache.logging.log4j.Logger;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.concurrent.*;
+import java.util.concurrent.CopyOnWriteArrayList;
+import mServer.crawler.CantCreateFilmException;
 
 public class ArteFilmDeserializer implements JsonDeserializer<ListeFilme>
 {
@@ -33,18 +34,18 @@ public class ArteFilmDeserializer implements JsonDeserializer<ListeFilme>
     {
         ListeFilme listeFilme = new ListeFilme();
 
-        Collection<Future<Film>> futureFilme = new ArrayList<>();
+        Collection<Film> futureFilme = new ArrayList<>();
         
         for (JsonElement jsonElement : aJsonElement.getAsJsonObject().get(JSON_ELEMENT_VIDEOS).getAsJsonArray())
         {
-            ExecutorService executor = Executors.newCachedThreadPool();
-            futureFilme.add(executor.submit(new ArteJsonObjectToFilmCallable(jsonElement.getAsJsonObject(), langCode, sender)));
+          try {
+            futureFilme.add(new ArteJsonObjectToFilmCallable(jsonElement.getAsJsonObject(), langCode, sender).call());
+          } catch (CantCreateFilmException ignored) {}
         }
         
         CopyOnWriteArrayList<Film> finishedFilme = new CopyOnWriteArrayList<>();
-        futureFilme.parallelStream().forEach(e -> {
+        futureFilme.parallelStream().forEach(finishedFilm -> {
             try{
-                Film finishedFilm = e.get();
                 if(finishedFilm!=null)
                 {
                     finishedFilme.add(finishedFilm);
