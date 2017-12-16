@@ -14,7 +14,7 @@
     
     # If set only these Sender will be crawled all other will be ignored.
     senderIncluded:
-     - SRF
+     - HR
     
     # If set the server will be awake after the crawler run and restarts the run after the given amount.
     #schedules:

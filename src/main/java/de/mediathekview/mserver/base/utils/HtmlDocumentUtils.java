@@ -1,6 +1,11 @@
 package de.mediathekview.mserver.base.utils;
 
+import java.time.Duration;
 import java.util.Optional;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
 
@@ -14,6 +19,9 @@ import org.jsoup.select.Elements;
  *
  */
 public final class HtmlDocumentUtils {
+  private static final Logger LOG = LogManager.getLogger(HtmlDocumentUtils.class);
+  private static final String DAUER_REGEX_PATTERN = "(?<=Dauer\\s)\\d+:\\d+";
+
   private HtmlDocumentUtils() {
     super();
   }
@@ -30,6 +38,22 @@ public final class HtmlDocumentUtils {
     final Elements selected = aDocument.select(aElementSelector);
     if (!selected.isEmpty()) {
       return Optional.of(selected.first().text());
+    }
+    return Optional.empty();
+  }
+
+  public static Optional<Duration> parseDuration(final Optional<String> aDauerText) {
+    final Matcher dauerMatcher = Pattern.compile(DAUER_REGEX_PATTERN).matcher(aDauerText.get());
+    if (dauerMatcher.find()) {
+      final String[] dauerSplits = dauerMatcher.group().split(":");
+      if (2 == dauerSplits.length) {
+        try {
+          return Optional.of(Duration.ofMinutes(Long.parseLong(dauerSplits[0]))
+              .withSeconds(Long.parseLong(dauerSplits[1])));
+        } catch (final NumberFormatException numberFormatException) {
+          LOG.error("A duration for can't be parsed.", numberFormatException);
+        }
+      }
     }
     return Optional.empty();
   }

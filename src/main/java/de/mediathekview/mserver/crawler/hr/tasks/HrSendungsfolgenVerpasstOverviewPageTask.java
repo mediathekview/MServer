@@ -9,12 +9,13 @@ import de.mediathekview.mserver.crawler.basic.AbstractDocumentTask;
 import de.mediathekview.mserver.crawler.basic.AbstractUrlTask;
 import de.mediathekview.mserver.crawler.basic.CrawlerUrlDTO;
 
-public class HrSendungsfolgenOverviewPageTask
+public class HrSendungsfolgenVerpasstOverviewPageTask
     extends AbstractDocumentTask<CrawlerUrlDTO, CrawlerUrlDTO> {
-  private static final long serialVersionUID = -6727831751148817578L;
-  private static final String SENDUNGSFOLGE_URL_SELECTOR = ".c-teaser__headlineLink.link";
+  private static final long serialVersionUID = -5121032473964122366L;
+  private static final String SENDUNGSFOLGE_URL_SELECTOR =
+      ".c-epgBroadcast__headline.text__headline";
 
-  public HrSendungsfolgenOverviewPageTask(final AbstractCrawler aCrawler,
+  public HrSendungsfolgenVerpasstOverviewPageTask(final AbstractCrawler aCrawler,
       final ConcurrentLinkedQueue<CrawlerUrlDTO> aUrlToCrawlDTOs) {
     super(aCrawler, aUrlToCrawlDTOs);
   }
@@ -22,7 +23,7 @@ public class HrSendungsfolgenOverviewPageTask
   @Override
   protected AbstractUrlTask<CrawlerUrlDTO, CrawlerUrlDTO> createNewOwnInstance(
       final ConcurrentLinkedQueue<CrawlerUrlDTO> aURLsToCrawl) {
-    return new HrSendungsfolgenOverviewPageTask(crawler, aURLsToCrawl);
+    return new HrSendungsfolgenVerpasstOverviewPageTask(crawler, aURLsToCrawl);
   }
 
   @Override
@@ -32,7 +33,6 @@ public class HrSendungsfolgenOverviewPageTask
         taskResults.add(new CrawlerUrlDTO(filmUrlElement.absUrl(Consts.ATTRIBUTE_HREF)));
       }
     }
-
   }
 
 }

@@ -9,6 +9,7 @@ import org.apache.logging.log4j.Logger;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
+import de.mediathekview.mserver.base.Consts;
 import de.mediathekview.mserver.crawler.basic.CrawlerUrlDTO;
 import de.mediathekview.mserver.crawler.hr.HrCrawler;
 
@@ -17,8 +18,7 @@ public class HrSendungenOverviewPageTask implements Callable<Set<CrawlerUrlDTO>>
   private static final String INDEX_PAGE_NAME = "index.html";
   private static final Logger LOG = LogManager.getLogger(HrSendungenOverviewPageTask.class);
   private static final String HR_SENDUNGEN_URL = HrCrawler.BASE_URL + "sendungen-a-z/index.html";
-  private static final String ATTRIBUTE_HREF = "href";
-  private static final String SENDUNG_URL_SELECTOR = ".c-teaser__headlineLink .link";
+  private static final String SENDUNG_URL_SELECTOR = ".c-teaser__headlineLink.link";
 
   @Override
   public Set<CrawlerUrlDTO> call() {
@@ -27,9 +27,9 @@ public class HrSendungenOverviewPageTask implements Callable<Set<CrawlerUrlDTO>>
     try {
       final Document document = Jsoup.connect(HR_SENDUNGEN_URL).get();
       for (final Element filmUrlElement : document.select(SENDUNG_URL_SELECTOR)) {
-        if (filmUrlElement.hasAttr(ATTRIBUTE_HREF)) {
-          results.add(new CrawlerUrlDTO(
-              filmUrlElement.absUrl(ATTRIBUTE_HREF).replace(INDEX_PAGE_NAME, SENDUNGSFOLEN_OVERVIEW_URL_REPLACEMENT)));
+        if (filmUrlElement.hasAttr(Consts.ATTRIBUTE_HREF)) {
+          results.add(new CrawlerUrlDTO(filmUrlElement.absUrl(Consts.ATTRIBUTE_HREF)
+              .replace(INDEX_PAGE_NAME, SENDUNGSFOLEN_OVERVIEW_URL_REPLACEMENT)));
         }
       }
     } catch (final IOException ioException) {
