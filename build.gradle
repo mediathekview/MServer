@@ -223,10 +223,6 @@ if (project.hasProperty('SONATYPE_USERNAME')) {
 	    from sourceSets.main.allSource
 	}
 	
-	signing {
-	    sign configurations.archives
-	}
-	
 	artifacts {
 	    archives javadocJar, sourcesJar
 	}
