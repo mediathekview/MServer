@@ -3,47 +3,61 @@ jdk:
 - oraclejdk8
 addons:
   sonarcloud:
-    organization: "mediathekview"
+    organization: mediathekview
     token:
       secure: GsJx1wZ11dKiyfEhBjQqclLBY/0bzBvjzX5e8WJHmKbX8dDJgSrPX3K1gpbJ4sxCS/DW++V5Fa6dzeXdn6guWy4ymWTtRaxJamCixpKFOYrplf3wgx/nB2t8F+lAnnSm3aZv/8wvvigcLE/LY4ed/nAKC9LI60Pikvgw3/jnovSgufNi7EAqLtsheIkZYdZ0W20xx1iJ1EMuLeCnb4dj6XNoSyNIerTSNgV5eFX7dSm5rAylIx4eWfKsNbHRRbLLHfqhpdzh9+Zl4zjd9jzLStt3Jg7eYtDR4r8Tsr1ilDWXdhHFD4LEntx4F0hTB4wm+jCqfxdaE4EwEkUPQHJs4in3XPVv1jJszj07TAc94+lfF4cvDG1SnfH3OsisP/nqn1+PUacs+VUnIWJsjKgtLbrreXrwiZErPODMuzq0zXGqz2G7xuQROVZv7zKSHKZtb29996cyp9YUXg0ULHj+NZcp007KaR27fLBFZ8fv5Gamg269kZm30W6OhpzojXp0wMUhvuRdVZC7BvAwVhCauPwu1bpiUiZTcYsBC1F7DkbEzTem50tLhgwsCcl4MV4ovfFsdv7bxMWOgRXCvrM7sivjwYhXuYTJis8gtd7E9r8W8rzB6AI/hM8aS8DPjMizYyLsd8ByF//MIYR2zbJp7Hx0GsEJ8miYosRYIYtlwyE=
     github_token:
       secure: yZv3QsIr8M1rFEuRpgyYZwrAgeHtd0LVkpG9DIsLLNhboApz9LCMcU0dbYxRYi8A5V3MCD+X/rtWsWHfapIjRcoVAyi8f7YWWvz+dnjwOxKi+gHabonnUvIyFAEr8WE+Br5MYOr0GTYiEhiUMrSLg20wBWlqH5LD1Mp/dYd2e80EWN8jcZJRK/rO1CDa78esgaaBMp1Pb/6+E9jS+fuEpLuKocqacA0eHtRrPtPFbTJdVH9amQxfcF3UfEV7/0D8tGlL2cH3J45zYQ0sg/qnWqv6Vtt6W0x6H3pFrEfrkAww8jvV5sKGxyz1/bqLOQJkF8mCotjGox9pkL97/cyf+s+L3Mcux98fK9u7NOzizfFMYz5GgY1K/q0l7hzfzh6JSVPcZ/hHdH0VRqcUVgqXB//wPgs2JNGLj/nGLyxY7T53U5hJOhsqFyGGcbnpZ+thEWlB5wrbPi5PwKCtWvf+Y6H/AePxCRQEie25lwi+M2MCIPjSUB65mXoQnXy3oQahiYWPU0HIpD0Om9fp6UK5x8LXMAx3DeH6wbI7qB2gylygOxuUm0AmojieOeLaQFVK7cvcy9c2W16xyfDUDczkEnceosCe8b2nK/yifKeOfFU/eUiEdzl9ZZvOMf9y4YImQl0ZlQlvYknPGLK/myGLPlJrJhP92XtSiYESsrWOEFw=
     branches:
-      - master
-      - develop
-      - feature/.*
-      - hotfix/.*
-
+    - master
+    - develop
+    - feature/.*
+    - hotfix/.*
 notifications:
   webhooks:
     urls:
-      - "https://scalar.vector.im/api/neb/services/hooks/dHJhdmlzLWNpLyU0MGFsZXglM0FtYXRyaXguZWxhb24uZGUvJTIxdWpSeXlUSGxQcXlRb2prcG1vJTNBbWF0cml4LmVsYW9uLmRl"
-    on_success: change  # always|never|change
+    - https://scalar.vector.im/api/neb/services/hooks/dHJhdmlzLWNpLyU0MGFsZXglM0FtYXRyaXguZWxhb24uZGUvJTIxdWpSeXlUSGxQcXlRb2prcG1vJTNBbWF0cml4LmVsYW9uLmRl
+    on_success: change
     on_failure: always
-    on_start: never  
-  
+    on_start: never
 env:
   global:
-    - secure: pHmSb+3bIvSj1iA5j4MIgRv1ogRH1w7NKlfPxAPDXYq+AQZOyyAhWm/nTMq0mtX9x5RsrM8c7YUN7ds+pTpE5JpcA+rlOSibj+ziDeLhpmDzcBt+YUltTOxP7EVrAAmHBTu7DGjPmTLvfzLfpyGNkv6yuIXNo/oIs6BRMwQ2xHa1QdkQ/gkS6nxgh7UhqtDmNix/idHjX/a5PEX8Qse3ZvKBvt1kgrKcVN1ysOtcHKvhQ5ddMAj+7PM+aLuAPTlysfqMYN1gW+cpWOJrHriV7vGCU6lz34s2yM19wFmRFOo7yht3FhAwH8Rt6aTtwpC3HN5DzwqhcicHQkoyv59KMiBbUBN9w5SGqit+/HtFOQ9vgyV5qo5Il/UkbVGUXXl9WcY+zPV2XTlO3LH5o36Bn+da/HRdmlvveMZT8tJ5137YSQhrQRZdOVEDBWuAZmUiTh94c9u3owU85TFzS97fqWi5bvpbyIU749oGhWGv/zxmOEJmtinnQpUAJqS9fFrXrFFtjdLF6vNYWc1f1y7Xg57pLZYK0NcClWc77QwCX5WHy6VPdj3elIJHyv+3DKQw9VBrfV+bRE4b6uvLuDkllBztYECstYR1uJTOumVnhufc12GrD51m+IRqtzEp4+OlNunKsoInNGsJYyaz3t8VcdAwEN4lTE7Se7ijehIpHRA=
+  - secure: pHmSb+3bIvSj1iA5j4MIgRv1ogRH1w7NKlfPxAPDXYq+AQZOyyAhWm/nTMq0mtX9x5RsrM8c7YUN7ds+pTpE5JpcA+rlOSibj+ziDeLhpmDzcBt+YUltTOxP7EVrAAmHBTu7DGjPmTLvfzLfpyGNkv6yuIXNo/oIs6BRMwQ2xHa1QdkQ/gkS6nxgh7UhqtDmNix/idHjX/a5PEX8Qse3ZvKBvt1kgrKcVN1ysOtcHKvhQ5ddMAj+7PM+aLuAPTlysfqMYN1gW+cpWOJrHriV7vGCU6lz34s2yM19wFmRFOo7yht3FhAwH8Rt6aTtwpC3HN5DzwqhcicHQkoyv59KMiBbUBN9w5SGqit+/HtFOQ9vgyV5qo5Il/UkbVGUXXl9WcY+zPV2XTlO3LH5o36Bn+da/HRdmlvveMZT8tJ5137YSQhrQRZdOVEDBWuAZmUiTh94c9u3owU85TFzS97fqWi5bvpbyIU749oGhWGv/zxmOEJmtinnQpUAJqS9fFrXrFFtjdLF6vNYWc1f1y7Xg57pLZYK0NcClWc77QwCX5WHy6VPdj3elIJHyv+3DKQw9VBrfV+bRE4b6uvLuDkllBztYECstYR1uJTOumVnhufc12GrD51m+IRqtzEp4+OlNunKsoInNGsJYyaz3t8VcdAwEN4lTE7Se7ijehIpHRA=
+  - secure: SmGOU3uN5pYs3OyATR+7KVHatJ3/Y397MEfRzXoNpkgvRQGV0XB67F7xU1jIuavikrBaMhC8GbUstAXVmOSxbwa3VpwpH6xORCl4eQ3RiPml+i+Mo6tV1t0QbIwXcImaNtmsD2i+ijwD2XeVnntJJKwyk7nM6s2GE4aymLbpiwZJ9o9PDZXKPXvZ+RusoGpAs3UbrDl+/Gkjjf7JIRT4gMMqqfq78P+HEiIUCgx24gzZd4q5Zys9aF5ujWhwuQwjkDSAnhMTThUPI1xtIy3vBmW7/JVkKYfow/GkZv1KuOkN1jncEG9DRpHfmpimbJjZDmi2B9FZQJH2Q8dk8SReCEGxWqta4Hg6WRWJmtIJTubwfmKiRrozA9kmaHDsK8dL5hGk8FzVfluDYtDzYoX9r4FAVPPXr7yd5pvdTXMSoI4LpZcR2SZAlChygoi9OIvEwaFsQaJlur9SdBv2P86EzPb5yHCzgu160+rxLMY9MNhd3cl5dGU93CRECQxRV7Rx76QCWgyBCItrip1wcyrGSSnQ0ewBMglGYUQW/+ZIh2SDNUdxEg9rZCDH2XUD94ukuMX3A/AwSTI4+yU6vQ2Z2y5JN2Mv6gx76qvShSOpcZQ47YMaQGHzRI9azTv41vKTHFB0UO7dTnVGvhtlJTg5Fgc80c+gTnS7rLUy6/PTmxk=
+  - secure: Vily/fTB+n2h1fkTEZckx8EWbOjDcZaHD3teccE7xHoKXdMO7g3RgkPmYsAlyAV5FHW9zMZOo8ADNiWye/ubsFxjhuJvfhloPtLPK8rDWXFc2E2SVjABFHoRlgYlUVUWx445O3m5tLY6nEqVvwhM/yB2kxSBbYK7CzdpVkVCSErIPSVO7dg9ttvdDUqqp75VqwZEUxFzTbM77osUw9+6vZfE3NtEqn2qhZ47cUAN/mFrQ383OcKhPlBq/KD+1I4rvOKwhiCyEttzws3S6hTliNDvqdGF0+DTXbDrSiH6N3j724lDQ1fGC3fVzSmBbCxXhtzUjEceWQbRI7Tms7i1Sl+g6vgDbcgF1diua7OU2Z6YdnR2+EKFv18/gHn1zLKQoTmaFbZ70PewV5EZiHUXmtMf5wAYpkXlMu0h22mvNNcMTobRAU1L8h8URW8l02CU6yROtMXECqelsUWW538tph9+0gwph7TkRKFCddfBwy5+njIWxt/mdsiC+2+6CZfFW+1haza6dnYMjdMAxnP4cMZ8Ob3tyAe7WILtStZhkZcYxuTtAcF79DknqXxwzLXf/gHWC707eSfPbVng1G/Yomd9mfoaBHFTL00dVCUQwtD5NXLHoCUdQW5gQgpFoyTdfXuF6UftD1ZxTUpBtcB+MtwisPnOFQ3RpITTeqJKkxo=
+  - secure: lY1JeBhJLb1Vh2pVvxa54C9mYnjfAgDWezSXciG2fHBgSteb6vIsRzLxd8CxtABLs6x/EoloXYoCiN50/a93TkjgjzHPlhX7YwthhId1zlsTF2V+Fnq6ygBjr7jsyggreYUMr7COuUjHyhbTVq0OUy/vDMhkzI2iFOgOXLFbNjkiYexe/zPDeH3tu8/gphdgS+aVfZWoSdwN6yUVBMpN0qVdOs2FAZPs0izV0i8QIBdxhr3Q/2o/K2AmI3ij7goZmHgrtztDQpyxwX6aUqYoVY+WJDxxes+6iBv6IpfJghqaM8zRiTg8xUgWiUtIUN/+fSeHNDhpxRRMMdDEKHUsymdhsDUerwy0R/5Lsrx9E+VrLYY80txRgy2MdARMR0mE8F/br1Lc9C4hZx9I8fvL7jaoXIvvjJRih9S6yA2whh2BiWItobAlmxTrcKnAJIWAskfzkfkUHg+aRjbLRcyHzyL28tQMNEWiQeRr1TtLwAmqSNTfsQkBA54VTMFSB4J1m9kXMcpza/NljkjkDc2t+m0uMtpE+MHPYKYV310oexQfU0oxjiFH0ph95SJAfrYFrnxjaqdRrni/CKfTHhKsClwUu3Fe14YYNX3qAwFbl8Ob2Mitw0CaWxfY7UnIz/TPwT83HDCyX71nOOvRYOMC/Wwdx8r6b5jlckXoReM9D3A=
+  - secure: VFuz3vYOrA2NvMY+jDUpnspw3r2p+7xm0t1ymQhEe1lM0jo3HH/LRps9cCBF/rlerZjFV0FUTLibHGU0LE4TCDF8eN46SPf6g0vLYpg0JNmGmLwB6ZpqTStKaJu+XNcdEDMewPVKw17ZWP+84PRUd7KfK7o3IVnSmCcRDcftjAMRdL3Bezj+aA7gVrpWmdHQmN44Jeb6WdR3M412GGd0n+QwYuHPDRASM/QcY4WjFGgGK7ILxCGjckvVyCHhoMWvE9bnNfeHBOFsZmtl9F2EjqJX5UxLgksDMganQOOI8K/4CRGP8Ps/WvmPJNqVfZTXIo+NKm889Xj6z/jBWkC2mqUD4XkpC9rsUFfGappwAOmUgcshmmGXnGyfYqx2yS8x6WpWJjiIChVMR9W31LZt3psiiZmovYOwkQr9dl+VQNO93IWv3pHWjS5OberlLzhS5RftWt/UXze0dYz1HOfW1Hl8U5Gjc42xW5A0+wNVNzDD3iN4NjCG35qju4iK6cjYCXp3XR0hM6FMWeHpiKqBXJilY8MYdL9qRNeEPiQfGiPGQBq95FBtcaRmiTB8dfQjOR+bsGNzSX6irMvsXmt0/p7kvMFbbvDLhb9bsJTBt2SuHkhUi5vVfrej78GeCZI2hfXkmiPZHp1Tq5ghWXTFognoKdueDyQkozyCrh5I+ZU=
+  - secure: OQD4LdtDGvMQMcV/Zlzo7dC4H1Q+OjK/zPttaqG3YKBwJEKWdU5zX/aUostifTMCROpXHUjFQR3VJ87D9MHkFg0M1iJLJNMXXJDRj8iRmwNMXcJvaosdhF7VwRgnyaAe1mYDbrNn1iHNZzWrShpXf7ZYFiVLqmBl4aG6qJXOxW7Q+LIIrhUqLwfQy3Ym6fpQuoie3GNs9YSLDEsOSBY03bQ1Kaz20MiQeiiHPw4HyOi6vV0iUii75Uugn2xWs4URt4y9jXuN02527nBdd7+aBpGGyyuVvkUs4WLO+rRAIYyDub8G8NWluRu7owcCjP8lk7jUGr9N4CrEwtAl6DnZPCyt8T/+WVtGL+3pb1NZ64A3PyXLPXe+enE8v/vKvStwz8dmwjAmZCc5eRLloetzk8u+uqV1fE4+rEa1CBu3kHXYsttJf+ArFCAz0HDNu4Ne6N/6dMC/EhTPSDngUKnkQMtOPFdRNP4YKUuGyIwagHOz1j0ZqhAqs71vg+5mCycXq/BnFPeB/+sBjS2esWpFSu3SlJC/RDEdR7txFtlPzGuz5h/sE+gCHmvpRbntcXrruNezusi2mHVQPKcaW+vrO2/IaldgR0FDfH8eDqBPFskdry/RUWMj3CIxCSo4rVsJT209XiJCVF5EB/lT1KBqUnyCRKN4cJP9ZEmFW+yNLRA=
+before_script:
+- openssl aes-256-cbc -pass pass:$ENCRYPTION_PASSWORD -in scripte/deploy/pubring.gpg.enc
+  -out scripte/deploy/pubring.gpg -d
+- openssl aes-256-cbc -pass pass:$ENCRYPTION_PASSWORD -in scripte/deploy/secring.gpg.enc
+  -out scripte/deploy/secring.gpg -d
 script:
-  - ./gradlew check developTest build
+- "./gradlew check developTest build"
+- if [ "$TRAVIS_BRANCH" == "develop" ]; then ./gradlew releaseSnapshot; fi
 after_success:
-  - sonar-scanner
+- sonar-scanner
 before_cache:
-  - rm -f $HOME/.gradle/caches/modules-2/modules-2.lock
+- rm -f $HOME/.gradle/caches/modules-2/modules-2.lock
 cache:
   directories:
   - "$HOME/.gradle/caches/"
   - "$HOME/.gradle/wrapper/"
   - "$HOME/.sonar/cache/"
-  
+before_deploy:
+- openssl aes-256-cbc -pass pass:$ENCRYPTION_PASSWORD -in scripte/deploy/pubring.gpg.enc
+  -out scripte/deploy/pubring.gpg -d
+- openssl aes-256-cbc -pass pass:$ENCRYPTION_PASSWORD -in scripte/deploy/secring.gpg.enc
+  -out scripte/deploy/secring.gpg -d
+- "./gradlew release"
 deploy:
   provider: releases
   api_key:
     secure: yZv3QsIr8M1rFEuRpgyYZwrAgeHtd0LVkpG9DIsLLNhboApz9LCMcU0dbYxRYi8A5V3MCD+X/rtWsWHfapIjRcoVAyi8f7YWWvz+dnjwOxKi+gHabonnUvIyFAEr8WE+Br5MYOr0GTYiEhiUMrSLg20wBWlqH5LD1Mp/dYd2e80EWN8jcZJRK/rO1CDa78esgaaBMp1Pb/6+E9jS+fuEpLuKocqacA0eHtRrPtPFbTJdVH9amQxfcF3UfEV7/0D8tGlL2cH3J45zYQ0sg/qnWqv6Vtt6W0x6H3pFrEfrkAww8jvV5sKGxyz1/bqLOQJkF8mCotjGox9pkL97/cyf+s+L3Mcux98fK9u7NOzizfFMYz5GgY1K/q0l7hzfzh6JSVPcZ/hHdH0VRqcUVgqXB//wPgs2JNGLj/nGLyxY7T53U5hJOhsqFyGGcbnpZ+thEWlB5wrbPi5PwKCtWvf+Y6H/AePxCRQEie25lwi+M2MCIPjSUB65mXoQnXy3oQahiYWPU0HIpD0Om9fp6UK5x8LXMAx3DeH6wbI7qB2gylygOxuUm0AmojieOeLaQFVK7cvcy9c2W16xyfDUDczkEnceosCe8b2nK/yifKeOfFU/eUiEdzl9ZZvOMf9y4YImQl0ZlQlvYknPGLK/myGLPlJrJhP92XtSiYESsrWOEFw=
   file_glob: true
   file:
-    - build/distributions/*
+  - build/distributions/*
   skip_cleanup: true
   on:
     tags: true
