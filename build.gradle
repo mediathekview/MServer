@@ -37,6 +37,9 @@ task copyRuntimeLibs(type: Copy) {
 repositories {
     mavenLocal()
     mavenCentral()
+    maven {
+    	url "https://oss.sonatype.org/content/repositories/snapshots/"
+    }
 }
 
 sourceSets {
