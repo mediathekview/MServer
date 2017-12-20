@@ -228,7 +228,7 @@ if (project.hasProperty('SONATYPE_USERNAME')) {
 	}
 	
 	artifacts {
-	    archives javadocJar, sourcesJar
+	    archives javadocJar, sourcesJar, distZip, distTar
 	}
 }
 build.dependsOn(install)
