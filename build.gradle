@@ -50,6 +50,9 @@ processTestResources.dependsOn copyTestResources
 repositories {
     mavenLocal()
     mavenCentral()
+    maven {
+    	url "https://oss.sonatype.org/content/repositories/snapshots/"
+    }
 }
 
 configurations {
