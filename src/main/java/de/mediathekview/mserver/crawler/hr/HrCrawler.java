@@ -27,7 +27,7 @@ public class HrCrawler extends AbstractCrawler {
   private static final Logger LOG = LogManager.getLogger(HrCrawler.class);
   public static final String BASE_URL = "http://www.hr-fernsehen.de/";
   private static final String SENDUNG_VERPASST_URL_TEMPLATE =
-      "tv-programm/guide_hrfernsehen-100~_date-%s.html";
+      BASE_URL + "tv-programm/guide_hrfernsehen-100~_date-%s.html";
   private static final DateTimeFormatter URL_DATE_TIME_FORMATTER = DateTimeFormatter.ISO_LOCAL_DATE;
 
   public HrCrawler(final ForkJoinPool aForkJoinPool,

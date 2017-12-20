@@ -24,6 +24,8 @@ import de.mediathekview.mserver.crawler.basic.CrawlerUrlDTO;
 import mServer.crawler.CrawlerTool;
 
 public class HrSendungsfolgedetailsTask extends AbstractDocumentTask<Film, CrawlerUrlDTO> {
+  private static final String ATTRIBUTE_DATETIME = "datetime";
+  private static final String ATTRIBUTE_SRC = "src";
   private static final Logger LOG = LogManager.getLogger(HrSendungsfolgedetailsTask.class);
   private static final long serialVersionUID = 6138774185290017974L;
   private static final String THEMA_SELECTOR = ".c-programHeader__headline.text__headline";
@@ -38,6 +40,7 @@ public class HrSendungsfolgedetailsTask extends AbstractDocumentTask<Film, Crawl
       final ConcurrentLinkedQueue<CrawlerUrlDTO> aUrlToCrawlDTOs) {
     super(aCrawler, aUrlToCrawlDTOs);
   }
+
 
   private Optional<LocalDateTime> parseDate(final Optional<String> aDateTimeText) {
     try {
@@ -62,11 +65,11 @@ public class HrSendungsfolgedetailsTask extends AbstractDocumentTask<Film, Crawl
     final Optional<String> beschreibung =
         HtmlDocumentUtils.getElementString(BESCHREIBUNG_SELECTOR, aDocument);
     final Optional<String> videoUrlText =
-        HtmlDocumentUtils.getElementString(VIDEO_URL_SELECTOR, aDocument);
+        HtmlDocumentUtils.getElementAttributeString(VIDEO_URL_SELECTOR, ATTRIBUTE_SRC, aDocument);
     final Optional<String> untertitelUrlText =
-        HtmlDocumentUtils.getElementString(UT_URL_SELECTOR, aDocument);
-    final Optional<String> dateTimeText =
-        HtmlDocumentUtils.getElementString(DATE_TIME_SELECTOR, aDocument);
+        HtmlDocumentUtils.getElementAttributeString(UT_URL_SELECTOR, ATTRIBUTE_SRC, aDocument);
+    final Optional<String> dateTimeText = HtmlDocumentUtils
+        .getElementAttributeString(DATE_TIME_SELECTOR, ATTRIBUTE_DATETIME, aDocument);
     final Optional<String> dauerText =
         HtmlDocumentUtils.getElementString(DAUER_SELECTOR, aDocument);
     final Optional<Duration> dauer;

@@ -33,6 +33,23 @@ public final class HtmlDocumentUtils {
    * @param aDocument The document in which will be searched.
    * @return A {@link Optional} containing the found element or else an empty {@link Optional}.
    */
+  public static Optional<String> getElementAttributeString(final String aElementSelector,
+      final String aAttributeKey, final Document aDocument) {
+    final Elements selected = aDocument.select(aElementSelector);
+    if (!selected.isEmpty() && selected.first().hasAttr(aAttributeKey)) {
+      return Optional.of(selected.first().attr(aAttributeKey));
+    }
+    return Optional.empty();
+  }
+
+
+  /**
+   * Searches for the given selector if found it returns the text of the first result.
+   *
+   * @param aElementSelector The selector for the searched element.
+   * @param aDocument The document in which will be searched.
+   * @return A {@link Optional} containing the found element or else an empty {@link Optional}.
+   */
   public static Optional<String> getElementString(final String aElementSelector,
       final Document aDocument) {
     final Elements selected = aDocument.select(aElementSelector);

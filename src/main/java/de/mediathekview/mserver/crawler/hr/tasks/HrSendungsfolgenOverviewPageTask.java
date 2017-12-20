@@ -12,7 +12,6 @@ import de.mediathekview.mserver.crawler.basic.CrawlerUrlDTO;
 public class HrSendungsfolgenOverviewPageTask
     extends AbstractDocumentTask<CrawlerUrlDTO, CrawlerUrlDTO> {
   private static final long serialVersionUID = -6727831751148817578L;
-  private static final String SENDUNGSFOLGE_URL_SELECTOR = ".c-teaser__headlineLink.link";
 
   public HrSendungsfolgenOverviewPageTask(final AbstractCrawler aCrawler,
       final ConcurrentLinkedQueue<CrawlerUrlDTO> aUrlToCrawlDTOs) {
@@ -25,10 +24,16 @@ public class HrSendungsfolgenOverviewPageTask
     return new HrSendungsfolgenOverviewPageTask(crawler, aURLsToCrawl);
   }
 
+  protected String getSendungsfoleUrlSelector() {
+    return ".c-teaser__headlineLink.link";
+  }
+
   @Override
   protected void processDocument(final CrawlerUrlDTO aUrlDTO, final Document aDocument) {
-    for (final Element filmUrlElement : aDocument.select(SENDUNGSFOLGE_URL_SELECTOR)) {
+    for (final Element filmUrlElement : aDocument.select(getSendungsfoleUrlSelector())) {
       if (filmUrlElement.hasAttr(Consts.ATTRIBUTE_HREF)) {
+        crawler.incrementAndGetMaxCount();
+        crawler.updateProgress();
         taskResults.add(new CrawlerUrlDTO(filmUrlElement.absUrl(Consts.ATTRIBUTE_HREF)));
       }
     }
