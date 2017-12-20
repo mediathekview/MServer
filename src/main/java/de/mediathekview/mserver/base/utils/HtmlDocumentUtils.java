@@ -20,7 +20,7 @@ import org.jsoup.select.Elements;
  */
 public final class HtmlDocumentUtils {
   private static final Logger LOG = LogManager.getLogger(HtmlDocumentUtils.class);
-  private static final String DAUER_REGEX_PATTERN = "(?<=Dauer\\s)\\d+:\\d+";
+  private static final String DAUER_REGEX_PATTERN = "\\d+:\\d+";
 
   private HtmlDocumentUtils() {
     super();
