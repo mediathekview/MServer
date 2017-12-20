@@ -6,7 +6,6 @@ import java.util.concurrent.Callable;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ForkJoinPool;
-import java.util.concurrent.Future;
 import java.util.concurrent.RecursiveTask;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -16,8 +15,8 @@ import de.mediathekview.mlib.messages.listener.MessageListener;
 import de.mediathekview.mserver.base.config.MServerConfigManager;
 import de.mediathekview.mserver.base.messages.ServerMessages;
 import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
-import de.mediathekview.mserver.crawler.br.tasks.BrAllSendungenTask;
-import de.mediathekview.mserver.crawler.br.tasks.BrMissedSendungsFolgenTask;
+import de.mediathekview.mserver.crawler.br.data.BrID;
+import de.mediathekview.mserver.crawler.br.tasks.BrGetClipIDsTask;
 import de.mediathekview.mserver.crawler.br.tasks.BrSendungDetailsTask;
 import de.mediathekview.mserver.progress.listeners.SenderProgressListener;
 
@@ -37,35 +36,28 @@ public class BrCrawler extends AbstractCrawler {
     return Sender.BR;
   }
 
-  private RecursiveTask<Set<String>> createAllSendungenOverviewCrawler() {
-    return new BrAllSendungenTask(this, forkJoinPool);
-  }
-
-  private Callable<Set<String>> createMissedFilmsCrawler() {
-    return new BrMissedSendungsFolgenTask(this);
-  }
-
   @Override
   protected RecursiveTask<Set<Film>> createCrawlerTask() {
-    final Callable<Set<String>> missedFilmsTask = createMissedFilmsCrawler();
-    final RecursiveTask<Set<String>> sendungenFilmsTask = createAllSendungenOverviewCrawler();
-    final Future<Set<String>> missedFilmIds = forkJoinPool.submit(missedFilmsTask);
-    forkJoinPool.execute(sendungenFilmsTask);
-
-    final ConcurrentLinkedQueue<String> brFilmIds = new ConcurrentLinkedQueue<>();
+    
+    final Callable<Set<BrID>> createCompleteClipListTask = createGetClipListCrawler();
+    ConcurrentLinkedQueue<BrID> idList = null;
+    
     try {
-      brFilmIds.addAll(missedFilmIds.get());
-      printMessage(ServerMessages.DEBUG_MSSING_SENDUNGFOLGEN_COUNT, getSender().getName(),
-          missedFilmIds.get().size());
+      final Set<BrID> completeClipList = forkJoinPool.submit(createCompleteClipListTask).get();
+      
+      idList = new ConcurrentLinkedQueue<>(completeClipList);
+      printMessage(ServerMessages.DEBUG_MSSING_SENDUNGFOLGEN_COUNT, getSender().getName(), idList.size());
     } catch (InterruptedException | ExecutionException exception) {
-      LOG.fatal("Something wen't terrible wrong on gathering the missed Films");
+      LOG.fatal("Something wen't terrible wrong collecting the clip details");
       printErrorMessage();
     }
-    brFilmIds.addAll(sendungenFilmsTask.join());
-    printMessage(ServerMessages.DEBUG_ALL_SENDUNG_FOLGEN_COUNT, getSender().getName(),
-        sendungenFilmsTask.join().size());
-
-    return new BrSendungDetailsTask(this, brFilmIds);
+    
+    return new BrSendungDetailsTask(this, idList);
   }
+
+  private Callable<Set<BrID>> createGetClipListCrawler() {
+    return new BrGetClipIDsTask(this);
+  }
+
 
 }

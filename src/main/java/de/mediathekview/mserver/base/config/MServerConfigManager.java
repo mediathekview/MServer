@@ -1,7 +1,6 @@
 package de.mediathekview.mserver.base.config;
 
-import org.apache.logging.log4j.util.Strings;
-
+import org.apache.commons.lang3.StringUtils;
 import de.mediathekview.mlib.config.ConfigManager;
 import de.mediathekview.mlib.daten.Sender;
 
@@ -52,7 +51,7 @@ public class MServerConfigManager extends ConfigManager<MServerConfigDTO>
     @Override
     public String getConfigFileName()
     {
-        return Strings.isNotEmpty(this.configFileName) ? configFileName : DEFAULT_CONFIG_FILE;
+        return StringUtils.isNotEmpty(this.configFileName) ? configFileName : DEFAULT_CONFIG_FILE;
     }
 
     @Override

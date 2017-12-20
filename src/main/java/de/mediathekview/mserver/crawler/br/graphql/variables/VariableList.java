@@ -11,7 +11,7 @@ package de.mediathekview.mserver.crawler.br.graphql.variables;
 
 import java.util.List;
 import java.util.stream.Collectors;
-import org.apache.logging.log4j.util.Strings;
+import org.apache.commons.lang3.StringUtils;
 import de.mediathekview.mserver.crawler.br.graphql.AbstractVariable;
 
 public class VariableList extends AbstractVariable<List<AbstractVariable>> {
@@ -20,7 +20,7 @@ public class VariableList extends AbstractVariable<List<AbstractVariable>> {
   
   public VariableList(String name, List<AbstractVariable> values) {
     super(name, values);
-    if(Strings.isBlank(name)) { 
+    if(StringUtils.isBlank(name)) { 
       this.name = "variables";
     }
     this.isRootNode = true;

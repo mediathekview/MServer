@@ -9,13 +9,11 @@
  */
 package de.mediathekview.mserver.crawler.br;
 
-import java.util.Collection;
-import java.util.HashMap;
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
-import javax.sound.sampled.Clip;
-import org.apache.commons.lang3.Validate;
+import org.apache.commons.lang3.StringUtils;
+import de.mediathekview.mserver.crawler.br.data.BrID;
 import de.mediathekview.mserver.crawler.br.graphql.AbstractVariable;
 import de.mediathekview.mserver.crawler.br.graphql.variables.BooleanVariable;
 import de.mediathekview.mserver.crawler.br.graphql.variables.FloatVariable;
@@ -80,6 +78,82 @@ public class BrGraphQLQueries {
         
     }
     
+    public static String getQuery2GetClipDetails(BrID clipId) {
+
+      boolean addAuthors            = true;
+      boolean addSubjects           = true;
+      boolean addTags               = true;
+      boolean addExecutiveProducers = true;
+      boolean addCredits            = true;
+      boolean addCategorizations    = true;
+      boolean addGenres             = true;
+      boolean addCaptionFiles       = true;
+      
+      IDVariable clipID = new IDVariable("clipID", clipId.getId());
+      clipID.setAsNotNullableType();
+      List<AbstractVariable> variablesList = new LinkedList<>();
+      variablesList.add(clipID);
+      
+      VariableList rootVariable = new VariableList(variablesList);
+      
+      String searchTitle = "MediathekViewGetClipDetails";
+      
+      StringBuilder sb = new StringBuilder();
+      
+      sb.append(JSON_GRAPHQL_HEADER);
+      sb.append(getGraphQLHeaderWithVariable(searchTitle, rootVariable));
+      sb.append("  viewer {");
+      
+      sb.append("    getClip: clip(id: $clipID) {");
+      sb.append("      __typename");
+      sb.append("      id");
+      sb.append("      title");
+      sb.append("      kicker");
+      sb.append("      duration");
+      sb.append("      ageRestriction");
+      sb.append("      description");
+      sb.append("      shortDescription");
+      sb.append("      slug");
+      
+      if(addAuthors) {
+        sb.append(addAuthors());
+      }
+      if(addSubjects) {
+        sb.append(addSubjects());
+      }
+      if(addTags) {
+        sb.append(addTags());
+      }
+      if(addExecutiveProducers) {
+        sb.append(addExecutiveProducers());
+      }
+      if(addCredits) {
+        sb.append(addCredits());
+      }
+      if(addCategorizations) {
+        sb.append(addCategorizations());
+      }
+      if(addGenres) {
+        sb.append(addGenres());
+      }
+      sb.append(addVideoFiles());
+      if(addCaptionFiles) {
+        sb.append(addCaptionFiles());
+      }
+      sb.append(addOnItemInterface());
+      sb.append(addOnProgrammeInterface());
+      
+      sb.append("    }");
+      sb.append("    id");
+      sb.append("  }");
+      sb.append("}");
+      
+      sb.append(getGraphQLFooterWithVariable(rootVariable));      
+      
+      return sb.toString();
+      
+    }
+    
     public static String getQuery2GetAllClipIds(int clipCount, String cursor) {
       
       BooleanVariable triggerSearchVariable = new BooleanVariable("triggerSearch", true);
@@ -97,26 +171,49 @@ public class BrGraphQLQueries {
       clipFilterList.add(audioOnlyEqFalseVariable);
       clipFilterList.add(essencesEmptyEqFalseVariable);
       
-      VariableList clipFilter = new VariableList(clipFilterList);
+      VariableList clipFilter = new VariableList("clipFilter", clipFilterList);
       
       List<AbstractVariable> variablesList = new LinkedList<>();
       variablesList.add(triggerSearchVariable);
       variablesList.add(clipCountVariable);
       variablesList.add(clipFilter);
       
-      VariableList variables = new VariableList(variablesList);
+      VariableList rootVariable = new VariableList(variablesList);
       
+      String searchTitle = "MediathekViewGetClipIDs";
       
       StringBuilder sb = new StringBuilder();
+
+      sb.append(JSON_GRAPHQL_HEADER);
+      sb.append(getGraphQLHeaderWithVariable(searchTitle, rootVariable));
+      sb.append("viewer {");
+      sb.append("    searchAllClips: allClips(first: $clipCount, filter: $clipFilter");
+      if(StringUtils.isNotEmpty(cursor)) {
+        sb.append(", after:\\\"");
+        sb.append(cursor);
+        sb.append("\\\"");
+      } else {
+      }
+      sb.append(") @include(if: $triggerSearch) {");
+      sb.append("      count");
+      sb.append("      pageInfo {");
+      sb.append("        hasNextPage");
+      sb.append("      }");
+      sb.append("      edges {");
+      sb.append("        node {");
+      sb.append("          __typename");
+      sb.append("          id");
+      sb.append("        }");
+      sb.append("        cursor");
+      sb.append("      }");
+      sb.append("    }");
+      sb.append("    id");
+      sb.append("  }");
+      sb.append("}");
       
-      Map<String, String> variableMap = new HashMap();
-      variableMap.put("triggerSearch", "true");
-      variableMap.put("clipCount", String.valueOf(clipCount));
-      variableMap.put("clipFilter", "{\"audioOnly\":{\"eq\":false},\"essences\":{\"empty\":{\"eq\":false}}}");
+      sb.append(getGraphQLFooterWithVariable(rootVariable));
       
-      
-      
-      return sb.toString();
+      return sb.toString();      
       
     }
     
@@ -166,6 +263,118 @@ public class BrGraphQLQueries {
 
     private static String getVariableNameAsJSON(String variable) {
       return "  $" + variable.substring(0,1).toLowerCase() + variable.substring(1, variable.length()) + ": ";
+    }
+    
+    private static String addAuthors() {
+      return addObjectConstruct("authors", "count", addObjectConstruct("edges", addObjectConstruct("node", "id", "name")));
+    }
+    
+    private static String addSubjects() {
+      return addObjectConstruct("subjects", "count", addObjectConstruct("edges", addObjectConstruct("node", "id")));
+    }
+    
+    private static String addTags() {
+      return addObjectConstruct("tags", "count", addObjectConstruct("edges", addObjectConstruct("node", "id", "label")));
+    }
+    
+    private static String addExecutiveProducers() {
+      return addObjectConstruct("executiveProducers", "count", addObjectConstruct("edges", addObjectConstruct("node", "id", "name")));
+    }
+    
+    private static String addCredits() {
+      return addObjectConstruct("credits"
+          , "count"
+          ,addObjectConstruct("edges"
+              , addObjectConstruct("node"
+                  , "id"
+                  , "name")));
+    }
+
+    private static String addCategorizations() {
+      return addObjectConstruct("categorizations"
+          , "count"
+          , addObjectConstruct("edges"
+              , addObjectConstruct("node"
+                  , "id")));
+    }
+
+    private static String addGenres() {
+      return addObjectConstruct("genres"
+          , "count"
+          , addObjectConstruct("edges"
+              , addObjectConstruct("node"
+                  , "id"
+                  , "label")));
+    }
+    
+    private static String addVideoFiles() {
+      return addObjectConstruct("videoFiles(first: 50, orderBy: FILESIZE_DESC)"
+          , "count"
+          , addObjectConstruct("edges"
+              , addObjectConstruct("node"
+                  , "id"
+                  , "publicLocation"
+                  , addObjectConstruct("accessibleIn(first: 50)"
+                      , "count"
+                      , addObjectConstruct("edges"
+                          , addObjectConstruct("node"
+                              , "id"
+                              , "baseIdPrefix")
+                          ))
+                 , addObjectConstruct("videoProfile"
+                      , "id"
+                      , "height"
+                      , "width"
+      ))));
+    }
+    
+    private static String addCaptionFiles() {
+      return addObjectConstruct("captionFiles(first: 50, orderBy: FILESIZE_DESC)"
+          , "count"
+          , addObjectConstruct("edges"
+              , addObjectConstruct("node"
+                  , "id"
+                  , "publicLocation"
+                  )));
+    }
+    
+    private static String addOnItemInterface() {
+      return addObjectConstruct("... on ItemInterface"
+          , "availableUntil"
+          );
+    }
+    
+    private static String addOnProgrammeInterface() {
+      return addObjectConstruct("... on ProgrammeInterface"
+          , "episodeNumber"
+          , addObjectConstruct("episodeOf"
+              , "id"
+              , "title"
+              , "kicker"
+              , "scheduleInfo"
+              , "shortDescription"
+              )
+          , addObjectConstruct("broadcasts(first: 1, orderBy: START_DESC)"
+              , addObjectConstruct("edges"
+                  , addObjectConstruct("node"
+                      , "__typename"
+                      , "start"
+                      , "id"
+                      ))));          
+    }
+    
+    private static String addObjectConstruct(String title, String... subVariables) {
+      
+      StringBuilder sb = new StringBuilder();
+      sb.append(" ");
+      sb.append(title);
+      sb.append(" { ");
+      Arrays.asList(subVariables).forEach( (String name) -> sb.append(name + " "));  
+      sb.append(" } ");
+      
+      return sb.toString();
+      
+      
     }
     
 }
