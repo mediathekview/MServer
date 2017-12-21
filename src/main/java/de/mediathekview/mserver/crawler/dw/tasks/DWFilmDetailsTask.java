@@ -48,7 +48,6 @@ public class DWFilmDetailsTask extends AbstractDocumentTask<Film, CrawlerUrlDTO>
   private static final String CHAR_TO_REMOVE_FROM_PAGE_ID = "a";
 
   private static final String DATE_REGEX_PATTERN = "(?<=Datum\\s)[\\.\\d]+";
-  private static final String DAUER_REGEX_PATTERN = "(?<=Dauer\\s)\\d+:\\d+";
 
   private static final DateTimeFormatter DATE_FORMATTER =
       DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM).withLocale(Locale.GERMAN);
@@ -86,22 +85,6 @@ public class DWFilmDetailsTask extends AbstractDocumentTask<Film, CrawlerUrlDTO>
     return Optional.empty();
   }
 
-  private Optional<Duration> parseDuration(final Optional<String> aDauerText) {
-    final Matcher dauerMatcher = Pattern.compile(DAUER_REGEX_PATTERN).matcher(aDauerText.get());
-    if (dauerMatcher.find()) {
-      final String[] dauerSplits = dauerMatcher.group().split(":");
-      if (2 == dauerSplits.length) {
-        try {
-          return Optional.of(Duration.ofMinutes(Long.parseLong(dauerSplits[0]))
-              .withSeconds(Long.parseLong(dauerSplits[1])));
-        } catch (final NumberFormatException numberFormatException) {
-          LOG.error("A duration for DW can't be parsed.", numberFormatException);
-        }
-      }
-    }
-    return Optional.empty();
-  }
-
   @Override
   protected AbstractUrlTask<Film, CrawlerUrlDTO> createNewOwnInstance(
       final ConcurrentLinkedQueue<CrawlerUrlDTO> aURLsToCrawl) {
@@ -116,7 +99,7 @@ public class DWFilmDetailsTask extends AbstractDocumentTask<Film, CrawlerUrlDTO>
     final Optional<String> dauerText = HtmlDocumentUtils.getElementString(ELEMENT_DAUER, aDocument);
     final Optional<Duration> dauer;
     if (dauerText.isPresent()) {
-      dauer = parseDuration(dauerText);
+      dauer = HtmlDocumentUtils.parseDuration(dauerText);
     } else {
       dauer = Optional.empty();
     }

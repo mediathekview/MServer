@@ -5,7 +5,6 @@
  * erstellt am: 08.12.2017
  * Autor      : Sascha
  * 
- * (c) 2017 by Sascha Wiegandt
  */
 package de.mediathekview.mserver.crawler.br.graphql.variables;
 

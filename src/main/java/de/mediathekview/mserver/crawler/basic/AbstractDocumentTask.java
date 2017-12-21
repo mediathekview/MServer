@@ -29,10 +29,12 @@ public abstract class AbstractDocumentTask<T, D extends CrawlerUrlDTO>
       "Something terrible happened while crawl the %s page \"%s\".";
   private static final String LOAD_DOCUMENT_HTTPERROR =
       "Some HTTP error happened while crawl the %s page \"%s\".";
+  private boolean incrementErrorCounterOnHttpErrors;
 
   public AbstractDocumentTask(final AbstractCrawler aCrawler,
       final ConcurrentLinkedQueue<D> aUrlToCrawlDTOs) {
     super(aCrawler, aUrlToCrawlDTOs);
+    incrementErrorCounterOnHttpErrors = true;
   }
 
 
@@ -44,7 +46,6 @@ public abstract class AbstractDocumentTask<T, D extends CrawlerUrlDTO>
    * @param aDocument The JSOUP {@link Document}.
    */
   protected abstract void processDocument(final D aUrlDTO, final Document aDocument);
-
 
   @Override
   protected void processUrl(final D aUrlDTO) {
@@ -60,9 +61,16 @@ public abstract class AbstractDocumentTask<T, D extends CrawlerUrlDTO>
     } catch (final IOException ioException) {
       LOG.fatal(String.format(LOAD_DOCUMENT_ERRORTEXTPATTERN, crawler.getSender().getName(),
           aUrlDTO.getUrl()), ioException);
-      crawler.incrementAndGetErrorCount();
+      if (incrementErrorCounterOnHttpErrors) {
+        crawler.incrementAndGetErrorCount();
+      }
       crawler.printErrorMessage();
     }
+  }
+
+  protected void setIncrementErrorCounterOnHttpErrors(
+      final boolean aIncrementErrorCounterOnHttpErrors) {
+    incrementErrorCounterOnHttpErrors = aIncrementErrorCounterOnHttpErrors;
   }
 
 }
