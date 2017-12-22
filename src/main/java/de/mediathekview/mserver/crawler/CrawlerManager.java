@@ -489,6 +489,7 @@ public class CrawlerManager extends AbstractManager {
       final String aFilmlistLocation) throws IOException {
     final Path filmlistPath = Paths.get(aFilmlistLocation);
     if (checkFilmlistImportFile(filmlistPath)) {
+      filmlistManager.addAllMessageListener(messageListeners);
       return filmlistManager.importList(aFormat, filmlistPath);
     }
     return Optional.empty();
@@ -497,6 +498,7 @@ public class CrawlerManager extends AbstractManager {
   private Optional<Filmlist> importFilmListFromURl(final FilmlistFormats aFormat,
       final String aFilmlistLocation) throws IOException {
     try {
+      filmlistManager.addAllMessageListener(messageListeners);
       return filmlistManager.importList(aFormat, new URL(aFilmlistLocation));
     } catch (final MalformedURLException malformedURLException) {
       printMessage(ServerMessages.FILMLIST_IMPORT_URL_INVALID, aFilmlistLocation);

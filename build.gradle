@@ -79,6 +79,11 @@ test {
 task developTest(type: Test) {
     include 'mServer/developTest/**'
     
+    testLogging {
+        events "failed"
+        exceptionFormat "short"
+    }
+    
     beforeTest { descriptor ->
         logger.lifecycle("Running test: " + descriptor)
     }
@@ -86,7 +91,12 @@ task developTest(type: Test) {
 
 task integrationTest(type: Test) {
 	include 'mServer/integrationTest/**'
-	    
+	
+	testLogging {
+        events "failed"
+        exceptionFormat "short"
+    }
+	
 	beforeTest { descriptor ->
 		logger.lifecycle("Running test: " + descriptor)
 	}
@@ -94,6 +104,11 @@ task integrationTest(type: Test) {
 
 task performanceTest(type: Test) {
     include 'mServer/performanceTest/**'
+    
+    testLogging {
+        events "failed"
+        exceptionFormat "short"
+    }
     
     beforeTest { descriptor ->
         logger.lifecycle("Running test: " + descriptor)
