@@ -70,6 +70,10 @@ test {
 	exclude 'mServer/developTest/**'
 	exclude 'mServer/integrationTest/**'
 	exclude 'mServer/performanceTest/**'
+    testLogging {
+        events "failed"
+        exceptionFormat "short"
+    }
 }
 
 task developTest(type: Test) {
