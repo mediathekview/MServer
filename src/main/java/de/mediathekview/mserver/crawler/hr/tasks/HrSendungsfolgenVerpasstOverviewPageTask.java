@@ -5,6 +5,7 @@ import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
 import de.mediathekview.mserver.crawler.basic.CrawlerUrlDTO;
 
 public class HrSendungsfolgenVerpasstOverviewPageTask extends HrSendungsfolgenOverviewPageTask {
+  private static final String SENDUNGSFOLGEN_URL_SELECTOR = ".c-epgBroadcast__headline.text__headline";
   private static final long serialVersionUID = 550079618104128843L;
 
   public HrSendungsfolgenVerpasstOverviewPageTask(final AbstractCrawler aCrawler,
@@ -14,7 +15,7 @@ public class HrSendungsfolgenVerpasstOverviewPageTask extends HrSendungsfolgenOv
 
   @Override
   protected String getSendungsfoleUrlSelector() {
-    return ".c-epgBroadcast__headline.text__headline";
+    return SENDUNGSFOLGEN_URL_SELECTOR;
   }
 
 }

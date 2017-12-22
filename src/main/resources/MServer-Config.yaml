@@ -25,25 +25,25 @@
     # The formats in which the filmlist should be saved to.
     # Possible are: JSON, OLD_JSON, JSON_COMPRESSED, OLD_JSON_COMPRESSED
     filmlistSaveFormats:
-    # - JSON
+      - JSON
       - OLD_JSON
-    #  - JSON_COMPRESSED
+      - JSON_COMPRESSED
       - OLD_JSON_COMPRESSED
     
     # The paths where which filmlist should be safed to.
     filmlistSavePaths:
-    #  JSON: filmliste.json
-      OLD_JSON: filmlists/filmliste_old.json
-    #  JSON_COMPRESSED: filmliste.json.xz
-      OLD_JSON_COMPRESSED: filmlists/filmliste_old.json.xz
+      JSON: filmliste.json
+      OLD_JSON: filmliste_old.json
+      JSON_COMPRESSED: filmliste.json.xz
+      OLD_JSON_COMPRESSED: filmliste_old.json.xz
       
     # The paths where which diff film list should be safed to.
     # If not set no difference film lists will be safed.
     filmlistDiffSavePaths:
-    #  JSON: filmliste_diff.json
-      OLD_JSON: filmlists/filmliste_old_diff.json
-    #  JSON_COMPRESSED: filmliste_diff.json.xz
-      OLD_JSON_COMPRESSED: filmlists/filmliste_old_diff.json.xz
+      JSON: filmliste_diff.json
+      OLD_JSON: filmliste_old_diff.json
+      JSON_COMPRESSED: filmliste_diff.json.xz
+      OLD_JSON_COMPRESSED: filmliste_old_diff.json.xz
     
     # The format of the film list to import.
     # Possible are: JSON, OLD_JSON, JSON_COMPRESSED, OLD_JSON_COMPRESSED
@@ -72,7 +72,7 @@
 
 
 #### Specific crawler configurations ####
-#    senderConfigurations:
+    senderConfigurations:
 #      ARD:
         # The maximum amount of URLs to be processed per task.
 #        maximumUrlsPerTask: 25
@@ -82,12 +82,15 @@
         # Example: If a Sendung overview side has 10 pages with videos for this Sendung and
         # the amount set by this is 5 then the crawler crawls pages 1 to 5.
 #          maximumSubpages: 3
+       HR:
+         # The maximum amount of days going to past will be crawled for the "Sendung Verpasst?" section.
+         maximumDaysForSendungVerpasstSection: 90
 
 
 #### COPY ####
     copySettings:
         # En- / disables FTP
-        copyEnabled: true
+        copyEnabled: false
         
         # The paths where to safe the film list files.
         # WARNING: You can only set the path for film list formats you listed in "filmlistSaveFormats".

@@ -256,8 +256,8 @@ public class CrawlerManager extends AbstractManager {
       filmlistFileSafePath = filteredSavePath;
     }
 
-    if (Files.exists(filmlistFileSafePath.getParent())) {
-      if (Files.isWritable(filmlistFileSafePath.getParent())) {
+    if (Files.exists(filmlistFileSafePath.toAbsolutePath().getParent())) {
+      if (Files.isWritable(filmlistFileSafePath.toAbsolutePath().getParent())) {
         filmlistManager.addAllMessageListener(messageListeners);
         if (aIsDiff) {
           filmlistManager.save(aFormat, differenceList, filmlistFileSafePath);
