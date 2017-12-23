@@ -22,7 +22,8 @@ import de.mediathekview.mserver.crawler.basic.CrawlerUrlDTO;
 import de.mediathekview.mserver.crawler.kika.tasks.KikaPagedOverviewPageTask;
 import de.mediathekview.mserver.crawler.kika.tasks.KikaSendungOverviewPageTask;
 import de.mediathekview.mserver.crawler.kika.tasks.KikaSendungVerpasstTask;
-import de.mediathekview.mserver.crawler.kika.tasks.KikaSendungsfolgedetailsTask;
+import de.mediathekview.mserver.crawler.kika.tasks.KikaSendungsfolgeVideoDetailsTask;
+import de.mediathekview.mserver.crawler.kika.tasks.KikaSendungsfolgeVideoUrlTask;
 import de.mediathekview.mserver.crawler.kika.tasks.KikaSendungsfolgenOverviewPageTask;
 import de.mediathekview.mserver.progress.listeners.SenderProgressListener;
 
@@ -93,7 +94,12 @@ public class KikaCrawler extends AbstractCrawler {
       printErrorMessage();
     }
 
-    return new KikaSendungsfolgedetailsTask(this, sendungsfolgenUrls);
+    final KikaSendungsfolgeVideoUrlTask sendungsfolgeVideoUrlsTask =
+        new KikaSendungsfolgeVideoUrlTask(this, sendungsfolgenUrls);
+    final Set<CrawlerUrlDTO> sendungsfolgeVideoUrls =
+        forkJoinPool.invoke(sendungsfolgeVideoUrlsTask);
+    return new KikaSendungsfolgeVideoDetailsTask(this,
+        new ConcurrentLinkedQueue<>(sendungsfolgeVideoUrls));
   }
 
 }

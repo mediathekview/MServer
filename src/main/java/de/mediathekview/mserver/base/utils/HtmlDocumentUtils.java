@@ -60,7 +60,11 @@ public final class HtmlDocumentUtils {
   }
 
   public static Optional<Duration> parseDuration(final Optional<String> aDauerText) {
-    final Matcher dauerMatcher = Pattern.compile(DAUER_REGEX_PATTERN).matcher(aDauerText.get());
+    return aDauerText.isPresent() ? parseDuration(aDauerText.get()) : Optional.empty();
+  }
+
+  public static Optional<Duration> parseDuration(final String aDauerText) {
+    final Matcher dauerMatcher = Pattern.compile(DAUER_REGEX_PATTERN).matcher(aDauerText);
     if (dauerMatcher.find()) {
       final String[] dauerSplits = dauerMatcher.group().split(":");
       if (2 == dauerSplits.length) {
