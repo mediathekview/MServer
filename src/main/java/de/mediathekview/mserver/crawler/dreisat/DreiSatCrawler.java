@@ -27,7 +27,8 @@ public class DreiSatCrawler extends AbstractCrawler {
 
   public DreiSatCrawler(final ForkJoinPool aForkJoinPool,
       final Collection<MessageListener> aMessageListeners,
-      final Collection<SenderProgressListener> aProgressListeners, final MServerConfigManager rootConfig) {
+      final Collection<SenderProgressListener> aProgressListeners,
+      final MServerConfigManager rootConfig) {
     super(aForkJoinPool, aMessageListeners, aProgressListeners, rootConfig);
   }
 
@@ -52,22 +53,22 @@ public class DreiSatCrawler extends AbstractCrawler {
   protected RecursiveTask<Set<Film>> createCrawlerTask() {
 
     final DreisatOverviewpageTask sendungenTask = new DreisatOverviewpageTask(this,
-        getSendungenAZUrls(), false, crawlerConfig.getMaximumDaysForSendungVerpasstSection());
+        getSendungenAZUrls(), false, crawlerConfig.getMaximumSubpages());
     final Set<CrawlerUrlDTO> sendungUrls = forkJoinPool.invoke(sendungenTask);
 
     final DreisatOverviewpageTask sendungsfolgenTask = new DreisatOverviewpageTask(this,
         new ConcurrentLinkedQueue<>(sendungUrls), true, crawlerConfig.getMaximumSubpages());
-    final ForkJoinTask<Set<CrawlerUrlDTO>> featureFendungsfolgenFilmUrls =
+    final ForkJoinTask<Set<CrawlerUrlDTO>> featureSendungsfolgenFilmUrls =
         forkJoinPool.submit(sendungsfolgenTask);
 
 
     final DreisatOverviewpageTask sendungVerpasstTask = new DreisatOverviewpageTask(this,
-        getSendungVerpasstUrls(), true, crawlerConfig.getMaximumSubpages());
+        getSendungVerpasstUrls(), true, crawlerConfig.getMaximumDaysForSendungVerpasstSection());
 
     final ConcurrentLinkedQueue<CrawlerUrlDTO> filmUrls = new ConcurrentLinkedQueue<>();
     try {
       filmUrls.addAll(forkJoinPool.invoke(sendungVerpasstTask));
-      filmUrls.addAll(featureFendungsfolgenFilmUrls.get());
+      filmUrls.addAll(featureSendungsfolgenFilmUrls.get());
 
     } catch (InterruptedException | ExecutionException exception) {
       LOG.fatal("Something wen't terrible wrong on gathering the films.");
