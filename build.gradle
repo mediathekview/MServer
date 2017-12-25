@@ -70,10 +70,19 @@ test {
 	exclude 'mServer/developTest/**'
 	exclude 'mServer/integrationTest/**'
 	exclude 'mServer/performanceTest/**'
+    testLogging {
+        events "failed"
+        exceptionFormat "short"
+    }
 }
 
 task developTest(type: Test) {
     include 'mServer/developTest/**'
+    
+    testLogging {
+        events "failed"
+        exceptionFormat "short"
+    }
     
     beforeTest { descriptor ->
         logger.lifecycle("Running test: " + descriptor)
@@ -82,7 +91,12 @@ task developTest(type: Test) {
 
 task integrationTest(type: Test) {
 	include 'mServer/integrationTest/**'
-	    
+	
+	testLogging {
+        events "failed"
+        exceptionFormat "short"
+    }
+	
 	beforeTest { descriptor ->
 		logger.lifecycle("Running test: " + descriptor)
 	}
@@ -90,6 +104,11 @@ task integrationTest(type: Test) {
 
 task performanceTest(type: Test) {
     include 'mServer/performanceTest/**'
+    
+    testLogging {
+        events "failed"
+        exceptionFormat "short"
+    }
     
     beforeTest { descriptor ->
         logger.lifecycle("Running test: " + descriptor)
@@ -208,6 +227,11 @@ if (project.hasProperty('SONATYPE_USERNAME')) {
 	            id 'TheSasch'
 	            name 'Sascha Wiegandt'
 	            url 'https://github.com/thesasch'
+	          }
+	          developer {
+	            id 'alex1702'
+	            name 'Alexander Finkhäuser'
+	            url 'https://github.com/alex1702'
 	          }
 	        }
 	      }

@@ -1,6 +1,7 @@
 package de.mediathekview.mserver.crawler.hr.tasks;
 
 import java.util.concurrent.ConcurrentLinkedQueue;
+import org.apache.logging.log4j.Level;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import de.mediathekview.mserver.base.Consts;
@@ -11,11 +12,17 @@ import de.mediathekview.mserver.crawler.basic.CrawlerUrlDTO;
 
 public class HrSendungsfolgenOverviewPageTask
     extends AbstractDocumentTask<CrawlerUrlDTO, CrawlerUrlDTO> {
+  private static final String SENDUNGSFOLGEN_URL_SELECTOR = ".c-teaser__headlineLink.link";
   private static final long serialVersionUID = -6727831751148817578L;
 
   public HrSendungsfolgenOverviewPageTask(final AbstractCrawler aCrawler,
       final ConcurrentLinkedQueue<CrawlerUrlDTO> aUrlToCrawlDTOs) {
     super(aCrawler, aUrlToCrawlDTOs);
+    // Some HR entries for "Programm" don't have a "sendungen" sub page which will be tried to load
+    // because this sub page usually contains the "Sendungsfolgen".
+    setIncrementErrorCounterOnHttpErrors(false);
+    setHttpErrorLogLevel(Level.DEBUG);
+    setPrintErrorMessage(false);
   }
 
   @Override
@@ -25,7 +32,7 @@ public class HrSendungsfolgenOverviewPageTask
   }
 
   protected String getSendungsfoleUrlSelector() {
-    return ".c-teaser__headlineLink.link";
+    return SENDUNGSFOLGEN_URL_SELECTOR;
   }
 
   @Override

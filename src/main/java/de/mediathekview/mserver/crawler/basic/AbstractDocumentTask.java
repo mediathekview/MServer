@@ -2,6 +2,7 @@ package de.mediathekview.mserver.crawler.basic;
 
 import java.io.IOException;
 import java.util.concurrent.ConcurrentLinkedQueue;
+import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.jsoup.HttpStatusException;
@@ -30,11 +31,15 @@ public abstract class AbstractDocumentTask<T, D extends CrawlerUrlDTO>
   private static final String LOAD_DOCUMENT_HTTPERROR =
       "Some HTTP error happened while crawl the %s page \"%s\".";
   private boolean incrementErrorCounterOnHttpErrors;
+  private boolean printErrorMessage;
+  private Level httpErrorLogLevel;
 
   public AbstractDocumentTask(final AbstractCrawler aCrawler,
       final ConcurrentLinkedQueue<D> aUrlToCrawlDTOs) {
     super(aCrawler, aUrlToCrawlDTOs);
     incrementErrorCounterOnHttpErrors = true;
+    printErrorMessage = true;
+    httpErrorLogLevel = Level.ERROR;
   }
 
 
@@ -53,24 +58,40 @@ public abstract class AbstractDocumentTask<T, D extends CrawlerUrlDTO>
       final Document document = Jsoup.connect(aUrlDTO.getUrl()).get();
       processDocument(aUrlDTO, document);
     } catch (final HttpStatusException httpStatusError) {
-      LOG.error(
+      LOG.log(httpErrorLogLevel,
           String.format(LOAD_DOCUMENT_HTTPERROR, crawler.getSender().getName(), aUrlDTO.getUrl()));
-      crawler.printMessage(ServerMessages.CRAWLER_DOCUMENT_LOAD_ERROR,
-          crawler.getSender().getName(), aUrlDTO.getUrl(), httpStatusError.getStatusCode());
-      crawler.incrementAndGetErrorCount();
+      if (printErrorMessage) {
+        crawler.printMessage(ServerMessages.CRAWLER_DOCUMENT_LOAD_ERROR,
+            crawler.getSender().getName(), aUrlDTO.getUrl(), httpStatusError.getStatusCode());
+      }
+      if (incrementErrorCounterOnHttpErrors) {
+        crawler.incrementAndGetErrorCount();
+      }
     } catch (final IOException ioException) {
       LOG.fatal(String.format(LOAD_DOCUMENT_ERRORTEXTPATTERN, crawler.getSender().getName(),
           aUrlDTO.getUrl()), ioException);
       if (incrementErrorCounterOnHttpErrors) {
         crawler.incrementAndGetErrorCount();
       }
-      crawler.printErrorMessage();
+      if (printErrorMessage) {
+        crawler.printErrorMessage();
+      }
     }
   }
+
+  protected void setHttpErrorLogLevel(final Level aHttpErrorLogLevel) {
+    httpErrorLogLevel = aHttpErrorLogLevel;
+  }
+
 
   protected void setIncrementErrorCounterOnHttpErrors(
       final boolean aIncrementErrorCounterOnHttpErrors) {
     incrementErrorCounterOnHttpErrors = aIncrementErrorCounterOnHttpErrors;
+  }
+
+
+  protected void setPrintErrorMessage(final boolean aPrintErrorMessage) {
+    printErrorMessage = aPrintErrorMessage;
   }
 
 }

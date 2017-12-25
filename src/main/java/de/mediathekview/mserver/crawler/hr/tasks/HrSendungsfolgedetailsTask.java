@@ -51,14 +51,24 @@ public class HrSendungsfolgedetailsTask extends AbstractDocumentTask<Film, Crawl
   }
 
   private Optional<LocalDateTime> parseDate(final Optional<String> aDateTimeText) {
-    try {
+    if (aDateTimeText.isPresent()) {
       final String fixedDateTimeText = changeDateTimeForMissingISO8601Support(aDateTimeText.get());
-      return Optional.of(LocalDateTime.parse(fixedDateTimeText, DateTimeFormatter.ISO_DATE_TIME));
-    } catch (final DateTimeParseException dateTimeParseException) {
-      LOG.error(String.format("Can't parse a date time for HR: \"%s\"", aDateTimeText),
-          dateTimeParseException);
-      return Optional.empty();
+      try {
+        return Optional.of(LocalDateTime.parse(fixedDateTimeText, DateTimeFormatter.ISO_DATE_TIME));
+      } catch (final DateTimeParseException dateTimeParseException) {
+        try {
+          LOG.debug(String.format(
+              "Can't parse a date time for HR: \"%s\" now trying to parse only a Date.",
+              fixedDateTimeText), dateTimeParseException);
+          return Optional
+              .of(LocalDate.parse(fixedDateTimeText, DateTimeFormatter.ISO_DATE).atStartOfDay());
+        } catch (final DateTimeParseException dateTimeParseException2) {
+          LOG.error(String.format("Can't parse either a date time nor only a date for HR: \"%s\"",
+              fixedDateTimeText), dateTimeParseException2);
+        }
+      }
     }
+    return Optional.empty();
   }
 
 

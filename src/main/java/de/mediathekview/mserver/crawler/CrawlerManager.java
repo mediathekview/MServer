@@ -48,6 +48,7 @@ import de.mediathekview.mserver.crawler.dreisat.DreiSatCrawler;
 import de.mediathekview.mserver.crawler.dw.DwCrawler;
 import de.mediathekview.mserver.crawler.funk.FunkCrawler;
 import de.mediathekview.mserver.crawler.hr.HrCrawler;
+import de.mediathekview.mserver.crawler.kika.KikaCrawler;
 import de.mediathekview.mserver.crawler.ndr.NdrCrawler;
 import de.mediathekview.mserver.crawler.srf.SrfCrawler;
 
@@ -256,8 +257,8 @@ public class CrawlerManager extends AbstractManager {
       filmlistFileSafePath = filteredSavePath;
     }
 
-    if (Files.exists(filmlistFileSafePath.getParent())) {
-      if (Files.isWritable(filmlistFileSafePath.getParent())) {
+    if (Files.exists(filmlistFileSafePath.toAbsolutePath().getParent())) {
+      if (Files.isWritable(filmlistFileSafePath.toAbsolutePath().getParent())) {
         filmlistManager.addAllMessageListener(messageListeners);
         if (aIsDiff) {
           filmlistManager.save(aFormat, differenceList, filmlistFileSafePath);
@@ -489,6 +490,7 @@ public class CrawlerManager extends AbstractManager {
       final String aFilmlistLocation) throws IOException {
     final Path filmlistPath = Paths.get(aFilmlistLocation);
     if (checkFilmlistImportFile(filmlistPath)) {
+      filmlistManager.addAllMessageListener(messageListeners);
       return filmlistManager.importList(aFormat, filmlistPath);
     }
     return Optional.empty();
@@ -497,6 +499,7 @@ public class CrawlerManager extends AbstractManager {
   private Optional<Filmlist> importFilmListFromURl(final FilmlistFormats aFormat,
       final String aFilmlistLocation) throws IOException {
     try {
+      filmlistManager.addAllMessageListener(messageListeners);
       return filmlistManager.importList(aFormat, new URL(aFilmlistLocation));
     } catch (final MalformedURLException malformedURLException) {
       printMessage(ServerMessages.FILMLIST_IMPORT_URL_INVALID, aFilmlistLocation);
@@ -515,6 +518,8 @@ public class CrawlerManager extends AbstractManager {
         new FunkCrawler(forkJoinPool, messageListeners, progressListeners, rootConfig));
     crawlerMap.put(Sender.HR,
         new HrCrawler(forkJoinPool, messageListeners, progressListeners, rootConfig));
+    crawlerMap.put(Sender.KIKA,
+        new KikaCrawler(forkJoinPool, messageListeners, progressListeners, rootConfig));
     crawlerMap.put(Sender.DW,
         new DwCrawler(forkJoinPool, messageListeners, progressListeners, rootConfig));
     crawlerMap.put(Sender.NDR,

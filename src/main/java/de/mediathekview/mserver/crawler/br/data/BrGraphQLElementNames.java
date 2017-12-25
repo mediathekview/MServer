@@ -14,7 +14,8 @@ public enum BrGraphQLElementNames {
   GRAPHQL_TYPE_ELEMENT("__typename"),
   ID_ELEMENT("id"),
   INT_COUNTER_ELEMENT("count"),
-  STRING_CURSOR_ELEMENT("cursor")
+  STRING_CURSOR_ELEMENT("cursor"),
+  STRING_CLIP_TITLE("title")
   ;
   
   private String elementName;

@@ -104,7 +104,7 @@ public class BrGraphQLQueries {
       sb.append(getGraphQLHeaderWithVariable(searchTitle, rootVariable));
       sb.append("  viewer {");
       
-      sb.append("    getClip: clip(id: $clipID) {");
+      sb.append("    clipDetails: clip(id: $clipID) {");
       sb.append("      __typename");
       sb.append("      id");
       sb.append("      title");
