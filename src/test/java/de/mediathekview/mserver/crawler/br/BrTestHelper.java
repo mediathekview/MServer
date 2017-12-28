@@ -26,6 +26,10 @@ public class BrTestHelper {
   
   public static BrCrawler getTestCrawler(String configFilename) {
     ForkJoinPool forkJoinPool = new ForkJoinPool();
+    return getTestCrawler(configFilename, forkJoinPool);
+  }
+  
+  public static BrCrawler getTestCrawler(String configFilename, ForkJoinPool forkJoinPool) {
     Collection<MessageListener> nachrichten = new ArrayList<>() ;
     MessageListener nachricht = new MessageListener() {
         

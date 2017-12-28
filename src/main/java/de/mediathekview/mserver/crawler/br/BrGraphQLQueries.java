@@ -341,7 +341,13 @@ public class BrGraphQLQueries {
     private static String addOnItemInterface() {
       return addObjectConstruct("... on ItemInterface"
           , "availableUntil"
-          );
+          , addObjectConstruct("itemOf"
+              , "count"
+              , addObjectConstruct("edges"
+                  , addObjectConstruct("node"
+                      , "id"
+                      , "title"
+                      ))));
     }
     
     private static String addOnProgrammeInterface() {

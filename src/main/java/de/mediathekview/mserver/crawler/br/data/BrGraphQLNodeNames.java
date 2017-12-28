@@ -13,8 +13,11 @@ public enum BrGraphQLNodeNames {
 
   RESULT_ROOT_NODE("data"),
   RESULT_ROOT_BR_NODE("viewer"),
+  RESUTL_CLIP_BROADCAST_ROOT("broadcasts"),
   RESULT_CLIP_ID_ROOT("searchAllClips"),
   RESULT_CLIP_DETAILS_ROOT("clipDetails"),
+  RESULT_CLIP_EPISONEOF("episodeOf"),
+  RESULT_CLIP_ITEMOF("itemOf"),
   RESULT_PAGE_INFO("pageInfo"),
   RESULT_NODE_EDGES("edges"),
   RESULT_NODE("node")

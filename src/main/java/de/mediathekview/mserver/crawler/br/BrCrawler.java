@@ -17,7 +17,7 @@ import de.mediathekview.mserver.base.messages.ServerMessages;
 import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
 import de.mediathekview.mserver.crawler.br.data.BrID;
 import de.mediathekview.mserver.crawler.br.tasks.BrGetClipIDsTask;
-import de.mediathekview.mserver.crawler.br.tasks.BrSendungDetailsTask;
+import de.mediathekview.mserver.crawler.br.tasks.BrGetClipDetailsTask;
 import de.mediathekview.mserver.progress.listeners.SenderProgressListener;
 
 public class BrCrawler extends AbstractCrawler {
@@ -52,7 +52,7 @@ public class BrCrawler extends AbstractCrawler {
       printErrorMessage();
     }
     
-    return new BrSendungDetailsTask(this, idList);
+    return new BrGetClipDetailsTask(this, idList);
   }
 
   private Callable<Set<BrID>> createGetClipListCrawler() {

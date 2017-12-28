@@ -12,8 +12,14 @@ package de.mediathekview.mserver.crawler.br.json;
 import java.lang.reflect.Type;
 import java.time.Duration;
 import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
+import java.time.ZoneId;
+import java.time.ZoneOffset;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Optional;
 import java.util.UUID;
+import com.google.gson.JsonArray;
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonDeserializer;
 import com.google.gson.JsonElement;
@@ -22,6 +28,8 @@ import com.google.gson.JsonParseException;
 import com.google.gson.JsonPrimitive;
 import de.mediathekview.mlib.daten.Film;
 import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
+import de.mediathekview.mserver.crawler.br.data.BrClipType;
+import de.mediathekview.mserver.crawler.br.data.BrClipTypeTest;
 import de.mediathekview.mserver.crawler.br.data.BrGraphQLElementNames;
 import de.mediathekview.mserver.crawler.br.data.BrGraphQLNodeNames;
 import de.mediathekview.mserver.crawler.br.data.BrID;
@@ -243,9 +251,6 @@ public class BrClipDetailsDeserializer implements JsonDeserializer<Optional<Film
    * }
    * 
    */
-
-  
-  
   @Override
   public Optional<Film> deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context)
       throws JsonParseException {
@@ -261,32 +266,20 @@ public class BrClipDetailsDeserializer implements JsonDeserializer<Optional<Film
       Optional<LocalDateTime>   sendeZeitpunkt  = getSendeZeitpunkt(clipDetailRoot);
       Optional<Duration>        clipLaenge      = getClipLaenge(clipDetailRoot);
       
-      if(titel.isPresent() && thema.isPresent() && sendeZeitpunkt.isPresent() && clipLaenge.isPresent()) {
-        Film currentFilm = new Film(UUID.randomUUID(), this.crawler.getSender(), titel.get(), thema.get(), sendeZeitpunkt.get(), clipLaenge.get());
+      if(titel.isPresent() && thema.isPresent() && clipLaenge.isPresent()) {
+        Film currentFilm = new Film(UUID.randomUUID(), this.crawler.getSender(), titel.get(), thema.get(), sendeZeitpunkt.orElse(null), clipLaenge.get());
         
         return Optional.of(currentFilm);
+      } else {
+        System.err.println("Kein komplett gültiger Film: " + this.id.getId() + " Titel da? " + titel.isPresent() + " Thema da? " + thema.isPresent() + " Länge da? " + clipLaenge.isPresent());
       }
+        
     }
     this.crawler.incrementAndGetErrorCount();
     return Optional.empty();
     
   }
-
-  private Optional<Duration> getClipLaenge(JsonObject clipDetailRoot) {
-    // TODO Auto-generated method stub
-    return null;
-  }
-
-  private Optional<LocalDateTime> getSendeZeitpunkt(JsonObject clipDetailRoot) {
-    // TODO Auto-generated method stub
-    return null;
-  }
-
-  private Optional<String> getThema(JsonObject clipDetailRoot) {
-    // TODO Auto-generated method stub
-    return null;
-  }
-
+  
   private Optional<JsonObject> getClipDetailsNode(JsonObject rootObject) {
     if(!rootObject.has(BrGraphQLNodeNames.RESULT_ROOT_NODE.getName())) {
       return Optional.empty();
@@ -314,6 +307,167 @@ public class BrClipDetailsDeserializer implements JsonDeserializer<Optional<Film
     return Optional.of(titleElement.getAsString());
   }
   
+  private Optional<String> getThema(JsonObject clipDetailRoot) {
+    
+    /*
+     * Ist der aktuelle Titel ein Programm wird versucht zu prüfen, ob der aktuelle Titel 
+     * Teil einer Serie ist und wenn das so ist, den entsprechenden Titel als Thema zurück
+     * zu geben.
+     */
+    switch (this.id.getType()) {
+      case PROGRAMME:
+        Optional<JsonObject> episodeOfNode = getEpisodeOfNode(clipDetailRoot);
+        if(episodeOfNode.isPresent()) {
+          JsonObject episodeOf = episodeOfNode.get();
+          
+          if(episodeOf.has(BrGraphQLElementNames.STRING_CLIP_TITLE.getName())) {
+            
+            JsonPrimitive episodeOfTitleElement = episodeOf.getAsJsonPrimitive(BrGraphQLElementNames.STRING_CLIP_TITLE.getName());
+            
+            return Optional.of(episodeOfTitleElement.getAsString());
+          }
+        }
+        break;
+      case ITEM:
+        Optional<JsonObject> itemOfNode = getItemOfNode(clipDetailRoot);
+        if(itemOfNode.isPresent()) {
+          JsonObject itemOf = itemOfNode.get();
+          
+          if(itemOf.has(BrGraphQLElementNames.STRING_CLIP_TITLE.getName())) {
+            
+            JsonPrimitive itemOfTitleElement = itemOf.getAsJsonPrimitive(BrGraphQLElementNames.STRING_CLIP_TITLE.getName());
+            
+            return Optional.of(itemOfTitleElement.getAsString());
+          }
+        }
+        break;
+
+      default:
+        break;
+    }
+    
+    return Optional.empty();
+  }
+
+  private Optional<JsonObject> getEpisodeOfNode(JsonObject clipDetailRoot) {
+    if(!clipDetailRoot.has(BrGraphQLNodeNames.RESULT_CLIP_EPISONEOF.getName())) {
+      return Optional.empty();
+    }
+    JsonObject episodeOfNode = clipDetailRoot.getAsJsonObject(BrGraphQLNodeNames.RESULT_CLIP_EPISONEOF.getName());
+    
+    if(episodeOfNode.entrySet().isEmpty()) {
+      return Optional.empty();
+    }
+    return Optional.of(episodeOfNode);
+  }
+
+  private Optional<JsonObject> getItemOfNode(JsonObject clipDetailRoot) {
+    if(!clipDetailRoot.has(BrGraphQLNodeNames.RESULT_CLIP_ITEMOF.getName())) {
+      return Optional.empty();
+    }
+    JsonObject itemOfRootNode = clipDetailRoot.getAsJsonObject(BrGraphQLNodeNames.RESULT_CLIP_ITEMOF.getName());
+    
+    if(!itemOfRootNode.has(BrGraphQLNodeNames.RESULT_NODE_EDGES.getName())) {
+      return Optional.empty();
+    }
+    JsonArray itemOfEdgesNode = itemOfRootNode.getAsJsonArray(BrGraphQLNodeNames.RESULT_NODE_EDGES.getName());
+    
+    if(itemOfEdgesNode.size() == 0) {
+      return Optional.empty();
+    }
+    
+    if(itemOfEdgesNode.size() >= 1) {
+      if(itemOfEdgesNode.size() > 1) {
+        System.err.println("ID hat mehr als ein itemOf-Node: " + this.id.getId());
+      }
+      JsonObject firstItemOfEdge = itemOfEdgesNode.get(0).getAsJsonObject();
+      
+      if(!firstItemOfEdge.has(BrGraphQLNodeNames.RESULT_NODE.getName())) {
+        return Optional.empty();
+      }
+      JsonObject itemOfNode = firstItemOfEdge.getAsJsonObject(BrGraphQLNodeNames.RESULT_NODE.getName());
+      
+      return Optional.of(itemOfNode);
+    }
+    
+    return Optional.empty();
+    
+  }
+  
+  private Optional<Duration> getClipLaenge(JsonObject clipDetailRoot) {
+
+    if(!clipDetailRoot.has(BrGraphQLElementNames.INT_CLIP_DURATION.getName())) {
+      return Optional.empty();
+    }
+    JsonPrimitive durationElement = clipDetailRoot.getAsJsonPrimitive(BrGraphQLElementNames.INT_CLIP_DURATION.getName());
+    
+    return Optional.of(Duration.ofSeconds(durationElement.getAsInt()));
+  }
+
+  private Optional<LocalDateTime> getSendeZeitpunkt(JsonObject clipDetailRoot) {
+
+    /*
+     * Normale ITEMS besitzen keinen Ausstrahlungszeitpunkt, Programme normalerweise schon.
+     */
+    if(!this.id.getType().equals(BrClipType.PROGRAMME) ) {
+      return Optional.empty();
+    }
+    
+    Optional<JsonObject> broadcastNodeElement = getFirstBroadcastNode(clipDetailRoot);
+    if(broadcastNodeElement.isPresent()) {
+      JsonObject broadcastNode = broadcastNodeElement.get();
+      
+      if(!broadcastNode.has(BrGraphQLElementNames.STRING_CLIP_START.getName())) {
+        return Optional.empty();
+      }
+      
+      JsonPrimitive startElement = broadcastNode.getAsJsonPrimitive(BrGraphQLElementNames.STRING_CLIP_START.getName());
+      
+      String startDateTimeString = startElement.getAsString();
+      
+      return Optional.of(brDateTimeString2LocalDateTime(startDateTimeString));
+    } 
+    
+    return Optional.empty();
+  }
+
+  private Optional<JsonObject> getFirstBroadcastNode(JsonObject clipDetailRoot) {
+    
+    if(!clipDetailRoot.has(BrGraphQLNodeNames.RESUTL_CLIP_BROADCAST_ROOT.getName())) {
+      return Optional.empty();
+    }
+    JsonObject broadcastBaseNode = clipDetailRoot.getAsJsonObject(BrGraphQLNodeNames.RESUTL_CLIP_BROADCAST_ROOT.getName());
+    
+    if(!broadcastBaseNode.has(BrGraphQLNodeNames.RESULT_NODE_EDGES.getName())) {
+      return Optional.empty();
+    }
+    JsonArray broadcastEdgeNode = broadcastBaseNode.getAsJsonArray(BrGraphQLNodeNames.RESULT_NODE_EDGES.getName());
+    
+    if(broadcastEdgeNode.size() == 0) {
+      return Optional.empty();
+    }
+    if(broadcastEdgeNode.size() >= 1) {
+      if(broadcastEdgeNode.size() > 1) {
+        System.err.println("ID hat mehr als einen Broadcast-Node: " + this.id.getId());
+      }
+      JsonObject broadcastNodeElement = broadcastEdgeNode.get(0).getAsJsonObject();
+      if(!broadcastNodeElement.has(BrGraphQLNodeNames.RESULT_NODE.getName())) {
+        return Optional.empty();
+      }
+      
+      return Optional.of(broadcastNodeElement.getAsJsonObject(BrGraphQLNodeNames.RESULT_NODE.getName()));
+    }
+    
+    return Optional.empty();
+  }
+  
+  private LocalDateTime brDateTimeString2LocalDateTime(String dateTimeString) {
+
+    ZonedDateTime inputDateTime = ZonedDateTime.parse(dateTimeString, DateTimeFormatter.ISO_DATE_TIME); 
+
+    return inputDateTime.withZoneSameInstant(ZoneId.of("Europe/Berlin")).toLocalDateTime();
+    
+  }
   
   
 }
