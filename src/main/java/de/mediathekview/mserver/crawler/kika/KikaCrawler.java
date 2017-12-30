@@ -1,8 +1,5 @@
 package de.mediathekview.mserver.crawler.kika;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.time.temporal.ChronoUnit;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
@@ -21,6 +18,7 @@ import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
 import de.mediathekview.mserver.crawler.basic.CrawlerUrlDTO;
 import de.mediathekview.mserver.crawler.kika.tasks.KikaPagedOverviewPageTask;
 import de.mediathekview.mserver.crawler.kika.tasks.KikaSendungOverviewPageTask;
+import de.mediathekview.mserver.crawler.kika.tasks.KikaSendungVerpasstOverviewUrlTask;
 import de.mediathekview.mserver.crawler.kika.tasks.KikaSendungVerpasstTask;
 import de.mediathekview.mserver.crawler.kika.tasks.KikaSendungsfolgeVideoDetailsTask;
 import de.mediathekview.mserver.crawler.kika.tasks.KikaSendungsfolgeVideoUrlTask;
@@ -30,11 +28,10 @@ import de.mediathekview.mserver.progress.listeners.SenderProgressListener;
 public class KikaCrawler extends AbstractCrawler {
   private static final Logger LOG = LogManager.getLogger(KikaCrawler.class);
   // http://www.kika.de/sendungen/ipg/ipg102.html#date-22122017
-  public static final String BASE_URL = "http://www.kika.de/sendungen/";
-  private static final String SENDUNG_VERPASST_URL_TEMPLATE = BASE_URL + "ipg/ipg102.html#date-%s";
-  public static final String SENDUNGEN_OVERVIEW_PAGE_URL = BASE_URL + "sendungenabisz100.html";
-  private static final DateTimeFormatter URL_DATE_TIME_FORMATTER =
-      DateTimeFormatter.ofPattern("ddMMyyyy");
+  public static final String BASE_URL = "http://www.kika.de/";
+  public static final String SENDUNGEN_OVERVIEW_PAGE_URL =
+      BASE_URL + "sendungen/sendungenabisz100.html";
+
 
   public KikaCrawler(final ForkJoinPool aForkJoinPool,
       final Collection<MessageListener> aMessageListeners,
@@ -46,16 +43,6 @@ public class KikaCrawler extends AbstractCrawler {
   @Override
   public Sender getSender() {
     return Sender.KIKA;
-  }
-
-  private ConcurrentLinkedQueue<CrawlerUrlDTO> getSendungVerpasstStartUrls() {
-    final ConcurrentLinkedQueue<CrawlerUrlDTO> urls = new ConcurrentLinkedQueue<>();
-    for (int i = 0; i < crawlerConfig.getMaximumDaysForSendungVerpasstSection(); i++) {
-      urls.add(new CrawlerUrlDTO(String.format(SENDUNG_VERPASST_URL_TEMPLATE,
-          LocalDateTime.now().minus(i, ChronoUnit.DAYS).format(URL_DATE_TIME_FORMATTER))));
-    }
-
-    return urls;
   }
 
   @Override
@@ -73,7 +60,7 @@ public class KikaCrawler extends AbstractCrawler {
         forkJoinPool.invoke(sendungenOverviewPageTask);
     final KikaSendungOverviewPageTask sendungOverviewPageTask =
         new KikaSendungOverviewPageTask(this, new ConcurrentLinkedQueue<>(sendungOverviewPageUrls));
-
+    // TODO sendungsfolgenOverviewPageUrls is clear!!!
     // Gathers the Sendungsfolgen URLs from the Sendungsfolgen overview page.
     final Set<CrawlerUrlDTO> sendungsfolgenOverviewPageUrls =
         forkJoinPool.invoke(sendungOverviewPageTask);
@@ -84,9 +71,20 @@ public class KikaCrawler extends AbstractCrawler {
     final ForkJoinTask<Set<CrawlerUrlDTO>> featureSendungsFolgenUrls =
         forkJoinPool.submit(sendungsfolgenOverviewPageTask);
 
-    final KikaSendungVerpasstTask sendungVerpasstTask =
-        new KikaSendungVerpasstTask(this, getSendungVerpasstStartUrls());
-    sendungsfolgenUrls.addAll(forkJoinPool.invoke(sendungVerpasstTask));
+    final KikaSendungVerpasstOverviewUrlTask sendungVerpasstOverviewUrlTask =
+        new KikaSendungVerpasstOverviewUrlTask(this);
+    try {
+      final Set<CrawlerUrlDTO> sendungVerpasstOverviewUrls =
+          forkJoinPool.submit(sendungVerpasstOverviewUrlTask).get();
+
+      final KikaSendungVerpasstTask sendungVerpasstTask = new KikaSendungVerpasstTask(this,
+          new ConcurrentLinkedQueue<>(sendungVerpasstOverviewUrls));
+      sendungsfolgenUrls.addAll(forkJoinPool.invoke(sendungVerpasstTask));
+    } catch (InterruptedException | ExecutionException exception) {
+      LOG.fatal(
+          "Something wen't terrible wrong on gathering the \"verpasste Sendungen\" overview page URLs.");
+      printErrorMessage();
+    }
     try {
       sendungsfolgenUrls.addAll(featureSendungsFolgenUrls.get());
     } catch (InterruptedException | ExecutionException exception) {

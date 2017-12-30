@@ -12,7 +12,7 @@ import de.mediathekview.mserver.crawler.basic.CrawlerUrlDTO;
 public class KikaSendungOverviewPageTask
     extends AbstractDocumentTask<CrawlerUrlDTO, CrawlerUrlDTO> {
   private static final long serialVersionUID = -8559179959674559691L;
-  private static final String URL_SELECTOR = ".sectionC .boxStandard .teaser .linkAll";
+  private static final String URL_SELECTOR = ".sectionC .boxStandard .teaser .linkAll:lt(0)";
 
   public KikaSendungOverviewPageTask(final AbstractCrawler aCrawler,
       final ConcurrentLinkedQueue<CrawlerUrlDTO> aUrlToCrawlDTOs) {
