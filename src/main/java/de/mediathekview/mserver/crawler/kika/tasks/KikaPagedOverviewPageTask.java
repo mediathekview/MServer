@@ -38,7 +38,10 @@ public class KikaPagedOverviewPageTask extends AbstractDocumentTask<CrawlerUrlDT
   @Override
   protected AbstractUrlTask<CrawlerUrlDTO, CrawlerUrlDTO> createNewOwnInstance(
       final ConcurrentLinkedQueue<CrawlerUrlDTO> aURLsToCrawl) {
-    return new KikaPagedOverviewPageTask(crawler, aURLsToCrawl);
+    final KikaPagedOverviewPageTask newOwnInstance =
+        new KikaPagedOverviewPageTask(crawler, aURLsToCrawl);
+    newOwnInstance.setIncrementMaxCount(incrementMaxCount);
+    return newOwnInstance;
   }
 
   @Override

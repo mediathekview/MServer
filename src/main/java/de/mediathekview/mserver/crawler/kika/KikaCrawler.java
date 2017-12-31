@@ -60,7 +60,7 @@ public class KikaCrawler extends AbstractCrawler {
         forkJoinPool.invoke(sendungenOverviewPageTask);
     final KikaSendungOverviewPageTask sendungOverviewPageTask =
         new KikaSendungOverviewPageTask(this, new ConcurrentLinkedQueue<>(sendungOverviewPageUrls));
-    // TODO sendungsfolgenOverviewPageUrls is clear!!!
+
     // Gathers the Sendungsfolgen URLs from the Sendungsfolgen overview page.
     final Set<CrawlerUrlDTO> sendungsfolgenOverviewPageUrls =
         forkJoinPool.invoke(sendungOverviewPageTask);
