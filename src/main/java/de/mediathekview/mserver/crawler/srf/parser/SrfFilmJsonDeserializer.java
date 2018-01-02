@@ -36,6 +36,7 @@ public class SrfFilmJsonDeserializer implements JsonDeserializer<Optional<Film>>
   private static final String ATTRIBUTE_DESCRIPTION = "description";
   private static final String ATTRIBUTE_DURATION = "duration";
   private static final String ATTRIBUTE_FORMAT = "format";
+  private static final String ATTRIBUTE_ID = "id";
   private static final String ATTRIBUTE_MIMETYPE = "mimeType";
   private static final String ATTRIBUTE_PUBLISHED_DATE = "publishedDate";
   private static final String ATTRIBUTE_TITLE = "title";
@@ -48,6 +49,8 @@ public class SrfFilmJsonDeserializer implements JsonDeserializer<Optional<Film>>
   private static final String ELEMENT_SUBTITLE_LIST = "subtitleList";
 
   private static final String SUBTITLE_FORMAT = "TTML";
+  
+  private static final String WEBSITE_URL = "https://www.srf.ch/play/tv/%s/video/%s?id=%s";
   
   @Override
   public Optional<Film> deserialize(JsonElement aJsonElement, Type aType, JsonDeserializationContext aContext) throws JsonParseException {
@@ -65,6 +68,7 @@ public class SrfFilmJsonDeserializer implements JsonDeserializer<Optional<Film>>
 
     Film film = new Film(UUID.randomUUID(), Sender.SRF, episodeData.title, theme, episodeData.publishDate, chapterList.duration);
     film.setBeschreibung(chapterList.description);
+    film.setWebsite(buildWebsiteUrl(chapterList.id, episodeData.title, theme));
     addUrls(videoUrls, film);
     addSubtitle(chapterList.subtitleUrl, film);    
 
@@ -90,6 +94,25 @@ public class SrfFilmJsonDeserializer implements JsonDeserializer<Optional<Film>>
       }
     });
   }
+  
+  private static Optional<URL> buildWebsiteUrl(String aId, String aTitle, String aTheme) {
+    
+    String url = String.format(WEBSITE_URL,
+            replaceCharForUrl(aTheme), replaceCharForUrl(aTitle), aId);
+
+    try {
+      return Optional.of(new URL(url));
+    } catch (MalformedURLException ex) {
+      LOG.error(String.format("The website url \"%s\" isn't valid.", url), ex);
+    }
+    
+    return Optional.empty();
+  }
+  
+  private static String replaceCharForUrl(String aValue) {
+    return aValue.toLowerCase().replace(' ', '-').replace('.', '-').replace(',', '-').replace(":", "")
+            .replace("--", "-");
+  }
 
   private static String parseShow(JsonObject aJsonObject) {
     if (aJsonObject.has(ELEMENT_SHOW)) {
@@ -109,17 +132,17 @@ public class SrfFilmJsonDeserializer implements JsonDeserializer<Optional<Film>>
     EpisodeData result = new EpisodeData();
 
     if (aJsonObject.has(ELEMENT_EPISODE)) {
-      JsonElement showElement = aJsonObject.get(ELEMENT_EPISODE);
+      JsonElement episodeElement = aJsonObject.get(ELEMENT_EPISODE);
 
-      if (!showElement.isJsonNull()) {
-        JsonObject showObject = showElement.getAsJsonObject();
+      if (!episodeElement.isJsonNull()) {
+        JsonObject episodeObject = episodeElement.getAsJsonObject();
 
-        if (showObject.has(ATTRIBUTE_TITLE)) {
-          result.title = showObject.get(ATTRIBUTE_TITLE).getAsString();
+        if (episodeObject.has(ATTRIBUTE_TITLE)) {
+          result.title = episodeObject.get(ATTRIBUTE_TITLE).getAsString();
         }
 
-        if (showObject.has(ATTRIBUTE_PUBLISHED_DATE)) {
-          String date = showObject.get(ATTRIBUTE_PUBLISHED_DATE).getAsString();
+        if (episodeObject.has(ATTRIBUTE_PUBLISHED_DATE)) {
+          String date = episodeObject.get(ATTRIBUTE_PUBLISHED_DATE).getAsString();
           result.publishDate = LocalDateTime.parse(date, DateTimeFormatter.ISO_OFFSET_DATE_TIME);
         }
       }
@@ -139,6 +162,10 @@ public class SrfFilmJsonDeserializer implements JsonDeserializer<Optional<Film>>
 
         if (chapterListArray.size() == 1) {
           JsonObject chapterListEntry = chapterListArray.get(0).getAsJsonObject();
+
+          if (chapterListEntry.has(ATTRIBUTE_ID)) {
+            result.id = chapterListEntry.get(ATTRIBUTE_ID).getAsString();
+          }
 
           if (chapterListEntry.has(ATTRIBUTE_DURATION)) {
             long duration = chapterListEntry.get(ATTRIBUTE_DURATION).getAsLong();
@@ -287,6 +314,7 @@ public class SrfFilmJsonDeserializer implements JsonDeserializer<Optional<Film>>
   private class ChapterListData {
 
     Duration duration;
+    String id;
     String description = "";
     String videoUrl;
     String subtitleUrl = "";
