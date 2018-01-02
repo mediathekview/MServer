@@ -238,14 +238,39 @@ public class SrfFilmJsonDeserializer implements JsonDeserializer<Optional<Film>>
   private static Optional<Resolution> getResolution(M3U8Dto aDto) {
     Optional<String> widthMeta = aDto.getMeta("BANDWIDTH");
     Optional<String> codecMeta = aDto.getMeta("CODECS");
+    Optional<String> resolution = aDto.getMeta("RESOLUTION");
 
     // Codec muss "avcl" beinhalten, sonst ist es kein Video
-    if (widthMeta.isPresent() && codecMeta.isPresent() && codecMeta.get().contains("avc1")) {
+    if (codecMeta.isPresent() && !codecMeta.get().contains("avc1")) {
+      return Optional.empty();
+    }
+    
+    // Auflösung verwenden, wenn vorhanden
+    if (resolution.isPresent()) {
+      switch(resolution.get()) {
+        case "320x180":
+        case "480x272":
+        case "512x288":
+          return Optional.of(Resolution.SMALL);
+        case "640x360":
+        case "960x544":
+          return Optional.of(Resolution.NORMAL);
+        case "1280x720":
+          return Optional.of(Resolution.HD);
+        default:
+          LOG.debug("Unknown resolution: " + resolution.get());
+      }
+    }
+
+    // Bandbreite verwenden
+    if (widthMeta.isPresent()) {
       int width = Integer.parseInt(widthMeta.get());
       
-      if (width <= 118000) {
+      if (width <= 700000) {
         return Optional.of(Resolution.SMALL);
-      } else {
+      } else if (width > 3000000) {
+        return Optional.of(Resolution.HD);
+      }else {
         return Optional.of(Resolution.NORMAL);
       }
     }
