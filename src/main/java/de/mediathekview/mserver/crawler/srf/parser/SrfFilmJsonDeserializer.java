@@ -35,6 +35,7 @@ public class SrfFilmJsonDeserializer implements JsonDeserializer<Optional<Film>>
 
   private static final String ATTRIBUTE_DESCRIPTION = "description";
   private static final String ATTRIBUTE_DURATION = "duration";
+  private static final String ATTRIBUTE_FORMAT = "format";
   private static final String ATTRIBUTE_MIMETYPE = "mimeType";
   private static final String ATTRIBUTE_PUBLISHED_DATE = "publishedDate";
   private static final String ATTRIBUTE_TITLE = "title";
@@ -44,7 +45,10 @@ public class SrfFilmJsonDeserializer implements JsonDeserializer<Optional<Film>>
   private static final String ELEMENT_EPISODE = "episode";
   private static final String ELEMENT_RESOURCE_LIST = "resourceList";
   private static final String ELEMENT_SHOW = "show";
+  private static final String ELEMENT_SUBTITLE_LIST = "subtitleList";
 
+  private static final String SUBTITLE_FORMAT = "TTML";
+  
   @Override
   public Optional<Film> deserialize(JsonElement aJsonElement, Type aType, JsonDeserializationContext aContext) throws JsonParseException {
 
@@ -62,10 +66,21 @@ public class SrfFilmJsonDeserializer implements JsonDeserializer<Optional<Film>>
     Film film = new Film(UUID.randomUUID(), Sender.SRF, episodeData.title, theme, episodeData.publishDate, chapterList.duration);
     film.setBeschreibung(chapterList.description);
     addUrls(videoUrls, film);
+    addSubtitle(chapterList.subtitleUrl, film);    
 
     return Optional.of(film);
   }
 
+  private static void addSubtitle(String aSubtitleUrl, Film aFilm) {
+    if (!aSubtitleUrl.isEmpty()) {
+      try {
+        aFilm.addSubtitle(new URL(aSubtitleUrl));
+      } catch (MalformedURLException ex) {
+        LOG.error(String.format("A subtitle URL \"%s\" isn't valid.", aSubtitleUrl), ex);
+      }
+    }
+  }
+  
   private static void addUrls(Map<Resolution, String> aVideoUrls, Film aFilm) {
     aVideoUrls.entrySet().forEach(urlEntry -> {
       try {
@@ -137,11 +152,36 @@ public class SrfFilmJsonDeserializer implements JsonDeserializer<Optional<Film>>
           if (chapterListEntry.has(ELEMENT_RESOURCE_LIST)) {
             result.videoUrl = parseResourceList(chapterListEntry.get(ELEMENT_RESOURCE_LIST));
           }
+          
+          if (chapterListEntry.has(ELEMENT_SUBTITLE_LIST)) {
+            result.subtitleUrl = parseSubtitleList(chapterListEntry.get(ELEMENT_SUBTITLE_LIST));
+          }
         }
       }
     }
 
     return result;
+  }
+  
+  private static String parseSubtitleList(JsonElement aSubtitleListElement) {
+    if (!aSubtitleListElement.isJsonArray()) {
+      return "";
+    }
+
+    JsonArray subtitleArray = aSubtitleListElement.getAsJsonArray();
+    for (JsonElement arrayItemElement : subtitleArray) {
+      if (!arrayItemElement.isJsonNull()) {
+        JsonObject arrayItemObject = arrayItemElement.getAsJsonObject();
+
+        if (arrayItemObject.has(ATTRIBUTE_FORMAT) && arrayItemObject.has(ATTRIBUTE_URL)) {
+          if (arrayItemObject.get(ATTRIBUTE_FORMAT).getAsString().equals(SUBTITLE_FORMAT)) {
+            return arrayItemObject.get(ATTRIBUTE_URL).getAsString();
+          }
+        }
+      }
+    }
+
+    return "";
   }
 
   private static String parseResourceList(JsonElement aResourceListElement) {
@@ -224,5 +264,6 @@ public class SrfFilmJsonDeserializer implements JsonDeserializer<Optional<Film>>
     Duration duration;
     String description = "";
     String videoUrl;
+    String subtitleUrl = "";
   }
 }
