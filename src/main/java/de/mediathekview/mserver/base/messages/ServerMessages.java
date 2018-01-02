@@ -42,7 +42,14 @@ public enum ServerMessages implements Message
     DEBUG_ALL_SENDUNG_COUNT("debugAllSendungCount",MessageTypes.DEBUG),
     DEBUG_ALL_SENDUNG_FOLGEN_COUNT("debugAllSendungFolgenCount",MessageTypes.DEBUG), 
     DEBUG_INVALID_URL("debugInvalidUrl",MessageTypes.DEBUG),
-    DEBUG_MISSING_ELEMENT("debugMissingElement",MessageTypes.DEBUG);
+    DEBUG_MISSING_ELEMENT("debugMissingElement",MessageTypes.DEBUG),
+    DEBUG_KIKA_SENDUNGSFOLGEN_OVERVIEWPAGES("debugKika.sendungsfolgenOverviewPages",MessageTypes.DEBUG),
+    DEBUG_KIKA_SENDUNGSFOLGEN_URLS("debugKika.sendungsfolgenUrls",MessageTypes.DEBUG),
+    DEBUG_KIKA_SENDUNG_VERPASST_OVERVIEWPAGES("debugKika.sendungVerpasstOverviewPages",MessageTypes.DEBUG),
+    DEBUG_KIKA_SENDUNG_VERPASST_PAGES("debugKika.senungVerpasstPages",MessageTypes.DEBUG),
+    DEBUG_KIKA_SENDUNGSFOLGEN_URL_CONVERTING("debugKika.sendungsfolgenUrlConverting",MessageTypes.DEBUG),
+    DEBUG_KIKA_CONVERTING_FINISHED("debugKika.convertingFinished",MessageTypes.DEBUG);
+
 
     private String messageKey;
     private MessageTypes messageType;

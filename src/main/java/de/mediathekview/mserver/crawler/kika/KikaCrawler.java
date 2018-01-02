@@ -14,6 +14,7 @@ import de.mediathekview.mlib.daten.Film;
 import de.mediathekview.mlib.daten.Sender;
 import de.mediathekview.mlib.messages.listener.MessageListener;
 import de.mediathekview.mserver.base.config.MServerConfigManager;
+import de.mediathekview.mserver.base.messages.ServerMessages;
 import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
 import de.mediathekview.mserver.crawler.basic.CrawlerUrlDTO;
 import de.mediathekview.mserver.crawler.kika.tasks.KikaPagedOverviewPageTask;
@@ -58,25 +59,28 @@ public class KikaCrawler extends AbstractCrawler {
     // Gathers the URLs for the Sendungsfolgen overview page from the Sendungen pages.
     final Set<CrawlerUrlDTO> sendungOverviewPageUrls =
         forkJoinPool.invoke(sendungenOverviewPageTask);
+    printMessage(ServerMessages.DEBUG_KIKA_SENDUNGSFOLGEN_OVERVIEWPAGES,
+        sendungenOverviewPageUrls.size(), getSender().getName());
     final KikaSendungOverviewPageTask sendungOverviewPageTask =
         new KikaSendungOverviewPageTask(this, new ConcurrentLinkedQueue<>(sendungOverviewPageUrls));
-
     // Gathers the Sendungsfolgen URLs from the Sendungsfolgen overview page.
     final Set<CrawlerUrlDTO> sendungsfolgenOverviewPageUrls =
         forkJoinPool.invoke(sendungOverviewPageTask);
+    printMessage(ServerMessages.DEBUG_KIKA_SENDUNGSFOLGEN_URLS,
+        sendungsfolgenOverviewPageUrls.size(), getSender().getName());
     final KikaSendungsfolgenOverviewPageTask sendungsfolgenOverviewPageTask =
         new KikaSendungsfolgenOverviewPageTask(this,
             new ConcurrentLinkedQueue<>(sendungsfolgenOverviewPageUrls));
 
     final ForkJoinTask<Set<CrawlerUrlDTO>> featureSendungsFolgenUrls =
         forkJoinPool.submit(sendungsfolgenOverviewPageTask);
-
+    printMessage(ServerMessages.DEBUG_KIKA_SENDUNG_VERPASST_OVERVIEWPAGES, getSender().getName());
     final KikaSendungVerpasstOverviewUrlTask sendungVerpasstOverviewUrlTask =
         new KikaSendungVerpasstOverviewUrlTask(this);
     try {
       final Set<CrawlerUrlDTO> sendungVerpasstOverviewUrls =
           forkJoinPool.submit(sendungVerpasstOverviewUrlTask).get();
-
+      printMessage(ServerMessages.DEBUG_KIKA_SENDUNG_VERPASST_PAGES, getSender().getName());
       final KikaSendungVerpasstTask sendungVerpasstTask = new KikaSendungVerpasstTask(this,
           new ConcurrentLinkedQueue<>(sendungVerpasstOverviewUrls));
       sendungsfolgenUrls.addAll(forkJoinPool.invoke(sendungVerpasstTask));
@@ -91,11 +95,12 @@ public class KikaCrawler extends AbstractCrawler {
       LOG.fatal("Something wen't terrible wrong on gathering the Sendungsfolgen.");
       printErrorMessage();
     }
-
+    printMessage(ServerMessages.DEBUG_KIKA_SENDUNGSFOLGEN_URL_CONVERTING, getSender().getName());
     final KikaSendungsfolgeVideoUrlTask sendungsfolgeVideoUrlsTask =
         new KikaSendungsfolgeVideoUrlTask(this, sendungsfolgenUrls);
     final Set<CrawlerUrlDTO> sendungsfolgeVideoUrls =
         forkJoinPool.invoke(sendungsfolgeVideoUrlsTask);
+    printMessage(ServerMessages.DEBUG_KIKA_CONVERTING_FINISHED, getSender().getName());
     return new KikaSendungsfolgeVideoDetailsTask(this,
         new ConcurrentLinkedQueue<>(sendungsfolgeVideoUrls));
   }
