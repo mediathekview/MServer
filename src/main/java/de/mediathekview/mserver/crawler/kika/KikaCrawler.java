@@ -60,7 +60,7 @@ public class KikaCrawler extends AbstractCrawler {
     final Set<CrawlerUrlDTO> sendungOverviewPageUrls =
         forkJoinPool.invoke(sendungenOverviewPageTask);
     printMessage(ServerMessages.DEBUG_KIKA_SENDUNGSFOLGEN_OVERVIEWPAGES,
-        sendungenOverviewPageUrls.size(), getSender().getName());
+        sendungOverviewPageUrls.size(), getSender().getName());
     final KikaSendungOverviewPageTask sendungOverviewPageTask =
         new KikaSendungOverviewPageTask(this, new ConcurrentLinkedQueue<>(sendungOverviewPageUrls));
     // Gathers the Sendungsfolgen URLs from the Sendungsfolgen overview page.
@@ -80,7 +80,8 @@ public class KikaCrawler extends AbstractCrawler {
     try {
       final Set<CrawlerUrlDTO> sendungVerpasstOverviewUrls =
           forkJoinPool.submit(sendungVerpasstOverviewUrlTask).get();
-      printMessage(ServerMessages.DEBUG_KIKA_SENDUNG_VERPASST_PAGES, getSender().getName());
+      printMessage(ServerMessages.DEBUG_KIKA_SENDUNG_VERPASST_PAGES,
+          sendungVerpasstOverviewUrls.size(), getSender().getName());
       final KikaSendungVerpasstTask sendungVerpasstTask = new KikaSendungVerpasstTask(this,
           new ConcurrentLinkedQueue<>(sendungVerpasstOverviewUrls));
       sendungsfolgenUrls.addAll(forkJoinPool.invoke(sendungVerpasstTask));

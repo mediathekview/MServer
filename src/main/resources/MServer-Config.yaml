@@ -145,11 +145,11 @@
     logSettings:
       # The log level for the console.
       # Can be: DEBUG, INFO, WARN, ERROR, FATAL
-      logLevelConsole: INFO
+      logLevelConsole: DEBUG
       
       # The log level for the log file.
       # Can be: DEBUG, INFO, WARN, ERROR, FATAL
-      logLevelFile: INFO
+      logLevelFile: DEBUG
       
       # Should be logged to console?
       logActivateConsole: true
