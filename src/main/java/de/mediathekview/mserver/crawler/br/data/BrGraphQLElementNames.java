@@ -17,6 +17,7 @@ public enum BrGraphQLElementNames {
   INT_COUNTER_ELEMENT("count"),
   STRING_CURSOR_ELEMENT("cursor"),
   STRING_CLIP_START("start"),
+  STRING_CLIP_KICKER("kicker"),
   STRING_CLIP_TITLE("title")
   ;
   

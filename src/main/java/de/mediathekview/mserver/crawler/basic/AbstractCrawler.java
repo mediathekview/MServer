@@ -107,6 +107,11 @@ public abstract class AbstractCrawler implements Callable<Set<Film>> {
     public long incrementAndGetMaxCount() {
         return maxCount.incrementAndGet();
     }
+    
+    public long incrementMaxCountBySizeAndGetNewSize(long sizeToAdd) {
+      return maxCount.addAndGet(sizeToAdd);
+    }
+    
 
     public void printErrorMessage() {
         printMessage(ServerMessages.CRAWLER_ERROR, getSender());

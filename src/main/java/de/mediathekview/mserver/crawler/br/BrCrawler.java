@@ -46,9 +46,11 @@ public class BrCrawler extends AbstractCrawler {
       final Set<BrID> completeClipList = forkJoinPool.submit(createCompleteClipListTask).get();
       
       idList = new ConcurrentLinkedQueue<>(completeClipList);
+      this.incrementMaxCountBySizeAndGetNewSize(idList.size());
       printMessage(ServerMessages.DEBUG_MSSING_SENDUNGFOLGEN_COUNT, getSender().getName(), idList.size());
     } catch (InterruptedException | ExecutionException exception) {
       LOG.fatal("Something wen't terrible wrong collecting the clip details");
+      exception.printStackTrace();
       printErrorMessage();
     }
     

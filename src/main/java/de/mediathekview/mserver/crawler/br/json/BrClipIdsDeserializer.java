@@ -94,11 +94,7 @@ public class BrClipIdsDeserializer  implements JsonDeserializer<BrClipCollectIDR
             Optional<BrID> brId = getBrId(singleEdge);
             if(brId.isPresent()) {
               this.idCollectResult.getClipList().add(brId.get());
-              this.crawler.incrementAndGetActualCount();
-            } else {
-              this.crawler.incrementAndGetErrorCount();
-            }
-            
+            } 
           }
         });
       }      
