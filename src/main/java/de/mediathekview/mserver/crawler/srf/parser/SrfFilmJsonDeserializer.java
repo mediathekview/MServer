@@ -110,7 +110,7 @@ public class SrfFilmJsonDeserializer implements JsonDeserializer<Optional<Film>>
   }
   
   private static String replaceCharForUrl(String aValue) {
-    return aValue.toLowerCase().replace(' ', '-').replace('.', '-').replace(',', '-').replace(":", "")
+    return aValue.toLowerCase().replace(' ', '-').replace('.', '-').replace(',', '-').replace(":", "").replace("\"", "")
             .replace("--", "-");
   }
 
