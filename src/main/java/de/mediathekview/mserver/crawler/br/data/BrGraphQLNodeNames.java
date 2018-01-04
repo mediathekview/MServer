@@ -11,6 +11,7 @@ package de.mediathekview.mserver.crawler.br.data;
 
 public enum BrGraphQLNodeNames {
 
+  RESULT_ERRORS_NODE("errors"),
   RESULT_ROOT_NODE("data"),
   RESULT_ROOT_BR_NODE("viewer"),
   RESUTL_CLIP_BROADCAST_ROOT("broadcasts"),

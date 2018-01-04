@@ -64,11 +64,36 @@ public class BrGetClipDetailsTask extends RecursiveTask<Set<Film>> {
 
         final String response = WebAccessHelper.getJsonResultFromPostAccess(crawler.getRuntimeConfig().getSingleCrawlerURL(CrawlerUrlType.BR_API_URL), BrGraphQLQueries.getQuery2GetClipDetails(singleClipId));
         
-        final Optional<Film> film = gson.fromJson(response, optionalFilmType);
-        if (film.isPresent()) {
-            convertedFilms.add(film.get());
-            crawler.incrementAndGetActualCount();
-            crawler.updateProgress();
+        int countRetries = 0;
+        int maxRetries = 5;
+        boolean hasError = false;
+        
+        do {
+        
+          try {
+            final Optional<Film> film = gson.fromJson(response, optionalFilmType);
+            if (film.isPresent()) {
+              convertedFilms.add(film.get());
+              crawler.incrementAndGetActualCount();
+              crawler.updateProgress();
+              hasError = false;
+            }
+            break;
+          } catch (IllegalStateException ise) {
+            hasError = true;
+            try {
+              Thread.sleep(259);
+            } catch (InterruptedException e) {
+
+            }
+            countRetries++;
+          }
+        
+        } while (countRetries < maxRetries);
+        
+        if(hasError) {
+          crawler.incrementAndGetErrorCount();
+          crawler.updateProgress();
         }
     });
   }

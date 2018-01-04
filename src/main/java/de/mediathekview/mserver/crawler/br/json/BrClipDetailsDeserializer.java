@@ -262,6 +262,10 @@ public class BrClipDetailsDeserializer implements JsonDeserializer<Optional<Film
     
     JsonObject rootObject = json.getAsJsonObject();
     
+    if(GsonGraphQLHelper.checkForErrors(rootObject)) {
+      throw new IllegalStateException("Fehler beim auflösen des aktuellen Films mit ID: " + this.id.getId());
+    }
+    
     Optional<JsonObject> clipDetails = getClipDetailsNode(rootObject);
     if(clipDetails.isPresent()) {
       JsonObject clipDetailRoot = clipDetails.get();
@@ -293,6 +297,13 @@ public class BrClipDetailsDeserializer implements JsonDeserializer<Optional<Film
     this.crawler.incrementAndGetErrorCount();
     return Optional.empty();
     
+  }
+  
+  private boolean requestHasErrors (JsonObject rootObject) {
+    
+    // Optional<JsonObject> errorNode
+    
+    return false;
   }
   
   private Optional<JsonObject> getClipDetailsNode(JsonObject rootObject) {
@@ -364,8 +375,9 @@ public class BrClipDetailsDeserializer implements JsonDeserializer<Optional<Film
      * Wenn wir hier ankommen ist weder episodeOf noch itemOf gefüllt. Dann nehmen wir halt den kicker auch wenn der nicht
      * so gut ist ein Thema zu bilden. Aber besser wie gar nichts.
      */
-    if(clipDetailRoot.has(BrGraphQLElementNames.STRING_CLIP_KICKER.getName())) {
-      JsonPrimitive kickerElement = clipDetailRoot.getAsJsonPrimitive(BrGraphQLElementNames.STRING_CLIP_KICKER.getName());
+    Optional<JsonPrimitive> kickerElementOptional = GsonGraphQLHelper.getChildPrimitiveIfExists(clipDetailRoot, BrGraphQLElementNames.STRING_CLIP_KICKER.getName());
+    if(kickerElementOptional.isPresent()) {
+      JsonPrimitive kickerElement = kickerElementOptional.get();
       
       return Optional.of(kickerElement.getAsString());
     }
