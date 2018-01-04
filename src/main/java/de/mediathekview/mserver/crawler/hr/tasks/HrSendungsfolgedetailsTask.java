@@ -16,6 +16,7 @@ import org.jsoup.nodes.Document;
 import de.mediathekview.mlib.daten.Film;
 import de.mediathekview.mlib.daten.FilmUrl;
 import de.mediathekview.mlib.daten.Resolution;
+import de.mediathekview.mserver.base.utils.DateUtils;
 import de.mediathekview.mserver.base.utils.HtmlDocumentUtils;
 import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
 import de.mediathekview.mserver.crawler.basic.AbstractDocumentTask;
@@ -24,8 +25,6 @@ import de.mediathekview.mserver.crawler.basic.CrawlerUrlDTO;
 import mServer.crawler.CrawlerTool;
 
 public class HrSendungsfolgedetailsTask extends AbstractDocumentTask<Film, CrawlerUrlDTO> {
-  private static final String SPLITTED_NUMBERS_REGEX_PATTERN = "$1:$2";
-  private static final String SPLIT_NUMBERS_REGEX_PATTERN = "(\\+\\d{1,2})(\\d{1,2})";
   private static final String ATTRIBUTE_DATETIME = "datetime";
   private static final String ATTRIBUTE_SRC = "src";
   private static final Logger LOG = LogManager.getLogger(HrSendungsfolgedetailsTask.class);
@@ -43,16 +42,10 @@ public class HrSendungsfolgedetailsTask extends AbstractDocumentTask<Film, Crawl
     super(aCrawler, aUrlToCrawlDTOs);
   }
 
-
-  // Java 8 misses a ISO 8601 support. See:
-  // https://stackoverflow.com/questions/2201925/converting-iso-8601-compliant-string-to-java-util-date
-  private String changeDateTimeForMissingISO8601Support(final String aDateTimeString) {
-    return aDateTimeString.replaceAll(SPLIT_NUMBERS_REGEX_PATTERN, SPLITTED_NUMBERS_REGEX_PATTERN);
-  }
-
   private Optional<LocalDateTime> parseDate(final Optional<String> aDateTimeText) {
     if (aDateTimeText.isPresent()) {
-      final String fixedDateTimeText = changeDateTimeForMissingISO8601Support(aDateTimeText.get());
+      final String fixedDateTimeText =
+          DateUtils.changeDateTimeForMissingISO8601Support(aDateTimeText.get());
       try {
         return Optional.of(LocalDateTime.parse(fixedDateTimeText, DateTimeFormatter.ISO_DATE_TIME));
       } catch (final DateTimeParseException dateTimeParseException) {

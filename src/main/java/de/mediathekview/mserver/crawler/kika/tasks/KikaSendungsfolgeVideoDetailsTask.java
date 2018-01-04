@@ -24,12 +24,15 @@ import de.mediathekview.mlib.daten.FilmUrl;
 import de.mediathekview.mlib.daten.GeoLocations;
 import de.mediathekview.mlib.daten.Resolution;
 import de.mediathekview.mlib.daten.Sender;
+import de.mediathekview.mserver.base.utils.DateUtils;
 import de.mediathekview.mserver.base.utils.HtmlDocumentUtils;
 import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
 import de.mediathekview.mserver.crawler.basic.AbstractUrlTask;
 import de.mediathekview.mserver.crawler.basic.CrawlerUrlDTO;
 
 public class KikaSendungsfolgeVideoDetailsTask extends AbstractUrlTask<Film, CrawlerUrlDTO> {
+  private static final String ELEMENT_HTML_URL = "htmlUrl";
+  private static final String ELEMENT_TOPLINE = "topline";
   private static final String MEDIA_TYPE_MP4 = "MP4";
   private static final String ELEMENT_BROADCAST_URL = "broadcastURL";
   private static final String ELEMENT_ASSET = "asset";
@@ -105,11 +108,23 @@ public class KikaSendungsfolgeVideoDetailsTask extends AbstractUrlTask<Film, Cra
     return Optional.empty();
   }
 
+  private Elements orAlternative(final Document aDocucument, final String... aTags) {
+    for (final String tag : aTags) {
+      final Elements tagElements = aDocucument.getElementsByTag(tag);
+      if (!tagElements.isEmpty()) {
+        return tagElements;
+      }
+    }
+    return new Elements();
+  }
+
   private LocalDateTime parseTime(final Elements dateNodes, final String thema,
       final String title) {
     LocalDateTime time;
     if (!dateNodes.isEmpty() && dateNodes.get(0).text() != null) {
-      time = LocalDateTime.parse(dateNodes.get(0).text(), DateTimeFormatter.ISO_DATE_TIME);
+      time = LocalDateTime.parse(
+          DateUtils.changeDateTimeForMissingISO8601Support(dateNodes.get(0).text()),
+          DateTimeFormatter.ISO_DATE_TIME);
     } else {
       time = LocalDate.now().atStartOfDay();
       LOG.debug(String.format("The film \"%s - %s\" has no date so the actual date will be used.",
@@ -129,9 +144,9 @@ public class KikaSendungsfolgeVideoDetailsTask extends AbstractUrlTask<Film, Cra
     try {
       final Document document = Jsoup.connect(aUrlDTO.getUrl()).parser(Parser.xmlParser()).get();
       final Elements titleNodes = document.getElementsByTag(ELEMENT_TITLE);
-      final Elements themaNodes = document.getElementsByTag(ELEMENT_CHANNELNAME);
-      final Elements websiteUrlNodes = document.getElementsByTag(ELEMENT_BROADCAST_URL);
-
+      final Elements themaNodes = orAlternative(document, ELEMENT_CHANNELNAME, ELEMENT_TOPLINE);
+      final Elements websiteUrlNodes =
+          orAlternative(document, ELEMENT_BROADCAST_URL, ELEMENT_HTML_URL);
       final Elements descriptionNodes = document.getElementsByTag(ELEMENT_BROADCAST_DESCRIPTION);
       final Elements durationNodes = document.getElementsByTag(ELEMENT_DURATION);
       final Elements dateNodes = document.getElementsByTag(ELEMENT_BROADCAST_DATE);

@@ -13,8 +13,7 @@ import de.mediathekview.mserver.crawler.basic.AbstractUrlTask;
 import de.mediathekview.mserver.crawler.basic.CrawlerUrlDTO;
 import de.mediathekview.mserver.crawler.kika.KikaCrawler;
 
-public class KikaPagedOverviewPageTask
-    extends AbstractDocumentTask<CrawlerUrlDTO, CrawlerUrlDTO> {
+public class KikaPagedOverviewPageTask extends AbstractDocumentTask<CrawlerUrlDTO, CrawlerUrlDTO> {
   private static final long serialVersionUID = -6541384259764770529L;
   private static final String SENDUNG_URL_SELECTOR = ".teaser .linkAll";
   private static final String SUBPAGE_URL_SELECTOR = ".bundleNaviItem a";
@@ -39,7 +38,10 @@ public class KikaPagedOverviewPageTask
   @Override
   protected AbstractUrlTask<CrawlerUrlDTO, CrawlerUrlDTO> createNewOwnInstance(
       final ConcurrentLinkedQueue<CrawlerUrlDTO> aURLsToCrawl) {
-    return new KikaPagedOverviewPageTask(crawler, aURLsToCrawl);
+    final KikaPagedOverviewPageTask newOwnInstance =
+        new KikaPagedOverviewPageTask(crawler, aURLsToCrawl);
+    newOwnInstance.setIncrementMaxCount(incrementMaxCount);
+    return newOwnInstance;
   }
 
   @Override
