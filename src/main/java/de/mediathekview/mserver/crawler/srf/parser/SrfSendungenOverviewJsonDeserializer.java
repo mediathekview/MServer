@@ -22,7 +22,7 @@ public class SrfSendungenOverviewJsonDeserializer implements JsonDeserializer<Se
 
   // id, month-year, number of films per page
   private static final String URL = "https://www.srf.ch/play/v2/tv/show/%s/latestEpisodes?numberOfEpisodes=%d&tillMonth=%s&layout=json";
-  private static final int FILMS_PER_PAGE = 10;
+  private static final int FILMS_PER_PAGE = 100;
   
   private static final Logger LOG = LogManager.getLogger(SrfSendungenOverviewJsonDeserializer.class);
   
