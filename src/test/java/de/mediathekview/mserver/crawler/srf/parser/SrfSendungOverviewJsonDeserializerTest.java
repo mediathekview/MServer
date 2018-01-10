@@ -56,7 +56,7 @@ public class SrfSendungOverviewJsonDeserializerTest {
     expectedNextPageId = aExpectedNextPageId;
     expectedUrls = aExpectedUrls;
     
-    target = new SrfSendungOverviewJsonDeserializer();
+    target = new SrfSendungOverviewJsonDeserializer("https://www.srf.ch");
   }
   
   @Test

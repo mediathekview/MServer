@@ -10,10 +10,15 @@ import java.util.Optional;
 
 public class SrfSendungOverviewJsonDeserializer implements JsonDeserializer<SrfSendungOverviewDTO> {
 
-  private static final String BASE_URL = "https://www.srf.ch";
   private static final String ELEMENT_NEXT_PAGE = "nextPageUrl";
   private static final String ELEMENT_EPISODES = "episodes";
   private static final String ELEMENT_ID = "id";
+  
+  private final String baseUrl;
+  
+  public SrfSendungOverviewJsonDeserializer(String aBaseUrl) {
+    baseUrl = aBaseUrl;
+  }
   
   @Override
   public SrfSendungOverviewDTO deserialize(JsonElement aJsonElement, Type aType, JsonDeserializationContext aJdc) throws JsonParseException {
@@ -36,7 +41,7 @@ public class SrfSendungOverviewJsonDeserializer implements JsonDeserializer<SrfS
       JsonElement nextPageElement = aJsonObject.get(ELEMENT_NEXT_PAGE);
               
       if (!nextPageElement.isJsonNull()) {
-        aDto.setNextPageId(Optional.of(BASE_URL + nextPageElement.getAsString()));
+        aDto.setNextPageId(Optional.of(baseUrl + nextPageElement.getAsString()));
       }
     }
   }

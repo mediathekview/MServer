@@ -1,0 +1,243 @@
+{
+   "nextPageUrl":"/play/v2/tv/show/c3f6b6b4-0770-0001-42bf-1f101bb44800/latestEpisodes?nextPageHash=09e12b6f403c2da8bfde15a1c99070d4f1c58eef3c29b0ea2f598fc7a2dcbbae84b119d4b008f929b9a8062b1cedecbc0555797c10cff0a3f497f348faab3d1c4b52af6a2583a9ce80db3d0defd5467424f1db5b89b2c9f1cfdc0b0b5c2bded71fe192eb41d68d868a71cf7e927ac094ce05fcba9ee06335&tillMonth=01-2018",
+   "show":{
+      "id":"c3f6b6b4-0770-0001-42bf-1f101bb44800",
+      "title":"Auf und davon",
+      "description":"Ab 01.01.18: Wiedersehen mit den Schweizer Auswanderern, die ihre Heimat vor einem Jahr verliessen und ihr Glück in der Ferne suchten.",
+      "lead":"Ab 01.01.18: Wiedersehen mit den Schweizer Auswanderern, die ihre Heimat vor einem Jahr verliessen und ihr Glück in der Ferne suchten.",
+      "episodeCount":{
+         "isDefined":false,
+         "isAtLeastOne":false
+      },
+      "imageUrl":"https://ws.srf.ch/asset/image/audio/53cf0d69-669d-421a-9642-ff3db0a2b3ed/WEBVISUAL/1512483806.jpg",
+      "bannerImageUrl":"https://ws.srf.ch/asset/image/audio/53cf0d69-669d-421a-9642-ff3db0a2b3ed/HEADER_SRF_PLAYER/1512483771.jpg",
+      "imageTitle":"DOK - Auf und davon",
+      "overviewUrl":"/play/tv/sendung/auf-und-davon?id=c3f6b6b4-0770-0001-42bf-1f101bb44800",
+      "absoluteOverviewUrl":"https://www.srf.ch/play/tv/sendung/auf-und-davon?id=c3f6b6b4-0770-0001-42bf-1f101bb44800",
+      "urlToLatestEpisode":"/play/v2/tv/show/c3f6b6b4-0770-0001-42bf-1f101bb44800/latestEpisode/redirect",
+      "primaryChannelId":"23FFBE1B-65CE-4188-ADD2-C724186C2C9F"
+   },
+   "episodes":[
+      {
+         "id":"49d1fd90-64ef-4dc9-b310-a96f6fa971a6",
+         "urn":"urn:srf:video:49d1fd90-64ef-4dc9-b310-a96f6fa971a6",
+         "title":"Schweizer Auswanderer und ihre Abenteuer (1/6)",
+         "description":"Trotz Schweizer Sicherheit, trotz Job, Familie und Freundeskreis: Jahr für Jahr verlassen Tausende Schweizerinnen und Schweizer ihre alte Heimat, um in der Ferne ein neues Leben zu beginnen. «DOK» begleitet in der 9. Staffel Schweizer Auswanderer und Abenteurer nach Marokko, Australien und Schweden.",
+         "imageUrl":"https://ws.srf.ch/asset/image/audio/8adac95e-a186-43a2-b154-68df7e5fb99d/EPISODE_IMAGE/1515185226.jpg",
+         "showId":"c3f6b6b4-0770-0001-42bf-1f101bb44800",
+         "showTitle":"Auf und davon",
+         "detailUrl":"/play/tv/auf-und-davon/video/schweizer-auswanderer-und-ihre-abenteuer-16?id=49d1fd90-64ef-4dc9-b310-a96f6fa971a6",
+         "absoluteDetailUrl":"https://www.srf.ch/play/tv/auf-und-davon/video/schweizer-auswanderer-und-ihre-abenteuer-16?id=49d1fd90-64ef-4dc9-b310-a96f6fa971a6",
+         "popupUrl":"/play/tv/popupvideoplayer?id=49d1fd90-64ef-4dc9-b310-a96f6fa971a6",
+         "popupText":"Video «Schweizer Auswanderer und ihre Abenteuer (1/6)» im Pop-up abspielen.",
+         "duration":"42:17",
+         "date":"Freitag, 21:00 Uhr",
+         "isEditorPick":false,
+         "subtitle":"Auf und davon Freitag, 21:00 Uhr",
+         "segments":[
+
+         ],
+         "publishDatePhrase":"Freitag, 21:00 Uhr",
+         "views":34697
+      },
+      {
+         "id":"c068e91b-a57a-4bca-ba8f-62d00df18b9f",
+         "urn":"urn:srf:video:c068e91b-a57a-4bca-ba8f-62d00df18b9f",
+         "title":"«Auf und davon – ein Jahr danach»",
+         "description":"Wiedersehen mit den Schweizer Auswanderern, die ihre Heimat vor einem Jahr verliessen und ihr Glück in der Ferne suchten.",
+         "imageUrl":"https://ws.srf.ch/asset/image/audio/684839ec-6c70-45dd-91e9-ad0085eb9ac9/EPISODE_IMAGE/1514839993.jpg",
+         "showId":"c3f6b6b4-0770-0001-42bf-1f101bb44800",
+         "showTitle":"Auf und davon",
+         "detailUrl":"/play/tv/auf-und-davon/video/auf-und-davon---ein-jahr-danach?id=c068e91b-a57a-4bca-ba8f-62d00df18b9f",
+         "absoluteDetailUrl":"https://www.srf.ch/play/tv/auf-und-davon/video/auf-und-davon---ein-jahr-danach?id=c068e91b-a57a-4bca-ba8f-62d00df18b9f",
+         "popupUrl":"/play/tv/popupvideoplayer?id=c068e91b-a57a-4bca-ba8f-62d00df18b9f",
+         "popupText":"Video ««Auf und davon – ein Jahr danach»» im Pop-up abspielen.",
+         "duration":"97:46",
+         "date":"01.01.2018, 20:06 Uhr",
+         "isEditorPick":false,
+         "subtitle":"Auf und davon 01.01.2018, 20:06 Uhr",
+         "segments":[
+
+         ],
+         "publishDatePhrase":"01.01.2018, 20:06 Uhr",
+         "views":54196
+      },
+      {
+         "id":"4e21b435-972e-46cf-9219-fbf8cfbc6482",
+         "urn":"urn:srf:video:4e21b435-972e-46cf-9219-fbf8cfbc6482",
+         "title":"Anni Kuhn und Orlando Stamm auf Bali",
+         "description":"In der letzten Folge reist Mona Vetsch nach Bali zu Anni Kuhn und Orlando Stamm. Das Liebespaar wanderte 2010 aus und baute ein eigenes Ferienresort. Doch jetzt haben die beiden genug von der Götterinsel – ihr Resort steht zum Verkauf.",
+         "imageUrl":"https://ws.srf.ch/asset/image/audio/3d86c522-eb22-4bd8-87d2-b80d7170ce9a/EPISODE_IMAGE/1495828188.jpg",
+         "showId":"c3f6b6b4-0770-0001-42bf-1f101bb44800",
+         "showTitle":"Auf und davon",
+         "detailUrl":"/play/tv/auf-und-davon/video/anni-kuhn-und-orlando-stamm-auf-bali?id=4e21b435-972e-46cf-9219-fbf8cfbc6482",
+         "absoluteDetailUrl":"https://www.srf.ch/play/tv/auf-und-davon/video/anni-kuhn-und-orlando-stamm-auf-bali?id=4e21b435-972e-46cf-9219-fbf8cfbc6482",
+         "popupUrl":"/play/tv/popupvideoplayer?id=4e21b435-972e-46cf-9219-fbf8cfbc6482",
+         "popupText":"Video «Anni Kuhn und Orlando Stamm auf Bali» im Pop-up abspielen.",
+         "duration":"42:06",
+         "date":"26.05.2017, 21:00 Uhr",
+         "isEditorPick":false,
+         "subtitle":"Auf und davon 26.05.2017, 21:00 Uhr",
+         "segments":[
+
+         ],
+         "publishDatePhrase":"26.05.2017, 21:00 Uhr",
+         "views":47743
+      },
+      {
+         "id":"b5d76a82-8619-4ab2-a66e-1208e03b7c85",
+         "urn":"urn:srf:video:b5d76a82-8619-4ab2-a66e-1208e03b7c85",
+         "title":"Caroline und Daniel Schafer in Schweden",
+         "description":"In der fünften Folge von «Auf und davon Spezial» reist Mona Vetsch nach Schweden zu Caroline und Daniel Schafer. Die Schlittenhunde waren lange Zeit die Familie der beiden Auswanderer. Nun haben sie ein Baby bekommen – spät und unerwartet.",
+         "imageUrl":"https://ws.srf.ch/asset/image/audio/f6488611-240b-449d-b42b-5ad961a68193/EPISODE_IMAGE/1495223353.jpg",
+         "showId":"c3f6b6b4-0770-0001-42bf-1f101bb44800",
+         "showTitle":"Auf und davon",
+         "detailUrl":"/play/tv/auf-und-davon/video/caroline-und-daniel-schafer-in-schweden?id=b5d76a82-8619-4ab2-a66e-1208e03b7c85",
+         "absoluteDetailUrl":"https://www.srf.ch/play/tv/auf-und-davon/video/caroline-und-daniel-schafer-in-schweden?id=b5d76a82-8619-4ab2-a66e-1208e03b7c85",
+         "popupUrl":"/play/tv/popupvideoplayer?id=b5d76a82-8619-4ab2-a66e-1208e03b7c85",
+         "popupText":"Video «Caroline und Daniel Schafer in Schweden» im Pop-up abspielen.",
+         "duration":"42:16",
+         "date":"19.05.2017, 20:59 Uhr",
+         "isEditorPick":false,
+         "subtitle":"Auf und davon 19.05.2017, 20:59 Uhr",
+         "segments":[
+
+         ],
+         "publishDatePhrase":"19.05.2017, 20:59 Uhr",
+         "views":48811
+      },
+      {
+         "id":"c888eb05-f6e7-49b5-9e74-72ae0ef26510",
+         "urn":"urn:srf:video:c888eb05-f6e7-49b5-9e74-72ae0ef26510",
+         "title":"Monika Lienert und Peter Krüsi in Kambodscha",
+         "description":"Die Modeberaterin Monika Lienert und der Zugbegleiter Peter Krüsi wanderten 2011 kurzentschlossen nach Kamboscha aus. Als Mona Vetsch die beiden besucht, merkt sie schnell: Es läuft nicht mehr so gut mit den Geschäften in der neuen Heimat.",
+         "imageUrl":"https://ws.srf.ch/asset/image/audio/e389f9fd-90da-4625-a633-84477baae243/EPISODE_IMAGE/1494618704.jpg",
+         "showId":"c3f6b6b4-0770-0001-42bf-1f101bb44800",
+         "showTitle":"Auf und davon",
+         "detailUrl":"/play/tv/auf-und-davon/video/monika-lienert-und-peter-kruesi-in-kambodscha?id=c888eb05-f6e7-49b5-9e74-72ae0ef26510",
+         "absoluteDetailUrl":"https://www.srf.ch/play/tv/auf-und-davon/video/monika-lienert-und-peter-kruesi-in-kambodscha?id=c888eb05-f6e7-49b5-9e74-72ae0ef26510",
+         "popupUrl":"/play/tv/popupvideoplayer?id=c888eb05-f6e7-49b5-9e74-72ae0ef26510",
+         "popupText":"Video «Monika Lienert und Peter Krüsi in Kambodscha» im Pop-up abspielen.",
+         "duration":"42:01",
+         "date":"12.05.2017, 21:00 Uhr",
+         "isEditorPick":false,
+         "subtitle":"Auf und davon 12.05.2017, 21:00 Uhr",
+         "segments":[
+
+         ],
+         "publishDatePhrase":"12.05.2017, 21:00 Uhr",
+         "views":41234
+      },
+      {
+         "id":"f7956e54-43a6-44af-9a81-de3ff45f7e08",
+         "urn":"urn:srf:video:f7956e54-43a6-44af-9a81-de3ff45f7e08",
+         "title":"Familie Dänzer in Florida",
+         "description":"In der dritten Folge von «Auf und davon Spezial» reist Mona Vetsch nach Florida zu Familie Dänzer. Sie leben den amerikanischen Traum. Doch dafür müssen sie hart arbeiten. Sie haben vier Jobs gleichzeitig – und kaum Freizeit. Haben sie sich ihr Auswandern so vorgestellt?",
+         "imageUrl":"https://ws.srf.ch/asset/image/audio/1a2b4a26-bfe7-4cf7-8119-ca2e9c21832f/EPISODE_IMAGE/1494013856.jpg",
+         "showId":"c3f6b6b4-0770-0001-42bf-1f101bb44800",
+         "showTitle":"Auf und davon",
+         "detailUrl":"/play/tv/auf-und-davon/video/familie-daenzer-in-florida?id=f7956e54-43a6-44af-9a81-de3ff45f7e08",
+         "absoluteDetailUrl":"https://www.srf.ch/play/tv/auf-und-davon/video/familie-daenzer-in-florida?id=f7956e54-43a6-44af-9a81-de3ff45f7e08",
+         "popupUrl":"/play/tv/popupvideoplayer?id=f7956e54-43a6-44af-9a81-de3ff45f7e08",
+         "popupText":"Video «Familie Dänzer in Florida» im Pop-up abspielen.",
+         "duration":"41:49",
+         "date":"05.05.2017, 20:59 Uhr",
+         "isEditorPick":false,
+         "subtitle":"Auf und davon 05.05.2017, 20:59 Uhr",
+         "segments":[
+
+         ],
+         "publishDatePhrase":"05.05.2017, 20:59 Uhr",
+         "views":52441
+      },
+      {
+         "id":"52c8a2c9-24cb-4be3-9e34-7d9bc901f421",
+         "urn":"urn:srf:video:52c8a2c9-24cb-4be3-9e34-7d9bc901f421",
+         "title":"Anja Kinsky und Claude Wegmann in Italien",
+         "description":"In der zweiten Folge erlebt Mona Vetsch, wie eine Idylle durch eine Katastrophe zerstört wird. Bei ihrem ersten Besuch bei Anja Kinsky und Claude Wegmann auf ihrem Agriturismo ist alles noch in bester Ordnung. Doch dann erschüttert eine Serie von Erdbeben Italien.",
+         "imageUrl":"https://ws.srf.ch/asset/image/audio/c3e36148-5e1f-4d08-a9c9-b9b01a00dd98/EPISODE_IMAGE/1493472024.png",
+         "showId":"c3f6b6b4-0770-0001-42bf-1f101bb44800",
+         "showTitle":"Auf und davon",
+         "detailUrl":"/play/tv/auf-und-davon/video/anja-kinsky-und-claude-wegmann-in-italien?id=52c8a2c9-24cb-4be3-9e34-7d9bc901f421",
+         "absoluteDetailUrl":"https://www.srf.ch/play/tv/auf-und-davon/video/anja-kinsky-und-claude-wegmann-in-italien?id=52c8a2c9-24cb-4be3-9e34-7d9bc901f421",
+         "popupUrl":"/play/tv/popupvideoplayer?id=52c8a2c9-24cb-4be3-9e34-7d9bc901f421",
+         "popupText":"Video «Anja Kinsky und Claude Wegmann in Italien» im Pop-up abspielen.",
+         "duration":"42:21",
+         "date":"28.04.2017, 21:00 Uhr",
+         "isEditorPick":false,
+         "subtitle":"Auf und davon 28.04.2017, 21:00 Uhr",
+         "segments":[
+
+         ],
+         "publishDatePhrase":"28.04.2017, 21:00 Uhr",
+         "views":40376
+      },
+      {
+         "id":"bd3af68e-f956-4d61-93ab-dc1c5a1ab8bc",
+         "urn":"urn:srf:video:bd3af68e-f956-4d61-93ab-dc1c5a1ab8bc",
+         "title":"Familie Tobler in Australien",
+         "description":"In der ersten Folge reist Mona Vetschnach Australien zu Familie Tobler. Bodenleger Rolf und seine Frau Emma wanderten 2011 mit drei Kindern aus. Nun sprechen sie mit Mona über die wahren Gründe, weshalb sie den Thurgau damals verlassen haben.",
+         "imageUrl":"https://ws.srf.ch/asset/image/audio/e282c913-fd8c-467d-8c53-a6274e9f7add/EPISODE_IMAGE/1493021714.png",
+         "showId":"c3f6b6b4-0770-0001-42bf-1f101bb44800",
+         "showTitle":"Auf und davon",
+         "detailUrl":"/play/tv/auf-und-davon/video/familie-tobler-in-australien?id=bd3af68e-f956-4d61-93ab-dc1c5a1ab8bc",
+         "absoluteDetailUrl":"https://www.srf.ch/play/tv/auf-und-davon/video/familie-tobler-in-australien?id=bd3af68e-f956-4d61-93ab-dc1c5a1ab8bc",
+         "popupUrl":"/play/tv/popupvideoplayer?id=bd3af68e-f956-4d61-93ab-dc1c5a1ab8bc",
+         "popupText":"Video «Familie Tobler in Australien» im Pop-up abspielen.",
+         "duration":"42:19",
+         "date":"21.04.2017, 20:59 Uhr",
+         "isEditorPick":false,
+         "subtitle":"Auf und davon 21.04.2017, 20:59 Uhr",
+         "segments":[
+
+         ],
+         "publishDatePhrase":"21.04.2017, 20:59 Uhr",
+         "views":57745
+      },
+      {
+         "id":"973675e2-6734-41cf-a830-dfa542c2d1c4",
+         "urn":"urn:srf:video:973675e2-6734-41cf-a830-dfa542c2d1c4",
+         "title":"Neue Herausforderungen",
+         "description":"Auf Bali trifft Patricia Tschudi eine folgenschwere Entscheidung, in Clearwater, Kanada, feiert Familie Volk ihr einjähriges Jubiläum in der neuen Heimat. Und auf Fuerteventura begrüssen Tobias und Michael erste Gäste in ihrer Bar.",
+         "imageUrl":"https://ws.srf.ch/asset/image/audio/edd4e000-0e28-4c29-9a8f-2e7d90c80da3/EPISODE_IMAGE/1486759880.jpg",
+         "showId":"c3f6b6b4-0770-0001-42bf-1f101bb44800",
+         "showTitle":"Auf und davon",
+         "detailUrl":"/play/tv/auf-und-davon/video/neue-herausforderungen?id=973675e2-6734-41cf-a830-dfa542c2d1c4",
+         "absoluteDetailUrl":"https://www.srf.ch/play/tv/auf-und-davon/video/neue-herausforderungen?id=973675e2-6734-41cf-a830-dfa542c2d1c4",
+         "popupUrl":"/play/tv/popupvideoplayer?id=973675e2-6734-41cf-a830-dfa542c2d1c4",
+         "popupText":"Video «Neue Herausforderungen» im Pop-up abspielen.",
+         "duration":"42:17",
+         "date":"10.02.2017, 20:59 Uhr",
+         "isEditorPick":false,
+         "subtitle":"Auf und davon 10.02.2017, 20:59 Uhr",
+         "segments":[
+
+         ],
+         "publishDatePhrase":"10.02.2017, 20:59 Uhr",
+         "views":75817
+      },
+      {
+         "id":"862c8693-d32b-4a0f-bc0d-0d021baddf5d",
+         "urn":"urn:srf:video:862c8693-d32b-4a0f-bc0d-0d021baddf5d",
+         "title":"Träume werden wahr",
+         "description":"Romano und Patricia Tschudi warten auf Buchungen für ihr Gästehaus, sie sind mit der Auslastung noch nicht zufrieden. In Kanada freut sich Christian Volk über die vielen Aufträge und auf Fuerteventura haben Tobias Bayer und Michael Paris alle Hände voll zu tun.",
+         "imageUrl":"https://ws.srf.ch/asset/image/audio/4e8978be-6951-4c62-8c8f-ab71ab1d4efa/EPISODE_IMAGE/1486155121.jpg",
+         "showId":"c3f6b6b4-0770-0001-42bf-1f101bb44800",
+         "showTitle":"Auf und davon",
+         "detailUrl":"/play/tv/auf-und-davon/video/traeume-werden-wahr?id=862c8693-d32b-4a0f-bc0d-0d021baddf5d",
+         "absoluteDetailUrl":"https://www.srf.ch/play/tv/auf-und-davon/video/traeume-werden-wahr?id=862c8693-d32b-4a0f-bc0d-0d021baddf5d",
+         "popupUrl":"/play/tv/popupvideoplayer?id=862c8693-d32b-4a0f-bc0d-0d021baddf5d",
+         "popupText":"Video «Träume werden wahr» im Pop-up abspielen.",
+         "duration":"42:18",
+         "date":"03.02.2017, 21:00 Uhr",
+         "isEditorPick":false,
+         "subtitle":"Auf und davon 03.02.2017, 21:00 Uhr",
+         "segments":[
+
+         ],
+         "publishDatePhrase":"03.02.2017, 21:00 Uhr",
+         "views":63367
+      }
+   ],
+   "episodesAvailableForSelectedMonth":true
+}

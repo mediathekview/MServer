@@ -50,8 +50,6 @@ public class SrfFilmDetailTask extends AbstractRestTask<Film, CrawlerUrlDTO> {
       } catch (JsonSyntaxException e) {
         LOG.error("Error reading url " + aTarget.getUri().toString(), e);
       }
-      
-      // TODO next page...
     } else {
       LOG.error("Error reading url " + aTarget.getUri().toString() + ": " + response.getStatus());
     }
