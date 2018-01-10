@@ -52,4 +52,28 @@ public final class UrlUtils {
     newUrlBuilder.append(String.format(PARAMETER_PATTERN, aParameter, aValue));
     return newUrlBuilder.toString();
   }
+  
+  /**
+   * returns the base of the url
+   * example: 
+   * https://www.myurl.de:778/some/resource => https://www.myurl.de:778
+   * @param aUrl the url
+   * @return the base of the url
+   */
+  public static String getBaseUrl(final String aUrl) {
+    if (aUrl != null) {
+      int index = aUrl.indexOf("//");
+      if (index > 0) {
+        index = aUrl.indexOf("/", index+2);
+      } else {
+        index = aUrl.indexOf("/");
+      }
+
+      if (index > 0) {
+        return aUrl.substring(0, index);
+      }
+    }
+    
+    return aUrl;
+  }
 }
