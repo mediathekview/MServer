@@ -65,6 +65,9 @@ public class SrfFilmJsonDeserializer implements JsonDeserializer<Optional<Film>>
     }
 
     Map<Resolution, String> videoUrls = readUrls(chapterList.videoUrl);
+    if (videoUrls.isEmpty()) {
+      return Optional.empty();
+    }
 
     Film film = new Film(UUID.randomUUID(), Sender.SRF, episodeData.title, theme, episodeData.publishDate, chapterList.duration);
     film.setBeschreibung(chapterList.description);
