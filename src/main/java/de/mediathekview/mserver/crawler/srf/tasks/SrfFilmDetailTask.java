@@ -11,6 +11,7 @@ import de.mediathekview.mserver.crawler.basic.AbstractUrlTask;
 import de.mediathekview.mserver.crawler.basic.CrawlerUrlDTO;
 import de.mediathekview.mserver.crawler.srf.parser.SrfFilmJsonDeserializer;
 import java.lang.reflect.Type;
+import java.net.URI;
 import java.util.Optional;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import javax.ws.rs.client.Invocation;
@@ -33,25 +34,21 @@ public class SrfFilmDetailTask extends AbstractRestTask<Film, CrawlerUrlDTO> {
   
   @Override
   protected void processRestTarget(CrawlerUrlDTO aDTO, WebTarget aTarget) {
-    Type type = new TypeToken<Optional<Film>>() {}.getType();
-    final Gson gson = new GsonBuilder().registerTypeAdapter(type, new SrfFilmJsonDeserializer()).create();
     Invocation.Builder request = aTarget.request();
     final Response response = request.header(HEADER_ACCEPT_ENCODING, ENCODING_GZIP).get();
     
-    if (response.getStatus() == 200) {
-
-      final String jsonOutput = response.readEntity(String.class);
-
-      try {
-        Optional<Film> film = gson.fromJson(jsonOutput, type);
-        if (film.isPresent()) {
-          taskResults.add(film.get());
-        }
-      } catch (JsonSyntaxException e) {
-        LOG.error("Error reading url " + aTarget.getUri().toString(), e);
-      }
-    } else {
-      LOG.error("Error reading url " + aTarget.getUri().toString() + ": " + response.getStatus());
+    switch(response.getStatus()) {
+      case 200:
+      case 203:
+        parseFilm(response, aTarget.getUri());
+        break;
+      case 403:
+        // Geo-Blocking für Crawler-Standort
+        LOG.error("SrfFilmDetailTask: Not authorized to access url " + aTarget.getUri().toString());
+        crawler.incrementAndGetErrorCount();
+        break;
+      default:
+        LOG.error("SrfFilmDetailTask: Error reading url " + aTarget.getUri().toString() + ": " + response.getStatus());
     }
   }
 
@@ -59,5 +56,20 @@ public class SrfFilmDetailTask extends AbstractRestTask<Film, CrawlerUrlDTO> {
   protected AbstractUrlTask<Film, CrawlerUrlDTO> createNewOwnInstance(ConcurrentLinkedQueue<CrawlerUrlDTO> aURLsToCrawl) {
     return new SrfFilmDetailTask(crawler, aURLsToCrawl);
   }
-  
+
+  private void parseFilm(Response response, URI uri) {
+    final String jsonOutput = response.readEntity(String.class);
+
+    try {
+      Type type = new TypeToken<Optional<Film>>() {}.getType();
+      final Gson gson = new GsonBuilder().registerTypeAdapter(type, new SrfFilmJsonDeserializer()).create();
+      
+      Optional<Film> film = gson.fromJson(jsonOutput, type);
+      if (film.isPresent()) {
+        taskResults.add(film.get());
+      }
+    } catch (JsonSyntaxException e) {
+      LOG.error("SrfFilmDetailTask: Error reading url " + uri.toString(), e);
+    }
+  }
 }
