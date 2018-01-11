@@ -39,7 +39,10 @@ public class SrfSendungOverviewPageTaskTest extends SrfTaskTestBase {
   }  
 
   @Test
-  public void testOverviewWithMultiplePages() {
+  public void testOverviewWithMultiplePagesLimitSubpagesLargerThanSubpageCount() {
+    
+    rootConfig.getConfig().setMaximumSubpages(5);
+    
     String requestUrl = "/play/v2/tv/show/c3f6b6b4-0770-0001-42bf-1f101bb44800/latestEpisodes?numberOfEpisodes=10&tillMonth=01-2018&layout=json";
     setupUrl(requestUrl, "/srf/srf_sendung_overview_multiple_page1.json");
     setupUrl("/play/v2/tv/show/c3f6b6b4-0770-0001-42bf-1f101bb44800/latestEpisodes?nextPageHash=09e12b6f403c2da8bfde15a1c99070d4f1c58eef3c29b0ea2f598fc7a2dcbbae84b119d4b008f929b9a8062b1cedecbc0555797c10cff0a3f497f348faab3d1c4b52af6a2583a9ce80db3d0defd5467424f1db5b89b2c9f1cfdc0b0b5c2bded71fe192eb41d68d868a71cf7e927ac094ce05fcba9ee06335&tillMonth=01-2018", "/srf/srf_sendung_overview_multiple_page2.json");
@@ -53,7 +56,7 @@ public class SrfSendungOverviewPageTaskTest extends SrfTaskTestBase {
   }
   
   @Test
-  public void testOverviewWithMultiplePagesLimitSubpages3() {
+  public void testOverviewWithMultiplePagesLimitSubpagesSmallerThanSubpageCount() {
     
     rootConfig.getConfig().setMaximumSubpages(3);
     
