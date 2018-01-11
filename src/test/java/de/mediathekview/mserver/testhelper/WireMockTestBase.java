@@ -37,4 +37,10 @@ public abstract class WireMockTestBase {
                     .withStatus(200)
                     .withBody(body)));
   }
+  
+  protected void setupResponseWithoutBody(String aRequestUrl, int aHttpCode) {
+    wireMockRule.stubFor(get(urlEqualTo(aRequestUrl))
+            .willReturn(aResponse()
+                    .withStatus(aHttpCode)));
+  }
 }
