@@ -3,13 +3,13 @@ package de.mediathekview.mserver.crawler.srf.parser;
 import static com.github.tomakehurst.wiremock.client.WireMock.aResponse;
 import static com.github.tomakehurst.wiremock.client.WireMock.get;
 import static com.github.tomakehurst.wiremock.client.WireMock.urlEqualTo;
-import com.github.tomakehurst.wiremock.junit.WireMockRule;
 import com.google.gson.JsonElement;
 import de.mediathekview.mlib.daten.Film;
 import de.mediathekview.mlib.daten.Resolution;
 import de.mediathekview.mlib.daten.Sender;
 import de.mediathekview.mserver.testhelper.FileReader;
 import de.mediathekview.mserver.testhelper.JsonFileReader;
+import de.mediathekview.mserver.testhelper.WireMockTestBase;
 import java.net.URL;
 import java.time.Duration;
 import java.time.LocalDateTime;
@@ -18,16 +18,14 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.Optional;
 import static org.hamcrest.CoreMatchers.equalTo;
-import org.hamcrest.Matchers;
 import static org.junit.Assert.assertThat;
-import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
 
 @RunWith(Parameterized.class)
-public class SrfFilmJsonDeserializerTest {
+public class SrfFilmJsonDeserializerTest extends WireMockTestBase {
 
   @Parameters
   public static Collection<Object[]> data() {
@@ -64,9 +62,6 @@ public class SrfFilmJsonDeserializerTest {
     });
   }
 
-  @Rule
-  public WireMockRule wireMockRule = new WireMockRule(8589);
-  
   private final String jsonFile;
   private final String m3u8File;
   private final String m3u8Url;
@@ -101,12 +96,8 @@ public class SrfFilmJsonDeserializerTest {
   public void test() {
     JsonElement jsonElement = JsonFileReader.readJson(jsonFile);
     
-    String m3u8Body = FileReader.readFile(m3u8File);
-    wireMockRule.stubFor(get(urlEqualTo(m3u8Url))
-            .willReturn(aResponse()
-                    .withStatus(200)
-                    .withBody(m3u8Body)));
-    
+    setupSuccessfulResponse(m3u8Url, m3u8File);
+            
     SrfFilmJsonDeserializer target = new SrfFilmJsonDeserializer();
     Optional<Film> actual = target.deserialize(jsonElement, Film.class, null);
     
