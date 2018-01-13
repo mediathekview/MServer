@@ -30,8 +30,6 @@ public class KikaSendungVerpasstTask extends AbstractDocumentTask<CrawlerUrlDTO,
     for (final Element filmUrlElement : aDocument.select(URL_SELECTOR)) {
       if (filmUrlElement.hasAttr(Consts.ATTRIBUTE_HREF)
           && !PAGE_ANKER.equals(filmUrlElement.attr(Consts.ATTRIBUTE_HREF))) {
-        crawler.incrementAndGetMaxCount();
-        crawler.updateProgress();
         taskResults.add(new CrawlerUrlDTO(filmUrlElement.absUrl(Consts.ATTRIBUTE_HREF)));
       }
     }
