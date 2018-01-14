@@ -35,6 +35,7 @@ import de.mediathekview.mlib.daten.Film;
 import de.mediathekview.mlib.daten.FilmUrl;
 import de.mediathekview.mlib.daten.GeoLocations;
 import de.mediathekview.mlib.daten.Resolution;
+import de.mediathekview.mlib.tool.UrlAviabilityTester;
 import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
 import de.mediathekview.mserver.crawler.br.data.BrClipType;
 import de.mediathekview.mserver.crawler.br.data.BrGraphQLElementNames;
@@ -289,7 +290,7 @@ public class BrClipDetailsDeserializer implements JsonDeserializer<Optional<Film
       Optional<String>                      beschreibung    = getBeschreibung(clipDetailRoot);
       Optional<URL>                         webSite         = getWebSite(clipDetailRoot);
       
-      Optional<LocalDateTime>               availableUntil  = Optional.empty();
+      Optional<LocalDateTime>               availableUntil  = getAvailableUntil(clipDetailRoot);
       
       if(titel.isPresent() && thema.isPresent() && clipLaenge.isPresent()) {
         Film currentFilm = new Film(UUID.randomUUID(), this.crawler.getSender(), titel.get(), thema.get(), sendeZeitpunkt.orElse(null), clipLaenge.get());
@@ -305,13 +306,19 @@ public class BrClipDetailsDeserializer implements JsonDeserializer<Optional<Film
         currentFilm.setWebsite(webSite);
         
         if(subtitles.isPresent()) {
-
+          currentFilm.addAllSubtitleUrls(subtitles.get());
         }
         
         if(availableUntil.isPresent()) {
           
-          // TODO: Prüfen, ob die Zeit vorbei ist und wenn ja, ob eine der videoURLs noch gültig ist. Sonst wird der Clip nicht aufgenommen!
-          
+          if(availableUntil.get().isBefore(LocalDateTime.now())) {
+            // TODO: Prüfen, ob die Zeit vorbei ist und wenn ja, ob eine der videoURLs noch gültig ist. Sonst wird der Clip nicht aufgenommen!
+            videoUrls.get().forEach((Resolution aktuelleAufloesung, FilmUrl aktuelleUrl) -> {
+              if(UrlAviabilityTester.checkAviability(aktuelleUrl.getUrl().toString(), 100)) {
+                System.err.println(String.format("Film Verfügbarkeit überschritten (%s), aber mind. eine URL gültig! ID: %s", availableUntil.get(), this.id.getId()));
+              }
+            });            
+          }
         }
         
         return Optional.of(currentFilm);
@@ -645,7 +652,7 @@ public class BrClipDetailsDeserializer implements JsonDeserializer<Optional<Film
     return Optional.empty();
   }
 
-  Optional<URL> getWebSite (JsonObject clipDetailRoot) {
+  private Optional<URL> getWebSite (JsonObject clipDetailRoot) {
     
     Optional<JsonPrimitive> slugOptional = GsonGraphQLHelper.getChildPrimitiveIfExists(clipDetailRoot, BrGraphQLElementNames.STRING_CLIP_SLUG.getName());
     if(slugOptional.isPresent()) {
@@ -666,7 +673,7 @@ public class BrClipDetailsDeserializer implements JsonDeserializer<Optional<Film
   }
   
   
-  Optional<Set<URL>> getSubtitles (JsonObject clipDetailRoot) {
+  private Optional<Set<URL>> getSubtitles (JsonObject clipDetailRoot) {
     
     Optional<JsonObject> captionFilesOptional = GsonGraphQLHelper.getChildObjectIfExists(clipDetailRoot, BrGraphQLNodeNames.RESULT_CLIP_CAPTION_FILES.getName());
     if(!captionFilesOptional.isPresent()) {
@@ -719,6 +726,22 @@ public class BrClipDetailsDeserializer implements JsonDeserializer<Optional<Film
     
     if(!subtitleUrls.isEmpty()) {
       return Optional.of(subtitleUrls);
+    }
+    
+    return Optional.empty();
+  }
+  
+  private Optional<LocalDateTime> getAvailableUntil(JsonObject clipDetailRoot) {
+    
+    Optional<JsonPrimitive> availableUntilOptional = GsonGraphQLHelper.getChildPrimitiveIfExists(clipDetailRoot, BrGraphQLElementNames.STRING_CLIP_AVAILABLE_UNTIL.getName());
+    if(!availableUntilOptional.isPresent()) {
+      return Optional.empty();
+    }
+    
+    JsonPrimitive availableUntil = availableUntilOptional.get();
+    
+    if(availableUntil.isString() && StringUtils.isNoneEmpty(availableUntil.getAsString())) {
+      return Optional.of(brDateTimeString2LocalDateTime(availableUntil.getAsString()));
     }
     
     return Optional.empty();

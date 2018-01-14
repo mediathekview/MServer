@@ -13,6 +13,8 @@ import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 import org.apache.commons.lang3.StringUtils;
+import de.mediathekview.mserver.crawler.br.data.BrGraphQLElementNames;
+import de.mediathekview.mserver.crawler.br.data.BrGraphQLNodeNames;
 import de.mediathekview.mserver.crawler.br.data.BrID;
 import de.mediathekview.mserver.crawler.br.graphql.AbstractVariable;
 import de.mediathekview.mserver.crawler.br.graphql.variables.BooleanVariable;
@@ -102,50 +104,33 @@ public class BrGraphQLQueries {
       
       sb.append(JSON_GRAPHQL_HEADER);
       sb.append(getGraphQLHeaderWithVariable(searchTitle, rootVariable));
-      sb.append("  viewer {");
+      sb.append(addObjectConstruct(BrGraphQLNodeNames.RESULT_ROOT_BR_NODE.getName()
+          , addObjectConstruct("clipDetails: clip(id: $clipID)"
+              , BrGraphQLElementNames.GRAPHQL_TYPE_ELEMENT.getName()
+              , BrGraphQLElementNames.ID_ELEMENT.getName()
+              , BrGraphQLElementNames.STRING_CLIP_TITLE.getName()
+              , BrGraphQLElementNames.STRING_CLIP_KICKER.getName()
+              , BrGraphQLElementNames.INT_CLIP_DURATION.getName()
+              , "ageRestriction"
+              , BrGraphQLElementNames.STRING_CLIP_DESCRIPTION.getName()
+              , BrGraphQLElementNames.STRING_CLIP_SHORT_DESCRIPTION.getName()
+              , BrGraphQLElementNames.STRING_CLIP_SLUG.getName()
+              , BrGraphQLElementNames.STRING_CLIP_AVAILABLE_UNTIL.getName()
+              , addAuthors()
+              , addSubjects()
+              , addTags()
+              , addExecutiveProducers()
+              , addCredits()
+              , addCategorizations()
+              , addGenres()
+              , addVideoFiles()
+              , addCaptionFiles()
+              , addOnItemInterface()
+              , addOnProgrammeInterface()
+              )
+          , "id"
+          ));
       
-      sb.append("    clipDetails: clip(id: $clipID) {");
-      sb.append("      __typename");
-      sb.append("      id");
-      sb.append("      title");
-      sb.append("      kicker");
-      sb.append("      duration");
-      sb.append("      ageRestriction");
-      sb.append("      description");
-      sb.append("      shortDescription");
-      sb.append("      slug");
-      
-      if(addAuthors) {
-        sb.append(addAuthors());
-      }
-      if(addSubjects) {
-        sb.append(addSubjects());
-      }
-      if(addTags) {
-        sb.append(addTags());
-      }
-      if(addExecutiveProducers) {
-        sb.append(addExecutiveProducers());
-      }
-      if(addCredits) {
-        sb.append(addCredits());
-      }
-      if(addCategorizations) {
-        sb.append(addCategorizations());
-      }
-      if(addGenres) {
-        sb.append(addGenres());
-      }
-      sb.append(addVideoFiles());
-      if(addCaptionFiles) {
-        sb.append(addCaptionFiles());
-      }
-      sb.append(addOnItemInterface());
-      sb.append(addOnProgrammeInterface());
-      
-      sb.append("    }");
-      sb.append("    id");
-      sb.append("  }");
       sb.append("}");
       
       sb.append(getGraphQLFooterWithVariable(rootVariable));      

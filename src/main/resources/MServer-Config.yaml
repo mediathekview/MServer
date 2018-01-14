@@ -39,11 +39,11 @@
       
     # The paths where which diff film list should be safed to.
     # If not set no difference film lists will be safed.
-    filmlistDiffSavePaths:
+    # filmlistDiffSavePaths:
     #  JSON: filmliste_diff.json
-      OLD_JSON: filmlists/filmliste_old_diff.json
+    #  OLD_JSON: filmlists/filmliste_old_diff.json
     #  JSON_COMPRESSED: filmliste_diff.json.xz
-      OLD_JSON_COMPRESSED: filmlists/filmliste_old_diff.json.xz
+    #  OLD_JSON_COMPRESSED: filmlists/filmliste_old_diff.json.xz
     
     # The format of the film list to import.
     # Possible are: JSON, OLD_JSON, JSON_COMPRESSED, OLD_JSON_COMPRESSED

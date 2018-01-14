@@ -16,6 +16,7 @@ public enum BrGraphQLElementNames {
   INT_CLIP_DURATION("duration"),
   INT_COUNTER_ELEMENT("count"),
   STRING_CURSOR_ELEMENT("cursor"),
+  STRING_CLIP_AVAILABLE_UNTIL("availableUntil"),
   STRING_CLIP_DESCRIPTION("description"),
   STRING_CLIP_KICKER("kicker"),
   STRING_CLIP_SHORT_DESCRIPTION("shortDescription"),
