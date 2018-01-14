@@ -21,12 +21,14 @@ import com.google.gson.JsonDeserializer;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
+import com.google.gson.JsonPrimitive;
 import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
 import de.mediathekview.mserver.crawler.br.data.BrClipCollectIDResult;
 import de.mediathekview.mserver.crawler.br.data.BrClipType;
 import de.mediathekview.mserver.crawler.br.data.BrGraphQLElementNames;
 import de.mediathekview.mserver.crawler.br.data.BrGraphQLNodeNames;
 import de.mediathekview.mserver.crawler.br.data.BrID;
+import de.mediathekview.mserver.crawler.br.graphql.GsonGraphQLHelper;
 
 public class BrClipIdsDeserializer  implements JsonDeserializer<BrClipCollectIDResult> {
 
@@ -105,53 +107,68 @@ public class BrClipIdsDeserializer  implements JsonDeserializer<BrClipCollectIDR
   }
   
   private Optional<JsonObject> getClipIDsBaseNode(JsonObject rootObject) {
-    if(!rootObject.has(BrGraphQLNodeNames.RESULT_ROOT_NODE.getName())) {
+    Optional<JsonObject> dataNodeOptional = GsonGraphQLHelper.getChildObjectIfExists(rootObject, BrGraphQLNodeNames.RESULT_ROOT_NODE.getName());
+    if(!dataNodeOptional.isPresent()) {
       return Optional.empty();
     }
-    JsonObject dataNode = rootObject.getAsJsonObject(BrGraphQLNodeNames.RESULT_ROOT_NODE.getName());
+    JsonObject dataNode = dataNodeOptional.get();
 
-    if(!dataNode.has(BrGraphQLNodeNames.RESULT_ROOT_BR_NODE.getName())) {
+    Optional<JsonObject> viewerNodeOptional = GsonGraphQLHelper.getChildObjectIfExists(dataNode, BrGraphQLNodeNames.RESULT_ROOT_BR_NODE.getName());
+    if(!viewerNodeOptional.isPresent()) {
       return Optional.empty();
     }
-    JsonObject viewerNode = dataNode.getAsJsonObject(BrGraphQLNodeNames.RESULT_ROOT_BR_NODE.getName());
+    JsonObject viewerNode = viewerNodeOptional.get();
     
-    if(!viewerNode.has(BrGraphQLNodeNames.RESULT_CLIP_ID_ROOT.getName()) || !viewerNode.isJsonObject()) {
+    Optional<JsonObject> clipIdsBaseNodeOptional = GsonGraphQLHelper.getChildObjectIfExists(viewerNode, BrGraphQLNodeNames.RESULT_CLIP_ID_ROOT.getName());
+    if(!clipIdsBaseNodeOptional.isPresent()) {
       return Optional.empty();
     }
-    return Optional.of(viewerNode.getAsJsonObject(BrGraphQLNodeNames.RESULT_CLIP_ID_ROOT.getName()));
+    return Optional.of(clipIdsBaseNodeOptional.get());
       
   }
  
   private Optional<Integer> getResultSize(JsonObject searchAllClipsNode) {
-    if(!searchAllClipsNode.has(BrGraphQLElementNames.INT_COUNTER_ELEMENT.getName())) {
+    Optional<JsonPrimitive> searchAllClipsNodeOptional = GsonGraphQLHelper.getChildPrimitiveIfExists(searchAllClipsNode, BrGraphQLElementNames.INT_COUNTER_ELEMENT.getName());
+    if(!searchAllClipsNodeOptional.isPresent()) {
       return Optional.empty();
     }
-    JsonElement elementCount = searchAllClipsNode.getAsJsonPrimitive(BrGraphQLElementNames.INT_COUNTER_ELEMENT.getName());
+    JsonPrimitive elementCount = searchAllClipsNodeOptional.get();
+    
+    if(!elementCount.isNumber() ) {
+      return Optional.empty();
+    }
     
     return Optional.of(elementCount.getAsInt());
     
   }
   
   private Optional<Boolean> clipIDResultsHasNextPage(JsonObject searchAllClipsNode) {
-    if(!searchAllClipsNode.has(BrGraphQLNodeNames.RESULT_PAGE_INFO.getName()) ) {
+    Optional<JsonObject> searchAllClipsNodeOptional = GsonGraphQLHelper.getChildObjectIfExists(searchAllClipsNode, BrGraphQLNodeNames.RESULT_PAGE_INFO.getName());
+    if(!searchAllClipsNodeOptional.isPresent()) {
       return Optional.empty();
     }
-    JsonObject resultPageInfo = searchAllClipsNode.getAsJsonObject(BrGraphQLNodeNames.RESULT_PAGE_INFO.getName());
+    JsonObject resultPageInfo = searchAllClipsNodeOptional.get();
     
-    if(!resultPageInfo.has(BrGraphQLElementNames.BOOLEAN_HAS_NEXT_PAGE.getName())) {
+    Optional<JsonPrimitive> hasNextPageOptional = GsonGraphQLHelper.getChildPrimitiveIfExists(resultPageInfo, BrGraphQLElementNames.BOOLEAN_HAS_NEXT_PAGE.getName());
+    if(!hasNextPageOptional.isPresent()) {
       return Optional.empty();
     }
-    JsonElement hasNextPage = resultPageInfo.getAsJsonPrimitive(BrGraphQLElementNames.BOOLEAN_HAS_NEXT_PAGE.getName());
+    
+    JsonPrimitive hasNextPage = hasNextPageOptional.get();
+    if(!hasNextPage.isBoolean()) {
+      return Optional.empty();
+    }
     
     return Optional.of(hasNextPage.getAsBoolean());
     
   }
   
   private Optional<JsonArray> getClipIDEdges(JsonObject searchAllClipsNode) {
-    if(!searchAllClipsNode.has(BrGraphQLNodeNames.RESULT_NODE_EDGES.getName())) {
+    Optional<JsonArray> clipIdEdgesOptional = GsonGraphQLHelper.getChildArrayIfExists(searchAllClipsNode, BrGraphQLNodeNames.RESULT_NODE_EDGES.getName());
+    if(!clipIdEdgesOptional.isPresent()) {
       return Optional.empty();
     }
-    return Optional.of(searchAllClipsNode.getAsJsonArray(BrGraphQLNodeNames.RESULT_NODE_EDGES.getName()));
+    return Optional.of(clipIdEdgesOptional.get());
     
   }
   
