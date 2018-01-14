@@ -5,7 +5,6 @@
  * erstellt am: 19.12.2017
  * Autor      : Sascha
  * 
- * (c) 2017 by Sascha Wiegandt
  */
 package de.mediathekview.mserver.crawler.br.json;
 
@@ -24,6 +23,8 @@ import java.util.Set;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonDeserializer;
@@ -42,10 +43,12 @@ import de.mediathekview.mserver.crawler.br.data.BrGraphQLElementNames;
 import de.mediathekview.mserver.crawler.br.data.BrGraphQLNodeNames;
 import de.mediathekview.mserver.crawler.br.data.BrID;
 import de.mediathekview.mserver.crawler.br.graphql.GsonGraphQLHelper;
+import de.mediathekview.mserver.crawler.dreisat.parser.DreisatFilmDetailsReader;
 
 public class BrClipDetailsDeserializer implements JsonDeserializer<Optional<Film>> {
 
   private static final String DEFAULT_BR_VIDEO_URL_PRAEFIX = "https://www.br.de/mediathek/video/"; 
+  private static final Logger LOG = LogManager.getLogger(BrClipDetailsDeserializer.class);
   
   private AbstractCrawler crawler;
   private BrID id;
@@ -311,24 +314,17 @@ public class BrClipDetailsDeserializer implements JsonDeserializer<Optional<Film
         
         if(availableUntil.isPresent()) {
           
-          if(availableUntil.get().isBefore(LocalDateTime.now())) {
-            // TODO: Prüfen, ob die Zeit vorbei ist und wenn ja, ob eine der videoURLs noch gültig ist. Sonst wird der Clip nicht aufgenommen!
-            videoUrls.get().forEach((Resolution aktuelleAufloesung, FilmUrl aktuelleUrl) -> {
-              if(UrlAviabilityTester.checkAviability(aktuelleUrl.getUrl().toString(), 100)) {
-                System.err.println(String.format("Film Verfügbarkeit überschritten (%s), aber mind. eine URL gültig! ID: %s", availableUntil.get(), this.id.getId()));
-              }
-            });            
-          }
+          // TODO: Hier wird in Zukunft geprüft wie mit den Filmen umgegangen wird...
+          
+          
         }
         
         return Optional.of(currentFilm);
       } else {
-        System.err.println("Kein komplett gültiger Film: " + this.id.getId() + " Titel da? " + titel.isPresent() + " Thema da? " + thema.isPresent() + " Länge da? " + clipLaenge.isPresent());
+        LOG.error("Kein komplett gültiger Film: " + this.id.getId() + " Titel da? " + titel.isPresent() + " Thema da? " + thema.isPresent() + " Länge da? " + clipLaenge.isPresent());
       }
         
-    } else {
-      System.err.println(rootObject);
-    }
+    } 
     this.crawler.incrementAndGetErrorCount();
     return Optional.empty();
     
@@ -449,7 +445,7 @@ public class BrClipDetailsDeserializer implements JsonDeserializer<Optional<Film
     
     if(itemOfEdgesNode.size() >= 1) {
       if(itemOfEdgesNode.size() > 1) {
-        System.err.println("ID hat mehr als ein itemOf-Node: " + this.id.getId());
+        LOG.debug("ID hat mehr als ein itemOf-Node: " + this.id.getId());
       }
       JsonObject firstItemOfEdge = itemOfEdgesNode.get(0).getAsJsonObject();
       
@@ -523,7 +519,7 @@ public class BrClipDetailsDeserializer implements JsonDeserializer<Optional<Film
     }
     if(broadcastEdgeNode.size() >= 1) {
       if(broadcastEdgeNode.size() > 1) {
-        System.err.println("ID hat mehr als einen Broadcast-Node: " + this.id.getId());
+        LOG.debug("ID hat mehr als einen Broadcast-Node: " + this.id.getId());
       }
       JsonObject firstBroadcastEdgeElement = broadcastEdgeNode.get(0).getAsJsonObject();
       
@@ -575,7 +571,7 @@ public class BrClipDetailsDeserializer implements JsonDeserializer<Optional<Film
             Optional<JsonPrimitive> countAccessibleInEdgesOptional = GsonGraphQLHelper.getChildPrimitiveIfExists(accessibleInOptional.get(), "count");
                 if(countAccessibleInEdgesOptional.isPresent()) {
                   if(countAccessibleInEdgesOptional.get().getAsInt() > 0) {
-                    System.err.println(this.id.getId() + " hat Geoinformationen?!");
+                    LOG.debug(this.id.getId() + " hat Geoinformationen?!");
                   }
                 }
           }
@@ -608,11 +604,9 @@ public class BrClipDetailsDeserializer implements JsonDeserializer<Optional<Film
                   }
                   
                 } catch (MalformedURLException e) {
-                  // TODO Auto-generated catch block
-                  e.printStackTrace();
+                  // Nothing to be done here
+                  LOG.error("Fehlerhafte URL in den VideoURLs vorhanden! Clip-ID: " + this.id.getId());
                 }
-                
-                
               }
             }
           }
@@ -624,7 +618,7 @@ public class BrClipDetailsDeserializer implements JsonDeserializer<Optional<Film
     if(videoListe.size() > 0) {
       return Optional.of(videoListe);
     }
-    System.err.println("Erzeugung der VideoURLs fehlgeschlagen für ID: " + this.id.getId());
+    LOG.error("Erzeugung der VideoURLs fehlgeschlagen für ID: " + this.id.getId());
     return Optional.empty();
   }
   

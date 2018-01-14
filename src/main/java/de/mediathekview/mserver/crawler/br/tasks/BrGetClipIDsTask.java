@@ -59,11 +59,9 @@ public class BrGetClipIDsTask implements Callable<Set<BrID>> {
           
           final String response = WebAccessHelper.getJsonResultFromPostAccess(crawlerURLFromConfig, BrGraphQLQueries.getQuery2GetAllClipIds(startingRequestSize, idCollectResult.getCursor()));
     
-          System.err.println(response);
-          
           idCollectResult = gson.fromJson(response, BrClipCollectIDResult.class);        
   
-          LOG.debug("Zwischenstand: " + idCollectResult.getClipList().getIds().size() + "Cursor: " + idCollectResult.getCursor());
+          LOG.debug("Zwischenstand: " + idCollectResult.getClipList().getIds().size() + " Cursor: " + idCollectResult.getCursor());
           
           if(idCollectResult.getClipList().getIds().size() >= idCollectResult.getResultSize()) {
             break;
