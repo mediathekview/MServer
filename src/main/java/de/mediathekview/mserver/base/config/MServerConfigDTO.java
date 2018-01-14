@@ -59,15 +59,24 @@ public class MServerConfigDTO extends MServerBasicConfigDTO implements ConfigDTO
         maximumServerDurationInMinutes = 0;
         filmlistSaveFormats.add(FilmlistFormats.JSON);
         filmlistSaveFormats.add(FilmlistFormats.OLD_JSON);
-        filmlistSaveFormats.add(FilmlistFormats.JSON_COMPRESSED);
-        filmlistSaveFormats.add(FilmlistFormats.OLD_JSON_COMPRESSED);
+    filmlistSaveFormats.add(FilmlistFormats.JSON_COMPRESSED_XZ);
+    filmlistSaveFormats.add(FilmlistFormats.OLD_JSON_COMPRESSED_XZ);
+    filmlistSaveFormats.add(FilmlistFormats.JSON_COMPRESSED_GZIP);
+    filmlistSaveFormats.add(FilmlistFormats.OLD_JSON_COMPRESSED_GZIP);
+    filmlistSaveFormats.add(FilmlistFormats.JSON_COMPRESSED_BZIP);
+    filmlistSaveFormats.add(FilmlistFormats.OLD_JSON_COMPRESSED_BZIP);
 
         filmlistSavePaths.put(FilmlistFormats.JSON, "filmliste.json");
         filmlistSavePaths.put(FilmlistFormats.OLD_JSON, "filmliste_old.json");
-        filmlistSavePaths.put(FilmlistFormats.JSON_COMPRESSED, "filmliste.json.xz");
-        filmlistSavePaths.put(FilmlistFormats.OLD_JSON_COMPRESSED, "filmliste_old.json.xz");
-        filmlistImportFormat = FilmlistFormats.OLD_JSON_COMPRESSED;
-        filmlistImportLocation = ""; //"https://verteiler1.mediathekview.de/Filmliste-akt.xz";
+    filmlistSavePaths.put(FilmlistFormats.JSON_COMPRESSED_XZ, "filmliste.json.xz");
+    filmlistSavePaths.put(FilmlistFormats.OLD_JSON_COMPRESSED_XZ, "filmliste_old.json.xz");
+    filmlistSavePaths.put(FilmlistFormats.JSON_COMPRESSED_GZIP, "filmliste.json.gz");
+    filmlistSavePaths.put(FilmlistFormats.OLD_JSON_COMPRESSED_GZIP, "filmliste_old.json.gz");
+    filmlistSavePaths.put(FilmlistFormats.JSON_COMPRESSED_BZIP, "filmliste.json.bz");
+    filmlistSavePaths.put(FilmlistFormats.OLD_JSON_COMPRESSED_BZIP, "filmliste_old.json.bz");
+
+    filmlistImportFormat = FilmlistFormats.OLD_JSON_COMPRESSED_XZ;
+    filmlistImportLocation = "https://verteiler1.mediathekview.de/Filmliste-akt.xz";
     }
 
     @Override
@@ -183,6 +192,10 @@ public class MServerConfigDTO extends MServerBasicConfigDTO implements ConfigDTO
         return copySettings;
     }
 
+  public Map<CrawlerUrlType, URL> getCrawlerURLs() {
+    return crawlerURLs;
+  }
+
     public Map<FilmlistFormats, String> getFilmlistDiffSavePaths() {
         return filmlistDiffSavePaths;
     }
@@ -235,11 +248,7 @@ public class MServerConfigDTO extends MServerBasicConfigDTO implements ConfigDTO
         return senderIncluded;
     }
 
-    public Map<CrawlerUrlType, URL> getCrawlerURLs() {
-        return crawlerURLs;
-    }
-
-    public URL getSingleCrawlerURL(CrawlerUrlType urlType) {
+  public URL getSingleCrawlerURL(final CrawlerUrlType urlType) {
         return crawlerURLs.getOrDefault(urlType, urlType.getDefaultUrl().get());
     }
     
@@ -248,9 +257,11 @@ public class MServerConfigDTO extends MServerBasicConfigDTO implements ConfigDTO
         final int prime = 31;
         int result = super.hashCode();
         result = prime * result + (copySettings == null ? 0 : copySettings.hashCode());
-        result = prime * result + (filmlistDiffSavePaths == null ? 0 : filmlistDiffSavePaths.hashCode());
+    result =
+        prime * result + (filmlistDiffSavePaths == null ? 0 : filmlistDiffSavePaths.hashCode());
         result = prime * result + (filmlistImportFormat == null ? 0 : filmlistImportFormat.hashCode());
-        result = prime * result + (filmlistImportLocation == null ? 0 : filmlistImportLocation.hashCode());
+    result =
+        prime * result + (filmlistImportLocation == null ? 0 : filmlistImportLocation.hashCode());
         result = prime * result + (filmlistSaveFormats == null ? 0 : filmlistSaveFormats.hashCode());
         result = prime * result + (filmlistSavePaths == null ? 0 : filmlistSavePaths.hashCode());
         result = prime * result + (ftpSettings == null ? 0 : ftpSettings.hashCode());
@@ -268,6 +279,10 @@ public class MServerConfigDTO extends MServerBasicConfigDTO implements ConfigDTO
     public boolean hasSchedules() {
         return schedules != null && !schedules.isEmpty();
     }
+
+  public void setCrawlerURLs(final Map<CrawlerUrlType, URL> crawlerURLs) {
+    this.crawlerURLs = crawlerURLs;
+  }
 
     public void setFilmlistImportFormat(final FilmlistFormats filmlistImportFormat) {
         this.filmlistImportFormat = filmlistImportFormat;
@@ -305,7 +320,8 @@ public class MServerConfigDTO extends MServerBasicConfigDTO implements ConfigDTO
         this.schedules = schedules;
     }
 
-    public void setSenderConfigurations(final Map<Sender, MServerBasicConfigDTO> aSenderConfigurations) {
+  public void setSenderConfigurations(
+      final Map<Sender, MServerBasicConfigDTO> aSenderConfigurations) {
         senderConfigurations = aSenderConfigurations;
     }
 
@@ -315,10 +331,6 @@ public class MServerConfigDTO extends MServerBasicConfigDTO implements ConfigDTO
 
     public void setSenderIncluded(final Set<Sender> senderIncluded) {
         this.senderIncluded = senderIncluded;
-    }
-
-    public void setCrawlerURLs(Map<CrawlerUrlType, URL> crawlerURLs) {
-        this.crawlerURLs = crawlerURLs;
     }
 
 }

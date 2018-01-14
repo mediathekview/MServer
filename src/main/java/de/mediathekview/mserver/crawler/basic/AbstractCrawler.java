@@ -37,8 +37,10 @@ public abstract class AbstractCrawler implements Callable<Set<Film>> {
     private final AtomicLong actualCount;
     private final AtomicLong errorCount;
 
-    public AbstractCrawler(final ForkJoinPool aForkJoinPool, final Collection<MessageListener> aMessageListeners,
-            final Collection<SenderProgressListener> aProgressListeners, MServerConfigManager rootConfig) {
+  public AbstractCrawler(final ForkJoinPool aForkJoinPool,
+      final Collection<MessageListener> aMessageListeners,
+      final Collection<SenderProgressListener> aProgressListeners,
+      final MServerConfigManager rootConfig) {
         forkJoinPool = aForkJoinPool;
         maxCount = new AtomicLong(0);
         actualCount = new AtomicLong(0);
@@ -56,7 +58,8 @@ public abstract class AbstractCrawler implements Callable<Set<Film>> {
 
     @Override
     public Set<Film> call() {
-        final TimeoutTask timeoutRunner = new TimeoutTask(crawlerConfig.getMaximumCrawlDurationInMinutes()) {
+    final TimeoutTask timeoutRunner =
+        new TimeoutTask(crawlerConfig.getMaximumCrawlDurationInMinutes()) {
             @Override
             public void shutdown() {
                 forkJoinPool.shutdownNow();
@@ -75,26 +78,31 @@ public abstract class AbstractCrawler implements Callable<Set<Film>> {
         final LocalTime endTime = LocalTime.now();
         final Progress progress = new Progress(maxCount.get(), actualCount.get(), errorCount.get());
         timeoutRunner.stopTimeout();
-        printMessage(ServerMessages.CRAWLER_END, getSender(), Duration.between(startTime, endTime).toMinutes(),
-                actualCount.get(), errorCount.get(), progress.calcActualErrorQuoteInPercent());
+    printMessage(ServerMessages.CRAWLER_END, getSender(),
+        Duration.between(startTime, endTime).toMinutes(), actualCount.get(), errorCount.get(),
+        progress.calcActualErrorQuoteInPercent());
         return films;
     }
 
+  public long getAndSetMaxCount(final long aNewMaxValue) {
+    return maxCount.getAndSet(aNewMaxValue);
+  }
+
+  public synchronized MServerBasicConfigDTO getCrawlerConfig() {
+    return crawlerConfig;
+  }
+
+  public synchronized MServerConfigDTO getRuntimeConfig() {
+    return runtimeConfig;
+  }
+
     /**
-     * This method should just return the entry of {@link Sender} for the Sender
-     * which this crawler is for.
+   * This method should just return the entry of {@link Sender} for the Sender which this crawler is
+   * for.
      *
      * @return The sender which this crawler is for.
      */
     public abstract Sender getSender();
-
-    public synchronized MServerConfigDTO getRuntimeConfig() {
-        return runtimeConfig;
-    }
-
-    public synchronized MServerBasicConfigDTO getCrawlerConfig() {
-        return crawlerConfig;
-    }
 
     public long incrementAndGetActualCount() {
         return actualCount.incrementAndGet();
@@ -143,8 +151,8 @@ public abstract class AbstractCrawler implements Callable<Set<Film>> {
     }
 
     /**
-     * This the method where the "magic" happens. In this method you have to create
-     * a {@link RecursiveTask} which gathers a set of {@link Film}.
+   * This the method where the "magic" happens. In this method you have to create a
+   * {@link RecursiveTask} which gathers a set of {@link Film}.
      *
      * @return The found films.
      */

@@ -17,12 +17,10 @@ public class KikaPagedOverviewPageTask extends AbstractDocumentTask<CrawlerUrlDT
   private static final long serialVersionUID = -6541384259764770529L;
   private static final String SENDUNG_URL_SELECTOR = ".teaser .linkAll";
   private static final String SUBPAGE_URL_SELECTOR = ".bundleNaviItem a";
-  private boolean incrementMaxCount;
 
   public KikaPagedOverviewPageTask(final AbstractCrawler aCrawler,
       final ConcurrentLinkedQueue<CrawlerUrlDTO> aUrlToCrawlDTOs) {
     super(aCrawler, aUrlToCrawlDTOs);
-    incrementMaxCount = false;
   }
 
   private ConcurrentLinkedQueue<CrawlerUrlDTO> gatherSubpageUrls(final Document aDocument) {
@@ -40,7 +38,6 @@ public class KikaPagedOverviewPageTask extends AbstractDocumentTask<CrawlerUrlDT
       final ConcurrentLinkedQueue<CrawlerUrlDTO> aURLsToCrawl) {
     final KikaPagedOverviewPageTask newOwnInstance =
         new KikaPagedOverviewPageTask(crawler, aURLsToCrawl);
-    newOwnInstance.setIncrementMaxCount(incrementMaxCount);
     return newOwnInstance;
   }
 
@@ -57,20 +54,13 @@ public class KikaPagedOverviewPageTask extends AbstractDocumentTask<CrawlerUrlDT
     for (final Element filmUrlElement : aDocument.select(SENDUNG_URL_SELECTOR)) {
       if (filmUrlElement.hasAttr(Consts.ATTRIBUTE_HREF)) {
         taskResults.add(new CrawlerUrlDTO(filmUrlElement.absUrl(Consts.ATTRIBUTE_HREF)));
-        if (incrementMaxCount) {
-          crawler.incrementAndGetMaxCount();
-          crawler.updateProgress();
-        }
+
       }
     }
 
     if (subpageTask.isPresent()) {
       taskResults.addAll(subpageTask.get().join());
     }
-  }
-
-  protected void setIncrementMaxCount(final boolean aIncrementMaxCount) {
-    incrementMaxCount = aIncrementMaxCount;
   }
 
 }
