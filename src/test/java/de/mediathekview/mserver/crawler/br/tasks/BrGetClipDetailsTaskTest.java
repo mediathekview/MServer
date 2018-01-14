@@ -37,7 +37,7 @@ public class BrGetClipDetailsTaskTest {
   public WireMockRule wireMockRule = new WireMockRule(8589); // No-args constructor defaults to port 8080
 
   
-  @Test
+  //@Test Not yet a Testcase
   public void test() throws IOException, URISyntaxException, InterruptedException, ExecutionException {
     ClassLoader classLoader = getClass().getClassLoader();
     String expectedJSONresult = new String(Files.readAllBytes(Paths.get(classLoader.getResource("de/mediathekview/mserver/crawler/br/tasks/filmCountResultGraphQL.json").toURI()))); 
