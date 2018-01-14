@@ -249,10 +249,17 @@ public class MediathekNdr extends MediathekReader implements Runnable {
                             // dann sollte der Beitrag schon in der Liste sein
                             continue;
                         }
-                        if (thema.equals(titel) && thema.contains(" - ")) {
+                        if (thema.equals(titel)) {
+                          if (thema.contains(" - ")) {
                             thema = thema.substring(0, thema.indexOf(" - ")).trim();
                             titel = titel.substring(titel.indexOf(" - "));
                             titel = titel.replace(" - ", "").trim();
+                          } else {
+                            String subtitle = seite1.extract("class=\"subtitle\">", "<", pos).trim();
+                            if (!subtitle.isEmpty()) {
+                              titel = subtitle;
+                            }
+                          }
                         }
                     } else {
                         titel = seite1.extract(" title=\"", "\"", pos);
