@@ -100,7 +100,7 @@ public class KikaCrawler extends AbstractCrawler {
     final Set<CrawlerUrlDTO> sendungsfolgeVideoUrls =
         forkJoinPool.invoke(sendungsfolgeVideoUrlsTask);
     printMessage(ServerMessages.DEBUG_KIKA_CONVERTING_FINISHED, getSender().getName());
-    LOG.fatal("Video Urls after: " + sendungsfolgeVideoUrls.size());
+    getAndSetMaxCount(sendungsfolgeVideoUrls.size());
     return new KikaSendungsfolgeVideoDetailsTask(this,
         new ConcurrentLinkedQueue<>(sendungsfolgeVideoUrls));
   }

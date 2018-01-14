@@ -3,6 +3,8 @@ package de.mediathekview.mserver.crawler.kika.tasks;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
@@ -13,6 +15,7 @@ import de.mediathekview.mserver.crawler.basic.CrawlerUrlDTO;
 
 public class KikaSendungsfolgeVideoUrlTask
     extends AbstractDocumentTask<CrawlerUrlDTO, CrawlerUrlDTO> {
+  private static final Logger LOG = LogManager.getLogger(KikaSendungsfolgeVideoUrlTask.class);
   private static final String URL_TEMPLATE = "https://www.kika.de%s";
   private static final String HTTP = "http";
   private static final String ATTRIBUTE_ONCLICK = "onclick";
@@ -45,8 +48,6 @@ public class KikaSendungsfolgeVideoUrlTask
   protected void processDocument(final CrawlerUrlDTO aUrlDTO, final Document aDocument) {
     final Elements videoElements = aDocument.select(VIDEO_DATA_ELEMENT_SELECTOR);
     for (final Element videoDataElement : videoElements) {
-      crawler.incrementAndGetMaxCount();
-      crawler.updateProgress();
       if (videoDataElement.hasAttr(ATTRIBUTE_ONCLICK)) {
         final String rawVideoData = videoDataElement.attr(ATTRIBUTE_ONCLICK);
         final Matcher videoUrlMatcher =
