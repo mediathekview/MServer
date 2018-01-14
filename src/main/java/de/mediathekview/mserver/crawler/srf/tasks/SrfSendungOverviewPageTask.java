@@ -61,10 +61,10 @@ public class SrfSendungOverviewPageTask extends AbstractRestTask<SrfSendungOverv
         }
         
       } catch (JsonSyntaxException e) {
-        LOG.error("Error reading url " + aTarget.getUri().toString(), e);
+        LOG.error("SrfSendungOverviewPageTask: Error reading url " + aTarget.getUri().toString(), e);
       }
     } else {
-      LOG.error("Error reading url " + aTarget.getUri().toString() + ": " + response.getStatus());
+      LOG.error("SrfSendungOverviewPageTask: Error reading url " + aTarget.getUri().toString() + ": " + response.getStatus());
     }
   }
 
