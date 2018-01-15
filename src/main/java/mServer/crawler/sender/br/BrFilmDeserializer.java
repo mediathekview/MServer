@@ -166,6 +166,8 @@ public class BrFilmDeserializer implements JsonDeserializer<Optional<DatenFilm>>
   }
 
   private Optional<String> getSubtitleUrl(JsonObject viewer) {
+    String subtitle = "";
+
     if(viewer.has(JSON_ELEMENT_CLIP)) {
       JsonObject clip = viewer.getAsJsonObject(JSON_ELEMENT_CLIP);
       if(clip.has(JSON_ELEMENT_CAPTION_FILES)) {
@@ -173,11 +175,20 @@ public class BrFilmDeserializer implements JsonDeserializer<Optional<DatenFilm>>
         if(captionFiles.has(JSON_ELEMENT_EDGES)) {
           JsonArray edges = captionFiles.getAsJsonArray(JSON_ELEMENT_EDGES);
           if (edges.size() > 0) {
+            
             for (JsonElement edge : edges) {
               if(edge.getAsJsonObject().has(JSON_ELEMENT_NODE)) {
                 JsonObject node = edge.getAsJsonObject().getAsJsonObject(JSON_ELEMENT_NODE);
                 if(node.has(JSON_ELEMENT_PUBLIC_LOCATION)) {
-                  return Optional.of(node.get(JSON_ELEMENT_PUBLIC_LOCATION).getAsString());
+                  String value = node.get(JSON_ELEMENT_PUBLIC_LOCATION).getAsString();
+                  if (subtitle.isEmpty()) {
+                    subtitle = value;
+                  } else {
+                    // ttml anderen Formaten vorziehen
+                    if (value.endsWith(".ttml")) {
+                      subtitle = value;
+                    }
+                  }
                 }
               }
             }
@@ -185,6 +196,11 @@ public class BrFilmDeserializer implements JsonDeserializer<Optional<DatenFilm>>
         }
       }
     }
+    
+    if (!subtitle.isEmpty()) {
+      return Optional.of(subtitle);
+    }
+    
     return Optional.empty();
   }
 
