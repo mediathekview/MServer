@@ -49,7 +49,7 @@ public class MediathekNdr extends MediathekReader implements Runnable {
     @Override
     protected void addToList() {
         //<broadcast id="1391" site="ndrfernsehen">45 Min</broadcast>
-        final String ADRESSE = "http://www.ndr.de/mediathek/sendungen_a-z/index.html";
+        final String ADRESSE = "https://www.ndr.de/mediathek/sendungen_a-z/index.html";
         final String MUSTER_URL1 = "<li><a href=\"/mediathek/mediatheksuche105_broadcast-";
         listeThemen.clear();
 
@@ -79,7 +79,7 @@ public class MediathekNdr extends MediathekReader implements Runnable {
                     Log.errorLog(210367600, "keine Url");
                     continue;
                 }
-                String url_ = "http://www.ndr.de/mediathek/mediatheksuche105_broadcast-" + url;
+                String url_ = "https://www.ndr.de/mediathek/mediatheksuche105_broadcast-" + url;
                 String[] add = new String[]{url_, thema};
                 if (CrawlerTool.loadLongMax()) {
                     if (!alleSeiteSuchen(url_, thema)) {
@@ -94,14 +94,14 @@ public class MediathekNdr extends MediathekReader implements Runnable {
             }
         }
         // noch "Verpasst" für die letzten Tage einfügen
-        // http://www.ndr.de/mediathek/sendung_verpasst/epg1490_date-2014-05-17.html
-        // http://www.ndr.de/mediathek/sendung_verpasst/epg1490_date-2014-05-17_display-onlyvideo.html
+        // https://www.ndr.de/mediathek/sendung_verpasst/epg1490_date-2014-05-17.html
+        // https://www.ndr.de/mediathek/sendung_verpasst/epg1490_date-2014-05-17_display-onlyvideo.html
         FastDateFormat formatter1 = FastDateFormat.getInstance("yyyy-MM-dd");
         FastDateFormat formatter2 = FastDateFormat.getInstance("dd.MM.yyyy");
         final int maxTage = CrawlerTool.loadLongMax() ? 30 : 20;
         for (int i = 0; i < maxTage; ++i) {
             // https://www.ndr.de/mediathek/sendung_verpasst/epg1490_date-2015-09-05_display-all.html
-            final String URL = "http://www.ndr.de/mediathek/sendung_verpasst/epg1490_date-";
+            final String URL = "https://www.ndr.de/mediathek/sendung_verpasst/epg1490_date-";
             final String tag = formatter1.format(new Date().getTime() - (1000 * 60 * 60 * 24 * i));
             final String date = formatter2.format(new Date().getTime() - (1000 * 60 * 60 * 24 * i));
             //String urlString = URL + tag + "_display-onlyvideo.html"; --> stimmt leider nicht immer
@@ -130,7 +130,7 @@ public class MediathekNdr extends MediathekReader implements Runnable {
         int pos1 = 0, pos2, anz1, anz2 = 0;
         try {
             // <a class="square button" href="/mediathek/mediatheksuche105_broadcast-1391_page-5.html" title="Zeige Seite 5">
-            // http://www.ndr.de/mediathek/mediatheksuche105_broadcast-30_page-1.html
+            // https://www.ndr.de/mediathek/mediatheksuche105_broadcast-30_page-1.html
             final String WEITER = " title=\"Zeige Seite ";
             while ((pos1 = seiteAlle.indexOf(WEITER, pos1)) != -1) {
                 pos1 += WEITER.length();
@@ -148,8 +148,8 @@ public class MediathekNdr extends MediathekReader implements Runnable {
             }
             for (int i = 2; i <= anz2 && i <= 10; ++i) {
                 // geht bei 2 los da das ja schon die erste Seite ist!
-                //das:   http://www.ndr.de/mediathek/mediatheksuche105_broadcast-30.html
-                // wird: http://www.ndr.de/mediathek/mediatheksuche105_broadcast-30_page-3.html
+                //das:   https://www.ndr.de/mediathek/mediatheksuche105_broadcast-30.html
+                // wird: https://www.ndr.de/mediathek/mediatheksuche105_broadcast-30_page-3.html
                 String url_ = strUrlFeed.replace(".html", "_page-" + i + ".html");
                 listeThemen.addUrl(new String[]{url_, tthema});
                 ret = true;
@@ -239,7 +239,7 @@ public class MediathekNdr extends MediathekReader implements Runnable {
                         continue;
                     }
                     if (!url.startsWith("http")) {
-                        url = "http://www.ndr.de" + url;
+                        url = "https://www.ndr.de" + url;
                     }
                     if (tage) {
                         // <h3><a href="/fernsehen/epg/import/Rote-Rosen,sendung64120.html" title="Rote Rosen"  >Rote Rosen (1725)</a></h3>
@@ -313,18 +313,18 @@ public class MediathekNdr extends MediathekReader implements Runnable {
                                   long durationInSeconds) {
             //playlist: [
             //{
-            //1: {src:'http://hds.ndr.de/z/2013/0419/TV-20130419-1010-0801.,hi,hq,.mp4.csmil/manifest.f4m', type:"application/f4m+xml"},
-            //2: {src:'http://hls.ndr.de/i/2013/0419/TV-20130419-1010-0801.,lo,hi,hq,.mp4.csmil/master.m3u8', type:"application/x-mpegURL"},
-            //3: {src:'http://media.ndr.de/progressive/2013/0419/TV-20130419-1010-0801.hi.mp4', type:"video/mp4"},
+            //1: {src:'https://hds.ndr.de/z/2013/0419/TV-20130419-1010-0801.,hi,hq,.mp4.csmil/manifest.f4m', type:"application/f4m+xml"},
+            //2: {src:'https://hls.ndr.de/i/2013/0419/TV-20130419-1010-0801.,lo,hi,hq,.mp4.csmil/master.m3u8', type:"application/x-mpegURL"},
+            //3: {src:'https://media.ndr.de/progressive/2013/0419/TV-20130419-1010-0801.hi.mp4', type:"video/mp4"},
 
-            // http://media.ndr.de/progressive/2012/0820/TV-20120820-2300-0701.hi.mp4
+            // https://media.ndr.de/progressive/2012/0820/TV-20120820-2300-0701.hi.mp4
             // rtmpt://cp160844.edgefcs.net/ondemand/mp4:flashmedia/streams/ndr/2012/0820/TV-20120820-2300-0701.hq.mp4
             seite2 = getUrl.getUri_Utf(SENDERNAME, filmWebsite, seite2, "strUrlThema: " + strUrlThema);
             String description = extractDescription(seite2);
             //String[] keywords = extractKeywords(seite2);
             String subtitle = seite2.extract(",tracks: [{ src: \"", "\""); //,tracks: [{ src: "/fernsehen/sendungen/45_min/video-podcast/ut20448.xml", srclang:"de"}]
             if (!subtitle.isEmpty()) {
-                subtitle = "http://www.ndr.de" + subtitle;
+                subtitle = "https://www.ndr.de" + subtitle;
 //            } else {
 //                System.out.println("Test");
             }
@@ -332,7 +332,7 @@ public class MediathekNdr extends MediathekReader implements Runnable {
             int pos1;
             try {
                 // src="/fernsehen/hallondsopplatt162-player_image-2c09ece0-0508-49bf-b4d6-afff2be2115c_theme-ndrde.html"
-                // http://www.ndr.de/fernsehen/hallondsopplatt162-ppjson_image-2c09ece0-0508-49bf-b4d6-afff2be2115c.json
+                // https://www.ndr.de/fernsehen/hallondsopplatt162-ppjson_image-2c09ece0-0508-49bf-b4d6-afff2be2115c.json
                 // id="pp_hallondsopplatt162"
                 if (datum.isEmpty()) {
                     String tmp = seite2.extract("<span itemprop=\"datePublished\"", "</");
@@ -386,7 +386,7 @@ public class MediathekNdr extends MediathekReader implements Runnable {
             url_m = url_m.replaceFirst(https, http);
 
             if (subtitle.isEmpty()) {
-                subtitle = seite3.extract("\"_subtitleUrl\":", "\"/", "\"", "http://www.ndr.de/");
+                subtitle = seite3.extract("\"_subtitleUrl\":", "\"/", "\"", "https://www.ndr.de/");
             }
 
             if (!url_xl.isEmpty()) {
