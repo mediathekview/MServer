@@ -7,9 +7,12 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
 import java.lang.reflect.Type;
 import java.util.Optional;
+import org.apache.logging.log4j.LogManager;
 
-public class SrfSendungOverviewJsonDeserializer implements JsonDeserializer<SrfSendungOverviewDTO> {
+public class SrfSendungOverviewJsonDeserializer implements JsonDeserializer<Optional<SrfSendungOverviewDTO>> {
 
+  private static final org.apache.logging.log4j.Logger LOG = LogManager.getLogger(SrfSendungOverviewJsonDeserializer.class);
+  
   private static final String ELEMENT_NEXT_PAGE = "nextPageUrl";
   private static final String ELEMENT_EPISODES = "episodes";
   private static final String ELEMENT_ID = "id";
@@ -21,19 +24,19 @@ public class SrfSendungOverviewJsonDeserializer implements JsonDeserializer<SrfS
   }
   
   @Override
-  public SrfSendungOverviewDTO deserialize(JsonElement aJsonElement, Type aType, JsonDeserializationContext aJdc) throws JsonParseException {
+  public Optional<SrfSendungOverviewDTO> deserialize(JsonElement aJsonElement, Type aType, JsonDeserializationContext aJdc) throws JsonParseException {
     
-    SrfSendungOverviewDTO dto = new SrfSendungOverviewDTO();
     try {
-    JsonObject object = aJsonElement.getAsJsonObject();
-    parseNextPage(dto, object);
-    parseEpisodes(dto, object);
+      SrfSendungOverviewDTO dto = new SrfSendungOverviewDTO();
+
+      JsonObject object = aJsonElement.getAsJsonObject();
+      parseNextPage(dto, object);
+      parseEpisodes(dto, object);
+      return Optional.of(dto);
     } catch(Exception e) {
-      if(e != null) {
-        
-      }
+      LOG.error(e);
     }
-    return dto;
+    return Optional.empty();
   }
   
   private void parseNextPage(SrfSendungOverviewDTO aDto, JsonObject aJsonObject) {

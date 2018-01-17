@@ -7,7 +7,6 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.Optional;
 import static org.hamcrest.CoreMatchers.equalTo;
-import static org.hamcrest.CoreMatchers.notNullValue;
 import org.hamcrest.Matchers;
 import static org.junit.Assert.assertThat;
 import org.junit.Test;
@@ -63,10 +62,10 @@ public class SrfSendungOverviewJsonDeserializerTest {
   public void test() {
     JsonElement jsonElement = JsonFileReader.readJson(jsonFile);
     
-    SrfSendungOverviewDTO actual = target.deserialize(jsonElement, SrfSendungOverviewDTO.class, null);
+    Optional<SrfSendungOverviewDTO> actual = target.deserialize(jsonElement, SrfSendungOverviewDTO.class, null);
     
-    assertThat(actual, notNullValue());
-    assertThat(actual.getNextPageId(), equalTo(expectedNextPageId));
-    assertThat(actual.getUrls(), Matchers.containsInAnyOrder(expectedUrls));
+    assertThat(actual.isPresent(), equalTo(true));
+    assertThat(actual.get().getNextPageId(), equalTo(expectedNextPageId));
+    assertThat(actual.get().getUrls(), Matchers.containsInAnyOrder(expectedUrls));
   }
 }
