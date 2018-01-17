@@ -45,19 +45,12 @@ public class SrfCrawler extends AbstractCrawler {
       SrfSendungOverviewPageTask task = new SrfSendungOverviewPageTask(this, ids);
       forkJoinPool.execute(task);
       
-      final ConcurrentLinkedQueue<SrfSendungOverviewDTO> dtos =
+      final ConcurrentLinkedQueue<CrawlerUrlDTO> dtos =
         new ConcurrentLinkedQueue<>();
       dtos.addAll(task.join());
       
-      // TODO der "Convert" auf CrawlerUrlDTO-Array sollte anders gelöst werden!!!
-      if (dtos!=null) {
-        final ConcurrentLinkedQueue<CrawlerUrlDTO> urlDtos = new ConcurrentLinkedQueue<>();
-        dtos.forEach((dto) -> {
-          urlDtos.addAll(dto.getUrls());
-        });
-        
-        return new SrfFilmDetailTask(this, urlDtos);
-      }
+      return new SrfFilmDetailTask(this, dtos);
+      
     } catch (InterruptedException | ExecutionException ex) {
       LOG.fatal("Exception in SRF crawler.", ex);
     }

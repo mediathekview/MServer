@@ -19,7 +19,7 @@ import javax.ws.rs.core.Response;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-public class SrfSendungOverviewPageTask extends AbstractRestTask<SrfSendungOverviewDTO, CrawlerUrlDTO> {
+public class SrfSendungOverviewPageTask extends AbstractRestTask<CrawlerUrlDTO, CrawlerUrlDTO> {
 
   private static final Logger LOG = LogManager.getLogger(SrfSendungOverviewPageTask.class);
   
@@ -53,7 +53,7 @@ public class SrfSendungOverviewPageTask extends AbstractRestTask<SrfSendungOverv
 
       try {
         SrfSendungOverviewDTO resultDto = gson.fromJson(jsonOutput, SrfSendungOverviewDTO.class);
-        taskResults.add(resultDto);
+        taskResults.addAll(resultDto.getUrls());
         
         Optional<String> nextPageId = resultDto.getNextPageId();
         if (nextPageId.isPresent() && pageNumber < crawler.getCrawlerConfig().getMaximumSubpages()) {
@@ -77,7 +77,7 @@ public class SrfSendungOverviewPageTask extends AbstractRestTask<SrfSendungOverv
     LOG.debug(aNextPageId);
     final ConcurrentLinkedQueue<CrawlerUrlDTO> urlDtos = new ConcurrentLinkedQueue<>();
     urlDtos.add(new CrawlerUrlDTO(aNextPageId));
-    Set<SrfSendungOverviewDTO> x = (Set<SrfSendungOverviewDTO>) new SrfSendungOverviewPageTask(crawler, urlDtos, pageNumber + 1).invoke();
+    Set<CrawlerUrlDTO> x = (Set<CrawlerUrlDTO>) new SrfSendungOverviewPageTask(crawler, urlDtos, pageNumber + 1).invoke();
     taskResults.addAll(x);
   }
 }

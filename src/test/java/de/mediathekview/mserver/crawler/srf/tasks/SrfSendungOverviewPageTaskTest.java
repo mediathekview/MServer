@@ -4,8 +4,6 @@ import static com.github.tomakehurst.wiremock.client.WireMock.aResponse;
 import static com.github.tomakehurst.wiremock.client.WireMock.get;
 import static com.github.tomakehurst.wiremock.client.WireMock.urlEqualTo;
 import de.mediathekview.mserver.crawler.basic.CrawlerUrlDTO;
-import de.mediathekview.mserver.crawler.srf.parser.SrfSendungOverviewDTO;
-import java.util.Optional;
 import java.util.Set;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.notNullValue;
@@ -27,15 +25,10 @@ public class SrfSendungOverviewPageTaskTest extends SrfTaskTestBase {
     String requestUrl = "/play/v2/tv/show/c5a89422-4580-0001-4f24-1889dc30d730/latestEpisodes?numberOfEpisodes=10&tillMonth=12-2017&layout=json";
     setupSuccessfulJsonResponse(requestUrl, "/srf/srf_sendung_overview_page_last.json");
 
-    final Set<SrfSendungOverviewDTO> actual = executeTask(requestUrl);
+    final Set<CrawlerUrlDTO> actual = executeTask(requestUrl);
     
     assertThat(actual, notNullValue());
-    assertThat(actual.size(), equalTo(1));
-    
-    SrfSendungOverviewDTO actualDto = actual.toArray(new SrfSendungOverviewDTO[0])[0];
-    assertThat(actualDto, notNullValue());
-    assertThat(actualDto.getNextPageId(), equalTo(Optional.empty()));
-    assertThat(actualDto.getUrls(), Matchers.containsInAnyOrder(expectedUrls));
+    assertThat(actual, Matchers.containsInAnyOrder(expectedUrls));
   }  
 
   @Test
@@ -49,10 +42,10 @@ public class SrfSendungOverviewPageTaskTest extends SrfTaskTestBase {
     setupSuccessfulJsonResponse("/play/v2/tv/show/c3f6b6b4-0770-0001-42bf-1f101bb44800/latestEpisodes?nextPageHash=09e12b6f403c2da8bfde15a1c99070d4f1c58eef3c29b0ea2f598fc7a2dcbbae84b119d4b008f929b9a8062b1cedecbc0555797c10cff0a3f497f348faab3d1c4b52af6a2583a9ce80db3d0defd5467424f1db5b89b2c9f1cfdc0b0b5c2bded787c5e3477ef68dbdffdb28ad6425e9a7101f9c5bd533c2ad&tillMonth=01-2018", "/srf/srf_sendung_overview_multiple_page3.json");
     setupSuccessfulJsonResponse("/play/v2/tv/show/c3f6b6b4-0770-0001-42bf-1f101bb44800/latestEpisodes?nextPageHash=09e12b6f403c2da8bfde15a1c99070d4f1c58eef3c29b0ea2f598fc7a2dcbbae84b119d4b008f929b9a8062b1cedecbc0555797c10cff0a3f497f348faab3d1c4b52af6a2583a9ce80db3d0defd5467424f1db5b89b2c9f1cfdc0b0b5c2bded7ceaa513e3b2675dfe2658f87f8c511ae540c849dab77c523&tillMonth=01-2018", "/srf/srf_sendung_overview_multiple_page4.json");
 
-    final Set<SrfSendungOverviewDTO> actual = executeTask(requestUrl);
+    final Set<CrawlerUrlDTO> actual = executeTask(requestUrl);
     
     assertThat(actual, notNullValue());
-    assertThat(actual.size(), equalTo(4));
+    assertThat(actual.size(), equalTo(40));
   }
   
   @Test
@@ -65,10 +58,10 @@ public class SrfSendungOverviewPageTaskTest extends SrfTaskTestBase {
     setupSuccessfulJsonResponse("/play/v2/tv/show/c3f6b6b4-0770-0001-42bf-1f101bb44800/latestEpisodes?nextPageHash=09e12b6f403c2da8bfde15a1c99070d4f1c58eef3c29b0ea2f598fc7a2dcbbae84b119d4b008f929b9a8062b1cedecbc0555797c10cff0a3f497f348faab3d1c4b52af6a2583a9ce80db3d0defd5467424f1db5b89b2c9f1cfdc0b0b5c2bded71fe192eb41d68d868a71cf7e927ac094ce05fcba9ee06335&tillMonth=01-2018", "/srf/srf_sendung_overview_multiple_page2.json");
     setupSuccessfulJsonResponse("/play/v2/tv/show/c3f6b6b4-0770-0001-42bf-1f101bb44800/latestEpisodes?nextPageHash=09e12b6f403c2da8bfde15a1c99070d4f1c58eef3c29b0ea2f598fc7a2dcbbae84b119d4b008f929b9a8062b1cedecbc0555797c10cff0a3f497f348faab3d1c4b52af6a2583a9ce80db3d0defd5467424f1db5b89b2c9f1cfdc0b0b5c2bded787c5e3477ef68dbdffdb28ad6425e9a7101f9c5bd533c2ad&tillMonth=01-2018", "/srf/srf_sendung_overview_multiple_page3.json");
 
-    final Set<SrfSendungOverviewDTO> actual = executeTask(requestUrl);
+    final Set<CrawlerUrlDTO> actual = executeTask(requestUrl);
     
     assertThat(actual, notNullValue());
-    assertThat(actual.size(), equalTo(3));
+    assertThat(actual.size(), equalTo(30));
   }
   
   @Test
@@ -80,12 +73,12 @@ public class SrfSendungOverviewPageTaskTest extends SrfTaskTestBase {
         .withStatus(404)
         .withBody("Not Found")));
     
-    final Set<SrfSendungOverviewDTO> actual = executeTask(requestUrl);
+    final Set<CrawlerUrlDTO> actual = executeTask(requestUrl);
     assertThat(actual, notNullValue());
     assertThat(actual.size(), equalTo(0));
   }  
   
-  private Set<SrfSendungOverviewDTO> executeTask(String aRequestUrl) {
+  private Set<CrawlerUrlDTO> executeTask(String aRequestUrl) {
     return new SrfSendungOverviewPageTask(createCrawler(), createCrawlerUrlDto(aRequestUrl)).invoke();    
   }
 }
