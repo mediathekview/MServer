@@ -46,9 +46,12 @@ public class SrfFilmDetailTask extends AbstractRestTask<Film, CrawlerUrlDTO> {
         // Geo-Blocking für Crawler-Standort
         LOG.error("SrfFilmDetailTask: Not authorized to access url " + aTarget.getUri().toString());
         crawler.incrementAndGetErrorCount();
+        crawler.updateProgress();
         break;
       default:
         LOG.error("SrfFilmDetailTask: Error reading url " + aTarget.getUri().toString() + ": " + response.getStatus());
+        crawler.incrementAndGetErrorCount();
+        crawler.updateProgress();
     }
   }
 
@@ -67,9 +70,14 @@ public class SrfFilmDetailTask extends AbstractRestTask<Film, CrawlerUrlDTO> {
       Optional<Film> film = gson.fromJson(jsonOutput, type);
       if (film.isPresent()) {
         taskResults.add(film.get());
+
+        crawler.incrementAndGetActualCount();
+        crawler.updateProgress();
       }
     } catch (JsonSyntaxException e) {
       LOG.error("SrfFilmDetailTask: Error reading url " + uri.toString(), e);
+      crawler.incrementAndGetErrorCount();
+      crawler.updateProgress();
     }
   }
 }

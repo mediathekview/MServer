@@ -82,7 +82,6 @@ public class SrfSendungOverviewPageTask extends AbstractRestTask<CrawlerUrlDTO, 
   }
   
   private void processNextPage(String aNextPageId) {
-    LOG.debug(aNextPageId);
     final ConcurrentLinkedQueue<CrawlerUrlDTO> urlDtos = new ConcurrentLinkedQueue<>();
     urlDtos.add(new CrawlerUrlDTO(aNextPageId));
     Set<CrawlerUrlDTO> x = (Set<CrawlerUrlDTO>) new SrfSendungOverviewPageTask(crawler, urlDtos, pageNumber + 1).invoke();
