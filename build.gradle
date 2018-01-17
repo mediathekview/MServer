@@ -9,12 +9,14 @@ plugins {
 apply plugin: 'java'
 apply plugin: 'distribution'
 apply plugin: 'maven'
+apply plugin: 'signing'
 apply from: "${project.rootDir}/gradle/eclipse.gradle"
 
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
 group = 'de.mediathekview'
-version = '3.1.44'
+archivesBaseName = "MServer"
+version = '3.1.45'
 
 def jarName = 'MServer.jar'
 def mainClass = 'mServer.Main'
@@ -37,7 +39,7 @@ repositories {
     mavenLocal()
     mavenCentral()
     maven {
-        url "https://packagecloud.io/mediathekview/MediathekView/maven2"
+    	url "https://oss.sonatype.org/content/repositories/snapshots/"
     }
 }
 
@@ -135,7 +137,6 @@ dependencies {
     testCompile "org.mockito:mockito-core:2.+"
     testCompile "com.squareup.okhttp3:mockwebserver:3.6.0"
     testCompile "org.hamcrest:hamcrest-all:1.3"
-    deployerJars "io.packagecloud.maven.wagon:maven-packagecloud-wagon:0.0.6"
 }
 
 configurations.compile {
@@ -164,24 +165,92 @@ def loadVersionProperties() {
     return props
 }
 
-uploadArchives {
-    repositories.mavenDeployer {
-        configuration = configurations.deployerJars
-        uniqueVersion=false
-        def repoPw;
-        
-        if(project.hasProperty('repoPw'))
-        {
-           repoPw = project.property('repoPw');
-        }else
-        {
-            repoPw = System.getenv('PACKAGECLOUD_TOKEN');
-        }
-        
-        repository(url: "packagecloud+https://packagecloud.io/mediathekview/MediathekView/") {
-            authentication(password:  repoPw)
-        }
+if (project.hasProperty('SONATYPE_USERNAME')) {
+    signing {
+        sign configurations.archives
     }
+	
+	uploadArchives {
+	  repositories {
+	    mavenDeployer {
+	      beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
+	
+	      repository(url: "https://oss.sonatype.org/content/repositories/releases/") {
+	        authentication(userName: SONATYPE_USERNAME, password: SONATYPE_PASSWORD)
+	      }
+	
+	      snapshotRepository(url: "https://oss.sonatype.org/content/repositories/snapshots/") {
+	        authentication(userName: SONATYPE_USERNAME, password: SONATYPE_PASSWORD)
+	      }
+	
+	      pom.project {
+	        name project.name
+	        packaging 'jar'
+	        description 'The crawler for mediathekview/MediathekView'
+	        url 'https://github.com/mediathekview/' + project.name
+	
+	        scm {
+	          connection 'scm:git:git://github.com/mediathekview/MServer.git'
+	          developerConnection 'scm:git:ssh://github.com:mediathekview/MServer.git'
+	          url 'http://github.com/mediathekview/MServer/tree/master'
+	        }
+	
+	        licenses {
+	          license {
+	            name 'GNU General Public License v3.0'
+	            url 'https://www.gnu.org/licenses/gpl.html'
+	          }
+	        }
+	
+	        developers {
+	          developer {
+	            id 'Nicklas2751'
+	            name 'Nicklas Wiegandt'
+	            email 'nicklas@mediathekview.de'
+	          }
+	          developer {
+	            id 'derreisende77'
+	            name 'Christian F.'
+	            url 'https://github.com/derreisende77'
+	          }
+	          developer {
+	            id 'pidoubleyou'
+	            name 'Peter W.'
+	            url 'https://github.com/pidoubleyou'
+	          }
+	          developer {
+	            id 'TheSasch'
+	            name 'Sascha Wiegandt'
+	            url 'https://github.com/thesasch'
+	          }
+	          developer {
+	            id 'alex1702'
+	            name 'Alexander Finkhäuser'
+	            url 'https://github.com/alex1702'
+	          }
+	        }
+	      }
+	    }
+	  }
+	}
+	task myJavadocs(type: Javadoc) {
+	  source = sourceSets.main.allJava
+	  failOnError = false
+	}
+	
+	task javadocJar(type: Jar) {
+	    classifier = 'javadoc'
+	    from myJavadocs
+	}
+	    
+	task sourcesJar(type: Jar) {
+	    classifier = 'sources'
+	    from sourceSets.main.allSource
+	}
+	
+	artifacts {
+	    archives javadocJar, sourcesJar
+	}
 }
 build.dependsOn(install)
 task updateVersion {
