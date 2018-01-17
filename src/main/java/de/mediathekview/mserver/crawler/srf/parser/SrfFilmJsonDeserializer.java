@@ -256,7 +256,7 @@ public class SrfFilmJsonDeserializer implements JsonDeserializer<Optional<Film>>
         });
 
       } else {
-        LOG.error(String.format("Request '%s' failed: %s", aM3U8Url, response.code()));
+        LOG.error(String.format("SrfFilmJsonDeserializer: Request '%s' failed: %s", aM3U8Url, response.code()));
       }
     } catch (Exception e) {
       LOG.error(e);
