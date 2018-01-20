@@ -3,6 +3,7 @@ package de.mediathekview.mserver.crawler.srf.tasks;
 import de.mediathekview.mserver.crawler.basic.CrawlerUrlDTO;
 import de.mediathekview.mserver.crawler.srf.SrfConstants;
 import de.mediathekview.mserver.testhelper.JsoupMock;
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.concurrent.ConcurrentLinkedQueue;
@@ -43,7 +44,7 @@ public class SrfSendungenOverviewPageTaskTest {
   }
     
   @Test
-  public void test() throws Exception {
+  public void test() throws IOException, Exception {
     
     JsoupMock.mock(SrfConstants.OVERVIEW_PAGE_URL, htmlFile);
     ConcurrentLinkedQueue<CrawlerUrlDTO> actual = target.call();
