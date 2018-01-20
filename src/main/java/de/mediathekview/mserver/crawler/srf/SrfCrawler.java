@@ -7,7 +7,7 @@ import de.mediathekview.mserver.base.config.MServerConfigManager;
 import de.mediathekview.mserver.base.messages.ServerMessages;
 import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
 import de.mediathekview.mserver.crawler.basic.CrawlerUrlDTO;
-import de.mediathekview.mserver.crawler.srf.parser.SrfSendungOverviewDTO;
+import de.mediathekview.mserver.crawler.srf.tasks.SrfFilmDetailTask;
 import de.mediathekview.mserver.crawler.srf.tasks.SrfSendungOverviewPageTask;
 import de.mediathekview.mserver.crawler.srf.tasks.SrfSendungenOverviewPageTask;
 import de.mediathekview.mserver.progress.listeners.SenderProgressListener;
@@ -44,14 +44,15 @@ public class SrfCrawler extends AbstractCrawler {
       SrfSendungOverviewPageTask task = new SrfSendungOverviewPageTask(this, ids);
       forkJoinPool.execute(task);
       
-      final ConcurrentLinkedQueue<SrfSendungOverviewDTO> dtos =
+      final ConcurrentLinkedQueue<CrawlerUrlDTO> dtos =
         new ConcurrentLinkedQueue<>();
       dtos.addAll(task.join());
+
+      printMessage(ServerMessages.DEBUG_ALL_SENDUNG_FOLGEN_COUNT, getSender().getName(), dtos.size());
+      getAndSetMaxCount(dtos.size());
+              
+      return new SrfFilmDetailTask(this, dtos);
       
-      // TODO Filme verarbeiten
-      if(dtos!=null) {
-        
-      }
     } catch (InterruptedException | ExecutionException ex) {
       LOG.fatal("Exception in SRF crawler.", ex);
     }

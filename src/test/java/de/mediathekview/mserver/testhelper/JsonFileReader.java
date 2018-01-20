@@ -7,6 +7,7 @@ import com.google.gson.JsonSyntaxException;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -23,7 +24,7 @@ public class JsonFileReader {
         try {
             URI u = JsonFileReader.class.getResource(filePath).toURI();
             Path path = Paths.get(u);
-            String jsonOutput = new String(Files.readAllBytes(path));
+            String jsonOutput = new String(Files.readAllBytes(path), StandardCharsets.UTF_8);
             return new Gson().fromJson(jsonOutput, JsonObject.class);        
         } catch(JsonSyntaxException | IOException | URISyntaxException ex) {
             fail("Exception reading jsonFile " + filePath + ": " + ex.getMessage());
@@ -35,7 +36,7 @@ public class JsonFileReader {
         try {
             URI u = JsonFileReader.class.getResource(filePath).toURI();
             Path path = Paths.get(u);
-            String jsonOutput = new String(Files.readAllBytes(path));
+            String jsonOutput = new String(Files.readAllBytes(path), StandardCharsets.UTF_8);
             return new Gson().fromJson(jsonOutput, JsonArray.class);        
         } catch(JsonSyntaxException | IOException | URISyntaxException ex) {
             fail("Exception reading jsonFile " + filePath + ": " + ex.getMessage());
