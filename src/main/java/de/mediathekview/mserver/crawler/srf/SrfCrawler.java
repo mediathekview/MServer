@@ -7,7 +7,6 @@ import de.mediathekview.mserver.base.config.MServerConfigManager;
 import de.mediathekview.mserver.base.messages.ServerMessages;
 import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
 import de.mediathekview.mserver.crawler.basic.CrawlerUrlDTO;
-import de.mediathekview.mserver.crawler.srf.parser.SrfSendungOverviewDTO;
 import de.mediathekview.mserver.crawler.srf.tasks.SrfFilmDetailTask;
 import de.mediathekview.mserver.crawler.srf.tasks.SrfSendungOverviewPageTask;
 import de.mediathekview.mserver.crawler.srf.tasks.SrfSendungenOverviewPageTask;
@@ -48,7 +47,10 @@ public class SrfCrawler extends AbstractCrawler {
       final ConcurrentLinkedQueue<CrawlerUrlDTO> dtos =
         new ConcurrentLinkedQueue<>();
       dtos.addAll(task.join());
-      
+
+      printMessage(ServerMessages.DEBUG_ALL_SENDUNG_FOLGEN_COUNT, getSender().getName(), dtos.size());
+      getAndSetMaxCount(dtos.size());
+              
       return new SrfFilmDetailTask(this, dtos);
       
     } catch (InterruptedException | ExecutionException ex) {

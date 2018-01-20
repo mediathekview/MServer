@@ -10,6 +10,7 @@ import de.mediathekview.mlib.daten.Film;
 import de.mediathekview.mlib.daten.Resolution;
 import de.mediathekview.mlib.daten.Sender;
 import de.mediathekview.mlib.tool.MVHttpClient;
+import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
 import de.mediathekview.mserver.crawler.basic.M3U8Dto;
 import de.mediathekview.mserver.crawler.basic.M3U8Parser;
 import java.lang.reflect.Type;
@@ -51,6 +52,12 @@ public class SrfFilmJsonDeserializer implements JsonDeserializer<Optional<Film>>
   private static final String SUBTITLE_FORMAT = "TTML";
   
   private static final String WEBSITE_URL = "https://www.srf.ch/play/tv/%s/video/%s?id=%s";
+  
+  private final AbstractCrawler crawler;
+  
+  public SrfFilmJsonDeserializer(AbstractCrawler aCrawler) {
+    crawler = aCrawler;
+  }
   
   @Override
   public Optional<Film> deserialize(JsonElement aJsonElement, Type aType, JsonDeserializationContext aContext) throws JsonParseException {
@@ -235,7 +242,7 @@ public class SrfFilmJsonDeserializer implements JsonDeserializer<Optional<Film>>
     return "";
   }
 
-  private static Map<Resolution, String> readUrls(String aM3U8Url) {
+  private Map<Resolution, String> readUrls(String aM3U8Url) {
     Map<Resolution, String> urls = new HashMap<>();
 
     MVHttpClient mvhttpClient = MVHttpClient.getInstance();
@@ -258,6 +265,8 @@ public class SrfFilmJsonDeserializer implements JsonDeserializer<Optional<Film>>
 
       } else {
         LOG.error(String.format("SrfFilmJsonDeserializer: Request '%s' failed: %s", aM3U8Url, response.code()));
+        crawler.incrementAndGetErrorCount();
+        crawler.updateProgress();
       }
     } catch (Exception e) {
       LOG.error(e);

@@ -2,8 +2,8 @@ package de.mediathekview.mserver.crawler.srf.parser;
 
 import com.google.gson.JsonElement;
 import de.mediathekview.mlib.daten.Film;
+import de.mediathekview.mserver.crawler.srf.tasks.SrfTaskTestBase;
 import de.mediathekview.mserver.testhelper.JsonFileReader;
-import de.mediathekview.mserver.testhelper.WireMockTestBase;
 import java.util.Optional;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.junit.Assert.assertThat;
@@ -12,7 +12,7 @@ import org.junit.Test;
 /**
  * Tests error scenarios of SrfFilmJsonDeserializer 
  */
-public class SrfFilmJsonDeserializerTestError extends WireMockTestBase {
+public class SrfFilmJsonDeserializerTestError extends SrfTaskTestBase {
   
   @Test
   public void testFilmUrlBlocked() {
@@ -20,7 +20,7 @@ public class SrfFilmJsonDeserializerTestError extends WireMockTestBase {
 
     JsonElement jsonElement = JsonFileReader.readJson("/srf/srf_film_page1.json");
 
-    SrfFilmJsonDeserializer target = new SrfFilmJsonDeserializer();
+    SrfFilmJsonDeserializer target = new SrfFilmJsonDeserializer(createCrawler());
     Optional<Film> actual = target.deserialize(jsonElement, Film.class, null);
 
     assertThat(actual.isPresent(), equalTo(false));

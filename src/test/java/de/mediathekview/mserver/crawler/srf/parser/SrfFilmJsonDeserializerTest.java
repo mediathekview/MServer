@@ -1,15 +1,11 @@
 package de.mediathekview.mserver.crawler.srf.parser;
 
-import static com.github.tomakehurst.wiremock.client.WireMock.aResponse;
-import static com.github.tomakehurst.wiremock.client.WireMock.get;
-import static com.github.tomakehurst.wiremock.client.WireMock.urlEqualTo;
 import com.google.gson.JsonElement;
 import de.mediathekview.mlib.daten.Film;
 import de.mediathekview.mlib.daten.Resolution;
 import de.mediathekview.mlib.daten.Sender;
-import de.mediathekview.mserver.testhelper.FileReader;
+import de.mediathekview.mserver.crawler.srf.tasks.SrfTaskTestBase;
 import de.mediathekview.mserver.testhelper.JsonFileReader;
-import de.mediathekview.mserver.testhelper.WireMockTestBase;
 import java.net.URL;
 import java.time.Duration;
 import java.time.LocalDateTime;
@@ -25,7 +21,7 @@ import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
 
 @RunWith(Parameterized.class)
-public class SrfFilmJsonDeserializerTest extends WireMockTestBase {
+public class SrfFilmJsonDeserializerTest extends SrfTaskTestBase {
 
   @Parameters
   public static Collection<Object[]> data() {
@@ -98,7 +94,7 @@ public class SrfFilmJsonDeserializerTest extends WireMockTestBase {
     
     setupSuccessfulResponse(m3u8Url, m3u8File);
             
-    SrfFilmJsonDeserializer target = new SrfFilmJsonDeserializer();
+    SrfFilmJsonDeserializer target = new SrfFilmJsonDeserializer(createCrawler());
     Optional<Film> actual = target.deserialize(jsonElement, Film.class, null);
     
     assertThat(actual.isPresent(), equalTo(true));
