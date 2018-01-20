@@ -18,7 +18,6 @@ public abstract class SrfTaskTestBase extends WireMockTestBase {
     Collection<MessageListener> nachrichten = new ArrayList<>() ;
     Collection<SenderProgressListener> fortschritte = new ArrayList<>();
     
-    SrfCrawler crawler = new SrfCrawler(forkJoinPool, nachrichten, fortschritte, rootConfig);
-    return crawler;
+    return new SrfCrawler(forkJoinPool, nachrichten, fortschritte, rootConfig);
   } 
 }

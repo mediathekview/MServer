@@ -2,6 +2,7 @@ package de.mediathekview.mserver.crawler.basic;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -57,12 +58,13 @@ public class M3U8Dto {
       return false;
     }
     
-    for (String key : meta.keySet()) {
+    for (Entry<String, String> entry : meta.entrySet()) {
+      String key = entry.getKey();
       if (!other.meta.containsKey(key)) {
         return false;
       }
       
-      if (!other.meta.get(key).equals(meta.get(key))) {
+      if (!other.meta.get(key).equals(entry.getValue())) {
         return false;
       }
     }

@@ -64,9 +64,9 @@ public final class UrlUtils {
     if (aUrl != null) {
       int index = aUrl.indexOf("//");
       if (index > 0) {
-        index = aUrl.indexOf("/", index+2);
+        index = aUrl.indexOf('/', index+2);
       } else {
-        index = aUrl.indexOf("/");
+        index = aUrl.indexOf('/');
       }
 
       if (index > 0) {

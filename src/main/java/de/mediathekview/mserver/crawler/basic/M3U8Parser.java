@@ -27,12 +27,12 @@ public class M3U8Parser {
     if (index > 0) {
       String line = aLine.substring(index + 1);
       
-      while((index = line.indexOf(",")) > 0) {
+      while((index = line.indexOf(',')) > 0) {
         // Sicherstellen, dass Index für , nicht innerhalb eines mit " begrenzten Wertes liegt
-        int indexQuote = line.indexOf("\"");
+        int indexQuote = line.indexOf('\"');
         while (indexQuote + 1 < index) {
-          indexQuote = line.indexOf("\"", indexQuote + 1);
-          index = line.indexOf(",", indexQuote + 1);
+          indexQuote = line.indexOf('\"', indexQuote + 1);
+          index = line.indexOf(',', indexQuote + 1);
         }
         
         parseMetaParameter(line.substring(0, index), aDto);
