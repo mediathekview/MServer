@@ -9,6 +9,7 @@ import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
 import de.mediathekview.mserver.crawler.basic.AbstractRestTask;
 import de.mediathekview.mserver.crawler.basic.AbstractUrlTask;
 import de.mediathekview.mserver.crawler.basic.CrawlerUrlDTO;
+import de.mediathekview.mserver.crawler.srf.SrfConstants;
 import de.mediathekview.mserver.crawler.srf.parser.SrfSendungOverviewDTO;
 import de.mediathekview.mserver.crawler.srf.parser.SrfSendungOverviewJsonDeserializer;
 import java.lang.reflect.Type;
@@ -24,9 +25,6 @@ import org.apache.logging.log4j.Logger;
 public class SrfSendungOverviewPageTask extends AbstractRestTask<CrawlerUrlDTO, CrawlerUrlDTO> {
 
   private static final Logger LOG = LogManager.getLogger(SrfSendungOverviewPageTask.class);
-  
-  private static final String ENCODING_GZIP = "gzip";
-  private static final String HEADER_ACCEPT_ENCODING = "Accept-Encoding";
   
   private static final Type OPTIONAL_DTO_TYPE_TOKEN = new TypeToken<Optional<SrfSendungOverviewDTO>>() {}.getType();
 
@@ -49,7 +47,7 @@ public class SrfSendungOverviewPageTask extends AbstractRestTask<CrawlerUrlDTO, 
     
     final Gson gson = new GsonBuilder().registerTypeAdapter(OPTIONAL_DTO_TYPE_TOKEN, new SrfSendungOverviewJsonDeserializer(baseUrl)).create();
     Invocation.Builder request = aTarget.request();
-    final Response response = request.header(HEADER_ACCEPT_ENCODING, ENCODING_GZIP).get();
+    final Response response = request.header(SrfConstants.HEADER_ACCEPT_ENCODING, SrfConstants.ENCODING_GZIP).get();
     
     if (response.getStatus() == 200) {
 

@@ -5,6 +5,7 @@ import com.google.gson.JsonDeserializer;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
+import de.mediathekview.mserver.crawler.srf.SrfConstants;
 import java.lang.reflect.Type;
 import java.util.Optional;
 import org.apache.logging.log4j.LogManager;
@@ -70,7 +71,7 @@ public class SrfSendungOverviewJsonDeserializer implements JsonDeserializer<Opti
   }
   
   private String getUrl(String aId) {
-    return String.format("https://il.srgssr.ch/integrationlayer/2.0/srf/mediaComposition/video/%s.json", aId);
+    return String.format(SrfConstants.SHOW_DETAIL_PAGE_URL, aId);
   }
   
 }

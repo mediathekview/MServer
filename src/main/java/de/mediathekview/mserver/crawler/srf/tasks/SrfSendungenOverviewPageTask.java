@@ -3,6 +3,7 @@ package de.mediathekview.mserver.crawler.srf.tasks;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import de.mediathekview.mserver.crawler.basic.CrawlerUrlDTO;
+import de.mediathekview.mserver.crawler.srf.SrfConstants;
 import de.mediathekview.mserver.crawler.srf.parser.SrfSendungenOverviewJsonDeserializer;
 import java.io.IOException;
 import java.util.Set;
@@ -16,7 +17,6 @@ import org.jsoup.nodes.Document;
 public class SrfSendungenOverviewPageTask implements Callable<ConcurrentLinkedQueue<CrawlerUrlDTO>> {
 
   private static final Logger LOG = LogManager.getLogger(SrfSendungenOverviewPageTask.class);
-  public static final String OVERVIEW_PAGE_URL = "https://www.srf.ch/play/v2/tv/shows";
   private static final String JSON_SELECTOR = "div.showsAtoZContent";
   private static final String ATTRIBUTE_DATA = "data-alphabetical-sections";
   
@@ -25,7 +25,7 @@ public class SrfSendungenOverviewPageTask implements Callable<ConcurrentLinkedQu
     final ConcurrentLinkedQueue<CrawlerUrlDTO> results = new ConcurrentLinkedQueue<>();
     
     try {
-      final Document document = Jsoup.connect(OVERVIEW_PAGE_URL).get();
+      final Document document = Jsoup.connect(SrfConstants.OVERVIEW_PAGE_URL).get();
       
       Gson gson = new GsonBuilder()
         .registerTypeAdapter(Set.class, new SrfSendungenOverviewJsonDeserializer())

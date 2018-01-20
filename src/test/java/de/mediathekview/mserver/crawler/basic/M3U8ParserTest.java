@@ -1,5 +1,6 @@
 package de.mediathekview.mserver.crawler.basic;
 
+import de.mediathekview.mserver.crawler.srf.SrfConstants;
 import java.util.List;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.notNullValue;
@@ -14,16 +15,16 @@ public class M3U8ParserTest {
 
     M3U8Dto[] expected = new M3U8Dto[]{
       createDto("https://hdvodsrforigin-f.akamaihd.net/i/vod/1gegen100/2010/05/1gegen100_20100517_200706_web_h264_16zu9_,lq1,mq1,hq1,.mp4.csmil/index_0_av.m3u8?start=0.0&end=3305.1",
-      new String[]{"PROGRAM-ID", "BANDWIDTH", "CODECS", "CLOSED-CAPTIONS"},
+      new String[]{SrfConstants.M3U8_PROGRAM_ID, SrfConstants.M3U8_BANDWIDTH, SrfConstants.M3U8_CODECS, SrfConstants.M3U8_CLOSED_CAPTIONS},
       new String[]{"1", "118000", "\"avc1.66.30, mp4a.40.2\"", "NONE"}),
       createDto("https://hdvodsrforigin-f.akamaihd.net/i/vod/1gegen100/2010/05/1gegen100_20100517_200706_web_h264_16zu9_,lq1,mq1,hq1,.mp4.csmil/index_1_av.m3u8?start=0.0&end=3305.1",
-      new String[]{"PROGRAM-ID", "BANDWIDTH", "CODECS", "CLOSED-CAPTIONS"},
+      new String[]{SrfConstants.M3U8_PROGRAM_ID, SrfConstants.M3U8_BANDWIDTH, SrfConstants.M3U8_CODECS, SrfConstants.M3U8_CLOSED_CAPTIONS},
       new String[]{"1", "739000", "\"avc1.77.30, mp4a.40.2\"", "NONE"}),
       createDto("https://hdvodsrforigin-f.akamaihd.net/i/vod/1gegen100/2010/05/1gegen100_20100517_200706_web_h264_16zu9_,lq1,mq1,hq1,.mp4.csmil/index_2_av.m3u8?start=0.0&end=3305.1",
-      new String[]{"PROGRAM-ID", "BANDWIDTH", "CODECS", "CLOSED-CAPTIONS"},
+      new String[]{SrfConstants.M3U8_PROGRAM_ID, SrfConstants.M3U8_BANDWIDTH, SrfConstants.M3U8_CODECS, SrfConstants.M3U8_CLOSED_CAPTIONS},
       new String[]{"1", "1395000", "\"avc1.77.30, mp4a.40.2\"", "NONE"}),
       createDto("https://hdvodsrforigin-f.akamaihd.net/i/vod/1gegen100/2010/05/1gegen100_20100517_200706_web_h264_16zu9_,lq1,mq1,hq1,.mp4.csmil/index_0_a.m3u8?start=0.0&end=3305.1",
-      new String[]{"PROGRAM-ID", "BANDWIDTH", "CODECS", "CLOSED-CAPTIONS"},
+      new String[]{SrfConstants.M3U8_PROGRAM_ID, SrfConstants.M3U8_BANDWIDTH, SrfConstants.M3U8_CODECS, SrfConstants.M3U8_CLOSED_CAPTIONS},
       new String[]{"1", "23000", "\"mp4a.40.2\"", "NONE"}),
     };
 

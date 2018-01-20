@@ -9,6 +9,7 @@ import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
 import de.mediathekview.mserver.crawler.basic.AbstractRestTask;
 import de.mediathekview.mserver.crawler.basic.AbstractUrlTask;
 import de.mediathekview.mserver.crawler.basic.CrawlerUrlDTO;
+import de.mediathekview.mserver.crawler.srf.SrfConstants;
 import de.mediathekview.mserver.crawler.srf.parser.SrfFilmJsonDeserializer;
 import java.lang.reflect.Type;
 import java.net.URI;
@@ -24,9 +25,6 @@ public class SrfFilmDetailTask extends AbstractRestTask<Film, CrawlerUrlDTO> {
 
   private static final Logger LOG = LogManager.getLogger(SrfFilmDetailTask.class);
   
-  private static final String ENCODING_GZIP = "gzip";
-  private static final String HEADER_ACCEPT_ENCODING = "Accept-Encoding";
-  
   public SrfFilmDetailTask(AbstractCrawler aCrawler, ConcurrentLinkedQueue<CrawlerUrlDTO> aURLsToCrawl)
   {
     super(aCrawler, aURLsToCrawl, Optional.empty());
@@ -35,7 +33,7 @@ public class SrfFilmDetailTask extends AbstractRestTask<Film, CrawlerUrlDTO> {
   @Override
   protected void processRestTarget(CrawlerUrlDTO aDTO, WebTarget aTarget) {
     Invocation.Builder request = aTarget.request();
-    final Response response = request.header(HEADER_ACCEPT_ENCODING, ENCODING_GZIP).get();
+    final Response response = request.header(SrfConstants.HEADER_ACCEPT_ENCODING, SrfConstants.ENCODING_GZIP).get();
     
     switch(response.getStatus()) {
       case 200:

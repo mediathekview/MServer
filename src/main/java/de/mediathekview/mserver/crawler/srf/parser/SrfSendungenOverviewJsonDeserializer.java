@@ -7,6 +7,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
 import de.mediathekview.mserver.crawler.basic.CrawlerUrlDTO;
+import de.mediathekview.mserver.crawler.srf.SrfConstants;
 import java.lang.reflect.Type;
 import java.time.LocalDateTime;
 import java.util.HashSet;
@@ -20,8 +21,6 @@ public class SrfSendungenOverviewJsonDeserializer implements JsonDeserializer<Se
   private static final String ELEMENT_TEASERLIST = "showTeaserList";
   private static final String ELEMENT_ID = "id";
 
-  // id, month-year, number of films per page
-  private static final String URL = "https://www.srf.ch/play/v2/tv/show/%s/latestEpisodes?numberOfEpisodes=%d&tillMonth=%s&layout=json";
   private static final int FILMS_PER_PAGE = 100;
   
   private static final Logger LOG = LogManager.getLogger(SrfSendungenOverviewJsonDeserializer.class);
@@ -71,7 +70,7 @@ public class SrfSendungenOverviewJsonDeserializer implements JsonDeserializer<Se
     if (entryObject.has(ELEMENT_ID)) {
       String id = entryObject.get(ELEMENT_ID).getAsString();
 
-      String url = String.format(URL, id, FILMS_PER_PAGE, monthYear); 
+      String url = String.format(SrfConstants.SHOW_OVERVIEW_PAGE_URL, id, FILMS_PER_PAGE, monthYear); 
       
       return Optional.of(url);
     }
