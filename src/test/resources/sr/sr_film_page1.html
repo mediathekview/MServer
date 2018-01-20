@@ -1,0 +1,815 @@
+<!doctype html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head lang="de" prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb#"> 
+    <meta charset="UTF-8"> 
+    <meta content="IE=edge" http-equiv="x-ua-compatible"> 
+    <meta content="width=device-width, initial-scale=1, user-scalable=no" name="viewport"> 
+    <meta content="SR Mediathek :: Meine Traumreise vom Zürichsee an die Ostsee" lang="de" name="DC.title"> 
+    <meta content="Saarländischer Rundfunk" name="DC.creator"> 
+    <meta content="25.11.2015" name="DC.date"> 
+    <meta content="Die Hochzeitsreise vor der Hochzeit - das ist zwar nicht die Regel, aber nicht wirklich ungewöhnlich. Speziell ist dagegen das Gefährt, das sich Anna und Thomas für ihren Trip ausgesucht haben. Die beiden reisen per Gleitschirm. Begleiten Sie das Paar vom Zürichsee zur Ostsee. " lang="de" name="DC.description"> 
+    <meta content="de" name="DC.language"> 
+    <meta content="Text" name="DC.type"> 
+    <meta content="de_DE" name="og:locale"> 
+    <meta content="SR Mediathek :: Meine Traumreise vom Zürichsee an die Ostsee" name="og:title"> 
+    <meta content="article" name="og:type"> 
+    <meta content="/index.php" name="og:url"> 
+    <link type="text/css" href="css/copytext.css" rel="stylesheet" />
+    <link type="text/css" href="css/styles.css" rel="stylesheet" />
+    <link type="text/css" href="libs/slickCarousel/slick.css" rel="stylesheet" />
+    <link type="text/css" href="libs/timeline/css/timeline.css" rel="stylesheet" /> 
+    <link type="text/css" href="/libs/ardplayer-3.8.7/mandanten/sronline/css/player.css" rel="stylesheet" />
+    <link type="text/css" href="css/bugfix.css?1" rel="stylesheet" />
+	<title>SR-Mediathek.de: Meine Traumreise vom Zürichsee an die Ostsee</title>
+	<meta property="og:image" content="http://sr-mediathek.sr-online.de/mediathek-images/thumb512/1506421235_traumreise_zuerichsee100.jpg"/>
+	<meta property="og:type" content="video" />
+	<meta property="og:description" content="Die Hochzeitsreise vor der Hochzeit - das ist zwar nicht die Regel, aber nicht wirklich ungewöhnlich. Speziell ist dagegen das Gefährt, das sich Anna und Thomas für ihren Trip ausgesucht haben. Die beiden reisen per Gleitschirm. Begleiten Sie das Paar vom Zürichsee zur Ostsee. " />
+	<meta property="og:video" content="https://www.sr-mediathek.de/player/GLVideoPlayer-FB.swf?js_skin=https://www.sr-mediathek.de/player/conf/skin/skin_sr_demand.glsd&plugin_atinternet=https://www.sr-mediathek.de/player/ATInternetAS3Tagging.swf&js_playlist=https://www.sr-mediathek.de/genPLv1-6_fb.php?id=54623&atinternet_conf=https://www.sr-mediathek.de/XiTiTag.xml" />
+	<meta property="og:video:type" content="application/x-shockwave-flash" />
+	<meta property="og:video:width" content="512" />
+	<meta property="og:video:height" content="288" />
+	<meta property="og:url" content="https://www.sr-mediathek.de/index.php?seite=7&id=54623" />
+	<meta property="og:site_name" content="SR" />
+	<meta property="og:title" content="SR Mediathek :: Meine Traumreise vom Zürichsee an die Ostsee"/>
+	<link rel="apple-touch-icon-precomposed" href="/img/touch_icon_144_2.png" />
+	<link rel="image_src" type="image/jpeg" href="http://sr-mediathek.sr-online.de/mediathek-images/thumb512/1506421235_traumreise_zuerichsee100.jpg" />
+    <script type="text/javascript">
+     
+    var mediaURLs = ['http://mediastorage01.sr-online.de/Video/FS/MT/traumreise_20170926_124001_L.mp4'];
+    var mediaTitles = ['Meine Traumreise vom Zürichsee an die Ostsee'];
+    var mediaThumbs = ['http://sr-mediathek.sr-online.de/mediathek-images/thumb512/1506421235_traumreise_zuerichsee100.jpg'];
+    var playerId = 'player54623'; 
+    
+    function iOSversion() {
+		if (/iP(hone|od|ad)/.test(navigator.platform)) {
+		  var v = (navigator.appVersion).match(/OS (\d+)_(\d+)_?(\d+)?/);
+		  return [parseInt(v[1], 10), parseInt(v[2], 10), parseInt(v[3] || 0, 10)];
+		}
+		}
+		ver = iOSversion();
+		if (ver[0] <= 5) {
+		      document.getElementById('video').innerHTML = "";
+		
+		      var fallbackMC;
+		      function reqListener () {
+		
+		              fallbackMC = JSON.parse(this.responseText);
+		              fbmc_type       = fallbackMC._type;
+		              fbmc_image      = fallbackMC._previewImage;
+		
+		              if (fbmc_type == 'video') {
+		                      fbmc_stream     = fallbackMC._mediaArray['1']._mediaStreamArray['2']._stream['1'];
+		                      var mediaObject = document.createElement("video");
+		                      mediaObject.width = "512";
+		                      mediaObject.height = "288";
+		                      mediaObject.poster = fbmc_image;
+		                      mediaObject.controls = true;
+		                      var mediaObjectStream = document.createElement("source");
+		                      mediaObjectStream.src = fbmc_stream;
+		                      mediaObjectStream.type = "video/mp4";
+		                      mediaObjectStream.innerHTML = "Ihr Browser unterst&uuml;tzt kein HTML5.";
+		                      mediaObject.appendChild(mediaObjectStream);
+		
+		                      document.getElementById("video").appendChild(mediaObject);
+		              }
+		
+		              if (fbmc_type == 'audio') {
+		                      fbmc_stream     = fallbackMC._mediaArray['1']._mediaStreamArray['0']._stream;
+		                      var mediaObject = document.createElement("audio");
+		                      mediaObject.style = "width: 100%; height: 30px";
+		                      mediaObject.controls = true;
+		                      mediaObject.autobuffer = true;;
+		                      var mediaObjectStream = document.createElement("source");
+		                      mediaObjectStream.src = fbmc_stream;
+		                      mediaObjectStream.type = "audio/mp4";
+		                      mediaObjectStream.innerHTML = "Ihr Browser unterst&uuml;tzt kein HTML5.";
+		                      mediaObject.appendChild(mediaObjectStream);
+		
+		                      document.getElementById("video").appendChild(mediaObject);
+		              }
+		};
+		var oReq = new XMLHttpRequest();
+		oReq.onload = reqListener;
+		oReq.open("get", "sr_player/mc.php?id=54623&tbl=&pnr=0", true);
+		oReq.send();
+	}   
+    </script>
+
+			<style>
+		.article__player img, .article__player picture {
+			position: relative;
+		}
+		</style>
+				
+</head>
+<body class="sr no-js">        <header>
+            <nav>
+                <div class="navigation navigation--sr">
+                    <ul class="skiplinks">
+                        <li><a title="[ALT + 1]" accesskey="1" href="#">Hauptnavigation</a>
+                        </li>
+                        <li><a title="[ALT + 2]" accesskey="2" href="#">Zum Inhalt</a>
+                        </li>
+                        <li><a title="[ALT + 5]" accesskey="5" href="#">Zur Suche</a>
+                        </li>
+                        <li><a title="[ALT + 6]" accesskey="6" href="#">Zum Seitenanfang</a>
+                        </li>
+                    </ul>
+                    <div class="toggle-button_wrapper">	<a href="index.php" class="toggle-button open">
+	            		<span class="toggle-icon open">
+	            			<svg id="burger-icon1" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
+	            				 width="18px" height="18px" viewbox="0 0 22 22" enable-background="new 0 0 18 18">
+	            				<!-- SVG looks blurry on some mobile browsers (android native for example) - With a text tag within the svg renders sharp -->
+	            				<text transform="matrix(1 0 0 1 7.1079 13.5215)" opacity="0" font-family="'MyriadPro-Regular'" font-size="12">a</text>
+	            				<g>
+	            					<rect class="toggle-icon__rect" height="3" width="18" fill="white" x="2" y="2"></rect>
+	            					<rect class="toggle-icon__rect" height="3" width="18" y="9" fill="white" x="2"></rect>
+	            					<rect class="toggle-icon__rect" height="3" width="18" y="16" fill="white" x="2"></rect>
+	            				</g>
+	            			</svg>
+	            		</span>
+
+	            		<!-- only visible for mobile devices, because css animated svg's are not supported -->
+	            		<span class="toggle-icon close">
+	            			<svg id="burger-icon2" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
+	            				 width="18px" height="18px" viewbox="0 0 22 22" enable-background="new 0 0 18 18">
+	            				<!-- SVG looks blurry on some mobile browsers (android native for example) - With a text tag within the svg renders sharp -->
+	            				<text transform="matrix(1 0 0 1 7.1079 13.5215)" opacity="0" font-family="'MyriadPro-Regular'" font-size="12">a</text>
+	            				<g>
+	            					<rect class="toggle-icon__rect" transform="translate(5, -1) rotate(45)" height="3" width="18" fill="white" x="2" y="2"></rect>
+	            					<rect class="toggle-icon__rect" transform="translate(-10, 5) rotate(-45)" height="3" width="18" y="16" fill="white" x="2"></rect>
+	            				</g>
+	            			</svg>
+	            		</span>
+	            		<span class="toggle-text visible-lg">menu</span>
+	            	</a>
+
+                    </div>
+                    <div class="channels_wrapper">
+                        <ul class="channels">
+                            <li class="channels_item channels_item--sr" style="display: block;"> <a href="http://www.sr.de" data-channel="sr" title="SR"></a>
+
+                            </li>
+                            <li class="channels_item channels_item--sr1"> <a href="http://www.sr.de/sr/sr1/" data-channel="sr1" title="SR1"></a>
+
+                            </li>
+                            <li class="channels_item channels_item--sr2"> <a href="http://www.sr.de/sr/sr2/" data-channel="sr2" title="SR2"></a>
+
+                            </li>
+                            <li class="channels_item channels_item--sr3"> <a href="http://www.sr.de/sr/sr3/" data-channel="sr3" title="SR3"></a>
+
+                            </li>
+                            <li class="channels_item channels_item--srantenne"> <a href="http://www.sr.de/sr/antennesaar/" data-channel="srantenne" title="SR Antenne"></a>
+
+                            </li>
+                            <li class="channels_item channels_item--srtv"> <a href="http://www.sr.de/sr/fernsehen/" data-channel="srtv" title="SR Fernsehen"></a>
+
+                            </li>
+                            <li class="channels_item channels_item--unserding"> <a href="http://www.unserding.de/" data-channel="unserding" title="Unser Ding"></a>
+
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="menu close">
+                        <div class="menu_wrapper">
+                            <div id="logo" class="logo"><a style="background-image: url('../svg/logos/SR_Mediathek_white.svg');" href="index.php" title="SR Logo"></a>
+                            </div>
+                            <div class="search"> <span class="accessibility-info visible-lg">
+	                            Zoom: <span class="accessibility-info__zooming">100%</span> -
+                                Kontrast: <span class="accessibility-info__contrast">normal</span>
+</span>
+                                <span class="search__icon icon--search_24 hidden-lg"></span> 
+                                <a href="#" class="search__icon  visible-lg" data-toggle="modal" data-target="#accessibilityModal">
+                                <span class="icon--help_24"></span></a>
+
+                                <form class="search__form" action="index.php?seite=9" method="post" onSubmit="return checkSuche()">
+                                	<input class="search__form__field" name="suche_nach" id="suche_nach" type="search" placeholder="Suche" tabindex="0"/>
+                                    <button class="search__form__submit" type="submit" value="" tabindex="0">
+                                    	<span class="icon--search_24"></span>
+                                    </button>
+                                </form>
+                            </div>
+                    <div class="section_wrapper">
+			<ul class="section section--sr">
+				<li class="section__item"><a href="index.php?seite=0" title="Startseite">Startseite</a></li>
+				<li class="section__item section__item--seperator"></li>
+				<li class="section__item section__item--selected"><a href="index.php?seite=2" title="Video">Video</a></li>
+				<li class="section__item"><a href="index.php?seite=3" title="Audio">Audio</a></li>
+				<li class="section__item"><a href="index.php?seite=4" title="Podcast">Podcast</a></li>
+				<li class="section__item section__item--seperator"></li>
+				<li class="section__item"><a href="index.php?seite=6" title="Themen">Themen</a></li>
+				<li class="section__item"><a href="index.php?seite=5" title="A-Z">A-Z</a>
+			</ul>                  	
+		    </div>
+                </div>
+            </div>
+        </div>
+	</nav>
+
+</header>
+	<div class="outer-wrapper">
+	
+	
+	<div class="outer-wrapper__row">
+		<div class="container">	
+			<div class="row"> 
+            	<div class="col-md-8"> 
+					<div class="article"> 
+						<div class="article__player ">
+                  				<div class="teaser-content-holder teaser-content-holder__image169">
+	                   				<noscript>
+	                      				<img alt="" src="mediathek-images/thumb450/1506421235_traumreise_zuerichsee100.jpg">
+	                    			</noscript>
+	                    			<div data-config-ardplayer="//www.sr-mediathek.de/sr_player/pc.php?player=3.8.7-mediathek&agf=mediathek&id=54623&tbl=&pnr=0&startvid=" data-instance-ardplayer="video" data-mediacollection-ardplayer="//www.sr-mediathek.de/sr_player/mc.php?id=54623&tbl=&pnr=0&hd=0&devicetype=" data-metadata-disabled="false" id="player54623">
+							<div class="ardplayer-title">Meine Traumreise vom Zürichsee an die Ostsee</div>
+						</div>
+                  				</div>
+                		</div>
+						<div class="article__container__wrapper">
+							<div class="article__container">
+                			    <div class="article__content">
+									<div>
+             	 						<h3>Meine Traumreise vom Zürichsee an die Ostsee</h3>
+             	 					</div>
+             	 					<div>
+             	 						<p>Video | 30.09.2017 | Dauer: 00:28:15 | SR Fernsehen - (c) SR</p>
+             	 					</div>
+
+ 
+<!-- altes Zeug -->
+
+									<div id="gcasticon" style="display: none;">
+										<button class="btn" id="appcontrol" onclick="launchApp()"><img src="img/gcast/cast_icon_idle.png" id="casticon" width="30"></button>
+									</div>
+									
+									<div id="gcastcontrols" style="display: none;">
+										<h1 class="background-title">Chromecast Steuerung</h1>
+						      			<div style=" margin: 5px; padding: 8px; width: 100%; height: 40px;">
+						                	<button style="border: none; background-color: #fff; float: left;" onclick="loadMedia()"><img src="img/gcast/btn_start_s.png" /></button>
+											<button id="playpauseresume" onclick="playMedia()" style="display: none; background-color: #fff; float: left;">Play</button>
+											<button style="border: none; background-color: #fff; float: left;" onclick="stopMedia()"><img src="img/gcast/btn_stop_s.png" /></button>
+											<div style="height: 25px; width: 300px; padding-left: 20px; float: left;">
+												<input id="progress" style="width: 280px; margin: 5px;" type="range" min="1" max="100" value="1" step="1" onmouseup="seekMedia(this.value);">
+											</div>
+							    			<div style="height: 25px; width: 130px; float: right;">
+												<img src="img/gcast/btn_vol_s_w.png"/>
+												<input style="margin-top: 5px; float: left; -webkit-transform: rotate(180deg); width: 100px;" type="range" min="0" max="100" step="1" onmouseup="setReceiverVolume(1-this.value/100,false);">
+											</div>
+										</div>
+									</div>
+									
+									
+													
+			<h1 class="background-title">
+				<strong>Themen</strong>
+			</h1>
+			Die Hochzeitsreise vor der Hochzeit - das ist zwar nicht die Regel, aber nicht wirklich ungewöhnlich. Speziell ist dagegen das Gefährt, das sich Anna und Thomas für ihren Trip ausgesucht haben. Die beiden reisen per Gleitschirm. Begleiten Sie das Paar vom Zürichsee zur Ostsee. 
+							<h1 class="background-title hide_app">
+					<strong>Weitere Informationen zum Beitrag</strong>
+				</h1>
+				<a href="http://www.sr.de/sr/fernsehen/sendungen_a_-_z/uebersicht/meine_traumreise/archiv/" title="weitere Informationen zum Beitrag" target="_blank" class="hide_app">Zur Homepage</a>
+						<h3 class="text--module-header hide_app">Artikel mit anderen teilen</h3>
+			<div class="row sharebutton hide_app">
+				<div class="col-xxs-12">
+					<a class="sr_share btn btn--facebook" data-shareurl="https://www.facebook.com/sharer/sharer.php%3Fu=https%3A%2F%2Fwww.sr-mediathek.de%2Findex.php%3Fseite=7%26id=54623%26t=SR-Mediathek" data-target="#share-modal" data-toggle="modal" href="zwischenseite.php?id=54623%26page=facebook" title="Artikel bei Facebook empfehlen">
+						<span class="icon icon--facebook_48"></span>
+						Facebook 
+					</a>
+					<a class="sr_share btn btn--twitter" data-shareurl="http://twitter.com/home?status=SR Mediathek https%3A%2F%2Fwww.sr-mediathek.de%2Findex.php%3Fseite=7%26id=54623" data-target="#share-modal" data-toggle="modal" href="zwischenseite.php?id=54623%26page=twitter" title="Artikel bei Twitter empfehlen">
+						<span class="icon icon--twitter_48"></span>
+						Twitter 
+					</a>
+				</div>
+			</div>
+
+								
+<!-- alter Zeug ende -->
+						
+
+						</div> 	
+					</div>
+				</div>
+<div class="article__modules">
+                  <div class="form-wrapper onlightbg">
+                    <form action="artikelTeilen.php" class="validate tellafriend" method="POST" role="form">
+                      <input name="b" type="hidden" value="/sr/home/nachrichten/politik_wirtschaft/demo_frieden_saarbruecken100~_ok-artikel__teilen.html#artikel_teilen">
+                      <input name="d" type="hidden" value="">
+                      <input name="e" type="hidden" value="demo_frieden_saarbruecken100">
+                      <input name="f" type="hidden" value="artikel_teilen">
+                      <h2>ARTIKEL VERSENDEN</h2>
+                      <div class="row">
+                        <div class="form-group col-xxs-12 col-xs-6">
+                          <div class="row">
+                            <div class="form-group col-xxs-12">
+                              <label class="control-label"><span class="label__wrapper">Name</span><input autocomplete="off" class="form-control" name="comment--author" placeholder="" required="true" type="text" value=""></label>
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="form-group col-xxs-12">
+                              <label class="control-label"><span class="label__wrapper">E-Mail</span><input autocomplete="off" class="form-control" name="email" placeholder="" type="email" value=""></label>
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="form-group col-xxs-12">
+                              <label class="control-label"><span class="label__wrapper">Empf&auml;nger E-Mail</span><input autocomplete="off" class="form-control" name="receiver" placeholder="" required="true" type="email" value=""></label>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="form-group col-xxs-12 col-xs-6">
+                          <div class="row">
+                            <div class="form-group col-xxs-12">
+                              <label class="control-label"><span class="label__wrapper">Nachricht</span><textarea class="form-control" cols="50" name="comment--field" placeholder="" rows="4"></textarea></label>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row error-wrapper">
+                        <div class="col-xxs-12 message-wrapper">
+                          <div class="error-message">
+                            <div class="icon--close_16"></div>
+                            <div>
+                              Leider ist beim Senden der Nachricht ein Fehler aufgetreten, bitte versuchen Sie es noch einmal.
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-xxs-12">
+                          <div class="form-group">
+                          	                            <input name="captchaId" type="hidden" value="172ad70d5192a15c2d7a8a94a20f2c34">
+                            <div class="captcha form-control">
+                              <div class="captcha__text">
+                                Klicken Sie bitte 
+                                <strong>das Mikrofon</strong> an.
+                              </div>
+                              <div class="captcha__options">
+                                <div class="radio">
+                                  <input aria-checked="false" aria-describedby="captcha-error-tellafriend" class="form-control" data-rule-required="true" id="captcha-tellafriend-1" name="captcha" type="radio" value="1">
+                                  <label for="captcha-tellafriend-1"><img alt="Captcha Image" src="/svg/captcha/sr-captcha-01.svg" title="Captcha Image"></label>
+                                </div>
+                                <div class="radio">
+                                  <input aria-checked="false" aria-describedby="captcha-error-tellafriend" class="form-control" data-rule-required="true" id="captcha-tellafriend-2" name="captcha" type="radio" value="4">
+                                  <label for="captcha-tellafriend-2"><img alt="Captcha Image" src="/svg/captcha/sr-captcha-04.svg" title="Captcha Image"></label>
+                                </div>
+                                <div class="radio">
+                                  <input aria-checked="false" aria-describedby="captcha-error-tellafriend" class="form-control" data-rule-required="true" id="captcha-tellafriend-3" name="captcha" type="radio" value="8">
+                                  <label for="captcha-tellafriend-3"><img alt="Captcha Image" src="/svg/captcha/sr-captcha-08.svg" title="Captcha Image"></label>
+                                </div>
+                                <div class="radio">
+                                  <input aria-checked="false" aria-describedby="captcha-error-tellafriend" class="form-control" data-rule-required="true" id="captcha-tellafriend-4" name="captcha" type="radio" value="9">
+                                  <label for="captcha-tellafriend-4"><img alt="Captcha Image" src="/svg/captcha/sr-captcha-09.svg" title="Captcha Image"></label>
+                                </div>
+                                <div class="radio">
+                                  <input aria-checked="false" aria-describedby="captcha-error-tellafriend" class="form-control" data-rule-required="true" id="captcha-tellafriend-5" name="captcha" type="radio" value="10">
+                                  <label for="captcha-tellafriend-5"><img alt="Captcha Image" src="/svg/captcha/sr-captcha-10.svg" title="Captcha Image"></label>
+                                </div>
+                              </div>
+                            </div>
+                            <label class="help-block sr-error" id="captcha-error-tellafriend"></label>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="form-group col-md-12">
+                          <button class="btn pull-right" type="submit">Senden</button>
+                        </div>
+                      </div>
+                    </form>
+                    <div class="row success-wrapper">
+                      <div class="col-xxs-12 message-wrapper">
+                        <div class="success-message">
+                          <div class="icon--checked_24"></div>
+                          <div class="font-weight-semibold">
+                            Vielen Dank f�r Ihre Nachricht, sie wurde erfolgreich gesendet.
+                          </div>
+                        </div>
+                        <button class="btn pull-right" type="submit">Weitere Nachricht Senden</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+			</div>
+		</div>
+
+          		<div class="col-md-4">
+          			<div class="sidebar">
+ <div class="row">
+	<div class="col-xxs-12">
+		<div class="teaser teaser--s ">
+			<div class="teaser__image"> 
+				<a title="Mehr Informationen zur Sendung" class="teaser__link" href="index.php?seite=8&sen=MT">
+					<div class="teaser-content-holder teaser-content-holder__image169">
+						<picture>
+							<img alt="Alt text" title="Title" src="img/sendungen/MT~_v-sr_Square_220.jpg">
+						</picture>
+					</div>
+					<span class="teaser__image__caption teaser__image__caption--sr">
+						<span class="teaser__image__caption__wrapper">
+							<span class="teaser__image__caption__text teaser__image__caption__text--subhead">Mehr zur Sendung</span>
+							<span class="teaser__image__caption__text teaser__image__caption__text--headline">Meine Traumreise</span>
+							<span class="teaser__image__caption__text teaser__image__caption__text--subheadline">
+							SR Fernsehen| 19 Sendungen							</span>
+						</span>
+					</span>
+				</a>
+			</div>
+		</div>
+	</div>
+</div>		
+
+<h3 class='teaser__grid__header'>Aktuelle Sendungen</h3>		<div class="row">
+			<div class="col-xxs-12">
+				<div class="teaser teaser--s ">
+					<div class="teaser__image"> 
+						<a title="Teaser Link" class="teaser__link" href="index.php?seite=7&id=54623">
+							<div class="teaser-content-holder teaser-content-holder__image169">
+								<picture>
+		                    		<img alt="" title="http://www.sr-mediathek.de/mediathek-images/16zu9/1506421235_traumreise_zuerichsee100.jpg" src="mediathek-images/16zu9/1506421235_traumreise_zuerichsee100.jpg">
+		                		</picture>
+		            		</div>
+							<span class="teaser__image__caption teaser__image__caption--sr">
+								<span class="teaser__image__caption__wrapper">
+									<span class="teaser__image__caption__text teaser__image__caption__text--subhead">
+										Video | 30.09.2017 | SR Fernsehen									</span>
+									<span class="teaser__image__caption__text teaser__image__caption__text--headline">Meine Traumreise vom Zürichsee an die Ostsee</span>
+									<span class="teaser__image__caption__text teaser__image__caption__text--subheadline"></span>
+								</span>
+							</span>
+						</a>
+					</div>
+				</div>
+			</div>
+		</div>					
+		<div class="row">
+			<div class="col-xxs-12">
+				<div class="teaser teaser--s ">
+					<div class="teaser__image"> 
+						<a title="Teaser Link" class="teaser__link" href="index.php?seite=7&id=54536">
+							<div class="teaser-content-holder teaser-content-holder__image169">
+								<picture>
+		                    		<img alt="" title="http://www.sr-mediathek.de/mediathek-images/16zu9/1506162487_MTAlaskaohneHinweis_3082995_3334139_10281507.orig.jpg" src="mediathek-images/16zu9/1506162487_MTAlaskaohneHinweis_3082995_3334139_10281507.orig.jpg">
+		                		</picture>
+		            		</div>
+							<span class="teaser__image__caption teaser__image__caption--sr">
+								<span class="teaser__image__caption__wrapper">
+									<span class="teaser__image__caption__text teaser__image__caption__text--subhead">
+										Video | 23.09.2017 | SR Fernsehen									</span>
+									<span class="teaser__image__caption__text teaser__image__caption__text--headline">Meine Traumreise nach Alaska</span>
+									<span class="teaser__image__caption__text teaser__image__caption__text--subheadline"></span>
+								</span>
+							</span>
+						</a>
+					</div>
+				</div>
+			</div>
+		</div>					
+		<div class="row">
+			<div class="col-xxs-12">
+				<div class="teaser teaser--s ">
+					<div class="teaser__image"> 
+						<a title="Teaser Link" class="teaser__link" href="index.php?seite=7&id=54310">
+							<div class="teaser-content-holder teaser-content-holder__image169">
+								<picture>
+		                    		<img alt="" title="http://www.sr-mediathek.de/mediathek-images/16zu9/1505477994_mt_champagne.jpg" src="mediathek-images/16zu9/1505477994_mt_champagne.jpg">
+		                		</picture>
+		            		</div>
+							<span class="teaser__image__caption teaser__image__caption--sr">
+								<span class="teaser__image__caption__wrapper">
+									<span class="teaser__image__caption__text teaser__image__caption__text--subhead">
+										Video | 16.09.2017 | SR Fernsehen									</span>
+									<span class="teaser__image__caption__text teaser__image__caption__text--headline">Meine Traumreise in die Champagne </span>
+									<span class="teaser__image__caption__text teaser__image__caption__text--subheadline"></span>
+								</span>
+							</span>
+						</a>
+					</div>
+				</div>
+			</div>
+		</div>					
+					
+				</div>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-xxs-12">								
+				<div class="tagcloud tagcloud__teaser tagcloud__teaser--fade">
+					<div class="tagcloud__text__wrapper">
+					<span class="tagcloud__text tagcloud__text--large"><a title="Mehr zum Schlagwort 'SR Fernsehen' (1092)" href="index.php?seite=11&tag=SR Fernsehen">SR Fernsehen</a></span><span class="tagcloud__text tagcloud__text--large"><a title="Mehr zum Schlagwort 'Meine Traumreise' (19)" href="index.php?seite=11&tag=Meine Traumreise">Meine Traumreise</a></span><span class="tagcloud__text tagcloud__text--small"><a title="Mehr zum Schlagwort 'Z&uuml;richsee' (1)" href="index.php?seite=11&tag=Z&uuml;richsee">Z&uuml;richsee</a></span><span class="tagcloud__text tagcloud__text--small"><a title="Mehr zum Schlagwort 'Ostsee' (1)" href="index.php?seite=11&tag=Ostsee">Ostsee</a></span><span class="tagcloud__text tagcloud__text--small"><a title="Mehr zum Schlagwort 'Hochzeitsreise' (1)" href="index.php?seite=11&tag=Hochzeitsreise">Hochzeitsreise</a></span><span class="tagcloud__text tagcloud__text--small"><a title="Mehr zum Schlagwort 'Gleitschirm' (1)" href="index.php?seite=11&tag=Gleitschirm">Gleitschirm</a></span>					</div>
+				</div>	
+			</div>
+		</div>				
+					
+
+		
+	</div>
+</div>
+
+
+					
+					</div>
+					<!-- FUSS: Fusszeile mit Copyright -->
+					    <footer>
+	<div class="footer"> 
+          <div class="footer__container container"> 
+            <a class="back-to-top-btn" href="#logo"><span class="arrow-up icon--up_24"></span>Nach Oben</a> 
+            <div class="row footer__row"> 
+              <div class="col-lg-3 col-xs-6 col-xxs-12 footer__menu__wrapper"> 
+                <h4 class="footer__menu__caption">Themen</h4> 
+                <ul class="footer__menu"> 
+                  <li class="footer__menu__item"><a href="http://www.sr.de/sr/home/nachrichten/" title="Nachrichten">Nachrichten</a></li> 
+                  <li class="footer__menu__item"><a href="http://www.sr.de/sr/home/sport/" title="Sport">Sport</a></li> 
+                  <li class="footer__menu__item"><a href="http://www.sr.de/sr/home/kultur/" title="Kultur">Kultur</a></li> 
+                  <li class="footer__menu__item"><a href="http://www.sr.de/sr/home/unterhaltung/" title="Unterhaltung">Unterhaltung</a></li> 
+                  <li class="footer__menu__item"><a href="http://www.sr.de/sr/home/ratgeber/" title="Ratgeber">Ratgeber</a></li> 
+                </ul> 
+              </div> 
+              <div class="col-lg-3 col-xs-6 col-xxs-12 footer__menu__wrapper"> 
+                <h4 class="footer__menu__caption">Radio</h4> 
+                <ul class="footer__menu"> 
+                  <li class="footer__menu__item"><a href="http://www.sr.de/sr/sr1/" title="SR 1">SR 1</a></li> 
+                  <li class="footer__menu__item"><a href="http://www.sr.de/sr/sr2/" title="SR 2">SR 2</a></li> 
+                  <li class="footer__menu__item"><a href="http://www.sr.de/sr/sr3/" title="SR 3">SR 3</a></li> 
+                  <li class="footer__menu__item"><a href="http://www.unserding.de" title="UNSERDING">UNSERDING</a></li> 
+                  <li class="footer__menu__item"><a href="http://www.sr.de/sr/antennesaar/" title="Antenne Saar">Antenne Saar</a></li> 
+                </ul> 
+              </div> 
+              <div class="clearfix hidden-lg"></div> 
+              <div class="col-lg-3 col-xs-6 col-xxs-12 footer__menu__wrapper"> 
+                <h4 class="footer__menu__caption">Mediathek</h4> 
+                <ul class="footer__menu"> 
+                  <li class="footer__menu__item"><a href="http://www.sr-mediathek.de" title="Startseite">Startseite</a></li> 
+                  <li class="footer__menu__item"><a href="http://www.sr-mediathek.de/index.php?seite=2" title="Video">Video</a></li> 
+                  <li class="footer__menu__item"><a href="http://www.sr-mediathek.de/index.php?seite=3" title="Audio">Audio</a></li> 
+                  <li class="footer__menu__item"><a href="http://www.sr-mediathek.de/index.php?seite=4" title="Podcast">Podcast</a></li> 
+                </ul> 
+              </div> 
+              <div class="col-lg-3 col-xs-6 col-xxs-12 footer__menu__wrapper"> 
+                <h4 class="footer__menu__caption">Fernsehen</h4> 
+                <ul class="footer__menu"> 
+                  <li class="footer__menu__item"><a href="http://www.sr.de/sr/fernsehen/" title="SR Fernsehen">SR Fernsehen</a></li> 
+                  <li class="footer__menu__item"><a href="http://www.sr.de/sr/fernsehen/" title="Programmvorschau">Programmvorschau</a></li> 
+                  <li class="footer__menu__item"><a href="http://www.sr.de/sr/fernsehen/" title="Sendungen A-Z">Sendungen A-Z</a></li> 
+                  <li class="footer__menu__item"><a href="http://livestream.sr-online.de/index_live.html" title="Livestream">Livestream</a></li> 
+                </ul> 
+              </div> 
+            </div> 
+            <div class="row footer__row"> 
+              <div class="col-lg-3 col-xs-6 col-xxs-12 footer__menu__wrapper"> 
+                <h4 class="footer__menu__caption">Service</h4> 
+                <ul class="footer__menu"> 
+                  <li class="footer__menu__item"><a href="http://www.sr.de/sr/home/der_sr/service/artikel8708.html" title="Kontakt">Kontakt</a></li> 
+                  <li class="footer__menu__item"><a href="http://www.sr.de/sr/home/der_sr/service/newsletter/" title="Newsletter">Newsletter</a></li> 
+                  <li class="footer__menu__item"><a href="http://www.sr.de/sr/home/der_sr/sr_de_hilfe100.html" title="Hilfe">Hilfe</a></li> 
+                  <li class="footer__menu__item"><a href="http://www.saartext.de" title="SAARTEXT">SAARTEXT</a></li> 
+                </ul> 
+              </div> 
+              <div class="col-lg-3 col-xs-6 col-xxs-12 footer__menu__wrapper"> 
+                <h4 class="footer__menu__caption">Der SR</h4> 
+                <ul class="footer__menu"> 
+                  <li class="footer__menu__item"><a href="http://www.sr.de/sr/home/der_sr/wir_uber_uns/" title="Wir über uns">Wir über uns</a></li> 
+                  <li class="footer__menu__item"><a href="http://www.sr.de/sr/home/der_sr/kommunikation/" title="Kommunikation">Kommunikation</a></li> 
+                  <li class="footer__menu__item"><a href="http://www.sr.de/sr/home/der_sr/job_karriere/stellenangebote/index.html" title="Stellenangebote">Stellenangebote</a></li> 
+                  <li class="footer__menu__item"><a href="http://www.sr.de/sr/home/der_sr/unternehmen/impressum/" title="Impressum">Impressum</a></li> 
+                  <li class="footer__menu__item"><a href="http://www.sr.de/sr/home/der_sr/unternehmen/datenschutzerklarung/" title="Datenschutz">Datenschutz</a></li> 
+                  <li class="footer__menu__item"><a href="http://www.drp-orchester.de" title="Deutsche Radio Philharmonie Saarbrücken Kaiserslautern">Deutsche Radio Philharmonie Saarbrücken Kaiserslautern</a></li> 
+                </ul> 
+              </div> 
+              <div class="clearfix hidden-lg"></div> 
+              <div class="col-lg-3 col-xs-6 col-xxs-12 footer__menu__wrapper"> 
+                <h4 class="footer__menu__caption">SR Apps</h4> 
+                <ul class="footer__menu"> 
+                  <li class="footer__menu__item"><a href="http://www.sr.de/sr/home/der_sr/service/sr-online_mobil/sr_apps_sammelseite100.html" title="iOS">iOS</a></li> 
+                  <li class="footer__menu__item"><a href="http://www.sr.de/sr/home/der_sr/service/sr-online_mobil/sr_apps_sammelseite100.html" title="Android">Android</a></li> 
+                  <li class="footer__menu__item"><a href="http://www.sr.de/sr/home/der_sr/service/sr-online_mobil/sr_apps_sammelseite100.html" title="Windows">Windows</a></li> 
+                </ul> 
+              </div> 
+              <div class="col-lg-3 col-xs-6 col-xxs-12 footer__menu__wrapper"> 
+                <h4 class="footer__menu__caption">Social Media</h4> 
+                <ul class="footer__menu"> 
+                  <li class="footer__menu__item"><a href="http://www.sr.de/sr/home/der_sr/service/social_media-angebote_des_sr/social_media_facebook_twitter100.html" title="Facebook">Facebook</a></li> 
+                  <li class="footer__menu__item"><a href="http://www.sr.de/sr/home/der_sr/service/social_media-angebote_des_sr/social_media_facebook_twitter100.html" title="Twitter">Twitter</a></li> 
+                  <li class="footer__menu__item"><a href="http://www.sr.de/sr/home/der_sr/service/social_media-angebote_des_sr/social_media_facebook_twitter100.html" title="YouTube">YouTube</a></li> 
+                </ul> 
+              </div> 
+            </div> 
+            <div>
+               Der 
+              <span class="icon--sr"></span> ist Mitglied der 
+              <span class="icon--ard_logo"></span> 
+            </div> 
+          </div> 
+        </div> 
+      </footer> 
+    <div aria-hidden="true" aria-labelledby="accessibilityModal" class="modal fade accessibility" id="accessibilityModal" role="dialog" tabindex="-1">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h3 class="modal-title text--module-header">Anzeige &amp; Lesbarkeit</h3>
+          </div>
+          <div class="modal-body">
+            <div class="accessibility__zooming">
+              <h4>Textgröße: <span data-accessibility-value="zooming">100 %</span></h4>
+              <button class="btn" data-accessibility="zooming" data-accessibility-value="reset" type="button">100 %</button>
+              <button class="btn zooming__decrease" data-accessibility="zooming" data-accessibility-value="decrease" type="button">A - </button>
+              <button class="btn zooming__increase" data-accessibility="zooming" data-accessibility-value="increase" type="button">A + </button>
+            </div>
+            <div class="accessibility__contrast">
+              <h4>Kontrast: <span data-accessibility-value="contrast">Normal</span></h4>
+              <div class="btn__group">
+                <div class="btn__group__wrapper">
+                  <button class="btn btn--active contrast__normal" data-accessibility="contrast" data-accessibility-value="normal" type="button">Normal</button>
+                  <button class="btn contrast__max" data-accessibility="contrast" data-accessibility-value="maximal" type="button">Maximal</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button class="btn" data-dismiss="modal" type="button">Schließen</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div aria-hidden="true" aria-labelledby="facebookModal" class="modal fade" id="facebookModal" role="dialog" tabindex="-1">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h3 class="modal-title text--module-header">Wollen Sie SR.de wirklich verlassen?</h3>
+          </div>
+          <div class="modal-body">
+            <p>Viele Soziale Netzwerke wie Facebook oder Youtube erfüllen nicht die hohen Datenschutz-Standards des SR. Deshalb solltet Ihr bei diesen Anbietern besonders auf Eure persönlichen Daten achten. </p>
+            <p>Unser Tipp: Nur das posten und angeben, was Ihr theoretisch jedem Internetnutzer zeigen würdet. Außerdem solltet Ihr die voreingestellten Datenschutzeinstellungen der jeweiligen Anbieter überprüfen.</p>
+          </div>
+          <div class="modal-footer">
+            <button class="btn" data-dismiss="modal" type="button">Abbrechen</button>
+            <button class="btn" type="button">Artikel teilen</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div aria-hidden="true" aria-labelledby="share-modal" class="modal fade" id="share-modal" role="dialog" tabindex="-1">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h3 class="modal-title text--module-header">Wollen Sie SR.de wirklich verlassen?</h3>
+          </div>
+          <div class="modal-body">
+            <p>Viele Soziale Netzwerke wie Facebook oder Youtube erfüllen nicht die hohen Datenschutz-Standards des SR. Deshalb solltet Ihr bei diesen Anbietern besonders auf Eure persönlichen Daten achten. </p>
+            <p>
+
+Unser Tipp: Nur das posten und angeben, was Ihr theoretisch jedem Internetnutzer zeigen würdet. Außerdem solltet Ihr die voreingestellten Datenschutzeinstellungen der jeweiligen Anbieter überprüfen.</p>
+          </div>
+          <div class="modal-footer">
+            <form action="https://www.facebook.com/sharer/sharer.php" method="get" target="_blank">
+              <input name="u" type="hidden" value="http://www.sr.de">
+              <button class="btn" data-dismiss="modal" type="button">Abbrechen </button>
+              <a class="btn link" href="#" target="_blank">Weiter</a>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div aria-hidden="true" aria-labelledby="lightbox" class="modal fade lightbox lightbox-pg" id="lightbox" role="dialog" tabindex="-1">
+      <div class="modal-dialog">
+        <button aria-label="Close" class="close" data-dismiss="modal" type="button"><span aria-hidden="true"></span></button>
+        <div class="wrapper"></div>
+      </div>
+    </div>
+<script type="text/javascript">
+    <!--
+    xtnv = document;
+    xtsd = "https://logs1279";
+    xtsite = "519531";
+    xtn2 = "";
+    xtpage = "";
+    xtdi = "";
+    xt_multc = "";
+    xt_an = "";
+    xt_ac = ""; 
+
+    if (window.xtparam!=null){window.xtparam+="&ac="+xt_ac+"&an="+xt_an+xt_multc;}
+    else{window.xtparam="&ac="+xt_ac+"&an="+xt_an+xt_multc;};
+    //-->
+</script>
+<script type="text/javascript" src="sr_player/xtcore.js"></script>
+<noscript>
+	    <img width="1" height="1" alt="" src="https://logs1279.xiti.com/hit.xiti?s=519531&s2=&p=&di=&an=&ac=" >
+</noscript>
+
+<script src="/js/ardplayer-3.8.7.min.js"></script>
+<script src="/libs/ardplayer-3.8.7/addons/webvtt/js/AddonWebVTT.js"></script>
+<script src="/js/libs.min.js"></script>
+<script src="/js/bootstrap-plugins.min.js"></script>
+<script src="/js/modules.min.js?5"></script>
+<script>
+	$(function() {
+		$("body").removeClass("no-js");
+		function loadJS(u){var r = document.getElementsByTagName( "script" )[ 0 ], s = document.createElement( "script" );s.src = u;r.parentNode.insertBefore( s, r );}
+		if (!(navigator.userAgent.match(/IEMobile\/10\.0/))) {
+			loadJS("/libs/picturefill/picturefill.js");
+		}
+	});
+
+	// Bei Android >= 5.0.0 kein HLS ausspielen!
+	/*
+	var ua = navigator.userAgent;
+	if( ua.indexOf("Android") >= 0 ) {
+		var androidversion = parseFloat(ua.slice(ua.indexOf("Android")+8)); 
+		if (androidversion >= 5.0) {
+			var amMessage = 'Öffnen Sie den unten aufgeführten Link in einem Player Ihrer Wahl. Falls Sie noch keinen geeigneten Player besitzen, empfehlen wir Ihnen den VLC Player oder den MX Player. Diese können über den Playstore bezogen werden.<br><br><a href="' + mediaURLs + '"><center><b>LIVESTREAM</b></center></a><br><br>';
+			var amTitel = document.createElement('h1');
+			amTitel.className = "background-title";
+			amTitel.innerHTML = "<strong>Hinweis: Mögliche Alternative</strong>";
+	
+			$('.article__content').prepend(amMessage);
+			$('.article__content').prepend(amTitel);
+		}
+	}*/
+
+	// Browserweiche fuer iOS <= 5
+	function iOSversion() {
+		if (/iP(hone|od|ad)/.test(navigator.platform)) {
+			var v = (navigator.appVersion).match(/OS (\d+)_(\d+)_?(\d+)?/);
+			return [parseInt(v[1], 10), parseInt(v[2], 10), parseInt(v[3] || 0, 10)];
+		}
+	}
+	if (/iP(hone|od|ad)/.test(navigator.platform)) {
+		ver = iOSversion();
+		if (ver[0] <= 5) {
+			document.getElementById('video').innerHTML = "";	
+			var mediaObject = document.createElement("video");
+			mediaObject.width = "512";
+			mediaObject.height = "288";
+			mediaObject.poster = 'http://livestream.sr-online.de/img/logo_sr_fernsehen_M.png';
+			mediaObject.controls = true;
+			var mediaObjectStream = document.createElement("source");
+			mediaObjectStream.src = mediaURLs;
+			mediaObjectStream.type = "video/mp4";
+			mediaObjectStream.innerHTML = "Ihr Browser unterst&uuml;tzt kein HTML5.";	
+			mediaObject.appendChild(mediaObjectStream);		
+			document.getElementById("video").appendChild(mediaObject);
+		}	
+	}
+</script>
+<script src="/js/validatorLang.js"></script>
+<script src="/js/init.js?5"></script>
+<script type="text/javascript" src="https://seccdn-gl.imrworldwide.com/novms/js/2/ggcmb510.js"></script>
+<script type="text/javascript" src="/js/AgfPixelAdapter.js"></script>
+<script src="/js/ardplayer.js?agf"></script>
+<script src="https://www.gstatic.com/cv/js/sender/v1/cast_sender.js" type="text/javascript"></script>
+<script src="js/gcast.js" type="text/javascript"></script>
+				
+			</div>
+			<div id="ivw">
+				
+
+<!-- SZM 2.0 -->
+<script type="text/javascript">
+jQuery(document).ready(function() {
+     window.setTimeout(function() {
+         var ak_stat = "sronline";
+         var ak_mobi = "mobsronl";
+    
+         function isStringDetected(value) {
+             var regexp = new RegExp(value, "gi");
+             return (regexp.test(navigator.appVersion) || regexp.test (navigator.userAgent)) ? true : false;
+         }
+         
+         function isTablet() {
+             if(isStringDetected("iPad|Windows NT|Kindle|PlayBook") || (isStringDetected("Android") && !isStringDetected("Mobile"))) {
+                  return true;
+                  }
+             return false;
+             }
+                                      
+             /* SZMnG-Tag Responsiv-Weiche */
+             jQuery.ajaxSetup({ cache: true });
+             jQuery.getScript("https://script.ioam.de/iam.js").done(function() {
+                 var isMobil = typeof orientation!='undefined' ? true:false;
+                 if(isTablet()) { isMobil = false; } // Tablets zählen stationär
+                 if(!isMobil) {
+                    var iam_data = {
+                       "st" : ak_stat,
+                       "cp" : "Mediathek Stationaer",
+                       "co" : "MT/Meine Traumreise vom Zürichsee an die Ostsee",
+                       };
+                 
+                 } else {
+                    var iam_data = {
+                       "st" : ak_mobi,
+                       "cp" : "Mediathek Mobil",
+                       "co" : "MT/Meine Traumreise vom Zürichsee an die Ostsee",
+                       };
+                 }
+                                                                                                
+                 iom.c(iam_data,1);
+             
+             });
+       }, 1);
+    });
+</script>
+<!-- /SZM -->
+			</div>
+				</body>
+</html>
