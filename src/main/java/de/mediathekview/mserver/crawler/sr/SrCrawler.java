@@ -6,7 +6,6 @@ import de.mediathekview.mlib.messages.listener.MessageListener;
 import de.mediathekview.mserver.base.config.MServerConfigManager;
 import de.mediathekview.mserver.base.messages.ServerMessages;
 import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
-import de.mediathekview.mserver.crawler.basic.CrawlerUrlDTO;
 import de.mediathekview.mserver.crawler.sr.tasks.SrTopicArchivePageTask;
 import de.mediathekview.mserver.crawler.sr.tasks.SrTopicsOverviewPageTask;
 import de.mediathekview.mserver.progress.listeners.SenderProgressListener;
@@ -36,12 +35,12 @@ public class SrCrawler extends AbstractCrawler {
   protected RecursiveTask<Set<Film>> createCrawlerTask() {
     try {
       SrTopicsOverviewPageTask overviewTask = new SrTopicsOverviewPageTask();
-      ConcurrentLinkedQueue<CrawlerUrlDTO> shows = forkJoinPool.submit(overviewTask).get();
+      ConcurrentLinkedQueue<SrTopicUrlDTO> shows = forkJoinPool.submit(overviewTask).get();
 
       printMessage(ServerMessages.DEBUG_ALL_SENDUNG_FOLGEN_COUNT, getSender().getName(), shows.size());
 
       SrTopicArchivePageTask archiveTask = new SrTopicArchivePageTask(this, shows);
-      Set<CrawlerUrlDTO> films = forkJoinPool.submit(archiveTask).get();
+      Set<SrTopicUrlDTO> films = forkJoinPool.submit(archiveTask).get();
 
       printMessage(ServerMessages.DEBUG_ALL_SENDUNG_FOLGEN_COUNT, getSender().getName(), films.size());
       

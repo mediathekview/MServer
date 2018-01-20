@@ -1,6 +1,6 @@
 package de.mediathekview.mserver.crawler.sr.tasks;
 
-import de.mediathekview.mserver.crawler.basic.CrawlerUrlDTO;
+import de.mediathekview.mserver.crawler.sr.SrTopicUrlDTO;
 import de.mediathekview.mserver.crawler.sr.SrConstants;
 import de.mediathekview.mserver.testhelper.JsoupMock;
 import java.util.HashMap;
@@ -19,16 +19,16 @@ import org.powermock.modules.junit4.PowerMockRunner;
 @PrepareForTest({Jsoup.class})
 public class SrTopicsOverviewPageTaskTest {
   
-  private final CrawlerUrlDTO[] expectedUrls = new CrawlerUrlDTO[] {
-    new CrawlerUrlDTO(String.format(SrConstants.URL_SHOW_ARCHIVE_PAGE, "MA", 1)),
-    new CrawlerUrlDTO(String.format(SrConstants.URL_SHOW_ARCHIVE_PAGE, "SR2_ME_P", 1)),
-    new CrawlerUrlDTO(String.format(SrConstants.URL_SHOW_ARCHIVE_PAGE, "MT", 1)),
-    new CrawlerUrlDTO(String.format(SrConstants.URL_SHOW_ARCHIVE_PAGE, "AS_MEZI", 1)),
-    new CrawlerUrlDTO(String.format(SrConstants.URL_SHOW_ARCHIVE_PAGE, "MHAH", 1)),
-    new CrawlerUrlDTO(String.format(SrConstants.URL_SHOW_ARCHIVE_PAGE, "SR2_MK", 1)),
-    new CrawlerUrlDTO(String.format(SrConstants.URL_SHOW_ARCHIVE_PAGE, "SR2_MUW", 1)),
-    new CrawlerUrlDTO(String.format(SrConstants.URL_SHOW_ARCHIVE_PAGE, "NIES_A", 1)),
-    new CrawlerUrlDTO(String.format(SrConstants.URL_SHOW_ARCHIVE_PAGE, "ZMANN", 1))
+  private final SrTopicUrlDTO[] expectedUrls = new SrTopicUrlDTO[] {
+    new SrTopicUrlDTO("mag's", String.format(SrConstants.URL_SHOW_ARCHIVE_PAGE, "MA", 1)),
+    new SrTopicUrlDTO("Medienwelt", String.format(SrConstants.URL_SHOW_ARCHIVE_PAGE, "SR2_ME_P", 1)),
+    new SrTopicUrlDTO("Meine Traumreise", String.format(SrConstants.URL_SHOW_ARCHIVE_PAGE, "MT", 1)),
+    new SrTopicUrlDTO("mezz'ora italiana", String.format(SrConstants.URL_SHOW_ARCHIVE_PAGE, "AS_MEZI", 1)),
+    new SrTopicUrlDTO("Mit Herz am Herd", String.format(SrConstants.URL_SHOW_ARCHIVE_PAGE, "MHAH", 1)),
+    new SrTopicUrlDTO("MusikKompass", String.format(SrConstants.URL_SHOW_ARCHIVE_PAGE, "SR2_MK", 1)),
+    new SrTopicUrlDTO("MusikWelt", String.format(SrConstants.URL_SHOW_ARCHIVE_PAGE, "SR2_MUW", 1)),
+    new SrTopicUrlDTO("Nachrichten in einfacher Sprache", String.format(SrConstants.URL_SHOW_ARCHIVE_PAGE, "NIES_A", 1)),
+    new SrTopicUrlDTO("2 Mann für alle Gänge", String.format(SrConstants.URL_SHOW_ARCHIVE_PAGE, "ZMANN", 1))
   };
   
   @Test
@@ -48,7 +48,7 @@ public class SrTopicsOverviewPageTaskTest {
 
     JsoupMock.mock(urlMapping);
     
-    ConcurrentLinkedQueue<CrawlerUrlDTO> actual = target.call();
+    ConcurrentLinkedQueue<SrTopicUrlDTO> actual = target.call();
     assertThat(actual, notNullValue());
     assertThat(actual, Matchers.containsInAnyOrder(expectedUrls));
   }  

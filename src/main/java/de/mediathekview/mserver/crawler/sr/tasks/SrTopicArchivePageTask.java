@@ -4,7 +4,7 @@ import de.mediathekview.mserver.base.Consts;
 import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
 import de.mediathekview.mserver.crawler.basic.AbstractDocumentTask;
 import de.mediathekview.mserver.crawler.basic.AbstractUrlTask;
-import de.mediathekview.mserver.crawler.basic.CrawlerUrlDTO;
+import de.mediathekview.mserver.crawler.sr.SrTopicUrlDTO;
 import de.mediathekview.mserver.crawler.sr.SrConstants;
 import java.util.Optional;
 import java.util.Set;
@@ -14,7 +14,7 @@ import org.apache.logging.log4j.Logger;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
 
-public class SrTopicArchivePageTask extends AbstractDocumentTask<CrawlerUrlDTO, CrawlerUrlDTO> {
+public class SrTopicArchivePageTask extends AbstractDocumentTask<SrTopicUrlDTO, SrTopicUrlDTO> {
 
   private static final Logger LOG = LogManager.getLogger(SrTopicArchivePageTask.class);
   
@@ -22,30 +22,30 @@ public class SrTopicArchivePageTask extends AbstractDocumentTask<CrawlerUrlDTO, 
   private static final String SHOW_LINK_SELECTOR = "h3.teaser__text__header a";
   
   public SrTopicArchivePageTask(final AbstractCrawler aCrawler,
-      final ConcurrentLinkedQueue<CrawlerUrlDTO> aUrlToCrawlDTOs) {
+      final ConcurrentLinkedQueue<SrTopicUrlDTO> aUrlToCrawlDTOs) {
     super(aCrawler, aUrlToCrawlDTOs);
   }
   
   @Override
-  protected void processDocument(CrawlerUrlDTO aUrlDTO, Document aDocument) {
-    parsePage(aDocument);    
+  protected void processDocument(SrTopicUrlDTO aUrlDTO, Document aDocument) {
+    parsePage(aUrlDTO.getTheme(), aDocument);    
 
     Optional<String> nextPageUrl = getNextPage(aDocument);
     if (nextPageUrl.isPresent()) {
-      processNextPage(nextPageUrl.get());
+      processNextPage(aUrlDTO.getTheme(), nextPageUrl.get());
     }
   }
 
   @Override
-  protected AbstractUrlTask<CrawlerUrlDTO, CrawlerUrlDTO> createNewOwnInstance(ConcurrentLinkedQueue<CrawlerUrlDTO> aURLsToCrawl) {
+  protected AbstractUrlTask<SrTopicUrlDTO, SrTopicUrlDTO> createNewOwnInstance(ConcurrentLinkedQueue<SrTopicUrlDTO> aURLsToCrawl) {
     return new SrTopicArchivePageTask(crawler, aURLsToCrawl);
   }  
   
-  private void parsePage(Document aDocument) {
+  private void parsePage(String aTheme, Document aDocument) {
     Elements links = aDocument.select(SHOW_LINK_SELECTOR);
     links.forEach(element -> {
       String url = element.attr(Consts.ATTRIBUTE_HREF);
-      this.taskResults.add(new CrawlerUrlDTO(SrConstants.URL_BASE + url));
+      this.taskResults.add(new SrTopicUrlDTO(aTheme, SrConstants.URL_BASE + url));
     });    
   }
   
@@ -58,10 +58,10 @@ public class SrTopicArchivePageTask extends AbstractDocumentTask<CrawlerUrlDTO, 
     return Optional.empty();
   }
   
-  private void processNextPage(String aNextPageId) {
-    final ConcurrentLinkedQueue<CrawlerUrlDTO> urlDtos = new ConcurrentLinkedQueue<>();
-    urlDtos.add(new CrawlerUrlDTO(aNextPageId));
-    Set<CrawlerUrlDTO> x = createNewOwnInstance(urlDtos).invoke();
+  private void processNextPage(String aTheme, String aNextPageId) {
+    final ConcurrentLinkedQueue<SrTopicUrlDTO> urlDtos = new ConcurrentLinkedQueue<>();
+    urlDtos.add(new SrTopicUrlDTO(aTheme, aNextPageId));
+    Set<SrTopicUrlDTO> x = createNewOwnInstance(urlDtos).invoke();
     taskResults.addAll(x);
   }  
 }

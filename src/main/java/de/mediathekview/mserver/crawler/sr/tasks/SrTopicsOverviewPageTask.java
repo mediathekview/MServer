@@ -3,8 +3,8 @@ package de.mediathekview.mserver.crawler.sr.tasks;
 import de.mediathekview.mserver.base.Consts;
 import de.mediathekview.mserver.base.utils.UrlParseException;
 import de.mediathekview.mserver.base.utils.UrlUtils;
-import de.mediathekview.mserver.crawler.basic.CrawlerUrlDTO;
 import de.mediathekview.mserver.crawler.sr.SrConstants;
+import de.mediathekview.mserver.crawler.sr.SrTopicUrlDTO;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -17,7 +17,7 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
 
-public class SrTopicsOverviewPageTask implements Callable<ConcurrentLinkedQueue<CrawlerUrlDTO>> {
+public class SrTopicsOverviewPageTask implements Callable<ConcurrentLinkedQueue<SrTopicUrlDTO>> {
 
   private static final Logger LOG = LogManager.getLogger(SrTopicsOverviewPageTask.class);
   
@@ -28,8 +28,8 @@ public class SrTopicsOverviewPageTask implements Callable<ConcurrentLinkedQueue<
   private static final String SHOW_LINK_SELECTOR = "h3.teaser__text__header a";
   
   @Override
-  public ConcurrentLinkedQueue<CrawlerUrlDTO> call() throws Exception {
-    final ConcurrentLinkedQueue<CrawlerUrlDTO> results = new ConcurrentLinkedQueue<>();
+  public ConcurrentLinkedQueue<SrTopicUrlDTO> call() throws Exception {
+    final ConcurrentLinkedQueue<SrTopicUrlDTO> results = new ConcurrentLinkedQueue<>();
     
     // URLs für Seiten parsen
     final Document document = Jsoup.connect(SrConstants.URL_OVERVIEW_PAGE).get();
@@ -74,15 +74,15 @@ public class SrTopicsOverviewPageTask implements Callable<ConcurrentLinkedQueue<
     return results;
   }
   
-  private ConcurrentLinkedQueue<CrawlerUrlDTO> parseOverviewPage(Document aDocument) {
-    final ConcurrentLinkedQueue<CrawlerUrlDTO> results = new ConcurrentLinkedQueue<>();
+  private ConcurrentLinkedQueue<SrTopicUrlDTO> parseOverviewPage(Document aDocument) {
+    final ConcurrentLinkedQueue<SrTopicUrlDTO> results = new ConcurrentLinkedQueue<>();
     
     Elements links = aDocument.select(SHOW_LINK_SELECTOR);
     links.forEach(element -> {
       try {
         Optional<String> showShort = UrlUtils.getUrlParameterValue(element.attr(Consts.ATTRIBUTE_HREF), URL_PARAMETER_SHOW_SHORTNAME);
         if (showShort.isPresent()) {
-          results.add(createDto(showShort.get()));
+          results.add(createDto(element.text(), showShort.get()));
         }
       } catch (UrlParseException ex) {
         LOG.fatal(ex);
@@ -92,8 +92,8 @@ public class SrTopicsOverviewPageTask implements Callable<ConcurrentLinkedQueue<
     return results;
   }
   
-  private static CrawlerUrlDTO createDto(String showShort) {
-    String url = String.format(SrConstants.URL_SHOW_ARCHIVE_PAGE, showShort, 1);
-    return new CrawlerUrlDTO(url);
+  private static SrTopicUrlDTO createDto(String aTheme, String aShowShort) {
+    String url = String.format(SrConstants.URL_SHOW_ARCHIVE_PAGE, aShowShort, 1);
+    return new SrTopicUrlDTO(aTheme, url);
   }
 }
