@@ -44,7 +44,7 @@ public class SrfSendungenOverviewPageTaskTest {
   }
     
   @Test
-  public void test() throws IOException, Exception {
+  public void test() throws Exception {
     
     JsoupMock.mock(SrfConstants.OVERVIEW_PAGE_URL, htmlFile);
     ConcurrentLinkedQueue<CrawlerUrlDTO> actual = target.call();

@@ -31,7 +31,7 @@ public class SrfSendungenOverviewPageTask implements Callable<ConcurrentLinkedQu
         .registerTypeAdapter(Set.class, new SrfSendungenOverviewJsonDeserializer())
         .create();
       
-      document.select(JSON_SELECTOR).forEach((dataElement) -> {
+      document.select(JSON_SELECTOR).forEach(dataElement -> {
         if (dataElement.hasAttr(ATTRIBUTE_DATA)) {
           String jsonData = dataElement.attr(ATTRIBUTE_DATA);
           

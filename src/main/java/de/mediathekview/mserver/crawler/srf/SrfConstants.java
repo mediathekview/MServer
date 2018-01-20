@@ -2,6 +2,8 @@ package de.mediathekview.mserver.crawler.srf;
 
 public final class SrfConstants {
 
+  private SrfConstants() {}
+  
   /**
    * URL für Übersichtsseite der Mediathek
    */
