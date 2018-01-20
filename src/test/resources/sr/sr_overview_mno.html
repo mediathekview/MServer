@@ -1,0 +1,742 @@
+	<!doctype html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head lang="de" prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb#"> 
+    <meta charset="UTF-8"> 
+    <meta content="IE=edge" http-equiv="x-ua-compatible"> 
+    <meta content="width=device-width, initial-scale=1, user-scalable=no" name="viewport"> 
+    <meta content="SR Mediathek :: A-Z" lang="de" name="DC.title"> 
+    <meta content="Saarländischer Rundfunk" name="DC.creator"> 
+    <meta content="25.11.2015" name="DC.date"> 
+    <meta content="" lang="de" name="DC.description"> 
+    <meta content="de" name="DC.language"> 
+    <meta content="Text" name="DC.type"> 
+    <meta content="de_DE" name="og:locale"> 
+    <meta content="SR Mediathek :: A-Z" name="og:title"> 
+    <meta content="article" name="og:type"> 
+    <meta content="/index.php" name="og:url"> 
+    <link type="text/css" href="css/copytext.css" rel="stylesheet" />
+    <link type="text/css" href="css/styles.css" rel="stylesheet" />
+    <link type="text/css" href="libs/slickCarousel/slick.css" rel="stylesheet" />
+    <link type="text/css" href="libs/timeline/css/timeline.css" rel="stylesheet" /> 
+    <link type="text/css" href="css/bugfix.css?1" rel="stylesheet" />
+	<title>SR-Mediathek.de: A-Z</title>
+		<meta property="og:site_name" content="SR" />
+	<meta property="og:title" content="SR Mediathek :: A-Z"/>
+	<link rel="apple-touch-icon-precomposed" href="/img/touch_icon_144_2.png" />
+	<link rel="image_src" type="image/jpeg" href="" />
+    <script type="text/javascript">
+     
+    var mediaURLs = ['http://mediastorage01.sr-online.de/Audio/'];
+    var mediaTitles = ['A-Z'];
+    var mediaThumbs = [''];
+    var playerId = 'player'; 
+    
+    function iOSversion() {
+		if (/iP(hone|od|ad)/.test(navigator.platform)) {
+		  var v = (navigator.appVersion).match(/OS (\d+)_(\d+)_?(\d+)?/);
+		  return [parseInt(v[1], 10), parseInt(v[2], 10), parseInt(v[3] || 0, 10)];
+		}
+		}
+		ver = iOSversion();
+		if (ver[0] <= 5) {
+		      document.getElementById('video').innerHTML = "";
+		
+		      var fallbackMC;
+		      function reqListener () {
+		
+		              fallbackMC = JSON.parse(this.responseText);
+		              fbmc_type       = fallbackMC._type;
+		              fbmc_image      = fallbackMC._previewImage;
+		
+		              if (fbmc_type == 'video') {
+		                      fbmc_stream     = fallbackMC._mediaArray['1']._mediaStreamArray['2']._stream['1'];
+		                      var mediaObject = document.createElement("video");
+		                      mediaObject.width = "512";
+		                      mediaObject.height = "288";
+		                      mediaObject.poster = fbmc_image;
+		                      mediaObject.controls = true;
+		                      var mediaObjectStream = document.createElement("source");
+		                      mediaObjectStream.src = fbmc_stream;
+		                      mediaObjectStream.type = "video/mp4";
+		                      mediaObjectStream.innerHTML = "Ihr Browser unterst&uuml;tzt kein HTML5.";
+		                      mediaObject.appendChild(mediaObjectStream);
+		
+		                      document.getElementById("video").appendChild(mediaObject);
+		              }
+		
+		              if (fbmc_type == 'audio') {
+		                      fbmc_stream     = fallbackMC._mediaArray['1']._mediaStreamArray['0']._stream;
+		                      var mediaObject = document.createElement("audio");
+		                      mediaObject.style = "width: 100%; height: 30px";
+		                      mediaObject.controls = true;
+		                      mediaObject.autobuffer = true;;
+		                      var mediaObjectStream = document.createElement("source");
+		                      mediaObjectStream.src = fbmc_stream;
+		                      mediaObjectStream.type = "audio/mp4";
+		                      mediaObjectStream.innerHTML = "Ihr Browser unterst&uuml;tzt kein HTML5.";
+		                      mediaObject.appendChild(mediaObjectStream);
+		
+		                      document.getElementById("video").appendChild(mediaObject);
+		              }
+		};
+		var oReq = new XMLHttpRequest();
+		oReq.onload = reqListener;
+		oReq.open("get", "sr_player/mc.php?id=&tbl=&pnr=0", true);
+		oReq.send();
+	}   
+    </script>
+
+			
+</head>
+<body class="sr no-js">        <header>
+            <nav>
+                <div class="navigation navigation--sr">
+                    <ul class="skiplinks">
+                        <li><a title="[ALT + 1]" accesskey="1" href="#">Hauptnavigation</a>
+                        </li>
+                        <li><a title="[ALT + 2]" accesskey="2" href="#">Zum Inhalt</a>
+                        </li>
+                        <li><a title="[ALT + 5]" accesskey="5" href="#">Zur Suche</a>
+                        </li>
+                        <li><a title="[ALT + 6]" accesskey="6" href="#">Zum Seitenanfang</a>
+                        </li>
+                    </ul>
+                    <div class="toggle-button_wrapper">	<a href="index.php" class="toggle-button open">
+	            		<span class="toggle-icon open">
+	            			<svg id="burger-icon1" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
+	            				 width="18px" height="18px" viewbox="0 0 22 22" enable-background="new 0 0 18 18">
+	            				<!-- SVG looks blurry on some mobile browsers (android native for example) - With a text tag within the svg renders sharp -->
+	            				<text transform="matrix(1 0 0 1 7.1079 13.5215)" opacity="0" font-family="'MyriadPro-Regular'" font-size="12">a</text>
+	            				<g>
+	            					<rect class="toggle-icon__rect" height="3" width="18" fill="white" x="2" y="2"></rect>
+	            					<rect class="toggle-icon__rect" height="3" width="18" y="9" fill="white" x="2"></rect>
+	            					<rect class="toggle-icon__rect" height="3" width="18" y="16" fill="white" x="2"></rect>
+	            				</g>
+	            			</svg>
+	            		</span>
+
+	            		<!-- only visible for mobile devices, because css animated svg's are not supported -->
+	            		<span class="toggle-icon close">
+	            			<svg id="burger-icon2" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
+	            				 width="18px" height="18px" viewbox="0 0 22 22" enable-background="new 0 0 18 18">
+	            				<!-- SVG looks blurry on some mobile browsers (android native for example) - With a text tag within the svg renders sharp -->
+	            				<text transform="matrix(1 0 0 1 7.1079 13.5215)" opacity="0" font-family="'MyriadPro-Regular'" font-size="12">a</text>
+	            				<g>
+	            					<rect class="toggle-icon__rect" transform="translate(5, -1) rotate(45)" height="3" width="18" fill="white" x="2" y="2"></rect>
+	            					<rect class="toggle-icon__rect" transform="translate(-10, 5) rotate(-45)" height="3" width="18" y="16" fill="white" x="2"></rect>
+	            				</g>
+	            			</svg>
+	            		</span>
+	            		<span class="toggle-text visible-lg">menu</span>
+	            	</a>
+
+                    </div>
+                    <div class="channels_wrapper">
+                        <ul class="channels">
+                            <li class="channels_item channels_item--sr" style="display: block;"> <a href="http://www.sr.de" data-channel="sr" title="SR"></a>
+
+                            </li>
+                            <li class="channels_item channels_item--sr1"> <a href="http://www.sr.de/sr/sr1/" data-channel="sr1" title="SR1"></a>
+
+                            </li>
+                            <li class="channels_item channels_item--sr2"> <a href="http://www.sr.de/sr/sr2/" data-channel="sr2" title="SR2"></a>
+
+                            </li>
+                            <li class="channels_item channels_item--sr3"> <a href="http://www.sr.de/sr/sr3/" data-channel="sr3" title="SR3"></a>
+
+                            </li>
+                            <li class="channels_item channels_item--srantenne"> <a href="http://www.sr.de/sr/antennesaar/" data-channel="srantenne" title="SR Antenne"></a>
+
+                            </li>
+                            <li class="channels_item channels_item--srtv"> <a href="http://www.sr.de/sr/fernsehen/" data-channel="srtv" title="SR Fernsehen"></a>
+
+                            </li>
+                            <li class="channels_item channels_item--unserding"> <a href="http://www.unserding.de/" data-channel="unserding" title="Unser Ding"></a>
+
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="menu close">
+                        <div class="menu_wrapper">
+                            <div id="logo" class="logo"><a style="background-image: url('../svg/logos/SR_Mediathek_white.svg');" href="index.php" title="SR Logo"></a>
+                            </div>
+                            <div class="search"> <span class="accessibility-info visible-lg">
+	                            Zoom: <span class="accessibility-info__zooming">100%</span> -
+                                Kontrast: <span class="accessibility-info__contrast">normal</span>
+</span>
+                                <span class="search__icon icon--search_24 hidden-lg"></span> 
+                                <a href="#" class="search__icon  visible-lg" data-toggle="modal" data-target="#accessibilityModal">
+                                <span class="icon--help_24"></span></a>
+
+                                <form class="search__form" action="index.php?seite=9" method="post" onSubmit="return checkSuche()">
+                                	<input class="search__form__field" name="suche_nach" id="suche_nach" type="search" placeholder="Suche" tabindex="0"/>
+                                    <button class="search__form__submit" type="submit" value="" tabindex="0">
+                                    	<span class="icon--search_24"></span>
+                                    </button>
+                                </form>
+                            </div>
+                    <div class="section_wrapper">
+			<ul class="section section--sr">
+				<li class="section__item"><a href="index.php?seite=0" title="Startseite">Startseite</a></li>
+				<li class="section__item section__item--seperator"></li>
+				<li class="section__item"><a href="index.php?seite=2" title="Video">Video</a></li>
+				<li class="section__item"><a href="index.php?seite=3" title="Audio">Audio</a></li>
+				<li class="section__item"><a href="index.php?seite=4" title="Podcast">Podcast</a></li>
+				<li class="section__item section__item--seperator"></li>
+				<li class="section__item"><a href="index.php?seite=6" title="Themen">Themen</a></li>
+				<li class="section__item section__item--selected"><a href="index.php?seite=5" title="A-Z">A-Z</a>
+			</ul>                  	
+		    </div>
+                </div>
+            </div>
+        </div>
+	</nav>
+
+</header>
+	<div class="outer-wrapper">
+	
+	<div class="outer-wrapper__row">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-4">
+				<h2 class="text--module-header">A - Z</h2>
+			</div>
+			<div class="col-md-8">
+				<div class="select__filter__wrapper">
+							<form class="filter_dropdown" action="index.php?seite=5" method="post">
+				<input type="hidden" name="seite" id="seite" value="5">
+				
+										<input type="hidden" name="a_z" id="a_z" value="mno">
+				
+				<label class="control-label" style="float: left;">
+					<span class="select">
+						<select class="selectpicker" name="r" id="r" onchange="submit();">
+					<option selected value="all">alle Inhalte</option>
+											<option  value="FS">nur SR Fernsehen</option>
+										<option  value="SR1">nur SR 1</option>
+					<option  value="SR2">nur SR 2</option>
+					<option  value="SR3">nur SR 3</option>
+					<option  value="UD">nur UNSERDING</option>
+					<option  value="AntenneSaar">nur AntenneSaar</option>
+										<option  value="SRonline">nur SR.de</option>
+											</select>
+					</span>
+				</label>
+
+
+
+
+	<button class="btn hidden-for-js" type="submit">Filtern</button>	
+	</form>
+				</div>
+			</div>
+		</div>
+		<div class="row" style="margin: 0px auto; text-align: center;">
+
+									<a href="index.php?seite=5&a_z=abc" title=""><button class="btn" style="color: #034694; background: #f1f1f1 none repeat scroll 0 0;">ABC</button></a>
+									<a href="index.php?seite=5&a_z=def" title=""><button class="btn" style="color: #034694; background: #f1f1f1 none repeat scroll 0 0;">DEF</button></a>
+									<a href="index.php?seite=5&a_z=ghi" title=""><button class="btn" style="color: #034694; background: #f1f1f1 none repeat scroll 0 0;">GHI</button></a>
+									<a href="index.php?seite=5&a_z=jkl" title=""><button class="btn" style="color: #034694; background: #f1f1f1 none repeat scroll 0 0;">JKL</button></a>
+									<button class="btn">MNO</button>
+									<a href="index.php?seite=5&a_z=pqr" title=""><button class="btn" style="color: #034694; background: #f1f1f1 none repeat scroll 0 0;">PQR</button></a>
+									<a href="index.php?seite=5&a_z=stu" title=""><button class="btn" style="color: #034694; background: #f1f1f1 none repeat scroll 0 0;">STU</button></a>
+									<a href="index.php?seite=5&a_z=vwxyz" title=""><button class="btn" style="color: #034694; background: #f1f1f1 none repeat scroll 0 0;">VWXYZ</button></a>
+									<a href="index.php?seite=5&a_z=ziffern" title=""><button class="btn" style="color: #034694; background: #f1f1f1 none repeat scroll 0 0;">0...9</button></a>
+						<div>
+	<div>
+				</div>
+			</div>
+		</div>	
+		<div class="teaser__grid">	
+			<div class="row">
+<!-- SENDUNG -->
+				<div class="col-xxs-12 col-sm-6">
+					<div class="teaser teaser--picturearticle teaser--picturearticle--stext xxs-169 xs-31">
+						<div class="row">
+							<div class="col-xxs-12 col-sm-4">
+								<div class="teaser-content-holder teaser-content-holder__imageSquare">
+									<picture>
+										<a href="index.php?seite=8&sen=MA">
+											<img alt="Sendungsbild zu 'mag's'" title="Sendungsbild zu 'mag's'" src="img/sendungen/MA~_v-sr_Square_220.jpg" style="max-width: 147px; max-height: 147px;">
+										</a>
+									</picture>
+								</div>
+							</div>
+							<div class="col-xxs-12 col-sm-8 teaser__text">
+								<h3 class="teaser__text__header">
+									<span class="teaser__text__header__element teaser__text__header__element--subhead">SR Fernsehen</span>
+									<span class="teaser__text__header__element teaser__text__header__element--headline">
+										<a href="index.php?seite=8&sen=MA">mag's</a>
+									</span>
+								</h3>
+								<p class="teaser__text__paragraph">
+								0 Eintr&auml;ge								</p>
+							</div>
+						</div>
+					</div>
+				</div>
+<!-- SENDUNG -->
+				<div class="col-xxs-12 col-sm-6">
+					<div class="teaser teaser--picturearticle teaser--picturearticle--stext xxs-169 xs-31">
+						<div class="row">
+							<div class="col-xxs-12 col-sm-4">
+								<div class="teaser-content-holder teaser-content-holder__imageSquare">
+									<picture>
+										<a href="index.php?seite=8&sen=SR2_ME_P">
+											<img alt="Sendungsbild zu 'MedienWelt'" title="Sendungsbild zu 'MedienWelt'" src="img/sendungen/SR2_ME_P~_v-sr_Square_220.jpg" style="max-width: 147px; max-height: 147px;">
+										</a>
+									</picture>
+								</div>
+							</div>
+							<div class="col-xxs-12 col-sm-8 teaser__text">
+								<h3 class="teaser__text__header">
+									<span class="teaser__text__header__element teaser__text__header__element--subhead">SR 2</span>
+									<span class="teaser__text__header__element teaser__text__header__element--headline">
+										<a href="index.php?seite=8&sen=SR2_ME_P">MedienWelt</a>
+									</span>
+								</h3>
+								<p class="teaser__text__paragraph">
+								 Podcast								</p>
+							</div>
+						</div>
+					</div>
+				</div>
+<!-- SENDUNG -->
+				<div class="col-xxs-12 col-sm-6">
+					<div class="teaser teaser--picturearticle teaser--picturearticle--stext xxs-169 xs-31">
+						<div class="row">
+							<div class="col-xxs-12 col-sm-4">
+								<div class="teaser-content-holder teaser-content-holder__imageSquare">
+									<picture>
+										<a href="index.php?seite=8&sen=MT">
+											<img alt="Sendungsbild zu 'Meine Traumreise'" title="Sendungsbild zu 'Meine Traumreise'" src="img/sendungen/MT~_v-sr_Square_220.jpg" style="max-width: 147px; max-height: 147px;">
+										</a>
+									</picture>
+								</div>
+							</div>
+							<div class="col-xxs-12 col-sm-8 teaser__text">
+								<h3 class="teaser__text__header">
+									<span class="teaser__text__header__element teaser__text__header__element--subhead">SR Fernsehen</span>
+									<span class="teaser__text__header__element teaser__text__header__element--headline">
+										<a href="index.php?seite=8&sen=MT">Meine Traumreise</a>
+									</span>
+								</h3>
+								<p class="teaser__text__paragraph">
+								19 Eintr&auml;ge								</p>
+							</div>
+						</div>
+					</div>
+				</div>
+<!-- SENDUNG -->
+				<div class="col-xxs-12 col-sm-6">
+					<div class="teaser teaser--picturearticle teaser--picturearticle--stext xxs-169 xs-31">
+						<div class="row">
+							<div class="col-xxs-12 col-sm-4">
+								<div class="teaser-content-holder teaser-content-holder__imageSquare">
+									<picture>
+										<a href="index.php?seite=8&sen=AS_MEZI">
+											<img alt="Sendungsbild zu 'mezz'ora italiana'" title="Sendungsbild zu 'mezz'ora italiana'" src="img/sendungen/AS_MEZI~_v-sr_Square_220.jpg" style="max-width: 147px; max-height: 147px;">
+										</a>
+									</picture>
+								</div>
+							</div>
+							<div class="col-xxs-12 col-sm-8 teaser__text">
+								<h3 class="teaser__text__header">
+									<span class="teaser__text__header__element teaser__text__header__element--subhead">AntenneSaar</span>
+									<span class="teaser__text__header__element teaser__text__header__element--headline">
+										<a href="index.php?seite=8&sen=AS_MEZI">mezz'ora italiana</a>
+									</span>
+								</h3>
+								<p class="teaser__text__paragraph">
+								1 Eintrag								</p>
+							</div>
+						</div>
+					</div>
+				</div>
+<!-- SENDUNG -->
+				<div class="col-xxs-12 col-sm-6">
+					<div class="teaser teaser--picturearticle teaser--picturearticle--stext xxs-169 xs-31">
+						<div class="row">
+							<div class="col-xxs-12 col-sm-4">
+								<div class="teaser-content-holder teaser-content-holder__imageSquare">
+									<picture>
+										<a href="index.php?seite=8&sen=MHAH">
+											<img alt="Sendungsbild zu 'Mit Herz am Herd'" title="Sendungsbild zu 'Mit Herz am Herd'" src="img/sendungen/MHAH~_v-sr_Square_220.jpg" style="max-width: 147px; max-height: 147px;">
+										</a>
+									</picture>
+								</div>
+							</div>
+							<div class="col-xxs-12 col-sm-8 teaser__text">
+								<h3 class="teaser__text__header">
+									<span class="teaser__text__header__element teaser__text__header__element--subhead">SR Fernsehen</span>
+									<span class="teaser__text__header__element teaser__text__header__element--headline">
+										<a href="index.php?seite=8&sen=MHAH">Mit Herz am Herd</a>
+									</span>
+								</h3>
+								<p class="teaser__text__paragraph">
+								11 Eintr&auml;ge								</p>
+							</div>
+						</div>
+					</div>
+				</div>
+<!-- SENDUNG -->
+				<div class="col-xxs-12 col-sm-6">
+					<div class="teaser teaser--picturearticle teaser--picturearticle--stext xxs-169 xs-31">
+						<div class="row">
+							<div class="col-xxs-12 col-sm-4">
+								<div class="teaser-content-holder teaser-content-holder__imageSquare">
+									<picture>
+										<a href="index.php?seite=8&sen=SR2_MK">
+											<img alt="Sendungsbild zu 'MusikKompass'" title="Sendungsbild zu 'MusikKompass'" src="img/sendungen/SR2_MK~_v-sr_Square_220.jpg" style="max-width: 147px; max-height: 147px;">
+										</a>
+									</picture>
+								</div>
+							</div>
+							<div class="col-xxs-12 col-sm-8 teaser__text">
+								<h3 class="teaser__text__header">
+									<span class="teaser__text__header__element teaser__text__header__element--subhead">SR 2</span>
+									<span class="teaser__text__header__element teaser__text__header__element--headline">
+										<a href="index.php?seite=8&sen=SR2_MK">MusikKompass</a>
+									</span>
+								</h3>
+								<p class="teaser__text__paragraph">
+								0 Eintr&auml;ge								</p>
+							</div>
+						</div>
+					</div>
+				</div>
+<!-- SENDUNG -->
+				<div class="col-xxs-12 col-sm-6">
+					<div class="teaser teaser--picturearticle teaser--picturearticle--stext xxs-169 xs-31">
+						<div class="row">
+							<div class="col-xxs-12 col-sm-4">
+								<div class="teaser-content-holder teaser-content-holder__imageSquare">
+									<picture>
+										<a href="index.php?seite=8&sen=SR2_MUW">
+											<img alt="Sendungsbild zu 'MusikWelt'" title="Sendungsbild zu 'MusikWelt'" src="img/sendungen/SR2_MUW~_v-sr_Square_220.jpg" style="max-width: 147px; max-height: 147px;">
+										</a>
+									</picture>
+								</div>
+							</div>
+							<div class="col-xxs-12 col-sm-8 teaser__text">
+								<h3 class="teaser__text__header">
+									<span class="teaser__text__header__element teaser__text__header__element--subhead">SR 2</span>
+									<span class="teaser__text__header__element teaser__text__header__element--headline">
+										<a href="index.php?seite=8&sen=SR2_MUW">MusikWelt</a>
+									</span>
+								</h3>
+								<p class="teaser__text__paragraph">
+								108 Eintr&auml;ge								</p>
+							</div>
+						</div>
+					</div>
+				</div>
+<!-- SENDUNG -->
+				<div class="col-xxs-12 col-sm-6">
+					<div class="teaser teaser--picturearticle teaser--picturearticle--stext xxs-169 xs-31">
+						<div class="row">
+							<div class="col-xxs-12 col-sm-4">
+								<div class="teaser-content-holder teaser-content-holder__imageSquare">
+									<picture>
+										<a href="index.php?seite=8&sen=NIES_A">
+											<img alt="Sendungsbild zu 'Nachrichten in einfacher Sprache'" title="Sendungsbild zu 'Nachrichten in einfacher Sprache'" src="img/sendungen/NIES_A~_v-sr_Square_220.jpg" style="max-width: 147px; max-height: 147px;">
+										</a>
+									</picture>
+								</div>
+							</div>
+							<div class="col-xxs-12 col-sm-8 teaser__text">
+								<h3 class="teaser__text__header">
+									<span class="teaser__text__header__element teaser__text__header__element--subhead"></span>
+									<span class="teaser__text__header__element teaser__text__header__element--headline">
+										<a href="index.php?seite=8&sen=NIES_A">Nachrichten in einfacher Sprache</a>
+									</span>
+								</h3>
+								<p class="teaser__text__paragraph">
+								328 Eintr&auml;ge								</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>	
+	</div>
+</div>
+					
+					</div>
+					<!-- FUSS: Fusszeile mit Copyright -->
+					    <footer>
+	<div class="footer"> 
+          <div class="footer__container container"> 
+            <a class="back-to-top-btn" href="#logo"><span class="arrow-up icon--up_24"></span>Nach Oben</a> 
+            <div class="row footer__row"> 
+              <div class="col-lg-3 col-xs-6 col-xxs-12 footer__menu__wrapper"> 
+                <h4 class="footer__menu__caption">Themen</h4> 
+                <ul class="footer__menu"> 
+                  <li class="footer__menu__item"><a href="http://www.sr.de/sr/home/nachrichten/" title="Nachrichten">Nachrichten</a></li> 
+                  <li class="footer__menu__item"><a href="http://www.sr.de/sr/home/sport/" title="Sport">Sport</a></li> 
+                  <li class="footer__menu__item"><a href="http://www.sr.de/sr/home/kultur/" title="Kultur">Kultur</a></li> 
+                  <li class="footer__menu__item"><a href="http://www.sr.de/sr/home/unterhaltung/" title="Unterhaltung">Unterhaltung</a></li> 
+                  <li class="footer__menu__item"><a href="http://www.sr.de/sr/home/ratgeber/" title="Ratgeber">Ratgeber</a></li> 
+                </ul> 
+              </div> 
+              <div class="col-lg-3 col-xs-6 col-xxs-12 footer__menu__wrapper"> 
+                <h4 class="footer__menu__caption">Radio</h4> 
+                <ul class="footer__menu"> 
+                  <li class="footer__menu__item"><a href="http://www.sr.de/sr/sr1/" title="SR 1">SR 1</a></li> 
+                  <li class="footer__menu__item"><a href="http://www.sr.de/sr/sr2/" title="SR 2">SR 2</a></li> 
+                  <li class="footer__menu__item"><a href="http://www.sr.de/sr/sr3/" title="SR 3">SR 3</a></li> 
+                  <li class="footer__menu__item"><a href="http://www.unserding.de" title="UNSERDING">UNSERDING</a></li> 
+                  <li class="footer__menu__item"><a href="http://www.sr.de/sr/antennesaar/" title="Antenne Saar">Antenne Saar</a></li> 
+                </ul> 
+              </div> 
+              <div class="clearfix hidden-lg"></div> 
+              <div class="col-lg-3 col-xs-6 col-xxs-12 footer__menu__wrapper"> 
+                <h4 class="footer__menu__caption">Mediathek</h4> 
+                <ul class="footer__menu"> 
+                  <li class="footer__menu__item"><a href="http://www.sr-mediathek.de" title="Startseite">Startseite</a></li> 
+                  <li class="footer__menu__item"><a href="http://www.sr-mediathek.de/index.php?seite=2" title="Video">Video</a></li> 
+                  <li class="footer__menu__item"><a href="http://www.sr-mediathek.de/index.php?seite=3" title="Audio">Audio</a></li> 
+                  <li class="footer__menu__item"><a href="http://www.sr-mediathek.de/index.php?seite=4" title="Podcast">Podcast</a></li> 
+                </ul> 
+              </div> 
+              <div class="col-lg-3 col-xs-6 col-xxs-12 footer__menu__wrapper"> 
+                <h4 class="footer__menu__caption">Fernsehen</h4> 
+                <ul class="footer__menu"> 
+                  <li class="footer__menu__item"><a href="http://www.sr.de/sr/fernsehen/" title="SR Fernsehen">SR Fernsehen</a></li> 
+                  <li class="footer__menu__item"><a href="http://www.sr.de/sr/fernsehen/" title="Programmvorschau">Programmvorschau</a></li> 
+                  <li class="footer__menu__item"><a href="http://www.sr.de/sr/fernsehen/" title="Sendungen A-Z">Sendungen A-Z</a></li> 
+                  <li class="footer__menu__item"><a href="http://livestream.sr-online.de/index_live.html" title="Livestream">Livestream</a></li> 
+                </ul> 
+              </div> 
+            </div> 
+            <div class="row footer__row"> 
+              <div class="col-lg-3 col-xs-6 col-xxs-12 footer__menu__wrapper"> 
+                <h4 class="footer__menu__caption">Service</h4> 
+                <ul class="footer__menu"> 
+                  <li class="footer__menu__item"><a href="http://www.sr.de/sr/home/der_sr/service/artikel8708.html" title="Kontakt">Kontakt</a></li> 
+                  <li class="footer__menu__item"><a href="http://www.sr.de/sr/home/der_sr/service/newsletter/" title="Newsletter">Newsletter</a></li> 
+                  <li class="footer__menu__item"><a href="http://www.sr.de/sr/home/der_sr/sr_de_hilfe100.html" title="Hilfe">Hilfe</a></li> 
+                  <li class="footer__menu__item"><a href="http://www.saartext.de" title="SAARTEXT">SAARTEXT</a></li> 
+                </ul> 
+              </div> 
+              <div class="col-lg-3 col-xs-6 col-xxs-12 footer__menu__wrapper"> 
+                <h4 class="footer__menu__caption">Der SR</h4> 
+                <ul class="footer__menu"> 
+                  <li class="footer__menu__item"><a href="http://www.sr.de/sr/home/der_sr/wir_uber_uns/" title="Wir über uns">Wir über uns</a></li> 
+                  <li class="footer__menu__item"><a href="http://www.sr.de/sr/home/der_sr/kommunikation/" title="Kommunikation">Kommunikation</a></li> 
+                  <li class="footer__menu__item"><a href="http://www.sr.de/sr/home/der_sr/job_karriere/stellenangebote/index.html" title="Stellenangebote">Stellenangebote</a></li> 
+                  <li class="footer__menu__item"><a href="http://www.sr.de/sr/home/der_sr/unternehmen/impressum/" title="Impressum">Impressum</a></li> 
+                  <li class="footer__menu__item"><a href="http://www.sr.de/sr/home/der_sr/unternehmen/datenschutzerklarung/" title="Datenschutz">Datenschutz</a></li> 
+                  <li class="footer__menu__item"><a href="http://www.drp-orchester.de" title="Deutsche Radio Philharmonie Saarbrücken Kaiserslautern">Deutsche Radio Philharmonie Saarbrücken Kaiserslautern</a></li> 
+                </ul> 
+              </div> 
+              <div class="clearfix hidden-lg"></div> 
+              <div class="col-lg-3 col-xs-6 col-xxs-12 footer__menu__wrapper"> 
+                <h4 class="footer__menu__caption">SR Apps</h4> 
+                <ul class="footer__menu"> 
+                  <li class="footer__menu__item"><a href="http://www.sr.de/sr/home/der_sr/service/sr-online_mobil/sr_apps_sammelseite100.html" title="iOS">iOS</a></li> 
+                  <li class="footer__menu__item"><a href="http://www.sr.de/sr/home/der_sr/service/sr-online_mobil/sr_apps_sammelseite100.html" title="Android">Android</a></li> 
+                  <li class="footer__menu__item"><a href="http://www.sr.de/sr/home/der_sr/service/sr-online_mobil/sr_apps_sammelseite100.html" title="Windows">Windows</a></li> 
+                </ul> 
+              </div> 
+              <div class="col-lg-3 col-xs-6 col-xxs-12 footer__menu__wrapper"> 
+                <h4 class="footer__menu__caption">Social Media</h4> 
+                <ul class="footer__menu"> 
+                  <li class="footer__menu__item"><a href="http://www.sr.de/sr/home/der_sr/service/social_media-angebote_des_sr/social_media_facebook_twitter100.html" title="Facebook">Facebook</a></li> 
+                  <li class="footer__menu__item"><a href="http://www.sr.de/sr/home/der_sr/service/social_media-angebote_des_sr/social_media_facebook_twitter100.html" title="Twitter">Twitter</a></li> 
+                  <li class="footer__menu__item"><a href="http://www.sr.de/sr/home/der_sr/service/social_media-angebote_des_sr/social_media_facebook_twitter100.html" title="YouTube">YouTube</a></li> 
+                </ul> 
+              </div> 
+            </div> 
+            <div>
+               Der 
+              <span class="icon--sr"></span> ist Mitglied der 
+              <span class="icon--ard_logo"></span> 
+            </div> 
+          </div> 
+        </div> 
+      </footer> 
+    <div aria-hidden="true" aria-labelledby="accessibilityModal" class="modal fade accessibility" id="accessibilityModal" role="dialog" tabindex="-1">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h3 class="modal-title text--module-header">Anzeige &amp; Lesbarkeit</h3>
+          </div>
+          <div class="modal-body">
+            <div class="accessibility__zooming">
+              <h4>Textgröße: <span data-accessibility-value="zooming">100 %</span></h4>
+              <button class="btn" data-accessibility="zooming" data-accessibility-value="reset" type="button">100 %</button>
+              <button class="btn zooming__decrease" data-accessibility="zooming" data-accessibility-value="decrease" type="button">A - </button>
+              <button class="btn zooming__increase" data-accessibility="zooming" data-accessibility-value="increase" type="button">A + </button>
+            </div>
+            <div class="accessibility__contrast">
+              <h4>Kontrast: <span data-accessibility-value="contrast">Normal</span></h4>
+              <div class="btn__group">
+                <div class="btn__group__wrapper">
+                  <button class="btn btn--active contrast__normal" data-accessibility="contrast" data-accessibility-value="normal" type="button">Normal</button>
+                  <button class="btn contrast__max" data-accessibility="contrast" data-accessibility-value="maximal" type="button">Maximal</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button class="btn" data-dismiss="modal" type="button">Schließen</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div aria-hidden="true" aria-labelledby="facebookModal" class="modal fade" id="facebookModal" role="dialog" tabindex="-1">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h3 class="modal-title text--module-header">Wollen Sie SR.de wirklich verlassen?</h3>
+          </div>
+          <div class="modal-body">
+            <p>Viele Soziale Netzwerke wie Facebook oder Youtube erfüllen nicht die hohen Datenschutz-Standards des SR. Deshalb solltet Ihr bei diesen Anbietern besonders auf Eure persönlichen Daten achten. </p>
+            <p>Unser Tipp: Nur das posten und angeben, was Ihr theoretisch jedem Internetnutzer zeigen würdet. Außerdem solltet Ihr die voreingestellten Datenschutzeinstellungen der jeweiligen Anbieter überprüfen.</p>
+          </div>
+          <div class="modal-footer">
+            <button class="btn" data-dismiss="modal" type="button">Abbrechen</button>
+            <button class="btn" type="button">Artikel teilen</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div aria-hidden="true" aria-labelledby="share-modal" class="modal fade" id="share-modal" role="dialog" tabindex="-1">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h3 class="modal-title text--module-header">Wollen Sie SR.de wirklich verlassen?</h3>
+          </div>
+          <div class="modal-body">
+            <p>Viele Soziale Netzwerke wie Facebook oder Youtube erfüllen nicht die hohen Datenschutz-Standards des SR. Deshalb solltet Ihr bei diesen Anbietern besonders auf Eure persönlichen Daten achten. </p>
+            <p>
+
+Unser Tipp: Nur das posten und angeben, was Ihr theoretisch jedem Internetnutzer zeigen würdet. Außerdem solltet Ihr die voreingestellten Datenschutzeinstellungen der jeweiligen Anbieter überprüfen.</p>
+          </div>
+          <div class="modal-footer">
+            <form action="https://www.facebook.com/sharer/sharer.php" method="get" target="_blank">
+              <input name="u" type="hidden" value="http://www.sr.de">
+              <button class="btn" data-dismiss="modal" type="button">Abbrechen </button>
+              <a class="btn link" href="#" target="_blank">Weiter</a>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div aria-hidden="true" aria-labelledby="lightbox" class="modal fade lightbox lightbox-pg" id="lightbox" role="dialog" tabindex="-1">
+      <div class="modal-dialog">
+        <button aria-label="Close" class="close" data-dismiss="modal" type="button"><span aria-hidden="true"></span></button>
+        <div class="wrapper"></div>
+      </div>
+    </div>
+<script src="/js/libs.min.js"></script>
+<script src="/js/bootstrap-plugins.min.js"></script>
+<script src="/js/modules.min.js?5"></script>
+<script>
+	$(function() {
+		$("body").removeClass("no-js");
+		function loadJS(u){var r = document.getElementsByTagName( "script" )[ 0 ], s = document.createElement( "script" );s.src = u;r.parentNode.insertBefore( s, r );}
+		if (!(navigator.userAgent.match(/IEMobile\/10\.0/))) {
+			loadJS("/libs/picturefill/picturefill.js");
+		}
+	});
+
+	// Bei Android >= 5.0.0 kein HLS ausspielen!
+	/*
+	var ua = navigator.userAgent;
+	if( ua.indexOf("Android") >= 0 ) {
+		var androidversion = parseFloat(ua.slice(ua.indexOf("Android")+8)); 
+		if (androidversion >= 5.0) {
+			var amMessage = 'Öffnen Sie den unten aufgeführten Link in einem Player Ihrer Wahl. Falls Sie noch keinen geeigneten Player besitzen, empfehlen wir Ihnen den VLC Player oder den MX Player. Diese können über den Playstore bezogen werden.<br><br><a href="' + mediaURLs + '"><center><b>LIVESTREAM</b></center></a><br><br>';
+			var amTitel = document.createElement('h1');
+			amTitel.className = "background-title";
+			amTitel.innerHTML = "<strong>Hinweis: Mögliche Alternative</strong>";
+	
+			$('.article__content').prepend(amMessage);
+			$('.article__content').prepend(amTitel);
+		}
+	}*/
+
+	// Browserweiche fuer iOS <= 5
+	function iOSversion() {
+		if (/iP(hone|od|ad)/.test(navigator.platform)) {
+			var v = (navigator.appVersion).match(/OS (\d+)_(\d+)_?(\d+)?/);
+			return [parseInt(v[1], 10), parseInt(v[2], 10), parseInt(v[3] || 0, 10)];
+		}
+	}
+	if (/iP(hone|od|ad)/.test(navigator.platform)) {
+		ver = iOSversion();
+		if (ver[0] <= 5) {
+			document.getElementById('video').innerHTML = "";	
+			var mediaObject = document.createElement("video");
+			mediaObject.width = "512";
+			mediaObject.height = "288";
+			mediaObject.poster = 'http://livestream.sr-online.de/img/logo_sr_fernsehen_M.png';
+			mediaObject.controls = true;
+			var mediaObjectStream = document.createElement("source");
+			mediaObjectStream.src = mediaURLs;
+			mediaObjectStream.type = "video/mp4";
+			mediaObjectStream.innerHTML = "Ihr Browser unterst&uuml;tzt kein HTML5.";	
+			mediaObject.appendChild(mediaObjectStream);		
+			document.getElementById("video").appendChild(mediaObject);
+		}	
+	}
+</script>
+<script src="/js/validatorLang.js"></script>
+<script src="/js/init.js?5"></script>
+				
+			</div>
+			<div id="ivw">
+				
+
+<!-- SZM 2.0 -->
+<script type="text/javascript">
+jQuery(document).ready(function() {
+     window.setTimeout(function() {
+         var ak_stat = "sronline";
+         var ak_mobi = "mobsronl";
+    
+         function isStringDetected(value) {
+             var regexp = new RegExp(value, "gi");
+             return (regexp.test(navigator.appVersion) || regexp.test (navigator.userAgent)) ? true : false;
+         }
+         
+         function isTablet() {
+             if(isStringDetected("iPad|Windows NT|Kindle|PlayBook") || (isStringDetected("Android") && !isStringDetected("Mobile"))) {
+                  return true;
+                  }
+             return false;
+             }
+                                      
+             /* SZMnG-Tag Responsiv-Weiche */
+             jQuery.ajaxSetup({ cache: true });
+             jQuery.getScript("https://script.ioam.de/iam.js").done(function() {
+                 var isMobil = typeof orientation!='undefined' ? true:false;
+                 if(isTablet()) { isMobil = false; } // Tablets zählen stationär
+                 if(!isMobil) {
+                    var iam_data = {
+                       "st" : ak_stat,
+                       "cp" : "Mediathek Stationaer",
+                       "co" : "A-Z",
+                       };
+                 
+                 } else {
+                    var iam_data = {
+                       "st" : ak_mobi,
+                       "cp" : "Mediathek Mobil",
+                       "co" : "A-Z",
+                       };
+                 }
+                                                                                                
+                 iom.c(iam_data,1);
+             
+             });
+       }, 1);
+    });
+</script>
+<!-- /SZM -->
+			</div>
+				</body>
+</html>
