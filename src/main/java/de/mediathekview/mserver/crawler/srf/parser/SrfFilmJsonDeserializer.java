@@ -163,37 +163,40 @@ public class SrfFilmJsonDeserializer implements JsonDeserializer<Optional<Film>>
   private ChapterListData parseChapterList(JsonObject aJsonObject) {
     ChapterListData result = new ChapterListData();
 
-    if (aJsonObject.has(ELEMENT_CHAPTER_LIST)) {
-      JsonElement chapterListElement = aJsonObject.get(ELEMENT_CHAPTER_LIST);
+    if (!aJsonObject.has(ELEMENT_CHAPTER_LIST)) {
+      return result;
+    } 
 
-      if (!chapterListElement.isJsonNull()) {
-        JsonArray chapterListArray = chapterListElement.getAsJsonArray();
+    JsonElement chapterListElement = aJsonObject.get(ELEMENT_CHAPTER_LIST);
+    if (chapterListElement.isJsonNull()) {
+      return result;
+    }
+    
+    JsonArray chapterListArray = chapterListElement.getAsJsonArray();
+    if (chapterListArray.size() != 1) {
+      return result;
+    }
 
-        if (chapterListArray.size() == 1) {
-          JsonObject chapterListEntry = chapterListArray.get(0).getAsJsonObject();
+    JsonObject chapterListEntry = chapterListArray.get(0).getAsJsonObject();
+    if (chapterListEntry.has(ATTRIBUTE_ID)) {
+      result.id = chapterListEntry.get(ATTRIBUTE_ID).getAsString();
+    }
 
-          if (chapterListEntry.has(ATTRIBUTE_ID)) {
-            result.id = chapterListEntry.get(ATTRIBUTE_ID).getAsString();
-          }
+    if (chapterListEntry.has(ATTRIBUTE_DURATION)) {
+      long duration = chapterListEntry.get(ATTRIBUTE_DURATION).getAsLong();
+      result.duration = Duration.of(duration, ChronoUnit.MILLIS);
+    }
 
-          if (chapterListEntry.has(ATTRIBUTE_DURATION)) {
-            long duration = chapterListEntry.get(ATTRIBUTE_DURATION).getAsLong();
-            result.duration = Duration.of(duration, ChronoUnit.MILLIS);
-          }
+    if (chapterListEntry.has(ATTRIBUTE_DESCRIPTION)) {
+      result.description = chapterListEntry.get(ATTRIBUTE_DESCRIPTION).getAsString();
+    }
 
-          if (chapterListEntry.has(ATTRIBUTE_DESCRIPTION)) {
-            result.description = chapterListEntry.get(ATTRIBUTE_DESCRIPTION).getAsString();
-          }
+    if (chapterListEntry.has(ELEMENT_RESOURCE_LIST)) {
+      result.videoUrl = parseResourceList(chapterListEntry.get(ELEMENT_RESOURCE_LIST));
+    }
 
-          if (chapterListEntry.has(ELEMENT_RESOURCE_LIST)) {
-            result.videoUrl = parseResourceList(chapterListEntry.get(ELEMENT_RESOURCE_LIST));
-          }
-          
-          if (chapterListEntry.has(ELEMENT_SUBTITLE_LIST)) {
-            result.subtitleUrl = parseSubtitleList(chapterListEntry.get(ELEMENT_SUBTITLE_LIST));
-          }
-        }
-      }
+    if (chapterListEntry.has(ELEMENT_SUBTITLE_LIST)) {
+      result.subtitleUrl = parseSubtitleList(chapterListEntry.get(ELEMENT_SUBTITLE_LIST));
     }
 
     return result;

@@ -10,7 +10,7 @@ public class M3U8DtoTest {
   public void equalTestSameObject() {
     M3U8Dto target = new M3U8Dto("test");
     
-    boolean actual = target == target;
+    boolean actual = target.equals(target);
     
     assertThat(actual, equalTo(true));
   }

@@ -23,7 +23,7 @@ public class M3U8Parser {
   }
   
   private static void parseMeta(String aLine, M3U8Dto aDto) {
-    int index = aLine.indexOf(":");
+    int index = aLine.indexOf(':');
     if (index > 0) {
       String line = aLine.substring(index + 1);
       
