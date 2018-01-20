@@ -13,6 +13,7 @@ import de.mediathekview.mlib.tool.MVHttpClient;
 import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
 import de.mediathekview.mserver.crawler.basic.M3U8Dto;
 import de.mediathekview.mserver.crawler.basic.M3U8Parser;
+import de.mediathekview.mserver.crawler.srf.SrfConstants;
 import java.lang.reflect.Type;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -50,8 +51,6 @@ public class SrfFilmJsonDeserializer implements JsonDeserializer<Optional<Film>>
   private static final String ELEMENT_SUBTITLE_LIST = "subtitleList";
 
   private static final String SUBTITLE_FORMAT = "TTML";
-  
-  private static final String WEBSITE_URL = "https://www.srf.ch/play/tv/%s/video/%s?id=%s";
   
   private final AbstractCrawler crawler;
   
@@ -107,7 +106,7 @@ public class SrfFilmJsonDeserializer implements JsonDeserializer<Optional<Film>>
   
   private static Optional<URL> buildWebsiteUrl(String aId, String aTitle, String aTheme) {
     
-    String url = String.format(WEBSITE_URL,
+    String url = String.format(SrfConstants.WEBSITE_URL,
             replaceCharForUrl(aTheme), replaceCharForUrl(aTitle), aId);
 
     try {
@@ -255,7 +254,7 @@ public class SrfFilmJsonDeserializer implements JsonDeserializer<Optional<Film>>
 
         M3U8Parser parser = new M3U8Parser();
         List<M3U8Dto> m3u8Data = parser.parse(content);
-        m3u8Data.forEach((entry) -> {
+        m3u8Data.forEach(entry -> {
           Optional<Resolution> resolution = getResolution(entry);
           if (resolution.isPresent()) {
             String url = prepareUrl(entry.getUrl());
@@ -292,9 +291,9 @@ public class SrfFilmJsonDeserializer implements JsonDeserializer<Optional<Film>>
   }
 
   private static Optional<Resolution> getResolution(M3U8Dto aDto) {
-    Optional<String> widthMeta = aDto.getMeta("BANDWIDTH");
-    Optional<String> codecMeta = aDto.getMeta("CODECS");
-    Optional<String> resolution = aDto.getMeta("RESOLUTION");
+    Optional<String> widthMeta = aDto.getMeta(SrfConstants.M3U8_BANDWIDTH);
+    Optional<String> codecMeta = aDto.getMeta(SrfConstants.M3U8_CODECS);
+    Optional<String> resolution = aDto.getMeta(SrfConstants.M3U8_RESOLUTION);
 
     // Codec muss "avcl" beinhalten, sonst ist es kein Video
     if (codecMeta.isPresent() && !codecMeta.get().contains("avc1")) {
