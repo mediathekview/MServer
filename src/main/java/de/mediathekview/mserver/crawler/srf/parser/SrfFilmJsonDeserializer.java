@@ -251,7 +251,8 @@ public class SrfFilmJsonDeserializer implements JsonDeserializer<Optional<Film>>
         m3u8Data.forEach((entry) -> {
           Optional<Resolution> resolution = getResolution(entry);
           if (resolution.isPresent()) {
-            urls.put(resolution.get(), entry.getUrl());
+            String url = prepareUrl(entry.getUrl());
+            urls.put(resolution.get(), url);
           }
         });
 
@@ -263,6 +264,22 @@ public class SrfFilmJsonDeserializer implements JsonDeserializer<Optional<Film>>
     }
 
     return urls;
+  }
+  
+  /**
+   * Bereitet URL für MV auf, so dass Downloads über FFMPEG möglich it
+   * @param aUrl die URL aus der m3u8-Datei
+   * @return die URL für den Download
+   */
+  private static String prepareUrl(String aUrl) {
+    String url = aUrl;
+    
+    int indexSuffix = aUrl.lastIndexOf("m3u8");
+    if (indexSuffix > 0) {
+      url = aUrl.substring(0, indexSuffix + 4);
+    }
+    
+    return url;
   }
 
   private static Optional<Resolution> getResolution(M3U8Dto aDto) {
