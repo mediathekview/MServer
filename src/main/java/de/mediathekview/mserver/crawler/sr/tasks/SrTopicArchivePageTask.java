@@ -1,0 +1,67 @@
+package de.mediathekview.mserver.crawler.sr.tasks;
+
+import de.mediathekview.mserver.base.Consts;
+import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
+import de.mediathekview.mserver.crawler.basic.AbstractDocumentTask;
+import de.mediathekview.mserver.crawler.basic.AbstractUrlTask;
+import de.mediathekview.mserver.crawler.basic.CrawlerUrlDTO;
+import de.mediathekview.mserver.crawler.sr.SrConstants;
+import java.util.Optional;
+import java.util.Set;
+import java.util.concurrent.ConcurrentLinkedQueue;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.jsoup.nodes.Document;
+import org.jsoup.select.Elements;
+
+public class SrTopicArchivePageTask extends AbstractDocumentTask<CrawlerUrlDTO, CrawlerUrlDTO> {
+
+  private static final Logger LOG = LogManager.getLogger(SrTopicArchivePageTask.class);
+  
+  private static final String NEXT_PAGE_SELECTOR = "div.pagination__item > a[title*=weiter]";
+  private static final String SHOW_LINK_SELECTOR = "h3.teaser__text__header a";
+  
+  public SrTopicArchivePageTask(final AbstractCrawler aCrawler,
+      final ConcurrentLinkedQueue<CrawlerUrlDTO> aUrlToCrawlDTOs) {
+    super(aCrawler, aUrlToCrawlDTOs);
+  }
+  
+  @Override
+  protected void processDocument(CrawlerUrlDTO aUrlDTO, Document aDocument) {
+    parsePage(aDocument);    
+
+    Optional<String> nextPageUrl = getNextPage(aDocument);
+    if (nextPageUrl.isPresent()) {
+      processNextPage(nextPageUrl.get());
+    }
+  }
+
+  @Override
+  protected AbstractUrlTask<CrawlerUrlDTO, CrawlerUrlDTO> createNewOwnInstance(ConcurrentLinkedQueue<CrawlerUrlDTO> aURLsToCrawl) {
+    return new SrTopicArchivePageTask(crawler, aURLsToCrawl);
+  }  
+  
+  private void parsePage(Document aDocument) {
+    Elements links = aDocument.select(SHOW_LINK_SELECTOR);
+    links.forEach(element -> {
+      String url = element.attr(Consts.ATTRIBUTE_HREF);
+      this.taskResults.add(new CrawlerUrlDTO(SrConstants.URL_BASE + url));
+    });    
+  }
+  
+  private Optional<String> getNextPage(Document aDocument) {
+    Elements links = aDocument.select(NEXT_PAGE_SELECTOR);
+    if (links.size() == 1) {
+      return Optional.of(SrConstants.URL_BASE + links.attr(Consts.ATTRIBUTE_HREF));
+    }
+    
+    return Optional.empty();
+  }
+  
+  private void processNextPage(String aNextPageId) {
+    final ConcurrentLinkedQueue<CrawlerUrlDTO> urlDtos = new ConcurrentLinkedQueue<>();
+    urlDtos.add(new CrawlerUrlDTO(aNextPageId));
+    Set<CrawlerUrlDTO> x = createNewOwnInstance(urlDtos).invoke();
+    taskResults.addAll(x);
+  }  
+}

@@ -3,6 +3,8 @@ package de.mediathekview.mserver.crawler.sr;
 public final class SrConstants {
   
   private SrConstants() {}
+
+  public static final String URL_BASE = "https://www.sr-mediathek.de/";
   
   /**
    * URL für Übersichtsseite nach Themen
