@@ -212,10 +212,10 @@ public class SrfFilmJsonDeserializer implements JsonDeserializer<Optional<Film>>
       if (!arrayItemElement.isJsonNull()) {
         JsonObject arrayItemObject = arrayItemElement.getAsJsonObject();
 
-        if (arrayItemObject.has(ATTRIBUTE_FORMAT) && arrayItemObject.has(ATTRIBUTE_URL)) {
-          if (arrayItemObject.get(ATTRIBUTE_FORMAT).getAsString().equals(SUBTITLE_FORMAT)) {
-            return arrayItemObject.get(ATTRIBUTE_URL).getAsString();
-          }
+        if (arrayItemObject.has(ATTRIBUTE_FORMAT) 
+          && arrayItemObject.has(ATTRIBUTE_URL)
+          && arrayItemObject.get(ATTRIBUTE_FORMAT).getAsString().equals(SUBTITLE_FORMAT)) {
+          return arrayItemObject.get(ATTRIBUTE_URL).getAsString();
         }
       }
     }
@@ -233,10 +233,10 @@ public class SrfFilmJsonDeserializer implements JsonDeserializer<Optional<Film>>
       if (!arrayItemElement.isJsonNull()) {
         JsonObject arrayItemObject = arrayItemElement.getAsJsonObject();
 
-        if (arrayItemObject.has(ATTRIBUTE_MIMETYPE) && arrayItemObject.has(ATTRIBUTE_URL)) {
-          if (arrayItemObject.get(ATTRIBUTE_MIMETYPE).getAsString().contains("x-mpegURL")) {
-            return arrayItemObject.get(ATTRIBUTE_URL).getAsString();
-          }
+        if (arrayItemObject.has(ATTRIBUTE_MIMETYPE) 
+          && arrayItemObject.has(ATTRIBUTE_URL)
+          && arrayItemObject.get(ATTRIBUTE_MIMETYPE).getAsString().contains("x-mpegURL")) {
+          return arrayItemObject.get(ATTRIBUTE_URL).getAsString();
         }
       }
     }
