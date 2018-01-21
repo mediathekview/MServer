@@ -15,7 +15,7 @@ public class FileReader {
         try {
             URI u = FileReader.class.getResource(filePath).toURI();
             Path path = Paths.get(u);
-            return new String(Files.readAllBytes(path));
+            return new String(Files.readAllBytes(path), "UTF-8");
         } catch(IOException | URISyntaxException ex) {
             fail("Exception reading file " + filePath + ": " + ex.getMessage());
         }

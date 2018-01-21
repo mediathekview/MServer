@@ -1,5 +1,9 @@
 package de.mediathekview.mserver.base.utils;
 
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Optional;
+
 /**
  * A util class to collect useful URL related methods.
  *
@@ -75,5 +79,60 @@ public final class UrlUtils {
     }
     
     return aUrl;
+  }
+  
+  /**
+   * returns the file type of the url
+   * @param aUrl the url
+   * @return the type of the file
+   */
+  public static Optional<String> getFileType(final String aUrl) {
+    if (aUrl != null) {
+      int index = aUrl.lastIndexOf('.');
+      if (index > 0) {
+        return Optional.of(aUrl.substring(index + 1));
+      }
+    }
+    
+    return Optional.empty();
+  }
+  
+  /**
+   * returns the value of an url parameter
+   * @param aUrl the url
+   * @param aParameterName the name of the url parameter
+   * @return the parameter value
+   * @throws de.mediathekview.mserver.base.utils.UrlParseException
+   */
+  public static Optional<String> getUrlParameterValue(final String aUrl, final String aParameterName) throws UrlParseException {
+    if (aUrl != null) {
+      Map<String, String> parameters = getUrlParameters(aUrl);
+      if (parameters.containsKey(aParameterName)) {
+        return Optional.of(parameters.get(aParameterName));
+      }
+    }
+    
+    return Optional.empty();
+  }
+  
+  private static Map<String, String> getUrlParameters(final String aUrl) throws UrlParseException {
+    Map<String, String> parameters = new HashMap<>();
+    
+    int indexParameterStart = aUrl.indexOf('?');
+    if (indexParameterStart > 0) {
+      String parameterPart = aUrl.substring(indexParameterStart + 1);
+      String[] parameterArray = parameterPart.split("&");
+      
+      for (String parameter : parameterArray) {
+        String[] parts = parameter.split("=");
+        if (parts.length == 2) {
+          parameters.put(parts[0], parts[1]);
+        } else {
+          throw new UrlParseException("Invalid url paramters: " + aUrl);
+        }
+      }
+    }
+
+    return parameters;
   }
 }

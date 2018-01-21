@@ -11,7 +11,10 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import de.mediathekview.mlib.daten.Resolution;
 import de.mediathekview.mserver.base.messages.ServerMessages;
+import de.mediathekview.mserver.base.utils.UrlUtils;
 import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
+import java.util.HashSet;
+import java.util.Set;
 
 public class ArdMediaArrayToDownloadUrlsConverter {
 
@@ -32,52 +35,152 @@ public class ArdMediaArrayToDownloadUrlsConverter {
       final AbstractCrawler aCrawler) {
     final Map<Resolution, URL> downloadUrls = new EnumMap<>(Resolution.class);
 
-    final JsonArray mediaStreamArray =
-        aJsonElement.getAsJsonObject().getAsJsonArray(ELEMENT_MEDIA_ARRAY).get(0).getAsJsonObject()
-            .getAsJsonArray(ELEMENT_MEDIA_STREAM_ARRAY);
+    Map<Resolution, Set<String>> availableUrls = new EnumMap<>(Resolution.class);
+    availableUrls.put(Resolution.SMALL, new HashSet<>());
+    availableUrls.put(Resolution.NORMAL, new HashSet<>());
+    availableUrls.put(Resolution.HD, new HashSet<>());
 
-    for (int i = 0; i < mediaStreamArray.size(); i++) {
-      final JsonElement vidoeElement = mediaStreamArray.get(i);
-      final String qualityAsText =
-          vidoeElement.getAsJsonObject().get(ELEMENT_QUALITY).getAsString();
+    final JsonArray mediaArray = aJsonElement.getAsJsonObject().getAsJsonArray(ELEMENT_MEDIA_ARRAY);
+    parseMediaArray(mediaArray, availableUrls);
+    
+    extractRelevantUrls(availableUrls, downloadUrls, aCrawler);
 
-      Optional<String> baseUrl = vidoeElement.getAsJsonObject().has(ELEMENT_SERVER)
-          ? Optional.of(vidoeElement.getAsJsonObject().get(ELEMENT_SERVER).getAsString())
-          : Optional.empty();
-      if (!baseUrl.isPresent() || baseUrl.get().isEmpty()) {
-        baseUrl = vidoeElement.getAsJsonObject().has(ELEMENT_STREAM)
-            ? Optional.of(vidoeElement.getAsJsonObject().get(ELEMENT_STREAM).getAsString())
-            : Optional.empty();
-      }
-      if (baseUrl.isPresent() && baseUrl.get().startsWith(PROTOCOL_RTMP)) {
-        LOG.debug("Found an Sendung with the old RTMP format: "
-            + videoElementToUrl(vidoeElement, baseUrl.get()));
-      } else {
-        int qualityNumber;
-        try {
-          qualityNumber = Integer.parseInt(qualityAsText);
-        } catch (final NumberFormatException numberFormatException) {
-          LOG.debug("Can't convert quality %s to an integer.", qualityAsText,
-              numberFormatException);
-          qualityNumber = -1;
-        }
-
-        if (qualityNumber > 0 || mediaStreamArray.size() == 1) {
-          final Resolution quality = getQualityForNumber(qualityNumber);
-          final String downloadUrl = videoElementToUrl(vidoeElement, baseUrl.get());
+    return downloadUrls;
+  }
+  
+  private static void extractRelevantUrls(final Map<Resolution, Set<String>> aUrls, 
+    final Map<Resolution, URL> aDownloadUrls, 
+    final AbstractCrawler aCrawler) {
+    
+    aUrls.entrySet().forEach(entry -> {
+      Set<String> urls = entry.getValue();
+      if (!urls.isEmpty()) {
+    
+        String url = determineUrl(urls);
+        if (!url.isEmpty()) {
+        
           try {
-            downloadUrls.put(quality, new URL(downloadUrl));
-          } catch (final MalformedURLException malformedURLException) {
+            aDownloadUrls.put(entry.getKey(), new URL(url));
+          } catch (MalformedURLException malformedURLException) {
             LOG.error("A download URL is defect.", malformedURLException);
             aCrawler.printMessage(ServerMessages.DEBUG_INVALID_URL, aCrawler.getSender().getName(),
-                downloadUrl);
+                url);
+          }
+        }
+      }
+    });
+  }
+  
+  /**
+   * returns the url to use for downloads
+   * uses the following order:
+   * mp4 > m3u8 > Rest
+   * @param aUrls list of possible urls
+   * @return the download url
+   */
+  private static String determineUrl(Set<String> aUrls) {
+    String usedFileType = "";
+    String relevantUrl = "";
+    
+    for (String url: aUrls) {
+      Optional<String> fileType = UrlUtils.getFileType(url);
+      if (fileType.isPresent()) {
+        switch(fileType.get()) {
+          case "mp4":
+            return url;
+          case "m3u8":
+            if (!usedFileType.equals("mp4")) {
+              usedFileType = fileType.get();
+              relevantUrl = url;
+            }
+            break;
+          default:
+            if (usedFileType.isEmpty()) {
+              usedFileType = fileType.get();
+              relevantUrl = url;
+            }
+        }
+      }
+    }
+    
+    return relevantUrl;
+  }
+  
+  private static void parseMediaArray(JsonArray aMediaArray, Map<Resolution, Set<String>> aUrls) {
+    
+    aMediaArray.forEach(mediaEntry -> {
+      final JsonArray mediaStreamArray = mediaEntry.getAsJsonObject()
+              .getAsJsonArray(ELEMENT_MEDIA_STREAM_ARRAY);
+
+      parseMediaStreamArray(mediaStreamArray, aUrls);
+    });    
+  }
+
+  private static void parseMediaStreamArray(JsonArray aMediaStreamArray, Map<Resolution, Set<String>> aUrls) {
+
+    for (int i = 0; i < aMediaStreamArray.size(); i++) {
+      final JsonElement videoElement = aMediaStreamArray.get(i);
+      final String qualityAsText =
+          videoElement.getAsJsonObject().get(ELEMENT_QUALITY).getAsString();
+      
+      Optional<Resolution> quality = getQuality(qualityAsText);
+      if (quality.isPresent()) {
+        String downloadUrl = "";
+        
+        if (videoElement.getAsJsonObject().has(ELEMENT_SERVER)) {
+          final String baseUrl = videoElement.getAsJsonObject().get(ELEMENT_SERVER).getAsString();
+          downloadUrl = videoElementToUrl(videoElement, baseUrl);
+          addUrl(downloadUrl, quality.get(), aUrls);
+        } 
+        
+        if (downloadUrl.isEmpty() && videoElement.getAsJsonObject().has(ELEMENT_STREAM)) {
+          JsonElement streamObject = videoElement.getAsJsonObject().get(ELEMENT_STREAM);
+          if (streamObject.isJsonPrimitive()) {
+            final String baseUrl = streamObject.getAsString();
+            downloadUrl= videoElementToUrl(videoElement, baseUrl);
+            addUrl(downloadUrl, quality.get(), aUrls);          
+          } else if(streamObject.isJsonArray()) {
+            JsonArray streamArray = streamObject.getAsJsonArray();
+            streamArray.forEach(stream -> {
+              final String baseUrl = stream.getAsString();
+              addUrl(baseUrl, quality.get(), aUrls);          
+            });
           }
         }
       }
     }
-    return downloadUrls;
   }
+  
+  private static void addUrl(final String aUrl, 
+    final Resolution quality, 
+    Map<Resolution, Set<String>> aUrls) {
 
+    if (!aUrl.isEmpty()) {
+      if (aUrl.startsWith(PROTOCOL_RTMP)) {
+        LOG.debug("Found an Sendung with the old RTMP format: " + aUrl);
+      } else {
+        aUrls.get(quality).add(aUrl);
+      }
+    }
+  }
+  
+  private static Optional<Resolution> getQuality(String aQualityAsText) {
+    int qualityNumber;
+    try {
+      qualityNumber = Integer.parseInt(aQualityAsText);
+    } catch (final NumberFormatException numberFormatException) {
+      LOG.debug("Can't convert quality %s to an integer.", aQualityAsText,
+          numberFormatException);
+      qualityNumber = -1;
+    }
+
+    if (qualityNumber > 0) {
+      return Optional.of(getQualityForNumber(qualityNumber));
+    }
+
+    return Optional.empty();
+  }
+  
   private static Resolution getQualityForNumber(final int i) {
     switch (i) {
       case 0:
@@ -97,6 +200,10 @@ public class ArdMediaArrayToDownloadUrlsConverter {
   }
 
   private static String videoElementToUrl(final JsonElement aVideoElement, final String aBaseUrl) {
+    if (aBaseUrl.isEmpty()) {
+      return aBaseUrl;
+    }
+    
     String url = aVideoElement.getAsJsonObject().get(ELEMENT_STREAM).getAsString();
     if (url.matches(URL_PREFIX_PATTERN + URL_PATTERN)) {
       url = url.replaceFirst(URL_PREFIX_PATTERN, aBaseUrl);

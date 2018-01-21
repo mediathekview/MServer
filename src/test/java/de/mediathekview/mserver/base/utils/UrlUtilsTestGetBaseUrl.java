@@ -9,7 +9,7 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 
 @RunWith(Parameterized.class)
-public class UrlUtilsTest {
+public class UrlUtilsTestGetBaseUrl {
   @Parameterized.Parameters
   public static Collection<Object[]> data() {
     return Arrays.asList(new Object[][] { 
@@ -24,7 +24,7 @@ public class UrlUtilsTest {
   private final String inputUrl;
   private final String expectedBaseUrl;
   
-  public UrlUtilsTest(String aInputUrl, String aExpectedBaseUrl) {
+  public UrlUtilsTestGetBaseUrl(String aInputUrl, String aExpectedBaseUrl) {
     inputUrl = aInputUrl;
     expectedBaseUrl = aExpectedBaseUrl;
   }
