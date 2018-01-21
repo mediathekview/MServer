@@ -6,6 +6,7 @@ import de.mediathekview.mlib.messages.listener.MessageListener;
 import de.mediathekview.mserver.base.config.MServerConfigManager;
 import de.mediathekview.mserver.base.messages.ServerMessages;
 import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
+import de.mediathekview.mserver.crawler.sr.tasks.SrFilmDetailTask;
 import de.mediathekview.mserver.crawler.sr.tasks.SrTopicArchivePageTask;
 import de.mediathekview.mserver.crawler.sr.tasks.SrTopicsOverviewPageTask;
 import de.mediathekview.mserver.progress.listeners.SenderProgressListener;
@@ -40,11 +41,13 @@ public class SrCrawler extends AbstractCrawler {
       printMessage(ServerMessages.DEBUG_ALL_SENDUNG_FOLGEN_COUNT, getSender().getName(), shows.size());
 
       SrTopicArchivePageTask archiveTask = new SrTopicArchivePageTask(this, shows);
-      Set<SrTopicUrlDTO> films = forkJoinPool.submit(archiveTask).get();
+      ConcurrentLinkedQueue<SrTopicUrlDTO> filmDtos = new ConcurrentLinkedQueue<>();
+      filmDtos.addAll(forkJoinPool.submit(archiveTask).get());
 
-      printMessage(ServerMessages.DEBUG_ALL_SENDUNG_FOLGEN_COUNT, getSender().getName(), films.size());
-      
-      throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+      printMessage(ServerMessages.DEBUG_ALL_SENDUNG_FOLGEN_COUNT, getSender().getName(), filmDtos.size());
+      getAndSetMaxCount(filmDtos.size());
+
+      return new SrFilmDetailTask(this, filmDtos);
     } catch (InterruptedException | ExecutionException ex) {
       LOG.fatal("Exception in SR crawler.", ex);
     }

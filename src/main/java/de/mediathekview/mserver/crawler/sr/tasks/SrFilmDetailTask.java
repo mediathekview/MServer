@@ -59,7 +59,6 @@ public class SrFilmDetailTask extends AbstractDocumentTask<Film, SrTopicUrlDTO> 
       final Optional<Duration> duration = parseDuration(aDocument);
       final Optional<String> description = parseDescription(aDocument);
       
-      // TODO geo
       Optional<ArdVideoInfoDTO> videoInfoOptional = parseUrls(aDocument);
       if (videoInfoOptional.isPresent()) {
         final Film film = new Film(UUID.randomUUID(), crawler.getSender(), title.get(),
