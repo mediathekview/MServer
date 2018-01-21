@@ -1,21 +1,31 @@
 package de.mediathekview.mserver.crawler.sr.tasks;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import de.mediathekview.mlib.daten.Film;
+import de.mediathekview.mlib.daten.Resolution;
 import de.mediathekview.mserver.base.utils.DateUtils;
 import de.mediathekview.mserver.base.utils.HtmlDocumentUtils;
+import de.mediathekview.mserver.crawler.ard.json.ArdVideoInfoDTO;
+import de.mediathekview.mserver.crawler.ard.json.ArdVideoInfoJsonDeserializer;
 import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
 import de.mediathekview.mserver.crawler.basic.AbstractDocumentTask;
 import de.mediathekview.mserver.crawler.basic.AbstractUrlTask;
 import de.mediathekview.mserver.crawler.sr.SrTopicUrlDTO;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Locale;
+import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentLinkedQueue;
+import mServer.crawler.CrawlerTool;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.LogManager;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Node;
@@ -49,22 +59,28 @@ public class SrFilmDetailTask extends AbstractDocumentTask<Film, SrTopicUrlDTO> 
       final Optional<Duration> duration = parseDuration(aDocument);
       final Optional<String> description = parseDescription(aDocument);
       
-      final Film film = new Film(UUID.randomUUID(), crawler.getSender(), title.get(),
-              aUrlDTO.getTheme(), time.get(), duration.get());
-      
-      film.setWebsite(new URL(aUrlDTO.getUrl()));
-      if (description.isPresent()) {
-        film.setBeschreibung(description.get());
-      }
-      
-      // TODO subtitle
       // TODO geo
-      // TODO urls
+      Optional<ArdVideoInfoDTO> videoInfoOptional = parseUrls(aDocument);
+      if (videoInfoOptional.isPresent()) {
+        final Film film = new Film(UUID.randomUUID(), crawler.getSender(), title.get(),
+                aUrlDTO.getTheme(), time.get(), duration.get());
 
-      
-      taskResults.add(film);
-      crawler.incrementAndGetActualCount();
-      crawler.updateProgress();
+        film.setWebsite(new URL(aUrlDTO.getUrl()));
+        if (description.isPresent()) {
+          film.setBeschreibung(description.get());
+        }
+        
+        ArdVideoInfoDTO videoInfo = videoInfoOptional.get();
+        if (StringUtils.isNotBlank(videoInfo.getSubtitleUrl())) {
+          film.addSubtitle(new URL(videoInfo.getSubtitleUrl()));
+        }
+        
+        addUrls(film, videoInfo.getVideoUrls());
+        
+        taskResults.add(film);
+        crawler.incrementAndGetActualCount();
+        crawler.updateProgress();
+      }
     } catch (MalformedURLException ex) {
       LOG.fatal("A SR URL can't be parsed.", ex);
       crawler.printErrorMessage();
@@ -76,6 +92,38 @@ public class SrFilmDetailTask extends AbstractDocumentTask<Film, SrTopicUrlDTO> 
   @Override
   protected AbstractUrlTask<Film, SrTopicUrlDTO> createNewOwnInstance(ConcurrentLinkedQueue<SrTopicUrlDTO> aURLsToCrawl) {
     return new SrFilmDetailTask(crawler, aURLsToCrawl);
+  }
+  
+  private void addUrls(final Film aFilm, final Map<Resolution, String> aVideoUrls)
+    throws MalformedURLException {
+    
+    for (final Map.Entry<Resolution, String> qualitiesEntry : aVideoUrls.entrySet()) {
+      aFilm.addUrl(qualitiesEntry.getKey(), CrawlerTool.stringToFilmUrl(qualitiesEntry.getValue()));
+    }
+  }
+  
+  private Optional<ArdVideoInfoDTO> parseUrls(Document aDocument) {
+      Optional<String> videoDetailUrl = HtmlDocumentUtils.getElementAttributeString(VIDEO_DETAIL_SELECTOR, VIDEO_DETAIL_ATTRIBUTE, aDocument);
+      if (videoDetailUrl.isPresent()) {
+        Gson gson = new GsonBuilder()
+          .registerTypeAdapter(ArdVideoInfoDTO.class, new ArdVideoInfoJsonDeserializer(crawler))
+          .create();
+
+        String url = videoDetailUrl.get();
+        if (url.startsWith("//")) {
+          url = "https:" + url;
+        }
+        
+        try {
+          ArdVideoInfoDTO dto = gson.fromJson(new InputStreamReader(new URL(url).openStream()),
+                          ArdVideoInfoDTO.class);
+          return Optional.of(dto);
+        } catch (IOException ex) {
+          LOG.fatal(ex);
+        }      
+      }  
+      
+      return Optional.empty();
   }
   
   private static Optional<String> parseDescription(Document aDocument) {

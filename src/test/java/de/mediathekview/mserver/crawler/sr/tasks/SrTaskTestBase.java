@@ -5,12 +5,13 @@ import de.mediathekview.mserver.base.config.MServerConfigManager;
 import de.mediathekview.mserver.crawler.sr.SrCrawler;
 import de.mediathekview.mserver.crawler.sr.SrTopicUrlDTO;
 import de.mediathekview.mserver.progress.listeners.SenderProgressListener;
+import de.mediathekview.mserver.testhelper.WireMockTestBase;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.ForkJoinPool;
 
-public abstract class SrTaskTestBase {
+public abstract class SrTaskTestBase extends WireMockTestBase {
   
   protected MServerConfigManager rootConfig = MServerConfigManager.getInstance("MServer-JUnit-Config.yaml");
 
