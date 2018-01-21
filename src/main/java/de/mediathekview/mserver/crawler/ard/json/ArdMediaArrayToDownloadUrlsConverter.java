@@ -130,7 +130,7 @@ public class ArdMediaArrayToDownloadUrlsConverter {
         if (videoElement.getAsJsonObject().has(ELEMENT_SERVER)) {
           final String baseUrl = videoElement.getAsJsonObject().get(ELEMENT_SERVER).getAsString();
           downloadUrl = videoElementToUrl(videoElement, baseUrl);
-          addUrl(videoElement, downloadUrl, quality.get(), aUrls);
+          addUrl(downloadUrl, quality.get(), aUrls);
         } 
         
         if (downloadUrl.isEmpty() && videoElement.getAsJsonObject().has(ELEMENT_STREAM)) {
@@ -138,12 +138,12 @@ public class ArdMediaArrayToDownloadUrlsConverter {
           if (streamObject.isJsonPrimitive()) {
             final String baseUrl = streamObject.getAsString();
             downloadUrl= videoElementToUrl(videoElement, baseUrl);
-            addUrl(videoElement, downloadUrl, quality.get(), aUrls);          
+            addUrl(downloadUrl, quality.get(), aUrls);          
           } else if(streamObject.isJsonArray()) {
             JsonArray streamArray = streamObject.getAsJsonArray();
             streamArray.forEach(stream -> {
               final String baseUrl = stream.getAsString();
-              addUrl(videoElement, baseUrl, quality.get(), aUrls);          
+              addUrl(baseUrl, quality.get(), aUrls);          
             });
           }
         }
@@ -151,8 +151,7 @@ public class ArdMediaArrayToDownloadUrlsConverter {
     }
   }
   
-  private static void addUrl(final JsonElement aVideoElement, 
-    final String aUrl, 
+  private static void addUrl(final String aUrl, 
     final Resolution quality, 
     Map<Resolution, Set<String>> aUrls) {
 
@@ -170,8 +169,8 @@ public class ArdMediaArrayToDownloadUrlsConverter {
     try {
       qualityNumber = Integer.parseInt(aQualityAsText);
     } catch (final NumberFormatException numberFormatException) {
-      LOG.debug("Can't convert quality %s to an integer.", aQualityAsText,
-          numberFormatException);
+     /* LOG.debug("Can't convert quality %s to an integer.", aQualityAsText,
+          numberFormatException);*/
       qualityNumber = -1;
     }
 
