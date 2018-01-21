@@ -19,6 +19,7 @@ import java.net.URL;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Optional;
@@ -37,6 +38,8 @@ public class SrFilmDetailTask extends AbstractDocumentTask<Film, SrTopicUrlDTO> 
 
   private static final DateTimeFormatter DATE_TIME_FORMATTER =
     DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm", Locale.GERMANY);
+  private static final DateTimeFormatter DATE_TIME_FORMATTER_ENG =
+    DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm", Locale.GERMANY);
 
   private static final String CONTENT_SELECTOR = "div.article__content";
   private static final String TITLE_SELECTOR = CONTENT_SELECTOR + " > div > h3";
@@ -54,6 +57,10 @@ public class SrFilmDetailTask extends AbstractDocumentTask<Film, SrTopicUrlDTO> 
   protected void processDocument(SrTopicUrlDTO aUrlDTO, Document aDocument) {
     
     try {
+      if (!isRelevantType(aDocument)) {
+        return;
+      }
+      
       final Optional<String> title = HtmlDocumentUtils.getElementString(TITLE_SELECTOR, aDocument);
       final Optional<LocalDateTime> time = parseDate(aDocument);
       final Optional<Duration> duration = parseDuration(aDocument);
@@ -91,6 +98,17 @@ public class SrFilmDetailTask extends AbstractDocumentTask<Film, SrTopicUrlDTO> 
   @Override
   protected AbstractUrlTask<Film, SrTopicUrlDTO> createNewOwnInstance(ConcurrentLinkedQueue<SrTopicUrlDTO> aURLsToCrawl) {
     return new SrFilmDetailTask(crawler, aURLsToCrawl);
+  }
+  
+  /**
+   * checks whether the multimedia type is relevant
+   * @param aDocument the html document
+   * @return true if document is relevant
+   */
+  private boolean isRelevantType(final Document aDocument) {
+    // ignore all documents who does not contain any video
+    Optional<String> type = getDetailElement(aDocument, 0);
+    return type.isPresent() && type.get().toLowerCase().contains("video");
   }
   
   private void addUrls(final Film aFilm, final Map<Resolution, String> aVideoUrls)
@@ -138,10 +156,15 @@ public class SrFilmDetailTask extends AbstractDocumentTask<Film, SrTopicUrlDTO> 
     if (date.isPresent()) {
       String isoDate = DateUtils.changeDateTimeForMissingISO8601Support(date.get().trim());
       try {
-      LocalDateTime localDate = LocalDateTime.parse(isoDate + " 00:00", DATE_TIME_FORMATTER);
-      return Optional.of(localDate);
-      } catch(Exception e) {
-        LOG.fatal(e);
+        LocalDateTime localDate = LocalDateTime.parse(isoDate + " 00:00", DATE_TIME_FORMATTER);
+        return Optional.of(localDate);
+      } catch(DateTimeParseException e) {
+        try {
+          LocalDateTime localDate = LocalDateTime.parse(isoDate + " 00:00", DATE_TIME_FORMATTER_ENG);
+          return Optional.of(localDate);
+        } catch(DateTimeParseException e1) {
+          LOG.fatal(e1);
+        }
       }
     }
     
