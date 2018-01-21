@@ -67,9 +67,10 @@ public class SrFilmDetailTask extends AbstractDocumentTask<Film, SrTopicUrlDTO> 
       final Optional<String> description = parseDescription(aDocument);
       
       Optional<ArdVideoInfoDTO> videoInfoOptional = parseUrls(aDocument);
-      if (videoInfoOptional.isPresent()) {
+      if (videoInfoOptional.isPresent() 
+        && title.isPresent()) {
         final Film film = new Film(UUID.randomUUID(), crawler.getSender(), title.get(),
-                aUrlDTO.getTheme(), time.get(), duration.get());
+                aUrlDTO.getTheme(), time.orElse(LocalDateTime.now()), duration.orElse(Duration.ZERO));
 
         film.setWebsite(new URL(aUrlDTO.getUrl()));
         if (description.isPresent()) {
@@ -85,6 +86,10 @@ public class SrFilmDetailTask extends AbstractDocumentTask<Film, SrTopicUrlDTO> 
         
         taskResults.add(film);
         crawler.incrementAndGetActualCount();
+        crawler.updateProgress();
+      } else {
+        LOG.error("SrFilmDetailTask: no title or video found for url " + aUrlDTO.getUrl());
+        crawler.incrementAndGetErrorCount();
         crawler.updateProgress();
       }
     } catch (MalformedURLException ex) {
