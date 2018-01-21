@@ -82,6 +82,22 @@ public final class UrlUtils {
   }
   
   /**
+   * returns the file type of the url
+   * @param aUrl the url
+   * @return the type of the file
+   */
+  public static Optional<String> getFileType(final String aUrl) {
+    if (aUrl != null) {
+      int index = aUrl.lastIndexOf('.');
+      if (index > 0) {
+        return Optional.of(aUrl.substring(index + 1));
+      }
+    }
+    
+    return Optional.empty();
+  }
+  
+  /**
    * returns the value of an url parameter
    * @param aUrl the url
    * @param aParameterName the name of the url parameter
