@@ -169,8 +169,8 @@ public class ArdMediaArrayToDownloadUrlsConverter {
     try {
       qualityNumber = Integer.parseInt(aQualityAsText);
     } catch (final NumberFormatException numberFormatException) {
-     /* LOG.debug("Can't convert quality %s to an integer.", aQualityAsText,
-          numberFormatException);*/
+      LOG.debug("Can't convert quality %s to an integer.", aQualityAsText,
+          numberFormatException);
       qualityNumber = -1;
     }
 
