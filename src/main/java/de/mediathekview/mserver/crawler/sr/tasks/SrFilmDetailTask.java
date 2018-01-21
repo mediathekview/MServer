@@ -72,7 +72,7 @@ public class SrFilmDetailTask extends AbstractDocumentTask<Film, SrTopicUrlDTO> 
         
         ArdVideoInfoDTO videoInfo = videoInfoOptional.get();
         if (StringUtils.isNotBlank(videoInfo.getSubtitleUrl())) {
-          film.addSubtitle(new URL(videoInfo.getSubtitleUrl()));
+          film.addSubtitle(new URL(addMissingProtocol(videoInfo.getSubtitleUrl())));
         }
         
         addUrls(film, videoInfo.getVideoUrls());
@@ -110,9 +110,7 @@ public class SrFilmDetailTask extends AbstractDocumentTask<Film, SrTopicUrlDTO> 
           .create();
 
         String url = videoDetailUrl.get();
-        if (url.startsWith("//")) {
-          url = "https:" + url;
-        }
+        url = addMissingProtocol(url);
         
         try {
           ArdVideoInfoDTO dto = gson.fromJson(new InputStreamReader(new URL(url).openStream()),
@@ -183,6 +181,11 @@ public class SrFilmDetailTask extends AbstractDocumentTask<Film, SrTopicUrlDTO> 
     return Optional.empty();
   }
   
-  
-  
+  private static String addMissingProtocol(final String aUrl) {
+    if (aUrl.startsWith("//")) {
+      return "https:" + aUrl;
+    }    
+    
+    return aUrl;
+  }
 }
