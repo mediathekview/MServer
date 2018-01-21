@@ -32,7 +32,7 @@ public class UrlUtilsTestGetFileType {
   }
   
   @Test
-  public void getBaseUrlTest() {
+  public void getFileTypeTest() {
     Optional<String> actual = UrlUtils.getFileType(inputUrl);
     
     assertThat(actual, equalTo(expectedFileType));
