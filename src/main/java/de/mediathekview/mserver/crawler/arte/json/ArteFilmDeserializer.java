@@ -9,17 +9,33 @@ import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.Optional;
 import java.util.UUID;
+import javax.ws.rs.client.Client;
+import javax.ws.rs.client.ClientBuilder;
+import javax.ws.rs.client.WebTarget;
+import javax.ws.rs.core.Response;
+import org.glassfish.jersey.client.filter.EncodingFilter;
+import org.glassfish.jersey.message.DeflateEncoder;
+import org.glassfish.jersey.message.GZipEncoder;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonDeserializer;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
+import com.google.gson.reflect.TypeToken;
 import de.mediathekview.mlib.daten.Film;
 import de.mediathekview.mlib.daten.GeoLocations;
 import de.mediathekview.mserver.base.utils.JsonUtils;
+import de.mediathekview.mserver.crawler.arte.tasks.ArteVideoDetailDTO;
 import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
+import mServer.crawler.CrawlerTool;
 
 public class ArteFilmDeserializer implements JsonDeserializer<Optional<Film>> {
+  private static final Type OPTIONAL_ARTE_VIDEO_DETAIL_DTO_TYPE_TOKEN =
+      new TypeToken<Optional<ArteVideoDetailDTO>>() {}.getType();
+  private static final String ELEMENT_HREF = "href";
+  private static final String ELEMENT_VIDEO_STREAMS = "videoStreams";
   private static final String ELEMENT_SHORT_DESCRIPTION = "shortDescription";
   private static final String ELEMENT_GEOBLOCKING_ZONE = "geoblockingZone";
   private static final String ELEMENT_VIDEO_RIGHTS_BEGIN = "videoRightsBegin";
@@ -31,9 +47,14 @@ public class ArteFilmDeserializer implements JsonDeserializer<Optional<Film>> {
   private static final String ELEMENT_TITLE = "title";
   private static final String ELEMENT_SUBTITLE = "subtitle";
   private final AbstractCrawler crawler;
+  private final Client client;
 
   public ArteFilmDeserializer(final AbstractCrawler aCrawler) {
     crawler = aCrawler;
+    client = ClientBuilder.newClient();
+    client.register(EncodingFilter.class);
+    client.register(GZipEncoder.class);
+    client.register(DeflateEncoder.class);
   }
 
   @Override
@@ -68,17 +89,28 @@ public class ArteFilmDeserializer implements JsonDeserializer<Optional<Film>> {
           film.setBeschreibung(baseObject.get(ELEMENT_SHORT_DESCRIPTION).getAsString());
         }
 
-        // TODO Add video urls
         // video streams: links -> videoStreams -> href
-        return Optional.of(film);
+        if (JsonUtils.hasElements(baseObject, ELEMENT_VIDEO_STREAMS)) {
+          final JsonObject videoStreams = baseObject.get(ELEMENT_VIDEO_STREAMS).getAsJsonObject();
+          if (JsonUtils.hasElements(videoStreams, ELEMENT_HREF)) {
+            final Optional<ArteVideoDetailDTO> videoDetails =
+                gatherVideoDetails(videoStreams.get(ELEMENT_HREF).getAsString());
+            if (videoDetails.isPresent()) {
+              videoDetails.get().getUrls().entrySet()
+                  .forEach(e -> film.addUrl(e.getKey(), CrawlerTool.uriToFilmUrl(e.getValue())));
+              return Optional.of(film);
+            }
+          }
+        }
+
+        crawler.printErrorMessage();
+        crawler.incrementAndGetErrorCount();
       } else {
         crawler.printMissingElementErrorMessage(ELEMENT_CREATION_DATE);
       }
     }
     return Optional.empty();
   }
-
-
 
   private Optional<LocalDateTime> gatherDateTime(final JsonObject aBaseObject,
       final String... aElementIds) {
@@ -88,6 +120,17 @@ public class ArteFilmDeserializer implements JsonDeserializer<Optional<Film>> {
       }
     }
     return Optional.empty();
+  }
+
+  private Optional<ArteVideoDetailDTO> gatherVideoDetails(final String aVideoDetailUrl) {
+    final WebTarget target = client.target(aVideoDetailUrl);
+    final Response response = target.request().get();
+    final String jsonOutput = response.readEntity(String.class);
+
+    final Gson gson =
+        new GsonBuilder().registerTypeAdapter(OPTIONAL_ARTE_VIDEO_DETAIL_DTO_TYPE_TOKEN,
+            new ArteVideDetailsDeserializer(crawler)).create();
+    return gson.fromJson(jsonOutput, OPTIONAL_ARTE_VIDEO_DETAIL_DTO_TYPE_TOKEN);
   }
 
   private LocalDateTime toDateTime(final String aDateTimeTest) {
