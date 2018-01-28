@@ -7,6 +7,7 @@ public final class Consts {
   public static final String JSON_SYNTAX_ERROR =
       "The site \"%s\" for the \"%s\" crawler in't a valid JSON page.";
   public static final String ATTRIBUTE_HREF = "href";
+  public static final String ATTRIBUTE_TITLE = "title";
 
   private Consts() {
     super();

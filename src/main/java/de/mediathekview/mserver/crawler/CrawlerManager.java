@@ -50,6 +50,7 @@ import de.mediathekview.mserver.crawler.funk.FunkCrawler;
 import de.mediathekview.mserver.crawler.hr.HrCrawler;
 import de.mediathekview.mserver.crawler.kika.KikaCrawler;
 import de.mediathekview.mserver.crawler.ndr.NdrCrawler;
+import de.mediathekview.mserver.crawler.orf.OrfCrawler;
 import de.mediathekview.mserver.crawler.sr.SrCrawler;
 import de.mediathekview.mserver.crawler.srf.SrfCrawler;
 
@@ -525,6 +526,8 @@ public class CrawlerManager extends AbstractManager {
         new DwCrawler(forkJoinPool, messageListeners, progressListeners, rootConfig));
     crawlerMap.put(Sender.NDR,
         new NdrCrawler(forkJoinPool, messageListeners, progressListeners, rootConfig));
+    crawlerMap.put(Sender.ORF,
+        new OrfCrawler(forkJoinPool, messageListeners, progressListeners, rootConfig));
     crawlerMap.put(Sender.SRF,
         new SrfCrawler(forkJoinPool, messageListeners, progressListeners, rootConfig));
     crawlerMap.put(Sender.SR,
