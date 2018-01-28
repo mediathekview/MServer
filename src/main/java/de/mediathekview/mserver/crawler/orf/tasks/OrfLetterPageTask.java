@@ -36,8 +36,6 @@ public class OrfLetterPageTask implements Callable<ConcurrentLinkedQueue<OrfTopi
         results.addAll(parseOverviewPage(subpageDocument));
       } catch (IOException ex) {
         LOG.fatal("OrfLetterPageTask: error parsing url " + url, ex);
-      } catch(Exception e) {
-        LOG.fatal(e);
       }
     });  
     
