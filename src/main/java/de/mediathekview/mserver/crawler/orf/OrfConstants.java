@@ -7,9 +7,15 @@ public final class OrfConstants {
   public static final String URL_BASE = "http://tvthek.orf.at";
   
   /**
-   * URL für Übersichtsseite nach Themen
+   * Basis-URL für Übersichtsseite nach Buchstaben
+   * Muss am Ende noch um Buchstae  bzw. 0 ergänzt werden
    */
-  public static final String URL_SHOW_LETTER_PAGE = URL_BASE + "/profiles/letter/A";
+  public static final String URL_SHOW_LETTER_PAGE = URL_BASE + "/profiles/letter/";
+
+  /**
+   * URL für erste Übersichtsseite nach Buchstaben
+   */
+  public static final String URL_SHOW_LETTER_PAGE_A = URL_SHOW_LETTER_PAGE + "A";
   
   /**
    * URL für verpasste Sendungen eines Tages

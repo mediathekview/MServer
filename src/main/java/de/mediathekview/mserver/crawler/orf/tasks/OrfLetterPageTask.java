@@ -26,7 +26,7 @@ public class OrfLetterPageTask implements Callable<ConcurrentLinkedQueue<OrfTopi
     final ConcurrentLinkedQueue<OrfTopicUrlDTO> results = new ConcurrentLinkedQueue<>();
     
     // URLs für Seiten parsen
-    final Document document = Jsoup.connect(OrfConstants.URL_SHOW_LETTER_PAGE).get();
+    final Document document = Jsoup.connect(OrfConstants.URL_SHOW_LETTER_PAGE_A).get();
     List<String> overviewLinks = parseOverviewLinks(document);
     
     // Sendungen für die einzelnen Seiten pro Buchstabe ermitteln
@@ -36,6 +36,8 @@ public class OrfLetterPageTask implements Callable<ConcurrentLinkedQueue<OrfTopi
         results.addAll(parseOverviewPage(subpageDocument));
       } catch (IOException ex) {
         LOG.fatal("OrfLetterPageTask: error parsing url " + url, ex);
+      } catch(Exception e) {
+        LOG.fatal(e);
       }
     });  
     
