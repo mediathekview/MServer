@@ -19,6 +19,7 @@ import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.time.temporal.ChronoUnit;
 import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
@@ -127,28 +128,41 @@ public class OrfFilmDetailTask extends AbstractDocumentTask<Film, OrfTopicUrlDTO
   private static Optional<LocalDateTime> parseDate(Document aDocument) {
     Optional<String> date = HtmlDocumentUtils.getElementAttributeString(TIME_SELECTOR, ATTRIBUTE_DATETIME, aDocument);
     if (date.isPresent()) {
-      String dateValue = date.get().substring(0, 10);
-      String timeValue = date.get().substring(13);
+      String dateValue = date.get().replace("CET", " ").replace("CEST", " ");
       try {
-        LocalDateTime localDate = LocalDateTime.parse(dateValue + " " + timeValue, DATE_TIME_FORMATTER);
+        LocalDateTime localDate = LocalDateTime.parse(dateValue, DATE_TIME_FORMATTER);
         return Optional.of(localDate);
       } catch(DateTimeParseException e) {
-        LOG.fatal(e);
+        LOG.debug("OrfFilmDetailTask: unknown date format: " + date.get());
       }
     }
     
     return Optional.empty();
   }
-  
+    
   private static Optional<Duration> parseDuration(Document aDocument) {
     Optional<String> duration = HtmlDocumentUtils.getElementString(DURATION_SELECTOR, aDocument);
     if (duration.isPresent()) {
-      String[] parts = duration.get().replace(" Min.", "").trim().split(":");
-      if (parts.length == 2) {
-        return Optional.of(
-          Duration.ofMinutes(Long.parseLong(parts[0]))
-            .plusSeconds(Long.parseLong(parts[1]))
-        );
+      Optional<ChronoUnit> unit = determineChronoUnit(duration.get());
+      if (unit.isPresent()) {
+        String[] parts = duration.get().split(" ")[0].trim().split(":");
+        if (parts.length == 2) {
+          ChronoUnit unitValue = unit.get();
+          if (unitValue == ChronoUnit.MINUTES) {
+            return Optional.of(
+              Duration.ofMinutes(Long.parseLong(parts[0]))
+                .plusSeconds(Long.parseLong(parts[1]))
+            );
+          }
+          if (unitValue == ChronoUnit.HOURS) {
+            return Optional.of(
+              Duration.ofHours(Long.parseLong(parts[0]))
+                .plusMinutes(Long.parseLong(parts[1]))
+            );
+          }
+        } else {
+          LOG.debug("OrfFilmDetailTask: unknown duration type: " + duration.get());
+        }
       } else {
         LOG.debug("OrfFilmDetailTask: unknown duration part count: " + duration.get());
       }
@@ -156,4 +170,15 @@ public class OrfFilmDetailTask extends AbstractDocumentTask<Film, OrfTopicUrlDTO
     
     return Optional.empty();
   }  
+  
+  private static Optional<ChronoUnit> determineChronoUnit(String aDuration) {
+    if (aDuration.contains("Min.")) {
+      return Optional.of(ChronoUnit.MINUTES);
+    }
+    if (aDuration.contains("Std.")) {
+      return Optional.of(ChronoUnit.HOURS);
+    }
+    
+    return Optional.empty();
+  }
 }
