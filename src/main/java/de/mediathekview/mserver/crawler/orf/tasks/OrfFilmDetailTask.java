@@ -79,8 +79,7 @@ public class OrfFilmDetailTask extends AbstractDocumentTask<Film, OrfTopicUrlDTO
         }
         
         addUrls(film, videoInfo.getVideoUrls());
-
-        // TODO geo
+        film.setGeoLocations(CrawlerTool.getGeoLocations(crawler.getSender(), videoInfo.getDefaultVideoUrl()));
 
         taskResults.add(film);
         crawler.incrementAndGetActualCount();
