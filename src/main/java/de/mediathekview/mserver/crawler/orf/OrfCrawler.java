@@ -38,6 +38,7 @@ public class OrfCrawler extends AbstractCrawler {
       ConcurrentLinkedQueue<OrfTopicUrlDTO> shows = forkJoinPool.submit(letterTask).get();
      
       printMessage(ServerMessages.DEBUG_ALL_SENDUNG_FOLGEN_COUNT, getSender().getName(), shows.size());
+      getAndSetMaxCount(shows.size());
       
       return new OrfFilmDetailTask(this, shows);
     } catch (InterruptedException | ExecutionException ex) {
