@@ -2,9 +2,11 @@ package de.mediathekview.mserver.crawler.srf.parser;
 
 import com.google.gson.JsonElement;
 import de.mediathekview.mlib.daten.Film;
+import de.mediathekview.mlib.daten.GeoLocations;
 import de.mediathekview.mlib.daten.Resolution;
 import de.mediathekview.mlib.daten.Sender;
 import de.mediathekview.mserver.crawler.srf.tasks.SrfTaskTestBase;
+import de.mediathekview.mserver.testhelper.AssertFilm;
 import de.mediathekview.mserver.testhelper.JsonFileReader;
 import java.net.URL;
 import java.time.Duration;
@@ -99,24 +101,19 @@ public class SrfFilmJsonDeserializerTest extends SrfTaskTestBase {
     
     assertThat(actual.isPresent(), equalTo(true));
     Film actualFilm = actual.get();
-    assertThat(actualFilm.getSender(), equalTo(Sender.SRF));
-    assertThat(actualFilm.getThema(), equalTo(theme));
-    assertThat(actualFilm.getTitel(), equalTo(title));
-    assertThat(actualFilm.getTime(), equalTo(dateTime));
-    assertThat(actualFilm.getDuration(), equalTo(Duration.of(duration, ChronoUnit.MILLIS)));
-    assertThat(actualFilm.getBeschreibung(), equalTo(description));
-    assertThat(actualFilm.getWebsite().get().toString(), equalTo(website));
-
-    assertThat(actualFilm.getUrl(Resolution.SMALL).toString(), equalTo(smallUrl));
-    assertThat(actualFilm.getUrl(Resolution.NORMAL).toString(), equalTo(normalUrl));
-    assertThat(actualFilm.hasHD(), equalTo(!hdUrl.isEmpty()));
-    if (!hdUrl.isEmpty()) {
-      assertThat(actualFilm.getUrl(Resolution.HD).toString(), equalTo(hdUrl));
-    }
-    
-    assertThat(actualFilm.hasUT(), equalTo(!subtitleUrl.isEmpty()));
-    if(!subtitleUrl.isEmpty()) {
-      assertThat(actualFilm.getSubtitles().toArray(new URL[0])[0].toString(), equalTo(subtitleUrl));
-    }
+    AssertFilm.AssertEquals(actualFilm, 
+      Sender.SRF,
+      theme,
+      title,
+      dateTime,
+      Duration.of(duration, ChronoUnit.MILLIS),
+      description,
+      website,
+      new GeoLocations[0],
+      smallUrl,
+      normalUrl,
+      hdUrl,
+      subtitleUrl
+    );    
   }
 }
