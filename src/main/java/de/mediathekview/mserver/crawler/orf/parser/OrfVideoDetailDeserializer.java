@@ -40,22 +40,27 @@ public class OrfVideoDetailDeserializer implements JsonDeserializer<Optional<Orf
       final JsonObject playlistObject = jsonObject.get(ELEMENT_PLAYLIST).getAsJsonObject();
       if (playlistObject.has(ELEMENT_VIDEOS)) {
         final JsonObject videoObject = playlistObject.get(ELEMENT_VIDEOS).getAsJsonArray().get(0).getAsJsonObject();
-        final OrfVideoInfoDTO dto = new OrfVideoInfoDTO();
-
-        if (videoObject.has(ELEMENT_SOURCES)) {
-          parseVideo(videoObject.get(ELEMENT_SOURCES), dto);
-        }
-
-        if (videoObject.has(ELEMENT_SUBTITLES)) {
-          parseSubtitles(videoObject.get(ELEMENT_SUBTITLES), dto);
-        }
-  
-        return Optional.of(dto);
+        
+        return deserializeVideoObject(videoObject);
       }
     }
     
     return Optional.empty();
   }  
+  
+  public Optional<OrfVideoInfoDTO> deserializeVideoObject(final JsonObject aVideoObject) {
+    final OrfVideoInfoDTO dto = new OrfVideoInfoDTO();
+
+    if (aVideoObject.has(ELEMENT_SOURCES)) {
+      parseVideo(aVideoObject.get(ELEMENT_SOURCES), dto);
+    }
+
+    if (aVideoObject.has(ELEMENT_SUBTITLES)) {
+      parseSubtitles(aVideoObject.get(ELEMENT_SUBTITLES), dto);
+    }
+
+    return Optional.of(dto);
+  }
   
   private static void parseVideo(final JsonElement aVideoElement, final OrfVideoInfoDTO dto) {
     if (aVideoElement.isJsonArray()) {

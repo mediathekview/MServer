@@ -2,29 +2,18 @@ package de.mediathekview.mserver.crawler.orf.tasks;
 
 import de.mediathekview.mlib.daten.Film;
 import de.mediathekview.mlib.daten.GeoLocations;
-import de.mediathekview.mlib.daten.Resolution;
 import de.mediathekview.mlib.daten.Sender;
-import de.mediathekview.mlib.messages.listener.MessageListener;
-import de.mediathekview.mserver.base.config.MServerConfigManager;
-import de.mediathekview.mserver.crawler.orf.OrfCrawler;
-import de.mediathekview.mserver.crawler.orf.OrfTopicUrlDTO;
-import de.mediathekview.mserver.progress.listeners.SenderProgressListener;
+import de.mediathekview.mserver.testhelper.AssertFilm;
 import de.mediathekview.mserver.testhelper.JsoupMock;
-import de.mediathekview.mserver.testhelper.WireMockTestBase;
 import java.io.IOException;
-import java.net.URL;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Set;
-import java.util.concurrent.ConcurrentLinkedQueue;
-import java.util.concurrent.ForkJoinPool;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.notNullValue;
-import org.hamcrest.Matchers;
 import org.jsoup.Jsoup;
 import static org.junit.Assert.assertThat;
 import org.junit.Test;
@@ -39,7 +28,7 @@ import org.powermock.modules.junit4.PowerMockRunnerDelegate;
 @PrepareForTest({Jsoup.class})
 @PowerMockRunnerDelegate(Parameterized.class)
 @PowerMockIgnore("javax.net.ssl.*")
-public class OrfFilmDetailTaskTest extends WireMockTestBase {
+public class OrfFilmDetailTaskTest extends OrfFilmDetailTaskTestBase {
   
   @Parameterized.Parameters
   public static Collection<Object[]> data() {
@@ -73,20 +62,6 @@ public class OrfFilmDetailTaskTest extends WireMockTestBase {
         new GeoLocations[] { GeoLocations.GEO_AT }
       },
       {
-        "http://tvthek.orf.at/profile/Aktuell-in-Oesterreich/13887571/Aktuell-in-Oesterreich/13962830",
-        "/orf/orf_film_with_several_parts.html",
-        "Aktuell in Österreich",
-        "Aktuell in Österreich",
-        LocalDateTime.of(2018, 1, 26, 17, 5, 0),
-        Duration.of(1329, ChronoUnit.SECONDS),
-        "",
-        "http://api-tvthek.orf.at/uploads/media/subtitles/0021/25/995219cf13e982e87924383384833f3405b74015.ttml",
-        "http://localhost:8589/apasfpd.apa.at/cms-worldwide/online/30744e157f6789f34617bc3c2114770a/1517170556/2018-01-26_1705_tl_02_AKTUELL-IN-OEST_Signation---Hea__13962830__o__9480239995__s14226895_5__WEB03HD_17071004P_17075707P_Q4A.mp4",
-        "http://localhost:8589/apasfpd.apa.at/cms-worldwide/online/9d3a9fa724a3e0615b018303e8bb558c/1517170556/2018-01-26_1705_tl_02_AKTUELL-IN-OEST_Signation---Hea__13962830__o__9480239995__s14226895_5__WEB03HD_17071004P_17075707P_Q6A.mp4",
-        "http://localhost:8589/apasfpd.apa.at/cms-worldwide/online/2db28f0f9086cf63b39c19165b1fc65d/1517170556/2018-01-26_1705_tl_02_AKTUELL-IN-OEST_Signation---Hea__13962830__o__9480239995__s14226895_5__WEB03HD_17071004P_17075707P_Q8C.mp4",
-        new GeoLocations[] { GeoLocations.GEO_NONE }
-      },
-      {
         "http://tvthek.orf.at/profile/Das-ewige-Leben/13886855/Das-ewige-Leben/13963129",
         "/orf/orf_film_duration_hour.html",
         "Das ewige Leben",
@@ -117,7 +92,6 @@ public class OrfFilmDetailTaskTest extends WireMockTestBase {
     });
   }
   
-  protected MServerConfigManager rootConfig = MServerConfigManager.getInstance("MServer-JUnit-Config.yaml");
   
   private final String requestUrl;
   private final String filmPageFile;
@@ -169,43 +143,20 @@ public class OrfFilmDetailTaskTest extends WireMockTestBase {
     assertThat(actual.size(), equalTo(1));
     
     Film actualFilm = (Film) actual.toArray()[0];
-    assertThat(actualFilm, notNullValue());
-    assertThat(actualFilm.getSender(), equalTo(Sender.ORF));
-    assertThat(actualFilm.getThema(), equalTo(theme));
-    assertThat(actualFilm.getTitel(), equalTo(expectedTitle));
-    assertThat(actualFilm.getTime(), equalTo(expectedDate));
-    assertThat(actualFilm.getDuration(), equalTo(expectedDuration));
-    assertThat(actualFilm.getBeschreibung(), equalTo(expectedDescription));
-    assertThat(actualFilm.getWebsite().get().toString(), equalTo(requestUrl));
-    assertThat(actualFilm.getGeoLocations(), Matchers.containsInAnyOrder(expectedGeoLocations));
-    
-    assertThat(actualFilm.getUrl(Resolution.SMALL).toString(), equalTo(expectedUrlSmall));
-    assertThat(actualFilm.getUrl(Resolution.NORMAL).toString(), equalTo(expectedUrlNormal));
-    assertThat(actualFilm.hasHD(), equalTo(!expectedUrlHd.isEmpty()));
-    if (!expectedUrlHd.isEmpty()) {
-      assertThat(actualFilm.getUrl(Resolution.HD).toString(), equalTo(expectedUrlHd));
-    }
-
-    assertThat(actualFilm.hasUT(), equalTo(!expectedSubtitle.isEmpty()));
-    if(!expectedSubtitle.isEmpty()) {
-      assertThat(actualFilm.getSubtitles().toArray(new URL[0])[0].toString(), equalTo(expectedSubtitle));
-    }
+    AssertFilm.AssertEquals(actualFilm, 
+      Sender.ORF,
+      theme,
+      expectedTitle,
+      expectedDate,
+      expectedDuration,
+      expectedDescription,
+      requestUrl,
+      expectedGeoLocations,
+      expectedUrlSmall,
+      expectedUrlNormal,
+      expectedUrlHd,
+      expectedSubtitle
+    );
   }
 
-  private Set<Film> executeTask(String aTheme, String aRequestUrl) {
-    return new OrfFilmDetailTask(createCrawler(), createCrawlerUrlDto(aTheme, aRequestUrl)).invoke();    
-  }
-  
-  private OrfCrawler createCrawler() {
-    ForkJoinPool forkJoinPool = new ForkJoinPool();
-    Collection<MessageListener> nachrichten = new ArrayList<>();
-    Collection<SenderProgressListener> fortschritte = new ArrayList<>();
-    return new OrfCrawler(forkJoinPool, nachrichten, fortschritte, rootConfig);
-  }  
-
-  private ConcurrentLinkedQueue<OrfTopicUrlDTO> createCrawlerUrlDto(String aTheme, String aUrl) {
-    ConcurrentLinkedQueue<OrfTopicUrlDTO> input = new ConcurrentLinkedQueue<>();
-    input.add(new OrfTopicUrlDTO(aTheme, aUrl));
-    return input;
-  }    
 }

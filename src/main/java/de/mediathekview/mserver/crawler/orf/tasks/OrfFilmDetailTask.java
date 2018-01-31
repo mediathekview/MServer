@@ -9,8 +9,10 @@ import de.mediathekview.mserver.base.utils.HtmlDocumentUtils;
 import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
 import de.mediathekview.mserver.crawler.basic.AbstractDocumentTask;
 import de.mediathekview.mserver.crawler.basic.AbstractUrlTask;
+import de.mediathekview.mserver.crawler.orf.OrfEpisodeInfoDTO;
 import de.mediathekview.mserver.crawler.orf.OrfTopicUrlDTO;
 import de.mediathekview.mserver.crawler.orf.OrfVideoInfoDTO;
+import de.mediathekview.mserver.crawler.orf.parser.OrfEpisodeDeserializer;
 import de.mediathekview.mserver.crawler.orf.parser.OrfVideoDetailDeserializer;
 import java.lang.reflect.Type;
 import java.net.MalformedURLException;
@@ -20,6 +22,8 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
@@ -29,6 +33,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.jsoup.nodes.Document;
+import org.jsoup.select.Elements;
 
 public class OrfFilmDetailTask extends AbstractDocumentTask<Film, OrfTopicUrlDTO> {
   
@@ -40,6 +45,7 @@ public class OrfFilmDetailTask extends AbstractDocumentTask<Film, OrfTopicUrlDTO
   private static final String DURATION_SELECTOR = BROADCAST_SELECTOR + " > span.meta_duration";
   private static final String DESCRIPTION_SELECTOR = "div.details_description";
   private static final String VIDEO_SELECTOR = "div.jsb_VideoPlaylist";
+  private static final String EPISODE_SELECTOR = "li.jsb_PlaylistItemFullscreen";
   
   private static final String ATTRIBUTE_DATETIME = "datetime";
   private static final String ATTRIBUTE_DATA_JSB = "data-jsb";
@@ -48,6 +54,7 @@ public class OrfFilmDetailTask extends AbstractDocumentTask<Film, OrfTopicUrlDTO
     DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
   
   private static final Type OPTIONAL_VIDEOINFO_TYPE_TOKEN = new TypeToken<Optional<OrfVideoInfoDTO>>() {}.getType();
+  private static final Type OPTIONAL_EPISODEINFO_TYPE_TOKEN = new TypeToken<Optional<OrfEpisodeInfoDTO>>() {}.getType();
   
   public OrfFilmDetailTask(final AbstractCrawler aCrawler,
       final ConcurrentLinkedQueue<OrfTopicUrlDTO> aUrlToCrawlDTOs) {
@@ -63,17 +70,37 @@ public class OrfFilmDetailTask extends AbstractDocumentTask<Film, OrfTopicUrlDTO
     
     final Optional<OrfVideoInfoDTO> videoInfoOptional = parseUrls(aDocument);
     
+    createFilm(aUrlDTO, videoInfoOptional, title, description, time, duration);
+    
+    final List<OrfEpisodeInfoDTO> episodes = parseEpisodes(aDocument);
+    episodes.forEach(episode -> {
+      createFilm(aUrlDTO, Optional.of(episode.getVideoInfo()), episode.getTitle(), episode.getDescription(), time, episode.getDuration());
+    });    
+  }
+
+  @Override
+  protected AbstractUrlTask<Film, OrfTopicUrlDTO> createNewOwnInstance(ConcurrentLinkedQueue<OrfTopicUrlDTO> aURLsToCrawl) {
+    return new OrfFilmDetailTask(crawler, aURLsToCrawl);  
+  }
+  
+  private void createFilm(final OrfTopicUrlDTO aUrlDTO,
+    final Optional<OrfVideoInfoDTO> aVideoInfo, 
+    final Optional<String> aTitle,
+    final Optional<String> aDescription,
+    final Optional<LocalDateTime> aTime,
+    final Optional<Duration> aDuration) {
+    
     try {
-      if (videoInfoOptional.isPresent() && title.isPresent()) {
-        final Film film = new Film(UUID.randomUUID(), crawler.getSender(), title.get(),
-          aUrlDTO.getTheme(), time.orElse(LocalDateTime.now()), duration.orElse(Duration.ZERO));
+      if (aVideoInfo.isPresent() && aTitle.isPresent()) {
+        final Film film = new Film(UUID.randomUUID(), crawler.getSender(), aTitle.get(),
+          aUrlDTO.getTheme(), aTime.orElse(LocalDateTime.now()), aDuration.orElse(Duration.ZERO));
 
         film.setWebsite(new URL(aUrlDTO.getUrl()));
-        if (description.isPresent()) {
-          film.setBeschreibung(description.get());
+        if (aDescription.isPresent()) {
+          film.setBeschreibung(aDescription.get());
         }
      
-        OrfVideoInfoDTO videoInfo = videoInfoOptional.get();
+        OrfVideoInfoDTO videoInfo = aVideoInfo.get();
         if (StringUtils.isNotBlank(videoInfo.getSubtitleUrl())) {
           film.addSubtitle(new URL(videoInfo.getSubtitleUrl()));
         }
@@ -94,12 +121,7 @@ public class OrfFilmDetailTask extends AbstractDocumentTask<Film, OrfTopicUrlDTO
       crawler.printErrorMessage();
       crawler.incrementAndGetErrorCount();
       crawler.updateProgress();
-    }    
-  }
-
-  @Override
-  protected AbstractUrlTask<Film, OrfTopicUrlDTO> createNewOwnInstance(ConcurrentLinkedQueue<OrfTopicUrlDTO> aURLsToCrawl) {
-    return new OrfFilmDetailTask(crawler, aURLsToCrawl);  
+    }      
   }
 
   private void addUrls(final Film aFilm, final Map<Resolution, String> aVideoUrls)
@@ -169,6 +191,28 @@ public class OrfFilmDetailTask extends AbstractDocumentTask<Film, OrfTopicUrlDTO
     
     return Optional.empty();
   }  
+  
+  private static List<OrfEpisodeInfoDTO> parseEpisodes(final Document aDocument) {
+    final List<OrfEpisodeInfoDTO> episodes = new ArrayList<>();
+    
+    Elements elements = aDocument.select(EPISODE_SELECTOR);
+    elements.forEach(element -> {
+      String json = element.attr(ATTRIBUTE_DATA_JSB);
+
+      if (!json.isEmpty()) {
+
+        final Gson gson = new GsonBuilder().registerTypeAdapter(OPTIONAL_EPISODEINFO_TYPE_TOKEN,
+            new OrfEpisodeDeserializer()).create();
+
+        Optional<OrfEpisodeInfoDTO> episode = gson.fromJson(json, OPTIONAL_EPISODEINFO_TYPE_TOKEN);
+        if (episode.isPresent()) {
+          episodes.add(episode.get());
+        }
+      }
+    });    
+    
+    return episodes;
+  }
   
   private static Optional<ChronoUnit> determineChronoUnit(String aDuration) {
     if (aDuration.contains("Min.")) {
