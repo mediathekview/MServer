@@ -57,7 +57,6 @@ public class OrfLetterPageTaskTest {
     urlMapping.put(OrfConstants.URL_SHOW_LETTER_PAGE + "N", "/orf/orf_letter_empty.html");
     urlMapping.put(OrfConstants.URL_SHOW_LETTER_PAGE + "O", "/orf/orf_letter_empty.html");
     urlMapping.put(OrfConstants.URL_SHOW_LETTER_PAGE + "P", "/orf/orf_letter_empty.html");
-    urlMapping.put(OrfConstants.URL_SHOW_LETTER_PAGE + "Q", "/orf/orf_letter_empty.html");
     urlMapping.put(OrfConstants.URL_SHOW_LETTER_PAGE + "R", "/orf/orf_letter_empty.html");
     urlMapping.put(OrfConstants.URL_SHOW_LETTER_PAGE + "S", "/orf/orf_letter_empty.html");
     urlMapping.put(OrfConstants.URL_SHOW_LETTER_PAGE + "T", "/orf/orf_letter_empty.html");
