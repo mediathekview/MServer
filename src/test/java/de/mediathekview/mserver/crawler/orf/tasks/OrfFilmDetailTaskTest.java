@@ -88,6 +88,20 @@ public class OrfFilmDetailTaskTest extends OrfFilmDetailTaskTestBase {
         "http://localhost:8589/apasfpd.apa.at/cms-worldwide/online/4f512329a47f2cc5b196edb3170d1884/1517342250/20161011_1040_in_02_Bundesland-heut_____13890700__o__1693823857__s13890997_Q6A.mp4",
         "http://localhost:8589/apasfpd.apa.at/cms-worldwide/online/7fa882e42a1a23eec93f1310f302478e/1517342250/20161011_1040_in_02_Bundesland-heut_____13890700__o__1693823857__s13890997_Q8C.mp4",
         new GeoLocations[] { GeoLocations.GEO_NONE }
+      },
+      {
+        "http://tvthek.orf.at/archive/Die-Geschichte-des-Burgenlands/9236430/Zweisprachige-Ortstafeln/9056913",
+        "/orf/orf_archive_film.html",
+        "Die Geschichte des Burgenlandes",
+        "Zweisprachige Ortstafeln",
+        LocalDateTime.of(2000, 7, 13, 12, 0, 0),
+        Duration.of(174, ChronoUnit.SECONDS),
+        "Bundeskanzler Wolfgang Schüssel (ÖVP) hat die erste offizielle zweisprachige Ortstafel im Burgenland am 13. Juli 2000 feierlich enthüllt. \"Burgenland Heute\" berichtet über das Minderheitenrecht, das jahrzehntelang für Diskussionen sorgte. Seit 1955 müssten die zweisprachigen Ortstafeln schon stehen. Der Artikel 7 des Staatsvertrages sieht diese Regelung im Verfassungsrang zwingend vor. Was aber fo\n.....",
+        "",
+        "http://apasfpd.apa.at/cms-worldwide/online/60abae06d715256ceb1548e235db7194/1517698714/2000-07-13_1200_in_00_Zweisprachige-Ortsta_____9056913__o__0001362620__s9056914___Q4A.mp4",
+        "http://apasfpd.apa.at/cms-worldwide/online/0d345417cbbae316a7bdb252dc52484f/1517698714/2000-07-13_1200_in_00_Zweisprachige-Ortsta_____9056913__o__0001362620__s9056914___Q6A.mp4",
+        "http://apasfpd.apa.at/cms-worldwide/online/fc56881b62c5828cf321ef51909d4541/1517698714/2000-07-13_1200_in_00_Zweisprachige-Ortsta_____9056913__o__0001362620__s9056914___Q8C.mp4",
+        new GeoLocations[] { GeoLocations.GEO_NONE }
       }
     });
   }
