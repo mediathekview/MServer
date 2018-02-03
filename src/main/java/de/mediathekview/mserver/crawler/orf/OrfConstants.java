@@ -31,7 +31,6 @@ public final class OrfConstants {
   
   /**
    * URL für Übersichtsseite des Archivs
-   * Muss am Ende noch um Buchstae  bzw. 0 ergänzt werden
    */
-  public static final String URL_ARCHIVE = URL_BASE + "/archive/letter/";
+  public static final String URL_ARCHIVE = URL_BASE + "/archive";
 }
