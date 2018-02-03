@@ -68,12 +68,12 @@ public class OrfLetterPageTask implements Callable<ConcurrentLinkedQueue<OrfTopi
     links.forEach(element -> {
       if (element.hasAttr(Consts.ATTRIBUTE_HREF)) {
         String link = element.attr(Consts.ATTRIBUTE_HREF);
-        String theme = element.attr(Consts.ATTRIBUTE_TITLE);
+        String theme = OrfHelper.parseTheme(element);
         
         results.add(new OrfTopicUrlDTO(theme, link));
       }
     });
       
     return results;
-  }  
+  }
 }

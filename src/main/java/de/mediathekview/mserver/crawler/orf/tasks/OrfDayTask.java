@@ -8,7 +8,6 @@ import de.mediathekview.mserver.crawler.basic.CrawlerUrlDTO;
 import de.mediathekview.mserver.crawler.orf.OrfTopicUrlDTO;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 public class OrfDayTask extends AbstractDocumentTask<OrfTopicUrlDTO, CrawlerUrlDTO> {
@@ -24,7 +23,7 @@ public class OrfDayTask extends AbstractDocumentTask<OrfTopicUrlDTO, CrawlerUrlD
   protected void processDocument(CrawlerUrlDTO aUrlDTO, Document aDocument) {
     Elements elements = aDocument.select(ITEM_SELECTOR);
     elements.forEach(item -> {
-      String theme = parseTheme(item);
+      String theme = OrfHelper.parseTheme(item);
       String url = item.attr(Consts.ATTRIBUTE_HREF);
       
       OrfTopicUrlDTO dto = new OrfTopicUrlDTO(theme, url);
@@ -36,16 +35,4 @@ public class OrfDayTask extends AbstractDocumentTask<OrfTopicUrlDTO, CrawlerUrlD
   protected AbstractUrlTask<OrfTopicUrlDTO, CrawlerUrlDTO> createNewOwnInstance(ConcurrentLinkedQueue<CrawlerUrlDTO> aURLsToCrawl) {
     return new OrfDayTask(crawler, aURLsToCrawl);
   }
-  
-  private static String parseTheme(final Element aItem) {
-    String theme = aItem.attr(Consts.ATTRIBUTE_TITLE);
-    
-    // Thema steht vor Doppelpunkt, Ausnahme ZIB-Sendungen mit Uhrzeit
-    int index = theme.indexOf(":");
-    if (index > 0 && theme.charAt(index+1) != '0') {
-      return theme.substring(0, index);
-    }
-    
-    return theme;
-  }  
 }
