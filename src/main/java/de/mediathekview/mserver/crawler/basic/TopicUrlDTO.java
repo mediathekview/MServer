@@ -1,13 +1,12 @@
-package de.mediathekview.mserver.crawler.orf;
+package de.mediathekview.mserver.crawler.basic;
 
-import de.mediathekview.mserver.crawler.basic.CrawlerUrlDTO;
 import java.util.Objects;
 
-public class OrfTopicUrlDTO extends CrawlerUrlDTO {
+public class TopicUrlDTO extends CrawlerUrlDTO {
   
   private final String theme;
   
-  public OrfTopicUrlDTO(String aTheme, String aUrl) {
+  public TopicUrlDTO(String aTheme, String aUrl) {
     super(aUrl);
     theme = aTheme;
   }
@@ -22,7 +21,7 @@ public class OrfTopicUrlDTO extends CrawlerUrlDTO {
       return false;
     }
     if (super.equals(obj)) {
-      return getTheme().equals(((OrfTopicUrlDTO)obj).getTheme());
+      return getTheme().equals(((TopicUrlDTO)obj).getTheme());
     }
     
     return false;
