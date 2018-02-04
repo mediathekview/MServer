@@ -19,6 +19,8 @@ import org.powermock.modules.junit4.PowerMockRunner;
 @PrepareForTest({Jsoup.class})
 public class OrfLetterPageTaskTest {
 
+  private static final String ORF_EMPTY_PAGE = "/orf/orf_letter_empty.html";
+  
   private final OrfTopicUrlDTO[] expectedUrls= new OrfTopicUrlDTO[] {
     new OrfTopicUrlDTO("ABC Bär", "http://tvthek.orf.at/profile/ABC-Baer/4611813/ABC-Baer/13962996"),
     new OrfTopicUrlDTO("ABC Bär", "http://tvthek.orf.at/profile/ABC-Baer/4611813/ABC-Baer/13962935"),
@@ -38,34 +40,34 @@ public class OrfLetterPageTaskTest {
   @Test
   public void test() throws Exception {
     OrfLetterPageTask target = new OrfLetterPageTask();
-
+    
     Map<String, String> urlMapping = new HashMap<>();
     urlMapping.put(OrfConstants.URL_SHOW_LETTER_PAGE, "/orf/orf_letter_multiple_themes_multiple_films.html");
     urlMapping.put(OrfConstants.URL_SHOW_LETTER_PAGE + "A", "/orf/orf_letter_multiple_themes_multiple_films.html");
-    urlMapping.put(OrfConstants.URL_SHOW_LETTER_PAGE + "B", "/orf/orf_letter_empty.html");
-    urlMapping.put(OrfConstants.URL_SHOW_LETTER_PAGE + "C", "/orf/orf_letter_empty.html");
-    urlMapping.put(OrfConstants.URL_SHOW_LETTER_PAGE + "D", "/orf/orf_letter_empty.html");
-    urlMapping.put(OrfConstants.URL_SHOW_LETTER_PAGE + "E", "/orf/orf_letter_empty.html");
-    urlMapping.put(OrfConstants.URL_SHOW_LETTER_PAGE + "F", "/orf/orf_letter_empty.html");
-    urlMapping.put(OrfConstants.URL_SHOW_LETTER_PAGE + "G", "/orf/orf_letter_empty.html");
-    urlMapping.put(OrfConstants.URL_SHOW_LETTER_PAGE + "H", "/orf/orf_letter_empty.html");
-    urlMapping.put(OrfConstants.URL_SHOW_LETTER_PAGE + "I", "/orf/orf_letter_empty.html");
-    urlMapping.put(OrfConstants.URL_SHOW_LETTER_PAGE + "J", "/orf/orf_letter_empty.html");
-    urlMapping.put(OrfConstants.URL_SHOW_LETTER_PAGE + "K", "/orf/orf_letter_empty.html");
-    urlMapping.put(OrfConstants.URL_SHOW_LETTER_PAGE + "L", "/orf/orf_letter_empty.html");
-    urlMapping.put(OrfConstants.URL_SHOW_LETTER_PAGE + "M", "/orf/orf_letter_empty.html");
-    urlMapping.put(OrfConstants.URL_SHOW_LETTER_PAGE + "N", "/orf/orf_letter_empty.html");
-    urlMapping.put(OrfConstants.URL_SHOW_LETTER_PAGE + "O", "/orf/orf_letter_empty.html");
-    urlMapping.put(OrfConstants.URL_SHOW_LETTER_PAGE + "P", "/orf/orf_letter_empty.html");
-    urlMapping.put(OrfConstants.URL_SHOW_LETTER_PAGE + "R", "/orf/orf_letter_empty.html");
-    urlMapping.put(OrfConstants.URL_SHOW_LETTER_PAGE + "S", "/orf/orf_letter_empty.html");
-    urlMapping.put(OrfConstants.URL_SHOW_LETTER_PAGE + "T", "/orf/orf_letter_empty.html");
-    urlMapping.put(OrfConstants.URL_SHOW_LETTER_PAGE + "U", "/orf/orf_letter_empty.html");
-    urlMapping.put(OrfConstants.URL_SHOW_LETTER_PAGE + "V", "/orf/orf_letter_empty.html");
-    urlMapping.put(OrfConstants.URL_SHOW_LETTER_PAGE + "W", "/orf/orf_letter_empty.html");
-    urlMapping.put(OrfConstants.URL_SHOW_LETTER_PAGE + "X", "/orf/orf_letter_empty.html");
-    urlMapping.put(OrfConstants.URL_SHOW_LETTER_PAGE + "Y", "/orf/orf_letter_empty.html");
-    urlMapping.put(OrfConstants.URL_SHOW_LETTER_PAGE + "Z", "/orf/orf_letter_empty.html");
+    urlMapping.put(OrfConstants.URL_SHOW_LETTER_PAGE + "B", ORF_EMPTY_PAGE);
+    urlMapping.put(OrfConstants.URL_SHOW_LETTER_PAGE + "C", ORF_EMPTY_PAGE);
+    urlMapping.put(OrfConstants.URL_SHOW_LETTER_PAGE + "D", ORF_EMPTY_PAGE);
+    urlMapping.put(OrfConstants.URL_SHOW_LETTER_PAGE + "E", ORF_EMPTY_PAGE);
+    urlMapping.put(OrfConstants.URL_SHOW_LETTER_PAGE + "F", ORF_EMPTY_PAGE);
+    urlMapping.put(OrfConstants.URL_SHOW_LETTER_PAGE + "G", ORF_EMPTY_PAGE);
+    urlMapping.put(OrfConstants.URL_SHOW_LETTER_PAGE + "H", ORF_EMPTY_PAGE);
+    urlMapping.put(OrfConstants.URL_SHOW_LETTER_PAGE + "I", ORF_EMPTY_PAGE);
+    urlMapping.put(OrfConstants.URL_SHOW_LETTER_PAGE + "J", ORF_EMPTY_PAGE);
+    urlMapping.put(OrfConstants.URL_SHOW_LETTER_PAGE + "K", ORF_EMPTY_PAGE);
+    urlMapping.put(OrfConstants.URL_SHOW_LETTER_PAGE + "L", ORF_EMPTY_PAGE);
+    urlMapping.put(OrfConstants.URL_SHOW_LETTER_PAGE + "M", ORF_EMPTY_PAGE);
+    urlMapping.put(OrfConstants.URL_SHOW_LETTER_PAGE + "N", ORF_EMPTY_PAGE);
+    urlMapping.put(OrfConstants.URL_SHOW_LETTER_PAGE + "O", ORF_EMPTY_PAGE);
+    urlMapping.put(OrfConstants.URL_SHOW_LETTER_PAGE + "P", ORF_EMPTY_PAGE);
+    urlMapping.put(OrfConstants.URL_SHOW_LETTER_PAGE + "R", ORF_EMPTY_PAGE);
+    urlMapping.put(OrfConstants.URL_SHOW_LETTER_PAGE + "S", ORF_EMPTY_PAGE);
+    urlMapping.put(OrfConstants.URL_SHOW_LETTER_PAGE + "T", ORF_EMPTY_PAGE);
+    urlMapping.put(OrfConstants.URL_SHOW_LETTER_PAGE + "U", ORF_EMPTY_PAGE);
+    urlMapping.put(OrfConstants.URL_SHOW_LETTER_PAGE + "V", ORF_EMPTY_PAGE);
+    urlMapping.put(OrfConstants.URL_SHOW_LETTER_PAGE + "W", ORF_EMPTY_PAGE);
+    urlMapping.put(OrfConstants.URL_SHOW_LETTER_PAGE + "X", ORF_EMPTY_PAGE);
+    urlMapping.put(OrfConstants.URL_SHOW_LETTER_PAGE + "Y", ORF_EMPTY_PAGE);
+    urlMapping.put(OrfConstants.URL_SHOW_LETTER_PAGE + "Z", ORF_EMPTY_PAGE);
     urlMapping.put(OrfConstants.URL_SHOW_LETTER_PAGE + "0", "/orf/orf_letter_single_theme_single_film.html");
 
     JsoupMock.mock(urlMapping);
