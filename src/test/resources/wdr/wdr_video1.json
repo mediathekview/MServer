@@ -1,0 +1,24 @@
+{
+   "mediaVersion":"1.2.0",
+   "mediaType":"vod",
+   "mediaResource":{
+      "dflt":{
+         "videoURL":"//wdradaptiv-vh.akamaihd.net/i/medp/ondemand/weltweit/fsk0/148/1480611/,1480611_16974214,1480611_16974213,1480611_16974215,1480611_16974211,1480611_16974212,.mp4.csmil/master.m3u8",
+         "mediaFormat":"hls"
+      },
+      "alt":{
+         "videoURL":"//wdradaptiv-vh.akamaihd.net/i/medp/ondemand/weltweit/fsk0/148/1480611/,1480611_16974214,1480611_16974213,1480611_16974215,1480611_16974211,1480611_16974212,.mp4.csmil/master.m3u8",
+         "mediaFormat":"hls"
+      },
+      "captionURL":""
+   },
+   "trackerData":{
+      "trackerClipId":"mdb-1407842",
+      "trackerClipEpgId":"42380325",
+      "trackerClipCategory":"WDR",
+      "trackerClipSubcategory":"Ausgerechnet",
+      "trackerClipTitle":"Ausgerechnet - Schokolade",
+      "trackerClipAirTime":"15.07.2017 16:00",
+      "trackerClipIsTrailer":"0"
+   }
+}

@@ -14,9 +14,6 @@ import java.util.concurrent.ForkJoinPool;
 public class WdrTaskTestBase extends WireMockTestBase {
   protected MServerConfigManager rootConfig = MServerConfigManager.getInstance("MServer-JUnit-Config.yaml");
 
-  public WdrTaskTestBase() {
-  }
-
   protected WdrCrawler createCrawler() {
     ForkJoinPool forkJoinPool = new ForkJoinPool();
     Collection<MessageListener> nachrichten = new ArrayList<>();
