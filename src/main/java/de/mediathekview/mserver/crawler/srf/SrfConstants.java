@@ -24,12 +24,6 @@ public final class SrfConstants {
    */
   public static final String WEBSITE_URL = "https://www.srf.ch/play/tv/%s/video/%s?id=%s";
   
-  public static final String M3U8_BANDWIDTH = "BANDWIDTH";
-  public static final String M3U8_CLOSED_CAPTIONS = "CLOSED-CAPTIONS";
-  public static final String M3U8_CODECS = "CODECS";
-  public static final String M3U8_PROGRAM_ID = "PROGRAM-ID";
-  public static final String M3U8_RESOLUTION = "RESOLUTION";
-  
   public static final String ENCODING_GZIP = "gzip";
   public static final String HEADER_ACCEPT_ENCODING = "Accept-Encoding";
 }
