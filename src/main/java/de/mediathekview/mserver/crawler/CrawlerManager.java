@@ -53,6 +53,7 @@ import de.mediathekview.mserver.crawler.ndr.NdrCrawler;
 import de.mediathekview.mserver.crawler.orf.OrfCrawler;
 import de.mediathekview.mserver.crawler.sr.SrCrawler;
 import de.mediathekview.mserver.crawler.srf.SrfCrawler;
+import de.mediathekview.mserver.crawler.wdr.WdrCrawler;
 
 /**
  * A manager to control the crawler.
@@ -532,6 +533,8 @@ public class CrawlerManager extends AbstractManager {
         new SrfCrawler(forkJoinPool, messageListeners, progressListeners, rootConfig));
     crawlerMap.put(Sender.SR,
         new SrCrawler(forkJoinPool, messageListeners, progressListeners, rootConfig));
+    crawlerMap.put(Sender.WDR,
+        new WdrCrawler(forkJoinPool, messageListeners, progressListeners, rootConfig));
   }
 
   private void runCrawlers(final AbstractCrawler... aCrawlers) {
