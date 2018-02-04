@@ -7,6 +7,8 @@ import de.mediathekview.mserver.base.config.MServerConfigManager;
 import de.mediathekview.mserver.base.messages.ServerMessages;
 import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
 import de.mediathekview.mserver.crawler.basic.CrawlerUrlDTO;
+import de.mediathekview.mserver.crawler.orf.tasks.OrfArchiveLetterPageTask;
+import de.mediathekview.mserver.crawler.orf.tasks.OrfArchiveTopicTask;
 import de.mediathekview.mserver.crawler.orf.tasks.OrfDayTask;
 import de.mediathekview.mserver.crawler.orf.tasks.OrfFilmDetailTask;
 import de.mediathekview.mserver.crawler.orf.tasks.OrfLetterPageTask;
@@ -39,22 +41,17 @@ public class OrfCrawler extends AbstractCrawler {
   @Override
   protected RecursiveTask<Set<Film>> createCrawlerTask() {
     try {
-      OrfLetterPageTask letterTask = new OrfLetterPageTask();
-      ConcurrentLinkedQueue<OrfTopicUrlDTO> shows = forkJoinPool.submit(letterTask).get();
 
-      printMessage(ServerMessages.DEBUG_ALL_SENDUNG_FOLGEN_COUNT, getSender().getName(), shows.size());
-
-      OrfDayTask dayTask = new OrfDayTask(this, getDayUrls());
-      Set<OrfTopicUrlDTO> shows1 = forkJoinPool.submit(dayTask).get();
+      final ConcurrentLinkedQueue<OrfTopicUrlDTO> shows = new ConcurrentLinkedQueue<>();
       
-      printMessage(ServerMessages.DEBUG_ALL_SENDUNG_FOLGEN_COUNT, getSender().getName(), shows1.size());
-      
-      shows1.forEach(show -> {
+      shows.addAll(getArchiveEntries());
+      shows.addAll(getLetterEntries());
+      getDaysEntries().forEach(show -> {
         if (!shows.contains(show)) {
           shows.add(show);
         }
       });
-      
+     
       printMessage(ServerMessages.DEBUG_ALL_SENDUNG_FOLGEN_COUNT, getSender().getName(), shows.size());
       getAndSetMaxCount(shows.size());
       
@@ -73,5 +70,35 @@ public class OrfCrawler extends AbstractCrawler {
     }
 
     return urls;
+  }
+  
+  private ConcurrentLinkedQueue<OrfTopicUrlDTO> getLetterEntries() throws InterruptedException, ExecutionException {
+    OrfLetterPageTask letterTask = new OrfLetterPageTask();
+    ConcurrentLinkedQueue<OrfTopicUrlDTO> shows = forkJoinPool.submit(letterTask).get();
+
+    printMessage(ServerMessages.DEBUG_ALL_SENDUNG_FOLGEN_COUNT, getSender().getName(), shows.size());
+
+    return shows;
+  }
+  
+  private Set<OrfTopicUrlDTO> getDaysEntries() throws InterruptedException, ExecutionException {
+    OrfDayTask dayTask = new OrfDayTask(this, getDayUrls());
+    Set<OrfTopicUrlDTO> shows = forkJoinPool.submit(dayTask).get();
+
+    printMessage(ServerMessages.DEBUG_ALL_SENDUNG_FOLGEN_COUNT, getSender().getName(), shows.size());
+    
+    return shows;
+  }
+  
+  private Set<OrfTopicUrlDTO> getArchiveEntries() throws InterruptedException, ExecutionException {
+      OrfArchiveLetterPageTask letterTask = new OrfArchiveLetterPageTask();
+      ConcurrentLinkedQueue<OrfTopicUrlDTO> topics = forkJoinPool.submit(letterTask).get();
+
+      OrfArchiveTopicTask topicTask = new OrfArchiveTopicTask(this, topics);
+      Set<OrfTopicUrlDTO> shows = forkJoinPool.submit(topicTask).get();
+      
+      printMessage(ServerMessages.DEBUG_ALL_SENDUNG_FOLGEN_COUNT, getSender().getName(), shows.size());
+    
+      return shows;
   }
 }
