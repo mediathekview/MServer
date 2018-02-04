@@ -121,7 +121,7 @@ public class SrFilmDetailTaskTest extends SrTaskTestBase {
     assertThat(actual.size(), equalTo(1));
     
     Film actualFilm = (Film) actual.toArray()[0];
-    AssertFilm.AssertEquals(actualFilm, 
+    AssertFilm.assertEquals(actualFilm, 
       Sender.SR,
       theme,
       expectedTitle,

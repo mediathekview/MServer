@@ -157,7 +157,7 @@ public class OrfFilmDetailTaskTest extends OrfFilmDetailTaskTestBase {
     assertThat(actual.size(), equalTo(1));
     
     Film actualFilm = (Film) actual.toArray()[0];
-    AssertFilm.AssertEquals(actualFilm, 
+    AssertFilm.assertEquals(actualFilm, 
       Sender.ORF,
       theme,
       expectedTitle,

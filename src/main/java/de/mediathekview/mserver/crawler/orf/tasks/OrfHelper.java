@@ -15,6 +15,8 @@ public class OrfHelper {
   
   private static final String LETTER_URL_SELECTOR = "div.mod_name_list > ul.js_extra_content > li:not(.inactive) > a.base_list_item_inner";
   
+  private OrfHelper() {}
+  
   public static String parseTheme(final Element aItem) {
     String theme = aItem.attr(Consts.ATTRIBUTE_TITLE);
     
@@ -23,7 +25,7 @@ public class OrfHelper {
     // - ZIB-Sendungen mit Uhrzeit
     // - DokEins-Sendungen
     // - Ungarisches Magazin
-    int index = theme.indexOf(":");
+    int index = theme.indexOf(':');
     if (index > 0 
       && !theme.startsWith("ZIB")
       && !theme.startsWith("DOKeins")

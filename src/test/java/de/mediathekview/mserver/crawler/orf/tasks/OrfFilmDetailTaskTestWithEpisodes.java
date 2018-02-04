@@ -41,7 +41,7 @@ public class OrfFilmDetailTaskTestWithEpisodes extends OrfFilmDetailTaskTestBase
   private static Object[][] data() {
     return new Object[][] { 
       {
-        "Aktuell in Österreich",
+        EXPECTED_THEME,
         Duration.of(1329, ChronoUnit.SECONDS),
         "",
         "http://api-tvthek.orf.at/uploads/media/subtitles/0021/25/995219cf13e982e87924383384833f3405b74015.ttml",
@@ -186,7 +186,7 @@ public class OrfFilmDetailTaskTestWithEpisodes extends OrfFilmDetailTaskTestBase
       Object[] expectedData = getExpectedValues(films, actualFilm.getTitel());
       assertThat(expectedData, notNullValue());
       
-      AssertFilm.AssertEquals(actualFilm,
+      AssertFilm.assertEquals(actualFilm,
         Sender.ORF,
         EXPECTED_THEME,
         expectedData[INDEX_TITLE].toString(),
@@ -210,6 +210,6 @@ public class OrfFilmDetailTaskTestWithEpisodes extends OrfFilmDetailTaskTestBase
       }
     }
     
-    return null;
+    return new Object[0];
   }
 }

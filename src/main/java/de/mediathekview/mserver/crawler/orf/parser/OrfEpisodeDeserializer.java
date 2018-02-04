@@ -5,7 +5,6 @@ import com.google.gson.JsonDeserializer;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
-import com.google.gson.reflect.TypeToken;
 import de.mediathekview.mserver.base.utils.JsonUtils;
 import de.mediathekview.mserver.crawler.orf.OrfEpisodeInfoDTO;
 import de.mediathekview.mserver.crawler.orf.OrfVideoInfoDTO;
@@ -20,8 +19,6 @@ public class OrfEpisodeDeserializer implements JsonDeserializer<Optional<OrfEpis
   private static final String ATTRIBUTE_TITLE = "title";
   private static final String ATTRIBUTE_DESCRIPTION = "description";
   private static final String ATTRIBUTE_DURATION = "duration";
-  
-  private static final Type OPTIONAL_VIDEOINFO_TYPE_TOKEN = new TypeToken<Optional<OrfVideoInfoDTO>>() {}.getType();
   
   @Override
   public Optional<OrfEpisodeInfoDTO> deserialize(JsonElement aJsonElement, Type aType, JsonDeserializationContext aContext) throws JsonParseException {

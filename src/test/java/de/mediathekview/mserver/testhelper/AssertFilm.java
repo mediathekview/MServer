@@ -12,9 +12,10 @@ import static org.hamcrest.CoreMatchers.notNullValue;
 import org.hamcrest.Matchers;
 import static org.junit.Assert.assertThat;
 
-public class AssertFilm {
+public final class AssertFilm {
+  private AssertFilm() {}
 
-  public static void AssertEquals(final Film aActualFilm,
+  public static void assertEquals(final Film aActualFilm,
     final Sender aExpectedSender,
     final String aExpectedTheme,
     final String aExpectedTitle,

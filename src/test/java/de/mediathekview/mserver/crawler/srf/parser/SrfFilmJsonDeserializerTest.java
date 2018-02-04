@@ -101,7 +101,7 @@ public class SrfFilmJsonDeserializerTest extends SrfTaskTestBase {
     
     assertThat(actual.isPresent(), equalTo(true));
     Film actualFilm = actual.get();
-    AssertFilm.AssertEquals(actualFilm, 
+    AssertFilm.assertEquals(actualFilm, 
       Sender.SRF,
       theme,
       title,

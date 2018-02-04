@@ -163,30 +163,34 @@ public class OrfFilmDetailTask extends AbstractDocumentTask<Film, OrfTopicUrlDTO
     
   private static Optional<Duration> parseDuration(Document aDocument) {
     Optional<String> duration = HtmlDocumentUtils.getElementString(DURATION_SELECTOR, aDocument);
-    if (duration.isPresent()) {
-      Optional<ChronoUnit> unit = determineChronoUnit(duration.get());
-      if (unit.isPresent()) {
-        String[] parts = duration.get().split(" ")[0].trim().split(":");
-        if (parts.length == 2) {
-          ChronoUnit unitValue = unit.get();
-          if (unitValue == ChronoUnit.MINUTES) {
-            return Optional.of(
+    if (!duration.isPresent()) {
+      return Optional.empty();
+    }
+    
+    Optional<ChronoUnit> unit = determineChronoUnit(duration.get());
+    if (!unit.isPresent()) {
+      LOG.debug("OrfFilmDetailTask: unknown duration type: " + duration.get());
+      return Optional.empty();
+    }
+    
+    String[] parts = duration.get().split(" ")[0].trim().split(":");
+    if (parts.length != 2) {
+      LOG.debug("OrfFilmDetailTask: unknown duration part count: " + duration.get());
+      return Optional.empty();
+    }
+    
+    ChronoUnit unitValue = unit.get();
+    if (unitValue == ChronoUnit.MINUTES) {
+      return Optional.of(
               Duration.ofMinutes(Long.parseLong(parts[0]))
-                .plusSeconds(Long.parseLong(parts[1]))
-            );
-          }
-          if (unitValue == ChronoUnit.HOURS) {
-            return Optional.of(
+                      .plusSeconds(Long.parseLong(parts[1]))
+      );
+    }
+    if (unitValue == ChronoUnit.HOURS) {
+      return Optional.of(
               Duration.ofHours(Long.parseLong(parts[0]))
-                .plusMinutes(Long.parseLong(parts[1]))
-            );
-          }
-        } else {
-          LOG.debug("OrfFilmDetailTask: unknown duration type: " + duration.get());
-        }
-      } else {
-        LOG.debug("OrfFilmDetailTask: unknown duration part count: " + duration.get());
-      }
+                      .plusMinutes(Long.parseLong(parts[1]))
+      );
     }
     
     return Optional.empty();

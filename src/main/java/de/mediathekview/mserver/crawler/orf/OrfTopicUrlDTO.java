@@ -18,6 +18,9 @@ public class OrfTopicUrlDTO extends CrawlerUrlDTO {
   
   @Override
   public boolean equals(final Object obj) {
+    if (obj == null || getClass() != obj.getClass()) {
+      return false;
+    }
     if (super.equals(obj)) {
       return getTheme().equals(((OrfTopicUrlDTO)obj).getTheme());
     }
