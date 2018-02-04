@@ -26,6 +26,20 @@ public final class UrlUtils {
   }
 
   /**
+   * adds the domain if missing
+   * @param aUrl the url to check
+   * @param aDomain the domain to add
+   * @return the url including the domain
+   */
+  public static String addDomainIfMissing(final String aUrl, final String aDomain) {
+    if(aUrl != null && !aUrl.isEmpty() && aUrl.startsWith("/")) {
+      return aDomain + aUrl;
+    }
+    
+    return aUrl;
+  }
+  
+  /**
    * Changes or adds an URL parameter.
    *
    * @param aUrl The URL which parameter should be changed or gets the parameter added.
