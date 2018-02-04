@@ -1,6 +1,6 @@
 package de.mediathekview.mserver.crawler.orf.tasks;
 
-import de.mediathekview.mserver.crawler.orf.OrfTopicUrlDTO;
+import de.mediathekview.mserver.crawler.basic.TopicUrlDTO;
 import de.mediathekview.mserver.crawler.orf.OrfConstants;
 import de.mediathekview.mserver.testhelper.JsoupMock;
 import java.util.HashMap;
@@ -21,20 +21,20 @@ public class OrfLetterPageTaskTest {
 
   private static final String ORF_EMPTY_PAGE = "/orf/orf_letter_empty.html";
   
-  private final OrfTopicUrlDTO[] expectedUrls= new OrfTopicUrlDTO[] {
-    new OrfTopicUrlDTO("ABC Bär", "http://tvthek.orf.at/profile/ABC-Baer/4611813/ABC-Baer/13962996"),
-    new OrfTopicUrlDTO("ABC Bär", "http://tvthek.orf.at/profile/ABC-Baer/4611813/ABC-Baer/13962935"),
-    new OrfTopicUrlDTO("Ungarisches Magazin: Adj'Isten magyarok", "http://tvthek.orf.at/profile/AdjIsten-magyarok/13886441/Ungarisches-Magazin-AdjIsten-magyarok/13961067"),
-    new OrfTopicUrlDTO("Aktuell in Österreich", "http://tvthek.orf.at/profile/Aktuell-in-Oesterreich/13887571/Aktuell-in-Oesterreich/13962830"),
-    new OrfTopicUrlDTO("Aktuell in Österreich", "http://tvthek.orf.at/profile/Aktuell-in-Oesterreich/13887571/Aktuell-in-Oesterreich/13962694"),
-    new OrfTopicUrlDTO("Aktuell in Österreich", "http://tvthek.orf.at/profile/Aktuell-in-Oesterreich/13887571/Aktuell-in-Oesterreich/13962553"),
-    new OrfTopicUrlDTO("Aktuell in Österreich", "http://tvthek.orf.at/profile/Aktuell-in-Oesterreich/13887571/Aktuell-in-Oesterreich/13962390"),
-    new OrfTopicUrlDTO("Aktuell in Österreich", "http://tvthek.orf.at/profile/Aktuell-in-Oesterreich/13887571/Aktuell-in-Oesterreich/13962219"),
-    new OrfTopicUrlDTO("Am Schauplatz", "http://tvthek.orf.at/profile/Am-Schauplatz/1239/Am-Schauplatz-Vor-dem-Nichts-Wenn-die-Delogierung-droht/13962716"),
-    new OrfTopicUrlDTO("Aufgetischt am Sonntag", "http://tvthek.orf.at/profile/Aufgetischt/13886333/Aufgetischt-am-Sonntag-Der-Grossglockner/13963022"),
-    new OrfTopicUrlDTO("Aus dem Rahmen", "http://tvthek.orf.at/profile/Aus-dem-Rahmen/3078207/Aus-dem-Rahmen-650-Jahre-Nationalbibliothek/13962409"),
-    new OrfTopicUrlDTO("Autofocus", "http://tvthek.orf.at/profile/Autofocus/13886508/Autofocus-Entspannter-Reisen-durch-autonomes-Fahren/13962578"),
-    new OrfTopicUrlDTO("100 Jahre Simpl", "http://tvthek.orf.at/profile/100-Jahre-Simpl/13888311/100-Jahre-Simpl/13962984")
+  private final TopicUrlDTO[] expectedUrls= new TopicUrlDTO[] {
+    new TopicUrlDTO("ABC Bär", "http://tvthek.orf.at/profile/ABC-Baer/4611813/ABC-Baer/13962996"),
+    new TopicUrlDTO("ABC Bär", "http://tvthek.orf.at/profile/ABC-Baer/4611813/ABC-Baer/13962935"),
+    new TopicUrlDTO("Ungarisches Magazin: Adj'Isten magyarok", "http://tvthek.orf.at/profile/AdjIsten-magyarok/13886441/Ungarisches-Magazin-AdjIsten-magyarok/13961067"),
+    new TopicUrlDTO("Aktuell in Österreich", "http://tvthek.orf.at/profile/Aktuell-in-Oesterreich/13887571/Aktuell-in-Oesterreich/13962830"),
+    new TopicUrlDTO("Aktuell in Österreich", "http://tvthek.orf.at/profile/Aktuell-in-Oesterreich/13887571/Aktuell-in-Oesterreich/13962694"),
+    new TopicUrlDTO("Aktuell in Österreich", "http://tvthek.orf.at/profile/Aktuell-in-Oesterreich/13887571/Aktuell-in-Oesterreich/13962553"),
+    new TopicUrlDTO("Aktuell in Österreich", "http://tvthek.orf.at/profile/Aktuell-in-Oesterreich/13887571/Aktuell-in-Oesterreich/13962390"),
+    new TopicUrlDTO("Aktuell in Österreich", "http://tvthek.orf.at/profile/Aktuell-in-Oesterreich/13887571/Aktuell-in-Oesterreich/13962219"),
+    new TopicUrlDTO("Am Schauplatz", "http://tvthek.orf.at/profile/Am-Schauplatz/1239/Am-Schauplatz-Vor-dem-Nichts-Wenn-die-Delogierung-droht/13962716"),
+    new TopicUrlDTO("Aufgetischt am Sonntag", "http://tvthek.orf.at/profile/Aufgetischt/13886333/Aufgetischt-am-Sonntag-Der-Grossglockner/13963022"),
+    new TopicUrlDTO("Aus dem Rahmen", "http://tvthek.orf.at/profile/Aus-dem-Rahmen/3078207/Aus-dem-Rahmen-650-Jahre-Nationalbibliothek/13962409"),
+    new TopicUrlDTO("Autofocus", "http://tvthek.orf.at/profile/Autofocus/13886508/Autofocus-Entspannter-Reisen-durch-autonomes-Fahren/13962578"),
+    new TopicUrlDTO("100 Jahre Simpl", "http://tvthek.orf.at/profile/100-Jahre-Simpl/13888311/100-Jahre-Simpl/13962984")
   };
   
   @Test
@@ -71,7 +71,7 @@ public class OrfLetterPageTaskTest {
     urlMapping.put(OrfConstants.URL_SHOW_LETTER_PAGE + "0", "/orf/orf_letter_single_theme_single_film.html");
 
     JsoupMock.mock(urlMapping);
-    ConcurrentLinkedQueue<OrfTopicUrlDTO> actual = target.call();
+    ConcurrentLinkedQueue<TopicUrlDTO> actual = target.call();
     assertThat(actual, notNullValue());
     assertThat(actual, Matchers.containsInAnyOrder(expectedUrls));
   }

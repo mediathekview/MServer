@@ -10,7 +10,7 @@ import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
 import de.mediathekview.mserver.crawler.basic.AbstractDocumentTask;
 import de.mediathekview.mserver.crawler.basic.AbstractUrlTask;
 import de.mediathekview.mserver.crawler.orf.OrfEpisodeInfoDTO;
-import de.mediathekview.mserver.crawler.orf.OrfTopicUrlDTO;
+import de.mediathekview.mserver.crawler.basic.TopicUrlDTO;
 import de.mediathekview.mserver.crawler.orf.OrfVideoInfoDTO;
 import de.mediathekview.mserver.crawler.orf.parser.OrfEpisodeDeserializer;
 import de.mediathekview.mserver.crawler.orf.parser.OrfVideoDetailDeserializer;
@@ -35,7 +35,7 @@ import org.apache.logging.log4j.Logger;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
 
-public class OrfFilmDetailTask extends AbstractDocumentTask<Film, OrfTopicUrlDTO> {
+public class OrfFilmDetailTask extends AbstractDocumentTask<Film, TopicUrlDTO> {
   
   private static final Logger LOG = LogManager.getLogger(OrfFilmDetailTask.class);
   
@@ -57,12 +57,12 @@ public class OrfFilmDetailTask extends AbstractDocumentTask<Film, OrfTopicUrlDTO
   private static final Type OPTIONAL_EPISODEINFO_TYPE_TOKEN = new TypeToken<Optional<OrfEpisodeInfoDTO>>() {}.getType();
   
   public OrfFilmDetailTask(final AbstractCrawler aCrawler,
-      final ConcurrentLinkedQueue<OrfTopicUrlDTO> aUrlToCrawlDTOs) {
+      final ConcurrentLinkedQueue<TopicUrlDTO> aUrlToCrawlDTOs) {
     super(aCrawler, aUrlToCrawlDTOs);
   }
   
   @Override
-  protected void processDocument(OrfTopicUrlDTO aUrlDTO, Document aDocument) {
+  protected void processDocument(TopicUrlDTO aUrlDTO, Document aDocument) {
     final Optional<String> title = HtmlDocumentUtils.getElementString(TITLE_SELECTOR, aDocument);
     final Optional<LocalDateTime> time = parseDate(aDocument);
     final Optional<Duration> duration = parseDuration(aDocument);
@@ -79,11 +79,11 @@ public class OrfFilmDetailTask extends AbstractDocumentTask<Film, OrfTopicUrlDTO
   }
 
   @Override
-  protected AbstractUrlTask<Film, OrfTopicUrlDTO> createNewOwnInstance(ConcurrentLinkedQueue<OrfTopicUrlDTO> aURLsToCrawl) {
+  protected AbstractUrlTask<Film, TopicUrlDTO> createNewOwnInstance(ConcurrentLinkedQueue<TopicUrlDTO> aURLsToCrawl) {
     return new OrfFilmDetailTask(crawler, aURLsToCrawl);  
   }
   
-  private void createFilm(final OrfTopicUrlDTO aUrlDTO,
+  private void createFilm(final TopicUrlDTO aUrlDTO,
     final Optional<OrfVideoInfoDTO> aVideoInfo, 
     final Optional<String> aTitle,
     final Optional<String> aDescription,

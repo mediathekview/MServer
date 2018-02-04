@@ -3,7 +3,7 @@ package de.mediathekview.mserver.crawler.orf.tasks;
 import de.mediathekview.mlib.messages.listener.MessageListener;
 import de.mediathekview.mserver.base.config.MServerConfigManager;
 import de.mediathekview.mserver.crawler.orf.OrfCrawler;
-import de.mediathekview.mserver.crawler.orf.OrfTopicUrlDTO;
+import de.mediathekview.mserver.crawler.basic.TopicUrlDTO;
 import de.mediathekview.mserver.progress.listeners.SenderProgressListener;
 import de.mediathekview.mserver.testhelper.WireMockTestBase;
 import java.util.ArrayList;
@@ -25,9 +25,9 @@ public abstract class OrfTaskTestBase extends WireMockTestBase {
     return new OrfCrawler(forkJoinPool, nachrichten, fortschritte, rootConfig);
   }
 
-  protected ConcurrentLinkedQueue<OrfTopicUrlDTO> createCrawlerUrlDto(String aTheme, String aUrl) {
-    ConcurrentLinkedQueue<OrfTopicUrlDTO> input = new ConcurrentLinkedQueue<>();
-    input.add(new OrfTopicUrlDTO(aTheme, aUrl));
+  protected ConcurrentLinkedQueue<TopicUrlDTO> createCrawlerUrlDto(String aTheme, String aUrl) {
+    ConcurrentLinkedQueue<TopicUrlDTO> input = new ConcurrentLinkedQueue<>();
+    input.add(new TopicUrlDTO(aTheme, aUrl));
     return input;
   }
   

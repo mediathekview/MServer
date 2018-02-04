@@ -1,5 +1,6 @@
 package de.mediathekview.mserver.crawler.orf;
 
+import de.mediathekview.mserver.crawler.basic.TopicUrlDTO;
 import de.mediathekview.mlib.daten.Film;
 import de.mediathekview.mlib.daten.Sender;
 import de.mediathekview.mlib.messages.listener.MessageListener;
@@ -42,7 +43,7 @@ public class OrfCrawler extends AbstractCrawler {
   protected RecursiveTask<Set<Film>> createCrawlerTask() {
     try {
 
-      final ConcurrentLinkedQueue<OrfTopicUrlDTO> shows = new ConcurrentLinkedQueue<>();
+      final ConcurrentLinkedQueue<TopicUrlDTO> shows = new ConcurrentLinkedQueue<>();
       
       shows.addAll(getArchiveEntries());
       shows.addAll(getLetterEntries());
@@ -72,30 +73,30 @@ public class OrfCrawler extends AbstractCrawler {
     return urls;
   }
   
-  private ConcurrentLinkedQueue<OrfTopicUrlDTO> getLetterEntries() throws InterruptedException, ExecutionException {
+  private ConcurrentLinkedQueue<TopicUrlDTO> getLetterEntries() throws InterruptedException, ExecutionException {
     OrfLetterPageTask letterTask = new OrfLetterPageTask();
-    ConcurrentLinkedQueue<OrfTopicUrlDTO> shows = forkJoinPool.submit(letterTask).get();
+    ConcurrentLinkedQueue<TopicUrlDTO> shows = forkJoinPool.submit(letterTask).get();
 
     printMessage(ServerMessages.DEBUG_ALL_SENDUNG_FOLGEN_COUNT, getSender().getName(), shows.size());
 
     return shows;
   }
   
-  private Set<OrfTopicUrlDTO> getDaysEntries() throws InterruptedException, ExecutionException {
+  private Set<TopicUrlDTO> getDaysEntries() throws InterruptedException, ExecutionException {
     OrfDayTask dayTask = new OrfDayTask(this, getDayUrls());
-    Set<OrfTopicUrlDTO> shows = forkJoinPool.submit(dayTask).get();
+    Set<TopicUrlDTO> shows = forkJoinPool.submit(dayTask).get();
 
     printMessage(ServerMessages.DEBUG_ALL_SENDUNG_FOLGEN_COUNT, getSender().getName(), shows.size());
     
     return shows;
   }
   
-  private Set<OrfTopicUrlDTO> getArchiveEntries() throws InterruptedException, ExecutionException {
+  private Set<TopicUrlDTO> getArchiveEntries() throws InterruptedException, ExecutionException {
       OrfArchiveLetterPageTask letterTask = new OrfArchiveLetterPageTask();
-      ConcurrentLinkedQueue<OrfTopicUrlDTO> topics = forkJoinPool.submit(letterTask).get();
+      ConcurrentLinkedQueue<TopicUrlDTO> topics = forkJoinPool.submit(letterTask).get();
 
       OrfArchiveTopicTask topicTask = new OrfArchiveTopicTask(this, topics);
-      Set<OrfTopicUrlDTO> shows = forkJoinPool.submit(topicTask).get();
+      Set<TopicUrlDTO> shows = forkJoinPool.submit(topicTask).get();
       
       printMessage(ServerMessages.DEBUG_ALL_SENDUNG_FOLGEN_COUNT, getSender().getName(), shows.size());
     
