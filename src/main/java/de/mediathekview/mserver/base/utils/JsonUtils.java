@@ -82,4 +82,21 @@ public final class JsonUtils {
   public static boolean hasElements(final JsonObject aJsonObject, final String... aElementIds) {
     return hasElements(aJsonObject, Optional.empty(), aElementIds);
   }
+  
+  /**
+   * Gets the value of an attribute
+   * @param aJsonObject the object
+   * @param aAttributeName the name of the attribute
+   * @return the value of the attribute, if it exists, else Optional.empty
+   */
+  public static Optional<String> getAttributeAsString(final JsonObject aJsonObject, final String aAttributeName) {
+    if (aJsonObject.has(aAttributeName)) {
+      final JsonElement aElement = aJsonObject.get(aAttributeName);
+      if (!aElement.isJsonNull()) {
+        return Optional.of(aElement.getAsString());
+      }
+    }
+    
+    return Optional.empty();
+  }
 }

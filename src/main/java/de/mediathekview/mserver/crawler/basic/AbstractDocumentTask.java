@@ -55,7 +55,9 @@ public abstract class AbstractDocumentTask<T, D extends CrawlerUrlDTO>
   @Override
   protected void processUrl(final D aUrlDTO) {
     try {
-      final Document document = Jsoup.connect(aUrlDTO.getUrl()).get();
+      // maxBodySize(0)=unlimited
+      // necessary for ORF documents which are larger than the default size
+      final Document document = Jsoup.connect(aUrlDTO.getUrl()).maxBodySize(0).get();
       processDocument(aUrlDTO, document);
     } catch (final HttpStatusException httpStatusError) {
       LOG.log(httpErrorLogLevel,

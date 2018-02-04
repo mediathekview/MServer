@@ -1,11 +1,11 @@
 package de.mediathekview.mserver.crawler.sr.tasks;
 
 import de.mediathekview.mlib.daten.Film;
-import de.mediathekview.mlib.daten.Resolution;
+import de.mediathekview.mlib.daten.GeoLocations;
 import de.mediathekview.mlib.daten.Sender;
+import de.mediathekview.mserver.testhelper.AssertFilm;
 import de.mediathekview.mserver.testhelper.JsoupMock;
 import java.io.IOException;
-import java.net.URL;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
@@ -121,26 +121,20 @@ public class SrFilmDetailTaskTest extends SrTaskTestBase {
     assertThat(actual.size(), equalTo(1));
     
     Film actualFilm = (Film) actual.toArray()[0];
-    assertThat(actualFilm, notNullValue());
-    assertThat(actualFilm.getSender(), equalTo(Sender.SR));
-    assertThat(actualFilm.getThema(), equalTo(theme));
-    assertThat(actualFilm.getTitel(), equalTo(expectedTitle));
-    assertThat(actualFilm.getTime(), equalTo(expectedDate));
-    assertThat(actualFilm.getDuration(), equalTo(expectedDuration));
-    assertThat(actualFilm.getBeschreibung(), equalTo(expectedDescription));
-    assertThat(actualFilm.getWebsite().get().toString(), equalTo(requestUrl));
-
-    assertThat(actualFilm.getUrl(Resolution.SMALL).toString(), equalTo(expectedUrlSmall));
-    assertThat(actualFilm.getUrl(Resolution.NORMAL).toString(), equalTo(expectedUrlNormal));
-    assertThat(actualFilm.hasHD(), equalTo(!expectedUrlHd.isEmpty()));
-    if (!expectedUrlHd.isEmpty()) {
-      assertThat(actualFilm.getUrl(Resolution.HD).toString(), equalTo(expectedUrlHd));
-    }
-
-    assertThat(actualFilm.hasUT(), equalTo(!expectedSubtitle.isEmpty()));
-    if(!expectedSubtitle.isEmpty()) {
-      assertThat(actualFilm.getSubtitles().toArray(new URL[0])[0].toString(), equalTo(expectedSubtitle));
-    }    
+    AssertFilm.assertEquals(actualFilm, 
+      Sender.SR,
+      theme,
+      expectedTitle,
+      expectedDate,
+      expectedDuration,
+      expectedDescription,
+      requestUrl,
+      new GeoLocations[0],
+      expectedUrlSmall,
+      expectedUrlNormal,
+      expectedUrlHd,
+      expectedSubtitle
+    );
   }
   
   private Set<Film> executeTask(String aTheme, String aRequestUrl) {

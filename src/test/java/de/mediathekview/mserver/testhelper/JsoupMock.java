@@ -25,6 +25,7 @@ public class JsoupMock {
     
     suppress(constructor(Jsoup.class));
     Connection connection = Mockito.mock(Connection.class);
+    Mockito.when(connection.maxBodySize(0)).thenReturn(connection);
     Mockito.when(connection.get()).thenReturn(document);
 
     mockStatic(Jsoup.class);
@@ -42,6 +43,7 @@ public class JsoupMock {
       suppress(constructor(Jsoup.class));
       Connection connection = Mockito.mock(Connection.class);
       try {
+        Mockito.when(connection.maxBodySize(0)).thenReturn(connection);
         Mockito.when(connection.get()).thenReturn(document);
       } catch (IOException ex) {
         Logger.getLogger(JsoupMock.class.getName()).log(Level.SEVERE, null, ex);

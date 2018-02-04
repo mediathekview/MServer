@@ -2,7 +2,9 @@ package de.mediathekview.mserver.testhelper;
 
 import static com.github.tomakehurst.wiremock.client.WireMock.aResponse;
 import static com.github.tomakehurst.wiremock.client.WireMock.get;
+import static com.github.tomakehurst.wiremock.client.WireMock.head;
 import static com.github.tomakehurst.wiremock.client.WireMock.urlEqualTo;
+import static com.github.tomakehurst.wiremock.client.WireMock.urlMatching;
 import com.github.tomakehurst.wiremock.junit.WireMockRule;
 import de.mediathekview.mserver.crawler.basic.CrawlerUrlDTO;
 import java.util.concurrent.ConcurrentLinkedQueue;
@@ -42,5 +44,12 @@ public abstract class WireMockTestBase {
     wireMockRule.stubFor(get(urlEqualTo(aRequestUrl))
             .willReturn(aResponse()
                     .withStatus(aHttpCode)));
+  }
+  
+  protected void setupHeadRequestForFileSize() {
+    wireMockRule.stubFor(head(urlMatching(".*"))
+            .willReturn(aResponse()
+            .withStatus(200)
+            .withHeader("Content-Length", "1")));
   }
 }
