@@ -11,6 +11,7 @@ import de.mediathekview.mlib.daten.Resolution;
 import de.mediathekview.mlib.daten.Sender;
 import de.mediathekview.mlib.tool.MVHttpClient;
 import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
+import de.mediathekview.mserver.crawler.basic.M3U8Constants;
 import de.mediathekview.mserver.crawler.basic.M3U8Dto;
 import de.mediathekview.mserver.crawler.basic.M3U8Parser;
 import de.mediathekview.mserver.crawler.srf.SrfConstants;
@@ -294,9 +295,9 @@ public class SrfFilmJsonDeserializer implements JsonDeserializer<Optional<Film>>
   }
 
   private static Optional<Resolution> getResolution(M3U8Dto aDto) {
-    Optional<String> widthMeta = aDto.getMeta(SrfConstants.M3U8_BANDWIDTH);
-    Optional<String> codecMeta = aDto.getMeta(SrfConstants.M3U8_CODECS);
-    Optional<String> resolution = aDto.getMeta(SrfConstants.M3U8_RESOLUTION);
+    Optional<String> widthMeta = aDto.getMeta(M3U8Constants.M3U8_BANDWIDTH);
+    Optional<String> codecMeta = aDto.getMeta(M3U8Constants.M3U8_CODECS);
+    Optional<String> resolution = aDto.getMeta(M3U8Constants.M3U8_RESOLUTION);
 
     // Codec muss "avcl" beinhalten, sonst ist es kein Video
     if (codecMeta.isPresent() && !codecMeta.get().contains("avc1")) {
