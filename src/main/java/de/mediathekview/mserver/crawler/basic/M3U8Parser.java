@@ -1,6 +1,7 @@
 package de.mediathekview.mserver.crawler.basic;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 
@@ -19,6 +20,14 @@ public class M3U8Parser {
       result.add(dto);
     }
     
+    result.sort(Comparator.comparing((M3U8Dto dto) -> { 
+      Optional<String> optional = dto.getMeta(M3U8Constants.M3U8_RESOLUTION);
+      if(optional.isPresent()) {
+        return optional.get();
+      }
+      return "";
+    }));
+
     return result;
   }
   
