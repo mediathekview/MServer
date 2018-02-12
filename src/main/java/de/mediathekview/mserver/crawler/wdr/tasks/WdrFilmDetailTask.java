@@ -27,7 +27,6 @@ import java.net.URL;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -274,6 +273,7 @@ private static Optional<Resolution> getResolution(M3U8Dto aDto) {
     if (resolution.isPresent()) {
       switch(resolution.get()) {
         case "320x180":
+        case "480x270":
         case "480x272":
         case "512x288":
           return Optional.of(Resolution.SMALL);
