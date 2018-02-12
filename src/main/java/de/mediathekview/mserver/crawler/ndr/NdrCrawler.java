@@ -32,7 +32,8 @@ public class NdrCrawler extends AbstractCrawler {
 
   public NdrCrawler(final ForkJoinPool aForkJoinPool,
       final Collection<MessageListener> aMessageListeners,
-      final Collection<SenderProgressListener> aProgressListeners, final MServerConfigManager rootConfig) {
+      final Collection<SenderProgressListener> aProgressListeners,
+      final MServerConfigManager rootConfig) {
     super(aForkJoinPool, aMessageListeners, aProgressListeners, rootConfig);
   }
 
@@ -43,9 +44,12 @@ public class NdrCrawler extends AbstractCrawler {
 
   private ConcurrentLinkedQueue<CrawlerUrlDTO> getSendungVerpasstStartUrls() {
     final ConcurrentLinkedQueue<CrawlerUrlDTO> urls = new ConcurrentLinkedQueue<>();
-    for (int i = 0; i < crawlerConfig.getMaximumDaysForSendungVerpasstSection(); i++) {
+    for (int i = 0; i < crawlerConfig.getMaximumDaysForSendungVerpasstSection()
+        + crawlerConfig.getMaximumDaysForSendungVerpasstSectionFuture(); i++) {
       urls.add(new CrawlerUrlDTO(String.format(SENDUNG_VERPASST_URL_TEMPLATE,
-          LocalDateTime.now().minus(i, ChronoUnit.DAYS).format(URL_DATE_TIME_FORMATTER))));
+          LocalDateTime.now()
+              .plus(crawlerConfig.getMaximumDaysForSendungVerpasstSectionFuture(), ChronoUnit.DAYS)
+              .minus(i, ChronoUnit.DAYS).format(URL_DATE_TIME_FORMATTER))));
     }
 
     return urls;

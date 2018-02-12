@@ -5,6 +5,7 @@ import java.util.Optional;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import com.google.gson.reflect.TypeToken;
 import de.mediathekview.mlib.daten.Film;
+import de.mediathekview.mserver.crawler.arte.json.ArteFilmDeserializer;
 import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
 import de.mediathekview.mserver.crawler.basic.AbstractUrlTask;
 import de.mediathekview.mserver.crawler.basic.CrawlerUrlDTO;
@@ -12,7 +13,7 @@ import de.mediathekview.mserver.crawler.funk.tasks.AbstractFunkRestTask;
 
 public class ArteSendungVerpasstTask
     extends AbstractFunkRestTask<Film, Optional<Film>, CrawlerUrlDTO> {
-
+  private static final long serialVersionUID = 6599845164042820791L;
   private static final String AUTH_TOKEN =
       "Nzc1Yjc1ZjJkYjk1NWFhN2I2MWEwMmRlMzAzNjI5NmU3NWU3ODg4ODJjOWMxNTMxYzEzZGRjYjg2ZGE4MmIwOA";
 
@@ -29,8 +30,7 @@ public class ArteSendungVerpasstTask
 
   @Override
   protected Object getParser(final CrawlerUrlDTO aDTO) {
-    // TODO Auto-generated method stub
-    return null;
+    return new ArteFilmDeserializer(crawler);
   }
 
   @Override

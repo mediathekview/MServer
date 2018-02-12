@@ -41,6 +41,7 @@ import de.mediathekview.mserver.base.uploader.copy.FileCopyTask;
 import de.mediathekview.mserver.base.uploader.ftp.FtpUploadTarget;
 import de.mediathekview.mserver.base.uploader.ftp.FtpUploadTask;
 import de.mediathekview.mserver.crawler.ard.ArdCrawler;
+import de.mediathekview.mserver.crawler.arte.ArteCrawler;
 import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
 import de.mediathekview.mserver.crawler.basic.TimeoutTask;
 import de.mediathekview.mserver.crawler.br.BrCrawler;
@@ -512,6 +513,8 @@ public class CrawlerManager extends AbstractManager {
   private void initializeCrawler(final MServerConfigManager rootConfig) {
     crawlerMap.put(Sender.ARD,
         new ArdCrawler(forkJoinPool, messageListeners, progressListeners, rootConfig));
+    crawlerMap.put(Sender.ARTE_DE,
+        new ArteCrawler(forkJoinPool, messageListeners, progressListeners, rootConfig));
     crawlerMap.put(Sender.BR,
         new BrCrawler(forkJoinPool, messageListeners, progressListeners, rootConfig));
     crawlerMap.put(Sender.DREISAT,

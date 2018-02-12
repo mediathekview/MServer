@@ -1,132 +1,152 @@
 package de.mediathekview.mserver.base.config;
 
 /**
- * The basic configs which can be set for all
- * {@link de.mediathekview.mlib.daten.Sender} and can be overwritten for
- * particular one.
+ * The basic configs which can be set for all {@link de.mediathekview.mlib.daten.Sender} and can be
+ * overwritten for particular one.
  */
-public class MServerBasicConfigDTO
-{
+public class MServerBasicConfigDTO {
 
-    /**
-     * The maximum amount of URLs to be processed per task.
-     */
-    private Integer maximumUrlsPerTask;
+  /**
+   * The maximum amount of URLs to be processed per task.
+   */
+  private Integer maximumUrlsPerTask;
 
-    /**
-     * The maximum duration in minutes a crawler may run.
-     */
-    private Integer maximumCrawlDurationInMinutes;
+  /**
+   * The maximum duration in minutes a crawler may run.
+   */
+  private Integer maximumCrawlDurationInMinutes;
 
-    /**
-     * The maximum amount of sub pages to be crawled.<br>
-     * <br>
-     * <b>Example:</b> If a Sendung overview side has 10 pages with videos for
-     * this Sendung and the amount set by this is 5 then the crawler crawls
-     * pages 1 to 5.
-     */
-    private Integer maximumSubpages;
+  /**
+   * The maximum amount of sub pages to be crawled.<br>
+   * <br>
+   * <b>Example:</b> If a Sendung overview side has 10 pages with videos for this Sendung and the
+   * amount set by this is 5 then the crawler crawls pages 1 to 5.
+   */
+  private Integer maximumSubpages;
 
-    /**
-     * The maximum amount of days going to past will be crawled for the "Sendung
-     * Verpasst?" section.
-     */
-    private Integer maximumDaysForSendungVerpasstSection;
+  /**
+   * The maximum amount of days going to past will be crawled for the "Sendung Verpasst?" section.
+   */
+  private Integer maximumDaysForSendungVerpasstSection;
 
-    public MServerBasicConfigDTO()
-    {
-        super();
-        maximumUrlsPerTask = 50;
-        maximumCrawlDurationInMinutes = 30;
-        maximumSubpages = 3;
-        maximumDaysForSendungVerpasstSection = 6;
+  /**
+   * The maximum amount of days going to future will be crawled for the "Sendung Verpasst?" section.
+   */
+  private final Integer maximumDaysForSendungVerpasstSectionFuture;
+
+  public MServerBasicConfigDTO() {
+    super();
+    maximumUrlsPerTask = 50;
+    maximumCrawlDurationInMinutes = 30;
+    maximumSubpages = 3;
+    maximumDaysForSendungVerpasstSection = 6;
+    maximumDaysForSendungVerpasstSectionFuture = 3;
+  }
+
+
+  @Override
+  public boolean equals(final Object obj) {
+    if (this == obj) {
+      return true;
     }
-
-    public Integer getMaximumUrlsPerTask()
-    {
-        return maximumUrlsPerTask;
+    if (obj == null) {
+      return false;
     }
-
-    public void setMaximumUrlsPerTask(final Integer aMaximumUrlsPerTask)
-    {
-        maximumUrlsPerTask = aMaximumUrlsPerTask;
+    if (getClass() != obj.getClass()) {
+      return false;
     }
-
-    public Integer getMaximumCrawlDurationInMinutes()
-    {
-        return maximumCrawlDurationInMinutes;
+    final MServerBasicConfigDTO other = (MServerBasicConfigDTO) obj;
+    if (maximumCrawlDurationInMinutes == null) {
+      if (other.maximumCrawlDurationInMinutes != null) {
+        return false;
+      }
+    } else if (!maximumCrawlDurationInMinutes.equals(other.maximumCrawlDurationInMinutes)) {
+      return false;
     }
-
-    public void setMaximumCrawlDurationInMinutes(final Integer aMaximumCrawlDurationInMinutes)
-    {
-        maximumCrawlDurationInMinutes = aMaximumCrawlDurationInMinutes;
+    if (maximumDaysForSendungVerpasstSection == null) {
+      if (other.maximumDaysForSendungVerpasstSection != null) {
+        return false;
+      }
+    } else if (!maximumDaysForSendungVerpasstSection
+        .equals(other.maximumDaysForSendungVerpasstSection)) {
+      return false;
     }
-
-    public Integer getMaximumSubpages()
-    {
-        return maximumSubpages;
+    if (maximumDaysForSendungVerpasstSectionFuture == null) {
+      if (other.maximumDaysForSendungVerpasstSectionFuture != null) {
+        return false;
+      }
+    } else if (!maximumDaysForSendungVerpasstSectionFuture
+        .equals(other.maximumDaysForSendungVerpasstSectionFuture)) {
+      return false;
     }
-
-    public void setMaximumSubpages(final Integer aMaximumSubpages)
-    {
-        maximumSubpages = aMaximumSubpages;
+    if (maximumSubpages == null) {
+      if (other.maximumSubpages != null) {
+        return false;
+      }
+    } else if (!maximumSubpages.equals(other.maximumSubpages)) {
+      return false;
     }
-
-    public Integer getMaximumDaysForSendungVerpasstSection()
-    {
-        return maximumDaysForSendungVerpasstSection;
+    if (maximumUrlsPerTask == null) {
+      if (other.maximumUrlsPerTask != null) {
+        return false;
+      }
+    } else if (!maximumUrlsPerTask.equals(other.maximumUrlsPerTask)) {
+      return false;
     }
+    return true;
+  }
 
-    public void setMaximumDaysForSendungVerpasstSection(final Integer aMaximumDaysForSendungVerpasstSection)
-    {
-        maximumDaysForSendungVerpasstSection = aMaximumDaysForSendungVerpasstSection;
-    }
+  public Integer getMaximumCrawlDurationInMinutes() {
+    return maximumCrawlDurationInMinutes;
+  }
 
-    @Override
-    public boolean equals(final Object aO)
-    {
-        if (this == aO)
-        {
-            return true;
-        }
-        if (aO == null || getClass() != aO.getClass())
-        {
-            return false;
-        }
+  public Integer getMaximumDaysForSendungVerpasstSection() {
+    return maximumDaysForSendungVerpasstSection;
+  }
 
-        final MServerBasicConfigDTO that = (MServerBasicConfigDTO) aO;
+  public Integer getMaximumDaysForSendungVerpasstSectionFuture() {
+    return maximumDaysForSendungVerpasstSectionFuture;
+  }
 
-        if (getMaximumUrlsPerTask() != null ? !getMaximumUrlsPerTask().equals(that.getMaximumUrlsPerTask())
-                : that.getMaximumUrlsPerTask() != null)
-        {
-            return false;
-        }
-        if (getMaximumCrawlDurationInMinutes() != null
-                ? !getMaximumCrawlDurationInMinutes().equals(that.getMaximumCrawlDurationInMinutes())
-                : that.getMaximumCrawlDurationInMinutes() != null)
-        {
-            return false;
-        }
-        if (getMaximumSubpages() != null ? !getMaximumSubpages().equals(that.getMaximumSubpages())
-                : that.getMaximumSubpages() != null)
-        {
-            return false;
-        }
-        return getMaximumDaysForSendungVerpasstSection() != null
-                ? getMaximumDaysForSendungVerpasstSection().equals(that.getMaximumDaysForSendungVerpasstSection())
-                : that.getMaximumDaysForSendungVerpasstSection() == null;
-    }
+  public Integer getMaximumSubpages() {
+    return maximumSubpages;
+  }
 
-    @Override
-    public int hashCode()
-    {
-        int result = getMaximumUrlsPerTask() != null ? getMaximumUrlsPerTask().hashCode() : 0;
-        result = 31 * result
-                + (getMaximumCrawlDurationInMinutes() != null ? getMaximumCrawlDurationInMinutes().hashCode() : 0);
-        result = 31 * result + (getMaximumSubpages() != null ? getMaximumSubpages().hashCode() : 0);
-        result = 31 * result + (getMaximumDaysForSendungVerpasstSection() != null
-                ? getMaximumDaysForSendungVerpasstSection().hashCode()
-                : 0);
-        return result;
-    }
+  public Integer getMaximumUrlsPerTask() {
+    return maximumUrlsPerTask;
+  }
+
+  @Override
+  public int hashCode() {
+    final int prime = 31;
+    int result = 1;
+    result = prime * result
+        + (maximumCrawlDurationInMinutes == null ? 0 : maximumCrawlDurationInMinutes.hashCode());
+    result = prime * result + (maximumDaysForSendungVerpasstSection == null ? 0
+        : maximumDaysForSendungVerpasstSection.hashCode());
+    result = prime * result + (maximumDaysForSendungVerpasstSectionFuture == null ? 0
+        : maximumDaysForSendungVerpasstSectionFuture.hashCode());
+    result = prime * result + (maximumSubpages == null ? 0 : maximumSubpages.hashCode());
+    result = prime * result + (maximumUrlsPerTask == null ? 0 : maximumUrlsPerTask.hashCode());
+    return result;
+  }
+
+  public void setMaximumCrawlDurationInMinutes(final Integer aMaximumCrawlDurationInMinutes) {
+    maximumCrawlDurationInMinutes = aMaximumCrawlDurationInMinutes;
+  }
+
+  public void setMaximumDaysForSendungVerpasstSection(
+      final Integer aMaximumDaysForSendungVerpasstSection) {
+    maximumDaysForSendungVerpasstSection = aMaximumDaysForSendungVerpasstSection;
+  }
+
+
+  public void setMaximumSubpages(final Integer aMaximumSubpages) {
+    maximumSubpages = aMaximumSubpages;
+  }
+
+
+  public void setMaximumUrlsPerTask(final Integer aMaximumUrlsPerTask) {
+    maximumUrlsPerTask = aMaximumUrlsPerTask;
+  }
 }

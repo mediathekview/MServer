@@ -1,15 +1,21 @@
 package de.mediathekview.mserver.crawler.arte;
 
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.Set;
+import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.ForkJoinPool;
 import java.util.concurrent.RecursiveTask;
 import de.mediathekview.mlib.daten.Film;
 import de.mediathekview.mlib.daten.Sender;
 import de.mediathekview.mlib.messages.listener.MessageListener;
 import de.mediathekview.mserver.base.config.MServerConfigManager;
+import de.mediathekview.mserver.crawler.arte.tasks.ArteSendungVerpasstTask;
 import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
+import de.mediathekview.mserver.crawler.basic.CrawlerUrlDTO;
 import de.mediathekview.mserver.progress.listeners.SenderProgressListener;
 
 public class ArteCrawler extends AbstractCrawler {
@@ -46,9 +52,27 @@ public class ArteCrawler extends AbstractCrawler {
     return Sender.ARTE_DE;
   }
 
+  private Set<CrawlerUrlDTO> generateSendungVerpasstUrls() {
+    final Set<CrawlerUrlDTO> sendungVerpasstUrls = new HashSet<>();
+    for (int i = 0; i < crawlerConfig.getMaximumDaysForSendungVerpasstSection()
+        + crawlerConfig.getMaximumDaysForSendungVerpasstSectionFuture(); i++) {
+      sendungVerpasstUrls.add(new CrawlerUrlDTO(String.format(SENDUNG_VERPASST_URL_PATTERN,
+          getLanguage().getLanguageCode(),
+          LocalDateTime.now()
+              .plus(crawlerConfig.getMaximumDaysForSendungVerpasstSectionFuture(), ChronoUnit.DAYS)
+              .minus(i, ChronoUnit.DAYS).format(SENDUNG_VERPASST_DATEFORMATTER))));
+    }
+    return sendungVerpasstUrls;
+  }
 
   @Override
   protected RecursiveTask<Set<Film>> createCrawlerTask() {
-    return null;
+    // TODO Search films based on categories.
+    return new ArteSendungVerpasstTask(this,
+        new ConcurrentLinkedQueue<>(generateSendungVerpasstUrls()));
+  }
+
+  protected ArteLanguage getLanguage() {
+    return ArteLanguage.DE;
   }
 }
