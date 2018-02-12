@@ -27,7 +27,7 @@ import java.net.URL;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.HashMap;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -177,7 +177,7 @@ public class WdrFilmDetailTask extends AbstractDocumentTask<Film, TopicUrlDTO>  
     M3U8Parser parser = new M3U8Parser();
     List<M3U8Dto> m3u8Data = parser.parse(m3u8Content.get());
 
-    m3u8Data.forEach(entry -> {
+    m3u8Data.forEach((entry) -> {
       Optional<Resolution> resolution = getResolution(entry);
       if (resolution.isPresent()) {
         String url = prepareUrl(entry.getUrl());
@@ -278,6 +278,7 @@ private static Optional<Resolution> getResolution(M3U8Dto aDto) {
         case "512x288":
           return Optional.of(Resolution.SMALL);
         case "640x360":
+        case "960x540":
         case "960x544":
           return Optional.of(Resolution.NORMAL);
         case "1280x720":
