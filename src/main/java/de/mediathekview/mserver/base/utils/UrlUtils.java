@@ -111,6 +111,11 @@ public final class UrlUtils {
     return Optional.empty();
   }
   
+  /**
+   * returns the protocol of the url
+   * @param aUrl the url
+   * @return the protocol of the url (e.g. "http:")
+   */
   public static Optional<String> getProtocol(final String aUrl) {
     if (aUrl != null) {
       int index = aUrl.indexOf("//");
