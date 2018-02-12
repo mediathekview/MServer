@@ -9,6 +9,7 @@ import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
 import de.mediathekview.mserver.crawler.basic.CrawlerUrlDTO;
 import de.mediathekview.mserver.crawler.basic.TopicUrlDTO;
 import de.mediathekview.mserver.crawler.wdr.tasks.WdrDayPageTask;
+import de.mediathekview.mserver.crawler.wdr.tasks.WdrFilmDetailTask;
 import de.mediathekview.mserver.progress.listeners.SenderProgressListener;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -38,14 +39,16 @@ public class WdrCrawler extends AbstractCrawler {
   @Override
   protected RecursiveTask<Set<Film>> createCrawlerTask() {
     try {
+      ConcurrentLinkedQueue<TopicUrlDTO> shows = new ConcurrentLinkedQueue<>();
+      
       WdrDayPageTask dayTask = new WdrDayPageTask(this, getDayUrls());
-      Set<TopicUrlDTO> shows = forkJoinPool.submit(dayTask).get();
+      shows.addAll(forkJoinPool.submit(dayTask).get());
 
       printMessage(ServerMessages.DEBUG_ALL_SENDUNG_FOLGEN_COUNT, getSender().getName(), shows.size());
 
       getAndSetMaxCount(shows.size());
 
-      //return new SrFilmDetailTask(this, filmDtos);
+      return new WdrFilmDetailTask(this, shows);
     } catch (InterruptedException | ExecutionException ex) {
       LOG.fatal("Exception in WDR crawler.", ex);
     }
