@@ -12,7 +12,6 @@ import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
 import de.mediathekview.mserver.crawler.basic.AbstractDocumentTask;
 import de.mediathekview.mserver.crawler.basic.AbstractUrlTask;
 import de.mediathekview.mserver.crawler.basic.CrawlerUrlDTO;
-import de.mediathekview.mserver.crawler.basic.M3U8Constants;
 import de.mediathekview.mserver.crawler.basic.M3U8Dto;
 import de.mediathekview.mserver.crawler.basic.M3U8Parser;
 import de.mediathekview.mserver.crawler.basic.TopicUrlDTO;
@@ -177,7 +176,7 @@ public class WdrFilmDetailTask extends AbstractDocumentTask<Film, TopicUrlDTO>  
     List<M3U8Dto> m3u8Data = parser.parse(m3u8Content.get());
 
     m3u8Data.forEach((entry) -> {
-      Optional<Resolution> resolution = getResolution(entry);
+      Optional<Resolution> resolution = entry.getResolution();
       if (resolution.isPresent()) {
         dto.put(resolution.get(), entry.getUrl());
       }
@@ -258,35 +257,4 @@ public class WdrFilmDetailTask extends AbstractDocumentTask<Film, TopicUrlDTO>  
     
     return Optional.empty();
   }
-  
-private static Optional<Resolution> getResolution(M3U8Dto aDto) {
-    Optional<String> codecMeta = aDto.getMeta(M3U8Constants.M3U8_CODECS);
-    Optional<String> resolution = aDto.getMeta(M3U8Constants.M3U8_RESOLUTION);
-
-    // Codec muss "avcl" beinhalten, sonst ist es kein Video
-    if (codecMeta.isPresent() && !codecMeta.get().contains("avc1")) {
-      return Optional.empty();
-    }
-    
-    // Auflösung verwenden, wenn vorhanden
-    if (resolution.isPresent()) {
-      switch(resolution.get()) {
-        case "320x180":
-        case "480x270":
-        case "480x272":
-        case "512x288":
-          return Optional.of(Resolution.SMALL);
-        case "640x360":
-        case "960x540":
-        case "960x544":
-          return Optional.of(Resolution.NORMAL);
-        case "1280x720":
-          return Optional.of(Resolution.HD);
-        default:
-          LOG.debug("Unknown resolution: " + resolution.get());
-      }
-    }
-
-    return Optional.empty();
-  }  
 }
