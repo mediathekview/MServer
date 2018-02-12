@@ -16,7 +16,6 @@ public class WdrVideoJsonDeserializer implements JsonDeserializer<Optional<WdrMe
   
   private static final Logger LOG = LogManager.getLogger(WdrVideoJsonDeserializer.class);
   
-  private static final String ELEMENT_ALT = "alt";
   private static final String ELEMENT_CAPTION_HASH = "captionsHash";
   private static final String ELEMENT_DFLT = "dflt";
   private static final String ELEMENT_MEDIA_RESOURCE = "mediaResource";

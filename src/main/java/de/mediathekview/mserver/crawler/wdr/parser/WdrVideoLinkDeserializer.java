@@ -8,8 +8,6 @@ import com.google.gson.JsonParseException;
 import de.mediathekview.mserver.crawler.basic.CrawlerUrlDTO;
 import java.lang.reflect.Type;
 import java.util.Optional;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 public class WdrVideoLinkDeserializer implements JsonDeserializer<Optional<CrawlerUrlDTO>> {
 
