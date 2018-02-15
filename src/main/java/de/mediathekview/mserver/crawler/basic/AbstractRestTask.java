@@ -50,7 +50,7 @@ public abstract class AbstractRestTask<T, D extends CrawlerUrlDTO> extends Abstr
 
 
   @Override
-  protected void processUrl(final D aDTO) {
+  protected void processElement(final D aDTO) {
     final WebTarget target = client.target(aDTO.getUrl());
     processRestTarget(aDTO, target);
   }

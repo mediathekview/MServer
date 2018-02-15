@@ -9,10 +9,12 @@ import java.util.Set;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.ForkJoinPool;
 import java.util.concurrent.RecursiveTask;
+import com.google.gson.JsonElement;
 import de.mediathekview.mlib.daten.Film;
 import de.mediathekview.mlib.daten.Sender;
 import de.mediathekview.mlib.messages.listener.MessageListener;
 import de.mediathekview.mserver.base.config.MServerConfigManager;
+import de.mediathekview.mserver.crawler.arte.tasks.ArtFilmConvertTask;
 import de.mediathekview.mserver.crawler.arte.tasks.ArteSendungVerpasstTask;
 import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
 import de.mediathekview.mserver.crawler.basic.CrawlerUrlDTO;
@@ -67,9 +69,14 @@ public class ArteCrawler extends AbstractCrawler {
 
   @Override
   protected RecursiveTask<Set<Film>> createCrawlerTask() {
+    final Set<JsonElement> sendungsfolgen = new HashSet<>();
     // TODO Search films based on categories.
-    return new ArteSendungVerpasstTask(this,
+    final ArteSendungVerpasstTask sendungVerpasstTask = new ArteSendungVerpasstTask(this,
         new ConcurrentLinkedQueue<>(generateSendungVerpasstUrls()));
+    forkJoinPool.execute(sendungVerpasstTask);
+
+    sendungsfolgen.addAll(sendungVerpasstTask.join());
+    return new ArtFilmConvertTask(this, new ConcurrentLinkedQueue<>(sendungsfolgen));
   }
 
   protected ArteLanguage getLanguage() {

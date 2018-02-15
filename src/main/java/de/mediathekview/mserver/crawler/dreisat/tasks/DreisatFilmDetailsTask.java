@@ -56,7 +56,7 @@ public class DreisatFilmDetailsTask extends AbstractUrlTask<Film, CrawlerUrlDTO>
   }
 
   @Override
-  protected void processUrl(final CrawlerUrlDTO aUrlDTO) {
+  protected void processElement(final CrawlerUrlDTO aUrlDTO) {
     Optional<Film> newFilm;
     try {
       final Optional<URL> xmlUrl = getXMLUrl(aUrlDTO.getUrl());

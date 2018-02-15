@@ -140,7 +140,7 @@ public class KikaSendungsfolgeVideoDetailsTask extends AbstractUrlTask<Film, Cra
   }
 
   @Override
-  protected void processUrl(final CrawlerUrlDTO aUrlDTO) {
+  protected void processElement(final CrawlerUrlDTO aUrlDTO) {
     try {
       final Document document = Jsoup.connect(aUrlDTO.getUrl()).parser(Parser.xmlParser()).get();
       final Elements titleNodes = document.getElementsByTag(ELEMENT_TITLE);

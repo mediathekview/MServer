@@ -26,10 +26,12 @@ public abstract class AbstractFunkRestTask<T, R, D extends CrawlerUrlDTO>
   private static final String ENCODING_GZIP = "gzip";
   private static final String HEADER_ACCEPT_ENCODING = "Accept-Encoding";
   private static final long serialVersionUID = -1090560363478964885L;
+  protected final GsonBuilder gsonBuilder;
 
   public AbstractFunkRestTask(final AbstractCrawler aCrawler,
       final ConcurrentLinkedQueue<D> aUrlToCrawlDTOs, final Optional<String> aAuthKey) {
     super(aCrawler, aUrlToCrawlDTOs, aAuthKey);
+    gsonBuilder = new GsonBuilder();
   }
 
 
@@ -43,7 +45,8 @@ public abstract class AbstractFunkRestTask<T, R, D extends CrawlerUrlDTO>
 
   @Override
   protected void processRestTarget(final D aDTO, final WebTarget aTarget) {
-    final Gson gson = new GsonBuilder().registerTypeAdapter(getType(), getParser(aDTO)).create();
+    gsonBuilder.registerTypeAdapter(getType(), getParser(aDTO));
+    final Gson gson = gsonBuilder.create();
     Builder request = aTarget.request();
     if (authKey.isPresent()) {
       request = request.header(HEADER_AUTHORIZATION, authKey.get());

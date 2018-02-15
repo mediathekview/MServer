@@ -53,7 +53,7 @@ public abstract class AbstractDocumentTask<T, D extends CrawlerUrlDTO>
   protected abstract void processDocument(final D aUrlDTO, final Document aDocument);
 
   @Override
-  protected void processUrl(final D aUrlDTO) {
+  protected void processElement(final D aUrlDTO) {
     try {
       // maxBodySize(0)=unlimited
       // necessary for ORF documents which are larger than the default size
