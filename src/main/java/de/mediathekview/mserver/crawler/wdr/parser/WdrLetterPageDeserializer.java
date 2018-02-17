@@ -1,0 +1,68 @@
+package de.mediathekview.mserver.crawler.wdr.parser;
+
+import de.mediathekview.mserver.base.utils.UrlUtils;
+import de.mediathekview.mserver.crawler.wdr.WdrConstants;
+import de.mediathekview.mserver.crawler.wdr.WdrTopicUrlDTO;
+import java.util.ArrayList;
+import java.util.List;
+import static mServer.crawler.sender.wdr.HtmlDeserializerBase.HTML_ATTRIBUTE_HREF;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
+
+public class WdrLetterPageDeserializer {
+  private static final Logger LOG = LogManager.getLogger(WdrLetterPageDeserializer.class);
+  
+    private static final String SELECTOR_TOPIC = "ul.list > li > a";
+    private static final String SELECTOR_TITLE = "span";
+    private static final String SELECTOR_URL_TYPE = "strong";
+  
+  public List<WdrTopicUrlDTO> deserialize(final Document aDocument) {
+    List<WdrTopicUrlDTO> results = new ArrayList<>();
+
+    Elements topics = aDocument.select(SELECTOR_TOPIC);
+    topics.forEach(topicElement -> {
+      String url = getUrl(topicElement);
+      if (!url.isEmpty()) {
+        String topic = getTopic(topicElement);
+        boolean isFileUrl = isFileUrl(topicElement);
+        results.add(new WdrTopicUrlDTO(topic, url, isFileUrl));
+      }
+    });
+    return results;
+  }
+  
+  private String getTopic(Element aTopicElement) {
+
+    Element titleElement = aTopicElement.select(SELECTOR_TITLE).first();
+    if(titleElement != null) {
+        return titleElement.text();
+    }
+
+    LOG.debug("WdrLetterPageDeserializer: no topic found.");
+    return "";
+  }
+
+  private String getUrl(Element aTopicElement) {
+      String url = aTopicElement.attr(HTML_ATTRIBUTE_HREF);
+
+      if(!url.isEmpty()) {
+        url = UrlUtils.addDomainIfMissing(url, WdrConstants.URL_BASE);
+      }
+
+      return url;
+  }  
+
+  private boolean isFileUrl(Element aTopicElement) {
+    Element typeElement = aTopicElement.select(SELECTOR_URL_TYPE).first();
+
+    if (typeElement != null) {
+      final String type = typeElement.text();
+      return type.equalsIgnoreCase("video");
+    } 
+    
+    return false;
+  }
+}

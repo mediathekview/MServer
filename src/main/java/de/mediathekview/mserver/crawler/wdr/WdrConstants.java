@@ -10,4 +10,9 @@ public final class WdrConstants {
    * Als Parameter muss das Datum als ddMMyyyy angegeben werden
    */
   public static final String URL_DAY = URL_BASE + "/mediathek/video/sendungverpasst/sendung-verpasst-100~_tag-%s.html";
+  
+  /**
+   * URL für die Sendungen nach Buchstaben
+   */
+  public static final String URL_LETTER_PAGE = URL_BASE + "/mediathek/video/sendungen-a-z/index.html";
 }
