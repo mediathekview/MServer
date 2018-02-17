@@ -7,7 +7,9 @@ import de.mediathekview.mserver.crawler.basic.AbstractDocumentTask;
 import de.mediathekview.mserver.crawler.basic.AbstractUrlTask;
 import de.mediathekview.mserver.crawler.basic.TopicUrlDTO;
 import de.mediathekview.mserver.crawler.wdr.parser.WdrFilmDeserializer;
+import de.mediathekview.mserver.crawler.wdr.parser.WdrFilmPartDeserializer;
 import java.util.Optional;
+import java.util.Set;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -24,12 +26,15 @@ public class WdrFilmDetailTask extends AbstractDocumentTask<Film, TopicUrlDTO>  
   @Override
   protected void processDocument(TopicUrlDTO aUrlDTO, Document aDocument) {
     WdrFilmDeserializer deserializer = new WdrFilmDeserializer(crawler, getProtocol(aUrlDTO));
+    WdrFilmPartDeserializer partDeserializer = new WdrFilmPartDeserializer();
+    processParts(partDeserializer.deserialize(aUrlDTO.getTheme(), aDocument));
+    
     
     Optional<Film> film = deserializer.deserialize(aUrlDTO, aDocument);
     if (film.isPresent()) {
       taskResults.add(film.get());
     } else {
-      // TODO???
+      LOG.error("WdrFilmDetailTask: not film found for url " + aUrlDTO.getUrl());
     }
   }
 
@@ -49,5 +54,9 @@ public class WdrFilmDetailTask extends AbstractDocumentTask<Film, TopicUrlDTO>  
     return protocol;
   }
   
-
+  private void processParts(final Set<TopicUrlDTO> aParts) {
+    final ConcurrentLinkedQueue queue = new ConcurrentLinkedQueue(aParts);
+    Set<Film> x = (Set<Film>) createNewOwnInstance(queue).invoke();
+    taskResults.addAll(x);
+  }  
 }
