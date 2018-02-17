@@ -102,7 +102,7 @@ public class WdrFilmDeserializer {
         return Optional.of(film);
 
       } else {
-        LOG.error("OrfFilmDetailTask: no title or video found for url " + aUrlDTO.getUrl());
+        LOG.error("WdrFilmDeserializer: no title or video found for url " + aUrlDTO.getUrl());
         crawler.incrementAndGetErrorCount();
         crawler.updateProgress();
       }
