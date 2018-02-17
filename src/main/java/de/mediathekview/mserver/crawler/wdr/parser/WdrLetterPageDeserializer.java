@@ -12,12 +12,11 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
-public class WdrLetterPageDeserializer {
+public class WdrLetterPageDeserializer extends WdrLetterPageDeserializerBase {
   private static final Logger LOG = LogManager.getLogger(WdrLetterPageDeserializer.class);
   
-    private static final String SELECTOR_TOPIC = "ul.list > li > a";
-    private static final String SELECTOR_TITLE = "span";
-    private static final String SELECTOR_URL_TYPE = "strong";
+  private static final String SELECTOR_TOPIC = "ul.list > li > a";
+  private static final String SELECTOR_TITLE = "span";
   
   public List<WdrTopicUrlDTO> deserialize(final Document aDocument) {
     List<WdrTopicUrlDTO> results = new ArrayList<>();
@@ -54,15 +53,4 @@ public class WdrLetterPageDeserializer {
 
       return url;
   }  
-
-  private boolean isFileUrl(Element aTopicElement) {
-    Element typeElement = aTopicElement.select(SELECTOR_URL_TYPE).first();
-
-    if (typeElement != null) {
-      final String type = typeElement.text();
-      return type.equalsIgnoreCase("video");
-    } 
-    
-    return false;
-  }
 }

@@ -10,6 +10,8 @@ import de.mediathekview.mserver.crawler.basic.CrawlerUrlDTO;
 import de.mediathekview.mserver.crawler.basic.TopicUrlDTO;
 import de.mediathekview.mserver.crawler.wdr.tasks.WdrDayPageTask;
 import de.mediathekview.mserver.crawler.wdr.tasks.WdrFilmDetailTask;
+import de.mediathekview.mserver.crawler.wdr.tasks.WdrLetterPageTask;
+import de.mediathekview.mserver.crawler.wdr.tasks.WdrTopicOverviewTask;
 import de.mediathekview.mserver.progress.listeners.SenderProgressListener;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -45,7 +47,15 @@ public class WdrCrawler extends AbstractCrawler {
       shows.addAll(forkJoinPool.submit(dayTask).get());
 
       printMessage(ServerMessages.DEBUG_ALL_SENDUNG_FOLGEN_COUNT, getSender().getName(), shows.size());
+      
+      WdrLetterPageTask letterTask = new WdrLetterPageTask();
+      ConcurrentLinkedQueue<WdrTopicUrlDTO> letterPageEntries = forkJoinPool.submit(letterTask).get();
 
+      WdrTopicOverviewTask overviewTask = new WdrTopicOverviewTask(this, letterPageEntries);
+      shows.addAll(forkJoinPool.submit(overviewTask).get());
+      
+      printMessage(ServerMessages.DEBUG_ALL_SENDUNG_FOLGEN_COUNT, getSender().getName(), shows.size());
+      
       getAndSetMaxCount(shows.size());
 
       return new WdrFilmDetailTask(this, shows);
