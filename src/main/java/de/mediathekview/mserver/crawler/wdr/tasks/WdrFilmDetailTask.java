@@ -25,16 +25,18 @@ public class WdrFilmDetailTask extends AbstractDocumentTask<Film, TopicUrlDTO>  
 
   @Override
   protected void processDocument(TopicUrlDTO aUrlDTO, Document aDocument) {
-    WdrFilmDeserializer deserializer = new WdrFilmDeserializer(crawler, getProtocol(aUrlDTO));
+    WdrFilmDeserializer deserializer = new WdrFilmDeserializer(getProtocol(aUrlDTO));
     WdrFilmPartDeserializer partDeserializer = new WdrFilmPartDeserializer();
     processParts(partDeserializer.deserialize(aUrlDTO.getTheme(), aDocument));
-    
     
     Optional<Film> film = deserializer.deserialize(aUrlDTO, aDocument);
     if (film.isPresent()) {
       taskResults.add(film.get());
+      crawler.incrementAndGetActualCount();
+      crawler.updateProgress();
     } else {
-      LOG.error("WdrFilmDetailTask: not film found for url " + aUrlDTO.getUrl());
+      crawler.incrementAndGetErrorCount();
+      crawler.updateProgress();
     }
   }
 
