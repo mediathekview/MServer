@@ -16,6 +16,7 @@ public class WdrVideoJsonDeserializer implements JsonDeserializer<Optional<WdrMe
   
   private static final Logger LOG = LogManager.getLogger(WdrVideoJsonDeserializer.class);
   
+  private static final String ELEMENT_ALT = "alt";
   private static final String ELEMENT_CAPTION_HASH = "captionsHash";
   private static final String ELEMENT_DFLT = "dflt";
   private static final String ELEMENT_MEDIA_RESOURCE = "mediaResource";
@@ -25,6 +26,7 @@ public class WdrVideoJsonDeserializer implements JsonDeserializer<Optional<WdrMe
   private static final String ATTRIBUTE_VIDEO_URL = "videoURL";
   private static final String ATTRIBUTE_XML = "xml";
 
+  private static final String MEDIA_VERSION_1_1 = "1.1.0";
   private static final String MEDIA_VERSION_1_2 = "1.2.0";
   private static final String MEDIA_VERSION_1_3 = "1.3.0";
   
@@ -41,6 +43,8 @@ public class WdrVideoJsonDeserializer implements JsonDeserializer<Optional<WdrMe
     Optional<String> version = JsonUtils.getAttributeAsString(jsonObject, ATTRIBUTE_VERSION);
     if (version.isPresent()) {
       switch(version.get()) {
+        case MEDIA_VERSION_1_1:
+          return deserializeVersion1_1(jsonObject);
         case MEDIA_VERSION_1_2:
           return deserializeVersion1_2(jsonObject);
         case MEDIA_VERSION_1_3:
@@ -52,6 +56,22 @@ public class WdrVideoJsonDeserializer implements JsonDeserializer<Optional<WdrMe
     
     return Optional.empty();
   }  
+
+  private Optional<WdrMediaDTO> deserializeVersion1_1(final JsonObject aJsonObject) {
+    
+    if(aJsonObject.has(ELEMENT_MEDIA_RESOURCE)) {
+      final JsonObject mediaResourceObject = aJsonObject.get(ELEMENT_MEDIA_RESOURCE).getAsJsonObject();
+      
+      if (mediaResourceObject.has(ELEMENT_ALT)) {
+        final JsonObject dfltObject = mediaResourceObject.get(ELEMENT_ALT).getAsJsonObject();
+        Optional<String> m3u8Url = JsonUtils.getAttributeAsString(dfltObject, ATTRIBUTE_VIDEO_URL);
+
+        return createMediaDTO(m3u8Url, Optional.empty());
+      }
+    }
+    
+    return Optional.empty();
+  }
   
   private Optional<WdrMediaDTO> deserializeVersion1_2(final JsonObject aJsonObject) {
     
