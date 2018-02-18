@@ -5,9 +5,9 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import de.mediathekview.mlib.daten.Film;
 import de.mediathekview.mlib.daten.Resolution;
+import de.mediathekview.mlib.daten.Sender;
 import de.mediathekview.mlib.tool.MVHttpClient;
 import de.mediathekview.mserver.base.utils.HtmlDocumentUtils;
-import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
 import de.mediathekview.mserver.crawler.basic.CrawlerUrlDTO;
 import de.mediathekview.mserver.crawler.basic.M3U8Dto;
 import de.mediathekview.mserver.crawler.basic.M3U8Parser;
@@ -50,11 +50,7 @@ public class WdrFilmDeserializer {
   
   private final Gson gson;
   
-  private final AbstractCrawler crawler;
-  
-  public WdrFilmDeserializer(final AbstractCrawler aCrawler, final String aProtocol) {
-    crawler = aCrawler;
-
+  public WdrFilmDeserializer(final String aProtocol) {
     gson = new GsonBuilder()
       .registerTypeAdapter(OPTIONAL_CRAWLERURLDTO_TYPE_TOKEN, new WdrVideoLinkDeserializer())
       .registerTypeAdapter(OPTIONAL_WDRMEDIADTO_TYPE_TOKEN, new WdrVideoJsonDeserializer(aProtocol))
@@ -80,7 +76,7 @@ public class WdrFilmDeserializer {
     
     try {
       if (aVideoInfo.isPresent() && aTitle.isPresent()) {
-        final Film film = new Film(UUID.randomUUID(), crawler.getSender(), aTitle.get(),
+        final Film film = new Film(UUID.randomUUID(), Sender.WDR, aTitle.get(),
           aUrlDTO.getTheme(), aTime.orElse(LocalDateTime.now()), aDuration.orElse(Duration.ZERO));
 
         film.setWebsite(new URL(aUrlDTO.getUrl()));
@@ -94,23 +90,15 @@ public class WdrFilmDeserializer {
         }
         
         addUrls(film, videoInfo.getVideoUrls());
-        film.setGeoLocations(CrawlerTool.getGeoLocations(crawler.getSender(), videoInfo.getDefaultVideoUrl()));
-
-        crawler.incrementAndGetActualCount();
-        crawler.updateProgress();
+        film.setGeoLocations(CrawlerTool.getGeoLocations(Sender.WDR, videoInfo.getDefaultVideoUrl()));
 
         return Optional.of(film);
 
       } else {
         LOG.error("WdrFilmDeserializer: no title or video found for url " + aUrlDTO.getUrl());
-        crawler.incrementAndGetErrorCount();
-        crawler.updateProgress();
       }
     } catch (MalformedURLException ex) {
-      LOG.fatal("A ORF URL can't be parsed.", ex);
-      crawler.printErrorMessage();
-      crawler.incrementAndGetErrorCount();
-      crawler.updateProgress();
+      LOG.fatal("WdrFilmDeserializer: url can't be parsed.", ex);
     }   
     
     return Optional.empty();

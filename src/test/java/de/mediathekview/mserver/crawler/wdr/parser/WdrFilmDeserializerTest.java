@@ -129,7 +129,7 @@ public class WdrFilmDeserializerTest extends WdrTaskTestBase {
     setupSuccessfulResponse(jsUrl, jsFile);
     setupSuccessfulResponse(m3u8Url, m3u8File);
     
-    Optional<Film> actual = new WdrFilmDeserializer(createCrawler(), "http:").deserialize(new TopicUrlDTO(theme, requestUrl), document);
+    Optional<Film> actual = new WdrFilmDeserializer("http:").deserialize(new TopicUrlDTO(theme, requestUrl), document);
     
     assertThat(actual.isPresent(), equalTo(true));
     
