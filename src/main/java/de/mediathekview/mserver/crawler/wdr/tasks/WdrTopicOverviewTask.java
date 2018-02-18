@@ -16,8 +16,15 @@ public class WdrTopicOverviewTask extends AbstractDocumentTask<TopicUrlDTO, WdrT
 
   private static final Logger LOG = LogManager.getLogger(WdrTopicOverviewTask.class);  
   
-  public WdrTopicOverviewTask(AbstractCrawler aCrawler, ConcurrentLinkedQueue<WdrTopicUrlDTO> aUrlToCrawlDTOs) {
+  private final int recursiveCount;
+  
+  public WdrTopicOverviewTask(AbstractCrawler aCrawler, 
+    ConcurrentLinkedQueue<WdrTopicUrlDTO> aUrlToCrawlDTOs,
+    int aRecursiveCount
+  ) {
     super(aCrawler, aUrlToCrawlDTOs);
+    
+    recursiveCount = aRecursiveCount;
   }
   
   @Override
@@ -39,13 +46,13 @@ public class WdrTopicOverviewTask extends AbstractDocumentTask<TopicUrlDTO, WdrT
       }
     });
     
-    if (crawler.getCrawlerConfig().getMaximumSubpages() > 1) {
+    if (crawler.getCrawlerConfig().getMaximumSubpages() > recursiveCount) {
       taskResults.addAll(createNewOwnInstance(subpages).invoke());
     }
   }
 
   @Override
   protected AbstractUrlTask<TopicUrlDTO, WdrTopicUrlDTO> createNewOwnInstance(ConcurrentLinkedQueue<WdrTopicUrlDTO> aURLsToCrawl) {
-    return new WdrTopicOverviewTask(crawler, aURLsToCrawl);
+    return new WdrTopicOverviewTask(crawler, aURLsToCrawl, recursiveCount + 1);
   }
 }

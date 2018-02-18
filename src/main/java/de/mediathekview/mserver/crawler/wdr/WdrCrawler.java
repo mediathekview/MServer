@@ -51,7 +51,7 @@ public class WdrCrawler extends AbstractCrawler {
       WdrLetterPageTask letterTask = new WdrLetterPageTask();
       ConcurrentLinkedQueue<WdrTopicUrlDTO> letterPageEntries = forkJoinPool.submit(letterTask).get();
 
-      WdrTopicOverviewTask overviewTask = new WdrTopicOverviewTask(this, letterPageEntries);
+      WdrTopicOverviewTask overviewTask = new WdrTopicOverviewTask(this, letterPageEntries, 0);
       shows.addAll(forkJoinPool.submit(overviewTask).get());
       
       printMessage(ServerMessages.DEBUG_ALL_SENDUNG_FOLGEN_COUNT, getSender().getName(), shows.size());

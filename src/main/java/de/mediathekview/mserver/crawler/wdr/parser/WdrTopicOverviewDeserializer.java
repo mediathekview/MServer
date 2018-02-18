@@ -36,7 +36,7 @@ public class WdrTopicOverviewDeserializer extends WdrLetterPageDeserializerBase 
     Elements urlElements = aDocument.select(aSelector);
     urlElements.forEach(urlElement -> {
       String url = urlElement.attr(ATTRIBUTE_HREF);
-      if(url != null && !url.isEmpty()) {
+      if(url != null && !url.isEmpty() && isUrlRelevant(url)) {
         url = UrlUtils.addDomainIfMissing(url, WdrConstants.URL_BASE);
         boolean isFileUrl = isFileUrl(urlElement);
         
@@ -44,4 +44,23 @@ public class WdrTopicOverviewDeserializer extends WdrLetterPageDeserializerBase 
       }
     });
   }
+
+  /***
+   * Filtert URLs heraus, die nicht durchsucht werden sollen
+   * Hintergrund: diese URLs verweisen auf andere und führen bei der Suche
+   * im Rahmen der Rekursion zu endlosen Suchen
+   * @param url zu prüfende URL
+   * @return true, wenn die URL verarbeitet werden soll, sonst false
+   */
+  private boolean isUrlRelevant(String aUrl) {
+      // die Indexseite der Lokalzeit herausfiltern, da alle Beiträge
+      // um die Lokalzeitenseiten der entsprechenden Regionen gefunden werden
+      if(aUrl.endsWith("lokalzeit/index.html")) {
+          return false;
+      } else if(aUrl.contains("wdr.de/hilfe")) {
+          return false;
+      }
+
+      return true;
+  }  
 }
