@@ -1,4 +1,4 @@
-﻿package de.mediathekview.mserver.crawler.orf;
+package de.mediathekview.mserver.crawler.orf;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -42,26 +42,24 @@ public class OrfCrawler extends AbstractCrawler {
     return Sender.ORF;
   }
 
-  private Set<OrfTopicUrlDTO> getArchiveEntries() throws InterruptedException, ExecutionException {
+  private Set<TopicUrlDTO> getArchiveEntries() throws InterruptedException, ExecutionException {
     final OrfArchiveLetterPageTask letterTask = new OrfArchiveLetterPageTask();
-    final ConcurrentLinkedQueue<OrfTopicUrlDTO> topics = forkJoinPool.submit(letterTask).get();
+    final ConcurrentLinkedQueue<TopicUrlDTO> topics = forkJoinPool.submit(letterTask).get();
 
     final OrfArchiveTopicTask topicTask = new OrfArchiveTopicTask(this, topics);
-    final Set<OrfTopicUrlDTO> shows = forkJoinPool.submit(topicTask).get();
+    final Set<TopicUrlDTO> shows = forkJoinPool.submit(topicTask).get();
 
-    printMessage(ServerMessages.DEBUG_ALL_SENDUNG_FOLGEN_COUNT, getSender().getName(),
-        shows.size());
+    printMessage(ServerMessages.DEBUG_ALL_SENDUNG_FOLGEN_COUNT, getSender().getName(), shows.size());
 
     return shows;
   }
-
-  private Set<OrfTopicUrlDTO> getDaysEntries() throws InterruptedException, ExecutionException {
+  
+  private Set<TopicUrlDTO> getDaysEntries() throws InterruptedException, ExecutionException {
     final OrfDayTask dayTask = new OrfDayTask(this, getDayUrls());
-    final Set<OrfTopicUrlDTO> shows = forkJoinPool.submit(dayTask).get();
+    final Set<TopicUrlDTO> shows = forkJoinPool.submit(dayTask).get();
 
-    printMessage(ServerMessages.DEBUG_ALL_SENDUNG_FOLGEN_COUNT, getSender().getName(),
-        shows.size());
-
+    printMessage(ServerMessages.DEBUG_ALL_SENDUNG_FOLGEN_COUNT, getSender().getName(), shows.size());
+    
     return shows;
   }
 
@@ -77,13 +75,11 @@ public class OrfCrawler extends AbstractCrawler {
     return urls;
   }
 
-  private ConcurrentLinkedQueue<OrfTopicUrlDTO> getLetterEntries()
-      throws InterruptedException, ExecutionException {
+  private ConcurrentLinkedQueue<TopicUrlDTO> getLetterEntries() throws InterruptedException, ExecutionException {
     final OrfLetterPageTask letterTask = new OrfLetterPageTask();
-    final ConcurrentLinkedQueue<OrfTopicUrlDTO> shows = forkJoinPool.submit(letterTask).get();
+    final ConcurrentLinkedQueue<TopicUrlDTO> shows = forkJoinPool.submit(letterTask).get();
 
-    printMessage(ServerMessages.DEBUG_ALL_SENDUNG_FOLGEN_COUNT, getSender().getName(),
-        shows.size());
+    printMessage(ServerMessages.DEBUG_ALL_SENDUNG_FOLGEN_COUNT, getSender().getName(), shows.size());
 
     return shows;
   }
@@ -111,45 +107,5 @@ public class OrfCrawler extends AbstractCrawler {
       LOG.fatal("Exception in ORF crawler.", ex);
     }
     return null;
-  }
-  
-  private ConcurrentLinkedQueue<CrawlerUrlDTO> getDayUrls() {
-    final ConcurrentLinkedQueue<CrawlerUrlDTO> urls = new ConcurrentLinkedQueue<>();
-    for (int i = 0; i < crawlerConfig.getMaximumDaysForSendungVerpasstSection(); i++) {
-      urls.add(new CrawlerUrlDTO(OrfConstants.URL_DAY + 
-          LocalDateTime.now().minus(i, ChronoUnit.DAYS).format(DateTimeFormatter.ofPattern("dd.MM.yyyy"))));
-    }
-
-    return urls;
-  }
-  
-  private ConcurrentLinkedQueue<TopicUrlDTO> getLetterEntries() throws InterruptedException, ExecutionException {
-    OrfLetterPageTask letterTask = new OrfLetterPageTask();
-    ConcurrentLinkedQueue<TopicUrlDTO> shows = forkJoinPool.submit(letterTask).get();
-
-    printMessage(ServerMessages.DEBUG_ALL_SENDUNG_FOLGEN_COUNT, getSender().getName(), shows.size());
-
-    return shows;
-  }
-  
-  private Set<TopicUrlDTO> getDaysEntries() throws InterruptedException, ExecutionException {
-    OrfDayTask dayTask = new OrfDayTask(this, getDayUrls());
-    Set<TopicUrlDTO> shows = forkJoinPool.submit(dayTask).get();
-
-    printMessage(ServerMessages.DEBUG_ALL_SENDUNG_FOLGEN_COUNT, getSender().getName(), shows.size());
-    
-    return shows;
-  }
-  
-  private Set<TopicUrlDTO> getArchiveEntries() throws InterruptedException, ExecutionException {
-      OrfArchiveLetterPageTask letterTask = new OrfArchiveLetterPageTask();
-      ConcurrentLinkedQueue<TopicUrlDTO> topics = forkJoinPool.submit(letterTask).get();
-
-      OrfArchiveTopicTask topicTask = new OrfArchiveTopicTask(this, topics);
-      Set<TopicUrlDTO> shows = forkJoinPool.submit(topicTask).get();
-      
-      printMessage(ServerMessages.DEBUG_ALL_SENDUNG_FOLGEN_COUNT, getSender().getName(), shows.size());
-    
-      return shows;
   }
 }
