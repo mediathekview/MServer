@@ -101,7 +101,7 @@ public class WdrTopicOverviewTaskTest extends WdrTaskTestBase {
   private final String childUrl;
   private final String childHtmlFile;
   private final boolean isFileUrl;
-  private final WdrTopicUrlDTO[] expectedUrls;
+  private final TopicUrlDTO[] expectedUrls;
   
   public WdrTopicOverviewTaskTest(final int aMaxSubpages,
     final String aTopic,
@@ -121,9 +121,9 @@ public class WdrTopicOverviewTaskTest extends WdrTaskTestBase {
     childUrl = aChildUrl;
     childHtmlFile = aChildHtmlFile;
     
-    expectedUrls = new WdrTopicUrlDTO[aExpectedUrls.length];
+    expectedUrls = new TopicUrlDTO[aExpectedUrls.length];
     for (int i = 0; i < expectedUrls.length; i++) {
-      expectedUrls[i] = new WdrTopicUrlDTO(topic, aExpectedUrls[i], true);
+      expectedUrls[i] = new TopicUrlDTO(topic, aExpectedUrls[i]);
     }
   }
   

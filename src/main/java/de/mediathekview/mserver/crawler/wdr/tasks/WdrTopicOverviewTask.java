@@ -30,7 +30,7 @@ public class WdrTopicOverviewTask extends AbstractDocumentTask<TopicUrlDTO, WdrT
   @Override
   protected void processDocument(WdrTopicUrlDTO aUrlDTO, Document aDocument) {
     if (aUrlDTO.isFileUrl()) {
-      taskResults.add(aUrlDTO);
+      taskResults.add(new TopicUrlDTO(aUrlDTO.getTheme(), aUrlDTO.getUrl()));
       return;
     } 
     
@@ -40,7 +40,7 @@ public class WdrTopicOverviewTask extends AbstractDocumentTask<TopicUrlDTO, WdrT
     List<WdrTopicUrlDTO> dtos = deserializer.deserialize(aUrlDTO.getTheme(), aDocument);
     dtos.forEach(dto -> {
       if (dto.isFileUrl()) {
-        taskResults.add(dto);
+        taskResults.add(new TopicUrlDTO(dto.getTheme(), dto.getUrl()));
       } else {
         subpages.add(dto);
       }
