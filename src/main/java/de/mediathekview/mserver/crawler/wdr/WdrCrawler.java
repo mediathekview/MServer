@@ -82,9 +82,13 @@ public class WdrCrawler extends AbstractCrawler {
   
   private ConcurrentLinkedQueue<CrawlerUrlDTO> getDayUrls() {
     final ConcurrentLinkedQueue<CrawlerUrlDTO> urls = new ConcurrentLinkedQueue<>();
-    for (int i = 0; i < crawlerConfig.getMaximumDaysForSendungVerpasstSection(); i++) {
+    for (int i = 0; 
+      i < crawlerConfig.getMaximumDaysForSendungVerpasstSection() + crawlerConfig.getMaximumDaysForSendungVerpasstSectionFuture(); 
+      i++) {
       urls.add(new CrawlerUrlDTO(String.format(WdrConstants.URL_DAY, 
-          LocalDateTime.now().minus(i, ChronoUnit.DAYS).format(DateTimeFormatter.ofPattern("ddMMyyyy")))));
+        LocalDateTime.now()
+        .plus(crawlerConfig.getMaximumDaysForSendungVerpasstSectionFuture(), ChronoUnit.DAYS)
+        .minus(i, ChronoUnit.DAYS).format(DateTimeFormatter.ofPattern("ddMMyyyy")))));
     }
 
     return urls;
