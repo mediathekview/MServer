@@ -277,12 +277,12 @@ task updateVersion {
 
 processResources.dependsOn updateVersion
 
-licenseReport {
+/*licenseReport {
     outputDir = "build/Copyright/"
     excludes = [':MSearch', 'MediathekView:MLib']
     configurations = ['compile']
 }
-
+*/
 processResources.dependsOn generateLicenseReport
 
 [distZip, distTar]*.shouldRunAfter compileJava, updateVersion, jar

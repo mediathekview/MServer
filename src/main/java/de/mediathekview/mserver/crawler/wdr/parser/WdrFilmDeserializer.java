@@ -130,14 +130,32 @@ public class WdrFilmDeserializer {
       return Optional.empty();
     }
     
-    Optional<String> m3u8Content = readContent(mediaDto.get());
+    WdrMediaDTO dto = mediaDto.get();
+    if (dto.getUrl().endsWith(".m3u8")) {
+      return parseM3U8Url(dto);
+    } else if(dto.getUrl().endsWith(".mp4")) {
+      return parseMP4Url(dto);
+    }
+    
+    return Optional.empty();
+  }
+  
+  private Optional<OrfVideoInfoDTO> parseMP4Url(final WdrMediaDTO aMediaDto) {
+    OrfVideoInfoDTO dto = new OrfVideoInfoDTO();
+    dto.put(Resolution.NORMAL, aMediaDto.getUrl());
+    
+    return Optional.of(dto);
+  }
+  
+  private Optional<OrfVideoInfoDTO> parseM3U8Url(final WdrMediaDTO aMediaDto) {
+    Optional<String> m3u8Content = readContent(aMediaDto);
     if (!m3u8Content.isPresent()) {
       return Optional.empty();
     }
     
     OrfVideoInfoDTO dto = new OrfVideoInfoDTO();
-    if (mediaDto.get().getSubtitle().isPresent()) {
-      dto.setSubtitleUrl(mediaDto.get().getSubtitle().get());
+    if (aMediaDto.getSubtitle().isPresent()) {
+      dto.setSubtitleUrl(aMediaDto.getSubtitle().get());
     }
     
     M3U8Parser parser = new M3U8Parser();
@@ -148,7 +166,7 @@ public class WdrFilmDeserializer {
       if (resolution.isPresent()) {
         dto.put(resolution.get(), entry.getUrl());
       }
-    });
+    });   
     
     return Optional.of(dto);
   }
