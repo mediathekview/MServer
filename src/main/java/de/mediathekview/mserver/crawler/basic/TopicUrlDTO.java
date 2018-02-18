@@ -4,15 +4,15 @@ import java.util.Objects;
 
 public class TopicUrlDTO extends CrawlerUrlDTO {
   
-  private final String theme;
+  private final String topic;
   
-  public TopicUrlDTO(String aTheme, String aUrl) {
+  public TopicUrlDTO(String aTopic, String aUrl) {
     super(aUrl);
-    theme = aTheme;
+    topic = aTopic;
   }
   
-  public String getTheme() {
-    return theme;
+  public String getTopic() {
+    return topic;
   }
   
   @Override
@@ -21,7 +21,7 @@ public class TopicUrlDTO extends CrawlerUrlDTO {
       return false;
     }
     if (super.equals(obj)) {
-      return getTheme().equals(((TopicUrlDTO)obj).getTheme());
+      return getTopic().equals(((TopicUrlDTO)obj).getTopic());
     }
     
     return false;
@@ -30,7 +30,7 @@ public class TopicUrlDTO extends CrawlerUrlDTO {
   @Override
   public int hashCode() {
     int hash = 3;
-    hash = 31 * hash + Objects.hashCode(this.theme) + super.hashCode();
+    hash = 31 * hash + Objects.hashCode(this.topic) + super.hashCode();
     return hash;
   }
 }

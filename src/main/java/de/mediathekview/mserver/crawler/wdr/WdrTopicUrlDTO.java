@@ -7,8 +7,8 @@ public class WdrTopicUrlDTO extends TopicUrlDTO {
   
   private final boolean isFileUrl; 
   
-  public WdrTopicUrlDTO(final String aTheme, final String aUrl, final boolean aIsFileUrl) {
-    super(aTheme, aUrl);
+  public WdrTopicUrlDTO(final String aTopic, final String aUrl, final boolean aIsFileUrl) {
+    super(aTopic, aUrl);
     
     isFileUrl = aIsFileUrl;
   }

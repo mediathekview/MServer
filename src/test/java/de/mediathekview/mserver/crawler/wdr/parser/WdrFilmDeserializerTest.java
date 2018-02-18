@@ -96,7 +96,7 @@ public class WdrFilmDeserializerTest extends WdrTaskTestBase {
   private final String jsFile;
   private final String m3u8Url;
   private final String m3u8File;
-  private final String theme;
+  private final String topic;
   private final String expectedTitle;
   private final LocalDateTime expectedDate;
   private final Duration expectedDuration;
@@ -113,7 +113,7 @@ public class WdrFilmDeserializerTest extends WdrTaskTestBase {
     final String aJsFile,
     final String aM3u8Url,
     final String aM3u8File,
-    final String aTheme,
+    final String aTopic,
     final String aExpectedTitle,
     final LocalDateTime aExpectedDate,
     final Duration aExpectedDuration,
@@ -129,7 +129,7 @@ public class WdrFilmDeserializerTest extends WdrTaskTestBase {
     jsFile = aJsFile;
     m3u8Url = aM3u8Url;
     m3u8File = aM3u8File;
-    theme = aTheme;
+    topic = aTopic;
     expectedTitle = aExpectedTitle;
     expectedDate = aExpectedDate;
     expectedDuration = aExpectedDuration;
@@ -149,14 +149,14 @@ public class WdrFilmDeserializerTest extends WdrTaskTestBase {
       setupSuccessfulResponse(m3u8Url, m3u8File);
     }
     
-    Optional<Film> actual = new WdrFilmDeserializer("http:").deserialize(new TopicUrlDTO(theme, requestUrl), document);
+    Optional<Film> actual = new WdrFilmDeserializer("http:").deserialize(new TopicUrlDTO(topic, requestUrl), document);
     
     assertThat(actual.isPresent(), equalTo(true));
     
     Film actualFilm = actual.get();
     AssertFilm.assertEquals(actualFilm, 
       Sender.WDR,
-      theme,
+      topic,
       expectedTitle,
       expectedDate,
       expectedDuration,

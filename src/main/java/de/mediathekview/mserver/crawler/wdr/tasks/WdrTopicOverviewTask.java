@@ -30,17 +30,17 @@ public class WdrTopicOverviewTask extends AbstractDocumentTask<TopicUrlDTO, WdrT
   @Override
   protected void processDocument(WdrTopicUrlDTO aUrlDTO, Document aDocument) {
     if (aUrlDTO.isFileUrl()) {
-      taskResults.add(new TopicUrlDTO(aUrlDTO.getTheme(), aUrlDTO.getUrl()));
+      taskResults.add(new TopicUrlDTO(aUrlDTO.getTopic(), aUrlDTO.getUrl()));
       return;
     } 
     
     final ConcurrentLinkedQueue<WdrTopicUrlDTO> subpages = new ConcurrentLinkedQueue<>();
     
     WdrTopicOverviewDeserializer deserializer = new WdrTopicOverviewDeserializer();
-    List<WdrTopicUrlDTO> dtos = deserializer.deserialize(aUrlDTO.getTheme(), aDocument);
+    List<WdrTopicUrlDTO> dtos = deserializer.deserialize(aUrlDTO.getTopic(), aDocument);
     dtos.forEach(dto -> {
       if (dto.isFileUrl()) {
-        taskResults.add(new TopicUrlDTO(dto.getTheme(), dto.getUrl()));
+        taskResults.add(new TopicUrlDTO(dto.getTopic(), dto.getUrl()));
       } else {
         subpages.add(dto);
       }
