@@ -33,6 +33,11 @@ public class WdrVideoJsonDeserializerTest {
         "/wdr/wdr_video3.json",
         Optional.of("http://wdrmedien-a.akamaihd.net/medp/ondemand/weltweit/fsk0/52/528067/528067_5542163.xml"),
         "http://wdradaptiv-vh.akamaihd.net/i/medp/ondemand/weltweit/fsk0/52/528067/,528067_5540994,528067_5540993,528067_5540992,528067_5540996,528067_5540995,.mp4.csmil/master.m3u8"
+      },
+      {
+        "/wdr/wdr_video_v1_1.json",
+        Optional.empty(),
+        "http://ondemand-ww.wdr.de/medp/fsk0/47/476693/476693_12040646.mp4"
       }
     });
   }
