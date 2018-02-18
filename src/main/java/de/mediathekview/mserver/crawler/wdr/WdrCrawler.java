@@ -42,20 +42,15 @@ public class WdrCrawler extends AbstractCrawler {
   protected RecursiveTask<Set<Film>> createCrawlerTask() {
     try {
       ConcurrentLinkedQueue<TopicUrlDTO> shows = new ConcurrentLinkedQueue<>();
+      shows.addAll(getDaysEntries());
       
-      WdrDayPageTask dayTask = new WdrDayPageTask(this, getDayUrls());
-      shows.addAll(forkJoinPool.submit(dayTask).get());
-
-      printMessage(ServerMessages.DEBUG_ALL_SENDUNG_FOLGEN_COUNT, getSender().getName(), shows.size());
-      
-      WdrLetterPageTask letterTask = new WdrLetterPageTask();
-      ConcurrentLinkedQueue<WdrTopicUrlDTO> letterPageEntries = forkJoinPool.submit(letterTask).get();
-
-      WdrTopicOverviewTask overviewTask = new WdrTopicOverviewTask(this, letterPageEntries, 0);
-      shows.addAll(forkJoinPool.submit(overviewTask).get());
+      getLetterPageEntries().forEach(show -> {
+        if (!shows.contains(show)) {
+          shows.add(show);
+        }
+      });
       
       printMessage(ServerMessages.DEBUG_ALL_SENDUNG_FOLGEN_COUNT, getSender().getName(), shows.size());
-      
       getAndSetMaxCount(shows.size());
 
       return new WdrFilmDetailTask(this, shows);
@@ -63,6 +58,26 @@ public class WdrCrawler extends AbstractCrawler {
       LOG.fatal("Exception in WDR crawler.", ex);
     }
     return null;
+  }
+  
+  private Set<TopicUrlDTO> getDaysEntries() throws InterruptedException, ExecutionException {
+    WdrDayPageTask dayTask = new WdrDayPageTask(this, getDayUrls());
+    Set<TopicUrlDTO> shows = forkJoinPool.submit(dayTask).get();
+
+    printMessage(ServerMessages.DEBUG_ALL_SENDUNG_FOLGEN_COUNT, getSender().getName(), shows.size());
+    
+    return shows;
+  }
+  
+  private Set<TopicUrlDTO> getLetterPageEntries() throws InterruptedException, ExecutionException {
+    WdrLetterPageTask letterTask = new WdrLetterPageTask();
+    ConcurrentLinkedQueue<WdrTopicUrlDTO> letterPageEntries = forkJoinPool.submit(letterTask).get();
+
+    WdrTopicOverviewTask overviewTask = new WdrTopicOverviewTask(this, letterPageEntries, 0);
+    Set<TopicUrlDTO> shows = forkJoinPool.submit(overviewTask).get();
+
+    printMessage(ServerMessages.DEBUG_ALL_SENDUNG_FOLGEN_COUNT, getSender().getName(), shows.size());
+    return shows;
   }
   
   private ConcurrentLinkedQueue<CrawlerUrlDTO> getDayUrls() {
