@@ -64,9 +64,9 @@ public class WdrVideoJsonDeserializer implements JsonDeserializer<Optional<WdrMe
       
       if (mediaResourceObject.has(ELEMENT_ALT)) {
         final JsonObject dfltObject = mediaResourceObject.get(ELEMENT_ALT).getAsJsonObject();
-        Optional<String> m3u8Url = JsonUtils.getAttributeAsString(dfltObject, ATTRIBUTE_VIDEO_URL);
+        Optional<String> mp4Url = JsonUtils.getAttributeAsString(dfltObject, ATTRIBUTE_VIDEO_URL);
 
-        return createMediaDTO(m3u8Url, Optional.empty());
+        return createMediaDTO(mp4Url, Optional.empty());
       }
     }
     

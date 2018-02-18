@@ -68,6 +68,24 @@ public class WdrFilmDeserializerTest extends WdrTaskTestBase {
         "http://wdradaptiv-vh.akamaihd.net/i/medp/ondemand/de/fsk0/140/1407842/,1407842_16309723,1407842_16309728,1407842_16309725,1407842_16309726,1407842_16309724,1407842_16309727,.mp4.csmil/index_2_av.m3u8",
         "http://wdradaptiv-vh.akamaihd.net/i/medp/ondemand/de/fsk0/140/1407842/,1407842_16309723,1407842_16309728,1407842_16309725,1407842_16309726,1407842_16309724,1407842_16309727,.mp4.csmil/index_4_av.m3u8",
         new GeoLocations[] { GeoLocations.GEO_DE }
+      },
+      {
+        "http://www1.wdr.de/mediathek/video/sendungen/quarks-und-co/video-bin-ich-schneller-als-ein-tyrannosaurus-rex-102.html",
+        "/wdr/wdr_film3.html",
+        "/ondemand/47/476693.js",
+        "/wdr/wdr_video_v1_1.js",
+        "",
+        "",
+        "Quarks & Co",
+        "Bin ich schneller als ein Tyrannosaurus rex?",
+        LocalDateTime.of(2016, 2, 23, 21, 0, 0),
+        Duration.ofMinutes(1).plusSeconds(45),
+        "Ein Zusammentreffen zwischen Dinosauriern wie Tyrannosaurus rex und dem Menschen gibt es nur im Kino. Aber was wäre wenn? Wären Sie schnell genug, um weglaufen zu können?",
+        "",
+        "",
+        "http://ondemand-ww.wdr.de/medp/fsk0/47/476693/476693_12040646.mp4",
+        "",
+        new GeoLocations[] { GeoLocations.GEO_NONE }
       }
     });
   }
@@ -127,7 +145,9 @@ public class WdrFilmDeserializerTest extends WdrTaskTestBase {
   public void test() throws IOException {
     final Document document = Jsoup.parse(FileReader.readFile(filmPageFile));
     setupSuccessfulResponse(jsUrl, jsFile);
-    setupSuccessfulResponse(m3u8Url, m3u8File);
+    if (!m3u8Url.isEmpty()) {
+      setupSuccessfulResponse(m3u8Url, m3u8File);
+    }
     
     Optional<Film> actual = new WdrFilmDeserializer("http:").deserialize(new TopicUrlDTO(theme, requestUrl), document);
     

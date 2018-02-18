@@ -9,6 +9,7 @@ import java.time.Duration;
 import java.time.LocalDateTime;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.notNullValue;
+import static org.hamcrest.CoreMatchers.nullValue;
 import org.hamcrest.Matchers;
 import static org.junit.Assert.assertThat;
 
@@ -39,7 +40,12 @@ public final class AssertFilm {
       assertThat(aActualFilm.getWebsite().get().toString(), equalTo(aWebsiteUrl));
       assertThat(aActualFilm.getGeoLocations(), Matchers.containsInAnyOrder(aExpectedGeo));
 
-      assertThat(aActualFilm.getUrl(Resolution.SMALL).toString(), equalTo(aExpectedUrlSmall));
+      if (aExpectedUrlSmall.isEmpty()) {
+        assertThat(aActualFilm.getUrl(Resolution.SMALL), nullValue());
+      } else {
+        assertThat(aActualFilm.getUrl(Resolution.SMALL).toString(), equalTo(aExpectedUrlSmall));
+      }
+      
       assertThat(aActualFilm.getUrl(Resolution.NORMAL).toString(), equalTo(aExpectedUrlNormal));
       
       assertThat(aActualFilm.hasHD(), equalTo(!aExpectedUrlHd.isEmpty()));
