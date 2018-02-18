@@ -21,7 +21,7 @@ public class WdrDayPageTask extends AbstractDocumentTask<TopicUrlDTO, CrawlerUrl
   
   private static final String ENTRY_SELECTOR = "div.section > div.con > div.mod > div.boxCon > div.box";
   private static final String URL_SELECTOR = "div.hideTeasertext > a";
-  private static final String THEME_SELECTOR = "h3.ressort > a";
+  private static final String TOPIC_SELECTOR = "h3.ressort > a";
   
   public WdrDayPageTask(AbstractCrawler aCrawler, ConcurrentLinkedQueue<CrawlerUrlDTO> aUrlToCrawlDTOs) {
     super(aCrawler, aUrlToCrawlDTOs);
@@ -31,15 +31,15 @@ public class WdrDayPageTask extends AbstractDocumentTask<TopicUrlDTO, CrawlerUrl
   protected void processDocument(CrawlerUrlDTO aUrlDTO, Document aDocument) {
     Elements entryElements = aDocument.select(ENTRY_SELECTOR);
     entryElements.forEach(entry -> {
-      Elements themeElements = entry.select(THEME_SELECTOR);
+      Elements topicElements = entry.select(TOPIC_SELECTOR);
       Elements urlElements = entry.select(URL_SELECTOR);
       
-      if (themeElements.size() == urlElements.size() && themeElements.size() == 1) {
-        String theme = getTheme(themeElements.get(0), urlElements.get(0));
+      if (topicElements.size() == urlElements.size() && topicElements.size() == 1) {
+        String topic = getTopic(topicElements.get(0), urlElements.get(0));
         String url = UrlUtils.addDomainIfMissing(urlElements.get(0).attr(Consts.ATTRIBUTE_HREF), WdrConstants.URL_BASE);
         
         if (isRelevantEntry(url)) {
-          TopicUrlDTO dto = new TopicUrlDTO(theme, url);
+          TopicUrlDTO dto = new TopicUrlDTO(topic, url);
           taskResults.add(dto);
         }
       }
@@ -56,20 +56,20 @@ public class WdrDayPageTask extends AbstractDocumentTask<TopicUrlDTO, CrawlerUrl
     return !aUrl.contains("/hilfe/");
   }
   
-  private static String getTheme(Element aThemeElement, Element aUrlElement) {
-    String theme = aThemeElement.text();
+  private static String getTopic(Element aTopicElement, Element aUrlElement) {
+    String topic = aTopicElement.text();
         
     // Sonderbehandlung für Thema: bei bestimmten Wörtern das Thema aus Videotitel ermitteln
-    if(theme.compareToIgnoreCase("Film") == 0) {
+    if(topic.compareToIgnoreCase("Film") == 0) {
         // Aus Film -> Fernsehfilm machen, damit das Thema zu Sendung A-Z passt
-        theme = "Fernsehfilm";
-    } else if (theme.compareToIgnoreCase("Video") == 0) {
+        topic = "Fernsehfilm";
+    } else if (topic.compareToIgnoreCase("Video") == 0) {
         String[] titleParts = aUrlElement.attr(Consts.ATTRIBUTE_TITLE).split("-");
         if(titleParts.length >= 1) {
-            theme = titleParts[0].replace(", WDR", "").trim();
+            topic = titleParts[0].replace(", WDR", "").trim();
         }
     } 
 
-    return theme;
+    return topic;
   }
 }

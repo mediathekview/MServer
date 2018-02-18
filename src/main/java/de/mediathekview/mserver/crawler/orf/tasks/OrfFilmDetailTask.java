@@ -93,7 +93,7 @@ public class OrfFilmDetailTask extends AbstractDocumentTask<Film, TopicUrlDTO> {
     try {
       if (aVideoInfo.isPresent() && aTitle.isPresent()) {
         final Film film = new Film(UUID.randomUUID(), crawler.getSender(), aTitle.get(),
-          aUrlDTO.getTheme(), aTime.orElse(LocalDateTime.now()), aDuration.orElse(Duration.ZERO));
+          aUrlDTO.getTopic(), aTime.orElse(LocalDateTime.now()), aDuration.orElse(Duration.ZERO));
 
         film.setWebsite(new URL(aUrlDTO.getUrl()));
         if (aDescription.isPresent()) {

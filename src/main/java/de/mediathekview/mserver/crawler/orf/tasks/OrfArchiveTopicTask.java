@@ -24,7 +24,7 @@ public class OrfArchiveTopicTask extends AbstractDocumentTask<TopicUrlDTO, Topic
     elements.forEach(item -> {
       String url = item.attr(Consts.ATTRIBUTE_HREF);
       
-      TopicUrlDTO dto = new TopicUrlDTO(aUrlDTO.getTheme(), url);
+      TopicUrlDTO dto = new TopicUrlDTO(aUrlDTO.getTopic(), url);
       taskResults.add(dto);
     });
   }

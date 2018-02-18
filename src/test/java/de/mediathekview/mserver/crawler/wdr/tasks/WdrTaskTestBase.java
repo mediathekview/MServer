@@ -21,9 +21,9 @@ public class WdrTaskTestBase extends WireMockTestBase {
     return new WdrCrawler(forkJoinPool, nachrichten, fortschritte, rootConfig);
   }
 
-  protected ConcurrentLinkedQueue<TopicUrlDTO> createCrawlerUrlDto(String aTheme, String aUrl) {
+  protected ConcurrentLinkedQueue<TopicUrlDTO> createCrawlerUrlDto(String aTopic, String aUrl) {
     ConcurrentLinkedQueue<TopicUrlDTO> input = new ConcurrentLinkedQueue<>();
-    input.add(new TopicUrlDTO(aTheme, aUrl));
+    input.add(new TopicUrlDTO(aTopic, aUrl));
     return input;
   }
 }

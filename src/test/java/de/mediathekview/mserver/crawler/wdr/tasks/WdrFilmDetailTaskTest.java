@@ -33,7 +33,7 @@ class TestData {
   public String jsFile;
   public String m3u8Url;
   public String m3u8File;
-  public String theme;
+  public String topic;
   public String expectedTitle;
   public LocalDateTime expectedDate;
   public Duration expectedDuration;
@@ -50,7 +50,7 @@ class TestData {
     final String aJsFile,
     final String aM3u8Url,
     final String aM3u8File,
-    final String aTheme,
+    final String aTopic,
     final String aExpectedTitle,
     final LocalDateTime aExpectedDate,
     final Duration aExpectedDuration,
@@ -66,7 +66,7 @@ class TestData {
     jsFile = aJsFile;
     m3u8Url = aM3u8Url;
     m3u8File = aM3u8File;
-    theme = aTheme;
+    topic = aTopic;
     expectedTitle = aExpectedTitle;
     expectedDate = aExpectedDate;
     expectedDuration = aExpectedDuration;
@@ -211,10 +211,10 @@ public class WdrFilmDetailTaskTest extends WdrTaskTestBase {
     }
     JsoupMock.mock(urlMapping);
 
-    final String theme = expectedFilms[0].theme;
+    final String topic = expectedFilms[0].topic;
     final String requestUrl = expectedFilms[0].requestUrl;
     
-    final Set<Film> actual = new WdrFilmDetailTask(createCrawler(), createCrawlerUrlDto(theme, requestUrl)).invoke();
+    final Set<Film> actual = new WdrFilmDetailTask(createCrawler(), createCrawlerUrlDto(topic, requestUrl)).invoke();
     
     assertThat(actual, notNullValue());
     assertThat(actual.size(), equalTo(expectedFilms.length));
@@ -230,7 +230,7 @@ public class WdrFilmDetailTaskTest extends WdrTaskTestBase {
       
       AssertFilm.assertEquals(actualFilm, 
         Sender.WDR,
-        theme,
+        topic,
         expectedFilm.expectedTitle,
         expectedFilm.expectedDate,
         expectedFilm.expectedDuration,
