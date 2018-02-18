@@ -51,6 +51,7 @@ public class M3U8Dto {
     // Auflösung verwenden, wenn vorhanden
     if (resolution.isPresent()) {
       switch(resolution.get()) {
+        case "256x144":
         case "320x180":
         case "480x270":
         case "480x272":
