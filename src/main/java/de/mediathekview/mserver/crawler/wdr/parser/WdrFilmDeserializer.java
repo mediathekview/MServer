@@ -12,8 +12,8 @@ import de.mediathekview.mserver.crawler.basic.CrawlerUrlDTO;
 import de.mediathekview.mserver.crawler.basic.M3U8Dto;
 import de.mediathekview.mserver.crawler.basic.M3U8Parser;
 import de.mediathekview.mserver.crawler.basic.TopicUrlDTO;
-import de.mediathekview.mserver.crawler.orf.OrfVideoInfoDTO;
 import de.mediathekview.mserver.crawler.wdr.WdrMediaDTO;
+import de.mediathekview.mserver.crawler.wdr.WdrVideoInfoDTO;
 import java.io.IOException;
 import java.lang.reflect.Type;
 import java.net.MalformedURLException;
@@ -21,6 +21,7 @@ import java.net.URL;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -62,13 +63,13 @@ public class WdrFilmDeserializer {
     final Optional<LocalDateTime> time = parseDate(aDocument);
     final Optional<Duration> duration = parseDuration(aDocument);
     final Optional<String> description = HtmlDocumentUtils.getElementAttributeString(DESCRIPTION_SELECTOR, ATTRIBUTE_CONTENT, aDocument);
-    final Optional<OrfVideoInfoDTO> urls = parseUrls(aDocument);
+    final Optional<WdrVideoInfoDTO> urls = parseUrls(aDocument);
     
     return createFilm(aUrlDTO, urls, title, description, time, duration);
   }
   
   private Optional<Film> createFilm(final TopicUrlDTO aUrlDTO,
-    final Optional<OrfVideoInfoDTO> aVideoInfo, 
+    final Optional<WdrVideoInfoDTO> aVideoInfo, 
     final Optional<String> aTitle,
     final Optional<String> aDescription,
     final Optional<LocalDateTime> aTime,
@@ -84,7 +85,7 @@ public class WdrFilmDeserializer {
           film.setBeschreibung(aDescription.get());
         }
      
-        OrfVideoInfoDTO videoInfo = aVideoInfo.get();
+        WdrVideoInfoDTO videoInfo = aVideoInfo.get();
         if (StringUtils.isNotBlank(videoInfo.getSubtitleUrl())) {
           film.addSubtitle(new URL(videoInfo.getSubtitleUrl()));
         }
@@ -112,14 +113,12 @@ public class WdrFilmDeserializer {
     }
   }
 
-  
-  // TODO OrfVideoInfoDTO verallgemeinern
-  private Optional<OrfVideoInfoDTO> parseUrls(final Document aDocument) {
+  private Optional<WdrVideoInfoDTO> parseUrls(final Document aDocument) {
     final Optional<CrawlerUrlDTO> videoUrlDto = parseVideoLink(aDocument);
     if (!videoUrlDto.isPresent()) {
       return Optional.empty();
     }
-    Optional<String> javaScriptContent = readContent(videoUrlDto.get());
+    Optional<String> javaScriptContent = readContent(videoUrlDto.get().getUrl());
     Optional<String> embeddedJson = extractJsonFromJavaScript(javaScriptContent);
     if (!embeddedJson.isPresent()) {
       return Optional.empty();
@@ -132,7 +131,7 @@ public class WdrFilmDeserializer {
     
     WdrMediaDTO dto = mediaDto.get();
     if (dto.getUrl().endsWith(".m3u8")) {
-      return parseM3U8Url(dto);
+      return parseM3U8(dto);
     } else if(dto.getUrl().endsWith(".mp4")) {
       return parseMP4Url(dto);
     }
@@ -140,22 +139,45 @@ public class WdrFilmDeserializer {
     return Optional.empty();
   }
   
-  private Optional<OrfVideoInfoDTO> parseMP4Url(final WdrMediaDTO aMediaDto) {
-    OrfVideoInfoDTO dto = new OrfVideoInfoDTO();
-    dto.put(Resolution.NORMAL, aMediaDto.getUrl());
+  private Optional<WdrVideoInfoDTO> parseM3U8(final WdrMediaDTO aMediaDto) {
+    Map<Resolution, String> urlMap = parseM3U8Url(aMediaDto.getUrl());
+    if (!urlMap.isEmpty()) {
+      WdrVideoInfoDTO videoInfoDto = new WdrVideoInfoDTO();
+      urlMap.forEach((key, value) -> videoInfoDto.putVideo(key, value));
+      
+      if (aMediaDto.getSubtitle().isPresent()) {
+        videoInfoDto.setSubtitleUrl(aMediaDto.getSubtitle().get());
+      }
+
+      if (aMediaDto.getAudioDescriptionUrl().isPresent()) {
+        Map<Resolution, String> adUrlMap = parseM3U8Url(aMediaDto.getAudioDescriptionUrl().get());
+        adUrlMap.forEach((key, value) -> videoInfoDto.putAudioDescription(key, value));
+      }
+
+      if (aMediaDto.getSignLanguageUrl().isPresent()) {
+        Map<Resolution, String> slUrlMap = parseM3U8Url(aMediaDto.getSignLanguageUrl().get());
+        slUrlMap.forEach((key, value) -> videoInfoDto.putSignLanguage(key, value));
+      }
+
+      return Optional.of(videoInfoDto);
+    }
+    
+    return Optional.empty();
+  }
+  
+  private Optional<WdrVideoInfoDTO> parseMP4Url(final WdrMediaDTO aMediaDto) {
+    WdrVideoInfoDTO dto = new WdrVideoInfoDTO();
+    dto.putVideo(Resolution.NORMAL, aMediaDto.getUrl());
     
     return Optional.of(dto);
   }
   
-  private Optional<OrfVideoInfoDTO> parseM3U8Url(final WdrMediaDTO aMediaDto) {
-    Optional<String> m3u8Content = readContent(aMediaDto);
-    if (!m3u8Content.isPresent()) {
-      return Optional.empty();
-    }
+  private Map<Resolution, String> parseM3U8Url(final String aUrl) {
+    Map<Resolution, String> urlMap = new HashMap<>();
     
-    OrfVideoInfoDTO dto = new OrfVideoInfoDTO();
-    if (aMediaDto.getSubtitle().isPresent()) {
-      dto.setSubtitleUrl(aMediaDto.getSubtitle().get());
+    Optional<String> m3u8Content = readContent(aUrl);
+    if (!m3u8Content.isPresent()) {
+      return urlMap;
     }
     
     M3U8Parser parser = new M3U8Parser();
@@ -164,11 +186,11 @@ public class WdrFilmDeserializer {
     m3u8Data.forEach((entry) -> {
       Optional<Resolution> resolution = entry.getResolution();
       if (resolution.isPresent()) {
-        dto.put(resolution.get(), entry.getUrl());
+        urlMap.put(resolution.get(), entry.getUrl());
       }
     });   
     
-    return Optional.of(dto);
+    return urlMap;
   }
   
   private static Optional<LocalDateTime> parseDate(final Document aDocument) {
@@ -227,15 +249,15 @@ public class WdrFilmDeserializer {
    * @param aUrl the url
    * @return the content of the url
    */
-  private static Optional<String> readContent(final CrawlerUrlDTO aUrl) {
+  private static Optional<String> readContent(final String aUrl) {
     OkHttpClient httpClient = MVHttpClient.getInstance().getHttpClient();
     Request request = new Request.Builder()
-            .url(aUrl.getUrl()).build();
+            .url(aUrl).build();
     try (okhttp3.Response response = httpClient.newCall(request).execute()) {
       if (response.isSuccessful()) {
         return Optional.of(response.body().string());
       } else {
-        LOG.error(String.format("WdrFilmDetailTask: Request '%s' failed: %s", aUrl.getUrl(), response.code()));
+        LOG.error(String.format("WdrFilmDetailTask: Request '%s' failed: %s", aUrl, response.code()));
       }
     } catch (IOException ex) {
       LOG.error("WdrFilmDetailTask: ", ex);
