@@ -86,6 +86,33 @@ public class WdrTopicOverviewDeserializerTest {
           "https://www1.wdr.de/mediathek/video/sendungen/lokalzeit-ruhr/lokalzeit-ruhr-reihe-hans-im-glueck100.html", 
           "https://www1.wdr.de/mediathek/video/sendungen/lokalzeit-ruhr/lokalzeit-ruhr-reihe-dreihundertsechzig-grad-gruen-100.html" 
         }        
+      },
+      {
+        "/wdr/wdr_topic_overview_rockpalast_first_year.html",
+        "Rockpalast",
+        new String[] {
+          "https://www1.wdr.de/mediathek/video/sendungen/rockpalast/video-rockpalast-korn---summer-breeze--100.html", 
+          "https://www1.wdr.de/mediathek/video/sendungen/rockpalast/video-rockpalast-kreator---summer-breeze--100.html", 
+          "https://www1.wdr.de/mediathek/video/sendungen/rockpalast/video-rockpalast-heaven-shall-burn---summer-breeze--102.html", 
+          "https://www1.wdr.de/mediathek/video/sendungen/rockpalast/video-rockpalast-with-full-force--mit-ministry-combichrist-adept-callejon-und-rykers-100.html", 
+          "https://www1.wdr.de/mediathek/video/sendungen/rockpalast/video-rockpalast-umse---summerjam--100.html"
+        },
+        new String[] {
+          "https://www1.wdr.de/mediathek/video/sendungen/rockpalast/index.html", 
+          "https://www1.wdr.de/mediathek/video/sendungen/rockpalast/rockpalast-108.html"
+        }
+      },
+      {
+        "/wdr/wdr_topic_overview_rockpalast_second_year.html",
+        "Rockpalast",
+        new String[] {
+          "https://www1.wdr.de/mediathek/video/sendungen/rockpalast/video-rockpalast-alter-bridge---koeln-palladium--100.html", 
+          "https://www1.wdr.de/mediathek/video/sendungen/rockpalast/video-rockpalast-like-a-storm---koeln-palladium--100.html", 
+          "https://www1.wdr.de/mediathek/video/sendungen/rockpalast/video-rockpalast-backstage-drangsal-100.html"
+        },
+        new String[] {
+          
+        }
       }
     });
   }

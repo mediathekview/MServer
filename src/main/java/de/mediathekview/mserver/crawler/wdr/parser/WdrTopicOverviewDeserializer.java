@@ -9,6 +9,7 @@ import java.util.List;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 public class WdrTopicOverviewDeserializer extends WdrLetterPageDeserializerBase {
@@ -17,13 +18,18 @@ public class WdrTopicOverviewDeserializer extends WdrLetterPageDeserializerBase 
   private static final String SELECTOR_URL = "div.hideTeasertext > a";
   private static final String SELECTOR_URL_LOKALZEIT_VIDEO_TEASER = "div.teaser.video > a";    
   private static final String SELECTOR_URL_LOKALZEIT_MEHR = "h3.headline > a";
+  private static final String SELECTOR_URL_ROCKPALAST_YEARS = "div.entries > div";
+  private static final String SELECTOR_URL_ROCKPALAST_YEARS_ENTRIES = "div.entry > a";
   
   public List<WdrTopicUrlDTO> deserialize(final String aTopic, final Document aDocument) {
     List<WdrTopicUrlDTO> results = new ArrayList<>();
     
-    addUrls(results, aTopic, aDocument, SELECTOR_URL);
-    addUrls(results, aTopic, aDocument, SELECTOR_URL_LOKALZEIT_VIDEO_TEASER);
-    addUrls(results, aTopic, aDocument, SELECTOR_URL_LOKALZEIT_MEHR);
+    addUrls(results, aTopic, aDocument, SELECTOR_URL, true);
+    addUrls(results, aTopic, aDocument, SELECTOR_URL_LOKALZEIT_VIDEO_TEASER, true);
+    addUrls(results, aTopic, aDocument, SELECTOR_URL_LOKALZEIT_MEHR, true);
+    if (isRockpalastOverviewPage(aDocument)) {
+      addUrls(results, aTopic, aDocument, SELECTOR_URL_ROCKPALAST_YEARS_ENTRIES, false);
+    }
     
     return results;
   }
@@ -31,14 +37,15 @@ public class WdrTopicOverviewDeserializer extends WdrLetterPageDeserializerBase 
   private void addUrls(final List<WdrTopicUrlDTO> aResults, 
     final String aTopic,
     final Document aDocument, 
-    final String aSelector)
+    final String aSelector,
+    boolean defaultIsFileUrl)
   {
     Elements urlElements = aDocument.select(aSelector);
     urlElements.forEach(urlElement -> {
       String url = urlElement.attr(ATTRIBUTE_HREF);
       if(url != null && !url.isEmpty() && isUrlRelevant(url)) {
         url = UrlUtils.addDomainIfMissing(url, WdrConstants.URL_BASE);
-        boolean isFileUrl = isFileUrl(urlElement);
+        boolean isFileUrl = isFileUrl(urlElement, defaultIsFileUrl);
         
         aResults.add(new WdrTopicUrlDTO(aTopic, url, isFileUrl));
       }
@@ -63,4 +70,19 @@ public class WdrTopicOverviewDeserializer extends WdrLetterPageDeserializerBase 
 
       return true;
   }  
+  
+  private boolean isRockpalastOverviewPage(final Document aDocument) {
+    // ermitteln, ob es sich um die erste Rockpalastübersichtsseite handelt
+    // dazu muss das erste Element in der Jahresauswahl aktiv sein
+    Elements yearElements = aDocument.select(SELECTOR_URL_ROCKPALAST_YEARS);
+
+    if(yearElements != null) {
+        Element firstYearElement = yearElements.first();
+
+        if(firstYearElement != null) {
+            return firstYearElement.classNames().contains("active");
+        }
+    }
+    return false;
+  }
 }

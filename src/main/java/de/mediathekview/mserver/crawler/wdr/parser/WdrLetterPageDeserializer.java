@@ -26,7 +26,7 @@ public class WdrLetterPageDeserializer extends WdrLetterPageDeserializerBase {
       String url = getUrl(topicElement);
       if (!url.isEmpty()) {
         String topic = getTopic(topicElement);
-        boolean isFileUrl = isFileUrl(topicElement);
+        boolean isFileUrl = isFileUrl(topicElement, true);
         results.add(new WdrTopicUrlDTO(topic, url, isFileUrl));
       }
     });
