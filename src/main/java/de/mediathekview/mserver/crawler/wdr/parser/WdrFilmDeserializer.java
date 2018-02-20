@@ -90,7 +90,7 @@ public class WdrFilmDeserializer {
           film.addSubtitle(new URL(videoInfo.getSubtitleUrl()));
         }
         
-        addUrls(film, videoInfo.getVideoUrls());
+        addUrls(film, videoInfo);
         film.setGeoLocations(CrawlerTool.getGeoLocations(Sender.WDR, videoInfo.getDefaultVideoUrl()));
 
         return Optional.of(film);
@@ -105,11 +105,22 @@ public class WdrFilmDeserializer {
     return Optional.empty();
   }
   
-  private void addUrls(final Film aFilm, final Map<Resolution, String> aVideoUrls)
+  private void addUrls(final Film aFilm, final WdrVideoInfoDTO aVideoInfo)
     throws MalformedURLException {
     
-    for (final Map.Entry<Resolution, String> qualitiesEntry : aVideoUrls.entrySet()) {
+    Map<Resolution, String> videoUrls = aVideoInfo.getVideoUrls();
+    for (final Map.Entry<Resolution, String> qualitiesEntry : videoUrls.entrySet()) {
       aFilm.addUrl(qualitiesEntry.getKey(), CrawlerTool.stringToFilmUrl(qualitiesEntry.getValue()));
+    }
+
+    videoUrls = aVideoInfo.getAudioDescriptionUrls();
+    for (final Map.Entry<Resolution, String> qualitiesEntry : videoUrls.entrySet()) {
+      aFilm.addAudioDescription(qualitiesEntry.getKey(), CrawlerTool.stringToFilmUrl(qualitiesEntry.getValue()));
+    }
+
+    videoUrls = aVideoInfo.getSignLanguageUrls();
+    for (final Map.Entry<Resolution, String> qualitiesEntry : videoUrls.entrySet()) {
+      aFilm.addSignLanguage(qualitiesEntry.getKey(), CrawlerTool.stringToFilmUrl(qualitiesEntry.getValue()));
     }
   }
 

@@ -40,6 +40,10 @@ public class WdrFilmDeserializerTest extends WdrTaskTestBase {
         "/wdr/wdr_video1.js",
         "/i/medp/ondemand/weltweit/fsk0/148/1480611/,1480611_16974214,1480611_16974213,1480611_16974215,1480611_16974211,1480611_16974212,.mp4.csmil/master.m3u8",
         "/wdr/wdr_video1.m3u8",
+        "",
+        "",
+        "",
+        "",
         "Abenteuer Erde",
         "Die Tricks des Überlebens 3) Im Wald", 
         LocalDateTime.of(2017, 9, 26, 20, 15, 0),
@@ -48,6 +52,12 @@ public class WdrFilmDeserializerTest extends WdrTaskTestBase {
         "",
         "http://wdradaptiv-vh.akamaihd.net/i/medp/ondemand/weltweit/fsk0/148/1480611/,1480611_16974214,1480611_16974213,1480611_16974215,1480611_16974211,1480611_16974212,.mp4.csmil/index_0_av.m3u8",
         "http://wdradaptiv-vh.akamaihd.net/i/medp/ondemand/weltweit/fsk0/148/1480611/,1480611_16974214,1480611_16974213,1480611_16974215,1480611_16974211,1480611_16974212,.mp4.csmil/index_2_av.m3u8",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
         "",
         new GeoLocations[] { GeoLocations.GEO_NONE }
       },
@@ -58,6 +68,10 @@ public class WdrFilmDeserializerTest extends WdrTaskTestBase {
         "/wdr/wdr_video2.js",
         "/i/medp/ondemand/weltweit/fsk0/140/1407842/,1407842_16309723,1407842_16309728,1407842_16309725,1407842_16309726,1407842_16309724,1407842_16309727,.mp4.csmil/master.m3u8",
         "/wdr/wdr_video2.m3u8",
+        "",
+        "",
+        "",
+        "",
         "Ausgerechnet", 
         "Ausgerechnet - Schokolade", 
         LocalDateTime.of(2017, 7, 15, 16, 0, 0),
@@ -67,6 +81,12 @@ public class WdrFilmDeserializerTest extends WdrTaskTestBase {
         "http://wdradaptiv-vh.akamaihd.net/i/medp/ondemand/de/fsk0/140/1407842/,1407842_16309723,1407842_16309728,1407842_16309725,1407842_16309726,1407842_16309724,1407842_16309727,.mp4.csmil/index_0_av.m3u8",
         "http://wdradaptiv-vh.akamaihd.net/i/medp/ondemand/de/fsk0/140/1407842/,1407842_16309723,1407842_16309728,1407842_16309725,1407842_16309726,1407842_16309724,1407842_16309727,.mp4.csmil/index_2_av.m3u8",
         "http://wdradaptiv-vh.akamaihd.net/i/medp/ondemand/de/fsk0/140/1407842/,1407842_16309723,1407842_16309728,1407842_16309725,1407842_16309726,1407842_16309724,1407842_16309727,.mp4.csmil/index_4_av.m3u8",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
         new GeoLocations[] { GeoLocations.GEO_DE }
       },
       {
@@ -74,6 +94,10 @@ public class WdrFilmDeserializerTest extends WdrTaskTestBase {
         "/wdr/wdr_film3.html",
         "/ondemand/47/476693.js",
         "/wdr/wdr_video_v1_1.js",
+        "",
+        "",
+        "",
+        "",
         "",
         "",
         "Quarks & Co",
@@ -85,6 +109,40 @@ public class WdrFilmDeserializerTest extends WdrTaskTestBase {
         "",
         "http://ondemand-ww.wdr.de/medp/fsk0/47/476693/476693_12040646.mp4",
         "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        new GeoLocations[] { GeoLocations.GEO_NONE }
+      },
+      { 
+        "http://www1.wdr.de/kinder/tv/die-sendung-mit-der-maus/av/video-die-sendung-mit-der-maus-vom--598.html", 
+        "/wdr/wdr_film_with_ad_dgs.html", 
+        "/ondemand/158/1583693.js", 
+        "/wdr/wdr_video_with_ad_dgs.js",
+        "/i/medp/ondemand/weltweit/fsk0/158/1583693/,1583693_18232361,1583693_18232358,1583693_18232363,1583693_18232362,1583693_18232359,1583693_18232360,.mp4.csmil/master.m3u8",
+        "/wdr/wdr_video_with_ad_dgs1.m3u8",
+        "/i/medp/ondemand/weltweit/fsk0/158/1583693/,1583693_18232391,1583693_18232389,1583693_18232393,1583693_18232392,1583693_18232388,1583693_18232390,.mp4.csmil/master.m3u8",
+        "/wdr/wdr_video_with_ad_dgs2.m3u8",
+        "/i/medp/ondemand/weltweit/fsk0/158/1583693/,1583693_18232344,1583693_18232347,1583693_18232346,1583693_18232345,1583693_18232343,1583693_18232342,.mp4.csmil/master.m3u8",
+        "/wdr/wdr_video_with_ad_dgs3.m3u8",
+        "Die Sendung mit der Maus", 
+        "Die Sendung mit der Maus vom 18.02.2018", 
+        LocalDateTime.of(2018, 2, 18, 0, 0, 0),
+        Duration.ofSeconds(1791),
+        "Lach- und Sachgeschichten heute mit einem cleveren Trick, einer Reise zum Ende der Welt, dem Geheimnis vom Meeresschaum, einem eiskalten Bad und natürlich mit der Maus und dem Elefanten.", 
+        "http://wdrmedien-a.akamaihd.net/medp/ondemand/weltweit/fsk0/158/1583693/1583693_18232422.xml",
+        "http://wdradaptiv-vh.akamaihd.net/i/medp/ondemand/weltweit/fsk0/158/1583693/,1583693_18232361,1583693_18232358,1583693_18232363,1583693_18232362,1583693_18232359,1583693_18232360,.mp4.csmil/index_0_av.m3u8",
+        "http://wdradaptiv-vh.akamaihd.net/i/medp/ondemand/weltweit/fsk0/158/1583693/,1583693_18232361,1583693_18232358,1583693_18232363,1583693_18232362,1583693_18232359,1583693_18232360,.mp4.csmil/index_2_av.m3u8",
+        "http://wdradaptiv-vh.akamaihd.net/i/medp/ondemand/weltweit/fsk0/158/1583693/,1583693_18232361,1583693_18232358,1583693_18232363,1583693_18232362,1583693_18232359,1583693_18232360,.mp4.csmil/index_4_av.m3u8",
+        "http://wdradaptiv-vh.akamaihd.net/i/medp/ondemand/weltweit/fsk0/158/1583693/,1583693_18232391,1583693_18232389,1583693_18232393,1583693_18232392,1583693_18232388,1583693_18232390,.mp4.csmil/index_0_av.m3u8",
+        "http://wdradaptiv-vh.akamaihd.net/i/medp/ondemand/weltweit/fsk0/158/1583693/,1583693_18232391,1583693_18232389,1583693_18232393,1583693_18232392,1583693_18232388,1583693_18232390,.mp4.csmil/index_2_av.m3u8",
+        "http://wdradaptiv-vh.akamaihd.net/i/medp/ondemand/weltweit/fsk0/158/1583693/,1583693_18232391,1583693_18232389,1583693_18232393,1583693_18232392,1583693_18232388,1583693_18232390,.mp4.csmil/index_4_av.m3u8",
+        "http://wdradaptiv-vh.akamaihd.net/i/medp/ondemand/weltweit/fsk0/158/1583693/,1583693_18232344,1583693_18232347,1583693_18232346,1583693_18232345,1583693_18232343,1583693_18232342,.mp4.csmil/index_0_av.m3u8",
+        "http://wdradaptiv-vh.akamaihd.net/i/medp/ondemand/weltweit/fsk0/158/1583693/,1583693_18232344,1583693_18232347,1583693_18232346,1583693_18232345,1583693_18232343,1583693_18232342,.mp4.csmil/index_2_av.m3u8",
+        "http://wdradaptiv-vh.akamaihd.net/i/medp/ondemand/weltweit/fsk0/158/1583693/,1583693_18232344,1583693_18232347,1583693_18232346,1583693_18232345,1583693_18232343,1583693_18232342,.mp4.csmil/index_4_av.m3u8",
         new GeoLocations[] { GeoLocations.GEO_NONE }
       }
     });
@@ -94,8 +152,12 @@ public class WdrFilmDeserializerTest extends WdrTaskTestBase {
   private final String filmPageFile;
   private final String jsUrl;
   private final String jsFile;
-  private final String m3u8Url;
-  private final String m3u8File;
+  private final String m3u8UrlVideo;
+  private final String m3u8FileVideo;
+  private final String m3u8UrlSignLanguage;
+  private final String m3u8FileSignLanguage;
+  private final String m3u8UrlAudioDescription;
+  private final String m3u8FileAudioDescription;
   private final String topic;
   private final String expectedTitle;
   private final LocalDateTime expectedDate;
@@ -105,14 +167,24 @@ public class WdrFilmDeserializerTest extends WdrTaskTestBase {
   private final String expectedUrlSmall;
   private final String expectedUrlNormal;
   private final String expectedUrlHd;
+  private final String expectedUrlSignLanguageSmall;
+  private final String expectedUrlSignLanguageNormal;
+  private final String expectedUrlSignLanguageHd;
+  private final String expectedUrlAudioDescriptionSmall;
+  private final String expectedUrlAudioDescriptionNormal;
+  private final String expectedUrlAudioDescriptionHd;
   private final GeoLocations[] expectedGeoLocations;
   
   public WdrFilmDeserializerTest(final String aRequestUrl,
     final String aFilmPageFile,
     final String aJsUrl,
     final String aJsFile,
-    final String aM3u8Url,
-    final String aM3u8File,
+    final String aM3u8UrlVideo,
+    final String aM3u8FileVideo,
+    final String aM3u8UrlSignLanguage,
+    final String aM3u8FileSignLanguage,
+    final String aM3u8UrlAudioDescription,
+    final String aM3u8FileAudioDescription,
     final String aTopic,
     final String aExpectedTitle,
     final LocalDateTime aExpectedDate,
@@ -122,13 +194,23 @@ public class WdrFilmDeserializerTest extends WdrTaskTestBase {
     final String aExpectedUrlSmall,
     final String aExpectedUrlNormal,
     final String aExpectedUrlHd,
+    final String aExpectedUrlSignLanguageSmall,
+    final String aExpectedUrlSignLanguageNormal,
+    final String aExpectedUrlSignLanguageHd,
+    final String aExpectedUrlAudioDescriptionSmall,
+    final String aExpectedUrlAudioDescriptionNormal,
+    final String aExpectedUrlAudioDescriptionHd,
     final GeoLocations[] aExpectedGeoLocations) {
     requestUrl = aRequestUrl;
     filmPageFile = aFilmPageFile;
     jsUrl = aJsUrl;
     jsFile = aJsFile;
-    m3u8Url = aM3u8Url;
-    m3u8File = aM3u8File;
+    m3u8UrlVideo = aM3u8UrlVideo;
+    m3u8FileVideo = aM3u8FileVideo;
+    m3u8UrlSignLanguage = aM3u8UrlSignLanguage;
+    m3u8FileSignLanguage = aM3u8FileSignLanguage;
+    m3u8UrlAudioDescription = aM3u8UrlAudioDescription;
+    m3u8FileAudioDescription = aM3u8FileAudioDescription;
     topic = aTopic;
     expectedTitle = aExpectedTitle;
     expectedDate = aExpectedDate;
@@ -138,6 +220,12 @@ public class WdrFilmDeserializerTest extends WdrTaskTestBase {
     expectedUrlSmall = aExpectedUrlSmall;
     expectedUrlNormal = aExpectedUrlNormal;
     expectedUrlHd = aExpectedUrlHd;
+    expectedUrlSignLanguageSmall = aExpectedUrlSignLanguageSmall;
+    expectedUrlSignLanguageNormal = aExpectedUrlSignLanguageNormal;
+    expectedUrlSignLanguageHd = aExpectedUrlSignLanguageHd;
+    expectedUrlAudioDescriptionSmall = aExpectedUrlAudioDescriptionSmall;
+    expectedUrlAudioDescriptionNormal = aExpectedUrlAudioDescriptionNormal;
+    expectedUrlAudioDescriptionHd = aExpectedUrlAudioDescriptionHd;
     expectedGeoLocations = aExpectedGeoLocations;
   }
   
@@ -145,8 +233,14 @@ public class WdrFilmDeserializerTest extends WdrTaskTestBase {
   public void test() throws IOException {
     final Document document = Jsoup.parse(FileReader.readFile(filmPageFile));
     setupSuccessfulResponse(jsUrl, jsFile);
-    if (!m3u8Url.isEmpty()) {
-      setupSuccessfulResponse(m3u8Url, m3u8File);
+    if (!m3u8UrlVideo.isEmpty()) {
+      setupSuccessfulResponse(m3u8UrlVideo, m3u8FileVideo);
+    }
+    if (!m3u8UrlSignLanguage.isEmpty()) {
+      setupSuccessfulResponse(m3u8UrlSignLanguage, m3u8FileSignLanguage);
+    }
+    if (!m3u8UrlAudioDescription.isEmpty()) {
+      setupSuccessfulResponse(m3u8UrlAudioDescription, m3u8FileAudioDescription);
     }
     
     Optional<Film> actual = new WdrFilmDeserializer("http:").deserialize(new TopicUrlDTO(topic, requestUrl), document);
@@ -166,7 +260,13 @@ public class WdrFilmDeserializerTest extends WdrTaskTestBase {
       expectedUrlSmall,
       expectedUrlNormal,
       expectedUrlHd,
-      expectedSubtitle
+      expectedUrlSignLanguageSmall,
+      expectedUrlSignLanguageNormal,
+      expectedUrlSignLanguageHd,
+      expectedUrlAudioDescriptionSmall,
+      expectedUrlAudioDescriptionNormal,
+      expectedUrlAudioDescriptionHd,
+      expectedSubtitle      
     );
   }
 }
