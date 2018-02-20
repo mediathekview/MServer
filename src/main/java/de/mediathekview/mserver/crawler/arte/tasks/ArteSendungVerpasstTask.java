@@ -21,7 +21,6 @@ public class ArteSendungVerpasstTask
   public ArteSendungVerpasstTask(final AbstractCrawler aCrawler,
       final ConcurrentLinkedQueue<CrawlerUrlDTO> aUrlToCrawlDTOs) {
     super(aCrawler, aUrlToCrawlDTOs, Optional.of(AUTH_TOKEN));
-    final Type optionalFilmType = new TypeToken<Set<JsonElement>>() {}.getType();
   }
 
   @Override
