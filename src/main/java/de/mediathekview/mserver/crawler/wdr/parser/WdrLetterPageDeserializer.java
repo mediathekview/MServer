@@ -1,11 +1,11 @@
 package de.mediathekview.mserver.crawler.wdr.parser;
 
+import static de.mediathekview.mserver.base.Consts.ATTRIBUTE_HREF;
 import de.mediathekview.mserver.base.utils.UrlUtils;
 import de.mediathekview.mserver.crawler.wdr.WdrConstants;
 import de.mediathekview.mserver.crawler.wdr.WdrTopicUrlDTO;
 import java.util.ArrayList;
 import java.util.List;
-import static mServer.crawler.sender.wdr.HtmlDeserializerBase.HTML_ATTRIBUTE_HREF;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.jsoup.nodes.Document;
@@ -45,7 +45,7 @@ public class WdrLetterPageDeserializer extends WdrLetterPageDeserializerBase {
   }
 
   private String getUrl(Element aTopicElement) {
-      String url = aTopicElement.attr(HTML_ATTRIBUTE_HREF);
+      String url = aTopicElement.attr(ATTRIBUTE_HREF);
 
       if(!url.isEmpty()) {
         url = UrlUtils.addDomainIfMissing(url, WdrConstants.URL_BASE);
