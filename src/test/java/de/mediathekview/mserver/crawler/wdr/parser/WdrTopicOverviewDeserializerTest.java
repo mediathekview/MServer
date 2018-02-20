@@ -110,9 +110,28 @@ public class WdrTopicOverviewDeserializerTest {
           "https://www1.wdr.de/mediathek/video/sendungen/rockpalast/video-rockpalast-like-a-storm---koeln-palladium--100.html", 
           "https://www1.wdr.de/mediathek/video/sendungen/rockpalast/video-rockpalast-backstage-drangsal-100.html"
         },
+        new String[0]
+      },
+      {
+        "/wdr/wdr_wdr4_overview.html",
+        "WDR 4",
         new String[] {
-          
-        }
+          "https://www1.wdr.de/mediathek/video/radio/wdr4/video-rote-bete-ricotta-bratling-100.html",
+          "https://www1.wdr.de/mediathek/video/radio/wdr4/video-flachbildfernseher--richtige-groesse-richtige-entfernung-100.html",
+          "https://www1.wdr.de/mediathek/video/radio/wdr4/video-matjes-hausfrauenart-100.html",
+          "https://www1.wdr.de/mediathek/video/radio/wdr4/video-smartphones-fuer-den-verkauf-vorbereiten-100.html",
+          "https://www1.wdr.de/mediathek/video/radio/wdr4/video-wdr--singt-mit-guildo-der-mitsing-spass-mit-guildo-horn-100.html",
+          "https://www1.wdr.de/mediathek/video/radio/wdr4/video-querbeat-mit-barbarossaplatz-100.html",
+          "https://www1.wdr.de/mediathek/video/radio/wdr4/video-paveier-mit-dat-is-freiheit-100.html",
+          "https://www1.wdr.de/mediathek/video/radio/wdr4/video-blaeck-foeoess-mit-lommer-nimmie-100.html",
+          "https://www1.wdr.de/mediathek/video/radio/wdr4/video-das-scalaensemble-100.html",
+          "https://www1.wdr.de/mediathek/video/radio/wdr4/video-wdr--luftschiff-wuppertal-von-oben-100.html",
+          "https://www1.wdr.de/mediathek/video/radio/wdr4/video-wdr--luftschiff-teutoburger-wald-von-oben-100.html",
+          "https://www1.wdr.de/mediathek/video/radio/wdr4/video-wdr--luftschiff-siegerland-von-oben-100.html",
+          "https://www1.wdr.de/mediathek/video/radio/wdr4/video-wdr--luftschiff-siebengebirge-von-oben-100.html",
+          "https://www1.wdr.de/mediathek/video/radio/wdr4/video-wdr--luftschiff-sauerland-von-oben-100.html"
+        },
+        new String[0]
       }
     });
   }
