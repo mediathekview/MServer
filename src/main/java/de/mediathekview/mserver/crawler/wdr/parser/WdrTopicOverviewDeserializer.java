@@ -16,6 +16,7 @@ public class WdrTopicOverviewDeserializer extends WdrLetterPageDeserializerBase 
   private static final Logger LOG = LogManager.getLogger(WdrTopicOverviewDeserializer.class);  
   
   private static final String SELECTOR_URL = "div.teaser > a";    
+  private static final String SELECTOR_URL_LIST = "h3.hidden + div.teaser > div.linklist > ul > li > a";
   private static final String SELECTOR_URL_ROCKPALAST_YEARS = "div.entries > div";
   private static final String SELECTOR_URL_ROCKPALAST_YEARS_ENTRIES = "div.entry > a";
   
@@ -23,6 +24,7 @@ public class WdrTopicOverviewDeserializer extends WdrLetterPageDeserializerBase 
     List<WdrTopicUrlDTO> results = new ArrayList<>();
     
     addUrls(results, aTopic, aDocument, SELECTOR_URL, true);
+    addUrls(results, aTopic, aDocument, SELECTOR_URL_LIST, true);
     if (isRockpalastOverviewPage(aDocument)) {
       addUrls(results, aTopic, aDocument, SELECTOR_URL_ROCKPALAST_YEARS_ENTRIES, false);
     }
