@@ -25,7 +25,7 @@ public class WdrFilmDetailTask extends AbstractDocumentTask<Film, TopicUrlDTO>  
 
   @Override
   protected void processDocument(TopicUrlDTO aUrlDTO, Document aDocument) {
-    WdrFilmDeserializer deserializer = new WdrFilmDeserializer(getProtocol(aUrlDTO));
+    WdrFilmDeserializer deserializer = new WdrFilmDeserializer(getProtocol(aUrlDTO), crawler.getSender());
     WdrFilmPartDeserializer partDeserializer = new WdrFilmPartDeserializer();
     processParts(partDeserializer.deserialize(aUrlDTO.getTopic(), aDocument));
     

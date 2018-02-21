@@ -49,13 +49,16 @@ public class WdrFilmDeserializer {
   private static final Type OPTIONAL_CRAWLERURLDTO_TYPE_TOKEN = new TypeToken<Optional<CrawlerUrlDTO>>() {}.getType();
   private static final Type OPTIONAL_WDRMEDIADTO_TYPE_TOKEN = new TypeToken<Optional<WdrMediaDTO>>() {}.getType();
   
+  private final Sender sender;
   private final Gson gson;
   
-  public WdrFilmDeserializer(final String aProtocol) {
+  public WdrFilmDeserializer(final String aProtocol, final Sender aSender) {
     gson = new GsonBuilder()
       .registerTypeAdapter(OPTIONAL_CRAWLERURLDTO_TYPE_TOKEN, new WdrVideoLinkDeserializer())
       .registerTypeAdapter(OPTIONAL_WDRMEDIADTO_TYPE_TOKEN, new WdrVideoJsonDeserializer(aProtocol))
       .create();
+    
+    sender = aSender;
   }
   
   public Optional<Film> deserialize(final TopicUrlDTO aUrlDTO, final Document aDocument) {
@@ -77,7 +80,7 @@ public class WdrFilmDeserializer {
     
     try {
       if (aVideoInfo.isPresent() && aTitle.isPresent()) {
-        final Film film = new Film(UUID.randomUUID(), Sender.WDR, aTitle.get(),
+        final Film film = new Film(UUID.randomUUID(), sender, aTitle.get(),
           aUrlDTO.getTopic(), aTime.orElse(LocalDateTime.now()), aDuration.orElse(Duration.ZERO));
 
         film.setWebsite(new URL(aUrlDTO.getUrl()));
@@ -91,7 +94,7 @@ public class WdrFilmDeserializer {
         }
         
         addUrls(film, videoInfo);
-        film.setGeoLocations(CrawlerTool.getGeoLocations(Sender.WDR, videoInfo.getDefaultVideoUrl()));
+        film.setGeoLocations(CrawlerTool.getGeoLocations(sender, videoInfo.getDefaultVideoUrl()));
 
         return Optional.of(film);
 
