@@ -20,4 +20,9 @@ public final class WdrConstants {
    * URL für Videos von WDR4
    */
   public static final String URL_RADIO_WDR4 = URL_BASE + "/mediathek/video/radio/wdr4/index.html";
+
+  /**
+   * URL für Videos von WDR5
+   */
+  public static final String URL_RADIO_WDR5 = URL_BASE + "/mediathek/video/radio/wdr5/index.html";
 }
