@@ -54,6 +54,7 @@ import de.mediathekview.mserver.crawler.ndr.NdrCrawler;
 import de.mediathekview.mserver.crawler.orf.OrfCrawler;
 import de.mediathekview.mserver.crawler.sr.SrCrawler;
 import de.mediathekview.mserver.crawler.srf.SrfCrawler;
+import de.mediathekview.mserver.crawler.wdr.Wdr4Crawler;
 import de.mediathekview.mserver.crawler.wdr.WdrCrawler;
 
 /**
@@ -297,7 +298,7 @@ public class CrawlerManager extends AbstractManager {
    * You can ensure if there is a crawler for {@link Sender} with
    * {@link CrawlerManager#getAviableSenderToCrawl}.
    *
-   * @param aSender The Sender which crawler to start.
+   * @param aSenders The Sender which crawler to start.
    */
   public void startCrawlerForSender(final Sender... aSenders) {
     final Collection<AbstractCrawler> crawlers = new ArrayList<>();
@@ -376,6 +377,7 @@ public class CrawlerManager extends AbstractManager {
    *
    * @param aFilmlistFormat The {@link FilmlistFormats} to upload.
    * @param aFtpUploadTarget The settings where to upload to of {@link FtpUploadTarget}.
+   * @param isDiffList
    */
   public void uploadFilmlist(final FilmlistFormats aFilmlistFormat,
       final FtpUploadTarget aFtpUploadTarget, final boolean isDiffList) {
@@ -538,6 +540,8 @@ public class CrawlerManager extends AbstractManager {
         new SrCrawler(forkJoinPool, messageListeners, progressListeners, rootConfig));
     crawlerMap.put(Sender.WDR,
         new WdrCrawler(forkJoinPool, messageListeners, progressListeners, rootConfig));
+    crawlerMap.put(Sender.WDR4,
+        new Wdr4Crawler(forkJoinPool, messageListeners, progressListeners, rootConfig));
   }
 
   private void runCrawlers(final AbstractCrawler... aCrawlers) {
