@@ -40,4 +40,9 @@ public final class WdrConstants {
    * URL für Videos von WDR COSMO
    */
   public static final String URL_RADIO_COSMO = URL_BASE + "/radio/cosmo/cosmo-videos/index.html";
+  
+  /**
+   * URL für Videos von WDR KIRAKA
+   */
+  public static final String URL_RADIO_KIRAKA = URL_BASE + "/mediathek/video/radio/kiraka/kiraka-videos-114.html";
 }
