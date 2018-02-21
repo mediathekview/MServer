@@ -11,6 +11,7 @@ import de.mediathekview.mserver.crawler.basic.TopicUrlDTO;
 import de.mediathekview.mserver.crawler.wdr.tasks.WdrDayPageTask;
 import de.mediathekview.mserver.crawler.wdr.tasks.WdrFilmDetailTask;
 import de.mediathekview.mserver.crawler.wdr.tasks.WdrLetterPageTask;
+import de.mediathekview.mserver.crawler.wdr.tasks.WdrRadioPageTask;
 import de.mediathekview.mserver.crawler.wdr.tasks.WdrTopicOverviewTask;
 import de.mediathekview.mserver.progress.listeners.SenderProgressListener;
 import java.time.LocalDateTime;
@@ -42,6 +43,7 @@ public class WdrCrawler extends AbstractCrawler {
   protected RecursiveTask<Set<Film>> createCrawlerTask() {
     try {
       ConcurrentLinkedQueue<TopicUrlDTO> shows = new ConcurrentLinkedQueue<>();
+      shows.addAll(getOrchestraEntries());
       shows.addAll(getDaysEntries());
       
       getLetterPageEntries().forEach(show -> {
@@ -93,4 +95,20 @@ public class WdrCrawler extends AbstractCrawler {
 
     return urls;
   }  
+  
+  private Set<TopicUrlDTO> getOrchestraEntries() throws InterruptedException, ExecutionException {
+    ConcurrentLinkedQueue<CrawlerUrlDTO> urlToCrawl = new ConcurrentLinkedQueue<>();
+    ConcurrentLinkedQueue<WdrTopicUrlDTO> topicOverviews = new ConcurrentLinkedQueue<>();
+
+    urlToCrawl.add(new CrawlerUrlDTO(WdrConstants.URL_RADIO_ORCHESTRA));
+    
+    WdrRadioPageTask radioPageTask = new WdrRadioPageTask(this, urlToCrawl);
+    topicOverviews.addAll(forkJoinPool.submit(radioPageTask).get());
+    
+    WdrTopicOverviewTask overviewTask = new WdrTopicOverviewTask(this, topicOverviews, 0);
+    Set<TopicUrlDTO> shows = forkJoinPool.submit(overviewTask).get();
+    
+    printMessage(ServerMessages.DEBUG_ALL_SENDUNG_FOLGEN_COUNT, getSender().getName(), shows.size());
+    return shows;
+  }
 }

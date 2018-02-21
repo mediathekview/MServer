@@ -17,6 +17,11 @@ public final class WdrConstants {
   public static final String URL_LETTER_PAGE = URL_BASE + "/mediathek/video/sendungen-a-z/index.html";
 
   /**
+   * URL für Videos der WDR Orchestor und Chöre
+   */
+  public static final String URL_RADIO_ORCHESTRA = URL_BASE + "/mediathek/video/klangkoerper/index.html";
+  
+  /**
    * URL für Videos von WDR2
    */
   public static final String URL_RADIO_WDR2 = URL_BASE + "/mediathek/video/radio/wdr2/index.html";
