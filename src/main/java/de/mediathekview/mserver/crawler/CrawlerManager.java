@@ -58,6 +58,7 @@ import de.mediathekview.mserver.crawler.wdr.Wdr2Crawler;
 import de.mediathekview.mserver.crawler.wdr.Wdr3Crawler;
 import de.mediathekview.mserver.crawler.wdr.Wdr4Crawler;
 import de.mediathekview.mserver.crawler.wdr.Wdr5Crawler;
+import de.mediathekview.mserver.crawler.wdr.WdrCosmoCrawler;
 import de.mediathekview.mserver.crawler.wdr.WdrCrawler;
 
 /**
@@ -551,6 +552,8 @@ public class CrawlerManager extends AbstractManager {
         new Wdr4Crawler(forkJoinPool, messageListeners, progressListeners, rootConfig));
     crawlerMap.put(Sender.WDR5,
         new Wdr5Crawler(forkJoinPool, messageListeners, progressListeners, rootConfig));
+    crawlerMap.put(Sender.WDR_COSMO,
+        new WdrCosmoCrawler(forkJoinPool, messageListeners, progressListeners, rootConfig));
   }
 
   private void runCrawlers(final AbstractCrawler... aCrawlers) {
