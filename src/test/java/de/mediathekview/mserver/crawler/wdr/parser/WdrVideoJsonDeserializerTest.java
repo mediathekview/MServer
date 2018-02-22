@@ -1,14 +1,15 @@
 package de.mediathekview.mserver.crawler.wdr.parser;
 
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.CoreMatchers.notNullValue;
+import static org.junit.Assert.assertThat;
+
 import com.google.gson.JsonElement;
-import de.mediathekview.mserver.crawler.wdr.WdrMediaDTO;
+import de.mediathekview.mserver.crawler.wdr.WdrMediaDto;
 import de.mediathekview.mserver.testhelper.JsonFileReader;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Optional;
-import static org.hamcrest.CoreMatchers.equalTo;
-import static org.hamcrest.CoreMatchers.notNullValue;
-import static org.junit.Assert.assertThat;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
@@ -81,12 +82,12 @@ public class WdrVideoJsonDeserializerTest {
     final JsonElement jsonElement = JsonFileReader.readJson(jsonFile);
     
     WdrVideoJsonDeserializer target = new WdrVideoJsonDeserializer("http:");
-    Optional<WdrMediaDTO> actual = target.deserialize(jsonElement, null, null);
+    Optional<WdrMediaDto> actual = target.deserialize(jsonElement, null, null);
     
     assertThat(actual, notNullValue());
     assertThat(actual.isPresent(), equalTo(true));
     
-    WdrMediaDTO actualDto = actual.get();
+    WdrMediaDto actualDto = actual.get();
     assertThat(actualDto.getUrl(), equalTo(expectedM3U8Url));
     assertThat(actualDto.getSubtitle(), equalTo(expectedSubtitle));
     assertThat(actualDto.getSignLanguageUrl(), equalTo(expectedSignLanguageUrl));

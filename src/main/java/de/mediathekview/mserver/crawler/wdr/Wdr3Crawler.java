@@ -10,8 +10,12 @@ import java.util.Set;
 import java.util.concurrent.ForkJoinPool;
 
 public class Wdr3Crawler extends WdrRadioCrawlerBase {
-  
-  public Wdr3Crawler(ForkJoinPool aForkJoinPool, Collection<MessageListener> aMessageListeners, Collection<SenderProgressListener> aProgressListeners, MServerConfigManager rootConfig) {
+
+  public Wdr3Crawler(
+      ForkJoinPool aForkJoinPool,
+      Collection<MessageListener> aMessageListeners,
+      Collection<SenderProgressListener> aProgressListeners,
+      MServerConfigManager rootConfig) {
     super(aForkJoinPool, aMessageListeners, aProgressListeners, rootConfig);
   }
 
@@ -21,9 +25,9 @@ public class Wdr3Crawler extends WdrRadioCrawlerBase {
   }
 
   @Override
-  protected Set<WdrTopicUrlDTO> getTopicOverviewPages() {
-    Set<WdrTopicUrlDTO> topicOverviews = new HashSet<>();
-    topicOverviews.add(new WdrTopicUrlDTO(getSender().getName(), WdrConstants.URL_RADIO_WDR3, false));
+  protected Set<WdrTopicUrlDto> getTopicOverviewPages() {
+    Set<WdrTopicUrlDto> topicOverviews = new HashSet<>();
+    topicOverviews.add(new WdrTopicUrlDto(getSender().getName(), WdrConstants.URL_RADIO_WDR3, false));
     return topicOverviews;
   }
 }

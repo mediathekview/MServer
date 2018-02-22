@@ -15,17 +15,17 @@ import org.jsoup.nodes.Document;
 
 public class WdrFilmDetailTask extends AbstractDocumentTask<Film, TopicUrlDTO>  {
 
-  public WdrFilmDetailTask(AbstractCrawler aCrawler, ConcurrentLinkedQueue<TopicUrlDTO> aUrlToCrawlDTOs) {
-    super(aCrawler, aUrlToCrawlDTOs);    
+  public WdrFilmDetailTask(AbstractCrawler aCrawler, ConcurrentLinkedQueue<TopicUrlDTO> aUrlToCrawlDtos) {
+    super(aCrawler, aUrlToCrawlDtos);
   }
 
   @Override
-  protected void processDocument(TopicUrlDTO aUrlDTO, Document aDocument) {
-    WdrFilmDeserializer deserializer = new WdrFilmDeserializer(getProtocol(aUrlDTO), crawler.getSender());
+  protected void processDocument(TopicUrlDTO aUrlDto, Document aDocument) {
+    WdrFilmDeserializer deserializer = new WdrFilmDeserializer(getProtocol(aUrlDto), crawler.getSender());
     WdrFilmPartDeserializer partDeserializer = new WdrFilmPartDeserializer();
-    processParts(partDeserializer.deserialize(aUrlDTO.getTopic(), aDocument));
+    processParts(partDeserializer.deserialize(aUrlDto.getTopic(), aDocument));
     
-    Optional<Film> film = deserializer.deserialize(aUrlDTO, aDocument);
+    Optional<Film> film = deserializer.deserialize(aUrlDto, aDocument);
     if (film.isPresent()) {
       taskResults.add(film.get());
       crawler.incrementAndGetActualCount();
@@ -37,14 +37,14 @@ public class WdrFilmDetailTask extends AbstractDocumentTask<Film, TopicUrlDTO>  
   }
 
   @Override
-  protected AbstractUrlTask<Film, TopicUrlDTO> createNewOwnInstance(ConcurrentLinkedQueue<TopicUrlDTO> aURLsToCrawl) {
-    return new WdrFilmDetailTask(crawler, aURLsToCrawl);
+  protected AbstractUrlTask<Film, TopicUrlDTO> createNewOwnInstance(ConcurrentLinkedQueue<TopicUrlDTO> aUrlsToCrawl) {
+    return new WdrFilmDetailTask(crawler, aUrlsToCrawl);
   }  
   
-  private String getProtocol(TopicUrlDTO aUrlDTO) {
+  private String getProtocol(TopicUrlDTO aUrlDto) {
     String protocol = "https:";
     
-    Optional<String> usedProtocol = UrlUtils.getProtocol(aUrlDTO.getUrl());
+    Optional<String> usedProtocol = UrlUtils.getProtocol(aUrlDto.getUrl());
     if (usedProtocol.isPresent()) {
       protocol = usedProtocol.get();
     }

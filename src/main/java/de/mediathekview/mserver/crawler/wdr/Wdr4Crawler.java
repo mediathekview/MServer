@@ -13,8 +13,12 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ForkJoinPool;
 
 public class Wdr4Crawler extends WdrRadioCrawlerBase {
-  
-  public Wdr4Crawler(ForkJoinPool aForkJoinPool, Collection<MessageListener> aMessageListeners, Collection<SenderProgressListener> aProgressListeners, MServerConfigManager rootConfig) {
+
+  public Wdr4Crawler(
+      ForkJoinPool aForkJoinPool,
+      Collection<MessageListener> aMessageListeners,
+      Collection<SenderProgressListener> aProgressListeners,
+      MServerConfigManager rootConfig) {
     super(aForkJoinPool, aMessageListeners, aProgressListeners, rootConfig);
   }
 
@@ -24,10 +28,10 @@ public class Wdr4Crawler extends WdrRadioCrawlerBase {
   }
 
   @Override
-  protected Set<WdrTopicUrlDTO> getTopicOverviewPages() throws InterruptedException, ExecutionException {
+  protected Set<WdrTopicUrlDto> getTopicOverviewPages() throws InterruptedException, ExecutionException {
     ConcurrentLinkedQueue<CrawlerUrlDTO> urlToCrawl = new ConcurrentLinkedQueue<>();
     urlToCrawl.add(new CrawlerUrlDTO(WdrConstants.URL_RADIO_WDR4));
-    
+
     WdrRadioPageTask radioPageTask = new WdrRadioPageTask(this, urlToCrawl);
     return forkJoinPool.submit(radioPageTask).get();
   }

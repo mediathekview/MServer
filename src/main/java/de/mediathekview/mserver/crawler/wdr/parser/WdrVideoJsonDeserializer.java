@@ -5,13 +5,13 @@ import com.google.gson.JsonDeserializer;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import de.mediathekview.mserver.base.utils.JsonUtils;
-import de.mediathekview.mserver.crawler.wdr.WdrMediaDTO;
+import de.mediathekview.mserver.crawler.wdr.WdrMediaDto;
 import java.lang.reflect.Type;
 import java.util.Optional;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-public class WdrVideoJsonDeserializer implements JsonDeserializer<Optional<WdrMediaDTO>> {
+public class WdrVideoJsonDeserializer implements JsonDeserializer<Optional<WdrMediaDto>> {
   
   private static final Logger LOG = LogManager.getLogger(WdrVideoJsonDeserializer.class);
   
@@ -38,18 +38,18 @@ public class WdrVideoJsonDeserializer implements JsonDeserializer<Optional<WdrMe
   }
   
   @Override
-  public Optional<WdrMediaDTO> deserialize(JsonElement aJsonElement, Type aType, JsonDeserializationContext aContext) {
+  public Optional<WdrMediaDto> deserialize(JsonElement aJsonElement, Type aType, JsonDeserializationContext aContext) {
     JsonObject jsonObject = aJsonElement.getAsJsonObject();
     
     Optional<String> version = JsonUtils.getAttributeAsString(jsonObject, ATTRIBUTE_VERSION);
     if (version.isPresent()) {
       switch (version.get()) {
         case MEDIA_VERSION_1_1:
-          return deserializeVersion1_1(jsonObject);
+          return deserializeVersion11(jsonObject);
         case MEDIA_VERSION_1_2:
-          return deserializeVersion1_2(jsonObject);
+          return deserializeVersion12(jsonObject);
         case MEDIA_VERSION_1_3:
-          return deserializeVersion1_3(jsonObject);
+          return deserializeVersion13(jsonObject);
         default:
           LOG.error("WdrVideoJsonDeserializer: unsupported media version: " + version.get());
       }
@@ -58,7 +58,7 @@ public class WdrVideoJsonDeserializer implements JsonDeserializer<Optional<WdrMe
     return Optional.empty();
   }  
 
-  private Optional<WdrMediaDTO> deserializeVersion1_1(final JsonObject aJsonObject) {
+  private Optional<WdrMediaDto> deserializeVersion11(final JsonObject aJsonObject) {
     
     if (aJsonObject.has(ELEMENT_MEDIA_RESOURCE)) {
       final JsonObject mediaResourceObject = aJsonObject.get(ELEMENT_MEDIA_RESOURCE).getAsJsonObject();
@@ -74,7 +74,7 @@ public class WdrVideoJsonDeserializer implements JsonDeserializer<Optional<WdrMe
     return Optional.empty();
   }
   
-  private Optional<WdrMediaDTO> deserializeVersion1_2(final JsonObject aJsonObject) {
+  private Optional<WdrMediaDto> deserializeVersion12(final JsonObject aJsonObject) {
     
     if (aJsonObject.has(ELEMENT_MEDIA_RESOURCE)) {
       final JsonObject mediaResourceObject = aJsonObject.get(ELEMENT_MEDIA_RESOURCE).getAsJsonObject();
@@ -91,7 +91,7 @@ public class WdrVideoJsonDeserializer implements JsonDeserializer<Optional<WdrMe
     return Optional.empty();
   }
   
-  private Optional<WdrMediaDTO> deserializeVersion1_3(final JsonObject aJsonObject) {
+  private Optional<WdrMediaDto> deserializeVersion13(final JsonObject aJsonObject) {
     
     if (aJsonObject.has(ELEMENT_MEDIA_RESOURCE)) {
       final JsonObject mediaResourceObject = aJsonObject.get(ELEMENT_MEDIA_RESOURCE).getAsJsonObject();
@@ -115,12 +115,12 @@ public class WdrVideoJsonDeserializer implements JsonDeserializer<Optional<WdrMe
     return Optional.empty();
   }
   
-  private Optional<WdrMediaDTO> createMediaDto(final Optional<String> aM3U8Url,
+  private Optional<WdrMediaDto> createMediaDto(final Optional<String> aM3U8Url,
                                                final Optional<String> aSubtitleUrl,
                                                final Optional<String> aAudioDescriptionUrl,
                                                final Optional<String> aSignLanguageUrl) {
     if (aM3U8Url.isPresent()) {
-      WdrMediaDTO dto = new WdrMediaDTO(addMissingProtocol(aM3U8Url.get()));
+      WdrMediaDto dto = new WdrMediaDto(addMissingProtocol(aM3U8Url.get()));
       if (aAudioDescriptionUrl.isPresent() && !aAudioDescriptionUrl.get().isEmpty()) {
         dto.setAudioDescriptionUrl(addMissingProtocol(aAudioDescriptionUrl.get()));
       }

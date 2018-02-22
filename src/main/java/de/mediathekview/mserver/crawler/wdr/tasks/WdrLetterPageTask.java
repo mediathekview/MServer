@@ -1,7 +1,7 @@
 package de.mediathekview.mserver.crawler.wdr.tasks;
 
 import de.mediathekview.mserver.crawler.wdr.WdrConstants;
-import de.mediathekview.mserver.crawler.wdr.WdrTopicUrlDTO;
+import de.mediathekview.mserver.crawler.wdr.WdrTopicUrlDto;
 import de.mediathekview.mserver.crawler.wdr.parser.WdrLetterPageDeserializer;
 import de.mediathekview.mserver.crawler.wdr.parser.WdrLetterPageUrlDeserializer;
 import java.io.IOException;
@@ -14,15 +14,15 @@ import org.apache.logging.log4j.Logger;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 
-public class WdrLetterPageTask implements Callable<Queue<WdrTopicUrlDTO>>  {
+public class WdrLetterPageTask implements Callable<Queue<WdrTopicUrlDto>>  {
 
   private static final Logger LOG = LogManager.getLogger(WdrLetterPageTask.class);
   
   private final WdrLetterPageDeserializer deserializer = new WdrLetterPageDeserializer();
   
   @Override
-  public Queue<WdrTopicUrlDTO> call() throws Exception {
-    final ConcurrentLinkedQueue<WdrTopicUrlDTO> results = new ConcurrentLinkedQueue<>();
+  public Queue<WdrTopicUrlDto> call() throws Exception {
+    final ConcurrentLinkedQueue<WdrTopicUrlDto> results = new ConcurrentLinkedQueue<>();
     
     WdrLetterPageUrlDeserializer urlDeserializer = new WdrLetterPageUrlDeserializer();
         
@@ -46,8 +46,8 @@ public class WdrLetterPageTask implements Callable<Queue<WdrTopicUrlDTO>>  {
     return results;
   }  
   
-  private void parseSubPage(final ConcurrentLinkedQueue<WdrTopicUrlDTO> aResults, final Document aDocument) {
-    List<WdrTopicUrlDTO> topics = deserializer.deserialize(aDocument);
+  private void parseSubPage(final ConcurrentLinkedQueue<WdrTopicUrlDto> aResults, final Document aDocument) {
+    List<WdrTopicUrlDto> topics = deserializer.deserialize(aDocument);
     aResults.addAll(topics);
   }
 }

@@ -76,7 +76,7 @@ public class WdrCrawler extends AbstractCrawler {
   
   private Set<TopicUrlDTO> getLetterPageEntries() throws InterruptedException, ExecutionException {
     WdrLetterPageTask letterTask = new WdrLetterPageTask();
-    ConcurrentLinkedQueue<WdrTopicUrlDTO> letterPageEntries = new ConcurrentLinkedQueue<>();
+    ConcurrentLinkedQueue<WdrTopicUrlDto> letterPageEntries = new ConcurrentLinkedQueue<>();
     letterPageEntries.addAll(forkJoinPool.submit(letterTask).get());
 
     WdrTopicOverviewTask overviewTask = new WdrTopicOverviewTask(this, letterPageEntries, 0);
@@ -102,7 +102,7 @@ public class WdrCrawler extends AbstractCrawler {
   
   private Set<TopicUrlDTO> getOrchestraEntries() throws InterruptedException, ExecutionException {
     ConcurrentLinkedQueue<CrawlerUrlDTO> urlToCrawl = new ConcurrentLinkedQueue<>();
-    ConcurrentLinkedQueue<WdrTopicUrlDTO> topicOverviews = new ConcurrentLinkedQueue<>();
+    ConcurrentLinkedQueue<WdrTopicUrlDto> topicOverviews = new ConcurrentLinkedQueue<>();
 
     urlToCrawl.add(new CrawlerUrlDTO(WdrConstants.URL_RADIO_ORCHESTRA));
     
