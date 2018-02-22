@@ -4,7 +4,6 @@ import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonDeserializer;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import com.google.gson.JsonParseException;
 import de.mediathekview.mserver.base.utils.JsonUtils;
 import de.mediathekview.mserver.crawler.wdr.WdrMediaDTO;
 import java.lang.reflect.Type;
@@ -39,12 +38,12 @@ public class WdrVideoJsonDeserializer implements JsonDeserializer<Optional<WdrMe
   }
   
   @Override
-  public Optional<WdrMediaDTO> deserialize(JsonElement aJsonElement, Type aType, JsonDeserializationContext aContext) throws JsonParseException {
+  public Optional<WdrMediaDTO> deserialize(JsonElement aJsonElement, Type aType, JsonDeserializationContext aContext) {
     JsonObject jsonObject = aJsonElement.getAsJsonObject();
     
     Optional<String> version = JsonUtils.getAttributeAsString(jsonObject, ATTRIBUTE_VERSION);
     if (version.isPresent()) {
-      switch(version.get()) {
+      switch (version.get()) {
         case MEDIA_VERSION_1_1:
           return deserializeVersion1_1(jsonObject);
         case MEDIA_VERSION_1_2:
@@ -61,14 +60,14 @@ public class WdrVideoJsonDeserializer implements JsonDeserializer<Optional<WdrMe
 
   private Optional<WdrMediaDTO> deserializeVersion1_1(final JsonObject aJsonObject) {
     
-    if(aJsonObject.has(ELEMENT_MEDIA_RESOURCE)) {
+    if (aJsonObject.has(ELEMENT_MEDIA_RESOURCE)) {
       final JsonObject mediaResourceObject = aJsonObject.get(ELEMENT_MEDIA_RESOURCE).getAsJsonObject();
       
       if (mediaResourceObject.has(ELEMENT_ALT)) {
         final JsonObject dfltObject = mediaResourceObject.get(ELEMENT_ALT).getAsJsonObject();
         Optional<String> mp4Url = JsonUtils.getAttributeAsString(dfltObject, ATTRIBUTE_VIDEO_URL);
 
-        return createMediaDTO(mp4Url, Optional.empty(), Optional.empty(), Optional.empty());
+        return createMediaDto(mp4Url, Optional.empty(), Optional.empty(), Optional.empty());
       }
     }
     
@@ -77,7 +76,7 @@ public class WdrVideoJsonDeserializer implements JsonDeserializer<Optional<WdrMe
   
   private Optional<WdrMediaDTO> deserializeVersion1_2(final JsonObject aJsonObject) {
     
-    if(aJsonObject.has(ELEMENT_MEDIA_RESOURCE)) {
+    if (aJsonObject.has(ELEMENT_MEDIA_RESOURCE)) {
       final JsonObject mediaResourceObject = aJsonObject.get(ELEMENT_MEDIA_RESOURCE).getAsJsonObject();
       Optional<String> subtitleUrl = JsonUtils.getAttributeAsString(mediaResourceObject, ATTRIBUTE_CAPTION_URL);
       
@@ -85,7 +84,7 @@ public class WdrVideoJsonDeserializer implements JsonDeserializer<Optional<WdrMe
         final JsonObject dfltObject = mediaResourceObject.get(ELEMENT_DFLT).getAsJsonObject();
         Optional<String> m3u8Url = JsonUtils.getAttributeAsString(dfltObject, ATTRIBUTE_VIDEO_URL);
 
-        return createMediaDTO(m3u8Url, subtitleUrl, Optional.empty(), Optional.empty());
+        return createMediaDto(m3u8Url, subtitleUrl, Optional.empty(), Optional.empty());
       }
     }
     
@@ -94,7 +93,7 @@ public class WdrVideoJsonDeserializer implements JsonDeserializer<Optional<WdrMe
   
   private Optional<WdrMediaDTO> deserializeVersion1_3(final JsonObject aJsonObject) {
     
-    if(aJsonObject.has(ELEMENT_MEDIA_RESOURCE)) {
+    if (aJsonObject.has(ELEMENT_MEDIA_RESOURCE)) {
       final JsonObject mediaResourceObject = aJsonObject.get(ELEMENT_MEDIA_RESOURCE).getAsJsonObject();
       Optional<String> subtitleUrl = Optional.empty();
       
@@ -109,18 +108,17 @@ public class WdrVideoJsonDeserializer implements JsonDeserializer<Optional<WdrMe
         Optional<String> audioDescriptionUrl = JsonUtils.getAttributeAsString(dfltObject, ATTRIBUTE_AUDIO_DESCRIPTION);
         Optional<String> signLanguageUrl = JsonUtils.getAttributeAsString(dfltObject, ATTRIBUTE_SIGN_LANUAGE);
 
-        return createMediaDTO(m3u8Url, subtitleUrl, audioDescriptionUrl, signLanguageUrl);
+        return createMediaDto(m3u8Url, subtitleUrl, audioDescriptionUrl, signLanguageUrl);
       }
     }
     
     return Optional.empty();
   }
   
-  private Optional<WdrMediaDTO> createMediaDTO(final Optional<String> aM3U8Url, 
-    final Optional<String> aSubtitleUrl,
-    final Optional<String> aAudioDescriptionUrl,
-    final Optional<String> aSignLanguageUrl
-    ) {
+  private Optional<WdrMediaDTO> createMediaDto(final Optional<String> aM3U8Url,
+                                               final Optional<String> aSubtitleUrl,
+                                               final Optional<String> aAudioDescriptionUrl,
+                                               final Optional<String> aSignLanguageUrl) {
     if (aM3U8Url.isPresent()) {
       WdrMediaDTO dto = new WdrMediaDTO(addMissingProtocol(aM3U8Url.get()));
       if (aAudioDescriptionUrl.isPresent() && !aAudioDescriptionUrl.get().isEmpty()) {

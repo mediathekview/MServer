@@ -6,6 +6,7 @@ import de.mediathekview.mserver.crawler.wdr.parser.WdrLetterPageDeserializer;
 import de.mediathekview.mserver.crawler.wdr.parser.WdrLetterPageUrlDeserializer;
 import java.io.IOException;
 import java.util.List;
+import java.util.Queue;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import org.apache.logging.log4j.LogManager;
@@ -13,14 +14,14 @@ import org.apache.logging.log4j.Logger;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 
-public class WdrLetterPageTask implements Callable<ConcurrentLinkedQueue<WdrTopicUrlDTO>>  {
+public class WdrLetterPageTask implements Callable<Queue<WdrTopicUrlDTO>>  {
 
   private static final Logger LOG = LogManager.getLogger(WdrLetterPageTask.class);
   
   private final WdrLetterPageDeserializer deserializer = new WdrLetterPageDeserializer();
   
   @Override
-  public ConcurrentLinkedQueue<WdrTopicUrlDTO> call() throws Exception {
+  public Queue<WdrTopicUrlDTO> call() throws Exception {
     final ConcurrentLinkedQueue<WdrTopicUrlDTO> results = new ConcurrentLinkedQueue<>();
     
     WdrLetterPageUrlDeserializer urlDeserializer = new WdrLetterPageUrlDeserializer();

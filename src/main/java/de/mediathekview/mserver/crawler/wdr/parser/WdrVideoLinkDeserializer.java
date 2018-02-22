@@ -4,7 +4,6 @@ import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonDeserializer;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import com.google.gson.JsonParseException;
 import de.mediathekview.mserver.crawler.basic.CrawlerUrlDTO;
 import java.lang.reflect.Type;
 import java.util.Optional;
@@ -15,7 +14,7 @@ public class WdrVideoLinkDeserializer implements JsonDeserializer<Optional<Crawl
   private static final String JSON_ATTRIBUTE_URL = "url";
   
   @Override
-  public Optional<CrawlerUrlDTO> deserialize(JsonElement aJsonElement, Type aType, JsonDeserializationContext aContext) throws JsonParseException {
+  public Optional<CrawlerUrlDTO> deserialize(JsonElement aJsonElement, Type aType, JsonDeserializationContext aContext) {
     final JsonObject jsonObject = aJsonElement.getAsJsonObject();
     if (jsonObject.has(JSON_ELEMENT_MEDIAOBJ)) {
       final JsonElement mediaObjElement = jsonObject.get(JSON_ELEMENT_MEDIAOBJ);

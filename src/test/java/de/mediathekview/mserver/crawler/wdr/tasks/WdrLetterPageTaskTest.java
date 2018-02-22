@@ -1,14 +1,15 @@
 package de.mediathekview.mserver.crawler.wdr.tasks;
 
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.junit.Assert.assertThat;
+
 import de.mediathekview.mserver.crawler.wdr.WdrTopicUrlDTO;
 import de.mediathekview.mserver.testhelper.JsoupMock;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.concurrent.ConcurrentLinkedQueue;
-import static org.hamcrest.CoreMatchers.equalTo;
+import java.util.Queue;
 import org.hamcrest.Matchers;
 import org.jsoup.Jsoup;
-import static org.junit.Assert.assertThat;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.powermock.core.classloader.annotations.PowerMockIgnore;
@@ -35,7 +36,7 @@ public class WdrLetterPageTaskTest {
     };
     
     WdrLetterPageTask target = new WdrLetterPageTask();
-    ConcurrentLinkedQueue<WdrTopicUrlDTO> actual = target.call();
+    Queue<WdrTopicUrlDTO> actual = target.call();
     
     assertThat(actual.size(), equalTo(expected.length));
     assertThat(actual, Matchers.containsInAnyOrder(expected));

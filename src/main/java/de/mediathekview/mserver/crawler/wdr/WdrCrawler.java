@@ -30,7 +30,10 @@ public class WdrCrawler extends AbstractCrawler {
   
   private static final Logger LOG = LogManager.getLogger(WdrCrawler.class);  
 
-  public WdrCrawler(ForkJoinPool aForkJoinPool, Collection<MessageListener> aMessageListeners, Collection<SenderProgressListener> aProgressListeners, MServerConfigManager rootConfig) {
+  public WdrCrawler(ForkJoinPool aForkJoinPool,
+                    Collection<MessageListener> aMessageListeners,
+                    Collection<SenderProgressListener> aProgressListeners,
+                    MServerConfigManager rootConfig) {
     super(aForkJoinPool, aMessageListeners, aProgressListeners, rootConfig);
   }
 
@@ -73,7 +76,8 @@ public class WdrCrawler extends AbstractCrawler {
   
   private Set<TopicUrlDTO> getLetterPageEntries() throws InterruptedException, ExecutionException {
     WdrLetterPageTask letterTask = new WdrLetterPageTask();
-    ConcurrentLinkedQueue<WdrTopicUrlDTO> letterPageEntries = forkJoinPool.submit(letterTask).get();
+    ConcurrentLinkedQueue<WdrTopicUrlDTO> letterPageEntries = new ConcurrentLinkedQueue<>();
+    letterPageEntries.addAll(forkJoinPool.submit(letterTask).get());
 
     WdrTopicOverviewTask overviewTask = new WdrTopicOverviewTask(this, letterPageEntries, 0);
     Set<TopicUrlDTO> shows = forkJoinPool.submit(overviewTask).get();
@@ -84,13 +88,13 @@ public class WdrCrawler extends AbstractCrawler {
   
   private ConcurrentLinkedQueue<CrawlerUrlDTO> getDayUrls() {
     final ConcurrentLinkedQueue<CrawlerUrlDTO> urls = new ConcurrentLinkedQueue<>();
-    for (int i = 0; 
-      i < crawlerConfig.getMaximumDaysForSendungVerpasstSection() + crawlerConfig.getMaximumDaysForSendungVerpasstSectionFuture(); 
-      i++) {
-      urls.add(new CrawlerUrlDTO(String.format(WdrConstants.URL_DAY, 
-        LocalDateTime.now()
-        .plus(crawlerConfig.getMaximumDaysForSendungVerpasstSectionFuture(), ChronoUnit.DAYS)
-        .minus(i, ChronoUnit.DAYS).format(DateTimeFormatter.ofPattern("ddMMyyyy")))));
+    for (int i = 0;
+         i < crawlerConfig.getMaximumDaysForSendungVerpasstSection() + crawlerConfig.getMaximumDaysForSendungVerpasstSectionFuture();
+         i++) {
+      urls.add(new CrawlerUrlDTO(String.format(WdrConstants.URL_DAY,
+              LocalDateTime.now()
+                      .plus(crawlerConfig.getMaximumDaysForSendungVerpasstSectionFuture(), ChronoUnit.DAYS)
+                      .minus(i, ChronoUnit.DAYS).format(DateTimeFormatter.ofPattern("ddMMyyyy")))));
     }
 
     return urls;
