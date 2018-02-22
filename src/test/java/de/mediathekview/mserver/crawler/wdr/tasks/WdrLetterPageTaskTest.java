@@ -22,7 +22,7 @@ import org.powermock.modules.junit4.PowerMockRunner;
 public class WdrLetterPageTaskTest {
   
   @Test
-  public void test() throws Exception {
+  public void test() {
     Map<String, String> mapping = new HashMap<>();
     mapping.put("https://www1.wdr.de/mediathek/video/sendungen-a-z/index.html", "/wdr/wdr_letter_page1.html");
     mapping.put("https://www1.wdr.de/mediathek/video/sendungen-a-z/sendungen-u-102.html", "/wdr/wdr_letter_page2.html");

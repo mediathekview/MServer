@@ -21,13 +21,20 @@ public class WdrLetterPageTask implements Callable<Queue<WdrTopicUrlDto>>  {
   private final WdrLetterPageDeserializer deserializer = new WdrLetterPageDeserializer();
   
   @Override
-  public Queue<WdrTopicUrlDto> call() throws Exception {
+  public Queue<WdrTopicUrlDto> call() {
     final ConcurrentLinkedQueue<WdrTopicUrlDto> results = new ConcurrentLinkedQueue<>();
     
     WdrLetterPageUrlDeserializer urlDeserializer = new WdrLetterPageUrlDeserializer();
         
     // URLs für Seiten parsen
-    final Document document = Jsoup.connect(WdrConstants.URL_LETTER_PAGE).get();
+    final Document document;
+    try {
+      document = Jsoup.connect(WdrConstants.URL_LETTER_PAGE).get();
+    } catch (IOException ex) {
+      LOG.fatal("WdrLetterPageTask: error loading url " + WdrConstants.URL_LETTER_PAGE, ex);
+      return results;
+    }
+
     List<String> overviewLinks = urlDeserializer.deserialize(document);
 
     // Sendungen für Startseite ermitteln
