@@ -9,7 +9,7 @@ import de.mediathekview.mserver.crawler.basic.CrawlerUrlDTO;
 import de.mediathekview.mserver.crawler.wdr.WdrConstants;
 import de.mediathekview.mserver.crawler.wdr.WdrTopicUrlDTO;
 import java.util.concurrent.ConcurrentLinkedQueue;
-import org.apache.commons.lang3.text.WordUtils;
+import org.apache.commons.text.WordUtils;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
 
