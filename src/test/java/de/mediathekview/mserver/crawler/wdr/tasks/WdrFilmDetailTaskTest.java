@@ -27,60 +27,6 @@ import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 import org.powermock.modules.junit4.PowerMockRunnerDelegate;
 
-class TestData {
-  public String requestUrl;
-  public String filmPageFile;
-  public String jsUrl;
-  public String jsFile;
-  public String m3u8Url;
-  public String m3u8File;
-  public String topic;
-  public String expectedTitle;
-  public LocalDateTime expectedDate;
-  public Duration expectedDuration;
-  public String expectedDescription;
-  public String expectedSubtitle;
-  public String expectedUrlSmall;
-  public String expectedUrlNormal;
-  public String expectedUrlHd;
-  public GeoLocations[] expectedGeoLocations;
-
-  public TestData(
-      final String aRequestUrl,
-      final String aFilmPageFile,
-      final String aJsUrl,
-      final String aJsFile,
-      final String aM3u8Url,
-      final String aM3u8File,
-      final String aTopic,
-      final String aExpectedTitle,
-      final LocalDateTime aExpectedDate,
-      final Duration aExpectedDuration,
-      final String aExpectedDescription,
-      final String aExpectedSubtitle,
-      final String aExpectedUrlSmall,
-      final String aExpectedUrlNormal,
-      final String aExpectedUrlHd,
-      final GeoLocations[] aExpectedGeoLocations) {
-    requestUrl = aRequestUrl;
-    filmPageFile = aFilmPageFile;
-    jsUrl = aJsUrl;
-    jsFile = aJsFile;
-    m3u8Url = aM3u8Url;
-    m3u8File = aM3u8File;
-    topic = aTopic;
-    expectedTitle = aExpectedTitle;
-    expectedDate = aExpectedDate;
-    expectedDuration = aExpectedDuration;
-    expectedDescription = aExpectedDescription;
-    expectedSubtitle = aExpectedSubtitle;
-    expectedUrlSmall = aExpectedUrlSmall;
-    expectedUrlNormal = aExpectedUrlNormal;
-    expectedUrlHd = aExpectedUrlHd;
-    expectedGeoLocations = aExpectedGeoLocations;
-  }
-}
-
 @RunWith(PowerMockRunner.class)
 @PrepareForTest({Jsoup.class})
 @PowerMockRunnerDelegate(Parameterized.class)
@@ -92,8 +38,8 @@ public class WdrFilmDetailTaskTest extends WdrTaskTestBase {
     return Arrays.asList(
         new Object[][] {
           {
-            new TestData[] {
-              new TestData(
+            new WdrFilmDetailTaskTestData[] {
+              new WdrFilmDetailTaskTestData(
                   "http://www1.wdr.de/mediathek/video/sendungen/abenteuer-erde/video-die-tricks-des-ueberlebens--im-wald-102.html",
                   "/wdr/wdr_film1.html",
                   "/ondemand/148/1480611.js",
@@ -113,8 +59,8 @@ public class WdrFilmDetailTaskTest extends WdrTaskTestBase {
             }
           },
           {
-            new TestData[] {
-              new TestData(
+            new WdrFilmDetailTaskTestData[] {
+              new WdrFilmDetailTaskTestData(
                   "http://www1.wdr.de/mediathek/video/sendungen/ausgerechnet/video-ausgerechnet---schokolade-102.html",
                   "/wdr/wdr_film2.html",
                   "/ondemand/140/1407842.js",
@@ -134,8 +80,8 @@ public class WdrFilmDetailTaskTest extends WdrTaskTestBase {
             }
           },
           {
-            new TestData[] {
-              new TestData(
+            new WdrFilmDetailTaskTestData[] {
+              new WdrFilmDetailTaskTestData(
                   "http://www1.wdr.de/mediathek/video/sendungen/wdr-aktuell/video-wdr-aktuell-988.html",
                   "/wdr/wdr_film_with_part.html",
                   "/ondemand/158/1583472.js",
@@ -152,7 +98,7 @@ public class WdrFilmDetailTaskTest extends WdrTaskTestBase {
                   "https://wdradaptiv-vh.akamaihd.net/i/medp/ondemand/weltweit/fsk0/158/1583472/,1583472_18232890,1583472_18232889,1583472_18232891,1583472_18232887,1583472_18232888,.mp4.csmil/index_2_av.m3u8",
                   "",
                   new GeoLocations[] {GeoLocations.GEO_NONE}),
-              new TestData(
+              new WdrFilmDetailTaskTestData(
                   "http://www1.wdr.de/mediathek/video/sendungen/wdr-aktuell/video-deniz-yuecel-ist-frei-102.html",
                   "/wdr/wdr_film_part1.html",
                   "/ondemand/158/1583853.js",
@@ -169,7 +115,7 @@ public class WdrFilmDetailTaskTest extends WdrTaskTestBase {
                   "https://wdradaptiv-vh.akamaihd.net/i/medp/ondemand/weltweit/fsk0/158/1583853/,1583853_18232860,1583853_18232858,1583853_18232859,1583853_18232856,1583853_18232857,.mp4.csmil/index_2_av.m3u8",
                   "",
                   new GeoLocations[] {GeoLocations.GEO_NONE}),
-              new TestData(
+              new WdrFilmDetailTaskTestData(
                   "http://www1.wdr.de/mediathek/video/sendungen/wdr-aktuell/video-deutschlandtrend-und-jusos-no-groko-100.html",
                   "/wdr/wdr_film_part2.html",
                   "/ondemand/158/1583857.js",
@@ -191,9 +137,9 @@ public class WdrFilmDetailTaskTest extends WdrTaskTestBase {
         });
   }
 
-  private final TestData[] expectedFilms;
+  private final WdrFilmDetailTaskTestData[] expectedFilms;
 
-  public WdrFilmDetailTaskTest(TestData[] aExpectedFilms) {
+  public WdrFilmDetailTaskTest(WdrFilmDetailTaskTestData[] aExpectedFilms) {
     expectedFilms = aExpectedFilms;
   }
 
@@ -202,15 +148,15 @@ public class WdrFilmDetailTaskTest extends WdrTaskTestBase {
     setupHeadRequestForFileSize();
 
     Map<String, String> urlMapping = new HashMap<>();
-    for (TestData expected : expectedFilms) {
-      urlMapping.put(expected.requestUrl, expected.filmPageFile);
-      setupSuccessfulResponse(expected.jsUrl, expected.jsFile);
-      setupSuccessfulResponse(expected.m3u8Url, expected.m3u8File);
+    for (WdrFilmDetailTaskTestData expected : expectedFilms) {
+      urlMapping.put(expected.getRequestUrl(), expected.getFilmPageFile());
+      setupSuccessfulResponse(expected.getJsUrl(), expected.getJsFile());
+      setupSuccessfulResponse(expected.getM3u8Url(), expected.getM3u8File());
     }
     JsoupMock.mock(urlMapping);
 
-    final String topic = expectedFilms[0].topic;
-    final String requestUrl = expectedFilms[0].requestUrl;
+    final String topic = expectedFilms[0].getTopic();
+    final String requestUrl = expectedFilms[0].getRequestUrl();
 
     final Set<Film> actual =
         new WdrFilmDetailTask(createCrawler(), createCrawlerUrlDto(topic, requestUrl)).invoke();
@@ -222,31 +168,31 @@ public class WdrFilmDetailTaskTest extends WdrTaskTestBase {
     for (int i = 0; i < actual.size(); i++) {
       Film actualFilm = (Film) actualArray[i];
 
-      Optional<TestData> expectedFilmOptional = getTestData(actualFilm.getTitel());
+      Optional<WdrFilmDetailTaskTestData> expectedFilmOptional = getTestData(actualFilm.getTitel());
       assertThat(expectedFilmOptional.isPresent(), equalTo(true));
 
-      TestData expectedFilm = expectedFilmOptional.get();
+      WdrFilmDetailTaskTestData expectedFilm = expectedFilmOptional.get();
 
       AssertFilm.assertEquals(
           actualFilm,
           Sender.WDR,
           topic,
-          expectedFilm.expectedTitle,
-          expectedFilm.expectedDate,
-          expectedFilm.expectedDuration,
-          expectedFilm.expectedDescription,
-          expectedFilm.requestUrl,
-          expectedFilm.expectedGeoLocations,
-          expectedFilm.expectedUrlSmall,
-          expectedFilm.expectedUrlNormal,
-          expectedFilm.expectedUrlHd,
-          expectedFilm.expectedSubtitle);
+          expectedFilm.getExpectedTitle(),
+          expectedFilm.getExpectedDate(),
+          expectedFilm.getExpectedDuration(),
+          expectedFilm.getExpectedDescription(),
+          expectedFilm.getRequestUrl(),
+          expectedFilm.getExpectedGeoLocations(),
+          expectedFilm.getExpectedUrlSmall(),
+          expectedFilm.getExpectedUrlNormal(),
+          expectedFilm.getExpectedUrlHd(),
+          expectedFilm.getExpectedSubtitle());
     }
   }
 
-  private Optional<TestData> getTestData(final String aTitle) {
-    for (TestData expectedFilm : expectedFilms) {
-      if (expectedFilm.expectedTitle.equalsIgnoreCase(aTitle)) {
+  private Optional<WdrFilmDetailTaskTestData> getTestData(final String aTitle) {
+    for (WdrFilmDetailTaskTestData expectedFilm : expectedFilms) {
+      if (expectedFilm.getExpectedTitle().equalsIgnoreCase(aTitle)) {
         return Optional.of(expectedFilm);
       }
     }
