@@ -124,6 +124,7 @@ dependencies {
     compile 'commons-net:commons-net:3.5'
     compile 'org.apache.commons:commons-compress:1.12'
     compile 'org.apache.commons:commons-lang3:3.7'
+    compile 'org.apache.commons:commons-text:1.2'
     compile 'org.tukaani:xz:1.5'
     compile 'com.google.code.gson:gson:2.8.0'
     compile 'org.glassfish.jersey.core:jersey-client:2.25'

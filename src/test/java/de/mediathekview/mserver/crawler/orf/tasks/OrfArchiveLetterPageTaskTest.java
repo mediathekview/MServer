@@ -1,6 +1,6 @@
 package de.mediathekview.mserver.crawler.orf.tasks;
 
-import de.mediathekview.mserver.crawler.orf.OrfTopicUrlDTO;
+import de.mediathekview.mserver.crawler.basic.TopicUrlDTO;
 import de.mediathekview.mserver.crawler.orf.OrfConstants;
 import de.mediathekview.mserver.testhelper.JsoupMock;
 import java.util.HashMap;
@@ -19,13 +19,13 @@ import org.powermock.modules.junit4.PowerMockRunner;
 @PrepareForTest({Jsoup.class})
 public class OrfArchiveLetterPageTaskTest {
 
-  private final OrfTopicUrlDTO[] expectedUrls= new OrfTopicUrlDTO[] {
-    new OrfTopicUrlDTO("Best of \"ZIB 2\"-Interviews", "http://tvthek.orf.at/archive/Best-of-ZIB-2-Interviews/7874678"),
-    new OrfTopicUrlDTO("Bundesheer-Archiv", "http://tvthek.orf.at/archive/Bundesheer-Archiv/5106911"),
-    new OrfTopicUrlDTO("Bundespräsidentenwahlen in Österreich", "http://tvthek.orf.at/archive/Bundespraesidentenwahlen-in-Oesterreich/13304953"),
-    new OrfTopicUrlDTO("Bundestagswahl-Archiv", "http://tvthek.orf.at/archive/Bundestagswahl-Archiv/6524565"),
-    new OrfTopicUrlDTO("Die Geschichte des Burgenlands", "http://tvthek.orf.at/archive/Die-Geschichte-des-Burgenlands/9236430"),
-    new OrfTopicUrlDTO("Die politische Geschichte der Zweiten Republik", "http://tvthek.orf.at/archive/Die-politische-Geschichte-der-Zweiten-Republik/9501692")
+  private final TopicUrlDTO[] expectedUrls= new TopicUrlDTO[] {
+    new TopicUrlDTO("Best of \"ZIB 2\"-Interviews", "http://tvthek.orf.at/archive/Best-of-ZIB-2-Interviews/7874678"),
+    new TopicUrlDTO("Bundesheer-Archiv", "http://tvthek.orf.at/archive/Bundesheer-Archiv/5106911"),
+    new TopicUrlDTO("Bundespräsidentenwahlen in Österreich", "http://tvthek.orf.at/archive/Bundespraesidentenwahlen-in-Oesterreich/13304953"),
+    new TopicUrlDTO("Bundestagswahl-Archiv", "http://tvthek.orf.at/archive/Bundestagswahl-Archiv/6524565"),
+    new TopicUrlDTO("Die Geschichte des Burgenlands", "http://tvthek.orf.at/archive/Die-Geschichte-des-Burgenlands/9236430"),
+    new TopicUrlDTO("Die politische Geschichte der Zweiten Republik", "http://tvthek.orf.at/archive/Die-politische-Geschichte-der-Zweiten-Republik/9501692")
   };
   
   @Test
@@ -38,7 +38,7 @@ public class OrfArchiveLetterPageTaskTest {
     urlMapping.put(OrfConstants.URL_ARCHIVE + "/letter/Z", "/orf/orf_archive_letter_single_theme.html");
 
     JsoupMock.mock(urlMapping);
-    ConcurrentLinkedQueue<OrfTopicUrlDTO> actual = target.call();
+    ConcurrentLinkedQueue<TopicUrlDTO> actual = target.call();
     assertThat(actual, notNullValue());
     assertThat(actual, Matchers.containsInAnyOrder(expectedUrls));
   }

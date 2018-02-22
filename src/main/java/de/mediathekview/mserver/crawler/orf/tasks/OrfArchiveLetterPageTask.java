@@ -2,7 +2,7 @@ package de.mediathekview.mserver.crawler.orf.tasks;
 
 import de.mediathekview.mserver.base.Consts;
 import de.mediathekview.mserver.crawler.orf.OrfConstants;
-import de.mediathekview.mserver.crawler.orf.OrfTopicUrlDTO;
+import de.mediathekview.mserver.crawler.basic.TopicUrlDTO;
 import java.io.IOException;
 import java.util.List;
 import java.util.concurrent.Callable;
@@ -13,15 +13,15 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
 
-public class OrfArchiveLetterPageTask implements Callable<ConcurrentLinkedQueue<OrfTopicUrlDTO>> {
+public class OrfArchiveLetterPageTask implements Callable<ConcurrentLinkedQueue<TopicUrlDTO>> {
 
   private static final Logger LOG = LogManager.getLogger(OrfArchiveLetterPageTask.class);
   
   private static final String ITEM_SELECTOR = "article.item > a";
           
   @Override
-  public ConcurrentLinkedQueue<OrfTopicUrlDTO> call() throws Exception {
-    final ConcurrentLinkedQueue<OrfTopicUrlDTO> results = new ConcurrentLinkedQueue<>();
+  public ConcurrentLinkedQueue<TopicUrlDTO> call() throws Exception {
+    final ConcurrentLinkedQueue<TopicUrlDTO> results = new ConcurrentLinkedQueue<>();
     
     // URLs für Seiten parsen
     final Document document = Jsoup.connect(OrfConstants.URL_ARCHIVE).get();
@@ -40,15 +40,15 @@ public class OrfArchiveLetterPageTask implements Callable<ConcurrentLinkedQueue<
     return results;
   }  
   
-  private ConcurrentLinkedQueue<OrfTopicUrlDTO> parseOverviewPage(Document aDocument) {
-    final ConcurrentLinkedQueue<OrfTopicUrlDTO> results = new ConcurrentLinkedQueue<>();
+  private ConcurrentLinkedQueue<TopicUrlDTO> parseOverviewPage(Document aDocument) {
+    final ConcurrentLinkedQueue<TopicUrlDTO> results = new ConcurrentLinkedQueue<>();
     
     Elements elements = aDocument.select(ITEM_SELECTOR);
     elements.forEach(item -> {
       String theme = OrfHelper.parseTheme(item);
       String url = item.attr(Consts.ATTRIBUTE_HREF);
       
-      OrfTopicUrlDTO dto = new OrfTopicUrlDTO(theme, url);
+      TopicUrlDTO dto = new TopicUrlDTO(theme, url);
       results.add(dto);
     });
       

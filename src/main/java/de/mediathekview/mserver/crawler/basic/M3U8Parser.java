@@ -1,6 +1,7 @@
 package de.mediathekview.mserver.crawler.basic;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 
@@ -13,12 +14,20 @@ public class M3U8Parser {
     
     List<String[]> pairs = getLinePairs(aM3U8Data);
     for(String[] pair : pairs) {
-      M3U8Dto dto = new M3U8Dto(pair[1]);
+      M3U8Dto dto = new M3U8Dto(prepareUrl(pair[1]));
       parseMeta(pair[0], dto);
       
       result.add(dto);
     }
     
+    result.sort(Comparator.comparing((M3U8Dto dto) -> { 
+      Optional<String> optional = dto.getMeta(M3U8Constants.M3U8_RESOLUTION);
+      if(optional.isPresent()) {
+        return optional.get();
+      }
+      return "";
+    }));
+
     return result;
   }
   
@@ -47,6 +56,22 @@ public class M3U8Parser {
   private static void parseMetaParameter(String aParameter, M3U8Dto aDto) {
     String[] parameterParts = aParameter.split("=");
     aDto.addMeta(parameterParts[0], parameterParts[1]);
+  }
+
+  /**
+   * Bereitet URL für MV auf, so dass Downloads über FFMPEG möglich it
+   * @param aUrl die URL aus der m3u8-Datei
+   * @return die URL für den Download
+   */
+  private static String prepareUrl(String aUrl) {
+    String url = aUrl;
+    
+    int indexSuffix = aUrl.lastIndexOf("m3u8");
+    if (indexSuffix > 0) {
+      url = aUrl.substring(0, indexSuffix + 4);
+    }
+    
+    return url;
   }
   
   /**

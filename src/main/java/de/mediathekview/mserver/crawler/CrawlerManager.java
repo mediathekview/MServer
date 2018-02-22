@@ -54,6 +54,13 @@ import de.mediathekview.mserver.crawler.ndr.NdrCrawler;
 import de.mediathekview.mserver.crawler.orf.OrfCrawler;
 import de.mediathekview.mserver.crawler.sr.SrCrawler;
 import de.mediathekview.mserver.crawler.srf.SrfCrawler;
+import de.mediathekview.mserver.crawler.wdr.Wdr2Crawler;
+import de.mediathekview.mserver.crawler.wdr.Wdr3Crawler;
+import de.mediathekview.mserver.crawler.wdr.Wdr4Crawler;
+import de.mediathekview.mserver.crawler.wdr.Wdr5Crawler;
+import de.mediathekview.mserver.crawler.wdr.WdrCosmoCrawler;
+import de.mediathekview.mserver.crawler.wdr.WdrCrawler;
+import de.mediathekview.mserver.crawler.wdr.WdrKirakaCrawler;
 
 /**
  * A manager to control the crawler.
@@ -296,7 +303,7 @@ public class CrawlerManager extends AbstractManager {
    * You can ensure if there is a crawler for {@link Sender} with
    * {@link CrawlerManager#getAviableSenderToCrawl}.
    *
-   * @param aSender The Sender which crawler to start.
+   * @param aSenders The Sender which crawler to start.
    */
   public void startCrawlerForSender(final Sender... aSenders) {
     final Collection<AbstractCrawler> crawlers = new ArrayList<>();
@@ -375,6 +382,7 @@ public class CrawlerManager extends AbstractManager {
    *
    * @param aFilmlistFormat The {@link FilmlistFormats} to upload.
    * @param aFtpUploadTarget The settings where to upload to of {@link FtpUploadTarget}.
+   * @param isDiffList
    */
   public void uploadFilmlist(final FilmlistFormats aFilmlistFormat,
       final FtpUploadTarget aFtpUploadTarget, final boolean isDiffList) {
@@ -535,6 +543,20 @@ public class CrawlerManager extends AbstractManager {
         new SrfCrawler(forkJoinPool, messageListeners, progressListeners, rootConfig));
     crawlerMap.put(Sender.SR,
         new SrCrawler(forkJoinPool, messageListeners, progressListeners, rootConfig));
+    crawlerMap.put(Sender.WDR,
+        new WdrCrawler(forkJoinPool, messageListeners, progressListeners, rootConfig));
+    crawlerMap.put(Sender.WDR2,
+        new Wdr2Crawler(forkJoinPool, messageListeners, progressListeners, rootConfig));
+    crawlerMap.put(Sender.WDR3,
+        new Wdr3Crawler(forkJoinPool, messageListeners, progressListeners, rootConfig));
+    crawlerMap.put(Sender.WDR4,
+        new Wdr4Crawler(forkJoinPool, messageListeners, progressListeners, rootConfig));
+    crawlerMap.put(Sender.WDR5,
+        new Wdr5Crawler(forkJoinPool, messageListeners, progressListeners, rootConfig));
+    crawlerMap.put(Sender.WDR_COSMO,
+        new WdrCosmoCrawler(forkJoinPool, messageListeners, progressListeners, rootConfig));
+    crawlerMap.put(Sender.WDR_KIRAKA,
+        new WdrKirakaCrawler(forkJoinPool, messageListeners, progressListeners, rootConfig));
   }
 
   private void runCrawlers(final AbstractCrawler... aCrawlers) {

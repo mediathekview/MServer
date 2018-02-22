@@ -26,6 +26,20 @@ public final class UrlUtils {
   }
 
   /**
+   * adds the domain if missing
+   * @param aUrl the url to check
+   * @param aDomain the domain to add
+   * @return the url including the domain
+   */
+  public static String addDomainIfMissing(final String aUrl, final String aDomain) {
+    if(aUrl != null && !aUrl.isEmpty() && aUrl.startsWith("/")) {
+      return aDomain + aUrl;
+    }
+    
+    return aUrl;
+  }
+  
+  /**
    * Changes or adds an URL parameter.
    *
    * @param aUrl The URL which parameter should be changed or gets the parameter added.
@@ -91,6 +105,23 @@ public final class UrlUtils {
       int index = aUrl.lastIndexOf('.');
       if (index > 0) {
         return Optional.of(aUrl.substring(index + 1));
+      }
+    }
+    
+    return Optional.empty();
+  }
+  
+  /**
+   * returns the protocol of the url
+   * @param aUrl the url
+   * @return the protocol of the url (e.g. "http:")
+   */
+  public static Optional<String> getProtocol(final String aUrl) {
+    if (aUrl != null) {
+      int index = aUrl.indexOf("//");
+      if (index > 0) {
+        String protocol = aUrl.substring(0, index);
+        return Optional.of(protocol);
       }
     }
     

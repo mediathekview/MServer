@@ -5,12 +5,12 @@ import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
 import de.mediathekview.mserver.crawler.basic.AbstractDocumentTask;
 import de.mediathekview.mserver.crawler.basic.AbstractUrlTask;
 import de.mediathekview.mserver.crawler.basic.CrawlerUrlDTO;
-import de.mediathekview.mserver.crawler.orf.OrfTopicUrlDTO;
+import de.mediathekview.mserver.crawler.basic.TopicUrlDTO;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
 
-public class OrfDayTask extends AbstractDocumentTask<OrfTopicUrlDTO, CrawlerUrlDTO> {
+public class OrfDayTask extends AbstractDocumentTask<TopicUrlDTO, CrawlerUrlDTO> {
 
   private static final String ITEM_SELECTOR = "article.item > a";
   
@@ -26,13 +26,13 @@ public class OrfDayTask extends AbstractDocumentTask<OrfTopicUrlDTO, CrawlerUrlD
       String theme = OrfHelper.parseTheme(item);
       String url = item.attr(Consts.ATTRIBUTE_HREF);
       
-      OrfTopicUrlDTO dto = new OrfTopicUrlDTO(theme, url);
+      TopicUrlDTO dto = new TopicUrlDTO(theme, url);
       taskResults.add(dto);
     });
   }
 
   @Override
-  protected AbstractUrlTask<OrfTopicUrlDTO, CrawlerUrlDTO> createNewOwnInstance(ConcurrentLinkedQueue<CrawlerUrlDTO> aURLsToCrawl) {
+  protected AbstractUrlTask<TopicUrlDTO, CrawlerUrlDTO> createNewOwnInstance(ConcurrentLinkedQueue<CrawlerUrlDTO> aURLsToCrawl) {
     return new OrfDayTask(crawler, aURLsToCrawl);
   }
 }

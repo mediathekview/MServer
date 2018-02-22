@@ -3,7 +3,7 @@ package de.mediathekview.mserver.crawler.basic;
 import java.net.URL;
 
 public class CrawlerUrlDTO {
-  private static final String HTTPS = "https:";
+  protected static final String HTTPS = "https:";
   private String url;
 
   public CrawlerUrlDTO(final String aUrl) {

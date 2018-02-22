@@ -11,6 +11,7 @@ import de.mediathekview.mlib.daten.Resolution;
 import de.mediathekview.mlib.daten.Sender;
 import de.mediathekview.mlib.tool.MVHttpClient;
 import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
+import de.mediathekview.mserver.crawler.basic.M3U8Constants;
 import de.mediathekview.mserver.crawler.basic.M3U8Dto;
 import de.mediathekview.mserver.crawler.basic.M3U8Parser;
 import de.mediathekview.mserver.crawler.srf.SrfConstants;
@@ -260,8 +261,7 @@ public class SrfFilmJsonDeserializer implements JsonDeserializer<Optional<Film>>
         m3u8Data.forEach(entry -> {
           Optional<Resolution> resolution = getResolution(entry);
           if (resolution.isPresent()) {
-            String url = prepareUrl(entry.getUrl());
-            urls.put(resolution.get(), url);
+            urls.put(resolution.get(), entry.getUrl());
           }
         });
 
@@ -276,64 +276,35 @@ public class SrfFilmJsonDeserializer implements JsonDeserializer<Optional<Film>>
 
     return urls;
   }
-  
-  /**
-   * Bereitet URL für MV auf, so dass Downloads über FFMPEG möglich it
-   * @param aUrl die URL aus der m3u8-Datei
-   * @return die URL für den Download
-   */
-  private static String prepareUrl(String aUrl) {
-    String url = aUrl;
-    
-    int indexSuffix = aUrl.lastIndexOf("m3u8");
-    if (indexSuffix > 0) {
-      url = aUrl.substring(0, indexSuffix + 4);
-    }
-    
-    return url;
-  }
 
   private static Optional<Resolution> getResolution(M3U8Dto aDto) {
-    Optional<String> widthMeta = aDto.getMeta(SrfConstants.M3U8_BANDWIDTH);
-    Optional<String> codecMeta = aDto.getMeta(SrfConstants.M3U8_CODECS);
-    Optional<String> resolution = aDto.getMeta(SrfConstants.M3U8_RESOLUTION);
-
-    // Codec muss "avcl" beinhalten, sonst ist es kein Video
-    if (codecMeta.isPresent() && !codecMeta.get().contains("avc1")) {
-      return Optional.empty();
-    }
+    Optional<Resolution> resolution = aDto.getResolution();
     
-    // Auflösung verwenden, wenn vorhanden
-    if (resolution.isPresent()) {
-      switch(resolution.get()) {
-        case "320x180":
-        case "480x272":
-        case "512x288":
-          return Optional.of(Resolution.SMALL);
-        case "640x360":
-        case "960x544":
-          return Optional.of(Resolution.NORMAL);
-        case "1280x720":
-          return Optional.of(Resolution.HD);
-        default:
-          LOG.debug("Unknown resolution: " + resolution.get());
-      }
-    }
+    if (!resolution.isPresent()) {
+      Optional<String> codecMeta = aDto.getMeta(M3U8Constants.M3U8_CODECS);
 
-    // Bandbreite verwenden
-    if (widthMeta.isPresent()) {
-      int width = Integer.parseInt(widthMeta.get());
+      // Codec muss "avcl" beinhalten, sonst ist es kein Video
+      if (codecMeta.isPresent() && !codecMeta.get().contains("avc1")) {
+        return Optional.empty();
+      }
       
-      if (width <= 700000) {
-        return Optional.of(Resolution.SMALL);
-      } else if (width > 3000000) {
-        return Optional.of(Resolution.HD);
-      }else {
-        return Optional.of(Resolution.NORMAL);
+      Optional<String> widthMeta = aDto.getMeta(M3U8Constants.M3U8_BANDWIDTH);
+
+      // Bandbreite verwenden
+      if (widthMeta.isPresent()) {
+        int width = Integer.parseInt(widthMeta.get());
+
+        if (width <= 700000) {
+          return Optional.of(Resolution.SMALL);
+        } else if (width > 3000000) {
+          return Optional.of(Resolution.HD);
+        }else {
+          return Optional.of(Resolution.NORMAL);
+        }
       }
     }
 
-    return Optional.empty();
+    return resolution;
   }
 
   private class EpisodeData {

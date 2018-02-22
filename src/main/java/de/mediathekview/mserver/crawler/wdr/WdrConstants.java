@@ -1,0 +1,53 @@
+package de.mediathekview.mserver.crawler.wdr;
+
+public final class WdrConstants {
+  private WdrConstants() {}
+
+  public static final String URL_BASE = "https://www1.wdr.de";
+  
+  /**
+   * URL für die Sendungen eines Tages.
+   * Als Parameter muss das Datum als ddMMyyyy angegeben werden
+   */
+  public static final String URL_DAY = URL_BASE + "/mediathek/video/sendungverpasst/sendung-verpasst-100~_tag-%s.html";
+  
+  /**
+   * URL für die Sendungen nach Buchstaben.
+   */
+  public static final String URL_LETTER_PAGE = URL_BASE + "/mediathek/video/sendungen-a-z/index.html";
+
+  /**
+   * URL für Videos der WDR Orchestor und Chöre.
+   */
+  public static final String URL_RADIO_ORCHESTRA = URL_BASE + "/mediathek/video/klangkoerper/index.html";
+  
+  /**
+   * URL für Videos von WDR2.
+   */
+  public static final String URL_RADIO_WDR2 = URL_BASE + "/mediathek/video/radio/wdr2/index.html";
+
+  /**
+   * URL für Videos von WDR3.
+   */
+  public static final String URL_RADIO_WDR3 = URL_BASE + "/mediathek/video/radio/wdr3/index.html";
+
+  /**
+   * URL für Videos von WDR4.
+   */
+  public static final String URL_RADIO_WDR4 = URL_BASE + "/mediathek/video/radio/wdr4/index.html";
+
+  /**
+   * URL für Videos von WDR5.
+   */
+  public static final String URL_RADIO_WDR5 = URL_BASE + "/mediathek/video/radio/wdr5/index.html";
+
+  /**
+   * URL für Videos von WDR COSMO.
+   */
+  public static final String URL_RADIO_COSMO = URL_BASE + "/radio/cosmo/cosmo-videos/index.html";
+  
+  /**
+   * URL für Videos von WDR KIRAKA.
+   */
+  public static final String URL_RADIO_KIRAKA = URL_BASE + "/mediathek/video/radio/kiraka/kiraka-videos-114.html";
+}
