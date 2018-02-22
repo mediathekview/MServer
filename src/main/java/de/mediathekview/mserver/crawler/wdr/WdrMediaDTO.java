@@ -3,13 +3,13 @@ package de.mediathekview.mserver.crawler.wdr;
 import de.mediathekview.mserver.crawler.basic.CrawlerUrlDTO;
 import java.util.Optional;
 
-public class WdrMediaDTO extends CrawlerUrlDTO {
+public class WdrMediaDto extends CrawlerUrlDTO {
   
   private Optional<String> audioDescriptionUrl;
   private Optional<String> signLanguageUrl;
   private Optional<String> subtitle;
   
-  public WdrMediaDTO(String aUrl) {
+  public WdrMediaDto(String aUrl) {
     super(aUrl);
     audioDescriptionUrl = Optional.empty();
     signLanguageUrl = Optional.empty();

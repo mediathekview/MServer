@@ -3,11 +3,11 @@ package de.mediathekview.mserver.crawler.wdr;
 import de.mediathekview.mserver.crawler.basic.TopicUrlDTO;
 import java.util.Objects;
 
-public class WdrTopicUrlDTO extends TopicUrlDTO {
+public class WdrTopicUrlDto extends TopicUrlDTO {
   
   private final boolean isFileUrl; 
   
-  public WdrTopicUrlDTO(final String aTopic, final String aUrl, final boolean aIsFileUrl) {
+  public WdrTopicUrlDto(final String aTopic, final String aUrl, final boolean aIsFileUrl) {
     super(aTopic, aUrl);
     
     isFileUrl = aIsFileUrl;
@@ -23,7 +23,7 @@ public class WdrTopicUrlDTO extends TopicUrlDTO {
       return false;
     }
     if (super.equals(obj)) {
-      return isFileUrl() == ((WdrTopicUrlDTO)obj).isFileUrl();
+      return isFileUrl() == ((WdrTopicUrlDto)obj).isFileUrl();
     }
     
     return false;
