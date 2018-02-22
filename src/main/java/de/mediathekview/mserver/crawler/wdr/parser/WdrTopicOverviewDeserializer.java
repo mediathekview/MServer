@@ -6,15 +6,12 @@ import de.mediathekview.mserver.crawler.wdr.WdrConstants;
 import de.mediathekview.mserver.crawler.wdr.WdrTopicUrlDTO;
 import java.util.ArrayList;
 import java.util.List;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 public class WdrTopicOverviewDeserializer extends WdrLetterPageDeserializerBase {
-  private static final Logger LOG = LogManager.getLogger(WdrTopicOverviewDeserializer.class);  
-  
+
   private static final String SELECTOR_URL = "div.teaser > a";    
   private static final String SELECTOR_URL_LIST = "h3.hidden + div.teaser > div.linklist > ul > li > a";
   private static final String SELECTOR_URL_ROCKPALAST_YEARS = "div.entries > div";
@@ -60,14 +57,8 @@ public class WdrTopicOverviewDeserializer extends WdrLetterPageDeserializerBase 
   private boolean isUrlRelevant(String aUrl) {
       // die Indexseite der Lokalzeit herausfiltern, da alle Beiträge
       // um die Lokalzeitenseiten der entsprechenden Regionen gefunden werden
-      if(aUrl.endsWith("lokalzeit/index.html")) {
-          return false;
-      } else if(aUrl.contains("wdr.de/hilfe")) {
-          return false;
-      }
-
-      return true;
-  }  
+    return !(aUrl.endsWith("lokalzeit/index.html") || aUrl.contains("wdr.de/hilfe"));
+  }
   
   private boolean isRockpalastOverviewPage(final Document aDocument) {
     // ermitteln, ob es sich um die erste Rockpalastübersichtsseite handelt

@@ -14,8 +14,6 @@ import org.jsoup.nodes.Document;
 
 public class WdrTopicOverviewTask extends AbstractDocumentTask<TopicUrlDTO, WdrTopicUrlDTO> {
 
-  private static final Logger LOG = LogManager.getLogger(WdrTopicOverviewTask.class);  
-  
   private final int recursiveCount;
   
   public WdrTopicOverviewTask(AbstractCrawler aCrawler, 

@@ -9,16 +9,12 @@ import de.mediathekview.mserver.crawler.basic.CrawlerUrlDTO;
 import de.mediathekview.mserver.crawler.basic.TopicUrlDTO;
 import de.mediathekview.mserver.crawler.wdr.WdrConstants;
 import java.util.concurrent.ConcurrentLinkedQueue;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 public class WdrDayPageTask extends AbstractDocumentTask<TopicUrlDTO, CrawlerUrlDTO> {
 
-  private static final Logger LOG = LogManager.getLogger(WdrDayPageTask.class);  
-  
   private static final String ENTRY_SELECTOR = "div.section > div.con > div.mod > div.boxCon > div.box";
   private static final String URL_SELECTOR = "div.hideTeasertext > a";
   private static final String TOPIC_SELECTOR = "h3.ressort > a";

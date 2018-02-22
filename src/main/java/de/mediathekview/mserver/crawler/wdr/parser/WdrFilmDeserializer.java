@@ -21,11 +21,8 @@ import java.net.URL;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
+
 import mServer.crawler.CrawlerTool;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -187,7 +184,7 @@ public class WdrFilmDeserializer {
   }
   
   private Map<Resolution, String> parseM3U8Url(final String aUrl) {
-    Map<Resolution, String> urlMap = new HashMap<>();
+    Map<Resolution, String> urlMap = new EnumMap<>(Resolution.class);
     
     Optional<String> m3u8Content = readContent(aUrl);
     if (!m3u8Content.isPresent()) {
@@ -197,7 +194,7 @@ public class WdrFilmDeserializer {
     M3U8Parser parser = new M3U8Parser();
     List<M3U8Dto> m3u8Data = parser.parse(m3u8Content.get());
 
-    m3u8Data.forEach((entry) -> {
+    m3u8Data.forEach(entry -> {
       Optional<Resolution> resolution = entry.getResolution();
       if (resolution.isPresent()) {
         urlMap.put(resolution.get(), entry.getUrl());

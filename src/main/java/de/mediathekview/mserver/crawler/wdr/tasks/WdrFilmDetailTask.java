@@ -11,14 +11,10 @@ import de.mediathekview.mserver.crawler.wdr.parser.WdrFilmPartDeserializer;
 import java.util.Optional;
 import java.util.Set;
 import java.util.concurrent.ConcurrentLinkedQueue;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.jsoup.nodes.Document;
 
 public class WdrFilmDetailTask extends AbstractDocumentTask<Film, TopicUrlDTO>  {
 
-  private static final Logger LOG = LogManager.getLogger(WdrFilmDetailTask.class);
-  
   public WdrFilmDetailTask(AbstractCrawler aCrawler, ConcurrentLinkedQueue<TopicUrlDTO> aUrlToCrawlDTOs) {
     super(aCrawler, aUrlToCrawlDTOs);    
   }
@@ -57,8 +53,7 @@ public class WdrFilmDetailTask extends AbstractDocumentTask<Film, TopicUrlDTO>  
   }
   
   private void processParts(final Set<TopicUrlDTO> aParts) {
-    final ConcurrentLinkedQueue queue = new ConcurrentLinkedQueue(aParts);
-    Set<Film> x = (Set<Film>) createNewOwnInstance(queue).invoke();
-    taskResults.addAll(x);
+    final ConcurrentLinkedQueue<TopicUrlDTO> queue = new ConcurrentLinkedQueue<>(aParts);
+    taskResults.addAll(createNewOwnInstance(queue).invoke());
   }  
 }
