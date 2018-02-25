@@ -15,9 +15,9 @@ public class WdrTopicOverviewTask extends AbstractDocumentTask<TopicUrlDTO, WdrT
   private final int recursiveCount;
 
   public WdrTopicOverviewTask(
-      AbstractCrawler aCrawler,
-      ConcurrentLinkedQueue<WdrTopicUrlDto> aUrlToCrawlDtos,
-      int aRecursiveCount) {
+          AbstractCrawler aCrawler,
+          ConcurrentLinkedQueue<WdrTopicUrlDto> aUrlToCrawlDtos,
+          int aRecursiveCount) {
     super(aCrawler, aUrlToCrawlDtos);
 
     recursiveCount = aRecursiveCount;
@@ -35,13 +35,13 @@ public class WdrTopicOverviewTask extends AbstractDocumentTask<TopicUrlDTO, WdrT
     WdrTopicOverviewDeserializer deserializer = new WdrTopicOverviewDeserializer();
     List<WdrTopicUrlDto> dtos = deserializer.deserialize(aUrlDto.getTopic(), aDocument);
     dtos.forEach(
-        dto -> {
-          if (dto.isFileUrl()) {
-            taskResults.add(new TopicUrlDTO(dto.getTopic(), dto.getUrl()));
-          } else {
-            subpages.add(dto);
-          }
-        });
+            dto -> {
+              if (dto.isFileUrl()) {
+                taskResults.add(new TopicUrlDTO(dto.getTopic(), dto.getUrl()));
+              } else if (!dto.getUrl().contains("/fernsehen/")) {
+                subpages.add(dto);
+              }
+            });
 
     if (crawler.getCrawlerConfig().getMaximumSubpages() > recursiveCount) {
       taskResults.addAll(createNewOwnInstance(subpages).invoke());
@@ -50,7 +50,7 @@ public class WdrTopicOverviewTask extends AbstractDocumentTask<TopicUrlDTO, WdrT
 
   @Override
   protected AbstractUrlTask<TopicUrlDTO, WdrTopicUrlDto> createNewOwnInstance(
-      ConcurrentLinkedQueue<WdrTopicUrlDto> aUrlsToCrawl) {
+          ConcurrentLinkedQueue<WdrTopicUrlDto> aUrlsToCrawl) {
     return new WdrTopicOverviewTask(crawler, aUrlsToCrawl, recursiveCount + 1);
   }
 }
