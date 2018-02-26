@@ -13,7 +13,7 @@ import java.util.Set;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import org.jsoup.nodes.Document;
 
-public class WdrFilmDetailTask extends AbstractDocumentTask<Film, TopicUrlDTO>  {
+public class WdrFilmDetailTask extends AbstractDocumentTask<Film, TopicUrlDTO> {
 
   public WdrFilmDetailTask(AbstractCrawler aCrawler, ConcurrentLinkedQueue<TopicUrlDTO> aUrlToCrawlDtos) {
     super(aCrawler, aUrlToCrawlDtos);
@@ -24,7 +24,7 @@ public class WdrFilmDetailTask extends AbstractDocumentTask<Film, TopicUrlDTO>  
     WdrFilmDeserializer deserializer = new WdrFilmDeserializer(getProtocol(aUrlDto), crawler.getSender());
     WdrFilmPartDeserializer partDeserializer = new WdrFilmPartDeserializer();
     processParts(partDeserializer.deserialize(aUrlDto.getTopic(), aDocument));
-    
+
     Optional<Film> film = deserializer.deserialize(aUrlDto, aDocument);
     if (film.isPresent()) {
       taskResults.add(film.get());
@@ -39,21 +39,25 @@ public class WdrFilmDetailTask extends AbstractDocumentTask<Film, TopicUrlDTO>  
   @Override
   protected AbstractUrlTask<Film, TopicUrlDTO> createNewOwnInstance(ConcurrentLinkedQueue<TopicUrlDTO> aUrlsToCrawl) {
     return new WdrFilmDetailTask(crawler, aUrlsToCrawl);
-  }  
-  
+  }
+
   private String getProtocol(TopicUrlDTO aUrlDto) {
     String protocol = "https:";
-    
+
     Optional<String> usedProtocol = UrlUtils.getProtocol(aUrlDto.getUrl());
     if (usedProtocol.isPresent()) {
       protocol = usedProtocol.get();
     }
-    
+
     return protocol;
   }
-  
+
   private void processParts(final Set<TopicUrlDTO> aParts) {
+    if (aParts.isEmpty()) {
+      return;
+    }
+
     final ConcurrentLinkedQueue<TopicUrlDTO> queue = new ConcurrentLinkedQueue<>(aParts);
     taskResults.addAll(createNewOwnInstance(queue).invoke());
-  }  
+  }
 }
