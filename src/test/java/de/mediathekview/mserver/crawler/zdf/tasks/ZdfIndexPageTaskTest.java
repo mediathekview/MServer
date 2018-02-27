@@ -1,10 +1,11 @@
-package de.mediathekview.mserver.crawler.zdf;
+package de.mediathekview.mserver.crawler.zdf.tasks;
 
 import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 
-import de.mediathekview.mserver.crawler.zdf.tasks.ZdfIndexPageTask;
+import de.mediathekview.mserver.crawler.zdf.ZdfConfiguration;
+import de.mediathekview.mserver.crawler.zdf.ZdfConstants;
 import de.mediathekview.mserver.testhelper.JsoupMock;
 import java.util.Arrays;
 import java.util.Collection;
