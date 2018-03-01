@@ -2,7 +2,6 @@ package de.mediathekview.mserver.crawler.zdf.tasks;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.google.gson.JsonObject;
 import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
 import de.mediathekview.mserver.crawler.basic.AbstractRecrusivConverterTask;
 import de.mediathekview.mserver.crawler.basic.AbstractRestTask;
@@ -10,7 +9,6 @@ import de.mediathekview.mserver.crawler.basic.CrawlerUrlDTO;
 import de.mediathekview.mserver.crawler.zdf.ZdfEntryDto;
 import de.mediathekview.mserver.crawler.zdf.json.ZdfDayPageDeserializer;
 import de.mediathekview.mserver.crawler.zdf.json.ZdfDayPageDto;
-import java.util.Collection;
 import java.util.Optional;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import javax.ws.rs.client.Invocation.Builder;

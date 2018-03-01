@@ -1,7 +1,6 @@
 package de.mediathekview.mserver.crawler.zdf;
 
 import de.mediathekview.mserver.crawler.basic.CrawlerUrlDTO;
-import java.io.Serializable;
 
 /**
  * DTO containing the urls to determine the infos of a film

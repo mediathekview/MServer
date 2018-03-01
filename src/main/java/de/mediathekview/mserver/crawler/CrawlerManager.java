@@ -1,5 +1,6 @@
 package de.mediathekview.mserver.crawler;
 
+import de.mediathekview.mserver.crawler.zdf.ZdfCrawler;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -557,6 +558,8 @@ public class CrawlerManager extends AbstractManager {
         new WdrCosmoCrawler(forkJoinPool, messageListeners, progressListeners, rootConfig));
     crawlerMap.put(Sender.WDR_KIRAKA,
         new WdrKirakaCrawler(forkJoinPool, messageListeners, progressListeners, rootConfig));
+    crawlerMap.put(Sender.ZDF,
+        new ZdfCrawler(forkJoinPool, messageListeners, progressListeners, rootConfig));
   }
 
   private void runCrawlers(final AbstractCrawler... aCrawlers) {
