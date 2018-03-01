@@ -5,21 +5,24 @@ import static com.github.tomakehurst.wiremock.client.WireMock.get;
 import static com.github.tomakehurst.wiremock.client.WireMock.head;
 import static com.github.tomakehurst.wiremock.client.WireMock.urlEqualTo;
 import static com.github.tomakehurst.wiremock.client.WireMock.urlMatching;
+
 import com.github.tomakehurst.wiremock.junit.WireMockRule;
 import de.mediathekview.mserver.crawler.basic.CrawlerUrlDTO;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import org.junit.Rule;
 
 /**
- * base class of tests with WireMock
+ * base class of tests with WireMock.
  */
 public abstract class WireMockTestBase {
   @Rule
   public WireMockRule wireMockRule = new WireMockRule(8589);
 
+  public static final String MOCK_URL_BASE = "http://localhost:8589";
+
   protected ConcurrentLinkedQueue<CrawlerUrlDTO> createCrawlerUrlDto(String aRequestUrl) {
     ConcurrentLinkedQueue<CrawlerUrlDTO> input = new ConcurrentLinkedQueue<>();
-    input.add(new CrawlerUrlDTO("http://localhost:8589" + aRequestUrl));
+    input.add(new CrawlerUrlDTO(MOCK_URL_BASE + aRequestUrl));
     return input;
   }
   
