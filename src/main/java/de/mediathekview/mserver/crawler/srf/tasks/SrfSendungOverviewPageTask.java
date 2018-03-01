@@ -47,7 +47,7 @@ public class SrfSendungOverviewPageTask extends AbstractRestTask<CrawlerUrlDTO, 
     
     final Gson gson = new GsonBuilder().registerTypeAdapter(OPTIONAL_DTO_TYPE_TOKEN, new SrfSendungOverviewJsonDeserializer(baseUrl)).create();
     Invocation.Builder request = aTarget.request();
-    final Response response = request.header(SrfConstants.HEADER_ACCEPT_ENCODING, SrfConstants.ENCODING_GZIP).get();
+    final Response response = request.header(HEADER_ACCEPT_ENCODING, ENCODING_GZIP).get();
     
     if (response.getStatus() == 200) {
 

@@ -33,7 +33,7 @@ public class SrfFilmDetailTask extends AbstractRestTask<Film, CrawlerUrlDTO> {
   @Override
   protected void processRestTarget(CrawlerUrlDTO aDTO, WebTarget aTarget) {
     Invocation.Builder request = aTarget.request();
-    final Response response = request.header(SrfConstants.HEADER_ACCEPT_ENCODING, SrfConstants.ENCODING_GZIP).get();
+    final Response response = request.header(HEADER_ACCEPT_ENCODING, ENCODING_GZIP).get();
     
     switch(response.getStatus()) {
       case 200:

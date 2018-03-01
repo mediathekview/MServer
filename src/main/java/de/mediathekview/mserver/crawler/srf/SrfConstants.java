@@ -23,7 +23,4 @@ public final class SrfConstants {
    * Parameter: Thema, Titel, Id
    */
   public static final String WEBSITE_URL = "https://www.srf.ch/play/tv/%s/video/%s?id=%s";
-  
-  public static final String ENCODING_GZIP = "gzip";
-  public static final String HEADER_ACCEPT_ENCODING = "Accept-Encoding";
 }
