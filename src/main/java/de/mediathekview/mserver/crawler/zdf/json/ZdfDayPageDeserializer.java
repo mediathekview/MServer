@@ -9,11 +9,9 @@ import de.mediathekview.mserver.base.utils.UrlUtils;
 import de.mediathekview.mserver.crawler.zdf.ZdfConstants;
 import de.mediathekview.mserver.crawler.zdf.ZdfEntryDto;
 import java.lang.reflect.Type;
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Optional;
 
-public class ZdfDayPageDeserializer implements JsonDeserializer<Collection<ZdfEntryDto>> {
+public class ZdfDayPageDeserializer implements JsonDeserializer<ZdfDayPageDto> {
 
   private static final String JSON_ELEMENT_ENTRIES = "http://zdf.de/rels/search/results";
   private static final String JSON_ELEMENT_MAIN_VIDEO_CONTENT = "mainVideoContent";
@@ -21,32 +19,45 @@ public class ZdfDayPageDeserializer implements JsonDeserializer<Collection<ZdfEn
   private static final String JSON_ELEMENT_VIDEO_PAGE_TEASER = "http://zdf.de/rels/content/video-page-teaser";
 
   private static final String JSON_ATTRIBUTE_CANONICAL = "canonical";
+  private static final String JSON_ATTRIBUTE_NEXT = "next";
   private static final String JSON_ATTRIBUTE_TEMPLATE = "http://zdf.de/rels/streams/ptmd-template";
 
   private static final String PLACEHOLDER_PLAYER_ID = "{playerId}";
   private static final String PLAYER_ID = "ngplayer_2_3";
 
   @Override
-  public Collection<ZdfEntryDto> deserialize(final JsonElement aJsonElement, final Type aTypeOfT,
+  public ZdfDayPageDto deserialize(final JsonElement aJsonElement, final Type aTypeOfT,
       final JsonDeserializationContext aContext) {
 
-    Collection<ZdfEntryDto> results = new ArrayList<>();
+    final ZdfDayPageDto dayPageDto = new ZdfDayPageDto();
 
     final JsonObject json = aJsonElement.getAsJsonObject();
-    if (json.has(JSON_ELEMENT_ENTRIES)) {
-      final JsonElement resultsElement = json.get(JSON_ELEMENT_ENTRIES);
+    parseSearchEntries(dayPageDto, json);
+    parseNextPage(dayPageDto, json);
+
+    return dayPageDto;
+  }
+
+  private void parseNextPage(final ZdfDayPageDto aDayPageDtp, final JsonObject aJsonObject) {
+    if (aJsonObject.has(JSON_ATTRIBUTE_NEXT)) {
+      final String url = aJsonObject.get(JSON_ATTRIBUTE_NEXT).getAsString();
+      aDayPageDtp.setNextPageUrl(UrlUtils.addDomainIfMissing(url, ZdfConstants.URL_API_BASE));
+    }
+  }
+
+  private void parseSearchEntries(final ZdfDayPageDto aDayPageDto, final JsonObject aJsonObject) {
+    if (aJsonObject.has(JSON_ELEMENT_ENTRIES)) {
+      final JsonElement resultsElement = aJsonObject.get(JSON_ELEMENT_ENTRIES);
       if (resultsElement.isJsonArray()) {
         final JsonArray resultsArray = resultsElement.getAsJsonArray();
         resultsArray.forEach(result -> {
           final Optional<ZdfEntryDto> dto = parseSearchEntry(result.getAsJsonObject());
           if (dto.isPresent()) {
-            results.add(dto.get());
+            aDayPageDto.addEntry(dto.get());
           }
         });
       }
     }
-
-    return results;
   }
 
   private Optional<ZdfEntryDto> parseSearchEntry(final JsonObject aResultObject) {
