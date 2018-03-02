@@ -1,0 +1,283 @@
+{
+   "attributes" : {
+      "downloadAllowed" : {
+         "profile" : "http://zdf.de/rels/streams/ptmd/attributes/attribute",
+         "value" : false
+      },
+      "duration" : {
+         "profile" : "http://zdf.de/rels/streams/ptmd/attributes/attribute",
+         "value" : 1495000
+      },
+      "fsk" : {
+         "profile" : "http://zdf.de/rels/streams/ptmd/attributes/attribute",
+         "value" : "none"
+      },
+      "geoLocation" : {
+         "profile" : "http://zdf.de/rels/streams/ptmd/attributes/attribute",
+         "value" : "dach"
+      },
+      "profile" : "http://zdf.de/rels/streams/ptmd/attributes"
+   },
+   "basename" : "160301_folge25_tanzaufdemseil_jon",
+   "captions" : [],
+   "documentVersion" : 2,
+   "mandant" : "tivi",
+   "playerId" : "ngplayer_2_3",
+   "priorityList" : [
+      {
+         "formitaeten" : [
+            {
+               "facets" : [],
+               "isAdaptive" : true,
+               "mimeType" : "application/x-mpegURL",
+               "profile" : "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet",
+               "qualities" : [
+                  {
+                     "audio" : {
+                        "profile" : "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality/audio",
+                        "tracks" : [
+                           {
+                              "cdn" : "akamai",
+                              "class" : "main",
+                              "language" : "deu",
+                              "profile" : "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality/audio/track",
+                              "uri" : "https://zdfvoddach-vh.akamaihd.net/i/meta-files/tivi/smil/m3u8/300/16/03/160301_folge25_tanzaufdemseil_jon/5/160301_folge25_tanzaufdemseil_jon.smil/master.m3u8"
+                           }
+                        ]
+                     },
+                     "hd" : true,
+                     "profile" : "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality",
+                     "quality" : "auto"
+                  },
+                  {
+                     "audio" : {
+                        "profile" : "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality/audio",
+                        "tracks" : [
+                           {
+                              "cdn" : "akamai",
+                              "class" : "main",
+                              "language" : "deu",
+                              "profile" : "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality/audio/track",
+                              "uri" : "https://zdfvoddach-vh.akamaihd.net/i/meta-files/tivi/smil/m3u8/300/16/03/160301_folge25_tanzaufdemseil_jon/5/160301_folge25_tanzaufdemseil_jon.smil/master.m3u8"
+                           }
+                        ]
+                     },
+                     "hd" : true,
+                     "profile" : "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality",
+                     "quality" : "high"
+                  },
+                  {
+                     "audio" : {
+                        "profile" : "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality/audio",
+                        "tracks" : [
+                           {
+                              "cdn" : "akamai",
+                              "class" : "main",
+                              "language" : "deu",
+                              "profile" : "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality/audio/track",
+                              "uri" : "https://zdfvoddach-vh.akamaihd.net/i/meta-files/tivi/smil/m3u8/200/16/03/160301_folge25_tanzaufdemseil_jon/5/160301_folge25_tanzaufdemseil_jon.smil/master.m3u8"
+                           }
+                        ]
+                     },
+                     "hd" : false,
+                     "profile" : "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality",
+                     "quality" : "med"
+                  }
+               ],
+               "type" : "h264_aac_ts_http_m3u8_http"
+            }
+         ],
+         "profile" : "http://zdf.de/rels/streams/ptmd/priority-list-item"
+      },
+      {
+         "formitaeten" : [
+            {
+               "facets" : [
+                  "progressive"
+               ],
+               "isAdaptive" : false,
+               "mimeType" : "video/mp4",
+               "profile" : "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet",
+               "qualities" : [
+                  {
+                     "audio" : {
+                        "profile" : "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality/audio",
+                        "tracks" : [
+                           {
+                              "cdn" : "akamai",
+                              "class" : "main",
+                              "language" : "deu",
+                              "profile" : "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality/audio/track",
+                              "uri" : "https://nrodlzdf-a.akamaihd.net/dach/tivi/16/03/160301_folge25_tanzaufdemseil_jon/5/160301_folge25_tanzaufdemseil_jon_1456k_p13v12.mp4"
+                           }
+                        ]
+                     },
+                     "hd" : false,
+                     "mimeCodec" : "avc1.4d001f,mp4a.40.5",
+                     "profile" : "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality",
+                     "quality" : "veryhigh"
+                  },
+                  {
+                     "audio" : {
+                        "profile" : "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality/audio",
+                        "tracks" : [
+                           {
+                              "cdn" : "akamai",
+                              "class" : "main",
+                              "language" : "deu",
+                              "profile" : "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality/audio/track",
+                              "uri" : "https://nrodlzdf-a.akamaihd.net/dach/tivi/16/03/160301_folge25_tanzaufdemseil_jon/5/160301_folge25_tanzaufdemseil_jon_436k_p9v12.mp4"
+                           }
+                        ]
+                     },
+                     "hd" : false,
+                     "mimeCodec" : "avc1.4d001f,mp4a.40.5",
+                     "profile" : "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality",
+                     "quality" : "high"
+                  },
+                  {
+                     "audio" : {
+                        "profile" : "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality/audio",
+                        "tracks" : [
+                           {
+                              "cdn" : "akamai",
+                              "class" : "main",
+                              "language" : "deu",
+                              "profile" : "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality/audio/track",
+                              "uri" : "https://nrodlzdf-a.akamaihd.net/dach/tivi/16/03/160301_folge25_tanzaufdemseil_jon/5/160301_folge25_tanzaufdemseil_jon_189k_p7v12.mp4"
+                           }
+                        ]
+                     },
+                     "hd" : false,
+                     "mimeCodec" : "avc1.4d001f,mp4a.40.5",
+                     "profile" : "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality",
+                     "quality" : "low"
+                  }
+               ],
+               "type" : "h264_aac_mp4_http_na_na"
+            }
+         ],
+         "profile" : "http://zdf.de/rels/streams/ptmd/priority-list-item"
+      },
+      {
+         "formitaeten" : [
+            {
+               "facets" : [
+                  "restriction_useragent"
+               ],
+               "isAdaptive" : false,
+               "mimeType" : "video/mp4",
+               "profile" : "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet",
+               "qualities" : [
+                  {
+                     "audio" : {
+                        "profile" : "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality/audio",
+                        "tracks" : [
+                           {
+                              "cdn" : "akamai",
+                              "class" : "main",
+                              "language" : "deu",
+                              "profile" : "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality/audio/track",
+                              "uri" : "https://rodlzdf-a.akamaihd.net/dach/tivi/16/03/160301_folge25_tanzaufdemseil_jon/5/160301_folge25_tanzaufdemseil_jon_1456k_p13v12.mp4"
+                           }
+                        ]
+                     },
+                     "hd" : false,
+                     "mimeCodec" : "avc1.4d001f,mp4a.40.5",
+                     "profile" : "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality",
+                     "quality" : "veryhigh"
+                  },
+                  {
+                     "audio" : {
+                        "profile" : "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality/audio",
+                        "tracks" : [
+                           {
+                              "cdn" : "akamai",
+                              "class" : "main",
+                              "language" : "deu",
+                              "profile" : "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality/audio/track",
+                              "uri" : "https://rodlzdf-a.akamaihd.net/dach/tivi/16/03/160301_folge25_tanzaufdemseil_jon/5/160301_folge25_tanzaufdemseil_jon_436k_p9v12.mp4"
+                           }
+                        ]
+                     },
+                     "hd" : false,
+                     "mimeCodec" : "avc1.4d001f,mp4a.40.5",
+                     "profile" : "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality",
+                     "quality" : "high"
+                  }
+               ],
+               "type" : "h264_aac_mp4_http_na_na"
+            }
+         ],
+         "profile" : "http://zdf.de/rels/streams/ptmd/priority-list-item"
+      },
+      {
+         "formitaeten" : [
+            {
+               "facets" : [],
+               "isAdaptive" : true,
+               "mimeType" : "application/f4m+xml",
+               "profile" : "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet",
+               "qualities" : [
+                  {
+                     "audio" : {
+                        "profile" : "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality/audio",
+                        "tracks" : [
+                           {
+                              "cdn" : "akamai",
+                              "class" : "main",
+                              "language" : "deu",
+                              "profile" : "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality/audio/track",
+                              "uri" : "http://zdf_hdflash_dach-vh.akamaihd.net/z/meta-files/tivi/smil/f4m/300/16/03/160301_folge25_tanzaufdemseil_jon/5/160301_folge25_tanzaufdemseil_jon.smil/manifest.f4m"
+                           }
+                        ]
+                     },
+                     "hd" : true,
+                     "profile" : "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality",
+                     "quality" : "auto"
+                  },
+                  {
+                     "audio" : {
+                        "profile" : "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality/audio",
+                        "tracks" : [
+                           {
+                              "cdn" : "akamai",
+                              "class" : "main",
+                              "language" : "deu",
+                              "profile" : "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality/audio/track",
+                              "uri" : "http://zdf_hdflash_dach-vh.akamaihd.net/z/meta-files/tivi/smil/f4m/300/16/03/160301_folge25_tanzaufdemseil_jon/5/160301_folge25_tanzaufdemseil_jon.smil/manifest.f4m"
+                           }
+                        ]
+                     },
+                     "hd" : true,
+                     "profile" : "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality",
+                     "quality" : "high"
+                  },
+                  {
+                     "audio" : {
+                        "profile" : "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality/audio",
+                        "tracks" : [
+                           {
+                              "cdn" : "akamai",
+                              "class" : "main",
+                              "language" : "deu",
+                              "profile" : "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality/audio/track",
+                              "uri" : "http://zdf_hdflash_dach-vh.akamaihd.net/z/meta-files/tivi/smil/f4m/200/16/03/160301_folge25_tanzaufdemseil_jon/5/160301_folge25_tanzaufdemseil_jon.smil/manifest.f4m"
+                           }
+                        ]
+                     },
+                     "hd" : false,
+                     "profile" : "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality",
+                     "quality" : "med"
+                  }
+               ],
+               "type" : "h264_aac_f4f_http_f4m_http"
+            }
+         ],
+         "profile" : "http://zdf.de/rels/streams/ptmd/priority-list-item"
+      }
+   ],
+   "profile" : "http://zdf.de/rels/streams/ptmd",
+   "self" : "/tmd/2/ngplayer_2_3/vod/ptmd/tivi/160301_folge25_tanzaufdemseil_jon/5",
+   "version" : 5
+}
