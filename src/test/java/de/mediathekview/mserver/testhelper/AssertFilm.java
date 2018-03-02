@@ -1,130 +1,120 @@
 package de.mediathekview.mserver.testhelper;
 
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.CoreMatchers.notNullValue;
+import static org.hamcrest.CoreMatchers.nullValue;
+import static org.junit.Assert.assertThat;
+
 import de.mediathekview.mlib.daten.Film;
+import de.mediathekview.mlib.daten.FilmUrl;
 import de.mediathekview.mlib.daten.GeoLocations;
 import de.mediathekview.mlib.daten.Resolution;
 import de.mediathekview.mlib.daten.Sender;
 import java.net.URL;
 import java.time.Duration;
 import java.time.LocalDateTime;
-import static org.hamcrest.CoreMatchers.equalTo;
-import static org.hamcrest.CoreMatchers.notNullValue;
-import static org.hamcrest.CoreMatchers.nullValue;
+
+import java.util.Optional;
 import org.hamcrest.Matchers;
-import static org.junit.Assert.assertThat;
 
 public final class AssertFilm {
-  private AssertFilm() {}
 
-  public static void assertEquals(final Film aActualFilm,
-    final Sender aExpectedSender,
-    final String aExpectedTheme,
-    final String aExpectedTitle,
-    final LocalDateTime aExpectedTime,
-    final Duration aExpectedDuration,
-    final String aExpectedDescription,
-    final String aWebsiteUrl,
-    final GeoLocations[] aExpectedGeo,
-    final String aExpectedUrlSmall,
-    final String aExpectedUrlNormal,
-    final String aExpectedUrlHd,
-    final String aExpectedSubtitle) {
-    
-      assertThat(aActualFilm, notNullValue());
-      assertThat(aActualFilm.getSender(), equalTo(aExpectedSender));
-      assertThat(aActualFilm.getThema(), equalTo(aExpectedTheme));
-      assertThat(aActualFilm.getTitel(), equalTo(aExpectedTitle));
-      assertThat(aActualFilm.getTime(), equalTo(aExpectedTime));
-      assertThat(aActualFilm.getDuration(), equalTo(aExpectedDuration));
-      assertThat(aActualFilm.getBeschreibung(), equalTo(aExpectedDescription));
-      assertThat(aActualFilm.getWebsite().get().toString(), equalTo(aWebsiteUrl));
-      assertThat(aActualFilm.getGeoLocations(), Matchers.containsInAnyOrder(aExpectedGeo));
-
-      if (aExpectedUrlSmall.isEmpty()) {
-        assertThat(aActualFilm.getUrl(Resolution.SMALL), nullValue());
-      } else {
-        assertThat(aActualFilm.getUrl(Resolution.SMALL).toString(), equalTo(aExpectedUrlSmall));
-      }
-      
-      assertThat(aActualFilm.getUrl(Resolution.NORMAL).toString(), equalTo(aExpectedUrlNormal));
-      
-      assertThat(aActualFilm.hasHD(), equalTo(!aExpectedUrlHd.isEmpty()));
-      if (!aExpectedUrlHd.isEmpty()) {
-        assertThat(aActualFilm.getUrl(Resolution.HD).toString(), equalTo(aExpectedUrlHd));
-      }
-
-      assertThat(aActualFilm.hasUT(), equalTo(!aExpectedSubtitle.isEmpty()));
-      if(!aExpectedSubtitle.isEmpty()) {
-        assertThat(aActualFilm.getSubtitles().toArray(new URL[0])[0].toString(), equalTo(aExpectedSubtitle));
-      }      
+  private AssertFilm() {
   }
-  
+
   public static void assertEquals(final Film aActualFilm,
-    final Sender aExpectedSender,
-    final String aExpectedTheme,
-    final String aExpectedTitle,
-    final LocalDateTime aExpectedTime,
-    final Duration aExpectedDuration,
-    final String aExpectedDescription,
-    final String aWebsiteUrl,
-    final GeoLocations[] aExpectedGeo,
-    final String aExpectedUrlSmall,
-    final String aExpectedUrlNormal,
-    final String aExpectedUrlHd,
-    final String aExpectedUrlSignLanguageSmall,
-    final String aExpectedUrlSignLanguageNormal,
-    final String aExpectedUrlSignLanguageHd,
-    final String aExpectedUrlAudioDescriptionSmall,
-    final String aExpectedUrlAudioDescriptionNormal,
-    final String aExpectedUrlAudioDescriptionHd,
-    final String aExpectedSubtitle) {
-    
-    assertEquals(aActualFilm, aExpectedSender, aExpectedTheme, aExpectedTitle, aExpectedTime, aExpectedDuration, aExpectedDescription, aWebsiteUrl, aExpectedGeo, aExpectedUrlSmall, aExpectedUrlNormal, aExpectedUrlHd, aExpectedSubtitle);
+      final Sender aExpectedSender,
+      final String aExpectedTheme,
+      final String aExpectedTitle,
+      final LocalDateTime aExpectedTime,
+      final Duration aExpectedDuration,
+      final String aExpectedDescription,
+      final String aWebsiteUrl,
+      final GeoLocations[] aExpectedGeo,
+      final String aExpectedUrlSmall,
+      final String aExpectedUrlNormal,
+      final String aExpectedUrlHd,
+      final String aExpectedSubtitle) {
+
+    assertThat(aActualFilm, notNullValue());
+    assertThat(aActualFilm.getSender(), equalTo(aExpectedSender));
+    assertThat(aActualFilm.getThema(), equalTo(aExpectedTheme));
+    assertThat(aActualFilm.getTitel(), equalTo(aExpectedTitle));
+    assertThat(aActualFilm.getTime(), equalTo(aExpectedTime));
+    assertThat(aActualFilm.getDuration(), equalTo(aExpectedDuration));
+    assertThat(aActualFilm.getBeschreibung(), equalTo(aExpectedDescription));
+    assertThat(aActualFilm.getWebsite().get().toString(), equalTo(aWebsiteUrl));
+    assertThat(aActualFilm.getGeoLocations(), Matchers.containsInAnyOrder(aExpectedGeo));
+
+    assertUrl(aExpectedUrlSmall, aActualFilm.getUrl(Resolution.SMALL));
+    assertUrl(aExpectedUrlNormal, aActualFilm.getUrl(Resolution.NORMAL));
+    assertUrl(aExpectedUrlHd, aActualFilm.getUrl(Resolution.HD));
+
+    assertThat(aActualFilm.hasUT(), equalTo(!aExpectedSubtitle.isEmpty()));
+    if (!aExpectedSubtitle.isEmpty()) {
+      assertThat(aActualFilm.getSubtitles().toArray(new URL[0])[0].toString(), equalTo(aExpectedSubtitle));
+    }
+  }
+
+  public static void assertEquals(final Film aActualFilm,
+      final Sender aExpectedSender,
+      final String aExpectedTheme,
+      final String aExpectedTitle,
+      final LocalDateTime aExpectedTime,
+      final Duration aExpectedDuration,
+      final String aExpectedDescription,
+      final String aWebsiteUrl,
+      final GeoLocations[] aExpectedGeo,
+      final String aExpectedUrlSmall,
+      final String aExpectedUrlNormal,
+      final String aExpectedUrlHd,
+      final String aExpectedUrlSignLanguageSmall,
+      final String aExpectedUrlSignLanguageNormal,
+      final String aExpectedUrlSignLanguageHd,
+      final String aExpectedUrlAudioDescriptionSmall,
+      final String aExpectedUrlAudioDescriptionNormal,
+      final String aExpectedUrlAudioDescriptionHd,
+      final String aExpectedSubtitle) {
+
+    assertEquals(aActualFilm, aExpectedSender, aExpectedTheme, aExpectedTitle, aExpectedTime, aExpectedDuration, aExpectedDescription,
+        aWebsiteUrl, aExpectedGeo, aExpectedUrlSmall, aExpectedUrlNormal, aExpectedUrlHd, aExpectedSubtitle);
     assertSignLanguages(aActualFilm, aExpectedUrlSignLanguageSmall, aExpectedUrlSignLanguageNormal, aExpectedUrlSignLanguageHd);
-    assertAudioDescriptions(aActualFilm, aExpectedUrlAudioDescriptionSmall, aExpectedUrlAudioDescriptionNormal, aExpectedUrlAudioDescriptionHd);
-  }  
-  
+    assertAudioDescriptions(aActualFilm, aExpectedUrlAudioDescriptionSmall, aExpectedUrlAudioDescriptionNormal,
+        aExpectedUrlAudioDescriptionHd);
+  }
+
+  public static void assertUrl(final String aExpectedUrl, final FilmUrl aActualUrl) {
+    if (aExpectedUrl.isEmpty()) {
+      assertThat(aActualUrl, nullValue());
+    } else {
+      assertThat(aActualUrl.toString(), equalTo(aExpectedUrl));
+    }
+  }
+
+  public static void assertUrl(final String aExpectedUrl, final Optional<String> aActualUrl) {
+    assertThat(aActualUrl.isPresent(), equalTo(!aExpectedUrl.isEmpty()));
+    if (aActualUrl.isPresent()) {
+      assertThat(aActualUrl.get(), equalTo(aExpectedUrl));
+    }
+  }
+
   private static void assertAudioDescriptions(final Film aActualFilm,
-    final String aExpectedUrlAudioDescriptionSmall,
-    final String aExpectedUrlAudioDescriptionNormal,
-    final String aExpectedUrlAudioDescriptionHd
+      final String aExpectedUrlAudioDescriptionSmall,
+      final String aExpectedUrlAudioDescriptionNormal,
+      final String aExpectedUrlAudioDescriptionHd
   ) {
-    if (aExpectedUrlAudioDescriptionSmall.isEmpty()) {
-      assertThat(aActualFilm.getAudioDescription(Resolution.SMALL), nullValue());
-    } else {
-      assertThat(aActualFilm.getAudioDescription(Resolution.SMALL).toString(), equalTo(aExpectedUrlAudioDescriptionSmall));
-    }
-    if (aExpectedUrlAudioDescriptionNormal.isEmpty()) {
-      assertThat(aActualFilm.getAudioDescription(Resolution.NORMAL), nullValue());
-    } else {
-      assertThat(aActualFilm.getAudioDescription(Resolution.NORMAL).toString(), equalTo(aExpectedUrlAudioDescriptionNormal));
-    }
-    if (aExpectedUrlAudioDescriptionHd.isEmpty()) {
-      assertThat(aActualFilm.getAudioDescription(Resolution.HD), nullValue());
-    } else {
-      assertThat(aActualFilm.getAudioDescription(Resolution.HD).toString(), equalTo(aExpectedUrlAudioDescriptionHd));
-    }
+    assertUrl(aExpectedUrlAudioDescriptionSmall, aActualFilm.getAudioDescription(Resolution.SMALL));
+    assertUrl(aExpectedUrlAudioDescriptionNormal, aActualFilm.getAudioDescription(Resolution.NORMAL));
+    assertUrl(aExpectedUrlAudioDescriptionHd, aActualFilm.getAudioDescription(Resolution.HD));
   }
 
   private static void assertSignLanguages(final Film aActualFilm,
-    final String aExpectedUrlSignLanguageSmall,
-    final String aExpectedUrlSignLanguageNormal,
-    final String aExpectedUrlSignLanguageHd
+      final String aExpectedUrlSignLanguageSmall,
+      final String aExpectedUrlSignLanguageNormal,
+      final String aExpectedUrlSignLanguageHd
   ) {
-    if (aExpectedUrlSignLanguageSmall.isEmpty()) {
-      assertThat(aActualFilm.getSignLanguage(Resolution.SMALL), nullValue());
-    } else {
-      assertThat(aActualFilm.getSignLanguage(Resolution.SMALL).toString(), equalTo(aExpectedUrlSignLanguageSmall));
-    }
-    if (aExpectedUrlSignLanguageNormal.isEmpty()) {
-      assertThat(aActualFilm.getSignLanguage(Resolution.NORMAL), nullValue());
-    } else {
-      assertThat(aActualFilm.getSignLanguage(Resolution.NORMAL).toString(), equalTo(aExpectedUrlSignLanguageNormal));
-    }
-    if (aExpectedUrlSignLanguageHd.isEmpty()) {
-      assertThat(aActualFilm.getSignLanguage(Resolution.HD), nullValue());
-    } else {
-      assertThat(aActualFilm.getSignLanguage(Resolution.HD).toString(), equalTo(aExpectedUrlSignLanguageHd));
-    }
+    assertUrl(aExpectedUrlSignLanguageSmall, aActualFilm.getSignLanguage(Resolution.SMALL));
+    assertUrl(aExpectedUrlSignLanguageNormal, aActualFilm.getSignLanguage(Resolution.NORMAL));
+    assertUrl(aExpectedUrlSignLanguageHd, aActualFilm.getSignLanguage(Resolution.HD));
   }
 }
