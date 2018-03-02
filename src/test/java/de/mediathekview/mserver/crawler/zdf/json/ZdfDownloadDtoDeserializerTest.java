@@ -73,10 +73,10 @@ public class ZdfDownloadDtoDeserializerTest {
 
     ZdfDownloadDtoDeserializer target = new ZdfDownloadDtoDeserializer();
 
-    final Optional<DownloadDTO> actual = target.deserialize(json, DownloadDTO.class, null);
+    final Optional<DownloadDto> actual = target.deserialize(json, DownloadDto.class, null);
 
     assertThat(actual.isPresent(), equalTo(true));
-    DownloadDTO dto = actual.get();
+    DownloadDto dto = actual.get();
 
     AssertFilm.assertUrl(expectedUrlSmall, dto.getUrl(Resolution.SMALL));
     AssertFilm.assertUrl(expectedUrlNormal, dto.getUrl(Resolution.NORMAL));
