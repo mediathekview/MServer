@@ -29,12 +29,7 @@ public final class AssertFilm {
       final LocalDateTime aExpectedTime,
       final Duration aExpectedDuration,
       final String aExpectedDescription,
-      final String aWebsiteUrl,
-      final GeoLocations[] aExpectedGeo,
-      final String aExpectedUrlSmall,
-      final String aExpectedUrlNormal,
-      final String aExpectedUrlHd,
-      final String aExpectedSubtitle) {
+      final String aWebsiteUrl) {
 
     assertThat(aActualFilm, notNullValue());
     assertThat(aActualFilm.getSender(), equalTo(aExpectedSender));
@@ -44,6 +39,25 @@ public final class AssertFilm {
     assertThat(aActualFilm.getDuration(), equalTo(aExpectedDuration));
     assertThat(aActualFilm.getBeschreibung(), equalTo(aExpectedDescription));
     assertThat(aActualFilm.getWebsite().get().toString(), equalTo(aWebsiteUrl));
+  }
+
+  public static void assertEquals(final Film aActualFilm,
+      final Sender aExpectedSender,
+      final String aExpectedTheme,
+      final String aExpectedTitle,
+      final LocalDateTime aExpectedTime,
+      final Duration aExpectedDuration,
+      final String aExpectedDescription,
+      final String aWebsiteUrl,
+      final GeoLocations[] aExpectedGeo,
+      final String aExpectedUrlSmall,
+      final String aExpectedUrlNormal,
+      final String aExpectedUrlHd,
+      final String aExpectedSubtitle) {
+
+    assertEquals(aActualFilm, aExpectedSender, aExpectedTheme, aExpectedTitle, aExpectedTime, aExpectedDuration, aExpectedDescription,
+        aWebsiteUrl);
+
     assertThat(aActualFilm.getGeoLocations(), Matchers.containsInAnyOrder(aExpectedGeo));
 
     assertUrl(aExpectedUrlSmall, aActualFilm.getUrl(Resolution.SMALL));
