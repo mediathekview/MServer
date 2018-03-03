@@ -8,6 +8,7 @@ import de.mediathekview.mserver.base.messages.ServerMessages;
 import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
 import de.mediathekview.mserver.crawler.basic.CrawlerUrlDTO;
 import de.mediathekview.mserver.crawler.basic.TopicUrlDTO;
+import de.mediathekview.mserver.crawler.rbb.tasks.RbbTopicOverviewTask;
 import de.mediathekview.mserver.crawler.rbb.tasks.RbbTopicsOverviewTask;
 import de.mediathekview.mserver.progress.listeners.SenderProgressListener;
 import java.util.Collection;
@@ -24,9 +25,9 @@ public class RbbCrawler extends AbstractCrawler {
   private static final Logger LOG = LogManager.getLogger(RbbCrawler.class);
 
   public RbbCrawler(ForkJoinPool aForkJoinPool,
-      Collection<MessageListener> aMessageListeners,
-      Collection<SenderProgressListener> aProgressListeners,
-      MServerConfigManager rootConfig) {
+          Collection<MessageListener> aMessageListeners,
+          Collection<SenderProgressListener> aProgressListeners,
+          MServerConfigManager rootConfig) {
     super(aForkJoinPool, aMessageListeners, aProgressListeners, rootConfig);
   }
 
@@ -50,11 +51,18 @@ public class RbbCrawler extends AbstractCrawler {
   }
 
   private Set<TopicUrlDTO> getTopicsPageEntries() throws ExecutionException, InterruptedException {
-    final ConcurrentLinkedQueue<CrawlerUrlDTO> urls = new ConcurrentLinkedQueue<>();
-    urls.add(new CrawlerUrlDTO(RbbConstants.URL_TOPICS_A_K));
-    urls.add(new CrawlerUrlDTO(RbbConstants.URL_TOPICS_L_Z));
+    final ConcurrentLinkedQueue<CrawlerUrlDTO> topicOverviews = new ConcurrentLinkedQueue<>();
+    topicOverviews.add(new CrawlerUrlDTO(RbbConstants.URL_TOPICS_A_K));
+    topicOverviews.add(new CrawlerUrlDTO(RbbConstants.URL_TOPICS_L_Z));
 
-    RbbTopicsOverviewTask overviewTask = new RbbTopicsOverviewTask(this, urls);
-    return forkJoinPool.submit(overviewTask).get();
+    final ConcurrentLinkedQueue<TopicUrlDTO> topicPages = new ConcurrentLinkedQueue<>();
+
+    RbbTopicsOverviewTask overviewTask = new RbbTopicsOverviewTask(this, topicOverviews);
+    topicPages.addAll(forkJoinPool.submit(overviewTask).get());
+
+    printMessage(ServerMessages.DEBUG_ALL_SENDUNG_FOLGEN_COUNT, getSender().getName(), topicPages.size());
+
+    RbbTopicOverviewTask topicTask = new RbbTopicOverviewTask(this, topicPages);
+    return forkJoinPool.submit(topicTask).get();
   }
 }
