@@ -15,7 +15,6 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.Collection;
-import java.util.Optional;
 import java.util.Set;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.ExecutionException;
@@ -42,6 +41,7 @@ public class ZdfCrawler extends AbstractCrawler {
 
   @Override
   protected RecursiveTask<Set<Film>> createCrawlerTask() {
+
     try {
       final ZdfConfiguration configuration = loadConfiguration();
 
@@ -51,7 +51,7 @@ public class ZdfCrawler extends AbstractCrawler {
       printMessage(ServerMessages.DEBUG_ALL_SENDUNG_FOLGEN_COUNT, getSender().getName(), shows.size());
       getAndSetMaxCount(shows.size());
 
-      return new ZdfFilmDetailTask(this, shows, Optional.empty());
+      return new ZdfFilmDetailTask(this, shows, configuration.getVideoAuthKey());
     } catch (InterruptedException | ExecutionException ex) {
       LOG.fatal("Exception in ZDF crawler.", ex);
     }
@@ -77,10 +77,13 @@ public class ZdfCrawler extends AbstractCrawler {
     for (int i = 0;
         i <= crawlerConfig.getMaximumDaysForSendungVerpasstSection() + crawlerConfig.getMaximumDaysForSendungVerpasstSectionFuture();
         i++) {
-      urls.add(new CrawlerUrlDTO(String.format(ZdfConstants.URL_DAY,
-          LocalDateTime.now()
-              .plus(crawlerConfig.getMaximumDaysForSendungVerpasstSectionFuture(), ChronoUnit.DAYS)
-              .minus(i, ChronoUnit.DAYS).format(DateTimeFormatter.ofPattern("yyyy-MM-dd")))));
+
+      final LocalDateTime local = LocalDateTime.now()
+          .plus(crawlerConfig.getMaximumDaysForSendungVerpasstSectionFuture(), ChronoUnit.DAYS)
+          .minus(i, ChronoUnit.DAYS);
+      final String date = local.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+      final String url = String.format(ZdfConstants.URL_DAY, date, date);
+      urls.add(new CrawlerUrlDTO(url));
     }
 
     return urls;
