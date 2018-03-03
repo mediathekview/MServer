@@ -23,7 +23,11 @@ import org.glassfish.jersey.message.GZipEncoder;
  */
 public abstract class AbstractRestTask<T, D extends CrawlerUrlDTO> extends AbstractUrlTask<T, D> {
   private static final long serialVersionUID = 2590729915326002860L;
+  protected static final String ENCODING_GZIP = "gzip";
+  protected static final String HEADER_ACCEPT_ENCODING = "Accept-Encoding";
   protected static final String HEADER_AUTHORIZATION = "Authorization";
+  protected static final String AUTHORIZATION_BEARER = "Bearer ";
+
   protected final transient Optional<String> authKey;
   private final Client client;
 
@@ -51,8 +55,16 @@ public abstract class AbstractRestTask<T, D extends CrawlerUrlDTO> extends Abstr
 
   @Override
   protected void processElement(final D aDTO) {
-    final WebTarget target = client.target(aDTO.getUrl());
+    final WebTarget target = createWebTarget(aDTO.getUrl());
     processRestTarget(aDTO, target);
   }
 
+  /**
+   * Creates a {@link WebTarget}.
+   * @param aUrl the url.
+   * @return the {@link WebTarget} to access the url.
+   */
+  protected WebTarget createWebTarget(final String aUrl) {
+    return client.target(aUrl);
+  }
 }

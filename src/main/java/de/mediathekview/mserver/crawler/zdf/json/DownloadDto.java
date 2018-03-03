@@ -1,21 +1,21 @@
 package de.mediathekview.mserver.crawler.zdf.json;
 
+import de.mediathekview.mlib.daten.GeoLocations;
+import de.mediathekview.mlib.daten.Resolution;
 import java.util.EnumMap;
 import java.util.Map;
 import java.util.Optional;
-import de.mediathekview.mlib.daten.GeoLocations;
-import de.mediathekview.mlib.daten.Resolution;
 
 /**
- * A data transfer object containing the information for downloading a video
+ * A data transfer object containing the information for downloading a video.
  */
-public class DownloadDTO {
+public class DownloadDto {
 
   private Optional<GeoLocations> geoLocation;
   private Optional<String> subTitleUrl;
   private final Map<Resolution, String> downloadUrls;
 
-  public DownloadDTO() {
+  public DownloadDto() {
     downloadUrls = new EnumMap<>(Resolution.class);
     geoLocation = Optional.empty();
     subTitleUrl = Optional.empty();

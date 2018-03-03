@@ -30,8 +30,8 @@ import de.mediathekview.mlib.daten.GeoLocations;
 import de.mediathekview.mlib.daten.Resolution;
 import de.mediathekview.mlib.daten.Sender;
 import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
-import de.mediathekview.mserver.crawler.zdf.json.DownloadDTO;
-import de.mediathekview.mserver.crawler.zdf.json.ZDFDownloadDTODeserializer;
+import de.mediathekview.mserver.crawler.zdf.json.DownloadDto;
+import de.mediathekview.mserver.crawler.zdf.json.ZdfDownloadDtoDeserializer;
 import mServer.crawler.CrawlerTool;
 
 public class DreisatFilmDetailsReader {
@@ -86,7 +86,7 @@ public class DreisatFilmDetailsReader {
         final Duration dauer = parseDauer(durationNodes);
 
         final int streamVersion = parseStreamVersion(streamVersionNodes);
-        final Optional<DownloadDTO> downloadInfos =
+        final Optional<DownloadDto> downloadInfos =
             getDownloadInfos(filmUrlsApiUrlNodes, streamVersion);
         if (downloadInfos.isPresent()) {
           final Collection<GeoLocations> geoLocations = new ArrayList<>();
@@ -124,7 +124,7 @@ public class DreisatFilmDetailsReader {
     return Optional.empty();
   }
 
-  private void addSubtitle(final DownloadDTO downloadInfos, final Film newFilm)
+  private void addSubtitle(final DownloadDto downloadInfos, final Film newFilm)
       throws MalformedURLException {
     final Optional<String> subtitle = downloadInfos.getSubTitleUrl();
     if (subtitle.isPresent()) {
@@ -132,20 +132,20 @@ public class DreisatFilmDetailsReader {
     }
   }
 
-  private void addUrls(final DownloadDTO downloadInfos, final Film newFilm)
+  private void addUrls(final DownloadDto downloadInfos, final Film newFilm)
       throws MalformedURLException {
     for (final Entry<Resolution, String> url : downloadInfos.getDownloadUrls().entrySet()) {
       newFilm.addUrl(url.getKey(), CrawlerTool.stringToFilmUrl(url.getValue()));
     }
   }
 
-  private Optional<DownloadDTO> getDownloadInfos(final Elements aFilmUrlsApiUrlNodes,
+  private Optional<DownloadDto> getDownloadInfos(final Elements aFilmUrlsApiUrlNodes,
       final int aStreamVersion) throws IOException {
     final URL apiUrl =
         new URL(String.format(API_URL_PATTERN, aFilmUrlsApiUrlNodes.get(0).text(), aStreamVersion));
-    final Type downloadDtoType = new TypeToken<Optional<DownloadDTO>>() {}.getType();
+    final Type downloadDtoType = new TypeToken<Optional<DownloadDto>>() {}.getType();
     final Gson gson = new GsonBuilder()
-        .registerTypeAdapter(downloadDtoType, new ZDFDownloadDTODeserializer()).create();
+        .registerTypeAdapter(downloadDtoType, new ZdfDownloadDtoDeserializer()).create();
 
     try (InputStreamReader gsonInputStreamReader = new InputStreamReader(apiUrl.openStream())) {
       return gson.fromJson(gsonInputStreamReader, downloadDtoType);

@@ -1,5 +1,8 @@
 package de.mediathekview.mserver.base.utils;
 
+import java.io.IOException;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
@@ -7,13 +10,11 @@ import java.util.Optional;
 /**
  * A util class to collect useful URL related methods.
  *
- * @author Nicklas Wiegandt (Nicklas2751)<br>
- *         <b>Mail:</b> nicklas@wiegandt.eu<br>
- *         <b>Jabber:</b> nicklas2751@elaon.de<br>
- *         <b>Riot.im:</b> nicklas2751:matrix.elaon.de<br>
- *
+ * @author Nicklas Wiegandt (Nicklas2751)<br> <b>Mail:</b> nicklas@wiegandt.eu<br> <b>Jabber:</b> nicklas2751@elaon.de<br> <b>Riot.im:</b>
+ * nicklas2751:matrix.elaon.de<br>
  */
 public final class UrlUtils {
+
   private static final String WRONG_PARAMETER_START = "?&";
   private static final String REGEX_ESCAPOR = "\\";
   private static final String PARAMETER_PATTERN = "%s=%s";
@@ -26,19 +27,20 @@ public final class UrlUtils {
   }
 
   /**
-   * adds the domain if missing
+   * adds the domain if missing.
+   *
    * @param aUrl the url to check
    * @param aDomain the domain to add
    * @return the url including the domain
    */
   public static String addDomainIfMissing(final String aUrl, final String aDomain) {
-    if(aUrl != null && !aUrl.isEmpty() && aUrl.startsWith("/")) {
+    if (aUrl != null && !aUrl.isEmpty() && aUrl.startsWith("/")) {
       return aDomain + aUrl;
     }
-    
+
     return aUrl;
   }
-  
+
   /**
    * Changes or adds an URL parameter.
    *
@@ -70,11 +72,28 @@ public final class UrlUtils {
     newUrlBuilder.append(String.format(PARAMETER_PATTERN, aParameter, aValue));
     return newUrlBuilder.toString();
   }
-  
+
   /**
-   * returns the base of the url
-   * example: 
-   * https://www.myurl.de:778/some/resource => https://www.myurl.de:778
+   * checks whether an url exists. uses head request to check.
+   *
+   * @param aUrl the url to check
+   * @return true if url exists else false.
+   */
+  public static boolean existsUrl(final String aUrl) {
+    try {
+      final URL url = new URL(aUrl);
+      HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+      connection.setRequestMethod("HEAD");
+      connection.connect();
+      return connection.getResponseCode() == 200;
+    } catch (IOException e) {
+      return false;
+    }
+  }
+
+  /**
+   * returns the base of the url example: https://www.myurl.de:778/some/resource => https://www.myurl.de:778
+   *
    * @param aUrl the url
    * @return the base of the url
    */
@@ -82,7 +101,7 @@ public final class UrlUtils {
     if (aUrl != null) {
       int index = aUrl.indexOf("//");
       if (index > 0) {
-        index = aUrl.indexOf('/', index+2);
+        index = aUrl.indexOf('/', index + 2);
       } else {
         index = aUrl.indexOf('/');
       }
@@ -91,12 +110,33 @@ public final class UrlUtils {
         return aUrl.substring(0, index);
       }
     }
-    
+
     return aUrl;
   }
-  
+
   /**
-   * returns the file type of the url
+   * returns the file name of the url.
+   *
+   * @param aUrl the url
+   * @return the name of the file
+   */
+  public static Optional<String> getFileName(final String aUrl) {
+    if (aUrl != null) {
+      int index = aUrl.lastIndexOf('/');
+      if (index > 0) {
+        final String file = aUrl.substring(index + 1);
+        if (file.contains(".")) {
+          return Optional.of(file);
+        }
+      }
+    }
+
+    return Optional.empty();
+  }
+
+  /**
+   * returns the file type of the url.
+   *
    * @param aUrl the url
    * @return the type of the file
    */
@@ -107,12 +147,13 @@ public final class UrlUtils {
         return Optional.of(aUrl.substring(index + 1));
       }
     }
-    
+
     return Optional.empty();
   }
-  
+
   /**
-   * returns the protocol of the url
+   * returns the protocol of the url.
+   *
    * @param aUrl the url
    * @return the protocol of the url (e.g. "http:")
    */
@@ -124,16 +165,16 @@ public final class UrlUtils {
         return Optional.of(protocol);
       }
     }
-    
+
     return Optional.empty();
   }
-  
+
   /**
-   * returns the value of an url parameter
+   * returns the value of an url parameter.
+   *
    * @param aUrl the url
    * @param aParameterName the name of the url parameter
    * @return the parameter value
-   * @throws de.mediathekview.mserver.base.utils.UrlParseException
    */
   public static Optional<String> getUrlParameterValue(final String aUrl, final String aParameterName) throws UrlParseException {
     if (aUrl != null) {
@@ -142,18 +183,18 @@ public final class UrlUtils {
         return Optional.of(parameters.get(aParameterName));
       }
     }
-    
+
     return Optional.empty();
   }
-  
+
   private static Map<String, String> getUrlParameters(final String aUrl) throws UrlParseException {
     Map<String, String> parameters = new HashMap<>();
-    
+
     int indexParameterStart = aUrl.indexOf('?');
     if (indexParameterStart > 0) {
       String parameterPart = aUrl.substring(indexParameterStart + 1);
       String[] parameterArray = parameterPart.split("&");
-      
+
       for (String parameter : parameterArray) {
         String[] parts = parameter.split("=");
         if (parts.length == 2) {

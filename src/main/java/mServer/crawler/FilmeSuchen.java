@@ -39,8 +39,6 @@ import mServer.crawler.sender.MediathekSr;
 import mServer.crawler.sender.MediathekSrf;
 import mServer.crawler.sender.MediathekSrfPod;
 import mServer.crawler.sender.MediathekSwr;
-import mServer.crawler.sender.MediathekZdf;
-import mServer.crawler.sender.MediathekZdfTivi;
 import mServer.crawler.sender.arte.MediathekArte_de;
 import mServer.crawler.sender.arte.MediathekArte_fr;
 
@@ -73,8 +71,6 @@ public class FilmeSuchen {
     // für jeden Sender einen MediathekReader anlegen, mit der Prio ob
     // sofort gestartet oder erst später
     // Reader laden Spaltenweises Laden
-    mediathekListe.add(new MediathekZdf(this, 0));
-    mediathekListe.add(new MediathekZdfTivi(this, 0));
     mediathekListe.add(new MediathekArte_de(this, 0));
     mediathekListe.add(new MediathekArte_fr(this, 0));
     mediathekListe.add(new MediathekSwr(this, 0));
