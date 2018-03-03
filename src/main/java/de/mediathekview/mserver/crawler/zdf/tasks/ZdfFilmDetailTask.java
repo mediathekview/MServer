@@ -7,6 +7,7 @@ import de.mediathekview.mlib.daten.Resolution;
 import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
 import de.mediathekview.mserver.crawler.basic.AbstractRecrusivConverterTask;
 import de.mediathekview.mserver.crawler.zdf.ZdfEntryDto;
+import de.mediathekview.mserver.crawler.zdf.ZdfVideoUrlOptimizer;
 import de.mediathekview.mserver.crawler.zdf.json.DownloadDto;
 import de.mediathekview.mserver.crawler.zdf.json.ZdfDownloadDtoDeserializer;
 import de.mediathekview.mserver.crawler.zdf.json.ZdfFilmDetailDeserializer;
@@ -32,8 +33,10 @@ public class ZdfFilmDetailTask extends ZdfTaskBase<Film, ZdfEntryDto> {
   private static final Type OPTIONAL_DOWNLOAD_DTO_TYPE_TOKEN = new TypeToken<Optional<DownloadDto>>() {
   }.getType();
 
+  private final ZdfVideoUrlOptimizer optimizer = new ZdfVideoUrlOptimizer();
+
   public ZdfFilmDetailTask(AbstractCrawler aCrawler,
-          ConcurrentLinkedQueue<ZdfEntryDto> aUrlToCrawlDtos, Optional<String> aAuthKey) {
+      ConcurrentLinkedQueue<ZdfEntryDto> aUrlToCrawlDtos, Optional<String> aAuthKey) {
     super(aCrawler, aUrlToCrawlDtos, aAuthKey);
 
     registerJsonDeserializer(OPTIONAL_FILM_TYPE_TOKEN, new ZdfFilmDetailDeserializer());
@@ -45,7 +48,7 @@ public class ZdfFilmDetailTask extends ZdfTaskBase<Film, ZdfEntryDto> {
     final Optional<Film> film = deserializeOptional(aTarget, OPTIONAL_FILM_TYPE_TOKEN);
     final Optional<DownloadDto> downloadDto = deserializeOptional(createWebTarget(aDto.getVideoUrl()), OPTIONAL_DOWNLOAD_DTO_TYPE_TOKEN);
 
-    if (film.isPresent() &&  downloadDto.isPresent()) {
+    if (film.isPresent() && downloadDto.isPresent()) {
       try {
         final Film result = film.get();
         addUrlsToFilm(result, downloadDto.get());
@@ -66,14 +69,27 @@ public class ZdfFilmDetailTask extends ZdfTaskBase<Film, ZdfEntryDto> {
 
   @Override
   protected AbstractRecrusivConverterTask<Film, ZdfEntryDto> createNewOwnInstance(
-          ConcurrentLinkedQueue<ZdfEntryDto> aElementsToProcess) {
+      ConcurrentLinkedQueue<ZdfEntryDto> aElementsToProcess) {
     return new ZdfFilmDetailTask(crawler, aElementsToProcess, authKey);
   }
 
   private void addUrlsToFilm(final Film aFilm, final DownloadDto aDownloadDto) throws MalformedURLException {
 
     for (final Map.Entry<Resolution, String> qualitiesEntry : aDownloadDto.getDownloadUrls().entrySet()) {
-      aFilm.addUrl(qualitiesEntry.getKey(), CrawlerTool.stringToFilmUrl(qualitiesEntry.getValue()));
+      String url = qualitiesEntry.getValue();
+
+      if (qualitiesEntry.getKey() == Resolution.NORMAL) {
+        url = optimizer.getOptimizedUrlNormal(url);
+      }
+
+      aFilm.addUrl(qualitiesEntry.getKey(), CrawlerTool.stringToFilmUrl(url));
+    }
+
+    if (!aFilm.hasHD()) {
+      Optional<String> hdUrl = optimizer.determineUrlHd(aFilm.getUrl(Resolution.NORMAL).toString());
+      if (hdUrl.isPresent()) {
+        aFilm.addUrl(Resolution.HD, CrawlerTool.stringToFilmUrl(hdUrl.get()));
+      }
     }
 
     if (aDownloadDto.getSubTitleUrl().isPresent()) {

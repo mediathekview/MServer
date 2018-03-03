@@ -182,7 +182,7 @@
                     "class":"main",
                     "language":"deu",
                     "profile":"http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality/audio/track",
-                    "uri":"https://rodlzdf-a.akamaihd.net/none/zdf/16/06/160605_echte_kerle_das_duo_neo/6/160605_echte_kerle_das_duo_neo_1456k_p13v12.mp4"
+                    "uri":"http://localhost:8589/none/zdf/16/06/160605_echte_kerle_das_duo_neo/6/160605_echte_kerle_das_duo_neo_1456k_p13v12.mp4"
                   }
                 ]
               },
@@ -200,7 +200,7 @@
                     "class":"main",
                     "language":"deu",
                     "profile":"http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality/audio/track",
-                    "uri":"https://rodlzdf-a.akamaihd.net/none/zdf/16/06/160605_echte_kerle_das_duo_neo/6/160605_echte_kerle_das_duo_neo_436k_p9v12.mp4"
+                    "uri":"http://localhost:8589/none/zdf/16/06/160605_echte_kerle_das_duo_neo/6/160605_echte_kerle_das_duo_neo_436k_p9v12.mp4"
                   }
                 ]
               },
@@ -218,7 +218,7 @@
                     "class":"main",
                     "language":"deu",
                     "profile":"http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality/audio/track",
-                    "uri":"https://rodlzdf-a.akamaihd.net/none/zdf/16/06/160605_echte_kerle_das_duo_neo/6/160605_echte_kerle_das_duo_neo_3328k_p36v12.mp4"
+                    "uri":"http://localhost:8589/none/zdf/16/06/160605_echte_kerle_das_duo_neo/6/160605_echte_kerle_das_duo_neo_3328k_p36v12.mp4"
                   }
                 ]
               },

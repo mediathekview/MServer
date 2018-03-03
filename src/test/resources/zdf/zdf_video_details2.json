@@ -197,7 +197,7 @@
                     "class":"main",
                     "language":"deu",
                     "profile":"http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality/audio/track",
-                    "uri":"https://rodlzdf-a.akamaihd.net/none/zdf/18/03/180302_fr_lot/2/180302_fr_lot_1496k_p13v13.mp4"
+                    "uri":"http://localhost:8589/none/zdf/18/03/180302_fr_lot/2/180302_fr_lot_1496k_p13v13.mp4"
                   }
                 ]
               },
@@ -215,7 +215,7 @@
                     "class":"main",
                     "language":"deu",
                     "profile":"http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality/audio/track",
-                    "uri":"https://rodlzdf-a.akamaihd.net/none/zdf/18/03/180302_fr_lot/2/180302_fr_lot_476k_p9v13.mp4"
+                    "uri":"http://localhost:8589/none/zdf/18/03/180302_fr_lot/2/180302_fr_lot_476k_p9v13.mp4"
                   }
                 ]
               },

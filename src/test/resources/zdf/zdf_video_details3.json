@@ -178,7 +178,7 @@
                               "class" : "main",
                               "language" : "deu",
                               "profile" : "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality/audio/track",
-                              "uri" : "https://rodlzdf-a.akamaihd.net/dach/tivi/16/03/160301_folge25_tanzaufdemseil_jon/5/160301_folge25_tanzaufdemseil_jon_1456k_p13v12.mp4"
+                              "uri" : "http://localhost:8589/dach/tivi/16/03/160301_folge25_tanzaufdemseil_jon/5/160301_folge25_tanzaufdemseil_jon_1456k_p13v12.mp4"
                            }
                         ]
                      },
@@ -196,7 +196,7 @@
                               "class" : "main",
                               "language" : "deu",
                               "profile" : "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality/audio/track",
-                              "uri" : "https://rodlzdf-a.akamaihd.net/dach/tivi/16/03/160301_folge25_tanzaufdemseil_jon/5/160301_folge25_tanzaufdemseil_jon_436k_p9v12.mp4"
+                              "uri" : "http://localhost:8589/dach/tivi/16/03/160301_folge25_tanzaufdemseil_jon/5/160301_folge25_tanzaufdemseil_jon_436k_p9v12.mp4"
                            }
                         ]
                      },

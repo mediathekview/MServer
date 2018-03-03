@@ -24,24 +24,24 @@ public class ZdfDownloadDtoDeserializerTest {
     return Arrays.asList(new Object[][]{
         {
             "/zdf/zdf_video_details1.json",
-            "https://rodlzdf-a.akamaihd.net/none/zdf/16/06/160605_echte_kerle_das_duo_neo/6/160605_echte_kerle_das_duo_neo_436k_p9v12.mp4",
-            "https://rodlzdf-a.akamaihd.net/none/zdf/16/06/160605_echte_kerle_das_duo_neo/6/160605_echte_kerle_das_duo_neo_1456k_p13v12.mp4",
-            "https://rodlzdf-a.akamaihd.net/none/zdf/16/06/160605_echte_kerle_das_duo_neo/6/160605_echte_kerle_das_duo_neo_3328k_p36v12.mp4",
+            "http://localhost:8589/none/zdf/16/06/160605_echte_kerle_das_duo_neo/6/160605_echte_kerle_das_duo_neo_436k_p9v12.mp4",
+            "http://localhost:8589/none/zdf/16/06/160605_echte_kerle_das_duo_neo/6/160605_echte_kerle_das_duo_neo_1456k_p13v12.mp4",
+            "http://localhost:8589/none/zdf/16/06/160605_echte_kerle_das_duo_neo/6/160605_echte_kerle_das_duo_neo_3328k_p36v12.mp4",
             Optional.empty(),
             Optional.of(GeoLocations.GEO_NONE)
         },
         {
             "/zdf/zdf_video_details2.json",
-            "https://rodlzdf-a.akamaihd.net/none/zdf/18/03/180302_fr_lot/2/180302_fr_lot_476k_p9v13.mp4",
-            "https://rodlzdf-a.akamaihd.net/none/zdf/18/03/180302_fr_lot/2/180302_fr_lot_1496k_p13v13.mp4",
+            "http://localhost:8589/none/zdf/18/03/180302_fr_lot/2/180302_fr_lot_476k_p9v13.mp4",
+            "http://localhost:8589/none/zdf/18/03/180302_fr_lot/2/180302_fr_lot_1496k_p13v13.mp4",
             "",
             Optional.of("https://utstreaming.zdf.de/mtt/zdf/18/03/180302_fr_lot/2/logo_020318.xml"),
             Optional.of(GeoLocations.GEO_NONE)
         },
         {
             "/zdf/zdf_video_details3.json",
-            "https://rodlzdf-a.akamaihd.net/dach/tivi/16/03/160301_folge25_tanzaufdemseil_jon/5/160301_folge25_tanzaufdemseil_jon_436k_p9v12.mp4",
-            "https://rodlzdf-a.akamaihd.net/dach/tivi/16/03/160301_folge25_tanzaufdemseil_jon/5/160301_folge25_tanzaufdemseil_jon_1456k_p13v12.mp4",
+            "http://localhost:8589/dach/tivi/16/03/160301_folge25_tanzaufdemseil_jon/5/160301_folge25_tanzaufdemseil_jon_436k_p9v12.mp4",
+            "http://localhost:8589/dach/tivi/16/03/160301_folge25_tanzaufdemseil_jon/5/160301_folge25_tanzaufdemseil_jon_1456k_p13v12.mp4",
             "",
             Optional.empty(),
             Optional.of(GeoLocations.GEO_DE_AT_CH)
