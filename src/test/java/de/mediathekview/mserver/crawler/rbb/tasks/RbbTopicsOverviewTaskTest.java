@@ -10,6 +10,7 @@ import de.mediathekview.mserver.testhelper.JsoupMock;
 import java.io.IOException;
 import java.util.Set;
 import java.util.concurrent.ConcurrentLinkedQueue;
+import org.hamcrest.Matchers;
 import org.jsoup.Jsoup;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -47,5 +48,6 @@ public class RbbTopicsOverviewTaskTest extends RbbTaskTestBase {
     final Set<TopicUrlDTO> actual = target.invoke();
 
     assertThat(actual.size(), equalTo(expected.length));
+    assertThat(actual, Matchers.containsInAnyOrder(expected));
   }
 }

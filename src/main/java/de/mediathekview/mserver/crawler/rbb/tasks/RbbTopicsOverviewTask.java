@@ -2,11 +2,13 @@ package de.mediathekview.mserver.crawler.rbb.tasks;
 
 import static de.mediathekview.mserver.base.Consts.ATTRIBUTE_HREF;
 
+import de.mediathekview.mserver.base.utils.UrlUtils;
 import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
 import de.mediathekview.mserver.crawler.basic.AbstractDocumentTask;
 import de.mediathekview.mserver.crawler.basic.AbstractRecrusivConverterTask;
 import de.mediathekview.mserver.crawler.basic.CrawlerUrlDTO;
 import de.mediathekview.mserver.crawler.basic.TopicUrlDTO;
+import de.mediathekview.mserver.crawler.rbb.RbbConstants;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -27,7 +29,8 @@ public class RbbTopicsOverviewTask extends AbstractDocumentTask<TopicUrlDTO, Cra
     final Elements topics = aDocument.select(SELECTOR_TOPIC_ENTRY);
     topics.forEach(topic -> {
       final Element topicName = topic.select(SELECTOR_TOPIC_NAME).first();
-      taskResults.add(new TopicUrlDTO(topicName.text(), topic.attr(ATTRIBUTE_HREF)));
+      final String url = topic.attr(ATTRIBUTE_HREF);
+      taskResults.add(new TopicUrlDTO(topicName.text(), UrlUtils.addDomainIfMissing(url, RbbConstants.URL_BASE)));
     });
   }
 
