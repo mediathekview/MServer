@@ -34,10 +34,10 @@ public class ZdfFilmDetailDeserializerTest {
             "https://www.zdf.de/filme/das-duo/das-duo-echte-kerle-102.html"
         },
         {
-          "/zdf/zdf_film_details2.json",
+            "/zdf/zdf_film_details2.json",
             "logo!",
             "logo! am Freitagabend",
-            LocalDateTime.of(2018,2,23,19,25,0),
+            LocalDateTime.of(2018, 2, 23, 19, 25, 0),
             Duration.ofMinutes(8).plusSeconds(14),
             "Schaut euch hier die logo!-Sendung von Freitagabend noch einmal an! Die Sendungen sind eine Woche online.",
             "https://www.zdf.de/kinder/logo/logo-am-freitagabend-104.html"
@@ -50,6 +50,15 @@ public class ZdfFilmDetailDeserializerTest {
             Duration.ofMinutes(24).plusSeconds(55),
             "Naya verliert beim Seiltanz ihre Glücksblume und alles geht schief. Kann ein anderer Glücksbringer helfen? Glühwürmchen Minou hat eine \"leuchtende\" Idee.",
             "https://www.zdf.de/kinder/jonalu/tanz-auf-dem-seil-102.html"
+        },
+        {
+            "/zdf/zdf_film_details4.json",
+            "ZDF-Morgenmagazin",
+            "Oscar-Verleihung in Los Angeles",
+            LocalDateTime.of(2018, 3, 2, 5, 30, 0),
+            Duration.ofMinutes(2).plusSeconds(34),
+            "Die diesjährigen Oscar-Gewinner stehen schon fest. Denn die rund 8000 Juroren haben ihre Stimmzettel längst eingereicht. Am Sonntag werden die Oscars zum 90. Mal vergeben - und dann kennen auch wir die Gewinner.",
+            "https://www.zdf.de/nachrichten/zdf-morgenmagazin/videos/oscars-106.html"
         }
     });
   }

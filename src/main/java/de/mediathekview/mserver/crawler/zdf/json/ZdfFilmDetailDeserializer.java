@@ -52,11 +52,6 @@ public class ZdfFilmDetailDeserializer implements JsonDeserializer<Optional<Film
       programItemTarget = programItem.get(0).getAsJsonObject().get(JSON_ELEMENT_TARGET).getAsJsonObject();
     }
 
-    if (programItemTarget == null) {
-      LOG.error("ZdfFilmDetailDeserializer: no programitem element found");
-      return Optional.empty();
-    }
-
     Optional<String> title = parseTitle(rootNode, programItemTarget);
     Optional<String> topic = parseTopic(rootNode);
     Optional<String> description = parseDescription(rootNode);
@@ -83,14 +78,14 @@ public class ZdfFilmDetailDeserializer implements JsonDeserializer<Optional<Film
       final Optional<Duration> aDuration) {
 
     try {
-      final Film film =
-          new Film(
-              UUID.randomUUID(),
-              Sender.ZDF,
-              aTitle,
-              aTopic.orElse(aTitle),
-              aTime.orElse(LocalDateTime.now()),
-              aDuration.orElse(Duration.ZERO));
+      final Film film
+          = new Film(
+          UUID.randomUUID(),
+          Sender.ZDF,
+          aTitle,
+          aTopic.orElse(aTitle),
+          aTime.orElse(LocalDateTime.now()),
+          aDuration.orElse(Duration.ZERO));
 
       if (aWebsite.isPresent()) {
         film.setWebsite(new URL(aWebsite.get()));
@@ -192,7 +187,7 @@ public class ZdfFilmDetailDeserializer implements JsonDeserializer<Optional<Film
       }
     } else {
       // programmItem target required to determine title
-      if (aTarget.has(JSON_ELEMENT_TITLE)) {
+      if (aTarget != null && aTarget.has(JSON_ELEMENT_TITLE)) {
         String title = aTarget.get(JSON_ELEMENT_TITLE).getAsString();
         String subTitle = aTarget.get(JSON_ELEMENT_SUBTITLE).getAsString();
 
