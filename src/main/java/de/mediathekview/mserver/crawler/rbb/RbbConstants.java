@@ -1,7 +1,6 @@
 package de.mediathekview.mserver.crawler.rbb;
 
 public final class RbbConstants {
-  private RbbConstants() {}
 
   /**
    * Base url of the RBB mediathek.
@@ -22,4 +21,6 @@ public final class RbbConstants {
    * The url for the json file containing the video urls.
    */
   public static final String URL_VIDEO_JSON = URL_BASE + "/play/media/%s?devicetype=pc&features=hls";
+
+  private RbbConstants() {}
 }
