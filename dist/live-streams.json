@@ -27,6 +27,5 @@
   "X" : [ "ZDF", "Livestream", "ZDF Livestream", "", "", "", "", "", "http://zdf1314-lh.akamaihd.net/i/de14_v1@392878/master.m3u8", "http://www.zdf.de/ZDFmediathek/hauptnavigation/live", "", "", "", "", "", "", "", "", "", "" ],
   "X" : [ "ZDF", "Livestream", "ZDF.info Livestream", "", "", "", "", "", "http://zdf1112-lh.akamaihd.net/i/de12_v1@392882/master.m3u8", "http://www.zdf.de/ZDFmediathek/hauptnavigation/live", "", "", "", "", "", "", "", "", "", "" ],
   "X" : [ "ZDF", "Livestream", "ZDF.neo Livestream", "", "", "", "", "", "http://zdf1314-lh.akamaihd.net/i/de13_v1@392877/master.m3u8", "http://www.zdf.de/ZDFmediathek/hauptnavigation/live", "", "", "", "", "", "", "", "", "", "" ],
-  "X" : [ "ZDF", "Livestream", "ZDF.heute Livestream", "", "", "", "", "", "http://zdf0102-lh.akamaihd.net/i/none01_v1@392849/master.m3u8", "http://www.zdf.de/ZDFmediathek/hauptnavigation/live", "", "", "", "", "", "", "", "", "", "" ],
   "X" : [ "PHOENIX", "Livestream", "PHOENIX Livestream", "", "", "", "", "", "http://zdf0910-lh.akamaihd.net/i/de09_v1@392871/master.m3u8", "http://www.zdf.de/ZDFmediathek/hauptnavigation/live", "", "", "", "", "", "", "", "", "", "" ]
 }
