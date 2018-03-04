@@ -17,6 +17,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Optional;
@@ -36,13 +37,13 @@ public class RbbFilmTask extends AbstractDocumentTask<Film, TopicUrlDTO> {
   private final Gson gson;
 
   public RbbFilmTask(AbstractCrawler aCrawler,
-      ConcurrentLinkedQueue<TopicUrlDTO> aUrlToCrawlDtos) {
+          ConcurrentLinkedQueue<TopicUrlDTO> aUrlToCrawlDtos) {
     super(aCrawler, aUrlToCrawlDtos);
 
     filmDetailDeserializer = new RbbFilmDetailDeserializer();
     gson = new GsonBuilder()
-        .registerTypeAdapter(ArdVideoInfoDTO.class, new ArdVideoInfoJsonDeserializer(crawler))
-        .create();
+            .registerTypeAdapter(ArdVideoInfoDTO.class, new ArdVideoInfoJsonDeserializer(crawler))
+            .create();
   }
 
   @Override
@@ -52,9 +53,9 @@ public class RbbFilmTask extends AbstractDocumentTask<Film, TopicUrlDTO> {
     if (filmInfo.isPresent()) {
       RbbFilmInfoDto filmInfoDto = filmInfo.get();
       try {
-        final ArdVideoInfoDTO videoInfo =
-            gson.fromJson(new InputStreamReader(new URL(filmInfoDto.getUrl()).openStream()),
-                ArdVideoInfoDTO.class);
+        final ArdVideoInfoDTO videoInfo
+                = gson.fromJson(new InputStreamReader(new URL(filmInfoDto.getUrl()).openStream(), StandardCharsets.UTF_8),
+                        ArdVideoInfoDTO.class);
 
         Film film = createFilm(filmInfoDto, videoInfo);
         taskResults.add(film);
@@ -62,7 +63,7 @@ public class RbbFilmTask extends AbstractDocumentTask<Film, TopicUrlDTO> {
         crawler.updateProgress();
 
       } catch (IOException e) {
-        LOG.error("RbbFilmTask: error reading video infos " + filmInfoDto.getUrl());
+        LOG.error("RbbFilmTask: error reading video infos " + filmInfoDto.getUrl(), e);
         crawler.incrementAndGetErrorCount();
         crawler.updateProgress();
       }
@@ -76,13 +77,13 @@ public class RbbFilmTask extends AbstractDocumentTask<Film, TopicUrlDTO> {
 
   @Override
   protected AbstractRecrusivConverterTask<Film, TopicUrlDTO> createNewOwnInstance(
-      ConcurrentLinkedQueue<TopicUrlDTO> aElementsToProcess) {
+          ConcurrentLinkedQueue<TopicUrlDTO> aElementsToProcess) {
     return new RbbFilmTask(crawler, aElementsToProcess);
   }
 
   private Film createFilm(final RbbFilmInfoDto aFilmInfoDto, final ArdVideoInfoDTO aVideoInfoDto) throws MalformedURLException {
     final Film film = new Film(UUID.randomUUID(), Sender.RBB, aFilmInfoDto.getTitle(),
-        aFilmInfoDto.getTopic(), aFilmInfoDto.getTime(), aFilmInfoDto.getDuration());
+            aFilmInfoDto.getTopic(), aFilmInfoDto.getTime(), aFilmInfoDto.getDuration());
 
     film.setBeschreibung(aFilmInfoDto.getDescription());
     film.setGeoLocations(CrawlerTool.getGeoLocations(Sender.RBB, aVideoInfoDto.getDefaultVideoUrl()));
@@ -95,7 +96,7 @@ public class RbbFilmTask extends AbstractDocumentTask<Film, TopicUrlDTO> {
   }
 
   private void addUrls(final Film aFilm, final Map<Resolution, String> aVideoUrls)
-      throws MalformedURLException {
+          throws MalformedURLException {
     for (final Entry<Resolution, String> qualitiesEntry : aVideoUrls.entrySet()) {
       aFilm.addUrl(qualitiesEntry.getKey(), CrawlerTool.stringToFilmUrl(qualitiesEntry.getValue()));
     }
