@@ -1,5 +1,7 @@
 package de.mediathekview.mserver.crawler.wdr.parser;
 
+import static de.mediathekview.mserver.base.Consts.ATTRIBUTE_CONTENT;
+
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
@@ -44,7 +46,6 @@ public class WdrFilmDeserializer {
   private static final String TITLE_SELECTOR = "meta[itemprop=name]";
   private static final String VIDEO_LINK_SELECTOR = "div.videoLink > a";
 
-  private static final String ATTRIBUTE_CONTENT = "content";
   private static final String ATTRIBUTE_DATA_EXTENSION = "data-extension";
 
   private static final Type OPTIONAL_CRAWLERURLDTO_TYPE_TOKEN = new TypeToken<Optional<CrawlerUrlDTO>>() {}.getType();
