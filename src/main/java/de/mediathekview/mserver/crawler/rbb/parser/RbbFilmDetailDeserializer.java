@@ -13,6 +13,9 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import org.jsoup.nodes.Document;
 
+/**
+ * Extracts film infos from html page.
+ */
 public class RbbFilmDetailDeserializer {
 
   private static final String TITLE_SELECTOR = "meta[name=dcterms.title]";
@@ -21,6 +24,15 @@ public class RbbFilmDetailDeserializer {
   private static final String DURATION_SELECTOR = "meta[property=video:duration]";
   private static final String REGEX_PATTERN_DOCUMENT_ID = "(?<=&documentId=)\\d+";
 
+  private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSS");
+
+  /**
+   * deserializes film infos.
+   *
+   * @param aUrlDto the topic dto.
+   * @param aDocument the html document.
+   * @return the extracted film infos.
+   */
   public Optional<RbbFilmInfoDto> deserialize(final TopicUrlDTO aUrlDto, final Document aDocument) {
 
     Optional<String> title = HtmlDocumentUtils.getElementAttributeString(TITLE_SELECTOR, ATTRIBUTE_CONTENT, aDocument);
@@ -50,7 +62,7 @@ public class RbbFilmDetailDeserializer {
         HtmlDocumentUtils.getElementAttributeString(TIME_SELECTOR, ATTRIBUTE_CONTENT, aDocument);
     if (dateTime.isPresent()) {
       LocalDateTime localDateTime =
-          LocalDateTime.parse(dateTime.get(), DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSS"));
+          LocalDateTime.parse(dateTime.get(), DATE_TIME_FORMATTER);
       return Optional.of(localDateTime);
     }
 
