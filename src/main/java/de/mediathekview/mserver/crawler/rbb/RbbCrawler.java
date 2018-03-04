@@ -8,6 +8,7 @@ import de.mediathekview.mserver.base.messages.ServerMessages;
 import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
 import de.mediathekview.mserver.crawler.basic.CrawlerUrlDTO;
 import de.mediathekview.mserver.crawler.basic.TopicUrlDTO;
+import de.mediathekview.mserver.crawler.rbb.tasks.RbbFilmTask;
 import de.mediathekview.mserver.crawler.rbb.tasks.RbbTopicOverviewTask;
 import de.mediathekview.mserver.crawler.rbb.tasks.RbbTopicsOverviewTask;
 import de.mediathekview.mserver.progress.listeners.SenderProgressListener;
@@ -41,8 +42,11 @@ public class RbbCrawler extends AbstractCrawler {
     try {
       ConcurrentLinkedQueue<TopicUrlDTO> shows = new ConcurrentLinkedQueue<>();
       shows.addAll(getTopicsPageEntries());
-      printMessage(ServerMessages.DEBUG_ALL_SENDUNG_FOLGEN_COUNT, getSender().getName(), shows.size());
 
+      printMessage(ServerMessages.DEBUG_ALL_SENDUNG_FOLGEN_COUNT, getSender().getName(), shows.size());
+      getAndSetMaxCount(shows.size());
+
+      return new RbbFilmTask(this, shows);
     } catch (InterruptedException | ExecutionException ex) {
       LOG.fatal("Exception in RBB crawler.", ex);
     }
