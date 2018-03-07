@@ -28,16 +28,11 @@ import org.powermock.modules.junit4.PowerMockRunnerDelegate;
 @PowerMockIgnore("javax.net.ssl.*")
 public class RbbTopicOverviewTaskTest extends RbbTaskTestBase {
 
-  private static final String TOPIC1 = "SingleTopic";
-  private static final String TOPIC2 = "EmptyTopic";
-  private static final String TOPIC3 = "MultipleTopic";
-
   @Parameterized.Parameters
   public static Collection<Object[]> data() {
     return Arrays.asList(
         new Object[][]{
             {
-                TOPIC1,
                 "http://mediathek.rbb-online.de/tv/Sandmann/Sendung?documentId=6503982&bcastId=6503982",
                 "/rbb/rbb_topic_page_single.html",
                 "",
@@ -48,7 +43,6 @@ public class RbbTopicOverviewTaskTest extends RbbTaskTestBase {
                 }
             },
             {
-                TOPIC2,
                 "http://mediathek.rbb-online.de/tv/rbb-SPORT/Sendung?documentId=9597422&bcastId=9597422",
                 "/rbb/rbb_topic_page_empty.html",
                 "",
@@ -56,7 +50,6 @@ public class RbbTopicOverviewTaskTest extends RbbTaskTestBase {
                 new String[0]
             },
             {
-                TOPIC3,
                 "http://mediathek.rbb-online.de/tv/Kesslers-Expedition/Sendung?documentId=7382518&bcastId=7382518",
                 "/rbb/rbb_topic_page_multiple1.html",
                 "http://mediathek.rbb-online.de/tv/Kesslers-Expedition/Sendung?documentId=7382518&bcastId=7382518&mcontents=page.2",
@@ -75,16 +68,14 @@ public class RbbTopicOverviewTaskTest extends RbbTaskTestBase {
         });
   }
 
-  private final String topic;
   private final String requestUrl1;
   private final String htmlPage1;
   private final String requestUrl2;
   private final String htmlPage2;
   private final CrawlerUrlDTO[] expectedTopics;
 
-  public RbbTopicOverviewTaskTest(final String aTopic, final String aRequestUrl1, final String aHtmlPage1, final String aRequestUrl2,
+  public RbbTopicOverviewTaskTest(final String aRequestUrl1, final String aHtmlPage1, final String aRequestUrl2,
       final String aHtmlPage2, final String[] aExpectedUrls) {
-    topic = aTopic;
     requestUrl1 = aRequestUrl1;
     htmlPage1 = aHtmlPage1;
     requestUrl2 = aRequestUrl2;
