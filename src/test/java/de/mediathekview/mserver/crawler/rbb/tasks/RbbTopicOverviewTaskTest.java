@@ -3,7 +3,7 @@ package de.mediathekview.mserver.crawler.rbb.tasks;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
 
-import de.mediathekview.mserver.crawler.basic.TopicUrlDTO;
+import de.mediathekview.mserver.crawler.basic.CrawlerUrlDTO;
 import de.mediathekview.mserver.testhelper.JsoupMock;
 import java.io.IOException;
 import java.util.Arrays;
@@ -80,7 +80,7 @@ public class RbbTopicOverviewTaskTest extends RbbTaskTestBase {
   private final String htmlPage1;
   private final String requestUrl2;
   private final String htmlPage2;
-  private final TopicUrlDTO[] expectedTopics;
+  private final CrawlerUrlDTO[] expectedTopics;
 
   public RbbTopicOverviewTaskTest(final String aTopic, final String aRequestUrl1, final String aHtmlPage1, final String aRequestUrl2,
       final String aHtmlPage2, final String[] aExpectedUrls) {
@@ -90,9 +90,9 @@ public class RbbTopicOverviewTaskTest extends RbbTaskTestBase {
     requestUrl2 = aRequestUrl2;
     htmlPage2 = aHtmlPage2;
 
-    expectedTopics = new TopicUrlDTO[aExpectedUrls.length];
+    expectedTopics = new CrawlerUrlDTO[aExpectedUrls.length];
     for (int i = 0; i < aExpectedUrls.length; i++) {
-      expectedTopics[i] = new TopicUrlDTO(topic, aExpectedUrls[i]);
+      expectedTopics[i] = new CrawlerUrlDTO(aExpectedUrls[i]);
     }
   }
 
@@ -106,11 +106,11 @@ public class RbbTopicOverviewTaskTest extends RbbTaskTestBase {
     }
     JsoupMock.mock(urlMapping);
 
-    final ConcurrentLinkedQueue<TopicUrlDTO> urls = new ConcurrentLinkedQueue<>();
-    urls.add(new TopicUrlDTO(topic, requestUrl1));
+    final ConcurrentLinkedQueue<CrawlerUrlDTO> urls = new ConcurrentLinkedQueue<>();
+    urls.add(new CrawlerUrlDTO(requestUrl1));
 
     final RbbTopicOverviewTask target = new RbbTopicOverviewTask(createCrawler(), urls);
-    final Set<TopicUrlDTO> actual = target.invoke();
+    final Set<CrawlerUrlDTO> actual = target.invoke();
 
     assertThat(actual.size(), equalTo(expectedTopics.length));
     assertThat(actual, Matchers.containsInAnyOrder(expectedTopics));

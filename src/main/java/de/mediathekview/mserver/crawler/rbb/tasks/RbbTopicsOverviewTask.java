@@ -7,17 +7,14 @@ import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
 import de.mediathekview.mserver.crawler.basic.AbstractDocumentTask;
 import de.mediathekview.mserver.crawler.basic.AbstractRecrusivConverterTask;
 import de.mediathekview.mserver.crawler.basic.CrawlerUrlDTO;
-import de.mediathekview.mserver.crawler.basic.TopicUrlDTO;
 import de.mediathekview.mserver.crawler.rbb.RbbConstants;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
-public class RbbTopicsOverviewTask extends AbstractDocumentTask<TopicUrlDTO, CrawlerUrlDTO> {
+public class RbbTopicsOverviewTask extends AbstractDocumentTask<CrawlerUrlDTO, CrawlerUrlDTO> {
 
   private static final String SELECTOR_TOPIC_ENTRY = "div.elementWrapper div.teaser > div.textWrapper > a.textLink";
-  private static final String SELECTOR_TOPIC_NAME = "h4.headline";
 
   public RbbTopicsOverviewTask(AbstractCrawler aCrawler,
       ConcurrentLinkedQueue<CrawlerUrlDTO> aUrlToCrawlDtos) {
@@ -28,14 +25,13 @@ public class RbbTopicsOverviewTask extends AbstractDocumentTask<TopicUrlDTO, Cra
   protected void processDocument(CrawlerUrlDTO aUrlDto, Document aDocument) {
     final Elements topics = aDocument.select(SELECTOR_TOPIC_ENTRY);
     topics.forEach(topic -> {
-      final Element topicName = topic.select(SELECTOR_TOPIC_NAME).first();
       final String url = topic.attr(ATTRIBUTE_HREF);
-      taskResults.add(new TopicUrlDTO(topicName.text(), UrlUtils.addDomainIfMissing(url, RbbConstants.URL_BASE)));
+      taskResults.add(new CrawlerUrlDTO(UrlUtils.addDomainIfMissing(url, RbbConstants.URL_BASE)));
     });
   }
 
   @Override
-  protected AbstractRecrusivConverterTask<TopicUrlDTO, CrawlerUrlDTO> createNewOwnInstance(
+  protected AbstractRecrusivConverterTask<CrawlerUrlDTO, CrawlerUrlDTO> createNewOwnInstance(
       ConcurrentLinkedQueue<CrawlerUrlDTO> aElementsToProcess) {
     return new RbbTopicsOverviewTask(crawler, aElementsToProcess);
   }

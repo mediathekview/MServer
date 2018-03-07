@@ -6,7 +6,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import de.mediathekview.mlib.daten.Film;
 import de.mediathekview.mlib.daten.GeoLocations;
 import de.mediathekview.mlib.daten.Sender;
-import de.mediathekview.mserver.crawler.basic.TopicUrlDTO;
+import de.mediathekview.mserver.crawler.basic.CrawlerUrlDTO;
 import de.mediathekview.mserver.testhelper.AssertFilm;
 import de.mediathekview.mserver.testhelper.JsoupMock;
 import java.io.IOException;
@@ -41,7 +41,7 @@ public class RbbFilmTaskTest extends RbbTaskTestBase {
                 "/rbb/rbb_film_with_subtitle.html",
                 "/play/media/50543576?devicetype=pc&features=hls",
                 "/rbb/rbb_film_with_subtitle.json",
-                "Film im Rbb",
+                "Film im rbb",
                 "Zwei Millionen suchen einen Vater",
                 "Eine gewitzte Hotelinhaberin tut alles, um das Sorgerecht für ihren Schützling zu bekommen. ",
                 LocalDateTime.of(2018, 3, 3, 14, 25, 0),
@@ -59,7 +59,7 @@ public class RbbFilmTaskTest extends RbbTaskTestBase {
   private final String htmlPage;
   private final String jsonUrl;
   private final String jsonFile;
-  private final String topic;
+  private final String expectedTopic;
   private final String expectedTitle;
   private final String expectedDescription;
   private final LocalDateTime expectedTime;
@@ -71,14 +71,14 @@ public class RbbFilmTaskTest extends RbbTaskTestBase {
   private final GeoLocations expectedGeo;
 
   public RbbFilmTaskTest(final String aRequestUrl, final String aHtmlPage, final String aJsonUrl, final String aJsonFile,
-      final String aTopic, final String aExpectedTitle, final String aExpectedDescription, final LocalDateTime aExpectedTime,
+      final String aExpectedTopic, final String aExpectedTitle, final String aExpectedDescription, final LocalDateTime aExpectedTime,
       final Duration aExpectedDuration, final String aExpectedUrlSmall, final String aExpectedUrlNormal, final String aExpectedUrlHd,
       final String aExpectedSubtitle, final GeoLocations aExpectedGeo) {
     requestUrl = aRequestUrl;
     htmlPage = aHtmlPage;
     jsonUrl = aJsonUrl;
     jsonFile = aJsonFile;
-    topic = aTopic;
+    expectedTopic = aExpectedTopic;
     expectedTitle = aExpectedTitle;
     expectedDescription = aExpectedDescription;
     expectedTime = aExpectedTime;
@@ -95,14 +95,15 @@ public class RbbFilmTaskTest extends RbbTaskTestBase {
     JsoupMock.mock(requestUrl, htmlPage);
     setupSuccessfulJsonResponse(jsonUrl, jsonFile);
 
-    final ConcurrentLinkedQueue<TopicUrlDTO> urls = new ConcurrentLinkedQueue<>();
-    urls.add(new TopicUrlDTO(topic, requestUrl));
+    final ConcurrentLinkedQueue<CrawlerUrlDTO> urls = new ConcurrentLinkedQueue<>();
+    urls.add(new CrawlerUrlDTO(requestUrl));
 
     final RbbFilmTask target = new RbbFilmTask(createCrawler(), urls);
     final Set<Film> actual = target.invoke();
 
     assertThat(actual.size(), equalTo(1));
-    AssertFilm.assertEquals(actual.iterator().next(), Sender.RBB, topic, expectedTitle, expectedTime, expectedDuration, expectedDescription,
+    AssertFilm.assertEquals(actual.iterator().next(), Sender.RBB, expectedTopic, expectedTitle, expectedTime, expectedDuration,
+        expectedDescription,
         requestUrl, new GeoLocations[]{expectedGeo}, expectedUrlSmall, expectedUrlNormal, expectedUrlHd, expectedSubtitle);
   }
 }

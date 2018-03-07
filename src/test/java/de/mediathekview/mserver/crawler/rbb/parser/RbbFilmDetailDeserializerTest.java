@@ -3,7 +3,7 @@ package de.mediathekview.mserver.crawler.rbb.parser;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
 
-import de.mediathekview.mserver.crawler.basic.TopicUrlDTO;
+import de.mediathekview.mserver.crawler.basic.CrawlerUrlDTO;
 import de.mediathekview.mserver.testhelper.FileReader;
 import java.time.Duration;
 import java.time.LocalDateTime;
@@ -27,12 +27,11 @@ public class RbbFilmDetailDeserializerTest {
                 "http://mediathek.rbb-online.de/tv/Film-im-rbb/Zwei-Millionen-suchen-einen-Vater/rbb-Fernsehen/Video?bcastId=10009780&documentId=50543576",
                 "/rbb/rbb_film_with_subtitle.html",
                 "http://mediathek.rbb-online.de/play/media/50543576?devicetype=pc&features=hls",
-                "Film im Rbb",
+                "Film im rbb",
                 "Zwei Millionen suchen einen Vater",
                 "Eine gewitzte Hotelinhaberin tut alles, um das Sorgerecht für ihren Schützling zu bekommen. ",
                 LocalDateTime.of(2018, 3, 3, 14, 25, 0),
-                Duration.ofHours(1).plusMinutes(28).plusSeconds(41),
-            }
+                Duration.ofHours(1).plusMinutes(28).plusSeconds(41),}
         });
   }
 
@@ -46,8 +45,8 @@ public class RbbFilmDetailDeserializerTest {
   private final Duration expectedDuration;
 
   public RbbFilmDetailDeserializerTest(final String aRequestUrl, final String aHtmlPage, final String aExpectedVideoUrl,
-      final String aExpectedTopic, final String aExpectedTitle,
-      final String aExpectedDescription, final LocalDateTime aExpectedTime, final Duration aExpectedDuration) {
+      final String aExpectedTopic, final String aExpectedTitle, final String aExpectedDescription, final LocalDateTime aExpectedTime,
+      final Duration aExpectedDuration) {
 
     requestUrl = aRequestUrl;
     htmlPage = aHtmlPage;
@@ -66,7 +65,7 @@ public class RbbFilmDetailDeserializerTest {
     final Document document = Jsoup.parse(htmlContent);
 
     final RbbFilmDetailDeserializer target = new RbbFilmDetailDeserializer();
-    final Optional<RbbFilmInfoDto> actual = target.deserialize(new TopicUrlDTO(expectedTopic, requestUrl), document);
+    final Optional<RbbFilmInfoDto> actual = target.deserialize(new CrawlerUrlDTO(requestUrl), document);
 
     assertThat(actual.isPresent(), equalTo(true));
     RbbFilmInfoDto dto = actual.get();

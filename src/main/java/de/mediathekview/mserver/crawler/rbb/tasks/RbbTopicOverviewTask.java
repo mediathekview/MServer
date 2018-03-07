@@ -6,14 +6,14 @@ import de.mediathekview.mserver.base.utils.UrlUtils;
 import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
 import de.mediathekview.mserver.crawler.basic.AbstractDocumentTask;
 import de.mediathekview.mserver.crawler.basic.AbstractRecrusivConverterTask;
-import de.mediathekview.mserver.crawler.basic.TopicUrlDTO;
+import de.mediathekview.mserver.crawler.basic.CrawlerUrlDTO;
 import de.mediathekview.mserver.crawler.rbb.RbbConstants;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
-public class RbbTopicOverviewTask extends AbstractDocumentTask<TopicUrlDTO, TopicUrlDTO> {
+public class RbbTopicOverviewTask extends AbstractDocumentTask<CrawlerUrlDTO, CrawlerUrlDTO> {
 
   private static final String ATTRIBUTE_DISABLED = "aria-disabled";
 
@@ -23,39 +23,39 @@ public class RbbTopicOverviewTask extends AbstractDocumentTask<TopicUrlDTO, Topi
   private final int pageNumber;
 
   public RbbTopicOverviewTask(AbstractCrawler aCrawler,
-          ConcurrentLinkedQueue<TopicUrlDTO> aUrlToCrawlDtos) {
+      ConcurrentLinkedQueue<CrawlerUrlDTO> aUrlToCrawlDtos) {
     super(aCrawler, aUrlToCrawlDtos);
     pageNumber = 1;
   }
 
   public RbbTopicOverviewTask(AbstractCrawler aCrawler,
-          ConcurrentLinkedQueue<TopicUrlDTO> aUrlToCrawlDtos,
-          final int aPageNumber) {
+      ConcurrentLinkedQueue<CrawlerUrlDTO> aUrlToCrawlDtos,
+      final int aPageNumber) {
     super(aCrawler, aUrlToCrawlDtos);
     pageNumber = aPageNumber;
   }
 
   @Override
-  protected void processDocument(TopicUrlDTO aUrlDto, Document aDocument) {
+  protected void processDocument(CrawlerUrlDTO aUrlDto, Document aDocument) {
     final Elements topics = aDocument.select(SELECTOR_TOPIC_ENTRY);
     topics.forEach(topic -> {
       final String url = topic.attr(ATTRIBUTE_HREF);
-      taskResults.add(new TopicUrlDTO(aUrlDto.getTopic(), UrlUtils.addDomainIfMissing(url, RbbConstants.URL_BASE)));
+      taskResults.add(new CrawlerUrlDTO(UrlUtils.addDomainIfMissing(url, RbbConstants.URL_BASE)));
 
     });
 
     if (pageNumber < crawler.getCrawlerConfig().getMaximumSubpages()) {
-      processNextPage(aDocument, aUrlDto.getTopic());
+      processNextPage(aDocument);
     }
   }
 
   @Override
-  protected AbstractRecrusivConverterTask<TopicUrlDTO, TopicUrlDTO> createNewOwnInstance(
-          ConcurrentLinkedQueue<TopicUrlDTO> aElementsToProcess) {
+  protected AbstractRecrusivConverterTask<CrawlerUrlDTO, CrawlerUrlDTO> createNewOwnInstance(
+      ConcurrentLinkedQueue<CrawlerUrlDTO> aElementsToProcess) {
     return new RbbTopicOverviewTask(crawler, aElementsToProcess);
   }
 
-  private void processNextPage(final Document aDocument, final String aTopic) {
+  private void processNextPage(final Document aDocument) {
     Elements nextPages = aDocument.select(SELECTOR_NEXT_PAGE);
     if (nextPages.size() == 1) {
       Element nextPage = nextPages.first();
@@ -65,8 +65,8 @@ public class RbbTopicOverviewTask extends AbstractDocumentTask<TopicUrlDTO, Topi
         String url = nextPage.attr(ATTRIBUTE_HREF);
         url = UrlUtils.addDomainIfMissing(url, RbbConstants.URL_BASE);
 
-        ConcurrentLinkedQueue<TopicUrlDTO> urls = new ConcurrentLinkedQueue<>();
-        urls.add(new TopicUrlDTO(aTopic, url));
+        ConcurrentLinkedQueue<CrawlerUrlDTO> urls = new ConcurrentLinkedQueue<>();
+        urls.add(new CrawlerUrlDTO(url));
 
         taskResults.addAll(new RbbTopicOverviewTask(crawler, urls, pageNumber + 1).invoke());
       }

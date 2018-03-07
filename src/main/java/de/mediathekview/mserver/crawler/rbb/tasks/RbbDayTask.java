@@ -7,7 +7,6 @@ import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
 import de.mediathekview.mserver.crawler.basic.AbstractDocumentTask;
 import de.mediathekview.mserver.crawler.basic.AbstractRecrusivConverterTask;
 import de.mediathekview.mserver.crawler.basic.CrawlerUrlDTO;
-import de.mediathekview.mserver.crawler.basic.TopicUrlDTO;
 import de.mediathekview.mserver.crawler.rbb.RbbConstants;
 import java.util.HashSet;
 import java.util.Set;
@@ -16,14 +15,13 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
-public class RbbDayTask extends AbstractDocumentTask<TopicUrlDTO, CrawlerUrlDTO> {
+public class RbbDayTask extends AbstractDocumentTask<CrawlerUrlDTO, CrawlerUrlDTO> {
 
   private static final String SELECTOR_ENTRY = "div.box > div.entries > div.entry";
-  private static final String SELECTOR_TOPIC = "h3.headline > a > span.titel";
   private static final String SELECTOR_URL = "a.mediaLink";
 
   public RbbDayTask(AbstractCrawler aCrawler,
-          ConcurrentLinkedQueue<CrawlerUrlDTO> aUrlToCrawlDtos) {
+      ConcurrentLinkedQueue<CrawlerUrlDTO> aUrlToCrawlDtos) {
     super(aCrawler, aUrlToCrawlDtos);
   }
 
@@ -31,21 +29,15 @@ public class RbbDayTask extends AbstractDocumentTask<TopicUrlDTO, CrawlerUrlDTO>
   protected void processDocument(CrawlerUrlDTO aUrlDto, Document aDocument) {
     final Elements entries = aDocument.select(SELECTOR_ENTRY);
     entries.forEach(entry -> {
-      final String topic = getTopic(entry);
       final Set<String> urls = parseUrls(entry);
-      urls.forEach(url -> taskResults.add(new TopicUrlDTO(topic, url)));
+      urls.forEach(url -> taskResults.add(new CrawlerUrlDTO(url)));
     });
   }
 
   @Override
-  protected AbstractRecrusivConverterTask<TopicUrlDTO, CrawlerUrlDTO> createNewOwnInstance(
-          ConcurrentLinkedQueue<CrawlerUrlDTO> aElementsToProcess) {
+  protected AbstractRecrusivConverterTask<CrawlerUrlDTO, CrawlerUrlDTO> createNewOwnInstance(
+      ConcurrentLinkedQueue<CrawlerUrlDTO> aElementsToProcess) {
     return new RbbDayTask(crawler, aElementsToProcess);
-  }
-
-  private String getTopic(final Element aEntry) {
-    final Element topicElement = aEntry.select(SELECTOR_TOPIC).first();
-    return topicElement.text();
   }
 
   private Set<String> parseUrls(final Element aEntry) {
