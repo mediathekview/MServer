@@ -167,7 +167,11 @@ public class ArdMediaArrayToDownloadUrlsConverter {
   private static Optional<Resolution> getQuality(String aQualityAsText) {
     int qualityNumber;
     try {
-      qualityNumber = Integer.parseInt(aQualityAsText);
+      if (aQualityAsText.equals("auto")) {
+        qualityNumber = -1;
+      } else {
+        qualityNumber = Integer.parseInt(aQualityAsText);
+      }
     } catch (final NumberFormatException numberFormatException) {
       LOG.debug("Can't convert quality %s to an integer.", aQualityAsText,
           numberFormatException);

@@ -1,5 +1,6 @@
 package de.mediathekview.mserver.crawler;
 
+import de.mediathekview.mserver.crawler.rbb.RbbCrawler;
 import de.mediathekview.mserver.crawler.zdf.ZdfCrawler;
 import java.io.IOException;
 import java.net.MalformedURLException;
@@ -540,6 +541,8 @@ public class CrawlerManager extends AbstractManager {
         new NdrCrawler(forkJoinPool, messageListeners, progressListeners, rootConfig));
     crawlerMap.put(Sender.ORF,
         new OrfCrawler(forkJoinPool, messageListeners, progressListeners, rootConfig));
+    crawlerMap.put(Sender.RBB,
+        new RbbCrawler(forkJoinPool, messageListeners, progressListeners, rootConfig));
     crawlerMap.put(Sender.SRF,
         new SrfCrawler(forkJoinPool, messageListeners, progressListeners, rootConfig));
     crawlerMap.put(Sender.SR,
