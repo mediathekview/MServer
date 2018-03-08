@@ -42,6 +42,21 @@ public final class UrlUtils {
   }
 
   /**
+   * adds the protocol if missing.
+   *
+   * @param aUrl the url to check
+   * @param aProtocol the protocol to add
+   * @return the url including the protocol
+   */
+  public static String addProtocolIfMissing(final String aUrl, final String aProtocol) {
+    if (aUrl != null && aUrl.startsWith("//")) {
+      return aProtocol + aUrl;
+    }
+
+    return aUrl;
+  }
+
+  /**
    * Changes or adds an URL parameter.
    *
    * @param aUrl The URL which parameter should be changed or gets the parameter added.
