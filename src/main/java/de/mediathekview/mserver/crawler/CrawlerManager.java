@@ -1,7 +1,5 @@
 package de.mediathekview.mserver.crawler;
 
-import de.mediathekview.mserver.crawler.rbb.RbbCrawler;
-import de.mediathekview.mserver.crawler.zdf.ZdfCrawler;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -54,6 +52,7 @@ import de.mediathekview.mserver.crawler.hr.HrCrawler;
 import de.mediathekview.mserver.crawler.kika.KikaCrawler;
 import de.mediathekview.mserver.crawler.ndr.NdrCrawler;
 import de.mediathekview.mserver.crawler.orf.OrfCrawler;
+import de.mediathekview.mserver.crawler.rbb.RbbCrawler;
 import de.mediathekview.mserver.crawler.sr.SrCrawler;
 import de.mediathekview.mserver.crawler.srf.SrfCrawler;
 import de.mediathekview.mserver.crawler.wdr.Wdr2Crawler;
@@ -63,6 +62,7 @@ import de.mediathekview.mserver.crawler.wdr.Wdr5Crawler;
 import de.mediathekview.mserver.crawler.wdr.WdrCosmoCrawler;
 import de.mediathekview.mserver.crawler.wdr.WdrCrawler;
 import de.mediathekview.mserver.crawler.wdr.WdrKirakaCrawler;
+import de.mediathekview.mserver.crawler.zdf.ZdfCrawler;
 
 /**
  * A manager to control the crawler.
@@ -572,6 +572,7 @@ public class CrawlerManager extends AbstractManager {
         filmlist.addAllFilms(result.get());
       }
     } catch (ExecutionException | InterruptedException exception) {
+      stop();
       printMessage(ServerMessages.SERVER_ERROR);
       LOG.fatal("Something went wrong while exeuting the crawlers.", exception);
     }

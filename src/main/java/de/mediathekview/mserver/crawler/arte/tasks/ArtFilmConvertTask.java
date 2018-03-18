@@ -17,18 +17,21 @@ public class ArtFilmConvertTask extends AbstractRecrusivConverterTask<Film, Json
   private static final Type OPTIONAL_FILM_TYPE = new TypeToken<Optional<Film>>() {}.getType();
   private static final long serialVersionUID = -7559130997870753602L;
   private final Gson gson;
+  private final String authKey;
 
   public ArtFilmConvertTask(final AbstractCrawler aCrawler,
-      final ConcurrentLinkedQueue<JsonElement> aUrlToCrawlDTOs) {
+      final ConcurrentLinkedQueue<JsonElement> aUrlToCrawlDTOs, final String aAuthKey) {
     super(aCrawler, aUrlToCrawlDTOs);
+    authKey = aAuthKey;
     gson = new GsonBuilder()
-        .registerTypeAdapter(OPTIONAL_FILM_TYPE, new ArteFilmDeserializer(crawler)).create();
+        .registerTypeAdapter(OPTIONAL_FILM_TYPE, new ArteFilmDeserializer(crawler, authKey))
+        .create();
   }
 
   @Override
   protected AbstractRecrusivConverterTask<Film, JsonElement> createNewOwnInstance(
       final ConcurrentLinkedQueue<JsonElement> aElementsToProcess) {
-    return new ArtFilmConvertTask(crawler, aElementsToProcess);
+    return new ArtFilmConvertTask(crawler, aElementsToProcess, authKey);
   }
 
   @Override
