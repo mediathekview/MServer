@@ -46,9 +46,9 @@ public class RbbFilmTaskTest extends RbbTaskTestBase {
                 "Eine gewitzte Hotelinhaberin tut alles, um das Sorgerecht für ihren Schützling zu bekommen. ",
                 LocalDateTime.of(2018, 3, 3, 14, 25, 0),
                 Duration.ofHours(1).plusMinutes(28).plusSeconds(41),
-                "https://rbbmediapmdp-a.akamaihd.net/content/a0/93/a093d994-0ab0-498a-ae83-8e7647daa5db/3ccbfc08-3235-418f-9406-6c56cb89bb92_256k.mp4",
-                "https://rbbmediapmdp-a.akamaihd.net/content/a0/93/a093d994-0ab0-498a-ae83-8e7647daa5db/3ccbfc08-3235-418f-9406-6c56cb89bb92_1024k.mp4",
+                "https://rbbmediapmdp-a.akamaihd.net/content/a0/93/a093d994-0ab0-498a-ae83-8e7647daa5db/3ccbfc08-3235-418f-9406-6c56cb89bb92_512k.mp4",
                 "https://rbbmediapmdp-a.akamaihd.net/content/a0/93/a093d994-0ab0-498a-ae83-8e7647daa5db/3ccbfc08-3235-418f-9406-6c56cb89bb92_1800k.mp4",
+                "",
                 "http://mediathek.rbb-online.de/subtitle/217501",
                 GeoLocations.GEO_NONE
             }
