@@ -1,6 +1,7 @@
 package de.mediathekview.mserver.crawler.funk.tasks;
 
 import java.lang.reflect.Type;
+import java.net.URI;
 import java.util.Optional;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import javax.ws.rs.client.Invocation.Builder;
@@ -40,6 +41,9 @@ public abstract class AbstractFunkRestTask<T, R, D extends CrawlerUrlDTO>
 
   protected abstract Type getType();
 
+  protected abstract void handleHttpError(URI url, Response response);
+
+
   protected abstract void postProcessing(R aResponseObj, D aDTO);
 
 
@@ -54,10 +58,13 @@ public abstract class AbstractFunkRestTask<T, R, D extends CrawlerUrlDTO>
 
     final Response response = request.header(HEADER_ACCEPT_ENCODING, ENCODING_GZIP).get();
 
-
-    final String jsonOutput = response.readEntity(String.class);
-    final R responseObj = gson.fromJson(jsonOutput, getType());
-    postProcessing(responseObj, aDTO);
+    if (response.getStatus() == 200) {
+      final String jsonOutput = response.readEntity(String.class);
+      final R responseObj = gson.fromJson(jsonOutput, getType());
+      postProcessing(responseObj, aDTO);
+    } else {
+      handleHttpError(aTarget.getUri(), response);
+    }
   }
 
 }

@@ -110,11 +110,11 @@ public final class MServerConfigUI {
 
   void start() {
     manager.start();
-    manager.importFilmlist();
+    // manager.importFilmlist();
     manager.saveFilmlist();
     manager.saveDifferenceFilmlist();
-    manager.copyFilmlist();
-    manager.uploadFilmlist();
+    // manager.copyFilmlist();
+    // manager.uploadFilmlist();
     manager.stop();
   }
 

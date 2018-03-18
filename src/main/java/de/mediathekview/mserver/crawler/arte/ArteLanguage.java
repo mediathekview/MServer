@@ -10,7 +10,7 @@ package de.mediathekview.mserver.crawler.arte;
  *
  */
 public enum ArteLanguage {
-  DE("de"), FR("fr");
+  DE("DE"), FR("FR"), EN("EN"), ES("ES"), PL("PL");
 
   private String languageCode;
 

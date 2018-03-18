@@ -5,6 +5,7 @@ import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.Optional;
 import java.util.Set;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.ForkJoinPool;
@@ -21,6 +22,8 @@ import de.mediathekview.mserver.crawler.basic.CrawlerUrlDTO;
 import de.mediathekview.mserver.progress.listeners.SenderProgressListener;
 
 public class ArteCrawler extends AbstractCrawler {
+  private static final String AUTH_TOKEN =
+      "Bearer Nzc1Yjc1ZjJkYjk1NWFhN2I2MWEwMmRlMzAzNjI5NmU3NWU3ODg4ODJjOWMxNTMxYzEzZGRjYjg2ZGE4MmIwOA";
   /*
    * Informationen zu den ARTE-URLs: {} sind nur Makierungen, dass es Platzhalter sind, sie gehören
    * nicht zur URL.
@@ -37,10 +40,11 @@ public class ArteCrawler extends AbstractCrawler {
    * Zweite Quelle für Informationen zum Film: (050169-002-A = ID des Films); (de für deutsch / fr
    * für französisch) https://api.arte.tv/api/opa/v3/programs/{de}/{050169-002-A}
    */
+
   private static final String SENDUNG_VERPASST_URL_PATTERN =
-      "https://www.arte.tv/guide/api/api/pages/%s/web/tv_guide/?day=%s";
+      "https://api.arte.tv/api/opa/v3/videos?channel=%s&arteSchedulingDay=%s";
   private static final DateTimeFormatter SENDUNG_VERPASST_DATEFORMATTER =
-      DateTimeFormatter.ofPattern("yy-MM-dd");
+      DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
   public ArteCrawler(final ForkJoinPool aForkJoinPool,
       final Collection<MessageListener> aMessageListeners,
@@ -72,11 +76,11 @@ public class ArteCrawler extends AbstractCrawler {
     final Set<JsonElement> sendungsfolgen = new HashSet<>();
     // TODO Search films based on categories.
     final ArteSendungVerpasstTask sendungVerpasstTask = new ArteSendungVerpasstTask(this,
-        new ConcurrentLinkedQueue<>(generateSendungVerpasstUrls()));
+        new ConcurrentLinkedQueue<>(generateSendungVerpasstUrls()), Optional.of(AUTH_TOKEN));
     forkJoinPool.execute(sendungVerpasstTask);
 
     sendungsfolgen.addAll(sendungVerpasstTask.join());
-    return new ArtFilmConvertTask(this, new ConcurrentLinkedQueue<>(sendungsfolgen));
+    return new ArtFilmConvertTask(this, new ConcurrentLinkedQueue<>(sendungsfolgen), AUTH_TOKEN);
   }
 
   protected ArteLanguage getLanguage() {
