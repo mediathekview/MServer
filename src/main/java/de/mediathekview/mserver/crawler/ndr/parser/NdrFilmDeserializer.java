@@ -22,6 +22,7 @@ public class NdrFilmDeserializer {
   private static final String TITLE_SELECTOR = "meta[name=title]";
   private static final String TOPIC1_SELECTOR = "header > h1 > span[itemprop=headline]";
   private static final String TOPIC2_SELECTOR = "span[itemprop=alternateName]";
+  private static final String EPISODE_SELECTOR = "header > h1 > span[itemprop=episodeNumber]";
   private static final String DESCRIPTION_SELECTOR = "meta[name=description]";
   private static final String TIME_SELECTOR2 = "span[itemprop=datePublished]";
   private static final String TIME_SELECTOR3 = "span[itemprop=uploadDate]";
@@ -42,7 +43,7 @@ public class NdrFilmDeserializer {
   public Optional<RbbFilmInfoDto> deserialize(final CrawlerUrlDTO aUrlDto, final Document aDocument) {
 
     Optional<String> topic = parseTopic(aDocument);
-    Optional<String> title = HtmlDocumentUtils.getElementAttributeString(TITLE_SELECTOR, ATTRIBUTE_CONTENT, aDocument);
+    Optional<String> title = parseTitle(aDocument);
     Optional<String> description = HtmlDocumentUtils.getElementAttributeString(DESCRIPTION_SELECTOR, ATTRIBUTE_CONTENT, aDocument);
     Optional<String> videoUrl = parseVideoUrl(aDocument);
     final Optional<LocalDateTime> time = parseDate(aDocument);
@@ -82,6 +83,18 @@ public class NdrFilmDeserializer {
     }
 
     return topic;
+  }
+
+  private static Optional<String> parseTitle(final Document aDocument) {
+    Optional<String> title = HtmlDocumentUtils.getElementAttributeString(TITLE_SELECTOR, ATTRIBUTE_CONTENT, aDocument);
+    Optional<String> episode = HtmlDocumentUtils.getElementString(EPISODE_SELECTOR, aDocument);
+
+    if (title.isPresent() && episode.isPresent()) {
+      final String titleValue = String.format("%s (%s)", title.get().trim(), episode.get());
+      return Optional.of(titleValue);
+    }
+
+    return title;
   }
 
   private static Optional<LocalDateTime> parseDate(final Document aDocument) {

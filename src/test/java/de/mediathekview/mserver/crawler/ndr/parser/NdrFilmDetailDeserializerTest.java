@@ -55,6 +55,16 @@ public class NdrFilmDetailDeserializerTest {
                 Duration.ofSeconds(155)
             },
             {
+                "https://www.ndr.de/fernsehen/Sturm-der-Liebe,sendung756612.html",
+                "/ndr/ndr_film_detail4.html",
+                "https://www.ndr.de/fernsehen/sturmderliebe1822-ardjson_image-1afbd693-e72e-406a-abec-7b7f7d0bb66f.json",
+                "Sturm der Liebe",
+                "Sturm der Liebe (2883)",
+                "Werner setzt Christoph mit seinem Wissen unter Druck. In die Enge getrieben, verliert Christoph daraufhin die Beherrschung und es kommt zu einer lebensbedrohlichen Situation.",
+                LocalDateTime.of(2018, 3, 20, 8, 10, 0),
+                Duration.ofMinutes(49).plusSeconds(28)
+            },
+            {
                 "https://www.ndr.de/fernsehen/sendungen/tatort/Blutschuld,sendung751232.html",
                 "/ndr/ndr_film_detail_m3u8.html",
                 "https://www.ndr.de/fernsehen/livestream/livestream217-ardjson_image-5e9560f0-bc96-4d5b-8a92-cddd3f77966f.json",
