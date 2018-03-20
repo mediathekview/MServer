@@ -4,7 +4,7 @@ import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 import de.mediathekview.mserver.crawler.basic.CrawlerUrlDTO;
-import de.mediathekview.mserver.crawler.rbb.parser.RbbFilmInfoDto;
+import de.mediathekview.mserver.crawler.basic.FilmInfoDto;
 import de.mediathekview.mserver.testhelper.FileReader;
 import java.time.Duration;
 import java.time.LocalDateTime;
@@ -107,10 +107,10 @@ public class NdrFilmDetailDeserializerTest {
     final Document document = Jsoup.parse(htmlContent);
 
     final NdrFilmDeserializer target = new NdrFilmDeserializer();
-    final Optional<RbbFilmInfoDto> actual = target.deserialize(new CrawlerUrlDTO(requestUrl), document);
+    final Optional<FilmInfoDto> actual = target.deserialize(new CrawlerUrlDTO(requestUrl), document);
 
     assertThat(actual.isPresent(), equalTo(true));
-    RbbFilmInfoDto dto = actual.get();
+    FilmInfoDto dto = actual.get();
 
     assertThat(dto.getTopic(), equalTo(expectedTopic));
     assertThat(dto.getTitle(), equalTo(expectedTitle));
