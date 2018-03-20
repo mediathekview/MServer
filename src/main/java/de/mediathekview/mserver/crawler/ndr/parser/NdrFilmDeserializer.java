@@ -11,6 +11,7 @@ import de.mediathekview.mserver.crawler.rbb.parser.RbbFilmInfoDto;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 import java.util.Optional;
 import org.jsoup.nodes.Document;
 
@@ -20,10 +21,11 @@ public class NdrFilmDeserializer {
   private static final String TOPIC1_SELECTOR = "header > h1 > span[itemprop=headline]";
   private static final String TOPIC2_SELECTOR = "span[itemprop=alternateName]";
   private static final String DESCRIPTION_SELECTOR = "meta[name=description]";
-  private static final String TIME_SELECTOR1 = "span[itemprop=startDate]";
   private static final String TIME_SELECTOR2 = "span[itemprop=datePublished]";
   private static final String TIME_SELECTOR3 = "span[itemprop=uploadDate]";
   private static final String DURATION_SELECTOR = "span[itemprop=duration]";
+  private static final String START_DATE_SELECTOR = "span[itemprop=startDate]";
+  private static final String END_DATE_SELECTOR = "span[itemprop=endDate]";
   private static final String IFRAME_SELECTOR = "iframe";
 
   private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSSXXX");
@@ -46,8 +48,8 @@ public class NdrFilmDeserializer {
 
     if (topic.isPresent() && title.isPresent() && videoUrl.isPresent()) {
       RbbFilmInfoDto dto = new RbbFilmInfoDto(videoUrl.get());
-      dto.setTopic(topic.get());
-      dto.setTitle(title.get());
+      dto.setTopic(topic.get().trim());
+      dto.setTitle(title.get().trim());
 
       description.ifPresent(dto::setDescription);
       duration.ifPresent(dto::setDuration);
@@ -71,7 +73,7 @@ public class NdrFilmDeserializer {
 
   private static Optional<LocalDateTime> parseDate(final Document aDocument) {
     Optional<String> dateTime
-        = HtmlDocumentUtils.getElementAttributeString(TIME_SELECTOR1, ATTRIBUTE_CONTENT, aDocument);
+        = HtmlDocumentUtils.getElementAttributeString(START_DATE_SELECTOR, ATTRIBUTE_CONTENT, aDocument);
 
     if (!dateTime.isPresent() || dateTime.get().isEmpty()) {
       dateTime = HtmlDocumentUtils.getElementAttributeString(TIME_SELECTOR2, ATTRIBUTE_CONTENT, aDocument);
@@ -92,11 +94,32 @@ public class NdrFilmDeserializer {
   private static Optional<Duration> parseDuration(final Document aDocument) {
     Optional<String> duration
         = HtmlDocumentUtils.getElementAttributeString(DURATION_SELECTOR, ATTRIBUTE_CONTENT, aDocument);
-    if (!duration.isPresent()) {
+    if (duration.isPresent() && !duration.get().isEmpty()) {
+      return parseDurationStringValue(duration.get());
+    }
+
+    return calculateDuration(aDocument);
+  }
+
+  private static Optional<Duration> calculateDuration(final Document aDocument) {
+    Optional<String> startDate = HtmlDocumentUtils.getElementAttributeString(START_DATE_SELECTOR, ATTRIBUTE_CONTENT, aDocument);
+    Optional<String> endDate = HtmlDocumentUtils.getElementAttributeString(END_DATE_SELECTOR, ATTRIBUTE_CONTENT, aDocument);
+
+    if (!startDate.isPresent() || !endDate.isPresent()) {
       return Optional.empty();
     }
 
-    final String[] parts = duration.get().split(":");
+    LocalDateTime startDateTime
+        = LocalDateTime.parse(startDate.get(), DATE_TIME_FORMATTER);
+    LocalDateTime endDateTime
+        = LocalDateTime.parse(endDate.get(), DATE_TIME_FORMATTER);
+
+    long seconds = ChronoUnit.SECONDS.between(startDateTime, endDateTime);
+    return Optional.of(Duration.ofSeconds(seconds));
+  }
+
+  private static Optional<Duration> parseDurationStringValue(final String aDuration) {
+    final String[] parts = aDuration.split(":");
     int index = 0;
     Long durationValue = 0L;
 
@@ -109,11 +132,7 @@ public class NdrFilmDeserializer {
       index++;
     }
     if (parts.length >= 1) {
-      if (parts[index].isEmpty()) {
-        parts[index] = "";
-      } else {
-        durationValue += (Long.parseLong(parts[index]));
-      }
+      durationValue += (Long.parseLong(parts[index]));
     }
 
     return Optional.of(Duration.ofSeconds(durationValue));
@@ -127,7 +146,16 @@ public class NdrFilmDeserializer {
     // http://www.ndr.de/fernsehen/sendungen/sportclub/schwenker172-ardjson_image-58390aa6-8e8a-458b-b3a7-d7b23e91e186.json
     final Optional<String> playerUrl = HtmlDocumentUtils.getElementAttributeString(IFRAME_SELECTOR, ATTRIBUTE_SRC, aDocument);
     if (playerUrl.isPresent()) {
-      String url = playerUrl.get().replaceAll("ardplayer", "ardjson").replaceAll("_theme-ndrde.html", ".json");
+      String url = playerUrl.get()
+          .replaceAll("ardplayer", "ardjson")
+          .replaceAll("_theme-ndrde.html", ".json");
+
+      // remove query parameter "autoplay"
+      int jsonIndex = url.lastIndexOf("?autoplay");
+      if (jsonIndex > 0) {
+        url = url.substring(0, jsonIndex);
+      }
+
       url = UrlUtils.addDomainIfMissing(url, NdrConstants.URL_BASE);
       return Optional.of(url);
     }
