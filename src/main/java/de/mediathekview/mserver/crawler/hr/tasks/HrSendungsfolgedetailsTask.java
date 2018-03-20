@@ -1,5 +1,7 @@
 package de.mediathekview.mserver.crawler.hr.tasks;
 
+import static de.mediathekview.mserver.base.Consts.ATTRIBUTE_SRC;
+
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.time.Duration;
@@ -26,7 +28,6 @@ import mServer.crawler.CrawlerTool;
 
 public class HrSendungsfolgedetailsTask extends AbstractDocumentTask<Film, CrawlerUrlDTO> {
   private static final String ATTRIBUTE_DATETIME = "datetime";
-  private static final String ATTRIBUTE_SRC = "src";
   private static final Logger LOG = LogManager.getLogger(HrSendungsfolgedetailsTask.class);
   private static final long serialVersionUID = 6138774185290017974L;
   private static final String THEMA_SELECTOR = ".c-programHeader__headline.text__headline";
