@@ -45,6 +45,16 @@ public class NdrFilmDetailDeserializerTest {
                 Duration.ofMinutes(48).plusSeconds(34)
             },
             {
+                "https://www.ndr.de/fernsehen/sendungen/zapp/Mehr-europaeische-Kontroversen-zeigen,zapp11204.html",
+                "/ndr/ndr_film_detail3.html",
+                "https://www.ndr.de/fernsehen/sendungen/zapp/zapp11204-ardjson_image-00b52c24-345e-4e7e-ac78-30573c9294bc.json",
+                "ZAPP",
+                "Giegold: \"Mehr europäische Kontroversen zeigen\"",
+                "Der Europaabgeordnete Sven Giegold (Grüne) fordert im ZAPP Interview einen Europakanal und kritisiert, dass die Gesetzgebung in Brüssel viel zu selten Thema ist.",
+                LocalDateTime.of(2018, 3, 28, 23, 20, 0),
+                Duration.ofSeconds(155)
+            },
+            {
                 "https://www.ndr.de/fernsehen/sendungen/tatort/Blutschuld,sendung751232.html",
                 "/ndr/ndr_film_detail_m3u8.html",
                 "https://www.ndr.de/fernsehen/livestream/livestream217-ardjson_image-5e9560f0-bc96-4d5b-8a92-cddd3f77966f.json",

@@ -14,6 +14,8 @@ import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.Optional;
 import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
 
 public class NdrFilmDeserializer {
 
@@ -63,12 +65,23 @@ public class NdrFilmDeserializer {
   }
 
   private static Optional<String> parseTopic(final Document aDocument) {
-    Optional<String> title = HtmlDocumentUtils.getElementString(TOPIC1_SELECTOR, aDocument);
-    if (!title.isPresent()) {
-      title = HtmlDocumentUtils.getElementString(TOPIC2_SELECTOR, aDocument);
+    Optional<String> topic = HtmlDocumentUtils.getElementString(TOPIC1_SELECTOR, aDocument);
+
+    if (!topic.isPresent()) {
+      Elements topicElements = aDocument.select(TOPIC2_SELECTOR);
+
+      // sometimes there are several elements of TOPIC2_SELECTOR and the first one is empty
+      for (Element topicElement : topicElements) {
+        final String text = topicElement.text();
+        if (!text.isEmpty()) {
+          topic = Optional.of(text);
+          break;
+        }
+      }
+
     }
 
-    return title;
+    return topic;
   }
 
   private static Optional<LocalDateTime> parseDate(final Document aDocument) {
