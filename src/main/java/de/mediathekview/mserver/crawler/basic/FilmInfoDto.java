@@ -1,10 +1,10 @@
-package de.mediathekview.mserver.crawler.rbb.parser;
+package de.mediathekview.mserver.crawler.basic;
 
 import de.mediathekview.mserver.crawler.basic.CrawlerUrlDTO;
 import java.time.Duration;
 import java.time.LocalDateTime;
 
-public class RbbFilmInfoDto extends CrawlerUrlDTO {
+public class FilmInfoDto extends CrawlerUrlDTO {
 
   private String topic;
   private String title;
@@ -13,7 +13,7 @@ public class RbbFilmInfoDto extends CrawlerUrlDTO {
   private String description;
   private String website;
 
-  public RbbFilmInfoDto(String aUrl) {
+  public FilmInfoDto(String aUrl) {
     super(aUrl);
   }
 

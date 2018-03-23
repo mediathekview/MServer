@@ -12,7 +12,7 @@ import de.mediathekview.mserver.crawler.basic.AbstractDocumentTask;
 import de.mediathekview.mserver.crawler.basic.AbstractRecrusivConverterTask;
 import de.mediathekview.mserver.crawler.basic.CrawlerUrlDTO;
 import de.mediathekview.mserver.crawler.rbb.parser.RbbFilmDetailDeserializer;
-import de.mediathekview.mserver.crawler.rbb.parser.RbbFilmInfoDto;
+import de.mediathekview.mserver.crawler.basic.FilmInfoDto;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.MalformedURLException;
@@ -49,9 +49,9 @@ public class RbbFilmTask extends AbstractDocumentTask<Film, CrawlerUrlDTO> {
   @Override
   protected void processDocument(CrawlerUrlDTO aUrlDto, Document aDocument) {
 
-    final Optional<RbbFilmInfoDto> filmInfo = filmDetailDeserializer.deserialize(aUrlDto, aDocument);
+    final Optional<FilmInfoDto> filmInfo = filmDetailDeserializer.deserialize(aUrlDto, aDocument);
     if (filmInfo.isPresent()) {
-      RbbFilmInfoDto filmInfoDto = filmInfo.get();
+      FilmInfoDto filmInfoDto = filmInfo.get();
       try {
         final ArdVideoInfoDTO videoInfo
             = gson.fromJson(new InputStreamReader(new URL(filmInfoDto.getUrl()).openStream(), StandardCharsets.UTF_8),
@@ -81,7 +81,7 @@ public class RbbFilmTask extends AbstractDocumentTask<Film, CrawlerUrlDTO> {
     return new RbbFilmTask(crawler, aElementsToProcess);
   }
 
-  private Film createFilm(final RbbFilmInfoDto aFilmInfoDto, final ArdVideoInfoDTO aVideoInfoDto) throws MalformedURLException {
+  private Film createFilm(final FilmInfoDto aFilmInfoDto, final ArdVideoInfoDTO aVideoInfoDto) throws MalformedURLException {
     final Film film = new Film(UUID.randomUUID(), Sender.RBB, aFilmInfoDto.getTitle(),
         aFilmInfoDto.getTopic(), aFilmInfoDto.getTime(), aFilmInfoDto.getDuration());
 

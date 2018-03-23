@@ -1,5 +1,7 @@
 package de.mediathekview.mserver.crawler.orf.parser;
 
+import static de.mediathekview.mserver.base.Consts.ATTRIBUTE_SRC;
+
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonDeserializer;
 import com.google.gson.JsonElement;
@@ -24,7 +26,6 @@ public class OrfVideoDetailDeserializer implements JsonDeserializer<Optional<Orf
   private static final String ATTRIBUTE_DELIVERY = "delivery";
   private static final String ATTRIBUTE_PROTOCOL = "protocol";
   private static final String ATTRIBUTE_QUALITY = "quality";
-  private static final String ATTRIBUTE_SRC = "src";
   private static final String ATTRIBUTE_TYPE = "type";
 
   private static final String RELEVANT_DELIVERY = "progressive";

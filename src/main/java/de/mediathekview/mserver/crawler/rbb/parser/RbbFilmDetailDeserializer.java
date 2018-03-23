@@ -4,6 +4,7 @@ import static de.mediathekview.mserver.base.Consts.ATTRIBUTE_CONTENT;
 
 import de.mediathekview.mserver.base.utils.HtmlDocumentUtils;
 import de.mediathekview.mserver.crawler.basic.CrawlerUrlDTO;
+import de.mediathekview.mserver.crawler.basic.FilmInfoDto;
 import de.mediathekview.mserver.crawler.rbb.RbbConstants;
 import java.time.Duration;
 import java.time.LocalDateTime;
@@ -34,7 +35,7 @@ public class RbbFilmDetailDeserializer {
    * @param aDocument the html document.
    * @return the extracted film infos.
    */
-  public Optional<RbbFilmInfoDto> deserialize(final CrawlerUrlDTO aUrlDto, final Document aDocument) {
+  public Optional<FilmInfoDto> deserialize(final CrawlerUrlDTO aUrlDto, final Document aDocument) {
 
     Optional<String> topic = HtmlDocumentUtils.getElementAttributeString(TOPIC_SELECTOR, ATTRIBUTE_CONTENT, aDocument);
     Optional<String> title = HtmlDocumentUtils.getElementAttributeString(TITLE_SELECTOR, ATTRIBUTE_CONTENT, aDocument);
@@ -44,7 +45,7 @@ public class RbbFilmDetailDeserializer {
     final Optional<Duration> duration = parseDuration(aDocument);
 
     if (topic.isPresent() && title.isPresent() && videoUrl.isPresent()) {
-      RbbFilmInfoDto dto = new RbbFilmInfoDto(videoUrl.get());
+      FilmInfoDto dto = new FilmInfoDto(videoUrl.get());
       dto.setTopic(topic.get());
       dto.setTitle(title.get());
 

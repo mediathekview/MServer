@@ -1,5 +1,7 @@
 package mServer.crawler.sender.hr;
 
+import static de.mediathekview.mserver.base.Consts.ATTRIBUTE_SRC;
+
 import java.net.MalformedURLException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -26,7 +28,6 @@ public class HrSendungDeserializer {
   private static final String HTML_TAG_VIDEO = "video";
   private static final String HTML_ATTRIBUTE_DATETIME = "datetime";
   private static final String HTML_ATTRIBUTE_DURATION = "data-duration";
-  private static final String HTML_ATTRIBUTE_SRC = "src";
 
   private static final Logger LOG = LogManager.getLogger(HrSendungDeserializer.class);
   private final DateTimeFormatter dateFormatHtml =
@@ -147,7 +148,7 @@ public class HrSendungDeserializer {
 
     final Element urlElement = document.select(HTML_TAG_SOURCE).first();
     if (urlElement != null) {
-      url = urlElement.attr(HTML_ATTRIBUTE_SRC);
+      url = urlElement.attr(ATTRIBUTE_SRC);
     }
 
     return url;
