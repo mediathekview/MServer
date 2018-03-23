@@ -36,7 +36,7 @@
             {
                "_quality":"auto",
                "_server":"",
-               "_stream":"https://ndrfs-lh.akamaihd.net/i/ndrfs_nds@430233/master.m3u8",
+               "_stream":"http://localhost:8589/i/ndrfs_nds@430233/master.m3u8",
                "_cdn":"flashls"
             }
          ]

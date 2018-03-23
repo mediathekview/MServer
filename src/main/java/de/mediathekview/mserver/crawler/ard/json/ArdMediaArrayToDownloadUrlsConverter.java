@@ -249,7 +249,9 @@ public class ArdMediaArrayToDownloadUrlsConverter {
     int qualityNumber;
     try {
       if (aQualityAsText.equals("auto")) {
-        qualityNumber = -1;
+        // Some films only contains "auto" quality with a m3u8-url
+        // treat quality "auto" as NORMAL though the m3u8-url is returned
+        return Optional.of(Resolution.NORMAL);
       } else {
         qualityNumber = Integer.parseInt(aQualityAsText);
       }

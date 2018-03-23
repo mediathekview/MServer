@@ -1,0 +1,29 @@
+#EXTM3U
+#EXT-X-STREAM-INF:PROGRAM-ID=1,BANDWIDTH=184000,RESOLUTION=320x180,CODECS="avc1.66.30, mp4a.40.2"
+https://ndrfs-lh.akamaihd.net/i/ndrfs_nds@430233/index_184_av-p.m3u8?sd=10&rebase=on&id=
+#EXT-X-STREAM-INF:PROGRAM-ID=1,BANDWIDTH=184000,RESOLUTION=320x180,CODECS="avc1.66.30, mp4a.40.2"
+https://ndrfs-lh.akamaihd.net/i/ndrfs_nds@430233/index_184_av-b.m3u8?sd=10&rebase=on&id=
+#EXT-X-STREAM-INF:PROGRAM-ID=1,BANDWIDTH=320000,RESOLUTION=480x270,CODECS="avc1.66.30, mp4a.40.2"
+https://ndrfs-lh.akamaihd.net/i/ndrfs_nds@430233/index_320_av-p.m3u8?sd=10&rebase=on&id=
+#EXT-X-STREAM-INF:PROGRAM-ID=1,BANDWIDTH=320000,RESOLUTION=480x270,CODECS="avc1.66.30, mp4a.40.2"
+https://ndrfs-lh.akamaihd.net/i/ndrfs_nds@430233/index_320_av-b.m3u8?sd=10&rebase=on&id=
+#EXT-X-STREAM-INF:PROGRAM-ID=1,BANDWIDTH=608000,RESOLUTION=512x288,CODECS="avc1.77.30, mp4a.40.2"
+https://ndrfs-lh.akamaihd.net/i/ndrfs_nds@430233/index_608_av-p.m3u8?sd=10&rebase=on&id=
+#EXT-X-STREAM-INF:PROGRAM-ID=1,BANDWIDTH=608000,RESOLUTION=512x288,CODECS="avc1.77.30, mp4a.40.2"
+https://ndrfs-lh.akamaihd.net/i/ndrfs_nds@430233/index_608_av-b.m3u8?sd=10&rebase=on&id=
+#EXT-X-STREAM-INF:PROGRAM-ID=1,BANDWIDTH=1216000,RESOLUTION=640x360,CODECS="avc1.77.30, mp4a.40.2"
+https://ndrfs-lh.akamaihd.net/i/ndrfs_nds@430233/index_1216_av-p.m3u8?sd=10&rebase=on&id=
+#EXT-X-STREAM-INF:PROGRAM-ID=1,BANDWIDTH=1216000,RESOLUTION=640x360,CODECS="avc1.77.30, mp4a.40.2"
+https://ndrfs-lh.akamaihd.net/i/ndrfs_nds@430233/index_1216_av-b.m3u8?sd=10&rebase=on&id=
+#EXT-X-STREAM-INF:PROGRAM-ID=1,BANDWIDTH=1992000,RESOLUTION=960x540,CODECS="avc1.77.30, mp4a.40.2"
+https://ndrfs-lh.akamaihd.net/i/ndrfs_nds@430233/index_1992_av-p.m3u8?sd=10&rebase=on&id=
+#EXT-X-STREAM-INF:PROGRAM-ID=1,BANDWIDTH=1992000,RESOLUTION=960x540,CODECS="avc1.77.30, mp4a.40.2"
+https://ndrfs-lh.akamaihd.net/i/ndrfs_nds@430233/index_1992_av-b.m3u8?sd=10&rebase=on&id=
+#EXT-X-STREAM-INF:PROGRAM-ID=1,BANDWIDTH=3776000,RESOLUTION=1280x720,CODECS="avc1.64001f, mp4a.40.2"
+https://ndrfs-lh.akamaihd.net/i/ndrfs_nds@430233/index_3776_av-p.m3u8?sd=10&rebase=on&id=
+#EXT-X-STREAM-INF:PROGRAM-ID=1,BANDWIDTH=3776000,RESOLUTION=1280x720,CODECS="avc1.64001f, mp4a.40.2"
+https://ndrfs-lh.akamaihd.net/i/ndrfs_nds@430233/index_3776_av-b.m3u8?sd=10&rebase=on&id=
+#EXT-X-STREAM-INF:PROGRAM-ID=1,BANDWIDTH=56000,CODECS="mp4a.40.2"
+https://ndrfs-lh.akamaihd.net/i/ndrfs_nds@430233/index_184_a-p.m3u8?sd=10&rebase=on&id=
+#EXT-X-STREAM-INF:PROGRAM-ID=1,BANDWIDTH=56000,CODECS="mp4a.40.2"
+https://ndrfs-lh.akamaihd.net/i/ndrfs_nds@430233/index_184_a-b.m3u8?sd=10&rebase=on&id=

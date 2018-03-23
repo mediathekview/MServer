@@ -61,7 +61,13 @@ public class ArdVideoInfoJsonDeserializerTest extends WireMockTestBase {
             null},
         {"/sr/sr_film_video_details1.json", "https://srstorage01-a.akamaihd.net/Video/FS/MT/traumreise_20170926_124001_M.mp4",
             "https://srstorage01-a.akamaihd.net/Video/FS/MT/traumreise_20170926_124001_L.mp4",
-            "https://srstorage01-a.akamaihd.net/Video/FS/MT/traumreise_20170926_124001_P.mp4"}
+            "https://srstorage01-a.akamaihd.net/Video/FS/MT/traumreise_20170926_124001_P.mp4"},
+        {
+            "/ndr/ndr_film_detail_m3u8.json",
+            "https://ndrfs-lh.akamaihd.net/i/ndrfs_nds@430233/index_608_av-b.m3u8",
+            "https://ndrfs-lh.akamaihd.net/i/ndrfs_nds@430233/index_1992_av-b.m3u8",
+            "https://ndrfs-lh.akamaihd.net/i/ndrfs_nds@430233/index_3776_av-b.m3u8"
+        }
     });
   }
 
@@ -81,6 +87,8 @@ public class ArdVideoInfoJsonDeserializerTest extends WireMockTestBase {
   public void deserializeTest() {
 
     JsonElement jsonElement = JsonFileReader.readJson(jsonFile);
+
+    setupSuccessfulResponse("/i/ndrfs_nds@430233/master.m3u8", "/ndr/ndr_film_detail_m3u8.m3u8");
 
     AbstractCrawler crawler = Mockito.mock(AbstractCrawler.class);
     ArdVideoInfoJsonDeserializer target = new ArdVideoInfoJsonDeserializer(crawler);
