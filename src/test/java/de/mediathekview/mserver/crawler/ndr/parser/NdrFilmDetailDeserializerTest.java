@@ -27,7 +27,8 @@ public class NdrFilmDetailDeserializerTest {
             {
                 "https://www.ndr.de/fernsehen/sendungen/sass-so-isst-der-norden/Sass-So-isst-der-Norden,sendung563148.html",
                 "/ndr/ndr_film_detail1.html",
-                "https://www.ndr.de/fernsehen/sendungen/sass-so-isst-der-norden/sass404-ardjson_image-5a3e2524-70e1-45f1-96da-27bf9d5c8137.json",
+                // url uses localhost because of wiremock for other tests
+                "http://localhost:8589/fernsehen/sendungen/sass-so-isst-der-norden/sass404-ardjson_image-5a3e2524-70e1-45f1-96da-27bf9d5c8137.json",
                 "Sass: So isst der Norden",
                 "Deftige Eintopfgerichte aus Bremen",
                 "Rainer Sass macht mit seiner mobilen Küche Station auf dem Bremer Domshof. Mit seinen Kochpartnern vom dortigen Markt bereitet er Deftiges aus frischem Gemüse zu.",
@@ -37,7 +38,8 @@ public class NdrFilmDetailDeserializerTest {
             {
                 "https://www.ndr.de/fernsehen/Folge-2881-Der-langersehnte-Antrag,sturmderliebe1816.html",
                 "/ndr/ndr_film_detail2.html",
-                "https://www.ndr.de/fernsehen/sturmderliebe1816-ardjson_image-a5409105-e38b-4847-ba32-fc2c337d7515.json",
+                // url uses localhost because of wiremock for other tests
+                "http://localhost:8589/fernsehen/sturmderliebe1816-ardjson_image-a5409105-e38b-4847-ba32-fc2c337d7515.json",
                 "Sturm der Liebe",
                 "Folge 2881: Der langersehnte Antrag",
                 "André fasst sich ein Herz und macht Melli den geplanten Antrag. Währenddessen ist Romy enttäuscht, dass Paul lediglich eine gute Freundin in ihr sieht.",
