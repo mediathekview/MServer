@@ -17,6 +17,7 @@ start*.sh
 .settings/
 
 .idea
+out/
 build/
 
 version.properties

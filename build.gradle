@@ -3,6 +3,7 @@ import org.apache.tools.ant.filters.ReplaceTokens
 import java.nio.file.Files
 
 apply plugin: 'java'
+apply plugin: 'jacoco'
 apply plugin: 'distribution'
 apply plugin: 'maven'
 apply plugin: 'signing'
@@ -75,6 +76,15 @@ test {
         exceptionFormat "short"
     }
 }
+
+jacocoTestReport {
+    reports {
+        xml.enabled = true
+        html.enabled = true
+    }
+}
+
+check.dependsOn jacocoTestReport
 
 task developTest(type: Test) {
     include 'mServer/developTest/**'
