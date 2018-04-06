@@ -97,8 +97,11 @@ public class WdrVideoDetailsDeserializer extends HtmlDeserializerBase {
     String title = getMetaValue(document, QUERY_META_PROPERTY, META_PROPERTY_TITLE);
     if (title.startsWith(theme) && !title.equals(theme)) {
       title = title.replaceFirst(theme, "").trim();
-      if (title.startsWith("-")) {
+      if (title.trim().startsWith("-")) {
         title = title.replaceFirst("-", "").trim();
+      }
+      if (title.trim().startsWith(":")) {
+        title = title.replaceFirst(":", "").trim();
       }
     }
 
@@ -109,16 +112,16 @@ public class WdrVideoDetailsDeserializer extends HtmlDeserializerBase {
     String theme = "";
     theme = getReducedTitleValue(document);
 
-    int firstIndex = theme.indexOf("-");
-    int lastIndex = theme.lastIndexOf("-");
+    int firstIndex = theme.indexOf(" - ");
+    int lastIndex = theme.lastIndexOf(" - ");
     if (firstIndex > -1) {
       if (theme.substring(0, firstIndex).trim().equals(actualTheme)) {
         return actualTheme;
       }
-      if (theme.substring(lastIndex + 1).trim().equals(actualTheme)) {
+      if (theme.substring(lastIndex + 3).trim().equals(actualTheme)) {
         return actualTheme;
       }
-      theme = theme.substring(lastIndex + 1).trim();
+      theme = theme.substring(lastIndex + 3).trim();
     }
 
     return theme;
@@ -132,6 +135,7 @@ public class WdrVideoDetailsDeserializer extends HtmlDeserializerBase {
       title = titleElement.text()
               .replace(" - Sendungen A-Z - Video - Mediathek - WDR", "")
               .replace("- Sendung - Video - Mediathek - WDR", "")
+              .replace("- Fernsehen - WDR", "")
               .replace(title, "");
       if (title.startsWith("Video:")) {
         title = title.substring(6).trim();
