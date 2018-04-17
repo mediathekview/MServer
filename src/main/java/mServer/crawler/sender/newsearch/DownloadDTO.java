@@ -1,51 +1,69 @@
 package mServer.crawler.sender.newsearch;
 
 import java.util.HashMap;
+import java.util.Set;
 
 /**
  * A data transfer object containing the information for downloading a video
  */
 public class DownloadDTO {
 
-    private GeoLocations geoLocation;
-    private String subTitleUrl;
-    private final HashMap<Qualities, String> downloadUrls;
+  public static final String LANGUAGE_ENGLISH = "eng";
+  public static final String LANGUAGE_GERMAN = "deu";
 
-    public DownloadDTO() {
-        this.downloadUrls = new HashMap<>();
+  private GeoLocations geoLocation;
+  private String subTitleUrl;
+  private final HashMap<String, HashMap<Qualities, String>> downloadUrls;
+
+  public DownloadDTO() {
+    this.downloadUrls = new HashMap<>();
+  }
+
+  public void addUrl(String language, Qualities quality, String url) {
+    if (!downloadUrls.containsKey(language)) {
+      downloadUrls.put(language, new HashMap<>());
     }
 
-    public void addUrl(Qualities quality, String url) {
-        downloadUrls.put(quality, url);
+    HashMap<Qualities, String> urlMap = downloadUrls.get(language);
+    urlMap.put(quality, url);
+  }
+
+  public Set<String> getLanguages() {
+    return downloadUrls.keySet();
+  }
+
+  public String getUrl(String language, Qualities quality) {
+    HashMap<Qualities, String> urlMap = downloadUrls.get(language);
+    if (urlMap == null) {
+      return "";
     }
-    
-    public String getUrl(Qualities quality) {
-        String url = downloadUrls.get(quality);
-        if(url == null) {
-            return "";
-        }
-        return url;
+
+    String url = urlMap.get(quality);
+    if (url == null) {
+      return "";
     }
-    
-    public GeoLocations getGeoLocation() {
-        if(geoLocation == null) {
-            return GeoLocations.GEO_NONE;
-        }        
-        return geoLocation;
+    return url;
+  }
+
+  public GeoLocations getGeoLocation() {
+    if (geoLocation == null) {
+      return GeoLocations.GEO_NONE;
     }
-    
-    public void setGeoLocation(GeoLocations aGeoLocation) {
-        geoLocation = aGeoLocation;
+    return geoLocation;
+  }
+
+  public void setGeoLocation(GeoLocations aGeoLocation) {
+    geoLocation = aGeoLocation;
+  }
+
+  public String getSubTitleUrl() {
+    if (subTitleUrl == null) {
+      return "";
     }
-    
-    public String getSubTitleUrl() {
-        if(subTitleUrl == null) {
-            return "";
-        }
-        return subTitleUrl;
-    }
-    
-    public void setSubTitleUrl(String aUrl) {
-        subTitleUrl = aUrl;
-    }
+    return subTitleUrl;
+  }
+
+  public void setSubTitleUrl(String aUrl) {
+    subTitleUrl = aUrl;
+  }
 }
