@@ -132,7 +132,9 @@ public class MediathekZdf extends MediathekReader {
         try {
           DownloadDTO download = video.getDownloadDto();
 
-          download.getLanguages().forEach(language -> addFilm(download, language));
+          for (String language : download.getLanguages()) {
+            addFilm(download, language);
+          }
 
         } catch (Exception ex) {
           Log.errorLog(496583211, ex, "add film failed: " + video.getWebsiteUrl());
