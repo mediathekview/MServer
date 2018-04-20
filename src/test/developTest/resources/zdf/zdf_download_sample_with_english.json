@@ -1,0 +1,383 @@
+{
+   "attributes" : {
+      "downloadAllowed" : {
+         "profile" : "http://zdf.de/rels/streams/ptmd/attributes/attribute",
+         "value" : false
+      },
+      "duration" : {
+         "profile" : "http://zdf.de/rels/streams/ptmd/attributes/attribute",
+         "value" : 6173000
+      },
+      "fsk" : {
+         "profile" : "http://zdf.de/rels/streams/ptmd/attributes/attribute",
+         "value" : "fsk16"
+      },
+      "geoLocation" : {
+         "profile" : "http://zdf.de/rels/streams/ptmd/attributes/attribute",
+         "value" : "de"
+      },
+      "profile" : "http://zdf.de/rels/streams/ptmd/attributes"
+   },
+   "basename" : "180416_2215_sendung_hsn",
+   "captions" : [
+      {
+         "class" : "hoh",
+         "format" : "ebu-tt-d-basic-de",
+         "language" : "deu",
+         "offset" : 0,
+         "profile" : "http://zdf.de/rels/streams/ptmd/caption",
+         "uri" : "https://utstreaming.zdf.de/mtt/zdf/18/04/180416_2215_sendung_hsn/7/Hard_Sun_Teil1_OmU.xml"
+      },
+      {
+         "class" : "hoh",
+         "format" : "webvtt",
+         "language" : "deu",
+         "offset" : 0,
+         "profile" : "http://zdf.de/rels/streams/ptmd/caption",
+         "uri" : "https://utstreaming.zdf.de/mtt/zdf/18/04/180416_2215_sendung_hsn/7/Hard_Sun_Teil1_OmU.vtt"
+      }
+   ],
+   "documentVersion" : 2,
+   "mandant" : "mediathek",
+   "playerId" : "ngplayer_2_3",
+   "priorityList" : [
+      {
+         "formitaeten" : [
+            {
+               "facets" : [],
+               "isAdaptive" : true,
+               "mimeType" : "application/x-mpegURL",
+               "profile" : "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet",
+               "qualities" : [
+                  {
+                     "audio" : {
+                        "profile" : "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality/audio",
+                        "tracks" : [
+                           {
+                              "cdn" : "akamai",
+                              "class" : "main",
+                              "language" : "deu",
+                              "profile" : "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality/audio/track",
+                              "uri" : "https://zdfvodde-vh.akamaihd.net/i/zdf/18/04/180416_2215_sendung_hsn/7/180416_2215_sendung_hsn_a,1a2_229k_p7,1a2_476k_p9,3a4_476k_p9,1a2_776k_p11,1a2_1496k_p13,1a2_2296k_p14,1a2_3296k_p15,v13.mp4.csmil/master.m3u8?audiotrack=1:deu:TV%20Ton,2:eng:Originalton%20englisch"
+                           },
+                           {
+                              "cdn" : "akamai",
+                              "class" : "ot",
+                              "language" : "eng",
+                              "profile" : "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality/audio/track",
+                              "uri" : "https://zdfvodde-vh.akamaihd.net/i/zdf/18/04/180416_2215_sendung_hsn/7/180416_2215_sendung_hsn_a,3a4_229k_p7,3a4_476k_p9,1a2_476k_p9,3a4_776k_p11,3a4_1496k_p13,3a4_2296k_p14,3a4_3296k_p15,v13.mp4.csmil/master.m3u8?audiotrack=1:eng:Originalton%20englisch,2:deu:TV%20Ton"
+                           }
+                        ]
+                     },
+                     "hd" : true,
+                     "profile" : "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality",
+                     "quality" : "auto"
+                  },
+                  {
+                     "audio" : {
+                        "profile" : "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality/audio",
+                        "tracks" : [
+                           {
+                              "cdn" : "akamai",
+                              "class" : "main",
+                              "language" : "deu",
+                              "profile" : "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality/audio/track",
+                              "uri" : "https://zdfvodde-vh.akamaihd.net/i/zdf/18/04/180416_2215_sendung_hsn/7/180416_2215_sendung_hsn_a,1a2_229k_p7,1a2_476k_p9,3a4_476k_p9,1a2_776k_p11,1a2_1496k_p13,1a2_2296k_p14,1a2_3296k_p15,v13.mp4.csmil/master.m3u8?audiotrack=1:deu:TV%20Ton,2:eng:Originalton%20englisch"
+                           },
+                           {
+                              "cdn" : "akamai",
+                              "class" : "ot",
+                              "language" : "eng",
+                              "profile" : "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality/audio/track",
+                              "uri" : "https://zdfvodde-vh.akamaihd.net/i/zdf/18/04/180416_2215_sendung_hsn/7/180416_2215_sendung_hsn_a,3a4_229k_p7,3a4_476k_p9,1a2_476k_p9,3a4_776k_p11,3a4_1496k_p13,3a4_2296k_p14,3a4_3296k_p15,v13.mp4.csmil/master.m3u8?audiotrack=1:eng:Originalton%20englisch,2:deu:TV%20Ton"
+                           }
+                        ]
+                     },
+                     "hd" : true,
+                     "profile" : "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality",
+                     "quality" : "high"
+                  },
+                  {
+                     "audio" : {
+                        "profile" : "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality/audio",
+                        "tracks" : [
+                           {
+                              "cdn" : "akamai",
+                              "class" : "main",
+                              "language" : "deu",
+                              "profile" : "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality/audio/track",
+                              "uri" : "https://zdfvodde-vh.akamaihd.net/i/zdf/18/04/180416_2215_sendung_hsn/7/180416_2215_sendung_hsn_a,1a2_229k_p7,1a2_476k_p9,3a4_476k_p9,1a2_776k_p11,1a2_1496k_p13,v13.mp4.csmil/master.m3u8?audiotrack=1:deu:TV%20Ton,2:eng:Originalton%20englisch"
+                           },
+                           {
+                              "cdn" : "akamai",
+                              "class" : "ot",
+                              "language" : "eng",
+                              "profile" : "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality/audio/track",
+                              "uri" : "https://zdfvodde-vh.akamaihd.net/i/zdf/18/04/180416_2215_sendung_hsn/7/180416_2215_sendung_hsn_a,3a4_229k_p7,3a4_476k_p9,1a2_476k_p9,3a4_776k_p11,3a4_1496k_p13,v13.mp4.csmil/master.m3u8?audiotrack=1:eng:Originalton%20englisch,2:deu:TV%20Ton"
+                           }
+                        ]
+                     },
+                     "hd" : false,
+                     "profile" : "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality",
+                     "quality" : "med"
+                  }
+               ],
+               "type" : "h264_aac_ts_http_m3u8_http"
+            }
+         ],
+         "profile" : "http://zdf.de/rels/streams/ptmd/priority-list-item"
+      },
+      {
+         "formitaeten" : [
+            {
+               "facets" : [
+                  "progressive"
+               ],
+               "isAdaptive" : false,
+               "mimeType" : "video/mp4",
+               "profile" : "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet",
+               "qualities" : [
+                  {
+                     "audio" : {
+                        "profile" : "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality/audio",
+                        "tracks" : [
+                           {
+                              "cdn" : "akamai",
+                              "class" : "main",
+                              "language" : "deu",
+                              "profile" : "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality/audio/track",
+                              "uri" : "https://nrodlzdf-a.akamaihd.net/de/zdf/18/04/180416_2215_sendung_hsn/7/180416_2215_sendung_hsn_a1a2_1496k_p13v13.mp4"
+                           },
+                           {
+                              "cdn" : "akamai",
+                              "class" : "ot",
+                              "language" : "eng",
+                              "profile" : "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality/audio/track",
+                              "uri" : "https://nrodlzdf-a.akamaihd.net/de/zdf/18/04/180416_2215_sendung_hsn/7/180416_2215_sendung_hsn_a3a4_1496k_p13v13.mp4"
+                           }
+                        ]
+                     },
+                     "hd" : false,
+                     "mimeCodec" : "avc1.4d401f, mp4a.40.2",
+                     "profile" : "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality",
+                     "quality" : "veryhigh"
+                  },
+                  {
+                     "audio" : {
+                        "profile" : "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality/audio",
+                        "tracks" : [
+                           {
+                              "cdn" : "akamai",
+                              "class" : "main",
+                              "language" : "deu",
+                              "profile" : "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality/audio/track",
+                              "uri" : "https://nrodlzdf-a.akamaihd.net/de/zdf/18/04/180416_2215_sendung_hsn/7/180416_2215_sendung_hsn_a1a2_476k_p9v13.mp4"
+                           },
+                           {
+                              "cdn" : "akamai",
+                              "class" : "ot",
+                              "language" : "eng",
+                              "profile" : "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality/audio/track",
+                              "uri" : "https://nrodlzdf-a.akamaihd.net/de/zdf/18/04/180416_2215_sendung_hsn/7/180416_2215_sendung_hsn_a3a4_476k_p9v13.mp4"
+                           }
+                        ]
+                     },
+                     "hd" : false,
+                     "mimeCodec" : "avc1.4d401f, mp4a.40.2",
+                     "profile" : "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality",
+                     "quality" : "high"
+                  },
+                  {
+                     "audio" : {
+                        "profile" : "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality/audio",
+                        "tracks" : [
+                           {
+                              "cdn" : "akamai",
+                              "class" : "main",
+                              "language" : "deu",
+                              "profile" : "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality/audio/track",
+                              "uri" : "https://nrodlzdf-a.akamaihd.net/de/zdf/18/04/180416_2215_sendung_hsn/7/180416_2215_sendung_hsn_a1a2_229k_p7v13.mp4"
+                           },
+                           {
+                              "cdn" : "akamai",
+                              "class" : "ot",
+                              "language" : "eng",
+                              "profile" : "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality/audio/track",
+                              "uri" : "https://nrodlzdf-a.akamaihd.net/de/zdf/18/04/180416_2215_sendung_hsn/7/180416_2215_sendung_hsn_a3a4_229k_p7v13.mp4"
+                           }
+                        ]
+                     },
+                     "hd" : false,
+                     "mimeCodec" : "avc1.4d401f, mp4a.40.2",
+                     "profile" : "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality",
+                     "quality" : "low"
+                  }
+               ],
+               "type" : "h264_aac_mp4_http_na_na"
+            }
+         ],
+         "profile" : "http://zdf.de/rels/streams/ptmd/priority-list-item"
+      },
+      {
+         "formitaeten" : [
+            {
+               "facets" : [
+                  "restriction_useragent"
+               ],
+               "isAdaptive" : false,
+               "mimeType" : "video/mp4",
+               "profile" : "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet",
+               "qualities" : [
+                  {
+                     "audio" : {
+                        "profile" : "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality/audio",
+                        "tracks" : [
+                           {
+                              "cdn" : "akamai",
+                              "class" : "main",
+                              "language" : "deu",
+                              "profile" : "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality/audio/track",
+                              "uri" : "https://rodlzdf-a.akamaihd.net/de/zdf/18/04/180416_2215_sendung_hsn/7/180416_2215_sendung_hsn_a1a2_1496k_p13v13.mp4"
+                           },
+                           {
+                              "cdn" : "akamai",
+                              "class" : "ot",
+                              "language" : "eng",
+                              "profile" : "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality/audio/track",
+                              "uri" : "https://rodlzdf-a.akamaihd.net/de/zdf/18/04/180416_2215_sendung_hsn/7/180416_2215_sendung_hsn_a3a4_1496k_p13v13.mp4"
+                           }
+                        ]
+                     },
+                     "hd" : false,
+                     "mimeCodec" : "avc1.4d401f, mp4a.40.2",
+                     "profile" : "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality",
+                     "quality" : "veryhigh"
+                  },
+                  {
+                     "audio" : {
+                        "profile" : "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality/audio",
+                        "tracks" : [
+                           {
+                              "cdn" : "akamai",
+                              "class" : "main",
+                              "language" : "deu",
+                              "profile" : "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality/audio/track",
+                              "uri" : "https://rodlzdf-a.akamaihd.net/de/zdf/18/04/180416_2215_sendung_hsn/7/180416_2215_sendung_hsn_a1a2_476k_p9v13.mp4"
+                           },
+                           {
+                              "cdn" : "akamai",
+                              "class" : "ot",
+                              "language" : "eng",
+                              "profile" : "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality/audio/track",
+                              "uri" : "https://rodlzdf-a.akamaihd.net/de/zdf/18/04/180416_2215_sendung_hsn/7/180416_2215_sendung_hsn_a3a4_476k_p9v13.mp4"
+                           }
+                        ]
+                     },
+                     "hd" : false,
+                     "mimeCodec" : "avc1.4d401f, mp4a.40.2",
+                     "profile" : "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality",
+                     "quality" : "high"
+                  }
+               ],
+               "type" : "h264_aac_mp4_http_na_na"
+            }
+         ],
+         "profile" : "http://zdf.de/rels/streams/ptmd/priority-list-item"
+      },
+      {
+         "formitaeten" : [
+            {
+               "facets" : [],
+               "isAdaptive" : true,
+               "mimeType" : "application/f4m+xml",
+               "profile" : "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet",
+               "qualities" : [
+                  {
+                     "audio" : {
+                        "profile" : "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality/audio",
+                        "tracks" : [
+                           {
+                              "cdn" : "akamai",
+                              "class" : "main",
+                              "language" : "deu",
+                              "profile" : "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality/audio/track",
+                              "uri" : "http://zdf_hdflash_de-vh.akamaihd.net/z/meta-files/zdf/smil/f4m/300/18/04/180416_2215_sendung_hsn/7/180416_2215_sendung_hsn.smil/manifest.f4m"
+                           },
+                           {
+                              "cdn" : "akamai",
+                              "class" : "ot",
+                              "language" : "eng",
+                              "profile" : "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality/audio/track",
+                              "uri" : "http://zdf_hdflash_de-vh.akamaihd.net/z/meta-files/zdf/smil/f4m/300/18/04/180416_2215_sendung_hsn/7/180416_2215_sendung_hsn.smil/manifest.f4m"
+                           }
+                        ]
+                     },
+                     "hd" : true,
+                     "profile" : "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality",
+                     "quality" : "auto"
+                  },
+                  {
+                     "audio" : {
+                        "profile" : "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality/audio",
+                        "tracks" : [
+                           {
+                              "cdn" : "akamai",
+                              "class" : "main",
+                              "language" : "deu",
+                              "profile" : "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality/audio/track",
+                              "uri" : "http://zdf_hdflash_de-vh.akamaihd.net/z/meta-files/zdf/smil/f4m/300/18/04/180416_2215_sendung_hsn/7/180416_2215_sendung_hsn.smil/manifest.f4m"
+                           },
+                           {
+                              "cdn" : "akamai",
+                              "class" : "ot",
+                              "language" : "eng",
+                              "profile" : "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality/audio/track",
+                              "uri" : "http://zdf_hdflash_de-vh.akamaihd.net/z/meta-files/zdf/smil/f4m/300/18/04/180416_2215_sendung_hsn/7/180416_2215_sendung_hsn.smil/manifest.f4m"
+                           }
+                        ]
+                     },
+                     "hd" : true,
+                     "profile" : "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality",
+                     "quality" : "high"
+                  },
+                  {
+                     "audio" : {
+                        "profile" : "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality/audio",
+                        "tracks" : [
+                           {
+                              "cdn" : "akamai",
+                              "class" : "main",
+                              "language" : "deu",
+                              "profile" : "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality/audio/track",
+                              "uri" : "http://zdf_hdflash_de-vh.akamaihd.net/z/meta-files/zdf/smil/f4m/200/18/04/180416_2215_sendung_hsn/7/180416_2215_sendung_hsn.smil/manifest.f4m"
+                           },
+                           {
+                              "cdn" : "akamai",
+                              "class" : "ot",
+                              "language" : "eng",
+                              "profile" : "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality/audio/track",
+                              "uri" : "http://zdf_hdflash_de-vh.akamaihd.net/z/meta-files/zdf/smil/f4m/200/18/04/180416_2215_sendung_hsn/7/180416_2215_sendung_hsn.smil/manifest.f4m"
+                           }
+                        ]
+                     },
+                     "hd" : false,
+                     "profile" : "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality",
+                     "quality" : "med"
+                  }
+               ],
+               "type" : "h264_aac_f4f_http_f4m_http"
+            }
+         ],
+         "profile" : "http://zdf.de/rels/streams/ptmd/priority-list-item"
+      }
+   ],
+   "profile" : "http://zdf.de/rels/streams/ptmd",
+   "scrubPreview" : {
+      "ImageInterval" : "2000",
+      "ImageUrlScheme" : "https://pvstreaming.zdf.de/de/img/zdf/18/04/180416_2215_sendung_hsn/7/scrubpreview/180416_2215_sendung_hsn_%index%.jpg",
+      "ImagesPerColumn" : "5",
+      "ImagesPerRow" : "5"
+   },
+   "self" : "/tmd/2/ngplayer_2_3/vod/ptmd/mediathek/180416_2215_sendung_hsn/7",
+   "version" : 7
+}
