@@ -50,10 +50,10 @@ public class WdrVideoJsonDeserializerTest {
       },
       {
         "/wdr/wdr_video_with_ad_dgs.json",
-        Optional.of("http://wdrmedien-a.akamaihd.net/medp/ondemand/weltweit/fsk0/158/1583693/1583693_18232422.xml"),
-        "http://wdradaptiv-vh.akamaihd.net/i/medp/ondemand/weltweit/fsk0/158/1583693/,1583693_18232361,1583693_18232358,1583693_18232363,1583693_18232362,1583693_18232359,1583693_18232360,.mp4.csmil/master.m3u8",
-        Optional.of("http://wdradaptiv-vh.akamaihd.net/i/medp/ondemand/weltweit/fsk0/158/1583693/,1583693_18232391,1583693_18232389,1583693_18232393,1583693_18232392,1583693_18232388,1583693_18232390,.mp4.csmil/master.m3u8"),
-        Optional.of("http://wdradaptiv-vh.akamaihd.net/i/medp/ondemand/weltweit/fsk0/158/1583693/,1583693_18232344,1583693_18232347,1583693_18232346,1583693_18232345,1583693_18232343,1583693_18232342,.mp4.csmil/master.m3u8")
+        Optional.of("http://wdrmedien-a.akamaihd.net/medp/ondemand/weltweit/fsk0/162/1629126/1629126_18799781.xml"),
+        "http://wdradaptiv-vh.akamaihd.net/i/medp/ondemand/weltweit/fsk0/162/1629126/,1629126_18799707,1629126_18799719,1629126_18799712,1629126_18799713,1629126_18799717,1629126_18799722,.mp4.csmil/master.m3u8",
+        Optional.of("http://wdradaptiv-vh.akamaihd.net/i/medp/ondemand/weltweit/fsk0/162/1629126/,1629126_18799706,1629126_18799718,1629126_18799710,1629126_18799711,1629126_18799716,1629126_18799721,.mp4.csmil/master.m3u8"),
+        Optional.of("http://wdradaptiv-vh.akamaihd.net/i/medp/ondemand/weltweit/fsk0/162/1629126/,1629126_18799705,1629126_18799714,1629126_18799708,1629126_18799709,1629126_18799715,1629126_18799720,.mp4.csmil/master.m3u8")
       }
     });
   }
