@@ -82,7 +82,7 @@ public class OrfCrawler extends MediathekReader {
     final OrfDayTask dayTask = new OrfDayTask(this, getDayUrls());
     final Set<TopicUrlDTO> shows = forkJoinPool.submit(dayTask).get();
 
-    Log.sysLog("Anzahl Sendungen " + getSendername() + ": " + shows.size());
+    Log.sysLog("Anzahl Sendungen aus Verpasst " + getSendername() + ": " + shows.size());
 
     return shows;
   }
@@ -106,7 +106,7 @@ public class OrfCrawler extends MediathekReader {
     final OrfLetterPageTask letterTask = new OrfLetterPageTask();
     final ConcurrentLinkedQueue<TopicUrlDTO> shows = forkJoinPool.submit(letterTask).get();
 
-    Log.sysLog("Anzahl Sendungen " + getSendername() + ": " + shows.size());
+    Log.sysLog("Anzahl Sendungen nach Buchstaben " + getSendername() + ": " + shows.size());
 
     return shows;
   }
@@ -129,7 +129,7 @@ public class OrfCrawler extends MediathekReader {
     } catch (InterruptedException | ExecutionException exception) {
       LOG.fatal("Something wen't terrible wrong on gathering the films", exception);
     }
-    LOG.debug("ORF Anzahl: " + shows.size());
+    Log.sysLog("ORF Anzahl: " + shows.size());
 
     meldungAddMax(shows.size());
 
