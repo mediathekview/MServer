@@ -14,6 +14,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.ForkJoinPool;
 import java.util.concurrent.RecursiveTask;
 import java.util.concurrent.TimeUnit;
+import mServer.crawler.CrawlerTool;
 import mServer.crawler.FilmeSuchen;
 import mServer.crawler.sender.MediathekReader;
 import mServer.crawler.sender.orf.tasks.OrfDayTask;
@@ -115,7 +116,10 @@ public class OrfCrawler extends MediathekReader {
     final ConcurrentLinkedQueue<TopicUrlDTO> shows = new ConcurrentLinkedQueue<>();
     try {
 
-      //shows.addAll(getLetterEntries());
+      if (CrawlerTool.loadLongMax()) {
+        shows.addAll(getLetterEntries());
+      }
+
       getDaysEntries().forEach(show -> {
         if (!shows.contains(show)) {
           shows.add(show);
