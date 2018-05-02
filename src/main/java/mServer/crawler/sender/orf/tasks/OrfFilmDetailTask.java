@@ -120,21 +120,12 @@ public class OrfFilmDetailTask extends AbstractDocumentTask<DatenFilm, TopicUrlD
 
         addUrls(film, videoInfo.getVideoUrls());
 
-// TODO Geo???        
         taskResults.add(film);
-        //TODO
-        //crawler.incrementAndGetActualCount();
-        //crawler.updateProgress();
       } else {
         LOG.error("OrfFilmDetailTask: no title or video found for url " + aUrlDTO.getUrl());
-        //crawler.incrementAndGetErrorCount();
-        //crawler.updateProgress();
       }
     } catch (MalformedURLException ex) {
       LOG.fatal("A ORF URL can't be parsed.", ex);
-      //crawler.printErrorMessage();
-      //crawler.incrementAndGetErrorCount();
-      //crawler.updateProgress();
     }
   }
 
