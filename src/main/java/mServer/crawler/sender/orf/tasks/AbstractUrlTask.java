@@ -32,8 +32,7 @@ public abstract class AbstractUrlTask<T, D extends CrawlerUrlDTO>
 
   @Override
   protected Integer getMaxElementsToProcess() {
-    // TODO??
-    return 20;
+    return 100;
   }
 
   @Deprecated

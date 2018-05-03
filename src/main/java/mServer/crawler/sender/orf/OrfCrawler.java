@@ -20,13 +20,10 @@ import mServer.crawler.sender.MediathekReader;
 import mServer.crawler.sender.orf.tasks.OrfDayTask;
 import mServer.crawler.sender.orf.tasks.OrfFilmDetailTask;
 import mServer.crawler.sender.orf.tasks.OrfLetterPageTask;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 public class OrfCrawler extends MediathekReader {
 
   public static final String SENDERNAME = Const.ORF;
-  private static final Logger LOG = LogManager.getLogger(OrfCrawler.class);
 
   private final ForkJoinPool forkJoinPool;
 
@@ -44,7 +41,7 @@ public class OrfCrawler extends MediathekReader {
       RecursiveTask<Set<DatenFilm>> filmTask = createCrawlerTask();
       Set<DatenFilm> films = forkJoinPool.invoke(filmTask);
 
-      LOG.info("ORF Filme einsortieren...");
+      Log.sysLog("ORF Filme einsortieren...");
 
       films.forEach(film -> {
         if (!Config.getStop()) {
@@ -52,24 +49,25 @@ public class OrfCrawler extends MediathekReader {
         }
       });
 
-      LOG.info("ORF Film einsortieren fertig");
+      Log.sysLog("ORF Film einsortieren fertig");
     } finally {
       //explicitely shutdown the pool
       shutdownAndAwaitTermination(forkJoinPool, 60, TimeUnit.SECONDS);
     }
 
-    LOG.info("ORF fertig");
+    Log.sysLog("ORF fertig");
 
     meldungThreadUndFertig();
   }
 
   void shutdownAndAwaitTermination(ExecutorService pool, long delay, TimeUnit delayUnit) {
     pool.shutdown();
+    Log.sysLog("ORF shutdown pool...");
     try {
       if (!pool.awaitTermination(delay, delayUnit)) {
         pool.shutdownNow();
         if (!pool.awaitTermination(delay, delayUnit)) {
-          LOG.info("Pool nicht beendet");
+          Log.sysLog("ORF: Pool nicht beendet");
         }
       }
     } catch (InterruptedException ie) {
@@ -82,7 +80,7 @@ public class OrfCrawler extends MediathekReader {
     final OrfDayTask dayTask = new OrfDayTask(this, getDayUrls());
     final Set<TopicUrlDTO> shows = forkJoinPool.submit(dayTask).get();
 
-    Log.sysLog("Anzahl Sendungen aus Verpasst " + getSendername() + ": " + shows.size());
+    Log.sysLog("ORF: Anzahl Sendungen aus Verpasst: " + shows.size());
 
     return shows;
   }
@@ -106,7 +104,7 @@ public class OrfCrawler extends MediathekReader {
     final OrfLetterPageTask letterTask = new OrfLetterPageTask();
     final ConcurrentLinkedQueue<TopicUrlDTO> shows = forkJoinPool.submit(letterTask).get();
 
-    Log.sysLog("Anzahl Sendungen nach Buchstaben " + getSendername() + ": " + shows.size());
+    Log.sysLog("ORF: Anzahl Sendungen nach Buchstaben: " + shows.size());
 
     return shows;
   }
@@ -127,7 +125,7 @@ public class OrfCrawler extends MediathekReader {
       });
 
     } catch (InterruptedException | ExecutionException exception) {
-      LOG.fatal("Something wen't terrible wrong on gathering the films", exception);
+      Log.errorLog(56146546, exception);
     }
     Log.sysLog("ORF Anzahl: " + shows.size());
 

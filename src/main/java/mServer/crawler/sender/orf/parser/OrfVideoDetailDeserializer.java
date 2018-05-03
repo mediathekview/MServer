@@ -5,16 +5,13 @@ import com.google.gson.JsonDeserializer;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
+import de.mediathekview.mlib.tool.Log;
 import java.lang.reflect.Type;
 import java.util.Optional;
 import mServer.crawler.sender.newsearch.Qualities;
 import mServer.crawler.sender.orf.OrfVideoInfoDTO;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 public class OrfVideoDetailDeserializer implements JsonDeserializer<Optional<OrfVideoInfoDTO>> {
-
-  private static final Logger LOG = LogManager.getLogger(OrfVideoDetailDeserializer.class);
 
   private static final String ELEMENT_PLAYLIST = "playlist";
   private static final String ELEMENT_VIDEOS = "videos";
@@ -118,7 +115,7 @@ public class OrfVideoDetailDeserializer implements JsonDeserializer<Optional<Orf
       case "Q8C":
         return Optional.of(Qualities.HD);
       default:
-        LOG.debug("ORF: unknown quality: " + aQuality);
+        Log.sysLog("ORF: unknown quality: " + aQuality);
     }
     return Optional.empty();
   }

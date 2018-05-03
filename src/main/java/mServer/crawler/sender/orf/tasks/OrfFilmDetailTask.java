@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import de.mediathekview.mlib.daten.DatenFilm;
+import de.mediathekview.mlib.tool.Log;
 import java.lang.reflect.Type;
 import java.net.MalformedURLException;
 import java.time.Duration;
@@ -26,14 +27,10 @@ import mServer.crawler.sender.orf.TopicUrlDTO;
 import mServer.crawler.sender.orf.parser.OrfEpisodeDeserializer;
 import mServer.crawler.sender.orf.parser.OrfVideoDetailDeserializer;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
 
 public class OrfFilmDetailTask extends AbstractDocumentTask<DatenFilm, TopicUrlDTO> {
-
-  private static final Logger LOG = LogManager.getLogger(OrfFilmDetailTask.class);
 
   private static final String TITLE_SELECTOR = "h3.video_headline";
   private static final String BROADCAST_SELECTOR = "div.broadcast_information";
@@ -122,10 +119,10 @@ public class OrfFilmDetailTask extends AbstractDocumentTask<DatenFilm, TopicUrlD
 
         taskResults.add(film);
       } else {
-        LOG.error("OrfFilmDetailTask: no title or video found for url " + aUrlDTO.getUrl());
+        Log.sysLog("OrfFilmDetailTask: no title or video found for url " + aUrlDTO.getUrl());
       }
     } catch (MalformedURLException ex) {
-      LOG.fatal("A ORF URL can't be parsed.", ex);
+      Log.errorLog(984514561, ex);
     }
   }
 
@@ -162,7 +159,7 @@ public class OrfFilmDetailTask extends AbstractDocumentTask<DatenFilm, TopicUrlD
         LocalDateTime localDate = LocalDateTime.parse(dateValue, DATE_TIME_FORMATTER);
         return Optional.of(localDate);
       } catch (DateTimeParseException e) {
-        LOG.debug("OrfFilmDetailTask: unknown date format: " + date.get());
+        Log.sysLog("OrfFilmDetailTask: unknown date format: " + date.get());
       }
     }
 
@@ -177,13 +174,13 @@ public class OrfFilmDetailTask extends AbstractDocumentTask<DatenFilm, TopicUrlD
 
     Optional<ChronoUnit> unit = determineChronoUnit(duration.get());
     if (!unit.isPresent()) {
-      LOG.debug("OrfFilmDetailTask: unknown duration type: " + duration.get());
+      Log.sysLog("OrfFilmDetailTask: unknown duration type: " + duration.get());
       return Optional.empty();
     }
 
     String[] parts = duration.get().split(" ")[0].trim().split(":");
     if (parts.length != 2) {
-      LOG.debug("OrfFilmDetailTask: unknown duration part count: " + duration.get());
+      Log.sysLog("OrfFilmDetailTask: unknown duration part count: " + duration.get());
       return Optional.empty();
     }
 
