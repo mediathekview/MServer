@@ -102,12 +102,13 @@ public class MediathekZdf extends MediathekReader {
   }
 
   void shutdownAndAwaitTermination(ExecutorService pool, long delay, TimeUnit delayUnit) {
+    Log.sysLog("ZDF shutdown pool...");
     pool.shutdown();
     try {
       if (!pool.awaitTermination(delay, delayUnit)) {
         pool.shutdownNow();
         if (!pool.awaitTermination(delay, delayUnit)) {
-          Log.sysLog("Pool did not terminate");
+          Log.sysLog("ZDF: Pool did not terminate");
         }
       }
     } catch (InterruptedException ie) {

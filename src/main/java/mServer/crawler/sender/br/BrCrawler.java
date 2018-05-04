@@ -3,6 +3,7 @@ package mServer.crawler.sender.br;
 import de.mediathekview.mlib.Config;
 import de.mediathekview.mlib.Const;
 import de.mediathekview.mlib.daten.DatenFilm;
+import de.mediathekview.mlib.tool.Log;
 import java.util.Set;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ConcurrentLinkedQueue;
@@ -15,57 +16,56 @@ import java.util.concurrent.TimeUnit;
 import mServer.crawler.CrawlerTool;
 import mServer.crawler.FilmeSuchen;
 import mServer.crawler.sender.MediathekReader;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 public class BrCrawler extends MediathekReader {
 
   public static final String SENDERNAME = Const.BR;
   public static final String BASE_URL = "https://www.br.de/mediathek/";
-  private static final Logger LOG = LogManager.getLogger(BrCrawler.class);
 
   private final ForkJoinPool forkJoinPool;
-  
+
   public BrCrawler(FilmeSuchen ssearch, int startPrio) {
     super(ssearch, SENDERNAME, 0, 100, startPrio);
-        
+
     forkJoinPool = new ForkJoinPool(Runtime.getRuntime().availableProcessors() * 4);
   }
 
   @Override
   protected void addToList() {
     meldungStart();
-    
+
     try {
       RecursiveTask<Set<DatenFilm>> filmTask = createCrawlerTask();
       Set<DatenFilm> films = forkJoinPool.invoke(filmTask);
 
-      LOG.info("BR Filme einsortieren...");
+      Log.sysLog("BR Filme einsortieren...");
 
       films.forEach(film -> {
-        if(!Config.getStop()) {
+        if (!Config.getStop()) {
           addFilm(film);
         }
       });
 
-      LOG.info("BR Film einsortieren fertig");
+      Log.sysLog("BR Film einsortieren fertig");
     } finally {
       //explicitely shutdown the pool
       shutdownAndAwaitTermination(forkJoinPool, 60, TimeUnit.SECONDS);
     }
-    
-    LOG.info("BR fertig");
-    
+
+    Log.sysLog("BR fertig");
+
     meldungThreadUndFertig();
   }
 
   void shutdownAndAwaitTermination(ExecutorService pool, long delay, TimeUnit delayUnit) {
+    Log.sysLog("BR: shutdown pool...");
+
     pool.shutdown();
     try {
       if (!pool.awaitTermination(delay, delayUnit)) {
         pool.shutdownNow();
         if (!pool.awaitTermination(delay, delayUnit)) {
-          LOG.info("Pool nicht beendet");
+          Log.sysLog("BR: Pool nicht beendet");
         }
       }
     } catch (InterruptedException ie) {
@@ -73,7 +73,7 @@ public class BrCrawler extends MediathekReader {
       Thread.currentThread().interrupt();
     }
   }
-  
+
   private RecursiveTask<Set<String>> createAllSendungenOverviewCrawler() {
     return new BrAllSendungenTask(this, forkJoinPool);
   }
@@ -98,12 +98,12 @@ public class BrCrawler extends MediathekReader {
     final ConcurrentLinkedQueue<String> brFilmIds = new ConcurrentLinkedQueue<>();
     try {
       brFilmIds.addAll(missedFilmIds.get());
-      LOG.debug("BR Anzahl verpasste Sendungen: " + missedFilmIds.get().size());
+      Log.sysLog("BR Anzahl verpasste Sendungen: " + missedFilmIds.get().size());
     } catch (InterruptedException | ExecutionException exception) {
-      LOG.fatal("Something wen't terrible wrong on gathering the missed Films", exception);
+      Log.errorLog(782346382, exception);
     }
     brFilmIds.addAll(sendungenFilmsTask.join());
-    LOG.debug("BR Anzahl: " + sendungenFilmsTask.join().size());
+    Log.sysLog("BR Anzahl: " + sendungenFilmsTask.join().size());
 
     int max = (brFilmIds.size() / BrSendungDetailsTask.MAXIMUM_URLS_PER_TASK) + 1;
     meldungAddMax(max);
