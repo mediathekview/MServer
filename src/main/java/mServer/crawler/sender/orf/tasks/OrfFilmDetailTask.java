@@ -133,7 +133,7 @@ public class OrfFilmDetailTask extends AbstractDocumentTask<DatenFilm, TopicUrlD
       CrawlerTool.addUrlHd(aFilm, aVideoUrls.get(Qualities.HD), "");
     }
     if (aVideoUrls.containsKey(Qualities.SMALL)) {
-      CrawlerTool.addUrlHd(aFilm, aVideoUrls.get(Qualities.SMALL), "");
+      CrawlerTool.addUrlKlein(aFilm, aVideoUrls.get(Qualities.SMALL), "");
     }
   }
 
