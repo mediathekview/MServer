@@ -16,36 +16,35 @@ import org.junit.runners.Parameterized;
 @RunWith(Parameterized.class)
 public class ArteCategoryFilmListDeserializerTest {
 
-    @Parameterized.Parameters
-    public static Collection<Object[]> data() {
-        return Arrays.asList(new Object[][] {   
-            { "/arte/arte_films_of_category_page1.json", new String[] { "073658-000-A", "053299-141-A", "072401-061-A", "072401-059-A", "072401-060-A", "076512-000-A", "076511-000-A", "076510-000-A", "053299-140-A", "072401-058-A" }, 23 },
-            { "/arte/arte_films_of_category_page_last.json", new String[] { "072401-011-A" }, 3 },
-        });
-    }
-    
-    private final String jsonFile;
-    private final String[] expectedProgramIds;
-    private final int expectedPages;
-    private final ArteCategoryFilmListDeserializer target;
-    
-    public ArteCategoryFilmListDeserializerTest(String aJsonFile, String[] aProgramIds, int aPages) {
-        jsonFile = aJsonFile;
-        expectedProgramIds = aProgramIds;
-        expectedPages = aPages;
-        this.target = new ArteCategoryFilmListDeserializer();
-    }
-    
-    @Test
-    public void testDeserialize() {
-        
-        JsonObject jsonObject = JsonFileReader.readJson(jsonFile);
-        
-        ArteCategoryFilmsDTO actual = target.deserialize(jsonObject, ArteCategoryFilmsDTO.class, null);
-        
-        assertThat(actual, notNullValue());
-        assertThat(actual.getPages(), equalTo(expectedPages));
-        ArrayList<String> actualProgramIds = actual.getProgramIds();
-        assertThat(actualProgramIds, Matchers.containsInAnyOrder(expectedProgramIds));
-    }   
+  @Parameterized.Parameters
+  public static Collection<Object[]> data() {
+    return Arrays.asList(new Object[][]{
+      {"/arte/arte_subcategory_page1.json", new String[]{"078666-012-A", "078664-000-A", "080928-000-A", "074484-000-A", "074485-000-A", "079479-002-A", "080921-000-A", "082406-000-A", "072391-000-A", "080920-000-A"}, true},
+      {"/arte/arte_subcategory_page_last.json", new String[]{"062866-009-A"}, false},});
+  }
+
+  private final String jsonFile;
+  private final String[] expectedProgramIds;
+  private final boolean expectedHasNextPage;
+  private final ArteCategoryFilmListDeserializer target;
+
+  public ArteCategoryFilmListDeserializerTest(String aJsonFile, String[] aProgramIds, boolean aNextPage) {
+    jsonFile = aJsonFile;
+    expectedProgramIds = aProgramIds;
+    expectedHasNextPage = aNextPage;
+    this.target = new ArteCategoryFilmListDeserializer();
+  }
+
+  @Test
+  public void testDeserialize() {
+
+    JsonObject jsonObject = JsonFileReader.readJson(jsonFile);
+
+    ArteCategoryFilmsDTO actual = target.deserialize(jsonObject, ArteCategoryFilmsDTO.class, null);
+
+    assertThat(actual, notNullValue());
+    assertThat(actual.hasNextPage(), equalTo(expectedHasNextPage));
+    ArrayList<String> actualProgramIds = actual.getProgramIds();
+    assertThat(actualProgramIds, Matchers.containsInAnyOrder(expectedProgramIds));
+  }
 }
