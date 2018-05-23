@@ -44,10 +44,10 @@ public class OrfFilmDetailTaskTestWithEpisodes extends OrfFilmDetailTaskTestBase
         EXPECTED_THEME,
         Duration.of(1329, ChronoUnit.SECONDS),
         "",
-        "http://api-tvthek.orf.at/uploads/media/subtitles/0021/25/995219cf13e982e87924383384833f3405b74015.ttml",
-        "http://localhost:8589/apasfpd.apa.at/cms-worldwide/online/30744e157f6789f34617bc3c2114770a/1517170556/2018-01-26_1705_tl_02_AKTUELL-IN-OEST_Signation---Hea__13962830__o__9480239995__s14226895_5__WEB03HD_17071004P_17075707P_Q4A.mp4",
-        "http://localhost:8589/apasfpd.apa.at/cms-worldwide/online/9d3a9fa724a3e0615b018303e8bb558c/1517170556/2018-01-26_1705_tl_02_AKTUELL-IN-OEST_Signation---Hea__13962830__o__9480239995__s14226895_5__WEB03HD_17071004P_17075707P_Q6A.mp4",
-        "http://localhost:8589/apasfpd.apa.at/cms-worldwide/online/2db28f0f9086cf63b39c19165b1fc65d/1517170556/2018-01-26_1705_tl_02_AKTUELL-IN-OEST_Signation---Hea__13962830__o__9480239995__s14226895_5__WEB03HD_17071004P_17075707P_Q8C.mp4"
+        "http://api-tvthek.orf.at/uploads/media/subtitles/0021/25/ce7c2879f6359023d5cf1ce691dd006d26c46807.ttml",
+        "http://localhost:8589/apasfpd.apa.at/cms-worldwide_episodes/online/1e4ebc47fb1b00f7cba5d47bef6a7c89/1517170556/13962830_0017_Q4A.mp4",
+        "http://localhost:8589/apasfpd.apa.at/cms-worldwide_episodes/online/f84e8ae67f589cb6b167f9f3617cd0e0/1517170556/13962830_0017_Q6A.mp4",
+        "http://localhost:8589/apasfpd.apa.at/cms-worldwide_episodes/online/38b95baea06e7f8a5760e3b80adc327f/1517170556/13962830_0017_Q8C.mp4"
       },
       {
         "Signation | Headlines",
