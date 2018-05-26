@@ -12,6 +12,8 @@ import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.Invocation.Builder;
 import javax.ws.rs.core.Response;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.glassfish.jersey.client.filter.EncodingFilter;
 import org.glassfish.jersey.message.DeflateEncoder;
 import org.glassfish.jersey.message.GZipEncoder;
@@ -58,6 +60,8 @@ public class ArteFilmDeserializer implements JsonDeserializer<Optional<Film>> {
 
 
   }
+
+  private static final Logger LOG = LogManager.getLogger(ArteFilmDeserializer.class);
 
   private static final String HEADER_AUTHORIZATION = "Authorization";
   private static final String ENCODING_GZIP = "gzip";
@@ -126,35 +130,39 @@ public class ArteFilmDeserializer implements JsonDeserializer<Optional<Film>> {
               && !baseObject.get(ELEMENT_SHORT_DESCRIPTION).isJsonNull()) {
             film.setBeschreibung(baseObject.get(ELEMENT_SHORT_DESCRIPTION).getAsString());
           }
-
-          // video streams: links -> videoStreams -> href
-          if (JsonUtils.checkTreePath(baseObject, Optional.of(crawler), ELEMENT_LINKS,
-              ELEMENT_VIDEO_STREAMS)) {
-            final JsonObject videoStreams = baseObject.get(ELEMENT_LINKS).getAsJsonObject()
-                .get(ELEMENT_VIDEO_STREAMS).getAsJsonObject();
-            if (JsonUtils.hasElements(videoStreams, ELEMENT_HREF)) {
-              final String videoDetailsLink = videoStreams.get(ELEMENT_HREF).getAsString();
-              if (videoDetailsLink.contains("liveVideoStreams")) {
-                // TODO live videso
-              } else {
-                final Optional<ArteVideoDetailDTO> videoDetails =
-                    gatherVideoDetails(videoDetailsLink);
-                if (videoDetails.isPresent()) {
-                  videoDetails.get().getUrls().entrySet().forEach(
-                      e -> film.addUrl(e.getKey(), CrawlerTool.uriToFilmUrl(e.getValue())));
-                  return Optional.of(film);
-                }
-              }
-            }
-          }
-
-          crawler.printErrorMessage();
-          crawler.incrementAndGetErrorCount();
+          return addVideoStreams(baseObject, film);
         } else {
           crawler.printMissingElementErrorMessage(ELEMENT_CREATION_DATE);
         }
       }
     }
+    return Optional.empty();
+  }
+
+  private Optional<Film> addVideoStreams(final JsonObject baseObject, final Film film) {
+    // video streams: links -> videoStreams -> href
+    if (JsonUtils.checkTreePath(baseObject, Optional.of(crawler), ELEMENT_LINKS,
+        ELEMENT_VIDEO_STREAMS, ELEMENT_HREF)) {
+      final JsonObject videoStreams = baseObject.get(ELEMENT_LINKS).getAsJsonObject()
+          .get(ELEMENT_VIDEO_STREAMS).getAsJsonObject();
+      if (JsonUtils.hasElements(videoStreams, ELEMENT_HREF)) {
+        final String videoDetailsLink = videoStreams.get(ELEMENT_HREF).getAsString();
+        if (videoDetailsLink.contains("liveVideoStreams")) {
+          // TODO live videos
+          LOG.debug("Found a live video. Ignoring it for now.");
+          crawler.incrementAndGetActualCount();
+          crawler.updateProgress();
+        } else {
+          final Optional<ArteVideoDetailDTO> videoDetails = gatherVideoDetails(videoDetailsLink);
+          if (videoDetails.isPresent()) {
+            videoDetails.get().getUrls().entrySet()
+                .forEach(e -> film.addUrl(e.getKey(), CrawlerTool.uriToFilmUrl(e.getValue())));
+            return Optional.of(film);
+          }
+        }
+      }
+    }
+
     return Optional.empty();
   }
 

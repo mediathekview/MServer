@@ -12,14 +12,14 @@ import de.mediathekview.mserver.crawler.arte.json.ArteFilmDeserializer;
 import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
 import de.mediathekview.mserver.crawler.basic.AbstractRecrusivConverterTask;
 
-public class ArtFilmConvertTask extends AbstractRecrusivConverterTask<Film, JsonElement> {
+public class ArteFilmConvertTask extends AbstractRecrusivConverterTask<Film, JsonElement> {
 
   private static final Type OPTIONAL_FILM_TYPE = new TypeToken<Optional<Film>>() {}.getType();
   private static final long serialVersionUID = -7559130997870753602L;
   private final Gson gson;
   private final String authKey;
 
-  public ArtFilmConvertTask(final AbstractCrawler aCrawler,
+  public ArteFilmConvertTask(final AbstractCrawler aCrawler,
       final ConcurrentLinkedQueue<JsonElement> aUrlToCrawlDTOs, final String aAuthKey) {
     super(aCrawler, aUrlToCrawlDTOs);
     authKey = aAuthKey;
@@ -31,7 +31,7 @@ public class ArtFilmConvertTask extends AbstractRecrusivConverterTask<Film, Json
   @Override
   protected AbstractRecrusivConverterTask<Film, JsonElement> createNewOwnInstance(
       final ConcurrentLinkedQueue<JsonElement> aElementsToProcess) {
-    return new ArtFilmConvertTask(crawler, aElementsToProcess, authKey);
+    return new ArteFilmConvertTask(crawler, aElementsToProcess, authKey);
   }
 
   @Override

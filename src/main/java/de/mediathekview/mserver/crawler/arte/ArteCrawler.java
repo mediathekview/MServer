@@ -15,7 +15,7 @@ import de.mediathekview.mlib.daten.Film;
 import de.mediathekview.mlib.daten.Sender;
 import de.mediathekview.mlib.messages.listener.MessageListener;
 import de.mediathekview.mserver.base.config.MServerConfigManager;
-import de.mediathekview.mserver.crawler.arte.tasks.ArtFilmConvertTask;
+import de.mediathekview.mserver.crawler.arte.tasks.ArteFilmConvertTask;
 import de.mediathekview.mserver.crawler.arte.tasks.ArteSendungVerpasstTask;
 import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
 import de.mediathekview.mserver.crawler.basic.CrawlerUrlDTO;
@@ -80,7 +80,8 @@ public class ArteCrawler extends AbstractCrawler {
     forkJoinPool.execute(sendungVerpasstTask);
 
     sendungsfolgen.addAll(sendungVerpasstTask.join());
-    return new ArtFilmConvertTask(this, new ConcurrentLinkedQueue<>(sendungsfolgen), AUTH_TOKEN);
+    updateProgress();
+    return new ArteFilmConvertTask(this, new ConcurrentLinkedQueue<>(sendungsfolgen), AUTH_TOKEN);
   }
 
   protected ArteLanguage getLanguage() {
