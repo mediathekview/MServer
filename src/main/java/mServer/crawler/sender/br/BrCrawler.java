@@ -7,7 +7,6 @@ import de.mediathekview.mlib.tool.Log;
 import java.util.Set;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ConcurrentLinkedQueue;
-import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.ForkJoinPool;
 import java.util.concurrent.Future;
@@ -47,6 +46,8 @@ public class BrCrawler extends MediathekReader {
       });
 
       Log.sysLog("BR Film einsortieren fertig");
+    } catch (Exception e) {
+      Log.errorLog(516516521, e);
     } finally {
       //explicitely shutdown the pool
       shutdownAndAwaitTermination(forkJoinPool, 60, TimeUnit.SECONDS);
@@ -60,17 +61,22 @@ public class BrCrawler extends MediathekReader {
   void shutdownAndAwaitTermination(ExecutorService pool, long delay, TimeUnit delayUnit) {
     Log.sysLog("BR: shutdown pool...");
 
-    pool.shutdown();
     try {
-      if (!pool.awaitTermination(delay, delayUnit)) {
-        pool.shutdownNow();
+      try {
+        pool.shutdown();
         if (!pool.awaitTermination(delay, delayUnit)) {
-          Log.sysLog("BR: Pool nicht beendet");
+          pool.shutdownNow();
+          if (!pool.awaitTermination(delay, delayUnit)) {
+            Log.sysLog("BR: Pool nicht beendet");
+          }
         }
+      } catch (InterruptedException ie) {
+        Log.errorLog(974513454, ie);
+        pool.shutdownNow();
+        Thread.currentThread().interrupt();
       }
-    } catch (InterruptedException ie) {
-      pool.shutdownNow();
-      Thread.currentThread().interrupt();
+    } catch (Exception e) {
+      Log.errorLog(974513455, e);
     }
   }
 
@@ -99,11 +105,16 @@ public class BrCrawler extends MediathekReader {
     try {
       brFilmIds.addAll(missedFilmIds.get());
       Log.sysLog("BR Anzahl verpasste Sendungen: " + missedFilmIds.get().size());
-    } catch (InterruptedException | ExecutionException exception) {
+    } catch (Exception exception) {
       Log.errorLog(782346382, exception);
     }
-    brFilmIds.addAll(sendungenFilmsTask.join());
-    Log.sysLog("BR Anzahl: " + sendungenFilmsTask.join().size());
+
+    try {
+      brFilmIds.addAll(sendungenFilmsTask.join());
+      Log.sysLog("BR Anzahl: " + sendungenFilmsTask.join().size());
+    } catch (Exception exception) {
+      Log.errorLog(782346383, exception);
+    }
 
     int max = (brFilmIds.size() / BrSendungDetailsTask.MAXIMUM_URLS_PER_TASK) + 1;
     meldungAddMax(max);
