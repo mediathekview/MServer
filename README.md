@@ -1,6 +1,6 @@
 [![License: GPL v3](https://img.shields.io/badge/License-GPL%20v3-blue.svg)](http://www.gnu.org/licenses/gpl-3.0)
 [![Build Status](https://travis-ci.org/mediathekview/MServer.svg?branch=master)](https://travis-ci.org/mediathekview/MServer)
-[![Quality Gate](https://sonarqube.com/api/badges/gate?key=mediathekview%3AMServer)](https://sonarqube.com/dashboard/index/mediathekview%3AMServer)
+[![Quality Gate](https://sonarcloud.io/api/project_badges/measure?project=mediathekview%3AMServer&metric=alert_status)](https://sonarcloud.io/dashboard?id=mediathekview%3AMServer)
 
 # MServer
 Server zum crawlen der Mediatheken. Teil von [MediathekView](https://github.com/mediathekview).
@@ -28,5 +28,3 @@ cd MServer
 * Falls noch nicht vorhanden: [Plugin buildship](https://projects.eclipse.org/projects/tools.buildship) installieren
 * Projekt `MServer` als Gradle-Projekt importieren. `MLib` wird automatisch mit importiert.
 
-# Autor
-@xaverW
