@@ -59,6 +59,19 @@ public class HrSendungDeserializerTest {
                 "00:00:00",
                 145,
                 "Sie sind Kult: die Pausenkatzen des Hessischen Rundfunks. Erfunden in den 70er Jahren klettern und tollen sie heute wieder in Randzeiten durchs Programm des hr-fernsehens. Ende 2015 hat der hr die Pausenkatzen neu produziert: flauschig und in ultrascharfer HD-Qualität."
+             ) },
+            { "/hr/hr_sendung_detail3.html", "strassen stars", "https://www.hr-fernsehen.de/sendungen-a-z/strassen-stars/sendungen/strassen-stars,sendung-32932.html",
+                new DatenFilm(
+                Const.HR, 
+                "strassen stars", 
+                "https://www.hr-fernsehen.de/sendungen-a-z/strassen-stars/sendungen/strassen-stars,sendung-32932.html",
+                "Comedy-Quiz rund um Menschenkenntnis zum Mitraten mit Roberto Cappelluti",
+                "https://hr-a.akamaihd.net/video/as/strassenstars/2018_05/hrLogo_180513185139_0196460_512x288-25p-500kbit.mp4",
+                "",
+                "13.05.2018",
+                "23:30:00",
+                1800,
+                "Rateteam: Susanne Fröhlich, Jörg Thadeusz, Hadnet Tesfai"
              ) }
 
         });

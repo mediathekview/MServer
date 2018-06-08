@@ -24,11 +24,9 @@ import mServer.crawler.sender.orf.HtmlDocumentUtils;
 import mServer.crawler.sender.orf.OrfEpisodeInfoDTO;
 import mServer.crawler.sender.orf.OrfVideoInfoDTO;
 import mServer.crawler.sender.orf.TopicUrlDTO;
-import mServer.crawler.sender.orf.parser.OrfEpisodeDeserializer;
-import mServer.crawler.sender.orf.parser.OrfVideoDetailDeserializer;
+import mServer.crawler.sender.orf.parser.OrfPlaylistDeserializer;
 import org.apache.commons.lang3.StringUtils;
 import org.jsoup.nodes.Document;
-import org.jsoup.select.Elements;
 
 public class OrfFilmDetailTask extends AbstractDocumentTask<DatenFilm, TopicUrlDTO> {
 
@@ -38,7 +36,6 @@ public class OrfFilmDetailTask extends AbstractDocumentTask<DatenFilm, TopicUrlD
   private static final String DURATION_SELECTOR = BROADCAST_SELECTOR + " > span.meta_duration";
   private static final String DESCRIPTION_SELECTOR = "div.details_description";
   private static final String VIDEO_SELECTOR = "div.jsb_VideoPlaylist";
-  private static final String EPISODE_SELECTOR = "li.jsb_PlaylistItemFullscreen";
 
   private static final String ATTRIBUTE_DATETIME = "datetime";
   private static final String ATTRIBUTE_DATA_JSB = "data-jsb";
@@ -51,9 +48,7 @@ public class OrfFilmDetailTask extends AbstractDocumentTask<DatenFilm, TopicUrlD
   private static final DateTimeFormatter TIME_FORMAT
           = DateTimeFormatter.ofPattern("HH:mm:ss");
 
-  private static final Type OPTIONAL_VIDEOINFO_TYPE_TOKEN = new TypeToken<Optional<OrfVideoInfoDTO>>() {
-  }.getType();
-  private static final Type OPTIONAL_EPISODEINFO_TYPE_TOKEN = new TypeToken<Optional<OrfEpisodeInfoDTO>>() {
+  private static final Type LIST_EPISODEINFO_TYPE_TOKEN = new TypeToken<List<OrfEpisodeInfoDTO>>() {
   }.getType();
 
   public OrfFilmDetailTask(final MediathekReader aCrawler,
@@ -68,14 +63,16 @@ public class OrfFilmDetailTask extends AbstractDocumentTask<DatenFilm, TopicUrlD
     final Optional<Duration> duration = parseDuration(aDocument);
     final Optional<String> description = HtmlDocumentUtils.getElementString(DESCRIPTION_SELECTOR, aDocument);
 
-    final Optional<OrfVideoInfoDTO> videoInfoOptional = parseUrls(aDocument);
-
-    createFilm(aUrlDTO, videoInfoOptional, title, description, time, duration);
-
     final List<OrfEpisodeInfoDTO> episodes = parseEpisodes(aDocument);
-    episodes.forEach(episode -> {
-      createFilm(aUrlDTO, Optional.of(episode.getVideoInfo()), episode.getTitle(), episode.getDescription(), time, episode.getDuration());
-    });
+
+    for (int i = 0; i < episodes.size(); i++) {
+      OrfEpisodeInfoDTO episode = episodes.get(i);
+      if (i == 0) {
+        createFilm(aUrlDTO, episode.getVideoInfo(), title, description, time, duration);
+      } else {
+        createFilm(aUrlDTO, episode.getVideoInfo(), episode.getTitle(), episode.getDescription(), time, episode.getDuration());
+      }
+    }
   }
 
   @Override
@@ -84,21 +81,19 @@ public class OrfFilmDetailTask extends AbstractDocumentTask<DatenFilm, TopicUrlD
   }
 
   private void createFilm(final TopicUrlDTO aUrlDTO,
-          final Optional<OrfVideoInfoDTO> aVideoInfo,
+          final OrfVideoInfoDTO aVideoInfo,
           final Optional<String> aTitle,
           final Optional<String> aDescription,
           final Optional<LocalDateTime> aTime,
           final Optional<Duration> aDuration) {
 
     try {
-      if (aVideoInfo.isPresent() && aTitle.isPresent()) {
-        OrfVideoInfoDTO videoInfo = aVideoInfo.get();
-
+      if (aTitle.isPresent()) {
         LocalDateTime time = aTime.orElse(LocalDateTime.now());
 
         String datum = time.format(DATE_FORMAT);
         String zeit = time.format(TIME_FORMAT);
-        String url = videoInfo.getDefaultVideoUrl();
+        String url = aVideoInfo.getDefaultVideoUrl();
 
         final DatenFilm film = new DatenFilm(crawler.getSendername(),
                 aUrlDTO.getTopic(),
@@ -111,11 +106,11 @@ public class OrfFilmDetailTask extends AbstractDocumentTask<DatenFilm, TopicUrlD
                 aDuration.orElse(Duration.ZERO).getSeconds(),
                 aDescription.orElse(""));
 
-        if (StringUtils.isNotBlank(videoInfo.getSubtitleUrl())) {
-          CrawlerTool.addUrlSubtitle(film, videoInfo.getSubtitleUrl());
+        if (StringUtils.isNotBlank(aVideoInfo.getSubtitleUrl())) {
+          CrawlerTool.addUrlSubtitle(film, aVideoInfo.getSubtitleUrl());
         }
 
-        addUrls(film, videoInfo.getVideoUrls());
+        addUrls(film, aVideoInfo.getVideoUrls());
 
         taskResults.add(film);
       } else {
@@ -137,18 +132,18 @@ public class OrfFilmDetailTask extends AbstractDocumentTask<DatenFilm, TopicUrlD
     }
   }
 
-  private Optional<OrfVideoInfoDTO> parseUrls(Document aDocument) {
+  private List<OrfEpisodeInfoDTO> parseEpisodes(Document aDocument) {
     Optional<String> json = HtmlDocumentUtils.getElementAttributeString(VIDEO_SELECTOR, ATTRIBUTE_DATA_JSB, aDocument);
 
     if (json.isPresent()) {
 
-      final Gson gson = new GsonBuilder().registerTypeAdapter(OPTIONAL_VIDEOINFO_TYPE_TOKEN,
-              new OrfVideoDetailDeserializer()).create();
+      final Gson gson = new GsonBuilder().registerTypeAdapter(LIST_EPISODEINFO_TYPE_TOKEN,
+              new OrfPlaylistDeserializer()).create();
 
-      return gson.fromJson(json.get(), OPTIONAL_VIDEOINFO_TYPE_TOKEN);
+      return gson.fromJson(json.get(), LIST_EPISODEINFO_TYPE_TOKEN);
     }
 
-    return Optional.empty();
+    return new ArrayList<>();
   }
 
   private static Optional<LocalDateTime> parseDate(Document aDocument) {
@@ -199,28 +194,6 @@ public class OrfFilmDetailTask extends AbstractDocumentTask<DatenFilm, TopicUrlD
     }
 
     return Optional.empty();
-  }
-
-  private static List<OrfEpisodeInfoDTO> parseEpisodes(final Document aDocument) {
-    final List<OrfEpisodeInfoDTO> episodes = new ArrayList<>();
-
-    Elements elements = aDocument.select(EPISODE_SELECTOR);
-    elements.forEach(element -> {
-      String json = element.attr(ATTRIBUTE_DATA_JSB);
-
-      if (!json.isEmpty()) {
-
-        final Gson gson = new GsonBuilder().registerTypeAdapter(OPTIONAL_EPISODEINFO_TYPE_TOKEN,
-                new OrfEpisodeDeserializer()).create();
-
-        Optional<OrfEpisodeInfoDTO> episode = gson.fromJson(json, OPTIONAL_EPISODEINFO_TYPE_TOKEN);
-        if (episode.isPresent()) {
-          episodes.add(episode.get());
-        }
-      }
-    });
-
-    return episodes;
   }
 
   private static Optional<ChronoUnit> determineChronoUnit(String aDuration) {
