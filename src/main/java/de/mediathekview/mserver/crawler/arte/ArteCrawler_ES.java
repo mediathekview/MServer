@@ -7,9 +7,9 @@ import de.mediathekview.mlib.messages.listener.MessageListener;
 import de.mediathekview.mserver.base.config.MServerConfigManager;
 import de.mediathekview.mserver.progress.listeners.SenderProgressListener;
 
-public class ArteCrawler_FR extends ArteCrawler {
+public class ArteCrawler_ES extends ArteCrawler {
 
-  public ArteCrawler_FR(final ForkJoinPool aForkJoinPool,
+  public ArteCrawler_ES(final ForkJoinPool aForkJoinPool,
       final Collection<MessageListener> aMessageListeners,
       final Collection<SenderProgressListener> aProgressListeners,
       final MServerConfigManager rootConfig) {
@@ -18,12 +18,12 @@ public class ArteCrawler_FR extends ArteCrawler {
 
   @Override
   public Sender getSender() {
-    return Sender.ARTE_FR;
+    return Sender.ARTE_ES;
   }
 
   @Override
   protected ArteLanguage getLanguage() {
-    return ArteLanguage.FR;
+    return ArteLanguage.ES;
   }
 
 }
