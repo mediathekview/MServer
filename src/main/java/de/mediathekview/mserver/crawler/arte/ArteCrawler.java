@@ -14,7 +14,6 @@ import java.util.concurrent.ForkJoinTask;
 import java.util.concurrent.RecursiveTask;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import com.google.gson.JsonElement;
 import de.mediathekview.mlib.daten.Film;
 import de.mediathekview.mlib.daten.Sender;
 import de.mediathekview.mlib.messages.listener.MessageListener;
@@ -24,7 +23,6 @@ import de.mediathekview.mserver.crawler.arte.tasks.ArteSendungVerpasstTask;
 import de.mediathekview.mserver.crawler.arte.tasks.ArteSubcategoryVideosTask;
 import de.mediathekview.mserver.crawler.arte.tasks.ArteSubcategorysTask;
 import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
-import de.mediathekview.mserver.crawler.basic.CrawlerUrlDTO;
 import de.mediathekview.mserver.progress.listeners.SenderProgressListener;
 
 public class ArteCrawler extends AbstractCrawler {
@@ -48,11 +46,11 @@ public class ArteCrawler extends AbstractCrawler {
     return Sender.ARTE_DE;
   }
 
-  private Set<CrawlerUrlDTO> generateSendungVerpasstUrls() {
-    final Set<CrawlerUrlDTO> sendungVerpasstUrls = new HashSet<>();
+  private Set<ArteCrawlerUrlDto> generateSendungVerpasstUrls() {
+    final Set<ArteCrawlerUrlDto> sendungVerpasstUrls = new HashSet<>();
     for (int i = 0; i < crawlerConfig.getMaximumDaysForSendungVerpasstSection()
         + crawlerConfig.getMaximumDaysForSendungVerpasstSectionFuture(); i++) {
-      sendungVerpasstUrls.add(new CrawlerUrlDTO(String.format(SENDUNG_VERPASST_URL_PATTERN,
+      sendungVerpasstUrls.add(new ArteCrawlerUrlDto(String.format(SENDUNG_VERPASST_URL_PATTERN,
           getLanguage().getLanguageCode(),
           LocalDateTime.now()
               .plus(crawlerConfig.getMaximumDaysForSendungVerpasstSectionFuture(), ChronoUnit.DAYS)
@@ -63,8 +61,8 @@ public class ArteCrawler extends AbstractCrawler {
 
   @Override
   protected RecursiveTask<Set<Film>> createCrawlerTask() {
-    final Set<JsonElement> sendungsfolgen = new HashSet<>();
-    final ForkJoinTask<Set<CrawlerUrlDTO>> subcategoryVideoUrls =
+    final Set<ArteJsonElementDto> sendungsfolgen = new HashSet<>();
+    final ForkJoinTask<Set<ArteCrawlerUrlDto>> subcategoryVideoUrls =
         forkJoinPool.submit(new ArteSubcategorysTask(this, getLanguage(), AUTH_TOKEN));
 
 

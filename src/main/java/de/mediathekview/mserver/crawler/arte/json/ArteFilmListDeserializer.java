@@ -14,6 +14,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
 import de.mediathekview.mserver.base.utils.JsonUtils;
+import de.mediathekview.mserver.crawler.arte.ArteJsonElementDto;
 import de.mediathekview.mserver.crawler.arte.tasks.ArteFilmListDTO;
 import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
 
@@ -26,9 +27,12 @@ public class ArteFilmListDeserializer implements JsonDeserializer<ArteFilmListDT
   private static final String JSON_ELEMENT_VIDEOS = "videos";
   private static final String JSON_ELEMENT_META = "meta";
   private final AbstractCrawler crawler;
+  private final Optional<String> subcategoryName;
 
-  public ArteFilmListDeserializer(final AbstractCrawler aCrawler) {
+  public ArteFilmListDeserializer(final AbstractCrawler aCrawler,
+      final Optional<String> aSubcategoryName) {
     crawler = aCrawler;
+    subcategoryName = aSubcategoryName;
   }
 
   @Override
@@ -38,19 +42,20 @@ public class ArteFilmListDeserializer implements JsonDeserializer<ArteFilmListDT
     if (aJsonElement.isJsonObject()) {
       final JsonObject mainObj = aJsonElement.getAsJsonObject();
       result.setNextPage(getNextPageLink(mainObj));
-      if (JsonUtils.checkTreePath(mainObj, Optional.of(crawler), JSON_ELEMENT_VIDEOS)) {
-        mainObj.get(JSON_ELEMENT_VIDEOS).getAsJsonArray().forEach(result::addFoundFilm);
+      if (JsonUtils.checkTreePath(mainObj, Optional.of(crawler), getBaseElementName())) {
+        mainObj.get(getBaseElementName()).getAsJsonArray().forEach(filmElement -> result
+            .addFoundFilm(new ArteJsonElementDto(filmElement, subcategoryName)));
       }
     }
     return result;
   }
 
   private Optional<URI> getNextPageLink(final JsonObject mainObj) {
-    if (JsonUtils.checkTreePath(mainObj, Optional.empty(), JSON_ELEMENT_META, JSON_ELEMENT_VIDEOS,
+    if (JsonUtils.checkTreePath(mainObj, Optional.empty(), JSON_ELEMENT_META, getBaseElementName(),
         JSON_ELEMENT_LINKS, JSON_ELEMENT_NEXT, JSON_ELEMENT_HREF)) {
 
       final String nextPageUrl = mainObj.get(JSON_ELEMENT_META).getAsJsonObject()
-          .get(JSON_ELEMENT_VIDEOS).getAsJsonObject().get(JSON_ELEMENT_LINKS).getAsJsonObject()
+          .get(getBaseElementName()).getAsJsonObject().get(JSON_ELEMENT_LINKS).getAsJsonObject()
           .get(JSON_ELEMENT_NEXT).getAsJsonObject().get(JSON_ELEMENT_HREF).getAsString();
       final Matcher nextPageNumberMatcher =
           Pattern.compile(PATTERN_PAGE_NUMBER).matcher(nextPageUrl);
@@ -69,6 +74,10 @@ public class ArteFilmListDeserializer implements JsonDeserializer<ArteFilmListDT
     }
 
     return Optional.empty();
+  }
+
+  protected String getBaseElementName() {
+    return JSON_ELEMENT_VIDEOS;
   }
 
 }

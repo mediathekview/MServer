@@ -16,12 +16,12 @@ import org.glassfish.jersey.message.GZipEncoder;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
+import de.mediathekview.mserver.crawler.arte.ArteCrawlerUrlDto;
 import de.mediathekview.mserver.crawler.arte.ArteLanguage;
 import de.mediathekview.mserver.crawler.arte.json.ArteSubcategoryListDeserializer;
 import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
-import de.mediathekview.mserver.crawler.basic.CrawlerUrlDTO;
 
-public class ArteSubcategorysTask implements Callable<Set<CrawlerUrlDTO>> {
+public class ArteSubcategorysTask implements Callable<Set<ArteCrawlerUrlDto>> {
   private static final Logger LOG = LogManager.getLogger(ArteSubcategorysTask.class);
   private static final String HEADER_AUTHORIZATION = "Authorization";
   private static final String ENCODING_GZIP = "gzip";
@@ -30,7 +30,7 @@ public class ArteSubcategorysTask implements Callable<Set<CrawlerUrlDTO>> {
    * The parameter needs the language code.
    */
   private static final String SUBCATEGORIES_URL_PATTERN =
-      "https://api.arte.tv/api/opa/v3/subcategories?language=%s&fields=code";
+      "https://api.arte.tv/api/opa/v3/subcategories?language=%s&fields=code,label";
 
   private final AbstractCrawler crawler;
   private final ArteLanguage language;
@@ -53,7 +53,7 @@ public class ArteSubcategorysTask implements Callable<Set<CrawlerUrlDTO>> {
   }
 
   @Override
-  public Set<CrawlerUrlDTO> call() throws Exception {
+  public Set<ArteCrawlerUrlDto> call() throws Exception {
     gsonBuilder.registerTypeAdapter(getType(),
         new ArteSubcategoryListDeserializer(crawler, language));
     final Gson gson = gsonBuilder.create();
@@ -74,7 +74,7 @@ public class ArteSubcategorysTask implements Callable<Set<CrawlerUrlDTO>> {
   }
 
   private Type getType() {
-    return new TypeToken<Set<CrawlerUrlDTO>>() {}.getType();
+    return new TypeToken<Set<ArteCrawlerUrlDto>>() {}.getType();
   }
 
   protected void handleHttpError(final String aUrl, final Response aResponse) {
