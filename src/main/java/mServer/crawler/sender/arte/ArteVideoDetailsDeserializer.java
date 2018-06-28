@@ -293,7 +293,9 @@ public class ArteVideoDetailsDeserializer implements JsonDeserializer<ArteVideoD
                 String type = broadcastObject.get(JSON_ELEMENT_BROADCASTTYPE).getAsString();
                 
                 if(type.equals(broadcastType)) {
-                    broadcastDate = (broadcastObject.get(JSON_ELEMENT_BROADCAST).getAsString());
+                    if (!broadcastObject.get(JSON_ELEMENT_BROADCAST).isJsonNull()) {
+                        broadcastDate = (broadcastObject.get(JSON_ELEMENT_BROADCAST).getAsString());
+                    }
                 }
             }
         }
