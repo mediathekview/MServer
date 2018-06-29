@@ -1,7 +1,7 @@
 #### Server configurations ####
 
     # The maximum amount of cpu threads to be used.
-    maximumCpuThreads: 80
+    maximumCpuThreads: 16
 
     # The maximum duration in minutes the server should run.<br>
     # If set to 0 the server runs without a time limit.
@@ -14,7 +14,7 @@
     
     # If set only these Sender will be crawled all other will be ignored.
     senderIncluded:
-     - ARTE_FR
+     - ARD
     
     # If set the server will be awake after the crawler run and restarts the run after the given amount.
     #schedules:
