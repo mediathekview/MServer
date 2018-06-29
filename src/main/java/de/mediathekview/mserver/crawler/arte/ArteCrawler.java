@@ -79,6 +79,7 @@ public class ArteCrawler extends AbstractCrawler {
       LOG.fatal("Somethign went really wrong on getting the subcategory video urls for ARTE",
           exception);
       subcategoryVideosTask = Optional.empty();
+      Thread.currentThread().interrupt();
     }
 
 

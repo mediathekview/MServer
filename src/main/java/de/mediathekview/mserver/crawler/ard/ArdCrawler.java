@@ -5,10 +5,13 @@ import java.util.Collection;
 import java.util.Optional;
 import java.util.Set;
 import java.util.concurrent.ConcurrentLinkedQueue;
+import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ForkJoinPool;
 import java.util.concurrent.Future;
 import java.util.concurrent.RecursiveTask;
 import java.util.stream.Collectors;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import de.mediathekview.mlib.daten.Film;
 import de.mediathekview.mlib.daten.Sender;
 import de.mediathekview.mlib.messages.listener.MessageListener;
@@ -23,6 +26,7 @@ import de.mediathekview.mserver.crawler.basic.CrawlerUrlDTO;
 import de.mediathekview.mserver.progress.listeners.SenderProgressListener;
 
 public class ArdCrawler extends AbstractCrawler {
+  private static final Logger LOG = LogManager.getLogger(ArdCrawler.class);
   public static final String ARD_BASE_URL = "http://www.ardmediathek.de";
   private static final String ARD_CATEGORY_BASE_URL =
       ARD_BASE_URL + "/tv/sendungen-a-z?buchstabe=%s";
@@ -80,15 +84,27 @@ public class ArdCrawler extends AbstractCrawler {
 
     final RecursiveTask<Set<ArdSendungBasicInformation>> categoriesTask =
         createCategoriesOverviewPageCrawler();
-    final RecursiveTask<Set<ArdSendungBasicInformation>> daysTask =
-        createDaysOverviewPageCrawler(kanaele.get());
+    Optional<RecursiveTask<Set<ArdSendungBasicInformation>>> daysTask;
+    try {
+      daysTask = Optional.of(createDaysOverviewPageCrawler(kanaele.get()));
+    } catch (InterruptedException | ExecutionException exception) {
+      printErrorMessage();
+      LOG.fatal("Somethign went really wrong on getting the subcategory video urls for ARTE",
+          exception);
+      daysTask = Optional.empty();
+      Thread.currentThread().interrupt();
+    }
     forkJoinPool.execute(categoriesTask);
-    forkJoinPool.execute(daysTask);
+    if (daysTask.isPresent()) {
+      forkJoinPool.execute(daysTask.get());
+    }
 
     final ConcurrentLinkedQueue<ArdSendungBasicInformation> ardSendungBasicInformation =
         new ConcurrentLinkedQueue<>();
     ardSendungBasicInformation.addAll(categoriesTask.join());
-    ardSendungBasicInformation.addAll(daysTask.join());
+    if (daysTask.isPresent()) {
+      ardSendungBasicInformation.addAll(daysTask.get().join());
+    }
 
     return new ArdSendungTask(this, ardSendungBasicInformation);
   }
