@@ -91,6 +91,7 @@ public class MediathekMdr extends MediathekReader {
         listeThemen.addUrl(new String[]{url});
       }
     }
+
     seite = getUrlIo.getUri_Utf(SENDERNAME, URL_TAGE, seite, "");
     pos = 0;
     url = "";
@@ -173,13 +174,17 @@ public class MediathekMdr extends MediathekReader {
         seite1 = getUrl.getUri(SENDERNAME, strUrlFeed, StandardCharsets.UTF_8, 2 /* versuche */, seite1, "");
         while (!Config.getStop() && (pos = seite1.indexOf(MUSTER, pos)) != -1) {
           pos += MUSTER.length();
-          url = seite1.extract("<a href=\"/mediathek/fernsehen/", "\"", pos);
+          url = seite1.extract("<a href=\"", "\"", pos);
           thema = seite1.extract(" class=\"headline\" title=\"\">", "<", pos);
           if (url.isEmpty()) {
             Log.errorLog(952136547, "keine URL: " + strUrlFeed);
+          } else if (url.startsWith("http")) {
+            // URLs, die mit http-Protokoll beginnen, ignorieren
+            // das sind Themen, die bereits unter anderem Buchstaben vorhanden sind
+            // Beispiel: Buchstabe S -> Sachsenspiegel ist unter Buchstabe M -> MDR Sachsenspiegel vorhanden
           } else {
             meldung(url);
-            url = "http://www.mdr.de/mediathek/fernsehen/" + url;
+            url = "http://www.mdr.de" + url;
             addSendugen(strUrlFeed, thema, url);
           }
         }
