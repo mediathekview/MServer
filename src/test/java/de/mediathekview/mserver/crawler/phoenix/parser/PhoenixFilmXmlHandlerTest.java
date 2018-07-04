@@ -11,7 +11,6 @@ import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.Collection;
-import java.util.Optional;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
@@ -52,7 +51,6 @@ public class PhoenixFilmXmlHandlerTest {
   @Test
   public void test() throws ParserConfigurationException, SAXException, IOException, URISyntaxException {
     final URI uri = FileReader.class.getResource(xmlFile).toURI();
-
 
     SAXParserFactory factory = SAXParserFactory.newInstance();
     SAXParser saxParser = factory.newSAXParser();

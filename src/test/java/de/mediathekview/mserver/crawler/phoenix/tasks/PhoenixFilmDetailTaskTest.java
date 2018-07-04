@@ -129,7 +129,8 @@ public class PhoenixFilmDetailTaskTest extends WireMockTestBase {
   private Set<Film> executeTask(final String aDetailUrl) {
     final ConcurrentLinkedQueue<CrawlerUrlDTO> urls = new ConcurrentLinkedQueue<>();
     urls.add(new CrawlerUrlDTO(WireMockTestBase.MOCK_URL_BASE + aDetailUrl));
-    return new PhoenixFilmDetailTask(createCrawler(), urls, Optional.empty(), WireMockTestBase.MOCK_URL_BASE, WireMockTestBase.MOCK_URL_BASE)
+    return new PhoenixFilmDetailTask(createCrawler(), urls, Optional.empty(), WireMockTestBase.MOCK_URL_BASE,
+        WireMockTestBase.MOCK_URL_BASE)
         .invoke();
   }
 

@@ -14,9 +14,10 @@ import org.junit.runners.Parameterized;
 
 @RunWith(Parameterized.class)
 public class PhoenixFilmDetailDeserializerTest {
+
   @Parameterized.Parameters
   public static Collection<Object[]> data() {
-    return Arrays.asList(new Object[][] {
+    return Arrays.asList(new Object[][]{
         {
             "/phoenix/phoenix_film_detail1.json",
             "Presseclub",
@@ -35,7 +36,8 @@ public class PhoenixFilmDetailDeserializerTest {
   private final String expectedBaseName;
   private final String expectedWebsite;
 
-  public PhoenixFilmDetailDeserializerTest(final String aJsonFile, final String aExpectedTopic, final String aExpectedTitle, final String aExpectedDescription, final String aExpectedBaseName, final String aExpectedWebsite) {
+  public PhoenixFilmDetailDeserializerTest(final String aJsonFile, final String aExpectedTopic, final String aExpectedTitle,
+      final String aExpectedDescription, final String aExpectedBaseName, final String aExpectedWebsite) {
     jsonFile = aJsonFile;
     expectedTopic = aExpectedTopic;
     expectedTitle = aExpectedTitle;
@@ -60,5 +62,4 @@ public class PhoenixFilmDetailDeserializerTest {
     assertThat(actualDto.getDescription(), equalTo(expectedDescription));
     assertThat(actualDto.getWebsite().get(), equalTo(expectedWebsite));
   }
-
 }
