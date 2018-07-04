@@ -2,10 +2,9 @@ package de.mediathekview.mserver.crawler.zdf.tasks;
 
 import com.google.gson.reflect.TypeToken;
 import de.mediathekview.mlib.daten.Film;
-import de.mediathekview.mlib.daten.GeoLocations;
-import de.mediathekview.mlib.daten.Resolution;
 import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
 import de.mediathekview.mserver.crawler.basic.AbstractRecrusivConverterTask;
+import de.mediathekview.mserver.crawler.zdf.DownloadDtoFilmConverter;
 import de.mediathekview.mserver.crawler.zdf.ZdfEntryDto;
 import de.mediathekview.mserver.crawler.zdf.ZdfVideoUrlOptimizer;
 import de.mediathekview.mserver.crawler.zdf.json.DownloadDto;
@@ -13,14 +12,9 @@ import de.mediathekview.mserver.crawler.zdf.json.ZdfDownloadDtoDeserializer;
 import de.mediathekview.mserver.crawler.zdf.json.ZdfFilmDetailDeserializer;
 import java.lang.reflect.Type;
 import java.net.MalformedURLException;
-import java.net.URL;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Map;
 import java.util.Optional;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import javax.ws.rs.client.WebTarget;
-import mServer.crawler.CrawlerTool;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -51,7 +45,7 @@ public class ZdfFilmDetailTask extends ZdfTaskBase<Film, ZdfEntryDto> {
     if (film.isPresent() && downloadDto.isPresent()) {
       try {
         final Film result = film.get();
-        addUrlsToFilm(result, downloadDto.get());
+        DownloadDtoFilmConverter.addUrlsToFilm(result, downloadDto.get(), Optional.of(optimizer));
 
         taskResults.add(result);
         crawler.incrementAndGetActualCount();
@@ -73,33 +67,5 @@ public class ZdfFilmDetailTask extends ZdfTaskBase<Film, ZdfEntryDto> {
     return new ZdfFilmDetailTask(crawler, aElementsToProcess, authKey);
   }
 
-  private void addUrlsToFilm(final Film aFilm, final DownloadDto aDownloadDto) throws MalformedURLException {
 
-    for (final Map.Entry<Resolution, String> qualitiesEntry : aDownloadDto.getDownloadUrls().entrySet()) {
-      String url = qualitiesEntry.getValue();
-
-      if (qualitiesEntry.getKey() == Resolution.NORMAL) {
-        url = optimizer.getOptimizedUrlNormal(url);
-      }
-
-      aFilm.addUrl(qualitiesEntry.getKey(), CrawlerTool.stringToFilmUrl(url));
-    }
-
-    if (!aFilm.hasHD()) {
-      Optional<String> hdUrl = optimizer.determineUrlHd(aFilm.getUrl(Resolution.NORMAL).toString());
-      if (hdUrl.isPresent()) {
-        aFilm.addUrl(Resolution.HD, CrawlerTool.stringToFilmUrl(hdUrl.get()));
-      }
-    }
-
-    if (aDownloadDto.getSubTitleUrl().isPresent()) {
-      aFilm.addSubtitle(new URL(aDownloadDto.getSubTitleUrl().get()));
-    }
-
-    if (aDownloadDto.getGeoLocation().isPresent()) {
-      final Collection<GeoLocations> geo = new ArrayList<>();
-      geo.add(aDownloadDto.getGeoLocation().get());
-      aFilm.setGeoLocations(geo);
-    }
-  }
 }

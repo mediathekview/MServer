@@ -58,7 +58,7 @@ public class PhoenixFilmDetailDeserializerTest {
     assertThat(actualDto.getTopic(), equalTo(expectedTopic));
     assertThat(actualDto.getTitle(), equalTo(expectedTitle));
     assertThat(actualDto.getDescription(), equalTo(expectedDescription));
-    assertThat(actualDto.getWebsite(), equalTo(expectedWebsite));
+    assertThat(actualDto.getWebsite().get(), equalTo(expectedWebsite));
   }
 
 }

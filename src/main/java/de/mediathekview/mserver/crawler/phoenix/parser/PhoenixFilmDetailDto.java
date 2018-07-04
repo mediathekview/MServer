@@ -1,5 +1,7 @@
 package de.mediathekview.mserver.crawler.phoenix.parser;
 
+import java.util.Optional;
+
 public class PhoenixFilmDetailDto {
 
   private String baseName;
@@ -40,8 +42,12 @@ public class PhoenixFilmDetailDto {
     this.description = description;
   }
 
-  public String getWebsite() {
-    return website;
+  public Optional<String> getWebsite() {
+    if (website == null || website.isEmpty()) {
+      return Optional.empty();
+    }
+
+    return Optional.of(website);
   }
 
   public void setWebsite(String website) {
