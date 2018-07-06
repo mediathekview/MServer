@@ -34,13 +34,13 @@ public class PhoenixSendungOverviewDeserializer implements JsonDeserializer<Opti
     final JsonObject contentObject = jsonObject.get(ELEMENT_CONTENT).getAsJsonObject();
 
     final Set<String> itemIds = parseItems(contentObject);
-    final Optional<String> nextUrl = JsonUtils.getAttributeAsString(contentObject, ATTRIBUTE_NEXT_URL);
+    final Optional<String> nextUrl = parseNextUrl(contentObject);
 
     SendungOverviewDto dto = createDto(itemIds, nextUrl);
     return Optional.of(dto);
   }
 
-  private SendungOverviewDto createDto(final Set<String> itemIds, final Optional<String> nextUrl) {
+  private static SendungOverviewDto createDto(final Set<String> itemIds, final Optional<String> nextUrl) {
     SendungOverviewDto dto = new SendungOverviewDto();
     dto.setNextPageId(nextUrl);
 
@@ -51,7 +51,16 @@ public class PhoenixSendungOverviewDeserializer implements JsonDeserializer<Opti
     return dto;
   }
 
-  private Set<String> parseItems(final JsonObject aContentObject) {
+  private static Optional<String> parseNextUrl(JsonObject contentObject) {
+    Optional<String> nextUrl = JsonUtils.getAttributeAsString(contentObject, ATTRIBUTE_NEXT_URL);
+    if (nextUrl.isPresent() && nextUrl.get().isEmpty()) {
+      return Optional.empty();
+    }
+
+    return nextUrl;
+  }
+
+  private static Set<String> parseItems(final JsonObject aContentObject) {
     final Set<String> items = new HashSet<>();
 
     if (aContentObject.has(ELEMENT_ITEMS)) {
@@ -59,7 +68,7 @@ public class PhoenixSendungOverviewDeserializer implements JsonDeserializer<Opti
       for (final JsonElement itemElement : itemArray) {
 
         final Optional<String> htmlUrl = JsonUtils.getAttributeAsString(itemElement.getAsJsonObject(), ATTRIBUTE_LINK);
-        if (htmlUrl.isPresent()) {
+        if (htmlUrl.isPresent() && !htmlUrl.get().isEmpty()) {
           items.add(extractIdFromHtmlUrl(htmlUrl.get()));
         }
       }
@@ -72,6 +81,10 @@ public class PhoenixSendungOverviewDeserializer implements JsonDeserializer<Opti
     int indexBegin = aHtmlUrl.lastIndexOf('-') + 1;
     int indexEnd = aHtmlUrl.lastIndexOf('.');
 
-    return aHtmlUrl.substring(indexBegin, indexEnd);
+    try {
+      return aHtmlUrl.substring(indexBegin, indexEnd);
+    } catch (StringIndexOutOfBoundsException ex) {
+      return "";
+    }
   }
 }

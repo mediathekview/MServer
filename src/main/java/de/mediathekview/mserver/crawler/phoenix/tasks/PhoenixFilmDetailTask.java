@@ -62,6 +62,7 @@ public class PhoenixFilmDetailTask extends ZdfTaskBase<Film, CrawlerUrlDTO> {
   protected void processRestTarget(CrawlerUrlDTO aDTO, WebTarget aTarget) {
     Optional<PhoenixFilmDetailDto> filmDetailDtoOptional = deserializeOptional(aTarget, OPTIONAL_FILM_DETAIL_DTO_TYPE_TOKEN);
     if (!filmDetailDtoOptional.isPresent()) {
+      // tritt auf, wenn kein Film vorhanden
       crawler.incrementAndGetErrorCount();
       crawler.updateProgress();
       return;
@@ -76,6 +77,13 @@ public class PhoenixFilmDetailTask extends ZdfTaskBase<Film, CrawlerUrlDTO> {
     }
 
     PhoenixFilmXmlHandler filmXmlHandler = filmXmlDtoOptional.get();
+    if (filmXmlHandler.getBaseName() == null) {
+      // tritt auf, wenn kein Film vorhanden
+      crawler.incrementAndGetErrorCount();
+      crawler.updateProgress();
+      return;
+    }
+
     Optional<DownloadDto> videoDetailDtoOptional = deserializeOptional(createWebTarget(videoDetailHost + PhoenixConstants.URL_VIDEO_DETAILS_BASE + filmXmlHandler.getBaseName()),
         OPTIONAL_DOWNLOAD_DTO_TYPE_TOKEN);
     if (!videoDetailDtoOptional.isPresent()) {
@@ -86,6 +94,8 @@ public class PhoenixFilmDetailTask extends ZdfTaskBase<Film, CrawlerUrlDTO> {
 
     try {
       addFilm(filmDetailDto, filmXmlHandler, videoDetailDtoOptional.get());
+      crawler.incrementAndGetActualCount();
+      crawler.updateProgress();
     } catch (MalformedURLException e) {
       LOG.error("PhoenixFilmDetailTask: url can't be parsed: ", e);
       crawler.incrementAndGetErrorCount();
