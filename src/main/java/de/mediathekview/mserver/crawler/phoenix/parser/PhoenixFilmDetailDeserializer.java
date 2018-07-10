@@ -68,11 +68,14 @@ public class PhoenixFilmDetailDeserializer implements JsonDeserializer<Optional<
 
     final JsonArray absatzArray = aJsonObject.get(ELEMENT_ABSAETZE).getAsJsonArray();
     for (JsonElement absatzElement : absatzArray) {
-      final JsonObject absatzObject = absatzElement.getAsJsonObject();
-      final Optional<String> typ = JsonUtils.getAttributeAsString(absatzObject, ELEMENT_TYP);
+      // sometimes the json array contains null-entries...
+      if (!absatzElement.isJsonNull()) {
+        final JsonObject absatzObject = absatzElement.getAsJsonObject();
+        final Optional<String> typ = JsonUtils.getAttributeAsString(absatzObject, ELEMENT_TYP);
 
-      if (typ.isPresent() && TYP_VIDEO.equals(typ.get())) {
-        return JsonUtils.getAttributeAsString(absatzObject, ELEMENT_BASENAME);
+        if (typ.isPresent() && TYP_VIDEO.equals(typ.get())) {
+          return JsonUtils.getAttributeAsString(absatzObject, ELEMENT_BASENAME);
+        }
       }
     }
 
