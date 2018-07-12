@@ -30,7 +30,7 @@ public class PhoenixFilmXmlHandlerTest {
                 "/phoenix/phoenix_film_detail1.xml",
                 "180624_phx_presseclub",
                 LocalDateTime.of(2018, 6, 24, 12, 0, 0),
-                Duration.ofHours(1).plusMinutes(57).plusSeconds(12)
+                Duration.ofMinutes(57).plusSeconds(12)
             }
         });
   }

@@ -91,6 +91,7 @@ public class PhoenixFilmXmlHandler extends DefaultHandler {
       durationValue = durationValue * 60 + Integer.parseInt(part);
     }
 
-    duration = Duration.ofSeconds(durationValue);
+    // Reduce duration by an hour, the value in the xml file is an hour too large
+    duration = Duration.ofSeconds(durationValue - 3600);
   }
 }
