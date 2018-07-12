@@ -12,23 +12,35 @@ import java.util.Collection;
 import java.util.Optional;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import javax.ws.rs.client.WebTarget;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class PhoenixOverviewTask extends ZdfTaskBase<CrawlerUrlDTO, CrawlerUrlDTO> {
+
+  private static final Logger LOG = LogManager.getLogger(PhoenixOverviewTask.class);
 
   private static final Type OPTIONAL_OVERVIEW_DTO_TYPE_TOKEN = new TypeToken<Optional<SendungOverviewDto>>() {
   }.getType();
 
 
   private final String baseUrl;
+  private final int subpage;
 
   public PhoenixOverviewTask(AbstractCrawler aCrawler,
       ConcurrentLinkedQueue<CrawlerUrlDTO> aUrlToCrawlDtos, Optional<String> aAuthKey, String aBaseUrl) {
+    this(aCrawler, aUrlToCrawlDtos, aAuthKey, aBaseUrl, 0);
+  }
+
+  public PhoenixOverviewTask(AbstractCrawler aCrawler,
+      ConcurrentLinkedQueue<CrawlerUrlDTO> aUrlToCrawlDtos, Optional<String> aAuthKey, String aBaseUrl, int aSubpage) {
     super(aCrawler, aUrlToCrawlDtos, aAuthKey);
 
     baseUrl = aBaseUrl;
+    subpage = aSubpage;
 
     registerJsonDeserializer(OPTIONAL_OVERVIEW_DTO_TYPE_TOKEN, new PhoenixSendungOverviewDeserializer());
   }
+
 
   @Override
   protected void processRestTarget(CrawlerUrlDTO aDTO, WebTarget aTarget) {
@@ -42,7 +54,7 @@ public class PhoenixOverviewTask extends ZdfTaskBase<CrawlerUrlDTO, CrawlerUrlDT
     SendungOverviewDto overviewDto = overviewDtoOptional.get();
     addResults(overviewDto.getUrls());
 
-    if (overviewDto.getNextPageId().isPresent()) {
+    if (overviewDto.getNextPageId().isPresent() && subpage < this.config.getMaximumSubpages()) {
       taskResults.addAll(createNewOwnInstance(baseUrl + overviewDto.getNextPageId().get()).invoke());
     }
   }
@@ -56,7 +68,7 @@ public class PhoenixOverviewTask extends ZdfTaskBase<CrawlerUrlDTO, CrawlerUrlDT
   @Override
   protected AbstractRecrusivConverterTask<CrawlerUrlDTO, CrawlerUrlDTO> createNewOwnInstance(
       ConcurrentLinkedQueue<CrawlerUrlDTO> aElementsToProcess) {
-    return new PhoenixOverviewTask(crawler, aElementsToProcess, authKey, baseUrl);
+    return new PhoenixOverviewTask(crawler, aElementsToProcess, authKey, baseUrl, subpage + 1);
   }
 
   private AbstractRecrusivConverterTask<CrawlerUrlDTO, CrawlerUrlDTO> createNewOwnInstance(final String aUrl) {
