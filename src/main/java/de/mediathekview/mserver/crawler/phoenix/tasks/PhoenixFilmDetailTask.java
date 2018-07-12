@@ -11,6 +11,7 @@ import de.mediathekview.mserver.crawler.phoenix.parser.PhoenixFilmDetailDeserial
 import de.mediathekview.mserver.crawler.phoenix.parser.PhoenixFilmDetailDto;
 import de.mediathekview.mserver.crawler.phoenix.parser.PhoenixFilmXmlHandler;
 import de.mediathekview.mserver.crawler.zdf.DownloadDtoFilmConverter;
+import de.mediathekview.mserver.crawler.zdf.ZdfVideoUrlOptimizer;
 import de.mediathekview.mserver.crawler.zdf.json.DownloadDto;
 import de.mediathekview.mserver.crawler.zdf.json.ZdfDownloadDtoDeserializer;
 import de.mediathekview.mserver.crawler.zdf.tasks.ZdfTaskBase;
@@ -37,8 +38,11 @@ public class PhoenixFilmDetailTask extends ZdfTaskBase<Film, CrawlerUrlDTO> {
   }.getType();
   private static final Type OPTIONAL_DOWNLOAD_DTO_TYPE_TOKEN = new TypeToken<Optional<DownloadDto>>() {
   }.getType();
+
   private final String filmDetailHost;
   private final String videoDetailHost;
+
+  private final ZdfVideoUrlOptimizer optimizer = new ZdfVideoUrlOptimizer();
 
   public PhoenixFilmDetailTask(AbstractCrawler aCrawler,
       ConcurrentLinkedQueue<CrawlerUrlDTO> aUrlToCrawlDTOs, Optional<String> aAuthKey,
@@ -118,7 +122,7 @@ public class PhoenixFilmDetailTask extends ZdfTaskBase<Film, CrawlerUrlDTO> {
       }
     }
 
-    DownloadDtoFilmConverter.addUrlsToFilm(film, downloadDto, Optional.empty());
+    DownloadDtoFilmConverter.addUrlsToFilm(film, downloadDto, Optional.of(optimizer));
     taskResults.add(film);
   }
 
