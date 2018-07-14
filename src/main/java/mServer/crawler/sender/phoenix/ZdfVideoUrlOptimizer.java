@@ -1,0 +1,96 @@
+package mServer.crawler.sender.phoenix;
+
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Optional;
+
+/**
+ * tries to find better video qualities than the used ones. checks whether video
+ * files with better qualities exists.
+ */
+public class ZdfVideoUrlOptimizer {
+
+  private static final String NORMAL_1456_13_11 = "1456k_p13v11.mp4";
+  private static final String NORMAL_1456_13_12 = "1456k_p13v12.mp4";
+  private static final String NORMAL_1496_13_13 = "1496k_p13v13.mp4";
+  private static final String NORMAL_2256_14_11 = "2256k_p14v11.mp4";
+  private static final String NORMAL_2256_14_12 = "2256k_p14v12.mp4";
+  private static final String NORMAL_2296_14_13 = "2296k_p14v13.mp4";
+  private static final String NORMAL_2328_35_11 = "2328k_p35v11.mp4";
+  private static final String NORMAL_2328_35_12 = "2328k_p35v12.mp4";
+  private static final String NORMAL_2328_35_13 = "2328k_p35v13.mp4";
+
+  private static final String HD_3256 = "3256k_p15v12.mp4";
+  private static final String HD_3296 = "3296k_p15v13.mp4";
+  private static final String HD_3328_12 = "3328k_p36v12.mp4";
+  private static final String HD_3328_13 = "3328k_p36v13.mp4";
+
+  private static final Map<String, String[]> NORMAL_OPTIMIZE = new HashMap<>();
+  private static final Map<String, String[]> HD_OPTIMIZE = new HashMap<>();
+
+  static {
+    NORMAL_OPTIMIZE.put(NORMAL_2256_14_11, new String[]{NORMAL_2328_35_11});
+    NORMAL_OPTIMIZE.put(NORMAL_2256_14_12, new String[]{NORMAL_2328_35_12});
+    NORMAL_OPTIMIZE.put(NORMAL_2296_14_13, new String[]{NORMAL_2328_35_13});
+    NORMAL_OPTIMIZE.put(NORMAL_1456_13_11, new String[]{NORMAL_2328_35_11, NORMAL_2256_14_11});
+    NORMAL_OPTIMIZE.put(NORMAL_1456_13_12, new String[]{NORMAL_2328_35_12, NORMAL_2256_14_12});
+    NORMAL_OPTIMIZE.put(NORMAL_1496_13_13, new String[]{NORMAL_2328_35_13, NORMAL_2296_14_13});
+
+    HD_OPTIMIZE.put(NORMAL_1456_13_12, new String[]{HD_3328_12, HD_3256});
+    HD_OPTIMIZE.put(NORMAL_2256_14_12, new String[]{HD_3328_12, HD_3256});
+    HD_OPTIMIZE.put(NORMAL_2328_35_12, new String[]{HD_3328_12, HD_3256});
+    HD_OPTIMIZE.put(NORMAL_1496_13_13, new String[]{HD_3296, HD_3328_13});
+    HD_OPTIMIZE.put(NORMAL_2296_14_13, new String[]{HD_3296, HD_3328_13});
+    HD_OPTIMIZE.put(NORMAL_2328_35_13, new String[]{HD_3296, HD_3328_13});
+  }
+
+  /**
+   * optimizes the normal url.
+   *
+   * @param aUrl the normal url.
+   * @return the optimized url.
+   */
+  public String getOptimizedUrlNormal(final String aUrl) {
+    return optimize(aUrl, NORMAL_OPTIMIZE);
+  }
+
+  /**
+   * tries to find the hd url depending on the normal url.
+   *
+   * @param aNormalUrl the normal url.
+   * @return the hd url or Optional.empty.
+   */
+  public Optional<String> determineUrlHd(final String aNormalUrl) {
+    final String url = optimize(aNormalUrl, HD_OPTIMIZE);
+    if (url.equalsIgnoreCase(aNormalUrl)) {
+      return Optional.empty();
+    }
+    return Optional.of(url);
+  }
+
+  private String optimize(final String aUrl, Map<String, String[]> aOptimizerMap) {
+    final Optional<String> fileNameOptional = UrlUtils.getFileName(aUrl);
+    if (!fileNameOptional.isPresent()) {
+      return aUrl;
+    }
+
+    final String fileName = fileNameOptional.get();
+
+    for (Map.Entry<String, String[]> entry : aOptimizerMap.entrySet()) {
+
+      if (fileName.endsWith(entry.getKey())) {
+        final String baseUrl = aUrl.substring(0, aUrl.indexOf(fileName));
+
+        for (String optimizedFileName : entry.getValue()) {
+          String optimizedUrl = baseUrl + fileName.replace(entry.getKey(), optimizedFileName);
+
+          if (UrlUtils.existsUrl(optimizedUrl)) {
+            return optimizedUrl;
+          }
+        }
+      }
+    }
+
+    return aUrl;
+  }
+}
