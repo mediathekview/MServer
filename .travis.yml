@@ -1,6 +1,8 @@
 language: java
 jdk:
-- oraclejdk8
+  - oraclejdk8
+  - oraclejdk9
+  - openjdk8
 addons:
   sonarcloud:
     organization: mediathekview
