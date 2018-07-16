@@ -44,8 +44,6 @@ public class PhoenixFilmDetailTask extends ZdfTaskBase<DatenFilm, CrawlerUrlDTO>
   private final String filmDetailHost;
   private final String videoDetailHost;
 
-  private final ZdfVideoUrlOptimizer optimizer = new ZdfVideoUrlOptimizer();
-
   public PhoenixFilmDetailTask(MediathekReader aCrawler,
           ConcurrentLinkedQueue<CrawlerUrlDTO> aUrlToCrawlDTOs, Optional<String> aAuthKey,
           String filmDetailHost, String videoDetailHost) {
