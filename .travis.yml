@@ -31,7 +31,7 @@ env:
   - secure: lQsf/AKM9ZLs+39A54YhD+PMvdfod/Zk+HB3908UY8mKgCDy+UdA4oSmgwmGUxLBOYMs5a16l1lc2aORlM6vuQ/KCruKdbQSBzklmndEkRqejUOSjTttS1f7ZO7av6/fDhpvHVv5pU9Ji/75W7bVOJZjMkMyzGocGHHURq1l1WCyhE+7V2TD701Zt5BwqP6BjcDD1SWQBDRbSJ5loxnP3lYZiK9xN9pIWXSaQJ2O5u1PF0duojML0bpXkqRK93kvJ6VjrQKFEXp3Zdd/g4OufgVp9Mbg8C45ury9FUt08xBJsa0Ap9D8T3ly+sdLBr4L2Rv5++IDZfr0EfzrjB5Ob4BsOBof5BN1gPJk6N85gE/5icGe0lCvOGYNhtXtcUOwd6nMsJ2PnCU5SKuRbCApFTTrq4//dBHqa62cBfbSZv5cDYHI50NwnLXcQi0I8HYu89caXWq+kvpcL/ueP1k+tTTX4rpfcGomJAr0mB0KMfESZ3Bb6VWCY6RXenCPJny1HVnJRu4LJjIcdqkVqqrpPgnwnUR3yBUBNQ3niD6fxqqqGjv6ijiNB8tloVnvg8jrpyVZ2hbhEG/7k+gebjObKac1RTEePuc0jXvMWFX69LmnORC+KXPNO/tBQgRiRTDEIxXukcXkdrintUobNdZ/RZBEg1mIVX3ejP0JJXScZfQ=
 before_script:
 #  - openssl aes-256-cbc -pass pass:$ENCRYPTION_PASSWORD -in scripte/deploy/secring.gpg.enc -out scripte/deploy/secring.gpg -d
-  - echo "Java Version: $TRAVIS_JDK_VERSION"
+  - echo 'Java Version:' $TRAVIS_JDK_VERSION
 script:
   - "./gradlew check developTest build"
   - if [ "$TRAVIS_BRANCH" == "develop" ]; then openssl aes-256-cbc -pass pass:$ENCRYPTION_PASSWORD -in scripte/deploy/secring.gpg.enc -out scripte/deploy/secring.gpg -d && ./gradlew releaseSnapshot -PSONATYPE_USERNAME=$SONATYPE_USERNAME -PSONATYPE_PASSWORD=$SONATYPE_PASSWORD -Psigning.keyId=$GPG_KEYNAME -Psigning.password=$GPG_PASSPHRASE -Psigning.secretKeyRingFile=scripte/deploy/secring.gpg; fi
