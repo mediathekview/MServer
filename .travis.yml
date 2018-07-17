@@ -33,7 +33,7 @@ before_script:
   - echo 'Java Version:' $TRAVIS_JDK_VERSION
 script:
   - "./gradlew check developTest build"
-  - if [ "$TRAVIS_BRANCH" == "develop" ]; then openssl aes-256-cbc -pass pass:$ENCRYPTION_PASSWORD -in scripte/deploy/secring.gpg.enc -out scripte/deploy/secring.gpg -d && ./gradlew releaseSnapshot -PSONATYPE_USERNAME=$SONATYPE_USERNAME -PSONATYPE_PASSWORD=$SONATYPE_PASSWORD -Psigning.keyId=$GPG_KEYNAME -Psigning.password=$GPG_PASSPHRASE -Psigning.secretKeyRingFile=scripte/deploy/secring.gpg; fi
+  - if [ "$TRAVIS_BRANCH" == "develop" ] && [ "$TRAVIS_JDK_VERSION" == "oraclejdk8" ]; then openssl aes-256-cbc -pass pass:$ENCRYPTION_PASSWORD -in scripte/deploy/secring.gpg.enc -out scripte/deploy/secring.gpg -d && ./gradlew releaseSnapshot -PSONATYPE_USERNAME=$SONATYPE_USERNAME -PSONATYPE_PASSWORD=$SONATYPE_PASSWORD -Psigning.keyId=$GPG_KEYNAME -Psigning.password=$GPG_PASSPHRASE -Psigning.secretKeyRingFile=scripte/deploy/secring.gpg; fi
 after_success:
   - sonar-scanner
 before_cache:
