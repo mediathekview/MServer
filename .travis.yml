@@ -34,7 +34,7 @@ before_script:
   -out scripte/deploy/secring.gpg -d
 script:
 - "./gradlew check developTest build"
-- if [ "$TRAVIS_BRANCH" == "develop" ]; then ./gradlew releaseSnapshot -PSONATYPE_USERNAME=$SONATYPE_USERNAME
+- if [ "$TRAVIS_BRANCH" == "develop" ]; then ./gradlew build releaseSnapshot -PSONATYPE_USERNAME=$SONATYPE_USERNAME
   -PSONATYPE_PASSWORD=$SONATYPE_PASSWORD -Psigning.keyId=$GPG_KEYNAME -Psigning.password=$GPG_PASSPHRASE
   -Psigning.secretKeyRingFile=scripte/deploy/secring.gpg; fi
 after_success:
@@ -49,7 +49,7 @@ cache:
 before_deploy:
 - openssl aes-256-cbc -pass pass:$ENCRYPTION_PASSWORD -in scripte/deploy/secring.gpg.enc
   -out scripte/deploy/secring.gpg -d
-- "./gradlew release -PSONATYPE_USERNAME=$SONATYPE_USERNAME -PSONATYPE_PASSWORD=$SONATYPE_PASSWORD
+- "./gradlew build release -PSONATYPE_USERNAME=$SONATYPE_USERNAME -PSONATYPE_PASSWORD=$SONATYPE_PASSWORD
   -Psigning.keyId=$GPG_KEYNAME -Psigning.password=$GPG_PASSPHRASE -Psigning.secretKeyRingFile=scripte/deploy/secring.gpg"
 deploy:
   provider: releases
