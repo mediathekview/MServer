@@ -19,26 +19,23 @@
  */
 package mServer.crawler.sender.arte;
 
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-
 import de.mediathekview.mlib.Config;
 import de.mediathekview.mlib.Const;
 import de.mediathekview.mlib.daten.DatenFilm;
 import de.mediathekview.mlib.daten.ListeFilme;
 import de.mediathekview.mlib.tool.Log;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.concurrent.CopyOnWriteArrayList;
 import mServer.crawler.CrawlerTool;
 import mServer.crawler.FilmeSuchen;
 import mServer.crawler.sender.MediathekReader;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class MediathekArte_de extends MediathekReader {
 
@@ -69,7 +66,7 @@ public class MediathekArte_de extends MediathekReader {
   private static final String ARTE_API_TAG_URL_PATTERN = "https://api.arte.tv/api/opa/v3/videos?channel=%s&arteSchedulingDay=%s";
 
   private static final String URL_SUBCATEGORY
-          = "https://www.arte.tv/guide/api/api/zones/%s/videos_subcategory_%s/?page=%s&limit=100";
+          = "https://www.arte.tv/guide/api/api/zones/%s/videos_subcategory/?id=%s&page=%s&limit=100";
 
   private static final String[] SUBCATEGORIES = new String[]{
     "AJO", "AUV", "KUL", "DCY", "ENQ", "JUN",
