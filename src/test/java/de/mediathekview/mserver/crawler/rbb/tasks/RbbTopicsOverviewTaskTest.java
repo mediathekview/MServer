@@ -28,13 +28,13 @@ public class RbbTopicsOverviewTaskTest extends RbbTaskTestBase {
     JsoupMock.mock(RbbConstants.URL_TOPICS_A_K, "/rbb/rbb_topics1.html");
 
     final CrawlerUrlDTO[] expected = new CrawlerUrlDTO[]{
-        new CrawlerUrlDTO("http://mediathek.rbb-online.de/tv/30-Favoriten/Sendung?documentId=17399976&bcastId=17399976"),
-        new CrawlerUrlDTO("http://mediathek.rbb-online.de/tv/Abendschau/Sendung?documentId=3822076&bcastId=3822076"),
-        new CrawlerUrlDTO("http://mediathek.rbb-online.de/tv/Abendshow/Sendung?documentId=45722438&bcastId=45722438"),
-        new CrawlerUrlDTO("http://mediathek.rbb-online.de/tv/Abenteuer-/Sendung?documentId=41967306&bcastId=41967306"),
-        new CrawlerUrlDTO("http://mediathek.rbb-online.de/tv/Karneval-der-Kulturen/Sendung?documentId=43155502&bcastId=43155502"),
-        new CrawlerUrlDTO("http://mediathek.rbb-online.de/tv/Kesslers-Expedition/Sendung?documentId=7382518&bcastId=7382518"),
-        new CrawlerUrlDTO("http://mediathek.rbb-online.de/tv/Kowalski-Schmidt/Sendung?documentId=16361776&bcastId=16361776")
+        new CrawlerUrlDTO("https://mediathek.rbb-online.de/tv/30-Favoriten/Sendung?documentId=17399976&bcastId=17399976"),
+        new CrawlerUrlDTO("https://mediathek.rbb-online.de/tv/Abendschau/Sendung?documentId=3822076&bcastId=3822076"),
+        new CrawlerUrlDTO("https://mediathek.rbb-online.de/tv/Abendshow/Sendung?documentId=45722438&bcastId=45722438"),
+        new CrawlerUrlDTO("https://mediathek.rbb-online.de/tv/Abenteuer-/Sendung?documentId=41967306&bcastId=41967306"),
+        new CrawlerUrlDTO("https://mediathek.rbb-online.de/tv/Karneval-der-Kulturen/Sendung?documentId=43155502&bcastId=43155502"),
+        new CrawlerUrlDTO("https://mediathek.rbb-online.de/tv/Kesslers-Expedition/Sendung?documentId=7382518&bcastId=7382518"),
+        new CrawlerUrlDTO("https://mediathek.rbb-online.de/tv/Kowalski-Schmidt/Sendung?documentId=16361776&bcastId=16361776")
     };
 
     final ConcurrentLinkedQueue<CrawlerUrlDTO> urls = new ConcurrentLinkedQueue<>();

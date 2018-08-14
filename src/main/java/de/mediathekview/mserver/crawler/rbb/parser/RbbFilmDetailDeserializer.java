@@ -28,6 +28,12 @@ public class RbbFilmDetailDeserializer {
 
   private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSS");
 
+  private final String baseUrl;
+
+  public RbbFilmDetailDeserializer(final String aBaseUrl) {
+    baseUrl = aBaseUrl;
+  }
+
   /**
    * deserializes film infos.
    *
@@ -89,7 +95,7 @@ public class RbbFilmDetailDeserializer {
       return Optional.empty();
     }
 
-    return Optional.of(String.format(RbbConstants.URL_VIDEO_JSON, documentId));
+    return Optional.of(String.format(RbbConstants.URL_VIDEO_JSON, baseUrl, documentId));
   }
 
   private String getDocumentIdFromUrl(final String aUrl) {

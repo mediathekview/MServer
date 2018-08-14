@@ -54,7 +54,7 @@ public class RbbCrawler extends AbstractCrawler {
       printMessage(ServerMessages.DEBUG_ALL_SENDUNG_FOLGEN_COUNT, getSender().getName(), shows.size());
       getAndSetMaxCount(shows.size());
 
-      return new RbbFilmTask(this, shows);
+      return new RbbFilmTask(this, shows, RbbConstants.URL_BASE);
     } catch (InterruptedException | ExecutionException ex) {
       LOG.fatal("Exception in RBB crawler.", ex);
     }
