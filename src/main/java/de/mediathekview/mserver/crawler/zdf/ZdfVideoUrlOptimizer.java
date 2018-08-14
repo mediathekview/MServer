@@ -13,17 +13,22 @@ public class ZdfVideoUrlOptimizer {
   private static final String NORMAL_1456_13_11 = "1456k_p13v11.mp4";
   private static final String NORMAL_1456_13_12 = "1456k_p13v12.mp4";
   private static final String NORMAL_1496_13_13 = "1496k_p13v13.mp4";
+  private static final String NORMAL_1496_13_14 = "1496k_p13v14.mp4";
   private static final String NORMAL_2256_14_11 = "2256k_p14v11.mp4";
   private static final String NORMAL_2256_14_12 = "2256k_p14v12.mp4";
   private static final String NORMAL_2296_14_13 = "2296k_p14v13.mp4";
+  private static final String NORMAL_2296_14_14 = "2296k_p14v14.mp4";
   private static final String NORMAL_2328_35_11 = "2328k_p35v11.mp4";
   private static final String NORMAL_2328_35_12 = "2328k_p35v12.mp4";
   private static final String NORMAL_2328_35_13 = "2328k_p35v13.mp4";
+  private static final String NORMAL_2328_35_14 = "2328k_p35v14.mp4";
 
   private static final String HD_3256 = "3256k_p15v12.mp4";
   private static final String HD_3296 = "3296k_p15v13.mp4";
   private static final String HD_3328_12 = "3328k_p36v12.mp4";
   private static final String HD_3328_13 = "3328k_p36v13.mp4";
+  private static final String HD_3328_14 = "3328k_p36v14.mp4";
+  private static final String HD_3328_35_14 = "3328k_p35v14.mp4";
 
   private static final Map<String, String[]> NORMAL_OPTIMIZE = new HashMap<>();
   private static final Map<String, String[]> HD_OPTIMIZE = new HashMap<>();
@@ -42,6 +47,9 @@ public class ZdfVideoUrlOptimizer {
     HD_OPTIMIZE.put(NORMAL_1496_13_13, new String[]{HD_3296, HD_3328_13});
     HD_OPTIMIZE.put(NORMAL_2296_14_13, new String[]{HD_3296, HD_3328_13});
     HD_OPTIMIZE.put(NORMAL_2328_35_13, new String[]{HD_3296, HD_3328_13});
+    HD_OPTIMIZE.put(NORMAL_1496_13_14, new String[]{HD_3328_14, HD_3328_35_14});
+    HD_OPTIMIZE.put(NORMAL_2296_14_14, new String[]{HD_3328_14, HD_3328_35_14});
+    HD_OPTIMIZE.put(NORMAL_2328_35_14, new String[]{HD_3328_14, HD_3328_35_14});
   }
 
   /**
