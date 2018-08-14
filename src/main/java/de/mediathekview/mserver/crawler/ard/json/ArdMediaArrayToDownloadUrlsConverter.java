@@ -291,6 +291,9 @@ public class ArdMediaArrayToDownloadUrlsConverter {
     }
 
     String url = aVideoElement.getAsJsonObject().get(ELEMENT_STREAM).getAsString();
+    if (url.equals(aBaseUrl)) {
+      return url;
+    }
     if (url.matches(URL_PREFIX_PATTERN + URL_PATTERN)) {
       url = url.replaceFirst(URL_PREFIX_PATTERN, aBaseUrl);
     } else {
