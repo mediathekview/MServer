@@ -354,7 +354,7 @@ public class CrawlerTool {
   private static Collection<GeoLocations> getGeoLocationsOrf(final String aUrl) {
     final Map<GeoLocations, List<String>> geoUrls = new HashMap<>();
     geoUrls.put(GeoLocations.GEO_AT,
-        Arrays.asList("apasfpd.apa.at/cms-austria", "apasfw.apa.at/cms-austria"));
+        Arrays.asList("apasfpd.apa.at/cms-austria", "apasfpd.sf.apa.at/cms-austria", "apasfw.apa.at/cms-austria"));
 
     return getGeolocationsForGeoUrls(geoUrls, aUrl);
   }

@@ -17,7 +17,10 @@ import org.apache.logging.log4j.Logger;
 public class OrfVideoDetailDeserializer implements JsonDeserializer<Optional<OrfVideoInfoDTO>> {
 
   private static final Logger LOG = LogManager.getLogger(OrfVideoDetailDeserializer.class);
-  
+
+  private static final String WRONG_HTTPS_URL_PART = ".apa.";
+  private static final String RIGHT_HTTPS_URL_PART = ".sf.apa.";
+
   private static final String ELEMENT_PLAYLIST = "playlist";
   private static final String ELEMENT_VIDEOS = "videos";
   private static final String ELEMENT_SUBTITLES = "subtitles";
@@ -32,7 +35,14 @@ public class OrfVideoDetailDeserializer implements JsonDeserializer<Optional<Orf
   private static final String RELEVANT_PROTOCOL = "http";
   private static final String RELEVANT_SUBTITLE_TYPE = "ttml";
   private static final String RELEVANT_VIDEO_TYPE = "video/mp4";
-  
+
+  private static String fixHttpsURL(final String url) {
+    if (url.contains(RIGHT_HTTPS_URL_PART)) {
+      return url;
+    }
+    return url.replace(WRONG_HTTPS_URL_PART, RIGHT_HTTPS_URL_PART);
+  }
+
   @Override
   public Optional<OrfVideoInfoDTO> deserialize(JsonElement aJsonElement, Type aType, JsonDeserializationContext aContext) throws JsonParseException {
     
@@ -79,7 +89,7 @@ public class OrfVideoDetailDeserializer implements JsonDeserializer<Optional<Orf
             && protocol.equalsIgnoreCase(RELEVANT_PROTOCOL)
             && delivery.equalsIgnoreCase(RELEVANT_DELIVERY)) {
             String quality = videoObject.get(ATTRIBUTE_QUALITY).getAsString();
-            String url = videoObject.get(ATTRIBUTE_SRC).getAsString();
+            String url = fixHttpsURL(videoObject.get(ATTRIBUTE_SRC).getAsString());
             
             Optional<Resolution> resolution = getQuality(quality);
             if (resolution.isPresent()) {
@@ -100,7 +110,7 @@ public class OrfVideoDetailDeserializer implements JsonDeserializer<Optional<Orf
           String type = subtitleObject.get(ATTRIBUTE_TYPE).getAsString();
           
           if (type.equalsIgnoreCase(RELEVANT_SUBTITLE_TYPE)) {
-            String url = subtitleObject.get(ATTRIBUTE_SRC).getAsString();
+            String url = fixHttpsURL(subtitleObject.get(ATTRIBUTE_SRC).getAsString());
             dto.setSubtitleUrl(url);
           }
         }
