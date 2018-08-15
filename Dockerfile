@@ -9,7 +9,7 @@ ARG BASE_DIR="/opt/MServer"
 ENV MIN_RAM "256M"
 ENV MAX_RAM "2G"
 
-RUN "mkdir $BASE_DIR"
+RUN "mkdir -p $BASE_DIR"
 WORKDIR $BASE_DIR
 
 ADD ./build/distributions/MServer-$VERSION.tar.gz
