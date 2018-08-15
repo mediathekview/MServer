@@ -12,7 +12,7 @@ ENV MAX_RAM "2G"
 RUN mkdir -p $BASE_DIR
 WORKDIR $BASE_DIR
 
-ADD ./build/distributions/MServer-$VERSION.tar.gz
+ADD ./build/distributions/MServer-$VERSION.tar.gz .
 RUN mkdir config && \
     mv *.xml config/ && \
     mv live-streams.json config/
