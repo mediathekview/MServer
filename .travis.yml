@@ -39,8 +39,8 @@ script:
 after_success:
   - sonar-scanner
   - export VERSION=$(find . -name "MServer-*.tar.gz" | sed "s/.*MServer-\(.*\).tar.gz/\1/")
-  - docker build -t mediathekview/mserver:$VERSION -t mediathekview/mserver:latest-snapshot --build-arg VERSION=$VERSION .
-#  - if [ "$TRAVIS_BRANCH" == "develop" ] && [ "$TRAVIS_JDK_VERSION" == "oraclejdk8" ]; then docker build -t mediathekview/mserver:$VERSION -t mediathekview/mserver:latest-snapshot --build-arg VERSION=$VERSION .; fi
+  - docker build . -t mediathekview/mserver:$VERSION -t mediathekview/mserver:latest-snapshot --build-arg VERSION=$VERSION
+#  - if [ "$TRAVIS_BRANCH" == "develop" ] && [ "$TRAVIS_JDK_VERSION" == "oraclejdk8" ]; then docker build . -t mediathekview/mserver:$VERSION -t mediathekview/mserver:latest-snapshot --build-arg VERSION=$VERSION .; fi
   - docker push mediathekview/mserver
 before_cache:
   - rm -f $HOME/.gradle/caches/modules-2/modules-2.lock
