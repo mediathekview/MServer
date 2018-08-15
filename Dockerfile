@@ -1,4 +1,4 @@
-FROM "openjdk:8-jre-slim"
+FROM "openjdk:8-jre-alpine"
 MAINTAINER "MediathekView <info@mediathekview.de>"
 
 # On Build
