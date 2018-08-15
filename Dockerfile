@@ -18,6 +18,6 @@ RUN mkdir config && \
     mv mserver.xml config/ && \
     mv upload.xml config/ && \
     mv live-streams.json config/
-VOLUME "config/"
 
-CMD ["java -Xms$MIN_RAM -Xmx$MAX_RAM -jar ./MServer.jar $BASE_DIR"]
+VOLUME /opt/MServer/config
+CMD java -Xms$MIN_RAM -Xmx$MAX_RAM -jar ./MServer.jar config
