@@ -14,7 +14,8 @@ WORKDIR $BASE_DIR
 
 ADD ./build/distributions/MServer-$VERSION.tar.gz .
 RUN mkdir config && \
-    mv *.xml config/ && \
+    mv mserver.xml config/ && \
+    mv upload.xml config/ && \
     mv live-streams.json config/
 VOLUME "config/"
 
