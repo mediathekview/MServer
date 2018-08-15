@@ -2,7 +2,7 @@ FROM "openjdk:8-jre-slim"
 MAINTAINER "MediathekView <info@mediathekview.de>"
 
 # On Build
-ARG required VERSION
+ARG VERSION
 ARG BASE_DIR="/opt/MServer"
 
 # On Run
