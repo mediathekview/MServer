@@ -1,4 +1,6 @@
 language: java
+services:
+  - docker
 jdk:
   - oraclejdk8
   - oraclejdk9
@@ -36,6 +38,9 @@ script:
   - if [ "$TRAVIS_BRANCH" == "develop" ] && [ "$TRAVIS_JDK_VERSION" == "oraclejdk8" ]; then openssl aes-256-cbc -pass pass:$ENCRYPTION_PASSWORD -in scripte/deploy/secring.gpg.enc -out scripte/deploy/secring.gpg -d && ./gradlew releaseSnapshot -PSONATYPE_USERNAME=$SONATYPE_USERNAME -PSONATYPE_PASSWORD=$SONATYPE_PASSWORD -Psigning.keyId=$GPG_KEYNAME -Psigning.password=$GPG_PASSPHRASE -Psigning.secretKeyRingFile=scripte/deploy/secring.gpg; fi
 after_success:
   - sonar-scanner
+  - export VERSION=$(find . -name "MServer-*.tar.gz" | sed "s/.*MServer-\(.*\).tar.gz/\1/")
+  - docker build -t mediathekview/MServer:$VERSION -t mediathekview/MServer:latest-snapshot --build-arg VERSION=$VERSION .
+#  - if [ "$TRAVIS_BRANCH" == "develop" ]; then docker build -t mediathekview/MServer:$VERSION -t mediathekview/MServer:latest-snapshot --build-arg VERSION=$VERSION .; fi
 before_cache:
   - rm -f $HOME/.gradle/caches/modules-2/modules-2.lock
 cache:
@@ -47,7 +52,9 @@ before_deploy:
 - openssl aes-256-cbc -pass pass:$ENCRYPTION_PASSWORD -in scripte/deploy/secring.gpg.enc -out scripte/deploy/secring.gpg -d
 deploy:
   - provider: script
-    script: "./gradlew release -PSONATYPE_USERNAME=$SONATYPE_USERNAME -PSONATYPE_PASSWORD=$SONATYPE_PASSWORD -Psigning.keyId=$GPG_KEYNAME -Psigning.password=$GPG_PASSPHRASE -Psigning.secretKeyRingFile=scripte/deploy/secring.gpg"
+    script:
+      - ./gradlew release -PSONATYPE_USERNAME=$SONATYPE_USERNAME -PSONATYPE_PASSWORD=$SONATYPE_PASSWORD -Psigning.keyId=$GPG_KEYNAME -Psigning.password=$GPG_PASSPHRASE -Psigning.secretKeyRingFile=scripte/deploy/secring.gpg
+      - docker tag mediathekview/MServer:$VERSION mediathekview/MServer:latest
     skip_cleanup: true
     on:
       branch: master
