@@ -30,6 +30,7 @@ import de.mediathekview.mlib.filmlisten.FilmlisteLesen;
 import de.mediathekview.mlib.filmlisten.WriteFilmlistJson;
 import de.mediathekview.mlib.tool.Functions;
 import de.mediathekview.mlib.tool.Log;
+import mServer.tool.HashFileWriter;
 
 public class Crawler implements Runnable {
 
