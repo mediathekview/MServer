@@ -13,7 +13,7 @@ import org.junit.Assert;
 import org.junit.Test;
 
 public class HashFileWriterTest {
-	private static final String FILE_NAME_FILMLISTE_HASH = "filmliste.hash";
+	private static final String FILE_NAME_FILMLISTE_HASH = "filmliste.id";
 	private static final Path basePath = Paths.get(HashFileWriterTest.class.getResource("").getPath());
 
 	@Test
