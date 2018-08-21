@@ -15,7 +15,7 @@ import de.mediathekview.mlib.tool.Log;
  *
  */
 public class HashFileWriter {
-	private static final String FILE_NAME = "filmliste.hash";
+	private static final String FILE_NAME = "filmliste.id";
 	private Path baseDir;
 
 	/**
