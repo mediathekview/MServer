@@ -19,6 +19,7 @@
  */
 package mServer.crawler;
 
+import java.nio.file.Paths;
 import java.util.concurrent.TimeUnit;
 
 import de.mediathekview.mlib.Config;
@@ -27,7 +28,9 @@ import de.mediathekview.mlib.filmesuchen.ListenerFilmeLaden;
 import de.mediathekview.mlib.filmesuchen.ListenerFilmeLadenEvent;
 import de.mediathekview.mlib.filmlisten.FilmlisteLesen;
 import de.mediathekview.mlib.filmlisten.WriteFilmlistJson;
+import de.mediathekview.mlib.tool.Functions;
 import de.mediathekview.mlib.tool.Log;
+import mServer.tool.HashFileWriter;
 
 public class Crawler implements Runnable {
 
@@ -199,6 +202,8 @@ public class Crawler implements Runnable {
         writer.filmlisteSchreibenJson(CrawlerTool.getPathFilmlist_json_akt(false /*aktDate*/), listeFilme);
         writer.filmlisteSchreibenJson(CrawlerTool.getPathFilmlist_json_akt(true /*aktDate*/), listeFilme);
         writer.filmlisteSchreibenJsonCompressed(CrawlerTool.getPathFilmlist_json_akt_xz(), listeFilme);
+        // Erzeugung von Hash-File für schnelleren Datenabgleich 
+        new HashFileWriter(CrawlerConfig.dirFilme).writeHash(listeFilme.getId());
         //================================================
         // Org
         Log.sysLog("");
