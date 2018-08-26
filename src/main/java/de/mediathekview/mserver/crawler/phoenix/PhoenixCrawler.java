@@ -67,16 +67,12 @@ public class PhoenixCrawler extends AbstractCrawler {
     // load sendung overview pages
     final ConcurrentLinkedQueue<CrawlerUrlDTO> queue1 = new ConcurrentLinkedQueue<>();
     queue1.addAll(overviewUrls);
-    final Set<CrawlerUrlDTO> filmUrls = loadOverviewPages(queue1);
-
-    return filmUrls;
+    return loadOverviewPages(queue1);
   }
 
   private Set<CrawlerUrlDTO> loadOverviewPages(final ConcurrentLinkedQueue<CrawlerUrlDTO> aQueue)
       throws ExecutionException, InterruptedException {
     PhoenixOverviewTask overviewTask = new PhoenixOverviewTask(this, aQueue, Optional.empty(), PhoenixConstants.URL_BASE);
-    final Set<CrawlerUrlDTO> urls = forkJoinPool.submit(overviewTask).get();
-
-    return urls;
+    return forkJoinPool.submit(overviewTask).get();
   }
 }

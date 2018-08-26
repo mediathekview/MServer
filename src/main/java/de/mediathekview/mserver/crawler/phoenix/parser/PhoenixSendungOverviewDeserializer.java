@@ -9,9 +9,7 @@ import de.mediathekview.mserver.base.utils.JsonUtils;
 import de.mediathekview.mserver.crawler.basic.SendungOverviewDto;
 import de.mediathekview.mserver.crawler.phoenix.PhoenixConstants;
 import java.lang.reflect.Type;
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 

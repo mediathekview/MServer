@@ -49,6 +49,8 @@ public class PhoenixFilmXmlHandler extends DefaultHandler {
       case ELEMENT_LENGTH:
         activeElement = ELEMENT_LENGTH_ACTIVE;
         return;
+      default:
+        return;
     }
   }
 
@@ -75,6 +77,8 @@ public class PhoenixFilmXmlHandler extends DefaultHandler {
       case ELEMENT_LENGTH_ACTIVE:
         parseDuration(value);
         return;
+      default:
+        return;
     }
   }
 
@@ -92,6 +96,6 @@ public class PhoenixFilmXmlHandler extends DefaultHandler {
     }
 
     // Reduce duration by an hour, the value in the xml file is an hour too large
-    duration = Duration.ofSeconds(durationValue - 3600);
+    duration = Duration.ofSeconds(durationValue - 3600L);
   }
 }

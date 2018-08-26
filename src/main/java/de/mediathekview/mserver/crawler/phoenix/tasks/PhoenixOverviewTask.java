@@ -12,12 +12,8 @@ import java.util.Collection;
 import java.util.Optional;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import javax.ws.rs.client.WebTarget;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 public class PhoenixOverviewTask extends ZdfTaskBase<CrawlerUrlDTO, CrawlerUrlDTO> {
-
-  private static final Logger LOG = LogManager.getLogger(PhoenixOverviewTask.class);
 
   private static final Type OPTIONAL_OVERVIEW_DTO_TYPE_TOKEN = new TypeToken<Optional<SendungOverviewDto>>() {
   }.getType();
@@ -31,7 +27,7 @@ public class PhoenixOverviewTask extends ZdfTaskBase<CrawlerUrlDTO, CrawlerUrlDT
     this(aCrawler, aUrlToCrawlDtos, aAuthKey, aBaseUrl, 0);
   }
 
-  public PhoenixOverviewTask(AbstractCrawler aCrawler,
+  private PhoenixOverviewTask(AbstractCrawler aCrawler,
       ConcurrentLinkedQueue<CrawlerUrlDTO> aUrlToCrawlDtos, Optional<String> aAuthKey, String aBaseUrl, int aSubpage) {
     super(aCrawler, aUrlToCrawlDtos, aAuthKey);
 
@@ -60,7 +56,7 @@ public class PhoenixOverviewTask extends ZdfTaskBase<CrawlerUrlDTO, CrawlerUrlDT
   }
 
   private void addResults(Collection<CrawlerUrlDTO> aUrls) {
-    for (CrawlerUrlDTO url: aUrls) {
+    for (CrawlerUrlDTO url : aUrls) {
       taskResults.add(new CrawlerUrlDTO(baseUrl + url.getUrl()));
     }
   }
