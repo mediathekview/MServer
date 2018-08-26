@@ -13,9 +13,12 @@ import java.util.Optional;
 import mServer.crawler.CrawlerTool;
 
 public class DownloadDtoFilmConverter {
-  public static void addUrlsToFilm(final Film aFilm, final DownloadDto aDownloadDto, final Optional<ZdfVideoUrlOptimizer> aUrlOptimizer) throws MalformedURLException {
 
-    for (final Map.Entry<Resolution, String> qualitiesEntry : aDownloadDto.getDownloadUrls().entrySet()) {
+  private DownloadDtoFilmConverter() {}
+
+  public static void addUrlsToFilm(final Film aFilm, final DownloadDto aDownloadDto, final Optional<ZdfVideoUrlOptimizer> aUrlOptimizer, final String aLanguage) throws MalformedURLException {
+
+    for (final Map.Entry<Resolution, String> qualitiesEntry : aDownloadDto.getDownloadUrls(aLanguage).entrySet()) {
       String url = qualitiesEntry.getValue();
 
       if (qualitiesEntry.getKey() == Resolution.NORMAL && aUrlOptimizer.isPresent()) {

@@ -17,6 +17,7 @@ import org.apache.logging.log4j.Logger;
  * A JSON deserializer to gather the needed information for a {@link DownloadDto}.
  */
 public class ZdfDownloadDtoDeserializer implements JsonDeserializer<Optional<DownloadDto>> {
+
   private static final String ZDF_QUALITY_VERYHIGH = "veryhigh";
   private static final String ZDF_QUALITY_HIGH = "high";
   private static final String ZDF_QUALITY_MED = "med";
@@ -28,6 +29,7 @@ public class ZdfDownloadDtoDeserializer implements JsonDeserializer<Optional<Dow
   private static final String JSON_ELEMENT_FORMITAET = "formitaeten";
   private static final String JSON_ELEMENT_GEOLOCATION = "geoLocation";
   private static final String JSON_ELEMENT_HD = "hd";
+  private static final String JSON_ELEMENT_LANGUAGE = "language";
   private static final String JSON_ELEMENT_MIMETYPE = "mimeType";
   private static final String JSON_ELEMENT_PRIORITYLIST = "priorityList";
   private static final String JSON_ELEMENT_QUALITY = "quality";
@@ -70,7 +72,6 @@ public class ZdfDownloadDtoDeserializer implements JsonDeserializer<Optional<Dow
       final JsonArray qualityList =
           formitaet.getAsJsonObject().getAsJsonArray(JSON_ELEMENT_QUALITIES);
       for (final JsonElement quality : qualityList) {
-        String uri = null;
 
         final Resolution qualityValue = parseVideoQuality(quality.getAsJsonObject());
 
@@ -81,14 +82,22 @@ public class ZdfDownloadDtoDeserializer implements JsonDeserializer<Optional<Dow
           // array tracks
           final JsonArray tracks = audio.getAsJsonObject().getAsJsonArray(JSON_ELEMENT_TRACKS);
 
-          final JsonObject track = tracks.get(0).getAsJsonObject();
-          uri = track.get(JSON_ELEMENT_URI).getAsString();
-        }
-
-        if (qualityValue != null && uri != null) {
-          dto.addUrl(qualityValue, uri);
+          for (JsonElement trackElement : tracks) {
+            extractTrack(dto, qualityValue, trackElement);
+          }
         }
       }
+    }
+  }
+
+  private static void extractTrack(DownloadDto aDto, Resolution aQualityValue, JsonElement aTrackElement) {
+    JsonObject trackObject = aTrackElement.getAsJsonObject();
+    String language = trackObject.get(JSON_ELEMENT_LANGUAGE).getAsString();
+    String uri = trackObject.get(JSON_ELEMENT_URI).getAsString();
+    if (aQualityValue != null && uri != null) {
+      aDto.addUrl(language, aQualityValue, uri);
+    } else {
+      throw new RuntimeException("either quality or uri is null");
     }
   }
 

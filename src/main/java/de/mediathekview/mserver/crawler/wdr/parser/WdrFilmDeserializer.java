@@ -1,6 +1,7 @@
 package de.mediathekview.mserver.crawler.wdr.parser;
 
 import static de.mediathekview.mserver.base.Consts.ATTRIBUTE_CONTENT;
+import static de.mediathekview.mserver.base.Consts.ATTRIBUTE_TITLE;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -38,18 +39,21 @@ import org.apache.logging.log4j.Logger;
 import org.jsoup.nodes.Document;
 
 public class WdrFilmDeserializer {
+
   private static final Logger LOG = LogManager.getLogger(WdrFilmDeserializer.class);
 
-  private static final String DESCRIPTION_SELECTOR = "meta[itemprop=description]";
+  private static final String DESCRIPTION_SELECTOR = "meta[property=og:description]";
   private static final String DURATION_SELECTOR = "meta[property=video:duration]";
   private static final String TIME_SELECTOR = "meta[name=dcterms.date]";
-  private static final String TITLE_SELECTOR = "meta[itemprop=name]";
+  private static final String TITLE_SELECTOR = "meta[property=og:title]";
   private static final String VIDEO_LINK_SELECTOR = "div.videoLink > a";
 
   private static final String ATTRIBUTE_DATA_EXTENSION = "data-extension";
 
-  private static final Type OPTIONAL_CRAWLERURLDTO_TYPE_TOKEN = new TypeToken<Optional<CrawlerUrlDTO>>() {}.getType();
-  private static final Type OPTIONAL_WDRMEDIADTO_TYPE_TOKEN = new TypeToken<Optional<WdrMediaDto>>() {}.getType();
+  private static final Type OPTIONAL_CRAWLERURLDTO_TYPE_TOKEN = new TypeToken<Optional<CrawlerUrlDTO>>() {
+  }.getType();
+  private static final Type OPTIONAL_WDRMEDIADTO_TYPE_TOKEN = new TypeToken<Optional<WdrMediaDto>>() {
+  }.getType();
 
   private final Sender sender;
   private final Gson gson;
@@ -66,8 +70,7 @@ public class WdrFilmDeserializer {
   }
 
   public Optional<Film> deserialize(final TopicUrlDTO aUrlDto, final Document aDocument) {
-    final Optional<String> title =
-        HtmlDocumentUtils.getElementAttributeString(TITLE_SELECTOR, ATTRIBUTE_CONTENT, aDocument);
+    final Optional<String> title = parseTitle(aDocument, aUrlDto.getTopic());
     final Optional<LocalDateTime> time = parseDate(aDocument);
     final Optional<Duration> duration = parseDuration(aDocument);
     final Optional<String> description =
@@ -223,6 +226,26 @@ public class WdrFilmDeserializer {
         });
 
     return urlMap;
+  }
+
+  private Optional<String> parseTitle(Document aDocument, String aTopic) {
+    Optional<String> titleValue = HtmlDocumentUtils.getElementAttributeString(TITLE_SELECTOR, ATTRIBUTE_CONTENT, aDocument);
+    if (!titleValue.isPresent()) {
+      return Optional.empty();
+    }
+
+    String title = titleValue.get();
+    if (title.startsWith(aTopic) && !title.equals(aTopic)) {
+      title = title.replaceFirst(aTopic, "").trim();
+      if (title.trim().startsWith("-")) {
+        title = title.replaceFirst("-", "").trim();
+      }
+      if (title.trim().startsWith(":")) {
+        title = title.replaceFirst(":", "").trim();
+      }
+    }
+
+    return Optional.of(title);
   }
 
   private static Optional<LocalDateTime> parseDate(final Document aDocument) {

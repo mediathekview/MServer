@@ -9,6 +9,7 @@ import de.mediathekview.mlib.daten.Sender;
 import de.mediathekview.mserver.crawler.basic.CrawlerUrlDTO;
 import de.mediathekview.mserver.testhelper.AssertFilm;
 import de.mediathekview.mserver.testhelper.JsoupMock;
+import de.mediathekview.mserver.testhelper.WireMockTestBase;
 import java.io.IOException;
 import java.time.Duration;
 import java.time.LocalDateTime;
@@ -98,7 +99,7 @@ public class RbbFilmTaskTest extends RbbTaskTestBase {
     final ConcurrentLinkedQueue<CrawlerUrlDTO> urls = new ConcurrentLinkedQueue<>();
     urls.add(new CrawlerUrlDTO(requestUrl));
 
-    final RbbFilmTask target = new RbbFilmTask(createCrawler(), urls);
+    final RbbFilmTask target = new RbbFilmTask(createCrawler(), urls, WireMockTestBase.MOCK_URL_BASE);
     final Set<Film> actual = target.invoke();
 
     assertThat(actual.size(), equalTo(1));

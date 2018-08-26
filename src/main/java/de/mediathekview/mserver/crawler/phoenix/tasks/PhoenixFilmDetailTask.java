@@ -11,6 +11,7 @@ import de.mediathekview.mserver.crawler.phoenix.parser.PhoenixFilmDetailDeserial
 import de.mediathekview.mserver.crawler.phoenix.parser.PhoenixFilmDetailDto;
 import de.mediathekview.mserver.crawler.phoenix.parser.PhoenixFilmXmlHandler;
 import de.mediathekview.mserver.crawler.zdf.DownloadDtoFilmConverter;
+import de.mediathekview.mserver.crawler.zdf.ZdfConstants;
 import de.mediathekview.mserver.crawler.zdf.ZdfVideoUrlOptimizer;
 import de.mediathekview.mserver.crawler.zdf.json.DownloadDto;
 import de.mediathekview.mserver.crawler.zdf.json.ZdfDownloadDtoDeserializer;
@@ -122,7 +123,7 @@ public class PhoenixFilmDetailTask extends ZdfTaskBase<Film, CrawlerUrlDTO> {
       }
     }
 
-    DownloadDtoFilmConverter.addUrlsToFilm(film, downloadDto, Optional.of(optimizer));
+    DownloadDtoFilmConverter.addUrlsToFilm(film, downloadDto, Optional.of(optimizer), ZdfConstants.LANGUAGE_GERMAN);
     taskResults.add(film);
   }
 

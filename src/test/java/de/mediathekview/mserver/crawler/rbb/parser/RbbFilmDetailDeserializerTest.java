@@ -5,6 +5,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 
 import de.mediathekview.mserver.crawler.basic.CrawlerUrlDTO;
 import de.mediathekview.mserver.crawler.basic.FilmInfoDto;
+import de.mediathekview.mserver.crawler.rbb.RbbConstants;
 import de.mediathekview.mserver.testhelper.FileReader;
 import java.time.Duration;
 import java.time.LocalDateTime;
@@ -27,7 +28,7 @@ public class RbbFilmDetailDeserializerTest {
             {
                 "http://mediathek.rbb-online.de/tv/Film-im-rbb/Zwei-Millionen-suchen-einen-Vater/rbb-Fernsehen/Video?bcastId=10009780&documentId=50543576",
                 "/rbb/rbb_film_with_subtitle.html",
-                "http://mediathek.rbb-online.de/play/media/50543576?devicetype=pc&features=hls",
+                "https://mediathek.rbb-online.de/play/media/50543576?devicetype=pc&features=hls",
                 "Film im rbb",
                 "Zwei Millionen suchen einen Vater",
                 "Eine gewitzte Hotelinhaberin tut alles, um das Sorgerecht für ihren Schützling zu bekommen. ",
@@ -65,7 +66,7 @@ public class RbbFilmDetailDeserializerTest {
     final String htmlContent = FileReader.readFile(htmlPage);
     final Document document = Jsoup.parse(htmlContent);
 
-    final RbbFilmDetailDeserializer target = new RbbFilmDetailDeserializer();
+    final RbbFilmDetailDeserializer target = new RbbFilmDetailDeserializer(RbbConstants.URL_BASE);
     final Optional<FilmInfoDto> actual = target.deserialize(new CrawlerUrlDTO(requestUrl), document);
 
     assertThat(actual.isPresent(), equalTo(true));

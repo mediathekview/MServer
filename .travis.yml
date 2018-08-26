@@ -1,6 +1,7 @@
 language: java
 jdk:
-- oraclejdk8
+  - oraclejdk8
+  - oraclejdk9
 addons:
   sonarcloud:
     organization: mediathekview
@@ -29,34 +30,36 @@ env:
   - secure: ytonsgnKjRlsAYlmdjiHck+4Yhk88o9xVBbVsyW+UCT5xS2IeZ9o+pzvP/TlJfq/DL0MFoes8wASOGFmKzNjeYph812a23HncGDRCv4j0iCxFRvDF/y28JX6t9vTnpj7AAHLHrs8ggMj0ItZVrquCdbz2jllveN+w+p18YcGdXwQEoavKylaKdnnFMxbibS47BdUT+NkYzucDdKjccYmVBQEOk5ReDwegaOyFXUzqDdiGb0cuo3NIDh9p9WXjVHwYCd2XriwzbglcC4b0gLGrnwGNx9VCauOsX38mY+A7wNhpAMLPbRKyw7gKOszspeBqqB27np8oxqMOAvTbLhyMcqVbgxBmIFUS7EHV7QNet95RChLVNCp7pFhGQH0cUdxSIlP2I/qx4J180QwRslcbmRMrWoWiZ3xSZloaXNQEsdatOL9gYi2cjn7xgduq3KZXPmhmhVUGrfD5XgaFedOIC+Ur0i87WxBeO2SSxKBMzIS3rJEidq/ZnAIBXcsd3rW86W2FsgzkJN1FZ269X39t4GAgTz4cSkOPS6etf116VPyDpSsQxicl9rw56mrQ2wTntyeTikEjgznKiMNfyEnqXulGcRKcCrXkmYgurEixxe9zCPGlZisLzmlHOCVYxVRHCzB5qfyakHoCgimNNUwqrGqhInnuOzRTTcUIjdLBSg=
   - secure: lQsf/AKM9ZLs+39A54YhD+PMvdfod/Zk+HB3908UY8mKgCDy+UdA4oSmgwmGUxLBOYMs5a16l1lc2aORlM6vuQ/KCruKdbQSBzklmndEkRqejUOSjTttS1f7ZO7av6/fDhpvHVv5pU9Ji/75W7bVOJZjMkMyzGocGHHURq1l1WCyhE+7V2TD701Zt5BwqP6BjcDD1SWQBDRbSJ5loxnP3lYZiK9xN9pIWXSaQJ2O5u1PF0duojML0bpXkqRK93kvJ6VjrQKFEXp3Zdd/g4OufgVp9Mbg8C45ury9FUt08xBJsa0Ap9D8T3ly+sdLBr4L2Rv5++IDZfr0EfzrjB5Ob4BsOBof5BN1gPJk6N85gE/5icGe0lCvOGYNhtXtcUOwd6nMsJ2PnCU5SKuRbCApFTTrq4//dBHqa62cBfbSZv5cDYHI50NwnLXcQi0I8HYu89caXWq+kvpcL/ueP1k+tTTX4rpfcGomJAr0mB0KMfESZ3Bb6VWCY6RXenCPJny1HVnJRu4LJjIcdqkVqqrpPgnwnUR3yBUBNQ3niD6fxqqqGjv6ijiNB8tloVnvg8jrpyVZ2hbhEG/7k+gebjObKac1RTEePuc0jXvMWFX69LmnORC+KXPNO/tBQgRiRTDEIxXukcXkdrintUobNdZ/RZBEg1mIVX3ejP0JJXScZfQ=
 before_script:
-- openssl aes-256-cbc -pass pass:$ENCRYPTION_PASSWORD -in scripte/deploy/secring.gpg.enc
-  -out scripte/deploy/secring.gpg -d
+  - echo 'Java Version:' $TRAVIS_JDK_VERSION
 script:
-- "./gradlew check developTest build"
-- if [ "$TRAVIS_BRANCH" == "develop" ]; then ./gradlew releaseSnapshot -PSONATYPE_USERNAME=$SONATYPE_USERNAME
-  -PSONATYPE_PASSWORD=$SONATYPE_PASSWORD -Psigning.keyId=$GPG_KEYNAME -Psigning.password=$GPG_PASSPHRASE
-  -Psigning.secretKeyRingFile=scripte/deploy/secring.gpg; fi
+  - "./gradlew check developTest build"
+  - if [ "$TRAVIS_BRANCH" == "develop" ] && [ "$TRAVIS_JDK_VERSION" == "oraclejdk8" ]; then openssl aes-256-cbc -pass pass:$ENCRYPTION_PASSWORD -in scripte/deploy/secring.gpg.enc -out scripte/deploy/secring.gpg -d && ./gradlew releaseSnapshot -PSONATYPE_USERNAME=$SONATYPE_USERNAME -PSONATYPE_PASSWORD=$SONATYPE_PASSWORD -Psigning.keyId=$GPG_KEYNAME -Psigning.password=$GPG_PASSPHRASE -Psigning.secretKeyRingFile=scripte/deploy/secring.gpg; fi
 after_success:
-- sonar-scanner
+  - sonar-scanner
 before_cache:
-- rm -f $HOME/.gradle/caches/modules-2/modules-2.lock
+  - rm -f $HOME/.gradle/caches/modules-2/modules-2.lock
 cache:
   directories:
   - "$HOME/.gradle/caches/"
   - "$HOME/.gradle/wrapper/"
   - "$HOME/.sonar/cache/"
 before_deploy:
-- openssl aes-256-cbc -pass pass:$ENCRYPTION_PASSWORD -in scripte/deploy/secring.gpg.enc
-  -out scripte/deploy/secring.gpg -d
-- "./gradlew release -PSONATYPE_USERNAME=$SONATYPE_USERNAME -PSONATYPE_PASSWORD=$SONATYPE_PASSWORD
-  -Psigning.keyId=$GPG_KEYNAME -Psigning.password=$GPG_PASSPHRASE -Psigning.secretKeyRingFile=scripte/deploy/secring.gpg"
+- openssl aes-256-cbc -pass pass:$ENCRYPTION_PASSWORD -in scripte/deploy/secring.gpg.enc -out scripte/deploy/secring.gpg -d
 deploy:
-  provider: releases
-  api_key:
-    secure: yZv3QsIr8M1rFEuRpgyYZwrAgeHtd0LVkpG9DIsLLNhboApz9LCMcU0dbYxRYi8A5V3MCD+X/rtWsWHfapIjRcoVAyi8f7YWWvz+dnjwOxKi+gHabonnUvIyFAEr8WE+Br5MYOr0GTYiEhiUMrSLg20wBWlqH5LD1Mp/dYd2e80EWN8jcZJRK/rO1CDa78esgaaBMp1Pb/6+E9jS+fuEpLuKocqacA0eHtRrPtPFbTJdVH9amQxfcF3UfEV7/0D8tGlL2cH3J45zYQ0sg/qnWqv6Vtt6W0x6H3pFrEfrkAww8jvV5sKGxyz1/bqLOQJkF8mCotjGox9pkL97/cyf+s+L3Mcux98fK9u7NOzizfFMYz5GgY1K/q0l7hzfzh6JSVPcZ/hHdH0VRqcUVgqXB//wPgs2JNGLj/nGLyxY7T53U5hJOhsqFyGGcbnpZ+thEWlB5wrbPi5PwKCtWvf+Y6H/AePxCRQEie25lwi+M2MCIPjSUB65mXoQnXy3oQahiYWPU0HIpD0Om9fp6UK5x8LXMAx3DeH6wbI7qB2gylygOxuUm0AmojieOeLaQFVK7cvcy9c2W16xyfDUDczkEnceosCe8b2nK/yifKeOfFU/eUiEdzl9ZZvOMf9y4YImQl0ZlQlvYknPGLK/myGLPlJrJhP92XtSiYESsrWOEFw=
-  file_glob: true
-  file:
-  - build/distributions/*
-  skip_cleanup: true
-  on:
-    tags: true
+  - provider: script
+    script: "./gradlew release -PSONATYPE_USERNAME=$SONATYPE_USERNAME -PSONATYPE_PASSWORD=$SONATYPE_PASSWORD -Psigning.keyId=$GPG_KEYNAME -Psigning.password=$GPG_PASSPHRASE -Psigning.secretKeyRingFile=scripte/deploy/secring.gpg"
+    skip_cleanup: true
+    on:
+      branch: master
+      tags: true
+      jdk: oraclejdk8
+  - provider: releases
+    api_key:
+      secure: yZv3QsIr8M1rFEuRpgyYZwrAgeHtd0LVkpG9DIsLLNhboApz9LCMcU0dbYxRYi8A5V3MCD+X/rtWsWHfapIjRcoVAyi8f7YWWvz+dnjwOxKi+gHabonnUvIyFAEr8WE+Br5MYOr0GTYiEhiUMrSLg20wBWlqH5LD1Mp/dYd2e80EWN8jcZJRK/rO1CDa78esgaaBMp1Pb/6+E9jS+fuEpLuKocqacA0eHtRrPtPFbTJdVH9amQxfcF3UfEV7/0D8tGlL2cH3J45zYQ0sg/qnWqv6Vtt6W0x6H3pFrEfrkAww8jvV5sKGxyz1/bqLOQJkF8mCotjGox9pkL97/cyf+s+L3Mcux98fK9u7NOzizfFMYz5GgY1K/q0l7hzfzh6JSVPcZ/hHdH0VRqcUVgqXB//wPgs2JNGLj/nGLyxY7T53U5hJOhsqFyGGcbnpZ+thEWlB5wrbPi5PwKCtWvf+Y6H/AePxCRQEie25lwi+M2MCIPjSUB65mXoQnXy3oQahiYWPU0HIpD0Om9fp6UK5x8LXMAx3DeH6wbI7qB2gylygOxuUm0AmojieOeLaQFVK7cvcy9c2W16xyfDUDczkEnceosCe8b2nK/yifKeOfFU/eUiEdzl9ZZvOMf9y4YImQl0ZlQlvYknPGLK/myGLPlJrJhP92XtSiYESsrWOEFw=
+    file_glob: true
+    file:
+      - build/distributions/*
+    skip_cleanup: true
+    on:
+      tags: true
+      jdk: oraclejdk8

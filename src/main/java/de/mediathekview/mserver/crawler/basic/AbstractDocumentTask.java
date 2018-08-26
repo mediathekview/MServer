@@ -24,7 +24,8 @@ import de.mediathekview.mserver.base.messages.ServerMessages;
  */
 public abstract class AbstractDocumentTask<T, D extends CrawlerUrlDTO>
     extends AbstractUrlTask<T, D> {
-  private static final long serialVersionUID = -4124779055395250981L;
+  private static final int SECONDS_TO_MILLIS_MULTIPLICATOR = 1000;
+private static final long serialVersionUID = -4124779055395250981L;
   private static final Logger LOG = LogManager.getLogger(AbstractDocumentTask.class);
   private static final String LOAD_DOCUMENT_ERRORTEXTPATTERN =
       "Something terrible happened while crawl the %s page \"%s\".";
@@ -57,7 +58,7 @@ public abstract class AbstractDocumentTask<T, D extends CrawlerUrlDTO>
     try {
       // maxBodySize(0)=unlimited
       // necessary for ORF documents which are larger than the default size
-      final Document document = Jsoup.connect(aUrlDTO.getUrl()).maxBodySize(0).get();
+      final Document document = Jsoup.connect(aUrlDTO.getUrl()).timeout(config.getSocketTimeoutInSeconds()*SECONDS_TO_MILLIS_MULTIPLICATOR).maxBodySize(0).get();
       processDocument(aUrlDTO, document);
     } catch (final HttpStatusException httpStatusError) {
       LOG.log(httpErrorLogLevel,

@@ -5,7 +5,7 @@ public final class RbbConstants {
   /**
    * Base url of the RBB mediathek.
    */
-  public static final String URL_BASE = "http://mediathek.rbb-online.de";
+  public static final String URL_BASE = "https://mediathek.rbb-online.de";
 
   /**
    * maximum number of days to go back from today supported by RBB if using {@Link URL_DAY_PAGE}.
@@ -30,7 +30,7 @@ public final class RbbConstants {
   /**
    * The url for the json file containing the video urls.
    */
-  public static final String URL_VIDEO_JSON = URL_BASE + "/play/media/%s?devicetype=pc&features=hls";
+  public static final String URL_VIDEO_JSON = "%s/play/media/%s?devicetype=pc&features=hls";
 
   private RbbConstants() {
   }

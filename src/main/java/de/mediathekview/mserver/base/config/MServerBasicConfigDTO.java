@@ -33,6 +33,11 @@ public class MServerBasicConfigDTO {
    * The maximum amount of days going to future will be crawled for the "Sendung Verpasst?" section.
    */
   private final Integer maximumDaysForSendungVerpasstSectionFuture;
+  
+  /**
+   * The time in seconds before a socket connection should time out.
+   */
+  private final Integer socketTimeoutInSeconds;
 
   public MServerBasicConfigDTO() {
     super();
@@ -41,60 +46,10 @@ public class MServerBasicConfigDTO {
     maximumSubpages = 3;
     maximumDaysForSendungVerpasstSection = 6;
     maximumDaysForSendungVerpasstSectionFuture = 3;
+    socketTimeoutInSeconds=60;
   }
 
 
-  @Override
-  public boolean equals(final Object obj) {
-    if (this == obj) {
-      return true;
-    }
-    if (obj == null) {
-      return false;
-    }
-    if (getClass() != obj.getClass()) {
-      return false;
-    }
-    final MServerBasicConfigDTO other = (MServerBasicConfigDTO) obj;
-    if (maximumCrawlDurationInMinutes == null) {
-      if (other.maximumCrawlDurationInMinutes != null) {
-        return false;
-      }
-    } else if (!maximumCrawlDurationInMinutes.equals(other.maximumCrawlDurationInMinutes)) {
-      return false;
-    }
-    if (maximumDaysForSendungVerpasstSection == null) {
-      if (other.maximumDaysForSendungVerpasstSection != null) {
-        return false;
-      }
-    } else if (!maximumDaysForSendungVerpasstSection
-        .equals(other.maximumDaysForSendungVerpasstSection)) {
-      return false;
-    }
-    if (maximumDaysForSendungVerpasstSectionFuture == null) {
-      if (other.maximumDaysForSendungVerpasstSectionFuture != null) {
-        return false;
-      }
-    } else if (!maximumDaysForSendungVerpasstSectionFuture
-        .equals(other.maximumDaysForSendungVerpasstSectionFuture)) {
-      return false;
-    }
-    if (maximumSubpages == null) {
-      if (other.maximumSubpages != null) {
-        return false;
-      }
-    } else if (!maximumSubpages.equals(other.maximumSubpages)) {
-      return false;
-    }
-    if (maximumUrlsPerTask == null) {
-      if (other.maximumUrlsPerTask != null) {
-        return false;
-      }
-    } else if (!maximumUrlsPerTask.equals(other.maximumUrlsPerTask)) {
-      return false;
-    }
-    return true;
-  }
 
   public Integer getMaximumCrawlDurationInMinutes() {
     return maximumCrawlDurationInMinutes;
@@ -117,21 +72,73 @@ public class MServerBasicConfigDTO {
   }
 
   @Override
-  public int hashCode() {
-    final int prime = 31;
-    int result = 1;
-    result = prime * result
-        + (maximumCrawlDurationInMinutes == null ? 0 : maximumCrawlDurationInMinutes.hashCode());
-    result = prime * result + (maximumDaysForSendungVerpasstSection == null ? 0
-        : maximumDaysForSendungVerpasstSection.hashCode());
-    result = prime * result + (maximumDaysForSendungVerpasstSectionFuture == null ? 0
-        : maximumDaysForSendungVerpasstSectionFuture.hashCode());
-    result = prime * result + (maximumSubpages == null ? 0 : maximumSubpages.hashCode());
-    result = prime * result + (maximumUrlsPerTask == null ? 0 : maximumUrlsPerTask.hashCode());
-    return result;
-  }
+public int hashCode() {
+	final int prime = 31;
+	int result = 1;
+	result = prime * result + ((maximumCrawlDurationInMinutes == null) ? 0 : maximumCrawlDurationInMinutes.hashCode());
+	result = prime * result
+			+ ((maximumDaysForSendungVerpasstSection == null) ? 0 : maximumDaysForSendungVerpasstSection.hashCode());
+	result = prime * result + ((maximumDaysForSendungVerpasstSectionFuture == null) ? 0
+			: maximumDaysForSendungVerpasstSectionFuture.hashCode());
+	result = prime * result + ((maximumSubpages == null) ? 0 : maximumSubpages.hashCode());
+	result = prime * result + ((maximumUrlsPerTask == null) ? 0 : maximumUrlsPerTask.hashCode());
+	result = prime * result + ((socketTimeoutInSeconds == null) ? 0 : socketTimeoutInSeconds.hashCode());
+	return result;
+}
 
-  public void setMaximumCrawlDurationInMinutes(final Integer aMaximumCrawlDurationInMinutes) {
+
+
+@Override
+public boolean equals(Object obj) {
+	if (this == obj)
+		return true;
+	if (obj == null)
+		return false;
+	if (!(obj instanceof MServerBasicConfigDTO))
+		return false;
+	MServerBasicConfigDTO other = (MServerBasicConfigDTO) obj;
+	if (maximumCrawlDurationInMinutes == null) {
+		if (other.maximumCrawlDurationInMinutes != null)
+			return false;
+	} else if (!maximumCrawlDurationInMinutes.equals(other.maximumCrawlDurationInMinutes))
+		return false;
+	if (maximumDaysForSendungVerpasstSection == null) {
+		if (other.maximumDaysForSendungVerpasstSection != null)
+			return false;
+	} else if (!maximumDaysForSendungVerpasstSection.equals(other.maximumDaysForSendungVerpasstSection))
+		return false;
+	if (maximumDaysForSendungVerpasstSectionFuture == null) {
+		if (other.maximumDaysForSendungVerpasstSectionFuture != null)
+			return false;
+	} else if (!maximumDaysForSendungVerpasstSectionFuture.equals(other.maximumDaysForSendungVerpasstSectionFuture))
+		return false;
+	if (maximumSubpages == null) {
+		if (other.maximumSubpages != null)
+			return false;
+	} else if (!maximumSubpages.equals(other.maximumSubpages))
+		return false;
+	if (maximumUrlsPerTask == null) {
+		if (other.maximumUrlsPerTask != null)
+			return false;
+	} else if (!maximumUrlsPerTask.equals(other.maximumUrlsPerTask))
+		return false;
+	if (socketTimeoutInSeconds == null) {
+		if (other.socketTimeoutInSeconds != null)
+			return false;
+	} else if (!socketTimeoutInSeconds.equals(other.socketTimeoutInSeconds))
+		return false;
+	return true;
+}
+
+
+
+public Integer getSocketTimeoutInSeconds() {
+	return socketTimeoutInSeconds;
+}
+
+
+
+public void setMaximumCrawlDurationInMinutes(final Integer aMaximumCrawlDurationInMinutes) {
     maximumCrawlDurationInMinutes = aMaximumCrawlDurationInMinutes;
   }
 

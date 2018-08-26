@@ -35,12 +35,15 @@ public class RbbFilmTask extends AbstractDocumentTask<Film, CrawlerUrlDTO> {
 
   private final RbbFilmDetailDeserializer filmDetailDeserializer;
   private final Gson gson;
+  private final String baseUrl;
 
   public RbbFilmTask(AbstractCrawler aCrawler,
-      ConcurrentLinkedQueue<CrawlerUrlDTO> aUrlToCrawlDtos) {
+      ConcurrentLinkedQueue<CrawlerUrlDTO> aUrlToCrawlDtos,
+      final String aBaseUrl) {
     super(aCrawler, aUrlToCrawlDtos);
 
-    filmDetailDeserializer = new RbbFilmDetailDeserializer();
+    baseUrl = aBaseUrl;
+    filmDetailDeserializer = new RbbFilmDetailDeserializer(baseUrl);
     gson = new GsonBuilder()
         .registerTypeAdapter(ArdVideoInfoDTO.class, new ArdVideoInfoJsonDeserializer(crawler))
         .create();
@@ -78,7 +81,7 @@ public class RbbFilmTask extends AbstractDocumentTask<Film, CrawlerUrlDTO> {
   @Override
   protected AbstractRecrusivConverterTask<Film, CrawlerUrlDTO> createNewOwnInstance(
       ConcurrentLinkedQueue<CrawlerUrlDTO> aElementsToProcess) {
-    return new RbbFilmTask(crawler, aElementsToProcess);
+    return new RbbFilmTask(crawler, aElementsToProcess, baseUrl);
   }
 
   private Film createFilm(final FilmInfoDto aFilmInfoDto, final ArdVideoInfoDTO aVideoInfoDto) throws MalformedURLException {
@@ -86,7 +89,11 @@ public class RbbFilmTask extends AbstractDocumentTask<Film, CrawlerUrlDTO> {
         aFilmInfoDto.getTopic(), aFilmInfoDto.getTime(), aFilmInfoDto.getDuration());
 
     film.setBeschreibung(aFilmInfoDto.getDescription());
-    film.setGeoLocations(CrawlerTool.getGeoLocations(Sender.RBB, aVideoInfoDto.getDefaultVideoUrl()));
+    try {
+      film.setGeoLocations(CrawlerTool.getGeoLocations(Sender.RBB, aVideoInfoDto.getDefaultVideoUrl()));
+    } catch(NullPointerException e) {
+      e.printStackTrace();
+    }
     film.setWebsite(new URL(aFilmInfoDto.getWebsite()));
     if (StringUtils.isNotBlank(aVideoInfoDto.getSubtitleUrl())) {
       film.addSubtitle(new URL(aVideoInfoDto.getSubtitleUrl()));

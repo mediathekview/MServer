@@ -33,36 +33,36 @@ public class RbbTopicOverviewTaskTest extends RbbTaskTestBase {
     return Arrays.asList(
         new Object[][]{
             {
-                "http://mediathek.rbb-online.de/tv/Sandmann/Sendung?documentId=6503982&bcastId=6503982",
+                "https://mediathek.rbb-online.de/tv/Sandmann/Sendung?documentId=6503982&bcastId=6503982",
                 "/rbb/rbb_topic_page_single.html",
                 "",
                 "",
                 new String[]{
-                    "http://mediathek.rbb-online.de/tv/Sandmann/Unser-Sandm%C3%A4nnchen-vom-03-03-2018/rbb-Fernsehen/Video?bcastId=6503982&documentId=50545904",
-                    "http://mediathek.rbb-online.de/tv/Sandmann/Unser-Sandm%C3%A4nnchen-vom-03-03-2018-mit-Ge/rbb-Fernsehen/Video?bcastId=6503982&documentId=50546024"
+                    "https://mediathek.rbb-online.de/tv/Sandmann/Unser-Sandm%C3%A4nnchen-vom-03-03-2018/rbb-Fernsehen/Video?bcastId=6503982&documentId=50545904",
+                    "https://mediathek.rbb-online.de/tv/Sandmann/Unser-Sandm%C3%A4nnchen-vom-03-03-2018-mit-Ge/rbb-Fernsehen/Video?bcastId=6503982&documentId=50546024"
                 }
             },
             {
-                "http://mediathek.rbb-online.de/tv/rbb-SPORT/Sendung?documentId=9597422&bcastId=9597422",
+                "https://mediathek.rbb-online.de/tv/rbb-SPORT/Sendung?documentId=9597422&bcastId=9597422",
                 "/rbb/rbb_topic_page_empty.html",
                 "",
                 "",
                 new String[0]
             },
             {
-                "http://mediathek.rbb-online.de/tv/Kesslers-Expedition/Sendung?documentId=7382518&bcastId=7382518",
+                "https://mediathek.rbb-online.de/tv/Kesslers-Expedition/Sendung?documentId=7382518&bcastId=7382518",
                 "/rbb/rbb_topic_page_multiple1.html",
-                "http://mediathek.rbb-online.de/tv/Kesslers-Expedition/Sendung?documentId=7382518&bcastId=7382518&mcontents=page.2",
+                "https://mediathek.rbb-online.de/tv/Kesslers-Expedition/Sendung?documentId=7382518&bcastId=7382518&mcontents=page.2",
                 "/rbb/rbb_topic_page_multiple2.html",
                 new String[]{
-                    "http://mediathek.rbb-online.de/tv/Kesslers-Expedition/Auf-drei-R%C3%A4dern-von-Bayern-an-die-Ostsee/rbb-Fernsehen/Video?bcastId=7382518&documentId=46905564",
-                    "http://mediathek.rbb-online.de/tv/Kesslers-Expedition/Auf-drei-R%C3%A4dern-von-Bayern-an-die-Ostsee/rbb-Fernsehen/Video?bcastId=7382518&documentId=46596884",
-                    "http://mediathek.rbb-online.de/tv/Kesslers-Expedition/Auf-drei-R%C3%A4dern-von-Bayern-an-die-Ostsee/rbb-Fernsehen/Video?bcastId=7382518&documentId=46376984",
-                    "http://mediathek.rbb-online.de/tv/Kesslers-Expedition/Auf-drei-R%C3%A4dern-von-Bayern-an-die-Ostsee/rbb-Fernsehen/Video?bcastId=7382518&documentId=46114004",
-                    "http://mediathek.rbb-online.de/tv/Kesslers-Expedition/Auf-drei-R%C3%A4dern-von-Bayern-an-die-Ostsee/rbb-Fernsehen/Video?bcastId=7382518&documentId=45925538",
-                    "http://mediathek.rbb-online.de/tv/Kesslers-Expedition/Auf-drei-R%C3%A4dern-von-Bayern-an-die-Ostsee/rbb-Fernsehen/Video?bcastId=7382518&documentId=45756118",
-                    "http://mediathek.rbb-online.de/tv/Kesslers-Expedition/Mit-Mops-ans-Meer-2/rbb-Fernsehen/Video?bcastId=7382518&documentId=43662214",
-                    "http://mediathek.rbb-online.de/tv/Kesslers-Expedition/Mit-Mops-ans-Meer-1/rbb-Fernsehen/Video?bcastId=7382518&documentId=41354390"
+                    "https://mediathek.rbb-online.de/tv/Kesslers-Expedition/Auf-drei-R%C3%A4dern-von-Bayern-an-die-Ostsee/rbb-Fernsehen/Video?bcastId=7382518&documentId=46905564",
+                    "https://mediathek.rbb-online.de/tv/Kesslers-Expedition/Auf-drei-R%C3%A4dern-von-Bayern-an-die-Ostsee/rbb-Fernsehen/Video?bcastId=7382518&documentId=46596884",
+                    "https://mediathek.rbb-online.de/tv/Kesslers-Expedition/Auf-drei-R%C3%A4dern-von-Bayern-an-die-Ostsee/rbb-Fernsehen/Video?bcastId=7382518&documentId=46376984",
+                    "https://mediathek.rbb-online.de/tv/Kesslers-Expedition/Auf-drei-R%C3%A4dern-von-Bayern-an-die-Ostsee/rbb-Fernsehen/Video?bcastId=7382518&documentId=46114004",
+                    "https://mediathek.rbb-online.de/tv/Kesslers-Expedition/Auf-drei-R%C3%A4dern-von-Bayern-an-die-Ostsee/rbb-Fernsehen/Video?bcastId=7382518&documentId=45925538",
+                    "https://mediathek.rbb-online.de/tv/Kesslers-Expedition/Auf-drei-R%C3%A4dern-von-Bayern-an-die-Ostsee/rbb-Fernsehen/Video?bcastId=7382518&documentId=45756118",
+                    "https://mediathek.rbb-online.de/tv/Kesslers-Expedition/Mit-Mops-ans-Meer-2/rbb-Fernsehen/Video?bcastId=7382518&documentId=43662214",
+                    "https://mediathek.rbb-online.de/tv/Kesslers-Expedition/Mit-Mops-ans-Meer-1/rbb-Fernsehen/Video?bcastId=7382518&documentId=41354390"
                 }
             }
         });

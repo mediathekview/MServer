@@ -1,10 +1,8 @@
 package de.mediathekview.mserver.crawler.orf;
 
 public final class OrfConstants {
-  
-  private OrfConstants() {}
-  
-  public static final String URL_BASE = "http://tvthek.orf.at";
+
+  public static final String URL_BASE = "https://tvthek.orf.at";
   
   /**
    * URL für die Sendungen eines Tages
@@ -33,4 +31,6 @@ public final class OrfConstants {
    * URL für Übersichtsseite des Archivs
    */
   public static final String URL_ARCHIVE = URL_BASE + "/archive";
+
+  private OrfConstants() {}
 }

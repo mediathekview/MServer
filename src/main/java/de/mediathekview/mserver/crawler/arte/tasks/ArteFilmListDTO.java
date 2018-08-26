@@ -5,11 +5,11 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
-import com.google.gson.JsonElement;
+import de.mediathekview.mserver.crawler.arte.ArteJsonElementDto;
 
 /**
  * A simple Data-Transfer-Object to get the found films and the optionally found next page link.
- * 
+ *
  * @author Nicklas Wiegandt (Nicklas2751)<br>
  *         <b>Mail:</b> nicklas@wiegandt.eu<br>
  *         <b>Jabber:</b> nicklas2751@elaon.de<br>
@@ -17,7 +17,7 @@ import com.google.gson.JsonElement;
  *
  */
 public class ArteFilmListDTO {
-  private final Set<JsonElement> foundFilms;
+  private final Set<ArteJsonElementDto> foundFilms;
   private Optional<URI> nextPage;
 
   public ArteFilmListDTO() {
@@ -26,17 +26,17 @@ public class ArteFilmListDTO {
     nextPage = Optional.empty();
   }
 
-  public boolean addFoundFilm(final JsonElement element) {
+  public boolean addFoundFilm(final ArteJsonElementDto element) {
     return foundFilms.add(element);
   }
 
-  public boolean addFoundFilms(final Collection<JsonElement> elements) {
+  public boolean addFoundFilms(final Collection<ArteJsonElementDto> elements) {
     return foundFilms.addAll(elements);
   }
 
   /*
    * (non-Javadoc)
-   * 
+   *
    * @see java.lang.Object#equals(java.lang.Object)
    */
   @Override
@@ -68,7 +68,7 @@ public class ArteFilmListDTO {
     return true;
   }
 
-  public Set<JsonElement> getFoundFilms() {
+  public Set<ArteJsonElementDto> getFoundFilms() {
     return foundFilms;
   }
 
@@ -78,7 +78,7 @@ public class ArteFilmListDTO {
 
   /*
    * (non-Javadoc)
-   * 
+   *
    * @see java.lang.Object#hashCode()
    */
   @Override

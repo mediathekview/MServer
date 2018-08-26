@@ -1,5 +1,6 @@
 package de.mediathekview.mserver.crawler.dreisat.parser;
 
+import de.mediathekview.mserver.crawler.zdf.ZdfConstants;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -35,6 +36,7 @@ import de.mediathekview.mserver.crawler.zdf.json.ZdfDownloadDtoDeserializer;
 import mServer.crawler.CrawlerTool;
 
 public class DreisatFilmDetailsReader {
+
   private static final String ELEMENT_BASENAME = "basename";
   private static final DateTimeFormatter DATE_TIME_FORMATTER =
       DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm", Locale.GERMANY);
@@ -134,7 +136,7 @@ public class DreisatFilmDetailsReader {
 
   private void addUrls(final DownloadDto downloadInfos, final Film newFilm)
       throws MalformedURLException {
-    for (final Entry<Resolution, String> url : downloadInfos.getDownloadUrls().entrySet()) {
+    for (final Entry<Resolution, String> url : downloadInfos.getDownloadUrls(ZdfConstants.LANGUAGE_GERMAN).entrySet()) {
       newFilm.addUrl(url.getKey(), CrawlerTool.stringToFilmUrl(url.getValue()));
     }
   }
@@ -143,7 +145,8 @@ public class DreisatFilmDetailsReader {
       final int aStreamVersion) throws IOException {
     final URL apiUrl =
         new URL(String.format(API_URL_PATTERN, aFilmUrlsApiUrlNodes.get(0).text(), aStreamVersion));
-    final Type downloadDtoType = new TypeToken<Optional<DownloadDto>>() {}.getType();
+    final Type downloadDtoType = new TypeToken<Optional<DownloadDto>>() {
+    }.getType();
     final Gson gson = new GsonBuilder()
         .registerTypeAdapter(downloadDtoType, new ZdfDownloadDtoDeserializer()).create();
 

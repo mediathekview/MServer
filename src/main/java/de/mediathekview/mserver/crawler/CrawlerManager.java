@@ -43,6 +43,10 @@ import de.mediathekview.mserver.base.uploader.ftp.FtpUploadTarget;
 import de.mediathekview.mserver.base.uploader.ftp.FtpUploadTask;
 import de.mediathekview.mserver.crawler.ard.ArdCrawler;
 import de.mediathekview.mserver.crawler.arte.ArteCrawler;
+import de.mediathekview.mserver.crawler.arte.ArteCrawler_EN;
+import de.mediathekview.mserver.crawler.arte.ArteCrawler_ES;
+import de.mediathekview.mserver.crawler.arte.ArteCrawler_FR;
+import de.mediathekview.mserver.crawler.arte.ArteCrawler_PL;
 import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
 import de.mediathekview.mserver.crawler.basic.TimeoutTask;
 import de.mediathekview.mserver.crawler.br.BrCrawler;
@@ -526,6 +530,14 @@ public class CrawlerManager extends AbstractManager {
         new ArdCrawler(forkJoinPool, messageListeners, progressListeners, rootConfig));
     crawlerMap.put(Sender.ARTE_DE,
         new ArteCrawler(forkJoinPool, messageListeners, progressListeners, rootConfig));
+    crawlerMap.put(Sender.ARTE_FR,
+        new ArteCrawler_FR(forkJoinPool, messageListeners, progressListeners, rootConfig));
+    crawlerMap.put(Sender.ARTE_EN,
+        new ArteCrawler_EN(forkJoinPool, messageListeners, progressListeners, rootConfig));
+    crawlerMap.put(Sender.ARTE_PL,
+        new ArteCrawler_PL(forkJoinPool, messageListeners, progressListeners, rootConfig));
+    crawlerMap.put(Sender.ARTE_ES,
+        new ArteCrawler_ES(forkJoinPool, messageListeners, progressListeners, rootConfig));
     crawlerMap.put(Sender.BR,
         new BrCrawler(forkJoinPool, messageListeners, progressListeners, rootConfig));
     crawlerMap.put(Sender.DREISAT,

@@ -7,33 +7,34 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 import javax.ws.rs.core.Response;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import com.google.gson.JsonElement;
 import com.google.gson.reflect.TypeToken;
+import de.mediathekview.mserver.crawler.arte.ArteCrawlerUrlDto;
+import de.mediathekview.mserver.crawler.arte.ArteJsonElementDto;
 import de.mediathekview.mserver.crawler.arte.json.ArteFilmListDeserializer;
 import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
 import de.mediathekview.mserver.crawler.basic.AbstractUrlTask;
-import de.mediathekview.mserver.crawler.basic.CrawlerUrlDTO;
 import de.mediathekview.mserver.crawler.funk.tasks.AbstractFunkRestTask;
 
 public class ArteSendungVerpasstTask
-    extends AbstractFunkRestTask<JsonElement, ArteFilmListDTO, CrawlerUrlDTO> {
+    extends AbstractFunkRestTask<ArteJsonElementDto, ArteFilmListDTO, ArteCrawlerUrlDto> {
   private static final Logger LOG = LogManager.getLogger(ArteSendungVerpasstTask.class);
   private static final long serialVersionUID = 6599845164042820791L;
 
   public ArteSendungVerpasstTask(final AbstractCrawler aCrawler,
-      final ConcurrentLinkedQueue<CrawlerUrlDTO> aUrlToCrawlDTOs, final Optional<String> aAuthKey) {
+      final ConcurrentLinkedQueue<ArteCrawlerUrlDto> aUrlToCrawlDTOs,
+      final Optional<String> aAuthKey) {
     super(aCrawler, aUrlToCrawlDTOs, aAuthKey);
   }
 
   @Override
-  protected AbstractUrlTask<JsonElement, CrawlerUrlDTO> createNewOwnInstance(
-      final ConcurrentLinkedQueue<CrawlerUrlDTO> aURLsToCrawl) {
+  protected AbstractUrlTask<ArteJsonElementDto, ArteCrawlerUrlDto> createNewOwnInstance(
+      final ConcurrentLinkedQueue<ArteCrawlerUrlDto> aURLsToCrawl) {
     return new ArteSendungVerpasstTask(crawler, aURLsToCrawl, authKey);
   }
 
   @Override
-  protected Object getParser(final CrawlerUrlDTO aDTO) {
-    return new ArteFilmListDeserializer(crawler);
+  protected Object getParser(final ArteCrawlerUrlDto aDTO) {
+    return new ArteFilmListDeserializer(crawler, aDTO.getCategory());
   }
 
   @Override
@@ -49,12 +50,15 @@ public class ArteSendungVerpasstTask
   }
 
   @Override
-  protected void postProcessing(final ArteFilmListDTO responseObj, final CrawlerUrlDTO aDTO) {
+  protected void postProcessing(final ArteFilmListDTO responseObj, final ArteCrawlerUrlDto aDTO) {
     final Optional<URI> nextPageLink = responseObj.getNextPage();
-    Optional<AbstractUrlTask<JsonElement, CrawlerUrlDTO>> subpageCrawler;
+    Optional<AbstractUrlTask<ArteJsonElementDto, ArteCrawlerUrlDto>> subpageCrawler;
     if (nextPageLink.isPresent() && config.getMaximumSubpages() > 0) {
-      final ConcurrentLinkedQueue<CrawlerUrlDTO> nextPageLinks = new ConcurrentLinkedQueue<>();
-      nextPageLinks.add(new CrawlerUrlDTO(nextPageLink.get().toString()));
+      final ConcurrentLinkedQueue<ArteCrawlerUrlDto> nextPageLinks = new ConcurrentLinkedQueue<>();
+      final ArteCrawlerUrlDto arteCrawlerUrlDto =
+          new ArteCrawlerUrlDto(nextPageLink.get().toString());
+      arteCrawlerUrlDto.setCategory(aDTO.getCategory());
+      nextPageLinks.add(arteCrawlerUrlDto);
       subpageCrawler = Optional.of(createNewOwnInstance(nextPageLinks));
       subpageCrawler.get().fork();
     } else {

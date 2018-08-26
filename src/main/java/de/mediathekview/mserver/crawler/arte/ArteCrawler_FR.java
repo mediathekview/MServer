@@ -21,4 +21,9 @@ public class ArteCrawler_FR extends ArteCrawler {
     return Sender.ARTE_FR;
   }
 
+  @Override
+  protected ArteLanguage getLanguage() {
+    return ArteLanguage.FR;
+  }
+
 }

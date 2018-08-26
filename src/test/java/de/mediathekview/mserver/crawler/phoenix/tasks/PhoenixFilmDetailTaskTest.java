@@ -43,11 +43,11 @@ public class PhoenixFilmDetailTaskTest extends WireMockTestBase {
             "Presseclub",
             "Mehr Grenzschutz und eine neue Asylpolitik – letzte Rettung für Europa und Merkel?",
             LocalDateTime.of(2018, 6, 24, 12, 0, 0),
-            Duration.ofHours(1).plusMinutes(57).plusSeconds(12),
+            Duration.ofMinutes(57).plusSeconds(12),
             "Moderation: Sonia Seymour Mikich",
             "https://www.phoenix.de/sendungen/gespraeche/presseclub/mehr-grenzschutz-und-eine-neue-asylpolitik--letzte-rettung-fuer-europa-und-merkel-a-271252.html",
             "https://rodlzdf-a.akamaihd.net/none/phoenix/18/06/180624_phx_presseclub/1/180624_phx_presseclub_776k_p11v13.mp4",
-            "https://rodlzdf-a.akamaihd.net/none/phoenix/18/06/180624_phx_presseclub/1/180624_phx_presseclub_1496k_p13v13.mp4",
+            "https://rodlzdf-a.akamaihd.net/none/phoenix/18/06/180624_phx_presseclub/1/180624_phx_presseclub_2328k_p35v13.mp4",
             "",
             "",
             GeoLocations.GEO_NONE

@@ -5,6 +5,7 @@ import de.mediathekview.mlib.daten.Film;
 import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
 import de.mediathekview.mserver.crawler.basic.AbstractRecrusivConverterTask;
 import de.mediathekview.mserver.crawler.zdf.DownloadDtoFilmConverter;
+import de.mediathekview.mserver.crawler.zdf.ZdfConstants;
 import de.mediathekview.mserver.crawler.zdf.ZdfEntryDto;
 import de.mediathekview.mserver.crawler.zdf.ZdfVideoUrlOptimizer;
 import de.mediathekview.mserver.crawler.zdf.json.DownloadDto;
@@ -13,6 +14,7 @@ import de.mediathekview.mserver.crawler.zdf.json.ZdfFilmDetailDeserializer;
 import java.lang.reflect.Type;
 import java.net.MalformedURLException;
 import java.util.Optional;
+import java.util.UUID;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import javax.ws.rs.client.WebTarget;
 import org.apache.logging.log4j.LogManager;
@@ -45,9 +47,8 @@ public class ZdfFilmDetailTask extends ZdfTaskBase<Film, ZdfEntryDto> {
     if (film.isPresent() && downloadDto.isPresent()) {
       try {
         final Film result = film.get();
-        DownloadDtoFilmConverter.addUrlsToFilm(result, downloadDto.get(), Optional.of(optimizer));
+        addFilm(downloadDto.get(), result);
 
-        taskResults.add(result);
         crawler.incrementAndGetActualCount();
         crawler.updateProgress();
       } catch (MalformedURLException e) {
@@ -67,5 +68,45 @@ public class ZdfFilmDetailTask extends ZdfTaskBase<Film, ZdfEntryDto> {
     return new ZdfFilmDetailTask(crawler, aElementsToProcess, authKey);
   }
 
+  private void addFilm(DownloadDto downloadDto, Film result) throws MalformedURLException {
+    for (String language : downloadDto.getLanguages()) {
 
+      final Film filmWithLanguage = clone(result, language);
+
+      DownloadDtoFilmConverter.addUrlsToFilm(filmWithLanguage, downloadDto, Optional.of(optimizer), language);
+
+      taskResults.add(filmWithLanguage);
+    }
+  }
+
+  private static Film clone(final Film aFilm, final String aLanguage) {
+    Film film = new Film(UUID.randomUUID(),
+        aFilm.getSender(),
+        aFilm.getTitel(),
+        aFilm.getThema(),
+        aFilm.getTime(),
+        aFilm.getDuration());
+
+    film.setBeschreibung(aFilm.getBeschreibung());
+    film.setWebsite(aFilm.getWebsite());
+
+    updateTitle(aLanguage, film);
+
+    return film;
+  }
+
+  private static void updateTitle(final String aLanguage, final Film aFilm) {
+    String title = aFilm.getTitel();
+    switch (aLanguage) {
+      case ZdfConstants.LANGUAGE_GERMAN:
+        return;
+      case ZdfConstants.LANGUAGE_ENGLISH:
+        title += " (Englisch)";
+        break;
+      default:
+        title += "(" + aLanguage + ")";
+    }
+
+    aFilm.setTitel(title);
+  }
 }
