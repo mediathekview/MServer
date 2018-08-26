@@ -1,11 +1,21 @@
 package de.mediathekview.mserver.crawler;
 
+import de.mediathekview.mlib.filmlisten.FilmlistFormats;
+import de.mediathekview.mlib.messages.Message;
+import de.mediathekview.mlib.messages.MessageTypes;
+import de.mediathekview.mlib.messages.MessageUtil;
+import de.mediathekview.mlib.messages.listener.MessageListener;
+import de.mediathekview.mlib.progress.Progress;
+import de.mediathekview.mlib.progress.ProgressListener;
+import de.mediathekview.mserver.base.config.MServerConfigDTO;
+import de.mediathekview.mserver.base.config.MServerConfigManager;
+import de.mediathekview.mserver.base.config.MServerFTPSettings;
+import de.mediathekview.mserver.testhelper.FileReader;
 import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Comparator;
@@ -23,16 +33,6 @@ import org.mockftpserver.fake.UserAccount;
 import org.mockftpserver.fake.filesystem.DirectoryEntry;
 import org.mockftpserver.fake.filesystem.FileSystem;
 import org.mockftpserver.fake.filesystem.UnixFakeFileSystem;
-import de.mediathekview.mlib.filmlisten.FilmlistFormats;
-import de.mediathekview.mlib.messages.Message;
-import de.mediathekview.mlib.messages.MessageTypes;
-import de.mediathekview.mlib.messages.MessageUtil;
-import de.mediathekview.mlib.messages.listener.MessageListener;
-import de.mediathekview.mlib.progress.Progress;
-import de.mediathekview.mlib.progress.ProgressListener;
-import de.mediathekview.mserver.base.config.MServerConfigDTO;
-import de.mediathekview.mserver.base.config.MServerConfigManager;
-import de.mediathekview.mserver.base.config.MServerFTPSettings;
 
 @RunWith(Parameterized.class)
 public class CrawlerManagerFTPTest implements MessageListener, ProgressListener {
@@ -42,10 +42,8 @@ public class CrawlerManagerFTPTest implements MessageListener, ProgressListener 
   private static final String FILMLISTS_TARGET_BASE_PATH = "/var/www/mediathekview/filmlisten/";
   private static final String FTP_PASSWORD = "!fTpSeCuReD";
   private static final String FTP_USER = "ftpUser";
-  private static final String BASE_FOLDER = "";
   private static final CrawlerManager CRAWLER_MANAGER = CrawlerManager.getInstance();
   private static Path testFileFolderPath;
-  private static Path baseFolderPath;
   private static FakeFtpServer fakeFtpServer;
 
   private final String filmlistPath;
@@ -59,7 +57,7 @@ public class CrawlerManagerFTPTest implements MessageListener, ProgressListener 
 
   @Parameterized.Parameters(name = "Test {index} Filmlist FTP upload for {0} with {1}")
   public static Collection<Object[]> data() {
-    return Arrays.asList(new Object[][] {{"TestFilmlistNewJson.json", FilmlistFormats.JSON},
+    return Arrays.asList(new Object[][]{{"TestFilmlistNewJson.json", FilmlistFormats.JSON},
         {"TestFilmlistNewJson.json.xz", FilmlistFormats.JSON_COMPRESSED_XZ},
         {"TestFilmlistNewJson.json.bz", FilmlistFormats.JSON_COMPRESSED_BZIP},
         {"TestFilmlistNewJson.json.gz", FilmlistFormats.JSON_COMPRESSED_GZIP},
@@ -76,9 +74,7 @@ public class CrawlerManagerFTPTest implements MessageListener, ProgressListener 
   }
 
   @BeforeClass
-  public static void initTestData() throws URISyntaxException, IOException {
-    baseFolderPath =
-        Paths.get(CrawlerManagerFTPTest.class.getClassLoader().getResource(BASE_FOLDER).toURI());
+  public static void initTestData() throws IOException {
     testFileFolderPath = Files.createTempDirectory(formatWithDate(TEMP_FOLDER_NAME_PATTERN));
     Files.createDirectory(testFileFolderPath.resolve("filmlists"));
 
@@ -113,14 +109,16 @@ public class CrawlerManagerFTPTest implements MessageListener, ProgressListener 
   }
 
   @Test
-  public void testSaveAndUpload() throws IOException {
+  public void testSaveAndUpload() {
+    Path filmListFilePath = FileReader.getPath("filmlists/" + filmlistPath);
+
     CRAWLER_MANAGER.addMessageListener(this);
     CRAWLER_MANAGER.addFTPProgressListener(this);
 
     final MServerConfigDTO config = MServerConfigManager.getInstance().getConfig();
     config.setFilmlistImportFormat(format);
     config.setFilmlistImportLocation(
-        baseFolderPath.resolve("filmlists").resolve(filmlistPath).toAbsolutePath().toString());
+        filmListFilePath.toAbsolutePath().toString());
     CRAWLER_MANAGER.importFilmlist();
 
     config.getFilmlistSaveFormats().clear();
