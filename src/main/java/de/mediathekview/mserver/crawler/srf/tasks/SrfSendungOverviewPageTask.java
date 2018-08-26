@@ -9,8 +9,7 @@ import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
 import de.mediathekview.mserver.crawler.basic.AbstractRestTask;
 import de.mediathekview.mserver.crawler.basic.AbstractUrlTask;
 import de.mediathekview.mserver.crawler.basic.CrawlerUrlDTO;
-import de.mediathekview.mserver.crawler.srf.SrfConstants;
-import de.mediathekview.mserver.crawler.srf.parser.SrfSendungOverviewDTO;
+import de.mediathekview.mserver.crawler.basic.SendungOverviewDto;
 import de.mediathekview.mserver.crawler.srf.parser.SrfSendungOverviewJsonDeserializer;
 import java.lang.reflect.Type;
 import java.util.Optional;
@@ -26,7 +25,7 @@ public class SrfSendungOverviewPageTask extends AbstractRestTask<CrawlerUrlDTO, 
 
   private static final Logger LOG = LogManager.getLogger(SrfSendungOverviewPageTask.class);
   
-  private static final Type OPTIONAL_DTO_TYPE_TOKEN = new TypeToken<Optional<SrfSendungOverviewDTO>>() {}.getType();
+  private static final Type OPTIONAL_DTO_TYPE_TOKEN = new TypeToken<Optional<SendungOverviewDto>>() {}.getType();
 
   private final int pageNumber;
   
@@ -54,9 +53,9 @@ public class SrfSendungOverviewPageTask extends AbstractRestTask<CrawlerUrlDTO, 
       final String jsonOutput = response.readEntity(String.class);
 
       try {
-        Optional<SrfSendungOverviewDTO> resultDto = gson.fromJson(jsonOutput, OPTIONAL_DTO_TYPE_TOKEN);
+        Optional<SendungOverviewDto> resultDto = gson.fromJson(jsonOutput, OPTIONAL_DTO_TYPE_TOKEN);
         if (resultDto.isPresent()) {
-          SrfSendungOverviewDTO dto = resultDto.get();
+          SendungOverviewDto dto = resultDto.get();
           taskResults.addAll(dto.getUrls());
 
           Optional<String> nextPageId = dto.getNextPageId();

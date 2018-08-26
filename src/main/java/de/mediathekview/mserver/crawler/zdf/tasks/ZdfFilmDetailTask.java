@@ -2,10 +2,9 @@ package de.mediathekview.mserver.crawler.zdf.tasks;
 
 import com.google.gson.reflect.TypeToken;
 import de.mediathekview.mlib.daten.Film;
-import de.mediathekview.mlib.daten.GeoLocations;
-import de.mediathekview.mlib.daten.Resolution;
 import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
 import de.mediathekview.mserver.crawler.basic.AbstractRecrusivConverterTask;
+import de.mediathekview.mserver.crawler.zdf.DownloadDtoFilmConverter;
 import de.mediathekview.mserver.crawler.zdf.ZdfConstants;
 import de.mediathekview.mserver.crawler.zdf.ZdfEntryDto;
 import de.mediathekview.mserver.crawler.zdf.ZdfVideoUrlOptimizer;
@@ -14,15 +13,10 @@ import de.mediathekview.mserver.crawler.zdf.json.ZdfDownloadDtoDeserializer;
 import de.mediathekview.mserver.crawler.zdf.json.ZdfFilmDetailDeserializer;
 import java.lang.reflect.Type;
 import java.net.MalformedURLException;
-import java.net.URL;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import javax.ws.rs.client.WebTarget;
-import mServer.crawler.CrawlerTool;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -54,6 +48,7 @@ public class ZdfFilmDetailTask extends ZdfTaskBase<Film, ZdfEntryDto> {
       try {
         final Film result = film.get();
         addFilm(downloadDto.get(), result);
+
         crawler.incrementAndGetActualCount();
         crawler.updateProgress();
       } catch (MalformedURLException e) {
@@ -76,15 +71,15 @@ public class ZdfFilmDetailTask extends ZdfTaskBase<Film, ZdfEntryDto> {
   private void addFilm(DownloadDto downloadDto, Film result) throws MalformedURLException {
     for (String language : downloadDto.getLanguages()) {
 
-      final Film filmWithLanguage = clone(result);
+      final Film filmWithLanguage = clone(result, language);
 
-      addUrlsToFilm(filmWithLanguage, downloadDto, language);
+      DownloadDtoFilmConverter.addUrlsToFilm(filmWithLanguage, downloadDto, Optional.of(optimizer), language);
 
       taskResults.add(filmWithLanguage);
     }
   }
 
-  private static Film clone(final Film aFilm) {
+  private static Film clone(final Film aFilm, final String aLanguage) {
     Film film = new Film(UUID.randomUUID(),
         aFilm.getSender(),
         aFilm.getTitel(),
@@ -94,39 +89,10 @@ public class ZdfFilmDetailTask extends ZdfTaskBase<Film, ZdfEntryDto> {
 
     film.setBeschreibung(aFilm.getBeschreibung());
     film.setWebsite(aFilm.getWebsite());
+
+    updateTitle(aLanguage, film);
+
     return film;
-  }
-
-  private void addUrlsToFilm(final Film aFilm, final DownloadDto aDownloadDto, final String aLanguage) throws MalformedURLException {
-
-    for (final Map.Entry<Resolution, String> qualitiesEntry : aDownloadDto.getDownloadUrls(aLanguage).entrySet()) {
-      String url = qualitiesEntry.getValue();
-
-      if (qualitiesEntry.getKey() == Resolution.NORMAL) {
-        url = optimizer.getOptimizedUrlNormal(url);
-      }
-
-      aFilm.addUrl(qualitiesEntry.getKey(), CrawlerTool.stringToFilmUrl(url));
-    }
-
-    if (!aFilm.hasHD()) {
-      Optional<String> hdUrl = optimizer.determineUrlHd(aFilm.getUrl(Resolution.NORMAL).toString());
-      if (hdUrl.isPresent()) {
-        aFilm.addUrl(Resolution.HD, CrawlerTool.stringToFilmUrl(hdUrl.get()));
-      }
-    }
-
-    if (aDownloadDto.getSubTitleUrl().isPresent()) {
-      aFilm.addSubtitle(new URL(aDownloadDto.getSubTitleUrl().get()));
-    }
-
-    if (aDownloadDto.getGeoLocation().isPresent()) {
-      final Collection<GeoLocations> geo = new ArrayList<>();
-      geo.add(aDownloadDto.getGeoLocation().get());
-      aFilm.setGeoLocations(geo);
-    }
-
-    updateTitle(aLanguage, aFilm);
   }
 
   private static void updateTitle(final String aLanguage, final Film aFilm) {

@@ -1,0 +1,283 @@
+{
+  "attributes" : {
+    "downloadAllowed" : {
+      "profile" : "http://zdf.de/rels/streams/ptmd/attributes/attribute",
+      "value" : false
+    },
+    "duration" : {
+      "profile" : "http://zdf.de/rels/streams/ptmd/attributes/attribute",
+      "value" : 3432000
+    },
+    "fsk" : {
+      "profile" : "http://zdf.de/rels/streams/ptmd/attributes/attribute",
+      "value" : "none"
+    },
+    "geoLocation" : {
+      "profile" : "http://zdf.de/rels/streams/ptmd/attributes/attribute",
+      "value" : "none"
+    },
+    "profile" : "http://zdf.de/rels/streams/ptmd/attributes"
+  },
+  "basename" : "180624_phx_presseclub",
+  "captions" : [],
+  "documentVersion" : 2,
+  "mandant" : "phoenix",
+  "playerId" : "ngplayer_2_3",
+  "priorityList" : [
+    {
+      "formitaeten" : [
+        {
+          "facets" : [],
+          "isAdaptive" : true,
+          "mimeType" : "application/x-mpegURL",
+          "profile" : "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet",
+          "qualities" : [
+            {
+              "audio" : {
+                "profile" : "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality/audio",
+                "tracks" : [
+                  {
+                    "cdn" : "akamai",
+                    "class" : "main",
+                    "language" : "deu",
+                    "profile" : "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality/audio/track",
+                    "uri" : "https://zdfvodnone-vh.akamaihd.net/i/meta-files/phoenix/smil/m3u8/300/18/06/180624_phx_presseclub/1/180624_phx_presseclub.smil/master.m3u8"
+                  }
+                ]
+              },
+              "hd" : false,
+              "profile" : "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality",
+              "quality" : "auto"
+            },
+            {
+              "audio" : {
+                "profile" : "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality/audio",
+                "tracks" : [
+                  {
+                    "cdn" : "akamai",
+                    "class" : "main",
+                    "language" : "deu",
+                    "profile" : "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality/audio/track",
+                    "uri" : "https://zdfvodnone-vh.akamaihd.net/i/meta-files/phoenix/smil/m3u8/300/18/06/180624_phx_presseclub/1/180624_phx_presseclub.smil/master.m3u8"
+                  }
+                ]
+              },
+              "hd" : false,
+              "profile" : "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality",
+              "quality" : "high"
+            },
+            {
+              "audio" : {
+                "profile" : "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality/audio",
+                "tracks" : [
+                  {
+                    "cdn" : "akamai",
+                    "class" : "main",
+                    "language" : "deu",
+                    "profile" : "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality/audio/track",
+                    "uri" : "https://zdfvodnone-vh.akamaihd.net/i/meta-files/phoenix/smil/m3u8/200/18/06/180624_phx_presseclub/1/180624_phx_presseclub.smil/master.m3u8"
+                  }
+                ]
+              },
+              "hd" : false,
+              "profile" : "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality",
+              "quality" : "med"
+            }
+          ],
+          "type" : "h264_aac_ts_http_m3u8_http"
+        }
+      ],
+      "profile" : "http://zdf.de/rels/streams/ptmd/priority-list-item"
+    },
+    {
+      "formitaeten" : [
+        {
+          "facets" : [
+            "progressive"
+          ],
+          "isAdaptive" : false,
+          "mimeType" : "video/mp4",
+          "profile" : "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet",
+          "qualities" : [
+            {
+              "audio" : {
+                "profile" : "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality/audio",
+                "tracks" : [
+                  {
+                    "cdn" : "akamai",
+                    "class" : "main",
+                    "language" : "deu",
+                    "profile" : "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality/audio/track",
+                    "uri" : "https://nrodlzdf-a.akamaihd.net/none/phoenix/18/06/180624_phx_presseclub/1/180624_phx_presseclub_1496k_p13v13.mp4"
+                  }
+                ]
+              },
+              "hd" : false,
+              "mimeCodec" : "avc1.4d401f, mp4a.40.2",
+              "profile" : "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality",
+              "quality" : "veryhigh"
+            },
+            {
+              "audio" : {
+                "profile" : "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality/audio",
+                "tracks" : [
+                  {
+                    "cdn" : "akamai",
+                    "class" : "main",
+                    "language" : "deu",
+                    "profile" : "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality/audio/track",
+                    "uri" : "https://nrodlzdf-a.akamaihd.net/none/phoenix/18/06/180624_phx_presseclub/1/180624_phx_presseclub_776k_p11v13.mp4"
+                  }
+                ]
+              },
+              "hd" : false,
+              "mimeCodec" : "avc1.4d401f, mp4a.40.2",
+              "profile" : "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality",
+              "quality" : "high"
+            },
+            {
+              "audio" : {
+                "profile" : "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality/audio",
+                "tracks" : [
+                  {
+                    "cdn" : "akamai",
+                    "class" : "main",
+                    "language" : "deu",
+                    "profile" : "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality/audio/track",
+                    "uri" : "https://nrodlzdf-a.akamaihd.net/none/phoenix/18/06/180624_phx_presseclub/1/180624_phx_presseclub_476k_p9v13.mp4"
+                  }
+                ]
+              },
+              "hd" : false,
+              "mimeCodec" : "avc1.4d401f, mp4a.40.2",
+              "profile" : "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality",
+              "quality" : "low"
+            }
+          ],
+          "type" : "h264_aac_mp4_http_na_na"
+        }
+      ],
+      "profile" : "http://zdf.de/rels/streams/ptmd/priority-list-item"
+    },
+    {
+      "formitaeten" : [
+        {
+          "facets" : [
+            "restriction_useragent"
+          ],
+          "isAdaptive" : false,
+          "mimeType" : "video/mp4",
+          "profile" : "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet",
+          "qualities" : [
+            {
+              "audio" : {
+                "profile" : "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality/audio",
+                "tracks" : [
+                  {
+                    "cdn" : "akamai",
+                    "class" : "main",
+                    "language" : "deu",
+                    "profile" : "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality/audio/track",
+                    "uri" : "https://rodlzdf-a.akamaihd.net/none/phoenix/18/06/180624_phx_presseclub/1/180624_phx_presseclub_1496k_p13v13.mp4"
+                  }
+                ]
+              },
+              "hd" : false,
+              "mimeCodec" : "avc1.4d401f, mp4a.40.2",
+              "profile" : "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality",
+              "quality" : "veryhigh"
+            },
+            {
+              "audio" : {
+                "profile" : "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality/audio",
+                "tracks" : [
+                  {
+                    "cdn" : "akamai",
+                    "class" : "main",
+                    "language" : "deu",
+                    "profile" : "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality/audio/track",
+                    "uri" : "https://rodlzdf-a.akamaihd.net/none/phoenix/18/06/180624_phx_presseclub/1/180624_phx_presseclub_776k_p11v13.mp4"
+                  }
+                ]
+              },
+              "hd" : false,
+              "mimeCodec" : "avc1.4d401f, mp4a.40.2",
+              "profile" : "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality",
+              "quality" : "high"
+            }
+          ],
+          "type" : "h264_aac_mp4_http_na_na"
+        }
+      ],
+      "profile" : "http://zdf.de/rels/streams/ptmd/priority-list-item"
+    },
+    {
+      "formitaeten" : [
+        {
+          "facets" : [],
+          "isAdaptive" : true,
+          "mimeType" : "application/f4m+xml",
+          "profile" : "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet",
+          "qualities" : [
+            {
+              "audio" : {
+                "profile" : "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality/audio",
+                "tracks" : [
+                  {
+                    "cdn" : "akamai",
+                    "class" : "main",
+                    "language" : "deu",
+                    "profile" : "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality/audio/track",
+                    "uri" : "https://zdfvodnone-vh.akamaihd.net/z/meta-files/phoenix/smil/f4m/300/18/06/180624_phx_presseclub/1/180624_phx_presseclub.smil/manifest.f4m?enableSSLTransfer=true"
+                  }
+                ]
+              },
+              "hd" : false,
+              "profile" : "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality",
+              "quality" : "auto"
+            },
+            {
+              "audio" : {
+                "profile" : "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality/audio",
+                "tracks" : [
+                  {
+                    "cdn" : "akamai",
+                    "class" : "main",
+                    "language" : "deu",
+                    "profile" : "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality/audio/track",
+                    "uri" : "https://zdfvodnone-vh.akamaihd.net/z/meta-files/phoenix/smil/f4m/300/18/06/180624_phx_presseclub/1/180624_phx_presseclub.smil/manifest.f4m?enableSSLTransfer=true"
+                  }
+                ]
+              },
+              "hd" : false,
+              "profile" : "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality",
+              "quality" : "high"
+            },
+            {
+              "audio" : {
+                "profile" : "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality/audio",
+                "tracks" : [
+                  {
+                    "cdn" : "akamai",
+                    "class" : "main",
+                    "language" : "deu",
+                    "profile" : "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality/audio/track",
+                    "uri" : "https://zdfvodnone-vh.akamaihd.net/z/meta-files/phoenix/smil/f4m/200/18/06/180624_phx_presseclub/1/180624_phx_presseclub.smil/manifest.f4m?enableSSLTransfer=true"
+                  }
+                ]
+              },
+              "hd" : false,
+              "profile" : "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality",
+              "quality" : "med"
+            }
+          ],
+          "type" : "h264_aac_f4f_http_f4m_http"
+        }
+      ],
+      "profile" : "http://zdf.de/rels/streams/ptmd/priority-list-item"
+    }
+  ],
+  "profile" : "http://zdf.de/rels/streams/ptmd",
+  "self" : "/tmd/2/ngplayer_2_3/vod/ptmd/phoenix/180624_phx_presseclub/1",
+  "version" : 1
+}

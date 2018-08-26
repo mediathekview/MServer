@@ -2,6 +2,7 @@ package de.mediathekview.mserver.crawler.srf.parser;
 
 import com.google.gson.JsonElement;
 import de.mediathekview.mserver.crawler.basic.CrawlerUrlDTO;
+import de.mediathekview.mserver.crawler.basic.SendungOverviewDto;
 import de.mediathekview.mserver.testhelper.JsonFileReader;
 import java.util.Arrays;
 import java.util.Collection;
@@ -62,7 +63,7 @@ public class SrfSendungOverviewJsonDeserializerTest {
   public void test() {
     JsonElement jsonElement = JsonFileReader.readJson(jsonFile);
     
-    Optional<SrfSendungOverviewDTO> actual = target.deserialize(jsonElement, SrfSendungOverviewDTO.class, null);
+    Optional<SendungOverviewDto> actual = target.deserialize(jsonElement, SendungOverviewDto.class, null);
     
     assertThat(actual.isPresent(), equalTo(true));
     assertThat(actual.get().getNextPageId(), equalTo(expectedNextPageId));
