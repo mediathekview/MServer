@@ -77,9 +77,8 @@ public class MediathekHr extends MediathekReader {
 
         Collection<Future<ListeFilme>> futureFilme = new ArrayList<>();
 
+        ExecutorService executor = Executors.newCachedThreadPool();
         dtos.forEach(dto -> {
-
-            ExecutorService executor = Executors.newCachedThreadPool();
             futureFilme.add(executor.submit(new HrSendungOverviewCallable(dto)));
             meldungProgress(dto.getUrl());
         });
