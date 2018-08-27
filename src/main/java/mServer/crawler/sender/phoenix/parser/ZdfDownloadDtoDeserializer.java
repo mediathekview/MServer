@@ -100,12 +100,13 @@ public class ZdfDownloadDtoDeserializer implements JsonDeserializer<Optional<Dow
       final JsonElement geoLocation = attributes.getAsJsonObject().get(JSON_ELEMENT_GEOLOCATION);
       if (geoLocation != null) {
         final JsonElement geoValue = geoLocation.getAsJsonObject().get(JSON_PROPERTY_VALUE);
-        if (geoValue != null && !geoValue.getAsString().equals("none")) {
-          final Optional<GeoLocations> foundGeoLocation = Optional.of(GeoLocations.valueOf(geoValue.getAsString()));
-          if (foundGeoLocation.isPresent()) {
-            dto.setGeoLocation(foundGeoLocation.get());
-          } else {
-            LOG.debug(String.format("Can't find a GeoLocation for \"%s", geoValue.getAsString()));
+        if (geoValue != null && !geoValue.getAsString().toUpperCase().equals("NONE")) {
+          switch (geoValue.getAsString().toUpperCase()) {
+            case "DE":
+              dto.setGeoLocation(GeoLocations.GEO_DE);
+              break;
+            default:
+              LOG.debug(String.format("Can't find a GeoLocation for \"%s", geoValue.getAsString()));
           }
         }
       }
