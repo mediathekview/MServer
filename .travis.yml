@@ -40,8 +40,7 @@ script:
 after_success:
   - sonar-scanner
   - export VERSION=$(find . -name "MServer-*.tar.gz" | sed "s/.*MServer-\(.*\).tar.gz/\1/")
-  - docker build . -t mediathekview/mserver:$VERSION -t mediathekview/mserver:latest-snapshot --build-arg VERSION=$VERSION
-#  - if [ "$TRAVIS_BRANCH" == "develop" ] && [ "$TRAVIS_JDK_VERSION" == "oraclejdk8" ]; then docker build . -t mediathekview/mserver:$VERSION -t mediathekview/mserver:latest-snapshot --build-arg VERSION=$VERSION .; fi
+  - if [ "$TRAVIS_BRANCH" == "develop" ] && [ "$TRAVIS_JDK_VERSION" == "oraclejdk8" ]; then docker build . -t mediathekview/mserver:$VERSION -t mediathekview/mserver:latest-snapshot --build-arg VERSION=$VERSION; fi
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
   - docker push mediathekview/mserver
 before_cache:
@@ -57,7 +56,9 @@ deploy:
   - provider: script
     script:
       - ./gradlew release -PSONATYPE_USERNAME=$SONATYPE_USERNAME -PSONATYPE_PASSWORD=$SONATYPE_PASSWORD -Psigning.keyId=$GPG_KEYNAME -Psigning.password=$GPG_PASSPHRASE -Psigning.secretKeyRingFile=scripte/deploy/secring.gpg
-      - docker tag mediathekview/MServer:$VERSION mediathekview/MServer:latest
+      - docker build . -t mediathekview/mserver:$VERSION -t mediathekview/mserver:latest --build-arg VERSION=$VERSION
+      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+      - docker push mediathekview/mserver
     skip_cleanup: true
     on:
       branch: master
