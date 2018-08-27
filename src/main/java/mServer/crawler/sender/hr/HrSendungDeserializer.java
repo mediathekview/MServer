@@ -17,7 +17,7 @@ public class HrSendungDeserializer {
     private static final String QUERY_BROADCAST2 = "p.byline--s";
     private static final String QUERY_DESCRIPTION = "p.copytext__text";
     private static final String QUERY_TITLE1 = "p.c-programHeader__subline";
-    private static final String QUERY_TITLE2 = "span.c-contentHeader__headline";
+    private static final String QUERY_TITLE2 = "c-programHeader__headlineWrapper > h2";
     private static final String HTML_TAG_SOURCE = "video > source";
     private static final String HTML_TAG_STRONG = "strong";
     private static final String HTML_TAG_TIME = "time";
