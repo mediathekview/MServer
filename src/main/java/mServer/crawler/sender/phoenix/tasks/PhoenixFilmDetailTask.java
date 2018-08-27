@@ -123,6 +123,9 @@ public class PhoenixFilmDetailTask extends ZdfTaskBase<DatenFilm, CrawlerUrlDTO>
     if (downloadDto.getSubTitleUrl().isPresent()) {
       CrawlerTool.addUrlSubtitle(film, downloadDto.getSubTitleUrl().get());
     }
+    if (downloadDto.getGeoLocation().isPresent()) {
+      film.arr[DatenFilm.FILM_GEO] = downloadDto.getGeoLocation().get().getDescription();
+    }
     taskResults.add(film);
   }
 
