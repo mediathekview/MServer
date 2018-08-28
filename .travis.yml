@@ -1,4 +1,6 @@
 language: java
+services:
+  - docker
 jdk:
   - oraclejdk8
   - oraclejdk9
@@ -18,6 +20,7 @@ notifications:
   webhooks:
     urls:
     - https://scalar.vector.im/api/neb/services/hooks/dHJhdmlzLWNpLyU0MGFsZXglM0FtYXRyaXguZWxhb24uZGUvJTIxdWpSeXlUSGxQcXlRb2prcG1vJTNBbWF0cml4LmVsYW9uLmRl
+    - https://chat.wiegandt.eu/hooks/9nZKddPAxHgHFiMN8/5rgD7L96af76NydBZuYhvfpLLYQ74v3LQ8CvbCYZAguu9owH
     on_success: change
     on_failure: always
     on_start: never
@@ -36,6 +39,10 @@ script:
   - if [ "$TRAVIS_BRANCH" == "develop" ] && [ "$TRAVIS_JDK_VERSION" == "oraclejdk8" ]; then openssl aes-256-cbc -pass pass:$ENCRYPTION_PASSWORD -in scripte/deploy/secring.gpg.enc -out scripte/deploy/secring.gpg -d && ./gradlew releaseSnapshot -PSONATYPE_USERNAME=$SONATYPE_USERNAME -PSONATYPE_PASSWORD=$SONATYPE_PASSWORD -Psigning.keyId=$GPG_KEYNAME -Psigning.password=$GPG_PASSPHRASE -Psigning.secretKeyRingFile=scripte/deploy/secring.gpg; fi
 after_success:
   - sonar-scanner
+  - export VERSION=$(find . -name "MServer-*.tar.gz" | sed "s/.*MServer-\(.*\).tar.gz/\1/")
+  - if [ "$TRAVIS_BRANCH" == "develop" ] && [ "$TRAVIS_JDK_VERSION" == "oraclejdk8" ]; then docker build . -t mediathekview/mserver:$VERSION -t mediathekview/mserver:latest-snapshot --build-arg VERSION=$VERSION; fi
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+  - docker push mediathekview/mserver
 before_cache:
   - rm -f $HOME/.gradle/caches/modules-2/modules-2.lock
 cache:
@@ -47,7 +54,11 @@ before_deploy:
 - openssl aes-256-cbc -pass pass:$ENCRYPTION_PASSWORD -in scripte/deploy/secring.gpg.enc -out scripte/deploy/secring.gpg -d
 deploy:
   - provider: script
-    script: "./gradlew release -PSONATYPE_USERNAME=$SONATYPE_USERNAME -PSONATYPE_PASSWORD=$SONATYPE_PASSWORD -Psigning.keyId=$GPG_KEYNAME -Psigning.password=$GPG_PASSPHRASE -Psigning.secretKeyRingFile=scripte/deploy/secring.gpg"
+    script:
+      - ./gradlew release -PSONATYPE_USERNAME=$SONATYPE_USERNAME -PSONATYPE_PASSWORD=$SONATYPE_PASSWORD -Psigning.keyId=$GPG_KEYNAME -Psigning.password=$GPG_PASSPHRASE -Psigning.secretKeyRingFile=scripte/deploy/secring.gpg
+      - docker build . -t mediathekview/mserver:$VERSION -t mediathekview/mserver:latest --build-arg VERSION=$VERSION
+      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+      - docker push mediathekview/mserver
     skip_cleanup: true
     on:
       branch: master
