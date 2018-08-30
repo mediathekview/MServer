@@ -1,5 +1,6 @@
 package de.mediathekview.mserver.crawler;
 
+import de.mediathekview.mserver.crawler.mdr.MdrCrawler;
 import de.mediathekview.mserver.crawler.phoenix.PhoenixCrawler;
 import java.io.IOException;
 import java.net.MalformedURLException;
@@ -550,6 +551,8 @@ public class CrawlerManager extends AbstractManager {
         new KikaCrawler(forkJoinPool, messageListeners, progressListeners, rootConfig));
     crawlerMap.put(Sender.DW,
         new DwCrawler(forkJoinPool, messageListeners, progressListeners, rootConfig));
+    crawlerMap.put(Sender.MDR,
+        new MdrCrawler(forkJoinPool, messageListeners, progressListeners, rootConfig));
     crawlerMap.put(Sender.NDR,
         new NdrCrawler(forkJoinPool, messageListeners, progressListeners, rootConfig));
     crawlerMap.put(Sender.ORF,
