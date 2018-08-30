@@ -96,7 +96,9 @@ public final class MServerConfigUI {
 
 	void start() {
 		manager.start();
-		manager.importFilmlist();
+		if (config.isFilmlistImportEnabeld() != null && config.isFilmlistImportEnabeld() ) {
+			manager.importFilmlist();
+		}
 		manager.saveFilmlist();
 		manager.saveDifferenceFilmlist();
 		manager.copyFilmlist();

@@ -42,7 +42,7 @@ public class MServerConfigDTO extends MServerBasicConfigDTO implements ConfigDTO
 
 	private MServerLogSettingsDTO logSettings;
 	private Map<CrawlerUrlType, URL> crawlerURLs;
-	private boolean filmlistImportEnabeld;
+	private Boolean filmlistImportEnabeld;
 	public MServerConfigDTO() {
 		senderConfigurations = new EnumMap<>(Sender.class);
 		senderExcluded = new HashSet<>();
@@ -299,11 +299,11 @@ public class MServerConfigDTO extends MServerBasicConfigDTO implements ConfigDTO
 		this.senderIncluded = senderIncluded;
 	}
 
-	public boolean isFilmlistImportEnabeld() {
+	public Boolean isFilmlistImportEnabeld() {
 		return filmlistImportEnabeld;
 	}
 
-	public void setFilmlistImportEnabeld(boolean filmlistImportEnabeld) {
+	public void setFilmlistImportEnabeld(Boolean filmlistImportEnabeld) {
 		this.filmlistImportEnabeld = filmlistImportEnabeld;
 	}
 
