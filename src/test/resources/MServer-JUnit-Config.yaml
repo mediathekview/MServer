@@ -45,6 +45,9 @@
     #  JSON_COMPRESSED_XZ: filmliste_diff.json.xz
       OLD_JSON_COMPRESSED_XZ: filmlists/filmliste_old_diff.json.xz
     
+    # Sets if a filmlist should be imported
+    filmlistImportEnabled: false
+    
     # The format of the film list to import.
     # Possible are: JSON, OLD_JSON, JSON_COMPRESSED_XZ, OLD_JSON_COMPRESSED_XZ
     #filmlistImportFormat: OLD_JSON_COMPRESSED_XZ

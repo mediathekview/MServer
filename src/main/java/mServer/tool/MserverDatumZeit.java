@@ -164,18 +164,18 @@ public class MserverDatumZeit
     {
         try
         {
-            return parseTime(FormatStyle.LONG, aTime);
+            return parseTime(FormatStyle.SHORT, aTime);
         } catch (DateTimeParseException dateTimeParseException2)
         {
-            LOG.debug(String.format("Can't parse time \"%s\" for german format LONG tying MEDIUM now...",aTime), dateTimeParseException2);
+            LOG.debug(String.format("Can't parse time \"%s\" for german format SHORT tying MEDIUM now...",aTime), dateTimeParseException2);
         }
         try
         {
             return parseTime(FormatStyle.MEDIUM, aTime);
         } catch (DateTimeParseException dateTimeParseException3)
         {
-            LOG.debug(String.format("Can't parse time \"%s\" for german format MEDIUM tying SHORT now...",aTime), dateTimeParseException3);
-            return parseTime(FormatStyle.SHORT, aTime);
+            LOG.debug(String.format("Can't parse time \"%s\" for german format MEDIUM tying LONG now...",aTime), dateTimeParseException3);
+            return parseTime(FormatStyle.LONG, aTime);
         }
     }
 

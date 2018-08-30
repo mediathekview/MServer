@@ -18,6 +18,10 @@ public class BrClipCollectIDResult {
   private String cursor = null;
   private int resultSize;
   
+  public BrClipCollectIDResult() {
+	clipList=new BrIdsDTO();
+}
+  
   public synchronized BrIdsDTO getClipList() {
     return clipList;
   }
