@@ -186,7 +186,7 @@ public class CrawlerManager extends AbstractManager {
 	 * {@link MServerConfigDTO#getFilmlistImportLocation()}.
 	 */
 	public void importFilmlist() {
-		if (config.isFilmlistImportEnabled() && checkConfigForFilmlistImport()) {
+		if (config.isFilmlistImportEnabeld() && checkConfigForFilmlistImport()) {
 			importFilmlist(config.getFilmlistImportFormat(), config.getFilmlistImportLocation());
 		}
 	}

@@ -251,16 +251,8 @@ public class MServerConfigDTO extends MServerBasicConfigDTO implements ConfigDTO
 	}
 
 
-	public boolean isFilmlistImportEnabled() {
-		return filmlistImportEnabeld;
-	}
-
 	public void setCrawlerURLs(final Map<CrawlerUrlType, URL> crawlerURLs) {
 		this.crawlerURLs = crawlerURLs;
-	}
-
-	public void setFilmlistImport(boolean filmlistImport) {
-		this.filmlistImportEnabeld = filmlistImport;
 	}
 
 	public void setFilmlistImportFormat(final FilmlistFormats filmlistImportFormat) {
@@ -305,6 +297,14 @@ public class MServerConfigDTO extends MServerBasicConfigDTO implements ConfigDTO
 
 	public void setSenderIncluded(final Set<Sender> senderIncluded) {
 		this.senderIncluded = senderIncluded;
+	}
+
+	public boolean isFilmlistImportEnabeld() {
+		return filmlistImportEnabeld;
+	}
+
+	public void setFilmlistImportEnabeld(boolean filmlistImportEnabeld) {
+		this.filmlistImportEnabeld = filmlistImportEnabeld;
 	}
 
 }
