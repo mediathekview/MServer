@@ -42,7 +42,7 @@ public class MServerConfigDTO extends MServerBasicConfigDTO implements ConfigDTO
 
 	private MServerLogSettingsDTO logSettings;
 	private Map<CrawlerUrlType, URL> crawlerURLs;
-	private Boolean filmlistImportEnabeld;
+	private Boolean filmlistImporEnabled;
 	public MServerConfigDTO() {
 		senderConfigurations = new EnumMap<>(Sender.class);
 		senderExcluded = new HashSet<>();
@@ -75,7 +75,7 @@ public class MServerConfigDTO extends MServerBasicConfigDTO implements ConfigDTO
 		filmlistSavePaths.put(FilmlistFormats.JSON_COMPRESSED_BZIP, "filmliste.json.bz");
 		filmlistSavePaths.put(FilmlistFormats.OLD_JSON_COMPRESSED_BZIP, "filmliste_old.json.bz");
 
-		filmlistImportEnabeld=true;
+		filmlistImporEnabled=true;
 		filmlistImportFormat = FilmlistFormats.OLD_JSON_COMPRESSED_XZ;
 		filmlistImportLocation = "https://verteiler1.mediathekview.de/Filmliste-akt.xz";
 	}
@@ -104,7 +104,7 @@ public class MServerConfigDTO extends MServerBasicConfigDTO implements ConfigDTO
 				return false;
 		} else if (!filmlistDiffSavePaths.equals(other.filmlistDiffSavePaths))
 			return false;
-		if (filmlistImportEnabeld != other.filmlistImportEnabeld)
+		if (filmlistImporEnabled != other.filmlistImporEnabled)
 			return false;
 		if (filmlistImportFormat != other.filmlistImportFormat)
 			return false;
@@ -234,7 +234,7 @@ public class MServerConfigDTO extends MServerBasicConfigDTO implements ConfigDTO
 		result = prime * result + ((copySettings == null) ? 0 : copySettings.hashCode());
 		result = prime * result + ((crawlerURLs == null) ? 0 : crawlerURLs.hashCode());
 		result = prime * result + ((filmlistDiffSavePaths == null) ? 0 : filmlistDiffSavePaths.hashCode());
-		result = prime * result + (filmlistImportEnabeld ? 1231 : 1237);
+		result = prime * result + (filmlistImporEnabled ? 1231 : 1237);
 		result = prime * result + ((filmlistImportFormat == null) ? 0 : filmlistImportFormat.hashCode());
 		result = prime * result + ((filmlistImportLocation == null) ? 0 : filmlistImportLocation.hashCode());
 		result = prime * result + ((filmlistSaveFormats == null) ? 0 : filmlistSaveFormats.hashCode());
@@ -299,12 +299,13 @@ public class MServerConfigDTO extends MServerBasicConfigDTO implements ConfigDTO
 		this.senderIncluded = senderIncluded;
 	}
 
-	public Boolean isFilmlistImportEnabeld() {
-		return filmlistImportEnabeld;
+	public Boolean getFilmlistImporEnabled() {
+		return filmlistImporEnabled;
 	}
 
-	public void setFilmlistImportEnabeld(Boolean filmlistImportEnabeld) {
-		this.filmlistImportEnabeld = filmlistImportEnabeld;
+	public void setFilmlistImporEnabled(Boolean filmlistImporEnabled) {
+		this.filmlistImporEnabled = filmlistImporEnabled;
 	}
+
 
 }

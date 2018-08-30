@@ -9,6 +9,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ForkJoinPool;
 import java.util.concurrent.RecursiveTask;
 import java.util.concurrent.atomic.AtomicLong;
+
 import de.mediathekview.mlib.daten.Film;
 import de.mediathekview.mlib.daten.Sender;
 import de.mediathekview.mlib.messages.Message;
@@ -74,6 +75,7 @@ public abstract class AbstractCrawler implements Callable<Set<Film>> {
     updateProgress();
     filmTask = createCrawlerTask();
     films.addAll(forkJoinPool.invoke(filmTask));
+    removeInvalidEntries();
 
     final LocalTime endTime = LocalTime.now();
     final Progress progress = new Progress(maxCount.get(), actualCount.get(), errorCount.get());
@@ -83,6 +85,11 @@ public abstract class AbstractCrawler implements Callable<Set<Film>> {
         progress.calcActualErrorQuoteInPercent());
     return films;
   }
+
+private void removeInvalidEntries() {
+	//Removes entries without url or neither thema nor title.
+    films.removeIf(enty->enty.getUrls().isEmpty() || (enty.getThema().isEmpty() && enty.getTitel().isEmpty()));
+}
 
   public long getAndSetMaxCount(final long aNewMaxValue) {
     return maxCount.getAndSet(aNewMaxValue);
