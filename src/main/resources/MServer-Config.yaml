@@ -58,7 +58,7 @@
       OLD_JSON_COMPRESSED_GZIP: build/filmliste_old_diff.json.bz
     
     # Sets if a filmlist should be imported
-    filmlistImporEnabeld: false
+    filmlistImporEnabled: false
     
     # The format of the film list to import.
     # Possible are: JSON, OLD_JSON, JSON_COMPRESSED_XZ, OLD_JSON_COMPRESSED_XZ, JSON_COMPRESSED_GZIP, OLD_JSON_COMPRESSED_BZIP, JSON_COMPRESSED_GZIP, OLD_JSON_COMPRESSED_BZIP
