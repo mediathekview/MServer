@@ -6,6 +6,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import org.apache.commons.lang3.StringUtils;
 import org.xml.sax.Attributes;
 import org.xml.sax.helpers.DefaultHandler;
 
@@ -20,6 +21,7 @@ public class MdrFilmXmlHandler extends DefaultHandler {
   private static final String ELEMENT_FILM_WIDTH = "framewidth";
   private static final String ELEMENT_FILM_HEIGHT = "frameheight";
   private static final String ELEMENT_SUBTITLE = "videosubtitleurl";
+  private static final String ELEMENT_WEBSITE = "htmlurl";
 
   private static final int ELEMENT_TOPIC_ACTIVE = 1;
   private static final int ELEMENT_TITLE_ACTIVE = 2;
@@ -30,6 +32,7 @@ public class MdrFilmXmlHandler extends DefaultHandler {
   private static final int ELEMENT_FILMWIDTH_ACTIVE = 7;
   private static final int ELEMENT_FILMHEIGHT_ACTIVE = 8;
   private static final int ELEMENT_SUBTITLE_ACTIVE = 9;
+  private static final int ELEMENT_WEBSITE_ACTIVE = 10;
 
   private static final DateTimeFormatter DATE_TIME_FORMATTER =
       DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm");
@@ -40,6 +43,7 @@ public class MdrFilmXmlHandler extends DefaultHandler {
   private LocalDateTime time;
   private Duration duration;
   private String subtitle;
+  private String website;
 
   private String fileName = null;
   private int height = -1;
@@ -71,6 +75,10 @@ public class MdrFilmXmlHandler extends DefaultHandler {
 
   public String getSubtitle() {
     return subtitle;
+  }
+
+  public String getWebsite() {
+    return website;
   }
 
   public String getVideoUrl(final Resolution aResolution) {
@@ -132,6 +140,9 @@ public class MdrFilmXmlHandler extends DefaultHandler {
       case ELEMENT_SUBTITLE:
         activeElement = ELEMENT_SUBTITLE_ACTIVE;
         break;
+      case ELEMENT_WEBSITE:
+        activeElement = ELEMENT_WEBSITE_ACTIVE;
+        break;
       default:
     }
   }
@@ -187,6 +198,11 @@ public class MdrFilmXmlHandler extends DefaultHandler {
         break;
       case ELEMENT_SUBTITLE_ACTIVE:
         subtitle = value;
+        break;
+      case ELEMENT_WEBSITE_ACTIVE:
+        if (StringUtils.isAllBlank(website)) {
+          website = value;
+        }
         break;
       default:
     }

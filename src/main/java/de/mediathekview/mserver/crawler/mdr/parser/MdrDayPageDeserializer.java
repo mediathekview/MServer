@@ -15,7 +15,7 @@ public class MdrDayPageDeserializer {
 
   private final String baseUrl;
 
-  MdrDayPageDeserializer(final String aBaseUrl) {
+  public MdrDayPageDeserializer(final String aBaseUrl) {
     baseUrl = aBaseUrl;
   }
 

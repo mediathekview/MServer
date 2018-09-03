@@ -29,6 +29,7 @@ public class MdrFilmXmlHandlerTest {
   private String expectedDescription;
   private LocalDateTime expectedTime;
   private Duration expectedDuration;
+  private String expectedWebsite;
   private String expectedUrlSmall;
   private String expectedUrlNormal;
   private String expectedUrlHd;
@@ -45,6 +46,7 @@ public class MdrFilmXmlHandlerTest {
                 "Als Paula Zipfel und Olga Knopf wurde sie berühmt: Marianne Kiefer. In vielen Lustspielen war die nur 1,54 große Künstlerin die Partnerin von Publikumslieblingen wie Herbert Köfer, Heinz Rennhack oder Ingeborg Krabbe.",
                 LocalDateTime.of(2018, 9, 2, 20, 15, 0),
                 Duration.ofHours(1).plusMinutes(29).plusSeconds(29),
+                "https://www.mdr.de/mediathek/fernsehen/video-226902_zc-7748e51b_zs-1638fa4e.html",
                 "https://odmdr-a.akamaihd.net/mp4dyn2/1/FCMS-1d15c65d-aca1-4c75-88a6-fd6589ad3741-9a4bb04739be_1d.mp4",
                 "https://odmdr-a.akamaihd.net/mp4dyn2/1/FCMS-1d15c65d-aca1-4c75-88a6-fd6589ad3741-730aae549c28_1d.mp4",
                 "https://odmdr-a.akamaihd.net/mp4dyn2/1/FCMS-1d15c65d-aca1-4c75-88a6-fd6589ad3741-be7c2950aac6_1d.mp4",
@@ -57,6 +59,7 @@ public class MdrFilmXmlHandlerTest {
                 "Tierarzt Dr. Bramme wird an einem Baum tot aufgefunden. Er wurde beim Wasserlassen am Straßenrand kaltblütig erschossen. Die Kripo Harz beginnt zu ermitteln, allen voran Sekretärin Klara Degen. (nur in D abrufbar)",
                 LocalDateTime.of(2018,9,1,10,5,0),
                 Duration.ofMinutes(48).plusSeconds(4),
+                "https://www.mdr.de/mediathek/fernsehen/a-z/video-225808_zc-ca8ec3f4_zs-73445a6d.html",
                 "https://odgeomdr-a.akamaihd.net/mp4dyn2/2/FCMS-2873f3b3-e466-4a0c-999d-f9d1283d5481-9a4bb04739be_28.mp4",
                 "https://odgeomdr-a.akamaihd.net/mp4dyn2/2/FCMS-2873f3b3-e466-4a0c-999d-f9d1283d5481-730aae549c28_28.mp4",
                 "https://odgeomdr-a.akamaihd.net/mp4dyn2/2/FCMS-2873f3b3-e466-4a0c-999d-f9d1283d5481-be7c2950aac6_28.mp4",
@@ -67,7 +70,8 @@ public class MdrFilmXmlHandlerTest {
 
   public MdrFilmXmlHandlerTest(final String aXmlFile, final String aExpectedTopic, final String aExpectedTitle,
       final String aExpectedDescription,
-      final LocalDateTime aExpectedTime, final Duration aExpectedDuration, final String aExpectedUrlSmall, final String aExpectedUrlNormal,
+      final LocalDateTime aExpectedTime, final Duration aExpectedDuration, final String aExpectedWebsite,
+      final String aExpectedUrlSmall, final String aExpectedUrlNormal,
       final String aExpectedUrlHd, final String aExpectedSubtitle) {
 
     xmlFile = aXmlFile;
@@ -76,6 +80,7 @@ public class MdrFilmXmlHandlerTest {
     expectedDescription = aExpectedDescription;
     expectedTime = aExpectedTime;
     expectedDuration = aExpectedDuration;
+    expectedWebsite = aExpectedWebsite;
     expectedUrlSmall = aExpectedUrlSmall;
     expectedUrlNormal = aExpectedUrlNormal;
     expectedUrlHd = aExpectedUrlHd;
@@ -96,6 +101,7 @@ public class MdrFilmXmlHandlerTest {
     assertThat(handler.getDescription(), equalTo(expectedDescription));
     assertThat(handler.getTime(), equalTo(expectedTime));
     assertThat(handler.getDuration(), equalTo(expectedDuration));
+    assertThat(handler.getWebsite(), equalTo(expectedWebsite));
     assertThat(handler.getVideoUrl(Resolution.SMALL), equalTo(expectedUrlSmall));
     assertThat(handler.getVideoUrl(Resolution.NORMAL), equalTo(expectedUrlNormal));
     assertThat(handler.getVideoUrl(Resolution.HD), equalTo(expectedUrlHd));
