@@ -6,5 +6,6 @@ public final class MdrConstants {
    */
   public static final String URL_BASE = "https://www.mdr.de";
 
+  public static final String URL_DAY_PAGE = "https://www.mdr.de/mediathek/fernsehen/index.html";
 
 }
