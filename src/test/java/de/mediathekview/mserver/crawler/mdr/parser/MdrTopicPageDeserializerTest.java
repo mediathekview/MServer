@@ -10,8 +10,6 @@ import de.mediathekview.mserver.testhelper.FileReader;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Optional;
-import java.util.Set;
-import mServer.crawler.Crawler;
 import org.hamcrest.Matchers;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -65,7 +63,8 @@ public class MdrTopicPageDeserializerTest {
   private CrawlerUrlDTO[] expectedUrls;
   private Optional<CrawlerUrlDTO> expectedNextPage;
 
-  public MdrTopicPageDeserializerTest(final String aHtmlFile, final CrawlerUrlDTO[] aExpectedUrls, final Optional<CrawlerUrlDTO> aExpectedNextPage) {
+  public MdrTopicPageDeserializerTest(final String aHtmlFile, final CrawlerUrlDTO[] aExpectedUrls,
+      final Optional<CrawlerUrlDTO> aExpectedNextPage) {
 
     htmlFile = aHtmlFile;
     expectedUrls = aExpectedUrls;

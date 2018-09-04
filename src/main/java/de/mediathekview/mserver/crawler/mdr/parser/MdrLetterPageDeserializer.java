@@ -23,7 +23,7 @@ public class MdrLetterPageDeserializer {
     Set<CrawlerUrlDTO> letterPages = new HashSet<>();
 
     Elements dayLinks = aDocument.select(TOPIC_URL_SELECTOR);
-    for (Element dayLink: dayLinks) {
+    for (Element dayLink : dayLinks) {
       String link = dayLink.attr(ATTRIBUTE_HREF);
       letterPages.add(new CrawlerUrlDTO(baseUrl + link));
     }

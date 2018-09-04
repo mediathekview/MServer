@@ -39,15 +39,15 @@ public class MdrFilmPageDeserializerTest {
                 }
             },
             {
-              "/mdr/mdr_film_with_ad.html",
-                new CrawlerUrlDTO[] {
+                "/mdr/mdr_film_with_ad.html",
+                new CrawlerUrlDTO[]{
                     new CrawlerUrlDTO(MdrConstants.URL_BASE + "/mediathek/fernsehen/video-224746-avCustom.xml"),
                     new CrawlerUrlDTO(MdrConstants.URL_BASE + "/mediathek/fernsehen/video-224960-avCustom.xml")
                 }
             },
             {
                 "/mdr/mdr_film_with_sorbisch.html",
-                new CrawlerUrlDTO[] {
+                new CrawlerUrlDTO[]{
                     new CrawlerUrlDTO(MdrConstants.URL_BASE + "/mediathek/fernsehen/a-z/video-227164-avCustom.xml"),
                     new CrawlerUrlDTO(MdrConstants.URL_BASE + "/mediathek/fernsehen/a-z/video-223854-avCustom.xml")
                 }

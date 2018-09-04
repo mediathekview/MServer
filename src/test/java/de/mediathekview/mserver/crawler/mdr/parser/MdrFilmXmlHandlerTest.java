@@ -57,7 +57,7 @@ public class MdrFilmXmlHandlerTest {
                 "Alles Klara",
                 "Alles Klara (45, mit Audiodeskription)",
                 "Tierarzt Dr. Bramme wird an einem Baum tot aufgefunden. Er wurde beim Wasserlassen am Straßenrand kaltblütig erschossen. Die Kripo Harz beginnt zu ermitteln, allen voran Sekretärin Klara Degen. (nur in D abrufbar)",
-                LocalDateTime.of(2018,9,1,10,5,0),
+                LocalDateTime.of(2018, 9, 1, 10, 5, 0),
                 Duration.ofMinutes(48).plusSeconds(4),
                 "https://www.mdr.de/mediathek/fernsehen/a-z/video-225808_zc-ca8ec3f4_zs-73445a6d.html",
                 "https://odgeomdr-a.akamaihd.net/mp4dyn2/2/FCMS-2873f3b3-e466-4a0c-999d-f9d1283d5481-9a4bb04739be_28.mp4",

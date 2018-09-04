@@ -51,7 +51,7 @@ public class MdrFilmTask extends AbstractDocumentTask<Film, CrawlerUrlDTO> {
       try {
         Optional<MdrFilmXmlHandler> mdrFilmXmlHandler = loadFilmXml(filmEntry);
         if (mdrFilmXmlHandler.isPresent()) {
-          Film film = createFilm(mdrFilmXmlHandler.get(), filmEntry);
+          Film film = createFilm(mdrFilmXmlHandler.get());
           taskResults.add(film);
           crawler.incrementAndGetActualCount();
           crawler.updateProgress();
@@ -91,7 +91,7 @@ public class MdrFilmTask extends AbstractDocumentTask<Film, CrawlerUrlDTO> {
     return Optional.empty();
   }
 
-  private Film createFilm(final MdrFilmXmlHandler aFilmXmlHandler, final CrawlerUrlDTO aWebsiteUrl) throws MalformedURLException {
+  private Film createFilm(final MdrFilmXmlHandler aFilmXmlHandler) throws MalformedURLException {
     final Film film = new Film(UUID.randomUUID(), Sender.MDR, aFilmXmlHandler.getTitle(),
         aFilmXmlHandler.getTopic(), aFilmXmlHandler.getTime(), aFilmXmlHandler.getDuration());
 

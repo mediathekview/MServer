@@ -120,6 +120,7 @@ public class MdrFilmTaskTest extends WireMockTestBase {
   }
 
   protected MServerConfigManager rootConfig = MServerConfigManager.getInstance("MServer-JUnit-Config.yaml");
+
   private AbstractCrawler createCrawler() {
     ForkJoinPool forkJoinPool = new ForkJoinPool();
     Collection<MessageListener> nachrichten = new ArrayList<>();

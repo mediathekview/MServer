@@ -23,7 +23,7 @@ public class MdrDayPageDeserializer {
     Set<CrawlerUrlDTO> filmPages = new HashSet<>();
 
     Elements dayLinks = aDocument.select(FILM_URL_SELECTOR);
-    for (Element dayLink: dayLinks) {
+    for (Element dayLink : dayLinks) {
       String link = dayLink.attr(ATTRIBUTE_HREF);
       filmPages.add(new CrawlerUrlDTO(baseUrl + link));
     }

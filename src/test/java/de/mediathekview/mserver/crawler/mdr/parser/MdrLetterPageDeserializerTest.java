@@ -17,6 +17,7 @@ import org.junit.runners.Parameterized;
 
 @RunWith(Parameterized.class)
 public class MdrLetterPageDeserializerTest {
+
   @Parameterized.Parameters
   public static Collection<Object[]> data() {
     return Arrays.asList(
