@@ -9,6 +9,7 @@
 package de.mediathekview.mserver.crawler.br.tasks;
 
 import java.net.URL;
+import java.util.Optional;
 import java.util.Set;
 import java.util.concurrent.Callable;
 import org.apache.logging.log4j.LogManager;
@@ -26,65 +27,69 @@ import de.mediathekview.mserver.crawler.br.json.BrIdsDTO;
 
 public class BrGetClipIDsTask implements Callable<Set<BrID>> {
 
-  private static final Logger LOG = LogManager.getLogger(BrGetClipIDsTask.class);
-  private static final int DEFAULT_NUMBER_IDS_PER_REQUEST = 10000;
-  private static final int DEFAULT_MIN_RESULT_SIZE = 0;
-  
-  private final AbstractCrawler crawler;
-  private BrClipCollectIDResult idCollectResult;
-  
-  public BrGetClipIDsTask(final AbstractCrawler crawler) {
-    this.crawler = crawler;
-    
-  }
-  
-  @Override
-  public Set<BrID> call() throws Exception {
-    
-    idCollectResult = new BrClipCollectIDResult();
-    idCollectResult.setClipList(new BrIdsDTO());
-    
-    BrWebAccessHelper.handleWebAccessExecution(LOG, crawler, () -> {
+	private static final Logger LOG = LogManager.getLogger(BrGetClipIDsTask.class);
+	private static final int DEFAULT_NUMBER_IDS_PER_REQUEST = 10000;
 
-      URL crawlerURLFromConfig = crawler.getRuntimeConfig().getSingleCrawlerURL(CrawlerUrlType.BR_API_URL);
-      
-      final Gson gson = new GsonBuilder()
-          .registerTypeAdapter(BrClipCollectIDResult.class, new BrClipIdsDeserializer(crawler, idCollectResult)).create();
+	private final AbstractCrawler crawler;
+	private BrClipCollectIDResult idCollectResult;
 
-      int startingRequestSize = DEFAULT_NUMBER_IDS_PER_REQUEST;
-      
-      do {
-        
-        do {
-          
-          final String response = WebAccessHelper.getJsonResultFromPostAccess(crawlerURLFromConfig, BrGraphQLQueries.getQuery2GetAllClipIds(startingRequestSize, idCollectResult.getCursor()));
-    
-          idCollectResult = gson.fromJson(response, BrClipCollectIDResult.class);        
-  
-          LOG.debug("Zwischenstand: " + idCollectResult.getClipList().getIds().size() + " Cursor: " + idCollectResult.getCursor());
-          
-          if(idCollectResult.getClipList().getIds().size() >= idCollectResult.getResultSize()) {
-            break;
-          }
-          
-        } while (idCollectResult.hasNextPage());
-      
-        idCollectResult.setCursor(null);
-        
-        startingRequestSize = startingRequestSize * 4 / 5;  // 80%
-        
-        LOG.debug("Anzahl Elemente gemeldet:" + idCollectResult.getResultSize());
-        
-      } while (idCollectResult.getClipList().getIds().size() < idCollectResult.getResultSize());
-      
-    });
-    
-    Set<BrID> result = idCollectResult.getClipList().getIds();
-    
-    LOG.debug("Elemente gefunden: " + result.size());
-    
-    return result;
-    
-  }
+	public BrGetClipIDsTask(final AbstractCrawler crawler) {
+		this.crawler = crawler;
+
+	}
+
+	@Override
+	public Set<BrID> call() throws Exception {
+
+		idCollectResult = new BrClipCollectIDResult();
+		idCollectResult.setClipList(new BrIdsDTO());
+
+		BrWebAccessHelper.handleWebAccessExecution(LOG, crawler, () -> {
+
+			final Gson gson = new GsonBuilder().registerTypeAdapter(BrClipCollectIDResult.class,
+					new BrClipIdsDeserializer(crawler, idCollectResult)).create();
+
+			int startingRequestSize = DEFAULT_NUMBER_IDS_PER_REQUEST;
+
+			do {
+				Optional<URL> apiUrl = crawler.getRuntimeConfig().getSingleCrawlerURL(CrawlerUrlType.BR_API_URL);
+				if (apiUrl.isPresent()) {
+					do {
+
+						final String response = WebAccessHelper.getJsonResultFromPostAccess(apiUrl.get(),
+								BrGraphQLQueries.getQuery2GetAllClipIds(startingRequestSize,
+										idCollectResult.getCursor()));
+
+						idCollectResult = gson.fromJson(response, BrClipCollectIDResult.class);
+
+						LOG.debug("Zwischenstand: " + idCollectResult.getClipList().getIds().size() + " Cursor: "
+								+ idCollectResult.getCursor());
+
+						if (idCollectResult.getClipList().getIds().size() >= idCollectResult.getResultSize()) {
+							break;
+						}
+
+					} while (idCollectResult.hasNextPage());
+				} else {
+					crawler.printErrorMessage();
+					LOG.error("The BR Api URL wasn't set right.");
+				}
+				idCollectResult.setCursor(null);
+
+				startingRequestSize = startingRequestSize * 4 / 5; // 80%
+
+				LOG.debug("Anzahl Elemente gemeldet:" + idCollectResult.getResultSize());
+
+			} while (idCollectResult.getClipList().getIds().size() < idCollectResult.getResultSize());
+
+		});
+
+		Set<BrID> result = idCollectResult.getClipList().getIds();
+
+		LOG.debug("Elemente gefunden: " + result.size());
+
+		return result;
+
+	}
 
 }

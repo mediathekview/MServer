@@ -15,7 +15,5 @@ import com.google.gson.JsonSyntaxException;
 
 @FunctionalInterface
 public interface BrWebAccessExecution {
-    void run() throws JsonSyntaxException,
-                      IllegalArgumentException,
-                      MalformedURLException;
+    void run() throws MalformedURLException;
 }

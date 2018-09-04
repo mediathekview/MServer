@@ -123,7 +123,6 @@ public class BrFilmDeserializer implements JsonDeserializer<Optional<Film>> {
 
   private boolean addUrls(final Optional<Film> aNewFilm, final JsonObject viewer) {
     final Set<BrUrlDTO> urls = edgesToUrls(viewer);
-    boolean hasURLs = false;
     if (aNewFilm.isPresent() && !urls.isEmpty()) {
       // Sorts the urls by width descending
       final List<BrUrlDTO> bestUrls =
@@ -138,7 +137,6 @@ public class BrFilmDeserializer implements JsonDeserializer<Optional<Film>> {
           if (!aNewFilm.get().getUrls().containsKey(resolution)) {
             aNewFilm.get().addUrl(resolution,
                 CrawlerTool.uriToFilmUrl(new URL(bestUrls.get(id).getUrl())));
-            hasURLs = true;
           }
         } catch (final MalformedURLException malformedURLException) {
           LOG.fatal(ERROR_VIDEO_URL, malformedURLException);
@@ -147,7 +145,7 @@ public class BrFilmDeserializer implements JsonDeserializer<Optional<Film>> {
         }
       }
     }
-    return hasURLs;
+    return aNewFilm.isPresent() && !aNewFilm.get().getUrls().isEmpty();
 
   }
 
