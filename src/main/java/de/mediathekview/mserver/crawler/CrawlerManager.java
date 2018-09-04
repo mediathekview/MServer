@@ -56,6 +56,7 @@ import de.mediathekview.mserver.crawler.dw.DwCrawler;
 import de.mediathekview.mserver.crawler.funk.FunkCrawler;
 import de.mediathekview.mserver.crawler.hr.HrCrawler;
 import de.mediathekview.mserver.crawler.kika.KikaCrawler;
+import de.mediathekview.mserver.crawler.mdr.MdrCrawler;
 import de.mediathekview.mserver.crawler.ndr.NdrCrawler;
 import de.mediathekview.mserver.crawler.orf.OrfCrawler;
 import de.mediathekview.mserver.crawler.phoenix.PhoenixCrawler;
@@ -75,6 +76,7 @@ import de.mediathekview.mserver.crawler.zdf.ZdfCrawler;
  * A manager to control the crawler.
  */
 public class CrawlerManager extends AbstractManager {
+
 	private static final String HOME_PATTERN = "^~";
 	private static final String USER_HOME_PATH = System.getProperty("user.home");
 	private static final String FILMLIST_IMPORT_ERROR_TEMPLATE = "Something went terrible wrong on importing the film list with the following location: \"%s\"";
@@ -544,6 +546,7 @@ public class CrawlerManager extends AbstractManager {
 		crawlerMap.put(Sender.HR, new HrCrawler(forkJoinPool, messageListeners, progressListeners, rootConfig));
 		crawlerMap.put(Sender.KIKA, new KikaCrawler(forkJoinPool, messageListeners, progressListeners, rootConfig));
 		crawlerMap.put(Sender.DW, new DwCrawler(forkJoinPool, messageListeners, progressListeners, rootConfig));
+    crawlerMap.put(Sender.MDR, new MdrCrawler(forkJoinPool, messageListeners, progressListeners, rootConfig));
 		crawlerMap.put(Sender.NDR, new NdrCrawler(forkJoinPool, messageListeners, progressListeners, rootConfig));
 		crawlerMap.put(Sender.ORF, new OrfCrawler(forkJoinPool, messageListeners, progressListeners, rootConfig));
 		crawlerMap.put(Sender.PHOENIX,

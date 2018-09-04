@@ -318,7 +318,8 @@ public class CrawlerTool {
             "cdn-sotschi.br.de/geo/b7", "pd-ondemand.swr.de/geo/de", "ondemandgeo.mdr.de",
             "ondemand-de.wdr.de", "wdr_fs_geo-lh.akamaihd.net", "adaptiv.wdr.de/i/medp/de",
             "pd-videos.daserste.de/de", "wdradaptiv-vh.akamaihd.net/i/medp/ondemand/de",
-            "wdrmedien-a.akamaihd.net/medp/ondemand/de"));
+            "wdrmedien-a.akamaihd.net/medp/ondemand/de",
+            "odgeomdr-a.akamaihd.net"));
     geoUrls.put(GeoLocations.GEO_DE_AT_CH,
         Arrays.asList("ondemand-dach.wdr.de", "wdradaptiv-vh.akamaihd.net/i/medp/ondemand/dach",
             "wdrmedien-a.akamaihd.net/medp/ondemand/dach", "adaptiv.wdr.de/i/medp/dach"));
