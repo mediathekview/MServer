@@ -152,6 +152,7 @@ public class MediathekZdf extends MediathekReader {
               title, download.getUrl(language, Qualities.NORMAL), "" /*urlRtmp*/,
               video.getDate(), video.getTime(), video.getDuration(), video.getDescription());
       urlTauschen(film, video.getWebsiteUrl(), mlibFilmeSuchen);
+      film.setFileSize();
 
       //don´t use addFilm here
       if (mlibFilmeSuchen.listeFilmeNeu.addFilmVomSender(film)) {
@@ -202,11 +203,11 @@ public class MediathekZdf extends MediathekReader {
     updateHd("1496k_p13v13.mp4", "3328k_p36v13.mp4", film, urlSeite);
     updateHd("2296k_p14v13.mp4", "3328k_p36v13.mp4", film, urlSeite);
     updateHd("2328k_p35v13.mp4", "3328k_p36v13.mp4", film, urlSeite);
-    
+
     updateHd("1496k_p13v14.mp4", "3328k_p36v14.mp4", film, urlSeite);
     updateHd("2296k_p14v14.mp4", "3328k_p36v14.mp4", film, urlSeite);
     updateHd("2328k_p35v14.mp4", "3328k_p36v14.mp4", film, urlSeite);
-    
+
     updateHd("1496k_p13v14.mp4", "3328k_p35v14.mp4", film, urlSeite);
     updateHd("2296k_p14v14.mp4", "3328k_p35v14.mp4", film, urlSeite);
     updateHd("2328k_p35v14.mp4", "3328k_p35v14.mp4", film, urlSeite);
