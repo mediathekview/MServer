@@ -9,11 +9,12 @@ import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
 import de.mediathekview.mserver.crawler.basic.CrawlerUrlDTO;
 import de.mediathekview.mserver.crawler.swr.tasks.SwrDayPageTask;
 import de.mediathekview.mserver.crawler.swr.tasks.SwrFilmTask;
+import de.mediathekview.mserver.crawler.swr.tasks.SwrTopicTask;
+import de.mediathekview.mserver.crawler.swr.tasks.SwrTopicsOverviewTask;
 import de.mediathekview.mserver.progress.listeners.SenderProgressListener;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Collection;
-import java.util.HashSet;
 import java.util.Set;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.ExecutionException;
@@ -44,9 +45,9 @@ public class SwrCrawler extends AbstractCrawler {
   protected RecursiveTask<Set<Film>> createCrawlerTask() {
     ConcurrentLinkedQueue<CrawlerUrlDTO> shows = new ConcurrentLinkedQueue<>();
     try {
-/*      shows.addAll(getTopicEntries());
+      shows.addAll(getTopicEntries());
       printMessage(ServerMessages.DEBUG_ALL_SENDUNG_FOLGEN_COUNT, getSender().getName(), shows.size());
-*/
+
       getDaysEntries().forEach(show -> {
         if (!shows.contains(show)) {
           shows.add(show);
@@ -58,29 +59,23 @@ public class SwrCrawler extends AbstractCrawler {
 
       return new SwrFilmTask(this, shows, SwrConstants.URL_BASE);
     } catch (ExecutionException | InterruptedException ex) {
-      LOG.fatal("Exception in MDR crawler.", ex);
+      LOG.fatal("Exception in SWR crawler.", ex);
     }
     return null;
   }
 
   private Set<CrawlerUrlDTO> getTopicEntries() throws ExecutionException, InterruptedException {
-    /*final ConcurrentLinkedQueue<CrawlerUrlDTO> letterUrl = new ConcurrentLinkedQueue<>();
-    letterUrl.add(new CrawlerUrlDTO(SwrConstants.URL_LETTER_PAGE));
+    final ConcurrentLinkedQueue<CrawlerUrlDTO> topicsUrl = new ConcurrentLinkedQueue<>();
+    topicsUrl.add(new CrawlerUrlDTO(SwrConstants.URL_TOPICS));
 
-    SwrLetterPageUrlTask letterUrlTask = new SwrLetterPageUrlTask(this, letterUrl);
+    SwrTopicsOverviewTask topicsTask = new SwrTopicsOverviewTask(this, topicsUrl);
 
-    final ConcurrentLinkedQueue<CrawlerUrlDTO> letterPageUrls = new ConcurrentLinkedQueue<>();
-    letterPageUrls.addAll(forkJoinPool.submit(letterUrlTask).get());
+    final ConcurrentLinkedQueue<CrawlerUrlDTO> topicUrl = new ConcurrentLinkedQueue<>();
+    topicUrl.addAll(forkJoinPool.submit(topicsTask).get());
 
-    SwrLetterPageTask letterTask = new SwrLetterPageTask(this, letterPageUrls);
+    SwrTopicTask topicTask = new SwrTopicTask(this, topicUrl);
 
-    final ConcurrentLinkedQueue<CrawlerUrlDTO> topicUrls = new ConcurrentLinkedQueue<>();
-    topicUrls.addAll(forkJoinPool.submit(letterTask).get());
-
-    SwrTopicPageTask topicTask = new SwrTopicPageTask(this, topicUrls);
-
-    return forkJoinPool.submit(topicTask).get();*/
-    return null;
+    return forkJoinPool.submit(topicTask).get();
   }
 
   private Set<CrawlerUrlDTO> getDaysEntries() throws ExecutionException, InterruptedException {
