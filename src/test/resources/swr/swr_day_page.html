@@ -1,0 +1,2047 @@
+<!DOCTYPE html>
+<html lang="de">
+    <head>
+        <title>Sendung verpasst? - SWR Mediathek</title>
+
+		<meta content="width=device-width,initial-scale=1.0" name="viewport">
+		<link rel="icon" type="image/png" href="/assets/favicons/Mediathek_16.png?v=2" sizes="16x16">
+		<link rel="icon" type="image/png" href="/assets/favicons/Mediathek_32.png?v=2" sizes="32x32">
+		<link rel="icon" type="image/png" href="/assets/favicons/Mediathek_96.png?v=2" sizes="96x96">
+		<link rel="icon" type="image/png" href="/assets/favicons/Mediathek_160.png?v=2" sizes="160x160">
+		<link rel="icon" type="image/png" href="/assets/favicons/Mediathek_196.png?v=2" sizes="196x196">
+
+		<link rel="apple-touch-icon" href="/assets/favicons/Mediathek_64.png?v=2">
+		<link rel="apple-touch-icon" href="/assets/favicons/Mediathek_57.png?v=2" sizes="57x57">
+		<link rel="apple-touch-icon" href="/assets/favicons/Mediathek_72.png?v=2" sizes="72x72">
+		<link rel="apple-touch-icon" href="/assets/favicons/Mediathek_144.png?v=2" sizes="144x144">
+		<link rel="apple-touch-icon" href="/assets/favicons/Mediathek_196.png?v=2" sizes="196x196">
+
+		<meta name="application-name" content="swrmediathek.de"/>
+		<meta name="msapplication-TileColor" content="#ffffff">
+		<meta name="msapplication-TileImage" content="/assets/favicons/Mediathek_144.png?v=2">
+		<meta name="msapplication-square70x70logo" content="/assets/favicons/Mediathek_70.png?v=2">
+		<meta name="msapplication-square144x144logo" content="/assets/favicons/Mediathek_144.png?v=2">
+		<meta name="msapplication-square150x150logo" content="/assets/favicons/Mediathek_150.png?v=2">
+		<meta name="msapplication-wide310x150logo" content="/assets/favicons/Mediathek_310_150.png?v=2">
+		<meta name="msapplication-square310x310logo" content="/assets/favicons/Mediathek_310.png?v=2">
+
+        <meta name="robots" content="noarchive" />
+
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <meta name="apple-itunes-app" content="app-id=655052131, affiliate-data=, app-argument=https://itunes.apple.com/de/app/swr-mediathek/id655052131?l=de">
+        <meta charset="UTF-8">
+        <link rel="shortcut icon" href="favicon.ico"/>
+        <script type='text/javascript'>var _sf_startpt = (new Date()).getTime()</script>
+		<link rel="stylesheet" media="screen" type="text/css" href="/cssr/static/base.css"/>
+		<link rel="stylesheet" media="screen" type="text/css" href="/cssr/swr-base-container.css"/>
+		<link rel="stylesheet" media="screen" type="text/css" href="/cssr/static/jquery-ui-1.10.4.css"/>
+		<link rel="stylesheet" media="screen" type="text/css" href="/cssr/swrde-base-container.css"/>
+		<link rel="stylesheet" media="screen" type="text/css" href="/cssr/medipatch_all.css"/>
+
+
+
+		<script type="text/javascript" src="/jsr/static/Frameworkes/jQuery/jquery-1.7.2.mini.js"></script>
+		<script type="text/javascript" src="/jsr/jquery-ui-1-10-4.js"></script>
+		<script src="/assets/ardplayer-3.8.6/base/js/libs/jquery.tools-1.2.7.min.js"></script>
+
+		<script type="text/javascript" src="/jsr/static/Frameworkes/jQuery/plugins/waitForImages/jquery.waitforimages.js"></script>
+		<script type="text/javascript" src="/jsr/static/Application.js"></script>
+		<script type="text/javascript" src="/jsr/static/MediaMatcher/MediaMatcher.js"></script>
+		<script type="text/javascript" src="/jsr/static/Frameworkes/iScroll4/iscroll.js"></script>
+		<script type="text/javascript" src="/jsr/static/Controller/BaseController.js"></script>
+		<script type="text/javascript" src="/jsr/static/Controller/AttributeSwapController.js"></script>
+		<script type="text/javascript" src="/jsr/static/Controller/CollapsibleController.js"></script>
+		<script type="text/javascript" src="/jsr/static/Controller/LoadableController.js"></script>
+		<script type="text/javascript" src="/jsr/static/Controller/PixelController.js"></script>
+		<script type="text/javascript" src="/jsr/static/Controller/SlidableController.js"></script>
+		<script type="text/javascript" src="/jsr/static/Controller/SocialMediaController.js"></script>
+		<script type="text/javascript" src="/jsr/static/Controller/SortableController.js"></script>
+		<script type="text/javascript" src="/jsr/static/Controller/TableController.js"></script>
+		<script type="text/javascript" src="/jsr/responsive-design-sammel-javascript.js"></script>
+        <script type="text/javascript" src="//cdn-gl.imrworldwide.com/novms/js/2/ggcmb510.js"></script>
+
+			<script src="/assets/ardplayer_addons/mandanten/swr/base/hls-3f2dce0.min.js"></script>
+			<link rel="stylesheet" href="/assets/ardplayer_addons/mandanten/swr/base/main.min.css" type="text/css"/>
+			<script src="/assets/ardplayer_addons/mandanten/swr/base/player.min.js"></script>
+			<script src="/assets/ardplayer_addons/mandanten/swr/base/addons.min.js"></script>
+
+			<link href="/assets/ardplayer_addons/ebu-tt/css/AddonEbuSubtitle.min.css" rel="stylesheet" type="text/css"/>
+			<link href="/assets/ardplayer_addons/swr_info/css/AddonSwrInfo.min.css" rel="stylesheet" type="text/css"/>
+			<link href="/assets/ardplayer_addons/swr_social/css/AddonSwrSocial.min.css" rel="stylesheet" type="text/css"/>
+			<link href="/assets/ardplayer_addons/swr_related/css/AddonSwrRelated.min.css" rel="stylesheet" type="text/css"/>
+
+		<script type="text/javascript" src="/jsr/swrsearch.js"></script>
+		<script type="text/javascript" src="/jsr/swrcollapsiblecontroller.js"></script>
+		<script type="text/javascript">
+				if (typeof xtPlaylist == 'undefined') {
+					var xtPlaylist = new Array;
+				}
+				var app = new Application(jQuery);
+				(function (jq) {
+					var mediaMatcher = app.mediaMatcher = new MediaMatcher(
+							{
+								'screen and (min-width: 0px) and (max-width: 479px)': {
+									'css': [
+										'/cssr/static/xs.css',
+										'/cssr/swrde-xs-container.css',
+										'/cssr/medipatch_xs.css'
+									],
+									'js': [
+									],
+									'obj': [
+										{
+											onInit: function () {
+											},
+											onMatch: function () {
+												app.dispatchEvent(
+														Application.EVENT_VIEW_UPDATED,
+														"xs");
+											},
+											onUnmatch: function () {
+												app.dispatchEvent(
+														Application.EVENT_VIEW_DIED, "xs");
+											}
+										}
+									]
+								},
+								'screen and (min-width: 480px) and (max-width: 767px)': {
+									'css': [
+										'/cssr/static/s.css',
+										'/cssr/swrde-s-container.css',
+										'/cssr/medipatch_s.css'
+									],
+									'js': [
+									],
+									'obj': [
+										{
+											onInit: function () {
+											},
+											onMatch: function () {
+												app.dispatchEvent(
+														Application.EVENT_VIEW_UPDATED,
+														"s");
+											},
+											onUnmatch: function () {
+												app.dispatchEvent(
+														Application.EVENT_VIEW_DIED, "s");
+											}
+										}
+									]
+								},
+								'screen and (min-width: 768px) and (max-width: 1009px)': {
+									'css': [
+										'/cssr/static/m.css',
+										'/cssr/swrde-m-container.css',
+										'/cssr/medipatch_m.css'
+									],
+									'js': [
+									],
+									'obj': [
+										{
+											onInit: function () {
+											},
+											onMatch: function () {
+												app.dispatchEvent(
+														Application.EVENT_VIEW_UPDATED,
+														"m");
+											},
+											onUnmatch: function () {
+												app.dispatchEvent(
+														Application.EVENT_VIEW_DIED, "m");
+											}
+										}
+									]
+								},
+								'screen and (min-width: 1010px) and (max-width: 1900px)': {
+									'css': [
+										'/cssr/static/l.css',
+										'/cssr/swrde-l-container.css',
+										'/cssr/medipatch_l.css'
+									],
+									'js': [
+									],
+									'obj': [
+										{
+											onInit: function () {
+											},
+											onMatch: function () {
+												app.dispatchEvent(
+														Application.EVENT_VIEW_UPDATED,
+														"l");
+											},
+											onUnmatch: function () {
+												app.dispatchEvent(
+														Application.EVENT_VIEW_DIED, "l");
+											}
+										}
+									]
+								},
+								'screen and (min-width: 1901px)': {
+									'css': [
+										'/cssr/static/xl.css',
+										'/cssr/swrde-xl-container.css',
+										'/cssr/medipatch_xl.css'
+									],
+									'js': [
+									],
+									'obj': [
+										{
+											onInit: function () {
+											},
+											onMatch: function () {
+												app.dispatchEvent(
+														Application.EVENT_VIEW_UPDATED,
+														"xl");
+											},
+											onUnmatch: function () {
+												app.dispatchEvent(
+														Application.EVENT_VIEW_DIED, "xl");
+											}
+										}
+									]
+								},
+							});
+					mediaMatcher.showInfo(false);
+					mediaMatcher.preLoadCss(false);
+					mediaMatcher.dynamicLoadJS(false);
+					mediaMatcher.dynamicLoadCss(true);
+					mediaMatcher.dynamicTriggerObj(true);
+					mediaMatcher.waitBeforeDynamicLoad(25);
+					mediaMatcher.waitForCssIsLoaded(true, 5000);
+					mediaMatcher.tryToSupportNativeMediaQueries(true);
+					mediaMatcher.init();
+					jq(document).ready(function () {
+						if (!app.initialized)
+							app.init();
+					});
+				})(jQuery.noConflict());</script>
+
+		<link rel="stylesheet" href="/cssr/offcanvas.css" type="text/css"/>
+		<link rel="stylesheet" href="/cssr/app-highlight-teaser.css" type="text/css"/> 
+
+		<script type="text/javascript">
+			var $ = jQuery;
+			</script>
+		<script type="text/javascript" src="/swr-player/plugins/atInternet/xtjwrm_20001.js" ></script>       
+		<script type="text/javascript" src="/swr-player/assets/playerUtils.js" ></script>   
+		<script type="text/javascript" src="/js2/utilityFunctions.js" ></script>
+		<script type="text/javascript" src="/js2/mediathek.js"></script>
+		<script type='text/javascript'>
+			
+			var gBaseHost = window.location.protocol + '//' + window.location.host;
+			var gAppName = "";
+			var gPlayer = "default";
+		</script>
+		<!-- http://swrmediathek.de -->
+
+		<link rel="stylesheet" media="screen" type="text/css" href="/cssr/buttonnavi.css"/>
+		<link rel="stylesheet" media="screen" type="text/css" href="/cssr/buttonnavi-medi.css"/>
+
+	</head>
+	<body class="homepage swr_de overview">
+
+		<div id="szm_old"><!-- SZM1.5-Tag --></div>
+<script type="text/javascript">
+	function isStringDetected(value) {
+		var regexp = new RegExp(value, "gi");
+		return (regexp.test(navigator.appVersion)
+			|| regexp.test (navigator.userAgent)) ? true : false;
+	}
+
+	function isTablet() {
+		if (isStringDetected("iPad|Windows NT|Kindle|PlayBook") || (isStringDetected("Android") && !isStringDetected("Mobile"))) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	$(document).ready(function() {
+		window.setTimeout(function() {
+			var ak_stat = "swr";
+			var ak_mobi = "mobswr";
+			var cp_stat = "Seite/stationaer";
+			var cp_mobi = "Seite/mobil";
+		
+			$.ajaxSetup({ cache: true });
+			
+			// var ivwStart = new Date().getMilliseconds(); 
+			
+			$.getScript("https://script.ioam.de/iam.js").done(function() {
+				
+/*				var ivwEnd = new Date().getMilliseconds();
+				$.ajax({
+					url: gAppName + '/microTimer/ivw/'+(ivwEnd-ivwStart),
+					type: "POST",
+					success: function (data) { },
+					error: function (req, textStatus, errorThrown) { }
+				});
+*/
+				var isMobil = typeof orientation != 'undefined' ? true:false;
+				// Tablets zählen stationär
+				if (isTablet()) { isMobil = false; }
+				if (!isMobil) {
+					var iam_data = {
+						"st" : ak_stat,
+						"cp" : cp_stat
+					};
+				} else {
+					var iam_data = {
+						"st" : ak_mobi,
+						"cp" : cp_mobi
+					};
+				}
+				iom.c(iam_data, 1);
+			});
+		}, 1);
+	});
+	
+</script>
+
+
+
+
+<script type="text/javascript">
+		<!--
+    xtnv = document; //parent.document or top.document or document
+		xtsd = "https://logs1241";
+		xtsite = 487212;
+    
+	xtn2 = "55"; // level 2 site ID 
+		xtpage = "Sendung+verpasst%3A%3AAlle+Sender%3A%3A20180912";
+		xtdi = "0"; //implication degree
+    
+	var browserType = detectBrowserType();
+		xt_multc = "&x1=Sendung verpasst?&x2=Übersichts-Seite&x3=Sendung verpasst?&x5=SWR.de&x6=Nein&x7=Desktop-" + browserType + "&x8=SWR Mediathek";
+		xt_an = ""; //user ID
+		xt_ac = ""; //category ID
+		//do not modify below
+		if (window.xtparam != null){window.xtparam += xt_multc + "&ac=" + xt_ac + "&an=" + xt_an; }
+	else{window.xtparam = xt_multc + "&ac=" + xt_ac + "&an=" + xt_an; };
+		//-->
+</script>
+<script type="text/javascript" src="/ati/xtcore.js"></script>
+<noscript>
+<img src="https://logs1241.xiti.com/hit.xiti?s=487212&s2=55&p=Sendung+verpasst%3A%3AAlle+Sender%3A%3A20180912&di=0&an=&ac=" width="1" height="1">
+</noscript>
+<div id="skiplink">
+			<ul><li><a href="index.html#swrsuche">direkt zur Suche</a></li><li><a href="index.html#hauptspalte">direkt zum Inhalt</a></li></ul>
+		</div><!-- Ende skiplink -->
+
+		<div id="naviheader">
+	<div class="section sectionA">
+		<header id="swr-header">
+			<nav class="navbar navbar-default">
+				<div class="container navbar-header">
+					<button class="btn-menu" type="button" data-toggle="megamenu">MENÜ</button>
+					<a class="navbar-brand" href="/index.htm"><span class="alt">SWR Mediathek</span></a>
+				</div>
+				<div class="megamenu">
+
+					<div class="menubox first">
+						<a href="/index.htm" >SWR Mediathek</a>
+
+                        <ul class="container nav navbar-nav">
+							<li>
+														<a href="/content/live.htm" >Live</a>
+													</li>
+												<li>
+														<a href="/sendungverpasst.htm" >Sendung verpasst?</a>
+													</li>
+												<li>
+														<a href="/themalist.htm" >Themen</a>
+													</li>
+												<li>
+														<a href="/tvlist.htm" >Sendungen A-Z</a>
+													</li>
+												</ul>
+					</div>
+
+					<div class="menubox imswr ">
+						<h2>Im SWR</h2>
+						<ul class="container nav navbar-nav">
+							<li>
+								<a href="https://www.swr.de/" >SWR Home</a>
+							</li>
+							<li>
+								<a href="https://www.swr.de/swraktuell/swraktuell-100.html" >SWR Aktuell</a>
+							</li>
+							<li>
+								<a href="https://www.swr.de/swraktuell/baden-wuerttemberg/swraktuell-bw-100.html" >SWR Aktuell Baden-Württemberg</a>
+							</li>
+							<li>
+								<a href="https://www.swr.de/swraktuell/rheinland-pfalz/swraktuell-rp-100.html" >SWR Aktuell Rheinland-Pfalz</a>
+							</li>
+							<li>
+								<a href="https://www.swr.de/sport/-/id=13831144/uo2kw5/index.html" >SWR Sport</a>
+							</li>
+							<li>
+								<a href="https://www.swr.de/wissen/-/id=253126/lqckpe/index.html" >SWR Wissen</a>
+							</li>
+<li>
+								<a href="http://swrmediathek.de" >SWR Mediathek</a>
+							</li>
+							<li>
+								<a href="https://www.swr.de/unternehmen/-/id=3586/mmm7ol/index.html" >Der SWR</a>
+							</li>
+						</ul>
+					</div>
+
+					<div class="menubox tvradio">
+						<h2>Fernsehen und Radio</h2>
+						<ul class="container nav navbar-nav">
+							<li>
+								<a href="https://www.swrfernsehen.de/-/id=2798/5kmvjc/index.html" >SWR Fernsehen</a>
+							</li>
+							<li>
+								<a href="https://www.swr.de/swr1/bw/-/id=233362/18u3ytd/index.html" >SWR1 BW</a>
+							</li>
+							<li>
+								<a href="https://www.swr.de/swr1/rp/-/id=233366/1abvyu0/index.html" >SWR1 RP</a>
+							</li>
+							<li>
+								<a href="https://www.swr.de/swr2/-/id=7576/otnbb1/index.html" >SWR2</a>
+							</li>
+							<li>
+								<a href="http://www.swr3.de" >SWR3</a>
+							</li>
+							<li>
+								<a href="https://www.swr.de/swr4/bw/-/id=233374/mqfgxh/index.html" >SWR4 BW</a>
+							</li>
+							<li>
+								<a href="https://www.swr.de/swr4/rp/-/id=233378/oihljy/index.html" >SWR4 RP</a>
+							</li>
+							<li>
+								<a href="http://www.dasding.de">DASDING</a>
+							</li>
+							<li>
+								<a href="https://www.swr.de/swr-classic/-/id=17055312/1qgyl76/index.html" >SWR Classic</a>
+							</li>
+							<li>
+								<a href="http://www.kindernetz.de" >SWR Kindernetz</a>
+							</li>
+							<li>
+								<a href="https://www.planet-schule.de/" >Planet Schule</a>
+							</li>
+						</ul>
+					</div>
+
+					<div class="container">
+						<button class="btn btn-default btn-close" type="button">Schließen</button>
+					</div>
+				</div>
+
+
+				<div class="container meta-navi">
+					<ul class="nav navbar-nav">
+						<li class="topNaviSearch" id="swrsuche" data-ctrl-easytoggle="{'id':'topnavisearch','type':'naviSearch'}"><a data-ctrl-topnavisearch-trigger="{'noBubble':'true'}" href="https://www.swr.de/-/id=5511484/cf=42/eip237/index.html"><span class="textSearch">Suche im SWR</span></a>
+							<div class="searchBoxTop" role="search" data-ctrl-topnavisearch-body="{}">
+								<form class="searchFormTop" action="/suche.htm" method="get">
+									<span role="status" aria-live="polite" class="ui-helper-hidden-accessible"></span><input class="textinput ui-autocomplete-input" name="econt" id="searchInput" value="Suche" onfocus="document.getElementById('searchInput').value = ''" autocomplete="off" type="text">
+									<input class="submit" name="searchSubmit" id="searchSubmit" value="Absenden" type="submit">
+									<input id="searchScope" value="SWR_Text_only" name="searchScope" type="hidden">
+									<input id="restriction" value="" name="restriction" type="hidden">
+								</form>
+							</div>
+							<script type="text/javascript">
+								// jQuery=$;
+								jQuery(function () {
+									jQuery(".btn-menu").click(function () {
+										jQuery(".megamenu").addClass("open")
+									});
+									jQuery(".btn-close").click(function () {
+										jQuery(".megamenu").removeClass("open")
+									})
+								})
+										;
+								</script>
+						</li>
+
+						<li class="wetter"><a href="https://www.swr.de/wetter/-/id=5491998/cf=42/1ufy43o/index.html">Wetter</a></li>
+						<li class="verkehr"><a href="https://www.swr.de/verkehr/-/id=4201888/fstq1s/index.html">Verkehr</a></li>
+					</ul>
+				</div>
+
+			</nav>
+		</header>
+	</div>
+</div>
+<div data-ctrl-layoutable="{'id':'sectionlayout','action':{'xs':['disable'],'s':['disable'],'default':['equalHeight']},'refreshOnAdded':'true'}">
+			<div id="navigation">
+				<div class="wrapper">
+					<div class="innerWrapper">
+						<div class="section sectionA">
+							<ol class="breadcrumb">
+								<li>
+									<a href="https://www.swr.de/-/id=116/1p6o6z0/index.html">SWR</a>
+								</li>
+								<li>
+									<a href="/index.htm">SWR Mediathek</a>
+								</li>
+							</ol>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div style="clear:both;height:10px;"></div>
+			<div id="content" class="home">
+				<div data-ctrl-layoutable="{'id':'sectionlayout','action':{'xs':['disable'],'s':['disable'],'default':['equalHeight']},'refreshOnAdded':'true'}">
+					<div class="wrapper">
+	<div class="innerWrapper">
+        <div class="section sectionA">
+            <div class="con mAZhead">
+                <div class="modCon modConGlossar">
+                    <div class="mod modA modGlossar shortNews">
+                        <div class="controls paging">
+                            <div class="buttons mediSvpEntry"></div>
+                            <div class="labels mediSvpEntry">
+								<div class="entries mediEntryBox">
+									<div class="entry active mediEntryChannel">
+										<a href="sendungverpasst.htm?show=&date=20180912">Alle Sender</a>
+									</div>
+									<div class="entry  mediEntryChannel">
+										<a href="sendungverpasst.htm?show=990030&date=20180912">SWR Fernsehen</a>
+									</div>
+									<div class="entry  mediEntryChannel">
+										<a  href="sendungverpasst.htm?show=281060&date=20180912">SWR im Ersten</a>
+									</div>
+									<div class="entry  mediEntryChannel">
+										<a href="sendungverpasst.htm?show=webonly&date=20180912">Web Only</a>
+									</div>
+									<div class="clearing"></div>
+								</div>
+							</div>
+							<div class="progChannel mediEntryPulldown">
+								<ul class="progChannelList" style="z-index:11;" tabindex="-1">
+									<li class=active>
+										<a href="sendungverpasst.htm?show=&date=20180912">Alle Sender</a>
+									</li>
+									<li>
+										<a href="sendungverpasst.htm?show=990030&date=20180912">SWR Fernsehen</a>
+									</li>
+									<li>
+										<a  href="sendungverpasst.htm?show=281060&date=20180912">SWR im Ersten</a>
+									</li>
+									<li>
+										<a href="sendungverpasst.htm?show=webonly&date=20180912">Web Only</a>
+									</li>
+								</ul>
+							</div>
+
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="wrapper hasTitle">
+		<div class="innerWrapper">
+			<div class="mediWidth100">
+			<h2 class="rasterHeadline mediSvpRasterHeadline">Sendung verpasst?</h2>
+			<div class="progChannel mediSvpDayPulldown">
+				<ul class="progChannelList" tabindex="-1">
+					<li>
+							<a href="sendungverpasst.htm?show=&date=20180905">Mittwoch, 5.9.2018</a>
+						</li>
+					<li>
+							<a href="sendungverpasst.htm?show=&date=20180906">Donnerstag, 6.9.2018</a>
+						</li>
+					<li>
+							<a href="sendungverpasst.htm?show=&date=20180907">Freitag, 7.9.2018</a>
+						</li>
+					<li>
+							<a href="sendungverpasst.htm?show=&date=20180908">Samstag, 8.9.2018</a>
+						</li>
+					<li>
+							<a href="sendungverpasst.htm?show=&date=20180909">Sonntag, 9.9.2018</a>
+						</li>
+					<li>
+							<a href="sendungverpasst.htm?show=&date=20180910">Montag, 10.9.2018</a>
+						</li>
+					<li>
+							<a href="sendungverpasst.htm?show=&date=20180911">Dienstag, 11.9.2018</a>
+						</li>
+					<li class=active>
+							<a href="sendungverpasst.htm?show=&date=20180912">Heute, 12.9.2018</a>
+						</li>
+					</ul>
+			</div>
+		</div>
+
+		<div class="section sectionA" style=" margin-top: 16px;">
+			<div class="con mAZhead">
+				<div class="modCon modConGlossar"">
+					<div class="mod modA modGlossar shortNews">
+						<div data-ctrl-loadid5_0A-target="{'context': 'modConGlossar'}">
+							<div class="boxCon" data-ctrl-collapsible="{'id':'collapsible-id5_0B','action':{'init':['closeEntries']},'refreshOnAdded':'true'}" aria-live="polite">
+								<div class="box mediBoxBorder" data-ctrl-collapsible-id5_0B-entry="{'id':'1'}">
+										<div class="mediFloatL mediWidth100">
+											<h3 style="position: relative; cursor: pointer; border: 0;" class="headline hasArrow collapsed mediPosRel"
+												data-ctrl-collapsible-id5_0B-1-trigger="{'action':{'default':['toggleBody']}}">
+												<span class="mediTimeCol">7.00</span><span class="mediSvpHead">Big Cities</span>
+												<div style="position: absolute; right: 0px; top: 0px;" class="collapseArrow"></div></h3>
+										</div>
+										<div class="mediSvgRow" data-ctrl-collapsible-id5_0B-1-body="{}" data-ctrl-pix-trigger="{}">
+											<div class="mediaCon" style="padding-right: 16px;">
+													<div class="media mediaA">
+														<a href="/player.htm?show=e5ed7f00-b28d-11e8-893a-005056a10824">
+															<img style="height: 144px;" src="/img/0/7/9/0793e660b2cfe6c8c1ae9e7020b5e06c"
+																 alt="Shenzhen: Der dichtende Kranführer"
+																 title="Shenzhen: Der dichtende Kranführer"
+																 />
+														</a>
+													</div>
+												</div>
+												<div class="teaserTextCon mediPadBot0">
+													<h4 class="headline" style="margin-right: 48px; padding: 0 8px 0 56px;">
+														<a href="/player.htm?show=e5ed7f00-b28d-11e8-893a-005056a10824">Shenzhen: Der dichtende Kranführer (15:00)</a>
+														</h4>
+														<div class="teasertext" style="margin-right: 48px">
+															<a href="/player.htm?show=e5ed7f00-b28d-11e8-893a-005056a10824">
+															Als China Ende der 1970er Jahre eine Politik der Reformen einleitete und  ...</a>
+														<div>
+															<a href="/player.htm?show=e5ed7f00-b28d-11e8-893a-005056a10824" title="direkt zum Video"><img class="mediFloatL" src="/assets/responsiv/iconVideoTransparenz.png" alt="direkt zum Video" /></a>
+																</div>
+													</div>
+
+												</div>
+												<div class="mediSvgLine mediSvgLineLast"></div>
+											<div class="mediaCon" style="padding-right: 16px;">
+													<div class="media mediaA">
+														<a href="/player.htm?show=e5efa1e0-b28d-11e8-893a-005056a10824">
+															<img style="height: 144px;" src="/img/f/e/8/fe8a7e4b1ae16addc7322e967a9d9234"
+																 alt="Teheran: Das Schokoladentaxi"
+																 title="Teheran: Das Schokoladentaxi"
+																 />
+														</a>
+													</div>
+												</div>
+												<div class="teaserTextCon mediPadBot0">
+													<h4 class="headline" style="margin-right: 48px; padding: 0 8px 0 56px;">
+														<a href="/player.htm?show=e5efa1e0-b28d-11e8-893a-005056a10824">Teheran: Das Schokoladentaxi (15:00)</a>
+														</h4>
+														<div class="teasertext" style="margin-right: 48px">
+															<a href="/player.htm?show=e5efa1e0-b28d-11e8-893a-005056a10824">
+															Der Taxifahrer Mojtaba Chegini hat sich etwas Besonderes ausgedacht, um dem ...</a>
+														<div>
+															<a href="/player.htm?show=e5efa1e0-b28d-11e8-893a-005056a10824" title="direkt zum Video"><img class="mediFloatL" src="/assets/responsiv/iconVideoTransparenz.png" alt="direkt zum Video" /></a>
+																</div>
+													</div>
+
+												</div>
+												<div class="mediSvgLine"></div>
+											</div>
+									</div>
+								<div class="box mediBoxBorder" data-ctrl-collapsible-id5_0B-entry="{'id':'2'}">
+										<div class="mediFloatL mediWidth100">
+											<h3 style="position: relative; cursor: pointer; border: 0;" class="headline hasArrow collapsed mediPosRel"
+												data-ctrl-collapsible-id5_0B-2-trigger="{'action':{'default':['toggleBody']}}">
+												<span class="mediTimeCol">9.25</span><span class="mediSvpHead">Mein Bruder und ich</span>
+												<div style="position: absolute; right: 0px; top: 0px;" class="collapseArrow"></div></h3>
+										</div>
+										<div class="mediSvgRow" data-ctrl-collapsible-id5_0B-2-body="{}" data-ctrl-pix-trigger="{}">
+											<div class="mediaCon" style="padding-right: 16px;">
+													<div class="media mediaA">
+														<a href="/player.htm?show=90a40732-b4d6-11e8-b070-005056a12b4c">
+															<img style="height: 144px;" src="/img/c/3/1/c31b2228e3caafa4eb3950873fa86aad"
+																 alt="Im Kanu durch den Mangrovenwald - Awena und Abduli auf Sansibar"
+																 title="Im Kanu durch den Mangrovenwald - Awena und Abduli auf Sansibar"
+																 />
+														</a>
+													</div>
+												</div>
+												<div class="teaserTextCon mediPadBot0">
+													<h4 class="headline" style="margin-right: 48px; padding: 0 8px 0 56px;">
+														<a href="/player.htm?show=90a40732-b4d6-11e8-b070-005056a12b4c">Im Kanu durch den Mangrovenwald - Awena und Abduli auf Sansibar (6:57)</a>
+														</h4>
+														<div class="teasertext" style="margin-right: 48px">
+															<a href="/player.htm?show=90a40732-b4d6-11e8-b070-005056a12b4c">
+															In den Mangrovenwäldern leben viele Krebse. Awena und Abduli fahren  ...</a>
+														<div>
+															<a href="/player.htm?show=90a40732-b4d6-11e8-b070-005056a12b4c" title="direkt zum Video"><img class="mediFloatL" src="/assets/responsiv/iconVideoTransparenz.png" alt="direkt zum Video" /></a>
+																</div>
+													</div>
+
+												</div>
+												<div class="mediSvgLine"></div>
+											</div>
+									</div>
+								<div class="box mediBoxBorder" data-ctrl-collapsible-id5_0B-entry="{'id':'3'}">
+										<div class="mediFloatL mediWidth100">
+											<h3 style="position: relative; cursor: pointer; border: 0;" class="headline hasArrow collapsed mediPosRel"
+												data-ctrl-collapsible-id5_0B-3-trigger="{'action':{'default':['toggleBody']}}">
+												<span class="mediTimeCol">11.15</span><span class="mediSvpHead">Planet Wissen</span>
+												<div style="position: absolute; right: 0px; top: 0px;" class="collapseArrow"></div></h3>
+										</div>
+										<div class="mediSvgRow" data-ctrl-collapsible-id5_0B-3-body="{}" data-ctrl-pix-trigger="{}">
+											<div class="mediaCon" style="padding-right: 16px;">
+													<div class="media mediaA">
+														<a href="/player.htm?show=92f8c380-aa8c-11e8-b070-005056a12b4c">
+															<img style="height: 144px;" src="/img/c/e/2/ce28f9d9e7fabc5dd5baefe49427f6be"
+																 alt="Forscher wollen HIV-Patienten mit Crispr heilen"
+																 title="Forscher wollen HIV-Patienten mit Crispr heilen"
+																 />
+														</a>
+													</div>
+												</div>
+												<div class="teaserTextCon mediPadBot0">
+													<h4 class="headline" style="margin-right: 48px; padding: 0 8px 0 56px;">
+														<a href="/player.htm?show=92f8c380-aa8c-11e8-b070-005056a12b4c">Forscher wollen HIV-Patienten mit Crispr heilen (2:12)</a>
+														</h4>
+														<div class="teasertext" style="margin-right: 48px">
+															<a href="/player.htm?show=92f8c380-aa8c-11e8-b070-005056a12b4c">
+															Freiburger Wissenschaftler haben menschliche Blutzellen im Labor so  ...</a>
+														<div>
+															<a href="/player.htm?show=92f8c380-aa8c-11e8-b070-005056a12b4c" title="direkt zum Video"><img class="mediFloatL" src="/assets/responsiv/iconVideoTransparenz.png" alt="direkt zum Video" /></a>
+																</div>
+													</div>
+
+												</div>
+												<div class="mediSvgLine mediSvgLineLast"></div>
+											<div class="mediaCon" style="padding-right: 16px;">
+													<div class="media mediaA">
+														<a href="/player.htm?show=92f938b0-aa8c-11e8-b070-005056a12b4c">
+															<img style="height: 144px;" src="/img/0/1/b/01b0b89b4b44ad50d33b23f0db9c9741"
+																 alt="Genschere Crispr: Mais ertragreicher machen"
+																 title="Genschere Crispr: Mais ertragreicher machen"
+																 />
+														</a>
+													</div>
+												</div>
+												<div class="teaserTextCon mediPadBot0">
+													<h4 class="headline" style="margin-right: 48px; padding: 0 8px 0 56px;">
+														<a href="/player.htm?show=92f938b0-aa8c-11e8-b070-005056a12b4c">Genschere Crispr: Mais ertragreicher machen (1:50)</a>
+														</h4>
+														<div class="teasertext" style="margin-right: 48px">
+															<a href="/player.htm?show=92f938b0-aa8c-11e8-b070-005056a12b4c">
+															Der Agrarkonzern DuPont Pioneer benutzt die Genschere Crispr, um das Erbgut ...</a>
+														<div>
+															<a href="/player.htm?show=92f938b0-aa8c-11e8-b070-005056a12b4c" title="direkt zum Video"><img class="mediFloatL" src="/assets/responsiv/iconVideoTransparenz.png" alt="direkt zum Video" /></a>
+																</div>
+													</div>
+
+												</div>
+												<div class="mediSvgLine mediSvgLineLast"></div>
+											<div class="mediaCon" style="padding-right: 16px;">
+													<div class="media mediaA">
+														<a href="/player.htm?show=92f9ade0-aa8c-11e8-b070-005056a12b4c">
+															<img style="height: 144px;" src="/img/0/e/2/0e20dcd2dc6cb27f27698bfbfd0986d0"
+																 alt="Die Genschere Crispr könnte Erbkrankheiten heilen"
+																 title="Die Genschere Crispr könnte Erbkrankheiten heilen"
+																 />
+														</a>
+													</div>
+												</div>
+												<div class="teaserTextCon mediPadBot0">
+													<h4 class="headline" style="margin-right: 48px; padding: 0 8px 0 56px;">
+														<a href="/player.htm?show=92f9ade0-aa8c-11e8-b070-005056a12b4c">Die Genschere Crispr könnte Erbkrankheiten heilen (3:44)</a>
+														</h4>
+														<div class="teasertext" style="margin-right: 48px">
+															<a href="/player.htm?show=92f9ade0-aa8c-11e8-b070-005056a12b4c">
+															Gavriel leidet an einer bisher unheilbaren Erbkrankheit; Crispr könnte ihm  ...</a>
+														<div>
+															<a href="/player.htm?show=92f9ade0-aa8c-11e8-b070-005056a12b4c" title="direkt zum Video"><img class="mediFloatL" src="/assets/responsiv/iconVideoTransparenz.png" alt="direkt zum Video" /></a>
+																</div>
+													</div>
+
+												</div>
+												<div class="mediSvgLine mediSvgLineLast"></div>
+											<div class="mediaCon" style="padding-right: 16px;">
+													<div class="media mediaA">
+														<a href="/player.htm?show=92f95fc0-aa8c-11e8-b070-005056a12b4c">
+															<img style="height: 144px;" src="/img/6/c/5/6c5e6895c258a200a11621c141e619b5"
+																 alt="So arbeiten Forscher mit der Genschere  im Labor"
+																 title="So arbeiten Forscher mit der Genschere  im Labor"
+																 />
+														</a>
+													</div>
+												</div>
+												<div class="teaserTextCon mediPadBot0">
+													<h4 class="headline" style="margin-right: 48px; padding: 0 8px 0 56px;">
+														<a href="/player.htm?show=92f95fc0-aa8c-11e8-b070-005056a12b4c">So arbeiten Forscher mit der Genschere  im Labor (2:32)</a>
+														</h4>
+														<div class="teasertext" style="margin-right: 48px">
+															<a href="/player.htm?show=92f95fc0-aa8c-11e8-b070-005056a12b4c">
+															Joachim Wittbrodt und sein Team forschen an der Universität Heidelberg an  ...</a>
+														<div>
+															<a href="/player.htm?show=92f95fc0-aa8c-11e8-b070-005056a12b4c" title="direkt zum Video"><img class="mediFloatL" src="/assets/responsiv/iconVideoTransparenz.png" alt="direkt zum Video" /></a>
+																</div>
+													</div>
+
+												</div>
+												<div class="mediSvgLine mediSvgLineLast"></div>
+											<div class="mediaCon" style="padding-right: 16px;">
+													<div class="media mediaA">
+														<a href="/player.htm?show=92f911a0-aa8c-11e8-b070-005056a12b4c">
+															<img style="height: 144px;" src="/img/d/d/d/dddfd9c658e409dfc4b358f202760d07"
+																 alt="Wie funktioniert die Genschere Crispr?"
+																 title="Wie funktioniert die Genschere Crispr?"
+																 />
+														</a>
+													</div>
+												</div>
+												<div class="teaserTextCon mediPadBot0">
+													<h4 class="headline" style="margin-right: 48px; padding: 0 8px 0 56px;">
+														<a href="/player.htm?show=92f911a0-aa8c-11e8-b070-005056a12b4c">Wie funktioniert die Genschere Crispr? (1:45)</a>
+														</h4>
+														<div class="teasertext" style="margin-right: 48px">
+															<a href="/player.htm?show=92f911a0-aa8c-11e8-b070-005056a12b4c">
+															Crispr funktioniert wie eine Schere mit Adressanhängern. Es sucht einen  ...</a>
+														<div>
+															<a href="/player.htm?show=92f911a0-aa8c-11e8-b070-005056a12b4c" title="direkt zum Video"><img class="mediFloatL" src="/assets/responsiv/iconVideoTransparenz.png" alt="direkt zum Video" /></a>
+																</div>
+													</div>
+
+												</div>
+												<div class="mediSvgLine mediSvgLineLast"></div>
+											<div class="mediaCon" style="padding-right: 16px;">
+													<div class="media mediaA">
+														<a href="/player.htm?show=f0a34c00-b651-11e8-893a-005056a10824">
+															<img style="height: 144px;" src="/img/1/f/a/1fa89dc2c35e998fde55937dfea526be"
+																 alt="Welche Krankheiten kann die Genschere Crispr heilen?"
+																 title="Welche Krankheiten kann die Genschere Crispr heilen?"
+																 />
+														</a>
+													</div>
+												</div>
+												<div class="teaserTextCon mediPadBot0">
+													<h4 class="headline" style="margin-right: 48px; padding: 0 8px 0 56px;">
+														<a href="/player.htm?show=f0a34c00-b651-11e8-893a-005056a10824">Welche Krankheiten kann die Genschere Crispr heilen? (58:49)</a>
+														</h4>
+														<div class="teasertext" style="margin-right: 48px">
+															<a href="/player.htm?show=f0a34c00-b651-11e8-893a-005056a10824">
+															Crispr klingt wie Schokokeks, ist aber eine neue Genschere. Sie  ...</a>
+														<div>
+															<a href="/player.htm?show=f0a34c00-b651-11e8-893a-005056a10824" title="direkt zum Video"><img class="mediFloatL" src="/assets/responsiv/iconVideoTransparenz.png" alt="direkt zum Video" /></a>
+																</div>
+													</div>
+
+												</div>
+												<div class="mediSvgLine"></div>
+											</div>
+									</div>
+								<div class="box mediBoxBorder" data-ctrl-collapsible-id5_0B-entry="{'id':'4'}">
+										<div class="mediFloatL mediWidth100">
+											<h3 style="position: relative; cursor: pointer; border: 0;" class="headline hasArrow collapsed mediPosRel"
+												data-ctrl-collapsible-id5_0B-4-trigger="{'action':{'default':['toggleBody']}}">
+												<span class="mediTimeCol">12.15</span><span class="mediSvpHead">ARD-Buffet</span>
+												<div style="position: absolute; right: 0px; top: 0px;" class="collapseArrow"></div></h3>
+										</div>
+										<div class="mediSvgRow" data-ctrl-collapsible-id5_0B-4-body="{}" data-ctrl-pix-trigger="{}">
+											<div class="mediaCon" style="padding-right: 16px;">
+													<div class="media mediaA">
+														<a href="/player.htm?show=0dd22640-b682-11e8-b070-005056a12b4c">
+															<img style="height: 144px;" src="/img/b/9/b/b9bccb3a718cd9002ee09e12a3d39021"
+																 alt="Das Comeback der Fototapete"
+																 title="Das Comeback der Fototapete"
+																 />
+														</a>
+													</div>
+												</div>
+												<div class="teaserTextCon mediPadBot0">
+													<h4 class="headline" style="margin-right: 48px; padding: 0 8px 0 56px;">
+														<a href="/player.htm?show=0dd22640-b682-11e8-b070-005056a12b4c">Das Comeback der Fototapete (6:55)</a>
+														</h4>
+														<div class="teasertext" style="margin-right: 48px">
+															<a href="/player.htm?show=0dd22640-b682-11e8-b070-005056a12b4c">
+															Fototapeten sind heute aktueller denn je, weiße Wände weichen immer  ...</a>
+														<div>
+															<a href="/player.htm?show=0dd22640-b682-11e8-b070-005056a12b4c" title="direkt zum Video"><img class="mediFloatL" src="/assets/responsiv/iconVideoTransparenz.png" alt="direkt zum Video" /></a>
+																</div>
+													</div>
+
+												</div>
+												<div class="mediSvgLine mediSvgLineLast"></div>
+											<div class="mediaCon" style="padding-right: 16px;">
+													<div class="media mediaA">
+														<a href="/player.htm?show=0dd2c280-b682-11e8-b070-005056a12b4c">
+															<img style="height: 144px;" src="/img/a/7/3/a73b23248c0631cfa0fe78b96a32fa82"
+																 alt="Dichtungen an Türen und Fenstern"
+																 title="Dichtungen an Türen und Fenstern"
+																 />
+														</a>
+													</div>
+												</div>
+												<div class="teaserTextCon mediPadBot0">
+													<h4 class="headline" style="margin-right: 48px; padding: 0 8px 0 56px;">
+														<a href="/player.htm?show=0dd2c280-b682-11e8-b070-005056a12b4c">Dichtungen an Türen und Fenstern (4:36)</a>
+														</h4>
+														<div class="teasertext" style="margin-right: 48px">
+															<a href="/player.htm?show=0dd2c280-b682-11e8-b070-005056a12b4c">
+															Nachts wird es wieder kälter und wir bemerken, dass es zu Fenstern und  ...</a>
+														<div>
+															<a href="/player.htm?show=0dd2c280-b682-11e8-b070-005056a12b4c" title="direkt zum Video"><img class="mediFloatL" src="/assets/responsiv/iconVideoTransparenz.png" alt="direkt zum Video" /></a>
+																</div>
+													</div>
+
+												</div>
+												<div class="mediSvgLine mediSvgLineLast"></div>
+											<div class="mediaCon" style="padding-right: 16px;">
+													<div class="media mediaA">
+														<a href="/player.htm?show=2ce60310-b684-11e8-b070-005056a12b4c">
+															<img style="height: 144px;" src="/img/a/4/0/a404f6d32d9e5bb3a605c44663f8a5df"
+																 alt="Chili con carne"
+																 title="Chili con carne"
+																 />
+														</a>
+													</div>
+												</div>
+												<div class="teaserTextCon mediPadBot0">
+													<h4 class="headline" style="margin-right: 48px; padding: 0 8px 0 56px;">
+														<a href="/player.htm?show=2ce60310-b684-11e8-b070-005056a12b4c">Chili con carne (6:25)</a>
+														</h4>
+														<div class="teasertext" style="margin-right: 48px">
+															<a href="/player.htm?show=2ce60310-b684-11e8-b070-005056a12b4c">
+															Chili con carne ist ein weltweit beliebtes Gericht, von dem niemand so  ...</a>
+														<div>
+															<a href="/player.htm?show=2ce60310-b684-11e8-b070-005056a12b4c" title="direkt zum Video"><img class="mediFloatL" src="/assets/responsiv/iconVideoTransparenz.png" alt="direkt zum Video" /></a>
+																</div>
+													</div>
+
+												</div>
+												<div class="mediSvgLine mediSvgLineLast"></div>
+											<div class="mediaCon" style="padding-right: 16px;">
+													<div class="media mediaA">
+														<a href="/player.htm?show=26e4fe80-b684-11e8-893a-005056a10824">
+															<img style="height: 144px;" src="/img/7/d/f/7df4e5667e81567e6948691069c23063"
+																 alt="Sendung vom 12.09.2018"
+																 title="Sendung vom 12.09.2018"
+																 />
+														</a>
+													</div>
+												</div>
+												<div class="teaserTextCon mediPadBot0">
+													<h4 class="headline" style="margin-right: 48px; padding: 0 8px 0 56px;">
+														<a href="/player.htm?show=26e4fe80-b684-11e8-893a-005056a10824">Sendung vom 12.09.2018 (40:18)</a>
+														</h4>
+														<div class="teasertext" style="margin-right: 48px">
+															<a href="/player.htm?show=26e4fe80-b684-11e8-893a-005056a10824">
+															</a>
+														<div>
+															<a href="/player.htm?show=26e4fe80-b684-11e8-893a-005056a10824" title="direkt zum Video"><img class="mediFloatL" src="/assets/responsiv/iconVideoTransparenz.png" alt="direkt zum Video" /></a>
+																</div>
+													</div>
+
+												</div>
+												<div class="mediSvgLine mediSvgLineLast"></div>
+											<div class="mediaCon" style="padding-right: 16px;">
+													<div class="media mediaA">
+														<a href="/player.htm?show=ed8fc670-b67d-11e8-b070-005056a12b4c">
+															<img style="height: 144px;" src="/img/f/f/5/ff5aca9460714df238d93a2f71380006"
+																 alt="Martina Kömpel: Der Tomatentrick!"
+																 title="Martina Kömpel: Der Tomatentrick!"
+																 />
+														</a>
+													</div>
+												</div>
+												<div class="teaserTextCon mediPadBot0">
+													<h4 class="headline" style="margin-right: 48px; padding: 0 8px 0 56px;">
+														<a href="/player.htm?show=ed8fc670-b67d-11e8-b070-005056a12b4c">Martina Kömpel: Der Tomatentrick! (0:35)</a>
+														</h4>
+														<div class="teasertext" style="margin-right: 48px">
+															<a href="/player.htm?show=ed8fc670-b67d-11e8-b070-005056a12b4c">
+															</a>
+														<div>
+															<a href="/player.htm?show=ed8fc670-b67d-11e8-b070-005056a12b4c" title="direkt zum Video"><img class="mediFloatL" src="/assets/responsiv/iconVideoTransparenz.png" alt="direkt zum Video" /></a>
+																</div>
+													</div>
+
+												</div>
+												<div class="mediSvgLine"></div>
+											</div>
+									</div>
+								<div class="box mediBoxBorder" data-ctrl-collapsible-id5_0B-entry="{'id':'5'}">
+										<div class="mediFloatL mediWidth100">
+											<h3 style="position: relative; cursor: pointer; border: 0;" class="headline hasArrow collapsed mediPosRel"
+												data-ctrl-collapsible-id5_0B-5-trigger="{'action':{'default':['toggleBody']}}">
+												<span class="mediTimeCol">14.15</span><span class="mediSvpHead">Eisenbahn-Romantik</span>
+												<div style="position: absolute; right: 0px; top: 0px;" class="collapseArrow"></div></h3>
+										</div>
+										<div class="mediSvgRow" data-ctrl-collapsible-id5_0B-5-body="{}" data-ctrl-pix-trigger="{}">
+											<div class="mediaCon" style="padding-right: 16px;">
+													<div class="media mediaA">
+														<a href="/player.htm?show=fa3cc020-9827-11e5-8281-0026b975f2e6">
+															<img style="height: 144px;" src="/img/5/6/3/5634391e6f731ffe1bbcdee8bb8ebbe1"
+																 alt="Züge im Maßstab 1:32 - Das Spur 1 Team Württemberg"
+																 title="Züge im Maßstab 1:32 - Das Spur 1 Team Württemberg"
+																 />
+														</a>
+													</div>
+												</div>
+												<div class="teaserTextCon mediPadBot0">
+													<h4 class="headline" style="margin-right: 48px; padding: 0 8px 0 56px;">
+														<a href="/player.htm?show=fa3cc020-9827-11e5-8281-0026b975f2e6">Züge im Maßstab 1:32 - Das Spur 1 Team Württemberg (29:09)</a>
+														</h4>
+														<div class="teasertext" style="margin-right: 48px">
+															<a href="/player.htm?show=fa3cc020-9827-11e5-8281-0026b975f2e6">
+															Ob es der Zirkuszug, der Bauzug, der Dampfkran, der BigBoy oder der  ...</a>
+														<div>
+															<a href="/player.htm?show=fa3cc020-9827-11e5-8281-0026b975f2e6" title="direkt zum Video"><img class="mediFloatL" src="/assets/responsiv/iconVideoTransparenz.png" alt="direkt zum Video" /></a>
+																</div>
+													</div>
+
+												</div>
+												<div class="mediSvgLine mediSvgLineLast"></div>
+											<div class="mediaCon" style="padding-right: 16px;">
+													<div class="media mediaA">
+														<a href="/player.htm?show=8f70ca10-f36c-11e6-9102-005056a12b4c">
+															<img style="height: 144px;" src="/img/d/4/3/d4365da91e1cee5df0bb4a41a1f2c1bf"
+																 alt="EXPO TRAINS in Luxembourg"
+																 title="EXPO TRAINS in Luxembourg"
+																 />
+														</a>
+													</div>
+												</div>
+												<div class="teaserTextCon mediPadBot0">
+													<h4 class="headline" style="margin-right: 48px; padding: 0 8px 0 56px;">
+														<a href="/player.htm?show=8f70ca10-f36c-11e6-9102-005056a12b4c">EXPO TRAINS in Luxembourg (29:11)</a>
+														</h4>
+														<div class="teasertext" style="margin-right: 48px">
+															<a href="/player.htm?show=8f70ca10-f36c-11e6-9102-005056a12b4c">
+															In Luxemburg findet einmal im Jahr die exclusive EXPO TRAINS. Die gezeigten ...</a>
+														<div>
+															<a href="/player.htm?show=8f70ca10-f36c-11e6-9102-005056a12b4c" title="direkt zum Video"><img class="mediFloatL" src="/assets/responsiv/iconVideoTransparenz.png" alt="direkt zum Video" /></a>
+																</div>
+													</div>
+
+												</div>
+												<div class="mediSvgLine"></div>
+											</div>
+									</div>
+								<div class="box mediBoxBorder" data-ctrl-collapsible-id5_0B-entry="{'id':'6'}">
+										<div class="mediFloatL mediWidth100">
+											<h3 style="position: relative; cursor: pointer; border: 0;" class="headline hasArrow collapsed mediPosRel"
+												data-ctrl-collapsible-id5_0B-6-trigger="{'action':{'default':['toggleBody']}}">
+												<span class="mediTimeCol">16.00</span><span class="mediSvpHead">SWR Aktuell Baden-Württemberg</span>
+												<div style="position: absolute; right: 0px; top: 0px;" class="collapseArrow"></div></h3>
+										</div>
+										<div class="mediSvgRow" data-ctrl-collapsible-id5_0B-6-body="{}" data-ctrl-pix-trigger="{}">
+											<div class="mediaCon" style="padding-right: 16px;">
+													<div class="media mediaA">
+														<a href="/player.htm?show=24cd3580-b699-11e8-893a-005056a10824">
+															<img style="height: 144px;" src="/img/8/1/0/8104dd08614928e9183350ce47ab44cf"
+																 alt="Sendung 16:00 Uhr"
+																 title="Sendung 16:00 Uhr"
+																 />
+														</a>
+													</div>
+												</div>
+												<div class="teaserTextCon mediPadBot0">
+													<h4 class="headline" style="margin-right: 48px; padding: 0 8px 0 56px;">
+														<a href="/player.htm?show=24cd3580-b699-11e8-893a-005056a10824">Sendung 16:00 Uhr (4:42)</a>
+														</h4>
+														<div class="teasertext" style="margin-right: 48px">
+															<a href="/player.htm?show=24cd3580-b699-11e8-893a-005056a10824">
+															Sendung 16:00 Uhr</a>
+														<div>
+															<a href="/player.htm?show=24cd3580-b699-11e8-893a-005056a10824" title="direkt zum Video"><img class="mediFloatL" src="/assets/responsiv/iconVideoTransparenz.png" alt="direkt zum Video" /></a>
+																<a href="" title="Download URL"><img class="mediFloatL" src="/assets/responsiv/iconDownloadTransparenz.png" alt="Download" /></a>
+																</div>
+													</div>
+
+												</div>
+												<div class="mediSvgLine"></div>
+											</div>
+									</div>
+								<div class="box mediBoxBorder" data-ctrl-collapsible-id5_0B-entry="{'id':'7'}">
+										<div class="mediFloatL mediWidth100">
+											<h3 style="position: relative; cursor: pointer; border: 0;" class="headline hasArrow collapsed mediPosRel"
+												data-ctrl-collapsible-id5_0B-7-trigger="{'action':{'default':['toggleBody']}}">
+												<span class="mediTimeCol">16.00</span><span class="mediSvpHead">SWR Aktuell Rheinland-Pfalz</span>
+												<div style="position: absolute; right: 0px; top: 0px;" class="collapseArrow"></div></h3>
+										</div>
+										<div class="mediSvgRow" data-ctrl-collapsible-id5_0B-7-body="{}" data-ctrl-pix-trigger="{}">
+											<div class="mediaCon" style="padding-right: 16px;">
+													<div class="media mediaA">
+														<a href="/player.htm?show=5ae44470-b69d-11e8-b070-005056a12b4c">
+															<img style="height: 144px;" src="/img/b/1/e/b1e07849c985f57c88a93d73077cb367"
+																 alt="Piloten und Flugbegleiter streiken Seite an Seite am Hahn"
+																 title="Piloten und Flugbegleiter streiken Seite an Seite am Hahn"
+																 />
+														</a>
+													</div>
+												</div>
+												<div class="teaserTextCon mediPadBot0">
+													<h4 class="headline" style="margin-right: 48px; padding: 0 8px 0 56px;">
+														<a href="/player.htm?show=5ae44470-b69d-11e8-b070-005056a12b4c">Piloten und Flugbegleiter streiken Seite an Seite am Hahn (1:33)</a>
+														</h4>
+														<div class="teasertext" style="margin-right: 48px">
+															<a href="/player.htm?show=5ae44470-b69d-11e8-b070-005056a12b4c">
+															Flugbegleiter und Piloten von Ryanair sind am Mittwoch zum ersten Mal  ...</a>
+														<div>
+															<a href="/player.htm?show=5ae44470-b69d-11e8-b070-005056a12b4c" title="direkt zum Video"><img class="mediFloatL" src="/assets/responsiv/iconVideoTransparenz.png" alt="direkt zum Video" /></a>
+																<a href="" title="Download URL"><img class="mediFloatL" src="/assets/responsiv/iconDownloadTransparenz.png" alt="Download" /></a>
+																</div>
+													</div>
+
+												</div>
+												<div class="mediSvgLine mediSvgLineLast"></div>
+											<div class="mediaCon" style="padding-right: 16px;">
+													<div class="media mediaA">
+														<a href="/player.htm?show=099f4570-b697-11e8-b070-005056a12b4c">
+															<img style="height: 144px;" src="/img/1/5/6/156051e3f4e9ca51a3bac1774bc5f36a"
+																 alt="Sendung 16.00 Uhr"
+																 title="Sendung 16.00 Uhr"
+																 />
+														</a>
+													</div>
+												</div>
+												<div class="teaserTextCon mediPadBot0">
+													<h4 class="headline" style="margin-right: 48px; padding: 0 8px 0 56px;">
+														<a href="/player.htm?show=099f4570-b697-11e8-b070-005056a12b4c">Sendung 16.00 Uhr (4:53)</a>
+														</h4>
+														<div class="teasertext" style="margin-right: 48px">
+															<a href="/player.htm?show=099f4570-b697-11e8-b070-005056a12b4c">
+															Die Nachrichten aus Rheinland-Pfalz mit Dorit Friederike Becker</a>
+														<div>
+															<a href="/player.htm?show=099f4570-b697-11e8-b070-005056a12b4c" title="direkt zum Video"><img class="mediFloatL" src="/assets/responsiv/iconVideoTransparenz.png" alt="direkt zum Video" /></a>
+																<a href="" title="Download URL"><img class="mediFloatL" src="/assets/responsiv/iconDownloadTransparenz.png" alt="Download" /></a>
+																</div>
+													</div>
+
+												</div>
+												<div class="mediSvgLine"></div>
+											</div>
+									</div>
+								<div class="box mediBoxBorder" data-ctrl-collapsible-id5_0B-entry="{'id':'8'}">
+										<div class="mediFloatL mediWidth100">
+											<h3 style="position: relative; cursor: pointer; border: 0;" class="headline hasArrow collapsed mediPosRel"
+												data-ctrl-collapsible-id5_0B-8-trigger="{'action':{'default':['toggleBody']}}">
+												<span class="mediTimeCol">16.05</span><span class="mediSvpHead">Kaffee oder Tee</span>
+												<div style="position: absolute; right: 0px; top: 0px;" class="collapseArrow"></div></h3>
+										</div>
+										<div class="mediSvgRow" data-ctrl-collapsible-id5_0B-8-body="{}" data-ctrl-pix-trigger="{}">
+											<div class="mediaCon" style="padding-right: 16px;">
+													<div class="media mediaA">
+														<a href="/player.htm?show=4ddf3520-b69b-11e8-b070-005056a12b4c">
+															<img style="height: 144px;" src="/img/a/c/0/ac0c532ceafcda7cbaaf899476203c8f"
+																 alt="Jetzt Wintersteckzwiebeln stecken"
+																 title="Jetzt Wintersteckzwiebeln stecken"
+																 />
+														</a>
+													</div>
+												</div>
+												<div class="teaserTextCon mediPadBot0">
+													<h4 class="headline" style="margin-right: 48px; padding: 0 8px 0 56px;">
+														<a href="/player.htm?show=4ddf3520-b69b-11e8-b070-005056a12b4c">Jetzt Wintersteckzwiebeln stecken (8:57)</a>
+														</h4>
+														<div class="teasertext" style="margin-right: 48px">
+															<a href="/player.htm?show=4ddf3520-b69b-11e8-b070-005056a12b4c">
+															Platz für Wintersteckzwiebeln, den gibt es jetzt im Beet. Die Gartenbeete  ...</a>
+														<div>
+															<a href="/player.htm?show=4ddf3520-b69b-11e8-b070-005056a12b4c" title="direkt zum Video"><img class="mediFloatL" src="/assets/responsiv/iconVideoTransparenz.png" alt="direkt zum Video" /></a>
+																</div>
+													</div>
+
+												</div>
+												<div class="mediSvgLine mediSvgLineLast"></div>
+											<div class="mediaCon" style="padding-right: 16px;">
+													<div class="media mediaA">
+														<a href="/player.htm?show=a68ec8e0-b6a3-11e8-b070-005056a12b4c">
+															<img style="height: 144px;" src="/img/2/2/a/22abd244d4f1657081b0521df11b2453"
+																 alt="Blumenkohl-Panna-Cotta mit Lachsforelle"
+																 title="Blumenkohl-Panna-Cotta mit Lachsforelle"
+																 />
+														</a>
+													</div>
+												</div>
+												<div class="teaserTextCon mediPadBot0">
+													<h4 class="headline" style="margin-right: 48px; padding: 0 8px 0 56px;">
+														<a href="/player.htm?show=a68ec8e0-b6a3-11e8-b070-005056a12b4c">Blumenkohl-Panna-Cotta mit Lachsforelle (13:37)</a>
+														</h4>
+														<div class="teasertext" style="margin-right: 48px">
+															<a href="/player.htm?show=a68ec8e0-b6a3-11e8-b070-005056a12b4c">
+															Panna Cotta muss nicht süß sein! Bernd Bachofer zeigt seine leckere  ...</a>
+														<div>
+															<a href="/player.htm?show=a68ec8e0-b6a3-11e8-b070-005056a12b4c" title="direkt zum Video"><img class="mediFloatL" src="/assets/responsiv/iconVideoTransparenz.png" alt="direkt zum Video" /></a>
+																</div>
+													</div>
+
+												</div>
+												<div class="mediSvgLine mediSvgLineLast"></div>
+											<div class="mediaCon" style="padding-right: 16px;">
+													<div class="media mediaA">
+														<a href="/player.htm?show=a69139e0-b6a3-11e8-b070-005056a12b4c">
+															<img style="height: 144px;" src="/img/2/b/8/2b82f15735742471e42610694403b11c"
+																 alt="Musikalische Highlights"
+																 title="Musikalische Highlights"
+																 />
+														</a>
+													</div>
+												</div>
+												<div class="teaserTextCon mediPadBot0">
+													<h4 class="headline" style="margin-right: 48px; padding: 0 8px 0 56px;">
+														<a href="/player.htm?show=a69139e0-b6a3-11e8-b070-005056a12b4c">Musikalische Highlights (6:29)</a>
+														</h4>
+														<div class="teasertext" style="margin-right: 48px">
+															<a href="/player.htm?show=a69139e0-b6a3-11e8-b070-005056a12b4c">
+															SWR 3 Musikredakteur Matthias Kugler gibt Einblicke, welche musikalischen  ...</a>
+														<div>
+															<a href="/player.htm?show=a69139e0-b6a3-11e8-b070-005056a12b4c" title="direkt zum Video"><img class="mediFloatL" src="/assets/responsiv/iconVideoTransparenz.png" alt="direkt zum Video" /></a>
+																</div>
+													</div>
+
+												</div>
+												<div class="mediSvgLine"></div>
+											</div>
+									</div>
+								<div class="box mediBoxBorder" data-ctrl-collapsible-id5_0B-entry="{'id':'9'}">
+										<div class="mediFloatL mediWidth100">
+											<h3 style="position: relative; cursor: pointer; border: 0;" class="headline hasArrow collapsed mediPosRel"
+												data-ctrl-collapsible-id5_0B-9-trigger="{'action':{'default':['toggleBody']}}">
+												<span class="mediTimeCol">16.08</span><span class="mediSvpHead">SWR Classic</span>
+												<div style="position: absolute; right: 0px; top: 0px;" class="collapseArrow"></div></h3>
+										</div>
+										<div class="mediSvgRow" data-ctrl-collapsible-id5_0B-9-body="{}" data-ctrl-pix-trigger="{}">
+											<div class="mediaCon" style="padding-right: 16px;">
+													<div class="media mediaA">
+														<a href="/player.htm?show=5ad43b30-97c1-11e7-a5ff-005056a12b4c">
+															<img style="height: 144px;" src="/img/d/0/c/d0c2b4df398b498530546c838a86424d"
+																 alt="&#034;Ich bin ein kleiner Computerfreak&#034;"
+																 title="&#034;Ich bin ein kleiner Computerfreak&#034;"
+																 />
+														</a>
+													</div>
+												</div>
+												<div class="teaserTextCon mediPadBot0">
+													<h4 class="headline" style="margin-right: 48px; padding: 0 8px 0 56px;">
+														<a href="/player.htm?show=5ad43b30-97c1-11e7-a5ff-005056a12b4c">&#034;Ich bin ein kleiner Computerfreak&#034; (8:39)</a>
+														</h4>
+														<div class="teasertext" style="margin-right: 48px">
+															<a href="/player.htm?show=5ad43b30-97c1-11e7-a5ff-005056a12b4c">
+															Die Altistin Noa Frenkel hat viel Freude an der Arbeit mit Live-Elektronik  ...</a>
+														<div>
+															<a href="/player.htm?show=5ad43b30-97c1-11e7-a5ff-005056a12b4c" title="direkt zum Video"><img class="mediFloatL" src="/assets/responsiv/iconVideoTransparenz.png" alt="direkt zum Video" /></a>
+																</div>
+													</div>
+
+												</div>
+												<div class="mediSvgLine mediSvgLineLast"></div>
+											<div class="mediaCon" style="padding-right: 16px;">
+													<div class="media mediaA">
+														<a href="/player.htm?show=10c6fe90-9c46-11e7-a5ff-005056a12b4c">
+															<img style="height: 144px;" src="/img/3/5/8/358cfb76b99c499ba2d3451bf5359ba2"
+																 alt="David Afkham dirigiert"
+																 title="David Afkham dirigiert"
+																 />
+														</a>
+													</div>
+												</div>
+												<div class="teaserTextCon mediPadBot0">
+													<h4 class="headline" style="margin-right: 48px; padding: 0 8px 0 56px;">
+														<a href="/player.htm?show=10c6fe90-9c46-11e7-a5ff-005056a12b4c">David Afkham dirigiert (89:51)</a>
+														</h4>
+														<div class="teasertext" style="margin-right: 48px">
+															<a href="/player.htm?show=10c6fe90-9c46-11e7-a5ff-005056a12b4c">
+															Werke von Saariaho, Schostakowitsch und Brahms. Mit Renaud Capuçon (Violine).</a>
+														<div>
+															<a href="/player.htm?show=10c6fe90-9c46-11e7-a5ff-005056a12b4c" title="direkt zum Video"><img class="mediFloatL" src="/assets/responsiv/iconVideoTransparenz.png" alt="direkt zum Video" /></a>
+																</div>
+													</div>
+
+												</div>
+												<div class="mediSvgLine mediSvgLineLast"></div>
+											<div class="mediaCon" style="padding-right: 16px;">
+													<div class="media mediaA">
+														<a href="/player.htm?show=a061d7e0-9936-11e7-a5ff-005056a12b4c">
+															<img style="height: 144px;" src="/img/f/0/4/f043924c45f050637ef85d9356cf59af"
+																 alt="Chiyoko Szlavnics"
+																 title="Chiyoko Szlavnics"
+																 />
+														</a>
+													</div>
+												</div>
+												<div class="teaserTextCon mediPadBot0">
+													<h4 class="headline" style="margin-right: 48px; padding: 0 8px 0 56px;">
+														<a href="/player.htm?show=a061d7e0-9936-11e7-a5ff-005056a12b4c">Chiyoko Szlavnics (3:25)</a>
+														</h4>
+														<div class="teasertext" style="margin-right: 48px">
+															<a href="/player.htm?show=a061d7e0-9936-11e7-a5ff-005056a12b4c">
+															Im Gespräch mit Friederike Kenneweg</a>
+														<div>
+															<a href="/player.htm?show=a061d7e0-9936-11e7-a5ff-005056a12b4c" title="direkt zum Audio"><img class="mediFloatL" src="/assets/responsiv/iconAudioTransparenz.png" alt="direkt zum Audio" /></a>
+																</div>
+													</div>
+
+												</div>
+												<div class="mediSvgLine"></div>
+											</div>
+									</div>
+								<div class="box mediBoxBorder" data-ctrl-collapsible-id5_0B-entry="{'id':'10'}">
+										<div class="mediFloatL mediWidth100">
+											<h3 style="position: relative; cursor: pointer; border: 0;" class="headline hasArrow collapsed mediPosRel"
+												data-ctrl-collapsible-id5_0B-10-trigger="{'action':{'default':['toggleBody']}}">
+												<span class="mediTimeCol">17.05</span><span class="mediSvpHead">Kaffee oder Tee</span>
+												<div style="position: absolute; right: 0px; top: 0px;" class="collapseArrow"></div></h3>
+										</div>
+										<div class="mediSvgRow" data-ctrl-collapsible-id5_0B-10-body="{}" data-ctrl-pix-trigger="{}">
+											<div class="mediaCon" style="padding-right: 16px;">
+													<div class="media mediaA">
+														<a href="/player.htm?show=ced52930-b6a7-11e8-893a-005056a10824">
+															<img style="height: 144px;" src="/img/8/4/6/8469a8a0280329276f5ee49a618d694c"
+																 alt="Andrea Göhring - mit Tieren Menschen fördern"
+																 title="Andrea Göhring - mit Tieren Menschen fördern"
+																 />
+														</a>
+													</div>
+												</div>
+												<div class="teaserTextCon mediPadBot0">
+													<h4 class="headline" style="margin-right: 48px; padding: 0 8px 0 56px;">
+														<a href="/player.htm?show=ced52930-b6a7-11e8-893a-005056a10824">Andrea Göhring - mit Tieren Menschen fördern (8:41)</a>
+														</h4>
+														<div class="teasertext" style="margin-right: 48px">
+															<a href="/player.htm?show=ced52930-b6a7-11e8-893a-005056a10824">
+															Auf ihrem Biohof in Oberschwaben leistet Andrea Göhring tiergestützte  ...</a>
+														<div>
+															<a href="/player.htm?show=ced52930-b6a7-11e8-893a-005056a10824" title="direkt zum Video"><img class="mediFloatL" src="/assets/responsiv/iconVideoTransparenz.png" alt="direkt zum Video" /></a>
+																</div>
+													</div>
+
+												</div>
+												<div class="mediSvgLine mediSvgLineLast"></div>
+											<div class="mediaCon" style="padding-right: 16px;">
+													<div class="media mediaA">
+														<a href="/player.htm?show=ced96ef0-b6a7-11e8-893a-005056a10824">
+															<img style="height: 144px;" src="/img/e/e/a/eea469371664512e5916d2deca36832f"
+																 alt="So werden Sie Motten in Lebensmitteln los"
+																 title="So werden Sie Motten in Lebensmitteln los"
+																 />
+														</a>
+													</div>
+												</div>
+												<div class="teaserTextCon mediPadBot0">
+													<h4 class="headline" style="margin-right: 48px; padding: 0 8px 0 56px;">
+														<a href="/player.htm?show=ced96ef0-b6a7-11e8-893a-005056a10824">So werden Sie Motten in Lebensmitteln los (9:38)</a>
+														</h4>
+														<div class="teasertext" style="margin-right: 48px">
+															<a href="/player.htm?show=ced96ef0-b6a7-11e8-893a-005056a10824">
+															Was Sie zur Lagerung von Trockenprodukten wissen sollten und wie Sie  ...</a>
+														<div>
+															<a href="/player.htm?show=ced96ef0-b6a7-11e8-893a-005056a10824" title="direkt zum Video"><img class="mediFloatL" src="/assets/responsiv/iconVideoTransparenz.png" alt="direkt zum Video" /></a>
+																</div>
+													</div>
+
+												</div>
+												<div class="mediSvgLine mediSvgLineLast"></div>
+											<div class="mediaCon" style="padding-right: 16px;">
+													<div class="media mediaA">
+														<a href="/player.htm?show=a7c3db90-b6a5-11e8-b070-005056a12b4c">
+															<img style="height: 144px;" src="/img/5/e/6/5e64171677879222772e2438090699b7"
+																 alt="Tiere im Alter"
+																 title="Tiere im Alter"
+																 />
+														</a>
+													</div>
+												</div>
+												<div class="teaserTextCon mediPadBot0">
+													<h4 class="headline" style="margin-right: 48px; padding: 0 8px 0 56px;">
+														<a href="/player.htm?show=a7c3db90-b6a5-11e8-b070-005056a12b4c">Tiere im Alter (11:10)</a>
+														</h4>
+														<div class="teasertext" style="margin-right: 48px">
+															<a href="/player.htm?show=a7c3db90-b6a5-11e8-b070-005056a12b4c">
+															Das Alter macht auch vor Hunden und Katzen nicht halt. Tierärztin Dr. Heike ...</a>
+														<div>
+															<a href="/player.htm?show=a7c3db90-b6a5-11e8-b070-005056a12b4c" title="direkt zum Video"><img class="mediFloatL" src="/assets/responsiv/iconVideoTransparenz.png" alt="direkt zum Video" /></a>
+																</div>
+													</div>
+
+												</div>
+												<div class="mediSvgLine"></div>
+											</div>
+									</div>
+								<div class="box mediBoxBorder" data-ctrl-collapsible-id5_0B-entry="{'id':'11'}">
+										<div class="mediFloatL mediWidth100">
+											<h3 style="position: relative; cursor: pointer; border: 0;" class="headline hasArrow collapsed mediPosRel"
+												data-ctrl-collapsible-id5_0B-11-trigger="{'action':{'default':['toggleBody']}}">
+												<span class="mediTimeCol">18.00</span><span class="mediSvpHead">SWR Aktuell Baden-Württemberg</span>
+												<div style="position: absolute; right: 0px; top: 0px;" class="collapseArrow"></div></h3>
+										</div>
+										<div class="mediSvgRow" data-ctrl-collapsible-id5_0B-11-body="{}" data-ctrl-pix-trigger="{}">
+											<div class="mediaCon" style="padding-right: 16px;">
+													<div class="media mediaA">
+														<a href="/player.htm?show=1d1f49a0-b6ac-11e8-b070-005056a12b4c">
+															<img style="height: 144px;" src="/img/2/3/2/232a1213218a85aebe9ea6469e92c7ce"
+																 alt="Sendung 18:00 Uhr"
+																 title="Sendung 18:00 Uhr"
+																 />
+														</a>
+													</div>
+												</div>
+												<div class="teaserTextCon mediPadBot0">
+													<h4 class="headline" style="margin-right: 48px; padding: 0 8px 0 56px;">
+														<a href="/player.htm?show=1d1f49a0-b6ac-11e8-b070-005056a12b4c">Sendung 18:00 Uhr (15:00)</a>
+														</h4>
+														<div class="teasertext" style="margin-right: 48px">
+															<a href="/player.htm?show=1d1f49a0-b6ac-11e8-b070-005056a12b4c">
+															Sendung 18:00 Uhr</a>
+														<div>
+															<a href="/player.htm?show=1d1f49a0-b6ac-11e8-b070-005056a12b4c" title="direkt zum Video"><img class="mediFloatL" src="/assets/responsiv/iconVideoTransparenz.png" alt="direkt zum Video" /></a>
+																<a href="" title="Download URL"><img class="mediFloatL" src="/assets/responsiv/iconDownloadTransparenz.png" alt="Download" /></a>
+																</div>
+													</div>
+
+												</div>
+												<div class="mediSvgLine mediSvgLineLast"></div>
+											<div class="mediaCon" style="padding-right: 16px;">
+													<div class="media mediaA">
+														<a href="/player.htm?show=cedbdff0-b6a7-11e8-893a-005056a10824">
+															<img style="height: 144px;" src="/img/f/a/9/fa918bc8777fe7aa5c22977b35c92c3f"
+																 alt="Bundespolizei zieht Bilanz"
+																 title="Bundespolizei zieht Bilanz"
+																 />
+														</a>
+													</div>
+												</div>
+												<div class="teaserTextCon mediPadBot0">
+													<h4 class="headline" style="margin-right: 48px; padding: 0 8px 0 56px;">
+														<a href="/player.htm?show=cedbdff0-b6a7-11e8-893a-005056a10824">Bundespolizei zieht Bilanz (1:15)</a>
+														</h4>
+														<div class="teasertext" style="margin-right: 48px">
+															<a href="/player.htm?show=cedbdff0-b6a7-11e8-893a-005056a10824">
+															Rund 1.000 Beteiligte haben an der bislang größten Anti-Terror-Übung in  ...</a>
+														<div>
+															<a href="/player.htm?show=cedbdff0-b6a7-11e8-893a-005056a10824" title="direkt zum Video"><img class="mediFloatL" src="/assets/responsiv/iconVideoTransparenz.png" alt="direkt zum Video" /></a>
+																<a href="" title="Download URL"><img class="mediFloatL" src="/assets/responsiv/iconDownloadTransparenz.png" alt="Download" /></a>
+																</div>
+													</div>
+
+												</div>
+												<div class="mediSvgLine mediSvgLineLast"></div>
+											<div class="mediaCon" style="padding-right: 16px;">
+													<div class="media mediaA">
+														<a href="/player.htm?show=69aacd52-b6b4-11e8-b070-005056a12b4c">
+															<img style="height: 144px;" src="/img/d/1/f/d1ff042c40b092466e3f79d3041501e5"
+																 alt="Mehr als doppelt so viel Geld für Ex-Chef"
+																 title="Mehr als doppelt so viel Geld für Ex-Chef"
+																 />
+														</a>
+													</div>
+												</div>
+												<div class="teaserTextCon mediPadBot0">
+													<h4 class="headline" style="margin-right: 48px; padding: 0 8px 0 56px;">
+														<a href="/player.htm?show=69aacd52-b6b4-11e8-b070-005056a12b4c">Mehr als doppelt so viel Geld für Ex-Chef (1:20)</a>
+														</h4>
+														<div class="teasertext" style="margin-right: 48px">
+															<a href="/player.htm?show=69aacd52-b6b4-11e8-b070-005056a12b4c">
+															Nach SWR-Recherchen bekommt der ehemalige Geschäftsführer des Stuttgarter  ...</a>
+														<div>
+															<a href="/player.htm?show=69aacd52-b6b4-11e8-b070-005056a12b4c" title="direkt zum Video"><img class="mediFloatL" src="/assets/responsiv/iconVideoTransparenz.png" alt="direkt zum Video" /></a>
+																<a href="" title="Download URL"><img class="mediFloatL" src="/assets/responsiv/iconDownloadTransparenz.png" alt="Download" /></a>
+																</div>
+													</div>
+
+												</div>
+												<div class="mediSvgLine mediSvgLineLast"></div>
+											<div class="mediaCon" style="padding-right: 16px;">
+													<div class="media mediaA">
+														<a href="/player.htm?show=69aaf460-b6b4-11e8-b070-005056a12b4c">
+															<img style="height: 144px;" src="/img/e/9/1/e9191df1420a615ce55f5bb977eba0fd"
+																 alt="3.677 Missbrauchsfälle dokumentiert"
+																 title="3.677 Missbrauchsfälle dokumentiert"
+																 />
+														</a>
+													</div>
+												</div>
+												<div class="teaserTextCon mediPadBot0">
+													<h4 class="headline" style="margin-right: 48px; padding: 0 8px 0 56px;">
+														<a href="/player.htm?show=69aaf460-b6b4-11e8-b070-005056a12b4c">3.677 Missbrauchsfälle dokumentiert (1:25)</a>
+														</h4>
+														<div class="teasertext" style="margin-right: 48px">
+															<a href="/player.htm?show=69aaf460-b6b4-11e8-b070-005056a12b4c">
+															Eine Studie, an der die Universitäten Mannheim und Heidelberg beteiligt  ...</a>
+														<div>
+															<a href="/player.htm?show=69aaf460-b6b4-11e8-b070-005056a12b4c" title="direkt zum Video"><img class="mediFloatL" src="/assets/responsiv/iconVideoTransparenz.png" alt="direkt zum Video" /></a>
+																<a href="" title="Download URL"><img class="mediFloatL" src="/assets/responsiv/iconDownloadTransparenz.png" alt="Download" /></a>
+																</div>
+													</div>
+
+												</div>
+												<div class="mediSvgLine mediSvgLineLast"></div>
+											<div class="mediaCon" style="padding-right: 16px;">
+													<div class="media mediaA">
+														<a href="/player.htm?show=69aa3110-b6b4-11e8-b070-005056a12b4c">
+															<img style="height: 144px;" src="/img/a/c/d/acde77107c6dd3d8b3f3df99c2dabd27"
+																 alt="Brechts Kampf gegen die Filmindustrie"
+																 title="Brechts Kampf gegen die Filmindustrie"
+																 />
+														</a>
+													</div>
+												</div>
+												<div class="teaserTextCon mediPadBot0">
+													<h4 class="headline" style="margin-right: 48px; padding: 0 8px 0 56px;">
+														<a href="/player.htm?show=69aa3110-b6b4-11e8-b070-005056a12b4c">Brechts Kampf gegen die Filmindustrie (2:14)</a>
+														</h4>
+														<div class="teasertext" style="margin-right: 48px">
+															<a href="/player.htm?show=69aa3110-b6b4-11e8-b070-005056a12b4c">
+															Mit seiner Stuttgart-Premiere am Mittwochabend kommt der Film &#034;Mackie  ...</a>
+														<div>
+															<a href="/player.htm?show=69aa3110-b6b4-11e8-b070-005056a12b4c" title="direkt zum Video"><img class="mediFloatL" src="/assets/responsiv/iconVideoTransparenz.png" alt="direkt zum Video" /></a>
+																<a href="" title="Download URL"><img class="mediFloatL" src="/assets/responsiv/iconDownloadTransparenz.png" alt="Download" /></a>
+																</div>
+													</div>
+
+												</div>
+												<div class="mediSvgLine"></div>
+											</div>
+									</div>
+								<div class="box mediBoxBorder" data-ctrl-collapsible-id5_0B-entry="{'id':'12'}">
+										<div class="mediFloatL mediWidth100">
+											<h3 style="position: relative; cursor: pointer; border: 0;" class="headline hasArrow collapsed mediPosRel"
+												data-ctrl-collapsible-id5_0B-12-trigger="{'action':{'default':['toggleBody']}}">
+												<span class="mediTimeCol">18.00</span><span class="mediSvpHead">SWR Aktuell Rheinland-Pfalz</span>
+												<div style="position: absolute; right: 0px; top: 0px;" class="collapseArrow"></div></h3>
+										</div>
+										<div class="mediSvgRow" data-ctrl-collapsible-id5_0B-12-body="{}" data-ctrl-pix-trigger="{}">
+											<div class="mediaCon" style="padding-right: 16px;">
+													<div class="media mediaA">
+														<a href="/player.htm?show=125adeb0-b6ae-11e8-b070-005056a12b4c">
+															<img style="height: 144px;" src="/img/9/0/1/901a5706b09c2f2f08dcddea732ed364"
+																 alt="Sendung 18.00 Uhr"
+																 title="Sendung 18.00 Uhr"
+																 />
+														</a>
+													</div>
+												</div>
+												<div class="teaserTextCon mediPadBot0">
+													<h4 class="headline" style="margin-right: 48px; padding: 0 8px 0 56px;">
+														<a href="/player.htm?show=125adeb0-b6ae-11e8-b070-005056a12b4c">Sendung 18.00 Uhr (14:42)</a>
+														</h4>
+														<div class="teasertext" style="margin-right: 48px">
+															<a href="/player.htm?show=125adeb0-b6ae-11e8-b070-005056a12b4c">
+															Die Nachrichten aus Rheinland-Pfalz mit Fatma Mittler-Solak</a>
+														<div>
+															<a href="/player.htm?show=125adeb0-b6ae-11e8-b070-005056a12b4c" title="direkt zum Video"><img class="mediFloatL" src="/assets/responsiv/iconVideoTransparenz.png" alt="direkt zum Video" /></a>
+																<a href="" title="Download URL"><img class="mediFloatL" src="/assets/responsiv/iconDownloadTransparenz.png" alt="Download" /></a>
+																</div>
+													</div>
+
+												</div>
+												<div class="mediSvgLine mediSvgLineLast"></div>
+											<div class="mediaCon" style="padding-right: 16px;">
+													<div class="media mediaA">
+														<a href="/player.htm?show=e017e230-b6a9-11e8-b070-005056a12b4c">
+															<img style="height: 144px;" src="/img/e/f/8/ef8e67aa22d8fff48f89c583141043fc"
+																 alt="Rheinland-Pfalz Wetter vom 12.09.2018"
+																 title="Rheinland-Pfalz Wetter vom 12.09.2018"
+																 />
+														</a>
+													</div>
+												</div>
+												<div class="teaserTextCon mediPadBot0">
+													<h4 class="headline" style="margin-right: 48px; padding: 0 8px 0 56px;">
+														<a href="/player.htm?show=e017e230-b6a9-11e8-b070-005056a12b4c">Rheinland-Pfalz Wetter vom 12.09.2018 (4:26)</a>
+														</h4>
+														<div class="teasertext" style="margin-right: 48px">
+															<a href="/player.htm?show=e017e230-b6a9-11e8-b070-005056a12b4c">
+															Rheinland-Pfalz Wetter vom 12.09.2018</a>
+														<div>
+															<a href="/player.htm?show=e017e230-b6a9-11e8-b070-005056a12b4c" title="direkt zum Video"><img class="mediFloatL" src="/assets/responsiv/iconVideoTransparenz.png" alt="direkt zum Video" /></a>
+																<a href="" title="Download URL"><img class="mediFloatL" src="/assets/responsiv/iconDownloadTransparenz.png" alt="Download" /></a>
+																</div>
+													</div>
+
+												</div>
+												<div class="mediSvgLine"></div>
+											</div>
+									</div>
+								<div class="box mediBoxBorder" data-ctrl-collapsible-id5_0B-entry="{'id':'13'}">
+										<div class="mediFloatL mediWidth100">
+											<h3 style="position: relative; cursor: pointer; border: 0;" class="headline hasArrow collapsed mediPosRel"
+												data-ctrl-collapsible-id5_0B-13-trigger="{'action':{'default':['toggleBody']}}">
+												<span class="mediTimeCol">18.15</span><span class="mediSvpHead">made in Südwest</span>
+												<div style="position: absolute; right: 0px; top: 0px;" class="collapseArrow"></div></h3>
+										</div>
+										<div class="mediSvgRow" data-ctrl-collapsible-id5_0B-13-body="{}" data-ctrl-pix-trigger="{}">
+											<div class="mediaCon" style="padding-right: 16px;">
+													<div class="media mediaA">
+														<a href="/player.htm?show=2c822730-b4ce-11e8-b070-005056a12b4c">
+															<img style="height: 144px;" src="/img/0/0/e/00e126a65b17b6f03272e2740e353b97"
+																 alt="Waschen, cremen, pflegen - Naturkosmetik Annemarie Börlind aus dem Schwarzwald"
+																 title="Waschen, cremen, pflegen - Naturkosmetik Annemarie Börlind aus dem Schwarzwald"
+																 />
+														</a>
+													</div>
+												</div>
+												<div class="teaserTextCon mediPadBot0">
+													<h4 class="headline" style="margin-right: 48px; padding: 0 8px 0 56px;">
+														<a href="/player.htm?show=2c822730-b4ce-11e8-b070-005056a12b4c">Waschen, cremen, pflegen - Naturkosmetik Annemarie Börlind aus dem Schwarzwald (29:44)</a>
+														</h4>
+														<div class="teasertext" style="margin-right: 48px">
+															<a href="/player.htm?show=2c822730-b4ce-11e8-b070-005056a12b4c">
+															Preisgekrönte natürliche Schönheit aus dem Schwarzwald? Damit ist nicht die ...</a>
+														<div>
+															<a href="/player.htm?show=2c822730-b4ce-11e8-b070-005056a12b4c" title="direkt zum Video"><img class="mediFloatL" src="/assets/responsiv/iconVideoTransparenz.png" alt="direkt zum Video" /></a>
+																</div>
+													</div>
+
+												</div>
+												<div class="mediSvgLine"></div>
+											</div>
+									</div>
+								<div class="box mediBoxBorder" data-ctrl-collapsible-id5_0B-entry="{'id':'14'}">
+										<div class="mediFloatL mediWidth100">
+											<h3 style="position: relative; cursor: pointer; border: 0;" class="headline hasArrow collapsed mediPosRel"
+												data-ctrl-collapsible-id5_0B-14-trigger="{'action':{'default':['toggleBody']}}">
+												<span class="mediTimeCol">18.45</span><span class="mediSvpHead">Landesschau Baden-Württemberg</span>
+												<div style="position: absolute; right: 0px; top: 0px;" class="collapseArrow"></div></h3>
+										</div>
+										<div class="mediSvgRow" data-ctrl-collapsible-id5_0B-14-body="{}" data-ctrl-pix-trigger="{}">
+											<div class="mediaCon" style="padding-right: 16px;">
+													<div class="media mediaA">
+														<a href="/player.htm?show=444f4600-b6b2-11e8-b070-005056a12b4c">
+															<img style="height: 144px;" src="/img/a/5/a/a5a05a34d049daa1eb7c033e0bc1a95c"
+																 alt="Ein Analphabeth outet sich"
+																 title="Ein Analphabeth outet sich"
+																 />
+														</a>
+													</div>
+												</div>
+												<div class="teaserTextCon mediPadBot0">
+													<h4 class="headline" style="margin-right: 48px; padding: 0 8px 0 56px;">
+														<a href="/player.htm?show=444f4600-b6b2-11e8-b070-005056a12b4c">Ein Analphabeth outet sich (2:48)</a>
+														</h4>
+														<div class="teasertext" style="margin-right: 48px">
+															<a href="/player.htm?show=444f4600-b6b2-11e8-b070-005056a12b4c">
+															&#034;Ich hab´ halt nie über die Sache geredet. Auch nicht mit anderen Leuten  ...</a>
+														<div>
+															<a href="/player.htm?show=444f4600-b6b2-11e8-b070-005056a12b4c" title="direkt zum Video"><img class="mediFloatL" src="/assets/responsiv/iconVideoTransparenz.png" alt="direkt zum Video" /></a>
+																</div>
+													</div>
+
+												</div>
+												<div class="mediSvgLine mediSvgLineLast"></div>
+											<div class="mediaCon" style="padding-right: 16px;">
+													<div class="media mediaA">
+														<a href="/player.htm?show=44505770-b6b2-11e8-b070-005056a12b4c">
+															<img style="height: 144px;" src="/img/d/4/1/d41b0fe4ab9ceb61ffbc6253671823bd"
+																 alt="Jeder kann mitsingen!"
+																 title="Jeder kann mitsingen!"
+																 />
+														</a>
+													</div>
+												</div>
+												<div class="teaserTextCon mediPadBot0">
+													<h4 class="headline" style="margin-right: 48px; padding: 0 8px 0 56px;">
+														<a href="/player.htm?show=44505770-b6b2-11e8-b070-005056a12b4c">Jeder kann mitsingen! (3:29)</a>
+														</h4>
+														<div class="teasertext" style="margin-right: 48px">
+															<a href="/player.htm?show=44505770-b6b2-11e8-b070-005056a12b4c">
+															Von Mai bis September lädt die Bürgerstiftung Heidelberg jeden Mittwoch zum ...</a>
+														<div>
+															<a href="/player.htm?show=44505770-b6b2-11e8-b070-005056a12b4c" title="direkt zum Video"><img class="mediFloatL" src="/assets/responsiv/iconVideoTransparenz.png" alt="direkt zum Video" /></a>
+																</div>
+													</div>
+
+												</div>
+												<div class="mediSvgLine mediSvgLineLast"></div>
+											<div class="mediaCon" style="padding-right: 16px;">
+													<div class="media mediaA">
+														<a href="/player.htm?show=2b80a2b0-b6b0-11e8-b070-005056a12b4c">
+															<img style="height: 144px;" src="/img/5/b/8/5b8d2ca9274a6ec87229337ded12a4c3"
+																 alt="Anti-Terror-Übung in Stuttgart"
+																 title="Anti-Terror-Übung in Stuttgart"
+																 />
+														</a>
+													</div>
+												</div>
+												<div class="teaserTextCon mediPadBot0">
+													<h4 class="headline" style="margin-right: 48px; padding: 0 8px 0 56px;">
+														<a href="/player.htm?show=2b80a2b0-b6b0-11e8-b070-005056a12b4c">Anti-Terror-Übung in Stuttgart (3:36)</a>
+														</h4>
+														<div class="teasertext" style="margin-right: 48px">
+															<a href="/player.htm?show=2b80a2b0-b6b0-11e8-b070-005056a12b4c">
+															Angreifer schießen auf Reisende, Bomben explodieren, Menschen rennen um ihr ...</a>
+														<div>
+															<a href="/player.htm?show=2b80a2b0-b6b0-11e8-b070-005056a12b4c" title="direkt zum Video"><img class="mediFloatL" src="/assets/responsiv/iconVideoTransparenz.png" alt="direkt zum Video" /></a>
+																</div>
+													</div>
+
+												</div>
+												<div class="mediSvgLine mediSvgLineLast"></div>
+											<div class="mediaCon" style="padding-right: 16px;">
+													<div class="media mediaA">
+														<a href="/player.htm?show=2b800670-b6b0-11e8-b070-005056a12b4c">
+															<img style="height: 144px;" src="/img/3/9/d/39d07312d168bf2b5343b9fae6b17d82"
+																 alt="Neues Medikament gegen Migräne"
+																 title="Neues Medikament gegen Migräne"
+																 />
+														</a>
+													</div>
+												</div>
+												<div class="teaserTextCon mediPadBot0">
+													<h4 class="headline" style="margin-right: 48px; padding: 0 8px 0 56px;">
+														<a href="/player.htm?show=2b800670-b6b0-11e8-b070-005056a12b4c">Neues Medikament gegen Migräne (3:28)</a>
+														</h4>
+														<div class="teasertext" style="margin-right: 48px">
+															<a href="/player.htm?show=2b800670-b6b0-11e8-b070-005056a12b4c">
+															Deutschlandweit leiden 10 bis 12 Millionen Menschen unter Migräne. Einige  ...</a>
+														<div>
+															<a href="/player.htm?show=2b800670-b6b0-11e8-b070-005056a12b4c" title="direkt zum Video"><img class="mediFloatL" src="/assets/responsiv/iconVideoTransparenz.png" alt="direkt zum Video" /></a>
+																</div>
+													</div>
+
+												</div>
+												<div class="mediSvgLine mediSvgLineLast"></div>
+											<div class="mediaCon" style="padding-right: 16px;">
+													<div class="media mediaA">
+														<a href="/player.htm?show=1e5ebc90-b6ae-11e8-b070-005056a12b4c">
+															<img style="height: 144px;" src="/img/c/b/4/cb49d960cc7e10c2875eaa8f25e5797c"
+																 alt="So geht man im All aufs Klo"
+																 title="So geht man im All aufs Klo"
+																 />
+														</a>
+													</div>
+												</div>
+												<div class="teaserTextCon mediPadBot0">
+													<h4 class="headline" style="margin-right: 48px; padding: 0 8px 0 56px;">
+														<a href="/player.htm?show=1e5ebc90-b6ae-11e8-b070-005056a12b4c">So geht man im All aufs Klo (2:35)</a>
+														</h4>
+														<div class="teasertext" style="margin-right: 48px">
+															<a href="/player.htm?show=1e5ebc90-b6ae-11e8-b070-005056a12b4c">
+															Auf der Erde ist es die natürlichste Sache der Welt - der Toilettengang.  ...</a>
+														<div>
+															<a href="/player.htm?show=1e5ebc90-b6ae-11e8-b070-005056a12b4c" title="direkt zum Video"><img class="mediFloatL" src="/assets/responsiv/iconVideoTransparenz.png" alt="direkt zum Video" /></a>
+																<a href="" title="Download URL"><img class="mediFloatL" src="/assets/responsiv/iconDownloadTransparenz.png" alt="Download" /></a>
+																</div>
+													</div>
+
+												</div>
+												<div class="mediSvgLine mediSvgLineLast"></div>
+											<div class="mediaCon" style="padding-right: 16px;">
+													<div class="media mediaA">
+														<a href="/player.htm?show=bcdd80a0-b6bc-11e8-b070-005056a12b4c">
+															<img style="height: 144px;" src="/img/a/2/8/a280eee95368003c44adac285c89699f"
+																 alt="Landesschau Baden-Württemberg vom 12.09.2018"
+																 title="Landesschau Baden-Württemberg vom 12.09.2018"
+																 />
+														</a>
+													</div>
+												</div>
+												<div class="teaserTextCon mediPadBot0">
+													<h4 class="headline" style="margin-right: 48px; padding: 0 8px 0 56px;">
+														<a href="/player.htm?show=bcdd80a0-b6bc-11e8-b070-005056a12b4c">Landesschau Baden-Württemberg vom 12.09.2018 (44:49)</a>
+														</h4>
+														<div class="teasertext" style="margin-right: 48px">
+															<a href="/player.htm?show=bcdd80a0-b6bc-11e8-b070-005056a12b4c">
+															Mit diesen Themen unter anderem: Anti-Terror-Übung am Stuttgarter  ...</a>
+														<div>
+															<a href="/player.htm?show=bcdd80a0-b6bc-11e8-b070-005056a12b4c" title="direkt zum Video"><img class="mediFloatL" src="/assets/responsiv/iconVideoTransparenz.png" alt="direkt zum Video" /></a>
+																</div>
+													</div>
+
+												</div>
+												<div class="mediSvgLine mediSvgLineLast"></div>
+											<div class="mediaCon" style="padding-right: 16px;">
+													<div class="media mediaA">
+														<a href="/player.htm?show=69a8aa70-b6b4-11e8-b070-005056a12b4c">
+															<img style="height: 144px;" src="/img/f/c/0/fc05ab5f2d8d69e7ba4a0a24183953f7"
+																 alt="Schorndorf im venezianischen Maskenzauber"
+																 title="Schorndorf im venezianischen Maskenzauber"
+																 />
+														</a>
+													</div>
+												</div>
+												<div class="teaserTextCon mediPadBot0">
+													<h4 class="headline" style="margin-right: 48px; padding: 0 8px 0 56px;">
+														<a href="/player.htm?show=69a8aa70-b6b4-11e8-b070-005056a12b4c">Schorndorf im venezianischen Maskenzauber (3:59)</a>
+														</h4>
+														<div class="teasertext" style="margin-right: 48px">
+															<a href="/player.htm?show=69a8aa70-b6b4-11e8-b070-005056a12b4c">
+															In Schorndorf gibt es eine Gruppe von Maskenträger, die nichts mit  ...</a>
+														<div>
+															<a href="/player.htm?show=69a8aa70-b6b4-11e8-b070-005056a12b4c" title="direkt zum Video"><img class="mediFloatL" src="/assets/responsiv/iconVideoTransparenz.png" alt="direkt zum Video" /></a>
+																</div>
+													</div>
+
+												</div>
+												<div class="mediSvgLine mediSvgLineLast"></div>
+											<div class="mediaCon" style="padding-right: 16px;">
+													<div class="media mediaA">
+														<a href="/player.htm?show=69a946b2-b6b4-11e8-b070-005056a12b4c">
+															<img style="height: 144px;" src="/img/6/f/2/6f2c3c5b34f15cbf0c3abafe08616c10"
+																 alt="Lars Eidinger spielt Bertolt Brecht"
+																 title="Lars Eidinger spielt Bertolt Brecht"
+																 />
+														</a>
+													</div>
+												</div>
+												<div class="teaserTextCon mediPadBot0">
+													<h4 class="headline" style="margin-right: 48px; padding: 0 8px 0 56px;">
+														<a href="/player.htm?show=69a946b2-b6b4-11e8-b070-005056a12b4c">Lars Eidinger spielt Bertolt Brecht (8:29)</a>
+														</h4>
+														<div class="teasertext" style="margin-right: 48px">
+															<a href="/player.htm?show=69a946b2-b6b4-11e8-b070-005056a12b4c">
+															&#034;Mackie Messer - Brechts Dreigroschenfilm&#034; zeigt eine Welt in Aufruhr und  ...</a>
+														<div>
+															<a href="/player.htm?show=69a946b2-b6b4-11e8-b070-005056a12b4c" title="direkt zum Video"><img class="mediFloatL" src="/assets/responsiv/iconVideoTransparenz.png" alt="direkt zum Video" /></a>
+																</div>
+													</div>
+
+												</div>
+												<div class="mediSvgLine"></div>
+											</div>
+									</div>
+								</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="wrapper">
+	<div class="innerWrapper">
+		<div class="section sectionC teaserHugo">
+					<div class="con" data-ctrl-sectionlayout-entry="{}" style="height: 112px;">
+						<div class="modCon">
+							<div class="mod modA modMini mediTeaserPadS">
+								<div class="boxConWrapper">
+									<div class="boxCon">
+										<div class="box">
+												<div class="teaser">
+													<div class="mediaCon mediMargR16" style="width: 66px;">
+														<div class="media mediaB small" style="width: 100%;">
+															<a href="/content/barrierefrei.htm" >
+																<img src="/img/0/9/8/09894fb115179e71b29651a8d893beac" class="img" alt="" title=""/>
+															</a>
+														</div>
+													</div>
+													<div class="teaserTextCon">
+														<h4 class="headline">
+															<a href="/content/barrierefrei.htm">Mediathek Barrierearm</a>
+														</h4>
+														<div class="teasertext">
+															<a href="/content/barrierefrei.htm">Untertitel, Audiodeskription und Gebärdensprache</a>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			<div class="section sectionC teaserHugo">
+					<div class="con" data-ctrl-sectionlayout-entry="{}" style="height: 112px;">
+						<div class="modCon">
+							<div class="mod modA modMini mediTeaserPadS">
+								<div class="boxConWrapper">
+									<div class="boxCon">
+										<div class="box">
+												<div class="teaser">
+													<div class="mediaCon mediMargR16" style="width: 66px;">
+														<div class="media mediaB small" style="width: 100%;">
+															<a href="/content/letzte_chance.htm" >
+																<img src="/img/a/e/0/ae06bb8e361f6f48a50082f4af0f74a5" class="img" alt="" title=""/>
+															</a>
+														</div>
+													</div>
+													<div class="teaserTextCon">
+														<h4 class="headline">
+															<a href="/content/letzte_chance.htm">Letzte Chance</a>
+														</h4>
+														<div class="teasertext">
+															<a href="/content/letzte_chance.htm">Nur noch kurze Zeit online</a>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			<div class="section sectionC teaserHugo">
+					<div class="con" data-ctrl-sectionlayout-entry="{}" style="height: 112px;">
+						<div class="modCon">
+							<div class="mod modA modMini mediTeaserPadS">
+								<div class="boxConWrapper">
+									<div class="boxCon">
+										<div class="box">
+												<div class="teaser">
+													<div class="mediaCon mediMargR16" style="width: 66px;">
+														<div class="media mediaB small" style="width: 100%;">
+															<a href="/content/podcast_uebersicht.htm" >
+																<img src="/img/5/7/4/574aef18edcb7053d5591f70d958025a" class="img" alt="" title=""/>
+															</a>
+														</div>
+													</div>
+													<div class="teaserTextCon">
+														<h4 class="headline">
+															<a href="/content/podcast_uebersicht.htm">Podcast</a>
+														</h4>
+														<div class="teasertext">
+															<a href="/content/podcast_uebersicht.htm">Alle Podcastangebote des SWR</a>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+</div></div>
+			</div>
+			<div id="footer">
+	<div class="wrapper accent">
+		<div class="innerWrapper">
+			<div class="section sectionA">
+				<div class="footerNavi" data-ctrl-swrcollapsible="{'id':'collfoot','action':{'default':['openEntries','disable'],'xs':['enable','closeEntries'],'s':['enable','closeEntries'],'m':['enable','closeEntries']}}">
+					<ul class="footerNaviList">
+						<li class="footerNaviHead footerNaviHead1">
+							<div data-ctrl-collfoot-entry="{'id':'a1'}">
+								<div>
+									<span tabindex="-1" data-ctrl-collfoot-a1-trigger="{'action':{'default':['closeOtherEntries','toggleBody']}}" data-ctrl-collfoot-a1-arrow="{}" class="open" style="position: static; cursor: default;">Themen</span>
+									<ul data-ctrl-collfoot-a1-body="{}">
+										<li><a href="https://www.swr.de/swraktuell/-/id=13830988/ypzx6n/index.html">SWR Aktuell</a></li>
+										<li><a href="https://www.swr.de/sport/-/id=13831144/uo2kw5/index.html">SWR Sport</a></li>
+										<li><a href="https://www.swr.de/wissen/-/id=253126/lqckpe/index.html">SWR Wissen</a></li>
+										<li><a href="https://www.swr.de/archiv/-/id=6640190/r52t6u/index.html">Archiv</a></li>
+										<li><a href="https://www.swr.de/swr-classic/-/id=17055312/1qgyl76/index.html">SWR Classic</a></li>
+										<li><a href="http://www.kindernetz.de">SWR Kindernetz</a></li>
+									</ul>
+								</div>
+							</div>
+						</li>
+
+						<li class="footerNaviHead footerNaviHead2">
+							<div data-ctrl-collfoot-entry="{'id':'a2'}">
+								<div>
+									<span tabindex="-1" data-ctrl-collfoot-a2-trigger="{'action':{'default':['closeOtherEntries','toggleBody']}}" data-ctrl-collfoot-a2-arrow="{}" class="open" style="position: static; cursor: default;">Fernsehen</span>
+									<ul data-ctrl-collfoot-a2-body="{}">
+										<li><a href="https://www.swrfernsehen.de/-/id=2798/5kmvjc/index.html">SWR Fernsehen</a></li>
+										<li><a href="https://www.swrfernsehen.de/tv-programm/-/id=3160/99jxmq/index.html">Programm</a></li>
+										<li><a href="https://www.swrfernsehen.de/live/-/id=13894780/1gcvey9/index.html">Live</a></li>
+										<li><a href="https://www.swrfernsehen.de/sendungen-von-a-bis-z/-/id=3190/1abzah9/index.html">Sendungen A-Z</a></li>
+										<li><a href="https://www.swrfernsehen.de/videotext/-/id=14476586/1uvmfqt/index.html">Videotext</a></li>
+									</ul>
+								</div>
+							</div>
+						</li>
+
+						<li class="footerNaviHead footerNaviHead3">
+							<div data-ctrl-collfoot-entry="{'id':'a3'}">
+								<div>
+									<span tabindex="-1" data-ctrl-collfoot-a3-trigger="{'action':{'default':['closeOtherEntries','toggleBody']}}" data-ctrl-collfoot-a3-arrow="{}" class="open" style="position: static; cursor: default;">Radio</span>
+									<ul data-ctrl-collfoot-a3-body="{}">
+										<li><a href="https://www.swr.de/swr1/-/id=266634/1kqaztk/index.html">SWR1</a></li>
+										<li><a href="https://www.swr.de/swr2/-/id=7576/otnbb1/index.html">SWR2</a></li>
+										<li><a href="http://www.swr3.de">SWR3</a></li>
+										<li><a href="https://www.swr.de/swr4/-/id=266578/19hatv2/index.html">SWR4</a></li>
+										<li><a href="http://www.dasding.de">DASDING</a></li>
+									</ul>
+								</div>
+							</div>
+						</li>
+
+						<li class="footerNaviHead footerNaviHead4">
+							<div data-ctrl-collfoot-entry="{'id':'a4'}">
+								<div>
+									<span tabindex="-1" data-ctrl-collfoot-a4-trigger="{'action':{'default':['closeOtherEntries','toggleBody']}}" data-ctrl-collfoot-a4-arrow="{}" class="open" style="position: static; cursor: default;">Mediathek</span>
+									<ul data-ctrl-collfoot-a4-body="{}">
+										<li><a href="http://swrmediathek.de">Übersicht</a></li>
+										<li><a href="http://swrmediathek.de/content/live.htm">Live</a></li>
+										<li><a href="http://swrmediathek.de/sendungverpasst.htm">Sendung verpasst</a></li>
+										<li><a href="http://swrmediathek.de/themalist.htm">Themen</a></li>
+										<li><a href="http://swrmediathek.de/content/podcast_uebersicht.htm">Podcast</a></li>
+										<li><a href="http://swrmediathek.de/tvlist.htm">Sendungen A-Z</a></li>
+									</ul>
+								</div>
+							</div>
+						</li>
+
+						<li class="footerNaviHead footerNaviHead5">
+							<div data-ctrl-collfoot-entry="{'id':'a5'}">
+								<div>
+									<span tabindex="-1" data-ctrl-collfoot-a5-trigger="{'action':{'default':['closeOtherEntries','toggleBody']}}" data-ctrl-collfoot-a5-arrow="{}" class="open" style="position: static; cursor: default;">Der SWR</span>
+									<ul data-ctrl-collfoot-a5-body="{}">
+										<li><a href="https://www.swr.de/unternehmen/-/id=3586/mmm7ol/index.html">Der SWR</a></li>
+										<li><a href="https://www.swr.de/unternehmen/organisation/-/id=7687068/6dr3wg/index.html">Organisation</a></li>
+										<li><a href="https://www.swr.de/unternehmen/gremien/-/id=12338976/5jt7fz/index.html">Gremien</a></li>
+										<li><a href="https://www.swr.de/unternehmen/karriere/-/id=7687324/xgqyuu/index.html">Karriere</a></li>
+										<li><a href="https://www.swr.de/unternehmen/kommunikation/-/id=10563098/gvbuzw/index.html">Kommunikation</a></li>
+									</ul>
+								</div>
+							</div>
+						</li>
+
+						<li class="footerNaviHead footerNaviHead6">
+							<div data-ctrl-collfoot-entry="{'id':'a6'}">
+								<div>
+									<span tabindex="-1" data-ctrl-collfoot-a6-trigger="{'action':{'default':['closeOtherEntries','toggleBody']}}" data-ctrl-collfoot-a6-arrow="{}" class="open" style="position: static; cursor: default;">Service</span>
+									<ul data-ctrl-collfoot-a6-body="{}">
+										<li><a href="https://www.swr.de/kontakt/-/id=3604/cf=42/949w5u/index.html">Kontakt</a></li>
+										<li></li>
+										<li><a href="https://www.swr.de/a-z/-/id=3610/tsxm4g/index.html">SWR A-Z</a></li>
+										<li><a href="https://www.swr.de/unternehmen/besucherfuehrungen-uebersicht/-/id=3586/did=7535338/nid=3586/1xgslwe/index.html">Besucherführungen</a></li>
+										<li><a href="https://www.swr.de/unternehmen/swr-veranstaltungen/-/id=3586/did=16192718/nid=3586/15gu498/index.html">Veranstaltungen</a></li>
+										<li><a href="http://swrservice.de/mitschnitt/">Mitschnittdienst</a></li>
+										<li><a href="https://www.swr.de/empfang/-/id=3786/mrfxfv/index.html">Frequenzen</a></li>
+										<li><a href="https://www.swr.de/hilfe/-/id=3292/kq7b20/index.html">Hilfe</a></li>
+									</ul>
+								</div>
+							</div>
+						</li>
+
+					</ul>
+				</div>
+				<div class="footerCopy">
+					<ul class="footerLegalList">
+						<li><a href="#imgrights" data-ctrl-imagecopyrights="{}">Bildrechte</a></li>
+						<li>
+							<a href="https://www.swr.de/impressum/-/id=384/1qdfrd3/index.html">Impressum</a>
+						</li>
+						<li>
+							<a href="https://www.swr.de/datenschutz/-/id=5885502/18mmzvl/index.html">Datenschutz</a>
+						</li>
+					</ul>
+
+					<ul class="footerCopyList">
+						<li>Der SWR ist Mitglied der ARD</li>
+						<li class="footerCopyLink"><a href="http://www.ard.de"><img src="/imgr/logo/logoARD.png" alt="ARD"></a></li>
+						<li class="footerCopyLast">© SWR 2018</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+</div>
+		<script type = 'text/javascript' >
+					var _sf_async_config = {};
+					_sf_async_config.uid = 61714;
+					_sf_async_config.domain = 'swrmediathek.de';
+					_sf_async_config.noCookies = true;
+					_sf_async_config.useCanonical = true;
+					_sf_async_config.sections = 'Page';
+					_sf_async_config.authors = 'Sendung verpasst?';
+				</script>
+			<script type='text/javascript'>
+			(function () {
+				function loadChartbeat() {
+					window._sf_endpt = (new Date()).getTime();
+					var e = document.createElement('script');
+					e.setAttribute('language', 'javascript');
+					e.setAttribute('type', 'text/javascript');
+					e.setAttribute('src', '//static.chartbeat.com/js/chartbeat.js');
+					document.body.appendChild(e);
+				}
+				var oldonload = window.onload;
+				window.onload =
+						(typeof window.onload != 'function') ? loadChartbeat : function () {
+					oldonload();
+					loadChartbeat();
+				};
+			})();
+		</script>
+		</body>
+</html>
