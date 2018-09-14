@@ -14,6 +14,7 @@ import java.lang.reflect.Type;
 import java.net.URI;
 import java.util.Optional;
 import java.util.concurrent.ConcurrentLinkedQueue;
+import java.util.concurrent.TimeUnit;
 import javax.ws.rs.client.Invocation;
 import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.Response;
@@ -23,6 +24,7 @@ import org.apache.logging.log4j.Logger;
 public class SwrFilmTask extends AbstractRestTask<Film, CrawlerUrlDTO> {
 
   private static final Logger LOG = LogManager.getLogger(SwrFilmTask.class);
+  private static final int REQUEST_DELAY = 4000;
 
   private final String baseUrl;
 
@@ -36,6 +38,8 @@ public class SwrFilmTask extends AbstractRestTask<Film, CrawlerUrlDTO> {
 
   @Override
   protected void processRestTarget(CrawlerUrlDTO aDTO, WebTarget aTarget) {
+    delayRequest();
+
     Invocation.Builder request = aTarget.request();
     final Response response = request.header(HEADER_ACCEPT_ENCODING, ENCODING_GZIP).get();
 
@@ -57,10 +61,24 @@ public class SwrFilmTask extends AbstractRestTask<Film, CrawlerUrlDTO> {
     }
   }
 
+  private void delayRequest() {
+    try {
+      TimeUnit.MILLISECONDS.sleep(REQUEST_DELAY);
+    } catch (InterruptedException e) {
+      LOG.error(e);
+    }
+  }
+
   @Override
   protected AbstractRecrusivConverterTask<Film, CrawlerUrlDTO> createNewOwnInstance(
       ConcurrentLinkedQueue<CrawlerUrlDTO> aElementsToProcess) {
     return new SwrFilmTask(crawler, aElementsToProcess, baseUrl);
+  }
+
+  @Override
+  protected Integer getMaxElementsToProcess() {
+    // only one instance of SwrFilmTask is allowed because SWR blocks requests
+    return Integer.MAX_VALUE;
   }
 
   private void parseFilm(Response response, URI uri) {
