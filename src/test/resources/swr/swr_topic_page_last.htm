@@ -1,0 +1,1447 @@
+<!DOCTYPE html>
+<html lang="de">
+    <head>
+        <title>TV Sendung - SWR Mediathek</title>
+
+		<meta content="width=device-width,initial-scale=1.0" name="viewport">
+		<link rel="icon" type="image/png" href="/assets/favicons/Mediathek_16.png?v=2" sizes="16x16">
+		<link rel="icon" type="image/png" href="/assets/favicons/Mediathek_32.png?v=2" sizes="32x32">
+		<link rel="icon" type="image/png" href="/assets/favicons/Mediathek_96.png?v=2" sizes="96x96">
+		<link rel="icon" type="image/png" href="/assets/favicons/Mediathek_160.png?v=2" sizes="160x160">
+		<link rel="icon" type="image/png" href="/assets/favicons/Mediathek_196.png?v=2" sizes="196x196">
+
+		<link rel="apple-touch-icon" href="/assets/favicons/Mediathek_64.png?v=2">
+		<link rel="apple-touch-icon" href="/assets/favicons/Mediathek_57.png?v=2" sizes="57x57">
+		<link rel="apple-touch-icon" href="/assets/favicons/Mediathek_72.png?v=2" sizes="72x72">
+		<link rel="apple-touch-icon" href="/assets/favicons/Mediathek_144.png?v=2" sizes="144x144">
+		<link rel="apple-touch-icon" href="/assets/favicons/Mediathek_196.png?v=2" sizes="196x196">
+
+		<meta name="application-name" content="swrmediathek.de"/>
+		<meta name="msapplication-TileColor" content="#ffffff">
+		<meta name="msapplication-TileImage" content="/assets/favicons/Mediathek_144.png?v=2">
+		<meta name="msapplication-square70x70logo" content="/assets/favicons/Mediathek_70.png?v=2">
+		<meta name="msapplication-square144x144logo" content="/assets/favicons/Mediathek_144.png?v=2">
+		<meta name="msapplication-square150x150logo" content="/assets/favicons/Mediathek_150.png?v=2">
+		<meta name="msapplication-wide310x150logo" content="/assets/favicons/Mediathek_310_150.png?v=2">
+		<meta name="msapplication-square310x310logo" content="/assets/favicons/Mediathek_310.png?v=2">
+
+        <meta name="robots" content="noarchive" />
+
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <meta name="apple-itunes-app" content="app-id=655052131, affiliate-data=, app-argument=https://itunes.apple.com/de/app/swr-mediathek/id655052131?l=de">
+        <meta charset="UTF-8">
+        <link rel="shortcut icon" href="favicon.ico"/>
+        <script type='text/javascript'>var _sf_startpt = (new Date()).getTime()</script>
+		<link rel="stylesheet" media="screen" type="text/css" href="/cssr/static/base.css"/>
+		<link rel="stylesheet" media="screen" type="text/css" href="/cssr/swr-base-container.css"/>
+		<link rel="stylesheet" media="screen" type="text/css" href="/cssr/static/jquery-ui-1.10.4.css"/>
+		<link rel="stylesheet" media="screen" type="text/css" href="/cssr/swrde-base-container.css"/>
+		<link rel="stylesheet" media="screen" type="text/css" href="/cssr/medipatch_all.css"/>
+
+
+
+		<script type="text/javascript" src="/jsr/static/Frameworkes/jQuery/jquery-1.7.2.mini.js"></script>
+		<script type="text/javascript" src="/jsr/jquery-ui-1-10-4.js"></script>
+		<script src="/assets/ardplayer-3.8.6/base/js/libs/jquery.tools-1.2.7.min.js"></script>
+
+		<script type="text/javascript" src="/jsr/static/Frameworkes/jQuery/plugins/waitForImages/jquery.waitforimages.js"></script>
+		<script type="text/javascript" src="/jsr/static/Application.js"></script>
+		<script type="text/javascript" src="/jsr/static/MediaMatcher/MediaMatcher.js"></script>
+		<script type="text/javascript" src="/jsr/static/Frameworkes/iScroll4/iscroll.js"></script>
+		<script type="text/javascript" src="/jsr/static/Controller/BaseController.js"></script>
+		<script type="text/javascript" src="/jsr/static/Controller/AttributeSwapController.js"></script>
+		<script type="text/javascript" src="/jsr/static/Controller/CollapsibleController.js"></script>
+		<script type="text/javascript" src="/jsr/static/Controller/LoadableController.js"></script>
+		<script type="text/javascript" src="/jsr/static/Controller/PixelController.js"></script>
+		<script type="text/javascript" src="/jsr/static/Controller/SlidableController.js"></script>
+		<script type="text/javascript" src="/jsr/static/Controller/SocialMediaController.js"></script>
+		<script type="text/javascript" src="/jsr/static/Controller/SortableController.js"></script>
+		<script type="text/javascript" src="/jsr/static/Controller/TableController.js"></script>
+		<script type="text/javascript" src="/jsr/responsive-design-sammel-javascript.js"></script>
+        <script type="text/javascript" src="//cdn-gl.imrworldwide.com/novms/js/2/ggcmb510.js"></script>
+
+			<script src="/assets/ardplayer_addons/mandanten/swr/base/hls-3f2dce0.min.js"></script>
+			<link rel="stylesheet" href="/assets/ardplayer_addons/mandanten/swr/base/main.min.css" type="text/css"/>
+			<script src="/assets/ardplayer_addons/mandanten/swr/base/player.min.js"></script>
+			<script src="/assets/ardplayer_addons/mandanten/swr/base/addons.min.js"></script>
+
+			<link href="/assets/ardplayer_addons/ebu-tt/css/AddonEbuSubtitle.min.css" rel="stylesheet" type="text/css"/>
+			<link href="/assets/ardplayer_addons/swr_info/css/AddonSwrInfo.min.css" rel="stylesheet" type="text/css"/>
+			<link href="/assets/ardplayer_addons/swr_social/css/AddonSwrSocial.min.css" rel="stylesheet" type="text/css"/>
+			<link href="/assets/ardplayer_addons/swr_related/css/AddonSwrRelated.min.css" rel="stylesheet" type="text/css"/>
+
+		<script type="text/javascript" src="/jsr/swrsearch.js"></script>
+		<script type="text/javascript" src="/jsr/swrcollapsiblecontroller.js"></script>
+		<script type="text/javascript">
+				if (typeof xtPlaylist == 'undefined') {
+					var xtPlaylist = new Array;
+				}
+				var app = new Application(jQuery);
+				(function (jq) {
+					var mediaMatcher = app.mediaMatcher = new MediaMatcher(
+							{
+								'screen and (min-width: 0px) and (max-width: 479px)': {
+									'css': [
+										'/cssr/static/xs.css',
+										'/cssr/swrde-xs-container.css',
+										'/cssr/medipatch_xs.css'
+									],
+									'js': [
+									],
+									'obj': [
+										{
+											onInit: function () {
+											},
+											onMatch: function () {
+												app.dispatchEvent(
+														Application.EVENT_VIEW_UPDATED,
+														"xs");
+											},
+											onUnmatch: function () {
+												app.dispatchEvent(
+														Application.EVENT_VIEW_DIED, "xs");
+											}
+										}
+									]
+								},
+								'screen and (min-width: 480px) and (max-width: 767px)': {
+									'css': [
+										'/cssr/static/s.css',
+										'/cssr/swrde-s-container.css',
+										'/cssr/medipatch_s.css'
+									],
+									'js': [
+									],
+									'obj': [
+										{
+											onInit: function () {
+											},
+											onMatch: function () {
+												app.dispatchEvent(
+														Application.EVENT_VIEW_UPDATED,
+														"s");
+											},
+											onUnmatch: function () {
+												app.dispatchEvent(
+														Application.EVENT_VIEW_DIED, "s");
+											}
+										}
+									]
+								},
+								'screen and (min-width: 768px) and (max-width: 1009px)': {
+									'css': [
+										'/cssr/static/m.css',
+										'/cssr/swrde-m-container.css',
+										'/cssr/medipatch_m.css'
+									],
+									'js': [
+									],
+									'obj': [
+										{
+											onInit: function () {
+											},
+											onMatch: function () {
+												app.dispatchEvent(
+														Application.EVENT_VIEW_UPDATED,
+														"m");
+											},
+											onUnmatch: function () {
+												app.dispatchEvent(
+														Application.EVENT_VIEW_DIED, "m");
+											}
+										}
+									]
+								},
+								'screen and (min-width: 1010px) and (max-width: 1900px)': {
+									'css': [
+										'/cssr/static/l.css',
+										'/cssr/swrde-l-container.css',
+										'/cssr/medipatch_l.css'
+									],
+									'js': [
+									],
+									'obj': [
+										{
+											onInit: function () {
+											},
+											onMatch: function () {
+												app.dispatchEvent(
+														Application.EVENT_VIEW_UPDATED,
+														"l");
+											},
+											onUnmatch: function () {
+												app.dispatchEvent(
+														Application.EVENT_VIEW_DIED, "l");
+											}
+										}
+									]
+								},
+								'screen and (min-width: 1901px)': {
+									'css': [
+										'/cssr/static/xl.css',
+										'/cssr/swrde-xl-container.css',
+										'/cssr/medipatch_xl.css'
+									],
+									'js': [
+									],
+									'obj': [
+										{
+											onInit: function () {
+											},
+											onMatch: function () {
+												app.dispatchEvent(
+														Application.EVENT_VIEW_UPDATED,
+														"xl");
+											},
+											onUnmatch: function () {
+												app.dispatchEvent(
+														Application.EVENT_VIEW_DIED, "xl");
+											}
+										}
+									]
+								},
+							});
+					mediaMatcher.showInfo(false);
+					mediaMatcher.preLoadCss(false);
+					mediaMatcher.dynamicLoadJS(false);
+					mediaMatcher.dynamicLoadCss(true);
+					mediaMatcher.dynamicTriggerObj(true);
+					mediaMatcher.waitBeforeDynamicLoad(25);
+					mediaMatcher.waitForCssIsLoaded(true, 5000);
+					mediaMatcher.tryToSupportNativeMediaQueries(true);
+					mediaMatcher.init();
+					jq(document).ready(function () {
+						if (!app.initialized)
+							app.init();
+					});
+				})(jQuery.noConflict());</script>
+
+		<link rel="stylesheet" href="/cssr/offcanvas.css" type="text/css"/>
+		<link rel="stylesheet" href="/cssr/app-highlight-teaser.css" type="text/css"/> 
+
+		<script type="text/javascript">
+			var $ = jQuery;
+			</script>
+		<script type="text/javascript" src="/swr-player/plugins/atInternet/xtjwrm_20001.js" ></script>       
+		<script type="text/javascript" src="/swr-player/assets/playerUtils.js" ></script>   
+		<script type="text/javascript" src="/js2/utilityFunctions.js" ></script>
+		<script type="text/javascript" src="/js2/mediathek.js"></script>
+		<script type='text/javascript'>
+			
+			var gBaseHost = window.location.protocol + '//' + window.location.host;
+			var gAppName = "";
+			var gPlayer = "default";
+		</script>
+		<!-- http://swrmediathek.de -->
+
+		<link rel="stylesheet" media="screen" type="text/css" href="/cssr/buttonnavi.css"/>
+		<link rel="stylesheet" media="screen" type="text/css" href="/cssr/buttonnavi-medi.css"/>
+
+	</head>
+	<body class="homepage swr_de overview">
+
+		<div id="szm_old"><!-- SZM1.5-Tag --></div>
+<script type="text/javascript">
+	function isStringDetected(value) {
+		var regexp = new RegExp(value, "gi");
+		return (regexp.test(navigator.appVersion)
+			|| regexp.test (navigator.userAgent)) ? true : false;
+	}
+
+	function isTablet() {
+		if (isStringDetected("iPad|Windows NT|Kindle|PlayBook") || (isStringDetected("Android") && !isStringDetected("Mobile"))) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	$(document).ready(function() {
+		window.setTimeout(function() {
+			var ak_stat = "swr";
+			var ak_mobi = "mobswr";
+			var cp_stat = "Seite/stationaer";
+			var cp_mobi = "Seite/mobil";
+		
+			$.ajaxSetup({ cache: true });
+			
+			// var ivwStart = new Date().getMilliseconds(); 
+			
+			$.getScript("https://script.ioam.de/iam.js").done(function() {
+				
+/*				var ivwEnd = new Date().getMilliseconds();
+				$.ajax({
+					url: gAppName + '/microTimer/ivw/'+(ivwEnd-ivwStart),
+					type: "POST",
+					success: function (data) { },
+					error: function (req, textStatus, errorThrown) { }
+				});
+*/
+				var isMobil = typeof orientation != 'undefined' ? true:false;
+				// Tablets zählen stationär
+				if (isTablet()) { isMobil = false; }
+				if (!isMobil) {
+					var iam_data = {
+						"st" : ak_stat,
+						"cp" : cp_stat
+					};
+				} else {
+					var iam_data = {
+						"st" : ak_mobi,
+						"cp" : cp_mobi
+					};
+				}
+				iom.c(iam_data, 1);
+			});
+		}, 1);
+	});
+	
+</script>
+
+
+
+
+<script type="text/javascript">
+		<!--
+    xtnv = document; //parent.document or top.document or document
+		xtsd = "https://logs1241";
+		xtsite = 487212;
+    
+	xtn2 = "55"; // level 2 site ID 
+		xtpage = "Fernsehen%3A%3ASport+am+Samstag";
+		xtdi = "0"; //implication degree
+    
+	var browserType = detectBrowserType();
+		xt_multc = "&x1=TV Sendung&x2=Übersichts-Seite&x3=TV Sendung&x5=SWR.de&x6=Nein&x7=Desktop-" + browserType + "&x8=SWR Mediathek";
+		xt_an = ""; //user ID
+		xt_ac = ""; //category ID
+		//do not modify below
+		if (window.xtparam != null){window.xtparam += xt_multc + "&ac=" + xt_ac + "&an=" + xt_an; }
+	else{window.xtparam = xt_multc + "&ac=" + xt_ac + "&an=" + xt_an; };
+		//-->
+</script>
+<script type="text/javascript" src="/ati/xtcore.js"></script>
+<noscript>
+<img src="https://logs1241.xiti.com/hit.xiti?s=487212&s2=55&p=Fernsehen%3A%3ASport+am+Samstag&di=0&an=&ac=" width="1" height="1">
+</noscript>
+<div id="skiplink">
+			<ul><li><a href="index.html#swrsuche">direkt zur Suche</a></li><li><a href="index.html#hauptspalte">direkt zum Inhalt</a></li></ul>
+		</div><!-- Ende skiplink -->
+
+		<div id="naviheader">
+	<div class="section sectionA">
+		<header id="swr-header">
+			<nav class="navbar navbar-default">
+				<div class="container navbar-header">
+					<button class="btn-menu" type="button" data-toggle="megamenu">MENÜ</button>
+					<a class="navbar-brand" href="/index.htm"><span class="alt">SWR Mediathek</span></a>
+				</div>
+				<div class="megamenu">
+
+					<div class="menubox first">
+						<a href="/index.htm" >SWR Mediathek</a>
+
+                        <ul class="container nav navbar-nav">
+							<li>
+														<a href="/content/live.htm" >Live</a>
+													</li>
+												<li>
+														<a href="/sendungverpasst.htm" >Sendung verpasst?</a>
+													</li>
+												<li>
+														<a href="/themalist.htm" >Themen</a>
+													</li>
+												<li>
+														<a href="/tvlist.htm" >Sendungen A-Z</a>
+													</li>
+												</ul>
+					</div>
+
+					<div class="menubox imswr ">
+						<h2>Im SWR</h2>
+						<ul class="container nav navbar-nav">
+							<li>
+								<a href="https://www.swr.de/" >SWR Home</a>
+							</li>
+							<li>
+								<a href="https://www.swr.de/swraktuell/swraktuell-100.html" >SWR Aktuell</a>
+							</li>
+							<li>
+								<a href="https://www.swr.de/swraktuell/baden-wuerttemberg/swraktuell-bw-100.html" >SWR Aktuell Baden-Württemberg</a>
+							</li>
+							<li>
+								<a href="https://www.swr.de/swraktuell/rheinland-pfalz/swraktuell-rp-100.html" >SWR Aktuell Rheinland-Pfalz</a>
+							</li>
+							<li>
+								<a href="https://www.swr.de/sport/-/id=13831144/uo2kw5/index.html" >SWR Sport</a>
+							</li>
+							<li>
+								<a href="https://www.swr.de/wissen/-/id=253126/lqckpe/index.html" >SWR Wissen</a>
+							</li>
+<li>
+								<a href="http://swrmediathek.de" >SWR Mediathek</a>
+							</li>
+							<li>
+								<a href="https://www.swr.de/unternehmen/-/id=3586/mmm7ol/index.html" >Der SWR</a>
+							</li>
+						</ul>
+					</div>
+
+					<div class="menubox tvradio">
+						<h2>Fernsehen und Radio</h2>
+						<ul class="container nav navbar-nav">
+							<li>
+								<a href="https://www.swrfernsehen.de/-/id=2798/5kmvjc/index.html" >SWR Fernsehen</a>
+							</li>
+							<li>
+								<a href="https://www.swr.de/swr1/bw/-/id=233362/18u3ytd/index.html" >SWR1 BW</a>
+							</li>
+							<li>
+								<a href="https://www.swr.de/swr1/rp/-/id=233366/1abvyu0/index.html" >SWR1 RP</a>
+							</li>
+							<li>
+								<a href="https://www.swr.de/swr2/-/id=7576/otnbb1/index.html" >SWR2</a>
+							</li>
+							<li>
+								<a href="http://www.swr3.de" >SWR3</a>
+							</li>
+							<li>
+								<a href="https://www.swr.de/swr4/bw/-/id=233374/mqfgxh/index.html" >SWR4 BW</a>
+							</li>
+							<li>
+								<a href="https://www.swr.de/swr4/rp/-/id=233378/oihljy/index.html" >SWR4 RP</a>
+							</li>
+							<li>
+								<a href="http://www.dasding.de">DASDING</a>
+							</li>
+							<li>
+								<a href="https://www.swr.de/swr-classic/-/id=17055312/1qgyl76/index.html" >SWR Classic</a>
+							</li>
+							<li>
+								<a href="http://www.kindernetz.de" >SWR Kindernetz</a>
+							</li>
+							<li>
+								<a href="https://www.planet-schule.de/" >Planet Schule</a>
+							</li>
+						</ul>
+					</div>
+
+					<div class="container">
+						<button class="btn btn-default btn-close" type="button">Schließen</button>
+					</div>
+				</div>
+
+
+				<div class="container meta-navi">
+					<ul class="nav navbar-nav">
+						<li class="topNaviSearch" id="swrsuche" data-ctrl-easytoggle="{'id':'topnavisearch','type':'naviSearch'}"><a data-ctrl-topnavisearch-trigger="{'noBubble':'true'}" href="https://www.swr.de/-/id=5511484/cf=42/eip237/index.html"><span class="textSearch">Suche im SWR</span></a>
+							<div class="searchBoxTop" role="search" data-ctrl-topnavisearch-body="{}">
+								<form class="searchFormTop" action="/suche.htm" method="get">
+									<span role="status" aria-live="polite" class="ui-helper-hidden-accessible"></span><input class="textinput ui-autocomplete-input" name="econt" id="searchInput" value="Suche" onfocus="document.getElementById('searchInput').value = ''" autocomplete="off" type="text">
+									<input class="submit" name="searchSubmit" id="searchSubmit" value="Absenden" type="submit">
+									<input id="searchScope" value="SWR_Text_only" name="searchScope" type="hidden">
+									<input id="restriction" value="" name="restriction" type="hidden">
+								</form>
+							</div>
+							<script type="text/javascript">
+								// jQuery=$;
+								jQuery(function () {
+									jQuery(".btn-menu").click(function () {
+										jQuery(".megamenu").addClass("open")
+									});
+									jQuery(".btn-close").click(function () {
+										jQuery(".megamenu").removeClass("open")
+									})
+								})
+										;
+								</script>
+						</li>
+
+						<li class="wetter"><a href="https://www.swr.de/wetter/-/id=5491998/cf=42/1ufy43o/index.html">Wetter</a></li>
+						<li class="verkehr"><a href="https://www.swr.de/verkehr/-/id=4201888/fstq1s/index.html">Verkehr</a></li>
+					</ul>
+				</div>
+
+			</nav>
+		</header>
+	</div>
+</div>
+<div data-ctrl-layoutable="{'id':'sectionlayout','action':{'xs':['disable'],'s':['disable'],'default':['equalHeight']},'refreshOnAdded':'true'}">
+			<div id="navigation">
+				<div class="wrapper">
+					<div class="innerWrapper">
+						<div class="section sectionA">
+							<ol class="breadcrumb">
+								<li>
+									<a href="https://www.swr.de/-/id=116/1p6o6z0/index.html">SWR</a>
+								</li>
+								<li>
+									<a href="/index.htm">SWR Mediathek</a>
+								</li>
+							</ol>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div style="clear:both;height:10px;"></div>
+			<div id="content" class="home">
+				<div data-ctrl-layoutable="{'id':'sectionlayout','action':{'xs':['disable'],'s':['disable'],'default':['equalHeight']},'refreshOnAdded':'true'}">
+					<div class="wrapper">
+		<div class="innerWrapper">
+			<div class="section sectionZ">
+				<div class="con" data-ctrl-sectionlayout-entry="{}" style="height: 466px;">
+					<div class="modCon">
+						<div class="mod modA">
+							<div class="boxConWrapper">
+								<div class="boxCon">
+                                        <div class="box">
+                                            <div class="teaser">
+												<div class="mediaCon">
+													<div class="media mediaA">
+														<img src="/img/4/a/4/4a46ca4103be823085fd8cb4adc8bb9b" class="img"
+															 title="Sport am Samstag" alt="Sport am Samstag"/>
+													</div>
+												</div>
+											</div>
+										</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="section sectionC">
+				<div class="con mediPosRel" data-ctrl-sectionlayout-entry="{}" style="height: 466px;">
+					<div class="modCon mediPosBottom">
+						<div class="mod modA">
+							<div class="boxConWrapper">
+								<div class="boxCon">
+                                        <div class="box">
+                                            <div class="teaser">
+												<div class="teaserTextCon">
+													<p class="dachzeile">SWR Fernsehen</p>
+													<h4 class="headline">
+														<a href="https://www.swrfernsehen.de/-/id=233306/1urk0im/index.html" >Sport am Samstag</a>
+													</h4>
+													<div class="teasertext">
+														51 Clips<br/>
+                                                            <a href="https://www.swrfernsehen.de/-/id=233306/1urk0im/index.html" >Zur Homepage der Sendung (SWR.de)</a>
+														</div>
+												</div>
+											</div>
+										</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+<div class="wrapper hasTitle">
+        <div class="innerWrapper">
+        <h2 class="rasterHeadline">Clips aus der Sendung</h2>
+        <div class="section sectionA">
+            <div class="con small" data-ctrl-sectionlayout-entry="{}">
+                <div class="modCon">
+                    <div class="mod modA">
+						<div class="controls paging mediPaging mediColorWhite">
+								<a title="erste Seite" href="/tvshow.htm?show=bacfa550-9d4c-11df-8bd1-00199916cf68&pc=0">&lt;&lt;</a>
+										<a title="eine Seite zurück" href="/tvshow.htm?show=bacfa550-9d4c-11df-8bd1-00199916cf68&pc=1">&lt;</a>										
+									<a href="/tvshow.htm?show=bacfa550-9d4c-11df-8bd1-00199916cf68&pc=0">1</a>
+										<a href="/tvshow.htm?show=bacfa550-9d4c-11df-8bd1-00199916cf68&pc=1">2</a>
+										<span>3</span>
+										<span>&gt;</span>
+										<span>&gt;&gt;</span>
+									</div>
+						</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="wrapper teaserColored">
+			<div class="innerWrapper">
+				<div class="section sectionA">
+					<div class="con" data-ctrl-sectionlayout-entry="{}">
+						<div class="modCon">
+							<div class="mod modD modTeaser">
+								<div class="boxConWrapper">
+									<div class="boxCon">
+									<div class="box">
+                                        <div class="teaser">
+											<div class="mediaCon">
+												<div class="media mediaA">
+													<a href="/player.htm?show=7eca57c0-d78d-11e7-a5ff-005056a12b4c" >
+														<img src="/img/d/8/5/d85e2631a4587437c8a68bcbba617896" class="img" title="Waldhof Mannheim - Röchling Völklingen 2:2" alt="Waldhof Mannheim - Röchling Völklingen 2:2"/>
+													</a>
+												</div>
+											</div>
+											<div class="teaserTextCon">
+												<h4 class="headline">
+													<a href="/player.htm?show=7eca57c0-d78d-11e7-a5ff-005056a12b4c" >Waldhof Mannheim - Röchling Völklingen 2:2</a>
+												</h4>
+												<div class="teasertext">
+													2.12.2017 | 17.30 Uhr | 3:37 min</div>
+												</div>
+											</div>
+										</div>
+									<div class="box">
+                                        <div class="teaser">
+											<div class="mediaCon">
+												<div class="media mediaA">
+													<a href="/player.htm?show=012355b0-d783-11e7-a5ff-005056a12b4c" >
+														<img src="/img/9/2/a/92a506628ef057c175d10b6e6cf61a84" class="img" title="Wehen Wiesbaden - SC Paderborn 4:1" alt="Wehen Wiesbaden - SC Paderborn 4:1"/>
+													</a>
+												</div>
+											</div>
+											<div class="teaserTextCon">
+												<h4 class="headline">
+													<a href="/player.htm?show=012355b0-d783-11e7-a5ff-005056a12b4c" >Wehen Wiesbaden - SC Paderborn 4:1</a>
+												</h4>
+												<div class="teasertext">
+													2.12.2017 | 17.30 Uhr | 1:41 min</div>
+												</div>
+											</div>
+										</div>
+									<div class="box">
+                                        <div class="teaser">
+											<div class="mediaCon">
+												<div class="media mediaA">
+													<a href="/player.htm?show=f7481763-bd5b-11e7-a5ff-005056a12b4c" >
+														<img src="/img/1/9/6/1960f8e90ee155eb00330fd736bc6db2" class="img" title="Sportfreunde Lotte - SG Sonnenhof Großaspach 0:2" alt="Sportfreunde Lotte - SG Sonnenhof Großaspach 0:2"/>
+													</a>
+												</div>
+											</div>
+											<div class="teaserTextCon">
+												<h4 class="headline">
+													<a href="/player.htm?show=f7481763-bd5b-11e7-a5ff-005056a12b4c" >Sportfreunde Lotte - SG Sonnenhof Großaspach 0:2</a>
+												</h4>
+												<div class="teasertext">
+													28.10.2017 | 17.30 Uhr | 7:28 min</div>
+												</div>
+											</div>
+										</div>
+									<div class="box">
+                                        <div class="teaser">
+											<div class="mediaCon">
+												<div class="media mediaA">
+													<a href="/player.htm?show=f17a9ee0-bbfb-11e7-a5ff-005056a12b4c" >
+														<img src="/img/a/0/3/a03dd0f71e32f708684623f03e673e53" class="img" title="VfR Aalen - Werder Bremen II 1:0" alt="VfR Aalen - Werder Bremen II 1:0"/>
+													</a>
+												</div>
+											</div>
+											<div class="teaserTextCon">
+												<h4 class="headline">
+													<a href="/player.htm?show=f17a9ee0-bbfb-11e7-a5ff-005056a12b4c" >VfR Aalen - Werder Bremen II 1:0</a>
+												</h4>
+												<div class="teasertext">
+													28.10.2017 | 17.30 Uhr | 7:34 min</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	<div class="wrapper hasTitle">
+        <div class="innerWrapper">
+        <div class="section sectionA">
+            <div class="con small" data-ctrl-sectionlayout-entry="{}">
+                <div class="modCon">
+                    <div class="mod modA">
+						<div class="controls paging mediPaging mediColorWhite">
+								<a title="erste Seite" href="/tvshow.htm?show=bacfa550-9d4c-11df-8bd1-00199916cf68&pc=0">&lt;&lt;</a>
+										<a title="eine Seite zurück" href="/tvshow.htm?show=bacfa550-9d4c-11df-8bd1-00199916cf68&pc=1">&lt;</a>										
+									<a href="/tvshow.htm?show=bacfa550-9d4c-11df-8bd1-00199916cf68&pc=0">1</a>
+										<a href="/tvshow.htm?show=bacfa550-9d4c-11df-8bd1-00199916cf68&pc=1">2</a>
+										<span>3</span>
+										<span>&gt;</span>
+										<span>&gt;&gt;</span>
+									</div>
+						</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="wrapper"> 
+		<div class="innerWrapper">
+			<div class="section sectionA hasTitle">
+				<h2 class="rasterHeadline">OFT GESUCHT</h2>
+				<div class="con" data-ctrl-sectionlayout-entry="{}">
+					<div class="modCon">
+						<div class="mod modE modMini modSlideable">
+							<div class="boxConWrapper" data-ctrl-swrslidable="{'id':'slideable-id8_0', 'viewStepSize': '1', 'action':{'default':['disableWhenNotNeeded']}}">
+								<div class="boxCon" aria-live="polite"
+									 data-ctrl-layoutable="{'id':'layoutable-id8_0','action':{'default':['equalHeight']},'refreshOnAdded':'true'}"
+									 data-ctrl-slideable-id8_0-slider="{}">
+									<div class="box">
+											<div class="teaser" data-ctrl-layoutable-id8_0-entry="{}" style="margin-bottom:-8px">
+												<div class="mediaCon">
+													<div class="media mediaA">
+														<a href="/content/spielfilm.htm" >
+																<img src="/img/c/3/d/c3d79d8cce97f406c04652b976f7731d" class="img" alt="Spielfilm &amp; Serie" title="Spielfilm &amp; Serie"/>
+															</a>
+														</div>
+												</div>
+
+												<div class="teaserTextCon">
+<p class="dachzeile"><a href="/content/spielfilm.htm"></p>
+														<h4 class="headline">
+															<a href="/content/spielfilm.htm">
+																	Spielfilm &amp; Serie</a>
+															</h4>
+													</div>
+												</div>
+										</div>
+									<div class="box">
+											<div class="teaser" data-ctrl-layoutable-id8_0-entry="{}" style="margin-bottom:-8px">
+												<div class="mediaCon">
+													<div class="media mediaA">
+														<a href="/content/doku.htm" >
+																<img src="/img/0/8/4/084d2a316290a43219ad0ad7a1faacd3" class="img" alt="Doku &amp; Reportage" title="Doku &amp; Reportage"/>
+															</a>
+														</div>
+												</div>
+
+												<div class="teaserTextCon">
+<p class="dachzeile"><a href="/content/doku.htm"></p>
+														<h4 class="headline">
+															<a href="/content/doku.htm">
+																	Doku &amp; Reportage</a>
+															</h4>
+													</div>
+												</div>
+										</div>
+									<div class="box">
+											<div class="teaser" data-ctrl-layoutable-id8_0-entry="{}" style="margin-bottom:-8px">
+												<div class="mediaCon">
+													<div class="media mediaA">
+														<a href="/content/sport.htm" >
+																<img src="/img/7/8/d/78dc857f1a405acc88b68be5e4ebfbef" class="img" alt="Sport" title="Sport"/>
+															</a>
+														</div>
+												</div>
+
+												<div class="teaserTextCon">
+<p class="dachzeile"><a href="/content/sport.htm"></p>
+														<h4 class="headline">
+															<a href="/content/sport.htm">
+																	Sport</a>
+															</h4>
+													</div>
+												</div>
+										</div>
+									<div class="box">
+											<div class="teaser" data-ctrl-layoutable-id8_0-entry="{}" style="margin-bottom:-8px">
+												<div class="mediaCon">
+													<div class="media mediaA">
+														<a href="/content/live.htm" >
+																<img src="/img/7/f/a/7fa490174f4103da0ef46dc2f9f467ce" class="img" alt="JETZT TV-LIVESTREAM ANSEHEN" title="JETZT TV-LIVESTREAM ANSEHEN"/>
+															</a>
+														</div>
+												</div>
+
+												<div class="teaserTextCon">
+<p class="dachzeile"><a href="/content/live.htm"></p>
+														<h4 class="headline">
+															<a href="/content/live.htm">
+																	JETZT TV-LIVESTREAM ANSEHEN</a>
+															</h4>
+													</div>
+												</div>
+										</div>
+									<div class="box">
+											<div class="teaser" data-ctrl-layoutable-id8_0-entry="{}" style="margin-bottom:-8px">
+												<div class="mediaCon">
+													<div class="media mediaA">
+														<a href="/tvshow.htm?show=bb1c7900-9bdc-11df-b44d-00199916cf68" >
+																<img src="/img/d/8/0/d80251312d46e0e8f0a847e50e92673d" class="img" alt="Die Fallers" title="Die Fallers"/>
+															</a>
+														</div>
+												</div>
+
+												<div class="teaserTextCon">
+<p class="dachzeile"><a href="/tvshow.htm?show=bb1c7900-9bdc-11df-b44d-00199916cf68"></p>
+														<h4 class="headline">
+															<a href="/tvshow.htm?show=bb1c7900-9bdc-11df-b44d-00199916cf68">
+																	Die Fallers</a>
+															</h4>
+													</div>
+												</div>
+										</div>
+									<div class="box">
+											<div class="teaser" data-ctrl-layoutable-id8_0-entry="{}" style="margin-bottom:-8px">
+												<div class="mediaCon">
+													<div class="media mediaA">
+														<a href="/tvshow.htm?show=bb4eac93-9bdc-11df-b44d-00199916cf68" >
+																<img src="/img/8/d/e/8de2ecb6bffdcd58d46cd4dea59ee60c" class="img" alt="Nachtcafé" title="Nachtcafé"/>
+															</a>
+														</div>
+												</div>
+
+												<div class="teaserTextCon">
+<p class="dachzeile"><a href="/tvshow.htm?show=bb4eac93-9bdc-11df-b44d-00199916cf68"></p>
+														<h4 class="headline">
+															<a href="/tvshow.htm?show=bb4eac93-9bdc-11df-b44d-00199916cf68">
+																	Nachtcafé</a>
+															</h4>
+													</div>
+												</div>
+										</div>
+									<div class="box">
+											<div class="teaser" data-ctrl-layoutable-id8_0-entry="{}" style="margin-bottom:-8px">
+												<div class="mediaCon">
+													<div class="media mediaA">
+														<a href="/tvshow.htm?show=31d7d3e0-c8ec-11e0-b357-0026b975f2e6" >
+																<img src="/img/c/9/b/c9bcda709108c779cae1022f65bef285" class="img" alt="Lecker aufs Land" title="Lecker aufs Land"/>
+															</a>
+														</div>
+												</div>
+
+												<div class="teaserTextCon">
+<p class="dachzeile"><a href="/tvshow.htm?show=31d7d3e0-c8ec-11e0-b357-0026b975f2e6"></p>
+														<h4 class="headline">
+															<a href="/tvshow.htm?show=31d7d3e0-c8ec-11e0-b357-0026b975f2e6">
+																	Lecker aufs Land</a>
+															</h4>
+													</div>
+												</div>
+										</div>
+									<div class="box">
+											<div class="teaser" data-ctrl-layoutable-id8_0-entry="{}" style="margin-bottom:-8px">
+												<div class="mediaCon">
+													<div class="media mediaA">
+														<a href="/tvshow.htm?show=baef4e80-9bdc-11df-b44d-00199916cf68" >
+																<img src="/img/0/0/d/00d2c26e434d0b79232da80b765a8c8d" class="img" alt="Eisenbahn-Romantik" title="Eisenbahn-Romantik"/>
+															</a>
+														</div>
+												</div>
+
+												<div class="teaserTextCon">
+<p class="dachzeile"><a href="/tvshow.htm?show=baef4e80-9bdc-11df-b44d-00199916cf68"></p>
+														<h4 class="headline">
+															<a href="/tvshow.htm?show=baef4e80-9bdc-11df-b44d-00199916cf68">
+																	Eisenbahn-Romantik</a>
+															</h4>
+													</div>
+												</div>
+										</div>
+									<div class="box">
+											<div class="teaser" data-ctrl-layoutable-id8_0-entry="{}" style="margin-bottom:-8px">
+												<div class="mediaCon">
+													<div class="media mediaA">
+														<a href="/tvshow.htm?show=bafd7f50-9bdc-11df-b44d-00199916cf68" >
+																<img src="/img/e/f/1/ef1a9e2dee3f62ed6b7bc2acafd4e4e8" class="img" alt="MARKTCHECK" title="MARKTCHECK"/>
+															</a>
+														</div>
+												</div>
+
+												<div class="teaserTextCon">
+<p class="dachzeile"><a href="/tvshow.htm?show=bafd7f50-9bdc-11df-b44d-00199916cf68"></p>
+														<h4 class="headline">
+															<a href="/tvshow.htm?show=bafd7f50-9bdc-11df-b44d-00199916cf68">
+																	MARKTCHECK</a>
+															</h4>
+													</div>
+												</div>
+										</div>
+									<div class="box">
+											<div class="teaser" data-ctrl-layoutable-id8_0-entry="{}" style="margin-bottom:-8px">
+												<div class="mediaCon">
+													<div class="media mediaA">
+														<a href="/tvshow.htm?show=805b4d70-dee1-11e0-b3b0-0026b975f2e6" >
+																<img src="/img/c/a/3/ca375b0ab3931e614cfbbcb91fb6aedc" class="img" alt="Spätschicht" title="Spätschicht"/>
+															</a>
+														</div>
+												</div>
+
+												<div class="teaserTextCon">
+<p class="dachzeile"><a href="/tvshow.htm?show=805b4d70-dee1-11e0-b3b0-0026b975f2e6"></p>
+														<h4 class="headline">
+															<a href="/tvshow.htm?show=805b4d70-dee1-11e0-b3b0-0026b975f2e6">
+																	Spätschicht</a>
+															</h4>
+													</div>
+												</div>
+										</div>
+									<div class="box">
+											<div class="teaser" data-ctrl-layoutable-id8_0-entry="{}" style="margin-bottom:-8px">
+												<div class="mediaCon">
+													<div class="media mediaA">
+														<a href="/tvshow.htm?show=8f0a6de0-407a-11e3-ab3c-0026b975f2e6" >
+																<img src="/img/6/5/8/6583ff46e561fe743299100e9962454d" class="img" alt="Hannes und der Bürgermeister" title="Hannes und der Bürgermeister"/>
+															</a>
+														</div>
+												</div>
+
+												<div class="teaserTextCon">
+<p class="dachzeile"><a href="/tvshow.htm?show=8f0a6de0-407a-11e3-ab3c-0026b975f2e6"></p>
+														<h4 class="headline">
+															<a href="/tvshow.htm?show=8f0a6de0-407a-11e3-ab3c-0026b975f2e6">
+																	Hannes und der Bürgermeister</a>
+															</h4>
+													</div>
+												</div>
+										</div>
+									<div class="box">
+											<div class="teaser" data-ctrl-layoutable-id8_0-entry="{}" style="margin-bottom:-8px">
+												<div class="mediaCon">
+													<div class="media mediaA">
+														<a href="/tvshow.htm?show=c20a4e90-9bdc-11df-b44d-00199916cf68" >
+																<img src="/img/6/4/4/64478da7a95ff280314179bfdfb70094" class="img" alt="betrifft: …" title="betrifft: …"/>
+															</a>
+														</div>
+												</div>
+
+												<div class="teaserTextCon">
+<p class="dachzeile"><a href="/tvshow.htm?show=c20a4e90-9bdc-11df-b44d-00199916cf68"></p>
+														<h4 class="headline">
+															<a href="/tvshow.htm?show=c20a4e90-9bdc-11df-b44d-00199916cf68">
+																	betrifft: …</a>
+															</h4>
+													</div>
+												</div>
+										</div>
+									<div class="box">
+											<div class="teaser" data-ctrl-layoutable-id8_0-entry="{}" style="margin-bottom:-8px">
+												<div class="mediaCon">
+													<div class="media mediaA">
+														<a href="/tvshow.htm?show=c09a98d0-855f-11e1-bb0d-0026b975f2e6" >
+																<img src="/img/1/a/d/1adb7f13ecf21a16be242e0f30ed254d" class="img" alt="Expedition in die Heimat" title="Expedition in die Heimat"/>
+															</a>
+														</div>
+												</div>
+
+												<div class="teaserTextCon">
+<p class="dachzeile"><a href="/tvshow.htm?show=c09a98d0-855f-11e1-bb0d-0026b975f2e6"></p>
+														<h4 class="headline">
+															<a href="/tvshow.htm?show=c09a98d0-855f-11e1-bb0d-0026b975f2e6">
+																	Expedition in die Heimat</a>
+															</h4>
+													</div>
+												</div>
+										</div>
+									<div class="box">
+											<div class="teaser" data-ctrl-layoutable-id8_0-entry="{}" style="margin-bottom:-8px">
+												<div class="mediaCon">
+													<div class="media mediaA">
+														<a href="/tvshow.htm?show=3e133950-7480-11e3-9e14-0026b975f2e6" >
+																<img src="/img/f/1/d/f1df8a4a400452052caac664658d88c5" class="img" alt="KUNSCHT!" title="KUNSCHT!"/>
+															</a>
+														</div>
+												</div>
+
+												<div class="teaserTextCon">
+<p class="dachzeile"><a href="/tvshow.htm?show=3e133950-7480-11e3-9e14-0026b975f2e6"></p>
+														<h4 class="headline">
+															<a href="/tvshow.htm?show=3e133950-7480-11e3-9e14-0026b975f2e6">
+																	KUNSCHT!</a>
+															</h4>
+													</div>
+												</div>
+										</div>
+									<div class="box">
+											<div class="teaser" data-ctrl-layoutable-id8_0-entry="{}" style="margin-bottom:-8px">
+												<div class="mediaCon">
+													<div class="media mediaA">
+														<a href="/tvshow.htm?show=b3700e63-9bdc-11df-b44d-00199916cf68" >
+																<img src="/img/5/b/9/5b973bfd004cc1b1c9e8aec8fd4d8052" class="img" alt="Kaffee oder Tee" title="Kaffee oder Tee"/>
+															</a>
+														</div>
+												</div>
+
+												<div class="teaserTextCon">
+<p class="dachzeile"><a href="/tvshow.htm?show=b3700e63-9bdc-11df-b44d-00199916cf68"></p>
+														<h4 class="headline">
+															<a href="/tvshow.htm?show=b3700e63-9bdc-11df-b44d-00199916cf68">
+																	Kaffee oder Tee</a>
+															</h4>
+													</div>
+												</div>
+										</div>
+									<div class="box">
+											<div class="teaser" data-ctrl-layoutable-id8_0-entry="{}" style="margin-bottom:-8px">
+												<div class="mediaCon">
+													<div class="media mediaA">
+														<a href="/tvshow.htm?show=18ecccb0-a664-11e4-80fa-0026b975f2e6" >
+																<img src="/img/1/b/c/1bc7727147d5c18d47bff421e8183b0c" class="img" alt="REPORT MAINZ" title="REPORT MAINZ"/>
+															</a>
+														</div>
+												</div>
+
+												<div class="teaserTextCon">
+<p class="dachzeile"><a href="/tvshow.htm?show=18ecccb0-a664-11e4-80fa-0026b975f2e6"></p>
+														<h4 class="headline">
+															<a href="/tvshow.htm?show=18ecccb0-a664-11e4-80fa-0026b975f2e6">
+																	REPORT MAINZ</a>
+															</h4>
+													</div>
+												</div>
+										</div>
+									<div class="box">
+											<div class="teaser" data-ctrl-layoutable-id8_0-entry="{}" style="margin-bottom:-8px">
+												<div class="mediaCon">
+													<div class="media mediaA">
+														<a href="/tvshow.htm?show=c2600fb0-9bdc-11df-b44d-00199916cf68" >
+																<img src="/img/e/6/9/e695aec2848437f0a8bff148c4f571d2" class="img" alt="Sag die Wahrheit" title="Sag die Wahrheit"/>
+															</a>
+														</div>
+												</div>
+
+												<div class="teaserTextCon">
+<p class="dachzeile"><a href="/tvshow.htm?show=c2600fb0-9bdc-11df-b44d-00199916cf68"></p>
+														<h4 class="headline">
+															<a href="/tvshow.htm?show=c2600fb0-9bdc-11df-b44d-00199916cf68">
+																	Sag die Wahrheit</a>
+															</h4>
+													</div>
+												</div>
+										</div>
+									<div class="box">
+											<div class="teaser" data-ctrl-layoutable-id8_0-entry="{}" style="margin-bottom:-8px">
+												<div class="mediaCon">
+													<div class="media mediaA">
+														<a href="/tvshow.htm?show=7d98ab20-ac2c-11df-aae0-0026b975f2e6" >
+																<img src="/img/6/6/7/66730aa8d265d2554f3dcfdb4b1e866c" class="img" alt="Verstehen Sie Spaß?" title="Verstehen Sie Spaß?"/>
+															</a>
+														</div>
+												</div>
+
+												<div class="teaserTextCon">
+<p class="dachzeile"><a href="/tvshow.htm?show=7d98ab20-ac2c-11df-aae0-0026b975f2e6"></p>
+														<h4 class="headline">
+															<a href="/tvshow.htm?show=7d98ab20-ac2c-11df-aae0-0026b975f2e6">
+																	Verstehen Sie Spaß?</a>
+															</h4>
+													</div>
+												</div>
+										</div>
+									<div class="box">
+											<div class="teaser" data-ctrl-layoutable-id8_0-entry="{}" style="margin-bottom:-8px">
+												<div class="mediaCon">
+													<div class="media mediaA">
+														<a href="/tvshow.htm?show=b39fd0f7-9bdc-11df-b44d-00199916cf68" >
+																<img src="/img/9/3/6/9367c97eb53965418e6861316bbd05a4" class="img" alt="Fahr mal hin" title="Fahr mal hin"/>
+															</a>
+														</div>
+												</div>
+
+												<div class="teaserTextCon">
+<p class="dachzeile"><a href="/tvshow.htm?show=b39fd0f7-9bdc-11df-b44d-00199916cf68"></p>
+														<h4 class="headline">
+															<a href="/tvshow.htm?show=b39fd0f7-9bdc-11df-b44d-00199916cf68">
+																	Fahr mal hin</a>
+															</h4>
+													</div>
+												</div>
+										</div>
+									<div class="box">
+											<div class="teaser" data-ctrl-layoutable-id8_0-entry="{}" style="margin-bottom:-8px">
+												<div class="mediaCon">
+													<div class="media mediaA">
+														<a href="/tvshow.htm?show=b2fb5397-9bdc-11df-b44d-00199916cf68" >
+																<img src="/img/9/9/b/99b09989fb56b02602642d357d72bad6" class="img" alt="Landesschau Baden-Württemberg" title="Landesschau Baden-Württemberg"/>
+															</a>
+														</div>
+												</div>
+
+												<div class="teaserTextCon">
+<p class="dachzeile"><a href="/tvshow.htm?show=b2fb5397-9bdc-11df-b44d-00199916cf68"></p>
+														<h4 class="headline">
+															<a href="/tvshow.htm?show=b2fb5397-9bdc-11df-b44d-00199916cf68">
+																	Landesschau Baden-Württemberg</a>
+															</h4>
+													</div>
+												</div>
+										</div>
+									<div class="box">
+											<div class="teaser" data-ctrl-layoutable-id8_0-entry="{}" style="margin-bottom:-8px">
+												<div class="mediaCon">
+													<div class="media mediaA">
+														<a href="/tvshow.htm?show=b3098460-9bdc-11df-b44d-00199916cf68" >
+																<img src="/img/c/e/e/ceefc0de9a853ae792ce9ba7980c997e" class="img" alt="Landesschau Rheinland-Pfalz" title="Landesschau Rheinland-Pfalz"/>
+															</a>
+														</div>
+												</div>
+
+												<div class="teaserTextCon">
+<p class="dachzeile"><a href="/tvshow.htm?show=b3098460-9bdc-11df-b44d-00199916cf68"></p>
+														<h4 class="headline">
+															<a href="/tvshow.htm?show=b3098460-9bdc-11df-b44d-00199916cf68">
+																	Landesschau Rheinland-Pfalz</a>
+															</h4>
+													</div>
+												</div>
+										</div>
+									<div class="box">
+											<div class="teaser" data-ctrl-layoutable-id8_0-entry="{}" style="margin-bottom:-8px">
+												<div class="mediaCon">
+													<div class="media mediaA">
+														<a href="/tvshow.htm?show=be151f90-9bdc-11df-b44d-00199916cf68" >
+																<img src="/img/d/0/c/d0c05121047d067c40d4c328e8d91232" class="img" alt="Länder Menschen Abenteuer" title="Länder Menschen Abenteuer"/>
+															</a>
+														</div>
+												</div>
+
+												<div class="teaserTextCon">
+<p class="dachzeile"><a href="/tvshow.htm?show=be151f90-9bdc-11df-b44d-00199916cf68"></p>
+														<h4 class="headline">
+															<a href="/tvshow.htm?show=be151f90-9bdc-11df-b44d-00199916cf68">
+																	Länder Menschen Abenteuer</a>
+															</h4>
+													</div>
+												</div>
+										</div>
+									<div class="box">
+											<div class="teaser" data-ctrl-layoutable-id8_0-entry="{}" style="margin-bottom:-8px">
+												<div class="mediaCon">
+													<div class="media mediaA">
+														<a href="/tvshow.htm?show=b317dc40-9bdc-11df-b44d-00199916cf68" >
+																<img src="/img/5/4/1/541fc6b83554d231c38570d3582938a3" class="img" alt="Zur Sache BW" title="Zur Sache BW"/>
+															</a>
+														</div>
+												</div>
+
+												<div class="teaserTextCon">
+<p class="dachzeile"><a href="/tvshow.htm?show=b317dc40-9bdc-11df-b44d-00199916cf68"></p>
+														<h4 class="headline">
+															<a href="/tvshow.htm?show=b317dc40-9bdc-11df-b44d-00199916cf68">
+																	Zur Sache BW</a>
+															</h4>
+													</div>
+												</div>
+										</div>
+									<div class="box">
+											<div class="teaser" data-ctrl-layoutable-id8_0-entry="{}" style="margin-bottom:-8px">
+												<div class="mediaCon">
+													<div class="media mediaA">
+														<a href="/tvshow.htm?show=586a9b90-1d6c-11e0-b25b-0026b975f2e6" >
+																<img src="/img/8/6/1/8619d4daf95b7346d3d76aca0ad2e275" class="img" alt="Zur Sache RP" title="Zur Sache RP"/>
+															</a>
+														</div>
+												</div>
+
+												<div class="teaserTextCon">
+<p class="dachzeile"><a href="/tvshow.htm?show=586a9b90-1d6c-11e0-b25b-0026b975f2e6"></p>
+														<h4 class="headline">
+															<a href="/tvshow.htm?show=586a9b90-1d6c-11e0-b25b-0026b975f2e6">
+																	Zur Sache RP</a>
+															</h4>
+													</div>
+												</div>
+										</div>
+									<div class="box">
+											<div class="teaser" data-ctrl-layoutable-id8_0-entry="{}" style="margin-bottom:-8px">
+												<div class="mediaCon">
+													<div class="media mediaA">
+														<a href="/tvshow.htm?show=bae34090-9bdc-11df-b44d-00199916cf68" >
+																<img src="/img/c/0/9/c098497bc9bf9ae3615891332ef9077f" class="img" alt="natürlich!" title="natürlich!"/>
+															</a>
+														</div>
+												</div>
+
+												<div class="teaserTextCon">
+<p class="dachzeile"><a href="/tvshow.htm?show=bae34090-9bdc-11df-b44d-00199916cf68"></p>
+														<h4 class="headline">
+															<a href="/tvshow.htm?show=bae34090-9bdc-11df-b44d-00199916cf68">
+																	natürlich!</a>
+															</h4>
+													</div>
+												</div>
+										</div>
+									<div class="box">
+											<div class="teaser" data-ctrl-layoutable-id8_0-entry="{}" style="margin-bottom:-8px">
+												<div class="mediaCon">
+													<div class="media mediaA">
+														<a href="/tvshow.htm?show=be151f90-9bdc-11df-b44d-00199916cf68" >
+																<img src="/img/d/0/c/d0c05121047d067c40d4c328e8d91232" class="img" alt="Länder Menschen Abenteuer" title="Länder Menschen Abenteuer"/>
+															</a>
+														</div>
+												</div>
+
+												<div class="teaserTextCon">
+<p class="dachzeile"><a href="/tvshow.htm?show=be151f90-9bdc-11df-b44d-00199916cf68"></p>
+														<h4 class="headline">
+															<a href="/tvshow.htm?show=be151f90-9bdc-11df-b44d-00199916cf68">
+																	Länder Menschen Abenteuer</a>
+															</h4>
+													</div>
+												</div>
+										</div>
+									</div>
+							</div>
+							<div class="controls sliding disabledByDefault" data-ctrl-slideable-id8_0-controls="{}">
+								<div class="buttons">
+									<a href="#" data-ctrl-slideable-id8_0-trigger="{'action':{'default':['slideEntireWidthPrev']}}" class="prev"></a>
+									<a href="#" data-ctrl-slideable-id8_0-trigger="{'action':{'default':['slideEntireWidthNext']}}" class="next"></a>
+								</div>
+								<div class="labels">
+									<div class="entries" data-ctrl-slideable-id8_0-label="{}"></div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+<div class="wrapper">
+	<div class="innerWrapper">
+		<div class="section sectionC teaserHugo">
+					<div class="con" data-ctrl-sectionlayout-entry="{}" style="height: 112px;">
+						<div class="modCon">
+							<div class="mod modA modMini mediTeaserPadS">
+								<div class="boxConWrapper">
+									<div class="boxCon">
+										<div class="box">
+												<div class="teaser">
+													<div class="mediaCon mediMargR16" style="width: 66px;">
+														<div class="media mediaB small" style="width: 100%;">
+															<a href="/content/barrierefrei.htm" >
+																<img src="/img/0/9/8/09894fb115179e71b29651a8d893beac" class="img" alt="" title=""/>
+															</a>
+														</div>
+													</div>
+													<div class="teaserTextCon">
+														<h4 class="headline">
+															<a href="/content/barrierefrei.htm">Mediathek Barrierearm</a>
+														</h4>
+														<div class="teasertext">
+															<a href="/content/barrierefrei.htm">Untertitel, Audiodeskription und Gebärdensprache</a>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			<div class="section sectionC teaserHugo">
+					<div class="con" data-ctrl-sectionlayout-entry="{}" style="height: 112px;">
+						<div class="modCon">
+							<div class="mod modA modMini mediTeaserPadS">
+								<div class="boxConWrapper">
+									<div class="boxCon">
+										<div class="box">
+												<div class="teaser">
+													<div class="mediaCon mediMargR16" style="width: 66px;">
+														<div class="media mediaB small" style="width: 100%;">
+															<a href="/content/letzte_chance.htm" >
+																<img src="/img/a/e/0/ae06bb8e361f6f48a50082f4af0f74a5" class="img" alt="" title=""/>
+															</a>
+														</div>
+													</div>
+													<div class="teaserTextCon">
+														<h4 class="headline">
+															<a href="/content/letzte_chance.htm">Letzte Chance</a>
+														</h4>
+														<div class="teasertext">
+															<a href="/content/letzte_chance.htm">Nur noch kurze Zeit online</a>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			<div class="section sectionC teaserHugo">
+					<div class="con" data-ctrl-sectionlayout-entry="{}" style="height: 112px;">
+						<div class="modCon">
+							<div class="mod modA modMini mediTeaserPadS">
+								<div class="boxConWrapper">
+									<div class="boxCon">
+										<div class="box">
+												<div class="teaser">
+													<div class="mediaCon mediMargR16" style="width: 66px;">
+														<div class="media mediaB small" style="width: 100%;">
+															<a href="/content/podcast_uebersicht.htm" >
+																<img src="/img/5/7/4/574aef18edcb7053d5591f70d958025a" class="img" alt="" title=""/>
+															</a>
+														</div>
+													</div>
+													<div class="teaserTextCon">
+														<h4 class="headline">
+															<a href="/content/podcast_uebersicht.htm">Podcast</a>
+														</h4>
+														<div class="teasertext">
+															<a href="/content/podcast_uebersicht.htm">Alle Podcastangebote des SWR</a>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+</div></div>
+			</div>
+			<div id="footer">
+	<div class="wrapper accent">
+		<div class="innerWrapper">
+			<div class="section sectionA">
+				<div class="footerNavi" data-ctrl-swrcollapsible="{'id':'collfoot','action':{'default':['openEntries','disable'],'xs':['enable','closeEntries'],'s':['enable','closeEntries'],'m':['enable','closeEntries']}}">
+					<ul class="footerNaviList">
+						<li class="footerNaviHead footerNaviHead1">
+							<div data-ctrl-collfoot-entry="{'id':'a1'}">
+								<div>
+									<span tabindex="-1" data-ctrl-collfoot-a1-trigger="{'action':{'default':['closeOtherEntries','toggleBody']}}" data-ctrl-collfoot-a1-arrow="{}" class="open" style="position: static; cursor: default;">Themen</span>
+									<ul data-ctrl-collfoot-a1-body="{}">
+										<li><a href="https://www.swr.de/swraktuell/-/id=13830988/ypzx6n/index.html">SWR Aktuell</a></li>
+										<li><a href="https://www.swr.de/sport/-/id=13831144/uo2kw5/index.html">SWR Sport</a></li>
+										<li><a href="https://www.swr.de/wissen/-/id=253126/lqckpe/index.html">SWR Wissen</a></li>
+										<li><a href="https://www.swr.de/archiv/-/id=6640190/r52t6u/index.html">Archiv</a></li>
+										<li><a href="https://www.swr.de/swr-classic/-/id=17055312/1qgyl76/index.html">SWR Classic</a></li>
+										<li><a href="http://www.kindernetz.de">SWR Kindernetz</a></li>
+									</ul>
+								</div>
+							</div>
+						</li>
+
+						<li class="footerNaviHead footerNaviHead2">
+							<div data-ctrl-collfoot-entry="{'id':'a2'}">
+								<div>
+									<span tabindex="-1" data-ctrl-collfoot-a2-trigger="{'action':{'default':['closeOtherEntries','toggleBody']}}" data-ctrl-collfoot-a2-arrow="{}" class="open" style="position: static; cursor: default;">Fernsehen</span>
+									<ul data-ctrl-collfoot-a2-body="{}">
+										<li><a href="https://www.swrfernsehen.de/-/id=2798/5kmvjc/index.html">SWR Fernsehen</a></li>
+										<li><a href="https://www.swrfernsehen.de/tv-programm/-/id=3160/99jxmq/index.html">Programm</a></li>
+										<li><a href="https://www.swrfernsehen.de/live/-/id=13894780/1gcvey9/index.html">Live</a></li>
+										<li><a href="https://www.swrfernsehen.de/sendungen-von-a-bis-z/-/id=3190/1abzah9/index.html">Sendungen A-Z</a></li>
+										<li><a href="https://www.swrfernsehen.de/videotext/-/id=14476586/1uvmfqt/index.html">Videotext</a></li>
+									</ul>
+								</div>
+							</div>
+						</li>
+
+						<li class="footerNaviHead footerNaviHead3">
+							<div data-ctrl-collfoot-entry="{'id':'a3'}">
+								<div>
+									<span tabindex="-1" data-ctrl-collfoot-a3-trigger="{'action':{'default':['closeOtherEntries','toggleBody']}}" data-ctrl-collfoot-a3-arrow="{}" class="open" style="position: static; cursor: default;">Radio</span>
+									<ul data-ctrl-collfoot-a3-body="{}">
+										<li><a href="https://www.swr.de/swr1/-/id=266634/1kqaztk/index.html">SWR1</a></li>
+										<li><a href="https://www.swr.de/swr2/-/id=7576/otnbb1/index.html">SWR2</a></li>
+										<li><a href="http://www.swr3.de">SWR3</a></li>
+										<li><a href="https://www.swr.de/swr4/-/id=266578/19hatv2/index.html">SWR4</a></li>
+										<li><a href="http://www.dasding.de">DASDING</a></li>
+									</ul>
+								</div>
+							</div>
+						</li>
+
+						<li class="footerNaviHead footerNaviHead4">
+							<div data-ctrl-collfoot-entry="{'id':'a4'}">
+								<div>
+									<span tabindex="-1" data-ctrl-collfoot-a4-trigger="{'action':{'default':['closeOtherEntries','toggleBody']}}" data-ctrl-collfoot-a4-arrow="{}" class="open" style="position: static; cursor: default;">Mediathek</span>
+									<ul data-ctrl-collfoot-a4-body="{}">
+										<li><a href="http://swrmediathek.de">Übersicht</a></li>
+										<li><a href="http://swrmediathek.de/content/live.htm">Live</a></li>
+										<li><a href="http://swrmediathek.de/sendungverpasst.htm">Sendung verpasst</a></li>
+										<li><a href="http://swrmediathek.de/themalist.htm">Themen</a></li>
+										<li><a href="http://swrmediathek.de/content/podcast_uebersicht.htm">Podcast</a></li>
+										<li><a href="http://swrmediathek.de/tvlist.htm">Sendungen A-Z</a></li>
+									</ul>
+								</div>
+							</div>
+						</li>
+
+						<li class="footerNaviHead footerNaviHead5">
+							<div data-ctrl-collfoot-entry="{'id':'a5'}">
+								<div>
+									<span tabindex="-1" data-ctrl-collfoot-a5-trigger="{'action':{'default':['closeOtherEntries','toggleBody']}}" data-ctrl-collfoot-a5-arrow="{}" class="open" style="position: static; cursor: default;">Der SWR</span>
+									<ul data-ctrl-collfoot-a5-body="{}">
+										<li><a href="https://www.swr.de/unternehmen/-/id=3586/mmm7ol/index.html">Der SWR</a></li>
+										<li><a href="https://www.swr.de/unternehmen/organisation/-/id=7687068/6dr3wg/index.html">Organisation</a></li>
+										<li><a href="https://www.swr.de/unternehmen/gremien/-/id=12338976/5jt7fz/index.html">Gremien</a></li>
+										<li><a href="https://www.swr.de/unternehmen/karriere/-/id=7687324/xgqyuu/index.html">Karriere</a></li>
+										<li><a href="https://www.swr.de/unternehmen/kommunikation/-/id=10563098/gvbuzw/index.html">Kommunikation</a></li>
+									</ul>
+								</div>
+							</div>
+						</li>
+
+						<li class="footerNaviHead footerNaviHead6">
+							<div data-ctrl-collfoot-entry="{'id':'a6'}">
+								<div>
+									<span tabindex="-1" data-ctrl-collfoot-a6-trigger="{'action':{'default':['closeOtherEntries','toggleBody']}}" data-ctrl-collfoot-a6-arrow="{}" class="open" style="position: static; cursor: default;">Service</span>
+									<ul data-ctrl-collfoot-a6-body="{}">
+										<li><a href="https://www.swr.de/kontakt/-/id=3604/cf=42/949w5u/index.html">Kontakt</a></li>
+										<li></li>
+										<li><a href="https://www.swr.de/a-z/-/id=3610/tsxm4g/index.html">SWR A-Z</a></li>
+										<li><a href="https://www.swr.de/unternehmen/besucherfuehrungen-uebersicht/-/id=3586/did=7535338/nid=3586/1xgslwe/index.html">Besucherführungen</a></li>
+										<li><a href="https://www.swr.de/unternehmen/swr-veranstaltungen/-/id=3586/did=16192718/nid=3586/15gu498/index.html">Veranstaltungen</a></li>
+										<li><a href="http://swrservice.de/mitschnitt/">Mitschnittdienst</a></li>
+										<li><a href="https://www.swr.de/empfang/-/id=3786/mrfxfv/index.html">Frequenzen</a></li>
+										<li><a href="https://www.swr.de/hilfe/-/id=3292/kq7b20/index.html">Hilfe</a></li>
+									</ul>
+								</div>
+							</div>
+						</li>
+
+					</ul>
+				</div>
+				<div class="footerCopy">
+					<ul class="footerLegalList">
+						<li><a href="#imgrights" data-ctrl-imagecopyrights="{}">Bildrechte</a></li>
+						<li>
+							<a href="https://www.swr.de/impressum/-/id=384/1qdfrd3/index.html">Impressum</a>
+						</li>
+						<li>
+							<a href="https://www.swr.de/datenschutz/-/id=5885502/18mmzvl/index.html">Datenschutz</a>
+						</li>
+					</ul>
+
+					<ul class="footerCopyList">
+						<li>Der SWR ist Mitglied der ARD</li>
+						<li class="footerCopyLink"><a href="http://www.ard.de"><img src="/imgr/logo/logoARD.png" alt="ARD"></a></li>
+						<li class="footerCopyLast">© SWR 2018</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+</div>
+		<script type = 'text/javascript' >
+					var _sf_async_config = {};
+					_sf_async_config.uid = 61714;
+					_sf_async_config.domain = 'swrmediathek.de';
+					_sf_async_config.noCookies = true;
+					_sf_async_config.useCanonical = true;
+					_sf_async_config.sections = 'Page';
+					_sf_async_config.authors = 'TV Sendung';
+				</script>
+			<script type='text/javascript'>
+			(function () {
+				function loadChartbeat() {
+					window._sf_endpt = (new Date()).getTime();
+					var e = document.createElement('script');
+					e.setAttribute('language', 'javascript');
+					e.setAttribute('type', 'text/javascript');
+					e.setAttribute('src', '//static.chartbeat.com/js/chartbeat.js');
+					document.body.appendChild(e);
+				}
+				var oldonload = window.onload;
+				window.onload =
+						(typeof window.onload != 'function') ? loadChartbeat : function () {
+					oldonload();
+					loadChartbeat();
+				};
+			})();
+		</script>
+		</body>
+</html>

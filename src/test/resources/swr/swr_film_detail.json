@@ -1,0 +1,261 @@
+{
+   "name":"listitem",
+   "attr":{
+      "channel_ctype":"TV-Sendung",
+      "channel_idkey":"281130",
+      "channel_title":"SWR Fernsehen BW",
+      "doc_idkey":"bcf48b10-b6bc-11e8-893a-005056a10824",
+      "doc_type":"Beitrag",
+      "entry_agfcont":"ARD_Information",
+      "entry_agffmt":"FI8578822",
+      "entry_capuri":"https://subtitles.swr.de/swr/swr-fernsehen/landesschau-bw/00-hauptbeitrag/1053798.xml",
+      "entry_crid":"o1053798",
+      "entry_cridfull":"crid://swr.de/aex/o1053798",
+      "entry_descl":"Mit diesen Themen unter anderem: Anti-Terror-Übung am Stuttgarter Hauptbahnhof *** Neue Medikament zur Behandlung von Migräne zugelassen *** Zu Gast ist Lars Eidinger, Schauspieler, der die Rolle des Bertolt Brecht übernommen hat.",
+      "entry_descs":"Mit diesen Themen unter anderem: Anti-Terror-Übung am Stuttgarter  ...",
+      "entry_durat":"44:49",
+      "entry_enavah":"12.9.2019, 19.30",
+      "entry_enavahd":"12.9.2019",
+      "entry_enavat":"201909121930",
+      "entry_etype":"Video",
+      "entry_idkey":"bcdd80a0-b6bc-11e8-b070-005056a12b4c",
+      "entry_image_16_9":"https://www.swr.de/-/id=22437000/property=full/width=1280/height=720/pubVersion=1/dmebbe/Moderator%20J%C3%BCrgen%20H%C3%B6rig.jpg",
+      "entry_image_16_9_q":"5",
+      "entry_imgalt":"Moderator Jürgen Hörig",
+      "entry_imgmd5":"/img/a/2/8/a280eee95368003c44adac285c89699f",
+      "entry_imgref":"SWR",
+      "entry_index":"00",
+      "entry_pdateh":"12.9.2018, 18.45",
+      "entry_pdatehd":"12.9.2018",
+      "entry_pdateht":"18.45",
+      "entry_pdatet":"201809121845",
+      "entry_stavah":"12.9.2018, 19.30",
+      "entry_stavat":"201809121930",
+      "entry_subtitle":"",
+      "entry_title":"Landesschau Baden-Württemberg vom 12.09.2018",
+      "entry_topline":"Gesamtsendung",
+      "flag_bewertbar":"true",
+      "flag_einbettbar":"true",
+      "group_crid":"2250992",
+      "group_cridfull":"crid://swr.de/2250992",
+      "group_descl":"",
+      "group_descs":"Landesschau BW",
+      "group_gtype":"Sendung",
+      "group_idkey":"b2fb5397-9bdc-11df-b44d-00199916cf68",
+      "group_image_16_9":"https://www.swr.de/-/id=2138658/property=full/width=1280/height=720/pubVersion=13/bychr4/Logo%20%22Landesschau%20Baden-W%C3%BCrttemberg%22.jpg",
+      "group_image_16_9_q":"5",
+      "group_imgalt":"Logo \"Landesschau Baden-Württemberg\"",
+      "group_imgmd5":"/img/9/9/b/99b09989fb56b02602642d357d72bad6",
+      "group_imgref":"SWR",
+      "group_title":"Landesschau Baden-Württemberg",
+      "group_xlink":"https://www.swr.de/landesschau-bw/-/id=13831150/vcogt9/index.html",
+      "origin":"Beitrag"
+   },
+   "sub":[
+      {
+         "name":"entry_image",
+         "attr":{
+            "val0":"HTTP,Image/16:9/Web XL/JPG",
+            "val1":"https://www.swr.de/-/id=22437000/property=full/width=1280/height=720/pubVersion=1/dmebbe/Moderator%20J%C3%BCrgen%20H%C3%B6rig.jpg"
+         },
+         "sub":[
+
+         ]
+      },
+      {
+         "name":"entry_keywd",
+         "attr":{
+            "val":"Baden-Württemberg"
+         },
+         "sub":[
+
+         ]
+      },
+      {
+         "name":"entry_keywd",
+         "attr":{
+            "val":"Feuerwehr"
+         },
+         "sub":[
+
+         ]
+      },
+      {
+         "name":"entry_keywd",
+         "attr":{
+            "val":"Gesamtsendung"
+         },
+         "sub":[
+
+         ]
+      },
+      {
+         "name":"entry_keywd",
+         "attr":{
+            "val":"Hauptbahnhof"
+         },
+         "sub":[
+
+         ]
+      },
+      {
+         "name":"entry_keywd",
+         "attr":{
+            "val":"Landesschau"
+         },
+         "sub":[
+
+         ]
+      },
+      {
+         "name":"entry_keywd",
+         "attr":{
+            "val":"Lars Eidinger"
+         },
+         "sub":[
+
+         ]
+      },
+      {
+         "name":"entry_keywd",
+         "attr":{
+            "val":"Migräne"
+         },
+         "sub":[
+
+         ]
+      },
+      {
+         "name":"entry_keywd",
+         "attr":{
+            "val":"Polizei"
+         },
+         "sub":[
+
+         ]
+      },
+      {
+         "name":"entry_keywd",
+         "attr":{
+            "val":"Terror"
+         },
+         "sub":[
+
+         ]
+      },
+      {
+         "name":"entry_keywd",
+         "attr":{
+            "val":"Video"
+         },
+         "sub":[
+
+         ]
+      },
+      {
+         "name":"entry_keywd",
+         "attr":{
+            "val":"mackie messer"
+         },
+         "sub":[
+
+         ]
+      },
+      {
+         "name":"entry_keywd",
+         "attr":{
+            "val":"Übung"
+         },
+         "sub":[
+
+         ]
+      },
+      {
+         "name":"entry_media",
+         "attr":{
+            "val0":"h264",
+            "val1":"1",
+            "val2":"https://pdodswr-a.akamaihd.net/swr/swr-fernsehen/landesschau-bw/00-hauptbeitrag/1053798.s.mp4"
+         },
+         "sub":[
+
+         ]
+      },
+      {
+         "name":"entry_media",
+         "attr":{
+            "val0":"h264",
+            "val1":"2",
+            "val2":"https://pdodswr-a.akamaihd.net/swr/swr-fernsehen/landesschau-bw/00-hauptbeitrag/1053798.m.mp4"
+         },
+         "sub":[
+
+         ]
+      },
+      {
+         "name":"entry_media",
+         "attr":{
+            "val0":"h264",
+            "val1":"2",
+            "val2":"https://pdodswr-a.akamaihd.net/swr/swr-fernsehen/landesschau-bw/00-hauptbeitrag/1053798.sm.mp4"
+         },
+         "sub":[
+
+         ]
+      },
+      {
+         "name":"entry_media",
+         "attr":{
+            "val0":"h264",
+            "val1":"3",
+            "val2":"https://pdodswr-a.akamaihd.net/swr/swr-fernsehen/landesschau-bw/00-hauptbeitrag/1053798.l.mp4"
+         },
+         "sub":[
+
+         ]
+      },
+      {
+         "name":"entry_media",
+         "attr":{
+            "val0":"h264",
+            "val1":"3",
+            "val2":"https://pdodswr-a.akamaihd.net/swr/swr-fernsehen/landesschau-bw/00-hauptbeitrag/1053798.ml.mp4"
+         },
+         "sub":[
+
+         ]
+      },
+      {
+         "name":"entry_media",
+         "attr":{
+            "val0":"h264",
+            "val1":"4",
+            "val2":"https://pdodswr-a.akamaihd.net/swr/swr-fernsehen/landesschau-bw/00-hauptbeitrag/1053798.xl.mp4"
+         },
+         "sub":[
+
+         ]
+      },
+      {
+         "name":"entry_media",
+         "attr":{
+            "val0":"m3u8",
+            "val1":"4",
+            "val2":"https://hlsodswr-vh.akamaihd.net/i/swr/swr-fernsehen/landesschau-bw/00-hauptbeitrag/1053798,.s,.sm,.m,.ml,.l,.xl,.xxl,.mp4.csmil/master.m3u8"
+         },
+         "sub":[
+
+         ]
+      },
+      {
+         "name":"group_image",
+         "attr":{
+            "val0":"HTTP,Image/16:9/Web XL/JPG",
+            "val1":"https://www.swr.de/-/id=2138658/property=full/width=1280/height=720/pubVersion=13/bychr4/Logo%20%22Landesschau%20Baden-W%C3%BCrttemberg%22.jpg"
+         },
+         "sub":[
+
+         ]
+      }
+   ]
+}
