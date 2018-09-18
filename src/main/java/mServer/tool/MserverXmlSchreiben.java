@@ -27,20 +27,15 @@ import java.nio.charset.StandardCharsets;
 import javax.xml.stream.XMLOutputFactory;
 import javax.xml.stream.XMLStreamWriter;
 
-import etm.core.configuration.EtmManager;
-import etm.core.monitor.EtmMonitor;
-import etm.core.monitor.EtmPoint;
 import mServer.daten.MserverDatenUpload;
 import mServer.daten.MserverSearchTask;
 
 public class MserverXmlSchreiben {
-    private static final EtmMonitor etmMonitor = EtmManager.getEtmMonitor();
     private static XMLOutputFactory outFactory;
     private static XMLStreamWriter writer;
     private static OutputStreamWriter out = null;
 
     public static void xmlMusterDatenSchreiben() {
-        EtmPoint performancePoint = etmMonitor.createPoint("MserverXmlSchreiben:xmlMusterDatenSchreiben");
         try {
             String datei = MserverDaten.getKonfigDatei() + "_Muster";
             MserverLog.systemMeldung("Daten Schreiben");
@@ -66,11 +61,9 @@ public class MserverXmlSchreiben {
         } catch (Exception ex) {
             MserverLog.fehlerMeldung(645421039, MserverXmlSchreiben.class.getName(), "xmlDatenSchreiben", ex);
         }
-        performancePoint.collect();
     }
 
     private static void xmlSchreibenDaten(String xmlName, String[] xmlSpalten, String[] datenArray) {
-        EtmPoint performancePoint = etmMonitor.createPoint("MserverXmlSchreiben:xmlSchreibenDaten");
         int xmlMax = datenArray.length;
         try {
             writer.writeStartElement(xmlName);
@@ -87,6 +80,5 @@ public class MserverXmlSchreiben {
         } catch (Exception ex) {
             MserverLog.fehlerMeldung(102365897, MserverLog.class.getName(), "xmlSchreibenDaten", ex);
         }
-        performancePoint.collect();
     }
 }
