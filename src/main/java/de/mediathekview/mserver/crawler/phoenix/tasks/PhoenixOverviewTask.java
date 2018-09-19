@@ -1,6 +1,6 @@
 package de.mediathekview.mserver.crawler.phoenix.tasks;
 
-import com.google.common.reflect.TypeToken;
+import com.google.gson.reflect.TypeToken;
 import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
 import de.mediathekview.mserver.crawler.basic.AbstractRecrusivConverterTask;
 import de.mediathekview.mserver.crawler.basic.CrawlerUrlDTO;
