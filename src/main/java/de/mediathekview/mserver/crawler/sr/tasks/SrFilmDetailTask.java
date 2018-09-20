@@ -58,6 +58,7 @@ public class SrFilmDetailTask extends AbstractDocumentTask<Film, SrTopicUrlDTO> 
     
     try {
       if (!isRelevantType(aDocument)) {
+        crawler.incrementAndGetActualCount();
         return;
       }
       
