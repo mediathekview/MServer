@@ -70,7 +70,7 @@ public final class HtmlDocumentUtils {
       if (2 == dauerSplits.length) {
         try {
           return Optional.of(Duration.ofMinutes(Long.parseLong(dauerSplits[0]))
-              .withSeconds(Long.parseLong(dauerSplits[1])));
+              .plusSeconds(Long.parseLong(dauerSplits[1])));
         } catch (final NumberFormatException numberFormatException) {
           LOG.error("A duration for can't be parsed.", numberFormatException);
         }

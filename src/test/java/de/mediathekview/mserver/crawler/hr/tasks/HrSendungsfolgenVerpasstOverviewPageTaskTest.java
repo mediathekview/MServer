@@ -3,18 +3,11 @@ package de.mediathekview.mserver.crawler.hr.tasks;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
 
-import de.mediathekview.mlib.messages.listener.MessageListener;
-import de.mediathekview.mserver.base.config.MServerConfigManager;
 import de.mediathekview.mserver.crawler.basic.CrawlerUrlDTO;
-import de.mediathekview.mserver.crawler.hr.HrCrawler;
-import de.mediathekview.mserver.progress.listeners.SenderProgressListener;
 import de.mediathekview.mserver.testhelper.JsoupMock;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Set;
 import java.util.concurrent.ConcurrentLinkedQueue;
-import java.util.concurrent.ForkJoinPool;
 import org.hamcrest.Matchers;
 import org.jsoup.Jsoup;
 import org.junit.Test;
@@ -26,9 +19,7 @@ import org.powermock.modules.junit4.PowerMockRunner;
 @RunWith(PowerMockRunner.class)
 @PrepareForTest({Jsoup.class})
 @PowerMockIgnore("javax.net.ssl.*")
-public class HrSendungsfolgenVerpasstOverviewPageTaskTest {
-
-  protected MServerConfigManager rootConfig = MServerConfigManager.getInstance("MServer-JUnit-Config.yaml");
+public class HrSendungsfolgenVerpasstOverviewPageTaskTest extends HrTaskTestBase {
 
   @Test
   public void test() throws IOException {
@@ -112,10 +103,4 @@ public class HrSendungsfolgenVerpasstOverviewPageTaskTest {
     assertThat(actual, Matchers.containsInAnyOrder(expected));
   }
 
-  protected HrCrawler createCrawler() {
-    ForkJoinPool forkJoinPool = new ForkJoinPool();
-    Collection<MessageListener> nachrichten = new ArrayList<>();
-    Collection<SenderProgressListener> fortschritte = new ArrayList<>();
-    return new HrCrawler(forkJoinPool, nachrichten, fortschritte, rootConfig);
-  }
 }
