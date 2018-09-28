@@ -54,6 +54,7 @@ import mServer.crawler.sender.arte.MediathekArte_de;
 import mServer.crawler.sender.arte.MediathekArte_fr;
 import mServer.crawler.sender.br.BrCrawler;
 import mServer.crawler.sender.orf.OrfCrawler;
+import mServer.crawler.sender.phoenix.PhoenixCrawler;
 
 /**
  * ###########################################################################################################
@@ -100,7 +101,7 @@ public class FilmeSuchen {
     mediathekListe.add(new MediathekSrf(this, 1));
     mediathekListe.add(new MediathekSrfPod(this, 0));
     mediathekListe.add(new OrfCrawler(this, 1));
-    //mediathekListe.add(new PhoenixCrawler(this, 1));
+    mediathekListe.add(new PhoenixCrawler(this, 1));
   }
 
   public static String[] getNamenSender() {

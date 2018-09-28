@@ -63,37 +63,40 @@ public class PhoenixFilmDetailTask extends ZdfTaskBase<DatenFilm, CrawlerUrlDTO>
 
   @Override
   protected void processRestTarget(CrawlerUrlDTO aDTO, WebTarget aTarget) {
-    Optional<PhoenixFilmDetailDto> filmDetailDtoOptional = deserializeOptional(aTarget, OPTIONAL_FILM_DETAIL_DTO_TYPE_TOKEN);
-    if (!filmDetailDtoOptional.isPresent()) {
-      // tritt auf, wenn kein Film vorhanden
-      return;
-    }
-
-    PhoenixFilmDetailDto filmDetailDto = filmDetailDtoOptional.get();
-    Optional<PhoenixFilmXmlHandler> filmXmlDtoOptional = loadFilmXml(filmDetailDto.getBaseName());
-    if (!filmXmlDtoOptional.isPresent()) {
-      LOG.info("PhoenixFilmDetailTask: error parsing xml " + aDTO.getUrl());
-      return;
-    }
-
-    PhoenixFilmXmlHandler filmXmlHandler = filmXmlDtoOptional.get();
-    if (filmXmlHandler.getBaseName() == null) {
-      // tritt auf, wenn kein Film vorhanden
-      return;
-    }
-
-    Optional<DownloadDto> videoDetailDtoOptional = deserializeOptional(createWebTarget(videoDetailHost + PhoenixConstants.URL_VIDEO_DETAILS_BASE + filmXmlHandler.getBaseName()),
-            OPTIONAL_DOWNLOAD_DTO_TYPE_TOKEN);
-    if (!videoDetailDtoOptional.isPresent()) {
-      LOG.info("PhoenixFilmDetailTask: error deserializing download dto " + aDTO.getUrl());
-      return;
-    }
-
     try {
+      Optional<PhoenixFilmDetailDto> filmDetailDtoOptional = deserializeOptional(aTarget, OPTIONAL_FILM_DETAIL_DTO_TYPE_TOKEN);
+      if (!filmDetailDtoOptional.isPresent()) {
+        // tritt auf, wenn kein Film vorhanden
+        return;
+      }
+
+      PhoenixFilmDetailDto filmDetailDto = filmDetailDtoOptional.get();
+      Optional<PhoenixFilmXmlHandler> filmXmlDtoOptional = loadFilmXml(filmDetailDto.getBaseName());
+      if (!filmXmlDtoOptional.isPresent()) {
+        LOG.info("PhoenixFilmDetailTask: error parsing xml " + aDTO.getUrl());
+        return;
+      }
+
+      PhoenixFilmXmlHandler filmXmlHandler = filmXmlDtoOptional.get();
+      if (filmXmlHandler.getBaseName() == null) {
+        // tritt auf, wenn kein Film vorhanden
+        return;
+      }
+
+      Optional<DownloadDto> videoDetailDtoOptional = deserializeOptional(createWebTarget(videoDetailHost + PhoenixConstants.URL_VIDEO_DETAILS_BASE + filmXmlHandler.getBaseName()),
+              OPTIONAL_DOWNLOAD_DTO_TYPE_TOKEN);
+      if (!videoDetailDtoOptional.isPresent()) {
+        LOG.info("PhoenixFilmDetailTask: error deserializing download dto " + aDTO.getUrl());
+        return;
+      }
+
       addFilm(filmDetailDto, filmXmlHandler, videoDetailDtoOptional.get());
 
     } catch (MalformedURLException e) {
       LOG.error("PhoenixFilmDetailTask: url can't be parsed: ", e);
+    } catch (Exception e) {
+      // catch all exceptions to ensure that the crawler can process the other results
+      LOG.fatal(e);
     }
   }
 

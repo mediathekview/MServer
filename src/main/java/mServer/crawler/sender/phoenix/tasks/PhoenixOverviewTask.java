@@ -42,17 +42,21 @@ public class PhoenixOverviewTask extends ZdfTaskBase<CrawlerUrlDTO, CrawlerUrlDT
 
   @Override
   protected void processRestTarget(CrawlerUrlDTO aDTO, WebTarget aTarget) {
-    Optional<SendungOverviewDto> overviewDtoOptional = deserializeOptional(aTarget, OPTIONAL_OVERVIEW_DTO_TYPE_TOKEN);
-    if (!overviewDtoOptional.isPresent()) {
-      LOG.fatal("PhoenixOverviewTask: error processing url " + aDTO.getUrl());
-      return;
-    }
+    try {
+      Optional<SendungOverviewDto> overviewDtoOptional = deserializeOptional(aTarget, OPTIONAL_OVERVIEW_DTO_TYPE_TOKEN);
+      if (!overviewDtoOptional.isPresent()) {
+        LOG.fatal("PhoenixOverviewTask: error processing url " + aDTO.getUrl());
+        return;
+      }
 
-    SendungOverviewDto overviewDto = overviewDtoOptional.get();
-    addResults(overviewDto.getUrls());
+      SendungOverviewDto overviewDto = overviewDtoOptional.get();
+      addResults(overviewDto.getUrls());
 
-    if (overviewDto.getNextPageId().isPresent()) {
-      taskResults.addAll(createNewOwnInstance(baseUrl + overviewDto.getNextPageId().get()).invoke());
+      if (overviewDto.getNextPageId().isPresent()) {
+        taskResults.addAll(createNewOwnInstance(baseUrl + overviewDto.getNextPageId().get()).invoke());
+      }
+    } catch (Exception e) {
+      LOG.fatal(e);
     }
   }
 
