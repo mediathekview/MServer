@@ -16,10 +16,19 @@ public class SrTopicArchivePageTask extends AbstractDocumentTask<SrTopicUrlDTO, 
 
   private static final String NEXT_PAGE_SELECTOR = "div.pagination__item > a[title*=weiter]";
   private static final String SHOW_LINK_SELECTOR = "h3.teaser__text__header a";
-  
+  private int pageNumber;
+
   public SrTopicArchivePageTask(final AbstractCrawler aCrawler,
       final ConcurrentLinkedQueue<SrTopicUrlDTO> aUrlToCrawlDTOs) {
     super(aCrawler, aUrlToCrawlDTOs);
+    pageNumber = 1;
+  }
+
+  public SrTopicArchivePageTask(final AbstractCrawler aCrawler,
+      final ConcurrentLinkedQueue<SrTopicUrlDTO> aUrlToCrawlDTOs,
+      final int aPageNumber) {
+    super(aCrawler, aUrlToCrawlDTOs);
+    pageNumber = aPageNumber;
   }
   
   @Override
@@ -27,7 +36,7 @@ public class SrTopicArchivePageTask extends AbstractDocumentTask<SrTopicUrlDTO, 
     parsePage(aUrlDTO.getTheme(), aDocument);    
 
     Optional<String> nextPageUrl = getNextPage(aDocument);
-    if (nextPageUrl.isPresent()) {
+    if (nextPageUrl.isPresent() && pageNumber < crawler.getCrawlerConfig().getMaximumSubpages()) {
       processNextPage(aUrlDTO.getTheme(), nextPageUrl.get());
     }
   }
@@ -35,8 +44,12 @@ public class SrTopicArchivePageTask extends AbstractDocumentTask<SrTopicUrlDTO, 
   @Override
   protected AbstractUrlTask<SrTopicUrlDTO, SrTopicUrlDTO> createNewOwnInstance(ConcurrentLinkedQueue<SrTopicUrlDTO> aURLsToCrawl) {
     return new SrTopicArchivePageTask(crawler, aURLsToCrawl);
-  }  
-  
+  }
+
+  private AbstractUrlTask<SrTopicUrlDTO, SrTopicUrlDTO> createNewOwnInstance(ConcurrentLinkedQueue<SrTopicUrlDTO> aURLsToCrawl, final int aPageNumber) {
+    return new SrTopicArchivePageTask(crawler, aURLsToCrawl, aPageNumber);
+  }
+
   private void parsePage(String aTheme, Document aDocument) {
     Elements links = aDocument.select(SHOW_LINK_SELECTOR);
     links.forEach(element -> {
@@ -57,7 +70,7 @@ public class SrTopicArchivePageTask extends AbstractDocumentTask<SrTopicUrlDTO, 
   private void processNextPage(String aTheme, String aNextPageId) {
     final ConcurrentLinkedQueue<SrTopicUrlDTO> urlDtos = new ConcurrentLinkedQueue<>();
     urlDtos.add(new SrTopicUrlDTO(aTheme, aNextPageId));
-    Set<SrTopicUrlDTO> x = createNewOwnInstance(urlDtos).invoke();
+    Set<SrTopicUrlDTO> x = createNewOwnInstance(urlDtos, pageNumber + 1).invoke();
     taskResults.addAll(x);
   }  
 }
