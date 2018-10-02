@@ -48,6 +48,21 @@ public class HrSendungsfolgedetailsTaskTest extends HrTaskTestBase {
                 "",
                 "https://hr-a.akamaihd.net/video/as/engelfragt/2018_04/hrLogo_180409113655_0196595_512x288-25p-500kbit.vtt",
                 GeoLocations.GEO_NONE
+            },
+            {
+              "https://www.hr-fernsehen.de/sendungen-a-z/erlebnis-hessen/sendungen/altstaedte-im-aufbruch---die-neue-liebe-fuer-hessens-alte-stadtkerne-,sendung-43798.html",
+                "/hr/hr_film_detail2.html",
+                //"Erlebnis Hessen",
+                "Altstädte im Aufbruch - die neue Liebe für Hessens alte Stadtkerne",
+                "Ein Film von Shahin Noureldin und Daye di Simoni",
+                "Nicht nur Frankfurt will seine Altstadt zurück – auch in Schlitz, Marburg oder Büdingen beschäftigen sich Stadtplaner und Bürger damit, wie sie ihre Stadtzentren wieder zu einem lebendigen Mittelpunkt machen können.",
+                LocalDateTime.of(2018,9,29,21,0,0),
+                Duration.ofMinutes(44).plusSeconds(20),
+                "",
+                "https://hr-a.akamaihd.net/video/as/erlebnishessen/2018_09/hrLogo_180929171859_0199232_512x288-25p-500kbit.mp4",
+                "",
+                "https://hr-a.akamaihd.net/video/as/erlebnishessen/2018_09/hrLogo_180929171859_0199232_512x288-25p-500kbit.vtt",
+                GeoLocations.GEO_NONE
             }
         });
   }
