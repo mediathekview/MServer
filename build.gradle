@@ -139,6 +139,7 @@ dependencies {
     compile group: 'org.apache.commons', name: 'commons-compress', version: '1.12'
     compile group: 'org.apache.commons', name: 'commons-lang3', version: '3.7'
     compile group: 'org.glassfish.jersey.core', name: 'jersey-common', version: '2.27'
+    compile group: 'org.glassfish.jersey.core', name: 'jersey-client', version: '2.27'
 	compile group: 'org.glassfish.jersey.inject', name: 'jersey-hk2', version: '2.27'
     compile group: 'org.apache.logging.log4j', name: 'log4j-core', version: '2.11.1'
 
