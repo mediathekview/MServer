@@ -47,7 +47,7 @@ public class ZDFSearchTask extends RecursiveTask<Collection<VideoDTO>>
 
                 do
                 {
-                    baseObject = client.executeSearch(page, days, 1);
+                    baseObject = client.executeSearch(page, days, 2);
 
                     if (baseObject != null)
                     {
