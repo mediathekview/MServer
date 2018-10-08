@@ -58,9 +58,9 @@ public class HrSendungsfolgedetailsTaskTest extends HrTaskTestBase {
                 "Nicht nur Frankfurt will seine Altstadt zurück – auch in Schlitz, Marburg oder Büdingen beschäftigen sich Stadtplaner und Bürger damit, wie sie ihre Stadtzentren wieder zu einem lebendigen Mittelpunkt machen können.",
                 LocalDateTime.of(2018,9,29,21,0,0),
                 Duration.ofMinutes(44).plusSeconds(20),
-                "",
                 "https://hr-a.akamaihd.net/video/as/erlebnishessen/2018_09/hrLogo_180929171859_0199232_512x288-25p-500kbit.mp4",
-                "",
+                "https://hr-a.akamaihd.net/video/as/erlebnishessen/2018_09/hrLogo_180929171859_0199232_960x540-50p-1800kbit.mp4",
+                "https://hr-a.akamaihd.net/video/as/erlebnishessen/2018_09/hrLogo_180929171859_0199232_1280x720-50p-5000kbit.mp4",
                 "https://hr-a.akamaihd.net/video/as/erlebnishessen/2018_09/hrLogo_180929171859_0199232_512x288-25p-500kbit.vtt",
                 GeoLocations.GEO_NONE
             }
