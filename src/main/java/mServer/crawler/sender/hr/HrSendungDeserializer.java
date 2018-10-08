@@ -9,8 +9,13 @@ import java.lang.reflect.Type;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.util.EnumMap;
+import java.util.Map;
 import java.util.Optional;
 import mServer.crawler.CrawlerTool;
+import mServer.crawler.sender.ard.ArdVideoDTO;
+import mServer.crawler.sender.newsearch.Qualities;
+import mServer.crawler.sender.orf.HtmlDocumentUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.jsoup.nodes.Document;
@@ -40,14 +45,14 @@ public class HrSendungDeserializer {
   private final DateTimeFormatter timeFormatDatenFilm = DateTimeFormatter.ofPattern("HH:mm:ss");
 
   private static final Logger LOG = LogManager.getLogger(HrSendungDeserializer.class);
-  private static final Type OPTIONAL_STRING_TYPE_TOKEN = new TypeToken<Optional<String>>() {
+  private static final Type OPTIONAL_ARDVIDEOINFODTO_TYPE_TOKEN = new TypeToken<Optional<ArdVideoDTO>>() {
   }.getType();
 
   private final Gson gson;
 
   public HrSendungDeserializer() {
     gson = new GsonBuilder()
-            .registerTypeAdapter(OPTIONAL_STRING_TYPE_TOKEN, new HrVideoJsonDeserializer())
+            .registerTypeAdapter(OPTIONAL_ARDVIDEOINFODTO_TYPE_TOKEN, new HrVideoJsonDeserializer())
             .create();
   }
 
@@ -57,13 +62,13 @@ public class HrSendungDeserializer {
     String description;
     String time = "";
     String title;
-    String videoUrl;
+    Map<Qualities, String> videoUrls;
     String subtitle;
     long duration;
 
     // nur Einträge mit Video weiterverarbeiten
-    videoUrl = getVideoUrl(document);
-    if (videoUrl.isEmpty()) {
+    videoUrls = parseVideo(document);
+    if (videoUrls.isEmpty()) {
       return null;
     }
 
@@ -83,7 +88,13 @@ public class HrSendungDeserializer {
     description = getDescription(document);
     subtitle = getSubtitle(document);
 
-    DatenFilm film = new DatenFilm(Const.HR, theme, documentUrl, title, videoUrl, "", date, time, duration, description);
+    DatenFilm film = new DatenFilm(Const.HR, theme, documentUrl, title, videoUrls.get(Qualities.NORMAL), "", date, time, duration, description);
+    if (videoUrls.containsKey(Qualities.SMALL)) {
+      CrawlerTool.addUrlKlein(film, videoUrls.get(Qualities.SMALL), "");
+    }
+    if (videoUrls.containsKey(Qualities.HD)) {
+      CrawlerTool.addUrlHd(film, videoUrls.get(Qualities.HD), "");
+    }
     if (!subtitle.isEmpty()) {
       CrawlerTool.addUrlSubtitle(film, subtitle);
     }
@@ -183,23 +194,24 @@ public class HrSendungDeserializer {
     return subtitle;
   }
 
-  private String getVideoUrl(Document document) {
-    String url = "";
+  private Map<Qualities, String> parseVideo(Document aDocument) {
 
-    Element urlElement = document.select(HTML_TAG_SOURCE).first();
-    if (urlElement != null) {
-      url = urlElement.attr(HTML_ATTRIBUTE_SRC);
+    Map<Qualities, String> urls = new EnumMap<>(Qualities.class);
+
+    // old video url
+    Optional<String> videoUrl = HtmlDocumentUtils.getElementAttributeString(HTML_TAG_SOURCE, HTML_ATTRIBUTE_SRC, aDocument);
+    if (videoUrl.isPresent()) {
+      urls.put(Qualities.NORMAL, videoUrl.get());
     } else {
-      urlElement = document.select(HTML_TAG_VIDEO2).first();
-      if (urlElement != null) {
-        String videoJson = urlElement.attr(HTML_ATTRIBUTE_VIDEO_JSON);
-        Optional<String> urlValue = gson.fromJson(videoJson, OPTIONAL_STRING_TYPE_TOKEN);
-        if (urlValue.isPresent()) {
-          url = urlValue.get();
+      Optional<String> videoJson = HtmlDocumentUtils.getElementAttributeString(HTML_TAG_VIDEO2, HTML_ATTRIBUTE_VIDEO_JSON, aDocument);
+      if (videoJson.isPresent()) {
+        Optional<ArdVideoDTO> dto = gson.fromJson(videoJson.get(), OPTIONAL_ARDVIDEOINFODTO_TYPE_TOKEN);
+        if (dto.isPresent()) {
+          urls.putAll(dto.get().getVideoUrls());
         }
       }
     }
 
-    return url;
+    return urls;
   }
 }
