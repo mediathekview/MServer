@@ -36,10 +36,6 @@ public class HrSendungsfolgenVerpasstOverviewPageTaskTest extends HrTaskTestBase
         new CrawlerUrlDTO(
             "https://www.hr-fernsehen.de/sendungen-a-z/maintower/sendungen/maintower-weekend,sendung-43278.html"),
         new CrawlerUrlDTO(
-            "https://www.hessenschau.de/tv-sendung/index.html"),
-        new CrawlerUrlDTO(
-            "https://www.hr-fernsehen.de/wetter/index.html"),
-        new CrawlerUrlDTO(
             "https://www.hr-fernsehen.de/sendungen-a-z/engel-fragt/sendungen/engel-fragt-bin-ich-schoen,sendung-29818.html"),
         new CrawlerUrlDTO(
             "https://www.hr-fernsehen.de/sendungen-a-z/herkules/sendungen/herkules,sendung-43316.html"),
@@ -55,8 +51,6 @@ public class HrSendungsfolgenVerpasstOverviewPageTaskTest extends HrTaskTestBase
             "https://www.hr-fernsehen.de/sendungen-a-z/giraffe-erdmaennchen-und-co/sendungen/giraffe-erdmaennchen--co,sendung-43414.html"),
         new CrawlerUrlDTO(
             "https://www.hr-fernsehen.de/sendungen-a-z/hallo-hessen/sendungen/hallo-hessen,sendung-43434.html"),
-        new CrawlerUrlDTO(
-            "https://www.hessenschau.de/tv-sendung/hs-kompakt-100.html"),
         new CrawlerUrlDTO(
             "https://www.hr-fernsehen.de/sendungen-a-z/hallo-hessen/sendungen/hallo-hessen,sendung-43402.html"),
         new CrawlerUrlDTO(

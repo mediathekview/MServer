@@ -59,7 +59,7 @@ public class HrSendungsfolgenOverviewPageTask
    * @param aUrl the url to check
    * @return true if the url is a HR url else false
    */
-  private boolean isUrlRelevant(final String aUrl) {
+  protected boolean isUrlRelevant(final String aUrl) {
     return aUrl.contains(HrConstants.BASE_URL) || aUrl.contains(HrConstants.BASE_URL_HESSENSCHAU);
   }
 
