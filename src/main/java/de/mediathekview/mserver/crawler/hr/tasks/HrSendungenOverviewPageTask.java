@@ -1,5 +1,8 @@
 package de.mediathekview.mserver.crawler.hr.tasks;
 
+import de.mediathekview.mserver.base.Consts;
+import de.mediathekview.mserver.crawler.basic.CrawlerUrlDTO;
+import de.mediathekview.mserver.crawler.hr.HrConstants;
 import java.io.IOException;
 import java.util.HashSet;
 import java.util.Set;
@@ -9,15 +12,13 @@ import org.apache.logging.log4j.Logger;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
-import de.mediathekview.mserver.base.Consts;
-import de.mediathekview.mserver.crawler.basic.CrawlerUrlDTO;
-import de.mediathekview.mserver.crawler.hr.HrCrawler;
 
 public class HrSendungenOverviewPageTask implements Callable<Set<CrawlerUrlDTO>> {
+
   private static final String SENDUNGSFOLEN_OVERVIEW_URL_REPLACEMENT = "sendungen/index.html";
   private static final String INDEX_PAGE_NAME = "index.html";
   private static final Logger LOG = LogManager.getLogger(HrSendungenOverviewPageTask.class);
-  private static final String HR_SENDUNGEN_URL = HrCrawler.BASE_URL + "sendungen-a-z/index.html";
+  private static final String HR_SENDUNGEN_URL = HrConstants.BASE_URL + "sendungen-a-z/index.html";
   private static final String SENDUNG_URL_SELECTOR = ".c-teaser__headlineLink.link";
 
   @Override

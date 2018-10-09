@@ -1,17 +1,19 @@
 package de.mediathekview.mserver.crawler.hr.tasks;
 
-import java.util.concurrent.ConcurrentLinkedQueue;
-import org.apache.logging.log4j.Level;
-import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
 import de.mediathekview.mserver.base.Consts;
 import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
 import de.mediathekview.mserver.crawler.basic.AbstractDocumentTask;
 import de.mediathekview.mserver.crawler.basic.AbstractUrlTask;
 import de.mediathekview.mserver.crawler.basic.CrawlerUrlDTO;
+import de.mediathekview.mserver.crawler.hr.HrConstants;
+import java.util.concurrent.ConcurrentLinkedQueue;
+import org.apache.logging.log4j.Level;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
 
 public class HrSendungsfolgenOverviewPageTask
     extends AbstractDocumentTask<CrawlerUrlDTO, CrawlerUrlDTO> {
+
   private static final String SENDUNGSFOLGEN_URL_SELECTOR = ".c-teaser__headlineLink.link";
   private static final long serialVersionUID = -6727831751148817578L;
 
@@ -41,10 +43,24 @@ public class HrSendungsfolgenOverviewPageTask
       if (filmUrlElement.hasAttr(Consts.ATTRIBUTE_HREF)) {
         crawler.incrementAndGetMaxCount();
         crawler.updateProgress();
-        taskResults.add(new CrawlerUrlDTO(filmUrlElement.absUrl(Consts.ATTRIBUTE_HREF)));
+
+        final String url = filmUrlElement.absUrl(Consts.ATTRIBUTE_HREF);
+        if (isUrlRelevant(url)) {
+          taskResults.add(new CrawlerUrlDTO(url));
+        }
       }
     }
 
+  }
+
+  /**
+   * filters urls of other ARD stations.
+   *
+   * @param aUrl the url to check
+   * @return true if the url is a HR url else false
+   */
+  private boolean isUrlRelevant(final String aUrl) {
+    return aUrl.contains(HrConstants.BASE_URL) || aUrl.contains(HrConstants.BASE_URL_HESSENSCHAU);
   }
 
 }

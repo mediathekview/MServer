@@ -32,10 +32,6 @@ public class HrSendungsfolgenVerpasstOverviewPageTaskTest extends HrTaskTestBase
         new CrawlerUrlDTO(
             "https://www.hr-fernsehen.de/tv-programm/die-zehn-gebote-6,sendung-43404.html"),
         new CrawlerUrlDTO(
-            "http://www.daserste.de/unterhaltung/soaps-telenovelas/rote-rosen/index.html"),
-        new CrawlerUrlDTO(
-            "http://www.daserste.de/unterhaltung/soaps-telenovelas/sturm-der-liebe/index.html"),
-        new CrawlerUrlDTO(
             "https://www.hr-fernsehen.de/tv-programm/nashorn-zebra--co,sendung-43230.html"),
         new CrawlerUrlDTO(
             "https://www.hr-fernsehen.de/sendungen-a-z/maintower/sendungen/maintower-weekend,sendung-43278.html"),
@@ -66,13 +62,9 @@ public class HrSendungsfolgenVerpasstOverviewPageTaskTest extends HrTaskTestBase
         new CrawlerUrlDTO(
             "https://www.hr-fernsehen.de/sendungen-a-z/maintower/sendungen/maintower---zahlreiche-schaeden-durch-sturm-fabienne-,sendung-43412.html"),
         new CrawlerUrlDTO(
-            "http://www.mdr.de/brisant/index.html"),
-        new CrawlerUrlDTO(
             "https://www.hr-fernsehen.de/sendungen-a-z/service-zuhause/sendungen/service-zuhause---minijobs-smarthome-alternativen-zu-plastik-und-richtig-streiten,sendung-43422.html"),
         new CrawlerUrlDTO(
             "https://www.hr-fernsehen.de/sendungen-a-z/alle-wetter/sendungen/alle-wetter-unwetter-kaltluft-bodenfrost,sendung-43418.html"),
-        new CrawlerUrlDTO(
-            "http://www.tagesschau.de/"),
         new CrawlerUrlDTO(
             "https://www.hr-fernsehen.de/sendungen-a-z/alle-wetter/sendungen/alle-wetter-extra-herbststurm-ueber-hessen,sendung-46014.html"),
         new CrawlerUrlDTO(
