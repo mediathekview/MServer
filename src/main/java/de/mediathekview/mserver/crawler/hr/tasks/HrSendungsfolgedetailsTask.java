@@ -149,16 +149,16 @@ public class HrSendungsfolgedetailsTask extends AbstractDocumentTask<Film, Crawl
               crawler.updateProgress();
             }
           } else {
-            crawler.printMissingElementErrorMessage("Dauer");
+            crawler.printMissingElementErrorMessage(aUrlDTO.getUrl() + ": Dauer");
           }
         } else {
-          crawler.printMissingElementErrorMessage("Video-Url");
+          crawler.printMissingElementErrorMessage(aUrlDTO.getUrl() + ": Video-Url");
         }
       } else {
-        crawler.printMissingElementErrorMessage("Titel");
+        crawler.printMissingElementErrorMessage(aUrlDTO.getUrl() + ": Titel");
       }
     } else {
-      crawler.printMissingElementErrorMessage("Thema");
+      crawler.printMissingElementErrorMessage(aUrlDTO.getUrl() + ": Thema");
     }
   }
 
