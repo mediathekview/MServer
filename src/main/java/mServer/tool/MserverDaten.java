@@ -23,14 +23,10 @@ import java.io.File;
 
 import de.mediathekview.mlib.Const;
 import de.mediathekview.mlib.tool.Functions;
-import etm.core.configuration.EtmManager;
-import etm.core.monitor.EtmMonitor;
-import etm.core.monitor.EtmPoint;
 import mServer.daten.MserverListeSuchen;
 import mServer.daten.MserverListeUpload;
 
 public class MserverDaten {
-    private static final EtmMonitor etmMonitor = EtmManager.getEtmMonitor();
     public static String[] system = new String[MserverKonstanten.SYSTEM_MAX_ELEM];
     public static MserverListeSuchen listeSuchen = new MserverListeSuchen();
     public static MserverListeUpload listeUpload = new MserverListeUpload();
@@ -40,7 +36,6 @@ public class MserverDaten {
     private static String basisverzeichnis = "";
 
     public static void init() {
-        EtmPoint performancePoint = etmMonitor.createPoint("MserverDaten:init");
 
         listeSuchen = new MserverListeSuchen();
         listeUpload = new MserverListeUpload();
@@ -49,7 +44,6 @@ public class MserverDaten {
         for (int i = 0; i < system.length; ++i) {
             system[i] = "";
         }
-        performancePoint.collect();
     }
 
     public static String getUserAgent() {
