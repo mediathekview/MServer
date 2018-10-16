@@ -14,7 +14,8 @@ import org.jsoup.nodes.Element;
 public class HrSendungsfolgenOverviewPageTask
     extends AbstractDocumentTask<CrawlerUrlDTO, CrawlerUrlDTO> {
 
-  private static final String SENDUNGSFOLGEN_URL_SELECTOR = ".c-teaser__headlineLink.link";
+  private static final String SENDUNGSFOLGEN_URL_SELECTOR = ".c-teaser__headlineLink.link.js-loadScript";
+  private static final String SENDUNGSFOLGEN_URL_SELECTOR_HESSENSCHAU = ".c-clusterTeaser:lt(1) .c-clusterTeaser__link.link";
   private static final long serialVersionUID = -6727831751148817578L;
 
   public HrSendungsfolgenOverviewPageTask(final AbstractCrawler aCrawler,
@@ -33,20 +34,22 @@ public class HrSendungsfolgenOverviewPageTask
     return new HrSendungsfolgenOverviewPageTask(crawler, aURLsToCrawl);
   }
 
-  protected String getSendungsfoleUrlSelector() {
-    return SENDUNGSFOLGEN_URL_SELECTOR;
+  protected String[] getSendungsfoleUrlSelector() {
+    return new String[] { SENDUNGSFOLGEN_URL_SELECTOR, SENDUNGSFOLGEN_URL_SELECTOR_HESSENSCHAU };
   }
 
   @Override
   protected void processDocument(final CrawlerUrlDTO aUrlDTO, final Document aDocument) {
-    for (final Element filmUrlElement : aDocument.select(getSendungsfoleUrlSelector())) {
-      if (filmUrlElement.hasAttr(Consts.ATTRIBUTE_HREF)) {
-        crawler.incrementAndGetMaxCount();
-        crawler.updateProgress();
+    for (final String selector: getSendungsfoleUrlSelector()) {
+      for (final Element filmUrlElement : aDocument.select(selector)) {
+        if (filmUrlElement.hasAttr(Consts.ATTRIBUTE_HREF)) {
+          crawler.incrementAndGetMaxCount();
+          crawler.updateProgress();
 
-        final String url = filmUrlElement.absUrl(Consts.ATTRIBUTE_HREF);
-        if (isUrlRelevant(url)) {
-          taskResults.add(new CrawlerUrlDTO(url));
+          final String url = filmUrlElement.absUrl(Consts.ATTRIBUTE_HREF);
+          if (isUrlRelevant(url)) {
+            taskResults.add(new CrawlerUrlDTO(url));
+          }
         }
       }
     }

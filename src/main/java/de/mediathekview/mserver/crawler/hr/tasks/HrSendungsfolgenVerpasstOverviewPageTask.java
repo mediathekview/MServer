@@ -5,6 +5,7 @@ import de.mediathekview.mserver.crawler.basic.CrawlerUrlDTO;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
 public class HrSendungsfolgenVerpasstOverviewPageTask extends HrSendungsfolgenOverviewPageTask {
+
   private static final String SENDUNGSFOLGEN_URL_SELECTOR = "a.c-epgBroadcast__programLink";
   private static final long serialVersionUID = 550079618104128843L;
 
@@ -14,8 +15,8 @@ public class HrSendungsfolgenVerpasstOverviewPageTask extends HrSendungsfolgenOv
   }
 
   @Override
-  protected String getSendungsfoleUrlSelector() {
-    return SENDUNGSFOLGEN_URL_SELECTOR;
+  protected String[] getSendungsfoleUrlSelector() {
+    return new String[]{SENDUNGSFOLGEN_URL_SELECTOR};
   }
 
   @Override
