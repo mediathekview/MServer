@@ -42,6 +42,24 @@ public final class HtmlDocumentUtils {
     return Optional.empty();
   }
 
+  /**
+   * Searches for the given selector if found it returns the text of the first result.
+   *
+   * @param aElementSelector1 The selector for the searched element.
+   * @param aElementSelector2 The selector for the searched element if aElementSelector1 is not found.
+   * @param aDocument The document in which will be searched.
+   * @return A {@link Optional} containing the found element or else an empty {@link Optional}.
+   */
+  public static Optional<String> getElementAttributeString(final String aElementSelector1, final String aElementSelector2,
+      final String aAttributeKey, final Document aDocument) {
+
+    Optional<String> result = getElementAttributeString(aElementSelector1, aAttributeKey, aDocument);
+    if (!result.isPresent()) {
+      result = getElementAttributeString(aElementSelector2, aAttributeKey, aDocument);
+    }
+
+    return result;
+  }
 
   /**
    * Searches for the given selector if found it returns the text of the first result.
@@ -57,6 +75,25 @@ public final class HtmlDocumentUtils {
       return Optional.of(selected.first().text());
     }
     return Optional.empty();
+  }
+
+  /**
+   * Searches for the given selector if found it returns the text of the first result.
+   *
+   * @param aElementSelector1 The selector for the searched element.
+   * @param aElementSelector2 The selector for the searched element if aElementSelector1 is not found
+   * @param aDocument The document in which will be searched.
+   * @return A {@link Optional} containing the found element or else an empty {@link Optional}.
+   */
+  public static Optional<String> getElementString(final String aElementSelector1, final String aElementSelector2,
+      final Document aDocument) {
+
+    Optional<String> result = getElementString(aElementSelector1, aDocument);
+    if (!result.isPresent()) {
+      result = getElementString(aElementSelector2, aDocument);
+    }
+
+    return result;
   }
 
   public static Optional<Duration> parseDuration(final Optional<String> aDauerText) {

@@ -42,13 +42,18 @@ public class HrSendungsfolgedetailsTask extends AbstractDocumentTask<Film, Crawl
   private static final Logger LOG = LogManager.getLogger(HrSendungsfolgedetailsTask.class);
   private static final long serialVersionUID = 6138774185290017974L;
   private static final String THEMA_SELECTOR = ".c-programHeader__headline.text__headline";
-  private static final String TITEL_SELECTOR = ".c-programHeader__subline.text__topline";
-  private static final String DATE_TIME_SELECTOR = ".c-programHeader__mediaWrapper time";
-  private static final String DAUER_SELECTOR = ".c-programHeader__mediaWrapper .mediaInfo__byline";
-  private static final String BESCHREIBUNG_SELECTOR = ".copytext__text.copytext__text strong";
+  private static final String TITLE_SELECTOR1 = ".c-programHeader__subline.text__topline";
+  private static final String TITLE_SELECTOR2 = ".c-contentHeader__headline";
+  private static final String DATE_TIME_SELECTOR1 = ".c-programHeader__mediaWrapper time";
+  private static final String DATE_TIME_SELECTOR2 = ".c-contentHeader__lead time";
+  private static final String DAUER_SELECTOR1 = ".c-programHeader__mediaWrapper .mediaInfo__byline";
+  private static final String DAUER_SELECTOR2 = ".c-contentHeader .mediaInfo__byline";
+  private static final String DESCRIPTION_SELECTOR1 = ".copytext__text.copytext__text strong";
+  private static final String DESCRIPTION_SELECTOR2 = ".copytext__text";
   private static final String VIDEO_URL_SELECTOR1 = ".c-programHeader__mediaWrapper source";
-  private static final String VIDEO_URL_SELECTOR2 = ".c-programHeader__mediaWrapper div.videoElement";
-  private static final String UT_URL_SELECTOR = ".c-programHeader__mediaWrapper track";
+  private static final String VIDEO_URL_SELECTOR2 = "div.videoElement";
+  private static final String UT_URL_SELECTOR1 = ".c-programHeader__mediaWrapper track";
+  private static final String UT_URL_SELECTOR2 = ".c-contentHeader__lead track";
 
   private static final Type OPTIONAL_ARDVIDEOINFODTO_TYPE_TOKEN = new TypeToken<Optional<ArdVideoInfoDTO>>() {
   }.getType();
@@ -92,17 +97,17 @@ public class HrSendungsfolgedetailsTask extends AbstractDocumentTask<Film, Crawl
 
   @Override
   protected void processDocument(final CrawlerUrlDTO aUrlDTO, final Document aDocument) {
-    final Optional<String> titel = HtmlDocumentUtils.getElementString(TITEL_SELECTOR, aDocument);
-    final Optional<String> thema = HtmlDocumentUtils.getElementString(THEMA_SELECTOR, aDocument);
+    final Optional<String> titel = HtmlDocumentUtils.getElementString(TITLE_SELECTOR1, TITLE_SELECTOR2, aDocument);
+    final Optional<String> thema = getTopic(aDocument, titel);
     final Optional<String> beschreibung =
-        HtmlDocumentUtils.getElementString(BESCHREIBUNG_SELECTOR, aDocument);
+        HtmlDocumentUtils.getElementString(DESCRIPTION_SELECTOR1, DESCRIPTION_SELECTOR2, aDocument);
     final Map<Resolution, String> videoUrls = parseVideo(aDocument);
     final Optional<String> untertitelUrlText =
-        HtmlDocumentUtils.getElementAttributeString(UT_URL_SELECTOR, ATTRIBUTE_SRC, aDocument);
+        HtmlDocumentUtils.getElementAttributeString(UT_URL_SELECTOR1, UT_URL_SELECTOR2, ATTRIBUTE_SRC, aDocument);
     final Optional<String> dateTimeText = HtmlDocumentUtils
-        .getElementAttributeString(DATE_TIME_SELECTOR, ATTRIBUTE_DATETIME, aDocument);
+        .getElementAttributeString(DATE_TIME_SELECTOR1, DATE_TIME_SELECTOR2, ATTRIBUTE_DATETIME, aDocument);
     final Optional<String> dauerText =
-        HtmlDocumentUtils.getElementString(DAUER_SELECTOR, aDocument);
+        HtmlDocumentUtils.getElementString(DAUER_SELECTOR1, DAUER_SELECTOR2, aDocument);
     final Optional<Duration> dauer;
     if (dauerText.isPresent()) {
       dauer = HtmlDocumentUtils.parseDuration(dauerText);
@@ -160,6 +165,16 @@ public class HrSendungsfolgedetailsTask extends AbstractDocumentTask<Film, Crawl
     } else {
       crawler.printMissingElementErrorMessage(aUrlDTO.getUrl() + ": Thema");
     }
+  }
+
+  private Optional<String> getTopic(final Document aDocument, final Optional<String> aTitle) {
+    Optional<String> topic = HtmlDocumentUtils.getElementString(THEMA_SELECTOR, aDocument);
+    if (!topic.isPresent() && aTitle.isPresent()) {
+      String[] titleParts = aTitle.get().split("-");
+      topic = Optional.of(titleParts[0].trim());
+    }
+
+    return topic;
   }
 
   private Map<Resolution, String> parseVideo(Document aDocument) {

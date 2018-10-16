@@ -50,18 +50,32 @@ public class HrSendungsfolgedetailsTaskTest extends HrTaskTestBase {
                 GeoLocations.GEO_NONE
             },
             {
-              "https://www.hr-fernsehen.de/sendungen-a-z/erlebnis-hessen/sendungen/altstaedte-im-aufbruch---die-neue-liebe-fuer-hessens-alte-stadtkerne-,sendung-43798.html",
+                "https://www.hr-fernsehen.de/sendungen-a-z/erlebnis-hessen/sendungen/altstaedte-im-aufbruch---die-neue-liebe-fuer-hessens-alte-stadtkerne-,sendung-43798.html",
                 "/hr/hr_film_detail2.html",
                 //"Erlebnis Hessen",
                 "Altstädte im Aufbruch - die neue Liebe für Hessens alte Stadtkerne",
                 "Ein Film von Shahin Noureldin und Daye di Simoni",
                 "Nicht nur Frankfurt will seine Altstadt zurück – auch in Schlitz, Marburg oder Büdingen beschäftigen sich Stadtplaner und Bürger damit, wie sie ihre Stadtzentren wieder zu einem lebendigen Mittelpunkt machen können.",
-                LocalDateTime.of(2018,9,29,21,0,0),
+                LocalDateTime.of(2018, 9, 29, 21, 0, 0),
                 Duration.ofMinutes(44).plusSeconds(20),
                 "https://hr-a.akamaihd.net/video/as/erlebnishessen/2018_09/hrLogo_180929171859_0199232_512x288-25p-500kbit.mp4",
                 "https://hr-a.akamaihd.net/video/as/erlebnishessen/2018_09/hrLogo_180929171859_0199232_960x540-50p-1800kbit.mp4",
                 "https://hr-a.akamaihd.net/video/as/erlebnishessen/2018_09/hrLogo_180929171859_0199232_1280x720-50p-5000kbit.mp4",
                 "https://hr-a.akamaihd.net/video/as/erlebnishessen/2018_09/hrLogo_180929171859_0199232_512x288-25p-500kbit.vtt",
+                GeoLocations.GEO_NONE
+            },
+            {
+                "https://www.hessenschau.de/tv-sendung/hessenschau---ganze-sendung,video-73874.html",
+                "/hr/hr_film_detail_hessenschau.html",
+                "hessenschau",
+                "hessenschau - ganze Sendung",
+                "- Gründung der \"Juden in der AfD\" von Protesten begleitet - Landesgartenschau schließt ihre Pforten - Vereine verwandeln Altpapier in Bares - Weitergedreht: Räumungs-Wirrwarr in Offenbach - Modemacher (7): Handschuh-Designerin aus Frankfurt",
+                LocalDateTime.of(2018, 10, 7, 19, 30, 0),
+                Duration.ofMinutes(27).plusSeconds(30),
+                "https://hr-a.akamaihd.net/video/as/hessenschau/2018_10/181007203848_2018-10-07_19-25-02_hessenschau_512x288-25p-500kbit.mp4",
+                "https://hr-a.akamaihd.net/video/as/hessenschau/2018_10/181007203848_2018-10-07_19-25-02_hessenschau_960x540-50p-1800kbit.mp4",
+                "https://hr-a.akamaihd.net/video/as/hessenschau/2018_10/181007203848_2018-10-07_19-25-02_hessenschau_1280x720-50p-5000kbit.mp4",
+                "https://hr-a.akamaihd.net/video/as/hessenschau/2018_10/181007203848_2018-10-07_19-25-02_hessenschau_512x288-25p-500kbit.vtt",
                 GeoLocations.GEO_NONE
             }
         });
