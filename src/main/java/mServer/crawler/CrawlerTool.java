@@ -4,106 +4,39 @@
  */
 package mServer.crawler;
 
+import de.mediathekview.mlib.daten.FilmUrl;
+import de.mediathekview.mlib.daten.GeoLocations;
+import de.mediathekview.mlib.daten.Sender;
+import de.mediathekview.mlib.tool.MVHttpClient;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.text.SimpleDateFormat;
-import java.time.Duration;
-import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.UUID;
-import org.apache.commons.lang3.StringUtils;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-import de.mediathekview.mlib.Config;
-import de.mediathekview.mlib.Const;
-import de.mediathekview.mlib.daten.Film;
-import de.mediathekview.mlib.daten.FilmUrl;
-import de.mediathekview.mlib.daten.GeoLocations;
-import de.mediathekview.mlib.daten.Resolution;
-import de.mediathekview.mlib.daten.Sender;
-import de.mediathekview.mlib.tool.Functions;
-import de.mediathekview.mlib.tool.Log;
-import de.mediathekview.mlib.tool.MVHttpClient;
-import mServer.crawler.sender.MediathekReader;
-import mServer.tool.MserverDatumZeit;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 import okhttp3.ResponseBody;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 /**
  * @author emil
  */
 public class CrawlerTool {
+
   private static final String URL_START_WITHOUT_PROTOCOL_PATTERN = "//";
   private static final String HTTPS = "https:";
   private static final Logger LOG = LogManager.getLogger(CrawlerTool.class);
-  public static final String nameOrgFilmlist_xz = "filme-org.xz"; // ist die
-                                                                  // "ORG"
-                                                                  // Filmliste,
-                                                                  // typ. die
-                                                                  // erste am
-                                                                  // Tag, xz
-                                                                  // komprimiert
-  public static final String nameDiffFilmlist = "filme-diff.json"; // ist ein
-                                                                   // diff der
-                                                                   // aktuellen
-                                                                   // zur ORG
-                                                                   // Filmliste
-  // Namen der Filmlisten im: Konfig-Ordner/filmlisten/
-  public static final String nameAktFilmlist = "filme.json"; // ist die
-                                                             // aktuelle
-                                                             // Filmliste
-  public static final String nameDiffFilmlist_xz = "filme-diff.xz"; // ist ein
-                                                                    // diff
-                                                                    // der
-                                                                    // aktuellen
-                                                                    // zur ORG
-                                                                    // Filmliste,
-                                                                    // xz
-                                                                    // komprimiert
-  public static final String nameOrgFilmlist = "filme-org.json"; // ist die
-                                                                 // "ORG"
-                                                                 // Filmliste,
-                                                                 // typ. die
-                                                                 // erste am
-                                                                 // Tag
-  public static final String nameAktFilmlist_xz = "filme.xz"; // ist die
-                                                              // aktuelle
-                                                              // Filmliste, xz
-                                                              // komprimiert
+  // aktuelle
+  // Filmliste, xz
+  // komprimiert
   private static final String RTMP = "rtmp";
-
-  public static Film createFilm(final Sender aSender, final String aUrlNormal, final String aTitel,
-      final String aThema, final String aDatum, final String aZeit, final long aDurationInSecunds,
-      final String aUrlWebseite, final String aBeschreibung, final String aUrlHd,
-      final String aUrlSmall) throws MalformedURLException {
-    final Film film = new Film(UUID.randomUUID(), aSender, aTitel, aThema,
-        MserverDatumZeit.parseDateTime(aDatum, aZeit),
-        Duration.of(aDurationInSecunds, ChronoUnit.SECONDS));
-    film.setGeoLocations(CrawlerTool.getGeoLocations(aSender, aUrlNormal));
-    film.setWebsite(new URL(aUrlWebseite));
-
-    film.addUrl(Resolution.NORMAL, stringToFilmUrl(aUrlNormal));
-    if (StringUtils.isNotBlank(aBeschreibung)) {
-      film.setBeschreibung(aBeschreibung);
-    }
-    if (StringUtils.isNotBlank(aUrlHd)) {
-      film.addUrl(Resolution.HD, CrawlerTool.stringToFilmUrl(aUrlHd));
-    }
-    if (StringUtils.isNotBlank(aUrlSmall)) {
-      film.addUrl(Resolution.SMALL, CrawlerTool.stringToFilmUrl(aUrlSmall));
-    }
-    return film;
-  }
 
   public static long getFileSize(final URL aURL) {
     long fileSize = 0;
@@ -165,87 +98,6 @@ public class CrawlerTool {
 
   }
 
-  public static String getPathFilmlist_json_akt(final boolean aktDate) {
-    if (aktDate) {
-      return Functions.addsPfad(CrawlerConfig.dirFilme,
-          new SimpleDateFormat("yyyy.MM.dd__HH.mm.ss").format(new Date()) + "__" + nameAktFilmlist);
-    } else {
-      return Functions.addsPfad(CrawlerConfig.dirFilme, nameAktFilmlist);
-    }
-  }
-
-  public static String getPathFilmlist_json_akt_xz() {
-    return Functions.addsPfad(CrawlerConfig.dirFilme, nameAktFilmlist_xz);
-  }
-
-  public static String getPathFilmlist_json_diff() {
-    return Functions.addsPfad(CrawlerConfig.dirFilme, nameDiffFilmlist);
-  }
-
-  public static String getPathFilmlist_json_diff_xz() {
-    return Functions.addsPfad(CrawlerConfig.dirFilme, nameDiffFilmlist_xz);
-  }
-
-  public static String getPathFilmlist_json_org() {
-    return Functions.addsPfad(CrawlerConfig.dirFilme, nameOrgFilmlist);
-  }
-
-  public static String getPathFilmlist_json_org_xz() {
-    return Functions.addsPfad(CrawlerConfig.dirFilme, nameOrgFilmlist_xz);
-  }
-
-  public static void improveAufloesung(final Film aFilm) throws MalformedURLException {
-    updateNormal(aFilm);
-    updateHD(aFilm);
-  }
-
-  public static boolean loadLong() {
-    return CrawlerConfig.senderLoadHow == CrawlerConfig.LOAD_LONG;
-  }
-
-  public static boolean loadLongMax() {
-    return CrawlerConfig.senderLoadHow >= CrawlerConfig.LOAD_LONG;
-  }
-
-  public static boolean loadMax() {
-    return CrawlerConfig.senderLoadHow == CrawlerConfig.LOAD_MAX;
-  }
-
-  public static boolean loadShort() {
-    return CrawlerConfig.senderLoadHow == CrawlerConfig.LOAD_SHORT;
-  }
-
-  public static synchronized void startMsg() {
-    Log.startZeit.setTime(System.currentTimeMillis());
-    Log.versionMsg(Const.PROGRAMMNAME);
-    Log.sysLog(Log.LILNE);
-    Log.sysLog("");
-    Log.sysLog("Programmpfad: " + Functions.getPathJar());
-    Log.sysLog("Filmliste: " + getPathFilmlist_json_akt(true /* aktDate */));
-    Log.sysLog("Useragent: " + Config.getUserAgent());
-    Log.sysLog("");
-    Log.sysLog(Log.LILNE);
-    Log.sysLog("");
-    if (loadLongMax()) {
-      Log.sysLog("Laden:  alles");
-    } else {
-      Log.sysLog("Laden:  nur update");
-    }
-    if (CrawlerConfig.updateFilmliste) {
-      Log.sysLog("Filmliste:  nur updaten");
-    } else {
-      Log.sysLog("Filmliste:  neu erstellen");
-    }
-    Log.sysLog("ImportURL 1:  " + CrawlerConfig.importUrl_1__anhaengen);
-    Log.sysLog("ImportURL 2:  " + CrawlerConfig.importUrl_2__anhaengen);
-    Log.sysLog("ImportOLD:  " + CrawlerConfig.importOld);
-    Log.sysLog("ImportAkt:  " + CrawlerConfig.importAkt);
-    if (CrawlerConfig.nurSenderLaden != null) {
-      Log.sysLog("Nur Sender laden:  " + StringUtils.join(CrawlerConfig.nurSenderLaden, ','));
-    }
-    Log.sysLog("");
-    Log.sysLog(Log.LILNE);
-  }
 
   public static FilmUrl stringToFilmUrl(final String aUrl) throws MalformedURLException {
 
@@ -259,50 +111,6 @@ public class CrawlerTool {
       LOG.error(String.format("Die URL \"%s\" ist kaputt.", aUrl));
       throw aMalformedURLException;
     }
-  }
-
-  public static void updateHD(final Film aFilm) throws MalformedURLException {
-    final Map<String, List<String>> urls = new HashMap<>();
-
-    urls.put("3328k_p36v12.mp4",
-        Arrays.asList("1456k_p13v12.mp4", "2256k_p14v12.mp4", "2328k_p35v12.mp4"));
-    urls.put("3256k_p15v12.mp4",
-        Arrays.asList("1456k_p13v12.mp4", "2256k_p14v12.mp4", "2328k_p35v12.mp4"));
-
-    urls.put("3296k_p15v13.mp4",
-        Arrays.asList("1496k_p13v13.mp4", "2296k_p14v13.mp4", "2328k_p35v13.mp4"));
-    urls.put("3328k_p36v13.mp4",
-        Arrays.asList("1496k_p13v13.mp4", "2296k_p14v13.mp4", "2328k_p35v13.mp4"));
-
-    if (aFilm.getUrl(Resolution.NORMAL).toString().contains("media.ndr.de")) {
-      urls.put(".hd.mp4", Arrays.asList(".hq.mp4"));
-    }
-
-    if (aFilm.getUrl(Resolution.NORMAL).toString().contains("cdn-storage.br.de")) {
-      urls.put("_X.mp4", Arrays.asList("_C.mp4"));
-    }
-
-    if (aFilm.getUrl(Resolution.NORMAL).toString().contains("pd-ondemand.swr.de")) {
-      urls.put(".xl.mp4", Arrays.asList(".l.mp4"));
-    }
-
-    updateUrl(urls, aFilm, Resolution.HD);
-  }
-
-  public static void updateNormal(final Film aFilm) throws MalformedURLException {
-    final Map<String, List<String>> urls = new HashMap<>();
-
-    urls.put("2328k_p35v11.mp4", Arrays.asList("2256k_p14v11.mp4"));
-    urls.put("2328k_p35v12.mp4", Arrays.asList("2256k_p14v12.mp4"));
-    urls.put("2328k_p35v13.mp4", Arrays.asList("2296k_p14v13.mp4"));
-    urls.put("2328k_p35v11.mp4", Arrays.asList("1456k_p13v11.mp4"));
-    urls.put("2256k_p14v11.mp4", Arrays.asList("1456k_p13v11.mp4"));
-    urls.put("2328k_p35v12.mp4", Arrays.asList("1456k_p13v12.mp4"));
-    urls.put("2256k_p14v12.mp4", Arrays.asList("1456k_p13v12.mp4"));
-    urls.put("2328k_p35v13.mp4", Arrays.asList("1496k_p13v13.mp4"));
-    urls.put("2296k_p14v13.mp4", Arrays.asList("1496k_p13v13.mp4"));
-
-    updateUrl(urls, aFilm, Resolution.NORMAL);
   }
 
   public static FilmUrl uriToFilmUrl(final URL aURL) {
@@ -379,27 +187,4 @@ public class CrawlerTool {
     return getGeolocationsForGeoUrls(geoUrls, aUrl);
   }
 
-  private static void updateUrl(final Map<String, List<String>> aUrls, final Film aFilm,
-      final Resolution aTargetQuality) throws MalformedURLException {
-    String url;
-    if (aFilm.getUrls().containsKey(aTargetQuality)) {
-      url = aFilm.getUrl(aTargetQuality).toString();
-    } else {
-      url = aFilm.getUrl(Resolution.NORMAL).toString();
-    }
-
-    for (final String betterUrl : aUrls.keySet()) {
-      for (final String baderUrl : aUrls.get(betterUrl)) {
-        if (url.contains(baderUrl)) {
-          ;
-        }
-        {
-          url = url.replace(baderUrl, betterUrl);
-        }
-      }
-    }
-    if (MediathekReader.urlExists(url)) {
-      aFilm.addUrl(aTargetQuality, stringToFilmUrl(url));
-    }
-  }
 }
