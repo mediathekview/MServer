@@ -34,6 +34,7 @@ import mServer.crawler.CrawlerTool;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.jsoup.nodes.Document;
+import org.jsoup.select.Elements;
 
 public class HrSendungsfolgedetailsTask extends AbstractDocumentTask<Film, CrawlerUrlDTO> {
 
@@ -41,7 +42,8 @@ public class HrSendungsfolgedetailsTask extends AbstractDocumentTask<Film, Crawl
   private static final String ATTRIBUTE_VIDEO_JSON = "data-hr-video-adaptive";
   private static final Logger LOG = LogManager.getLogger(HrSendungsfolgedetailsTask.class);
   private static final long serialVersionUID = 6138774185290017974L;
-  private static final String THEMA_SELECTOR = ".c-programHeader__headline.text__headline";
+  private static final String THEMA_SELECTOR1 = ".breadcrumbNav__item span[itemprop=title]";
+  private static final String THEMA_SELECTOR2 = ".c-programHeader__headline.text__headline";
   private static final String TITLE_SELECTOR1 = ".c-programHeader__subline.text__topline";
   private static final String TITLE_SELECTOR2 = ".c-contentHeader__headline";
   private static final String DATE_TIME_SELECTOR1 = ".c-programHeader__mediaWrapper time";
@@ -61,8 +63,8 @@ public class HrSendungsfolgedetailsTask extends AbstractDocumentTask<Film, Crawl
   private final Gson gson;
 
   public HrSendungsfolgedetailsTask(final AbstractCrawler aCrawler,
-      final ConcurrentLinkedQueue<CrawlerUrlDTO> aUrlToCrawlDTOs) {
-    super(aCrawler, aUrlToCrawlDTOs);
+      final ConcurrentLinkedQueue<CrawlerUrlDTO> aUrlToCrawlDtos) {
+    super(aCrawler, aUrlToCrawlDtos);
 
     gson = new GsonBuilder()
         .registerTypeAdapter(OPTIONAL_ARDVIDEOINFODTO_TYPE_TOKEN, new HrVideoJsonDeserializer())
@@ -91,14 +93,13 @@ public class HrSendungsfolgedetailsTask extends AbstractDocumentTask<Film, Crawl
 
   @Override
   protected AbstractUrlTask<Film, CrawlerUrlDTO> createNewOwnInstance(
-      final ConcurrentLinkedQueue<CrawlerUrlDTO> aURLsToCrawl) {
-    return new HrSendungsfolgedetailsTask(crawler, aURLsToCrawl);
+      final ConcurrentLinkedQueue<CrawlerUrlDTO> aUrlsToCrawl) {
+    return new HrSendungsfolgedetailsTask(crawler, aUrlsToCrawl);
   }
 
   @Override
-  protected void processDocument(final CrawlerUrlDTO aUrlDTO, final Document aDocument) {
-    final Optional<String> titel = HtmlDocumentUtils.getElementString(TITLE_SELECTOR1, TITLE_SELECTOR2, aDocument);
-    final Optional<String> thema = getTopic(aDocument, titel);
+  protected void processDocument(final CrawlerUrlDTO aUrlDto, final Document aDocument) {
+    Optional<String>[] topicAndTitle = getTopicAndTitle(aDocument);
     final Optional<String> beschreibung =
         HtmlDocumentUtils.getElementString(DESCRIPTION_SELECTOR1, DESCRIPTION_SELECTOR2, aDocument);
     final Map<Resolution, String> videoUrls = parseVideo(aDocument);
@@ -115,16 +116,16 @@ public class HrSendungsfolgedetailsTask extends AbstractDocumentTask<Film, Crawl
       dauer = Optional.empty();
     }
 
-    if (titel.isPresent()) {
-      if (thema.isPresent()) {
+    if (topicAndTitle[1].isPresent()) {
+      if (topicAndTitle[0].isPresent()) {
         if (!videoUrls.isEmpty()) {
           if (dauer.isPresent()) {
             final Optional<LocalDateTime> time = parseDate(dateTimeText);
 
             try {
-              final Film newFilm = new Film(UUID.randomUUID(), crawler.getSender(), titel.get(),
-                  thema.get(), time.orElse(LocalDate.now().atStartOfDay()), dauer.get());
-              newFilm.setWebsite(new URL(aUrlDTO.getUrl()));
+              final Film newFilm = new Film(UUID.randomUUID(), crawler.getSender(), topicAndTitle[1].get(),
+                  topicAndTitle[0].get(), time.orElse(LocalDate.now().atStartOfDay()), dauer.get());
+              newFilm.setWebsite(new URL(aUrlDto.getUrl()));
               if (beschreibung.isPresent()) {
                 newFilm.setBeschreibung(beschreibung.get());
               }
@@ -147,34 +148,52 @@ public class HrSendungsfolgedetailsTask extends AbstractDocumentTask<Film, Crawl
               taskResults.add(newFilm);
               crawler.incrementAndGetActualCount();
               crawler.updateProgress();
-            } catch (final MalformedURLException malformedURLException) {
-              LOG.fatal("A HR URL can't be parsed.", malformedURLException);
+            } catch (final MalformedURLException malformedUrlException) {
+              LOG.fatal("A HR URL can't be parsed.", malformedUrlException);
               crawler.printErrorMessage();
               crawler.incrementAndGetErrorCount();
               crawler.updateProgress();
             }
           } else {
-            crawler.printMissingElementErrorMessage(aUrlDTO.getUrl() + ": Dauer");
+            crawler.printMissingElementErrorMessage(aUrlDto.getUrl() + ": Dauer");
           }
         } else {
-          crawler.printMissingElementErrorMessage(aUrlDTO.getUrl() + ": Video-Url");
+          crawler.printMissingElementErrorMessage(aUrlDto.getUrl() + ": Video-Url");
         }
       } else {
-        crawler.printMissingElementErrorMessage(aUrlDTO.getUrl() + ": Titel");
+        crawler.printMissingElementErrorMessage(aUrlDto.getUrl() + ": Titel");
       }
     } else {
-      crawler.printMissingElementErrorMessage(aUrlDTO.getUrl() + ": Thema");
+      crawler.printMissingElementErrorMessage(aUrlDto.getUrl() + ": Thema");
     }
   }
 
-  private Optional<String> getTopic(final Document aDocument, final Optional<String> aTitle) {
-    Optional<String> topic = HtmlDocumentUtils.getElementString(THEMA_SELECTOR, aDocument);
-    if (!topic.isPresent() && aTitle.isPresent()) {
-      String[] titleParts = aTitle.get().split("-");
-      topic = Optional.of(titleParts[0].trim());
+  private Optional<String>[] getTopicAndTitle(final Document aDocument) {
+    Optional<String>[] topicAndTitle = new Optional[2];
+
+    // Komplizierte Logik, da der HR nicht eindeutig das Thema und den Titel setzt
+    Elements breadcrumbElements = aDocument.select(THEMA_SELECTOR1);
+    if (breadcrumbElements.size() > 2) {
+      // Bei den meisten Seiten lässt sich das Thema aus der Breadcrumb auslesen
+      // Der Titel ist dann mal die Überschrift mal die Unterüberschrift
+      topicAndTitle[0] = Optional.of(breadcrumbElements.get(2).text());
+      final Optional<String> title = HtmlDocumentUtils.getElementString(THEMA_SELECTOR2, aDocument);
+      if (title.isPresent() && topicAndTitle[0].isPresent() && topicAndTitle[0].get().compareToIgnoreCase(title.get()) == 0) {
+        topicAndTitle[1] = HtmlDocumentUtils.getElementString(TITLE_SELECTOR1, TITLE_SELECTOR2, aDocument);
+      } else {
+        topicAndTitle[1] = title;
+      }
+    } else {
+      // Ansonsten ist die Überschrift das Thema und die Unterüberschrift der Titel (betrifft v.a. Hessenschau)
+      topicAndTitle[0] = HtmlDocumentUtils.getElementString(THEMA_SELECTOR2, aDocument);
+      topicAndTitle[1] = HtmlDocumentUtils.getElementString(TITLE_SELECTOR1, TITLE_SELECTOR2, aDocument);
+      if (!topicAndTitle[0].isPresent() && topicAndTitle[1].isPresent()) {
+        String[] titleParts = topicAndTitle[1].get().split("-");
+        topicAndTitle[0] = Optional.of(titleParts[0].trim());
+      }
     }
 
-    return topic;
+    return topicAndTitle;
   }
 
   private Map<Resolution, String> parseVideo(Document aDocument) {
