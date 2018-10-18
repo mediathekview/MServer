@@ -71,26 +71,6 @@ public class HrSendungsfolgedetailsTask extends AbstractDocumentTask<Film, Crawl
         .create();
   }
 
-  private Optional<LocalDateTime> parseDate(final Optional<String> aDateTimeText) {
-    if (aDateTimeText.isPresent()) {
-      final String fixedDateTimeText =
-          DateUtils.changeDateTimeForMissingISO8601Support(aDateTimeText.get());
-      try {
-        return Optional.of(LocalDateTime.parse(fixedDateTimeText, DateTimeFormatter.ISO_DATE_TIME));
-      } catch (final DateTimeParseException dateTimeParseException) {
-        try {
-          return Optional
-              .of(LocalDate.parse(fixedDateTimeText, DateTimeFormatter.ISO_DATE).atStartOfDay());
-        } catch (final DateTimeParseException dateTimeParseException2) {
-          LOG.error(String.format("Can't parse either a date time nor only a date for HR: \"%s\"",
-              fixedDateTimeText), dateTimeParseException2);
-        }
-      }
-    }
-    return Optional.empty();
-  }
-
-
   @Override
   protected AbstractUrlTask<Film, CrawlerUrlDTO> createNewOwnInstance(
       final ConcurrentLinkedQueue<CrawlerUrlDTO> aUrlsToCrawl) {
@@ -105,70 +85,78 @@ public class HrSendungsfolgedetailsTask extends AbstractDocumentTask<Film, Crawl
     final Map<Resolution, String> videoUrls = parseVideo(aDocument);
     final Optional<String> untertitelUrlText =
         HtmlDocumentUtils.getElementAttributeString(UT_URL_SELECTOR1, UT_URL_SELECTOR2, ATTRIBUTE_SRC, aDocument);
-    final Optional<String> dateTimeText = HtmlDocumentUtils
-        .getElementAttributeString(DATE_TIME_SELECTOR1, DATE_TIME_SELECTOR2, ATTRIBUTE_DATETIME, aDocument);
-    final Optional<String> dauerText =
-        HtmlDocumentUtils.getElementString(DAUER_SELECTOR1, DAUER_SELECTOR2, aDocument);
-    final Optional<Duration> dauer;
-    if (dauerText.isPresent()) {
-      dauer = HtmlDocumentUtils.parseDuration(dauerText);
-    } else {
-      dauer = Optional.empty();
-    }
+    final Optional<Duration> dauer = parseDauer(aDocument);
 
-    if (topicAndTitle[1].isPresent()) {
-      if (topicAndTitle[0].isPresent()) {
-        if (!videoUrls.isEmpty()) {
-          if (dauer.isPresent()) {
-            final Optional<LocalDateTime> time = parseDate(dateTimeText);
+    if (checkPreConditions(topicAndTitle, videoUrls, dauer, aUrlDto.getUrl())) {
 
-            try {
-              final Film newFilm = new Film(UUID.randomUUID(), crawler.getSender(), topicAndTitle[1].get(),
-                  topicAndTitle[0].get(), time.orElse(LocalDate.now().atStartOfDay()), dauer.get());
-              newFilm.setWebsite(new URL(aUrlDto.getUrl()));
-              if (beschreibung.isPresent()) {
-                newFilm.setBeschreibung(beschreibung.get());
-              }
+      final Optional<LocalDateTime> time = parseDate(aDocument);
 
-              for (Entry<Resolution, String> videoUrl : videoUrls.entrySet()) {
-                newFilm.addUrl(videoUrl.getKey(),
-                    CrawlerTool.uriToFilmUrl(new URL(videoUrl.getValue())));
-              }
-
-              if (untertitelUrlText.isPresent()) {
-                newFilm.addSubtitle(new URL(untertitelUrlText.get()));
-              }
-
-              final Optional<FilmUrl> defaultUrl = newFilm.getDefaultUrl();
-              if (defaultUrl.isPresent()) {
-                newFilm.setGeoLocations(CrawlerTool.getGeoLocations(crawler.getSender(),
-                    defaultUrl.get().getUrl().toString()));
-              }
-
-              taskResults.add(newFilm);
-              crawler.incrementAndGetActualCount();
-              crawler.updateProgress();
-            } catch (final MalformedURLException malformedUrlException) {
-              LOG.fatal("A HR URL can't be parsed.", malformedUrlException);
-              crawler.printErrorMessage();
-              crawler.incrementAndGetErrorCount();
-              crawler.updateProgress();
-            }
-          } else {
-            crawler.printMissingElementErrorMessage(aUrlDto.getUrl() + ": Dauer");
-          }
-        } else {
-          crawler.printMissingElementErrorMessage(aUrlDto.getUrl() + ": Video-Url");
-        }
-      } else {
-        crawler.printMissingElementErrorMessage(aUrlDto.getUrl() + ": Titel");
-      }
-    } else {
-      crawler.printMissingElementErrorMessage(aUrlDto.getUrl() + ": Thema");
+      createFilm(aUrlDto, topicAndTitle[0].get(), topicAndTitle[1].get(), beschreibung, videoUrls, untertitelUrlText, dauer.get(), time);
     }
   }
 
-  private Optional<String>[] getTopicAndTitle(final Document aDocument) {
+  private void createFilm(CrawlerUrlDTO aUrlDto, String topic, String title, Optional<String> beschreibung,
+      Map<Resolution, String> videoUrls, Optional<String> untertitelUrlText, Duration dauer, Optional<LocalDateTime> time) {
+    try {
+      final Film newFilm = new Film(UUID.randomUUID(), crawler.getSender(), title,
+          topic, time.orElse(LocalDate.now().atStartOfDay()), dauer);
+      newFilm.setWebsite(new URL(aUrlDto.getUrl()));
+      if (beschreibung.isPresent()) {
+        newFilm.setBeschreibung(beschreibung.get());
+      }
+
+      for (Entry<Resolution, String> videoUrl : videoUrls.entrySet()) {
+        newFilm.addUrl(videoUrl.getKey(),
+            CrawlerTool.uriToFilmUrl(new URL(videoUrl.getValue())));
+      }
+
+      if (untertitelUrlText.isPresent()) {
+        newFilm.addSubtitle(new URL(untertitelUrlText.get()));
+      }
+
+      final Optional<FilmUrl> defaultUrl = newFilm.getDefaultUrl();
+      if (defaultUrl.isPresent()) {
+        newFilm.setGeoLocations(CrawlerTool.getGeoLocations(crawler.getSender(),
+            defaultUrl.get().getUrl().toString()));
+      }
+
+      taskResults.add(newFilm);
+      crawler.incrementAndGetActualCount();
+      crawler.updateProgress();
+    } catch (final MalformedURLException malformedUrlException) {
+      LOG.fatal("A HR URL can't be parsed.", malformedUrlException);
+      crawler.printErrorMessage();
+      crawler.incrementAndGetErrorCount();
+      crawler.updateProgress();
+    }
+  }
+
+  private boolean checkPreConditions(Optional<String>[] topicAndTitle, Map<Resolution, String> videoUrls,
+      Optional<Duration> dauer, final String aUrl) {
+    if (!topicAndTitle[1].isPresent()) {
+      crawler.printMissingElementErrorMessage(aUrl + ": Titel");
+      return false;
+    }
+
+    if (!topicAndTitle[0].isPresent()) {
+      crawler.printMissingElementErrorMessage(aUrl + ": Thema");
+      return false;
+    }
+
+    if (videoUrls.isEmpty()) {
+      crawler.printMissingElementErrorMessage(aUrl + ": Video-Url");
+      return false;
+    }
+
+    if (!dauer.isPresent()) {
+      crawler.printMissingElementErrorMessage(aUrl + ": Dauer");
+      return false;
+    }
+
+    return true;
+  }
+
+  private static Optional<String>[] getTopicAndTitle(final Document aDocument) {
     Optional<String>[] topicAndTitle = new Optional[2];
 
     // Komplizierte Logik, da der HR nicht eindeutig das Thema und den Titel setzt
@@ -194,6 +182,38 @@ public class HrSendungsfolgedetailsTask extends AbstractDocumentTask<Film, Crawl
     }
 
     return topicAndTitle;
+  }
+
+  private static Optional<LocalDateTime> parseDate(final Document aDocument) {
+    final Optional<String> dateTimeText = HtmlDocumentUtils
+        .getElementAttributeString(DATE_TIME_SELECTOR1, DATE_TIME_SELECTOR2, ATTRIBUTE_DATETIME, aDocument);
+
+    if (dateTimeText.isPresent()) {
+      final String fixedDateTimeText =
+          DateUtils.changeDateTimeForMissingISO8601Support(dateTimeText.get());
+      try {
+        return Optional.of(LocalDateTime.parse(fixedDateTimeText, DateTimeFormatter.ISO_DATE_TIME));
+      } catch (final DateTimeParseException dateTimeParseException) {
+        try {
+          return Optional
+              .of(LocalDate.parse(fixedDateTimeText, DateTimeFormatter.ISO_DATE).atStartOfDay());
+        } catch (final DateTimeParseException dateTimeParseException2) {
+          LOG.error(String.format("Can't parse either a date time nor only a date for HR: \"%s\"",
+              fixedDateTimeText), dateTimeParseException2);
+        }
+      }
+    }
+    return Optional.empty();
+  }
+
+  private static Optional<Duration> parseDauer(final Document aDocument) {
+    final Optional<String> dauerText =
+        HtmlDocumentUtils.getElementString(DAUER_SELECTOR1, DAUER_SELECTOR2, aDocument);
+    if (dauerText.isPresent()) {
+      return HtmlDocumentUtils.parseDuration(dauerText);
+    } else {
+      return Optional.empty();
+    }
   }
 
   private Map<Resolution, String> parseVideo(Document aDocument) {
