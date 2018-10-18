@@ -1,16 +1,5 @@
 package de.mediathekview.mserver.crawler.hr;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.time.temporal.ChronoUnit;
-import java.util.Collection;
-import java.util.Set;
-import java.util.concurrent.ConcurrentLinkedQueue;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.ForkJoinPool;
-import java.util.concurrent.RecursiveTask;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import de.mediathekview.mlib.daten.Film;
 import de.mediathekview.mlib.daten.Sender;
 import de.mediathekview.mlib.messages.listener.MessageListener;
@@ -22,12 +11,23 @@ import de.mediathekview.mserver.crawler.hr.tasks.HrSendungsfolgedetailsTask;
 import de.mediathekview.mserver.crawler.hr.tasks.HrSendungsfolgenOverviewPageTask;
 import de.mediathekview.mserver.crawler.hr.tasks.HrSendungsfolgenVerpasstOverviewPageTask;
 import de.mediathekview.mserver.progress.listeners.SenderProgressListener;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
+import java.util.Collection;
+import java.util.Set;
+import java.util.concurrent.ConcurrentLinkedQueue;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ForkJoinPool;
+import java.util.concurrent.RecursiveTask;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class HrCrawler extends AbstractCrawler {
+
   private static final Logger LOG = LogManager.getLogger(HrCrawler.class);
-  public static final String BASE_URL = "http://www.hr-fernsehen.de/";
   private static final String SENDUNG_VERPASST_URL_TEMPLATE =
-      BASE_URL + "tv-programm/guide_hrfernsehen-100~_date-%s.html";
+      HrConstants.BASE_URL + "tv-programm/guide_hrfernsehen-100~_date-%s.html";
   private static final DateTimeFormatter URL_DATE_TIME_FORMATTER = DateTimeFormatter.ISO_LOCAL_DATE;
 
   public HrCrawler(final ForkJoinPool aForkJoinPool,

@@ -1,5 +1,9 @@
 package de.mediathekview.mserver.crawler.hr.tasks;
 
+import de.mediathekview.mserver.base.Consts;
+import de.mediathekview.mserver.base.utils.UrlUtils;
+import de.mediathekview.mserver.crawler.basic.CrawlerUrlDTO;
+import de.mediathekview.mserver.crawler.hr.HrConstants;
 import java.io.IOException;
 import java.util.HashSet;
 import java.util.Set;
@@ -9,15 +13,14 @@ import org.apache.logging.log4j.Logger;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
-import de.mediathekview.mserver.base.Consts;
-import de.mediathekview.mserver.crawler.basic.CrawlerUrlDTO;
-import de.mediathekview.mserver.crawler.hr.HrCrawler;
 
 public class HrSendungenOverviewPageTask implements Callable<Set<CrawlerUrlDTO>> {
+
   private static final String SENDUNGSFOLEN_OVERVIEW_URL_REPLACEMENT = "sendungen/index.html";
+  private static final String HESSENSCHAU_OVERVIEW_URL_REPLACEMENT = "sendungsarchiv/index.html";
   private static final String INDEX_PAGE_NAME = "index.html";
   private static final Logger LOG = LogManager.getLogger(HrSendungenOverviewPageTask.class);
-  private static final String HR_SENDUNGEN_URL = HrCrawler.BASE_URL + "sendungen-a-z/index.html";
+  private static final String HR_SENDUNGEN_URL = HrConstants.BASE_URL + "sendungen-a-z/index.html";
   private static final String SENDUNG_URL_SELECTOR = ".c-teaser__headlineLink.link";
 
   @Override
@@ -28,8 +31,10 @@ public class HrSendungenOverviewPageTask implements Callable<Set<CrawlerUrlDTO>>
       final Document document = Jsoup.connect(HR_SENDUNGEN_URL).get();
       for (final Element filmUrlElement : document.select(SENDUNG_URL_SELECTOR)) {
         if (filmUrlElement.hasAttr(Consts.ATTRIBUTE_HREF)) {
-          results.add(new CrawlerUrlDTO(filmUrlElement.absUrl(Consts.ATTRIBUTE_HREF)
-              .replace(INDEX_PAGE_NAME, SENDUNGSFOLEN_OVERVIEW_URL_REPLACEMENT)));
+          final String url = filmUrlElement.absUrl(Consts.ATTRIBUTE_HREF);
+          if (isUrlRelevant(url)) {
+            results.add(new CrawlerUrlDTO(prepareUrl(url)));
+          }
         }
       }
     } catch (final IOException ioException) {
@@ -41,4 +46,26 @@ public class HrSendungenOverviewPageTask implements Callable<Set<CrawlerUrlDTO>>
     return results;
   }
 
+  private String prepareUrl(final String aUrl) {
+    if (aUrl.contains(HrConstants.BASE_URL_HESSENSCHAU)) {
+      return aUrl.replace(INDEX_PAGE_NAME, HESSENSCHAU_OVERVIEW_URL_REPLACEMENT);
+    }
+
+    final String preparedUrl = aUrl.replace(INDEX_PAGE_NAME, SENDUNGSFOLEN_OVERVIEW_URL_REPLACEMENT);
+    if (UrlUtils.existsUrl(preparedUrl)) {
+      return preparedUrl;
+    }
+
+    return aUrl;
+  }
+
+  /**
+   * filters urls of other ARD stations.
+   *
+   * @param aUrl the url to check
+   * @return true if the url is a HR url else false
+   */
+  protected boolean isUrlRelevant(final String aUrl) {
+    return aUrl.contains(HrConstants.BASE_URL) || aUrl.contains(HrConstants.BASE_URL_HESSENSCHAU);
+  }
 }
