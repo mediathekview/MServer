@@ -55,7 +55,7 @@ public class OrfVideoDetailDeserializer implements JsonDeserializer<Optional<Orf
   }
 
   private static void parseSubtitles(final JsonElement aSubtitlesElement,
-      final OrfVideoInfoDTO dto) {
+          final OrfVideoInfoDTO dto) {
     if (aSubtitlesElement.isJsonArray()) {
       aSubtitlesElement.getAsJsonArray().forEach(subtitleElement -> {
         final JsonObject subtitleObject = subtitleElement.getAsJsonObject();
@@ -76,14 +76,14 @@ public class OrfVideoDetailDeserializer implements JsonDeserializer<Optional<Orf
       aVideoElement.getAsJsonArray().forEach(videoElement -> {
         final JsonObject videoObject = videoElement.getAsJsonObject();
         if (videoObject.has(ATTRIBUTE_PROTOCOL) && videoObject.has(ATTRIBUTE_QUALITY)
-            && videoObject.has(ATTRIBUTE_SRC) && videoObject.has(ATTRIBUTE_TYPE)) {
+                && videoObject.has(ATTRIBUTE_SRC) && videoObject.has(ATTRIBUTE_TYPE)) {
           final String type = videoObject.get(ATTRIBUTE_TYPE).getAsString();
           final String protocol = videoObject.get(ATTRIBUTE_PROTOCOL).getAsString();
           final String delivery = videoObject.get(ATTRIBUTE_DELIVERY).getAsString();
 
           if (type.equalsIgnoreCase(RELEVANT_VIDEO_TYPE)
-              && protocol.equalsIgnoreCase(RELEVANT_PROTOCOL)
-              && delivery.equalsIgnoreCase(RELEVANT_DELIVERY)) {
+                  && protocol.equalsIgnoreCase(RELEVANT_PROTOCOL)
+                  && delivery.equalsIgnoreCase(RELEVANT_DELIVERY)) {
             final String quality = videoObject.get(ATTRIBUTE_QUALITY).getAsString();
             final String url = fixHttpsURL(videoObject.get(ATTRIBUTE_SRC).getAsString());
 
@@ -99,14 +99,14 @@ public class OrfVideoDetailDeserializer implements JsonDeserializer<Optional<Orf
 
   @Override
   public Optional<OrfVideoInfoDTO> deserialize(final JsonElement aJsonElement, final Type aType,
-      final JsonDeserializationContext aContext) throws JsonParseException {
+          final JsonDeserializationContext aContext) throws JsonParseException {
 
     final JsonObject jsonObject = aJsonElement.getAsJsonObject();
     if (jsonObject.has(ELEMENT_PLAYLIST)) {
       final JsonObject playlistObject = jsonObject.get(ELEMENT_PLAYLIST).getAsJsonObject();
       if (playlistObject.has(ELEMENT_VIDEOS)) {
-        final JsonObject videoObject =
-            playlistObject.get(ELEMENT_VIDEOS).getAsJsonArray().get(0).getAsJsonObject();
+        final JsonObject videoObject
+                = playlistObject.get(ELEMENT_VIDEOS).getAsJsonArray().get(0).getAsJsonObject();
 
         return deserializeVideoObject(videoObject);
       }
@@ -126,6 +126,10 @@ public class OrfVideoDetailDeserializer implements JsonDeserializer<Optional<Orf
       parseSubtitles(aVideoObject.get(ELEMENT_SUBTITLES), dto);
     }
 
-    return Optional.of(dto);
+    if (dto.hasVideoUrls()) {
+      return Optional.of(dto);
+    }
+
+    return Optional.empty();
   }
 }
