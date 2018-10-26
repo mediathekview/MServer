@@ -12,6 +12,10 @@ public class OrfVideoInfoDTO {
     videoUrls = new EnumMap<>(Resolution.class);
   }
 
+  public boolean hasVideoUrls() {
+    return !videoUrls.isEmpty();
+  }
+
   public Resolution getDefaultQuality() {
     if (videoUrls.containsKey(Resolution.NORMAL)) {
       return Resolution.NORMAL;

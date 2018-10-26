@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import de.mediathekview.mlib.daten.Film;
+import de.mediathekview.mlib.daten.GeoLocations;
 import de.mediathekview.mlib.daten.Resolution;
 import de.mediathekview.mserver.base.utils.HtmlDocumentUtils;
 import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
@@ -102,7 +103,8 @@ public class OrfFilmDetailTask extends AbstractDocumentTask<Film, TopicUrlDTO> {
         }
 
         addUrls(film, aVideoInfo.getVideoUrls());
-        film.setGeoLocations(CrawlerTool.getGeoLocations(crawler.getSender(), aVideoInfo.getDefaultVideoUrl()));
+
+        setGeoLocations(aVideoInfo, film);
 
         taskResults.add(film);
         crawler.incrementAndGetActualCount();
@@ -118,6 +120,16 @@ public class OrfFilmDetailTask extends AbstractDocumentTask<Film, TopicUrlDTO> {
       crawler.incrementAndGetErrorCount();
       crawler.updateProgress();
     }
+  }
+
+  private void setGeoLocations(OrfVideoInfoDTO aVideoInfo, Film film) {
+    final List<GeoLocations> geoLocations = new ArrayList<>();
+    if (aVideoInfo.getDefaultVideoUrl().contains("cms-austria")) {
+      geoLocations.add(GeoLocations.GEO_AT);
+    } else {
+      geoLocations.add(GeoLocations.GEO_NONE);
+    }
+    film.setGeoLocations(geoLocations);
   }
 
   private void addUrls(final Film aFilm, final Map<Resolution, String> aVideoUrls)

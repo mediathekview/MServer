@@ -1,395 +1,251 @@
 {
-   "videoplayer_id":"5a70ce2aa297b",
-   "internal_id":"5a70ce2aa29ec",
-   "id":"5a70ce2aa2a23",
+   "videoplayer_id":"5bd38864d1a05",
+   "internal_id":"5bd38864d1a78",
+   "id":"5bd38864d1ab1",
    "playlist":{
-      "id":13890700,
-      "title":"Bundesland heute",
+      "id":13993313,
+      "title":"Rede des Bundespräsidenten",
       "mode":"vod",
-      "preview_image_url":"http:\/\/api-tvthek.orf.at\/uploads\/media\/segments\/0001\/17\/thumb_16761_segments_player.jpeg",
+      "preview_image_url":"https:\/\/api-tvthek.orf.at\/uploads\/media\/segments\/0055\/71\/thumb_5470358_segments_player.jpeg",
       "growing":false,
       "segments_complete":true,
-      "duration_in_seconds":30,
+      "duration_in_seconds":430.11,
       "transcription_url":null,
       "is_gapless":false,
       "videos":[
          {
-            "id":13890997,
-            "episode_id":13890700,
-            "title_prefix":"Bundesland heute",
+            "id":14386692,
+            "episode_id":13993313,
+            "title_prefix":"Rede des Bundespräsidenten",
             "title_separator":"|",
-            "title":"Bundesland heute",
-            "description":null,
-            "duration":30000,
-            "preview_image_url":"http:\/\/api-tvthek.orf.at\/uploads\/media\/segments\/0001\/17\/thumb_16761_segments_player.jpeg",
+            "title":"Rede des Bundespräsidenten",
+            "description":"Bundespräsident Alexander Van der Bellen zeigt sich optimistisch, wünscht sich aber, sich an das österreichische zu erinnern, also das Gemeinsame vor das Trennende zu stellen.",
+            "duration":430110,
+            "preview_image_url":"https:\/\/api-tvthek.orf.at\/uploads\/media\/segments\/0055\/71\/thumb_5470358_segments_player.jpeg",
             "sources":[
                {
-                  "quality":"Q1A",
-                  "quality_string":"niedrig",
-                  "src":"rtmp:\/\/apasfw.apa.at\/cms-worldwide\/mp4:20161011_1040_in_02_Bundesland-heut_____13890700__o__1693823857__s13890997_Q1A.3gp",
-                  "type":"video\/mp4",
-                  "delivery":"streaming",
-                  "protocol":"rtmp"
-               },
-               {
-                  "quality":"Q4A",
-                  "quality_string":"mittel",
-                  "src":"rtmp:\/\/apasfw.apa.at\/cms-worldwide\/mp4:20161011_1040_in_02_Bundesland-heut_____13890700__o__1693823857__s13890997_Q4A.mp4",
-                  "type":"video\/mp4",
-                  "delivery":"streaming",
-                  "protocol":"rtmp"
-               },
-               {
-                  "quality":"Q6A",
-                  "quality_string":"hoch",
-                  "src":"rtmp:\/\/apasfw.apa.at\/cms-worldwide\/mp4:20161011_1040_in_02_Bundesland-heut_____13890700__o__1693823857__s13890997_Q6A.mp4",
-                  "type":"video\/mp4",
-                  "delivery":"streaming",
-                  "protocol":"rtmp"
-               },
-               {
-                  "quality":"Q8C",
-                  "quality_string":"sehr hoch (HD)",
-                  "src":"rtmp:\/\/apasfw.apa.at\/cms-worldwide\/mp4:20161011_1040_in_02_Bundesland-heut_____13890700__o__1693823857__s13890997_Q8C.mp4",
-                  "type":"video\/mp4",
-                  "delivery":"streaming",
-                  "protocol":"rtmp"
-               },
-               {
-                  "quality":"Q1A",
-                  "quality_string":"niedrig",
-                  "src":"rtsp:\/\/apasfw.apa.at:1935\/cms-worldwide\/mp4:20161011_1040_in_02_Bundesland-heut_____13890700__o__1693823857__s13890997_Q1A.3gp",
-                  "type":"video\/mp4",
-                  "delivery":"streaming",
-                  "protocol":"rtsp"
-               },
-               {
-                  "quality":"Q4A",
-                  "quality_string":"mittel",
-                  "src":"rtsp:\/\/apasfw.apa.at:1935\/cms-worldwide\/mp4:20161011_1040_in_02_Bundesland-heut_____13890700__o__1693823857__s13890997_Q4A.mp4",
-                  "type":"video\/mp4",
-                  "delivery":"streaming",
-                  "protocol":"rtsp"
-               },
-               {
-                  "quality":"SMIL",
-                  "quality_string":"hoch",
-                  "src":"rtsp:\/\/apasfw.apa.at:1935\/cms-worldwide\/mp4:20161011_1040_in_02_Bundesland-heut_____13890700__o__1693823857__s13890997_Q6A.mp4",
-                  "type":"video\/mp4",
-                  "delivery":"streaming",
-                  "protocol":"rtsp"
-               },
-               {
-                  "quality":"Q8C",
-                  "quality_string":"sehr hoch (HD)",
-                  "src":"rtsp:\/\/apasfw.apa.at:1935\/cms-worldwide\/mp4:20161011_1040_in_02_Bundesland-heut_____13890700__o__1693823857__s13890997_Q8C.mp4",
-                  "type":"video\/mp4",
-                  "delivery":"streaming",
-                  "protocol":"rtsp"
-               },
-               {
                   "quality":"QXB",
-                  "quality_string":"adaptiv",
-                  "src":"http:\/\/apasfiis.apa.at\/ipad\/cms-worldwide\/20161011_1040_in_02_Bundesland-heut_____13890700__o__1693823857__s13890997_QXB.mp4\/playlist.m3u8",
-                  "type":"video\/mp4",
+                  "quality_string":"Adaptiv",
+                  "src":"https:\/\/apasfiis.sf.apa.at\/ipad\/cms-worldwide\/2018-10-26_1947_sd_02_Rede-des-Bundes_____13993313__o__1465128264__s14386692_2__ORF2HD_19461317P_19532320P_QXB.mp4\/playlist.m3u8",
+                  "type":"application\/x-mpegURL",
                   "delivery":"hls",
                   "protocol":"http"
                },
                {
                   "quality":"Q1A",
-                  "quality_string":"niedrig",
-                  "src":"http:\/\/apasfiis.apa.at\/f4m\/cms-worldwide\/20161011_1040_in_02_Bundesland-heut_____13890700__o__1693823857__s13890997_Q1A.3gp\/manifest.f4m",
+                  "quality_string":"Niedrig",
+                  "src":"https:\/\/apasfiis.sf.apa.at\/f4m\/cms-worldwide\/2018-10-26_1947_sd_02_Rede-des-Bundes_____13993313__o__1465128264__s14386692_2__ORF2HD_19461317P_19532320P_Q1A.3gp\/manifest.f4m",
                   "type":"video\/mp4",
                   "delivery":"hds",
                   "protocol":"http"
                },
                {
                   "quality":"Q4A",
-                  "quality_string":"mittel",
-                  "src":"http:\/\/apasfiis.apa.at\/f4m\/cms-worldwide\/20161011_1040_in_02_Bundesland-heut_____13890700__o__1693823857__s13890997_Q4A.mp4\/manifest.f4m",
+                  "quality_string":"Mittel",
+                  "src":"https:\/\/apasfiis.sf.apa.at\/f4m\/cms-worldwide\/2018-10-26_1947_sd_02_Rede-des-Bundes_____13993313__o__1465128264__s14386692_2__ORF2HD_19461317P_19532320P_Q4A.mp4\/manifest.f4m",
                   "type":"video\/mp4",
                   "delivery":"hds",
                   "protocol":"http"
                },
                {
                   "quality":"Q6A",
-                  "quality_string":"hoch",
-                  "src":"http:\/\/apasfiis.apa.at\/f4m\/cms-worldwide\/20161011_1040_in_02_Bundesland-heut_____13890700__o__1693823857__s13890997_Q6A.mp4\/manifest.f4m",
+                  "quality_string":"Hoch",
+                  "src":"https:\/\/apasfiis.sf.apa.at\/f4m\/cms-worldwide\/2018-10-26_1947_sd_02_Rede-des-Bundes_____13993313__o__1465128264__s14386692_2__ORF2HD_19461317P_19532320P_Q6A.mp4\/manifest.f4m",
                   "type":"video\/mp4",
                   "delivery":"hds",
                   "protocol":"http"
                },
                {
                   "quality":"Q8C",
-                  "quality_string":"sehr hoch (HD)",
-                  "src":"http:\/\/apasfiis.apa.at\/f4m\/cms-worldwide\/20161011_1040_in_02_Bundesland-heut_____13890700__o__1693823857__s13890997_Q8C.mp4\/manifest.f4m",
+                  "quality_string":"Sehr hoch",
+                  "src":"https:\/\/apasfiis.sf.apa.at\/f4m\/cms-worldwide\/2018-10-26_1947_sd_02_Rede-des-Bundes_____13993313__o__1465128264__s14386692_2__ORF2HD_19461317P_19532320P_Q8C.mp4\/manifest.f4m",
                   "type":"video\/mp4",
                   "delivery":"hds",
                   "protocol":"http"
                },
                {
                   "quality":"Q1A",
-                  "quality_string":"niedrig",
-                  "src":"http:\/\/apasfiis.apa.at\/ipad\/cms-worldwide\/20161011_1040_in_02_Bundesland-heut_____13890700__o__1693823857__s13890997_Q1A.3gp\/playlist.m3u8",
+                  "quality_string":"Niedrig",
+                  "src":"https:\/\/apasfiis.sf.apa.at\/ipad\/cms-worldwide\/2018-10-26_1947_sd_02_Rede-des-Bundes_____13993313__o__1465128264__s14386692_2__ORF2HD_19461317P_19532320P_Q1A.3gp\/playlist.m3u8",
                   "type":"video\/mp4",
                   "delivery":"hls",
                   "protocol":"http"
                },
                {
                   "quality":"Q4A",
-                  "quality_string":"mittel",
-                  "src":"http:\/\/apasfiis.apa.at\/ipad\/cms-worldwide\/20161011_1040_in_02_Bundesland-heut_____13890700__o__1693823857__s13890997_Q4A.mp4\/playlist.m3u8",
-                  "type":"video\/mp4",
+                  "quality_string":"Mittel",
+                  "src":"https:\/\/apasfiis.sf.apa.at\/ipad\/cms-worldwide\/2018-10-26_1947_sd_02_Rede-des-Bundes_____13993313__o__1465128264__s14386692_2__ORF2HD_19461317P_19532320P_Q4A.mp4\/playlist.m3u8",
+                  "type":"application\/x-mpegURL",
                   "delivery":"hls",
                   "protocol":"http"
                },
                {
                   "quality":"Q6A",
-                  "quality_string":"hoch",
-                  "src":"http:\/\/apasfiis.apa.at\/ipad\/cms-worldwide\/20161011_1040_in_02_Bundesland-heut_____13890700__o__1693823857__s13890997_Q6A.mp4\/playlist.m3u8",
-                  "type":"video\/mp4",
+                  "quality_string":"Hoch",
+                  "src":"https:\/\/apasfiis.sf.apa.at\/ipad\/cms-worldwide\/2018-10-26_1947_sd_02_Rede-des-Bundes_____13993313__o__1465128264__s14386692_2__ORF2HD_19461317P_19532320P_Q6A.mp4\/playlist.m3u8",
+                  "type":"application\/x-mpegURL",
                   "delivery":"hls",
                   "protocol":"http"
                },
                {
                   "quality":"Q8C",
-                  "quality_string":"sehr hoch (HD)",
-                  "src":"http:\/\/apasfiis.apa.at\/ipad\/cms-worldwide\/20161011_1040_in_02_Bundesland-heut_____13890700__o__1693823857__s13890997_Q8C.mp4\/playlist.m3u8",
-                  "type":"video\/mp4",
+                  "quality_string":"Sehr hoch",
+                  "src":"https:\/\/apasfiis.sf.apa.at\/ipad\/cms-worldwide\/2018-10-26_1947_sd_02_Rede-des-Bundes_____13993313__o__1465128264__s14386692_2__ORF2HD_19461317P_19532320P_Q8C.mp4\/playlist.m3u8",
+                  "type":"application\/x-mpegURL",
                   "delivery":"hls",
-                  "protocol":"http"
-               },
-               {
-                  "quality":"Q1A",
-                  "quality_string":"niedrig",
-                  "src":"http:\/\/localhost:8589\/apasfpd.apa.at\/cms-worldwide\/online\/958b6e14ac4408b8ac709d29429df331\/1517342250\/20161011_1040_in_02_Bundesland-heut_____13890700__o__1693823857__s13890997_Q1A.3gp",
-                  "type":"video\/mp4",
-                  "delivery":"progressive",
-                  "protocol":"http"
-               },
-               {
-                  "quality":"Q4A",
-                  "quality_string":"mittel",
-                  "src":"http:\/\/localhost:8589\/apasfpd.apa.at\/cms-worldwide\/online\/0bb060c0744c962fcacca6eb9211ad70\/1517342250\/20161011_1040_in_02_Bundesland-heut_____13890700__o__1693823857__s13890997_Q4A.mp4",
-                  "type":"video\/mp4",
-                  "delivery":"progressive",
-                  "protocol":"http"
-               },
-               {
-                  "quality":"Q6A",
-                  "quality_string":"hoch",
-                  "src":"http:\/\/localhost:8589\/apasfpd.apa.at\/cms-worldwide\/online\/4f512329a47f2cc5b196edb3170d1884\/1517342250\/20161011_1040_in_02_Bundesland-heut_____13890700__o__1693823857__s13890997_Q6A.mp4",
-                  "type":"video\/mp4",
-                  "delivery":"progressive",
-                  "protocol":"http"
-               },
-               {
-                  "quality":"Q8C",
-                  "quality_string":"sehr hoch (HD)",
-                  "src":"http:\/\/localhost:8589\/apasfpd.apa.at\/cms-worldwide\/online\/7fa882e42a1a23eec93f1310f302478e\/1517342250\/20161011_1040_in_02_Bundesland-heut_____13890700__o__1693823857__s13890997_Q8C.mp4",
-                  "type":"video\/mp4",
-                  "delivery":"progressive",
                   "protocol":"http"
                }
             ],
             "position":0,
             "last_segment":true,
             "subtitles":[
-
+               {
+                  "src":"https:\/\/api-tvthek.orf.at\/uploads\/media\/subtitles\/0055\/75\/d9b10c557893e485e0841882c9a20edb7a755862.xml",
+                  "type":"xml",
+                  "lang":"de-AT"
+               },
+               {
+                  "src":"https:\/\/api-tvthek.orf.at\/uploads\/media\/subtitles\/0055\/75\/4f8ae982d4d2df0e4bb7ff8630891d31d347f45c.srt",
+                  "type":"srt",
+                  "lang":"de-AT"
+               },
+               {
+                  "src":"https:\/\/api-tvthek.orf.at\/uploads\/media\/subtitles\/0055\/75\/75d7c05e62b12ce5964e4c16d88259bc6b3720ba.vtt",
+                  "type":"vtt",
+                  "lang":"de-AT"
+               },
+               {
+                  "src":"https:\/\/api-tvthek.orf.at\/uploads\/media\/subtitles\/0055\/75\/ffbca407862b2cd2e33c3f209b0d56c75891d66a.smi",
+                  "type":"sami",
+                  "lang":"de-AT"
+               },
+               {
+                  "src":"https:\/\/api-tvthek.orf.at\/uploads\/media\/subtitles\/0055\/75\/02ea0c39f7d1f220fbc45284dd13b1d096abd5c8.ttml",
+                  "type":"ttml",
+                  "lang":"de-AT"
+               }
             ],
-            "hash":"389b95a764a5890ed4ae499b95d1ea8b"
+            "hash":"7cde56089d3db6cde3b4e52b67346064"
          }
       ],
-      "hash":"5ce2a5a3e85c9bd19df620f89d35a2a6"
+      "hash":"b682ea882677335bc7e730ec29f01407"
    },
    "item_render_url":"\/playlist\/segment\/render\/0",
    "get_playlist_url":"\/playlist\/episode\/0",
    "server_time_url":"\/livestream\/time",
    "selected_video":{
-      "id":13890997,
-      "episode_id":13890700,
-      "title_prefix":"Bundesland heute",
+      "id":14386692,
+      "episode_id":13993313,
+      "title_prefix":"Rede des Bundespräsidenten",
       "title_separator":"|",
-      "title":"Bundesland heute",
-      "description":null,
-      "duration":30000,
-      "preview_image_url":"http:\/\/api-tvthek.orf.at\/uploads\/media\/segments\/0001\/17\/thumb_16761_segments_player.jpeg",
+      "title":"Rede des Bundespräsidenten",
+      "description":"Bundespräsident Alexander Van der Bellen zeigt sich optimistisch, wünscht sich aber, sich an das \"österreichische\" zu erinnern \u2013 also das Gemeinsame vor das Trennende zu stellen.",
+      "duration":430110,
+      "preview_image_url":"https:\/\/api-tvthek.orf.at\/uploads\/media\/segments\/0055\/71\/thumb_5470358_segments_player.jpeg",
       "sources":[
          {
-            "quality":"Q1A",
-            "quality_string":"niedrig",
-            "src":"rtmp:\/\/apasfw.apa.at\/cms-worldwide\/mp4:20161011_1040_in_02_Bundesland-heut_____13890700__o__1693823857__s13890997_Q1A.3gp",
-            "type":"video\/mp4",
-            "delivery":"streaming",
-            "protocol":"rtmp"
-         },
-         {
-            "quality":"Q4A",
-            "quality_string":"mittel",
-            "src":"rtmp:\/\/apasfw.apa.at\/cms-worldwide\/mp4:20161011_1040_in_02_Bundesland-heut_____13890700__o__1693823857__s13890997_Q4A.mp4",
-            "type":"video\/mp4",
-            "delivery":"streaming",
-            "protocol":"rtmp"
-         },
-         {
-            "quality":"Q6A",
-            "quality_string":"hoch",
-            "src":"rtmp:\/\/apasfw.apa.at\/cms-worldwide\/mp4:20161011_1040_in_02_Bundesland-heut_____13890700__o__1693823857__s13890997_Q6A.mp4",
-            "type":"video\/mp4",
-            "delivery":"streaming",
-            "protocol":"rtmp"
-         },
-         {
-            "quality":"Q8C",
-            "quality_string":"sehr hoch (HD)",
-            "src":"rtmp:\/\/apasfw.apa.at\/cms-worldwide\/mp4:20161011_1040_in_02_Bundesland-heut_____13890700__o__1693823857__s13890997_Q8C.mp4",
-            "type":"video\/mp4",
-            "delivery":"streaming",
-            "protocol":"rtmp"
-         },
-         {
-            "quality":"Q1A",
-            "quality_string":"niedrig",
-            "src":"rtsp:\/\/apasfw.apa.at:1935\/cms-worldwide\/mp4:20161011_1040_in_02_Bundesland-heut_____13890700__o__1693823857__s13890997_Q1A.3gp",
-            "type":"video\/mp4",
-            "delivery":"streaming",
-            "protocol":"rtsp"
-         },
-         {
-            "quality":"Q4A",
-            "quality_string":"mittel",
-            "src":"rtsp:\/\/apasfw.apa.at:1935\/cms-worldwide\/mp4:20161011_1040_in_02_Bundesland-heut_____13890700__o__1693823857__s13890997_Q4A.mp4",
-            "type":"video\/mp4",
-            "delivery":"streaming",
-            "protocol":"rtsp"
-         },
-         {
-            "quality":"SMIL",
-            "quality_string":"hoch",
-            "src":"rtsp:\/\/apasfw.apa.at:1935\/cms-worldwide\/mp4:20161011_1040_in_02_Bundesland-heut_____13890700__o__1693823857__s13890997_Q6A.mp4",
-            "type":"video\/mp4",
-            "delivery":"streaming",
-            "protocol":"rtsp"
-         },
-         {
-            "quality":"Q8C",
-            "quality_string":"sehr hoch (HD)",
-            "src":"rtsp:\/\/apasfw.apa.at:1935\/cms-worldwide\/mp4:20161011_1040_in_02_Bundesland-heut_____13890700__o__1693823857__s13890997_Q8C.mp4",
-            "type":"video\/mp4",
-            "delivery":"streaming",
-            "protocol":"rtsp"
-         },
-         {
             "quality":"QXB",
-            "quality_string":"adaptiv",
-            "src":"http:\/\/apasfiis.apa.at\/ipad\/cms-worldwide\/20161011_1040_in_02_Bundesland-heut_____13890700__o__1693823857__s13890997_QXB.mp4\/playlist.m3u8",
-            "type":"video\/mp4",
+            "quality_string":"Adaptiv",
+            "src":"https:\/\/apasfiis.sf.apa.at\/ipad\/cms-worldwide\/2018-10-26_1947_sd_02_Rede-des-Bundes_____13993313__o__1465128264__s14386692_2__ORF2HD_19461317P_19532320P_QXB.mp4\/playlist.m3u8",
+            "type":"application\/x-mpegURL",
             "delivery":"hls",
             "protocol":"http"
          },
          {
             "quality":"Q1A",
-            "quality_string":"niedrig",
-            "src":"http:\/\/apasfiis.apa.at\/f4m\/cms-worldwide\/20161011_1040_in_02_Bundesland-heut_____13890700__o__1693823857__s13890997_Q1A.3gp\/manifest.f4m",
+            "quality_string":"Niedrig",
+            "src":"https:\/\/apasfiis.sf.apa.at\/f4m\/cms-worldwide\/2018-10-26_1947_sd_02_Rede-des-Bundes_____13993313__o__1465128264__s14386692_2__ORF2HD_19461317P_19532320P_Q1A.3gp\/manifest.f4m",
             "type":"video\/mp4",
             "delivery":"hds",
             "protocol":"http"
          },
          {
             "quality":"Q4A",
-            "quality_string":"mittel",
-            "src":"http:\/\/apasfiis.apa.at\/f4m\/cms-worldwide\/20161011_1040_in_02_Bundesland-heut_____13890700__o__1693823857__s13890997_Q4A.mp4\/manifest.f4m",
+            "quality_string":"Mittel",
+            "src":"https:\/\/apasfiis.sf.apa.at\/f4m\/cms-worldwide\/2018-10-26_1947_sd_02_Rede-des-Bundes_____13993313__o__1465128264__s14386692_2__ORF2HD_19461317P_19532320P_Q4A.mp4\/manifest.f4m",
             "type":"video\/mp4",
             "delivery":"hds",
             "protocol":"http"
          },
          {
             "quality":"Q6A",
-            "quality_string":"hoch",
-            "src":"http:\/\/apasfiis.apa.at\/f4m\/cms-worldwide\/20161011_1040_in_02_Bundesland-heut_____13890700__o__1693823857__s13890997_Q6A.mp4\/manifest.f4m",
+            "quality_string":"Hoch",
+            "src":"https:\/\/apasfiis.sf.apa.at\/f4m\/cms-worldwide\/2018-10-26_1947_sd_02_Rede-des-Bundes_____13993313__o__1465128264__s14386692_2__ORF2HD_19461317P_19532320P_Q6A.mp4\/manifest.f4m",
             "type":"video\/mp4",
             "delivery":"hds",
             "protocol":"http"
          },
          {
             "quality":"Q8C",
-            "quality_string":"sehr hoch (HD)",
-            "src":"http:\/\/apasfiis.apa.at\/f4m\/cms-worldwide\/20161011_1040_in_02_Bundesland-heut_____13890700__o__1693823857__s13890997_Q8C.mp4\/manifest.f4m",
+            "quality_string":"Sehr hoch",
+            "src":"https:\/\/apasfiis.sf.apa.at\/f4m\/cms-worldwide\/2018-10-26_1947_sd_02_Rede-des-Bundes_____13993313__o__1465128264__s14386692_2__ORF2HD_19461317P_19532320P_Q8C.mp4\/manifest.f4m",
             "type":"video\/mp4",
             "delivery":"hds",
             "protocol":"http"
          },
          {
             "quality":"Q1A",
-            "quality_string":"niedrig",
-            "src":"http:\/\/apasfiis.apa.at\/ipad\/cms-worldwide\/20161011_1040_in_02_Bundesland-heut_____13890700__o__1693823857__s13890997_Q1A.3gp\/playlist.m3u8",
+            "quality_string":"Niedrig",
+            "src":"https:\/\/apasfiis.sf.apa.at\/ipad\/cms-worldwide\/2018-10-26_1947_sd_02_Rede-des-Bundes_____13993313__o__1465128264__s14386692_2__ORF2HD_19461317P_19532320P_Q1A.3gp\/playlist.m3u8",
             "type":"video\/mp4",
             "delivery":"hls",
             "protocol":"http"
          },
          {
             "quality":"Q4A",
-            "quality_string":"mittel",
-            "src":"http:\/\/apasfiis.apa.at\/ipad\/cms-worldwide\/20161011_1040_in_02_Bundesland-heut_____13890700__o__1693823857__s13890997_Q4A.mp4\/playlist.m3u8",
-            "type":"video\/mp4",
+            "quality_string":"Mittel",
+            "src":"https:\/\/apasfiis.sf.apa.at\/ipad\/cms-worldwide\/2018-10-26_1947_sd_02_Rede-des-Bundes_____13993313__o__1465128264__s14386692_2__ORF2HD_19461317P_19532320P_Q4A.mp4\/playlist.m3u8",
+            "type":"application\/x-mpegURL",
             "delivery":"hls",
             "protocol":"http"
          },
          {
             "quality":"Q6A",
-            "quality_string":"hoch",
-            "src":"http:\/\/apasfiis.apa.at\/ipad\/cms-worldwide\/20161011_1040_in_02_Bundesland-heut_____13890700__o__1693823857__s13890997_Q6A.mp4\/playlist.m3u8",
-            "type":"video\/mp4",
+            "quality_string":"Hoch",
+            "src":"https:\/\/apasfiis.sf.apa.at\/ipad\/cms-worldwide\/2018-10-26_1947_sd_02_Rede-des-Bundes_____13993313__o__1465128264__s14386692_2__ORF2HD_19461317P_19532320P_Q6A.mp4\/playlist.m3u8",
+            "type":"application\/x-mpegURL",
             "delivery":"hls",
             "protocol":"http"
          },
          {
             "quality":"Q8C",
-            "quality_string":"sehr hoch (HD)",
-            "src":"http:\/\/apasfiis.apa.at\/ipad\/cms-worldwide\/20161011_1040_in_02_Bundesland-heut_____13890700__o__1693823857__s13890997_Q8C.mp4\/playlist.m3u8",
-            "type":"video\/mp4",
+            "quality_string":"Sehr hoch",
+            "src":"https:\/\/apasfiis.sf.apa.at\/ipad\/cms-worldwide\/2018-10-26_1947_sd_02_Rede-des-Bundes_____13993313__o__1465128264__s14386692_2__ORF2HD_19461317P_19532320P_Q8C.mp4\/playlist.m3u8",
+            "type":"application\/x-mpegURL",
             "delivery":"hls",
-            "protocol":"http"
-         },
-         {
-            "quality":"Q1A",
-            "quality_string":"niedrig",
-            "src":"http:\/\/localhost:8589\/apasfpd.apa.at\/cms-worldwide\/online\/958b6e14ac4408b8ac709d29429df331\/1517342250\/20161011_1040_in_02_Bundesland-heut_____13890700__o__1693823857__s13890997_Q1A.3gp",
-            "type":"video\/mp4",
-            "delivery":"progressive",
-            "protocol":"http"
-         },
-         {
-            "quality":"Q4A",
-            "quality_string":"mittel",
-            "src":"http:\/\/localhost:8589\/apasfpd.apa.at\/cms-worldwide\/online\/0bb060c0744c962fcacca6eb9211ad70\/1517342250\/20161011_1040_in_02_Bundesland-heut_____13890700__o__1693823857__s13890997_Q4A.mp4",
-            "type":"video\/mp4",
-            "delivery":"progressive",
-            "protocol":"http"
-         },
-         {
-            "quality":"Q6A",
-            "quality_string":"hoch",
-            "src":"http:\/\/localhost:8589\/apasfpd.apa.at\/cms-worldwide\/online\/4f512329a47f2cc5b196edb3170d1884\/1517342250\/20161011_1040_in_02_Bundesland-heut_____13890700__o__1693823857__s13890997_Q6A.mp4",
-            "type":"video\/mp4",
-            "delivery":"progressive",
-            "protocol":"http"
-         },
-         {
-            "quality":"Q8C",
-            "quality_string":"sehr hoch (HD)",
-            "src":"http:\/\/localhost:8589\/apasfpd.apa.at\/cms-worldwide\/online\/7fa882e42a1a23eec93f1310f302478e\/1517342250\/20161011_1040_in_02_Bundesland-heut_____13890700__o__1693823857__s13890997_Q8C.mp4",
-            "type":"video\/mp4",
-            "delivery":"progressive",
             "protocol":"http"
          }
       ],
       "position":0,
       "last_segment":true,
       "subtitles":[
-
+         {
+            "src":"https:\/\/api-tvthek.orf.at\/uploads\/media\/subtitles\/0055\/75\/d9b10c557893e485e0841882c9a20edb7a755862.xml",
+            "type":"xml",
+            "lang":"de-AT"
+         },
+         {
+            "src":"https:\/\/api-tvthek.orf.at\/uploads\/media\/subtitles\/0055\/75\/4f8ae982d4d2df0e4bb7ff8630891d31d347f45c.srt",
+            "type":"srt",
+            "lang":"de-AT"
+         },
+         {
+            "src":"https:\/\/api-tvthek.orf.at\/uploads\/media\/subtitles\/0055\/75\/75d7c05e62b12ce5964e4c16d88259bc6b3720ba.vtt",
+            "type":"vtt",
+            "lang":"de-AT"
+         },
+         {
+            "src":"https:\/\/api-tvthek.orf.at\/uploads\/media\/subtitles\/0055\/75\/ffbca407862b2cd2e33c3f209b0d56c75891d66a.smi",
+            "type":"sami",
+            "lang":"de-AT"
+         },
+         {
+            "src":"https:\/\/api-tvthek.orf.at\/uploads\/media\/subtitles\/0055\/75\/02ea0c39f7d1f220fbc45284dd13b1d096abd5c8.ttml",
+            "type":"ttml",
+            "lang":"de-AT"
+         }
       ],
-      "hash":"389b95a764a5890ed4ae499b95d1ea8b"
+      "hash":"7cde56089d3db6cde3b4e52b67346064"
    },
    "stop_after_selected_video":false
 }
