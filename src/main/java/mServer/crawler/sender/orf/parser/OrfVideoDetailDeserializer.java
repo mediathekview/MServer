@@ -26,10 +26,12 @@ public class OrfVideoDetailDeserializer implements JsonDeserializer<Optional<Orf
   private static final String ATTRIBUTE_SRC = "src";
   private static final String ATTRIBUTE_TYPE = "type";
 
-  private static final String RELEVANT_DELIVERY = "progressive";
+  private static final String RELEVANT_DELIVERY1 = "progressive";
+  private static final String RELEVANT_DELIVERY2 = "hls";
   private static final String RELEVANT_PROTOCOL = "http";
   private static final String RELEVANT_SUBTITLE_TYPE = "ttml";
-  private static final String RELEVANT_VIDEO_TYPE = "video/mp4";
+  private static final String RELEVANT_VIDEO_TYPE1 = "video/mp4";
+  private static final String RELEVANT_VIDEO_TYPE2 = "application/x-mpegURL";
 
   private static String fixHttpsURL(final String url) {
     if (url.contains(RIGHT_HTTPS_URL_PART)) {
@@ -48,6 +50,9 @@ public class OrfVideoDetailDeserializer implements JsonDeserializer<Optional<Orf
         return Optional.of(Qualities.NORMAL);
       case "Q8C":
         return Optional.of(Qualities.HD);
+      case "QXA":
+      case "QXB":
+        return Optional.empty();
       default:
         Log.sysLog("ORF: unknown quality: " + aQuality);
     }
@@ -81,9 +86,7 @@ public class OrfVideoDetailDeserializer implements JsonDeserializer<Optional<Orf
           final String protocol = videoObject.get(ATTRIBUTE_PROTOCOL).getAsString();
           final String delivery = videoObject.get(ATTRIBUTE_DELIVERY).getAsString();
 
-          if (type.equalsIgnoreCase(RELEVANT_VIDEO_TYPE)
-                  && protocol.equalsIgnoreCase(RELEVANT_PROTOCOL)
-                  && delivery.equalsIgnoreCase(RELEVANT_DELIVERY)) {
+          if (isVideoRelevant(type, protocol, delivery)) {
             final String quality = videoObject.get(ATTRIBUTE_QUALITY).getAsString();
             final String url = fixHttpsURL(videoObject.get(ATTRIBUTE_SRC).getAsString());
 
@@ -95,6 +98,12 @@ public class OrfVideoDetailDeserializer implements JsonDeserializer<Optional<Orf
         }
       });
     }
+  }
+
+  private static boolean isVideoRelevant(String type, String protocol, String delivery) {
+    return (type.equalsIgnoreCase(RELEVANT_VIDEO_TYPE1) || type.equalsIgnoreCase(RELEVANT_VIDEO_TYPE2))
+            && protocol.equalsIgnoreCase(RELEVANT_PROTOCOL)
+            && (delivery.equalsIgnoreCase(RELEVANT_DELIVERY1) || delivery.equalsIgnoreCase(RELEVANT_DELIVERY2));
   }
 
   @Override
