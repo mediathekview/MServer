@@ -3,9 +3,7 @@ package mServer.crawler.sender.newsearch;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.ForkJoinTask;
 import java.util.concurrent.RecursiveTask;
-import java.util.stream.Collectors;
 
 import com.google.gson.JsonObject;
 
@@ -16,6 +14,7 @@ import mServer.tool.MserverDaten;
 public class ZDFSearchTask extends RecursiveTask<Collection<VideoDTO>> {
 
   private static final String JSON_ELEMENT_NEXT = "next";
+  private static final String JSON_ELEMENT_RESULT = "http://zdf.de/rels/search/results";
 
   private static final long serialVersionUID = 1L;
 
@@ -54,7 +53,7 @@ public class ZDFSearchTask extends RecursiveTask<Collection<VideoDTO>> {
           }
 
           page++;
-        } while (!Config.getStop() && baseObject != null && baseObject.has(JSON_ELEMENT_NEXT));
+        } while (!Config.getStop() && hasNextPage(baseObject));
         subTasks.forEach(t -> filmList.addAll(t.join()));
         if (MserverDaten.debug) {
           Log.sysLog("All SearchTasks finished.");
@@ -65,5 +64,12 @@ public class ZDFSearchTask extends RecursiveTask<Collection<VideoDTO>> {
       }
     }
     return filmList;
+  }
+
+  private static boolean hasNextPage(final JsonObject baseObject) {
+    return baseObject != null
+            && baseObject.has(JSON_ELEMENT_NEXT)
+            && baseObject.has(JSON_ELEMENT_RESULT)
+            && baseObject.getAsJsonArray(JSON_ELEMENT_RESULT).size() > 0;
   }
 }
