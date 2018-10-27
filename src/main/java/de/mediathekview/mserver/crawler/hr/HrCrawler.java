@@ -57,7 +57,7 @@ public class HrCrawler extends AbstractCrawler {
 
   @Override
   protected RecursiveTask<Set<Film>> createCrawlerTask() {
-    final HrSendungenOverviewPageTask sendungenOverviewPageTask = new HrSendungenOverviewPageTask();
+    final HrSendungenOverviewPageTask sendungenOverviewPageTask = new HrSendungenOverviewPageTask(HrConstants.BASE_URL);
 
     final ConcurrentLinkedQueue<CrawlerUrlDTO> sendungsfolgenUrls = new ConcurrentLinkedQueue<>();
     try {

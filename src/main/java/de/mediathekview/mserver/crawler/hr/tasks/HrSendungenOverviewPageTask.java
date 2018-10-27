@@ -20,15 +20,21 @@ public class HrSendungenOverviewPageTask implements Callable<Set<CrawlerUrlDTO>>
   private static final String HESSENSCHAU_OVERVIEW_URL_REPLACEMENT = "sendungsarchiv/index.html";
   private static final String INDEX_PAGE_NAME = "index.html";
   private static final Logger LOG = LogManager.getLogger(HrSendungenOverviewPageTask.class);
-  private static final String HR_SENDUNGEN_URL = HrConstants.BASE_URL + "sendungen-a-z/index.html";
+  private static final String HR_SENDUNGEN_URL = "sendungen-a-z/index.html";
   private static final String SENDUNG_URL_SELECTOR = ".c-teaser__headlineLink.link";
+
+  private String baseUrl;
+
+  public HrSendungenOverviewPageTask(final String aBaseUrl) {
+    baseUrl = aBaseUrl;
+  }
 
   @Override
   public Set<CrawlerUrlDTO> call() {
     final Set<CrawlerUrlDTO> results = new HashSet<>();
 
     try {
-      final Document document = Jsoup.connect(HR_SENDUNGEN_URL).get();
+      final Document document = Jsoup.connect(baseUrl + HR_SENDUNGEN_URL).get();
       for (final Element filmUrlElement : document.select(SENDUNG_URL_SELECTOR)) {
         if (filmUrlElement.hasAttr(Consts.ATTRIBUTE_HREF)) {
           final String url = filmUrlElement.absUrl(Consts.ATTRIBUTE_HREF);
@@ -66,6 +72,6 @@ public class HrSendungenOverviewPageTask implements Callable<Set<CrawlerUrlDTO>>
    * @return true if the url is a HR url else false
    */
   protected boolean isUrlRelevant(final String aUrl) {
-    return aUrl.contains(HrConstants.BASE_URL) || aUrl.contains(HrConstants.BASE_URL_HESSENSCHAU);
+    return aUrl.contains(baseUrl) || aUrl.contains(HrConstants.BASE_URL_HESSENSCHAU);
   }
 }
