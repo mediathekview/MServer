@@ -49,9 +49,10 @@ public class MediathekZdf extends MediathekReader {
     meldungStart();
     meldungAddThread();
 
-    int days = CrawlerTool.loadLongMax() ? 300 : 20;
+    int daysPast = CrawlerTool.loadLongMax() ? 300 : 20;
+    int daysFuture = CrawlerTool.loadLongMax() ? 100 : 30;
 
-    final ZDFSearchTask newTask = new ZDFSearchTask(days);
+    final ZDFSearchTask newTask = new ZDFSearchTask(daysPast, daysFuture);
     forkJoinPool = new ForkJoinPool(Runtime.getRuntime().availableProcessors() * 4);
     forkJoinPool.execute(newTask);
     Collection<VideoDTO> filmList = newTask.join();
@@ -229,7 +230,7 @@ public class MediathekZdf extends MediathekReader {
 
     changeUrl("1496k_p13v13.mp4", "2328k_p35v13.mp4", film, urlSeite, mSFilmeSuchen);
     changeUrl("1496k_p13v13.mp4", "2296k_p14v13.mp4", film, urlSeite, mSFilmeSuchen); //wenns nicht geht, dann vielleicht so
-    
+
     changeUrl("1496k_p13v14.mp4", "2328k_p35v14.mp4", film, urlSeite, mSFilmeSuchen);
     changeUrl("1496k_p13v14.mp4", "2296k_p14v14.mp4", film, urlSeite, mSFilmeSuchen); //wenns nicht geht, dann vielleicht so
   }
