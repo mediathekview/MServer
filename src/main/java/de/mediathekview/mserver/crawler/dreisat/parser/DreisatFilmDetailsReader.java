@@ -4,8 +4,6 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import de.mediathekview.mlib.daten.Film;
-import de.mediathekview.mlib.daten.GeoLocations;
-import de.mediathekview.mlib.daten.Resolution;
 import de.mediathekview.mlib.daten.Sender;
 import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
 import de.mediathekview.mserver.crawler.zdf.DownloadDtoFilmConverter;
@@ -17,18 +15,13 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.lang.reflect.Type;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Locale;
-import java.util.Map.Entry;
 import java.util.Optional;
 import java.util.UUID;
-import mServer.crawler.CrawlerTool;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.jsoup.Jsoup;
@@ -47,7 +40,6 @@ public class DreisatFilmDetailsReader {
   private static final String ELEMENT_ORIGIN_CHANNEL_TITLE = "originChannelTitle";
   private static final String ELEMENT_ONLINEAIRTIME = "onlineairtime";
   private static final String ELEMENT_AIRTIME = "airtime";
-  private static final String ELEMENT_GEOLOCATION = "geolocation";
   private static final String ELEMENT_LENGTH = "lengthSec";
   private static final String ELEMENT_DETAIL = "detail";
   private static final String ELEMENT_TITLE = "title";
@@ -77,7 +69,6 @@ public class DreisatFilmDetailsReader {
 
       final Elements descriptionNodes = doc.getElementsByTag(ELEMENT_DETAIL);
       final Elements durationNodes = doc.getElementsByTag(ELEMENT_LENGTH);
-      final Elements geoLocNodes = doc.getElementsByTag(ELEMENT_GEOLOCATION);
       final Elements dateNodes = doc.getElementsByTag(ELEMENT_AIRTIME);
       final Elements alternativeDateNodes = doc.getElementsByTag(ELEMENT_ONLINEAIRTIME);
       final Elements filmUrlsApiUrlNodes = doc.getElementsByTag(ELEMENT_BASENAME);
@@ -96,10 +87,6 @@ public class DreisatFilmDetailsReader {
             getDownloadInfos(filmUrlsApiUrlNodes, streamVersion);
 
         if (downloadInfos.isPresent()) {
-          final Collection<GeoLocations> geoLocations = new ArrayList<>();
-          geoLocations.add(GeoLocations.find(geoLocNodes.get(0).text())
-              .orElse(downloadInfos.get().getGeoLocation().orElse(GeoLocations.GEO_NONE)));
-
           final Film newFilm =
               new Film(UUID.randomUUID(), Sender.DREISAT, title, thema, time, dauer);
 
@@ -123,21 +110,6 @@ public class DreisatFilmDetailsReader {
       crawler.printErrorMessage();
     }
     return Optional.empty();
-  }
-
-  private void addSubtitle(final DownloadDto downloadInfos, final Film newFilm)
-      throws MalformedURLException {
-    final Optional<String> subtitle = downloadInfos.getSubTitleUrl();
-    if (subtitle.isPresent()) {
-      newFilm.addSubtitle(new URL(subtitle.get()));
-    }
-  }
-
-  private void addUrls(final DownloadDto downloadInfos, final Film newFilm)
-      throws MalformedURLException {
-    for (final Entry<Resolution, String> url : downloadInfos.getDownloadUrls(ZdfConstants.LANGUAGE_GERMAN).entrySet()) {
-      newFilm.addUrl(url.getKey(), CrawlerTool.stringToFilmUrl(url.getValue()));
-    }
   }
 
   private Optional<DownloadDto> getDownloadInfos(final Elements aFilmUrlsApiUrlNodes,
