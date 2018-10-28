@@ -44,9 +44,9 @@ public class ZdfVideoUrlOptimizer {
     HD_OPTIMIZE.put(NORMAL_1456_13_12, new String[]{HD_3328_12, HD_3256});
     HD_OPTIMIZE.put(NORMAL_2256_14_12, new String[]{HD_3328_12, HD_3256});
     HD_OPTIMIZE.put(NORMAL_2328_35_12, new String[]{HD_3328_12, HD_3256});
-    HD_OPTIMIZE.put(NORMAL_1496_13_13, new String[]{HD_3296, HD_3328_13});
-    HD_OPTIMIZE.put(NORMAL_2296_14_13, new String[]{HD_3296, HD_3328_13});
-    HD_OPTIMIZE.put(NORMAL_2328_35_13, new String[]{HD_3296, HD_3328_13});
+    HD_OPTIMIZE.put(NORMAL_1496_13_13, new String[]{HD_3328_13, HD_3296});
+    HD_OPTIMIZE.put(NORMAL_2296_14_13, new String[]{HD_3328_13, HD_3296});
+    HD_OPTIMIZE.put(NORMAL_2328_35_13, new String[]{HD_3328_13, HD_3296});
     HD_OPTIMIZE.put(NORMAL_1496_13_14, new String[]{HD_3328_14, HD_3328_35_14});
     HD_OPTIMIZE.put(NORMAL_2296_14_14, new String[]{HD_3328_14, HD_3328_35_14});
     HD_OPTIMIZE.put(NORMAL_2328_35_14, new String[]{HD_3328_14, HD_3328_35_14});

@@ -70,6 +70,16 @@ public class ZdfVideoUrlOptimizerTest extends WireMockTestBase {
   }
 
   @Test
+  public void determineUrlHdTestBothUrlExists() {
+    final String url = WireMockTestBase.MOCK_URL_BASE + "/video_1496k_p13v13.mp4";
+    final String expectedUrl = WireMockTestBase.MOCK_URL_BASE + "/video_3328k_p36v13.mp4";
+
+    setupHeadResponse("/video_3328k_p36v13.mp4", 200);
+    setupHeadResponse("/video_3296k_p15v13.mp4", 200);
+    assertDetermineUrlHd(Optional.of(expectedUrl), url);
+  }
+
+  @Test
   public void determineUrlHdTestNMappingExists() {
     final String url = WireMockTestBase.MOCK_URL_BASE + "/video_1422k_p13v12.mp4";
 
