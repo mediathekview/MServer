@@ -1,5 +1,18 @@
 package de.mediathekview.mserver.crawler.dw.tasks;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.reflect.TypeToken;
+import de.mediathekview.mlib.daten.Film;
+import de.mediathekview.mlib.daten.FilmUrl;
+import de.mediathekview.mlib.daten.Resolution;
+import de.mediathekview.mserver.base.utils.HtmlDocumentUtils;
+import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
+import de.mediathekview.mserver.crawler.basic.AbstractDocumentTask;
+import de.mediathekview.mserver.crawler.basic.AbstractUrlTask;
+import de.mediathekview.mserver.crawler.basic.CrawlerUrlDTO;
+import de.mediathekview.mserver.crawler.dw.DwCrawler;
+import de.mediathekview.mserver.crawler.dw.parser.DWDownloadUrlsParser;
 import java.lang.reflect.Type;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -17,25 +30,14 @@ import java.util.regex.Pattern;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
+import mServer.crawler.CrawlerTool;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.jsoup.nodes.Document;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.reflect.TypeToken;
-import de.mediathekview.mlib.daten.Film;
-import de.mediathekview.mlib.daten.FilmUrl;
-import de.mediathekview.mlib.daten.Resolution;
-import de.mediathekview.mserver.base.utils.HtmlDocumentUtils;
-import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
-import de.mediathekview.mserver.crawler.basic.AbstractDocumentTask;
-import de.mediathekview.mserver.crawler.basic.AbstractUrlTask;
-import de.mediathekview.mserver.crawler.basic.CrawlerUrlDTO;
-import de.mediathekview.mserver.crawler.dw.DwCrawler;
-import de.mediathekview.mserver.crawler.dw.parser.DWDownloadUrlsParser;
-import mServer.crawler.CrawlerTool;
 
 public class DWFilmDetailsTask extends AbstractDocumentTask<Film, CrawlerUrlDTO> {
+
   private static final String URL_SPLITTERATOR = "/";
   private static final long serialVersionUID = 7992707335502505844L;
   private static final Logger LOG = LogManager.getLogger(DWFilmDetailsTask.class);
@@ -44,7 +46,7 @@ public class DWFilmDetailsTask extends AbstractDocumentTask<Film, CrawlerUrlDTO>
   private static final String ELEMENT_DATUM = ".group li:eq(0)";
   private static final String ELEMENT_DAUER = ".group li:eq(1)";
   private static final String DOWNLOAD_DETAILS_URL_TEMPLATE =
-      DwCrawler.BASE_URL + "/playersources/%s";
+      DwCrawler.BASE_URL + "/playersources/v-%s";
   private static final String CHAR_TO_REMOVE_FROM_PAGE_ID = "a";
 
   private static final String DATE_REGEX_PATTERN = "(?<=Datum\\s)[\\.\\d]+";
@@ -59,18 +61,24 @@ public class DWFilmDetailsTask extends AbstractDocumentTask<Film, CrawlerUrlDTO>
 
   private void addDownloadUrls(final CrawlerUrlDTO aUrlDTO, final Film film) {
     final String pageId =
-        aUrlDTO.getUrl().substring(aUrlDTO.getUrl().lastIndexOf(URL_SPLITTERATOR));
-    final String videoId = pageId.replaceFirst(CHAR_TO_REMOVE_FROM_PAGE_ID, "");
+        aUrlDTO.getUrl().substring(aUrlDTO.getUrl().lastIndexOf(URL_SPLITTERATOR) + 1);
+    final String videoId = pageId.substring(pageId.indexOf('-') + 1);
     final String downloadUrl = String.format(DOWNLOAD_DETAILS_URL_TEMPLATE, videoId);
     try {
       final WebTarget target = ClientBuilder.newClient().target(new URL(downloadUrl).toString());
-      final String response = target.request(MediaType.APPLICATION_JSON_TYPE).get(String.class);
+      Response response = target.request(MediaType.APPLICATION_JSON_TYPE).get();
+      if (response.getStatus() == 200) {
 
-      final Type urlMapType = new TypeToken<Map<Resolution, FilmUrl>>() {}.getType();
-      final Gson gson =
-          new GsonBuilder().registerTypeAdapter(urlMapType, new DWDownloadUrlsParser()).create();
+        final Type urlMapType = new TypeToken<Map<Resolution, FilmUrl>>() {
+        }.getType();
+        final Gson gson =
+            new GsonBuilder().registerTypeAdapter(urlMapType, new DWDownloadUrlsParser()).create();
 
-      film.addAllUrls(gson.fromJson(response, urlMapType));
+        film.addAllUrls(gson.fromJson(response.readEntity(String.class), urlMapType));
+      } else {
+        LOG.error("DWFilmDetailsTask: Error reading url " + downloadUrl + ": " + response.getStatus());
+      }
+
     } catch (final MalformedURLException malformedURLException) {
       LOG.error(
           String.format("Something wen't wrong on building a download url \"%s\".", downloadUrl));
