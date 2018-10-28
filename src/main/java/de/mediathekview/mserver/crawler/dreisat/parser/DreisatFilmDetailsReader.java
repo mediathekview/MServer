@@ -1,6 +1,18 @@
 package de.mediathekview.mserver.crawler.dreisat.parser;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.reflect.TypeToken;
+import de.mediathekview.mlib.daten.Film;
+import de.mediathekview.mlib.daten.GeoLocations;
+import de.mediathekview.mlib.daten.Resolution;
+import de.mediathekview.mlib.daten.Sender;
+import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
+import de.mediathekview.mserver.crawler.zdf.DownloadDtoFilmConverter;
 import de.mediathekview.mserver.crawler.zdf.ZdfConstants;
+import de.mediathekview.mserver.crawler.zdf.ZdfVideoUrlOptimizer;
+import de.mediathekview.mserver.crawler.zdf.json.DownloadDto;
+import de.mediathekview.mserver.crawler.zdf.json.ZdfDownloadDtoDeserializer;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -16,24 +28,13 @@ import java.util.Locale;
 import java.util.Map.Entry;
 import java.util.Optional;
 import java.util.UUID;
+import mServer.crawler.CrawlerTool;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.parser.Parser;
 import org.jsoup.select.Elements;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.reflect.TypeToken;
-import de.mediathekview.mlib.daten.Film;
-import de.mediathekview.mlib.daten.FilmUrl;
-import de.mediathekview.mlib.daten.GeoLocations;
-import de.mediathekview.mlib.daten.Resolution;
-import de.mediathekview.mlib.daten.Sender;
-import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
-import de.mediathekview.mserver.crawler.zdf.json.DownloadDto;
-import de.mediathekview.mserver.crawler.zdf.json.ZdfDownloadDtoDeserializer;
-import mServer.crawler.CrawlerTool;
 
 public class DreisatFilmDetailsReader {
 
@@ -53,6 +54,9 @@ public class DreisatFilmDetailsReader {
   private static final String ELEMENT_STREAM_VERSION = "streamVersion";
   private static final String API_URL_PATTERN =
       "http://tmd.3sat.de/tmd/2/ngplayer_2_3/vod/ptmd/3sat/%s/%d";
+
+  private final ZdfVideoUrlOptimizer optimizer = new ZdfVideoUrlOptimizer();
+
   private final URL xmlUrl;
   private final URL website;
 
@@ -90,6 +94,7 @@ public class DreisatFilmDetailsReader {
         final int streamVersion = parseStreamVersion(streamVersionNodes);
         final Optional<DownloadDto> downloadInfos =
             getDownloadInfos(filmUrlsApiUrlNodes, streamVersion);
+
         if (downloadInfos.isPresent()) {
           final Collection<GeoLocations> geoLocations = new ArrayList<>();
           geoLocations.add(GeoLocations.find(geoLocNodes.get(0).text())
@@ -97,16 +102,10 @@ public class DreisatFilmDetailsReader {
 
           final Film newFilm =
               new Film(UUID.randomUUID(), Sender.DREISAT, title, thema, time, dauer);
-          newFilm.setGeoLocations(geoLocations);
-          newFilm.setWebsite(website);
-          addSubtitle(downloadInfos.get(), newFilm);
-          addUrls(downloadInfos.get(), newFilm);
 
-          final Optional<FilmUrl> defaultUrl = newFilm.getDefaultUrl();
-          if (defaultUrl.isPresent()) {
-            newFilm.setGeoLocations(CrawlerTool.getGeoLocations(crawler.getSender(),
-                defaultUrl.get().getUrl().toString()));
-          }
+          DownloadDtoFilmConverter.addUrlsToFilm(newFilm, downloadInfos.get(), Optional.of(optimizer), ZdfConstants.LANGUAGE_GERMAN);
+
+          newFilm.setWebsite(website);
 
           if (!descriptionNodes.isEmpty()) {
             newFilm.setBeschreibung(descriptionNodes.get(0).text());
