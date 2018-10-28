@@ -1,14 +1,5 @@
 package de.mediathekview.mserver.crawler.dreisat;
 
-import java.util.Collection;
-import java.util.Set;
-import java.util.concurrent.ConcurrentLinkedQueue;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.ForkJoinPool;
-import java.util.concurrent.ForkJoinTask;
-import java.util.concurrent.RecursiveTask;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import de.mediathekview.mlib.daten.Film;
 import de.mediathekview.mlib.daten.Sender;
 import de.mediathekview.mlib.messages.listener.MessageListener;
@@ -18,12 +9,22 @@ import de.mediathekview.mserver.crawler.basic.CrawlerUrlDTO;
 import de.mediathekview.mserver.crawler.dreisat.tasks.DreisatFilmDetailsTask;
 import de.mediathekview.mserver.crawler.dreisat.tasks.DreisatOverviewpageTask;
 import de.mediathekview.mserver.progress.listeners.SenderProgressListener;
+import java.util.Collection;
+import java.util.Set;
+import java.util.concurrent.ConcurrentLinkedQueue;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ForkJoinPool;
+import java.util.concurrent.ForkJoinTask;
+import java.util.concurrent.RecursiveTask;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class DreiSatCrawler extends AbstractCrawler {
+
   private static final Logger LOG = LogManager.getLogger(DreiSatCrawler.class);
   private static final String SENDUNG_VERPASST_BASE_URL =
-      "http://www.3sat.de/mediathek/?mode=verpasst";
-  private static final String SENDUNGEN_AZ_URL = "http://www.3sat.de/mediathek/?mode=sendungenaz";
+      "https://www.3sat.de/mediathek/?mode=verpasst";
+  private static final String SENDUNGEN_AZ_URL = "https://www.3sat.de/mediathek/?mode=sendungenaz";
 
   public DreiSatCrawler(final ForkJoinPool aForkJoinPool,
       final Collection<MessageListener> aMessageListeners,
@@ -61,7 +62,6 @@ public class DreiSatCrawler extends AbstractCrawler {
     final ForkJoinTask<Set<CrawlerUrlDTO>> featureSendungsfolgenFilmUrls =
         forkJoinPool.submit(sendungsfolgenTask);
 
-
     final DreisatOverviewpageTask sendungVerpasstTask = new DreisatOverviewpageTask(this,
         getSendungVerpasstUrls(), true, crawlerConfig.getMaximumDaysForSendungVerpasstSection());
 
@@ -75,7 +75,7 @@ public class DreiSatCrawler extends AbstractCrawler {
       printErrorMessage();
     }
 
-    return new DreisatFilmDetailsTask(this, filmUrls);
+    return new DreisatFilmDetailsTask(this, filmUrls, "https://www.3sat.de", "https://tmd.3sat.de");
   }
 
 }
