@@ -1,5 +1,7 @@
 package de.mediathekview.mserver.crawler.dw.tasks;
 
+import static de.mediathekview.mserver.base.Consts.ATTRIBUTE_VALUE;
+
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
@@ -11,7 +13,6 @@ import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
 import de.mediathekview.mserver.crawler.basic.AbstractDocumentTask;
 import de.mediathekview.mserver.crawler.basic.AbstractUrlTask;
 import de.mediathekview.mserver.crawler.basic.CrawlerUrlDTO;
-import de.mediathekview.mserver.crawler.dw.DwCrawler;
 import de.mediathekview.mserver.crawler.dw.parser.DWDownloadUrlsParser;
 import java.lang.reflect.Type;
 import java.net.MalformedURLException;
@@ -45,26 +46,34 @@ public class DWFilmDetailsTask extends AbstractDocumentTask<Film, CrawlerUrlDTO>
   private static final String ELEMENT_TITEL = ".group h1";
   private static final String ELEMENT_DATUM = ".group li:eq(0)";
   private static final String ELEMENT_DAUER = ".group li:eq(1)";
+  private static final String ELEMENT_DESCRIPTION = ".intro";
+  private static final String ELEMENT_FILENAME = ".mediaItem input[name=file_name]";
   private static final String DOWNLOAD_DETAILS_URL_TEMPLATE =
-      DwCrawler.BASE_URL + "/playersources/v-%s";
-  private static final String CHAR_TO_REMOVE_FROM_PAGE_ID = "a";
+      "%s/playersources/v-%s";
 
   private static final String DATE_REGEX_PATTERN = "(?<=Datum\\s)[\\.\\d]+";
 
   private static final DateTimeFormatter DATE_FORMATTER =
       DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM).withLocale(Locale.GERMAN);
+  private String baseUrl;
 
   public DWFilmDetailsTask(final AbstractCrawler aCrawler,
-      final ConcurrentLinkedQueue<CrawlerUrlDTO> aUrlToCrawlDTOs) {
+      final ConcurrentLinkedQueue<CrawlerUrlDTO> aUrlToCrawlDTOs, final String aBaseUrl) {
     super(aCrawler, aUrlToCrawlDTOs);
+    baseUrl = aBaseUrl;
   }
 
-  private void addDownloadUrls(final CrawlerUrlDTO aUrlDTO, final Film film) {
+  private void addDownloadUrls(final CrawlerUrlDTO aUrlDTO, Optional<String> fileName, final Film film) {
     final String pageId =
         aUrlDTO.getUrl().substring(aUrlDTO.getUrl().lastIndexOf(URL_SPLITTERATOR) + 1);
     final String videoId = pageId.substring(pageId.indexOf('-') + 1);
-    final String downloadUrl = String.format(DOWNLOAD_DETAILS_URL_TEMPLATE, videoId);
+    final String downloadUrl = String.format(DOWNLOAD_DETAILS_URL_TEMPLATE, baseUrl, videoId);
+
     try {
+      if (fileName.isPresent()) {
+        film.addUrl(Resolution.SMALL, CrawlerTool.uriToFilmUrl(new URL(fileName.get())));
+      }
+
       final WebTarget target = ClientBuilder.newClient().target(new URL(downloadUrl).toString());
       Response response = target.request(MediaType.APPLICATION_JSON_TYPE).get();
       if (response.getStatus() == 200) {
@@ -86,9 +95,11 @@ public class DWFilmDetailsTask extends AbstractDocumentTask<Film, CrawlerUrlDTO>
   }
 
   private Optional<LocalDate> parseDate(final Optional<String> aDateText) {
-    final Matcher dateMatcher = Pattern.compile(DATE_REGEX_PATTERN).matcher(aDateText.get());
-    if (dateMatcher.find()) {
-      return Optional.of(LocalDate.parse(dateMatcher.group(), DATE_FORMATTER));
+    if (aDateText.isPresent()) {
+      final Matcher dateMatcher = Pattern.compile(DATE_REGEX_PATTERN).matcher(aDateText.get());
+      if (dateMatcher.find()) {
+        return Optional.of(LocalDate.parse(dateMatcher.group(), DATE_FORMATTER));
+      }
     }
     return Optional.empty();
   }
@@ -96,7 +107,7 @@ public class DWFilmDetailsTask extends AbstractDocumentTask<Film, CrawlerUrlDTO>
   @Override
   protected AbstractUrlTask<Film, CrawlerUrlDTO> createNewOwnInstance(
       final ConcurrentLinkedQueue<CrawlerUrlDTO> aURLsToCrawl) {
-    return new DWFilmDetailsTask(crawler, aURLsToCrawl);
+    return new DWFilmDetailsTask(crawler, aURLsToCrawl, baseUrl);
   }
 
   @Override
@@ -104,47 +115,68 @@ public class DWFilmDetailsTask extends AbstractDocumentTask<Film, CrawlerUrlDTO>
     final Optional<String> titel = HtmlDocumentUtils.getElementString(ELEMENT_TITEL, aDocument);
     final Optional<String> thema = HtmlDocumentUtils.getElementString(ELEMENT_THEMA, aDocument);
     final Optional<String> dateText = HtmlDocumentUtils.getElementString(ELEMENT_DATUM, aDocument);
+    final Optional<String> description = HtmlDocumentUtils.getElementString(ELEMENT_DESCRIPTION, aDocument);
+    final Optional<String> fileName = HtmlDocumentUtils.getElementAttributeString(ELEMENT_FILENAME, ATTRIBUTE_VALUE, aDocument);
+    final Optional<Duration> dauer = parseDuration(aDocument);
+
+    if (checkPreConditions(titel, thema, dauer)) {
+      final Optional<LocalDate> time = parseDate(dateText);
+
+      createFilm(aUrlDTO, titel.get(), thema.get(), description, fileName, dauer.get(), time);
+    }
+  }
+
+  private void createFilm(CrawlerUrlDTO aUrlDTO, String title, String topic, Optional<String> description,
+      Optional<String> fileName, Duration duration, Optional<LocalDate> time) {
+    try {
+      final Film newFilm = new Film(UUID.randomUUID(), crawler.getSender(), title,
+          topic, time.orElse(LocalDate.now()).atStartOfDay(), duration);
+      description.ifPresent(newFilm::setBeschreibung);
+      newFilm.setWebsite(new URL(aUrlDTO.getUrl()));
+      addDownloadUrls(aUrlDTO, fileName, newFilm);
+
+      final Optional<FilmUrl> defaultUrl = newFilm.getDefaultUrl();
+      if (defaultUrl.isPresent()) {
+        newFilm.setGeoLocations(CrawlerTool.getGeoLocations(crawler.getSender(),
+            defaultUrl.get().getUrl().toString()));
+      }
+
+      taskResults.add(newFilm);
+      crawler.incrementAndGetActualCount();
+      crawler.updateProgress();
+    } catch (final MalformedURLException malformedURLException) {
+      LOG.fatal("The website URL can't be parsed.", malformedURLException);
+      crawler.printInvalidUrlErrorMessage(aUrlDTO.getUrl());
+    }
+  }
+
+  private boolean checkPreConditions(Optional<String> title, Optional<String> topic, Optional<Duration> duration) {
+    if (!topic.isPresent()) {
+      crawler.printMissingElementErrorMessage("Thema");
+      return false;
+    }
+    if (!title.isPresent()) {
+      crawler.printMissingElementErrorMessage("Titel");
+      return false;
+    }
+    if (!duration.isPresent()) {
+      crawler.printMissingElementErrorMessage("Dauer");
+      return false;
+    }
+
+    return true;
+  }
+
+  private Optional<Duration> parseDuration(final Document aDocument) {
     final Optional<String> dauerText = HtmlDocumentUtils.getElementString(ELEMENT_DAUER, aDocument);
+
     final Optional<Duration> dauer;
     if (dauerText.isPresent()) {
       dauer = HtmlDocumentUtils.parseDuration(dauerText);
     } else {
       dauer = Optional.empty();
     }
-
-    if (titel.isPresent()) {
-      if (thema.isPresent()) {
-        if (dauer.isPresent()) {
-          final Optional<LocalDate> time = parseDate(dateText);
-
-          try {
-            final Film newFilm = new Film(UUID.randomUUID(), crawler.getSender(), titel.get(),
-                thema.get(), time.orElse(LocalDate.now()).atStartOfDay(), dauer.get());
-            newFilm.setWebsite(new URL(aUrlDTO.getUrl()));
-            addDownloadUrls(aUrlDTO, newFilm);
-
-            final Optional<FilmUrl> defaultUrl = newFilm.getDefaultUrl();
-            if (defaultUrl.isPresent()) {
-              newFilm.setGeoLocations(CrawlerTool.getGeoLocations(crawler.getSender(),
-                  defaultUrl.get().getUrl().toString()));
-            }
-
-            taskResults.add(newFilm);
-            crawler.incrementAndGetActualCount();
-            crawler.updateProgress();
-          } catch (final MalformedURLException malformedURLException) {
-            LOG.fatal("The website URL can't be parsed.", malformedURLException);
-            crawler.printInvalidUrlErrorMessage(aUrlDTO.getUrl());
-          }
-        } else {
-          crawler.printMissingElementErrorMessage("Dauer");
-        }
-      } else {
-        crawler.printMissingElementErrorMessage("Titel");
-      }
-    } else {
-      crawler.printMissingElementErrorMessage("Thema");
-    }
+    return dauer;
   }
 
 
