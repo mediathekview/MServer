@@ -12,7 +12,6 @@ import de.mediathekview.mserver.crawler.zdf.ZdfVideoUrlOptimizer;
 import de.mediathekview.mserver.crawler.zdf.json.DownloadDto;
 import de.mediathekview.mserver.crawler.zdf.json.ZdfDownloadDtoDeserializer;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.lang.reflect.Type;
 import java.net.URL;
@@ -45,24 +44,26 @@ public class DreisatFilmDetailsReader {
   private static final String ELEMENT_TITLE = "title";
   private static final String ELEMENT_STREAM_VERSION = "streamVersion";
   private static final String API_URL_PATTERN =
-      "http://tmd.3sat.de/tmd/2/ngplayer_2_3/vod/ptmd/3sat/%s/%d";
+      "%s/tmd/2/ngplayer_2_3/vod/ptmd/3sat/%s/%d";
 
   private final ZdfVideoUrlOptimizer optimizer = new ZdfVideoUrlOptimizer();
 
   private final URL xmlUrl;
   private final URL website;
+  private String baseUrl;
 
   private final AbstractCrawler crawler;
 
   public DreisatFilmDetailsReader(final AbstractCrawler aCrawler, final URL aXmlUrl,
-      final URL aWebsite) {
+      final URL aWebsite, final String aBaseUrl) {
     crawler = aCrawler;
     xmlUrl = aXmlUrl;
     website = aWebsite;
+    baseUrl = aBaseUrl;
   }
 
   public Optional<Film> readDetails() {
-    try (InputStream xmlStream = xmlUrl.openStream()) {
+    try {
       final Document doc = Jsoup.connect(xmlUrl.toString()).parser(Parser.xmlParser()).get();
       final Elements titleNodes = doc.getElementsByTag(ELEMENT_TITLE);
       final Elements themaNodes = doc.getElementsByTag(ELEMENT_ORIGIN_CHANNEL_TITLE);
@@ -100,8 +101,6 @@ public class DreisatFilmDetailsReader {
           return Optional.of(newFilm);
         }
       }
-
-
     } catch (final IOException exception) {
       LOG.fatal(String.format(
           "Something went teribble wrong on getting the film details for the 3Sat film \"%s\".",
@@ -115,7 +114,7 @@ public class DreisatFilmDetailsReader {
   private Optional<DownloadDto> getDownloadInfos(final Elements aFilmUrlsApiUrlNodes,
       final int aStreamVersion) throws IOException {
     final URL apiUrl =
-        new URL(String.format(API_URL_PATTERN, aFilmUrlsApiUrlNodes.get(0).text(), aStreamVersion));
+        new URL(String.format(API_URL_PATTERN, baseUrl, aFilmUrlsApiUrlNodes.get(0).text(), aStreamVersion));
     final Type downloadDtoType = new TypeToken<Optional<DownloadDto>>() {
     }.getType();
     final Gson gson = new GsonBuilder()

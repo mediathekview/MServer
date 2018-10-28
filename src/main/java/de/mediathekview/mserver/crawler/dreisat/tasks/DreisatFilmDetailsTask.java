@@ -1,5 +1,10 @@
 package de.mediathekview.mserver.crawler.dreisat.tasks;
 
+import de.mediathekview.mlib.daten.Film;
+import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
+import de.mediathekview.mserver.crawler.basic.AbstractUrlTask;
+import de.mediathekview.mserver.crawler.basic.CrawlerUrlDTO;
+import de.mediathekview.mserver.crawler.dreisat.parser.DreisatFilmDetailsReader;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Optional;
@@ -8,22 +13,22 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import de.mediathekview.mlib.daten.Film;
-import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
-import de.mediathekview.mserver.crawler.basic.AbstractUrlTask;
-import de.mediathekview.mserver.crawler.basic.CrawlerUrlDTO;
-import de.mediathekview.mserver.crawler.dreisat.parser.DreisatFilmDetailsReader;
 
 public class DreisatFilmDetailsTask extends AbstractUrlTask<Film, CrawlerUrlDTO> {
+
   private static final Logger LOG = LogManager.getLogger(DreisatFilmDetailsTask.class);
   private static final long serialVersionUID = -7520416794362009338L;
   private static final String XML_SERVICE_URL_PATTERN =
-      "http://www.3sat.de/mediathek/xmlservice.php/v3/web/beitragsDetails?id=%d";
+      "%s/mediathek/xmlservice.php/v3/web/beitragsDetails?id=%d";
   private static final String ID_URL_REGEX_PATTERN = "(?<=obj=)\\d+";
+  private String baseUrl;
+  private String baseUrlTmd;
 
   public DreisatFilmDetailsTask(final AbstractCrawler aCrawler,
-      final ConcurrentLinkedQueue<CrawlerUrlDTO> aUrlToCrawlDTOs) {
+      final ConcurrentLinkedQueue<CrawlerUrlDTO> aUrlToCrawlDTOs, final String aBaseUrl, final String aBaseUrlTmd) {
     super(aCrawler, aUrlToCrawlDTOs);
+    baseUrl = aBaseUrl;
+    baseUrlTmd = aBaseUrlTmd;
   }
 
   private Optional<Integer> getIdFromUrl(final String aUrl) {
@@ -38,7 +43,7 @@ public class DreisatFilmDetailsTask extends AbstractUrlTask<Film, CrawlerUrlDTO>
     final Optional<Integer> id = getIdFromUrl(aUrl);
     if (id.isPresent()) {
       try {
-        return Optional.of(new URL(String.format(XML_SERVICE_URL_PATTERN, id.get())));
+        return Optional.of(new URL(String.format(XML_SERVICE_URL_PATTERN, baseUrl, id.get())));
       } catch (final MalformedURLException malformedURLException) {
         LOG.fatal("Something went terrible wrong on getting the film details for 3Sat.",
             malformedURLException);
@@ -52,7 +57,7 @@ public class DreisatFilmDetailsTask extends AbstractUrlTask<Film, CrawlerUrlDTO>
   @Override
   protected AbstractUrlTask<Film, CrawlerUrlDTO> createNewOwnInstance(
       final ConcurrentLinkedQueue<CrawlerUrlDTO> aURLsToCrawl) {
-    return new DreisatFilmDetailsTask(crawler, aURLsToCrawl);
+    return new DreisatFilmDetailsTask(crawler, aURLsToCrawl, baseUrl, baseUrlTmd);
   }
 
   @Override
@@ -61,7 +66,7 @@ public class DreisatFilmDetailsTask extends AbstractUrlTask<Film, CrawlerUrlDTO>
     try {
       final Optional<URL> xmlUrl = getXMLUrl(aUrlDTO.getUrl());
       if (xmlUrl.isPresent()) {
-        newFilm = new DreisatFilmDetailsReader(crawler, xmlUrl.get(), new URL(aUrlDTO.getUrl()))
+        newFilm = new DreisatFilmDetailsReader(crawler, xmlUrl.get(), new URL(aUrlDTO.getUrl()), baseUrlTmd)
             .readDetails();
         if (newFilm.isPresent()) {
           taskResults.add(newFilm.get());
