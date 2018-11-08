@@ -14,7 +14,7 @@
     },
     "geoLocation":{
       "profile":"http://zdf.de/rels/streams/ptmd/attributes/attribute",
-      "value":"none"
+      "value":"ebu"
     },
     "profile":"http://zdf.de/rels/streams/ptmd/attributes"
   },

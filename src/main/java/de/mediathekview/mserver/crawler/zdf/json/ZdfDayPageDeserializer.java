@@ -40,8 +40,11 @@ public class ZdfDayPageDeserializer implements JsonDeserializer<ZdfDayPageDto> {
 
   private void parseNextPage(final ZdfDayPageDto aDayPageDtp, final JsonObject aJsonObject) {
     if (aJsonObject.has(JSON_ATTRIBUTE_NEXT)) {
-      final String url = aJsonObject.get(JSON_ATTRIBUTE_NEXT).getAsString();
-      aDayPageDtp.setNextPageUrl(UrlUtils.addDomainIfMissing(url, ZdfConstants.URL_API_BASE));
+      String url = aJsonObject.get(JSON_ATTRIBUTE_NEXT).getAsString();
+      url = UrlUtils.addDomainIfMissing(url, ZdfConstants.URL_API_BASE)
+          // replase type parameter because the link with types as numbers returns no results!
+          .replaceFirst("&types=\\d+&", "&types=page-video&");
+      aDayPageDtp.setNextPageUrl(url);
     }
   }
 

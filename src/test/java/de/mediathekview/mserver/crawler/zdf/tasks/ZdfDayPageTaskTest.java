@@ -52,7 +52,12 @@ public class ZdfDayPageTaskTest extends ZdfTaskTestBase {
 
     String requestUrl = "/search/documents?hasVideo=true&q=*&types=page-video&sortOrder=desc&from=2018-02-24T12:00:00.000%2B01:00&to=2018-02-24T14:00:00.878%2B01:00&sortBy=date&page=1";
     setupSuccessfulJsonResponse(requestUrl, "/zdf/zdf_day_page_multiple1.json");
-    setupSuccessfulJsonResponse("/search/documents?hasVideo=true&q=*&types=page-video&sortOrder=desc&from=2018-02-24T12%3A00%3A00.000%2B01%3A00&sortBy=date&to=2018-02-24T18%3A00%3A00.878%2B01%3A00&page=2", "/zdf/zdf_day_page_multiple2.json");
+    setupSuccessfulJsonResponse(
+        "/search/documents?hasVideo=true&q=*&types=page-video&sortOrder=desc&from=2018-02-24T12%3A00%3A00.000%2B01%3A00&sortBy=date&to=2018-02-24T18%3A00%3A00.878%2B01%3A00&page=2",
+        "/zdf/zdf_day_page_multiple2.json");
+    setupSuccessfulJsonResponse(
+        "/search/documents?hasVideo=true&q=*&types=page-video&sortOrder=desc&from=2018-02-24T12%3A00%3A00.000%2B01%3A00&sortBy=date&to=2018-02-24T18%3A00%3A00.878%2B01%3A00&page=3",
+        "/zdf/zdf_day_page_multiple3.json");
 
     final Collection<ZdfEntryDto> actual = executeTask(requestUrl);
 

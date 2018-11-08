@@ -35,7 +35,7 @@ public class ZdfDayPageTask extends ZdfTaskBase<ZdfEntryDto, CrawlerUrlDTO> {
   }
 
   private void processNextPage(final ZdfDayPageDto entries) {
-    if (entries.getNextPageUrl().isPresent()) {
+    if (entries.getNextPageUrl().isPresent() && entries.getEntries().size() > 0) {
       final ConcurrentLinkedQueue<CrawlerUrlDTO> urls = new ConcurrentLinkedQueue<>();
       urls.add(new CrawlerUrlDTO(entries.getNextPageUrl().get()));
       taskResults.addAll(createNewOwnInstance(urls).invoke());

@@ -23,7 +23,7 @@ public class ZdfDownloadDtoDeserializerTest {
   @Parameters
   public static Collection<Object[]> data() {
     return Arrays.asList(new Object[][]{
-/*        {
+        {
             "/zdf/zdf_video_details1.json",
             "http://localhost:8589/none/zdf/16/06/160605_echte_kerle_das_duo_neo/6/160605_echte_kerle_das_duo_neo_436k_p9v12.mp4",
             "http://localhost:8589/none/zdf/16/06/160605_echte_kerle_das_duo_neo/6/160605_echte_kerle_das_duo_neo_1456k_p13v12.mp4",
@@ -43,7 +43,7 @@ public class ZdfDownloadDtoDeserializerTest {
             "",
             "",
             Optional.of("https://utstreaming.zdf.de/mtt/zdf/18/03/180302_fr_lot/2/logo_020318.xml"),
-            Optional.of(GeoLocations.GEO_NONE)
+            Optional.of(GeoLocations.GEO_DE_AT_CH_EU)
         },
         {
             "/zdf/zdf_video_details3.json",
@@ -66,7 +66,7 @@ public class ZdfDownloadDtoDeserializerTest {
             "",
             Optional.of("https://utstreaming.zdf.de/mtt/zdf/18/04/180416_2215_sendung_hsn/7/Hard_Sun_Teil1_OmU.xml"),
             Optional.of(GeoLocations.GEO_DE)
-        },*/
+        },
         {
           "/zdf/zdf_video_details_3sat.json",
             "https://rodlzdf-a.akamaihd.net/none/3sat/18/10/181027_lina_online/1/181027_lina_online_776k_p11v13.mp4",
