@@ -1,0 +1,15 @@
+#EXTM3U
+#EXT-X-STREAM-INF:PROGRAM-ID=1,BANDWIDTH=1329000,RESOLUTION=640x360,CODECS="avc1.77.30, mp4a.40.2",CLOSED-CAPTIONS=NONE
+https://srfvodhd-vh.akamaihd.net/i/vod/sportflashtv/2018/11/sportflashtv_20181108_200102_12368079_v_webcast_h264_,q40,q10,q20,q30,q50,q60,.mp4.csmil/index_0_av.m3u8?start=0.0&end=183.96
+#EXT-X-STREAM-INF:PROGRAM-ID=1,BANDWIDTH=146000,RESOLUTION=320x180,CODECS="avc1.66.30, mp4a.40.2",CLOSED-CAPTIONS=NONE
+https://srfvodhd-vh.akamaihd.net/i/vod/sportflashtv/2018/11/sportflashtv_20181108_200102_12368079_v_webcast_h264_,q40,q10,q20,q30,q50,q60,.mp4.csmil/index_1_av.m3u8?start=0.0&end=183.96
+#EXT-X-STREAM-INF:PROGRAM-ID=1,BANDWIDTH=346000,RESOLUTION=480x272,CODECS="avc1.66.30, mp4a.40.2",CLOSED-CAPTIONS=NONE
+https://srfvodhd-vh.akamaihd.net/i/vod/sportflashtv/2018/11/sportflashtv_20181108_200102_12368079_v_webcast_h264_,q40,q10,q20,q30,q50,q60,.mp4.csmil/index_2_av.m3u8?start=0.0&end=183.96
+#EXT-X-STREAM-INF:PROGRAM-ID=1,BANDWIDTH=692000,RESOLUTION=512x288,CODECS="avc1.77.30, mp4a.40.2",CLOSED-CAPTIONS=NONE
+https://srfvodhd-vh.akamaihd.net/i/vod/sportflashtv/2018/11/sportflashtv_20181108_200102_12368079_v_webcast_h264_,q40,q10,q20,q30,q50,q60,.mp4.csmil/index_3_av.m3u8?start=0.0&end=183.96
+#EXT-X-STREAM-INF:PROGRAM-ID=1,BANDWIDTH=2131000,RESOLUTION=960x544,CODECS="avc1.77.30, mp4a.40.2",CLOSED-CAPTIONS=NONE
+https://srfvodhd-vh.akamaihd.net/i/vod/sportflashtv/2018/11/sportflashtv_20181108_200102_12368079_v_webcast_h264_,q40,q10,q20,q30,q50,q60,.mp4.csmil/index_4_av.m3u8?start=0.0&end=183.96
+#EXT-X-STREAM-INF:PROGRAM-ID=1,BANDWIDTH=3635000,RESOLUTION=1280x720,CODECS="avc1.77.30, mp4a.40.2",CLOSED-CAPTIONS=NONE
+https://srfvodhd-vh.akamaihd.net/i/vod/sportflashtv/2018/11/sportflashtv_20181108_200102_12368079_v_webcast_h264_,q40,q10,q20,q30,q50,q60,.mp4.csmil/index_5_av.m3u8?start=0.0&end=183.96
+#EXT-X-STREAM-INF:PROGRAM-ID=1,BANDWIDTH=46000,CODECS="mp4a.40.2",CLOSED-CAPTIONS=NONE
+https://srfvodhd-vh.akamaihd.net/i/vod/sportflashtv/2018/11/sportflashtv_20181108_200102_12368079_v_webcast_h264_,q40,q10,q20,q30,q50,q60,.mp4.csmil/index_1_a.m3u8?start=0.0&end=183.96

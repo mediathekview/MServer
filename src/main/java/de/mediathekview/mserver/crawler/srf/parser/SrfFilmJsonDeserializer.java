@@ -42,6 +42,7 @@ public class SrfFilmJsonDeserializer implements JsonDeserializer<Optional<Film>>
   private static final String ATTRIBUTE_ID = "id";
   private static final String ATTRIBUTE_MIMETYPE = "mimeType";
   private static final String ATTRIBUTE_PUBLISHED_DATE = "publishedDate";
+  private static final String ATTRIBUTE_QUALITY = "quality";
   private static final String ATTRIBUTE_TITLE = "title";
   private static final String ATTRIBUTE_URL = "url";
 
@@ -52,13 +53,13 @@ public class SrfFilmJsonDeserializer implements JsonDeserializer<Optional<Film>>
   private static final String ELEMENT_SUBTITLE_LIST = "subtitleList";
 
   private static final String SUBTITLE_FORMAT = "TTML";
-  
+
   private final AbstractCrawler crawler;
-  
+
   public SrfFilmJsonDeserializer(AbstractCrawler aCrawler) {
     crawler = aCrawler;
   }
-  
+
   @Override
   public Optional<Film> deserialize(JsonElement aJsonElement, Type aType, JsonDeserializationContext aContext) throws JsonParseException {
 
@@ -80,7 +81,7 @@ public class SrfFilmJsonDeserializer implements JsonDeserializer<Optional<Film>>
     film.setBeschreibung(chapterList.description);
     film.setWebsite(buildWebsiteUrl(chapterList.id, episodeData.title, theme));
     addUrls(videoUrls, film);
-    addSubtitle(chapterList.subtitleUrl, film);    
+    addSubtitle(chapterList.subtitleUrl, film);
 
     return Optional.of(film);
   }
@@ -94,7 +95,7 @@ public class SrfFilmJsonDeserializer implements JsonDeserializer<Optional<Film>>
       }
     }
   }
-  
+
   private static void addUrls(Map<Resolution, String> aVideoUrls, Film aFilm) {
     aVideoUrls.entrySet().forEach(urlEntry -> {
       try {
@@ -104,24 +105,24 @@ public class SrfFilmJsonDeserializer implements JsonDeserializer<Optional<Film>>
       }
     });
   }
-  
+
   private static Optional<URL> buildWebsiteUrl(String aId, String aTitle, String aTheme) {
-    
+
     String url = String.format(SrfConstants.WEBSITE_URL,
-            replaceCharForUrl(aTheme), replaceCharForUrl(aTitle), aId);
+        replaceCharForUrl(aTheme), replaceCharForUrl(aTitle), aId);
 
     try {
       return Optional.of(new URL(url));
     } catch (MalformedURLException ex) {
       LOG.error(String.format("The website url \"%s\" isn't valid.", url), ex);
     }
-    
+
     return Optional.empty();
   }
-  
+
   private static String replaceCharForUrl(String aValue) {
     return aValue.toLowerCase().replace(' ', '-').replace('.', '-').replace(',', '-').replace(":", "").replace("\"", "")
-            .replace("--", "-");
+        .replace("--", "-");
   }
 
   private static String parseShow(JsonObject aJsonObject) {
@@ -166,13 +167,13 @@ public class SrfFilmJsonDeserializer implements JsonDeserializer<Optional<Film>>
 
     if (!aJsonObject.has(ELEMENT_CHAPTER_LIST)) {
       return result;
-    } 
+    }
 
     JsonElement chapterListElement = aJsonObject.get(ELEMENT_CHAPTER_LIST);
     if (chapterListElement.isJsonNull()) {
       return result;
     }
-    
+
     JsonArray chapterListArray = chapterListElement.getAsJsonArray();
     if (chapterListArray.size() != 1) {
       return result;
@@ -202,7 +203,7 @@ public class SrfFilmJsonDeserializer implements JsonDeserializer<Optional<Film>>
 
     return result;
   }
-  
+
   private static String parseSubtitleList(JsonElement aSubtitleListElement) {
     if (!aSubtitleListElement.isJsonArray()) {
       return "";
@@ -213,9 +214,9 @@ public class SrfFilmJsonDeserializer implements JsonDeserializer<Optional<Film>>
       if (!arrayItemElement.isJsonNull()) {
         JsonObject arrayItemObject = arrayItemElement.getAsJsonObject();
 
-        if (arrayItemObject.has(ATTRIBUTE_FORMAT) 
-          && arrayItemObject.has(ATTRIBUTE_URL)
-          && arrayItemObject.get(ATTRIBUTE_FORMAT).getAsString().equals(SUBTITLE_FORMAT)) {
+        if (arrayItemObject.has(ATTRIBUTE_FORMAT)
+            && arrayItemObject.has(ATTRIBUTE_URL)
+            && arrayItemObject.get(ATTRIBUTE_FORMAT).getAsString().equals(SUBTITLE_FORMAT)) {
           return arrayItemObject.get(ATTRIBUTE_URL).getAsString();
         }
       }
@@ -229,20 +230,27 @@ public class SrfFilmJsonDeserializer implements JsonDeserializer<Optional<Film>>
       return "";
     }
 
+    String url = "";
+
     JsonArray resourceArray = aResourceListElement.getAsJsonArray();
     for (JsonElement arrayItemElement : resourceArray) {
       if (!arrayItemElement.isJsonNull()) {
         JsonObject arrayItemObject = arrayItemElement.getAsJsonObject();
 
-        if (arrayItemObject.has(ATTRIBUTE_MIMETYPE) 
-          && arrayItemObject.has(ATTRIBUTE_URL)
-          && arrayItemObject.get(ATTRIBUTE_MIMETYPE).getAsString().contains("x-mpegURL")) {
-          return arrayItemObject.get(ATTRIBUTE_URL).getAsString();
+        if (arrayItemObject.has(ATTRIBUTE_MIMETYPE)
+            && arrayItemObject.has(ATTRIBUTE_URL)
+            && arrayItemObject.get(ATTRIBUTE_MIMETYPE).getAsString().contains("x-mpegURL")) {
+
+          if (url.isEmpty() ||
+              (arrayItemObject.has(ATTRIBUTE_QUALITY)
+                  && arrayItemObject.get(ATTRIBUTE_QUALITY).getAsString().compareToIgnoreCase("HD") == 0)) {
+            url = arrayItemObject.get(ATTRIBUTE_URL).getAsString();
+          }
         }
       }
     }
 
-    return "";
+    return url;
   }
 
   private Map<Resolution, String> readUrls(String aM3U8Url) {
@@ -251,7 +259,7 @@ public class SrfFilmJsonDeserializer implements JsonDeserializer<Optional<Film>>
     MVHttpClient mvhttpClient = MVHttpClient.getInstance();
     OkHttpClient httpClient = mvhttpClient.getHttpClient();
     Request request = new Request.Builder()
-            .url(aM3U8Url).build();
+        .url(aM3U8Url).build();
     try (okhttp3.Response response = httpClient.newCall(request).execute()) {
       if (response.isSuccessful()) {
         String content = response.body().string();
@@ -279,7 +287,7 @@ public class SrfFilmJsonDeserializer implements JsonDeserializer<Optional<Film>>
 
   private static Optional<Resolution> getResolution(M3U8Dto aDto) {
     Optional<Resolution> resolution = aDto.getResolution();
-    
+
     if (!resolution.isPresent()) {
       Optional<String> codecMeta = aDto.getMeta(M3U8Constants.M3U8_CODECS);
 
@@ -287,7 +295,7 @@ public class SrfFilmJsonDeserializer implements JsonDeserializer<Optional<Film>>
       if (codecMeta.isPresent() && !codecMeta.get().contains("avc1")) {
         return Optional.empty();
       }
-      
+
       Optional<String> widthMeta = aDto.getMeta(M3U8Constants.M3U8_BANDWIDTH);
 
       // Bandbreite verwenden
@@ -298,7 +306,7 @@ public class SrfFilmJsonDeserializer implements JsonDeserializer<Optional<Film>>
           return Optional.of(Resolution.SMALL);
         } else if (width > 3000000) {
           return Optional.of(Resolution.HD);
-        }else {
+        } else {
           return Optional.of(Resolution.NORMAL);
         }
       }

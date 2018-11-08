@@ -1,0 +1,228 @@
+{
+  "chapterUrn" : "urn:srf:video:0e2490f3-743a-440d-9a58-f5d9d3e33e87",
+  "episode" : {
+    "id" : "8f6f8fad-0dd2-4fa3-bf1f-2a4471a5a50b",
+    "title" : "sportflash",
+    "lead" : "«sportflash» ist jung und schnell. Der Einstieg in den Hauptabend auf SRF zwei bringt das Sportgeschehen aus aller Welt auf den Punkt. Von Montag bis Samstag zeigt das Format die wichtigsten News und besten Bilder des Tages. Auch Unkonventionelles und Unterhaltendes hat in der Sendung Platz.",
+    "publishedDate" : "2018-11-08T20:00:00+01:00",
+    "imageUrl" : "https://ws.srf.ch/asset/image/audio/d65935aa-016f-4a82-87c6-94fc3bff4205/WEBVISUAL/1480415182.jpg"
+  },
+  "show" : {
+    "id" : "caf3177f-568d-49c2-9a9a-2797a58533b9",
+    "vendor" : "SRF",
+    "transmission" : "TV",
+    "urn" : "urn:srf:show:tv:caf3177f-568d-49c2-9a9a-2797a58533b9",
+    "title" : "sportflash",
+    "lead" : "Im «sportflash» erfahren Sie die aktuellen Sport-News des Tages. Die Sendung wird jeweils kurz nach 20:00 Uhr auf SRF zwei ausgestrahlt.",
+    "description" : "Im «sportflash» erfahren Sie die aktuellen Sport-News des Tages. Die Sendung wird jeweils kurz nach 20:00 Uhr auf SRF zwei ausgestrahlt.",
+    "imageUrl" : "https://ws.srf.ch/asset/image/audio/d65935aa-016f-4a82-87c6-94fc3bff4205/WEBVISUAL/1480415182.jpg",
+    "imageTitle" : "sportflash",
+    "bannerImageUrl" : "https://ws.srf.ch/asset/image/audio/d65935aa-016f-4a82-87c6-94fc3bff4205/HEADER_SRF_PLAYER/1480415159.jpg",
+    "homepageUrl" : "https://www.srf.ch/play/tv/sendung/sportflash?id=caf3177f-568d-49c2-9a9a-2797a58533b9",
+    "primaryChannelId" : "E4D5AD08-C1E8-46A3-BB58-4875051D60D2",
+    "topicList" : [ {
+      "id" : "649e36d7-ff57-41c8-9c1b-7892daf15e78",
+      "vendor" : "SRF",
+      "transmission" : "TV",
+      "urn" : "urn:srf:topic:tv:649e36d7-ff57-41c8-9c1b-7892daf15e78",
+      "title" : "Sport"
+    } ]
+  },
+  "channel" : {
+    "id" : "E4D5AD08-C1E8-46A3-BB58-4875051D60D2",
+    "title" : "SRF zwei",
+    "imageUrl" : "https://ws.srf.ch/asset/image/audio/30ed511b-65c0-4fef-893c-e8f629cb4b01/LOGO_RESPONSIVE/1436176233.png",
+    "imageTitle" : "Logo",
+    "transmission" : "TV"
+  },
+  "chapterList" : [ {
+    "id" : "0e2490f3-743a-440d-9a58-f5d9d3e33e87",
+    "mediaType" : "VIDEO",
+    "vendor" : "SRF",
+    "urn" : "urn:srf:video:0e2490f3-743a-440d-9a58-f5d9d3e33e87",
+    "title" : "sportflash",
+    "lead" : "«sportflash» ist jung und schnell. Der Einstieg in den Hauptabend auf SRF zwei bringt das Sportgeschehen aus aller Welt auf den Punkt. Von Montag bis Samstag zeigt das Format die wichtigsten News und besten Bilder des Tages. Auch Unkonventionelles und Unterhaltendes hat in der Sendung Platz.",
+    "imageUrl" : "https://ws.srf.ch/asset/image/audio/d65935aa-016f-4a82-87c6-94fc3bff4205/WEBVISUAL/1480415182.jpg",
+    "blockReason" : "GEOBLOCK",
+    "type" : "EPISODE",
+    "date" : "2018-11-08T20:00:00+01:00",
+    "duration" : 183960,
+    "playableAbroad" : false,
+    "socialCountList" : [ {
+      "key" : "srgView",
+      "value" : 206
+    }, {
+      "key" : "srgLike",
+      "value" : 0
+    }, {
+      "key" : "fbShare",
+      "value" : 0
+    }, {
+      "key" : "twitterShare",
+      "value" : 0
+    }, {
+      "key" : "googleShare",
+      "value" : 0
+    }, {
+      "key" : "whatsAppShare",
+      "value" : 0
+    } ],
+    "displayable" : true,
+    "position" : 0,
+    "noEmbed" : true,
+    "analyticsData" : {
+      "ns_st_ep" : "sportflash",
+      "ns_st_ty" : "Video",
+      "ns_st_ci" : "0e2490f3-743a-440d-9a58-f5d9d3e33e87",
+      "ns_st_el" : "183960",
+      "ns_st_cl" : "183960",
+      "ns_st_sl" : "183960",
+      "srg_mgeobl" : "true",
+      "ns_st_tp" : "1",
+      "ns_st_cn" : "1",
+      "ns_st_pn" : "1"
+    },
+    "analyticsMetadata" : {
+      "media_segment" : "sportflash",
+      "media_type" : "Video",
+      "media_segment_id" : "0e2490f3-743a-440d-9a58-f5d9d3e33e87",
+      "media_episode_length" : "184",
+      "media_segment_length" : "184",
+      "media_is_geoblocked" : "true",
+      "media_urn" : "urn:srf:video:0e2490f3-743a-440d-9a58-f5d9d3e33e87",
+      "media_assigned_tags" : "won"
+    },
+    "eventData" : "$a868269e40e7319f$76d621b29e5d01b80ba927055f05ed2dc3e235bb9331032248df343829c0e5bcf06a3dcaa307aafe1c29a4a302b160d94b68efef9508fc468ce53083662fa72f36ebb6c6f1e043d01991b09c14f64a37285107280f0c7b314b6bf7a47a9420f745bac2b2f793deef682c6c6be1b118069f590debb18bce40a2ea967e510d2328951ba61d4a719e481171ba299a6cb40e0ee2144f6a18ce5c4989670d2d96079584aaec4a838f7276f6ee5063da716c8a015bf2b49d51f01b780285a6a19862fb86ded10f758cb5f064431859d98643d1887fbcccddc21c6be73038bb59b3fc5a6b3c2bb6c6476feb748ebbe18bdb0413e4a1f579b5f4eebf74b2942abefb53fdebdf23a8a8e9da1e877085641ccf26698e5ada22fa29f9c7129576559b1d463f584f5f0253909b4884f39a8114297bebe72348d338f7658104faa238397d4d01ccea76ec3c3ad5d3c7569f23ebbdd4073a51d34f4a7e3d317e305dd8f9a843a8634ece778ee3c87786f490b13b0b5c965fb1a0771f7a214c7a1b524f5f233f1508e99cd6abad24346845b82147686ea55807b5673519bc9eb97b3868d0563868b0338a83d7a68de70f69c46423fe5b13d364110eac802a9062b23f0be6b359e9",
+    "resourceList" : [ {
+      "url" : "http://localhost:8589/i/vod/sportflashtv/2018/11/sportflashtv_20181108_200102_12368079_v_webcast_h264_,q40,q10,q20,q30,.mp4.csmil/master.m3u8?start=0.0&end=183.96",
+      "quality" : "SD",
+      "protocol" : "HLS",
+      "encoding" : "H264",
+      "mimeType" : "application/x-mpegURL",
+      "presentation" : "DEFAULT",
+      "streaming" : "HLS",
+      "dvr" : false,
+      "live" : false,
+      "mediaContainer" : "MP4",
+      "audioCodec" : "UNKNOWN",
+      "videoCodec" : "H264",
+      "analyticsData" : {
+        "srg_mqual" : "SD",
+        "srg_mpres" : "DEFAULT"
+      },
+      "analyticsMetadata" : {
+        "media_streaming_quality" : "SD",
+        "media_special_format" : "DEFAULT",
+        "media_url" : "http://localhost:8589/i/vod/sportflashtv/2018/11/sportflashtv_20181108_200102_12368079_v_webcast_h264_,q40,q10,q20,q30,.mp4.csmil/master.m3u8?start=0.0&end=183.96"
+      }
+    }, {
+      "url" : "http://localhost:8589/i/vod/sportflashtv/2018/11/sportflashtv_20181108_200102_12368079_v_webcast_h264_,q40,q10,q20,q30,q50,q60,.mp4.csmil/master.m3u8?start=0.0&end=183.96",
+      "quality" : "HD",
+      "protocol" : "HLS",
+      "encoding" : "H264",
+      "mimeType" : "application/x-mpegURL",
+      "presentation" : "DEFAULT",
+      "streaming" : "HLS",
+      "dvr" : false,
+      "live" : false,
+      "mediaContainer" : "MP4",
+      "audioCodec" : "UNKNOWN",
+      "videoCodec" : "H264",
+      "analyticsData" : {
+        "srg_mqual" : "HD",
+        "srg_mpres" : "DEFAULT"
+      },
+      "analyticsMetadata" : {
+        "media_streaming_quality" : "HD",
+        "media_special_format" : "DEFAULT",
+        "media_url" : "http://localhost:8589/i/vod/sportflashtv/2018/11/sportflashtv_20181108_200102_12368079_v_webcast_h264_,q40,q10,q20,q30,q50,q60,.mp4.csmil/master.m3u8?start=0.0&end=183.96"
+      }
+    }, {
+      "url" : "http://srfvodhd-vh.akamaihd.net/z/vod/sportflashtv/2018/11/sportflashtv_20181108_200102_12368079_v_webcast_h264_,q40,q10,q20,q30,.mp4.csmil/manifest.f4m?start=0.0&end=183.96",
+      "quality" : "SD",
+      "protocol" : "HDS",
+      "encoding" : "H264",
+      "mimeType" : "application/adobe-f4m",
+      "presentation" : "DEFAULT",
+      "streaming" : "HDS",
+      "dvr" : false,
+      "live" : false,
+      "mediaContainer" : "MP4",
+      "audioCodec" : "UNKNOWN",
+      "videoCodec" : "H264",
+      "analyticsData" : {
+        "srg_mqual" : "SD",
+        "srg_mpres" : "DEFAULT"
+      },
+      "analyticsMetadata" : {
+        "media_streaming_quality" : "SD",
+        "media_special_format" : "DEFAULT",
+        "media_url" : "http://srfvodhd-vh.akamaihd.net/z/vod/sportflashtv/2018/11/sportflashtv_20181108_200102_12368079_v_webcast_h264_,q40,q10,q20,q30,.mp4.csmil/manifest.f4m?start=0.0&end=183.96"
+      }
+    }, {
+      "url" : "http://srfvodhd-vh.akamaihd.net/z/vod/sportflashtv/2018/11/sportflashtv_20181108_200102_12368079_v_webcast_h264_,q40,q10,q20,q30,q50,q60,.mp4.csmil/manifest.f4m?start=0.0&end=183.96",
+      "quality" : "HD",
+      "protocol" : "HDS",
+      "encoding" : "H264",
+      "mimeType" : "application/adobe-f4m",
+      "presentation" : "DEFAULT",
+      "streaming" : "HDS",
+      "dvr" : false,
+      "live" : false,
+      "mediaContainer" : "MP4",
+      "audioCodec" : "UNKNOWN",
+      "videoCodec" : "H264",
+      "analyticsData" : {
+        "srg_mqual" : "HD",
+        "srg_mpres" : "DEFAULT"
+      },
+      "analyticsMetadata" : {
+        "media_streaming_quality" : "HD",
+        "media_special_format" : "DEFAULT",
+        "media_url" : "http://srfvodhd-vh.akamaihd.net/z/vod/sportflashtv/2018/11/sportflashtv_20181108_200102_12368079_v_webcast_h264_,q40,q10,q20,q30,q50,q60,.mp4.csmil/manifest.f4m?start=0.0&end=183.96"
+      }
+    } ]
+  } ],
+  "topicList" : [ {
+    "id" : "649e36d7-ff57-41c8-9c1b-7892daf15e78",
+    "vendor" : "SRF",
+    "transmission" : "TV",
+    "urn" : "urn:srf:topic:tv:649e36d7-ff57-41c8-9c1b-7892daf15e78",
+    "title" : "Sport"
+  } ],
+  "analyticsData" : {
+    "srg_pr_id" : "8f6f8fad-0dd2-4fa3-bf1f-2a4471a5a50b",
+    "srg_plid" : "caf3177f-568d-49c2-9a9a-2797a58533b9",
+    "ns_st_pl" : "sportflash",
+    "ns_st_pr" : "sportflash vom 08.11.2018",
+    "ns_st_dt" : "2018-11-08",
+    "ns_st_li" : "0",
+    "srg_unit" : "SRF",
+    "srg_c1" : "Sport",
+    "srg_c2" : "full",
+    "srg_wo" : "0",
+    "srg_tv_id" : "1518650812",
+    "srg_fullLength" : "full"
+  },
+  "analyticsMetadata" : {
+    "media_episode_id" : "8f6f8fad-0dd2-4fa3-bf1f-2a4471a5a50b",
+    "media_show_id" : "caf3177f-568d-49c2-9a9a-2797a58533b9",
+    "media_show" : "sportflash",
+    "media_episode" : "sportflash vom 08.11.2018",
+    "media_is_livestream" : "false",
+    "media_full_length" : "full",
+    "media_enterprise_units" : "SRF",
+    "media_joker1" : "Sport",
+    "media_is_web_only" : "false",
+    "media_tv_id" : "1518650812",
+    "media_thumbnail" : "https://ws.srf.ch/asset/image/audio/d65935aa-016f-4a82-87c6-94fc3bff4205/WEBVISUAL/1480415182.jpg/scale/width/344",
+    "media_publication_date" : "2018-11-08",
+    "media_publication_time" : "20:00:00",
+    "media_publication_datetime" : "2018-11-08T20:00:00+01:00",
+    "media_content_group" : "Sport",
+    "media_channel_id" : "E4D5AD08-C1E8-46A3-BB58-4875051D60D2",
+    "media_channel_name" : "SRF zwei",
+    "media_since_publication_d" : "0",
+    "media_since_publication_h" : "2"
+  }
+}
