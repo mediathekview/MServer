@@ -64,12 +64,27 @@ public class SrfFilmJsonDeserializerTest extends SrfTaskTestBase {
             "sportflash",
             LocalDateTime.of(2018, 11, 8, 20, 0, 0),
             183960,
-            "",
+            "«sportflash» ist jung und schnell. Der Einstieg in den Hauptabend auf SRF zwei bringt das Sportgeschehen aus aller Welt auf den Punkt. Von Montag bis Samstag zeigt das Format die wichtigsten News und besten Bilder des Tages. Auch Unkonventionelles und Unterhaltendes hat in der Sendung Platz.",
             "https://www.srf.ch/play/tv/sportflash/video/sportflash?id=0e2490f3-743a-440d-9a58-f5d9d3e33e87",
             "https://srfvodhd-vh.akamaihd.net/i/vod/sportflashtv/2018/11/sportflashtv_20181108_200102_12368079_v_webcast_h264_,q40,q10,q20,q30,q50,q60,.mp4.csmil/index_3_av.m3u8",
             "https://srfvodhd-vh.akamaihd.net/i/vod/sportflashtv/2018/11/sportflashtv_20181108_200102_12368079_v_webcast_h264_,q40,q10,q20,q30,q50,q60,.mp4.csmil/index_4_av.m3u8",
             "https://srfvodhd-vh.akamaihd.net/i/vod/sportflashtv/2018/11/sportflashtv_20181108_200102_12368079_v_webcast_h264_,q40,q10,q20,q30,q50,q60,.mp4.csmil/index_5_av.m3u8",
             ""
+        },
+        {
+            "/srf/srf_film_page_with_optimize_m3u8url.json",
+            "/srf/srf_film_page_with_optimize_m3u8url.m3u8",
+            "/i/vod/lena/2018/11/lena_20181114_114517_12440540_v_webcast_h264_,q40,q10,q20,q30,q50,q60,.mp4.csmil/master.m3u8?start=0.0&end=2549.76",
+            "Lena – Liebe meines Lebens",
+            "Kapitel 156",
+            LocalDateTime.of(2018, 11, 14, 11, 45, 0),
+            2549760,
+            "Was soll Vanessa bloss tun? Sind ihre Tricks und Manipulationen plötzlich wirkungslos? Doch gefühlslos ist Vanessa nicht: Sie vermisst ihr kleines Kind ganz schrecklich.",
+            "https://www.srf.ch/play/tv/lena-–-liebe-meines-lebens/video/kapitel-156?id=69d9fc3f-a3fd-4802-b2ee-ede92145e87c",
+            "https://srfvodhd-vh.akamaihd.net/i/vod/lena/2018/11/lena_20181114_114517_12440540_v_webcast_h264_,q40,q10,q20,q30,q50,q60,.mp4.csmil/index_3_av.m3u8",
+            "https://srfvodhd-vh.akamaihd.net/i/vod/lena/2018/11/lena_20181114_114517_12440540_v_webcast_h264_,q40,q10,q20,q30,q50,q60,.mp4.csmil/index_4_av.m3u8",
+            "https://srfvodhd-vh.akamaihd.net/i/vod/lena/2018/11/lena_20181114_114517_12440540_v_webcast_h264_,q40,q10,q20,q30,q50,q60,.mp4.csmil/index_5_av.m3u8",
+            "https://ws.srf.ch/subtitles/urn:srf:ais:video:69d9fc3f-a3fd-4802-b2ee-ede92145e87c/subtitle.ttml"
         }
     });
   }

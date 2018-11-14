@@ -1,0 +1,214 @@
+{
+  "chapterUrn":"urn:srf:video:69d9fc3f-a3fd-4802-b2ee-ede92145e87c",
+  "episode":{
+    "id":"e416b3b0-5e3f-47fe-8c9f-84504238bc3b",
+    "title":"Kapitel 156",
+    "lead":"Was soll Vanessa bloss tun? Sind ihre Tricks und Manipulationen plötzlich wirkungslos? Doch gefühlslos ist Vanessa nicht: Sie vermisst ihr kleines Kind ganz schrecklich.",
+    "description":"Vanessa ist frustriert darüber, dass Rafael ihr nicht mehr aus der Hand frisst, und vermisst ihr Kind schrecklich. Sie versucht, ihren Schmerz mit teuren Einkäufen zu betäuben. Isabelle spürt das und versucht Vanessa davon zu überzeugen, ihr Baby zurückzuholen. Doch Isabelles Bemühungen, ihrer Schwester zu ihrem Glück zu verhelfen, sind vergeblich. \r\n\r\nDavid blickt dem bevorstehenden Prozess mit gemischten Gefühlen entgegen. Er gibt die Hoffnung nicht auf, dass der Mord an seiner Mutter noch aufgeklärt werden kann. Hat David seine grosse Liebe etwa umsonst geopfert? \r\n\r\nPeter kommt mit einem alten Anzug zu Pia und hofft, dass sie dieses «modische Highlight» für den Polizeiball noch retten kann. Pia verspricht, ihr Bestes zu tun, damit Peter optisch mit Gaby mithalten kann. \r\n\r\nDa seine Werkstatt geschlossen wurde, wird die Autoschieberbande wieder auf Tony aufmerksam und bedroht ihn. Tony hat grosse Angst um Luca und vertraut sich Frank an. Dieser hält es nun für richtig, Peter einzuweihen. Was wird Peter aus den neuen Informationen über Tony machen?",
+    "publishedDate":"2018-11-14T11:45:00+01:00",
+    "imageUrl":"https://ws.srf.ch/asset/image/audio/6019d537-ca9d-4db8-843d-8f1db09d71eb/WEBVISUAL/1527087645.jpg"
+  },
+  "show":{
+    "id":"c470ba10-30d0-0001-c694-3f7011201243",
+    "vendor":"SRF",
+    "transmission":"TV",
+    "urn":"urn:srf:show:tv:c470ba10-30d0-0001-c694-3f7011201243",
+    "title":"Lena – Liebe meines Lebens",
+    "lead":"Juni: Lena - Der Weg zur grossen Liebe und zur musikalischen Karriere.",
+    "description":"Juni: Von Anfang an hat Lena Glück im Unglück: Sie verliert ihren Job als Fensterputzerin und trifft auf eine alte Gräfin, Amelie von Arensberg, die der erfrischend mutigen, jungen Frau anbietet, für sie zu arbeiten. Lena glaubt, ihren Platz im Leben an der Seite des Automechanikers Tony und dessen Sohn bereits gefunden zu haben. Doch dann begegnet sie Amelies Enkelsohn David von Arensberg. Er ist ein berühmter Filmkomponist und – ob er will oder nicht – die Frauen liegen ihm zu Füssen. Aber ausgerechnet in Lena entdeckt David seine grosse Liebe und dabei erkennt er Lenas schlummerndes Musik-Talent",
+    "imageUrl":"https://ws.srf.ch/asset/image/audio/6019d537-ca9d-4db8-843d-8f1db09d71eb/WEBVISUAL/1527087645.jpg",
+    "imageTitle":"Lena – Liebe meines Lebens",
+    "bannerImageUrl":"https://ws.srf.ch/asset/image/audio/6019d537-ca9d-4db8-843d-8f1db09d71eb/HEADER_SRF_PLAYER/1527087632.jpg",
+    "homepageUrl":"https://www.srf.ch/play/tv/sendung/lena---liebe-meines-lebens?id=c470ba10-30d0-0001-c694-3f7011201243",
+    "primaryChannelId":"23FFBE1B-65CE-4188-ADD2-C724186C2C9F",
+    "topicList":[
+      {
+        "id":"fa793c13-bebc-41b9-9710-bf8a34192c15",
+        "vendor":"SRF",
+        "transmission":"TV",
+        "urn":"urn:srf:topic:tv:fa793c13-bebc-41b9-9710-bf8a34192c15",
+        "title":"Filme & Serien"
+      }
+    ]
+  },
+  "channel":{
+    "id":"23FFBE1B-65CE-4188-ADD2-C724186C2C9F",
+    "title":"SRF 1",
+    "imageUrl":"https://ws.srf.ch/asset/image/audio/7ec11b90-b120-4d77-915c-0cd4cef1c5fe/LOGO_RESPONSIVE/1436176214.png",
+    "imageTitle":"Logo",
+    "transmission":"TV"
+  },
+  "chapterList":[
+    {
+      "id":"69d9fc3f-a3fd-4802-b2ee-ede92145e87c",
+      "mediaType":"VIDEO",
+      "vendor":"SRF",
+      "urn":"urn:srf:video:69d9fc3f-a3fd-4802-b2ee-ede92145e87c",
+      "title":"Kapitel 156",
+      "lead":"Was soll Vanessa bloss tun? Sind ihre Tricks und Manipulationen plötzlich wirkungslos? Doch gefühlslos ist Vanessa nicht: Sie vermisst ihr kleines Kind ganz schrecklich.",
+      "imageUrl":"https://ws.srf.ch/asset/image/audio/d1cbc014-bd57-43fd-b009-ed791927406a/EPISODE_IMAGE/1542197201.png",
+      "imageTitle":"Kapitel 156",
+      "blockReason":"GEOBLOCK",
+      "type":"EPISODE",
+      "date":"2018-11-14T11:45:00+01:00",
+      "duration":2549760,
+      "validFrom":"2018-11-14T11:45:00+01:00",
+      "validTo":"2018-11-21T23:59:00+01:00",
+      "playableAbroad":false,
+      "socialCountList":[
+        {
+          "key":"srgView",
+          "value":934
+        },
+        {
+          "key":"srgLike",
+          "value":0
+        },
+        {
+          "key":"fbShare",
+          "value":0
+        },
+        {
+          "key":"twitterShare",
+          "value":0
+        },
+        {
+          "key":"googleShare",
+          "value":0
+        },
+        {
+          "key":"whatsAppShare",
+          "value":0
+        }
+      ],
+      "displayable":true,
+      "position":0,
+      "noEmbed":false,
+      "subtitleList":[
+        {
+          "url":"https://ws.srf.ch/subtitles/urn:srf:ais:video:69d9fc3f-a3fd-4802-b2ee-ede92145e87c/subtitle.vtt",
+          "format":"VTT"
+        },
+        {
+          "url":"https://ws.srf.ch/subtitles/urn:srf:ais:video:69d9fc3f-a3fd-4802-b2ee-ede92145e87c/subtitle.ttml",
+          "format":"TTML"
+        }
+      ],
+      "analyticsData":{
+        "ns_st_ep":"Kapitel 156",
+        "ns_st_ty":"Video",
+        "ns_st_ci":"69d9fc3f-a3fd-4802-b2ee-ede92145e87c",
+        "ns_st_el":"2549760",
+        "ns_st_cl":"2549760",
+        "ns_st_sl":"2549760",
+        "srg_mgeobl":"true",
+        "ns_st_tp":"1",
+        "ns_st_cn":"1",
+        "ns_st_pn":"1"
+      },
+      "analyticsMetadata":{
+        "media_segment":"Kapitel 156",
+        "media_type":"Video",
+        "media_segment_id":"69d9fc3f-a3fd-4802-b2ee-ede92145e87c",
+        "media_episode_length":"2550",
+        "media_segment_length":"2550",
+        "media_is_geoblocked":"true",
+        "media_urn":"urn:srf:video:69d9fc3f-a3fd-4802-b2ee-ede92145e87c",
+        "media_assigned_tags":"won"
+      },
+      "eventData":"$5d241bbd247dce4c$62f5080b2c9a4c13e16a2e14a5e589a0ab91755014446928b49f2d355b9ef13e5734e1156b4a856e27f1aafec15e68e730c7a9419eb41b33e826252a46134738516f4068f3c7cfb4674b1ec7cc08ec7fdbda8f813b50fe9999c8de03fb274ec9f2dc9b1c9b7b3cb3ffc172ef8946f7493b88c1a3454c3691d1656a5e81f47c7c8ff02d834b8fab7d5a59ca575d1946d51216536efdad29b638020da689949d334996ce3b1bd1aa2ad8e7127672a38c6fa2b1012f749791e89bdad9fc0e9107426e5e7738b39c348a17d4afb5fcdf7f833eb484cb96b277e174f8370634d7092f6995b4fbdf75f28bd14614e5f1e01dad68678cc41148d98ef16e5711f93b8b30093f6fb5056f31f6a97a08e701769c84e0b9406eec4ff5164f39245b98586aed1284b72997b93172b688f3cc4c02f6d8c0c43438d28532a0db5174a1c8d4ce730dd88c3750409533cb710e44a54d5d8c0bd1a2777cbe313293f977ae17853c33a1c0045fc30633e44ac4697b37bef1312f3500d06e65b1ee40e3ef8de8511a2ea4c81084dc723d354ad823602bf14ad26e4825833b00fcbe97590c5f538ec8abcf15100fd15fcfc50a8af1b9fdfb7143d15f8e1f8c3c42291a58c824d356dd40",
+      "resourceList":[
+        {
+          "url":"http://srfvodhd-vh.akamaihd.net/z/vod/lena/2018/11/lena_20181114_114517_12440540_v_webcast_h264_,q40,q10,q20,q30,.mp4.csmil/manifest.f4m?start=0.0&end=2549.76",
+          "quality":"SD",
+          "protocol":"HDS",
+          "encoding":"H264",
+          "mimeType":"application/adobe-f4m",
+          "presentation":"DEFAULT",
+          "streaming":"HDS",
+          "dvr":false,
+          "live":false,
+          "mediaContainer":"MP4",
+          "audioCodec":"UNKNOWN",
+          "videoCodec":"H264",
+          "analyticsData":{
+            "srg_mqual":"SD",
+            "srg_mpres":"DEFAULT"
+          },
+          "analyticsMetadata":{
+            "media_streaming_quality":"SD",
+            "media_special_format":"DEFAULT",
+            "media_url":"http://srfvodhd-vh.akamaihd.net/z/vod/lena/2018/11/lena_20181114_114517_12440540_v_webcast_h264_,q40,q10,q20,q30,.mp4.csmil/manifest.f4m?start=0.0&end=2549.76"
+          }
+        },
+        {
+          "url":"http://localhost:8589/i/vod/lena/2018/11/lena_20181114_114517_12440540_v_webcast_h264_,q40,q10,q20,q30,.mp4.csmil/master.m3u8?start=0.0&end=2549.76",
+          "quality":"SD",
+          "protocol":"HLS",
+          "encoding":"H264",
+          "mimeType":"application/x-mpegURL",
+          "presentation":"DEFAULT",
+          "streaming":"HLS",
+          "dvr":false,
+          "live":false,
+          "mediaContainer":"MP4",
+          "audioCodec":"UNKNOWN",
+          "videoCodec":"H264",
+          "analyticsData":{
+            "srg_mqual":"SD",
+            "srg_mpres":"DEFAULT"
+          },
+          "analyticsMetadata":{
+            "media_streaming_quality":"SD",
+            "media_special_format":"DEFAULT",
+            "media_url":"http://localhost:8589/i/vod/lena/2018/11/lena_20181114_114517_12440540_v_webcast_h264_,q40,q10,q20,q30,.mp4.csmil/master.m3u8?start=0.0&end=2549.76"
+          }
+        }
+      ]
+    }
+  ],
+  "topicList":[
+    {
+      "id":"fa793c13-bebc-41b9-9710-bf8a34192c15",
+      "vendor":"SRF",
+      "transmission":"TV",
+      "urn":"urn:srf:topic:tv:fa793c13-bebc-41b9-9710-bf8a34192c15",
+      "title":"Filme & Serien"
+    }
+  ],
+  "analyticsData":{
+    "srg_pr_id":"e416b3b0-5e3f-47fe-8c9f-84504238bc3b",
+    "srg_plid":"c470ba10-30d0-0001-c694-3f7011201243",
+    "ns_st_pl":"Lena – Liebe meines Lebens",
+    "ns_st_pr":"Lena – Liebe meines Lebens vom 14.11.2018",
+    "ns_st_dt":"2018-11-14",
+    "ns_st_li":"0",
+    "srg_unit":"SRF",
+    "srg_c1":"Filme & Serien",
+    "srg_c2":"full",
+    "srg_wo":"0",
+    "srg_tv_id":"1519104812",
+    "srg_fullLength":"full"
+  },
+  "analyticsMetadata":{
+    "media_episode_id":"e416b3b0-5e3f-47fe-8c9f-84504238bc3b",
+    "media_show_id":"c470ba10-30d0-0001-c694-3f7011201243",
+    "media_show":"Lena – Liebe meines Lebens",
+    "media_episode":"Lena – Liebe meines Lebens vom 14.11.2018",
+    "media_is_livestream":"false",
+    "media_full_length":"full",
+    "media_enterprise_units":"SRF",
+    "media_joker1":"Filme & Serien",
+    "media_is_web_only":"false",
+    "media_tv_id":"1519104812",
+    "media_thumbnail":"https://ws.srf.ch/asset/image/audio/d1cbc014-bd57-43fd-b009-ed791927406a/EPISODE_IMAGE/1542197201.png/scale/width/344",
+    "media_publication_date":"2018-11-14",
+    "media_publication_time":"11:45:00",
+    "media_publication_datetime":"2018-11-14T11:45:00+01:00",
+    "media_content_group":"Filme & Serien",
+    "media_channel_id":"23FFBE1B-65CE-4188-ADD2-C724186C2C9F",
+    "media_channel_name":"SRF 1",
+    "media_since_publication_d":"0",
+    "media_since_publication_h":"8"
+  }
+}

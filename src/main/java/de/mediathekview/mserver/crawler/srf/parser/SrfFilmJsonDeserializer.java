@@ -5,7 +5,6 @@ import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonDeserializer;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import com.google.gson.JsonParseException;
 import de.mediathekview.mlib.daten.Film;
 import de.mediathekview.mlib.daten.Resolution;
 import de.mediathekview.mlib.daten.Sender;
@@ -22,7 +21,7 @@ import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
-import java.util.HashMap;
+import java.util.EnumMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -30,6 +29,7 @@ import java.util.UUID;
 import mServer.crawler.CrawlerTool;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
+import okhttp3.Response;
 import org.apache.logging.log4j.LogManager;
 
 public class SrfFilmJsonDeserializer implements JsonDeserializer<Optional<Film>> {
@@ -40,6 +40,7 @@ public class SrfFilmJsonDeserializer implements JsonDeserializer<Optional<Film>>
   private static final String ATTRIBUTE_DURATION = "duration";
   private static final String ATTRIBUTE_FORMAT = "format";
   private static final String ATTRIBUTE_ID = "id";
+  private static final String ATTRIBUTE_LEAD = "lead";
   private static final String ATTRIBUTE_MIMETYPE = "mimeType";
   private static final String ATTRIBUTE_PUBLISHED_DATE = "publishedDate";
   private static final String ATTRIBUTE_QUALITY = "quality";
@@ -61,7 +62,7 @@ public class SrfFilmJsonDeserializer implements JsonDeserializer<Optional<Film>>
   }
 
   @Override
-  public Optional<Film> deserialize(JsonElement aJsonElement, Type aType, JsonDeserializationContext aContext) throws JsonParseException {
+  public Optional<Film> deserialize(JsonElement aJsonElement, Type aType, JsonDeserializationContext aContext) {
 
     JsonObject object = aJsonElement.getAsJsonObject();
     String theme = parseShow(object);
@@ -97,11 +98,11 @@ public class SrfFilmJsonDeserializer implements JsonDeserializer<Optional<Film>>
   }
 
   private static void addUrls(Map<Resolution, String> aVideoUrls, Film aFilm) {
-    aVideoUrls.entrySet().forEach(urlEntry -> {
+    aVideoUrls.forEach((key, value) -> {
       try {
-        aFilm.addUrl(urlEntry.getKey(), CrawlerTool.uriToFilmUrl(new URL(urlEntry.getValue())));
+        aFilm.addUrl(key, CrawlerTool.uriToFilmUrl(new URL(value)));
       } catch (MalformedURLException ex) {
-        LOG.error(String.format("A found download URL \"%s\" isn't valid.", urlEntry.getValue()), ex);
+        LOG.error(String.format("A found download URL \"%s\" isn't valid.", value), ex);
       }
     });
   }
@@ -191,6 +192,8 @@ public class SrfFilmJsonDeserializer implements JsonDeserializer<Optional<Film>>
 
     if (chapterListEntry.has(ATTRIBUTE_DESCRIPTION)) {
       result.description = chapterListEntry.get(ATTRIBUTE_DESCRIPTION).getAsString();
+    } else if (chapterListEntry.has(ATTRIBUTE_LEAD)) {
+      result.description = chapterListEntry.get(ATTRIBUTE_LEAD).getAsString();
     }
 
     if (chapterListEntry.has(ELEMENT_RESOURCE_LIST)) {
@@ -240,11 +243,12 @@ public class SrfFilmJsonDeserializer implements JsonDeserializer<Optional<Film>>
         if (arrayItemObject.has(ATTRIBUTE_MIMETYPE)
             && arrayItemObject.has(ATTRIBUTE_URL)
             && arrayItemObject.get(ATTRIBUTE_MIMETYPE).getAsString().contains("x-mpegURL")) {
-
-          if (url.isEmpty() ||
+          if (url.isEmpty()
+              ||
               (arrayItemObject.has(ATTRIBUTE_QUALITY)
                   && arrayItemObject.get(ATTRIBUTE_QUALITY).getAsString().compareToIgnoreCase("HD") == 0)) {
             url = arrayItemObject.get(ATTRIBUTE_URL).getAsString();
+
           }
         }
       }
@@ -253,36 +257,59 @@ public class SrfFilmJsonDeserializer implements JsonDeserializer<Optional<Film>>
     return url;
   }
 
-  private Map<Resolution, String> readUrls(String aM3U8Url) {
-    Map<Resolution, String> urls = new HashMap<>();
+  private EnumMap readUrls(String aM3U8Url) {
+    EnumMap urls = new EnumMap(Resolution.class);
+    final String optimizedUrl = getOptimizedUrl(aM3U8Url);
+
+    Optional<String> content = loadM3u8(optimizedUrl);
+    if (!content.isPresent()) {
+      content = loadM3u8(aM3U8Url);
+    }
+
+    if (content.isPresent()) {
+      M3U8Parser parser = new M3U8Parser();
+      List<M3U8Dto> m3u8Data = parser.parse(content.get());
+      m3u8Data.forEach(entry -> {
+        Optional<Resolution> resolution = getResolution(entry);
+        if (resolution.isPresent()) {
+          urls.put(resolution.get(), entry.getUrl());
+        }
+      });
+
+    } else {
+      LOG.error(String.format("SrfFilmJsonDeserializer: Loading m3u8-url failed: %s", aM3U8Url));
+      crawler.incrementAndGetErrorCount();
+      crawler.updateProgress();
+    }
+
+    return urls;
+  }
+
+  private Optional<String> loadM3u8(String aM3U8Url) {
 
     MVHttpClient mvhttpClient = MVHttpClient.getInstance();
     OkHttpClient httpClient = mvhttpClient.getHttpClient();
     Request request = new Request.Builder()
         .url(aM3U8Url).build();
-    try (okhttp3.Response response = httpClient.newCall(request).execute()) {
+
+    try (Response response = httpClient.newCall(request).execute()) {
       if (response.isSuccessful()) {
-        String content = response.body().string();
-
-        M3U8Parser parser = new M3U8Parser();
-        List<M3U8Dto> m3u8Data = parser.parse(content);
-        m3u8Data.forEach(entry -> {
-          Optional<Resolution> resolution = getResolution(entry);
-          if (resolution.isPresent()) {
-            urls.put(resolution.get(), entry.getUrl());
-          }
-        });
-
-      } else {
-        LOG.error(String.format("SrfFilmJsonDeserializer: Request '%s' failed: %s", aM3U8Url, response.code()));
-        crawler.incrementAndGetErrorCount();
-        crawler.updateProgress();
+        return Optional.of(response.body().string());
       }
     } catch (Exception e) {
       LOG.error(e);
     }
 
-    return urls;
+    return Optional.empty();
+  }
+
+  private String getOptimizedUrl(String aM3U8Url) {
+
+    if (!aM3U8Url.contains("q10,q20,q30,.mp4.csmil")) {
+      return aM3U8Url;
+    }
+
+    return aM3U8Url.replace("q10,q20,q30,.mp4.csmil", "q10,q20,q30,q50,q60,.mp4.csmil");
   }
 
   private static Optional<Resolution> getResolution(M3U8Dto aDto) {
