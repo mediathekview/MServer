@@ -11,7 +11,7 @@ import org.jsoup.nodes.Document;
 public class ZDFConfigurationLoader {
     public static final String ZDF_BEARER_URL = "https://www.zdf.de/";
     private static final String FALLBACK_TOKEN_SEARCH = "309fa9bc88933de7256f4f6f6c5d3373cc36517c";
-    private static final String FALLBACK_TOKEN_VIDEO = "69c4eddbe0cf82b2a9277e8106a711db314a3008";
+    private static final String FALLBACK_TOKEN_VIDEO = "00f702bb0dbe5c1b53b7be66cebe60c19acb79cb";
     
     private static ZDFConfigurationLoader instance;
 
