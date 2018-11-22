@@ -9,6 +9,8 @@ import de.mediathekview.mserver.crawler.zdf.ZdfConstants;
 import de.mediathekview.mserver.testhelper.JsoupMock;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Optional;
 import org.jsoup.Jsoup;
 import org.junit.Test;
@@ -30,27 +32,30 @@ public class ZdfIndexPageTaskTest {
     return Arrays.asList(new Object[][]{
         {
             "/zdf/zdf_index_page_with_bearer.html",
-            Optional.of("e62473eacae5ebe85c01c05e81add8e4840a34f5"),
-            Optional.of("c437ed7687255699958e0d451ce803c98c560c80")
-        },
-        {
-            "/zdf/zdf_index_page_without_bearer.html",
-            Optional.empty(),
-            Optional.empty()
+            "/zdf/zdf_subpage_with_token.html",
+            "/serien/parfum/ambra-parfum-100.html",
+            Optional.of("c4aa601db94912547f29ba036fbc96165cb18ee7"),
+            Optional.of("d984c7d728b6a3912b41b70e715c7ba26cbf4872")
         }
     });
   }
 
   private final String htmlFile;
+  private String htmlFileSubpage;
+  private String urlSubpage;
   private final Optional<String> expectedBearerSearch;
   private final Optional<String> expectedBearerVideo;
 
   private final ZdfIndexPageTask target;
 
   public ZdfIndexPageTaskTest(final String aHtmlFile,
+      final String aHtmlFileSubpage,
+      final String aUrlSubpage,
       final Optional<String> aExpectedBearerSearch,
       final Optional<String> aExpectedBearerVideo) {
     htmlFile = aHtmlFile;
+    htmlFileSubpage = aHtmlFileSubpage;
+    urlSubpage = aUrlSubpage;
     expectedBearerSearch = aExpectedBearerSearch;
     expectedBearerVideo = aExpectedBearerVideo;
 
@@ -59,7 +64,12 @@ public class ZdfIndexPageTaskTest {
 
   @Test
   public void test() throws Exception {
-    JsoupMock.mock(ZdfConstants.URL_BASE, htmlFile);
+    Map<String, String> urlMapping = new HashMap<>();
+    urlMapping.put(ZdfConstants.URL_BASE, htmlFile);
+    if (!urlSubpage.isEmpty()) {
+      urlMapping.put(ZdfConstants.URL_BASE + urlSubpage, htmlFileSubpage);
+    }
+    JsoupMock.mock(urlMapping);
 
     ZdfConfiguration actual = target.call();
 
