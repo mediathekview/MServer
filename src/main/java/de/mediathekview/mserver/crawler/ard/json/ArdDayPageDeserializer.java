@@ -6,6 +6,8 @@ import com.google.gson.JsonDeserializer;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import de.mediathekview.mserver.base.utils.JsonUtils;
+import de.mediathekview.mserver.crawler.ard.ArdConstants;
+import de.mediathekview.mserver.crawler.ard.ArdUrlBuilder;
 import de.mediathekview.mserver.crawler.basic.CrawlerUrlDTO;
 import java.lang.reflect.Type;
 import java.util.HashSet;
@@ -23,9 +25,6 @@ public class ArdDayPageDeserializer implements JsonDeserializer<Set<CrawlerUrlDT
   
   private static final String ATTRIBUTE_ID = "id";
   
-  // TODO auslagern, weitere parameter als format parameter
-  private static final String FILM_URL = "https://api.ardmediathek.de/public-gateway?variables={\"client\":\"ard\",\"clipId\":\"%s\",\"deviceType\":\"pc\"}&extensions={\"persistedQuery\":{\"version\":1,\"sha256Hash\":\"a9a9b15083dd3bf249264a7ff5d9e1010ec5d861539bc779bb1677a4a37872da\"}}";
-
   @Override
   public Set<CrawlerUrlDTO> deserialize(JsonElement jsonElement, Type type, JsonDeserializationContext context) {
     Set<CrawlerUrlDTO> results = new HashSet<>();
@@ -48,7 +47,12 @@ public class ArdDayPageDeserializer implements JsonDeserializer<Set<CrawlerUrlDT
             }
              
             if (id.isPresent()) {
-              results.add(new CrawlerUrlDTO(String.format(FILM_URL, id.get())));
+              final String url = new ArdUrlBuilder(ArdConstants.BASE_URL, ArdConstants.DEFAULT_CLIENT)
+                      .addClipId(id.get(), ArdConstants.DEFAULT_DEVICE)
+                      .addSavedQuery(ArdConstants.QUERY_FILM_VERSION, ArdConstants.QUERY_FILM_HASH)
+                      .build();
+                      
+              results.add(new CrawlerUrlDTO(url));
             }
           }
         }
