@@ -5,7 +5,6 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 
-import de.mediathekview.mserver.crawler.ard.ArdCrawler;
 import de.mediathekview.mserver.crawler.ard.ArdSendungBasicInformation;
 import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
 import de.mediathekview.mserver.crawler.basic.AbstractDocumentTask;
@@ -37,7 +36,7 @@ public abstract class AbstractArdOverviewPageCrawlerTask
     String elementToSendungUrl(final Element aElement)
     {
         final String sendungUrl = aElement.attr(ATTR_HREF);
-        return ArdCrawler.ARD_BASE_URL + sendungUrl;
+        return sendungUrl;
     }
 
 }
