@@ -41,7 +41,7 @@ public class ArdVideoInfoJsonDeserializer implements JsonDeserializer<ArdVideoIn
       final JsonDeserializationContext aJsonDeserializationContext) {
     final ArdVideoInfoDTO videoInfo = new ArdVideoInfoDTO();
     final JsonElement subtitleElement = aJsonElement.getAsJsonObject().get(ELEMENT_SUBTITLE_URL);
-    if (subtitleElement != null) {
+    if (subtitleElement != null && !subtitleElement.isJsonNull()) {
       videoInfo.setSubtitleUrl(subtitleElement.getAsString());
     }
 

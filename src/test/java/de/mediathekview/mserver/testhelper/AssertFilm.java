@@ -1,10 +1,5 @@
 package de.mediathekview.mserver.testhelper;
 
-import static org.hamcrest.CoreMatchers.equalTo;
-import static org.hamcrest.CoreMatchers.notNullValue;
-import static org.hamcrest.CoreMatchers.nullValue;
-import static org.junit.Assert.assertThat;
-
 import de.mediathekview.mlib.daten.Film;
 import de.mediathekview.mlib.daten.FilmUrl;
 import de.mediathekview.mlib.daten.GeoLocations;
@@ -13,9 +8,12 @@ import de.mediathekview.mlib.daten.Sender;
 import java.net.URL;
 import java.time.Duration;
 import java.time.LocalDateTime;
-
 import java.util.Optional;
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.CoreMatchers.notNullValue;
+import static org.hamcrest.CoreMatchers.nullValue;
 import org.hamcrest.Matchers;
+import static org.junit.Assert.assertThat;
 
 public final class AssertFilm {
 
@@ -38,7 +36,11 @@ public final class AssertFilm {
     assertThat(aActualFilm.getTime(), equalTo(aExpectedTime));
     assertThat(aActualFilm.getDuration(), equalTo(aExpectedDuration));
     assertThat(aActualFilm.getBeschreibung(), equalTo(aExpectedDescription));
-    assertThat(aActualFilm.getWebsite().get().toString(), equalTo(aWebsiteUrl));
+    if (!aWebsiteUrl.isEmpty()) {
+      assertThat(aActualFilm.getWebsite().get().toString(), equalTo(aWebsiteUrl));
+    } else {
+      assertThat(aActualFilm.getWebsite().isPresent(), equalTo(false));
+    }    
   }
 
   public static void assertEquals(final Film aActualFilm,

@@ -1,0 +1,418 @@
+{
+   "data":{
+      "playerPage":{
+         "type":"player_ondemand",
+         "title":"Brisant vom 06.12.2018",
+         "image":{
+            "title":"Brisant vom 06.12.2018 - Standbild",
+            "src":"https://img.ardmediathek.de/standard/00/58/38/14/22/2121327408/16x9/{width}?mandant=ard",
+            "producerName":"MITTELDEUTSCHER RUNDFUNK",
+            "__typename":"Image"
+         },
+         "maturityContentRating":"NONE",
+         "geoblocked":false,
+         "broadcastedOn":"2018-12-06T16:15:00Z",
+         "availableTo":"2018-12-13T17:35:15Z",
+         "synopsis":"+++ Mutmaßliches Beziehungsdrama: Elfjähriger findet im Sterben liegende Mutter +++ Warnung: Betrüger geben sich als Polizisten aus +++ Was machen deutsche Promis am Nikolaustag? +++ (Nur in D abrufbar)",
+         "show":{
+            "title":"BRISANT",
+            "image":{
+               "src":"https://img.ardmediathek.de/standard/00/57/99/39/56/2121327408/16x9/{width}?mandant=ard",
+               "title":"",
+               "producerName":"MDR",
+               "__typename":"Image"
+            },
+            "__typename":"Show"
+         },
+         "publicationService":{
+            "name":"Das Erste",
+            "__typename":"PublicationService"
+         },
+         "mediaCollection":{
+            "_type":"video",
+            "_isLive":false,
+            "_defaultQuality":[
+               "auto",
+               "2",
+               "4",
+               "3",
+               "1",
+               "0"
+            ],
+            "_previewImage":"https://img.ardmediathek.de/standard/00/58/38/14/22/2121327408/16x9/960?mandant=ard",
+            "_subtitleUrl":"https://www.ardmediathek.de/subtitle/271940",
+            "_subtitleOffset":0,
+            "_mediaArray":[
+               {
+                  "_plugin":1,
+                  "_mediaStreamArray":[
+                     {
+                        "_quality":"auto",
+                        "_stream":[
+                           "https://mdrgeohls-vh.akamaihd.net/i/mp4dyn2/c/VOIDc725e5f0-78c4-4f26-8e05-0848d12c2f50.smil/master.m3u8"
+                        ],
+                        "__typename":"MediaStreamArray"
+                     },
+                     {
+                        "_quality":"0",
+                        "_stream":[
+                           "https://odgeomdr-a.akamaihd.net/mp4dyn2/c/FCMS-c725e5f0-78c4-4f26-8e05-0848d12c2f50-d1ceaa57a495_c7.mp4"
+                        ],
+                        "__typename":"MediaStreamArray"
+                     },
+                     {
+                        "_quality":"1",
+                        "_stream":[
+                           "https://odgeomdr-a.akamaihd.net/mp4dyn2/c/FCMS-c725e5f0-78c4-4f26-8e05-0848d12c2f50-9a4bb04739be_c7.mp4",
+                           "https://odgeomdr-a.akamaihd.net/mp4dyn2/c/FCMS-c725e5f0-78c4-4f26-8e05-0848d12c2f50-39c393010ca9_c7.mp4"
+                        ],
+                        "__typename":"MediaStreamArray"
+                     },
+                     {
+                        "_quality":"2",
+                        "_stream":[
+                           "https://odgeomdr-a.akamaihd.net/mp4dyn2/c/FCMS-c725e5f0-78c4-4f26-8e05-0848d12c2f50-41dd60577440_c7.mp4",
+                           "https://odgeomdr-a.akamaihd.net/mp4dyn2/c/FCMS-c725e5f0-78c4-4f26-8e05-0848d12c2f50-730aae549c28_c7.mp4"
+                        ],
+                        "__typename":"MediaStreamArray"
+                     },
+                     {
+                        "_quality":"3",
+                        "_stream":[
+                           "https://odgeomdr-a.akamaihd.net/mp4dyn2/c/FCMS-c725e5f0-78c4-4f26-8e05-0848d12c2f50-be7c2950aac6_c7.mp4"
+                        ],
+                        "__typename":"MediaStreamArray"
+                     }
+                  ],
+                  "__typename":"MediaArray"
+               }
+            ],
+            "_sortierArray":[
+               1
+            ],
+            "_duration":1953,
+            "_dvrEnabled":false,
+            "_geoblocked":true,
+            "__typename":"MediaCollection"
+         },
+         "blockedByFsk":false,
+         "playerConfig":{
+            "href":"http://page-gateway-service:8080/page-gateway/playerconfig/58381418",
+            "_pixelConfig":[
+               {
+                  "clipTitle":"Brisant vom 06.12.2018",
+                  "x5":"Das+Erste",
+                  "x6":"Das+Erste",
+                  "x7":"BRISANT",
+                  "x14":"58381418",
+                  "x20":"1953",
+                  "apid":"PA02DC09C-B8D3-4098-87D2-2C023682D6D5",
+                  "agfMetaDataSDK":{
+                     "assetid":"https://mdrgeohls-vh.akamaihd.net/i/mp4dyn2/c/VOIDc725e5f0-78c4-4f26-8e05-0848d12c2f50.smil/master.m3u8",
+                     "type":"content",
+                     "program":"BRISANT",
+                     "title":"Das Erste_BRISANT_Brisant vom 06.12.2018_06.12.2018 17:15",
+                     "length":"1953",
+                     "nol_c0":"p0,0",
+                     "nol_c2":"p2,N",
+                     "nol_c5":"p5,ARD Mediathek",
+                     "nol_c7":"p7,crid://mdr.de/beitrag/cms/c725e5f0-78c4-4f26-8e05-0848d12c2f50",
+                     "nol_c8":"p8,1953",
+                     "nol_c9":"p9,BRISANT_Brisant vom 06.12.2018_06.12.2018 17:15",
+                     "nol_c10":"p10,Das Erste",
+                     "nol_c12":"p12,Content",
+                     "nol_c15":null,
+                     "nol_c16":null,
+                     "nol_c18":"p18,N",
+                     "nol_c19":"p19,MITTELDEUTSCHER RUNDFUNK",
+                     "__typename":"AgfMetaDataSDK"
+                  },
+                  "__typename":"PixelConfig"
+               }
+            ],
+            "__typename":"PlayerConfig"
+         },
+         "relates":[
+            {
+               "id":"Y3JpZDovL21kci5kZS9iZWl0cmFnL2Ntcy80M2IwMDRjNi01ZjZhLTQ3MjAtODMxZC02NThmYzY3ZTllMzE",
+               "type":"ondemand",
+               "mediumTitle":"Die Angst vor der Trucker-Invasion",
+               "duration":166,
+               "show":{
+                  "title":"BRISANT",
+                  "__typename":"Show"
+               },
+               "subtitled":true,
+               "publicationService":{
+                  "name":"Das Erste",
+                  "__typename":"PublicationService"
+               },
+               "images":{
+                  "aspect16x9":{
+                     "title":"Die Angst vor der Trucker-Invasion - Standbild",
+                     "src":"https://img.ardmediathek.de/standard/00/58/38/07/10/-1774185891/16x9/{width}?mandant=ard",
+                     "__typename":"Image"
+                  },
+                  "__typename":"TeaserImages"
+               },
+               "links":{
+                  "target":{
+                     "href":"http://page-gateway-service:8080/page-gateway/pages/ard/item/Y3JpZDovL21kci5kZS9iZWl0cmFnL2Ntcy80M2IwMDRjNi01ZjZhLTQ3MjAtODMxZC02NThmYzY3ZTllMzE",
+                     "id":"Y3JpZDovL21kci5kZS9iZWl0cmFnL2Ntcy80M2IwMDRjNi01ZjZhLTQ3MjAtODMxZC02NThmYzY3ZTllMzE",
+                     "__typename":"Link"
+                  },
+                  "__typename":"TeaserLinks"
+               },
+               "__typename":"Teaser"
+            },
+            {
+               "id":"Y3JpZDovL21kci5kZS9iZWl0cmFnL2Ntcy9hOWY1NDk5NS02OGNlLTRkNDgtYTljOC1kMmYxMTQwMjczOGM",
+               "type":"ondemand",
+               "mediumTitle":"Warnung vor falschen Polizisten",
+               "duration":271,
+               "show":{
+                  "title":"BRISANT",
+                  "__typename":"Show"
+               },
+               "subtitled":true,
+               "publicationService":{
+                  "name":"Das Erste",
+                  "__typename":"PublicationService"
+               },
+               "images":{
+                  "aspect16x9":{
+                     "title":"Warnung vor falschen Polizisten - Standbild",
+                     "src":"https://img.ardmediathek.de/standard/00/58/38/07/42/-1774185891/16x9/{width}?mandant=ard",
+                     "__typename":"Image"
+                  },
+                  "__typename":"TeaserImages"
+               },
+               "links":{
+                  "target":{
+                     "href":"http://page-gateway-service:8080/page-gateway/pages/ard/item/Y3JpZDovL21kci5kZS9iZWl0cmFnL2Ntcy9hOWY1NDk5NS02OGNlLTRkNDgtYTljOC1kMmYxMTQwMjczOGM",
+                     "id":"Y3JpZDovL21kci5kZS9iZWl0cmFnL2Ntcy9hOWY1NDk5NS02OGNlLTRkNDgtYTljOC1kMmYxMTQwMjczOGM",
+                     "__typename":"Link"
+                  },
+                  "__typename":"TeaserLinks"
+               },
+               "__typename":"Teaser"
+            },
+            {
+               "id":"Y3JpZDovL21kci5kZS9iZWl0cmFnL2Ntcy8zNmMwNDljNy0xYTg2LTQzMDAtYWY1Zi05NTRmYTZlZDFkMTM",
+               "type":"ondemand",
+               "mediumTitle":"Erstes Baby aus Gebärmutter einer Verstorbenen",
+               "duration":126,
+               "show":{
+                  "title":"BRISANT",
+                  "__typename":"Show"
+               },
+               "subtitled":true,
+               "publicationService":{
+                  "name":"Das Erste",
+                  "__typename":"PublicationService"
+               },
+               "images":{
+                  "aspect16x9":{
+                     "title":"Erstes Baby aus Gebärmutter einer Verstorbenen - Standbild",
+                     "src":"https://img.ardmediathek.de/standard/00/58/38/07/74/-1774185891/16x9/{width}?mandant=ard",
+                     "__typename":"Image"
+                  },
+                  "__typename":"TeaserImages"
+               },
+               "links":{
+                  "target":{
+                     "href":"http://page-gateway-service:8080/page-gateway/pages/ard/item/Y3JpZDovL21kci5kZS9iZWl0cmFnL2Ntcy8zNmMwNDljNy0xYTg2LTQzMDAtYWY1Zi05NTRmYTZlZDFkMTM",
+                     "id":"Y3JpZDovL21kci5kZS9iZWl0cmFnL2Ntcy8zNmMwNDljNy0xYTg2LTQzMDAtYWY1Zi05NTRmYTZlZDFkMTM",
+                     "__typename":"Link"
+                  },
+                  "__typename":"TeaserLinks"
+               },
+               "__typename":"Teaser"
+            },
+            {
+               "id":"Y3JpZDovL21kci5kZS9iZWl0cmFnL2Ntcy9hMWFmNzhkZi1mZjFhLTRjNTEtOWIwZi00ZjA1YjBjYTVhODY",
+               "type":"ondemand",
+               "mediumTitle":"Anwohner kehren in Waldbrandgebiete zurück",
+               "duration":144,
+               "show":{
+                  "title":"BRISANT",
+                  "__typename":"Show"
+               },
+               "subtitled":true,
+               "publicationService":{
+                  "name":"Das Erste",
+                  "__typename":"PublicationService"
+               },
+               "images":{
+                  "aspect16x9":{
+                     "title":"Anwohner kehren in Waldbrandgebiete zurück - Standbild",
+                     "src":"https://img.ardmediathek.de/standard/00/58/38/08/00/-1774185891/16x9/{width}?mandant=ard",
+                     "__typename":"Image"
+                  },
+                  "__typename":"TeaserImages"
+               },
+               "links":{
+                  "target":{
+                     "href":"http://page-gateway-service:8080/page-gateway/pages/ard/item/Y3JpZDovL21kci5kZS9iZWl0cmFnL2Ntcy9hMWFmNzhkZi1mZjFhLTRjNTEtOWIwZi00ZjA1YjBjYTVhODY",
+                     "id":"Y3JpZDovL21kci5kZS9iZWl0cmFnL2Ntcy9hMWFmNzhkZi1mZjFhLTRjNTEtOWIwZi00ZjA1YjBjYTVhODY",
+                     "__typename":"Link"
+                  },
+                  "__typename":"TeaserLinks"
+               },
+               "__typename":"Teaser"
+            },
+            {
+               "id":"Y3JpZDovL21kci5kZS9iZWl0cmFnL2Ntcy9hNjllZGE2MS1mYjIwLTQ3ZDctYTkyZC1kMDk1ZDNjNTM3NDc",
+               "type":"ondemand",
+               "mediumTitle":"Was bei Promis im Nikolaus-Stiefel steckt",
+               "duration":152,
+               "show":{
+                  "title":"BRISANT",
+                  "__typename":"Show"
+               },
+               "subtitled":true,
+               "publicationService":{
+                  "name":"Das Erste",
+                  "__typename":"PublicationService"
+               },
+               "images":{
+                  "aspect16x9":{
+                     "title":"Was bei Promis im Nikolaus-Stiefel steckt - Standbild",
+                     "src":"https://img.ardmediathek.de/standard/00/58/38/10/54/-1774185891/16x9/{width}?mandant=ard",
+                     "__typename":"Image"
+                  },
+                  "__typename":"TeaserImages"
+               },
+               "links":{
+                  "target":{
+                     "href":"http://page-gateway-service:8080/page-gateway/pages/ard/item/Y3JpZDovL21kci5kZS9iZWl0cmFnL2Ntcy9hNjllZGE2MS1mYjIwLTQ3ZDctYTkyZC1kMDk1ZDNjNTM3NDc",
+                     "id":"Y3JpZDovL21kci5kZS9iZWl0cmFnL2Ntcy9hNjllZGE2MS1mYjIwLTQ3ZDctYTkyZC1kMDk1ZDNjNTM3NDc",
+                     "__typename":"Link"
+                  },
+                  "__typename":"TeaserLinks"
+               },
+               "__typename":"Teaser"
+            },
+            {
+               "id":"Y3JpZDovL21kci5kZS9iZWl0cmFnL2Ntcy9kOTM4ODI2Mi0xODg2LTQ3ZTktYjA2Mi0yYTgyNmEyZGUwMmQ",
+               "type":"ondemand",
+               "mediumTitle":"Treffen mit der Queen überwältigt jungen Briten",
+               "duration":126,
+               "show":{
+                  "title":"BRISANT",
+                  "__typename":"Show"
+               },
+               "subtitled":true,
+               "publicationService":{
+                  "name":"Das Erste",
+                  "__typename":"PublicationService"
+               },
+               "images":{
+                  "aspect16x9":{
+                     "title":"Treffen mit der Queen überwältigt jungen Briten - Standbild",
+                     "src":"https://img.ardmediathek.de/standard/00/58/38/10/92/-1774185891/16x9/{width}?mandant=ard",
+                     "__typename":"Image"
+                  },
+                  "__typename":"TeaserImages"
+               },
+               "links":{
+                  "target":{
+                     "href":"http://page-gateway-service:8080/page-gateway/pages/ard/item/Y3JpZDovL21kci5kZS9iZWl0cmFnL2Ntcy9kOTM4ODI2Mi0xODg2LTQ3ZTktYjA2Mi0yYTgyNmEyZGUwMmQ",
+                     "id":"Y3JpZDovL21kci5kZS9iZWl0cmFnL2Ntcy9kOTM4ODI2Mi0xODg2LTQ3ZTktYjA2Mi0yYTgyNmEyZGUwMmQ",
+                     "__typename":"Link"
+                  },
+                  "__typename":"TeaserLinks"
+               },
+               "__typename":"Teaser"
+            },
+            {
+               "id":"Y3JpZDovL21kci5kZS9iZWl0cmFnL2Ntcy8xNjBmNTFiYi04MDNjLTQyZTctYWNlOC1iZThiMmI0YzViYzQ",
+               "type":"ondemand",
+               "mediumTitle":"70 Jahre Marius Müller-Westernhagen",
+               "duration":271,
+               "show":{
+                  "title":"BRISANT",
+                  "__typename":"Show"
+               },
+               "subtitled":true,
+               "publicationService":{
+                  "name":"Das Erste",
+                  "__typename":"PublicationService"
+               },
+               "images":{
+                  "aspect16x9":{
+                     "title":"70 Jahre Marius Müller-Westernhagen - Standbild",
+                     "src":"https://img.ardmediathek.de/standard/00/58/38/11/20/-1774185891/16x9/{width}?mandant=ard",
+                     "__typename":"Image"
+                  },
+                  "__typename":"TeaserImages"
+               },
+               "links":{
+                  "target":{
+                     "href":"http://page-gateway-service:8080/page-gateway/pages/ard/item/Y3JpZDovL21kci5kZS9iZWl0cmFnL2Ntcy8xNjBmNTFiYi04MDNjLTQyZTctYWNlOC1iZThiMmI0YzViYzQ",
+                     "id":"Y3JpZDovL21kci5kZS9iZWl0cmFnL2Ntcy8xNjBmNTFiYi04MDNjLTQyZTctYWNlOC1iZThiMmI0YzViYzQ",
+                     "__typename":"Link"
+                  },
+                  "__typename":"TeaserLinks"
+               },
+               "__typename":"Teaser"
+            },
+            {
+               "id":"Y3JpZDovL21kci5kZS9iZWl0cmFnL2Ntcy8xYTE2NDllNS0xMmQ0LTQyNDgtOTVjOS01ZmY1MzRlMDMxYjM",
+               "type":"ondemand",
+               "mediumTitle":"Ehemann nach Tod einer vierfachen Mutter festgenommen",
+               "duration":110,
+               "show":{
+                  "title":"BRISANT",
+                  "__typename":"Show"
+               },
+               "subtitled":true,
+               "publicationService":{
+                  "name":"Das Erste",
+                  "__typename":"PublicationService"
+               },
+               "images":{
+                  "aspect16x9":{
+                     "title":"Ehemann nach Tod einer vierfachen Mutter festgenommen - Standbild",
+                     "src":"https://img.ardmediathek.de/standard/00/58/38/11/50/-1774185891/16x9/{width}?mandant=ard",
+                     "__typename":"Image"
+                  },
+                  "__typename":"TeaserImages"
+               },
+               "links":{
+                  "target":{
+                     "href":"http://page-gateway-service:8080/page-gateway/pages/ard/item/Y3JpZDovL21kci5kZS9iZWl0cmFnL2Ntcy8xYTE2NDllNS0xMmQ0LTQyNDgtOTVjOS01ZmY1MzRlMDMxYjM",
+                     "id":"Y3JpZDovL21kci5kZS9iZWl0cmFnL2Ntcy8xYTE2NDllNS0xMmQ0LTQyNDgtOTVjOS01ZmY1MzRlMDMxYjM",
+                     "__typename":"Link"
+                  },
+                  "__typename":"TeaserLinks"
+               },
+               "__typename":"Teaser"
+            }
+         ],
+         "tracking":{
+            "szmType":"CP",
+            "environmentId":511893,
+            "aggregationLevelId":38,
+            "chapter2":"Player",
+            "chapter3":"BRISANT",
+            "pageTitle":"Mediathek/Player/BRISANT/Brisant vom 06.12.2018/58381418/20181206_1615",
+            "atiCustomVars":{
+               "clipTitle":"Brisant vom 06.12.2018",
+               "mediaType":"video",
+               "lra":"Das Erste",
+               "channel":"Das Erste",
+               "show":"BRISANT",
+               "contentTypes":"UT",
+               "mediaDistributionType":1,
+               "contentId":58381418,
+               "metadataId":"crid://mdr.de/beitrag/cms/c725e5f0-78c4-4f26-8e05-0848d12c2f50",
+               "clipLength":1953,
+               "__typename":"ATICustomVars"
+            },
+            "__typename":"Tracking"
+         },
+         "__typename":"PlayerPage"
+      }
+   }
+}
