@@ -12,6 +12,8 @@ public class ArdConstants {
   
   public static final int QUERY_FILM_VERSION = 1;
   public static final String QUERY_FILM_HASH = "a9a9b15083dd3bf249264a7ff5d9e1010ec5d861539bc779bb1677a4a37872da";
-  
+
+  public static final String WEBSITE_URL = "https://www.ardmediathek.de/ard/player/%s";
+
   private ArdConstants() {}
 }
