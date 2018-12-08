@@ -43,7 +43,7 @@ public class ArdCrawler extends AbstractCrawler {
 
     LocalDateTime startDate = LocalDateTime.now().minusDays(crawlerConfig.getMaximumDaysForSendungVerpasstSection());
     for (int i = 0;
-        i <= crawlerConfig.getMaximumDaysForSendungVerpasstSection() + crawlerConfig.getMaximumDaysForSendungVerpasstSectionFuture(); i++) {
+        i <= crawlerConfig.getMaximumDaysForSendungVerpasstSection(); i++) {
       final String url = new ArdUrlBuilder(ArdConstants.BASE_URL, ArdConstants.DEFAULT_CLIENT)
           .addSearchDate(startDate.plusDays(i))
           .addSavedQuery(ArdConstants.QUERY_DAY_SEARCH_VERSION, ArdConstants.QUERY_DAY_SEARCH_HASH)
