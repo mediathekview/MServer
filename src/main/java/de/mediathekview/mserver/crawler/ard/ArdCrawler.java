@@ -41,11 +41,11 @@ public class ArdCrawler extends AbstractCrawler {
   private ConcurrentLinkedQueue<CrawlerUrlDTO> createDayUrlsToCrawl() {
     final ConcurrentLinkedQueue<CrawlerUrlDTO> dayUrlsToCrawl = new ConcurrentLinkedQueue<>();
 
-    LocalDateTime startDate = LocalDateTime.now().minusDays(crawlerConfig.getMaximumDaysForSendungVerpasstSection());
+    LocalDateTime now = LocalDateTime.now();
     for (int i = 0;
         i <= crawlerConfig.getMaximumDaysForSendungVerpasstSection(); i++) {
       final String url = new ArdUrlBuilder(ArdConstants.BASE_URL, ArdConstants.DEFAULT_CLIENT)
-          .addSearchDate(startDate.plusDays(i))
+          .addSearchDate(now.minusDays(i))
           .addSavedQuery(ArdConstants.QUERY_DAY_SEARCH_VERSION, ArdConstants.QUERY_DAY_SEARCH_HASH)
           .build();
 
