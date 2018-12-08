@@ -7,7 +7,6 @@ import de.mediathekview.mserver.crawler.ard.ArdFilmInfoDto;
 import de.mediathekview.mserver.crawler.ard.json.ArdFilmDeserializer;
 import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
 import de.mediathekview.mserver.crawler.basic.AbstractRecrusivConverterTask;
-import de.mediathekview.mserver.crawler.zdf.tasks.ZdfTaskBase;
 import java.lang.reflect.Type;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -17,7 +16,7 @@ import javax.ws.rs.client.WebTarget;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-public class ArdFilmDetailTask extends ZdfTaskBase<Film, ArdFilmInfoDto> {
+public class ArdFilmDetailTask extends ArdTaskBase<Film, ArdFilmInfoDto> {
 
   private static final Logger LOG = LogManager.getLogger(ArdFilmDetailTask.class);
 
@@ -25,8 +24,8 @@ public class ArdFilmDetailTask extends ZdfTaskBase<Film, ArdFilmInfoDto> {
   }.getType();
 
   public ArdFilmDetailTask(AbstractCrawler aCrawler,
-      ConcurrentLinkedQueue aUrlToCrawlDTOs, Optional aAuthKey) {
-    super(aCrawler, aUrlToCrawlDTOs, aAuthKey);
+      ConcurrentLinkedQueue aUrlToCrawlDTOs) {
+    super(aCrawler, aUrlToCrawlDTOs);
 
     registerJsonDeserializer(OPTIONAL_FILM_TYPE_TOKEN, new ArdFilmDeserializer(crawler));
   }
@@ -60,6 +59,6 @@ public class ArdFilmDetailTask extends ZdfTaskBase<Film, ArdFilmInfoDto> {
 
   @Override
   protected AbstractRecrusivConverterTask createNewOwnInstance(ConcurrentLinkedQueue aElementsToProcess) {
-    return new ArdFilmDetailTask(crawler, aElementsToProcess, authKey);
+    return new ArdFilmDetailTask(crawler, aElementsToProcess);
   }
 }

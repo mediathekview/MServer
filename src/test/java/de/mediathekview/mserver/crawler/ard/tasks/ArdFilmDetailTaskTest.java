@@ -100,6 +100,6 @@ public class ArdFilmDetailTaskTest extends ArdTaskTestBase {
   private Set<Film> executeTask(final String aDetailUrl) {
     final ConcurrentLinkedQueue<CrawlerUrlDTO> urls = new ConcurrentLinkedQueue<>();
     urls.add(new ArdFilmInfoDto(id, WireMockTestBase.MOCK_URL_BASE + aDetailUrl));
-    return new ArdFilmDetailTask(createCrawler(), urls, Optional.empty()).invoke();
+    return new ArdFilmDetailTask(createCrawler(), urls).invoke();
   }
 }
