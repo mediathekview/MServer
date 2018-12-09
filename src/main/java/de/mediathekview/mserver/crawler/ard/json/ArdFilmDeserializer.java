@@ -72,7 +72,7 @@ public class ArdFilmDeserializer implements JsonDeserializer<Optional<Film>> {
   }
   
   private static Optional<JsonObject> getMediaCollectionObject(final JsonObject playerPageObject) {
-    if (playerPageObject.has(ELEMENT_MEDIA_COLLECTION)) {
+    if (playerPageObject.has(ELEMENT_MEDIA_COLLECTION) && !playerPageObject.get(ELEMENT_MEDIA_COLLECTION).isJsonNull()) {
       return Optional.of(playerPageObject.get(ELEMENT_MEDIA_COLLECTION).getAsJsonObject());
     }
     
