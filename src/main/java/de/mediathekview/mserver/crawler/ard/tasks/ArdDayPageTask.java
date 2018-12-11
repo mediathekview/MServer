@@ -25,8 +25,11 @@ public class ArdDayPageTask extends ArdTaskBase<ArdFilmInfoDto, CrawlerUrlDTO> {
 
   @Override
   protected void processRestTarget(CrawlerUrlDTO aDTO, WebTarget aTarget) {
-    final Set<ArdFilmInfoDto> filmUrls = deserialize(aTarget, SET_FILMINFO_TYPE_TOKEN);
-    taskResults.addAll(filmUrls);
+    Set<ArdFilmInfoDto> filmUrls = deserialize(aTarget, SET_FILMINFO_TYPE_TOKEN);
+
+    if (filmUrls != null && !filmUrls.isEmpty()) {
+      taskResults.addAll(filmUrls);
+    }
   }
 
   @Override
