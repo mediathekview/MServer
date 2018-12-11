@@ -19,6 +19,7 @@ public class ArdUrlBuilder {
   private String hashKey;
   private LocalDateTime startDate;
   private LocalDateTime endDate;
+  private String showId;
 
   public ArdUrlBuilder(final String baseUrl, final String clientName) {
     this.baseUrl = baseUrl;
@@ -36,6 +37,11 @@ public class ArdUrlBuilder {
   public ArdUrlBuilder addClipId(final String id, final String deviceType) {
     this.clipId = id;
     this.deviceType = deviceType;
+    return this;
+  }
+
+  public ArdUrlBuilder addShowId(final String id) {
+    this.showId = id;
     return this;
   }
 
@@ -58,6 +64,9 @@ public class ArdUrlBuilder {
 
     if (clipId != null) {
       return String.format(",\"clipId\":\"%s\",\"deviceType\":\"%s\"", clipId, deviceType);
+    }
+    if (showId != null) {
+      return String.format(",\"showId\":\"%s\"", showId);
     }
     if (startDate != null) {
       return String.format(",\"startDateTime\":\"%sZ\",\"endDateTime\":\"%sZ\"", startDate.format(DATE_TIME_FORMATTER),

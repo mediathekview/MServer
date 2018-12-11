@@ -35,6 +35,19 @@ public class ArdUrlBuilderTest {
   }
 
   @Test
+  public void testShowParameter() {
+    final String expectedUrl =
+        "https://my.api.de?variables=" + UriComponent
+            .encode("{\"client\":\"test\",\"showId\":\"dj874hjd7\"}", Type.QUERY_PARAM);
+
+    final String actualUrl = new ArdUrlBuilder("https://my.api.de", "test")
+        .addShowId("dj874hjd7")
+        .build();
+
+    assertThat(actualUrl, equalTo(expectedUrl));
+  }
+
+  @Test
   public void testSearchDateParameter() {
     final String expectedUrl = "https://my.api.de?variables=" + UriComponent
         .encode("{\"client\":\"test\",\"startDateTime\":\"2018-12-07T04:30:00.000Z\",\"endDateTime\":\"2018-12-08T04:29:59.000Z\"}",
