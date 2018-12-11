@@ -24,6 +24,7 @@ public class ArdDayPageDeserializer implements JsonDeserializer<Set<ArdFilmInfoD
   private static final String ELEMENT_TARGET = "target";
 
   private static final String ATTRIBUTE_ID = "id";
+  private static final String ATTRIBUTE_NUMBER_OF_CLIPS = "numberOfClips";
 
   @Override
   public Set<ArdFilmInfoDto> deserialize(JsonElement jsonElement, Type type, JsonDeserializationContext context) {
@@ -39,6 +40,7 @@ public class ArdDayPageDeserializer implements JsonDeserializer<Set<ArdFilmInfoD
           for (JsonElement teaserElement : teasers) {
             JsonObject teaserObject = teaserElement.getAsJsonObject();
             Optional<String> id;
+            int numberOfClips = 0;
 
             if (JsonUtils.checkTreePath(teaserObject, Optional.empty(), ELEMENT_LINKS, ELEMENT_TARGET)) {
               JsonObject targetObject = teaserObject.get(ELEMENT_LINKS).getAsJsonObject().get(ELEMENT_TARGET).getAsJsonObject();
@@ -47,13 +49,17 @@ public class ArdDayPageDeserializer implements JsonDeserializer<Set<ArdFilmInfoD
               id = JsonUtils.getAttributeAsString(teaserObject, ATTRIBUTE_ID);
             }
 
+            if (teaserObject.has(ATTRIBUTE_NUMBER_OF_CLIPS)) {
+              numberOfClips = teaserObject.get(ATTRIBUTE_NUMBER_OF_CLIPS).getAsInt();
+            }
+
             if (id.isPresent()) {
               final String url = new ArdUrlBuilder(ArdConstants.BASE_URL, ArdConstants.DEFAULT_CLIENT)
                   .addClipId(id.get(), ArdConstants.DEFAULT_DEVICE)
                   .addSavedQuery(ArdConstants.QUERY_FILM_VERSION, ArdConstants.QUERY_FILM_HASH)
                   .build();
 
-              results.add(new ArdFilmInfoDto(id.get(), url));
+              results.add(new ArdFilmInfoDto(id.get(), url, numberOfClips));
             }
           }
         }

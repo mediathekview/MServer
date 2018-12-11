@@ -15,7 +15,6 @@ import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.Collection;
-import java.util.Optional;
 import java.util.Set;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import org.junit.Test;
@@ -25,12 +24,14 @@ import org.junit.runners.Parameterized.Parameters;
 
 @RunWith(Parameterized.class)
 public class ArdFilmDetailTaskTest extends ArdTaskTestBase {
+
   @Parameters
   public static Collection<Object[]> data() {
     return Arrays.asList(new Object[][]{
         {
-          "Y3JpZDovL21kci5kZS9iZWl0cmFnL2Ntcy8wMjc2NGZlMi0xNzIwLTQ1YzgtYmE1ZS00MzU3OTlmZDZlMDM",
-            "/public_gateway?" + URLEncoder.encode("variables={\"client\":\"ard\",\"clipId\":\"Y3JpZDovL21kci5kZS9iZWl0cmFnL2Ntcy8wMjc2NGZlMi0xNzIwLTQ1YzgtYmE1ZS00MzU3OTlmZDZlMDM\",\"deviceType\":\"pc\"}&extensions={\"persistedQuery\":{\"version\":1,\"sha256Hash\":\"a9a9b15083dd3bf249264a7ff5d9e1010ec5d861539bc779bb1677a4a37872da\"}}"),
+            "Y3JpZDovL21kci5kZS9iZWl0cmFnL2Ntcy8wMjc2NGZlMi0xNzIwLTQ1YzgtYmE1ZS00MzU3OTlmZDZlMDM",
+            "/public_gateway?" + URLEncoder.encode(
+                "variables={\"client\":\"ard\",\"clipId\":\"Y3JpZDovL21kci5kZS9iZWl0cmFnL2Ntcy8wMjc2NGZlMi0xNzIwLTQ1YzgtYmE1ZS00MzU3OTlmZDZlMDM\",\"deviceType\":\"pc\"}&extensions={\"persistedQuery\":{\"version\":1,\"sha256Hash\":\"a9a9b15083dd3bf249264a7ff5d9e1010ec5d861539bc779bb1677a4a37872da\"}}"),
             "/ard/ard_film_page1.json",
             "Sturm der Liebe",
             "Die schönsten Momente: Eva und Robert",
@@ -99,7 +100,7 @@ public class ArdFilmDetailTaskTest extends ArdTaskTestBase {
 
   private Set<Film> executeTask(final String aDetailUrl) {
     final ConcurrentLinkedQueue<CrawlerUrlDTO> urls = new ConcurrentLinkedQueue<>();
-    urls.add(new ArdFilmInfoDto(id, WireMockTestBase.MOCK_URL_BASE + aDetailUrl));
+    urls.add(new ArdFilmInfoDto(id, WireMockTestBase.MOCK_URL_BASE + aDetailUrl, 0));
     return new ArdFilmDetailTask(createCrawler(), urls).invoke();
   }
 }
