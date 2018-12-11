@@ -7,11 +7,14 @@ import de.mediathekview.mserver.base.config.MServerConfigManager;
 import de.mediathekview.mserver.base.messages.ServerMessages;
 import de.mediathekview.mserver.crawler.ard.tasks.ArdDayPageTask;
 import de.mediathekview.mserver.crawler.ard.tasks.ArdFilmDetailTask;
+import de.mediathekview.mserver.crawler.ard.tasks.ArdTopicPageTask;
+import de.mediathekview.mserver.crawler.ard.tasks.ArdTopicsOverviewTask;
 import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
 import de.mediathekview.mserver.crawler.basic.CrawlerUrlDTO;
 import de.mediathekview.mserver.progress.listeners.SenderProgressListener;
 import java.time.LocalDateTime;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
 import java.util.concurrent.ConcurrentLinkedQueue;
@@ -61,6 +64,11 @@ public class ArdCrawler extends AbstractCrawler {
     try {
       ConcurrentLinkedQueue<ArdFilmInfoDto> shows = new ConcurrentLinkedQueue<>();
       shows.addAll(getDaysEntries());
+      getTopicsEntries().forEach(show -> {
+        if (!shows.contains(show)) {
+          shows.add(show);
+        }
+      });
 
       printMessage(ServerMessages.DEBUG_ALL_SENDUNG_FOLGEN_COUNT, getSender().getName(), shows.size());
       getAndSetMaxCount(shows.size());
@@ -79,5 +87,31 @@ public class ArdCrawler extends AbstractCrawler {
     printMessage(ServerMessages.DEBUG_ALL_SENDUNG_FOLGEN_COUNT, getSender().getName(), shows.size());
 
     return shows;
+  }
+
+  private Set<ArdFilmInfoDto> getTopicsEntries() throws ExecutionException, InterruptedException {
+    ArdTopicsOverviewTask topicsTask = new ArdTopicsOverviewTask(this, createTopicsOverviewUrl());
+
+    ConcurrentLinkedQueue topicUrls = new ConcurrentLinkedQueue();
+    topicUrls.addAll(forkJoinPool.submit(topicsTask).get());
+
+    ArdTopicPageTask topicTask = new ArdTopicPageTask(this, topicUrls);
+    Set<ArdFilmInfoDto> filmInfos = forkJoinPool.submit(topicTask).get();
+
+    printMessage(ServerMessages.DEBUG_ALL_SENDUNG_FOLGEN_COUNT, getSender().getName(), filmInfos.size());
+
+    return filmInfos;
+  }
+
+  private ConcurrentLinkedQueue<CrawlerUrlDTO> createTopicsOverviewUrl() {
+    ConcurrentLinkedQueue<CrawlerUrlDTO> urls = new ConcurrentLinkedQueue<>();
+
+    String url = new ArdUrlBuilder(ArdConstants.BASE_URL, ArdConstants.DEFAULT_CLIENT)
+        .addSavedQuery(ArdConstants.QUERY_TOPICS_VERSION, ArdConstants.QUERY_TOPICS_HASH)
+        .build();
+
+    urls.add(new CrawlerUrlDTO(url));
+
+    return urls;
   }
 }
