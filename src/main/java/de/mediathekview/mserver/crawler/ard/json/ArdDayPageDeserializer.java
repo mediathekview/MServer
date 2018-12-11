@@ -6,25 +6,18 @@ import com.google.gson.JsonDeserializer;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import de.mediathekview.mserver.base.utils.JsonUtils;
-import de.mediathekview.mserver.crawler.ard.ArdConstants;
 import de.mediathekview.mserver.crawler.ard.ArdFilmInfoDto;
-import de.mediathekview.mserver.crawler.ard.ArdUrlBuilder;
 import java.lang.reflect.Type;
 import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
 
-public class ArdDayPageDeserializer implements JsonDeserializer<Set<ArdFilmInfoDto>> {
+public class ArdDayPageDeserializer extends ArdTeasersDeserializer implements JsonDeserializer<Set<ArdFilmInfoDto>> {
 
   private static final String ELEMENT_DATA = "data";
   private static final String ELEMENT_GUIDE_PAGE = "guidePage";
   private static final String ELEMENT_WIDGETS = "widgets";
   private static final String ELEMENT_TEASERS = "teasers";
-  private static final String ELEMENT_LINKS = "links";
-  private static final String ELEMENT_TARGET = "target";
-
-  private static final String ATTRIBUTE_ID = "id";
-  private static final String ATTRIBUTE_NUMBER_OF_CLIPS = "numberOfClips";
 
   @Override
   public Set<ArdFilmInfoDto> deserialize(JsonElement jsonElement, Type type, JsonDeserializationContext context) {
@@ -37,35 +30,12 @@ public class ArdDayPageDeserializer implements JsonDeserializer<Set<ArdFilmInfoD
         JsonObject widgetObject = widgetElement.getAsJsonObject();
         if (widgetObject.has(ELEMENT_TEASERS)) {
           JsonArray teasers = widgetObject.get(ELEMENT_TEASERS).getAsJsonArray();
-          for (JsonElement teaserElement : teasers) {
-            JsonObject teaserObject = teaserElement.getAsJsonObject();
-            Optional<String> id;
-            int numberOfClips = 0;
-
-            if (JsonUtils.checkTreePath(teaserObject, Optional.empty(), ELEMENT_LINKS, ELEMENT_TARGET)) {
-              JsonObject targetObject = teaserObject.get(ELEMENT_LINKS).getAsJsonObject().get(ELEMENT_TARGET).getAsJsonObject();
-              id = JsonUtils.getAttributeAsString(targetObject, ATTRIBUTE_ID);
-            } else {
-              id = JsonUtils.getAttributeAsString(teaserObject, ATTRIBUTE_ID);
-            }
-
-            if (teaserObject.has(ATTRIBUTE_NUMBER_OF_CLIPS)) {
-              numberOfClips = teaserObject.get(ATTRIBUTE_NUMBER_OF_CLIPS).getAsInt();
-            }
-
-            if (id.isPresent()) {
-              final String url = new ArdUrlBuilder(ArdConstants.BASE_URL, ArdConstants.DEFAULT_CLIENT)
-                  .addClipId(id.get(), ArdConstants.DEFAULT_DEVICE)
-                  .addSavedQuery(ArdConstants.QUERY_FILM_VERSION, ArdConstants.QUERY_FILM_HASH)
-                  .build();
-
-              results.add(new ArdFilmInfoDto(id.get(), url, numberOfClips));
-            }
-          }
+          results.addAll(parseTeasers(teasers));
         }
       }
     }
 
     return results;
   }
+
 }
