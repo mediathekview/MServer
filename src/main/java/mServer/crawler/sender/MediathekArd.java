@@ -75,12 +75,12 @@ public class MediathekArd extends MediathekReader {
     }
 
     private void addTage() {
-      // http://www.ardmediathek.de/tv/sendungVerpasst?tag=0 ... 6
+      // http://classic.ardmediathek.de/tv/sendungVerpasst?tag=0 ... 6
       for (int i = 0; i <= 6; ++i) {
         if (Config.getStop()) {
           break;
         }
-        final String urlTage = "http://www.ardmediathek.de/tv/sendungVerpasst?tag=" + i;
+        final String urlTage = "http://classic.ardmediathek.de/tv/sendungVerpasst?tag=" + i;
         final GetUrl getUrl = new GetUrl(getWartenSeiteLaden());
         seite1 = getUrl.getUri(SENDERNAME, urlTage, StandardCharsets.UTF_8, 2, seite1, "");
         if (seite1.length() == 0) {
@@ -121,7 +121,7 @@ public class MediathekArd extends MediathekReader {
             }
             urlSendung = seite1.extract("<a href=\"/tv/", "\"", pos);
             if (!urlSendung.isEmpty()) {
-              urlSendung = "http://www.ardmediathek.de/tv/" + urlSendung;
+              urlSendung = "http://classic.ardmediathek.de/tv/" + urlSendung;
               urlSendung = urlSendung.replace("&amp;", "&");
             }
 
@@ -270,7 +270,7 @@ public class MediathekArd extends MediathekReader {
         }
         urlSendung = seite1.extract("<a href=\"/tv/", "\"", pos);
         if (!urlSendung.isEmpty()) {
-          urlSendung = "http://www.ardmediathek.de/tv/" + urlSendung;
+          urlSendung = "http://classic.ardmediathek.de/tv/" + urlSendung;
           urlSendung = urlSendung.replace("&amp;", "&");
         }
 
@@ -306,10 +306,10 @@ public class MediathekArd extends MediathekReader {
 
     private void filmSuchen2(final String urlFilm_, final String thema, final String titel,
             final long dauer, final String datum, final String zeit, final String urlSendung) {
-      // URL bauen: http://www.ardmediathek.de/play/media/21528242?devicetype=pc&features=flash
+      // URL bauen: http://classic.ardmediathek.de/play/media/21528242?devicetype=pc&features=flash
       try {
         final String urlFilm
-                = "http://www.ardmediathek.de/play/media/" + urlFilm_ + "?devicetype=pc&features=flash";
+                = "http://classic.ardmediathek.de/play/media/" + urlFilm_ + "?devicetype=pc&features=flash";
         meldung(urlFilm);
         final GetUrl getUrl = new GetUrl(getWartenSeiteLaden());
         seite2 = getUrl.getUri(SENDERNAME, urlFilm, StandardCharsets.UTF_8, 2, seite2, "");
@@ -381,7 +381,7 @@ public class MediathekArd extends MediathekReader {
         String subtitle = seite2.extract("subtitleUrl\":\"", "\"");
         if (!subtitle.isEmpty()) {
           if (!subtitle.startsWith("http")) {
-            subtitle = "https://www.ardmediathek.de" + subtitle;
+            subtitle = "https://classic.ardmediathek.de" + subtitle;
           }
         }
         if (!url.isEmpty()) {
@@ -456,7 +456,7 @@ public class MediathekArd extends MediathekReader {
   private static final Logger LOG = LogManager.getLogger(MediathekArd.class);
   private final static String SENDERNAME = Const.ARD;
   private final static String THEMA_TAGE = "TAGE";
-  private static final String ADRESSE_THEMA = "http://www.ardmediathek.de/tv";
+  private static final String ADRESSE_THEMA = "http://classic.ardmediathek.de/tv";
   private static final String MUSTER_URL_THEMA = "<a href=\"/tv/sendungen-a-z?buchstabe=";
   private static final String MUSTER_FEED_SUCHEN = "<div class=\"media mediaA\">";
   private static final String M3U8_PATTERN_START
@@ -501,7 +501,7 @@ public class MediathekArd extends MediathekReader {
           url = seite.substring(pos1, pos2);
         }
         if (!url.isEmpty()) {
-          url = "http://www.ardmediathek.de/tv/sendungen-a-z?buchstabe=" + url;
+          url = "http://classic.ardmediathek.de/tv/sendungen-a-z?buchstabe=" + url;
           feedSuchen1(url);
         }
       } catch (final Exception ex) {
@@ -527,7 +527,7 @@ public class MediathekArd extends MediathekReader {
         pos += MUSTER_FEED_SUCHEN.length();
         url = seiteFeed.extract("<a href=\"/tv/", "\"", pos);
         if (!url.isEmpty()) {
-          url = "http://www.ardmediathek.de/tv/" + url;
+          url = "http://classic.ardmediathek.de/tv/" + url;
           thema = seiteFeed.extract("<h4 class=\"headline\">", "<", pos);
           if (thema.isEmpty()) {
             thema = seiteFeed.extract("title=\"", "\"", pos);
