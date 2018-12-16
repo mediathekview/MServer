@@ -34,24 +34,29 @@ public class ArdFilmDetailTask extends ArdTaskBase<Film, ArdFilmInfoDto> {
 
   @Override
   protected void processRestTarget(ArdFilmInfoDto aDTO, WebTarget aTarget) {
-    final Optional<ArdFilmDto> filmDtoOptional = deserializeOptional(aTarget, OPTIONAL_FILM_TYPE_TOKEN);
+    try {
+      final Optional<ArdFilmDto> filmDtoOptional = deserializeOptional(aTarget, OPTIONAL_FILM_TYPE_TOKEN);
 
-    if (filmDtoOptional.isPresent()) {
-      ArdFilmDto filmDto = filmDtoOptional.get();
+      if (filmDtoOptional.isPresent()) {
+        ArdFilmDto filmDto = filmDtoOptional.get();
 
-      final Film result = filmDto.getFilm();
-      result.setWebsite(getWebsiteUrl(aDTO));
-      taskResults.add(result);
+        final Film result = filmDto.getFilm();
+        result.setWebsite(getWebsiteUrl(aDTO));
+        taskResults.add(result);
 
-      if (aDTO.getNumberOfClips() > 1) {
-        processRelatedFilms(filmDto.getRelatedFilms());
+        if (aDTO.getNumberOfClips() > 1) {
+          processRelatedFilms(filmDto.getRelatedFilms());
+        }
+
+        crawler.incrementAndGetActualCount();
+        crawler.updateProgress();
+      } else {
+        LOG.error("no film: " + aDTO.getUrl());
+        crawler.incrementAndGetErrorCount();
+        crawler.updateProgress();
       }
-
-      crawler.incrementAndGetActualCount();
-      crawler.updateProgress();
-    } else {
-      crawler.incrementAndGetErrorCount();
-      crawler.updateProgress();
+    } catch(Exception e) {
+      LOG.error("exception: " + aDTO.getUrl(), e);
     }
   }
 
