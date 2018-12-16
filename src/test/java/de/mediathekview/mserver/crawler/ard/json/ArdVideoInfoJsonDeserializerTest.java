@@ -2,7 +2,6 @@ package de.mediathekview.mserver.crawler.ard.json;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.notNullValue;
-import static org.hamcrest.CoreMatchers.nullValue;
 import static org.junit.Assert.assertThat;
 
 import com.google.gson.JsonElement;
