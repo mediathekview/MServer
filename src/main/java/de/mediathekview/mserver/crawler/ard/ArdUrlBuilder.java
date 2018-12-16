@@ -2,7 +2,6 @@ package de.mediathekview.mserver.crawler.ard;
 
 import static org.glassfish.jersey.uri.UriComponent.Type.QUERY_PARAM;
 
-import java.net.URLEncoder;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import org.glassfish.jersey.uri.UriComponent;

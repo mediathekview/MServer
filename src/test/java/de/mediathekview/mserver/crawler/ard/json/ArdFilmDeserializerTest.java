@@ -46,12 +46,18 @@ public class ArdFilmDeserializerTest {
                 "https://pdvideosdaserste-a.akamaihd.net/int/2018/12/05/c0c43211-2627-4a68-8757-be43c0dad75a/1280-1.mp4",
                 "",
                 GeoLocations.GEO_NONE,
-                new ArdFilmInfoDto[] {
+                new ArdFilmInfoDto[]{
                     new ArdFilmInfoDto("Y3JpZDovL2Rhc2Vyc3RlLmRlL3N0dXJtIGRlciBsaWViZS8yNGY1ZTU4My01YTBhLTRmNzItOThhZi1lNzBiYjU1NGY5MDA",
-                        "https://api.ardmediathek.de/public-gateway?variables=" + URLEncoder.encode("{\"client\":\"ard\",\"clipId\":\"Y3JpZDovL2Rhc2Vyc3RlLmRlL3N0dXJtIGRlciBsaWViZS8yNGY1ZTU4My01YTBhLTRmNzItOThhZi1lNzBiYjU1NGY5MDA\",\"deviceType\":\"pc\"}") + "&extensions=" + URLEncoder.encode("{\"persistedQuery\":{\"version\":1,\"sha256Hash\":\"a9a9b15083dd3bf249264a7ff5d9e1010ec5d861539bc779bb1677a4a37872da\"}}"),
+                        "https://api.ardmediathek.de/public-gateway?variables=" + URLEncoder.encode(
+                            "{\"client\":\"ard\",\"clipId\":\"Y3JpZDovL2Rhc2Vyc3RlLmRlL3N0dXJtIGRlciBsaWViZS8yNGY1ZTU4My01YTBhLTRmNzItOThhZi1lNzBiYjU1NGY5MDA\",\"deviceType\":\"pc\"}")
+                            + "&extensions=" + URLEncoder.encode(
+                            "{\"persistedQuery\":{\"version\":1,\"sha256Hash\":\"a9a9b15083dd3bf249264a7ff5d9e1010ec5d861539bc779bb1677a4a37872da\"}}"),
                         0),
                     new ArdFilmInfoDto("Y3JpZDovL2Rhc2Vyc3RlLmRlL3N0dXJtIGRlciBsaWViZS81Y2NiMjFmZS1kZDk3LTRlZDYtYjRhZS05ZjNjOWQ5ZjQ2MjE",
-                        "https://api.ardmediathek.de/public-gateway?variables=" + URLEncoder.encode("{\"client\":\"ard\",\"clipId\":\"Y3JpZDovL2Rhc2Vyc3RlLmRlL3N0dXJtIGRlciBsaWViZS81Y2NiMjFmZS1kZDk3LTRlZDYtYjRhZS05ZjNjOWQ5ZjQ2MjE\",\"deviceType\":\"pc\"}") + "&extensions=" + URLEncoder.encode("{\"persistedQuery\":{\"version\":1,\"sha256Hash\":\"a9a9b15083dd3bf249264a7ff5d9e1010ec5d861539bc779bb1677a4a37872da\"}}"),
+                        "https://api.ardmediathek.de/public-gateway?variables=" + URLEncoder.encode(
+                            "{\"client\":\"ard\",\"clipId\":\"Y3JpZDovL2Rhc2Vyc3RlLmRlL3N0dXJtIGRlciBsaWViZS81Y2NiMjFmZS1kZDk3LTRlZDYtYjRhZS05ZjNjOWQ5ZjQ2MjE\",\"deviceType\":\"pc\"}")
+                            + "&extensions=" + URLEncoder.encode(
+                            "{\"persistedQuery\":{\"version\":1,\"sha256Hash\":\"a9a9b15083dd3bf249264a7ff5d9e1010ec5d861539bc779bb1677a4a37872da\"}}"),
                         0)
                 }
             },
@@ -67,7 +73,7 @@ public class ArdFilmDeserializerTest {
                 "https://odgeomdr-a.akamaihd.net/mp4dyn2/c/FCMS-c725e5f0-78c4-4f26-8e05-0848d12c2f50-be7c2950aac6_c7.mp4",
                 "https://www.ardmediathek.de/subtitle/271940",
                 GeoLocations.GEO_DE,
-                new ArdFilmInfoDto[] {}
+                new ArdFilmInfoDto[]{}
             },
             {
                 "/ard/ard_film_page3.json",
@@ -81,7 +87,7 @@ public class ArdFilmDeserializerTest {
                 "http://wdrmedien-a.akamaihd.net/medp/ondemand/weltweit/fsk0/167/1678446/1678446_19454307.mp4",
                 "",
                 GeoLocations.GEO_NONE,
-                new ArdFilmInfoDto[] {}
+                new ArdFilmInfoDto[]{}
             },
             {
                 "/ard/ard_film_page4.json",
@@ -95,7 +101,7 @@ public class ArdFilmDeserializerTest {
                 "",
                 "https://classic.ardmediathek.de/static/avportal/untertitel_mediathek_preview/17256458.xml",
                 GeoLocations.GEO_NONE,
-                new ArdFilmInfoDto[] {}
+                new ArdFilmInfoDto[]{}
             }
         });
   }

@@ -6,7 +6,7 @@ import de.mediathekview.mlib.daten.Film;
 import de.mediathekview.mlib.daten.Resolution;
 import de.mediathekview.mserver.base.utils.DateUtils;
 import de.mediathekview.mserver.base.utils.HtmlDocumentUtils;
-import de.mediathekview.mserver.crawler.ard.json.ArdVideoInfoDTO;
+import de.mediathekview.mserver.crawler.ard.json.ArdVideoInfoDto;
 import de.mediathekview.mserver.crawler.ard.json.ArdVideoInfoJsonDeserializer;
 import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
 import de.mediathekview.mserver.crawler.basic.AbstractDocumentTask;
@@ -67,7 +67,7 @@ public class SrFilmDetailTask extends AbstractDocumentTask<Film, SrTopicUrlDTO> 
       final Optional<Duration> duration = parseDuration(aDocument);
       final Optional<String> description = parseDescription(aDocument);
       
-      Optional<ArdVideoInfoDTO> videoInfoOptional = parseUrls(aDocument);
+      Optional<ArdVideoInfoDto> videoInfoOptional = parseUrls(aDocument);
       if (videoInfoOptional.isPresent() 
         && title.isPresent()) {
         final Film film = new Film(UUID.randomUUID(), crawler.getSender(), title.get(),
@@ -78,7 +78,7 @@ public class SrFilmDetailTask extends AbstractDocumentTask<Film, SrTopicUrlDTO> 
           film.setBeschreibung(description.get());
         }
         
-        ArdVideoInfoDTO videoInfo = videoInfoOptional.get();
+        ArdVideoInfoDto videoInfo = videoInfoOptional.get();
         if (StringUtils.isNotBlank(videoInfo.getSubtitleUrl())) {
           film.addSubtitle(new URL(addMissingProtocol(videoInfo.getSubtitleUrl())));
         }
@@ -125,19 +125,19 @@ public class SrFilmDetailTask extends AbstractDocumentTask<Film, SrTopicUrlDTO> 
     }
   }
   
-  private Optional<ArdVideoInfoDTO> parseUrls(Document aDocument) {
+  private Optional<ArdVideoInfoDto> parseUrls(Document aDocument) {
       Optional<String> videoDetailUrl = HtmlDocumentUtils.getElementAttributeString(VIDEO_DETAIL_SELECTOR, VIDEO_DETAIL_ATTRIBUTE, aDocument);
       if (videoDetailUrl.isPresent()) {
         Gson gson = new GsonBuilder()
-          .registerTypeAdapter(ArdVideoInfoDTO.class, new ArdVideoInfoJsonDeserializer(crawler))
+          .registerTypeAdapter(ArdVideoInfoDto.class, new ArdVideoInfoJsonDeserializer(crawler))
           .create();
 
         String url = videoDetailUrl.get();
         url = addMissingProtocol(url);
         
         try {
-          ArdVideoInfoDTO dto = gson.fromJson(new InputStreamReader(new URL(url).openStream()),
-                          ArdVideoInfoDTO.class);
+          ArdVideoInfoDto dto = gson.fromJson(new InputStreamReader(new URL(url).openStream()),
+                          ArdVideoInfoDto.class);
           return Optional.of(dto);
         } catch (IOException ex) {
           LOG.fatal(ex);

@@ -71,7 +71,7 @@ public class ArdFilmDeserializer implements JsonDeserializer<Optional<ArdFilmDto
     Optional<String> description = JsonUtils.getAttributeAsString(playerPageObject, ATTRIBUTE_SYNOPSIS);
     Optional<LocalDateTime> date = parseDate(playerPageObject);
     Optional<Duration> duration = parseDuration(playerPageObject);
-    Optional<ArdVideoInfoDTO> videoInfo = parseVideoUrls(playerPageObject);
+    Optional<ArdVideoInfoDto> videoInfo = parseVideoUrls(playerPageObject);
 
     if (topic.isPresent() && title.isPresent() && videoInfo.isPresent() && videoInfo.get().getVideoUrls().size() > 0) {
       Optional<Film> film = createFilm(topic.get(), title.get(), description, date, duration, videoInfo.get());
@@ -115,7 +115,7 @@ public class ArdFilmDeserializer implements JsonDeserializer<Optional<ArdFilmDto
   }
 
   private Optional<Film> createFilm(String topic, String title, Optional<String> description,
-      Optional<LocalDateTime> date, Optional<Duration> duration, ArdVideoInfoDTO videoInfo) {
+      Optional<LocalDateTime> date, Optional<Duration> duration, ArdVideoInfoDto videoInfo) {
 
     final Film film = new Film(UUID.randomUUID(), Sender.ARD, title, topic, date.orElse(null), duration.orElse(Duration.ofSeconds(0)));
 
@@ -182,10 +182,10 @@ public class ArdFilmDeserializer implements JsonDeserializer<Optional<ArdFilmDto
     return Optional.empty();
   }
 
-  private Optional<ArdVideoInfoDTO> parseVideoUrls(final JsonObject playerPageObject) {
+  private Optional<ArdVideoInfoDto> parseVideoUrls(final JsonObject playerPageObject) {
     final Optional<JsonObject> mediaCollectionObject = getMediaCollectionObject(playerPageObject);
     if (mediaCollectionObject.isPresent()) {
-      ArdVideoInfoDTO videoDto = videoDeserializer.deserialize(mediaCollectionObject.get(), null, null);
+      ArdVideoInfoDto videoDto = videoDeserializer.deserialize(mediaCollectionObject.get(), null, null);
       return Optional.of(videoDto);
     }
 

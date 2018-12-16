@@ -10,7 +10,7 @@ import de.mediathekview.mlib.daten.FilmUrl;
 import de.mediathekview.mlib.daten.Resolution;
 import de.mediathekview.mserver.base.utils.DateUtils;
 import de.mediathekview.mserver.base.utils.HtmlDocumentUtils;
-import de.mediathekview.mserver.crawler.ard.json.ArdVideoInfoDTO;
+import de.mediathekview.mserver.crawler.ard.json.ArdVideoInfoDto;
 import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
 import de.mediathekview.mserver.crawler.basic.AbstractDocumentTask;
 import de.mediathekview.mserver.crawler.basic.AbstractUrlTask;
@@ -57,7 +57,7 @@ public class HrSendungsfolgedetailsTask extends AbstractDocumentTask<Film, Crawl
   private static final String UT_URL_SELECTOR1 = ".c-programHeader__mediaWrapper track";
   private static final String UT_URL_SELECTOR2 = ".c-contentHeader__lead track";
 
-  private static final Type OPTIONAL_ARDVIDEOINFODTO_TYPE_TOKEN = new TypeToken<Optional<ArdVideoInfoDTO>>() {
+  private static final Type OPTIONAL_ARDVIDEOINFODTO_TYPE_TOKEN = new TypeToken<Optional<ArdVideoInfoDto>>() {
   }.getType();
 
   private final Gson gson;
@@ -227,7 +227,7 @@ public class HrSendungsfolgedetailsTask extends AbstractDocumentTask<Film, Crawl
     } else {
       Optional<String> videoJson = HtmlDocumentUtils.getElementAttributeString(VIDEO_URL_SELECTOR2, ATTRIBUTE_VIDEO_JSON, aDocument);
       if (videoJson.isPresent()) {
-        Optional<ArdVideoInfoDTO> dto = gson.fromJson(videoJson.get(), OPTIONAL_ARDVIDEOINFODTO_TYPE_TOKEN);
+        Optional<ArdVideoInfoDto> dto = gson.fromJson(videoJson.get(), OPTIONAL_ARDVIDEOINFODTO_TYPE_TOKEN);
         if (dto.isPresent()) {
           urls.putAll(dto.get().getVideoUrls());
         }

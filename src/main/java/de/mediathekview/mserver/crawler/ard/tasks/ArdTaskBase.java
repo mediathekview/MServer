@@ -51,7 +51,7 @@ public abstract class ArdTaskBase<T, D extends CrawlerUrlDTO> extends AbstractRe
     Response response;
     try {
       response = executeRequest(aTarget);
-    } catch(Exception e) {
+    } catch (Exception e) {
       LOG.error(e);
       return null;
     }

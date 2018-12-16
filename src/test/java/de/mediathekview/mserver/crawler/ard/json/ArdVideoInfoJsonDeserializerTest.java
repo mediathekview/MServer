@@ -91,7 +91,7 @@ public class ArdVideoInfoJsonDeserializerTest extends WireMockTestBase {
 
     AbstractCrawler crawler = Mockito.mock(AbstractCrawler.class);
     ArdVideoInfoJsonDeserializer target = new ArdVideoInfoJsonDeserializer(crawler);
-    ArdVideoInfoDTO actual = target.deserialize(jsonElement, ArdVideoInfoDTO.class, null);
+    ArdVideoInfoDto actual = target.deserialize(jsonElement, ArdVideoInfoDto.class, null);
 
     assertThat(actual, notNullValue());
 

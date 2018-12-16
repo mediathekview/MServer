@@ -35,8 +35,8 @@ public class ArdFilmInfoDto extends CrawlerUrlDTO {
       return false;
     }
     ArdFilmInfoDto that = (ArdFilmInfoDto) o;
-    return numberOfClips == that.numberOfClips &&
-        Objects.equals(id, that.id);
+    return numberOfClips == that.numberOfClips
+        && Objects.equals(id, that.id);
   }
 
   @Override

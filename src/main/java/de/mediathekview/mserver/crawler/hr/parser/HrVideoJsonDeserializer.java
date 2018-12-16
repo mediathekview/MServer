@@ -7,17 +7,17 @@ import com.google.gson.JsonObject;
 import de.mediathekview.mlib.daten.Resolution;
 import de.mediathekview.mserver.base.utils.JsonUtils;
 import de.mediathekview.mserver.base.utils.UrlUtils;
-import de.mediathekview.mserver.crawler.ard.json.ArdVideoInfoDTO;
+import de.mediathekview.mserver.crawler.ard.json.ArdVideoInfoDto;
 import java.lang.reflect.Type;
 import java.util.Optional;
 
-public class HrVideoJsonDeserializer implements JsonDeserializer<Optional<ArdVideoInfoDTO>> {
+public class HrVideoJsonDeserializer implements JsonDeserializer<Optional<ArdVideoInfoDto>> {
 
   private static final String ATTRIBUTE_VIDEO_URL = "videoUrl";
   private static final String ATTRIBUTE_ADAPTIVE_URL = "adaptiveStreamingUrl";
 
   @Override
-  public Optional<ArdVideoInfoDTO> deserialize(JsonElement aJsonElement, Type aType, JsonDeserializationContext aContext) {
+  public Optional<ArdVideoInfoDto> deserialize(JsonElement aJsonElement, Type aType, JsonDeserializationContext aContext) {
 
     JsonObject aJsonObject = aJsonElement.getAsJsonObject();
     Optional<String> url = JsonUtils.getAttributeAsString(aJsonObject, ATTRIBUTE_VIDEO_URL);
@@ -33,17 +33,17 @@ public class HrVideoJsonDeserializer implements JsonDeserializer<Optional<ArdVid
     return Optional.empty();
   }
 
-  private Optional<ArdVideoInfoDTO> createVideoInfo(String videoUrl) {
-    ArdVideoInfoDTO dto = new ArdVideoInfoDTO();
+  private Optional<ArdVideoInfoDto> createVideoInfo(String videoUrl) {
+    ArdVideoInfoDto dto = new ArdVideoInfoDto();
     dto.put(Resolution.NORMAL, videoUrl);
 
     return Optional.of(dto);
   }
 
 
-  private Optional<ArdVideoInfoDTO> createVideoInfo(String videoUrl, String adaptiveUrl) {
+  private Optional<ArdVideoInfoDto> createVideoInfo(String videoUrl, String adaptiveUrl) {
 
-    ArdVideoInfoDTO dto = new ArdVideoInfoDTO();
+    ArdVideoInfoDto dto = new ArdVideoInfoDto();
 
     String fileType = UrlUtils.getFileType(videoUrl).get();
     String pureVideoUrl = videoUrl.substring(0, videoUrl.lastIndexOf('_')) + "_";

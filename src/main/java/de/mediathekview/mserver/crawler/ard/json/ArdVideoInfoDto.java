@@ -1,18 +1,18 @@
 package de.mediathekview.mserver.crawler.ard.json;
 
+import de.mediathekview.mlib.daten.Resolution;
 import java.util.EnumMap;
 import java.util.Map;
-import de.mediathekview.mlib.daten.Resolution;
 
 /**
- * Video information from
- * http://www.ardmediathek.de/play/media/[documentId]?devicetype=pc&features=flash.
+ * Video information from http://www.ardmediathek.de/play/media/[documentId]?devicetype=pc&features=flash.
  */
-public class ArdVideoInfoDTO {
+public class ArdVideoInfoDto {
+
   private final Map<Resolution, String> videoUrls;
   private String subtitleUrl;
 
-  public ArdVideoInfoDTO() {
+  public ArdVideoInfoDto() {
     videoUrls = new EnumMap<>(Resolution.class);
   }
 

@@ -5,7 +5,7 @@ import com.google.gson.GsonBuilder;
 import de.mediathekview.mlib.daten.Film;
 import de.mediathekview.mlib.daten.Resolution;
 import de.mediathekview.mlib.daten.Sender;
-import de.mediathekview.mserver.crawler.ard.json.ArdVideoInfoDTO;
+import de.mediathekview.mserver.crawler.ard.json.ArdVideoInfoDto;
 import de.mediathekview.mserver.crawler.ard.json.ArdVideoInfoJsonDeserializer;
 import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
 import de.mediathekview.mserver.crawler.basic.AbstractDocumentTask;
@@ -45,7 +45,7 @@ public class RbbFilmTask extends AbstractDocumentTask<Film, CrawlerUrlDTO> {
     baseUrl = aBaseUrl;
     filmDetailDeserializer = new RbbFilmDetailDeserializer(baseUrl);
     gson = new GsonBuilder()
-        .registerTypeAdapter(ArdVideoInfoDTO.class, new ArdVideoInfoJsonDeserializer(crawler))
+        .registerTypeAdapter(ArdVideoInfoDto.class, new ArdVideoInfoJsonDeserializer(crawler))
         .create();
   }
 
@@ -56,9 +56,9 @@ public class RbbFilmTask extends AbstractDocumentTask<Film, CrawlerUrlDTO> {
     if (filmInfo.isPresent()) {
       FilmInfoDto filmInfoDto = filmInfo.get();
       try {
-        final ArdVideoInfoDTO videoInfo
+        final ArdVideoInfoDto videoInfo
             = gson.fromJson(new InputStreamReader(new URL(filmInfoDto.getUrl()).openStream(), StandardCharsets.UTF_8),
-            ArdVideoInfoDTO.class);
+            ArdVideoInfoDto.class);
 
         Film film = createFilm(filmInfoDto, videoInfo);
         taskResults.add(film);
@@ -84,7 +84,7 @@ public class RbbFilmTask extends AbstractDocumentTask<Film, CrawlerUrlDTO> {
     return new RbbFilmTask(crawler, aElementsToProcess, baseUrl);
   }
 
-  private Film createFilm(final FilmInfoDto aFilmInfoDto, final ArdVideoInfoDTO aVideoInfoDto) throws MalformedURLException {
+  private Film createFilm(final FilmInfoDto aFilmInfoDto, final ArdVideoInfoDto aVideoInfoDto) throws MalformedURLException {
     final Film film = new Film(UUID.randomUUID(), Sender.RBB, aFilmInfoDto.getTitle(),
         aFilmInfoDto.getTopic(), aFilmInfoDto.getTime(), aFilmInfoDto.getDuration());
 
