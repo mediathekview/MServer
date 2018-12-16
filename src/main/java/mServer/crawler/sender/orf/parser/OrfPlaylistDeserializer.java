@@ -10,7 +10,7 @@ import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import mServer.crawler.sender.orf.JsonUtils;
+import mServer.crawler.sender.base.JsonUtils;
 import mServer.crawler.sender.orf.OrfEpisodeInfoDTO;
 import mServer.crawler.sender.orf.OrfVideoInfoDTO;
 

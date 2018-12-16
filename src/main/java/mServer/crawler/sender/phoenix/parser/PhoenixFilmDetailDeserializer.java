@@ -7,7 +7,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import java.lang.reflect.Type;
 import java.util.Optional;
-import mServer.crawler.sender.orf.JsonUtils;
+import mServer.crawler.sender.base.JsonUtils;
 
 public class PhoenixFilmDetailDeserializer implements JsonDeserializer<Optional<PhoenixFilmDetailDto>> {
 

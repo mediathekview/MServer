@@ -1,7 +1,6 @@
 package mServer.crawler.sender.phoenix.tasks;
 
 import com.google.gson.reflect.TypeToken;
-import de.mediathekview.mlib.Config;
 import java.lang.reflect.Type;
 import java.util.Collection;
 import java.util.Optional;
@@ -9,7 +8,7 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 import javax.ws.rs.client.WebTarget;
 import mServer.crawler.sender.MediathekReader;
 import mServer.crawler.sender.base.CrawlerUrlDTO;
-import mServer.crawler.sender.orf.tasks.AbstractRecursivConverterTask;
+import mServer.crawler.sender.base.AbstractRecursivConverterTask;
 import mServer.crawler.sender.base.SendungOverviewDto;
 import mServer.crawler.sender.phoenix.parser.PhoenixSendungOverviewDeserializer;
 import org.apache.logging.log4j.LogManager;

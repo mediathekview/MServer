@@ -9,9 +9,9 @@ import java.lang.reflect.Type;
 import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
-import mServer.crawler.sender.orf.JsonUtils;
-import mServer.crawler.sender.phoenix.PhoenixConstants;
+import mServer.crawler.sender.base.JsonUtils;
 import mServer.crawler.sender.base.SendungOverviewDto;
+import mServer.crawler.sender.phoenix.PhoenixConstants;
 
 public class PhoenixSendungOverviewDeserializer implements JsonDeserializer<Optional<SendungOverviewDto>> {
 
