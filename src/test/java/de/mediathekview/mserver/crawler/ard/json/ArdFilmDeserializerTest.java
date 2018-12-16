@@ -82,6 +82,20 @@ public class ArdFilmDeserializerTest {
                 "",
                 GeoLocations.GEO_NONE,
                 new ArdFilmInfoDto[] {}
+            },
+            {
+                "/ard/ard_film_page4.json",
+                "Brennpunkt",
+                "Brennpunkt: Deutschland hat gewählt",
+                "Die Wählerinnen und Wähler haben die Bundeskanzlerin Angela Merkel im Amt bestätigt und ihr den Auftrag zur Regierungsbildung erteilt. Welche Koalitionsoptionen stehen der CDU-Vorsitzenden für die kommenden vier Jahre zur Verfügung?",
+                LocalDateTime.of(2013, 9, 23, 20, 15, 0),
+                Duration.ofSeconds(2845),
+                "https://media.tagesschau.de/video/2013/0923/TV-20130923-2151-4101.webm.h264.mp4",
+                "https://media.tagesschau.de/video/2013/0923/TV-20130923-2151-4101.webl.h264.mp4",
+                "",
+                "https://classic.ardmediathek.de/static/avportal/untertitel_mediathek_preview/17256458.xml",
+                GeoLocations.GEO_NONE,
+                new ArdFilmInfoDto[] {}
             }
         });
   }

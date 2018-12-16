@@ -8,6 +8,7 @@ import de.mediathekview.mlib.daten.Film;
 import de.mediathekview.mlib.daten.Resolution;
 import de.mediathekview.mlib.daten.Sender;
 import de.mediathekview.mserver.base.utils.JsonUtils;
+import de.mediathekview.mserver.base.utils.UrlUtils;
 import de.mediathekview.mserver.crawler.ard.ArdConstants;
 import de.mediathekview.mserver.crawler.ard.ArdFilmDto;
 import de.mediathekview.mserver.crawler.ard.ArdFilmInfoDto;
@@ -123,9 +124,9 @@ public class ArdFilmDeserializer implements JsonDeserializer<Optional<ArdFilmDto
     film.setGeoLocations(CrawlerTool.getGeoLocations(Sender.ARD, videoInfo.getDefaultVideoUrl()));
     if (StringUtils.isNotBlank(videoInfo.getSubtitleUrl())) {
       try {
-        film.addSubtitle(new URL(videoInfo.getSubtitleUrl()));
+        film.addSubtitle(new URL(prepareSubtitleUrl(videoInfo.getSubtitleUrl())));
       } catch (MalformedURLException ex) {
-        LOG.error("Invalid subtitle url: " + videoInfo.getSubtitleUrl(), ex);
+        LOG.error(topic + ", " + title + ", " + date.toString() + "Invalid subtitle url: " + videoInfo.getSubtitleUrl(), ex);
       }
     }
     addUrls(film, videoInfo.getVideoUrls());
@@ -141,6 +142,10 @@ public class ArdFilmDeserializer implements JsonDeserializer<Optional<ArdFilmDto
         LOG.error("InvalidUrl: " + qualitiesEntry.getValue(), ex);
       }
     }
+  }
+
+  private static String prepareSubtitleUrl(final String url) {
+    return UrlUtils.addDomainIfMissing(url, ArdConstants.BASE_URL_SUBTITLES);
   }
 
   private static Optional<String> parseTopic(final JsonObject playerPageObject) {

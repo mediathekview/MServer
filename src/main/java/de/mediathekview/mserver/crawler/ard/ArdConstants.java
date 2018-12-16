@@ -21,5 +21,7 @@ public class ArdConstants {
 
   public static final String WEBSITE_URL = "https://www.ardmediathek.de/ard/player/%s";
 
+  public static final String BASE_URL_SUBTITLES = "https://classic.ardmediathek.de";
+
   private ArdConstants() {}
 }
