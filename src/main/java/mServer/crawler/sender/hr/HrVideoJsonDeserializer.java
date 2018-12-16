@@ -8,8 +8,8 @@ import java.lang.reflect.Type;
 import java.util.Optional;
 import mServer.crawler.sender.ard.ArdVideoDTO;
 import mServer.crawler.sender.newsearch.Qualities;
-import mServer.crawler.sender.orf.JsonUtils;
-import mServer.crawler.sender.phoenix.UrlUtils;
+import mServer.crawler.sender.base.JsonUtils;
+import mServer.crawler.sender.base.UrlUtils;
 
 public class HrVideoJsonDeserializer implements JsonDeserializer<Optional<ArdVideoDTO>> {
 

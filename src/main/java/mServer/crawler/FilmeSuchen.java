@@ -35,7 +35,6 @@ import de.mediathekview.mlib.filmesuchen.ListenerFilmeLaden;
 import de.mediathekview.mlib.filmesuchen.ListenerFilmeLadenEvent;
 import de.mediathekview.mlib.tool.Log;
 import mServer.crawler.sender.Mediathek3Sat;
-import mServer.crawler.sender.MediathekArd;
 import mServer.crawler.sender.MediathekDw;
 import mServer.crawler.sender.MediathekHr;
 import mServer.crawler.sender.MediathekKika;
@@ -50,6 +49,7 @@ import mServer.crawler.sender.MediathekSwr;
 import mServer.crawler.sender.MediathekWdr;
 import mServer.crawler.sender.MediathekZdf;
 import mServer.crawler.sender.MediathekZdfTivi;
+import mServer.crawler.sender.ard.ArdCrawler;
 import mServer.crawler.sender.arte.MediathekArte_de;
 import mServer.crawler.sender.arte.MediathekArte_fr;
 import mServer.crawler.sender.br.BrCrawler;
@@ -81,7 +81,7 @@ public class FilmeSuchen {
     // für jeden Sender einen MediathekReader anlegen, mit der Prio ob
     // sofort gestartet oder erst später
     //Reader laden Spaltenweises Laden
-    mediathekListe.add(new MediathekArd(this, 0));
+    mediathekListe.add(new ArdCrawler(this, 0));
     mediathekListe.add(new MediathekZdf(this, 0));
     mediathekListe.add(new MediathekZdfTivi(this, 0));
     mediathekListe.add(new MediathekArte_de(this, 0));

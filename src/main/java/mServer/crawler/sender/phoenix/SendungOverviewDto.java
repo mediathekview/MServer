@@ -3,7 +3,7 @@ package mServer.crawler.sender.phoenix;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import mServer.crawler.sender.orf.CrawlerUrlDTO;
+import mServer.crawler.sender.base.CrawlerUrlDTO;
 
 public class SendungOverviewDto {
 
