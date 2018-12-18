@@ -6,8 +6,8 @@ import java.util.Set;
 
 public class ArdFilmDto {
 
-  private Film film;
-  private Set<ArdFilmInfoDto> relatedFilms;
+  private final Film film;
+  private final Set<ArdFilmInfoDto> relatedFilms;
 
   public ArdFilmDto(final Film film) {
     this.film = film;

@@ -5,8 +5,8 @@ import java.util.Objects;
 
 public class ArdFilmInfoDto extends CrawlerUrlDTO {
 
-  private String id;
-  private int numberOfClips;
+  private final String id;
+  private final int numberOfClips;
 
   public ArdFilmInfoDto(String id, String aUrl, int numberOfClips) {
     super(aUrl);

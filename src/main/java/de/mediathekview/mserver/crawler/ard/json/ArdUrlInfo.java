@@ -5,10 +5,10 @@ import java.util.Optional;
 
 class ArdUrlInfo {
 
-  private String url;
+  private final String url;
   private int height;
   private int width;
-  private Optional<String> fileType;
+  private final Optional<String> fileType;
 
   ArdUrlInfo(final String aUrl) {
     url = aUrl;
