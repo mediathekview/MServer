@@ -24,7 +24,7 @@ import org.apache.logging.log4j.Logger;
  * Converts json with basic video from http://www.ardmediathek.de/play/media/[documentId]?devicetype=pc&features=flash to a map of {@link
  * Resolution} with corresponding urls.
  */
-public class ArdVideoInfoJsonDeserializer implements JsonDeserializer<ArdVideoInfoDTO> {
+public class ArdVideoInfoJsonDeserializer implements JsonDeserializer<ArdVideoInfoDto> {
 
   private static final String ELEMENT_SUBTITLE_URL = "_subtitleUrl";
 
@@ -37,11 +37,11 @@ public class ArdVideoInfoJsonDeserializer implements JsonDeserializer<ArdVideoIn
   }
 
   @Override
-  public ArdVideoInfoDTO deserialize(final JsonElement aJsonElement, final Type aType,
+  public ArdVideoInfoDto deserialize(final JsonElement aJsonElement, final Type aType,
       final JsonDeserializationContext aJsonDeserializationContext) {
-    final ArdVideoInfoDTO videoInfo = new ArdVideoInfoDTO();
+    final ArdVideoInfoDto videoInfo = new ArdVideoInfoDto();
     final JsonElement subtitleElement = aJsonElement.getAsJsonObject().get(ELEMENT_SUBTITLE_URL);
-    if (subtitleElement != null) {
+    if (subtitleElement != null && !subtitleElement.isJsonNull()) {
       videoInfo.setSubtitleUrl(subtitleElement.getAsString());
     }
 

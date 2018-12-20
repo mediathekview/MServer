@@ -1,5 +1,13 @@
 package de.mediathekview.mserver.crawler.ard.json;
 
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import de.mediathekview.mlib.daten.Resolution;
+import de.mediathekview.mserver.base.messages.ServerMessages;
+import de.mediathekview.mserver.base.utils.JsonUtils;
+import de.mediathekview.mserver.base.utils.UrlUtils;
+import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.EnumMap;
@@ -11,14 +19,6 @@ import java.util.Set;
 import java.util.stream.Collectors;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import de.mediathekview.mlib.daten.Resolution;
-import de.mediathekview.mserver.base.messages.ServerMessages;
-import de.mediathekview.mserver.base.utils.JsonUtils;
-import de.mediathekview.mserver.base.utils.UrlUtils;
-import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
 
 public class ArdMediaArrayToDownloadUrlsConverter {
 
@@ -37,7 +37,8 @@ public class ArdMediaArrayToDownloadUrlsConverter {
   private static final String ELEMENT_WIDTH = "_width";
   private static final String PROTOCOL_RTMP = "rtmp";
 
-  private ArdMediaArrayToDownloadUrlsConverter() {}
+  private ArdMediaArrayToDownloadUrlsConverter() {
+  }
 
   public static Map<Resolution, URL> toDownloadUrls(final JsonElement aJsonElement,
       final AbstractCrawler aCrawler) {
@@ -207,7 +208,7 @@ public class ArdMediaArrayToDownloadUrlsConverter {
             final String url = info.getUrl();
 
             // Sometimes videos with a resolution of 960 are listed as quality HD
-            if (!url.substring(url.lastIndexOf('/') + 1).startsWith("960")) {
+            if (!url.startsWith("960", url.lastIndexOf('/') + 1)) {
               return info;
             }
           }

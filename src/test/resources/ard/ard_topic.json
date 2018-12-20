@@ -1,0 +1,248 @@
+{
+  "data":{
+    "showPage":{
+      "id":"U2hvd1BhZ2UrQVJEK2NyaWQ6Ly9kYXNlcnN0ZS5kZS9hZW5uYSBidXJkYQ",
+      "teasers":[
+        {
+          "id":"Y3JpZDovL2Rhc2Vyc3RlLmRlL2Flbm5hIGJ1cmRhL2IxZjY2NWQzLWIyOTYtNDQ4ZS05YmQ1LTk5MWUzZTcxZWNkMQ",
+          "links":{
+            "target":{
+              "id":"Y3JpZDovL2Rhc2Vyc3RlLmRlL2Flbm5hIGJ1cmRhL2IxZjY2NWQzLWIyOTYtNDQ4ZS05YmQ1LTk5MWUzZTcxZWNkMQ",
+              "title":"Dokumentation: Aenne Burda - Die Königin der Kleider",
+              "__typename":"Link"
+            },
+            "__typename":"TeaserLinks"
+          },
+          "shortTitle":"Dokumentation: Aenne Burda - Die Königin der Kleider",
+          "mediumTitle":"Dokumentation: Aenne Burda - Die Königin der Kleider",
+          "longTitle":"Dokumentation: Aenne Burda - Die Königin der Kleider",
+          "type":"ondemand",
+          "images":{
+            "aspect16x9":{
+              "title":"Dokumentation: Aenne Burda - Die Königin der Kleider - Standbild",
+              "src":"https://img.ardmediathek.de/standard/00/58/31/82/06/-1774185891/16x9/{width}?mandant=ard",
+              "producerName":"SWR",
+              "__typename":"Image"
+            },
+            "aspect1x1":null,
+            "__typename":"TeaserImages"
+          },
+          "duration":1783,
+          "availableTo":"2019-12-12T22:59:00Z",
+          "broadcastedOn":"2018-12-12T20:45:00Z",
+          "subtitled":false,
+          "publicationService":{
+            "name":"Das Erste",
+            "__typename":"PublicationService"
+          },
+          "__typename":"Teaser"
+        },
+        {
+          "id":"Y3JpZDovL2Rhc2Vyc3RlLmRlL2Flbm5hIGJ1cmRhLzdkMWRhYzhmLWMxOWEtNDdjZS1hNDBmLTgzN2NjZTRhNTNjZQ",
+          "links":{
+            "target":{
+              "id":"Y3JpZDovL2Rhc2Vyc3RlLmRlL2Flbm5hIGJ1cmRhLzdkMWRhYzhmLWMxOWEtNDdjZS1hNDBmLTgzN2NjZTRhNTNjZQ",
+              "title":"Aenne Burda - Die Wirtschaftswunderfrau (2)",
+              "__typename":"Link"
+            },
+            "__typename":"TeaserLinks"
+          },
+          "shortTitle":"Aenne Burda - Die Wirtschaftswunderfrau (2)",
+          "mediumTitle":"Aenne Burda - Die Wirtschaftswunderfrau (2)",
+          "longTitle":"Aenne Burda - Die Wirtschaftswunderfrau (2)",
+          "type":"ondemand",
+          "images":{
+            "aspect16x9":{
+              "title":"Aenne Burda - Die Wirtschaftswunderfrau (2) - Standbild",
+              "src":"https://img.ardmediathek.de/standard/00/58/31/82/36/-1774185891/16x9/{width}?mandant=ard",
+              "producerName":"SWR",
+              "__typename":"Image"
+            },
+            "aspect1x1":null,
+            "__typename":"TeaserImages"
+          },
+          "duration":5310,
+          "availableTo":"2019-03-04T22:59:00Z",
+          "broadcastedOn":"2018-12-12T19:15:00Z",
+          "subtitled":true,
+          "publicationService":{
+            "name":"Das Erste",
+            "__typename":"PublicationService"
+          },
+          "__typename":"Teaser"
+        },
+        {
+          "id":"Y3JpZDovL2Rhc2Vyc3RlLmRlL2Flbm5hIGJ1cmRhL2I0MWQ3MDhjLTMwNDItNGNhYy1iOTMyLTI0NzNlNjdiM2MwOQ",
+          "links":{
+            "target":{
+              "id":"Y3JpZDovL2Rhc2Vyc3RlLmRlL2Flbm5hIGJ1cmRhL2I0MWQ3MDhjLTMwNDItNGNhYy1iOTMyLTI0NzNlNjdiM2MwOQ",
+              "title":"Aenne Burda - Die Wirtschaftswunderfrau (2) (Hörfassung)",
+              "__typename":"Link"
+            },
+            "__typename":"TeaserLinks"
+          },
+          "shortTitle":"Aenne Burda - Die Wirtschaftswunderfrau (2) (Hörfassung)",
+          "mediumTitle":"Aenne Burda - Die Wirtschaftswunderfrau (2) (Hörfassung)",
+          "longTitle":"Aenne Burda - Die Wirtschaftswunderfrau (2) (Hörfassung)",
+          "type":"ondemand",
+          "images":{
+            "aspect16x9":{
+              "title":"Aenne Burda - Die Wirtschaftswunderfrau (2) (Hörfassung) - Standbild",
+              "src":"https://img.ardmediathek.de/standard/00/58/31/82/70/-1774185891/16x9/{width}?mandant=ard",
+              "producerName":"SWR",
+              "__typename":"Image"
+            },
+            "aspect1x1":null,
+            "__typename":"TeaserImages"
+          },
+          "duration":5310,
+          "availableTo":"2019-03-04T22:59:00Z",
+          "broadcastedOn":"2018-12-12T19:15:00Z",
+          "subtitled":false,
+          "publicationService":{
+            "name":"Das Erste",
+            "__typename":"PublicationService"
+          },
+          "__typename":"Teaser"
+        },
+        {
+          "id":"Y3JpZDovL2Rhc2Vyc3RlLmRlL2Flbm5hIGJ1cmRhLzhiMzE1ZTlkLWFmZjktNDE2Mi1iNzk1LWY3OTk3MGJjYWZkMw",
+          "links":{
+            "target":{
+              "id":"Y3JpZDovL2Rhc2Vyc3RlLmRlL2Flbm5hIGJ1cmRhLzhiMzE1ZTlkLWFmZjktNDE2Mi1iNzk1LWY3OTk3MGJjYWZkMw",
+              "title":"Making-of: Katharina Wackernagel ist Aenne Burda",
+              "__typename":"Link"
+            },
+            "__typename":"TeaserLinks"
+          },
+          "shortTitle":"Making-of: Katharina Wackernagel ist Aenne Burda",
+          "mediumTitle":"Making-of: Katharina Wackernagel ist Aenne Burda",
+          "longTitle":"Making-of: Katharina Wackernagel ist Aenne Burda",
+          "type":"ondemand",
+          "images":{
+            "aspect16x9":{
+              "title":"Making-of: Katharina Wackernagel ist Aenne Burda - Standbild",
+              "src":"https://img.ardmediathek.de/standard/00/58/00/01/26/-1774185891/16x9/{width}?mandant=ard",
+              "producerName":"SWR",
+              "__typename":"Image"
+            },
+            "aspect1x1":null,
+            "__typename":"TeaserImages"
+          },
+          "duration":215,
+          "availableTo":"2018-12-31T22:59:00Z",
+          "broadcastedOn":"2018-11-05T19:15:00Z",
+          "subtitled":false,
+          "publicationService":{
+            "name":"Das Erste",
+            "__typename":"PublicationService"
+          },
+          "__typename":"Teaser"
+        },
+        {
+          "id":"Y3JpZDovL2Rhc2Vyc3RlLmRlL2Flbm5hIGJ1cmRhLzk2OTI1NTQxLWRkZTQtNGJhOS1hZTUyLTQ0MDUwYzIwOGVlOA",
+          "links":{
+            "target":{
+              "id":"Y3JpZDovL2Rhc2Vyc3RlLmRlL2Flbm5hIGJ1cmRhLzk2OTI1NTQxLWRkZTQtNGJhOS1hZTUyLTQ0MDUwYzIwOGVlOA",
+              "title":"Making-of: Alexander Stolle kümmert sich um die historischen Fahrzeuge",
+              "__typename":"Link"
+            },
+            "__typename":"TeaserLinks"
+          },
+          "shortTitle":"Making-of: Alexander Stolle kümmert sich um die historischen Fahrzeuge",
+          "mediumTitle":"Making-of: Alexander Stolle kümmert sich um die historischen Fahrzeuge",
+          "longTitle":"Making-of: Alexander Stolle kümmert sich um die historischen Fahrzeuge",
+          "type":"ondemand",
+          "images":{
+            "aspect16x9":{
+              "title":"Making-of: Alexander Stolle kümmert sich um die historischen Fahrzeuge - Standbild",
+              "src":"https://img.ardmediathek.de/standard/00/58/27/98/40/-1774185891/16x9/{width}?mandant=ard",
+              "producerName":"ARD",
+              "__typename":"Image"
+            },
+            "aspect1x1":null,
+            "__typename":"TeaserImages"
+          },
+          "duration":150,
+          "availableTo":null,
+          "broadcastedOn":"2018-12-05T19:15:00Z",
+          "subtitled":false,
+          "publicationService":{
+            "name":"Das Erste",
+            "__typename":"PublicationService"
+          },
+          "__typename":"Teaser"
+        },
+        {
+          "id":"Y3JpZDovL2Rhc2Vyc3RlLmRlL2Flbm5hIGJ1cmRhLzhjYTk2MmFiLTgyOTctNDE4Yy05YzUxLTdlN2Y1Mjg4ZWY5ZS9hdWRpb2Rlc2tyaXB0aW9u",
+          "links":{
+            "target":{
+              "id":"Y3JpZDovL2Rhc2Vyc3RlLmRlL2Flbm5hIGJ1cmRhLzhjYTk2MmFiLTgyOTctNDE4Yy05YzUxLTdlN2Y1Mjg4ZWY5ZS9hdWRpb2Rlc2tyaXB0aW9u",
+              "title":"Aenne Burda - Die Wirtschaftswunderfrau (1) - Hörfassung",
+              "__typename":"Link"
+            },
+            "__typename":"TeaserLinks"
+          },
+          "shortTitle":"Aenne Burda - Die Wirtschaftswunderfrau (1) - Hörfassung",
+          "mediumTitle":"Aenne Burda - Die Wirtschaftswunderfrau (1) - Hörfassung",
+          "longTitle":"Aenne Burda - Die Wirtschaftswunderfrau (1) - Hörfassung",
+          "type":"ondemand",
+          "images":{
+            "aspect16x9":{
+              "title":"Aenne Burda - Die Wirtschaftswunderfrau (1) - Hörfassung - Standbild",
+              "src":"https://img.ardmediathek.de/standard/00/58/37/32/80/-1774185891/16x9/{width}?mandant=ard",
+              "producerName":"SWR",
+              "__typename":"Image"
+            },
+            "aspect1x1":null,
+            "__typename":"TeaserImages"
+          },
+          "duration":5274,
+          "availableTo":"2019-03-04T22:59:00Z",
+          "broadcastedOn":"2018-12-05T19:15:00Z",
+          "subtitled":true,
+          "publicationService":{
+            "name":"Das Erste",
+            "__typename":"PublicationService"
+          },
+          "__typename":"Teaser"
+        },
+        {
+          "id":"Y3JpZDovL2Rhc2Vyc3RlLmRlL2Flbm5hIGJ1cmRhLzhiMzE1ZTlkLWFmZjktNDE2Mi1iNzk1LWY3OTk3MGJjYWZkMw",
+          "links":{
+            "target":{
+              "id":"Y3JpZDovL2Rhc2Vyc3RlLmRlL2Flbm5hIGJ1cmRhLzhiMzE1ZTlkLWFmZjktNDE2Mi1iNzk1LWY3OTk3MGJjYWZkMw",
+              "title":"Making-of: Katharina Wackernagel ist Aenne Burda",
+              "__typename":"Link"
+            },
+            "__typename":"TeaserLinks"
+          },
+          "shortTitle":"Making-of: Katharina Wackernagel ist Aenne Burda",
+          "mediumTitle":"Making-of: Katharina Wackernagel ist Aenne Burda",
+          "longTitle":"Making-of: Katharina Wackernagel ist Aenne Burda",
+          "type":"ondemand",
+          "images":{
+            "aspect16x9":{
+              "title":"Making-of: Katharina Wackernagel ist Aenne Burda - Standbild",
+              "src":"https://img.ardmediathek.de/standard/00/58/00/01/26/-1774185891/16x9/{width}?mandant=ard",
+              "producerName":"SWR",
+              "__typename":"Image"
+            },
+            "aspect1x1":null,
+            "__typename":"TeaserImages"
+          },
+          "duration":215,
+          "availableTo":"2018-12-31T22:59:00Z",
+          "broadcastedOn":"2018-11-05T19:15:00Z",
+          "subtitled":false,
+          "publicationService":{
+            "name":"Das Erste",
+            "__typename":"PublicationService"
+          },
+          "__typename":"Teaser"
+        }
+      ],
+      "__typename":"ShowPage"
+    }
+  }
+}

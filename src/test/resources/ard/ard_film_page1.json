@@ -1,0 +1,226 @@
+{
+   "data":{
+      "playerPage":{
+         "type":"player_ondemand",
+         "title":"Die schönsten Momente: Eva und Robert",
+         "image":{
+            "title":"Die schönsten Momente: Eva und Robert - Standbild",
+            "src":"https://img.ardmediathek.de/standard/00/58/34/67/20/-1774185891/16x9/{width}?mandant=ard",
+            "producerName":"ARD/Ann Paur",
+            "__typename":"Image"
+         },
+         "maturityContentRating":"NONE",
+         "geoblocked":false,
+         "broadcastedOn":"2018-12-05T14:10:00Z",
+         "availableTo":"2019-01-05T22:59:00Z",
+         "synopsis":"Dieses Special widmet sich der Liebesgeschichte von Eva und Robert. Es beleuchtet Roberts Trauerphase, aber auch die Rückkehr von Evas tot geglaubter erster großen Liebe Markus.",
+         "show":{
+            "title":"Sturm der Liebe",
+            "image":{
+               "src":"https://img.ardmediathek.de/standard/00/57/99/73/06/-1774185891/16x9/{width}?mandant=ard",
+               "title":"",
+               "producerName":"ARD",
+               "__typename":"Image"
+            },
+            "__typename":"Show"
+         },
+         "publicationService":{
+            "name":"Das Erste",
+            "__typename":"PublicationService"
+         },
+         "mediaCollection":{
+            "_type":"video",
+            "_isLive":false,
+            "_defaultQuality":[
+               "auto",
+               "2",
+               "4",
+               "3",
+               "1",
+               "0"
+            ],
+            "_previewImage":"https://img.ardmediathek.de/standard/00/58/34/67/20/-1774185891/16x9/960?mandant=ard",
+            "_subtitleUrl":null,
+            "_subtitleOffset":0,
+            "_mediaArray":[
+               {
+                  "_plugin":1,
+                  "_mediaStreamArray":[
+                     {
+                        "_quality":"auto",
+                        "_stream":[
+                           "https://dasersteuni-vh.akamaihd.net/i/int/2018/12/05/c0c43211-2627-4a68-8757-be43c0dad75a/,512-1,320-1,640-1,480-1,960-1,1280-1,.mp4.csmil/master.m3u8"
+                        ],
+                        "__typename":"MediaStreamArray"
+                     },
+                     {
+                        "_quality":"0",
+                        "_stream":[
+                           "https://pdvideosdaserste-a.akamaihd.net/int/2018/12/05/c0c43211-2627-4a68-8757-be43c0dad75a/320-1.mp4"
+                        ],
+                        "__typename":"MediaStreamArray"
+                     },
+                     {
+                        "_quality":"1",
+                        "_stream":[
+                           "https://pdvideosdaserste-a.akamaihd.net/int/2018/12/05/c0c43211-2627-4a68-8757-be43c0dad75a/512-1.mp4",
+                           "https://pdvideosdaserste-a.akamaihd.net/int/2018/12/05/c0c43211-2627-4a68-8757-be43c0dad75a/480-1.mp4"
+                        ],
+                        "__typename":"MediaStreamArray"
+                     },
+                     {
+                        "_quality":"2",
+                        "_stream":[
+                           "https://pdvideosdaserste-a.akamaihd.net/int/2018/12/05/c0c43211-2627-4a68-8757-be43c0dad75a/640-1.mp4",
+                           "https://pdvideosdaserste-a.akamaihd.net/int/2018/12/05/c0c43211-2627-4a68-8757-be43c0dad75a/960-1.mp4"
+                        ],
+                        "__typename":"MediaStreamArray"
+                     },
+                     {
+                        "_quality":"3",
+                        "_stream":[
+                           "https://pdvideosdaserste-a.akamaihd.net/int/2018/12/05/c0c43211-2627-4a68-8757-be43c0dad75a/1280-1.mp4"
+                        ],
+                        "__typename":"MediaStreamArray"
+                     }
+                  ],
+                  "__typename":"MediaArray"
+               }
+            ],
+            "_sortierArray":[
+               1
+            ],
+            "_duration":2856,
+            "_dvrEnabled":false,
+            "_geoblocked":false,
+            "__typename":"MediaCollection"
+         },
+         "blockedByFsk":false,
+         "playerConfig":{
+            "href":"http://page-gateway-service:8080/page-gateway/playerconfig/58346714",
+            "_pixelConfig":[
+               {
+                  "clipTitle":"Die schönsten Momente: Eva und Robert",
+                  "x5":"Das+Erste",
+                  "x6":"Das+Erste",
+                  "x7":"Sturm+der+Liebe",
+                  "x14":"58346714",
+                  "x20":"2856",
+                  "apid":"PA02DC09C-B8D3-4098-87D2-2C023682D6D5",
+                  "agfMetaDataSDK":{
+                     "assetid":"https://dasersteuni-vh.akamaihd.net/i/int/2018/12/05/c0c43211-2627-4a68-8757-be43c0dad75a/,512-1,320-1,640-1,480-1,960-1,1280-1,.mp4.csmil/master.m3u8",
+                     "type":"content",
+                     "program":"Sturm der Liebe",
+                     "title":"Das Erste_Sturm der Liebe_Die schönsten Momente: Eva und Robert_05.12.2018 15:10",
+                     "length":"2856",
+                     "nol_c0":null,
+                     "nol_c2":"p2,N",
+                     "nol_c5":"p5,ARD Mediathek",
+                     "nol_c7":"p7,crid://daserste.de/sturm der liebe/c0c43211-2627-4a68-8757-be43c0dad75a",
+                     "nol_c8":"p8,2856",
+                     "nol_c9":"p9,Sturm der Liebe_Die schönsten Momente: Eva und Robert_05.12.2018 15:10",
+                     "nol_c10":"p10,Das Erste",
+                     "nol_c12":"p12,Content",
+                     "nol_c15":"p15,X004526881",
+                     "nol_c16":"p16,DasErste_Fiction|Serie",
+                     "nol_c18":"p18,N",
+                     "nol_c19":"p19,BR",
+                     "__typename":"AgfMetaDataSDK"
+                  },
+                  "__typename":"PixelConfig"
+               }
+            ],
+            "__typename":"PlayerConfig"
+         },
+         "relates":[
+            {
+               "id":"Y3JpZDovL2Rhc2Vyc3RlLmRlL3N0dXJtIGRlciBsaWViZS8yNGY1ZTU4My01YTBhLTRmNzItOThhZi1lNzBiYjU1NGY5MDA",
+               "type":"ondemand",
+               "mediumTitle":"Folge 3052: Der Brautbecher",
+               "duration":2953,
+               "show":{
+                  "title":"Sturm der Liebe",
+                  "__typename":"Show"
+               },
+               "subtitled":true,
+               "publicationService":{
+                  "name":"Das Erste",
+                  "__typename":"PublicationService"
+               },
+               "images":{
+                  "aspect16x9":{
+                     "title":"Folge 3052: Der Brautbecher - Standbild",
+                     "src":"https://img.ardmediathek.de/standard/00/58/31/35/00/-1774185891/16x9/{width}?mandant=ard",
+                     "__typename":"Image"
+                  },
+                  "__typename":"TeaserImages"
+               },
+               "links":{
+                  "target":{
+                     "href":"http://page-gateway-service:8080/page-gateway/pages/ard/item/Y3JpZDovL2Rhc2Vyc3RlLmRlL3N0dXJtIGRlciBsaWViZS8yNGY1ZTU4My01YTBhLTRmNzItOThhZi1lNzBiYjU1NGY5MDA",
+                     "id":"Y3JpZDovL2Rhc2Vyc3RlLmRlL3N0dXJtIGRlciBsaWViZS8yNGY1ZTU4My01YTBhLTRmNzItOThhZi1lNzBiYjU1NGY5MDA",
+                     "__typename":"Link"
+                  },
+                  "__typename":"TeaserLinks"
+               },
+               "__typename":"Teaser"
+            },
+            {
+               "id":"Y3JpZDovL2Rhc2Vyc3RlLmRlL3N0dXJtIGRlciBsaWViZS81Y2NiMjFmZS1kZDk3LTRlZDYtYjRhZS05ZjNjOWQ5ZjQ2MjE",
+               "type":"ondemand",
+               "mediumTitle":"Folge 3051: Ein gewagter Vorschlag",
+               "duration":2954,
+               "show":{
+                  "title":"Sturm der Liebe",
+                  "__typename":"Show"
+               },
+               "subtitled":true,
+               "publicationService":{
+                  "name":"Das Erste",
+                  "__typename":"PublicationService"
+               },
+               "images":{
+                  "aspect16x9":{
+                     "title":"Folge 3051: Ein gewagter Vorschlag - Standbild",
+                     "src":"https://img.ardmediathek.de/standard/00/58/28/31/72/-1774185891/16x9/{width}?mandant=ard",
+                     "__typename":"Image"
+                  },
+                  "__typename":"TeaserImages"
+               },
+               "links":{
+                  "target":{
+                     "href":"http://page-gateway-service:8080/page-gateway/pages/ard/item/Y3JpZDovL2Rhc2Vyc3RlLmRlL3N0dXJtIGRlciBsaWViZS81Y2NiMjFmZS1kZDk3LTRlZDYtYjRhZS05ZjNjOWQ5ZjQ2MjE",
+                     "id":"Y3JpZDovL2Rhc2Vyc3RlLmRlL3N0dXJtIGRlciBsaWViZS81Y2NiMjFmZS1kZDk3LTRlZDYtYjRhZS05ZjNjOWQ5ZjQ2MjE",
+                     "__typename":"Link"
+                  },
+                  "__typename":"TeaserLinks"
+               },
+               "__typename":"Teaser"
+            }
+         ],
+         "tracking":{
+            "szmType":"CP",
+            "environmentId":511893,
+            "aggregationLevelId":38,
+            "chapter2":"Player",
+            "chapter3":"Sturm der Liebe",
+            "pageTitle":"Mediathek/Player/Sturm der Liebe/Die schönsten Momente: Eva und Robert/58346714/20181205_1410",
+            "atiCustomVars":{
+               "clipTitle":"Die schönsten Momente: Eva und Robert",
+               "mediaType":"video",
+               "lra":"Das Erste",
+               "channel":"Das Erste",
+               "show":"Sturm der Liebe",
+               "contentTypes":"",
+               "mediaDistributionType":1,
+               "contentId":58346714,
+               "metadataId":"crid://daserste.de/sturm der liebe/c0c43211-2627-4a68-8757-be43c0dad75a",
+               "clipLength":2856,
+               "__typename":"ATICustomVars"
+            },
+            "__typename":"Tracking"
+         },
+         "__typename":"PlayerPage"
+      }
+   }
+}

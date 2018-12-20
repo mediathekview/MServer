@@ -1,38 +1,30 @@
 package de.mediathekview.mserver.crawler.ard;
 
-import java.util.Arrays;
+import de.mediathekview.mlib.daten.Film;
+import de.mediathekview.mlib.daten.Sender;
+import de.mediathekview.mlib.messages.listener.MessageListener;
+import de.mediathekview.mserver.base.config.MServerConfigManager;
+import de.mediathekview.mserver.base.messages.ServerMessages;
+import de.mediathekview.mserver.crawler.ard.tasks.ArdDayPageTask;
+import de.mediathekview.mserver.crawler.ard.tasks.ArdFilmDetailTask;
+import de.mediathekview.mserver.crawler.ard.tasks.ArdTopicPageTask;
+import de.mediathekview.mserver.crawler.ard.tasks.ArdTopicsOverviewTask;
+import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
+import de.mediathekview.mserver.crawler.basic.CrawlerUrlDTO;
+import de.mediathekview.mserver.progress.listeners.SenderProgressListener;
+import java.time.LocalDateTime;
 import java.util.Collection;
-import java.util.Optional;
 import java.util.Set;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ForkJoinPool;
-import java.util.concurrent.Future;
 import java.util.concurrent.RecursiveTask;
-import java.util.stream.Collectors;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import de.mediathekview.mlib.daten.Film;
-import de.mediathekview.mlib.daten.Sender;
-import de.mediathekview.mlib.messages.listener.MessageListener;
-import de.mediathekview.mserver.base.CategoriesAZ;
-import de.mediathekview.mserver.base.config.MServerConfigManager;
-import de.mediathekview.mserver.crawler.ard.tasks.ArdGetKanaeleTask;
-import de.mediathekview.mserver.crawler.ard.tasks.ArdSendungTask;
-import de.mediathekview.mserver.crawler.ard.tasks.ArdSendungenOverviewPageCrawler;
-import de.mediathekview.mserver.crawler.ard.tasks.ArdSendungsfolgenOverviewPageCrawler;
-import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
-import de.mediathekview.mserver.crawler.basic.CrawlerUrlDTO;
-import de.mediathekview.mserver.progress.listeners.SenderProgressListener;
 
 public class ArdCrawler extends AbstractCrawler {
+
   private static final Logger LOG = LogManager.getLogger(ArdCrawler.class);
-  public static final String ARD_BASE_URL = "http://www.ardmediathek.de";
-  private static final String ARD_CATEGORY_BASE_URL =
-      ARD_BASE_URL + "/tv/sendungen-a-z?buchstabe=%s";
-  private static final String ARD_DAY_BASE_URL = ARD_BASE_URL + "/tv/sendungVerpasst?tag=%d";
-  private static final String ARD_DAY_KANAL_BASE_URL =
-      ARD_BASE_URL + "/tv/sendungVerpasst?tag=%d&kanal=%s";
 
   public ArdCrawler(final ForkJoinPool aForkJoinPool,
       final Collection<MessageListener> aMessageListeners,
@@ -46,32 +38,19 @@ public class ArdCrawler extends AbstractCrawler {
     return Sender.ARD;
   }
 
-  private RecursiveTask<Set<ArdSendungBasicInformation>> createCategoriesOverviewPageCrawler() {
-    final ConcurrentLinkedQueue<CrawlerUrlDTO> categoryUrlsToCrawl = new ConcurrentLinkedQueue<>();
-    Arrays.stream(CategoriesAZ.values())
-        .map(category -> new CrawlerUrlDTO(String.format(ARD_CATEGORY_BASE_URL, category.getKey())))
-        .forEach(categoryUrlsToCrawl::offer);
-    return new ArdSendungenOverviewPageCrawler(this, categoryUrlsToCrawl);
-  }
 
-  private RecursiveTask<Set<ArdSendungBasicInformation>> createDaysOverviewPageCrawler(
-      final Set<String> kanaele) {
-    final ConcurrentLinkedQueue<CrawlerUrlDTO> dayUrlsToCrawl = new ConcurrentLinkedQueue<>();
-    dayUrlsToCrawl.addAll(createDayUrlsToCrawl(Optional.empty()));
-    dayUrlsToCrawl.addAll(kanaele.stream().map(Optional::of).map(this::createDayUrlsToCrawl)
-        .flatMap(ConcurrentLinkedQueue::stream).collect(Collectors.toSet()));
-    return new ArdSendungsfolgenOverviewPageCrawler(this, dayUrlsToCrawl);
-  }
-
-  private ConcurrentLinkedQueue<CrawlerUrlDTO> createDayUrlsToCrawl(final Optional<String> kanal) {
+  private ConcurrentLinkedQueue<CrawlerUrlDTO> createDayUrlsToCrawl() {
     final ConcurrentLinkedQueue<CrawlerUrlDTO> dayUrlsToCrawl = new ConcurrentLinkedQueue<>();
 
-    for (int i = 0; i < crawlerConfig.getMaximumDaysForSendungVerpasstSection(); i++) {
-      if (kanal.isPresent()) {
-        dayUrlsToCrawl.offer(new CrawlerUrlDTO(String.format(ARD_DAY_KANAL_BASE_URL, i, kanal)));
-      } else {
-        dayUrlsToCrawl.offer(new CrawlerUrlDTO(String.format(ARD_DAY_BASE_URL, i)));
-      }
+    LocalDateTime now = LocalDateTime.now();
+    for (int i = 0;
+        i <= crawlerConfig.getMaximumDaysForSendungVerpasstSection(); i++) {
+      final String url = new ArdUrlBuilder(ArdConstants.BASE_URL, ArdConstants.DEFAULT_CLIENT)
+          .addSearchDate(now.minusDays(i))
+          .addSavedQuery(ArdConstants.QUERY_DAY_SEARCH_VERSION, ArdConstants.QUERY_DAY_SEARCH_HASH)
+          .build();
+
+      dayUrlsToCrawl.offer(new CrawlerUrlDTO(url));
     }
     return dayUrlsToCrawl;
 
@@ -79,33 +58,58 @@ public class ArdCrawler extends AbstractCrawler {
 
   @Override
   protected RecursiveTask<Set<Film>> createCrawlerTask() {
-    final Future<Set<String>> kanaele =
-        forkJoinPool.submit(new ArdGetKanaeleTask(this, String.format(ARD_DAY_BASE_URL, 0)));
 
-    final RecursiveTask<Set<ArdSendungBasicInformation>> categoriesTask =
-        createCategoriesOverviewPageCrawler();
-    Optional<RecursiveTask<Set<ArdSendungBasicInformation>>> daysTask;
     try {
-      daysTask = Optional.of(createDaysOverviewPageCrawler(kanaele.get()));
-    } catch (InterruptedException | ExecutionException exception) {
-      printErrorMessage();
-      LOG.fatal("Somethign went really wrong on getting the subcategory video urls for ARTE",
-          exception);
-      daysTask = Optional.empty();
-      Thread.currentThread().interrupt();
-    }
-    forkJoinPool.execute(categoriesTask);
-    if (daysTask.isPresent()) {
-      forkJoinPool.execute(daysTask.get());
-    }
+      ConcurrentLinkedQueue<ArdFilmInfoDto> shows = new ConcurrentLinkedQueue<>();
+      shows.addAll(getDaysEntries());
+      getTopicsEntries().forEach(show -> {
+        if (!shows.contains(show)) {
+          shows.add(show);
+        }
+      });
 
-    final ConcurrentLinkedQueue<ArdSendungBasicInformation> ardSendungBasicInformation =
-        new ConcurrentLinkedQueue<>();
-    ardSendungBasicInformation.addAll(categoriesTask.join());
-    if (daysTask.isPresent()) {
-      ardSendungBasicInformation.addAll(daysTask.get().join());
-    }
+      printMessage(ServerMessages.DEBUG_ALL_SENDUNG_FOLGEN_COUNT, getSender().getName(), shows.size());
+      getAndSetMaxCount(shows.size());
 
-    return new ArdSendungTask(this, ardSendungBasicInformation);
+      return new ArdFilmDetailTask(this, shows);
+    } catch (InterruptedException | ExecutionException ex) {
+      LOG.fatal("Exception in ARD crawler.", ex);
+    }
+    return null;
+  }
+
+  private Set<ArdFilmInfoDto> getDaysEntries() throws InterruptedException, ExecutionException {
+    ArdDayPageTask dayTask = new ArdDayPageTask(this, createDayUrlsToCrawl());
+    Set<ArdFilmInfoDto> shows = forkJoinPool.submit(dayTask).get();
+
+    printMessage(ServerMessages.DEBUG_ALL_SENDUNG_FOLGEN_COUNT, getSender().getName(), shows.size());
+
+    return shows;
+  }
+
+  private Set<ArdFilmInfoDto> getTopicsEntries() throws ExecutionException, InterruptedException {
+    ArdTopicsOverviewTask topicsTask = new ArdTopicsOverviewTask(this, createTopicsOverviewUrl());
+
+    ConcurrentLinkedQueue topicUrls = new ConcurrentLinkedQueue();
+    topicUrls.addAll(forkJoinPool.submit(topicsTask).get());
+
+    ArdTopicPageTask topicTask = new ArdTopicPageTask(this, topicUrls);
+    Set<ArdFilmInfoDto> filmInfos = forkJoinPool.submit(topicTask).get();
+
+    printMessage(ServerMessages.DEBUG_ALL_SENDUNG_FOLGEN_COUNT, getSender().getName(), filmInfos.size());
+
+    return filmInfos;
+  }
+
+  private ConcurrentLinkedQueue<CrawlerUrlDTO> createTopicsOverviewUrl() {
+    ConcurrentLinkedQueue<CrawlerUrlDTO> urls = new ConcurrentLinkedQueue<>();
+
+    String url = new ArdUrlBuilder(ArdConstants.BASE_URL, ArdConstants.DEFAULT_CLIENT)
+        .addSavedQuery(ArdConstants.QUERY_TOPICS_VERSION, ArdConstants.QUERY_TOPICS_HASH)
+        .build();
+
+    urls.add(new CrawlerUrlDTO(url));
+
+    return urls;
   }
 }

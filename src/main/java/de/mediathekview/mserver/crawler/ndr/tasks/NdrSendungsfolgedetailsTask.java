@@ -6,7 +6,7 @@ import de.mediathekview.mlib.daten.Film;
 import de.mediathekview.mlib.daten.Resolution;
 import de.mediathekview.mlib.daten.Sender;
 import de.mediathekview.mserver.base.utils.UrlUtils;
-import de.mediathekview.mserver.crawler.ard.json.ArdVideoInfoDTO;
+import de.mediathekview.mserver.crawler.ard.json.ArdVideoInfoDto;
 import de.mediathekview.mserver.crawler.ard.json.ArdVideoInfoJsonDeserializer;
 import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
 import de.mediathekview.mserver.crawler.basic.AbstractDocumentTask;
@@ -45,7 +45,7 @@ public class NdrSendungsfolgedetailsTask extends AbstractDocumentTask<Film, Craw
 
     filmDetailDeserializer = new NdrFilmDeserializer();
     gson = new GsonBuilder()
-        .registerTypeAdapter(ArdVideoInfoDTO.class, new ArdVideoInfoJsonDeserializer(crawler))
+        .registerTypeAdapter(ArdVideoInfoDto.class, new ArdVideoInfoJsonDeserializer(crawler))
         .create();
   }
 
@@ -62,9 +62,9 @@ public class NdrSendungsfolgedetailsTask extends AbstractDocumentTask<Film, Craw
     if (filmInfo.isPresent()) {
       FilmInfoDto filmInfoDto = filmInfo.get();
       try {
-        final ArdVideoInfoDTO videoInfo
+        final ArdVideoInfoDto videoInfo
             = gson.fromJson(new InputStreamReader(new URL(filmInfoDto.getUrl()).openStream(), StandardCharsets.UTF_8),
-            ArdVideoInfoDTO.class);
+            ArdVideoInfoDto.class);
         if (videoInfo.getSubtitleUrl() != null) {
           videoInfo.setSubtitleUrl(UrlUtils.addDomainIfMissing(videoInfo.getSubtitleUrl(), NdrConstants.URL_BASE));
         }
@@ -93,7 +93,7 @@ public class NdrSendungsfolgedetailsTask extends AbstractDocumentTask<Film, Craw
     }
   }
 
-  private Film createFilm(final FilmInfoDto aFilmInfoDto, final ArdVideoInfoDTO aVideoInfoDto) throws MalformedURLException {
+  private Film createFilm(final FilmInfoDto aFilmInfoDto, final ArdVideoInfoDto aVideoInfoDto) throws MalformedURLException {
     final Film film = new Film(UUID.randomUUID(), Sender.NDR, aFilmInfoDto.getTitle(),
         aFilmInfoDto.getTopic(), aFilmInfoDto.getTime(), aFilmInfoDto.getDuration());
 
