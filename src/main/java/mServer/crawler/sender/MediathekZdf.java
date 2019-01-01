@@ -70,7 +70,7 @@ public class MediathekZdf extends MediathekReader {
 
     if (!filmList.isEmpty()) {
       // Convert new DTO to old DatenFilm class
-      Log.sysLog("convert VideoDTO to DatenFilm started...");
+      Log.sysLog("convert VideoDTO to DatenFilm started..." + filmList.size());
       filmList.parallelStream().forEach((video) -> {
         VideoDtoDatenFilmConverterAction action = new VideoDtoDatenFilmConverterAction(video);
         forkJoinPool.execute(action);
