@@ -8,8 +8,8 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
 import de.mediathekview.mserver.crawler.basic.CrawlerUrlDTO;
 import de.mediathekview.mserver.crawler.srf.SrfConstants;
+import de.mediathekview.mserver.crawler.srf.SrfShowOverviewUrlBuilder;
 import java.lang.reflect.Type;
-import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
@@ -21,17 +21,14 @@ public class SrfSendungenOverviewJsonDeserializer implements JsonDeserializer<Se
   private static final String ELEMENT_TEASERLIST = "showTeaserList";
   private static final String ELEMENT_ID = "id";
 
-  private static final int FILMS_PER_PAGE = 100;
-  
   private static final Logger LOG = LogManager.getLogger(SrfSendungenOverviewJsonDeserializer.class);
-  
-  private final String monthYear;
-  
-  public SrfSendungenOverviewJsonDeserializer() {
-    LocalDateTime today = LocalDateTime.now();
-    monthYear = today.getMonthValue() + "-" + today.getYear();
- }
-  
+
+  private final SrfShowOverviewUrlBuilder urlBuilder;
+
+  public SrfSendungenOverviewJsonDeserializer(SrfShowOverviewUrlBuilder urlBuilder) {
+    this.urlBuilder = urlBuilder;
+  }
+
   @Override
   public Set<CrawlerUrlDTO> deserialize(JsonElement aJsonElement, Type aType, JsonDeserializationContext aJdc) throws JsonParseException {
     final Set<CrawlerUrlDTO> results = new HashSet<>();
@@ -70,7 +67,7 @@ public class SrfSendungenOverviewJsonDeserializer implements JsonDeserializer<Se
     if (entryObject.has(ELEMENT_ID)) {
       String id = entryObject.get(ELEMENT_ID).getAsString();
 
-      String url = String.format(SrfConstants.SHOW_OVERVIEW_PAGE_URL, id, FILMS_PER_PAGE, monthYear); 
+      String url = urlBuilder.buildUrl(id);
       
       return Optional.of(url);
     }

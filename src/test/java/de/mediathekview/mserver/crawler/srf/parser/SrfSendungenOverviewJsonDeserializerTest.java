@@ -2,6 +2,7 @@ package de.mediathekview.mserver.crawler.srf.parser;
 
 import com.google.gson.JsonArray;
 import de.mediathekview.mserver.crawler.basic.CrawlerUrlDTO;
+import de.mediathekview.mserver.crawler.srf.SrfShowOverviewUrlBuilder;
 import de.mediathekview.mserver.testhelper.JsonFileReader;
 import java.time.LocalDateTime;
 import java.util.Arrays;
@@ -44,7 +45,7 @@ public class SrfSendungenOverviewJsonDeserializerTest {
       jsonFile = aJsonFile;
       expectedUrls = aExpectedUrls;
       
-      target = new SrfSendungenOverviewJsonDeserializer();
+      target = new SrfSendungenOverviewJsonDeserializer(new SrfShowOverviewUrlBuilder());
     }
     
     @Test

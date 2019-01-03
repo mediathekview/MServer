@@ -4,8 +4,10 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import de.mediathekview.mserver.crawler.basic.CrawlerUrlDTO;
 import de.mediathekview.mserver.crawler.srf.SrfConstants;
+import de.mediathekview.mserver.crawler.srf.SrfShowOverviewUrlBuilder;
 import de.mediathekview.mserver.crawler.srf.parser.SrfSendungenOverviewJsonDeserializer;
 import java.io.IOException;
+import java.util.HashSet;
 import java.util.Set;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ConcurrentLinkedQueue;
@@ -19,16 +21,19 @@ public class SrfSendungenOverviewPageTask implements Callable<ConcurrentLinkedQu
   private static final Logger LOG = LogManager.getLogger(SrfSendungenOverviewPageTask.class);
   private static final String JSON_SELECTOR = "div.showsAtoZContent";
   private static final String ATTRIBUTE_DATA = "data-alphabetical-sections";
-  
+
+  private final SrfShowOverviewUrlBuilder urlBuilder = new SrfShowOverviewUrlBuilder();
+
   @Override
-  public ConcurrentLinkedQueue<CrawlerUrlDTO> call() throws Exception {
+  public ConcurrentLinkedQueue<CrawlerUrlDTO> call() {
     final ConcurrentLinkedQueue<CrawlerUrlDTO> results = new ConcurrentLinkedQueue<>();
     
     try {
       final Document document = Jsoup.connect(SrfConstants.OVERVIEW_PAGE_URL).get();
-      
+
+
       Gson gson = new GsonBuilder()
-        .registerTypeAdapter(Set.class, new SrfSendungenOverviewJsonDeserializer())
+        .registerTypeAdapter(Set.class, new SrfSendungenOverviewJsonDeserializer(urlBuilder))
         .create();
       
       document.select(JSON_SELECTOR).forEach(dataElement -> {
@@ -36,6 +41,7 @@ public class SrfSendungenOverviewPageTask implements Callable<ConcurrentLinkedQu
           String jsonData = dataElement.attr(ATTRIBUTE_DATA);
           
           results.addAll(gson.fromJson(jsonData, Set.class));
+          results.addAll(addSpecialShows());
           
         } else {
           LOG.error("element '" + JSON_SELECTOR + "' does not have attribute '" + ATTRIBUTE_DATA + "'.");
@@ -49,5 +55,12 @@ public class SrfSendungenOverviewPageTask implements Callable<ConcurrentLinkedQu
 
     return results;
   }
-  
+
+  private Set<CrawlerUrlDTO> addSpecialShows() {
+    Set<CrawlerUrlDTO> shows = new HashSet<>();
+    shows.add(new CrawlerUrlDTO(urlBuilder.buildUrl(SrfConstants.ID_SHOW_SPORT_CLIP)));
+
+    return shows;
+  }
+
 }
