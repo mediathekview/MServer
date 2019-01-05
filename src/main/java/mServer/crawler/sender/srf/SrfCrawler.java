@@ -88,6 +88,7 @@ public class SrfCrawler extends MediathekReader {
       dtos.addAll(task.join());
 
       Log.sysLog("SRF Anzahl: " + dtos.size());
+      meldungAddMax(dtos.size());
 
       return new SrfFilmDetailTask(this, dtos);
 
