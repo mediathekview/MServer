@@ -16,11 +16,7 @@ sourceCompatibility = 1.8
 targetCompatibility = 1.8
 group = 'de.mediathekview'
 archivesBaseName = "MServer"
-<<<<<<< Updated upstream
-version = '3.1.77'
-=======
 version = '3.1.78'
->>>>>>> Stashed changes
 
 def jarName = 'MServer.jar'
 def mainClass = 'mServer.Main'
