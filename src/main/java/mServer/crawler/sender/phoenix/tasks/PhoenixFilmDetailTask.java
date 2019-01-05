@@ -15,7 +15,7 @@ import javax.xml.parsers.SAXParserFactory;
 import mServer.crawler.CrawlerTool;
 import mServer.crawler.sender.MediathekReader;
 import mServer.crawler.sender.newsearch.Qualities;
-import mServer.crawler.sender.orf.CrawlerUrlDTO;
+import mServer.crawler.sender.base.CrawlerUrlDTO;
 import mServer.crawler.sender.orf.tasks.AbstractRecursivConverterTask;
 import mServer.crawler.sender.phoenix.DownloadDto;
 import mServer.crawler.sender.phoenix.PhoenixConstants;

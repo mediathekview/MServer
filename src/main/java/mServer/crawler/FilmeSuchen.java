@@ -44,7 +44,6 @@ import mServer.crawler.sender.MediathekNdr;
 import mServer.crawler.sender.MediathekRbb;
 import mServer.crawler.sender.MediathekReader;
 import mServer.crawler.sender.MediathekSr;
-import mServer.crawler.sender.MediathekSrf;
 import mServer.crawler.sender.MediathekSrfPod;
 import mServer.crawler.sender.MediathekSwr;
 import mServer.crawler.sender.MediathekWdr;
@@ -55,6 +54,7 @@ import mServer.crawler.sender.arte.MediathekArte_fr;
 import mServer.crawler.sender.br.BrCrawler;
 import mServer.crawler.sender.orf.OrfCrawler;
 import mServer.crawler.sender.phoenix.PhoenixCrawler;
+import mServer.crawler.sender.srf.SrfCrawler;
 
 /**
  * ###########################################################################################################
@@ -98,7 +98,7 @@ public class FilmeSuchen {
     mediathekListe.add(new MediathekRbb(this, 1));
     mediathekListe.add(new MediathekSr(this, 1));
     mediathekListe.add(new BrCrawler(this, 0));
-    mediathekListe.add(new MediathekSrf(this, 1));
+    mediathekListe.add(new SrfCrawler(this, 1));
     mediathekListe.add(new MediathekSrfPod(this, 0));
     mediathekListe.add(new OrfCrawler(this, 1));
     mediathekListe.add(new PhoenixCrawler(this, 1));

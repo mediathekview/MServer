@@ -16,7 +16,7 @@ import java.util.concurrent.TimeUnit;
 import mServer.crawler.FilmeSuchen;
 import mServer.crawler.sender.MediathekReader;
 import mServer.crawler.sender.MediathekZdf;
-import mServer.crawler.sender.orf.CrawlerUrlDTO;
+import mServer.crawler.sender.base.CrawlerUrlDTO;
 import mServer.crawler.sender.phoenix.tasks.PhoenixFilmDetailTask;
 import mServer.crawler.sender.phoenix.tasks.PhoenixOverviewTask;
 import org.apache.logging.log4j.LogManager;

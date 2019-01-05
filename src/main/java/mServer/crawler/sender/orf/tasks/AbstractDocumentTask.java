@@ -1,10 +1,11 @@
 package mServer.crawler.sender.orf.tasks;
 
+import mServer.crawler.sender.base.AbstractUrlTask;
 import de.mediathekview.mlib.tool.Log;
 import java.io.IOException;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import mServer.crawler.sender.MediathekReader;
-import mServer.crawler.sender.orf.CrawlerUrlDTO;
+import mServer.crawler.sender.base.CrawlerUrlDTO;
 import org.jsoup.HttpStatusException;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
