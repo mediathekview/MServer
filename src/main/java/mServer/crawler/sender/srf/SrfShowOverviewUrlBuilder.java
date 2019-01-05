@@ -4,16 +4,16 @@ import java.time.LocalDateTime;
 
 public class SrfShowOverviewUrlBuilder {
 
-  private static final int FILMS_PER_PAGE = 100;
-
   private final String monthYear;
+  private final int filmsPerPage;
 
-  public SrfShowOverviewUrlBuilder() {
+  public SrfShowOverviewUrlBuilder(final int filmsPerPage) {
     LocalDateTime today = LocalDateTime.now();
     monthYear = today.getMonthValue() + "-" + today.getYear();
+    this.filmsPerPage = filmsPerPage;
   }
 
   public String buildUrl(String id) {
-    return String.format(SrfConstants.SHOW_OVERVIEW_PAGE_URL, id, FILMS_PER_PAGE, monthYear);
+    return String.format(SrfConstants.SHOW_OVERVIEW_PAGE_URL, id, filmsPerPage, monthYear);
   }
 }

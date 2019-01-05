@@ -10,6 +10,7 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ConcurrentLinkedQueue;
+import mServer.crawler.CrawlerTool;
 import mServer.crawler.sender.base.CrawlerUrlDTO;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -22,7 +23,12 @@ public class SrfSendungenOverviewPageTask implements Callable<ConcurrentLinkedQu
   private static final String JSON_SELECTOR = "div.showsAtoZContent";
   private static final String ATTRIBUTE_DATA = "data-alphabetical-sections";
 
-  private final SrfShowOverviewUrlBuilder urlBuilder = new SrfShowOverviewUrlBuilder();
+  private final SrfShowOverviewUrlBuilder urlBuilder;
+
+  public SrfSendungenOverviewPageTask() {
+
+    this.urlBuilder = new SrfShowOverviewUrlBuilder(CrawlerTool.loadLongMax() ? 100 : 30);
+  }
 
   @Override
   public ConcurrentLinkedQueue<CrawlerUrlDTO> call() {
