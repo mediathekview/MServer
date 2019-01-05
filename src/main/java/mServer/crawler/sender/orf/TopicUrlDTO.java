@@ -1,5 +1,6 @@
 package mServer.crawler.sender.orf;
 
+import mServer.crawler.sender.base.CrawlerUrlDTO;
 import java.util.Objects;
 
 public class TopicUrlDTO extends CrawlerUrlDTO {

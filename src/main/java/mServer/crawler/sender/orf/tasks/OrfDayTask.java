@@ -1,8 +1,9 @@
 package mServer.crawler.sender.orf.tasks;
 
+import mServer.crawler.sender.base.AbstractUrlTask;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import mServer.crawler.sender.MediathekReader;
-import mServer.crawler.sender.orf.CrawlerUrlDTO;
+import mServer.crawler.sender.base.CrawlerUrlDTO;
 import mServer.crawler.sender.orf.TopicUrlDTO;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;

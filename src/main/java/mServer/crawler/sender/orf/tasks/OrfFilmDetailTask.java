@@ -1,5 +1,6 @@
 package mServer.crawler.sender.orf.tasks;
 
+import mServer.crawler.sender.base.AbstractUrlTask;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;

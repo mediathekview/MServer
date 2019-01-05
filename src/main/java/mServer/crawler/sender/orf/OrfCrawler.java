@@ -1,5 +1,6 @@
 package mServer.crawler.sender.orf;
 
+import mServer.crawler.sender.base.CrawlerUrlDTO;
 import de.mediathekview.mlib.Config;
 import de.mediathekview.mlib.Const;
 import de.mediathekview.mlib.daten.DatenFilm;
