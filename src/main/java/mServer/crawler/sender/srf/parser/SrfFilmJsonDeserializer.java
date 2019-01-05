@@ -10,9 +10,11 @@ import de.mediathekview.mlib.daten.DatenFilm;
 import de.mediathekview.mlib.tool.MVHttpClient;
 import mServer.crawler.sender.srf.SrfConstants;
 import java.lang.reflect.Type;
+import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.time.temporal.ChronoUnit;
 import java.util.EnumMap;
 import java.util.List;
 import java.util.Map;
@@ -88,7 +90,14 @@ public class SrfFilmJsonDeserializer implements JsonDeserializer<Optional<DatenF
       LOG.error(documentUrl, ex);
     }
 
-    DatenFilm film = new DatenFilm(Const.SRF, theme, documentUrl, episodeData.title, videoUrls.get(Qualities.NORMAL), "", date, time, chapterList.duration, chapterList.description);
+    DatenFilm film = new DatenFilm(Const.SRF,
+            theme, documentUrl,
+            episodeData.title,
+            videoUrls.get(Qualities.NORMAL), "",
+            date, time,
+            chapterList.duration.getSeconds(),
+            chapterList.description);
+
     if (videoUrls.containsKey(Qualities.SMALL)) {
       CrawlerTool.addUrlKlein(film, videoUrls.get(Qualities.SMALL), "");
     }
@@ -173,7 +182,8 @@ public class SrfFilmJsonDeserializer implements JsonDeserializer<Optional<DatenF
     }
 
     if (chapterListEntry.has(ATTRIBUTE_DURATION)) {
-      result.duration = chapterListEntry.get(ATTRIBUTE_DURATION).getAsLong();
+      long duration = chapterListEntry.get(ATTRIBUTE_DURATION).getAsLong();
+      result.duration = Duration.of(duration, ChronoUnit.MILLIS);
     }
 
     if (chapterListEntry.has(ATTRIBUTE_DESCRIPTION)) {
@@ -333,7 +343,7 @@ public class SrfFilmJsonDeserializer implements JsonDeserializer<Optional<DatenF
 
   private class ChapterListData {
 
-    long duration;
+    Duration duration;
     String id;
     String description = "";
     String videoUrl;
