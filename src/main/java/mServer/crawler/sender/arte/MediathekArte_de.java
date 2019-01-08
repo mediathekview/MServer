@@ -138,6 +138,10 @@ public class MediathekArte_de extends MediathekReader {
       String u = String.format(ARTE_API_TAG_URL_PATTERN, LANG_CODE.toUpperCase(), LocalDate.now().minusDays(i).format(ARTE_API_DATEFORMATTER));
       listeThemen.add(new String[]{u});
     }
+    for (int i = 1; i <= 21; ++i) {
+      String u = String.format(ARTE_API_TAG_URL_PATTERN, LANG_CODE.toUpperCase(), LocalDate.now().plusDays(i).format(ARTE_API_DATEFORMATTER));
+      listeThemen.add(new String[]{u});
+    }
   }
 
   class ThemaLaden extends Thread {
