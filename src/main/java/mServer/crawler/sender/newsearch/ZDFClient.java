@@ -2,6 +2,7 @@ package mServer.crawler.sender.newsearch;
 
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.concurrent.TimeUnit;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.sun.jersey.api.client.Client;
@@ -85,26 +86,41 @@ public class ZDFClient {
   }
 
   private JsonObject execute(final WebResource webResource, final ZDFClientMode aMode) {
-    final String apiToken = loadApiToken(aMode);
+    int i = 1;
 
-    final ClientResponse response = webResource
-            .header(HEADER_ACCESS_CONTROL_REQUEST_HEADERS, ACCESS_CONTROL_API_AUTH)
-            .header(HEADER_ACCESS_CONTROL_REQUEST_METHOD, ACCESS_CONTROL_REQUEST_METHOD_GET)
-            .header(HEADER_API_AUTH, apiToken).header(HEADER_HOST, HOST).header(HEADER_ORIGIN, ORIGIN)
-            .header(HEADER_USER_AGENT, USER_AGENT).get(ClientResponse.class);
+    String apiToken = loadApiToken(aMode);
 
-    if (MserverDaten.debug) {
-      Log.sysLog("Lade Seite: " + webResource.getURI());
+    while (i < 4) {
+
+      final ClientResponse response = webResource
+              .header(HEADER_ACCESS_CONTROL_REQUEST_HEADERS, ACCESS_CONTROL_API_AUTH)
+              .header(HEADER_ACCESS_CONTROL_REQUEST_METHOD, ACCESS_CONTROL_REQUEST_METHOD_GET)
+              .header(HEADER_API_AUTH, apiToken).header(HEADER_HOST, HOST).header(HEADER_ORIGIN, ORIGIN)
+              .header(HEADER_USER_AGENT, USER_AGENT).get(ClientResponse.class);
+
+      if (MserverDaten.debug) {
+        Log.sysLog("Lade Seite: " + webResource.getURI());
+      }
+
+      if (response.getStatus() == 200) {
+        return handleOk(response);
+      } else if (aMode == ZDFClientMode.SEARCH && response.getStatus() == 403 && i < 3) {
+        // wenn bei der Suche ein 403 auftritt, dann ein paar mal versuchen.
+        // löst hoffentlich das Problem, dass sporadisch ein Request 403 liefert
+        // und der folgende funktioniert
+        i++;
+        Log.errorLog(496583258, "ZDF Search retry: " + webResource.getURI());
+      } else {
+        if (aMode == ZDFClientMode.SEARCH) {
+          Log.errorLog(496583258, "ZDF Search failed");
+        }
+        Log.errorLog(496583258,
+                "Lade Seite " + webResource.getURI() + " fehlgeschlagen: " + response.getStatus());
+        increment(RunSender.Count.FEHLER);
+        return null;
+      }
     }
-
-    if (response.getStatus() == 200) {
-      return handleOk(response);
-    } else {
-      Log.errorLog(496583258,
-              "Lade Seite " + webResource.getURI() + " fehlgeschlagen: " + response.getStatus());
-      increment(RunSender.Count.FEHLER);
-      return null;
-    }
+    return null;
   }
 
   private JsonObject handleOk(final ClientResponse response) {
