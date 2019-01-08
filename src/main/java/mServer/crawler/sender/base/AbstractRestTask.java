@@ -1,6 +1,7 @@
 package mServer.crawler.sender.base;
 
 import de.mediathekview.mlib.Config;
+import de.mediathekview.mlib.tool.Log;
 import java.util.Optional;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import javax.ws.rs.client.Client;
@@ -62,8 +63,12 @@ public abstract class AbstractRestTask<T, D extends CrawlerUrlDTO> extends Abstr
       return;
     }
 
-    final WebTarget target = createWebTarget(aDTO.getUrl());
-    processRestTarget(aDTO, target);
+    try {
+      final WebTarget target = createWebTarget(aDTO.getUrl());
+      processRestTarget(aDTO, target);
+    } catch (Exception e) {
+      Log.errorLog(789451612, e, aDTO.getUrl());
+    }
   }
 
   /**

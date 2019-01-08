@@ -75,7 +75,7 @@ public class SrfFilmJsonDeserializer implements JsonDeserializer<Optional<DatenF
     }
 
     Map<Qualities, String> videoUrls = readUrls(chapterList.videoUrl);
-    if (videoUrls.isEmpty()) {
+    if (videoUrls.isEmpty() || !videoUrls.containsKey(Qualities.NORMAL)) {
       return Optional.empty();
     }
 
