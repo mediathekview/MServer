@@ -49,6 +49,8 @@ public class SrfCrawler extends MediathekReader {
       });
 
       Log.sysLog("SRF Film einsortieren fertig");
+    } catch (Exception e) {
+      Log.errorLog(713213215, e);
     } finally {
       //explicitely shutdown the pool
       shutdownAndAwaitTermination(forkJoinPool, 60, TimeUnit.SECONDS);
