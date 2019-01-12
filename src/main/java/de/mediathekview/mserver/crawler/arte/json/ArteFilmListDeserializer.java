@@ -7,12 +7,13 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
 import de.mediathekview.mserver.base.utils.JsonUtils;
 import de.mediathekview.mserver.crawler.arte.ArteConstants;
+import de.mediathekview.mserver.crawler.arte.ArteFilmUrlDto;
 import de.mediathekview.mserver.crawler.arte.ArteLanguage;
-import de.mediathekview.mserver.crawler.basic.SendungOverviewDto;
+import de.mediathekview.mserver.crawler.arte.ArteSendungOverviewDto;
 import java.lang.reflect.Type;
 import java.util.Optional;
 
-public class ArteFilmListDeserializer implements JsonDeserializer<SendungOverviewDto> {
+public class ArteFilmListDeserializer implements JsonDeserializer<ArteSendungOverviewDto> {
 
   private static final String JSON_ELEMENT_VIDEOS = "videos";
   private static final String ATTRIBUTE_PROGRAM_ID = "programId";
@@ -25,10 +26,10 @@ public class ArteFilmListDeserializer implements JsonDeserializer<SendungOvervie
   }
 
   @Override
-  public SendungOverviewDto deserialize(final JsonElement aJsonElement, final Type aType,
+  public ArteSendungOverviewDto deserialize(final JsonElement aJsonElement, final Type aType,
       final JsonDeserializationContext aJsonDeserializationContext) throws JsonParseException {
 
-    final SendungOverviewDto result = new SendungOverviewDto();
+    final ArteSendungOverviewDto result = new ArteSendungOverviewDto();
     if (aJsonElement.isJsonObject()) {
       final JsonObject mainObj = aJsonElement.getAsJsonObject();
 
@@ -42,10 +43,12 @@ public class ArteFilmListDeserializer implements JsonDeserializer<SendungOvervie
     return result;
   }
 
-  private Optional<String> parseFilmUrl(final JsonObject jsonObject) {
+  private Optional<ArteFilmUrlDto> parseFilmUrl(final JsonObject jsonObject) {
     Optional<String> programId = JsonUtils.getAttributeAsString(jsonObject, ATTRIBUTE_PROGRAM_ID);
     if (programId.isPresent()) {
-      return Optional.of(String.format(ArteConstants.URL_FILM_DETAILS, language.getLanguageCode().toLowerCase(), programId.get()));
+      String filmUrl = String.format(ArteConstants.URL_FILM_DETAILS, language.getLanguageCode().toLowerCase(), programId.get());
+      String videoUrl = String.format(ArteConstants.URL_FILM_VIDEOS, language.getLanguageCode().toLowerCase(), programId.get());
+      return Optional.of(new ArteFilmUrlDto(filmUrl, videoUrl));
     }
 
     return Optional.empty();

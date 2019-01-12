@@ -5,9 +5,9 @@ import static org.hamcrest.Matchers.notNullValue;
 import static org.junit.Assert.assertThat;
 
 import com.google.gson.JsonElement;
+import de.mediathekview.mserver.crawler.arte.ArteFilmUrlDto;
 import de.mediathekview.mserver.crawler.arte.ArteLanguage;
-import de.mediathekview.mserver.crawler.basic.CrawlerUrlDTO;
-import de.mediathekview.mserver.crawler.basic.SendungOverviewDto;
+import de.mediathekview.mserver.crawler.arte.ArteSendungOverviewDto;
 import de.mediathekview.mserver.testhelper.JsonFileReader;
 import java.util.Arrays;
 import java.util.Collection;
@@ -23,7 +23,7 @@ public class ArteSubcategoryVideosDeserializerTest {
   private final String jsonFile;
   private ArteLanguage language;
   private final Optional<String> expectedNextPage;
-  private final CrawlerUrlDTO[] expectedSubcategories;
+  private final ArteFilmUrlDto[] expectedSubcategories;
 
   @Parameterized.Parameters
   public static Collection<Object[]> data() {
@@ -33,33 +33,45 @@ public class ArteSubcategoryVideosDeserializerTest {
                 "/arte/arte_subcategory_films_page1.json",
                 ArteLanguage.DE,
                 Optional.of("http://localhost:8589/api/emac/v3/de/web/zones/videos_subcategory?id=ART&page=2&limit=5"),
-                new CrawlerUrlDTO[]{
-                    new CrawlerUrlDTO("https://api.arte.tv/api/opa/v3/programs/de/084733-002-A"),
-                    new CrawlerUrlDTO("https://api.arte.tv/api/opa/v3/programs/de/086780-000-A"),
-                    new CrawlerUrlDTO("https://api.arte.tv/api/opa/v3/programs/de/086779-000-A"),
-                    new CrawlerUrlDTO("https://api.arte.tv/api/opa/v3/programs/de/086777-000-A"),
-                    new CrawlerUrlDTO("https://api.arte.tv/api/opa/v3/programs/de/083949-027-A"),
+                new ArteFilmUrlDto[]{
+                    new ArteFilmUrlDto("https://api.arte.tv/api/opa/v3/programs/de/084733-002-A",
+                        "https://api.arte.tv/api/player/v1/config/de/084733-002-A?platform=ARTE_NEXT"),
+                    new ArteFilmUrlDto("https://api.arte.tv/api/opa/v3/programs/de/086780-000-A",
+                        "https://api.arte.tv/api/player/v1/config/de/086780-000-A?platform=ARTE_NEXT"),
+                    new ArteFilmUrlDto("https://api.arte.tv/api/opa/v3/programs/de/086779-000-A",
+                        "https://api.arte.tv/api/player/v1/config/de/086779-000-A?platform=ARTE_NEXT"),
+                    new ArteFilmUrlDto("https://api.arte.tv/api/opa/v3/programs/de/086777-000-A",
+                        "https://api.arte.tv/api/player/v1/config/de/086777-000-A?platform=ARTE_NEXT"),
+                    new ArteFilmUrlDto("https://api.arte.tv/api/opa/v3/programs/de/083949-027-A",
+                        "https://api.arte.tv/api/player/v1/config/de/083949-027-A?platform=ARTE_NEXT"),
                 }
             },
             {
                 "/arte/arte_subcategory_films_page_last.json",
                 ArteLanguage.DE,
                 Optional.empty(),
-                new CrawlerUrlDTO[]{
-                    new CrawlerUrlDTO("https://api.arte.tv/api/opa/v3/programs/de/086778-000-A"),
-                    new CrawlerUrlDTO("https://api.arte.tv/api/opa/v3/programs/de/086775-000-A"),
-                    new CrawlerUrlDTO("https://api.arte.tv/api/opa/v3/programs/de/086773-000-A"),
-                    new CrawlerUrlDTO("https://api.arte.tv/api/opa/v3/programs/de/086776-000-A"),
-                    new CrawlerUrlDTO("https://api.arte.tv/api/opa/v3/programs/de/086774-000-A"),
+                new ArteFilmUrlDto[]{
+                    new ArteFilmUrlDto("https://api.arte.tv/api/opa/v3/programs/de/086778-000-A",
+                        "https://api.arte.tv/api/player/v1/config/de/086778-000-A?platform=ARTE_NEXT"),
+                    new ArteFilmUrlDto("https://api.arte.tv/api/opa/v3/programs/de/086775-000-A",
+                        "https://api.arte.tv/api/player/v1/config/de/086775-000-A?platform=ARTE_NEXT"),
+                    new ArteFilmUrlDto("https://api.arte.tv/api/opa/v3/programs/de/086773-000-A",
+                        "https://api.arte.tv/api/player/v1/config/de/086773-000-A?platform=ARTE_NEXT"),
+                    new ArteFilmUrlDto("https://api.arte.tv/api/opa/v3/programs/de/086776-000-A",
+                        "https://api.arte.tv/api/player/v1/config/de/086776-000-A?platform=ARTE_NEXT"),
+                    new ArteFilmUrlDto("https://api.arte.tv/api/opa/v3/programs/de/086774-000-A",
+                        "https://api.arte.tv/api/player/v1/config/de/086774-000-A?platform=ARTE_NEXT"),
                 }
             },
             {
                 "/arte/arte_subcategory_films_pl.json",
                 ArteLanguage.PL,
                 Optional.empty(),
-                new CrawlerUrlDTO[]{
-                    new CrawlerUrlDTO("https://api.arte.tv/api/opa/v3/programs/pl/065344-000-A"),
-                    new CrawlerUrlDTO("https://api.arte.tv/api/opa/v3/programs/pl/059265-013-A")
+                new ArteFilmUrlDto[]{
+                    new ArteFilmUrlDto("https://api.arte.tv/api/opa/v3/programs/pl/065344-000-A",
+                        "https://api.arte.tv/api/player/v1/config/pl/065344-000-A?platform=ARTE_NEXT"),
+                    new ArteFilmUrlDto("https://api.arte.tv/api/opa/v3/programs/pl/059265-013-A",
+                        "https://api.arte.tv/api/player/v1/config/pl/059265-013-A?platform=ARTE_NEXT")
                 }
             }
 
@@ -67,7 +79,7 @@ public class ArteSubcategoryVideosDeserializerTest {
   }
 
   public ArteSubcategoryVideosDeserializerTest(final String jsonFile, final ArteLanguage language, Optional<String> expectedNextPage,
-      CrawlerUrlDTO[] expectedSubcategories) {
+      ArteFilmUrlDto[] expectedSubcategories) {
     this.jsonFile = jsonFile;
     this.language = language;
     this.expectedNextPage = expectedNextPage;
@@ -79,7 +91,7 @@ public class ArteSubcategoryVideosDeserializerTest {
     JsonElement jsonObject = JsonFileReader.readJson(jsonFile);
 
     ArteSubcategoryVideosDeserializer target = new ArteSubcategoryVideosDeserializer(language);
-    SendungOverviewDto actual = target.deserialize(jsonObject, null, null);
+    ArteSendungOverviewDto actual = target.deserialize(jsonObject, null, null);
 
     assertThat(actual, notNullValue());
     assertThat(actual.getNextPageId(), equalTo(expectedNextPage));
