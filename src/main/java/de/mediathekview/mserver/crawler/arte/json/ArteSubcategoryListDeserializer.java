@@ -24,7 +24,7 @@ public class ArteSubcategoryListDeserializer implements JsonDeserializer<Set<Art
    * </ul>
    */
   private static final String SUBCATEGORY_VIDEOS_URL_PATTERN =
-      "https://www.arte.tv/guide/api/api/zones/%s/videos_subcategory_%s/";
+      "https://www.arte.tv/guide/api/api/zones/%s/videos_subcategory/?id=%s&limit=100";
   private static final String JSON_ELEMENT_SUBCATEGORIES = "subcategories";
   private final AbstractCrawler crawler;
   private final ArteLanguage language;

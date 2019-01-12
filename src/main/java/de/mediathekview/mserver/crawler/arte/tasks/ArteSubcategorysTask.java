@@ -30,7 +30,7 @@ public class ArteSubcategorysTask implements Callable<Set<ArteCrawlerUrlDto>> {
    * The parameter needs the language code.
    */
   private static final String SUBCATEGORIES_URL_PATTERN =
-      "https://api.arte.tv/api/opa/v3/subcategories?language=%s&fields=code,label";
+      "https://api.arte.tv/api/opa/v3/subcategories?language=%s";
 
   private final AbstractCrawler crawler;
   private final ArteLanguage language;
