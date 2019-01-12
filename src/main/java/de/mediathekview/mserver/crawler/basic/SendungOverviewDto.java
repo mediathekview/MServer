@@ -26,6 +26,10 @@ public class SendungOverviewDto {
     return urls;
   }
 
+  public void setNextPageId(final String aNextPageId) {
+    nextPageId = Optional.of(aNextPageId);
+  }
+
   public void setNextPageId(final Optional<String> aNextPageId) {
     nextPageId = aNextPageId;
   }

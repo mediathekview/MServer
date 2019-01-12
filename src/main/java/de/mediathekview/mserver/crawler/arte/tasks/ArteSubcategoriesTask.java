@@ -2,8 +2,7 @@ package de.mediathekview.mserver.crawler.arte.tasks;
 
 import com.google.gson.reflect.TypeToken;
 import de.mediathekview.mserver.crawler.arte.ArteConstants;
-import de.mediathekview.mserver.crawler.arte.ArteLanguage;
-import de.mediathekview.mserver.crawler.arte.json.ArteSubcategoryVideosDeserializer;
+import de.mediathekview.mserver.crawler.arte.json.ArteSubcategoryDeserializer;
 import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
 import de.mediathekview.mserver.crawler.basic.AbstractRecrusivConverterTask;
 import de.mediathekview.mserver.crawler.basic.CrawlerUrlDTO;
@@ -14,27 +13,25 @@ import java.util.Set;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import javax.ws.rs.client.WebTarget;
 
-public class ArteSubcategoryVideosTask extends ArteTaskBase<CrawlerUrlDTO, CrawlerUrlDTO> {
+public class ArteSubcategoriesTask extends ArteTaskBase<CrawlerUrlDTO, CrawlerUrlDTO> {
 
   private static final Type SENDUNG_OVERVIEW_TYPE_TOKEN = new TypeToken<SendungOverviewDto>() {
   }.getType();
 
   private final int pageNumber;
-  private final ArteLanguage language;
 
-  public ArteSubcategoryVideosTask(AbstractCrawler aCrawler,
-      ConcurrentLinkedQueue<CrawlerUrlDTO> aUrlToCrawlDtos, final ArteLanguage language, int pageNumber) {
+  public ArteSubcategoriesTask(AbstractCrawler aCrawler,
+      ConcurrentLinkedQueue<CrawlerUrlDTO> aUrlToCrawlDtos, int pageNumber) {
     super(aCrawler, aUrlToCrawlDtos, Optional.of(ArteConstants.AUTH_TOKEN));
 
-    registerJsonDeserializer(SENDUNG_OVERVIEW_TYPE_TOKEN, new ArteSubcategoryVideosDeserializer(language));
+    registerJsonDeserializer(SENDUNG_OVERVIEW_TYPE_TOKEN, new ArteSubcategoryDeserializer());
 
     this.pageNumber = pageNumber;
-    this.language = language;
   }
 
-  public ArteSubcategoryVideosTask(AbstractCrawler aCrawler,
-      ConcurrentLinkedQueue<CrawlerUrlDTO> aUrlToCrawlDtos, final ArteLanguage language) {
-    this(aCrawler, aUrlToCrawlDtos, language, 1);
+  public ArteSubcategoriesTask(AbstractCrawler aCrawler,
+      ConcurrentLinkedQueue<CrawlerUrlDTO> aUrlToCrawlDtos) {
+    this(aCrawler, aUrlToCrawlDtos, 1);
   }
 
   @Override
@@ -53,13 +50,13 @@ public class ArteSubcategoryVideosTask extends ArteTaskBase<CrawlerUrlDTO, Crawl
   private void processNextPage(String aNextPageId) {
     final ConcurrentLinkedQueue<CrawlerUrlDTO> urlDtos = new ConcurrentLinkedQueue<>();
     urlDtos.add(new CrawlerUrlDTO(aNextPageId));
-    Set<CrawlerUrlDTO> results = createNewOwnInstance(urlDtos).invoke();
+    Set<CrawlerUrlDTO> results = new ArteSubcategoriesTask(crawler, urlDtos, pageNumber + 1).invoke();
     taskResults.addAll(results);
   }
 
   @Override
   protected AbstractRecrusivConverterTask<CrawlerUrlDTO, CrawlerUrlDTO> createNewOwnInstance(
       ConcurrentLinkedQueue<CrawlerUrlDTO> aElementsToProcess) {
-    return new ArteSubcategoryVideosTask(crawler, aElementsToProcess, language, pageNumber + 1);
+    return null;
   }
 }

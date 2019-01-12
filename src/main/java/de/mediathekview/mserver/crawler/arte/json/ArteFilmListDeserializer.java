@@ -1,76 +1,51 @@
 package de.mediathekview.mserver.crawler.arte.json;
 
-import java.lang.reflect.Type;
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.util.Optional;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonDeserializer;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
 import de.mediathekview.mserver.base.utils.JsonUtils;
-import de.mediathekview.mserver.crawler.arte.ArteJsonElementDto;
-import de.mediathekview.mserver.crawler.arte.tasks.ArteFilmListDTO;
-import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
+import de.mediathekview.mserver.crawler.arte.ArteConstants;
+import de.mediathekview.mserver.crawler.arte.ArteLanguage;
+import de.mediathekview.mserver.crawler.basic.SendungOverviewDto;
+import java.lang.reflect.Type;
+import java.util.Optional;
 
-public class ArteFilmListDeserializer implements JsonDeserializer<ArteFilmListDTO> {
-  private static final Logger LOG = LogManager.getLogger(ArteFilmListDeserializer.class);
-  private static final String PATTERN_PAGE_NUMBER = "page=\\d+";
-  private static final String JSON_ELEMENT_HREF = "href";
-  private static final String JSON_ELEMENT_NEXT = "next";
-  private static final String JSON_ELEMENT_LINKS = "links";
+public class ArteFilmListDeserializer implements JsonDeserializer<SendungOverviewDto> {
+
   private static final String JSON_ELEMENT_VIDEOS = "videos";
-  private static final String JSON_ELEMENT_META = "meta";
-  private final AbstractCrawler crawler;
-  private final Optional<String> subcategoryName;
+  private static final String ATTRIBUTE_PROGRAM_ID = "programId";
+  private static final String ATTRIBUTE_NEXT_PAGE = "nextPage";
 
-  public ArteFilmListDeserializer(final AbstractCrawler aCrawler,
-      final Optional<String> aSubcategoryName) {
-    crawler = aCrawler;
-    subcategoryName = aSubcategoryName;
+  private final ArteLanguage language;
+
+  public ArteFilmListDeserializer(ArteLanguage language) {
+    this.language = language;
   }
 
   @Override
-  public ArteFilmListDTO deserialize(final JsonElement aJsonElement, final Type aType,
+  public SendungOverviewDto deserialize(final JsonElement aJsonElement, final Type aType,
       final JsonDeserializationContext aJsonDeserializationContext) throws JsonParseException {
-    final ArteFilmListDTO result = new ArteFilmListDTO();
+
+    final SendungOverviewDto result = new SendungOverviewDto();
     if (aJsonElement.isJsonObject()) {
       final JsonObject mainObj = aJsonElement.getAsJsonObject();
-      result.setNextPage(getNextPageLink(mainObj));
-      if (JsonUtils.checkTreePath(mainObj, Optional.of(crawler), getBaseElementName())) {
-        mainObj.get(getBaseElementName()).getAsJsonArray().forEach(filmElement -> result
-            .addFoundFilm(new ArteJsonElementDto(filmElement, subcategoryName)));
+
+      JsonUtils.getAttributeAsString(mainObj, ATTRIBUTE_NEXT_PAGE).ifPresent(result::setNextPageId);
+
+      if (JsonUtils.checkTreePath(mainObj, Optional.empty(), getBaseElementName())) {
+        mainObj.get(getBaseElementName()).getAsJsonArray().forEach(filmElement ->
+            parseFilmUrl(filmElement.getAsJsonObject()).ifPresent(result::addUrl));
       }
     }
     return result;
   }
 
-  private Optional<URI> getNextPageLink(final JsonObject mainObj) {
-    if (JsonUtils.checkTreePath(mainObj, Optional.empty(), JSON_ELEMENT_META, getBaseElementName(),
-        JSON_ELEMENT_LINKS, JSON_ELEMENT_NEXT, JSON_ELEMENT_HREF)) {
-
-      final String nextPageUrl = mainObj.get(JSON_ELEMENT_META).getAsJsonObject()
-          .get(getBaseElementName()).getAsJsonObject().get(JSON_ELEMENT_LINKS).getAsJsonObject()
-          .get(JSON_ELEMENT_NEXT).getAsJsonObject().get(JSON_ELEMENT_HREF).getAsString();
-      final Matcher nextPageNumberMatcher =
-          Pattern.compile(PATTERN_PAGE_NUMBER).matcher(nextPageUrl);
-      try {
-        if (nextPageNumberMatcher.find()
-            && Integer.parseInt(nextPageNumberMatcher.group()) <= crawler.getRuntimeConfig()
-                .getMaximumSubpages()) {
-          return Optional.of(new URI(nextPageUrl));
-        }
-      } catch (final NumberFormatException numberFormatException) {
-        LOG.error("A page number can't be read.", numberFormatException);
-      } catch (final URISyntaxException uriSyntaxException) {
-        LOG.error("A next page URL isn't a valid URI.", uriSyntaxException);
-      }
-
+  private Optional<String> parseFilmUrl(final JsonObject jsonObject) {
+    Optional<String> programId = JsonUtils.getAttributeAsString(jsonObject, ATTRIBUTE_PROGRAM_ID);
+    if (programId.isPresent()) {
+      return Optional.of(String.format(ArteConstants.URL_FILM_DETAILS, language.getLanguageCode().toLowerCase(), programId.get()));
     }
 
     return Optional.empty();
