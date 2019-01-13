@@ -5,19 +5,20 @@ import static com.github.tomakehurst.wiremock.client.WireMock.get;
 import static com.github.tomakehurst.wiremock.client.WireMock.urlEqualTo;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.Matchers.notNullValue;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertThat;
 
-import de.mediathekview.mserver.crawler.basic.CrawlerUrlDTO;
+import de.mediathekview.mserver.crawler.basic.TopicUrlDTO;
 import java.util.Set;
 import org.junit.Test;
 
 public class ArteSubcategoriesTaskTest extends ArteTaskTestBase {
+
   @Test
   public void testOverviewWithSinglePage() {
     String requestUrl = "/api/opa/v3/subcategories?language=de&limit=5";
     setupSuccessfulJsonResponse(requestUrl, "/arte/arte_subcategory_page_last.json");
 
-    final Set<CrawlerUrlDTO> actual = executeTask(requestUrl);
+    final Set<TopicUrlDTO> actual = executeTask(requestUrl);
 
     assertThat(actual, notNullValue());
     assertThat(actual.size(), equalTo(1));
@@ -33,7 +34,7 @@ public class ArteSubcategoriesTaskTest extends ArteTaskTestBase {
     setupSuccessfulJsonResponse("/api/opa/v3/subcategories?language=de&limit=5&page=2", "/arte/arte_subcategory_page2.json");
     setupSuccessfulJsonResponse("/api/opa/v3/subcategories?language=de&limit=5&page=3", "/arte/arte_subcategory_page_last.json");
 
-    final Set<CrawlerUrlDTO> actual = executeTask(requestUrl);
+    final Set<TopicUrlDTO> actual = executeTask(requestUrl);
 
     assertThat(actual, notNullValue());
     assertThat(actual.size(), equalTo(11));
@@ -49,7 +50,7 @@ public class ArteSubcategoriesTaskTest extends ArteTaskTestBase {
     setupSuccessfulJsonResponse("/api/opa/v3/subcategories?language=de&limit=5&page=2", "/arte/arte_subcategory_page2.json");
     setupSuccessfulJsonResponse("/api/opa/v3/subcategories?language=de&limit=5&page=3", "/arte/arte_subcategory_page_last.json");
 
-    final Set<CrawlerUrlDTO> actual = executeTask(requestUrl);
+    final Set<TopicUrlDTO> actual = executeTask(requestUrl);
 
     assertThat(actual, notNullValue());
     assertThat(actual.size(), equalTo(10));
@@ -64,12 +65,12 @@ public class ArteSubcategoriesTaskTest extends ArteTaskTestBase {
             .withStatus(404)
             .withBody("Not Found")));
 
-    final Set<CrawlerUrlDTO> actual = executeTask(requestUrl);
+    final Set<TopicUrlDTO> actual = executeTask(requestUrl);
     assertThat(actual, notNullValue());
     assertThat(actual.size(), equalTo(0));
   }
 
-  private Set<CrawlerUrlDTO> executeTask(String aRequestUrl) {
+  private Set<TopicUrlDTO> executeTask(String aRequestUrl) {
     return new ArteSubcategoriesTask(createCrawler(), createCrawlerUrlDto(aRequestUrl)).invoke();
   }
 }
