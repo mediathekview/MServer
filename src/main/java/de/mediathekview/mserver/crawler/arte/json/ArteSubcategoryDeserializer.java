@@ -41,7 +41,7 @@ public class ArteSubcategoryDeserializer extends ArteDeserializerBase implements
   }
 
   private String buildSubcategoryVideoUrl(final String language, final String subcategoryCode) {
-    return String.format(ArteConstants.URL_SUBCATEGORY_VIDEOS, language, subcategoryCode);
+    return String.format(ArteConstants.URL_SUBCATEGORY_VIDEOS, ArteConstants.BASE_URL_WWW, language, subcategoryCode, 1);
   }
 
   @Override

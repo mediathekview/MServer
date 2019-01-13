@@ -66,7 +66,7 @@ public class ArteCrawler extends AbstractCrawler {
     ConcurrentLinkedQueue subcategoriesUrl = new ConcurrentLinkedQueue();
     subcategoriesUrl.addAll(forkJoinPool.submit(subcategoriesTask).get());
 
-    ArteSubcategoryVideosTask subcategoryVideosTask = new ArteSubcategoryVideosTask(this, subcategoriesUrl, getLanguage());
+    ArteSubcategoryVideosTask subcategoryVideosTask = new ArteSubcategoryVideosTask(this, subcategoriesUrl, ArteConstants.BASE_URL_WWW, getLanguage());
     Set<ArteFilmUrlDto> filmInfos = forkJoinPool.submit(subcategoryVideosTask).get();
 
     printMessage(ServerMessages.DEBUG_ALL_SENDUNG_FOLGEN_COUNT, getSender().getName(), filmInfos.size());

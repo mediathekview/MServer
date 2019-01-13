@@ -31,25 +31,25 @@ public class ArteSubcategoryDeserializerTest {
                 "/arte/arte_subcategory_page1.json",
                 Optional.of("http://localhost:8589/api/opa/v3/subcategories?language=de&limit=5&page=2"),
                 new CrawlerUrlDTO[]{
-                    new CrawlerUrlDTO("https://www.arte.tv/guide/api/api/zones/de/videos_subcategory/?id=AUT&limit=100"),
-                    new CrawlerUrlDTO("https://www.arte.tv/guide/api/api/zones/de/videos_subcategory/?id=AJO&limit=100"),
-                    new CrawlerUrlDTO("https://www.arte.tv/guide/api/api/zones/de/videos_subcategory/?id=MUA&limit=100"),
-                    new CrawlerUrlDTO("https://www.arte.tv/guide/api/api/zones/de/videos_subcategory/?id=FLM&limit=100"),
-                    new CrawlerUrlDTO("https://www.arte.tv/guide/api/api/zones/de/videos_subcategory/?id=ENQ&limit=100")
+                    new CrawlerUrlDTO("https://www.arte.tv/guide/api/api/zones/de/videos_subcategory/?id=AUT&limit=100&page=1"),
+                    new CrawlerUrlDTO("https://www.arte.tv/guide/api/api/zones/de/videos_subcategory/?id=AJO&limit=100&page=1"),
+                    new CrawlerUrlDTO("https://www.arte.tv/guide/api/api/zones/de/videos_subcategory/?id=MUA&limit=100&page=1"),
+                    new CrawlerUrlDTO("https://www.arte.tv/guide/api/api/zones/de/videos_subcategory/?id=FLM&limit=100&page=1"),
+                    new CrawlerUrlDTO("https://www.arte.tv/guide/api/api/zones/de/videos_subcategory/?id=ENQ&limit=100&page=1")
                 }
             },
             {
                 "/arte/arte_subcategory_page_last.json",
                 Optional.empty(),
                 new CrawlerUrlDTO[]{
-                    new CrawlerUrlDTO("https://www.arte.tv/guide/api/api/zones/de/videos_subcategory/?id=AUV&limit=100")
+                    new CrawlerUrlDTO("https://www.arte.tv/guide/api/api/zones/de/videos_subcategory/?id=AUV&limit=100&page=1")
                 }
             },
             {
                 "/arte/arte_subcategory_page_es.json",
                 Optional.empty(),
                 new CrawlerUrlDTO[]{
-                    new CrawlerUrlDTO("https://www.arte.tv/guide/api/api/zones/es/videos_subcategory/?id=AUV&limit=100")
+                    new CrawlerUrlDTO("https://www.arte.tv/guide/api/api/zones/es/videos_subcategory/?id=AUV&limit=100&page=1")
                 }
             }
         });
