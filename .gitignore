@@ -27,3 +27,4 @@ RepoZugang.properties
 
 logs/
 /target/
+/.checkstyle
