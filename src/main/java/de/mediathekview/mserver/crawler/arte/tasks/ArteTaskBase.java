@@ -1,5 +1,6 @@
 package de.mediathekview.mserver.crawler.arte.tasks;
 
+import com.google.common.util.concurrent.RateLimiter;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
@@ -20,6 +21,7 @@ public abstract class ArteTaskBase<T, D extends CrawlerUrlDTO> extends AbstractR
   private static final Logger LOG = LogManager.getLogger(ArteTaskBase.class);
 
   private final GsonBuilder gsonBuilder;
+  private static final RateLimiter limiter = RateLimiter.create(30.0);
 
   public ArteTaskBase(AbstractCrawler aCrawler,
       ConcurrentLinkedQueue<D> aUrlToCrawlDtos, Optional<String> authToken) {
@@ -71,10 +73,12 @@ public abstract class ArteTaskBase<T, D extends CrawlerUrlDTO> extends AbstractR
       request = request.header(HEADER_AUTHORIZATION, authKey.get());
     }
 
+    limiter.acquire();
     return request
         .header(HEADER_ACCEPT_ENCODING, ENCODING_GZIP)
         .header(HEADER_ACCEPT, APPLICATION_JSON)
         .header(HEADER_CONTENT_TYPE, APPLICATION_JSON)
+        .header("User-Agent", "Mozilla")
         .get();
   }
 }
