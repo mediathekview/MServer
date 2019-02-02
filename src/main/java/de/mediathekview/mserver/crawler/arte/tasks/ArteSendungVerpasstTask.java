@@ -1,5 +1,13 @@
 package de.mediathekview.mserver.crawler.arte.tasks;
 
+import com.google.gson.reflect.TypeToken;
+import de.mediathekview.mserver.crawler.arte.ArteCrawlerUrlDto;
+import de.mediathekview.mserver.crawler.arte.ArteJsonElementDto;
+import de.mediathekview.mserver.crawler.arte.ArteLanguage;
+import de.mediathekview.mserver.crawler.arte.json.ArteFilmListDeserializer;
+import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
+import de.mediathekview.mserver.crawler.basic.AbstractUrlTask;
+import de.mediathekview.mserver.crawler.funk.tasks.AbstractFunkRestTask;
 import java.lang.reflect.Type;
 import java.net.URI;
 import java.util.Optional;
@@ -7,16 +15,10 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 import javax.ws.rs.core.Response;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import com.google.gson.reflect.TypeToken;
-import de.mediathekview.mserver.crawler.arte.ArteCrawlerUrlDto;
-import de.mediathekview.mserver.crawler.arte.ArteJsonElementDto;
-import de.mediathekview.mserver.crawler.arte.json.ArteFilmListDeserializer;
-import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
-import de.mediathekview.mserver.crawler.basic.AbstractUrlTask;
-import de.mediathekview.mserver.crawler.funk.tasks.AbstractFunkRestTask;
 
 public class ArteSendungVerpasstTask
     extends AbstractFunkRestTask<ArteJsonElementDto, ArteFilmListDTO, ArteCrawlerUrlDto> {
+
   private static final Logger LOG = LogManager.getLogger(ArteSendungVerpasstTask.class);
   private static final long serialVersionUID = 6599845164042820791L;
 
@@ -34,12 +36,14 @@ public class ArteSendungVerpasstTask
 
   @Override
   protected Object getParser(final ArteCrawlerUrlDto aDTO) {
-    return new ArteFilmListDeserializer(crawler, aDTO.getCategory());
+    // TODO....
+    return new ArteFilmListDeserializer(ArteLanguage.DE);
   }
 
   @Override
   protected Type getType() {
-    return new TypeToken<ArteFilmListDTO>() {}.getType();
+    return new TypeToken<ArteFilmListDTO>() {
+    }.getType();
   }
 
   @Override

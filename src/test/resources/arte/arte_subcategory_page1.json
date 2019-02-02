@@ -1,0 +1,106 @@
+{
+  "meta": {
+    "subcategories": {
+      "totalCount": 36,
+      "limit": 5,
+      "href": "https:\/\/api.arte.tv\/api\/opa\/v3\/subcategories?language=de&limit=5",
+      "pages": 8,
+      "page": 1,
+      "links": {
+        "first": {
+          "href": "https:\/\/api.arte.tv\/api\/opa\/v3\/subcategories?language=de&limit=5&page=1"
+        },
+        "next": {
+          "href": "http:\/\/localhost:8589\/api\/opa\/v3\/subcategories?language=de&limit=5&page=2"
+        }
+      }
+    }
+  },
+  "subcategories": [
+    {
+      "id": "AUT_de",
+      "code": "AUT",
+      "language": "de",
+      "label": "Andere",
+      "slug": "andere",
+      "url": "https:\/\/www.arte.tv\/de\/videos\/andere\/andere\/",
+      "description": "",
+      "category": {
+        "order": 9,
+        "code": "AUT",
+        "name": "Andere",
+        "url": "https:\/\/www.arte.tv\/de\/videos\/andere\/",
+        "slug": "andere"
+      },
+      "order": 0
+    },
+    {
+      "id": "AJO_de",
+      "code": "AJO",
+      "language": "de",
+      "label": "ARTE Journal",
+      "slug": "arte-journal",
+      "url": "https:\/\/www.arte.tv\/de\/videos\/aktuelles-und-gesellschaft\/arte-journal\/",
+      "description": "Eine deutsch-französische Redaktion präsentiert aktuelles politisches und kulturelles Geschehen aus europäischer Sicht.",
+      "category": {
+        "order": 1,
+        "code": "ACT",
+        "name": "Aktuelles und Gesellschaft",
+        "url": "https:\/\/www.arte.tv\/de\/videos\/aktuelles-und-gesellschaft\/",
+        "slug": "aktuelles-und-gesellschaft"
+      },
+      "order": 1
+    },
+    {
+      "id": "MUA_de",
+      "code": "MUA",
+      "language": "de",
+      "label": "Pop",
+      "slug": "pop",
+      "url": "https:\/\/www.arte.tv\/de\/videos\/arte-concert\/pop\/",
+      "description": "Ein musikalisches Kaleidoskop aus Popmusik, Rock, Metal, R’n’B, Rap, Elektro und Hip-Hop. ",
+      "category": {
+        "order": 5,
+        "code": "ARS",
+        "name": "ARTE Concert",
+        "url": "https:\/\/www.arte.tv\/de\/videos\/arte-concert\/",
+        "slug": "arte-concert"
+      },
+      "order": 1
+    },
+    {
+      "id": "FLM_de",
+      "code": "FLM",
+      "language": "de",
+      "label": "Filme",
+      "slug": "filme",
+      "url": "https:\/\/www.arte.tv\/de\/videos\/kino\/filme\/",
+      "description": "Kultfilme, Autorenfilme, Stummfilme – Entdecken Sie die Vielfalt des ARTE-Filmangebots.",
+      "category": {
+        "order": 2,
+        "code": "CIN",
+        "name": "Kino",
+        "url": "https:\/\/www.arte.tv\/de\/videos\/kino\/",
+        "slug": "kino"
+      },
+      "order": 1
+    },
+    {
+      "id": "ENQ_de",
+      "code": "ENQ",
+      "language": "de",
+      "label": "Reportagen und Recherchen",
+      "slug": "reportagen-und-recherchen",
+      "url": "https:\/\/www.arte.tv\/de\/videos\/aktuelles-und-gesellschaft\/reportagen-und-recherchen\/",
+      "description": "Was die Menschen bewegt.",
+      "category": {
+        "order": 1,
+        "code": "ACT",
+        "name": "Aktuelles und Gesellschaft",
+        "url": "https:\/\/www.arte.tv\/de\/videos\/aktuelles-und-gesellschaft\/",
+        "slug": "aktuelles-und-gesellschaft"
+      },
+      "order": 2
+    }
+  ]
+}

@@ -41,7 +41,7 @@ public class ArteFilmConvertTask extends AbstractRecrusivConverterTask<Film, Art
 
   @Override
   protected void processElement(final ArteJsonElementDto aElement) {
-    final Gson gson = new GsonBuilder()
+/*    final Gson gson = new GsonBuilder()
         .registerTypeAdapter(OPTIONAL_FILM_TYPE,
             new ArteFilmDeserializer(crawler, authKey, language, aElement.getSubcategoryName()))
         .create();
@@ -50,7 +50,7 @@ public class ArteFilmConvertTask extends AbstractRecrusivConverterTask<Film, Art
       taskResults.add(film.get());
       crawler.incrementAndGetActualCount();
       crawler.updateProgress();
-    }
+    }*/
   }
 
 }

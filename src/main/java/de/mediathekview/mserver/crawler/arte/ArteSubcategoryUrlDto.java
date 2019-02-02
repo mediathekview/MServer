@@ -1,28 +1,28 @@
-package de.mediathekview.mserver.crawler.basic;
+package de.mediathekview.mserver.crawler.arte;
 
+import de.mediathekview.mserver.crawler.basic.TopicUrlDTO;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-public class SendungOverviewDto {
-
-  private final List<CrawlerUrlDTO> urls;
+public class ArteSubcategoryUrlDto {
+  private final List<TopicUrlDTO> urls;
   private Optional<String> nextPageId;
 
-  public SendungOverviewDto() {
+  public ArteSubcategoryUrlDto() {
     urls = new ArrayList<>();
     nextPageId = Optional.empty();
   }
 
-  public boolean addUrl(final String aUrl) {
-    return urls.add(new CrawlerUrlDTO(aUrl));
+  public boolean addUrl(final TopicUrlDTO aUrl) {
+    return urls.add(aUrl);
   }
 
   public Optional<String> getNextPageId() {
     return nextPageId;
   }
 
-  public List<CrawlerUrlDTO> getUrls() {
+  public List<TopicUrlDTO> getUrls() {
     return urls;
   }
 
