@@ -9,6 +9,7 @@ import de.mediathekview.mlib.daten.Film;
 import de.mediathekview.mlib.daten.Resolution;
 import de.mediathekview.mlib.daten.Sender;
 import de.mediathekview.mserver.base.utils.JsonUtils;
+import de.mediathekview.mserver.base.utils.UrlUtils;
 import de.mediathekview.mserver.crawler.swr.SwrConstants;
 import de.mediathekview.mserver.crawler.swr.SwrUrlOptimizer;
 import java.lang.reflect.Type;
@@ -133,7 +134,7 @@ public class SwrFilmDeserializer implements JsonDeserializer<Optional<Film>> {
     final Duration duration = parseDuration(attrObject);
     final Optional<String> description = JsonUtils.getAttributeAsString(attrObject, ATTRIBUTE_DESCRIPTION);
     final Optional<String> id = JsonUtils.getAttributeAsString(attrObject, ATTRIBUTE_ID);
-    final Optional<String> subtitle = JsonUtils.getAttributeAsString(attrObject, ATTRIBUTE_SUBTITLE);
+    final Optional<String> subtitle = parseSubtitle(attrObject);
 
     final Film film = new Film(UUID.randomUUID(), Sender.SWR, aTitle, aTopic, time, duration);
 
@@ -155,6 +156,16 @@ public class SwrFilmDeserializer implements JsonDeserializer<Optional<Film>> {
     }
 
     return Optional.of(film);
+  }
+
+  private Optional<String> parseSubtitle(JsonObject attrObject) {
+    Optional<String> subtitle = JsonUtils.getAttributeAsString(attrObject, ATTRIBUTE_SUBTITLE);
+    if (subtitle.isPresent()) {
+      String url = UrlUtils.addProtocolIfMissing(subtitle.get(), UrlUtils.PROTOCOL_HTTPS);
+      return Optional.of(url);
+    }
+
+    return Optional.empty();
   }
 
   private Optional<URL> buildWebsiteUrl(final String aId) throws MalformedURLException {

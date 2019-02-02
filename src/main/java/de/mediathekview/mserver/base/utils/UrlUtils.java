@@ -15,6 +15,8 @@ import java.util.Optional;
  */
 public final class UrlUtils {
 
+  public static final String PROTOCOL_HTTPS = "https:";
+
   private static final String WRONG_PARAMETER_START = "?&";
   private static final String REGEX_ESCAPOR = "\\";
   private static final String PARAMETER_PATTERN = "%s=%s";

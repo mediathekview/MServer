@@ -38,6 +38,19 @@ public class SwrFilmDeserializerTest extends WireMockTestBase {
             WireMockTestBase.MOCK_URL_BASE + "/swr/swr-fernsehen/landesschau-bw/00-hauptbeitrag/1053798.l.mp4",
             WireMockTestBase.MOCK_URL_BASE + "/swr/swr-fernsehen/landesschau-bw/00-hauptbeitrag/1053798.xxl.mp4",
             "https://subtitles.swr.de/swr/swr-fernsehen/landesschau-bw/00-hauptbeitrag/1053798.xml"
+        },
+        {
+            "/swr/swr_film_detail_subtitle_wdr.json",
+            "Planet Wissen",
+            "Mehr als Show – Wie Hypnose heilen kann",
+            LocalDateTime.of(2019, 1, 31, 13, 5, 0),
+            Duration.ofMinutes(58),
+            "Ob beim Zahnarzt, in der Psychotherapie oder im Operationssaal: Der Einsatz von Hypnose im medizinischen Bereich ist auf dem Vormarsch. Dabei braucht es nicht immer einen Hypnotiseur, auch Selbsthypnose ist erlernbar.",
+            "https://swrmediathek.de/player.htm?show=8c2ef640-46ab-11e8-9c74-005056a12b4c",
+            "https://wdrmedien-a.akamaihd.net/medp/ondemand/weltweit/fsk0/161/1611767/1611767_18581698.mp4",
+            "https://wdrmedien-a.akamaihd.net/medp/ondemand/weltweit/fsk0/161/1611767/1611767_18581699.mp4",
+            "",
+            "https://wdrmedien-a.akamaihd.net/medp/ondemand/weltweit/fsk0/161/1611767/1611767_18852432.xml"
         }
     });
   }

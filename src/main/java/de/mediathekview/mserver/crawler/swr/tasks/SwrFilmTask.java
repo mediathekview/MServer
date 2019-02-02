@@ -95,6 +95,9 @@ public class SwrFilmTask extends AbstractRestTask<Film, CrawlerUrlDTO> {
 
         crawler.incrementAndGetActualCount();
         crawler.updateProgress();
+      } else {
+        crawler.incrementAndGetErrorCount();
+        crawler.updateProgress();
       }
     } catch (JsonSyntaxException e) {
       LOG.error("SwrFilmDetailTask: Error reading url " + uri.toString(), e);
