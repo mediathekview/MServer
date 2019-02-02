@@ -15,6 +15,7 @@ import java.util.stream.Collectors;
 import mServer.crawler.sender.base.JsonUtils;
 import mServer.crawler.sender.base.UrlUtils;
 import mServer.crawler.sender.newsearch.Qualities;
+import mServer.crawler.sender.swr.SwrUrlOptimizer;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -34,6 +35,8 @@ public class ArdMediaArrayToDownloadUrlsConverter {
   private static final String ELEMENT_SORT_ARRAY = "_sortierArray";
   private static final String ELEMENT_WIDTH = "_width";
   private static final String PROTOCOL_RTMP = "rtmp";
+
+  private static final SwrUrlOptimizer swrOptimizer = new SwrUrlOptimizer();
 
   private ArdMediaArrayToDownloadUrlsConverter() {
   }
@@ -132,13 +135,21 @@ public class ArdMediaArrayToDownloadUrlsConverter {
         if (!url.isEmpty()) {
 
           try {
-            aDownloadUrls.put(entry.getKey(), new URL(url));
+            aDownloadUrls.put(entry.getKey(), new URL(optimizeUrl(entry.getKey(), url)));
           } catch (final MalformedURLException malformedUrlException) {
             LOG.error("A download URL is defect.", malformedUrlException);
           }
         }
       }
     });
+  }
+
+  private static String optimizeUrl(Qualities key, String url) {
+    if (key == Qualities.HD) {
+      return swrOptimizer.optimizeHdUrl(url);
+    }
+
+    return url;
   }
 
   private static List<ArdUrlInfo> filterUrls(final Set<ArdUrlInfo> aUrls, final String aFileType) {
