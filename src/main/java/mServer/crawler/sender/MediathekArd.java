@@ -404,7 +404,7 @@ public class MediathekArd extends MediathekReader {
             CrawlerTool.addUrlKlein(f, urlKl, "");
           }
           if (!urlHD.isEmpty() && !urlHD.equals(url)) {
-            CrawlerTool.addUrlHd(f, urlHD, "");
+            CrawlerTool.addUrlHd(f, optimizeHdUrl(urlHD), "");
           }
           if (!subtitle.isEmpty()) {
             CrawlerTool.addUrlSubtitle(f, subtitle);
@@ -450,6 +450,16 @@ public class MediathekArd extends MediathekReader {
         isAllTextsEmpty = (isAllTextsEmpty == null || isAllTextsEmpty) && StringUtils.isEmpty(text);
       }
       return isAllTextsEmpty == null || isAllTextsEmpty;
+    }
+
+    private String optimizeHdUrl(String urlHd) {
+      if (urlHd.contains(".xl.mp4")) {
+        String optimizedUrl = urlHd.replace(".xl.mp4", ".xxl.mp4");
+        if (urlExists(optimizedUrl)) {
+          return optimizedUrl;
+        }
+      }
+      return urlHd;
     }
   }
 
