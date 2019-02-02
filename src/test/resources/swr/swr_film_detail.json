@@ -175,7 +175,7 @@
          "attr":{
             "val0":"h264",
             "val1":"1",
-            "val2":"https://pdodswr-a.akamaihd.net/swr/swr-fernsehen/landesschau-bw/00-hauptbeitrag/1053798.s.mp4"
+            "val2":"http://localhost:8589/swr/swr-fernsehen/landesschau-bw/00-hauptbeitrag/1053798.s.mp4"
          },
          "sub":[
 
@@ -186,7 +186,7 @@
          "attr":{
             "val0":"h264",
             "val1":"2",
-            "val2":"https://pdodswr-a.akamaihd.net/swr/swr-fernsehen/landesschau-bw/00-hauptbeitrag/1053798.m.mp4"
+            "val2":"http://localhost:8589/swr/swr-fernsehen/landesschau-bw/00-hauptbeitrag/1053798.m.mp4"
          },
          "sub":[
 
@@ -197,7 +197,7 @@
          "attr":{
             "val0":"h264",
             "val1":"2",
-            "val2":"https://pdodswr-a.akamaihd.net/swr/swr-fernsehen/landesschau-bw/00-hauptbeitrag/1053798.sm.mp4"
+            "val2":"http://localhost:8589/swr/swr-fernsehen/landesschau-bw/00-hauptbeitrag/1053798.sm.mp4"
          },
          "sub":[
 
@@ -208,7 +208,7 @@
          "attr":{
             "val0":"h264",
             "val1":"3",
-            "val2":"https://pdodswr-a.akamaihd.net/swr/swr-fernsehen/landesschau-bw/00-hauptbeitrag/1053798.l.mp4"
+            "val2":"http://localhost:8589/swr/swr-fernsehen/landesschau-bw/00-hauptbeitrag/1053798.l.mp4"
          },
          "sub":[
 
@@ -219,7 +219,7 @@
          "attr":{
             "val0":"h264",
             "val1":"3",
-            "val2":"https://pdodswr-a.akamaihd.net/swr/swr-fernsehen/landesschau-bw/00-hauptbeitrag/1053798.ml.mp4"
+            "val2":"http://localhost:8589/swr/swr-fernsehen/landesschau-bw/00-hauptbeitrag/1053798.ml.mp4"
          },
          "sub":[
 
@@ -230,7 +230,7 @@
          "attr":{
             "val0":"h264",
             "val1":"4",
-            "val2":"https://pdodswr-a.akamaihd.net/swr/swr-fernsehen/landesschau-bw/00-hauptbeitrag/1053798.xl.mp4"
+            "val2":"http://localhost:8589/swr/swr-fernsehen/landesschau-bw/00-hauptbeitrag/1053798.xl.mp4"
          },
          "sub":[
 
