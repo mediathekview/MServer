@@ -48,7 +48,6 @@ import mServer.crawler.sender.MediathekSrfPod;
 import mServer.crawler.sender.MediathekSwr;
 import mServer.crawler.sender.MediathekWdr;
 import mServer.crawler.sender.MediathekZdf;
-import mServer.crawler.sender.MediathekZdfTivi;
 import mServer.crawler.sender.arte.MediathekArte_de;
 import mServer.crawler.sender.arte.MediathekArte_fr;
 import mServer.crawler.sender.br.BrCrawler;
@@ -83,7 +82,6 @@ public class FilmeSuchen {
     //Reader laden Spaltenweises Laden
     mediathekListe.add(new MediathekArd(this, 0));
     mediathekListe.add(new MediathekZdf(this, 0));
-    mediathekListe.add(new MediathekZdfTivi(this, 0));
     mediathekListe.add(new MediathekArte_de(this, 0));
     mediathekListe.add(new MediathekArte_fr(this, 0));
     mediathekListe.add(new Mediathek3Sat(this, 1));
