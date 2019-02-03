@@ -69,6 +69,7 @@ public class MediathekArte_de extends MediathekReader {
           = "https://www.arte.tv/guide/api/api/zones/%s/videos_subcategory/?id=%s&page=%s&limit=100";
 
   private static final String[] SUBCATEGORIES = new String[]{
+    "WEB", "AUT",
     "AJO", "AUV", "KUL", "DCY", "ENQ", "JUN",
     "ACC", "CMG", "FLM", "CMU", "MCL",
     "CHU", "FIC", "SES",
