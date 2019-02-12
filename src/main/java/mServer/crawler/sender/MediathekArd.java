@@ -76,7 +76,7 @@ public class MediathekArd extends MediathekReader {
 
     private void addTage() {
       // http://classic.ardmediathek.de/tv/sendungVerpasst?tag=0 ... 6
-      for (int i = 0; i <= 6; ++i) {
+      for (int i = 0; i <= 1; ++i) {
         if (Config.getStop()) {
           break;
         }
@@ -255,7 +255,7 @@ public class MediathekArd extends MediathekReader {
           zeit = zeit + ":00";
           datum = datum.substring(0, datum.indexOf("|")).trim();
         }
-        titel = seite1.extract("<h4 class=\"headline\">", "<", pos);
+        titel = seite1.extract("<h4 class=\"headline\">", "<", pos).replace(" (null/null)", "");
         dauer = seite1.extract("<p class=\"subtitle\">", "<", pos);
         try {
           final Matcher dauerMatcher = Pattern.compile(DAUER_REGEX_PATERN).matcher(dauer);
