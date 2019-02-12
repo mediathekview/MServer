@@ -76,7 +76,7 @@ public class MediathekArd extends MediathekReader {
 
     private void addTage() {
       // http://classic.ardmediathek.de/tv/sendungVerpasst?tag=0 ... 6
-      for (int i = 0; i <= 1; ++i) {
+      for (int i = 0; i <= 6; ++i) {
         if (Config.getStop()) {
           break;
         }
