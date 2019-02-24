@@ -40,7 +40,7 @@ public class BrGetClipIDsTaskTest {
                 .withBody(expectedJSONresult)));
     
     
-    BrCrawler crawler = BrTestHelper.getTestCrawler("MServer-Config.yaml");
+    BrCrawler crawler = BrTestHelper.getTestCrawler("MServer-JUnit-Config.yaml");
     
     BrGetClipIDsTask clipIds = new BrGetClipIDsTask(crawler);
     ExecutorService lassLaufen = Executors.newSingleThreadExecutor();

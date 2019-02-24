@@ -50,7 +50,7 @@ public class BrGetClipDetailsTaskTest {
     
     ForkJoinPool mainPool = new ForkJoinPool();
     
-    BrCrawler crawler = BrTestHelper.getTestCrawler("MServer-Config.yaml", mainPool);
+    BrCrawler crawler = BrTestHelper.getTestCrawler("MServer-JUnit-Config.yaml", mainPool);
     
     ConcurrentLinkedQueue<BrID> clipQueue = new ConcurrentLinkedQueue<>();
 

@@ -12,11 +12,13 @@ import org.jsoup.Jsoup;
 import static org.junit.Assert.assertThat;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.powermock.core.classloader.annotations.PowerMockIgnore;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 
 @RunWith(PowerMockRunner.class)
 @PrepareForTest({Jsoup.class})
+@PowerMockIgnore(value= {"javax.net.ssl.*", "javax.*", "com.sun.*", "org.apache.logging.log4j.core.config.xml.*"})
 public class OrfLetterPageTaskTest {
 
   private static final String ORF_EMPTY_PAGE = "/orf/orf_letter_empty.html";

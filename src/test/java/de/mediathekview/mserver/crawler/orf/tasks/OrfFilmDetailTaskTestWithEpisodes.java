@@ -23,7 +23,7 @@ import org.powermock.modules.junit4.PowerMockRunner;
 
 @RunWith(PowerMockRunner.class)
 @PrepareForTest({Jsoup.class})
-@PowerMockIgnore("javax.net.ssl.*")
+@PowerMockIgnore(value= {"javax.net.ssl.*", "javax.*", "com.sun.*", "org.apache.logging.log4j.core.config.xml.*"})
 public class OrfFilmDetailTaskTestWithEpisodes extends OrfFilmDetailTaskTestBase {
 
   private static final String REQUEST_URL = "http://tvthek.orf.at/profile/ZIB-1/1203/ZIB-1/13993106";
