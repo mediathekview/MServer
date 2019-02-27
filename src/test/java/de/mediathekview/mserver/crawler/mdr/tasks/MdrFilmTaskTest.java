@@ -36,7 +36,7 @@ import org.powermock.modules.junit4.PowerMockRunnerDelegate;
 @RunWith(PowerMockRunner.class)
 @PrepareForTest({Jsoup.class})
 @PowerMockRunnerDelegate(Parameterized.class)
-@PowerMockIgnore(value= {"javax.net.ssl.*", "javax.*", "com.sun.*", "org.apache.logging.log4j.core.config.xml.*"})
+@PowerMockIgnore(value= {"javax.net.ssl.*","com.sun.org.apache.xerces.*","javax.management.*", "com.sun.*", "javax.xml.*", "org.xml.*","org.apache.logging.log4j.core.config.xml.*"})
 public class MdrFilmTaskTest extends WireMockTestBase {
 
   private String requestUrl;
