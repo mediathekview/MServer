@@ -8,7 +8,7 @@ import org.glassfish.jersey.uri.UriComponent;
 
 public class ArdUrlBuilder {
 
-  private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSS");
+  private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
   private final String baseUrl;
   private final String clientName;
@@ -17,7 +17,6 @@ public class ArdUrlBuilder {
   private int queryVersion = -1;
   private String hashKey;
   private LocalDateTime startDate;
-  private LocalDateTime endDate;
   private String showId;
 
   public ArdUrlBuilder(final String baseUrl, final String clientName) {
@@ -26,10 +25,7 @@ public class ArdUrlBuilder {
   }
 
   public ArdUrlBuilder addSearchDate(final LocalDateTime date) {
-    // if start date has time of 00:00:00, the api won't return any result
-    LocalDateTime dateAfter = date.plusDays(1);
-    startDate = LocalDateTime.of(date.getYear(), date.getMonth(), date.getDayOfMonth(), 4, 30, 0);
-    endDate = LocalDateTime.of(dateAfter.getYear(), dateAfter.getMonth(), dateAfter.getDayOfMonth(), 4, 29, 59);
+    startDate = LocalDateTime.of(date.getYear(), date.getMonth(), date.getDayOfMonth(),0 ,0, 0);
     return this;
   }
 
@@ -68,8 +64,7 @@ public class ArdUrlBuilder {
       return String.format(",\"showId\":\"%s\"", showId);
     }
     if (startDate != null) {
-      return String.format(",\"startDateTime\":\"%sZ\",\"endDateTime\":\"%sZ\"", startDate.format(DATE_TIME_FORMATTER),
-          endDate.format(DATE_TIME_FORMATTER));
+      return String.format(",\"startDate\":\"%s\"", startDate.format(DATE_TIME_FORMATTER));
     }
 
     return "";

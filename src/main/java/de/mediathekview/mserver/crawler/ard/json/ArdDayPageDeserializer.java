@@ -15,7 +15,7 @@ import java.util.Set;
 public class ArdDayPageDeserializer extends ArdTeasersDeserializer implements JsonDeserializer<Set<ArdFilmInfoDto>> {
 
   private static final String ELEMENT_DATA = "data";
-  private static final String ELEMENT_GUIDE_PAGE = "guidePage";
+  private static final String ELEMENT_PROGRAM_PAGE = "programPage";
   private static final String ELEMENT_WIDGETS = "widgets";
   private static final String ELEMENT_TEASERS = "teasers";
 
@@ -23,8 +23,8 @@ public class ArdDayPageDeserializer extends ArdTeasersDeserializer implements Js
   public Set<ArdFilmInfoDto> deserialize(JsonElement jsonElement, Type type, JsonDeserializationContext context) {
     Set<ArdFilmInfoDto> results = new HashSet<>();
 
-    if (JsonUtils.checkTreePath(jsonElement, Optional.empty(), ELEMENT_DATA, ELEMENT_GUIDE_PAGE, ELEMENT_WIDGETS)) {
-      JsonArray widgets = jsonElement.getAsJsonObject().get(ELEMENT_DATA).getAsJsonObject().get(ELEMENT_GUIDE_PAGE).getAsJsonObject()
+    if (JsonUtils.checkTreePath(jsonElement, Optional.empty(), ELEMENT_DATA, ELEMENT_PROGRAM_PAGE, ELEMENT_WIDGETS)) {
+      JsonArray widgets = jsonElement.getAsJsonObject().get(ELEMENT_DATA).getAsJsonObject().get(ELEMENT_PROGRAM_PAGE).getAsJsonObject()
           .get(ELEMENT_WIDGETS).getAsJsonArray();
       for (JsonElement widgetElement : widgets) {
         JsonObject widgetObject = widgetElement.getAsJsonObject();
