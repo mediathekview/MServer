@@ -2,6 +2,9 @@ package de.mediathekview.mserver.crawler.ard.tasks;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.reflect.TypeToken;
+import de.mediathekview.mserver.crawler.ard.json.ArdErrorDeserializer;
+import de.mediathekview.mserver.crawler.ard.json.ArdErrorInfoDto;
 import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
 import de.mediathekview.mserver.crawler.basic.AbstractRestTask;
 import de.mediathekview.mserver.crawler.basic.CrawlerUrlDTO;
@@ -19,12 +22,16 @@ public abstract class ArdTaskBase<T, D extends CrawlerUrlDTO> extends AbstractRe
 
   private static final Logger LOG = LogManager.getLogger(ArdTaskBase.class);
 
+  private static final Type OPTIONAL_ERROR_DTO = new TypeToken<Optional<ArdErrorInfoDto>>() {
+  }.getType();
+
   private final GsonBuilder gsonBuilder;
 
   public ArdTaskBase(AbstractCrawler aCrawler,
       ConcurrentLinkedQueue<D> aUrlToCrawlDtos) {
     super(aCrawler, aUrlToCrawlDtos, Optional.empty());
     gsonBuilder = new GsonBuilder();
+    registerJsonDeserializer(OPTIONAL_ERROR_DTO, new ArdErrorDeserializer());
   }
 
   protected void registerJsonDeserializer(final Type aType, final Object aDeserializer) {
@@ -37,7 +44,9 @@ public abstract class ArdTaskBase<T, D extends CrawlerUrlDTO> extends AbstractRe
     final Response response = executeRequest(aTarget);
     if (response.getStatus() == 200) {
       final String jsonOutput = response.readEntity(String.class);
-      return gson.fromJson(jsonOutput, aType);
+      if (isSuccessResponse(jsonOutput, gson, aTarget.getUri().toString())) {
+        return gson.fromJson(jsonOutput, aType);
+      }
     } else {
       LOG.error("ArdTaskBase: request of url " + aTarget.getUri().toString() + " failed: " + response.getStatus());
     }
@@ -57,12 +66,23 @@ public abstract class ArdTaskBase<T, D extends CrawlerUrlDTO> extends AbstractRe
     }
     if (response.getStatus() == 200) {
       final String jsonOutput = response.readEntity(String.class);
-      return gson.fromJson(jsonOutput, aType);
+      if (isSuccessResponse(jsonOutput, gson, aTarget.getUri().toString())) {
+        return gson.fromJson(jsonOutput, aType);
+      }
     } else {
       LOG.error("ArdTaskBase: request of url " + aTarget.getUri().toString() + " failed: " + response.getStatus());
     }
 
     return null;
+  }
+
+  private boolean isSuccessResponse(String jsonOutput, Gson gson, String targetUrl) {
+    Optional<ArdErrorInfoDto> error = gson.fromJson(jsonOutput, OPTIONAL_ERROR_DTO);
+    error.ifPresent(ardErrorInfoDto -> LOG.error(
+        "ArdTaskBase: request of url " + targetUrl + " contains error: " + ardErrorInfoDto.getCode() + ", " + ardErrorInfoDto
+            .getMessage()));
+
+    return !error.isPresent();
   }
 
   private Response executeRequest(final WebTarget aTarget) {
