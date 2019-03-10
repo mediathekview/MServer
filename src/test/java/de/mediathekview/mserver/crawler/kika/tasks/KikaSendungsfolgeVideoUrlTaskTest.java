@@ -1,6 +1,7 @@
 package de.mediathekview.mserver.crawler.kika.tasks;
 
 import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.collection.IsIterableContainingInAnyOrder.containsInAnyOrder;
 import static org.junit.Assert.*;
 
 import de.mediathekview.mserver.crawler.basic.CrawlerUrlDTO;
@@ -36,5 +37,6 @@ public class KikaSendungsfolgeVideoUrlTaskTest extends KikaTaskTestBase {
     Set<CrawlerUrlDTO> actual = target.invoke();
 
     assertThat(actual.size(), equalTo(expected.length));
+    assertThat(actual, containsInAnyOrder(expected));
   }
 }

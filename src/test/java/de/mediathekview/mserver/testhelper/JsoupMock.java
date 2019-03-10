@@ -9,6 +9,8 @@ import org.jsoup.Connection;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.mockito.Mockito;
+
+import static org.mockito.ArgumentMatchers.any;
 import static org.powermock.api.mockito.PowerMockito.mockStatic;
 import static org.powermock.api.mockito.PowerMockito.when;
 import static org.powermock.api.support.membermodification.MemberMatcher.constructor;
@@ -19,7 +21,7 @@ import static org.powermock.api.support.membermodification.MemberModifier.suppre
  */
 public class JsoupMock {
   
-  public static void mock(String aUrl, String aHtmlFile) throws IOException {
+  public static Connection mock(String aUrl, String aHtmlFile) throws IOException {
     String fileContent = FileReader.readFile(aHtmlFile);
     Document document = Jsoup.parse(fileContent);
     
@@ -31,7 +33,14 @@ public class JsoupMock {
 
     mockStatic(Jsoup.class);
         
-    when(Jsoup.connect(aUrl)).thenReturn(connection);    
+    when(Jsoup.connect(aUrl)).thenReturn(connection);
+    return connection;
+  }
+
+  public static void mockXml(String aUrl, String aXmlFile) throws IOException {
+    Connection connection = mock(aUrl, aXmlFile);
+
+    when(connection.parser(any())).thenReturn(connection);
   }
   
   public static void mock(Map<String, String> aUrlMapping) {
