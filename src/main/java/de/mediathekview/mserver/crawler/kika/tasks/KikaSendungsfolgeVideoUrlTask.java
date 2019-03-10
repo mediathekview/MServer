@@ -20,7 +20,7 @@ public class KikaSendungsfolgeVideoUrlTask
   private static final String HTTP = "http";
   private static final String ATTRIBUTE_ONCLICK = "onclick";
   private static final long serialVersionUID = -2633978090540666539L;
-  private static final String VIDEO_DATA_ELEMENT_SELECTOR = ".av-playerContainer a[onclick]";
+  private static final String VIDEO_DATA_ELEMENT_SELECTOR = ".sectionArticle .av-playerContainer a[onclick]";
   private static final String VIDEO_URL_REGEX_PATTERN = "(?<=dataURL:')[^']*";
 
   public KikaSendungsfolgeVideoUrlTask(final AbstractCrawler aCrawler,
