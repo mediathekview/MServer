@@ -165,14 +165,11 @@ public class KikaSendungsfolgeVideoDetailsTask extends AbstractUrlTask<Film, Cra
         if (dauer.isPresent()) {
 
           final Film newFilm =
-              new Film(UUID.randomUUID(), Sender.DREISAT, title, thema, time, dauer.get());
+              new Film(UUID.randomUUID(), Sender.KIKA, title, thema, time, dauer.get());
           newFilm.setWebsite(new URL(websiteUrlNodes.get(0).text()));
 
-          final Collection<GeoLocations> geoLocations = new ArrayList<>();
-          geoLocations.add(GeoLocations.GEO_DE);
-          newFilm.setGeoLocations(geoLocations);
-
           addFilmUrls(videoElements, thema, title, newFilm);
+          addGeo(newFilm);
 
           if (newFilm.getUrls().isEmpty()) {
             LOG.error(String.format(
@@ -210,6 +207,22 @@ public class KikaSendungsfolgeVideoDetailsTask extends AbstractUrlTask<Film, Cra
       crawler.printErrorMessage();
     }
 
+  }
+
+  private void addGeo(Film newFilm) {
+    Optional<FilmUrl> url = newFilm.getDefaultUrl();
+    if (!url.isPresent()) {
+      return;
+    }
+
+    GeoLocations geoLocation = GeoLocations.GEO_NONE;
+    if (url.get().getUrl().getFile().contains("pmdgeokika")) {
+      geoLocation = GeoLocations.GEO_DE;
+    }
+
+    final Collection<GeoLocations> geoLocations = new ArrayList<>();
+    geoLocations.add(geoLocation);
+    newFilm.setGeoLocations(geoLocations);
   }
 
 }
