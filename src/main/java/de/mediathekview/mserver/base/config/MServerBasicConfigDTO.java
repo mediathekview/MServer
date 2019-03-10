@@ -32,7 +32,7 @@ public class MServerBasicConfigDTO {
   /**
    * The maximum amount of days going to future will be crawled for the "Sendung Verpasst?" section.
    */
-  private final Integer maximumDaysForSendungVerpasstSectionFuture;
+  private Integer maximumDaysForSendungVerpasstSectionFuture;
   
   /**
    * The time in seconds before a socket connection should time out.
@@ -146,6 +146,10 @@ public void setMaximumCrawlDurationInMinutes(final Integer aMaximumCrawlDuration
       final Integer aMaximumDaysForSendungVerpasstSection) {
     maximumDaysForSendungVerpasstSection = aMaximumDaysForSendungVerpasstSection;
   }
+
+  public void setMaximumDaysForSendungVerpasstSectionFuture(final Integer aMaximumDaysForSendungVerpasstSectionFuture) {
+  	maximumDaysForSendungVerpasstSectionFuture = aMaximumDaysForSendungVerpasstSectionFuture;
+	}
 
 
   public void setMaximumSubpages(final Integer aMaximumSubpages) {

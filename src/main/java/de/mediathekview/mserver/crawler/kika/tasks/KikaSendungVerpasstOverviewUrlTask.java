@@ -1,5 +1,10 @@
 package de.mediathekview.mserver.crawler.kika.tasks;
 
+import de.mediathekview.mserver.base.messages.ServerMessages;
+import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
+import de.mediathekview.mserver.crawler.basic.CrawlerUrlDTO;
+import de.mediathekview.mserver.crawler.kika.KikaConstants;
+import de.mediathekview.mserver.crawler.kika.KikaCrawler;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -17,24 +22,20 @@ import org.jsoup.HttpStatusException;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
-import de.mediathekview.mserver.base.messages.ServerMessages;
-import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
-import de.mediathekview.mserver.crawler.basic.CrawlerUrlDTO;
-import de.mediathekview.mserver.crawler.kika.KikaCrawler;
 
 /**
  * Gathers the URLs needed to get the "verpasste Sendungen".
  *
  * @author Nicklas Wiegandt (Nicklas2751)<br>
- *         <b>Mail:</b> nicklas@wiegandt.eu<br>
- *         <b>Jabber:</b> nicklas2751@elaon.de<br>
- *         <b>Riot.im:</b> nicklas2751:matrix.elaon.de<br>
+ * <b>Mail:</b> nicklas@wiegandt.eu<br>
+ * <b>Jabber:</b> nicklas2751@elaon.de<br>
+ * <b>Riot.im:</b> nicklas2751:matrix.elaon.de<br>
  */
 public class KikaSendungVerpasstOverviewUrlTask implements Callable<Set<CrawlerUrlDTO>> {
+
   private static final Logger LOG = LogManager.getLogger(KikaSendungVerpasstOverviewUrlTask.class);
   private static final String GATHER_URL_REGEX_PATTERN = "(?<=url':')[^']*";
   private static final String ATTRIBUTE_DATA_CTRL_IPG_TRIGGER = "data-ctrl-ipg-trigger";
-  private static final String DOCUMENT_URL = KikaCrawler.BASE_URL + "sendungen/ipg/ipg102.html";
   private static final DateTimeFormatter URL_DATE_TIME_FORMATTER =
       DateTimeFormatter.ofPattern("ddMMyyyy");
   private static final String URL_SELECTOR = ".ipgControl .box";
@@ -59,19 +60,17 @@ public class KikaSendungVerpasstOverviewUrlTask implements Callable<Set<CrawlerU
   private Set<String> gatherAllRawSendungVerpasstOverviewPageUrls() {
     final Set<String> rawSendungVerpasstOverviewPageUrls = new HashSet<>();
     try {
-      final Document document = Jsoup.connect(DOCUMENT_URL).get();
+      final Document document = Jsoup.connect(KikaConstants.URL_DAY_PAGE).get();
       for (final Element urlElement : document.select(URL_SELECTOR)) {
         final Optional<String> rawSendungVerpasstOverviewPageUrl =
             gatherIpgTriggerUrlFromElement(urlElement);
-        if (rawSendungVerpasstOverviewPageUrl.isPresent()) {
-          rawSendungVerpasstOverviewPageUrls.add(rawSendungVerpasstOverviewPageUrl.get());
-        }
+        rawSendungVerpasstOverviewPageUrl.ifPresent(rawSendungVerpasstOverviewPageUrls::add);
       }
     } catch (final HttpStatusException httpStatusError) {
       LOG.fatal(
           "Something went teribble wrong on loading the KIKA base \"Sendung Verpasst\" overview page.");
       crawler.printMessage(ServerMessages.CRAWLER_DOCUMENT_LOAD_ERROR,
-          crawler.getSender().getName(), DOCUMENT_URL, httpStatusError.getStatusCode());
+          crawler.getSender().getName(), KikaConstants.URL_DAY_PAGE, httpStatusError.getStatusCode());
     } catch (final IOException ioException) {
       LOG.fatal(
           "Something went teribble wrong on loading the KIKA base \"Sendung Verpasst\" overview page.");
@@ -85,7 +84,7 @@ public class KikaSendungVerpasstOverviewUrlTask implements Callable<Set<CrawlerU
       final Matcher urlMatcher = Pattern.compile(GATHER_URL_REGEX_PATTERN)
           .matcher(aUrlElement.attr(ATTRIBUTE_DATA_CTRL_IPG_TRIGGER));
       if (urlMatcher.find()) {
-        return Optional.of(KikaCrawler.BASE_URL + urlMatcher.group());
+        return Optional.of(KikaConstants.BASE_URL + urlMatcher.group());
       }
     }
     return Optional.empty();
@@ -96,6 +95,11 @@ public class KikaSendungVerpasstOverviewUrlTask implements Callable<Set<CrawlerU
     for (int i = 0; i < crawler.getCrawlerConfig().getMaximumDaysForSendungVerpasstSection(); i++) {
       dateStrings
           .add(LocalDateTime.now().minus(i, ChronoUnit.DAYS).format(URL_DATE_TIME_FORMATTER));
+    }
+
+    for (int i = 1; i <= crawler.getCrawlerConfig().getMaximumDaysForSendungVerpasstSectionFuture(); i++) {
+      dateStrings
+          .add(LocalDateTime.now().plus(i, ChronoUnit.DAYS).format(URL_DATE_TIME_FORMATTER));
     }
 
     return dateStrings;
