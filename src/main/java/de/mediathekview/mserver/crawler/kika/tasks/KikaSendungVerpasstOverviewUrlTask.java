@@ -4,7 +4,6 @@ import de.mediathekview.mserver.base.messages.ServerMessages;
 import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
 import de.mediathekview.mserver.crawler.basic.CrawlerUrlDTO;
 import de.mediathekview.mserver.crawler.kika.KikaConstants;
-import de.mediathekview.mserver.crawler.kika.KikaCrawler;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -34,10 +33,9 @@ import org.jsoup.nodes.Element;
 public class KikaSendungVerpasstOverviewUrlTask implements Callable<Set<CrawlerUrlDTO>> {
 
   private static final Logger LOG = LogManager.getLogger(KikaSendungVerpasstOverviewUrlTask.class);
-  private static final String GATHER_URL_REGEX_PATTERN = "(?<=url':')[^']*";
-  private static final String ATTRIBUTE_DATA_CTRL_IPG_TRIGGER = "data-ctrl-ipg-trigger";
   private static final DateTimeFormatter URL_DATE_TIME_FORMATTER =
       DateTimeFormatter.ofPattern("ddMMyyyy");
+  private static final String ATTRIBUTE_DATA_CTRL_IPG_TRIGGER = "data-ctrl-ipg-trigger";
   private static final String URL_SELECTOR = ".ipgControl .box";
   private final AbstractCrawler crawler;
 
@@ -63,7 +61,7 @@ public class KikaSendungVerpasstOverviewUrlTask implements Callable<Set<CrawlerU
       final Document document = Jsoup.connect(KikaConstants.URL_DAY_PAGE).get();
       for (final Element urlElement : document.select(URL_SELECTOR)) {
         final Optional<String> rawSendungVerpasstOverviewPageUrl =
-            gatherIpgTriggerUrlFromElement(urlElement);
+            KikaHelper.gatherIpgTriggerUrlFromElement(urlElement, ATTRIBUTE_DATA_CTRL_IPG_TRIGGER, KikaConstants.BASE_URL);
         rawSendungVerpasstOverviewPageUrl.ifPresent(rawSendungVerpasstOverviewPageUrls::add);
       }
     } catch (final HttpStatusException httpStatusError) {
@@ -77,17 +75,6 @@ public class KikaSendungVerpasstOverviewUrlTask implements Callable<Set<CrawlerU
       crawler.printErrorMessage();
     }
     return rawSendungVerpasstOverviewPageUrls;
-  }
-
-  private Optional<String> gatherIpgTriggerUrlFromElement(final Element aUrlElement) {
-    if (aUrlElement.hasAttr(ATTRIBUTE_DATA_CTRL_IPG_TRIGGER)) {
-      final Matcher urlMatcher = Pattern.compile(GATHER_URL_REGEX_PATTERN)
-          .matcher(aUrlElement.attr(ATTRIBUTE_DATA_CTRL_IPG_TRIGGER));
-      if (urlMatcher.find()) {
-        return Optional.of(KikaConstants.BASE_URL + urlMatcher.group());
-      }
-    }
-    return Optional.empty();
   }
 
   private Set<String> getAllowedDateStrings() {
