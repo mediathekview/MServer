@@ -8,6 +8,7 @@ import de.mediathekview.mserver.base.messages.ServerMessages;
 import de.mediathekview.mserver.base.utils.JsonUtils;
 import de.mediathekview.mserver.base.utils.UrlUtils;
 import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
+import de.mediathekview.mserver.crawler.swr.SwrUrlOptimizer;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.EnumMap;
@@ -36,6 +37,8 @@ public class ArdMediaArrayToDownloadUrlsConverter {
   private static final String ELEMENT_SORT_ARRAY = "_sortierArray";
   private static final String ELEMENT_WIDTH = "_width";
   private static final String PROTOCOL_RTMP = "rtmp";
+
+  private static final SwrUrlOptimizer swrOptimizer = new SwrUrlOptimizer();
 
   private ArdMediaArrayToDownloadUrlsConverter() {
   }
@@ -134,7 +137,7 @@ public class ArdMediaArrayToDownloadUrlsConverter {
         if (!url.isEmpty()) {
 
           try {
-            aDownloadUrls.put(entry.getKey(), new URL(url));
+            aDownloadUrls.put(entry.getKey(), new URL(optimizeUrl(entry.getKey(), url)));
           } catch (final MalformedURLException malformedUrlException) {
             LOG.error("A download URL is defect.", malformedUrlException);
             aCrawler.printMessage(ServerMessages.DEBUG_INVALID_URL, aCrawler.getSender().getName(),
@@ -143,6 +146,14 @@ public class ArdMediaArrayToDownloadUrlsConverter {
         }
       }
     });
+  }
+
+  private static String optimizeUrl(Resolution key, String url) {
+    if (key == Resolution.HD) {
+      return swrOptimizer.optimizeHdUrl(url);
+    }
+
+    return url;
   }
 
   private static List<ArdUrlInfo> filterUrls(final Set<ArdUrlInfo> aUrls, final String aFileType) {

@@ -87,7 +87,7 @@ public class NdrSendungsfolgedetailsTask extends AbstractDocumentTask<Film, Craw
       }
 
     } else {
-      LOG.error("NdrSendungsfolgedetailsTask: no film found for url " + aUrlDto.getUrl());
+      LOG.info("NdrSendungsfolgedetailsTask: no film found for url " + aUrlDto.getUrl());
       crawler.incrementAndGetErrorCount();
       crawler.updateProgress();
     }

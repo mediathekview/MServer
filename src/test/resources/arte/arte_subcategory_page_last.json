@@ -1,0 +1,38 @@
+{
+  "meta": {
+    "subcategories": {
+      "totalCount": 36,
+      "limit": 5,
+      "href": "https:\/\/api.arte.tv\/api\/opa\/v3\/subcategories?language=de&limit=5&page=8",
+      "pages": 8,
+      "page": 8,
+      "links": {
+        "first": {
+          "href": "https:\/\/api.arte.tv\/api\/opa\/v3\/subcategories?language=de&limit=5&page=1"
+        },
+        "previous": {
+          "href": "https:\/\/api.arte.tv\/api\/opa\/v3\/subcategories?language=de&limit=5&page=7"
+        }
+      }
+    }
+  },
+  "subcategories": [
+    {
+      "id": "AUV_de",
+      "code": "AUV",
+      "language": "de",
+      "label": "Perspektivwechsel",
+      "slug": "perspektivwechsel",
+      "url": "https:\/\/www.arte.tv\/de\/videos\/aktuelles-und-gesellschaft\/perspektivwechsel\/",
+      "description": "Der besondere Blick auf die Zeitgeschichte",
+      "category": {
+        "order": 1,
+        "code": "ACT",
+        "name": "Aktuelles und Gesellschaft",
+        "url": "https:\/\/www.arte.tv\/de\/videos\/aktuelles-und-gesellschaft\/",
+        "slug": "aktuelles-und-gesellschaft"
+      },
+      "order": 6
+    }
+  ]
+}

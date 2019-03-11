@@ -1,212 +1,323 @@
 package de.mediathekview.mserver.crawler.arte.json;
 
-import java.lang.reflect.Type;
-import java.time.Duration;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
-import java.time.ZonedDateTime;
-import java.time.temporal.ChronoUnit;
-import java.util.Optional;
-import java.util.UUID;
-import javax.ws.rs.client.Client;
-import javax.ws.rs.client.ClientBuilder;
-import javax.ws.rs.client.Invocation.Builder;
-import javax.ws.rs.core.Response;
-import org.glassfish.jersey.client.filter.EncodingFilter;
-import org.glassfish.jersey.message.DeflateEncoder;
-import org.glassfish.jersey.message.GZipEncoder;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
+import com.google.gson.JsonArray;
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonDeserializer;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
-import com.google.gson.reflect.TypeToken;
 import de.mediathekview.mlib.daten.Film;
 import de.mediathekview.mlib.daten.GeoLocations;
+import de.mediathekview.mlib.daten.Sender;
 import de.mediathekview.mserver.base.utils.JsonUtils;
-import de.mediathekview.mserver.crawler.arte.ArteLanguage;
-import de.mediathekview.mserver.crawler.arte.tasks.ArteVideoDetailDTO;
-import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
-import mServer.crawler.CrawlerTool;
+import java.lang.reflect.Type;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.time.Duration;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.TemporalUnit;
+import java.util.Optional;
+import java.util.UUID;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class ArteFilmDeserializer implements JsonDeserializer<Optional<Film>> {
-  private static final String ELEMENT_CATEGORY = "category";
-  private static final String ELEMENT_CREATION_DATE = "creationDate";
-  private static final String ELEMENT_DURATION = "duration";
-  private static final String ELEMENT_DURATION_SECONDS = "durationSeconds";
-  private static final String ELEMENT_GEOBLOCKING_ZONE = "geoblockingZone";
-  private static final String ELEMENT_NAME = "name";
-  private static final String ELEMENT_PREVIEW_RIGHTS_BEGIN = "previewRightsBegin";
-  private static final String ELEMENT_PROGRAM_ID = "programId";
-  private static final String ELEMENT_SHORT_DESCRIPTION = "shortDescription";
-  private static final String ELEMENT_SUBCATEGORY = "subcategory";
-  private static final String ELEMENT_SUBTITLE = "subtitle";
-  private static final String ELEMENT_TITLE = "title";
-  private static final String ELEMENT_VIDEO_RIGHTS_BEGIN = "videoRightsBegin";
-  private static final String ENCODING_GZIP = "gzip";
-  private static final String GERMAN_TIME_ZONE = "Europe/Berlin";
-  private static final String HEADER_ACCEPT_ENCODING = "Accept-Encoding";
-  private static final String HEADER_AUTHORIZATION = "Authorization";
-  private static final Type OPTIONAL_ARTE_VIDEO_DETAIL_DTO_TYPE_TOKEN =
-      new TypeToken<Optional<ArteVideoDetailDTO>>() {}.getType();
-  /**
-   * <ul>
-   * <li>1. Parameter Program-ID</li>
-   * <li>2. Language-Code upper case</li>
-   * <li>3. Language-Code lower case</li>
-   * </ul>
-   */
-  private static final String VIDEO_STREAM_URL_PATTERN =
-      "https://api.arte.tv/api/opa/v3/videoStreams?programId=%s&channel=%s&language=%s&limit=100&profileAmm=AMM-PTWEB";
-  private final String authKey;
 
-  private final Client client;
-  private final AbstractCrawler crawler;
+  private static final String JSON_ELEMENT_KEY_CATEGORY = "category";
+  private static final String JSON_ELEMENT_KEY_SUBCATEGORY = "subcategory";
+  private static final String JSON_ELEMENT_KEY_NAME = "name";
+  private static final String JSON_ELEMENT_KEY_TITLE = "title";
+  private static final String JSON_ELEMENT_KEY_SUBTITLE = "subtitle";
+  private static final String JSON_ELEMENT_KEY_URL = "url";
+  private static final String JSON_ELEMENT_KEY_PROGRAM_ID = "programId";
+  private static final String JSON_ELEMENT_KEY_SHORT_DESCRIPTION = "shortDescription";
 
-  private final ArteLanguage language;
-  private final Optional<String> subcategoryName;
+  private static final String JSON_ELEMENT_BROADCAST_ELTERNKNOTEN_1 = "programs";
+  private static final String JSON_ELEMENT_BROADCAST_ELTERNKNOTEN_2 = "broadcastProgrammings";
+  private static final String JSON_ELEMENT_BROADCAST = "broadcastBeginRounded";
+  private static final String JSON_ELEMENT_BROADCASTTYPE = "broadcastType";
+  private static final String JSON_ELEMENT_BROADCAST_VIDEORIGHTS_BEGIN = "videoRightsBegin";
+  private static final String JSON_ELEMENT_BROADCAST_CATCHUPRIGHTS_BEGIN = "catchupRightsBegin";
+  private static final String JSON_ELEMENT_BROADCAST_CATCHUPRIGHTS_END = "catchupRightsEnd";
+  private static final String BROADCASTTTYPE_FIRST = "FIRST_BROADCAST";
+  private static final String BROADCASTTTYPE_MINOR_RE = "MINOR_REBROADCAST";
+  private static final String BROADCASTTTYPE_MAJOR_RE = "MAJOR_REBROADCAST";
+  private static final String ATTRIBUTE_DURATION = "durationSeconds";
 
-  public ArteFilmDeserializer(final AbstractCrawler aCrawler, final String aAuthKey,
-      final ArteLanguage aLanguage, final Optional<String> aSubcategoryName) {
-    crawler = aCrawler;
-    authKey = aAuthKey;
-    language = aLanguage;
-    subcategoryName = aSubcategoryName;
-    client = ClientBuilder.newClient();
-    client.register(EncodingFilter.class);
-    client.register(GZipEncoder.class);
-    client.register(DeflateEncoder.class);
+  private static final Logger LOG = LogManager.getLogger(ArteFilmDeserializer.class);
+
+  private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter
+      .ofPattern("yyyy-MM-dd'T'HH:mm:ssX");
+
+  private final Sender sender;
+  private LocalDateTime today;
+
+  public ArteFilmDeserializer(final Sender sender, final LocalDateTime today) {
+    this.sender = sender;
+    this.today = today;
   }
 
   @Override
-  public Optional<Film> deserialize(final JsonElement aJsonElement, final Type aType,
-      final JsonDeserializationContext aJsonDeserializationContext) throws JsonParseException {
-    if (JsonUtils.hasElements(aJsonElement, Optional.of(crawler), ELEMENT_TITLE, ELEMENT_PROGRAM_ID)
-        && (JsonUtils.hasElements(aJsonElement, ELEMENT_DURATION_SECONDS)
-            || JsonUtils.hasElements(aJsonElement, ELEMENT_DURATION))) {
-      final JsonObject baseObject = aJsonElement.getAsJsonObject();
+  public Optional<Film> deserialize(JsonElement aJsonElement, Type aType, JsonDeserializationContext aContext) throws JsonParseException {
 
-      final Optional<TitleThemaDTO> titleThema = getTitleThema(baseObject);
-      if (titleThema.isPresent()) {
+    if (aJsonElement.isJsonObject() &&
+        aJsonElement.getAsJsonObject().get(JSON_ELEMENT_BROADCAST_ELTERNKNOTEN_1).getAsJsonArray().size() > 0) {
 
-        final String videoDetailsLink = String.format(VIDEO_STREAM_URL_PATTERN,
-            baseObject.get(ELEMENT_PROGRAM_ID).getAsString(), language.getLanguageCode(),
-            language.getLanguageCode().toLowerCase());
+      JsonObject programElement = aJsonElement.getAsJsonObject()
+          .get(JSON_ELEMENT_BROADCAST_ELTERNKNOTEN_1).getAsJsonArray().get(0).getAsJsonObject();
 
-        final Optional<ArteVideoDetailDTO> videoDetails = gatherVideoDetails(videoDetailsLink);
-        if (videoDetails.isPresent()) {
-          return createFilm(baseObject, titleThema, videoDetails);
+      String titel = getTitle(programElement);
+      String thema = getSubject(programElement);
+      String beschreibung = getElementValue(programElement, JSON_ELEMENT_KEY_SHORT_DESCRIPTION);
+      String urlWeb = getElementValue(programElement, JSON_ELEMENT_KEY_URL);
+      Duration duration = parseDuration(programElement);
+
+      Optional<LocalDateTime> date = parseDate(programElement);
+
+      final Film film = new Film(UUID.randomUUID(), sender, titel, thema, date.orElse(null), duration);
+      film.setBeschreibung(beschreibung);
+
+      try {
+        film.setWebsite(new URL(urlWeb));
+      } catch (MalformedURLException e) {
+        LOG.error("Invalid url: " + urlWeb);
+      }
+
+      GeoLocations geoLocation = getGeoLocation(programElement);
+      film.addGeolocation(geoLocation);
+
+      return Optional.of(film);
+    }
+
+    return Optional.empty();
+  }
+
+  private Duration parseDuration(JsonObject programElement) {
+    long durationValue = 0;
+
+    if (programElement.has(ATTRIBUTE_DURATION)) {
+       durationValue = programElement.get(ATTRIBUTE_DURATION).getAsLong();
+    }
+
+    return Duration.ofSeconds(durationValue);
+  }
+
+  private static String getSubject(JsonObject programObject) {
+    String category = "";
+    String subcategory = "";
+    String subject;
+
+    JsonElement catElement = programObject.get(JSON_ELEMENT_KEY_CATEGORY);
+    if (!catElement.isJsonNull()) {
+      JsonObject catObject = catElement.getAsJsonObject();
+      category = catObject != null ? getElementValue(catObject, JSON_ELEMENT_KEY_NAME) : "";
+    }
+
+    JsonElement subcatElement = programObject.get(JSON_ELEMENT_KEY_SUBCATEGORY);
+    if (!subcatElement.isJsonNull()) {
+      JsonObject subcatObject = subcatElement.getAsJsonObject();
+      subcategory = subcatObject != null ? getElementValue(subcatObject, JSON_ELEMENT_KEY_NAME) : "";
+    }
+
+    if (!category.equals(subcategory) && !subcategory.isEmpty()) {
+      subject = category + " - " + subcategory;
+    } else {
+      subject = category;
+    }
+
+    return subject;
+  }
+
+  private static String getTitle(JsonObject programObject) {
+    String title = getElementValue(programObject, JSON_ELEMENT_KEY_TITLE);
+    String subtitle = getElementValue(programObject, JSON_ELEMENT_KEY_SUBTITLE);
+
+    if (!title.equals(subtitle) && !subtitle.isEmpty()) {
+      title = title + " - " + subtitle;
+    }
+
+    return title;
+  }
+
+  private static boolean isValidProgramObject(JsonObject programObject) {
+    return programObject.has(JSON_ELEMENT_KEY_TITLE) &&
+        programObject.has(JSON_ELEMENT_KEY_PROGRAM_ID) &&
+        programObject.has(JSON_ELEMENT_KEY_URL) &&
+        !programObject.get(JSON_ELEMENT_KEY_TITLE).isJsonNull() &&
+        !programObject.get(JSON_ELEMENT_KEY_PROGRAM_ID).isJsonNull() &&
+        !programObject.get(JSON_ELEMENT_KEY_URL).isJsonNull();
+  }
+
+  private static String getElementValue(JsonObject jsonObject, String elementName) {
+    return !jsonObject.get(elementName).isJsonNull() ? jsonObject.get(elementName).getAsString() : "";
+  }
+
+  private GeoLocations getGeoLocation(JsonObject programElement) {
+    GeoLocations geo = GeoLocations.GEO_NONE;
+
+    if (programElement.has("geoblocking")) {
+      JsonElement geoElement = programElement.get("geoblocking");
+      if (!geoElement.isJsonNull()) {
+        JsonObject geoObject = geoElement.getAsJsonObject();
+        if (!geoObject.isJsonNull() && geoObject.has("code")) {
+          String code = geoObject.get("code").getAsString();
+          switch (code) {
+            case "DE_FR":
+            case "EUR_DE_FR":
+              geo = GeoLocations.GEO_DE_FR;
+              break;
+            case "SAT":
+              geo = GeoLocations.GEO_DE_AT_CH_EU;
+              break;
+            case "ALL":
+              geo = GeoLocations.GEO_NONE;
+              break;
+            default:
+              LOG.debug("New ARTE GeoLocation: " + code);
+          }
         }
       }
     }
-    return Optional.empty();
+
+    return geo;
   }
 
-  private Film addVideoStreams(final ArteVideoDetailDTO videoDetails, final Film film) {
-    videoDetails.getUrls().entrySet().forEach(videoDetailUrl -> film.addUrl(videoDetailUrl.getKey(),
-        CrawlerTool.uriToFilmUrl(videoDetailUrl.getValue())));
-    return film;
 
-  }
+  private Optional<LocalDateTime> parseDate(JsonObject programElement) {
+    JsonArray broadcastArray = programElement.get(JSON_ELEMENT_BROADCAST_ELTERNKNOTEN_2).getAsJsonArray();
 
-  private Optional<Film> createFilm(final JsonObject baseObject,
-      final Optional<TitleThemaDTO> titleThema, final Optional<ArteVideoDetailDTO> videoDetails) {
-    // creationDate alternativ: previewRightsBegin videoRightsBegin
-    final Optional<LocalDateTime> time =
-        gatherDateTime(baseObject, videoDetails.get().getCreationDate(), ELEMENT_CREATION_DATE,
-            ELEMENT_PREVIEW_RIGHTS_BEGIN, ELEMENT_VIDEO_RIGHTS_BEGIN);
-    if (time.isPresent()) {
+    String value = "";
 
-      // durationSeconds
-      final Duration dauer = gatherDauer(baseObject);
-
-      final Film film = new Film(UUID.randomUUID(), crawler.getSender(),
-          titleThema.get().getTitle(), titleThema.get().getThema(), time.get(), dauer);
-
-      // geo: geoblockingZone
-      if (baseObject.has(ELEMENT_GEOBLOCKING_ZONE)) {
-        film.addGeolocation(GeoLocations
-            .getFromDescription(baseObject.get(ELEMENT_GEOBLOCKING_ZONE).getAsString()));
-      }
-
-      // beschreibung: shortDescription
-      if (baseObject.has(ELEMENT_SHORT_DESCRIPTION)
-          && !baseObject.get(ELEMENT_SHORT_DESCRIPTION).isJsonNull()) {
-        film.setBeschreibung(baseObject.get(ELEMENT_SHORT_DESCRIPTION).getAsString());
-      }
-      return Optional.of(addVideoStreams(videoDetails.get(), film));
+    if (broadcastArray.size() > 0) {
+      value = getBroadcastDate(broadcastArray);
     } else {
-      crawler.printMissingElementErrorMessage(ELEMENT_CREATION_DATE);
-    }
-    return Optional.empty();
-  }
-
-  private Optional<LocalDateTime> gatherDateTime(final JsonObject aBaseObject,
-      final Optional<String> creationDateOfVideoDetails, final String... aElementIds) {
-    for (final String elementId : aElementIds) {
-      if (aBaseObject.has(elementId)) {
-        return Optional.of(toDateTime(aBaseObject.get(elementId).getAsString()));
+      // keine Ausstrahlungen verfügbar => catchupRightsBegin verwenden
+      // wenn es die auch nicht gibt => videoRightsBegin verwenden
+      value = getElementValue(programElement, JSON_ELEMENT_BROADCAST_CATCHUPRIGHTS_BEGIN);
+      if (value.isEmpty()) {
+        value = getElementValue(programElement, JSON_ELEMENT_BROADCAST_VIDEORIGHTS_BEGIN);
       }
     }
-    if (creationDateOfVideoDetails.isPresent()) {
-      return Optional.of(toDateTime(creationDateOfVideoDetails.get()));
-    }
-    return Optional.empty();
-  }
 
-  private Duration gatherDauer(final JsonObject baseObject) {
-    Duration dauer;
-    if (baseObject.has(ELEMENT_DURATION_SECONDS)
-        && !baseObject.get(ELEMENT_DURATION_SECONDS).isJsonNull()) {
-      dauer = Duration.of(baseObject.get(ELEMENT_DURATION_SECONDS).getAsLong(), ChronoUnit.SECONDS);
-    } else {
-      dauer = Duration.of(baseObject.get(ELEMENT_DURATION).getAsLong(), ChronoUnit.SECONDS);
-    }
-    return dauer;
-  }
-
-  private Optional<ArteVideoDetailDTO> gatherVideoDetails(final String aVideoDetailUrl) {
-    final String videoDetailUrlWithProfileFilter = aVideoDetailUrl;
-    final Builder request = client.target(videoDetailUrlWithProfileFilter).request()
-        .header(HEADER_AUTHORIZATION, authKey);
-
-    final Response response = request.header(HEADER_ACCEPT_ENCODING, ENCODING_GZIP).get();
-    final String jsonOutput = response.readEntity(String.class);
-
-    final Gson gson =
-        new GsonBuilder().registerTypeAdapter(OPTIONAL_ARTE_VIDEO_DETAIL_DTO_TYPE_TOKEN,
-            new ArteVideDetailsDeserializer(crawler)).create();
-    return gson.fromJson(jsonOutput, OPTIONAL_ARTE_VIDEO_DETAIL_DTO_TYPE_TOKEN);
-  }
-
-  private Optional<TitleThemaDTO> getTitleThema(final JsonObject baseObject) {
-    if (JsonUtils.hasElements(baseObject, ELEMENT_SUBTITLE)) {
-      return Optional.of(new TitleThemaDTO(baseObject.get(ELEMENT_SUBTITLE).getAsString(),
-          baseObject.get(ELEMENT_TITLE).getAsString()));
-    } else if (JsonUtils.checkTreePath(baseObject, Optional.empty(), ELEMENT_SUBCATEGORY,
-        ELEMENT_NAME)) {
-      return Optional.of(new TitleThemaDTO(baseObject.get(ELEMENT_TITLE).getAsString(),
-          baseObject.get(ELEMENT_SUBCATEGORY).getAsJsonObject().get(ELEMENT_NAME).getAsString()));
-    } else if (JsonUtils.checkTreePath(baseObject, Optional.empty(), ELEMENT_CATEGORY,
-        ELEMENT_NAME)) {
-      return Optional.of(new TitleThemaDTO(baseObject.get(ELEMENT_TITLE).getAsString(),
-          baseObject.get(ELEMENT_CATEGORY).getAsJsonObject().get(ELEMENT_NAME).getAsString()));
-    } else if (subcategoryName.isPresent()) {
-      return Optional.of(
-          new TitleThemaDTO(subcategoryName.get(), baseObject.get(ELEMENT_TITLE).getAsString()));
-    } else {
-      crawler.printMissingElementErrorMessage(ELEMENT_SUBTITLE);
-      crawler.printMissingElementErrorMessage(ELEMENT_SUBCATEGORY);
-      crawler.printMissingElementErrorMessage(ELEMENT_CATEGORY);
+    if (value.isEmpty()) {
       return Optional.empty();
     }
+
+    return Optional.of(LocalDateTime.parse(value, DATE_FORMATTER).plusHours(1));
   }
 
-  private LocalDateTime toDateTime(final String aDateTimeTest) {
-    final ZonedDateTime inputDateTime = ZonedDateTime.parse(aDateTimeTest);
-    return inputDateTime.withZoneSameInstant(ZoneId.of(GERMAN_TIME_ZONE)).toLocalDateTime();
+  /**
+   * ermittelt Ausstrahlungsdatum aus der Liste der Ausstrahlungen
+   */
+  private String getBroadcastDate(JsonArray broadcastArray) {
+    String broadcastDate = "";
+    String broadcastBeginFirst = "";
+    String broadcastBeginMajor = "";
+    String broadcastBeginMinor = "";
+
+    // nach Priorität der BroadcastTypen den relevanten Eintrag suchen
+    // FIRST_BROADCAST => MAJOR_REBROADCAST => MINOR_REBROADCAST
+    // dabei die "aktuellste" Ausstrahlung verwenden
+    for (int i = 0; i < broadcastArray.size(); i++) {
+      JsonObject broadcastObject = broadcastArray.get(i).getAsJsonObject();
+
+      if (broadcastObject.has(JSON_ELEMENT_BROADCASTTYPE) &&
+          broadcastObject.has(JSON_ELEMENT_BROADCAST)) {
+        String value = this.getBroadcastDateConsideringCatchupRights(broadcastObject);
+
+        if (!value.isEmpty()) {
+          String type = broadcastObject.get(JSON_ELEMENT_BROADCASTTYPE).getAsString();
+          switch (type) {
+            case BROADCASTTTYPE_FIRST:
+              broadcastBeginFirst = value;
+              break;
+            case BROADCASTTTYPE_MAJOR_RE:
+              broadcastBeginMajor = value;
+              break;
+            case BROADCASTTTYPE_MINOR_RE:
+              broadcastBeginMinor = value;
+              break;
+            default:
+              LOG.debug("New broadcasttype: " + type);
+          }
+        }
+      }
+    }
+
+    if (!broadcastBeginFirst.isEmpty()) {
+      broadcastDate = broadcastBeginFirst;
+    } else if (!broadcastBeginMajor.isEmpty()) {
+      broadcastDate = broadcastBeginMajor;
+    } else if (!broadcastBeginMinor.isEmpty()) {
+      broadcastDate = broadcastBeginMinor;
+    }
+
+    // wenn kein Ausstrahlungsdatum vorhanden, dann die erste Ausstrahlung nehmen
+    // egal, wann die CatchupRights liegen, damit ein "sinnvolles" Datum vorhanden ist
+    if (broadcastDate.isEmpty()) {
+      broadcastDate = getBroadcastDateIgnoringCatchupRights(broadcastArray, BROADCASTTTYPE_FIRST);
+    }
+    // wenn immer noch leer, dann die Major-Ausstrahlung verwenden
+    if (broadcastDate.isEmpty()) {
+      broadcastDate = getBroadcastDateIgnoringCatchupRights(broadcastArray, BROADCASTTTYPE_MAJOR_RE);
+    }
+
+    return broadcastDate;
   }
 
+  /**
+   * Liefert den Beginn der Ausstrahlung, wenn - heute im Zeitraum von CatchUpRights liegt - oder heute vor dem Zeitraum liegt - oder
+   * CatchUpRights nicht gesetzt ist
+   *
+   * @return der Beginn der Ausstrahlung oder ""
+   */
+  private String getBroadcastDateConsideringCatchupRights(JsonObject broadcastObject) {
+    String broadcastDate = "";
+
+    JsonElement elementBegin = broadcastObject.get(JSON_ELEMENT_BROADCAST_CATCHUPRIGHTS_BEGIN);
+    JsonElement elementEnd = broadcastObject.get(JSON_ELEMENT_BROADCAST_CATCHUPRIGHTS_END);
+
+    if (!elementBegin.isJsonNull() && !elementEnd.isJsonNull()) {
+      String begin = elementBegin.getAsString();
+      String end = elementEnd.getAsString();
+
+      LocalDateTime beginDate = LocalDateTime.parse(begin, DATE_FORMATTER);
+      LocalDateTime endDate = LocalDateTime.parse(end, DATE_FORMATTER);
+
+      if (today.isAfter(beginDate) && today.isBefore(endDate)
+          || today.isBefore(beginDate)) {
+        // wenn das heutige Datum zwischen begin und end liegt,
+        // dann ist es die aktuelle Ausstrahlung
+        broadcastDate = broadcastObject.get(JSON_ELEMENT_BROADCAST).getAsString();
+      }
+    } else {
+      broadcastDate = broadcastObject.get(JSON_ELEMENT_BROADCAST).getAsString();
+    }
+    return broadcastDate;
+  }
+
+  /***
+   * liefert die erste Ausstrahlung des Typs ohne Berücksichtigung der CatchupRights
+   */
+  private static String getBroadcastDateIgnoringCatchupRights(JsonArray broadcastArray, String broadcastType) {
+    String broadcastDate = "";
+
+    for (int i = 0; i < broadcastArray.size(); i++) {
+      JsonObject broadcastObject = broadcastArray.get(i).getAsJsonObject();
+
+      if (broadcastObject.has(JSON_ELEMENT_BROADCASTTYPE) &&
+          broadcastObject.has(JSON_ELEMENT_BROADCAST)) {
+        String type = broadcastObject.get(JSON_ELEMENT_BROADCASTTYPE).getAsString();
+
+        if (type.equals(broadcastType)) {
+          if (!broadcastObject.get(JSON_ELEMENT_BROADCAST).isJsonNull()) {
+            broadcastDate = (broadcastObject.get(JSON_ELEMENT_BROADCAST).getAsString());
+          }
+        }
+      }
+    }
+
+    return broadcastDate;
+  }
 }

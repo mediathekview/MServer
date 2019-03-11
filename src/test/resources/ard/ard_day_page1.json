@@ -1,445 +1,416 @@
-﻿{
-  "data": {
-    "guidePage": {
-      "title": "Sendung verpasst - ARD",
-      "widgets": [
+{
+  "data":{
+    "programPage":{
+      "title":"Sendung verpasst - ARD",
+      "widgets":[
         {
-          "id": "Y29tcGlsYXRpb24rcGFzdGJyb2FkY2FzdHMrQVJEKzIwMTgtMTItMDVUMDA6MDBaKzIwMTgtMTItMDVUMjM6NTk6NTlaK2NoYW5uZWwtRGFzIEVyc3Rl",
-          "title": "Das Erste",
-          "channelKey": "daserste",
-          "teasers": [
+          "id":"Y29tcGlsYXRpb24rcGFzdGJyb2FkY2FzdHMrQVJEKzIwMTktMDItMDZUMDQ6MzBaKzIwMTktMDItMDdUMDQ6Mjk6NTlaK2NoYW5uZWwtRGFzIEVyc3Rl",
+          "title":"Das Erste",
+          "channelKey":"daserste",
+          "teasers":[
             {
-              "id": "Y3JpZDovL2Rhc2Vyc3RlLmRlL2Flbm5hIGJ1cmRhLzIwMTgtMTItMDVfMjAtMTUtTUVa",
-              "shortTitle": "Aenne Burda",
-              "mediumTitle": "Aenne Burda",
-              "longTitle": "Aenne Burda",
-              "type": "broadcastMainClip",
-              "links": {
-                "target": {
-                  "id": "Y3JpZDovL2Rhc2Vyc3RlLmRlL2Flbm5hIGJ1cmRhLzhjYTk2MmFiLTgyOTctNDE4Yy05YzUxLTdlN2Y1Mjg4ZWY5ZQ",
-                  "href": "http://page-gateway-service:8080/page-gateway/pages/ard/item/Y3JpZDovL2Rhc2Vyc3RlLmRlL2Flbm5hIGJ1cmRhLzhjYTk2MmFiLTgyOTctNDE4Yy05YzUxLTdlN2Y1Mjg4ZWY5ZQ",
-                  "__typename": "Link"
+              "id":"Y3JpZDovL2Rhc2Vyc3RlLmRlL3RhZ2Vzc2NoYXUvNDNmNTc2Y2MtZjkxMy00MmZiLTgyOTEtMjZhYjg5MTk2NTcx",
+              "shortTitle":"tagesschau, 09:00 Uhr",
+              "mediumTitle":"tagesschau, 09:00 Uhr",
+              "longTitle":"tagesschau, 09:00 Uhr",
+              "type":"broadcastMainClip",
+              "links":{
+                "target":{
+                  "id":"Y3JpZDovL2Rhc2Vyc3RlLmRlL3RhZ2Vzc2NoYXUvODQyZWNjZDItODYzNC00YzVjLTlkYTAtN2JmM2E2MDRmNTdi",
+                  "href":"http://page.ardmediathek.de/page-gateway/pages/ard/item/Y3JpZDovL2Rhc2Vyc3RlLmRlL3RhZ2Vzc2NoYXUvODQyZWNjZDItODYzNC00YzVjLTlkYTAtN2JmM2E2MDRmNTdi",
+                  "__typename":"Link"
                 },
-                "__typename": "TeaserLinks"
+                "__typename":"TeaserLinks"
               },
-              "images": {
-                "aspect16x9": {
-                  "src": "https://img.ardmediathek.de/standard/00/58/31/81/76/-1774185891/16x9/{width}?mandant=ard",
-                  "title": "Aenne Burda - Die Wirtschaftswunderfrau (1) - Standbild",
-                  "producerName": "SWR",
-                  "__typename": "Image"
+              "images":{
+                "aspect16x9":{
+                  "alt":"Sendungsbild",
+                  "src":"https://img.ardmediathek.de/standard/00/60/01/38/56/-1774185891/16x9/{width}?mandant=ard",
+                  "title":"tagesschau, 09:00 Uhr - Standbild",
+                  "producerName":"ARD-Standbild",
+                  "__typename":"Image"
                 },
-                "__typename": "TeaserImages"
+                "__typename":"TeaserImages"
               },
-              "decor": "none",
-              "duration": null,
-              "numberOfClips": 4,
-              "categories": [
+              "decor":"none",
+              "duration":null,
+              "numberOfClips":1,
+              "categories":[
+                "Nachrichten",
+                "Politik & Zeitgeschehen",
+                "Politik & Weltgeschehen",
+                "Nachrichten & Wetter"
+              ],
+              "broadcastedOn":"2019-02-06T08:00:00Z",
+              "publicationService":{
+                "name":"Das Erste",
+                "partner":"das_erste",
+                "publisherType":"TV",
+                "__typename":"PublicationService"
+              },
+              "__typename":"Teaser"
+            },
+            {
+              "id":"Y3JpZDovL2Rhc2Vyc3RlLmRlL2xpdmUgbmFjaCBuZXVuLzIwMTktMDItMDZfMDktMDUtTUVa",
+              "shortTitle":"Live nach Neun",
+              "mediumTitle":"Live nach Neun",
+              "longTitle":"Live nach Neun",
+              "type":"broadcastMainClip",
+              "links":{
+                "target":{
+                  "id":"Y3JpZDovL2Rhc2Vyc3RlLmRlL2xpdmUgbmFjaCBuZXVuLzY5NzZiYTJlLTkyNWMtNDNhZi04NjQxLWJiMzZiMmY3YTkyMg",
+                  "href":"http://page.ardmediathek.de/page-gateway/pages/ard/item/Y3JpZDovL2Rhc2Vyc3RlLmRlL2xpdmUgbmFjaCBuZXVuLzY5NzZiYTJlLTkyNWMtNDNhZi04NjQxLWJiMzZiMmY3YTkyMg",
+                  "__typename":"Link"
+                },
+                "__typename":"TeaserLinks"
+              },
+              "images":{
+                "aspect16x9":{
+                  "alt":"Anne Willmes und Tim Schreder",
+                  "src":"https://img.ardmediathek.de/standard/00/60/01/49/82/-1774185891/16x9/{width}?mandant=ard",
+                  "title":"Die Sendung vom 6. Februar 2019 - Standbild",
+                  "producerName":"ARD",
+                  "__typename":"Image"
+                },
+                "__typename":"TeaserImages"
+              },
+              "decor":"none",
+              "duration":null,
+              "numberOfClips":3,
+              "categories":[
+                "Ratgeber & Service",
+                "Ratgeber & Technik"
+              ],
+              "broadcastedOn":"2019-02-06T08:05:00Z",
+              "publicationService":{
+                "name":"Das Erste",
+                "partner":"das_erste",
+                "publisherType":"TV",
+                "__typename":"PublicationService"
+              },
+              "__typename":"Teaser"
+            },
+            {
+              "id":"Y3JpZDovL3dkci5kZS9TZW5kdW5nLTQ3ZmQxZjRkLTlhNzUtNDM3MS05NjZjLWRiMmVhNmQxYmRlNQ",
+              "shortTitle":"Sportschau",
+              "mediumTitle":"Sportschau",
+              "longTitle":"Sportschau",
+              "type":"broadcastMainClip",
+              "links":{
+                "target":{
+                  "id":"Y3JpZDovL3dkci5kZS9CZWl0cmFnLThhNDk4YjQxLWE3YmQtNDk3Yi1iNGRmLTdhMjdmZjcwNGZiYw",
+                  "href":"http://page.ardmediathek.de/page-gateway/pages/ard/item/Y3JpZDovL3dkci5kZS9CZWl0cmFnLThhNDk4YjQxLWE3YmQtNDk3Yi1iNGRmLTdhMjdmZjcwNGZiYw",
+                  "__typename":"Link"
+                },
+                "__typename":"TeaserLinks"
+              },
+              "images":{
+                "aspect16x9":{
+                  "alt":"Münchens Torwart Manuel Neuer",
+                  "src":"https://img.ardmediathek.de/standard/00/59/18/02/08/555337067/16x9/{width}?mandant=ard",
+                  "title":"Livestream - Hertha BSC gegen Bayern München im DFB-Pokal - Promotion",
+                  "producerName":"imago/ActionPictures",
+                  "__typename":"Image"
+                },
+                "__typename":"TeaserImages"
+              },
+              "decor":"none",
+              "duration":null,
+              "numberOfClips":11,
+              "categories":[
+                "Sport"
+              ],
+              "broadcastedOn":"2019-02-06T11:15:00Z",
+              "publicationService":{
+                "name":"Das Erste",
+                "partner":"das_erste",
+                "publisherType":"TV",
+                "__typename":"PublicationService"
+              },
+              "__typename":"Teaser"
+            },
+            {
+              "id":"Y3JpZDovL2Rhc2Vyc3RlLmRlL3RzMTAwcy84MjlhNGY3OC1lNDRjLTQ2ZWItYTAxOS1kYmJjY2ZmMTkyNWM",
+              "shortTitle":"Tagesschau in 100 Sekunden",
+              "mediumTitle":"Tagesschau in 100 Sekunden",
+              "longTitle":"Tagesschau in 100 Sekunden",
+              "type":"broadcastMainClip",
+              "links":{
+                "target":{
+                  "id":"Y3JpZDovL2Rhc2Vyc3RlLmRlL3RzMTAwcy84MjlhNGY3OC1lNDRjLTQ2ZWItYTAxOS1kYmJjY2ZmMTkyNWMvMQ",
+                  "href":"http://page.ardmediathek.de/page-gateway/pages/ard/item/Y3JpZDovL2Rhc2Vyc3RlLmRlL3RzMTAwcy84MjlhNGY3OC1lNDRjLTQ2ZWItYTAxOS1kYmJjY2ZmMTkyNWMvMQ",
+                  "__typename":"Link"
+                },
+                "__typename":"TeaserLinks"
+              },
+              "images":{
+                "aspect16x9":{
+                  "alt":"Sendungsbild",
+                  "src":"https://img.ardmediathek.de/standard/00/60/01/84/28/-1774185891/16x9/{width}?mandant=ard",
+                  "title":"Tagesschau in 100 Sekunden - Standbild",
+                  "producerName":"ARD-Standbild",
+                  "__typename":"Image"
+                },
+                "__typename":"TeaserImages"
+              },
+              "decor":"none",
+              "duration":null,
+              "numberOfClips":1,
+              "categories":[
+                "Nachrichten",
+                "Politik & Zeitgeschehen",
+                "Politik & Weltgeschehen",
+                "Nachrichten & Wetter"
+              ],
+              "broadcastedOn":"2019-02-06T11:32:00Z",
+              "publicationService":{
+                "name":"Das Erste",
+                "partner":"das_erste",
+                "publisherType":"TV",
+                "__typename":"PublicationService"
+              },
+              "__typename":"Teaser"
+            }
+          ],
+          "__typename":"Widget"
+        },
+        {
+          "id":"Y29tcGlsYXRpb24rcGFzdGJyb2FkY2FzdHMrQVJEKzIwMTktMDItMDZUMDQ6MzBaKzIwMTktMDItMDdUMDQ6Mjk6NTlaK2NoYW5uZWwtQlI",
+          "title":"BR",
+          "channelKey":"br",
+          "teasers":[
+            {
+              "id":"Y3JpZDovL2JyLmRlL2Jyb2FkY2FzdC9XT046MjEwNjg0MjI1ODEzX0YyMDE3V08wMjU0NjVBMDpjaGFubmVsXzI4MTA3",
+              "shortTitle":"Dings vom Dach",
+              "mediumTitle":"Dings vom Dach",
+              "longTitle":"Dings vom Dach",
+              "type":"broadcastMainClip",
+              "links":{
+                "target":{
+                  "id":"Y3JpZDovL2JyLmRlL3ZpZGVvL2E5NzY0NTJiLTI2YWUtNDJjOC05MThhLTFmZjczMjhmMWRiMw",
+                  "href":"http://page.ardmediathek.de/page-gateway/pages/ard/item/Y3JpZDovL2JyLmRlL3ZpZGVvL2E5NzY0NTJiLTI2YWUtNDJjOC05MThhLTFmZjczMjhmMWRiMw",
+                  "__typename":"Link"
+                },
+                "__typename":"TeaserLinks"
+              },
+              "images":{
+                "aspect16x9":{
+                  "alt":"Moderator Sven Lorig präsentiert ungewöhnliche Utensilien, geheimnsivolle Gegenstände aus Großmutters Zeiten, Gerätschaften des täglichen Lebens oder eben einfach ein \"Dings vom Dach\" - und das Prominenten-Team darf raten, dass sich die Balken biege",
+                  "src":"https://img.ardmediathek.de/standard/00/60/01/96/02/-1774185891/16x9/{width}?mandant=ard",
+                  "title":"Die Rateshow um geheimnisvolle Gegenstände - Standbild",
+                  "producerName":"BR/HR/Andreas Frommknecht/Benjamin Knabe",
+                  "__typename":"Image"
+                },
+                "__typename":"TeaserImages"
+              },
+              "decor":"none",
+              "duration":null,
+              "numberOfClips":1,
+              "categories":[
+
+              ],
+              "broadcastedOn":"2019-02-06T11:40:00Z",
+              "publicationService":{
+                "name":"BR Fernsehen",
+                "partner":"br",
+                "publisherType":"TV",
+                "__typename":"PublicationService"
+              },
+              "__typename":"Teaser"
+            },
+            {
+              "id":"Y3JpZDovL2JyLmRlL3ZpZGVvL2I4MzY5MzA5LTQyNmMtNGNmZi04OTcxLWRiM2QxNmMwMjc0YS9icm9hZGNhc3Q",
+              "shortTitle":"Lebensretter Stammzellspende",
+              "mediumTitle":"Lebensretter Stammzellspende",
+              "longTitle":"Lebensretter Stammzellspende",
+              "type":"broadcastMainClip",
+              "links":{
+                "target":{
+                  "id":"Y3JpZDovL2JyLmRlL3ZpZGVvL2I4MzY5MzA5LTQyNmMtNGNmZi04OTcxLWRiM2QxNmMwMjc0YQ",
+                  "href":"http://page.ardmediathek.de/page-gateway/pages/ard/item/Y3JpZDovL2JyLmRlL3ZpZGVvL2I4MzY5MzA5LTQyNmMtNGNmZi04OTcxLWRiM2QxNmMwMjc0YQ",
+                  "__typename":"Link"
+                },
+                "__typename":"TeaserLinks"
+              },
+              "images":{
+                "aspect16x9":{
+                  "alt":"Ari Alter | Bild: BR",
+                  "src":"https://img.ardmediathek.de/standard/00/60/02/09/10/-1774185891/16x9/{width}?mandant=ard",
+                  "title":"Lässt Ariane sich typisieren? - Standbild",
+                  "producerName":"BR",
+                  "__typename":"Image"
+                },
+                "__typename":"TeaserImages"
+              },
+              "decor":"none",
+              "duration":null,
+              "numberOfClips":1,
+              "categories":[
+
+              ],
+              "broadcastedOn":"2019-02-06T14:00:00Z",
+              "publicationService":{
+                "name":"BR Fernsehen",
+                "partner":"br",
+                "publisherType":"TV",
+                "__typename":"PublicationService"
+              },
+              "__typename":"Teaser"
+            }
+          ],
+          "__typename":"Widget"
+        },
+        {
+          "id":"Y29tcGlsYXRpb24rcGFzdGJyb2FkY2FzdHMrQVJEKzIwMTktMDItMDZUMDQ6MzBaKzIwMTktMDItMDdUMDQ6Mjk6NTlaK2NoYW5uZWwtSFI",
+          "title":"HR",
+          "channelKey":"hr",
+          "teasers":[
+            {
+              "id":"Y3JpZDovL2hyLW9ubGluZS8zODIxMDIzMV8yMDE5LTAyLTA2",
+              "shortTitle":"maintower",
+              "mediumTitle":"maintower",
+              "longTitle":"maintower",
+              "type":"broadcastMainClip",
+              "links":{
+                "target":{
+                  "id":"Y3JpZDovL2hyLW9ubGluZS80NTQyMQ",
+                  "href":"http://page.ardmediathek.de/page-gateway/pages/ard/item/Y3JpZDovL2hyLW9ubGluZS80NTQyMQ",
+                  "__typename":"Link"
+                },
+                "__typename":"TeaserLinks"
+              },
+              "images":{
+                "aspect16x9":{
+                  "alt":"maintower",
+                  "src":"https://img.ardmediathek.de/standard/00/60/03/01/66/-1774185891/16x9/{width}?mandant=ard",
+                  "title":"maintower - ganze Sendung - Standbild",
+                  "producerName":"hr",
+                  "__typename":"Image"
+                },
+                "__typename":"TeaserImages"
+              },
+              "decor":"none",
+              "duration":null,
+              "numberOfClips":7,
+              "categories":[
                 "Unterhaltung",
                 "Unterhaltung & Lifestyle"
               ],
-              "broadcastedOn": "2018-12-05T19:15:00Z",
-              "publicationService": {
-                "name": "Das Erste",
-                "partner": "das_erste",
-                "publisherType": "TV",
-                "__typename": "PublicationService"
+              "broadcastedOn":"2019-02-06T17:00:00Z",
+              "publicationService":{
+                "name":"hr-fernsehen",
+                "partner":"hr",
+                "publisherType":"TV",
+                "__typename":"PublicationService"
               },
-              "__typename": "Teaser"
+              "__typename":"Teaser"
             },
             {
-              "id": "Y3JpZDovL2Rhc2Vyc3RlLmRlL3RzMTAwcy9kNjEwODFkYS0xNWZiLTQ4YzYtOGNiOS1jMDlhN2E2MTA0MjQ",
-              "shortTitle": "Tagesschau in 100 Sekunden",
-              "mediumTitle": "Tagesschau in 100 Sekunden",
-              "longTitle": "Tagesschau in 100 Sekunden",
-              "type": "broadcastMainClip",
-              "links": {
-                "target": {
-                  "id": "Y3JpZDovL2Rhc2Vyc3RlLmRlL3RzMTAwcy9kNjEwODFkYS0xNWZiLTQ4YzYtOGNiOS1jMDlhN2E2MTA0MjQvMQ",
-                  "href": "http://page-gateway-service:8080/page-gateway/pages/ard/item/Y3JpZDovL2Rhc2Vyc3RlLmRlL3RzMTAwcy9kNjEwODFkYS0xNWZiLTQ4YzYtOGNiOS1jMDlhN2E2MTA0MjQvMQ",
-                  "__typename": "Link"
+              "id":"Y3JpZDovL2hyLW9ubGluZS8zODIxMDIyNV8yMDE5LTAyLTA2",
+              "shortTitle":"service: trends",
+              "mediumTitle":"service: trends",
+              "longTitle":"service: trends",
+              "type":"broadcastMainClip",
+              "links":{
+                "target":{
+                  "id":"Y3JpZDovL2hyLW9ubGluZS80NTQzMQ",
+                  "href":"http://page.ardmediathek.de/page-gateway/pages/ard/item/Y3JpZDovL2hyLW9ubGluZS80NTQzMQ",
+                  "__typename":"Link"
                 },
-                "__typename": "TeaserLinks"
+                "__typename":"TeaserLinks"
               },
-              "images": {
-                "aspect16x9": {
-                  "src": "https://img.ardmediathek.de/standard/00/58/33/22/22/-1774185891/16x9/{width}?mandant=ard",
-                  "title": "Tagesschau in 100 Sekunden - Standbild",
-                  "producerName": "ARD-Standbild",
-                  "__typename": "Image"
+              "images":{
+                "aspect16x9":{
+                  "alt":"service: trends",
+                  "src":"https://img.ardmediathek.de/standard/00/60/03/21/76/-1774185891/16x9/{width}?mandant=ard",
+                  "title":"Günstige Reisen über Hotel-Portale - Standbild",
+                  "producerName":"hr",
+                  "__typename":"Image"
                 },
-                "__typename": "TeaserImages"
+                "__typename":"TeaserImages"
               },
-              "decor": "none",
-              "duration": null,
-              "numberOfClips": 1,
-              "categories": [
-                "Nachrichten",
-                "Politik & Zeitgeschehen",
-                "Politik & Weltgeschehen",
-                "Nachrichten & Wetter"
+              "decor":"none",
+              "duration":null,
+              "numberOfClips":3,
+              "categories":[
+                "Nachrichten"
               ],
-              "broadcastedOn": "2018-12-05T01:41:00Z",
-              "publicationService": {
-                "name": "Das Erste",
-                "partner": "das_erste",
-                "publisherType": "TV",
-                "__typename": "PublicationService"
+              "broadcastedOn":"2019-02-06T17:50:00Z",
+              "publicationService":{
+                "name":"hr-fernsehen",
+                "partner":"hr",
+                "publisherType":"TV",
+                "__typename":"PublicationService"
               },
-              "__typename": "Teaser"
+              "__typename":"Teaser"
             },
             {
-              "id": "Y3JpZDovL2Rhc2Vyc3RlLmRlL3RzMTAwcy83OWY5MzY0NC0yNWUyLTQ3YWItODc1OC1mN2QyZGQzNGYzZWQ",
-              "shortTitle": "Tagesschau in 100 Sekunden",
-              "mediumTitle": "Tagesschau in 100 Sekunden",
-              "longTitle": "Tagesschau in 100 Sekunden",
-              "type": "broadcastMainClip",
-              "links": {
-                "target": {
-                  "id": "Y3JpZDovL2Rhc2Vyc3RlLmRlL3RzMTAwcy83OWY5MzY0NC0yNWUyLTQ3YWItODc1OC1mN2QyZGQzNGYzZWQvMQ",
-                  "href": "http://page-gateway-service:8080/page-gateway/pages/ard/item/Y3JpZDovL2Rhc2Vyc3RlLmRlL3RzMTAwcy83OWY5MzY0NC0yNWUyLTQ3YWItODc1OC1mN2QyZGQzNGYzZWQvMQ",
-                  "__typename": "Link"
+              "id":"Y3JpZDovL2hyLW9ubGluZS8zODIyMDAzM18yMDE5LTAyLTA2",
+              "shortTitle":"Mittendrin - Flughafen Frankfurt",
+              "mediumTitle":"Mittendrin - Flughafen Frankfurt",
+              "longTitle":"Mittendrin - Flughafen Frankfurt",
+              "type":"broadcastMainClip",
+              "links":{
+                "target":{
+                  "id":"Y3JpZDovL2hyLW9ubGluZS80NDk0OQ",
+                  "href":"http://page.ardmediathek.de/page-gateway/pages/ard/item/Y3JpZDovL2hyLW9ubGluZS80NDk0OQ",
+                  "__typename":"Link"
                 },
-                "__typename": "TeaserLinks"
+                "__typename":"TeaserLinks"
               },
-              "images": {
-                "aspect16x9": {
-                  "src": "https://img.ardmediathek.de/standard/00/58/33/25/18/-1774185891/16x9/{width}?mandant=ard",
-                  "title": "Tagesschau in 100 Sekunden - Standbild",
-                  "producerName": "ARD-Standbild",
-                  "__typename": "Image"
+              "images":{
+                "aspect16x9":{
+                  "alt":"Mittendrin - Flughafen Frankfurt",
+                  "src":"https://img.ardmediathek.de/standard/00/59/89/18/34/-1774185891/16x9/{width}?mandant=ard",
+                  "title":"Mittendrin - Flughafen Frankfurt (3) - Standbild",
+                  "producerName":"hr",
+                  "__typename":"Image"
                 },
-                "__typename": "TeaserImages"
+                "__typename":"TeaserImages"
               },
-              "decor": "none",
-              "duration": null,
-              "numberOfClips": 1,
-              "categories": [
-                "Nachrichten",
-                "Politik & Zeitgeschehen",
-                "Politik & Weltgeschehen",
-                "Nachrichten & Wetter"
+              "decor":"none",
+              "duration":null,
+              "numberOfClips":1,
+              "categories":[
+                "Wissen & Kultur",
+                "Kultur & Gesellschaft"
               ],
-              "broadcastedOn": "2018-12-05T04:01:00Z",
-              "publicationService": {
-                "name": "Das Erste",
-                "partner": "das_erste",
-                "publisherType": "TV",
-                "__typename": "PublicationService"
+              "broadcastedOn":"2019-02-06T20:00:00Z",
+              "publicationService":{
+                "name":"hr-fernsehen",
+                "partner":"hr",
+                "publisherType":"TV",
+                "__typename":"PublicationService"
               },
-              "__typename": "Teaser"
-            },
-            {
-              "id": "Y3JpZDovL2Rhc2Vyc3RlLmRlL3RhZ2Vzc2NoYXUvN2NlNWNlYjAtNWVmZC00Yjg3LTk0ZTUtOTk1NTY3MGMyNTg4",
-              "shortTitle": "tagesschau, 09:00 Uhr",
-              "mediumTitle": "tagesschau, 09:00 Uhr",
-              "longTitle": "tagesschau, 09:00 Uhr",
-              "type": "broadcastMainClip",
-              "links": {
-                "target": {
-                  "id": "Y3JpZDovL2Rhc2Vyc3RlLmRlL3RhZ2Vzc2NoYXUvNzAzN2ViOTAtYzU2ZS00NGM3LWJhZGItYTc0N2FlNTA1ODZh",
-                  "href": "http://page-gateway-service:8080/page-gateway/pages/ard/item/Y3JpZDovL2Rhc2Vyc3RlLmRlL3RhZ2Vzc2NoYXUvNzAzN2ViOTAtYzU2ZS00NGM3LWJhZGItYTc0N2FlNTA1ODZh",
-                  "__typename": "Link"
-                },
-                "__typename": "TeaserLinks"
-              },
-              "images": {
-                "aspect16x9": {
-                  "src": "https://img.ardmediathek.de/standard/00/58/33/41/72/-1774185891/16x9/{width}?mandant=ard",
-                  "title": "tagesschau, 09:00 Uhr - Standbild",
-                  "producerName": "ARD-Standbild",
-                  "__typename": "Image"
-                },
-                "__typename": "TeaserImages"
-              },
-              "decor": "none",
-              "duration": null,
-              "numberOfClips": 1,
-              "categories": [
-                "Nachrichten",
-                "Politik & Zeitgeschehen",
-                "Politik & Weltgeschehen",
-                "Nachrichten & Wetter"
-              ],
-              "broadcastedOn": "2018-12-05T08:00:00Z",
-              "publicationService": {
-                "name": "Das Erste",
-                "partner": "das_erste",
-                "publisherType": "TV",
-                "__typename": "PublicationService"
-              },
-              "__typename": "Teaser"
-            },
-            {
-              "id": "Y3JpZDovL3N3ci5kZS9zZGIvMTYyOTM3NA",
-              "shortTitle": "ARD-Buffet",
-              "mediumTitle": "ARD-Buffet",
-              "longTitle": "ARD-Buffet",
-              "type": "broadcastMainClip",
-              "links": {
-                "target": {
-                  "id": "Y3JpZDovL3N3ci5kZS9hZXgvbzEwNzYyMTc",
-                  "href": "http://page-gateway-service:8080/page-gateway/pages/ard/item/Y3JpZDovL3N3ci5kZS9hZXgvbzEwNzYyMTc",
-                  "__typename": "Link"
-                },
-                "__typename": "TeaserLinks"
-              },
-              "images": {
-                "aspect16x9": {
-                  "src": "https://img.ardmediathek.de/standard/00/58/34/37/64/-1774185891/16x9/{width}?mandant=ard",
-                  "title": "Sendung vom 5.12.18 - Standbild",
-                  "producerName": "SWR",
-                  "__typename": "Image"
-                },
-                "__typename": "TeaserImages"
-              },
-              "decor": "none",
-              "duration": null,
-              "numberOfClips": 3,
-              "categories": [
-                "Ratgeber & Service",
-                "Ratgeber",
-                "Ratgeber & Technik"
-              ],
-              "broadcastedOn": "2018-12-05T11:15:00Z",
-              "publicationService": {
-                "name": "Das Erste",
-                "partner": "das_erste",
-                "publisherType": "TV",
-                "__typename": "PublicationService"
-              },
-              "__typename": "Teaser"
-            },
-            {
-              "id": "Y3JpZDovL3dkci5kZS9TZW5kdW5nLTI5YWI5MWU3LTM0NTQtNDgzOS1iOWNjLWNkZDM3NjJmYjJlNQ",
-              "shortTitle": "Sportschau",
-              "mediumTitle": "Sportschau",
-              "longTitle": "Sportschau",
-              "type": "broadcastMainClip",
-              "links": {
-                "target": {
-                  "id": "Y3JpZDovL3dkci5kZS9CZWl0cmFnLWEzNTQ3NzY4LTJmMzctNDA3NS1iYmU0LTVlMDgxY2Q3NDIxYw",
-                  "href": "http://page-gateway-service:8080/page-gateway/pages/ard/item/Y3JpZDovL3dkci5kZS9CZWl0cmFnLWEzNTQ3NzY4LTJmMzctNDA3NS1iYmU0LTVlMDgxY2Q3NDIxYw",
-                  "__typename": "Link"
-                },
-                "__typename": "TeaserLinks"
-              },
-              "images": {
-                "aspect16x9": {
-                  "src": "https://img.ardmediathek.de/standard/00/58/34/47/78/-1774185891/16x9/{width}?mandant=ard",
-                  "title": "Ohne Gewehr - Leben nach dem Biathlon - Standbild",
-                  "producerName": "picture-alliance/dpa",
-                  "__typename": "Image"
-                },
-                "__typename": "TeaserImages"
-              },
-              "decor": "none",
-              "duration": null,
-              "numberOfClips": 5,
-              "categories": [
-                "Sport"
-              ],
-              "broadcastedOn": "2018-12-05T13:05:00Z",
-              "publicationService": {
-                "name": "Das Erste",
-                "partner": "das_erste",
-                "publisherType": "TV",
-                "__typename": "PublicationService"
-              },
-              "__typename": "Teaser"
-            },
-            {
-              "id": "Y3JpZDovL2Rhc2Vyc3RlLmRlL3N0dXJtIGRlciBsaWViZS8yMDE4LTEyLTA1XzE1LTEwLU1FWg",
-              "shortTitle": "Sturm der Liebe",
-              "mediumTitle": "Sturm der Liebe",
-              "longTitle": "Sturm der Liebe",
-              "type": "broadcastMainClip",
-              "links": {
-                "target": {
-                  "id": "Y3JpZDovL2Rhc2Vyc3RlLmRlL3N0dXJtIGRlciBsaWViZS9jMGM0MzIxMS0yNjI3LTRhNjgtODc1Ny1iZTQzYzBkYWQ3NWE",
-                  "href": "http://page-gateway-service:8080/page-gateway/pages/ard/item/Y3JpZDovL2Rhc2Vyc3RlLmRlL3N0dXJtIGRlciBsaWViZS9jMGM0MzIxMS0yNjI3LTRhNjgtODc1Ny1iZTQzYzBkYWQ3NWE",
-                  "__typename": "Link"
-                },
-                "__typename": "TeaserLinks"
-              },
-              "images": {
-                "aspect16x9": {
-                  "src": "https://img.ardmediathek.de/standard/00/58/34/67/20/-1774185891/16x9/{width}?mandant=ard",
-                  "title": "Die schönsten Momente: Eva und Robert - Standbild",
-                  "producerName": "ARD/Ann Paur",
-                  "__typename": "Image"
-                },
-                "__typename": "TeaserImages"
-              },
-              "decor": "none",
-              "duration": null,
-              "numberOfClips": 1,
-              "categories": [
-                "Soaps & Serien",
-                "Filme & Serien"
-              ],
-              "broadcastedOn": "2018-12-05T14:10:00Z",
-              "publicationService": {
-                "name": "Das Erste",
-                "partner": "das_erste",
-                "publisherType": "TV",
-                "__typename": "PublicationService"
-              },
-              "__typename": "Teaser"
+              "__typename":"Teaser"
             }
           ],
-          "__typename": "Widget"
-        },
-        {
-          "id": "Y29tcGlsYXRpb24rcGFzdGJyb2FkY2FzdHMrQVJEKzIwMTgtMTItMDVUMDA6MDBaKzIwMTgtMTItMDVUMjM6NTk6NTlaK2NoYW5uZWwtUmFkaW8gQnJlbWVu",
-          "title": "Radio Bremen",
-          "channelKey": "radiobremen",
-          "teasers": [
-            {
-              "id": "Y3JpZDovL3JhZGlvYnJlbWVuLmRlL2J1dGVudW5iaW5uZW51bXNlY2hzMTU3Mg",
-              "shortTitle": "buten un binnen um 6",
-              "mediumTitle": "buten un binnen um 6",
-              "longTitle": "buten un binnen um 6",
-              "type": "broadcastMainClip",
-              "links": {
-                "target": {
-                  "id": "Y3JpZDovL3JhZGlvYnJlbWVuLmRlLzRiYjBkMGM2LTA0ZWEtNDdhMS1iNDI3LWZiYTdkMTQ4Mzg5Yw",
-                  "href": "http://page-gateway-service:8080/page-gateway/pages/ard/item/Y3JpZDovL3JhZGlvYnJlbWVuLmRlLzRiYjBkMGM2LTA0ZWEtNDdhMS1iNDI3LWZiYTdkMTQ4Mzg5Yw",
-                  "__typename": "Link"
-                },
-                "__typename": "TeaserLinks"
-              },
-              "images": {
-                "aspect16x9": {
-                  "src": "https://img.ardmediathek.de/standard/00/58/35/49/78/-1774185891/16x9/{width}?mandant=ard",
-                  "title": "buten un binnen um 6 vom 5. Dezember - Standbild",
-                  "producerName": "",
-                  "__typename": "Image"
-                },
-                "__typename": "TeaserImages"
-              },
-              "decor": "none",
-              "duration": null,
-              "numberOfClips": 1,
-              "categories": [],
-              "broadcastedOn": "2018-12-05T17:00:00Z",
-              "publicationService": {
-                "name": "Radio Bremen TV",
-                "partner": "radio_bremen",
-                "publisherType": "TV",
-                "__typename": "PublicationService"
-              },
-              "__typename": "Teaser"
-            }
-          ],
-          "__typename": "Widget"
-        },
-        {
-          "id": "Y29tcGlsYXRpb24rcGFzdGJyb2FkY2FzdHMrQVJEKzIwMTgtMTItMDVUMDA6MDBaKzIwMTgtMTItMDVUMjM6NTk6NTlaK2NoYW5uZWwtQVJEYWxwaGE",
-          "title": "ARDalpha",
-          "channelKey": "ardalpha",
-          "teasers": [
-            {
-              "id": "Y3JpZDovL2JyLmRlL2Jyb2FkY2FzdC9XT046MTY5NzM3MTA4ODEzX0YyMDE2V08wMDk3MzNBMDpjaGFubmVsXzI4NDg3",
-              "shortTitle": "Bob Ross - The Joy of Painting",
-              "mediumTitle": "Bob Ross - The Joy of Painting",
-              "longTitle": "Bob Ross - The Joy of Painting",
-              "type": "broadcastMainClip",
-              "links": {
-                "target": {
-                  "id": "Y3JpZDovL2JyLmRlL3ZpZGVvL2VmN2JhODUyLTI3MGItNDcyZS04YTdjLTJhYzBlZWJmYzMxZQ",
-                  "href": "http://page-gateway-service:8080/page-gateway/pages/ard/item/Y3JpZDovL2JyLmRlL3ZpZGVvL2VmN2JhODUyLTI3MGItNDcyZS04YTdjLTJhYzBlZWJmYzMxZQ",
-                  "__typename": "Link"
-                },
-                "__typename": "TeaserLinks"
-              },
-              "images": {
-                "aspect16x9": {
-                  "src": "https://img.ardmediathek.de/standard/00/58/33/27/86/-1774185891/16x9/{width}?mandant=ard",
-                  "title": "Final Embers of Sunlight - Standbild",
-                  "producerName": "BR/Bob Ross Company",
-                  "__typename": "Image"
-                },
-                "__typename": "TeaserImages"
-              },
-              "decor": "none",
-              "duration": null,
-              "numberOfClips": 1,
-              "categories": [],
-              "broadcastedOn": "2018-12-05T05:00:00Z",
-              "publicationService": {
-                "name": "ARD-alpha",
-                "partner": "ard-alpha",
-                "publisherType": "TV",
-                "__typename": "PublicationService"
-              },
-              "__typename": "Teaser"
-            },
-            {
-              "id": "Y3JpZDovL3dkci5kZS9TZW5kdW5nLTc5NGUxMDRjLTc5NzQtNGRmNy04M2M4LWM0YWE4NTk3MjZhMw",
-              "shortTitle": "Konsum - Ich kaufe, also bin ich?",
-              "mediumTitle": "Konsum - Ich kaufe, also bin ich?",
-              "longTitle": "Konsum - Ich kaufe, also bin ich?",
-              "type": "broadcastMainClip",
-              "links": {
-                "target": {
-                  "id": "Y3JpZDovL3dkci5kZS9CZWl0cmFnLTA5MzA1YTVlLTNmOGItNDg4ZC05ZDY3LWJmM2FhMDFmN2E0MA",
-                  "href": "http://page-gateway-service:8080/page-gateway/pages/ard/item/Y3JpZDovL3dkci5kZS9CZWl0cmFnLTA5MzA1YTVlLTNmOGItNDg4ZC05ZDY3LWJmM2FhMDFmN2E0MA",
-                  "__typename": "Link"
-                },
-                "__typename": "TeaserLinks"
-              },
-              "images": {
-                "aspect16x9": {
-                  "src": "https://img.ardmediathek.de/standard/00/58/33/39/74/-1774185891/16x9/{width}?mandant=ard",
-                  "title": "Konsum - Ich kaufe, also bin ich? - Standbild",
-                  "producerName": "BR",
-                  "__typename": "Image"
-                },
-                "__typename": "TeaserImages"
-              },
-              "decor": "none",
-              "duration": null,
-              "numberOfClips": 4,
-              "categories": [
-                "Wissen & Bildung"
-              ],
-              "broadcastedOn": "2018-12-05T09:55:00Z",
-              "publicationService": {
-                "name": "ARD-alpha",
-                "partner": "ard-alpha",
-                "publisherType": "TV",
-                "__typename": "PublicationService"
-              },
-              "__typename": "Teaser"
-            }
-          ],
-          "__typename": "Widget"
+          "__typename":"Widget"
         }
       ],
-      "tracking": {
-        "szmType": "CP",
-        "environmentId": 511893,
-        "aggregationLevelId": 38,
-        "chapter2": "Sendung verpasst",
-        "chapter3": null,
-        "pageTitle": "Mediathek/Sendung verpasst/20181205",
-        "atiCustomVars": {
-          "clipTitle": null,
-          "mediaType": null,
-          "lra": null,
-          "channel": null,
-          "show": null,
-          "contentTypes": null,
-          "mediaDistributionType": null,
-          "contentId": null,
-          "metadataId": null,
-          "clipLength": null,
-          "__typename": "ATICustomVars"
+      "tracking":{
+        "szmType":"CP",
+        "environmentId":511893,
+        "aggregationLevelId":38,
+        "chapter2":"Sendung verpasst",
+        "chapter3":null,
+        "pageTitle":"Mediathek/Sendung verpasst/20190206",
+        "atiCustomVars":{
+          "clipTitle":null,
+          "mediaType":null,
+          "lra":null,
+          "channel":null,
+          "show":null,
+          "contentTypes":null,
+          "mediaDistributionType":null,
+          "contentId":null,
+          "metadataId":null,
+          "clipLength":null,
+          "__typename":"ATICustomVars"
         },
-        "__typename": "Tracking"
+        "__typename":"Tracking"
       },
-      "__typename": "GuidePage"
+      "__typename":"GuidePage"
     }
   }
 }

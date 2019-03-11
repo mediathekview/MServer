@@ -146,6 +146,15 @@ public class NdrFilmDeserializer {
 
   private static Optional<Duration> parseDurationStringValue(final String aDuration) {
     final String[] parts = aDuration.split(":");
+
+    if (parts.length > 1) {
+      return parseDurationStringValueOld(parts);
+    }
+
+    return Optional.of(Duration.parse(aDuration));
+  }
+
+  private static Optional<Duration> parseDurationStringValueOld(String[] parts) {
     int index = 0;
     Long durationValue = 0L;
 

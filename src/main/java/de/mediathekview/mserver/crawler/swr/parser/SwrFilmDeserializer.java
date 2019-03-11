@@ -9,7 +9,9 @@ import de.mediathekview.mlib.daten.Film;
 import de.mediathekview.mlib.daten.Resolution;
 import de.mediathekview.mlib.daten.Sender;
 import de.mediathekview.mserver.base.utils.JsonUtils;
+import de.mediathekview.mserver.base.utils.UrlUtils;
 import de.mediathekview.mserver.crawler.swr.SwrConstants;
+import de.mediathekview.mserver.crawler.swr.SwrUrlOptimizer;
 import java.lang.reflect.Type;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -51,6 +53,7 @@ public class SwrFilmDeserializer implements JsonDeserializer<Optional<Film>> {
   private static final String VIDEO_ENTRY_QUALITY_HD = "4";
 
   private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("yyyyMMddHHmm");
+  private static final SwrUrlOptimizer optimizer = new SwrUrlOptimizer();
 
   @Override
   public Optional<Film> deserialize(JsonElement aJson, Type aTypeOfT, JsonDeserializationContext aContext) {
@@ -131,7 +134,7 @@ public class SwrFilmDeserializer implements JsonDeserializer<Optional<Film>> {
     final Duration duration = parseDuration(attrObject);
     final Optional<String> description = JsonUtils.getAttributeAsString(attrObject, ATTRIBUTE_DESCRIPTION);
     final Optional<String> id = JsonUtils.getAttributeAsString(attrObject, ATTRIBUTE_ID);
-    final Optional<String> subtitle = JsonUtils.getAttributeAsString(attrObject, ATTRIBUTE_SUBTITLE);
+    final Optional<String> subtitle = parseSubtitle(attrObject);
 
     final Film film = new Film(UUID.randomUUID(), Sender.SWR, aTitle, aTopic, time, duration);
 
@@ -145,10 +148,24 @@ public class SwrFilmDeserializer implements JsonDeserializer<Optional<Film>> {
     }
 
     for (Entry<Resolution, String> kvp : aVideoUrls.entrySet()) {
-      film.addUrl(kvp.getKey(), CrawlerTool.stringToFilmUrl(kvp.getValue()));
+      String url = kvp.getValue();
+      if (kvp.getKey() == Resolution.HD) {
+        url = optimizer.optimizeHdUrl(url);
+      }
+      film.addUrl(kvp.getKey(), CrawlerTool.stringToFilmUrl(url));
     }
 
     return Optional.of(film);
+  }
+
+  private Optional<String> parseSubtitle(JsonObject attrObject) {
+    Optional<String> subtitle = JsonUtils.getAttributeAsString(attrObject, ATTRIBUTE_SUBTITLE);
+    if (subtitle.isPresent()) {
+      String url = UrlUtils.addProtocolIfMissing(subtitle.get(), UrlUtils.PROTOCOL_HTTPS);
+      return Optional.of(url);
+    }
+
+    return Optional.empty();
   }
 
   private Optional<URL> buildWebsiteUrl(final String aId) throws MalformedURLException {

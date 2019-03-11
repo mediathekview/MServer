@@ -1,6 +1,7 @@
 package de.mediathekview.mserver.crawler.ndr.parser;
 
 import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 import de.mediathekview.mserver.crawler.basic.CrawlerUrlDTO;
@@ -75,6 +76,16 @@ public class NdrFilmDetailDeserializerTest {
                 "Der Abfallunternehmer Harald Kosen ist in seinem Schlafzimmer erschlagen worden. Die Kommissare Saalfeld und Keppler sind geschockt von dem kaltblütigen Vorgehen des Mörders.",
                 LocalDateTime.of(2018, 3, 20, 22, 0, 0),
                 Duration.ofMinutes(90)
+            },
+            {
+              "https://www.ndr.de/fernsehen/sendungen/nordmagazin/Nordmagazin,sendung875592.html",
+                "/ndr/ndr_film_detail5.html",
+                "https://www.ndr.de/fernsehen/sendungen/nordmagazin/nordmagazin60644-ardjson_image-075f976c-a3c0-42a6-95aa-01e28a27acba.json",
+                "Nordmagazin",
+                "Nordmagazin",
+                "30 Minuten regionale Information und Unterhaltung aus dem Land - für das Land.",
+                LocalDateTime.of(2019, 3, 5, 19, 30, 0),
+                Duration.ofMinutes(28).plusSeconds(58)
             }
         });
   }

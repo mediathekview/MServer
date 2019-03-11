@@ -1,0 +1,38 @@
+{
+  "meta": {
+    "subcategories": {
+      "totalCount": 36,
+      "limit": 5,
+      "href": "https:\/\/api.arte.tv\/api\/opa\/v3\/subcategories?language=es&limit=5&page=8",
+      "pages": 8,
+      "page": 8,
+      "links": {
+        "first": {
+          "href": "https:\/\/api.arte.tv\/api\/opa\/v3\/subcategories?language=es&limit=5&page=1"
+        },
+        "previous": {
+          "href": "https:\/\/api.arte.tv\/api\/opa\/v3\/subcategories?language=es&limit=5&page=7"
+        }
+      }
+    }
+  },
+  "subcategories": [
+    {
+      "id": "AUV_es",
+      "code": "AUV",
+      "language": "es",
+      "label": "Con otros ojos",
+      "slug": "con-otros-ojos",
+      "url": "https:\/\/www.arte.tv\/es\/videos\/politica-y-sociedad\/con-otros-ojos\/",
+      "description": "Una mirada diferente a la actualidad.",
+      "category": {
+        "order": 1,
+        "code": "ACT",
+        "name": "Política y sociedad",
+        "url": "https:\/\/www.arte.tv\/es\/videos\/politica-y-sociedad\/",
+        "slug": "politica-y-sociedad"
+      },
+      "order": 6
+    }
+  ]
+}
