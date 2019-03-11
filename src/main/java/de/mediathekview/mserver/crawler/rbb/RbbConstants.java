@@ -8,7 +8,7 @@ public final class RbbConstants {
   public static final String URL_BASE = "https://mediathek.rbb-online.de";
 
   /**
-   * maximum number of days to go back from today supported by RBB if using {@Link URL_DAY_PAGE}.
+   * maximum number of days to go back from today supported by RBB if using {@link URL_DAY_PAGE}.
    */
   public static final int MAX_SUPPORTED_DAYS_PAST = 6;
 

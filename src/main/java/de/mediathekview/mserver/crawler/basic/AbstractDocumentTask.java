@@ -14,9 +14,9 @@ import de.mediathekview.mserver.base.messages.ServerMessages;
  * This is a abstract task based on {@link AbstractUrlTask} which takes a
  * {@link ConcurrentLinkedQueue} of {@link D} and loads the URL with JSOUP as {@link Document}.
  *
- * @author Nicklas Wiegandt (Nicklas2751)<br/>
- *         <b>Mail:</b> nicklas@wiegandt.eu<br/>
- *         <b>Jabber:</b> nicklas2751@elaon.de<br/>
+ * @author Nicklas Wiegandt (Nicklas2751)<br>
+ *         <b>Mail:</b> nicklas@wiegandt.eu<br>
+ *         <b>Jabber:</b> nicklas2751@elaon.de<br>
  *
  * @param <T> The type of objects which will be created from this task.
  * @param <D> A sub type of {@link CrawlerUrlDTO} which this task will use to create the result
