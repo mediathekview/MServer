@@ -29,7 +29,7 @@ public class MServerConfigManager extends ConfigManager<MServerConfigDTO>
     {
         super();
         this.configFileName = fileName;
-        readClasspathConfig();
+        readConfig();
     }
 
     private MServerConfigManager()
