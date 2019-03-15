@@ -237,7 +237,7 @@
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
-
+<!-- TODO: assembly after shade! -->
 	<build>
 		<plugins>
 			<plugin>

@@ -27,6 +27,7 @@
 			</includes>
 			<excludes>
 				<exclude>*-javadoc.jar</exclude>
+				<exclude>original-*.jar</exclude>
 			</excludes>
 		</fileSet>
 		<fileSet>
