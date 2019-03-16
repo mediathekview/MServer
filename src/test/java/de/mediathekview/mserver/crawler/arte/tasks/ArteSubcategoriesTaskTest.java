@@ -43,13 +43,13 @@ public class ArteSubcategoriesTaskTest extends ArteTaskTestBase {
   @Test
   public void testOverviewWithMultiplePagesLimitSubpagesSmallerThanSubpageCount() {
 
-    rootConfig.getConfig().setMaximumSubpages(2);
 
     String requestUrl = "/api/opa/v3/subcategories?language=de&limit=5";
     setupSuccessfulJsonResponse(requestUrl, "/arte/arte_subcategory_page1.json");
     setupSuccessfulJsonResponse("/api/opa/v3/subcategories?language=de&limit=5&page=2", "/arte/arte_subcategory_page2.json");
     setupSuccessfulJsonResponse("/api/opa/v3/subcategories?language=de&limit=5&page=3", "/arte/arte_subcategory_page_last.json");
 
+    rootConfig.getConfig().setMaximumSubpages(2);
     final Set<TopicUrlDTO> actual = executeTask(requestUrl);
 
     assertThat(actual, notNullValue());
