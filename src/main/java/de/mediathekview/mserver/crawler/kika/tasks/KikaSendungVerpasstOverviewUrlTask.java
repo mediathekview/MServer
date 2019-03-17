@@ -12,8 +12,6 @@ import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
 import java.util.concurrent.Callable;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -38,9 +36,11 @@ public class KikaSendungVerpasstOverviewUrlTask implements Callable<Set<CrawlerU
   private static final String ATTRIBUTE_DATA_CTRL_IPG_TRIGGER = "data-ctrl-ipg-trigger";
   private static final String URL_SELECTOR = ".ipgControl .box";
   private final AbstractCrawler crawler;
+  private final LocalDateTime today;
 
-  public KikaSendungVerpasstOverviewUrlTask(final AbstractCrawler aCrawler) {
+  public KikaSendungVerpasstOverviewUrlTask(final AbstractCrawler aCrawler, final LocalDateTime aToday) {
     crawler = aCrawler;
+    today = aToday;
   }
 
   @Override
@@ -81,12 +81,12 @@ public class KikaSendungVerpasstOverviewUrlTask implements Callable<Set<CrawlerU
     final Set<String> dateStrings = new HashSet<>();
     for (int i = 0; i < crawler.getCrawlerConfig().getMaximumDaysForSendungVerpasstSection(); i++) {
       dateStrings
-          .add(LocalDateTime.now().minus(i, ChronoUnit.DAYS).format(URL_DATE_TIME_FORMATTER));
+          .add(today.minus(i, ChronoUnit.DAYS).format(URL_DATE_TIME_FORMATTER));
     }
 
     for (int i = 1; i <= crawler.getCrawlerConfig().getMaximumDaysForSendungVerpasstSectionFuture(); i++) {
       dateStrings
-          .add(LocalDateTime.now().plus(i, ChronoUnit.DAYS).format(URL_DATE_TIME_FORMATTER));
+          .add(today.plus(i, ChronoUnit.DAYS).format(URL_DATE_TIME_FORMATTER));
     }
 
     return dateStrings;
