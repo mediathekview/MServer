@@ -17,27 +17,27 @@ public class UrlUtilsTestAddProtocolIfMissing {
   private final String inputUrl;
   private final String expectedBaseUrl;
 
-  public UrlUtilsTestAddProtocolIfMissing(String aInputUrl, String aExpectedBaseUrl) {
+  public UrlUtilsTestAddProtocolIfMissing(final String aInputUrl, final String aExpectedBaseUrl) {
     inputUrl = aInputUrl;
     expectedBaseUrl = aExpectedBaseUrl;
   }
 
   @Parameterized.Parameters
-  public static Collection<Object[]> data() {
+  public static Collection<String[]> data() {
     return Arrays.asList(
-            new Object[][]{
-                    {null, null},
-                    {"", ""},
-                    {"https://www.testurl.de/resource?query=3", "https://www.testurl.de/resource?query=3"},
-                    {"www.urlohneschema.de", "www.urlohneschema.de"},
-                    {"/child/sub", "/child/sub"},
-                    {"//www.mydomain.de/child/sub", PROTOCOL + "//www.mydomain.de/child/sub"}
-            });
+        new String[][] {
+          {null, null},
+          {"", ""},
+          {"https://www.testurl.de/resource?query=3", "https://www.testurl.de/resource?query=3"},
+          {"www.urlohneschema.de", "www.urlohneschema.de"},
+          {"/child/sub", "/child/sub"},
+          {"//www.mydomain.de/child/sub", PROTOCOL + "//www.mydomain.de/child/sub"}
+        });
   }
 
   @Test
   public void addProtocolIfMissingTest() {
-    String actual = UrlUtils.addProtocolIfMissing(inputUrl, PROTOCOL);
+    final String actual = UrlUtils.addProtocolIfMissing(inputUrl, PROTOCOL);
 
     assertThat(actual, equalTo(expectedBaseUrl));
   }
