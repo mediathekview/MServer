@@ -1,21 +1,10 @@
 package de.mediathekview.mserver.crawler.orf.tasks;
 
-import static org.hamcrest.CoreMatchers.equalTo;
-import static org.hamcrest.CoreMatchers.notNullValue;
-import static org.junit.Assert.assertThat;
-
 import de.mediathekview.mlib.daten.Film;
 import de.mediathekview.mlib.daten.GeoLocations;
 import de.mediathekview.mlib.daten.Sender;
 import de.mediathekview.mserver.testhelper.AssertFilm;
 import de.mediathekview.mserver.testhelper.JsoupMock;
-import java.io.IOException;
-import java.time.Duration;
-import java.time.LocalDateTime;
-import java.time.temporal.ChronoUnit;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Set;
 import org.jsoup.Jsoup;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -25,16 +14,75 @@ import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 import org.powermock.modules.junit4.PowerMockRunnerDelegate;
 
+import java.io.IOException;
+import java.time.Duration;
+import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Set;
+
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.CoreMatchers.notNullValue;
+import static org.junit.Assert.assertThat;
+
 @RunWith(PowerMockRunner.class)
 @PrepareForTest({Jsoup.class})
 @PowerMockRunnerDelegate(Parameterized.class)
-@PowerMockIgnore("javax.net.ssl.*")
+@PowerMockIgnore(
+        value = {
+                "javax.net.ssl.*",
+                "javax.*",
+                "com.sun.*",
+                "org.apache.logging.log4j.core.config.xml.*"
+        })
 public class OrfFilmDetailTaskTest extends OrfFilmDetailTaskTestBase {
+
+    private final String requestUrl;
+    private final String filmPageFile;
+    private final String theme;
+    private final String expectedTitle;
+    private final LocalDateTime expectedDate;
+    private final Duration expectedDuration;
+    private final String expectedDescription;
+    private final String expectedSubtitle;
+    private final String expectedUrlSmall;
+    private final String expectedUrlNormal;
+    private final String expectedUrlHd;
+    private final GeoLocations[] expectedGeoLocations;
+
+    public OrfFilmDetailTaskTest(
+            final String aRequestUrl,
+            final String aFilmPageFile,
+            final String aTheme,
+            final String aExpectedTitle,
+            final LocalDateTime aExpectedDate,
+            final Duration aExpectedDuration,
+            final String aExpectedDescription,
+            final String aExpectedSubtitle,
+            final String aExpectedUrlSmall,
+            final String aExpectedUrlNormal,
+            final String aExpectedUrlHd,
+            final GeoLocations[] aExpectedGeoLocations) {
+        requestUrl = aRequestUrl;
+        filmPageFile = aFilmPageFile;
+        theme = aTheme;
+        expectedTitle = aExpectedTitle;
+        expectedDate = aExpectedDate;
+        expectedDuration = aExpectedDuration;
+        expectedDescription = aExpectedDescription;
+        expectedSubtitle = aExpectedSubtitle;
+        expectedUrlSmall = aExpectedUrlSmall;
+        expectedUrlNormal = aExpectedUrlNormal;
+        expectedUrlHd = aExpectedUrlHd;
+        expectedGeoLocations = aExpectedGeoLocations;
+    }
 
   @Parameterized.Parameters
   public static Collection<Object[]> data() {
-    return Arrays.asList(new Object[][]{
-        {
+      return Arrays.asList(
+              new Object[][]{
+                      {
             "https://tvthek.orf.at/profile/Rede-des-Bundespraesidenten/13889684/Rede-des-Bundespraesidenten/13993313",
             "/orf/orf_film_with_subtitle.html",
             "Rede des Bundespräsidenten",
@@ -46,9 +94,9 @@ public class OrfFilmDetailTaskTest extends OrfFilmDetailTaskTestBase {
             "https://apasfiis.sf.apa.at/ipad/cms-worldwide/2018-10-26_1947_sd_02_Rede-des-Bundes_____13993313__o__1465128264__s14386692_2__ORF2HD_19461317P_19532320P_Q4A.mp4/playlist.m3u8",
             "https://apasfiis.sf.apa.at/ipad/cms-worldwide/2018-10-26_1947_sd_02_Rede-des-Bundes_____13993313__o__1465128264__s14386692_2__ORF2HD_19461317P_19532320P_Q6A.mp4/playlist.m3u8",
             "https://apasfiis.sf.apa.at/ipad/cms-worldwide/2018-10-26_1947_sd_02_Rede-des-Bundes_____13993313__o__1465128264__s14386692_2__ORF2HD_19461317P_19532320P_Q8C.mp4/playlist.m3u8",
-            new GeoLocations[]{GeoLocations.GEO_NONE}
-        },
-        {
+                              new GeoLocations[]{GeoLocations.GEO_NONE}
+                      },
+                      {
             "http://tvthek.orf.at/profile/Mountain-Attack/13886812/Mountain-Attack-Highlights-aus-Saalbach/13962229",
             "/orf/orf_film_no_subtitle.html",
             "Mountain Attack, Highlights aus Saalbach",
@@ -60,9 +108,9 @@ public class OrfFilmDetailTaskTest extends OrfFilmDetailTaskTestBase {
             "http://localhost:8589/apasfpd.sf.apa.at/cms-austria/online/b81830be5e344d34259b9cb8c747977f/1517173787/20180122_1930_sd_03_MOUNTAIN-ATTACK_Mountain-Attack__13962229__o__1876614391__s14223582_2__ORFSHD_19391812P_19561116P_Q4A.mp4",
             "http://localhost:8589/apasfpd.sf.apa.at/cms-austria/online/e959ba55a87acd553e04296c196fd079/1517173787/20180122_1930_sd_03_MOUNTAIN-ATTACK_Mountain-Attack__13962229__o__1876614391__s14223582_2__ORFSHD_19391812P_19561116P_Q6A.mp4",
             "http://localhost:8589/apasfpd.sf.apa.at/cms-austria/online/12a33dab839ecd322a3440600a147f31/1517173787/20180122_1930_sd_03_MOUNTAIN-ATTACK_Mountain-Attack__13962229__o__1876614391__s14223582_2__ORFSHD_19391812P_19561116P_Q8C.mp4",
-            new GeoLocations[]{GeoLocations.GEO_AT}
-        },
-        {
+                              new GeoLocations[]{GeoLocations.GEO_AT}
+                      },
+                      {
             "https://tvthek.orf.at/profile/Hilfe-ich-hab-meine-Lehrerin-geschrumpft/13889696/Hilfe-ich-hab-meine-Lehrerin-geschrumpft/13993284",
             "/orf/orf_film_duration_hour.html",
             "Hilfe, ich hab meine Lehrerin geschrumpft",
@@ -74,9 +122,9 @@ public class OrfFilmDetailTaskTest extends OrfFilmDetailTaskTestBase {
             "https://apasfiis.sf.apa.at/ipad/cms-austria/2018-10-26_1145_sd_01_Hilfe--ich-hab-_____13993284__o__1944471619__s14386477_7__ORF1HD_11453806P_13165216P_Q4A.mp4/playlist.m3u8",
             "https://apasfiis.sf.apa.at/ipad/cms-austria/2018-10-26_1145_sd_01_Hilfe--ich-hab-_____13993284__o__1944471619__s14386477_7__ORF1HD_11453806P_13165216P_Q6A.mp4/playlist.m3u8",
             "https://apasfiis.sf.apa.at/ipad/cms-austria/2018-10-26_1145_sd_01_Hilfe--ich-hab-_____13993284__o__1944471619__s14386477_7__ORF1HD_11453806P_13165216P_Q8C.mp4/playlist.m3u8",
-            new GeoLocations[]{GeoLocations.GEO_AT}
-        },
-        {
+                              new GeoLocations[]{GeoLocations.GEO_AT}
+                      },
+                      {
             "http://tvthek.orf.at/profile/BUNDESLAND-HEUTE/8461416/Bundesland-heute/13890700",
             "/orf/orf_film_date_cest.html",
             "Bundesland heute",
@@ -88,9 +136,9 @@ public class OrfFilmDetailTaskTest extends OrfFilmDetailTaskTestBase {
             "http://localhost:8589/apasfpd.sf.apa.at/cms-worldwide/online/0bb060c0744c962fcacca6eb9211ad70/1517342250/20161011_1040_in_02_Bundesland-heut_____13890700__o__1693823857__s13890997_Q4A.mp4",
             "http://localhost:8589/apasfpd.sf.apa.at/cms-worldwide/online/4f512329a47f2cc5b196edb3170d1884/1517342250/20161011_1040_in_02_Bundesland-heut_____13890700__o__1693823857__s13890997_Q6A.mp4",
             "http://localhost:8589/apasfpd.sf.apa.at/cms-worldwide/online/7fa882e42a1a23eec93f1310f302478e/1517342250/20161011_1040_in_02_Bundesland-heut_____13890700__o__1693823857__s13890997_Q8C.mp4",
-            new GeoLocations[]{GeoLocations.GEO_NONE}
-        },
-        {
+                              new GeoLocations[]{GeoLocations.GEO_NONE}
+                      },
+                      {
             "http://tvthek.orf.at/archive/Die-Geschichte-des-Burgenlands/9236430/Zweisprachige-Ortstafeln/9056913",
             "/orf/orf_archive_film.html",
             "Die Geschichte des Burgenlandes",
@@ -102,49 +150,9 @@ public class OrfFilmDetailTaskTest extends OrfFilmDetailTaskTestBase {
             "http://localhost:8589/apasfpd.sf.apa.at/cms-worldwide/online/60abae06d715256ceb1548e235db7194/1517698714/2000-07-13_1200_in_00_Zweisprachige-Ortsta_____9056913__o__0001362620__s9056914___Q4A.mp4",
             "http://localhost:8589/apasfpd.sf.apa.at/cms-worldwide/online/0d345417cbbae316a7bdb252dc52484f/1517698714/2000-07-13_1200_in_00_Zweisprachige-Ortsta_____9056913__o__0001362620__s9056914___Q6A.mp4",
             "http://localhost:8589/apasfpd.sf.apa.at/cms-worldwide/online/fc56881b62c5828cf321ef51909d4541/1517698714/2000-07-13_1200_in_00_Zweisprachige-Ortsta_____9056913__o__0001362620__s9056914___Q8C.mp4",
-            new GeoLocations[]{GeoLocations.GEO_NONE}
-        }
-    });
-  }
-
-
-  private final String requestUrl;
-  private final String filmPageFile;
-  private final String theme;
-  private final String expectedTitle;
-  private final LocalDateTime expectedDate;
-  private final Duration expectedDuration;
-  private final String expectedDescription;
-  private final String expectedSubtitle;
-  private final String expectedUrlSmall;
-  private final String expectedUrlNormal;
-  private final String expectedUrlHd;
-  private final GeoLocations[] expectedGeoLocations;
-
-  public OrfFilmDetailTaskTest(final String aRequestUrl,
-      final String aFilmPageFile,
-      final String aTheme,
-      final String aExpectedTitle,
-      final LocalDateTime aExpectedDate,
-      final Duration aExpectedDuration,
-      final String aExpectedDescription,
-      final String aExpectedSubtitle,
-      final String aExpectedUrlSmall,
-      final String aExpectedUrlNormal,
-      final String aExpectedUrlHd,
-      final GeoLocations[] aExpectedGeoLocations) {
-    requestUrl = aRequestUrl;
-    filmPageFile = aFilmPageFile;
-    theme = aTheme;
-    expectedTitle = aExpectedTitle;
-    expectedDate = aExpectedDate;
-    expectedDuration = aExpectedDuration;
-    expectedDescription = aExpectedDescription;
-    expectedSubtitle = aExpectedSubtitle;
-    expectedUrlSmall = aExpectedUrlSmall;
-    expectedUrlNormal = aExpectedUrlNormal;
-    expectedUrlHd = aExpectedUrlHd;
-    expectedGeoLocations = aExpectedGeoLocations;
+                              new GeoLocations[]{GeoLocations.GEO_NONE}
+                      }
+              });
   }
 
   @Test
@@ -158,7 +166,8 @@ public class OrfFilmDetailTaskTest extends OrfFilmDetailTaskTestBase {
     assertThat(actual.size(), equalTo(1));
 
     Film actualFilm = (Film) actual.toArray()[0];
-    AssertFilm.assertEquals(actualFilm,
+      AssertFilm.assertEquals(
+              actualFilm,
         Sender.ORF,
         theme,
         expectedTitle,
@@ -170,8 +179,6 @@ public class OrfFilmDetailTaskTest extends OrfFilmDetailTaskTestBase {
         expectedUrlSmall,
         expectedUrlNormal,
         expectedUrlHd,
-        expectedSubtitle
-    );
+              expectedSubtitle);
   }
-
 }

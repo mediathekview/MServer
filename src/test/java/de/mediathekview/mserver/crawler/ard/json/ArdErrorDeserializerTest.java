@@ -1,12 +1,13 @@
 package de.mediathekview.mserver.crawler.ard.json;
 
-import static org.hamcrest.CoreMatchers.equalTo;
-import static org.junit.Assert.assertThat;
-
 import com.google.gson.JsonElement;
 import de.mediathekview.mserver.testhelper.JsonFileReader;
-import java.util.Optional;
 import org.junit.Test;
+
+import java.util.Optional;
+
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.junit.Assert.assertThat;
 
 public class ArdErrorDeserializerTest {
 
@@ -24,7 +25,8 @@ public class ArdErrorDeserializerTest {
   public void deserializeTestQueryNotFoundError() {
     JsonElement jsonElement = JsonFileReader.readJson("/ard/ard_error_page_query_not_found.json");
 
-    ArdErrorInfoDto expected = new ArdErrorInfoDto("PERSISTED_QUERY_NOT_FOUND", "PersistedQueryNotFound");
+      ArdErrorInfoDto expected =
+              new ArdErrorInfoDto("PERSISTED_QUERY_NOT_FOUND", "PersistedQueryNotFound");
 
     ArdErrorDeserializer target = new ArdErrorDeserializer();
     Optional<ArdErrorInfoDto> actual = target.deserialize(jsonElement, null, null);
@@ -35,9 +37,12 @@ public class ArdErrorDeserializerTest {
 
   @Test
   public void deserializeTestInternalServerError() {
-    JsonElement jsonElement = JsonFileReader.readJson("/ard/ard_error_page_internal_server_error.json");
+      JsonElement jsonElement =
+              JsonFileReader.readJson("/ard/ard_error_page_internal_server_error.json");
 
-    ArdErrorInfoDto expected = new ArdErrorInfoDto("INTERNAL_SERVER_ERROR", "Cannot return null for non-nullable field Show.image.");
+      ArdErrorInfoDto expected =
+              new ArdErrorInfoDto(
+                      "INTERNAL_SERVER_ERROR", "Cannot return null for non-nullable field Show.image.");
 
     ArdErrorDeserializer target = new ArdErrorDeserializer();
     Optional<ArdErrorInfoDto> actual = target.deserialize(jsonElement, null, null);

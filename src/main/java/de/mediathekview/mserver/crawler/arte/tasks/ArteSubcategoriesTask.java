@@ -7,23 +7,25 @@ import de.mediathekview.mserver.crawler.arte.json.ArteSubcategoryDeserializer;
 import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
 import de.mediathekview.mserver.crawler.basic.AbstractRecrusivConverterTask;
 import de.mediathekview.mserver.crawler.basic.CrawlerUrlDTO;
-import de.mediathekview.mserver.crawler.basic.SendungOverviewDto;
 import de.mediathekview.mserver.crawler.basic.TopicUrlDTO;
+
+import javax.ws.rs.client.WebTarget;
 import java.lang.reflect.Type;
 import java.util.Optional;
 import java.util.Set;
 import java.util.concurrent.ConcurrentLinkedQueue;
-import javax.ws.rs.client.WebTarget;
 
 public class ArteSubcategoriesTask extends ArteTaskBase<TopicUrlDTO, CrawlerUrlDTO> {
 
-  private static final Type SUBCATEGORY_URL_TYPE_TOKEN = new TypeToken<ArteSubcategoryUrlDto>() {
-  }.getType();
+  private static final Type SUBCATEGORY_URL_TYPE_TOKEN =
+      new TypeToken<ArteSubcategoryUrlDto>() {}.getType();
 
   private final int pageNumber;
 
-  public ArteSubcategoriesTask(AbstractCrawler aCrawler,
-      ConcurrentLinkedQueue<CrawlerUrlDTO> aUrlToCrawlDtos, int pageNumber) {
+  public ArteSubcategoriesTask(
+      AbstractCrawler aCrawler,
+      ConcurrentLinkedQueue<CrawlerUrlDTO> aUrlToCrawlDtos,
+      int pageNumber) {
     super(aCrawler, aUrlToCrawlDtos, Optional.of(ArteConstants.AUTH_TOKEN));
 
     registerJsonDeserializer(SUBCATEGORY_URL_TYPE_TOKEN, new ArteSubcategoryDeserializer());
@@ -31,8 +33,8 @@ public class ArteSubcategoriesTask extends ArteTaskBase<TopicUrlDTO, CrawlerUrlD
     this.pageNumber = pageNumber;
   }
 
-  public ArteSubcategoriesTask(AbstractCrawler aCrawler,
-      ConcurrentLinkedQueue<CrawlerUrlDTO> aUrlToCrawlDtos) {
+  public ArteSubcategoriesTask(
+      AbstractCrawler aCrawler, ConcurrentLinkedQueue<CrawlerUrlDTO> aUrlToCrawlDtos) {
     this(aCrawler, aUrlToCrawlDtos, 1);
   }
 

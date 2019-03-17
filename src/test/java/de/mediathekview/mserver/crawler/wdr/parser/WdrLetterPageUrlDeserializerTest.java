@@ -1,15 +1,16 @@
 package de.mediathekview.mserver.crawler.wdr.parser;
 
-import static org.hamcrest.CoreMatchers.equalTo;
-import static org.junit.Assert.assertThat;
-
 import de.mediathekview.mserver.testhelper.FileReader;
-import java.io.IOException;
-import java.util.List;
 import org.hamcrest.Matchers;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.junit.Test;
+
+import java.io.IOException;
+import java.util.List;
+
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.junit.Assert.assertThat;
 
 public class WdrLetterPageUrlDeserializerTest {
 
