@@ -63,6 +63,21 @@ public class KikaSendungsfolgeVideoDetailsTaskTest extends KikaTaskTestBase {
                 "https://pmdonlinekika-a.akamaihd.net/mp4dyn/1/FCMS-12121f14-dce7-4cf4-a928-affa5a312ce7-5a2c8da1cdb7_12.mp4",
                 "",
                 GeoLocations.GEO_NONE
+            },
+            {
+                "https://www.kika.de/mama-fuchs-und-papa-dachs/sendungen/videos/video66904-avCustom.xml",
+                "/kika/kika_film_video2.xml",
+                "Mama Fuchs und Papa Dachs",
+                "17. Der Teddy",
+                "Matteos Teddy Theodor ist verschwunden. Niemand weiß von seinem geheimen Freund und das soll auch so bleiben. Aber es ist gar nicht so einfach nach etwas zu fragen und nicht zu verraten, was es ist. Können die Geschwister zusammen den Teddy finden?",
+                LocalDateTime.of(2019, 3, 17, 6, 35, 0),
+                Duration.ofMinutes(12).plusSeconds(4),
+                "https://www.kika.de/mama-fuchs-und-papa-dachs/sendungen/sendung111180.html",
+                "https://pmdgeokika-a.akamaihd.net/mp4dyn/f/FCMS-f6246737-fa13-4990-b801-2706fb13c1b6-2cc6c1c1f632_f6.mp4",
+                "https://pmdgeokika-a.akamaihd.net/mp4dyn/f/FCMS-f6246737-fa13-4990-b801-2706fb13c1b6-31e0be270130_f6.mp4",
+                "https://pmdgeokika-a.akamaihd.net/mp4dyn/f/FCMS-f6246737-fa13-4990-b801-2706fb13c1b6-5a2c8da1cdb7_f6.mp4",
+                "",
+                GeoLocations.GEO_DE
             }
         });
   }

@@ -215,7 +215,7 @@ public class KikaSendungsfolgeVideoDetailsTask extends AbstractUrlTask<Film, Cra
     }
 
     GeoLocations geoLocation = GeoLocations.GEO_NONE;
-    if (url.get().getUrl().getFile().contains("pmdgeokika")) {
+    if (url.get().getUrl().getHost().contains("pmdgeokika")) {
       geoLocation = GeoLocations.GEO_DE;
     }
 
