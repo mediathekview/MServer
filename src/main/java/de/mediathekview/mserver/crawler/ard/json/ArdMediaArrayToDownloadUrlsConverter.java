@@ -8,6 +8,7 @@ import de.mediathekview.mserver.base.messages.ServerMessages;
 import de.mediathekview.mserver.base.utils.JsonUtils;
 import de.mediathekview.mserver.base.utils.UrlUtils;
 import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
+import de.mediathekview.mserver.crawler.basic.FilmUrlInfoDto;
 import de.mediathekview.mserver.crawler.swr.SwrUrlOptimizer;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -47,7 +48,7 @@ public class ArdMediaArrayToDownloadUrlsConverter {
       final AbstractCrawler aCrawler) {
     final Map<Resolution, URL> downloadUrls = new EnumMap<>(Resolution.class);
 
-    final Map<Resolution, LinkedHashSet<ArdUrlInfo>> availableUrls =
+    final Map<Resolution, LinkedHashSet<FilmUrlInfoDto>> availableUrls =
         new EnumMap<>(Resolution.class);
     availableUrls.put(Resolution.SMALL, new LinkedHashSet<>());
     availableUrls.put(Resolution.NORMAL, new LinkedHashSet<>());
@@ -64,14 +65,14 @@ public class ArdMediaArrayToDownloadUrlsConverter {
   }
 
   private static void addUrl(final String aUrl, final Resolution quality,
-      final Map<Resolution, LinkedHashSet<ArdUrlInfo>> aUrls, final Optional<String> aHeight,
+      final Map<Resolution, LinkedHashSet<FilmUrlInfoDto>> aUrls, final Optional<String> aHeight,
       final Optional<String> aWidth) {
 
     if (!aUrl.isEmpty()) {
       if (aUrl.startsWith(PROTOCOL_RTMP)) {
         LOG.debug("Found an Sendung with the old RTMP format: " + aUrl);
       } else {
-        final ArdUrlInfo info = new ArdUrlInfo(UrlUtils.addProtocolIfMissing(aUrl, "http:"));
+        final FilmUrlInfoDto info = new FilmUrlInfoDto(UrlUtils.addProtocolIfMissing(aUrl, "http:"));
         if (aHeight.isPresent() && aWidth.isPresent()) {
           info.setResolution(Integer.parseInt(aWidth.get()), Integer.parseInt(aHeight.get()));
         }
@@ -86,15 +87,15 @@ public class ArdMediaArrayToDownloadUrlsConverter {
    * @param aUrls list of possible urls
    * @return the download url
    */
-  private static String determineUrl(final Resolution resolution, final Set<ArdUrlInfo> aUrls) {
+  private static String determineUrl(final Resolution resolution, final Set<FilmUrlInfoDto> aUrls) {
 
     if (aUrls.isEmpty()) {
       return "";
     }
 
-    ArdUrlInfo ardUrlInfo;
+    FilmUrlInfoDto ardUrlInfo;
 
-    List<ArdUrlInfo> urls = filterUrls(aUrls, "mp4");
+    List<FilmUrlInfoDto> urls = filterUrls(aUrls, "mp4");
     if (!urls.isEmpty()) {
       ardUrlInfo = getRelevantUrlMp4(resolution, urls);
     } else {
@@ -126,11 +127,11 @@ public class ArdMediaArrayToDownloadUrlsConverter {
     return 1;
   }
 
-  private static void extractRelevantUrls(final Map<Resolution, LinkedHashSet<ArdUrlInfo>> aUrls,
+  private static void extractRelevantUrls(final Map<Resolution, LinkedHashSet<FilmUrlInfoDto>> aUrls,
       final Map<Resolution, URL> aDownloadUrls, final AbstractCrawler aCrawler) {
 
     aUrls.entrySet().forEach(entry -> {
-      final Set<ArdUrlInfo> urls = entry.getValue();
+      final Set<FilmUrlInfoDto> urls = entry.getValue();
       if (!urls.isEmpty()) {
 
         final String url = determineUrl(entry.getKey(), urls);
@@ -156,7 +157,7 @@ public class ArdMediaArrayToDownloadUrlsConverter {
     return url;
   }
 
-  private static List<ArdUrlInfo> filterUrls(final Set<ArdUrlInfo> aUrls, final String aFileType) {
+  private static List<FilmUrlInfoDto> filterUrls(final Set<FilmUrlInfoDto> aUrls, final String aFileType) {
     return aUrls.stream().filter(u -> u.getFileType().get().equalsIgnoreCase(aFileType))
         .collect(Collectors.toList());
   }
@@ -201,8 +202,8 @@ public class ArdMediaArrayToDownloadUrlsConverter {
     }
   }
 
-  private static ArdUrlInfo getRelevantUrlMp4(final Resolution aResolution,
-      final List<ArdUrlInfo> aUrls) {
+  private static FilmUrlInfoDto getRelevantUrlMp4(final Resolution aResolution,
+      final List<FilmUrlInfoDto> aUrls) {
     switch (aResolution) {
       case SMALL:
         // the first url is the best
@@ -211,7 +212,7 @@ public class ArdMediaArrayToDownloadUrlsConverter {
         // the last url is the best
         return aUrls.get(aUrls.size() - 1);
       case HD:
-        for (final ArdUrlInfo info : aUrls) {
+        for (final FilmUrlInfoDto info : aUrls) {
           if (info.getWidth() >= 1280 && info.getHeight() >= 720) {
             return info;
           }
@@ -231,7 +232,7 @@ public class ArdMediaArrayToDownloadUrlsConverter {
   }
 
   private static void parseMediaArray(final int aPluginValue, final JsonArray aMediaArray,
-      final Map<Resolution, LinkedHashSet<ArdUrlInfo>> aUrls) {
+      final Map<Resolution, LinkedHashSet<FilmUrlInfoDto>> aUrls) {
 
     aMediaArray.forEach(mediaEntry -> {
 
@@ -248,7 +249,7 @@ public class ArdMediaArrayToDownloadUrlsConverter {
   }
 
   private static void parseMediaStreamArray(final JsonArray aMediaStreamArray,
-      final Map<Resolution, LinkedHashSet<ArdUrlInfo>> aUrls) {
+      final Map<Resolution, LinkedHashSet<FilmUrlInfoDto>> aUrls) {
 
     for (int i = 0; i < aMediaStreamArray.size(); i++) {
       final JsonElement videoElement = aMediaStreamArray.get(i);
@@ -263,7 +264,7 @@ public class ArdMediaArrayToDownloadUrlsConverter {
     }
   }
 
-  private static void parseMediaStreamServer(final Map<Resolution, LinkedHashSet<ArdUrlInfo>> aUrls,
+  private static void parseMediaStreamServer(final Map<Resolution, LinkedHashSet<FilmUrlInfoDto>> aUrls,
       final JsonElement videoElement, final Resolution quality) {
     if (videoElement.getAsJsonObject().has(ELEMENT_SERVER)) {
       final String baseUrl = videoElement.getAsJsonObject().get(ELEMENT_SERVER).getAsString();
@@ -272,7 +273,7 @@ public class ArdMediaArrayToDownloadUrlsConverter {
     }
   }
 
-  private static void parseMediaStreamStream(final Map<Resolution, LinkedHashSet<ArdUrlInfo>> aUrls,
+  private static void parseMediaStreamStream(final Map<Resolution, LinkedHashSet<FilmUrlInfoDto>> aUrls,
       final JsonElement videoElement, final Resolution quality) {
 
     if (videoElement.getAsJsonObject().has(ELEMENT_STREAM)) {
