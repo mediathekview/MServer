@@ -1,16 +1,9 @@
 package de.mediathekview.mserver.crawler.wdr.tasks;
 
-import static org.hamcrest.CoreMatchers.equalTo;
-import static org.hamcrest.CoreMatchers.notNullValue;
-import static org.junit.Assert.assertThat;
-
 import de.mediathekview.mserver.crawler.basic.CrawlerUrlDTO;
 import de.mediathekview.mserver.crawler.wdr.WdrConstants;
 import de.mediathekview.mserver.crawler.wdr.WdrTopicUrlDto;
 import de.mediathekview.mserver.testhelper.JsoupMock;
-import java.io.IOException;
-import java.util.Set;
-import java.util.concurrent.ConcurrentLinkedQueue;
 import org.hamcrest.Matchers;
 import org.jsoup.Jsoup;
 import org.junit.Test;
@@ -19,16 +12,30 @@ import org.powermock.core.classloader.annotations.PowerMockIgnore;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 
+import java.io.IOException;
+import java.util.Set;
+import java.util.concurrent.ConcurrentLinkedQueue;
+
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.CoreMatchers.notNullValue;
+import static org.junit.Assert.assertThat;
+
 @RunWith(PowerMockRunner.class)
 @PrepareForTest({Jsoup.class})
-@PowerMockIgnore(value= {"javax.net.ssl.*", "javax.*", "com.sun.*", "org.apache.logging.log4j.core.config.xml.*"})
+@PowerMockIgnore(
+    value = {
+      "javax.net.ssl.*",
+      "javax.*",
+      "com.sun.*",
+      "org.apache.logging.log4j.core.config.xml.*"
+    })
 public class WdrRadioPageTaskTest extends WdrTaskTestBase {
   @Test
   public void test() throws IOException {
     final String requestUrl = WdrConstants.URL_RADIO_WDR4;
     JsoupMock.mock(requestUrl, "/wdr/wdr4_overview.html");
 
-    WdrTopicUrlDto[] expected =
+    final WdrTopicUrlDto[] expected =
         new WdrTopicUrlDto[] {
           new WdrTopicUrlDto(
               "WDR 4 Events",
@@ -52,11 +59,11 @@ public class WdrRadioPageTaskTest extends WdrTaskTestBase {
               false),
         };
 
-    ConcurrentLinkedQueue<CrawlerUrlDTO> queue = new ConcurrentLinkedQueue<>();
+    final ConcurrentLinkedQueue<CrawlerUrlDTO> queue = new ConcurrentLinkedQueue<>();
     queue.add(new CrawlerUrlDTO(requestUrl));
 
-    WdrRadioPageTask target = new WdrRadioPageTask(createCrawler(), queue);
-    Set<WdrTopicUrlDto> actual = target.invoke();
+    final WdrRadioPageTask target = new WdrRadioPageTask(createCrawler(), queue);
+    final Set<WdrTopicUrlDto> actual = target.invoke();
 
     assertThat(actual, notNullValue());
     assertThat(actual.size(), equalTo(expected.length));

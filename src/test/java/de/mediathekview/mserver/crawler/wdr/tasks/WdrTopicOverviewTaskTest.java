@@ -1,18 +1,8 @@
 package de.mediathekview.mserver.crawler.wdr.tasks;
 
-import static org.hamcrest.CoreMatchers.equalTo;
-import static org.junit.Assert.assertThat;
-
 import de.mediathekview.mserver.crawler.basic.TopicUrlDTO;
 import de.mediathekview.mserver.crawler.wdr.WdrTopicUrlDto;
 import de.mediathekview.mserver.testhelper.JsoupMock;
-import java.io.IOException;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Set;
-import java.util.concurrent.ConcurrentLinkedQueue;
 import org.hamcrest.Matchers;
 import org.jsoup.Jsoup;
 import org.junit.Test;
@@ -23,11 +13,56 @@ import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 import org.powermock.modules.junit4.PowerMockRunnerDelegate;
 
+import java.io.IOException;
+import java.util.*;
+import java.util.concurrent.ConcurrentLinkedQueue;
+
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.junit.Assert.assertThat;
+
 @RunWith(PowerMockRunner.class)
 @PrepareForTest({Jsoup.class})
 @PowerMockRunnerDelegate(Parameterized.class)
-@PowerMockIgnore(value= {"javax.net.ssl.*", "javax.*", "com.sun.*", "org.apache.logging.log4j.core.config.xml.*"})
+@PowerMockIgnore(
+    value = {
+      "javax.net.ssl.*",
+      "javax.*",
+      "com.sun.*",
+      "org.apache.logging.log4j.core.config.xml.*"
+    })
 public class WdrTopicOverviewTaskTest extends WdrTaskTestBase {
+
+  private final String topic;
+  private final String requestUrl;
+  private final String htmlFile;
+  private final String childUrl;
+  private final String childHtmlFile;
+  private final boolean isFileUrl;
+  private final TopicUrlDTO[] expectedUrls;
+
+  public WdrTopicOverviewTaskTest(
+      final int aMaxSubpages,
+      final String aTopic,
+      final String aRequestUrl,
+      final String aHtmlFile,
+      final String aChildUrl,
+      final String aChildHtmlFile,
+      final boolean aIsFileUrl,
+      final String[] aExpectedUrls) {
+    rootConfig.getConfig().setMaximumSubpages(aMaxSubpages);
+
+    topic = aTopic;
+    requestUrl = aRequestUrl;
+    htmlFile = aHtmlFile;
+    isFileUrl = aIsFileUrl;
+    childUrl = aChildUrl;
+    childHtmlFile = aChildHtmlFile;
+
+    expectedUrls = new TopicUrlDTO[aExpectedUrls.length];
+    for (int i = 0; i < expectedUrls.length; i++) {
+      expectedUrls[i] = new TopicUrlDTO(topic, aExpectedUrls[i]);
+    }
+  }
 
   @Parameterized.Parameters
   public static Collection<Object[]> data() {
@@ -97,52 +132,20 @@ public class WdrTopicOverviewTaskTest extends WdrTaskTestBase {
         });
   }
 
-  private final String topic;
-  private final String requestUrl;
-  private final String htmlFile;
-  private final String childUrl;
-  private final String childHtmlFile;
-  private final boolean isFileUrl;
-  private final TopicUrlDTO[] expectedUrls;
-
-  public WdrTopicOverviewTaskTest(
-      final int aMaxSubpages,
-      final String aTopic,
-      final String aRequestUrl,
-      final String aHtmlFile,
-      final String aChildUrl,
-      final String aChildHtmlFile,
-      final boolean aIsFileUrl,
-      final String[] aExpectedUrls) {
-    rootConfig.getConfig().setMaximumSubpages(aMaxSubpages);
-
-    topic = aTopic;
-    requestUrl = aRequestUrl;
-    htmlFile = aHtmlFile;
-    isFileUrl = aIsFileUrl;
-    childUrl = aChildUrl;
-    childHtmlFile = aChildHtmlFile;
-
-    expectedUrls = new TopicUrlDTO[aExpectedUrls.length];
-    for (int i = 0; i < expectedUrls.length; i++) {
-      expectedUrls[i] = new TopicUrlDTO(topic, aExpectedUrls[i]);
-    }
-  }
-
   @Test
   public void test() throws IOException {
-    Map<String, String> mapping = new HashMap<>();
+    final Map<String, String> mapping = new HashMap<>();
     mapping.put(requestUrl, htmlFile);
     if (!childUrl.isEmpty()) {
       mapping.put(childUrl, childHtmlFile);
     }
     JsoupMock.mock(mapping);
 
-    ConcurrentLinkedQueue<WdrTopicUrlDto> urls = new ConcurrentLinkedQueue<>();
+    final ConcurrentLinkedQueue<WdrTopicUrlDto> urls = new ConcurrentLinkedQueue<>();
     urls.add(new WdrTopicUrlDto(topic, requestUrl, isFileUrl));
 
-    WdrTopicOverviewTask target = new WdrTopicOverviewTask(createCrawler(), urls, 0);
-    Set<TopicUrlDTO> actual = target.invoke();
+    final WdrTopicOverviewTask target = new WdrTopicOverviewTask(createCrawler(), urls, 0);
+    final Set<TopicUrlDTO> actual = target.invoke();
 
     assertThat(actual.size(), equalTo(expectedUrls.length));
     assertThat(actual, Matchers.containsInAnyOrder(expectedUrls));

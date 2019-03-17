@@ -1,8 +1,5 @@
 package de.mediathekview.mserver.crawler.rbb.tasks;
 
-import static org.hamcrest.CoreMatchers.equalTo;
-import static org.hamcrest.MatcherAssert.assertThat;
-
 import de.mediathekview.mlib.daten.Film;
 import de.mediathekview.mlib.daten.GeoLocations;
 import de.mediathekview.mlib.daten.Sender;
@@ -10,14 +7,6 @@ import de.mediathekview.mserver.crawler.basic.CrawlerUrlDTO;
 import de.mediathekview.mserver.testhelper.AssertFilm;
 import de.mediathekview.mserver.testhelper.JsoupMock;
 import de.mediathekview.mserver.testhelper.WireMockTestBase;
-import java.io.IOException;
-import java.time.Duration;
-import java.time.LocalDateTime;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Set;
-import java.util.concurrent.ConcurrentLinkedQueue;
-import java.util.concurrent.ExecutionException;
 import org.jsoup.Jsoup;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -27,34 +16,29 @@ import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 import org.powermock.modules.junit4.PowerMockRunnerDelegate;
 
+import java.io.IOException;
+import java.time.Duration;
+import java.time.LocalDateTime;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Set;
+import java.util.concurrent.ConcurrentLinkedQueue;
+import java.util.concurrent.ExecutionException;
+
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.MatcherAssert.assertThat;
+
 @RunWith(PowerMockRunner.class)
 @PrepareForTest({Jsoup.class})
 @PowerMockRunnerDelegate(Parameterized.class)
-@PowerMockIgnore(value= {"javax.net.ssl.*", "javax.*", "com.sun.*", "org.apache.logging.log4j.core.config.xml.*"})
+@PowerMockIgnore(
+        value = {
+                "javax.net.ssl.*",
+                "javax.*",
+                "com.sun.*",
+                "org.apache.logging.log4j.core.config.xml.*"
+        })
 public class RbbFilmTaskTest extends RbbTaskTestBase {
-
-  @Parameterized.Parameters
-  public static Collection<Object[]> data() {
-    return Arrays.asList(
-        new Object[][]{
-            {
-                "http://mediathek.rbb-online.de/tv/Film-im-rbb/Zwei-Millionen-suchen-einen-Vater/rbb-Fernsehen/Video?bcastId=10009780&documentId=50543576",
-                "/rbb/rbb_film_with_subtitle.html",
-                "/play/media/50543576?devicetype=pc&features=hls",
-                "/rbb/rbb_film_with_subtitle.json",
-                "Film im rbb",
-                "Zwei Millionen suchen einen Vater",
-                "Eine gewitzte Hotelinhaberin tut alles, um das Sorgerecht für ihren Schützling zu bekommen. ",
-                LocalDateTime.of(2018, 3, 3, 14, 25, 0),
-                Duration.ofHours(1).plusMinutes(28).plusSeconds(41),
-                "https://rbbmediapmdp-a.akamaihd.net/content/a0/93/a093d994-0ab0-498a-ae83-8e7647daa5db/3ccbfc08-3235-418f-9406-6c56cb89bb92_512k.mp4",
-                "https://rbbmediapmdp-a.akamaihd.net/content/a0/93/a093d994-0ab0-498a-ae83-8e7647daa5db/3ccbfc08-3235-418f-9406-6c56cb89bb92_1800k.mp4",
-                "",
-                "http://mediathek.rbb-online.de/subtitle/217501",
-                GeoLocations.GEO_NONE
-            }
-        });
-  }
 
   private final String requestUrl;
   private final String htmlPage;
@@ -71,10 +55,21 @@ public class RbbFilmTaskTest extends RbbTaskTestBase {
   private final String expectedSubtitle;
   private final GeoLocations expectedGeo;
 
-  public RbbFilmTaskTest(final String aRequestUrl, final String aHtmlPage, final String aJsonUrl, final String aJsonFile,
-      final String aExpectedTopic, final String aExpectedTitle, final String aExpectedDescription, final LocalDateTime aExpectedTime,
-      final Duration aExpectedDuration, final String aExpectedUrlSmall, final String aExpectedUrlNormal, final String aExpectedUrlHd,
-      final String aExpectedSubtitle, final GeoLocations aExpectedGeo) {
+    public RbbFilmTaskTest(
+            final String aRequestUrl,
+            final String aHtmlPage,
+            final String aJsonUrl,
+            final String aJsonFile,
+            final String aExpectedTopic,
+            final String aExpectedTitle,
+            final String aExpectedDescription,
+            final LocalDateTime aExpectedTime,
+            final Duration aExpectedDuration,
+            final String aExpectedUrlSmall,
+            final String aExpectedUrlNormal,
+            final String aExpectedUrlHd,
+            final String aExpectedSubtitle,
+            final GeoLocations aExpectedGeo) {
     requestUrl = aRequestUrl;
     htmlPage = aHtmlPage;
     jsonUrl = aJsonUrl;
@@ -91,6 +86,29 @@ public class RbbFilmTaskTest extends RbbTaskTestBase {
     expectedGeo = aExpectedGeo;
   }
 
+    @Parameterized.Parameters
+    public static Collection<Object[]> data() {
+        return Arrays.asList(
+                new Object[][]{
+                        {
+                                "http://mediathek.rbb-online.de/tv/Film-im-rbb/Zwei-Millionen-suchen-einen-Vater/rbb-Fernsehen/Video?bcastId=10009780&documentId=50543576",
+                                "/rbb/rbb_film_with_subtitle.html",
+                                "/play/media/50543576?devicetype=pc&features=hls",
+                                "/rbb/rbb_film_with_subtitle.json",
+                                "Film im rbb",
+                                "Zwei Millionen suchen einen Vater",
+                                "Eine gewitzte Hotelinhaberin tut alles, um das Sorgerecht für ihren Schützling zu bekommen. ",
+                                LocalDateTime.of(2018, 3, 3, 14, 25, 0),
+                                Duration.ofHours(1).plusMinutes(28).plusSeconds(41),
+                                "https://rbbmediapmdp-a.akamaihd.net/content/a0/93/a093d994-0ab0-498a-ae83-8e7647daa5db/3ccbfc08-3235-418f-9406-6c56cb89bb92_512k.mp4",
+                                "https://rbbmediapmdp-a.akamaihd.net/content/a0/93/a093d994-0ab0-498a-ae83-8e7647daa5db/3ccbfc08-3235-418f-9406-6c56cb89bb92_1800k.mp4",
+                                "",
+                                "http://mediathek.rbb-online.de/subtitle/217501",
+                                GeoLocations.GEO_NONE
+                        }
+                });
+    }
+
   @Test
   public void test() throws IOException, ExecutionException, InterruptedException {
     JsoupMock.mock(requestUrl, htmlPage);
@@ -99,12 +117,24 @@ public class RbbFilmTaskTest extends RbbTaskTestBase {
     final ConcurrentLinkedQueue<CrawlerUrlDTO> urls = new ConcurrentLinkedQueue<>();
     urls.add(new CrawlerUrlDTO(requestUrl));
 
-    final RbbFilmTask target = new RbbFilmTask(createCrawler(), urls, WireMockTestBase.MOCK_URL_BASE);
+      final RbbFilmTask target =
+              new RbbFilmTask(createCrawler(), urls, WireMockTestBase.MOCK_URL_BASE);
     final Set<Film> actual = target.invoke();
 
     assertThat(actual.size(), equalTo(1));
-    AssertFilm.assertEquals(actual.iterator().next(), Sender.RBB, expectedTopic, expectedTitle, expectedTime, expectedDuration,
+      AssertFilm.assertEquals(
+              actual.iterator().next(),
+              Sender.RBB,
+              expectedTopic,
+              expectedTitle,
+              expectedTime,
+              expectedDuration,
         expectedDescription,
-        requestUrl, new GeoLocations[]{expectedGeo}, expectedUrlSmall, expectedUrlNormal, expectedUrlHd, expectedSubtitle);
+              requestUrl,
+              new GeoLocations[]{expectedGeo},
+              expectedUrlSmall,
+              expectedUrlNormal,
+              expectedUrlHd,
+              expectedSubtitle);
   }
 }

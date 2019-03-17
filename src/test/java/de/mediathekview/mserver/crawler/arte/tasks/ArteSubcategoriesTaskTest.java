@@ -1,18 +1,8 @@
 package de.mediathekview.mserver.crawler.arte.tasks;
 
 import de.mediathekview.mlib.daten.Sender;
-import de.mediathekview.mserver.base.config.MServerConfigDTO;
-import de.mediathekview.mserver.base.config.MServerConfigManager;
 import de.mediathekview.mserver.crawler.basic.TopicUrlDTO;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.Mock;
-import org.mockito.Mockito;
-import org.mockito.junit.MockitoJUnitRunner;
-import org.powermock.api.mockito.PowerMockito;
-import org.powermock.core.classloader.annotations.PowerMockIgnore;
-import org.powermock.core.classloader.annotations.PrepareForTest;
-import org.powermock.modules.junit4.PowerMockRunner;
 
 import java.util.Set;
 
@@ -25,7 +15,7 @@ public class ArteSubcategoriesTaskTest extends ArteTaskTestBase {
 
   @Test
   public void testOverviewWithSinglePage() {
-    String requestUrl = "/api/opa/v3/subcategories?language=de&limit=5";
+      final String requestUrl = "/api/opa/v3/subcategories?language=de&limit=5";
     setupSuccessfulJsonResponse(requestUrl, "/arte/arte_subcategory_page_last.json");
 
     final Set<TopicUrlDTO> actual = executeTask(requestUrl);
@@ -39,7 +29,7 @@ public class ArteSubcategoriesTaskTest extends ArteTaskTestBase {
 
     rootConfig.getConfig().setMaximumSubpages(5);
 
-    String requestUrl = "/api/opa/v3/subcategories?language=de&limit=5";
+      final String requestUrl = "/api/opa/v3/subcategories?language=de&limit=5";
     setupSuccessfulJsonResponse(requestUrl, "/arte/arte_subcategory_page1.json");
     setupSuccessfulJsonResponse(
         "/api/opa/v3/subcategories?language=de&limit=5&page=2",
@@ -58,7 +48,7 @@ public class ArteSubcategoriesTaskTest extends ArteTaskTestBase {
   public void testOverviewWithMultiplePagesLimitSubpagesSmallerThanSubpageCount() {
     rootConfig.getSenderConfig(Sender.ARTE_DE).setMaximumSubpages(2);
 
-    String requestUrl = "/api/opa/v3/subcategories?language=de&limit=5";
+      final String requestUrl = "/api/opa/v3/subcategories?language=de&limit=5";
     setupSuccessfulJsonResponse(requestUrl, "/arte/arte_subcategory_page1.json");
     setupSuccessfulJsonResponse(
         "/api/opa/v3/subcategories?language=de&limit=5&page=2",
@@ -72,7 +62,7 @@ public class ArteSubcategoriesTaskTest extends ArteTaskTestBase {
 
   @Test
   public void testOverviewPageNotFound() {
-    String requestUrl = "/api/opa/v3/subcategories?language=de&limit=5";
+      final String requestUrl = "/api/opa/v3/subcategories?language=de&limit=5";
 
     wireMockRule.stubFor(
         get(urlEqualTo(requestUrl)).willReturn(aResponse().withStatus(404).withBody("Not Found")));
@@ -82,7 +72,7 @@ public class ArteSubcategoriesTaskTest extends ArteTaskTestBase {
     assertThat(actual.size(), equalTo(0));
   }
 
-  private Set<TopicUrlDTO> executeTask(String aRequestUrl) {
+    private Set<TopicUrlDTO> executeTask(final String aRequestUrl) {
     return new ArteSubcategoriesTask(createCrawler(), createCrawlerUrlDto(aRequestUrl)).invoke();
   }
 }
