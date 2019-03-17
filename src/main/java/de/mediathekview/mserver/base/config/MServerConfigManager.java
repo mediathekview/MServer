@@ -12,19 +12,19 @@ public class MServerConfigManager extends ConfigManager<MServerConfigDTO>
     public static final String DEFAULT_CONFIG_FILE = "MServer-Config.yaml";
     private static MServerConfigManager instance;
     private String configFileName;
-    
+
     public static MServerConfigManager getInstance(String fileName) {
         if(null == instance) {
            instance = new MServerConfigManager(fileName);
         }
         return instance;
     }
-    
+
     public static MServerConfigManager getInstance() {
         return getInstance(DEFAULT_CONFIG_FILE);
     }
 
-    
+
     private MServerConfigManager(String fileName)
     {
         super();

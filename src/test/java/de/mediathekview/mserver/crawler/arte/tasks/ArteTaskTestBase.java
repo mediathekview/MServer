@@ -5,12 +5,13 @@ import de.mediathekview.mserver.base.config.MServerConfigManager;
 import de.mediathekview.mserver.crawler.arte.ArteCrawler;
 import de.mediathekview.mserver.progress.listeners.SenderProgressListener;
 import de.mediathekview.mserver.testhelper.WireMockTestBase;
+import org.mockito.Mock;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.concurrent.ForkJoinPool;
 
 public abstract class ArteTaskTestBase extends WireMockTestBase {
-
   protected MServerConfigManager rootConfig = MServerConfigManager.getInstance("MServer-JUnit-Config.yaml");
 
   protected ArteCrawler createCrawler() {

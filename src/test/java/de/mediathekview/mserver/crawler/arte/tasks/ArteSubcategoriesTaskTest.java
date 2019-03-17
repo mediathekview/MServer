@@ -1,15 +1,25 @@
 package de.mediathekview.mserver.crawler.arte.tasks;
 
-import static com.github.tomakehurst.wiremock.client.WireMock.aResponse;
-import static com.github.tomakehurst.wiremock.client.WireMock.get;
-import static com.github.tomakehurst.wiremock.client.WireMock.urlEqualTo;
+import de.mediathekview.mlib.daten.Sender;
+import de.mediathekview.mserver.base.config.MServerConfigDTO;
+import de.mediathekview.mserver.base.config.MServerConfigManager;
+import de.mediathekview.mserver.crawler.basic.TopicUrlDTO;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.Mock;
+import org.mockito.Mockito;
+import org.mockito.junit.MockitoJUnitRunner;
+import org.powermock.api.mockito.PowerMockito;
+import org.powermock.core.classloader.annotations.PowerMockIgnore;
+import org.powermock.core.classloader.annotations.PrepareForTest;
+import org.powermock.modules.junit4.PowerMockRunner;
+
+import java.util.Set;
+
+import static com.github.tomakehurst.wiremock.client.WireMock.*;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.Matchers.notNullValue;
 import static org.junit.Assert.assertThat;
-
-import de.mediathekview.mserver.crawler.basic.TopicUrlDTO;
-import java.util.Set;
-import org.junit.Test;
 
 public class ArteSubcategoriesTaskTest extends ArteTaskTestBase {
 
@@ -31,8 +41,12 @@ public class ArteSubcategoriesTaskTest extends ArteTaskTestBase {
 
     String requestUrl = "/api/opa/v3/subcategories?language=de&limit=5";
     setupSuccessfulJsonResponse(requestUrl, "/arte/arte_subcategory_page1.json");
-    setupSuccessfulJsonResponse("/api/opa/v3/subcategories?language=de&limit=5&page=2", "/arte/arte_subcategory_page2.json");
-    setupSuccessfulJsonResponse("/api/opa/v3/subcategories?language=de&limit=5&page=3", "/arte/arte_subcategory_page_last.json");
+    setupSuccessfulJsonResponse(
+        "/api/opa/v3/subcategories?language=de&limit=5&page=2",
+        "/arte/arte_subcategory_page2.json");
+    setupSuccessfulJsonResponse(
+        "/api/opa/v3/subcategories?language=de&limit=5&page=3",
+        "/arte/arte_subcategory_page_last.json");
 
     final Set<TopicUrlDTO> actual = executeTask(requestUrl);
 
@@ -42,14 +56,14 @@ public class ArteSubcategoriesTaskTest extends ArteTaskTestBase {
 
   @Test
   public void testOverviewWithMultiplePagesLimitSubpagesSmallerThanSubpageCount() {
-
+    rootConfig.getSenderConfig(Sender.ARTE_DE).setMaximumSubpages(2);
 
     String requestUrl = "/api/opa/v3/subcategories?language=de&limit=5";
     setupSuccessfulJsonResponse(requestUrl, "/arte/arte_subcategory_page1.json");
-    setupSuccessfulJsonResponse("/api/opa/v3/subcategories?language=de&limit=5&page=2", "/arte/arte_subcategory_page2.json");
-    setupSuccessfulJsonResponse("/api/opa/v3/subcategories?language=de&limit=5&page=3", "/arte/arte_subcategory_page_last.json");
+    setupSuccessfulJsonResponse(
+        "/api/opa/v3/subcategories?language=de&limit=5&page=2",
+        "/arte/arte_subcategory_page2.json");
 
-    rootConfig.getConfig().setMaximumSubpages(2);
     final Set<TopicUrlDTO> actual = executeTask(requestUrl);
 
     assertThat(actual, notNullValue());
@@ -60,10 +74,8 @@ public class ArteSubcategoriesTaskTest extends ArteTaskTestBase {
   public void testOverviewPageNotFound() {
     String requestUrl = "/api/opa/v3/subcategories?language=de&limit=5";
 
-    wireMockRule.stubFor(get(urlEqualTo(requestUrl))
-        .willReturn(aResponse()
-            .withStatus(404)
-            .withBody("Not Found")));
+    wireMockRule.stubFor(
+        get(urlEqualTo(requestUrl)).willReturn(aResponse().withStatus(404).withBody("Not Found")));
 
     final Set<TopicUrlDTO> actual = executeTask(requestUrl);
     assertThat(actual, notNullValue());

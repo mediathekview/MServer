@@ -1,10 +1,14 @@
 package de.mediathekview.mserver.crawler.arte.tasks;
 
+import de.mediathekview.mlib.daten.Sender;
+import de.mediathekview.mserver.base.config.MServerConfigManager;
 import de.mediathekview.mserver.crawler.arte.ArteFilmUrlDto;
 import de.mediathekview.mserver.crawler.arte.ArteLanguage;
 import de.mediathekview.mserver.crawler.basic.TopicUrlDTO;
 import de.mediathekview.mserver.testhelper.WireMockTestBase;
 import org.junit.Test;
+import org.mockito.Mock;
+import org.powermock.reflect.Whitebox;
 
 import java.util.Set;
 import java.util.concurrent.ConcurrentLinkedQueue;
@@ -15,6 +19,8 @@ import static org.hamcrest.Matchers.notNullValue;
 import static org.junit.Assert.assertThat;
 
 public class ArteSubcategoryVideosTaskTest extends ArteTaskTestBase {
+  @Mock
+  MServerConfigManager configManager;
 
   @Test
   public void testOverviewWithSinglePage() {
@@ -46,10 +52,12 @@ public class ArteSubcategoryVideosTaskTest extends ArteTaskTestBase {
 
   @Test
   public void testOverviewWithMultiplePagesLimitSubpagesSmallerThanSubpageCount() {
+    rootConfig.getSenderConfig(Sender.ARTE_DE).setMaximumSubpages(1);
+    Whitebox.setInternalState(MServerConfigManager.class, "instance", configManager);
+
     String requestUrl = "/guide/api/api/zones/de/videos_subcategory/?id=ART&limit=100&page=1";
     setupSuccessfulJsonResponse(requestUrl, "/arte/arte_subcategory_films_page1.json");
 
-    rootConfig.getConfig().setMaximumSubpages(1);
     final Set<ArteFilmUrlDto> actual = executeTask(requestUrl, "ART", ArteLanguage.DE);
 
     assertThat(actual, notNullValue());

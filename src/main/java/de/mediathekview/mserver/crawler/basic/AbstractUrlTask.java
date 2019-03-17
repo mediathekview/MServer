@@ -29,10 +29,4 @@ public abstract class AbstractUrlTask<T, D extends CrawlerUrlDTO> extends Abstra
 	protected Integer getMaxElementsToProcess() {
 		return config.getMaximumUrlsPerTask();
 	}
-
-	@Deprecated
-	protected void processElement(final D aDTO) {
-		processElement(aDTO);
-	}
-
 }
