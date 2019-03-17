@@ -1,11 +1,15 @@
 package de.mediathekview.mserver.crawler.wdr.tasks;
 
+import de.mediathekview.mlib.daten.Sender;
+import de.mediathekview.mserver.base.config.MServerConfigManager;
+import de.mediathekview.mserver.crawler.wdr.WdrCrawler;
 import de.mediathekview.mserver.crawler.wdr.WdrTopicUrlDto;
 import de.mediathekview.mserver.testhelper.JsoupMock;
 import org.hamcrest.Matchers;
 import org.jsoup.Jsoup;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.Mockito;
 import org.powermock.core.classloader.annotations.PowerMockIgnore;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
@@ -57,8 +61,10 @@ public class WdrLetterPageTaskTest {
           "https://www1.wdr.de/mediathek/video/sendungen/unser-westen/index.html",
           false)
     };
-
-    final WdrLetterPageTask target = new WdrLetterPageTask();
+    final WdrCrawler crawler = Mockito.mock(WdrCrawler.class);
+    Mockito.when(crawler.getCrawlerConfig())
+        .thenReturn(MServerConfigManager.getInstance().getSenderConfig(Sender.WDR));
+    final WdrLetterPageTask target = new WdrLetterPageTask(crawler);
     final Queue<WdrTopicUrlDto> actual = target.call();
 
     assertThat(actual.size(), equalTo(expected.length));

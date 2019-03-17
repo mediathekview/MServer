@@ -8,12 +8,11 @@ import de.mediathekview.mserver.base.messages.ServerMessages;
 import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
 import de.mediathekview.mserver.crawler.basic.CrawlerUrlDTO;
 import de.mediathekview.mserver.crawler.basic.TopicUrlDTO;
-import de.mediathekview.mserver.crawler.wdr.tasks.WdrDayPageTask;
-import de.mediathekview.mserver.crawler.wdr.tasks.WdrFilmDetailTask;
-import de.mediathekview.mserver.crawler.wdr.tasks.WdrLetterPageTask;
-import de.mediathekview.mserver.crawler.wdr.tasks.WdrRadioPageTask;
-import de.mediathekview.mserver.crawler.wdr.tasks.WdrTopicOverviewTask;
+import de.mediathekview.mserver.crawler.wdr.tasks.*;
 import de.mediathekview.mserver.progress.listeners.SenderProgressListener;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
@@ -23,17 +22,16 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ForkJoinPool;
 import java.util.concurrent.RecursiveTask;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 public class WdrCrawler extends AbstractCrawler {
-  
-  private static final Logger LOG = LogManager.getLogger(WdrCrawler.class);  
 
-  public WdrCrawler(ForkJoinPool aForkJoinPool,
-                    Collection<MessageListener> aMessageListeners,
-                    Collection<SenderProgressListener> aProgressListeners,
-                    MServerConfigManager rootConfig) {
+  private static final Logger LOG = LogManager.getLogger(WdrCrawler.class);
+
+  public WdrCrawler(
+      final ForkJoinPool aForkJoinPool,
+      final Collection<MessageListener> aMessageListeners,
+      final Collection<SenderProgressListener> aProgressListeners,
+      final MServerConfigManager rootConfig) {
     super(aForkJoinPool, aMessageListeners, aProgressListeners, rootConfig);
   }
 
@@ -45,74 +43,88 @@ public class WdrCrawler extends AbstractCrawler {
   @Override
   protected RecursiveTask<Set<Film>> createCrawlerTask() {
     try {
-      ConcurrentLinkedQueue<TopicUrlDTO> shows = new ConcurrentLinkedQueue<>();
+      final ConcurrentLinkedQueue<TopicUrlDTO> shows = new ConcurrentLinkedQueue<>();
       shows.addAll(getOrchestraEntries());
       shows.addAll(getDaysEntries());
-      
-      getLetterPageEntries().forEach(show -> {
-        if (!shows.contains(show)) {
-          shows.add(show);
-        }
-      });
-      
-      printMessage(ServerMessages.DEBUG_ALL_SENDUNG_FOLGEN_COUNT, getSender().getName(), shows.size());
+
+      getLetterPageEntries()
+          .forEach(
+              show -> {
+                if (!shows.contains(show)) {
+                  shows.add(show);
+                }
+              });
+
+      printMessage(
+          ServerMessages.DEBUG_ALL_SENDUNG_FOLGEN_COUNT, getSender().getName(), shows.size());
       getAndSetMaxCount(shows.size());
 
       return new WdrFilmDetailTask(this, shows);
-    } catch (InterruptedException | ExecutionException ex) {
+    } catch (final InterruptedException | ExecutionException ex) {
       LOG.fatal("Exception in WDR crawler.", ex);
     }
     return null;
   }
-  
-  private Set<TopicUrlDTO> getDaysEntries() throws InterruptedException, ExecutionException {
-    WdrDayPageTask dayTask = new WdrDayPageTask(this, getDayUrls());
-    Set<TopicUrlDTO> shows = forkJoinPool.submit(dayTask).get();
 
-    printMessage(ServerMessages.DEBUG_ALL_SENDUNG_FOLGEN_COUNT, getSender().getName(), shows.size());
-    
+  private Set<TopicUrlDTO> getDaysEntries() throws InterruptedException, ExecutionException {
+    final WdrDayPageTask dayTask = new WdrDayPageTask(this, getDayUrls());
+    final Set<TopicUrlDTO> shows = forkJoinPool.submit(dayTask).get();
+
+    printMessage(
+        ServerMessages.DEBUG_ALL_SENDUNG_FOLGEN_COUNT, getSender().getName(), shows.size());
+
     return shows;
   }
-  
+
   private Set<TopicUrlDTO> getLetterPageEntries() throws InterruptedException, ExecutionException {
-    WdrLetterPageTask letterTask = new WdrLetterPageTask();
-    ConcurrentLinkedQueue<WdrTopicUrlDto> letterPageEntries = new ConcurrentLinkedQueue<>();
+    final WdrLetterPageTask letterTask = new WdrLetterPageTask(this);
+    final ConcurrentLinkedQueue<WdrTopicUrlDto> letterPageEntries = new ConcurrentLinkedQueue<>();
     letterPageEntries.addAll(forkJoinPool.submit(letterTask).get());
 
-    WdrTopicOverviewTask overviewTask = new WdrTopicOverviewTask(this, letterPageEntries, 0);
-    Set<TopicUrlDTO> shows = forkJoinPool.submit(overviewTask).get();
+    final WdrTopicOverviewTask overviewTask = new WdrTopicOverviewTask(this, letterPageEntries, 0);
+    final Set<TopicUrlDTO> shows = forkJoinPool.submit(overviewTask).get();
 
-    printMessage(ServerMessages.DEBUG_ALL_SENDUNG_FOLGEN_COUNT, getSender().getName(), shows.size());
+    printMessage(
+        ServerMessages.DEBUG_ALL_SENDUNG_FOLGEN_COUNT, getSender().getName(), shows.size());
     return shows;
   }
-  
+
   private ConcurrentLinkedQueue<CrawlerUrlDTO> getDayUrls() {
     final ConcurrentLinkedQueue<CrawlerUrlDTO> urls = new ConcurrentLinkedQueue<>();
     for (int i = 0;
-         i <= crawlerConfig.getMaximumDaysForSendungVerpasstSection() + crawlerConfig.getMaximumDaysForSendungVerpasstSectionFuture();
-         i++) {
-      urls.add(new CrawlerUrlDTO(String.format(WdrConstants.URL_DAY,
-              LocalDateTime.now()
-                      .plus(crawlerConfig.getMaximumDaysForSendungVerpasstSectionFuture(), ChronoUnit.DAYS)
-                      .minus(i, ChronoUnit.DAYS).format(DateTimeFormatter.ofPattern("ddMMyyyy")))));
+        i
+            <= crawlerConfig.getMaximumDaysForSendungVerpasstSection()
+                + crawlerConfig.getMaximumDaysForSendungVerpasstSectionFuture();
+        i++) {
+      urls.add(
+          new CrawlerUrlDTO(
+              String.format(
+                  WdrConstants.URL_DAY,
+                  LocalDateTime.now()
+                      .plus(
+                          crawlerConfig.getMaximumDaysForSendungVerpasstSectionFuture(),
+                          ChronoUnit.DAYS)
+                      .minus(i, ChronoUnit.DAYS)
+                      .format(DateTimeFormatter.ofPattern("ddMMyyyy")))));
     }
 
     return urls;
-  }  
-  
+  }
+
   private Set<TopicUrlDTO> getOrchestraEntries() throws InterruptedException, ExecutionException {
-    ConcurrentLinkedQueue<CrawlerUrlDTO> urlToCrawl = new ConcurrentLinkedQueue<>();
-    ConcurrentLinkedQueue<WdrTopicUrlDto> topicOverviews = new ConcurrentLinkedQueue<>();
+    final ConcurrentLinkedQueue<CrawlerUrlDTO> urlToCrawl = new ConcurrentLinkedQueue<>();
+    final ConcurrentLinkedQueue<WdrTopicUrlDto> topicOverviews = new ConcurrentLinkedQueue<>();
 
     urlToCrawl.add(new CrawlerUrlDTO(WdrConstants.URL_RADIO_ORCHESTRA));
-    
-    WdrRadioPageTask radioPageTask = new WdrRadioPageTask(this, urlToCrawl);
+
+    final WdrRadioPageTask radioPageTask = new WdrRadioPageTask(this, urlToCrawl);
     topicOverviews.addAll(forkJoinPool.submit(radioPageTask).get());
-    
-    WdrTopicOverviewTask overviewTask = new WdrTopicOverviewTask(this, topicOverviews, 0);
-    Set<TopicUrlDTO> shows = forkJoinPool.submit(overviewTask).get();
-    
-    printMessage(ServerMessages.DEBUG_ALL_SENDUNG_FOLGEN_COUNT, getSender().getName(), shows.size());
+
+    final WdrTopicOverviewTask overviewTask = new WdrTopicOverviewTask(this, topicOverviews, 0);
+    final Set<TopicUrlDTO> shows = forkJoinPool.submit(overviewTask).get();
+
+    printMessage(
+        ServerMessages.DEBUG_ALL_SENDUNG_FOLGEN_COUNT, getSender().getName(), shows.size());
     return shows;
   }
 }

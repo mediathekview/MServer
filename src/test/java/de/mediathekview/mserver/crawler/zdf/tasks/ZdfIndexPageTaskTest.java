@@ -1,12 +1,16 @@
 package de.mediathekview.mserver.crawler.zdf.tasks;
 
+import de.mediathekview.mlib.daten.Sender;
+import de.mediathekview.mserver.base.config.MServerConfigManager;
 import de.mediathekview.mserver.crawler.zdf.ZdfConfiguration;
 import de.mediathekview.mserver.crawler.zdf.ZdfConstants;
+import de.mediathekview.mserver.crawler.zdf.ZdfCrawler;
 import de.mediathekview.mserver.testhelper.JsoupMock;
 import org.jsoup.Jsoup;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
+import org.mockito.Mockito;
 import org.powermock.core.classloader.annotations.PowerMockIgnore;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
@@ -49,7 +53,10 @@ public class ZdfIndexPageTaskTest {
     expectedBearerSearch = aExpectedBearerSearch;
     expectedBearerVideo = aExpectedBearerVideo;
 
-    target = new ZdfIndexPageTask();
+    final ZdfCrawler crawler = Mockito.mock(ZdfCrawler.class);
+    target = new ZdfIndexPageTask(crawler);
+    Mockito.when(crawler.getCrawlerConfig())
+        .thenReturn(MServerConfigManager.getInstance().getSenderConfig(Sender.ZDF));
   }
 
   @Parameterized.Parameters

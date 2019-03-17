@@ -1,19 +1,13 @@
 /*
  * BrGetClipIDsTask.java
- * 
+ *
  * Projekt    : MServer
  * erstellt am: 12.12.2017
  * Autor      : Sascha
- * 
+ *
  */
 package de.mediathekview.mserver.crawler.br.tasks;
 
-import java.net.URL;
-import java.util.Optional;
-import java.util.Set;
-import java.util.concurrent.Callable;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import de.mediathekview.mlib.communication.WebAccessHelper;
@@ -24,72 +18,89 @@ import de.mediathekview.mserver.crawler.br.data.BrClipCollectIDResult;
 import de.mediathekview.mserver.crawler.br.data.BrID;
 import de.mediathekview.mserver.crawler.br.json.BrClipIdsDeserializer;
 import de.mediathekview.mserver.crawler.br.json.BrIdsDTO;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
+import java.net.URL;
+import java.util.Optional;
+import java.util.Set;
+import java.util.concurrent.Callable;
 
 public class BrGetClipIDsTask implements Callable<Set<BrID>> {
 
-	private static final Logger LOG = LogManager.getLogger(BrGetClipIDsTask.class);
-	private static final int DEFAULT_NUMBER_IDS_PER_REQUEST = 10000;
+  private static final Logger LOG = LogManager.getLogger(BrGetClipIDsTask.class);
+  private static final int DEFAULT_NUMBER_IDS_PER_REQUEST = 10000;
 
-	private final AbstractCrawler crawler;
-	private BrClipCollectIDResult idCollectResult;
+  private final AbstractCrawler crawler;
+  private BrClipCollectIDResult idCollectResult;
 
-	public BrGetClipIDsTask(final AbstractCrawler crawler) {
-		this.crawler = crawler;
+  public BrGetClipIDsTask(final AbstractCrawler crawler) {
+    this.crawler = crawler;
+  }
 
-	}
+  @Override
+  public Set<BrID> call() throws Exception {
 
-	@Override
-	public Set<BrID> call() throws Exception {
+    idCollectResult = new BrClipCollectIDResult();
+    idCollectResult.setClipList(new BrIdsDTO());
 
-		idCollectResult = new BrClipCollectIDResult();
-		idCollectResult.setClipList(new BrIdsDTO());
+    BrWebAccessHelper.handleWebAccessExecution(
+        LOG,
+        crawler,
+        () -> {
+          final Gson gson =
+              new GsonBuilder()
+                  .registerTypeAdapter(
+                      BrClipCollectIDResult.class,
+                      new BrClipIdsDeserializer(crawler, idCollectResult))
+                  .create();
 
-		BrWebAccessHelper.handleWebAccessExecution(LOG, crawler, () -> {
+          int startingRequestSize = DEFAULT_NUMBER_IDS_PER_REQUEST;
 
-			final Gson gson = new GsonBuilder().registerTypeAdapter(BrClipCollectIDResult.class,
-					new BrClipIdsDeserializer(crawler, idCollectResult)).create();
+          do {
+            final Optional<URL> apiUrl =
+                crawler.getRuntimeConfig().getSingleCrawlerURL(CrawlerUrlType.BR_API_URL);
+            if (apiUrl.isPresent()) {
+              do {
 
-			int startingRequestSize = DEFAULT_NUMBER_IDS_PER_REQUEST;
+                final String response =
+                    WebAccessHelper.getJsonResultFromPostAccess(
+                        apiUrl.get(),
+                        BrGraphQLQueries.getQuery2GetAllClipIds(
+                            startingRequestSize, idCollectResult.getCursor()),
+                        crawler.getCrawlerConfig().getSocketTimeoutInSeconds());
 
-			do {
-				Optional<URL> apiUrl = crawler.getRuntimeConfig().getSingleCrawlerURL(CrawlerUrlType.BR_API_URL);
-				if (apiUrl.isPresent()) {
-					do {
+                idCollectResult = gson.fromJson(response, BrClipCollectIDResult.class);
 
-						final String response = WebAccessHelper.getJsonResultFromPostAccess(apiUrl.get(),
-								BrGraphQLQueries.getQuery2GetAllClipIds(startingRequestSize,
-										idCollectResult.getCursor()));
+                LOG.debug(
+                    "Zwischenstand: "
+                        + idCollectResult.getClipList().getIds().size()
+                        + " Cursor: "
+                        + idCollectResult.getCursor());
 
-						idCollectResult = gson.fromJson(response, BrClipCollectIDResult.class);
+                if (idCollectResult.getClipList().getIds().size()
+                    >= idCollectResult.getResultSize()) {
+                  break;
+                }
 
-						LOG.debug("Zwischenstand: " + idCollectResult.getClipList().getIds().size() + " Cursor: "
-								+ idCollectResult.getCursor());
+              } while (idCollectResult.hasNextPage());
+            } else {
+              crawler.printErrorMessage();
+              LOG.error("The BR Api URL wasn't set right.");
+            }
+            idCollectResult.setCursor(null);
 
-						if (idCollectResult.getClipList().getIds().size() >= idCollectResult.getResultSize()) {
-							break;
-						}
+            startingRequestSize = startingRequestSize * 4 / 5; // 80%
 
-					} while (idCollectResult.hasNextPage());
-				} else {
-					crawler.printErrorMessage();
-					LOG.error("The BR Api URL wasn't set right.");
-				}
-				idCollectResult.setCursor(null);
+            LOG.debug("Anzahl Elemente gemeldet:" + idCollectResult.getResultSize());
 
-				startingRequestSize = startingRequestSize * 4 / 5; // 80%
+          } while (idCollectResult.getClipList().getIds().size() < idCollectResult.getResultSize());
+        });
 
-				LOG.debug("Anzahl Elemente gemeldet:" + idCollectResult.getResultSize());
+    final Set<BrID> result = idCollectResult.getClipList().getIds();
 
-			} while (idCollectResult.getClipList().getIds().size() < idCollectResult.getResultSize());
+    LOG.debug("Elemente gefunden: " + result.size());
 
-		});
-
-		Set<BrID> result = idCollectResult.getClipList().getIds();
-
-		LOG.debug("Elemente gefunden: " + result.size());
-
-		return result;
-
-	}
-
+    return result;
+  }
 }
