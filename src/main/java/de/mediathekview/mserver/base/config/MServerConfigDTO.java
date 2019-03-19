@@ -77,7 +77,7 @@ public class MServerConfigDTO extends MServerBasicConfigDTO implements ConfigDTO
 
 		filmlistImporEnabled=true;
 		filmlistImportFormat = FilmlistFormats.OLD_JSON_COMPRESSED_XZ;
-		filmlistImportLocation = "https://verteiler1.mediathekview.de/Filmliste-akt.xz";
+		filmlistImportLocation = "";//https://verteiler1.mediathekview.de/Filmliste-akt.xz";
 	}
 
 	@Override

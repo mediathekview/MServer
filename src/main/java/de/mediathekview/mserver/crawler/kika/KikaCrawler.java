@@ -1,5 +1,6 @@
 package de.mediathekview.mserver.crawler.kika;
 
+import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
@@ -49,6 +50,13 @@ public class KikaCrawler extends AbstractCrawler {
   protected RecursiveTask<Set<Film>> createCrawlerTask() {
     final ConcurrentLinkedQueue<CrawlerUrlDTO> sendungsfolgenUrls = new ConcurrentLinkedQueue<>();
 
+    try {
+      sendungsfolgenUrls.addAll(getDaysEntries());
+    } catch (ExecutionException | InterruptedException ex) {
+      LOG.fatal("Exception in KIKA crawler.", ex);
+    }
+
+/*
     // Gathers all Sendungen
     final Set<CrawlerUrlDTO> sendungenOverviewPageUrls = new HashSet<>();
     sendungenOverviewPageUrls.add(new CrawlerUrlDTO(SENDUNGEN_OVERVIEW_PAGE_URL));
@@ -73,27 +81,15 @@ public class KikaCrawler extends AbstractCrawler {
     final ForkJoinTask<Set<CrawlerUrlDTO>> featureSendungsFolgenUrls =
         forkJoinPool.submit(sendungsfolgenOverviewPageTask);
     printMessage(ServerMessages.DEBUG_KIKA_SENDUNG_VERPASST_OVERVIEWPAGES, getSender().getName());
-    final KikaSendungVerpasstOverviewUrlTask sendungVerpasstOverviewUrlTask =
-        new KikaSendungVerpasstOverviewUrlTask(this);
-    try {
-      final Set<CrawlerUrlDTO> sendungVerpasstOverviewUrls =
-          forkJoinPool.submit(sendungVerpasstOverviewUrlTask).get();
-      printMessage(ServerMessages.DEBUG_KIKA_SENDUNG_VERPASST_PAGES,
-          sendungVerpasstOverviewUrls.size(), getSender().getName());
-      final KikaSendungVerpasstTask sendungVerpasstTask = new KikaSendungVerpasstTask(this,
-          new ConcurrentLinkedQueue<>(sendungVerpasstOverviewUrls));
-      sendungsfolgenUrls.addAll(forkJoinPool.invoke(sendungVerpasstTask));
-    } catch (InterruptedException | ExecutionException exception) {
-      LOG.fatal(
-          "Something wen't terrible wrong on gathering the \"verpasste Sendungen\" overview page URLs.");
-      printErrorMessage();
-    }
-    try {
+*/
+
+    /*try {
       sendungsfolgenUrls.addAll(featureSendungsFolgenUrls.get());
     } catch (InterruptedException | ExecutionException exception) {
       LOG.fatal("Something wen't terrible wrong on gathering the Sendungsfolgen.");
       printErrorMessage();
-    }
+    }*/
+
     printMessage(ServerMessages.DEBUG_KIKA_SENDUNGSFOLGEN_URL_CONVERTING, getSender().getName());
     final KikaSendungsfolgeVideoUrlTask sendungsfolgeVideoUrlsTask =
         new KikaSendungsfolgeVideoUrlTask(this, sendungsfolgenUrls);
@@ -105,4 +101,23 @@ public class KikaCrawler extends AbstractCrawler {
         new ConcurrentLinkedQueue<>(sendungsfolgeVideoUrls));
   }
 
+
+  private Set<CrawlerUrlDTO> getDaysEntries() throws ExecutionException, InterruptedException {
+    final Set<CrawlerUrlDTO> filmUrls = new HashSet<>();
+
+    final KikaSendungVerpasstOverviewUrlTask daysOverviewUrlTask =
+        new KikaSendungVerpasstOverviewUrlTask(this, LocalDateTime.now());
+
+    final Set<CrawlerUrlDTO> daysUrls =
+        forkJoinPool.submit(daysOverviewUrlTask).get();
+    printMessage(ServerMessages.DEBUG_KIKA_SENDUNG_VERPASST_PAGES, daysUrls.size(), getSender().getName());
+
+    final KikaSendungVerpasstTask dayTask = new KikaSendungVerpasstTask(this,
+        new ConcurrentLinkedQueue<>(daysUrls), KikaConstants.BASE_URL);
+    filmUrls.addAll(forkJoinPool.invoke(dayTask));
+
+    printMessage(ServerMessages.DEBUG_ALL_SENDUNG_FOLGEN_COUNT, getSender().getName(), filmUrls.size());
+
+    return filmUrls;
+  }
 }
