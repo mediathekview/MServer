@@ -20,7 +20,7 @@ public class OrfLetterPageTask implements Callable<ConcurrentLinkedQueue<TopicUr
 
   private static final Logger LOG = LogManager.getLogger(OrfLetterPageTask.class);
 
-  private static final String SHOW_URL_SELECTOR = "ul.latest_episodes > li.latest_episode > a";
+  private static final String SHOW_URL_SELECTOR = "article > a";
   private final AbstractCrawler crawler;
 
   /** @param aCrawler The crawler which uses this task. */
@@ -56,6 +56,8 @@ public class OrfLetterPageTask implements Callable<ConcurrentLinkedQueue<TopicUr
             results.addAll(parseOverviewPage(subpageDocument));
           } catch (final IOException ex) {
             LOG.fatal("OrfLetterPageTask: error parsing url " + url, ex);
+          } catch(NullPointerException e) {
+            LOG.fatal(e);
           }
         });
 

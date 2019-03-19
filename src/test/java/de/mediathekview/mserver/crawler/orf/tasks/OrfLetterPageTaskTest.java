@@ -1,11 +1,18 @@
 package de.mediathekview.mserver.crawler.orf.tasks;
 
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.CoreMatchers.notNullValue;
+import static org.junit.Assert.assertThat;
+
 import de.mediathekview.mlib.daten.Sender;
 import de.mediathekview.mserver.base.config.MServerConfigManager;
 import de.mediathekview.mserver.crawler.basic.TopicUrlDTO;
 import de.mediathekview.mserver.crawler.orf.OrfConstants;
 import de.mediathekview.mserver.crawler.orf.OrfCrawler;
 import de.mediathekview.mserver.testhelper.JsoupMock;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.concurrent.ConcurrentLinkedQueue;
 import org.hamcrest.Matchers;
 import org.jsoup.Jsoup;
 import org.junit.Test;
@@ -14,13 +21,6 @@ import org.mockito.Mockito;
 import org.powermock.core.classloader.annotations.PowerMockIgnore;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
-
-import java.util.HashMap;
-import java.util.Map;
-import java.util.concurrent.ConcurrentLinkedQueue;
-
-import static org.hamcrest.CoreMatchers.notNullValue;
-import static org.junit.Assert.assertThat;
 
 @RunWith(PowerMockRunner.class)
 @PrepareForTest({Jsoup.class})
@@ -38,42 +38,32 @@ public class OrfLetterPageTaskTest {
   private final TopicUrlDTO[] expectedUrls =
       new TopicUrlDTO[] {
         new TopicUrlDTO(
-            "ABC Bär", "http://tvthek.orf.at/profile/ABC-Baer/4611813/ABC-Baer/13962996"),
-        new TopicUrlDTO(
-            "ABC Bär", "http://tvthek.orf.at/profile/ABC-Baer/4611813/ABC-Baer/13962935"),
-        new TopicUrlDTO(
-            "Ungarisches Magazin: Adj'Isten magyarok",
-            "http://tvthek.orf.at/profile/AdjIsten-magyarok/13886441/Ungarisches-Magazin-AdjIsten-magyarok/13961067"),
+            "Adj'Isten magyarok",
+            "https://tvthek.orf.at/profile/AdjIsten-magyarok/13886441/AdjIsten-magyarok/14007007"),
         new TopicUrlDTO(
             "Aktuell in Österreich",
-            "http://tvthek.orf.at/profile/Aktuell-in-Oesterreich/13887571/Aktuell-in-Oesterreich/13962830"),
+            "https://tvthek.orf.at/profile/Aktuell-in-Oesterreich/13887571/Aktuell-in-Oesterreich/14007906"),
         new TopicUrlDTO(
-            "Aktuell in Österreich",
-            "http://tvthek.orf.at/profile/Aktuell-in-Oesterreich/13887571/Aktuell-in-Oesterreich/13962694"),
+            "Alltagsgeschichten",
+            "https://tvthek.orf.at/profile/Alltagsgeschichten/13887428/Alltagsgeschichte-Am-Wuerstelstand/14007519"),
         new TopicUrlDTO(
-            "Aktuell in Österreich",
-            "http://tvthek.orf.at/profile/Aktuell-in-Oesterreich/13887571/Aktuell-in-Oesterreich/13962553"),
+            "Alpine Ski World Cup Magazin",
+            "https://tvthek.orf.at/profile/Alpine-Ski-World-Cup-Magazin/13889761/FIS-Alpine-SKI-World-Cup-Magazin-2018-2019-Folge-16/14007422"),
         new TopicUrlDTO(
-            "Aktuell in Österreich",
-            "http://tvthek.orf.at/profile/Aktuell-in-Oesterreich/13887571/Aktuell-in-Oesterreich/13962390"),
+            "Am Schauplatz Gericht",
+            "https://tvthek.orf.at/profile/Am-Schauplatz-Gericht/13886290/Am-Schauplatz-Gericht-Der-glaubt-ich-bin-deppert/14007403"),
         new TopicUrlDTO(
-            "Aktuell in Österreich",
-            "http://tvthek.orf.at/profile/Aktuell-in-Oesterreich/13887571/Aktuell-in-Oesterreich/13962219"),
-        new TopicUrlDTO(
-            "Am Schauplatz",
-            "http://tvthek.orf.at/profile/Am-Schauplatz/1239/Am-Schauplatz-Vor-dem-Nichts-Wenn-die-Delogierung-droht/13962716"),
-        new TopicUrlDTO(
-            "Aufgetischt am Sonntag",
-            "http://tvthek.orf.at/profile/Aufgetischt/13886333/Aufgetischt-am-Sonntag-Der-Grossglockner/13963022"),
+            "Aufgetischt",
+            "https://tvthek.orf.at/profile/Aufgetischt/13886333/Aufgetischt-am-Sonntag-Dornbirn/14007714"),
         new TopicUrlDTO(
             "Aus dem Rahmen",
-            "http://tvthek.orf.at/profile/Aus-dem-Rahmen/3078207/Aus-dem-Rahmen-650-Jahre-Nationalbibliothek/13962409"),
+            "https://tvthek.orf.at/profile/Aus-dem-Rahmen/3078207/Aus-dem-Rahmen-Kunst-Karl-und-die-Basken-Das-Guggenheim-Museum-in-Bilbao/14007927"),
         new TopicUrlDTO(
             "Autofocus",
-            "http://tvthek.orf.at/profile/Autofocus/13886508/Autofocus-Entspannter-Reisen-durch-autonomes-Fahren/13962578"),
+            "https://tvthek.orf.at/profile/Autofocus/13886508/Autofocus-LKW-Gas-und-Strom-statt-Diesel/14007294"),
         new TopicUrlDTO(
-            "100 Jahre Simpl",
-            "http://tvthek.orf.at/profile/100-Jahre-Simpl/13888311/100-Jahre-Simpl/13962984")
+            "Yoga-Magazin",
+            "https://tvthek.orf.at/profile/Yoga-Magazin/7708946/Das-Yoga-Magazin-Folge-110/14007507")
       };
 
   @Test
@@ -84,8 +74,6 @@ public class OrfLetterPageTaskTest {
     final OrfLetterPageTask target = new OrfLetterPageTask(crawler);
 
     final Map<String, String> urlMapping = new HashMap<>();
-    urlMapping.put(
-        OrfConstants.URL_SHOW_LETTER_PAGE, "/orf/orf_letter_multiple_themes_multiple_films.html");
     urlMapping.put(
         OrfConstants.URL_SHOW_LETTER_PAGE + "A",
         "/orf/orf_letter_multiple_themes_multiple_films.html");
@@ -104,6 +92,7 @@ public class OrfLetterPageTaskTest {
     urlMapping.put(OrfConstants.URL_SHOW_LETTER_PAGE + "N", ORF_EMPTY_PAGE);
     urlMapping.put(OrfConstants.URL_SHOW_LETTER_PAGE + "O", ORF_EMPTY_PAGE);
     urlMapping.put(OrfConstants.URL_SHOW_LETTER_PAGE + "P", ORF_EMPTY_PAGE);
+    urlMapping.put(OrfConstants.URL_SHOW_LETTER_PAGE + "Q", ORF_EMPTY_PAGE);
     urlMapping.put(OrfConstants.URL_SHOW_LETTER_PAGE + "R", ORF_EMPTY_PAGE);
     urlMapping.put(OrfConstants.URL_SHOW_LETTER_PAGE + "S", ORF_EMPTY_PAGE);
     urlMapping.put(OrfConstants.URL_SHOW_LETTER_PAGE + "T", ORF_EMPTY_PAGE);
@@ -111,14 +100,15 @@ public class OrfLetterPageTaskTest {
     urlMapping.put(OrfConstants.URL_SHOW_LETTER_PAGE + "V", ORF_EMPTY_PAGE);
     urlMapping.put(OrfConstants.URL_SHOW_LETTER_PAGE + "W", ORF_EMPTY_PAGE);
     urlMapping.put(OrfConstants.URL_SHOW_LETTER_PAGE + "X", ORF_EMPTY_PAGE);
-    urlMapping.put(OrfConstants.URL_SHOW_LETTER_PAGE + "Y", ORF_EMPTY_PAGE);
-    urlMapping.put(OrfConstants.URL_SHOW_LETTER_PAGE + "Z", ORF_EMPTY_PAGE);
     urlMapping.put(
-        OrfConstants.URL_SHOW_LETTER_PAGE + "0", "/orf/orf_letter_single_theme_single_film.html");
+        OrfConstants.URL_SHOW_LETTER_PAGE + "Y", "/orf/orf_letter_single_theme_single_film.html");
+    urlMapping.put(OrfConstants.URL_SHOW_LETTER_PAGE + "Z", ORF_EMPTY_PAGE);
+    urlMapping.put(OrfConstants.URL_SHOW_LETTER_PAGE + "0", ORF_EMPTY_PAGE);
 
     JsoupMock.mock(urlMapping);
     final ConcurrentLinkedQueue<TopicUrlDTO> actual = target.call();
     assertThat(actual, notNullValue());
+    assertThat(actual.size(), equalTo(expectedUrls.length));
     assertThat(actual, Matchers.containsInAnyOrder(expectedUrls));
   }
 }

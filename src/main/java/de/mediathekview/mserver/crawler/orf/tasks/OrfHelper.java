@@ -14,7 +14,7 @@ import org.jsoup.select.Elements;
  */
 public class OrfHelper {
   
-  private static final String LETTER_URL_SELECTOR = "div.mod_name_list > ul.js_extra_content > li:not(.inactive) > a.base_list_item_inner";
+  private static final String LETTER_URL_SELECTOR = "li.letter-item > a";
   
   private OrfHelper() {}
   
