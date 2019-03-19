@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<avDocument>
+  <type>video</type>
+  <ivwEnabled>true</ivwEnabled>
+  <comScorePixelUrl />
+  <cmsTrackingUrl>/webapp/doTrack/pixel.png?docId=video66904&amp;amp;docPath=61927491-6ba8-4a70-b340-fb7c2f23f90f%7C444cffc5-eb31-45fa-abaa-b437bcce0afc%7C70744580-46d0-4e2e-8d69-35c018e9ff11%7C54023713-2ccd-4c57-929c-a6bb05b176ca%7Caa17e60a-f41d-48c9-a420-44ecfdcb71d4%7C86d97c06-323b-4cba-a5f7-f900eff30550%7Ca564c6f2-089f-42cd-8272-3480cc0febed&amp;amp;docType=video</cmsTrackingUrl>
+  <webTime>17.03.2019 18:39</webTime>
+  <language>de</language>
+  <styleSheets />
+  <headline>17. Der Teddy</headline>
+  <topline>Mama Fuchs und Papa Dachs</topline>
+  <title>17. Der Teddy</title>
+  <htmlUrl>https://www.kika.de/mama-fuchs-und-papa-dachs/sendungen/videos/video66904.html</htmlUrl>
+  <recommendUrl>https://www.kika.de/mama-fuchs-und-papa-dachs/sendungen/videos/video66904-recommendForm.html</recommendUrl>
+  <recommendFormUrl>https://www.kika.de/mama-fuchs-und-papa-dachs/sendungen/videos/video66904-recommendForm.html</recommendFormUrl>
+  <infoLayerUrl>https://www.kika.de/mama-fuchs-und-papa-dachs/sendungen/videos/video66904-infolayer.html</infoLayerUrl>
+  <mainVideoUrl>https://www.kika.de/mama-fuchs-und-papa-dachs/sendungen/videos/video66904-avCustom.xml</mainVideoUrl>
+  <offlineAvailable>false</offlineAvailable>
+  <relatedVideosUrl>https://www.kika.de/mama-fuchs-und-papa-dachs/sendungen/videos/video66904-related.html</relatedVideosUrl>
+  <agf-tracking>
+    <c0>0</c0>
+    <c2>N</c2>
+    <c5>https://www.kika.de/mama-fuchs-und-papa-dachs/sendungen/videos/video66904.html</c5>
+    <c7>VOIDf6246737-fa13-4990-b801-2706fb13c1b6</c7>
+    <c8>724</c8>
+    <c9>Mama Fuchs und Papa Dachs_17. Der Teddy_2019-03-17T18:35:00</c9>
+    <c10>KiKA</c10>
+    <c12>Content</c12>
+    <c14>2019-03-17T18:35:00</c14>
+    <c15>431/19/004.104.357</c15>
+    <c16>Kinder</c16>
+    <c18>N</c18>
+  </agf-tracking>
+  <teaserimages>
+    <teaserimage>
+      <url>https://www.kika.de/mama-fuchs-und-papa-dachs/sendungen/bilder/bild194912-resimage_v-**aspectRatio**_w-**width**.jpg?version=3333</url>
+      <variants>
+        <large>tlarge169</large>
+        <small>tsmall169</small>
+      </variants>
+    </teaserimage>
+  </teaserimages>
+  <assets>
+    <asset>
+      <profileName>Video 2014 | MP4 Web M | 16:9 | 512x288</profileName>
+      <fileName>FCMS-f6246737-fa13-4990-b801-2706fb13c1b6-2cc6c1c1f632_f6.mp4</fileName>
+      <mediaType>MP4</mediaType>
+      <frameWidth>512</frameWidth>
+      <frameHeight>288</frameHeight>
+      <bitrateVideo>512000</bitrateVideo>
+      <bitrateAudio>96000</bitrateAudio>
+      <fileSize>55473496</fileSize>
+      <flashMediaServerApplicationURL>rtmp://cp325560.edgefcs.net/ondemand</flashMediaServerApplicationURL>
+      <flashMediaServerURL>mp4:mp4dyn/f/FCMS-f6246737-fa13-4990-b801-2706fb13c1b6-2cc6c1c1f632_f6.mp4</flashMediaServerURL>
+      <adaptiveHttpStreamingRedirectorUrl>https://kikageohls-vh.akamaihd.net/i/mp4dyn/f/VOIDf6246737-fa13-4990-b801-2706fb13c1b6.smil/master.m3u8</adaptiveHttpStreamingRedirectorUrl>
+      <dynamicHttpStreamingRedirectorUrl>https://kikageohls-vh.akamaihd.net/z/mp4dyn/f/VOIDf6246737-fa13-4990-b801-2706fb13c1b6.smil/manifest.f4m</dynamicHttpStreamingRedirectorUrl>
+      <progressiveDownloadUrl>https://pmdgeokika-a.akamaihd.net/mp4dyn/f/FCMS-f6246737-fa13-4990-b801-2706fb13c1b6-2cc6c1c1f632_f6.mp4</progressiveDownloadUrl>
+    </asset>
+    <asset>
+      <profileName>Video 2014 | MP4 Web L | 16:9 | 960x540</profileName>
+      <fileName>FCMS-f6246737-fa13-4990-b801-2706fb13c1b6-31e0be270130_f6.mp4</fileName>
+      <mediaType>MP4</mediaType>
+      <frameWidth>960</frameWidth>
+      <frameHeight>540</frameHeight>
+      <bitrateVideo>1800000</bitrateVideo>
+      <bitrateAudio>192000</bitrateAudio>
+      <fileSize>180647375</fileSize>
+      <flashMediaServerApplicationURL>rtmp://cp325560.edgefcs.net/ondemand</flashMediaServerApplicationURL>
+      <flashMediaServerURL>mp4:mp4dyn/f/FCMS-f6246737-fa13-4990-b801-2706fb13c1b6-31e0be270130_f6.mp4</flashMediaServerURL>
+      <adaptiveHttpStreamingRedirectorUrl>https://kikageohls-vh.akamaihd.net/i/mp4dyn/f/VOIDf6246737-fa13-4990-b801-2706fb13c1b6.smil/master.m3u8</adaptiveHttpStreamingRedirectorUrl>
+      <dynamicHttpStreamingRedirectorUrl>https://kikageohls-vh.akamaihd.net/z/mp4dyn/f/VOIDf6246737-fa13-4990-b801-2706fb13c1b6.smil/manifest.f4m</dynamicHttpStreamingRedirectorUrl>
+      <progressiveDownloadUrl>https://pmdgeokika-a.akamaihd.net/mp4dyn/f/FCMS-f6246737-fa13-4990-b801-2706fb13c1b6-31e0be270130_f6.mp4</progressiveDownloadUrl>
+    </asset>
+    <asset>
+      <profileName>Video 2014 | MP4 Web L+ | 16:9 | 720x576</profileName>
+      <fileName>FCMS-f6246737-fa13-4990-b801-2706fb13c1b6-bd81c5d02fb4_f6.mp4</fileName>
+      <mediaType>MP4</mediaType>
+      <frameWidth>720</frameWidth>
+      <frameHeight>576</frameHeight>
+      <bitrateVideo>1536000</bitrateVideo>
+      <bitrateAudio>192000</bitrateAudio>
+      <fileSize>156701889</fileSize>
+      <progressiveDownloadUrl>https://pmdgeokika-a.akamaihd.net/mp4weblplus/f/FCMS-f6246737-fa13-4990-b801-2706fb13c1b6-bd81c5d02fb4_f6.mp4</progressiveDownloadUrl>
+    </asset>
+    <asset>
+      <profileName>Video 2014 | MP4 Web S | 16:9 | 320x180</profileName>
+      <fileName>FCMS-f6246737-fa13-4990-b801-2706fb13c1b6-c0fb86e38f5a_f6.mp4</fileName>
+      <mediaType>MP4</mediaType>
+      <frameWidth>320</frameWidth>
+      <frameHeight>180</frameHeight>
+      <bitrateVideo>128000</bitrateVideo>
+      <bitrateAudio>56000</bitrateAudio>
+      <fileSize>16850898</fileSize>
+      <flashMediaServerApplicationURL>rtmp://cp325560.edgefcs.net/ondemand</flashMediaServerApplicationURL>
+      <flashMediaServerURL>mp4:mp4dyn/f/FCMS-f6246737-fa13-4990-b801-2706fb13c1b6-c0fb86e38f5a_f6.mp4</flashMediaServerURL>
+      <adaptiveHttpStreamingRedirectorUrl>https://kikageohls-vh.akamaihd.net/i/mp4dyn/f/VOIDf6246737-fa13-4990-b801-2706fb13c1b6.smil/master.m3u8</adaptiveHttpStreamingRedirectorUrl>
+      <progressiveDownloadUrl>https://pmdgeokika-a.akamaihd.net/mp4dyn/f/FCMS-f6246737-fa13-4990-b801-2706fb13c1b6-c0fb86e38f5a_f6.mp4</progressiveDownloadUrl>
+    </asset>
+    <asset>
+      <profileName>Video 2014 | MP4 Web XL | 16:9 | 1280x720</profileName>
+      <fileName>FCMS-f6246737-fa13-4990-b801-2706fb13c1b6-5a2c8da1cdb7_f6.mp4</fileName>
+      <mediaType>MP4</mediaType>
+      <frameWidth>1280</frameWidth>
+      <frameHeight>720</frameHeight>
+      <bitrateVideo>3584000</bitrateVideo>
+      <bitrateAudio>192000</bitrateAudio>
+      <fileSize>341975087</fileSize>
+      <flashMediaServerApplicationURL>rtmp://cp325560.edgefcs.net/ondemand</flashMediaServerApplicationURL>
+      <flashMediaServerURL>mp4:mp4dyn/f/FCMS-f6246737-fa13-4990-b801-2706fb13c1b6-5a2c8da1cdb7_f6.mp4</flashMediaServerURL>
+      <adaptiveHttpStreamingRedirectorUrl>https://kikageohls-vh.akamaihd.net/i/mp4dyn/f/VOIDf6246737-fa13-4990-b801-2706fb13c1b6.smil/master.m3u8</adaptiveHttpStreamingRedirectorUrl>
+      <dynamicHttpStreamingRedirectorUrl>https://kikageohls-vh.akamaihd.net/z/mp4dyn/f/VOIDf6246737-fa13-4990-b801-2706fb13c1b6.smil/manifest.f4m</dynamicHttpStreamingRedirectorUrl>
+      <rtspStreamingUrl>http://pmdgeokika-a.akamaihd.net/mp4dyn/f/FCMS-f6246737-fa13-4990-b801-2706fb13c1b6-5a2c8da1cdb7_f6.mp4</rtspStreamingUrl>
+      <progressiveDownloadUrl>https://pmdgeokika-a.akamaihd.net/mp4dyn/f/FCMS-f6246737-fa13-4990-b801-2706fb13c1b6-5a2c8da1cdb7_f6.mp4</progressiveDownloadUrl>
+    </asset>
+    <asset>
+      <profileName>Video 2014 | MP4 Web L mobil  | 16:9 | 640x360</profileName>
+      <fileName>FCMS-f6246737-fa13-4990-b801-2706fb13c1b6-6b00429f6b07_f6.mp4</fileName>
+      <mediaType>MP4</mediaType>
+      <frameWidth>640</frameWidth>
+      <frameHeight>360</frameHeight>
+      <bitrateVideo>1024000</bitrateVideo>
+      <bitrateAudio>192000</bitrateAudio>
+      <fileSize>110544274</fileSize>
+      <flashMediaServerApplicationURL>rtmp://cp325560.edgefcs.net/ondemand</flashMediaServerApplicationURL>
+      <flashMediaServerURL>mp4:mp4dyn/f/FCMS-f6246737-fa13-4990-b801-2706fb13c1b6-6b00429f6b07_f6.mp4</flashMediaServerURL>
+      <adaptiveHttpStreamingRedirectorUrl>https://kikageohls-vh.akamaihd.net/i/mp4dyn/f/VOIDf6246737-fa13-4990-b801-2706fb13c1b6.smil/master.m3u8</adaptiveHttpStreamingRedirectorUrl>
+      <dynamicHttpStreamingRedirectorUrl>https://kikageohls-vh.akamaihd.net/z/mp4dyn/f/VOIDf6246737-fa13-4990-b801-2706fb13c1b6.smil/manifest.f4m</dynamicHttpStreamingRedirectorUrl>
+      <progressiveDownloadUrl>https://pmdgeokika-a.akamaihd.net/mp4dyn/f/FCMS-f6246737-fa13-4990-b801-2706fb13c1b6-6b00429f6b07_f6.mp4</progressiveDownloadUrl>
+    </asset>
+    <asset>
+      <profileName>Video 2014 | MP4 Web M Mobil | 16:9 | 480x270</profileName>
+      <fileName>FCMS-f6246737-fa13-4990-b801-2706fb13c1b6-3c3a2d2ca7c6_f6.mp4</fileName>
+      <mediaType>MP4</mediaType>
+      <frameWidth>480</frameWidth>
+      <frameHeight>270</frameHeight>
+      <bitrateVideo>256000</bitrateVideo>
+      <bitrateAudio>64000</bitrateAudio>
+      <fileSize>29386941</fileSize>
+      <flashMediaServerApplicationURL>rtmp://cp325560.edgefcs.net/ondemand</flashMediaServerApplicationURL>
+      <flashMediaServerURL>mp4:mp4dyn/f/FCMS-f6246737-fa13-4990-b801-2706fb13c1b6-3c3a2d2ca7c6_f6.mp4</flashMediaServerURL>
+      <adaptiveHttpStreamingRedirectorUrl>https://kikageohls-vh.akamaihd.net/i/mp4dyn/f/VOIDf6246737-fa13-4990-b801-2706fb13c1b6.smil/master.m3u8</adaptiveHttpStreamingRedirectorUrl>
+      <progressiveDownloadUrl>https://pmdgeokika-a.akamaihd.net/mp4dyn/f/FCMS-f6246737-fa13-4990-b801-2706fb13c1b6-3c3a2d2ca7c6_f6.mp4</progressiveDownloadUrl>
+    </asset>
+  </assets>
+  <duration>12:04</duration>
+  <rights>KiKA</rights>
+  <transmissionType>geo</transmissionType>
+  <chapterEntries />
+  <broadcast>
+    <channelName>Mama Fuchs und Papa Dachs</channelName>
+    <broadcastName>17. Der Teddy</broadcastName>
+    <broadcastDescription>Matteos Teddy Theodor ist verschwunden. Niemand weiß von seinem geheimen Freund und das soll auch so bleiben. Aber es ist gar nicht so einfach nach etwas zu fragen und nicht zu verraten, was es ist. Können die Geschwister zusammen den Teddy finden?</broadcastDescription>
+    <broadcastDate>2019-03-17T06:35:00.000+0100</broadcastDate>
+    <broadcastURL>https://www.kika.de/mama-fuchs-und-papa-dachs/sendungen/sendung111180.html</broadcastURL>
+    <broadcastSeriesName>Mama Fuchs und Papa Dachs</broadcastSeriesName>
+    <broadcastSeriesURL>https://www.kika.de/mama-fuchs-und-papa-dachs/sendereihe2694.html</broadcastSeriesURL>
+  </broadcast>
+  <atiTracking>
+    <site>596355</site>
+    <page>
+      <name>video66904</name>
+      <level2>1</level2>
+      <chapter1>mama%2Dfuchs%2Dund%2Dpapa%2Ddachs</chapter1>
+      <chapter2>sendungen</chapter2>
+      <chapter3>videos</chapter3>
+      <customObject>
+        <G1 />
+        <G2 />
+        <G3 />
+        <G4 />
+        <G5 />
+        <G6 />
+        <G7 />
+        <G8 />
+        <G9 />
+        <G10 />
+      </customObject>
+    </page>
+    <customVars>
+      <x1>[http%3A%2F%2Fwww.kika.de%2Fmama%2Dfuchs%2Dund%2Dpapa%2Ddachs%2Fsendungen%2Fvideos%2Fvideo66904%2DavCustom.xml]</x1>
+      <x2>[]</x2>
+      <x3>[Web]</x3>
+      <x4>0</x4>
+      <x5>[avPlayer]</x5>
+      <x6>[kika.mama%2Dfuchs%2Dund%2Dpapa%2Ddachs.sendungen.videos.video66904.tool.avPlayer]</x6>
+      <x7>[kika.sendungen.sendereihen.m.mama%2Dfuchs%2Dund%2Dpapa%2Ddachs.sendungen.videos]</x7>
+      <x8>[video66904]</x8>
+      <x9>[2d7daf82%2Db676%2D45ea%2Db853%2Da46857d693fa]</x9>
+      <x10>[17.%20Der%20Teddy]</x10>
+      <x11>[2019.03.17T18%3A39]</x11>
+      <x12>[2019.03.17T18%3A39]</x12>
+      <x13>[video]</x13>
+      <x14>[]</x14>
+      <x15>[17.%20Der%20Teddy]</x15>
+      <x16>[Mama%20Fuchs%20und%20Papa%20Dachs]</x16>
+      <x17>4</x17>
+      <x18>[Ganze%20Sendung]</x18>
+      <x19>[TV]</x19>
+      <x20 />
+    </customVars>
+    <richMedia>
+      <mediaType>video</mediaType>
+      <mediaLabel>video66904</mediaLabel>
+      <mediaTheme1>kika.mama%2Dfuchs%2Dund%2Dpapa%2Ddachs.sendungen.videos.video66904.tool.avPlayer</mediaTheme1>
+      <mediaTheme2>Mama%20Fuchs%20und%20Papa%20Dachs</mediaTheme2>
+      <mediaTheme3>17.%20Der%20Teddy%7CTV%7CZG04%7C2019.03.17T18%3A39</mediaTheme3>
+      <refreshDuration>0:10,1:30,10:60</refreshDuration>
+      <duration>724</duration>
+      <broadcastMode>clip</broadcastMode>
+    </richMedia>
+  </atiTracking>
+</avDocument>

@@ -1,16 +1,16 @@
-package de.mediathekview.mserver.crawler.ard.json;
+package de.mediathekview.mserver.crawler.basic;
 
 import de.mediathekview.mserver.base.utils.UrlUtils;
 import java.util.Optional;
 
-class ArdUrlInfo {
+public class FilmUrlInfoDto {
 
   private final String url;
   private int height;
   private int width;
   private final Optional<String> fileType;
 
-  ArdUrlInfo(final String aUrl) {
+  public FilmUrlInfoDto(final String aUrl) {
     url = aUrl;
     fileType = UrlUtils.getFileType(aUrl);
     width = 0;

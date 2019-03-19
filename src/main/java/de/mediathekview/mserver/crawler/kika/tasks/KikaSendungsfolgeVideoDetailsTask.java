@@ -1,19 +1,16 @@
 package de.mediathekview.mserver.crawler.kika.tasks;
 
-import de.mediathekview.mlib.daten.*;
+import de.mediathekview.mlib.daten.Film;
+import de.mediathekview.mlib.daten.FilmUrl;
+import de.mediathekview.mlib.daten.GeoLocations;
+import de.mediathekview.mlib.daten.Resolution;
+import de.mediathekview.mlib.daten.Sender;
 import de.mediathekview.mserver.base.utils.DateUtils;
 import de.mediathekview.mserver.base.utils.HtmlDocumentUtils;
+import de.mediathekview.mserver.crawler.basic.FilmUrlInfoDto;
 import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
 import de.mediathekview.mserver.crawler.basic.AbstractUrlTask;
 import de.mediathekview.mserver.crawler.basic.CrawlerUrlDTO;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
-import org.jsoup.parser.Parser;
-import org.jsoup.select.Elements;
-
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -23,12 +20,24 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Comparator;
 import java.util.Optional;
+import java.util.Set;
+import java.util.TreeSet;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.TimeUnit;
+import mServer.crawler.CrawlerTool;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.parser.Parser;
+import org.jsoup.select.Elements;
 
 public class KikaSendungsfolgeVideoDetailsTask extends AbstractUrlTask<Film, CrawlerUrlDTO> {
+
   private static final String ELEMENT_HTML_URL = "htmlUrl";
   private static final String ELEMENT_TOPLINE = "topline";
   private static final String MEDIA_TYPE_MP4 = "MP4";
@@ -47,70 +56,58 @@ public class KikaSendungsfolgeVideoDetailsTask extends AbstractUrlTask<Film, Cra
     super(aCrawler, aUrlToCrawlDTOs);
   }
 
-  private void addFilmUrls(
-      final Elements videoElements, final String thema, final String title, final Film newFilm) {
-    for (final Element videoElement : videoElements) {
-      final Elements mediaTypeNodes = videoElement.getElementsByTag("mediaType");
-      final Elements frameWidthNodes = videoElement.getElementsByTag("frameWidth");
-      final Elements fileSizeNodes = videoElement.getElementsByTag("fileSize");
-      final Elements downloadUrlNodes = videoElement.getElementsByTag("progressiveDownloadUrl");
+  private void addFilmUrls(final Elements videoElements, final String thema, final String title,
+      final Film newFilm) {
+    final Set<FilmUrlInfoDto> urlInfos = parseVideoElements(videoElements);
+    for (FilmUrlInfoDto urlInfo : urlInfos) {
 
-      if (!mediaTypeNodes.isEmpty()
-          && MEDIA_TYPE_MP4.equals(mediaTypeNodes.get(0).text())
-          && !frameWidthNodes.isEmpty()
-          && !fileSizeNodes.isEmpty()
-          && !downloadUrlNodes.isEmpty()) {
-
-        final Optional<FilmUrl> newFilmUrl =
-            buildFilmUrl(thema, title, downloadUrlNodes, fileSizeNodes);
-        final Optional<Resolution> filmResolution = gatherResolution(thema, title, frameWidthNodes);
-        if (newFilmUrl.isPresent() && filmResolution.isPresent()) {
-          newFilm.addUrl(filmResolution.get(), newFilmUrl.get());
+      if (!urlInfo.getUrl().isEmpty() && urlInfo.getFileType().isPresent() && urlInfo.getFileType().get()
+          .equalsIgnoreCase(MEDIA_TYPE_MP4)) {
+        final Resolution filmResolution = getResolutionFromWidth(urlInfo);
+        try {
+          if (newFilm.getUrl(filmResolution) == null) {
+            newFilm.addUrl(filmResolution, CrawlerTool.stringToFilmUrl(urlInfo.getUrl()));
+          }
+        } catch (MalformedURLException e) {
+          LOG.debug(
+              String.format("The download URL \"%s\" for the film \"%s - %s\" is not a valid URL.",
+                  urlInfo.getUrl(), thema, title),
+              e);
         }
       }
     }
   }
 
-  private Optional<FilmUrl> buildFilmUrl(
-      final String aThema,
-      final String aTitle,
-      final Elements aDownloadUrlNodes,
-      final Elements aFileSizeNodes) {
+  private Set<FilmUrlInfoDto> parseVideoElements(final Elements aVideoElements) {
+    final TreeSet<FilmUrlInfoDto> urlInfos = new TreeSet<>(Comparator.comparing(FilmUrlInfoDto::getWidth));
 
-    final String urlText = aDownloadUrlNodes.get(0).text();
-    final String fileSizeText = aFileSizeNodes.get(0).text();
-    try {
-      return Optional.of(new FilmUrl(new URL(urlText), Long.parseLong(fileSizeText)));
-
-    } catch (final MalformedURLException malformedURLException) {
-      LOG.debug(
-          String.format(
-              "The download URL \"%s\" for the film \"%s - %s\" is not a valid URL.",
-              urlText, aThema, aTitle),
-          malformedURLException);
-    } catch (final NumberFormatException numberFormatException) {
-      LOG.debug(
-          String.format(
-              "The file size \"%s\" for the film \"%s - %s\" is not a valid number.",
-              fileSizeText, aThema, aTitle),
-          numberFormatException);
+    for (final Element videoElement : aVideoElements) {
+      FilmUrlInfoDto urlInfo = parseVideoElement(videoElement);
+      urlInfos.add(urlInfo);
     }
-    return Optional.empty();
+
+    return urlInfos.descendingSet();
   }
 
-  private Optional<Resolution> gatherResolution(
-      final String aThema, final String aTitle, final Elements frameWidthNodes) {
-    final String frameWidthText = frameWidthNodes.get(0).text();
-    try {
-      return Optional.of(Resolution.getResolutionFromWidth(Integer.parseInt(frameWidthText)));
-    } catch (final NumberFormatException numberFormatException) {
-      LOG.debug(
-          String.format(
-              "The frame width \"%s\" for the film \"%s - %s\" is not a valid number.",
-              frameWidthText, aThema, aTitle),
-          numberFormatException);
+  private FilmUrlInfoDto parseVideoElement(final Element aVideoElement) {
+    final Elements frameWidthNodes = aVideoElement.getElementsByTag("frameWidth");
+    final Elements frameHeightNodes = aVideoElement.getElementsByTag("frameHeight");
+    final Elements downloadUrlNodes = aVideoElement.getElementsByTag("progressiveDownloadUrl");
+
+    FilmUrlInfoDto info = new FilmUrlInfoDto(downloadUrlNodes.get(0).text());
+    info.setResolution(Integer.parseInt(frameWidthNodes.get(0).text()), Integer.parseInt(frameHeightNodes.get(0).text()));
+    return info;
+  }
+
+  private Resolution getResolutionFromWidth(final FilmUrlInfoDto aUrlInfo) {
+    if (aUrlInfo.getWidth() >= 1280) {
+      return Resolution.HD;
     }
-    return Optional.empty();
+    if (aUrlInfo.getWidth() > 512) {
+      return Resolution.NORMAL;
+    }
+
+    return Resolution.SMALL;
   }
 
   private Elements orAlternative(final Document aDocucument, final String... aTags) {
@@ -216,11 +213,9 @@ public class KikaSendungsfolgeVideoDetailsTask extends AbstractUrlTask<Film, Cra
         crawler.updateProgress();
       }
     } catch (final IOException exception) {
-      LOG.fatal(
-          String.format(
-              "Something went teribble wrong on getting the film details for the Kika film \"%s\".",
-              aUrlDTO.getUrl()),
-          exception);
+      LOG.fatal(String.format(
+          "Something went teribble wrong on getting the film details for the Kika film \"%s\".",
+          aUrlDTO.getUrl()), exception);
       crawler.incrementAndGetErrorCount();
       crawler.printErrorMessage();
     }
@@ -233,7 +228,7 @@ public class KikaSendungsfolgeVideoDetailsTask extends AbstractUrlTask<Film, Cra
     }
 
     GeoLocations geoLocation = GeoLocations.GEO_NONE;
-    if (url.get().getUrl().getFile().contains("pmdgeokika")) {
+    if (url.get().getUrl().getHost().contains("pmdgeokika")) {
       geoLocation = GeoLocations.GEO_DE;
     }
 
