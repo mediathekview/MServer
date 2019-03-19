@@ -4,6 +4,7 @@ import de.mediathekview.mserver.base.Consts;
 import de.mediathekview.mserver.crawler.orf.OrfConstants;
 import java.util.ArrayList;
 import java.util.List;
+import org.jetbrains.annotations.Nullable;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
@@ -19,23 +20,25 @@ public class OrfHelper {
   
   public static String parseTheme(final Element aItem) {
     String theme = aItem.attr(Consts.ATTRIBUTE_TITLE);
-    
+    return parseTheme(theme);
+  }
+
+  public static String parseTheme(String theme) {
     // Thema steht vor Doppelpunkt
-    // Ausnahmen 
+    // Ausnahmen
     // - ZIB-Sendungen mit Uhrzeit
     // - DokEins-Sendungen
     // - Ungarisches Magazin
     int index = theme.indexOf(':');
-    if (index > 0 
+    if (index > 0
       && !theme.startsWith("ZIB")
       && !theme.startsWith("DOKeins")
       && !theme.contains("Ungarisches Magazin")) {
       return theme.substring(0, index);
     }
-    
     return theme;
-  }  
-  
+  }
+
   /**
    * determines the links to the letter pages
    * @param aDocument the html document with letter links
