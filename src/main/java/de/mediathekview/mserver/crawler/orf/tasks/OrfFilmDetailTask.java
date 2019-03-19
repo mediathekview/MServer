@@ -38,11 +38,11 @@ public class OrfFilmDetailTask extends AbstractDocumentTask<Film, TopicUrlDTO> {
 
   private static final Logger LOG = LogManager.getLogger(OrfFilmDetailTask.class);
 
-  private static final String TITLE_SELECTOR = "h3.video_headline";
-  private static final String BROADCAST_SELECTOR = "div.broadcast_information";
-  private static final String TIME_SELECTOR = BROADCAST_SELECTOR + " > time";
-  private static final String DURATION_SELECTOR = BROADCAST_SELECTOR + " > span.meta_duration";
-  private static final String DESCRIPTION_SELECTOR = "div.details_description";
+  private static final String TITLE_SELECTOR = ".description-title";
+  private static final String VIDEO_META_DATA_SELECTOR = ".video-meta-data";
+  private static final String TIME_SELECTOR = VIDEO_META_DATA_SELECTOR + "  time";
+  private static final String DURATION_SELECTOR = VIDEO_META_DATA_SELECTOR + " span.duration";
+  private static final String DESCRIPTION_SELECTOR = ".description-text";
   private static final String VIDEO_SELECTOR = "div.jsb_VideoPlaylist";
 
   private static final String ATTRIBUTE_DATETIME = "datetime";
