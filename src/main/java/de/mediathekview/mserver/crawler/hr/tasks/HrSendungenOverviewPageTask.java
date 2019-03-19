@@ -2,17 +2,20 @@ package de.mediathekview.mserver.crawler.hr.tasks;
 
 import de.mediathekview.mserver.base.Consts;
 import de.mediathekview.mserver.base.utils.UrlUtils;
+import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
 import de.mediathekview.mserver.crawler.basic.CrawlerUrlDTO;
 import de.mediathekview.mserver.crawler.hr.HrConstants;
-import java.io.IOException;
-import java.util.HashSet;
-import java.util.Set;
-import java.util.concurrent.Callable;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
+
+import java.io.IOException;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.concurrent.Callable;
+import java.util.concurrent.TimeUnit;
 
 public class HrSendungenOverviewPageTask implements Callable<Set<CrawlerUrlDTO>> {
 
@@ -23,10 +26,12 @@ public class HrSendungenOverviewPageTask implements Callable<Set<CrawlerUrlDTO>>
   private static final String HR_SENDUNGEN_URL = "sendungen-a-z/index.html";
   private static final String SENDUNG_URL_SELECTOR = ".c-teaser__headlineLink.link";
 
-  private String baseUrl;
+  private final String baseUrl;
+  private final AbstractCrawler crawler;
 
-  public HrSendungenOverviewPageTask(final String aBaseUrl) {
+  public HrSendungenOverviewPageTask(final String aBaseUrl, final AbstractCrawler aCrawler) {
     baseUrl = aBaseUrl;
+    crawler = aCrawler;
   }
 
   @Override
@@ -34,7 +39,13 @@ public class HrSendungenOverviewPageTask implements Callable<Set<CrawlerUrlDTO>>
     final Set<CrawlerUrlDTO> results = new HashSet<>();
 
     try {
-      final Document document = Jsoup.connect(baseUrl + HR_SENDUNGEN_URL).get();
+      final Document document =
+          Jsoup.connect(baseUrl + HR_SENDUNGEN_URL)
+              .timeout(
+                  (int)
+                      TimeUnit.SECONDS.toMillis(
+                          crawler.getCrawlerConfig().getSocketTimeoutInSeconds()))
+              .get();
       for (final Element filmUrlElement : document.select(SENDUNG_URL_SELECTOR)) {
         if (filmUrlElement.hasAttr(Consts.ATTRIBUTE_HREF)) {
           final String url = filmUrlElement.absUrl(Consts.ATTRIBUTE_HREF);
@@ -57,7 +68,8 @@ public class HrSendungenOverviewPageTask implements Callable<Set<CrawlerUrlDTO>>
       return aUrl.replace(INDEX_PAGE_NAME, HESSENSCHAU_OVERVIEW_URL_REPLACEMENT);
     }
 
-    final String preparedUrl = aUrl.replace(INDEX_PAGE_NAME, SENDUNGSFOLEN_OVERVIEW_URL_REPLACEMENT);
+    final String preparedUrl =
+        aUrl.replace(INDEX_PAGE_NAME, SENDUNGSFOLEN_OVERVIEW_URL_REPLACEMENT);
     if (UrlUtils.existsUrl(preparedUrl)) {
       return preparedUrl;
     }

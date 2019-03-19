@@ -1,13 +1,7 @@
 package de.mediathekview.mserver.crawler.wdr.parser;
 
-import static org.hamcrest.CoreMatchers.equalTo;
-import static org.junit.Assert.assertThat;
-
 import de.mediathekview.mserver.crawler.wdr.WdrTopicUrlDto;
 import de.mediathekview.mserver.testhelper.FileReader;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.List;
 import org.hamcrest.Matchers;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -15,8 +9,24 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.List;
+
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.junit.Assert.assertThat;
+
 @RunWith(Parameterized.class)
 public class WdrLetterPageDeserializerTest {
+
+  private final String htmlFile;
+  private final WdrTopicUrlDto[] expectedUrls;
+
+  public WdrLetterPageDeserializerTest(
+      final String aHtmlFile, final WdrTopicUrlDto[] aExpectedUrls) {
+    htmlFile = aHtmlFile;
+    expectedUrls = aExpectedUrls;
+  }
 
   @Parameterized.Parameters
   public static Collection<Object[]> data() {
@@ -51,21 +61,12 @@ public class WdrLetterPageDeserializerTest {
         });
   }
 
-  private final String htmlFile;
-  private final WdrTopicUrlDto[] expectedUrls;
-
-  public WdrLetterPageDeserializerTest(
-      final String aHtmlFile, final WdrTopicUrlDto[] aExpectedUrls) {
-    htmlFile = aHtmlFile;
-    expectedUrls = aExpectedUrls;
-  }
-
   @Test
   public void deserializeTest() {
     final String htmlContent = FileReader.readFile(htmlFile);
     final Document document = Jsoup.parse(htmlContent);
 
-    WdrLetterPageDeserializer target = new WdrLetterPageDeserializer();
+    final WdrLetterPageDeserializer target = new WdrLetterPageDeserializer();
     final List<WdrTopicUrlDto> actual = target.deserialize(document);
 
     assertThat(actual.size(), equalTo(expectedUrls.length));

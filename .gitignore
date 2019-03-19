@@ -15,7 +15,7 @@ start*.sh
 .classpath
 .project
 .settings/
-
+*.iml
 .idea
 out/
 build/
@@ -26,3 +26,5 @@ RepoZugang.properties
 /logs/
 
 logs/
+/target/
+/.checkstyle

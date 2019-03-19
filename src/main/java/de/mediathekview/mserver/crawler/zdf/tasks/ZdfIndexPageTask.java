@@ -1,18 +1,21 @@
 package de.mediathekview.mserver.crawler.zdf.tasks;
 
-import static de.mediathekview.mserver.base.Consts.ATTRIBUTE_HREF;
-
+import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
 import de.mediathekview.mserver.crawler.zdf.ZdfConfiguration;
 import de.mediathekview.mserver.crawler.zdf.ZdfConstants;
-import java.io.IOException;
-import java.util.Optional;
-import java.util.concurrent.Callable;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+
+import java.io.IOException;
+import java.util.Optional;
+import java.util.concurrent.Callable;
+import java.util.concurrent.TimeUnit;
+
+import static de.mediathekview.mserver.base.Consts.ATTRIBUTE_HREF;
 
 public class ZdfIndexPageTask implements Callable<ZdfConfiguration> {
 
@@ -24,6 +27,12 @@ public class ZdfIndexPageTask implements Callable<ZdfConfiguration> {
   private static final String QUERY_SUPAGE_URL = "div.stage-item a";
   private static final String JSON_API_TOKEN = "apiToken";
   private static final String ATTRIBUTE_JSB = "data-zdfplayer-jsb";
+  private final AbstractCrawler crawler;
+
+  /** @param aCrawler The crawler which uses this task. */
+  public ZdfIndexPageTask(final AbstractCrawler aCrawler) {
+    crawler = aCrawler;
+  }
 
   @Override
   public ZdfConfiguration call() throws Exception {
@@ -32,10 +41,12 @@ public class ZdfIndexPageTask implements Callable<ZdfConfiguration> {
     final Optional<Document> document = loadPage(ZdfConstants.URL_BASE);
     if (document.isPresent()) {
 
-      final Optional<String> searchBearer = parseBearerIndexPage(document.get(), QUERY_SEARCH_BEARER, "'");
+      final Optional<String> searchBearer =
+          parseBearerIndexPage(document.get(), QUERY_SEARCH_BEARER, "'");
       searchBearer.ifPresent(configuration::setSearchAuthKey);
 
-      Optional<String> videoBearer = parseBearerIndexPage(document.get(), QUERY_VIDEO_BEARER_INDEX_PAGE, "\"");
+      Optional<String> videoBearer =
+          parseBearerIndexPage(document.get(), QUERY_VIDEO_BEARER_INDEX_PAGE, "\"");
 
       if (!videoBearer.isPresent()) {
         videoBearer = parseTokenFromSubPage(document.get());
@@ -49,9 +60,9 @@ public class ZdfIndexPageTask implements Callable<ZdfConfiguration> {
 
   private Optional<String> parseTokenFromSubPage(final Document aDocument) {
 
-    Optional<String> subPageUrl = parseSubPageUrl(aDocument);
+    final Optional<String> subPageUrl = parseSubPageUrl(aDocument);
     if (subPageUrl.isPresent()) {
-      Optional<Document> subPageDocument = loadPage(subPageUrl.get());
+      final Optional<Document> subPageDocument = loadPage(subPageUrl.get());
       if (subPageDocument.isPresent()) {
         return parseBearerSubPage(subPageDocument.get(), QUERY_VIDEO_BEARER_SUBPAGE, "\"");
       }
@@ -60,8 +71,8 @@ public class ZdfIndexPageTask implements Callable<ZdfConfiguration> {
     return Optional.empty();
   }
 
-  private Optional<String> parseSubPageUrl(Document aDocument) {
-    Element subPageElement = aDocument.selectFirst(QUERY_SUPAGE_URL);
+  private Optional<String> parseSubPageUrl(final Document aDocument) {
+    final Element subPageElement = aDocument.selectFirst(QUERY_SUPAGE_URL);
     if (subPageElement != null) {
       return Optional.of(ZdfConstants.URL_BASE + subPageElement.attr(ATTRIBUTE_HREF));
     }
@@ -71,22 +82,29 @@ public class ZdfIndexPageTask implements Callable<ZdfConfiguration> {
 
   private Optional<Document> loadPage(final String aUrl) {
     try {
-      final Document document = Jsoup.connect(aUrl).get();
+      final Document document =
+          Jsoup.connect(aUrl)
+              .timeout(
+                  (int)
+                      TimeUnit.SECONDS.toMillis(
+                          crawler.getCrawlerConfig().getSocketTimeoutInSeconds()))
+              .get();
       return Optional.of(document);
-    } catch (IOException ex) {
+    } catch (final IOException ex) {
       LOG.fatal("ZdfIndexPageTask: error loading url " + aUrl, ex);
     }
 
     return Optional.empty();
   }
 
-  private Optional<String> parseBearerIndexPage(final Document aDocument, final String aQuery, final String aStringQuote) {
+  private Optional<String> parseBearerIndexPage(
+      final Document aDocument, final String aQuery, final String aStringQuote) {
 
-    Elements scriptElements = aDocument.select(aQuery);
-    for (Element scriptElement : scriptElements) {
-      String script = scriptElement.html();
+    final Elements scriptElements = aDocument.select(aQuery);
+    for (final Element scriptElement : scriptElements) {
+      final String script = scriptElement.html();
 
-      String value = parseBearer(script, aStringQuote);
+      final String value = parseBearer(script, aStringQuote);
       if (!value.isEmpty()) {
         return Optional.of(value);
       }
@@ -95,13 +113,14 @@ public class ZdfIndexPageTask implements Callable<ZdfConfiguration> {
     return Optional.empty();
   }
 
-  private Optional<String> parseBearerSubPage(final Document aDocument, final String aQuery, final String aStringQuote) {
+  private Optional<String> parseBearerSubPage(
+      final Document aDocument, final String aQuery, final String aStringQuote) {
 
-    Element element = aDocument.selectFirst(aQuery);
+    final Element element = aDocument.selectFirst(aQuery);
     if (element != null && element.hasAttr(ATTRIBUTE_JSB)) {
-      String script = element.attr(ATTRIBUTE_JSB);
+      final String script = element.attr(ATTRIBUTE_JSB);
 
-      String value = parseBearer(script, aStringQuote);
+      final String value = parseBearer(script, aStringQuote);
       if (!value.isEmpty()) {
         return Optional.of(value);
       }
@@ -110,14 +129,15 @@ public class ZdfIndexPageTask implements Callable<ZdfConfiguration> {
     return Optional.empty();
   }
 
-  private String parseBearer(final String aJson, String aStringQuote) {
+  private String parseBearer(final String aJson, final String aStringQuote) {
     String bearer = "";
 
-    int indexToken = aJson.indexOf(JSON_API_TOKEN);
+    final int indexToken = aJson.indexOf(JSON_API_TOKEN);
 
     if (indexToken > 0) {
-      int indexStart = aJson.indexOf(aStringQuote, indexToken + JSON_API_TOKEN.length() + 1) + 1;
-      int indexEnd = aJson.indexOf(aStringQuote, indexStart);
+      final int indexStart =
+          aJson.indexOf(aStringQuote, indexToken + JSON_API_TOKEN.length() + 1) + 1;
+      final int indexEnd = aJson.indexOf(aStringQuote, indexStart);
 
       if (indexStart > 0) {
         bearer = aJson.substring(indexStart, indexEnd);

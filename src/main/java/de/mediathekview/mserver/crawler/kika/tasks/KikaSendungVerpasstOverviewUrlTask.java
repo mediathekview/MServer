@@ -4,6 +4,12 @@ import de.mediathekview.mserver.base.messages.ServerMessages;
 import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
 import de.mediathekview.mserver.crawler.basic.CrawlerUrlDTO;
 import de.mediathekview.mserver.crawler.kika.KikaConstants;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.jsoup.HttpStatusException;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -13,20 +19,14 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.concurrent.Callable;
 import java.util.stream.Collectors;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-import org.jsoup.HttpStatusException;
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
 
 /**
  * Gathers the URLs needed to get the "verpasste Sendungen".
  *
  * @author Nicklas Wiegandt (Nicklas2751)<br>
- * <b>Mail:</b> nicklas@wiegandt.eu<br>
- * <b>Jabber:</b> nicklas2751@elaon.de<br>
- * <b>Riot.im:</b> nicklas2751:matrix.elaon.de<br>
+ *     <b>Mail:</b> nicklas@wiegandt.eu<br>
+ *     <b>Jabber:</b> nicklas2751@elaon.de<br>
+ *     <b>Riot.im:</b> nicklas2751:matrix.elaon.de<br>
  */
 public class KikaSendungVerpasstOverviewUrlTask implements Callable<Set<CrawlerUrlDTO>> {
 
@@ -52,13 +52,20 @@ public class KikaSendungVerpasstOverviewUrlTask implements Callable<Set<CrawlerU
     // allowed date strings is contained and then build CrawlerUrlDTOs of the filtered result.
     return gatherAllRawSendungVerpasstOverviewPageUrls().stream()
         .filter(u -> allowedDateStrings.parallelStream().anyMatch(u::contains))
-        .map(CrawlerUrlDTO::new).collect(Collectors.toSet());
+        .map(CrawlerUrlDTO::new)
+        .collect(Collectors.toSet());
   }
 
   private Set<String> gatherAllRawSendungVerpasstOverviewPageUrls() {
     final Set<String> rawSendungVerpasstOverviewPageUrls = new HashSet<>();
     try {
-      final Document document = Jsoup.connect(KikaConstants.URL_DAY_PAGE).get();
+      final Document document =
+          Jsoup.connect(KikaConstants.URL_DAY_PAGE)
+              .timeout(
+                  (int)
+                      TimeUnit.SECONDS.toMillis(
+                          crawler.getCrawlerConfig().getSocketTimeoutInSeconds()))
+              .get();
       for (final Element urlElement : document.select(URL_SELECTOR)) {
         final Optional<String> rawSendungVerpasstOverviewPageUrl =
             KikaHelper.gatherIpgTriggerUrlFromElement(urlElement, ATTRIBUTE_DATA_CTRL_IPG_TRIGGER, KikaConstants.BASE_URL);
@@ -67,8 +74,11 @@ public class KikaSendungVerpasstOverviewUrlTask implements Callable<Set<CrawlerU
     } catch (final HttpStatusException httpStatusError) {
       LOG.fatal(
           "Something went teribble wrong on loading the KIKA base \"Sendung Verpasst\" overview page.");
-      crawler.printMessage(ServerMessages.CRAWLER_DOCUMENT_LOAD_ERROR,
-          crawler.getSender().getName(), KikaConstants.URL_DAY_PAGE, httpStatusError.getStatusCode());
+      crawler.printMessage(
+          ServerMessages.CRAWLER_DOCUMENT_LOAD_ERROR,
+          crawler.getSender().getName(),
+          KikaConstants.URL_DAY_PAGE,
+          httpStatusError.getStatusCode());
     } catch (final IOException ioException) {
       LOG.fatal(
           "Something went teribble wrong on loading the KIKA base \"Sendung Verpasst\" overview page.");
@@ -91,5 +101,4 @@ public class KikaSendungVerpasstOverviewUrlTask implements Callable<Set<CrawlerU
 
     return dateStrings;
   }
-
 }

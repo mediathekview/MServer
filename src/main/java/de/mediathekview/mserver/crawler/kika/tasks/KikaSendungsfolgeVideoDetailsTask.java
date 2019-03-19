@@ -50,8 +50,8 @@ public class KikaSendungsfolgeVideoDetailsTask extends AbstractUrlTask<Film, Cra
   private static final Logger LOG = LogManager.getLogger(KikaSendungsfolgeVideoDetailsTask.class);
   private static final long serialVersionUID = 6336802731231493377L;
 
-  public KikaSendungsfolgeVideoDetailsTask(final AbstractCrawler aCrawler,
-      final ConcurrentLinkedQueue<CrawlerUrlDTO> aUrlToCrawlDTOs) {
+  public KikaSendungsfolgeVideoDetailsTask(
+      final AbstractCrawler aCrawler, final ConcurrentLinkedQueue<CrawlerUrlDTO> aUrlToCrawlDTOs) {
     super(aCrawler, aUrlToCrawlDTOs);
   }
 
@@ -119,17 +119,19 @@ public class KikaSendungsfolgeVideoDetailsTask extends AbstractUrlTask<Film, Cra
     return new Elements();
   }
 
-  private LocalDateTime parseTime(final Elements dateNodes, final String thema,
-      final String title) {
-    LocalDateTime time;
+  private LocalDateTime parseTime(
+      final Elements dateNodes, final String thema, final String title) {
+    final LocalDateTime time;
     if (!dateNodes.isEmpty() && dateNodes.get(0).text() != null) {
-      time = LocalDateTime.parse(
-          DateUtils.changeDateTimeForMissingISO8601Support(dateNodes.get(0).text()),
-          DateTimeFormatter.ISO_DATE_TIME);
+      time =
+          LocalDateTime.parse(
+              DateUtils.changeDateTimeForMissingISO8601Support(dateNodes.get(0).text()),
+              DateTimeFormatter.ISO_DATE_TIME);
     } else {
       time = LocalDate.now().atStartOfDay();
-      LOG.debug(String.format("The film \"%s - %s\" has no date so the actual date will be used.",
-          thema, title));
+      LOG.debug(
+          String.format(
+              "The film \"%s - %s\" has no date so the actual date will be used.", thema, title));
     }
     return time;
   }
@@ -143,7 +145,11 @@ public class KikaSendungsfolgeVideoDetailsTask extends AbstractUrlTask<Film, Cra
   @Override
   protected void processElement(final CrawlerUrlDTO aUrlDTO) {
     try {
-      final Document document = Jsoup.connect(aUrlDTO.getUrl()).parser(Parser.xmlParser()).get();
+      final Document document =
+          Jsoup.connect(aUrlDTO.getUrl())
+              .timeout((int) TimeUnit.SECONDS.toMillis(config.getSocketTimeoutInSeconds()))
+              .parser(Parser.xmlParser())
+              .get();
       final Elements titleNodes = document.getElementsByTag(ELEMENT_TITLE);
       final Elements themaNodes = orAlternative(document, ELEMENT_CHANNELNAME, ELEMENT_TOPLINE);
       final Elements websiteUrlNodes =
@@ -154,7 +160,9 @@ public class KikaSendungsfolgeVideoDetailsTask extends AbstractUrlTask<Film, Cra
 
       final Elements videoElements = document.getElementsByTag(ELEMENT_ASSET);
 
-      if (!titleNodes.isEmpty() && !themaNodes.isEmpty() && !durationNodes.isEmpty()
+      if (!titleNodes.isEmpty()
+          && !themaNodes.isEmpty()
+          && !durationNodes.isEmpty()
           && !videoElements.isEmpty()) {
         final String thema = themaNodes.get(0).text();
         final String title = titleNodes.get(0).text();
@@ -173,8 +181,10 @@ public class KikaSendungsfolgeVideoDetailsTask extends AbstractUrlTask<Film, Cra
           addGeo(newFilm);
 
           if (newFilm.getUrls().isEmpty()) {
-            LOG.error(String.format(
-                "Can't find/build valid download URLs for the film \"%s - %s\".", thema, title));
+            LOG.error(
+                String.format(
+                    "Can't find/build valid download URLs for the film \"%s - %s\".",
+                    thema, title));
             crawler.incrementAndGetErrorCount();
             crawler.updateProgress();
           } else {
@@ -187,14 +197,17 @@ public class KikaSendungsfolgeVideoDetailsTask extends AbstractUrlTask<Film, Cra
             crawler.updateProgress();
           }
         } else {
-          LOG.error(String.format("The duration for the film \"%s - %s\" can't be parsed: \"%s\"",
-              thema, title, durationNodes.get(0).text()));
+          LOG.error(
+              String.format(
+                  "The duration for the film \"%s - %s\" can't be parsed: \"%s\"",
+                  thema, title, durationNodes.get(0).text()));
           crawler.incrementAndGetErrorCount();
           crawler.updateProgress();
         }
       } else {
-        LOG.error(String.format("The video with the URL \"%s\" has not all needed Elements",
-            aUrlDTO.getUrl()));
+        LOG.error(
+            String.format(
+                "The video with the URL \"%s\" has not all needed Elements", aUrlDTO.getUrl()));
         crawler.incrementAndGetErrorCount();
         crawler.updateProgress();
       }
@@ -205,7 +218,6 @@ public class KikaSendungsfolgeVideoDetailsTask extends AbstractUrlTask<Film, Cra
       crawler.incrementAndGetErrorCount();
       crawler.printErrorMessage();
     }
-
   }
 
   private void addGeo(Film newFilm) {
