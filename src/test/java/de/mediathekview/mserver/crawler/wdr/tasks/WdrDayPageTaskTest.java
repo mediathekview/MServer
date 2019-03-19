@@ -1,15 +1,8 @@
 package de.mediathekview.mserver.crawler.wdr.tasks;
 
-import static org.hamcrest.CoreMatchers.equalTo;
-import static org.hamcrest.CoreMatchers.notNullValue;
-import static org.junit.Assert.assertThat;
-
 import de.mediathekview.mserver.crawler.basic.CrawlerUrlDTO;
 import de.mediathekview.mserver.crawler.basic.TopicUrlDTO;
 import de.mediathekview.mserver.testhelper.JsoupMock;
-import java.io.IOException;
-import java.util.Set;
-import java.util.concurrent.ConcurrentLinkedQueue;
 import org.hamcrest.Matchers;
 import org.jsoup.Jsoup;
 import org.junit.Test;
@@ -18,9 +11,23 @@ import org.powermock.core.classloader.annotations.PowerMockIgnore;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 
+import java.io.IOException;
+import java.util.Set;
+import java.util.concurrent.ConcurrentLinkedQueue;
+
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.CoreMatchers.notNullValue;
+import static org.junit.Assert.assertThat;
+
 @RunWith(PowerMockRunner.class)
 @PrepareForTest({Jsoup.class})
-@PowerMockIgnore("javax.net.ssl.*")
+@PowerMockIgnore(
+    value = {
+      "javax.net.ssl.*",
+      "javax.*",
+      "com.sun.*",
+      "org.apache.logging.log4j.core.config.xml.*"
+    })
 public class WdrDayPageTaskTest extends WdrTaskTestBase {
 
   @Test
@@ -29,7 +36,7 @@ public class WdrDayPageTaskTest extends WdrTaskTestBase {
         "https://www1.wdr.de/mediathek/video/sendungverpasst/sendung-verpasst-100~_tag-03022018.html";
     JsoupMock.mock(requestUrl, "/wdr/wdr_day.html");
 
-    TopicUrlDTO[] expected =
+    final TopicUrlDTO[] expected =
         new TopicUrlDTO[] {
           new TopicUrlDTO(
               "WDR.DOK",
@@ -69,11 +76,11 @@ public class WdrDayPageTaskTest extends WdrTaskTestBase {
               "https://www1.wdr.de/mediathek/video/sendungen/fernsehfilm/video-die-farben-der-liebe-102.html")
         };
 
-    ConcurrentLinkedQueue<CrawlerUrlDTO> queue = new ConcurrentLinkedQueue<>();
+    final ConcurrentLinkedQueue<CrawlerUrlDTO> queue = new ConcurrentLinkedQueue<>();
     queue.add(new CrawlerUrlDTO(requestUrl));
 
-    WdrDayPageTask target = new WdrDayPageTask(createCrawler(), queue);
-    Set<TopicUrlDTO> actual = target.invoke();
+    final WdrDayPageTask target = new WdrDayPageTask(createCrawler(), queue);
+    final Set<TopicUrlDTO> actual = target.invoke();
 
     assertThat(actual, notNullValue());
     assertThat(actual.size(), equalTo(expected.length));

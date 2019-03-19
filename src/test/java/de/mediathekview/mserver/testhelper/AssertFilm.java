@@ -1,26 +1,22 @@
 package de.mediathekview.mserver.testhelper;
 
-import de.mediathekview.mlib.daten.Film;
-import de.mediathekview.mlib.daten.FilmUrl;
-import de.mediathekview.mlib.daten.GeoLocations;
-import de.mediathekview.mlib.daten.Resolution;
-import de.mediathekview.mlib.daten.Sender;
+import de.mediathekview.mlib.daten.*;
+import org.hamcrest.Matchers;
+
 import java.net.URL;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.Optional;
-import static org.hamcrest.CoreMatchers.equalTo;
-import static org.hamcrest.CoreMatchers.notNullValue;
-import static org.hamcrest.CoreMatchers.nullValue;
-import org.hamcrest.Matchers;
+
+import static org.hamcrest.CoreMatchers.*;
 import static org.junit.Assert.assertThat;
 
 public final class AssertFilm {
 
-  private AssertFilm() {
-  }
+  private AssertFilm() {}
 
-  public static void assertEquals(final Film aActualFilm,
+  public static void assertEquals(
+      final Film aActualFilm,
       final Sender aExpectedSender,
       final String aExpectedTheme,
       final String aExpectedTitle,
@@ -40,10 +36,11 @@ public final class AssertFilm {
       assertThat(aActualFilm.getWebsite().get().toString(), equalTo(aWebsiteUrl));
     } else {
       assertThat(aActualFilm.getWebsite().isPresent(), equalTo(false));
-    }    
+    }
   }
 
-  public static void assertEquals(final Film aActualFilm,
+  public static void assertEquals(
+      final Film aActualFilm,
       final Sender aExpectedSender,
       final String aExpectedTheme,
       final String aExpectedTitle,
@@ -57,7 +54,14 @@ public final class AssertFilm {
       final String aExpectedUrlHd,
       final String aExpectedSubtitle) {
 
-    assertEquals(aActualFilm, aExpectedSender, aExpectedTheme, aExpectedTitle, aExpectedTime, aExpectedDuration, aExpectedDescription,
+    assertEquals(
+        aActualFilm,
+        aExpectedSender,
+        aExpectedTheme,
+        aExpectedTitle,
+        aExpectedTime,
+        aExpectedDuration,
+        aExpectedDescription,
         aWebsiteUrl);
 
     assertThat(aActualFilm.getGeoLocations(), Matchers.containsInAnyOrder(aExpectedGeo));
@@ -68,11 +72,13 @@ public final class AssertFilm {
 
     assertThat(aActualFilm.hasUT(), equalTo(!aExpectedSubtitle.isEmpty()));
     if (!aExpectedSubtitle.isEmpty()) {
-      assertThat(aActualFilm.getSubtitles().toArray(new URL[0])[0].toString(), equalTo(aExpectedSubtitle));
+      assertThat(
+          aActualFilm.getSubtitles().toArray(new URL[0])[0].toString(), equalTo(aExpectedSubtitle));
     }
   }
 
-  public static void assertEquals(final Film aActualFilm,
+  public static void assertEquals(
+      final Film aActualFilm,
       final Sender aExpectedSender,
       final String aExpectedTheme,
       final String aExpectedTitle,
@@ -92,10 +98,29 @@ public final class AssertFilm {
       final String aExpectedUrlAudioDescriptionHd,
       final String aExpectedSubtitle) {
 
-    assertEquals(aActualFilm, aExpectedSender, aExpectedTheme, aExpectedTitle, aExpectedTime, aExpectedDuration, aExpectedDescription,
-        aWebsiteUrl, aExpectedGeo, aExpectedUrlSmall, aExpectedUrlNormal, aExpectedUrlHd, aExpectedSubtitle);
-    assertSignLanguages(aActualFilm, aExpectedUrlSignLanguageSmall, aExpectedUrlSignLanguageNormal, aExpectedUrlSignLanguageHd);
-    assertAudioDescriptions(aActualFilm, aExpectedUrlAudioDescriptionSmall, aExpectedUrlAudioDescriptionNormal,
+    assertEquals(
+        aActualFilm,
+        aExpectedSender,
+        aExpectedTheme,
+        aExpectedTitle,
+        aExpectedTime,
+        aExpectedDuration,
+        aExpectedDescription,
+        aWebsiteUrl,
+        aExpectedGeo,
+        aExpectedUrlSmall,
+        aExpectedUrlNormal,
+        aExpectedUrlHd,
+        aExpectedSubtitle);
+    assertSignLanguages(
+        aActualFilm,
+        aExpectedUrlSignLanguageSmall,
+        aExpectedUrlSignLanguageNormal,
+        aExpectedUrlSignLanguageHd);
+    assertAudioDescriptions(
+        aActualFilm,
+        aExpectedUrlAudioDescriptionSmall,
+        aExpectedUrlAudioDescriptionNormal,
         aExpectedUrlAudioDescriptionHd);
   }
 
@@ -114,21 +139,22 @@ public final class AssertFilm {
     }
   }
 
-  private static void assertAudioDescriptions(final Film aActualFilm,
+  private static void assertAudioDescriptions(
+      final Film aActualFilm,
       final String aExpectedUrlAudioDescriptionSmall,
       final String aExpectedUrlAudioDescriptionNormal,
-      final String aExpectedUrlAudioDescriptionHd
-  ) {
+      final String aExpectedUrlAudioDescriptionHd) {
     assertUrl(aExpectedUrlAudioDescriptionSmall, aActualFilm.getAudioDescription(Resolution.SMALL));
-    assertUrl(aExpectedUrlAudioDescriptionNormal, aActualFilm.getAudioDescription(Resolution.NORMAL));
+    assertUrl(
+        aExpectedUrlAudioDescriptionNormal, aActualFilm.getAudioDescription(Resolution.NORMAL));
     assertUrl(aExpectedUrlAudioDescriptionHd, aActualFilm.getAudioDescription(Resolution.HD));
   }
 
-  private static void assertSignLanguages(final Film aActualFilm,
+  private static void assertSignLanguages(
+      final Film aActualFilm,
       final String aExpectedUrlSignLanguageSmall,
       final String aExpectedUrlSignLanguageNormal,
-      final String aExpectedUrlSignLanguageHd
-  ) {
+      final String aExpectedUrlSignLanguageHd) {
     assertUrl(aExpectedUrlSignLanguageSmall, aActualFilm.getSignLanguage(Resolution.SMALL));
     assertUrl(aExpectedUrlSignLanguageNormal, aActualFilm.getSignLanguage(Resolution.NORMAL));
     assertUrl(aExpectedUrlSignLanguageHd, aActualFilm.getSignLanguage(Resolution.HD));

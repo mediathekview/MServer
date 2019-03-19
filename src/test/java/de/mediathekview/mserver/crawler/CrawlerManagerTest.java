@@ -6,14 +6,6 @@ import de.mediathekview.mlib.messages.MessageTypes;
 import de.mediathekview.mlib.messages.MessageUtil;
 import de.mediathekview.mlib.messages.listener.MessageListener;
 import de.mediathekview.mserver.testhelper.FileReader;
-import java.io.File;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Comparator;
-import java.util.Date;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.junit.AfterClass;
@@ -22,6 +14,15 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
+
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Comparator;
+import java.util.Date;
 
 @RunWith(Parameterized.class)
 public class CrawlerManagerTest implements MessageListener {
@@ -41,20 +42,24 @@ public class CrawlerManagerTest implements MessageListener {
 
   @Parameterized.Parameters(name = "Test {index} Filmlist for {0} with {1}")
   public static Collection<Object[]> data() {
-    return Arrays
-        .asList(new Object[][]{{"filmlists/TestFilmlistNewJson.json", FilmlistFormats.JSON},
-            {"filmlists/TestFilmlistNewJson.json.xz", FilmlistFormats.JSON_COMPRESSED_XZ},
-            {"filmlists/TestFilmlistNewJson.json.bz", FilmlistFormats.JSON_COMPRESSED_BZIP},
-            {"filmlists/TestFilmlistNewJson.json.gz", FilmlistFormats.JSON_COMPRESSED_GZIP},
-            {"filmlists/TestFilmlist.json", FilmlistFormats.OLD_JSON},
-            {"filmlists/TestFilmlist.json.xz", FilmlistFormats.OLD_JSON_COMPRESSED_XZ},
-            {"filmlists/TestFilmlist.json.bz", FilmlistFormats.OLD_JSON_COMPRESSED_BZIP},
-            {"filmlists/TestFilmlist.json.gz", FilmlistFormats.OLD_JSON_COMPRESSED_GZIP}});
+    return Arrays.asList(
+        new Object[][] {
+          {"filmlists/TestFilmlistNewJson.json", FilmlistFormats.JSON},
+          {"filmlists/TestFilmlistNewJson.json.xz", FilmlistFormats.JSON_COMPRESSED_XZ},
+          {"filmlists/TestFilmlistNewJson.json.bz", FilmlistFormats.JSON_COMPRESSED_BZIP},
+          {"filmlists/TestFilmlistNewJson.json.gz", FilmlistFormats.JSON_COMPRESSED_GZIP},
+          {"filmlists/TestFilmlist.json", FilmlistFormats.OLD_JSON},
+          {"filmlists/TestFilmlist.json.xz", FilmlistFormats.OLD_JSON_COMPRESSED_XZ},
+          {"filmlists/TestFilmlist.json.bz", FilmlistFormats.OLD_JSON_COMPRESSED_BZIP},
+          {"filmlists/TestFilmlist.json.gz", FilmlistFormats.OLD_JSON_COMPRESSED_GZIP}
+        });
   }
 
   @AfterClass
   public static void deleteTempFiles() throws IOException {
-    Files.walk(testFileFolderPath).sorted(Comparator.reverseOrder()).map(Path::toFile)
+    Files.walk(testFileFolderPath)
+        .sorted(Comparator.reverseOrder())
+        .map(Path::toFile)
         .forEach(File::delete);
   }
 
@@ -73,20 +78,20 @@ public class CrawlerManagerTest implements MessageListener {
     if (MessageTypes.FATAL_ERROR.equals(aMessage.getMessageType())) {
       Assert.fail(String.format(MessageUtil.getInstance().loadMessageText(aMessage), aParameters));
     } else {
-      LOG.info(String.format("%s: %s", aMessage.getMessageType().name(),
-          String.format(MessageUtil.getInstance().loadMessageText(aMessage), aParameters)));
+      LOG.info(
+          String.format(
+              "%s: %s",
+              aMessage.getMessageType().name(),
+              String.format(MessageUtil.getInstance().loadMessageText(aMessage), aParameters)));
     }
-
   }
 
   @Test
   public void testSaveAndImport() {
-    Path filmListFilePath = FileReader.getPath(filmlistPath);
+    final Path filmListFilePath = FileReader.getPath(filmlistPath);
 
     CRAWLER_MANAGER.addMessageListener(this);
-    CRAWLER_MANAGER.importFilmlist(format,
-        filmListFilePath.toAbsolutePath().toString());
+    CRAWLER_MANAGER.importFilmlist(format, filmListFilePath.toAbsolutePath().toString());
     CRAWLER_MANAGER.saveFilmlist(testFileFolderPath.resolve(filmlistPath), format);
   }
-
 }

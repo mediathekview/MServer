@@ -1,12 +1,13 @@
 package de.mediathekview.mserver.crawler.zdf;
 
-import static org.hamcrest.CoreMatchers.equalTo;
-import static org.hamcrest.MatcherAssert.assertThat;
-
 import de.mediathekview.mserver.testhelper.WireMockTestBase;
-import java.util.Optional;
 import org.junit.Before;
 import org.junit.Test;
+
+import java.util.Optional;
+
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 public class ZdfVideoUrlOptimizerTest extends WireMockTestBase {
 

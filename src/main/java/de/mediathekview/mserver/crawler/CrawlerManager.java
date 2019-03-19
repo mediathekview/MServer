@@ -393,7 +393,7 @@ public class CrawlerManager extends AbstractManager {
 	 * @param aFilmlistFormat  The {@link FilmlistFormats} to upload.
 	 * @param aFtpUploadTarget The settings where to upload to of
 	 *                         {@link FtpUploadTarget}.
-	 * @param isDiffList
+	 * @param isDiffList true if the filmlist to upload is a diff list.
 	 */
 	public void uploadFilmlist(final FilmlistFormats aFilmlistFormat, final FtpUploadTarget aFtpUploadTarget,
 			final boolean isDiffList) {

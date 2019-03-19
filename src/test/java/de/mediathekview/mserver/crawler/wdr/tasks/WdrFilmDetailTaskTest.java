@@ -1,23 +1,10 @@
 package de.mediathekview.mserver.crawler.wdr.tasks;
 
-import static org.hamcrest.CoreMatchers.equalTo;
-import static org.hamcrest.CoreMatchers.notNullValue;
-import static org.junit.Assert.assertThat;
-
 import de.mediathekview.mlib.daten.Film;
 import de.mediathekview.mlib.daten.GeoLocations;
 import de.mediathekview.mlib.daten.Sender;
 import de.mediathekview.mserver.testhelper.AssertFilm;
 import de.mediathekview.mserver.testhelper.JsoupMock;
-import java.io.IOException;
-import java.time.Duration;
-import java.time.LocalDateTime;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Optional;
-import java.util.Set;
 import org.jsoup.Jsoup;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -27,11 +14,32 @@ import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 import org.powermock.modules.junit4.PowerMockRunnerDelegate;
 
+import java.io.IOException;
+import java.time.Duration;
+import java.time.LocalDateTime;
+import java.util.*;
+
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.CoreMatchers.notNullValue;
+import static org.junit.Assert.assertThat;
+
 @RunWith(PowerMockRunner.class)
 @PrepareForTest({Jsoup.class})
 @PowerMockRunnerDelegate(Parameterized.class)
-@PowerMockIgnore("javax.net.ssl.*")
+@PowerMockIgnore(
+    value = {
+      "javax.net.ssl.*",
+      "javax.*",
+      "com.sun.*",
+      "org.apache.logging.log4j.core.config.xml.*"
+    })
 public class WdrFilmDetailTaskTest extends WdrTaskTestBase {
+
+  private final WdrFilmDetailTaskTestData[] expectedFilms;
+
+  public WdrFilmDetailTaskTest(final WdrFilmDetailTaskTestData[] aExpectedFilms) {
+    expectedFilms = aExpectedFilms;
+  }
 
   @Parameterized.Parameters
   public static Collection<Object[]> data() {
@@ -137,18 +145,12 @@ public class WdrFilmDetailTaskTest extends WdrTaskTestBase {
         });
   }
 
-  private final WdrFilmDetailTaskTestData[] expectedFilms;
-
-  public WdrFilmDetailTaskTest(WdrFilmDetailTaskTestData[] aExpectedFilms) {
-    expectedFilms = aExpectedFilms;
-  }
-
   @Test
   public void test() throws IOException {
     setupHeadRequestForFileSize();
 
-    Map<String, String> urlMapping = new HashMap<>();
-    for (WdrFilmDetailTaskTestData expected : expectedFilms) {
+    final Map<String, String> urlMapping = new HashMap<>();
+    for (final WdrFilmDetailTaskTestData expected : expectedFilms) {
       urlMapping.put(expected.getRequestUrl(), expected.getFilmPageFile());
       setupSuccessfulResponse(expected.getJsUrl(), expected.getJsFile());
       setupSuccessfulResponse(expected.getM3u8Url(), expected.getM3u8File());
@@ -166,12 +168,13 @@ public class WdrFilmDetailTaskTest extends WdrTaskTestBase {
 
     final Object[] actualArray = actual.toArray();
     for (int i = 0; i < actual.size(); i++) {
-      Film actualFilm = (Film) actualArray[i];
+      final Film actualFilm = (Film) actualArray[i];
 
-      Optional<WdrFilmDetailTaskTestData> expectedFilmOptional = getTestData(actualFilm.getTitel());
+      final Optional<WdrFilmDetailTaskTestData> expectedFilmOptional =
+          getTestData(actualFilm.getTitel());
       assertThat(expectedFilmOptional.isPresent(), equalTo(true));
 
-      WdrFilmDetailTaskTestData expectedFilm = expectedFilmOptional.get();
+      final WdrFilmDetailTaskTestData expectedFilm = expectedFilmOptional.get();
 
       AssertFilm.assertEquals(
           actualFilm,
@@ -191,7 +194,7 @@ public class WdrFilmDetailTaskTest extends WdrTaskTestBase {
   }
 
   private Optional<WdrFilmDetailTaskTestData> getTestData(final String aTitle) {
-    for (WdrFilmDetailTaskTestData expectedFilm : expectedFilms) {
+    for (final WdrFilmDetailTaskTestData expectedFilm : expectedFilms) {
       if (expectedFilm.getExpectedTitle().equalsIgnoreCase(aTitle)) {
         return Optional.of(expectedFilm);
       }

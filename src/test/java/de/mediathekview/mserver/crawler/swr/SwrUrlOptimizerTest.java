@@ -1,10 +1,10 @@
 package de.mediathekview.mserver.crawler.swr;
 
-import static org.hamcrest.CoreMatchers.equalTo;
-import static org.hamcrest.MatcherAssert.assertThat;
-
 import de.mediathekview.mserver.testhelper.WireMockTestBase;
 import org.junit.Test;
+
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 public class SwrUrlOptimizerTest extends WireMockTestBase {
 
@@ -40,5 +40,4 @@ public class SwrUrlOptimizerTest extends WireMockTestBase {
 
     assertThat(actualUrl, equalTo(url));
   }
-
 }
