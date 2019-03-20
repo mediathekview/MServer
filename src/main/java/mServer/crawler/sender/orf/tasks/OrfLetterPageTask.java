@@ -16,7 +16,7 @@ public class OrfLetterPageTask implements Callable<ConcurrentLinkedQueue<TopicUr
 
   private static final Logger LOG = LogManager.getLogger(OrfLetterPageTask.class);
 
-  private static final String SHOW_URL_SELECTOR = "ul.latest_episodes > li.latest_episode > a";
+  private static final String SHOW_URL_SELECTOR = "article > a";
 
   @Override
   public ConcurrentLinkedQueue<TopicUrlDTO> call() throws Exception {

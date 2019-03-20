@@ -6,11 +6,14 @@ import mServer.crawler.sender.MediathekReader;
 import mServer.crawler.sender.base.CrawlerUrlDTO;
 import mServer.crawler.sender.orf.TopicUrlDTO;
 import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 public class OrfDayTask extends AbstractDocumentTask<TopicUrlDTO, CrawlerUrlDTO> {
 
-  private static final String ITEM_SELECTOR = "article.item > a";
+  private static final String ITEM_SELECTOR = "article a";
+  private static final String TITLE_SELECTOR1 = ".item-title";
+  private static final String TITLE_SELECTOR2 = ".teaser-title";
   private static final String ATTRIBUTE_HREF = "href";
 
   public OrfDayTask(final MediathekReader aCrawler,
@@ -21,13 +24,25 @@ public class OrfDayTask extends AbstractDocumentTask<TopicUrlDTO, CrawlerUrlDTO>
   @Override
   protected void processDocument(CrawlerUrlDTO aUrlDTO, Document aDocument) {
     Elements elements = aDocument.select(ITEM_SELECTOR);
-    elements.forEach(item -> {
-      String theme = OrfHelper.parseTheme(item);
-      String url = item.attr(ATTRIBUTE_HREF);
+    elements.forEach(
+            item -> {
+              Element titleElement = getTitleElement(item);
+              if (titleElement != null) {
+                String theme = OrfHelper.parseTheme(titleElement.text());
+                String url = item.attr(ATTRIBUTE_HREF);
 
-      TopicUrlDTO dto = new TopicUrlDTO(theme, url);
-      taskResults.add(dto);
-    });
+                TopicUrlDTO dto = new TopicUrlDTO(theme, url);
+                taskResults.add(dto);
+              }
+            });
+  }
+
+  private Element getTitleElement(Element item) {
+    Element titleElement = item.selectFirst(TITLE_SELECTOR1);
+    if (titleElement == null) {
+      titleElement = item.selectFirst(TITLE_SELECTOR2);
+    }
+    return titleElement;
   }
 
   @Override

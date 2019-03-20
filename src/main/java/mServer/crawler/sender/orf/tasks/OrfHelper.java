@@ -12,7 +12,7 @@ import mServer.crawler.sender.orf.OrfConstants;
  */
 public class OrfHelper {
 
-  private static final String LETTER_URL_SELECTOR = "div.mod_name_list > ul.js_extra_content > li:not(.inactive) > a.base_list_item_inner";
+  private static final String LETTER_URL_SELECTOR = "li.letter-item > a";
   private static final String ATTRIBUTE_HREF = "href";
   private static final String ATTRIBUTE_TITLE = "title";
 
@@ -21,9 +21,12 @@ public class OrfHelper {
 
   public static String parseTheme(final Element aItem) {
     String theme = aItem.attr(ATTRIBUTE_TITLE);
+    return parseTheme(theme);
+  }
 
+  public static String parseTheme(String theme) {
     // Thema steht vor Doppelpunkt
-    // Ausnahmen 
+    // Ausnahmen
     // - ZIB-Sendungen mit Uhrzeit
     // - DokEins-Sendungen
     // - Ungarisches Magazin
@@ -34,7 +37,6 @@ public class OrfHelper {
             && !theme.contains("Ungarisches Magazin")) {
       return theme.substring(0, index);
     }
-
     return theme;
   }
 
