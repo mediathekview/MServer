@@ -1,8 +1,15 @@
 package de.mediathekview.mserver.crawler.orf.tasks;
 
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.CoreMatchers.notNullValue;
+import static org.junit.Assert.assertThat;
+
 import de.mediathekview.mserver.crawler.basic.CrawlerUrlDTO;
 import de.mediathekview.mserver.crawler.basic.TopicUrlDTO;
 import de.mediathekview.mserver.testhelper.JsoupMock;
+import java.io.IOException;
+import java.util.Set;
+import java.util.concurrent.ConcurrentLinkedQueue;
 import org.hamcrest.Matchers;
 import org.jsoup.Jsoup;
 import org.junit.Test;
@@ -11,23 +18,15 @@ import org.powermock.core.classloader.annotations.PowerMockIgnore;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 
-import java.io.IOException;
-import java.util.Set;
-import java.util.concurrent.ConcurrentLinkedQueue;
-
-import static org.hamcrest.CoreMatchers.equalTo;
-import static org.hamcrest.CoreMatchers.notNullValue;
-import static org.junit.Assert.assertThat;
-
 @RunWith(PowerMockRunner.class)
 @PrepareForTest({Jsoup.class})
 @PowerMockIgnore(
-        value = {
-                "javax.net.ssl.*",
-                "javax.*",
-                "com.sun.*",
-                "org.apache.logging.log4j.core.config.xml.*"
-        })
+    value = {
+      "javax.net.ssl.*",
+      "javax.*",
+      "com.sun.*",
+      "org.apache.logging.log4j.core.config.xml.*"
+    })
 public class OrfDayTaskTest extends OrfTaskTestBase {
 
   @Test
@@ -35,112 +34,55 @@ public class OrfDayTaskTest extends OrfTaskTestBase {
     final String requestUrl = "http://tvthek.orf.at/schedule/03.02.2018";
     JsoupMock.mock(requestUrl, "/orf/orf_day.html");
 
-      TopicUrlDTO[] expected =
-              new TopicUrlDTO[]{
-                      new TopicUrlDTO(
-                              "Wetter-Panorama",
-                              "http://tvthek.orf.at/profile/Wetter-Panorama/7268748/Wetter-Panorama/13962273"),
-                      new TopicUrlDTO(
-                              "Servus Kasperl",
-                              "http://tvthek.orf.at/profile/Servus-Kasperl/3272601/Servus-Kasperl-Kasperl-Co-Eine-Kragenweite-zu-gross/13963856"),
-                      new TopicUrlDTO(
-                              "Das Yoga-Magazin",
-                              "http://tvthek.orf.at/profile/Yoga-Magazin/7708946/Das-Yoga-Magazin-Folge-71/13964045"),
-                      new TopicUrlDTO(
-                              "Hallo okidoki",
-                              "http://tvthek.orf.at/profile/Hallo-Okidoki/2616615/Hallo-okidoki/13963859"),
-                      new TopicUrlDTO(
-                              "ABC Bär", "http://tvthek.orf.at/profile/ABC-Baer/4611813/ABC-Baer/13963860"),
-                      new TopicUrlDTO(
-                              "Tolle Tiere",
-                              "http://tvthek.orf.at/profile/Tolle-Tiere/13764575/Tolle-Tiere/13963862"),
-                      new TopicUrlDTO(
-                              "Tom Turbo - Detektivclub",
-                              "http://tvthek.orf.at/profile/Tom-Turbo-Detektivclub/2616703/Tom-Turbo-Detektivclub-Das-Amulett-der-blauen-Fee/13963864"),
-                      new TopicUrlDTO(
-                              "ZIB 9:00", "http://tvthek.orf.at/profile/ZIB-900/71256/ZIB-900/13963865"),
-                      new TopicUrlDTO(
-                              "Schmatzo - Kochen mit WOW",
-                              "http://tvthek.orf.at/profile/Schmatzo/13886275/Schmatzo-Kochen-mit-WOW/13963867"),
-                      new TopicUrlDTO(
-                              "Julia - eine ungewöhnliche Frau",
-                              "http://tvthek.orf.at/profile/Julia-eine-ungewoehnliche-Frau/13888264/Julia-eine-ungewoehnliche-Frau-Der-Hormonskandal/13963869"),
-                      new TopicUrlDTO(
-                              "Oben ohne",
-                              "http://tvthek.orf.at/profile/Oben-ohne/13886963/Oben-ohne-Judith-und-James/13963870"),
-                      new TopicUrlDTO(
-                              "Nordische Kombination Hakuba",
-                              "http://tvthek.orf.at/profile/Nordische-Kombination/13886493/Nordische-Kombination-Hakuba-Skispringen-und-Langlauf-Highlights/13963989"),
-                      new TopicUrlDTO(
-                              "Der Bär ist los! Die Geschichte von Bruno",
-                              "http://tvthek.orf.at/profile/Der-Baer-ist-los-Die-Geschichte-von-Bruno/13888385/Der-Baer-ist-los-Die-Geschichte-von-Bruno/13963871"),
-                      new TopicUrlDTO(
-                              "Ski alpin",
-                              "http://tvthek.orf.at/profile/Ski-alpin-Damen/13886308/Ski-alpin-Abfahrt-der-Damen-Garmisch/13963987"),
-                      new TopicUrlDTO(
-                              "AD | Ski alpin",
-                              "http://tvthek.orf.at/profile/AD-Ski-alpin-Damen/13886309/AD-Ski-alpin-Abfahrt-der-Damen-Garmisch/13964038"),
-                      new TopicUrlDTO(
-                              "Tennis Davis-Cup",
-                              "http://tvthek.orf.at/profile/Tennis-Davis-Cup/13886440/Tennis-Davis-Cup-Oesterreich-vs-Weissrussland-Tag-2-aus-St-Poelten/13963873"),
-                      new TopicUrlDTO(
-                              "Tirol heute", "http://tvthek.orf.at/profile/Tirol-heute/70023/Tirol-heute/13964032"),
-                      new TopicUrlDTO(
-                              "Vorarlberg heute",
-                              "http://tvthek.orf.at/profile/Vorarlberg-heute/70024/Vorarlberg-heute/13964031"),
-                      new TopicUrlDTO(
-                              "Wien heute", "http://tvthek.orf.at/profile/Wien-heute/70018/Wien-heute/13964026"),
-                      new TopicUrlDTO(
-                              "Servus, Srečno, Ciao",
-                              "http://tvthek.orf.at/profile/Servus-Sreno-Ciao/8179756/Servus-Sreno-Ciao/13963412"),
-                      new TopicUrlDTO(
-                              "Wetter Burgenland",
-                              "http://tvthek.orf.at/profile/Wetter-Burgenland/8094958/Wetter-Burgenland/13964066"),
-                      new TopicUrlDTO(
-                              "Wetter Kärnten",
-                              "http://tvthek.orf.at/profile/Wetter-Kaernten/8094982/Wetter-Kaernten/13964068"),
-                      new TopicUrlDTO(
-                              "Wetter Niederösterreich",
-                              "http://tvthek.orf.at/profile/Wetter-Niederoesterreich/8094947/Wetter-Niederoesterreich/13964070"),
-                      new TopicUrlDTO(
-                              "Wetter Oberösterreich",
-                              "http://tvthek.orf.at/profile/Wetter-Oberoesterreich/8094936/Wetter-Oberoesterreich/13964072"),
-                      new TopicUrlDTO(
-                              "Wetter Salzburg",
-                              "http://tvthek.orf.at/profile/Wetter-Salzburg/8095016/Wetter-Salzburg/13964074"),
-                      new TopicUrlDTO(
-                              "Wetter Steiermark",
-                              "http://tvthek.orf.at/profile/Wetter-Steiermark/8094971/Wetter-Steiermark/13964076"),
-                      new TopicUrlDTO(
-                              "Wetter Tirol",
-                              "http://tvthek.orf.at/profile/Wetter-Tirol/8094993/Wetter-Tirol/13964078"),
-                      new TopicUrlDTO(
-                              "Wetter Vorarlberg",
-                              "http://tvthek.orf.at/profile/Wetter-Vorarlberg/8095005/Wetter-Vorarlberg/13964080"),
-                      new TopicUrlDTO(
-                              "Wetter Wien",
-                              "http://tvthek.orf.at/profile/Wetter-Wien/8094871/Wetter-Wien/13964082"),
-                      new TopicUrlDTO("ZIB 1", "http://tvthek.orf.at/profile/ZIB-1/1203/ZIB-1/13963892"),
-                      new TopicUrlDTO(
-                              "ZIB 1 (ÖGS)", "http://tvthek.orf.at/profile/ZIB-1-OeGS/145302/ZIB-1-OeGS/13964083"),
-                      new TopicUrlDTO(
-                              "Sport Aktuell",
-                              "http://tvthek.orf.at/profile/Sport-Aktuell/889789/Sport-Aktuell/13963895"),
-                      new TopicUrlDTO(
-                              "Sport 20", "http://tvthek.orf.at/profile/Sport-20/2642577/Sport-20/13963897"),
-                      new TopicUrlDTO("ZIB 20", "http://tvthek.orf.at/profile/ZIB-20/1218/ZIB-20/13963896"),
-                      new TopicUrlDTO(
-                              "Seitenblicke",
-                              "http://tvthek.orf.at/profile/Seitenblicke/4790197/Seitenblicke/13963898"),
-              };
+    TopicUrlDTO[] expected =
+        new TopicUrlDTO[] {
+          new TopicUrlDTO(
+              "Wetter-Panorama",
+              "https://tvthek.orf.at/profile/Wetter-Panorama/7268748/Wetter-Panorama/14007692"),
+          new TopicUrlDTO(
+              "Hallo okidoki",
+              "https://tvthek.orf.at/profile/Hallo-okidoki/2616615/Hallo-okidoki/14007693"),
+          new TopicUrlDTO(
+              "Tolle Tiere",
+              "https://tvthek.orf.at/profile/Tolle-Tiere/13764575/Tolle-Tiere/14007694"),
+          new TopicUrlDTO(
+              "Skiweltcup",
+              "https://tvthek.orf.at/profile/Ski-alpin-Damen-Herren/13886795/Skiweltcup-Siegerehrungen-inkl-Uebergabe-der-Kristallkugeln/14007719"),
+          new TopicUrlDTO(
+              "Was ich glaube",
+              "https://tvthek.orf.at/profile/Was-ich-glaube/1287/Was-ich-glaube/14007720"),
+          new TopicUrlDTO(
+              "ZIB 17:00", "https://tvthek.orf.at/profile/ZIB-1700/71284/ZIB-1700/14007722"),
+          new TopicUrlDTO(
+              "Vorarlberg heute",
+              "https://tvthek.orf.at/profile/Vorarlberg-heute/70024/Vorarlberg-heute/14007821"),
+          new TopicUrlDTO(
+              "Wien heute",
+              "https://tvthek.orf.at/profile/Wien-heute/70018/Wien-heute/14007816"),
+          new TopicUrlDTO(
+              "Fußball",
+              "https://tvthek.orf.at/profile/Fussball/8205855/Fussball/14007727"),
+          new TopicUrlDTO(
+              "AD | Fußball",
+              "https://tvthek.orf.at/profile/AD-Fussball/13886317/AD-Fussball/14007846"),
+          new TopicUrlDTO(
+              "ZIB 1",
+              "https://tvthek.orf.at/profile/ZIB-1/1203/ZIB-1/14007730"),
+          new TopicUrlDTO(
+              "ZIB 1 (ÖGS)",
+              "https://tvthek.orf.at/profile/ZIB-1-OeGS/145302/ZIB-1-OeGS/14007848"),
+          new TopicUrlDTO(
+              "Embrace - Du bist schön",
+              "https://tvthek.orf.at/profile/Embrace-Du-bist-schoen/13890275/Embrace-Du-bist-schoen/14007745")
+        };
 
     ConcurrentLinkedQueue<CrawlerUrlDTO> queue = new ConcurrentLinkedQueue<>();
     queue.add(new CrawlerUrlDTO(requestUrl));
 
-      OrfDayTask target = new OrfDayTask(createCrawler(), queue);
+    OrfDayTask target = new OrfDayTask(createCrawler(), queue);
     Set<TopicUrlDTO> actual = target.invoke();
 
-      assertThat(actual, notNullValue());
+    assertThat(actual, notNullValue());
     assertThat(actual.size(), equalTo(expected.length));
     assertThat(actual, Matchers.containsInAnyOrder(expected));
   }
