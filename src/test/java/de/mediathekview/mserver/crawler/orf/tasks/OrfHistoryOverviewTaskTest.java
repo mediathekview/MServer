@@ -54,7 +54,7 @@ public class OrfHistoryOverviewTaskTest {
         .thenReturn(MServerConfigManager.getInstance().getSenderConfig(Sender.ORF));
     final OrfHistoryOverviewTask target = new OrfHistoryOverviewTask(crawler);
 
-    JsoupMock.mock(OrfConstants.URL_ARCHIVE, "/orf/Orf_history_overview.html");
+    JsoupMock.mock(OrfConstants.URL_ARCHIVE, "/orf/orf_history_overview.html");
     final ConcurrentLinkedQueue<TopicUrlDTO> actual = target.call();
     assertThat(actual, notNullValue());
     assertThat(actual.size(), equalTo(expectedUrls.length));
