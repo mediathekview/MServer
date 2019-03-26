@@ -26,7 +26,8 @@ public class OrfPlaylistDeserializer implements JsonDeserializer<List<OrfEpisode
   private static final String ATTRIBUTE_DURATION_IN_SECONDS = "duration_in_seconds";
 
   @Override
-  public List<OrfEpisodeInfoDTO> deserialize(JsonElement aJsonElement, Type aType, JsonDeserializationContext aContext) {
+  public List<OrfEpisodeInfoDTO> deserialize(
+      JsonElement aJsonElement, Type aType, JsonDeserializationContext aContext) {
 
     List<OrfEpisodeInfoDTO> episodes = new ArrayList<>();
 
@@ -34,7 +35,8 @@ public class OrfPlaylistDeserializer implements JsonDeserializer<List<OrfEpisode
       return episodes;
     }
 
-    JsonObject playlistObject = aJsonElement.getAsJsonObject().get(ELEMENT_PLAYLIST).getAsJsonObject();
+    JsonObject playlistObject =
+        aJsonElement.getAsJsonObject().get(ELEMENT_PLAYLIST).getAsJsonObject();
     if (JsonUtils.hasElements(playlistObject, ELEMENT_GAPLESS_VIDEO)) {
       parseGaplessVideo(episodes, playlistObject);
     }
@@ -49,10 +51,12 @@ public class OrfPlaylistDeserializer implements JsonDeserializer<List<OrfEpisode
     final Optional<String> title = JsonUtils.getAttributeAsString(aPlaylistObject, ATTRIBUTE_TITLE);
     final Optional<Duration> duration = parseDurationInSeconds(aPlaylistObject);
 
-    final Optional<OrfVideoInfoDTO> videoInfoOptional = parseUrls(aPlaylistObject.getAsJsonObject(ELEMENT_GAPLESS_VIDEO));
+    final Optional<OrfVideoInfoDTO> videoInfoOptional =
+        parseUrls(aPlaylistObject.getAsJsonObject(ELEMENT_GAPLESS_VIDEO));
 
     if (videoInfoOptional.isPresent()) {
-      OrfEpisodeInfoDTO episode = new OrfEpisodeInfoDTO(videoInfoOptional.get(), title, Optional.empty(), duration);
+      OrfEpisodeInfoDTO episode =
+          new OrfEpisodeInfoDTO(videoInfoOptional.get(), title, Optional.empty(), duration);
       aEpisodes.add(episode);
     }
   }
@@ -60,16 +64,18 @@ public class OrfPlaylistDeserializer implements JsonDeserializer<List<OrfEpisode
   private void parseVideos(List<OrfEpisodeInfoDTO> aEpisodes, JsonObject aPlaylistObject) {
     JsonArray videosArray = aPlaylistObject.getAsJsonObject().get(ELEMENT_VIDEOS).getAsJsonArray();
 
-    for (JsonElement videoElement: videosArray) {
+    for (JsonElement videoElement : videosArray) {
       JsonObject videoObject = videoElement.getAsJsonObject();
       final Optional<String> title = JsonUtils.getAttributeAsString(videoObject, ATTRIBUTE_TITLE);
-      final Optional<String> description = JsonUtils.getAttributeAsString(videoObject, ATTRIBUTE_DESCRIPTION);
+      final Optional<String> description =
+          JsonUtils.getAttributeAsString(videoObject, ATTRIBUTE_DESCRIPTION);
       final Optional<Duration> duration = parseDuration(videoObject);
 
       final Optional<OrfVideoInfoDTO> videoInfoOptional = parseUrls(videoObject);
 
       if (videoInfoOptional.isPresent()) {
-        OrfEpisodeInfoDTO episode = new OrfEpisodeInfoDTO(videoInfoOptional.get(), title, description, duration);
+        OrfEpisodeInfoDTO episode =
+            new OrfEpisodeInfoDTO(videoInfoOptional.get(), title, description, duration);
         aEpisodes.add(episode);
       }
     }
@@ -95,7 +101,6 @@ public class OrfPlaylistDeserializer implements JsonDeserializer<List<OrfEpisode
   private static Optional<Duration> parseDurationInSeconds(final JsonObject aVideoObject) {
     if (aVideoObject.has(ATTRIBUTE_DURATION_IN_SECONDS)) {
       Double durationValue = aVideoObject.get(ATTRIBUTE_DURATION_IN_SECONDS).getAsDouble();
-
 
       return Optional.of(Duration.ofSeconds(durationValue.longValue()));
     }

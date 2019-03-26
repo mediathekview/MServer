@@ -51,39 +51,48 @@ public class OrfFilmDetailTask extends AbstractDocumentTask<Film, TopicUrlDTO> {
   private static final DateTimeFormatter DATE_TIME_FORMATTER =
       DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
-  private static final Type LIST_EPISODEINFO_TYPE_TOKEN = new TypeToken<List<OrfEpisodeInfoDTO>>() {
-  }.getType();
+  private static final Type LIST_EPISODEINFO_TYPE_TOKEN =
+      new TypeToken<List<OrfEpisodeInfoDTO>>() {}.getType();
 
-  public OrfFilmDetailTask(final AbstractCrawler aCrawler,
-      final ConcurrentLinkedQueue<TopicUrlDTO> aUrlToCrawlDTOs) {
-    super(aCrawler, aUrlToCrawlDTOs);
+  public OrfFilmDetailTask(
+      final AbstractCrawler aCrawler, final ConcurrentLinkedQueue<TopicUrlDTO> aUrlToCrawlDtos) {
+    super(aCrawler, aUrlToCrawlDtos);
   }
 
   @Override
-  protected void processDocument(TopicUrlDTO aUrlDTO, Document aDocument) {
+  protected void processDocument(TopicUrlDTO aUrlDto, Document aDocument) {
     final Optional<String> title = HtmlDocumentUtils.getElementString(TITLE_SELECTOR, aDocument);
     final Optional<LocalDateTime> time = parseDate(aDocument);
     final Optional<Duration> duration = parseDuration(aDocument);
-    final Optional<String> description = HtmlDocumentUtils.getElementString(DESCRIPTION_SELECTOR, aDocument);
+    final Optional<String> description =
+        HtmlDocumentUtils.getElementString(DESCRIPTION_SELECTOR, aDocument);
 
     final List<OrfEpisodeInfoDTO> episodes = parseEpisodes(aDocument);
 
     for (int i = 0; i < episodes.size(); i++) {
       OrfEpisodeInfoDTO episode = episodes.get(i);
       if (i == 0) {
-        createFilm(aUrlDTO, episode.getVideoInfo(), title, description, time, duration);
+        createFilm(aUrlDto, episode.getVideoInfo(), title, description, time, duration);
       } else {
-        createFilm(aUrlDTO, episode.getVideoInfo(), episode.getTitle(), episode.getDescription(), time, episode.getDuration());
+        createFilm(
+            aUrlDto,
+            episode.getVideoInfo(),
+            episode.getTitle(),
+            episode.getDescription(),
+            time,
+            episode.getDuration());
       }
     }
   }
 
   @Override
-  protected AbstractUrlTask<Film, TopicUrlDTO> createNewOwnInstance(ConcurrentLinkedQueue<TopicUrlDTO> aURLsToCrawl) {
-    return new OrfFilmDetailTask(crawler, aURLsToCrawl);
+  protected AbstractUrlTask<Film, TopicUrlDTO> createNewOwnInstance(
+      ConcurrentLinkedQueue<TopicUrlDTO> aUrlsToCrawl) {
+    return new OrfFilmDetailTask(crawler, aUrlsToCrawl);
   }
 
-  private void createFilm(final TopicUrlDTO aUrlDTO,
+  private void createFilm(
+      final TopicUrlDTO aUrlDto,
       final OrfVideoInfoDTO aVideoInfo,
       final Optional<String> aTitle,
       final Optional<String> aDescription,
@@ -92,10 +101,16 @@ public class OrfFilmDetailTask extends AbstractDocumentTask<Film, TopicUrlDTO> {
 
     try {
       if (aTitle.isPresent()) {
-        final Film film = new Film(UUID.randomUUID(), crawler.getSender(), aTitle.get(),
-            aUrlDTO.getTopic(), aTime.orElse(LocalDateTime.now()), aDuration.orElse(Duration.ZERO));
+        final Film film =
+            new Film(
+                UUID.randomUUID(),
+                crawler.getSender(),
+                aTitle.get(),
+                aUrlDto.getTopic(),
+                aTime.orElse(LocalDateTime.now()),
+                aDuration.orElse(Duration.ZERO));
 
-        film.setWebsite(new URL(aUrlDTO.getUrl()));
+        film.setWebsite(new URL(aUrlDto.getUrl()));
         aDescription.ifPresent(film::setBeschreibung);
 
         if (StringUtils.isNotBlank(aVideoInfo.getSubtitleUrl())) {
@@ -110,7 +125,7 @@ public class OrfFilmDetailTask extends AbstractDocumentTask<Film, TopicUrlDTO> {
         crawler.incrementAndGetActualCount();
         crawler.updateProgress();
       } else {
-        LOG.error("OrfFilmDetailTask: no title or video found for url " + aUrlDTO.getUrl());
+        LOG.error("OrfFilmDetailTask: no title or video found for url " + aUrlDto.getUrl());
         crawler.incrementAndGetErrorCount();
         crawler.updateProgress();
       }
@@ -141,12 +156,15 @@ public class OrfFilmDetailTask extends AbstractDocumentTask<Film, TopicUrlDTO> {
   }
 
   private List<OrfEpisodeInfoDTO> parseEpisodes(Document aDocument) {
-    Optional<String> json = HtmlDocumentUtils.getElementAttributeString(VIDEO_SELECTOR, ATTRIBUTE_DATA_JSB, aDocument);
+    Optional<String> json =
+        HtmlDocumentUtils.getElementAttributeString(VIDEO_SELECTOR, ATTRIBUTE_DATA_JSB, aDocument);
 
     if (json.isPresent()) {
 
-      final Gson gson = new GsonBuilder().registerTypeAdapter(LIST_EPISODEINFO_TYPE_TOKEN,
-          new OrfPlaylistDeserializer()).create();
+      final Gson gson =
+          new GsonBuilder()
+              .registerTypeAdapter(LIST_EPISODEINFO_TYPE_TOKEN, new OrfPlaylistDeserializer())
+              .create();
 
       return gson.fromJson(json.get(), LIST_EPISODEINFO_TYPE_TOKEN);
     }
@@ -155,7 +173,8 @@ public class OrfFilmDetailTask extends AbstractDocumentTask<Film, TopicUrlDTO> {
   }
 
   private static Optional<LocalDateTime> parseDate(Document aDocument) {
-    Optional<String> date = HtmlDocumentUtils.getElementAttributeString(TIME_SELECTOR, ATTRIBUTE_DATETIME, aDocument);
+    Optional<String> date =
+        HtmlDocumentUtils.getElementAttributeString(TIME_SELECTOR, ATTRIBUTE_DATETIME, aDocument);
     if (date.isPresent()) {
       String dateValue = date.get().replace("CET", " ").replace("CEST", " ");
       try {
@@ -190,15 +209,11 @@ public class OrfFilmDetailTask extends AbstractDocumentTask<Film, TopicUrlDTO> {
     ChronoUnit unitValue = unit.get();
     if (unitValue == ChronoUnit.MINUTES) {
       return Optional.of(
-          Duration.ofMinutes(Long.parseLong(parts[0]))
-              .plusSeconds(Long.parseLong(parts[1]))
-      );
+          Duration.ofMinutes(Long.parseLong(parts[0])).plusSeconds(Long.parseLong(parts[1])));
     }
     if (unitValue == ChronoUnit.HOURS) {
       return Optional.of(
-          Duration.ofHours(Long.parseLong(parts[0]))
-              .plusMinutes(Long.parseLong(parts[1]))
-      );
+          Duration.ofHours(Long.parseLong(parts[0])).plusMinutes(Long.parseLong(parts[1])));
     }
 
     return Optional.empty();

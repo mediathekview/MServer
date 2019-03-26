@@ -4,17 +4,16 @@ import de.mediathekview.mserver.base.Consts;
 import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
 import de.mediathekview.mserver.crawler.basic.TopicUrlDTO;
 import de.mediathekview.mserver.crawler.orf.OrfConstants;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
-import org.jsoup.select.Elements;
-
 import java.io.IOException;
 import java.util.List;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.TimeUnit;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.select.Elements;
 
 public class OrfLetterPageTask implements Callable<ConcurrentLinkedQueue<TopicUrlDTO>> {
 
@@ -56,7 +55,7 @@ public class OrfLetterPageTask implements Callable<ConcurrentLinkedQueue<TopicUr
             results.addAll(parseOverviewPage(subpageDocument));
           } catch (final IOException ex) {
             LOG.fatal("OrfLetterPageTask: error parsing url " + url, ex);
-          } catch(NullPointerException e) {
+          } catch (NullPointerException e) {
             LOG.fatal(e);
           }
         });

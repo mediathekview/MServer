@@ -13,8 +13,8 @@ public class OrfHistoryTopicTask extends AbstractDocumentTask<TopicUrlDTO, Topic
   private static final String SHOW_URL_SELECTOR = "article > a";
 
   public OrfHistoryTopicTask(
-      AbstractCrawler aCrawler, ConcurrentLinkedQueue<TopicUrlDTO> aUrlToCrawlDTOs) {
-    super(aCrawler, aUrlToCrawlDTOs);
+      AbstractCrawler aCrawler, ConcurrentLinkedQueue<TopicUrlDTO> aUrlToCrawlDtos) {
+    super(aCrawler, aUrlToCrawlDtos);
   }
 
   @Override
@@ -24,13 +24,13 @@ public class OrfHistoryTopicTask extends AbstractDocumentTask<TopicUrlDTO, Topic
   }
 
   @Override
-  protected void processDocument(TopicUrlDTO aUrlDTO, Document aDocument) {
+  protected void processDocument(TopicUrlDTO aUrlDto, Document aDocument) {
     aDocument
         .select(SHOW_URL_SELECTOR)
         .forEach(
             showElement -> {
               final String url = showElement.attr(Consts.ATTRIBUTE_HREF);
-              taskResults.add(new TopicUrlDTO(aUrlDTO.getTopic(), url));
+              taskResults.add(new TopicUrlDTO(aUrlDto.getTopic(), url));
             });
   }
 }
