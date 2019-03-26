@@ -110,7 +110,7 @@ public class OrfFilmDetailTaskTest extends OrfFilmDetailTaskTestBase {
           },
           {
             "http://tvthek.orf.at/archive/Die-Geschichte-des-Burgenlands/9236430/Zweisprachige-Ortstafeln/9056913",
-            "/orf/orf_archive_film.html",
+            "/orf/orf_history_film.html",
             "Die Geschichte des Burgenlandes",
             "Erste zweisprachige Ortstafel im Burgenland enthüllt",
             LocalDateTime.of(2000, 7, 13, 12, 0, 0),

@@ -41,10 +41,10 @@ public class OrfCrawler extends AbstractCrawler {
   }
 
   private Set<TopicUrlDTO> getArchiveEntries() throws InterruptedException, ExecutionException {
-    final OrfArchiveLetterPageTask letterTask = new OrfArchiveLetterPageTask(this);
-    final ConcurrentLinkedQueue<TopicUrlDTO> topics = forkJoinPool.submit(letterTask).get();
+    final OrfHistoryOverviewTask historyTask = new OrfHistoryOverviewTask(this);
+    final ConcurrentLinkedQueue<TopicUrlDTO> topics = forkJoinPool.submit(historyTask).get();
 
-    final OrfArchiveTopicTask topicTask = new OrfArchiveTopicTask(this, topics);
+    final OrfHistoryTopicTask topicTask = new OrfHistoryTopicTask(this, topics);
     final Set<TopicUrlDTO> shows = forkJoinPool.submit(topicTask).get();
 
     printMessage(
@@ -102,7 +102,7 @@ public class OrfCrawler extends AbstractCrawler {
       final ConcurrentLinkedQueue<TopicUrlDTO> shows = new ConcurrentLinkedQueue<>();
 
       shows.addAll(getArchiveEntries());
-      shows.addAll(getLetterEntries());
+      /*shows.addAll(getLetterEntries());
       getDaysEntries()
           .forEach(
               show -> {
@@ -110,7 +110,7 @@ public class OrfCrawler extends AbstractCrawler {
                   shows.add(show);
                 }
               });
-
+*/
       printMessage(
           ServerMessages.DEBUG_ALL_SENDUNG_FOLGEN_COUNT, getSender().getName(), shows.size());
       getAndSetMaxCount(shows.size());

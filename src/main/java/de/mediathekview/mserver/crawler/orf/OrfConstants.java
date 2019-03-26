@@ -30,7 +30,7 @@ public final class OrfConstants {
   /**
    * URL für Übersichtsseite des Archivs
    */
-  public static final String URL_ARCHIVE = URL_BASE + "/archive";
+  public static final String URL_ARCHIVE = URL_BASE + "/history";
 
   private OrfConstants() {}
 }
