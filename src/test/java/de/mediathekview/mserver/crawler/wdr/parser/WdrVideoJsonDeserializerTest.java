@@ -16,8 +16,6 @@ import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.junit.Assert.assertThat;
 
-// TODO
-@Ignore(value = "The video URLs aren't available!")
 @RunWith(Parameterized.class)
 public class WdrVideoJsonDeserializerTest {
 

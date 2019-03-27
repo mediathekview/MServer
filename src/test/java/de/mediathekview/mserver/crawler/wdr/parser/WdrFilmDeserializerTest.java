@@ -28,7 +28,6 @@ import java.util.Optional;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.junit.Assert.assertThat;
 
-@Ignore(value = "The wrd URLs aren't avialable!")
 @RunWith(PowerMockRunner.class)
 @PrepareForTest({Jsoup.class})
 @PowerMockRunnerDelegate(Parameterized.class)
