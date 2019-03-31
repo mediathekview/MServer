@@ -1,16 +1,5 @@
 package de.mediathekview.mserver.crawler.kika;
 
-import java.time.LocalDateTime;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.Set;
-import java.util.concurrent.ConcurrentLinkedQueue;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.ForkJoinPool;
-import java.util.concurrent.ForkJoinTask;
-import java.util.concurrent.RecursiveTask;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import de.mediathekview.mlib.daten.Film;
 import de.mediathekview.mlib.daten.Sender;
 import de.mediathekview.mlib.messages.listener.MessageListener;
@@ -18,13 +7,22 @@ import de.mediathekview.mserver.base.config.MServerConfigManager;
 import de.mediathekview.mserver.base.messages.ServerMessages;
 import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
 import de.mediathekview.mserver.crawler.basic.CrawlerUrlDTO;
-import de.mediathekview.mserver.crawler.kika.tasks.KikaPagedOverviewPageTask;
-import de.mediathekview.mserver.crawler.kika.tasks.KikaSendungOverviewPageTask;
+import de.mediathekview.mserver.crawler.kika.tasks.KikaLetterPageUrlTask;
 import de.mediathekview.mserver.crawler.kika.tasks.KikaSendungVerpasstOverviewUrlTask;
 import de.mediathekview.mserver.crawler.kika.tasks.KikaSendungVerpasstTask;
 import de.mediathekview.mserver.crawler.kika.tasks.KikaSendungsfolgeVideoDetailsTask;
 import de.mediathekview.mserver.crawler.kika.tasks.KikaSendungsfolgeVideoUrlTask;
 import de.mediathekview.mserver.progress.listeners.SenderProgressListener;
+import java.time.LocalDateTime;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.concurrent.ConcurrentLinkedQueue;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ForkJoinPool;
+import java.util.concurrent.RecursiveTask;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class KikaCrawler extends AbstractCrawler {
   private static final Logger LOG = LogManager.getLogger(KikaCrawler.class);
@@ -113,6 +111,15 @@ public class KikaCrawler extends AbstractCrawler {
         new ConcurrentLinkedQueue<>(sendungsfolgeVideoUrls));
   }
 
+  private Set<CrawlerUrlDTO> getLetterEntries() throws InterruptedException, ExecutionException {
+    ConcurrentLinkedQueue<CrawlerUrlDTO> letterPageUrls = new ConcurrentLinkedQueue<>();
+    letterPageUrls.add(new CrawlerUrlDTO(KikaConstants.URL_TOPICS_PAGE));
+    final KikaLetterPageUrlTask letterUrlTask = new KikaLetterPageUrlTask(this, letterPageUrls, KikaConstants.BASE_URL);
+    final Set<CrawlerUrlDTO> letterUrls = forkJoinPool.submit(letterUrlTask).get();
+    
+    return null;
+  }
+  
   private Set<CrawlerUrlDTO> getDaysEntries() throws ExecutionException, InterruptedException {
     final Set<CrawlerUrlDTO> filmUrls = new HashSet<>();
 
