@@ -7,6 +7,7 @@ import de.mediathekview.mserver.base.config.MServerConfigManager;
 import de.mediathekview.mserver.base.messages.ServerMessages;
 import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
 import de.mediathekview.mserver.crawler.basic.CrawlerUrlDTO;
+import de.mediathekview.mserver.crawler.kika.tasks.KikaLetterPageTask;
 import de.mediathekview.mserver.crawler.kika.tasks.KikaLetterPageUrlTask;
 import de.mediathekview.mserver.crawler.kika.tasks.KikaSendungVerpasstOverviewUrlTask;
 import de.mediathekview.mserver.crawler.kika.tasks.KikaSendungVerpasstTask;
@@ -116,6 +117,9 @@ public class KikaCrawler extends AbstractCrawler {
     letterPageUrls.add(new CrawlerUrlDTO(KikaConstants.URL_TOPICS_PAGE));
     final KikaLetterPageUrlTask letterUrlTask = new KikaLetterPageUrlTask(this, letterPageUrls, KikaConstants.BASE_URL);
     final Set<CrawlerUrlDTO> letterUrls = forkJoinPool.submit(letterUrlTask).get();
+
+    final KikaLetterPageTask letterTask = new KikaLetterPageTask(this, new ConcurrentLinkedQueue<>(letterUrls), KikaConstants.BASE_URL);
+    final Set<CrawlerUrlDTO> topicUrls = forkJoinPool.submit(letterTask).get();
     
     return null;
   }
