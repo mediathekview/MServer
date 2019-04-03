@@ -39,28 +39,30 @@ public abstract class ArdTaskBase<T, D extends CrawlerUrlDTO> extends AbstractRe
     gsonBuilder.registerTypeAdapter(aType, aDeserializer);
   }
 
-  protected <T> Optional<T> deserializeOptional(final WebTarget aTarget, final Type aType) {
+  protected <A> Optional<A> deserializeOptional(final WebTarget target, final Type type) {
+    return this.<Optional<A>>deserializeUnsafe(target, type).orElse(Optional.empty());
+  }
 
+  private <A> Optional<A> deserializeUnsafe(final WebTarget target, final Type type) {
     final Gson gson = gsonBuilder.create();
-    final Response response = executeRequest(aTarget);
+    final Response response = executeRequest(target);
     if (response.getStatus() == 200) {
       final String jsonOutput = response.readEntity(String.class);
-      if (isSuccessResponse(jsonOutput, gson, aTarget.getUri().toString())) {
-        return gson.fromJson(jsonOutput, aType);
+      if (isSuccessResponse(jsonOutput, gson, target.getUri().toString())) {
+        return Optional.of(gson.fromJson(jsonOutput, type));
       }
     } else {
       LOG.error(
           "ArdTaskBase: request of url "
-              + aTarget.getUri().toString()
+              + target.getUri().toString()
               + " failed: "
               + response.getStatus());
     }
-
     return Optional.empty();
   }
 
-  protected <T> T deserialize(final WebTarget aTarget, final Type aType) {
-    return this.<T>deserializeOptional(aTarget, aType).orElse(null);
+  protected <A> A deserialize(final WebTarget target, final Type type) {
+    return this.<A>deserializeUnsafe(target, type).orElse(null);
   }
 
   private boolean isSuccessResponse(

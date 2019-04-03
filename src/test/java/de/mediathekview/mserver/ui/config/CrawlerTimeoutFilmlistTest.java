@@ -9,6 +9,7 @@ import de.mediathekview.mserver.base.config.MServerConfigManager;
 import org.hamcrest.Matchers;
 import org.junit.Assert;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import java.io.IOException;
@@ -19,6 +20,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+@Ignore("Not finished yet.")
 public class CrawlerTimeoutFilmlistTest {
 
   private Path testFilmlistPath;
@@ -41,6 +43,8 @@ public class CrawlerTimeoutFilmlistTest {
 
     config.getSenderConfig(Sender.ARD).setMaximumCrawlDurationInMinutes(1);
   }
+
+  // TODO add another test to check if it works when the server duration becomes a timeout
 
   @Test
   public void testFilmlistNotEmptyAfterTimeout() throws IOException {
