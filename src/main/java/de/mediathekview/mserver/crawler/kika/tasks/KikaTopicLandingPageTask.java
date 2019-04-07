@@ -1,3 +1,5 @@
+package de.mediathekview.mserver.crawler.kika.tasks;
+
 import de.mediathekview.mserver.base.Consts;
 import de.mediathekview.mserver.base.utils.UrlUtils;
 import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
@@ -11,7 +13,8 @@ import org.jsoup.select.Elements;
 
 public class KikaTopicLandingPageTask extends AbstractDocumentTask<CrawlerUrlDTO, CrawlerUrlDTO> {
   
-  private static final String SELECTOR_TOPIC_OVERVIEW = "span.moreBtn > a";
+  private static final String SELECTOR_TOPIC_OVERVIEW1 = "span.moreBtn > a";
+  private static final String SELECTOR_TOPIC_OVERVIEW2 = "div.teaserMultiGroup > a.linkAll";
 
   private final String baseUrl;
 
@@ -22,7 +25,14 @@ public class KikaTopicLandingPageTask extends AbstractDocumentTask<CrawlerUrlDTO
   
   @Override
   protected void processDocument(CrawlerUrlDTO aUrlDTO, Document aDocument) {
-    Elements overviewUrlElements = aDocument.select(SELECTOR_TOPIC_OVERVIEW);
+    Elements overviewUrlElements = aDocument.select(SELECTOR_TOPIC_OVERVIEW1);
+    parseOverviewLink(overviewUrlElements);
+
+    overviewUrlElements = aDocument.select(SELECTOR_TOPIC_OVERVIEW2);
+    parseOverviewLink(overviewUrlElements);
+  }
+
+  private void parseOverviewLink(Elements overviewUrlElements) {
     for(Element overviewUrlElement : overviewUrlElements) {
       final String url = overviewUrlElement.attr(Consts.ATTRIBUTE_HREF);
       taskResults.add(new CrawlerUrlDTO(UrlUtils.addDomainIfMissing(url, baseUrl)));

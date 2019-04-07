@@ -13,6 +13,7 @@ import de.mediathekview.mserver.crawler.kika.tasks.KikaSendungVerpasstOverviewUr
 import de.mediathekview.mserver.crawler.kika.tasks.KikaSendungVerpasstTask;
 import de.mediathekview.mserver.crawler.kika.tasks.KikaSendungsfolgeVideoDetailsTask;
 import de.mediathekview.mserver.crawler.kika.tasks.KikaSendungsfolgeVideoUrlTask;
+import de.mediathekview.mserver.crawler.kika.tasks.KikaTopicLandingPageTask;
 import de.mediathekview.mserver.progress.listeners.SenderProgressListener;
 import java.time.LocalDateTime;
 import java.util.Collection;
@@ -120,6 +121,9 @@ public class KikaCrawler extends AbstractCrawler {
 
     final KikaLetterPageTask letterTask = new KikaLetterPageTask(this, new ConcurrentLinkedQueue<>(letterUrls), KikaConstants.BASE_URL);
     final Set<CrawlerUrlDTO> topicUrls = forkJoinPool.submit(letterTask).get();
+    
+    final KikaTopicLandingPageTask landingTask = new KikaTopicLandingPageTask(this, new ConcurrentLinkedQueue<>(topicUrls), BASE_URL);
+    final Set<CrawlerUrlDTO> topicOverviewUrls = forkJoinPool.submit(landingTask).get();
     
     return null;
   }
