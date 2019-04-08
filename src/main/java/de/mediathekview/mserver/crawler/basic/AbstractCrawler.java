@@ -1,15 +1,5 @@
 package de.mediathekview.mserver.crawler.basic;
 
-import java.time.Duration;
-import java.time.LocalTime;
-import java.util.Collection;
-import java.util.Set;
-import java.util.concurrent.Callable;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.ForkJoinPool;
-import java.util.concurrent.RecursiveTask;
-import java.util.concurrent.atomic.AtomicLong;
-
 import de.mediathekview.mlib.daten.Film;
 import de.mediathekview.mlib.daten.Sender;
 import de.mediathekview.mlib.messages.Message;
@@ -21,9 +11,17 @@ import de.mediathekview.mserver.base.config.MServerConfigManager;
 import de.mediathekview.mserver.base.messages.ServerMessages;
 import de.mediathekview.mserver.progress.listeners.SenderProgressListener;
 
-/**
- * A basic crawler task.
- */
+import java.time.Duration;
+import java.time.LocalTime;
+import java.util.Collection;
+import java.util.Set;
+import java.util.concurrent.Callable;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ForkJoinPool;
+import java.util.concurrent.RecursiveTask;
+import java.util.concurrent.atomic.AtomicLong;
+
+/** A basic crawler task. */
 public abstract class AbstractCrawler implements Callable<Set<Film>> {
   protected final MServerConfigDTO runtimeConfig;
   protected final MServerBasicConfigDTO crawlerConfig;
@@ -38,7 +36,8 @@ public abstract class AbstractCrawler implements Callable<Set<Film>> {
   private final AtomicLong actualCount;
   private final AtomicLong errorCount;
 
-  public AbstractCrawler(final ForkJoinPool aForkJoinPool,
+  public AbstractCrawler(
+      final ForkJoinPool aForkJoinPool,
       final Collection<MessageListener> aMessageListeners,
       final Collection<SenderProgressListener> aProgressListeners,
       final MServerConfigManager rootConfig) {
@@ -67,29 +66,40 @@ public abstract class AbstractCrawler implements Callable<Set<Film>> {
             printMessage(ServerMessages.CRAWLER_TIMEOUT, getSender().getName());
           }
         };
-    timeoutRunner.start();
+    try {
+      timeoutRunner.start();
 
-    printMessage(ServerMessages.CRAWLER_START, getSender());
-    final LocalTime startTime = LocalTime.now();
+      printMessage(ServerMessages.CRAWLER_START, getSender());
+      final LocalTime startTime = LocalTime.now();
 
-    updateProgress();
-    filmTask = createCrawlerTask();
-    films.addAll(forkJoinPool.invoke(filmTask));
-    removeInvalidEntries();
+      updateProgress();
+      filmTask = createCrawlerTask();
+      if (null != filmTask) {
+        films.addAll(forkJoinPool.invoke(filmTask));
+      }
+      removeInvalidEntries();
 
-    final LocalTime endTime = LocalTime.now();
-    final Progress progress = new Progress(maxCount.get(), actualCount.get(), errorCount.get());
-    timeoutRunner.stopTimeout();
-    printMessage(ServerMessages.CRAWLER_END, getSender(),
-        Duration.between(startTime, endTime).toMinutes(), actualCount.get(), errorCount.get(),
-        progress.calcActualErrorQuoteInPercent());
-    return films;
+      final LocalTime endTime = LocalTime.now();
+      final Progress progress = new Progress(maxCount.get(), actualCount.get(), errorCount.get());
+      timeoutRunner.stopTimeout();
+      printMessage(
+          ServerMessages.CRAWLER_END,
+          getSender(),
+          Duration.between(startTime, endTime).toMinutes(),
+          actualCount.get(),
+          errorCount.get(),
+          progress.calcActualErrorQuoteInPercent());
+    } finally {
+      return films;
+    }
   }
 
-private void removeInvalidEntries() {
-	//Removes entries without url or neither thema nor title.
-    films.removeIf(enty->enty.getUrls().isEmpty() || (enty.getThema().isEmpty() && enty.getTitel().isEmpty()));
-}
+  private void removeInvalidEntries() {
+    // Removes entries without url or neither thema nor title.
+    films.removeIf(
+        enty ->
+            enty.getUrls().isEmpty() || (enty.getThema().isEmpty() && enty.getTitel().isEmpty()));
+  }
 
   public long getAndSetMaxCount(final long aNewMaxValue) {
     return maxCount.getAndSet(aNewMaxValue);
@@ -126,7 +136,6 @@ private void removeInvalidEntries() {
   public long incrementMaxCountBySizeAndGetNewSize(final long sizeToAdd) {
     return maxCount.addAndGet(sizeToAdd);
   }
-
 
   public void printErrorMessage() {
     printMessage(ServerMessages.CRAWLER_ERROR, getSender());
@@ -166,11 +175,10 @@ private void removeInvalidEntries() {
   }
 
   /**
-   * This the method where the "magic" happens. In this method you have to create a
-   * {@link RecursiveTask} which gathers a set of {@link Film}.
+   * This the method where the "magic" happens. In this method you have to create a {@link
+   * RecursiveTask} which gathers a set of {@link Film}.
    *
    * @return The found films.
    */
   protected abstract RecursiveTask<Set<Film>> createCrawlerTask();
-
 }

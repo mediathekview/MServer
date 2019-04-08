@@ -25,7 +25,7 @@ public class MServerConfigDTO extends MServerBasicConfigDTO implements ConfigDTO
   private Set<FilmlistFormats> filmlistSaveFormats;
   private Map<FilmlistFormats, String> filmlistSavePaths;
 
-  private final Map<FilmlistFormats, String> filmlistDiffSavePaths;
+  private Map<FilmlistFormats, String> filmlistDiffSavePaths;
   private FilmlistFormats filmlistImportFormat;
   private String filmlistImportLocation;
   private final MServerCopySettings copySettings;
@@ -315,5 +315,9 @@ public class MServerConfigDTO extends MServerBasicConfigDTO implements ConfigDTO
 
   public void setFilmlistImporEnabled(final Boolean filmlistImporEnabled) {
     this.filmlistImporEnabled = filmlistImporEnabled;
+  }
+
+  public void setFilmlistDiffSavePaths(final Map<FilmlistFormats, String> filmlistDiffSavePaths) {
+    this.filmlistDiffSavePaths = filmlistDiffSavePaths;
   }
 }

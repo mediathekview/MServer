@@ -9,18 +9,17 @@ import de.mediathekview.mserver.base.config.MServerConfigManager;
 import org.hamcrest.Matchers;
 import org.junit.Assert;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.HashMap;
+import java.util.EnumMap;
+import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-@Ignore("Not finished yet.")
 public class CrawlerTimeoutFilmlistTest {
 
   private Path testFilmlistPath;
@@ -36,10 +35,11 @@ public class CrawlerTimeoutFilmlistTest {
     serverConfig.setFilmlistSaveFormats(Stream.of(testFilmlistFormat).collect(Collectors.toSet()));
     serverConfig.getCopySettings().setCopyEnabled(false);
 
-    final HashMap<FilmlistFormats, String> savePaths = new HashMap<>();
+    final Map<FilmlistFormats, String> savePaths = new EnumMap<>(FilmlistFormats.class);
     testFilmlistPath = Files.createTempFile("TestFilmlist", ".json").toAbsolutePath();
     savePaths.put(FilmlistFormats.JSON, testFilmlistPath.toString());
     serverConfig.setFilmlistSavePaths(savePaths);
+    serverConfig.setFilmlistDiffSavePaths(new EnumMap<>(FilmlistFormats.class));
 
     config.getSenderConfig(Sender.ARD).setMaximumCrawlDurationInMinutes(1);
   }
