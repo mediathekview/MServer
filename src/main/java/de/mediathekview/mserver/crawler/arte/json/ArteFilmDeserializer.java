@@ -291,7 +291,7 @@ public class ArteFilmDeserializer implements JsonDeserializer<Optional<Film>> {
         // dann ist es die aktuelle Ausstrahlung
         broadcastDate = broadcastObject.get(JSON_ELEMENT_BROADCAST).getAsString();
       }
-    } else {
+    } else if (!broadcastObject.get(JSON_ELEMENT_BROADCAST).isJsonNull()) {
       broadcastDate = broadcastObject.get(JSON_ELEMENT_BROADCAST).getAsString();
     }
     return broadcastDate;
