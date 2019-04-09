@@ -1,18 +1,16 @@
 package de.mediathekview.mserver.crawler.kika.tasks;
 
-import de.mediathekview.mserver.base.utils.UrlUtils;
-import de.mediathekview.mserver.crawler.kika.KikaConstants;
-import java.util.HashSet;
-import java.util.Optional;
-import java.util.Set;
-import java.util.concurrent.ConcurrentLinkedQueue;
-import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
 import de.mediathekview.mserver.base.Consts;
+import de.mediathekview.mserver.base.utils.UrlUtils;
 import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
 import de.mediathekview.mserver.crawler.basic.AbstractDocumentTask;
 import de.mediathekview.mserver.crawler.basic.AbstractUrlTask;
 import de.mediathekview.mserver.crawler.basic.CrawlerUrlDTO;
+import de.mediathekview.mserver.crawler.kika.KikaConstants;
+import java.util.Optional;
+import java.util.concurrent.ConcurrentLinkedQueue;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
 
 public class KikaSendungVerpasstTask extends AbstractDocumentTask<CrawlerUrlDTO, CrawlerUrlDTO> {
   private static final long serialVersionUID = -6483678632833327433L;
@@ -22,7 +20,8 @@ public class KikaSendungVerpasstTask extends AbstractDocumentTask<CrawlerUrlDTO,
   private static final String SELECTOR_FLEX_LOAD = ".flexloadTrigger";
   private final String baseUrl;
 
-  public KikaSendungVerpasstTask(final AbstractCrawler aCrawler,
+  public KikaSendungVerpasstTask(
+      final AbstractCrawler aCrawler,
       final ConcurrentLinkedQueue<CrawlerUrlDTO> aUrlToCrawlDTOs,
       final String aBaseUrl) {
     super(aCrawler, aUrlToCrawlDTOs);
@@ -50,7 +49,9 @@ public class KikaSendungVerpasstTask extends AbstractDocumentTask<CrawlerUrlDTO,
       if (filmUrlElement.hasAttr(Consts.ATTRIBUTE_HREF)
           && !PAGE_ANKER.equals(filmUrlElement.attr(Consts.ATTRIBUTE_HREF))) {
 
-        final String url = UrlUtils.addDomainIfMissing(filmUrlElement.attr(Consts.ATTRIBUTE_HREF), KikaConstants.BASE_URL);
+        final String url =
+            UrlUtils.addDomainIfMissing(
+                filmUrlElement.attr(Consts.ATTRIBUTE_HREF), KikaConstants.BASE_URL);
         taskResults.add(new CrawlerUrlDTO(url));
       }
     }
@@ -60,7 +61,9 @@ public class KikaSendungVerpasstTask extends AbstractDocumentTask<CrawlerUrlDTO,
     ConcurrentLinkedQueue<CrawlerUrlDTO> urls = new ConcurrentLinkedQueue<>();
 
     for (final Element flexLoadElement : aDocument.select(SELECTOR_FLEX_LOAD)) {
-      Optional<String> url = KikaHelper.gatherIpgTriggerUrlFromElement(flexLoadElement, ATTRIBUTE_IPG_FLEX_LOAD_TRIGGER, baseUrl);
+      Optional<String> url =
+          KikaHelper.gatherIpgTriggerUrlFromElement(
+              flexLoadElement, ATTRIBUTE_IPG_FLEX_LOAD_TRIGGER, baseUrl);
       if (url.isPresent()) {
         urls.add(new CrawlerUrlDTO(url.get()));
       }
@@ -68,5 +71,4 @@ public class KikaSendungVerpasstTask extends AbstractDocumentTask<CrawlerUrlDTO,
 
     return urls;
   }
-
 }

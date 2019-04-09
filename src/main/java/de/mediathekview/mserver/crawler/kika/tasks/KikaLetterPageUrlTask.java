@@ -16,7 +16,10 @@ public class KikaLetterPageUrlTask extends AbstractDocumentTask<CrawlerUrlDTO, C
   private static final String LETTER_PAGE_URL_SELECTOR = "div.bundleNaviItem > a.pageItem";
   private final String baseUrl;
 
-  public KikaLetterPageUrlTask(AbstractCrawler aCrawler, ConcurrentLinkedQueue<CrawlerUrlDTO> aUrlToCrawlDtos, String aBaseUrl) {
+  public KikaLetterPageUrlTask(
+      AbstractCrawler aCrawler,
+      ConcurrentLinkedQueue<CrawlerUrlDTO> aUrlToCrawlDtos,
+      String aBaseUrl) {
     super(aCrawler, aUrlToCrawlDtos);
     this.baseUrl = aBaseUrl;
   }
@@ -31,8 +34,8 @@ public class KikaLetterPageUrlTask extends AbstractDocumentTask<CrawlerUrlDTO, C
   }
 
   @Override
-  protected AbstractRecrusivConverterTask<CrawlerUrlDTO, CrawlerUrlDTO> createNewOwnInstance(ConcurrentLinkedQueue<CrawlerUrlDTO> aElementsToProcess) {
+  protected AbstractRecrusivConverterTask<CrawlerUrlDTO, CrawlerUrlDTO> createNewOwnInstance(
+      ConcurrentLinkedQueue<CrawlerUrlDTO> aElementsToProcess) {
     return new KikaLetterPageUrlTask(crawler, aElementsToProcess, baseUrl);
   }
-
 }

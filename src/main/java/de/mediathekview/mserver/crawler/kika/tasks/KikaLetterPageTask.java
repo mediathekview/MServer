@@ -15,24 +15,27 @@ public class KikaLetterPageTask extends AbstractDocumentTask<CrawlerUrlDTO, Craw
 
   private static final String TOPIC_URL_SELECTOR = ".teaserBroadcastSeries .linkAll";
   private final String baseUrl;
-  
-  public KikaLetterPageTask(AbstractCrawler aCrawler, ConcurrentLinkedQueue<CrawlerUrlDTO> aUrlToCrawlDTOs, String aBaseUrl) {
+
+  public KikaLetterPageTask(
+      AbstractCrawler aCrawler,
+      ConcurrentLinkedQueue<CrawlerUrlDTO> aUrlToCrawlDTOs,
+      String aBaseUrl) {
     super(aCrawler, aUrlToCrawlDTOs);
     this.baseUrl = aBaseUrl;
   }
-  
+
   @Override
   protected void processDocument(CrawlerUrlDTO aUrlDTO, Document aDocument) {
     final Elements topicUrlElements = aDocument.select(TOPIC_URL_SELECTOR);
-    for(Element topicUrlElement : topicUrlElements) {
+    for (Element topicUrlElement : topicUrlElements) {
       final String url = topicUrlElement.attr(Consts.ATTRIBUTE_HREF);
       taskResults.add(new CrawlerUrlDTO(UrlUtils.addDomainIfMissing(url, baseUrl)));
     }
   }
 
   @Override
-  protected AbstractRecrusivConverterTask<CrawlerUrlDTO, CrawlerUrlDTO> createNewOwnInstance(ConcurrentLinkedQueue<CrawlerUrlDTO> aElementsToProcess) {
+  protected AbstractRecrusivConverterTask<CrawlerUrlDTO, CrawlerUrlDTO> createNewOwnInstance(
+      ConcurrentLinkedQueue<CrawlerUrlDTO> aElementsToProcess) {
     return new KikaLetterPageTask(crawler, aElementsToProcess, baseUrl);
   }
-  
 }
