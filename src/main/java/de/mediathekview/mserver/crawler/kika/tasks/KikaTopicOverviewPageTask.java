@@ -16,7 +16,7 @@ import org.jsoup.select.Elements;
 public class KikaTopicOverviewPageTask extends AbstractDocumentTask<CrawlerUrlDTO, CrawlerUrlDTO> {
 
   private static final String SELECTOR_TOPIC_OVERVIEW = "div.boxBroadcast a.linkAll";
-  private static final String SELECTOR_SUBPAGES = "div.bundleNaviItem > a.pageItem";
+  private static final String SELECTOR_SUBPAGES = ".modBundleGroupNavi:eq(1) div.bundleNaviItem > a.pageItem";
   
   private final String baseUrl;
   private final int pageNumber;
@@ -60,14 +60,14 @@ public class KikaTopicOverviewPageTask extends AbstractDocumentTask<CrawlerUrlDT
 
   @Override
   protected AbstractRecrusivConverterTask<CrawlerUrlDTO, CrawlerUrlDTO> createNewOwnInstance(ConcurrentLinkedQueue<CrawlerUrlDTO> aElementsToProcess) {
-    return new KikaTopicOverviewPageTask(crawler, aElementsToProcess, baseUrl);    
+    return new KikaTopicOverviewPageTask(crawler, aElementsToProcess, baseUrl, pageNumber + 1);
   }
 
   private Optional<CrawlerUrlDTO> parseNextPageUrl(Document aDocument) {
     Elements subpageElements = aDocument.select(SELECTOR_SUBPAGES);
     if (subpageElements.size() > pageNumber) {
       final String url = subpageElements.get(pageNumber).attr(Consts.ATTRIBUTE_HREF);
-      taskResults.add(new CrawlerUrlDTO(UrlUtils.addDomainIfMissing(url, baseUrl)));
+      return Optional.of(new CrawlerUrlDTO(UrlUtils.addDomainIfMissing(url, baseUrl)));
     }
     
     return Optional.empty();

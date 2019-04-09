@@ -37,9 +37,9 @@ public class KikaTopicOverviewPageTaskTest extends KikaTaskTestBase {
     
     Map<String, String> mockUrls = new HashMap<>();
     mockUrls.put(requestUrl, "/kika/kika_topic1_overview_page1.html");
-    mockUrls.put(WireMockTestBase.MOCK_URL_BASE + "/mama-fuchs-und-papa-dachs/buendelgruppe2670_page-1_zc-43c28d56.html", "/kika/kika_topic1_overview_page1.html");
-    mockUrls.put(WireMockTestBase.MOCK_URL_BASE + "/mama-fuchs-und-papa-dachs/buendelgruppe2670_page-2_zc-ad1768d3.html", "/kika/kika_topic1_overview_page1.html");
-    mockUrls.put(WireMockTestBase.MOCK_URL_BASE + "/mama-fuchs-und-papa-dachs/buendelgruppe2670_page-3_zc-c0952f36.html", "/kika/kika_topic1_overview_page1.html");
+    mockUrls.put(WireMockTestBase.MOCK_URL_BASE + "/mama-fuchs-und-papa-dachs/buendelgruppe2670_page-1_zc-43c28d56.html", "/kika/kika_topic1_overview_page2.html");
+    mockUrls.put(WireMockTestBase.MOCK_URL_BASE + "/mama-fuchs-und-papa-dachs/buendelgruppe2670_page-2_zc-ad1768d3.html", "/kika/kika_topic1_overview_page3.html");
+    mockUrls.put(WireMockTestBase.MOCK_URL_BASE + "/mama-fuchs-und-papa-dachs/buendelgruppe2670_page-3_zc-c0952f36.html", "/kika/kika_topic1_overview_page4.html");
     JsoupMock.mock(mockUrls);
 
     CrawlerUrlDTO[] expected = new CrawlerUrlDTO[]{
@@ -74,7 +74,7 @@ public class KikaTopicOverviewPageTaskTest extends KikaTaskTestBase {
     final String requestUrl = "https://www.kika.de/mama-fuchs-und-papa-dachs/buendelgruppe2670.html";
     Map<String, String> mockUrls = new HashMap<>();
     mockUrls.put(requestUrl, "/kika/kika_topic1_overview_page1.html");
-    mockUrls.put(WireMockTestBase.MOCK_URL_BASE + "/mama-fuchs-und-papa-dachs/buendelgruppe2670_page-1_zc-43c28d56.html", "/kika/kika_topic1_overview_page1.html");
+    mockUrls.put(WireMockTestBase.MOCK_URL_BASE + "/mama-fuchs-und-papa-dachs/buendelgruppe2670_page-1_zc-43c28d56.html", "/kika/kika_topic1_overview_page2.html");
     JsoupMock.mock(mockUrls);
 
     CrawlerUrlDTO[] expected = new CrawlerUrlDTO[]{
