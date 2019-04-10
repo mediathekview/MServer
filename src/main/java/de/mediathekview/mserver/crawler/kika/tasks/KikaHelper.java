@@ -8,10 +8,12 @@ import org.jsoup.nodes.Element;
 
 public final class KikaHelper {
 
-  public static Optional<String> gatherIpgTriggerUrlFromElement(final Element aUrlElement, final String attributeNameTrigger, final String baseUrl) {
+  static Optional<String> gatherIpgTriggerUrlFromElement(
+      final Element aUrlElement, final String attributeNameTrigger, final String baseUrl) {
     if (aUrlElement.hasAttr(attributeNameTrigger)) {
-      final Matcher urlMatcher = Pattern.compile(KikaConstants.GATHER_URL_REGEX_PATTERN)
-          .matcher(aUrlElement.attr(attributeNameTrigger));
+      final Matcher urlMatcher =
+          Pattern.compile(KikaConstants.GATHER_URL_REGEX_PATTERN)
+              .matcher(aUrlElement.attr(attributeNameTrigger));
       if (urlMatcher.find()) {
         return Optional.of(baseUrl + urlMatcher.group());
       }

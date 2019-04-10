@@ -45,7 +45,7 @@ public class KikaSendungVerpasstTaskTest extends KikaTaskTestBase {
   }
 
   @Test
-  public void testLoadBeforeAndAfter() throws IOException {
+  public void testLoadBeforeAndAfter() {
     final String requestUrl = "https://www.kika.de/sendungen/ipg/ipg102-initialEntries_date-10032019_zc-8f00c70b.html";
 
     Map<String, String> urlMapping = new HashMap<>();

@@ -23,7 +23,7 @@ import org.powermock.modules.junit4.PowerMockRunner;
 @PowerMockIgnore("javax.net.ssl.*")
 public class KikaSendungVerpasstOverviewUrlTaskTest extends KikaTaskTestBase {
 
-  private final LocalDateTime today = LocalDateTime.of(2019, 03, 10, 0, 0, 0);
+  private final LocalDateTime today = LocalDateTime.of(2019, 3, 10, 0, 0, 0);
 
   @Test
   public void callTestNoFutureUrls() throws IOException {

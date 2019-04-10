@@ -4,13 +4,6 @@ import de.mediathekview.mserver.base.messages.ServerMessages;
 import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
 import de.mediathekview.mserver.crawler.basic.CrawlerUrlDTO;
 import de.mediathekview.mserver.crawler.kika.KikaConstants;
-import java.util.concurrent.TimeUnit;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-import org.jsoup.HttpStatusException;
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -19,7 +12,14 @@ import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
 import java.util.concurrent.Callable;
+import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.jsoup.HttpStatusException;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
 
 /**
  * Gathers the URLs needed to get the "verpasste Sendungen".
@@ -39,7 +39,8 @@ public class KikaSendungVerpasstOverviewUrlTask implements Callable<Set<CrawlerU
   private final AbstractCrawler crawler;
   private final LocalDateTime today;
 
-  public KikaSendungVerpasstOverviewUrlTask(final AbstractCrawler aCrawler, final LocalDateTime aToday) {
+  public KikaSendungVerpasstOverviewUrlTask(
+      final AbstractCrawler aCrawler, final LocalDateTime aToday) {
     crawler = aCrawler;
     today = aToday;
   }
@@ -69,7 +70,8 @@ public class KikaSendungVerpasstOverviewUrlTask implements Callable<Set<CrawlerU
               .get();
       for (final Element urlElement : document.select(URL_SELECTOR)) {
         final Optional<String> rawSendungVerpasstOverviewPageUrl =
-            KikaHelper.gatherIpgTriggerUrlFromElement(urlElement, ATTRIBUTE_DATA_CTRL_IPG_TRIGGER, KikaConstants.BASE_URL);
+            KikaHelper.gatherIpgTriggerUrlFromElement(
+                urlElement, ATTRIBUTE_DATA_CTRL_IPG_TRIGGER, KikaConstants.BASE_URL);
         rawSendungVerpasstOverviewPageUrl.ifPresent(rawSendungVerpasstOverviewPageUrls::add);
       }
     } catch (final HttpStatusException httpStatusError) {
@@ -91,13 +93,13 @@ public class KikaSendungVerpasstOverviewUrlTask implements Callable<Set<CrawlerU
   private Set<String> getAllowedDateStrings() {
     final Set<String> dateStrings = new HashSet<>();
     for (int i = 0; i < crawler.getCrawlerConfig().getMaximumDaysForSendungVerpasstSection(); i++) {
-      dateStrings
-          .add(today.minus(i, ChronoUnit.DAYS).format(URL_DATE_TIME_FORMATTER));
+      dateStrings.add(today.minus(i, ChronoUnit.DAYS).format(URL_DATE_TIME_FORMATTER));
     }
 
-    for (int i = 1; i <= crawler.getCrawlerConfig().getMaximumDaysForSendungVerpasstSectionFuture(); i++) {
-      dateStrings
-          .add(today.plus(i, ChronoUnit.DAYS).format(URL_DATE_TIME_FORMATTER));
+    for (int i = 1;
+        i <= crawler.getCrawlerConfig().getMaximumDaysForSendungVerpasstSectionFuture();
+        i++) {
+      dateStrings.add(today.plus(i, ChronoUnit.DAYS).format(URL_DATE_TIME_FORMATTER));
     }
 
     return dateStrings;

@@ -7,10 +7,10 @@ import de.mediathekview.mlib.daten.Resolution;
 import de.mediathekview.mlib.daten.Sender;
 import de.mediathekview.mserver.base.utils.DateUtils;
 import de.mediathekview.mserver.base.utils.HtmlDocumentUtils;
-import de.mediathekview.mserver.crawler.basic.FilmUrlInfoDto;
 import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
 import de.mediathekview.mserver.crawler.basic.AbstractUrlTask;
 import de.mediathekview.mserver.crawler.basic.CrawlerUrlDTO;
+import de.mediathekview.mserver.crawler.basic.FilmUrlInfoDto;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -56,13 +56,14 @@ public class KikaSendungsfolgeVideoDetailsTask extends AbstractUrlTask<Film, Cra
     super(aCrawler, aUrlToCrawlDTOs);
   }
 
-  private void addFilmUrls(final Elements videoElements, final String thema, final String title,
-      final Film newFilm) {
+  private void addFilmUrls(
+      final Elements videoElements, final String thema, final String title, final Film newFilm) {
     final Set<FilmUrlInfoDto> urlInfos = parseVideoElements(videoElements);
     for (FilmUrlInfoDto urlInfo : urlInfos) {
 
-      if (!urlInfo.getUrl().isEmpty() && urlInfo.getFileType().isPresent() && urlInfo.getFileType().get()
-          .equalsIgnoreCase(MEDIA_TYPE_MP4)) {
+      if (!urlInfo.getUrl().isEmpty()
+          && urlInfo.getFileType().isPresent()
+          && urlInfo.getFileType().get().equalsIgnoreCase(MEDIA_TYPE_MP4)) {
         final Resolution filmResolution = getResolutionFromWidth(urlInfo);
         try {
           if (newFilm.getUrl(filmResolution) == null) {
@@ -70,7 +71,8 @@ public class KikaSendungsfolgeVideoDetailsTask extends AbstractUrlTask<Film, Cra
           }
         } catch (MalformedURLException e) {
           LOG.debug(
-              String.format("The download URL \"%s\" for the film \"%s - %s\" is not a valid URL.",
+              String.format(
+                  "The download URL \"%s\" for the film \"%s - %s\" is not a valid URL.",
                   urlInfo.getUrl(), thema, title),
               e);
         }
@@ -79,7 +81,8 @@ public class KikaSendungsfolgeVideoDetailsTask extends AbstractUrlTask<Film, Cra
   }
 
   private Set<FilmUrlInfoDto> parseVideoElements(final Elements aVideoElements) {
-    final TreeSet<FilmUrlInfoDto> urlInfos = new TreeSet<>(Comparator.comparing(FilmUrlInfoDto::getWidth));
+    final TreeSet<FilmUrlInfoDto> urlInfos =
+        new TreeSet<>(Comparator.comparing(FilmUrlInfoDto::getWidth));
 
     for (final Element videoElement : aVideoElements) {
       FilmUrlInfoDto urlInfo = parseVideoElement(videoElement);
@@ -95,7 +98,9 @@ public class KikaSendungsfolgeVideoDetailsTask extends AbstractUrlTask<Film, Cra
     final Elements downloadUrlNodes = aVideoElement.getElementsByTag("progressiveDownloadUrl");
 
     FilmUrlInfoDto info = new FilmUrlInfoDto(downloadUrlNodes.get(0).text());
-    info.setResolution(Integer.parseInt(frameWidthNodes.get(0).text()), Integer.parseInt(frameHeightNodes.get(0).text()));
+    info.setResolution(
+        Integer.parseInt(frameWidthNodes.get(0).text()),
+        Integer.parseInt(frameHeightNodes.get(0).text()));
     return info;
   }
 
@@ -213,9 +218,11 @@ public class KikaSendungsfolgeVideoDetailsTask extends AbstractUrlTask<Film, Cra
         crawler.updateProgress();
       }
     } catch (final IOException exception) {
-      LOG.fatal(String.format(
-          "Something went teribble wrong on getting the film details for the Kika film \"%s\".",
-          aUrlDTO.getUrl()), exception);
+      LOG.fatal(
+          String.format(
+              "Something went teribble wrong on getting the film details for the Kika film \"%s\".",
+              aUrlDTO.getUrl()),
+          exception);
       crawler.incrementAndGetErrorCount();
       crawler.printErrorMessage();
     }
@@ -236,5 +243,4 @@ public class KikaSendungsfolgeVideoDetailsTask extends AbstractUrlTask<Film, Cra
     geoLocations.add(geoLocation);
     newFilm.setGeoLocations(geoLocations);
   }
-
 }
