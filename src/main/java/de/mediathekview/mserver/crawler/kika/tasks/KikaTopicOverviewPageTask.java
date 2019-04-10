@@ -19,6 +19,8 @@ public class KikaTopicOverviewPageTask extends AbstractDocumentTask<CrawlerUrlDT
   private static final String SELECTOR_TOPIC_OVERVIEW = "div.boxBroadcast a.linkAll";
   private static final String SELECTOR_SUBPAGES =
       ".modBundleGroupNavi:eq(1) div.bundleNaviItem > a.pageItem";
+  private static final String SELECTOR_TYPE_ICON = "span.icon-font";
+  private static final String ENTRY_ICON_FILM = "";
 
   private final String baseUrl;
   private final int pageNumber;
@@ -45,8 +47,7 @@ public class KikaTopicOverviewPageTask extends AbstractDocumentTask<CrawlerUrlDT
     parseFilmUrls(aDocument);
 
     if (pageNumber == 1) {
-      List<CrawlerUrlDTO> nextPageUrls =
-          sortNextPageUrls(parseNextPageUrls(aDocument), aUrlDto);
+      List<CrawlerUrlDTO> nextPageUrls = sortNextPageUrls(parseNextPageUrls(aDocument), aUrlDto);
 
       if (!nextPageUrls.isEmpty()) {
         int maxSubPage =
@@ -76,7 +77,8 @@ public class KikaTopicOverviewPageTask extends AbstractDocumentTask<CrawlerUrlDT
 
     int actualIndex = nextPageUrls.indexOf(actualUrl);
     if (actualIndex < 0) {
-      // wenn Url nicht enthalten ist, dann ist auf die erste Seite verlinkt und keine Sortierung nötig
+      // wenn Url nicht enthalten ist, dann ist auf die erste Seite verlinkt und keine Sortierung
+      // nötig
       return nextPageUrls;
     }
 
@@ -100,24 +102,32 @@ public class KikaTopicOverviewPageTask extends AbstractDocumentTask<CrawlerUrlDT
     final ConcurrentLinkedQueue<CrawlerUrlDTO> nextPageLinks = new ConcurrentLinkedQueue<>();
     nextPageLinks.addAll(nextPageUrls);
     AbstractRecrusivConverterTask<CrawlerUrlDTO, CrawlerUrlDTO> subPageCrawler =
-        createNewOwnInstance(nextPageLinks);
+        createNewOwnInstance(nextPageLinks, pageNumber + 1);
     subPageCrawler.fork();
     Set<CrawlerUrlDTO> join = subPageCrawler.join();
     taskResults.addAll(join);
   }
 
   private void parseFilmUrls(Document aDocument) {
-    Elements urlElements = aDocument.select(SELECTOR_TOPIC_OVERVIEW);
+    final Elements urlElements = aDocument.select(SELECTOR_TOPIC_OVERVIEW);
     for (Element urlElement : urlElements) {
       final String url = urlElement.attr(Consts.ATTRIBUTE_HREF);
-      taskResults.add(new CrawlerUrlDTO(UrlUtils.addDomainIfMissing(url, baseUrl)));
+      final Element iconElement = urlElement.parent().select(SELECTOR_TYPE_ICON).first();
+      if (iconElement.text().equals(ENTRY_ICON_FILM)) {
+        taskResults.add(new CrawlerUrlDTO(UrlUtils.addDomainIfMissing(url, baseUrl)));
+      }
     }
   }
 
   @Override
   protected AbstractRecrusivConverterTask<CrawlerUrlDTO, CrawlerUrlDTO> createNewOwnInstance(
       ConcurrentLinkedQueue<CrawlerUrlDTO> aElementsToProcess) {
-    return new KikaTopicOverviewPageTask(crawler, aElementsToProcess, baseUrl, pageNumber + 1);
+    return createNewOwnInstance(aElementsToProcess, 1);
+  }
+
+  private AbstractRecrusivConverterTask<CrawlerUrlDTO, CrawlerUrlDTO> createNewOwnInstance(
+      ConcurrentLinkedQueue<CrawlerUrlDTO> aElementsToProcess, int aPageNumber) {
+    return new KikaTopicOverviewPageTask(crawler, aElementsToProcess, baseUrl, aPageNumber);
   }
 
   private List<CrawlerUrlDTO> parseNextPageUrls(Document aDocument) {

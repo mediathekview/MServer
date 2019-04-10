@@ -97,22 +97,10 @@ public class KikaTopicOverviewPageTaskTest extends KikaTaskTestBase {
                   + "/mama-fuchs-und-papa-dachs/sendungen/sendung111176.html"),
           new CrawlerUrlDTO(
               WireMockTestBase.MOCK_URL_BASE
-                  + "/mama-fuchs-und-papa-dachs/sendungen/sendung111178.html"),
-          new CrawlerUrlDTO(
-              WireMockTestBase.MOCK_URL_BASE
-                  + "/mama-fuchs-und-papa-dachs/sendungen/sendung111180.html"),
-          new CrawlerUrlDTO(
-              WireMockTestBase.MOCK_URL_BASE
                   + "/mama-fuchs-und-papa-dachs/sendungen/sendung111182.html"),
           new CrawlerUrlDTO(
               WireMockTestBase.MOCK_URL_BASE
                   + "/mama-fuchs-und-papa-dachs/sendungen/sendung111214.html"),
-          new CrawlerUrlDTO(
-              WireMockTestBase.MOCK_URL_BASE
-                  + "/mama-fuchs-und-papa-dachs/sendungen/sendung111252.html"),
-          new CrawlerUrlDTO(
-              WireMockTestBase.MOCK_URL_BASE
-                  + "/mama-fuchs-und-papa-dachs/sendungen/sendung111250.html"),
           new CrawlerUrlDTO(
               WireMockTestBase.MOCK_URL_BASE
                   + "/mama-fuchs-und-papa-dachs/sendungen/sendung111248.html")
@@ -154,12 +142,6 @@ public class KikaTopicOverviewPageTaskTest extends KikaTaskTestBase {
                   + "/mama-fuchs-und-papa-dachs/sendungen/sendung111176.html"),
           new CrawlerUrlDTO(
               WireMockTestBase.MOCK_URL_BASE
-                  + "/mama-fuchs-und-papa-dachs/sendungen/sendung111178.html"),
-          new CrawlerUrlDTO(
-              WireMockTestBase.MOCK_URL_BASE
-                  + "/mama-fuchs-und-papa-dachs/sendungen/sendung111180.html"),
-          new CrawlerUrlDTO(
-              WireMockTestBase.MOCK_URL_BASE
                   + "/mama-fuchs-und-papa-dachs/sendungen/sendung111182.html")
         };
 
@@ -167,7 +149,7 @@ public class KikaTopicOverviewPageTaskTest extends KikaTaskTestBase {
   }
 
   @Test
-  public void testOverviewLandingPageLinksNotToFirstPage() {
+  public void testOverviewLandingPageLinksNotToFirstPageSmallerThanSubpageCount() {
     rootConfig.getSenderConfig(Sender.KIKA).setMaximumSubpages(3);
 
     final String requestUrl =
@@ -183,6 +165,57 @@ public class KikaTopicOverviewPageTaskTest extends KikaTaskTestBase {
         WireMockTestBase.MOCK_URL_BASE
             + "/mama-fuchs-und-papa-dachs/buendelgruppe2670_page-0_zc-6615e895.html",
         "/kika/kika_topic1_overview_page1.html");
+    JsoupMock.mock(mockUrls);
+
+    CrawlerUrlDTO[] expected =
+        new CrawlerUrlDTO[] {
+          new CrawlerUrlDTO(
+              WireMockTestBase.MOCK_URL_BASE
+                  + "/mama-fuchs-und-papa-dachs/sendungen/sendung111036.html"),
+          new CrawlerUrlDTO(
+              WireMockTestBase.MOCK_URL_BASE
+                  + "/mama-fuchs-und-papa-dachs/sendungen/sendung111120.html"),
+          new CrawlerUrlDTO(
+              WireMockTestBase.MOCK_URL_BASE
+                  + "/mama-fuchs-und-papa-dachs/sendungen/sendung111128.html"),
+          new CrawlerUrlDTO(
+              WireMockTestBase.MOCK_URL_BASE
+                  + "/mama-fuchs-und-papa-dachs/sendungen/sendung111174.html"),
+          new CrawlerUrlDTO(
+              WireMockTestBase.MOCK_URL_BASE
+                  + "/mama-fuchs-und-papa-dachs/sendungen/sendung111176.html"),
+          new CrawlerUrlDTO(
+              WireMockTestBase.MOCK_URL_BASE
+                  + "/mama-fuchs-und-papa-dachs/sendungen/sendung111214.html"),
+          new CrawlerUrlDTO(
+              WireMockTestBase.MOCK_URL_BASE
+                  + "/mama-fuchs-und-papa-dachs/sendungen/sendung111248.html")
+        };
+
+    actAndAssert(requestUrl, expected);
+  }
+
+  @Test
+  public void testOverviewLandingPageLinksNotToFirstPageWithSubpagesLargerThanSubpageCount() {
+    rootConfig.getSenderConfig(Sender.KIKA).setMaximumSubpages(5);
+
+    final String requestUrl =
+        WireMockTestBase.MOCK_URL_BASE
+            + "/mama-fuchs-und-papa-dachs/buendelgruppe2670_page-2_zc-ad1768d3.html";
+    Map<String, String> mockUrls = new HashMap<>();
+    mockUrls.put(requestUrl, "/kika/kika_topic1_overview_page3.html");
+    mockUrls.put(
+        WireMockTestBase.MOCK_URL_BASE
+            + "/mama-fuchs-und-papa-dachs/buendelgruppe2670_page-3_zc-c0952f36.html",
+        "/kika/kika_topic1_overview_page4.html");
+    mockUrls.put(
+        WireMockTestBase.MOCK_URL_BASE
+            + "/mama-fuchs-und-papa-dachs/buendelgruppe2670_page-0_zc-6615e895.html",
+        "/kika/kika_topic1_overview_page1.html");
+    mockUrls.put(
+        WireMockTestBase.MOCK_URL_BASE
+            + "/mama-fuchs-und-papa-dachs/buendelgruppe2670_page-1_zc-43c28d56.html",
+        "/kika/kika_topic1_overview_page2.html");
     JsoupMock.mock(mockUrls);
 
     CrawlerUrlDTO[] expected =
@@ -204,19 +237,13 @@ public class KikaTopicOverviewPageTaskTest extends KikaTaskTestBase {
                     + "/mama-fuchs-und-papa-dachs/sendungen/sendung111176.html"),
             new CrawlerUrlDTO(
                 WireMockTestBase.MOCK_URL_BASE
-                    + "/mama-fuchs-und-papa-dachs/sendungen/sendung111178.html"),
-          new CrawlerUrlDTO(
-              WireMockTestBase.MOCK_URL_BASE
-                  + "/mama-fuchs-und-papa-dachs/sendungen/sendung111214.html"),
-          new CrawlerUrlDTO(
-              WireMockTestBase.MOCK_URL_BASE
-                  + "/mama-fuchs-und-papa-dachs/sendungen/sendung111252.html"),
-          new CrawlerUrlDTO(
-              WireMockTestBase.MOCK_URL_BASE
-                  + "/mama-fuchs-und-papa-dachs/sendungen/sendung111250.html"),
-          new CrawlerUrlDTO(
-              WireMockTestBase.MOCK_URL_BASE
-                  + "/mama-fuchs-und-papa-dachs/sendungen/sendung111248.html")
+                    + "/mama-fuchs-und-papa-dachs/sendungen/sendung111182.html"),
+            new CrawlerUrlDTO(
+                WireMockTestBase.MOCK_URL_BASE
+                    + "/mama-fuchs-und-papa-dachs/sendungen/sendung111214.html"),
+            new CrawlerUrlDTO(
+                WireMockTestBase.MOCK_URL_BASE
+                    + "/mama-fuchs-und-papa-dachs/sendungen/sendung111248.html")
         };
 
     actAndAssert(requestUrl, expected);
