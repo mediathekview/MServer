@@ -31,7 +31,7 @@ public abstract class AbstractDocumentTask<T, D extends CrawlerUrlDTO>
   private static final String LOAD_DOCUMENT_ERRORTEXTPATTERN =
       "Something terrible happened while crawl the %s page \"%s\".";
   private static final String LOAD_DOCUMENT_HTTPERROR =
-      "Some HTTP error happened while crawl the %s page \"%s\".";
+      "Some HTTP error happened while crawl the %s page \"%s\": %d.";
   private boolean incrementErrorCounterOnHttpErrors;
   private boolean printErrorMessage;
   private Level httpErrorLogLevel;
@@ -67,7 +67,7 @@ public abstract class AbstractDocumentTask<T, D extends CrawlerUrlDTO>
     } catch (final HttpStatusException httpStatusError) {
       LOG.log(
           httpErrorLogLevel,
-          String.format(LOAD_DOCUMENT_HTTPERROR, crawler.getSender().getName(), aUrlDTO.getUrl()));
+          String.format(LOAD_DOCUMENT_HTTPERROR, crawler.getSender().getName(), aUrlDTO.getUrl(), httpStatusError.getStatusCode()));
       if (printErrorMessage) {
         crawler.printMessage(
             ServerMessages.CRAWLER_DOCUMENT_LOAD_ERROR,
