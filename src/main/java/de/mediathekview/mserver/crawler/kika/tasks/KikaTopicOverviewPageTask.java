@@ -6,7 +6,8 @@ import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
 import de.mediathekview.mserver.crawler.basic.AbstractDocumentTask;
 import de.mediathekview.mserver.crawler.basic.AbstractRecrusivConverterTask;
 import de.mediathekview.mserver.crawler.basic.CrawlerUrlDTO;
-import java.util.Optional;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import org.jsoup.nodes.Document;
@@ -43,15 +44,61 @@ public class KikaTopicOverviewPageTask extends AbstractDocumentTask<CrawlerUrlDT
   protected void processDocument(CrawlerUrlDTO aUrlDto, Document aDocument) {
     parseFilmUrls(aDocument);
 
-    final Optional<CrawlerUrlDTO> nextPageLink = parseNextPageUrl(aDocument);
-    if (nextPageLink.isPresent() && config.getMaximumSubpages() > pageNumber) {
-      loadNextPage(nextPageLink.get());
+    if (pageNumber == 1) {
+      List<CrawlerUrlDTO> nextPageUrls =
+          sortNextPageUrls(parseNextPageUrls(aDocument), aUrlDto);
+
+      if (!nextPageUrls.isEmpty()) {
+        int maxSubPage =
+            config.getMaximumSubpages() > nextPageUrls.size()
+                ? nextPageUrls.size()
+                : config.getMaximumSubpages();
+        loadNextPage(nextPageUrls.subList(1, maxSubPage));
+      }
     }
   }
 
-  private void loadNextPage(final CrawlerUrlDTO nextPageLink) {
+  /**
+   * Manchmal verlinkt die Folgenübersicht nicht auf die erste Seite. Deshalb muss die Übersicht so
+   * sortiert werden, dass die verlinkte Seite, die erste ist und die anschließende Filterung
+   * korrekt funktioniert.
+   *
+   * @param nextPageUrls Urls für Übersichtsseiten
+   * @param actualUrl Url der aktuellen Seite
+   * @return sortierte Liste der Übersichtsseiten
+   */
+  private List<CrawlerUrlDTO> sortNextPageUrls(
+      List<CrawlerUrlDTO> nextPageUrls, final CrawlerUrlDTO actualUrl) {
+
+    if (nextPageUrls.isEmpty()) {
+      return nextPageUrls;
+    }
+
+    int actualIndex = nextPageUrls.indexOf(actualUrl);
+    if (actualIndex < 0) {
+      // wenn Url nicht enthalten ist, dann ist auf die erste Seite verlinkt und keine Sortierung nötig
+      return nextPageUrls;
+    }
+
+    List<CrawlerUrlDTO> sortedUrls = new ArrayList<>();
+
+    for (int i = actualIndex; i < nextPageUrls.size(); i++) {
+      sortedUrls.add(nextPageUrls.get(i));
+    }
+    for (int i = 0; i < actualIndex; i++) {
+      sortedUrls.add(nextPageUrls.get(i));
+    }
+
+    return sortedUrls;
+  }
+
+  private void loadNextPage(final List<CrawlerUrlDTO> nextPageUrls) {
+    if (nextPageUrls.isEmpty()) {
+      return;
+    }
+
     final ConcurrentLinkedQueue<CrawlerUrlDTO> nextPageLinks = new ConcurrentLinkedQueue<>();
-    nextPageLinks.add(nextPageLink);
+    nextPageLinks.addAll(nextPageUrls);
     AbstractRecrusivConverterTask<CrawlerUrlDTO, CrawlerUrlDTO> subPageCrawler =
         createNewOwnInstance(nextPageLinks);
     subPageCrawler.fork();
@@ -73,13 +120,15 @@ public class KikaTopicOverviewPageTask extends AbstractDocumentTask<CrawlerUrlDT
     return new KikaTopicOverviewPageTask(crawler, aElementsToProcess, baseUrl, pageNumber + 1);
   }
 
-  private Optional<CrawlerUrlDTO> parseNextPageUrl(Document aDocument) {
-    Elements subpageElements = aDocument.select(SELECTOR_SUBPAGES);
-    if (subpageElements.size() > pageNumber) {
-      final String url = subpageElements.get(pageNumber).attr(Consts.ATTRIBUTE_HREF);
-      return Optional.of(new CrawlerUrlDTO(UrlUtils.addDomainIfMissing(url, baseUrl)));
+  private List<CrawlerUrlDTO> parseNextPageUrls(Document aDocument) {
+    List<CrawlerUrlDTO> nextPages = new ArrayList<>();
+
+    Elements subPageElements = aDocument.select(SELECTOR_SUBPAGES);
+    for (Element subPageElement : subPageElements) {
+      final String url = subPageElement.attr(Consts.ATTRIBUTE_HREF);
+      nextPages.add(new CrawlerUrlDTO(UrlUtils.addDomainIfMissing(url, baseUrl)));
     }
 
-    return Optional.empty();
+    return nextPages;
   }
 }

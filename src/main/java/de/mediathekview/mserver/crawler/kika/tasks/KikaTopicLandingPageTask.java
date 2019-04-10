@@ -13,7 +13,7 @@ import org.jsoup.select.Elements;
 
 public class KikaTopicLandingPageTask extends AbstractDocumentTask<CrawlerUrlDTO, CrawlerUrlDTO> {
 
-  private static final String SELECTOR_TOPIC_OVERVIEW1 = "span.moreBtn > a";
+  private static final String SELECTOR_TOPIC_OVERVIEW1 = ".sectionArticleWrapperRight span.moreBtn > a";
   private static final String SELECTOR_TOPIC_OVERVIEW2 = "div.teaserMultiGroup > a.linkAll";
 
   private final String baseUrl;

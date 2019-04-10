@@ -36,8 +36,14 @@ public class KikaTopicLandingPageTaskTest extends KikaTaskTestBase {
                   new CrawlerUrlDTO("https://www.kika.de/mama-fuchs-und-papa-dachs/buendelgruppe2670.html")
                 }
               }, {
-                "https://www.kika.de/alles-neu-fuer-lina/sendereihe2648.html",
+                "https://www.kika.de/singalarm/sendungen/sendung105928.html",
                 "/kika/kika_topic2_landing_page.html",
+                new CrawlerUrlDTO[]{
+                    new CrawlerUrlDTO("https://www.kika.de/singalarm/sendungen/buendelgruppe2234_page-2_zc-d5c4767c_zs-e540764b.html")
+                }
+            }, {
+                "https://www.kika.de/alles-neu-fuer-lina/sendereihe2648.html",
+                "/kika/kika_topic3_landing_page.html",
                 new CrawlerUrlDTO[]{
                   new CrawlerUrlDTO("https://www.kika.de/alles-neu-fuer-lina/buendelgruppe2624.html")
                 }
