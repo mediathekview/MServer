@@ -7,22 +7,23 @@ import de.mediathekview.mserver.crawler.arte.ArteLanguage;
 import de.mediathekview.mserver.crawler.arte.json.ArteFilmListDeserializer;
 import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
 import de.mediathekview.mserver.crawler.basic.AbstractUrlTask;
-import de.mediathekview.mserver.crawler.funk.tasks.AbstractFunkRestTask;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
+import javax.ws.rs.core.Response;
 import java.lang.reflect.Type;
 import java.net.URI;
 import java.util.Optional;
 import java.util.concurrent.ConcurrentLinkedQueue;
-import javax.ws.rs.core.Response;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 public class ArteSendungVerpasstTask
-    extends AbstractFunkRestTask<ArteJsonElementDto, ArteFilmListDTO, ArteCrawlerUrlDto> {
+    extends AbstractRestTask<ArteJsonElementDto, ArteFilmListDTO, ArteCrawlerUrlDto> {
 
   private static final Logger LOG = LogManager.getLogger(ArteSendungVerpasstTask.class);
   private static final long serialVersionUID = 6599845164042820791L;
 
-  public ArteSendungVerpasstTask(final AbstractCrawler aCrawler,
+  public ArteSendungVerpasstTask(
+      final AbstractCrawler aCrawler,
       final ConcurrentLinkedQueue<ArteCrawlerUrlDto> aUrlToCrawlDTOs,
       final Optional<String> aAuthKey) {
     super(aCrawler, aUrlToCrawlDTOs, aAuthKey);
@@ -42,21 +43,22 @@ public class ArteSendungVerpasstTask
 
   @Override
   protected Type getType() {
-    return new TypeToken<ArteFilmListDTO>() {
-    }.getType();
+    return new TypeToken<ArteFilmListDTO>() {}.getType();
   }
 
   @Override
   protected void handleHttpError(final URI aUrl, final Response aResponse) {
     crawler.printErrorMessage();
-    LOG.fatal(String.format("A HTTP error %d occured when getting REST informations from: \"%s\".",
-        aResponse.getStatus(), aUrl.toString()));
+    LOG.fatal(
+        String.format(
+            "A HTTP error %d occured when getting REST informations from: \"%s\".",
+            aResponse.getStatus(), aUrl.toString()));
   }
 
   @Override
   protected void postProcessing(final ArteFilmListDTO responseObj, final ArteCrawlerUrlDto aDTO) {
     final Optional<URI> nextPageLink = responseObj.getNextPage();
-    Optional<AbstractUrlTask<ArteJsonElementDto, ArteCrawlerUrlDto>> subpageCrawler;
+    final Optional<AbstractUrlTask<ArteJsonElementDto, ArteCrawlerUrlDto>> subpageCrawler;
     if (nextPageLink.isPresent() && config.getMaximumSubpages() > 0) {
       final ConcurrentLinkedQueue<ArteCrawlerUrlDto> nextPageLinks = new ConcurrentLinkedQueue<>();
       final ArteCrawlerUrlDto arteCrawlerUrlDto =
