@@ -33,13 +33,13 @@ public class FunkChannelDTO {
       return false;
     }
     final FunkChannelDTO that = (FunkChannelDTO) o;
-    return getChannelId().equals(that.getChannelId())
-        && getChannelTitle().equals(that.getChannelTitle());
+    return Objects.equals(channelId, that.channelId)
+        && Objects.equals(channelTitle, that.channelTitle);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(getChannelId(), getChannelTitle());
+    return Objects.hash(channelId, channelTitle);
   }
 
   @Override

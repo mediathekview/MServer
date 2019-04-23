@@ -6,8 +6,8 @@ import de.mediathekview.mserver.crawler.arte.ArteJsonElementDto;
 import de.mediathekview.mserver.crawler.arte.ArteLanguage;
 import de.mediathekview.mserver.crawler.arte.json.ArteFilmListDeserializer;
 import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
+import de.mediathekview.mserver.crawler.basic.AbstractJsonRestTask;
 import de.mediathekview.mserver.crawler.basic.AbstractUrlTask;
-import de.mediathekview.mserver.crawler.funk.tasks.AbstractFunkRestTask;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -18,7 +18,7 @@ import java.util.Optional;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
 public class ArteSendungVerpasstTask
-    extends AbstractFunkRestTask<ArteJsonElementDto, ArteFilmListDTO, ArteCrawlerUrlDto> {
+    extends AbstractJsonRestTask<ArteJsonElementDto, ArteFilmListDTO, ArteCrawlerUrlDto> {
 
   private static final Logger LOG = LogManager.getLogger(ArteSendungVerpasstTask.class);
   private static final long serialVersionUID = 6599845164042820791L;

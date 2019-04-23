@@ -1,19 +1,18 @@
 package de.mediathekview.mserver.crawler.phoenix.parser;
 
-import com.google.gson.JsonArray;
-import com.google.gson.JsonDeserializationContext;
-import com.google.gson.JsonDeserializer;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
+import com.google.gson.*;
 import de.mediathekview.mserver.base.utils.JsonUtils;
-import de.mediathekview.mserver.crawler.basic.SendungOverviewDto;
+import de.mediathekview.mserver.crawler.basic.CrawlerUrlDTO;
+import de.mediathekview.mserver.crawler.basic.PagedElementListDTO;
 import de.mediathekview.mserver.crawler.phoenix.PhoenixConstants;
+
 import java.lang.reflect.Type;
 import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
 
-public class PhoenixSendungOverviewDeserializer implements JsonDeserializer<Optional<SendungOverviewDto>> {
+public class PhoenixSendungOverviewDeserializer
+    implements JsonDeserializer<Optional<PagedElementListDTO<CrawlerUrlDTO>>> {
 
   private static final String ELEMENT_CONTENT = "content";
   private static final String ELEMENT_ITEMS = "items";
@@ -21,36 +20,21 @@ public class PhoenixSendungOverviewDeserializer implements JsonDeserializer<Opti
   private static final String ATTRIBUTE_LINK = "link";
   private static final String ATTRIBUTE_NEXT_URL = "next_url";
 
-  @Override
-  public Optional<SendungOverviewDto> deserialize(JsonElement aJsonElement, Type aType, JsonDeserializationContext aContext) {
-    final JsonObject jsonObject = aJsonElement.getAsJsonObject();
+  private static PagedElementListDTO<CrawlerUrlDTO> createDto(
+      final Set<String> itemIds, final Optional<String> nextUrl) {
+    final PagedElementListDTO<CrawlerUrlDTO> dto = new PagedElementListDTO<>();
+    dto.setNextPage(nextUrl);
 
-    if (!jsonObject.has(ELEMENT_CONTENT)) {
-      return Optional.empty();
-    }
-
-    final JsonObject contentObject = jsonObject.get(ELEMENT_CONTENT).getAsJsonObject();
-
-    final Set<String> itemIds = parseItems(contentObject);
-    final Optional<String> nextUrl = parseNextUrl(contentObject);
-
-    SendungOverviewDto dto = createDto(itemIds, nextUrl);
-    return Optional.of(dto);
-  }
-
-  private static SendungOverviewDto createDto(final Set<String> itemIds, final Optional<String> nextUrl) {
-    SendungOverviewDto dto = new SendungOverviewDto();
-    dto.setNextPageId(nextUrl);
-
-    for (String itemId : itemIds) {
-      dto.addUrl(PhoenixConstants.URL_FILM_DETAIL_JSON + itemId);
+    for (final String itemId : itemIds) {
+      dto.addElement(new CrawlerUrlDTO(PhoenixConstants.URL_FILM_DETAIL_JSON + itemId));
     }
 
     return dto;
   }
 
-  private static Optional<String> parseNextUrl(JsonObject contentObject) {
-    Optional<String> nextUrl = JsonUtils.getAttributeAsString(contentObject, ATTRIBUTE_NEXT_URL);
+  private static Optional<String> parseNextUrl(final JsonObject contentObject) {
+    final Optional<String> nextUrl =
+        JsonUtils.getAttributeAsString(contentObject, ATTRIBUTE_NEXT_URL);
     if (nextUrl.isPresent() && nextUrl.get().isEmpty()) {
       return Optional.empty();
     }
@@ -65,7 +49,8 @@ public class PhoenixSendungOverviewDeserializer implements JsonDeserializer<Opti
       final JsonArray itemArray = aContentObject.get(ELEMENT_ITEMS).getAsJsonArray();
       for (final JsonElement itemElement : itemArray) {
 
-        final Optional<String> htmlUrl = JsonUtils.getAttributeAsString(itemElement.getAsJsonObject(), ATTRIBUTE_LINK);
+        final Optional<String> htmlUrl =
+            JsonUtils.getAttributeAsString(itemElement.getAsJsonObject(), ATTRIBUTE_LINK);
         if (htmlUrl.isPresent() && !htmlUrl.get().isEmpty()) {
           items.add(extractIdFromHtmlUrl(htmlUrl.get()));
         }
@@ -75,14 +60,32 @@ public class PhoenixSendungOverviewDeserializer implements JsonDeserializer<Opti
     return items;
   }
 
-  private static String extractIdFromHtmlUrl(String aHtmlUrl) {
-    int indexBegin = aHtmlUrl.lastIndexOf('-') + 1;
-    int indexEnd = aHtmlUrl.lastIndexOf('.');
+  private static String extractIdFromHtmlUrl(final String aHtmlUrl) {
+    final int indexBegin = aHtmlUrl.lastIndexOf('-') + 1;
+    final int indexEnd = aHtmlUrl.lastIndexOf('.');
 
     try {
       return aHtmlUrl.substring(indexBegin, indexEnd);
-    } catch (StringIndexOutOfBoundsException ex) {
+    } catch (final StringIndexOutOfBoundsException ex) {
       return "";
     }
+  }
+
+  @Override
+  public Optional<PagedElementListDTO<CrawlerUrlDTO>> deserialize(
+      final JsonElement aJsonElement, final Type aType, final JsonDeserializationContext aContext) {
+    final JsonObject jsonObject = aJsonElement.getAsJsonObject();
+
+    if (!jsonObject.has(ELEMENT_CONTENT)) {
+      return Optional.empty();
+    }
+
+    final JsonObject contentObject = jsonObject.get(ELEMENT_CONTENT).getAsJsonObject();
+
+    final Set<String> itemIds = parseItems(contentObject);
+    final Optional<String> nextUrl = parseNextUrl(contentObject);
+
+    final PagedElementListDTO<CrawlerUrlDTO> dto = createDto(itemIds, nextUrl);
+    return Optional.of(dto);
   }
 }

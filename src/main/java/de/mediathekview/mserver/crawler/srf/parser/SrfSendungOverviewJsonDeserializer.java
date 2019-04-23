@@ -4,15 +4,19 @@ import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonDeserializer;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import de.mediathekview.mserver.crawler.basic.SendungOverviewDto;
+import de.mediathekview.mserver.crawler.basic.CrawlerUrlDTO;
+import de.mediathekview.mserver.crawler.basic.PagedElementListDTO;
 import de.mediathekview.mserver.crawler.srf.SrfConstants;
-import java.lang.reflect.Type;
-import java.util.Optional;
 import org.apache.logging.log4j.LogManager;
 
-public class SrfSendungOverviewJsonDeserializer implements JsonDeserializer<Optional<SendungOverviewDto>> {
+import java.lang.reflect.Type;
+import java.util.Optional;
 
-  private static final org.apache.logging.log4j.Logger LOG = LogManager.getLogger(SrfSendungOverviewJsonDeserializer.class);
+public class SrfSendungOverviewJsonDeserializer
+    implements JsonDeserializer<Optional<PagedElementListDTO<CrawlerUrlDTO>>> {
+
+  private static final org.apache.logging.log4j.Logger LOG =
+      LogManager.getLogger(SrfSendungOverviewJsonDeserializer.class);
 
   private static final String ELEMENT_NEXT_PAGE = "nextPageUrl";
   private static final String ELEMENT_EPISODES = "episodes";
@@ -20,56 +24,59 @@ public class SrfSendungOverviewJsonDeserializer implements JsonDeserializer<Opti
 
   private final String baseUrl;
 
-  public SrfSendungOverviewJsonDeserializer(String aBaseUrl) {
+  public SrfSendungOverviewJsonDeserializer(final String aBaseUrl) {
     baseUrl = aBaseUrl;
   }
 
   @Override
-  public Optional<SendungOverviewDto> deserialize(JsonElement aJsonElement, Type aType, JsonDeserializationContext aJdc) {
+  public Optional<PagedElementListDTO<CrawlerUrlDTO>> deserialize(
+      final JsonElement aJsonElement, final Type aType, final JsonDeserializationContext aJdc) {
 
     try {
-      SendungOverviewDto dto = new SendungOverviewDto();
+      final PagedElementListDTO<CrawlerUrlDTO> dto = new PagedElementListDTO<>();
 
-      JsonObject object = aJsonElement.getAsJsonObject();
+      final JsonObject object = aJsonElement.getAsJsonObject();
       parseNextPage(dto, object);
       parseEpisodes(dto, object);
       return Optional.of(dto);
-    } catch (Exception e) {
+    } catch (final Exception e) {
       LOG.error(e);
     }
     return Optional.empty();
   }
 
-  private void parseNextPage(SendungOverviewDto aDto, JsonObject aJsonObject) {
+  private void parseNextPage(
+      final PagedElementListDTO<CrawlerUrlDTO> aDto, final JsonObject aJsonObject) {
     if (aJsonObject.has(ELEMENT_NEXT_PAGE)) {
-      JsonElement nextPageElement = aJsonObject.get(ELEMENT_NEXT_PAGE);
+      final JsonElement nextPageElement = aJsonObject.get(ELEMENT_NEXT_PAGE);
 
       if (!nextPageElement.isJsonNull()) {
-        aDto.setNextPageId(Optional.of(baseUrl + nextPageElement.getAsString()));
+        aDto.setNextPage(Optional.of(baseUrl + nextPageElement.getAsString()));
       }
     }
   }
 
-  private void parseEpisodes(SendungOverviewDto aDto, JsonObject aJsonObject) {
+  private void parseEpisodes(
+      final PagedElementListDTO<CrawlerUrlDTO> aDto, final JsonObject aJsonObject) {
     if (aJsonObject.has(ELEMENT_EPISODES)) {
-      JsonElement episodesElement = aJsonObject.get(ELEMENT_EPISODES);
+      final JsonElement episodesElement = aJsonObject.get(ELEMENT_EPISODES);
       if (episodesElement.isJsonArray()) {
         episodesElement.getAsJsonArray().forEach(episode -> parseEpisode(aDto, episode));
       }
     }
   }
 
-  private void parseEpisode(SendungOverviewDto aDto, JsonElement aEpisode) {
+  private void parseEpisode(
+      final PagedElementListDTO<CrawlerUrlDTO> aDto, final JsonElement aEpisode) {
     if (!aEpisode.isJsonNull()) {
-      JsonObject episodeObject = aEpisode.getAsJsonObject();
+      final JsonObject episodeObject = aEpisode.getAsJsonObject();
       if (episodeObject.has(ELEMENT_ID)) {
-        aDto.addUrl(getUrl(episodeObject.get(ELEMENT_ID).getAsString()));
+        aDto.addElement(new CrawlerUrlDTO(getUrl(episodeObject.get(ELEMENT_ID).getAsString())));
       }
     }
   }
 
-  private String getUrl(String aId) {
+  private String getUrl(final String aId) {
     return String.format(SrfConstants.SHOW_DETAIL_PAGE_URL, aId);
   }
-
 }

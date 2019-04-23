@@ -1,8 +1,8 @@
 package de.mediathekview.mserver.crawler.basic;
 
-import de.mediathekview.mserver.crawler.basic.CrawlerUrlDTO;
 import java.time.Duration;
 import java.time.LocalDateTime;
+import java.util.Objects;
 
 public class FilmInfoDto extends CrawlerUrlDTO {
 
@@ -13,7 +13,7 @@ public class FilmInfoDto extends CrawlerUrlDTO {
   private String description;
   private String website;
 
-  public FilmInfoDto(String aUrl) {
+  public FilmInfoDto(final String aUrl) {
     super(aUrl);
   }
 
@@ -41,27 +41,74 @@ public class FilmInfoDto extends CrawlerUrlDTO {
     return website;
   }
 
-  public void setDescription(String aDescription) {
-    this.description = aDescription;
+  public void setDescription(final String aDescription) {
+    description = aDescription;
   }
 
-  public void setDuration(Duration aDuration) {
-    this.duration = aDuration;
+  public void setDuration(final Duration aDuration) {
+    duration = aDuration;
   }
 
-  public void setTime(LocalDateTime aTime) {
-    this.time = aTime;
+  public void setTime(final LocalDateTime aTime) {
+    time = aTime;
   }
 
-  public void setTitle(String aTitle) {
-    this.title = aTitle;
+  public void setTitle(final String aTitle) {
+    title = aTitle;
   }
 
-  public void setTopic(String aTopic) {
-    this.topic = aTopic;
+  public void setTopic(final String aTopic) {
+    topic = aTopic;
   }
 
-  public void setWebsite(String aWebsite) {
-    this.website = aWebsite;
+  public void setWebsite(final String aWebsite) {
+    website = aWebsite;
+  }
+
+  @Override
+  public boolean equals(final Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    if (!super.equals(o)) {
+      return false;
+    }
+    final FilmInfoDto that = (FilmInfoDto) o;
+    return Objects.equals(topic, that.topic)
+        && Objects.equals(title, that.title)
+        && Objects.equals(time, that.time)
+        && Objects.equals(duration, that.duration)
+        && Objects.equals(description, that.description)
+        && Objects.equals(website, that.website);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(super.hashCode(), topic, title, time, duration, description, website);
+  }
+
+  @Override
+  public String toString() {
+    return "FilmInfoDto{"
+        + "topic='"
+        + topic
+        + '\''
+        + ", title='"
+        + title
+        + '\''
+        + ", time="
+        + time
+        + ", duration="
+        + duration
+        + ", description='"
+        + description
+        + '\''
+        + ", website='"
+        + website
+        + '\''
+        + '}';
   }
 }

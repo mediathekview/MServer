@@ -141,6 +141,12 @@ public abstract class AbstractCrawler implements Callable<Set<Film>> {
     printMessage(ServerMessages.CRAWLER_ERROR, getSender());
   }
 
+  public void printParseDebugMessage(final String textToParse, final String pattern) {
+    incrementAndGetErrorCount();
+    updateProgress();
+    printMessage(ServerMessages.DEBUG_PARSE_FAILURE, getSender().getName(), textToParse, pattern);
+  }
+
   public void printInvalidUrlErrorMessage(final String aInvalidUrl) {
     incrementAndGetErrorCount();
     updateProgress();

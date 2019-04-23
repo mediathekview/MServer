@@ -4,71 +4,80 @@ import com.google.gson.reflect.TypeToken;
 import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
 import de.mediathekview.mserver.crawler.basic.AbstractRecrusivConverterTask;
 import de.mediathekview.mserver.crawler.basic.CrawlerUrlDTO;
-import de.mediathekview.mserver.crawler.basic.SendungOverviewDto;
+import de.mediathekview.mserver.crawler.basic.PagedElementListDTO;
 import de.mediathekview.mserver.crawler.phoenix.parser.PhoenixSendungOverviewDeserializer;
 import de.mediathekview.mserver.crawler.zdf.tasks.ZdfTaskBase;
+
+import javax.ws.rs.client.WebTarget;
 import java.lang.reflect.Type;
 import java.util.Collection;
 import java.util.Optional;
 import java.util.concurrent.ConcurrentLinkedQueue;
-import javax.ws.rs.client.WebTarget;
 
 public class PhoenixOverviewTask extends ZdfTaskBase<CrawlerUrlDTO, CrawlerUrlDTO> {
 
-  private static final Type OPTIONAL_OVERVIEW_DTO_TYPE_TOKEN = new TypeToken<Optional<SendungOverviewDto>>() {
-  }.getType();
-
+  private static final Type OPTIONAL_OVERVIEW_DTO_TYPE_TOKEN =
+      new TypeToken<Optional<PagedElementListDTO<CrawlerUrlDTO>>>() {}.getType();
 
   private final String baseUrl;
   private final int subpage;
 
-  public PhoenixOverviewTask(AbstractCrawler aCrawler,
-      ConcurrentLinkedQueue<CrawlerUrlDTO> aUrlToCrawlDtos, Optional<String> aAuthKey, String aBaseUrl) {
+  public PhoenixOverviewTask(
+      final AbstractCrawler aCrawler,
+      final ConcurrentLinkedQueue<CrawlerUrlDTO> aUrlToCrawlDtos,
+      final Optional<String> aAuthKey,
+      final String aBaseUrl) {
     this(aCrawler, aUrlToCrawlDtos, aAuthKey, aBaseUrl, 0);
   }
 
-  private PhoenixOverviewTask(AbstractCrawler aCrawler,
-      ConcurrentLinkedQueue<CrawlerUrlDTO> aUrlToCrawlDtos, Optional<String> aAuthKey, String aBaseUrl, int aSubpage) {
+  private PhoenixOverviewTask(
+      final AbstractCrawler aCrawler,
+      final ConcurrentLinkedQueue<CrawlerUrlDTO> aUrlToCrawlDtos,
+      final Optional<String> aAuthKey,
+      final String aBaseUrl,
+      final int aSubpage) {
     super(aCrawler, aUrlToCrawlDtos, aAuthKey);
 
     baseUrl = aBaseUrl;
     subpage = aSubpage;
 
-    registerJsonDeserializer(OPTIONAL_OVERVIEW_DTO_TYPE_TOKEN, new PhoenixSendungOverviewDeserializer());
+    registerJsonDeserializer(
+        OPTIONAL_OVERVIEW_DTO_TYPE_TOKEN, new PhoenixSendungOverviewDeserializer());
   }
 
-
   @Override
-  protected void processRestTarget(CrawlerUrlDTO aDTO, WebTarget aTarget) {
-    Optional<SendungOverviewDto> overviewDtoOptional = deserializeOptional(aTarget, OPTIONAL_OVERVIEW_DTO_TYPE_TOKEN);
+  protected void processRestTarget(final CrawlerUrlDTO aDTO, final WebTarget aTarget) {
+    final Optional<PagedElementListDTO<CrawlerUrlDTO>> overviewDtoOptional =
+        deserializeOptional(aTarget, OPTIONAL_OVERVIEW_DTO_TYPE_TOKEN);
     if (!overviewDtoOptional.isPresent()) {
       crawler.incrementAndGetErrorCount();
       crawler.updateProgress();
       return;
     }
 
-    SendungOverviewDto overviewDto = overviewDtoOptional.get();
-    addResults(overviewDto.getUrls());
+    final PagedElementListDTO<CrawlerUrlDTO> overviewDto = overviewDtoOptional.get();
+    addResults(overviewDto.getElements());
 
-    if (overviewDto.getNextPageId().isPresent() && subpage < this.config.getMaximumSubpages()) {
-      taskResults.addAll(createNewOwnInstance(baseUrl + overviewDto.getNextPageId().get()).invoke());
+    if (overviewDto.getNextPage().isPresent() && subpage < config.getMaximumSubpages()) {
+      taskResults.addAll(createNewOwnInstance(baseUrl + overviewDto.getNextPage().get()).invoke());
     }
   }
 
-  private void addResults(Collection<CrawlerUrlDTO> aUrls) {
-    for (CrawlerUrlDTO url : aUrls) {
+  private void addResults(final Collection<CrawlerUrlDTO> aUrls) {
+    for (final CrawlerUrlDTO url : aUrls) {
       taskResults.add(new CrawlerUrlDTO(baseUrl + url.getUrl()));
     }
   }
 
   @Override
   protected AbstractRecrusivConverterTask<CrawlerUrlDTO, CrawlerUrlDTO> createNewOwnInstance(
-      ConcurrentLinkedQueue<CrawlerUrlDTO> aElementsToProcess) {
+      final ConcurrentLinkedQueue<CrawlerUrlDTO> aElementsToProcess) {
     return new PhoenixOverviewTask(crawler, aElementsToProcess, authKey, baseUrl, subpage + 1);
   }
 
-  private AbstractRecrusivConverterTask<CrawlerUrlDTO, CrawlerUrlDTO> createNewOwnInstance(final String aUrl) {
-    ConcurrentLinkedQueue<CrawlerUrlDTO> queue = new ConcurrentLinkedQueue<>();
+  private AbstractRecrusivConverterTask<CrawlerUrlDTO, CrawlerUrlDTO> createNewOwnInstance(
+      final String aUrl) {
+    final ConcurrentLinkedQueue<CrawlerUrlDTO> queue = new ConcurrentLinkedQueue<>();
     queue.add(new CrawlerUrlDTO(aUrl));
     return createNewOwnInstance(queue);
   }
