@@ -3,17 +3,17 @@ package de.mediathekview.mserver.crawler.funk;
 import de.mediathekview.mserver.base.config.CrawlerUrlType;
 import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
 import de.mediathekview.mserver.crawler.basic.CrawlerUrlDTO;
+import org.jetbrains.annotations.NotNull;
 
-import java.net.URL;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
 public enum FunkApiUrls {
+  /** The channels overview url. No channel id needed. */
   CHANNELS("%s/channels/?size=%d"),
+  /** The video overview url. No channel id needed. */
   VIDEOS("%s/videos/?size=%d"),
+  /** The videos for a specific channel. Channel id needed. */
   VIDEOS_BY_CHANNEL("%s/videos/byChannelId/%d?size=%d");
 
   private final String urlTemplate;
@@ -22,24 +22,17 @@ public enum FunkApiUrls {
     urlTemplate = aUrlTemplate;
   }
 
-  public CrawlerUrlDTO getAsCrawlerUrl(final AbstractCrawler crawler) {
-    return getAsCrawlerUrl(crawler, Optional.empty());
-  }
-
   public CrawlerUrlDTO getAsCrawlerUrl(
       final AbstractCrawler crawler, final Optional<String> channelId) {
-    final Optional<URL> apiUrl =
-        crawler.getRuntimeConfig().getSingleCrawlerURL(CrawlerUrlType.FUNK_API_URL);
-    if (apiUrl.isPresent()) {
-      final List<String> parameter = new ArrayList<>();
-      parameter.add(String.valueOf(apiUrl.get()));
-      channelId.ifPresent(parameter::add);
-      parameter.add(String.valueOf(crawler.getCrawlerConfig().getMaximumUrlsPerTask()));
+    return buildUrl(crawler, channelId).asCrawlerUrl();
+  }
 
-      return new CrawlerUrlDTO(String.format(urlTemplate, parameter.toArray()));
-    } else {
-      throw new IllegalStateException("The Funk API base URL is empty!");
-    }
+  @NotNull
+  private ApiUrlBuilder buildUrl(final AbstractCrawler crawler, final Optional<String> channelId) {
+    final ApiUrlBuilder apiUrlBuilder = new ApiUrlBuilder(CrawlerUrlType.FUNK_API_URL, urlTemplate);
+    channelId.ifPresent(apiUrlBuilder::withParameter);
+    apiUrlBuilder.withParameter(String.valueOf(crawler.getCrawlerConfig().getMaximumUrlsPerTask()));
+    return apiUrlBuilder;
   }
 
   public ConcurrentLinkedQueue<CrawlerUrlDTO> getAsQueue(final AbstractCrawler crawler) {
@@ -48,7 +41,6 @@ public enum FunkApiUrls {
 
   public ConcurrentLinkedQueue<CrawlerUrlDTO> getAsQueue(
       final AbstractCrawler crawler, final Optional<String> channelId) {
-    return new ConcurrentLinkedQueue<>(
-        Collections.singletonList(getAsCrawlerUrl(crawler, channelId)));
+    return buildUrl(crawler, channelId).asQueue();
   }
 }

@@ -65,7 +65,7 @@ public class FunkCrawler extends AbstractCrawler {
           new ConcurrentLinkedQueue<>(featureLatestVideos.get());
       filmInfos.addAll(featureChannelVideos.get());
 
-      // TODO filmInfo url to a real nexx cloud url.
+      forkJoinPool.execute(new NexxCloudSessionInitiationTask());
 
       return new FunkVideosToFilmsTask(this, filmInfos, Optional.empty());
     } catch (final InterruptedException interruptedException) {

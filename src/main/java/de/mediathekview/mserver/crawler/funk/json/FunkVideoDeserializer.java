@@ -4,6 +4,7 @@ import com.google.gson.JsonObject;
 import de.mediathekview.mserver.base.utils.JsonUtils;
 import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
 import de.mediathekview.mserver.crawler.basic.FilmInfoDto;
+import de.mediathekview.mserver.crawler.funk.FunkUrls;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -15,8 +16,6 @@ import java.util.Optional;
 
 public class FunkVideoDeserializer extends AbstractFunkElementDeserializer<FilmInfoDto> {
   private static final Logger LOG = LogManager.getLogger(FunkVideoDeserializer.class);
-  // "https://www.funk.net/channel/[channelAlias]/[alias]"
-  private static final String WEBSITE_PATTERN = "https://www.funk.net/channel/%s/%s";
   private static final String DATE_TIME_FORMAT_PATTERN = "yyyy-MM-dd'T'HH:mm:ss.SSSZ";
   private static final DateTimeFormatter DATE_TIME_FORMATTER =
       DateTimeFormatter.ofPattern(DATE_TIME_FORMAT_PATTERN);
@@ -36,7 +35,8 @@ public class FunkVideoDeserializer extends AbstractFunkElementDeserializer<FilmI
 
   @Override
   protected FilmInfoDto mapToElement(final JsonObject jsonObject) {
-    final FilmInfoDto filmInfo = new FilmInfoDto(jsonObject.get(TAG_ENTITY_ID).getAsString());
+    final FilmInfoDto filmInfo =
+        new FilmInfoDto(createNexxCloudUrl(jsonObject.get(TAG_ENTITY_ID).getAsString()));
     // Required
     filmInfo.setTitle(jsonObject.get(TAG_TITLE).getAsString());
     filmInfo.setTopic(jsonObject.get(TAG_CHANNEL_ID).getAsString());
@@ -62,10 +62,14 @@ public class FunkVideoDeserializer extends AbstractFunkElementDeserializer<FilmI
         JsonUtils.getAttributeAsString(jsonObject, TAG_CHANNEL_ALIAS);
     final Optional<String> alias = JsonUtils.getAttributeAsString(jsonObject, TAG_ALIAS);
     if (channelAlias.isPresent() && alias.isPresent()) {
-      filmInfo.setWebsite(String.format(WEBSITE_PATTERN, channelAlias.get(), alias.get()));
+      filmInfo.setWebsite(FunkUrls.WEBSITE.getAsString(channelAlias.get(), alias.get()));
     }
 
     return filmInfo;
+  }
+
+  private String createNexxCloudUrl(final String entityId) {
+    return FunkUrls.NEXX_CLOUD_VIDEO.getAsString(entityId);
   }
 
   @Override

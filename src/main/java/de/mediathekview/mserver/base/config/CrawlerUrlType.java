@@ -16,17 +16,19 @@ import java.util.Optional;
 
 public enum CrawlerUrlType {
   BR_API_URL("https://proxy-base.master.mango.express/graphql"),
-  FUNK_API_URL("https://www.funk.net/api/v4.0/");
+  FUNK_WEBSITE("https://www.funk.net/"),
+  FUNK_API_URL("https://www.funk.net/api/v4.0/"),
+  NEXX_CLUD_API_URL("https://api.nexx.cloud/v3/741");
 
   private URL defaultUrl;
 
   CrawlerUrlType(final String urlText) {
     try {
       if (StringUtils.isNotEmpty(urlText)) {
-        this.defaultUrl = new URL(urlText);
+        defaultUrl = new URL(urlText);
       }
     } catch (final MalformedURLException e) {
-      this.defaultUrl = null;
+      defaultUrl = null;
     }
   }
 
