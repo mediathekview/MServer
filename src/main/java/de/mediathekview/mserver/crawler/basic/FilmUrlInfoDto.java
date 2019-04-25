@@ -1,6 +1,8 @@
 package de.mediathekview.mserver.crawler.basic;
 
 import de.mediathekview.mserver.base.utils.UrlUtils;
+
+import java.util.Objects;
 import java.util.Optional;
 
 public class FilmUrlInfoDto {
@@ -11,10 +13,14 @@ public class FilmUrlInfoDto {
   private final Optional<String> fileType;
 
   public FilmUrlInfoDto(final String aUrl) {
+    this(aUrl, 0, 0);
+  }
+
+  public FilmUrlInfoDto(final String aUrl, final int aWidth, final int aHeight) {
     url = aUrl;
     fileType = UrlUtils.getFileType(aUrl);
-    width = 0;
-    height = 0;
+    width = aWidth;
+    height = aHeight;
   }
 
   public String getUrl() {
@@ -37,5 +43,39 @@ public class FilmUrlInfoDto {
     width = aWidth;
     height = aHeight;
   }
-}
 
+  @Override
+  public boolean equals(final Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    final FilmUrlInfoDto that = (FilmUrlInfoDto) o;
+    return height == that.height
+        && width == that.width
+        && Objects.equals(url, that.url)
+        && Objects.equals(fileType, that.fileType);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(url, height, width, fileType);
+  }
+
+  @Override
+  public String toString() {
+    return "FilmUrlInfoDto{"
+        + "url='"
+        + url
+        + '\''
+        + ", height="
+        + height
+        + ", width="
+        + width
+        + ", fileType="
+        + fileType
+        + '}';
+  }
+}

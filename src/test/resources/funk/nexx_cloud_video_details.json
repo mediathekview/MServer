@@ -1,0 +1,87 @@
+{
+  "metadata": {
+    "status": 200,
+    "apiversion": "3.0.22",
+    "processingtime": 0.0810079574584961,
+    "calledwith": "\/videos\/byid\/1605930",
+    "forclient": 741
+  },
+  "result": {
+    "general": {
+      "ID": 1605930,
+      "hash": "ZB2K1QV1605930",
+      "title": "Ansage an Hater, Reue, Reichtum uvm. | Money Boy im Talk + Live Performance",
+      "subtitle": "Money Boy im Talk + Live Performance",
+      "orderhint": "",
+      "uploaded": 1555497659,
+      "created": 1555487093,
+      "videotype": "clip",
+      "runtime": "00:14:15",
+      "isPay": 0,
+      "payrefnr": "",
+      "contentModerationAspects": "",
+      "isUGC": 0,
+      "isPicked": 0
+    },
+    "imagedata": {
+      "thumb": "https:\/\/assets.nexx.cloud\/media\/63\/46\/69\/9C03VM94OZI6VZXxL.jpg",
+      "thumb_hasX2": 1,
+      "thumb_hasX3": 1,
+      "thumb_action": "https:\/\/assets.nexx.cloud\/defaults\/nodataxL.jpg",
+      "thumb_quad": "https:\/\/assets.nexx.cloud\/defaults\/nodata.jpg",
+      "thumb_alt": "https:\/\/assets.nexx.cloud\/defaults\/nodataxL.jpg",
+      "animation": "https:\/\/assets.nexx.cloud\/defaults\/nodata.jpg",
+      "preview": "https:\/\/assets.nexx.cloud\/media\/99\/86\/37\/PLWGGWQHZG0PSJ.mp4"
+    },
+    "interactiondata": {
+      "rating": 3,
+      "ratingcount": 0,
+      "likecount": 0,
+      "commentcount": 0,
+      "favouritecount": 0,
+      "topitemposition": 0
+    },
+    "streamdata": {
+      "originalDomain": 1045,
+      "adMode": 0,
+      "originalAdChannel": "",
+      "showWarningBeforePlay": 0,
+      "payPreviewSeconds": -1,
+      "isPartOfStory": 0,
+      "bumperMode": 0,
+      "watermarkMode": 1,
+      "encodedTHUMBS": 1,
+      "encodedWEBM": 1,
+      "encodedVP9": 0,
+      "encodedFBA": 1,
+      "encodedHYVE": 0,
+      "encodedChunkedHEVC": 0,
+      "encodedChunkedVP9": 0,
+      "encodedChunkedTS": 0,
+      "cdnType": "azure",
+      "applyAzureStructure": 1,
+      "azureFileDistribution": "0400:320x180,0700:640x360,1500:1024x576,16000:3840x2160,2500:1280x720,6000:1920x1080,9000:2560x1440",
+      "applyFolderHierarchy": 0,
+      "customWatermark": "",
+      "thumbRoot": "media\/63\/64\/43\/Y0H63Q1BVXHX667",
+      "thumbInterval": 10,
+      "thumbGeometry": "320x180",
+      "isPreChunked": 0,
+      "isOnColdStorage": 0,
+      "cdnShieldHTTP": "funk-01.akamaized.net\/",
+      "cdnShieldHTTPS": "funk-01.akamaized.net\/",
+      "cdnShieldProgHTTP": "funk-01dd.akamaized.net\/",
+      "cdnShieldProgHTTPS": "funk-01dd.akamaized.net\/",
+      "azureLocator": "b4fd4025-3285-4dc8-a0ee-53c5c967d347",
+      "azureStaticLocator": "ef3ff904-4600-448a-9e33-234cf6cd593b",
+      "azureAccount": "nexxplayplus6"
+    },
+    "protectiondata": {
+      "method": "",
+      "token": "",
+      "provider": "",
+      "server": "",
+      "key": ""
+    }
+  }
+}

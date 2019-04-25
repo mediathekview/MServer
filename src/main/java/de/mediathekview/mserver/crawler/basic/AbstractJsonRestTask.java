@@ -21,8 +21,8 @@ import java.util.concurrent.ConcurrentLinkedQueue;
  */
 public abstract class AbstractJsonRestTask<T, R, D extends CrawlerUrlDTO>
     extends AbstractRestTask<T, D> {
-  private static final String ENCODING_GZIP = "gzip";
-  private static final String HEADER_ACCEPT_ENCODING = "Accept-Encoding";
+  protected static final String ENCODING_GZIP = "gzip";
+  protected static final String HEADER_ACCEPT_ENCODING = "Accept-Encoding";
   private static final long serialVersionUID = -1090560363478964885L;
   protected final GsonBuilder gsonBuilder;
 
@@ -51,7 +51,7 @@ public abstract class AbstractJsonRestTask<T, R, D extends CrawlerUrlDTO>
       request = request.header(HEADER_AUTHORIZATION, authKey.get());
     }
 
-    final Response response = request.header(HEADER_ACCEPT_ENCODING, ENCODING_GZIP).get();
+    final Response response = createResponse(request);
 
     if (response.getStatus() == 200) {
       final String jsonOutput = response.readEntity(String.class);
@@ -60,5 +60,9 @@ public abstract class AbstractJsonRestTask<T, R, D extends CrawlerUrlDTO>
     } else {
       handleHttpError(aTarget.getUri(), response);
     }
+  }
+
+  protected Response createResponse(final Builder request) {
+    return request.header(HEADER_ACCEPT_ENCODING, ENCODING_GZIP).get();
   }
 }

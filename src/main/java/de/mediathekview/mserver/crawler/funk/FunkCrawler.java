@@ -18,10 +18,9 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.Collection;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 import java.util.concurrent.*;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 public class FunkCrawler extends AbstractCrawler {
@@ -54,10 +53,12 @@ public class FunkCrawler extends AbstractCrawler {
     final ForkJoinTask<Set<FilmInfoDto>> featureLatestVideos = createLatestVideosTask();
 
     try {
-      final Set<FunkChannelDTO> funkChannels = featureFunkChannels.get();
+      final Map<String, FunkChannelDTO> channels =
+          featureFunkChannels.get().stream()
+              .collect(Collectors.toMap(FunkChannelDTO::getChannelId, Function.identity()));
 
       final ConcurrentLinkedQueue<CrawlerUrlDTO> funkVideosByChannelUrls =
-          convertChannelsToVideosByChannelUrls(funkChannels);
+          convertChannelsToVideosByChannelUrls(new HashSet<>(channels.values()));
 
       final ForkJoinTask<Set<FilmInfoDto>> featureChannelVideos =
           createChannelVideos(funkVideosByChannelUrls);
@@ -68,7 +69,7 @@ public class FunkCrawler extends AbstractCrawler {
 
       final Long sessionId = forkJoinPool.submit(new NexxCloudSessionInitiationTask(this)).get();
 
-      return new FunkVideosToFilmsTask(this, sessionId, filmInfos, Optional.empty());
+      return new FunkVideosToFilmsTask(this, sessionId, filmInfos, channels, Optional.empty());
     } catch (final InterruptedException interruptedException) {
       printErrorMessage();
       LOG.debug("Funk got interrupted.", interruptedException);
