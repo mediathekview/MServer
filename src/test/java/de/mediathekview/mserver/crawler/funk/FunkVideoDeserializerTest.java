@@ -1,46 +1,49 @@
 package de.mediathekview.mserver.crawler.funk;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.reflect.TypeToken;
+import de.mediathekview.mlib.daten.Sender;
+import de.mediathekview.mserver.base.config.MServerBasicConfigDTO;
+import de.mediathekview.mserver.base.config.MServerConfigManager;
 import de.mediathekview.mserver.crawler.basic.FilmInfoDto;
+import de.mediathekview.mserver.crawler.basic.PagedElementListDTO;
 import de.mediathekview.mserver.crawler.funk.json.FunkVideoDeserializer;
-import de.mediathekview.mserver.crawler.funk.tasks.FunkRestEndpoint;
-import de.mediathekview.mserver.crawler.funk.tasks.FunkRestTask;
 import org.jetbrains.annotations.NotNull;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.junit.runners.Parameterized;
 
+import java.io.IOException;
+import java.lang.reflect.Type;
+import java.net.URISyntaxException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.HashSet;
 import java.util.Optional;
-import java.util.Set;
 
 import static org.hamcrest.CoreMatchers.equalTo;
-import static org.hamcrest.Matchers.notNullValue;
-import static org.junit.Assert.assertThat;
+import static org.hamcrest.MatcherAssert.assertThat;
 
-public class FunkVideosRestTaskTest extends FunkTaskTestBase {
+@RunWith(Parameterized.class)
+public class FunkVideoDeserializerTest {
 
-  @Test
-  public void testVideoCount() {
-    final String requestUrl = "/api/v4.0/videos/";
-    setupSuccessfulJsonResponse(requestUrl, "/funk/funk_videos.json");
+  private final String jsonFile;
+  private final PagedElementListDTO<FilmInfoDto> correctResults;
 
-    final Set<FilmInfoDto> actual = executeTask(requestUrl);
-
-    assertThat(actual, notNullValue());
-    assertThat(actual.size(), equalTo(3));
+  public FunkVideoDeserializerTest(
+      final String jsonFile, final PagedElementListDTO<FilmInfoDto> correctResults) {
+    this.jsonFile = jsonFile;
+    this.correctResults = correctResults;
   }
 
-  @Test
-  public void testAllVideoInformation() {
-    final String requestUrl = "/api/v4.0/videos/";
-    setupSuccessfulJsonResponse(requestUrl, "/funk/funk_videos.json");
-
-    final Set<FilmInfoDto> actual = executeTask(requestUrl);
-
-    final Set<FilmInfoDto> expected = new HashSet<>();
-
-    final FilmInfoDto film1 = new FilmInfoDto("1605930");
+  @Parameterized.Parameters
+  public static Object[][] data() {
+    final PagedElementListDTO<FilmInfoDto> videos = new PagedElementListDTO<>();
+    videos.setNextPage(Optional.empty());
+    final FilmInfoDto film1 = new FilmInfoDto("https://api.nexx.cloud/v3/741/videos/byid/1605930");
     film1.setTopic("1045");
     film1.setTitle("Ansage an Hater, Reue, Reichtum uvm. | Money Boy im Talk + Live Performance");
     film1.setTime(parseTime("2019-04-21T15:00:00.000+0000"));
@@ -49,9 +52,9 @@ public class FunkVideosRestTaskTest extends FunkTaskTestBase {
         "Skrrt! Skrrt! Der Boy steppt ins Wohnzimmer und talkt über Hater, Reue, Reichtum und ein mögliches Feature mit Helene Fischer... Viel Fun! Yo!");
     film1.setWebsite(
         "https://www.funk.net/channel/world-wide-wohnzimmer-1045/ansage-an-hater-reue-reichtum-uvm-money-boy-im-talk-live-performance-1605930");
-    expected.add(film1);
+    videos.addElement(film1);
 
-    final FilmInfoDto film2 = new FilmInfoDto("1600736");
+    final FilmInfoDto film2 = new FilmInfoDto("https://api.nexx.cloud/v3/741/videos/byid/1600736");
     film2.setTopic("12011");
     film2.setTitle("PATCHWORK GANGSTA | Folge 02 Der Pakt mit dem Seytan");
     film2.setTime(parseTime("2019-03-17T07:42:01.000+0000"));
@@ -60,9 +63,9 @@ public class FunkVideosRestTaskTest extends FunkTaskTestBase {
         "Franz ist sichtlich vom Bankalltag und vom Hunde-Hobby seiner Frau genervt. Auch die Launen seines Teenager-Sohnes Max tragen nicht zur Fröhlichkeit von Franz bei. Abends soll der Deal mit Amir stattfinden, doch haben Franz und Amir nicht mit der Einmischung durch Clan-Chef Yassin gerechnet.. Um Amir zu retten, gibt sich Franz als dessen Manager aus und ist nun verantwortlich für dessen Schulden.");
     film2.setWebsite(
         "https://www.funk.net/channel/patchwork-gangsta-12011/patchwork-gangsta-folge-02-der-pakt-mit-dem-seytan-1600736");
-    expected.add(film2);
+    videos.addElement(film2);
 
-    final FilmInfoDto film3 = new FilmInfoDto("1600790");
+    final FilmInfoDto film3 = new FilmInfoDto("https://api.nexx.cloud/v3/741/videos/byid/1600790");
     film3.setTopic("12011");
     film3.setTitle("PATCHWORK GANGSTA | Folge 03 Drogen-Drohnen-Deal");
     film3.setTime(parseTime("2019-03-17T23:43:49.000+0000"));
@@ -71,24 +74,33 @@ public class FunkVideosRestTaskTest extends FunkTaskTestBase {
         "Um Yassin die 40.000 Euro zurück zu zahlen, beschließen Franz und Amir, den Novaya Zvezda Clan zu überfallen. Auf den wurden sie durch einen Tip von Amirs zwielichtigem Kumpel Axels aufmerksam. Der Coup gelingt, doch wie sollen die Drogen nun vercheckt werden? À la \"Dagobert\"... allerdings mit einem besseren Vehikel als einer Modelleisenbahn.");
     film3.setWebsite(
         "https://www.funk.net/channel/patchwork-gangsta-12011/patchwork-gangsta-folge-03-drogendrohnendeal-1600790");
-    expected.add(film3);
-
-    assertThat(actual, equalTo(expected));
+    videos.addElement(film3);
+    return new Object[][] {{"/funk/funk_video_page_last.json", videos}};
   }
 
   @NotNull
-  private LocalDateTime parseTime(final String dateTimeText) {
+  private static LocalDateTime parseTime(final String dateTimeText) {
     return LocalDateTime.parse(
         dateTimeText, DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSSZ"));
   }
 
-  private Set<FilmInfoDto> executeTask(final String aRequestUrl) {
-    final FunkCrawler crawler = createCrawler();
-    return new FunkRestTask<>(
-            crawler,
-            new FunkRestEndpoint<>(
-                FunkApiUrls.VIDEOS, new FunkVideoDeserializer(Optional.of(crawler))),
-            createCrawlerUrlDto(aRequestUrl))
-        .invoke();
+  @Test
+  public void testDeserialize() throws URISyntaxException, IOException {
+    final Type funkVideosType = new TypeToken<PagedElementListDTO<FilmInfoDto>>() {}.getType();
+    final MServerConfigManager rootConfig =
+        MServerConfigManager.getInstance("MServer-JUnit-Config.yaml");
+    final MServerBasicConfigDTO senderConfig = rootConfig.getSenderConfig(Sender.FUNK);
+    senderConfig.setMaximumSubpages(2);
+    final Gson gson =
+        new GsonBuilder()
+            .registerTypeAdapter(funkVideosType, new FunkVideoDeserializer(senderConfig))
+            .create();
+
+    final PagedElementListDTO<FilmInfoDto> videoResultList =
+        gson.fromJson(
+            Files.newBufferedReader(Paths.get(getClass().getResource(jsonFile).toURI())),
+            funkVideosType);
+
+    assertThat(videoResultList, equalTo(correctResults));
   }
 }

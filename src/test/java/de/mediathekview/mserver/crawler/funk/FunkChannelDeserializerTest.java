@@ -3,6 +3,9 @@ package de.mediathekview.mserver.crawler.funk;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
+import de.mediathekview.mlib.daten.Sender;
+import de.mediathekview.mserver.base.config.MServerBasicConfigDTO;
+import de.mediathekview.mserver.base.config.MServerConfigManager;
 import de.mediathekview.mserver.crawler.basic.PagedElementListDTO;
 import de.mediathekview.mserver.crawler.funk.json.FunkChannelDeserializer;
 import org.junit.Test;
@@ -146,9 +149,13 @@ public class FunkChannelDeserializerTest {
   @Test
   public void testDeserialize() throws URISyntaxException, IOException {
     final Type funkChannelsType = new TypeToken<PagedElementListDTO<FunkChannelDTO>>() {}.getType();
+    final MServerConfigManager rootConfig =
+        MServerConfigManager.getInstance("MServer-JUnit-Config.yaml");
+    final MServerBasicConfigDTO senderConfig = rootConfig.getSenderConfig(Sender.FUNK);
+    senderConfig.setMaximumSubpages(2);
     final Gson gson =
         new GsonBuilder()
-            .registerTypeAdapter(funkChannelsType, new FunkChannelDeserializer())
+            .registerTypeAdapter(funkChannelsType, new FunkChannelDeserializer(senderConfig))
             .create();
 
     final PagedElementListDTO<FunkChannelDTO> channelList =

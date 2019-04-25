@@ -13,7 +13,7 @@ public enum FunkUrls {
   /** [ApiBaseUrl]/session/init */
   NEXX_CLOUD_SESSION_INIT(CrawlerUrlType.NEXX_CLUD_API_URL, "%s/session/init"),
   /** [ApiBaseUrl]/videos/byid/[videoId] */
-  NEXX_CLOUD_VIDEO(CrawlerUrlType.NEXX_CLUD_API_URL, "%s/videos/byid/%d");
+  NEXX_CLOUD_VIDEO(CrawlerUrlType.NEXX_CLUD_API_URL, "%s/videos/byid/%s");
 
   private final String urlTemplate;
   private final CrawlerUrlType baseUrlUrlType;

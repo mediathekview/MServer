@@ -1,6 +1,7 @@
 package de.mediathekview.mserver.crawler.funk.json;
 
 import com.google.gson.*;
+import de.mediathekview.mserver.base.config.MServerBasicConfigDTO;
 import de.mediathekview.mserver.base.utils.JsonUtils;
 import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
 import de.mediathekview.mserver.crawler.basic.PagedElementListDTO;
@@ -24,15 +25,19 @@ public abstract class AbstractFunkElementDeserializer<T>
   private static final String RIGHT_URL_PART = "/api/v4.";
   private static final String TAG_PAGE = "page";
   private static final String ATTRIBUTE_SIZE = "size";
+  private static final String ATTRIBUTE_NUMBER = "number";
   protected final Optional<AbstractCrawler> crawler;
+  private final MServerBasicConfigDTO senderConfig;
 
-  public AbstractFunkElementDeserializer() {
-    this(Optional.empty());
+  public AbstractFunkElementDeserializer(final MServerBasicConfigDTO aSenderConfig) {
+    this(Optional.empty(), aSenderConfig);
   }
 
-  public AbstractFunkElementDeserializer(final Optional<AbstractCrawler> aCrawler) {
+  public AbstractFunkElementDeserializer(
+      final Optional<AbstractCrawler> aCrawler, final MServerBasicConfigDTO aSenderConfig) {
     super();
     crawler = aCrawler;
+    senderConfig = aSenderConfig;
   }
 
   @Override
@@ -84,8 +89,9 @@ public abstract class AbstractFunkElementDeserializer<T>
 
   private Optional<String> getNextPageLink(
       final JsonElement baseElement, final JsonObject baseObject) {
-    if (JsonUtils.checkTreePath(
-        baseElement, Optional.empty(), TAG_LINKS, TAG_NEXT, ATTRIBUTE_HREF)) {
+    if (chekIfNextPage(baseElement, baseObject)
+        && JsonUtils.checkTreePath(
+            baseElement, Optional.empty(), TAG_LINKS, TAG_NEXT, ATTRIBUTE_HREF)) {
       return Optional.of(
           fixNextPageUrl(
               baseObject
@@ -95,6 +101,14 @@ public abstract class AbstractFunkElementDeserializer<T>
                   .getAsString()));
     }
     return Optional.empty();
+  }
+
+  private boolean chekIfNextPage(final JsonElement baseElement, final JsonObject baseObject) {
+    if (JsonUtils.checkTreePath(baseElement, Optional.empty(), TAG_PAGE, ATTRIBUTE_NUMBER)) {
+      return baseObject.getAsJsonObject(TAG_PAGE).get(ATTRIBUTE_NUMBER).getAsInt() + 1
+          < senderConfig.getMaximumSubpages();
+    }
+    return false;
   }
 
   private String fixNextPageUrl(final String url) {

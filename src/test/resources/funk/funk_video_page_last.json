@@ -176,7 +176,10 @@
   },
   "_links": {
     "self": {
-      "href": "https://www.funk.net/v4.0/videos/?page=0&size=3&sort=updateDate,desc"
+      "href": "http://localhost:8589/v4.0/videos/?page=1&size=100&sort=updateDate,desc"
+    },
+    "prev": {
+      "href": "http://localhost:8589/v4.0/videos/?page=0&size=100&sort=updateDate,desc"
     }
   },
   "page": {

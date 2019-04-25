@@ -1,7 +1,8 @@
 package de.mediathekview.mserver.crawler.funk;
 
 import de.mediathekview.mlib.daten.Sender;
-import de.mediathekview.mserver.crawler.funk.json.FunkChannelDeserializer;
+import de.mediathekview.mserver.crawler.basic.FilmInfoDto;
+import de.mediathekview.mserver.crawler.funk.json.FunkVideoDeserializer;
 import de.mediathekview.mserver.crawler.funk.tasks.FunkRestEndpoint;
 import de.mediathekview.mserver.crawler.funk.tasks.FunkRestTask;
 import org.junit.Test;
@@ -14,14 +15,14 @@ import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.Matchers.notNullValue;
 import static org.junit.Assert.assertThat;
 
-public class FunkChannelsRestTaskTest extends FunkTaskTestBase {
+public class FunkVideoRestTaskTest extends FunkTaskTestBase {
 
   @Test
   public void testOverviewWithSinglePage() {
-    final String requestUrl = "/api/v4.0/channels/";
-    setupSuccessfulJsonResponse(requestUrl, "/funk/funk_channel_page_last.json");
+    final String requestUrl = "/api/v4.0/videos/";
+    setupSuccessfulJsonResponse(requestUrl, "/funk/funk_video_page_last.json");
 
-    final Set<FunkChannelDTO> actual = executeTask(requestUrl);
+    final Set<FilmInfoDto> actual = executeTask(requestUrl);
 
     assertThat(actual, notNullValue());
     assertThat(actual.size(), equalTo(3));
@@ -32,13 +33,13 @@ public class FunkChannelsRestTaskTest extends FunkTaskTestBase {
 
     rootConfig.getSenderConfig(Sender.FUNK).setMaximumSubpages(5);
 
-    final String requestUrl = "/api/v4.0/channels/";
-    setupSuccessfulJsonResponse(requestUrl, "/funk/funk_channel_page_1.json");
+    final String requestUrl = "/api/v4.0/videos/";
+    setupSuccessfulJsonResponse(requestUrl, "/funk/funk_video_page_1.json");
     setupSuccessfulJsonResponse(
-        "/api/v4.0/channels/?page=1&size=100&sort=updateDate,desc",
-        "/funk/funk_channel_page_last.json");
+        "/api/v4.0/videos/?page=1&size=100&sort=updateDate,desc",
+        "/funk/funk_video_page_last.json");
 
-    final Set<FunkChannelDTO> actual = executeTask(requestUrl);
+    final Set<FilmInfoDto> actual = executeTask(requestUrl);
 
     assertThat(actual, notNullValue());
     assertThat(actual.size(), equalTo(103));
@@ -48,13 +49,13 @@ public class FunkChannelsRestTaskTest extends FunkTaskTestBase {
   public void testOverviewWithMultiplePagesLimitSubpagesSmallerThanSubpageCount() {
     rootConfig.getSenderConfig(Sender.FUNK).setMaximumSubpages(1);
 
-    final String requestUrl = "/api/v4.0/channels/";
-    setupSuccessfulJsonResponse(requestUrl, "/funk/funk_channel_page_1.json");
+    final String requestUrl = "/api/v4.0/videos/";
+    setupSuccessfulJsonResponse(requestUrl, "/funk/funk_video_page_1.json");
     setupSuccessfulJsonResponse(
-        "/api/v4.0/channels/?page=1&size=100&sort=updateDate,desc",
-        "/funk/funk_channel_page_last.json");
+        "/api/v4.0/videos/?page=1&size=100&sort=updateDate,desc",
+        "/funk/funk_video_page_last.json");
 
-    final Set<FunkChannelDTO> actual = executeTask(requestUrl);
+    final Set<FilmInfoDto> actual = executeTask(requestUrl);
 
     assertThat(actual, notNullValue());
     assertThat(actual.size(), equalTo(100));
@@ -62,24 +63,23 @@ public class FunkChannelsRestTaskTest extends FunkTaskTestBase {
 
   @Test
   public void testOverviewPageNotFound() {
-    final String requestUrl = "/api/v4.0/channels/";
+    final String requestUrl = "/api/v4.0/videos/";
 
     wireMockRule.stubFor(
         get(urlEqualTo(requestUrl)).willReturn(aResponse().withStatus(404).withBody("Not Found")));
 
-    final Set<FunkChannelDTO> actual = executeTask(requestUrl);
+    final Set<FilmInfoDto> actual = executeTask(requestUrl);
     assertThat(actual, notNullValue());
     assertThat(actual.size(), equalTo(0));
   }
 
-  private Set<FunkChannelDTO> executeTask(final String aRequestUrl) {
+  private Set<FilmInfoDto> executeTask(final String aRequestUrl) {
     final FunkCrawler crawler = createCrawler();
     return new FunkRestTask<>(
             crawler,
             new FunkRestEndpoint<>(
-                FunkApiUrls.CHANNELS,
-                new FunkChannelDeserializer(
-                    Optional.of(crawler), rootConfig.getSenderConfig(Sender.FUNK))),
+                FunkApiUrls.VIDEOS,
+                new FunkVideoDeserializer(Optional.of(crawler), crawler.getCrawlerConfig())),
             createCrawlerUrlDto(aRequestUrl))
         .invoke();
   }

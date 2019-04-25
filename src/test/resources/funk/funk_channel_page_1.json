@@ -2422,7 +2422,7 @@
   },
   "_links": {
     "self": {
-      "href": "https://localhost:8589/v4.0/channels/?page=0&size=100&sort=updateDate,desc"
+      "href": "http://localhost:8589/v4.0/channels/?page=0&size=100&sort=updateDate,desc"
     },
     "next": {
       "href": "http://localhost:8589/v4.0/channels/?page=1&size=100&sort=updateDate,desc"

@@ -20,12 +20,15 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 public class FunkVideosToFilmsTask
     extends AbstractJsonRestTask<Film, PagedElementListDTO<Film>, FilmInfoDto> {
   private static final Logger LOG = LogManager.getLogger(FunkVideosToFilmsTask.class);
+  private final Long sessionId;
 
   public FunkVideosToFilmsTask(
       final AbstractCrawler crawler,
+      final Long aSessionId,
       final ConcurrentLinkedQueue<FilmInfoDto> aFilmInfos,
       final Optional<String> authKey) {
     super(crawler, aFilmInfos, authKey);
+    sessionId = aSessionId;
   }
 
   @Override
@@ -59,6 +62,6 @@ public class FunkVideosToFilmsTask
   @Override
   protected FunkVideosToFilmsTask createNewOwnInstance(
       final ConcurrentLinkedQueue<FilmInfoDto> aElementsToProcess) {
-    return new FunkVideosToFilmsTask(crawler, aElementsToProcess, authKey);
+    return new FunkVideosToFilmsTask(crawler, sessionId, aElementsToProcess, authKey);
   }
 }

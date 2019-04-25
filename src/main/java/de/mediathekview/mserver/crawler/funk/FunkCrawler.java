@@ -12,6 +12,7 @@ import de.mediathekview.mserver.crawler.funk.json.FunkVideoDeserializer;
 import de.mediathekview.mserver.crawler.funk.tasks.FunkRestEndpoint;
 import de.mediathekview.mserver.crawler.funk.tasks.FunkRestTask;
 import de.mediathekview.mserver.crawler.funk.tasks.FunkVideosToFilmsTask;
+import de.mediathekview.mserver.crawler.funk.tasks.NexxCloudSessionInitiationTask;
 import de.mediathekview.mserver.progress.listeners.SenderProgressListener;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -65,9 +66,9 @@ public class FunkCrawler extends AbstractCrawler {
           new ConcurrentLinkedQueue<>(featureLatestVideos.get());
       filmInfos.addAll(featureChannelVideos.get());
 
-      forkJoinPool.execute(new NexxCloudSessionInitiationTask());
+      final Long sessionId = forkJoinPool.submit(new NexxCloudSessionInitiationTask(this)).get();
 
-      return new FunkVideosToFilmsTask(this, filmInfos, Optional.empty());
+      return new FunkVideosToFilmsTask(this, sessionId, filmInfos, Optional.empty());
     } catch (final InterruptedException interruptedException) {
       printErrorMessage();
       LOG.debug("Funk got interrupted.", interruptedException);
@@ -87,7 +88,8 @@ public class FunkCrawler extends AbstractCrawler {
         new FunkRestTask<>(
             this,
             new FunkRestEndpoint<>(
-                FunkApiUrls.VIDEOS_BY_CHANNEL, new FunkVideoDeserializer(Optional.of(this))),
+                FunkApiUrls.VIDEOS_BY_CHANNEL,
+                new FunkVideoDeserializer(Optional.of(this), crawlerConfig)),
             funkVideosByChannelUrls));
   }
 
@@ -96,13 +98,15 @@ public class FunkCrawler extends AbstractCrawler {
         new FunkRestTask<>(
             this,
             new FunkRestEndpoint<>(
-                FunkApiUrls.VIDEOS, new FunkVideoDeserializer(Optional.of(this)))));
+                FunkApiUrls.VIDEOS, new FunkVideoDeserializer(Optional.of(this), crawlerConfig))));
   }
 
   private ForkJoinTask<Set<FunkChannelDTO>> createChannelTask() {
     return forkJoinPool.submit(
         new FunkRestTask<>(
-            this, new FunkRestEndpoint<>(FunkApiUrls.CHANNELS, new FunkChannelDeserializer())));
+            this,
+            new FunkRestEndpoint<>(
+                FunkApiUrls.CHANNELS, new FunkChannelDeserializer(crawlerConfig))));
   }
 
   @NotNull
