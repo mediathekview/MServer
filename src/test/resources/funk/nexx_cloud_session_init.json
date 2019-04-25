@@ -1,0 +1,51 @@
+{
+  "metadata": {
+    "status": 201,
+    "apiversion": "3.0.22",
+    "processingtime": 0.36132097244262695,
+    "calledwith": "\/session\/init",
+    "forclient": 741
+  },
+  "result": {
+    "general": {
+      "cid": "3155618042501156672",
+      "isNewSession": 1,
+      "isUnique": 1,
+      "clid": 741,
+      "uid": 0,
+      "campaign": 0,
+      "affiliatePartner": 0,
+      "playlicenseAdref": "",
+      "webViewOrigin": "",
+      "geocode": "DE",
+      "latitude": "49.4475",
+      "longitude": "11.0683",
+      "gateway": "html",
+      "language": "de",
+      "referrer": "",
+      "portal": ""
+    },
+    "device": {
+      "id": "4\"%\"3A1500496747\"%\"3A178989",
+      "ip": "62.216.205.116",
+      "type": "pc",
+      "manufacturer": "",
+      "model": "",
+      "sessionIndex": 7,
+      "allowTrack": 1,
+      "browser": "",
+      "browser_version": "",
+      "os": "",
+      "os_version": "",
+      "supportsWebP": 0,
+      "needsUpdate": 0
+    },
+    "system": {
+      "clientstatus": "online",
+      "sdkstatus": 1,
+      "reporttoken": "v42nu%2FS13PpZ26zGNBi3usek7AuxAiGeCK4K6jtVMOM%3D&se=1556585715",
+      "reportregion": "we",
+      "samaritanToken": "tNNaRIuJyzPkD039rncZV%2FiZ5vmA4Byy9zTfJRRB5Yk%3D&se=1556585715"
+    }
+  }
+}
