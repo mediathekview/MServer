@@ -48,7 +48,7 @@ public class NexxCloudVideoDetailsDeserializer implements JsonDeserializer<Set<F
               ATTRIBUTE_CDN_SHIELD_PROG_HTTPS,
               ATTRIBUTE_AZURE_LOCATOR,
               ATTRIBUTE_AZURE_FILE_DISTRIBUTION)
-          && JsonUtils.hasElements(general, Optional.of(crawler), ATTRIBUTE_ID)) {
+          && JsonUtils.hasStringElements(general, Optional.of(crawler), ATTRIBUTE_ID)) {
         final String cdnShieldProgHTTP =
             streamdata.get(ATTRIBUTE_CDN_SHIELD_PROG_HTTPS).getAsString();
         final String azureLocator = streamdata.get(ATTRIBUTE_AZURE_LOCATOR).getAsString();

@@ -4,6 +4,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
 
+import java.util.Arrays;
 import java.util.Optional;
 
 /**
@@ -115,9 +116,7 @@ public final class JsonUtils {
       final Optional<? extends AbstractCrawler> aCrawler,
       final String... aElementIds) {
     for (final String elementId : aElementIds) {
-      if (!aJsonObject.has(elementId)
-          || aJsonObject.get(elementId).isJsonNull()
-          || aJsonObject.get(elementId).getAsString().isEmpty()) {
+      if (!aJsonObject.has(elementId) || aJsonObject.get(elementId).isJsonNull()) {
         if (aCrawler.isPresent()) {
           aCrawler.get().printMissingElementErrorMessage(elementId);
         }
@@ -125,6 +124,26 @@ public final class JsonUtils {
       }
     }
     return true;
+  }
+
+  /**
+   * Checks if the {@link JsonObject} has all given elements and if no element is null or empty.
+   *
+   * @param aJsonObject The object to check.
+   * @param aCrawler The crawler which runs this task. When given and a given element is missing the
+   *     error counter will be increased and a debug message will be printed.
+   * @param aElementIds The elements which it should has.
+   * @return true when the object has all given elements and if no element is null.
+   */
+  public static boolean hasStringElements(
+      final JsonObject aJsonObject,
+      final Optional<? extends AbstractCrawler> aCrawler,
+      final String... aElementIds) {
+    return hasElements(aJsonObject, aCrawler, aElementIds)
+        && Arrays.stream(aElementIds)
+            .map(aJsonObject::get)
+            .map(JsonElement::getAsString)
+            .noneMatch(String::isEmpty);
   }
 
   /**
