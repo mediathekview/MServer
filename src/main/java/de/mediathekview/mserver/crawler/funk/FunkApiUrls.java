@@ -10,11 +10,11 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 
 public enum FunkApiUrls {
   /** The channels overview url. No channel id needed. */
-  CHANNELS("%s/channels/?size=%d"),
+  CHANNELS("%s/channels/?size=%s"),
   /** The video overview url. No channel id needed. */
-  VIDEOS("%s/videos/?size=%d"),
+  VIDEOS("%s/videos/?size=%s"),
   /** The videos for a specific channel. Channel id needed. */
-  VIDEOS_BY_CHANNEL("%s/videos/byChannelId/%d?size=%d");
+  VIDEOS_BY_CHANNEL("%s/videos/byChannelId/%s?size=%s");
 
   private final String urlTemplate;
 

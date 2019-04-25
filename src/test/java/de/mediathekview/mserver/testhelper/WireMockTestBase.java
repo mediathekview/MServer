@@ -4,6 +4,7 @@ import com.github.tomakehurst.wiremock.junit.WireMockRule;
 import de.mediathekview.mserver.crawler.basic.CrawlerUrlDTO;
 import org.junit.Rule;
 
+import java.util.Optional;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
 import static com.github.tomakehurst.wiremock.client.WireMock.*;
@@ -32,13 +33,18 @@ public abstract class WireMockTestBase {
 
   protected void setupSuccessfulJsonPostResponse(
       final String aRequestUrl, final String aResponseFile) {
+    setupSuccessfulJsonPostResponse(aRequestUrl, aResponseFile, Optional.empty());
+  }
+
+  protected void setupSuccessfulJsonPostResponse(
+      final String aRequestUrl, final String aResponseFile, final Optional<Integer> status) {
     final String jsonBody = FileReader.readFile(aResponseFile);
     wireMockRule.stubFor(
         post(urlEqualTo(aRequestUrl))
             .willReturn(
                 aResponse()
                     .withHeader("Content-Type", "application/json")
-                    .withStatus(200)
+                    .withStatus(status.orElse(200))
                     .withBody(jsonBody)));
   }
 

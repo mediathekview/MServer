@@ -41,13 +41,6 @@ public class FunkCrawler extends AbstractCrawler {
 
   @Override
   protected RecursiveTask<Set<Film>> createCrawlerTask() {
-    /*
-    Three phases:
-    1. Get all channels create FunkChannelDTOs of them
-    2. Parallel:
-    2.1. Get all videos for channel
-    2.2. Get latest videos. Use channels to retrieve channel title as Thema.
-     */
     final ForkJoinTask<Set<FunkChannelDTO>> featureFunkChannels = createChannelTask();
 
     final ForkJoinTask<Set<FilmInfoDto>> featureLatestVideos = createLatestVideosTask();
@@ -68,8 +61,9 @@ public class FunkCrawler extends AbstractCrawler {
       filmInfos.addAll(featureChannelVideos.get());
 
       final Long sessionId = forkJoinPool.submit(new NexxCloudSessionInitiationTask(this)).get();
-
-      return new FunkVideosToFilmsTask(this, sessionId, filmInfos, channels, Optional.empty());
+      if (sessionId != null) {
+        return new FunkVideosToFilmsTask(this, sessionId, filmInfos, channels, Optional.empty());
+      }
     } catch (final InterruptedException interruptedException) {
       printErrorMessage();
       LOG.debug("Funk got interrupted.", interruptedException);

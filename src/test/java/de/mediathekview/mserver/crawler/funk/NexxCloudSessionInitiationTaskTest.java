@@ -6,6 +6,7 @@ import org.junit.Test;
 
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.Optional;
 
 import static com.github.tomakehurst.wiremock.client.WireMock.*;
 import static org.hamcrest.CoreMatchers.equalTo;
@@ -18,7 +19,8 @@ public class NexxCloudSessionInitiationTaskTest extends FunkTaskTestBase {
   @Test
   public void testSessionInitated() throws MalformedURLException {
     final String requestUrl = "/v3/741/session/init";
-    setupSuccessfulJsonPostResponse(requestUrl, "/funk/nexx_cloud_session_init.json");
+    setupSuccessfulJsonPostResponse(
+        requestUrl, "/funk/nexx_cloud_session_init.json", Optional.of(201));
 
     final Long actual = executeTask(requestUrl);
 

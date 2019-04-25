@@ -3,6 +3,7 @@ package de.mediathekview.mserver.crawler.funk.tasks;
 import com.google.gson.JsonDeserializer;
 import com.google.gson.reflect.TypeToken;
 import de.mediathekview.mlib.daten.Film;
+import de.mediathekview.mlib.daten.GeoLocations;
 import de.mediathekview.mlib.daten.Resolution;
 import de.mediathekview.mlib.daten.Sender;
 import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
@@ -62,7 +63,7 @@ public class FunkVideosToFilmsTask
   @Override
   protected void handleHttpError(final URI url, final Response response) {
     crawler.printErrorMessage();
-    LOG.fatal(
+    LOG.error(
         String.format(
             "A HTTP error %d occurred when getting REST information from: \"%s\".",
             response.getStatus(), url.toString()));
@@ -90,13 +91,24 @@ public class FunkVideosToFilmsTask
             channels.get(filmInfo.getTopic()).getChannelTitle(),
             filmInfo.getTime(),
             filmInfo.getDuration());
+    film.addGeolocation(GeoLocations.GEO_NONE);
     film.setBeschreibung(filmInfo.getDescription());
     addWebsite(filmInfo, film);
     videoDetails.stream()
         .sorted(Comparator.comparingInt(FilmUrlInfoDto::getWidth))
         .forEachOrdered(details -> addIfResolutionMissing(details, film));
 
-    taskResults.add(film);
+    if (film.getUrls().isEmpty()) {
+      LOG.debug(
+          String.format(
+              "The Funk film \"%s\" - \"%s\" has no download URL.",
+              film.getThema(), film.getTitel()));
+      crawler.incrementAndGetErrorCount();
+    } else {
+      taskResults.add(film);
+      crawler.incrementAndGetActualCount();
+    }
+    crawler.updateProgress();
   }
 
   private void addIfResolutionMissing(final FilmUrlInfoDto details, final Film film) {

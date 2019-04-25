@@ -44,7 +44,7 @@ public class NexxCloudSessionInitiationTask implements Callable<Long> {
 
     final Response response = target.request().post(Entity.form(formData));
 
-    if (response.getStatus() == 200) {
+    if (response.getStatus() == 201) {
       final String jsonOutput = response.readEntity(String.class);
       return gson.fromJson(jsonOutput, Long.class);
     } else {

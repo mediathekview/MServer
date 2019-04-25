@@ -115,7 +115,9 @@ public final class JsonUtils {
       final Optional<? extends AbstractCrawler> aCrawler,
       final String... aElementIds) {
     for (final String elementId : aElementIds) {
-      if (!aJsonObject.has(elementId) || aJsonObject.get(elementId).isJsonNull()) {
+      if (!aJsonObject.has(elementId)
+          || aJsonObject.get(elementId).isJsonNull()
+          || aJsonObject.get(elementId).getAsString().isEmpty()) {
         if (aCrawler.isPresent()) {
           aCrawler.get().printMissingElementErrorMessage(elementId);
         }
