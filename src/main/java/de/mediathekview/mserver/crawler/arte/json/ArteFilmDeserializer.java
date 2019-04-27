@@ -5,18 +5,17 @@ import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonDeserializer;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import com.google.gson.JsonParseException;
 import de.mediathekview.mlib.daten.Film;
 import de.mediathekview.mlib.daten.GeoLocations;
 import de.mediathekview.mlib.daten.Sender;
-import de.mediathekview.mserver.base.utils.JsonUtils;
 import java.lang.reflect.Type;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.time.Duration;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
-import java.time.temporal.TemporalUnit;
 import java.util.Optional;
 import java.util.UUID;
 import org.apache.logging.log4j.LogManager;
@@ -45,10 +44,12 @@ public class ArteFilmDeserializer implements JsonDeserializer<Optional<Film>> {
   private static final String BROADCASTTTYPE_MAJOR_RE = "MAJOR_REBROADCAST";
   private static final String ATTRIBUTE_DURATION = "durationSeconds";
 
+  private static final ZoneId ZONE_ID = ZoneId.of("Europe/Berlin");
+
   private static final Logger LOG = LogManager.getLogger(ArteFilmDeserializer.class);
 
-  private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter
-      .ofPattern("yyyy-MM-dd'T'HH:mm:ssX");
+  private static final DateTimeFormatter DATE_FORMATTER =
+      DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ssX");
 
   private final Sender sender;
   private LocalDateTime today;
@@ -59,13 +60,24 @@ public class ArteFilmDeserializer implements JsonDeserializer<Optional<Film>> {
   }
 
   @Override
-  public Optional<Film> deserialize(JsonElement aJsonElement, Type aType, JsonDeserializationContext aContext) throws JsonParseException {
+  public Optional<Film> deserialize(
+      JsonElement aJsonElement, Type aType, JsonDeserializationContext aContext) {
 
-    if (aJsonElement.isJsonObject() &&
-        aJsonElement.getAsJsonObject().get(JSON_ELEMENT_BROADCAST_ELTERNKNOTEN_1).getAsJsonArray().size() > 0) {
+    if (aJsonElement.isJsonObject()
+        && aJsonElement
+                .getAsJsonObject()
+                .get(JSON_ELEMENT_BROADCAST_ELTERNKNOTEN_1)
+                .getAsJsonArray()
+                .size()
+            > 0) {
 
-      JsonObject programElement = aJsonElement.getAsJsonObject()
-          .get(JSON_ELEMENT_BROADCAST_ELTERNKNOTEN_1).getAsJsonArray().get(0).getAsJsonObject();
+      JsonObject programElement =
+          aJsonElement
+              .getAsJsonObject()
+              .get(JSON_ELEMENT_BROADCAST_ELTERNKNOTEN_1)
+              .getAsJsonArray()
+              .get(0)
+              .getAsJsonObject();
 
       String titel = getTitle(programElement);
       String thema = getSubject(programElement);
@@ -75,7 +87,8 @@ public class ArteFilmDeserializer implements JsonDeserializer<Optional<Film>> {
 
       Optional<LocalDateTime> date = parseDate(programElement);
 
-      final Film film = new Film(UUID.randomUUID(), sender, titel, thema, date.orElse(null), duration);
+      final Film film =
+          new Film(UUID.randomUUID(), sender, titel, thema, date.orElse(null), duration);
       film.setBeschreibung(beschreibung);
 
       try {
@@ -97,7 +110,7 @@ public class ArteFilmDeserializer implements JsonDeserializer<Optional<Film>> {
     long durationValue = 0;
 
     if (programElement.has(ATTRIBUTE_DURATION)) {
-       durationValue = programElement.get(ATTRIBUTE_DURATION).getAsLong();
+      durationValue = programElement.get(ATTRIBUTE_DURATION).getAsLong();
     }
 
     return Duration.ofSeconds(durationValue);
@@ -117,7 +130,8 @@ public class ArteFilmDeserializer implements JsonDeserializer<Optional<Film>> {
     JsonElement subcatElement = programObject.get(JSON_ELEMENT_KEY_SUBCATEGORY);
     if (!subcatElement.isJsonNull()) {
       JsonObject subcatObject = subcatElement.getAsJsonObject();
-      subcategory = subcatObject != null ? getElementValue(subcatObject, JSON_ELEMENT_KEY_NAME) : "";
+      subcategory =
+          subcatObject != null ? getElementValue(subcatObject, JSON_ELEMENT_KEY_NAME) : "";
     }
 
     if (!category.equals(subcategory) && !subcategory.isEmpty()) {
@@ -141,16 +155,18 @@ public class ArteFilmDeserializer implements JsonDeserializer<Optional<Film>> {
   }
 
   private static boolean isValidProgramObject(JsonObject programObject) {
-    return programObject.has(JSON_ELEMENT_KEY_TITLE) &&
-        programObject.has(JSON_ELEMENT_KEY_PROGRAM_ID) &&
-        programObject.has(JSON_ELEMENT_KEY_URL) &&
-        !programObject.get(JSON_ELEMENT_KEY_TITLE).isJsonNull() &&
-        !programObject.get(JSON_ELEMENT_KEY_PROGRAM_ID).isJsonNull() &&
-        !programObject.get(JSON_ELEMENT_KEY_URL).isJsonNull();
+    return programObject.has(JSON_ELEMENT_KEY_TITLE)
+        && programObject.has(JSON_ELEMENT_KEY_PROGRAM_ID)
+        && programObject.has(JSON_ELEMENT_KEY_URL)
+        && !programObject.get(JSON_ELEMENT_KEY_TITLE).isJsonNull()
+        && !programObject.get(JSON_ELEMENT_KEY_PROGRAM_ID).isJsonNull()
+        && !programObject.get(JSON_ELEMENT_KEY_URL).isJsonNull();
   }
 
   private static String getElementValue(JsonObject jsonObject, String elementName) {
-    return !jsonObject.get(elementName).isJsonNull() ? jsonObject.get(elementName).getAsString() : "";
+    return !jsonObject.get(elementName).isJsonNull()
+        ? jsonObject.get(elementName).getAsString()
+        : "";
   }
 
   private GeoLocations getGeoLocation(JsonObject programElement) {
@@ -183,9 +199,9 @@ public class ArteFilmDeserializer implements JsonDeserializer<Optional<Film>> {
     return geo;
   }
 
-
   private Optional<LocalDateTime> parseDate(JsonObject programElement) {
-    JsonArray broadcastArray = programElement.get(JSON_ELEMENT_BROADCAST_ELTERNKNOTEN_2).getAsJsonArray();
+    JsonArray broadcastArray =
+        programElement.get(JSON_ELEMENT_BROADCAST_ELTERNKNOTEN_2).getAsJsonArray();
 
     String value = "";
 
@@ -204,12 +220,13 @@ public class ArteFilmDeserializer implements JsonDeserializer<Optional<Film>> {
       return Optional.empty();
     }
 
-    return Optional.of(LocalDateTime.parse(value, DATE_FORMATTER).plusHours(1));
+    LocalDateTime local = LocalDateTime.parse(value, DATE_FORMATTER);
+    ZonedDateTime zoned = local.atZone(ZONE_ID);
+    int hoursToAdd = zoned.getOffset().getTotalSeconds() / 3600;
+    return Optional.of(local.plusHours(hoursToAdd));
   }
 
-  /**
-   * ermittelt Ausstrahlungsdatum aus der Liste der Ausstrahlungen
-   */
+  /** ermittelt Ausstrahlungsdatum aus der Liste der Ausstrahlungen */
   private String getBroadcastDate(JsonArray broadcastArray) {
     String broadcastDate = "";
     String broadcastBeginFirst = "";
@@ -222,8 +239,8 @@ public class ArteFilmDeserializer implements JsonDeserializer<Optional<Film>> {
     for (int i = 0; i < broadcastArray.size(); i++) {
       JsonObject broadcastObject = broadcastArray.get(i).getAsJsonObject();
 
-      if (broadcastObject.has(JSON_ELEMENT_BROADCASTTYPE) &&
-          broadcastObject.has(JSON_ELEMENT_BROADCAST)) {
+      if (broadcastObject.has(JSON_ELEMENT_BROADCASTTYPE)
+          && broadcastObject.has(JSON_ELEMENT_BROADCAST)) {
         String value = this.getBroadcastDateConsideringCatchupRights(broadcastObject);
 
         if (!value.isEmpty()) {
@@ -260,15 +277,16 @@ public class ArteFilmDeserializer implements JsonDeserializer<Optional<Film>> {
     }
     // wenn immer noch leer, dann die Major-Ausstrahlung verwenden
     if (broadcastDate.isEmpty()) {
-      broadcastDate = getBroadcastDateIgnoringCatchupRights(broadcastArray, BROADCASTTTYPE_MAJOR_RE);
+      broadcastDate =
+          getBroadcastDateIgnoringCatchupRights(broadcastArray, BROADCASTTTYPE_MAJOR_RE);
     }
 
     return broadcastDate;
   }
 
   /**
-   * Liefert den Beginn der Ausstrahlung, wenn - heute im Zeitraum von CatchUpRights liegt - oder heute vor dem Zeitraum liegt - oder
-   * CatchUpRights nicht gesetzt ist
+   * Liefert den Beginn der Ausstrahlung, wenn - heute im Zeitraum von CatchUpRights liegt - oder
+   * heute vor dem Zeitraum liegt - oder CatchUpRights nicht gesetzt ist
    *
    * @return der Beginn der Ausstrahlung oder ""
    */
@@ -285,8 +303,7 @@ public class ArteFilmDeserializer implements JsonDeserializer<Optional<Film>> {
       LocalDateTime beginDate = LocalDateTime.parse(begin, DATE_FORMATTER);
       LocalDateTime endDate = LocalDateTime.parse(end, DATE_FORMATTER);
 
-      if (today.isAfter(beginDate) && today.isBefore(endDate)
-          || today.isBefore(beginDate)) {
+      if (today.isAfter(beginDate) && today.isBefore(endDate) || today.isBefore(beginDate)) {
         // wenn das heutige Datum zwischen begin und end liegt,
         // dann ist es die aktuelle Ausstrahlung
         broadcastDate = broadcastObject.get(JSON_ELEMENT_BROADCAST).getAsString();
@@ -297,17 +314,16 @@ public class ArteFilmDeserializer implements JsonDeserializer<Optional<Film>> {
     return broadcastDate;
   }
 
-  /***
-   * liefert die erste Ausstrahlung des Typs ohne Berücksichtigung der CatchupRights
-   */
-  private static String getBroadcastDateIgnoringCatchupRights(JsonArray broadcastArray, String broadcastType) {
+  /** * liefert die erste Ausstrahlung des Typs ohne Berücksichtigung der CatchupRights */
+  private static String getBroadcastDateIgnoringCatchupRights(
+      JsonArray broadcastArray, String broadcastType) {
     String broadcastDate = "";
 
     for (int i = 0; i < broadcastArray.size(); i++) {
       JsonObject broadcastObject = broadcastArray.get(i).getAsJsonObject();
 
-      if (broadcastObject.has(JSON_ELEMENT_BROADCASTTYPE) &&
-          broadcastObject.has(JSON_ELEMENT_BROADCAST)) {
+      if (broadcastObject.has(JSON_ELEMENT_BROADCASTTYPE)
+          && broadcastObject.has(JSON_ELEMENT_BROADCAST)) {
         String type = broadcastObject.get(JSON_ELEMENT_BROADCASTTYPE).getAsString();
 
         if (type.equals(broadcastType)) {
