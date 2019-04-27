@@ -4,6 +4,8 @@ public class ArteConstants {
 
   public static final String BASE_URL_WWW = "https://www.arte.tv";
 
+  public static final String DAY_PAGE_URL = BASE_URL_WWW + "/guide/api/api/pages/%s/TV_GUIDE/?day=%s";
+
   public static final String URL_SUBCATEGORIES = "https://api.arte.tv/api/opa/v3/subcategories?language=%s&limit=100";
   public static final String URL_SUBCATEGORY_VIDEOS = "%s/guide/api/api/zones/%s/videos_subcategory/?id=%s&limit=100&page=%s";
 
