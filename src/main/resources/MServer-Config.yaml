@@ -128,43 +128,6 @@ copySettings:
     # JSON_COMPRESSED: /var/www/mediathekview/filmlisten/filmliste_diff.json.xz
     OLD_JSON_COMPRESSED_XZ: copyTarget/filmliste_old_diff.json.xz
 
-#### FTP ####
-ftpSettings:
-  # En- / disables FTP
-  ftpEnabled: false
-
-
-  # The FTP server url
-  # Required if enabled
-  # ftpUrl: ftp://ftp.example.com/
-
-  # The paths where to safe the film list files on the server and which to safe on it.
-  # WARNING: You can only set the path for film list formats you listed in "filmlistSaveFormats".
-  # Required if enabled
-  #ftpTargetFilePaths:
-  # JSON: /var/www/mediathekview/filmlisten/filmliste.json
-  # OLD_JSON: /var/www/mediathekview/filmlisten/filmliste_old.json
-  # JSON_COMPRESSED_XZ: /var/www/mediathekview/filmlisten/filmliste.json.xz
-  # OLD_JSON_COMPRESSED_XZ: /var/www/mediathekview/filmlisten/filmliste_old.json.xz
-
-  #ftpTargetDiffFilePaths:
-  # JSON: /var/www/mediathekview/filmlisten/filmliste_diff.json
-  # OLD_JSON: /var/www/mediathekview/filmlisten/filmliste_old_diff.json
-  # JSON_COMPRESSED_XZ: /var/www/mediathekview/filmlisten/filmliste_diff.json.xz
-  # OLD_JSON_COMPRESSED_XZ: /var/www/mediathekview/filmlisten/filmliste_old_diff.json.xz
-
-  # The FTP port of the server.
-  # Optional, if not set the default will be used.
-  # ftpPort: 21
-
-  # The username of the FTP user.
-  # Optional but required if password is set.
-  # ftpUsername: ftpUser
-
-  # The password of the FTP user.
-  # Optional but required if the username is set.
-  # ftpPassword: !fTpSeCuReD
-
 #### Logging ####
 logSettings:
   # The log level for the console.
