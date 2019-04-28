@@ -9,6 +9,7 @@ import java.util.*;
 
 /** A POJO with the configs for MServer. */
 public class MServerConfigDTO extends MServerBasicConfigDTO implements ConfigDTO {
+  private final MServerCopySettings copySettings;
   /** The maximum amount of cpu threads to be used. */
   private Integer maximumCpuThreads;
   /**
@@ -18,18 +19,13 @@ public class MServerConfigDTO extends MServerBasicConfigDTO implements ConfigDTO
   private Integer maximumServerDurationInMinutes;
 
   private Map<Sender, MServerBasicConfigDTO> senderConfigurations;
-
   private Set<Sender> senderExcluded;
   private Set<Sender> senderIncluded;
-
   private Set<FilmlistFormats> filmlistSaveFormats;
   private Map<FilmlistFormats, String> filmlistSavePaths;
-
   private Map<FilmlistFormats, String> filmlistDiffSavePaths;
   private FilmlistFormats filmlistImportFormat;
   private String filmlistImportLocation;
-  private final MServerCopySettings copySettings;
-
   private MServerLogSettingsDTO logSettings;
   private Map<CrawlerUrlType, URL> crawlerURLs;
   private Boolean filmlistImporEnabled;
@@ -166,13 +162,10 @@ public class MServerConfigDTO extends MServerBasicConfigDTO implements ConfigDTO
       return false;
     }
     if (senderIncluded == null) {
-      if (other.senderIncluded != null) {
-        return false;
-      }
-    } else if (!senderIncluded.equals(other.senderIncluded)) {
-      return false;
+      return other.senderIncluded == null;
+    } else {
+      return senderIncluded.equals(other.senderIncluded);
     }
-    return true;
   }
 
   public MServerCopySettings getCopySettings() {
@@ -183,48 +176,97 @@ public class MServerConfigDTO extends MServerBasicConfigDTO implements ConfigDTO
     return crawlerURLs;
   }
 
+  public void setCrawlerURLs(final Map<CrawlerUrlType, URL> crawlerURLs) {
+    this.crawlerURLs = crawlerURLs;
+  }
+
   public Map<FilmlistFormats, String> getFilmlistDiffSavePaths() {
     return filmlistDiffSavePaths;
+  }
+
+  public void setFilmlistDiffSavePaths(final Map<FilmlistFormats, String> filmlistDiffSavePaths) {
+    this.filmlistDiffSavePaths = filmlistDiffSavePaths;
   }
 
   public FilmlistFormats getFilmlistImportFormat() {
     return filmlistImportFormat;
   }
 
+  public void setFilmlistImportFormat(final FilmlistFormats filmlistImportFormat) {
+    this.filmlistImportFormat = filmlistImportFormat;
+  }
+
   public String getFilmlistImportLocation() {
     return filmlistImportLocation;
+  }
+
+  public void setFilmlistImportLocation(final String filmlistImportLocation) {
+    this.filmlistImportLocation = filmlistImportLocation;
   }
 
   public Set<FilmlistFormats> getFilmlistSaveFormats() {
     return filmlistSaveFormats;
   }
 
+  public void setFilmlistSaveFormats(final Set<FilmlistFormats> filmlistSaveFormats) {
+    this.filmlistSaveFormats = filmlistSaveFormats;
+  }
+
   public Map<FilmlistFormats, String> getFilmlistSavePaths() {
     return filmlistSavePaths;
+  }
+
+  public void setFilmlistSavePaths(final Map<FilmlistFormats, String> filmlistSavePaths) {
+    this.filmlistSavePaths = filmlistSavePaths;
   }
 
   public MServerLogSettingsDTO getLogSettings() {
     return logSettings;
   }
 
+  public void setLogSettings(final MServerLogSettingsDTO logSettings) {
+    this.logSettings = logSettings;
+  }
+
   public Integer getMaximumCpuThreads() {
     return maximumCpuThreads;
+  }
+
+  public void setMaximumCpuThreads(final Integer aMaximumCpuThreads) {
+    maximumCpuThreads = aMaximumCpuThreads;
   }
 
   public Integer getMaximumServerDurationInMinutes() {
     return maximumServerDurationInMinutes;
   }
 
+  public void setMaximumServerDurationInMinutes(final Integer aMaximumServerDurationInMinutes) {
+    maximumServerDurationInMinutes = aMaximumServerDurationInMinutes;
+  }
+
   public Map<Sender, MServerBasicConfigDTO> getSenderConfigurations() {
     return senderConfigurations;
+  }
+
+  public void setSenderConfigurations(
+      final Map<Sender, MServerBasicConfigDTO> aSenderConfigurations) {
+    senderConfigurations = aSenderConfigurations;
   }
 
   public Set<Sender> getSenderExcluded() {
     return senderExcluded;
   }
 
+  public void setSenderExcluded(final Set<Sender> senderExcluded) {
+    this.senderExcluded = senderExcluded;
+  }
+
   public Set<Sender> getSenderIncluded() {
     return senderIncluded;
+  }
+
+  public void setSenderIncluded(final Set<Sender> senderIncluded) {
+    this.senderIncluded = senderIncluded;
   }
 
   public Optional<URL> getSingleCrawlerURL(final CrawlerUrlType urlType) {
@@ -264,49 +306,18 @@ public class MServerConfigDTO extends MServerBasicConfigDTO implements ConfigDTO
     return result;
   }
 
-  public void setCrawlerURLs(final Map<CrawlerUrlType, URL> crawlerURLs) {
-    this.crawlerURLs = crawlerURLs;
-  }
-
-  public void setFilmlistImportFormat(final FilmlistFormats filmlistImportFormat) {
-    this.filmlistImportFormat = filmlistImportFormat;
-  }
-
-  public void setFilmlistImportLocation(final String filmlistImportLocation) {
-    this.filmlistImportLocation = filmlistImportLocation;
-  }
-
-  public void setFilmlistSaveFormats(final Set<FilmlistFormats> filmlistSaveFormats) {
-    this.filmlistSaveFormats = filmlistSaveFormats;
-  }
-
-  public void setFilmlistSavePaths(final Map<FilmlistFormats, String> filmlistSavePaths) {
-    this.filmlistSavePaths = filmlistSavePaths;
-  }
-
-  public void setLogSettings(final MServerLogSettingsDTO logSettings) {
-    this.logSettings = logSettings;
-  }
-
-  public void setMaximumCpuThreads(final Integer aMaximumCpuThreads) {
-    maximumCpuThreads = aMaximumCpuThreads;
-  }
-
-  public void setMaximumServerDurationInMinutes(final Integer aMaximumServerDurationInMinutes) {
-    maximumServerDurationInMinutes = aMaximumServerDurationInMinutes;
-  }
-
-  public void setSenderConfigurations(
-      final Map<Sender, MServerBasicConfigDTO> aSenderConfigurations) {
-    senderConfigurations = aSenderConfigurations;
-  }
-
-  public void setSenderExcluded(final Set<Sender> senderExcluded) {
-    this.senderExcluded = senderExcluded;
-  }
-
-  public void setSenderIncluded(final Set<Sender> senderIncluded) {
-    this.senderIncluded = senderIncluded;
+  /**
+   * Loads the {@link Sender} specific configuration and if it not exist creates one.
+   *
+   * @param aSender The {@link Sender} for which to load the configuration.
+   * @return The {@link Sender} specific configuration and if it not exist the default
+   *     configuration.
+   */
+  public MServerBasicConfigDTO getSenderConfig(final Sender aSender) {
+    if (!senderConfigurations.containsKey(aSender)) {
+      senderConfigurations.put(aSender, new MServerBasicConfigDTO());
+    }
+    return senderConfigurations.get(aSender);
   }
 
   public Boolean getFilmlistImporEnabled() {
@@ -315,9 +326,5 @@ public class MServerConfigDTO extends MServerBasicConfigDTO implements ConfigDTO
 
   public void setFilmlistImporEnabled(final Boolean filmlistImporEnabled) {
     this.filmlistImporEnabled = filmlistImporEnabled;
-  }
-
-  public void setFilmlistDiffSavePaths(final Map<FilmlistFormats, String> filmlistDiffSavePaths) {
-    this.filmlistDiffSavePaths = filmlistDiffSavePaths;
   }
 }
