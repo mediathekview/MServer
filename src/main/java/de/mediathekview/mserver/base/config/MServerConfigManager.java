@@ -13,7 +13,6 @@ public class MServerConfigManager extends ConfigManager<MServerConfigDTO> {
   private MServerConfigManager(final String fileName) {
     super();
     this.configFileName = fileName;
-    readConfig();
   }
 
   private MServerConfigManager() {
@@ -23,6 +22,7 @@ public class MServerConfigManager extends ConfigManager<MServerConfigDTO> {
   public static MServerConfigManager getInstance(final String fileName) {
     if (null == instance) {
       instance = new MServerConfigManager(fileName);
+      instance.readConfig();
     }
     return instance;
   }

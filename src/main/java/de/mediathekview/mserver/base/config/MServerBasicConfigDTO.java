@@ -31,7 +31,7 @@ public class MServerBasicConfigDTO {
    */
   private Integer maximumDaysForSendungVerpasstSectionFuture;
 
-  public MServerBasicConfigDTO() {
+  public MServerBasicConfigDTO(final MServerConfigDTO parent) {
     super();
 
     if (this instanceof MServerConfigDTO) {
@@ -43,8 +43,12 @@ public class MServerBasicConfigDTO {
       socketTimeoutInSeconds = 60;
       parentConfig = Optional.empty();
     } else {
-      parentConfig = Optional.ofNullable(MServerConfigManager.getInstance().getConfig());
+      parentConfig = Optional.ofNullable(parent);
     }
+  }
+
+  public MServerBasicConfigDTO() {
+    this(MServerConfigManager.getInstance().getConfig());
   }
 
   public Integer getMaximumCrawlDurationInMinutes() {
