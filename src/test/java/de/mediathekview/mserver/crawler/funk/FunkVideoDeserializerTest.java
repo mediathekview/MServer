@@ -26,6 +26,7 @@ import java.util.Optional;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.containsInAnyOrder;
 
 @RunWith(Parameterized.class)
 public class FunkVideoDeserializerTest {
@@ -101,6 +102,8 @@ public class FunkVideoDeserializerTest {
             Files.newBufferedReader(Paths.get(getClass().getResource(jsonFile).toURI())),
             funkVideosType);
 
-    assertThat(videoResultList.hashCode(), equalTo(correctResults.hashCode()));
+    assertThat(videoResultList.getNextPage(), equalTo(correctResults.getNextPage()));
+    assertThat(
+        videoResultList.getElements(), containsInAnyOrder(correctResults.getElements().toArray()));
   }
 }
