@@ -101,6 +101,6 @@ public class FunkVideoDeserializerTest {
             Files.newBufferedReader(Paths.get(getClass().getResource(jsonFile).toURI())),
             funkVideosType);
 
-    assertThat(videoResultList, equalTo(correctResults));
+    assertThat(videoResultList.hashCode(), equalTo(correctResults.hashCode()));
   }
 }

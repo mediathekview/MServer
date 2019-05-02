@@ -12,7 +12,7 @@ public class MServerConfigManager extends ConfigManager<MServerConfigDTO> {
 
   private MServerConfigManager(final String fileName) {
     super();
-    this.configFileName = fileName;
+    configFileName = fileName;
   }
 
   private MServerConfigManager() {
@@ -31,14 +31,18 @@ public class MServerConfigManager extends ConfigManager<MServerConfigDTO> {
     return getInstance(DEFAULT_CONFIG_FILE);
   }
 
-  /** @see MServerConfigDTO#getSenderConfig(Sender). */
+  /**
+   * @param aSender The {@link Sender} for which the config will be loaded.
+   * @return The Sender specific config.
+   * @see MServerConfigDTO#getSenderConfig(Sender)
+   */
   public MServerBasicConfigDTO getSenderConfig(final Sender aSender) {
     return getConfig().getSenderConfig(aSender);
   }
 
   @Override
   public String getConfigFileName() {
-    return StringUtils.isNotEmpty(this.configFileName) ? configFileName : DEFAULT_CONFIG_FILE;
+    return StringUtils.isNotEmpty(configFileName) ? configFileName : DEFAULT_CONFIG_FILE;
   }
 
   @Override
