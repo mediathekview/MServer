@@ -58,7 +58,7 @@ public class NexxCloudSessionInitiationTaskTest extends FunkTaskTestBase {
   }
 
   @Before
-  private void setUp() throws MalformedURLException {
+  public void setUp() throws MalformedURLException {
     crawler = createCrawler();
     oldApiUrl = crawler.getRuntimeConfig().getCrawlerURLs().get(CrawlerUrlType.NEXX_CLUD_API_URL);
     crawler
@@ -68,7 +68,7 @@ public class NexxCloudSessionInitiationTaskTest extends FunkTaskTestBase {
   }
 
   @After
-  private void tearDown() {
+  public void tearDown() {
     crawler.getRuntimeConfig().getCrawlerURLs().put(CrawlerUrlType.NEXX_CLUD_API_URL, oldApiUrl);
   }
 
