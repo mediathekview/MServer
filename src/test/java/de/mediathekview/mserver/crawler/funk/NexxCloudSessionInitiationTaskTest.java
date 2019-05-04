@@ -19,7 +19,6 @@ import static org.junit.Assert.assertThat;
 public class NexxCloudSessionInitiationTaskTest extends FunkTaskTestBase {
 
   private FunkCrawler crawler;
-  private URL oldApiUrl;
 
   @Test
   public void testSessionInitated() {
@@ -60,7 +59,6 @@ public class NexxCloudSessionInitiationTaskTest extends FunkTaskTestBase {
   @Before
   public void setUp() throws MalformedURLException {
     crawler = createCrawler();
-    oldApiUrl = crawler.getRuntimeConfig().getCrawlerURLs().get(CrawlerUrlType.NEXX_CLUD_API_URL);
     crawler
         .getRuntimeConfig()
         .getCrawlerURLs()
@@ -69,7 +67,14 @@ public class NexxCloudSessionInitiationTaskTest extends FunkTaskTestBase {
 
   @After
   public void tearDown() {
-    crawler.getRuntimeConfig().getCrawlerURLs().put(CrawlerUrlType.NEXX_CLUD_API_URL, oldApiUrl);
+    CrawlerUrlType.NEXX_CLUD_API_URL
+        .getDefaultUrl()
+        .ifPresent(
+            url ->
+                crawler
+                    .getRuntimeConfig()
+                    .getCrawlerURLs()
+                    .put(CrawlerUrlType.NEXX_CLUD_API_URL, url));
   }
 
   private Long executeTask() {
