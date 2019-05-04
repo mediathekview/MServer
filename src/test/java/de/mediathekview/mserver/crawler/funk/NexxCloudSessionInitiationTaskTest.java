@@ -2,6 +2,8 @@ package de.mediathekview.mserver.crawler.funk;
 
 import de.mediathekview.mserver.base.config.CrawlerUrlType;
 import de.mediathekview.mserver.crawler.funk.tasks.NexxCloudSessionInitiationTask;
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 
 import java.net.MalformedURLException;
@@ -16,20 +18,23 @@ import static org.junit.Assert.assertThat;
 
 public class NexxCloudSessionInitiationTaskTest extends FunkTaskTestBase {
 
+  private FunkCrawler crawler;
+  private URL oldApiUrl;
+
   @Test
-  public void testSessionInitated() throws MalformedURLException {
+  public void testSessionInitated() {
     final String requestUrl = "/v3/741/session/init";
     setupSuccessfulJsonPostResponse(
         requestUrl, "/funk/nexx_cloud_session_init.json", Optional.of(201));
 
-    final Long actual = executeTask(requestUrl);
+    final Long actual = executeTask();
 
     assertThat(actual, notNullValue());
     assertThat(actual, equalTo(3155618042501156672L));
   }
 
   @Test
-  public void testSessionInitiationNotAllowed() throws MalformedURLException {
+  public void testSessionInitiationNotAllowed() {
     final String requestUrl = "/v3/741/session/init";
 
     wireMockRule.stubFor(
@@ -48,16 +53,26 @@ public class NexxCloudSessionInitiationTaskTest extends FunkTaskTestBase {
                             + "  }\n"
                             + "}")));
 
-    final Long actual = executeTask(requestUrl);
+    final Long actual = executeTask();
     assertThat(actual, nullValue());
   }
 
-  private Long executeTask(final String aRequestUrl) throws MalformedURLException {
-    final FunkCrawler crawler = createCrawler();
+  @Before
+  private void setUp() throws MalformedURLException {
+    crawler = createCrawler();
+    oldApiUrl = crawler.getRuntimeConfig().getCrawlerURLs().get(CrawlerUrlType.NEXX_CLUD_API_URL);
     crawler
         .getRuntimeConfig()
         .getCrawlerURLs()
         .put(CrawlerUrlType.NEXX_CLUD_API_URL, new URL("http://localhost:8589/v3/741"));
+  }
+
+  @After
+  private void tearDown() {
+    crawler.getRuntimeConfig().getCrawlerURLs().put(CrawlerUrlType.NEXX_CLUD_API_URL, oldApiUrl);
+  }
+
+  private Long executeTask() {
     return new NexxCloudSessionInitiationTask(crawler).call();
   }
 }
