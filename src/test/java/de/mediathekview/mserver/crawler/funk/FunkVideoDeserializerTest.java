@@ -108,6 +108,8 @@ public class FunkVideoDeserializerTest {
             e -> {
               System.out.println(e);
               System.out.println(e.hashCode());
+              System.out.println(e.getUrl());
+              System.out.println(e.getUrl().hashCode());
               System.out.println(e.getWebsite().hashCode());
               System.out.println(e.getDescription().hashCode());
               System.out.println(e.getDuration().hashCode());
@@ -121,6 +123,8 @@ public class FunkVideoDeserializerTest {
             e -> {
               System.out.println(e);
               System.out.println(e.hashCode());
+              System.out.println(e.getUrl());
+              System.out.println(e.getUrl().hashCode());
               System.out.println(e.getWebsite().hashCode());
               System.out.println(e.getDescription().hashCode());
               System.out.println(e.getDuration().hashCode());
