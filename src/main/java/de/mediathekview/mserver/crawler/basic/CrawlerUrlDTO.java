@@ -1,6 +1,7 @@
 package de.mediathekview.mserver.crawler.basic;
 
 import java.net.URL;
+import java.util.Objects;
 
 public class CrawlerUrlDTO {
   protected static final String HTTPS = "https:";
@@ -15,37 +16,20 @@ public class CrawlerUrlDTO {
   }
 
   @Override
-  public boolean equals(final Object obj) {
-    if (this == obj) {
+  public boolean equals(final Object o) {
+    if (this == o) {
       return true;
     }
-    if (obj == null) {
+    if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    if (getClass() != obj.getClass()) {
-      return false;
-    }
-    final CrawlerUrlDTO other = (CrawlerUrlDTO) obj;
-    if (url == null) {
-      if (other.url != null) {
-        return false;
-      }
-    } else if (!url.equals(other.url)) {
-      return false;
-    }
-    return true;
-  }
-
-  public String getUrl() {
-    return url;
+    final CrawlerUrlDTO that = (CrawlerUrlDTO) o;
+    return Objects.equals(url, that.url);
   }
 
   @Override
   public int hashCode() {
-    final int prime = 31;
-    int result = 1;
-    result = prime * result + (url == null ? 0 : url.hashCode());
-    return result;
+    return Objects.hash(url);
   }
 
   public void setUrl(final String aUrl) {
@@ -54,5 +38,4 @@ public class CrawlerUrlDTO {
       url = HTTPS + url;
     }
   }
-
 }
