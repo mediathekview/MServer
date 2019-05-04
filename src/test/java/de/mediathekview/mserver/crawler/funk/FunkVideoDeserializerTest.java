@@ -102,6 +102,33 @@ public class FunkVideoDeserializerTest {
             Files.newBufferedReader(Paths.get(getClass().getResource(jsonFile).toURI())),
             funkVideosType);
 
+    System.out.println("Result:");
+    videoResultList.getElements().stream()
+        .forEachOrdered(
+            e -> {
+              System.out.println(e);
+              System.out.println(e.hashCode());
+              System.out.println(e.getWebsite().hashCode());
+              System.out.println(e.getDescription().hashCode());
+              System.out.println(e.getDuration().hashCode());
+              System.out.println(e.getTime().hashCode());
+              System.out.println(e.getTitle().hashCode());
+              System.out.println(e.getTopic().hashCode());
+            });
+    System.out.println("Correct:");
+    correctResults.getElements().stream()
+        .forEachOrdered(
+            e -> {
+              System.out.println(e);
+              System.out.println(e.hashCode());
+              System.out.println(e.getWebsite().hashCode());
+              System.out.println(e.getDescription().hashCode());
+              System.out.println(e.getDuration().hashCode());
+              System.out.println(e.getTime().hashCode());
+              System.out.println(e.getTitle().hashCode());
+              System.out.println(e.getTopic().hashCode());
+            });
+
     assertThat(videoResultList.getNextPage(), equalTo(correctResults.getNextPage()));
     assertThat(
         videoResultList.getElements(), containsInAnyOrder(correctResults.getElements().toArray()));
