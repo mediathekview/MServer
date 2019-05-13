@@ -97,6 +97,8 @@ public class MediathekZdf extends MediathekReader {
       } else {
         Log.sysLog("convert VideoDTO to DatenFilm finished.");
       }
+    } else {
+      Log.sysLog("ZDF: Filmliste leer...");
     }
 
     perfPoint.collect();
