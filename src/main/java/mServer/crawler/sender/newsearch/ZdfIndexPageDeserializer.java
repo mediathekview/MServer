@@ -2,6 +2,7 @@ package mServer.crawler.sender.newsearch;
 
 import java.io.IOException;
 import java.util.Optional;
+import mServer.crawler.sender.br.Consts;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.jsoup.Jsoup;
@@ -55,9 +56,14 @@ public class ZdfIndexPageDeserializer {
   }
 
   private Optional<String> parseSubPageUrl(Document aDocument) {
-    Element subPageElement = aDocument.selectFirst(QUERY_SUPAGE_URL);
-    if (subPageElement != null) {
-      return Optional.of("https://www.zdf.de/" + subPageElement.attr("href"));
+    Elements subPageElements = aDocument.select(QUERY_SUPAGE_URL);
+    for (Element subPageElement : subPageElements) {
+      if (subPageElement.hasAttr(Consts.ATTRIBUTE_HREF)) {
+        final String href = subPageElement.attr(Consts.ATTRIBUTE_HREF);
+        if (href.endsWith("html")) {
+          return Optional.of("https://www.zdf.de/" + subPageElement.attr(Consts.ATTRIBUTE_HREF));
+        }
+      }
     }
 
     return Optional.empty();
