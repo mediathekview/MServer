@@ -30,6 +30,11 @@ public class MServerConfigDTO extends MServerBasicConfigDTO implements ConfigDTO
   private Map<CrawlerUrlType, URL> crawlerURLs;
   private Boolean filmlistImporEnabled;
 
+  private final Boolean writeFilmlistHashFileEnabled;
+  private final String filmlistHashFilePath;
+  private final Boolean writeFilmlistIdFileEnabled;
+  private final String filmlistIdFilePath;
+
   public MServerConfigDTO() {
     senderConfigurations = new EnumMap<>(Sender.class);
     senderExcluded = new HashSet<>();
@@ -64,108 +69,11 @@ public class MServerConfigDTO extends MServerBasicConfigDTO implements ConfigDTO
     filmlistImporEnabled = true;
     filmlistImportFormat = FilmlistFormats.OLD_JSON_COMPRESSED_XZ;
     filmlistImportLocation = "https://verteiler1.mediathekview.de/Filmliste-akt.xz";
-  }
 
-  @Override
-  public boolean equals(final Object obj) {
-    if (this == obj) {
-      return true;
-    }
-    if (!super.equals(obj)) {
-      return false;
-    }
-    if (!(obj instanceof MServerConfigDTO)) {
-      return false;
-    }
-    final MServerConfigDTO other = (MServerConfigDTO) obj;
-    if (copySettings == null) {
-      if (other.copySettings != null) {
-        return false;
-      }
-    } else if (!copySettings.equals(other.copySettings)) {
-      return false;
-    }
-    if (crawlerURLs == null) {
-      if (other.crawlerURLs != null) {
-        return false;
-      }
-    } else if (!crawlerURLs.equals(other.crawlerURLs)) {
-      return false;
-    }
-    if (filmlistDiffSavePaths == null) {
-      if (other.filmlistDiffSavePaths != null) {
-        return false;
-      }
-    } else if (!filmlistDiffSavePaths.equals(other.filmlistDiffSavePaths)) {
-      return false;
-    }
-    if (filmlistImporEnabled != other.filmlistImporEnabled) {
-      return false;
-    }
-    if (filmlistImportFormat != other.filmlistImportFormat) {
-      return false;
-    }
-    if (filmlistImportLocation == null) {
-      if (other.filmlistImportLocation != null) {
-        return false;
-      }
-    } else if (!filmlistImportLocation.equals(other.filmlistImportLocation)) {
-      return false;
-    }
-    if (filmlistSaveFormats == null) {
-      if (other.filmlistSaveFormats != null) {
-        return false;
-      }
-    } else if (!filmlistSaveFormats.equals(other.filmlistSaveFormats)) {
-      return false;
-    }
-    if (filmlistSavePaths == null) {
-      if (other.filmlistSavePaths != null) {
-        return false;
-      }
-    } else if (!filmlistSavePaths.equals(other.filmlistSavePaths)) {
-      return false;
-    }
-    if (logSettings == null) {
-      if (other.logSettings != null) {
-        return false;
-      }
-    } else if (!logSettings.equals(other.logSettings)) {
-      return false;
-    }
-    if (maximumCpuThreads == null) {
-      if (other.maximumCpuThreads != null) {
-        return false;
-      }
-    } else if (!maximumCpuThreads.equals(other.maximumCpuThreads)) {
-      return false;
-    }
-    if (maximumServerDurationInMinutes == null) {
-      if (other.maximumServerDurationInMinutes != null) {
-        return false;
-      }
-    } else if (!maximumServerDurationInMinutes.equals(other.maximumServerDurationInMinutes)) {
-      return false;
-    }
-    if (senderConfigurations == null) {
-      if (other.senderConfigurations != null) {
-        return false;
-      }
-    } else if (!senderConfigurations.equals(other.senderConfigurations)) {
-      return false;
-    }
-    if (senderExcluded == null) {
-      if (other.senderExcluded != null) {
-        return false;
-      }
-    } else if (!senderExcluded.equals(other.senderExcluded)) {
-      return false;
-    }
-    if (senderIncluded == null) {
-      return other.senderIncluded == null;
-    } else {
-      return senderIncluded.equals(other.senderIncluded);
-    }
+    writeFilmlistHashFileEnabled = false;
+    filmlistHashFilePath = "filmlist.hash";
+    writeFilmlistIdFileEnabled = true;
+    filmlistIdFilePath = "filmlist.id";
   }
 
   public MServerCopySettings getCopySettings() {
@@ -277,33 +185,20 @@ public class MServerConfigDTO extends MServerBasicConfigDTO implements ConfigDTO
     return urlType.getDefaultUrl();
   }
 
-  @Override
-  public int hashCode() {
-    final int prime = 31;
-    int result = super.hashCode();
-    result = prime * result + ((copySettings == null) ? 0 : copySettings.hashCode());
-    result = prime * result + ((crawlerURLs == null) ? 0 : crawlerURLs.hashCode());
-    result =
-        prime * result + ((filmlistDiffSavePaths == null) ? 0 : filmlistDiffSavePaths.hashCode());
-    result = prime * result + (filmlistImporEnabled ? 1231 : 1237);
-    result =
-        prime * result + ((filmlistImportFormat == null) ? 0 : filmlistImportFormat.hashCode());
-    result =
-        prime * result + ((filmlistImportLocation == null) ? 0 : filmlistImportLocation.hashCode());
-    result = prime * result + ((filmlistSaveFormats == null) ? 0 : filmlistSaveFormats.hashCode());
-    result = prime * result + ((filmlistSavePaths == null) ? 0 : filmlistSavePaths.hashCode());
-    result = prime * result + ((logSettings == null) ? 0 : logSettings.hashCode());
-    result = prime * result + ((maximumCpuThreads == null) ? 0 : maximumCpuThreads.hashCode());
-    result =
-        prime * result
-            + ((maximumServerDurationInMinutes == null)
-                ? 0
-                : maximumServerDurationInMinutes.hashCode());
-    result =
-        prime * result + ((senderConfigurations == null) ? 0 : senderConfigurations.hashCode());
-    result = prime * result + ((senderExcluded == null) ? 0 : senderExcluded.hashCode());
-    result = prime * result + ((senderIncluded == null) ? 0 : senderIncluded.hashCode());
-    return result;
+  public Boolean getWriteFilmlistHashFileEnabled() {
+    return writeFilmlistHashFileEnabled;
+  }
+
+  public String getFilmlistHashFilePath() {
+    return filmlistHashFilePath;
+  }
+
+  public Boolean getWriteFilmlistIdFileEnabled() {
+    return writeFilmlistIdFileEnabled;
+  }
+
+  public String getFilmlistIdFilePath() {
+    return filmlistIdFilePath;
   }
 
   /**
@@ -326,5 +221,62 @@ public class MServerConfigDTO extends MServerBasicConfigDTO implements ConfigDTO
 
   public void setFilmlistImporEnabled(final Boolean filmlistImporEnabled) {
     this.filmlistImporEnabled = filmlistImporEnabled;
+  }
+
+  @Override
+  public boolean equals(final Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (!(o instanceof MServerConfigDTO)) {
+      return false;
+    }
+    if (!super.equals(o)) {
+      return false;
+    }
+    final MServerConfigDTO that = (MServerConfigDTO) o;
+    return Objects.equals(getCopySettings(), that.getCopySettings())
+        && Objects.equals(getMaximumCpuThreads(), that.getMaximumCpuThreads())
+        && Objects.equals(
+            getMaximumServerDurationInMinutes(), that.getMaximumServerDurationInMinutes())
+        && Objects.equals(getSenderConfigurations(), that.getSenderConfigurations())
+        && Objects.equals(getSenderExcluded(), that.getSenderExcluded())
+        && Objects.equals(getSenderIncluded(), that.getSenderIncluded())
+        && Objects.equals(getFilmlistSaveFormats(), that.getFilmlistSaveFormats())
+        && Objects.equals(getFilmlistSavePaths(), that.getFilmlistSavePaths())
+        && Objects.equals(getFilmlistDiffSavePaths(), that.getFilmlistDiffSavePaths())
+        && getFilmlistImportFormat() == that.getFilmlistImportFormat()
+        && Objects.equals(getFilmlistImportLocation(), that.getFilmlistImportLocation())
+        && Objects.equals(getLogSettings(), that.getLogSettings())
+        && Objects.equals(getCrawlerURLs(), that.getCrawlerURLs())
+        && Objects.equals(getFilmlistImporEnabled(), that.getFilmlistImporEnabled())
+        && Objects.equals(getWriteFilmlistHashFileEnabled(), that.getWriteFilmlistHashFileEnabled())
+        && Objects.equals(getFilmlistHashFilePath(), that.getFilmlistHashFilePath())
+        && Objects.equals(getWriteFilmlistIdFileEnabled(), that.getWriteFilmlistIdFileEnabled())
+        && Objects.equals(getFilmlistIdFilePath(), that.getFilmlistIdFilePath());
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(
+        super.hashCode(),
+        getCopySettings(),
+        getMaximumCpuThreads(),
+        getMaximumServerDurationInMinutes(),
+        getSenderConfigurations(),
+        getSenderExcluded(),
+        getSenderIncluded(),
+        getFilmlistSaveFormats(),
+        getFilmlistSavePaths(),
+        getFilmlistDiffSavePaths(),
+        getFilmlistImportFormat(),
+        getFilmlistImportLocation(),
+        getLogSettings(),
+        getCrawlerURLs(),
+        getFilmlistImporEnabled(),
+        getWriteFilmlistHashFileEnabled(),
+        getFilmlistHashFilePath(),
+        getWriteFilmlistIdFileEnabled(),
+        getFilmlistIdFilePath());
   }
 }

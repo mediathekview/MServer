@@ -170,9 +170,7 @@ public class CrawlerManager extends AbstractManager {
         importedFilmlist = importFilmlistFromFile(aFormat, aFilmlistLocation);
       }
 
-      if (importedFilmlist.isPresent()) {
-        differenceList = filmlist.merge(importedFilmlist.get());
-      }
+      importedFilmlist.ifPresent(value -> differenceList = filmlist.merge(value));
     } catch (final IOException ioException) {
       LOG.fatal(String.format(FILMLIST_IMPORT_ERROR_TEMPLATE, aFilmlistLocation), ioException);
     }
@@ -184,10 +182,7 @@ public class CrawlerManager extends AbstractManager {
    * MServerConfigDTO#getFilmlistSavePaths()}.
    */
   public void saveDifferenceFilmlist() {
-    config
-        .getFilmlistDiffSavePaths()
-        .entrySet()
-        .forEach(f -> saveFilmlist(Paths.get(f.getValue()), f.getKey()));
+    config.getFilmlistDiffSavePaths().forEach((key, value) -> saveFilmlist(Paths.get(value), key));
   }
 
   /**
@@ -287,7 +282,7 @@ public class CrawlerManager extends AbstractManager {
                 "There is no registered crawler for the Sender \"%s\"", sender.getName()));
       }
     }
-    runCrawlers(crawlers.toArray(new AbstractCrawler[crawlers.size()]));
+    runCrawlers(crawlers.toArray(new AbstractCrawler[0]));
   }
 
   /**
@@ -302,7 +297,7 @@ public class CrawlerManager extends AbstractManager {
       timeoutRunner.start();
     }
     final Set<AbstractCrawler> crawlerToRun = getCrawlerToRun();
-    runCrawlers(crawlerToRun.toArray(new AbstractCrawler[crawlerToRun.size()]));
+    runCrawlers(crawlerToRun.toArray(new AbstractCrawler[0]));
     timeoutRunner.stopTimeout();
   }
 
@@ -417,6 +412,30 @@ public class CrawlerManager extends AbstractManager {
       printMessage(ServerMessages.FILMLIST_IMPORT_URL_INVALID, aFilmlistLocation);
     }
     return Optional.empty();
+  }
+
+  public void writeHashFile() {
+    if (config.getWriteFilmlistHashFileEnabled()) {
+      final Path hashFilePath =
+          filterPath(Paths.get(config.getFilmlistHashFilePath())).toAbsolutePath();
+      if (!Files.exists(hashFilePath)
+          || !Files.isWritable(hashFilePath)
+          || !filmlistManager.writeHashFile(filmlist, hashFilePath)) {
+        printMessage(ServerMessages.FILMLIST_HASH_FILE_CANT_WRITE, hashFilePath.toString());
+      }
+    }
+  }
+
+  public void writeIdFile() {
+    if (config.getWriteFilmlistIdFileEnabled()) {
+      final Path idFilePath =
+          filterPath(Paths.get(config.getFilmlistIdFilePath())).toAbsolutePath();
+      if (!Files.exists(idFilePath)
+          || !Files.isWritable(idFilePath)
+          || !filmlistManager.writeIdFile(filmlist, idFilePath)) {
+        printMessage(ServerMessages.FILMLIST_ID_FILE_CANT_WRITE, idFilePath.toString());
+      }
+    }
   }
 
   private void initializeCrawler(final MServerConfigManager rootConfig) {

@@ -31,7 +31,8 @@ public enum ServerMessages implements Message {
   UI_UNKNOWN_ARGUMENT("uiUnknownArgument", MessageTypes.FATAL_ERROR),
   UI_GENERATE_DEFAULT_CONFIG_FILE_FAILED(
       "uiGenerateDefaultConfigFileFailed", MessageTypes.FATAL_ERROR),
-
+  FILMLIST_HASH_FILE_CANT_WRITE("filmlistHashFileCantWrite", MessageTypes.ERROR),
+  FILMLIST_ID_FILE_CANT_WRITE("filmlistIdFileCantWrite", MessageTypes.ERROR),
   FILE_COPY_ERROR("fileCopyError", MessageTypes.ERROR),
   FILE_COPY_TARGET_EXISTS("fileCopyTargetExists", MessageTypes.WARNING),
 

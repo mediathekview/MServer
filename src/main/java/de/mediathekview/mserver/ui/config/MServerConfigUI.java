@@ -104,6 +104,8 @@ public final class MServerConfigUI {
     } finally {
       manager.saveFilmlist();
       manager.saveDifferenceFilmlist();
+      manager.writeHashFile();
+      manager.writeIdFile();
       manager.copyFilmlist();
       manager.stop();
     }
