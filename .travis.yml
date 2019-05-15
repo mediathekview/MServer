@@ -37,7 +37,6 @@ jobs:
     - ./mvnw -U clean install
     cache:
       directories:
-      - .autoconf
       - $HOME/.m2
     after_success:
     - sonar-scanner
@@ -48,7 +47,6 @@ jobs:
     - ./mvnw --settings .maven.xml deploy
     cache:
       directories:
-      - .autoconf
       - $HOME/.m2
     after_success:
     - sonar-scanner
