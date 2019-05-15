@@ -29,7 +29,7 @@ before_script:
     -out scripte/deploy/secring.gpg -d
   - gpg --fast-import scripte/deploy/secring.gpg
 script:
-  - "./mvnw clean install"
+  - "./mvnw -U clean install"
   - if [ "$TRAVIS_BRANCH" == "develop" ]; then ./mvnw --settings .maven.xml deploy; fi
 after_success:
   - sonar-scanner
