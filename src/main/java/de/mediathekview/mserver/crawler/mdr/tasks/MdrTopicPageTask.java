@@ -7,39 +7,48 @@ import de.mediathekview.mserver.crawler.basic.CrawlerUrlDTO;
 import de.mediathekview.mserver.crawler.mdr.MdrConstants;
 import de.mediathekview.mserver.crawler.mdr.parser.MdrTopic;
 import de.mediathekview.mserver.crawler.mdr.parser.MdrTopicPageDeserializer;
-import java.util.concurrent.ConcurrentLinkedQueue;
 import org.jsoup.nodes.Document;
+
+import java.util.Collections;
+import java.util.Optional;
+import java.util.Set;
+import java.util.concurrent.ConcurrentLinkedQueue;
+import java.util.concurrent.ForkJoinTask;
 
 public class MdrTopicPageTask extends AbstractDocumentTask<CrawlerUrlDTO, CrawlerUrlDTO> {
 
-  public MdrTopicPageTask(AbstractCrawler aCrawler,
-      ConcurrentLinkedQueue<CrawlerUrlDTO> aUrlToCrawlDtos) {
+  public MdrTopicPageTask(
+      final AbstractCrawler aCrawler, final ConcurrentLinkedQueue<CrawlerUrlDTO> aUrlToCrawlDtos) {
     super(aCrawler, aUrlToCrawlDtos);
   }
 
   @Override
-  protected void processDocument(CrawlerUrlDTO aUrlDto, Document aDocument) {
+  protected void processDocument(final CrawlerUrlDTO aUrlDto, final Document aDocument) {
 
-    MdrTopicPageDeserializer topicPageDeserializer = new MdrTopicPageDeserializer(MdrConstants.URL_BASE);
-    MdrTopic topic = topicPageDeserializer.deserialize(aDocument);
+    final MdrTopicPageDeserializer topicPageDeserializer =
+        new MdrTopicPageDeserializer(MdrConstants.URL_BASE);
+    final MdrTopic topic = topicPageDeserializer.deserialize(aDocument);
 
-    taskResults.addAll(topic.getFilmUrls());
+    final Optional<ForkJoinTask<Set<CrawlerUrlDTO>>> subpageCrawler;
+    final Optional<CrawlerUrlDTO> nextPageUrl = topic.getNextPage();
+    subpageCrawler =
+        nextPageUrl.map(
+            crawlerUrlDTO ->
+                createNewOwnInstance(
+                        new ConcurrentLinkedQueue<>(Collections.singleton(crawlerUrlDTO)))
+                    .fork());
 
-    if (topic.getNextPage().isPresent()) {
-      processNextPage(topic.getNextPage().get());
-    }
+    final Set<CrawlerUrlDTO> filmUrls = topic.getFilmUrls();
+    taskResults.addAll(filmUrls);
+    crawler.incrementMaxCountBySizeAndGetNewSize(filmUrls.size());
+    crawler.updateProgress();
+
+    subpageCrawler.ifPresent(subpage -> taskResults.addAll(subpage.join()));
   }
 
   @Override
   protected AbstractRecrusivConverterTask<CrawlerUrlDTO, CrawlerUrlDTO> createNewOwnInstance(
-      ConcurrentLinkedQueue<CrawlerUrlDTO> aElementsToProcess) {
+      final ConcurrentLinkedQueue<CrawlerUrlDTO> aElementsToProcess) {
     return new MdrTopicPageTask(crawler, aElementsToProcess);
-  }
-
-  private void processNextPage(CrawlerUrlDTO aCrawlerUrlDTO) {
-    ConcurrentLinkedQueue<CrawlerUrlDTO> urls = new ConcurrentLinkedQueue<>();
-    urls.add(aCrawlerUrlDTO);
-
-    taskResults.addAll(createNewOwnInstance(urls).invoke());
   }
 }

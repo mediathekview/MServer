@@ -9,6 +9,16 @@ import de.mediathekview.mserver.crawler.basic.AbstractRecrusivConverterTask;
 import de.mediathekview.mserver.crawler.basic.CrawlerUrlDTO;
 import de.mediathekview.mserver.crawler.mdr.parser.MdrFilmPageDeserializer;
 import de.mediathekview.mserver.crawler.mdr.parser.MdrFilmXmlHandler;
+import mServer.crawler.CrawlerTool;
+import org.apache.commons.lang3.StringUtils;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.jsoup.nodes.Document;
+import org.xml.sax.SAXException;
+
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.parsers.SAXParser;
+import javax.xml.parsers.SAXParserFactory;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -16,15 +26,6 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentLinkedQueue;
-import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.parsers.SAXParser;
-import javax.xml.parsers.SAXParserFactory;
-import mServer.crawler.CrawlerTool;
-import org.apache.commons.lang3.StringUtils;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-import org.jsoup.nodes.Document;
-import org.xml.sax.SAXException;
 
 public class MdrFilmTask extends AbstractDocumentTask<Film, CrawlerUrlDTO> {
 
@@ -33,8 +34,9 @@ public class MdrFilmTask extends AbstractDocumentTask<Film, CrawlerUrlDTO> {
   private final String baseUrl;
   private final MdrFilmPageDeserializer filmPageDeserializer;
 
-  public MdrFilmTask(AbstractCrawler aCrawler,
-      ConcurrentLinkedQueue<CrawlerUrlDTO> aUrlToCrawlDtos,
+  public MdrFilmTask(
+      final AbstractCrawler aCrawler,
+      final ConcurrentLinkedQueue<CrawlerUrlDTO> aUrlToCrawlDtos,
       final String aBaseUrl) {
     super(aCrawler, aUrlToCrawlDtos);
 
@@ -43,15 +45,20 @@ public class MdrFilmTask extends AbstractDocumentTask<Film, CrawlerUrlDTO> {
   }
 
   @Override
-  protected void processDocument(CrawlerUrlDTO aUrlDto, Document aDocument) {
+  protected void processDocument(final CrawlerUrlDTO aUrlDto, final Document aDocument) {
 
-    Set<CrawlerUrlDTO> filmEntries = filmPageDeserializer.deserialize(aDocument);
+    final Set<CrawlerUrlDTO> filmEntries = filmPageDeserializer.deserialize(aDocument);
+    if (filmEntries.size() > 1) {
+      // The max count equals the count of urls given to this task. So if this task creates more
+      // then one film of a url we need to actualize the max count.
+      crawler.incrementMaxCountBySizeAndGetNewSize(filmEntries.size() - 1);
+    }
 
-    for (CrawlerUrlDTO filmEntry : filmEntries) {
+    for (final CrawlerUrlDTO filmEntry : filmEntries) {
       try {
-        Optional<MdrFilmXmlHandler> mdrFilmXmlHandler = loadFilmXml(filmEntry);
+        final Optional<MdrFilmXmlHandler> mdrFilmXmlHandler = loadFilmXml(filmEntry);
         if (mdrFilmXmlHandler.isPresent()) {
-          Film film = createFilm(mdrFilmXmlHandler.get());
+          final Film film = createFilm(mdrFilmXmlHandler.get());
           taskResults.add(film);
           crawler.incrementAndGetActualCount();
           crawler.updateProgress();
@@ -60,7 +67,7 @@ public class MdrFilmTask extends AbstractDocumentTask<Film, CrawlerUrlDTO> {
           crawler.incrementAndGetErrorCount();
           crawler.updateProgress();
         }
-      } catch (MalformedURLException e) {
+      } catch (final MalformedURLException e) {
         LOG.error("MdrFilmTask: error reading video infos " + aUrlDto.getUrl(), e);
         crawler.incrementAndGetErrorCount();
         crawler.updateProgress();
@@ -70,21 +77,21 @@ public class MdrFilmTask extends AbstractDocumentTask<Film, CrawlerUrlDTO> {
 
   @Override
   protected AbstractRecrusivConverterTask<Film, CrawlerUrlDTO> createNewOwnInstance(
-      ConcurrentLinkedQueue<CrawlerUrlDTO> aElementsToProcess) {
+      final ConcurrentLinkedQueue<CrawlerUrlDTO> aElementsToProcess) {
     return new MdrFilmTask(crawler, aElementsToProcess, baseUrl);
   }
 
   private Optional<MdrFilmXmlHandler> loadFilmXml(final CrawlerUrlDTO aXmlUrl) {
     try {
 
-      SAXParserFactory factory = SAXParserFactory.newInstance();
-      SAXParser saxParser = factory.newSAXParser();
-      MdrFilmXmlHandler handler = new MdrFilmXmlHandler();
+      final SAXParserFactory factory = SAXParserFactory.newInstance();
+      final SAXParser saxParser = factory.newSAXParser();
+      final MdrFilmXmlHandler handler = new MdrFilmXmlHandler();
       saxParser.parse(aXmlUrl.getUrl(), handler);
 
       return Optional.of(handler);
 
-    } catch (SAXException | IOException | ParserConfigurationException e) {
+    } catch (final SAXException | IOException | ParserConfigurationException e) {
       LOG.error(String.format("Error loading xml document \"%s\".", aXmlUrl.getUrl()), e);
     }
 
@@ -92,13 +99,20 @@ public class MdrFilmTask extends AbstractDocumentTask<Film, CrawlerUrlDTO> {
   }
 
   private Film createFilm(final MdrFilmXmlHandler aFilmXmlHandler) throws MalformedURLException {
-    final Film film = new Film(UUID.randomUUID(), Sender.MDR, aFilmXmlHandler.getTitle(),
-        aFilmXmlHandler.getTopic(), aFilmXmlHandler.getTime(), aFilmXmlHandler.getDuration());
+    final Film film =
+        new Film(
+            UUID.randomUUID(),
+            Sender.MDR,
+            aFilmXmlHandler.getTitle(),
+            aFilmXmlHandler.getTopic(),
+            aFilmXmlHandler.getTime(),
+            aFilmXmlHandler.getDuration());
 
     film.setBeschreibung(aFilmXmlHandler.getDescription());
     try {
-      film.setGeoLocations(CrawlerTool.getGeoLocations(Sender.MDR, aFilmXmlHandler.getVideoUrl(Resolution.NORMAL)));
-    } catch (NullPointerException e) {
+      film.setGeoLocations(
+          CrawlerTool.getGeoLocations(Sender.MDR, aFilmXmlHandler.getVideoUrl(Resolution.NORMAL)));
+    } catch (final NullPointerException e) {
       LOG.error(e);
     }
     film.setWebsite(new URL(aFilmXmlHandler.getWebsite()));
@@ -113,8 +127,10 @@ public class MdrFilmTask extends AbstractDocumentTask<Film, CrawlerUrlDTO> {
     return film;
   }
 
-  private void addUrl(Resolution aResolution, Film aFilm, MdrFilmXmlHandler aFilmXmlHandler) throws MalformedURLException {
-    String videoUrl = aFilmXmlHandler.getVideoUrl(aResolution);
+  private void addUrl(
+      final Resolution aResolution, final Film aFilm, final MdrFilmXmlHandler aFilmXmlHandler)
+      throws MalformedURLException {
+    final String videoUrl = aFilmXmlHandler.getVideoUrl(aResolution);
     if (StringUtils.isNotBlank(videoUrl)) {
       aFilm.addUrl(aResolution, CrawlerTool.stringToFilmUrl(videoUrl));
     }

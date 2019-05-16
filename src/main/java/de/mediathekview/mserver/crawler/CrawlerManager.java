@@ -418,7 +418,8 @@ public class CrawlerManager extends AbstractManager {
     if (config.getWriteFilmlistHashFileEnabled()) {
       final Path hashFilePath =
           filterPath(Paths.get(config.getFilmlistHashFilePath())).toAbsolutePath();
-      if (!Files.isWritable(hashFilePath)
+      if (!Files.exists(hashFilePath.getParent())
+          || !Files.isWritable(hashFilePath.getParent())
           || !filmlistManager.writeHashFile(filmlist, hashFilePath)) {
         printMessage(ServerMessages.FILMLIST_HASH_FILE_CANT_WRITE, hashFilePath.toString());
       }
