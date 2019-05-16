@@ -12,6 +12,9 @@ import de.mediathekview.mserver.crawler.swr.tasks.SwrFilmTask;
 import de.mediathekview.mserver.crawler.swr.tasks.SwrTopicTask;
 import de.mediathekview.mserver.crawler.swr.tasks.SwrTopicsOverviewTask;
 import de.mediathekview.mserver.progress.listeners.SenderProgressListener;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Collection;
@@ -20,19 +23,19 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ForkJoinPool;
 import java.util.concurrent.RecursiveTask;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 public class SwrCrawler extends AbstractCrawler {
 
   private static final Logger LOG = LogManager.getLogger(SwrCrawler.class);
 
-  private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("yyyyMMdd");
+  private static final DateTimeFormatter DATE_TIME_FORMATTER =
+      DateTimeFormatter.ofPattern("yyyyMMdd");
 
-  public SwrCrawler(ForkJoinPool aForkJoinPool,
-      Collection<MessageListener> aMessageListeners,
-      Collection<SenderProgressListener> aProgressListeners,
-      MServerConfigManager rootConfig) {
+  public SwrCrawler(
+      final ForkJoinPool aForkJoinPool,
+      final Collection<MessageListener> aMessageListeners,
+      final Collection<SenderProgressListener> aProgressListeners,
+      final MServerConfigManager rootConfig) {
     super(aForkJoinPool, aMessageListeners, aProgressListeners, rootConfig);
   }
 
@@ -43,22 +46,26 @@ public class SwrCrawler extends AbstractCrawler {
 
   @Override
   protected RecursiveTask<Set<Film>> createCrawlerTask() {
-    ConcurrentLinkedQueue<CrawlerUrlDTO> shows = new ConcurrentLinkedQueue<>();
+    final ConcurrentLinkedQueue<CrawlerUrlDTO> shows = new ConcurrentLinkedQueue<>();
     try {
       shows.addAll(getTopicEntries());
-      printMessage(ServerMessages.DEBUG_ALL_SENDUNG_FOLGEN_COUNT, getSender().getName(), shows.size());
+      printMessage(
+          ServerMessages.DEBUG_ALL_SENDUNG_FOLGEN_COUNT, getSender().getName(), shows.size());
 
-      getDaysEntries().forEach(show -> {
-        if (!shows.contains(show)) {
-          shows.add(show);
-        }
-      });
+      getDaysEntries()
+          .forEach(
+              show -> {
+                if (!shows.contains(show)) {
+                  shows.add(show);
+                }
+              });
 
-      printMessage(ServerMessages.DEBUG_ALL_SENDUNG_FOLGEN_COUNT, getSender().getName(), shows.size());
+      printMessage(
+          ServerMessages.DEBUG_ALL_SENDUNG_FOLGEN_COUNT, getSender().getName(), shows.size());
       getAndSetMaxCount(shows.size());
 
       return new SwrFilmTask(this, shows, SwrConstants.URL_BASE);
-    } catch (ExecutionException | InterruptedException ex) {
+    } catch (final ExecutionException | InterruptedException ex) {
       LOG.fatal("Exception in SWR crawler.", ex);
     }
     return null;
@@ -68,35 +75,39 @@ public class SwrCrawler extends AbstractCrawler {
     final ConcurrentLinkedQueue<CrawlerUrlDTO> topicsUrl = new ConcurrentLinkedQueue<>();
     topicsUrl.add(new CrawlerUrlDTO(SwrConstants.URL_TOPICS));
 
-    SwrTopicsOverviewTask topicsTask = new SwrTopicsOverviewTask(this, topicsUrl);
+    final SwrTopicsOverviewTask topicsTask = new SwrTopicsOverviewTask(this, topicsUrl);
 
-    final ConcurrentLinkedQueue<CrawlerUrlDTO> topicUrl = new ConcurrentLinkedQueue<>();
-    topicUrl.addAll(forkJoinPool.submit(topicsTask).get());
+    final ConcurrentLinkedQueue<CrawlerUrlDTO> topicUrl =
+        new ConcurrentLinkedQueue<>(forkJoinPool.submit(topicsTask).get());
 
-    SwrTopicTask topicTask = new SwrTopicTask(this, topicUrl);
+    final SwrTopicTask topicTask = new SwrTopicTask(this, topicUrl);
 
     return forkJoinPool.submit(topicTask).get();
   }
 
   private Set<CrawlerUrlDTO> getDaysEntries() throws ExecutionException, InterruptedException {
-    ConcurrentLinkedQueue<CrawlerUrlDTO> dayPageUrls = getDayPageUrls();
+    final ConcurrentLinkedQueue<CrawlerUrlDTO> dayPageUrls = getDayPageUrls();
 
-    SwrDayPageTask dayPageTask = new SwrDayPageTask(this, dayPageUrls, SwrConstants.URL_BASE);
-    Set<CrawlerUrlDTO> shows = forkJoinPool.submit(dayPageTask).get();
+    final SwrDayPageTask dayPageTask = new SwrDayPageTask(this, dayPageUrls, SwrConstants.URL_BASE);
+    final Set<CrawlerUrlDTO> shows = forkJoinPool.submit(dayPageTask).get();
 
-    printMessage(ServerMessages.DEBUG_ALL_SENDUNG_FOLGEN_COUNT, getSender().getName(), shows.size());
+    printMessage(
+        ServerMessages.DEBUG_ALL_SENDUNG_FOLGEN_COUNT, getSender().getName(), shows.size());
 
     return shows;
   }
 
   private ConcurrentLinkedQueue<CrawlerUrlDTO> getDayPageUrls() {
-    ConcurrentLinkedQueue<CrawlerUrlDTO> urls = new ConcurrentLinkedQueue<>();
+    final ConcurrentLinkedQueue<CrawlerUrlDTO> urls = new ConcurrentLinkedQueue<>();
 
-    LocalDateTime today = LocalDateTime.now();
+    final LocalDateTime today = LocalDateTime.now();
 
-    for (int i = 0; i <= crawlerConfig.getMaximumDaysForSendungVerpasstSection() && i <= SwrConstants.MAX_DAYS_PAST; i++) {
-      LocalDateTime day = today.minusDays(i);
-      String url = SwrConstants.URL_DAY_PAGE + day.format(DATE_TIME_FORMATTER);
+    for (int i = 0;
+        i <= crawlerConfig.getMaximumDaysForSendungVerpasstSection()
+            && i <= SwrConstants.MAX_DAYS_PAST;
+        i++) {
+      final LocalDateTime day = today.minusDays(i);
+      final String url = SwrConstants.URL_DAY_PAGE + day.format(DATE_TIME_FORMATTER);
 
       urls.add(new CrawlerUrlDTO(url));
     }

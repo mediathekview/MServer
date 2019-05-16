@@ -20,57 +20,65 @@ import static org.hamcrest.MatcherAssert.assertThat;
 @RunWith(Parameterized.class)
 public class MdrFilmPageDeserializerTest {
 
-    private String htmlFile;
-    private CrawlerUrlDTO[] expectedFilmEntries;
+  private final String htmlFile;
+  private final CrawlerUrlDTO[] expectedFilmEntries;
 
-    public MdrFilmPageDeserializerTest(
-            final String aHtmlFile, final CrawlerUrlDTO[] aExpectedFilmEntries) {
-        htmlFile = aHtmlFile;
-        expectedFilmEntries = aExpectedFilmEntries;
-    }
+  public MdrFilmPageDeserializerTest(
+      final String aHtmlFile, final CrawlerUrlDTO[] aExpectedFilmEntries) {
+    htmlFile = aHtmlFile;
+    expectedFilmEntries = aExpectedFilmEntries;
+  }
 
   @Parameterized.Parameters
   public static Collection<Object[]> data() {
     return Arrays.asList(
-            new Object[][]{
-                    {
-                            "/mdr/mdr_film_simple.html",
-                            new CrawlerUrlDTO[]{
-                                    new CrawlerUrlDTO(
-                                            MdrConstants.URL_BASE + "/mediathek/fernsehen/video-226902-avCustom.xml")
-                            }
-                    },
-                    {
-                            "/mdr/mdr_film_with_entries.html",
-                            new CrawlerUrlDTO[]{
-                                    new CrawlerUrlDTO(
-                                            MdrConstants.URL_BASE + "/mediathek/fernsehen/a-z/video-227446-avCustom.xml"),
-                                    new CrawlerUrlDTO(
-                                            MdrConstants.URL_BASE + "/mediathek/fernsehen/a-z/video-227420-avCustom.xml"),
-                                    new CrawlerUrlDTO(
-                                            MdrConstants.URL_BASE + "/mediathek/fernsehen/a-z/video-227440-avCustom.xml"),
-                                    new CrawlerUrlDTO(
-                                            MdrConstants.URL_BASE + "/mediathek/fernsehen/a-z/video-227432-avCustom.xml")
-                            }
-                    },
-                    {
-                            "/mdr/mdr_film_with_ad.html",
-                            new CrawlerUrlDTO[]{
-                                    new CrawlerUrlDTO(
-                                            MdrConstants.URL_BASE + "/mediathek/fernsehen/video-224746-avCustom.xml"),
-                                    new CrawlerUrlDTO(
-                                            MdrConstants.URL_BASE + "/mediathek/fernsehen/video-224960-avCustom.xml")
-                            }
-                    },
-                    {
-                            "/mdr/mdr_film_with_sorbisch.html",
-                            new CrawlerUrlDTO[]{
-                                    new CrawlerUrlDTO(
-                                            MdrConstants.URL_BASE + "/mediathek/fernsehen/a-z/video-227164-avCustom.xml"),
-                                    new CrawlerUrlDTO(
-                                            MdrConstants.URL_BASE + "/mediathek/fernsehen/a-z/video-223854-avCustom.xml")
-                            }
-                    }
+        new Object[][] {
+          {
+            "/mdr/mdr_film_simple.html",
+            new CrawlerUrlDTO[] {
+              new CrawlerUrlDTO(
+                  MdrConstants.URL_BASE + "/mediathek/fernsehen/video-226902-avCustom.xml")
+            }
+          },
+          {
+            "/mdr/mdr_film_with_entries.html",
+            new CrawlerUrlDTO[] {
+              new CrawlerUrlDTO(
+                  MdrConstants.URL_BASE + "/mediathek/fernsehen/a-z/video-227446-avCustom.xml"),
+              new CrawlerUrlDTO(
+                  MdrConstants.URL_BASE + "/mediathek/fernsehen/a-z/video-227420-avCustom.xml"),
+              new CrawlerUrlDTO(
+                  MdrConstants.URL_BASE + "/mediathek/fernsehen/a-z/video-227440-avCustom.xml"),
+              new CrawlerUrlDTO(
+                  MdrConstants.URL_BASE + "/mediathek/fernsehen/a-z/video-227432-avCustom.xml")
+            }
+          },
+          {
+            "/mdr/mdr_film_with_ad.html",
+            new CrawlerUrlDTO[] {
+              new CrawlerUrlDTO(
+                  MdrConstants.URL_BASE + "/mediathek/fernsehen/video-224746-avCustom.xml"),
+              new CrawlerUrlDTO(
+                  MdrConstants.URL_BASE + "/mediathek/fernsehen/video-224960-avCustom.xml")
+            }
+          },
+          {
+            "/mdr/mdr_film_with_sorbisch.html",
+            new CrawlerUrlDTO[] {
+              new CrawlerUrlDTO(
+                  MdrConstants.URL_BASE + "/mediathek/fernsehen/a-z/video-227164-avCustom.xml"),
+              new CrawlerUrlDTO(
+                  MdrConstants.URL_BASE + "/mediathek/fernsehen/a-z/video-223854-avCustom.xml")
+            }
+          },
+          {
+            "/mdr/mdr_film_gebaerde_des_tages.html",
+            new CrawlerUrlDTO[] {
+              new CrawlerUrlDTO(
+                  MdrConstants.URL_BASE
+                      + "/barrierefreiheit/gebaerdensprache/video-34600-avCustom.xml")
+            }
+          }
         });
   }
 
@@ -79,8 +87,8 @@ public class MdrFilmPageDeserializerTest {
     final String htmlContent = FileReader.readFile(htmlFile);
     final Document document = Jsoup.parse(htmlContent);
 
-    MdrFilmPageDeserializer target = new MdrFilmPageDeserializer(MdrConstants.URL_BASE);
-    Set<CrawlerUrlDTO> actual = target.deserialize(document);
+    final MdrFilmPageDeserializer target = new MdrFilmPageDeserializer(MdrConstants.URL_BASE);
+    final Set<CrawlerUrlDTO> actual = target.deserialize(document);
 
     assertThat(actual.size(), equalTo(expectedFilmEntries.length));
     assertThat(actual, Matchers.containsInAnyOrder(expectedFilmEntries));

@@ -7,30 +7,28 @@ import de.mediathekview.mserver.base.config.MServerConfigManager;
 import de.mediathekview.mserver.base.messages.ServerMessages;
 import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
 import de.mediathekview.mserver.crawler.basic.CrawlerUrlDTO;
-import de.mediathekview.mserver.crawler.mdr.tasks.MdrDayPageTask;
-import de.mediathekview.mserver.crawler.mdr.tasks.MdrDayPageUrlTask;
-import de.mediathekview.mserver.crawler.mdr.tasks.MdrFilmTask;
-import de.mediathekview.mserver.crawler.mdr.tasks.MdrLetterPageTask;
-import de.mediathekview.mserver.crawler.mdr.tasks.MdrLetterPageUrlTask;
-import de.mediathekview.mserver.crawler.mdr.tasks.MdrTopicPageTask;
+import de.mediathekview.mserver.crawler.mdr.tasks.*;
 import de.mediathekview.mserver.progress.listeners.SenderProgressListener;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import java.util.Collection;
 import java.util.Set;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ForkJoinPool;
 import java.util.concurrent.RecursiveTask;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import java.util.stream.Collectors;
 
 public class MdrCrawler extends AbstractCrawler {
 
   private static final Logger LOG = LogManager.getLogger(MdrCrawler.class);
 
-  public MdrCrawler(ForkJoinPool aForkJoinPool,
-      Collection<MessageListener> aMessageListeners,
-      Collection<SenderProgressListener> aProgressListeners,
-      MServerConfigManager rootConfig) {
+  public MdrCrawler(
+      final ForkJoinPool aForkJoinPool,
+      final Collection<MessageListener> aMessageListeners,
+      final Collection<SenderProgressListener> aProgressListeners,
+      final MServerConfigManager rootConfig) {
     super(aForkJoinPool, aMessageListeners, aProgressListeners, rootConfig);
   }
 
@@ -41,42 +39,53 @@ public class MdrCrawler extends AbstractCrawler {
 
   @Override
   protected RecursiveTask<Set<Film>> createCrawlerTask() {
-    ConcurrentLinkedQueue<CrawlerUrlDTO> shows = new ConcurrentLinkedQueue<>();
+    final ConcurrentLinkedQueue<CrawlerUrlDTO> shows = new ConcurrentLinkedQueue<>();
     try {
       shows.addAll(getTopicEntries());
-      printMessage(ServerMessages.DEBUG_ALL_SENDUNG_FOLGEN_COUNT, getSender().getName(), shows.size());
+      updateMaxCount(shows);
 
-      getDaysEntries().forEach(show -> {
-        if (!shows.contains(show)) {
-          shows.add(show);
-        }
-      });
-
-      printMessage(ServerMessages.DEBUG_ALL_SENDUNG_FOLGEN_COUNT, getSender().getName(), shows.size());
-      getAndSetMaxCount(shows.size());
+      shows.addAll(
+          getDaysEntries().stream()
+              .filter(show -> !shows.contains(show))
+              .collect(Collectors.toSet()));
+      updateMaxCount(shows);
 
       return new MdrFilmTask(this, shows, MdrConstants.URL_BASE);
-    } catch (ExecutionException | InterruptedException ex) {
+    } catch (final ExecutionException | InterruptedException ex) {
       LOG.fatal("Exception in MDR crawler.", ex);
     }
     return null;
+  }
+
+  private void updateMaxCount(final ConcurrentLinkedQueue<CrawlerUrlDTO> shows) {
+    incrementMaxCountBySizeAndGetNewSize(shows.size());
+    updateProgress();
+    printMessage(
+        ServerMessages.DEBUG_ALL_SENDUNG_FOLGEN_COUNT, getSender().getName(), shows.size());
   }
 
   private Set<CrawlerUrlDTO> getTopicEntries() throws ExecutionException, InterruptedException {
     final ConcurrentLinkedQueue<CrawlerUrlDTO> letterUrl = new ConcurrentLinkedQueue<>();
     letterUrl.add(new CrawlerUrlDTO(MdrConstants.URL_LETTER_PAGE));
 
-    MdrLetterPageUrlTask letterUrlTask = new MdrLetterPageUrlTask(this, letterUrl);
+    final ConcurrentLinkedQueue<CrawlerUrlDTO> gebaerdenLetterUrl = new ConcurrentLinkedQueue<>();
+    gebaerdenLetterUrl.add(new CrawlerUrlDTO(MdrConstants.URL_GEBAERDEN_DES_TAGES));
 
-    final ConcurrentLinkedQueue<CrawlerUrlDTO> letterPageUrls = new ConcurrentLinkedQueue<>();
-    letterPageUrls.addAll(forkJoinPool.submit(letterUrlTask).get());
+    final MdrLetterPageUrlTask letterUrlTask = new MdrLetterPageUrlTask(this, letterUrl);
+    final MdrLetterPageUrlTask gebaerdenLetterUrlTask =
+        new MdrLetterPageUrlTask(this, gebaerdenLetterUrl);
 
-    MdrLetterPageTask letterTask = new MdrLetterPageTask(this, letterPageUrls);
+    final ConcurrentLinkedQueue<CrawlerUrlDTO> letterPageUrls =
+        new ConcurrentLinkedQueue<>(forkJoinPool.submit(letterUrlTask).get());
 
-    final ConcurrentLinkedQueue<CrawlerUrlDTO> topicUrls = new ConcurrentLinkedQueue<>();
-    topicUrls.addAll(forkJoinPool.submit(letterTask).get());
+    final MdrLetterPageTask letterTask = new MdrLetterPageTask(this, letterPageUrls);
 
-    MdrTopicPageTask topicTask = new MdrTopicPageTask(this, topicUrls);
+    final ConcurrentLinkedQueue<CrawlerUrlDTO> topicUrls =
+        new ConcurrentLinkedQueue<>(forkJoinPool.submit(letterTask).get());
+    // A Gebaerden Letter Page is equal to a topic page.
+    topicUrls.addAll(forkJoinPool.submit(gebaerdenLetterUrlTask).get());
+
+    final MdrTopicPageTask topicTask = new MdrTopicPageTask(this, topicUrls);
 
     return forkJoinPool.submit(topicTask).get();
   }
@@ -85,15 +94,18 @@ public class MdrCrawler extends AbstractCrawler {
     final ConcurrentLinkedQueue<CrawlerUrlDTO> dayUrl = new ConcurrentLinkedQueue<>();
     dayUrl.add(new CrawlerUrlDTO(MdrConstants.URL_DAY_PAGE));
 
-    MdrDayPageUrlTask dayUrlTask = new MdrDayPageUrlTask(this, dayUrl, crawlerConfig.getMaximumDaysForSendungVerpasstSection());
+    final MdrDayPageUrlTask dayUrlTask =
+        new MdrDayPageUrlTask(
+            this, dayUrl, crawlerConfig.getMaximumDaysForSendungVerpasstSection());
 
-    final ConcurrentLinkedQueue<CrawlerUrlDTO> dayPageUrls = new ConcurrentLinkedQueue<>();
-    dayPageUrls.addAll(forkJoinPool.submit(dayUrlTask).get());
+    final ConcurrentLinkedQueue<CrawlerUrlDTO> dayPageUrls =
+        new ConcurrentLinkedQueue<>(forkJoinPool.submit(dayUrlTask).get());
 
-    MdrDayPageTask dayPageTask = new MdrDayPageTask(this, dayPageUrls);
-    Set<CrawlerUrlDTO> shows = forkJoinPool.submit(dayPageTask).get();
+    final MdrDayPageTask dayPageTask = new MdrDayPageTask(this, dayPageUrls);
+    final Set<CrawlerUrlDTO> shows = forkJoinPool.submit(dayPageTask).get();
 
-    printMessage(ServerMessages.DEBUG_ALL_SENDUNG_FOLGEN_COUNT, getSender().getName(), shows.size());
+    printMessage(
+        ServerMessages.DEBUG_ALL_SENDUNG_FOLGEN_COUNT, getSender().getName(), shows.size());
 
     return shows;
   }

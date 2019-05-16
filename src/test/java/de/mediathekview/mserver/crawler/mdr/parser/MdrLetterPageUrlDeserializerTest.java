@@ -19,72 +19,121 @@ import static org.hamcrest.MatcherAssert.assertThat;
 @RunWith(Parameterized.class)
 public class MdrLetterPageUrlDeserializerTest {
 
-    private String htmlFile;
-    private CrawlerUrlDTO[] expectedUrls;
+  private final String htmlFile;
+  private final CrawlerUrlDTO[] expectedUrls;
 
-    public MdrLetterPageUrlDeserializerTest(
-            final String aHtmlFile, final CrawlerUrlDTO[] aExpectedUrls) {
+  public MdrLetterPageUrlDeserializerTest(
+      final String aHtmlFile, final CrawlerUrlDTO[] aExpectedUrls) {
 
-        htmlFile = aHtmlFile;
-        expectedUrls = aExpectedUrls;
-    }
+    htmlFile = aHtmlFile;
+    expectedUrls = aExpectedUrls;
+  }
 
   @Parameterized.Parameters
   public static Collection<Object[]> data() {
     return Arrays.asList(
-            new Object[][]{
-                    {
-                            "/mdr/mdr_topic_index.html",
-                            new CrawlerUrlDTO[]{
-                                    new CrawlerUrlDTO(
-                                            "https://www.mdr.de/mediathek/fernsehen/a-z/sendungenabisz100_inheritancecontext-header_letter-A_numberofelements-1_zc-ef89b6fa.html#letternavi"),
-                                    new CrawlerUrlDTO(
-                                            "https://www.mdr.de/mediathek/fernsehen/a-z/sendungenabisz100_inheritancecontext-header_letter-B_numberofelements-1_zc-84a1e244.html#letternavi"),
-                                    new CrawlerUrlDTO(
-                                            "https://www.mdr.de/mediathek/fernsehen/a-z/sendungenabisz100_inheritancecontext-header_letter-C_numberofelements-1_zc-db46c87d.html#letternavi"),
-                                    new CrawlerUrlDTO(
-                                            "https://www.mdr.de/mediathek/fernsehen/a-z/sendungenabisz100_inheritancecontext-header_letter-D_numberofelements-1_zc-0352e461.html#letternavi"),
-                                    new CrawlerUrlDTO(
-                                            "https://www.mdr.de/mediathek/fernsehen/a-z/sendungenabisz100_inheritancecontext-header_letter-E_numberofelements-1_zc-89d157fe.html#letternavi"),
-                                    new CrawlerUrlDTO(
-                                            "https://www.mdr.de/mediathek/fernsehen/a-z/sendungenabisz100_inheritancecontext-header_letter-F_numberofelements-1_zc-8c17df0a.html#letternavi"),
-                                    new CrawlerUrlDTO(
-                                            "https://www.mdr.de/mediathek/fernsehen/a-z/sendungenabisz100_inheritancecontext-header_letter-G_numberofelements-1_zc-c5153dc7.html#letternavi"),
-                                    new CrawlerUrlDTO(
-                                            "https://www.mdr.de/mediathek/fernsehen/a-z/sendungenabisz100_inheritancecontext-header_letter-H_numberofelements-1_zc-06d67d07.html#letternavi"),
-                                    new CrawlerUrlDTO(
-                                            "https://www.mdr.de/mediathek/fernsehen/a-z/sendungenabisz100_inheritancecontext-header_letter-I_numberofelements-1_zc-38940788.html#letternavi"),
-                                    new CrawlerUrlDTO(
-                                            "https://www.mdr.de/mediathek/fernsehen/a-z/sendungenabisz100_inheritancecontext-header_letter-K_numberofelements-1_zc-e45bab41.html#letternavi"),
-                                    new CrawlerUrlDTO(
-                                            "https://www.mdr.de/mediathek/fernsehen/a-z/sendungenabisz100_inheritancecontext-header_letter-L_numberofelements-1_zc-1be931e3.html#letternavi"),
-                                    new CrawlerUrlDTO(
-                                            "https://www.mdr.de/mediathek/fernsehen/a-z/sendungenabisz100_inheritancecontext-header_letter-M_numberofelements-1_zc-5d83c3ef.html#letternavi"),
-                                    new CrawlerUrlDTO(
-                                            "https://www.mdr.de/mediathek/fernsehen/a-z/sendungenabisz100_inheritancecontext-header_letter-N_numberofelements-1_zc-3c216798.html#letternavi"),
-                                    new CrawlerUrlDTO(
-                                            "https://www.mdr.de/mediathek/fernsehen/a-z/sendungenabisz100_inheritancecontext-header_letter-O_numberofelements-1_zc-2bfb0a35.html#letternavi"),
-                                    new CrawlerUrlDTO(
-                                            "https://www.mdr.de/mediathek/fernsehen/a-z/sendungenabisz100_inheritancecontext-header_letter-P_numberofelements-1_zc-5f53f4ab.html#letternavi"),
-                                    new CrawlerUrlDTO(
-                                            "https://www.mdr.de/mediathek/fernsehen/a-z/sendungenabisz100_inheritancecontext-header_letter-Q_numberofelements-1_zc-11f988f8.html#letternavi"),
-                                    new CrawlerUrlDTO(
-                                            "https://www.mdr.de/mediathek/fernsehen/a-z/sendungenabisz100_inheritancecontext-header_letter-R_numberofelements-1_zc-974c7492.html#letternavi"),
-                                    new CrawlerUrlDTO(
-                                            "https://www.mdr.de/mediathek/fernsehen/a-z/sendungenabisz100_inheritancecontext-header_letter-S_numberofelements-1_zc-727dc70f.html#letternavi"),
-                                    new CrawlerUrlDTO(
-                                            "https://www.mdr.de/mediathek/fernsehen/a-z/sendungenabisz100_inheritancecontext-header_letter-T_numberofelements-1_zc-241c1f6b.html#letternavi"),
-                                    new CrawlerUrlDTO(
-                                            "https://www.mdr.de/mediathek/fernsehen/a-z/sendungenabisz100_inheritancecontext-header_letter-U_numberofelements-1_zc-16901548.html#letternavi"),
-                                    new CrawlerUrlDTO(
-                                            "https://www.mdr.de/mediathek/fernsehen/a-z/sendungenabisz100_inheritancecontext-header_letter-V_numberofelements-1_zc-8cfa116f.html#letternavi"),
-                                    new CrawlerUrlDTO(
-                                            "https://www.mdr.de/mediathek/fernsehen/a-z/sendungenabisz100_inheritancecontext-header_letter-W_numberofelements-1_zc-04b7218f.html#letternavi"),
-                                    new CrawlerUrlDTO(
-                                            "https://www.mdr.de/mediathek/fernsehen/a-z/sendungenabisz100_inheritancecontext-header_letter-Z_numberofelements-1_zc-31352588.html#letternavi")
-                            }
-                    }
-            });
+        new Object[][] {
+          {
+            "/mdr/mdr_topic_index.html",
+            new CrawlerUrlDTO[] {
+              new CrawlerUrlDTO(
+                  "https://www.mdr.de/mediathek/fernsehen/a-z/sendungenabisz100_letter-A_zc-81e206d8.html#letternavi"),
+              new CrawlerUrlDTO(
+                  "https://www.mdr.de/mediathek/fernsehen/a-z/sendungenabisz100_letter-B_zc-b220782a.html#letternavi"),
+              new CrawlerUrlDTO(
+                  "https://www.mdr.de/mediathek/fernsehen/a-z/sendungenabisz100_letter-C_zc-7b34540d.html#letternavi"),
+              new CrawlerUrlDTO(
+                  "https://www.mdr.de/mediathek/fernsehen/a-z/sendungenabisz100_letter-D_zc-742c7a73.html#letternavi"),
+              new CrawlerUrlDTO(
+                  "https://www.mdr.de/mediathek/fernsehen/a-z/sendungenabisz100_letter-E_zc-e225de76.html#letternavi"),
+              new CrawlerUrlDTO(
+                  "https://www.mdr.de/mediathek/fernsehen/a-z/sendungenabisz100_letter-F_zc-2545ea29.html#letternavi"),
+              new CrawlerUrlDTO(
+                  "https://www.mdr.de/mediathek/fernsehen/a-z/sendungenabisz100_letter-G_zc-908dfe4e.html#letternavi"),
+              new CrawlerUrlDTO(
+                  "https://www.mdr.de/mediathek/fernsehen/a-z/sendungenabisz100_letter-H_zc-bd71b385.html#letternavi"),
+              new CrawlerUrlDTO(
+                  "https://www.mdr.de/mediathek/fernsehen/a-z/sendungenabisz100_letter-I_zc-3a727df8.html#letternavi"),
+              new CrawlerUrlDTO(
+                  "https://www.mdr.de/mediathek/fernsehen/a-z/sendungenabisz100_letter-K_zc-84887216.html#letternavi"),
+              new CrawlerUrlDTO(
+                  "https://www.mdr.de/mediathek/fernsehen/a-z/sendungenabisz100_letter-L_zc-89d90630.html#letternavi"),
+              new CrawlerUrlDTO(
+                  "https://www.mdr.de/mediathek/fernsehen/a-z/sendungenabisz100_letter-M_zc-5f990448.html#letternavi"),
+              new CrawlerUrlDTO(
+                  "https://www.mdr.de/mediathek/fernsehen/a-z/sendungenabisz100_letter-N_zc-290536c6.html#letternavi"),
+              new CrawlerUrlDTO(
+                  "https://www.mdr.de/mediathek/fernsehen/a-z/sendungenabisz100_letter-O_zc-ee5929ea.html#letternavi"),
+              new CrawlerUrlDTO(
+                  "https://www.mdr.de/mediathek/fernsehen/a-z/sendungenabisz100_letter-P_zc-aaa8d669.html#letternavi"),
+              new CrawlerUrlDTO(
+                  "https://www.mdr.de/mediathek/fernsehen/a-z/sendungenabisz100_letter-Q_zc-123cc20a.html#letternavi"),
+              new CrawlerUrlDTO(
+                  "https://www.mdr.de/mediathek/fernsehen/a-z/sendungenabisz100_letter-R_zc-2e31c26d.html#letternavi"),
+              new CrawlerUrlDTO(
+                  "https://www.mdr.de/mediathek/fernsehen/a-z/sendungenabisz100_letter-S_zc-ef6bb75d.html#letternavi"),
+              new CrawlerUrlDTO(
+                  "https://www.mdr.de/mediathek/fernsehen/a-z/sendungenabisz100_letter-T_zc-4b6c71a8.html#letternavi"),
+              new CrawlerUrlDTO(
+                  "https://www.mdr.de/mediathek/fernsehen/a-z/sendungenabisz100_letter-U_zc-c6744604.html#letternavi"),
+              new CrawlerUrlDTO(
+                  "https://www.mdr.de/mediathek/fernsehen/a-z/sendungenabisz100_letter-V_zc-222fa751.html#letternavi"),
+              new CrawlerUrlDTO(
+                  "https://www.mdr.de/mediathek/fernsehen/a-z/sendungenabisz100_letter-W_zc-ead31467.html#letternavi"),
+              new CrawlerUrlDTO(
+                  "https://www.mdr.de/mediathek/fernsehen/a-z/sendungenabisz100_letter-Z_zc-5ffa71f1.html#letternavi")
+            }
+          },
+          {
+            "/mdr/mdr_barrierefreiheit_gebaerdensprache.html",
+            new CrawlerUrlDTO[] {
+              new CrawlerUrlDTO(
+                  "https://www.mdr.de/barrierefreiheit/gebaerdensprache/gebaerde-des-tages-sammlung-100_letter-A_zc-81e206d8.html#letternavi"),
+              new CrawlerUrlDTO(
+                  "https://www.mdr.de/barrierefreiheit/gebaerdensprache/gebaerde-des-tages-sammlung-100_letter-B_zc-b220782a.html#letternavi"),
+              new CrawlerUrlDTO(
+                  "https://www.mdr.de/barrierefreiheit/gebaerdensprache/gebaerde-des-tages-sammlung-100_letter-C_zc-7b34540d.html#letternavi"),
+              new CrawlerUrlDTO(
+                  "https://www.mdr.de/barrierefreiheit/gebaerdensprache/gebaerde-des-tages-sammlung-100_letter-D_zc-742c7a73.html#letternavi"),
+              new CrawlerUrlDTO(
+                  "https://www.mdr.de/barrierefreiheit/gebaerdensprache/gebaerde-des-tages-sammlung-100_letter-E_zc-e225de76.html#letternavi"),
+              new CrawlerUrlDTO(
+                  "https://www.mdr.de/barrierefreiheit/gebaerdensprache/gebaerde-des-tages-sammlung-100_letter-F_zc-2545ea29.html#letternavi"),
+              new CrawlerUrlDTO(
+                  "https://www.mdr.de/barrierefreiheit/gebaerdensprache/gebaerde-des-tages-sammlung-100_letter-G_zc-908dfe4e.html#letternavi"),
+              new CrawlerUrlDTO(
+                  "https://www.mdr.de/barrierefreiheit/gebaerdensprache/gebaerde-des-tages-sammlung-100_letter-H_zc-bd71b385.html#letternavi"),
+              new CrawlerUrlDTO(
+                  "https://www.mdr.de/barrierefreiheit/gebaerdensprache/gebaerde-des-tages-sammlung-100_letter-I_zc-3a727df8.html#letternavi"),
+              new CrawlerUrlDTO(
+                  "https://www.mdr.de/barrierefreiheit/gebaerdensprache/gebaerde-des-tages-sammlung-100_letter-K_zc-84887216.html#letternavi"),
+              new CrawlerUrlDTO(
+                  "https://www.mdr.de/barrierefreiheit/gebaerdensprache/gebaerde-des-tages-sammlung-100_letter-L_zc-89d90630.html#letternavi"),
+              new CrawlerUrlDTO(
+                  "https://www.mdr.de/barrierefreiheit/gebaerdensprache/gebaerde-des-tages-sammlung-100_letter-M_zc-5f990448.html#letternavi"),
+              new CrawlerUrlDTO(
+                  "https://www.mdr.de/barrierefreiheit/gebaerdensprache/gebaerde-des-tages-sammlung-100_letter-N_zc-290536c6.html#letternavi"),
+              new CrawlerUrlDTO(
+                  "https://www.mdr.de/barrierefreiheit/gebaerdensprache/gebaerde-des-tages-sammlung-100_letter-O_zc-ee5929ea.html#letternavi"),
+              new CrawlerUrlDTO(
+                  "https://www.mdr.de/barrierefreiheit/gebaerdensprache/gebaerde-des-tages-sammlung-100_letter-P_zc-aaa8d669.html#letternavi"),
+              new CrawlerUrlDTO(
+                  "https://www.mdr.de/barrierefreiheit/gebaerdensprache/gebaerde-des-tages-sammlung-100_letter-R_zc-2e31c26d.html#letternavi"),
+              new CrawlerUrlDTO(
+                  "https://www.mdr.de/barrierefreiheit/gebaerdensprache/gebaerde-des-tages-sammlung-100_letter-S_zc-ef6bb75d.html#letternavi"),
+              new CrawlerUrlDTO(
+                  "https://www.mdr.de/barrierefreiheit/gebaerdensprache/gebaerde-des-tages-sammlung-100_letter-T_zc-4b6c71a8.html#letternavi"),
+              new CrawlerUrlDTO(
+                  "https://www.mdr.de/barrierefreiheit/gebaerdensprache/gebaerde-des-tages-sammlung-100_letter-U_zc-c6744604.html#letternavi"),
+              new CrawlerUrlDTO(
+                  "https://www.mdr.de/barrierefreiheit/gebaerdensprache/gebaerde-des-tages-sammlung-100_letter-V_zc-222fa751.html#letternavi"),
+              new CrawlerUrlDTO(
+                  "https://www.mdr.de/barrierefreiheit/gebaerdensprache/gebaerde-des-tages-sammlung-100_letter-W_zc-ead31467.html#letternavi"),
+              new CrawlerUrlDTO(
+                  "https://www.mdr.de/barrierefreiheit/gebaerdensprache/gebaerde-des-tages-sammlung-100_letter-Z_zc-5ffa71f1.html#letternavi")
+            }
+          }
+        });
   }
 
   @Test
@@ -92,8 +141,9 @@ public class MdrLetterPageUrlDeserializerTest {
     final String htmlContent = FileReader.readFile(htmlFile);
     final Document document = Jsoup.parse(htmlContent);
 
-    MdrLetterPageUrlDeserializer target = new MdrLetterPageUrlDeserializer(MdrConstants.URL_BASE);
-    Set<CrawlerUrlDTO> actual = target.deserialize(document);
+    final MdrLetterPageUrlDeserializer target =
+        new MdrLetterPageUrlDeserializer(MdrConstants.URL_BASE);
+    final Set<CrawlerUrlDTO> actual = target.deserialize(document);
 
     assertThat(actual, Matchers.containsInAnyOrder(expectedUrls));
   }

@@ -20,16 +20,21 @@ public class CrawlerUrlDTO {
     if (this == o) {
       return true;
     }
-    if (o == null || getClass() != o.getClass()) {
+    if (!(o instanceof CrawlerUrlDTO)) {
       return false;
     }
     final CrawlerUrlDTO that = (CrawlerUrlDTO) o;
-    return Objects.equals(url, that.url);
+    return Objects.equals(getUrl(), that.getUrl());
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(url);
+    return Objects.hash(getUrl());
+  }
+
+  @Override
+  public String toString() {
+    return "CrawlerUrlDTO{" + "url='" + url + '\'' + '}';
   }
 
   public String getUrl() {
