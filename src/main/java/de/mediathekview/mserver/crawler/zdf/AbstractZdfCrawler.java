@@ -42,15 +42,18 @@ public abstract class AbstractZdfCrawler extends AbstractCrawler {
     try {
       final ZdfConfiguration configuration = loadConfiguration();
 
-      final ConcurrentLinkedQueue<ZdfEntryDto> shows = new ConcurrentLinkedQueue<>();
-      shows.addAll(getDaysEntries(configuration));
+      final ConcurrentLinkedQueue<ZdfEntryDto> shows =
+          new ConcurrentLinkedQueue<>(getDaysEntries(configuration));
 
       printMessage(
           ServerMessages.DEBUG_ALL_SENDUNG_FOLGEN_COUNT, getSender().getName(), shows.size());
       getAndSetMaxCount(shows.size());
 
       return new ZdfFilmDetailTask(this, shows, configuration.getVideoAuthKey());
-    } catch (final InterruptedException | ExecutionException ex) {
+    } catch (final InterruptedException ex) {
+      LOG.debug("{} crawler interrupted.", getSender().getName(), ex);
+      Thread.currentThread().interrupt();
+    } catch (final ExecutionException ex) {
       LOG.fatal("Exception in {} crawler.", getSender().getName(), ex);
     }
     return null;
