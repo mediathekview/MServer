@@ -8,7 +8,7 @@ import org.jsoup.select.Elements;
 import java.util.HashSet;
 import java.util.Set;
 
-import static de.mediathekview.mserver.base.Consts.ATTRIBUTE_HREF;
+import static de.mediathekview.mserver.base.HtmlConsts.ATTRIBUTE_HREF;
 
 public class MdrLetterPageUrlDeserializer {
 

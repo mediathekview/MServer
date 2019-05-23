@@ -1,12 +1,13 @@
 package de.mediathekview.mserver.crawler.orf.tasks;
 
-import de.mediathekview.mserver.base.Consts;
+import de.mediathekview.mserver.base.HtmlConsts;
 import de.mediathekview.mserver.crawler.orf.OrfConstants;
-import java.util.ArrayList;
-import java.util.List;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /** Helper methods for ORF tasks. */
 class OrfHelper {
@@ -16,17 +17,17 @@ class OrfHelper {
   private OrfHelper() {}
 
   static String parseTheme(final Element aItem) {
-    String theme = aItem.attr(Consts.ATTRIBUTE_TITLE);
+    final String theme = aItem.attr(HtmlConsts.ATTRIBUTE_TITLE);
     return parseTheme(theme);
   }
 
-  static String parseTheme(String theme) {
+  static String parseTheme(final String theme) {
     // Thema steht vor Doppelpunkt
     // Ausnahmen
     // - ZIB-Sendungen mit Uhrzeit
     // - DokEins-Sendungen
     // - Ungarisches Magazin
-    int index = theme.indexOf(':');
+    final int index = theme.indexOf(':');
     if (index > 0
         && !theme.startsWith("ZIB")
         && !theme.startsWith("DOKeins")
@@ -42,14 +43,14 @@ class OrfHelper {
    * @param aDocument the html document with letter links
    * @return list with urls
    */
-  static List<String> parseLetterLinks(Document aDocument) {
+  static List<String> parseLetterLinks(final Document aDocument) {
     final List<String> results = new ArrayList<>();
 
-    Elements links = aDocument.select(LETTER_URL_SELECTOR);
+    final Elements links = aDocument.select(LETTER_URL_SELECTOR);
     links.forEach(
         element -> {
-          if (element.hasAttr(Consts.ATTRIBUTE_HREF)) {
-            String subpage = element.attr(Consts.ATTRIBUTE_HREF);
+          if (element.hasAttr(HtmlConsts.ATTRIBUTE_HREF)) {
+            final String subpage = element.attr(HtmlConsts.ATTRIBUTE_HREF);
             results.add(OrfConstants.URL_BASE + subpage);
           }
         });

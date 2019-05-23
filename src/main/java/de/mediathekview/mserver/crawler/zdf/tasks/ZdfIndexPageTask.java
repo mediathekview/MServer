@@ -1,9 +1,8 @@
 package de.mediathekview.mserver.crawler.zdf.tasks;
 
-import de.mediathekview.mserver.base.Consts;
+import de.mediathekview.mserver.base.HtmlConsts;
 import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
 import de.mediathekview.mserver.crawler.zdf.ZdfConfiguration;
-import de.mediathekview.mserver.crawler.zdf.ZdfConstants;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.jsoup.Jsoup;
@@ -16,8 +15,6 @@ import java.util.Optional;
 import java.util.concurrent.Callable;
 import java.util.concurrent.TimeUnit;
 
-import static de.mediathekview.mserver.base.Consts.ATTRIBUTE_HREF;
-
 public class ZdfIndexPageTask implements Callable<ZdfConfiguration> {
 
   private static final Logger LOG = LogManager.getLogger(ZdfIndexPageTask.class);
@@ -28,6 +25,8 @@ public class ZdfIndexPageTask implements Callable<ZdfConfiguration> {
   private static final String QUERY_SUPAGE_URL = "div.stage-item a";
   private static final String JSON_API_TOKEN = "apiToken";
   private static final String ATTRIBUTE_JSB = "data-zdfplayer-jsb";
+  private static final String TAG_HTML = "html";
+  private static final String STRING_QUOTE = "\"";
   private final AbstractCrawler crawler;
   private final String urlBase;
 
@@ -67,7 +66,7 @@ public class ZdfIndexPageTask implements Callable<ZdfConfiguration> {
     if (subPageUrl.isPresent()) {
       final Optional<Document> subPageDocument = loadPage(subPageUrl.get());
       if (subPageDocument.isPresent()) {
-        return parseBearerSubPage(subPageDocument.get(), QUERY_VIDEO_BEARER_SUBPAGE, "\"");
+        return parseBearerSubPage(subPageDocument.get());
       }
     }
 
@@ -75,12 +74,12 @@ public class ZdfIndexPageTask implements Callable<ZdfConfiguration> {
   }
 
   private Optional<String> parseSubPageUrl(final Document aDocument) {
-    Elements subPageElements = aDocument.select(QUERY_SUPAGE_URL);
-    for (Element subPageElement : subPageElements) {
-      if (subPageElement.hasAttr(Consts.ATTRIBUTE_HREF)) {
-        final String href = subPageElement.attr(Consts.ATTRIBUTE_HREF);
-        if (href.endsWith("html")) {
-          return Optional.of(ZdfConstants.URL_BASE + subPageElement.attr(Consts.ATTRIBUTE_HREF));
+    final Elements subPageElements = aDocument.select(QUERY_SUPAGE_URL);
+    for (final Element subPageElement : subPageElements) {
+      if (subPageElement.hasAttr(HtmlConsts.ATTRIBUTE_HREF)) {
+        final String href = subPageElement.attr(HtmlConsts.ATTRIBUTE_HREF);
+        if (href.endsWith(TAG_HTML)) {
+          return Optional.of(urlBase + subPageElement.attr(HtmlConsts.ATTRIBUTE_HREF));
         }
       }
     }
@@ -121,14 +120,13 @@ public class ZdfIndexPageTask implements Callable<ZdfConfiguration> {
     return Optional.empty();
   }
 
-  private Optional<String> parseBearerSubPage(
-      final Document aDocument, final String aQuery, final String aStringQuote) {
+  private Optional<String> parseBearerSubPage(final Document aDocument) {
 
-    final Element element = aDocument.selectFirst(aQuery);
+    final Element element = aDocument.selectFirst(QUERY_VIDEO_BEARER_SUBPAGE);
     if (element != null && element.hasAttr(ATTRIBUTE_JSB)) {
       final String script = element.attr(ATTRIBUTE_JSB);
 
-      final String value = parseBearer(script, aStringQuote);
+      final String value = parseBearer(script, STRING_QUOTE);
       if (!value.isEmpty()) {
         return Optional.of(value);
       }

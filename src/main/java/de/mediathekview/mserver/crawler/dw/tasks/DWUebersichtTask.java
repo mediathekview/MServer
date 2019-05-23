@@ -1,23 +1,24 @@
 package de.mediathekview.mserver.crawler.dw.tasks;
 
-import java.io.IOException;
-import java.net.URL;
-import java.util.Optional;
-import java.util.concurrent.ConcurrentLinkedQueue;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
-import org.jsoup.select.Elements;
-import de.mediathekview.mserver.base.Consts;
+import de.mediathekview.mserver.base.HtmlConsts;
 import de.mediathekview.mserver.base.utils.UrlUtils;
 import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
 import de.mediathekview.mserver.crawler.basic.AbstractDocumentTask;
 import de.mediathekview.mserver.crawler.basic.AbstractUrlTask;
 import de.mediathekview.mserver.crawler.basic.CrawlerUrlDTO;
 import de.mediathekview.mserver.crawler.dw.DwCrawler;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
+
+import java.io.IOException;
+import java.net.URL;
+import java.util.Optional;
+import java.util.concurrent.ConcurrentLinkedQueue;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class DWUebersichtTask extends AbstractDocumentTask<URL, CrawlerUrlDTO> {
   private static final String PARAMETER_RESULTS = "results";
@@ -33,8 +34,8 @@ public class DWUebersichtTask extends AbstractDocumentTask<URL, CrawlerUrlDTO> {
   private static final String SENDUNG_LINK_SELEKTOR = ".mcProgramsTeaser .smallList li:eq(1) a";
   private static final String RESULTS_COUNT_REGEX_PATTERN = "(?<=results=)\\d+";
 
-  public DWUebersichtTask(final AbstractCrawler aCrawler,
-      final ConcurrentLinkedQueue<CrawlerUrlDTO> aUrlToCrawlDTOs) {
+  public DWUebersichtTask(
+      final AbstractCrawler aCrawler, final ConcurrentLinkedQueue<CrawlerUrlDTO> aUrlToCrawlDTOs) {
     super(aCrawler, aUrlToCrawlDTOs);
   }
 
@@ -54,8 +55,11 @@ public class DWUebersichtTask extends AbstractDocumentTask<URL, CrawlerUrlDTO> {
     final ConcurrentLinkedQueue<CrawlerUrlDTO> nextPageUrls = new ConcurrentLinkedQueue<>();
     if (resultsCount.isPresent() && nextPageCount.isPresent()) {
       nextPageUrls.offer(
-          new CrawlerUrlDTO(UrlUtils.changeOrAddParameter(addBaseParameters(aUrlDTO.getUrl()),
-              PARAMETER_RESULTS, Integer.toString(resultsCount.get() + nextPageCount.get()))));
+          new CrawlerUrlDTO(
+              UrlUtils.changeOrAddParameter(
+                  addBaseParameters(aUrlDTO.getUrl()),
+                  PARAMETER_RESULTS,
+                  Integer.toString(resultsCount.get() + nextPageCount.get()))));
       return Optional.of(createNewOwnInstance(nextPageUrls));
     }
     return Optional.empty();
@@ -68,8 +72,8 @@ public class DWUebersichtTask extends AbstractDocumentTask<URL, CrawlerUrlDTO> {
       try {
         return Optional.of(Integer.parseInt(resultsRegexMatcher.group()));
       } catch (final NumberFormatException numberFormatException) {
-        LOG.error("Something wen't wrong on gathering the results count for DW.",
-            numberFormatException);
+        LOG.error(
+            "Something wen't wrong on gathering the results count for DW.", numberFormatException);
       }
     }
     return Optional.empty();
@@ -79,7 +83,8 @@ public class DWUebersichtTask extends AbstractDocumentTask<URL, CrawlerUrlDTO> {
     try {
       return Optional.of(Integer.parseInt(aFoundNextSiteLink.text()));
     } catch (final NumberFormatException numberFormatException) {
-      LOG.error("Something wen't wrong on gathering the next page results count for DW.",
+      LOG.error(
+          "Something wen't wrong on gathering the next page results count for DW.",
           numberFormatException);
     }
     return Optional.empty();
@@ -100,7 +105,7 @@ public class DWUebersichtTask extends AbstractDocumentTask<URL, CrawlerUrlDTO> {
       }
       final Elements foundNextSiteLink = aDocument.select(ADD_PAGE_NUMBER);
 
-      Optional<AbstractUrlTask<URL, CrawlerUrlDTO>> nextPageTask;
+      final Optional<AbstractUrlTask<URL, CrawlerUrlDTO>> nextPageTask;
       if (foundNextSiteLink.isEmpty()) {
         nextPageTask = Optional.empty();
       } else {
@@ -110,10 +115,9 @@ public class DWUebersichtTask extends AbstractDocumentTask<URL, CrawlerUrlDTO> {
         }
       }
 
-
       for (final Element link : foundLinks) {
-        if (link.hasAttr(Consts.ATTRIBUTE_HREF)) {
-          taskResults.add(new URL(DwCrawler.BASE_URL + link.attr(Consts.ATTRIBUTE_HREF)));
+        if (link.hasAttr(HtmlConsts.ATTRIBUTE_HREF)) {
+          taskResults.add(new URL(DwCrawler.BASE_URL + link.attr(HtmlConsts.ATTRIBUTE_HREF)));
           crawler.incrementAndGetMaxCount();
           crawler.updateProgress();
         }
@@ -123,9 +127,8 @@ public class DWUebersichtTask extends AbstractDocumentTask<URL, CrawlerUrlDTO> {
         taskResults.addAll(nextPageTask.get().join());
       }
     } catch (final IOException ioException) {
-      LOG.fatal("Something wen't terrible wrong on getting the Sendung Verpasst for DW.",
-          ioException);
+      LOG.fatal(
+          "Something wen't terrible wrong on getting the Sendung Verpasst for DW.", ioException);
     }
   }
-
 }

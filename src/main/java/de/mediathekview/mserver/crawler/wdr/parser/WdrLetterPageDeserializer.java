@@ -1,17 +1,18 @@
 package de.mediathekview.mserver.crawler.wdr.parser;
 
-import static de.mediathekview.mserver.base.Consts.ATTRIBUTE_HREF;
-
 import de.mediathekview.mserver.base.utils.UrlUtils;
 import de.mediathekview.mserver.crawler.wdr.WdrConstants;
 import de.mediathekview.mserver.crawler.wdr.WdrTopicUrlDto;
-import java.util.ArrayList;
-import java.util.List;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import static de.mediathekview.mserver.base.HtmlConsts.ATTRIBUTE_HREF;
 
 public class WdrLetterPageDeserializer extends WdrLetterPageDeserializerBase {
   private static final Logger LOG = LogManager.getLogger(WdrLetterPageDeserializer.class);
@@ -20,24 +21,24 @@ public class WdrLetterPageDeserializer extends WdrLetterPageDeserializerBase {
   private static final String SELECTOR_TITLE = "span";
 
   public List<WdrTopicUrlDto> deserialize(final Document aDocument) {
-    List<WdrTopicUrlDto> results = new ArrayList<>();
+    final List<WdrTopicUrlDto> results = new ArrayList<>();
 
-    Elements topics = aDocument.select(SELECTOR_TOPIC);
+    final Elements topics = aDocument.select(SELECTOR_TOPIC);
     topics.forEach(
         topicElement -> {
-          String url = getUrl(topicElement);
+          final String url = getUrl(topicElement);
           if (!url.isEmpty()) {
-            String topic = getTopic(topicElement);
-            boolean isFileUrl = isFileUrl(topicElement, true);
+            final String topic = getTopic(topicElement);
+            final boolean isFileUrl = isFileUrl(topicElement, true);
             results.add(new WdrTopicUrlDto(topic, url, isFileUrl));
           }
         });
     return results;
   }
 
-  private String getTopic(Element aTopicElement) {
+  private String getTopic(final Element aTopicElement) {
 
-    Element titleElement = aTopicElement.select(SELECTOR_TITLE).first();
+    final Element titleElement = aTopicElement.select(SELECTOR_TITLE).first();
     if (titleElement != null) {
       return titleElement.text();
     }
@@ -46,7 +47,7 @@ public class WdrLetterPageDeserializer extends WdrLetterPageDeserializerBase {
     return "";
   }
 
-  private String getUrl(Element aTopicElement) {
+  private String getUrl(final Element aTopicElement) {
     String url = aTopicElement.attr(ATTRIBUTE_HREF);
 
     if (!url.isEmpty()) {

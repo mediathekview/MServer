@@ -1,6 +1,6 @@
 package de.mediathekview.mserver.crawler.hr.tasks;
 
-import de.mediathekview.mserver.base.Consts;
+import de.mediathekview.mserver.base.HtmlConsts;
 import de.mediathekview.mserver.base.utils.UrlUtils;
 import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
 import de.mediathekview.mserver.crawler.basic.CrawlerUrlDTO;
@@ -47,8 +47,8 @@ public class HrSendungenOverviewPageTask implements Callable<Set<CrawlerUrlDTO>>
                           crawler.getCrawlerConfig().getSocketTimeoutInSeconds()))
               .get();
       for (final Element filmUrlElement : document.select(SENDUNG_URL_SELECTOR)) {
-        if (filmUrlElement.hasAttr(Consts.ATTRIBUTE_HREF)) {
-          final String url = filmUrlElement.absUrl(Consts.ATTRIBUTE_HREF);
+        if (filmUrlElement.hasAttr(HtmlConsts.ATTRIBUTE_HREF)) {
+          final String url = filmUrlElement.absUrl(HtmlConsts.ATTRIBUTE_HREF);
           if (isUrlRelevant(url)) {
             results.add(new CrawlerUrlDTO(prepareUrl(url)));
           }

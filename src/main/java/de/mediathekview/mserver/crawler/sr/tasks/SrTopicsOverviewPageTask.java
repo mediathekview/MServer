@@ -1,6 +1,6 @@
 package de.mediathekview.mserver.crawler.sr.tasks;
 
-import de.mediathekview.mserver.base.Consts;
+import de.mediathekview.mserver.base.HtmlConsts;
 import de.mediathekview.mserver.base.utils.UrlParseException;
 import de.mediathekview.mserver.base.utils.UrlUtils;
 import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
@@ -93,7 +93,7 @@ public class SrTopicsOverviewPageTask implements Callable<ConcurrentLinkedQueue<
           try {
             final Optional<String> subpage =
                 UrlUtils.getUrlParameterValue(
-                    element.attr(Consts.ATTRIBUTE_HREF), URL_PARAMETER_SUBPAGE);
+                    element.attr(HtmlConsts.ATTRIBUTE_HREF), URL_PARAMETER_SUBPAGE);
             if (subpage.isPresent()) {
               results.add(SrConstants.URL_OVERVIEW_PAGE + subpage.get());
             }
@@ -114,7 +114,7 @@ public class SrTopicsOverviewPageTask implements Callable<ConcurrentLinkedQueue<
           try {
             final Optional<String> showShort =
                 UrlUtils.getUrlParameterValue(
-                    element.attr(Consts.ATTRIBUTE_HREF), URL_PARAMETER_SHOW_SHORTNAME);
+                    element.attr(HtmlConsts.ATTRIBUTE_HREF), URL_PARAMETER_SHOW_SHORTNAME);
             if (showShort.isPresent()) {
               results.add(createDto(element.text(), showShort.get()));
             }

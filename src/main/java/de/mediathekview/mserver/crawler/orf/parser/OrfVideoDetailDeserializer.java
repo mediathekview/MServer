@@ -1,17 +1,18 @@
 package de.mediathekview.mserver.crawler.orf.parser;
 
-import static de.mediathekview.mserver.base.Consts.ATTRIBUTE_SRC;
-
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonDeserializer;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import de.mediathekview.mlib.daten.Resolution;
 import de.mediathekview.mserver.crawler.orf.OrfVideoInfoDTO;
-import java.lang.reflect.Type;
-import java.util.Optional;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
+import java.lang.reflect.Type;
+import java.util.Optional;
+
+import static de.mediathekview.mserver.base.HtmlConsts.ATTRIBUTE_SRC;
 
 public class OrfVideoDetailDeserializer implements JsonDeserializer<Optional<OrfVideoInfoDTO>> {
 
@@ -44,22 +45,31 @@ public class OrfVideoDetailDeserializer implements JsonDeserializer<Optional<Orf
     return url.replace(WRONG_HTTPS_URL_PART, RIGHT_HTTPS_URL_PART);
   }
 
-  @Override
-  public Optional<OrfVideoInfoDTO> deserialize(
-      JsonElement aJsonElement, Type aType, JsonDeserializationContext aContext) {
+  private static void parseVideo(final JsonElement aVideoElement, final OrfVideoInfoDTO dto) {
+    if (aVideoElement.isJsonArray()) {
+      aVideoElement
+          .getAsJsonArray()
+          .forEach(
+              videoElement -> {
+                final JsonObject videoObject = videoElement.getAsJsonObject();
+                if (videoObject.has(ATTRIBUTE_PROTOCOL)
+                    && videoObject.has(ATTRIBUTE_QUALITY)
+                    && videoObject.has(ATTRIBUTE_SRC)
+                    && videoObject.has(ATTRIBUTE_TYPE)) {
+                  final String type = videoObject.get(ATTRIBUTE_TYPE).getAsString();
+                  final String protocol = videoObject.get(ATTRIBUTE_PROTOCOL).getAsString();
+                  final String delivery = videoObject.get(ATTRIBUTE_DELIVERY).getAsString();
 
-    final JsonObject jsonObject = aJsonElement.getAsJsonObject();
-    if (jsonObject.has(ELEMENT_PLAYLIST)) {
-      final JsonObject playlistObject = jsonObject.get(ELEMENT_PLAYLIST).getAsJsonObject();
-      if (playlistObject.has(ELEMENT_VIDEOS)) {
-        final JsonObject videoObject =
-            playlistObject.get(ELEMENT_VIDEOS).getAsJsonArray().get(0).getAsJsonObject();
+                  if (isVideoRelevant(type, protocol, delivery)) {
+                    final String quality = videoObject.get(ATTRIBUTE_QUALITY).getAsString();
+                    final String url = fixHttpsUrl(videoObject.get(ATTRIBUTE_SRC).getAsString());
 
-        return deserializeVideoObject(videoObject);
-      }
+                    final Optional<Resolution> resolution = getQuality(quality);
+                    resolution.ifPresent(resolution1 -> dto.put(resolution1, url));
+                  }
+                }
+              });
     }
-
-    return Optional.empty();
   }
 
   public Optional<OrfVideoInfoDTO> deserializeVideoObject(final JsonObject aVideoObject) {
@@ -80,34 +90,8 @@ public class OrfVideoDetailDeserializer implements JsonDeserializer<Optional<Orf
     return Optional.empty();
   }
 
-  private static void parseVideo(final JsonElement aVideoElement, final OrfVideoInfoDTO dto) {
-    if (aVideoElement.isJsonArray()) {
-      aVideoElement
-          .getAsJsonArray()
-          .forEach(
-              videoElement -> {
-                final JsonObject videoObject = videoElement.getAsJsonObject();
-                if (videoObject.has(ATTRIBUTE_PROTOCOL)
-                    && videoObject.has(ATTRIBUTE_QUALITY)
-                    && videoObject.has(ATTRIBUTE_SRC)
-                    && videoObject.has(ATTRIBUTE_TYPE)) {
-                  String type = videoObject.get(ATTRIBUTE_TYPE).getAsString();
-                  String protocol = videoObject.get(ATTRIBUTE_PROTOCOL).getAsString();
-                  String delivery = videoObject.get(ATTRIBUTE_DELIVERY).getAsString();
-
-                  if (isVideoRelevant(type, protocol, delivery)) {
-                    String quality = videoObject.get(ATTRIBUTE_QUALITY).getAsString();
-                    String url = fixHttpsUrl(videoObject.get(ATTRIBUTE_SRC).getAsString());
-
-                    Optional<Resolution> resolution = getQuality(quality);
-                    resolution.ifPresent(resolution1 -> dto.put(resolution1, url));
-                  }
-                }
-              });
-    }
-  }
-
-  private static boolean isVideoRelevant(String type, String protocol, String delivery) {
+  private static boolean isVideoRelevant(
+      final String type, final String protocol, final String delivery) {
     return (type.equalsIgnoreCase(RELEVANT_VIDEO_TYPE1)
             || type.equalsIgnoreCase(RELEVANT_VIDEO_TYPE2))
         && protocol.equalsIgnoreCase(RELEVANT_PROTOCOL)
@@ -124,10 +108,10 @@ public class OrfVideoDetailDeserializer implements JsonDeserializer<Optional<Orf
               subtitleElement -> {
                 final JsonObject subtitleObject = subtitleElement.getAsJsonObject();
                 if (subtitleObject.has(ATTRIBUTE_SRC) && subtitleObject.has(ATTRIBUTE_TYPE)) {
-                  String type = subtitleObject.get(ATTRIBUTE_TYPE).getAsString();
+                  final String type = subtitleObject.get(ATTRIBUTE_TYPE).getAsString();
 
                   if (type.equalsIgnoreCase(RELEVANT_SUBTITLE_TYPE)) {
-                    String url = fixHttpsUrl(subtitleObject.get(ATTRIBUTE_SRC).getAsString());
+                    final String url = fixHttpsUrl(subtitleObject.get(ATTRIBUTE_SRC).getAsString());
                     dto.setSubtitleUrl(url);
                   }
                 }
@@ -135,7 +119,7 @@ public class OrfVideoDetailDeserializer implements JsonDeserializer<Optional<Orf
     }
   }
 
-  private static Optional<Resolution> getQuality(String aQuality) {
+  private static Optional<Resolution> getQuality(final String aQuality) {
     switch (aQuality) {
       case "Q1A":
         return Optional.of(Resolution.VERY_SMALL);
@@ -151,6 +135,24 @@ public class OrfVideoDetailDeserializer implements JsonDeserializer<Optional<Orf
       default:
         LOG.debug("ORF: unknown quality: " + aQuality);
     }
+    return Optional.empty();
+  }
+
+  @Override
+  public Optional<OrfVideoInfoDTO> deserialize(
+      final JsonElement aJsonElement, final Type aType, final JsonDeserializationContext aContext) {
+
+    final JsonObject jsonObject = aJsonElement.getAsJsonObject();
+    if (jsonObject.has(ELEMENT_PLAYLIST)) {
+      final JsonObject playlistObject = jsonObject.get(ELEMENT_PLAYLIST).getAsJsonObject();
+      if (playlistObject.has(ELEMENT_VIDEOS)) {
+        final JsonObject videoObject =
+            playlistObject.get(ELEMENT_VIDEOS).getAsJsonArray().get(0).getAsJsonObject();
+
+        return deserializeVideoObject(videoObject);
+      }
+    }
+
     return Optional.empty();
   }
 }

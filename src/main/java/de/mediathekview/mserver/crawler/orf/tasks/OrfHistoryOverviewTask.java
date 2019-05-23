@@ -1,15 +1,16 @@
 package de.mediathekview.mserver.crawler.orf.tasks;
 
-import de.mediathekview.mserver.base.Consts;
+import de.mediathekview.mserver.base.HtmlConsts;
 import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
 import de.mediathekview.mserver.crawler.basic.TopicUrlDTO;
 import de.mediathekview.mserver.crawler.orf.OrfConstants;
-import java.util.concurrent.Callable;
-import java.util.concurrent.ConcurrentLinkedQueue;
-import java.util.concurrent.TimeUnit;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
+
+import java.util.concurrent.Callable;
+import java.util.concurrent.ConcurrentLinkedQueue;
+import java.util.concurrent.TimeUnit;
 
 public class OrfHistoryOverviewTask implements Callable<ConcurrentLinkedQueue<TopicUrlDTO>> {
 
@@ -37,8 +38,8 @@ public class OrfHistoryOverviewTask implements Callable<ConcurrentLinkedQueue<To
     final Elements topics = document.select(TOPIC_URL_SELECTOR);
     topics.forEach(
         topicElement -> {
-          final String url = topicElement.attr(Consts.ATTRIBUTE_HREF);
-          final String topic = topicElement.attr(Consts.ATTRIBUTE_TITLE);
+          final String url = topicElement.attr(HtmlConsts.ATTRIBUTE_HREF);
+          final String topic = topicElement.attr(HtmlConsts.ATTRIBUTE_TITLE);
           results.add(new TopicUrlDTO(topic, url));
         });
 

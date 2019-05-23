@@ -1,7 +1,5 @@
 package de.mediathekview.mserver.crawler.dw.tasks;
 
-import static de.mediathekview.mserver.base.Consts.ATTRIBUTE_VALUE;
-
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
@@ -14,6 +12,15 @@ import de.mediathekview.mserver.crawler.basic.AbstractDocumentTask;
 import de.mediathekview.mserver.crawler.basic.AbstractUrlTask;
 import de.mediathekview.mserver.crawler.basic.CrawlerUrlDTO;
 import de.mediathekview.mserver.crawler.dw.parser.DWDownloadUrlsParser;
+import mServer.crawler.CrawlerTool;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.jsoup.nodes.Document;
+
+import javax.ws.rs.client.ClientBuilder;
+import javax.ws.rs.client.WebTarget;
+import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 import java.lang.reflect.Type;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -28,14 +35,8 @@ import java.util.UUID;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import javax.ws.rs.client.ClientBuilder;
-import javax.ws.rs.client.WebTarget;
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
-import mServer.crawler.CrawlerTool;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-import org.jsoup.nodes.Document;
+
+import static de.mediathekview.mserver.base.HtmlConsts.ATTRIBUTE_VALUE;
 
 public class DWFilmDetailsTask extends AbstractDocumentTask<Film, CrawlerUrlDTO> {
 
@@ -48,22 +49,24 @@ public class DWFilmDetailsTask extends AbstractDocumentTask<Film, CrawlerUrlDTO>
   private static final String ELEMENT_DAUER = ".group li:eq(1)";
   private static final String ELEMENT_DESCRIPTION = ".intro";
   private static final String ELEMENT_FILENAME = ".mediaItem input[name=file_name]";
-  private static final String DOWNLOAD_DETAILS_URL_TEMPLATE =
-      "%s/playersources/v-%s";
+  private static final String DOWNLOAD_DETAILS_URL_TEMPLATE = "%s/playersources/v-%s";
 
   private static final String DATE_REGEX_PATTERN = "(?<=Datum\\s)[\\.\\d]+";
 
   private static final DateTimeFormatter DATE_FORMATTER =
       DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM).withLocale(Locale.GERMAN);
-  private String baseUrl;
+  private final String baseUrl;
 
-  public DWFilmDetailsTask(final AbstractCrawler aCrawler,
-      final ConcurrentLinkedQueue<CrawlerUrlDTO> aUrlToCrawlDTOs, final String aBaseUrl) {
+  public DWFilmDetailsTask(
+      final AbstractCrawler aCrawler,
+      final ConcurrentLinkedQueue<CrawlerUrlDTO> aUrlToCrawlDTOs,
+      final String aBaseUrl) {
     super(aCrawler, aUrlToCrawlDTOs);
     baseUrl = aBaseUrl;
   }
 
-  private void addDownloadUrls(final CrawlerUrlDTO aUrlDTO, Optional<String> fileName, final Film film) {
+  private void addDownloadUrls(
+      final CrawlerUrlDTO aUrlDTO, final Optional<String> fileName, final Film film) {
     final String pageId =
         aUrlDTO.getUrl().substring(aUrlDTO.getUrl().lastIndexOf(URL_SPLITTERATOR) + 1);
     final String videoId = pageId.substring(pageId.indexOf('-') + 1);
@@ -75,17 +78,17 @@ public class DWFilmDetailsTask extends AbstractDocumentTask<Film, CrawlerUrlDTO>
       }
 
       final WebTarget target = ClientBuilder.newClient().target(new URL(downloadUrl).toString());
-      Response response = target.request(MediaType.APPLICATION_JSON_TYPE).get();
+      final Response response = target.request(MediaType.APPLICATION_JSON_TYPE).get();
       if (response.getStatus() == 200) {
 
-        final Type urlMapType = new TypeToken<Map<Resolution, FilmUrl>>() {
-        }.getType();
+        final Type urlMapType = new TypeToken<Map<Resolution, FilmUrl>>() {}.getType();
         final Gson gson =
             new GsonBuilder().registerTypeAdapter(urlMapType, new DWDownloadUrlsParser()).create();
 
         film.addAllUrls(gson.fromJson(response.readEntity(String.class), urlMapType));
       } else {
-        LOG.error("DWFilmDetailsTask: Error reading url " + downloadUrl + ": " + response.getStatus());
+        LOG.error(
+            "DWFilmDetailsTask: Error reading url " + downloadUrl + ": " + response.getStatus());
       }
 
     } catch (final MalformedURLException malformedURLException) {
@@ -115,8 +118,10 @@ public class DWFilmDetailsTask extends AbstractDocumentTask<Film, CrawlerUrlDTO>
     final Optional<String> titel = HtmlDocumentUtils.getElementString(ELEMENT_TITEL, aDocument);
     final Optional<String> thema = HtmlDocumentUtils.getElementString(ELEMENT_THEMA, aDocument);
     final Optional<String> dateText = HtmlDocumentUtils.getElementString(ELEMENT_DATUM, aDocument);
-    final Optional<String> description = HtmlDocumentUtils.getElementString(ELEMENT_DESCRIPTION, aDocument);
-    final Optional<String> fileName = HtmlDocumentUtils.getElementAttributeString(ELEMENT_FILENAME, ATTRIBUTE_VALUE, aDocument);
+    final Optional<String> description =
+        HtmlDocumentUtils.getElementString(ELEMENT_DESCRIPTION, aDocument);
+    final Optional<String> fileName =
+        HtmlDocumentUtils.getElementAttributeString(ELEMENT_FILENAME, ATTRIBUTE_VALUE, aDocument);
     final Optional<Duration> dauer = parseDuration(aDocument);
 
     if (checkPreConditions(titel, thema, dauer)) {
@@ -126,19 +131,31 @@ public class DWFilmDetailsTask extends AbstractDocumentTask<Film, CrawlerUrlDTO>
     }
   }
 
-  private void createFilm(CrawlerUrlDTO aUrlDTO, String title, String topic, Optional<String> description,
-      Optional<String> fileName, Duration duration, Optional<LocalDate> time) {
+  private void createFilm(
+      final CrawlerUrlDTO aUrlDTO,
+      final String title,
+      final String topic,
+      final Optional<String> description,
+      final Optional<String> fileName,
+      final Duration duration,
+      final Optional<LocalDate> time) {
     try {
-      final Film newFilm = new Film(UUID.randomUUID(), crawler.getSender(), title,
-          topic, time.orElse(LocalDate.now()).atStartOfDay(), duration);
+      final Film newFilm =
+          new Film(
+              UUID.randomUUID(),
+              crawler.getSender(),
+              title,
+              topic,
+              time.orElse(LocalDate.now()).atStartOfDay(),
+              duration);
       description.ifPresent(newFilm::setBeschreibung);
       newFilm.setWebsite(new URL(aUrlDTO.getUrl()));
       addDownloadUrls(aUrlDTO, fileName, newFilm);
 
       final Optional<FilmUrl> defaultUrl = newFilm.getDefaultUrl();
       if (defaultUrl.isPresent()) {
-        newFilm.setGeoLocations(CrawlerTool.getGeoLocations(crawler.getSender(),
-            defaultUrl.get().getUrl().toString()));
+        newFilm.setGeoLocations(
+            CrawlerTool.getGeoLocations(crawler.getSender(), defaultUrl.get().getUrl().toString()));
       }
 
       taskResults.add(newFilm);
@@ -150,7 +167,10 @@ public class DWFilmDetailsTask extends AbstractDocumentTask<Film, CrawlerUrlDTO>
     }
   }
 
-  private boolean checkPreConditions(Optional<String> title, Optional<String> topic, Optional<Duration> duration) {
+  private boolean checkPreConditions(
+      final Optional<String> title,
+      final Optional<String> topic,
+      final Optional<Duration> duration) {
     if (!topic.isPresent()) {
       crawler.printMissingElementErrorMessage("Thema");
       return false;
@@ -178,6 +198,4 @@ public class DWFilmDetailsTask extends AbstractDocumentTask<Film, CrawlerUrlDTO>
     }
     return dauer;
   }
-
-
 }

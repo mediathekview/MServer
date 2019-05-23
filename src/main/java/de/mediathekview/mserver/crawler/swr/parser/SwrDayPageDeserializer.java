@@ -1,14 +1,15 @@
 package de.mediathekview.mserver.crawler.swr.parser;
 
-import static de.mediathekview.mserver.base.Consts.ATTRIBUTE_HREF;
-
 import de.mediathekview.mserver.crawler.basic.CrawlerUrlDTO;
 import de.mediathekview.mserver.crawler.swr.SwrConstants;
-import java.util.HashSet;
-import java.util.Set;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+
+import java.util.HashSet;
+import java.util.Set;
+
+import static de.mediathekview.mserver.base.HtmlConsts.ATTRIBUTE_HREF;
 
 public class SwrDayPageDeserializer {
 
@@ -22,10 +23,10 @@ public class SwrDayPageDeserializer {
 
   public Set<CrawlerUrlDTO> deserialize(final Document aDocument) {
 
-    Set<CrawlerUrlDTO> filmPages = new HashSet<>();
+    final Set<CrawlerUrlDTO> filmPages = new HashSet<>();
 
-    Elements dayLinks = aDocument.select(FILM_URL_SELECTOR);
-    for (Element dayLink : dayLinks) {
+    final Elements dayLinks = aDocument.select(FILM_URL_SELECTOR);
+    for (final Element dayLink : dayLinks) {
       String link = baseUrl + dayLink.attr(ATTRIBUTE_HREF);
       link = link.replace(SwrConstants.URL_FILM_PAGE, SwrConstants.URL_FILM_DETAIL_REQUEST);
       filmPages.add(new CrawlerUrlDTO(link));

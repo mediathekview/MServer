@@ -1,18 +1,19 @@
 package de.mediathekview.mserver.crawler.kika.tasks;
 
-import de.mediathekview.mserver.base.Consts;
+import de.mediathekview.mserver.base.HtmlConsts;
 import de.mediathekview.mserver.base.utils.UrlUtils;
 import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
 import de.mediathekview.mserver.crawler.basic.AbstractDocumentTask;
 import de.mediathekview.mserver.crawler.basic.AbstractRecrusivConverterTask;
 import de.mediathekview.mserver.crawler.basic.CrawlerUrlDTO;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 import java.util.concurrent.ConcurrentLinkedQueue;
-import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
-import org.jsoup.select.Elements;
 
 public class KikaTopicOverviewPageTask extends AbstractDocumentTask<CrawlerUrlDTO, CrawlerUrlDTO> {
 
@@ -26,31 +27,32 @@ public class KikaTopicOverviewPageTask extends AbstractDocumentTask<CrawlerUrlDT
   private final int pageNumber;
 
   public KikaTopicOverviewPageTask(
-      AbstractCrawler aCrawler,
-      ConcurrentLinkedQueue<CrawlerUrlDTO> aUrlToCrawlDtos,
-      String aBaseUrl) {
+      final AbstractCrawler aCrawler,
+      final ConcurrentLinkedQueue<CrawlerUrlDTO> aUrlToCrawlDtos,
+      final String aBaseUrl) {
     this(aCrawler, aUrlToCrawlDtos, aBaseUrl, 1);
   }
 
   private KikaTopicOverviewPageTask(
-      AbstractCrawler aCrawler,
-      ConcurrentLinkedQueue<CrawlerUrlDTO> aUrlToCrawlDtos,
-      String aBaseUrl,
-      int pageNumber) {
+      final AbstractCrawler aCrawler,
+      final ConcurrentLinkedQueue<CrawlerUrlDTO> aUrlToCrawlDtos,
+      final String aBaseUrl,
+      final int pageNumber) {
     super(aCrawler, aUrlToCrawlDtos);
-    this.baseUrl = aBaseUrl;
+    baseUrl = aBaseUrl;
     this.pageNumber = pageNumber;
   }
 
   @Override
-  protected void processDocument(CrawlerUrlDTO aUrlDto, Document aDocument) {
+  protected void processDocument(final CrawlerUrlDTO aUrlDto, final Document aDocument) {
     parseFilmUrls(aDocument);
 
     if (pageNumber == 1) {
-      List<CrawlerUrlDTO> nextPageUrls = sortNextPageUrls(parseNextPageUrls(aDocument), aUrlDto);
+      final List<CrawlerUrlDTO> nextPageUrls =
+          sortNextPageUrls(parseNextPageUrls(aDocument), aUrlDto);
 
       if (!nextPageUrls.isEmpty()) {
-        int maxSubPage =
+        final int maxSubPage =
             config.getMaximumSubpages() > nextPageUrls.size()
                 ? nextPageUrls.size()
                 : config.getMaximumSubpages();
@@ -69,20 +71,20 @@ public class KikaTopicOverviewPageTask extends AbstractDocumentTask<CrawlerUrlDT
    * @return sortierte Liste der Übersichtsseiten
    */
   private List<CrawlerUrlDTO> sortNextPageUrls(
-      List<CrawlerUrlDTO> nextPageUrls, final CrawlerUrlDTO actualUrl) {
+      final List<CrawlerUrlDTO> nextPageUrls, final CrawlerUrlDTO actualUrl) {
 
     if (nextPageUrls.isEmpty()) {
       return nextPageUrls;
     }
 
-    int actualIndex = nextPageUrls.indexOf(actualUrl);
+    final int actualIndex = nextPageUrls.indexOf(actualUrl);
     if (actualIndex < 0) {
       // wenn Url nicht enthalten ist, dann ist auf die erste Seite verlinkt und keine Sortierung
       // nötig
       return nextPageUrls;
     }
 
-    List<CrawlerUrlDTO> sortedUrls = new ArrayList<>();
+    final List<CrawlerUrlDTO> sortedUrls = new ArrayList<>();
 
     for (int i = actualIndex; i < nextPageUrls.size(); i++) {
       sortedUrls.add(nextPageUrls.get(i));
@@ -101,17 +103,17 @@ public class KikaTopicOverviewPageTask extends AbstractDocumentTask<CrawlerUrlDT
 
     final ConcurrentLinkedQueue<CrawlerUrlDTO> nextPageLinks = new ConcurrentLinkedQueue<>();
     nextPageLinks.addAll(nextPageUrls);
-    AbstractRecrusivConverterTask<CrawlerUrlDTO, CrawlerUrlDTO> subPageCrawler =
+    final AbstractRecrusivConverterTask<CrawlerUrlDTO, CrawlerUrlDTO> subPageCrawler =
         createNewOwnInstance(nextPageLinks, pageNumber + 1);
     subPageCrawler.fork();
-    Set<CrawlerUrlDTO> join = subPageCrawler.join();
+    final Set<CrawlerUrlDTO> join = subPageCrawler.join();
     taskResults.addAll(join);
   }
 
-  private void parseFilmUrls(Document aDocument) {
+  private void parseFilmUrls(final Document aDocument) {
     final Elements urlElements = aDocument.select(SELECTOR_TOPIC_OVERVIEW);
-    for (Element urlElement : urlElements) {
-      final String url = urlElement.attr(Consts.ATTRIBUTE_HREF);
+    for (final Element urlElement : urlElements) {
+      final String url = urlElement.attr(HtmlConsts.ATTRIBUTE_HREF);
       final Element iconElement = urlElement.parent().select(SELECTOR_TYPE_ICON).first();
       if (iconElement.text().equals(ENTRY_ICON_FILM)) {
         taskResults.add(new CrawlerUrlDTO(UrlUtils.addDomainIfMissing(url, baseUrl)));
@@ -121,21 +123,21 @@ public class KikaTopicOverviewPageTask extends AbstractDocumentTask<CrawlerUrlDT
 
   @Override
   protected AbstractRecrusivConverterTask<CrawlerUrlDTO, CrawlerUrlDTO> createNewOwnInstance(
-      ConcurrentLinkedQueue<CrawlerUrlDTO> aElementsToProcess) {
+      final ConcurrentLinkedQueue<CrawlerUrlDTO> aElementsToProcess) {
     return createNewOwnInstance(aElementsToProcess, 1);
   }
 
   private AbstractRecrusivConverterTask<CrawlerUrlDTO, CrawlerUrlDTO> createNewOwnInstance(
-      ConcurrentLinkedQueue<CrawlerUrlDTO> aElementsToProcess, int aPageNumber) {
+      final ConcurrentLinkedQueue<CrawlerUrlDTO> aElementsToProcess, final int aPageNumber) {
     return new KikaTopicOverviewPageTask(crawler, aElementsToProcess, baseUrl, aPageNumber);
   }
 
-  private List<CrawlerUrlDTO> parseNextPageUrls(Document aDocument) {
-    List<CrawlerUrlDTO> nextPages = new ArrayList<>();
+  private List<CrawlerUrlDTO> parseNextPageUrls(final Document aDocument) {
+    final List<CrawlerUrlDTO> nextPages = new ArrayList<>();
 
-    Elements subPageElements = aDocument.select(SELECTOR_SUBPAGES);
-    for (Element subPageElement : subPageElements) {
-      final String url = subPageElement.attr(Consts.ATTRIBUTE_HREF);
+    final Elements subPageElements = aDocument.select(SELECTOR_SUBPAGES);
+    for (final Element subPageElement : subPageElements) {
+      final String url = subPageElement.attr(HtmlConsts.ATTRIBUTE_HREF);
       nextPages.add(new CrawlerUrlDTO(UrlUtils.addDomainIfMissing(url, baseUrl)));
     }
 

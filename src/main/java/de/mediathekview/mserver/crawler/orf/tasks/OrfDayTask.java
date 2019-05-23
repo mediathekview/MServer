@@ -1,15 +1,12 @@
 package de.mediathekview.mserver.crawler.orf.tasks;
 
-import de.mediathekview.mserver.base.Consts;
-import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
-import de.mediathekview.mserver.crawler.basic.AbstractDocumentTask;
-import de.mediathekview.mserver.crawler.basic.AbstractUrlTask;
-import de.mediathekview.mserver.crawler.basic.CrawlerUrlDTO;
-import de.mediathekview.mserver.crawler.basic.TopicUrlDTO;
-import java.util.concurrent.ConcurrentLinkedQueue;
+import de.mediathekview.mserver.base.HtmlConsts;
+import de.mediathekview.mserver.crawler.basic.*;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+
+import java.util.concurrent.ConcurrentLinkedQueue;
 
 public class OrfDayTask extends AbstractDocumentTask<TopicUrlDTO, CrawlerUrlDTO> {
 
@@ -23,22 +20,22 @@ public class OrfDayTask extends AbstractDocumentTask<TopicUrlDTO, CrawlerUrlDTO>
   }
 
   @Override
-  protected void processDocument(CrawlerUrlDTO aUrlDto, Document aDocument) {
-    Elements elements = aDocument.select(ITEM_SELECTOR);
+  protected void processDocument(final CrawlerUrlDTO aUrlDto, final Document aDocument) {
+    final Elements elements = aDocument.select(ITEM_SELECTOR);
     elements.forEach(
         item -> {
-          Element titleElement = getTitleElement(item);
+          final Element titleElement = getTitleElement(item);
           if (titleElement != null) {
-            String theme = OrfHelper.parseTheme(titleElement.text());
-            String url = item.attr(Consts.ATTRIBUTE_HREF);
+            final String theme = OrfHelper.parseTheme(titleElement.text());
+            final String url = item.attr(HtmlConsts.ATTRIBUTE_HREF);
 
-            TopicUrlDTO dto = new TopicUrlDTO(theme, url);
+            final TopicUrlDTO dto = new TopicUrlDTO(theme, url);
             taskResults.add(dto);
           }
         });
   }
 
-  private Element getTitleElement(Element item) {
+  private Element getTitleElement(final Element item) {
     Element titleElement = item.selectFirst(TITLE_SELECTOR1);
     if (titleElement == null) {
       titleElement = item.selectFirst(TITLE_SELECTOR2);
@@ -48,7 +45,7 @@ public class OrfDayTask extends AbstractDocumentTask<TopicUrlDTO, CrawlerUrlDTO>
 
   @Override
   protected AbstractUrlTask<TopicUrlDTO, CrawlerUrlDTO> createNewOwnInstance(
-      ConcurrentLinkedQueue<CrawlerUrlDTO> aUrlsToCrawl) {
+      final ConcurrentLinkedQueue<CrawlerUrlDTO> aUrlsToCrawl) {
     return new OrfDayTask(crawler, aUrlsToCrawl);
   }
 }

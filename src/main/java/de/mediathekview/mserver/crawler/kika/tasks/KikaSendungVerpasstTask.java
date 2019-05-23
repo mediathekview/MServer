@@ -1,16 +1,17 @@
 package de.mediathekview.mserver.crawler.kika.tasks;
 
-import de.mediathekview.mserver.base.Consts;
+import de.mediathekview.mserver.base.HtmlConsts;
 import de.mediathekview.mserver.base.utils.UrlUtils;
 import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
 import de.mediathekview.mserver.crawler.basic.AbstractDocumentTask;
 import de.mediathekview.mserver.crawler.basic.AbstractUrlTask;
 import de.mediathekview.mserver.crawler.basic.CrawlerUrlDTO;
 import de.mediathekview.mserver.crawler.kika.KikaConstants;
-import java.util.Optional;
-import java.util.concurrent.ConcurrentLinkedQueue;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
+
+import java.util.Optional;
+import java.util.concurrent.ConcurrentLinkedQueue;
 
 public class KikaSendungVerpasstTask extends AbstractDocumentTask<CrawlerUrlDTO, CrawlerUrlDTO> {
   private static final long serialVersionUID = -6483678632833327433L;
@@ -38,30 +39,30 @@ public class KikaSendungVerpasstTask extends AbstractDocumentTask<CrawlerUrlDTO,
   protected void processDocument(final CrawlerUrlDTO aUrlDTO, final Document aDocument) {
     parseFilmUrls(aDocument);
 
-    ConcurrentLinkedQueue<CrawlerUrlDTO> flexLoadUrls = parseFlexLoad(aDocument);
+    final ConcurrentLinkedQueue<CrawlerUrlDTO> flexLoadUrls = parseFlexLoad(aDocument);
     if (!flexLoadUrls.isEmpty()) {
       taskResults.addAll(createNewOwnInstance(flexLoadUrls).invoke());
     }
   }
 
-  private void parseFilmUrls(Document aDocument) {
+  private void parseFilmUrls(final Document aDocument) {
     for (final Element filmUrlElement : aDocument.select(URL_SELECTOR)) {
-      if (filmUrlElement.hasAttr(Consts.ATTRIBUTE_HREF)
-          && !PAGE_ANKER.equals(filmUrlElement.attr(Consts.ATTRIBUTE_HREF))) {
+      if (filmUrlElement.hasAttr(HtmlConsts.ATTRIBUTE_HREF)
+          && !PAGE_ANKER.equals(filmUrlElement.attr(HtmlConsts.ATTRIBUTE_HREF))) {
 
         final String url =
             UrlUtils.addDomainIfMissing(
-                filmUrlElement.attr(Consts.ATTRIBUTE_HREF), KikaConstants.BASE_URL);
+                filmUrlElement.attr(HtmlConsts.ATTRIBUTE_HREF), KikaConstants.BASE_URL);
         taskResults.add(new CrawlerUrlDTO(url));
       }
     }
   }
 
-  private ConcurrentLinkedQueue<CrawlerUrlDTO> parseFlexLoad(Document aDocument) {
-    ConcurrentLinkedQueue<CrawlerUrlDTO> urls = new ConcurrentLinkedQueue<>();
+  private ConcurrentLinkedQueue<CrawlerUrlDTO> parseFlexLoad(final Document aDocument) {
+    final ConcurrentLinkedQueue<CrawlerUrlDTO> urls = new ConcurrentLinkedQueue<>();
 
     for (final Element flexLoadElement : aDocument.select(SELECTOR_FLEX_LOAD)) {
-      Optional<String> url =
+      final Optional<String> url =
           KikaHelper.gatherIpgTriggerUrlFromElement(
               flexLoadElement, ATTRIBUTE_IPG_FLEX_LOAD_TRIGGER, baseUrl);
       if (url.isPresent()) {

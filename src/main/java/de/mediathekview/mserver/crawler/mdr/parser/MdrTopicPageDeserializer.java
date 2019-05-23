@@ -7,7 +7,7 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
-import static de.mediathekview.mserver.base.Consts.ATTRIBUTE_HREF;
+import static de.mediathekview.mserver.base.HtmlConsts.ATTRIBUTE_HREF;
 
 public class MdrTopicPageDeserializer {
 
