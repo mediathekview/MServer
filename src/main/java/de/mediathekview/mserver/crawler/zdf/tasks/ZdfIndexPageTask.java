@@ -2,7 +2,6 @@ package de.mediathekview.mserver.crawler.zdf.tasks;
 
 import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
 import de.mediathekview.mserver.crawler.zdf.ZdfConfiguration;
-import de.mediathekview.mserver.crawler.zdf.ZdfConstants;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.jsoup.Jsoup;
@@ -28,17 +27,19 @@ public class ZdfIndexPageTask implements Callable<ZdfConfiguration> {
   private static final String JSON_API_TOKEN = "apiToken";
   private static final String ATTRIBUTE_JSB = "data-zdfplayer-jsb";
   private final AbstractCrawler crawler;
+  private final String urlBase;
 
   /** @param aCrawler The crawler which uses this task. */
-  public ZdfIndexPageTask(final AbstractCrawler aCrawler) {
+  public ZdfIndexPageTask(final AbstractCrawler aCrawler, final String aUrlBase) {
     crawler = aCrawler;
+    urlBase = aUrlBase;
   }
 
   @Override
-  public ZdfConfiguration call() throws Exception {
+  public ZdfConfiguration call() {
     final ZdfConfiguration configuration = new ZdfConfiguration();
 
-    final Optional<Document> document = loadPage(ZdfConstants.URL_BASE);
+    final Optional<Document> document = loadPage(urlBase);
     if (document.isPresent()) {
 
       final Optional<String> searchBearer =
@@ -74,7 +75,7 @@ public class ZdfIndexPageTask implements Callable<ZdfConfiguration> {
   private Optional<String> parseSubPageUrl(final Document aDocument) {
     final Element subPageElement = aDocument.selectFirst(QUERY_SUPAGE_URL);
     if (subPageElement != null) {
-      return Optional.of(ZdfConstants.URL_BASE + subPageElement.attr(ATTRIBUTE_HREF));
+      return Optional.of(urlBase + subPageElement.attr(ATTRIBUTE_HREF));
     }
 
     return Optional.empty();
