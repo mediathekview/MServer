@@ -1,7 +1,9 @@
 package de.mediathekview.mserver.crawler.zdf.tasks;
 
+import de.mediathekview.mserver.base.Consts;
 import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
 import de.mediathekview.mserver.crawler.zdf.ZdfConfiguration;
+import de.mediathekview.mserver.crawler.zdf.ZdfConstants;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.jsoup.Jsoup;
@@ -73,9 +75,14 @@ public class ZdfIndexPageTask implements Callable<ZdfConfiguration> {
   }
 
   private Optional<String> parseSubPageUrl(final Document aDocument) {
-    final Element subPageElement = aDocument.selectFirst(QUERY_SUPAGE_URL);
-    if (subPageElement != null) {
-      return Optional.of(urlBase + subPageElement.attr(ATTRIBUTE_HREF));
+    Elements subPageElements = aDocument.select(QUERY_SUPAGE_URL);
+    for (Element subPageElement : subPageElements) {
+      if (subPageElement.hasAttr(Consts.ATTRIBUTE_HREF)) {
+        final String href = subPageElement.attr(Consts.ATTRIBUTE_HREF);
+        if (href.endsWith("html")) {
+          return Optional.of(ZdfConstants.URL_BASE + subPageElement.attr(Consts.ATTRIBUTE_HREF));
+        }
+      }
     }
 
     return Optional.empty();
