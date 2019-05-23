@@ -54,7 +54,7 @@ public class ZdfIndexPageTaskTest {
     expectedBearerVideo = aExpectedBearerVideo;
 
     final ZdfCrawler crawler = Mockito.mock(ZdfCrawler.class);
-    target = new ZdfIndexPageTask(crawler);
+    target = new ZdfIndexPageTask(crawler, ZdfConstants.URL_BASE);
     Mockito.when(crawler.getCrawlerConfig())
         .thenReturn(MServerConfigManager.getInstance().getSenderConfig(Sender.ZDF));
   }

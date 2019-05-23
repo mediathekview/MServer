@@ -1,5 +1,6 @@
 package de.mediathekview.mserver.crawler.zdf.tasks;
 
+import de.mediathekview.mserver.crawler.zdf.ZdfConstants;
 import de.mediathekview.mserver.crawler.zdf.ZdfEntryDto;
 import org.hamcrest.Matchers;
 import org.junit.Test;
@@ -87,7 +88,11 @@ public class ZdfDayPageTaskTest extends ZdfTaskTestBase {
   }
 
   private Set<ZdfEntryDto> executeTask(final String aRequestUrl) {
-    return new ZdfDayPageTask(createCrawler(), createCrawlerUrlDto(aRequestUrl), Optional.empty())
+    return new ZdfDayPageTask(
+            createCrawler(),
+            ZdfConstants.URL_API_BASE,
+            createCrawlerUrlDto(aRequestUrl),
+            Optional.empty())
         .invoke();
   }
 }

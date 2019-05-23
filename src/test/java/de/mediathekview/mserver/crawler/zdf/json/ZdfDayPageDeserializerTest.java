@@ -1,6 +1,7 @@
 package de.mediathekview.mserver.crawler.zdf.json;
 
 import com.google.gson.JsonObject;
+import de.mediathekview.mserver.crawler.zdf.ZdfConstants;
 import de.mediathekview.mserver.crawler.zdf.ZdfEntryDto;
 import de.mediathekview.mserver.testhelper.JsonFileReader;
 import de.mediathekview.mserver.testhelper.WireMockTestBase;
@@ -30,7 +31,7 @@ public class ZdfDayPageDeserializerTest {
       final String aJsonFile,
       final ZdfEntryDto[] aExpectedEntries,
       final Optional<String> aExpectedNextPageUrl) {
-    target = new ZdfDayPageDeserializer();
+    target = new ZdfDayPageDeserializer(ZdfConstants.URL_API_BASE);
 
     jsonFile = aJsonFile;
     expectedEntries = aExpectedEntries;

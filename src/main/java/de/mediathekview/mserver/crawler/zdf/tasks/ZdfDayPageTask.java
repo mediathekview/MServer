@@ -6,22 +6,29 @@ import de.mediathekview.mserver.crawler.basic.CrawlerUrlDTO;
 import de.mediathekview.mserver.crawler.zdf.ZdfEntryDto;
 import de.mediathekview.mserver.crawler.zdf.json.ZdfDayPageDeserializer;
 import de.mediathekview.mserver.crawler.zdf.json.ZdfDayPageDto;
+
+import javax.ws.rs.client.WebTarget;
 import java.util.Optional;
 import java.util.concurrent.ConcurrentLinkedQueue;
-import javax.ws.rs.client.WebTarget;
 
 public class ZdfDayPageTask extends ZdfTaskBase<ZdfEntryDto, CrawlerUrlDTO> {
 
-  public ZdfDayPageTask(AbstractCrawler aCrawler,
-          ConcurrentLinkedQueue<CrawlerUrlDTO> aUrlToCrawlDtos, Optional<String> aAuthKey) {
+  private final String apiUrlBase;
+
+  public ZdfDayPageTask(
+      final AbstractCrawler aCrawler,
+      final String aApiUrlBase,
+      final ConcurrentLinkedQueue<CrawlerUrlDTO> aUrlToCrawlDtos,
+      final Optional<String> aAuthKey) {
     super(aCrawler, aUrlToCrawlDtos, aAuthKey);
-    registerJsonDeserializer(ZdfDayPageDto.class, new ZdfDayPageDeserializer());
+    apiUrlBase = aApiUrlBase;
+    registerJsonDeserializer(ZdfDayPageDto.class, new ZdfDayPageDeserializer(apiUrlBase));
   }
 
   @Override
-  protected void processRestTarget(CrawlerUrlDTO aDto, WebTarget aTarget) {
+  protected void processRestTarget(final CrawlerUrlDTO aDto, final WebTarget aTarget) {
 
-    ZdfDayPageDto dto = deserialize(aTarget, ZdfDayPageDto.class);
+    final ZdfDayPageDto dto = deserialize(aTarget, ZdfDayPageDto.class);
     if (dto != null) {
       taskResults.addAll(dto.getEntries());
       processNextPage(dto);
@@ -30,8 +37,8 @@ public class ZdfDayPageTask extends ZdfTaskBase<ZdfEntryDto, CrawlerUrlDTO> {
 
   @Override
   protected AbstractRecrusivConverterTask<ZdfEntryDto, CrawlerUrlDTO> createNewOwnInstance(
-          ConcurrentLinkedQueue<CrawlerUrlDTO> aElementsToProcess) {
-    return new ZdfDayPageTask(crawler, aElementsToProcess, authKey);
+      final ConcurrentLinkedQueue<CrawlerUrlDTO> aElementsToProcess) {
+    return new ZdfDayPageTask(crawler, apiUrlBase, aElementsToProcess, authKey);
   }
 
   private void processNextPage(final ZdfDayPageDto entries) {
