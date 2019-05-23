@@ -56,7 +56,7 @@ public abstract class AbstractZdfCrawler extends AbstractCrawler {
     return null;
   }
 
-  private ZdfConfiguration loadConfiguration() throws ExecutionException, InterruptedException {
+  protected ZdfConfiguration loadConfiguration() throws ExecutionException, InterruptedException {
     final ZdfIndexPageTask task = new ZdfIndexPageTask(this, getUrlBase());
     return forkJoinPool.submit(task).get();
   }
