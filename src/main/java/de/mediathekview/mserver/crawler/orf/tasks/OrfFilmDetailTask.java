@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import de.mediathekview.mlib.daten.Film;
+import de.mediathekview.mlib.daten.FilmUrl;
 import de.mediathekview.mlib.daten.GeoLocations;
 import de.mediathekview.mlib.daten.Resolution;
 import de.mediathekview.mserver.base.utils.HtmlDocumentUtils;
@@ -14,6 +15,11 @@ import de.mediathekview.mserver.crawler.basic.TopicUrlDTO;
 import de.mediathekview.mserver.crawler.orf.OrfEpisodeInfoDTO;
 import de.mediathekview.mserver.crawler.orf.OrfVideoInfoDTO;
 import de.mediathekview.mserver.crawler.orf.parser.OrfPlaylistDeserializer;
+import org.apache.commons.lang3.StringUtils;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.jsoup.nodes.Document;
+
 import java.lang.reflect.Type;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -22,17 +28,8 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.time.temporal.ChronoUnit;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
 import java.util.concurrent.ConcurrentLinkedQueue;
-import mServer.crawler.CrawlerTool;
-import org.apache.commons.lang3.StringUtils;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-import org.jsoup.nodes.Document;
 
 public class OrfFilmDetailTask extends AbstractDocumentTask<Film, TopicUrlDTO> {
 
@@ -59,8 +56,67 @@ public class OrfFilmDetailTask extends AbstractDocumentTask<Film, TopicUrlDTO> {
     super(aCrawler, aUrlToCrawlDtos);
   }
 
+  private static Optional<LocalDateTime> parseDate(final Document aDocument) {
+    final Optional<String> date =
+        HtmlDocumentUtils.getElementAttributeString(TIME_SELECTOR, ATTRIBUTE_DATETIME, aDocument);
+    if (date.isPresent()) {
+      final String dateValue = date.get().replace("CET", " ").replace("CEST", " ");
+      try {
+        final LocalDateTime localDate = LocalDateTime.parse(dateValue, DATE_TIME_FORMATTER);
+        return Optional.of(localDate);
+      } catch (final DateTimeParseException e) {
+        LOG.debug("OrfFilmDetailTask: unknown date format: " + date.get());
+      }
+    }
+
+    return Optional.empty();
+  }
+
+  private static Optional<Duration> parseDuration(final Document aDocument) {
+    final Optional<String> duration =
+        HtmlDocumentUtils.getElementString(DURATION_SELECTOR, aDocument);
+    if (!duration.isPresent()) {
+      return Optional.empty();
+    }
+
+    final Optional<ChronoUnit> unit = determineChronoUnit(duration.get());
+    if (!unit.isPresent()) {
+      LOG.debug("OrfFilmDetailTask: unknown duration type: " + duration.get());
+      return Optional.empty();
+    }
+
+    final String[] parts = duration.get().split(" ")[0].trim().split(":");
+    if (parts.length != 2) {
+      LOG.debug("OrfFilmDetailTask: unknown duration part count: " + duration.get());
+      return Optional.empty();
+    }
+
+    final ChronoUnit unitValue = unit.get();
+    if (unitValue == ChronoUnit.MINUTES) {
+      return Optional.of(
+          Duration.ofMinutes(Long.parseLong(parts[0])).plusSeconds(Long.parseLong(parts[1])));
+    }
+    if (unitValue == ChronoUnit.HOURS) {
+      return Optional.of(
+          Duration.ofHours(Long.parseLong(parts[0])).plusMinutes(Long.parseLong(parts[1])));
+    }
+
+    return Optional.empty();
+  }
+
+  private static Optional<ChronoUnit> determineChronoUnit(final String aDuration) {
+    if (aDuration.contains("Min.")) {
+      return Optional.of(ChronoUnit.MINUTES);
+    }
+    if (aDuration.contains("Std.")) {
+      return Optional.of(ChronoUnit.HOURS);
+    }
+
+    return Optional.empty();
+  }
+
   @Override
-  protected void processDocument(TopicUrlDTO aUrlDto, Document aDocument) {
+  protected void processDocument(final TopicUrlDTO aUrlDto, final Document aDocument) {
     final Optional<String> title = HtmlDocumentUtils.getElementString(TITLE_SELECTOR, aDocument);
     final Optional<LocalDateTime> time = parseDate(aDocument);
     final Optional<Duration> duration = parseDuration(aDocument);
@@ -70,7 +126,7 @@ public class OrfFilmDetailTask extends AbstractDocumentTask<Film, TopicUrlDTO> {
     final List<OrfEpisodeInfoDTO> episodes = parseEpisodes(aDocument);
 
     for (int i = 0; i < episodes.size(); i++) {
-      OrfEpisodeInfoDTO episode = episodes.get(i);
+      final OrfEpisodeInfoDTO episode = episodes.get(i);
       if (i == 0) {
         createFilm(aUrlDto, episode.getVideoInfo(), title, description, time, duration);
       } else {
@@ -87,7 +143,7 @@ public class OrfFilmDetailTask extends AbstractDocumentTask<Film, TopicUrlDTO> {
 
   @Override
   protected AbstractUrlTask<Film, TopicUrlDTO> createNewOwnInstance(
-      ConcurrentLinkedQueue<TopicUrlDTO> aUrlsToCrawl) {
+      final ConcurrentLinkedQueue<TopicUrlDTO> aUrlsToCrawl) {
     return new OrfFilmDetailTask(crawler, aUrlsToCrawl);
   }
 
@@ -129,7 +185,7 @@ public class OrfFilmDetailTask extends AbstractDocumentTask<Film, TopicUrlDTO> {
         crawler.incrementAndGetErrorCount();
         crawler.updateProgress();
       }
-    } catch (MalformedURLException ex) {
+    } catch (final MalformedURLException ex) {
       LOG.fatal("A ORF URL can't be parsed.", ex);
       crawler.printErrorMessage();
       crawler.incrementAndGetErrorCount();
@@ -137,7 +193,7 @@ public class OrfFilmDetailTask extends AbstractDocumentTask<Film, TopicUrlDTO> {
     }
   }
 
-  private void setGeoLocations(OrfVideoInfoDTO aVideoInfo, Film film) {
+  private void setGeoLocations(final OrfVideoInfoDTO aVideoInfo, final Film film) {
     final List<GeoLocations> geoLocations = new ArrayList<>();
     if (aVideoInfo.getDefaultVideoUrl().contains("cms-austria")) {
       geoLocations.add(GeoLocations.GEO_AT);
@@ -151,12 +207,12 @@ public class OrfFilmDetailTask extends AbstractDocumentTask<Film, TopicUrlDTO> {
       throws MalformedURLException {
 
     for (final Map.Entry<Resolution, String> qualitiesEntry : aVideoUrls.entrySet()) {
-      aFilm.addUrl(qualitiesEntry.getKey(), CrawlerTool.stringToFilmUrl(qualitiesEntry.getValue()));
+      aFilm.addUrl(qualitiesEntry.getKey(), new FilmUrl(qualitiesEntry.getValue()));
     }
   }
 
-  private List<OrfEpisodeInfoDTO> parseEpisodes(Document aDocument) {
-    Optional<String> json =
+  private List<OrfEpisodeInfoDTO> parseEpisodes(final Document aDocument) {
+    final Optional<String> json =
         HtmlDocumentUtils.getElementAttributeString(VIDEO_SELECTOR, ATTRIBUTE_DATA_JSB, aDocument);
 
     if (json.isPresent()) {
@@ -170,63 +226,5 @@ public class OrfFilmDetailTask extends AbstractDocumentTask<Film, TopicUrlDTO> {
     }
 
     return new ArrayList<>();
-  }
-
-  private static Optional<LocalDateTime> parseDate(Document aDocument) {
-    Optional<String> date =
-        HtmlDocumentUtils.getElementAttributeString(TIME_SELECTOR, ATTRIBUTE_DATETIME, aDocument);
-    if (date.isPresent()) {
-      String dateValue = date.get().replace("CET", " ").replace("CEST", " ");
-      try {
-        LocalDateTime localDate = LocalDateTime.parse(dateValue, DATE_TIME_FORMATTER);
-        return Optional.of(localDate);
-      } catch (DateTimeParseException e) {
-        LOG.debug("OrfFilmDetailTask: unknown date format: " + date.get());
-      }
-    }
-
-    return Optional.empty();
-  }
-
-  private static Optional<Duration> parseDuration(Document aDocument) {
-    Optional<String> duration = HtmlDocumentUtils.getElementString(DURATION_SELECTOR, aDocument);
-    if (!duration.isPresent()) {
-      return Optional.empty();
-    }
-
-    Optional<ChronoUnit> unit = determineChronoUnit(duration.get());
-    if (!unit.isPresent()) {
-      LOG.debug("OrfFilmDetailTask: unknown duration type: " + duration.get());
-      return Optional.empty();
-    }
-
-    String[] parts = duration.get().split(" ")[0].trim().split(":");
-    if (parts.length != 2) {
-      LOG.debug("OrfFilmDetailTask: unknown duration part count: " + duration.get());
-      return Optional.empty();
-    }
-
-    ChronoUnit unitValue = unit.get();
-    if (unitValue == ChronoUnit.MINUTES) {
-      return Optional.of(
-          Duration.ofMinutes(Long.parseLong(parts[0])).plusSeconds(Long.parseLong(parts[1])));
-    }
-    if (unitValue == ChronoUnit.HOURS) {
-      return Optional.of(
-          Duration.ofHours(Long.parseLong(parts[0])).plusMinutes(Long.parseLong(parts[1])));
-    }
-
-    return Optional.empty();
-  }
-
-  private static Optional<ChronoUnit> determineChronoUnit(String aDuration) {
-    if (aDuration.contains("Min.")) {
-      return Optional.of(ChronoUnit.MINUTES);
-    }
-    if (aDuration.contains("Std.")) {
-      return Optional.of(ChronoUnit.HOURS);
-    }
-
-    return Optional.empty();
   }
 }

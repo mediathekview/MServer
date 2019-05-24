@@ -7,6 +7,7 @@ import de.mediathekview.mlib.daten.Film;
 import de.mediathekview.mlib.daten.FilmUrl;
 import de.mediathekview.mlib.daten.Resolution;
 import de.mediathekview.mserver.base.utils.DateUtils;
+import de.mediathekview.mserver.base.utils.GeoLocationGuesser;
 import de.mediathekview.mserver.base.utils.HtmlDocumentUtils;
 import de.mediathekview.mserver.crawler.ard.json.ArdVideoInfoDto;
 import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
@@ -14,7 +15,6 @@ import de.mediathekview.mserver.crawler.basic.AbstractDocumentTask;
 import de.mediathekview.mserver.crawler.basic.AbstractUrlTask;
 import de.mediathekview.mserver.crawler.basic.CrawlerUrlDTO;
 import de.mediathekview.mserver.crawler.hr.parser.HrVideoJsonDeserializer;
-import mServer.crawler.CrawlerTool;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.jsoup.nodes.Document;
@@ -184,12 +184,10 @@ public class HrSendungsfolgedetailsTask extends AbstractDocumentTask<Film, Crawl
               time.orElse(LocalDate.now().atStartOfDay()),
               dauer);
       newFilm.setWebsite(new URL(aUrlDto.getUrl()));
-      if (beschreibung.isPresent()) {
-        newFilm.setBeschreibung(beschreibung.get());
-      }
+      beschreibung.ifPresent(newFilm::setBeschreibung);
 
       for (final Entry<Resolution, String> videoUrl : videoUrls.entrySet()) {
-        newFilm.addUrl(videoUrl.getKey(), CrawlerTool.uriToFilmUrl(new URL(videoUrl.getValue())));
+        newFilm.addUrl(videoUrl.getKey(), new FilmUrl(videoUrl.getValue()));
       }
 
       if (untertitelUrlText.isPresent()) {
@@ -197,10 +195,11 @@ public class HrSendungsfolgedetailsTask extends AbstractDocumentTask<Film, Crawl
       }
 
       final Optional<FilmUrl> defaultUrl = newFilm.getDefaultUrl();
-      if (defaultUrl.isPresent()) {
-        newFilm.setGeoLocations(
-            CrawlerTool.getGeoLocations(crawler.getSender(), defaultUrl.get().getUrl().toString()));
-      }
+      defaultUrl.ifPresent(
+          filmUrl ->
+              newFilm.setGeoLocations(
+                  GeoLocationGuesser.getGeoLocations(
+                      crawler.getSender(), filmUrl.getUrl().toString())));
 
       taskResults.add(newFilm);
       crawler.incrementAndGetActualCount();

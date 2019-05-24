@@ -3,18 +3,21 @@ package de.mediathekview.mserver.crawler.ndr.tasks;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import de.mediathekview.mlib.daten.Film;
+import de.mediathekview.mlib.daten.FilmUrl;
 import de.mediathekview.mlib.daten.Resolution;
 import de.mediathekview.mlib.daten.Sender;
+import de.mediathekview.mserver.base.utils.GeoLocationGuesser;
 import de.mediathekview.mserver.base.utils.UrlUtils;
 import de.mediathekview.mserver.crawler.ard.json.ArdVideoInfoDto;
 import de.mediathekview.mserver.crawler.ard.json.ArdVideoInfoJsonDeserializer;
-import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
-import de.mediathekview.mserver.crawler.basic.AbstractDocumentTask;
-import de.mediathekview.mserver.crawler.basic.AbstractUrlTask;
-import de.mediathekview.mserver.crawler.basic.CrawlerUrlDTO;
+import de.mediathekview.mserver.crawler.basic.*;
 import de.mediathekview.mserver.crawler.ndr.NdrConstants;
 import de.mediathekview.mserver.crawler.ndr.parser.NdrFilmDeserializer;
-import de.mediathekview.mserver.crawler.basic.FilmInfoDto;
+import org.apache.commons.lang3.StringUtils;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.jsoup.nodes.Document;
+
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.MalformedURLException;
@@ -25,11 +28,6 @@ import java.util.Map.Entry;
 import java.util.Optional;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentLinkedQueue;
-import mServer.crawler.CrawlerTool;
-import org.apache.commons.lang3.StringUtils;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-import org.jsoup.nodes.Document;
 
 public class NdrSendungsfolgedetailsTask extends AbstractDocumentTask<Film, CrawlerUrlDTO> {
 
@@ -39,14 +37,15 @@ public class NdrSendungsfolgedetailsTask extends AbstractDocumentTask<Film, Craw
   private final NdrFilmDeserializer filmDetailDeserializer;
   private final Gson gson;
 
-  public NdrSendungsfolgedetailsTask(final AbstractCrawler aCrawler,
-      final ConcurrentLinkedQueue<CrawlerUrlDTO> aUrlToCrawlDtos) {
+  public NdrSendungsfolgedetailsTask(
+      final AbstractCrawler aCrawler, final ConcurrentLinkedQueue<CrawlerUrlDTO> aUrlToCrawlDtos) {
     super(aCrawler, aUrlToCrawlDtos);
 
     filmDetailDeserializer = new NdrFilmDeserializer();
-    gson = new GsonBuilder()
-        .registerTypeAdapter(ArdVideoInfoDto.class, new ArdVideoInfoJsonDeserializer(crawler))
-        .create();
+    gson =
+        new GsonBuilder()
+            .registerTypeAdapter(ArdVideoInfoDto.class, new ArdVideoInfoJsonDeserializer(crawler))
+            .create();
   }
 
   @Override
@@ -60,17 +59,20 @@ public class NdrSendungsfolgedetailsTask extends AbstractDocumentTask<Film, Craw
 
     final Optional<FilmInfoDto> filmInfo = filmDetailDeserializer.deserialize(aUrlDto, aDocument);
     if (filmInfo.isPresent()) {
-      FilmInfoDto filmInfoDto = filmInfo.get();
+      final FilmInfoDto filmInfoDto = filmInfo.get();
       try {
-        final ArdVideoInfoDto videoInfo
-            = gson.fromJson(new InputStreamReader(new URL(filmInfoDto.getUrl()).openStream(), StandardCharsets.UTF_8),
-            ArdVideoInfoDto.class);
+        final ArdVideoInfoDto videoInfo =
+            gson.fromJson(
+                new InputStreamReader(
+                    new URL(filmInfoDto.getUrl()).openStream(), StandardCharsets.UTF_8),
+                ArdVideoInfoDto.class);
         if (videoInfo.getSubtitleUrl() != null) {
-          videoInfo.setSubtitleUrl(UrlUtils.addDomainIfMissing(videoInfo.getSubtitleUrl(), NdrConstants.URL_BASE));
+          videoInfo.setSubtitleUrl(
+              UrlUtils.addDomainIfMissing(videoInfo.getSubtitleUrl(), NdrConstants.URL_BASE));
         }
 
         if (!videoInfo.getVideoUrls().isEmpty()) {
-          Film film = createFilm(filmInfoDto, videoInfo);
+          final Film film = createFilm(filmInfoDto, videoInfo);
           taskResults.add(film);
           crawler.incrementAndGetActualCount();
           crawler.updateProgress();
@@ -80,8 +82,9 @@ public class NdrSendungsfolgedetailsTask extends AbstractDocumentTask<Film, Craw
           crawler.updateProgress();
         }
 
-      } catch (IOException e) {
-        LOG.error("NdrSendungsfolgedetailsTask: error reading video infos " + filmInfoDto.getUrl(), e);
+      } catch (final IOException e) {
+        LOG.error(
+            "NdrSendungsfolgedetailsTask: error reading video infos " + filmInfoDto.getUrl(), e);
         crawler.incrementAndGetErrorCount();
         crawler.updateProgress();
       }
@@ -93,12 +96,20 @@ public class NdrSendungsfolgedetailsTask extends AbstractDocumentTask<Film, Craw
     }
   }
 
-  private Film createFilm(final FilmInfoDto aFilmInfoDto, final ArdVideoInfoDto aVideoInfoDto) throws MalformedURLException {
-    final Film film = new Film(UUID.randomUUID(), Sender.NDR, aFilmInfoDto.getTitle(),
-        aFilmInfoDto.getTopic(), aFilmInfoDto.getTime(), aFilmInfoDto.getDuration());
+  private Film createFilm(final FilmInfoDto aFilmInfoDto, final ArdVideoInfoDto aVideoInfoDto)
+      throws MalformedURLException {
+    final Film film =
+        new Film(
+            UUID.randomUUID(),
+            Sender.NDR,
+            aFilmInfoDto.getTitle(),
+            aFilmInfoDto.getTopic(),
+            aFilmInfoDto.getTime(),
+            aFilmInfoDto.getDuration());
 
     film.setBeschreibung(aFilmInfoDto.getDescription());
-    film.setGeoLocations(CrawlerTool.getGeoLocations(Sender.NDR, aVideoInfoDto.getDefaultVideoUrl()));
+    film.setGeoLocations(
+        GeoLocationGuesser.getGeoLocations(Sender.NDR, aVideoInfoDto.getDefaultVideoUrl()));
     film.setWebsite(new URL(aFilmInfoDto.getWebsite()));
     if (StringUtils.isNotBlank(aVideoInfoDto.getSubtitleUrl())) {
       film.addSubtitle(new URL(aVideoInfoDto.getSubtitleUrl()));
@@ -110,7 +121,7 @@ public class NdrSendungsfolgedetailsTask extends AbstractDocumentTask<Film, Craw
   private void addUrls(final Film aFilm, final Map<Resolution, String> aVideoUrls)
       throws MalformedURLException {
     for (final Entry<Resolution, String> qualitiesEntry : aVideoUrls.entrySet()) {
-      aFilm.addUrl(qualitiesEntry.getKey(), CrawlerTool.stringToFilmUrl(qualitiesEntry.getValue()));
+      aFilm.addUrl(qualitiesEntry.getKey(), new FilmUrl(qualitiesEntry.getValue()));
     }
   }
 }

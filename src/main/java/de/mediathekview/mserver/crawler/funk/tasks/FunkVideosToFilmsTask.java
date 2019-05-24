@@ -2,17 +2,13 @@ package de.mediathekview.mserver.crawler.funk.tasks;
 
 import com.google.gson.JsonDeserializer;
 import com.google.gson.reflect.TypeToken;
-import de.mediathekview.mlib.daten.Film;
-import de.mediathekview.mlib.daten.GeoLocations;
-import de.mediathekview.mlib.daten.Resolution;
-import de.mediathekview.mlib.daten.Sender;
+import de.mediathekview.mlib.daten.*;
 import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
 import de.mediathekview.mserver.crawler.basic.AbstractJsonRestTask;
 import de.mediathekview.mserver.crawler.basic.FilmInfoDto;
 import de.mediathekview.mserver.crawler.basic.FilmUrlInfoDto;
 import de.mediathekview.mserver.crawler.funk.FunkChannelDTO;
 import de.mediathekview.mserver.crawler.funk.json.NexxCloudVideoDetailsDeserializer;
-import mServer.crawler.CrawlerTool;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.glassfish.jersey.internal.util.collection.MultivaluedStringMap;
@@ -114,7 +110,7 @@ public class FunkVideosToFilmsTask
   private void addIfResolutionMissing(final FilmUrlInfoDto details, final Film film) {
     final Resolution resolution = Resolution.getResolutionFromWidth(details.getWidth());
     try {
-      film.addUrlIfAbsent(resolution, CrawlerTool.stringToFilmUrl(details.getUrl()));
+      film.addUrlIfAbsent(resolution, new FilmUrl(details.getUrl()));
     } catch (final MalformedURLException malformedURLException) {
       LOG.error("Invalid Funk Video Url: " + details.getUrl(), malformedURLException);
     }

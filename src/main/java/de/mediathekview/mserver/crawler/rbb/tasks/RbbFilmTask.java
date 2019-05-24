@@ -3,16 +3,19 @@ package de.mediathekview.mserver.crawler.rbb.tasks;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import de.mediathekview.mlib.daten.Film;
+import de.mediathekview.mlib.daten.FilmUrl;
 import de.mediathekview.mlib.daten.Resolution;
 import de.mediathekview.mlib.daten.Sender;
+import de.mediathekview.mserver.base.utils.GeoLocationGuesser;
 import de.mediathekview.mserver.crawler.ard.json.ArdVideoInfoDto;
 import de.mediathekview.mserver.crawler.ard.json.ArdVideoInfoJsonDeserializer;
-import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
-import de.mediathekview.mserver.crawler.basic.AbstractDocumentTask;
-import de.mediathekview.mserver.crawler.basic.AbstractRecrusivConverterTask;
-import de.mediathekview.mserver.crawler.basic.CrawlerUrlDTO;
+import de.mediathekview.mserver.crawler.basic.*;
 import de.mediathekview.mserver.crawler.rbb.parser.RbbFilmDetailDeserializer;
-import de.mediathekview.mserver.crawler.basic.FilmInfoDto;
+import org.apache.commons.lang3.StringUtils;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.jsoup.nodes.Document;
+
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.MalformedURLException;
@@ -23,11 +26,6 @@ import java.util.Map.Entry;
 import java.util.Optional;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentLinkedQueue;
-import mServer.crawler.CrawlerTool;
-import org.apache.commons.lang3.StringUtils;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-import org.jsoup.nodes.Document;
 
 public class RbbFilmTask extends AbstractDocumentTask<Film, CrawlerUrlDTO> {
 
@@ -37,35 +35,39 @@ public class RbbFilmTask extends AbstractDocumentTask<Film, CrawlerUrlDTO> {
   private final Gson gson;
   private final String baseUrl;
 
-  public RbbFilmTask(AbstractCrawler aCrawler,
-      ConcurrentLinkedQueue<CrawlerUrlDTO> aUrlToCrawlDtos,
+  public RbbFilmTask(
+      final AbstractCrawler aCrawler,
+      final ConcurrentLinkedQueue<CrawlerUrlDTO> aUrlToCrawlDtos,
       final String aBaseUrl) {
     super(aCrawler, aUrlToCrawlDtos);
 
     baseUrl = aBaseUrl;
     filmDetailDeserializer = new RbbFilmDetailDeserializer(baseUrl);
-    gson = new GsonBuilder()
-        .registerTypeAdapter(ArdVideoInfoDto.class, new ArdVideoInfoJsonDeserializer(crawler))
-        .create();
+    gson =
+        new GsonBuilder()
+            .registerTypeAdapter(ArdVideoInfoDto.class, new ArdVideoInfoJsonDeserializer(crawler))
+            .create();
   }
 
   @Override
-  protected void processDocument(CrawlerUrlDTO aUrlDto, Document aDocument) {
+  protected void processDocument(final CrawlerUrlDTO aUrlDto, final Document aDocument) {
 
     final Optional<FilmInfoDto> filmInfo = filmDetailDeserializer.deserialize(aUrlDto, aDocument);
     if (filmInfo.isPresent()) {
-      FilmInfoDto filmInfoDto = filmInfo.get();
+      final FilmInfoDto filmInfoDto = filmInfo.get();
       try {
-        final ArdVideoInfoDto videoInfo
-            = gson.fromJson(new InputStreamReader(new URL(filmInfoDto.getUrl()).openStream(), StandardCharsets.UTF_8),
-            ArdVideoInfoDto.class);
+        final ArdVideoInfoDto videoInfo =
+            gson.fromJson(
+                new InputStreamReader(
+                    new URL(filmInfoDto.getUrl()).openStream(), StandardCharsets.UTF_8),
+                ArdVideoInfoDto.class);
 
-        Film film = createFilm(filmInfoDto, videoInfo);
+        final Film film = createFilm(filmInfoDto, videoInfo);
         taskResults.add(film);
         crawler.incrementAndGetActualCount();
         crawler.updateProgress();
 
-      } catch (IOException e) {
+      } catch (final IOException e) {
         LOG.error("RbbFilmTask: error reading video infos " + filmInfoDto.getUrl(), e);
         crawler.incrementAndGetErrorCount();
         crawler.updateProgress();
@@ -80,18 +82,26 @@ public class RbbFilmTask extends AbstractDocumentTask<Film, CrawlerUrlDTO> {
 
   @Override
   protected AbstractRecrusivConverterTask<Film, CrawlerUrlDTO> createNewOwnInstance(
-      ConcurrentLinkedQueue<CrawlerUrlDTO> aElementsToProcess) {
+      final ConcurrentLinkedQueue<CrawlerUrlDTO> aElementsToProcess) {
     return new RbbFilmTask(crawler, aElementsToProcess, baseUrl);
   }
 
-  private Film createFilm(final FilmInfoDto aFilmInfoDto, final ArdVideoInfoDto aVideoInfoDto) throws MalformedURLException {
-    final Film film = new Film(UUID.randomUUID(), Sender.RBB, aFilmInfoDto.getTitle(),
-        aFilmInfoDto.getTopic(), aFilmInfoDto.getTime(), aFilmInfoDto.getDuration());
+  private Film createFilm(final FilmInfoDto aFilmInfoDto, final ArdVideoInfoDto aVideoInfoDto)
+      throws MalformedURLException {
+    final Film film =
+        new Film(
+            UUID.randomUUID(),
+            Sender.RBB,
+            aFilmInfoDto.getTitle(),
+            aFilmInfoDto.getTopic(),
+            aFilmInfoDto.getTime(),
+            aFilmInfoDto.getDuration());
 
     film.setBeschreibung(aFilmInfoDto.getDescription());
     try {
-      film.setGeoLocations(CrawlerTool.getGeoLocations(Sender.RBB, aVideoInfoDto.getDefaultVideoUrl()));
-    } catch(NullPointerException e) {
+      film.setGeoLocations(
+          GeoLocationGuesser.getGeoLocations(Sender.RBB, aVideoInfoDto.getDefaultVideoUrl()));
+    } catch (final NullPointerException e) {
       e.printStackTrace();
     }
     film.setWebsite(new URL(aFilmInfoDto.getWebsite()));
@@ -105,7 +115,7 @@ public class RbbFilmTask extends AbstractDocumentTask<Film, CrawlerUrlDTO> {
   private void addUrls(final Film aFilm, final Map<Resolution, String> aVideoUrls)
       throws MalformedURLException {
     for (final Entry<Resolution, String> qualitiesEntry : aVideoUrls.entrySet()) {
-      aFilm.addUrl(qualitiesEntry.getKey(), CrawlerTool.stringToFilmUrl(qualitiesEntry.getValue()));
+      aFilm.addUrl(qualitiesEntry.getKey(), new FilmUrl(qualitiesEntry.getValue()));
     }
   }
 }

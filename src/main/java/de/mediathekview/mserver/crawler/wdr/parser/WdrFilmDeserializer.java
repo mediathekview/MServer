@@ -4,9 +4,11 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import de.mediathekview.mlib.daten.Film;
+import de.mediathekview.mlib.daten.FilmUrl;
 import de.mediathekview.mlib.daten.Resolution;
 import de.mediathekview.mlib.daten.Sender;
 import de.mediathekview.mlib.tool.MVHttpClient;
+import de.mediathekview.mserver.base.utils.GeoLocationGuesser;
 import de.mediathekview.mserver.base.utils.HtmlDocumentUtils;
 import de.mediathekview.mserver.crawler.basic.CrawlerUrlDTO;
 import de.mediathekview.mserver.crawler.basic.M3U8Dto;
@@ -14,7 +16,6 @@ import de.mediathekview.mserver.crawler.basic.M3U8Parser;
 import de.mediathekview.mserver.crawler.basic.TopicUrlDTO;
 import de.mediathekview.mserver.crawler.wdr.WdrMediaDto;
 import de.mediathekview.mserver.crawler.wdr.WdrVideoInfoDto;
-import mServer.crawler.CrawlerTool;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import org.apache.commons.lang3.StringUtils;
@@ -93,19 +94,17 @@ public class WdrFilmDeserializer {
 
     Map<Resolution, String> videoUrls = aVideoInfo.getVideoUrls();
     for (final Map.Entry<Resolution, String> qualitiesEntry : videoUrls.entrySet()) {
-      aFilm.addUrl(qualitiesEntry.getKey(), CrawlerTool.stringToFilmUrl(qualitiesEntry.getValue()));
+      aFilm.addUrl(qualitiesEntry.getKey(), new FilmUrl(qualitiesEntry.getValue()));
     }
 
     videoUrls = aVideoInfo.getAudioDescriptionUrls();
     for (final Map.Entry<Resolution, String> qualitiesEntry : videoUrls.entrySet()) {
-      aFilm.addAudioDescription(
-          qualitiesEntry.getKey(), CrawlerTool.stringToFilmUrl(qualitiesEntry.getValue()));
+      aFilm.addAudioDescription(qualitiesEntry.getKey(), new FilmUrl(qualitiesEntry.getValue()));
     }
 
     videoUrls = aVideoInfo.getSignLanguageUrls();
     for (final Map.Entry<Resolution, String> qualitiesEntry : videoUrls.entrySet()) {
-      aFilm.addSignLanguage(
-          qualitiesEntry.getKey(), CrawlerTool.stringToFilmUrl(qualitiesEntry.getValue()));
+      aFilm.addSignLanguage(qualitiesEntry.getKey(), new FilmUrl(qualitiesEntry.getValue()));
     }
   }
 
@@ -191,7 +190,8 @@ public class WdrFilmDeserializer {
         }
 
         addUrls(film, videoInfo);
-        film.setGeoLocations(CrawlerTool.getGeoLocations(sender, videoInfo.getDefaultVideoUrl()));
+        film.setGeoLocations(
+            GeoLocationGuesser.getGeoLocations(sender, videoInfo.getDefaultVideoUrl()));
 
         return Optional.of(film);
 
@@ -236,7 +236,7 @@ public class WdrFilmDeserializer {
     final Map<Resolution, String> urlMap = parseM3U8Url(aMediaDto.getUrl());
     if (!urlMap.isEmpty()) {
       final WdrVideoInfoDto videoInfoDto = new WdrVideoInfoDto();
-      urlMap.forEach((key, value) -> videoInfoDto.putVideo(key, value));
+      urlMap.forEach(videoInfoDto::putVideo);
 
       if (aMediaDto.getSubtitle().isPresent()) {
         videoInfoDto.setSubtitleUrl(aMediaDto.getSubtitle().get());
@@ -245,12 +245,12 @@ public class WdrFilmDeserializer {
       if (aMediaDto.getAudioDescriptionUrl().isPresent()) {
         final Map<Resolution, String> adUrlMap =
             parseM3U8Url(aMediaDto.getAudioDescriptionUrl().get());
-        adUrlMap.forEach((key, value) -> videoInfoDto.putAudioDescription(key, value));
+        adUrlMap.forEach(videoInfoDto::putAudioDescription);
       }
 
       if (aMediaDto.getSignLanguageUrl().isPresent()) {
         final Map<Resolution, String> slUrlMap = parseM3U8Url(aMediaDto.getSignLanguageUrl().get());
-        slUrlMap.forEach((key, value) -> videoInfoDto.putSignLanguage(key, value));
+        slUrlMap.forEach(videoInfoDto::putSignLanguage);
       }
 
       return Optional.of(videoInfoDto);
@@ -298,9 +298,7 @@ public class WdrFilmDeserializer {
     m3u8Data.forEach(
         entry -> {
           final Optional<Resolution> resolution = entry.getResolution();
-          if (resolution.isPresent()) {
-            urlMap.put(resolution.get(), entry.getUrl());
-          }
+          resolution.ifPresent(value -> urlMap.put(value, entry.getUrl()));
         });
 
     return urlMap;

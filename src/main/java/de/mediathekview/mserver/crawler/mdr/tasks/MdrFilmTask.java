@@ -1,15 +1,16 @@
 package de.mediathekview.mserver.crawler.mdr.tasks;
 
 import de.mediathekview.mlib.daten.Film;
+import de.mediathekview.mlib.daten.FilmUrl;
 import de.mediathekview.mlib.daten.Resolution;
 import de.mediathekview.mlib.daten.Sender;
+import de.mediathekview.mserver.base.utils.GeoLocationGuesser;
 import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
 import de.mediathekview.mserver.crawler.basic.AbstractDocumentTask;
 import de.mediathekview.mserver.crawler.basic.AbstractRecrusivConverterTask;
 import de.mediathekview.mserver.crawler.basic.CrawlerUrlDTO;
 import de.mediathekview.mserver.crawler.mdr.parser.MdrFilmPageDeserializer;
 import de.mediathekview.mserver.crawler.mdr.parser.MdrFilmXmlHandler;
-import mServer.crawler.CrawlerTool;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -111,7 +112,8 @@ public class MdrFilmTask extends AbstractDocumentTask<Film, CrawlerUrlDTO> {
     film.setBeschreibung(aFilmXmlHandler.getDescription());
     try {
       film.setGeoLocations(
-          CrawlerTool.getGeoLocations(Sender.MDR, aFilmXmlHandler.getVideoUrl(Resolution.NORMAL)));
+          GeoLocationGuesser.getGeoLocations(
+              Sender.MDR, aFilmXmlHandler.getVideoUrl(Resolution.NORMAL)));
     } catch (final NullPointerException e) {
       LOG.error(e);
     }
@@ -132,7 +134,7 @@ public class MdrFilmTask extends AbstractDocumentTask<Film, CrawlerUrlDTO> {
       throws MalformedURLException {
     final String videoUrl = aFilmXmlHandler.getVideoUrl(aResolution);
     if (StringUtils.isNotBlank(videoUrl)) {
-      aFilm.addUrl(aResolution, CrawlerTool.stringToFilmUrl(videoUrl));
+      aFilm.addUrl(aResolution, new FilmUrl(videoUrl));
     }
   }
 }

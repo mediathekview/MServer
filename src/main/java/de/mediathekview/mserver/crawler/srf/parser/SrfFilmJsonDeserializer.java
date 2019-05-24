@@ -1,11 +1,8 @@
 package de.mediathekview.mserver.crawler.srf.parser;
 
-import com.google.gson.JsonArray;
-import com.google.gson.JsonDeserializationContext;
-import com.google.gson.JsonDeserializer;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
+import com.google.gson.*;
 import de.mediathekview.mlib.daten.Film;
+import de.mediathekview.mlib.daten.FilmUrl;
 import de.mediathekview.mlib.daten.Resolution;
 import de.mediathekview.mlib.daten.Sender;
 import de.mediathekview.mlib.tool.MVHttpClient;
@@ -14,6 +11,11 @@ import de.mediathekview.mserver.crawler.basic.M3U8Constants;
 import de.mediathekview.mserver.crawler.basic.M3U8Dto;
 import de.mediathekview.mserver.crawler.basic.M3U8Parser;
 import de.mediathekview.mserver.crawler.srf.SrfConstants;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
+import org.apache.logging.log4j.LogManager;
+
 import java.lang.reflect.Type;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -21,20 +23,12 @@ import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
-import java.util.EnumMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
-import java.util.UUID;
-import mServer.crawler.CrawlerTool;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.Response;
-import org.apache.logging.log4j.LogManager;
+import java.util.*;
 
 public class SrfFilmJsonDeserializer implements JsonDeserializer<Optional<Film>> {
 
-  private static final org.apache.logging.log4j.Logger LOG = LogManager.getLogger(SrfFilmJsonDeserializer.class);
+  private static final org.apache.logging.log4j.Logger LOG =
+      LogManager.getLogger(SrfFilmJsonDeserializer.class);
 
   private static final String ATTRIBUTE_DESCRIPTION = "description";
   private static final String ATTRIBUTE_DURATION = "duration";
@@ -57,80 +51,63 @@ public class SrfFilmJsonDeserializer implements JsonDeserializer<Optional<Film>>
 
   private final AbstractCrawler crawler;
 
-  public SrfFilmJsonDeserializer(AbstractCrawler aCrawler) {
+  public SrfFilmJsonDeserializer(final AbstractCrawler aCrawler) {
     crawler = aCrawler;
   }
 
-  @Override
-  public Optional<Film> deserialize(JsonElement aJsonElement, Type aType, JsonDeserializationContext aContext) {
-
-    JsonObject object = aJsonElement.getAsJsonObject();
-    String theme = parseShow(object);
-    EpisodeData episodeData = parseEpisode(object);
-    ChapterListData chapterList = parseChapterList(object);
-
-    if (chapterList.videoUrl.equals("")) {
-      return Optional.empty();
-    }
-
-    Map<Resolution, String> videoUrls = readUrls(chapterList.videoUrl);
-    if (videoUrls.isEmpty()) {
-      return Optional.empty();
-    }
-
-    Film film = new Film(UUID.randomUUID(), Sender.SRF, episodeData.title, theme, episodeData.publishDate, chapterList.duration);
-    film.setBeschreibung(chapterList.description);
-    film.setWebsite(buildWebsiteUrl(chapterList.id, episodeData.title, theme));
-    addUrls(videoUrls, film);
-    addSubtitle(chapterList.subtitleUrl, film);
-
-    return Optional.of(film);
-  }
-
-  private static void addSubtitle(String aSubtitleUrl, Film aFilm) {
+  private static void addSubtitle(final String aSubtitleUrl, final Film aFilm) {
     if (!aSubtitleUrl.isEmpty()) {
       try {
         aFilm.addSubtitle(new URL(aSubtitleUrl));
-      } catch (MalformedURLException ex) {
+      } catch (final MalformedURLException ex) {
         LOG.error(String.format("A subtitle URL \"%s\" isn't valid.", aSubtitleUrl), ex);
       }
     }
   }
 
-  private static void addUrls(Map<Resolution, String> aVideoUrls, Film aFilm) {
-    aVideoUrls.forEach((key, value) -> {
-      try {
-        aFilm.addUrl(key, CrawlerTool.uriToFilmUrl(new URL(value)));
-      } catch (MalformedURLException ex) {
-        LOG.error(String.format("A found download URL \"%s\" isn't valid.", value), ex);
-      }
-    });
+  private static void addUrls(final Map<Resolution, String> aVideoUrls, final Film aFilm) {
+    aVideoUrls.forEach(
+        (key, value) -> {
+          try {
+            aFilm.addUrl(key, new FilmUrl(value));
+          } catch (final MalformedURLException ex) {
+            LOG.error(String.format("A found download URL \"%s\" isn't valid.", value), ex);
+          }
+        });
   }
 
-  private static Optional<URL> buildWebsiteUrl(String aId, String aTitle, String aTheme) {
+  private static Optional<URL> buildWebsiteUrl(
+      final String aId, final String aTitle, final String aTheme) {
 
-    String url = String.format(SrfConstants.WEBSITE_URL,
-        replaceCharForUrl(aTheme), replaceCharForUrl(aTitle), aId);
+    final String url =
+        String.format(
+            SrfConstants.WEBSITE_URL, replaceCharForUrl(aTheme), replaceCharForUrl(aTitle), aId);
 
     try {
       return Optional.of(new URL(url));
-    } catch (MalformedURLException ex) {
+    } catch (final MalformedURLException ex) {
       LOG.error(String.format("The website url \"%s\" isn't valid.", url), ex);
     }
 
     return Optional.empty();
   }
 
-  private static String replaceCharForUrl(String aValue) {
-    return aValue.toLowerCase().replace(' ', '-').replace('.', '-').replace(',', '-').replace(":", "").replace("\"", "")
+  private static String replaceCharForUrl(final String aValue) {
+    return aValue
+        .toLowerCase()
+        .replace(' ', '-')
+        .replace('.', '-')
+        .replace(',', '-')
+        .replace(":", "")
+        .replace("\"", "")
         .replace("--", "-");
   }
 
-  private static String parseShow(JsonObject aJsonObject) {
+  private static String parseShow(final JsonObject aJsonObject) {
     if (aJsonObject.has(ELEMENT_SHOW)) {
-      JsonElement showElement = aJsonObject.get(ELEMENT_SHOW);
+      final JsonElement showElement = aJsonObject.get(ELEMENT_SHOW);
       if (!showElement.isJsonNull()) {
-        JsonObject showObject = showElement.getAsJsonObject();
+        final JsonObject showObject = showElement.getAsJsonObject();
         if (showObject.has(ATTRIBUTE_TITLE)) {
           return showObject.get(ATTRIBUTE_TITLE).getAsString();
         }
@@ -140,21 +117,134 @@ public class SrfFilmJsonDeserializer implements JsonDeserializer<Optional<Film>>
     return "";
   }
 
-  private EpisodeData parseEpisode(JsonObject aJsonObject) {
-    EpisodeData result = new EpisodeData();
+  private static String parseSubtitleList(final JsonElement aSubtitleListElement) {
+    if (!aSubtitleListElement.isJsonArray()) {
+      return "";
+    }
+
+    final JsonArray subtitleArray = aSubtitleListElement.getAsJsonArray();
+    for (final JsonElement arrayItemElement : subtitleArray) {
+      if (!arrayItemElement.isJsonNull()) {
+        final JsonObject arrayItemObject = arrayItemElement.getAsJsonObject();
+
+        if (arrayItemObject.has(ATTRIBUTE_FORMAT)
+            && arrayItemObject.has(ATTRIBUTE_URL)
+            && arrayItemObject.get(ATTRIBUTE_FORMAT).getAsString().equals(SUBTITLE_FORMAT)) {
+          return arrayItemObject.get(ATTRIBUTE_URL).getAsString();
+        }
+      }
+    }
+
+    return "";
+  }
+
+  private static String parseResourceList(final JsonElement aResourceListElement) {
+    if (!aResourceListElement.isJsonArray()) {
+      return "";
+    }
+
+    String url = "";
+
+    final JsonArray resourceArray = aResourceListElement.getAsJsonArray();
+    for (final JsonElement arrayItemElement : resourceArray) {
+      if (!arrayItemElement.isJsonNull()) {
+        final JsonObject arrayItemObject = arrayItemElement.getAsJsonObject();
+
+        if (arrayItemObject.has(ATTRIBUTE_MIMETYPE)
+            && arrayItemObject.has(ATTRIBUTE_URL)
+            && arrayItemObject.get(ATTRIBUTE_MIMETYPE).getAsString().contains("x-mpegURL")) {
+          if (url.isEmpty()
+              || (arrayItemObject.has(ATTRIBUTE_QUALITY)
+                  && arrayItemObject.get(ATTRIBUTE_QUALITY).getAsString().compareToIgnoreCase("HD")
+                      == 0)) {
+            url = arrayItemObject.get(ATTRIBUTE_URL).getAsString();
+          }
+        }
+      }
+    }
+
+    return url;
+  }
+
+  private static Optional<Resolution> getResolution(final M3U8Dto aDto) {
+    final Optional<Resolution> resolution = aDto.getResolution();
+
+    if (!resolution.isPresent()) {
+      final Optional<String> codecMeta = aDto.getMeta(M3U8Constants.M3U8_CODECS);
+
+      // Codec muss "avcl" beinhalten, sonst ist es kein Video
+      if (codecMeta.isPresent() && !codecMeta.get().contains("avc1")) {
+        return Optional.empty();
+      }
+
+      final Optional<String> widthMeta = aDto.getMeta(M3U8Constants.M3U8_BANDWIDTH);
+
+      // Bandbreite verwenden
+      if (widthMeta.isPresent()) {
+        final int width = Integer.parseInt(widthMeta.get());
+
+        if (width <= 700000) {
+          return Optional.of(Resolution.SMALL);
+        } else if (width > 3000000) {
+          return Optional.of(Resolution.HD);
+        } else {
+          return Optional.of(Resolution.NORMAL);
+        }
+      }
+    }
+
+    return resolution;
+  }
+
+  @Override
+  public Optional<Film> deserialize(
+      final JsonElement aJsonElement, final Type aType, final JsonDeserializationContext aContext) {
+
+    final JsonObject object = aJsonElement.getAsJsonObject();
+    final String theme = parseShow(object);
+    final EpisodeData episodeData = parseEpisode(object);
+    final ChapterListData chapterList = parseChapterList(object);
+
+    if (chapterList.videoUrl.equals("")) {
+      return Optional.empty();
+    }
+
+    final Map<Resolution, String> videoUrls = readUrls(chapterList.videoUrl);
+    if (videoUrls.isEmpty()) {
+      return Optional.empty();
+    }
+
+    final Film film =
+        new Film(
+            UUID.randomUUID(),
+            Sender.SRF,
+            episodeData.title,
+            theme,
+            episodeData.publishDate,
+            chapterList.duration);
+    film.setBeschreibung(chapterList.description);
+    film.setWebsite(buildWebsiteUrl(chapterList.id, episodeData.title, theme));
+    addUrls(videoUrls, film);
+    addSubtitle(chapterList.subtitleUrl, film);
+
+    return Optional.of(film);
+  }
+
+  private EpisodeData parseEpisode(final JsonObject aJsonObject) {
+    final EpisodeData result = new EpisodeData();
 
     if (aJsonObject.has(ELEMENT_EPISODE)) {
-      JsonElement episodeElement = aJsonObject.get(ELEMENT_EPISODE);
+      final JsonElement episodeElement = aJsonObject.get(ELEMENT_EPISODE);
 
       if (!episodeElement.isJsonNull()) {
-        JsonObject episodeObject = episodeElement.getAsJsonObject();
+        final JsonObject episodeObject = episodeElement.getAsJsonObject();
 
         if (episodeObject.has(ATTRIBUTE_TITLE)) {
           result.title = episodeObject.get(ATTRIBUTE_TITLE).getAsString();
         }
 
         if (episodeObject.has(ATTRIBUTE_PUBLISHED_DATE)) {
-          String date = episodeObject.get(ATTRIBUTE_PUBLISHED_DATE).getAsString();
+          final String date = episodeObject.get(ATTRIBUTE_PUBLISHED_DATE).getAsString();
           result.publishDate = LocalDateTime.parse(date, DateTimeFormatter.ISO_OFFSET_DATE_TIME);
         }
       }
@@ -163,30 +253,30 @@ public class SrfFilmJsonDeserializer implements JsonDeserializer<Optional<Film>>
     return result;
   }
 
-  private ChapterListData parseChapterList(JsonObject aJsonObject) {
-    ChapterListData result = new ChapterListData();
+  private ChapterListData parseChapterList(final JsonObject aJsonObject) {
+    final ChapterListData result = new ChapterListData();
 
     if (!aJsonObject.has(ELEMENT_CHAPTER_LIST)) {
       return result;
     }
 
-    JsonElement chapterListElement = aJsonObject.get(ELEMENT_CHAPTER_LIST);
+    final JsonElement chapterListElement = aJsonObject.get(ELEMENT_CHAPTER_LIST);
     if (chapterListElement.isJsonNull()) {
       return result;
     }
 
-    JsonArray chapterListArray = chapterListElement.getAsJsonArray();
+    final JsonArray chapterListArray = chapterListElement.getAsJsonArray();
     if (chapterListArray.size() != 1) {
       return result;
     }
 
-    JsonObject chapterListEntry = chapterListArray.get(0).getAsJsonObject();
+    final JsonObject chapterListEntry = chapterListArray.get(0).getAsJsonObject();
     if (chapterListEntry.has(ATTRIBUTE_ID)) {
       result.id = chapterListEntry.get(ATTRIBUTE_ID).getAsString();
     }
 
     if (chapterListEntry.has(ATTRIBUTE_DURATION)) {
-      long duration = chapterListEntry.get(ATTRIBUTE_DURATION).getAsLong();
+      final long duration = chapterListEntry.get(ATTRIBUTE_DURATION).getAsLong();
       result.duration = Duration.of(duration, ChronoUnit.MILLIS);
     }
 
@@ -207,58 +297,8 @@ public class SrfFilmJsonDeserializer implements JsonDeserializer<Optional<Film>>
     return result;
   }
 
-  private static String parseSubtitleList(JsonElement aSubtitleListElement) {
-    if (!aSubtitleListElement.isJsonArray()) {
-      return "";
-    }
-
-    JsonArray subtitleArray = aSubtitleListElement.getAsJsonArray();
-    for (JsonElement arrayItemElement : subtitleArray) {
-      if (!arrayItemElement.isJsonNull()) {
-        JsonObject arrayItemObject = arrayItemElement.getAsJsonObject();
-
-        if (arrayItemObject.has(ATTRIBUTE_FORMAT)
-            && arrayItemObject.has(ATTRIBUTE_URL)
-            && arrayItemObject.get(ATTRIBUTE_FORMAT).getAsString().equals(SUBTITLE_FORMAT)) {
-          return arrayItemObject.get(ATTRIBUTE_URL).getAsString();
-        }
-      }
-    }
-
-    return "";
-  }
-
-  private static String parseResourceList(JsonElement aResourceListElement) {
-    if (!aResourceListElement.isJsonArray()) {
-      return "";
-    }
-
-    String url = "";
-
-    JsonArray resourceArray = aResourceListElement.getAsJsonArray();
-    for (JsonElement arrayItemElement : resourceArray) {
-      if (!arrayItemElement.isJsonNull()) {
-        JsonObject arrayItemObject = arrayItemElement.getAsJsonObject();
-
-        if (arrayItemObject.has(ATTRIBUTE_MIMETYPE)
-            && arrayItemObject.has(ATTRIBUTE_URL)
-            && arrayItemObject.get(ATTRIBUTE_MIMETYPE).getAsString().contains("x-mpegURL")) {
-          if (url.isEmpty()
-              ||
-              (arrayItemObject.has(ATTRIBUTE_QUALITY)
-                  && arrayItemObject.get(ATTRIBUTE_QUALITY).getAsString().compareToIgnoreCase("HD") == 0)) {
-            url = arrayItemObject.get(ATTRIBUTE_URL).getAsString();
-
-          }
-        }
-      }
-    }
-
-    return url;
-  }
-
-  private EnumMap readUrls(String aM3U8Url) {
-    EnumMap urls = new EnumMap(Resolution.class);
+  private EnumMap readUrls(final String aM3U8Url) {
+    final EnumMap urls = new EnumMap(Resolution.class);
     final String optimizedUrl = getOptimizedUrl(aM3U8Url);
 
     Optional<String> content = loadM3u8(optimizedUrl);
@@ -267,14 +307,15 @@ public class SrfFilmJsonDeserializer implements JsonDeserializer<Optional<Film>>
     }
 
     if (content.isPresent()) {
-      M3U8Parser parser = new M3U8Parser();
-      List<M3U8Dto> m3u8Data = parser.parse(content.get());
-      m3u8Data.forEach(entry -> {
-        Optional<Resolution> resolution = getResolution(entry);
-        if (resolution.isPresent()) {
-          urls.put(resolution.get(), entry.getUrl());
-        }
-      });
+      final M3U8Parser parser = new M3U8Parser();
+      final List<M3U8Dto> m3u8Data = parser.parse(content.get());
+      m3u8Data.forEach(
+          entry -> {
+            final Optional<Resolution> resolution = getResolution(entry);
+            if (resolution.isPresent()) {
+              urls.put(resolution.get(), entry.getUrl());
+            }
+          });
 
     } else {
       LOG.error(String.format("SrfFilmJsonDeserializer: Loading m3u8-url failed: %s", aM3U8Url));
@@ -285,61 +326,30 @@ public class SrfFilmJsonDeserializer implements JsonDeserializer<Optional<Film>>
     return urls;
   }
 
-  private Optional<String> loadM3u8(String aM3U8Url) {
+  private Optional<String> loadM3u8(final String aM3U8Url) {
 
-    MVHttpClient mvhttpClient = MVHttpClient.getInstance();
-    OkHttpClient httpClient = mvhttpClient.getHttpClient();
-    Request request = new Request.Builder()
-        .url(aM3U8Url).build();
+    final MVHttpClient mvhttpClient = MVHttpClient.getInstance();
+    final OkHttpClient httpClient = mvhttpClient.getHttpClient();
+    final Request request = new Request.Builder().url(aM3U8Url).build();
 
-    try (Response response = httpClient.newCall(request).execute()) {
+    try (final Response response = httpClient.newCall(request).execute()) {
       if (response.isSuccessful()) {
         return Optional.of(response.body().string());
       }
-    } catch (Exception e) {
+    } catch (final Exception e) {
       LOG.error(e);
     }
 
     return Optional.empty();
   }
 
-  private String getOptimizedUrl(String aM3U8Url) {
+  private String getOptimizedUrl(final String aM3U8Url) {
 
     if (!aM3U8Url.contains("q10,q20,q30,.mp4.csmil")) {
       return aM3U8Url;
     }
 
     return aM3U8Url.replace("q10,q20,q30,.mp4.csmil", "q10,q20,q30,q50,q60,.mp4.csmil");
-  }
-
-  private static Optional<Resolution> getResolution(M3U8Dto aDto) {
-    Optional<Resolution> resolution = aDto.getResolution();
-
-    if (!resolution.isPresent()) {
-      Optional<String> codecMeta = aDto.getMeta(M3U8Constants.M3U8_CODECS);
-
-      // Codec muss "avcl" beinhalten, sonst ist es kein Video
-      if (codecMeta.isPresent() && !codecMeta.get().contains("avc1")) {
-        return Optional.empty();
-      }
-
-      Optional<String> widthMeta = aDto.getMeta(M3U8Constants.M3U8_BANDWIDTH);
-
-      // Bandbreite verwenden
-      if (widthMeta.isPresent()) {
-        int width = Integer.parseInt(widthMeta.get());
-
-        if (width <= 700000) {
-          return Optional.of(Resolution.SMALL);
-        } else if (width > 3000000) {
-          return Optional.of(Resolution.HD);
-        } else {
-          return Optional.of(Resolution.NORMAL);
-        }
-      }
-    }
-
-    return resolution;
   }
 
   private class EpisodeData {

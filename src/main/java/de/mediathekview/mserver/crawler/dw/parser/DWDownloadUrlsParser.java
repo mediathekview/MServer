@@ -7,14 +7,13 @@ import com.google.gson.JsonObject;
 import de.mediathekview.mlib.daten.FilmUrl;
 import de.mediathekview.mlib.daten.Resolution;
 import de.mediathekview.mserver.base.utils.JsonUtils;
-import java.lang.reflect.Type;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.util.EnumMap;
-import java.util.Map;
-import mServer.crawler.CrawlerTool;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
+import java.lang.reflect.Type;
+import java.net.MalformedURLException;
+import java.util.EnumMap;
+import java.util.Map;
 
 public class DWDownloadUrlsParser implements JsonDeserializer<Map<Resolution, FilmUrl>> {
 
@@ -23,8 +22,8 @@ public class DWDownloadUrlsParser implements JsonDeserializer<Map<Resolution, Fi
   private static final String ELEMENT_FILE = "file";
 
   @Override
-  public Map<Resolution, FilmUrl> deserialize(final JsonElement aJsonElement, final Type aType,
-      final JsonDeserializationContext aContext) {
+  public Map<Resolution, FilmUrl> deserialize(
+      final JsonElement aJsonElement, final Type aType, final JsonDeserializationContext aContext) {
     final Map<Resolution, FilmUrl> urls = new EnumMap<>(Resolution.class);
 
     for (final JsonElement element : aJsonElement.getAsJsonArray()) {
@@ -33,7 +32,7 @@ public class DWDownloadUrlsParser implements JsonDeserializer<Map<Resolution, Fi
         final int height = elementObj.get(ELEMENT_LABEL).getAsInt();
         final String url = elementObj.get(ELEMENT_FILE).getAsString();
         try {
-          urls.put(getResolution(height), CrawlerTool.uriToFilmUrl(new URL(url)));
+          urls.put(getResolution(height), new FilmUrl(url));
         } catch (final MalformedURLException malformedUrlException) {
           LOG.error(String.format("A found download URL \"%s\" isn't valid.", url));
         }

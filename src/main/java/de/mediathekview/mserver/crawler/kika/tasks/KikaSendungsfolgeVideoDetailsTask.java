@@ -1,33 +1,12 @@
 package de.mediathekview.mserver.crawler.kika.tasks;
 
-import de.mediathekview.mlib.daten.Film;
-import de.mediathekview.mlib.daten.FilmUrl;
-import de.mediathekview.mlib.daten.GeoLocations;
-import de.mediathekview.mlib.daten.Resolution;
-import de.mediathekview.mlib.daten.Sender;
+import de.mediathekview.mlib.daten.*;
 import de.mediathekview.mserver.base.utils.DateUtils;
 import de.mediathekview.mserver.base.utils.HtmlDocumentUtils;
 import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
 import de.mediathekview.mserver.crawler.basic.AbstractUrlTask;
 import de.mediathekview.mserver.crawler.basic.CrawlerUrlDTO;
 import de.mediathekview.mserver.crawler.basic.FilmUrlInfoDto;
-import java.io.IOException;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.time.Duration;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Comparator;
-import java.util.Optional;
-import java.util.Set;
-import java.util.TreeSet;
-import java.util.UUID;
-import java.util.concurrent.ConcurrentLinkedQueue;
-import java.util.concurrent.TimeUnit;
-import mServer.crawler.CrawlerTool;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.jsoup.Jsoup;
@@ -35,6 +14,17 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.parser.Parser;
 import org.jsoup.select.Elements;
+
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.time.Duration;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.*;
+import java.util.concurrent.ConcurrentLinkedQueue;
+import java.util.concurrent.TimeUnit;
 
 public class KikaSendungsfolgeVideoDetailsTask extends AbstractUrlTask<Film, CrawlerUrlDTO> {
 
@@ -59,7 +49,7 @@ public class KikaSendungsfolgeVideoDetailsTask extends AbstractUrlTask<Film, Cra
   private void addFilmUrls(
       final Elements videoElements, final String thema, final String title, final Film newFilm) {
     final Set<FilmUrlInfoDto> urlInfos = parseVideoElements(videoElements);
-    for (FilmUrlInfoDto urlInfo : urlInfos) {
+    for (final FilmUrlInfoDto urlInfo : urlInfos) {
 
       if (!urlInfo.getUrl().isEmpty()
           && urlInfo.getFileType().isPresent()
@@ -67,9 +57,9 @@ public class KikaSendungsfolgeVideoDetailsTask extends AbstractUrlTask<Film, Cra
         final Resolution filmResolution = getResolutionFromWidth(urlInfo);
         try {
           if (newFilm.getUrl(filmResolution) == null) {
-            newFilm.addUrl(filmResolution, CrawlerTool.stringToFilmUrl(urlInfo.getUrl()));
+            newFilm.addUrl(filmResolution, new FilmUrl(urlInfo.getUrl()));
           }
-        } catch (MalformedURLException e) {
+        } catch (final MalformedURLException e) {
           LOG.debug(
               String.format(
                   "The download URL \"%s\" for the film \"%s - %s\" is not a valid URL.",
@@ -85,7 +75,7 @@ public class KikaSendungsfolgeVideoDetailsTask extends AbstractUrlTask<Film, Cra
         new TreeSet<>(Comparator.comparing(FilmUrlInfoDto::getWidth));
 
     for (final Element videoElement : aVideoElements) {
-      FilmUrlInfoDto urlInfo = parseVideoElement(videoElement);
+      final FilmUrlInfoDto urlInfo = parseVideoElement(videoElement);
       urlInfos.add(urlInfo);
     }
 
@@ -97,7 +87,7 @@ public class KikaSendungsfolgeVideoDetailsTask extends AbstractUrlTask<Film, Cra
     final Elements frameHeightNodes = aVideoElement.getElementsByTag("frameHeight");
     final Elements downloadUrlNodes = aVideoElement.getElementsByTag("progressiveDownloadUrl");
 
-    FilmUrlInfoDto info = new FilmUrlInfoDto(downloadUrlNodes.get(0).text());
+    final FilmUrlInfoDto info = new FilmUrlInfoDto(downloadUrlNodes.get(0).text());
     info.setResolution(
         Integer.parseInt(frameWidthNodes.get(0).text()),
         Integer.parseInt(frameHeightNodes.get(0).text()));
@@ -228,8 +218,8 @@ public class KikaSendungsfolgeVideoDetailsTask extends AbstractUrlTask<Film, Cra
     }
   }
 
-  private void addGeo(Film newFilm) {
-    Optional<FilmUrl> url = newFilm.getDefaultUrl();
+  private void addGeo(final Film newFilm) {
+    final Optional<FilmUrl> url = newFilm.getDefaultUrl();
     if (!url.isPresent()) {
       return;
     }

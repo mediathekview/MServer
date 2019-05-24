@@ -6,13 +6,13 @@ import com.google.gson.reflect.TypeToken;
 import de.mediathekview.mlib.daten.Film;
 import de.mediathekview.mlib.daten.FilmUrl;
 import de.mediathekview.mlib.daten.Resolution;
+import de.mediathekview.mserver.base.utils.GeoLocationGuesser;
 import de.mediathekview.mserver.base.utils.HtmlDocumentUtils;
 import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
 import de.mediathekview.mserver.crawler.basic.AbstractDocumentTask;
 import de.mediathekview.mserver.crawler.basic.AbstractUrlTask;
 import de.mediathekview.mserver.crawler.basic.CrawlerUrlDTO;
 import de.mediathekview.mserver.crawler.dw.parser.DWDownloadUrlsParser;
-import mServer.crawler.CrawlerTool;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.jsoup.nodes.Document;
@@ -74,7 +74,7 @@ public class DWFilmDetailsTask extends AbstractDocumentTask<Film, CrawlerUrlDTO>
 
     try {
       if (fileName.isPresent()) {
-        film.addUrl(Resolution.SMALL, CrawlerTool.uriToFilmUrl(new URL(fileName.get())));
+        film.addUrl(Resolution.SMALL, new FilmUrl(fileName.get()));
       }
 
       final WebTarget target = ClientBuilder.newClient().target(new URL(downloadUrl).toString());
@@ -153,10 +153,11 @@ public class DWFilmDetailsTask extends AbstractDocumentTask<Film, CrawlerUrlDTO>
       addDownloadUrls(aUrlDTO, fileName, newFilm);
 
       final Optional<FilmUrl> defaultUrl = newFilm.getDefaultUrl();
-      if (defaultUrl.isPresent()) {
-        newFilm.setGeoLocations(
-            CrawlerTool.getGeoLocations(crawler.getSender(), defaultUrl.get().getUrl().toString()));
-      }
+      defaultUrl.ifPresent(
+          filmUrl ->
+              newFilm.setGeoLocations(
+                  GeoLocationGuesser.getGeoLocations(
+                      crawler.getSender(), filmUrl.getUrl().toString())));
 
       taskResults.add(newFilm);
       crawler.incrementAndGetActualCount();

@@ -1,17 +1,17 @@
 package de.mediathekview.mserver.crawler.swr.parser;
 
-import com.google.gson.JsonArray;
-import com.google.gson.JsonDeserializationContext;
-import com.google.gson.JsonDeserializer;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
+import com.google.gson.*;
 import de.mediathekview.mlib.daten.Film;
+import de.mediathekview.mlib.daten.FilmUrl;
 import de.mediathekview.mlib.daten.Resolution;
 import de.mediathekview.mlib.daten.Sender;
 import de.mediathekview.mserver.base.utils.JsonUtils;
 import de.mediathekview.mserver.base.utils.UrlUtils;
 import de.mediathekview.mserver.crawler.swr.SwrConstants;
 import de.mediathekview.mserver.crawler.swr.SwrUrlOptimizer;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import java.lang.reflect.Type;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -23,9 +23,6 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Optional;
 import java.util.UUID;
-import mServer.crawler.CrawlerTool;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 public class SwrFilmDeserializer implements JsonDeserializer<Optional<Film>> {
 
@@ -52,11 +49,13 @@ public class SwrFilmDeserializer implements JsonDeserializer<Optional<Film>> {
   private static final String VIDEO_ENTRY_QUALITY_NORMAL = "3";
   private static final String VIDEO_ENTRY_QUALITY_HD = "4";
 
-  private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("yyyyMMddHHmm");
+  private static final DateTimeFormatter DATE_TIME_FORMATTER =
+      DateTimeFormatter.ofPattern("yyyyMMddHHmm");
   private static final SwrUrlOptimizer optimizer = new SwrUrlOptimizer();
 
   @Override
-  public Optional<Film> deserialize(JsonElement aJson, Type aTypeOfT, JsonDeserializationContext aContext) {
+  public Optional<Film> deserialize(
+      final JsonElement aJson, final Type aTypeOfT, final JsonDeserializationContext aContext) {
 
     final JsonObject jsonObject = aJson.getAsJsonObject();
     if (!jsonObject.has(ELEMENT_ATTR)) {
@@ -71,14 +70,14 @@ public class SwrFilmDeserializer implements JsonDeserializer<Optional<Film>> {
     final JsonObject attrObject = jsonObject.get(ELEMENT_ATTR).getAsJsonObject();
     final JsonArray subArray = jsonObject.get(ELEMENT_SUB).getAsJsonArray();
 
-    Map<Resolution, String> videoUrls = parseVideoUrls(subArray);
+    final Map<Resolution, String> videoUrls = parseVideoUrls(subArray);
 
-    Optional<String> topic = JsonUtils.getAttributeAsString(attrObject, ATTRIBUTE_TOPIC);
-    Optional<String> title = JsonUtils.getAttributeAsString(attrObject, ATTRIBUTE_TITLE);
+    final Optional<String> topic = JsonUtils.getAttributeAsString(attrObject, ATTRIBUTE_TOPIC);
+    final Optional<String> title = JsonUtils.getAttributeAsString(attrObject, ATTRIBUTE_TITLE);
     if (topic.isPresent() && title.isPresent()) {
       try {
         return createFilm(attrObject, topic.get(), title.get(), videoUrls);
-      } catch (MalformedURLException e) {
+      } catch (final MalformedURLException e) {
         LOG.error("SwrFilmDeserializer: error reading video infos: ", e);
       }
     }
@@ -87,14 +86,14 @@ public class SwrFilmDeserializer implements JsonDeserializer<Optional<Film>> {
   }
 
   private Map<Resolution, String> parseVideoUrls(final JsonArray aSubArray) {
-    Map<Resolution, String> urls = new EnumMap<>(Resolution.class);
+    final Map<Resolution, String> urls = new EnumMap<>(Resolution.class);
 
-    for (JsonElement entry : aSubArray) {
+    for (final JsonElement entry : aSubArray) {
       final JsonObject entryObject = entry.getAsJsonObject();
-      Optional<String> name = JsonUtils.getAttributeAsString(entryObject, ATTRIBUTE_NAME);
-      if (name.isPresent() && name.get().equalsIgnoreCase(VIDEO_ENTRY_NAME)
-          && entryObject.has(ELEMENT_ATTR)
-      ) {
+      final Optional<String> name = JsonUtils.getAttributeAsString(entryObject, ATTRIBUTE_NAME);
+      if (name.isPresent()
+          && name.get().equalsIgnoreCase(VIDEO_ENTRY_NAME)
+          && entryObject.has(ELEMENT_ATTR)) {
         final JsonObject attrObject = entryObject.get(ELEMENT_ATTR).getAsJsonObject();
         parseVideoEntry(attrObject, urls);
       }
@@ -103,14 +102,15 @@ public class SwrFilmDeserializer implements JsonDeserializer<Optional<Film>> {
     return urls;
   }
 
-  private void parseVideoEntry(JsonObject aAttrObject, Map<Resolution, String> aUrls) {
-    Optional<String> codec = JsonUtils.getAttributeAsString(aAttrObject, ATTRIBUTE_VAL0);
-    Optional<String> quality = JsonUtils.getAttributeAsString(aAttrObject, ATTRIBUTE_VAL1);
-    Optional<String> url = JsonUtils.getAttributeAsString(aAttrObject, ATTRIBUTE_VAL2);
+  private void parseVideoEntry(final JsonObject aAttrObject, final Map<Resolution, String> aUrls) {
+    final Optional<String> codec = JsonUtils.getAttributeAsString(aAttrObject, ATTRIBUTE_VAL0);
+    final Optional<String> quality = JsonUtils.getAttributeAsString(aAttrObject, ATTRIBUTE_VAL1);
+    final Optional<String> url = JsonUtils.getAttributeAsString(aAttrObject, ATTRIBUTE_VAL2);
 
-    if (codec.isPresent() && quality.isPresent() && url.isPresent()
-        && codec.get().equalsIgnoreCase(VIDEO_ENTRY_RELEVANT_CODEC)
-    ) {
+    if (codec.isPresent()
+        && quality.isPresent()
+        && url.isPresent()
+        && codec.get().equalsIgnoreCase(VIDEO_ENTRY_RELEVANT_CODEC)) {
       // only add the first occurrence => it's the better quality
       switch (quality.get()) {
         case VIDEO_ENTRY_QUALITY_SMALL:
@@ -127,12 +127,17 @@ public class SwrFilmDeserializer implements JsonDeserializer<Optional<Film>> {
     }
   }
 
-  private Optional<Film> createFilm(final JsonObject attrObject, final String aTopic, String aTitle, Map<Resolution, String> aVideoUrls)
+  private Optional<Film> createFilm(
+      final JsonObject attrObject,
+      final String aTopic,
+      final String aTitle,
+      final Map<Resolution, String> aVideoUrls)
       throws MalformedURLException {
 
     final LocalDateTime time = parseDate(attrObject);
     final Duration duration = parseDuration(attrObject);
-    final Optional<String> description = JsonUtils.getAttributeAsString(attrObject, ATTRIBUTE_DESCRIPTION);
+    final Optional<String> description =
+        JsonUtils.getAttributeAsString(attrObject, ATTRIBUTE_DESCRIPTION);
     final Optional<String> id = JsonUtils.getAttributeAsString(attrObject, ATTRIBUTE_ID);
     final Optional<String> subtitle = parseSubtitle(attrObject);
 
@@ -147,21 +152,22 @@ public class SwrFilmDeserializer implements JsonDeserializer<Optional<Film>> {
       film.addSubtitle(new URL(subtitle.get()));
     }
 
-    for (Entry<Resolution, String> kvp : aVideoUrls.entrySet()) {
+    for (final Entry<Resolution, String> kvp : aVideoUrls.entrySet()) {
       String url = kvp.getValue();
       if (kvp.getKey() == Resolution.HD) {
         url = optimizer.optimizeHdUrl(url);
       }
-      film.addUrl(kvp.getKey(), CrawlerTool.stringToFilmUrl(url));
+      film.addUrl(kvp.getKey(), new FilmUrl(url));
     }
 
     return Optional.of(film);
   }
 
-  private Optional<String> parseSubtitle(JsonObject attrObject) {
-    Optional<String> subtitle = JsonUtils.getAttributeAsString(attrObject, ATTRIBUTE_SUBTITLE);
+  private Optional<String> parseSubtitle(final JsonObject attrObject) {
+    final Optional<String> subtitle =
+        JsonUtils.getAttributeAsString(attrObject, ATTRIBUTE_SUBTITLE);
     if (subtitle.isPresent()) {
-      String url = UrlUtils.addProtocolIfMissing(subtitle.get(), UrlUtils.PROTOCOL_HTTPS);
+      final String url = UrlUtils.addProtocolIfMissing(subtitle.get(), UrlUtils.PROTOCOL_HTTPS);
       return Optional.of(url);
     }
 
@@ -172,22 +178,19 @@ public class SwrFilmDeserializer implements JsonDeserializer<Optional<Film>> {
     return Optional.of(new URL(SwrConstants.URL_FILM_PAGE + aId));
   }
 
-  private LocalDateTime parseDate(JsonObject attrObject) {
-    Optional<String> timeValue = JsonUtils.getAttributeAsString(attrObject, ATTRIBUTE_DATE);
-    if (timeValue.isPresent()) {
-      return LocalDateTime.parse(timeValue.get(), DATE_TIME_FORMATTER);
-    }
-
-    return null;
+  private LocalDateTime parseDate(final JsonObject attrObject) {
+    final Optional<String> timeValue = JsonUtils.getAttributeAsString(attrObject, ATTRIBUTE_DATE);
+    return timeValue.map(s -> LocalDateTime.parse(s, DATE_TIME_FORMATTER)).orElse(null);
   }
 
-  private Duration parseDuration(JsonObject attrObject) {
+  private Duration parseDuration(final JsonObject attrObject) {
     long duration = 0;
 
-    Optional<String> durationValue = JsonUtils.getAttributeAsString(attrObject, ATTRIBUTE_DURATION);
+    final Optional<String> durationValue =
+        JsonUtils.getAttributeAsString(attrObject, ATTRIBUTE_DURATION);
     if (durationValue.isPresent()) {
-      String[] durationParts = durationValue.get().split(":");
-      for (String durationPart : durationParts) {
+      final String[] durationParts = durationValue.get().split(":");
+      for (final String durationPart : durationParts) {
         duration = duration * 60 + Long.parseLong(durationPart);
       }
     }
