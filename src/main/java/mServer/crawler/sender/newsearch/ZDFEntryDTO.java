@@ -2,19 +2,21 @@ package mServer.crawler.sender.newsearch;
 
 import java.io.Serializable;
 
+
 /**
  * A Data-Transfer-Object to transfer the URL with the general information and the download information.
  */
 public final class ZDFEntryDTO implements Serializable
 {
     private static final long serialVersionUID = 1L;
-    private static final String BASE_URL = "https://api.zdf.de";
-    
+    private final String apiBaseUrl;
+
     private String entryGeneralInformationUrl; //canonical
     private String entryDownloadInformationUrl; //ptmd-template
 
-    public ZDFEntryDTO(final String entryGeneralInformationUrl, final String entryDownloadInformationUrl)
+    public ZDFEntryDTO(String aApiBaseUrl,final String entryGeneralInformationUrl, final String entryDownloadInformationUrl)
     {
+        apiBaseUrl =aApiBaseUrl;
         setEntryGeneralInformationUrl(entryGeneralInformationUrl);
         setEntryDownloadInformationUrl(entryDownloadInformationUrl);
     }
@@ -26,12 +28,12 @@ public final class ZDFEntryDTO implements Serializable
 
     public void setEntryGeneralInformationUrl(final String aEntryInformationsUrl)
     {
-        if (aEntryInformationsUrl.contains(BASE_URL))
+        if (aEntryInformationsUrl.contains(apiBaseUrl))
         {
             entryGeneralInformationUrl = aEntryInformationsUrl;
         } else
         {
-            entryGeneralInformationUrl = BASE_URL + aEntryInformationsUrl;
+            entryGeneralInformationUrl = apiBaseUrl + aEntryInformationsUrl;
         }
     }
 
@@ -42,12 +44,12 @@ public final class ZDFEntryDTO implements Serializable
 
     public void setEntryDownloadInformationUrl(final String aEntryDownloadInformationsUrl)
     {
-        if (aEntryDownloadInformationsUrl.contains(BASE_URL))
+        if (aEntryDownloadInformationsUrl.contains(apiBaseUrl))
         {
             entryDownloadInformationUrl = aEntryDownloadInformationsUrl;
         } else
         {
-            entryDownloadInformationUrl = BASE_URL + aEntryDownloadInformationsUrl;
+            entryDownloadInformationUrl = apiBaseUrl + aEntryDownloadInformationsUrl;
         }
     }
 

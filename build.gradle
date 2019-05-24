@@ -84,7 +84,7 @@ test {
 }
 
 task developTest(type: Test) {
-    testClassesDir = sourceSets.developTest.output.classesDir
+    testClassesDirs = sourceSets.developTest.output.classesDirs
     classpath = sourceSets.developTest.runtimeClasspath
     outputs.upToDateWhen { false }
 
@@ -94,7 +94,7 @@ task developTest(type: Test) {
 }
 
 task integrationTest(type: Test) {
-    testClassesDir = sourceSets.integrationTest.output.classesDir
+    testClassesDirs = sourceSets.integrationTest.output.classesDirs
     classpath = sourceSets.integrationTest.runtimeClasspath
     outputs.upToDateWhen { false }
 
@@ -105,7 +105,7 @@ task integrationTest(type: Test) {
 
 task performanceTest(type: Test) {
     logger.info("hier")
-    testClassesDir = sourceSets.performanceTest.output.classesDir
+    testClassesDirs = sourceSets.performanceTest.output.classesDirs
     classpath = sourceSets.performanceTest.runtimeClasspath
     outputs.upToDateWhen { false }
     

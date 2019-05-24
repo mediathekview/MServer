@@ -9,9 +9,7 @@ import com.google.gson.JsonObject;
 import de.mediathekview.mlib.Config;
 import de.mediathekview.mlib.tool.Log;
 
-/**
- * Searches all information required for a film
- */
+/** Searches all information required for a film */
 public class ZDFEntryTask extends RecursiveTask<VideoDTO> {
 
   private static final long serialVersionUID = 1L;
@@ -20,14 +18,15 @@ public class ZDFEntryTask extends RecursiveTask<VideoDTO> {
   private final ZDFEntryDTO zdfEntryDTO;
   private final Gson gson;
 
-  public ZDFEntryTask(ZDFEntryDTO aEntryDto) {
-    this(aEntryDto, new ZDFClient());
+  public ZDFEntryTask(ZDFEntryDTO aEntryDto, String aBaseUrl, String aApiBaseUrl, String aApiHost, ZDFConfigurationDTO aConfig) {
+    this(aEntryDto, new ZDFClient(aBaseUrl, aApiBaseUrl, aApiHost,aConfig));
   }
 
   public ZDFEntryTask(ZDFEntryDTO aEntryDto, ZDFClient zdfClient) {
     client = zdfClient;
     zdfEntryDTO = aEntryDto;
-    gson = new GsonBuilder()
+    gson =
+        new GsonBuilder()
             .registerTypeAdapter(VideoDTO.class, new ZDFVideoDTODeserializer())
             .registerTypeAdapter(DownloadDTO.class, new ZDFDownloadDTODeserializer())
             .create();
@@ -63,7 +62,11 @@ public class ZDFEntryTask extends RecursiveTask<VideoDTO> {
           }
         }
       } catch (Exception ex) {
-        Log.errorLog(496583202, ex, "Exception parsing " + (zdfEntryDTO != null ? zdfEntryDTO.getEntryGeneralInformationUrl() : ""));
+        Log.errorLog(
+            496583202,
+            ex,
+            "Exception parsing "
+                + (zdfEntryDTO != null ? zdfEntryDTO.getEntryGeneralInformationUrl() : ""));
         dto = null;
       }
     }

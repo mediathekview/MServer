@@ -24,16 +24,29 @@ public class ZDFSearchTask extends RecursiveTask<Collection<VideoDTO>> {
 
   private final Collection<VideoDTO> filmList;
   private final ZDFClient client;
+  private final String baseUrl;
+  private final String apiBaseUrl;
+  private final String apiHost;
+  private final ZDFConfigurationDTO config;
 
   private int page;
   private final int daysPast;
   private final int daysFuture;
 
-  public ZDFSearchTask(int aDaysPast, int aDaysFuture) {
+  public ZDFSearchTask(
+      int aDaysPast,
+      int aDaysFuture,
+      String aBaseUrl,
+      String aApiBaseUrl,
+      String aApiHost,
+      ZDFConfigurationDTO aConfig) {
     super();
-
+    baseUrl = aBaseUrl;
+    apiBaseUrl = aApiBaseUrl;
+    apiHost = aApiHost;
+    config=aConfig;
     filmList = new ArrayList<>();
-    client = new ZDFClient();
+    client = new ZDFClient(baseUrl, apiBaseUrl, apiHost, aConfig);
     page = 1;
     daysPast = aDaysPast;
     daysFuture = aDaysFuture;
@@ -72,15 +85,17 @@ public class ZDFSearchTask extends RecursiveTask<Collection<VideoDTO>> {
     return filmList;
   }
 
-  private void computeSearchRequest(Collection<ZDFSearchPageTask> subTasks,
-          final ZonedDateTime startDate, final ZonedDateTime endDate) {
+  private void computeSearchRequest(
+      Collection<ZDFSearchPageTask> subTasks,
+      final ZonedDateTime startDate,
+      final ZonedDateTime endDate) {
     JsonObject baseObject;
     page = 1;
     do {
       baseObject = client.executeSearch(page, startDate, endDate);
 
       if (baseObject != null) {
-        ZDFSearchPageTask task = new ZDFSearchPageTask(baseObject);
+        ZDFSearchPageTask task = new ZDFSearchPageTask(baseObject, baseUrl, apiBaseUrl, apiHost,config);
         task.fork();
         subTasks.add(task);
         if (MserverDaten.debug) {
@@ -94,8 +109,8 @@ public class ZDFSearchTask extends RecursiveTask<Collection<VideoDTO>> {
 
   private static boolean hasNextPage(final JsonObject baseObject) {
     return baseObject != null
-            && baseObject.has(JSON_ELEMENT_NEXT)
-            && baseObject.has(JSON_ELEMENT_RESULT)
-            && baseObject.getAsJsonArray(JSON_ELEMENT_RESULT).size() > 0;
+        && baseObject.has(JSON_ELEMENT_NEXT)
+        && baseObject.has(JSON_ELEMENT_RESULT)
+        && baseObject.getAsJsonArray(JSON_ELEMENT_RESULT).size() > 0;
   }
 }
