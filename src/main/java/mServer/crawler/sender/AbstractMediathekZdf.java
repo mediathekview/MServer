@@ -1,7 +1,6 @@
 package mServer.crawler.sender;
 
 import de.mediathekview.mlib.Config;
-import de.mediathekview.mlib.Const;
 import de.mediathekview.mlib.daten.DatenFilm;
 import de.mediathekview.mlib.tool.Log;
 import etm.core.configuration.EtmManager;
@@ -13,6 +12,7 @@ import mServer.crawler.sender.newsearch.*;
 
 import java.util.Collection;
 import java.util.concurrent.*;
+import java.util.function.Predicate;
 
 public abstract class AbstractMediathekZdf extends MediathekReader {
   private final String senderName;
@@ -35,8 +35,15 @@ public abstract class AbstractMediathekZdf extends MediathekReader {
     int daysFuture = CrawlerTool.loadLongMax() ? 100 : 30;
 
     final ZDFSearchTask newTask =
-        new ZDFSearchTask(daysPast, daysFuture, getBaseUrl(), getApiBaseUrl(), getApiHost(),loadConfig());
-    forkJoinPool = new ForkJoinPool(Runtime.getRuntime().availableProcessors() * 4);
+        new ZDFSearchTask(
+            daysPast,
+            daysFuture,
+            getBaseUrl(),
+            getApiBaseUrl(),
+            getApiHost(),
+            loadConfig(),
+            createEntryFilter());
+    forkJoinPool = new ForkJoinPool(Runtime.getRuntime().availableProcessors() * 8);
     forkJoinPool.execute(newTask);
     Collection<VideoDTO> filmList = newTask.join();
 
@@ -47,6 +54,8 @@ public abstract class AbstractMediathekZdf extends MediathekReader {
 
     meldungThreadUndFertig();
   }
+
+  protected abstract Predicate<? super ZDFEntryDTO> createEntryFilter();
 
   protected ZDFConfigurationDTO loadConfig() {
     return new ZDFConfigurationLoader(getBaseUrl()).loadConfig();

@@ -1,14 +1,11 @@
 package mServer.crawler.sender.newsearch;
 
-import java.lang.reflect.Type;
+import com.google.gson.*;
+import de.mediathekview.mlib.tool.Log;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import com.google.gson.JsonDeserializationContext;
-import com.google.gson.JsonDeserializer;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParseException;
-import de.mediathekview.mlib.tool.Log;
+
+import java.lang.reflect.Type;
 
 /** A JSON deserializer to gather the needed information for a {@link ZDFEntryDTO}. */
 public class ZDFEntryDTODeserializer implements JsonDeserializer<ZDFEntryDTO> {
@@ -24,6 +21,10 @@ public class ZDFEntryDTODeserializer implements JsonDeserializer<ZDFEntryDTO> {
       "http://zdf.de/rels/content/video-page-teaser";
   private static final String PLACEHOLDER_PLAYER_ID = "{playerId}";
   private static final String PLAYER_ID = "ngplayer_2_3";
+  public static final String JSON_OBJ_ELEMENT_CONF_SECTION =
+      "http:\\/\\/zdf.de\\/rels\\/content\\/conf-section";
+  public static final String JSON_OBJ_ELEMENT_HOMETVSERVICE = "homeTvService";
+  public static final String JSON_ELEMENT_TVSERVICEID = "tvServiceId";
   private final String apiBaseUrl;
 
   public ZDFEntryDTODeserializer(String aApiBaseUrl) {
@@ -47,6 +48,7 @@ public class ZDFEntryDTODeserializer implements JsonDeserializer<ZDFEntryDTO> {
         JsonObject mainVideoContentObject;
         if (!targetObject.has(JSON_OBJ_ELEMENT_MAIN_VIDEO_CONTENT)
             && targetObject.has(JSON_OBJ_VIDEO_PAGE_TEASER)
+            && targetObject.has(JSON_OBJ_ELEMENT_CONF_SECTION)
             && targetObject
                 .getAsJsonObject(JSON_OBJ_VIDEO_PAGE_TEASER)
                 .has(JSON_OBJ_ELEMENT_MAIN_VIDEO_CONTENT)) {
@@ -54,8 +56,9 @@ public class ZDFEntryDTODeserializer implements JsonDeserializer<ZDFEntryDTO> {
         }
 
         mainVideoContentObject = targetObject.getAsJsonObject(JSON_OBJ_ELEMENT_MAIN_VIDEO_CONTENT);
+        JsonObject confSectionObject = targetObject.getAsJsonObject(JSON_OBJ_ELEMENT_CONF_SECTION);
         if (mainVideoContentObject != null) {
-          dto = buildZDFEntryDTO(targetObject, mainVideoContentObject);
+          dto = buildZDFEntryDTO(targetObject, mainVideoContentObject, confSectionObject);
         }
       }
     } catch (final Exception ex) {
@@ -67,13 +70,31 @@ public class ZDFEntryDTODeserializer implements JsonDeserializer<ZDFEntryDTO> {
   }
 
   private ZDFEntryDTO buildZDFEntryDTO(
-      final JsonObject aTargetObject, final JsonObject aMainVideoContentObject)
+      final JsonObject aTargetObject,
+      final JsonObject aMainVideoContentObject,
+      JsonObject confSectionObject)
       throws NoDownloadInformationException {
     final JsonObject elementTargetObject =
         aMainVideoContentObject.getAsJsonObject(JSON_OBJ_ELEMENT_TARGET);
     final JsonElement entryGeneralInformationUrlElement =
         aTargetObject.get(JSON_ELEMENT_GENERAL_INFORMATION_URL);
+
     if (elementTargetObject.has(JSON_ELEMENT_DOWNLOAD_INFORMATION_URL)) {
+      String tvService;
+      if (confSectionObject != null
+          && confSectionObject.has(JSON_OBJ_ELEMENT_HOMETVSERVICE)
+          && confSectionObject
+              .getAsJsonObject(JSON_OBJ_ELEMENT_HOMETVSERVICE)
+              .has(JSON_ELEMENT_TVSERVICEID)) {
+        tvService =
+            confSectionObject
+                .getAsJsonObject(JSON_OBJ_ELEMENT_HOMETVSERVICE)
+                .get(JSON_ELEMENT_TVSERVICEID)
+                .getAsString();
+      } else {
+        tvService = "";
+      }
+
       final JsonElement entryDownloadInformationUrlElement =
           elementTargetObject.get(JSON_ELEMENT_DOWNLOAD_INFORMATION_URL);
 
@@ -83,12 +104,13 @@ public class ZDFEntryDTODeserializer implements JsonDeserializer<ZDFEntryDTO> {
               .replace(PLACEHOLDER_PLAYER_ID, PLAYER_ID);
 
       return new ZDFEntryDTO(
-              apiBaseUrl,
+          apiBaseUrl,
           entryGeneralInformationUrlElement
               .getAsString()
               .replaceAll(PROFILE_REGEX_TEMPLATE, "")
               .trim(),
-          downloadUrl.trim());
+          downloadUrl.trim(),
+          tvService);
     } else {
       throw new NoDownloadInformationException();
     }

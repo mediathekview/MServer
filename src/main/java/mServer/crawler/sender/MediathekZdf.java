@@ -21,6 +21,9 @@ package mServer.crawler.sender;
 
 import de.mediathekview.mlib.Const;
 import mServer.crawler.FilmeSuchen;
+import mServer.crawler.sender.newsearch.ZDFEntryDTO;
+
+import java.util.function.Predicate;
 
 public class MediathekZdf extends AbstractMediathekZdf {
   private static final String SENDERNAME = Const.ZDF;
@@ -42,5 +45,10 @@ public class MediathekZdf extends AbstractMediathekZdf {
   @Override
   protected String getBaseUrl() {
     return "https://www.zdf.de";
+  }
+
+  @Override
+  protected Predicate<? super ZDFEntryDTO> createEntryFilter() {
+    return zdfEntryDTO -> !zdfEntryDTO.getTvService().equals("3sat");
   }
 }

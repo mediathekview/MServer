@@ -27,7 +27,7 @@ public class ZDFEntryTaskTest {
         mockZdfClient.setUp(generalUrl, "/zdf/zdf_entry_general_sample.json");
         mockZdfClient.setUp(downloadUrl, "/zdf/zdf_entry_download_sample.json");
         
-        ZDFEntryDTO dto = new ZDFEntryDTO("https://api.zdf.de",generalUrl, downloadUrl);
+        ZDFEntryDTO dto = new ZDFEntryDTO("https://api.zdf.de",generalUrl, downloadUrl,"zdf");
         ZDFEntryTask target = new ZDFEntryTask(dto, mockZdfClient.get());        
         VideoDTO actual = target.invoke();
         
@@ -47,7 +47,7 @@ public class ZDFEntryTaskTest {
     public void testComputeReturnsNullIfStopped() {
         Config.setStop(true);
         
-        ZDFEntryDTO dto = new ZDFEntryDTO("https://api.zdf.de/","", "");
+        ZDFEntryDTO dto = new ZDFEntryDTO("https://api.zdf.de/","", "","");
         ZDFEntryTask target = new ZDFEntryTask(dto,"https://www.zdf.de","https://api.zdf.de","api.zdf.de",new ZDFConfigurationLoader("https://www.zdf.de").loadConfig());
         VideoDTO actual = target.invoke();
         

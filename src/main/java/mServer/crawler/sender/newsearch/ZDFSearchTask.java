@@ -10,6 +10,8 @@ import com.google.gson.JsonObject;
 import de.mediathekview.mlib.Config;
 import de.mediathekview.mlib.tool.Log;
 import java.time.ZonedDateTime;
+import java.util.function.Predicate;
+
 import mServer.tool.MserverDaten;
 
 public class ZDFSearchTask extends RecursiveTask<Collection<VideoDTO>> {
@@ -32,6 +34,7 @@ public class ZDFSearchTask extends RecursiveTask<Collection<VideoDTO>> {
   private int page;
   private final int daysPast;
   private final int daysFuture;
+  private Predicate<? super ZDFEntryDTO> entryFilter;
 
   public ZDFSearchTask(
       int aDaysPast,
@@ -39,7 +42,8 @@ public class ZDFSearchTask extends RecursiveTask<Collection<VideoDTO>> {
       String aBaseUrl,
       String aApiBaseUrl,
       String aApiHost,
-      ZDFConfigurationDTO aConfig) {
+      ZDFConfigurationDTO aConfig,
+      Predicate<? super ZDFEntryDTO> aEntryFilter) {
     super();
     baseUrl = aBaseUrl;
     apiBaseUrl = aApiBaseUrl;
@@ -50,6 +54,7 @@ public class ZDFSearchTask extends RecursiveTask<Collection<VideoDTO>> {
     page = 1;
     daysPast = aDaysPast;
     daysFuture = aDaysFuture;
+    entryFilter=aEntryFilter;
   }
 
   @Override
@@ -95,7 +100,7 @@ public class ZDFSearchTask extends RecursiveTask<Collection<VideoDTO>> {
       baseObject = client.executeSearch(page, startDate, endDate);
 
       if (baseObject != null) {
-        ZDFSearchPageTask task = new ZDFSearchPageTask(baseObject, baseUrl, apiBaseUrl, apiHost,config);
+        ZDFSearchPageTask task = new ZDFSearchPageTask(baseObject, baseUrl, apiBaseUrl, apiHost,config,entryFilter);
         task.fork();
         subTasks.add(task);
         if (MserverDaten.debug) {

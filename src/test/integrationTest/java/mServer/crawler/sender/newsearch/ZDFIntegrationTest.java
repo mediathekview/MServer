@@ -1,16 +1,17 @@
 package mServer.crawler.sender.newsearch;
 
 import com.google.gson.JsonArray;
-import com.google.gson.JsonObject;
 import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import org.junit.Test;
 
 import java.time.ZonedDateTime;
 import java.util.Collection;
+
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.hamcrest.Matchers.greaterThan;
 import static org.junit.Assert.assertThat;
-import org.junit.Test;
 
 public class ZDFIntegrationTest {
   private static final String JSON_OBJ_ELEMENT_MAIN_VIDEO_CONTENT = "mainVideoContent";
@@ -68,7 +69,8 @@ public class ZDFIntegrationTest {
             "https://www.zdf.de",
             "https://api.zdf.de",
             "api.zdf.de",
-            new ZDFConfigurationLoader("https://www.zdf.de").loadConfig());
+            new ZDFConfigurationLoader("https://www.zdf.de").loadConfig(),
+            zdfEntryDTO -> zdfEntryDTO != null && !zdfEntryDTO.getTvService().equals("3sat"));
     Collection<VideoDTO> videos = task.invoke();
 
     assertThat(videos, notNullValue());

@@ -1,18 +1,18 @@
 package mServer.crawler.sender.newsearch;
 
-import java.lang.reflect.Type;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.concurrent.RecursiveTask;
-
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
-
 import de.mediathekview.mlib.Config;
 import de.mediathekview.mlib.tool.Log;
 import mServer.tool.MserverDaten;
+
+import java.lang.reflect.Type;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.concurrent.RecursiveTask;
+import java.util.function.Predicate;
 
 /** Task to parse the response of a search page. */
 public class ZDFSearchPageTask extends RecursiveTask<Collection<VideoDTO>> {
@@ -30,19 +30,21 @@ public class ZDFSearchPageTask extends RecursiveTask<Collection<VideoDTO>> {
   private final String apiBaseUrl;
   private final String apiHost;
   private final ZDFConfigurationDTO config;
+  private Predicate<? super ZDFEntryDTO> entryFilter;
 
   public ZDFSearchPageTask(
       JsonObject aSearchResult,
       String aBaseUrl,
       String aApiBaseUrl,
       String aApiHost,
-      ZDFConfigurationDTO aConfig) {
+      ZDFConfigurationDTO aConfig,
+      Predicate<? super ZDFEntryDTO> aEntryFilter) {
     baseUrl = aBaseUrl;
     apiBaseUrl = aApiBaseUrl;
     apiHost = aApiHost;
     config = aConfig;
     searchResult = aSearchResult;
-
+    entryFilter = aEntryFilter;
     gson =
         new GsonBuilder()
             .registerTypeAdapter(ZDFEntryDTO.class, new ZDFEntryDTODeserializer(apiBaseUrl))
@@ -59,18 +61,20 @@ public class ZDFSearchPageTask extends RecursiveTask<Collection<VideoDTO>> {
       Collection<ZDFEntryDTO> zdfEntryDTOList =
           gson.fromJson(
               searchResult.getAsJsonArray(JSON_ELEMENT_RESULTS), ZDFENTRYDTO_COLLECTION_TYPE);
-      zdfEntryDTOList.forEach(
-          zdfEntryDTO -> {
-            if (zdfEntryDTO != null) {
-              final ZDFEntryTask entryTask =
-                  new ZDFEntryTask(zdfEntryDTO, baseUrl, apiBaseUrl, apiHost, config);
-              entryTask.fork();
-              subTasks.add(entryTask);
-              if (MserverDaten.debug) {
-                Log.sysLog("EntryTask " + entryTask.hashCode() + " added.");
-              }
-            }
-          });
+      zdfEntryDTOList.stream()
+          .filter(entryFilter)
+          .forEach(
+              zdfEntryDTO -> {
+                if (zdfEntryDTO != null) {
+                  final ZDFEntryTask entryTask =
+                      new ZDFEntryTask(zdfEntryDTO, baseUrl, apiBaseUrl, apiHost, config);
+                  entryTask.fork();
+                  subTasks.add(entryTask);
+                  if (MserverDaten.debug) {
+                    Log.sysLog("EntryTask " + entryTask.hashCode() + " added.");
+                  }
+                }
+              });
 
       // wait till entry tasks are finished
       subTasks.forEach(
