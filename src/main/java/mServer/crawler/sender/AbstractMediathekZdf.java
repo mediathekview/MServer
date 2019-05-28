@@ -44,7 +44,7 @@ public abstract class AbstractMediathekZdf extends MediathekReader {
             getApiHost(),
             loadConfig(),
             createEntryFilter());
-    forkJoinPool = new ForkJoinPool(Runtime.getRuntime().availableProcessors() * 8);
+    forkJoinPool = new ForkJoinPool(Runtime.getRuntime().availableProcessors() * 4);
     forkJoinPool.execute(newTask);
     Collection<VideoDTO> filmList = newTask.join();
 
