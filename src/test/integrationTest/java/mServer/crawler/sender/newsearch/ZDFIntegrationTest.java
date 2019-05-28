@@ -31,6 +31,7 @@ public class ZDFIntegrationTest {
         new ZDFClient(
             "https://www.zdf.de",
             "https://api.zdf.de",
+            "zdf",
             "api.zdf.de",
             new ZDFConfigurationLoader("https://www.zdf.de").loadConfig());
 
@@ -68,6 +69,7 @@ public class ZDFIntegrationTest {
             jsonData,
             "https://www.zdf.de",
             "https://api.zdf.de",
+                "zdf",
             "api.zdf.de",
             new ZDFConfigurationLoader("https://www.zdf.de").loadConfig(),
             zdfEntryDTO -> zdfEntryDTO != null && !zdfEntryDTO.getTvService().equals("3sat"));

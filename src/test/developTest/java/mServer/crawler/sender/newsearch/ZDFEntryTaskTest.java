@@ -37,7 +37,7 @@ public class ZDFEntryTaskTest {
 
     @Test
     public void testComputeReturnsNullIfEntryDTOIsNull() {
-        ZDFEntryTask target = new ZDFEntryTask(null,"https://www.zdf.de","https://api.zdf.de","api.zdf.de",new ZDFConfigurationLoader("https://www.zdf.de").loadConfig());
+        ZDFEntryTask target = new ZDFEntryTask(null,"https://www.zdf.de","https://api.zdf.de","zdf","api.zdf.de",new ZDFConfigurationLoader("https://www.zdf.de").loadConfig());
         VideoDTO actual = target.invoke();
         
         assertThat(actual, nullValue());
@@ -48,7 +48,7 @@ public class ZDFEntryTaskTest {
         Config.setStop(true);
         
         ZDFEntryDTO dto = new ZDFEntryDTO("https://api.zdf.de/","", "","");
-        ZDFEntryTask target = new ZDFEntryTask(dto,"https://www.zdf.de","https://api.zdf.de","api.zdf.de",new ZDFConfigurationLoader("https://www.zdf.de").loadConfig());
+        ZDFEntryTask target = new ZDFEntryTask(dto,"https://www.zdf.de","https://api.zdf.de","zdf","api.zdf.de",new ZDFConfigurationLoader("https://www.zdf.de").loadConfig());
         VideoDTO actual = target.invoke();
         
         assertThat(actual, nullValue());
