@@ -49,6 +49,6 @@ public class MediathekZdf extends AbstractMediathekZdf {
 
   @Override
   protected Predicate<? super ZDFEntryDTO> createEntryFilter() {
-    return zdfEntryDTO -> !zdfEntryDTO.getTvService().equals("3sat");
+    return zdfEntryDTO -> zdfEntryDTO != null && zdfEntryDTO.getTvService() != null && !zdfEntryDTO.getTvService().equals("3sat");
   }
 }
