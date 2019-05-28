@@ -26,9 +26,10 @@ public class ZDFEntryTask extends RecursiveTask<VideoDTO> {
       ZDFEntryDTO aEntryDto,
       String aBaseUrl,
       String aApiBaseUrl,
+      String aSender,
       String aApiHost,
       ZDFConfigurationDTO aConfig) {
-    this(aEntryDto, new ZDFClient(aBaseUrl, aApiBaseUrl, aApiHost, aConfig));
+    this(aEntryDto, new ZDFClient(aBaseUrl, aApiBaseUrl,aSender, aApiHost, aConfig));
   }
 
   public ZDFEntryTask(ZDFEntryDTO aEntryDto, ZDFClient zdfClient) {

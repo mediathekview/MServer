@@ -30,17 +30,20 @@ public class ZDFSearchPageTask extends RecursiveTask<Collection<VideoDTO>> {
   private final String apiBaseUrl;
   private final String apiHost;
   private final ZDFConfigurationDTO config;
+  private final String sender;
   private Predicate<? super ZDFEntryDTO> entryFilter;
 
   public ZDFSearchPageTask(
       JsonObject aSearchResult,
       String aBaseUrl,
       String aApiBaseUrl,
+      String aSender,
       String aApiHost,
       ZDFConfigurationDTO aConfig,
       Predicate<? super ZDFEntryDTO> aEntryFilter) {
     baseUrl = aBaseUrl;
     apiBaseUrl = aApiBaseUrl;
+    sender=aSender;
     apiHost = aApiHost;
     config = aConfig;
     searchResult = aSearchResult;
@@ -67,7 +70,7 @@ public class ZDFSearchPageTask extends RecursiveTask<Collection<VideoDTO>> {
               zdfEntryDTO -> {
                 if (zdfEntryDTO != null) {
                   final ZDFEntryTask entryTask =
-                      new ZDFEntryTask(zdfEntryDTO, baseUrl, apiBaseUrl, apiHost, config);
+                      new ZDFEntryTask(zdfEntryDTO, baseUrl, apiBaseUrl,sender, apiHost, config);
                   entryTask.fork();
                   subTasks.add(entryTask);
                   if (MserverDaten.debug) {

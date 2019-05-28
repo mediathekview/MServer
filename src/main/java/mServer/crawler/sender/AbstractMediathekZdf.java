@@ -40,6 +40,7 @@ public abstract class AbstractMediathekZdf extends MediathekReader {
             daysFuture,
             getBaseUrl(),
             getApiBaseUrl(),
+            senderName,
             getApiHost(),
             loadConfig(),
             createEntryFilter());
@@ -175,7 +176,7 @@ public abstract class AbstractMediathekZdf extends MediathekReader {
       // don´t use addFilm here
       if (mlibFilmeSuchen.listeFilmeNeu.addFilmVomSender(film)) {
         // dann ist er neu
-        FilmeSuchen.listeSenderLaufen.inc(film.arr[DatenFilm.FILM_SENDER], RunSender.Count.FILME);
+        FilmeSuchen.listeSenderLaufen.inc(senderName, RunSender.Count.FILME);
       }
 
       if (!download.getUrl(language, Qualities.HD).isEmpty()) {

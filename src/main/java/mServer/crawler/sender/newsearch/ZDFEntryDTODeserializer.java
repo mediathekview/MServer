@@ -22,7 +22,7 @@ public class ZDFEntryDTODeserializer implements JsonDeserializer<ZDFEntryDTO> {
   private static final String PLACEHOLDER_PLAYER_ID = "{playerId}";
   private static final String PLAYER_ID = "ngplayer_2_3";
   public static final String JSON_OBJ_ELEMENT_CONF_SECTION =
-      "http:\\/\\/zdf.de\\/rels\\/content\\/conf-section";
+      "http://zdf.de/rels/content/conf-section";
   public static final String JSON_OBJ_ELEMENT_HOMETVSERVICE = "homeTvService";
   public static final String JSON_ELEMENT_TVSERVICEID = "tvServiceId";
   private final String apiBaseUrl;

@@ -24,6 +24,7 @@ public class ZDFClient {
   private final String baseUrl;
   private final String apiHost;
   private final ZDFConfigurationDTO config;
+  private final String sender;
 
   public enum ZDFClientMode {
     SEARCH,
@@ -62,9 +63,14 @@ public class ZDFClient {
   private final Gson gson;
 
   public ZDFClient(
-      String aBaseUrl, String aApiBaseUrl, String aApiHost, ZDFConfigurationDTO aConfig) {
+      String aBaseUrl,
+      String aApiBaseUrl,
+      String aSender,
+      String aApiHost,
+      ZDFConfigurationDTO aConfig) {
     baseUrl = aBaseUrl;
     apiBaseUrl = aApiBaseUrl;
+    sender = aSender;
     apiHost = aApiHost;
     config = aConfig;
     client = Client.create();
@@ -151,11 +157,11 @@ public class ZDFClient {
   }
 
   private void increment(final RunSender.Count count) {
-    FilmeSuchen.listeSenderLaufen.inc(Const.ZDF, count);
+    FilmeSuchen.listeSenderLaufen.inc(sender, count);
   }
 
   private void increment(final RunSender.Count count, final long value) {
-    FilmeSuchen.listeSenderLaufen.inc(Const.ZDF, count, value);
+    FilmeSuchen.listeSenderLaufen.inc(sender, count, value);
   }
 
   private String loadApiToken(final ZDFClientMode aMode) {

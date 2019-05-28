@@ -30,6 +30,7 @@ public class ZDFSearchTask extends RecursiveTask<Collection<VideoDTO>> {
   private final String apiBaseUrl;
   private final String apiHost;
   private final ZDFConfigurationDTO config;
+  private final String sender;
 
   private int page;
   private final int daysPast;
@@ -41,16 +42,18 @@ public class ZDFSearchTask extends RecursiveTask<Collection<VideoDTO>> {
       int aDaysFuture,
       String aBaseUrl,
       String aApiBaseUrl,
+      String aSender,
       String aApiHost,
       ZDFConfigurationDTO aConfig,
       Predicate<? super ZDFEntryDTO> aEntryFilter) {
     super();
     baseUrl = aBaseUrl;
     apiBaseUrl = aApiBaseUrl;
+    sender=aSender;
     apiHost = aApiHost;
     config=aConfig;
     filmList = new ArrayList<>();
-    client = new ZDFClient(baseUrl, apiBaseUrl, apiHost, aConfig);
+    client = new ZDFClient(baseUrl, apiBaseUrl,sender, apiHost, aConfig);
     page = 1;
     daysPast = aDaysPast;
     daysFuture = aDaysFuture;
@@ -100,7 +103,7 @@ public class ZDFSearchTask extends RecursiveTask<Collection<VideoDTO>> {
       baseObject = client.executeSearch(page, startDate, endDate);
 
       if (baseObject != null) {
-        ZDFSearchPageTask task = new ZDFSearchPageTask(baseObject, baseUrl, apiBaseUrl, apiHost,config,entryFilter);
+        ZDFSearchPageTask task = new ZDFSearchPageTask(baseObject, baseUrl, apiBaseUrl,sender, apiHost,config,entryFilter);
         task.fork();
         subTasks.add(task);
         if (MserverDaten.debug) {
