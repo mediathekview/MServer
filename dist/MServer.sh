@@ -32,9 +32,9 @@ echo %%
 
 
 if [ -n "$JAVA_HOME" ]; then
-	$JAVA_HOME/bin/java -Xms256M -Xmx2G -jar ./MServer.jar $dir $*
+	$JAVA_HOME/bin/java -XX:+UseG1GC -XX:+UseStringDeduplication -Xmx3G -jar ./MServer.jar $dir $*
 else
-	java -Xms256M -Xmx2G -jar ./MServer.jar $dir $*
+	java -XX:+UseG1GC -XX:+UseStringDeduplication -Xmx3G -jar ./MServer.jar $dir $*
 fi
 
 cd $OLDPWD
