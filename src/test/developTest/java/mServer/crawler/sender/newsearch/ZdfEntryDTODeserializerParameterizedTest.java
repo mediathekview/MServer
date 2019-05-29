@@ -19,8 +19,8 @@ public class ZdfEntryDTODeserializerParameterizedTest {
   private final String generalUrl;
   private final String downloadUrl;
 
-  public ZdfEntryDTODeserializerParameterizedTest(final String jsonFile, final String generalUrl,
-      final String downloadUrl) {
+  public ZdfEntryDTODeserializerParameterizedTest(
+      final String jsonFile, final String generalUrl, final String downloadUrl) {
     this.jsonFile = jsonFile;
     this.generalUrl = generalUrl;
     this.downloadUrl = downloadUrl;
@@ -28,19 +28,26 @@ public class ZdfEntryDTODeserializerParameterizedTest {
 
   @Parameterized.Parameters
   public static Collection<Object[]> data() {
-    return Arrays.asList(new Object[][] {{"/zdf/zdf_search_page_entry_sample1.json",
-        "https://api.zdf.de/content/documents/zdf/serien/soko-leipzig/videos/trailer-chefsache-100.json",
-        "https://api.zdf.de/tmd/2/ngplayer_2_3/vod/ptmd/mediathek/170224_sendung_tr_sok4"},
-        {"/zdf/zdf_search_page_entry_sample_fullurls.json",
+    return Arrays.asList(
+        new Object[][] {
+          {
+            "/zdf/zdf_search_page_entry_sample1.json",
             "https://api.zdf.de/content/documents/zdf/serien/soko-leipzig/videos/trailer-chefsache-100.json",
-            "https://api.zdf.de/tmd/2/ngplayer_2_3/vod/ptmd/mediathek/170224_sendung_tr_sok4"},});
+            "https://api.zdf.de/tmd/2/ngplayer_2_3/vod/ptmd/mediathek/170224_sendung_tr_sok4"
+          },
+          {
+            "/zdf/zdf_search_page_entry_sample_fullurls.json",
+            "https://api.zdf.de/content/documents/zdf/serien/soko-leipzig/videos/trailer-chefsache-100.json",
+            "https://api.zdf.de/tmd/2/ngplayer_2_3/vod/ptmd/mediathek/170224_sendung_tr_sok4"
+          },
+        });
   }
 
   @Test
   public void testDeserialize() {
     final JsonObject jsonObject = JsonFileReader.readJson(jsonFile);
 
-    final ZDFEntryDTODeserializer target = new ZDFEntryDTODeserializer();
+    final ZDFEntryDTODeserializer target = new ZDFEntryDTODeserializer("https://api.zdf.de");
     final ZDFEntryDTO actual = target.deserialize(jsonObject, ZDFEntryDTO.class, null);
 
     assertThat(actual, notNullValue());

@@ -12,7 +12,7 @@ public class ZdfEntryDTODeserializerTest {
     public void testDeserializeWithMissingJsonElementReturnsNull() {
         JsonObject jsonObject = JsonFileReader.readJson("/zdf/zdf_search_page_entry_sample_missing_videocontent.json");
         
-        ZDFEntryDTODeserializer target = new ZDFEntryDTODeserializer();
+        ZDFEntryDTODeserializer target = new ZDFEntryDTODeserializer("https://api.zdf.de");
         ZDFEntryDTO actual = target.deserialize(jsonObject, ZDFEntryDTO.class, null);
         
         assertThat(actual, nullValue());

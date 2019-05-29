@@ -15,30 +15,35 @@ import mServer.crawler.FilmeSuchen;
 import mServer.crawler.RunSender;
 import mServer.tool.MserverDaten;
 
-/**
- * jersey client of ZDF
- */
+import javax.management.monitor.StringMonitor;
+
+/** jersey client of ZDF */
 public class ZDFClient {
 
+  private final String apiBaseUrl;
+  private final String baseUrl;
+  private final String apiHost;
+  private final ZDFConfigurationDTO config;
+  private final String sender;
+
   public enum ZDFClientMode {
-    SEARCH, VIDEO;
+    SEARCH,
+    VIDEO;
   }
 
-  private static final String ZDF_SEARCH_URL = "https://api.zdf.de/search/documents";
-  private static final String HEADER_ACCESS_CONTROL_REQUEST_HEADERS
-          = "Access-Control-Request-Headers";
-  private static final String HEADER_ACCESS_CONTROL_REQUEST_METHOD
-          = "access-control-request-method";
+  private static final String SEARCH_URL = "%s/search/documents";
+  private static final String HEADER_ACCESS_CONTROL_REQUEST_HEADERS =
+      "Access-Control-Request-Headers";
+  private static final String HEADER_ACCESS_CONTROL_REQUEST_METHOD =
+      "access-control-request-method";
   private static final String HEADER_API_AUTH = "api-auth";
   private static final String HEADER_HOST = "host";
   private static final String HEADER_ORIGIN = "origin";
   private static final String HEADER_USER_AGENT = "user-agent";
   private static final String ACCESS_CONTROL_API_AUTH = "api-auth";
   private static final String ACCESS_CONTROL_REQUEST_METHOD_GET = "GET";
-  private static final String HOST = "api.zdf.de";
-  private static final String ORIGIN = "https://www.zdf.de";
-  private static final String USER_AGENT
-          = "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:50.0) Gecko/20100101 Firefox/50.0";
+  private static final String USER_AGENT =
+      "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:50.0) Gecko/20100101 Firefox/50.0";
 
   private static final String API_TOKEN_PATTERN = "Bearer %s";
   private static final String PROPERTY_HAS_VIDEO = "hasVideo";
@@ -57,7 +62,17 @@ public class ZDFClient {
 
   private final Gson gson;
 
-  public ZDFClient() {
+  public ZDFClient(
+      String aBaseUrl,
+      String aApiBaseUrl,
+      String aSender,
+      String aApiHost,
+      ZDFConfigurationDTO aConfig) {
+    baseUrl = aBaseUrl;
+    apiBaseUrl = aApiBaseUrl;
+    sender = aSender;
+    apiHost = aApiHost;
+    config = aConfig;
     client = Client.create();
     client.addFilter(new GZIPContentEncodingFilter(true));
     gson = new Gson();
@@ -68,15 +83,17 @@ public class ZDFClient {
     return execute(webResource, ZDFClientMode.VIDEO);
   }
 
-  public JsonObject executeSearch(final int page, final ZonedDateTime from, final ZonedDateTime to) {
-    final WebResource webResource
-            = createResource(ZDF_SEARCH_URL).queryParam(PROPERTY_HAS_VIDEO, Boolean.TRUE.toString())
-                    .queryParam(PROPERTY_SEARCHPARAM_Q, SEARCH_ALL)
-                    .queryParam(PROPERTY_SORT_ORDER, SORT_ORDER_DESC)
-                    .queryParam(PROPERTY_DATE_FROM, from.format(DATE_TIME_FORMAT))
-                    .queryParam(PROPERTY_DATE_TO, to.format(DATE_TIME_FORMAT))
-                    .queryParam(PROPERTY_SORT_BY, SORT_BY_DATE)
-                    .queryParam(PROPERTY_PAGE, Integer.toString(page));
+  public JsonObject executeSearch(
+      final int page, final ZonedDateTime from, final ZonedDateTime to) {
+    final WebResource webResource =
+        createResource(String.format(SEARCH_URL, apiBaseUrl))
+            .queryParam(PROPERTY_HAS_VIDEO, Boolean.TRUE.toString())
+            .queryParam(PROPERTY_SEARCHPARAM_Q, SEARCH_ALL)
+            .queryParam(PROPERTY_SORT_ORDER, SORT_ORDER_DESC)
+            .queryParam(PROPERTY_DATE_FROM, from.format(DATE_TIME_FORMAT))
+            .queryParam(PROPERTY_DATE_TO, to.format(DATE_TIME_FORMAT))
+            .queryParam(PROPERTY_SORT_BY, SORT_BY_DATE)
+            .queryParam(PROPERTY_PAGE, Integer.toString(page));
 
     return execute(webResource, ZDFClient.ZDFClientMode.SEARCH);
   }
@@ -92,11 +109,15 @@ public class ZDFClient {
 
     while (i < 4) {
 
-      final ClientResponse response = webResource
+      final ClientResponse response =
+          webResource
               .header(HEADER_ACCESS_CONTROL_REQUEST_HEADERS, ACCESS_CONTROL_API_AUTH)
               .header(HEADER_ACCESS_CONTROL_REQUEST_METHOD, ACCESS_CONTROL_REQUEST_METHOD_GET)
-              .header(HEADER_API_AUTH, apiToken).header(HEADER_HOST, HOST).header(HEADER_ORIGIN, ORIGIN)
-              .header(HEADER_USER_AGENT, USER_AGENT).get(ClientResponse.class);
+              .header(HEADER_API_AUTH, apiToken)
+              .header(HEADER_HOST, apiHost)
+              .header(HEADER_ORIGIN, baseUrl)
+              .header(HEADER_USER_AGENT, USER_AGENT)
+              .get(ClientResponse.class);
 
       if (MserverDaten.debug) {
         Log.sysLog("Lade Seite: " + webResource.getURI());
@@ -114,8 +135,9 @@ public class ZDFClient {
         if (aMode == ZDFClientMode.SEARCH) {
           Log.errorLog(496583258, "ZDF Search failed");
         }
-        Log.errorLog(496583258,
-                "Lade Seite " + webResource.getURI() + " fehlgeschlagen: " + response.getStatus());
+        Log.errorLog(
+            496583258,
+            "Lade Seite " + webResource.getURI() + " fehlgeschlagen: " + response.getStatus());
         increment(RunSender.Count.FEHLER);
         return null;
       }
@@ -135,15 +157,14 @@ public class ZDFClient {
   }
 
   private void increment(final RunSender.Count count) {
-    FilmeSuchen.listeSenderLaufen.inc(Const.ZDF, count);
+    FilmeSuchen.listeSenderLaufen.inc(sender, count);
   }
 
   private void increment(final RunSender.Count count, final long value) {
-    FilmeSuchen.listeSenderLaufen.inc(Const.ZDF, count, value);
+    FilmeSuchen.listeSenderLaufen.inc(sender, count, value);
   }
 
   private String loadApiToken(final ZDFClientMode aMode) {
-    return String.format(API_TOKEN_PATTERN,
-            ZDFConfigurationLoader.getInstance().loadConfig().getApiToken(aMode));
+    return String.format(API_TOKEN_PATTERN, config.getApiToken(aMode));
   }
 }
