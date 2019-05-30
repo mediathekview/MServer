@@ -77,10 +77,9 @@ public class Main {
                 System.exit(0);
                 break;
             case GUI:
-                java.awt.EventQueue.invokeLater(() -> {
-                    CrawlerTool.startMsg();
-                    Application.launch(MSG.class, args);
-                });
+                CrawlerTool.startMsg();
+                Application.launch(MSG.class, args);
+                break;
         }
 
         EtmManager.getEtmMonitor().render(new SimpleTextRenderer());
