@@ -1,7 +1,6 @@
 package mServer.crawler.sender.phoenix.tasks;
 
 import com.google.gson.reflect.TypeToken;
-import de.mediathekview.mlib.Config;
 import java.lang.reflect.Type;
 import java.util.Collection;
 import java.util.Optional;
@@ -9,8 +8,8 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 import javax.ws.rs.client.WebTarget;
 import mServer.crawler.sender.MediathekReader;
 import mServer.crawler.sender.base.CrawlerUrlDTO;
-import mServer.crawler.sender.orf.tasks.AbstractRecursivConverterTask;
 import mServer.crawler.sender.base.SendungOverviewDto;
+import mServer.crawler.sender.orf.tasks.AbstractRecursivConverterTask;
 import mServer.crawler.sender.phoenix.parser.PhoenixSendungOverviewDeserializer;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -52,7 +51,9 @@ public class PhoenixOverviewTask extends ZdfTaskBase<CrawlerUrlDTO, CrawlerUrlDT
       SendungOverviewDto overviewDto = overviewDtoOptional.get();
       addResults(overviewDto.getUrls());
 
-      if (overviewDto.getNextPageId().isPresent()) {
+      if (overviewDto.getNextPageId().isPresent() 
+        // Workaround to fix paging problem in Phönix-API
+        && !aDTO.getUrl().endsWith(overviewDto.getNextPageId().get())) {
         taskResults.addAll(createNewOwnInstance(baseUrl + overviewDto.getNextPageId().get()).invoke());
       }
     } catch (Exception e) {
