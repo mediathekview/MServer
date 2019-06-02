@@ -58,7 +58,7 @@ public class SrfFilmDetailTask extends AbstractRestTask<DatenFilm, CrawlerUrlDTO
     try {
       Type type = new TypeToken<Optional<DatenFilm>>() {
       }.getType();
-      final Gson gson = new GsonBuilder().registerTypeAdapter(type, new SrfFilmJsonDeserializer(crawler)).create();
+      final Gson gson = new GsonBuilder().registerTypeAdapter(type, new SrfFilmJsonDeserializer()).create();
 
       Optional<DatenFilm> film = gson.fromJson(jsonOutput, type);
       if (film.isPresent()) {
