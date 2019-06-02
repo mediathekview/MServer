@@ -3,10 +3,9 @@ package mServer.crawler.sender.arte;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.concurrent.CopyOnWriteArrayList;
-
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import java.util.List;
+import java.util.Objects;
+import java.util.stream.Collectors;
 
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonDeserializer;
@@ -19,8 +18,7 @@ import de.mediathekview.mlib.daten.ListeFilme;
 public class ArteDatenFilmDeserializer implements JsonDeserializer<ListeFilme>
 {
     private static final String JSON_ELEMENT_VIDEOS = "videos";
-    private static final Logger LOG = LogManager.getLogger(ArteDatenFilmDeserializer.class);
-    
+
     private final String langCode;
     private final String senderName;
     
@@ -39,22 +37,13 @@ public class ArteDatenFilmDeserializer implements JsonDeserializer<ListeFilme>
         {
             futureFilme.add(new ArteJsonObjectToDatenFilmCallable(jsonElement.getAsJsonObject(), langCode, senderName).call());
         }
-        
-        CopyOnWriteArrayList<DatenFilm> finishedFilme = new CopyOnWriteArrayList<>();
-        futureFilme.parallelStream().forEach(finishedFilm -> {
-            try{
-                if (finishedFilm != null)
-                {
-                    finishedFilme.add(finishedFilm);
-                }
-            }catch(Exception exception)
-            {
-                LOG.error("Es ist ein Fehler beim lesen der Arte Filme aufgetreten.",exception);
-            }
 
-            });
-        
-        listeFilme.addAll(finishedFilme);
+        final List<DatenFilm> list = futureFilme.parallelStream()
+                .filter(Objects::nonNull)
+                .collect(Collectors.toList());
+        listeFilme.addAll(list);
+        list.clear();
+
         return listeFilme;
     }
 }

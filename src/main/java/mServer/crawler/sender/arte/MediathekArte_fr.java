@@ -24,7 +24,7 @@ import mServer.crawler.FilmeSuchen;
 
 public class MediathekArte_fr extends MediathekArte_de {
 
-    private final static String SENDERNAME = Const.ARTE_FR;
+    protected final static String SENDERNAME = Const.ARTE_FR;
 
     /**
      *

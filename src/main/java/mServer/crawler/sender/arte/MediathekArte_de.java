@@ -30,7 +30,10 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.List;
+import java.util.Objects;
+import java.util.stream.Collectors;
+
 import mServer.crawler.CrawlerTool;
 import mServer.crawler.FilmeSuchen;
 import mServer.crawler.sender.MediathekReader;
@@ -62,7 +65,7 @@ public class MediathekArte_de extends MediathekReader {
      * 4. für alle ProgramIds die Videoinformationen laden (wie kurze Variante)
    */
   private static final Logger LOG = LogManager.getLogger(MediathekArte_de.class);
-  private final static String SENDERNAME = Const.ARTE_DE;
+  protected final static String SENDERNAME = Const.ARTE_DE;
   private static final String ARTE_API_TAG_URL_PATTERN = "https://api.arte.tv/api/opa/v3/videos?channel=%s&arteSchedulingDay=%s";
 
   private static final String URL_SUBCATEGORY
@@ -151,7 +154,7 @@ public class MediathekArte_de extends MediathekReader {
     public void run() {
       try {
         meldungAddThread();
-        String link[];
+        String[] link;
         while (!Config.getStop() && (link = listeThemen.getListeThemen()) != null) {
           meldungProgress(link[0] /* url */);
           addFilmeForTag(link[0]);
@@ -167,9 +170,7 @@ public class MediathekArte_de extends MediathekReader {
 
       ListeFilme loadedFilme = ArteHttpClient.executeRequest(LOG, gson, aUrl, ListeFilme.class);
       if (loadedFilme != null) {
-        loadedFilme.forEach((film) -> {
-          addFilm(film);
-        });
+        loadedFilme.forEach(film -> addFilm(film));
       }
     }
   }
@@ -183,7 +184,7 @@ public class MediathekArte_de extends MediathekReader {
     public void run() {
       try {
         meldungAddThread();
-        String link[];
+        String[] link;
         while (!Config.getStop() && (link = listeThemen.getListeThemen()) != null) {
           meldungProgress(link[0] + "/" + link[1] /* url */);
           loadSubCategory(link[0], link[1]);
@@ -216,9 +217,7 @@ public class MediathekArte_de extends MediathekReader {
 
         // alle programIds verarbeiten
         ListeFilme loadedFilme = loadPrograms(dto);
-        loadedFilme.forEach((film) -> {
-          addFilm(film);
-        });
+        loadedFilme.forEach((film) -> addFilm(film));
       }
     }
 
@@ -234,19 +233,12 @@ public class MediathekArte_de extends MediathekReader {
         }
       });
 
-      CopyOnWriteArrayList<DatenFilm> finishedFilme = new CopyOnWriteArrayList<>();
-      futureFilme.parallelStream().forEach(finishedFilm -> {
-        try {
-          if (finishedFilm != null) {
-            finishedFilme.add(finishedFilm);
-          }
-        } catch (Exception exception) {
-          LOG.error("Es ist ein Fehler beim lesen der Arte Filme aufgetreten.", exception);
-        }
+      final List<DatenFilm> list = futureFilme.parallelStream()
+              .filter(Objects::nonNull)
+              .collect(Collectors.toList());
+      listeFilme.addAll(list);
+      list.clear();
 
-      });
-
-      listeFilme.addAll(finishedFilme);
       return listeFilme;
     }
 
