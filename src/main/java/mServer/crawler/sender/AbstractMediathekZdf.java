@@ -24,8 +24,6 @@ public abstract class AbstractMediathekZdf extends MediathekReader {
     setName(senderName);
   }
 
-  private final Phaser phaser = new Phaser();
-
   @Override
   public void addToList() {
     meldungStart();
@@ -44,14 +42,20 @@ public abstract class AbstractMediathekZdf extends MediathekReader {
             getApiHost(),
             loadConfig(),
             createEntryFilter());
-    forkJoinPool = new ForkJoinPool(Runtime.getRuntime().availableProcessors() * 4);
+    final ForkJoinPool.ForkJoinWorkerThreadFactory factory = pool -> {
+      final ForkJoinWorkerThread worker = ForkJoinPool.defaultForkJoinWorkerThreadFactory.newThread(pool);
+      worker.setName("AbstractMediathekZdf-worker-" + worker.getPoolIndex());
+      return worker;
+    };
+    forkJoinPool = new ForkJoinPool(Runtime.getRuntime().availableProcessors() * 2 + 1,
+            factory, null, true);
     forkJoinPool.execute(newTask);
     Collection<VideoDTO> filmList = newTask.join();
 
     convertToDto(filmList);
 
     // explicitely shutdown the pool
-    shutdownAndAwaitTermination(forkJoinPool, 60, TimeUnit.SECONDS);
+    shutdownAndAwaitTermination(forkJoinPool, 60);
 
     meldungThreadUndFertig();
   }
@@ -68,35 +72,35 @@ public abstract class AbstractMediathekZdf extends MediathekReader {
 
   protected abstract String getBaseUrl();
 
+  /**
+   * keeps track of all VideoDtoDatenFilmConverterAction objects.
+   * Will be set up in convertToDto()
+   */
+  private CountDownLatch latch;
+
   void convertToDto(Collection<VideoDTO> filmList) {
     EtmPoint perfPoint = EtmManager.getEtmMonitor().createPoint(getName() + ".convertVideoDTO");
+    boolean wasInterrupted = false;
+
+    //set up latch to proper size
+    latch = new CountDownLatch(filmList.size());
 
     if (!filmList.isEmpty()) {
       // Convert new DTO to old DatenFilm class
       Log.sysLog("convert VideoDTO to DatenFilm started..." + filmList.size());
-      filmList
-          .parallelStream()
-          .forEach(
-              (video) -> {
-                VideoDtoDatenFilmConverterAction action =
-                    new VideoDtoDatenFilmConverterAction(video);
-                forkJoinPool.execute(action);
-              });
-
+      filmList.forEach(v -> forkJoinPool.execute(new VideoDtoDatenFilmConverterAction(v)));
       filmList.clear();
 
-      boolean wasInterrupted = false;
-      while (!phaser.isTerminated()) {
-        try {
+      //wait for all actions to finish...
+      try {
+        while (!latch.await(1, TimeUnit.SECONDS)) {
           if (Config.getStop()) {
             wasInterrupted = true;
-            phaser.forceTermination();
-            shutdownAndAwaitTermination(forkJoinPool, 5, TimeUnit.SECONDS);
-          } else {
-            TimeUnit.SECONDS.sleep(1);
+            shutdownAndAwaitTermination(forkJoinPool, 1);
           }
-        } catch (InterruptedException ignored) {
         }
+      }
+      catch (Exception ignored) {
       }
 
       if (wasInterrupted) {
@@ -111,13 +115,13 @@ public abstract class AbstractMediathekZdf extends MediathekReader {
     perfPoint.collect();
   }
 
-  void shutdownAndAwaitTermination(ExecutorService pool, long delay, TimeUnit delayUnit) {
+  void shutdownAndAwaitTermination(ExecutorService pool, long delay) {
     Log.sysLog(senderName + " shutdown pool...");
     pool.shutdown();
     try {
-      if (!pool.awaitTermination(delay, delayUnit)) {
+      if (!pool.awaitTermination(delay, TimeUnit.SECONDS)) {
         pool.shutdownNow();
-        if (!pool.awaitTermination(delay, delayUnit)) {
+        if (!pool.awaitTermination(delay, TimeUnit.SECONDS)) {
           Log.sysLog(senderName + ": Pool did not terminate");
         }
       }
@@ -134,7 +138,6 @@ public abstract class AbstractMediathekZdf extends MediathekReader {
 
     public VideoDtoDatenFilmConverterAction(VideoDTO aVideoDTO) {
       video = aVideoDTO;
-      phaser.register();
     }
 
     @Override
@@ -151,7 +154,7 @@ public abstract class AbstractMediathekZdf extends MediathekReader {
           Log.errorLog(496583211, ex, "add film failed: " + video.getWebsiteUrl());
         }
       }
-      phaser.arriveAndDeregister();
+      latch.countDown();
     }
 
     private void addFilm(DownloadDTO download, String language) {
