@@ -5,13 +5,8 @@ import de.mediathekview.mlib.Const;
 import de.mediathekview.mlib.daten.DatenFilm;
 import de.mediathekview.mlib.tool.Log;
 import java.util.Set;
-import java.util.concurrent.Callable;
-import java.util.concurrent.ConcurrentLinkedQueue;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.ForkJoinPool;
-import java.util.concurrent.Future;
-import java.util.concurrent.RecursiveTask;
-import java.util.concurrent.TimeUnit;
+import java.util.concurrent.*;
+
 import mServer.crawler.CrawlerTool;
 import mServer.crawler.FilmeSuchen;
 import mServer.crawler.sender.MediathekReader;
@@ -26,7 +21,13 @@ public class BrCrawler extends MediathekReader {
   public BrCrawler(FilmeSuchen ssearch, int startPrio) {
     super(ssearch, SENDERNAME, 0, 100, startPrio);
 
-    forkJoinPool = new ForkJoinPool(Runtime.getRuntime().availableProcessors() * 4);
+    final ForkJoinPool.ForkJoinWorkerThreadFactory factory = pool -> {
+      final ForkJoinWorkerThread worker = ForkJoinPool.defaultForkJoinWorkerThreadFactory.newThread(pool);
+      worker.setName("BR-worker-" + worker.getPoolIndex());
+      return worker;
+    };
+    forkJoinPool = new ForkJoinPool(Runtime.getRuntime().availableProcessors() * 4,
+            factory,null, true);
   }
 
   @Override

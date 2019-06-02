@@ -336,10 +336,10 @@ public class FilmeSuchen {
   }
 
   private void progressBar() {
-    int max = listeSenderLaufen.getMax();
+    final int max = listeSenderLaufen.getMax();
     int progress = listeSenderLaufen.getProgress();
     int proz = 0;
-    String text;
+    StringBuilder text;
     int sekunden = 0;
     try {
       sekunden = Math.round((new Date(System.currentTimeMillis()).getTime() - startZeit.getTime()) / (1000));
@@ -353,20 +353,17 @@ public class FilmeSuchen {
       if (max > 0 && proz == 100) {
         proz = 99;
       }
-      text = "  [ ";
+      text = new StringBuilder("  [ ");
 
       final int a = proz / 10;
       for (int i = 0; i < a; ++i) {
-        text += "#";
+        text.append("#");
       }
       for (int i = 0; i < (10 - a); ++i) {
-        text += "-";
+        text.append("-");
       }
-      text += " ]  " + listeSenderLaufen.get(RunSender.Count.ANZAHL) + " Seiten / "
-              + proz + "% von " + max + " Themen / Filme: " + listeSenderLaufen.get(RunSender.Count.FILME)
-              + " / Dauer[Min]: " + (sekunden / 60 == 0 ? "<1" : sekunden / 60)
-              + " / R-Sender: " + listeSenderLaufen.getAnzSenderRun();
-      Log.progress(text);
+      text.append(" ]  ").append(listeSenderLaufen.get(RunSender.Count.ANZAHL)).append(" Seiten / ").append(proz).append("% von ").append(max).append(" Themen / Filme: ").append(listeSenderLaufen.get(RunSender.Count.FILME)).append(" / Dauer[Min]: ").append(sekunden / 60 == 0 ? "<1" : sekunden / 60).append(" / R-Sender: ").append(listeSenderLaufen.getAnzSenderRun());
+      Log.progress(text.toString());
     }
   }
 

@@ -8,12 +8,8 @@ import mServer.crawler.sender.srf.tasks.SrfFilmDetailTask;
 import mServer.crawler.sender.srf.tasks.SrfSendungOverviewPageTask;
 import mServer.crawler.sender.srf.tasks.SrfSendungenOverviewPageTask;
 import java.util.Set;
-import java.util.concurrent.ConcurrentLinkedQueue;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.ForkJoinPool;
-import java.util.concurrent.RecursiveTask;
-import java.util.concurrent.TimeUnit;
+import java.util.concurrent.*;
+
 import mServer.crawler.FilmeSuchen;
 import mServer.crawler.sender.MediathekReader;
 import mServer.crawler.sender.base.CrawlerUrlDTO;
@@ -29,7 +25,13 @@ public class SrfCrawler extends MediathekReader {
   public SrfCrawler(FilmeSuchen ssearch, int startPrio) {
     super(ssearch, Const.SRF, 0, 1, startPrio);
 
-    forkJoinPool = new ForkJoinPool(Runtime.getRuntime().availableProcessors() * 4);
+    final ForkJoinPool.ForkJoinWorkerThreadFactory factory = pool -> {
+      final ForkJoinWorkerThread worker = ForkJoinPool.defaultForkJoinWorkerThreadFactory.newThread(pool);
+      worker.setName("SRF-worker-" + worker.getPoolIndex());
+      return worker;
+    };
+    forkJoinPool = new ForkJoinPool(Runtime.getRuntime().availableProcessors() * 4,
+            factory,null, true);
   }
 
   @Override
