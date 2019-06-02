@@ -142,7 +142,7 @@ public class FilmeSuchen {
       for (String s : nameSender) {
         if (reader.checkNameSenderFilmliste(s)) {
           starten = true;
-          new Thread(reader).start();
+          reader.start();
           //reader.start();
         }
       }
@@ -272,7 +272,7 @@ public class FilmeSuchen {
 
   private synchronized void mrStarten(int prio) {
     // die MediathekReader mit "prio" starten
-    mediathekListe.stream().filter(mr -> mr.getStartPrio() == prio).forEach(mr -> new Thread(mr).start());
+    mediathekListe.stream().filter(mr -> mr.getStartPrio() == prio).forEach(Thread::start);
   }
 
   private synchronized void mrClear() {
