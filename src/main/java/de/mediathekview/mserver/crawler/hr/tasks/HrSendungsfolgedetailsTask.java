@@ -15,11 +15,6 @@ import de.mediathekview.mserver.crawler.basic.AbstractDocumentTask;
 import de.mediathekview.mserver.crawler.basic.AbstractUrlTask;
 import de.mediathekview.mserver.crawler.basic.CrawlerUrlDTO;
 import de.mediathekview.mserver.crawler.hr.parser.HrVideoJsonDeserializer;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-import org.jsoup.nodes.Document;
-import org.jsoup.select.Elements;
-
 import java.lang.reflect.Type;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -28,19 +23,20 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
-import java.util.EnumMap;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Optional;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentLinkedQueue;
-
-import static de.mediathekview.mserver.base.HtmlConsts.ATTRIBUTE_SRC;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.jsoup.nodes.Document;
+import org.jsoup.select.Elements;
 
 public class HrSendungsfolgedetailsTask extends AbstractDocumentTask<Film, CrawlerUrlDTO> {
 
   private static final String ATTRIBUTE_DATETIME = "datetime";
-  private static final String ATTRIBUTE_VIDEO_JSON = "data-hr-video-adaptive";
+  private static final String ATTRIBUTE_VIDEO_JSON = "data-hr-video-on-demand-player";
   private static final Logger LOG = LogManager.getLogger(HrSendungsfolgedetailsTask.class);
   private static final long serialVersionUID = 6138774185290017974L;
   private static final String THEMA_SELECTOR1 = ".breadcrumbNav__item span[itemprop=title]";
@@ -53,10 +49,7 @@ public class HrSendungsfolgedetailsTask extends AbstractDocumentTask<Film, Crawl
   private static final String DAUER_SELECTOR2 = ".c-contentHeader .mediaInfo__byline";
   private static final String DESCRIPTION_SELECTOR1 = ".copytext__text.copytext__text strong";
   private static final String DESCRIPTION_SELECTOR2 = ".copytext__text";
-  private static final String VIDEO_URL_SELECTOR1 = ".c-programHeader__mediaWrapper source";
-  private static final String VIDEO_URL_SELECTOR2 = "div.videoElement";
-  private static final String UT_URL_SELECTOR1 = ".c-programHeader__mediaWrapper track";
-  private static final String UT_URL_SELECTOR2 = ".c-contentHeader__lead track";
+  private static final String VIDEO_URL_SELECTOR2 = "figure .js-loadScript";
 
   private static final Type OPTIONAL_ARDVIDEOINFODTO_TYPE_TOKEN =
       new TypeToken<Optional<ArdVideoInfoDto>>() {}.getType();
@@ -143,13 +136,10 @@ public class HrSendungsfolgedetailsTask extends AbstractDocumentTask<Film, Crawl
     final Optional<String>[] topicAndTitle = getTopicAndTitle(aDocument);
     final Optional<String> beschreibung =
         HtmlDocumentUtils.getElementString(DESCRIPTION_SELECTOR1, DESCRIPTION_SELECTOR2, aDocument);
-    final Map<Resolution, String> videoUrls = parseVideo(aDocument);
-    final Optional<String> untertitelUrlText =
-        HtmlDocumentUtils.getElementAttributeString(
-            UT_URL_SELECTOR1, UT_URL_SELECTOR2, ATTRIBUTE_SRC, aDocument);
+    Optional<ArdVideoInfoDto> ardVideoInfoDto = parseVideo(aDocument);
     final Optional<Duration> dauer = parseDauer(aDocument);
 
-    if (checkPreConditions(topicAndTitle, videoUrls, dauer, aUrlDto.getUrl())) {
+    if (checkPreConditions(topicAndTitle, ardVideoInfoDto, dauer, aUrlDto.getUrl())) {
 
       final Optional<LocalDateTime> time = parseDate(aDocument);
 
@@ -158,8 +148,8 @@ public class HrSendungsfolgedetailsTask extends AbstractDocumentTask<Film, Crawl
           topicAndTitle[0].get(),
           topicAndTitle[1].get(),
           beschreibung,
-          videoUrls,
-          untertitelUrlText,
+          ardVideoInfoDto.get().getVideoUrls(),
+          ardVideoInfoDto.get().getSubtitleUrlOptional(),
           dauer.get(),
           time);
     }
@@ -214,7 +204,7 @@ public class HrSendungsfolgedetailsTask extends AbstractDocumentTask<Film, Crawl
 
   private boolean checkPreConditions(
       final Optional<String>[] topicAndTitle,
-      final Map<Resolution, String> videoUrls,
+      final Optional<ArdVideoInfoDto> videoInfoDto,
       final Optional<Duration> dauer,
       final String aUrl) {
     if (!topicAndTitle[1].isPresent()) {
@@ -227,7 +217,7 @@ public class HrSendungsfolgedetailsTask extends AbstractDocumentTask<Film, Crawl
       return false;
     }
 
-    if (videoUrls.isEmpty()) {
+    if (!videoInfoDto.isPresent() || videoInfoDto.get().getDefaultVideoUrl().isEmpty()) {
       crawler.printMissingElementErrorMessage(aUrl + ": Video-Url");
       return false;
     }
@@ -250,28 +240,15 @@ public class HrSendungsfolgedetailsTask extends AbstractDocumentTask<Film, Crawl
     }
   }
 
-  private Map<Resolution, String> parseVideo(final Document aDocument) {
+  private Optional<ArdVideoInfoDto> parseVideo(final Document aDocument) {
 
-    final Map<Resolution, String> urls = new EnumMap<>(Resolution.class);
-
-    // old video url
-    final Optional<String> videoUrl =
-        HtmlDocumentUtils.getElementAttributeString(VIDEO_URL_SELECTOR1, ATTRIBUTE_SRC, aDocument);
-    if (videoUrl.isPresent()) {
-      urls.put(Resolution.NORMAL, videoUrl.get());
-    } else {
-      final Optional<String> videoJson =
-          HtmlDocumentUtils.getElementAttributeString(
-              VIDEO_URL_SELECTOR2, ATTRIBUTE_VIDEO_JSON, aDocument);
-      if (videoJson.isPresent()) {
-        final Optional<ArdVideoInfoDto> dto =
-            gson.fromJson(videoJson.get(), OPTIONAL_ARDVIDEOINFODTO_TYPE_TOKEN);
-        if (dto.isPresent()) {
-          urls.putAll(dto.get().getVideoUrls());
-        }
-      }
+    final Optional<String> videoJson =
+        HtmlDocumentUtils.getElementAttributeString(
+            VIDEO_URL_SELECTOR2, ATTRIBUTE_VIDEO_JSON, aDocument);
+    if (videoJson.isPresent()) {
+      return gson.fromJson(videoJson.get(), OPTIONAL_ARDVIDEOINFODTO_TYPE_TOKEN);
     }
 
-    return urls;
+    return Optional.empty();
   }
 }

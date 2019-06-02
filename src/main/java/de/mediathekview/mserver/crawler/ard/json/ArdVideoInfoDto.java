@@ -3,6 +3,8 @@ package de.mediathekview.mserver.crawler.ard.json;
 import de.mediathekview.mlib.daten.Resolution;
 import java.util.EnumMap;
 import java.util.Map;
+import java.util.Optional;
+import org.apache.commons.lang3.StringUtils;
 
 /**
  * Video information from
@@ -32,8 +34,20 @@ public class ArdVideoInfoDto {
 		return subtitleUrl;
 	}
 
+	public Optional<String> getSubtitleUrlOptional() {
+		if (StringUtils.isNotBlank(subtitleUrl)) {
+			return Optional.of(subtitleUrl);
+		}
+
+		return Optional.empty();
+	}
+
 	public Map<Resolution, String> getVideoUrls() {
 		return videoUrls;
+	}
+
+	public boolean containsResolution(final Resolution key) {
+		return videoUrls.containsKey(key);
 	}
 
 	public String put(final Resolution key, final String value) {
