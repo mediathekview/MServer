@@ -402,10 +402,10 @@ public class MediathekNdr extends MediathekReader implements Runnable {
                     CrawlerTool.addUrlSubtitle(film, subtitle);
                 }
                 if (!url_hd.isEmpty()) {
-                    CrawlerTool.addUrlHd(film, url_hd, "");
+                    CrawlerTool.addUrlHd(film, url_hd);
                 }
                 if (!url_m.isEmpty()) {
-                    CrawlerTool.addUrlKlein(film, url_m, "");
+                    CrawlerTool.addUrlKlein(film, url_m);
                 }
                 addFilm(film);
             } else {

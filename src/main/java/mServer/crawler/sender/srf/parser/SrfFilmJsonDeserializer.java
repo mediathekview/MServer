@@ -99,10 +99,10 @@ public class SrfFilmJsonDeserializer implements JsonDeserializer<Optional<DatenF
             chapterList.description);
 
     if (videoUrls.containsKey(Qualities.SMALL)) {
-      CrawlerTool.addUrlKlein(film, videoUrls.get(Qualities.SMALL), "");
+      CrawlerTool.addUrlKlein(film, videoUrls.get(Qualities.SMALL));
     }
     if (videoUrls.containsKey(Qualities.HD)) {
-      CrawlerTool.addUrlHd(film, videoUrls.get(Qualities.HD), "");
+      CrawlerTool.addUrlHd(film, videoUrls.get(Qualities.HD));
     }
     if (!chapterList.subtitleUrl.isEmpty()) {
       CrawlerTool.addUrlSubtitle(film, chapterList.subtitleUrl);

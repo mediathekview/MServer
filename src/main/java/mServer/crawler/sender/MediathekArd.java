@@ -401,10 +401,10 @@ public class MediathekArd extends MediathekReader {
           final DatenFilm f = new DatenFilm(SENDERNAME, thema, urlSendung, titel, url,
                   ""/* urlRtmp */, datum, zeit, dauer, beschreibung);
           if (!urlKl.isEmpty()) {
-            CrawlerTool.addUrlKlein(f, urlKl, "");
+            CrawlerTool.addUrlKlein(f, urlKl);
           }
           if (!urlHD.isEmpty() && !urlHD.equals(url)) {
-            CrawlerTool.addUrlHd(f, optimizeHdUrl(urlHD), "");
+            CrawlerTool.addUrlHd(f, optimizeHdUrl(urlHD));
           }
           if (!subtitle.isEmpty()) {
             CrawlerTool.addUrlSubtitle(f, subtitle);

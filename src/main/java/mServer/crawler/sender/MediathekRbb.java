@@ -253,10 +253,10 @@ public class MediathekRbb extends MediathekReader {
                   datum, zeit/* zeit */, duration, description);
           addFilm(film);
           if (!urlLow.isEmpty()) {
-            CrawlerTool.addUrlKlein(film, urlLow, "");
+            CrawlerTool.addUrlKlein(film, urlLow);
           }
           if (!urlHD.isEmpty()) {
-            CrawlerTool.addUrlHd(film, urlHD, "");
+            CrawlerTool.addUrlHd(film, urlHD);
           }
           if (!subtitle.isEmpty()) {
             CrawlerTool.addUrlSubtitle(film, subtitle);

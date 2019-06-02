@@ -422,7 +422,7 @@ public abstract class MediathekReader extends Thread {
       String url_ = film.arr[DatenFilm.FILM_URL].substring(0, film.arr[DatenFilm.FILM_URL].lastIndexOf(from)) + to;
       // zum Testen immer machen!!
       if (urlExists(url_)) {
-        CrawlerTool.addUrlHd(film, url_, "");
+        CrawlerTool.addUrlHd(film, url_);
         //Log.sysLog("upgradeUrl: " + film.arr[DatenFilm.FILM_SENDER]);
       } else {
         Log.errorLog(945120347, "upgradeUrl: " + from);

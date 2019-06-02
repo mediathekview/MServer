@@ -183,10 +183,10 @@ public abstract class AbstractMediathekZdf extends MediathekReader {
       }
 
       if (!download.getUrl(language, Qualities.HD).isEmpty()) {
-        CrawlerTool.addUrlHd(film, download.getUrl(language, Qualities.HD), "");
+        CrawlerTool.addUrlHd(film, download.getUrl(language, Qualities.HD));
       }
       if (!download.getUrl(language, Qualities.SMALL).isEmpty()) {
-        CrawlerTool.addUrlKlein(film, download.getUrl(language, Qualities.SMALL), "");
+        CrawlerTool.addUrlKlein(film, download.getUrl(language, Qualities.SMALL));
       }
       if (!download.getSubTitleUrl().isEmpty()) {
         CrawlerTool.addUrlSubtitle(film, download.getSubTitleUrl());
@@ -308,7 +308,7 @@ public abstract class AbstractMediathekZdf extends MediathekReader {
               + to;
       // zum Testen immer machen!!
       if (urlExists(url)) {
-        CrawlerTool.addUrlHd(film, url, "");
+        CrawlerTool.addUrlHd(film, url);
       } else {
         Log.errorLog(945120147, "urlTauschen: " + urlSeite);
       }

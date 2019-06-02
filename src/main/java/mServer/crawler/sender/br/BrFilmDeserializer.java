@@ -251,10 +251,10 @@ public class BrFilmDeserializer implements JsonDeserializer<Optional<DatenFilm>>
               dateValue, timeValue, duration.getSeconds(), aDescription);
               
       if (aUrls.containsKey(Resolution.SMALL)) {
-          CrawlerTool.addUrlKlein(film, aUrls.get(Resolution.SMALL), "");
+          CrawlerTool.addUrlKlein(film, aUrls.get(Resolution.SMALL));
       }
       if (aUrls.containsKey(Resolution.HD)) {
-          CrawlerTool.addUrlHd(film, aUrls.get(Resolution.HD), "");
+          CrawlerTool.addUrlHd(film, aUrls.get(Resolution.HD));
       }
       if (aSubTitle.isPresent()) {
         CrawlerTool.addUrlSubtitle(film, aSubTitle.get());

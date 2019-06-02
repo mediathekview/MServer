@@ -236,10 +236,10 @@ public class MediathekDw extends MediathekReader implements Runnable {
             } else {
                 DatenFilm film = new DatenFilm(SENDERNAME, thema, urlSendung, titel, url, "", datum, ""/*Zeit*/, duration, description);
                 if (!urlLow.isEmpty()) {
-                    CrawlerTool.addUrlKlein(film, urlLow, "");
+                    CrawlerTool.addUrlKlein(film, urlLow);
                 }
                 if (!urlHd.isEmpty()) {
-                    CrawlerTool.addUrlHd(film, urlHd, "");
+                    CrawlerTool.addUrlHd(film, urlHd);
                 }
                 addFilm(film);
             }

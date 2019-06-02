@@ -302,10 +302,10 @@ public class MediathekOrf extends MediathekReader {
                     }
                     DatenFilm film = new DatenFilm(SENDERNAME, thema, strUrlFeed, titel, url, urlRtmp, datum, zeit, duration, description);
                     if (!urlKlein.isEmpty()) {
-                        CrawlerTool.addUrlKlein(film, urlKlein, urlRtmpKlein);
+                        CrawlerTool.addUrlKlein(film, urlKlein);
                     }
                     if (!urlHD.isEmpty()) {
-                        CrawlerTool.addUrlHd(film, urlHD, "");
+                        CrawlerTool.addUrlHd(film, urlHD);
                     }
                     if (!subtitle.isEmpty()) {
                         CrawlerTool.addUrlSubtitle(film, subtitle);

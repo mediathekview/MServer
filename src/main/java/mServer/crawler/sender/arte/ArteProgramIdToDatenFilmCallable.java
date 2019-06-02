@@ -88,11 +88,11 @@ public class ArteProgramIdToDatenFilmCallable implements Callable<DatenFilm> {
                 date, time, durationAsTime.toSecondOfDay(), beschreibung);
         if (video.getVideoUrls().containsKey(Qualities.HD))
         {
-            CrawlerTool.addUrlHd(film, video.getUrl(Qualities.HD), "");
+            CrawlerTool.addUrlHd(film, video.getUrl(Qualities.HD));
         }
         if (video.getVideoUrls().containsKey(Qualities.SMALL))
         {
-            CrawlerTool.addUrlKlein(film, video.getUrl(Qualities.SMALL), "");
+            CrawlerTool.addUrlKlein(film, video.getUrl(Qualities.SMALL));
         }
 
         if (details.getGeoLocation() != GeoLocations.GEO_NONE) {

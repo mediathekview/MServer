@@ -90,10 +90,10 @@ public class HrSendungDeserializer {
 
     DatenFilm film = new DatenFilm(Const.HR, theme, documentUrl, title, videoUrls.get(Qualities.NORMAL), "", date, time, duration, description);
     if (videoUrls.containsKey(Qualities.SMALL)) {
-      CrawlerTool.addUrlKlein(film, videoUrls.get(Qualities.SMALL), "");
+      CrawlerTool.addUrlKlein(film, videoUrls.get(Qualities.SMALL));
     }
     if (videoUrls.containsKey(Qualities.HD)) {
-      CrawlerTool.addUrlHd(film, videoUrls.get(Qualities.HD), "");
+      CrawlerTool.addUrlHd(film, videoUrls.get(Qualities.HD));
     }
     if (!subtitle.isEmpty()) {
       CrawlerTool.addUrlSubtitle(film, subtitle);

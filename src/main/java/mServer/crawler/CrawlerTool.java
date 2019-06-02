@@ -106,18 +106,18 @@ public class CrawlerTool {
         }
     }
 
-    public static void addUrlHd(DatenFilm film, String url, String urlRtmp) {
+    public static void addUrlHd(DatenFilm film, String url) {
         film.arr[DatenFilm.FILM_URL_HD] = url.isEmpty() ? "" : getKlein(film.arr[DatenFilm.FILM_URL], url);
-        film.arr[DatenFilm.FILM_URL_RTMP_HD] = urlRtmp.isEmpty() ? "" : getKlein(film.arr[DatenFilm.FILM_URL_RTMP], urlRtmp);
+        film.arr[DatenFilm.FILM_URL_RTMP_HD] = "";
     }
 
     public static void addUrlSubtitle(DatenFilm film, String url) {
         film.arr[DatenFilm.FILM_URL_SUBTITLE] = url;
     }
 
-    public static void addUrlKlein(DatenFilm film, String url, String urlRtmp) {
+    public static void addUrlKlein(DatenFilm film, String url) {
         film.arr[DatenFilm.FILM_URL_KLEIN] = url.isEmpty() ? "" : getKlein(film.arr[DatenFilm.FILM_URL], url);
-        film.arr[DatenFilm.FILM_URL_RTMP_KLEIN] = urlRtmp.isEmpty() ? "" : getKlein(film.arr[DatenFilm.FILM_URL_RTMP], urlRtmp);
+        film.arr[DatenFilm.FILM_URL_RTMP_KLEIN] = "";
     }
 
     private static String getKlein(String url1, String url2) {

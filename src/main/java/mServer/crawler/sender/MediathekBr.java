@@ -559,10 +559,10 @@ public class MediathekBr extends MediathekReader {
                     datum, zeit,
                     duration, description);
             if (!urlVerySmall.isEmpty()) {
-                CrawlerTool.addUrlKlein(film, urlVerySmall, "");
+                CrawlerTool.addUrlKlein(film, urlVerySmall);
             }
             if (!urlHd.isEmpty()) {
-                CrawlerTool.addUrlHd(film, urlHd, "");
+                CrawlerTool.addUrlHd(film, urlHd);
             }
             if (!subtitle.isEmpty()) {
                 subtitle = "http://www.br.de" + subtitle;

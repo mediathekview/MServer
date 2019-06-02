@@ -240,10 +240,10 @@ public class MediathekSwr extends MediathekReader {
           DatenFilm film = new DatenFilm(SENDERNAME, thema, strUrlFeed, title, normalUrl, ""/*rtmpURL*/, date, time, duration, description);
 
           if (!urldHd.isEmpty()) {
-            CrawlerTool.addUrlHd(film, urldHd, "");
+            CrawlerTool.addUrlHd(film, urldHd);
           }
           if (!smallUrl.isEmpty()) {
-            CrawlerTool.addUrlKlein(film, smallUrl, "");
+            CrawlerTool.addUrlKlein(film, smallUrl);
           }
           if (!subtitle.isEmpty()) {
             CrawlerTool.addUrlSubtitle(film, subtitle);

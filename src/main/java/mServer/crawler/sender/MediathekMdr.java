@@ -350,8 +350,8 @@ public class MediathekMdr extends MediathekReader {
           meldung(urlMp4);
 
           DatenFilm film = new DatenFilm(SENDERNAME, thema, urlSendung, titel, urlMp4, ""/*rtmpUrl*/, datum, zeit, duration, description);
-          CrawlerTool.addUrlKlein(film, urlMp4_klein, "");
-          CrawlerTool.addUrlHd(film, urlHD, "");
+          CrawlerTool.addUrlKlein(film, urlMp4_klein);
+          CrawlerTool.addUrlHd(film, urlHD);
           CrawlerTool.addUrlSubtitle(film, subtitle);
           addFilm(film);
         }
