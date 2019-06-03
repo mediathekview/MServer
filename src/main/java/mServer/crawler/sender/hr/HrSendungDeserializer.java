@@ -5,12 +5,6 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import de.mediathekview.mlib.Const;
 import de.mediathekview.mlib.daten.DatenFilm;
-import java.lang.reflect.Type;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
-import java.util.Map;
-import java.util.Optional;
 import mServer.crawler.CrawlerTool;
 import mServer.crawler.sender.newsearch.Qualities;
 import mServer.crawler.sender.orf.HtmlDocumentUtils;
@@ -19,6 +13,14 @@ import org.apache.logging.log4j.Logger;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+
+import java.lang.reflect.Type;
+import java.time.Duration;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+import java.util.Map;
+import java.util.Optional;
 
 public class HrSendungDeserializer {
 
@@ -29,11 +31,11 @@ public class HrSendungDeserializer {
   private static final String QUERY_TITLE2 = "span.c-contentHeader__headline";
   private static final String HTML_TAG_STRONG = "strong";
   private static final String HTML_TAG_TIME = "time";
-  private static final String HTML_TAG_VIDEO = "video";
   private static final String HTML_TAG_VIDEO2 = "figure .js-loadScript";
   private static final String HTML_ATTRIBUTE_DATETIME = "datetime";
-  private static final String HTML_ATTRIBUTE_DURATION = "data-duration";
   private static final String HTML_ATTRIBUTE_VIDEO_JSON = "data-hr-video-on-demand-player";
+  private static final String DAUER_SELECTOR1 = ".c-programHeader__mediaWrapper .mediaInfo__byline";
+  private static final String DAUER_SELECTOR2 = ".c-contentHeader .mediaInfo__byline";
 
   private final DateTimeFormatter dateFormatHtml = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mmZ");
   private final DateTimeFormatter dateFormatDatenFilm = DateTimeFormatter.ofPattern("dd.MM.yyyy");
@@ -151,16 +153,17 @@ public class HrSendungDeserializer {
   }
 
   private long getDuration(Document document) {
-    String duration = "";
 
-    Element durationElement = document.select(HTML_TAG_VIDEO).first();
-    if (durationElement != null) {
-      duration = durationElement.attr(HTML_ATTRIBUTE_DURATION);
+    final Optional<String> dauerText =
+            HtmlDocumentUtils.getElementString(DAUER_SELECTOR1, DAUER_SELECTOR2, document);
+    if (dauerText.isPresent()) {
+      Optional<Duration> duration = HtmlDocumentUtils.parseDuration(dauerText);
+      if (duration.isPresent()) {
+        Duration durationValue = duration.get();
+        return durationValue.getSeconds();
+      }
     }
 
-    if (duration != null && !duration.isEmpty()) {
-      return Long.parseLong(duration);
-    }
     return 0;
   }
 
