@@ -59,6 +59,29 @@ public final class HtmlDocumentUtils {
     return Optional.empty();
   }
 
+
+  /**
+   * Searches for the given selector if found it returns the text of the first
+   * result.
+   *
+   * @param aElementSelector1 The selector for the searched element.
+   * @param aElementSelector2 The selector for the searched element if
+   *                          aElementSelector1 is not found
+   * @param aDocument         The document in which will be searched.
+   * @return A {@link Optional} containing the found element or else an empty
+   *         {@link Optional}.
+   */
+  public static Optional<String> getElementString(final String aElementSelector1, final String aElementSelector2,
+                                                  final Document aDocument) {
+
+    Optional<String> result = getElementString(aElementSelector1, aDocument);
+    if (!result.isPresent()) {
+      result = getElementString(aElementSelector2, aDocument);
+    }
+
+    return result;
+  }
+
   public static Optional<Duration> parseDuration(final Optional<String> aDauerText) {
     return aDauerText.isPresent() ? parseDuration(aDauerText.get()) : Optional.empty();
   }
@@ -70,7 +93,7 @@ public final class HtmlDocumentUtils {
       if (2 == dauerSplits.length) {
         try {
           return Optional.of(Duration.ofMinutes(Long.parseLong(dauerSplits[0]))
-              .withSeconds(Long.parseLong(dauerSplits[1])));
+                  .plusSeconds(Long.parseLong(dauerSplits[1])));
         } catch (final NumberFormatException numberFormatException) {
           LOG.error("A duration for can't be parsed.", numberFormatException);
         }
@@ -78,4 +101,5 @@ public final class HtmlDocumentUtils {
     }
     return Optional.empty();
   }
+
 }
