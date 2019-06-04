@@ -2,18 +2,20 @@ package mServer.crawler.sender.hr;
 
 import de.mediathekview.mlib.Const;
 import de.mediathekview.mlib.daten.DatenFilm;
-import java.util.Arrays;
-import java.util.Collection;
 import mServer.test.TestFileReader;
-import static org.hamcrest.CoreMatchers.equalTo;
-import static org.hamcrest.CoreMatchers.notNullValue;
-import static org.hamcrest.CoreMatchers.nullValue;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
-import static org.junit.Assert.assertThat;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
+
+import java.util.Arrays;
+import java.util.Collection;
+
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.CoreMatchers.notNullValue;
+import static org.hamcrest.CoreMatchers.nullValue;
+import static org.junit.Assert.assertThat;
 
 @RunWith(Parameterized.class)
 public class HrSendungDeserializerTest {
@@ -21,71 +23,47 @@ public class HrSendungDeserializerTest {
   @Parameterized.Parameters
   public static Collection<Object[]> data() {
     return Arrays.asList(new Object[][]{
-      {
-        "/hr/hr_sendung_detail1.html",
-        "service: reisen",
-        "http://www.hr-fernsehen.de/sendungen-a-z/service-reisen/sendungen/service-reisen,sendung-13268.html",
-        "",
-        new DatenFilm(
-        Const.HR,
-        "service: reisen",
-        "http://www.hr-fernsehen.de/sendungen-a-z/service-reisen/sendungen/service-reisen,sendung-13268.html",
-        "Von Marienbad nach Karlsbad",
-        "http://www.hr.gl-systemhaus.de/video/as/servicereisen/2017_09/hrLogo_170919120157_0193742_512x288-25p-500kbit.mp4",
-        "",
-        "19.09.2017",
-        "18:50:00",
-        1506,
-        "\"service: reisen\" begibt sich auf eine ganz besondere Trinkkur durch Böhmen und entdeckt dabei nicht nur bemerkenswerte Heilquellen, sondern auch modernere Therapie-Formen wie das Bierwellness."
-        )},
-      {"/hr/hr_sendung_hessenschau_detail.html", "hessenschau", "http://www.hessenschau.de/tv-sendung/video-43192.html", "",
-        new DatenFilm(
-        Const.HR,
-        "hessenschau",
-        "http://www.hessenschau.de/tv-sendung/video-43192.html",
-        "hessenschau - ganze Sendung",
-        "http://www.hr.gl-systemhaus.de/video/as/hessenschau/2017_09/hrLogo_170928200235_L273051_512x288-25p-500kbit.mp4",
-        "",
-        "28.09.2017",
-        "19:30:00",
-        1653,
-        "Polizei hofft auf Hinweise zu totem Säugling / Ryanair lässt rund 18.000 Flüge ausfallen / Wahl-Nachlese zur AfD / Wem nutzt das Gesetz zur Wahlkreis-Neuordnung? / Zucker-Branche steht vor historischer Reform / Aids-Hilfe-Loveball in Frankfurt am Main / Hirschbrunft in der Alten Fasanerie Hanau"
-        )},
-      {
-        "/hr/hr_sendung_detail2.html",
-        "hr-katzen",
-        "http://www.hr-fernsehen.de/sendungen-a-z/hr-katzen/index.html",
-        "",
-        new DatenFilm(
-        Const.HR,
-        "hr-katzen",
-        "http://www.hr-fernsehen.de/sendungen-a-z/hr-katzen/index.html",
-        "Die neuen Pausenkatzen",
-        "http://www.hr.gl-systemhaus.de/video/fs/allgemein/2017_07/170705102721_hr-Fernsehen_Hessischer_Rundfunk_hr-online.de.mp4",
-        "",
-        "05.07.2017",
-        "00:00:00",
-        145,
-        "Sie sind Kult: die Pausenkatzen des Hessischen Rundfunks. Erfunden in den 70er Jahren klettern und tollen sie heute wieder in Randzeiten durchs Programm des hr-fernsehens. Ende 2015 hat der hr die Pausenkatzen neu produziert: flauschig und in ultrascharfer HD-Qualität."
-        )},
-      {
-        "/hr/hr_sendung_detail3.html",
-        "strassen stars",
-        "https://www.hr-fernsehen.de/sendungen-a-z/strassen-stars/sendungen/strassen-stars,sendung-32932.html",
-        "https://hr-a.akamaihd.net/video/as/strassenstars/2018_05/hrLogo_180513185139_0196460_512x288-25p-500kbit.vtt",
-        new DatenFilm(
-        Const.HR,
-        "strassen stars",
-        "https://www.hr-fernsehen.de/sendungen-a-z/strassen-stars/sendungen/strassen-stars,sendung-32932.html",
-        "Comedy-Quiz rund um Menschenkenntnis zum Mitraten mit Roberto Cappelluti",
-        "https://hr-a.akamaihd.net/video/as/strassenstars/2018_05/hrLogo_180513185139_0196460_512x288-25p-500kbit.mp4",
-        "",
-        "13.05.2018",
-        "23:30:00",
-        1800,
-        "Rateteam: Susanne Fröhlich, Jörg Thadeusz, Hadnet Tesfai"
-        )}
 
+            {
+                    "/hr/hr_sendung_detail1.html",
+                    "maintower kriminalreport",
+                    "https://www.hr-fernsehen.de/sendungen-a-z/maintower-kriminalreport/sendungen/maintower-kriminalreport,sendung-62594.html",
+                    "https://hr-a.akamaihd.net/video/as/kriminalreport/2019_06/hrLogo_190602161651_0202702_512x288-25p-500kbit.vtt",
+                    "86|512x288-25p-500kbit.mp4",
+                    "86|1280x720-50p-5000kbit.mp4",
+                    new DatenFilm(
+                            Const.HR,
+                            "maintower kriminalreport",
+                            "https://www.hr-fernsehen.de/sendungen-a-z/maintower-kriminalreport/sendungen/maintower-kriminalreport,sendung-62594.html",
+                            "Missbrauch an der eigenen Tochter – Fahndung geht weiter",
+                            "https://hr-a.akamaihd.net/video/as/kriminalreport/2019_06/hrLogo_190602161651_0202702_960x540-50p-1800kbit.mp4",
+                            "",
+                            "02.06.2019",
+                            "19:00:00",
+                            1769,
+                            "Ein Mann prahlt im Internet mit dem Missbrauch einer 12-Jährigen und bietet das Mädchen an. Wie wahr ist diese Geschichte wirklich? Die weiteren Themen: Tödlicher Ausraster in Bad Soden | Ein Mörder wird gesucht | Wenn der Betrüger zweimal klingelt | Der Kleingarten als Tatort |Überfall auf Getränkemarkt in Gelnhausen-Haitz | Kleinkrieg am Gartenzaun"
+                    )
+            },
+            {
+                    "/hr/hr_sendung_detail2.html",
+                    "herrliches hessen",
+                    "https://www.hr-fernsehen.de/sendungen-a-z/herrliches-hessen/sendungen/herrliches-hessen---unterwegs-in-und-um-eschenburg,sendung-37222.html",
+                    "",
+                    "",
+                    "",
+                    new DatenFilm(
+                            Const.HR,
+                            "herrliches hessen",
+                            "https://www.hr-fernsehen.de/sendungen-a-z/herrliches-hessen/sendungen/herrliches-hessen---unterwegs-in-und-um-eschenburg,sendung-37222.html",
+                            "Unterwegs in und um Eschenburg",
+                            "https://hr-a.akamaihd.net/video/as/herrlicheshessen/2018_07/hrLogo_180703103341_0198041_512x288-25p-500kbit.mp4",
+                            "",
+                            "22.06.2019",
+                            "17:15:00",
+                            1767,
+                            "Moderator Dieter Voss ist diesmal unterwegs im Lahn-Dill-Bergland – genauer gesagt in der Gemeinde Eschenburg. Die überwiegend ländlich geprägte Landschaft rund um Eschenburg ist ein echtes Paradies für Wander- und Naturfreunde."
+                            )
+            }
     });
   }
 
@@ -94,12 +72,14 @@ public class HrSendungDeserializerTest {
   private final String url;
   private final DatenFilm expectedFilm;
 
-  public HrSendungDeserializerTest(String aHtmlFile, String aTheme, String aUrl, String aExpectedSubtitle, DatenFilm aFilm) {
+  public HrSendungDeserializerTest(String aHtmlFile, String aTheme, String aUrl, String aExpectedSubtitle, String aExpectedSmallUrl, String aExpectedHdUrl, DatenFilm aFilm) {
     htmlFile = aHtmlFile;
     theme = aTheme;
     url = aUrl;
     expectedFilm = aFilm;
     expectedFilm.arr[DatenFilm.FILM_URL_SUBTITLE] = aExpectedSubtitle;
+    expectedFilm.arr[DatenFilm.FILM_URL_HD] = aExpectedHdUrl;
+    expectedFilm.arr[DatenFilm.FILM_URL_KLEIN] =aExpectedSmallUrl;
   }
 
   @Test
