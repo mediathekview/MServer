@@ -27,7 +27,6 @@ import de.mediathekview.mserver.crawler.mdr.MdrCrawler;
 import de.mediathekview.mserver.crawler.ndr.NdrCrawler;
 import de.mediathekview.mserver.crawler.orf.OrfCrawler;
 import de.mediathekview.mserver.crawler.phoenix.PhoenixCrawler;
-import de.mediathekview.mserver.crawler.rbb.RbbCrawler;
 import de.mediathekview.mserver.crawler.sr.SrCrawler;
 import de.mediathekview.mserver.crawler.srf.SrfCrawler;
 import de.mediathekview.mserver.crawler.swr.SwrCrawler;
@@ -480,8 +479,6 @@ public class CrawlerManager extends AbstractManager {
     crawlerMap.put(
         Sender.PHOENIX,
         new PhoenixCrawler(forkJoinPool, messageListeners, progressListeners, rootConfig));
-    crawlerMap.put(
-        Sender.RBB, new RbbCrawler(forkJoinPool, messageListeners, progressListeners, rootConfig));
     crawlerMap.put(
         Sender.SRF, new SrfCrawler(forkJoinPool, messageListeners, progressListeners, rootConfig));
     crawlerMap.put(
