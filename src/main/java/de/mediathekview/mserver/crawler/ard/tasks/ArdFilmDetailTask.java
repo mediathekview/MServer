@@ -11,6 +11,7 @@ import de.mediathekview.mserver.crawler.basic.AbstractRecrusivConverterTask;
 import java.lang.reflect.Type;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 import java.util.concurrent.ConcurrentLinkedQueue;
@@ -22,32 +23,30 @@ public class ArdFilmDetailTask extends ArdTaskBase<Film, ArdFilmInfoDto> {
 
   private static final Logger LOG = LogManager.getLogger(ArdFilmDetailTask.class);
 
-  private static final Type OPTIONAL_FILM_TYPE_TOKEN = new TypeToken<Optional<ArdFilmDto>>() {
-  }.getType();
+  private static final Type LIST_FILM_TYPE_TOKEN = new TypeToken<List<ArdFilmDto>>() {}.getType();
 
-  public ArdFilmDetailTask(AbstractCrawler aCrawler,
-      ConcurrentLinkedQueue aUrlToCrawlDTOs) {
+  public ArdFilmDetailTask(AbstractCrawler aCrawler, ConcurrentLinkedQueue aUrlToCrawlDTOs) {
     super(aCrawler, aUrlToCrawlDTOs);
 
-    registerJsonDeserializer(OPTIONAL_FILM_TYPE_TOKEN, new ArdFilmDeserializer(crawler));
+    registerJsonDeserializer(LIST_FILM_TYPE_TOKEN, new ArdFilmDeserializer(crawler));
   }
 
   @Override
   protected void processRestTarget(ArdFilmInfoDto aDTO, WebTarget aTarget) {
     try {
-      final Optional<ArdFilmDto> filmDtoOptional = deserializeOptional(aTarget, OPTIONAL_FILM_TYPE_TOKEN);
+      final Set<ArdFilmDto> filmDtos = deserialize(aTarget, LIST_FILM_TYPE_TOKEN);
 
-      if (filmDtoOptional.isPresent()) {
-        ArdFilmDto filmDto = filmDtoOptional.get();
+      if (filmDtos.size() > 0) {
+        for (ArdFilmDto filmDto : filmDtos) {
 
-        final Film result = filmDto.getFilm();
-        result.setWebsite(getWebsiteUrl(aDTO));
-        taskResults.add(result);
+          final Film result = filmDto.getFilm();
+          result.setWebsite(getWebsiteUrl(aDTO));
+          taskResults.add(result);
 
-        if (aDTO.getNumberOfClips() > 1) {
-          processRelatedFilms(filmDto.getRelatedFilms());
+          if (aDTO.getNumberOfClips() > 1) {
+            processRelatedFilms(filmDto.getRelatedFilms());
+          }
         }
-
         crawler.incrementAndGetActualCount();
         crawler.updateProgress();
       } else {
@@ -61,7 +60,6 @@ public class ArdFilmDetailTask extends ArdTaskBase<Film, ArdFilmInfoDto> {
       crawler.updateProgress();
     }
   }
-
 
   private void processRelatedFilms(final Set<ArdFilmInfoDto> relatedFilms) {
     if (relatedFilms != null && !relatedFilms.isEmpty()) {
@@ -83,7 +81,8 @@ public class ArdFilmDetailTask extends ArdTaskBase<Film, ArdFilmInfoDto> {
   }
 
   @Override
-  protected AbstractRecrusivConverterTask createNewOwnInstance(ConcurrentLinkedQueue aElementsToProcess) {
+  protected AbstractRecrusivConverterTask createNewOwnInstance(
+      ConcurrentLinkedQueue aElementsToProcess) {
     return new ArdFilmDetailTask(crawler, aElementsToProcess);
   }
 }

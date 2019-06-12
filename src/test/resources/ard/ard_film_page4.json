@@ -26,6 +26,7 @@
          },
          "publicationService":{
             "name":"Das Erste",
+            "channelType": "daserste",
             "__typename":"PublicationService"
          },
          "mediaCollection":{

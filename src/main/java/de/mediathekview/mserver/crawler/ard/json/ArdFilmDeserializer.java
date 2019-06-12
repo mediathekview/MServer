@@ -16,9 +16,6 @@ import de.mediathekview.mserver.crawler.ard.ArdFilmDto;
 import de.mediathekview.mserver.crawler.ard.ArdFilmInfoDto;
 import de.mediathekview.mserver.crawler.ard.ArdUrlBuilder;
 import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
-import org.apache.commons.lang3.StringUtils;
-import org.apache.logging.log4j.LogManager;
-
 import java.lang.reflect.Type;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -27,11 +24,16 @@ import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeParseException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
+import org.apache.commons.lang3.StringUtils;
+import org.apache.logging.log4j.LogManager;
 
-public class ArdFilmDeserializer implements JsonDeserializer<Optional<ArdFilmDto>> {
+public class ArdFilmDeserializer implements JsonDeserializer<List<ArdFilmDto>> {
 
   private static final org.apache.logging.log4j.Logger LOG =
       LogManager.getLogger(ArdFilmDeserializer.class);
@@ -41,14 +43,23 @@ public class ArdFilmDeserializer implements JsonDeserializer<Optional<ArdFilmDto
   private static final String ELEMENT_DATA = "data";
   private static final String ELEMENT_MEDIA_COLLECTION = "mediaCollection";
   private static final String ELEMENT_PLAYER_PAGE = "playerPage";
+  private static final String ELEMENT_PUBLICATION_SERVICE = "publicationService";
   private static final String ELEMENT_RELATES = "relates";
   private static final String ELEMENT_SHOW = "show";
 
   private static final String ATTRIBUTE_BROADCAST = "broadcastedOn";
+  private static final String ATTRIBUTE_CHANNEL_TYPE = "channelType";
   private static final String ATTRIBUTE_DURATION = "_duration";
   private static final String ATTRIBUTE_ID = "id";
   private static final String ATTRIBUTE_SYNOPSIS = "synopsis";
   private static final String ATTRIBUTE_TITLE = "title";
+
+  // the key of the map is the value of publicationService.channelType in film.json
+  private static final Map<String, Sender> ADDITIONAL_SENDER = new HashMap<>();
+
+  static {
+    ADDITIONAL_SENDER.put("rbb", Sender.RBB);
+  }
 
   private final ArdVideoInfoJsonDeserializer videoDeserializer;
 
@@ -102,18 +113,20 @@ public class ArdFilmDeserializer implements JsonDeserializer<Optional<ArdFilmDto
   }
 
   @Override
-  public Optional<ArdFilmDto> deserialize(
+  public List<ArdFilmDto> deserialize(
       final JsonElement jsonElement, final Type type, final JsonDeserializationContext context) {
+
+    List<ArdFilmDto> films = new ArrayList<>();
 
     if (!JsonUtils.checkTreePath(
         jsonElement, Optional.empty(), ELEMENT_DATA, ELEMENT_PLAYER_PAGE)) {
-      return Optional.empty();
+      return films;
     }
 
     final JsonElement playerPageElement =
         jsonElement.getAsJsonObject().get(ELEMENT_DATA).getAsJsonObject().get(ELEMENT_PLAYER_PAGE);
     if (playerPageElement.isJsonNull()) {
-      return Optional.empty();
+      return films;
     }
 
     final JsonObject playerPageObject = playerPageElement.getAsJsonObject();
@@ -125,19 +138,49 @@ public class ArdFilmDeserializer implements JsonDeserializer<Optional<ArdFilmDto
     final Optional<LocalDateTime> date = parseDate(playerPageObject);
     final Optional<Duration> duration = parseDuration(playerPageObject);
     final Optional<ArdVideoInfoDto> videoInfo = parseVideoUrls(playerPageObject);
+    final Optional<String> channelType = parseChannelType(playerPageObject);
 
     if (topic.isPresent()
         && title.isPresent()
         && videoInfo.isPresent()
         && videoInfo.get().getVideoUrls().size() > 0) {
-      final Optional<Film> film =
-          createFilm(topic.get(), title.get(), description, date, duration, videoInfo.get());
-      if (film.isPresent()) {
-        final ArdFilmDto filmDto = new ArdFilmDto(film.get());
-        parseRelatedFilms(filmDto, playerPageObject);
+      // add film to ARD
+      final ArdFilmDto filmDto =
+          new ArdFilmDto(
+              createFilm(
+                  Sender.ARD,
+                  topic.get(),
+                  title.get(),
+                  description,
+                  date,
+                  duration,
+                  videoInfo.get()));
+      parseRelatedFilms(filmDto, playerPageObject);
+      films.add(filmDto);
 
-        return Optional.of(filmDto);
+      if (channelType.isPresent() && ADDITIONAL_SENDER.containsKey(channelType.get())) {
+        // add film to other sender (like RBB)
+        Film additionalFilm =
+            createFilm(
+                ADDITIONAL_SENDER.get(channelType.get()),
+                topic.get(),
+                title.get(),
+                description,
+                date,
+                duration,
+                videoInfo.get());
+        films.add(new ArdFilmDto(additionalFilm));
       }
+    }
+
+    return films;
+  }
+
+  private Optional<String> parseChannelType(JsonObject playerPageObject) {
+    if (playerPageObject.has(ELEMENT_PUBLICATION_SERVICE)) {
+      JsonObject publicationServiceObject =
+          playerPageObject.get(ELEMENT_PUBLICATION_SERVICE).getAsJsonObject();
+      return JsonUtils.getAttributeAsString(publicationServiceObject, ATTRIBUTE_CHANNEL_TYPE);
     }
 
     return Optional.empty();
@@ -169,7 +212,8 @@ public class ArdFilmDeserializer implements JsonDeserializer<Optional<ArdFilmDto
     }
   }
 
-  private Optional<Film> createFilm(
+  private Film createFilm(
+      final Sender sender,
       final String topic,
       final String title,
       final Optional<String> description,
@@ -180,7 +224,7 @@ public class ArdFilmDeserializer implements JsonDeserializer<Optional<ArdFilmDto
     final Film film =
         new Film(
             UUID.randomUUID(),
-            Sender.ARD,
+            sender,
             title,
             topic,
             date.orElse(null),
@@ -207,7 +251,7 @@ public class ArdFilmDeserializer implements JsonDeserializer<Optional<ArdFilmDto
     }
     addUrls(film, videoInfo.getVideoUrls());
 
-    return Optional.of(film);
+    return film;
   }
 
   private void addUrls(final Film aFilm, final Map<Resolution, String> aVideoUrls) {
