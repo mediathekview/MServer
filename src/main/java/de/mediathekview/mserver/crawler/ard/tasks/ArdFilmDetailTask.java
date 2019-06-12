@@ -36,7 +36,7 @@ public class ArdFilmDetailTask extends ArdTaskBase<Film, ArdFilmInfoDto> {
     try {
       final List<ArdFilmDto> filmDtos = deserialize(aTarget, LIST_FILM_TYPE_TOKEN);
 
-      if (filmDtos.size() > 0) {
+      if (filmDtos != null && filmDtos.size() > 0) {
         for (ArdFilmDto filmDto : filmDtos) {
 
           final Film result = filmDto.getFilm();
