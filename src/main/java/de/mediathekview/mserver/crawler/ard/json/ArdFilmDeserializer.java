@@ -51,6 +51,7 @@ public class ArdFilmDeserializer implements JsonDeserializer<List<ArdFilmDto>> {
   private static final String ATTRIBUTE_CHANNEL_TYPE = "channelType";
   private static final String ATTRIBUTE_DURATION = "_duration";
   private static final String ATTRIBUTE_ID = "id";
+  private static final String ATTRIBUTE_NAME = "name";
   private static final String ATTRIBUTE_SYNOPSIS = "synopsis";
   private static final String ATTRIBUTE_TITLE = "title";
 
@@ -180,7 +181,17 @@ public class ArdFilmDeserializer implements JsonDeserializer<List<ArdFilmDto>> {
     if (playerPageObject.has(ELEMENT_PUBLICATION_SERVICE)) {
       JsonObject publicationServiceObject =
           playerPageObject.get(ELEMENT_PUBLICATION_SERVICE).getAsJsonObject();
-      return JsonUtils.getAttributeAsString(publicationServiceObject, ATTRIBUTE_CHANNEL_TYPE);
+      Optional<String> channelAttribute = JsonUtils
+          .getAttributeAsString(publicationServiceObject, ATTRIBUTE_CHANNEL_TYPE);
+      if (channelAttribute.isPresent()) {
+        return channelAttribute;
+      }
+
+      Optional<String> nameAttribute = JsonUtils
+          .getAttributeAsString(publicationServiceObject, ATTRIBUTE_NAME);
+      if (nameAttribute.isPresent()) {
+        return Optional.of(nameAttribute.get().split(" ")[0]);
+      }
     }
 
     return Optional.empty();
