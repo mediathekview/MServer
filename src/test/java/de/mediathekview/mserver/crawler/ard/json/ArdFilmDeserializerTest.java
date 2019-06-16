@@ -103,7 +103,7 @@ public class ArdFilmDeserializerTest {
                           "{\"client\":\"ard\",\"clipId\":\"Y3JpZDovL2Rhc2Vyc3RlLmRlL3N0dXJtIGRlciBsaWViZS8yNGY1ZTU4My01YTBhLTRmNzItOThhZi1lNzBiYjU1NGY5MDA\",\"deviceType\":\"pc\"}")
                       + "&extensions="
                       + URLEncoder.encode(
-                          "{\"persistedQuery\":{\"version\":1,\"sha256Hash\":\"b69efa74d0e2623a9104fb94c9ed2e8f1418a68f6457594126d719a2e8ca7174\"}}"),
+                          "{\"persistedQuery\":{\"version\":1,\"sha256Hash\":\"a9a9b15083dd3bf249264a7ff5d9e1010ec5d861539bc779bb1677a4a37872da\"}}"),
                   0),
               new ArdFilmInfoDto(
                   "Y3JpZDovL2Rhc2Vyc3RlLmRlL3N0dXJtIGRlciBsaWViZS81Y2NiMjFmZS1kZDk3LTRlZDYtYjRhZS05ZjNjOWQ5ZjQ2MjE",
@@ -112,7 +112,7 @@ public class ArdFilmDeserializerTest {
                           "{\"client\":\"ard\",\"clipId\":\"Y3JpZDovL2Rhc2Vyc3RlLmRlL3N0dXJtIGRlciBsaWViZS81Y2NiMjFmZS1kZDk3LTRlZDYtYjRhZS05ZjNjOWQ5ZjQ2MjE\",\"deviceType\":\"pc\"}")
                       + "&extensions="
                       + URLEncoder.encode(
-                          "{\"persistedQuery\":{\"version\":1,\"sha256Hash\":\"b69efa74d0e2623a9104fb94c9ed2e8f1418a68f6457594126d719a2e8ca7174\"}}"),
+                          "{\"persistedQuery\":{\"version\":1,\"sha256Hash\":\"a9a9b15083dd3bf249264a7ff5d9e1010ec5d861539bc779bb1677a4a37872da\"}}"),
                   0)
             },
             Optional.empty()
@@ -182,7 +182,7 @@ public class ArdFilmDeserializerTest {
                           "{\"client\":\"ard\",\"clipId\":\"Y3JpZDovL3JiYi1vbmxpbmUuZGUvZmlsbXplaXQvMjAxOS0wNi0xMFQxNjoxNTowMF80OGNhYjZiYS0xNzY3LTRmMTktYjAxMS00YjM3ZmMyNWJlN2UvZWluLWxhc3RlcmhhZnRlcy1wYWVyY2hlbg\",\"deviceType\":\"pc\"}")
                       + "&extensions="
                       + URLEncoder.encode(
-                          "{\"persistedQuery\":{\"version\":1,\"sha256Hash\":\"b69efa74d0e2623a9104fb94c9ed2e8f1418a68f6457594126d719a2e8ca7174\"}}"),
+                          "{\"persistedQuery\":{\"version\":1,\"sha256Hash\":\"a9a9b15083dd3bf249264a7ff5d9e1010ec5d861539bc779bb1677a4a37872da\"}}"),
                   0)
             },
             Optional.of(Sender.RBB)
