@@ -39,7 +39,7 @@ public class ArdFilmDetailTask extends ArdTaskBase<DatenFilm, ArdFilmInfoDto> {
         for (ArdFilmDto filmDto : filmDtos) {
 
           final DatenFilm result = filmDto.getFilm();
-          result.arr[DatenFilm.FILM_BESCHREIBUNG] = getWebsiteUrl(aDTO);
+          result.arr[DatenFilm.FILM_WEBSEITE] = getWebsiteUrl(aDTO);
           taskResults.add(result);
 
           if (aDTO.getNumberOfClips() > 1) {
