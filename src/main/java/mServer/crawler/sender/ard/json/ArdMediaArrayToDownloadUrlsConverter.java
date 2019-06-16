@@ -187,6 +187,7 @@ public class ArdMediaArrayToDownloadUrlsConverter {
         return Qualities.SMALL;
 
       case 3:
+      case 4:
         return Qualities.HD;
 
       case 2:
