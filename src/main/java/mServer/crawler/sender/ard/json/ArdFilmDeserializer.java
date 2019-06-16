@@ -239,7 +239,7 @@ public class ArdFilmDeserializer implements JsonDeserializer<List<ArdFilmDto>> {
 
     Map<Qualities, String> videoUrls = videoInfo.getVideoUrls();
 
-    DatenFilm film = new DatenFilm(sender, topic, "TODO", title, videoUrls.get(Qualities.NORMAL), "", dateValue, timeValue, duration.orElse(Duration.ZERO).getSeconds(), description.orElse(""));
+    DatenFilm film = new DatenFilm(sender, topic, "", title, videoInfo.getDefaultVideoUrl(), "", dateValue, timeValue, duration.orElse(Duration.ZERO).getSeconds(), description.orElse(""));
     if (videoUrls.containsKey(Qualities.SMALL)) {
       CrawlerTool.addUrlKlein(film, videoUrls.get(Qualities.SMALL), "");
     }
