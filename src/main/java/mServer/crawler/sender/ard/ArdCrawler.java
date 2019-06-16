@@ -1,68 +1,29 @@
 package mServer.crawler.sender.ard;
 
-import de.mediathekview.mlib.Config;
 import de.mediathekview.mlib.Const;
 import de.mediathekview.mlib.daten.DatenFilm;
 import de.mediathekview.mlib.tool.Log;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 import java.time.LocalDateTime;
 import java.util.Set;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.ExecutionException;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.ForkJoinPool;
 import java.util.concurrent.RecursiveTask;
-import java.util.concurrent.TimeUnit;
 import mServer.crawler.CrawlerTool;
 import mServer.crawler.FilmeSuchen;
-import mServer.crawler.sender.MediathekReader;
+import mServer.crawler.sender.MediathekCrawler;
 import mServer.crawler.sender.ard.tasks.ArdDayPageTask;
 import mServer.crawler.sender.ard.tasks.ArdFilmDetailTask;
 import mServer.crawler.sender.ard.tasks.ArdTopicPageTask;
 import mServer.crawler.sender.ard.tasks.ArdTopicsOverviewTask;
 import mServer.crawler.sender.base.CrawlerUrlDTO;
 
-public class ArdCrawler extends MediathekReader {
+public class ArdCrawler extends MediathekCrawler {
 
   public static final String SENDERNAME = Const.ARD;
 
-  private static final Logger LOG = LogManager.getLogger(ArdCrawler.class);
-
-  private final ForkJoinPool forkJoinPool;
-
   public ArdCrawler(FilmeSuchen ssearch, int startPrio) {
     super(ssearch, SENDERNAME, 0, 1, startPrio);
-
-    forkJoinPool = new ForkJoinPool(Runtime.getRuntime().availableProcessors() * 4);
-  }
-
-  @Override
-  protected void addToList() {
-    meldungStart();
-
-    try {
-      RecursiveTask<Set<DatenFilm>> filmTask = createCrawlerTask();
-      Set<DatenFilm> films = forkJoinPool.invoke(filmTask);
-
-      Log.sysLog("ARD Filme einsortieren..." + films.size());
-
-      films.forEach(film -> {
-        if (!Config.getStop()) {
-          addFilm(film);
-        }
-      });
-
-      Log.sysLog("ARD Film einsortieren fertig");
-    } finally {
-      //explicitely shutdown the pool
-      shutdownAndAwaitTermination(forkJoinPool, 60, TimeUnit.SECONDS);
-    }
-
-    Log.sysLog("ARD fertig");
-
-    meldungThreadUndFertig();
   }
 
   @Override
@@ -74,22 +35,6 @@ public class ArdCrawler extends MediathekReader {
     }
 
     super.meldungThreadUndFertig();
-  }
-
-  void shutdownAndAwaitTermination(ExecutorService pool, long delay, TimeUnit delayUnit) {
-    pool.shutdown();
-    Log.sysLog("ARD shutdown pool...");
-    try {
-      if (!pool.awaitTermination(delay, delayUnit)) {
-        pool.shutdownNow();
-        if (!pool.awaitTermination(delay, delayUnit)) {
-          Log.sysLog("ARD: Pool nicht beendet");
-        }
-      }
-    } catch (InterruptedException ie) {
-      pool.shutdownNow();
-      Thread.currentThread().interrupt();
-    }
   }
 
   private ConcurrentLinkedQueue<CrawlerUrlDTO> createDayUrlsToCrawl() {
@@ -109,6 +54,7 @@ public class ArdCrawler extends MediathekReader {
     return dayUrlsToCrawl;
   }
 
+  @Override
   protected RecursiveTask<Set<DatenFilm>> createCrawlerTask() {
 
     final ConcurrentLinkedQueue<ArdFilmInfoDto> shows = new ConcurrentLinkedQueue<>();
