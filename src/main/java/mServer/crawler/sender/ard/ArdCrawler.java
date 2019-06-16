@@ -46,7 +46,7 @@ public class ArdCrawler extends MediathekReader {
       RecursiveTask<Set<DatenFilm>> filmTask = createCrawlerTask();
       Set<DatenFilm> films = forkJoinPool.invoke(filmTask);
 
-      Log.sysLog("ARD Filme einsortieren...");
+      Log.sysLog("ARD Filme einsortieren..." + films.size());
 
       films.forEach(film -> {
         if (!Config.getStop()) {
