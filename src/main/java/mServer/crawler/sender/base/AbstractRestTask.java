@@ -4,6 +4,7 @@ import de.mediathekview.mlib.Config;
 import de.mediathekview.mlib.tool.Log;
 import java.util.Optional;
 import java.util.concurrent.ConcurrentLinkedQueue;
+import java.util.concurrent.TimeUnit;
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.WebTarget;
@@ -40,7 +41,8 @@ public abstract class AbstractRestTask<T, D extends CrawlerUrlDTO> extends Abstr
     super(aCrawler, aUrlToCrawlDTOs);
     authKey = aAuthKey;
 
-    client = ClientBuilder.newClient();
+    client = ClientBuilder.newBuilder()
+            .readTimeout(60, TimeUnit.SECONDS).build();
     client.register(EncodingFilter.class);
     client.register(GZipEncoder.class);
     client.register(DeflateEncoder.class);
