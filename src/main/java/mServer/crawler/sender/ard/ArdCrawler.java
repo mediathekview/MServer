@@ -65,6 +65,17 @@ public class ArdCrawler extends MediathekReader {
     meldungThreadUndFertig();
   }
 
+  @Override
+  protected synchronized void meldungThreadUndFertig() {
+    // der MediathekReader ist erst fertig wenn nur noch ein Thread läuft
+    // dann zusätzliche Sender, die der Crawler bearbeitet, beenden
+    if (getThreads() <= 1) {
+      mlibFilmeSuchen.meldenFertig(Const.RBB);
+    }
+
+    super.meldungThreadUndFertig();
+  }
+
   void shutdownAndAwaitTermination(ExecutorService pool, long delay, TimeUnit delayUnit) {
     pool.shutdown();
     Log.sysLog("ARD shutdown pool...");
@@ -116,7 +127,7 @@ public class ArdCrawler extends MediathekReader {
     } catch (InterruptedException | ExecutionException exception) {
       Log.errorLog(56146546, exception);
     }
-    Log.sysLog("ORF Anzahl: " + shows.size());
+    Log.sysLog("ARD Anzahl: " + shows.size());
 
     meldungAddMax(shows.size());
 
