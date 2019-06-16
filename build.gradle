@@ -130,6 +130,7 @@ dependencies {
     compile 'com.sun.jersey:jersey-client:1.19.4'
     compile 'com.squareup.okhttp3:okhttp:3.14.2'
     compile 'org.jsoup:jsoup:1.12.1'
+    compile 'javax.activation:activation:1.1'
 
     compile group: 'org.apache.logging.log4j', name: 'log4j-core', version: '2.11.2'
     compile group: 'fm.void.jetm', name: 'jetm', version: '1.2.3'
