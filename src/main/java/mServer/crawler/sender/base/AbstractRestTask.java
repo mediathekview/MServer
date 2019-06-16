@@ -17,10 +17,6 @@ import org.glassfish.jersey.message.GZipEncoder;
  * {@link ConcurrentLinkedQueue} of {@link D} and loads the URL with REST as
  * {@link WebTarget}.
  *
- * @author Nicklas Wiegandt (Nicklas2751)<br/>
- * <b>Mail:</b> nicklas@wiegandt.eu<br/>
- * <b>Jabber:</b> nicklas2751@elaon.de<br/>
- *
  * @param <T> The type of objects which will be created from this task.
  * @param <D> A sub type of {@link CrawlerUrlDTO} which this task will use to
  * create the result objects.
@@ -29,8 +25,11 @@ public abstract class AbstractRestTask<T, D extends CrawlerUrlDTO> extends Abstr
 
   private static final long serialVersionUID = 2590729915326002860L;
   protected static final String ENCODING_GZIP = "gzip";
+  protected static final String HEADER_ACCEPT = "Accept";
   protected static final String HEADER_ACCEPT_ENCODING = "Accept-Encoding";
   protected static final String HEADER_AUTHORIZATION = "Authorization";
+  protected static final String HEADER_CONTENT_TYPE = "Content-Type";
+  protected static final String APPLICATION_JSON = "application/json";
   protected static final String AUTHORIZATION_BEARER = "Bearer ";
 
   protected final transient Optional<String> authKey;
