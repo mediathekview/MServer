@@ -8,7 +8,7 @@ import javax.ws.rs.client.WebTarget;
 import mServer.crawler.sender.MediathekReader;
 import mServer.crawler.sender.ard.json.ArdTopicsOverviewDeserializer;
 import mServer.crawler.sender.base.CrawlerUrlDTO;
-import mServer.crawler.sender.orf.tasks.AbstractRecursivConverterTask;
+import mServer.crawler.sender.base.AbstractRecursivConverterTask;
 
 public class ArdTopicsOverviewTask extends ArdTaskBase<CrawlerUrlDTO, CrawlerUrlDTO> {
 

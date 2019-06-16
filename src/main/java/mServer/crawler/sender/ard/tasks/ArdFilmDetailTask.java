@@ -13,7 +13,7 @@ import mServer.crawler.sender.ard.ArdConstants;
 import mServer.crawler.sender.ard.ArdFilmDto;
 import mServer.crawler.sender.ard.ArdFilmInfoDto;
 import mServer.crawler.sender.ard.json.ArdFilmDeserializer;
-import mServer.crawler.sender.orf.tasks.AbstractRecursivConverterTask;
+import mServer.crawler.sender.base.AbstractRecursivConverterTask;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 

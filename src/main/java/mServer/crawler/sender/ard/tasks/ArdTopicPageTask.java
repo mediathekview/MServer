@@ -9,7 +9,7 @@ import mServer.crawler.sender.MediathekReader;
 import mServer.crawler.sender.ard.ArdFilmInfoDto;
 import mServer.crawler.sender.ard.json.ArdTopicPageDeserializer;
 import mServer.crawler.sender.base.CrawlerUrlDTO;
-import mServer.crawler.sender.orf.tasks.AbstractRecursivConverterTask;
+import mServer.crawler.sender.base.AbstractRecursivConverterTask;
 
 public class ArdTopicPageTask extends ArdTaskBase<ArdFilmInfoDto, CrawlerUrlDTO> {
 
