@@ -1,6 +1,7 @@
 package mServer.crawler.sender.ard.tasks;
 
 import com.google.gson.reflect.TypeToken;
+import de.mediathekview.mlib.Config;
 import java.lang.reflect.Type;
 import java.util.Set;
 import java.util.concurrent.ConcurrentLinkedQueue;
@@ -30,6 +31,10 @@ public class ArdTopicsOverviewTask extends ArdTaskBase<CrawlerUrlDTO, CrawlerUrl
 
   @Override
   protected void processRestTarget(CrawlerUrlDTO aDTO, WebTarget aTarget) {
+    if (Config.getStop()) {
+      return;
+    }
+
     Set<CrawlerUrlDTO> results = deserialize(aTarget, SET_CRAWLER_URL_TYPE_TOKEN);
     taskResults.addAll(results);
   }

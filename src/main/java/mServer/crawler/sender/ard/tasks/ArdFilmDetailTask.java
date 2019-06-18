@@ -1,6 +1,7 @@
 package mServer.crawler.sender.ard.tasks;
 
 import com.google.gson.reflect.TypeToken;
+import de.mediathekview.mlib.Config;
 import de.mediathekview.mlib.daten.DatenFilm;
 import de.mediathekview.mlib.tool.Log;
 import java.lang.reflect.Type;
@@ -32,6 +33,10 @@ public class ArdFilmDetailTask extends ArdTaskBase<DatenFilm, ArdFilmInfoDto> {
 
   @Override
   protected void processRestTarget(ArdFilmInfoDto aDTO, WebTarget aTarget) {
+    if (Config.getStop()) {
+      return;
+    }
+
     try {
       final List<ArdFilmDto> filmDtos = deserialize(aTarget, LIST_FILM_TYPE_TOKEN);
 

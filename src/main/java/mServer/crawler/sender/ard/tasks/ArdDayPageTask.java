@@ -1,6 +1,7 @@
 package mServer.crawler.sender.ard.tasks;
 
 import com.google.gson.reflect.TypeToken;
+import de.mediathekview.mlib.Config;
 import java.lang.reflect.Type;
 import java.util.Set;
 import java.util.concurrent.ConcurrentLinkedQueue;
@@ -25,6 +26,10 @@ public class ArdDayPageTask extends ArdTaskBase<ArdFilmInfoDto, CrawlerUrlDTO> {
 
   @Override
   protected void processRestTarget(CrawlerUrlDTO aDTO, WebTarget aTarget) {
+    if (Config.getStop()) {
+      return;
+    }
+
     Set<ArdFilmInfoDto> filmUrls = deserialize(aTarget, SET_FILMINFO_TYPE_TOKEN);
 
     if (filmUrls != null && !filmUrls.isEmpty()) {
