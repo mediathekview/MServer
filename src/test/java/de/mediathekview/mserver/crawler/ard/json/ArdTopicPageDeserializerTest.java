@@ -26,7 +26,7 @@ public class ArdTopicPageDeserializerTest {
                                       "{\"client\":\"ard\",\"clipId\":\"Y3JpZDovL2Rhc2Vyc3RlLmRlL2Flbm5hIGJ1cmRhL2IxZjY2NWQzLWIyOTYtNDQ4ZS05YmQ1LTk5MWUzZTcxZWNkMQ\",\"deviceType\":\"pc\"}")
                                       + "&extensions="
                                       + URLEncoder.encode(
-                                      "{\"persistedQuery\":{\"version\":1,\"sha256Hash\":\"b69efa74d0e2623a9104fb94c9ed2e8f1418a68f6457594126d719a2e8ca7174\"}}"),
+                                      "{\"persistedQuery\":{\"version\":1,\"sha256Hash\":\"a9a9b15083dd3bf249264a7ff5d9e1010ec5d861539bc779bb1677a4a37872da\"}}"),
                               0),
                       new ArdFilmInfoDto(
                               "Y3JpZDovL2Rhc2Vyc3RlLmRlL2Flbm5hIGJ1cmRhLzdkMWRhYzhmLWMxOWEtNDdjZS1hNDBmLTgzN2NjZTRhNTNjZQ",
@@ -35,7 +35,7 @@ public class ArdTopicPageDeserializerTest {
                                       "{\"client\":\"ard\",\"clipId\":\"Y3JpZDovL2Rhc2Vyc3RlLmRlL2Flbm5hIGJ1cmRhLzdkMWRhYzhmLWMxOWEtNDdjZS1hNDBmLTgzN2NjZTRhNTNjZQ\",\"deviceType\":\"pc\"}")
                                       + "&extensions="
                                       + URLEncoder.encode(
-                                      "{\"persistedQuery\":{\"version\":1,\"sha256Hash\":\"b69efa74d0e2623a9104fb94c9ed2e8f1418a68f6457594126d719a2e8ca7174\"}}"),
+                                      "{\"persistedQuery\":{\"version\":1,\"sha256Hash\":\"a9a9b15083dd3bf249264a7ff5d9e1010ec5d861539bc779bb1677a4a37872da\"}}"),
                               0),
                       new ArdFilmInfoDto(
                               "Y3JpZDovL2Rhc2Vyc3RlLmRlL2Flbm5hIGJ1cmRhL2I0MWQ3MDhjLTMwNDItNGNhYy1iOTMyLTI0NzNlNjdiM2MwOQ",
@@ -44,7 +44,7 @@ public class ArdTopicPageDeserializerTest {
                                       "{\"client\":\"ard\",\"clipId\":\"Y3JpZDovL2Rhc2Vyc3RlLmRlL2Flbm5hIGJ1cmRhL2I0MWQ3MDhjLTMwNDItNGNhYy1iOTMyLTI0NzNlNjdiM2MwOQ\",\"deviceType\":\"pc\"}")
                                       + "&extensions="
                                       + URLEncoder.encode(
-                                      "{\"persistedQuery\":{\"version\":1,\"sha256Hash\":\"b69efa74d0e2623a9104fb94c9ed2e8f1418a68f6457594126d719a2e8ca7174\"}}"),
+                                      "{\"persistedQuery\":{\"version\":1,\"sha256Hash\":\"a9a9b15083dd3bf249264a7ff5d9e1010ec5d861539bc779bb1677a4a37872da\"}}"),
                               0),
                       new ArdFilmInfoDto(
                               "Y3JpZDovL2Rhc2Vyc3RlLmRlL2Flbm5hIGJ1cmRhLzhiMzE1ZTlkLWFmZjktNDE2Mi1iNzk1LWY3OTk3MGJjYWZkMw",
@@ -53,7 +53,7 @@ public class ArdTopicPageDeserializerTest {
                                       "{\"client\":\"ard\",\"clipId\":\"Y3JpZDovL2Rhc2Vyc3RlLmRlL2Flbm5hIGJ1cmRhLzhiMzE1ZTlkLWFmZjktNDE2Mi1iNzk1LWY3OTk3MGJjYWZkMw\",\"deviceType\":\"pc\"}")
                                       + "&extensions="
                                       + URLEncoder.encode(
-                                      "{\"persistedQuery\":{\"version\":1,\"sha256Hash\":\"b69efa74d0e2623a9104fb94c9ed2e8f1418a68f6457594126d719a2e8ca7174\"}}"),
+                                      "{\"persistedQuery\":{\"version\":1,\"sha256Hash\":\"a9a9b15083dd3bf249264a7ff5d9e1010ec5d861539bc779bb1677a4a37872da\"}}"),
                               0),
                       new ArdFilmInfoDto(
                               "Y3JpZDovL2Rhc2Vyc3RlLmRlL2Flbm5hIGJ1cmRhLzk2OTI1NTQxLWRkZTQtNGJhOS1hZTUyLTQ0MDUwYzIwOGVlOA",
@@ -62,7 +62,7 @@ public class ArdTopicPageDeserializerTest {
                                       "{\"client\":\"ard\",\"clipId\":\"Y3JpZDovL2Rhc2Vyc3RlLmRlL2Flbm5hIGJ1cmRhLzk2OTI1NTQxLWRkZTQtNGJhOS1hZTUyLTQ0MDUwYzIwOGVlOA\",\"deviceType\":\"pc\"}")
                                       + "&extensions="
                                       + URLEncoder.encode(
-                                      "{\"persistedQuery\":{\"version\":1,\"sha256Hash\":\"b69efa74d0e2623a9104fb94c9ed2e8f1418a68f6457594126d719a2e8ca7174\"}}"),
+                                      "{\"persistedQuery\":{\"version\":1,\"sha256Hash\":\"a9a9b15083dd3bf249264a7ff5d9e1010ec5d861539bc779bb1677a4a37872da\"}}"),
                               0),
                       new ArdFilmInfoDto(
                               "Y3JpZDovL2Rhc2Vyc3RlLmRlL2Flbm5hIGJ1cmRhLzhjYTk2MmFiLTgyOTctNDE4Yy05YzUxLTdlN2Y1Mjg4ZWY5ZS9hdWRpb2Rlc2tyaXB0aW9u",
@@ -71,7 +71,7 @@ public class ArdTopicPageDeserializerTest {
                                       "{\"client\":\"ard\",\"clipId\":\"Y3JpZDovL2Rhc2Vyc3RlLmRlL2Flbm5hIGJ1cmRhLzhjYTk2MmFiLTgyOTctNDE4Yy05YzUxLTdlN2Y1Mjg4ZWY5ZS9hdWRpb2Rlc2tyaXB0aW9u\",\"deviceType\":\"pc\"}")
                                       + "&extensions="
                                       + URLEncoder.encode(
-                                      "{\"persistedQuery\":{\"version\":1,\"sha256Hash\":\"b69efa74d0e2623a9104fb94c9ed2e8f1418a68f6457594126d719a2e8ca7174\"}}"),
+                                      "{\"persistedQuery\":{\"version\":1,\"sha256Hash\":\"a9a9b15083dd3bf249264a7ff5d9e1010ec5d861539bc779bb1677a4a37872da\"}}"),
                               0)
               };
 
