@@ -11,7 +11,7 @@ public class ArdConstants {
   public static final String QUERY_DAY_SEARCH_HASH = "a62c5366a603ad60a46e4b0dd0f52b1855d401026016a639bbbfbe88e2118989";
 
   public static final int QUERY_FILM_VERSION = 1;
-  public static final String QUERY_FILM_HASH = "a9a9b15083dd3bf249264a7ff5d9e1010ec5d861539bc779bb1677a4a37872da";
+  public static final String QUERY_FILM_HASH = "38e4c23d15b4b007e2e31068658944f19797c2fb7a75c93bc0a77fe1632476c6";
 
   public static final int QUERY_TOPICS_VERSION = 1;
   public static final String QUERY_TOPICS_HASH = "fdbab76da7d6aeb1ae859e1758dd1db068824dbf1623c02bc4c5f61facb474c2";
