@@ -9,9 +9,13 @@ import java.util.concurrent.ForkJoinWorkerThread;
 import java.util.concurrent.RecursiveTask;
 import java.util.concurrent.TimeUnit;
 import mServer.crawler.FilmeSuchen;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 // Base class of crawlers using ForkJoinPool
 public abstract class MediathekCrawler extends MediathekReader {
+
+  private static final Logger LOG = LogManager.getLogger(MediathekCrawler.class);
 
   protected final ForkJoinPool forkJoinPool;
 
@@ -56,6 +60,9 @@ public abstract class MediathekCrawler extends MediathekReader {
     Set<DatenFilm> films = forkJoinPool.invoke(filmTask);
 
     Log.sysLog(getSendername() + ": Filme einsortieren..." + films.size());
+    if (films.isEmpty()) {
+      LOG.fatal(getSendername() + ": no films found!");
+    }
 
     films.forEach(film -> {
       if (!Config.getStop()) {

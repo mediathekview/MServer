@@ -52,7 +52,7 @@ public class ArdFilmDetailTask extends ArdTaskBase<DatenFilm, ArdFilmInfoDto> {
           }
         }
       } else {
-        LOG.error("no film: " + aDTO.getUrl());
+        LOG.debug("no film: " + aDTO.getUrl());
       }
     } catch (Exception e) {
       LOG.error("exception: " + aDTO.getUrl(), e);

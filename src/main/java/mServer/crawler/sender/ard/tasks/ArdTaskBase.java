@@ -54,7 +54,7 @@ public abstract class ArdTaskBase<T, D extends CrawlerUrlDTO> extends AbstractRe
         return Optional.of(gson.fromJson(jsonOutput, type));
       }
     } else {
-      LOG.error(
+      LOG.warn(
               "ArdTaskBase: request of url "
               + target.getUri().toString()
               + " failed: "
@@ -72,7 +72,7 @@ public abstract class ArdTaskBase<T, D extends CrawlerUrlDTO> extends AbstractRe
     final Optional<ArdErrorInfoDto> error = gson.fromJson(jsonOutput, OPTIONAL_ERROR_DTO);
     error.ifPresent(
             ardErrorInfoDto
-            -> LOG.error(
+            -> LOG.warn(
                     "ArdTaskBase: request of url "
                     + targetUrl
                     + " contains error: "
