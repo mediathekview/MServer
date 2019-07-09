@@ -3,7 +3,6 @@ package mServer.crawler.sender.base;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.RecursiveTask;
 import mServer.crawler.sender.MediathekReader;
-import mServer.crawler.sender.orf.tasks.AbstractRecursivConverterTask;
 
 /**
  * This task is based on {@link RecursiveTask} and takes a

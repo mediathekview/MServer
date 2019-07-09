@@ -1,4 +1,4 @@
-package mServer.crawler.sender.orf.tasks;
+package mServer.crawler.sender.base;
 
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;

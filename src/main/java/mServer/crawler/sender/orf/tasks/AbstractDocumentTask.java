@@ -4,6 +4,7 @@ import mServer.crawler.sender.base.AbstractUrlTask;
 import de.mediathekview.mlib.tool.Log;
 import java.io.IOException;
 import java.util.concurrent.ConcurrentLinkedQueue;
+import java.util.concurrent.TimeUnit;
 import mServer.crawler.sender.MediathekReader;
 import mServer.crawler.sender.base.CrawlerUrlDTO;
 import org.jsoup.HttpStatusException;
@@ -46,7 +47,9 @@ public abstract class AbstractDocumentTask<T, D extends CrawlerUrlDTO>
     try {
       // maxBodySize(0)=unlimited
       // necessary for ORF documents which are larger than the default size
-      final Document document = Jsoup.connect(aUrlDTO.getUrl()).maxBodySize(0).get();
+      final Document document = Jsoup.connect(aUrlDTO.getUrl())
+              .timeout((int) TimeUnit.SECONDS.toMillis(60))
+              .maxBodySize(0).get();
       processDocument(aUrlDTO, document);
     } catch (final HttpStatusException httpStatusError) {
       Log.sysLog(String.format(LOAD_DOCUMENT_HTTPERROR, crawler.getSendername(), aUrlDTO.getUrl()));

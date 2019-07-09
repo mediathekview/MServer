@@ -9,7 +9,7 @@ import javax.ws.rs.client.WebTarget;
 import mServer.crawler.sender.MediathekReader;
 import mServer.crawler.sender.base.CrawlerUrlDTO;
 import mServer.crawler.sender.base.SendungOverviewDto;
-import mServer.crawler.sender.orf.tasks.AbstractRecursivConverterTask;
+import mServer.crawler.sender.base.AbstractRecursivConverterTask;
 import mServer.crawler.sender.phoenix.parser.PhoenixSendungOverviewDeserializer;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
