@@ -19,6 +19,7 @@ import mServer.crawler.sender.ard.tasks.ArdTopicsOverviewTask;
 import mServer.crawler.sender.base.CrawlerUrlDTO;
 
 public class ArdCrawler extends MediathekCrawler {
+  private static final int MAX_DAYS_PAST = 2;
 
   public static final String SENDERNAME = Const.ARD;
 
@@ -41,7 +42,7 @@ public class ArdCrawler extends MediathekCrawler {
     final ConcurrentLinkedQueue<CrawlerUrlDTO> dayUrlsToCrawl = new ConcurrentLinkedQueue<>();
 
     final LocalDateTime now = LocalDateTime.now();
-    for (int i = 0; i < 7; i++) {
+    for (int i = 0; i < MAX_DAYS_PAST; i++) {
       final String url
               = new ArdUrlBuilder(ArdConstants.BASE_URL, ArdConstants.DEFAULT_CLIENT)
                       .addSearchDate(now.minusDays(i))
