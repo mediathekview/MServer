@@ -33,7 +33,7 @@ public class HrSendungDeserializer {
   private static final String HTML_TAG_TIME = "time";
   private static final String HTML_TAG_VIDEO2 = "figure .js-loadScript";
   private static final String HTML_ATTRIBUTE_DATETIME = "datetime";
-  private static final String HTML_ATTRIBUTE_VIDEO_JSON = "data-hr-video-on-demand-player";
+  private static final String HTML_ATTRIBUTE_VIDEO_JSON = "data-hr-mediaplayer-loader";
   private static final String DAUER_SELECTOR1 = ".c-programHeader__mediaWrapper .mediaInfo__byline";
   private static final String DAUER_SELECTOR2 = ".c-contentHeader .mediaInfo__byline";
 
@@ -154,8 +154,8 @@ public class HrSendungDeserializer {
 
   private long getDuration(Document document) {
 
-    final Optional<String> dauerText =
-            HtmlDocumentUtils.getElementString(DAUER_SELECTOR1, DAUER_SELECTOR2, document);
+    final Optional<String> dauerText
+            = HtmlDocumentUtils.getElementString(DAUER_SELECTOR1, DAUER_SELECTOR2, document);
     if (dauerText.isPresent()) {
       Optional<Duration> duration = HtmlDocumentUtils.parseDuration(dauerText);
       if (duration.isPresent()) {
