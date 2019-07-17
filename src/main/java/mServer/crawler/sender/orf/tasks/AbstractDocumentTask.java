@@ -1,5 +1,6 @@
 package mServer.crawler.sender.orf.tasks;
 
+import de.mediathekview.mlib.Config;
 import mServer.crawler.sender.base.AbstractUrlTask;
 import de.mediathekview.mlib.tool.Log;
 import java.io.IOException;
@@ -44,6 +45,10 @@ public abstract class AbstractDocumentTask<T, D extends CrawlerUrlDTO>
 
   @Override
   protected void processElement(final D aUrlDTO) {
+    if (Config.getStop()) {
+      return;
+    }
+
     try {
       // maxBodySize(0)=unlimited
       // necessary for ORF documents which are larger than the default size
