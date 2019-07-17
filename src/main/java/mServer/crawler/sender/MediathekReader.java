@@ -30,6 +30,7 @@ import java.util.*;
 import mServer.crawler.CrawlerTool;
 import mServer.crawler.FilmeSuchen;
 import mServer.crawler.RunSender;
+import mServer.crawler.sender.base.UrlUtils;
 import mServer.crawler.sender.newsearch.GeoLocations;
 import okhttp3.Request;
 import okhttp3.Response;
@@ -65,21 +66,9 @@ public abstract class MediathekReader extends Thread {
     // brauchts, um Filmurls zu prüfen
     if (!url.toLowerCase().startsWith("http")) {
       return false;
-    } else {
-      Request request = new Request.Builder().url(url).head().build();
-      boolean result = false;
-
-      try (Response response = MVHttpClient.getInstance().getReducedTimeOutClient().newCall(request).execute()) {
-        if (response.isSuccessful()) {
-          result = true;
-        }
-      } catch (IOException ex) {
-        ex.printStackTrace();
-        result = false;
-      }
-
-      return result;
     }
+
+    return UrlUtils.existsUrl(url);
   }
 
   protected static void listeSort(LinkedList<String[]> liste, int stelle) {
