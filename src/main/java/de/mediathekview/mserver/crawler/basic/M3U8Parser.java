@@ -3,11 +3,9 @@ package de.mediathekview.mserver.crawler.basic;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
-import java.util.Optional;
+import org.apache.commons.lang3.StringUtils;
 
-/**
- * Parses M3U8 files.
- */
+/** Parses M3U8 files. */
 public class M3U8Parser {
 
   public List<M3U8Dto> parse(String aM3U8Data) {
@@ -21,13 +19,10 @@ public class M3U8Parser {
       result.add(dto);
     }
 
-    result.sort(Comparator.comparing((M3U8Dto dto) -> {
-      Optional<String> optional = dto.getMeta(M3U8Constants.M3U8_RESOLUTION);
-      if (optional.isPresent()) {
-        return optional.get();
-      }
-      return "";
-    }));
+    pairs.clear();
+    result.sort(
+        Comparator.comparing(
+            (M3U8Dto dto) -> dto.getMeta(M3U8Constants.M3U8_RESOLUTION).orElse("")));
 
     return result;
   }
@@ -91,21 +86,22 @@ public class M3U8Parser {
   private static List<String[]> getLinePairs(String aM3U8Data) {
     List<String[]> pairs = new ArrayList<>();
 
-    Optional<String> currentMeta = Optional.empty();
-    Optional<String> currentUrl = Optional.empty();
+    String currentMeta = null;
+    String currentUrl = null;
 
-    String[] lines = aM3U8Data.split("\n");
+    String[] lines = StringUtils.split(aM3U8Data, '\n');
+
     for (String line : lines) {
       if (line.startsWith("#EXT-X-STREAM-INF")) {
-        currentMeta = Optional.of(line);
+        currentMeta = line;
       } else if (line.startsWith("http")) {
-        currentUrl = Optional.of(line);
+        currentUrl = line;
       }
 
-      if (currentMeta.isPresent() && currentUrl.isPresent()) {
-        pairs.add(new String[]{currentMeta.get(), currentUrl.get()});
-        currentMeta = Optional.empty();
-        currentUrl = Optional.empty();
+      if (currentMeta != null && currentUrl != null) {
+        pairs.add(new String[] {currentMeta, currentUrl});
+        currentMeta = null;
+        currentUrl = null;
       }
     }
 
