@@ -15,6 +15,7 @@ import java.util.concurrent.*;
 import java.util.function.Predicate;
 
 public abstract class AbstractMediathekZdf extends MediathekReader {
+
   private final String senderName;
   private ForkJoinPool forkJoinPool;
 
@@ -34,17 +35,18 @@ public abstract class AbstractMediathekZdf extends MediathekReader {
     int daysPast = CrawlerTool.loadLongMax() ? 300 : 20;
     int daysFuture = CrawlerTool.loadLongMax() ? 100 : 30;
 
-    final ZDFSearchTask newTask =
-        new ZDFSearchTask(
-            daysPast,
-            daysFuture,
-            getBaseUrl(),
-            getApiBaseUrl(),
-            senderName,
-            getApiHost(),
-            loadConfig(),
-            createEntryFilter());
-    forkJoinPool = new ForkJoinPool(Runtime.getRuntime().availableProcessors() * 4);
+    final ZDFSearchTask newTask
+            = new ZDFSearchTask(
+                    daysPast,
+                    daysFuture,
+                    getBaseUrl(),
+                    getApiBaseUrl(),
+                    senderName,
+                    getApiHost(),
+                    loadConfig(),
+                    createEntryFilter());
+
+    forkJoinPool = MediathekCrawler.createForkJoinPool(senderName);
     forkJoinPool.execute(newTask);
     Collection<VideoDTO> filmList = newTask.join();
 
@@ -75,13 +77,13 @@ public abstract class AbstractMediathekZdf extends MediathekReader {
       // Convert new DTO to old DatenFilm class
       Log.sysLog("convert VideoDTO to DatenFilm started..." + filmList.size());
       filmList
-          .parallelStream()
-          .forEach(
-              (video) -> {
-                VideoDtoDatenFilmConverterAction action =
-                    new VideoDtoDatenFilmConverterAction(video);
-                forkJoinPool.execute(action);
-              });
+              .parallelStream()
+              .forEach(
+                      (video) -> {
+                        VideoDtoDatenFilmConverterAction action
+                        = new VideoDtoDatenFilmConverterAction(video);
+                        forkJoinPool.execute(action);
+                      });
 
       filmList.clear();
 
@@ -158,18 +160,18 @@ public abstract class AbstractMediathekZdf extends MediathekReader {
 
       final String title = determineTitle(video.getTitle(), language);
 
-      DatenFilm film =
-          new ZdfDatenFilm(
-              senderName,
-              video.getTopic(),
-              video.getWebsiteUrl() /*urlThema*/,
-              title,
-              download.getUrl(language, Qualities.NORMAL),
-              "" /*urlRtmp*/,
-              video.getDate(),
-              video.getTime(),
-              video.getDuration(),
-              video.getDescription());
+      DatenFilm film
+              = new ZdfDatenFilm(
+                      senderName,
+                      video.getTopic(),
+                      video.getWebsiteUrl() /*urlThema*/,
+                      title,
+                      download.getUrl(language, Qualities.NORMAL),
+                      "" /*urlRtmp*/,
+                      video.getDate(),
+                      video.getTime(),
+                      video.getDuration(),
+                      video.getDescription());
       urlTauschen(film, video.getWebsiteUrl(), mlibFilmeSuchen);
       film.setFileSize();
 
@@ -242,35 +244,35 @@ public abstract class AbstractMediathekZdf extends MediathekReader {
     // klein nach groß
     changeUrl("1456k_p13v11.mp4", "2328k_p35v11.mp4", film, urlSeite, mSFilmeSuchen);
     changeUrl(
-        "1456k_p13v11.mp4",
-        "2256k_p14v11.mp4",
-        film,
-        urlSeite,
-        mSFilmeSuchen); // wenns nicht geht, dann vielleicht so
+            "1456k_p13v11.mp4",
+            "2256k_p14v11.mp4",
+            film,
+            urlSeite,
+            mSFilmeSuchen); // wenns nicht geht, dann vielleicht so
 
     changeUrl("1456k_p13v12.mp4", "2328k_p35v12.mp4", film, urlSeite, mSFilmeSuchen);
     changeUrl(
-        "1456k_p13v12.mp4",
-        "2256k_p14v12.mp4",
-        film,
-        urlSeite,
-        mSFilmeSuchen); // wenns nicht geht, dann vielleicht so
+            "1456k_p13v12.mp4",
+            "2256k_p14v12.mp4",
+            film,
+            urlSeite,
+            mSFilmeSuchen); // wenns nicht geht, dann vielleicht so
 
     changeUrl("1496k_p13v13.mp4", "2328k_p35v13.mp4", film, urlSeite, mSFilmeSuchen);
     changeUrl(
-        "1496k_p13v13.mp4",
-        "2296k_p14v13.mp4",
-        film,
-        urlSeite,
-        mSFilmeSuchen); // wenns nicht geht, dann vielleicht so
+            "1496k_p13v13.mp4",
+            "2296k_p14v13.mp4",
+            film,
+            urlSeite,
+            mSFilmeSuchen); // wenns nicht geht, dann vielleicht so
 
     changeUrl("1496k_p13v14.mp4", "2328k_p35v14.mp4", film, urlSeite, mSFilmeSuchen);
     changeUrl(
-        "1496k_p13v14.mp4",
-        "2296k_p14v14.mp4",
-        film,
-        urlSeite,
-        mSFilmeSuchen); // wenns nicht geht, dann vielleicht so
+            "1496k_p13v14.mp4",
+            "2296k_p14v14.mp4",
+            film,
+            urlSeite,
+            mSFilmeSuchen); // wenns nicht geht, dann vielleicht so
   }
 
   public static void urlTauschen(DatenFilm film, String urlSeite, FilmeSuchen mSFilmeSuchen) {
@@ -279,10 +281,10 @@ public abstract class AbstractMediathekZdf extends MediathekReader {
   }
 
   private static void changeUrl(
-      String from, String to, DatenFilm film, String urlSeite, FilmeSuchen mSFilmeSuchen) {
+          String from, String to, DatenFilm film, String urlSeite, FilmeSuchen mSFilmeSuchen) {
     if (film.arr[DatenFilm.FILM_URL].endsWith(from)) {
-      String url =
-          film.arr[DatenFilm.FILM_URL].substring(0, film.arr[DatenFilm.FILM_URL].lastIndexOf(from))
+      String url
+              = film.arr[DatenFilm.FILM_URL].substring(0, film.arr[DatenFilm.FILM_URL].lastIndexOf(from))
               + to;
       String l = mSFilmeSuchen.listeFilmeAlt.getFileSizeUrl(url);
       // zum Testen immer machen!!
@@ -300,8 +302,8 @@ public abstract class AbstractMediathekZdf extends MediathekReader {
 
   private static void updateHd(String from, String to, DatenFilm film, String urlSeite) {
     if (film.arr[DatenFilm.FILM_URL_HD].isEmpty() && film.arr[DatenFilm.FILM_URL].endsWith(from)) {
-      String url =
-          film.arr[DatenFilm.FILM_URL].substring(0, film.arr[DatenFilm.FILM_URL].lastIndexOf(from))
+      String url
+              = film.arr[DatenFilm.FILM_URL].substring(0, film.arr[DatenFilm.FILM_URL].lastIndexOf(from))
               + to;
       // zum Testen immer machen!!
       if (urlExists(url)) {
