@@ -40,7 +40,7 @@ public class M3U8Parser {
       while ((index = line.indexOf(',')) > 0) {
         // Sicherstellen, dass Index für , nicht innerhalb eines mit " begrenzten Wertes liegt
         int indexQuote = line.indexOf('\"');
-        while (indexQuote + 1 < index) {
+        while (indexQuote + 1 < index && indexQuote != -1) {
           indexQuote = line.indexOf('\"', indexQuote + 1);
           index = line.indexOf(',', indexQuote + 1);
         }
