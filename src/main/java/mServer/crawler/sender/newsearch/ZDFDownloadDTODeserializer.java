@@ -17,7 +17,7 @@ import de.mediathekview.mlib.tool.Log;
  * {@link DownloadDTO}.
  */
 public class ZDFDownloadDTODeserializer implements JsonDeserializer<DownloadDTO> {
-  
+
   private static final String JSON_ELEMENT_ATTRIBUTES = "attributes";
   private static final String JSON_ELEMENT_AUDIO = "audio";
   private static final String JSON_ELEMENT_CAPTIONS = "captions";
@@ -32,39 +32,37 @@ public class ZDFDownloadDTODeserializer implements JsonDeserializer<DownloadDTO>
   private static final String JSON_ELEMENT_QUALITY = "quality";
   private static final String JSON_ELEMENT_TRACKS = "tracks";
   private static final String JSON_ELEMENT_URI = "uri";
-  
+
   private static final String JSON_PROPERTY_VALUE = "value";
-  
+
   private static final String CLASS_AD = "ad";
-  private static final String CLASS_MAIN = "main";
-  private static final String CLASS_OT = "ot";
-  
+
   private static final String GEO_LOCATION_DACH = "dach";
   private static final String GEO_LOCATION_DE = "de";
   private static final String GEO_LOCATION_EBU = "ebu";
-  
+
   private static final String RELEVANT_MIME_TYPE = "video/mp4";
   private static final String RELEVANT_SUBTITLE_TYPE = ".xml";
-  
+
   @Override
   public DownloadDTO deserialize(final JsonElement aJsonElement, final Type aTypeOfT, final JsonDeserializationContext aJsonDeserializationContext) throws JsonParseException {
     try {
       DownloadDTO dto = new DownloadDTO();
-      
+
       JsonObject rootNode = aJsonElement.getAsJsonObject();
-      
+
       parseVideoUrls(dto, rootNode);
       parseSubtitle(dto, rootNode);
       parseGeoLocation(dto, rootNode);
-      
+
       return dto;
     } catch (Exception ex) {
       Log.errorLog(496583257, ex);
     }
-    
+
     return null;
   }
-  
+
   private void parseGeoLocation(DownloadDTO dto, JsonObject rootNode) {
     JsonElement attributes = rootNode.get(JSON_ELEMENT_ATTRIBUTES);
     if (attributes != null) {
@@ -87,13 +85,13 @@ public class ZDFDownloadDTODeserializer implements JsonDeserializer<DownloadDTO>
       }
     }
   }
-  
+
   private void parseVideoUrls(DownloadDTO dto, JsonObject rootNode) {
     // array priorityList
     JsonArray priorityList = rootNode.getAsJsonArray(JSON_ELEMENT_PRIORITYLIST);
     Iterator<JsonElement> priorityIterator = priorityList.iterator();
     while (priorityIterator.hasNext()) {
-      
+
       JsonObject priority = priorityIterator.next().getAsJsonObject();
       if (priority != null) {
 
@@ -101,7 +99,7 @@ public class ZDFDownloadDTODeserializer implements JsonDeserializer<DownloadDTO>
         JsonArray formitaetList = priority.getAsJsonArray(JSON_ELEMENT_FORMITAET);
         Iterator<JsonElement> formitaetIterator = formitaetList.iterator();
         while (formitaetIterator.hasNext()) {
-          
+
           JsonObject formitaet = formitaetIterator.next().getAsJsonObject();
 
           // only mp4-videos are relevant 
@@ -124,17 +122,18 @@ public class ZDFDownloadDTODeserializer implements JsonDeserializer<DownloadDTO>
                 tracks.forEach(track -> {
                   JsonObject trackObject = track.getAsJsonObject();
                   String classValue = trackObject.get(JSON_ELEMENT_CLASS).getAsString();
-                  if (classValue.equalsIgnoreCase(CLASS_MAIN) || classValue.equalsIgnoreCase(CLASS_OT)) {
-                    String language = trackObject.get(JSON_ELEMENT_LANGUAGE).getAsString();
-                    String uri = trackObject.get(JSON_ELEMENT_URI).getAsString();
-                    if (qualityValue != null && uri != null) {
-                      dto.addUrl(language, qualityValue, uri);
-                    } else {
-                      throw new RuntimeException("either quality or uri is null");
-                    }
+                  String language = trackObject.get(JSON_ELEMENT_LANGUAGE).getAsString();
+                  String uri = trackObject.get(JSON_ELEMENT_URI).getAsString();
+                  if (CLASS_AD.equalsIgnoreCase(classValue)) {
+                    language += "-ad";
+                  }
+                  if (qualityValue != null && uri != null) {
+                    dto.addUrl(language, qualityValue, uri);
+                  } else {
+                    throw new RuntimeException("either quality or uri is null");
                   }
                 });
-                
+
               }
             }
           }
@@ -142,7 +141,7 @@ public class ZDFDownloadDTODeserializer implements JsonDeserializer<DownloadDTO>
       }
     }
   }
-  
+
   private Qualities parseVideoQuality(JsonObject quality) {
     Qualities qualityValue = null;
     JsonElement hd = quality.get(JSON_ELEMENT_HD);
@@ -169,7 +168,7 @@ public class ZDFDownloadDTODeserializer implements JsonDeserializer<DownloadDTO>
     }
     return qualityValue;
   }
-  
+
   private void parseSubtitle(DownloadDTO dto, JsonObject rootNode) {
     JsonArray captionList = rootNode.getAsJsonArray(JSON_ELEMENT_CAPTIONS);
     Iterator<JsonElement> captionIterator = captionList.iterator();
@@ -186,7 +185,7 @@ public class ZDFDownloadDTODeserializer implements JsonDeserializer<DownloadDTO>
         } else if (dto.getSubTitleUrl().isEmpty()) {
           dto.setSubTitleUrl(uriValue);
         }
-        
+
       }
     }
   }
