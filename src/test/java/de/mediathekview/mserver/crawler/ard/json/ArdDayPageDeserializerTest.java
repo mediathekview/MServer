@@ -27,7 +27,7 @@ public class ArdDayPageDeserializerTest {
                       "{\"client\":\"ard\",\"clipId\":\"Y3JpZDovL2Rhc2Vyc3RlLmRlL3RhZ2Vzc2NoYXUvODQyZWNjZDItODYzNC00YzVjLTlkYTAtN2JmM2E2MDRmNTdi\",\"deviceType\":\"pc\"}")
                   + "&extensions="
                   + URLEncoder.encode(
-                      "{\"persistedQuery\":{\"version\":1,\"sha256Hash\":\"a9a9b15083dd3bf249264a7ff5d9e1010ec5d861539bc779bb1677a4a37872da\"}}"),
+                      "{\"persistedQuery\":{\"version\":1,\"sha256Hash\":\"38e4c23d15b4b007e2e31068658944f19797c2fb7a75c93bc0a77fe1632476c6\"}}"),
               1),
           new ArdFilmInfoDto(
               "Y3JpZDovL2Rhc2Vyc3RlLmRlL2xpdmUgbmFjaCBuZXVuLzY5NzZiYTJlLTkyNWMtNDNhZi04NjQxLWJiMzZiMmY3YTkyMg",
@@ -36,7 +36,7 @@ public class ArdDayPageDeserializerTest {
                       "{\"client\":\"ard\",\"clipId\":\"Y3JpZDovL2Rhc2Vyc3RlLmRlL2xpdmUgbmFjaCBuZXVuLzY5NzZiYTJlLTkyNWMtNDNhZi04NjQxLWJiMzZiMmY3YTkyMg\",\"deviceType\":\"pc\"}")
                   + "&extensions="
                   + URLEncoder.encode(
-                      "{\"persistedQuery\":{\"version\":1,\"sha256Hash\":\"a9a9b15083dd3bf249264a7ff5d9e1010ec5d861539bc779bb1677a4a37872da\"}}"),
+                      "{\"persistedQuery\":{\"version\":1,\"sha256Hash\":\"38e4c23d15b4b007e2e31068658944f19797c2fb7a75c93bc0a77fe1632476c6\"}}"),
               3),
           new ArdFilmInfoDto(
               "Y3JpZDovL3dkci5kZS9CZWl0cmFnLThhNDk4YjQxLWE3YmQtNDk3Yi1iNGRmLTdhMjdmZjcwNGZiYw",
@@ -45,7 +45,7 @@ public class ArdDayPageDeserializerTest {
                       "{\"client\":\"ard\",\"clipId\":\"Y3JpZDovL3dkci5kZS9CZWl0cmFnLThhNDk4YjQxLWE3YmQtNDk3Yi1iNGRmLTdhMjdmZjcwNGZiYw\",\"deviceType\":\"pc\"}")
                   + "&extensions="
                   + URLEncoder.encode(
-                      "{\"persistedQuery\":{\"version\":1,\"sha256Hash\":\"a9a9b15083dd3bf249264a7ff5d9e1010ec5d861539bc779bb1677a4a37872da\"}}"),
+                      "{\"persistedQuery\":{\"version\":1,\"sha256Hash\":\"38e4c23d15b4b007e2e31068658944f19797c2fb7a75c93bc0a77fe1632476c6\"}}"),
               11),
           new ArdFilmInfoDto(
               "Y3JpZDovL2Rhc2Vyc3RlLmRlL3RzMTAwcy84MjlhNGY3OC1lNDRjLTQ2ZWItYTAxOS1kYmJjY2ZmMTkyNWMvMQ",
@@ -54,7 +54,7 @@ public class ArdDayPageDeserializerTest {
                       "{\"client\":\"ard\",\"clipId\":\"Y3JpZDovL2Rhc2Vyc3RlLmRlL3RzMTAwcy84MjlhNGY3OC1lNDRjLTQ2ZWItYTAxOS1kYmJjY2ZmMTkyNWMvMQ\",\"deviceType\":\"pc\"}")
                   + "&extensions="
                   + URLEncoder.encode(
-                      "{\"persistedQuery\":{\"version\":1,\"sha256Hash\":\"a9a9b15083dd3bf249264a7ff5d9e1010ec5d861539bc779bb1677a4a37872da\"}}"),
+                      "{\"persistedQuery\":{\"version\":1,\"sha256Hash\":\"38e4c23d15b4b007e2e31068658944f19797c2fb7a75c93bc0a77fe1632476c6\"}}"),
               1),
           new ArdFilmInfoDto(
               "Y3JpZDovL2JyLmRlL3ZpZGVvL2E5NzY0NTJiLTI2YWUtNDJjOC05MThhLTFmZjczMjhmMWRiMw",
@@ -63,7 +63,7 @@ public class ArdDayPageDeserializerTest {
                       "{\"client\":\"ard\",\"clipId\":\"Y3JpZDovL2JyLmRlL3ZpZGVvL2E5NzY0NTJiLTI2YWUtNDJjOC05MThhLTFmZjczMjhmMWRiMw\",\"deviceType\":\"pc\"}")
                   + "&extensions="
                   + URLEncoder.encode(
-                      "{\"persistedQuery\":{\"version\":1,\"sha256Hash\":\"a9a9b15083dd3bf249264a7ff5d9e1010ec5d861539bc779bb1677a4a37872da\"}}"),
+                      "{\"persistedQuery\":{\"version\":1,\"sha256Hash\":\"38e4c23d15b4b007e2e31068658944f19797c2fb7a75c93bc0a77fe1632476c6\"}}"),
               1),
           new ArdFilmInfoDto(
               "Y3JpZDovL2JyLmRlL3ZpZGVvL2I4MzY5MzA5LTQyNmMtNGNmZi04OTcxLWRiM2QxNmMwMjc0YQ",
@@ -72,7 +72,7 @@ public class ArdDayPageDeserializerTest {
                       "{\"client\":\"ard\",\"clipId\":\"Y3JpZDovL2JyLmRlL3ZpZGVvL2I4MzY5MzA5LTQyNmMtNGNmZi04OTcxLWRiM2QxNmMwMjc0YQ\",\"deviceType\":\"pc\"}")
                   + "&extensions="
                   + URLEncoder.encode(
-                      "{\"persistedQuery\":{\"version\":1,\"sha256Hash\":\"a9a9b15083dd3bf249264a7ff5d9e1010ec5d861539bc779bb1677a4a37872da\"}}"),
+                      "{\"persistedQuery\":{\"version\":1,\"sha256Hash\":\"38e4c23d15b4b007e2e31068658944f19797c2fb7a75c93bc0a77fe1632476c6\"}}"),
               1),
           new ArdFilmInfoDto(
               "Y3JpZDovL2hyLW9ubGluZS80NTQyMQ",
@@ -81,7 +81,7 @@ public class ArdDayPageDeserializerTest {
                       "{\"client\":\"ard\",\"clipId\":\"Y3JpZDovL2hyLW9ubGluZS80NTQyMQ\",\"deviceType\":\"pc\"}")
                   + "&extensions="
                   + URLEncoder.encode(
-                      "{\"persistedQuery\":{\"version\":1,\"sha256Hash\":\"a9a9b15083dd3bf249264a7ff5d9e1010ec5d861539bc779bb1677a4a37872da\"}}"),
+                      "{\"persistedQuery\":{\"version\":1,\"sha256Hash\":\"38e4c23d15b4b007e2e31068658944f19797c2fb7a75c93bc0a77fe1632476c6\"}}"),
               7),
           new ArdFilmInfoDto(
               "Y3JpZDovL2hyLW9ubGluZS80NTQzMQ",
@@ -90,7 +90,7 @@ public class ArdDayPageDeserializerTest {
                       "{\"client\":\"ard\",\"clipId\":\"Y3JpZDovL2hyLW9ubGluZS80NTQzMQ\",\"deviceType\":\"pc\"}")
                   + "&extensions="
                   + URLEncoder.encode(
-                      "{\"persistedQuery\":{\"version\":1,\"sha256Hash\":\"a9a9b15083dd3bf249264a7ff5d9e1010ec5d861539bc779bb1677a4a37872da\"}}"),
+                      "{\"persistedQuery\":{\"version\":1,\"sha256Hash\":\"38e4c23d15b4b007e2e31068658944f19797c2fb7a75c93bc0a77fe1632476c6\"}}"),
               3),
           new ArdFilmInfoDto(
               "Y3JpZDovL2hyLW9ubGluZS80NDk0OQ",
@@ -99,7 +99,7 @@ public class ArdDayPageDeserializerTest {
                       "{\"client\":\"ard\",\"clipId\":\"Y3JpZDovL2hyLW9ubGluZS80NDk0OQ\",\"deviceType\":\"pc\"}")
                   + "&extensions="
                   + URLEncoder.encode(
-                      "{\"persistedQuery\":{\"version\":1,\"sha256Hash\":\"a9a9b15083dd3bf249264a7ff5d9e1010ec5d861539bc779bb1677a4a37872da\"}}"),
+                      "{\"persistedQuery\":{\"version\":1,\"sha256Hash\":\"38e4c23d15b4b007e2e31068658944f19797c2fb7a75c93bc0a77fe1632476c6\"}}"),
               1)
         };
 
