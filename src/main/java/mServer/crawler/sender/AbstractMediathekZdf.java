@@ -197,10 +197,12 @@ public abstract class AbstractMediathekZdf extends MediathekReader {
 
     private String determineTitle(String title, String language) {
       switch (language) {
-        case DownloadDTO.LANGUAGE_ENGLISH:
-          return title + " (Englisch)";
         case DownloadDTO.LANGUAGE_GERMAN:
           return title;
+        case DownloadDTO.LANGUAGE_ENGLISH:
+          return title + " (Englisch)";
+        case DownloadDTO.LANGUAGE_GERMAN_AD:
+          return title + " (Audiodeskription)";
         default:
           return title + "(" + language + ")";
       }

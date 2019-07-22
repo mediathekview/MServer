@@ -10,6 +10,7 @@ public class DownloadDTO {
 
   public static final String LANGUAGE_ENGLISH = "eng";
   public static final String LANGUAGE_GERMAN = "deu";
+  public static final String LANGUAGE_GERMAN_AD = "deu-ad";
 
   private GeoLocations geoLocation;
   private String subTitleUrl;
