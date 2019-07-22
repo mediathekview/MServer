@@ -24,15 +24,16 @@ public class ZdfFilmDetailTask extends ZdfTaskBase<Film, ZdfEntryDto> {
 
   private static final Logger LOG = LogManager.getLogger(ZdfFilmDetailTask.class);
 
-  private static final Type OPTIONAL_FILM_TYPE_TOKEN = new TypeToken<Optional<Film>>() {
-  }.getType();
-  private static final Type OPTIONAL_DOWNLOAD_DTO_TYPE_TOKEN = new TypeToken<Optional<DownloadDto>>() {
-  }.getType();
+  private static final Type OPTIONAL_FILM_TYPE_TOKEN = new TypeToken<Optional<Film>>() {}.getType();
+  private static final Type OPTIONAL_DOWNLOAD_DTO_TYPE_TOKEN =
+      new TypeToken<Optional<DownloadDto>>() {}.getType();
 
   private final ZdfVideoUrlOptimizer optimizer = new ZdfVideoUrlOptimizer();
 
-  public ZdfFilmDetailTask(AbstractCrawler aCrawler,
-      ConcurrentLinkedQueue<ZdfEntryDto> aUrlToCrawlDtos, Optional<String> aAuthKey) {
+  public ZdfFilmDetailTask(
+      AbstractCrawler aCrawler,
+      ConcurrentLinkedQueue<ZdfEntryDto> aUrlToCrawlDtos,
+      Optional<String> aAuthKey) {
     super(aCrawler, aUrlToCrawlDtos, aAuthKey);
 
     registerJsonDeserializer(OPTIONAL_FILM_TYPE_TOKEN, new ZdfFilmDetailDeserializer());
@@ -42,7 +43,8 @@ public class ZdfFilmDetailTask extends ZdfTaskBase<Film, ZdfEntryDto> {
   @Override
   protected void processRestTarget(ZdfEntryDto aDto, WebTarget aTarget) {
     final Optional<Film> film = deserializeOptional(aTarget, OPTIONAL_FILM_TYPE_TOKEN);
-    final Optional<DownloadDto> downloadDto = deserializeOptional(createWebTarget(aDto.getVideoUrl()), OPTIONAL_DOWNLOAD_DTO_TYPE_TOKEN);
+    final Optional<DownloadDto> downloadDto =
+        deserializeOptional(createWebTarget(aDto.getVideoUrl()), OPTIONAL_DOWNLOAD_DTO_TYPE_TOKEN);
 
     if (film.isPresent() && downloadDto.isPresent()) {
       try {
@@ -73,19 +75,22 @@ public class ZdfFilmDetailTask extends ZdfTaskBase<Film, ZdfEntryDto> {
 
       final Film filmWithLanguage = clone(result, language);
 
-      DownloadDtoFilmConverter.addUrlsToFilm(filmWithLanguage, downloadDto, Optional.of(optimizer), language);
+      DownloadDtoFilmConverter.addUrlsToFilm(
+          filmWithLanguage, downloadDto, Optional.of(optimizer), language);
 
       taskResults.add(filmWithLanguage);
     }
   }
 
   private static Film clone(final Film aFilm, final String aLanguage) {
-    Film film = new Film(UUID.randomUUID(),
-        aFilm.getSender(),
-        aFilm.getTitel(),
-        aFilm.getThema(),
-        aFilm.getTime(),
-        aFilm.getDuration());
+    Film film =
+        new Film(
+            UUID.randomUUID(),
+            aFilm.getSender(),
+            aFilm.getTitel(),
+            aFilm.getThema(),
+            aFilm.getTime(),
+            aFilm.getDuration());
 
     film.setBeschreibung(aFilm.getBeschreibung());
     film.setWebsite(aFilm.getWebsite());
@@ -100,6 +105,9 @@ public class ZdfFilmDetailTask extends ZdfTaskBase<Film, ZdfEntryDto> {
     switch (aLanguage) {
       case ZdfConstants.LANGUAGE_GERMAN:
         return;
+      case ZdfConstants.LANGUAGE_GERMAN_AD:
+        title += " (Audiodeskription)";
+        break;
       case ZdfConstants.LANGUAGE_ENGLISH:
         title += " (Englisch)";
         break;

@@ -13,9 +13,7 @@ import java.util.Optional;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-/**
- * A JSON deserializer to gather the needed information for a {@link DownloadDto}.
- */
+/** A JSON deserializer to gather the needed information for a {@link DownloadDto}. */
 public class ZdfDownloadDtoDeserializer implements JsonDeserializer<Optional<DownloadDto>> {
 
   private static final String ZDF_QUALITY_VERYHIGH = "veryhigh";
@@ -26,6 +24,7 @@ public class ZdfDownloadDtoDeserializer implements JsonDeserializer<Optional<Dow
   private static final String JSON_ELEMENT_ATTRIBUTES = "attributes";
   private static final String JSON_ELEMENT_AUDIO = "audio";
   private static final String JSON_ELEMENT_CAPTIONS = "captions";
+  private static final String JSON_ELEMENT_CLASS = "class";
   private static final String JSON_ELEMENT_FORMITAET = "formitaeten";
   private static final String JSON_ELEMENT_GEOLOCATION = "geoLocation";
   private static final String JSON_ELEMENT_HD = "hd";
@@ -38,13 +37,16 @@ public class ZdfDownloadDtoDeserializer implements JsonDeserializer<Optional<Dow
 
   private static final String JSON_PROPERTY_VALUE = "value";
 
+  private static final String CLASS_AD = "ad";
 
   private static final String RELEVANT_MIME_TYPE = "video/mp4";
   private static final String RELEVANT_SUBTITLE_TYPE = ".xml";
   private static final String JSON_ELEMENT_QUALITIES = "qualities";
 
   @Override
-  public Optional<DownloadDto> deserialize(final JsonElement aJsonElement, final Type aTypeOfT,
+  public Optional<DownloadDto> deserialize(
+      final JsonElement aJsonElement,
+      final Type aTypeOfT,
       final JsonDeserializationContext aJsonDeserializationContext) {
     final DownloadDto dto = new DownloadDto();
     try {
@@ -90,10 +92,17 @@ public class ZdfDownloadDtoDeserializer implements JsonDeserializer<Optional<Dow
     }
   }
 
-  private static void extractTrack(DownloadDto aDto, Resolution aQualityValue, JsonElement aTrackElement) {
+  private static void extractTrack(
+      DownloadDto aDto, Resolution aQualityValue, JsonElement aTrackElement) {
     JsonObject trackObject = aTrackElement.getAsJsonObject();
+    String classValue = trackObject.get(JSON_ELEMENT_CLASS).getAsString();
     String language = trackObject.get(JSON_ELEMENT_LANGUAGE).getAsString();
     String uri = trackObject.get(JSON_ELEMENT_URI).getAsString();
+
+    // films with audiodescription are handled as a language
+    if (CLASS_AD.equalsIgnoreCase(classValue)) {
+      language += "-ad";
+    }
     if (aQualityValue != null && uri != null) {
       aDto.addUrl(language, aQualityValue, uri);
     } else {
@@ -147,7 +156,6 @@ public class ZdfDownloadDtoDeserializer implements JsonDeserializer<Optional<Dow
         } else if (dto.getSubTitleUrl().isPresent()) {
           dto.setSubTitleUrl(uriValue);
         }
-
       }
     }
   }
@@ -188,4 +196,3 @@ public class ZdfDownloadDtoDeserializer implements JsonDeserializer<Optional<Dow
     }
   }
 }
-
