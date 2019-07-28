@@ -147,6 +147,12 @@ public class MediathekArte_de extends MediathekReader {
 
   class ThemaLaden extends Thread {
 
+    private final Gson gson;
+
+    public ThemaLaden() {
+      gson = new GsonBuilder().registerTypeAdapter(ListeFilme.class, new ArteDatenFilmDeserializer(LANG_CODE, getSendername())).create();
+    }
+
     @Override
     public void run() {
       try {
@@ -163,13 +169,15 @@ public class MediathekArte_de extends MediathekReader {
     }
 
     private void addFilmeForTag(String aUrl) {
-      Gson gson = new GsonBuilder().registerTypeAdapter(ListeFilme.class, new ArteDatenFilmDeserializer(LANG_CODE, getSendername())).create();
 
       ListeFilme loadedFilme = ArteHttpClient.executeRequest(LOG, gson, aUrl, ListeFilme.class);
       if (loadedFilme != null) {
+        Log.sysLog("ARTE: " + aUrl + ", Anzahl: " + loadedFilme.size());
         loadedFilme.forEach((film) -> {
           addFilm(film);
         });
+      } else {
+        Log.sysLog("ARTE: " + aUrl + ", Anzahl: null");
       }
     }
   }
@@ -216,9 +224,14 @@ public class MediathekArte_de extends MediathekReader {
 
         // alle programIds verarbeiten
         ListeFilme loadedFilme = loadPrograms(dto);
-        loadedFilme.forEach((film) -> {
-          addFilm(film);
-        });
+        if (loadedFilme != null) {
+          Log.sysLog("ARTE: " + aUrl + ", Anzahl: " + loadedFilme.size());
+          loadedFilme.forEach((film) -> {
+            addFilm(film);
+          });
+        } else {
+          Log.sysLog("ARTE: " + aUrl + ", Anzahl: null");
+        }
       }
     }
 
