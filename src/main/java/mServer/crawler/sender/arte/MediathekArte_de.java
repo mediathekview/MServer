@@ -105,27 +105,26 @@ public class MediathekArte_de extends MediathekReader {
     meldungStart();
     if (Config.getStop()) {
       meldungThreadUndFertig();
-    } else {
-      if (CrawlerTool.loadLongMax()) {
-        Log.sysLog("ARTE: no long run because it is not working...");
-        /*addCategories();
+    }
+    /*if (CrawlerTool.loadLongMax()) {
+        addCategories();
         meldungAddMax(listeThemen.size());
 
         for (int t = 0; t < getMaxThreadLaufen(); ++t) {
           Thread th = new CategoryLoader();
           th.setName(getSendername() + t);
           th.start();
-        }*/
-
-      } else {
-        addTage();
-        meldungAddMax(listeThemen.size());
-        for (int t = 0; t < getMaxThreadLaufen(); ++t) {
-          Thread th = new ThemaLaden();
-          th.setName(getSendername() + t);
-          th.start();
         }
-      }
+
+      } else {*/
+    addTage();
+    meldungAddMax(listeThemen.size());
+    for (int t = 0; t < getMaxThreadLaufen(); ++t) {
+      Thread th = new ThemaLaden();
+      th.setName(getSendername() + t);
+      th.start();
+      //}
+
     }
   }
 
