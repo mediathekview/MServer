@@ -26,6 +26,7 @@ import de.mediathekview.mlib.Const;
 import de.mediathekview.mlib.daten.DatenFilm;
 import de.mediathekview.mlib.daten.ListeFilme;
 import de.mediathekview.mlib.tool.Log;
+import de.mediathekview.mlib.tool.MVHttpClient;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -34,6 +35,7 @@ import java.util.concurrent.CopyOnWriteArrayList;
 import mServer.crawler.CrawlerTool;
 import mServer.crawler.FilmeSuchen;
 import mServer.crawler.sender.MediathekReader;
+import okhttp3.Response;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -88,11 +90,11 @@ public class MediathekArte_de extends MediathekReader {
   protected String TIME_2 = "um";
 
   public MediathekArte_de(FilmeSuchen ssearch, int startPrio) {
-    super(ssearch, SENDERNAME,/* threads */ 2, /* urlWarten */ 200, startPrio);
+    super(ssearch, SENDERNAME,/* threads */ 1, /* urlWarten */ 200, startPrio);
   }
 
   public MediathekArte_de(FilmeSuchen ssearch, int startPrio, String name) {
-    super(ssearch, name,/* threads */ 2, /* urlWarten */ 200, startPrio);
+    super(ssearch, name,/* threads */ 1, /* urlWarten */ 200, startPrio);
   }
 
   //===================================
@@ -105,14 +107,15 @@ public class MediathekArte_de extends MediathekReader {
       meldungThreadUndFertig();
     } else {
       if (CrawlerTool.loadLongMax()) {
-        addCategories();
+        Log.sysLog("ARTE: no long run because it is not working...");
+        /*addCategories();
         meldungAddMax(listeThemen.size());
 
         for (int t = 0; t < getMaxThreadLaufen(); ++t) {
           Thread th = new CategoryLoader();
           th.setName(getSendername() + t);
           th.start();
-        }
+        }*/
 
       } else {
         addTage();
@@ -134,15 +137,16 @@ public class MediathekArte_de extends MediathekReader {
   }
 
   private void addTage() {
+    Log.sysLog("ARTE: search only today because it is not working...");
     // http://www.arte.tv/guide/de/plus7/videos?day=-2&page=1&isLoading=true&sort=newest&country=DE
-    for (int i = 0; i <= 14; ++i) {
+    for (int i = 0; i <= 0; ++i) {
       String u = String.format(ARTE_API_TAG_URL_PATTERN, LANG_CODE.toUpperCase(), LocalDate.now().minusDays(i).format(ARTE_API_DATEFORMATTER));
       listeThemen.add(new String[]{u});
     }
-    for (int i = 1; i <= 21; ++i) {
+    /*for (int i = 1; i <= 21; ++i) {
       String u = String.format(ARTE_API_TAG_URL_PATTERN, LANG_CODE.toUpperCase(), LocalDate.now().plusDays(i).format(ARTE_API_DATEFORMATTER));
       listeThemen.add(new String[]{u});
-    }
+    }*/
   }
 
   class ThemaLaden extends Thread {
@@ -157,11 +161,22 @@ public class MediathekArte_de extends MediathekReader {
     public void run() {
       try {
         meldungAddThread();
-        String link[];
-        while (!Config.getStop() && (link = listeThemen.getListeThemen()) != null) {
-          meldungProgress(link[0] /* url */);
-          addFilmeForTag(link[0]);
+
+        // Testrequests
+        ArteHttpClient.executeRequest(LOG, gson, String.format(URL_SUBCATEGORY, LANG_CODE.toLowerCase(), "POP", 1), ArteCategoryFilmsDTO.class);
+        ArteHttpClient.executeRequest(LOG, gson, "https://api.arte.tv/api/player/v1/config/de/076645-000-A?autostart=1&lifeCycle=1", ArteVideoDetailsDTO.class);
+        ArteHttpClient.executeRequest(LOG, gson, "https://api.arte.tv/api/player/v1/config/de/076645-000-A?platform=ARTE_NEXT", ArteVideoDetailsDTO.class);
+        ArteHttpClient.executeRequest(LOG, gson, "https://api.arte.tv/api/player/v1/config/de/076645-000-A", ArteVideoDetailsDTO.class);
+        try {
+          ArteHttpClient.executeRequest(LOG, gson, "https://www.arte.tv/de/videos/076645-000-A/kolumbien-der-lange-weg-zum-frieden/", ArteVideoDetailsDTO.class);
+        } catch (Exception ignored) {
         }
+
+        /*        String link[];
+        while (!Config.getStop() && (link = listeThemen.getListeThemen()) != null) {
+          meldungProgress(link[0]);
+          addFilmeForTag(link[0]);
+        }*/
       } catch (Exception ex) {
         Log.errorLog(894330854, ex, "");
       }

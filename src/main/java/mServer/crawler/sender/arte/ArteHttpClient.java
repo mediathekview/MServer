@@ -21,7 +21,7 @@ public class ArteHttpClient {
   public static final String AUTH_HEADER = "Authorization";
   public static final String AUTH_TOKEN = "Bearer Nzc1Yjc1ZjJkYjk1NWFhN2I2MWEwMmRlMzAzNjI5NmU3NWU3ODg4ODJjOWMxNTMxYzEzZGRjYjg2ZGE4MmIwOA";
   public static final String USER_AGENT = "User-Agent";
-  public static final String USER_AGENT_VALUE = "Mozilla/5.0";
+  public static final String USER_AGENT_VALUE = "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:68.0) Gecko/20100101 Firefox/68.0";
 
   public static <T extends Object> T executeRequest(Logger logger, Gson gson, String aUrl, Class<T> aDtoType) {
     T result = null;
@@ -34,6 +34,7 @@ public class ArteHttpClient {
       TimeUnit.MILLISECONDS.sleep(200);
 
       Request request = createRequest(aUrl);
+      Log.sysLog("ARTE: " + aUrl + ", header: " + request.headers().toString());
 
       boolean stop = false;
 
@@ -77,6 +78,8 @@ public class ArteHttpClient {
     }
 
     return builder.addHeader(USER_AGENT, USER_AGENT_VALUE)
+            .addHeader("Accept", "application/json")
+            .addHeader("Accept-Language", "de")
             .url(aUrl).build();
   }
 }
