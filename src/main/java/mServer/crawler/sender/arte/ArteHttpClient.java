@@ -34,7 +34,6 @@ public class ArteHttpClient {
       TimeUnit.MILLISECONDS.sleep(200);
 
       Request request = createRequest(aUrl);
-      Log.sysLog("ARTE: " + aUrl + ", header: " + request.headers().toString());
 
       boolean stop = false;
 
@@ -42,7 +41,6 @@ public class ArteHttpClient {
         try (Response response = MVHttpClient.getInstance().getHttpClient().newCall(request).execute();
                 ResponseBody body = response.body()) {
           if (response.isSuccessful()) {
-            Log.sysLog("ARTE: " + aUrl + " successful.");
             result = gson.fromJson(body.string(), aDtoType);
             stop = true;
           } else {
