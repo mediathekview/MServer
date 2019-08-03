@@ -62,9 +62,7 @@ public class ZdfDayPageDeserializer implements JsonDeserializer<ZdfDayPageDto> {
         resultsArray.forEach(
             result -> {
               final Optional<ZdfEntryDto> dto = parseSearchEntry(result.getAsJsonObject());
-              if (dto.isPresent()) {
-                aDayPageDto.addEntry(dto.get());
-              }
+              dto.ifPresent(aDayPageDto::addEntry);
             });
       }
     }

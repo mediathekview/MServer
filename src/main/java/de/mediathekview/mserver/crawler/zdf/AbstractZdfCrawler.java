@@ -45,8 +45,6 @@ public abstract class AbstractZdfCrawler extends AbstractCrawler {
       final ConcurrentLinkedQueue<ZdfEntryDto> shows =
           new ConcurrentLinkedQueue<>(getDaysEntries(configuration));
 
-      printMessage(
-          ServerMessages.DEBUG_ALL_SENDUNG_FOLGEN_COUNT, getSender().getName(), shows.size());
       getAndSetMaxCount(shows.size());
 
       return new ZdfFilmDetailTask(this, shows, configuration.getVideoAuthKey());

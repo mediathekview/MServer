@@ -27,7 +27,6 @@ public class ZdfDayPageTask extends ZdfTaskBase<ZdfEntryDto, CrawlerUrlDTO> {
 
   @Override
   protected void processRestTarget(final CrawlerUrlDTO aDto, final WebTarget aTarget) {
-
     final ZdfDayPageDto dto = deserialize(aTarget, ZdfDayPageDto.class);
     if (dto != null) {
       taskResults.addAll(dto.getEntries());

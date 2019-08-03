@@ -11,37 +11,54 @@ import de.mediathekview.mserver.crawler.zdf.ZdfVideoUrlOptimizer;
 import de.mediathekview.mserver.crawler.zdf.json.DownloadDto;
 import de.mediathekview.mserver.crawler.zdf.json.ZdfDownloadDtoDeserializer;
 import de.mediathekview.mserver.crawler.zdf.json.ZdfFilmDetailDeserializer;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
+import javax.ws.rs.client.WebTarget;
 import java.lang.reflect.Type;
 import java.net.MalformedURLException;
 import java.util.Optional;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentLinkedQueue;
-import javax.ws.rs.client.WebTarget;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 public class ZdfFilmDetailTask extends ZdfTaskBase<Film, ZdfEntryDto> {
-
   private static final Logger LOG = LogManager.getLogger(ZdfFilmDetailTask.class);
 
-  private static final Type OPTIONAL_FILM_TYPE_TOKEN = new TypeToken<Optional<Film>>() {}.getType();
-  private static final Type OPTIONAL_DOWNLOAD_DTO_TYPE_TOKEN =
-      new TypeToken<Optional<DownloadDto>>() {}.getType();
+  private static final Type OPTIONAL_FILM_TYPE_TOKEN = new TypeToken<Optional<Film>>() {
+  }.getType();
+  private static final Type OPTIONAL_DOWNLOAD_DTO_TYPE_TOKEN = new TypeToken<Optional<DownloadDto>>() {
+  }.getType();
 
   private final ZdfVideoUrlOptimizer optimizer = new ZdfVideoUrlOptimizer();
 
-  public ZdfFilmDetailTask(
-      AbstractCrawler aCrawler,
-      ConcurrentLinkedQueue<ZdfEntryDto> aUrlToCrawlDtos,
-      Optional<String> aAuthKey) {
+  public ZdfFilmDetailTask(AbstractCrawler aCrawler,
+      ConcurrentLinkedQueue<ZdfEntryDto> aUrlToCrawlDtos, Optional<String> aAuthKey) {
     super(aCrawler, aUrlToCrawlDtos, aAuthKey);
 
     registerJsonDeserializer(OPTIONAL_FILM_TYPE_TOKEN, new ZdfFilmDetailDeserializer());
     registerJsonDeserializer(OPTIONAL_DOWNLOAD_DTO_TYPE_TOKEN, new ZdfDownloadDtoDeserializer());
   }
 
+  private static Film clone(final Film aFilm, final String aLanguage) {
+    final Film film =
+        new Film(
+            UUID.randomUUID(),
+            aFilm.getSender(),
+            aFilm.getTitel(),
+            aFilm.getThema(),
+            aFilm.getTime(),
+            aFilm.getDuration());
+
+    film.setBeschreibung(aFilm.getBeschreibung());
+    film.setWebsite(aFilm.getWebsite());
+
+    updateTitle(aLanguage, film);
+
+    return film;
+  }
+
   @Override
-  protected void processRestTarget(ZdfEntryDto aDto, WebTarget aTarget) {
+  protected void processRestTarget(final ZdfEntryDto aDto, final WebTarget aTarget) {
     final Optional<Film> film = deserializeOptional(aTarget, OPTIONAL_FILM_TYPE_TOKEN);
     final Optional<DownloadDto> downloadDto =
         deserializeOptional(createWebTarget(aDto.getVideoUrl()), OPTIONAL_DOWNLOAD_DTO_TYPE_TOKEN);
@@ -53,7 +70,7 @@ public class ZdfFilmDetailTask extends ZdfTaskBase<Film, ZdfEntryDto> {
 
         crawler.incrementAndGetActualCount();
         crawler.updateProgress();
-      } catch (MalformedURLException e) {
+      } catch (final MalformedURLException e) {
         LOG.error("ZdfFilmDetailTask: url can't be parsed: ", e);
         crawler.incrementAndGetErrorCount();
         crawler.updateProgress();
@@ -66,12 +83,13 @@ public class ZdfFilmDetailTask extends ZdfTaskBase<Film, ZdfEntryDto> {
 
   @Override
   protected AbstractRecrusivConverterTask<Film, ZdfEntryDto> createNewOwnInstance(
-      ConcurrentLinkedQueue<ZdfEntryDto> aElementsToProcess) {
+      final ConcurrentLinkedQueue<ZdfEntryDto> aElementsToProcess) {
     return new ZdfFilmDetailTask(crawler, aElementsToProcess, authKey);
   }
 
-  private void addFilm(DownloadDto downloadDto, Film result) throws MalformedURLException {
-    for (String language : downloadDto.getLanguages()) {
+  private void addFilm(final DownloadDto downloadDto, final Film result)
+      throws MalformedURLException {
+    for (final String language : downloadDto.getLanguages()) {
 
       final Film filmWithLanguage = clone(result, language);
 
@@ -83,14 +101,12 @@ public class ZdfFilmDetailTask extends ZdfTaskBase<Film, ZdfEntryDto> {
   }
 
   private static Film clone(final Film aFilm, final String aLanguage) {
-    Film film =
-        new Film(
-            UUID.randomUUID(),
-            aFilm.getSender(),
-            aFilm.getTitel(),
-            aFilm.getThema(),
-            aFilm.getTime(),
-            aFilm.getDuration());
+    Film film = new Film(UUID.randomUUID(),
+        aFilm.getSender(),
+        aFilm.getTitel(),
+        aFilm.getThema(),
+        aFilm.getTime(),
+        aFilm.getDuration());
 
     film.setBeschreibung(aFilm.getBeschreibung());
     film.setWebsite(aFilm.getWebsite());
