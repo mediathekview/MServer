@@ -24,15 +24,16 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 public class ZdfFilmDetailTask extends ZdfTaskBase<Film, ZdfEntryDto> {
   private static final Logger LOG = LogManager.getLogger(ZdfFilmDetailTask.class);
 
-  private static final Type OPTIONAL_FILM_TYPE_TOKEN = new TypeToken<Optional<Film>>() {
-  }.getType();
-  private static final Type OPTIONAL_DOWNLOAD_DTO_TYPE_TOKEN = new TypeToken<Optional<DownloadDto>>() {
-  }.getType();
+  private static final Type OPTIONAL_FILM_TYPE_TOKEN = new TypeToken<Optional<Film>>() {}.getType();
+  private static final Type OPTIONAL_DOWNLOAD_DTO_TYPE_TOKEN =
+      new TypeToken<Optional<DownloadDto>>() {}.getType();
 
   private final ZdfVideoUrlOptimizer optimizer = new ZdfVideoUrlOptimizer();
 
-  public ZdfFilmDetailTask(AbstractCrawler aCrawler,
-      ConcurrentLinkedQueue<ZdfEntryDto> aUrlToCrawlDtos, Optional<String> aAuthKey) {
+  public ZdfFilmDetailTask(
+      final AbstractCrawler aCrawler,
+      final ConcurrentLinkedQueue<ZdfEntryDto> aUrlToCrawlDtos,
+      final Optional<String> aAuthKey) {
     super(aCrawler, aUrlToCrawlDtos, aAuthKey);
 
     registerJsonDeserializer(OPTIONAL_FILM_TYPE_TOKEN, new ZdfFilmDetailDeserializer());
@@ -98,22 +99,6 @@ public class ZdfFilmDetailTask extends ZdfTaskBase<Film, ZdfEntryDto> {
 
       taskResults.add(filmWithLanguage);
     }
-  }
-
-  private static Film clone(final Film aFilm, final String aLanguage) {
-    Film film = new Film(UUID.randomUUID(),
-        aFilm.getSender(),
-        aFilm.getTitel(),
-        aFilm.getThema(),
-        aFilm.getTime(),
-        aFilm.getDuration());
-
-    film.setBeschreibung(aFilm.getBeschreibung());
-    film.setWebsite(aFilm.getWebsite());
-
-    updateTitle(aLanguage, film);
-
-    return film;
   }
 
   private static void updateTitle(final String aLanguage, final Film aFilm) {

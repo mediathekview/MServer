@@ -23,13 +23,17 @@
             <outputDirectory>docs</outputDirectory>
         </fileSet>
         <fileSet>
+            <directory>${project.build.directory}/classes/lib</directory>
+            <outputDirectory>lib</outputDirectory>
+        </fileSet>
+        <fileSet>
             <directory>${project.build.directory}/generated-sources/license</directory>
             <outputDirectory>/</outputDirectory>
         </fileSet>
     </fileSets>
     <files>
         <file>
-            <source>${project.build.directory}/${artifactId}-${version}-shaded.${packaging}</source>
+            <source>${project.build.directory}/${artifactId}-${version}.${packaging}</source>
             <outputDirectory>/</outputDirectory>
             <destName>MServer.jar</destName>
         </file>
