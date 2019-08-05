@@ -70,6 +70,9 @@ maximumSubpages: 2
 # The maximum amount of days going to past will be crawled for the "Sendung Verpasst?" section.
 maximumDaysForSendungVerpasstSection: 30
 
+# The time in seconds before a socket connection should time out.
+socketTimeoutInSeconds: 60
+
 crawlerURLs:
   BR_API_URL: http://localhost:8589/myBrRequets
 
