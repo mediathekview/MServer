@@ -428,7 +428,6 @@
                             </execution>
                         </executions>
                         <configuration>
-			    <contextDirectory>src/main/docker</contextDirectory>
                             <repository>mediathekview/mserver</repository>
                             <tag>${project.version}</tag>
                             <buildArgs>
