@@ -34,7 +34,7 @@ public class MServerBasicConfigDTO {
   public MServerBasicConfigDTO(final MServerConfigDTO parent) {
     super();
 
-    if (this instanceof MServerConfigDTO) {
+    if (null == parent) {
       maximumUrlsPerTask = 50;
       maximumCrawlDurationInMinutes = 30;
       maximumSubpages = 3;

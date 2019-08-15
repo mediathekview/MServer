@@ -74,6 +74,9 @@ public class MServerConfigDTO extends MServerBasicConfigDTO implements ConfigDTO
     filmlistHashFilePath = "filmlist.hash";
     writeFilmlistIdFileEnabled = true;
     filmlistIdFilePath = "filmlist.id";
+
+    Arrays.stream(Sender.values())
+        .forEach(sender -> senderConfigurations.put(sender, new MServerBasicConfigDTO(this)));
   }
 
   public MServerCopySettings getCopySettings() {
