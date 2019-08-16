@@ -1,5 +1,6 @@
 package de.mediathekview.mserver.crawler.swr;
 
+import de.mediathekview.mserver.crawler.ard.ArdUrlOptimizer;
 import de.mediathekview.mserver.testhelper.WireMockTestBase;
 import org.junit.Test;
 
@@ -14,8 +15,8 @@ public class SwrUrlOptimizerTest extends WireMockTestBase {
     final String expectedUrl = WireMockTestBase.MOCK_URL_BASE + "/845421.xxl.mp4";
     setupHeadResponse("/845421.xxl.mp4", 200);
 
-    SwrUrlOptimizer target = new SwrUrlOptimizer();
-    String actualUrl = target.optimizeHdUrl(url);
+    final ArdUrlOptimizer target = new ArdUrlOptimizer();
+    final String actualUrl = target.optimizeHdUrl(url);
 
     assertThat(actualUrl, equalTo(expectedUrl));
   }
@@ -25,8 +26,8 @@ public class SwrUrlOptimizerTest extends WireMockTestBase {
     final String url = WireMockTestBase.MOCK_URL_BASE + "/845421.xl.mp4";
     setupHeadResponse("/845421.xxl.mp4", 404);
 
-    SwrUrlOptimizer target = new SwrUrlOptimizer();
-    String actualUrl = target.optimizeHdUrl(url);
+    final ArdUrlOptimizer target = new ArdUrlOptimizer();
+    final String actualUrl = target.optimizeHdUrl(url);
 
     assertThat(actualUrl, equalTo(url));
   }
@@ -35,8 +36,8 @@ public class SwrUrlOptimizerTest extends WireMockTestBase {
   public void optimizeHdUrlTestNoUrlToOptimize() {
     final String url = WireMockTestBase.MOCK_URL_BASE + "/78946584.l.mp4";
 
-    SwrUrlOptimizer target = new SwrUrlOptimizer();
-    String actualUrl = target.optimizeHdUrl(url);
+    final ArdUrlOptimizer target = new ArdUrlOptimizer();
+    final String actualUrl = target.optimizeHdUrl(url);
 
     assertThat(actualUrl, equalTo(url));
   }

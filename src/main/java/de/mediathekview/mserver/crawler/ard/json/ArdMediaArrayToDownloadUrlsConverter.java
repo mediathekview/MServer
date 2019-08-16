@@ -7,20 +7,16 @@ import de.mediathekview.mlib.daten.Resolution;
 import de.mediathekview.mserver.base.messages.ServerMessages;
 import de.mediathekview.mserver.base.utils.JsonUtils;
 import de.mediathekview.mserver.base.utils.UrlUtils;
+import de.mediathekview.mserver.crawler.ard.ArdUrlOptimizer;
 import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
 import de.mediathekview.mserver.crawler.basic.FilmUrlInfoDto;
-import de.mediathekview.mserver.crawler.swr.SwrUrlOptimizer;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.util.EnumMap;
-import java.util.LinkedHashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
-import java.util.Set;
-import java.util.stream.Collectors;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class ArdMediaArrayToDownloadUrlsConverter {
 
@@ -39,13 +35,12 @@ public class ArdMediaArrayToDownloadUrlsConverter {
   private static final String ELEMENT_WIDTH = "_width";
   private static final String PROTOCOL_RTMP = "rtmp";
 
-  private static final SwrUrlOptimizer swrOptimizer = new SwrUrlOptimizer();
+  private static final ArdUrlOptimizer swrOptimizer = new ArdUrlOptimizer();
 
-  private ArdMediaArrayToDownloadUrlsConverter() {
-  }
+  private ArdMediaArrayToDownloadUrlsConverter() {}
 
-  public static Map<Resolution, URL> toDownloadUrls(final JsonElement aJsonElement,
-      final AbstractCrawler aCrawler) {
+  public static Map<Resolution, URL> toDownloadUrls(
+      final JsonElement aJsonElement, final AbstractCrawler aCrawler) {
     final Map<Resolution, URL> downloadUrls = new EnumMap<>(Resolution.class);
 
     final Map<Resolution, LinkedHashSet<FilmUrlInfoDto>> availableUrls =
@@ -64,15 +59,19 @@ public class ArdMediaArrayToDownloadUrlsConverter {
     return downloadUrls;
   }
 
-  private static void addUrl(final String aUrl, final Resolution quality,
-      final Map<Resolution, LinkedHashSet<FilmUrlInfoDto>> aUrls, final Optional<String> aHeight,
+  private static void addUrl(
+      final String aUrl,
+      final Resolution quality,
+      final Map<Resolution, LinkedHashSet<FilmUrlInfoDto>> aUrls,
+      final Optional<String> aHeight,
       final Optional<String> aWidth) {
 
     if (!aUrl.isEmpty()) {
       if (aUrl.startsWith(PROTOCOL_RTMP)) {
         LOG.debug("Found an Sendung with the old RTMP format: " + aUrl);
       } else {
-        final FilmUrlInfoDto info = new FilmUrlInfoDto(UrlUtils.addProtocolIfMissing(aUrl, "http:"));
+        final FilmUrlInfoDto info =
+            new FilmUrlInfoDto(UrlUtils.addProtocolIfMissing(aUrl, "http:"));
         if (aHeight.isPresent() && aWidth.isPresent()) {
           info.setResolution(Integer.parseInt(aWidth.get()), Integer.parseInt(aHeight.get()));
         }
@@ -93,7 +92,7 @@ public class ArdMediaArrayToDownloadUrlsConverter {
       return "";
     }
 
-    FilmUrlInfoDto ardUrlInfo;
+    final FilmUrlInfoDto ardUrlInfo;
 
     List<FilmUrlInfoDto> urls = filterUrls(aUrls, "mp4");
     if (!urls.isEmpty()) {
@@ -127,29 +126,34 @@ public class ArdMediaArrayToDownloadUrlsConverter {
     return 1;
   }
 
-  private static void extractRelevantUrls(final Map<Resolution, LinkedHashSet<FilmUrlInfoDto>> aUrls,
-      final Map<Resolution, URL> aDownloadUrls, final AbstractCrawler aCrawler) {
+  private static void extractRelevantUrls(
+      final Map<Resolution, LinkedHashSet<FilmUrlInfoDto>> aUrls,
+      final Map<Resolution, URL> aDownloadUrls,
+      final AbstractCrawler aCrawler) {
 
-    aUrls.entrySet().forEach(entry -> {
-      final Set<FilmUrlInfoDto> urls = entry.getValue();
-      if (!urls.isEmpty()) {
+    aUrls
+        .entrySet()
+        .forEach(
+            entry -> {
+              final Set<FilmUrlInfoDto> urls = entry.getValue();
+              if (!urls.isEmpty()) {
 
-        final String url = determineUrl(entry.getKey(), urls);
-        if (!url.isEmpty()) {
+                final String url = determineUrl(entry.getKey(), urls);
+                if (!url.isEmpty()) {
 
-          try {
-            aDownloadUrls.put(entry.getKey(), new URL(optimizeUrl(entry.getKey(), url)));
-          } catch (final MalformedURLException malformedUrlException) {
-            LOG.error("A download URL is defect.", malformedUrlException);
-            aCrawler.printMessage(ServerMessages.DEBUG_INVALID_URL, aCrawler.getSender().getName(),
-                url);
-          }
-        }
-      }
-    });
+                  try {
+                    aDownloadUrls.put(entry.getKey(), new URL(optimizeUrl(entry.getKey(), url)));
+                  } catch (final MalformedURLException malformedUrlException) {
+                    LOG.error("A download URL is defect.", malformedUrlException);
+                    aCrawler.printMessage(
+                        ServerMessages.DEBUG_INVALID_URL, aCrawler.getSender().getName(), url);
+                  }
+                }
+              }
+            });
   }
 
-  private static String optimizeUrl(Resolution key, String url) {
+  private static String optimizeUrl(final Resolution key, final String url) {
     if (key == Resolution.HD) {
       return swrOptimizer.optimizeHdUrl(url);
     }
@@ -157,8 +161,10 @@ public class ArdMediaArrayToDownloadUrlsConverter {
     return url;
   }
 
-  private static List<FilmUrlInfoDto> filterUrls(final Set<FilmUrlInfoDto> aUrls, final String aFileType) {
-    return aUrls.stream().filter(u -> u.getFileType().get().equalsIgnoreCase(aFileType))
+  private static List<FilmUrlInfoDto> filterUrls(
+      final Set<FilmUrlInfoDto> aUrls, final String aFileType) {
+    return aUrls.stream()
+        .filter(u -> u.getFileType().get().equalsIgnoreCase(aFileType))
         .collect(Collectors.toList());
   }
 
@@ -199,12 +205,11 @@ public class ArdMediaArrayToDownloadUrlsConverter {
       case 2:
       default:
         return Resolution.NORMAL;
-
     }
   }
 
-  private static FilmUrlInfoDto getRelevantUrlMp4(final Resolution aResolution,
-      final List<FilmUrlInfoDto> aUrls) {
+  private static FilmUrlInfoDto getRelevantUrlMp4(
+      final Resolution aResolution, final List<FilmUrlInfoDto> aUrls) {
     switch (aResolution) {
       case SMALL:
         // the first url is the best
@@ -232,24 +237,28 @@ public class ArdMediaArrayToDownloadUrlsConverter {
     }
   }
 
-  private static void parseMediaArray(final int aPluginValue, final JsonArray aMediaArray,
+  private static void parseMediaArray(
+      final int aPluginValue,
+      final JsonArray aMediaArray,
       final Map<Resolution, LinkedHashSet<FilmUrlInfoDto>> aUrls) {
 
-    aMediaArray.forEach(mediaEntry -> {
+    aMediaArray.forEach(
+        mediaEntry -> {
+          final JsonObject mediaObject = mediaEntry.getAsJsonObject();
+          final int pluginValue = mediaObject.get(ELEMENT_PLUGIN).getAsInt();
 
-      final JsonObject mediaObject = mediaEntry.getAsJsonObject();
-      final int pluginValue = mediaObject.get(ELEMENT_PLUGIN).getAsInt();
+          // only use the urls of the relevant plugin
+          if (pluginValue == aPluginValue) {
+            final JsonArray mediaStreamArray =
+                mediaObject.getAsJsonArray(ELEMENT_MEDIA_STREAM_ARRAY);
 
-      // only use the urls of the relevant plugin
-      if (pluginValue == aPluginValue) {
-        final JsonArray mediaStreamArray = mediaObject.getAsJsonArray(ELEMENT_MEDIA_STREAM_ARRAY);
-
-        parseMediaStreamArray(mediaStreamArray, aUrls);
-      }
-    });
+            parseMediaStreamArray(mediaStreamArray, aUrls);
+          }
+        });
   }
 
-  private static void parseMediaStreamArray(final JsonArray aMediaStreamArray,
+  private static void parseMediaStreamArray(
+      final JsonArray aMediaStreamArray,
       final Map<Resolution, LinkedHashSet<FilmUrlInfoDto>> aUrls) {
 
     for (int i = 0; i < aMediaStreamArray.size(); i++) {
@@ -265,8 +274,10 @@ public class ArdMediaArrayToDownloadUrlsConverter {
     }
   }
 
-  private static void parseMediaStreamServer(final Map<Resolution, LinkedHashSet<FilmUrlInfoDto>> aUrls,
-      final JsonElement videoElement, final Resolution quality) {
+  private static void parseMediaStreamServer(
+      final Map<Resolution, LinkedHashSet<FilmUrlInfoDto>> aUrls,
+      final JsonElement videoElement,
+      final Resolution quality) {
     if (videoElement.getAsJsonObject().has(ELEMENT_SERVER)) {
       final String baseUrl = videoElement.getAsJsonObject().get(ELEMENT_SERVER).getAsString();
       final String downloadUrl = videoElementToUrl(videoElement, baseUrl);
@@ -274,8 +285,10 @@ public class ArdMediaArrayToDownloadUrlsConverter {
     }
   }
 
-  private static void parseMediaStreamStream(final Map<Resolution, LinkedHashSet<FilmUrlInfoDto>> aUrls,
-      final JsonElement videoElement, final Resolution quality) {
+  private static void parseMediaStreamStream(
+      final Map<Resolution, LinkedHashSet<FilmUrlInfoDto>> aUrls,
+      final JsonElement videoElement,
+      final Resolution quality) {
 
     if (videoElement.getAsJsonObject().has(ELEMENT_STREAM)) {
 
@@ -291,10 +304,11 @@ public class ArdMediaArrayToDownloadUrlsConverter {
         addUrl(downloadUrl, quality, aUrls, height, width);
       } else if (streamObject.isJsonArray()) {
         final JsonArray streamArray = streamObject.getAsJsonArray();
-        streamArray.forEach(stream -> {
-          final String baseUrl = stream.getAsString();
-          addUrl(baseUrl, quality, aUrls, height, width);
-        });
+        streamArray.forEach(
+            stream -> {
+              final String baseUrl = stream.getAsString();
+              addUrl(baseUrl, quality, aUrls, height, width);
+            });
       }
     }
   }
@@ -315,5 +329,4 @@ public class ArdMediaArrayToDownloadUrlsConverter {
     }
     return url;
   }
-
 }

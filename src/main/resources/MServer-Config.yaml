@@ -14,7 +14,7 @@ maximumServerDurationInMinutes: 0
 
 # If set only these Sender will be crawled all other will be ignored.
 senderIncluded:
-  - DREISAT
+  - ARTE_DE
 
 
 # If set the server will be awake after the crawler run and restarts the run after the given amount.
@@ -105,6 +105,9 @@ crawlerURLs:
 
 #### Specific crawler configurations ####
 senderConfigurations:
+  ARD:
+    # Actually the ARD has a maximum of 6 days in the past
+    maximumDaysForSendungVerpasstSection: 6
   ARTE_DE:
     maximumDaysForSendungVerpasstSectionFuture: 21
     # The maximum amount of URLs to be processed per task.

@@ -16,6 +16,9 @@ import de.mediathekview.mserver.crawler.ard.ArdFilmDto;
 import de.mediathekview.mserver.crawler.ard.ArdFilmInfoDto;
 import de.mediathekview.mserver.crawler.ard.ArdUrlBuilder;
 import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
+import org.apache.commons.lang3.StringUtils;
+import org.apache.logging.log4j.LogManager;
+
 import java.lang.reflect.Type;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -24,14 +27,7 @@ import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeParseException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
-import java.util.UUID;
-import org.apache.commons.lang3.StringUtils;
-import org.apache.logging.log4j.LogManager;
+import java.util.*;
 
 public class ArdFilmDeserializer implements JsonDeserializer<List<ArdFilmDto>> {
 
@@ -57,12 +53,6 @@ public class ArdFilmDeserializer implements JsonDeserializer<List<ArdFilmDto>> {
 
   // the key of the map is the value of publicationService.channelType in film.json
   private static final Map<String, Sender> ADDITIONAL_SENDER = new HashMap<>();
-
-  static {
-    ADDITIONAL_SENDER.put("mdr", Sender.MDR);
-    ADDITIONAL_SENDER.put("rbb", Sender.RBB);
-    ADDITIONAL_SENDER.put("swr", Sender.SWR);
-  }
 
   private final ArdVideoInfoJsonDeserializer videoDeserializer;
 
@@ -119,7 +109,7 @@ public class ArdFilmDeserializer implements JsonDeserializer<List<ArdFilmDto>> {
   public List<ArdFilmDto> deserialize(
       final JsonElement jsonElement, final Type type, final JsonDeserializationContext context) {
 
-    List<ArdFilmDto> films = new ArrayList<>();
+    final List<ArdFilmDto> films = new ArrayList<>();
 
     if (!JsonUtils.checkTreePath(
         jsonElement, Optional.empty(), ELEMENT_DATA, ELEMENT_PLAYER_PAGE)) {
@@ -147,50 +137,40 @@ public class ArdFilmDeserializer implements JsonDeserializer<List<ArdFilmDto>> {
         && title.isPresent()
         && videoInfo.isPresent()
         && videoInfo.get().getVideoUrls().size() > 0) {
+
+      final Sender sender;
+      // If channel type is present and a existing sender set it. Like for RBB
+      if (channelType.isPresent()) {
+        final Optional<Sender> additionalSender = Sender.getSenderByName(channelType.get());
+        sender = additionalSender.orElse(Sender.ARD);
+      } else {
+        sender = Sender.ARD;
+      }
+
       // add film to ARD
       final ArdFilmDto filmDto =
           new ArdFilmDto(
               createFilm(
-                  Sender.ARD,
-                  topic.get(),
-                  title.get(),
-                  description,
-                  date,
-                  duration,
-                  videoInfo.get()));
+                  sender, topic.get(), title.get(), description, date, duration, videoInfo.get()));
       parseRelatedFilms(filmDto, playerPageObject);
       films.add(filmDto);
-
-      if (channelType.isPresent() && ADDITIONAL_SENDER.containsKey(channelType.get())) {
-        // add film to other sender (like RBB)
-        Film additionalFilm =
-            createFilm(
-                ADDITIONAL_SENDER.get(channelType.get()),
-                topic.get(),
-                title.get(),
-                description,
-                date,
-                duration,
-                videoInfo.get());
-        films.add(new ArdFilmDto(additionalFilm));
-      }
     }
 
     return films;
   }
 
-  private Optional<String> parseChannelType(JsonObject playerPageObject) {
+  private Optional<String> parseChannelType(final JsonObject playerPageObject) {
     if (playerPageObject.has(ELEMENT_PUBLICATION_SERVICE)) {
-      JsonObject publicationServiceObject =
+      final JsonObject publicationServiceObject =
           playerPageObject.get(ELEMENT_PUBLICATION_SERVICE).getAsJsonObject();
-      Optional<String> channelAttribute = JsonUtils
-          .getAttributeAsString(publicationServiceObject, ATTRIBUTE_CHANNEL_TYPE);
+      final Optional<String> channelAttribute =
+          JsonUtils.getAttributeAsString(publicationServiceObject, ATTRIBUTE_CHANNEL_TYPE);
       if (channelAttribute.isPresent()) {
         return channelAttribute;
       }
 
-      Optional<String> nameAttribute = JsonUtils
-          .getAttributeAsString(publicationServiceObject, ATTRIBUTE_NAME);
+      final Optional<String> nameAttribute =
+          JsonUtils.getAttributeAsString(publicationServiceObject, ATTRIBUTE_NAME);
       if (nameAttribute.isPresent()) {
         return Optional.of(nameAttribute.get().split(" ")[0]);
       }
