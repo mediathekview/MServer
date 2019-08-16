@@ -19,6 +19,7 @@ import mServer.crawler.sender.ard.tasks.ArdTopicsOverviewTask;
 import mServer.crawler.sender.base.CrawlerUrlDTO;
 
 public class ArdCrawler extends MediathekCrawler {
+
   private static final int MAX_DAYS_PAST = 2;
 
   public static final String SENDERNAME = Const.ARD;
@@ -33,6 +34,7 @@ public class ArdCrawler extends MediathekCrawler {
     // dann zusätzliche Sender, die der Crawler bearbeitet, beenden
     if (getThreads() <= 1) {
       mlibFilmeSuchen.meldenFertig(Const.RBB);
+      mlibFilmeSuchen.meldenFertig(Const.SWR);
     }
 
     super.meldungThreadUndFertig();
