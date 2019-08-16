@@ -1,10 +1,20 @@
 package de.mediathekview.mserver.crawler.sr.tasks;
 
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.CoreMatchers.notNullValue;
+import static org.junit.Assert.assertThat;
+
 import de.mediathekview.mlib.daten.Film;
 import de.mediathekview.mlib.daten.GeoLocations;
 import de.mediathekview.mlib.daten.Sender;
 import de.mediathekview.mserver.testhelper.AssertFilm;
 import de.mediathekview.mserver.testhelper.JsoupMock;
+import java.io.IOException;
+import java.time.Duration;
+import java.time.LocalDateTime;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Set;
 import org.jsoup.Jsoup;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -14,28 +24,16 @@ import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 import org.powermock.modules.junit4.PowerMockRunnerDelegate;
 
-import java.io.IOException;
-import java.time.Duration;
-import java.time.LocalDateTime;
-import java.time.temporal.ChronoUnit;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Set;
-
-import static org.hamcrest.CoreMatchers.equalTo;
-import static org.hamcrest.CoreMatchers.notNullValue;
-import static org.junit.Assert.assertThat;
-
 @RunWith(PowerMockRunner.class)
 @PrepareForTest({Jsoup.class})
 @PowerMockRunnerDelegate(Parameterized.class)
 @PowerMockIgnore(
-        value = {
-                "javax.net.ssl.*",
-                "javax.*",
-                "com.sun.*",
-                "org.apache.logging.log4j.core.config.xml.*"
-        })
+    value = {
+      "javax.net.ssl.*",
+      "javax.*",
+      "com.sun.*",
+      "org.apache.logging.log4j.core.config.xml.*"
+    })
 public class SrFilmDetailTaskTest extends SrTaskTestBase {
 
   private final String requestUrl;
@@ -52,20 +50,20 @@ public class SrFilmDetailTaskTest extends SrTaskTestBase {
   private final String expectedUrlNormal;
   private final String expectedUrlHd;
 
-    public SrFilmDetailTaskTest(
-            final String aRequestUrl,
-            final String aFilmPageFile,
-            final String aVideoDetailsUrl,
-            final String aVideoDetailsFile,
-            final String aTheme,
-            final String aExpectedTitle,
-            final LocalDateTime aExpectedDate,
-            final Duration aExpectedDuration,
-            final String aExpectedDescription,
-            final String aExpectedSubtitle,
-            final String aExpectedUrlSmall,
-            final String aExpectedUrlNormal,
-            final String aExpectedUrlHd) {
+  public SrFilmDetailTaskTest(
+      final String aRequestUrl,
+      final String aFilmPageFile,
+      final String aVideoDetailsUrl,
+      final String aVideoDetailsFile,
+      final String aTheme,
+      final String aExpectedTitle,
+      final LocalDateTime aExpectedDate,
+      final Duration aExpectedDuration,
+      final String aExpectedDescription,
+      final String aExpectedSubtitle,
+      final String aExpectedUrlSmall,
+      final String aExpectedUrlNormal,
+      final String aExpectedUrlHd) {
     requestUrl = aRequestUrl;
     filmPageFile = aFilmPageFile;
     videoDetailsUrl = aVideoDetailsUrl;
@@ -81,72 +79,72 @@ public class SrFilmDetailTaskTest extends SrTaskTestBase {
     expectedUrlHd = aExpectedUrlHd;
   }
 
-    @Parameterized.Parameters
-    public static Collection<Object[]> data() {
-        return Arrays.asList(
-                new Object[][]{
-                        {
-                                "https://www.sr-mediathek.de/index.php?seite=7&id=54623",
-                                "/sr/sr_film_page1.html",
-                                "/sr_player/mc.php?id=54623&tbl=&pnr=0&hd=0&devicetype=",
-                                "/sr/sr_film_video_details1.json",
-                                "Meine Traumreise",
-                                "Meine Traumreise vom Zürichsee an die Ostsee",
-                                LocalDateTime.of(2017, 9, 30, 0, 0, 0),
-                                Duration.of(1695, ChronoUnit.SECONDS),
-                                "Die Hochzeitsreise vor der Hochzeit - das ist zwar nicht die Regel, aber nicht wirklich ungewöhnlich. Speziell ist dagegen das Gefährt, das sich Anna und Thomas für ihren Trip ausgesucht haben. Die beiden reisen per Gleitschirm. Begleiten Sie das Paar vom Zürichsee zur Ostsee.",
-                                "",
-                                "https://srstorage01-a.akamaihd.net/Video/FS/MT/traumreise_20170926_124001_M.mp4",
-                                "https://srstorage01-a.akamaihd.net/Video/FS/MT/traumreise_20170926_124001_L.mp4",
-                                "https://srstorage01-a.akamaihd.net/Video/FS/MT/traumreise_20170926_124001_P.mp4"
-                        },
-                        {
-                                "https://www.sr-mediathek.de/index.php?seite=7&id=47720",
-                                "/sr/sr_film_page2_with_subtitle.html",
-                                "/sr_player/mc.php?id=47720&tbl=&pnr=0&hd=0&devicetype=",
-                                "/sr/sr_film_video_details2.json",
-                                "SAARTALK",
-                                "SAARTALK mit Annegret Kramp-Karrenbauer und Anke Rehlinger",
-                                LocalDateTime.of(2017, 2, 2, 0, 0, 0),
-                                Duration.of(2808, ChronoUnit.SECONDS),
-                                "Knapp zwei Monate vor der Landtagswahl sind die Spitzenkandidatinnen von CDU und SPD, Annegret Kramp-Karrenbauer und Anke Rehlinger, im SAARTALK zum einzigen direkten Schlagabtausch vor den Fernsehkameras angetreten. Dabei zeigte sich: Der größte Streitpunkt ist die Bildungspolitik. Aber auch beim Thema Investitionen gibt es Unterschiede - die vor allem im Detail liegen.",
-                                "https://www.sr-mediathek.de/sr_player/ut.php?file=ST_20170202.xml",
-                                "https://srstorage01-a.akamaihd.net/Video/FS/ST/st_2017-02-02_M.mp4",
-                                "https://srstorage01-a.akamaihd.net/Video/FS/ST/st_2017-02-02_L.mp4",
-                                ""
-                        }
-                });
-    }
+  @Parameterized.Parameters
+  public static Collection<Object[]> data() {
+    return Arrays.asList(
+        new Object[][] {
+          {
+            "http://www.sr-mediathek.de/index.php?seite=7&id=77226",
+            "/sr/sr_film_page1.html",
+            "/sr_player/mc.php?id=77226&tbl=&pnr=0&hd=0&devicetype=",
+            "/sr/sr_film_video_details1.json",
+            "sportarena extra",
+            "sportarena extra - Wo laufen sie denn?",
+            LocalDateTime.of(2019, 8, 15, 0, 0, 0),
+            Duration.ofMinutes(29).plusSeconds(55),
+            "Der 15. August ist ein Feiertag im Saarland - auch für die Fans des Pferderennsports. An diesem Tag veranstaltet der Rennclub Saarbrücken traditionell seinen Jahreshöhepunkt. Auch der SR ist traditionell dabei, wenn die Reitprofis aus ganz Deutschland in Güdingen gegeneinander antreten.",
+            "",
+            "https://srstorage01-a.akamaihd.net/Video/FS/SA/sportarena_20190815_184401_M.mp4",
+            "https://srstorage01-a.akamaihd.net/Video/FS/SA/sportarena_20190815_184401_L.mp4",
+            "https://srstorage01-a.akamaihd.net/Video/FS/SA/sportarena_20190815_184401_P.mp4"
+          },
+          {
+            "https://www.sr-mediathek.de/index.php?seite=7&id=77119",
+            "/sr/sr_film_page2_with_subtitle.html",
+            "/sr_player/mc.php?id=77119&tbl=&pnr=0&hd=0&devicetype=",
+            "/sr/sr_film_video_details2.json",
+            "SAARTHEMA",
+            "SAARTHEMA - Schengen",
+            LocalDateTime.of(2019, 8, 15, 0, 0, 0),
+            Duration.ofMinutes(43).plusSeconds(18),
+            "An jeder Grenze der Welt ist es ein Begriff: Schengen heißt eines der wichtigsten Visa, die es heute gibt. Am 14. Juni 1985 unterzeichneten die Vertreter der EG-Staaten Deutschland, Frankreich, Belgien, Niederlande und Luxemburg das Schengener-Abkommen, das im Laufe der Jahre von fast allen EU-Staaten ratifiziert wurde und uns in Europa offene Grenzen gebracht hat.",
+            "https://www.sr-mediathek.de/sr_player/ut.php?file=STH_20190815.xml",
+            "https://srstorage01-a.akamaihd.net/Video/FS/STH/Schengen_-_Wie_entstand_das_Europa_ohne_Grenzen_SENDEFASSUNG_M.mp4",
+            "https://srstorage01-a.akamaihd.net/Video/FS/STH/Schengen_-_Wie_entstand_das_Europa_ohne_Grenzen_SENDEFASSUNG_L.mp4",
+            "https://srstorage01-a.akamaihd.net/Video/FS/STH/Schengen_-_Wie_entstand_das_Europa_ohne_Grenzen_SENDEFASSUNG_P.mp4"
+          },
+        });
+  }
 
   @Test
   public void test() throws IOException {
     JsoupMock.mock(requestUrl, filmPageFile);
 
-      setupSuccessfulJsonResponse(videoDetailsUrl, videoDetailsFile);
+    setupSuccessfulJsonResponse(videoDetailsUrl, videoDetailsFile);
 
-      final Set<Film> actual = executeTask(theme, requestUrl);
+    final Set<Film> actual = executeTask(theme, requestUrl);
 
     assertThat(actual, notNullValue());
     assertThat(actual.size(), equalTo(1));
 
-      Film actualFilm = (Film) actual.toArray()[0];
-      AssertFilm.assertEquals(
-              actualFilm,
-              Sender.SR,
-              theme,
-              expectedTitle,
-              expectedDate,
-              expectedDuration,
-              expectedDescription,
-              requestUrl,
-              new GeoLocations[0],
-              expectedUrlSmall,
-              expectedUrlNormal,
-              expectedUrlHd,
-              expectedSubtitle);
+    Film actualFilm = (Film) actual.toArray()[0];
+    AssertFilm.assertEquals(
+        actualFilm,
+        Sender.SR,
+        theme,
+        expectedTitle,
+        expectedDate,
+        expectedDuration,
+        expectedDescription,
+        requestUrl,
+        new GeoLocations[0],
+        expectedUrlSmall,
+        expectedUrlNormal,
+        expectedUrlHd,
+        expectedSubtitle);
   }
 
   private Set<Film> executeTask(String aTheme, String aRequestUrl) {
-      return new SrFilmDetailTask(createCrawler(), createCrawlerUrlDto(aTheme, aRequestUrl)).invoke();
+    return new SrFilmDetailTask(createCrawler(), createCrawlerUrlDto(aTheme, aRequestUrl)).invoke();
   }
 }

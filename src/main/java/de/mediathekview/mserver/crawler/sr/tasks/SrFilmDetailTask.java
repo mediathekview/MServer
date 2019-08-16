@@ -46,7 +46,7 @@ public class SrFilmDetailTask extends AbstractDocumentTask<Film, SrTopicUrlDTO> 
   private static final String CONTENT_SELECTOR = "div.article__content";
   private static final String TITLE_SELECTOR = CONTENT_SELECTOR + " > div > h3";
   private static final String DETAILS_SELECTOR = CONTENT_SELECTOR + " > div > p";
-  private static final String DESCRIPTION_SELECTOR = CONTENT_SELECTOR + " > h1:contains(Themen)";
+  private static final String DESCRIPTION_SELECTOR = "h1.background-title";
   private static final String VIDEO_DETAIL_ATTRIBUTE = "data-mediacollection-ardplayer";
   private static final String VIDEO_DETAIL_SELECTOR = "div[" + VIDEO_DETAIL_ATTRIBUTE + "]";
 
@@ -57,7 +57,7 @@ public class SrFilmDetailTask extends AbstractDocumentTask<Film, SrTopicUrlDTO> 
 
   private static Optional<String> parseDescription(final Document aDocument) {
     final Elements x = aDocument.select(DESCRIPTION_SELECTOR);
-    if (x.size() == 1) {
+    if (x.size() > 0) {
       final Node node = x.first().nextSibling();
       return Optional.of(node.toString());
     }
