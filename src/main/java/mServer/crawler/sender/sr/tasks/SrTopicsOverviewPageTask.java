@@ -16,12 +16,13 @@ import java.util.concurrent.Callable;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.TimeUnit;
 import mServer.crawler.sender.base.UrlUtils;
-import mServer.crawler.sender.br.Consts;
-import mServer.crawler.sender.phoenix.UrlParseException;
+import mServer.crawler.sender.base.UrlParseException;
 
 public class SrTopicsOverviewPageTask implements Callable<ConcurrentLinkedQueue<SrTopicUrlDTO>> {
 
   private static final Logger LOG = LogManager.getLogger(SrTopicsOverviewPageTask.class);
+
+  private static final String ATTRIBUTE_HREF = "href";
 
   private static final String URL_PARAMETER_SUBPAGE = "a_z";
   private static final String URL_PARAMETER_SHOW_SHORTNAME = "sen";
@@ -86,7 +87,7 @@ public class SrTopicsOverviewPageTask implements Callable<ConcurrentLinkedQueue<
               try {
                 final Optional<String> subpage
                 = UrlUtils.getUrlParameterValue(
-                        element.attr(Consts.ATTRIBUTE_HREF), URL_PARAMETER_SUBPAGE);
+                        element.attr(ATTRIBUTE_HREF), URL_PARAMETER_SUBPAGE);
                 if (subpage.isPresent()) {
                   results.add(SrConstants.URL_OVERVIEW_PAGE + subpage.get());
                 }
@@ -107,7 +108,7 @@ public class SrTopicsOverviewPageTask implements Callable<ConcurrentLinkedQueue<
               try {
                 final Optional<String> showShort
                 = UrlUtils.getUrlParameterValue(
-                        element.attr(Consts.ATTRIBUTE_HREF), URL_PARAMETER_SHOW_SHORTNAME);
+                        element.attr(ATTRIBUTE_HREF), URL_PARAMETER_SHOW_SHORTNAME);
                 if (showShort.isPresent()) {
                   results.add(createDto(element.text(), showShort.get()));
                 }

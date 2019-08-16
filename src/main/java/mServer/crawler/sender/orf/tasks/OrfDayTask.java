@@ -1,5 +1,6 @@
 package mServer.crawler.sender.orf.tasks;
 
+import mServer.crawler.sender.base.AbstractDocumentTask;
 import mServer.crawler.sender.base.AbstractUrlTask;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import mServer.crawler.sender.MediathekReader;

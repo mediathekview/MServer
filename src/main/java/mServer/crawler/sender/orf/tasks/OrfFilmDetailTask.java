@@ -1,5 +1,6 @@
 package mServer.crawler.sender.orf.tasks;
 
+import mServer.crawler.sender.base.AbstractDocumentTask;
 import mServer.crawler.sender.base.AbstractUrlTask;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -21,7 +22,7 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 import mServer.crawler.CrawlerTool;
 import mServer.crawler.sender.MediathekReader;
 import mServer.crawler.sender.newsearch.Qualities;
-import mServer.crawler.sender.orf.HtmlDocumentUtils;
+import mServer.crawler.sender.base.HtmlDocumentUtils;
 import mServer.crawler.sender.orf.OrfEpisodeInfoDTO;
 import mServer.crawler.sender.orf.OrfVideoInfoDTO;
 import mServer.crawler.sender.orf.TopicUrlDTO;

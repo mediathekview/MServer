@@ -7,7 +7,7 @@ import de.mediathekview.mlib.Const;
 import de.mediathekview.mlib.daten.DatenFilm;
 import mServer.crawler.CrawlerTool;
 import mServer.crawler.sender.newsearch.Qualities;
-import mServer.crawler.sender.orf.HtmlDocumentUtils;
+import mServer.crawler.sender.base.HtmlDocumentUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.jsoup.nodes.Document;

@@ -1,6 +1,5 @@
 package mServer.crawler.sender.sr.tasks;
 
-import de.mediathekview.mlib.Config;
 import mServer.crawler.sender.sr.SrConstants;
 import mServer.crawler.sender.sr.SrTopicUrlDTO;
 import org.jsoup.nodes.Document;
@@ -12,10 +11,11 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 import mServer.crawler.CrawlerTool;
 import mServer.crawler.sender.MediathekReader;
 import mServer.crawler.sender.base.AbstractUrlTask;
-import mServer.crawler.sender.br.Consts;
-import mServer.crawler.sender.orf.tasks.AbstractDocumentTask;
+import mServer.crawler.sender.base.AbstractDocumentTask;
 
 public class SrTopicArchivePageTask extends AbstractDocumentTask<SrTopicUrlDTO, SrTopicUrlDTO> {
+
+  private static final String ATTRIBUTE_HREF = "href";
 
   private static final String NEXT_PAGE_SELECTOR = "div.pagination__item > a[title*=weiter]";
   private static final String SHOW_LINK_SELECTOR = "h3.teaser__text__header a";
@@ -65,7 +65,7 @@ public class SrTopicArchivePageTask extends AbstractDocumentTask<SrTopicUrlDTO, 
     final Elements links = aDocument.select(SHOW_LINK_SELECTOR);
     links.forEach(
             element -> {
-              final String url = element.attr(Consts.ATTRIBUTE_HREF);
+              final String url = element.attr(ATTRIBUTE_HREF);
               taskResults.add(new SrTopicUrlDTO(aTheme, SrConstants.URL_BASE + url));
             });
   }
@@ -73,7 +73,7 @@ public class SrTopicArchivePageTask extends AbstractDocumentTask<SrTopicUrlDTO, 
   private Optional<String> getNextPage(final Document aDocument) {
     final Elements links = aDocument.select(NEXT_PAGE_SELECTOR);
     if (links.size() == 1) {
-      return Optional.of(SrConstants.URL_BASE + links.attr(Consts.ATTRIBUTE_HREF));
+      return Optional.of(SrConstants.URL_BASE + links.attr(ATTRIBUTE_HREF));
     }
 
     return Optional.empty();
