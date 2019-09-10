@@ -1,4 +1,4 @@
-package mServer.crawler.sender.orf;
+package mServer.crawler.sender.base;
 
 import java.time.Duration;
 import java.util.Optional;

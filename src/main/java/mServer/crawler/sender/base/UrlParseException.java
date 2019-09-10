@@ -1,4 +1,4 @@
-package mServer.crawler.sender.phoenix;
+package mServer.crawler.sender.base;
 
 public class UrlParseException extends Exception {
 
