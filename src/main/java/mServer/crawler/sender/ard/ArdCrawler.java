@@ -3,12 +3,6 @@ package mServer.crawler.sender.ard;
 import de.mediathekview.mlib.Const;
 import de.mediathekview.mlib.daten.DatenFilm;
 import de.mediathekview.mlib.tool.Log;
-
-import java.time.LocalDateTime;
-import java.util.Set;
-import java.util.concurrent.ConcurrentLinkedQueue;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.RecursiveTask;
 import mServer.crawler.CrawlerTool;
 import mServer.crawler.FilmeSuchen;
 import mServer.crawler.sender.MediathekCrawler;
@@ -17,6 +11,12 @@ import mServer.crawler.sender.ard.tasks.ArdFilmDetailTask;
 import mServer.crawler.sender.ard.tasks.ArdTopicPageTask;
 import mServer.crawler.sender.ard.tasks.ArdTopicsOverviewTask;
 import mServer.crawler.sender.base.CrawlerUrlDTO;
+
+import java.time.LocalDateTime;
+import java.util.Set;
+import java.util.concurrent.ConcurrentLinkedQueue;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.RecursiveTask;
 
 public class ArdCrawler extends MediathekCrawler {
 
@@ -35,6 +35,7 @@ public class ArdCrawler extends MediathekCrawler {
     if (getThreads() <= 1) {
       mlibFilmeSuchen.meldenFertig(Const.RBB);
       mlibFilmeSuchen.meldenFertig(Const.SWR);
+        mlibFilmeSuchen.meldenFertig(Const.MDR);
     }
 
     super.meldungThreadUndFertig();
