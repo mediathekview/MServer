@@ -59,6 +59,7 @@ public class ArdFilmDeserializer implements JsonDeserializer<List<ArdFilmDto>> {
   private static final Map<String, Sender> ADDITIONAL_SENDER = new HashMap<>();
 
   static {
+    ADDITIONAL_SENDER.put("mdr", Sender.MDR);
     ADDITIONAL_SENDER.put("rbb", Sender.RBB);
     ADDITIONAL_SENDER.put("swr", Sender.SWR);
   }
