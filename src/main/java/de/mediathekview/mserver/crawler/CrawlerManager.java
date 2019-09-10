@@ -29,7 +29,6 @@ import de.mediathekview.mserver.crawler.orf.OrfCrawler;
 import de.mediathekview.mserver.crawler.phoenix.PhoenixCrawler;
 import de.mediathekview.mserver.crawler.sr.SrCrawler;
 import de.mediathekview.mserver.crawler.srf.SrfCrawler;
-import de.mediathekview.mserver.crawler.swr.SwrCrawler;
 import de.mediathekview.mserver.crawler.wdr.*;
 import de.mediathekview.mserver.crawler.zdf.ZdfCrawler;
 import org.apache.logging.log4j.LogManager;
@@ -481,8 +480,6 @@ public class CrawlerManager extends AbstractManager {
         new PhoenixCrawler(forkJoinPool, messageListeners, progressListeners, rootConfig));
     crawlerMap.put(
         Sender.SRF, new SrfCrawler(forkJoinPool, messageListeners, progressListeners, rootConfig));
-    crawlerMap.put(
-        Sender.SWR, new SwrCrawler(forkJoinPool, messageListeners, progressListeners, rootConfig));
     crawlerMap.put(
         Sender.SR, new SrCrawler(forkJoinPool, messageListeners, progressListeners, rootConfig));
     crawlerMap.put(
