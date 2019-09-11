@@ -6,18 +6,6 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import de.mediathekview.mlib.Const;
 import de.mediathekview.mlib.daten.DatenFilm;
-import java.lang.reflect.Type;
-import java.time.Duration;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
-import java.time.ZonedDateTime;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
 import mServer.crawler.CrawlerTool;
 import mServer.crawler.sender.ard.ArdConstants;
 import mServer.crawler.sender.ard.ArdFilmDto;
@@ -27,6 +15,15 @@ import mServer.crawler.sender.base.JsonUtils;
 import mServer.crawler.sender.base.UrlUtils;
 import mServer.crawler.sender.newsearch.Qualities;
 import org.apache.logging.log4j.LogManager;
+
+import java.lang.reflect.Type;
+import java.time.Duration;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+import java.util.*;
 
 public class ArdFilmDeserializer implements JsonDeserializer<List<ArdFilmDto>> {
 
@@ -61,6 +58,7 @@ public class ArdFilmDeserializer implements JsonDeserializer<List<ArdFilmDto>> {
   static {
     ADDITIONAL_SENDER.put("rbb", Const.RBB);
     ADDITIONAL_SENDER.put("swr", Const.SWR);
+      ADDITIONAL_SENDER.put("mdr", Const.MDR);
   }
 
   private final ArdVideoInfoJsonDeserializer videoDeserializer;
