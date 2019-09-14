@@ -258,7 +258,10 @@ public class ArteVideoDetailsDeserializer implements JsonDeserializer<ArteVideoD
                 || (DateWithoutTimeComparer.compare(today, beginDate) < 0)) {
           // wenn das heutige Datum zwischen begin und end liegt,
           // dann ist es die aktuelle Ausstrahlung
-          broadcastDate = broadcastObject.get(JSON_ELEMENT_BROADCAST).getAsString();
+          JsonElement elementActual = broadcastObject.get(JSON_ELEMENT_BROADCAST);
+          if (elementActual != null && !elementActual.isJsonNull()) {
+            broadcastDate = elementActual.getAsString();
+          }
         }
 
       } catch (ParseException ex) {
