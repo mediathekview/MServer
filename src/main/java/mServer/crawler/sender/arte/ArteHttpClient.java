@@ -1,6 +1,7 @@
 package mServer.crawler.sender.arte;
 
 import com.google.gson.Gson;
+import de.mediathekview.mlib.tool.Log;
 import de.mediathekview.mlib.tool.MVHttpClient;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -80,8 +81,12 @@ public class ArteHttpClient {
 
         } catch (IOException | InterruptedException ex) {
             logger.error("Beim laden der Filme für Arte kam es zu Verbindungsproblemen.", ex);
-        }
 
-        return result;
+        }
+      } while (!stop);
+
+    } catch (IOException | InterruptedException ex) {
+      logger.error("Beim laden der Filme für Arte kam es zu Verbindungsproblemen.", ex);
+      Log.errorLog(3895449, ex);
     }
 }

@@ -19,41 +19,28 @@
  */
 package mServer.crawler;
 
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.LinkedList;
-
-import javax.swing.event.EventListenerList;
-
-import org.apache.commons.lang3.time.FastDateFormat;
-
 import de.mediathekview.mlib.Config;
 import de.mediathekview.mlib.Const;
 import de.mediathekview.mlib.daten.ListeFilme;
 import de.mediathekview.mlib.filmesuchen.ListenerFilmeLaden;
 import de.mediathekview.mlib.filmesuchen.ListenerFilmeLadenEvent;
 import de.mediathekview.mlib.tool.Log;
-import mServer.crawler.sender.Mediathek3Sat;
-import mServer.crawler.sender.MediathekArd;
-import mServer.crawler.sender.MediathekDw;
-import mServer.crawler.sender.MediathekHr;
-import mServer.crawler.sender.MediathekKika;
-import mServer.crawler.sender.MediathekMdr;
-import mServer.crawler.sender.MediathekNdr;
-import mServer.crawler.sender.MediathekRbb;
-import mServer.crawler.sender.MediathekReader;
-import mServer.crawler.sender.MediathekSr;
-import mServer.crawler.sender.MediathekSrfPod;
-import mServer.crawler.sender.MediathekSwr;
-import mServer.crawler.sender.MediathekWdr;
-import mServer.crawler.sender.MediathekZdf;
+import mServer.crawler.sender.*;
+import mServer.crawler.sender.ard.ArdCrawler;
 import mServer.crawler.sender.arte.MediathekArte_de;
 import mServer.crawler.sender.arte.MediathekArte_fr;
 import mServer.crawler.sender.br.BrCrawler;
 import mServer.crawler.sender.orf.OrfCrawler;
 import mServer.crawler.sender.phoenix.PhoenixCrawler;
+import mServer.crawler.sender.sr.SrCrawler;
 import mServer.crawler.sender.srf.SrfCrawler;
+import org.apache.commons.lang3.time.FastDateFormat;
+
+import javax.swing.event.EventListenerList;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.LinkedList;
 
 /**
  * ###########################################################################################################
@@ -80,21 +67,18 @@ public class FilmeSuchen {
     // für jeden Sender einen MediathekReader anlegen, mit der Prio ob
     // sofort gestartet oder erst später
     //Reader laden Spaltenweises Laden
-    mediathekListe.add(new MediathekArd(this, 0));
+    mediathekListe.add(new ArdCrawler(this, 0));
     mediathekListe.add(new MediathekZdf(this, 0));
     mediathekListe.add(new MediathekArte_de(this, 0));
     mediathekListe.add(new MediathekArte_fr(this, 0));
     mediathekListe.add(new Mediathek3Sat(this, 1));
-    mediathekListe.add(new MediathekSwr(this, 0));
     mediathekListe.add(new MediathekNdr(this, 1));
     mediathekListe.add(new MediathekKika(this, 0));
     mediathekListe.add(new MediathekDw(this, 0));
     // Spalte 2
-    mediathekListe.add(new MediathekMdr(this, 0));
     mediathekListe.add(new MediathekWdr(this, 1));
     mediathekListe.add(new MediathekHr(this, 0));
-    mediathekListe.add(new MediathekRbb(this, 1));
-    mediathekListe.add(new MediathekSr(this, 1));
+    mediathekListe.add(new SrCrawler(this, 1));
     mediathekListe.add(new BrCrawler(this, 0));
     mediathekListe.add(new SrfCrawler(this, 1));
     mediathekListe.add(new MediathekSrfPod(this, 0));

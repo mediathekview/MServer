@@ -69,7 +69,7 @@ public class MediathekArte_de extends MediathekReader {
   private static final String ARTE_API_TAG_URL_PATTERN = "https://api.arte.tv/api/opa/v3/videos?channel=%s&arteSchedulingDay=%s";
 
   private static final String URL_SUBCATEGORY
-          = "https://www.arte.tv/guide/api/api/zones/%s/videos_subcategory/?id=%s&page=%s&limit=100";
+          = "https://www.arte.tv/guide/api/emac/v3/%s/web/data/MOST_RECENT_SUBCATEGORY/?subCategoryCode=%s&page=%s&limit=100";
 
   private static final String[] SUBCATEGORIES = new String[]{
     "WEB", "AUT",
@@ -77,7 +77,7 @@ public class MediathekArte_de extends MediathekReader {
     "ACC", "CMG", "FLM", "CMU", "MCL",
     "CHU", "FIC", "SES",
     "ART", "POP", "IDE",
-    "ADS", "CLA", "JAZ", "MUA", "MUD", "OPE",
+    "ADS", "CLA", "JAZ", "MUA", "MUD", "OPE", "MUE", "HIP", "MET",
     "ENB", "ENN", "SAN", "TEC",
     "ATA", "EVA", "NEA", "VIA",
     "CIV", "LGP", "XXE"
@@ -91,11 +91,11 @@ public class MediathekArte_de extends MediathekReader {
   protected String TIME_2 = "um";
 
   public MediathekArte_de(FilmeSuchen ssearch, int startPrio) {
-    super(ssearch, SENDERNAME,/* threads */ 2, /* urlWarten */ 200, startPrio);
+    super(ssearch, SENDERNAME,/* threads */ 1, /* urlWarten */ 200, startPrio);
   }
 
   public MediathekArte_de(FilmeSuchen ssearch, int startPrio, String name) {
-    super(ssearch, name,/* threads */ 2, /* urlWarten */ 200, startPrio);
+    super(ssearch, name,/* threads */ 1, /* urlWarten */ 200, startPrio);
   }
 
   //===================================
@@ -104,6 +104,12 @@ public class MediathekArte_de extends MediathekReader {
   @Override
   public void addToList() {
     meldungStart();
+
+    Log.sysLog("ARTE: deactivated...");
+    meldungThreadUndFertig();
+  }
+
+  private void originalAddToList() {
     if (Config.getStop()) {
       meldungThreadUndFertig();
     } else {
@@ -150,13 +156,19 @@ public class MediathekArte_de extends MediathekReader {
 
   class ThemaLaden extends Thread {
 
+    private final Gson gson;
+
+    public ThemaLaden() {
+      gson = new GsonBuilder().registerTypeAdapter(ListeFilme.class, new ArteDatenFilmDeserializer(LANG_CODE, getSendername())).create();
+    }
+
     @Override
     public void run() {
       try {
         meldungAddThread();
         String[] link;
         while (!Config.getStop() && (link = listeThemen.getListeThemen()) != null) {
-          meldungProgress(link[0] /* url */);
+          meldungProgress(link[0]);
           addFilmeForTag(link[0]);
         }
       } catch (Exception ex) {
@@ -166,7 +178,6 @@ public class MediathekArte_de extends MediathekReader {
     }
 
     private void addFilmeForTag(String aUrl) {
-      Gson gson = new GsonBuilder().registerTypeAdapter(ListeFilme.class, new ArteDatenFilmDeserializer(LANG_CODE, getSendername())).create();
 
       ListeFilme loadedFilme = ArteHttpClient.executeRequest(LOG, gson, aUrl, ListeFilme.class);
       if (loadedFilme != null) {

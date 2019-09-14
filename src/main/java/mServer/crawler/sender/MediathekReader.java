@@ -30,6 +30,7 @@ import java.util.*;
 import mServer.crawler.CrawlerTool;
 import mServer.crawler.FilmeSuchen;
 import mServer.crawler.RunSender;
+import mServer.crawler.sender.base.UrlUtils;
 import mServer.crawler.sender.newsearch.GeoLocations;
 import okhttp3.Request;
 import okhttp3.Response;
@@ -65,21 +66,9 @@ public abstract class MediathekReader extends Thread {
     // brauchts, um Filmurls zu prüfen
     if (!url.toLowerCase().startsWith("http")) {
       return false;
-    } else {
-      Request request = new Request.Builder().url(url).head().build();
-      boolean result = false;
-
-      try (Response response = MVHttpClient.getInstance().getReducedTimeOutClient().newCall(request).execute()) {
-        if (response.isSuccessful()) {
-          result = true;
-        }
-      } catch (IOException ex) {
-        ex.printStackTrace();
-        result = false;
-      }
-
-      return result;
     }
+
+    return UrlUtils.existsUrl(url);
   }
 
   protected static void listeSort(LinkedList<String[]> liste, int stelle) {
@@ -232,8 +221,10 @@ public abstract class MediathekReader extends Thread {
     if (film.arr[DatenFilm.FILM_URL].startsWith("http://mvideos-geo.daserste.de/")
             || film.arr[DatenFilm.FILM_URL].startsWith("http://media.ndr.de/progressive_geo/")
             || film.arr[DatenFilm.FILM_URL].startsWith("http://mediandr-a.akamaihd.net//progressive_geo/")
+            || film.arr[DatenFilm.FILM_URL].startsWith("https://mediandr-a.akamaihd.net//progressive_geo/")
             || film.arr[DatenFilm.FILM_URL].startsWith("https://pdodswr-a.akamaihd.net/swr/geo/de/")
             || film.arr[DatenFilm.FILM_URL].startsWith("http://mediandr-a.akamaihd.net/progressive_geo")
+            || film.arr[DatenFilm.FILM_URL].startsWith("https://mediandr-a.akamaihd.net/progressive_geo")
             || film.arr[DatenFilm.FILM_URL].startsWith("http://cdn-storage.br.de/geo/")
             || film.arr[DatenFilm.FILM_URL].startsWith("http://cdn-sotschi.br.de/geo/b7/")
             || film.arr[DatenFilm.FILM_URL].startsWith("https://cdn-storage.br.de/geo/")

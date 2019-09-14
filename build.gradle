@@ -16,7 +16,7 @@ sourceCompatibility = 1.8
 targetCompatibility = 1.8
 group = 'de.mediathekview'
 archivesBaseName = "MServer"
-version = '3.1.89'
+version = '3.1.105'
 
 def jarName = 'MServer.jar'
 def mainClass = 'mServer.Main'
@@ -119,18 +119,20 @@ tasks.withType(Test) {
 }
 
 dependencies {
-    compile 'de.mediathekview:MLib:3.0.2'
-    compile 'commons-net:commons-net:3.5'
-    compile 'org.apache.commons:commons-compress:1.12'
-    compile 'org.apache.commons:commons-lang3:3.5'
-    compile 'org.tukaani:xz:1.5'
-    compile 'com.google.code.gson:gson:2.8.0'
-    compile 'org.glassfish.jersey.core:jersey-client:2.25'
-    compile 'com.sun.jersey:jersey-client:1.8'
-    compile 'com.squareup.okhttp3:okhttp:3.6.0'
-    compile 'org.jsoup:jsoup:1.11.3'
+    compile 'de.mediathekview:MLib:3.0.3'
+    compile 'commons-net:commons-net:3.6'
+    compile 'org.apache.commons:commons-compress:1.18'
+    compile 'org.apache.commons:commons-lang3:3.9'
+    compile 'org.tukaani:xz:1.8'
+    compile 'com.google.code.gson:gson:2.8.5'
+    compile 'org.glassfish.jersey.core:jersey-client:2.28'
+    compile 'org.glassfish.jersey.inject:jersey-hk2:2.28'
+    compile 'com.sun.jersey:jersey-client:1.19.4'
+    compile 'com.squareup.okhttp3:okhttp:3.14.2'
+    compile 'org.jsoup:jsoup:1.12.1'
+    compile 'javax.activation:activation:1.1'
 
-    compile group: 'org.apache.logging.log4j', name: 'log4j-core', version: '2.7'
+    compile group: 'org.apache.logging.log4j', name: 'log4j-core', version: '2.11.2'
     compile group: 'fm.void.jetm', name: 'jetm', version: '1.2.3'
 
     testCompile "junit:junit:4.12"

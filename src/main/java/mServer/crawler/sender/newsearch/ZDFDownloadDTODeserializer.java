@@ -21,6 +21,7 @@ public class ZDFDownloadDTODeserializer implements JsonDeserializer<DownloadDTO>
   private static final String JSON_ELEMENT_ATTRIBUTES = "attributes";
   private static final String JSON_ELEMENT_AUDIO = "audio";
   private static final String JSON_ELEMENT_CAPTIONS = "captions";
+  private static final String JSON_ELEMENT_CLASS = "class";
   private static final String JSON_ELEMENT_FORMITAET = "formitaeten";
   private static final String JSON_ELEMENT_GEOLOCATION = "geoLocation";
   private static final String JSON_ELEMENT_HD = "hd";
@@ -33,6 +34,8 @@ public class ZDFDownloadDTODeserializer implements JsonDeserializer<DownloadDTO>
   private static final String JSON_ELEMENT_URI = "uri";
 
   private static final String JSON_PROPERTY_VALUE = "value";
+
+  private static final String CLASS_AD = "ad";
 
   private static final String GEO_LOCATION_DACH = "dach";
   private static final String GEO_LOCATION_DE = "de";
@@ -118,8 +121,12 @@ public class ZDFDownloadDTODeserializer implements JsonDeserializer<DownloadDTO>
                 JsonArray tracks = audio.getAsJsonObject().getAsJsonArray(JSON_ELEMENT_TRACKS);
                 tracks.forEach(track -> {
                   JsonObject trackObject = track.getAsJsonObject();
+                  String classValue = trackObject.get(JSON_ELEMENT_CLASS).getAsString();
                   String language = trackObject.get(JSON_ELEMENT_LANGUAGE).getAsString();
                   String uri = trackObject.get(JSON_ELEMENT_URI).getAsString();
+                  if (CLASS_AD.equalsIgnoreCase(classValue)) {
+                    language += "-ad";
+                  }
                   if (qualityValue != null && uri != null) {
                     dto.addUrl(language, qualityValue, uri);
                   } else {
