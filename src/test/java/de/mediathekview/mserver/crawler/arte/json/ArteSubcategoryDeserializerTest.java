@@ -44,19 +44,19 @@ public class ArteSubcategoryDeserializerTest {
                             new TopicUrlDTO[]{
                                     new TopicUrlDTO(
                                             "AUT",
-                                            "https://www.arte.tv/guide/api/api/zones/de/videos_subcategory/?id=AUT&limit=100&page=1"),
+                                            "https://www.arte.tv/guide/api/emac/v3/de/web/zones/videos_subcategory/?id=AUT&limit=100&page=1"),
                                     new TopicUrlDTO(
                                             "AJO",
-                                            "https://www.arte.tv/guide/api/api/zones/de/videos_subcategory/?id=AJO&limit=100&page=1"),
+                                            "https://www.arte.tv/guide/api/emac/v3/de/web/zones/videos_subcategory/?id=AJO&limit=100&page=1"),
                                     new TopicUrlDTO(
                                             "MUA",
-                                            "https://www.arte.tv/guide/api/api/zones/de/videos_subcategory/?id=MUA&limit=100&page=1"),
+                                            "https://www.arte.tv/guide/api/emac/v3/de/web/zones/videos_subcategory/?id=MUA&limit=100&page=1"),
                                     new TopicUrlDTO(
                                             "FLM",
-                                            "https://www.arte.tv/guide/api/api/zones/de/videos_subcategory/?id=FLM&limit=100&page=1"),
+                                            "https://www.arte.tv/guide/api/emac/v3/de/web/zones/videos_subcategory/?id=FLM&limit=100&page=1"),
                                     new TopicUrlDTO(
                                             "ENQ",
-                                            "https://www.arte.tv/guide/api/api/zones/de/videos_subcategory/?id=ENQ&limit=100&page=1")
+                                            "https://www.arte.tv/guide/api/emac/v3/de/web/zones/videos_subcategory/?id=ENQ&limit=100&page=1")
                             }
                     },
                     {
@@ -65,7 +65,7 @@ public class ArteSubcategoryDeserializerTest {
                             new TopicUrlDTO[]{
                                     new TopicUrlDTO(
                                             "AUV",
-                                            "https://www.arte.tv/guide/api/api/zones/de/videos_subcategory/?id=AUV&limit=100&page=1")
+                                            "https://www.arte.tv/guide/api/emac/v3/de/web/zones/videos_subcategory/?id=AUV&limit=100&page=1")
                             }
                     },
                     {
@@ -74,7 +74,7 @@ public class ArteSubcategoryDeserializerTest {
                             new TopicUrlDTO[]{
                                     new TopicUrlDTO(
                                             "AUV",
-                                            "https://www.arte.tv/guide/api/api/zones/es/videos_subcategory/?id=AUV&limit=100&page=1")
+                                            "https://www.arte.tv/guide/api/emac/v3/es/web/zones/videos_subcategory/?id=AUV&limit=100&page=1")
                             }
                     }
         });
