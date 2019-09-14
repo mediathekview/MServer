@@ -104,12 +104,6 @@ public class MediathekArte_de extends MediathekReader {
   @Override
   public void addToList() {
     meldungStart();
-
-    Log.sysLog("ARTE: deactivated...");
-    meldungThreadUndFertig();
-  }
-
-  private void originalAddToList() {
     if (Config.getStop()) {
       meldungThreadUndFertig();
     } else {
