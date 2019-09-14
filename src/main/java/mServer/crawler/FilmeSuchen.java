@@ -70,7 +70,7 @@ public class FilmeSuchen {
     mediathekListe.add(new ArdCrawler(this, 0));
     mediathekListe.add(new MediathekZdf(this, 0));
     mediathekListe.add(new MediathekArte_de(this, 0));
-    mediathekListe.add(new MediathekArte_fr(this, 0));
+    mediathekListe.add(new MediathekArte_fr(this, 1));
     mediathekListe.add(new Mediathek3Sat(this, 1));
     mediathekListe.add(new MediathekNdr(this, 1));
     mediathekListe.add(new MediathekKika(this, 0));
