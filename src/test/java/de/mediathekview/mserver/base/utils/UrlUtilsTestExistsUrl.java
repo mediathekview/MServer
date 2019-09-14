@@ -12,7 +12,7 @@ public class UrlUtilsTestExistsUrl extends WireMockTestBase {
   public void existsUrlTestNull() {
     final String url = null;
 
-    boolean actual = UrlUtils.existsUrl(WireMockTestBase.MOCK_URL_BASE + url);
+    boolean actual = UrlUtils.existsUrl(url);
 
     assertThat(actual, equalTo(false));
   }
