@@ -8,7 +8,9 @@ import org.apache.commons.lang3.time.FastDateFormat;
 import java.lang.reflect.Type;
 import java.text.ParseException;
 
-/** A JSON deserializer to gather the needed information for a {@link VideoDTO}. */
+/**
+ * A JSON deserializer to gather the needed information for a {@link VideoDTO}.
+ */
 public class ZDFVideoDTODeserializer implements JsonDeserializer<VideoDTO> {
 
   private static final String JSON_ELEMENT_BEGIN = "airtimeBegin";
@@ -26,19 +28,19 @@ public class ZDFVideoDTODeserializer implements JsonDeserializer<VideoDTO> {
   private static final String JSON_ELEMENT_TITLE = "title";
   private static final String JSON_ELEMENT_TEASERTEXT = "teasertext";
 
-  private final FastDateFormat sdfEditorialDate =
-      FastDateFormat.getInstance("yyyy-MM-dd'T'HH:mm:ss.SSSXXX"); // 2016-10-29T16:15:00.000+02:00
-  private final FastDateFormat sdfAirtimeBegin =
-      FastDateFormat.getInstance("yyyy-MM-dd'T'HH:mm:ssXXX"); // 2016-10-29T16:15:00+02:00
+  private final FastDateFormat sdfEditorialDate
+          = FastDateFormat.getInstance("yyyy-MM-dd'T'HH:mm:ss.SSSXXX"); // 2016-10-29T16:15:00.000+02:00
+  private final FastDateFormat sdfAirtimeBegin
+          = FastDateFormat.getInstance("yyyy-MM-dd'T'HH:mm:ssXXX"); // 2016-10-29T16:15:00+02:00
   private final FastDateFormat sdfOutTime = FastDateFormat.getInstance("HH:mm:ss");
   private final FastDateFormat sdfOutDay = FastDateFormat.getInstance("dd.MM.yyyy");
 
   @Override
   public VideoDTO deserialize(
-      final JsonElement aJsonElement,
-      final Type aTypeOfT,
-      final JsonDeserializationContext aJsonDeserializationContext)
-      throws JsonParseException {
+          final JsonElement aJsonElement,
+          final Type aTypeOfT,
+          final JsonDeserializationContext aJsonDeserializationContext)
+          throws JsonParseException {
     VideoDTO dto = null;
     try {
       dto = new VideoDTO();
@@ -47,10 +49,10 @@ public class ZDFVideoDTODeserializer implements JsonDeserializer<VideoDTO> {
       JsonObject programmItemTarget = null;
 
       if (rootNode.has(JSON_ELEMENT_PROGRAMMITEM)
-          && !rootNode.get(JSON_ELEMENT_PROGRAMMITEM).isJsonNull()) {
+              && !rootNode.get(JSON_ELEMENT_PROGRAMMITEM).isJsonNull()) {
         JsonArray programmItem = rootNode.getAsJsonArray(JSON_ELEMENT_PROGRAMMITEM);
-        programmItemTarget =
-            programmItem.get(0).getAsJsonObject().get(JSON_ELEMENT_TARGET).getAsJsonObject();
+        programmItemTarget
+                = programmItem.get(0).getAsJsonObject().get(JSON_ELEMENT_TARGET).getAsJsonObject();
       }
 
       parseTitle(dto, rootNode, programmItemTarget);
@@ -58,14 +60,16 @@ public class ZDFVideoDTODeserializer implements JsonDeserializer<VideoDTO> {
       parseDescription(dto, rootNode);
 
       if (rootNode.has(JSON_ELEMENT_SHARING_URL)
-          && !rootNode.get(JSON_ELEMENT_SHARING_URL).isJsonNull()) {
+              && !rootNode.get(JSON_ELEMENT_SHARING_URL).isJsonNull()) {
         parseWebsiteUrl(dto, rootNode);
       }
       parseAirtime(dto, rootNode, programmItemTarget);
       parseDuration(dto, rootNode);
 
     } catch (UnsupportedOperationException ex) {
-      if (MserverDaten.debug) Log.errorLog(496583256, ex);
+      if (MserverDaten.debug) {
+        Log.errorLog(496583256, ex);
+      }
     } catch (Exception ex) {
       dto = null;
       Log.errorLog(496583256, ex);
@@ -91,7 +95,7 @@ public class ZDFVideoDTODeserializer implements JsonDeserializer<VideoDTO> {
         sdf = sdfAirtimeBegin;
       }
     } else if (rootNode.has(JSON_ELEMENT_EDITORIALDATE)
-        && !rootNode.get(JSON_ELEMENT_EDITORIALDATE).isJsonNull()) {
+            && !rootNode.get(JSON_ELEMENT_EDITORIALDATE).isJsonNull()) {
       // use editorialdate
       date = getEditorialDate(rootNode);
       sdf = sdfEditorialDate;
@@ -140,26 +144,30 @@ public class ZDFVideoDTODeserializer implements JsonDeserializer<VideoDTO> {
 
   private void parseTitle(VideoDTO dto, JsonObject rootNode, JsonObject target) {
 
+    String title;
+
     // use property "title" if found
     JsonElement titleElement = rootNode.get(JSON_ELEMENT_TITLE);
     if (titleElement != null) {
       JsonElement subTitleElement = rootNode.get(JSON_ELEMENT_SUBTITLE);
       if (subTitleElement != null) {
-        dto.setTitle(titleElement.getAsString() + " - " + subTitleElement.getAsString());
+        title = titleElement.getAsString() + " - " + subTitleElement.getAsString();
       } else {
-        dto.setTitle(titleElement.getAsString());
+        title = titleElement.getAsString();
       }
     } else {
       // programmItem target required to determine title
-      String title = target.get(JSON_ELEMENT_TITLE).getAsString();
+      title = target.get(JSON_ELEMENT_TITLE).getAsString();
       String subTitle = target.get(JSON_ELEMENT_SUBTITLE).getAsString();
 
-      if (subTitle.isEmpty()) {
-        dto.setTitle(title);
-      } else {
-        dto.setTitle(title + " - " + subTitle);
+      if (!subTitle.isEmpty()) {
+        title = title + " - " + subTitle;
       }
     }
+
+    // replace <br>-Tag
+    title = title.replaceAll("<br>", "");
+    dto.setTitle(title);
   }
 
   private void parseTopic(VideoDTO dto, JsonObject rootNode) {
