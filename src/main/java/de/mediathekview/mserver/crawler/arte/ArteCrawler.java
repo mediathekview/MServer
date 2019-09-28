@@ -12,6 +12,9 @@ import de.mediathekview.mserver.crawler.arte.tasks.ArteSubcategoryVideosTask;
 import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
 import de.mediathekview.mserver.crawler.basic.CrawlerUrlDTO;
 import de.mediathekview.mserver.progress.listeners.SenderProgressListener;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
@@ -22,8 +25,6 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ForkJoinPool;
 import java.util.concurrent.RecursiveTask;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 public class ArteCrawler extends AbstractCrawler {
 
@@ -112,13 +113,13 @@ public class ArteCrawler extends AbstractCrawler {
   protected RecursiveTask<Set<Film>> createCrawlerTask() {
     try {
       final Set<ArteFilmUrlDto> shows = new HashSet<>();
-      shows.addAll(getDaysEntries());
+      if (isDayEntriesEnabled()) {
+        shows.addAll(getDaysEntries());
+      }
       getCategoriesEntries()
           .forEach(
               show -> {
-                if (!shows.contains(show)) {
-                  shows.add(show);
-                }
+                shows.add(show);
               });
 
       printMessage(
@@ -133,6 +134,10 @@ public class ArteCrawler extends AbstractCrawler {
       Thread.currentThread().interrupt();
     }
     return null;
+  }
+
+  protected boolean isDayEntriesEnabled() {
+    return true;
   }
 
   protected ArteLanguage getLanguage() {

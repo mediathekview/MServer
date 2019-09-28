@@ -8,6 +8,11 @@ import de.mediathekview.mlib.tool.MVHttpClient;
 import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
 import de.mediathekview.mserver.crawler.basic.M3U8Dto;
 import de.mediathekview.mserver.crawler.basic.M3U8Parser;
+import okhttp3.Request;
+import okhttp3.ResponseBody;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import java.io.IOException;
 import java.lang.reflect.Type;
 import java.net.MalformedURLException;
@@ -15,10 +20,6 @@ import java.net.URL;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-import okhttp3.Request;
-import okhttp3.ResponseBody;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 /**
  * Converts json with basic video from {@literal
@@ -66,28 +67,6 @@ public class ArdVideoInfoJsonDeserializer implements JsonDeserializer<ArdVideoIn
     return videoInfo;
   }
 
-  private void loadM3U8(Map<Resolution, URL> resolutionUrlMap) {
-    final Optional<String> m3u8Content = readContent(resolutionUrlMap.get(Resolution.NORMAL));
-    resolutionUrlMap.clear();
-    if (m3u8Content.isPresent()) {
-
-      M3U8Parser parser = new M3U8Parser();
-      List<M3U8Dto> m3u8Data = parser.parse(m3u8Content.get());
-
-      m3u8Data.forEach(
-          entry -> {
-            Optional<Resolution> resolution = entry.getResolution();
-            if (resolution.isPresent()) {
-              try {
-                resolutionUrlMap.put(resolution.get(), new URL(entry.getUrl()));
-              } catch (MalformedURLException e) {
-                LOG.error("ArdVideoInfoJsonDeserializer: invalid url " + entry.getUrl(), e);
-              }
-            }
-          });
-    }
-  }
-
   /**
    * reads an url.
    *
@@ -95,10 +74,10 @@ public class ArdVideoInfoJsonDeserializer implements JsonDeserializer<ArdVideoIn
    * @return the content of the url
    */
   private static Optional<String> readContent(final URL aUrl) {
-    Request request = REQUEST_BUILDER.url(aUrl).build();
-    try (okhttp3.Response response =
+    final Request request = REQUEST_BUILDER.url(aUrl).build();
+    try (final okhttp3.Response response =
             MVHttpClient.getInstance().getHttpClient().newCall(request).execute();
-        ResponseBody body = response.body()) {
+        final ResponseBody body = response.body()) {
       if (response.isSuccessful()) {
         return Optional.of(body.string());
       } else {
@@ -106,10 +85,32 @@ public class ArdVideoInfoJsonDeserializer implements JsonDeserializer<ArdVideoIn
             String.format(
                 "ArdVideoInfoJsonDeserializer: Request '%s' failed: %s", aUrl, response.code()));
       }
-    } catch (IOException ex) {
+    } catch (final IOException ex) {
       LOG.error("ArdVideoInfoJsonDeserializer: ", ex);
     }
 
     return Optional.empty();
+  }
+
+  private void loadM3U8(final Map<Resolution, URL> resolutionUrlMap) {
+    final Optional<String> m3u8Content = readContent(resolutionUrlMap.get(Resolution.NORMAL));
+    resolutionUrlMap.clear();
+    if (m3u8Content.isPresent()) {
+
+      final M3U8Parser parser = new M3U8Parser();
+      final List<M3U8Dto> m3u8Data = parser.parse(m3u8Content.get());
+
+      m3u8Data.forEach(
+          entry -> {
+            final Optional<Resolution> resolution = entry.getResolution();
+            if (resolution.isPresent()) {
+              try {
+                resolutionUrlMap.put(resolution.get(), new URL(entry.getUrl()));
+              } catch (final MalformedURLException e) {
+                LOG.error("ArdVideoInfoJsonDeserializer: invalid url " + entry.getUrl(), e);
+              }
+            }
+          });
+    }
   }
 }

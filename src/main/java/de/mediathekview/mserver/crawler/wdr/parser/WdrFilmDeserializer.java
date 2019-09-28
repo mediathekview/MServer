@@ -31,11 +31,7 @@ import java.net.URL;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.EnumMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
 
 import static de.mediathekview.mserver.base.HtmlConsts.ATTRIBUTE_CONTENT;
 
@@ -52,79 +48,70 @@ public class WdrFilmDeserializer {
   private static final String ATTRIBUTE_DATA_EXTENSION = "data-extension";
 
   private static final Type OPTIONAL_CRAWLERURLDTO_TYPE_TOKEN =
-          new TypeToken<Optional<CrawlerUrlDTO>>() {
-          }.getType();
+      new TypeToken<Optional<CrawlerUrlDTO>>() {}.getType();
   private static final Type OPTIONAL_WDRMEDIADTO_TYPE_TOKEN =
-          new TypeToken<Optional<WdrMediaDto>>() {
-          }.getType();
+      new TypeToken<Optional<WdrMediaDto>>() {}.getType();
 
   private final Sender sender;
   private final Gson gson;
 
   public WdrFilmDeserializer(final String aProtocol, final Sender aSender) {
     gson =
-            new GsonBuilder()
-                    .registerTypeAdapter(OPTIONAL_CRAWLERURLDTO_TYPE_TOKEN, new WdrVideoLinkDeserializer())
-                    .registerTypeAdapter(
-                            OPTIONAL_WDRMEDIADTO_TYPE_TOKEN, new WdrVideoJsonDeserializer(aProtocol))
-                    .create();
+        new GsonBuilder()
+            .registerTypeAdapter(OPTIONAL_CRAWLERURLDTO_TYPE_TOKEN, new WdrVideoLinkDeserializer())
+            .registerTypeAdapter(
+                OPTIONAL_WDRMEDIADTO_TYPE_TOKEN, new WdrVideoJsonDeserializer(aProtocol))
+            .create();
 
     sender = aSender;
   }
 
-  public Optional<Film> deserialize(final TopicUrlDTO aUrlDto, final Document aDocument) {
-    final Optional<String> title = parseTitle(aDocument, aUrlDto.getTopic());
-    final Optional<LocalDateTime> time = parseDate(aDocument);
-    final Optional<Duration> duration = parseDuration(aDocument);
-    final Optional<String> description =
-            HtmlDocumentUtils.getElementAttributeString(
-                    DESCRIPTION_SELECTOR, ATTRIBUTE_CONTENT, aDocument);
-    final Optional<WdrVideoInfoDto> urls = parseUrls(aDocument);
-
-    return createFilm(aUrlDto, urls, title, description, time, duration);
-  }
-
   private static Optional<LocalDateTime> parseDate(final Document aDocument) {
     final Optional<String> dateTime =
-            HtmlDocumentUtils.getElementAttributeString(TIME_SELECTOR, ATTRIBUTE_CONTENT, aDocument);
+        HtmlDocumentUtils.getElementAttributeString(TIME_SELECTOR, ATTRIBUTE_CONTENT, aDocument);
     if (dateTime.isPresent()) {
       final LocalDateTime localDateTime =
-              LocalDateTime.parse(dateTime.get(), DateTimeFormatter.ISO_OFFSET_DATE_TIME);
+          LocalDateTime.parse(dateTime.get(), DateTimeFormatter.ISO_OFFSET_DATE_TIME);
       return Optional.of(localDateTime);
     }
 
     return Optional.empty();
   }
 
-  private void addUrls(final Film aFilm, final WdrVideoInfoDto aVideoInfo)
-          throws MalformedURLException {
-
-    Map<Resolution, String> videoUrls = aVideoInfo.getVideoUrls();
-    for (final Map.Entry<Resolution, String> qualitiesEntry : videoUrls.entrySet()) {
-      aFilm.addUrl(qualitiesEntry.getKey(), new FilmUrl(qualitiesEntry.getValue()));
-    }
-
-    videoUrls = aVideoInfo.getAudioDescriptionUrls();
-    for (final Map.Entry<Resolution, String> qualitiesEntry : videoUrls.entrySet()) {
-      aFilm.addAudioDescription(qualitiesEntry.getKey(), new FilmUrl(qualitiesEntry.getValue()));
-    }
-
-    videoUrls = aVideoInfo.getSignLanguageUrls();
-    for (final Map.Entry<Resolution, String> qualitiesEntry : videoUrls.entrySet()) {
-      aFilm.addSignLanguage(qualitiesEntry.getKey(), new FilmUrl(qualitiesEntry.getValue()));
-    }
-  }
-
   private static Optional<Duration> parseDuration(final Document aDocument) {
     final Optional<String> duration =
-            HtmlDocumentUtils.getElementAttributeString(
-                    DURATION_SELECTOR, ATTRIBUTE_CONTENT, aDocument);
+        HtmlDocumentUtils.getElementAttributeString(
+            DURATION_SELECTOR, ATTRIBUTE_CONTENT, aDocument);
     if (!duration.isPresent()) {
       return Optional.empty();
     }
 
     final Long durationValue = Long.parseLong(duration.get());
     return Optional.of(Duration.ofSeconds(durationValue));
+  }
+
+  /**
+   * reads an url.
+   *
+   * @param aUrl the url
+   * @return the content of the url
+   */
+  private static Optional<String> readContent(final String aUrl) {
+    final OkHttpClient httpClient = MVHttpClient.getInstance().getHttpClient();
+    final Request request = new Request.Builder().url(aUrl).build();
+    try (final okhttp3.Response response = httpClient.newCall(request).execute();
+        final ResponseBody body = response.body()) {
+      if (response.isSuccessful() && body != null) {
+        return Optional.of(body.string());
+      } else {
+        LOG.error(
+            String.format("WdrFilmDetailTask: Request '%s' failed: %s", aUrl, response.code()));
+      }
+    } catch (final IOException ex) {
+      LOG.error("WdrFilmDetailTask: ", ex);
+    }
+
+    return Optional.empty();
   }
 
   /**
@@ -144,48 +131,55 @@ public class WdrFilmDeserializer {
     return Optional.empty();
   }
 
-  /**
-   * reads an url.
-   *
-   * @param aUrl the url
-   * @return the content of the url
-   */
-  private static Optional<String> readContent(final String aUrl) {
-    final OkHttpClient httpClient = MVHttpClient.getInstance().getHttpClient();
-    final Request request = new Request.Builder().url(aUrl).build();
-    try (final okhttp3.Response response = httpClient.newCall(request).execute();
-         ResponseBody body = response.body()) {
-      if (response.isSuccessful() && body != null) {
-        return Optional.of(body.string());
-      } else {
-        LOG.error(
-                String.format("WdrFilmDetailTask: Request '%s' failed: %s", aUrl, response.code()));
-      }
-    } catch (final IOException ex) {
-      LOG.error("WdrFilmDetailTask: ", ex);
+  public Optional<Film> deserialize(final TopicUrlDTO aUrlDto, final Document aDocument) {
+    final Optional<String> title = parseTitle(aDocument, aUrlDto.getTopic());
+    final Optional<LocalDateTime> time = parseDate(aDocument);
+    final Optional<Duration> duration = parseDuration(aDocument);
+    final Optional<String> description =
+        HtmlDocumentUtils.getElementAttributeString(
+            DESCRIPTION_SELECTOR, ATTRIBUTE_CONTENT, aDocument);
+    final Optional<WdrVideoInfoDto> urls = parseUrls(aDocument);
+
+    return createFilm(aUrlDto, urls, title, description, time, duration);
+  }
+
+  private void addUrls(final Film aFilm, final WdrVideoInfoDto aVideoInfo)
+      throws MalformedURLException {
+
+    Map<Resolution, String> videoUrls = aVideoInfo.getVideoUrls();
+    for (final Map.Entry<Resolution, String> qualitiesEntry : videoUrls.entrySet()) {
+      aFilm.addUrl(qualitiesEntry.getKey(), new FilmUrl(qualitiesEntry.getValue()));
     }
 
-    return Optional.empty();
+    videoUrls = aVideoInfo.getAudioDescriptionUrls();
+    for (final Map.Entry<Resolution, String> qualitiesEntry : videoUrls.entrySet()) {
+      aFilm.addAudioDescription(qualitiesEntry.getKey(), new FilmUrl(qualitiesEntry.getValue()));
+    }
+
+    videoUrls = aVideoInfo.getSignLanguageUrls();
+    for (final Map.Entry<Resolution, String> qualitiesEntry : videoUrls.entrySet()) {
+      aFilm.addSignLanguage(qualitiesEntry.getKey(), new FilmUrl(qualitiesEntry.getValue()));
+    }
   }
 
   private Optional<Film> createFilm(
-          final TopicUrlDTO aUrlDto,
-          final Optional<WdrVideoInfoDto> aVideoInfo,
-          final Optional<String> aTitle,
-          final Optional<String> aDescription,
-          final Optional<LocalDateTime> aTime,
-          final Optional<Duration> aDuration) {
+      final TopicUrlDTO aUrlDto,
+      final Optional<WdrVideoInfoDto> aVideoInfo,
+      final Optional<String> aTitle,
+      final Optional<String> aDescription,
+      final Optional<LocalDateTime> aTime,
+      final Optional<Duration> aDuration) {
 
     try {
       if (aVideoInfo.isPresent() && aTitle.isPresent()) {
         final Film film =
-                new Film(
-                        UUID.randomUUID(),
-                        sender,
-                        aTitle.get(),
-                        aUrlDto.getTopic(),
-                        aTime.orElse(LocalDateTime.now()),
-                        aDuration.orElse(Duration.ZERO));
+            new Film(
+                UUID.randomUUID(),
+                sender,
+                aTitle.get(),
+                aUrlDto.getTopic(),
+                aTime.orElse(LocalDateTime.now()),
+                aDuration.orElse(Duration.ZERO));
 
         film.setWebsite(new URL(aUrlDto.getUrl()));
         if (aDescription.isPresent()) {
@@ -199,7 +193,7 @@ public class WdrFilmDeserializer {
 
         addUrls(film, videoInfo);
         film.setGeoLocations(
-                GeoLocationGuesser.getGeoLocations(sender, videoInfo.getDefaultVideoUrl()));
+            GeoLocationGuesser.getGeoLocations(sender, videoInfo.getDefaultVideoUrl()));
 
         return Optional.of(film);
 
@@ -225,7 +219,7 @@ public class WdrFilmDeserializer {
     }
 
     final Optional<WdrMediaDto> mediaDto =
-            gson.fromJson(embeddedJson.get(), OPTIONAL_WDRMEDIADTO_TYPE_TOKEN);
+        gson.fromJson(embeddedJson.get(), OPTIONAL_WDRMEDIADTO_TYPE_TOKEN);
     if (!mediaDto.isPresent()) {
       return Optional.empty();
     }
@@ -252,7 +246,7 @@ public class WdrFilmDeserializer {
 
       if (aMediaDto.getAudioDescriptionUrl().isPresent()) {
         final Map<Resolution, String> adUrlMap =
-                parseM3U8Url(aMediaDto.getAudioDescriptionUrl().get());
+            parseM3U8Url(aMediaDto.getAudioDescriptionUrl().get());
         adUrlMap.forEach(videoInfoDto::putAudioDescription);
       }
 
@@ -282,8 +276,8 @@ public class WdrFilmDeserializer {
    */
   private Optional<CrawlerUrlDTO> parseVideoLink(final Document aDocument) {
     final Optional<String> videoLink =
-            HtmlDocumentUtils.getElementAttributeString(
-                    VIDEO_LINK_SELECTOR, ATTRIBUTE_DATA_EXTENSION, aDocument);
+        HtmlDocumentUtils.getElementAttributeString(
+            VIDEO_LINK_SELECTOR, ATTRIBUTE_DATA_EXTENSION, aDocument);
     if (videoLink.isPresent()) {
 
       return gson.fromJson(videoLink.get(), OPTIONAL_CRAWLERURLDTO_TYPE_TOKEN);
@@ -304,17 +298,17 @@ public class WdrFilmDeserializer {
     final List<M3U8Dto> m3u8Data = parser.parse(m3u8Content.get());
 
     m3u8Data.forEach(
-            entry -> {
-              final Optional<Resolution> resolution = entry.getResolution();
-              resolution.ifPresent(value -> urlMap.put(value, entry.getUrl()));
-            });
+        entry -> {
+          final Optional<Resolution> resolution = entry.getResolution();
+          resolution.ifPresent(value -> urlMap.put(value, entry.getUrl()));
+        });
 
     return urlMap;
   }
 
   private Optional<String> parseTitle(final Document aDocument, final String aTopic) {
     final Optional<String> titleValue =
-            HtmlDocumentUtils.getElementAttributeString(TITLE_SELECTOR, ATTRIBUTE_CONTENT, aDocument);
+        HtmlDocumentUtils.getElementAttributeString(TITLE_SELECTOR, ATTRIBUTE_CONTENT, aDocument);
     if (!titleValue.isPresent()) {
       return Optional.empty();
     }

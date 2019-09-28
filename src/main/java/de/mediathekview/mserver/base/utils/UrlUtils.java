@@ -13,9 +13,9 @@ import java.util.Optional;
  * A util class to collect useful URL related methods.
  *
  * @author Nicklas Wiegandt (Nicklas2751)<br>
- * <b>Mail:</b> nicklas@wiegandt.eu<br>
- * <b>Jabber:</b> nicklas2751@elaon.de<br>
- * <b>Riot.im:</b> nicklas2751:matrix.elaon.de<br>
+ *     <b>Mail:</b> nicklas@wiegandt.eu<br>
+ *     <b>Jabber:</b> nicklas2751@elaon.de<br>
+ *     <b>Riot.im:</b> nicklas2751:matrix.elaon.de<br>
  */
 public final class UrlUtils {
 
@@ -35,7 +35,7 @@ public final class UrlUtils {
   /**
    * adds the domain if missing.
    *
-   * @param aUrl    the url to check
+   * @param aUrl the url to check
    * @param aDomain the domain to add
    * @return the url including the domain
    */
@@ -50,7 +50,7 @@ public final class UrlUtils {
   /**
    * adds the protocol if missing.
    *
-   * @param aUrl      the url to check
+   * @param aUrl the url to check
    * @param aProtocol the protocol to add
    * @return the url including the protocol
    */
@@ -65,21 +65,25 @@ public final class UrlUtils {
   /**
    * Changes or adds an URL parameter.
    *
-   * @param aUrl       The URL which parameter should be changed or gets the
-   *                   parameter added.
+   * @param aUrl The URL which parameter should be changed or gets the parameter added.
    * @param aParameter The parameter which should be changed or added.
-   * @param aValue     The parameter value.
+   * @param aValue The parameter value.
    * @return The changed URL.
    */
-  public static String changeOrAddParameter(final String aUrl, final String aParameter, final String aValue) {
+  public static String changeOrAddParameter(
+      final String aUrl, final String aParameter, final String aValue) {
     final StringBuilder newUrlBuilder = new StringBuilder();
     final String[] splittedUrl = aUrl.split(REGEX_ESCAPOR + URL_TO_PARAMETERS_SPLITTERATOR);
     newUrlBuilder.append(splittedUrl[0]);
 
     if (splittedUrl.length == 2) {
-      final String cleanedParameters = splittedUrl[1] + URL_TO_PARAMETERS_SPLITTERATOR
-              .replaceAll(String.format(URL_PARAMETER_REPLACEMENT_REGEX_PATTERN, aParameter), "")
-              .replaceAll(REGEX_ESCAPOR + WRONG_PARAMETER_START, URL_TO_PARAMETERS_SPLITTERATOR);
+      final String cleanedParameters =
+          splittedUrl[1]
+              + URL_TO_PARAMETERS_SPLITTERATOR
+                  .replaceAll(
+                      String.format(URL_PARAMETER_REPLACEMENT_REGEX_PATTERN, aParameter), "")
+                  .replaceAll(
+                      REGEX_ESCAPOR + WRONG_PARAMETER_START, URL_TO_PARAMETERS_SPLITTERATOR);
 
       newUrlBuilder.append(URL_TO_PARAMETERS_SPLITTERATOR);
       newUrlBuilder.append(cleanedParameters);
@@ -104,14 +108,15 @@ public final class UrlUtils {
     boolean result = false;
 
     try {
-      Request request = new Request.Builder().head().url(aUrl).build();
-      try (Response response = MVHttpClient.getInstance().getReducedTimeOutClient().newCall(request).execute()) {
+      final Request request = new Request.Builder().head().url(aUrl).build();
+      try (final Response response =
+          MVHttpClient.getInstance().getReducedTimeOutClient().newCall(request).execute()) {
         if (response.isSuccessful()) {
           result = true;
         }
-      } catch (IOException ignored) {
+      } catch (final IOException ignored) {
       }
-    } catch (Exception ignored) {
+    } catch (final Exception ignored) {
     }
 
     return result;
@@ -149,7 +154,7 @@ public final class UrlUtils {
    */
   public static Optional<String> getFileName(final String aUrl) {
     if (aUrl != null) {
-      int index = aUrl.lastIndexOf('/');
+      final int index = aUrl.lastIndexOf('/');
       if (index > 0) {
         final String file = aUrl.substring(index + 1);
         if (file.contains(".")) {
@@ -169,7 +174,7 @@ public final class UrlUtils {
    */
   public static Optional<String> getFileType(final String aUrl) {
     if (aUrl != null) {
-      int index = aUrl.lastIndexOf('.');
+      final int index = aUrl.lastIndexOf('.');
       if (index > 0) {
         return Optional.of(aUrl.substring(index + 1));
       }
@@ -186,9 +191,9 @@ public final class UrlUtils {
    */
   public static Optional<String> getProtocol(final String aUrl) {
     if (aUrl != null) {
-      int index = aUrl.indexOf("//");
+      final int index = aUrl.indexOf("//");
       if (index > 0) {
-        String protocol = aUrl.substring(0, index);
+        final String protocol = aUrl.substring(0, index);
         return Optional.of(protocol);
       }
     }
@@ -199,15 +204,15 @@ public final class UrlUtils {
   /**
    * returns the value of an url parameter.
    *
-   * @param aUrl           the url
+   * @param aUrl the url
    * @param aParameterName the name of the url parameter
    * @return the parameter value
    * @throws UrlParseException Will be thrown if the given URL isn't valid.
    */
-  public static Optional<String> getUrlParameterValue(final String aUrl, final String aParameterName)
-          throws UrlParseException {
+  public static Optional<String> getUrlParameterValue(
+      final String aUrl, final String aParameterName) throws UrlParseException {
     if (aUrl != null) {
-      Map<String, String> parameters = getUrlParameters(aUrl);
+      final Map<String, String> parameters = getUrlParameters(aUrl);
       if (parameters.containsKey(aParameterName)) {
         return Optional.of(parameters.get(aParameterName));
       }
@@ -217,15 +222,15 @@ public final class UrlUtils {
   }
 
   private static Map<String, String> getUrlParameters(final String aUrl) throws UrlParseException {
-    Map<String, String> parameters = new HashMap<>();
+    final Map<String, String> parameters = new HashMap<>();
 
-    int indexParameterStart = aUrl.indexOf('?');
+    final int indexParameterStart = aUrl.indexOf('?');
     if (indexParameterStart > 0) {
-      String parameterPart = aUrl.substring(indexParameterStart + 1);
-      String[] parameterArray = parameterPart.split("&");
+      final String parameterPart = aUrl.substring(indexParameterStart + 1);
+      final String[] parameterArray = parameterPart.split("&");
 
-      for (String parameter : parameterArray) {
-        String[] parts = parameter.split("=");
+      for (final String parameter : parameterArray) {
+        final String[] parts = parameter.split("=");
         if (parts.length == 2) {
           parameters.put(parts[0], parts[1]);
         } else {

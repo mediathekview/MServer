@@ -1,8 +1,5 @@
 package de.mediathekview.mserver.crawler.ard.json;
 
-import static org.hamcrest.CoreMatchers.equalTo;
-import static org.junit.Assert.assertThat;
-
 import com.google.gson.JsonElement;
 import de.mediathekview.mlib.daten.GeoLocations;
 import de.mediathekview.mlib.daten.Sender;
@@ -14,19 +11,19 @@ import de.mediathekview.mserver.crawler.ard.ArdFilmInfoDto;
 import de.mediathekview.mserver.progress.listeners.SenderProgressListener;
 import de.mediathekview.mserver.testhelper.AssertFilm;
 import de.mediathekview.mserver.testhelper.JsonFileReader;
-import java.net.URLEncoder;
-import java.time.Duration;
-import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.List;
-import java.util.Optional;
-import java.util.concurrent.ForkJoinPool;
 import org.hamcrest.Matchers;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
+
+import java.net.URLEncoder;
+import java.time.Duration;
+import java.time.LocalDateTime;
+import java.util.*;
+import java.util.concurrent.ForkJoinPool;
+
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.junit.Assert.assertThat;
 
 @RunWith(Parameterized.class)
 public class ArdFilmDeserializerTest {
@@ -76,7 +73,7 @@ public class ArdFilmDeserializerTest {
     this.expectedGeo = expectedGeo;
     this.relatedFilms = relatedFilms;
     this.additionalSender = additionalSender;
-    expectedFilmCount = additionalSender.isPresent() ? 2 : 1;
+    expectedFilmCount = 1;
   }
 
   @Parameterized.Parameters
@@ -208,16 +205,16 @@ public class ArdFilmDeserializerTest {
   @Test
   public void test() {
 
-    JsonElement jsonElement = JsonFileReader.readJson(jsonFile);
+    final JsonElement jsonElement = JsonFileReader.readJson(jsonFile);
 
-    ArdFilmDeserializer target = new ArdFilmDeserializer(createCrawler());
-    List<ArdFilmDto> actualFilms = target.deserialize(jsonElement, null, null);
+    final ArdFilmDeserializer target = new ArdFilmDeserializer(createCrawler());
+    final List<ArdFilmDto> actualFilms = target.deserialize(jsonElement, null, null);
 
     assertThat(actualFilms.size(), equalTo(expectedFilmCount));
-    ArdFilmDto[] films = actualFilms.toArray(new ArdFilmDto[] {});
+    final ArdFilmDto[] films = actualFilms.toArray(new ArdFilmDto[] {});
     AssertFilm.assertEquals(
         films[0].getFilm(),
-        Sender.ARD,
+        additionalSender.orElse(Sender.ARD),
         expectedTopic,
         expectedTitle,
         expectedDateTime,
@@ -230,31 +227,12 @@ public class ArdFilmDeserializerTest {
         expectedUrlHd,
         expectedSubtitle);
     assertThat(films[0].getRelatedFilms(), Matchers.containsInAnyOrder(relatedFilms));
-
-    if (additionalSender.isPresent()) {
-      AssertFilm.assertEquals(
-          films[1].getFilm(),
-          additionalSender.get(),
-          expectedTopic,
-          expectedTitle,
-          expectedDateTime,
-          expectedDuration,
-          expectedDescription,
-          "",
-          new GeoLocations[] {expectedGeo},
-          expectedUrlSmall,
-          expectedUrlNormal,
-          expectedUrlHd,
-          expectedSubtitle);
-      // related films are handled by the ARD film
-      assertThat(films[1].getRelatedFilms().size(), equalTo(0));
-    }
   }
 
   protected ArdCrawler createCrawler() {
-    ForkJoinPool forkJoinPool = new ForkJoinPool();
-    Collection<MessageListener> nachrichten = new ArrayList<>();
-    Collection<SenderProgressListener> fortschritte = new ArrayList<>();
+    final ForkJoinPool forkJoinPool = new ForkJoinPool();
+    final Collection<MessageListener> nachrichten = new ArrayList<>();
+    final Collection<SenderProgressListener> fortschritte = new ArrayList<>();
 
     return new ArdCrawler(forkJoinPool, nachrichten, fortschritte, rootConfig);
   }

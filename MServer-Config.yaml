@@ -1,7 +1,7 @@
 #### Server configurations ####
 
 # The maximum amount of cpu threads to be used.
-maximumCpuThreads: 16
+maximumCpuThreads: 8
 
 # The maximum duration in minutes the server should run.<br>
 # If set to 0 the server runs without a time limit.
@@ -15,7 +15,6 @@ maximumServerDurationInMinutes: 0
 # If set only these Sender will be crawled all other will be ignored.
 senderIncluded:
   - ARD
-  - MDR
 
 
 # If set the server will be awake after the crawler run and restarts the run after the given amount.
@@ -109,8 +108,21 @@ senderConfigurations:
   ARD:
     # Actually the ARD has a maximum of 6 days in the past
     maximumDaysForSendungVerpasstSection: 6
+    maximumCpuThreads: 8
   ARTE_DE:
+    maximumCpuThreads: 1
     maximumDaysForSendungVerpasstSectionFuture: 21
+  ARTE_EN:
+    maximumCpuThreads: 1
+  ARTE_ES:
+    maximumCpuThreads: 1
+  ARTE_FR:
+    maximumCpuThreads: 1
+    maximumDaysForSendungVerpasstSectionFuture: 21
+  ARTE_PL:
+    maximumCpuThreads: 1
+  ARTE_IT:
+    maximumCpuThreads: 1
     # The maximum amount of URLs to be processed per task.
     #        maximumUrlsPerTask: 25
     # The maximum duration in minutes a crawler may run.

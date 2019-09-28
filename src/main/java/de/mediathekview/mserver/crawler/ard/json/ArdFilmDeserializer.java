@@ -51,9 +51,6 @@ public class ArdFilmDeserializer implements JsonDeserializer<List<ArdFilmDto>> {
   private static final String ATTRIBUTE_SYNOPSIS = "synopsis";
   private static final String ATTRIBUTE_TITLE = "title";
 
-  // the key of the map is the value of publicationService.channelType in film.json
-  private static final Map<String, Sender> ADDITIONAL_SENDER = new HashMap<>();
-
   private final ArdVideoInfoJsonDeserializer videoDeserializer;
 
   public ArdFilmDeserializer(final AbstractCrawler crawler) {

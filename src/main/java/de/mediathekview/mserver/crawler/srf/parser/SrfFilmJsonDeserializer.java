@@ -1,10 +1,6 @@
 package de.mediathekview.mserver.crawler.srf.parser;
 
-import com.google.gson.JsonArray;
-import com.google.gson.JsonDeserializationContext;
-import com.google.gson.JsonDeserializer;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
+import com.google.gson.*;
 import de.mediathekview.mlib.daten.Film;
 import de.mediathekview.mlib.daten.FilmUrl;
 import de.mediathekview.mlib.daten.Resolution;
@@ -28,16 +24,12 @@ import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
-import java.util.EnumMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
 
 public class SrfFilmJsonDeserializer implements JsonDeserializer<Optional<Film>> {
 
   private static final org.apache.logging.log4j.Logger LOG =
-          LogManager.getLogger(SrfFilmJsonDeserializer.class);
+      LogManager.getLogger(SrfFilmJsonDeserializer.class);
 
   private static final String ATTRIBUTE_DESCRIPTION = "description";
   private static final String ATTRIBUTE_DURATION = "duration";
@@ -76,21 +68,21 @@ public class SrfFilmJsonDeserializer implements JsonDeserializer<Optional<Film>>
 
   private static void addUrls(final Map<Resolution, String> aVideoUrls, final Film aFilm) {
     aVideoUrls.forEach(
-            (key, value) -> {
-              try {
-                aFilm.addUrl(key, new FilmUrl(value));
-              } catch (final MalformedURLException ex) {
-                LOG.error(String.format("A found download URL \"%s\" isn't valid.", value), ex);
-              }
-            });
+        (key, value) -> {
+          try {
+            aFilm.addUrl(key, new FilmUrl(value));
+          } catch (final MalformedURLException ex) {
+            LOG.error(String.format("A found download URL \"%s\" isn't valid.", value), ex);
+          }
+        });
   }
 
   private static Optional<URL> buildWebsiteUrl(
-          final String aId, final String aTitle, final String aTheme) {
+      final String aId, final String aTitle, final String aTheme) {
 
     final String url =
-            String.format(
-                    SrfConstants.WEBSITE_URL, replaceCharForUrl(aTheme), replaceCharForUrl(aTitle), aId);
+        String.format(
+            SrfConstants.WEBSITE_URL, replaceCharForUrl(aTheme), replaceCharForUrl(aTitle), aId);
 
     try {
       return Optional.of(new URL(url));
@@ -103,13 +95,13 @@ public class SrfFilmJsonDeserializer implements JsonDeserializer<Optional<Film>>
 
   private static String replaceCharForUrl(final String aValue) {
     return aValue
-            .toLowerCase()
-            .replace(' ', '-')
-            .replace('.', '-')
-            .replace(',', '-')
-            .replace(":", "")
-            .replace("\"", "")
-            .replace("--", "-");
+        .toLowerCase()
+        .replace(' ', '-')
+        .replace('.', '-')
+        .replace(',', '-')
+        .replace(":", "")
+        .replace("\"", "")
+        .replace("--", "-");
   }
 
   private static String parseShow(final JsonObject aJsonObject) {
@@ -137,8 +129,8 @@ public class SrfFilmJsonDeserializer implements JsonDeserializer<Optional<Film>>
         final JsonObject arrayItemObject = arrayItemElement.getAsJsonObject();
 
         if (arrayItemObject.has(ATTRIBUTE_FORMAT)
-                && arrayItemObject.has(ATTRIBUTE_URL)
-                && arrayItemObject.get(ATTRIBUTE_FORMAT).getAsString().equals(SUBTITLE_FORMAT)) {
+            && arrayItemObject.has(ATTRIBUTE_URL)
+            && arrayItemObject.get(ATTRIBUTE_FORMAT).getAsString().equals(SUBTITLE_FORMAT)) {
           return arrayItemObject.get(ATTRIBUTE_URL).getAsString();
         }
       }
@@ -160,12 +152,12 @@ public class SrfFilmJsonDeserializer implements JsonDeserializer<Optional<Film>>
         final JsonObject arrayItemObject = arrayItemElement.getAsJsonObject();
 
         if (arrayItemObject.has(ATTRIBUTE_MIMETYPE)
-                && arrayItemObject.has(ATTRIBUTE_URL)
-                && arrayItemObject.get(ATTRIBUTE_MIMETYPE).getAsString().contains("x-mpegURL")) {
+            && arrayItemObject.has(ATTRIBUTE_URL)
+            && arrayItemObject.get(ATTRIBUTE_MIMETYPE).getAsString().contains("x-mpegURL")) {
           if (url.isEmpty()
-                  || (arrayItemObject.has(ATTRIBUTE_QUALITY)
+              || (arrayItemObject.has(ATTRIBUTE_QUALITY)
                   && arrayItemObject.get(ATTRIBUTE_QUALITY).getAsString().compareToIgnoreCase("HD")
-                  == 0)) {
+                      == 0)) {
             url = arrayItemObject.get(ATTRIBUTE_URL).getAsString();
           }
         }
@@ -207,7 +199,7 @@ public class SrfFilmJsonDeserializer implements JsonDeserializer<Optional<Film>>
 
   @Override
   public Optional<Film> deserialize(
-          final JsonElement aJsonElement, final Type aType, final JsonDeserializationContext aContext) {
+      final JsonElement aJsonElement, final Type aType, final JsonDeserializationContext aContext) {
 
     final JsonObject object = aJsonElement.getAsJsonObject();
     final String theme = parseShow(object);
@@ -224,13 +216,13 @@ public class SrfFilmJsonDeserializer implements JsonDeserializer<Optional<Film>>
     }
 
     final Film film =
-            new Film(
-                    UUID.randomUUID(),
-                    Sender.SRF,
-                    episodeData.title,
-                    theme,
-                    episodeData.publishDate,
-                    chapterList.duration);
+        new Film(
+            UUID.randomUUID(),
+            Sender.SRF,
+            episodeData.title,
+            theme,
+            episodeData.publishDate,
+            chapterList.duration);
     film.setBeschreibung(chapterList.description);
     film.setWebsite(buildWebsiteUrl(chapterList.id, episodeData.title, theme));
     addUrls(videoUrls, film);
@@ -319,12 +311,12 @@ public class SrfFilmJsonDeserializer implements JsonDeserializer<Optional<Film>>
       final M3U8Parser parser = new M3U8Parser();
       final List<M3U8Dto> m3u8Data = parser.parse(content.get());
       m3u8Data.forEach(
-              entry -> {
-                final Optional<Resolution> resolution = getResolution(entry);
-                if (resolution.isPresent()) {
-                  urls.put(resolution.get(), entry.getUrl());
-                }
-              });
+          entry -> {
+            final Optional<Resolution> resolution = getResolution(entry);
+            if (resolution.isPresent()) {
+              urls.put(resolution.get(), entry.getUrl());
+            }
+          });
 
     } else {
       LOG.error(String.format("SrfFilmJsonDeserializer: Loading m3u8-url failed: %s", aM3U8Url));
@@ -342,7 +334,7 @@ public class SrfFilmJsonDeserializer implements JsonDeserializer<Optional<Film>>
     final Request request = new Request.Builder().url(aM3U8Url).build();
 
     try (final Response response = httpClient.newCall(request).execute();
-         ResponseBody body = response.body()) {
+        final ResponseBody body = response.body()) {
       if (response.isSuccessful() && body != null) {
         return Optional.of(body.string());
       }

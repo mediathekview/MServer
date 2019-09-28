@@ -1,15 +1,17 @@
 package de.mediathekview.mserver.crawler.arte;
 
-import java.util.Collection;
-import java.util.concurrent.ForkJoinPool;
 import de.mediathekview.mlib.daten.Sender;
 import de.mediathekview.mlib.messages.listener.MessageListener;
 import de.mediathekview.mserver.base.config.MServerConfigManager;
 import de.mediathekview.mserver.progress.listeners.SenderProgressListener;
 
+import java.util.Collection;
+import java.util.concurrent.ForkJoinPool;
+
 public class ArteCrawler_EN extends ArteCrawler {
 
-  public ArteCrawler_EN(final ForkJoinPool aForkJoinPool,
+  public ArteCrawler_EN(
+      final ForkJoinPool aForkJoinPool,
       final Collection<MessageListener> aMessageListeners,
       final Collection<SenderProgressListener> aProgressListeners,
       final MServerConfigManager rootConfig) {
@@ -26,4 +28,8 @@ public class ArteCrawler_EN extends ArteCrawler {
     return ArteLanguage.EN;
   }
 
+  @Override
+  protected boolean isDayEntriesEnabled() {
+    return false;
+  }
 }

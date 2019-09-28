@@ -451,6 +451,9 @@ public class CrawlerManager extends AbstractManager {
         Sender.ARTE_PL,
         new ArteCrawler_PL(forkJoinPool, messageListeners, progressListeners, rootConfig));
     crawlerMap.put(
+        Sender.ARTE_IT,
+        new ArteCrawler_IT(forkJoinPool, messageListeners, progressListeners, rootConfig));
+    crawlerMap.put(
         Sender.ARTE_ES,
         new ArteCrawler_ES(forkJoinPool, messageListeners, progressListeners, rootConfig));
     crawlerMap.put(
