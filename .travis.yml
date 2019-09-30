@@ -30,7 +30,8 @@ env:
 stages:
   - Test
   - name: Build and Deploy Snapshots
-    if: branch = develop AND type = cron
+    if: branch = develop
+# AND type = cron
   - name: Build and Deploy
     if: tag = true
 jobs:

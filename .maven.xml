@@ -7,6 +7,11 @@
             <username>${env.SONATYPE_USERNAME}</username>
             <password>${env.SONATYPE_PASSWORD}</password>
         </server>
+        <server>
+          <id>mediathekview/mserver</id>
+          <username>${env.DOCKER_USERNAME}</username>
+          <password>${env.DOCKER_PASSWORD}</password>
+  </server>
     </servers>
     
     <activeProfiles>

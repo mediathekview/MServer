@@ -424,6 +424,7 @@
                         <configuration>
                             <repository>mediathekview/mserver</repository>
                             <tag>${project.version}</tag>
+                            <useMavenSettingsForAuth>true</useMavenSettingsForAuth>
                             <buildArgs>
                                 <VERSION>${project.version}</VERSION>
                             </buildArgs>
