@@ -17,6 +17,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.*;
 import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 
 public class ArdMediaArrayToDownloadUrlsConverter {
 
@@ -35,49 +36,46 @@ public class ArdMediaArrayToDownloadUrlsConverter {
   private static final String ELEMENT_WIDTH = "_width";
   private static final String PROTOCOL_RTMP = "rtmp";
 
-  private static final ArdUrlOptimizer swrOptimizer = new ArdUrlOptimizer();
+  private final ArdUrlOptimizer ardOptimizer;
+  private final Map<Resolution, Set<FilmUrlInfoDto>> urls;
+  private AbstractCrawler crawler;
 
-  private ArdMediaArrayToDownloadUrlsConverter() {}
-
-  public static Map<Resolution, URL> toDownloadUrls(
-      final JsonElement aJsonElement, final AbstractCrawler aCrawler) {
-    final Map<Resolution, URL> downloadUrls = new EnumMap<>(Resolution.class);
-
-    final Map<Resolution, LinkedHashSet<FilmUrlInfoDto>> availableUrls =
-        new EnumMap<>(Resolution.class);
-    availableUrls.put(Resolution.SMALL, new LinkedHashSet<>());
-    availableUrls.put(Resolution.NORMAL, new LinkedHashSet<>());
-    availableUrls.put(Resolution.HD, new LinkedHashSet<>());
-
-    final int pluginValue = extractPluginValue(aJsonElement.getAsJsonObject());
-
-    final JsonArray mediaArray = aJsonElement.getAsJsonObject().getAsJsonArray(ELEMENT_MEDIA_ARRAY);
-    parseMediaArray(pluginValue, mediaArray, availableUrls);
-
-    extractRelevantUrls(availableUrls, downloadUrls, aCrawler);
-
-    return downloadUrls;
+  public ArdMediaArrayToDownloadUrlsConverter() {
+    ardOptimizer = new ArdUrlOptimizer();
+    urls = new EnumMap<>(Resolution.class);
   }
 
-  private static void addUrl(
-      final String aUrl,
-      final Resolution quality,
-      final Map<Resolution, LinkedHashSet<FilmUrlInfoDto>> aUrls,
-      final Optional<String> aHeight,
-      final Optional<String> aWidth) {
+  private static List<FilmUrlInfoDto> filterUrls(
+      final Set<FilmUrlInfoDto> aUrls, final String aFileType) {
+    return aUrls.stream()
+        .filter(
+            url ->
+                url.getFileType().isPresent()
+                    && url.getFileType().get().equalsIgnoreCase(aFileType))
+        .collect(Collectors.toList());
+  }
 
-    if (!aUrl.isEmpty()) {
-      if (aUrl.startsWith(PROTOCOL_RTMP)) {
-        LOG.debug("Found an Sendung with the old RTMP format: " + aUrl);
+  private static Optional<Resolution> getQuality(final String qualityAsText) {
+    int qualityNumber;
+    try {
+      if (qualityAsText.equals("auto")) {
+        // Some films only contains "auto" quality with a m3u8-url
+        // treat quality "auto" as NORMAL though the m3u8-url is returned
+        return Optional.of(Resolution.NORMAL);
       } else {
-        final FilmUrlInfoDto info =
-            new FilmUrlInfoDto(UrlUtils.addProtocolIfMissing(aUrl, "http:"));
-        if (aHeight.isPresent() && aWidth.isPresent()) {
-          info.setResolution(Integer.parseInt(aWidth.get()), Integer.parseInt(aHeight.get()));
-        }
-        aUrls.get(quality).add(info);
+        qualityNumber = Integer.parseInt(qualityAsText);
       }
+    } catch (final NumberFormatException numberFormatException) {
+      LOG.debug("Can't convert quality %s to an integer.", qualityAsText);
+      LOG.debug("", numberFormatException);
+      qualityNumber = -1;
     }
+
+    if (qualityNumber > 0) {
+      return Optional.of(getQualityForNumber(qualityNumber));
+    }
+
+    return Optional.empty();
   }
 
   /**
@@ -126,68 +124,69 @@ public class ArdMediaArrayToDownloadUrlsConverter {
     return 1;
   }
 
-  private static void extractRelevantUrls(
-      final Map<Resolution, LinkedHashSet<FilmUrlInfoDto>> aUrls,
-      final Map<Resolution, URL> aDownloadUrls,
-      final AbstractCrawler aCrawler) {
-
-    aUrls
-        .entrySet()
-        .forEach(
-            entry -> {
-              final Set<FilmUrlInfoDto> urls = entry.getValue();
-              if (!urls.isEmpty()) {
-
-                final String url = determineUrl(entry.getKey(), urls);
-                if (!url.isEmpty()) {
-
-                  try {
-                    aDownloadUrls.put(entry.getKey(), new URL(optimizeUrl(entry.getKey(), url)));
-                  } catch (final MalformedURLException malformedUrlException) {
-                    LOG.error("A download URL is defect.", malformedUrlException);
-                    aCrawler.printMessage(
-                        ServerMessages.DEBUG_INVALID_URL, aCrawler.getSender().getName(), url);
-                  }
-                }
-              }
-            });
+  Map<Resolution, URL> toDownloadUrls(
+      final JsonElement jsonElement, final AbstractCrawler crawler) {
+    this.crawler = crawler;
+    final int pluginValue = extractPluginValue(jsonElement.getAsJsonObject());
+    final JsonArray mediaArray = jsonElement.getAsJsonObject().getAsJsonArray(ELEMENT_MEDIA_ARRAY);
+    parseMediaArray(pluginValue, mediaArray);
+    return extractRelevantUrls();
   }
 
-  private static String optimizeUrl(final Resolution key, final String url) {
+  private void addUrl(
+      final String url,
+      final Resolution quality,
+      final Optional<String> height,
+      final Optional<String> width) {
+
+    if (!url.isEmpty()) {
+      if (url.startsWith(PROTOCOL_RTMP)) {
+        LOG.debug("Found an Sendung with the old RTMP format: " + url);
+      } else {
+        final FilmUrlInfoDto info = new FilmUrlInfoDto(UrlUtils.addProtocolIfMissing(url, "http:"));
+        if (height.isPresent() && width.isPresent()) {
+          info.setResolution(Integer.parseInt(width.get()), Integer.parseInt(height.get()));
+        }
+
+        if (!urls.containsKey(quality)) {
+          urls.put(quality, new LinkedHashSet<>());
+        }
+        urls.get(quality).add(info);
+      }
+    }
+  }
+
+  private Map<Resolution, URL> extractRelevantUrls() {
+    final Map<Resolution, URL> downloadUrls = new HashMap<>();
+
+    urls.entrySet().stream()
+        .filter(entry -> !entry.getValue().isEmpty())
+        .forEach(
+            entry -> {
+              finalizeUrl(entry).ifPresent(url -> downloadUrls.put(entry.getKey(), url));
+            });
+    return downloadUrls;
+  }
+
+  private Optional<URL> finalizeUrl(final Map.Entry<Resolution, Set<FilmUrlInfoDto>> entry) {
+    final String url = determineUrl(entry.getKey(), entry.getValue());
+    if (!url.isEmpty()) {
+      try {
+        return Optional.of(new URL(optimizeUrl(entry.getKey(), url)));
+      } catch (final MalformedURLException malformedUrlException) {
+        LOG.error("A download URL is defect.", malformedUrlException);
+        crawler.printMessage(ServerMessages.DEBUG_INVALID_URL, crawler.getSender().getName(), url);
+      }
+    }
+    return Optional.empty();
+  }
+
+  private String optimizeUrl(final Resolution key, final String url) {
     if (key == Resolution.HD) {
-      return swrOptimizer.optimizeHdUrl(url);
+      return ardOptimizer.optimizeHdUrl(url);
     }
 
     return url;
-  }
-
-  private static List<FilmUrlInfoDto> filterUrls(
-      final Set<FilmUrlInfoDto> aUrls, final String aFileType) {
-    return aUrls.stream()
-        .filter(u -> u.getFileType().get().equalsIgnoreCase(aFileType))
-        .collect(Collectors.toList());
-  }
-
-  private static Optional<Resolution> getQuality(final String aQualityAsText) {
-    int qualityNumber;
-    try {
-      if (aQualityAsText.equals("auto")) {
-        // Some films only contains "auto" quality with a m3u8-url
-        // treat quality "auto" as NORMAL though the m3u8-url is returned
-        return Optional.of(Resolution.NORMAL);
-      } else {
-        qualityNumber = Integer.parseInt(aQualityAsText);
-      }
-    } catch (final NumberFormatException numberFormatException) {
-      LOG.debug("Can't convert quality %s to an integer.", aQualityAsText, numberFormatException);
-      qualityNumber = -1;
-    }
-
-    if (qualityNumber > 0) {
-      return Optional.of(getQualityForNumber(qualityNumber));
-    }
-
-    return Optional.empty();
   }
 
   private static Resolution getQualityForNumber(final int i) {
@@ -237,59 +236,35 @@ public class ArdMediaArrayToDownloadUrlsConverter {
     }
   }
 
-  private static void parseMediaArray(
-      final int aPluginValue,
-      final JsonArray aMediaArray,
-      final Map<Resolution, LinkedHashSet<FilmUrlInfoDto>> aUrls) {
-
-    aMediaArray.forEach(
-        mediaEntry -> {
-          final JsonObject mediaObject = mediaEntry.getAsJsonObject();
-          final int pluginValue = mediaObject.get(ELEMENT_PLUGIN).getAsInt();
-
-          // only use the urls of the relevant plugin
-          if (pluginValue == aPluginValue) {
-            final JsonArray mediaStreamArray =
-                mediaObject.getAsJsonArray(ELEMENT_MEDIA_STREAM_ARRAY);
-
-            parseMediaStreamArray(mediaStreamArray, aUrls);
-          }
-        });
+  private void parseMediaArray(final int pluginValue, final JsonArray mediaArray) {
+    StreamSupport.stream(mediaArray.spliterator(), false)
+        .map(JsonElement::getAsJsonObject)
+        .filter(mediaObj -> mediaObj.get(ELEMENT_PLUGIN).getAsInt() == pluginValue)
+        .map(mediaObj -> mediaObj.getAsJsonArray(ELEMENT_MEDIA_STREAM_ARRAY))
+        .forEach(this::parseMediaStreamArray);
   }
 
-  private static void parseMediaStreamArray(
-      final JsonArray aMediaStreamArray,
-      final Map<Resolution, LinkedHashSet<FilmUrlInfoDto>> aUrls) {
-
-    for (int i = 0; i < aMediaStreamArray.size(); i++) {
-      final JsonElement videoElement = aMediaStreamArray.get(i);
+  private void parseMediaStreamArray(final JsonArray mediaStreamArray) {
+    for (final JsonElement videoElement : mediaStreamArray) {
       final String qualityAsText =
           videoElement.getAsJsonObject().get(ELEMENT_QUALITY).getAsString();
-
       final Optional<Resolution> quality = getQuality(qualityAsText);
       if (quality.isPresent()) {
-        parseMediaStreamServer(aUrls, videoElement, quality.get());
-        parseMediaStreamStream(aUrls, videoElement, quality.get());
+        parseMediaStreamServer(videoElement, quality.get());
+        parseMediaStreamStream(videoElement, quality.get());
       }
     }
   }
 
-  private static void parseMediaStreamServer(
-      final Map<Resolution, LinkedHashSet<FilmUrlInfoDto>> aUrls,
-      final JsonElement videoElement,
-      final Resolution quality) {
+  private void parseMediaStreamServer(final JsonElement videoElement, final Resolution quality) {
     if (videoElement.getAsJsonObject().has(ELEMENT_SERVER)) {
       final String baseUrl = videoElement.getAsJsonObject().get(ELEMENT_SERVER).getAsString();
       final String downloadUrl = videoElementToUrl(videoElement, baseUrl);
-      addUrl(downloadUrl, quality, aUrls, Optional.empty(), Optional.empty());
+      addUrl(downloadUrl, quality, Optional.empty(), Optional.empty());
     }
   }
 
-  private static void parseMediaStreamStream(
-      final Map<Resolution, LinkedHashSet<FilmUrlInfoDto>> aUrls,
-      final JsonElement videoElement,
-      final Resolution quality) {
-
+  private void parseMediaStreamStream(final JsonElement videoElement, final Resolution quality) {
     if (videoElement.getAsJsonObject().has(ELEMENT_STREAM)) {
 
       final JsonObject videoObject = videoElement.getAsJsonObject();
@@ -301,31 +276,28 @@ public class ArdMediaArrayToDownloadUrlsConverter {
       if (streamObject.isJsonPrimitive()) {
         final String baseUrl = streamObject.getAsString();
         final String downloadUrl = videoElementToUrl(videoElement, baseUrl);
-        addUrl(downloadUrl, quality, aUrls, height, width);
+        addUrl(downloadUrl, quality, height, width);
       } else if (streamObject.isJsonArray()) {
-        final JsonArray streamArray = streamObject.getAsJsonArray();
-        streamArray.forEach(
-            stream -> {
-              final String baseUrl = stream.getAsString();
-              addUrl(baseUrl, quality, aUrls, height, width);
-            });
+        StreamSupport.stream(streamObject.getAsJsonArray().spliterator(), false)
+            .map(JsonElement::getAsString)
+            .forEach(baseUrl -> addUrl(baseUrl, quality, height, width));
       }
     }
   }
 
-  private static String videoElementToUrl(final JsonElement aVideoElement, final String aBaseUrl) {
-    if (aBaseUrl.isEmpty()) {
-      return aBaseUrl;
+  private String videoElementToUrl(final JsonElement videoElement, final String baseUrl) {
+    if (baseUrl.isEmpty()) {
+      return baseUrl;
     }
 
-    String url = aVideoElement.getAsJsonObject().get(ELEMENT_STREAM).getAsString();
-    if (url.equals(aBaseUrl)) {
+    String url = videoElement.getAsJsonObject().get(ELEMENT_STREAM).getAsString();
+    if (url.equals(baseUrl)) {
       return url;
     }
     if (url.matches(URL_PREFIX_PATTERN + URL_PATTERN)) {
-      url = url.replaceFirst(URL_PREFIX_PATTERN, aBaseUrl);
+      url = url.replaceFirst(URL_PREFIX_PATTERN, baseUrl);
     } else {
-      url = aBaseUrl + url;
+      url = baseUrl + url;
     }
     return url;
   }
