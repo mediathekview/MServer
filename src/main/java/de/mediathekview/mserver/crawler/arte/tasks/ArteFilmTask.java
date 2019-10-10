@@ -12,22 +12,23 @@ import de.mediathekview.mserver.crawler.arte.json.ArteVideoDetailsDeserializer;
 import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
 import de.mediathekview.mserver.crawler.basic.AbstractRecrusivConverterTask;
 import de.mediathekview.mserver.crawler.basic.CrawlerUrlDTO;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
-import javax.ws.rs.client.WebTarget;
 import java.lang.reflect.Type;
 import java.net.MalformedURLException;
 import java.time.LocalDateTime;
 import java.util.Map;
 import java.util.Optional;
 import java.util.concurrent.ConcurrentLinkedQueue;
+import javax.ws.rs.client.WebTarget;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class ArteFilmTask extends ArteTaskBase<Film, ArteFilmUrlDto> {
 
-  private static final Type OPTIONAL_FILM_TYPE_TOKEN = new TypeToken<Optional<Film>>() {}.getType();
+  private static final Type OPTIONAL_FILM_TYPE_TOKEN = new TypeToken<Optional<Film>>() {
+  }.getType();
   private static final Type OPTIONAL_VIDEO_DETAILS_TYPE_TOKEN =
-      new TypeToken<Optional<ArteVideoDetailDTO>>() {}.getType();
+      new TypeToken<Optional<ArteVideoDetailDTO>>() {
+      }.getType();
   private static final Logger LOG = LogManager.getLogger(ArteFilmTask.class);
 
   private final Sender sender;
@@ -43,7 +44,8 @@ public class ArteFilmTask extends ArteTaskBase<Film, ArteFilmUrlDto> {
     this.today = today;
 
     registerJsonDeserializer(OPTIONAL_FILM_TYPE_TOKEN, new ArteFilmDeserializer(sender, today));
-    registerJsonDeserializer(OPTIONAL_VIDEO_DETAILS_TYPE_TOKEN, new ArteVideoDetailsDeserializer());
+    registerJsonDeserializer(OPTIONAL_VIDEO_DETAILS_TYPE_TOKEN,
+        new ArteVideoDetailsDeserializer(crawler.getSender()));
   }
 
   @Override
