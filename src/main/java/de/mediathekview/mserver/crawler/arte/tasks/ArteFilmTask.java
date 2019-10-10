@@ -17,6 +17,7 @@ import java.net.MalformedURLException;
 import java.time.LocalDateTime;
 import java.util.Map;
 import java.util.Optional;
+import java.util.UUID;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import javax.ws.rs.client.WebTarget;
 import org.apache.logging.log4j.LogManager;
@@ -59,10 +60,13 @@ public class ArteFilmTask extends ArteTaskBase<Film, ArteFilmUrlDto> {
             deserializeVideoDetail(aDTO.getVideoDetailsUrl());
         if (videoDetailDTO.isPresent()) {
 
-          final Film result = filmDtoOptional.get();
-          addUrls(result, videoDetailDTO.get().getUrls());
+          ArteVideoDetailDTO arteVideoDetailDTO = videoDetailDTO.get();
+          Film film = filmDtoOptional.get();
 
-          taskResults.add(result);
+          addFilm(film, arteVideoDetailDTO.getUrls());
+
+          addSpecialFilm(film, arteVideoDetailDTO.getUrlsWithSubtitle(), " (Hörfassung)");
+          addSpecialFilm(film, arteVideoDetailDTO.getUrlsAudioDescription(), " (Hörfilm)");
 
           crawler.incrementAndGetActualCount();
           crawler.updateProgress();
@@ -79,6 +83,22 @@ public class ArteFilmTask extends ArteTaskBase<Film, ArteFilmUrlDto> {
     } catch (final Exception e) {
       LOG.error("exception: " + aDTO.getUrl(), e);
     }
+  }
+
+  private void addSpecialFilm(Film film, Map<Resolution, String> urls, String titleSuffix) {
+    if (!urls.isEmpty()) {
+      Film specialFilm = new Film(UUID.randomUUID(), film.getSender(),
+          film.getTitel() + titleSuffix, film.getThema(), film.getTime(), film.getDuration());
+      specialFilm.setBeschreibung(film.getBeschreibung());
+      specialFilm.setGeoLocations(film.getGeoLocations());
+      specialFilm.setWebsite(film.getWebsite());
+      addFilm(specialFilm, urls);
+    }
+  }
+
+  private void addFilm(Film film, Map<Resolution, String> urls) {
+    addUrls(film, urls);
+    taskResults.add(film);
   }
 
   private void addUrls(final Film aFilm, final Map<Resolution, String> aVideoUrls) {
