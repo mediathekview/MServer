@@ -53,6 +53,7 @@ public abstract class AbstractDocumentTask<T, D extends CrawlerUrlDTO>
       final Document document = Jsoup.connect(aUrlDTO.getUrl())
               .timeout((int) TimeUnit.SECONDS.toMillis(60))
               .maxBodySize(0).get();
+      traceRequest();
       processDocument(aUrlDTO, document);
     } catch (final HttpStatusException httpStatusError) {
       Log.sysLog(String.format(LOAD_DOCUMENT_HTTPERROR, crawler.getSendername(), aUrlDTO.getUrl()));
