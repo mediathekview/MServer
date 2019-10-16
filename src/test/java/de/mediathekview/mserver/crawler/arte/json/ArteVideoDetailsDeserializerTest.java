@@ -94,6 +94,15 @@ public class ArteVideoDetailsDeserializerTest {
                 "https://arteptweb-a.akamaihd.net/am/ptweb/043000/043100/043187-000-B_HQ_0_VFAUD_04530719_MP4-800_AMM-PTWEB_1D79XzrOmR.mp4",
                 "https://arteptweb-a.akamaihd.net/am/ptweb/043000/043100/043187-000-B_EQ_0_VFAUD_04530720_MP4-1500_AMM-PTWEB_1D6yMzrJRJ.mp4",
                 "https://arteptweb-a.akamaihd.net/am/ptweb/043000/043100/043187-000-B_SQ_0_VFAUD_04530718_MP4-2200_AMM-PTWEB_1D79czrOsi.mp4"
+            },
+            {
+                "/arte/arte_film_video_it.json",
+                Sender.ARTE_IT,
+                "https://arteptweb-a.akamaihd.net/am/ptweb/083000/083400/083402-001-A_HQ_0_VOF-STE%5BITA%5D_04304495_MP4-800_AMM-PTWEB_19LwgYzgHA.mp4",
+                "https://arteptweb-a.akamaihd.net/am/ptweb/083000/083400/083402-001-A_EQ_0_VOF-STE%5BITA%5D_04304493_MP4-1500_AMM-PTWEB_19LweYzgHA.mp4",
+                "https://arteptweb-a.akamaihd.net/am/ptweb/083000/083400/083402-001-A_SQ_0_VOF-STE%5BITA%5D_04304494_MP4-2200_AMM-PTWEB_19LwfYzgHA.mp4",
+                "", "", "",
+                "", "", ""
             }
         });
   }

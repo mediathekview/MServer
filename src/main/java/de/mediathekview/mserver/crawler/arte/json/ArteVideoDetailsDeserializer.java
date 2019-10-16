@@ -148,6 +148,10 @@ public class ArteVideoDetailsDeserializer implements
 
   private static boolean isRelevantSmallLibelle(JsonObject vsrJsonObject, String qualityTag,
       String smallLibelle) {
+    // null bedeutet, nicht relevant, während "" gleich bedeutend ist mit einfach verwenden
+    if (smallLibelle == null) {
+      return false;
+    }
     if (smallLibelle.isEmpty()) {
       return true;
     }
