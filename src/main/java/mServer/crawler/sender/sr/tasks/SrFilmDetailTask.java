@@ -30,9 +30,8 @@ import mServer.crawler.sender.base.AbstractUrlTask;
 import mServer.crawler.sender.base.DateUtils;
 import mServer.crawler.sender.newsearch.Qualities;
 import mServer.crawler.sender.base.HtmlDocumentUtils;
-import mServer.crawler.sender.base.AbstractRateLimitedDocumentTask;
 
-public class SrFilmDetailTask extends AbstractRateLimitedDocumentTask<DatenFilm, SrTopicUrlDTO> {
+public class SrFilmDetailTask extends SrRateLimitedDocumentTask<DatenFilm, SrTopicUrlDTO> {
 
   private static final org.apache.logging.log4j.Logger LOG
           = LogManager.getLogger(SrFilmDetailTask.class);

@@ -11,10 +11,9 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 import mServer.crawler.CrawlerTool;
 import mServer.crawler.sender.MediathekReader;
 import mServer.crawler.sender.base.AbstractUrlTask;
-import mServer.crawler.sender.base.AbstractRateLimitedDocumentTask;
 import org.jsoup.nodes.Element;
 
-public class SrTopicArchivePageTask extends AbstractRateLimitedDocumentTask<SrTopicUrlDTO, SrTopicUrlDTO> {
+public class SrTopicArchivePageTask extends SrRateLimitedDocumentTask<SrTopicUrlDTO, SrTopicUrlDTO> {
 
   private static final String ATTRIBUTE_HREF = "href";
 
