@@ -31,6 +31,12 @@ public class MServerBasicConfigDTO {
    */
   private Integer maximumDaysForSendungVerpasstSectionFuture;
 
+  /**
+   * The maximum amount of requests allowed per second.
+   * Only used for a few sender.
+   */
+  private Double maximumRequestsPerSecond;
+
   public MServerBasicConfigDTO(final MServerConfigDTO parent) {
     super();
 
@@ -42,6 +48,7 @@ public class MServerBasicConfigDTO {
       maximumDaysForSendungVerpasstSectionFuture = 3;
       socketTimeoutInSeconds = 60;
       parentConfig = Optional.empty();
+      maximumRequestsPerSecond = 1.0;
     } else {
       parentConfig = Optional.ofNullable(parent);
     }
@@ -119,6 +126,17 @@ public class MServerBasicConfigDTO {
     this.socketTimeoutInSeconds = socketTimeoutInSeconds;
   }
 
+  public Double getMaximumRequestsPerSecond() {
+    if (maximumRequestsPerSecond == null && parentConfig.isPresent()) {
+      return parentConfig.get().getMaximumRequestsPerSecond();
+    }
+    return maximumRequestsPerSecond;
+  }
+
+  public void setMaximumRequestsPerSecond(Double maximumRequestsPerSecond) {
+    this.maximumRequestsPerSecond = maximumRequestsPerSecond;
+  }
+
   @Override
   public boolean equals(final Object o) {
     if (this == o) {
@@ -139,7 +157,9 @@ public class MServerBasicConfigDTO {
             that.getMaximumDaysForSendungVerpasstSection())
         && Objects.equals(
             getMaximumDaysForSendungVerpasstSectionFuture(),
-            that.getMaximumDaysForSendungVerpasstSectionFuture());
+            that.getMaximumDaysForSendungVerpasstSectionFuture())
+        && Objects.equals(
+            getMaximumRequestsPerSecond(), that.getMaximumRequestsPerSecond());
   }
 
   @Override
@@ -151,6 +171,7 @@ public class MServerBasicConfigDTO {
         getMaximumCrawlDurationInMinutes(),
         getMaximumSubpages(),
         getMaximumDaysForSendungVerpasstSection(),
-        getMaximumDaysForSendungVerpasstSectionFuture());
+        getMaximumDaysForSendungVerpasstSectionFuture(),
+        getMaximumRequestsPerSecond());
   }
 }

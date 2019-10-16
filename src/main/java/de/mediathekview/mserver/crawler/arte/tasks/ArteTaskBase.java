@@ -3,10 +3,11 @@ package de.mediathekview.mserver.crawler.arte.tasks;
 import com.google.common.util.concurrent.RateLimiter;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import de.mediathekview.mlib.daten.Sender;
+import de.mediathekview.mserver.base.config.MServerConfigManager;
 import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
 import de.mediathekview.mserver.crawler.basic.AbstractRestTask;
 import de.mediathekview.mserver.crawler.basic.CrawlerUrlDTO;
-import de.mediathekview.mserver.crawler.zdf.ZdfConstants;
 import java.lang.reflect.Type;
 import java.util.Optional;
 import java.util.concurrent.ConcurrentLinkedQueue;
@@ -21,7 +22,10 @@ public abstract class ArteTaskBase<T, D extends CrawlerUrlDTO> extends AbstractR
   private static final Logger LOG = LogManager.getLogger(ArteTaskBase.class);
 
   private final GsonBuilder gsonBuilder;
-  private static final RateLimiter limiter = RateLimiter.create(30.0);
+  private static final RateLimiter limiter = RateLimiter.create(
+      MServerConfigManager.getInstance()
+          .getSenderConfig(Sender.ARTE_DE)
+          .getMaximumRequestsPerSecond());
 
   public ArteTaskBase(AbstractCrawler aCrawler,
       ConcurrentLinkedQueue<D> aUrlToCrawlDtos, Optional<String> authToken) {

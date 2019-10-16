@@ -2,7 +2,6 @@ package de.mediathekview.mserver.crawler.sr.tasks;
 
 import de.mediathekview.mserver.base.HtmlConsts;
 import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
-import de.mediathekview.mserver.crawler.basic.AbstractDocumentTask;
 import de.mediathekview.mserver.crawler.basic.AbstractUrlTask;
 import de.mediathekview.mserver.crawler.sr.SrConstants;
 import de.mediathekview.mserver.crawler.sr.SrTopicUrlDTO;
@@ -14,7 +13,8 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
-public class SrTopicArchivePageTask extends AbstractDocumentTask<SrTopicUrlDTO, SrTopicUrlDTO> {
+public class SrTopicArchivePageTask extends
+    SrRateLimitedDocumentTask<SrTopicUrlDTO, SrTopicUrlDTO> {
 
   private static final String NEXT_PAGE_SELECTOR = "div.pagination__item > a[title*=weiter]";
   private static final String SHOW_SELECTOR = "h3.teaser__text__header";
