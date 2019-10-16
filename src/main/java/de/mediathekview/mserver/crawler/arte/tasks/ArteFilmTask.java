@@ -12,22 +12,24 @@ import de.mediathekview.mserver.crawler.arte.json.ArteVideoDetailsDeserializer;
 import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
 import de.mediathekview.mserver.crawler.basic.AbstractRecrusivConverterTask;
 import de.mediathekview.mserver.crawler.basic.CrawlerUrlDTO;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
-import javax.ws.rs.client.WebTarget;
 import java.lang.reflect.Type;
 import java.net.MalformedURLException;
 import java.time.LocalDateTime;
 import java.util.Map;
 import java.util.Optional;
+import java.util.UUID;
 import java.util.concurrent.ConcurrentLinkedQueue;
+import javax.ws.rs.client.WebTarget;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class ArteFilmTask extends ArteTaskBase<Film, ArteFilmUrlDto> {
 
-  private static final Type OPTIONAL_FILM_TYPE_TOKEN = new TypeToken<Optional<Film>>() {}.getType();
+  private static final Type OPTIONAL_FILM_TYPE_TOKEN = new TypeToken<Optional<Film>>() {
+  }.getType();
   private static final Type OPTIONAL_VIDEO_DETAILS_TYPE_TOKEN =
-      new TypeToken<Optional<ArteVideoDetailDTO>>() {}.getType();
+      new TypeToken<Optional<ArteVideoDetailDTO>>() {
+      }.getType();
   private static final Logger LOG = LogManager.getLogger(ArteFilmTask.class);
 
   private final Sender sender;
@@ -43,7 +45,8 @@ public class ArteFilmTask extends ArteTaskBase<Film, ArteFilmUrlDto> {
     this.today = today;
 
     registerJsonDeserializer(OPTIONAL_FILM_TYPE_TOKEN, new ArteFilmDeserializer(sender, today));
-    registerJsonDeserializer(OPTIONAL_VIDEO_DETAILS_TYPE_TOKEN, new ArteVideoDetailsDeserializer());
+    registerJsonDeserializer(OPTIONAL_VIDEO_DETAILS_TYPE_TOKEN,
+        new ArteVideoDetailsDeserializer(crawler.getSender()));
   }
 
   @Override
@@ -57,10 +60,13 @@ public class ArteFilmTask extends ArteTaskBase<Film, ArteFilmUrlDto> {
             deserializeVideoDetail(aDTO.getVideoDetailsUrl());
         if (videoDetailDTO.isPresent()) {
 
-          final Film result = filmDtoOptional.get();
-          addUrls(result, videoDetailDTO.get().getUrls());
+          ArteVideoDetailDTO arteVideoDetailDTO = videoDetailDTO.get();
+          Film film = filmDtoOptional.get();
 
-          taskResults.add(result);
+          addFilm(film, arteVideoDetailDTO.getUrls());
+
+          addSpecialFilm(film, arteVideoDetailDTO.getUrlsWithSubtitle(), " (Hörfassung)");
+          addSpecialFilm(film, arteVideoDetailDTO.getUrlsAudioDescription(), " (Hörfilm)");
 
           crawler.incrementAndGetActualCount();
           crawler.updateProgress();
@@ -77,6 +83,22 @@ public class ArteFilmTask extends ArteTaskBase<Film, ArteFilmUrlDto> {
     } catch (final Exception e) {
       LOG.error("exception: " + aDTO.getUrl(), e);
     }
+  }
+
+  private void addSpecialFilm(Film film, Map<Resolution, String> urls, String titleSuffix) {
+    if (!urls.isEmpty()) {
+      Film specialFilm = new Film(UUID.randomUUID(), film.getSender(),
+          film.getTitel() + titleSuffix, film.getThema(), film.getTime(), film.getDuration());
+      specialFilm.setBeschreibung(film.getBeschreibung());
+      specialFilm.setGeoLocations(film.getGeoLocations());
+      specialFilm.setWebsite(film.getWebsite());
+      addFilm(specialFilm, urls);
+    }
+  }
+
+  private void addFilm(Film film, Map<Resolution, String> urls) {
+    addUrls(film, urls);
+    taskResults.add(film);
   }
 
   private void addUrls(final Film aFilm, final Map<Resolution, String> aVideoUrls) {
