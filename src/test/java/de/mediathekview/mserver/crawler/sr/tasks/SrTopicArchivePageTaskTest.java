@@ -104,6 +104,19 @@ public class SrTopicArchivePageTaskTest extends SrTaskTestBase {
     assertThat(actual, Matchers.containsInAnyOrder(expectedUrls));
   }
 
+  @Test
+  public void testOverviewAudioFiles() throws IOException {
+    SrTopicUrlDTO[] expectedUrls = new SrTopicUrlDTO[0];
+
+    String requestUrl = "srf_sample.html";
+    JsoupMock.mock(requestUrl, "/sr/sr_sendung_overview_page_audio.html");
+
+    final Set<SrTopicUrlDTO> actual = executeTask("Test", requestUrl);
+
+    assertThat(actual, notNullValue());
+    assertThat(actual, Matchers.containsInAnyOrder(expectedUrls));
+  }
+
   private Set<SrTopicUrlDTO> executeTask(String aTheme, String aRequestUrl) {
       return new SrTopicArchivePageTask(createCrawler(), createCrawlerUrlDto(aTheme, aRequestUrl))
               .invoke();

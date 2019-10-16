@@ -7,6 +7,7 @@ import de.mediathekview.mserver.crawler.basic.AbstractUrlTask;
 import de.mediathekview.mserver.crawler.sr.SrConstants;
 import de.mediathekview.mserver.crawler.sr.SrTopicUrlDTO;
 import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import java.util.Optional;
@@ -16,7 +17,9 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 public class SrTopicArchivePageTask extends AbstractDocumentTask<SrTopicUrlDTO, SrTopicUrlDTO> {
 
   private static final String NEXT_PAGE_SELECTOR = "div.pagination__item > a[title*=weiter]";
-  private static final String SHOW_LINK_SELECTOR = "h3.teaser__text__header a";
+  private static final String SHOW_SELECTOR = "h3.teaser__text__header";
+  private static final String TYPE_SELECTOR = "span.teaser__text__header__element--subhead";
+
   private final int pageNumber;
 
   public SrTopicArchivePageTask(
@@ -55,12 +58,23 @@ public class SrTopicArchivePageTask extends AbstractDocumentTask<SrTopicUrlDTO, 
   }
 
   private void parsePage(final String aTheme, final Document aDocument) {
-    final Elements links = aDocument.select(SHOW_LINK_SELECTOR);
-    links.forEach(
+    final Elements shows = aDocument.select(SHOW_SELECTOR);
+    shows.forEach(
         element -> {
-          final String url = element.attr(HtmlConsts.ATTRIBUTE_HREF);
-          taskResults.add(new SrTopicUrlDTO(aTheme, SrConstants.URL_BASE + url));
+          // ignore audio files
+          if (!isAudioShow(element)) {
+            final Elements urlElements = element.getElementsByTag("a");
+            if (!urlElements.isEmpty()) {
+              final String url = urlElements.first().attr(HtmlConsts.ATTRIBUTE_HREF);
+              taskResults.add(new SrTopicUrlDTO(aTheme, SrConstants.URL_BASE + url));
+            }
+          }
         });
+  }
+
+  private boolean isAudioShow(Element show) {
+    final Elements selected = show.select(TYPE_SELECTOR);
+    return !selected.isEmpty() && selected.first().text().contains("Audio");
   }
 
   private Optional<String> getNextPage(final Document aDocument) {
