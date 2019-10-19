@@ -25,9 +25,9 @@ import mServer.crawler.sender.base.M3U8Constants;
 import mServer.crawler.sender.base.M3U8Dto;
 import mServer.crawler.sender.base.M3U8Parser;
 import mServer.crawler.sender.newsearch.Qualities;
-import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
+import okhttp3.ResponseBody;
 import org.apache.logging.log4j.LogManager;
 
 public class SrfFilmJsonDeserializer implements JsonDeserializer<Optional<DatenFilm>> {
@@ -280,14 +280,13 @@ public class SrfFilmJsonDeserializer implements JsonDeserializer<Optional<DatenF
 
   private Optional<String> loadM3u8(String aM3U8Url) {
 
-    MVHttpClient mvhttpClient = MVHttpClient.getInstance();
-    OkHttpClient httpClient = mvhttpClient.getHttpClient();
     Request request = new Request.Builder()
             .url(aM3U8Url).build();
 
-    try (Response response = httpClient.newCall(request).execute()) {
-      if (response.isSuccessful()) {
-        return Optional.of(response.body().string());
+    try (Response response = MVHttpClient.getInstance().getHttpClient().newCall(request).execute();
+            ResponseBody body = response.body()) {
+      if (response.isSuccessful() && body != null) {
+        return Optional.of(body.string());
       }
     } catch (Exception e) {
       LOG.error(e);
