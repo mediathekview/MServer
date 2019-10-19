@@ -81,10 +81,10 @@ public class WdrVideoDetailsDeserializer extends HtmlDeserializerBase {
         CrawlerTool.addUrlSubtitle(film, videoDto.getSubtitleUrl());
       }
       if (!videoDto.getUrl(Qualities.SMALL).isEmpty()) {
-        CrawlerTool.addUrlKlein(film, videoDto.getUrl(Qualities.SMALL), "");
+        CrawlerTool.addUrlKlein(film, videoDto.getUrl(Qualities.SMALL));
       }
       if (!videoDto.getUrl(Qualities.HD).isEmpty()) {
-        CrawlerTool.addUrlHd(film, videoDto.getUrl(Qualities.HD), "");
+        CrawlerTool.addUrlHd(film, videoDto.getUrl(Qualities.HD));
       }
 
       return film;

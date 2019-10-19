@@ -118,10 +118,10 @@ public class PhoenixFilmDetailTask extends ZdfTaskBase<DatenFilm, CrawlerUrlDTO>
             filmDetailDto.getDescription());
 
     if (downloadDto.getUrl(Qualities.HD).isPresent()) {
-      CrawlerTool.addUrlHd(film, downloadDto.getUrl(Qualities.HD).get(), "");
+      CrawlerTool.addUrlHd(film, downloadDto.getUrl(Qualities.HD).get());
     }
     if (downloadDto.getUrl(Qualities.SMALL).isPresent()) {
-      CrawlerTool.addUrlKlein(film, downloadDto.getUrl(Qualities.SMALL).get(), "");
+      CrawlerTool.addUrlKlein(film, downloadDto.getUrl(Qualities.SMALL).get());
     }
     if (downloadDto.getSubTitleUrl().isPresent()) {
       CrawlerTool.addUrlSubtitle(film, downloadDto.getSubTitleUrl().get());

@@ -30,12 +30,13 @@ import static mServer.crawler.sender.MediathekBr.SENDERNAME;
 import mServer.crawler.sender.MediathekReader;
 
 public class BrFilmDeserializer implements JsonDeserializer<Optional<DatenFilm>> {
-  private static final String ERROR_NO_START_TEMPLATE =
-      "The BR film \"%s - %s\" has no broadcast start so it will using the actual date and time.";
+
+  private static final String ERROR_NO_START_TEMPLATE
+          = "The BR film \"%s - %s\" has no broadcast start so it will using the actual date and time.";
   private static final String HD = "HD";
   private static final String FILM_WEBSITE_TEMPLATE = "%s/video/%s";
-  private static final String ERROR_MISSING_DETAIL_TEMPLATE =
-      "A BR film can't be created because of missing details. The JSON element \"%s\" is missing.";
+  private static final String ERROR_MISSING_DETAIL_TEMPLATE
+          = "A BR film can't be created because of missing details. The JSON element \"%s\" is missing.";
 
   private static final Logger LOG = LogManager.getLogger(BrFilmDeserializer.class);
 
@@ -62,11 +63,11 @@ public class BrFilmDeserializer implements JsonDeserializer<Optional<DatenFilm>>
   private static final String JSON_ELEMENT_VIDEO_PROFILE = "videoProfile";
   private static final String JSON_ELEMENT_WIDTH = "width";
 
-  private static final ZoneId ZONE_ID = ZoneId.of( "Europe/Berlin" );
+  private static final ZoneId ZONE_ID = ZoneId.of("Europe/Berlin");
 
   private final MediathekReader crawler;
   private final String filmId;
-  
+
   private final DateTimeFormatter dateFormatDatenFilm = DateTimeFormatter.ofPattern("dd.MM.yyyy");
   private final DateTimeFormatter timeFormatDatenFilm = DateTimeFormatter.ofPattern("HH:mm:ss");
 
@@ -88,7 +89,7 @@ public class BrFilmDeserializer implements JsonDeserializer<Optional<DatenFilm>>
    */
   @Override
   public Optional<DatenFilm> deserialize(final JsonElement aElement, final Type aType,
-      final JsonDeserializationContext aContext) {
+          final JsonDeserializationContext aContext) {
     try {
       final Optional<JsonObject> viewer = getViewer(aElement.getAsJsonObject());
       if (viewer.isPresent()) {
@@ -96,7 +97,6 @@ public class BrFilmDeserializer implements JsonDeserializer<Optional<DatenFilm>>
         final Optional<JsonObject> detailClip = getDetailClip(viewer.get());
 
         return buildFilm(detailClip, viewer.get());
-
 
       } else {
         printMissingDetails(JSON_ELEMENT_VIEWER);
@@ -112,28 +112,28 @@ public class BrFilmDeserializer implements JsonDeserializer<Optional<DatenFilm>>
 
   private String getDescriptions(final JsonObject aDetailClip) {
     String description = "";
-    
+
     if (aDetailClip.has(JSON_ELEMENT_DESCRIPTION)
-        && !aDetailClip.get(JSON_ELEMENT_DESCRIPTION).isJsonNull()) {
+            && !aDetailClip.get(JSON_ELEMENT_DESCRIPTION).isJsonNull()) {
       description = aDetailClip.get(JSON_ELEMENT_DESCRIPTION).getAsString();
     } else if (aDetailClip.has(JSON_ELEMENT_SHORT_DESCRIPTION)
-        && !aDetailClip.get(JSON_ELEMENT_SHORT_DESCRIPTION).isJsonNull()) {
+            && !aDetailClip.get(JSON_ELEMENT_SHORT_DESCRIPTION).isJsonNull()) {
       description = aDetailClip.get(JSON_ELEMENT_SHORT_DESCRIPTION).getAsString();
     }
-    
+
     return description;
   }
 
   private Map<Resolution, String> getUrls(final JsonObject viewer) {
     Map<Resolution, String> urlMap = new HashMap<>();
-    
+
     final Set<BrUrlDTO> urls = edgesToUrls(viewer);
     if (!urls.isEmpty()) {
       // Sorts the urls by width descending, then it limits the amount to three to get the three
       // best.
-      final List<BrUrlDTO> bestUrls =
-          urls.stream().sorted(Comparator.comparingInt(BrUrlDTO::getWidth).reversed()).limit(3)
-              .collect(Collectors.toList());
+      final List<BrUrlDTO> bestUrls
+              = urls.stream().sorted(Comparator.comparingInt(BrUrlDTO::getWidth).reversed()).limit(3)
+                      .collect(Collectors.toList());
 
       for (int id = 0; id < bestUrls.size(); id++) {
         final Resolution resolution = Resolution.getResolutionFromArdAudioVideoOrdinalsByProfileName(bestUrls.get(id).getVideoProfile());
@@ -144,7 +144,7 @@ public class BrFilmDeserializer implements JsonDeserializer<Optional<DatenFilm>>
         }
       }
     }
-    
+
     return urlMap;
   }
 
@@ -153,8 +153,8 @@ public class BrFilmDeserializer implements JsonDeserializer<Optional<DatenFilm>>
     if (detailClip.isPresent()) {
       String description = getDescriptions(detailClip.get());
       Map<Resolution, String> urls = getUrls(viewer);
-      
-      if(urls.containsKey(Resolution.NORMAL) && MediathekReader.urlExists(urls.get(Resolution.NORMAL))) {
+
+      if (urls.containsKey(Resolution.NORMAL) && MediathekReader.urlExists(urls.get(Resolution.NORMAL))) {
         Optional<String> subTitle = getSubtitleUrl(viewer);
         newFilm = createFilm(detailClip.get(), description, subTitle, urls);
         return newFilm;
@@ -168,18 +168,18 @@ public class BrFilmDeserializer implements JsonDeserializer<Optional<DatenFilm>>
   private Optional<String> getSubtitleUrl(JsonObject viewer) {
     String subtitle = "";
 
-    if(viewer.has(JSON_ELEMENT_CLIP)) {
+    if (viewer.has(JSON_ELEMENT_CLIP)) {
       JsonObject clip = viewer.getAsJsonObject(JSON_ELEMENT_CLIP);
-      if(clip.has(JSON_ELEMENT_CAPTION_FILES)) {
+      if (clip.has(JSON_ELEMENT_CAPTION_FILES)) {
         JsonObject captionFiles = clip.getAsJsonObject(JSON_ELEMENT_CAPTION_FILES);
-        if(captionFiles.has(JSON_ELEMENT_EDGES)) {
+        if (captionFiles.has(JSON_ELEMENT_EDGES)) {
           JsonArray edges = captionFiles.getAsJsonArray(JSON_ELEMENT_EDGES);
           if (edges.size() > 0) {
-            
+
             for (JsonElement edge : edges) {
-              if(edge.getAsJsonObject().has(JSON_ELEMENT_NODE)) {
+              if (edge.getAsJsonObject().has(JSON_ELEMENT_NODE)) {
                 JsonObject node = edge.getAsJsonObject().getAsJsonObject(JSON_ELEMENT_NODE);
-                if(node.has(JSON_ELEMENT_PUBLIC_LOCATION)) {
+                if (node.has(JSON_ELEMENT_PUBLIC_LOCATION)) {
                   String value = node.get(JSON_ELEMENT_PUBLIC_LOCATION).getAsString();
                   if (subtitle.isEmpty()) {
                     subtitle = value;
@@ -196,18 +196,18 @@ public class BrFilmDeserializer implements JsonDeserializer<Optional<DatenFilm>>
         }
       }
     }
-    
+
     if (!subtitle.isEmpty()) {
       return Optional.of(subtitle);
     }
-    
+
     return Optional.empty();
   }
 
   private String getTheme(final JsonObject aDetailClip) {
-    
+
     String theme = "";
-    
+
     if (aDetailClip.has(JSON_ELEMENT_EPISODEOF)) {
       JsonElement element = aDetailClip.get(JSON_ELEMENT_EPISODEOF);
       if (!element.isJsonNull()) {
@@ -217,18 +217,18 @@ public class BrFilmDeserializer implements JsonDeserializer<Optional<DatenFilm>>
         }
       }
     }
-    
+
     if (theme.isEmpty()) {
       theme = aDetailClip.get(JSON_ELEMENT_KICKER).getAsString();
     }
-    
+
     return theme;
   }
-  
+
   private Optional<DatenFilm> createFilm(final JsonObject aDetailClip, String aDescription, Optional<String> aSubTitle, Map<Resolution, String> aUrls) {
     final Optional<JsonElement> start = getBroadcastStart(aDetailClip);
     if (aDetailClip.has(JSON_ELEMENT_TITLE) && aDetailClip.has(JSON_ELEMENT_KICKER)
-        && aDetailClip.has(JSON_ELEMENT_DURATION)) {
+            && aDetailClip.has(JSON_ELEMENT_DURATION)) {
       final String title = aDetailClip.get(JSON_ELEMENT_TITLE).getAsString();
       final String thema = getTheme(aDetailClip);
 
@@ -247,19 +247,19 @@ public class BrFilmDeserializer implements JsonDeserializer<Optional<DatenFilm>>
       final Duration duration = toDuration(aDetailClip.get(JSON_ELEMENT_DURATION).getAsLong());
 
       final String website = String.format(FILM_WEBSITE_TEMPLATE, BrCrawler.BASE_URL, filmId);
-      DatenFilm film = new DatenFilm(SENDERNAME, thema, website, title, aUrls.get(Resolution.NORMAL),"",
+      DatenFilm film = new DatenFilm(SENDERNAME, thema, website, title, aUrls.get(Resolution.NORMAL), "",
               dateValue, timeValue, duration.getSeconds(), aDescription);
-              
+
       if (aUrls.containsKey(Resolution.SMALL)) {
-          CrawlerTool.addUrlKlein(film, aUrls.get(Resolution.SMALL), "");
+        CrawlerTool.addUrlKlein(film, aUrls.get(Resolution.SMALL));
       }
       if (aUrls.containsKey(Resolution.HD)) {
-          CrawlerTool.addUrlHd(film, aUrls.get(Resolution.HD), "");
+        CrawlerTool.addUrlHd(film, aUrls.get(Resolution.HD));
       }
       if (aSubTitle.isPresent()) {
         CrawlerTool.addUrlSubtitle(film, aSubTitle.get());
       }
-              
+
       return Optional.of(film);
     } else {
       if (!aDetailClip.has(JSON_ELEMENT_TITLE)) {
@@ -309,12 +309,12 @@ public class BrFilmDeserializer implements JsonDeserializer<Optional<DatenFilm>>
     if (edges.size() <= 0) {
       return Optional.empty();
     }
-    
+
     final JsonObject arrayItem = edges.get(0).getAsJsonObject();
     if (!arrayItem.has(JSON_ELEMENT_NODE)) {
       return Optional.empty();
     }
-    
+
     final JsonObject node = arrayItem.getAsJsonObject(JSON_ELEMENT_NODE);
     if (!node.has(JSON_ELEMENT_START)) {
       return Optional.empty();
@@ -369,10 +369,10 @@ public class BrFilmDeserializer implements JsonDeserializer<Optional<DatenFilm>>
         if (videoProfile.has(JSON_ELEMENT_ID)) {
           if (videoProfile.has(JSON_ELEMENT_WIDTH)) {
             if (!videoProfile.get(JSON_ELEMENT_WIDTH).isJsonNull()
-                && !videoProfile.get(JSON_ELEMENT_ID).isJsonNull()) {
+                    && !videoProfile.get(JSON_ELEMENT_ID).isJsonNull()) {
               return Optional.of(new BrUrlDTO(aNode.get(JSON_ELEMENT_PUBLIC_LOCATION).getAsString(),
-                  videoProfile.get(JSON_ELEMENT_WIDTH).getAsInt(),
-                  videoProfile.get(JSON_ELEMENT_ID).getAsString()));
+                      videoProfile.get(JSON_ELEMENT_WIDTH).getAsInt(),
+                      videoProfile.get(JSON_ELEMENT_ID).getAsString()));
             }
 
           } else {
@@ -404,7 +404,7 @@ public class BrFilmDeserializer implements JsonDeserializer<Optional<DatenFilm>>
   private LocalDateTime toTime(final String aStart) {
     LocalDateTime local = LocalDateTime.parse(aStart, DateTimeFormatter.ISO_OFFSET_DATE_TIME);
     ZonedDateTime zoned = local.atZone(ZONE_ID);
-    int hoursToAdd = zoned.getOffset().getTotalSeconds()/3600;
+    int hoursToAdd = zoned.getOffset().getTotalSeconds() / 3600;
     return local.plusHours(hoursToAdd);
   }
 
