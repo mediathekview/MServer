@@ -20,7 +20,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import mServer.crawler.CrawlerTool;
-import mServer.crawler.sender.MediathekReader;
 import mServer.crawler.sender.base.M3U8Constants;
 import mServer.crawler.sender.base.M3U8Dto;
 import mServer.crawler.sender.base.M3U8Parser;
@@ -55,12 +54,6 @@ public class SrfFilmJsonDeserializer implements JsonDeserializer<Optional<DatenF
 
   private final DateTimeFormatter dateFormatDatenFilm = DateTimeFormatter.ofPattern("dd.MM.yyyy");
   private final DateTimeFormatter timeFormatDatenFilm = DateTimeFormatter.ofPattern("HH:mm:ss");
-
-  private final MediathekReader crawler;
-
-  public SrfFilmJsonDeserializer(MediathekReader aCrawler) {
-    crawler = aCrawler;
-  }
 
   @Override
   public Optional<DatenFilm> deserialize(JsonElement aJsonElement, Type aType, JsonDeserializationContext aContext) {
