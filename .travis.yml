@@ -38,8 +38,6 @@ jobs:
       cache:
         directories:
           - $HOME/.m2
-      after_success:
-        - sonar-scanner
     - stage: Build and deploy snapshots
       script:
         - openssl aes-256-cbc -pass pass:$ENCRYPTION_PASSWORD -in scripte/deploy/secring.gpg.enc -out scripte/deploy/secring.gpg -d
@@ -48,8 +46,6 @@ jobs:
       cache:
         directories:
           - $HOME/.m2
-      after_success:
-        - sonar-scanner
     - stage: Release
       script:
         - ./mvnw --settings .maven.xml deploy -P docker
