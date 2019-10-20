@@ -9,9 +9,6 @@ addons:
     organization: "mediathekview"
     token:
       secure: SGbw7DVR2jn0jP6BkvWhmy0sZeU/q9h/H8LxvJs7PDVi8kUoz8gBvH47MqYAfxNQsRpecxCTUbJSVucGnbeNjXH8x1iYG9rG9KVeG3naCRS4hv93o5+l7pJOPDzK59gTdusOUUAcEVTH3e8vIBIPTS1ZRtbd5490pnx88g95kHC73AZD3T2ah2mcUVlyTD25VVfmuZIY80CI2s6c/Dw8KXTv38zl8cLHz7MqRgEFhvOVL5ThVDNw8YBPp9ozzvUp8rSeGZ0SFrX5c1OB9dyx6vbb4WANUd1u10tuS9uzIg/chqrtmrBpjmwdQK72C8TwmRC3nsfNdfDgFh0QhhcLAqj+EVcYxtml64apPEo7EChbq0Ue80GoH1Xl2I79s3nK0UNxOa+W2HMULCNe/v0fm4Cy7ByWr6cv7H2lvoCXtnIoVAu8vhh7z8uVqLwe4Sysxs4fQOBPknkZyn5P4MJ3wLK7EGe9AAGclix1JtwCPQGkZgU9DFG5vIe5qzdQEiYrsvLaGYJRkAkyfJ5u9GvsgKExifhrB2Qyj4JeapqqozVSC5kJjmGhxHQHtcrB/IaTNl5FGQUE7WVAj6mK7LAIfHE/5aGbzBou9uU9YgGyXlM9TXNCHYCxife69uDjVyqPBiUUipUQ3EeX/zlmybdftOTQt4Wq+U2C3vhbpNB9ZXI=
-    script:
-      # the following command line builds the project, runs the tests with coverage and then execute the SonarCloud analysis
-      - mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent install sonar:sonar
 notifications:
   webhooks:
     urls:
@@ -37,7 +34,7 @@ jobs:
   include:
     - stage: Test
       script:
-        - ./mvnw test
+        - ./mvnw clean org.jacoco:jacoco-maven-plugin:prepare-agent install sonar:sonar -Dsonar.projectKey=mediathekview_MServer
       cache:
         directories:
           - $HOME/.m2
