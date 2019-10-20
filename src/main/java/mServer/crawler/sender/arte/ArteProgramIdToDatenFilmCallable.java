@@ -6,6 +6,9 @@ import de.mediathekview.mlib.daten.DatenFilm;
 import java.io.IOException;
 import java.time.LocalTime;
 import java.util.Calendar;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
 import java.util.concurrent.Callable;
 import mServer.crawler.CrawlerTool;
 import mServer.crawler.sender.newsearch.GeoLocations;
@@ -18,7 +21,7 @@ import org.apache.logging.log4j.Logger;
 /**
  * Liest anhand einer ProgramId die Daten eines Films
  */
-public class ArteProgramIdToDatenFilmCallable implements Callable<DatenFilm> {
+public class ArteProgramIdToDatenFilmCallable implements Callable<Set<DatenFilm>> {
 
   private static final Logger LOG = LogManager.getLogger(ArteProgramIdToDatenFilmCallable.class);
 
@@ -41,11 +44,11 @@ public class ArteProgramIdToDatenFilmCallable implements Callable<DatenFilm> {
   }
 
   @Override
-  public DatenFilm call() throws Exception {
-    DatenFilm film = null;
+  public Set<DatenFilm> call() throws Exception {
+    Set<DatenFilm> films = new HashSet<>();
 
     Gson gson = new GsonBuilder()
-            .registerTypeAdapter(ArteVideoDTO.class, new ArteVideoDeserializer())
+            .registerTypeAdapter(ArteVideoDTO.class, new ArteVideoDeserializer(senderName))
             .registerTypeAdapter(ArteVideoDetailsDTO.class, new ArteVideoDetailsDeserializer(today))
             .create();
 
@@ -59,14 +62,21 @@ public class ArteProgramIdToDatenFilmCallable implements Callable<DatenFilm> {
       if (video.getVideoUrls().containsKey(Qualities.NORMAL)) {
         ArteVideoDetailsDTO details = getVideoDetails(gson, programId);
         if (details != null) {
-          film = createFilm(details.getTheme(), details.getWebsite(), details.getTitle(), video, details, durationAsTime, details.getDescription());
+          films.add(createFilm(details.getTheme(), details.getWebsite(), details.getTitle(), video.getVideoUrls(), details, durationAsTime, details.getDescription()));
+
+          if (!video.getVideoUrlsWithAudioDescription().isEmpty()) {
+            films.add(createFilm(details.getTheme(), details.getWebsite(), details.getTitle() + " (Hörfilm)", video.getVideoUrlsWithAudioDescription(), details, durationAsTime, details.getDescription()));
+          }
+          if (!video.getVideoUrlsWithSubtitle().isEmpty()) {
+            films.add(createFilm(details.getTheme(), details.getWebsite(), details.getTitle() + " (Hörfassung)", video.getVideoUrlsWithSubtitle(), details, durationAsTime, details.getDescription()));
+          }
         }
       } else {
         LOG.debug(String.format("Keine \"normale\" Video URL für den Film \"%s\"", programId));
       }
     }
 
-    return film;
+    return films;
   }
 
   private ArteVideoDetailsDTO getVideoDetails(Gson gson, String programId) throws IOException {
@@ -77,19 +87,19 @@ public class ArteProgramIdToDatenFilmCallable implements Callable<DatenFilm> {
     return details;
   }
 
-  private DatenFilm createFilm(String thema, String urlWeb, String titel, ArteVideoDTO video, ArteVideoDetailsDTO details, LocalTime durationAsTime, String beschreibung) {
+  private DatenFilm createFilm(String thema, String urlWeb, String titel, Map<Qualities, String> videos, ArteVideoDetailsDTO details, LocalTime durationAsTime, String beschreibung) {
 
     String broadcastBegin = details.getBroadcastBegin();
     String date = MserverDatumZeit.formatDate(broadcastBegin, broadcastDateFormat);
     String time = MserverDatumZeit.formatTime(broadcastBegin, broadcastDateFormat);
 
-    DatenFilm film = new DatenFilm(senderName, thema, urlWeb, titel, video.getUrl(Qualities.NORMAL), "" /*urlRtmp*/,
+    DatenFilm film = new DatenFilm(senderName, thema, urlWeb, titel, videos.get(Qualities.NORMAL), "" /*urlRtmp*/,
             date, time, durationAsTime.toSecondOfDay(), beschreibung);
-    if (video.getVideoUrls().containsKey(Qualities.HD)) {
-      CrawlerTool.addUrlHd(film, video.getUrl(Qualities.HD));
+    if (videos.containsKey(Qualities.HD)) {
+      CrawlerTool.addUrlHd(film, videos.get(Qualities.HD));
     }
-    if (video.getVideoUrls().containsKey(Qualities.SMALL)) {
-      CrawlerTool.addUrlKlein(film, video.getUrl(Qualities.SMALL));
+    if (videos.containsKey(Qualities.SMALL)) {
+      CrawlerTool.addUrlKlein(film, videos.get(Qualities.SMALL));
     }
 
     if (details.getGeoLocation() != GeoLocations.GEO_NONE) {
