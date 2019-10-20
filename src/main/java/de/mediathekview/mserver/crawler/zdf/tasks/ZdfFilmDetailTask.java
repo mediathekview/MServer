@@ -51,7 +51,7 @@ public class ZdfFilmDetailTask extends ZdfTaskBase<Film, ZdfEntryDto> {
             aFilm.getDuration());
 
     film.setBeschreibung(aFilm.getBeschreibung());
-    film.setWebsite(aFilm.getWebsite());
+    film.setWebsite(aFilm.getWebsite().orElse(null));
 
     updateTitle(aLanguage, film);
 

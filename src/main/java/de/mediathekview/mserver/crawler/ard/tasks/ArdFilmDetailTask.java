@@ -8,6 +8,10 @@ import de.mediathekview.mserver.crawler.ard.ArdFilmInfoDto;
 import de.mediathekview.mserver.crawler.ard.json.ArdFilmDeserializer;
 import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
 import de.mediathekview.mserver.crawler.basic.AbstractRecrusivConverterTask;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
+import javax.ws.rs.client.WebTarget;
 import java.lang.reflect.Type;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -15,9 +19,6 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 import java.util.concurrent.ConcurrentLinkedQueue;
-import javax.ws.rs.client.WebTarget;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 public class ArdFilmDetailTask extends ArdTaskBase<Film, ArdFilmInfoDto> {
 
@@ -25,22 +26,22 @@ public class ArdFilmDetailTask extends ArdTaskBase<Film, ArdFilmInfoDto> {
 
   private static final Type LIST_FILM_TYPE_TOKEN = new TypeToken<List<ArdFilmDto>>() {}.getType();
 
-  public ArdFilmDetailTask(AbstractCrawler aCrawler, ConcurrentLinkedQueue aUrlToCrawlDTOs) {
+  public ArdFilmDetailTask(final AbstractCrawler aCrawler, final ConcurrentLinkedQueue aUrlToCrawlDTOs) {
     super(aCrawler, aUrlToCrawlDTOs);
 
     registerJsonDeserializer(LIST_FILM_TYPE_TOKEN, new ArdFilmDeserializer(crawler));
   }
 
   @Override
-  protected void processRestTarget(ArdFilmInfoDto aDTO, WebTarget aTarget) {
+  protected void processRestTarget(final ArdFilmInfoDto aDTO, final WebTarget aTarget) {
     try {
       final List<ArdFilmDto> filmDtos = deserialize(aTarget, LIST_FILM_TYPE_TOKEN);
 
       if (filmDtos != null && filmDtos.size() > 0) {
-        for (ArdFilmDto filmDto : filmDtos) {
+        for (final ArdFilmDto filmDto : filmDtos) {
 
           final Film result = filmDto.getFilm();
-          result.setWebsite(getWebsiteUrl(aDTO));
+          result.setWebsite(getWebsiteUrl(aDTO).orElse(null));
           taskResults.add(result);
 
           if (aDTO.getNumberOfClips() > 1) {
@@ -54,7 +55,7 @@ public class ArdFilmDetailTask extends ArdTaskBase<Film, ArdFilmInfoDto> {
         crawler.incrementAndGetErrorCount();
         crawler.updateProgress();
       }
-    } catch (Exception e) {
+    } catch (final Exception e) {
       LOG.error("exception: " + aDTO.getUrl(), e);
       crawler.incrementAndGetErrorCount();
       crawler.updateProgress();
@@ -63,18 +64,18 @@ public class ArdFilmDetailTask extends ArdTaskBase<Film, ArdFilmInfoDto> {
 
   private void processRelatedFilms(final Set<ArdFilmInfoDto> relatedFilms) {
     if (relatedFilms != null && !relatedFilms.isEmpty()) {
-      ConcurrentLinkedQueue<ArdFilmInfoDto> queue = new ConcurrentLinkedQueue<>(relatedFilms);
-      ArdFilmDetailTask task = (ArdFilmDetailTask) createNewOwnInstance(queue);
+      final ConcurrentLinkedQueue<ArdFilmInfoDto> queue = new ConcurrentLinkedQueue<>(relatedFilms);
+      final ArdFilmDetailTask task = (ArdFilmDetailTask) createNewOwnInstance(queue);
       task.fork();
       taskResults.addAll(task.join());
     }
   }
 
   private Optional<URL> getWebsiteUrl(final ArdFilmInfoDto aDTO) {
-    String url = String.format(ArdConstants.WEBSITE_URL, aDTO.getId());
+    final String url = String.format(ArdConstants.WEBSITE_URL, aDTO.getId());
     try {
       return Optional.of(new URL(url));
-    } catch (MalformedURLException e) {
+    } catch (final MalformedURLException e) {
       LOG.error(e);
     }
     return Optional.empty();
@@ -82,7 +83,7 @@ public class ArdFilmDetailTask extends ArdTaskBase<Film, ArdFilmInfoDto> {
 
   @Override
   protected AbstractRecrusivConverterTask createNewOwnInstance(
-      ConcurrentLinkedQueue aElementsToProcess) {
+          final ConcurrentLinkedQueue aElementsToProcess) {
     return new ArdFilmDetailTask(crawler, aElementsToProcess);
   }
 }

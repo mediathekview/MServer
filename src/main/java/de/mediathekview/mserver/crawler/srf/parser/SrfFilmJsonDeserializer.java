@@ -224,7 +224,7 @@ public class SrfFilmJsonDeserializer implements JsonDeserializer<Optional<Film>>
             episodeData.publishDate,
             chapterList.duration);
     film.setBeschreibung(chapterList.description);
-    film.setWebsite(buildWebsiteUrl(chapterList.id, episodeData.title, theme));
+    film.setWebsite(buildWebsiteUrl(chapterList.id, episodeData.title, theme).orElse(null));
     addUrls(videoUrls, film);
     addSubtitle(chapterList.subtitleUrl, film);
 

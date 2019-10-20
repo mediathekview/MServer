@@ -301,7 +301,7 @@ public class BrClipDetailsDeserializer implements JsonDeserializer<Optional<Film
 
         beschreibung.ifPresent(currentFilm::setBeschreibung);
 
-        currentFilm.setWebsite(webSite);
+        currentFilm.setWebsite(webSite.orElse(null));
 
         subtitles.ifPresent(currentFilm::addAllSubtitleUrls);
         return Optional.of(currentFilm);
