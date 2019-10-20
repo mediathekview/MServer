@@ -21,7 +21,7 @@ public class ArdConstants {
 
   public static final int QUERY_TOPIC_VERSION = 1;
   public static final String QUERY_TOPIC_HASH =
-      "747b8db78443f20a0deb73a8e89ae9b0d26fcf83f2fc732181649698a0875cff";
+      "3de4b047cdd0a8ed9492f7e7f314195051cd392a3bd1ea52798f060c6aecf5cc";
 
   public static final String WEBSITE_URL = "https://www.ardmediathek.de/ard/player/%s";
 
