@@ -63,7 +63,6 @@ deploy:
       - docker push mediathekview/mserver
     skip_cleanup: true
     on:
-      branch: master
       tags: true
       jdk: openjdk8
 #  - provider: releases
