@@ -58,6 +58,7 @@ public class ArdTopicsOverviewDeserializer implements JsonDeserializer<Set<Crawl
   private CrawlerUrlDTO createUrlDto(final String id) {
     String url = new ArdUrlBuilder(ArdConstants.BASE_URL, ArdConstants.DEFAULT_CLIENT)
         .addShowId(id)
+        .addPageNumber(0)
         .addSavedQuery(ArdConstants.QUERY_TOPIC_VERSION, ArdConstants.QUERY_TOPIC_HASH)
         .build();
 
