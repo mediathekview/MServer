@@ -32,6 +32,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import mServer.crawler.CrawlerTool;
@@ -232,7 +233,10 @@ public class MediathekArte_de extends MediathekReader {
       Collection<DatenFilm> futureFilme = new ArrayList<>();
       dto.getProgramIds().forEach(programId -> {
         try {
-          futureFilme.add(new ArteProgramIdToDatenFilmCallable(programId, LANG_CODE, getSendername()).call());
+          Set<DatenFilm> films = new ArteProgramIdToDatenFilmCallable(programId, LANG_CODE, getSendername()).call();
+          for (DatenFilm film : films) {
+            futureFilme.add(film);
+          }
         } catch (Exception exception) {
           LOG.error("Es ist ein Fehler beim lesen der Arte Filme aufgetreten.", exception);
         }

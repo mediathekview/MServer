@@ -153,10 +153,10 @@ public class SrFilmDetailTask extends SrRateLimitedDocumentTask<DatenFilm, SrTop
 
       DatenFilm film = new DatenFilm(Const.SR, aUrlDTO.getTheme(), "", title.orElse(""), videoInfo.getDefaultVideoUrl(), "", dateValue, timeValue, duration.orElse(Duration.ZERO).getSeconds(), description.orElse(""));
       if (videoUrls.containsKey(Qualities.SMALL)) {
-        CrawlerTool.addUrlKlein(film, videoUrls.get(Qualities.SMALL), "");
+        CrawlerTool.addUrlKlein(film, videoUrls.get(Qualities.SMALL));
       }
       if (videoUrls.containsKey(Qualities.HD)) {
-        CrawlerTool.addUrlHd(film, videoUrls.get(Qualities.HD), "");
+        CrawlerTool.addUrlHd(film, videoUrls.get(Qualities.HD));
       }
       if (videoInfo.getSubtitleUrlOptional().isPresent()) {
         CrawlerTool.addUrlSubtitle(film, videoInfo.getSubtitleUrl());

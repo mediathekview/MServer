@@ -20,14 +20,13 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import mServer.crawler.CrawlerTool;
-import mServer.crawler.sender.MediathekReader;
 import mServer.crawler.sender.base.M3U8Constants;
 import mServer.crawler.sender.base.M3U8Dto;
 import mServer.crawler.sender.base.M3U8Parser;
 import mServer.crawler.sender.newsearch.Qualities;
-import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
+import okhttp3.ResponseBody;
 import org.apache.logging.log4j.LogManager;
 
 public class SrfFilmJsonDeserializer implements JsonDeserializer<Optional<DatenFilm>> {
@@ -55,12 +54,6 @@ public class SrfFilmJsonDeserializer implements JsonDeserializer<Optional<DatenF
 
   private final DateTimeFormatter dateFormatDatenFilm = DateTimeFormatter.ofPattern("dd.MM.yyyy");
   private final DateTimeFormatter timeFormatDatenFilm = DateTimeFormatter.ofPattern("HH:mm:ss");
-
-  private final MediathekReader crawler;
-
-  public SrfFilmJsonDeserializer(MediathekReader aCrawler) {
-    crawler = aCrawler;
-  }
 
   @Override
   public Optional<DatenFilm> deserialize(JsonElement aJsonElement, Type aType, JsonDeserializationContext aContext) {
@@ -99,10 +92,10 @@ public class SrfFilmJsonDeserializer implements JsonDeserializer<Optional<DatenF
             chapterList.description);
 
     if (videoUrls.containsKey(Qualities.SMALL)) {
-      CrawlerTool.addUrlKlein(film, videoUrls.get(Qualities.SMALL), "");
+      CrawlerTool.addUrlKlein(film, videoUrls.get(Qualities.SMALL));
     }
     if (videoUrls.containsKey(Qualities.HD)) {
-      CrawlerTool.addUrlHd(film, videoUrls.get(Qualities.HD), "");
+      CrawlerTool.addUrlHd(film, videoUrls.get(Qualities.HD));
     }
     if (!chapterList.subtitleUrl.isEmpty()) {
       CrawlerTool.addUrlSubtitle(film, chapterList.subtitleUrl);
@@ -280,14 +273,13 @@ public class SrfFilmJsonDeserializer implements JsonDeserializer<Optional<DatenF
 
   private Optional<String> loadM3u8(String aM3U8Url) {
 
-    MVHttpClient mvhttpClient = MVHttpClient.getInstance();
-    OkHttpClient httpClient = mvhttpClient.getHttpClient();
     Request request = new Request.Builder()
             .url(aM3U8Url).build();
 
-    try (Response response = httpClient.newCall(request).execute()) {
-      if (response.isSuccessful()) {
-        return Optional.of(response.body().string());
+    try (Response response = MVHttpClient.getInstance().getHttpClient().newCall(request).execute();
+            ResponseBody body = response.body()) {
+      if (response.isSuccessful() && body != null) {
+        return Optional.of(body.string());
       }
     } catch (Exception e) {
       LOG.error(e);

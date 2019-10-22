@@ -416,8 +416,8 @@ public class MediathekKika extends MediathekReader {
         if (!urlMp4.isEmpty()) {
           meldung(urlMp4);
           DatenFilm film = new DatenFilm(SENDERNAME, thema, urlSendung, titel, urlMp4, ""/*rtmpUrl*/, datum, zeit, duration, beschreibung);
-          CrawlerTool.addUrlKlein(film, urlMp4_klein, "");
-          CrawlerTool.addUrlHd(film, urlHD, "");
+          CrawlerTool.addUrlKlein(film, urlMp4_klein);
+          CrawlerTool.addUrlHd(film, urlHD);
           addFilm(film, urlPruefen);
         } else {
           Log.errorLog(963215478, " xml: " + xmlWebsite);

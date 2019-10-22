@@ -1,6 +1,6 @@
-import java.nio.file.Files
-import java.nio.file.Paths
 import org.apache.tools.ant.filters.ReplaceTokens
+
+import java.nio.file.Files
 
 plugins {
     id "com.github.jk1.dependency-license-report" version "0.3.5"
@@ -16,7 +16,7 @@ sourceCompatibility = 1.8
 targetCompatibility = 1.8
 group = 'de.mediathekview'
 archivesBaseName = "MServer"
-version = '3.1.107'
+version = '3.1.109'
 
 def jarName = 'MServer.jar'
 def mainClass = 'mServer.Main'
@@ -108,7 +108,7 @@ task performanceTest(type: Test) {
     testClassesDirs = sourceSets.performanceTest.output.classesDirs
     classpath = sourceSets.performanceTest.runtimeClasspath
     outputs.upToDateWhen { false }
-    
+
     beforeTest { descriptor ->
         logger.lifecycle("Running test: " + descriptor)
     }
@@ -145,10 +145,10 @@ dependencies {
 configurations.compile {
     resolutionStrategy.dependencySubstitution {
         def substituteIfExists = { String moduleName, String projectName ->
-            if(findProject(projectName)) {
-               assert !(project.hasProperty('org.gradle.configureondemand') && Boolean.valueOf(project.getProperty('org.gradle.configureondemand'))) : "org.gradle.configureondemand = true will cause problems when substituting a project"
-               logger.lifecycle "$project: Substituting module '$moduleName' with project $projectName"
-               substitute module(moduleName) with project(projectName)
+            if (findProject(projectName)) {
+                assert !(project.hasProperty('org.gradle.configureondemand') && Boolean.valueOf(project.getProperty('org.gradle.configureondemand'))): "org.gradle.configureondemand = true will cause problems when substituting a project"
+                logger.lifecycle "$project: Substituting module '$moduleName' with project $projectName"
+                substitute module(moduleName) with project(projectName)
             }
         }
         substituteIfExists('de.mediathekview:MLib', ':MLib')
@@ -172,88 +172,88 @@ if (project.hasProperty('SONATYPE_USERNAME')) {
     signing {
         sign configurations.archives
     }
-	
-	uploadArchives {
-	  repositories {
-	    mavenDeployer {
-	      beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
-	
-	      repository(url: "https://oss.sonatype.org/content/repositories/releases/") {
-	        authentication(userName: SONATYPE_USERNAME, password: SONATYPE_PASSWORD)
-	      }
-	
-	      snapshotRepository(url: "https://oss.sonatype.org/content/repositories/snapshots/") {
-	        authentication(userName: SONATYPE_USERNAME, password: SONATYPE_PASSWORD)
-	      }
-	
-	      pom.project {
-	        name project.name
-	        packaging 'jar'
-	        description 'The crawler for mediathekview/MediathekView'
-	        url 'https://github.com/mediathekview/' + project.name
-	
-	        scm {
-	          connection 'scm:git:git://github.com/mediathekview/MServer.git'
-	          developerConnection 'scm:git:ssh://github.com:mediathekview/MServer.git'
-	          url 'http://github.com/mediathekview/MServer/tree/master'
-	        }
-	
-	        licenses {
-	          license {
-	            name 'GNU General Public License v3.0'
-	            url 'https://www.gnu.org/licenses/gpl.html'
-	          }
-	        }
-	
-	        developers {
-	          developer {
-	            id 'Nicklas2751'
-	            name 'Nicklas Wiegandt'
-	            email 'nicklas@mediathekview.de'
-	          }
-	          developer {
-	            id 'derreisende77'
-	            name 'Christian F.'
-	            url 'https://github.com/derreisende77'
-	          }
-	          developer {
-	            id 'pidoubleyou'
-	            name 'Peter W.'
-	            url 'https://github.com/pidoubleyou'
-	          }
-	          developer {
-	            id 'TheSasch'
-	            name 'Sascha Wiegandt'
-	            url 'https://github.com/thesasch'
-	          }
-	          developer {
-	            id 'alex1702'
-	            name 'Alexander Finkhäuser'
-	            url 'https://github.com/alex1702'
-	          }
-	        }
-	      }
-	    }
-	  }
-	}
-	task myJavadocs(type: Javadoc) {
-	  source = sourceSets.main.allJava
-	  failOnError = false
-	}
-	
-	task javadocJar(type: Jar) {
-	    classifier = 'javadoc'
-	    from myJavadocs
-	}
-	    
-	task sourcesJar(type: Jar) {
-	    classifier = 'sources'
-	    from sourceSets.main.allSource
-	}
-	
-	artifacts {
-	    archives javadocJar, sourcesJar
-	}
+
+    uploadArchives {
+        repositories {
+            mavenDeployer {
+                beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
+
+                repository(url: "https://oss.sonatype.org/content/repositories/releases/") {
+                    authentication(userName: SONATYPE_USERNAME, password: SONATYPE_PASSWORD)
+                }
+
+                snapshotRepository(url: "https://oss.sonatype.org/content/repositories/snapshots/") {
+                    authentication(userName: SONATYPE_USERNAME, password: SONATYPE_PASSWORD)
+                }
+
+                pom.project {
+                    name project.name
+                    packaging 'jar'
+                    description 'The crawler for mediathekview/MediathekView'
+                    url 'https://github.com/mediathekview/' + project.name
+
+                    scm {
+                        connection 'scm:git:git://github.com/mediathekview/MServer.git'
+                        developerConnection 'scm:git:ssh://github.com:mediathekview/MServer.git'
+                        url 'http://github.com/mediathekview/MServer/tree/master'
+                    }
+
+                    licenses {
+                        license {
+                            name 'GNU General Public License v3.0'
+                            url 'https://www.gnu.org/licenses/gpl.html'
+                        }
+                    }
+
+                    developers {
+                        developer {
+                            id 'Nicklas2751'
+                            name 'Nicklas Wiegandt'
+                            email 'nicklas@mediathekview.de'
+                        }
+                        developer {
+                            id 'derreisende77'
+                            name 'Christian F.'
+                            url 'https://github.com/derreisende77'
+                        }
+                        developer {
+                            id 'pidoubleyou'
+                            name 'Peter W.'
+                            url 'https://github.com/pidoubleyou'
+                        }
+                        developer {
+                            id 'TheSasch'
+                            name 'Sascha Wiegandt'
+                            url 'https://github.com/thesasch'
+                        }
+                        developer {
+                            id 'alex1702'
+                            name 'Alexander Finkhäuser'
+                            url 'https://github.com/alex1702'
+                        }
+                    }
+                }
+            }
+        }
+    }
+    task myJavadocs(type: Javadoc) {
+        source = sourceSets.main.allJava
+        failOnError = false
+    }
+
+    task javadocJar(type: Jar) {
+        classifier = 'javadoc'
+        from myJavadocs
+    }
+
+    task sourcesJar(type: Jar) {
+        classifier = 'sources'
+        from sourceSets.main.allSource
+    }
+
+    artifacts {
+        archives javadocJar, sourcesJar
+    }
 }
 build.dependsOn(install)
 task updateVersion {
@@ -360,7 +360,7 @@ task debug(type: JavaExec, dependsOn: classes) {
  */
 task release(dependsOn: 'uploadArchives') {
     doLast {
-        println 'Released Version '+version
+        println 'Released Version ' + version
     }
 }
 
@@ -370,13 +370,13 @@ task release(dependsOn: 'uploadArchives') {
  */
 task releaseSnapshot(dependsOn: 'uploadArchives') {
     doLast {
-        println 'Released Snapshot Version '+version
+        println 'Released Snapshot Version ' + version
     }
 }
 
-gradle.taskGraph.whenReady {taskGraph ->
+gradle.taskGraph.whenReady { taskGraph ->
     if (taskGraph.hasTask(releaseSnapshot)) {
-        version = version+'-SNAPSHOT'
+        version = version + '-SNAPSHOT'
     }
 }
 

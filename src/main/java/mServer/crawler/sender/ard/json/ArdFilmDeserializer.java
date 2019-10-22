@@ -58,7 +58,7 @@ public class ArdFilmDeserializer implements JsonDeserializer<List<ArdFilmDto>> {
   static {
     ADDITIONAL_SENDER.put("rbb", Const.RBB);
     ADDITIONAL_SENDER.put("swr", Const.SWR);
-      ADDITIONAL_SENDER.put("mdr", Const.MDR);
+    ADDITIONAL_SENDER.put("mdr", Const.MDR);
   }
 
   private final ArdVideoInfoJsonDeserializer videoDeserializer;
@@ -240,10 +240,10 @@ public class ArdFilmDeserializer implements JsonDeserializer<List<ArdFilmDto>> {
 
     DatenFilm film = new DatenFilm(sender, topic, "", title, videoInfo.getDefaultVideoUrl(), "", dateValue, timeValue, duration.orElse(Duration.ZERO).getSeconds(), description.orElse(""));
     if (videoUrls.containsKey(Qualities.SMALL)) {
-      CrawlerTool.addUrlKlein(film, videoUrls.get(Qualities.SMALL), "");
+      CrawlerTool.addUrlKlein(film, videoUrls.get(Qualities.SMALL));
     }
     if (videoUrls.containsKey(Qualities.HD)) {
-      CrawlerTool.addUrlHd(film, videoUrls.get(Qualities.HD), "");
+      CrawlerTool.addUrlHd(film, videoUrls.get(Qualities.HD));
     }
     if (videoInfo.getSubtitleUrlOptional().isPresent()) {
       CrawlerTool.addUrlSubtitle(film, videoInfo.getSubtitleUrl());
