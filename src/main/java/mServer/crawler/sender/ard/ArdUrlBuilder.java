@@ -18,6 +18,7 @@ public class ArdUrlBuilder {
   private String hashKey;
   private LocalDateTime startDate;
   private String showId;
+  private int pageNumber = -1;
 
   public ArdUrlBuilder(final String baseUrl, final String clientName) {
     this.baseUrl = baseUrl;
@@ -25,7 +26,7 @@ public class ArdUrlBuilder {
   }
 
   public ArdUrlBuilder addSearchDate(final LocalDateTime date) {
-    startDate = LocalDateTime.of(date.getYear(), date.getMonth(), date.getDayOfMonth(),0 ,0, 0);
+    startDate = LocalDateTime.of(date.getYear(), date.getMonth(), date.getDayOfMonth(), 0, 0, 0);
     return this;
   }
 
@@ -37,6 +38,11 @@ public class ArdUrlBuilder {
 
   public ArdUrlBuilder addShowId(final String id) {
     this.showId = id;
+    return this;
+  }
+
+  public ArdUrlBuilder addPageNumber(final int pageNumber) {
+    this.pageNumber = pageNumber;
     return this;
   }
 
@@ -61,7 +67,10 @@ public class ArdUrlBuilder {
       return String.format(",\"clipId\":\"%s\",\"deviceType\":\"%s\"", clipId, deviceType);
     }
     if (showId != null) {
-      return String.format(",\"showId\":\"%s\"", showId);
+      if (pageNumber < 0) {
+        return String.format(",\"showId\":\"%s\"", showId);
+      }
+      return String.format(",\"showId\":\"%s\", \"pageNumber\":%d", showId, pageNumber);
     }
     if (startDate != null) {
       return String.format(",\"startDate\":\"%s\"", startDate.format(DATE_TIME_FORMATTER));
