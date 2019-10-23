@@ -1,7 +1,10 @@
 package mServer.crawler.sender.base;
 
+import com.google.gson.JsonObject;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.RecursiveTask;
+import mServer.crawler.FilmeSuchen;
+import mServer.crawler.RunSender;
 import mServer.crawler.sender.MediathekReader;
 
 /**
@@ -39,4 +42,21 @@ public abstract class AbstractUrlTask<T, D extends CrawlerUrlDTO>
     processElement(aDTO);
   }
 
+  protected void traceRequest() {
+    increment(RunSender.Count.ANZAHL);
+  }
+
+  protected void traceRequest(long responseLength) {
+    traceRequest();
+    increment(RunSender.Count.SUM_DATA_BYTE, responseLength);
+    increment(RunSender.Count.SUM_TRAFFIC_BYTE, responseLength);
+  }
+
+  private void increment(final RunSender.Count count) {
+    FilmeSuchen.listeSenderLaufen.inc(this.crawler.getSendername(), count);
+  }
+
+  private void increment(final RunSender.Count count, final long value) {
+    FilmeSuchen.listeSenderLaufen.inc(this.crawler.getSendername(), count, value);
+  }
 }
