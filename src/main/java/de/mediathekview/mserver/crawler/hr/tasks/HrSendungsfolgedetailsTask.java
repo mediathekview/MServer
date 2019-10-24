@@ -36,7 +36,7 @@ import org.jsoup.select.Elements;
 public class HrSendungsfolgedetailsTask extends AbstractDocumentTask<Film, CrawlerUrlDTO> {
 
   private static final String ATTRIBUTE_DATETIME = "datetime";
-  private static final String ATTRIBUTE_VIDEO_JSON = "data-hr-video-on-demand-player";
+  private static final String ATTRIBUTE_VIDEO_JSON = "data-hr-mediaplayer-loader";
   private static final Logger LOG = LogManager.getLogger(HrSendungsfolgedetailsTask.class);
   private static final long serialVersionUID = 6138774185290017974L;
   private static final String THEMA_SELECTOR1 = ".breadcrumbNav__item span[itemprop=title]";

@@ -101,12 +101,12 @@ public class HrSendungsfolgedetailsTaskTest extends HrTaskTestBase {
             "herrliches hessen",
             "Unterwegs in und um Eschenburg",
             "Moderator Dieter Voss ist diesmal unterwegs im Lahn-Dill-Bergland – genauer gesagt in der Gemeinde Eschenburg. Die überwiegend ländlich geprägte Landschaft rund um Eschenburg ist ein echtes Paradies für Wander- und Naturfreunde.",
-            LocalDateTime.of(2018, 7, 3, 21, 45, 0),
+            LocalDateTime.of(2019, 6, 22, 0, 0, 0),
             Duration.ofMinutes(29).plusSeconds(27),
-            "",
-            "https://hr-a.akamaihd.net/video/as/herrlicheshessen/2018_07/hrLogo_180703103341_0198041_512x288-25p-500kbit.mp4",
-            "",
-            "",
+            "https://hr-a.akamaihd.net/video/as/herrlicheshessen/2019_06/hrLogo_190619163506_0202835_512x288-25p-500kbit.mp4",
+            "https://hr-a.akamaihd.net/video/as/herrlicheshessen/2019_06/hrLogo_190619163506_0202835_960x540-50p-1800kbit.mp4",
+            "https://hr-a.akamaihd.net/video/as/herrlicheshessen/2019_06/hrLogo_190619163506_0202835_1280x720-50p-5000kbit.mp4",
+            "https://hr-a.akamaihd.net/video/as/herrlicheshessen/2019_06/hrLogo_190619163506_0202835_512x288-25p-500kbit.vtt",
             GeoLocations.GEO_NONE
           }
         });
