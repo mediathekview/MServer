@@ -1,6 +1,7 @@
 package de.mediathekview.mserver.crawler.kika.tasks;
 
 import de.mediathekview.mserver.base.messages.ServerMessages;
+import de.mediathekview.mserver.base.webaccess.JsoupConnection;
 import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
 import de.mediathekview.mserver.crawler.basic.CrawlerUrlDTO;
 import de.mediathekview.mserver.crawler.kika.KikaConstants;
@@ -17,7 +18,6 @@ import java.util.stream.Collectors;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.jsoup.HttpStatusException;
-import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 
@@ -45,6 +45,8 @@ public class KikaSendungVerpasstOverviewUrlTask implements Callable<Set<CrawlerU
     today = aToday;
   }
 
+  JsoupConnection jsoupConnection = new JsoupConnection();
+
   @Override
   public Set<CrawlerUrlDTO> call() {
     // In a own variable so the method isn't called for every item.
@@ -61,13 +63,11 @@ public class KikaSendungVerpasstOverviewUrlTask implements Callable<Set<CrawlerU
   private Set<String> gatherAllRawSendungVerpasstOverviewPageUrls() {
     final Set<String> rawSendungVerpasstOverviewPageUrls = new HashSet<>();
     try {
-      final Document document =
-          Jsoup.connect(KikaConstants.URL_DAY_PAGE)
-              .timeout(
-                  (int)
-                      TimeUnit.SECONDS.toMillis(
-                          crawler.getCrawlerConfig().getSocketTimeoutInSeconds()))
-              .get();
+      final Document document = jsoupConnection.getDocumentTimeoutAfter(
+          KikaConstants.URL_DAY_PAGE,
+          (int)
+              TimeUnit.SECONDS.toMillis(
+                  crawler.getCrawlerConfig().getSocketTimeoutInSeconds()));
       for (final Element urlElement : document.select(URL_SELECTOR)) {
         final Optional<String> rawSendungVerpasstOverviewPageUrl =
             KikaHelper.gatherIpgTriggerUrlFromElement(

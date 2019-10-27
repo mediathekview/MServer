@@ -1,5 +1,7 @@
 package de.mediathekview.mserver.crawler.dw.tasks;
 
+import static de.mediathekview.mserver.base.HtmlConsts.ATTRIBUTE_VALUE;
+
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
@@ -13,14 +15,6 @@ import de.mediathekview.mserver.crawler.basic.AbstractDocumentTask;
 import de.mediathekview.mserver.crawler.basic.AbstractUrlTask;
 import de.mediathekview.mserver.crawler.basic.CrawlerUrlDTO;
 import de.mediathekview.mserver.crawler.dw.parser.DWDownloadUrlsParser;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-import org.jsoup.nodes.Document;
-
-import javax.ws.rs.client.ClientBuilder;
-import javax.ws.rs.client.WebTarget;
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
 import java.lang.reflect.Type;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -35,8 +29,13 @@ import java.util.UUID;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
-import static de.mediathekview.mserver.base.HtmlConsts.ATTRIBUTE_VALUE;
+import javax.ws.rs.client.ClientBuilder;
+import javax.ws.rs.client.WebTarget;
+import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.jsoup.nodes.Document;
 
 public class DWFilmDetailsTask extends AbstractDocumentTask<Film, CrawlerUrlDTO> {
 

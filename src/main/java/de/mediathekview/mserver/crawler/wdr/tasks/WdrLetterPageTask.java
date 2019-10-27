@@ -1,21 +1,20 @@
 package de.mediathekview.mserver.crawler.wdr.tasks;
 
+import de.mediathekview.mserver.base.webaccess.JsoupConnection;
 import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
 import de.mediathekview.mserver.crawler.wdr.WdrConstants;
 import de.mediathekview.mserver.crawler.wdr.WdrTopicUrlDto;
 import de.mediathekview.mserver.crawler.wdr.parser.WdrLetterPageDeserializer;
 import de.mediathekview.mserver.crawler.wdr.parser.WdrLetterPageUrlDeserializer;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
-
 import java.io.IOException;
 import java.util.List;
 import java.util.Queue;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.TimeUnit;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.jsoup.nodes.Document;
 
 public class WdrLetterPageTask implements Callable<Queue<WdrTopicUrlDto>> {
 
@@ -29,6 +28,8 @@ public class WdrLetterPageTask implements Callable<Queue<WdrTopicUrlDto>> {
     crawler = aCrawler;
   }
 
+  JsoupConnection jsoupConnection = new JsoupConnection();
+
   @Override
   public Queue<WdrTopicUrlDto> call() {
     final ConcurrentLinkedQueue<WdrTopicUrlDto> results = new ConcurrentLinkedQueue<>();
@@ -38,13 +39,8 @@ public class WdrLetterPageTask implements Callable<Queue<WdrTopicUrlDto>> {
     // URLs für Seiten parsen
     final Document document;
     try {
-      document =
-          Jsoup.connect(WdrConstants.URL_LETTER_PAGE)
-              .timeout(
-                  (int)
-                      TimeUnit.SECONDS.toMillis(
-                          crawler.getCrawlerConfig().getSocketTimeoutInSeconds()))
-              .get();
+      document = jsoupConnection.getDocumentTimeoutAfter(WdrConstants.URL_LETTER_PAGE,
+          (int) TimeUnit.SECONDS.toMillis(crawler.getCrawlerConfig().getSocketTimeoutInSeconds()));
     } catch (final IOException ex) {
       LOG.fatal("WdrLetterPageTask: error loading url " + WdrConstants.URL_LETTER_PAGE, ex);
       return results;
@@ -59,13 +55,9 @@ public class WdrLetterPageTask implements Callable<Queue<WdrTopicUrlDto>> {
     overviewLinks.forEach(
         url -> {
           try {
-            final Document subpageDocument =
-                Jsoup.connect(url)
-                    .timeout(
-                        (int)
-                            TimeUnit.SECONDS.toMillis(
-                                crawler.getCrawlerConfig().getSocketTimeoutInSeconds()))
-                    .get();
+            final Document subpageDocument = jsoupConnection.getDocumentTimeoutAfter(url,
+                (int) TimeUnit.SECONDS
+                    .toMillis(crawler.getCrawlerConfig().getSocketTimeoutInSeconds()));
             parseSubPage(results, subpageDocument);
           } catch (final IOException ex) {
             LOG.fatal("WdrLetterPageTask: error parsing url " + url, ex);

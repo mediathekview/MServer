@@ -12,12 +12,6 @@ import de.mediathekview.mserver.crawler.ard.json.ArdVideoInfoJsonDeserializer;
 import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
 import de.mediathekview.mserver.crawler.basic.AbstractUrlTask;
 import de.mediathekview.mserver.crawler.sr.SrTopicUrlDTO;
-import org.apache.commons.lang3.StringUtils;
-import org.apache.logging.log4j.LogManager;
-import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Node;
-import org.jsoup.select.Elements;
-
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.MalformedURLException;
@@ -31,6 +25,11 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentLinkedQueue;
+import org.apache.commons.lang3.StringUtils;
+import org.apache.logging.log4j.LogManager;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Node;
+import org.jsoup.select.Elements;
 
 public class SrFilmDetailTask extends SrRateLimitedDocumentTask<Film, SrTopicUrlDTO> {
 

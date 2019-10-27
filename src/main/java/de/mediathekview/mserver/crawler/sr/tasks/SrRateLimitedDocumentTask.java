@@ -24,8 +24,8 @@ public abstract class SrRateLimitedDocumentTask<T, D extends CrawlerUrlDTO> exte
   }
 
   @Override
-  protected void processElement(D aUrlDto) {
+  protected void processElement(D urlDTO) {
     LIMITER.acquire();
-    super.processElement(aUrlDto);
+    super.processElement(urlDTO);
   }
 }
