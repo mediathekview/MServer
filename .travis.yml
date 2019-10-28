@@ -32,7 +32,7 @@ stages:
   - name: Build and deploy snapshots
     if: branch = develop AND type = cron
   - name: Release
-    if: tag = true
+    if: tag IS present
 jobs:
   include:
     - stage: Test
