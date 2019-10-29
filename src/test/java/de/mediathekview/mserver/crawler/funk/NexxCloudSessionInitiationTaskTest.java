@@ -36,7 +36,7 @@ public class NexxCloudSessionInitiationTaskTest extends FunkTaskTestBase {
   public void testSessionInitiationNotAllowed() {
     final String requestUrl = "/v3/741/session/init";
 
-    wireMockRule.stubFor(
+    wireMockServer.stubFor(
         post(urlEqualTo(requestUrl))
             .willReturn(
                 aResponse()
@@ -57,12 +57,16 @@ public class NexxCloudSessionInitiationTaskTest extends FunkTaskTestBase {
   }
 
   @Before
-  public void setUp() throws MalformedURLException {
-    crawler = createCrawler();
-    crawler
-        .getRuntimeConfig()
-        .getCrawlerURLs()
-        .put(CrawlerUrlType.NEXX_CLUD_API_URL, new URL("http://localhost:8589/v3/741"));
+  public void setUp() {
+    try {
+      crawler = createCrawler();
+      crawler
+          .getRuntimeConfig()
+          .getCrawlerURLs()
+          .put(CrawlerUrlType.NEXX_CLUD_API_URL, new URL("http://localhost:8589/v3/741"));
+    } catch (MalformedURLException mue) {
+
+    }
   }
 
   @After

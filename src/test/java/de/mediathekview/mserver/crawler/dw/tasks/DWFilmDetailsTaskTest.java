@@ -1,22 +1,18 @@
 package de.mediathekview.mserver.crawler.dw.tasks;
 
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.Mockito.when;
+
 import de.mediathekview.mlib.daten.Film;
 import de.mediathekview.mlib.daten.GeoLocations;
 import de.mediathekview.mlib.daten.Sender;
+import de.mediathekview.mserver.base.webaccess.JsoupConnection;
 import de.mediathekview.mserver.crawler.basic.CrawlerUrlDTO;
 import de.mediathekview.mserver.testhelper.AssertFilm;
 import de.mediathekview.mserver.testhelper.JsoupMock;
 import de.mediathekview.mserver.testhelper.WireMockTestBase;
-import org.jsoup.Jsoup;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
-import org.junit.runners.Parameterized.Parameters;
-import org.powermock.core.classloader.annotations.PowerMockIgnore;
-import org.powermock.core.classloader.annotations.PrepareForTest;
-import org.powermock.modules.junit4.PowerMockRunner;
-import org.powermock.modules.junit4.PowerMockRunnerDelegate;
-
 import java.io.IOException;
 import java.time.Duration;
 import java.time.LocalDateTime;
@@ -24,20 +20,18 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.Set;
 import java.util.concurrent.ConcurrentLinkedQueue;
+import org.jsoup.Connection;
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.junit.runners.Parameterized;
+import org.junit.runners.Parameterized.Parameters;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
+import org.mockito.Spy;
 
-import static org.hamcrest.CoreMatchers.equalTo;
-import static org.hamcrest.MatcherAssert.assertThat;
-
-@RunWith(PowerMockRunner.class)
-@PrepareForTest({Jsoup.class})
-@PowerMockRunnerDelegate(Parameterized.class)
-@PowerMockIgnore(
-        value = {
-                "javax.net.ssl.*",
-                "javax.*",
-                "com.sun.*",
-                "org.apache.logging.log4j.core.config.xml.*"
-        })
+@RunWith(Parameterized.class)
 public class DWFilmDetailsTaskTest extends DwTaskTestBase {
 
   private final String requestUrl;
@@ -109,17 +103,30 @@ public class DWFilmDetailsTaskTest extends DwTaskTestBase {
                 });
     }
 
+  @Mock
+  JsoupConnection jsoupConnection;
+
+  @Before
+  public void setUp() {
+    MockitoAnnotations.initMocks(this);
+  }
+
   @Test
   public void test() throws IOException {
-    JsoupMock.mock(requestUrl, htmlFile);
+
+    Connection connection = JsoupMock.mock(requestUrl, htmlFile);
+    when(jsoupConnection.getConnection(eq(requestUrl))).thenReturn(connection);
+
     setupSuccessfulJsonResponse(jsonRequestUrl, jsonFile);
 
     ConcurrentLinkedQueue<CrawlerUrlDTO> urls = new ConcurrentLinkedQueue<>();
     urls.add(new CrawlerUrlDTO(requestUrl));
 
-      DWFilmDetailsTask target =
-              new DWFilmDetailsTask(createCrawler(), urls, WireMockTestBase.MOCK_URL_BASE);
-    Set<Film> actual = target.invoke();
+    DWFilmDetailsTask classUnderTest =
+              new DWFilmDetailsTask(createCrawler(), urls, wireMockServer.baseUrl());
+    classUnderTest.setJsoupConnection(jsoupConnection);
+
+    Set<Film> actual = classUnderTest.invoke();
 
     assertThat(actual.size(), equalTo(1));
       AssertFilm.assertEquals(

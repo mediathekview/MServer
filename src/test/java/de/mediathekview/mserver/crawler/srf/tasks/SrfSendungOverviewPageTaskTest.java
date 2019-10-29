@@ -86,7 +86,7 @@ public class SrfSendungOverviewPageTaskTest extends SrfTaskTestBase {
         String requestUrl =
                 "/play/v2/tv/show/c5a89422-4580-0001-4f24-1889dc30d730/latestEpisodes?numberOfEpisodes=10&tillMonth=12-2017&layout=json";
 
-        wireMockRule.stubFor(
+        wireMockServer.stubFor(
                 get(urlEqualTo(requestUrl)).willReturn(aResponse().withStatus(404).withBody("Not Found")));
 
     final Set<CrawlerUrlDTO> actual = executeTask(requestUrl);

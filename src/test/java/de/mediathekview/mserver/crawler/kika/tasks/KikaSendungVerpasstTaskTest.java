@@ -48,7 +48,7 @@ public class KikaSendungVerpasstTaskTest extends KikaTaskTestBase {
     urls.add(new CrawlerUrlDTO(requestUrl));
 
     final KikaSendungVerpasstTask target =
-        new KikaSendungVerpasstTask(createCrawler(), urls, WireMockTestBase.MOCK_URL_BASE);
+        new KikaSendungVerpasstTask(createCrawler(), urls, wireMockServer.baseUrl());
     final Set<CrawlerUrlDTO> actual = target.invoke();
 
     assertThat(actual.size(), equalTo(expected.length));
@@ -63,11 +63,11 @@ public class KikaSendungVerpasstTaskTest extends KikaTaskTestBase {
     final Map<String, String> urlMapping = new HashMap<>();
     urlMapping.put(requestUrl, "/kika/kika_days_page2_initial.html");
     urlMapping.put(
-        WireMockTestBase.MOCK_URL_BASE
+        wireMockServer.baseUrl()
             + "/sendungen/ipg/ipg102-beforeEntries_date-10032019_min-1105_zc-c7c340da.html",
         "/kika/kika_days_page2_before.html");
     urlMapping.put(
-        WireMockTestBase.MOCK_URL_BASE
+        wireMockServer.baseUrl()
             + "/sendungen/ipg/ipg102-afterEntries_date-10032019_max-1555_zc-8b42826a.html",
         "/kika/kika_days_page2_after.html");
 
@@ -77,7 +77,7 @@ public class KikaSendungVerpasstTaskTest extends KikaTaskTestBase {
     urls.add(new CrawlerUrlDTO(requestUrl));
 
     final KikaSendungVerpasstTask target =
-        new KikaSendungVerpasstTask(createCrawler(), urls, WireMockTestBase.MOCK_URL_BASE);
+        new KikaSendungVerpasstTask(createCrawler(), urls, wireMockServer.baseUrl());
     final Set<CrawlerUrlDTO> actual = target.invoke();
 
     assertThat(actual.size(), equalTo(15));

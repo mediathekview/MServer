@@ -6,7 +6,6 @@ import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.jsoup.HttpStatusException;
-import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 
 import java.io.IOException;
@@ -37,12 +36,15 @@ public abstract class AbstractDocumentTask<T, D extends CrawlerUrlDTO>
   private boolean printErrorMessage;
   private Level httpErrorLogLevel;
 
+  JsoupConnection jsoupConnection;
+
   public AbstractDocumentTask(
       final AbstractCrawler aCrawler, final ConcurrentLinkedQueue<D> aUrlToCrawlDTOs) {
     super(aCrawler, aUrlToCrawlDTOs);
     incrementErrorCounterOnHttpErrors = true;
     printErrorMessage = true;
     httpErrorLogLevel = Level.ERROR;
+    this.jsoupConnection = new JsoupConnection();
   }
 
   /**
@@ -53,8 +55,6 @@ public abstract class AbstractDocumentTask<T, D extends CrawlerUrlDTO>
    * @param aDocument The JSOUP {@link Document}.
    */
   protected abstract void processDocument(final D aUrlDTO, final Document aDocument);
-
-  JsoupConnection jsoupConnection = new JsoupConnection();
 
   @Override
   protected void processElement(final D urlDTO) {
@@ -105,5 +105,13 @@ public abstract class AbstractDocumentTask<T, D extends CrawlerUrlDTO>
 
   protected void setPrintErrorMessage(final boolean aPrintErrorMessage) {
     printErrorMessage = aPrintErrorMessage;
+  }
+
+  public JsoupConnection getJsoupConnection() {
+    return jsoupConnection;
+  }
+
+  public void setJsoupConnection(JsoupConnection jsoupConnection) {
+    this.jsoupConnection = jsoupConnection;
   }
 }

@@ -61,7 +61,7 @@ public class ArteSubcategoryVideosTaskTest extends ArteTaskTestBase {
   public void testOverviewPageNotFound() {
       final String requestUrl = "/guide/api/emac/v3/de/web/zones/videos_subcategory/?id=ART&limit=100&page=1";
 
-    wireMockRule.stubFor(
+    wireMockServer.stubFor(
         get(urlEqualTo(requestUrl)).willReturn(aResponse().withStatus(404).withBody("Not Found")));
 
     final Set<ArteFilmUrlDto> actual = executeTask(requestUrl, "ART", ArteLanguage.DE);
@@ -74,7 +74,7 @@ public class ArteSubcategoryVideosTaskTest extends ArteTaskTestBase {
     return new ArteSubcategoryVideosTask(
             createCrawler(),
             createTopicUrlDto(aRequestUrl, aTopic),
-            WireMockTestBase.MOCK_URL_BASE,
+            wireMockServer.baseUrl(),
             language)
         .invoke();
   }
@@ -82,7 +82,7 @@ public class ArteSubcategoryVideosTaskTest extends ArteTaskTestBase {
   private ConcurrentLinkedQueue<TopicUrlDTO> createTopicUrlDto(
           final String aRequestUrl, final String aTopic) {
       final ConcurrentLinkedQueue<TopicUrlDTO> input = new ConcurrentLinkedQueue<>();
-    input.add(new TopicUrlDTO(aTopic, MOCK_URL_BASE + aRequestUrl));
+    input.add(new TopicUrlDTO(aTopic, wireMockServer.baseUrl() + aRequestUrl));
     return input;
   }
 }

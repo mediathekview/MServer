@@ -65,7 +65,7 @@ public class FunkVideoRestTaskTest extends FunkTaskTestBase {
   public void testOverviewPageNotFound() {
     final String requestUrl = "/api/v4.0/videos/";
 
-    wireMockRule.stubFor(
+    wireMockServer.stubFor(
         get(urlEqualTo(requestUrl)).willReturn(aResponse().withStatus(404).withBody("Not Found")));
 
     final Set<FilmInfoDto> actual = executeTask(requestUrl);

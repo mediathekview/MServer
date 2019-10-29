@@ -16,15 +16,15 @@ public class JsoupConnection {
   }
 
   public Document getDocument(String url) throws IOException {
-    return Jsoup.connect(url).get();
+    return getConnection(url).get();
   }
 
   public Document getDocumentTimeoutAfter(String url, int timeoutInMilliseconds) throws IOException {
-    return Jsoup.connect(url).timeout(timeoutInMilliseconds).get();
+    return getConnection(url).timeout(timeoutInMilliseconds).get();
   }
 
   public Document getDocumentTimeoutAfterAlternativeDocumentType(String url, int timeoutInMilliseconds, Parser parser) throws IOException {
-    return Jsoup.connect(url).timeout(timeoutInMilliseconds).parser(parser).get();
+    return getConnection(url).timeout(timeoutInMilliseconds).parser(parser).get();
   }
 
 }
