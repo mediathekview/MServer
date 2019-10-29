@@ -43,7 +43,7 @@ jobs:
         - "./gradlew sonarqube"
     - stage: Build and deploy snapshots
       script:
-        - openssl aes-256-cbc -K $encrypted_3a9121b37456_key -iv $encrypted_3a9121b37456_iv -in scripte/deploy/deploy.key.enc -out scripte/deploy/deploy.key -d
+        - openssl aes-256-cbc -pass pass:$ENCRYPTION_PASSWORD -in scripte/deploy/secring.gpg.enc -out scripte/deploy/secring.gpg -d
         - gpg --fast-import scripte/deploy/secring.gpg
         - "./gradlew releaseSnapshot -PSONATYPE_USERNAME=$SONATYPE_USERNAME -PSONATYPE_PASSWORD=$SONATYPE_PASSWORD -Psigning.keyId=$GPG_KEYNAME -Psigning.password=$GPG_PASSPHRASE -Psigning.secretKeyRingFile=scripte/deploy/secring.gpg"
         - export VERSION=$(find . -name "MServer-*.tar.gz" | sed "s/.*MServer-\(.*\).tar.gz/\1/")
@@ -59,7 +59,7 @@ jobs:
           - "$HOME/.sonar/cache/"
     - stage: Release
       script:
-        - openssl aes-256-cbc -K $encrypted_3a9121b37456_key -iv $encrypted_3a9121b37456_iv -in scripte/deploy/deploy.key.enc -out scripte/deploy/deploy.key -d
+        - openssl aes-256-cbc -pass pass:$ENCRYPTION_PASSWORD -in scripte/deploy/secring.gpg.enc -out scripte/deploy/secring.gpg -d
         - gpg --fast-import scripte/deploy/secring.gpg
         - "./gradlew release -PSONATYPE_USERNAME=$SONATYPE_USERNAME -PSONATYPE_PASSWORD=$SONATYPE_PASSWORD -Psigning.keyId=$GPG_KEYNAME -Psigning.password=$GPG_PASSPHRASE -Psigning.secretKeyRingFile=scripte/deploy/secring.gpg"
         - export VERSION=$(find . -name "MServer-*.tar.gz" | sed "s/.*MServer-\(.*\).tar.gz/\1/")
