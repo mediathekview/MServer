@@ -383,7 +383,7 @@ gradle.taskGraph.whenReady { taskGraph ->
 
 sonarqube {
     properties {
-        property "sonar.projectKey", "mediathekview_MediathekView"
+        property "sonar.projectKey", "mediathekview_MServer"
     }
 }
 
