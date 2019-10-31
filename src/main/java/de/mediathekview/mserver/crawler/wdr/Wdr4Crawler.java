@@ -15,16 +15,12 @@ import java.util.concurrent.ForkJoinPool;
 
 public class Wdr4Crawler extends WdrRadioCrawlerBase {
 
-  JsoupConnection jsoupConnection;
-
   public Wdr4Crawler(
       ForkJoinPool aForkJoinPool,
       Collection<MessageListener> aMessageListeners,
       Collection<SenderProgressListener> aProgressListeners,
       MServerConfigManager rootConfig) {
     super(aForkJoinPool, aMessageListeners, aProgressListeners, rootConfig);
-
-    this.jsoupConnection = new JsoupConnection();
   }
 
   @Override
