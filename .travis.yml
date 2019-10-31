@@ -8,7 +8,7 @@ addons:
   sonarcloud:
     organization: "mediathekview"
     token:
-      secure: SGbw7DVR2jn0jP6BkvWhmy0sZeU/q9h/H8LxvJs7PDVi8kUoz8gBvH47MqYAfxNQsRpecxCTUbJSVucGnbeNjXH8x1iYG9rG9KVeG3naCRS4hv93o5+l7pJOPDzK59gTdusOUUAcEVTH3e8vIBIPTS1ZRtbd5490pnx88g95kHC73AZD3T2ah2mcUVlyTD25VVfmuZIY80CI2s6c/Dw8KXTv38zl8cLHz7MqRgEFhvOVL5ThVDNw8YBPp9ozzvUp8rSeGZ0SFrX5c1OB9dyx6vbb4WANUd1u10tuS9uzIg/chqrtmrBpjmwdQK72C8TwmRC3nsfNdfDgFh0QhhcLAqj+EVcYxtml64apPEo7EChbq0Ue80GoH1Xl2I79s3nK0UNxOa+W2HMULCNe/v0fm4Cy7ByWr6cv7H2lvoCXtnIoVAu8vhh7z8uVqLwe4Sysxs4fQOBPknkZyn5P4MJ3wLK7EGe9AAGclix1JtwCPQGkZgU9DFG5vIe5qzdQEiYrsvLaGYJRkAkyfJ5u9GvsgKExifhrB2Qyj4JeapqqozVSC5kJjmGhxHQHtcrB/IaTNl5FGQUE7WVAj6mK7LAIfHE/5aGbzBou9uU9YgGyXlM9TXNCHYCxife69uDjVyqPBiUUipUQ3EeX/zlmybdftOTQt4Wq+U2C3vhbpNB9ZXI=
+      secure: yFl+wtPg26mEhhGn0e8FidYo8RUPgqJVu15kFdm2kAa5f4YYiAwgDjNQdqAeYAxvTsDyjqQtHO3b1VUmJUPCQRNA4ixakBiYDTE7xxOM0gXN9f761sezKcrsTc580vDEOASgKEXz7oLne0TdGNL7tDWiDy6aJXrDDdmABaeevCRx+JITS5fUh9LY+KCYUEwce0k7v/pfDK9HH3WEZef1MMYfHfyBXy0F1WXpDy9O23uMe6d6dRQ8O2lUG9YFFAZXI+oTNqCjb5Ss9ppcj2hnQX7o2GZULVVrw+O5n5PZ7SLW/D2hUpL9s9nf18a32dqH9sYVD8DolNr6hVwQNS/UocG2UKnefgfegvs9oiYef+nUH/pLyQ11ndElfpREMmZ0Jd4+6Wv/FI5PT87H08IPJ5aiDZLRz5kqqbmiVmNuZxcS0+U6dZO9a2Jm3q0/+zE6Zri3SA2Al/2hmO2lfqL4R9y4bwoA4+Gu3gW/N2gYuXA0aMub/LUMP8d9LnQ9s2yKq1b2nkonq6UAUcND1XzL+lFN06VhBS5gycHIDyo7XuqVvWQ4gjbGhPdA+ewesgPJfRcIZB2yPdNtJSLB4JdqFaFFX8UkGtzJMTQ2NlnsuA+gyKWNBfgJyXBUzBk3JNQlOBULkDs2Euwdd2yoGEnyvBMQdVlEaoLB29PkaWrdmN0=
 notifications:
   webhooks:
     urls:
@@ -29,7 +29,7 @@ stages:
   - name: Build and deploy snapshots
     if: branch = develop AND type = cron
   - name: Release
-    if: tag = true
+    if: tag IS present
 jobs:
   include:
     - stage: Test
