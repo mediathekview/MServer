@@ -2,6 +2,7 @@ package de.mediathekview.mserver.crawler.dw.tasks;
 
 import de.mediathekview.mserver.base.HtmlConsts;
 import de.mediathekview.mserver.base.utils.UrlUtils;
+import de.mediathekview.mserver.base.webaccess.JsoupConnection;
 import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
 import de.mediathekview.mserver.crawler.basic.AbstractDocumentTask;
 import de.mediathekview.mserver.crawler.basic.AbstractUrlTask;
@@ -34,8 +35,8 @@ public class DWUebersichtTask extends AbstractDocumentTask<URL, CrawlerUrlDTO> {
   private static final String RESULTS_COUNT_REGEX_PATTERN = "(?<=results=)\\d+";
 
   public DWUebersichtTask(
-      final AbstractCrawler aCrawler, final ConcurrentLinkedQueue<CrawlerUrlDTO> aUrlToCrawlDTOs) {
-    super(aCrawler, aUrlToCrawlDTOs);
+      final AbstractCrawler aCrawler, final ConcurrentLinkedQueue<CrawlerUrlDTO> aUrlToCrawlDTOs, final JsoupConnection jsoupConnection) {
+    super(aCrawler, aUrlToCrawlDTOs, jsoupConnection);
   }
 
   private String addBaseParameters(final String aUrl) {
@@ -92,7 +93,7 @@ public class DWUebersichtTask extends AbstractDocumentTask<URL, CrawlerUrlDTO> {
   @Override
   protected AbstractUrlTask<URL, CrawlerUrlDTO> createNewOwnInstance(
       final ConcurrentLinkedQueue<CrawlerUrlDTO> aURLsToCrawl) {
-    return new DWUebersichtTask(crawler, aURLsToCrawl);
+    return new DWUebersichtTask(crawler, aURLsToCrawl, getJsoupConnection());
   }
 
   @Override

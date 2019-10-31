@@ -1,6 +1,7 @@
 package de.mediathekview.mserver.crawler.orf.tasks;
 
 import de.mediathekview.mserver.base.HtmlConsts;
+import de.mediathekview.mserver.base.webaccess.JsoupConnection;
 import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
 import de.mediathekview.mserver.crawler.basic.AbstractDocumentTask;
 import de.mediathekview.mserver.crawler.basic.AbstractRecrusivConverterTask;
@@ -14,14 +15,15 @@ public class OrfHistoryTopicTask extends AbstractDocumentTask<TopicUrlDTO, Topic
   private static final String SHOW_URL_SELECTOR = "article > a";
 
   public OrfHistoryTopicTask(
-      final AbstractCrawler aCrawler, final ConcurrentLinkedQueue<TopicUrlDTO> aUrlToCrawlDtos) {
-    super(aCrawler, aUrlToCrawlDtos);
+      final AbstractCrawler aCrawler, final ConcurrentLinkedQueue<TopicUrlDTO> aUrlToCrawlDtos, final
+      JsoupConnection jsoupConnection) {
+    super(aCrawler, aUrlToCrawlDtos, jsoupConnection);
   }
 
   @Override
   protected AbstractRecrusivConverterTask<TopicUrlDTO, TopicUrlDTO> createNewOwnInstance(
       final ConcurrentLinkedQueue<TopicUrlDTO> aElementsToProcess) {
-    return new OrfHistoryTopicTask(crawler, aElementsToProcess);
+    return new OrfHistoryTopicTask(crawler, aElementsToProcess, getJsoupConnection());
   }
 
   @Override

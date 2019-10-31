@@ -1,25 +1,21 @@
 package de.mediathekview.mserver.crawler.wdr.parser;
 
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.junit.Assert.assertThat;
+
 import de.mediathekview.mserver.crawler.basic.TopicUrlDTO;
 import de.mediathekview.mserver.testhelper.FileReader;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Set;
 import org.hamcrest.Matchers;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
-import org.powermock.modules.junit4.PowerMockRunner;
-import org.powermock.modules.junit4.PowerMockRunnerDelegate;
 
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Set;
-
-import static org.hamcrest.CoreMatchers.equalTo;
-import static org.junit.Assert.assertThat;
-
-@RunWith(PowerMockRunner.class)
-@PowerMockRunnerDelegate(Parameterized.class)
+@RunWith(Parameterized.class)
 public class WdrFilmPartDeserializerTest {
     private final String filmPageFile;
     private final String topic;

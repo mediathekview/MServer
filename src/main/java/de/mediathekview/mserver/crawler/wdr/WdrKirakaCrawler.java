@@ -3,6 +3,7 @@ package de.mediathekview.mserver.crawler.wdr;
 import de.mediathekview.mlib.daten.Sender;
 import de.mediathekview.mlib.messages.listener.MessageListener;
 import de.mediathekview.mserver.base.config.MServerConfigManager;
+import de.mediathekview.mserver.base.webaccess.JsoupConnection;
 import de.mediathekview.mserver.crawler.basic.CrawlerUrlDTO;
 import de.mediathekview.mserver.crawler.wdr.tasks.WdrRadioPageTask;
 import de.mediathekview.mserver.progress.listeners.SenderProgressListener;
@@ -14,12 +15,16 @@ import java.util.concurrent.ForkJoinPool;
 
 public class WdrKirakaCrawler extends WdrRadioCrawlerBase {
 
+  JsoupConnection jsoupConnection;
+
   public WdrKirakaCrawler(
       ForkJoinPool aForkJoinPool,
       Collection<MessageListener> aMessageListeners,
       Collection<SenderProgressListener> aProgressListeners,
       MServerConfigManager rootConfig) {
     super(aForkJoinPool, aMessageListeners, aProgressListeners, rootConfig);
+
+    this.jsoupConnection = new JsoupConnection();
   }
 
   @Override
@@ -33,7 +38,7 @@ public class WdrKirakaCrawler extends WdrRadioCrawlerBase {
     ConcurrentLinkedQueue<CrawlerUrlDTO> urlToCrawl = new ConcurrentLinkedQueue<>();
     urlToCrawl.add(new CrawlerUrlDTO(WdrConstants.URL_RADIO_KIRAKA));
 
-    WdrRadioPageTask radioPageTask = new WdrRadioPageTask(this, urlToCrawl);
+    WdrRadioPageTask radioPageTask = new WdrRadioPageTask(this, urlToCrawl, jsoupConnection);
     return forkJoinPool.submit(radioPageTask).get();
   }
 }

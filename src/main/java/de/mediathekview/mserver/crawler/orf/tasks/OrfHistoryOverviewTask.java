@@ -17,11 +17,12 @@ public class OrfHistoryOverviewTask implements Callable<ConcurrentLinkedQueue<To
 
   private final AbstractCrawler crawler;
 
-  public OrfHistoryOverviewTask(final AbstractCrawler aCrawler) {
-    crawler = aCrawler;
-  }
+  JsoupConnection jsoupConnection;
 
-  JsoupConnection jsoupConnection = new JsoupConnection();
+  public OrfHistoryOverviewTask(final AbstractCrawler aCrawler, JsoupConnection jsoupConnection) {
+    crawler = aCrawler;
+    this.jsoupConnection = jsoupConnection;
+  }
 
   @Override
   public ConcurrentLinkedQueue<TopicUrlDTO> call() throws Exception {

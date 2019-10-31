@@ -9,6 +9,7 @@ import de.mediathekview.mlib.daten.Resolution;
 import de.mediathekview.mserver.base.utils.DateUtils;
 import de.mediathekview.mserver.base.utils.GeoLocationGuesser;
 import de.mediathekview.mserver.base.utils.HtmlDocumentUtils;
+import de.mediathekview.mserver.base.webaccess.JsoupConnection;
 import de.mediathekview.mserver.crawler.ard.json.ArdVideoInfoDto;
 import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
 import de.mediathekview.mserver.crawler.basic.AbstractDocumentTask;
@@ -57,8 +58,8 @@ public class HrSendungsfolgedetailsTask extends AbstractDocumentTask<Film, Crawl
   private final Gson gson;
 
   public HrSendungsfolgedetailsTask(
-      final AbstractCrawler aCrawler, final ConcurrentLinkedQueue<CrawlerUrlDTO> aUrlToCrawlDtos) {
-    super(aCrawler, aUrlToCrawlDtos);
+      final AbstractCrawler aCrawler, final ConcurrentLinkedQueue<CrawlerUrlDTO> aUrlToCrawlDtos, JsoupConnection jsoupConnection) {
+    super(aCrawler, aUrlToCrawlDtos, jsoupConnection);
 
     gson =
         new GsonBuilder()
@@ -69,7 +70,7 @@ public class HrSendungsfolgedetailsTask extends AbstractDocumentTask<Film, Crawl
   @Override
   protected AbstractUrlTask<Film, CrawlerUrlDTO> createNewOwnInstance(
       final ConcurrentLinkedQueue<CrawlerUrlDTO> aUrlsToCrawl) {
-    return new HrSendungsfolgedetailsTask(crawler, aUrlsToCrawl);
+    return new HrSendungsfolgedetailsTask(crawler, aUrlsToCrawl, getJsoupConnection());
   }
 
   private static Optional<String>[] getTopicAndTitle(final Document aDocument) {

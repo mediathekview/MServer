@@ -1,5 +1,6 @@
 package de.mediathekview.mserver.crawler.wdr.tasks;
 
+import de.mediathekview.mserver.base.webaccess.JsoupConnection;
 import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
 import de.mediathekview.mserver.crawler.basic.AbstractDocumentTask;
 import de.mediathekview.mserver.crawler.basic.AbstractUrlTask;
@@ -17,8 +18,9 @@ public class WdrTopicOverviewTask extends AbstractDocumentTask<TopicUrlDTO, WdrT
   public WdrTopicOverviewTask(
           AbstractCrawler aCrawler,
           ConcurrentLinkedQueue<WdrTopicUrlDto> aUrlToCrawlDtos,
+          final JsoupConnection jsoupConnection,
           int aRecursiveCount) {
-    super(aCrawler, aUrlToCrawlDtos);
+    super(aCrawler, aUrlToCrawlDtos, jsoupConnection);
 
     recursiveCount = aRecursiveCount;
   }
@@ -51,6 +53,6 @@ public class WdrTopicOverviewTask extends AbstractDocumentTask<TopicUrlDTO, WdrT
   @Override
   protected AbstractUrlTask<TopicUrlDTO, WdrTopicUrlDto> createNewOwnInstance(
           ConcurrentLinkedQueue<WdrTopicUrlDto> aUrlsToCrawl) {
-    return new WdrTopicOverviewTask(crawler, aUrlsToCrawl, recursiveCount + 1);
+    return new WdrTopicOverviewTask(crawler, aUrlsToCrawl, getJsoupConnection(),  recursiveCount + 1);
   }
 }

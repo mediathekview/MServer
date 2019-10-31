@@ -7,6 +7,7 @@ import de.mediathekview.mlib.daten.FilmUrl;
 import de.mediathekview.mlib.daten.Resolution;
 import de.mediathekview.mserver.base.utils.DateUtils;
 import de.mediathekview.mserver.base.utils.HtmlDocumentUtils;
+import de.mediathekview.mserver.base.webaccess.JsoupConnection;
 import de.mediathekview.mserver.crawler.ard.json.ArdVideoInfoDto;
 import de.mediathekview.mserver.crawler.ard.json.ArdVideoInfoJsonDeserializer;
 import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
@@ -49,8 +50,9 @@ public class SrFilmDetailTask extends SrRateLimitedDocumentTask<Film, SrTopicUrl
   private static final String VIDEO_DETAIL_SELECTOR = "div[" + VIDEO_DETAIL_ATTRIBUTE + "]";
 
   public SrFilmDetailTask(
-      final AbstractCrawler aCrawler, final ConcurrentLinkedQueue<SrTopicUrlDTO> aUrlToCrawlDTOs) {
-    super(aCrawler, aUrlToCrawlDTOs);
+      final AbstractCrawler aCrawler, final ConcurrentLinkedQueue<SrTopicUrlDTO> aUrlToCrawlDTOs, final
+      JsoupConnection jsoupConnection) {
+    super(aCrawler, aUrlToCrawlDTOs, jsoupConnection);
   }
 
   private static Optional<String> parseDescription(final Document aDocument) {
@@ -179,7 +181,7 @@ public class SrFilmDetailTask extends SrRateLimitedDocumentTask<Film, SrTopicUrl
   @Override
   protected AbstractUrlTask<Film, SrTopicUrlDTO> createNewOwnInstance(
       final ConcurrentLinkedQueue<SrTopicUrlDTO> aURLsToCrawl) {
-    return new SrFilmDetailTask(crawler, aURLsToCrawl);
+    return new SrFilmDetailTask(crawler, aURLsToCrawl, getJsoupConnection());
   }
 
   /**

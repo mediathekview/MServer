@@ -39,12 +39,12 @@ public abstract class AbstractDocumentTask<T, D extends CrawlerUrlDTO>
   JsoupConnection jsoupConnection;
 
   public AbstractDocumentTask(
-      final AbstractCrawler aCrawler, final ConcurrentLinkedQueue<D> aUrlToCrawlDTOs) {
+      final AbstractCrawler aCrawler, final ConcurrentLinkedQueue<D> aUrlToCrawlDTOs, JsoupConnection jsoupConnection) {
     super(aCrawler, aUrlToCrawlDTOs);
     incrementErrorCounterOnHttpErrors = true;
     printErrorMessage = true;
     httpErrorLogLevel = Level.ERROR;
-    this.jsoupConnection = new JsoupConnection();
+    this.jsoupConnection = jsoupConnection;
   }
 
   /**

@@ -30,17 +30,18 @@ public class SrTopicsOverviewPageTask implements Callable<ConcurrentLinkedQueue<
   private static final String SHOW_LINK_SELECTOR = "h3.teaser__text__header a";
   private final AbstractCrawler crawler;
 
+  JsoupConnection jsoupConnection;
+
   /** @param aCrawler The crawler which uses this task. */
-  public SrTopicsOverviewPageTask(final AbstractCrawler aCrawler) {
+  public SrTopicsOverviewPageTask(final AbstractCrawler aCrawler, JsoupConnection jsoupConnection) {
     crawler = aCrawler;
+    this.jsoupConnection = jsoupConnection;
   }
 
   private static SrTopicUrlDTO createDto(final String aTheme, final String aShowShort) {
     final String url = String.format(SrConstants.URL_SHOW_ARCHIVE_PAGE, aShowShort, 1);
     return new SrTopicUrlDTO(aTheme, url);
   }
-
-  JsoupConnection jsoupConnection = new JsoupConnection();
 
   @Override
   public ConcurrentLinkedQueue<SrTopicUrlDTO> call() throws Exception {

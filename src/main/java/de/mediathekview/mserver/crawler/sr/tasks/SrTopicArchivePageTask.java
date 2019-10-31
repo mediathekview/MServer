@@ -1,6 +1,7 @@
 package de.mediathekview.mserver.crawler.sr.tasks;
 
 import de.mediathekview.mserver.base.HtmlConsts;
+import de.mediathekview.mserver.base.webaccess.JsoupConnection;
 import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
 import de.mediathekview.mserver.crawler.basic.AbstractUrlTask;
 import de.mediathekview.mserver.crawler.sr.SrConstants;
@@ -23,16 +24,18 @@ public class SrTopicArchivePageTask extends
   private final int pageNumber;
 
   public SrTopicArchivePageTask(
-      final AbstractCrawler aCrawler, final ConcurrentLinkedQueue<SrTopicUrlDTO> aUrlToCrawlDTOs) {
-    super(aCrawler, aUrlToCrawlDTOs);
+      final AbstractCrawler aCrawler, final ConcurrentLinkedQueue<SrTopicUrlDTO> aUrlToCrawlDTOs, final
+      JsoupConnection jsoupConnection) {
+    super(aCrawler, aUrlToCrawlDTOs, jsoupConnection);
     pageNumber = 1;
   }
 
   public SrTopicArchivePageTask(
       final AbstractCrawler aCrawler,
       final ConcurrentLinkedQueue<SrTopicUrlDTO> aUrlToCrawlDTOs,
+      final JsoupConnection jsoupConnection,
       final int aPageNumber) {
-    super(aCrawler, aUrlToCrawlDTOs);
+    super(aCrawler, aUrlToCrawlDTOs, jsoupConnection);
     pageNumber = aPageNumber;
   }
 
@@ -49,12 +52,12 @@ public class SrTopicArchivePageTask extends
   @Override
   protected AbstractUrlTask<SrTopicUrlDTO, SrTopicUrlDTO> createNewOwnInstance(
       final ConcurrentLinkedQueue<SrTopicUrlDTO> aURLsToCrawl) {
-    return new SrTopicArchivePageTask(crawler, aURLsToCrawl);
+    return new SrTopicArchivePageTask(crawler, aURLsToCrawl, getJsoupConnection());
   }
 
   private AbstractUrlTask<SrTopicUrlDTO, SrTopicUrlDTO> createNewOwnInstance(
       final ConcurrentLinkedQueue<SrTopicUrlDTO> aURLsToCrawl, final int aPageNumber) {
-    return new SrTopicArchivePageTask(crawler, aURLsToCrawl, aPageNumber);
+    return new SrTopicArchivePageTask(crawler, aURLsToCrawl, getJsoupConnection(), aPageNumber);
   }
 
   private void parsePage(final String aTheme, final Document aDocument) {

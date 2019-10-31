@@ -1,5 +1,6 @@
 package de.mediathekview.mserver.crawler.kika.tasks;
 
+import de.mediathekview.mserver.base.webaccess.JsoupConnection;
 import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
 import de.mediathekview.mserver.crawler.basic.AbstractDocumentTask;
 import de.mediathekview.mserver.crawler.basic.AbstractUrlTask;
@@ -25,8 +26,9 @@ public class KikaSendungsfolgeVideoUrlTask
   private static final String VIDEO_URL_REGEX_PATTERN = "(?<=dataURL:')[^']*";
 
   public KikaSendungsfolgeVideoUrlTask(
-      final AbstractCrawler aCrawler, final ConcurrentLinkedQueue<CrawlerUrlDTO> aUrlToCrawlDTOs) {
-    super(aCrawler, aUrlToCrawlDTOs);
+      final AbstractCrawler aCrawler, final ConcurrentLinkedQueue<CrawlerUrlDTO> aUrlToCrawlDTOs, final
+      JsoupConnection jsoupConnection) {
+    super(aCrawler, aUrlToCrawlDTOs, jsoupConnection);
   }
 
   private String toKikaUrl(final String aUrl) {
@@ -42,7 +44,7 @@ public class KikaSendungsfolgeVideoUrlTask
   @Override
   protected AbstractUrlTask<CrawlerUrlDTO, CrawlerUrlDTO> createNewOwnInstance(
       final ConcurrentLinkedQueue<CrawlerUrlDTO> aURLsToCrawl) {
-    return new KikaSendungsfolgeVideoUrlTask(crawler, aURLsToCrawl);
+    return new KikaSendungsfolgeVideoUrlTask(crawler, aURLsToCrawl, getJsoupConnection());
   }
 
   @Override

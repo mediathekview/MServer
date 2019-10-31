@@ -1,37 +1,40 @@
 package de.mediathekview.mserver.crawler.sr.tasks;
 
+import static org.hamcrest.CoreMatchers.notNullValue;
+import static org.junit.Assert.assertThat;
+import static org.junit.Assert.fail;
+import static org.mockito.ArgumentMatchers.anyInt;
+import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.Mockito.when;
+
 import de.mediathekview.mlib.daten.Sender;
 import de.mediathekview.mserver.base.config.MServerConfigManager;
+import de.mediathekview.mserver.base.webaccess.JsoupConnection;
 import de.mediathekview.mserver.crawler.sr.SrConstants;
 import de.mediathekview.mserver.crawler.sr.SrCrawler;
 import de.mediathekview.mserver.crawler.sr.SrTopicUrlDTO;
 import de.mediathekview.mserver.testhelper.JsoupMock;
-import org.hamcrest.Matchers;
-import org.jsoup.Jsoup;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.Mockito;
-import org.powermock.core.classloader.annotations.PowerMockIgnore;
-import org.powermock.core.classloader.annotations.PrepareForTest;
-import org.powermock.modules.junit4.PowerMockRunner;
-
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ConcurrentLinkedQueue;
+import org.hamcrest.Matchers;
+import org.jsoup.nodes.Document;
+import org.junit.Before;
+import org.junit.Test;
+import org.mockito.Mock;
+import org.mockito.Mockito;
+import org.mockito.MockitoAnnotations;
 
-import static org.hamcrest.CoreMatchers.notNullValue;
-import static org.junit.Assert.assertThat;
-
-@RunWith(PowerMockRunner.class)
-@PrepareForTest({Jsoup.class})
-@PowerMockIgnore(
-    value = {
-      "javax.net.ssl.*",
-      "javax.*",
-      "com.sun.*",
-      "org.apache.logging.log4j.core.config.xml.*"
-    })
 public class SrTopicsOverviewPageTaskTest {
+
+  @Mock
+  JsoupConnection jsoupConnection;
+
+  @Before
+  public void setUp() {
+    MockitoAnnotations.initMocks(this);
+  }
 
   private final SrTopicUrlDTO[] expectedUrls =
       new SrTopicUrlDTO[] {
@@ -58,9 +61,6 @@ public class SrTopicsOverviewPageTaskTest {
   @Test
   public void test() throws Exception {
     final SrCrawler crawler = Mockito.mock(SrCrawler.class);
-    Mockito.when(crawler.getCrawlerConfig())
-        .thenReturn(MServerConfigManager.getInstance().getSenderConfig(Sender.SR));
-    final SrTopicsOverviewPageTask target = new SrTopicsOverviewPageTask(crawler);
 
     final Map<String, String> urlMapping = new HashMap<>();
     urlMapping.put(SrConstants.URL_OVERVIEW_PAGE, "/sr/sr_overview_empty.html");
@@ -73,8 +73,18 @@ public class SrTopicsOverviewPageTaskTest {
     urlMapping.put(SrConstants.URL_OVERVIEW_PAGE + "vwxyz", "/sr/sr_overview_empty.html");
     urlMapping.put(SrConstants.URL_OVERVIEW_PAGE + "ziffern", "/sr/sr_overview_09.html");
 
-    JsoupMock.mock(urlMapping);
+    urlMapping.forEach((url, fileName) -> {
+      try {
+        Document document = JsoupMock.getFileDocument(url, fileName);
+        when(jsoupConnection.getDocumentTimeoutAfter(eq(url), anyInt())).thenReturn(document);
+      } catch (IOException iox) {
+        fail();
+      }
+    });
 
+    when(crawler.getCrawlerConfig())
+        .thenReturn(MServerConfigManager.getInstance().getSenderConfig(Sender.SR));
+    final SrTopicsOverviewPageTask target = new SrTopicsOverviewPageTask(crawler, jsoupConnection);
     final ConcurrentLinkedQueue<SrTopicUrlDTO> actual = target.call();
     assertThat(actual, notNullValue());
     assertThat(actual, Matchers.containsInAnyOrder(expectedUrls));

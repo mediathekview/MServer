@@ -29,13 +29,14 @@ public class ZdfIndexPageTask implements Callable<ZdfConfiguration> {
   private final AbstractCrawler crawler;
   private final String urlBase;
 
+  JsoupConnection jsoupConnection;
+
   /** @param aCrawler The crawler which uses this task. */
-  public ZdfIndexPageTask(final AbstractCrawler aCrawler, final String aUrlBase) {
+  public ZdfIndexPageTask(final AbstractCrawler aCrawler, final String aUrlBase, JsoupConnection jsoupConnection) {
     crawler = aCrawler;
     urlBase = aUrlBase;
+    this.jsoupConnection = jsoupConnection;
   }
-
-  JsoupConnection jsoupConnection = new JsoupConnection();
 
   @Override
   public ZdfConfiguration call() {

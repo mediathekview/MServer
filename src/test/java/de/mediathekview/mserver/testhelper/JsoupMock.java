@@ -36,20 +36,21 @@ public class JsoupMock {
     return Jsoup.parse(fileContent);
   }
 
-  public static void mockXml(String aUrl, String aXmlFile) throws IOException {
+  public static Document mockXml(String aUrl, String aXmlFile) throws IOException {
     Connection connection = mock(aUrl, aXmlFile);
 
     Mockito.when(connection.parser(any())).thenReturn(connection);
+
+    return getFileDocument(aUrl, aXmlFile);
   }
 
-  public static void mock(final Map<String, String> aUrlMapping) {
-    final Map<String, Connection> x = new HashMap<>();
+  public static Map<String, Connection> mock(final Map<String, String> aUrlMapping) {
+    final Map<String, Connection> resultMap = new HashMap<>();
 
     aUrlMapping
-        .entrySet()
         .forEach(
-            entry -> {
-              final String fileContent = FileReader.readFile(entry.getValue());
+            (url, resultFileName) -> {
+              final String fileContent = FileReader.readFile(resultFileName);
               final Document document = Jsoup.parse(fileContent);
 
               final Connection connection = Mockito.mock(Connection.class);
@@ -57,26 +58,20 @@ public class JsoupMock {
                 Mockito.when(connection.timeout(Mockito.anyInt())).thenReturn(connection);
                 Mockito.when(connection.maxBodySize(0)).thenReturn(connection);
                 Mockito.when(connection.get()).thenReturn(document);
+
+                final JsoupConnection jsoupConnectionMock = Mockito.mock(JsoupConnection.class);
+
+                Mockito.when(jsoupConnectionMock.getConnection(url)).thenReturn(connection);
+
               } catch (final IOException ex) {
                 Logger.getLogger(JsoupMock.class.getName()).log(Level.SEVERE, null, ex);
               }
 
-              x.put(entry.getKey(), connection);
+              resultMap.put(url, connection);
+
             });
 
-    JsoupConnection jsoupConnectionMock = Mockito.mock(JsoupConnection.class);
+    return resultMap;
 
-    x.entrySet()
-        .forEach(
-            entry -> {
-              final String url = entry.getKey();
-              final Connection result = entry.getValue();
-
-              try {
-                Mockito.when(jsoupConnectionMock.getConnection(url)).thenReturn(result);
-              } catch (IOException ex) {
-                Logger.getLogger(JsoupMock.class.getName()).log(Level.SEVERE, null, ex);
-              }
-            });
   }
 }

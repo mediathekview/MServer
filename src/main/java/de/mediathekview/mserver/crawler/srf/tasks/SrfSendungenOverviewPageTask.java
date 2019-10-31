@@ -28,12 +28,13 @@ public class SrfSendungenOverviewPageTask
   private final SrfShowOverviewUrlBuilder urlBuilder = new SrfShowOverviewUrlBuilder();
   private final AbstractCrawler crawler;
 
-  /** @param aCrawler The crawler which uses this task. */
-  public SrfSendungenOverviewPageTask(final AbstractCrawler aCrawler) {
-    crawler = aCrawler;
-  }
+  JsoupConnection jsoupConnection;
 
-  JsoupConnection jsoupConnection = new JsoupConnection();
+  /** @param aCrawler The crawler which uses this task. */
+  public SrfSendungenOverviewPageTask(final AbstractCrawler aCrawler, JsoupConnection jsoupConnection) {
+    crawler = aCrawler;
+    this.jsoupConnection = jsoupConnection;
+  }
 
   @Override
   public ConcurrentLinkedQueue<CrawlerUrlDTO> call() {

@@ -1,40 +1,41 @@
 package de.mediathekview.mserver.crawler.wdr.tasks;
 
-import de.mediathekview.mserver.crawler.basic.CrawlerUrlDTO;
-import de.mediathekview.mserver.crawler.basic.TopicUrlDTO;
-import de.mediathekview.mserver.testhelper.JsoupMock;
-import org.hamcrest.Matchers;
-import org.jsoup.Jsoup;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.powermock.core.classloader.annotations.PowerMockIgnore;
-import org.powermock.core.classloader.annotations.PrepareForTest;
-import org.powermock.modules.junit4.PowerMockRunner;
-
-import java.io.IOException;
-import java.util.Set;
-import java.util.concurrent.ConcurrentLinkedQueue;
-
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.junit.Assert.assertThat;
+import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.Mockito.when;
 
-@RunWith(PowerMockRunner.class)
-@PrepareForTest({Jsoup.class})
-@PowerMockIgnore(
-    value = {
-      "javax.net.ssl.*",
-      "javax.*",
-      "com.sun.*",
-      "org.apache.logging.log4j.core.config.xml.*"
-    })
+import de.mediathekview.mserver.base.webaccess.JsoupConnection;
+import de.mediathekview.mserver.crawler.basic.CrawlerUrlDTO;
+import de.mediathekview.mserver.crawler.basic.TopicUrlDTO;
+import de.mediathekview.mserver.testhelper.JsoupMock;
+import java.io.IOException;
+import java.util.Set;
+import java.util.concurrent.ConcurrentLinkedQueue;
+import org.hamcrest.Matchers;
+import org.jsoup.Connection;
+import org.junit.Before;
+import org.junit.Test;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
+
 public class WdrDayPageTaskTest extends WdrTaskTestBase {
+
+  @Mock
+  JsoupConnection jsoupConnection;
+
+  @Before
+  public void setUp() {
+    MockitoAnnotations.initMocks(this);
+  }
 
   @Test
   public void test() throws IOException {
     final String requestUrl =
         "https://www1.wdr.de/mediathek/video/sendungverpasst/sendung-verpasst-100~_tag-03022018.html";
-    JsoupMock.mock(requestUrl, "/wdr/wdr_day.html");
+    Connection connection = JsoupMock.mock(requestUrl, "/wdr/wdr_day.html");
+    when(jsoupConnection.getConnection(eq(requestUrl))).thenReturn(connection);
 
     final TopicUrlDTO[] expected =
         new TopicUrlDTO[] {
@@ -79,7 +80,7 @@ public class WdrDayPageTaskTest extends WdrTaskTestBase {
     final ConcurrentLinkedQueue<CrawlerUrlDTO> queue = new ConcurrentLinkedQueue<>();
     queue.add(new CrawlerUrlDTO(requestUrl));
 
-    final WdrDayPageTask target = new WdrDayPageTask(createCrawler(), queue);
+    final WdrDayPageTask target = new WdrDayPageTask(createCrawler(), queue, jsoupConnection);
     final Set<TopicUrlDTO> actual = target.invoke();
 
     assertThat(actual, notNullValue());

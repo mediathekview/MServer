@@ -2,6 +2,7 @@ package de.mediathekview.mserver.crawler.wdr.tasks;
 
 import de.mediathekview.mserver.base.HtmlConsts;
 import de.mediathekview.mserver.base.utils.UrlUtils;
+import de.mediathekview.mserver.base.webaccess.JsoupConnection;
 import de.mediathekview.mserver.crawler.basic.*;
 import de.mediathekview.mserver.crawler.wdr.WdrConstants;
 import org.jsoup.nodes.Document;
@@ -18,8 +19,8 @@ public class WdrDayPageTask extends AbstractDocumentTask<TopicUrlDTO, CrawlerUrl
   private static final String TOPIC_SELECTOR = "h3.ressort > a";
 
   public WdrDayPageTask(
-      final AbstractCrawler aCrawler, final ConcurrentLinkedQueue<CrawlerUrlDTO> aUrlToCrawlDtos) {
-    super(aCrawler, aUrlToCrawlDtos);
+      final AbstractCrawler aCrawler, final ConcurrentLinkedQueue<CrawlerUrlDTO> aUrlToCrawlDtos, final JsoupConnection jsoupConnection) {
+    super(aCrawler, aUrlToCrawlDtos, jsoupConnection);
   }
 
   private static boolean isRelevantEntry(final String aUrl) {
@@ -69,6 +70,6 @@ public class WdrDayPageTask extends AbstractDocumentTask<TopicUrlDTO, CrawlerUrl
   @Override
   protected AbstractUrlTask<TopicUrlDTO, CrawlerUrlDTO> createNewOwnInstance(
       final ConcurrentLinkedQueue<CrawlerUrlDTO> aUrlsToCrawl) {
-    return new WdrDayPageTask(crawler, aUrlsToCrawl);
+    return new WdrDayPageTask(crawler, aUrlsToCrawl, getJsoupConnection());
   }
 }

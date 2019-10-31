@@ -50,9 +50,12 @@ public class KikaSendungsfolgeVideoDetailsTask extends AbstractUrlTask<Film, Cra
   private static final Logger LOG = LogManager.getLogger(KikaSendungsfolgeVideoDetailsTask.class);
   private static final long serialVersionUID = 6336802731231493377L;
 
+  JsoupConnection jsoupConnection;
+
   public KikaSendungsfolgeVideoDetailsTask(
       final AbstractCrawler aCrawler, final ConcurrentLinkedQueue<CrawlerUrlDTO> aUrlToCrawlDTOs) {
     super(aCrawler, aUrlToCrawlDTOs);
+    this.jsoupConnection = new JsoupConnection();
   }
 
   private void addFilmUrls(
@@ -147,8 +150,6 @@ public class KikaSendungsfolgeVideoDetailsTask extends AbstractUrlTask<Film, Cra
     return new KikaSendungsfolgeVideoDetailsTask(crawler, aURLsToCrawl);
   }
 
-  JsoupConnection jsoupConnection = new JsoupConnection();
-
   @Override
   protected void processElement(final CrawlerUrlDTO urlDTO) {
     try {
@@ -242,5 +243,13 @@ public class KikaSendungsfolgeVideoDetailsTask extends AbstractUrlTask<Film, Cra
     final Collection<GeoLocations> geoLocations = new ArrayList<>();
     geoLocations.add(geoLocation);
     newFilm.setGeoLocations(geoLocations);
+  }
+
+  public JsoupConnection getJsoupConnection() {
+    return jsoupConnection;
+  }
+
+  public void setJsoupConnection(JsoupConnection jsoupConnection) {
+    this.jsoupConnection = jsoupConnection;
   }
 }

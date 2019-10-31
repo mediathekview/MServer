@@ -39,13 +39,14 @@ public class KikaSendungVerpasstOverviewUrlTask implements Callable<Set<CrawlerU
   private final AbstractCrawler crawler;
   private final LocalDateTime today;
 
+  JsoupConnection jsoupConnection;
+
   public KikaSendungVerpasstOverviewUrlTask(
       final AbstractCrawler aCrawler, final LocalDateTime aToday) {
     crawler = aCrawler;
     today = aToday;
+    this.jsoupConnection = new JsoupConnection();
   }
-
-  JsoupConnection jsoupConnection = new JsoupConnection();
 
   @Override
   public Set<CrawlerUrlDTO> call() {
@@ -103,5 +104,13 @@ public class KikaSendungVerpasstOverviewUrlTask implements Callable<Set<CrawlerU
     }
 
     return dateStrings;
+  }
+
+  public JsoupConnection getJsoupConnection() {
+    return jsoupConnection;
+  }
+
+  public void setJsoupConnection(JsoupConnection jsoupConnection) {
+    this.jsoupConnection = jsoupConnection;
   }
 }

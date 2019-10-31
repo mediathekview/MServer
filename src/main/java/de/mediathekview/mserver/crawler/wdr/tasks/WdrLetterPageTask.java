@@ -23,12 +23,13 @@ public class WdrLetterPageTask implements Callable<Queue<WdrTopicUrlDto>> {
   private final WdrLetterPageDeserializer deserializer = new WdrLetterPageDeserializer();
   private final AbstractCrawler crawler;
 
-  /** @param aCrawler The crawler which uses this task. */
-  public WdrLetterPageTask(final AbstractCrawler aCrawler) {
-    crawler = aCrawler;
-  }
+  JsoupConnection jsoupConnection;
 
-  JsoupConnection jsoupConnection = new JsoupConnection();
+  /** @param aCrawler The crawler which uses this task. */
+  public WdrLetterPageTask(final AbstractCrawler aCrawler, JsoupConnection jsoupConnection) {
+    crawler = aCrawler;
+    this.jsoupConnection = jsoupConnection;
+  }
 
   @Override
   public Queue<WdrTopicUrlDto> call() {

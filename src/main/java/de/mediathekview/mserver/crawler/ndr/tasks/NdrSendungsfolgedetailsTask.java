@@ -8,6 +8,7 @@ import de.mediathekview.mlib.daten.Resolution;
 import de.mediathekview.mlib.daten.Sender;
 import de.mediathekview.mserver.base.utils.GeoLocationGuesser;
 import de.mediathekview.mserver.base.utils.UrlUtils;
+import de.mediathekview.mserver.base.webaccess.JsoupConnection;
 import de.mediathekview.mserver.crawler.ard.json.ArdVideoInfoDto;
 import de.mediathekview.mserver.crawler.ard.json.ArdVideoInfoJsonDeserializer;
 import de.mediathekview.mserver.crawler.basic.*;
@@ -38,8 +39,9 @@ public class NdrSendungsfolgedetailsTask extends AbstractDocumentTask<Film, Craw
   private final Gson gson;
 
   public NdrSendungsfolgedetailsTask(
-      final AbstractCrawler aCrawler, final ConcurrentLinkedQueue<CrawlerUrlDTO> aUrlToCrawlDtos) {
-    super(aCrawler, aUrlToCrawlDtos);
+      final AbstractCrawler aCrawler, final ConcurrentLinkedQueue<CrawlerUrlDTO> aUrlToCrawlDtos, final
+      JsoupConnection jsoupConnection) {
+    super(aCrawler, aUrlToCrawlDtos, jsoupConnection);
 
     filmDetailDeserializer = new NdrFilmDeserializer();
     gson =
@@ -51,7 +53,7 @@ public class NdrSendungsfolgedetailsTask extends AbstractDocumentTask<Film, Craw
   @Override
   protected AbstractUrlTask<Film, CrawlerUrlDTO> createNewOwnInstance(
       final ConcurrentLinkedQueue<CrawlerUrlDTO> aUrlsToCrawl) {
-    return new NdrSendungsfolgedetailsTask(crawler, aUrlsToCrawl);
+    return new NdrSendungsfolgedetailsTask(crawler, aUrlsToCrawl, getJsoupConnection());
   }
 
   @Override

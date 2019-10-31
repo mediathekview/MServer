@@ -4,6 +4,7 @@ import de.mediathekview.mlib.daten.Film;
 import de.mediathekview.mlib.daten.Sender;
 import de.mediathekview.mlib.messages.listener.MessageListener;
 import de.mediathekview.mserver.base.config.MServerConfigManager;
+import de.mediathekview.mserver.base.webaccess.JsoupConnection;
 import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
 import de.mediathekview.mserver.crawler.basic.CrawlerUrlDTO;
 import de.mediathekview.mserver.crawler.ndr.tasks.NdrSendungVerpasstTask;
@@ -31,12 +32,16 @@ public class NdrCrawler extends AbstractCrawler {
       NDR_BASE_URL + "sendung_verpasst/epg1490_date-%s_display-all.html";
   private static final DateTimeFormatter URL_DATE_TIME_FORMATTER = DateTimeFormatter.ISO_LOCAL_DATE;
 
+  JsoupConnection jsoupConnection;
+
   public NdrCrawler(
       final ForkJoinPool aForkJoinPool,
       final Collection<MessageListener> aMessageListeners,
       final Collection<SenderProgressListener> aProgressListeners,
       final MServerConfigManager rootConfig) {
     super(aForkJoinPool, aMessageListeners, aProgressListeners, rootConfig);
+
+    this.jsoupConnection = new JsoupConnection();
   }
 
   @Override
@@ -76,10 +81,10 @@ public class NdrCrawler extends AbstractCrawler {
       final NdrSendungsfolgenOverviewPageTask ndrSendungsfolgenOverviewPageTask =
           new NdrSendungsfolgenOverviewPageTask(
               this,
-              new ConcurrentLinkedQueue<>(forkJoinPool.submit(sendungenOverviewPageTask).get()));
+              new ConcurrentLinkedQueue<>(forkJoinPool.submit(sendungenOverviewPageTask).get()), jsoupConnection);
 
       final NdrSendungVerpasstTask sendungVerpasstTask =
-          new NdrSendungVerpasstTask(this, getSendungVerpasstStartUrls());
+          new NdrSendungVerpasstTask(this, getSendungVerpasstStartUrls(), jsoupConnection);
 
       sendungsfolgenUrls.addAll(forkJoinPool.invoke(ndrSendungsfolgenOverviewPageTask));
       sendungsfolgenUrls.addAll(forkJoinPool.invoke(sendungVerpasstTask));
@@ -88,6 +93,6 @@ public class NdrCrawler extends AbstractCrawler {
       LOG.fatal("Something went terrible wrong on crawlin the NDR.", exception);
     }
 
-    return new NdrSendungsfolgedetailsTask(this, sendungsfolgenUrls);
+    return new NdrSendungsfolgedetailsTask(this, sendungsfolgenUrls, jsoupConnection);
   }
 }

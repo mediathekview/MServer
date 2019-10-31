@@ -22,12 +22,13 @@ public class OrfLetterPageTask implements Callable<ConcurrentLinkedQueue<TopicUr
   private static final String SHOW_URL_SELECTOR = "article > a";
   private final AbstractCrawler crawler;
 
+  JsoupConnection jsoupConnection;
+
   /** @param aCrawler The crawler which uses this task. */
-  public OrfLetterPageTask(final AbstractCrawler aCrawler) {
+  public OrfLetterPageTask(final AbstractCrawler aCrawler, JsoupConnection jsoupConnection) {
+    this.jsoupConnection = jsoupConnection;
     crawler = aCrawler;
   }
-
-  JsoupConnection jsoupConnection = new JsoupConnection();
 
   @Override
   public ConcurrentLinkedQueue<TopicUrlDTO> call() throws Exception {

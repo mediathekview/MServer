@@ -1,68 +1,69 @@
 package de.mediathekview.mserver.crawler.sr.tasks;
 
-import de.mediathekview.mlib.daten.Film;
-import de.mediathekview.mserver.testhelper.JsoupMock;
-import org.jsoup.Jsoup;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
-import org.powermock.core.classloader.annotations.PowerMockIgnore;
-import org.powermock.core.classloader.annotations.PrepareForTest;
-import org.powermock.modules.junit4.PowerMockRunner;
-import org.powermock.modules.junit4.PowerMockRunnerDelegate;
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.CoreMatchers.notNullValue;
+import static org.junit.Assert.assertThat;
+import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.Mockito.when;
 
+import de.mediathekview.mlib.daten.Film;
+import de.mediathekview.mserver.base.webaccess.JsoupConnection;
+import de.mediathekview.mserver.testhelper.JsoupMock;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Set;
+import org.jsoup.Connection;
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.junit.runners.Parameterized;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
 
-import static org.hamcrest.CoreMatchers.equalTo;
-import static org.hamcrest.CoreMatchers.notNullValue;
-import static org.junit.Assert.assertThat;
-
-@RunWith(PowerMockRunner.class)
-@PrepareForTest({Jsoup.class})
-@PowerMockRunnerDelegate(Parameterized.class)
-@PowerMockIgnore(
-        value = {
-                "javax.net.ssl.*",
-                "javax.*",
-                "com.sun.*",
-                "org.apache.logging.log4j.core.config.xml.*"
-        })
+@RunWith(Parameterized.class)
 public class SrFilmDetailTaskTestNoFilm extends SrTaskTestBase {
 
-    private final String requestUrl;
-    private final String filmPageFile;
-    private final String theme;
+  private final String requestUrl;
+  private final String filmPageFile;
+  private final String theme;
 
-    public SrFilmDetailTaskTestNoFilm(
-            final String aRequestUrl, final String aFilmPageFile, final String aTheme) {
-        requestUrl = aRequestUrl;
-        filmPageFile = aFilmPageFile;
-        theme = aTheme;
-    }
+  @Mock
+  JsoupConnection jsoupConnection;
+
+  @Before
+  public void setUp() {
+    MockitoAnnotations.initMocks(this);
+  }
+
+  public SrFilmDetailTaskTestNoFilm(
+      final String aRequestUrl, final String aFilmPageFile, final String aTheme) {
+    requestUrl = aRequestUrl;
+    filmPageFile = aFilmPageFile;
+    theme = aTheme;
+  }
 
   @Parameterized.Parameters
   public static Collection<Object[]> data() {
-      return Arrays.asList(
-              new Object[][]{
-                      {
-                              "https://www.sr-mediathek.de/index.php?seite=7&id=15808&pnr=0",
-                              "/sr/sr_podcast_page.html",
-                              "Abendrot"
-                      },
-                      {
-                              "https://www.sr-mediathek.de/index.php?seite=7&id=57773",
-                              "/sr/sr_audio_page.html",
-                              "Bücherlese"
-                      }
-              });
+    return Arrays.asList(
+        new Object[][]{
+            {
+                "https://www.sr-mediathek.de/index.php?seite=7&id=15808&pnr=0",
+                "/sr/sr_podcast_page.html",
+                "Abendrot"
+            },
+            {
+                "https://www.sr-mediathek.de/index.php?seite=7&id=57773",
+                "/sr/sr_audio_page.html",
+                "Bücherlese"
+            }
+        });
   }
 
   @Test
   public void test() throws IOException {
-    JsoupMock.mock(requestUrl, filmPageFile);
+    Connection connection = JsoupMock.mock(requestUrl, filmPageFile);
+    when(jsoupConnection.getConnection(eq(requestUrl))).thenReturn(connection);
 
     final Set<Film> actual = executeTask(theme, requestUrl);
 
@@ -70,7 +71,7 @@ public class SrFilmDetailTaskTestNoFilm extends SrTaskTestBase {
     assertThat(actual.size(), equalTo(0));
   }
 
-    private Set<Film> executeTask(String aTheme, String aRequestUrl) {
-        return new SrFilmDetailTask(createCrawler(), createCrawlerUrlDto(aTheme, aRequestUrl)).invoke();
+  private Set<Film> executeTask(String aTheme, String aRequestUrl) {
+    return new SrFilmDetailTask(createCrawler(), createCrawlerUrlDto(aTheme, aRequestUrl), jsoupConnection).invoke();
   }
 }

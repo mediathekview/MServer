@@ -12,7 +12,6 @@ import de.mediathekview.mserver.base.webaccess.JsoupConnection;
 import de.mediathekview.mserver.crawler.basic.CrawlerUrlDTO;
 import de.mediathekview.mserver.testhelper.AssertFilm;
 import de.mediathekview.mserver.testhelper.JsoupMock;
-import de.mediathekview.mserver.testhelper.WireMockTestBase;
 import java.io.IOException;
 import java.time.Duration;
 import java.time.LocalDateTime;
@@ -26,10 +25,8 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
-import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.mockito.Spy;
 
 @RunWith(Parameterized.class)
 public class DWFilmDetailsTaskTest extends DwTaskTestBase {
@@ -123,8 +120,7 @@ public class DWFilmDetailsTaskTest extends DwTaskTestBase {
     urls.add(new CrawlerUrlDTO(requestUrl));
 
     DWFilmDetailsTask classUnderTest =
-              new DWFilmDetailsTask(createCrawler(), urls, wireMockServer.baseUrl());
-    classUnderTest.setJsoupConnection(jsoupConnection);
+              new DWFilmDetailsTask(createCrawler(), urls, wireMockServer.baseUrl(), jsoupConnection);
 
     Set<Film> actual = classUnderTest.invoke();
 

@@ -5,6 +5,7 @@ import de.mediathekview.mlib.daten.Sender;
 import de.mediathekview.mlib.messages.listener.MessageListener;
 import de.mediathekview.mserver.base.config.MServerConfigManager;
 import de.mediathekview.mserver.base.messages.ServerMessages;
+import de.mediathekview.mserver.base.webaccess.JsoupConnection;
 import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
 import de.mediathekview.mserver.crawler.basic.CrawlerUrlDTO;
 import de.mediathekview.mserver.crawler.basic.TopicUrlDTO;
@@ -30,12 +31,16 @@ public class OrfCrawler extends AbstractCrawler {
 
   private static final Logger LOG = LogManager.getLogger(OrfCrawler.class);
 
+  JsoupConnection jsoupConnection;
+
   public OrfCrawler(
       final ForkJoinPool aForkJoinPool,
       final Collection<MessageListener> aMessageListeners,
       final Collection<SenderProgressListener> aProgressListeners,
       final MServerConfigManager rootConfig) {
     super(aForkJoinPool, aMessageListeners, aProgressListeners, rootConfig);
+
+    jsoupConnection = new JsoupConnection();
   }
 
   @Override
@@ -44,10 +49,10 @@ public class OrfCrawler extends AbstractCrawler {
   }
 
   private Set<TopicUrlDTO> getArchiveEntries() throws InterruptedException, ExecutionException {
-    final OrfHistoryOverviewTask historyTask = new OrfHistoryOverviewTask(this);
+    final OrfHistoryOverviewTask historyTask = new OrfHistoryOverviewTask(this, jsoupConnection);
     final ConcurrentLinkedQueue<TopicUrlDTO> topics = forkJoinPool.submit(historyTask).get();
 
-    final OrfHistoryTopicTask topicTask = new OrfHistoryTopicTask(this, topics);
+    final OrfHistoryTopicTask topicTask = new OrfHistoryTopicTask(this, topics, jsoupConnection);
     final Set<TopicUrlDTO> shows = forkJoinPool.submit(topicTask).get();
 
     printMessage(
@@ -57,7 +62,7 @@ public class OrfCrawler extends AbstractCrawler {
   }
 
   private Set<TopicUrlDTO> getDaysEntries() throws InterruptedException, ExecutionException {
-    final OrfDayTask dayTask = new OrfDayTask(this, getDayUrls());
+    final OrfDayTask dayTask = new OrfDayTask(this, getDayUrls(), jsoupConnection);
     final Set<TopicUrlDTO> shows = forkJoinPool.submit(dayTask).get();
 
     printMessage(
@@ -89,7 +94,7 @@ public class OrfCrawler extends AbstractCrawler {
 
   private ConcurrentLinkedQueue<TopicUrlDTO> getLetterEntries()
       throws InterruptedException, ExecutionException {
-    final OrfLetterPageTask letterTask = new OrfLetterPageTask(this);
+    final OrfLetterPageTask letterTask = new OrfLetterPageTask(this, jsoupConnection);
     final ConcurrentLinkedQueue<TopicUrlDTO> shows = forkJoinPool.submit(letterTask).get();
 
     printMessage(
@@ -118,7 +123,7 @@ public class OrfCrawler extends AbstractCrawler {
           ServerMessages.DEBUG_ALL_SENDUNG_FOLGEN_COUNT, getSender().getName(), shows.size());
       getAndSetMaxCount(shows.size());
 
-      return new OrfFilmDetailTask(this, shows);
+      return new OrfFilmDetailTask(this, shows, jsoupConnection);
     } catch (final InterruptedException | ExecutionException ex) {
       LOG.fatal("Exception in ORF crawler.", ex);
     }
