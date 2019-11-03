@@ -23,7 +23,7 @@ public class HrSendungsfolgenOverviewPageTask
   private static final long serialVersionUID = -6727831751148817578L;
 
   public HrSendungsfolgenOverviewPageTask(
-      final AbstractCrawler aCrawler, final ConcurrentLinkedQueue<CrawlerUrlDTO> aUrlToCrawlDTOs, JsoupConnection jsoupConnection) {
+      final AbstractCrawler aCrawler, final ConcurrentLinkedQueue<CrawlerUrlDTO> aUrlToCrawlDTOs, final JsoupConnection jsoupConnection) {
     super(aCrawler, aUrlToCrawlDTOs, jsoupConnection);
     // Some HR entries for "Programm" don't have a "sendungen" sub page which will be tried to load
     // because this sub page usually contains the "Sendungsfolgen".

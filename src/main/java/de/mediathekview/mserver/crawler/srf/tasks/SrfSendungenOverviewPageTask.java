@@ -31,7 +31,7 @@ public class SrfSendungenOverviewPageTask
   JsoupConnection jsoupConnection;
 
   /** @param aCrawler The crawler which uses this task. */
-  public SrfSendungenOverviewPageTask(final AbstractCrawler aCrawler, JsoupConnection jsoupConnection) {
+  public SrfSendungenOverviewPageTask(final AbstractCrawler aCrawler, final JsoupConnection jsoupConnection) {
     crawler = aCrawler;
     this.jsoupConnection = jsoupConnection;
   }

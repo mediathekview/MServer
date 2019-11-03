@@ -25,7 +25,7 @@ public class OrfLetterPageTask implements Callable<ConcurrentLinkedQueue<TopicUr
   JsoupConnection jsoupConnection;
 
   /** @param aCrawler The crawler which uses this task. */
-  public OrfLetterPageTask(final AbstractCrawler aCrawler, JsoupConnection jsoupConnection) {
+  public OrfLetterPageTask(final AbstractCrawler aCrawler, final JsoupConnection jsoupConnection) {
     this.jsoupConnection = jsoupConnection;
     crawler = aCrawler;
   }

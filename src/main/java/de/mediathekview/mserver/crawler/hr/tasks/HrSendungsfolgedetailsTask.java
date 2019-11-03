@@ -58,7 +58,7 @@ public class HrSendungsfolgedetailsTask extends AbstractDocumentTask<Film, Crawl
   private final Gson gson;
 
   public HrSendungsfolgedetailsTask(
-      final AbstractCrawler aCrawler, final ConcurrentLinkedQueue<CrawlerUrlDTO> aUrlToCrawlDtos, JsoupConnection jsoupConnection) {
+      final AbstractCrawler aCrawler, final ConcurrentLinkedQueue<CrawlerUrlDTO> aUrlToCrawlDtos, final JsoupConnection jsoupConnection) {
     super(aCrawler, aUrlToCrawlDtos, jsoupConnection);
 
     gson =

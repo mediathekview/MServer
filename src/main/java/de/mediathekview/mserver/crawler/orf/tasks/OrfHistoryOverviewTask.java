@@ -19,7 +19,7 @@ public class OrfHistoryOverviewTask implements Callable<ConcurrentLinkedQueue<To
 
   JsoupConnection jsoupConnection;
 
-  public OrfHistoryOverviewTask(final AbstractCrawler aCrawler, JsoupConnection jsoupConnection) {
+  public OrfHistoryOverviewTask(final AbstractCrawler aCrawler, final JsoupConnection jsoupConnection) {
     crawler = aCrawler;
     this.jsoupConnection = jsoupConnection;
   }

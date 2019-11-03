@@ -32,7 +32,7 @@ public class ZdfIndexPageTask implements Callable<ZdfConfiguration> {
   JsoupConnection jsoupConnection;
 
   /** @param aCrawler The crawler which uses this task. */
-  public ZdfIndexPageTask(final AbstractCrawler aCrawler, final String aUrlBase, JsoupConnection jsoupConnection) {
+  public ZdfIndexPageTask(final AbstractCrawler aCrawler, final String aUrlBase, final JsoupConnection jsoupConnection) {
     crawler = aCrawler;
     urlBase = aUrlBase;
     this.jsoupConnection = jsoupConnection;
