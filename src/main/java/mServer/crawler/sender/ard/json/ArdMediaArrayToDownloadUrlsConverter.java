@@ -154,10 +154,14 @@ public class ArdMediaArrayToDownloadUrlsConverter {
   }
 
   private static List<FilmUrlInfoDto> filterUrls(final Set<FilmUrlInfoDto> aUrls, final String aFileType) {
-    return aUrls.stream().filter(u -> u.getFileType().get().equalsIgnoreCase(aFileType))
-            .collect(Collectors.toList());
+    return aUrls.stream().filter(u -> {
+      if (u.getFileType().isPresent()) {
+        return u.getFileType().get().equalsIgnoreCase(aFileType);
+      }
+      return false;
+    }).collect(Collectors.toList());
   }
-
+  
   private static Optional<Qualities> getQuality(final String aQualityAsText) {
     int qualityNumber;
     try {
