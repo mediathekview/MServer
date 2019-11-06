@@ -16,7 +16,7 @@ public class ArteVideoDeserializer implements
         JsonDeserializer<ArteVideoDTO> {
 
   private static final String JSON_OBJECT_KEY_PLAYER = "videoJsonPlayer";
-  //  private static final String JSON_ELEMENT_KEY_VIDEO_DURATION_SECONDS = "videoDurationSeconds";
+  private static final String JSON_ELEMENT_KEY_VIDEO_DURATION_SECONDS = "videoDurationSeconds";
   private static final String JSON_OBJECT_KEY_VSR = "VSR";
   private static final String ATTRIBUTE_URL = "url";
   private static final String ATTRIBUTE_VERSION_SMALL_LIBELLE = "versionShortLibelle";
@@ -51,11 +51,10 @@ public class ArteVideoDeserializer implements
       parseVideoWithSubtitleUrls(arteVideoDTO, vsrJsonObject);
       parseVideoAudioDescriptionUrls(arteVideoDTO, vsrJsonObject);
 
-      /*
       if(!playerObject.get(JSON_ELEMENT_KEY_VIDEO_DURATION_SECONDS).isJsonNull())
       {
         arteVideoDTO.setDurationInSeconds(playerObject.get(JSON_ELEMENT_KEY_VIDEO_DURATION_SECONDS).getAsLong());
-      }*/
+      }
       return arteVideoDTO;
     }
 
