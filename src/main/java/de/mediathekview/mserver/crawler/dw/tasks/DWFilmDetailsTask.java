@@ -74,7 +74,7 @@ public class DWFilmDetailsTask extends AbstractDocumentTask<Film, CrawlerUrlDTO>
 
     try {
       if (fileName.isPresent()) {
-        film.addUrl(Resolution.SMALL, new FilmUrl(fileName.get()));
+        film.addUrl(Resolution.SMALL, new FilmUrl(fileName.get(), serialVersionUID));
       }
 
       final WebTarget target = ClientBuilder.newClient().target(new URL(downloadUrl).toString());

@@ -5,6 +5,7 @@ import de.mediathekview.mlib.daten.Film;
 import de.mediathekview.mlib.daten.FilmUrl;
 import de.mediathekview.mlib.daten.Resolution;
 import de.mediathekview.mlib.daten.Sender;
+import de.mediathekview.mlib.tool.FileSizeDeterminer;
 import de.mediathekview.mlib.tool.MVHttpClient;
 import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
 import de.mediathekview.mserver.crawler.basic.M3U8Constants;
@@ -70,7 +71,7 @@ public class SrfFilmJsonDeserializer implements JsonDeserializer<Optional<Film>>
     aVideoUrls.forEach(
         (key, value) -> {
           try {
-            aFilm.addUrl(key, new FilmUrl(value));
+            aFilm.addUrl(key, new FilmUrl(value, new FileSizeDeterminer(value).getFileSizeInMiB()));
           } catch (final MalformedURLException ex) {
             LOG.error(String.format("A found download URL \"%s\" isn't valid.", value), ex);
           }

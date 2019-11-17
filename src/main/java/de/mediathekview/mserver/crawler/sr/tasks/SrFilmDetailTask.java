@@ -5,6 +5,7 @@ import com.google.gson.GsonBuilder;
 import de.mediathekview.mlib.daten.Film;
 import de.mediathekview.mlib.daten.FilmUrl;
 import de.mediathekview.mlib.daten.Resolution;
+import de.mediathekview.mlib.tool.FileSizeDeterminer;
 import de.mediathekview.mserver.base.utils.DateUtils;
 import de.mediathekview.mserver.base.utils.HtmlDocumentUtils;
 import de.mediathekview.mserver.crawler.ard.json.ArdVideoInfoDto;
@@ -55,13 +56,12 @@ public class SrFilmDetailTask extends SrRateLimitedDocumentTask<Film, SrTopicUrl
   }
 
   private static Optional<String> parseDescription(final Document aDocument) {
-    final Elements x = aDocument.select(DESCRIPTION_SELECTOR);
-    if (x.size() > 0) {
-      final Node node = x.first().nextSibling();
-      return Optional.of(node.toString());
+    final Elements elements = aDocument.select(DESCRIPTION_SELECTOR);
+    if (elements.isEmpty()) {
+      return Optional.empty();
     }
-
-    return Optional.empty();
+    final Node node = elements.first().nextSibling();
+    return Optional.of(node.toString());
   }
 
   private static Optional<LocalDateTime> parseDate(final Document aDocument) {
@@ -96,7 +96,7 @@ public class SrFilmDetailTask extends SrRateLimitedDocumentTask<Film, SrTopicUrl
                 .plusMinutes(Long.parseLong(parts[1]))
                 .plusSeconds(Long.parseLong(parts[2])));
       } else {
-        LOG.debug("SrFilmDetailTask: unknown duration part count: " + duration.get());
+        LOG.debug("SrFilmDetailTask: unknown duration part count: {}", duration.get());
       }
     }
 
@@ -111,7 +111,7 @@ public class SrFilmDetailTask extends SrRateLimitedDocumentTask<Film, SrTopicUrl
       if (parts.length == 4) {
         return Optional.of(parts[index]);
       } else {
-        LOG.debug("SrFilmDetailTask: unknown details part count: " + details.get());
+        LOG.debug("SrFilmDetailTask: unknown details part count: {}", details.get());
       }
     }
 
@@ -165,7 +165,7 @@ public class SrFilmDetailTask extends SrRateLimitedDocumentTask<Film, SrTopicUrl
         crawler.incrementAndGetActualCount();
         crawler.updateProgress();
       } else {
-        LOG.error("SrFilmDetailTask: no title or video found for url " + aUrlDTO.getUrl());
+        LOG.error("SrFilmDetailTask: no title or video found for url {}", aUrlDTO.getUrl());
         crawler.incrementAndGetErrorCount();
         crawler.updateProgress();
       }
@@ -195,11 +195,14 @@ public class SrFilmDetailTask extends SrRateLimitedDocumentTask<Film, SrTopicUrl
     return type.isPresent() && type.get().toLowerCase().contains("video");
   }
 
-  private void addUrls(final Film aFilm, final Map<Resolution, String> aVideoUrls)
+  private void addUrls(final Film film, final Map<Resolution, String> videoUrls)
       throws MalformedURLException {
 
-    for (final Map.Entry<Resolution, String> qualitiesEntry : aVideoUrls.entrySet()) {
-      aFilm.addUrl(qualitiesEntry.getKey(), new FilmUrl(qualitiesEntry.getValue()));
+    for (final Map.Entry<Resolution, String> qualitiesEntry : videoUrls.entrySet()) {
+      final String url = qualitiesEntry.getValue();
+      film.addUrl(
+          qualitiesEntry.getKey(),
+          new FilmUrl(url, new FileSizeDeterminer(url).getFileSizeInMiB()));
     }
   }
 
