@@ -4,6 +4,7 @@ import com.google.gson.*;
 import de.mediathekview.mlib.daten.Film;
 import de.mediathekview.mlib.daten.FilmUrl;
 import de.mediathekview.mlib.daten.Resolution;
+import de.mediathekview.mlib.tool.FileSizeDeterminer;
 import de.mediathekview.mserver.base.messages.ServerMessages;
 import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
 import de.mediathekview.mserver.crawler.br.BrCrawler;
@@ -132,16 +133,18 @@ public class BrFilmDeserializer implements JsonDeserializer<Optional<Film>> {
         final Resolution resolution =
             Resolution.getResolutionFromArdAudioVideoOrdinalsByProfileName(
                 bestUrls.get(id).getVideoProfile());
+        final String url = bestUrls.get(id).getUrl();
         try {
           if (!aNewFilm.get().getUrls().containsKey(resolution)) {
-            aNewFilm.get().addUrl(resolution, new FilmUrl(bestUrls.get(id).getUrl()));
+            aNewFilm
+                .get()
+                .addUrl(
+                    resolution, new FilmUrl(url, new FileSizeDeterminer(url).getFileSizeInMiB()));
           }
         } catch (final MalformedURLException malformedURLException) {
           LOG.fatal(ERROR_VIDEO_URL, malformedURLException);
           crawler.printMessage(
-              ServerMessages.DEBUG_INVALID_URL,
-              crawler.getSender().getName(),
-              bestUrls.get(id).getUrl());
+              ServerMessages.DEBUG_INVALID_URL, crawler.getSender().getName(), url);
         }
       }
     }

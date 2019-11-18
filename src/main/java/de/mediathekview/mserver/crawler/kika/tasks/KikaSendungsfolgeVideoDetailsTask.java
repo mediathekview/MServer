@@ -69,7 +69,7 @@ public class KikaSendungsfolgeVideoDetailsTask extends AbstractUrlTask<Film, Cra
         final Resolution filmResolution = getResolutionFromWidth(urlInfo);
         try {
           if (newFilm.getUrl(filmResolution) == null) {
-            newFilm.addUrl(filmResolution, new FilmUrl(urlInfo.getUrl()));
+            newFilm.addUrl(filmResolution, new FilmUrl(urlInfo.getUrl(), serialVersionUID));
           }
         } catch (final MalformedURLException e) {
           LOG.debug(

@@ -123,7 +123,7 @@ public class NdrSendungsfolgedetailsTask extends AbstractDocumentTask<Film, Craw
   private void addUrls(final Film aFilm, final Map<Resolution, String> aVideoUrls)
       throws MalformedURLException {
     for (final Entry<Resolution, String> qualitiesEntry : aVideoUrls.entrySet()) {
-      aFilm.addUrl(qualitiesEntry.getKey(), new FilmUrl(qualitiesEntry.getValue()));
+      aFilm.addUrl(qualitiesEntry.getKey(), new FilmUrl(qualitiesEntry.getValue(), serialVersionUID));
     }
   }
 }

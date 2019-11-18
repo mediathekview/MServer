@@ -8,6 +8,7 @@ import de.mediathekview.mlib.daten.Film;
 import de.mediathekview.mlib.daten.FilmUrl;
 import de.mediathekview.mlib.daten.Resolution;
 import de.mediathekview.mlib.daten.Sender;
+import de.mediathekview.mlib.tool.FileSizeDeterminer;
 import de.mediathekview.mserver.base.utils.GeoLocationGuesser;
 import de.mediathekview.mserver.base.utils.JsonUtils;
 import de.mediathekview.mserver.base.utils.UrlUtils;
@@ -244,12 +245,15 @@ public class ArdFilmDeserializer implements JsonDeserializer<List<ArdFilmDto>> {
     return film;
   }
 
-  private void addUrls(final Film aFilm, final Map<Resolution, String> aVideoUrls) {
-    for (final Map.Entry<Resolution, String> qualitiesEntry : aVideoUrls.entrySet()) {
+  private void addUrls(final Film film, final Map<Resolution, String> videoUrls) {
+    for (final Map.Entry<Resolution, String> qualitiesEntry : videoUrls.entrySet()) {
+      final String url = qualitiesEntry.getValue();
       try {
-        aFilm.addUrl(qualitiesEntry.getKey(), new FilmUrl(qualitiesEntry.getValue()));
+        film.addUrl(
+            qualitiesEntry.getKey(),
+            new FilmUrl(url, new FileSizeDeterminer(url).getFileSizeInMiB()));
       } catch (final MalformedURLException ex) {
-        LOG.error("InvalidUrl: " + qualitiesEntry.getValue(), ex);
+        LOG.error("InvalidUrl: " + url, ex);
       }
     }
   }
