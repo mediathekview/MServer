@@ -2,22 +2,21 @@ package de.mediathekview.mserver.crawler.srf.tasks;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import de.mediathekview.mserver.base.webaccess.JsoupConnection;
 import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
 import de.mediathekview.mserver.crawler.basic.CrawlerUrlDTO;
 import de.mediathekview.mserver.crawler.srf.SrfConstants;
 import de.mediathekview.mserver.crawler.srf.SrfShowOverviewUrlBuilder;
 import de.mediathekview.mserver.crawler.srf.parser.SrfSendungenOverviewJsonDeserializer;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
-
 import java.io.IOException;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.TimeUnit;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.jsoup.nodes.Document;
 
 public class SrfSendungenOverviewPageTask
     implements Callable<ConcurrentLinkedQueue<CrawlerUrlDTO>> {
@@ -29,9 +28,12 @@ public class SrfSendungenOverviewPageTask
   private final SrfShowOverviewUrlBuilder urlBuilder = new SrfShowOverviewUrlBuilder();
   private final AbstractCrawler crawler;
 
+  JsoupConnection jsoupConnection;
+
   /** @param aCrawler The crawler which uses this task. */
-  public SrfSendungenOverviewPageTask(final AbstractCrawler aCrawler) {
+  public SrfSendungenOverviewPageTask(final AbstractCrawler aCrawler, final JsoupConnection jsoupConnection) {
     crawler = aCrawler;
+    this.jsoupConnection = jsoupConnection;
   }
 
   @Override
@@ -40,13 +42,9 @@ public class SrfSendungenOverviewPageTask
 
     try {
       final Document document =
-          Jsoup.connect(SrfConstants.OVERVIEW_PAGE_URL)
-              .timeout(
-                  (int)
-                      TimeUnit.SECONDS.toMillis(
-                          crawler.getCrawlerConfig().getSocketTimeoutInSeconds()))
-              .get();
-
+          jsoupConnection.getDocumentTimeoutAfter(SrfConstants.OVERVIEW_PAGE_URL,
+              (int) TimeUnit.SECONDS.toMillis(
+                  crawler.getCrawlerConfig().getSocketTimeoutInSeconds()));
       final Gson gson =
           new GsonBuilder()
               .registerTypeAdapter(Set.class, new SrfSendungenOverviewJsonDeserializer(urlBuilder))

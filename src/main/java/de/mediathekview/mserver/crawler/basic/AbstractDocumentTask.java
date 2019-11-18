@@ -1,11 +1,11 @@
 package de.mediathekview.mserver.crawler.basic;
 
 import de.mediathekview.mserver.base.messages.ServerMessages;
+import de.mediathekview.mserver.base.webaccess.JsoupConnection;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.jsoup.HttpStatusException;
-import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 
 import java.io.IOException;
@@ -36,12 +36,15 @@ public abstract class AbstractDocumentTask<T, D extends CrawlerUrlDTO>
   private boolean printErrorMessage;
   private Level httpErrorLogLevel;
 
+  JsoupConnection jsoupConnection;
+
   public AbstractDocumentTask(
-      final AbstractCrawler aCrawler, final ConcurrentLinkedQueue<D> aUrlToCrawlDTOs) {
+      final AbstractCrawler aCrawler, final ConcurrentLinkedQueue<D> aUrlToCrawlDTOs, final JsoupConnection jsoupConnection) {
     super(aCrawler, aUrlToCrawlDTOs);
     incrementErrorCounterOnHttpErrors = true;
     printErrorMessage = true;
     httpErrorLogLevel = Level.ERROR;
+    this.jsoupConnection = jsoupConnection;
   }
 
   /**
@@ -54,25 +57,24 @@ public abstract class AbstractDocumentTask<T, D extends CrawlerUrlDTO>
   protected abstract void processDocument(final D aUrlDTO, final Document aDocument);
 
   @Override
-  protected void processElement(final D aUrlDTO) {
+  protected void processElement(final D urlDTO) {
     try {
       // maxBodySize(0)=unlimited
       // necessary for ORF documents which are larger than the default size
-      final Document document =
-          Jsoup.connect(aUrlDTO.getUrl())
+      final Document document = jsoupConnection.getConnection(urlDTO.getUrl())
               .timeout((int) TimeUnit.SECONDS.toMillis(config.getSocketTimeoutInSeconds()))
               .maxBodySize(0)
               .get();
-      processDocument(aUrlDTO, document);
+      processDocument(urlDTO, document);
     } catch (final HttpStatusException httpStatusError) {
       LOG.log(
           httpErrorLogLevel,
-          String.format(LOAD_DOCUMENT_HTTPERROR, crawler.getSender().getName(), aUrlDTO.getUrl(), httpStatusError.getStatusCode()));
+          String.format(LOAD_DOCUMENT_HTTPERROR, crawler.getSender().getName(), urlDTO.getUrl(), httpStatusError.getStatusCode()));
       if (printErrorMessage) {
         crawler.printMessage(
             ServerMessages.CRAWLER_DOCUMENT_LOAD_ERROR,
             crawler.getSender().getName(),
-            aUrlDTO.getUrl(),
+            urlDTO.getUrl(),
             httpStatusError.getStatusCode());
       }
       if (incrementErrorCounterOnHttpErrors) {
@@ -81,7 +83,7 @@ public abstract class AbstractDocumentTask<T, D extends CrawlerUrlDTO>
     } catch (final IOException ioException) {
       LOG.fatal(
           String.format(
-              LOAD_DOCUMENT_ERRORTEXTPATTERN, crawler.getSender().getName(), aUrlDTO.getUrl()),
+              LOAD_DOCUMENT_ERRORTEXTPATTERN, crawler.getSender().getName(), urlDTO.getUrl()),
           ioException);
       if (incrementErrorCounterOnHttpErrors) {
         crawler.incrementAndGetErrorCount();
@@ -104,4 +106,9 @@ public abstract class AbstractDocumentTask<T, D extends CrawlerUrlDTO>
   protected void setPrintErrorMessage(final boolean aPrintErrorMessage) {
     printErrorMessage = aPrintErrorMessage;
   }
+
+  public JsoupConnection getJsoupConnection() {
+    return jsoupConnection;
+  }
+
 }

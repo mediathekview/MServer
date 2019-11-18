@@ -3,10 +3,13 @@ package de.mediathekview.mserver.crawler.sr.tasks;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.junit.Assert.assertThat;
+import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.Mockito.when;
 
 import de.mediathekview.mlib.daten.Film;
 import de.mediathekview.mlib.daten.GeoLocations;
 import de.mediathekview.mlib.daten.Sender;
+import de.mediathekview.mserver.base.webaccess.JsoupConnection;
 import de.mediathekview.mserver.testhelper.AssertFilm;
 import de.mediathekview.mserver.testhelper.JsoupMock;
 import java.io.IOException;
@@ -15,25 +18,15 @@ import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Set;
-import org.jsoup.Jsoup;
+import org.jsoup.Connection;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
-import org.powermock.core.classloader.annotations.PowerMockIgnore;
-import org.powermock.core.classloader.annotations.PrepareForTest;
-import org.powermock.modules.junit4.PowerMockRunner;
-import org.powermock.modules.junit4.PowerMockRunnerDelegate;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
 
-@RunWith(PowerMockRunner.class)
-@PrepareForTest({Jsoup.class})
-@PowerMockRunnerDelegate(Parameterized.class)
-@PowerMockIgnore(
-    value = {
-      "javax.net.ssl.*",
-      "javax.*",
-      "com.sun.*",
-      "org.apache.logging.log4j.core.config.xml.*"
-    })
+@RunWith(Parameterized.class)
 public class SrFilmDetailTaskTest extends SrTaskTestBase {
 
   private final String requestUrl;
@@ -49,6 +42,14 @@ public class SrFilmDetailTaskTest extends SrTaskTestBase {
   private final String expectedUrlSmall;
   private final String expectedUrlNormal;
   private final String expectedUrlHd;
+
+  @Mock
+  JsoupConnection jsoupConnection;
+
+  @Before
+  public void setUp() {
+    MockitoAnnotations.initMocks(this);
+  }
 
   public SrFilmDetailTaskTest(
       final String aRequestUrl,
@@ -118,7 +119,8 @@ public class SrFilmDetailTaskTest extends SrTaskTestBase {
 
   @Test
   public void test() throws IOException {
-    JsoupMock.mock(requestUrl, filmPageFile);
+    Connection connection = JsoupMock.mock(requestUrl, filmPageFile);
+    when(jsoupConnection.getConnection(eq(requestUrl))).thenReturn(connection);
 
     setupSuccessfulJsonResponse(videoDetailsUrl, videoDetailsFile);
 
@@ -145,6 +147,6 @@ public class SrFilmDetailTaskTest extends SrTaskTestBase {
   }
 
   private Set<Film> executeTask(String aTheme, String aRequestUrl) {
-    return new SrFilmDetailTask(createCrawler(), createCrawlerUrlDto(aTheme, aRequestUrl)).invoke();
+    return new SrFilmDetailTask(createCrawler(), createCrawlerUrlDto(aTheme, aRequestUrl), jsoupConnection).invoke();
   }
 }

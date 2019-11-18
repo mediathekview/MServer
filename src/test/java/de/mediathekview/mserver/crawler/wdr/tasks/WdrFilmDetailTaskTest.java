@@ -1,44 +1,50 @@
 package de.mediathekview.mserver.crawler.wdr.tasks;
 
-import de.mediathekview.mlib.daten.Film;
-import de.mediathekview.mlib.daten.GeoLocations;
-import de.mediathekview.mlib.daten.Sender;
-import de.mediathekview.mserver.testhelper.AssertFilm;
-import de.mediathekview.mserver.testhelper.JsoupMock;
-import org.jsoup.Jsoup;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
-import org.powermock.core.classloader.annotations.PowerMockIgnore;
-import org.powermock.core.classloader.annotations.PrepareForTest;
-import org.powermock.modules.junit4.PowerMockRunner;
-import org.powermock.modules.junit4.PowerMockRunnerDelegate;
-
-import java.io.IOException;
-import java.time.Duration;
-import java.time.LocalDateTime;
-import java.util.*;
-
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.junit.Assert.assertThat;
+import static org.junit.Assert.fail;
+import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.Mockito.when;
 
-@RunWith(PowerMockRunner.class)
-@PrepareForTest({Jsoup.class})
-@PowerMockRunnerDelegate(Parameterized.class)
-@PowerMockIgnore(
-    value = {
-      "javax.net.ssl.*",
-      "javax.*",
-      "com.sun.*",
-      "org.apache.logging.log4j.core.config.xml.*"
-    })
+import de.mediathekview.mlib.daten.Film;
+import de.mediathekview.mlib.daten.GeoLocations;
+import de.mediathekview.mlib.daten.Sender;
+import de.mediathekview.mserver.base.webaccess.JsoupConnection;
+import de.mediathekview.mserver.testhelper.AssertFilm;
+import de.mediathekview.mserver.testhelper.JsoupMock;
+import java.io.IOException;
+import java.time.Duration;
+import java.time.LocalDateTime;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Optional;
+import java.util.Set;
+import org.jsoup.Connection;
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.junit.runners.Parameterized;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
+
+@RunWith(Parameterized.class)
 public class WdrFilmDetailTaskTest extends WdrTaskTestBase {
 
   private final WdrFilmDetailTaskTestData[] expectedFilms;
 
   public WdrFilmDetailTaskTest(final WdrFilmDetailTaskTestData[] aExpectedFilms) {
     expectedFilms = aExpectedFilms;
+  }
+
+  @Mock
+  JsoupConnection jsoupConnection;
+
+  @Before
+  public void setUp() {
+    MockitoAnnotations.initMocks(this);
   }
 
   @Parameterized.Parameters
@@ -155,13 +161,20 @@ public class WdrFilmDetailTaskTest extends WdrTaskTestBase {
       setupSuccessfulResponse(expected.getJsUrl(), expected.getJsFile());
       setupSuccessfulResponse(expected.getM3u8Url(), expected.getM3u8File());
     }
-    JsoupMock.mock(urlMapping);
+    Map<String, Connection> connections = JsoupMock.mock(urlMapping);
+    connections.forEach((url, currentConnection) -> {
+      try {
+        when(jsoupConnection.getConnection(eq(url))).thenReturn(currentConnection);
+      } catch (IOException iox) {
+        fail();
+      }
+    });
 
     final String topic = expectedFilms[0].getTopic();
     final String requestUrl = expectedFilms[0].getRequestUrl();
 
     final Set<Film> actual =
-        new WdrFilmDetailTask(createCrawler(), createCrawlerUrlDto(topic, requestUrl)).invoke();
+        new WdrFilmDetailTask(createCrawler(), createCrawlerUrlDto(topic, requestUrl), jsoupConnection).invoke();
 
     assertThat(actual, notNullValue());
     assertThat(actual.size(), equalTo(expectedFilms.length));

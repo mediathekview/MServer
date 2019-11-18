@@ -1,5 +1,6 @@
 package de.mediathekview.mserver.crawler.hr.tasks;
 
+import de.mediathekview.mserver.base.webaccess.JsoupConnection;
 import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
 import de.mediathekview.mserver.crawler.basic.CrawlerUrlDTO;
 import java.util.concurrent.ConcurrentLinkedQueue;
@@ -10,8 +11,8 @@ public class HrSendungsfolgenVerpasstOverviewPageTask extends HrSendungsfolgenOv
   private static final long serialVersionUID = 550079618104128843L;
 
   public HrSendungsfolgenVerpasstOverviewPageTask(final AbstractCrawler aCrawler,
-      final ConcurrentLinkedQueue<CrawlerUrlDTO> aUrlToCrawlDTOs) {
-    super(aCrawler, aUrlToCrawlDTOs);
+      final ConcurrentLinkedQueue<CrawlerUrlDTO> aUrlToCrawlDTOs, final JsoupConnection jsoupConnection) {
+    super(aCrawler, aUrlToCrawlDTOs, jsoupConnection);
   }
 
   @Override

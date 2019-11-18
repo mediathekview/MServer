@@ -19,7 +19,7 @@ public class SrfFilmDetailTaskTest extends SrfTaskTestBase {
               "/integrationlayer/2.0/srf/mediaComposition/video/22b9dd2c-d1fd-463b-91de-d804eda74889.json";
 
     String jsonBody = FileReader.readFile("/srf/srf_film_page1.json");
-      wireMockRule.stubFor(
+      wireMockServer.stubFor(
               get(urlEqualTo(requestUrl))
                       .willReturn(
                               aResponse()
@@ -28,7 +28,7 @@ public class SrfFilmDetailTaskTest extends SrfTaskTestBase {
                     .withBody(jsonBody)));
 
     String m3u8Body = FileReader.readFile("/srf/srf_film_page1.m3u8");
-      wireMockRule.stubFor(
+      wireMockServer.stubFor(
               get(urlEqualTo(
                       "/i/vod/1gegen100/2010/05/1gegen100_20100517_200706_web_h264_16zu9_,lq1,mq1,hq1,.mp4.csmil/master.m3u8?start=0.0&end=3305.1"))
                       .willReturn(aResponse().withStatus(200).withBody(m3u8Body)));
@@ -45,7 +45,7 @@ public class SrfFilmDetailTaskTest extends SrfTaskTestBase {
       String requestUrl =
               "/integrationlayer/2.0/srf/mediaComposition/video/22b9dd2c-d1fd-463b-91de-d804eda74889.json";
 
-      wireMockRule.stubFor(
+      wireMockServer.stubFor(
               get(urlEqualTo(requestUrl)).willReturn(aResponse().withStatus(404).withBody("Not Found")));
 
       Set<Film> actual =

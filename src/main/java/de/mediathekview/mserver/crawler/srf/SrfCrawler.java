@@ -5,6 +5,7 @@ import de.mediathekview.mlib.daten.Sender;
 import de.mediathekview.mlib.messages.listener.MessageListener;
 import de.mediathekview.mserver.base.config.MServerConfigManager;
 import de.mediathekview.mserver.base.messages.ServerMessages;
+import de.mediathekview.mserver.base.webaccess.JsoupConnection;
 import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
 import de.mediathekview.mserver.crawler.basic.CrawlerUrlDTO;
 import de.mediathekview.mserver.crawler.srf.tasks.SrfFilmDetailTask;
@@ -25,6 +26,8 @@ public class SrfCrawler extends AbstractCrawler {
 
   private static final Logger LOG = LogManager.getLogger(SrfCrawler.class);
 
+  JsoupConnection jsoupConnection = new JsoupConnection();
+
   public SrfCrawler(
           final ForkJoinPool aForkJoinPool,
           final Collection<MessageListener> aMessageListeners,
@@ -41,7 +44,7 @@ public class SrfCrawler extends AbstractCrawler {
   @Override
   protected RecursiveTask<Set<Film>> createCrawlerTask() {
     try {
-      final SrfSendungenOverviewPageTask overviewTask = new SrfSendungenOverviewPageTask(this);
+      final SrfSendungenOverviewPageTask overviewTask = new SrfSendungenOverviewPageTask(this, jsoupConnection);
       final ConcurrentLinkedQueue<CrawlerUrlDTO> ids = forkJoinPool.submit(overviewTask).get();
 
       printMessage(

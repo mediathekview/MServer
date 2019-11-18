@@ -137,7 +137,7 @@ public class ZdfDayPageDeserializerTest {
                   "https://api.zdf.de/tmd/2/ngplayer_2_3/vod/ptmd/tivi/170717_folge_35_raeumt_auf_nic")
             },
             Optional.of(
-                WireMockTestBase.MOCK_URL_BASE
+                "http://localhost:8589"
                     + "/search/documents?hasVideo=true&q=*&types=page-video&sortOrder=desc&from=2018-02-24T12%3A00%3A00.000%2B01%3A00&sortBy=date&to=2018-02-24T18%3A00%3A00.878%2B01%3A00&page=2")
           }
         });

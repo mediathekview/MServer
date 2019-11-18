@@ -2,20 +2,19 @@ package de.mediathekview.mserver.crawler.hr.tasks;
 
 import de.mediathekview.mserver.base.HtmlConsts;
 import de.mediathekview.mserver.base.utils.UrlUtils;
+import de.mediathekview.mserver.base.webaccess.JsoupConnection;
 import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
 import de.mediathekview.mserver.crawler.basic.CrawlerUrlDTO;
 import de.mediathekview.mserver.crawler.hr.HrConstants;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
-
 import java.io.IOException;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.concurrent.Callable;
 import java.util.concurrent.TimeUnit;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
 
 public class HrSendungenOverviewPageTask implements Callable<Set<CrawlerUrlDTO>> {
 
@@ -34,18 +33,17 @@ public class HrSendungenOverviewPageTask implements Callable<Set<CrawlerUrlDTO>>
     crawler = aCrawler;
   }
 
+  JsoupConnection jsoupConnection = new JsoupConnection();
+
   @Override
   public Set<CrawlerUrlDTO> call() {
     final Set<CrawlerUrlDTO> results = new HashSet<>();
 
     try {
       final Document document =
-          Jsoup.connect(baseUrl + HR_SENDUNGEN_URL)
-              .timeout(
-                  (int)
-                      TimeUnit.SECONDS.toMillis(
-                          crawler.getCrawlerConfig().getSocketTimeoutInSeconds()))
-              .get();
+          jsoupConnection
+              .getDocumentTimeoutAfter(baseUrl + HR_SENDUNGEN_URL, (int) TimeUnit.SECONDS.toMillis(
+                  crawler.getCrawlerConfig().getSocketTimeoutInSeconds()));
       for (final Element filmUrlElement : document.select(SENDUNG_URL_SELECTOR)) {
         if (filmUrlElement.hasAttr(HtmlConsts.ATTRIBUTE_HREF)) {
           final String url = filmUrlElement.absUrl(HtmlConsts.ATTRIBUTE_HREF);

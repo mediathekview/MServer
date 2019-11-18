@@ -5,6 +5,7 @@ import de.mediathekview.mlib.daten.Sender;
 import de.mediathekview.mlib.messages.listener.MessageListener;
 import de.mediathekview.mserver.base.config.MServerConfigManager;
 import de.mediathekview.mserver.base.messages.ServerMessages;
+import de.mediathekview.mserver.base.webaccess.JsoupConnection;
 import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
 import de.mediathekview.mserver.crawler.sr.tasks.SrFilmDetailTask;
 import de.mediathekview.mserver.crawler.sr.tasks.SrTopicArchivePageTask;
@@ -24,12 +25,16 @@ public class SrCrawler extends AbstractCrawler {
 
   private static final Logger LOG = LogManager.getLogger(SrCrawler.class);
 
+  JsoupConnection jsoupConnection;
+
   public SrCrawler(
       final ForkJoinPool aForkJoinPool,
       final Collection<MessageListener> aMessageListeners,
       final Collection<SenderProgressListener> aProgressListeners,
       final MServerConfigManager rootConfig) {
     super(aForkJoinPool, aMessageListeners, aProgressListeners, rootConfig);
+
+    this.jsoupConnection = new JsoupConnection();
   }
 
   @Override
@@ -40,13 +45,13 @@ public class SrCrawler extends AbstractCrawler {
   @Override
   protected RecursiveTask<Set<Film>> createCrawlerTask() {
     try {
-      final SrTopicsOverviewPageTask overviewTask = new SrTopicsOverviewPageTask(this);
+      final SrTopicsOverviewPageTask overviewTask = new SrTopicsOverviewPageTask(this, jsoupConnection);
       final ConcurrentLinkedQueue<SrTopicUrlDTO> shows = forkJoinPool.submit(overviewTask).get();
 
       printMessage(
           ServerMessages.DEBUG_ALL_SENDUNG_FOLGEN_COUNT, getSender().getName(), shows.size());
 
-      final SrTopicArchivePageTask archiveTask = new SrTopicArchivePageTask(this, shows);
+      final SrTopicArchivePageTask archiveTask = new SrTopicArchivePageTask(this, shows, jsoupConnection);
       final ConcurrentLinkedQueue<SrTopicUrlDTO> filmDtos = new ConcurrentLinkedQueue<>();
       filmDtos.addAll(forkJoinPool.submit(archiveTask).get());
 
@@ -54,7 +59,7 @@ public class SrCrawler extends AbstractCrawler {
           ServerMessages.DEBUG_ALL_SENDUNG_FOLGEN_COUNT, getSender().getName(), filmDtos.size());
       getAndSetMaxCount(filmDtos.size());
 
-      return new SrFilmDetailTask(this, filmDtos);
+      return new SrFilmDetailTask(this, filmDtos, jsoupConnection);
     } catch (final InterruptedException | ExecutionException ex) {
       LOG.fatal("Exception in SR crawler.", ex);
     }

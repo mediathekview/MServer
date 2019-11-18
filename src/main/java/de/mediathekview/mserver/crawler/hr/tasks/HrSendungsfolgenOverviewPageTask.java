@@ -1,6 +1,7 @@
 package de.mediathekview.mserver.crawler.hr.tasks;
 
 import de.mediathekview.mserver.base.HtmlConsts;
+import de.mediathekview.mserver.base.webaccess.JsoupConnection;
 import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
 import de.mediathekview.mserver.crawler.basic.AbstractDocumentTask;
 import de.mediathekview.mserver.crawler.basic.AbstractUrlTask;
@@ -22,8 +23,8 @@ public class HrSendungsfolgenOverviewPageTask
   private static final long serialVersionUID = -6727831751148817578L;
 
   public HrSendungsfolgenOverviewPageTask(
-      final AbstractCrawler aCrawler, final ConcurrentLinkedQueue<CrawlerUrlDTO> aUrlToCrawlDTOs) {
-    super(aCrawler, aUrlToCrawlDTOs);
+      final AbstractCrawler aCrawler, final ConcurrentLinkedQueue<CrawlerUrlDTO> aUrlToCrawlDTOs, final JsoupConnection jsoupConnection) {
+    super(aCrawler, aUrlToCrawlDTOs, jsoupConnection);
     // Some HR entries for "Programm" don't have a "sendungen" sub page which will be tried to load
     // because this sub page usually contains the "Sendungsfolgen".
     setIncrementErrorCounterOnHttpErrors(false);
@@ -34,7 +35,7 @@ public class HrSendungsfolgenOverviewPageTask
   @Override
   protected AbstractUrlTask<CrawlerUrlDTO, CrawlerUrlDTO> createNewOwnInstance(
       final ConcurrentLinkedQueue<CrawlerUrlDTO> aURLsToCrawl) {
-    return new HrSendungsfolgenOverviewPageTask(crawler, aURLsToCrawl);
+    return new HrSendungsfolgenOverviewPageTask(crawler, aURLsToCrawl, getJsoupConnection());
   }
 
   protected String[] getSendungsfoleUrlSelector() {

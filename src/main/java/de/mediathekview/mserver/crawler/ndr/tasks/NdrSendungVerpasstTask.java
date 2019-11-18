@@ -1,5 +1,6 @@
 package de.mediathekview.mserver.crawler.ndr.tasks;
 
+import de.mediathekview.mserver.base.webaccess.JsoupConnection;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -23,14 +24,14 @@ public class NdrSendungVerpasstTask extends AbstractDocumentTask<CrawlerUrlDTO, 
   private static final String FILM_URL_SELECTOR = "#program_schedule .details h3 a";
 
   public NdrSendungVerpasstTask(final AbstractCrawler aCrawler,
-      final ConcurrentLinkedQueue<CrawlerUrlDTO> aUrlToCrawlDTOs) {
-    super(aCrawler, aUrlToCrawlDTOs);
+      final ConcurrentLinkedQueue<CrawlerUrlDTO> aUrlToCrawlDTOs, final JsoupConnection jsoupConnection) {
+    super(aCrawler, aUrlToCrawlDTOs, jsoupConnection);
   }
 
   @Override
   protected AbstractUrlTask<CrawlerUrlDTO, CrawlerUrlDTO> createNewOwnInstance(
       final ConcurrentLinkedQueue<CrawlerUrlDTO> aURLsToCrawl) {
-    return new NdrSendungVerpasstTask(crawler, aURLsToCrawl);
+    return new NdrSendungVerpasstTask(crawler, aURLsToCrawl, getJsoupConnection());
   }
 
   @Override

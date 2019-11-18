@@ -4,6 +4,7 @@ import de.mediathekview.mlib.daten.Film;
 import de.mediathekview.mlib.messages.listener.MessageListener;
 import de.mediathekview.mserver.base.config.MServerConfigManager;
 import de.mediathekview.mserver.base.messages.ServerMessages;
+import de.mediathekview.mserver.base.webaccess.JsoupConnection;
 import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
 import de.mediathekview.mserver.crawler.basic.CrawlerUrlDTO;
 import de.mediathekview.mserver.crawler.zdf.tasks.ZdfDayPageTask;
@@ -27,6 +28,8 @@ import java.util.concurrent.RecursiveTask;
 public abstract class AbstractZdfCrawler extends AbstractCrawler {
 
   private static final Logger LOG = LogManager.getLogger(AbstractZdfCrawler.class);
+
+  JsoupConnection jsoupConnection = new JsoupConnection();
 
   public AbstractZdfCrawler(
       final ForkJoinPool aForkJoinPool,
@@ -58,7 +61,7 @@ public abstract class AbstractZdfCrawler extends AbstractCrawler {
   }
 
   protected ZdfConfiguration loadConfiguration() throws ExecutionException, InterruptedException {
-    final ZdfIndexPageTask task = new ZdfIndexPageTask(this, getUrlBase());
+    final ZdfIndexPageTask task = new ZdfIndexPageTask(this, getUrlBase(), jsoupConnection);
     return forkJoinPool.submit(task).get();
   }
 

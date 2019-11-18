@@ -2,6 +2,7 @@ package de.mediathekview.mserver.crawler.kika.tasks;
 
 import de.mediathekview.mserver.base.HtmlConsts;
 import de.mediathekview.mserver.base.utils.UrlUtils;
+import de.mediathekview.mserver.base.webaccess.JsoupConnection;
 import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
 import de.mediathekview.mserver.crawler.basic.AbstractDocumentTask;
 import de.mediathekview.mserver.crawler.basic.AbstractRecrusivConverterTask;
@@ -20,8 +21,9 @@ public class KikaLetterPageTask extends AbstractDocumentTask<CrawlerUrlDTO, Craw
   public KikaLetterPageTask(
       final AbstractCrawler aCrawler,
       final ConcurrentLinkedQueue<CrawlerUrlDTO> aUrlToCrawlDTOs,
-      final String aBaseUrl) {
-    super(aCrawler, aUrlToCrawlDTOs);
+      final String aBaseUrl,
+      final JsoupConnection jsoupConnection) {
+    super(aCrawler, aUrlToCrawlDTOs, jsoupConnection);
     baseUrl = aBaseUrl;
   }
 
@@ -37,6 +39,6 @@ public class KikaLetterPageTask extends AbstractDocumentTask<CrawlerUrlDTO, Craw
   @Override
   protected AbstractRecrusivConverterTask<CrawlerUrlDTO, CrawlerUrlDTO> createNewOwnInstance(
       final ConcurrentLinkedQueue<CrawlerUrlDTO> aElementsToProcess) {
-    return new KikaLetterPageTask(crawler, aElementsToProcess, baseUrl);
+    return new KikaLetterPageTask(crawler, aElementsToProcess, baseUrl, getJsoupConnection());
   }
 }

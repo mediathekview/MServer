@@ -3,6 +3,7 @@ package de.mediathekview.mserver.crawler.sr.tasks;
 import com.google.common.util.concurrent.RateLimiter;
 import de.mediathekview.mlib.daten.Sender;
 import de.mediathekview.mserver.base.config.MServerConfigManager;
+import de.mediathekview.mserver.base.webaccess.JsoupConnection;
 import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
 import de.mediathekview.mserver.crawler.basic.AbstractDocumentTask;
 import de.mediathekview.mserver.crawler.basic.CrawlerUrlDTO;
@@ -19,13 +20,13 @@ public abstract class SrRateLimitedDocumentTask<T, D extends CrawlerUrlDTO> exte
           .getMaximumRequestsPerSecond());
 
   SrRateLimitedDocumentTask(AbstractCrawler aCrawler,
-      ConcurrentLinkedQueue<D> aUrlToCrawlDtos) {
-    super(aCrawler, aUrlToCrawlDtos);
+      ConcurrentLinkedQueue<D> aUrlToCrawlDtos, final JsoupConnection jsoupConnection) {
+    super(aCrawler, aUrlToCrawlDtos, jsoupConnection);
   }
 
   @Override
-  protected void processElement(D aUrlDto) {
+  protected void processElement(D urlDTO) {
     LIMITER.acquire();
-    super.processElement(aUrlDto);
+    super.processElement(urlDTO);
   }
 }

@@ -1,45 +1,53 @@
 package de.mediathekview.mserver.crawler.zdf.tasks;
 
+import static org.hamcrest.CoreMatchers.notNullValue;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.equalTo;
+import static org.junit.Assert.fail;
+import static org.mockito.ArgumentMatchers.anyInt;
+import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.Mockito.when;
+
 import de.mediathekview.mlib.daten.Sender;
 import de.mediathekview.mserver.base.config.MServerConfigManager;
+import de.mediathekview.mserver.base.webaccess.JsoupConnection;
 import de.mediathekview.mserver.crawler.zdf.ZdfConfiguration;
 import de.mediathekview.mserver.crawler.zdf.ZdfConstants;
 import de.mediathekview.mserver.crawler.zdf.ZdfCrawler;
 import de.mediathekview.mserver.testhelper.JsoupMock;
-import org.jsoup.Jsoup;
+import java.io.IOException;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Optional;
+import org.jsoup.nodes.Document;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
-import org.mockito.Mockito;
-import org.powermock.core.classloader.annotations.PowerMockIgnore;
-import org.powermock.core.classloader.annotations.PrepareForTest;
-import org.powermock.modules.junit4.PowerMockRunner;
-import org.powermock.modules.junit4.PowerMockRunnerDelegate;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
 
-import java.util.*;
-
-import static org.hamcrest.CoreMatchers.notNullValue;
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.equalTo;
-
-@RunWith(PowerMockRunner.class)
-@PrepareForTest({Jsoup.class})
-@PowerMockIgnore(
-    value = {
-      "javax.net.ssl.*",
-      "javax.*",
-      "com.sun.*",
-      "org.apache.logging.log4j.core.config.xml.*"
-    })
-@PowerMockRunnerDelegate(Parameterized.class)
+@RunWith(Parameterized.class)
 public class ZdfIndexPageTaskTest {
 
   private final String htmlFile;
   private final Optional<String> expectedBearerSearch;
   private final Optional<String> expectedBearerVideo;
-  private final ZdfIndexPageTask target;
   private final String htmlFileSubpage;
   private final String urlSubpage;
+
+  @Mock
+  JsoupConnection jsoupConnection;
+
+  @Mock
+  ZdfCrawler crawler;
+
+  @Before
+  public void setUp() {
+    MockitoAnnotations.initMocks(this);
+  }
 
   public ZdfIndexPageTaskTest(
       final String aHtmlFile,
@@ -53,10 +61,6 @@ public class ZdfIndexPageTaskTest {
     expectedBearerSearch = aExpectedBearerSearch;
     expectedBearerVideo = aExpectedBearerVideo;
 
-    final ZdfCrawler crawler = Mockito.mock(ZdfCrawler.class);
-    target = new ZdfIndexPageTask(crawler, ZdfConstants.URL_BASE);
-    Mockito.when(crawler.getCrawlerConfig())
-        .thenReturn(MServerConfigManager.getInstance().getSenderConfig(Sender.ZDF));
   }
 
   @Parameterized.Parameters
@@ -75,12 +79,24 @@ public class ZdfIndexPageTaskTest {
 
   @Test
   public void test() throws Exception {
+    when(crawler.getCrawlerConfig())
+        .thenReturn(MServerConfigManager.getInstance().getSenderConfig(Sender.ZDF));
+
     final Map<String, String> urlMapping = new HashMap<>();
     urlMapping.put(ZdfConstants.URL_BASE, htmlFile);
     if (!urlSubpage.isEmpty()) {
       urlMapping.put(ZdfConstants.URL_BASE + urlSubpage, htmlFileSubpage);
     }
-    JsoupMock.mock(urlMapping);
+    urlMapping.forEach((url, fileName) -> {
+      try {
+        Document document = JsoupMock.getFileDocument(url, fileName);
+        when(jsoupConnection.getDocumentTimeoutAfter(eq(url), anyInt())).thenReturn(document);
+      } catch (IOException iox) {
+        fail();
+      }
+    });
+
+    ZdfIndexPageTask target = new ZdfIndexPageTask(crawler, ZdfConstants.URL_BASE, jsoupConnection);
 
     final ZdfConfiguration actual = target.call();
 
