@@ -4,6 +4,7 @@ import de.mediathekview.mlib.daten.Film;
 import de.mediathekview.mlib.messages.listener.MessageListener;
 import de.mediathekview.mserver.base.config.MServerConfigManager;
 import de.mediathekview.mserver.base.messages.ServerMessages;
+import de.mediathekview.mserver.base.webaccess.JsoupConnection;
 import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
 import de.mediathekview.mserver.crawler.basic.TopicUrlDTO;
 import de.mediathekview.mserver.crawler.wdr.tasks.WdrFilmDetailTask;
@@ -22,12 +23,16 @@ public abstract class WdrRadioCrawlerBase extends AbstractCrawler {
 
   protected static final Logger LOG = LogManager.getLogger(WdrRadioCrawlerBase.class);
 
+  JsoupConnection jsoupConnection;
+
   public WdrRadioCrawlerBase(
       ForkJoinPool aForkJoinPool,
       Collection<MessageListener> aMessageListeners,
       Collection<SenderProgressListener> aProgressListeners,
       MServerConfigManager rootConfig) {
     super(aForkJoinPool, aMessageListeners, aProgressListeners, rootConfig);
+
+    this.jsoupConnection = new JsoupConnection();
   }
 
   protected abstract Set<WdrTopicUrlDto> getTopicOverviewPages()
@@ -43,7 +48,7 @@ public abstract class WdrRadioCrawlerBase extends AbstractCrawler {
           ServerMessages.DEBUG_ALL_SENDUNG_FOLGEN_COUNT, getSender().getName(), shows.size());
       getAndSetMaxCount(shows.size());
 
-      return new WdrFilmDetailTask(this, shows);
+      return new WdrFilmDetailTask(this, shows, jsoupConnection);
     } catch (InterruptedException | ExecutionException ex) {
       LOG.fatal("Exception in WDR radio crawler.", ex);
     }
@@ -54,7 +59,7 @@ public abstract class WdrRadioCrawlerBase extends AbstractCrawler {
     ConcurrentLinkedQueue<WdrTopicUrlDto> topicOverviews = new ConcurrentLinkedQueue<>();
     topicOverviews.addAll(getTopicOverviewPages());
 
-    WdrTopicOverviewTask overviewTask = new WdrTopicOverviewTask(this, topicOverviews, 0);
+    WdrTopicOverviewTask overviewTask = new WdrTopicOverviewTask(this, topicOverviews, jsoupConnection, 0);
     Set<TopicUrlDTO> shows = forkJoinPool.submit(overviewTask).get();
 
     printMessage(

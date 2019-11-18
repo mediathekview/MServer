@@ -4,6 +4,7 @@ import de.mediathekview.mlib.daten.Film;
 import de.mediathekview.mlib.daten.Sender;
 import de.mediathekview.mlib.messages.listener.MessageListener;
 import de.mediathekview.mserver.base.config.MServerConfigManager;
+import de.mediathekview.mserver.base.webaccess.JsoupConnection;
 import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
 import de.mediathekview.mserver.crawler.basic.CrawlerUrlDTO;
 import de.mediathekview.mserver.crawler.dw.tasks.DWFilmDetailsTask;
@@ -25,10 +26,14 @@ public class DwCrawler extends AbstractCrawler {
   private static final String ALLE_INHALTE_URL =
       BASE_URL + "/de/media-center/alle-inhalte/s-100814";
 
+  JsoupConnection jsoupConnection;
+
   public DwCrawler(final ForkJoinPool aForkJoinPool,
       final Collection<MessageListener> aMessageListeners,
       final Collection<SenderProgressListener> aProgressListeners, final MServerConfigManager rootConfig) {
     super(aForkJoinPool, aMessageListeners, aProgressListeners, rootConfig);
+
+    jsoupConnection = new JsoupConnection();
   }
 
   @Override
@@ -42,18 +47,18 @@ public class DwCrawler extends AbstractCrawler {
         new ConcurrentLinkedQueue<>();
     sendungVerpasstStartUrls.offer(new CrawlerUrlDTO(SENDUNG_VERPASST_URL));
     final DWUebersichtTask sendungverpasstUebersichtTask =
-        new DWUebersichtTask(this, sendungVerpasstStartUrls);
+        new DWUebersichtTask(this, sendungVerpasstStartUrls, jsoupConnection);
     final Set<URL> sendungverpasstFolgenUrls = forkJoinPool.invoke(sendungverpasstUebersichtTask);
 
     final ConcurrentLinkedQueue<CrawlerUrlDTO> startUrls = new ConcurrentLinkedQueue<>();
     startUrls.offer(new CrawlerUrlDTO(ALLE_INHALTE_URL));
     startUrls.addAll(
         sendungverpasstFolgenUrls.stream().map(CrawlerUrlDTO::new).collect(Collectors.toList()));
-    final DWUebersichtTask uebersichtTask = new DWUebersichtTask(this, startUrls);
+    final DWUebersichtTask uebersichtTask = new DWUebersichtTask(this, startUrls, jsoupConnection);
     final Set<URL> sendungFolgenUrls = forkJoinPool.invoke(uebersichtTask);
 
     return new DWFilmDetailsTask(this, new ConcurrentLinkedQueue<>(
-        sendungFolgenUrls.stream().map(CrawlerUrlDTO::new).collect(Collectors.toList())), DwCrawler.BASE_URL);
+        sendungFolgenUrls.stream().map(CrawlerUrlDTO::new).collect(Collectors.toList())), DwCrawler.BASE_URL, jsoupConnection);
   }
 
 }

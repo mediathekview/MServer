@@ -9,6 +9,7 @@ import de.mediathekview.mlib.daten.GeoLocations;
 import de.mediathekview.mlib.daten.Resolution;
 import de.mediathekview.mlib.tool.FileSizeDeterminer;
 import de.mediathekview.mserver.base.utils.HtmlDocumentUtils;
+import de.mediathekview.mserver.base.webaccess.JsoupConnection;
 import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
 import de.mediathekview.mserver.crawler.basic.AbstractDocumentTask;
 import de.mediathekview.mserver.crawler.basic.AbstractUrlTask;
@@ -54,8 +55,9 @@ public class OrfFilmDetailTask extends AbstractDocumentTask<Film, TopicUrlDTO> {
             }.getType();
 
     public OrfFilmDetailTask(
-            final AbstractCrawler aCrawler, final ConcurrentLinkedQueue<TopicUrlDTO> aUrlToCrawlDtos) {
-        super(aCrawler, aUrlToCrawlDtos);
+            final AbstractCrawler aCrawler, final ConcurrentLinkedQueue<TopicUrlDTO> aUrlToCrawlDtos, final
+      JsoupConnection jsoupConnection) {
+        super(aCrawler, aUrlToCrawlDtos, jsoupConnection);
     }
 
     private static Optional<LocalDateTime> parseDate(final Document aDocument) {
@@ -150,7 +152,7 @@ public class OrfFilmDetailTask extends AbstractDocumentTask<Film, TopicUrlDTO> {
     @Override
     protected AbstractUrlTask<Film, TopicUrlDTO> createNewOwnInstance(
             final ConcurrentLinkedQueue<TopicUrlDTO> aUrlsToCrawl) {
-        return new OrfFilmDetailTask(crawler, aUrlsToCrawl);
+        return new OrfFilmDetailTask(crawler, aUrlsToCrawl, getJsoupConnection());
     }
 
     private void createFilm(

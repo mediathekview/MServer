@@ -5,6 +5,7 @@ import de.mediathekview.mlib.daten.Sender;
 import de.mediathekview.mlib.messages.listener.MessageListener;
 import de.mediathekview.mserver.base.config.MServerConfigManager;
 import de.mediathekview.mserver.base.messages.ServerMessages;
+import de.mediathekview.mserver.base.webaccess.JsoupConnection;
 import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
 import de.mediathekview.mserver.crawler.basic.CrawlerUrlDTO;
 import de.mediathekview.mserver.crawler.basic.TopicUrlDTO;
@@ -27,12 +28,16 @@ public class WdrCrawler extends AbstractCrawler {
 
   private static final Logger LOG = LogManager.getLogger(WdrCrawler.class);
 
+  JsoupConnection jsoupConnection;
+
   public WdrCrawler(
       final ForkJoinPool aForkJoinPool,
       final Collection<MessageListener> aMessageListeners,
       final Collection<SenderProgressListener> aProgressListeners,
       final MServerConfigManager rootConfig) {
     super(aForkJoinPool, aMessageListeners, aProgressListeners, rootConfig);
+
+    this.jsoupConnection = new JsoupConnection();
   }
 
   @Override
@@ -59,7 +64,7 @@ public class WdrCrawler extends AbstractCrawler {
           ServerMessages.DEBUG_ALL_SENDUNG_FOLGEN_COUNT, getSender().getName(), shows.size());
       getAndSetMaxCount(shows.size());
 
-      return new WdrFilmDetailTask(this, shows);
+      return new WdrFilmDetailTask(this, shows, jsoupConnection);
     } catch (final InterruptedException | ExecutionException ex) {
       LOG.fatal("Exception in WDR crawler.", ex);
     }
@@ -67,7 +72,7 @@ public class WdrCrawler extends AbstractCrawler {
   }
 
   private Set<TopicUrlDTO> getDaysEntries() throws InterruptedException, ExecutionException {
-    final WdrDayPageTask dayTask = new WdrDayPageTask(this, getDayUrls());
+    final WdrDayPageTask dayTask = new WdrDayPageTask(this, getDayUrls(), jsoupConnection);
     final Set<TopicUrlDTO> shows = forkJoinPool.submit(dayTask).get();
 
     printMessage(
@@ -77,11 +82,11 @@ public class WdrCrawler extends AbstractCrawler {
   }
 
   private Set<TopicUrlDTO> getLetterPageEntries() throws InterruptedException, ExecutionException {
-    final WdrLetterPageTask letterTask = new WdrLetterPageTask(this);
+    final WdrLetterPageTask letterTask = new WdrLetterPageTask(this, jsoupConnection);
     final ConcurrentLinkedQueue<WdrTopicUrlDto> letterPageEntries = new ConcurrentLinkedQueue<>();
     letterPageEntries.addAll(forkJoinPool.submit(letterTask).get());
 
-    final WdrTopicOverviewTask overviewTask = new WdrTopicOverviewTask(this, letterPageEntries, 0);
+    final WdrTopicOverviewTask overviewTask = new WdrTopicOverviewTask(this, letterPageEntries, jsoupConnection, 0);
     final Set<TopicUrlDTO> shows = forkJoinPool.submit(overviewTask).get();
 
     printMessage(
@@ -117,10 +122,10 @@ public class WdrCrawler extends AbstractCrawler {
 
     urlToCrawl.add(new CrawlerUrlDTO(WdrConstants.URL_RADIO_ORCHESTRA));
 
-    final WdrRadioPageTask radioPageTask = new WdrRadioPageTask(this, urlToCrawl);
+    final WdrRadioPageTask radioPageTask = new WdrRadioPageTask(this, urlToCrawl, jsoupConnection);
     topicOverviews.addAll(forkJoinPool.submit(radioPageTask).get());
 
-    final WdrTopicOverviewTask overviewTask = new WdrTopicOverviewTask(this, topicOverviews, 0);
+    final WdrTopicOverviewTask overviewTask = new WdrTopicOverviewTask(this, topicOverviews, jsoupConnection, 0);
     final Set<TopicUrlDTO> shows = forkJoinPool.submit(overviewTask).get();
 
     printMessage(

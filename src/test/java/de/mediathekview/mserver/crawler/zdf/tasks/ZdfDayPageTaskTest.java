@@ -79,7 +79,7 @@ public class ZdfDayPageTaskTest extends ZdfTaskTestBase {
   public void testOverviewPageNotFound() {
     final String requestUrl = "/url/notfound";
 
-    wireMockRule.stubFor(
+    wireMockServer.stubFor(
         get(urlEqualTo(requestUrl)).willReturn(aResponse().withStatus(404).withBody("Not Found")));
 
     final Set<ZdfEntryDto> actual = executeTask(requestUrl);

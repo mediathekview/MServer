@@ -64,7 +64,7 @@ public class FunkChannelsRestTaskTest extends FunkTaskTestBase {
   public void testOverviewPageNotFound() {
     final String requestUrl = "/api/v4.0/channels/";
 
-    wireMockRule.stubFor(
+    wireMockServer.stubFor(
         get(urlEqualTo(requestUrl)).willReturn(aResponse().withStatus(404).withBody("Not Found")));
 
     final Set<FunkChannelDTO> actual = executeTask(requestUrl);

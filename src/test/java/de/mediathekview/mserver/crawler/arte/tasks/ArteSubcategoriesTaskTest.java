@@ -64,7 +64,7 @@ public class ArteSubcategoriesTaskTest extends ArteTaskTestBase {
   public void testOverviewPageNotFound() {
       final String requestUrl = "/api/opa/v3/subcategories?language=de&limit=5";
 
-    wireMockRule.stubFor(
+    wireMockServer.stubFor(
         get(urlEqualTo(requestUrl)).willReturn(aResponse().withStatus(404).withBody("Not Found")));
 
     final Set<TopicUrlDTO> actual = executeTask(requestUrl);

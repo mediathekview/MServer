@@ -3,7 +3,10 @@ package de.mediathekview.mserver.crawler.orf.tasks;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.junit.Assert.assertThat;
+import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.Mockito.when;
 
+import de.mediathekview.mserver.base.webaccess.JsoupConnection;
 import de.mediathekview.mserver.crawler.basic.CrawlerUrlDTO;
 import de.mediathekview.mserver.crawler.basic.TopicUrlDTO;
 import de.mediathekview.mserver.testhelper.JsoupMock;
@@ -11,28 +14,27 @@ import java.io.IOException;
 import java.util.Set;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import org.hamcrest.Matchers;
-import org.jsoup.Jsoup;
+import org.jsoup.Connection;
+import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.powermock.core.classloader.annotations.PowerMockIgnore;
-import org.powermock.core.classloader.annotations.PrepareForTest;
-import org.powermock.modules.junit4.PowerMockRunner;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
 
-@RunWith(PowerMockRunner.class)
-@PrepareForTest({Jsoup.class})
-@PowerMockIgnore(
-    value = {
-      "javax.net.ssl.*",
-      "javax.*",
-      "com.sun.*",
-      "org.apache.logging.log4j.core.config.xml.*"
-    })
 public class OrfDayTaskTest extends OrfTaskTestBase {
+
+  @Mock
+  JsoupConnection jsoupConnection;
+
+  @Before
+  public void setUp() {
+    MockitoAnnotations.initMocks(this);
+  }
 
   @Test
   public void test() throws IOException {
     final String requestUrl = "http://tvthek.orf.at/schedule/03.02.2018";
-    JsoupMock.mock(requestUrl, "/orf/orf_day.html");
+    Connection connection = JsoupMock.mock(requestUrl, "/orf/orf_day.html");
+    when(jsoupConnection.getConnection(eq(requestUrl))).thenReturn(connection);
 
     TopicUrlDTO[] expected =
         new TopicUrlDTO[] {
@@ -79,7 +81,7 @@ public class OrfDayTaskTest extends OrfTaskTestBase {
     ConcurrentLinkedQueue<CrawlerUrlDTO> queue = new ConcurrentLinkedQueue<>();
     queue.add(new CrawlerUrlDTO(requestUrl));
 
-    OrfDayTask target = new OrfDayTask(createCrawler(), queue);
+    OrfDayTask target = new OrfDayTask(createCrawler(), queue, jsoupConnection);
     Set<TopicUrlDTO> actual = target.invoke();
 
     assertThat(actual, notNullValue());

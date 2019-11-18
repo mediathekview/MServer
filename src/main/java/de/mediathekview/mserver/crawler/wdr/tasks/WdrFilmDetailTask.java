@@ -2,6 +2,7 @@ package de.mediathekview.mserver.crawler.wdr.tasks;
 
 import de.mediathekview.mlib.daten.Film;
 import de.mediathekview.mserver.base.utils.UrlUtils;
+import de.mediathekview.mserver.base.webaccess.JsoupConnection;
 import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
 import de.mediathekview.mserver.crawler.basic.AbstractDocumentTask;
 import de.mediathekview.mserver.crawler.basic.AbstractUrlTask;
@@ -15,8 +16,9 @@ import org.jsoup.nodes.Document;
 
 public class WdrFilmDetailTask extends AbstractDocumentTask<Film, TopicUrlDTO> {
 
-  public WdrFilmDetailTask(AbstractCrawler aCrawler, ConcurrentLinkedQueue<TopicUrlDTO> aUrlToCrawlDtos) {
-    super(aCrawler, aUrlToCrawlDtos);
+  public WdrFilmDetailTask(AbstractCrawler aCrawler, ConcurrentLinkedQueue<TopicUrlDTO> aUrlToCrawlDtos, final
+      JsoupConnection jsoupConnection) {
+    super(aCrawler, aUrlToCrawlDtos, jsoupConnection);
   }
 
   @Override
@@ -38,7 +40,7 @@ public class WdrFilmDetailTask extends AbstractDocumentTask<Film, TopicUrlDTO> {
 
   @Override
   protected AbstractUrlTask<Film, TopicUrlDTO> createNewOwnInstance(ConcurrentLinkedQueue<TopicUrlDTO> aUrlsToCrawl) {
-    return new WdrFilmDetailTask(crawler, aUrlsToCrawl);
+    return new WdrFilmDetailTask(crawler, aUrlsToCrawl, getJsoupConnection());
   }
 
   private String getProtocol(TopicUrlDTO aUrlDto) {

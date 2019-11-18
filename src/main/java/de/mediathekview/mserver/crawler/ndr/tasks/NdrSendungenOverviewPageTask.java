@@ -1,19 +1,18 @@
 package de.mediathekview.mserver.crawler.ndr.tasks;
 
+import de.mediathekview.mserver.base.webaccess.JsoupConnection;
 import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
 import de.mediathekview.mserver.crawler.basic.CrawlerUrlDTO;
 import de.mediathekview.mserver.crawler.ndr.NdrCrawler;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
-
 import java.io.IOException;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.concurrent.Callable;
 import java.util.concurrent.TimeUnit;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
 
 /**
  * A non recursive task to gather Sendung URLs for NDR from Sendungen overview page.
@@ -36,18 +35,17 @@ public class NdrSendungenOverviewPageTask implements Callable<Set<CrawlerUrlDTO>
     crawler = aCrawler;
   }
 
+  JsoupConnection jsoupConnection = new JsoupConnection();
+
   @Override
   public Set<CrawlerUrlDTO> call() {
     final Set<CrawlerUrlDTO> results = new HashSet<>();
 
     try {
       final Document document =
-          Jsoup.connect(SENDUNGEN_OVERVIEW_PAGE_URL)
-              .timeout(
-                  (int)
-                      TimeUnit.SECONDS.toMillis(
-                          crawler.getCrawlerConfig().getSocketTimeoutInSeconds()))
-              .get();
+          jsoupConnection.getDocumentTimeoutAfter(SENDUNGEN_OVERVIEW_PAGE_URL,
+              (int) TimeUnit.SECONDS.toMillis(
+                  crawler.getCrawlerConfig().getSocketTimeoutInSeconds()));
       for (final Element filmUrlElement : document.select(SENDUNG_URL_SELECTOR)) {
         if (filmUrlElement.hasAttr(ATTRIBUTE_HREF)) {
           results.add(new CrawlerUrlDTO(filmUrlElement.absUrl(ATTRIBUTE_HREF)));

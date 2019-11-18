@@ -1,21 +1,17 @@
 package de.mediathekview.mserver.testhelper;
 
-import org.jsoup.Connection;
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
-import org.mockito.Mockito;
+import static org.mockito.ArgumentMatchers.any;
 
+import de.mediathekview.mserver.base.webaccess.JsoupConnection;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
-import static org.mockito.ArgumentMatchers.any;
-import static org.powermock.api.mockito.PowerMockito.mockStatic;
-import static org.powermock.api.mockito.PowerMockito.when;
-import static org.powermock.api.support.membermodification.MemberMatcher.constructor;
-import static org.powermock.api.support.membermodification.MemberModifier.suppress;
+import org.jsoup.Connection;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.mockito.Mockito;
 
 /** */
 public class JsoupMock {
@@ -24,56 +20,58 @@ public class JsoupMock {
     final String fileContent = FileReader.readFile(aHtmlFile);
     final Document document = Jsoup.parse(fileContent);
 
-    suppress(constructor(Jsoup.class));
     final Connection connection = Mockito.mock(Connection.class);
     Mockito.when(connection.timeout(Mockito.anyInt())).thenReturn(connection);
     Mockito.when(connection.maxBodySize(0)).thenReturn(connection);
     Mockito.when(connection.get()).thenReturn(document);
 
-    mockStatic(Jsoup.class);
-        
-    when(Jsoup.connect(aUrl)).thenReturn(connection);
-    return connection;
+    final JsoupConnection jsoupConnectionMock = Mockito.mock(JsoupConnection.class);
+
+    Mockito.when(jsoupConnectionMock.getConnection(aUrl)).thenReturn(connection);
+    return jsoupConnectionMock.getConnection(aUrl);
   }
 
-  public static void mockXml(String aUrl, String aXmlFile) throws IOException {
+  public static Document getFileDocument(String url, String htmlFile) throws IOException {
+    final String fileContent = FileReader.readFile(htmlFile);
+    return Jsoup.parse(fileContent);
+  }
+
+  public static Document mockXml(String aUrl, String aXmlFile) throws IOException {
     Connection connection = mock(aUrl, aXmlFile);
 
-    when(connection.parser(any())).thenReturn(connection);
+    Mockito.when(connection.parser(any())).thenReturn(connection);
+
+    return getFileDocument(aUrl, aXmlFile);
   }
 
-  public static void mock(final Map<String, String> aUrlMapping) {
-    final Map<String, Connection> x = new HashMap<>();
+  public static Map<String, Connection> mock(final Map<String, String> aUrlMapping) {
+    final Map<String, Connection> resultMap = new HashMap<>();
 
     aUrlMapping
-        .entrySet()
         .forEach(
-            entry -> {
-              final String fileContent = FileReader.readFile(entry.getValue());
+            (url, resultFileName) -> {
+              final String fileContent = FileReader.readFile(resultFileName);
               final Document document = Jsoup.parse(fileContent);
 
-              suppress(constructor(Jsoup.class));
               final Connection connection = Mockito.mock(Connection.class);
               try {
                 Mockito.when(connection.timeout(Mockito.anyInt())).thenReturn(connection);
                 Mockito.when(connection.maxBodySize(0)).thenReturn(connection);
                 Mockito.when(connection.get()).thenReturn(document);
+
+                final JsoupConnection jsoupConnectionMock = Mockito.mock(JsoupConnection.class);
+
+                Mockito.when(jsoupConnectionMock.getConnection(url)).thenReturn(connection);
+
               } catch (final IOException ex) {
                 Logger.getLogger(JsoupMock.class.getName()).log(Level.SEVERE, null, ex);
               }
 
-              x.put(entry.getKey(), connection);
+              resultMap.put(url, connection);
+
             });
 
-    mockStatic(Jsoup.class);
+    return resultMap;
 
-    x.entrySet()
-        .forEach(
-            entry -> {
-              final String url = entry.getKey();
-              final Connection result = entry.getValue();
-
-              when(Jsoup.connect(url)).thenReturn(result);
-            });
   }
 }

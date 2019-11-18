@@ -3,10 +3,13 @@ package de.mediathekview.mserver.crawler.orf.tasks;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.junit.Assert.assertThat;
+import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.Mockito.when;
 
 import de.mediathekview.mlib.daten.Film;
 import de.mediathekview.mlib.daten.GeoLocations;
 import de.mediathekview.mlib.daten.Sender;
+import de.mediathekview.mserver.base.webaccess.JsoupConnection;
 import de.mediathekview.mserver.testhelper.AssertFilm;
 import de.mediathekview.mserver.testhelper.JsoupMock;
 import java.io.IOException;
@@ -15,25 +18,15 @@ import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Set;
-import org.jsoup.Jsoup;
+import org.jsoup.Connection;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
-import org.powermock.core.classloader.annotations.PowerMockIgnore;
-import org.powermock.core.classloader.annotations.PrepareForTest;
-import org.powermock.modules.junit4.PowerMockRunner;
-import org.powermock.modules.junit4.PowerMockRunnerDelegate;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
 
-@RunWith(PowerMockRunner.class)
-@PrepareForTest({Jsoup.class})
-@PowerMockRunnerDelegate(Parameterized.class)
-@PowerMockIgnore(
-    value = {
-      "javax.net.ssl.*",
-      "javax.*",
-      "com.sun.*",
-      "org.apache.logging.log4j.core.config.xml.*"
-    })
+@RunWith(Parameterized.class)
 public class OrfFilmDetailTaskTest extends OrfFilmDetailTaskTestBase {
 
   private final String requestUrl;
@@ -74,6 +67,14 @@ public class OrfFilmDetailTaskTest extends OrfFilmDetailTaskTestBase {
     expectedUrlNormal = aExpectedUrlNormal;
     expectedUrlHd = aExpectedUrlHd;
     expectedGeoLocations = aExpectedGeoLocations;
+  }
+
+  @Mock
+  JsoupConnection jsoupConnection;
+
+  @Before
+  public void setUp() {
+    MockitoAnnotations.initMocks(this);
   }
 
   @Parameterized.Parameters
@@ -142,9 +143,10 @@ public class OrfFilmDetailTaskTest extends OrfFilmDetailTaskTestBase {
   @Test
   public void test() throws IOException {
     setupHeadRequestForFileSize();
-    JsoupMock.mock(requestUrl, filmPageFile);
+    Connection connection = JsoupMock.mock(requestUrl, filmPageFile);
+    when(jsoupConnection.getConnection(eq(requestUrl))).thenReturn(connection);
 
-    final Set<Film> actual = executeTask(theme, requestUrl);
+    final Set<Film> actual = executeTask(theme, requestUrl, jsoupConnection);
 
     assertThat(actual, notNullValue());
     assertThat(actual.size(), equalTo(1));

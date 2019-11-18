@@ -1,35 +1,32 @@
 package de.mediathekview.mserver.crawler.wdr.tasks;
 
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.junit.Assert.assertThat;
+import static org.junit.Assert.fail;
+import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.Mockito.when;
+
+import de.mediathekview.mserver.base.webaccess.JsoupConnection;
 import de.mediathekview.mserver.crawler.basic.TopicUrlDTO;
 import de.mediathekview.mserver.crawler.wdr.WdrTopicUrlDto;
 import de.mediathekview.mserver.testhelper.JsoupMock;
+import java.io.IOException;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Set;
+import java.util.concurrent.ConcurrentLinkedQueue;
 import org.hamcrest.Matchers;
-import org.jsoup.Jsoup;
+import org.jsoup.Connection;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
-import org.powermock.core.classloader.annotations.PowerMockIgnore;
-import org.powermock.core.classloader.annotations.PrepareForTest;
-import org.powermock.modules.junit4.PowerMockRunner;
-import org.powermock.modules.junit4.PowerMockRunnerDelegate;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
 
-import java.io.IOException;
-import java.util.*;
-import java.util.concurrent.ConcurrentLinkedQueue;
-
-import static org.hamcrest.CoreMatchers.equalTo;
-import static org.junit.Assert.assertThat;
-
-@RunWith(PowerMockRunner.class)
-@PrepareForTest({Jsoup.class})
-@PowerMockRunnerDelegate(Parameterized.class)
-@PowerMockIgnore(
-    value = {
-      "javax.net.ssl.*",
-      "javax.*",
-      "com.sun.*",
-      "org.apache.logging.log4j.core.config.xml.*"
-    })
+@RunWith(Parameterized.class)
 public class WdrTopicOverviewTaskTest extends WdrTaskTestBase {
 
   private final String topic;
@@ -39,6 +36,14 @@ public class WdrTopicOverviewTaskTest extends WdrTaskTestBase {
   private final String childHtmlFile;
   private final boolean isFileUrl;
   private final TopicUrlDTO[] expectedUrls;
+
+  @Mock
+  JsoupConnection jsoupConnection;
+
+  @Before
+  public void setUp() {
+    MockitoAnnotations.initMocks(this);
+  }
 
   public WdrTopicOverviewTaskTest(
       final int aMaxSubpages,
@@ -139,12 +144,19 @@ public class WdrTopicOverviewTaskTest extends WdrTaskTestBase {
     if (!childUrl.isEmpty()) {
       mapping.put(childUrl, childHtmlFile);
     }
-    JsoupMock.mock(mapping);
+    Map<String, Connection> connections = JsoupMock.mock(mapping);
+    connections.forEach((url, currentConnection) -> {
+      try {
+        when(jsoupConnection.getConnection(eq(url))).thenReturn(currentConnection);
+      } catch (IOException iox) {
+        fail();
+      }
+    });
 
     final ConcurrentLinkedQueue<WdrTopicUrlDto> urls = new ConcurrentLinkedQueue<>();
     urls.add(new WdrTopicUrlDto(topic, requestUrl, isFileUrl));
 
-    final WdrTopicOverviewTask target = new WdrTopicOverviewTask(createCrawler(), urls, 0);
+    final WdrTopicOverviewTask target = new WdrTopicOverviewTask(createCrawler(), urls, jsoupConnection,  0);
     final Set<TopicUrlDTO> actual = target.invoke();
 
     assertThat(actual.size(), equalTo(expectedUrls.length));

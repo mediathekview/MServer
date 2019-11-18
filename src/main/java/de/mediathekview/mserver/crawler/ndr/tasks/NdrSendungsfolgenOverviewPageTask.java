@@ -1,5 +1,6 @@
 package de.mediathekview.mserver.crawler.ndr.tasks;
 
+import de.mediathekview.mserver.base.webaccess.JsoupConnection;
 import java.util.Optional;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.regex.Pattern;
@@ -33,8 +34,8 @@ public class NdrSendungsfolgenOverviewPageTask
   private static final String SUBPAGE_URL_PART_PATTERN = "_page-%d";
 
   public NdrSendungsfolgenOverviewPageTask(final AbstractCrawler aCrawler,
-      final ConcurrentLinkedQueue<CrawlerUrlDTO> aUrlToCrawlDTOs) {
-    super(aCrawler, aUrlToCrawlDTOs);
+      final ConcurrentLinkedQueue<CrawlerUrlDTO> aUrlToCrawlDTOs, final JsoupConnection jsoupConnection) {
+    super(aCrawler, aUrlToCrawlDTOs, jsoupConnection);
   }
 
   private NdrSendungsfolgenOverviewPageTask findSubPages(final Document aDocument,
@@ -64,13 +65,13 @@ public class NdrSendungsfolgenOverviewPageTask
             lastSubpageElement.text(), aPageURl), numberFormatException);
       }
     }
-    return new NdrSendungsfolgenOverviewPageTask(crawler, subPages);
+    return new NdrSendungsfolgenOverviewPageTask(crawler, subPages, getJsoupConnection());
   }
 
   @Override
   protected AbstractUrlTask<CrawlerUrlDTO, CrawlerUrlDTO> createNewOwnInstance(
       final ConcurrentLinkedQueue<CrawlerUrlDTO> aURLsToCrawl) {
-    return new NdrSendungsfolgenOverviewPageTask(crawler, aURLsToCrawl);
+    return new NdrSendungsfolgenOverviewPageTask(crawler, aURLsToCrawl, getJsoupConnection());
   }
 
   @Override

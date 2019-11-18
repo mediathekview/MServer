@@ -3,32 +3,28 @@ package de.mediathekview.mserver.crawler.orf.tasks;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.junit.Assert.assertThat;
+import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.Mockito.when;
 
 import de.mediathekview.mlib.daten.Film;
 import de.mediathekview.mlib.daten.GeoLocations;
 import de.mediathekview.mlib.daten.Sender;
+import de.mediathekview.mserver.base.webaccess.JsoupConnection;
 import de.mediathekview.mserver.testhelper.AssertFilm;
 import de.mediathekview.mserver.testhelper.JsoupMock;
 import java.io.IOException;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.Set;
-import org.jsoup.Jsoup;
+import org.jsoup.Connection;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.powermock.core.classloader.annotations.PowerMockIgnore;
-import org.powermock.core.classloader.annotations.PrepareForTest;
-import org.powermock.modules.junit4.PowerMockRunner;
+import org.junit.runners.Parameterized;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
 
-@RunWith(PowerMockRunner.class)
-@PrepareForTest({Jsoup.class})
-@PowerMockIgnore(
-    value = {
-      "javax.net.ssl.*",
-      "javax.*",
-      "com.sun.*",
-      "org.apache.logging.log4j.core.config.xml.*"
-    })
+@RunWith(Parameterized.class)
 public class OrfFilmDetailTaskTestWithEpisodes extends OrfFilmDetailTaskTestBase {
 
   private static final String REQUEST_URL =
@@ -44,6 +40,14 @@ public class OrfFilmDetailTaskTestWithEpisodes extends OrfFilmDetailTaskTestBase
   private static final int INDEX_URL_SMALL = 4;
   private static final int INDEX_URL_NORMAL = 5;
   private static final int INDEX_URL_HD = 6;
+
+  @Mock
+  JsoupConnection jsoupConnection;
+
+  @Before
+  public void setUp() {
+    MockitoAnnotations.initMocks(this);
+  }
 
   private static Object[][] data() {
     return new Object[][] {
@@ -134,11 +138,12 @@ public class OrfFilmDetailTaskTestWithEpisodes extends OrfFilmDetailTaskTestBase
   @Test
   public void test() throws IOException {
     setupHeadRequestForFileSize();
-    JsoupMock.mock(REQUEST_URL, "/orf/orf_film_with_several_parts.html");
+    Connection connection = JsoupMock.mock(REQUEST_URL, "/orf/orf_film_with_several_parts.html");
+    when(jsoupConnection.getConnection(eq(REQUEST_URL))).thenReturn(connection);
 
     Object[][] films = data();
 
-    final Set<Film> actual = executeTask(EXPECTED_THEME, REQUEST_URL);
+    final Set<Film> actual = executeTask(EXPECTED_THEME, REQUEST_URL, jsoupConnection);
 
     assertThat(actual, notNullValue());
     assertThat(actual.size(), equalTo(films.length));

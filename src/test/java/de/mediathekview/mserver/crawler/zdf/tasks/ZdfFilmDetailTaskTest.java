@@ -156,8 +156,8 @@ public class ZdfFilmDetailTaskTest extends ZdfTaskTestBase {
     final ConcurrentLinkedQueue<ZdfEntryDto> urls = new ConcurrentLinkedQueue<>();
     urls.add(
         new ZdfEntryDto(
-            WireMockTestBase.MOCK_URL_BASE + aDetailUrl,
-            WireMockTestBase.MOCK_URL_BASE + aVideoUrl));
+            wireMockServer.baseUrl() + aDetailUrl,
+            wireMockServer.baseUrl() + aVideoUrl));
     return new ZdfFilmDetailTask(createCrawler(), urls, Optional.empty()).invoke();
   }
 }
