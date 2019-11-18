@@ -27,4 +27,14 @@ public class SrfFilmJsonDeserializerTestError extends SrfTaskTestBase {
 
     assertThat(actual.isPresent(), equalTo(false));
   }
+
+  @Test
+  public void testFilmBlocked() {
+    final JsonElement jsonElement = JsonFileReader.readJson("/srf/srf_film_page_geo_block.json");
+
+    final SrfFilmJsonDeserializer target = new SrfFilmJsonDeserializer(createCrawler());
+    final Optional<Film> actual = target.deserialize(jsonElement, Film.class, null);
+
+    assertThat(actual.isPresent(), equalTo(false));
+  }
 }

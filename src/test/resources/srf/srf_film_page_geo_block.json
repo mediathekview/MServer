@@ -1,0 +1,175 @@
+{
+   "chapterUrn" : "urn:srf:video:114590dc-dbcf-4564-8ac8-a693e26ac764",
+   "episode" : {
+      "id" : "e95912f8-9356-45c7-aeea-f70597e79ef1",
+      "title" : "Das war 1979 total modisch («Karussell»-Beitrag)",
+      "lead" : "Präsentation sportlicher Jogginganzüge, die auch abends getragen werden können. Ein Beitrag aus «Karussell» vom 22. Juni 1979.",
+      "publishedDate" : "2019-07-03T21:35:00+02:00",
+      "imageUrl" : "https://ws.srf.ch/asset/image/audio/e2ea7098-ffbd-4ae5-b71b-814152546ac9/WEBVISUAL/1572427510.jpg"
+   },
+   "show" : {
+      "id" : "3b016ffc-afa2-466d-a694-c48b7ffe1783",
+      "vendor" : "SRF",
+      "transmission" : "TV",
+      "urn" : "urn:srf:show:tv:3b016ffc-afa2-466d-a694-c48b7ffe1783",
+      "title" : "DOK",
+      "lead" : "Dokumentarfilme zu Themen aus Gesellschaft, Natur, Politik, Sport und Wirtschaft. Es sind Geschichten, so einzigartig wie das Leben.",
+      "description" : "Dokumentarfilme zu Themen aus Gesellschaft, Natur, Politik, Sport und Wirtschaft. Es sind Geschichten, so einzigartig wie das Leben, hautnah erzählt.",
+      "imageUrl" : "https://ws.srf.ch/asset/image/audio/e2ea7098-ffbd-4ae5-b71b-814152546ac9/WEBVISUAL/1572427510.jpg",
+      "imageTitle" : "DOK",
+      "bannerImageUrl" : "https://ws.srf.ch/asset/image/audio/e2ea7098-ffbd-4ae5-b71b-814152546ac9/HEADER_SRF_PLAYER/1572427457.jpg",
+      "homepageUrl" : "https://www.srf.ch/sendungen/dok",
+      "podcastSubscriptionUrl" : "https://www.srf.ch/podcasts",
+      "timeTableUrl" : "https://www.srf.ch/programm/tv/mediagroup/dok",
+      "links" : [ {
+         "title" : "Mehr zur Sendung ",
+         "link" : "https://www.srf.ch/sendungen/dok"
+      }, {
+         "title" : "Audiodeskription",
+         "link" : "https://www.srf.ch/play/tv/sendung/dok-mit-audiodeskription?id=525041ef-5e96-4a5f-8333-92a676e5c281"
+      } ],
+      "primaryChannelId" : "23FFBE1B-65CE-4188-ADD2-C724186C2C9F",
+      "primaryChannelUrn" : "urn:srf:channel:tv:23FFBE1B-65CE-4188-ADD2-C724186C2C9F",
+      "numberOfEpisodes" : 511,
+      "topicList" : [ {
+         "id" : "516421f0-ec89-43ba-823b-1b5ceec262f3",
+         "vendor" : "SRF",
+         "transmission" : "TV",
+         "urn" : "urn:srf:topic:tv:516421f0-ec89-43ba-823b-1b5ceec262f3",
+         "title" : "Dokumentationen"
+      } ]
+   },
+   "channel" : {
+      "id" : "23FFBE1B-65CE-4188-ADD2-C724186C2C9F",
+      "vendor" : "SRF",
+      "urn" : "urn:srf:channel:tv:23FFBE1B-65CE-4188-ADD2-C724186C2C9F",
+      "title" : "SRF 1",
+      "imageUrl" : "https://ws.srf.ch/asset/image/audio/7ec11b90-b120-4d77-915c-0cd4cef1c5fe/LOGO_RESPONSIVE/1436176214.png",
+      "imageTitle" : "Logo",
+      "transmission" : "TV"
+   },
+   "chapterList" : [ {
+      "id" : "114590dc-dbcf-4564-8ac8-a693e26ac764",
+      "mediaType" : "VIDEO",
+      "vendor" : "SRF",
+      "urn" : "urn:srf:video:114590dc-dbcf-4564-8ac8-a693e26ac764",
+      "title" : "Das war 1979 total modisch («Karussell»-Beitrag)",
+      "lead" : "Präsentation sportlicher Jogginganzüge, die auch abends getragen werden können. Ein Beitrag aus «Karussell» vom 22. Juni 1979.",
+      "imageUrl" : "https://ws.srf.ch/asset/image/audio/28baca17-69f4-41c5-902d-4d6682ddbb88/EPISODE_IMAGE/1562221467.png",
+      "imageTitle" : "Das war 1979 total modisch («Karussell»-Beitrag)",
+      "blockReason" : "LEGAL",
+      "type" : "EPISODE",
+      "date" : "2019-07-03T21:35:00+02:00",
+      "duration" : 472760,
+      "validFrom" : "2019-07-03T21:50:00+02:00",
+      "playableAbroad" : true,
+      "socialCountList" : [ {
+         "key" : "srgView",
+         "value" : 5142
+      }, {
+         "key" : "srgLike",
+         "value" : 1
+      }, {
+         "key" : "fbShare",
+         "value" : 4
+      }, {
+         "key" : "twitterShare",
+         "value" : 0
+      }, {
+         "key" : "googleShare",
+         "value" : 0
+      }, {
+         "key" : "whatsAppShare",
+         "value" : 26
+      } ],
+      "displayable" : false,
+      "position" : 0,
+      "noEmbed" : true,
+      "analyticsData" : {
+         "ns_st_ep" : "Das war 1979 total modisch («Karussell»-Beitrag)",
+         "ns_st_ty" : "Video",
+         "ns_st_ci" : "114590dc-dbcf-4564-8ac8-a693e26ac764",
+         "ns_st_el" : "472760",
+         "ns_st_cl" : "472760",
+         "ns_st_sl" : "472760",
+         "srg_mgeobl" : "false",
+         "ns_st_tp" : "1",
+         "ns_st_cn" : "1",
+         "ns_st_ct" : "vc11",
+         "ns_st_pn" : "1"
+      },
+      "analyticsMetadata" : {
+         "media_segment" : "Das war 1979 total modisch («Karussell»-Beitrag)",
+         "media_type" : "Video",
+         "media_segment_id" : "114590dc-dbcf-4564-8ac8-a693e26ac764",
+         "media_episode_length" : "473",
+         "media_segment_length" : "473",
+         "media_number_of_segment_selected" : "1",
+         "media_number_of_segments_total" : "1",
+         "media_duration_category" : "short",
+         "media_is_geoblocked" : "false",
+         "media_urn" : "urn:srf:video:114590dc-dbcf-4564-8ac8-a693e26ac764",
+         "media_assigned_tags" : "won"
+      }
+   } ],
+   "topicList" : [ {
+      "id" : "516421f0-ec89-43ba-823b-1b5ceec262f3",
+      "vendor" : "SRF",
+      "transmission" : "TV",
+      "urn" : "urn:srf:topic:tv:516421f0-ec89-43ba-823b-1b5ceec262f3",
+      "title" : "Dokumentationen"
+   } ],
+   "analyticsData" : {
+      "srg_pr_id" : "e95912f8-9356-45c7-aeea-f70597e79ef1",
+      "srg_plid" : "3b016ffc-afa2-466d-a694-c48b7ffe1783",
+      "ns_st_pl" : "DOK",
+      "ns_st_pr" : "DOK vom 03.07.2019",
+      "ns_st_dt" : "2019-07-03",
+      "ns_st_ddt" : "2019-07-03",
+      "ns_st_tdt" : "2019-07-03",
+      "ns_st_tm" : "21:36:06",
+      "ns_st_tep" : "253083055527",
+      "ns_st_li" : "0",
+      "ns_st_stc" : "8001",
+      "ns_st_st" : "SRF 1",
+      "ns_st_tpr" : "3b016ffc-afa2-466d-a694-c48b7ffe1783",
+      "ns_st_en" : "*null",
+      "ns_st_ge" : "*null",
+      "ns_st_ia" : "*null",
+      "ns_st_ce" : "1",
+      "ns_st_cdm" : "to",
+      "ns_st_cmt" : "fc",
+      "srg_unit" : "SRF",
+      "srg_c1" : "Dokumentationen",
+      "srg_c2" : "full",
+      "srg_wo" : "0",
+      "srg_tv_id" : "253044661812",
+      "srg_fullLength" : "full"
+   },
+   "analyticsMetadata" : {
+      "media_episode_id" : "e95912f8-9356-45c7-aeea-f70597e79ef1",
+      "media_show_id" : "3b016ffc-afa2-466d-a694-c48b7ffe1783",
+      "media_show" : "DOK",
+      "media_episode" : "DOK vom 03.07.2019",
+      "media_is_livestream" : "false",
+      "media_full_length" : "full",
+      "media_enterprise_units" : "SRF",
+      "media_joker1" : "Dokumentationen",
+      "media_is_web_only" : "false",
+      "media_production_source" : "produced.for.broadcasting",
+      "media_tv_id" : "253083055527",
+      "media_thumbnail" : "https://ws.srf.ch/asset/image/audio/28baca17-69f4-41c5-902d-4d6682ddbb88/EPISODE_IMAGE/1562221467.png/scale/width/344",
+      "media_publication_date" : "2019-07-03",
+      "media_publication_time" : "21:50:00",
+      "media_publication_datetime" : "2019-07-03T21:50:00+02:00",
+      "media_tv_date" : "2019-07-03",
+      "media_tv_time" : "21:36:06",
+      "media_tv_datetime" : "2019-07-03T21:36:06+02:00",
+      "media_content_group" : "Dokumentationen",
+      "media_channel_id" : "23FFBE1B-65CE-4188-ADD2-C724186C2C9F",
+      "media_channel_cs" : "8001",
+      "media_channel_name" : "SRF 1",
+      "media_since_publication_d" : "138",
+      "media_since_publication_h" : "3314"
+   }
+}
