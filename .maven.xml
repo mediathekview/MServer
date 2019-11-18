@@ -1,5 +1,14 @@
-<settings xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/SETTINGS/1.0.0" xsi:schemalocation="http://maven.apache.org/SETTINGS/1.0.0
+<settings xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/SETTINGS/1.0.0"
+          xsi:schemalocation="http://maven.apache.org/SETTINGS/1.0.0
                       http://maven.apache.org/xsd/settings-1.0.0.xsd">
+    <mirrors>
+        <mirror>
+            <id>Central</id>
+            <name>Central</name>
+            <url>https://repo1.maven.org/maven2</url>
+            <mirrorOf>central</mirrorOf>
+        </mirror>
+    </mirrors>
     <servers>
         <server>
             <!-- Maven Central Deployment -->
@@ -8,26 +17,26 @@
             <password>${env.SONATYPE_PASSWORD}</password>
         </server>
         <server>
-          <id>docker.io</id>
-          <username>${env.DOCKER_USERNAME}</username>
-          <password>${env.DOCKER_PASSWORD}</password>
-  </server>
+            <id>docker.io</id>
+            <username>${env.DOCKER_USERNAME}</username>
+            <password>${env.DOCKER_PASSWORD}</password>
+        </server>
     </servers>
-    
+
     <activeProfiles>
-      <activeProfile>deploy</activeProfile>
+        <activeProfile>deploy</activeProfile>
     </activeProfiles>
 
     <profiles>
-      <profile>
-        <id>ossrh</id>
-        <activation>
-          <activeByDefault>true</activeByDefault>
-        </activation>
-        <properties>
-          <gpg.executable>gpg</gpg.executable>
-          <gpg.passphrase>${env.GPG_PASSPHRASE}</gpg.passphrase>
-        </properties>
-      </profile>
+        <profile>
+            <id>ossrh</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <properties>
+                <gpg.executable>gpg</gpg.executable>
+                <gpg.passphrase>${env.GPG_PASSPHRASE}</gpg.passphrase>
+            </properties>
+        </profile>
     </profiles>
 </settings>
