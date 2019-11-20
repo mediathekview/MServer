@@ -35,29 +35,29 @@ public class ZDFSearchTask extends RecursiveTask<Collection<VideoDTO>> {
   private int page;
   private final int daysPast;
   private final int daysFuture;
-  private Predicate<? super ZDFEntryDTO> entryFilter;
+  private final Predicate<? super ZDFEntryDTO> entryFilter;
 
   public ZDFSearchTask(
-      int aDaysPast,
-      int aDaysFuture,
-      String aBaseUrl,
-      String aApiBaseUrl,
-      String aSender,
-      String aApiHost,
-      ZDFConfigurationDTO aConfig,
-      Predicate<? super ZDFEntryDTO> aEntryFilter) {
+          int aDaysPast,
+          int aDaysFuture,
+          String aBaseUrl,
+          String aApiBaseUrl,
+          String aSender,
+          String aApiHost,
+          ZDFConfigurationDTO aConfig,
+          Predicate<? super ZDFEntryDTO> aEntryFilter) {
     super();
     baseUrl = aBaseUrl;
     apiBaseUrl = aApiBaseUrl;
-    sender=aSender;
+    sender = aSender;
     apiHost = aApiHost;
-    config=aConfig;
+    config = aConfig;
     filmList = new ArrayList<>();
-    client = new ZDFClient(baseUrl, apiBaseUrl,sender, apiHost, aConfig);
+    client = new ZDFClient(baseUrl, apiBaseUrl, sender, apiHost, aConfig);
     page = 1;
     daysPast = aDaysPast;
     daysFuture = aDaysFuture;
-    entryFilter=aEntryFilter;
+    entryFilter = aEntryFilter;
   }
 
   @Override
@@ -76,7 +76,11 @@ public class ZDFSearchTask extends RecursiveTask<Collection<VideoDTO>> {
         }
 
         while (!startDate.isAfter(maxDate)) {
-          computeSearchRequest(subTasks, startDate, endDate);
+          try {
+            computeSearchRequest(subTasks, startDate, endDate);
+          } catch (Exception ex) {
+            Log.errorLog(496583202, ex);
+          }
           startDate = endDate;
           endDate = endDate.plusDays(OFFSET_SEARCH_REQUST);
         }
@@ -94,16 +98,16 @@ public class ZDFSearchTask extends RecursiveTask<Collection<VideoDTO>> {
   }
 
   private void computeSearchRequest(
-      Collection<ZDFSearchPageTask> subTasks,
-      final ZonedDateTime startDate,
-      final ZonedDateTime endDate) {
+          Collection<ZDFSearchPageTask> subTasks,
+          final ZonedDateTime startDate,
+          final ZonedDateTime endDate) {
     JsonObject baseObject;
     page = 1;
     do {
       baseObject = client.executeSearch(page, startDate, endDate);
 
       if (baseObject != null) {
-        ZDFSearchPageTask task = new ZDFSearchPageTask(baseObject, baseUrl, apiBaseUrl,sender, apiHost,config,entryFilter);
+        ZDFSearchPageTask task = new ZDFSearchPageTask(baseObject, baseUrl, apiBaseUrl, sender, apiHost, config, entryFilter);
         task.fork();
         subTasks.add(task);
         if (MserverDaten.debug) {
@@ -117,8 +121,8 @@ public class ZDFSearchTask extends RecursiveTask<Collection<VideoDTO>> {
 
   private static boolean hasNextPage(final JsonObject baseObject) {
     return baseObject != null
-        && baseObject.has(JSON_ELEMENT_NEXT)
-        && baseObject.has(JSON_ELEMENT_RESULT)
-        && baseObject.getAsJsonArray(JSON_ELEMENT_RESULT).size() > 0;
+            && baseObject.has(JSON_ELEMENT_NEXT)
+            && baseObject.has(JSON_ELEMENT_RESULT)
+            && baseObject.getAsJsonArray(JSON_ELEMENT_RESULT).size() > 0;
   }
 }
