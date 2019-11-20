@@ -76,11 +76,7 @@ public class ZDFSearchTask extends RecursiveTask<Collection<VideoDTO>> {
         }
 
         while (!startDate.isAfter(maxDate)) {
-          try {
-            computeSearchRequest(subTasks, startDate, endDate);
-          } catch (Exception ex) {
-            Log.errorLog(496583202, ex);
-          }
+          computeSearchRequest(subTasks, startDate, endDate);
           startDate = endDate;
           endDate = endDate.plusDays(OFFSET_SEARCH_REQUST);
         }
@@ -104,7 +100,12 @@ public class ZDFSearchTask extends RecursiveTask<Collection<VideoDTO>> {
     JsonObject baseObject;
     page = 1;
     do {
-      baseObject = client.executeSearch(page, startDate, endDate);
+      try {
+        baseObject = client.executeSearch(page, startDate, endDate);
+      } catch (Exception ex) {
+        Log.errorLog(496583202, ex);
+        baseObject = null;
+      }
 
       if (baseObject != null) {
         ZDFSearchPageTask task = new ZDFSearchPageTask(baseObject, baseUrl, apiBaseUrl, sender, apiHost, config, entryFilter);
