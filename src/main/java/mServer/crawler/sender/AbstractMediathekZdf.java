@@ -32,8 +32,8 @@ public abstract class AbstractMediathekZdf extends MediathekReader {
     meldungStart();
     meldungAddThread();
 
-    int daysPast = CrawlerTool.loadLongMax() ? 300 : 20;
-    int daysFuture = CrawlerTool.loadLongMax() ? 100 : 30;
+    int daysPast = CrawlerTool.loadLongMax() ? 60 : 20;
+    int daysFuture = CrawlerTool.loadLongMax() ? 30 : 30;
 
     final ZDFSearchTask newTask
             = new ZDFSearchTask(
