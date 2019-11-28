@@ -75,7 +75,7 @@ public class ZDFSearchTask extends RecursiveTask<Collection<VideoDTO>> {
           endDate = maxDate;
         }
 
-        while (!startDate.isAfter(maxDate)) {
+        while (!startDate.isAfter(maxDate) && !Config.getStop()) {
           computeSearchRequest(subTasks, startDate, endDate);
           startDate = endDate;
           endDate = endDate.plusDays(OFFSET_SEARCH_REQUST);
