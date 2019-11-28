@@ -338,7 +338,7 @@ public class SrfFilmJsonDeserializer implements JsonDeserializer<Optional<DatenF
     Duration duration;
     String id;
     String description = "";
-    String videoUrl;
+    String videoUrl = "";
     String subtitleUrl = "";
   }
 }
