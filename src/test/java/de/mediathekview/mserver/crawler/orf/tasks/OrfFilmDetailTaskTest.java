@@ -136,7 +136,21 @@ public class OrfFilmDetailTaskTest extends OrfFilmDetailTaskTestBase {
             "http://localhost:8589/apasfiis.sf.apa.at/ipad/cms-austria/2019-03-19_2015_in_01_Soko-Donau--Ent_____14007925__o__2552019395__s14465271_Q6A.mp4/playlist.m3u8",
             "http://localhost:8589/apasfiis.sf.apa.at/ipad/cms-austria/2019-03-19_2015_in_01_Soko-Donau--Ent_____14007925__o__2552019395__s14465271_Q8C.mp4/playlist.m3u8",
             new GeoLocations[] {GeoLocations.GEO_AT}
-          }
+          },
+            {
+                "https://tvthek.orf.at/profile/DENK-mit-KULTUR/8728536/DENK-mit-KULTUR-Gerda-Rogers-und-Schiffkowitz/14034271",
+                "/orf/orf_film_new_description_block.html",
+                "DENK mit KULTUR",
+                "Gerda Rogers und Schiffkowitz",
+                LocalDateTime.of(2019, 12, 6, 21, 5, 0),
+                Duration.ofMinutes(45).plusSeconds(0),
+                "Birgit Denk hat diesmal Astrologin Gerda Rogers und STS-Star Schiffkowitz zum gemütlichen Late-Night-Talk ins Casino Baden eingeladen.",
+                "",
+                "https://apasfiis.sf.apa.at/ipad/cms-worldwide/2019-12-06_2105_sd_06_DENK-mit-KULTUR_____14034271__o__1025186593__s14603593_3__ORF3HD_21062006P_21511908P_Q4A.mp4/playlist.m3u8",
+                "https://apasfiis.sf.apa.at/ipad/cms-worldwide/2019-12-06_2105_sd_06_DENK-mit-KULTUR_____14034271__o__1025186593__s14603593_3__ORF3HD_21062006P_21511908P_Q6A.mp4/playlist.m3u8",
+                "https://apasfiis.sf.apa.at/ipad/cms-worldwide/2019-12-06_2105_sd_06_DENK-mit-KULTUR_____14034271__o__1025186593__s14603593_3__ORF3HD_21062006P_21511908P_Q8C.mp4/playlist.m3u8",
+                new GeoLocations[] {GeoLocations.GEO_NONE}
+            }
         });
   }
 
