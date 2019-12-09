@@ -234,6 +234,9 @@ public abstract class AbstractMediathekZdf extends MediathekReader {
     updateHd("1496k_p13v14.mp4", "3328k_p35v14.mp4", film, urlSeite);
     updateHd("2296k_p14v14.mp4", "3328k_p35v14.mp4", film, urlSeite);
     updateHd("2328k_p35v14.mp4", "3328k_p35v14.mp4", film, urlSeite);
+
+    updateHd("1628k_p13v15.mp4", "3360k_p36v15.mp4", film, urlSeite);
+    updateHd("2360k_p35v15.mp4", "3360k_p36v15.mp4", film, urlSeite);
   }
 
   private static void modifyUrl(DatenFilm film, String urlSeite, FilmeSuchen mSFilmeSuchen) {
@@ -275,6 +278,8 @@ public abstract class AbstractMediathekZdf extends MediathekReader {
             film,
             urlSeite,
             mSFilmeSuchen); // wenns nicht geht, dann vielleicht so
+
+    changeUrl("1628k_p13v15.mp4", "2360k_p35v15.mp4", film, urlSeite, mSFilmeSuchen);
   }
 
   public static void urlTauschen(DatenFilm film, String urlSeite, FilmeSuchen mSFilmeSuchen) {
