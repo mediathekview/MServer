@@ -32,11 +32,11 @@ import org.jsoup.nodes.Document;
 
 public class OrfFilmDetailTask extends AbstractDocumentTask<DatenFilm, TopicUrlDTO> {
 
-  private static final String TITLE_SELECTOR = ".description-title";
+  private static final String TITLE_SELECTOR = ".description-container .description-title";
   private static final String VIDEO_META_DATA_SELECTOR = ".video-meta-data";
   private static final String TIME_SELECTOR = VIDEO_META_DATA_SELECTOR + "  time";
   private static final String DURATION_SELECTOR = VIDEO_META_DATA_SELECTOR + " span.duration";
-  private static final String DESCRIPTION_SELECTOR = ".description-text";
+  private static final String DESCRIPTION_SELECTOR = ".description-container .description-text";
   private static final String VIDEO_SELECTOR = "div.jsb_VideoPlaylist";
 
   private static final String ATTRIBUTE_DATETIME = "datetime";
