@@ -35,6 +35,15 @@ public class ZdfVideoUrlOptimizerTest extends WireMockTestBase {
   }
 
   @Test
+  public void getOptimizedUrlNormalTestBetterUrlExists2() {
+    final String url = wireMockServer.baseUrl() + "/video_1628k_p13v15.mp4";
+    final String expectedUrl = wireMockServer.baseUrl() + "/video_2360k_p35v15.mp4";
+
+    setupHeadResponse("/video_2360k_p35v15.mp4", 200);
+    assertGetOptimizedUrlNormal(expectedUrl, url);
+  }
+
+  @Test
   public void getOptimizedUrlNormalTestBetterUrlNotExists() {
     final String url = wireMockServer.baseUrl() + "/video_2256k_p14v12.mp4";
 
@@ -48,6 +57,24 @@ public class ZdfVideoUrlOptimizerTest extends WireMockTestBase {
     final String expectedUrl = wireMockServer.baseUrl() + "/video_3328k_p36v12.mp4";
 
     setupHeadResponse("/video_3328k_p36v12.mp4", 200);
+    assertDetermineUrlHd(Optional.of(expectedUrl), url);
+  }
+
+  @Test
+  public void determineUrlHdTestFirstUrlExists2() {
+    final String url = wireMockServer.baseUrl() + "/video_2360k_p35v15.mp4";
+    final String expectedUrl = wireMockServer.baseUrl() + "/video_3360k_p36v15.mp4";
+
+    setupHeadResponse("/video_3360k_p36v15.mp4", 200);
+    assertDetermineUrlHd(Optional.of(expectedUrl), url);
+  }
+
+  @Test
+  public void determineUrlHdTestFirstUrlExists3() {
+    final String url = wireMockServer.baseUrl() + "/video_1628k_p13v15.mp4";
+    final String expectedUrl = wireMockServer.baseUrl() + "/video_3360k_p36v15.mp4";
+
+    setupHeadResponse("/video_3360k_p36v15.mp4", 200);
     assertDetermineUrlHd(Optional.of(expectedUrl), url);
   }
 
