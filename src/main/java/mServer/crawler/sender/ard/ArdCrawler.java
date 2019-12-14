@@ -35,7 +35,8 @@ public class ArdCrawler extends MediathekCrawler {
     if (getThreads() <= 1) {
       mlibFilmeSuchen.meldenFertig(Const.RBB);
       mlibFilmeSuchen.meldenFertig(Const.SWR);
-        mlibFilmeSuchen.meldenFertig(Const.MDR);
+      mlibFilmeSuchen.meldenFertig(Const.MDR);
+      mlibFilmeSuchen.meldenFertig(Const.NDR);
     }
 
     super.meldungThreadUndFertig();
