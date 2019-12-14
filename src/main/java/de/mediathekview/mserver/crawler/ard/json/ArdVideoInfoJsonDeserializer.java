@@ -5,6 +5,7 @@ import com.google.gson.JsonDeserializer;
 import com.google.gson.JsonElement;
 import de.mediathekview.mlib.daten.Resolution;
 import de.mediathekview.mlib.tool.MVHttpClient;
+import de.mediathekview.mserver.base.utils.UrlUtils;
 import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
 import de.mediathekview.mserver.crawler.basic.M3U8Dto;
 import de.mediathekview.mserver.crawler.basic.M3U8Parser;
@@ -58,7 +59,9 @@ public class ArdVideoInfoJsonDeserializer implements JsonDeserializer<ArdVideoIn
     // urls
     if (resolutionUrlMap.size() == 1
         && resolutionUrlMap.containsKey(Resolution.NORMAL)
-        && resolutionUrlMap.get(Resolution.NORMAL).getFile().endsWith("m3u8")) {
+        && UrlUtils.getFileType(resolutionUrlMap.get(Resolution.NORMAL).getFile())
+            .get()
+            .equals("m3u8")) {
 
       loadM3U8(resolutionUrlMap);
     }

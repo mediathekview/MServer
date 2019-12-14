@@ -176,7 +176,11 @@ public final class UrlUtils {
     if (aUrl != null) {
       final int index = aUrl.lastIndexOf('.');
       if (index > 0) {
-        return Optional.of(aUrl.substring(index + 1));
+        int indexQuestionMark = aUrl.indexOf('?', index);
+        if (indexQuestionMark < 0) {
+          indexQuestionMark = aUrl.length();
+        }
+        return Optional.of(aUrl.substring(index + 1, indexQuestionMark));
       }
     }
 

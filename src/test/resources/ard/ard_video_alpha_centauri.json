@@ -1,0 +1,40 @@
+{
+  "_type":"video",
+  "_isLive":false,
+  "_defaultQuality":[
+    "auto",
+    "2",
+    "4",
+    "3",
+    "1",
+    "0"
+  ],
+  "_previewImage":"https://img.ardmediathek.de/standard/00/40/64/50/56/-1774185891/16x9/960?mandant=ard",
+  "_subtitleUrl":null,
+  "_subtitleOffset":0,
+  "_mediaArray":[
+    {
+      "_plugin":1,
+      "_mediaStreamArray":[
+        {
+          "_quality":"auto",
+          "_stream":[
+            "http://localhost:8589/i/mir-live/bw1XsLzS/bLQH/bLOliLioMXZhiKT1/uLoXb69zbX06/MUJIuUOVBwQIb71S/bLWCMUJIuUOVBwQIb71S/_2rp9U1S/_-JS/_-Fp_H1S/d6b48cc8-60f3-4625-a56a-fba68c0841c7_,0,A,B,E,C,.mp4.csmil/master.m3u8?__b__=200"
+          ],
+          "__typename":"MediaStreamArray"
+        }
+      ],
+      "__typename":"MediaArray"
+    }
+  ],
+  "_alternativeMediaArray":[
+
+  ],
+  "_sortierArray":[
+    1
+  ],
+  "_duration":846,
+  "_dvrEnabled":false,
+  "_geoblocked":false,
+  "__typename":"MediaCollection"
+}
