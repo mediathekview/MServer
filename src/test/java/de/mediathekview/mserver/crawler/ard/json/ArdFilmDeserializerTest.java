@@ -198,7 +198,22 @@ public class ArdFilmDeserializerTest {
             GeoLocations.GEO_NONE,
             new ArdFilmInfoDto[0],
             Optional.empty()
-          }
+          },
+            {
+              "/ard/ard_film_page_radio_bremen.json",
+                "buten un binnen Wetter",
+                "Das Wetter für den 15. Dezember",
+                "Weiße Weihnachten - ja oder nein? Das ist hier bitte nicht die Frage!",
+                LocalDateTime.of(2019,12,14,19,58,0),
+                Duration.ofMinutes(1).plusSeconds(30),
+                "http://rbprogressivedl-a.akamaihd.net/clips/069/069050/069050_00278885_video_288p.mp4",
+                "http://rbprogressivedl-a.akamaihd.net/clips/069/069050/069050_00278886_video_540p.mp4",
+                "http://rbprogressivedl-a.akamaihd.net/clips/069/069050/069050_00278888_video_720p.mp4",
+                "",
+                GeoLocations.GEO_NONE,
+                new ArdFilmInfoDto[0],
+                Optional.of(Sender.RBTV)
+            }
         });
   }
 
