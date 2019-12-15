@@ -59,6 +59,7 @@ public class ArdFilmDeserializer implements JsonDeserializer<List<ArdFilmDto>> {
     ADDITIONAL_SENDER.put("rbb", Const.RBB);
     ADDITIONAL_SENDER.put("swr", Const.SWR);
     ADDITIONAL_SENDER.put("mdr", Const.MDR);
+    ADDITIONAL_SENDER.put("ndr", Const.NDR);
   }
 
   private final ArdVideoInfoJsonDeserializer videoDeserializer;

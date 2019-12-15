@@ -13,6 +13,7 @@ import java.util.Map;
 import java.util.Optional;
 import mServer.crawler.sender.base.M3U8Dto;
 import mServer.crawler.sender.base.M3U8Parser;
+import mServer.crawler.sender.base.UrlUtils;
 import mServer.crawler.sender.newsearch.Qualities;
 import okhttp3.Request;
 import okhttp3.ResponseBody;
@@ -46,7 +47,9 @@ public class ArdVideoInfoJsonDeserializer implements JsonDeserializer<ArdVideoIn
     // if map contains only a m3u8 url, load the m3u8 file and use the containing
     // urls
     if (resolutionUrlMap.size() == 1 && resolutionUrlMap.containsKey(Qualities.NORMAL)
-            && resolutionUrlMap.get(Qualities.NORMAL).getFile().endsWith("m3u8")) {
+            && UrlUtils.getFileType(resolutionUrlMap.get(Qualities.NORMAL).getFile())
+                    .get()
+                    .equals("m3u8")) {
 
       loadM3U8(resolutionUrlMap);
     }
