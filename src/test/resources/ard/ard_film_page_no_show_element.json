@@ -1,0 +1,155 @@
+{
+  "data": {
+    "playerPage": {
+      "type": "player_ondemand",
+      "title": "Saudi-Arabien - Der Osten",
+      "image": {
+        "alt": "Der Flohmarkt in Riad hat jeden Tag geöffnet. Nachmittags werden die skurrilsten und wertvollsten Stücke auf einer Auktion versteigert. | Bild: BR/rbb/Stefan Paul",
+        "title": "Saudi-Arabien - Der Osten - Standbild",
+        "src": "https://img.ardmediathek.de/standard/00/70/37/85/10/-1774185891/16x9/{width}?mandant=ard",
+        "producerName": "BR/rbb/Stefan Paul",
+        "__typename": "Image"
+      },
+      "maturityContentRating": "NONE",
+      "geoblocked": false,
+      "broadcastedOn": "2019-12-29T09:30:00Z",
+      "availableTo": "2020-01-05T10:18:21Z",
+      "synopsis": "Spektakuläre Felsformationen, unendliche Wüstenlandschaften und eine jahrtausendalte Kultur: Saudi-Arabien, das unbekannte Königreich. Im Osten des Landes befinden sich die liberale Küstenstadt Dammam, mehr im Landesinneren liegt Riad - Hauptstadt und Machtzentrum der Saudis. Umgeben sind die Städte von Sandwüsten und Oasen, wie z.B. Ha'il mit seinen faszinierenden Felszeichnungen.",
+      "show": null,
+      "publicationService": {
+        "name": "ARD-alpha",
+        "channelType": "alpha",
+        "__typename": "PublicationService"
+      },
+      "mediaCollection": {
+        "_type": "video",
+        "_isLive": false,
+        "_defaultQuality": [
+          "auto",
+          "2",
+          "4",
+          "3",
+          "1",
+          "0"
+        ],
+        "_previewImage": "https://img.ardmediathek.de/standard/00/70/37/85/10/-1774185891/16x9/960?mandant=ard",
+        "_subtitleUrl": null,
+        "_subtitleOffset": 0,
+        "_mediaArray": [
+          {
+            "_plugin": 1,
+            "_mediaStreamArray": [
+              {
+                "_quality": "auto",
+                "_stream": [
+                  "//br-i.akamaihd.net/i/b7/2019-12/29/e203ac2a2a2311eaa0b0984be10adece_,0,A,B,E,C,X,.mp4.csmil/master.m3u8?__b__=200"
+                ],
+                "__typename": "MediaStreamArray"
+              },
+              {
+                "_quality": "0",
+                "_stream": [
+                  "//cdn-storage.br.de/b7/2019-12/29/e203ac2a2a2311eaa0b0984be10adece_0.mp4"
+                ],
+                "__typename": "MediaStreamArray"
+              },
+              {
+                "_quality": "1",
+                "_stream": [
+                  "//cdn-storage.br.de/b7/2019-12/29/e203ac2a2a2311eaa0b0984be10adece_B.mp4",
+                  "//cdn-storage.br.de/b7/2019-12/29/e203ac2a2a2311eaa0b0984be10adece_A.mp4"
+                ],
+                "__typename": "MediaStreamArray"
+              },
+              {
+                "_quality": "2",
+                "_stream": [
+                  "//cdn-storage.br.de/b7/2019-12/29/e203ac2a2a2311eaa0b0984be10adece_E.mp4",
+                  "//cdn-storage.br.de/b7/2019-12/29/e203ac2a2a2311eaa0b0984be10adece_C.mp4"
+                ],
+                "__typename": "MediaStreamArray"
+              },
+              {
+                "_quality": "3",
+                "_stream": [
+                  "//cdn-storage.br.de/b7/2019-12/29/e203ac2a2a2311eaa0b0984be10adece_X.mp4"
+                ],
+                "__typename": "MediaStreamArray"
+              }
+            ],
+            "__typename": "MediaArray"
+          }
+        ],
+        "_alternativeMediaArray": [],
+        "_sortierArray": [
+          1
+        ],
+        "_duration": 2597,
+        "_dvrEnabled": false,
+        "_geoblocked": false,
+        "__typename": "MediaCollection"
+      },
+      "blockedByFsk": false,
+      "playerConfig": {
+        "href": "http://page.ardmediathek.de/page-gateway/playerconfig/70378504",
+        "_pixelConfig": [
+          {
+            "clipTitle": "Saudi-Arabien - Der Osten",
+            "x5": "ARD-alpha",
+            "x6": "ARD-alpha",
+            "x7": "Ohne+Sendereihe",
+            "x14": "70378504",
+            "x20": "2597",
+            "apid": "PA02DC09C-B8D3-4098-87D2-2C023682D6D5",
+            "agfMetaDataSDK": {
+              "assetid": "//br-i.akamaihd.net/i/b7/2019-12/29/e203ac2a2a2311eaa0b0984be10adece_,0,A,B,E,C,X,.mp4.csmil/master.m3u8?__b__=200",
+              "type": "content",
+              "program": "Unbekanntes Arabien",
+              "title": "ARD-alpha_Unbekanntes Arabien_Saudi-Arabien - Der Osten_29.12.2019 10:30",
+              "length": "2597",
+              "nol_c0": null,
+              "nol_c2": "p2,N",
+              "nol_c5": "p5,ARD Mediathek",
+              "nol_c7": "p7,crid://br.de/video/f31808ab-24a7-455a-814c-dadab3ec79b1",
+              "nol_c8": "p8,2597",
+              "nol_c9": "p9,Unbekanntes Arabien_Saudi-Arabien - Der Osten_29.12.2019 10:30",
+              "nol_c10": "p10,ARD-alpha",
+              "nol_c12": "p12,Content",
+              "nol_c15": null,
+              "nol_c16": null,
+              "nol_c18": "p18,N",
+              "nol_c19": "p19,Bayerischer Rundfunk 2019",
+              "__typename": "AgfMetaDataSDK"
+            },
+            "__typename": "PixelConfig"
+          }
+        ],
+        "__typename": "PlayerConfig"
+      },
+      "relates": null,
+      "tracking": {
+        "szmType": "CP",
+        "environmentId": 511893,
+        "aggregationLevelId": 38,
+        "chapter2": "Player",
+        "chapter3": null,
+        "pageTitle": "Mediathek/Player/Saudi-Arabien - Der Osten/70378504/20191229_0930",
+        "atiCustomVars": {
+          "clipTitle": "Saudi-Arabien - Der Osten",
+          "mediaType": "video",
+          "lra": "ARD-alpha",
+          "channel": "ARD-alpha",
+          "show": "Ohne Sendereihe",
+          "contentTypes": "",
+          "mediaDistributionType": 1,
+          "contentId": 70378504,
+          "metadataId": "crid://br.de/video/f31808ab-24a7-455a-814c-dadab3ec79b1",
+          "clipLength": 2597,
+          "__typename": "ATICustomVars"
+        },
+        "__typename": "Tracking"
+      },
+      "__typename": "PlayerPage"
+    }
+  }
+}

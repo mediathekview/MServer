@@ -213,6 +213,21 @@ public class ArdFilmDeserializerTest {
                 GeoLocations.GEO_NONE,
                 new ArdFilmInfoDto[0],
                 Optional.of(Sender.RBTV)
+            },
+            {
+                "/ard/ard_film_page_no_show_element.json",
+                "Saudi-Arabien - Der Osten",
+                "Saudi-Arabien - Der Osten",
+                "Spektakuläre Felsformationen, unendliche Wüstenlandschaften und eine jahrtausendalte Kultur: Saudi-Arabien, das unbekannte Königreich. Im Osten des Landes befinden sich die liberale Küstenstadt Dammam, mehr im Landesinneren liegt Riad - Hauptstadt und Machtzentrum der Saudis. Umgeben sind die Städte von Sandwüsten und Oasen, wie z.B. Ha'il mit seinen faszinierenden Felszeichnungen.",
+                LocalDateTime.of(2019, 12, 29, 10, 30, 0),
+                Duration.ofSeconds(2597),
+                "http://cdn-storage.br.de/b7/2019-12/29/e203ac2a2a2311eaa0b0984be10adece_B.mp4",
+                "http://cdn-storage.br.de/b7/2019-12/29/e203ac2a2a2311eaa0b0984be10adece_C.mp4",
+                "http://cdn-storage.br.de/b7/2019-12/29/e203ac2a2a2311eaa0b0984be10adece_X.mp4",
+                "",
+                GeoLocations.GEO_NONE,
+                new ArdFilmInfoDto[0],
+                Optional.empty()
             }
         });
   }
