@@ -78,12 +78,13 @@ public class ArdFilmDeserializer implements JsonDeserializer<List<ArdFilmDto>> {
   }
 
   private static Optional<String> parseTopic(final JsonObject playerPageObject) {
-    if (playerPageObject.has(ELEMENT_SHOW)) {
+    if (playerPageObject.has(ELEMENT_SHOW) && !playerPageObject.get(ELEMENT_SHOW).isJsonNull()) {
       final JsonObject showObject = playerPageObject.get(ELEMENT_SHOW).getAsJsonObject();
       return JsonUtils.getAttributeAsString(showObject, ATTRIBUTE_TITLE);
     }
 
-    return Optional.empty();
+    // no show element found -> use title as topic
+    return JsonUtils.getAttributeAsString(playerPageObject, ATTRIBUTE_TITLE);
   }
 
   private static Optional<LocalDateTime> parseDate(final JsonObject playerPageObject) {
