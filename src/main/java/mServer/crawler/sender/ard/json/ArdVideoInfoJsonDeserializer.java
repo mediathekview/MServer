@@ -42,7 +42,7 @@ public class ArdVideoInfoJsonDeserializer implements JsonDeserializer<ArdVideoIn
       videoInfo.setSubtitleUrl(subtitleElement.getAsString());
     }
 
-    final Map<Qualities, URL> resolutionUrlMap = ArdMediaArrayToDownloadUrlsConverter.toDownloadUrls(aJsonElement);
+    final Map<Qualities, URL> resolutionUrlMap = new ArdMediaArrayToDownloadUrlsConverter().toDownloadUrls(aJsonElement);
 
     // if map contains only a m3u8 url, load the m3u8 file and use the containing
     // urls
