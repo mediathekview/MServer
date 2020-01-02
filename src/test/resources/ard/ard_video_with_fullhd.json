@@ -1,0 +1,76 @@
+{
+  "_type": "video",
+  "_isLive": false,
+  "_defaultQuality": [
+    "auto",
+    "2",
+    "4",
+    "3",
+    "1",
+    "0"
+  ],
+  "_previewImage": "https://img.ardmediathek.de/standard/00/70/31/45/84/-295433861/16x9/960?mandant=ard",
+  "_subtitleUrl": "https://www.ardmediathek.de/subtitle/359281",
+  "_subtitleOffset": 0,
+  "_mediaArray": [
+    {
+      "_plugin": 1,
+      "_mediaStreamArray": [
+        {
+          "_quality": "auto",
+          "_stream": [
+            "https://dasersteuni-vh.akamaihd.net/i/int/2019/12/16/24638a16-7006-4ca8-b3ad-4c5ef0dbc179/,480-1_574972,1280-1_574972,640-1_574972,1920-1_574972,320-1_574972,512-1_574972,960-1_574972,.mp4.csmil/master.m3u8"
+          ],
+          "__typename": "MediaStreamArray"
+        },
+        {
+          "_quality": "0",
+          "_stream": [
+            "https://pdvideosdaserste-a.akamaihd.net/int/2019/12/16/24638a16-7006-4ca8-b3ad-4c5ef0dbc179/320-1_574972.mp4"
+          ],
+          "__typename": "MediaStreamArray"
+        },
+        {
+          "_quality": "1",
+          "_stream": [
+            "https://pdvideosdaserste-a.akamaihd.net/int/2019/12/16/24638a16-7006-4ca8-b3ad-4c5ef0dbc179/512-1_574972.mp4",
+            "https://pdvideosdaserste-a.akamaihd.net/int/2019/12/16/24638a16-7006-4ca8-b3ad-4c5ef0dbc179/480-1_574972.mp4"
+          ],
+          "__typename": "MediaStreamArray"
+        },
+        {
+          "_quality": "2",
+          "_stream": [
+            "https://pdvideosdaserste-a.akamaihd.net/int/2019/12/16/24638a16-7006-4ca8-b3ad-4c5ef0dbc179/640-1_574972.mp4",
+            "https://pdvideosdaserste-a.akamaihd.net/int/2019/12/16/24638a16-7006-4ca8-b3ad-4c5ef0dbc179/960-1_574972.mp4"
+          ],
+          "__typename": "MediaStreamArray"
+        },
+        {
+          "_quality": "3",
+          "_stream": [
+            "https://pdvideosdaserste-a.akamaihd.net/int/2019/12/16/24638a16-7006-4ca8-b3ad-4c5ef0dbc179/1280-1_574972.mp4"
+          ],
+          "__typename": "MediaStreamArray"
+        },
+        {
+          "_quality": "4",
+          "_stream": [
+            "https://pdvideosdaserste-a.akamaihd.net/int/2019/12/16/24638a16-7006-4ca8-b3ad-4c5ef0dbc179/1920-1_574972.mp4"
+          ],
+          "__typename": "MediaStreamArray"
+        }
+      ],
+      "__typename": "MediaArray"
+    }
+  ],
+  "_alternativeMediaArray": [
+  ],
+  "_sortierArray": [
+    1
+  ],
+  "_duration": 5317,
+  "_dvrEnabled": false,
+  "_geoblocked": false,
+  "__typename": "MediaCollection"
+}

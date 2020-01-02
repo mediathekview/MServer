@@ -119,6 +119,12 @@ public class ArdVideoInfoJsonDeserializerTest extends WireMockTestBase {
             "http://br-i.akamaihd.net/i/mir-live/bw1XsLzS/bLQH/bLOliLioMXZhiKT1/uLoXb69zbX06/MUJIuUOVBwQIb71S/bLWCMUJIuUOVBwQIb71S/_2rp9U1S/_-JS/_-Fp_H1S/d6b48cc8-60f3-4625-a56a-fba68c0841c7_,0,A,B,E,C,.mp4.csmil/index_3_av.m3u8",
             "http://br-i.akamaihd.net/i/mir-live/bw1XsLzS/bLQH/bLOliLioMXZhiKT1/uLoXb69zbX06/MUJIuUOVBwQIb71S/bLWCMUJIuUOVBwQIb71S/_2rp9U1S/_-JS/_-Fp_H1S/d6b48cc8-60f3-4625-a56a-fba68c0841c7_,0,A,B,E,C,.mp4.csmil/index_4_av.m3u8",
             null
+          },
+          {
+            "/ard/ard_video_with_fullhd.json",
+            "https://pdvideosdaserste-a.akamaihd.net/int/2019/12/16/24638a16-7006-4ca8-b3ad-4c5ef0dbc179/512-1_574972.mp4",
+            "https://pdvideosdaserste-a.akamaihd.net/int/2019/12/16/24638a16-7006-4ca8-b3ad-4c5ef0dbc179/960-1_574972.mp4",
+            "https://pdvideosdaserste-a.akamaihd.net/int/2019/12/16/24638a16-7006-4ca8-b3ad-4c5ef0dbc179/1920-1_574972.mp4"
           }
         });
   }
@@ -129,7 +135,9 @@ public class ArdVideoInfoJsonDeserializerTest extends WireMockTestBase {
     JsonElement jsonElement = JsonFileReader.readJson(jsonFile);
 
     setupSuccessfulResponse("/i/ndrfs_nds@430233/master.m3u8", "/ndr/ndr_film_detail_m3u8.m3u8");
-    setupSuccessfulResponse("/i/mir-live/bw1XsLzS/bLQH/bLOliLioMXZhiKT1/uLoXb69zbX06/MUJIuUOVBwQIb71S/bLWCMUJIuUOVBwQIb71S/_2rp9U1S/_-JS/_-Fp_H1S/d6b48cc8-60f3-4625-a56a-fba68c0841c7_,0,A,B,E,C,.mp4.csmil/master.m3u8?__b__=200", "/ard/ard_video_alpha_centauri.m3u8");
+    setupSuccessfulResponse(
+        "/i/mir-live/bw1XsLzS/bLQH/bLOliLioMXZhiKT1/uLoXb69zbX06/MUJIuUOVBwQIb71S/bLWCMUJIuUOVBwQIb71S/_2rp9U1S/_-JS/_-Fp_H1S/d6b48cc8-60f3-4625-a56a-fba68c0841c7_,0,A,B,E,C,.mp4.csmil/master.m3u8?__b__=200",
+        "/ard/ard_video_alpha_centauri.m3u8");
 
     AbstractCrawler crawler = Mockito.mock(AbstractCrawler.class);
     ArdVideoInfoJsonDeserializer target = new ArdVideoInfoJsonDeserializer(crawler);

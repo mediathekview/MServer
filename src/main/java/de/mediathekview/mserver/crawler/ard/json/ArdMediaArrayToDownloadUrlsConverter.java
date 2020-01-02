@@ -7,17 +7,21 @@ import de.mediathekview.mlib.daten.Resolution;
 import de.mediathekview.mserver.base.messages.ServerMessages;
 import de.mediathekview.mserver.base.utils.JsonUtils;
 import de.mediathekview.mserver.base.utils.UrlUtils;
+import de.mediathekview.mserver.crawler.ard.ArdFilmUrlInfoDto;
 import de.mediathekview.mserver.crawler.ard.ArdUrlOptimizer;
 import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
-import de.mediathekview.mserver.crawler.basic.FilmUrlInfoDto;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.*;
+import java.util.EnumMap;
+import java.util.LinkedHashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class ArdMediaArrayToDownloadUrlsConverter {
 
@@ -37,7 +41,7 @@ public class ArdMediaArrayToDownloadUrlsConverter {
   private static final String PROTOCOL_RTMP = "rtmp";
 
   private final ArdUrlOptimizer ardOptimizer;
-  private final Map<Resolution, Set<FilmUrlInfoDto>> urls;
+  private final Map<Resolution, Set<ArdFilmUrlInfoDto>> urls;
   private AbstractCrawler crawler;
 
   public ArdMediaArrayToDownloadUrlsConverter() {
@@ -45,8 +49,8 @@ public class ArdMediaArrayToDownloadUrlsConverter {
     urls = new EnumMap<>(Resolution.class);
   }
 
-  private static List<FilmUrlInfoDto> filterUrls(
-      final Set<FilmUrlInfoDto> aUrls, final String aFileType) {
+  private static List<ArdFilmUrlInfoDto> filterUrls(
+      final Set<ArdFilmUrlInfoDto> aUrls, final String aFileType) {
     return aUrls.stream()
         .filter(
             url ->
@@ -84,15 +88,16 @@ public class ArdMediaArrayToDownloadUrlsConverter {
    * @param aUrls list of possible urls
    * @return the download url
    */
-  private static String determineUrl(final Resolution resolution, final Set<FilmUrlInfoDto> aUrls) {
+  private static String determineUrl(
+      final Resolution resolution, final Set<ArdFilmUrlInfoDto> aUrls) {
 
     if (aUrls.isEmpty()) {
       return "";
     }
 
-    final FilmUrlInfoDto ardUrlInfo;
+    final ArdFilmUrlInfoDto ardUrlInfo;
 
-    List<FilmUrlInfoDto> urls = filterUrls(aUrls, "mp4");
+    List<ArdFilmUrlInfoDto> urls = filterUrls(aUrls, "mp4");
     if (!urls.isEmpty()) {
       ardUrlInfo = getRelevantUrlMp4(resolution, urls);
     } else {
@@ -135,6 +140,7 @@ public class ArdMediaArrayToDownloadUrlsConverter {
 
   private void addUrl(
       final String url,
+      final String qualityText,
       final Resolution quality,
       final Optional<String> height,
       final Optional<String> width) {
@@ -143,7 +149,8 @@ public class ArdMediaArrayToDownloadUrlsConverter {
       if (url.startsWith(PROTOCOL_RTMP)) {
         LOG.debug("Found an Sendung with the old RTMP format: " + url);
       } else {
-        final FilmUrlInfoDto info = new FilmUrlInfoDto(UrlUtils.addProtocolIfMissing(url, "http:"));
+        final ArdFilmUrlInfoDto info =
+            new ArdFilmUrlInfoDto(UrlUtils.addProtocolIfMissing(url, "http:"), qualityText);
         if (height.isPresent() && width.isPresent()) {
           info.setResolution(Integer.parseInt(width.get()), Integer.parseInt(height.get()));
         }
@@ -157,7 +164,7 @@ public class ArdMediaArrayToDownloadUrlsConverter {
   }
 
   private Map<Resolution, URL> extractRelevantUrls() {
-    final Map<Resolution, URL> downloadUrls = new HashMap<>();
+    final Map<Resolution, URL> downloadUrls = new EnumMap<>(Resolution.class);
 
     urls.entrySet().stream()
         .filter(entry -> !entry.getValue().isEmpty())
@@ -168,7 +175,7 @@ public class ArdMediaArrayToDownloadUrlsConverter {
     return downloadUrls;
   }
 
-  private Optional<URL> finalizeUrl(final Map.Entry<Resolution, Set<FilmUrlInfoDto>> entry) {
+  private Optional<URL> finalizeUrl(final Map.Entry<Resolution, Set<ArdFilmUrlInfoDto>> entry) {
     final String url = determineUrl(entry.getKey(), entry.getValue());
     if (!url.isEmpty()) {
       try {
@@ -207,8 +214,8 @@ public class ArdMediaArrayToDownloadUrlsConverter {
     }
   }
 
-  private static FilmUrlInfoDto getRelevantUrlMp4(
-      final Resolution aResolution, final List<FilmUrlInfoDto> aUrls) {
+  private static ArdFilmUrlInfoDto getRelevantUrlMp4(
+      final Resolution aResolution, final List<ArdFilmUrlInfoDto> aUrls) {
     switch (aResolution) {
       case SMALL:
         // the first url is the best
@@ -217,20 +224,30 @@ public class ArdMediaArrayToDownloadUrlsConverter {
         // the last url is the best
         return aUrls.get(aUrls.size() - 1);
       case HD:
-        for (final FilmUrlInfoDto info : aUrls) {
+        ArdFilmUrlInfoDto relevantInfo = null;
+
+        for (final ArdFilmUrlInfoDto info : aUrls) {
           if (info.getWidth() >= 1280 && info.getHeight() >= 720) {
-            return info;
+            if (relevantInfo == null) {
+              relevantInfo = info;
+            } else if (relevantInfo.getQuality().compareTo(info.getQuality()) < 0) {
+              relevantInfo = info;
+            }
           }
           if (info.getWidth() == 0 && info.getHeight() == 0) {
             final String url = info.getUrl();
 
             // Sometimes videos with a resolution of 960 are listed as quality HD
             if (!url.startsWith("960", url.lastIndexOf('/') + 1)) {
-              return info;
+              if (relevantInfo == null) {
+                relevantInfo = info;
+              } else if (relevantInfo.getQuality().compareTo(info.getQuality()) < 0) {
+                relevantInfo = info;
+              }
             }
           }
         }
-        return null;
+        return relevantInfo;
       default:
         return null;
     }
@@ -250,21 +267,23 @@ public class ArdMediaArrayToDownloadUrlsConverter {
           videoElement.getAsJsonObject().get(ELEMENT_QUALITY).getAsString();
       final Optional<Resolution> quality = getQuality(qualityAsText);
       if (quality.isPresent()) {
-        parseMediaStreamServer(videoElement, quality.get());
-        parseMediaStreamStream(videoElement, quality.get());
+        parseMediaStreamServer(videoElement, qualityAsText, quality.get());
+        parseMediaStreamStream(videoElement, qualityAsText, quality.get());
       }
     }
   }
 
-  private void parseMediaStreamServer(final JsonElement videoElement, final Resolution quality) {
+  private void parseMediaStreamServer(
+      final JsonElement videoElement, final String qualityText, final Resolution quality) {
     if (videoElement.getAsJsonObject().has(ELEMENT_SERVER)) {
       final String baseUrl = videoElement.getAsJsonObject().get(ELEMENT_SERVER).getAsString();
       final String downloadUrl = videoElementToUrl(videoElement, baseUrl);
-      addUrl(downloadUrl, quality, Optional.empty(), Optional.empty());
+      addUrl(downloadUrl, qualityText, quality, Optional.empty(), Optional.empty());
     }
   }
 
-  private void parseMediaStreamStream(final JsonElement videoElement, final Resolution quality) {
+  private void parseMediaStreamStream(
+      final JsonElement videoElement, final String qualityText, final Resolution quality) {
     if (videoElement.getAsJsonObject().has(ELEMENT_STREAM)) {
 
       final JsonObject videoObject = videoElement.getAsJsonObject();
@@ -276,11 +295,11 @@ public class ArdMediaArrayToDownloadUrlsConverter {
       if (streamObject.isJsonPrimitive()) {
         final String baseUrl = streamObject.getAsString();
         final String downloadUrl = videoElementToUrl(videoElement, baseUrl);
-        addUrl(downloadUrl, quality, height, width);
+        addUrl(downloadUrl, qualityText, quality, height, width);
       } else if (streamObject.isJsonArray()) {
         StreamSupport.stream(streamObject.getAsJsonArray().spliterator(), false)
             .map(JsonElement::getAsString)
-            .forEach(baseUrl -> addUrl(baseUrl, quality, height, width));
+            .forEach(baseUrl -> addUrl(baseUrl, qualityText, quality, height, width));
       }
     }
   }
