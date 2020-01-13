@@ -37,6 +37,7 @@ public class ArdCrawler extends MediathekCrawler {
       mlibFilmeSuchen.meldenFertig(Const.SWR);
       mlibFilmeSuchen.meldenFertig(Const.MDR);
       mlibFilmeSuchen.meldenFertig(Const.NDR);
+      mlibFilmeSuchen.meldenFertig("rbtv");
     }
 
     super.meldungThreadUndFertig();
