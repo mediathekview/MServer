@@ -85,6 +85,8 @@ public class MediathekArte_de extends MediathekReader {
   };
 
   private static final DateTimeFormatter ARTE_API_DATEFORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+  private static final boolean PARSE_SUBCATEGORY_SUB_PAGES = false; // Flag, ob Unterseiten der Unterkategorien verarbeitet werden soll
+
   protected String LANG_CODE = "de";
   protected String URL_CONCERT = "http://concert.arte.tv/de/videos/all";
   protected String URL_CONCERT_NOT_CONTAIN = "-STF";
@@ -113,7 +115,7 @@ public class MediathekArte_de extends MediathekReader {
         meldungAddMax(listeThemen.size());
 
         for (int t = 0; t < getMaxThreadLaufen(); ++t) {
-          Thread th = new CategoryLoader();
+          Thread th = new CategoryLoader(this.getSendername());
           th.setName(getSendername() + t);
           th.start();
         }
@@ -186,6 +188,12 @@ public class MediathekArte_de extends MediathekReader {
    */
   class CategoryLoader extends Thread {
 
+    private final String sender;
+
+    public CategoryLoader(String sender) {
+      this.sender = sender;
+    }
+
     @Override
     public void run() {
       try {
@@ -209,7 +217,7 @@ public class MediathekArte_de extends MediathekReader {
       ArteCategoryFilmsDTO dto = loadSubCategoryPage(gson, aUrl);
       if (dto != null) {
         ArteCategoryFilmsDTO nextDto = dto;
-        while (nextDto != null && nextDto.hasNextPage()) {
+        while (PARSE_SUBCATEGORY_SUB_PAGES && nextDto != null && nextDto.hasNextPage()) {
 
           // weitere Seiten laden und zu programId-liste des ersten DTO hinzufügen
           String url = String.format(URL_SUBCATEGORY, LANG_CODE.toLowerCase(), aCategory, i);
@@ -224,6 +232,7 @@ public class MediathekArte_de extends MediathekReader {
         // alle programIds verarbeiten
         ListeFilme loadedFilme = loadPrograms(dto);
         loadedFilme.forEach((film) -> addFilm(film));
+        Log.sysLog(String.format("%s: Subcategory %s: %d Filme", sender, aCategory, loadedFilme.size()));
       }
     }
 
