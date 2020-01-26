@@ -12,16 +12,16 @@ import de.mediathekview.mserver.crawler.ard.tasks.ArdTopicsOverviewTask;
 import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
 import de.mediathekview.mserver.crawler.basic.CrawlerUrlDTO;
 import de.mediathekview.mserver.progress.listeners.SenderProgressListener;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
 import java.time.LocalDateTime;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.Set;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ForkJoinPool;
 import java.util.concurrent.RecursiveTask;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class ArdCrawler extends AbstractCrawler {
 
@@ -93,11 +93,22 @@ public class ArdCrawler extends AbstractCrawler {
   }
 
   private Set<ArdFilmInfoDto> getTopicsEntries() throws ExecutionException, InterruptedException {
-    final ArdTopicsOverviewTask topicsTask =
-        new ArdTopicsOverviewTask(this, createTopicsOverviewUrl());
+    Set<CrawlerUrlDTO> topics = new HashSet<>();
+    topics.addAll(getTopicEntriesBySender(ArdConstants.DEFAULT_CLIENT));
+    topics.addAll(getTopicEntriesBySender("daserste"));
+    topics.addAll(getTopicEntriesBySender("br"));
+    topics.addAll(getTopicEntriesBySender("hr"));
+    topics.addAll(getTopicEntriesBySender("mdr"));
+    topics.addAll(getTopicEntriesBySender("ndr"));
+    topics.addAll(getTopicEntriesBySender("radiobremen"));
+    topics.addAll(getTopicEntriesBySender("rbb"));
+    topics.addAll(getTopicEntriesBySender("sr"));
+    topics.addAll(getTopicEntriesBySender("swr"));
+    topics.addAll(getTopicEntriesBySender("wdr"));
+    topics.addAll(getTopicEntriesBySender("one"));
+    topics.addAll(getTopicEntriesBySender("alpha"));
 
-    final ConcurrentLinkedQueue<CrawlerUrlDTO> topicUrls =
-        new ConcurrentLinkedQueue<>(forkJoinPool.submit(topicsTask).get());
+    ConcurrentLinkedQueue<CrawlerUrlDTO> topicUrls = new ConcurrentLinkedQueue<>(topics);
 
     final ArdTopicPageTask topicTask = new ArdTopicPageTask(this, topicUrls);
     final Set<ArdFilmInfoDto> filmInfos = forkJoinPool.submit(topicTask).get();
@@ -108,11 +119,22 @@ public class ArdCrawler extends AbstractCrawler {
     return filmInfos;
   }
 
-  private ConcurrentLinkedQueue<CrawlerUrlDTO> createTopicsOverviewUrl() {
+  private ConcurrentLinkedQueue<CrawlerUrlDTO> getTopicEntriesBySender(final String sender)
+      throws ExecutionException, InterruptedException {
+    ArdTopicsOverviewTask topicsTask =
+        new ArdTopicsOverviewTask(this, createTopicsOverviewUrl(sender));
+
+    ConcurrentLinkedQueue<CrawlerUrlDTO> queue =
+        new ConcurrentLinkedQueue<>(forkJoinPool.submit(topicsTask).get());
+    LOG.info(sender + " topic entries: " + queue.size());
+    return queue;
+  }
+
+  private ConcurrentLinkedQueue<CrawlerUrlDTO> createTopicsOverviewUrl(final String client) {
     final ConcurrentLinkedQueue<CrawlerUrlDTO> urls = new ConcurrentLinkedQueue<>();
 
     final String url =
-        new ArdUrlBuilder(ArdConstants.BASE_URL, ArdConstants.DEFAULT_CLIENT)
+        new ArdUrlBuilder(ArdConstants.BASE_URL, client)
             .addSavedQuery(ArdConstants.QUERY_TOPICS_VERSION, ArdConstants.QUERY_TOPICS_HASH)
             .build();
 
