@@ -23,6 +23,8 @@ import mServer.crawler.CrawlerTool;
 import mServer.crawler.sender.base.M3U8Constants;
 import mServer.crawler.sender.base.M3U8Dto;
 import mServer.crawler.sender.base.M3U8Parser;
+import mServer.crawler.sender.base.UrlParseException;
+import mServer.crawler.sender.base.UrlUtils;
 import mServer.crawler.sender.newsearch.Qualities;
 import okhttp3.Request;
 import okhttp3.Response;
@@ -191,6 +193,8 @@ public class SrfFilmJsonDeserializer implements JsonDeserializer<Optional<DatenF
 
     if (chapterListEntry.has(ELEMENT_SUBTITLE_LIST)) {
       result.subtitleUrl = parseSubtitleList(chapterListEntry.get(ELEMENT_SUBTITLE_LIST));
+    } else {
+      result.subtitleUrl = extractSubtitleFromVideoUrl(result.videoUrl);
     }
 
     return result;
@@ -215,6 +219,30 @@ public class SrfFilmJsonDeserializer implements JsonDeserializer<Optional<DatenF
     }
 
     return "";
+  }
+
+  private static String extractSubtitleFromVideoUrl(String videoUrl) {
+    try {
+      Optional<String> subtitleBaseUrl = UrlUtils.getUrlParameterValue(videoUrl, "webvttbaseurl");
+      Optional<String> caption = UrlUtils.getUrlParameterValue(videoUrl, "caption");
+
+      if (subtitleBaseUrl.isPresent() && caption.isPresent()) {
+        return String.format(
+                "https://%s/%s",
+                subtitleBaseUrl.get(),
+                convertVideoCaptionToSubtitleFile(caption.get()));
+      }
+
+    } catch (UrlParseException e) {
+      LOG.error("SRF: error parsing subtitleUrl", e);
+    }
+
+    return "";
+  }
+
+  private static String convertVideoCaptionToSubtitleFile(String caption) {
+    String subtitle = caption.replace("vod.m3u8", "vod.vtt");
+    return subtitle.split(":")[0];
   }
 
   private static String parseResourceList(JsonElement aResourceListElement) {
