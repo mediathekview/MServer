@@ -56,6 +56,7 @@ public class M3U8Dto {
         case "256x144":
         case "288x216":
         case "320x180":
+        case "320x240":
         case "360x270":
         case "384x288":
         case "480x270":
@@ -65,6 +66,7 @@ public class M3U8Dto {
         case "512x288":
           return Optional.of(Resolution.SMALL);
         case "640x360":
+        case "640x480":
         case "720x540":
         case "720x544":
         case "768x576":
