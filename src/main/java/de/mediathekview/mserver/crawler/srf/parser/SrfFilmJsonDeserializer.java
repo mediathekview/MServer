@@ -1,23 +1,23 @@
 package de.mediathekview.mserver.crawler.srf.parser;
 
-import com.google.gson.*;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonDeserializationContext;
+import com.google.gson.JsonDeserializer;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
 import de.mediathekview.mlib.daten.Film;
 import de.mediathekview.mlib.daten.FilmUrl;
 import de.mediathekview.mlib.daten.Resolution;
 import de.mediathekview.mlib.daten.Sender;
 import de.mediathekview.mlib.tool.FileSizeDeterminer;
 import de.mediathekview.mlib.tool.MVHttpClient;
+import de.mediathekview.mserver.base.utils.UrlParseException;
+import de.mediathekview.mserver.base.utils.UrlUtils;
 import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
 import de.mediathekview.mserver.crawler.basic.M3U8Constants;
 import de.mediathekview.mserver.crawler.basic.M3U8Dto;
 import de.mediathekview.mserver.crawler.basic.M3U8Parser;
 import de.mediathekview.mserver.crawler.srf.SrfConstants;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.Response;
-import okhttp3.ResponseBody;
-import org.apache.logging.log4j.LogManager;
-
 import java.lang.reflect.Type;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -25,7 +25,16 @@ import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
-import java.util.*;
+import java.util.EnumMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+import java.util.UUID;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
+import okhttp3.ResponseBody;
+import org.apache.logging.log4j.LogManager;
 
 public class SrfFilmJsonDeserializer implements JsonDeserializer<Optional<Film>> {
 
@@ -117,6 +126,31 @@ public class SrfFilmJsonDeserializer implements JsonDeserializer<Optional<Film>>
     }
 
     return "";
+  }
+
+  private static String extractSubtitleFromVideoUrl(String videoUrl) {
+    try {
+      Optional<String> subtitleBaseUrl = UrlUtils.getUrlParameterValue(videoUrl, "webvttbaseurl");
+      Optional<String> caption = UrlUtils.getUrlParameterValue(videoUrl, "caption");
+
+      if (subtitleBaseUrl.isPresent() && caption.isPresent()) {
+        return String.format(
+            "%s//%s/%s",
+            UrlUtils.PROTOCOL_HTTPS,
+            subtitleBaseUrl.get(),
+            convertVideoCaptionToSubtitleFile(caption.get()));
+      }
+
+    } catch (UrlParseException e) {
+      LOG.error("SRF: error parsing subtitleUrl", e);
+    }
+
+    return "";
+  }
+
+  private static String convertVideoCaptionToSubtitleFile(String caption) {
+    String subtitle = caption.replace("vod.m3u8", "vod.vtt");
+    return subtitle.split(":")[0];
   }
 
   private static String parseSubtitleList(final JsonElement aSubtitleListElement) {
@@ -294,6 +328,8 @@ public class SrfFilmJsonDeserializer implements JsonDeserializer<Optional<Film>>
 
     if (chapterListEntry.has(ELEMENT_SUBTITLE_LIST)) {
       result.subtitleUrl = parseSubtitleList(chapterListEntry.get(ELEMENT_SUBTITLE_LIST));
+    } else {
+      result.subtitleUrl = extractSubtitleFromVideoUrl(result.videoUrl);
     }
 
     return result;

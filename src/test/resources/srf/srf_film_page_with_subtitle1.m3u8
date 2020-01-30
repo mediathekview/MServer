@@ -1,0 +1,17 @@
+#EXTM3U
+#EXT-X-VERSION:5
+#EXT-X-MEDIA:TYPE=SUBTITLES,GROUP-ID="WebVTT",LANGUAGE="de",NAME="Deutsch",DEFAULT=NO,AUTOSELECT=YES,FORCED=NO,CHARACTERISTICS="public.accessibility.transcribes-spoken-dialog, public.accessibility.describes-music-and-sound",URI="https://www.srf.ch/subtitles/srf/07630ff9-9858-4a00-bf10-9856c9891970/episode/de/vod/vod.m3u8"
+#EXT-X-STREAM-INF:SUBTITLES="WebVTT",PROGRAM-ID=1,BANDWIDTH=1325000,RESOLUTION=640x360,CODECS="avc1.77.30, mp4a.40.2",CLOSED-CAPTIONS=NONE
+https://hdvodsrforigin-f.akamaihd.net/i/vod/reporter/2019/12/reporter_20191211_172931_18722867_v_webcast_h264_,q40,q10,q20,q30,q50,q60,.mp4.csmil/index_0_av.m3u8?start=0.0&end=1319.0
+#EXT-X-STREAM-INF:SUBTITLES="WebVTT",PROGRAM-ID=1,BANDWIDTH=145000,RESOLUTION=320x180,CODECS="avc1.66.30, mp4a.40.2",CLOSED-CAPTIONS=NONE
+https://hdvodsrforigin-f.akamaihd.net/i/vod/reporter/2019/12/reporter_20191211_172931_18722867_v_webcast_h264_,q40,q10,q20,q30,q50,q60,.mp4.csmil/index_1_av.m3u8?start=0.0&end=1319.0
+#EXT-X-STREAM-INF:SUBTITLES="WebVTT",PROGRAM-ID=1,BANDWIDTH=346000,RESOLUTION=480x272,CODECS="avc1.66.30, mp4a.40.2",CLOSED-CAPTIONS=NONE
+https://hdvodsrforigin-f.akamaihd.net/i/vod/reporter/2019/12/reporter_20191211_172931_18722867_v_webcast_h264_,q40,q10,q20,q30,q50,q60,.mp4.csmil/index_2_av.m3u8?start=0.0&end=1319.0
+#EXT-X-STREAM-INF:SUBTITLES="WebVTT",PROGRAM-ID=1,BANDWIDTH=693000,RESOLUTION=512x288,CODECS="avc1.77.30, mp4a.40.2",CLOSED-CAPTIONS=NONE
+https://hdvodsrforigin-f.akamaihd.net/i/vod/reporter/2019/12/reporter_20191211_172931_18722867_v_webcast_h264_,q40,q10,q20,q30,q50,q60,.mp4.csmil/index_3_av.m3u8?start=0.0&end=1319.0
+#EXT-X-STREAM-INF:SUBTITLES="WebVTT",PROGRAM-ID=1,BANDWIDTH=2125000,RESOLUTION=960x544,CODECS="avc1.77.30, mp4a.40.2",CLOSED-CAPTIONS=NONE
+https://hdvodsrforigin-f.akamaihd.net/i/vod/reporter/2019/12/reporter_20191211_172931_18722867_v_webcast_h264_,q40,q10,q20,q30,q50,q60,.mp4.csmil/index_4_av.m3u8?start=0.0&end=1319.0
+#EXT-X-STREAM-INF:SUBTITLES="WebVTT",PROGRAM-ID=1,BANDWIDTH=3624000,RESOLUTION=1280x720,CODECS="avc1.77.30, mp4a.40.2",CLOSED-CAPTIONS=NONE
+https://hdvodsrforigin-f.akamaihd.net/i/vod/reporter/2019/12/reporter_20191211_172931_18722867_v_webcast_h264_,q40,q10,q20,q30,q50,q60,.mp4.csmil/index_5_av.m3u8?start=0.0&end=1319.0
+#EXT-X-STREAM-INF:SUBTITLES="WebVTT",PROGRAM-ID=1,BANDWIDTH=46000,CODECS="mp4a.40.2",CLOSED-CAPTIONS=NONE
+https://hdvodsrforigin-f.akamaihd.net/i/vod/reporter/2019/12/reporter_20191211_172931_18722867_v_webcast_h264_,q40,q10,q20,q30,q50,q60,.mp4.csmil/index_1_a.m3u8?start=0.0&end=1319.0
