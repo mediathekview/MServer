@@ -258,8 +258,7 @@ public class BrClipDetailsDeserializer implements JsonDeserializer<Optional<Film
    */
   @Override
   public Optional<Film> deserialize(
-      final JsonElement json, final Type typeOfT, final JsonDeserializationContext context)
-      throws JsonParseException {
+      final JsonElement json, final Type typeOfT, final JsonDeserializationContext context) {
 
     final JsonObject rootObject = json.getAsJsonObject();
 
@@ -285,8 +284,6 @@ public class BrClipDetailsDeserializer implements JsonDeserializer<Optional<Film
       final Optional<String> beschreibung = getBeschreibung(clipDetailRoot);
       final Optional<URL> webSite = getWebSite(clipDetailRoot);
 
-      // final Optional<LocalDateTime> availableUntil = getAvailableUntil(clipDetailRoot);
-
       if (titel.isPresent() && thema.isPresent() && clipLaenge.isPresent()) {
         final Film currentFilm =
             new Film(
@@ -307,14 +304,11 @@ public class BrClipDetailsDeserializer implements JsonDeserializer<Optional<Film
         return Optional.of(currentFilm);
       } else {
         LOG.error(
-            "Kein komplett gültiger Film: "
-                + id.getId()
-                + " Titel da? "
-                + titel.isPresent()
-                + " Thema da? "
-                + thema.isPresent()
-                + " Länge da? "
-                + clipLaenge.isPresent());
+            "Kein komplett gültiger Film: {} Titel da? {} Thema da? {} Länge da? {}",
+            id.getId(),
+            titel.isPresent(),
+            thema.isPresent(),
+            clipLaenge.isPresent());
       }
     }
     crawler.incrementAndGetErrorCount();
@@ -325,33 +319,33 @@ public class BrClipDetailsDeserializer implements JsonDeserializer<Optional<Film
     final Optional<JsonObject> dataNodeOptional =
         GsonGraphQLHelper.getChildObjectIfExists(
             rootObject, BrGraphQLNodeNames.RESULT_ROOT_NODE.getName());
-    if (!dataNodeOptional.isPresent()) {
+    if (dataNodeOptional.isEmpty()) {
       return Optional.empty();
     }
-    final JsonObject dataNode = dataNodeOptional.get();
-
-    final Optional<JsonObject> viewerNodeOptional =
-        GsonGraphQLHelper.getChildObjectIfExists(
-            dataNode, BrGraphQLNodeNames.RESULT_ROOT_BR_NODE.getName());
-    if (!viewerNodeOptional.isPresent()) {
-      return Optional.empty();
-    }
-    final JsonObject viewerNode = viewerNodeOptional.get();
 
     return GsonGraphQLHelper.getChildObjectIfExists(
-        viewerNode, BrGraphQLNodeNames.RESULT_CLIP_DETAILS_ROOT.getName());
+            dataNodeOptional.get(), BrGraphQLNodeNames.RESULT_ROOT_BR_NODE.getName())
+        .flatMap(
+            viewerNode ->
+                GsonGraphQLHelper.getChildObjectIfExists(
+                    viewerNode, BrGraphQLNodeNames.RESULT_CLIP_DETAILS_ROOT.getName()));
   }
 
   private Optional<String> getTitel(final JsonObject clipDetailRoot) {
-    final Optional<JsonPrimitive> titleElementOptional =
-        GsonGraphQLHelper.getChildPrimitiveIfExists(
-            clipDetailRoot, BrGraphQLElementNames.STRING_CLIP_TITLE.getName());
-    if (!titleElementOptional.isPresent()) {
-      return Optional.empty();
-    }
-    final JsonPrimitive titleElement = titleElementOptional.get();
+    return getJsonPrimitiveTextFromChildPrimitiveIfExists(
+        clipDetailRoot, BrGraphQLElementNames.STRING_CLIP_TITLE);
+  }
 
-    return Optional.of(titleElement.getAsString());
+  private Optional<String> getJsonPrimitiveTextFromChildPrimitiveIfExists(
+      final JsonObject clipDetailRoot, BrGraphQLElementNames brGraphQLElementName) {
+    final Optional<JsonPrimitive> element =
+        GsonGraphQLHelper.getChildPrimitiveIfExists(clipDetailRoot, brGraphQLElementName.getName());
+    return element.map(JsonPrimitive::getAsString);
+  }
+
+  private Optional<String> buildThemaFromKicker(JsonObject clipDetailRoot) {
+    return getJsonPrimitiveTextFromChildPrimitiveIfExists(
+        clipDetailRoot, BrGraphQLElementNames.STRING_CLIP_KICKER);
   }
 
   private Optional<String> getTitleFromElement(final JsonObject node) {
@@ -374,43 +368,35 @@ public class BrClipDetailsDeserializer implements JsonDeserializer<Optional<Film
      * Teil einer Serie ist und wenn das so ist, den entsprechenden Titel als Thema zurück
      * zu geben.
      */
+    final Optional<JsonObject> node;
     switch (id.getType()) {
       case PROGRAMME:
-        final Optional<JsonObject> programmeNode = getEpisodeOfNode(clipDetailRoot);
-        if (programmeNode.isPresent()) {
-          return getTitleFromElement(programmeNode.get());
-        }
-      case ITEM:
-        final Optional<JsonObject> itemNode = getItemOfNode(clipDetailRoot);
-        if (itemNode.isPresent()) {
-          return getTitleFromElement(itemNode.get());
-        }
-
-      default:
+        node = getEpisodeOfNode(clipDetailRoot);
         break;
+      case ITEM:
+        node = getItemOfNode(clipDetailRoot);
+        break;
+      default:
+        node = Optional.empty();
+        break;
+    }
+
+    if (node.isPresent()) {
+      return getTitleFromElement(node.get());
     }
 
     /*
      * Wenn wir hier ankommen ist weder episodeOf noch itemOf gefüllt. Dann nehmen wir halt den kicker auch wenn der nicht
      * so gut ist ein Thema zu bilden. Aber besser wie gar nichts.
      */
-    final Optional<JsonPrimitive> kickerElementOptional =
-        GsonGraphQLHelper.getChildPrimitiveIfExists(
-            clipDetailRoot, BrGraphQLElementNames.STRING_CLIP_KICKER.getName());
-    if (kickerElementOptional.isPresent()) {
-      final JsonPrimitive kickerElement = kickerElementOptional.get();
-
-      return Optional.of(kickerElement.getAsString());
-    }
-
-    return Optional.empty();
+    return buildThemaFromKicker(clipDetailRoot);
   }
 
   private Optional<JsonObject> getEpisodeOfNode(final JsonObject clipDetailRoot) {
     final Optional<JsonObject> episodeOfNodeOptional =
         GsonGraphQLHelper.getChildObjectIfExists(
             clipDetailRoot, BrGraphQLNodeNames.RESULT_CLIP_EPISONEOF.getName());
-    if (!episodeOfNodeOptional.isPresent()) {
+    if (episodeOfNodeOptional.isEmpty()) {
       return Optional.empty();
     }
     final JsonObject episodeOfNode = episodeOfNodeOptional.get();
@@ -438,7 +424,7 @@ public class BrClipDetailsDeserializer implements JsonDeserializer<Optional<Film
 
     if (itemOfEdgesNode.size() >= 1) {
       if (itemOfEdgesNode.size() > 1) {
-        LOG.debug("Der Node hat mehr als ein itemOf-Node: " + id.getId());
+        LOG.debug("Der Node hat mehr als ein itemOf-Node: {}", id.getId());
       }
       final JsonObject firstItemOfEdge = itemOfEdgesNode.get(0).getAsJsonObject();
 
@@ -451,7 +437,7 @@ public class BrClipDetailsDeserializer implements JsonDeserializer<Optional<Film
 
   @Nullable
   private JsonArray getEdgeNodes(final Optional<JsonObject> itemOfRootNodeOptional) {
-    if (!itemOfRootNodeOptional.isPresent()) {
+    if (itemOfRootNodeOptional.isEmpty()) {
       return null;
     }
     final JsonObject itemOfRootNode = itemOfRootNodeOptional.get();
@@ -459,7 +445,7 @@ public class BrClipDetailsDeserializer implements JsonDeserializer<Optional<Film
     final Optional<JsonArray> itemOfEdgesNodeOptional =
         GsonGraphQLHelper.getChildArrayIfExists(
             itemOfRootNode, BrGraphQLNodeNames.RESULT_NODE_EDGES.getName());
-    if (!itemOfEdgesNodeOptional.isPresent()) {
+    if (itemOfEdgesNodeOptional.isEmpty()) {
       return null;
     }
     final JsonArray itemOfEdgesNode = itemOfEdgesNodeOptional.get();
@@ -475,7 +461,7 @@ public class BrClipDetailsDeserializer implements JsonDeserializer<Optional<Film
     final Optional<JsonPrimitive> durationElementOptional =
         GsonGraphQLHelper.getChildPrimitiveIfExists(
             clipDetailRoot, BrGraphQLElementNames.INT_CLIP_DURATION.getName());
-    if (!durationElementOptional.isPresent()) {
+    if (durationElementOptional.isEmpty()) {
       return Optional.empty();
     }
     final JsonPrimitive durationElement = durationElementOptional.get();
@@ -499,7 +485,7 @@ public class BrClipDetailsDeserializer implements JsonDeserializer<Optional<Film
       final Optional<JsonPrimitive> startElementOptional =
           GsonGraphQLHelper.getChildPrimitiveIfExists(
               broadcastNode, BrGraphQLElementNames.STRING_CLIP_START.getName());
-      if (!startElementOptional.isPresent()) {
+      if (startElementOptional.isEmpty()) {
         return Optional.empty();
       }
 
@@ -555,10 +541,9 @@ public class BrClipDetailsDeserializer implements JsonDeserializer<Optional<Film
                 final Optional<JsonPrimitive> countAccessibleInEdgesOptional =
                     GsonGraphQLHelper.getChildPrimitiveIfExists(
                         accessibleInOptional.get(), "count");
-                if (countAccessibleInEdgesOptional.isPresent()) {
-                  if (countAccessibleInEdgesOptional.get().getAsInt() > 0) {
-                    LOG.debug(id.getId() + " hat Geoinformationen?!");
-                  }
+                if (countAccessibleInEdgesOptional.isPresent()
+                    && countAccessibleInEdgesOptional.get().getAsInt() > 0) {
+                  LOG.debug("{} hat Geoinformationen?!", id.getId());
                 }
               }
 
@@ -598,7 +583,7 @@ public class BrClipDetailsDeserializer implements JsonDeserializer<Optional<Film
                     } catch (final MalformedURLException e) {
                       // Nothing to be done here
                       LOG.error(
-                          "Fehlerhafte URL in den VideoURLs vorhanden! Clip-ID: " + id.getId());
+                          "Fehlerhafte URL in den VideoURLs vorhanden! Clip-ID: {}", id.getId());
                     }
                   }
                 }
@@ -610,7 +595,7 @@ public class BrClipDetailsDeserializer implements JsonDeserializer<Optional<Film
     if (videoListe.size() > 0) {
       return Optional.of(videoListe);
     }
-    LOG.error("Erzeugung der VideoURLs fehlgeschlagen für ID: " + id.getId());
+    LOG.error("Erzeugung der VideoURLs fehlgeschlagen für ID: {}", id.getId());
     return Optional.empty();
   }
 
@@ -668,7 +653,7 @@ public class BrClipDetailsDeserializer implements JsonDeserializer<Optional<Film
     final Optional<JsonObject> captionFilesOptional =
         GsonGraphQLHelper.getChildObjectIfExists(
             clipDetailRoot, BrGraphQLNodeNames.RESULT_CLIP_CAPTION_FILES.getName());
-    if (!captionFilesOptional.isPresent()) {
+    if (captionFilesOptional.isEmpty()) {
       return Optional.empty();
     }
 
@@ -677,7 +662,7 @@ public class BrClipDetailsDeserializer implements JsonDeserializer<Optional<Film
     final Optional<JsonArray> captionFilesEdgesOptional =
         GsonGraphQLHelper.getChildArrayIfExists(
             captionFiles, BrGraphQLNodeNames.RESULT_NODE_EDGES.getName());
-    if (!captionFilesEdgesOptional.isPresent()) {
+    if (captionFilesEdgesOptional.isEmpty()) {
       return Optional.empty();
     }
 
@@ -720,24 +705,6 @@ public class BrClipDetailsDeserializer implements JsonDeserializer<Optional<Film
 
     if (!subtitleUrls.isEmpty()) {
       return Optional.of(subtitleUrls);
-    }
-
-    return Optional.empty();
-  }
-
-  private Optional<LocalDateTime> getAvailableUntil(final JsonObject clipDetailRoot) {
-
-    final Optional<JsonPrimitive> availableUntilOptional =
-        GsonGraphQLHelper.getChildPrimitiveIfExists(
-            clipDetailRoot, BrGraphQLElementNames.STRING_CLIP_AVAILABLE_UNTIL.getName());
-    if (!availableUntilOptional.isPresent()) {
-      return Optional.empty();
-    }
-
-    final JsonPrimitive availableUntil = availableUntilOptional.get();
-
-    if (availableUntil.isString() && StringUtils.isNoneEmpty(availableUntil.getAsString())) {
-      return Optional.of(brDateTimeString2LocalDateTime(availableUntil.getAsString()));
     }
 
     return Optional.empty();
