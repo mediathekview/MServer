@@ -18,6 +18,7 @@ import java.util.Collection;
 import java.util.Set;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
+import static java.nio.charset.StandardCharsets.UTF_8;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
 
@@ -37,23 +38,23 @@ public class ArdFilmDetailTaskTest extends ArdTaskTestBase {
   private final String expectedUrlHd;
   private final String expectedSubtitle;
   private final GeoLocations expectedGeo;
-  private String id;
+  private final String id;
 
   public ArdFilmDetailTaskTest(
-    final String aId,
-    final String aFilmUrl,
-    final String aFilmJsonFile,
-    final String aExpectedTopic,
-    final String aExpectedTitle,
-    final LocalDateTime aExpectedTime,
-    final Duration aExpectedDuration,
-    final String aExpectedDescription,
-    final String aExpectedWebsite,
-    final String aExpectedUrlSmall,
-    final String aExpectedUrlNormal,
-    final String aExpectedUrlHd,
-    final String aExpectedSubtitle,
-    final GeoLocations aExpectedGeo) {
+      final String aId,
+      final String aFilmUrl,
+      final String aFilmJsonFile,
+      final String aExpectedTopic,
+      final String aExpectedTitle,
+      final LocalDateTime aExpectedTime,
+      final Duration aExpectedDuration,
+      final String aExpectedDescription,
+      final String aExpectedWebsite,
+      final String aExpectedUrlSmall,
+      final String aExpectedUrlNormal,
+      final String aExpectedUrlHd,
+      final String aExpectedSubtitle,
+      final GeoLocations aExpectedGeo) {
     id = aId;
     filmUrl = aFilmUrl;
     filmJsonFile = aFilmJsonFile;
@@ -103,19 +104,19 @@ public class ArdFilmDetailTaskTest extends ArdTaskTestBase {
 
     final Film film = actual.iterator().next();
     AssertFilm.assertEquals(
-      film,
-      Sender.ARD,
-      expectedTopic,
-      expectedTitle,
-      expectedTime,
-      expectedDuration,
-      expectedDescription,
-      expectedWebsite,
-      new GeoLocations[]{expectedGeo},
-      expectedUrlSmall,
-      expectedUrlNormal,
-      expectedUrlHd,
-      expectedSubtitle);
+        film,
+        Sender.ARD,
+        expectedTopic,
+        expectedTitle,
+        expectedTime,
+        expectedDuration,
+        expectedDescription,
+        expectedWebsite,
+        new GeoLocations[] {expectedGeo},
+        expectedUrlSmall,
+        expectedUrlNormal,
+        expectedUrlHd,
+        expectedSubtitle);
   }
 
   private Set<Film> executeTask(final String aDetailUrl) {

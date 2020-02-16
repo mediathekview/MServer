@@ -26,7 +26,7 @@ public abstract class ArdTaskBase<T, D extends CrawlerUrlDTO> extends AbstractRe
   private static final Type OPTIONAL_ERROR_DTO =
       new TypeToken<Optional<ArdErrorInfoDto>>() {}.getType();
 
-  private final GsonBuilder gsonBuilder;
+  private final transient GsonBuilder gsonBuilder;
 
   public ArdTaskBase(
       final AbstractCrawler aCrawler, final ConcurrentLinkedQueue<D> aUrlToCrawlDtos) {
@@ -52,11 +52,7 @@ public abstract class ArdTaskBase<T, D extends CrawlerUrlDTO> extends AbstractRe
         return Optional.of(gson.fromJson(jsonOutput, type));
       }
     } else {
-      LOG.error(
-          "ArdTaskBase: request of url "
-              + target.getUri().toString()
-              + " failed: "
-              + response.getStatus());
+      LOG.error("ArdTaskBase: request of url {} failed: {}", target.getUri(), response.getStatus());
     }
     return Optional.empty();
   }
@@ -71,14 +67,12 @@ public abstract class ArdTaskBase<T, D extends CrawlerUrlDTO> extends AbstractRe
     error.ifPresent(
         ardErrorInfoDto ->
             LOG.error(
-                "ArdTaskBase: request of url "
-                    + targetUrl
-                    + " contains error: "
-                    + ardErrorInfoDto.getCode()
-                    + ", "
-                    + ardErrorInfoDto.getMessage()));
+                "ArdTaskBase: request of url {}} contains error: {}}, {}",
+                targetUrl,
+                ardErrorInfoDto.getCode(),
+                ardErrorInfoDto.getMessage()));
 
-    return !error.isPresent();
+    return error.isEmpty();
   }
 
   private Response executeRequest(final WebTarget aTarget) {

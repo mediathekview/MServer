@@ -2,6 +2,7 @@ package de.mediathekview.mserver.crawler.ard.json;
 
 import com.google.gson.JsonElement;
 import de.mediathekview.mserver.crawler.ard.ArdFilmInfoDto;
+import de.mediathekview.mserver.crawler.ard.ArdTopicInfoDto;
 import de.mediathekview.mserver.testhelper.JsonFileReader;
 import org.hamcrest.Matchers;
 import org.junit.Test;
@@ -9,13 +10,14 @@ import org.junit.Test;
 import java.net.URLEncoder;
 import java.util.Set;
 
+import static java.nio.charset.StandardCharsets.UTF_8;
 import static org.hamcrest.CoreMatchers.equalTo;
-import static org.junit.Assert.assertThat;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 public class ArdTopicPageDeserializerTest {
   @Test
   public void testDeserialize() {
-    JsonElement jsonElement = JsonFileReader.readJson("/ard/ard_topic.json");
+    final JsonElement jsonElement = JsonFileReader.readJson("/ard/ard_topic.json");
 
       ArdFilmInfoDto[] expected =
               new ArdFilmInfoDto[]{
@@ -41,11 +43,12 @@ public class ArdTopicPageDeserializerTest {
                               0),
               };
 
-    ArdTopicPageDeserializer instance = new ArdTopicPageDeserializer();
+    final ArdTopicPageDeserializer instance = new ArdTopicPageDeserializer();
 
-    Set<ArdFilmInfoDto> result = instance.deserialize(jsonElement, null, null);
+    final ArdTopicInfoDto ardTopicInfoDto = instance.deserialize(jsonElement, null, null);
+    final Set<ArdFilmInfoDto> filmInfos = ardTopicInfoDto.getFilmInfos();
 
-    assertThat(result.size(), equalTo(expected.length));
-    assertThat(result, Matchers.containsInAnyOrder(expected));
+    assertThat(filmInfos.size(), equalTo(expected.length));
+    assertThat(filmInfos, Matchers.containsInAnyOrder(expected));
   }
 }
