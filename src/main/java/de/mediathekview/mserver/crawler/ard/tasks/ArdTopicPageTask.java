@@ -49,14 +49,25 @@ public class ArdTopicPageTask extends ArdTaskBase<ArdFilmInfoDto, CrawlerUrlDTO>
   private ConcurrentLinkedQueue<CrawlerUrlDTO> createSubPageUrls(
       final WebTarget aTarget, final ArdTopicInfoDto topicInfo) {
     final ConcurrentLinkedQueue<CrawlerUrlDTO> subpages = new ConcurrentLinkedQueue<>();
+
+    final Integer maximumAllowedSubpages = crawler.getCrawlerConfig().getMaximumSubpages();
+    final int maxSubPageNumber = topicInfo.getMaxSubPageNumber();
+
     for (int newPageNumber = topicInfo.getSubPageNumber() + 1;
-        newPageNumber <= topicInfo.getMaxSubPageNumber();
+        newPageNumber <= maxSubPageNumber && newPageNumber <= maximumAllowedSubpages;
         newPageNumber++) {
       try {
         subpages.add(new CrawlerUrlDTO(changePageNumber(aTarget, newPageNumber).toURL()));
       } catch (final MalformedURLException malformedURLException) {
         LOG.fatal("A ARD sub page URL couldn't be build!", malformedURLException);
       }
+    }
+    if (LOG.isDebugEnabled() && maxSubPageNumber > maximumAllowedSubpages) {
+      LOG.debug(
+          "Found {} sub pages, these are {} more then the allowed {} to crawl. Skipping them.",
+          maxSubPageNumber,
+          maxSubPageNumber - maximumAllowedSubpages,
+          maximumAllowedSubpages);
     }
     return subpages;
   }

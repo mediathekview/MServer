@@ -12,6 +12,9 @@ import de.mediathekview.mserver.crawler.ard.tasks.ArdTopicsOverviewTask;
 import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
 import de.mediathekview.mserver.crawler.basic.CrawlerUrlDTO;
 import de.mediathekview.mserver.progress.listeners.SenderProgressListener;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Collection;
@@ -21,8 +24,6 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ForkJoinPool;
 import java.util.concurrent.RecursiveTask;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 public class ArdCrawler extends AbstractCrawler {
 
@@ -62,8 +63,8 @@ public class ArdCrawler extends AbstractCrawler {
   protected RecursiveTask<Set<Film>> createCrawlerTask() {
 
     try {
-      final ConcurrentLinkedQueue<ArdFilmInfoDto> shows = new ConcurrentLinkedQueue<>();
-      shows.addAll(getDaysEntries());
+      final ConcurrentLinkedQueue<ArdFilmInfoDto> shows =
+          new ConcurrentLinkedQueue<>(getDaysEntries());
       getTopicsEntries()
           .forEach(
               show -> {
@@ -77,7 +78,10 @@ public class ArdCrawler extends AbstractCrawler {
       getAndSetMaxCount(shows.size());
 
       return new ArdFilmDetailTask(this, shows);
-    } catch (final InterruptedException | ExecutionException ex) {
+    } catch (final InterruptedException ex) {
+      LOG.fatal("Exception in ARD crawler.", ex);
+      Thread.currentThread().interrupt();
+    } catch (final ExecutionException ex) {
       LOG.fatal("Exception in ARD crawler.", ex);
     }
     return null;
@@ -89,22 +93,22 @@ public class ArdCrawler extends AbstractCrawler {
 
     printMessage(
         ServerMessages.DEBUG_ALL_SENDUNG_FOLGEN_COUNT, getSender().getName(), shows.size());
-
     return shows;
   }
 
   private Set<ArdFilmInfoDto> getTopicsEntries() throws ExecutionException, InterruptedException {
-    Set<CrawlerUrlDTO> topics = new HashSet<>();
+    final Set<CrawlerUrlDTO> topics = new HashSet<>();
     topics.addAll(getTopicEntriesBySender(ArdConstants.DEFAULT_CLIENT));
     for (String client : ArdConstants.CLIENTS) {
       topics.addAll(getTopicEntriesBySender(client));
     }
 
-    ConcurrentLinkedQueue<CrawlerUrlDTO> topicUrls = new ConcurrentLinkedQueue<>(topics);
+    LOG.info("ARD crawler found {} topics for all sub-sender.", topics.size());
+
+    final ConcurrentLinkedQueue<CrawlerUrlDTO> topicUrls = new ConcurrentLinkedQueue<>(topics);
 
     final ArdTopicPageTask topicTask = new ArdTopicPageTask(this, topicUrls);
     final Set<ArdFilmInfoDto> filmInfos = forkJoinPool.submit(topicTask).get();
-
     printMessage(
         ServerMessages.DEBUG_ALL_SENDUNG_FOLGEN_COUNT, getSender().getName(), filmInfos.size());
 
@@ -113,12 +117,12 @@ public class ArdCrawler extends AbstractCrawler {
 
   private ConcurrentLinkedQueue<CrawlerUrlDTO> getTopicEntriesBySender(final String sender)
       throws ExecutionException, InterruptedException {
-    ArdTopicsOverviewTask topicsTask =
+    final ArdTopicsOverviewTask topicsTask =
         new ArdTopicsOverviewTask(this, createTopicsOverviewUrl(sender));
 
-    ConcurrentLinkedQueue<CrawlerUrlDTO> queue =
+    final ConcurrentLinkedQueue<CrawlerUrlDTO> queue =
         new ConcurrentLinkedQueue<>(forkJoinPool.submit(topicsTask).get());
-    LOG.info(sender + " topic entries: " + queue.size());
+    LOG.info("{} topic entries: {}", sender, queue.size());
     return queue;
   }
 
