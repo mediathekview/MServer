@@ -70,7 +70,7 @@ public class MediathekArte_de extends MediathekReader {
   private static final String ARTE_API_TAG_URL_PATTERN = "https://api.arte.tv/api/opa/v3/videos?channel=%s&arteSchedulingDay=%s";
 
   private static final String URL_SUBCATEGORY
-          = "https://www.arte.tv/guide/api/emac/v3/%s/web/data/MOST_RECENT_SUBCATEGORY/?subCategoryCode=%s&page=%s&limit=100";
+          = "https://www.arte.tv/guide/api/emac/v3/%s/web/data/MOST_RECENT_SUBCATEGORY/?subCategoryCode=%s&page=%s&limit=50";
 
   private static final String[] SUBCATEGORIES = new String[]{
     "WEB", "AUT",
