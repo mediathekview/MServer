@@ -131,6 +131,7 @@ public class OrfVideoDetailDeserializer implements JsonDeserializer<Optional<Orf
         return Optional.of(Resolution.HD);
       case "QXA":
       case "QXB":
+      case "Q8A":
         return Optional.empty();
       default:
         LOG.debug("ORF: unknown quality: " + aQuality);
