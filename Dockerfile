@@ -3,7 +3,7 @@ MAINTAINER "MediathekView <info@mediathekview.de>"
 
 # On Build
 ARG VERSION
-ARG BASE_DIR="/opt/MServer"
+ARG BASE_DIR="/opt/mserver"
 
 # On Run
 ENV MIN_RAM "256M"
@@ -13,11 +13,11 @@ RUN mkdir -p $BASE_DIR
 WORKDIR $BASE_DIR
 
 ADD ./build/distributions/MServer-$VERSION.tar.gz .
-RUN mkdir config && \
-    mv MServer-$VERSION/* . && \
-    mv mserver.xml config/ && \
-    mv upload.xml config/ && \
-    mv live-streams.json config/
+RUN mkdir data && \
+    mv MServer-$VERSION/MServer.jar . && \
+    mv -r MServer-$VERSION/lib . && \
+    mv MServer-$VERSION/mserver.xml data/ && \
+    mv MServer-$VERSION/live-streams.json data/ && \
+    rm -R MServer-$VERSION
 
-VOLUME /opt/MServer/config
-CMD java -Xms$MIN_RAM -Xmx$MAX_RAM -jar ./MServer.jar config
+CMD java -Xms$MIN_RAM -Xmx$MAX_RAM -jar ./MServer.jar data
