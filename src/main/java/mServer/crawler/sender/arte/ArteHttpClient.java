@@ -59,9 +59,11 @@ public class ArteHttpClient {
 
       boolean stop = false;
 
+      int count = 0;
       do {
         try (Response response = MVHttpClient.getInstance().getHttpClient().newCall(request).execute();
                 ResponseBody body = response.body()) {
+          count++;
           //response can be successful but empty...and we have to close both!
           if (response.isSuccessful() && body != null) {
             result = gson.fromJson(body.string(), aDtoType);
@@ -72,12 +74,18 @@ public class ArteHttpClient {
               stop = true;
             } else {
               // bei 429 (too many requests) warten und nochmal versuchen
+              // Wartezeit von 60s aus Header Retry-After
               try {
-                TimeUnit.MILLISECONDS.sleep(500);
+                TimeUnit.MILLISECONDS.sleep(60000);
               } catch (InterruptedException ignored) {
+              }
+              if (count > 3) {
+                stop = true;
+                Log.errorLog(894330765, "ArteHttpClient failed - " + aUrl);
               }
             }
           }
+
         }
       } while (!stop);
 
