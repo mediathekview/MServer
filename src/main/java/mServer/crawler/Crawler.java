@@ -201,8 +201,12 @@ public class Crawler implements Runnable {
         final WriteFilmlistJson writer = new WriteFilmlistJson();
         writer.filmlisteSchreibenJson(CrawlerTool.getPathFilmlist_json_akt(false /*aktDate*/), listeFilme);
         writer.filmlisteSchreibenJson(CrawlerTool.getPathFilmlist_json_akt(true /*aktDate*/), listeFilme);
-        writer.filmlisteSchreibenJsonCompressed(CrawlerTool.getPathFilmlist_json_akt_xz(), listeFilme);
-        // Erzeugung von Hash-File für schnelleren Datenabgleich 
+        if(System.getenv("NOCOMPRESS") == null || System.getenv("NOCOMPRESS") == "N" || System.getenv("NOCOMPRESS") == "0") {
+            writer.filmlisteSchreibenJsonCompressed(CrawlerTool.getPathFilmlist_json_akt_xz(), listeFilme);
+        } else {
+            Log.sysLog("Führe keine xz Komprimierung für die akt-Liste durch.");
+        }
+        // Erzeugung von Hash-File für schnelleren Datenabgleich
         new HashFileWriter(CrawlerConfig.dirFilme).writeHash(listeFilme.getId());
         //================================================
         // Org
@@ -213,7 +217,11 @@ public class Crawler implements Runnable {
             Log.sysLog("============================================================================");
             Log.sysLog("Org-Lilste schreiben: " + CrawlerTool.getPathFilmlist_json_org());
             writer.filmlisteSchreibenJson(CrawlerTool.getPathFilmlist_json_org(), listeFilme);
-            writer.filmlisteSchreibenJsonCompressed(CrawlerTool.getPathFilmlist_json_org_xz(), listeFilme);
+            if(System.getenv("NOCOMPRESS") == null || System.getenv("NOCOMPRESS") == "N" || System.getenv("NOCOMPRESS") == "0") {
+                writer.filmlisteSchreibenJsonCompressed(CrawlerTool.getPathFilmlist_json_org_xz(), listeFilme);
+            } else {
+                Log.sysLog("Führe keine xz Komprimierung für die org-Liste durch.");
+            }
         }
 
         //====================================================
@@ -239,7 +247,11 @@ public class Crawler implements Runnable {
         }
         Log.sysLog("   --> und schreiben:");
         writer.filmlisteSchreibenJson(CrawlerTool.getPathFilmlist_json_diff(), diff);
-        writer.filmlisteSchreibenJsonCompressed(CrawlerTool.getPathFilmlist_json_diff_xz(), diff);
+        if(System.getenv("NOCOMPRESS") == null || System.getenv("NOCOMPRESS") == "N" || System.getenv("NOCOMPRESS") == "0") {
+            writer.filmlisteSchreibenJsonCompressed(CrawlerTool.getPathFilmlist_json_diff_xz(), diff);
+        } else {
+            Log.sysLog("Führe keine xz Komprimierung für die diff-Liste durch.");
+        }
         Log.sysLog("   --> Anz. Filme Diff: " + diff.size());
 
         //================================================
