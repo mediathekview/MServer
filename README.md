@@ -21,10 +21,17 @@ cd MServer
 ./gradlew run
 ```
 
+## Einstellungen
+
+Kompression zu xz Datei deaktivieren:
+```bash
+export NOCOMPRESS=y
+java -jar MServer.jar
+```
+
 ## Entwicklung mit Netbeans
 * Verzeichnisse `MLib` und `MServer` mit Netbeans öffnen
 
 ## Entwicklung mit Eclipse
 * Falls noch nicht vorhanden: [Plugin buildship](https://projects.eclipse.org/projects/tools.buildship) installieren
 * Projekt `MServer` als Gradle-Projekt importieren. `MLib` wird automatisch mit importiert.
-

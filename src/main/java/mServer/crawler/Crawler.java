@@ -142,6 +142,11 @@ public class Crawler implements Runnable {
         listeFilme = filmeSuchen.listeFilmeNeu;
         ListeFilme tmpListe = new ListeFilme();
 
+        String compressList = System.getenv("NOCOMPRESS");
+        if(compressList == null) {
+            compressList = "n";
+        }
+
         //================================================
         // noch anere Listen importieren
         Log.sysLog("");
@@ -201,8 +206,12 @@ public class Crawler implements Runnable {
         final WriteFilmlistJson writer = new WriteFilmlistJson();
         writer.filmlisteSchreibenJson(CrawlerTool.getPathFilmlist_json_akt(false /*aktDate*/), listeFilme);
         writer.filmlisteSchreibenJson(CrawlerTool.getPathFilmlist_json_akt(true /*aktDate*/), listeFilme);
-        writer.filmlisteSchreibenJsonCompressed(CrawlerTool.getPathFilmlist_json_akt_xz(), listeFilme);
-        // Erzeugung von Hash-File für schnelleren Datenabgleich 
+        if(compressList.equalsIgnoreCase("n") || compressList.equals("0")) {
+            writer.filmlisteSchreibenJsonCompressed(CrawlerTool.getPathFilmlist_json_akt_xz(), listeFilme);
+        } else {
+            Log.sysLog("Führe keine xz Komprimierung für die akt-Liste durch.");
+        }
+        // Erzeugung von Hash-File für schnelleren Datenabgleich
         new HashFileWriter(CrawlerConfig.dirFilme).writeHash(listeFilme.getId());
         //================================================
         // Org
@@ -213,7 +222,11 @@ public class Crawler implements Runnable {
             Log.sysLog("============================================================================");
             Log.sysLog("Org-Lilste schreiben: " + CrawlerTool.getPathFilmlist_json_org());
             writer.filmlisteSchreibenJson(CrawlerTool.getPathFilmlist_json_org(), listeFilme);
-            writer.filmlisteSchreibenJsonCompressed(CrawlerTool.getPathFilmlist_json_org_xz(), listeFilme);
+            if(compressList.equalsIgnoreCase("n") || compressList.equals("0")) {
+                writer.filmlisteSchreibenJsonCompressed(CrawlerTool.getPathFilmlist_json_org_xz(), listeFilme);
+            } else {
+                Log.sysLog("Führe keine xz Komprimierung für die org-Liste durch.");
+            }
         }
 
         //====================================================
@@ -239,7 +252,11 @@ public class Crawler implements Runnable {
         }
         Log.sysLog("   --> und schreiben:");
         writer.filmlisteSchreibenJson(CrawlerTool.getPathFilmlist_json_diff(), diff);
-        writer.filmlisteSchreibenJsonCompressed(CrawlerTool.getPathFilmlist_json_diff_xz(), diff);
+        if(compressList.equalsIgnoreCase("n") || compressList.equals("0")) {
+            writer.filmlisteSchreibenJsonCompressed(CrawlerTool.getPathFilmlist_json_diff_xz(), diff);
+        } else {
+            Log.sysLog("Führe keine xz Komprimierung für die diff-Liste durch.");
+        }
         Log.sysLog("   --> Anz. Filme Diff: " + diff.size());
 
         //================================================
