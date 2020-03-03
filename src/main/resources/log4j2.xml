@@ -2,6 +2,7 @@
 <Configuration status="WARN">
     <Appenders>
         <Console name="Console" target="SYSTEM_OUT">
+            <RegexFilter regex=".* OrfLogger .*" onMatch="ACCEPT" onMismatch="DENY"/>
             <PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
         </Console>
         <!--For logging to file:
@@ -10,11 +11,24 @@
                 <Pattern>%d %p %c{1.} [%t] %m%n</Pattern>
             </PatternLayout>
         </File>-->
+        <RollingFile name="OrfFile" filePattern="${sys:user.home}/.mserver/log/orf_%d{MM-dd-yyyy}.log">
+            <RegexFilter regex=".* OrfLogger .*" onMatch="DENY" onMismatch="ACCEPT"/>
+            <PatternLayout>
+                <Pattern>%d{HH:mm:ss} %m%n</Pattern>
+            </PatternLayout>
+            <Policies>
+                <OnStartupTriggeringPolicy />
+                <TimeBasedTriggeringPolicy />
+            </Policies>
+        </RollingFile>
     </Appenders>
     <Loggers>
-        <Root level="info"><!-- for debug set to "debug" -->
+        <Root level="INFO"><!-- for debug set to "debug" -->
             <AppenderRef ref="Console"/>
             <!--For logging to file: <AppenderRef ref="File"/>-->
         </Root>
+        <Logger name="OrfLogger" level="TRACE">
+            <AppenderRef ref="OrfFile"/>
+        </Logger>
     </Loggers>
 </Configuration>
