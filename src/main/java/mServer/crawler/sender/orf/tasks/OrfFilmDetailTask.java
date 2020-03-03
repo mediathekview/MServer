@@ -1,6 +1,5 @@
 package mServer.crawler.sender.orf.tasks;
 
-import mServer.crawler.sender.base.AbstractDocumentTask;
 import mServer.crawler.sender.base.AbstractUrlTask;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -30,7 +29,7 @@ import mServer.crawler.sender.orf.parser.OrfPlaylistDeserializer;
 import org.apache.commons.lang3.StringUtils;
 import org.jsoup.nodes.Document;
 
-public class OrfFilmDetailTask extends AbstractDocumentTask<DatenFilm, TopicUrlDTO> {
+public class OrfFilmDetailTask extends OrfTaskBase<DatenFilm, TopicUrlDTO> {
 
   private static final String TITLE_SELECTOR = ".description-container .description-title";
   private static final String VIDEO_META_DATA_SELECTOR = ".video-meta-data";
@@ -75,6 +74,8 @@ public class OrfFilmDetailTask extends AbstractDocumentTask<DatenFilm, TopicUrlD
         createFilm(aUrlDTO, episode.getVideoInfo(), episode.getTitle(), episode.getDescription(), time, episode.getDuration());
       }
     }
+
+    ORF_LOGGER.trace(String.format("%s - %s: Anzahl Filme: %d", aUrlDTO.getTopic(), aUrlDTO.getUrl(), taskResults.size()));
   }
 
   @Override

@@ -1,6 +1,5 @@
 package mServer.crawler.sender.orf.tasks;
 
-import mServer.crawler.sender.base.AbstractDocumentTask;
 import mServer.crawler.sender.base.AbstractUrlTask;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import mServer.crawler.sender.MediathekReader;
@@ -10,7 +9,7 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
-public class OrfDayTask extends AbstractDocumentTask<TopicUrlDTO, CrawlerUrlDTO> {
+public class OrfDayTask extends OrfTaskBase<TopicUrlDTO, CrawlerUrlDTO> {
 
   private static final String ITEM_SELECTOR = "article a";
   private static final String TITLE_SELECTOR1 = ".item-title";
@@ -36,6 +35,8 @@ public class OrfDayTask extends AbstractDocumentTask<TopicUrlDTO, CrawlerUrlDTO>
                 taskResults.add(dto);
               }
             });
+
+    ORF_LOGGER.trace(String.format("%s: Anzahl Filme: %d", aUrlDTO.getUrl(), taskResults.size()));
   }
 
   private Element getTitleElement(Element item) {
