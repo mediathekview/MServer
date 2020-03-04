@@ -205,8 +205,8 @@ public abstract class MediathekReader extends Thread {
    * @param film der einzufügende Film
    */
   protected void addFilm(DatenFilm film) {
-    film.setFileSize();
 
+    setFileSize(film);
     upgradeUrl(film);
 
     film.setUrlHistory();
@@ -214,6 +214,14 @@ public abstract class MediathekReader extends Thread {
     if (mlibFilmeSuchen.listeFilmeNeu.addFilmVomSender(film)) {
       // dann ist er neu
       FilmeSuchen.listeSenderLaufen.inc(film.arr[DatenFilm.FILM_SENDER], RunSender.Count.FILME);
+    }
+  }
+
+  private void setFileSize(DatenFilm film) {
+    // optimization for ORF and some others: don't try to determine filesize of m3u8-files
+    Optional<String> fileType = UrlUtils.getFileType(film.arr[DatenFilm.FILM_URL]);
+    if (!fileType.isPresent() || !fileType.get().equalsIgnoreCase("m3u8")) {
+      film.setFileSize();
     }
   }
 
