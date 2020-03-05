@@ -3,6 +3,8 @@ package mServer.crawler.sender.orf.tasks;
 import de.mediathekview.mlib.Config;
 import de.mediathekview.mlib.tool.Log;
 import java.io.IOException;
+import java.net.SocketException;
+import java.net.SocketTimeoutException;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.TimeUnit;
 import mServer.crawler.sender.MediathekReader;
@@ -21,6 +23,8 @@ public abstract class OrfTaskBase<T, D extends CrawlerUrlDTO>
   private static final long serialVersionUID = -4124779055395250987L;
   private static final String LOAD_DOCUMENT_HTTPERROR
           = "Some HTTP error happened while crawl the %s page \"%s\".";
+
+  private static final int MAX_TIMEOUT = (int) TimeUnit.SECONDS.toMillis(300);
 
   protected static final Logger ORF_LOGGER = LogManager.getLogger("OrfLogger");
 
@@ -45,32 +49,55 @@ public abstract class OrfTaskBase<T, D extends CrawlerUrlDTO>
       return;
     }
 
-    try {
-      long start = System.currentTimeMillis();
-      // maxBodySize(0)=unlimited
-      // necessary for ORF documents which are larger than the default size
-      Response response = Jsoup.connect(aUrlDTO.getUrl())
-              .timeout((int) TimeUnit.SECONDS.toMillis(60))
-              .maxBodySize(0).execute();
+    boolean retry = false;
+    int timeout = (int) TimeUnit.SECONDS.toMillis(120);
 
-      long end = System.currentTimeMillis();
+    do {
+      try {
+        retry = false;
 
-      ORF_LOGGER.trace(String.format("%s: %d - %d ms", aUrlDTO.getUrl(), response.statusCode(), end - start));
+        final Document document = loadDocument(aUrlDTO, timeout);
+        processDocument(aUrlDTO, document);
+      } catch (final HttpStatusException httpStatusError) {
+        ORF_LOGGER.trace(httpStatusError);
+        Log.sysLog(String.format(LOAD_DOCUMENT_HTTPERROR, crawler.getSendername(), aUrlDTO.getUrl()));
 
-      final Document document = response.parse();
-      traceRequest();
-      processDocument(aUrlDTO, document);
-    } catch (final HttpStatusException httpStatusError) {
-      ORF_LOGGER.trace(httpStatusError);
-      Log.sysLog(String.format(LOAD_DOCUMENT_HTTPERROR, crawler.getSendername(), aUrlDTO.getUrl()));
+        Log.errorLog(96459855,
+                crawler.getSendername() + ": crawlerDocumentLoadError: " + aUrlDTO.getUrl() + ", " + httpStatusError.getStatusCode());
+      } catch (final SocketException | SocketTimeoutException socketException) {
+        ORF_LOGGER.trace(socketException);
+        retry = true;
+        timeout *= 2;
+        try {
+          Thread.sleep(5000);
+        } catch (InterruptedException ignored) {
+          // just try again
+        }
+      } catch (final Exception exception) {
+        Log.errorLog(96459856, exception);
+        ORF_LOGGER.trace(exception);
+      }
+    } while (retry && timeout <= MAX_TIMEOUT);
+  }
 
-      Log.errorLog(96459855,
-              crawler.getSendername() + ": crawlerDocumentLoadError: " + aUrlDTO.getUrl() + ", " + httpStatusError.getStatusCode());
-    } catch (final IOException ioException) {
-      Log.errorLog(96459856, ioException);
-      ORF_LOGGER.trace(ioException);
-    } catch (final Exception exception) {
-      ORF_LOGGER.trace(exception);
-    }
+  private Document loadDocument(final D aUrlDTO, int timeout) throws IOException {
+    long start = System.currentTimeMillis();
+    // maxBodySize(0)=unlimited
+    // necessary for ORF documents which are larger than the default size
+    Response response = Jsoup.connect(aUrlDTO.getUrl())
+            .timeout(timeout)
+            .maxBodySize(0).execute();
+
+    long end = System.currentTimeMillis();
+
+    ORF_LOGGER.trace(String.format("%s: %d - loaded in %d ms", aUrlDTO.getUrl(), response.statusCode(), end - start));
+    traceRequest();
+
+    final Document document = response.parse();
+
+    end = System.currentTimeMillis();
+    ORF_LOGGER.trace(String.format("%s: %d - parsed in %d ms", aUrlDTO.getUrl(), response.statusCode(), end - start));
+
+    return document;
   }
 }
