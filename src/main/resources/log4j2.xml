@@ -27,7 +27,7 @@
             <AppenderRef ref="Console"/>
             <!--For logging to file: <AppenderRef ref="File"/>-->
         </Root>
-        <Logger name="OrfLogger" level="TRACE">
+        <Logger name="OrfLogger" level="ERROR">
             <AppenderRef ref="OrfFile"/>
         </Logger>
     </Loggers>
