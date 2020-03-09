@@ -11,7 +11,7 @@ import org.jsoup.nodes.Document;
 
 public class ZdfDayPageHtmlTask extends AbstractDocumentTask<CrawlerUrlDTO, CrawlerUrlDTO> {
 
-  private final ZdfDayPageHtmlDeserializer deserializer;
+  private final transient ZdfDayPageHtmlDeserializer deserializer;
   private final String apiUrlBase;
 
   public ZdfDayPageHtmlTask(
