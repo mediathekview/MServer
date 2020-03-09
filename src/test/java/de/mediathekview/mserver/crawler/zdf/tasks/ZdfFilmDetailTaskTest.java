@@ -1,16 +1,15 @@
 package de.mediathekview.mserver.crawler.zdf.tasks;
 
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.MatcherAssert.assertThat;
+
 import de.mediathekview.mlib.daten.Film;
 import de.mediathekview.mlib.daten.GeoLocations;
 import de.mediathekview.mlib.daten.Sender;
-import de.mediathekview.mserver.crawler.zdf.ZdfEntryDto;
+import de.mediathekview.mserver.crawler.basic.CrawlerUrlDTO;
+import de.mediathekview.mserver.crawler.zdf.ZdfConstants;
 import de.mediathekview.mserver.testhelper.AssertFilm;
 import de.mediathekview.mserver.testhelper.WireMockTestBase;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
-import org.junit.runners.Parameterized.Parameters;
-
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.Arrays;
@@ -18,9 +17,10 @@ import java.util.Collection;
 import java.util.Optional;
 import java.util.Set;
 import java.util.concurrent.ConcurrentLinkedQueue;
-
-import static org.hamcrest.CoreMatchers.equalTo;
-import static org.hamcrest.MatcherAssert.assertThat;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.junit.runners.Parameterized;
+import org.junit.runners.Parameterized.Parameters;
 
 @RunWith(Parameterized.class)
 public class ZdfFilmDetailTaskTest extends ZdfTaskTestBase {
@@ -153,11 +153,8 @@ public class ZdfFilmDetailTaskTest extends ZdfTaskTestBase {
   }
 
   private Set<Film> executeTask(final String aDetailUrl, final String aVideoUrl) {
-    final ConcurrentLinkedQueue<ZdfEntryDto> urls = new ConcurrentLinkedQueue<>();
-    urls.add(
-        new ZdfEntryDto(
-            wireMockServer.baseUrl() + aDetailUrl,
-            wireMockServer.baseUrl() + aVideoUrl));
-    return new ZdfFilmDetailTask(createCrawler(), urls, Optional.empty()).invoke();
+    final ConcurrentLinkedQueue<CrawlerUrlDTO> urls = new ConcurrentLinkedQueue<>();
+    urls.add(new CrawlerUrlDTO(wireMockServer.baseUrl() + aDetailUrl));
+    return new ZdfFilmDetailTask(createCrawler(), wireMockServer.baseUrl(), urls, Optional.empty()).invoke();
   }
 }

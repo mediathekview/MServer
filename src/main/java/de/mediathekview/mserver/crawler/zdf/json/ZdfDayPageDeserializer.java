@@ -1,9 +1,12 @@
 package de.mediathekview.mserver.crawler.zdf.json;
 
-import com.google.gson.*;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonDeserializationContext;
+import com.google.gson.JsonDeserializer;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
 import de.mediathekview.mserver.base.utils.UrlUtils;
-import de.mediathekview.mserver.crawler.zdf.ZdfEntryDto;
-
+import de.mediathekview.mserver.crawler.basic.CrawlerUrlDTO;
 import java.lang.reflect.Type;
 import java.util.Optional;
 
@@ -17,10 +20,7 @@ public class ZdfDayPageDeserializer implements JsonDeserializer<ZdfDayPageDto> {
 
   private static final String JSON_ATTRIBUTE_CANONICAL = "canonical";
   private static final String JSON_ATTRIBUTE_NEXT = "next";
-  private static final String JSON_ATTRIBUTE_TEMPLATE = "http://zdf.de/rels/streams/ptmd-template";
 
-  private static final String PLACEHOLDER_PLAYER_ID = "{playerId}";
-  private static final String PLAYER_ID = "ngplayer_2_3";
   private final String apiUrlBase;
 
   public ZdfDayPageDeserializer(final String aApiUrlBase) {
@@ -61,14 +61,14 @@ public class ZdfDayPageDeserializer implements JsonDeserializer<ZdfDayPageDto> {
         final JsonArray resultsArray = resultsElement.getAsJsonArray();
         resultsArray.forEach(
             result -> {
-              final Optional<ZdfEntryDto> dto = parseSearchEntry(result.getAsJsonObject());
+              final Optional<CrawlerUrlDTO> dto = parseSearchEntry(result.getAsJsonObject());
               dto.ifPresent(aDayPageDto::addEntry);
             });
       }
     }
   }
 
-  private Optional<ZdfEntryDto> parseSearchEntry(final JsonObject aResultObject) {
+  private Optional<CrawlerUrlDTO> parseSearchEntry(final JsonObject aResultObject) {
     if (!aResultObject.has(JSON_ELEMENT_TARGET)) {
       return Optional.empty();
     }
@@ -83,15 +83,12 @@ public class ZdfDayPageDeserializer implements JsonDeserializer<ZdfDayPageDto> {
       return Optional.empty();
     }
 
-    if (target.has(JSON_ATTRIBUTE_CANONICAL) && mainVideoTarget.has(JSON_ATTRIBUTE_TEMPLATE)) {
+    if (target.has(JSON_ATTRIBUTE_CANONICAL)) {
       String canonical = target.get(JSON_ATTRIBUTE_CANONICAL).getAsString();
-      String template = mainVideoTarget.get(JSON_ATTRIBUTE_TEMPLATE).getAsString();
 
       canonical = UrlUtils.addDomainIfMissing(canonical, apiUrlBase);
-      template = UrlUtils.addDomainIfMissing(template, apiUrlBase);
-      template = template.replace(PLACEHOLDER_PLAYER_ID, PLAYER_ID);
 
-      final ZdfEntryDto dto = new ZdfEntryDto(canonical, template);
+      final CrawlerUrlDTO dto = new CrawlerUrlDTO(canonical);
       return Optional.of(dto);
     }
 

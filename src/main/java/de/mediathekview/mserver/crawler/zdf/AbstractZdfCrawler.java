@@ -11,19 +11,19 @@ import de.mediathekview.mserver.crawler.zdf.tasks.ZdfDayPageTask;
 import de.mediathekview.mserver.crawler.zdf.tasks.ZdfFilmDetailTask;
 import de.mediathekview.mserver.crawler.zdf.tasks.ZdfIndexPageTask;
 import de.mediathekview.mserver.progress.listeners.SenderProgressListener;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-import org.jetbrains.annotations.NotNull;
-
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.Set;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ForkJoinPool;
 import java.util.concurrent.RecursiveTask;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.jetbrains.annotations.NotNull;
 
 public abstract class AbstractZdfCrawler extends AbstractCrawler {
 
@@ -45,12 +45,12 @@ public abstract class AbstractZdfCrawler extends AbstractCrawler {
     try {
       final ZdfConfiguration configuration = loadConfiguration();
 
-      final ConcurrentLinkedQueue<ZdfEntryDto> shows =
+      final ConcurrentLinkedQueue<CrawlerUrlDTO> shows =
           new ConcurrentLinkedQueue<>(getDaysEntries(configuration));
 
       getAndSetMaxCount(shows.size());
 
-      return new ZdfFilmDetailTask(this, shows, configuration.getVideoAuthKey());
+      return new ZdfFilmDetailTask(this, getApiUrlBase(), shows, configuration.getVideoAuthKey());
     } catch (final InterruptedException ex) {
       LOG.debug("{} crawler interrupted.", getSender().getName(), ex);
       Thread.currentThread().interrupt();
@@ -68,16 +68,24 @@ public abstract class AbstractZdfCrawler extends AbstractCrawler {
   @NotNull
   protected abstract String getUrlBase();
 
-  private Set<ZdfEntryDto> getDaysEntries(final ZdfConfiguration configuration)
+  private Set<CrawlerUrlDTO> getDaysEntries(final ZdfConfiguration configuration)
       throws InterruptedException, ExecutionException {
     final ZdfDayPageTask dayTask =
         new ZdfDayPageTask(this, getApiUrlBase(), getDayUrls(), configuration.getSearchAuthKey());
-    final Set<ZdfEntryDto> shows = forkJoinPool.submit(dayTask).get();
+    final Set<CrawlerUrlDTO> shows = forkJoinPool.submit(dayTask).get();
+
+    Collection<? extends CrawlerUrlDTO> extraDaysEntries = getExtraDaysEntries();
+    shows.addAll(extraDaysEntries);
 
     printMessage(
         ServerMessages.DEBUG_ALL_SENDUNG_FOLGEN_COUNT, getSender().getName(), shows.size());
 
     return shows;
+  }
+
+  protected Collection<CrawlerUrlDTO> getExtraDaysEntries()
+      throws ExecutionException, InterruptedException {
+    return new HashSet<>();
   }
 
   protected abstract String getApiUrlBase();

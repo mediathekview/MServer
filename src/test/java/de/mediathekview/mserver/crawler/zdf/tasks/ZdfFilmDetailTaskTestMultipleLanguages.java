@@ -6,9 +6,8 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import de.mediathekview.mlib.daten.Film;
 import de.mediathekview.mlib.daten.GeoLocations;
 import de.mediathekview.mlib.daten.Sender;
-import de.mediathekview.mserver.crawler.zdf.ZdfEntryDto;
+import de.mediathekview.mserver.crawler.basic.CrawlerUrlDTO;
 import de.mediathekview.mserver.testhelper.AssertFilm;
-import de.mediathekview.mserver.testhelper.WireMockTestBase;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.Comparator;
@@ -46,7 +45,7 @@ public class ZdfFilmDetailTaskTestMultipleLanguages extends ZdfTaskTestBase {
 
     setupHeadResponse(404);
 
-    final Set<Film> actual = executeTask(filmUrl, videoUrl);
+    final Set<Film> actual = executeTask(filmUrl);
 
     assertThat(actual.size(), equalTo(2));
 
@@ -96,7 +95,7 @@ public class ZdfFilmDetailTaskTestMultipleLanguages extends ZdfTaskTestBase {
 
     setupHeadResponse(404);
 
-    final Set<Film> actual = executeTask(filmUrl, videoUrl);
+    final Set<Film> actual = executeTask(filmUrl);
 
     assertThat(actual.size(), equalTo(2));
 
@@ -121,12 +120,10 @@ public class ZdfFilmDetailTaskTestMultipleLanguages extends ZdfTaskTestBase {
     }
   }
 
-  private Set<Film> executeTask(final String aDetailUrl, final String aVideoUrl) {
-    final ConcurrentLinkedQueue<ZdfEntryDto> urls = new ConcurrentLinkedQueue<>();
-    urls.add(
-        new ZdfEntryDto(
-            wireMockServer.baseUrl() + aDetailUrl,
-            wireMockServer.baseUrl() + aVideoUrl));
-    return new ZdfFilmDetailTask(createCrawler(), urls, Optional.empty()).invoke();
+  private Set<Film> executeTask(final String aDetailUrl) {
+    final ConcurrentLinkedQueue<CrawlerUrlDTO> urls = new ConcurrentLinkedQueue<>();
+    urls.add(new CrawlerUrlDTO(wireMockServer.baseUrl() + aDetailUrl));
+    return new ZdfFilmDetailTask(createCrawler(), wireMockServer.baseUrl(), urls, Optional.empty())
+        .invoke();
   }
 }
