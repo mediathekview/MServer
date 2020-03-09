@@ -1,13 +1,13 @@
 package de.mediathekview.mserver.crawler.zdf.json;
 
-import de.mediathekview.mserver.crawler.zdf.ZdfEntryDto;
+import de.mediathekview.mserver.crawler.basic.CrawlerUrlDTO;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Optional;
 
 public class ZdfDayPageDto {
 
-  private final Collection<ZdfEntryDto> entries;
+  private final Collection<CrawlerUrlDTO> entries;
   private Optional<String> nextPageUrl;
 
   public ZdfDayPageDto() {
@@ -15,11 +15,11 @@ public class ZdfDayPageDto {
     nextPageUrl = Optional.empty();
   }
 
-  public void addEntry(ZdfEntryDto entry) {
+  public void addEntry(CrawlerUrlDTO entry) {
     entries.add(entry);
   }
 
-  public Collection<ZdfEntryDto> getEntries() {
+  public Collection<CrawlerUrlDTO> getEntries() {
     return entries;
   }
 
