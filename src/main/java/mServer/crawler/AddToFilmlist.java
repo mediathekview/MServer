@@ -133,7 +133,7 @@ public class AddToFilmlist {
   }
 
   /*
-     * Diese Methode sortiert eine vorhandene Liste in eine andere Filmliste ein, 
+     * Diese Methode sortiert eine vorhandene Liste in eine andere Filmliste ein,
      * dabei werden nur nicht vorhandene Filme einsortiert.
    */
   public int addOldList() {
@@ -225,6 +225,10 @@ public class AddToFilmlist {
     }
 
     private void addOld(DatenFilm film) {
+      if (BannedFilmFilter.isBanned(film)) {
+        return;
+      }
+
       treffer++;
       film.init();
 

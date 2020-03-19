@@ -27,6 +27,8 @@ import de.mediathekview.mlib.tool.MVHttpClient;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.*;
+
+import mServer.crawler.BannedFilmFilter;
 import mServer.crawler.CrawlerTool;
 import mServer.crawler.FilmeSuchen;
 import mServer.crawler.RunSender;
@@ -205,6 +207,10 @@ public abstract class MediathekReader extends Thread {
    * @param film der einzufügende Film
    */
   protected void addFilm(DatenFilm film) {
+
+    if (BannedFilmFilter.isBanned(film)) {
+      return;
+    }
 
     setFileSize(film);
     upgradeUrl(film);
