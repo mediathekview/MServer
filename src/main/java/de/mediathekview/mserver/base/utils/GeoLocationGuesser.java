@@ -49,6 +49,7 @@ public class GeoLocationGuesser {
             "media.ndr.de/progressive_geo",
             "mediandr-a.akamaihd.net//progressive_geo",
             "pdodswr-a.akamaihd.net/swr/geo/de",
+            "pdodswr-a.akamaihd.net/swrfernsehen/geo/de",
             "mediandr-a.akamaihd.net/progressive_geo",
             "cdn-storage.br.de/geo",
             "cdn-sotschi.br.de/geo/b7",
