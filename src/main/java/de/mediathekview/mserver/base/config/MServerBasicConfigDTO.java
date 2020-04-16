@@ -8,7 +8,7 @@ import java.util.Optional;
  * overwritten for particular one.
  */
 public class MServerBasicConfigDTO {
-  private final Optional<MServerConfigDTO> parentConfig;
+  private Optional<MServerConfigDTO> parentConfig;
   /** The time in seconds before a socket connection should time out. */
   private Integer socketTimeoutInSeconds;
   /** The maximum amount of URLs to be processed per task. */
@@ -31,27 +31,12 @@ public class MServerBasicConfigDTO {
    */
   private Integer maximumDaysForSendungVerpasstSectionFuture;
 
-  /**
-   * The maximum amount of requests allowed per second.
-   * Only used for a few sender.
-   */
+  /** The maximum amount of requests allowed per second. Only used for a few sender. */
   private Double maximumRequestsPerSecond;
 
   public MServerBasicConfigDTO(final MServerConfigDTO parent) {
     super();
-
-    if (null == parent) {
-      maximumUrlsPerTask = 50;
-      maximumCrawlDurationInMinutes = 30;
-      maximumSubpages = 3;
-      maximumDaysForSendungVerpasstSection = 6;
-      maximumDaysForSendungVerpasstSectionFuture = 3;
-      socketTimeoutInSeconds = 60;
-      parentConfig = Optional.empty();
-      maximumRequestsPerSecond = 1.0;
-    } else {
-      parentConfig = Optional.ofNullable(parent);
-    }
+    parentConfig = Optional.ofNullable(parent);
   }
 
   public MServerBasicConfigDTO() {
@@ -133,8 +118,12 @@ public class MServerBasicConfigDTO {
     return maximumRequestsPerSecond;
   }
 
-  public void setMaximumRequestsPerSecond(Double maximumRequestsPerSecond) {
+  public void setMaximumRequestsPerSecond(final Double maximumRequestsPerSecond) {
     this.maximumRequestsPerSecond = maximumRequestsPerSecond;
+  }
+
+  public void setParentConfig(final Optional<MServerConfigDTO> parentConfig) {
+    this.parentConfig = parentConfig;
   }
 
   @Override
@@ -142,12 +131,11 @@ public class MServerBasicConfigDTO {
     if (this == o) {
       return true;
     }
-    if (o == null || getClass() != o.getClass()) {
+    if (!(o instanceof MServerBasicConfigDTO)) {
       return false;
     }
     final MServerBasicConfigDTO that = (MServerBasicConfigDTO) o;
     return Objects.equals(getSocketTimeoutInSeconds(), that.getSocketTimeoutInSeconds())
-        && Objects.equals(parentConfig, that.parentConfig)
         && Objects.equals(getMaximumUrlsPerTask(), that.getMaximumUrlsPerTask())
         && Objects.equals(
             getMaximumCrawlDurationInMinutes(), that.getMaximumCrawlDurationInMinutes())
@@ -158,15 +146,13 @@ public class MServerBasicConfigDTO {
         && Objects.equals(
             getMaximumDaysForSendungVerpasstSectionFuture(),
             that.getMaximumDaysForSendungVerpasstSectionFuture())
-        && Objects.equals(
-            getMaximumRequestsPerSecond(), that.getMaximumRequestsPerSecond());
+        && Objects.equals(getMaximumRequestsPerSecond(), that.getMaximumRequestsPerSecond());
   }
 
   @Override
   public int hashCode() {
     return Objects.hash(
         getSocketTimeoutInSeconds(),
-        parentConfig,
         getMaximumUrlsPerTask(),
         getMaximumCrawlDurationInMinutes(),
         getMaximumSubpages(),

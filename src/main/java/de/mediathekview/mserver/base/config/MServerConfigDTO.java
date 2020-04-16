@@ -10,6 +10,10 @@ import java.util.*;
 /** A POJO with the configs for MServer. */
 public class MServerConfigDTO extends MServerBasicConfigDTO implements ConfigDTO {
   private final MServerCopySettings copySettings;
+  private final Boolean writeFilmlistHashFileEnabled;
+  private final String filmlistHashFilePath;
+  private final Boolean writeFilmlistIdFileEnabled;
+  private final String filmlistIdFilePath;
   /** The maximum amount of cpu threads to be used. */
   private Integer maximumCpuThreads;
   /**
@@ -30,11 +34,6 @@ public class MServerConfigDTO extends MServerBasicConfigDTO implements ConfigDTO
   private Map<CrawlerUrlType, URL> crawlerURLs;
   private Boolean filmlistImporEnabled;
 
-  private final Boolean writeFilmlistHashFileEnabled;
-  private final String filmlistHashFilePath;
-  private final Boolean writeFilmlistIdFileEnabled;
-  private final String filmlistIdFilePath;
-
   public MServerConfigDTO() {
     senderConfigurations = new EnumMap<>(Sender.class);
     senderExcluded = new HashSet<>();
@@ -45,6 +44,14 @@ public class MServerConfigDTO extends MServerBasicConfigDTO implements ConfigDTO
     copySettings = new MServerCopySettings();
     logSettings = new MServerLogSettingsDTO();
     crawlerURLs = new EnumMap<>(CrawlerUrlType.class);
+
+    setMaximumUrlsPerTask(50);
+    setMaximumCrawlDurationInMinutes(30);
+    setMaximumSubpages(3);
+    setMaximumDaysForSendungVerpasstSection(6);
+    setMaximumDaysForSendungVerpasstSectionFuture(3);
+    setSocketTimeoutInSeconds(60);
+    setMaximumRequestsPerSecond(1.0);
 
     maximumCpuThreads = 80;
     maximumServerDurationInMinutes = 0;
@@ -213,7 +220,7 @@ public class MServerConfigDTO extends MServerBasicConfigDTO implements ConfigDTO
    */
   public MServerBasicConfigDTO getSenderConfig(final Sender aSender) {
     if (!senderConfigurations.containsKey(aSender)) {
-      senderConfigurations.put(aSender, new MServerBasicConfigDTO());
+      senderConfigurations.put(aSender, new MServerBasicConfigDTO(this));
     }
     return senderConfigurations.get(aSender);
   }

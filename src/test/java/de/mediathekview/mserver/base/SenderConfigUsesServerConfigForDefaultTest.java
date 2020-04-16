@@ -6,58 +6,75 @@ import de.mediathekview.mserver.base.config.MServerConfigManager;
 import org.junit.Before;
 import org.junit.Test;
 
-import static org.hamcrest.Matchers.equalTo;
-import static org.hamcrest.Matchers.not;
-import static org.junit.Assert.assertThat;
+import static de.mediathekview.mlib.daten.Sender.ARD;
+import static de.mediathekview.mlib.daten.Sender.BR;
+import static org.assertj.core.api.Assertions.assertThat;
 
 public class SenderConfigUsesServerConfigForDefaultTest {
 
-  private MServerConfigManager rootConfig;
+  private MServerConfigManager configManager;
 
   @Before
   public void setUp() {
-    rootConfig = MServerConfigManager.getInstance("MServer-JUnit-Config.yaml");
+    configManager = MServerConfigManager.getInstance("ConfigTest.yaml");
   }
 
   @Test
-  public void testNotOverriddenSenderConfigUsesServerConfig() {
-    rootConfig.getConfig().setSocketTimeoutInSeconds(42);
-    final MServerBasicConfigDTO kikaConfig = rootConfig.getSenderConfig(Sender.KIKA);
+  public void senderConfig_NotOverriddenValue_ValueFromRootConfig() {
+    configManager.getConfig().setSocketTimeoutInSeconds(42);
+    final MServerBasicConfigDTO kikaConfig = configManager.getSenderConfig(Sender.KIKA);
     kikaConfig.setMaximumSubpages(42);
 
-    assertThat(
-        kikaConfig.getSocketTimeoutInSeconds(),
-        equalTo(rootConfig.getConfig().getSocketTimeoutInSeconds()));
+    assertThat(kikaConfig.getSocketTimeoutInSeconds())
+        .isEqualTo(configManager.getConfig().getSocketTimeoutInSeconds());
   }
 
   @Test
-  public void testNotOverriddenSenderConfigUsesServerConfigChangedAfterInitialisation() {
-    final MServerBasicConfigDTO kikaConfig = rootConfig.getSenderConfig(Sender.KIKA);
+  public void
+      senderConfig_NotOverriddenRootConfigValueChangedAfterInitialization_NewValueFromRootConfig() {
+    final MServerBasicConfigDTO kikaConfig = configManager.getSenderConfig(Sender.KIKA);
     kikaConfig.setMaximumSubpages(42);
-    rootConfig.getConfig().setSocketTimeoutInSeconds(42);
+    configManager.getConfig().setSocketTimeoutInSeconds(42);
 
-    assertThat(
-        kikaConfig.getSocketTimeoutInSeconds(),
-        equalTo(rootConfig.getConfig().getSocketTimeoutInSeconds()));
+    assertThat(kikaConfig.getSocketTimeoutInSeconds())
+        .isEqualTo(configManager.getConfig().getSocketTimeoutInSeconds());
   }
 
   @Test
-  public void testOverriddenSenderConfigDontUsesServerConfig() {
-    rootConfig.getConfig().setMaximumSubpages(21);
-    final MServerBasicConfigDTO kikaConfig = rootConfig.getSenderConfig(Sender.KIKA);
+  public void senderConfig_OverrideValue_OverriddenValue() {
+    configManager.getConfig().setMaximumSubpages(21);
+    final MServerBasicConfigDTO kikaConfig = configManager.getSenderConfig(Sender.KIKA);
     kikaConfig.setMaximumSubpages(42);
 
-    assertThat(
-        kikaConfig.getMaximumSubpages(), not(equalTo(rootConfig.getConfig().getMaximumSubpages())));
+    assertThat(kikaConfig.getMaximumSubpages())
+        .isNotEqualTo(configManager.getConfig().getMaximumSubpages());
   }
 
   @Test
-  public void testOverriddenSenderConfigDontUsesServerConfigChangedAfterInitialisation() {
-    final MServerBasicConfigDTO kikaConfig = rootConfig.getSenderConfig(Sender.KIKA);
+  public void senderConfig_OverriddenRootConfigValueChangedAfterInitialization_OverriddenValue() {
+    final MServerBasicConfigDTO kikaConfig = configManager.getSenderConfig(Sender.KIKA);
     kikaConfig.setMaximumSubpages(42);
-    rootConfig.getConfig().setMaximumSubpages(21);
+    configManager.getConfig().setMaximumSubpages(21);
 
-    assertThat(
-        kikaConfig.getMaximumSubpages(), not(equalTo(rootConfig.getConfig().getMaximumSubpages())));
+    assertThat(kikaConfig.getMaximumSubpages())
+        .isNotEqualTo(configManager.getConfig().getMaximumSubpages());
+  }
+
+  @Test
+  public void configFromFile_NotOverridden_ValueFromRootConfig() {
+    assertThat(configManager.getSenderConfig(ARD).getMaximumSubpages())
+        .isEqualTo(configManager.getConfig().getMaximumSubpages());
+  }
+
+  @Test
+  public void configFromFile_Overridden_OverriddenValue() {
+    assertThat(configManager.getSenderConfig(ARD).getMaximumUrlsPerTask())
+        .isNotEqualTo(configManager.getConfig().getMaximumUrlsPerTask());
+  }
+
+  @Test
+  public void configFromFile_NoDirectConfigForSender_ValueFromRootConfig() {
+    assertThat(configManager.getSenderConfig(BR).getMaximumUrlsPerTask())
+        .isEqualTo(configManager.getConfig().getMaximumUrlsPerTask());
   }
 }
