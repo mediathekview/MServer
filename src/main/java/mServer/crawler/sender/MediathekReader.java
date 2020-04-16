@@ -237,6 +237,7 @@ public abstract class MediathekReader extends Thread {
             || film.arr[DatenFilm.FILM_URL].startsWith("http://mediandr-a.akamaihd.net//progressive_geo/")
             || film.arr[DatenFilm.FILM_URL].startsWith("https://mediandr-a.akamaihd.net//progressive_geo/")
             || film.arr[DatenFilm.FILM_URL].startsWith("https://pdodswr-a.akamaihd.net/swr/geo/de/")
+            || film.arr[DatenFilm.FILM_URL].startsWith("https://pdodswr-a.akamaihd.net/swrfernsehen/geo/de/")
             || film.arr[DatenFilm.FILM_URL].startsWith("http://mediandr-a.akamaihd.net/progressive_geo")
             || film.arr[DatenFilm.FILM_URL].startsWith("https://mediandr-a.akamaihd.net/progressive_geo")
             || film.arr[DatenFilm.FILM_URL].startsWith("http://cdn-storage.br.de/geo/")
