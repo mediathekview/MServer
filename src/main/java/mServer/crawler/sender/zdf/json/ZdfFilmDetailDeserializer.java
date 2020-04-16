@@ -5,22 +5,17 @@ import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonDeserializer;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import de.mediathekview.mlib.Const;
-import de.mediathekview.mlib.daten.DatenFilm;
-import java.lang.reflect.Type;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.time.Duration;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
-import java.util.Optional;
-import java.util.UUID;
-import mServer.crawler.CrawlerTool;
-import mServer.crawler.sender.newsearch.Qualities;
+import mServer.crawler.sender.base.JsonUtils;
+import mServer.crawler.sender.base.UrlUtils;
 import mServer.crawler.sender.zdf.ZdfFilmDto;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
+import java.lang.reflect.Type;
+import java.time.Duration;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Optional;
 
 public class ZdfFilmDetailDeserializer implements JsonDeserializer<Optional<ZdfFilmDto>> {
 
@@ -46,12 +41,9 @@ public class ZdfFilmDetailDeserializer implements JsonDeserializer<Optional<ZdfF
   private static final String PLAYER_ID = "ngplayer_2_3";
 
   private static final DateTimeFormatter DATE_FORMATTER_EDITORIAL
-          = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSSXXX"); // 2016-10-29T16:15:00.000+02:00
+    = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSSXXX"); // 2016-10-29T16:15:00.000+02:00
   private static final DateTimeFormatter DATE_FORMATTER_AIRTIME
-          = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ssXXX"); // 2016-10-29T16:15:00+02:00
-
-  private final DateTimeFormatter dateFormatDatenFilm = DateTimeFormatter.ofPattern("dd.MM.yyyy");
-  private final DateTimeFormatter timeFormatDatenFilm = DateTimeFormatter.ofPattern("HH:mm:ss");
+    = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ssXXX"); // 2016-10-29T16:15:00+02:00
 
   private final String apiUrlBase;
 
@@ -61,19 +53,19 @@ public class ZdfFilmDetailDeserializer implements JsonDeserializer<Optional<ZdfF
 
   @Override
   public Optional<ZdfFilmDto> deserialize(
-          JsonElement aJsonObject, Type aType, JsonDeserializationContext aContext) {
+    JsonElement aJsonObject, Type aType, JsonDeserializationContext aContext) {
     JsonObject rootNode = aJsonObject.getAsJsonObject();
     JsonObject programItemTarget = null;
     JsonObject mainVideoTarget = null;
 
     if (rootNode.has(JSON_ELEMENT_PROGRAM_ITEM)
-            && !rootNode.get(JSON_ELEMENT_PROGRAM_ITEM).isJsonNull()) {
+      && !rootNode.get(JSON_ELEMENT_PROGRAM_ITEM).isJsonNull()) {
       JsonArray programItem = rootNode.getAsJsonArray(JSON_ELEMENT_PROGRAM_ITEM);
       programItemTarget
-              = programItem.get(0).getAsJsonObject().get(JSON_ELEMENT_TARGET).getAsJsonObject();
+        = programItem.get(0).getAsJsonObject().get(JSON_ELEMENT_TARGET).getAsJsonObject();
     }
     if (rootNode.has(JSON_ELEMENT_MAIN_VIDEO)
-            && !rootNode.get(JSON_ELEMENT_MAIN_VIDEO).isJsonNull()) {
+      && !rootNode.get(JSON_ELEMENT_MAIN_VIDEO).isJsonNull()) {
       JsonObject mainVideoElement = rootNode.get(JSON_ELEMENT_MAIN_VIDEO).getAsJsonObject();
       if (mainVideoElement != null) {
         JsonObject mainVideo = mainVideoElement.getAsJsonObject();
@@ -103,7 +95,7 @@ public class ZdfFilmDetailDeserializer implements JsonDeserializer<Optional<ZdfF
   private Optional<String> parseDownloadUrl(JsonObject mainVideoContent) {
     if (mainVideoContent != null) {
       Optional<String> urlOptional
-              = JsonUtils.getAttributeAsString(mainVideoContent, JSON_ATTRIBUTE_TEMPLATE);
+        = JsonUtils.getAttributeAsString(mainVideoContent, JSON_ATTRIBUTE_TEMPLATE);
 
       if (urlOptional.isPresent()) {
         String url = UrlUtils.addDomainIfMissing(urlOptional.get(), apiUrlBase).replace(PLACEHOLDER_PLAYER_ID, PLAYER_ID);
@@ -113,54 +105,8 @@ public class ZdfFilmDetailDeserializer implements JsonDeserializer<Optional<ZdfF
     return Optional.empty();
   }
 
-  private Optional<DatenFilm> createFilm(
-          final Optional<String> aTopic,
-          final String aTitle,
-          final Optional<String> aDescription,
-          final Optional<String> aWebsite,
-          final Optional<LocalDateTime> aTime,
-          final Optional<Duration> aDuration) {
-
-    String date = "";
-    String time = "";
-
-    try {
-      date = aTime.orElse(LocalDateTime.now()).format(dateFormatDatenFilm);
-      time = aTime.orElse(LocalDateTime.now()).format(timeFormatDatenFilm);
-    } catch (DateTimeParseException ex) {
-      LOG.error(aWebsite.get(), ex);
-    }
-
-    try {
-      DatenFilm film = new DatenFilm(Const.ZDF,
-              aTopic.orElse(aTitle), aWebsite.get(),
-              aTitle,
-              videoUrls.get(Qualities.NORMAL), "",
-              date, time,
-              aDuration.orElse(Duration.ZERO).getSeconds(),
-              aDescription.get());
-
-      if (videoUrls.containsKey(Qualities.SMALL)) {
-        CrawlerTool.addUrlKlein(film, videoUrls.get(Qualities.SMALL));
-      }
-      if (videoUrls.containsKey(Qualities.HD)) {
-        CrawlerTool.addUrlHd(film, videoUrls.get(Qualities.HD));
-      }
-      if (!chapterList.subtitleUrl.isEmpty()) {
-        CrawlerTool.addUrlSubtitle(film, chapterList.subtitleUrl);
-      }
-
-      return Optional.of(film);
-
-    } catch (MalformedURLException ex) {
-      LOG.fatal("ZdfFilmDeserializer: url can't be parsed.", ex);
-    }
-
-    return Optional.empty();
-  }
-
   private Optional<LocalDateTime> parseAirtime(
-          JsonObject aRootNode, JsonObject aProgramItemTarget) {
+    JsonObject aRootNode, JsonObject aProgramItemTarget) {
     Optional<String> date;
     DateTimeFormatter formatter;
 
@@ -174,8 +120,8 @@ public class ZdfFilmDetailDeserializer implements JsonDeserializer<Optional<ZdfF
       } else {
         // array is ordered ascending though the oldest broadcast is the first entry
         date
-                = Optional.of(
-                        broadcastArray.get(0).getAsJsonObject().get(JSON_ELEMENT_BEGIN).getAsString());
+          = Optional.of(
+          broadcastArray.get(0).getAsJsonObject().get(JSON_ELEMENT_BEGIN).getAsString());
         formatter = DATE_FORMATTER_AIRTIME;
       }
     } else {

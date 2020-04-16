@@ -79,7 +79,7 @@ public class ZdfVideoUrlOptimizer {
    */
   public Optional<String> determineUrlHd(final String aNormalUrl) {
     final String url = optimize(aNormalUrl, HD_OPTIMIZE);
-    if (url.equalsIgnoreCase(aNormalUrl)) {
+    if (url == null || url.equalsIgnoreCase(aNormalUrl)) {
       return Optional.empty();
     }
     return Optional.of(url);

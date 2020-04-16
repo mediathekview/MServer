@@ -163,28 +163,28 @@ public class ZdfDownloadDtoDeserializer implements JsonDeserializer<Optional<Dow
     }
   }
 
-  private Resolution parseVideoQuality(final JsonObject quality) {
-    Resolution qualityValue;
+  private Qualities parseVideoQuality(final JsonObject quality) {
+    Qualities qualityValue;
     final JsonElement hd = quality.get(JSON_ELEMENT_HD);
     if (hd != null && hd.getAsBoolean()) {
-      qualityValue = Resolution.HD;
+      qualityValue = Qualities.HD;
     } else {
       final String zdfQuality = quality.get(JSON_ELEMENT_QUALITY).getAsString();
       switch (zdfQuality) {
         case ZDF_QUALITY_LOW:
-          qualityValue = Resolution.SMALL;
+          qualityValue = Qualities.SMALL;
           break;
         case ZDF_QUALITY_MED:
-          qualityValue = Resolution.SMALL;
+          qualityValue = Qualities.SMALL;
           break;
         case ZDF_QUALITY_HIGH:
-          qualityValue = Resolution.SMALL;
+          qualityValue = Qualities.SMALL;
           break;
         case ZDF_QUALITY_VERYHIGH:
-          qualityValue = Resolution.NORMAL;
+          qualityValue = Qualities.NORMAL;
           break;
         default:
-          qualityValue = Resolution.VERY_SMALL;
+          qualityValue = Qualities.SMALL;
       }
     }
     return qualityValue;

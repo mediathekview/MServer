@@ -37,19 +37,19 @@ public class PhoenixCrawler extends MediathekCrawler {
   protected RecursiveTask<Set<DatenFilm>> createCrawlerTask() {
     final ConcurrentLinkedQueue<CrawlerUrlDTO> shows = new ConcurrentLinkedQueue<>();
 
-    try {
-      shows.addAll(getShows());
+    //try {
+      //shows.addAll(getShows());
 
       Log.sysLog("PHÖNIX Anzahl: " + shows.size());
 
       meldungAddMax(shows.size());
 
       return new PhoenixFilmDetailTask(this, shows, Optional.empty(), PhoenixConstants.URL_BASE, PhoenixConstants.URL_VIDEO_DETAILS_HOST);
-    } catch (ExecutionException | InterruptedException ex) {
+    /*} catch (ExecutionException | InterruptedException ex) {
       LOG.fatal("Exception in Phönix crawler.", ex);
-    }
+    }*/
 
-    return null;
+  //  return null;
   }
 
   private Collection<CrawlerUrlDTO> getShows() throws ExecutionException, InterruptedException {

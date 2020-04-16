@@ -1,31 +1,25 @@
 package mServer.crawler.sender.zdf;
 
-import de.mediathekview.mlib.daten.Sender;
-import de.mediathekview.mlib.messages.listener.MessageListener;
-import de.mediathekview.mserver.base.config.MServerConfigManager;
-import de.mediathekview.mserver.base.webaccess.JsoupConnection;
-import de.mediathekview.mserver.crawler.basic.CrawlerUrlDTO;
-import de.mediathekview.mserver.crawler.zdf.tasks.ZdfDayPageHtmlTask;
-import de.mediathekview.mserver.progress.listeners.SenderProgressListener;
+import de.mediathekview.mlib.Const;
+import mServer.crawler.FilmeSuchen;
+import mServer.crawler.sender.base.CrawlerUrlDTO;
+import mServer.crawler.sender.base.JsoupConnection;
+import mServer.crawler.sender.zdf.tasks.ZdfDayPageHtmlTask;
+import org.jetbrains.annotations.NotNull;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.Collection;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.ExecutionException;
-import java.util.concurrent.ForkJoinPool;
-import org.jetbrains.annotations.NotNull;
 
 public class ZdfCrawler extends AbstractZdfCrawler {
 
   private static final int MAXIMUM_DAYS_HTML_PAST = 7;
 
-  public ZdfCrawler(
-      final ForkJoinPool aForkJoinPool,
-      final Collection<MessageListener> aMessageListeners,
-      final Collection<SenderProgressListener> aProgressListeners,
-      final MServerConfigManager rootConfig) {
-    super(aForkJoinPool, aMessageListeners, aProgressListeners, rootConfig);
+  public ZdfCrawler(FilmeSuchen ssearch, int startPrio) {
+    super(Const.ZDF, ssearch, startPrio);
   }
 
   @Override
@@ -44,22 +38,17 @@ public class ZdfCrawler extends AbstractZdfCrawler {
   }
 
   @Override
-  public Sender getSender() {
-    return Sender.ZDF;
-  }
-
-  @Override
   protected Collection<CrawlerUrlDTO> getExtraDaysEntries()
-      throws ExecutionException, InterruptedException {
+    throws ExecutionException, InterruptedException {
 
     final ZdfDayPageHtmlTask dayTask =
-        new ZdfDayPageHtmlTask(getApiUrlBase(), this, getExtraDayUrls(), new JsoupConnection());
+      new ZdfDayPageHtmlTask(getApiUrlBase(), this, getExtraDayUrls(), new JsoupConnection());
     return forkJoinPool.submit(dayTask).get();
   }
 
   private ConcurrentLinkedQueue<CrawlerUrlDTO> getExtraDayUrls() {
     final ConcurrentLinkedQueue<CrawlerUrlDTO> urls = new ConcurrentLinkedQueue<>();
-    for (int i = 0; i <= getMaximumDaysPast(); i++) {
+    for (int i = 0; i <= MAXIMUM_DAYS_HTML_PAST; i++) {
 
       final LocalDateTime local = LocalDateTime.now().minus(i, ChronoUnit.DAYS);
       final String date = local.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
@@ -68,15 +57,5 @@ public class ZdfCrawler extends AbstractZdfCrawler {
     }
 
     return urls;
-  }
-
-  private int getMaximumDaysPast() {
-    Integer maximumDaysForSendungVerpasstSection =
-        crawlerConfig.getMaximumDaysForSendungVerpasstSection();
-    if (maximumDaysForSendungVerpasstSection == null
-        || maximumDaysForSendungVerpasstSection > MAXIMUM_DAYS_HTML_PAST) {
-      return MAXIMUM_DAYS_HTML_PAST;
-    }
-    return maximumDaysForSendungVerpasstSection;
   }
 }

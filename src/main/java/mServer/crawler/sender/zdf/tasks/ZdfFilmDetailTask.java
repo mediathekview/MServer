@@ -1,41 +1,62 @@
 package mServer.crawler.sender.zdf.tasks;
 
 import com.google.gson.reflect.TypeToken;
+import de.mediathekview.mlib.Config;
+import de.mediathekview.mlib.Const;
 import de.mediathekview.mlib.daten.DatenFilm;
-import java.lang.reflect.Type;
-import java.net.MalformedURLException;
-import java.util.Optional;
-import java.util.UUID;
-import java.util.concurrent.ConcurrentLinkedQueue;
-import javax.ws.rs.client.WebTarget;
+import de.mediathekview.mlib.tool.Log;
+import mServer.crawler.CrawlerTool;
 import mServer.crawler.sender.MediathekReader;
 import mServer.crawler.sender.base.AbstractRecursivConverterTask;
 import mServer.crawler.sender.base.CrawlerUrlDTO;
+import mServer.crawler.sender.newsearch.GeoLocations;
+import mServer.crawler.sender.newsearch.Qualities;
+import mServer.crawler.sender.newsearch.ZdfDatenFilm;
+import mServer.crawler.sender.zdf.DownloadDtoFilmConverter;
+import mServer.crawler.sender.zdf.ZdfConstants;
 import mServer.crawler.sender.zdf.ZdfFilmDto;
 import mServer.crawler.sender.zdf.ZdfVideoUrlOptimizer;
 import mServer.crawler.sender.zdf.json.DownloadDto;
+import mServer.crawler.sender.zdf.json.ZdfDownloadDtoDeserializer;
+import mServer.crawler.sender.zdf.json.ZdfFilmDetailDeserializer;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
+import javax.ws.rs.client.WebTarget;
+import java.lang.reflect.Type;
+import java.net.MalformedURLException;
+import java.time.Duration;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Map;
+import java.util.Optional;
+import java.util.concurrent.ConcurrentLinkedQueue;
 
 public class ZdfFilmDetailTask extends ZdfTaskBase<DatenFilm, CrawlerUrlDTO> {
 
   private static final Logger LOG = LogManager.getLogger(ZdfFilmDetailTask.class);
 
   private static final Type OPTIONAL_FILM_TYPE_TOKEN
-          = new TypeToken<Optional<ZdfFilmDto>>() {
-          }.getType();
+    = new TypeToken<Optional<ZdfFilmDto>>() {
+  }.getType();
   private static final Type OPTIONAL_DOWNLOAD_DTO_TYPE_TOKEN
-          = new TypeToken<Optional<DownloadDto>>() {
-          }.getType();
+    = new TypeToken<Optional<DownloadDto>>() {
+  }.getType();
+
+  private static final DateTimeFormatter DATE_FORMAT
+    = DateTimeFormatter.ofPattern("dd.MM.yyyy");
+  private static final DateTimeFormatter TIME_FORMAT
+    = DateTimeFormatter.ofPattern("HH:mm:ss");
+
 
   private final transient ZdfVideoUrlOptimizer optimizer = new ZdfVideoUrlOptimizer();
   private final String apiUrlBase;
 
   public ZdfFilmDetailTask(
-          final MediathekReader aCrawler,
-          final String aApiUrlBase,
-          final ConcurrentLinkedQueue<CrawlerUrlDTO> aUrlToCrawlDtos,
-          final Optional<String> aAuthKey) {
+    final MediathekReader aCrawler,
+    final String aApiUrlBase,
+    final ConcurrentLinkedQueue<CrawlerUrlDTO> aUrlToCrawlDtos,
+    final Optional<String> aAuthKey) {
     super(aCrawler, aUrlToCrawlDtos, aAuthKey);
     apiUrlBase = aApiUrlBase;
 
@@ -43,78 +64,62 @@ public class ZdfFilmDetailTask extends ZdfTaskBase<DatenFilm, CrawlerUrlDTO> {
     registerJsonDeserializer(OPTIONAL_DOWNLOAD_DTO_TYPE_TOKEN, new ZdfDownloadDtoDeserializer());
   }
 
-  private static Film clone(final Film aFilm, final String aLanguage) {
-    final Film film
-            = new Film(
-                    UUID.randomUUID(),
-                    aFilm.getSender(),
-                    aFilm.getTitel(),
-                    aFilm.getThema(),
-                    aFilm.getTime(),
-                    aFilm.getDuration());
-
-    film.setBeschreibung(aFilm.getBeschreibung());
-    film.setWebsite(aFilm.getWebsite().orElse(null));
-
-    updateTitle(aLanguage, film);
-
-    return film;
-  }
-
   @Override
   protected void processRestTarget(final CrawlerUrlDTO aDto, final WebTarget aTarget) {
-    final Optional<ZdfFilmDto> film = deserializeOptional(aTarget, OPTIONAL_FILM_TYPE_TOKEN);
-    if (film.isPresent()) {
-      final Optional<DownloadDto> downloadDto
-              = deserializeOptional(
-                      createWebTarget(film.get().getUrl()), OPTIONAL_DOWNLOAD_DTO_TYPE_TOKEN);
+    if (Config.getStop()) {
+      return;
+    }
 
-      if (downloadDto.isPresent()) {
-        try {
-          final DatenFilm result = film.get().getFilm();
-          addFilm(downloadDto.get(), result);
+    try {
+      final Optional<ZdfFilmDto> film = deserializeOptional(aTarget, OPTIONAL_FILM_TYPE_TOKEN);
+      if (film.isPresent()) {
+        final Optional<DownloadDto> downloadDto
+          = deserializeOptional(
+          createWebTarget(film.get().getUrl()), OPTIONAL_DOWNLOAD_DTO_TYPE_TOKEN);
 
-          crawler.incrementAndGetActualCount();
-          crawler.updateProgress();
-        } catch (final MalformedURLException e) {
-          LOG.error("ZdfFilmDetailTask: url can't be parsed: ", e);
-          crawler.incrementAndGetErrorCount();
-          crawler.updateProgress();
+        if (downloadDto.isPresent()) {
+          try {
+            final ZdfFilmDto result = film.get();
+            addFilm(downloadDto.get(), result);
+
+          } catch (final MalformedURLException e) {
+            LOG.error("ZdfFilmDetailTask: url can't be parsed: ", e);
+          }
         }
-      } else {
-        crawler.incrementAndGetErrorCount();
-        crawler.updateProgress();
       }
-    } else {
-      crawler.incrementAndGetErrorCount();
-      crawler.updateProgress();
+    } catch (Exception e) {
+      LOG.error("exception: " + aDto.getUrl(), e);
+      Log.errorLog(453455465, e);
     }
   }
 
   @Override
   protected AbstractRecursivConverterTask<DatenFilm, CrawlerUrlDTO> createNewOwnInstance(
-          final ConcurrentLinkedQueue<CrawlerUrlDTO> aElementsToProcess) {
+    final ConcurrentLinkedQueue<CrawlerUrlDTO> aElementsToProcess) {
     return new ZdfFilmDetailTask(crawler, apiUrlBase, aElementsToProcess, authKey);
   }
 
-  private void addFilm(final DownloadDto downloadDto, final Film result)
-          throws MalformedURLException {
+  private void addFilm(final DownloadDto downloadDto, final ZdfFilmDto result)
+    throws MalformedURLException {
     for (final String language : downloadDto.getLanguages()) {
 
-      final Film filmWithLanguage = clone(result, language);
+      if (downloadDto.getUrl(language, Qualities.NORMAL).isPresent()) {
+        DownloadDtoFilmConverter.getOptimizedUrls(
+          downloadDto.getDownloadUrls(language), Optional.of(optimizer));
 
-      DownloadDtoFilmConverter.addUrlsToFilm(
-              filmWithLanguage, downloadDto, Optional.of(optimizer), language);
-
-      taskResults.add(filmWithLanguage);
+        final DatenFilm filmWithLanguage = createFilm(result, downloadDto, language);
+        taskResults.add(filmWithLanguage);
+      } else {
+        Log.sysLog("no video present for film " + result.getTitle());
+      }
     }
   }
 
-  private static void updateTitle(final String aLanguage, final Film aFilm) {
-    String title = aFilm.getTitel();
+  private static String updateTitle(final String aLanguage, final String aTitle) {
+    String title = aTitle;
     switch (aLanguage) {
       case ZdfConstants.LANGUAGE_GERMAN:
-        return;
+        return title;
       case ZdfConstants.LANGUAGE_GERMAN_AD:
         title += " (Audiodeskription)";
         break;
@@ -125,6 +130,41 @@ public class ZdfFilmDetailTask extends ZdfTaskBase<DatenFilm, CrawlerUrlDTO> {
         title += "(" + aLanguage + ")";
     }
 
-    aFilm.setTitel(title);
+    return title;
+  }
+
+  private static DatenFilm createFilm(final ZdfFilmDto zdfFilmDto, final DownloadDto downloadDto, final String aLanguage) {
+
+    final String title = updateTitle(aLanguage, zdfFilmDto.getTitle());
+
+    LocalDateTime time = zdfFilmDto.getTime().orElse(LocalDateTime.now());
+
+    String dateValue = time.format(DATE_FORMAT);
+    String timeValue = time.format(TIME_FORMAT);
+
+    Map<Qualities, String> downloadUrls = downloadDto.getDownloadUrls(aLanguage);
+
+    // @TODO Topic ist wohl manchmal leer!
+    // @TODO Filme ohne Video, aber eigentlich gibt es  eines: zum Beispiel: Helden in der Corona-Krise: Apotheker
+    // @TODO ist das korrekt, wenn hier ZDF steht? oder muss da auch mal 3SAT stehen?
+    DatenFilm film = new ZdfDatenFilm(Const.ZDF,
+      zdfFilmDto.getTopic().get(),
+      zdfFilmDto.getWebsite().orElse(""),
+      title, downloadUrls.get(Qualities.NORMAL), "", dateValue, timeValue, zdfFilmDto.getDuration().orElse(Duration.ZERO).getSeconds(), zdfFilmDto.getDescription().orElse(""));
+    if (downloadUrls.containsKey(Qualities.SMALL)) {
+      CrawlerTool.addUrlKlein(film, downloadUrls.get(Qualities.SMALL));
+    }
+    if (downloadUrls.containsKey(Qualities.HD)) {
+      CrawlerTool.addUrlHd(film, downloadUrls.get(Qualities.HD));
+    }
+    if (downloadDto.getSubTitleUrl().isPresent()) {
+      CrawlerTool.addUrlSubtitle(film, downloadDto.getSubTitleUrl().get());
+    }
+
+    final Optional<GeoLocations> geoLocation = downloadDto.getGeoLocation();
+    if (geoLocation.isPresent()) {
+      film.arr[DatenFilm.FILM_GEO] = geoLocation.get().getDescription();
+    }
+    return film;
   }
 }
