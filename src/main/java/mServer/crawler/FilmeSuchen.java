@@ -34,6 +34,7 @@ import mServer.crawler.sender.orf.OrfCrawler;
 import mServer.crawler.sender.phoenix.PhoenixCrawler;
 import mServer.crawler.sender.sr.SrCrawler;
 import mServer.crawler.sender.srf.SrfCrawler;
+import mServer.crawler.sender.zdf.ZdfCrawler;
 import org.apache.commons.lang3.time.FastDateFormat;
 
 import javax.swing.event.EventListenerList;
@@ -68,7 +69,7 @@ public class FilmeSuchen {
     // sofort gestartet oder erst später
     //Reader laden Spaltenweises Laden
     mediathekListe.add(new ArdCrawler(this, 0));
-    mediathekListe.add(new MediathekZdf(this, 0));
+    mediathekListe.add(new ZdfCrawler(this, 0));
     mediathekListe.add(new MediathekArte_de(this, 0));
     mediathekListe.add(new MediathekArte_fr(this, 1));
     mediathekListe.add(new Mediathek3Sat(this, 1));
