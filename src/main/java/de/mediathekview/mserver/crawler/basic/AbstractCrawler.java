@@ -25,16 +25,15 @@ import java.util.concurrent.atomic.AtomicLong;
 public abstract class AbstractCrawler implements Callable<Set<Film>> {
   protected final MServerConfigDTO runtimeConfig;
   protected final MServerBasicConfigDTO crawlerConfig;
-  protected ForkJoinPool forkJoinPool;
   private final Collection<SenderProgressListener> progressListeners;
   private final Collection<MessageListener> messageListeners;
-
-  protected RecursiveTask<Set<Film>> filmTask;
-  protected Set<Film> films;
-
   private final AtomicLong maxCount;
   private final AtomicLong actualCount;
   private final AtomicLong errorCount;
+  protected ForkJoinPool forkJoinPool;
+  protected RecursiveTask<Set<Film>> filmTask;
+  protected Set<Film> films;
+  private LocalTime startTime;
 
   public AbstractCrawler(
       final ForkJoinPool aForkJoinPool,
@@ -62,15 +61,15 @@ public abstract class AbstractCrawler implements Callable<Set<Film>> {
         new TimeoutTask(crawlerConfig.getMaximumCrawlDurationInMinutes()) {
           @Override
           public void shutdown() {
-            forkJoinPool.shutdownNow();
             printMessage(ServerMessages.CRAWLER_TIMEOUT, getSender().getName());
+            forkJoinPool.shutdownNow();
           }
         };
     try {
       timeoutRunner.start();
 
       printMessage(ServerMessages.CRAWLER_START, getSender());
-      final LocalTime startTime = LocalTime.now();
+      startTime = LocalTime.now();
 
       updateProgress();
       filmTask = createCrawlerTask();
@@ -80,7 +79,13 @@ public abstract class AbstractCrawler implements Callable<Set<Film>> {
       removeInvalidEntries();
 
       final LocalTime endTime = LocalTime.now();
-      final Progress progress = new Progress(maxCount.get(), actualCount.get(), errorCount.get());
+      final Progress progress =
+          new Progress(
+              maxCount.get(),
+              actualCount.get(),
+              errorCount.get(),
+              startTime,
+              crawlerConfig.getMaximumCrawlDurationInMinutes());
       timeoutRunner.stopTimeout();
       printMessage(
           ServerMessages.CRAWLER_END,
@@ -176,7 +181,13 @@ public abstract class AbstractCrawler implements Callable<Set<Film>> {
   }
 
   public void updateProgress() {
-    final Progress progress = new Progress(maxCount.get(), actualCount.get(), errorCount.get());
+    final Progress progress =
+        new Progress(
+            maxCount.get(),
+            actualCount.get(),
+            errorCount.get(),
+            startTime,
+            crawlerConfig.getMaximumCrawlDurationInMinutes());
     progressListeners.parallelStream().forEach(l -> l.updateProgess(getSender(), progress));
   }
 

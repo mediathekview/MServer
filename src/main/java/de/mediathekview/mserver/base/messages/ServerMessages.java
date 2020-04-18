@@ -7,6 +7,7 @@ import de.mediathekview.mlib.messages.MessageTypes;
 public enum ServerMessages implements Message {
   CRAWLER_START("crawlerStart", MessageTypes.INFO),
   CRAWLER_PROGRESS("crawlerProgress", MessageTypes.INFO),
+  CRAWLER_PROGRESS_WITH_TIME_LIMIT("crawlerProgressWithTimeLimit", MessageTypes.INFO),
   CRAWLER_END("crawlerEnd", MessageTypes.INFO),
   CRAWLER_ERROR("crawlerError", MessageTypes.ERROR),
   CRAWLER_TIMEOUT("crawlerTimeout", MessageTypes.ERROR),
