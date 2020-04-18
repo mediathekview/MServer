@@ -86,7 +86,7 @@ filmlistImporEnabled: false
 maximumUrlsPerTask: 50
 
 # The maximum duration in minutes a crawler may run.
-maximumCrawlDurationInMinutes: 60
+maximumCrawlDurationInMinutes: 90
 
 # The maximum amount of sub pages to be crawled.<br>
 # Example: If a Sendung overview side has 10 pages with videos for this Sendung and
@@ -111,10 +111,11 @@ senderConfigurations:
   ARD:
     # Actually the ARD has a maximum of 6 days in the past
     maximumDaysForSendungVerpasstSection: 6
-    maximumCpuThreads: 4
+    maximumCpuThreads: 8
     #2,4,8 ok
-    maximumUrlsPerTask: 20
+    maximumUrlsPerTask: 40
     #10,20,40 ok
+    maximumSubpages: 1
   ORF:
     maximumCpuThreads: 8
     #2,4,8 ok

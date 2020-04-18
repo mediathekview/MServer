@@ -26,7 +26,8 @@ public class ArdFilmDetailTask extends ArdTaskBase<Film, ArdFilmInfoDto> {
 
   private static final Type LIST_FILM_TYPE_TOKEN = new TypeToken<List<ArdFilmDto>>() {}.getType();
 
-  public ArdFilmDetailTask(final AbstractCrawler aCrawler, final ConcurrentLinkedQueue aUrlToCrawlDTOs) {
+  public ArdFilmDetailTask(
+      final AbstractCrawler aCrawler, final ConcurrentLinkedQueue aUrlToCrawlDTOs) {
     super(aCrawler, aUrlToCrawlDTOs);
 
     registerJsonDeserializer(LIST_FILM_TYPE_TOKEN, new ArdFilmDeserializer(crawler));
@@ -37,7 +38,10 @@ public class ArdFilmDetailTask extends ArdTaskBase<Film, ArdFilmInfoDto> {
     try {
       final List<ArdFilmDto> filmDtos = deserialize(aTarget, LIST_FILM_TYPE_TOKEN);
 
-      if (filmDtos != null && filmDtos.size() > 0) {
+      if (filmDtos == null || filmDtos.isEmpty()) {
+        LOG.error("no film: {}", aDTO.getUrl());
+        crawler.incrementAndGetErrorCount();
+      } else {
         for (final ArdFilmDto filmDto : filmDtos) {
 
           final Film result = filmDto.getFilm();
@@ -49,12 +53,8 @@ public class ArdFilmDetailTask extends ArdTaskBase<Film, ArdFilmInfoDto> {
           }
         }
         crawler.incrementAndGetActualCount();
-        crawler.updateProgress();
-      } else {
-        LOG.error("no film: " + aDTO.getUrl());
-        crawler.incrementAndGetErrorCount();
-        crawler.updateProgress();
       }
+      crawler.updateProgress();
     } catch (final Exception e) {
       LOG.error("exception: " + aDTO.getUrl(), e);
       crawler.incrementAndGetErrorCount();
@@ -83,7 +83,7 @@ public class ArdFilmDetailTask extends ArdTaskBase<Film, ArdFilmInfoDto> {
 
   @Override
   protected AbstractRecrusivConverterTask createNewOwnInstance(
-          final ConcurrentLinkedQueue aElementsToProcess) {
+      final ConcurrentLinkedQueue aElementsToProcess) {
     return new ArdFilmDetailTask(crawler, aElementsToProcess);
   }
 }
