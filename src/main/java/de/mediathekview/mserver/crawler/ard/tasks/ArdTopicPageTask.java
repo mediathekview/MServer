@@ -12,9 +12,9 @@ import org.apache.logging.log4j.Logger;
 
 import javax.ws.rs.client.WebTarget;
 import java.lang.reflect.Type;
-import java.net.MalformedURLException;
-import java.net.URI;
 import java.util.concurrent.ConcurrentLinkedQueue;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 public class ArdTopicPageTask extends ArdTaskBase<ArdFilmInfoDto, CrawlerUrlDTO> {
   private static final Logger LOG = LogManager.getLogger(ArdTopicPageTask.class);
@@ -38,6 +38,7 @@ public class ArdTopicPageTask extends ArdTaskBase<ArdFilmInfoDto, CrawlerUrlDTO>
         && topicInfo.getFilmInfos() != null
         && !topicInfo.getFilmInfos().isEmpty()) {
       taskResults.addAll(topicInfo.getFilmInfos());
+      LOG.debug("Found {} shows for a topic of ARD.", topicInfo.getFilmInfos().size());
 
       final ConcurrentLinkedQueue<CrawlerUrlDTO> subpages = createSubPageUrls(aTarget, topicInfo);
       if (!subpages.isEmpty()) {
@@ -58,27 +59,30 @@ public class ArdTopicPageTask extends ArdTaskBase<ArdFilmInfoDto, CrawlerUrlDTO>
     }
 
     final int maxSubPageNumber = topicInfo.getMaxSubPageNumber();
+    subpages.addAll(
+        IntStream.range(
+                actualSubPageNumber + 1,
+                (maximumAllowedSubpages >= maxSubPageNumber
+                        ? maxSubPageNumber
+                        : maximumAllowedSubpages)
+                    + 1)
+            .parallel()
+            .mapToObj(subpageNumber -> changePageNumber(aTarget, subpageNumber))
+            .map(CrawlerUrlDTO::new)
+            .collect(Collectors.toSet()));
 
-    for (int newPageNumber = actualSubPageNumber + 1;
-        newPageNumber <= maxSubPageNumber && newPageNumber <= maximumAllowedSubpages;
-        newPageNumber++) {
-      try {
-        subpages.add(new CrawlerUrlDTO(changePageNumber(aTarget, newPageNumber).toURL()));
-      } catch (final MalformedURLException malformedURLException) {
-        LOG.fatal("A ARD sub page URL couldn't be build!", malformedURLException);
-      }
-    }
     if (LOG.isDebugEnabled() && maxSubPageNumber > maximumAllowedSubpages) {
       LOG.debug(
-          "Found {} sub pages, these are {} more then the allowed {} to crawl. Skipping them.",
+          "Found {} sub pages, these are {} more then the allowed {} to crawl. Added {} and skipped the rest.",
           maxSubPageNumber,
           maxSubPageNumber - maximumAllowedSubpages,
-          maximumAllowedSubpages);
+          maximumAllowedSubpages,
+          subpages.size());
     }
     return subpages;
   }
 
-  private URI changePageNumber(final WebTarget aTarget, final int newPageNumber) {
+  private String changePageNumber(final WebTarget aTarget, final int newPageNumber) {
     return aTarget
         .getUriBuilder()
         .replaceQuery(
@@ -86,7 +90,8 @@ public class ArdTopicPageTask extends ArdTaskBase<ArdFilmInfoDto, CrawlerUrlDTO>
                 .getUri()
                 .getRawQuery()
                 .replaceAll(URL_PAGE_NUMBER_REPLACE_REGEX, PAGE_NUMBER_URL_ENCODED + newPageNumber))
-        .build();
+        .build()
+        .toString();
   }
 
   @Override

@@ -18,11 +18,9 @@ USER mediathekview
 WORKDIR /opt/mserver
 
 # Move the files out of the useless subdirectory
-RUN mv /opt/mserver/MServer-$VERSION/* /opt/mserver
-RUN rm -rf /opt/mserver/MServer-$VERSION
-
-# Sources don't needed in docker, so lets delet em:
-RUN rm /opt/mserver/MServer-sources.jar
+RUN mv /opt/mserver/MServer-$VERSION/* /opt/mserver && \
+    rm -rf /opt/mserver/MServer-$VERSION && \
+    rm /opt/mserver/MServer-sources.jar
 
 
 ENTRYPOINT java ${JAVA_OPTS} -jar /opt/mserver/MServer.jar
