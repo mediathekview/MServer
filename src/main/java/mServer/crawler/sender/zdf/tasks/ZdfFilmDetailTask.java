@@ -144,11 +144,10 @@ public class ZdfFilmDetailTask extends ZdfTaskBase<DatenFilm, CrawlerUrlDTO> {
 
     Map<Qualities, String> downloadUrls = downloadDto.getDownloadUrls(aLanguage);
 
-    // @TODO Topic ist wohl manchmal leer!
     // @TODO Filme ohne Video, aber eigentlich gibt es  eines: zum Beispiel: Helden in der Corona-Krise: Apotheker
     // @TODO ist das korrekt, wenn hier ZDF steht? oder muss da auch mal 3SAT stehen?
     DatenFilm film = new ZdfDatenFilm(Const.ZDF,
-      zdfFilmDto.getTopic().get(),
+      zdfFilmDto.getTopic().orElse(title),
       zdfFilmDto.getWebsite().orElse(""),
       title, downloadUrls.get(Qualities.NORMAL), "", dateValue, timeValue, zdfFilmDto.getDuration().orElse(Duration.ZERO).getSeconds(), zdfFilmDto.getDescription().orElse(""));
     if (downloadUrls.containsKey(Qualities.SMALL)) {
