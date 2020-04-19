@@ -23,8 +23,8 @@
             <outputDirectory>docs</outputDirectory>
         </fileSet>
         <fileSet>
-            <directory>${project.build.directory}/classes/lib</directory>
-            <outputDirectory>lib</outputDirectory>
+            <directory>${project.build.directory}/libs</directory>
+            <outputDirectory>libs</outputDirectory>
         </fileSet>
         <fileSet>
             <directory>${project.build.directory}/generated-sources/license</directory>
