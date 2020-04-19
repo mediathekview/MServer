@@ -24,7 +24,6 @@ import org.apache.logging.log4j.Logger;
 
 import javax.ws.rs.client.WebTarget;
 import java.lang.reflect.Type;
-import java.net.MalformedURLException;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -78,13 +77,8 @@ public class ZdfFilmDetailTask extends ZdfTaskBase<DatenFilm, CrawlerUrlDTO> {
           createWebTarget(film.get().getUrl()), OPTIONAL_DOWNLOAD_DTO_TYPE_TOKEN);
 
         if (downloadDto.isPresent()) {
-          try {
-            final ZdfFilmDto result = film.get();
-            addFilm(downloadDto.get(), result);
-
-          } catch (final MalformedURLException e) {
-            LOG.error("ZdfFilmDetailTask: url can't be parsed: ", e);
-          }
+          final ZdfFilmDto result = film.get();
+          addFilm(downloadDto.get(), result);
         }
       }
     } catch (Exception e) {
@@ -99,8 +93,7 @@ public class ZdfFilmDetailTask extends ZdfTaskBase<DatenFilm, CrawlerUrlDTO> {
     return new ZdfFilmDetailTask(crawler, apiUrlBase, aElementsToProcess, authKey);
   }
 
-  private void addFilm(final DownloadDto downloadDto, final ZdfFilmDto result)
-    throws MalformedURLException {
+  private void addFilm(final DownloadDto downloadDto, final ZdfFilmDto result) {
     for (final String language : downloadDto.getLanguages()) {
 
       if (downloadDto.getUrl(language, Qualities.NORMAL).isPresent()) {
@@ -161,9 +154,7 @@ public class ZdfFilmDetailTask extends ZdfTaskBase<DatenFilm, CrawlerUrlDTO> {
     }
 
     final Optional<GeoLocations> geoLocation = downloadDto.getGeoLocation();
-    if (geoLocation.isPresent()) {
-      film.arr[DatenFilm.FILM_GEO] = geoLocation.get().getDescription();
-    }
+    geoLocation.ifPresent(geoLocations -> film.arr[DatenFilm.FILM_GEO] = geoLocations.getDescription());
     return film;
   }
 }
