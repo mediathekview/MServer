@@ -14,10 +14,8 @@ public class DownloadDtoFilmConverter {
     final Map<Qualities, String> downloadUrls,
     final Optional<ZdfVideoUrlOptimizer> aUrlOptimizer) {
 
-    for (final Map.Entry<Qualities, String> qualitiesEntry
-      : downloadUrls.entrySet()) {
+    for (final Map.Entry<Qualities, String> qualitiesEntry : downloadUrls.entrySet()) {
       String url = qualitiesEntry.getValue();
-//@TODO gibt es auch HD-URL optimieren in bisheriger Lösung?
 
       if (qualitiesEntry.getKey() == Qualities.NORMAL && aUrlOptimizer.isPresent()) {
         url = aUrlOptimizer.get().getOptimizedUrlNormal(url);
@@ -28,9 +26,7 @@ public class DownloadDtoFilmConverter {
     if (!downloadUrls.containsKey(Qualities.HD) && aUrlOptimizer.isPresent()) {
       final Optional<String> hdUrl
         = aUrlOptimizer.get().determineUrlHd(downloadUrls.get(Qualities.NORMAL));
-      if (hdUrl.isPresent()) {
-        downloadUrls.put(Qualities.HD, hdUrl.get());
-      }
+      hdUrl.ifPresent(url -> downloadUrls.put(Qualities.HD, url));
     }
   }
 }
