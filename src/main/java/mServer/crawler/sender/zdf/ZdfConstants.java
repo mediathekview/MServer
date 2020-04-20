@@ -25,6 +25,8 @@ public final class ZdfConstants {
 
   /** The language key of english. */
   public static final String LANGUAGE_ENGLISH = "eng";
+  /** The language key of french. */
+  public static final String LANGUAGE_FRENCH = "fra";
   /** The language key of german. */
   public static final String LANGUAGE_GERMAN = "deu";
   /** The language key of german audio description. */
