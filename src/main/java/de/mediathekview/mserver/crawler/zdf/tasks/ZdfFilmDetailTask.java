@@ -122,6 +122,9 @@ public class ZdfFilmDetailTask extends ZdfTaskBase<Film, CrawlerUrlDTO> {
       case ZdfConstants.LANGUAGE_ENGLISH:
         title += " (Englisch)";
         break;
+      case ZdfConstants.LANGUAGE_FRENCH:
+        title += " (Französisch)";
+        break;
       default:
         title += "(" + aLanguage + ")";
     }
