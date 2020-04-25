@@ -43,7 +43,6 @@ public class ArdCrawler extends AbstractCrawler {
 
   private ConcurrentLinkedQueue<CrawlerUrlDTO> createDayUrlsToCrawl() {
     final ConcurrentLinkedQueue<CrawlerUrlDTO> dayUrlsToCrawl = new ConcurrentLinkedQueue<>();
-
     final LocalDateTime now = LocalDateTime.now();
     for (int i = 0; i <= crawlerConfig.getMaximumDaysForSendungVerpasstSection(); i++) {
       final String day = now.minusDays(i).format(DAY_PAGE_DATE_FORMATTER);

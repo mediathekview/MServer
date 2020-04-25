@@ -69,8 +69,8 @@ public abstract class AbstractRecrusivConverterTask<T, D> extends RecursiveTask<
         final AbstractRecrusivConverterTask<T, D> leftTask =
             createNewOwnInstance(elementsToProcess);
         leftTask.fork();
-        taskResults.addAll(rightTask.compute());
         taskResults.addAll(leftTask.join());
+        taskResults.addAll(rightTask.compute());
       }
     } finally {
       return taskResults;
