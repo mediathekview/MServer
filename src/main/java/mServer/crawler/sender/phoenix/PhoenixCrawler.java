@@ -3,20 +3,20 @@ package mServer.crawler.sender.phoenix;
 import de.mediathekview.mlib.Const;
 import de.mediathekview.mlib.daten.DatenFilm;
 import de.mediathekview.mlib.tool.Log;
+import mServer.crawler.FilmeSuchen;
+import mServer.crawler.sender.MediathekCrawler;
+import mServer.crawler.sender.base.CrawlerUrlDTO;
+import mServer.crawler.sender.phoenix.tasks.PhoenixFilmDetailTask;
+import mServer.crawler.sender.phoenix.tasks.PhoenixOverviewTask;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import java.util.Collection;
 import java.util.Optional;
 import java.util.Set;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.RecursiveTask;
-import mServer.crawler.FilmeSuchen;
-import mServer.crawler.sender.MediathekCrawler;
-import mServer.crawler.sender.MediathekZdf;
-import mServer.crawler.sender.base.CrawlerUrlDTO;
-import mServer.crawler.sender.phoenix.tasks.PhoenixFilmDetailTask;
-import mServer.crawler.sender.phoenix.tasks.PhoenixOverviewTask;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 public class PhoenixCrawler extends MediathekCrawler {
 
@@ -29,27 +29,22 @@ public class PhoenixCrawler extends MediathekCrawler {
   }
 
   @Override
-  protected void prepareFilm(DatenFilm film) {
-    MediathekZdf.urlTauschen(film, film.getUrl(), mlibFilmeSuchen);
-  }
-
-  @Override
   protected RecursiveTask<Set<DatenFilm>> createCrawlerTask() {
     final ConcurrentLinkedQueue<CrawlerUrlDTO> shows = new ConcurrentLinkedQueue<>();
 
-    //try {
-      //shows.addAll(getShows());
+    try {
+      shows.addAll(getShows());
 
       Log.sysLog("PHÖNIX Anzahl: " + shows.size());
 
       meldungAddMax(shows.size());
 
       return new PhoenixFilmDetailTask(this, shows, Optional.empty(), PhoenixConstants.URL_BASE, PhoenixConstants.URL_VIDEO_DETAILS_HOST);
-    /*} catch (ExecutionException | InterruptedException ex) {
+    } catch (ExecutionException | InterruptedException ex) {
       LOG.fatal("Exception in Phönix crawler.", ex);
-    }*/
+    }
 
-  //  return null;
+    return null;
   }
 
   private Collection<CrawlerUrlDTO> getShows() throws ExecutionException, InterruptedException {
@@ -70,7 +65,7 @@ public class PhoenixCrawler extends MediathekCrawler {
   }
 
   private Set<CrawlerUrlDTO> loadOverviewPages(final ConcurrentLinkedQueue<CrawlerUrlDTO> aQueue)
-          throws ExecutionException, InterruptedException {
+    throws ExecutionException, InterruptedException {
     PhoenixOverviewTask overviewTask = new PhoenixOverviewTask(this, aQueue, Optional.empty(), PhoenixConstants.URL_BASE);
     final Set<CrawlerUrlDTO> urls = forkJoinPool.submit(overviewTask).get();
 
