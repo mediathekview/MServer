@@ -65,8 +65,8 @@ public class ArteFilmTask extends ArteTaskBase<Film, ArteFilmUrlDto> {
 
           addFilm(film, arteVideoDetailDTO.getUrls());
 
-          addSpecialFilm(film, arteVideoDetailDTO.getUrlsWithSubtitle(), " (Hörfassung)");
-          addSpecialFilm(film, arteVideoDetailDTO.getUrlsAudioDescription(), " (Hörfilm)");
+          addSpecialFilm(film, arteVideoDetailDTO.getUrlsWithSubtitle(), " (mit Untertitel)");
+          addSpecialFilm(film, arteVideoDetailDTO.getUrlsAudioDescription(), " (Audiodeskription)");
 
           crawler.incrementAndGetActualCount();
           crawler.updateProgress();
