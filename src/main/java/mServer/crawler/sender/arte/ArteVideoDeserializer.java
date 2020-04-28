@@ -2,7 +2,7 @@ package mServer.crawler.sender.arte;
 
 import java.lang.reflect.Type;
 
-import mServer.crawler.sender.newsearch.Qualities;
+import mServer.crawler.sender.base.Qualities;
 
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonDeserializer;

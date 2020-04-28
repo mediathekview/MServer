@@ -5,8 +5,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
-import mServer.crawler.sender.newsearch.GeoLocations;
-import mServer.crawler.sender.newsearch.Qualities;
+import mServer.crawler.sender.base.GeoLocations;
+import mServer.crawler.sender.base.Qualities;
 
 /**
  * A data transfer object containing the information for downloading a video.

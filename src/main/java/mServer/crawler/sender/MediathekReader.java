@@ -31,7 +31,7 @@ import mServer.crawler.CrawlerTool;
 import mServer.crawler.FilmeSuchen;
 import mServer.crawler.RunSender;
 import mServer.crawler.sender.base.UrlUtils;
-import mServer.crawler.sender.newsearch.GeoLocations;
+import mServer.crawler.sender.base.GeoLocations;
 import okhttp3.Request;
 import okhttp3.Response;
 

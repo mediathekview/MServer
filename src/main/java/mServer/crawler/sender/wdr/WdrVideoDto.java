@@ -3,7 +3,7 @@ package mServer.crawler.sender.wdr;
 import java.util.HashMap;
 import java.util.Map;
 
-import mServer.crawler.sender.newsearch.Qualities;
+import mServer.crawler.sender.base.Qualities;
 
 public class WdrVideoDto {
     private final Map<Qualities,String> videoUrls;

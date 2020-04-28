@@ -2,7 +2,7 @@ package mServer.crawler.sender.orf;
 
 import java.util.EnumMap;
 import java.util.Map;
-import mServer.crawler.sender.newsearch.Qualities;
+import mServer.crawler.sender.base.Qualities;
 
 public class OrfVideoInfoDTO {
 

@@ -14,7 +14,7 @@ import java.util.Optional;
 import mServer.crawler.sender.base.M3U8Dto;
 import mServer.crawler.sender.base.M3U8Parser;
 import mServer.crawler.sender.base.UrlUtils;
-import mServer.crawler.sender.newsearch.Qualities;
+import mServer.crawler.sender.base.Qualities;
 import okhttp3.Request;
 import okhttp3.ResponseBody;
 import org.apache.logging.log4j.LogManager;

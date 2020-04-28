@@ -18,7 +18,7 @@ import mServer.crawler.sender.MediathekReader;
 import mServer.crawler.sender.ard.ArdFilmUrlInfoDto;
 import mServer.crawler.sender.base.JsonUtils;
 import mServer.crawler.sender.base.UrlUtils;
-import mServer.crawler.sender.newsearch.Qualities;
+import mServer.crawler.sender.base.Qualities;
 import mServer.crawler.sender.swr.SwrUrlOptimizer;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;

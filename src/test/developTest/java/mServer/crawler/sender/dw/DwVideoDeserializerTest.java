@@ -3,7 +3,7 @@ package mServer.crawler.sender.dw;
 import com.google.gson.JsonArray;
 import java.util.Arrays;
 import java.util.Collection;
-import mServer.crawler.sender.newsearch.Qualities;
+import mServer.crawler.sender.base.Qualities;
 import mServer.test.JsonFileReader;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.notNullValue;

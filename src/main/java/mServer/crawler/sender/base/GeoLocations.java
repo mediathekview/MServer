@@ -1,4 +1,4 @@
-package mServer.crawler.sender.newsearch;
+package mServer.crawler.sender.base;
 
 import org.apache.commons.lang3.StringUtils;
 

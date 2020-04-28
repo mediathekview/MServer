@@ -1,6 +1,6 @@
 package mServer.crawler.sender.zdf;
 
-import mServer.crawler.sender.newsearch.Qualities;
+import mServer.crawler.sender.base.Qualities;
 
 import java.util.Map;
 import java.util.Optional;
