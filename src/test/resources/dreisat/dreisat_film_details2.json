@@ -1,0 +1,873 @@
+{
+   "externalId":"SCMS_a301efff-2a93-4d82-8b30-3120fc8f4cd1",
+   "id":"nachruf-auf-per-olov-enquist-100",
+   "contentType":"clip",
+   "publicationDate":"2020-04-27T15:29:48.551Z",
+   "modificationDate":"2020-04-27T15:29:48.551Z",
+   "title":"Nachruf auf Per Olov Enquist",
+   "editorialDate":"2020-04-27T17:20:00.000Z",
+   "leadParagraph":"Mit Werken wie \"Der Besuch des Leibarztes\" gehörte er zu den bekanntesten Schrifstellern Schwedens. Jetzt ist Per Olov Enquist im Alter von 85 Jahren gestorben.",
+   "teaserImageRef":{
+      "title":"Per Olov Enquist",
+      "altText":"Ein Mann mit grauem Haar und Anzug.",
+      "caption":"Der schwedische Schriftsteller Per Olov Enquist",
+      "copyrightNotice":"dpa",
+      "source":"dpa",
+      "profile":"http:\/\/zdf.de\/rels\/image",
+      "self":"\/content\/documents\/zdf\/kultur\/kulturzeit\/bilder\/per-olov-enquist-104.json",
+      "canonical":"\/content\/documents\/per-olov-enquist-104.json",
+      "layouts":{
+         "1900x200":"https:\/\/www.3sat.de\/assets\/per-olov-enquist-104~1900x200?cb=1587992807149",
+         "1400x1400":"https:\/\/www.3sat.de\/assets\/per-olov-enquist-104~1400x1400?cb=1587992807149",
+         "1900x400":"https:\/\/www.3sat.de\/assets\/per-olov-enquist-104~1900x400?cb=1587992807149",
+         "640x720":"https:\/\/www.3sat.de\/assets\/per-olov-enquist-104~640x720?cb=1587992807149",
+         "768xauto":"https:\/\/www.3sat.de\/assets\/per-olov-enquist-104~768xauto?cb=1587992807149",
+         "1280xauto":"https:\/\/www.3sat.de\/assets\/per-olov-enquist-104~1280xauto?cb=1587992807149",
+         "240x270":"https:\/\/www.3sat.de\/assets\/per-olov-enquist-104~240x270?cb=1587992807149",
+         "384x216":"https:\/\/www.3sat.de\/assets\/per-olov-enquist-104~384x216?cb=1587992807149",
+         "760x340":"https:\/\/www.3sat.de\/assets\/per-olov-enquist-104~760x340?cb=1587992807149",
+         "840x280":"https:\/\/www.3sat.de\/assets\/per-olov-enquist-104~840x280?cb=1587992807149",
+         "1500x300":"https:\/\/www.3sat.de\/assets\/per-olov-enquist-104~1500x300?cb=1587992807149",
+         "840x140":"https:\/\/www.3sat.de\/assets\/per-olov-enquist-104~840x140?cb=1587992807149",
+         "840x360":"https:\/\/www.3sat.de\/assets\/per-olov-enquist-104~840x360?cb=1587992807149",
+         "1900x570":"https:\/\/www.3sat.de\/assets\/per-olov-enquist-104~1900x570?cb=1587992807149",
+         "original":"https:\/\/www.3sat.de\/assets\/per-olov-enquist-104~original?cb=1587992807149",
+         "384xauto":"https:\/\/www.3sat.de\/assets\/per-olov-enquist-104~384xauto?cb=1587992807149",
+         "1920x1080":"https:\/\/www.3sat.de\/assets\/per-olov-enquist-104~1920x1080?cb=1587992807149",
+         "276x155":"https:\/\/www.3sat.de\/assets\/per-olov-enquist-104~276x155?cb=1587992807149",
+         "1280x720":"https:\/\/www.3sat.de\/assets\/per-olov-enquist-104~1280x720?cb=1587992807149",
+         "1500x600":"https:\/\/www.3sat.de\/assets\/per-olov-enquist-104~1500x600?cb=1587992807149",
+         "1500x800":"https:\/\/www.3sat.de\/assets\/per-olov-enquist-104~1500x800?cb=1587992807149",
+         "380x170":"https:\/\/www.3sat.de\/assets\/per-olov-enquist-104~380x170?cb=1587992807149",
+         "1152x1296":"https:\/\/www.3sat.de\/assets\/per-olov-enquist-104~1152x1296?cb=1587992807149",
+         "314x314":"https:\/\/www.3sat.de\/assets\/per-olov-enquist-104~314x314?cb=1587992807149",
+         "768x432":"https:\/\/www.3sat.de\/assets\/per-olov-enquist-104~768x432?cb=1587992807149"
+      
+}
+   
+},
+   "commentAllowed":false,
+   "embeddingPossible":false,
+   "hideFacebookShareButton":false,
+   "hidePinterestShareButton":false,
+   "hideTwitterShareButton":false,
+   "hideWhatsappShareButton":false,
+   "commentClosed":true,
+   "endDate":"2021-04-27T19:00:00.000Z",
+   "hasVideo":true,
+   "currentVideoType":"clip",
+   "profile":"http:\/\/zdf.de\/rels\/content\/page-video",
+   "self":"\/content\/documents\/zdf\/kultur\/kulturzeit\/nachruf-auf-per-olov-enquist-100.json",
+   "canonical":"\/content\/documents\/nachruf-auf-per-olov-enquist-100.json",
+   "structureNodePath":"\/zdf\/kultur\/kulturzeit",
+   "http:\/\/zdf.de\/rels\/category":{
+      "profile":"http:\/\/zdf.de\/rels\/content\/structureNodeDocument-breadcrumb",
+      "self":"\/content\/structure\/zdf\/kultur?profile=breadcrumb",
+      "canonical":"\/content\/structure\/zdf\/kultur",
+      "title":"Kultur",
+      "http:\/\/zdf.de\/rels\/target":{
+         "id":"kultur-100",
+         "externalId":"SCMS_bed7ec68-aa23-4dc8-9093-ed48073c9bc1",
+         "title":"Kultur",
+         "hasVideo":true,
+         "contentType":"category",
+         "profile":"http:\/\/zdf.de\/rels\/content\/page-index-navigation",
+         "self":"\/content\/documents\/zdf\/kultur?profile=navigation",
+         "canonical":"\/content\/documents\/kultur-100.json",
+         "structureNodePath":"\/zdf\/kultur"
+      
+}
+   
+},
+   "http:\/\/zdf.de\/rels\/uri":"https:\/\/www.3sat.de\/uri\/a301efff-2a93-4d82-8b30-3120fc8f4cd1",
+   "http:\/\/zdf.de\/rels\/sharing-url":"https:\/\/www.3sat.de\/kultur\/kulturzeit\/nachruf-auf-per-olov-enquist-100.html",
+   "http:\/\/zdf.de\/rels\/brand":{
+      "profile":"http:\/\/zdf.de\/rels\/content\/structureNodeDocument-breadcrumb",
+      "self":"\/content\/structure\/zdf\/kultur\/kulturzeit?profile=breadcrumb",
+      "canonical":"\/content\/structure\/zdf\/kultur\/kulturzeit",
+      "title":"Kulturzeit",
+      "http:\/\/zdf.de\/rels\/target":{
+         "id":"kulturzeit-100",
+         "externalId":"SCMS_4e0d6fce-d576-4f11-9cba-b76f3d5759de",
+         "title":"Kulturzeit",
+         "hasVideo":true,
+         "contentType":"brand",
+         "profile":"http:\/\/zdf.de\/rels\/content\/page-index-navigation",
+         "self":"\/content\/documents\/zdf\/kultur\/kulturzeit?profile=navigation",
+         "canonical":"\/content\/documents\/kulturzeit-100.json",
+         "structureNodePath":"\/zdf\/kultur\/kulturzeit",
+         "stage":[
+            {
+               "profile":"http:\/\/zdf.de\/rels\/content\/group-stage-background-navigation",
+               "teaser":[
+                  {
+                     "http:\/\/zdf.de\/rels\/target":{
+                        "title":"Bühne Hintergrund ",
+                        "altText":"Bühne Hintergrund",
+                        "copyrightNotice":"ZDF",
+                        "source":"ZDF",
+                        "profile":"http:\/\/zdf.de\/rels\/image",
+                        "self":"\/content\/documents\/zdf\/kultur\/kulturzeit\/sb-material\/buehne-test3-100.json",
+                        "canonical":"\/content\/documents\/buehne-test3-100.json",
+                        "layouts":{
+                           "1900x200":"https:\/\/www.3sat.de\/assets\/buehne-test3-100~1900x200?cb=1558513146063",
+                           "1900x400":"https:\/\/www.3sat.de\/assets\/buehne-test3-100~1900x400?cb=1558513146063",
+                           "640x720":"https:\/\/www.3sat.de\/assets\/buehne-test3-100~640x720?cb=1558513146063",
+                           "768xauto":"https:\/\/www.3sat.de\/assets\/buehne-test3-100~768xauto?cb=1558513146063",
+                           "1280xauto":"https:\/\/www.3sat.de\/assets\/buehne-test3-100~1280xauto?cb=1558513146063",
+                           "240x270":"https:\/\/www.3sat.de\/assets\/buehne-test3-100~240x270?cb=1558513146063",
+                           "384x216":"https:\/\/www.3sat.de\/assets\/buehne-test3-100~384x216?cb=1558513146063",
+                           "760x340":"https:\/\/www.3sat.de\/assets\/buehne-test3-100~760x340?cb=1558513146063",
+                           "840x280":"https:\/\/www.3sat.de\/assets\/buehne-test3-100~840x280?cb=1558513146063",
+                           "1500x300":"https:\/\/www.3sat.de\/assets\/buehne-test3-100~1500x300?cb=1558513146063",
+                           "840x140":"https:\/\/www.3sat.de\/assets\/buehne-test3-100~840x140?cb=1558513146063",
+                           "840x360":"https:\/\/www.3sat.de\/assets\/buehne-test3-100~840x360?cb=1558513146063",
+                           "1900x570":"https:\/\/www.3sat.de\/assets\/buehne-test3-100~1900x570?cb=1558513146063",
+                           "original":"https:\/\/www.3sat.de\/assets\/buehne-test3-100~original?cb=1558513146063",
+                           "384xauto":"https:\/\/www.3sat.de\/assets\/buehne-test3-100~384xauto?cb=1558513146063",
+                           "2850x855":"https:\/\/www.3sat.de\/assets\/buehne-test3-100~2850x855?cb=1558513146063",
+                           "276x155":"https:\/\/www.3sat.de\/assets\/buehne-test3-100~276x155?cb=1558513146063",
+                           "1280x720":"https:\/\/www.3sat.de\/assets\/buehne-test3-100~1280x720?cb=1558513146063",
+                           "1500x600":"https:\/\/www.3sat.de\/assets\/buehne-test3-100~1500x600?cb=1558513146063",
+                           "1500x800":"https:\/\/www.3sat.de\/assets\/buehne-test3-100~1500x800?cb=1558513146063",
+                           "380x170":"https:\/\/www.3sat.de\/assets\/buehne-test3-100~380x170?cb=1558513146063",
+                           "2850x300":"https:\/\/www.3sat.de\/assets\/buehne-test3-100~2850x300?cb=1558513146063",
+                           "314x314":"https:\/\/www.3sat.de\/assets\/buehne-test3-100~314x314?cb=1558513146063",
+                           "2850x600":"https:\/\/www.3sat.de\/assets\/buehne-test3-100~2850x600?cb=1558513146063",
+                           "768x432":"https:\/\/www.3sat.de\/assets\/buehne-test3-100~768x432?cb=1558513146063"
+                        
+}
+                     
+},
+                     "profile":"http:\/\/zdf.de\/rels\/content-reference\/image-background"
+                  
+}
+               
+]
+            
+}
+         
+]
+      
+}
+   
+},
+   "http:\/\/zdf.de\/rels\/content\/conf-section":{
+      "homeTvService":{
+         "tvServiceTitle":"3sat",
+         "tvServiceId":"3sat",
+         "profile":"http:\/\/zdf.de\/rels\/content\/conf-tv-service",
+         "self":"\/content\/documents\/zdf\/sender\/3sat\/3sat-sender-100.json",
+         "canonical":"\/content\/documents\/3sat-sender-100.json"
+      
+},
+      "brandLogoBlackRef":{
+         "title":"Kulturzeit",
+         "altText":"Kulturzeit",
+         "profile":"http:\/\/zdf.de\/rels\/image",
+         "self":"\/content\/documents\/zdf\/kultur\/kulturzeit\/sb-material\/logo-kulturzeit-760x-100.json",
+         "canonical":"\/content\/documents\/logo-kulturzeit-760x-100.json",
+         "layouts":{
+            "760x340":"https:\/\/www.3sat.de\/assets\/logo-kulturzeit-760x-100~760x340?cb=1554813787978",
+            "original":"https:\/\/www.3sat.de\/assets\/logo-kulturzeit-760x-100~original?cb=1554813787978",
+            "380x170":"https:\/\/www.3sat.de\/assets\/logo-kulturzeit-760x-100~380x170?cb=1554813787978",
+            "384xauto":"https:\/\/www.3sat.de\/assets\/logo-kulturzeit-760x-100~384xauto?cb=1554813787978",
+            "276x155":"https:\/\/www.3sat.de\/assets\/logo-kulturzeit-760x-100~276x155?cb=1554813787978",
+            "314x314":"https:\/\/www.3sat.de\/assets\/logo-kulturzeit-760x-100~314x314?cb=1554813787978",
+            "240x270":"https:\/\/www.3sat.de\/assets\/logo-kulturzeit-760x-100~240x270?cb=1554813787978",
+            "384x216":"https:\/\/www.3sat.de\/assets\/logo-kulturzeit-760x-100~384x216?cb=1554813787978"
+         
+}
+      
+},
+      "brandLogoWhiteRef":{
+         "title":"Kulturzeit",
+         "altText":"Kulturzeit",
+         "profile":"http:\/\/zdf.de\/rels\/image",
+         "self":"\/content\/documents\/zdf\/kultur\/kulturzeit\/sb-material\/logo-kulturzeit-760x-100.json",
+         "canonical":"\/content\/documents\/logo-kulturzeit-760x-100.json",
+         "layouts":{
+            "760x340":"https:\/\/www.3sat.de\/assets\/logo-kulturzeit-760x-100~760x340?cb=1554813787978",
+            "original":"https:\/\/www.3sat.de\/assets\/logo-kulturzeit-760x-100~original?cb=1554813787978",
+            "380x170":"https:\/\/www.3sat.de\/assets\/logo-kulturzeit-760x-100~380x170?cb=1554813787978",
+            "384xauto":"https:\/\/www.3sat.de\/assets\/logo-kulturzeit-760x-100~384xauto?cb=1554813787978",
+            "276x155":"https:\/\/www.3sat.de\/assets\/logo-kulturzeit-760x-100~276x155?cb=1554813787978",
+            "314x314":"https:\/\/www.3sat.de\/assets\/logo-kulturzeit-760x-100~314x314?cb=1554813787978",
+            "240x270":"https:\/\/www.3sat.de\/assets\/logo-kulturzeit-760x-100~240x270?cb=1554813787978",
+            "384x216":"https:\/\/www.3sat.de\/assets\/logo-kulturzeit-760x-100~384x216?cb=1554813787978"
+         
+}
+      
+},
+      "defaultImageHeaderS":{
+         "title":"Kulturzeit",
+         "altText":"Kulturzeit",
+         "profile":"http:\/\/zdf.de\/rels\/image",
+         "self":"\/content\/documents\/zdf\/kultur\/kulturzeit\/sb-material\/higru-sb-kulturzeit-2850x-100.json",
+         "canonical":"\/content\/documents\/higru-sb-kulturzeit-2850x-100.json",
+         "layouts":{
+            "1900x200":"https:\/\/www.3sat.de\/assets\/higru-sb-kulturzeit-2850x-100~1900x200?cb=1554448368674",
+            "1900x400":"https:\/\/www.3sat.de\/assets\/higru-sb-kulturzeit-2850x-100~1900x400?cb=1554448368674",
+            "640x720":"https:\/\/www.3sat.de\/assets\/higru-sb-kulturzeit-2850x-100~640x720?cb=1554448368674",
+            "768xauto":"https:\/\/www.3sat.de\/assets\/higru-sb-kulturzeit-2850x-100~768xauto?cb=1554448368674",
+            "1280xauto":"https:\/\/www.3sat.de\/assets\/higru-sb-kulturzeit-2850x-100~1280xauto?cb=1554448368674",
+            "240x270":"https:\/\/www.3sat.de\/assets\/higru-sb-kulturzeit-2850x-100~240x270?cb=1554448368674",
+            "384x216":"https:\/\/www.3sat.de\/assets\/higru-sb-kulturzeit-2850x-100~384x216?cb=1554448368674",
+            "760x340":"https:\/\/www.3sat.de\/assets\/higru-sb-kulturzeit-2850x-100~760x340?cb=1554448368674",
+            "840x280":"https:\/\/www.3sat.de\/assets\/higru-sb-kulturzeit-2850x-100~840x280?cb=1554448368674",
+            "1500x300":"https:\/\/www.3sat.de\/assets\/higru-sb-kulturzeit-2850x-100~1500x300?cb=1554448368674",
+            "840x140":"https:\/\/www.3sat.de\/assets\/higru-sb-kulturzeit-2850x-100~840x140?cb=1554448368674",
+            "840x360":"https:\/\/www.3sat.de\/assets\/higru-sb-kulturzeit-2850x-100~840x360?cb=1554448368674",
+            "1900x570":"https:\/\/www.3sat.de\/assets\/higru-sb-kulturzeit-2850x-100~1900x570?cb=1554448368674",
+            "original":"https:\/\/www.3sat.de\/assets\/higru-sb-kulturzeit-2850x-100~original?cb=1554448368674",
+            "384xauto":"https:\/\/www.3sat.de\/assets\/higru-sb-kulturzeit-2850x-100~384xauto?cb=1554448368674",
+            "2850x855":"https:\/\/www.3sat.de\/assets\/higru-sb-kulturzeit-2850x-100~2850x855?cb=1554448368674",
+            "276x155":"https:\/\/www.3sat.de\/assets\/higru-sb-kulturzeit-2850x-100~276x155?cb=1554448368674",
+            "1280x720":"https:\/\/www.3sat.de\/assets\/higru-sb-kulturzeit-2850x-100~1280x720?cb=1554448368674",
+            "1500x600":"https:\/\/www.3sat.de\/assets\/higru-sb-kulturzeit-2850x-100~1500x600?cb=1554448368674",
+            "1500x800":"https:\/\/www.3sat.de\/assets\/higru-sb-kulturzeit-2850x-100~1500x800?cb=1554448368674",
+            "380x170":"https:\/\/www.3sat.de\/assets\/higru-sb-kulturzeit-2850x-100~380x170?cb=1554448368674",
+            "2850x300":"https:\/\/www.3sat.de\/assets\/higru-sb-kulturzeit-2850x-100~2850x300?cb=1554448368674",
+            "314x314":"https:\/\/www.3sat.de\/assets\/higru-sb-kulturzeit-2850x-100~314x314?cb=1554448368674",
+            "2850x600":"https:\/\/www.3sat.de\/assets\/higru-sb-kulturzeit-2850x-100~2850x600?cb=1554448368674",
+            "768x432":"https:\/\/www.3sat.de\/assets\/higru-sb-kulturzeit-2850x-100~768x432?cb=1554448368674"
+         
+}
+      
+},
+      "objectId":"477a9df4-ae1a-4dba-abef-8b029a9a31ff",
+      "profile":"http:\/\/zdf.de\/rels\/content\/conf-section",
+      "self":"\/content\/documents\/zdf\/kultur\/kulturzeit\/bereichsdokument-kulturzeit-100.json",
+      "canonical":"\/content\/documents\/bereichsdokument-kulturzeit-100.json"
+   
+},
+   "tvService":"3sat",
+   "http:\/\/zdf.de\/rels\/docstats":{
+      "http://zdf.de/rels/target":"/content/documents/nachruf-auf-per-olov-enquist-100.json?profile=teaser",
+      "profile":"http://zdf.de/rels/index/document-stats",
+      "self":"/index/docstats?docId=SCMS_a301efff-2a93-4d82-8b30-3120fc8f4cd1",
+      "viewCount":0,
+      "ratingCount":0
+   
+},
+   "http:\/\/zdf.de\/rels\/user-feedback\/comments-uri":"\/user-feedback\/comments?object=a301efff-2a93-4d82-8b30-3120fc8f4cd1",
+   "tracking":{
+      "szmng":{
+         "st":"3sat",
+         "cp":"Kultur\/Kulturzeit",
+         "sv":"ke",
+         "co":"clip\/Nachruf_auf_Per_Olov_Enquist\/a301efff-2a93-4d82-8b30-3120fc8f4cd1"
+      
+},
+      "zdf":{
+         "config":{
+            "playerTrackingRateInSeconds":10
+         
+},
+         "templates":{
+            "view":"\/\/tracking.3sat.de\/event?eventType=view&trackingId={trackingId}&start={start}&agent={agent}&appId={appId}{&searchResultsCount,abGroup,abName}&asset=SCMS_a301efff-2a93-4d82-8b30-3120fc8f4cd1&pagePath=https%3A%2F%2Fwww.3sat.de%2Fkultur%2Fkulturzeit%2Fnachruf-auf-per-olov-enquist-100.html&pageTitle=Nachruf_auf_Per_Olov_Enquist&pageType=clip",
+            "click":"\/\/tracking.3sat.de\/event?eventType=click&trackingId={trackingId}&start={start}&agent={agent}&appId={appId}&clickedClusterPosition={clickedClusterPosition}&clickedTeaserPosition={clickedTeaserPosition}{&searchParams,abGroup,abName,recommendationEngine,element,action,displayedIds}&asset=SCMS_a301efff-2a93-4d82-8b30-3120fc8f4cd1&targetAsset={targetAsset}&pagePath=https%3A%2F%2Fwww.3sat.de%2Fkultur%2Fkulturzeit%2Fnachruf-auf-per-olov-enquist-100.html&pageType=clip",
+            "pause":"\/\/tracking.3sat.de\/event?eventType=pause&trackingId={trackingId}&start={start}&agent={agent}&appId={appId}&currentPosition={currentPosition}&duration={duration}{&abGroup,abName,playbackProgress,videoPath,videoAsset}&asset=SCMS_a301efff-2a93-4d82-8b30-3120fc8f4cd1&pagePath=https%3A%2F%2Fwww.3sat.de%2Fkultur%2Fkulturzeit%2Fnachruf-auf-per-olov-enquist-100.html&pageType=clip",
+            "play":"\/\/tracking.3sat.de\/event?eventType=play&trackingId={trackingId}&start={start}&agent={agent}&appId={appId}&currentPosition={currentPosition}&duration={duration}{&abGroup,abName,playbackProgress,videoPath,videoAsset}&asset=SCMS_a301efff-2a93-4d82-8b30-3120fc8f4cd1&pagePath=https%3A%2F%2Fwww.3sat.de%2Fkultur%2Fkulturzeit%2Fnachruf-auf-per-olov-enquist-100.html&pageType=clip"
+         
+},
+         "config-v2":{
+            "playerTrackingRateInSeconds":10
+         
+},
+         "templates-v2":{
+            "view":"\/\/tracking.3sat.de\/event?eventType=view&trackingId={trackingId}&appId={appId}{&searchResultsCount,abGroup,abName,searchParams}&assetId=SCMS_a301efff-2a93-4d82-8b30-3120fc8f4cd1&pagePath=https%3A%2F%2Fwww.3sat.de%2Fkultur%2Fkulturzeit%2Fnachruf-auf-per-olov-enquist-100.html&pageTitle=Nachruf_auf_Per_Olov_Enquist&pageType=clip",
+            "click":"\/\/tracking.3sat.de\/event?eventType=click&trackingId={trackingId}&appId={appId}&clickedClusterPosition={clickedClusterPosition}&clickedTeaserPosition={clickedTeaserPosition}{&searchParams,abGroup,abName,recoEngine,element,recoId}&assetId=SCMS_a301efff-2a93-4d82-8b30-3120fc8f4cd1&targetAssetId={targetAssetId}&pagePath=https%3A%2F%2Fwww.3sat.de%2Fkultur%2Fkulturzeit%2Fnachruf-auf-per-olov-enquist-100.html&pageType=clip",
+            "pause":"\/\/tracking.3sat.de\/event?eventType=pause&trackingId={trackingId}&appId={appId}&currentPosition={currentPosition}&duration={duration}{&abGroup,abName,playbackProgress,videoAssetId}&assetId=SCMS_a301efff-2a93-4d82-8b30-3120fc8f4cd1&pagePath=https%3A%2F%2Fwww.3sat.de%2Fkultur%2Fkulturzeit%2Fnachruf-auf-per-olov-enquist-100.html&pageType=clip",
+            "play":"\/\/tracking.3sat.de\/event?eventType=play&trackingId={trackingId}&appId={appId}&currentPosition={currentPosition}&duration={duration}{&abGroup,abName,playbackProgress,videoAssetId}&assetId=SCMS_a301efff-2a93-4d82-8b30-3120fc8f4cd1&pagePath=https%3A%2F%2Fwww.3sat.de%2Fkultur%2Fkulturzeit%2Fnachruf-auf-per-olov-enquist-100.html&pageType=clip"
+         
+}
+      
+},
+      "atInternet":{
+         "page":{
+            "level1":"3sat",
+            "level2":"Kultur",
+            "chapter1":"\/Kulturzeit",
+            "chapter2":"clip",
+            "chapter3":"a301efff-2a93-4d82-8b30-3120fc8f4cd1",
+            "name":"Nachruf_auf_Per_Olov_Enquist",
+            "customObject":{
+               "domain":"3sat",
+               "level1":"3sat",
+               "level2":"Kultur",
+               "chapter1":"\/Kulturzeit",
+               "broadcast":"3sat",
+               "id":"nachruf-auf-per-olov-enquist-100",
+               "inhaltsTyp":"clip",
+               "chapter4":""
+            
+}
+         
+},
+         "richMedia":{
+            "mediaType":"video",
+            "mediaLevel2":"6",
+            "mediaLabel":"Kulturzeit::Nachruf_auf_Per_Olov_Enquist",
+            "mediaTheme1":"Kultur",
+            "mediaTheme2":"Kulturzeit",
+            "mediaTheme3":"clip",
+            "refreshDuration":{
+               "0":5,
+               "1":30,
+               "5":60
+            
+},
+            "duration":"157",
+            "broadcastMode":"clip"
+         
+},
+         "event":{
+            "level1":"3sat",
+            "level2":"Kultur",
+            "chapter1":"\/Kulturzeit",
+            "customObject":{
+               "domain":"3sat",
+               "level1":"3sat",
+               "level2":"Kultur",
+               "chapter1":"\/Kulturzeit",
+               "broadcast":"3sat",
+               "id":"nachruf-auf-per-olov-enquist-100",
+               "inhaltsTyp":"clip"
+            
+}
+         
+},
+         "customVars":{
+            "site":{
+               "id":"nachruf-auf-per-olov-enquist-100",
+               "chapter2":"clip",
+               "chapter3":"a301efff-2a93-4d82-8b30-3120fc8f4cd1"
+            
+}
+         
+}
+      
+},
+      "nielsen":{
+         "content":{
+            "type":"content",
+            "assetid":"200427_enquist_kuz",
+            "program":"Kulturzeit",
+            "title":"Kulturzeit|Nachruf auf Per Olov Enquist|200427_enquist_kuz",
+            "length":"157",
+            "nol_c2":"p2,N",
+            "nol_c5":"p5,3sat Mediathek",
+            "nol_c7":"p7,200427_enquist_kuz",
+            "nol_c8":"p8,157",
+            "nol_c9":"p9,Nachruf auf Per Olov Enquist",
+            "nol_c10":"p10,3sat",
+            "nol_c12":"p12,Content",
+            "nol_c14":"p14,2020-04-27T17:20:00",
+            "nol_c15":"p15,66666666",
+            "nol_c16":"p16,Kulturzeit",
+            "nol_c18":"p18,N",
+            "nol_c19":"p19,|27.04.2020 15:29|27.04.2021 19:00|none|none|false"
+         
+},
+         "addContent":{
+            "nol_c10":"p10,3sat",
+            "nol_c14":"p14,2020-04-27T17:20:00",
+            "nol_c15":"p15,66666666",
+            "nol_c19":"p19,|27.04.2020 15:29|27.04.2021 19:00|none|none|false"
+         
+}
+      
+}
+   
+},
+   "fskBlocked":false,
+   "autoRecommendationTeaserList":false,
+   "autoRecommendationTeaserListTitle":"Das könnte Sie auch interessieren",
+   "editorialDateAboveCopytext":true,
+   "http:\/\/zdf.de\/rels\/content\/context-refs":{
+      "brandReference":{
+         "externalId":"SCMS_4e0d6fce-d576-4f11-9cba-b76f3d5759de",
+         "contentType":"brand",
+         "id":"kulturzeit-100",
+         "title":"Kulturzeit",
+         "editorialDate":"2020-04-28T09:16:02.840Z",
+         "teaserHeadline":"Das werktägliche Fernsehfeuilleton",
+         "teasertext":"Das Fernsehfeuilleton von ZDF, ORF, SRF und ARD, montags bis freitags, live ab 19.20 Uhr.",
+         "teaserImageRef":{
+            "title":"Kulturzeit",
+            "altText":"Kulturzeit",
+            "profile":"http:\/\/zdf.de\/rels\/image",
+            "self":"\/content\/documents\/zdf\/kultur\/kulturzeit\/sb-material\/sendetypical-kulturzeit-1920x-100.json",
+            "canonical":"\/content\/documents\/sendetypical-kulturzeit-1920x-100.json",
+            "layouts":{
+               "1900x200":"https:\/\/www.3sat.de\/assets\/sendetypical-kulturzeit-1920x-100~1900x200?cb=1571834282324",
+               "original":"https:\/\/www.3sat.de\/assets\/sendetypical-kulturzeit-1920x-100~original?cb=1571834282324",
+               "384xauto":"https:\/\/www.3sat.de\/assets\/sendetypical-kulturzeit-1920x-100~384xauto?cb=1571834282324",
+               "1900x400":"https:\/\/www.3sat.de\/assets\/sendetypical-kulturzeit-1920x-100~1900x400?cb=1571834282324",
+               "640x720":"https:\/\/www.3sat.de\/assets\/sendetypical-kulturzeit-1920x-100~640x720?cb=1571834282324",
+               "768xauto":"https:\/\/www.3sat.de\/assets\/sendetypical-kulturzeit-1920x-100~768xauto?cb=1571834282324",
+               "1920x1080":"https:\/\/www.3sat.de\/assets\/sendetypical-kulturzeit-1920x-100~1920x1080?cb=1571834282324",
+               "276x155":"https:\/\/www.3sat.de\/assets\/sendetypical-kulturzeit-1920x-100~276x155?cb=1571834282324",
+               "1280x720":"https:\/\/www.3sat.de\/assets\/sendetypical-kulturzeit-1920x-100~1280x720?cb=1571834282324",
+               "1500x600":"https:\/\/www.3sat.de\/assets\/sendetypical-kulturzeit-1920x-100~1500x600?cb=1571834282324",
+               "1280xauto":"https:\/\/www.3sat.de\/assets\/sendetypical-kulturzeit-1920x-100~1280xauto?cb=1571834282324",
+               "1500x800":"https:\/\/www.3sat.de\/assets\/sendetypical-kulturzeit-1920x-100~1500x800?cb=1571834282324",
+               "240x270":"https:\/\/www.3sat.de\/assets\/sendetypical-kulturzeit-1920x-100~240x270?cb=1571834282324",
+               "384x216":"https:\/\/www.3sat.de\/assets\/sendetypical-kulturzeit-1920x-100~384x216?cb=1571834282324",
+               "760x340":"https:\/\/www.3sat.de\/assets\/sendetypical-kulturzeit-1920x-100~760x340?cb=1571834282324",
+               "840x280":"https:\/\/www.3sat.de\/assets\/sendetypical-kulturzeit-1920x-100~840x280?cb=1571834282324",
+               "380x170":"https:\/\/www.3sat.de\/assets\/sendetypical-kulturzeit-1920x-100~380x170?cb=1571834282324",
+               "1500x300":"https:\/\/www.3sat.de\/assets\/sendetypical-kulturzeit-1920x-100~1500x300?cb=1571834282324",
+               "314x314":"https:\/\/www.3sat.de\/assets\/sendetypical-kulturzeit-1920x-100~314x314?cb=1571834282324",
+               "768x432":"https:\/\/www.3sat.de\/assets\/sendetypical-kulturzeit-1920x-100~768x432?cb=1571834282324",
+               "840x140":"https:\/\/www.3sat.de\/assets\/sendetypical-kulturzeit-1920x-100~840x140?cb=1571834282324",
+               "840x360":"https:\/\/www.3sat.de\/assets\/sendetypical-kulturzeit-1920x-100~840x360?cb=1571834282324",
+               "1900x570":"https:\/\/www.3sat.de\/assets\/sendetypical-kulturzeit-1920x-100~1900x570?cb=1571834282324"
+            
+}
+         
+},
+         "twitterTitle":"Kulturzeit",
+         "hideFacebookShareButton":false,
+         "hideTwitterShareButton":false,
+         "hideWhatsappShareButton":false,
+         "excludeFromLastViewed":false,
+         "profile":"http:\/\/zdf.de\/rels\/content\/page-index-pd-teaser",
+         "self":"\/content\/documents\/zdf\/kultur\/kulturzeit?profile=pd-teaser",
+         "canonical":"\/content\/documents\/kulturzeit-100.json",
+         "http:\/\/zdf.de\/rels\/search\/page-video-counter":{
+            "totalResultsCount":4153,
+            "next":"\/search\/documents\/zdf\/kultur\/kulturzeit?q=*&limit=0&types=page-video&profile=pd-teaser&page=2",
+            "http:\/\/zdf.de\/rels\/search\/suggestions":[
+
+            
+],
+            "http:\/\/zdf.de\/rels\/search\/results":[
+
+            
+],
+            "profile":"http:\/\/zdf.de\/rels\/search\/result-page",
+            "self":"\/search\/documents\/zdf\/kultur\/kulturzeit?q=*&limit=0&types=page-video&profile=pd-teaser",
+            "first":"\/search\/documents\/zdf\/kultur\/kulturzeit?q=*&limit=0&types=page-video&profile=pd-teaser",
+            "facets":{
+               "teilbereich":[
+
+               
+],
+               "broadcasters":[
+                  {
+                     "docCount":4153,
+                     "key":"3sat"
+                  
+}
+               
+],
+               "episodes":{
+                  "docCount":66
+               
+},
+               "attrs":[
+
+               
+]
+            
+}
+         
+},
+         "http:\/\/zdf.de\/rels\/search\/page-video-counter-with-video":{
+            "totalResultsCount":3054,
+            "next":"\/search\/documents\/zdf\/kultur\/kulturzeit?q=*&limit=0&types=page-video&hasVideo=true&profile=pd-teaser&page=2",
+            "http:\/\/zdf.de\/rels\/search\/suggestions":[
+
+            
+],
+            "http:\/\/zdf.de\/rels\/search\/results":[
+
+            
+],
+            "profile":"http:\/\/zdf.de\/rels\/search\/result-page",
+            "self":"\/search\/documents\/zdf\/kultur\/kulturzeit?q=*&limit=0&types=page-video&hasVideo=true&profile=pd-teaser",
+            "first":"\/search\/documents\/zdf\/kultur\/kulturzeit?q=*&limit=0&types=page-video&hasVideo=true&profile=pd-teaser",
+            "facets":{
+               "teilbereich":[
+
+               
+],
+               "broadcasters":[
+                  {
+                     "docCount":3054,
+                     "key":"3sat"
+                  
+}
+               
+],
+               "episodes":{
+                  "docCount":66
+               
+},
+               "attrs":[
+
+               
+]
+            
+}
+         
+},
+         "http:\/\/zdf.de\/rels\/category":{
+            "profile":"http:\/\/zdf.de\/rels\/content\/structureNodeDocument-breadcrumb",
+            "self":"\/content\/structure\/zdf\/kultur?profile=breadcrumb",
+            "canonical":"\/content\/structure\/zdf\/kultur",
+            "title":"Kultur",
+            "http:\/\/zdf.de\/rels\/target":{
+               "id":"kultur-100",
+               "externalId":"SCMS_bed7ec68-aa23-4dc8-9093-ed48073c9bc1",
+               "title":"Kultur",
+               "hasVideo":true,
+               "contentType":"category",
+               "profile":"http:\/\/zdf.de\/rels\/content\/page-index-navigation",
+               "self":"\/content\/documents\/zdf\/kultur?profile=navigation",
+               "canonical":"\/content\/documents\/kultur-100.json",
+               "structureNodePath":"\/zdf\/kultur"
+            
+}
+         
+},
+         "http:\/\/zdf.de\/rels\/uri":"https:\/\/www.3sat.de\/uri\/4e0d6fce-d576-4f11-9cba-b76f3d5759de",
+         "http:\/\/zdf.de\/rels\/sharing-url":"https:\/\/www.3sat.de\/kultur\/kulturzeit",
+         "http:\/\/zdf.de\/rels\/content\/conf-section":{
+            "homeTvService":{
+               "tvServiceTitle":"3sat",
+               "tvServiceId":"3sat",
+               "profile":"http:\/\/zdf.de\/rels\/content\/conf-tv-service",
+               "self":"\/content\/documents\/zdf\/sender\/3sat\/3sat-sender-100.json",
+               "canonical":"\/content\/documents\/3sat-sender-100.json"
+            
+},
+            "profile":"http:\/\/zdf.de\/rels\/content\/conf-section-pd-teaser",
+            "self":"\/content\/documents\/zdf\/kultur\/kulturzeit\/bereichsdokument-kulturzeit-100.json?profile=pd-teaser",
+            "canonical":"\/content\/documents\/bereichsdokument-kulturzeit-100.json"
+         
+},
+         "http:\/\/zdf.de\/rels\/brand":{
+            "ogSiteName":"3sat-Mediathek",
+            "twitterSite":"3sat-Mediathek",
+            "twitterCard":"player",
+            "commentAllowed":false,
+            "tagModuleLimit":5,
+            "autoRecommendationTeaserList":true,
+            "autoRecommendationTeaserListTitle":"Das könnte Sie auch interessieren",
+            "profile":"http:\/\/zdf.de\/rels\/content\/structureNodeDocument-brand",
+            "self":"\/content\/structure\/zdf\/kultur\/kulturzeit?profile=brand",
+            "canonical":"\/content\/structure\/zdf\/kultur\/kulturzeit",
+            "http:\/\/zdf.de\/rels\/content\/conf-section":{
+               "homeTvService":{
+                  "tvServiceTitle":"3sat",
+                  "tvServiceId":"3sat",
+                  "profile":"http:\/\/zdf.de\/rels\/content\/conf-tv-service",
+                  "self":"\/content\/documents\/zdf\/sender\/3sat\/3sat-sender-100.json",
+                  "canonical":"\/content\/documents\/3sat-sender-100.json"
+               
+},
+               "brandLogoBlackRef":{
+                  "title":"Kulturzeit",
+                  "altText":"Kulturzeit",
+                  "profile":"http:\/\/zdf.de\/rels\/image",
+                  "self":"\/content\/documents\/zdf\/kultur\/kulturzeit\/sb-material\/logo-kulturzeit-760x-100.json",
+                  "canonical":"\/content\/documents\/logo-kulturzeit-760x-100.json",
+                  "layouts":{
+                     "760x340":"https:\/\/www.3sat.de\/assets\/logo-kulturzeit-760x-100~760x340?cb=1554813787978",
+                     "original":"https:\/\/www.3sat.de\/assets\/logo-kulturzeit-760x-100~original?cb=1554813787978",
+                     "380x170":"https:\/\/www.3sat.de\/assets\/logo-kulturzeit-760x-100~380x170?cb=1554813787978",
+                     "384xauto":"https:\/\/www.3sat.de\/assets\/logo-kulturzeit-760x-100~384xauto?cb=1554813787978",
+                     "276x155":"https:\/\/www.3sat.de\/assets\/logo-kulturzeit-760x-100~276x155?cb=1554813787978",
+                     "314x314":"https:\/\/www.3sat.de\/assets\/logo-kulturzeit-760x-100~314x314?cb=1554813787978",
+                     "240x270":"https:\/\/www.3sat.de\/assets\/logo-kulturzeit-760x-100~240x270?cb=1554813787978",
+                     "384x216":"https:\/\/www.3sat.de\/assets\/logo-kulturzeit-760x-100~384x216?cb=1554813787978"
+                  
+}
+               
+},
+               "brandLogoWhiteRef":{
+                  "title":"Kulturzeit",
+                  "altText":"Kulturzeit",
+                  "profile":"http:\/\/zdf.de\/rels\/image",
+                  "self":"\/content\/documents\/zdf\/kultur\/kulturzeit\/sb-material\/logo-kulturzeit-760x-100.json",
+                  "canonical":"\/content\/documents\/logo-kulturzeit-760x-100.json",
+                  "layouts":{
+                     "760x340":"https:\/\/www.3sat.de\/assets\/logo-kulturzeit-760x-100~760x340?cb=1554813787978",
+                     "original":"https:\/\/www.3sat.de\/assets\/logo-kulturzeit-760x-100~original?cb=1554813787978",
+                     "380x170":"https:\/\/www.3sat.de\/assets\/logo-kulturzeit-760x-100~380x170?cb=1554813787978",
+                     "384xauto":"https:\/\/www.3sat.de\/assets\/logo-kulturzeit-760x-100~384xauto?cb=1554813787978",
+                     "276x155":"https:\/\/www.3sat.de\/assets\/logo-kulturzeit-760x-100~276x155?cb=1554813787978",
+                     "314x314":"https:\/\/www.3sat.de\/assets\/logo-kulturzeit-760x-100~314x314?cb=1554813787978",
+                     "240x270":"https:\/\/www.3sat.de\/assets\/logo-kulturzeit-760x-100~240x270?cb=1554813787978",
+                     "384x216":"https:\/\/www.3sat.de\/assets\/logo-kulturzeit-760x-100~384x216?cb=1554813787978"
+                  
+}
+               
+},
+               "defaultImageHeaderS":{
+                  "title":"Kulturzeit",
+                  "altText":"Kulturzeit",
+                  "profile":"http:\/\/zdf.de\/rels\/image",
+                  "self":"\/content\/documents\/zdf\/kultur\/kulturzeit\/sb-material\/higru-sb-kulturzeit-2850x-100.json",
+                  "canonical":"\/content\/documents\/higru-sb-kulturzeit-2850x-100.json",
+                  "layouts":{
+                     "1900x200":"https:\/\/www.3sat.de\/assets\/higru-sb-kulturzeit-2850x-100~1900x200?cb=1554448368674",
+                     "1900x400":"https:\/\/www.3sat.de\/assets\/higru-sb-kulturzeit-2850x-100~1900x400?cb=1554448368674",
+                     "640x720":"https:\/\/www.3sat.de\/assets\/higru-sb-kulturzeit-2850x-100~640x720?cb=1554448368674",
+                     "768xauto":"https:\/\/www.3sat.de\/assets\/higru-sb-kulturzeit-2850x-100~768xauto?cb=1554448368674",
+                     "1280xauto":"https:\/\/www.3sat.de\/assets\/higru-sb-kulturzeit-2850x-100~1280xauto?cb=1554448368674",
+                     "240x270":"https:\/\/www.3sat.de\/assets\/higru-sb-kulturzeit-2850x-100~240x270?cb=1554448368674",
+                     "384x216":"https:\/\/www.3sat.de\/assets\/higru-sb-kulturzeit-2850x-100~384x216?cb=1554448368674",
+                     "760x340":"https:\/\/www.3sat.de\/assets\/higru-sb-kulturzeit-2850x-100~760x340?cb=1554448368674",
+                     "840x280":"https:\/\/www.3sat.de\/assets\/higru-sb-kulturzeit-2850x-100~840x280?cb=1554448368674",
+                     "1500x300":"https:\/\/www.3sat.de\/assets\/higru-sb-kulturzeit-2850x-100~1500x300?cb=1554448368674",
+                     "840x140":"https:\/\/www.3sat.de\/assets\/higru-sb-kulturzeit-2850x-100~840x140?cb=1554448368674",
+                     "840x360":"https:\/\/www.3sat.de\/assets\/higru-sb-kulturzeit-2850x-100~840x360?cb=1554448368674",
+                     "1900x570":"https:\/\/www.3sat.de\/assets\/higru-sb-kulturzeit-2850x-100~1900x570?cb=1554448368674",
+                     "original":"https:\/\/www.3sat.de\/assets\/higru-sb-kulturzeit-2850x-100~original?cb=1554448368674",
+                     "384xauto":"https:\/\/www.3sat.de\/assets\/higru-sb-kulturzeit-2850x-100~384xauto?cb=1554448368674",
+                     "2850x855":"https:\/\/www.3sat.de\/assets\/higru-sb-kulturzeit-2850x-100~2850x855?cb=1554448368674",
+                     "276x155":"https:\/\/www.3sat.de\/assets\/higru-sb-kulturzeit-2850x-100~276x155?cb=1554448368674",
+                     "1280x720":"https:\/\/www.3sat.de\/assets\/higru-sb-kulturzeit-2850x-100~1280x720?cb=1554448368674",
+                     "1500x600":"https:\/\/www.3sat.de\/assets\/higru-sb-kulturzeit-2850x-100~1500x600?cb=1554448368674",
+                     "1500x800":"https:\/\/www.3sat.de\/assets\/higru-sb-kulturzeit-2850x-100~1500x800?cb=1554448368674",
+                     "380x170":"https:\/\/www.3sat.de\/assets\/higru-sb-kulturzeit-2850x-100~380x170?cb=1554448368674",
+                     "2850x300":"https:\/\/www.3sat.de\/assets\/higru-sb-kulturzeit-2850x-100~2850x300?cb=1554448368674",
+                     "314x314":"https:\/\/www.3sat.de\/assets\/higru-sb-kulturzeit-2850x-100~314x314?cb=1554448368674",
+                     "2850x600":"https:\/\/www.3sat.de\/assets\/higru-sb-kulturzeit-2850x-100~2850x600?cb=1554448368674",
+                     "768x432":"https:\/\/www.3sat.de\/assets\/higru-sb-kulturzeit-2850x-100~768x432?cb=1554448368674"
+                  
+}
+               
+},
+               "objectId":"477a9df4-ae1a-4dba-abef-8b029a9a31ff",
+               "profile":"http:\/\/zdf.de\/rels\/content\/conf-section-brand",
+               "self":"\/content\/documents\/zdf\/kultur\/kulturzeit\/bereichsdokument-kulturzeit-100.json?profile=brand",
+               "canonical":"\/content\/documents\/bereichsdokument-kulturzeit-100.json"
+            
+},
+            "title":"Kulturzeit"
+         
+},
+         "tracking":{
+            "szmng":{
+               "st":"3sat",
+               "cp":"Kultur\/Kulturzeit",
+               "sv":"ke",
+               "co":"brand\/Kulturzeit\/4e0d6fce-d576-4f11-9cba-b76f3d5759de"
+            
+},
+            "zdf":{
+               "config":{
+                  "playerTrackingRateInSeconds":10
+               
+},
+               "templates":{
+                  "view":"\/\/tracking.3sat.de\/event?eventType=view&trackingId={trackingId}&start={start}&agent={agent}&appId={appId}{&searchResultsCount,abGroup,abName}&asset=SCMS_4e0d6fce-d576-4f11-9cba-b76f3d5759de&pagePath=https%3A%2F%2Fwww.3sat.de%2Fkultur%2Fkulturzeit%2Fkulturzeit-100.html&pageTitle=Kulturzeit&pageType=brand",
+                  "click":"\/\/tracking.3sat.de\/event?eventType=click&trackingId={trackingId}&start={start}&agent={agent}&appId={appId}&clickedClusterPosition={clickedClusterPosition}&clickedTeaserPosition={clickedTeaserPosition}{&searchParams,abGroup,abName,recommendationEngine,element,action,displayedIds}&asset=SCMS_4e0d6fce-d576-4f11-9cba-b76f3d5759de&targetAsset={targetAsset}&pagePath=https%3A%2F%2Fwww.3sat.de%2Fkultur%2Fkulturzeit%2Fkulturzeit-100.html&pageType=brand",
+                  "pause":"\/\/tracking.3sat.de\/event?eventType=pause&trackingId={trackingId}&start={start}&agent={agent}&appId={appId}&currentPosition={currentPosition}&duration={duration}{&abGroup,abName,playbackProgress,videoPath,videoAsset}&asset=SCMS_4e0d6fce-d576-4f11-9cba-b76f3d5759de&pagePath=https%3A%2F%2Fwww.3sat.de%2Fkultur%2Fkulturzeit%2Fkulturzeit-100.html&pageType=brand",
+                  "play":"\/\/tracking.3sat.de\/event?eventType=play&trackingId={trackingId}&start={start}&agent={agent}&appId={appId}&currentPosition={currentPosition}&duration={duration}{&abGroup,abName,playbackProgress,videoPath,videoAsset}&asset=SCMS_4e0d6fce-d576-4f11-9cba-b76f3d5759de&pagePath=https%3A%2F%2Fwww.3sat.de%2Fkultur%2Fkulturzeit%2Fkulturzeit-100.html&pageType=brand"
+               
+},
+               "config-v2":{
+                  "playerTrackingRateInSeconds":10
+               
+},
+               "templates-v2":{
+                  "view":"\/\/tracking.3sat.de\/event?eventType=view&trackingId={trackingId}&appId={appId}{&searchResultsCount,abGroup,abName,searchParams}&assetId=SCMS_4e0d6fce-d576-4f11-9cba-b76f3d5759de&pagePath=https%3A%2F%2Fwww.3sat.de%2Fkultur%2Fkulturzeit%2Fkulturzeit-100.html&pageTitle=Kulturzeit&pageType=brand",
+                  "click":"\/\/tracking.3sat.de\/event?eventType=click&trackingId={trackingId}&appId={appId}&clickedClusterPosition={clickedClusterPosition}&clickedTeaserPosition={clickedTeaserPosition}{&searchParams,abGroup,abName,recoEngine,element,recoId}&assetId=SCMS_4e0d6fce-d576-4f11-9cba-b76f3d5759de&targetAssetId={targetAssetId}&pagePath=https%3A%2F%2Fwww.3sat.de%2Fkultur%2Fkulturzeit%2Fkulturzeit-100.html&pageType=brand",
+                  "pause":"\/\/tracking.3sat.de\/event?eventType=pause&trackingId={trackingId}&appId={appId}&currentPosition={currentPosition}&duration={duration}{&abGroup,abName,playbackProgress,videoAssetId}&assetId=SCMS_4e0d6fce-d576-4f11-9cba-b76f3d5759de&pagePath=https%3A%2F%2Fwww.3sat.de%2Fkultur%2Fkulturzeit%2Fkulturzeit-100.html&pageType=brand",
+                  "play":"\/\/tracking.3sat.de\/event?eventType=play&trackingId={trackingId}&appId={appId}&currentPosition={currentPosition}&duration={duration}{&abGroup,abName,playbackProgress,videoAssetId}&assetId=SCMS_4e0d6fce-d576-4f11-9cba-b76f3d5759de&pagePath=https%3A%2F%2Fwww.3sat.de%2Fkultur%2Fkulturzeit%2Fkulturzeit-100.html&pageType=brand"
+               
+}
+            
+},
+            "atInternet":{
+               "page":{
+                  "level1":"3sat",
+                  "level2":"Kultur",
+                  "chapter1":"\/Kulturzeit",
+                  "chapter2":"brand",
+                  "chapter3":"4e0d6fce-d576-4f11-9cba-b76f3d5759de",
+                  "name":"Kulturzeit",
+                  "customObject":{
+                     "domain":"3sat",
+                     "level1":"3sat",
+                     "level2":"Kultur",
+                     "chapter1":"\/Kulturzeit",
+                     "broadcast":"3sat",
+                     "id":"kulturzeit-100",
+                     "inhaltsTyp":"brand",
+                     "chapter4":""
+                  
+}
+               
+},
+               "event":{
+                  "level1":"3sat",
+                  "level2":"Kultur",
+                  "chapter1":"\/Kulturzeit",
+                  "customObject":{
+                     "domain":"3sat",
+                     "level1":"3sat",
+                     "level2":"Kultur",
+                     "chapter1":"\/Kulturzeit",
+                     "broadcast":"3sat",
+                     "id":"kulturzeit-100",
+                     "inhaltsTyp":"brand"
+                  
+}
+               
+},
+               "customVars":{
+                  "site":{
+                     "id":"kulturzeit-100",
+                     "chapter2":"brand",
+                     "chapter3":"4e0d6fce-d576-4f11-9cba-b76f3d5759de"
+                  
+}
+               
+}
+            
+}
+         
+},
+         "isTopicContent":false,
+         "stage":[
+            {
+               "profile":"http:\/\/zdf.de\/rels\/content\/group-stage-background-pd-teaser",
+               "teaser":[
+                  {
+                     "http:\/\/zdf.de\/rels\/target":{
+                        "title":"Bühne Hintergrund ",
+                        "altText":"Bühne Hintergrund",
+                        "copyrightNotice":"ZDF",
+                        "source":"ZDF",
+                        "profile":"http:\/\/zdf.de\/rels\/image",
+                        "self":"\/content\/documents\/zdf\/kultur\/kulturzeit\/sb-material\/buehne-test3-100.json",
+                        "canonical":"\/content\/documents\/buehne-test3-100.json",
+                        "layouts":{
+                           "1900x200":"https:\/\/www.3sat.de\/assets\/buehne-test3-100~1900x200?cb=1558513146063",
+                           "1900x400":"https:\/\/www.3sat.de\/assets\/buehne-test3-100~1900x400?cb=1558513146063",
+                           "640x720":"https:\/\/www.3sat.de\/assets\/buehne-test3-100~640x720?cb=1558513146063",
+                           "768xauto":"https:\/\/www.3sat.de\/assets\/buehne-test3-100~768xauto?cb=1558513146063",
+                           "1280xauto":"https:\/\/www.3sat.de\/assets\/buehne-test3-100~1280xauto?cb=1558513146063",
+                           "240x270":"https:\/\/www.3sat.de\/assets\/buehne-test3-100~240x270?cb=1558513146063",
+                           "384x216":"https:\/\/www.3sat.de\/assets\/buehne-test3-100~384x216?cb=1558513146063",
+                           "760x340":"https:\/\/www.3sat.de\/assets\/buehne-test3-100~760x340?cb=1558513146063",
+                           "840x280":"https:\/\/www.3sat.de\/assets\/buehne-test3-100~840x280?cb=1558513146063",
+                           "1500x300":"https:\/\/www.3sat.de\/assets\/buehne-test3-100~1500x300?cb=1558513146063",
+                           "840x140":"https:\/\/www.3sat.de\/assets\/buehne-test3-100~840x140?cb=1558513146063",
+                           "840x360":"https:\/\/www.3sat.de\/assets\/buehne-test3-100~840x360?cb=1558513146063",
+                           "1900x570":"https:\/\/www.3sat.de\/assets\/buehne-test3-100~1900x570?cb=1558513146063",
+                           "original":"https:\/\/www.3sat.de\/assets\/buehne-test3-100~original?cb=1558513146063",
+                           "384xauto":"https:\/\/www.3sat.de\/assets\/buehne-test3-100~384xauto?cb=1558513146063",
+                           "2850x855":"https:\/\/www.3sat.de\/assets\/buehne-test3-100~2850x855?cb=1558513146063",
+                           "276x155":"https:\/\/www.3sat.de\/assets\/buehne-test3-100~276x155?cb=1558513146063",
+                           "1280x720":"https:\/\/www.3sat.de\/assets\/buehne-test3-100~1280x720?cb=1558513146063",
+                           "1500x600":"https:\/\/www.3sat.de\/assets\/buehne-test3-100~1500x600?cb=1558513146063",
+                           "1500x800":"https:\/\/www.3sat.de\/assets\/buehne-test3-100~1500x800?cb=1558513146063",
+                           "380x170":"https:\/\/www.3sat.de\/assets\/buehne-test3-100~380x170?cb=1558513146063",
+                           "2850x300":"https:\/\/www.3sat.de\/assets\/buehne-test3-100~2850x300?cb=1558513146063",
+                           "314x314":"https:\/\/www.3sat.de\/assets\/buehne-test3-100~314x314?cb=1558513146063",
+                           "2850x600":"https:\/\/www.3sat.de\/assets\/buehne-test3-100~2850x600?cb=1558513146063",
+                           "768x432":"https:\/\/www.3sat.de\/assets\/buehne-test3-100~768x432?cb=1558513146063"
+                        
+}
+                     
+},
+                     "profile":"http:\/\/zdf.de\/rels\/content-reference\/image-background"
+                  
+}
+               
+]
+            
+}
+         
+]
+      
+}
+   
+},
+   "isTopicContent":false,
+   "editorial-tag":[
+      {
+         "editorialTagLabel":"Nachruf",
+         "editorialTagType":"undefined",
+         "profile":"http:\/\/zdf.de\/rels\/content\/editorial-tag"
+      
+},
+      {
+         "editorialTagLabel":"Schrifsteller",
+         "editorialTagType":"undefined",
+         "profile":"http:\/\/zdf.de\/rels\/content\/editorial-tag"
+      
+},
+      {
+         "editorialTagLabel":"Der Besuch des Leibarztes",
+         "editorialTagType":"undefined",
+         "profile":"http:\/\/zdf.de\/rels\/content\/editorial-tag"
+      
+},
+      {
+         "editorialTagLabel":"Per Olov Enquist",
+         "editorialTagType":"person",
+         "profile":"http:\/\/zdf.de\/rels\/content\/editorial-tag"
+      
+},
+      {
+         "editorialTagLabel":"Schweden",
+         "editorialTagType":"undefined",
+         "profile":"http:\/\/zdf.de\/rels\/content\/editorial-tag"
+      
+},
+      {
+         "editorialTagLabel":"Literatur",
+         "editorialTagType":"undefined",
+         "profile":"http:\/\/zdf.de\/rels\/content\/editorial-tag"
+      
+},
+      {
+         "editorialTagLabel":"Kultur",
+         "editorialTagType":"undefined",
+         "profile":"http:\/\/zdf.de\/rels\/content\/editorial-tag"
+      
+}
+   
+],
+   "mainVideoContent":{
+      "http:\/\/zdf.de\/rels\/target":{
+         "title":"200427_enquist_kuz",
+         "contentType":"clip",
+         "extId":"200427_enquist_kuz",
+         "domain":"kuz",
+         "duration":157,
+         "geoLocation":"none",
+         "fsk":"none",
+         "visible":true,
+         "visibleTo":"2021-04-27T19:00:00.000Z",
+         "isOnlineOnly":false,
+         "isOnlineVersion":false,
+         "aspectRatio":"16:9",
+         "profile":"http:\/\/zdf.de\/rels\/content\/content-video-vod-teaser",
+         "self":"\/content\/documents\/zdf\/kultur\/kulturzeit\/videos\/nachruf-auf-per-olov-enquist-102.json?profile=teaser",
+         "canonical":"\/content\/documents\/nachruf-auf-per-olov-enquist-102.json",
+         "http:\/\/zdf.de\/rels\/streams\/ptmd-template":"\/tmd\/2\/{playerId}\/vod\/ptmd\/3sat\/200427_enquist_kuz",
+         "streams":{
+            "default":{
+               "label":"Normal",
+               "extId":"200427_enquist_kuz",
+               "http:\/\/zdf.de\/rels\/streams\/ptmd-template":"\/tmd\/2\/{playerId}\/vod\/ptmd\/3sat\/200427_enquist_kuz"
+            
+}
+         
+}
+      
+},
+      "profile":"http:\/\/zdf.de\/rels\/content-reference\/video-content"
+   
+}
+}

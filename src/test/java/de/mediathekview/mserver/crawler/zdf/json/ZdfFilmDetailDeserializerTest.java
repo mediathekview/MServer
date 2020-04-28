@@ -94,6 +94,16 @@ public class ZdfFilmDetailDeserializerTest {
             "Die diesjährigen Oscar-Gewinner stehen schon fest. Denn die rund 8000 Juroren haben ihre Stimmzettel längst eingereicht. Am Sonntag werden die Oscars zum 90. Mal vergeben - und dann kennen auch wir die Gewinner.",
             "https://www.zdf.de/nachrichten/zdf-morgenmagazin/videos/oscars-106.html",
             "https://api.zdf.de/tmd/2/ngplayer_2_3/vod/ptmd/mediathek/180302_clip_12_mom"
+          },
+          {
+            "/dreisat/dreisat_film_details2.json",
+            "Kulturzeit",
+            "Nachruf auf Per Olov Enquist",
+            LocalDateTime.of(2020, 4, 27, 19, 20, 0),
+            Duration.ofMinutes(2).plusSeconds(37),
+            "Mit Werken wie \"Der Besuch des Leibarztes\" gehörte er zu den bekanntesten Schrifstellern Schwedens. Jetzt ist Per Olov Enquist im Alter von 85 Jahren gestorben.",
+            "https://www.3sat.de/kultur/kulturzeit/nachruf-auf-per-olov-enquist-100.html",
+            "https://api.zdf.de/tmd/2/ngplayer_2_3/vod/ptmd/3sat/200427_enquist_kuz"
           }
         });
   }

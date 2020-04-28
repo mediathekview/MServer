@@ -15,6 +15,8 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.time.Duration;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Optional;
 import java.util.UUID;
@@ -24,6 +26,8 @@ import org.apache.logging.log4j.Logger;
 public class ZdfFilmDetailDeserializer implements JsonDeserializer<Optional<ZdfFilmDto>> {
 
   private static final Logger LOG = LogManager.getLogger(ZdfFilmDetailDeserializer.class);
+
+  private static final String GERMAN_TIME_ZONE = "Europe/Berlin";
 
   private static final String JSON_ELEMENT_BEGIN = "airtimeBegin";
   private static final String JSON_ELEMENT_BRAND = "http://zdf.de/rels/brand";
@@ -166,14 +170,16 @@ public class ZdfFilmDetailDeserializer implements JsonDeserializer<Optional<ZdfF
                 broadcastArray.get(0).getAsJsonObject().get(JSON_ELEMENT_BEGIN).getAsString());
         formatter = DATE_FORMATTER_AIRTIME;
       }
+      return date.map(s -> LocalDateTime.parse(s, formatter));
     } else {
       // use editorialdate
       date = getEditorialDate(aRootNode);
-      formatter = DATE_FORMATTER_EDITORIAL;
-    }
-
-    if (date.isPresent()) {
-      return Optional.of(LocalDateTime.parse(date.get(), formatter));
+      if (date.isPresent()) {
+        final ZonedDateTime inputDateTime = ZonedDateTime.parse(date.get());
+        final LocalDateTime localDateTime =
+            inputDateTime.withZoneSameInstant(ZoneId.of(GERMAN_TIME_ZONE)).toLocalDateTime();
+        return Optional.of(localDateTime);
+      }
     }
 
     return Optional.empty();
