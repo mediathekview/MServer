@@ -14,12 +14,16 @@ import org.apache.logging.log4j.Logger;
 import java.lang.reflect.Type;
 import java.time.Duration;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Optional;
 
 public class ZdfFilmDetailDeserializer implements JsonDeserializer<Optional<ZdfFilmDto>> {
 
   private static final Logger LOG = LogManager.getLogger(ZdfFilmDetailDeserializer.class);
+
+  private static final String GERMAN_TIME_ZONE = "Europe/Berlin";
 
   private static final String JSON_ELEMENT_BEGIN = "airtimeBegin";
   private static final String JSON_ELEMENT_BRAND = "http://zdf.de/rels/brand";
@@ -41,9 +45,9 @@ public class ZdfFilmDetailDeserializer implements JsonDeserializer<Optional<ZdfF
   private static final String PLAYER_ID = "ngplayer_2_3";
 
   private static final DateTimeFormatter DATE_FORMATTER_EDITORIAL
-    = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSSXXX"); // 2016-10-29T16:15:00.000+02:00
+          = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSSXXX"); // 2016-10-29T16:15:00.000+02:00
   private static final DateTimeFormatter DATE_FORMATTER_AIRTIME
-    = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ssXXX"); // 2016-10-29T16:15:00+02:00
+          = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ssXXX"); // 2016-10-29T16:15:00+02:00
 
   private final String apiUrlBase;
 
@@ -53,19 +57,19 @@ public class ZdfFilmDetailDeserializer implements JsonDeserializer<Optional<ZdfF
 
   @Override
   public Optional<ZdfFilmDto> deserialize(
-    JsonElement aJsonObject, Type aType, JsonDeserializationContext aContext) {
+          JsonElement aJsonObject, Type aType, JsonDeserializationContext aContext) {
     JsonObject rootNode = aJsonObject.getAsJsonObject();
     JsonObject programItemTarget = null;
     JsonObject mainVideoTarget = null;
 
     if (rootNode.has(JSON_ELEMENT_PROGRAM_ITEM)
-      && !rootNode.get(JSON_ELEMENT_PROGRAM_ITEM).isJsonNull()) {
+            && !rootNode.get(JSON_ELEMENT_PROGRAM_ITEM).isJsonNull()) {
       JsonArray programItem = rootNode.getAsJsonArray(JSON_ELEMENT_PROGRAM_ITEM);
       programItemTarget
-        = programItem.get(0).getAsJsonObject().get(JSON_ELEMENT_TARGET).getAsJsonObject();
+              = programItem.get(0).getAsJsonObject().get(JSON_ELEMENT_TARGET).getAsJsonObject();
     }
     if (rootNode.has(JSON_ELEMENT_MAIN_VIDEO)
-      && !rootNode.get(JSON_ELEMENT_MAIN_VIDEO).isJsonNull()) {
+            && !rootNode.get(JSON_ELEMENT_MAIN_VIDEO).isJsonNull()) {
       JsonObject mainVideoElement = rootNode.get(JSON_ELEMENT_MAIN_VIDEO).getAsJsonObject();
       if (mainVideoElement != null) {
         JsonObject mainVideo = mainVideoElement.getAsJsonObject();
@@ -95,7 +99,7 @@ public class ZdfFilmDetailDeserializer implements JsonDeserializer<Optional<ZdfF
   private Optional<String> parseDownloadUrl(JsonObject mainVideoContent) {
     if (mainVideoContent != null) {
       Optional<String> urlOptional
-        = JsonUtils.getAttributeAsString(mainVideoContent, JSON_ATTRIBUTE_TEMPLATE);
+              = JsonUtils.getAttributeAsString(mainVideoContent, JSON_ATTRIBUTE_TEMPLATE);
 
       if (urlOptional.isPresent()) {
         String url = UrlUtils.addDomainIfMissing(urlOptional.get(), apiUrlBase).replace(PLACEHOLDER_PLAYER_ID, PLAYER_ID);
@@ -106,7 +110,7 @@ public class ZdfFilmDetailDeserializer implements JsonDeserializer<Optional<ZdfF
   }
 
   private Optional<LocalDateTime> parseAirtime(
-    JsonObject aRootNode, JsonObject aProgramItemTarget) {
+          JsonObject aRootNode, JsonObject aProgramItemTarget) {
     Optional<String> date;
     DateTimeFormatter formatter;
 
@@ -120,18 +124,20 @@ public class ZdfFilmDetailDeserializer implements JsonDeserializer<Optional<ZdfF
       } else {
         // array is ordered ascending though the oldest broadcast is the first entry
         date
-          = Optional.of(
-          broadcastArray.get(0).getAsJsonObject().get(JSON_ELEMENT_BEGIN).getAsString());
+                = Optional.of(
+                        broadcastArray.get(0).getAsJsonObject().get(JSON_ELEMENT_BEGIN).getAsString());
         formatter = DATE_FORMATTER_AIRTIME;
       }
+      return date.map(s -> LocalDateTime.parse(s, formatter));
     } else {
       // use editorialdate
       date = getEditorialDate(aRootNode);
-      formatter = DATE_FORMATTER_EDITORIAL;
-    }
-
-    if (date.isPresent()) {
-      return Optional.of(LocalDateTime.parse(date.get(), formatter));
+      if (date.isPresent()) {
+        final ZonedDateTime inputDateTime = ZonedDateTime.parse(date.get());
+        final LocalDateTime localDateTime
+                = inputDateTime.withZoneSameInstant(ZoneId.of(GERMAN_TIME_ZONE)).toLocalDateTime();
+        return Optional.of(localDateTime);
+      }
     }
 
     return Optional.empty();
