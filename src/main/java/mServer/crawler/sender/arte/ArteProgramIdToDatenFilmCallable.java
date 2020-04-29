@@ -65,10 +65,10 @@ public class ArteProgramIdToDatenFilmCallable implements Callable<Set<DatenFilm>
           films.add(createFilm(details.getTheme(), details.getWebsite(), details.getTitle(), video.getVideoUrls(), details, durationAsTime, details.getDescription()));
 
           if (!video.getVideoUrlsWithAudioDescription().isEmpty()) {
-            films.add(createFilm(details.getTheme(), details.getWebsite(), details.getTitle() + " (Hörfilm)", video.getVideoUrlsWithAudioDescription(), details, durationAsTime, details.getDescription()));
+            films.add(createFilm(details.getTheme(), details.getWebsite(), details.getTitle() + " (Audiodeskription)", video.getVideoUrlsWithAudioDescription(), details, durationAsTime, details.getDescription()));
           }
           if (!video.getVideoUrlsWithSubtitle().isEmpty()) {
-            films.add(createFilm(details.getTheme(), details.getWebsite(), details.getTitle() + " (Hörfassung)", video.getVideoUrlsWithSubtitle(), details, durationAsTime, details.getDescription()));
+            films.add(createFilm(details.getTheme(), details.getWebsite(), details.getTitle() + " (mit Untertitel)", video.getVideoUrlsWithSubtitle(), details, durationAsTime, details.getDescription()));
           }
         }
       } else {
