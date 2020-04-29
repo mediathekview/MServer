@@ -17,9 +17,6 @@ import de.mediathekview.mserver.crawler.ard.ArdFilmDto;
 import de.mediathekview.mserver.crawler.ard.ArdFilmInfoDto;
 import de.mediathekview.mserver.crawler.ard.ArdUrlBuilder;
 import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
-import org.apache.commons.lang3.StringUtils;
-import org.apache.logging.log4j.LogManager;
-
 import java.lang.reflect.Type;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -28,7 +25,13 @@ import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeParseException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+import java.util.UUID;
+import org.apache.commons.lang3.StringUtils;
+import org.apache.logging.log4j.LogManager;
 
 public class ArdFilmDeserializer implements JsonDeserializer<List<ArdFilmDto>> {
 
@@ -123,8 +126,7 @@ public class ArdFilmDeserializer implements JsonDeserializer<List<ArdFilmDto>> {
 
     final JsonObject playerPageObject = playerPageElement.getAsJsonObject();
     final Optional<String> topic = parseTopic(playerPageObject);
-    final Optional<String> title =
-        JsonUtils.getAttributeAsString(playerPageObject, ATTRIBUTE_TITLE);
+    final Optional<String> title = parseTitle(playerPageObject);
     final Optional<String> description =
         JsonUtils.getAttributeAsString(playerPageObject, ATTRIBUTE_SYNOPSIS);
     final Optional<LocalDateTime> date = parseDate(playerPageObject);
@@ -156,6 +158,15 @@ public class ArdFilmDeserializer implements JsonDeserializer<List<ArdFilmDto>> {
     }
 
     return films;
+  }
+
+  private Optional<String> parseTitle(final JsonObject playerPageObject) {
+    Optional<String> title = JsonUtils.getAttributeAsString(playerPageObject, ATTRIBUTE_TITLE);
+    if (title.isPresent()) {
+      return Optional.of(title.get().replace("Hörfassung", "Audiodeskription"));
+    }
+
+    return title;
   }
 
   private Optional<String> parseChannelType(final JsonObject playerPageObject) {
