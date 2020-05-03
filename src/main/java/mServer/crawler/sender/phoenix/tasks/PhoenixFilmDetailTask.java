@@ -16,6 +16,7 @@ import mServer.crawler.sender.zdf.ZdfConstants;
 import mServer.crawler.sender.zdf.ZdfVideoUrlOptimizer;
 import mServer.crawler.sender.zdf.json.DownloadDto;
 import mServer.crawler.sender.zdf.json.ZdfDownloadDtoDeserializer;
+import mServer.crawler.sender.zdf.tasks.ZdfTaskBase;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.xml.sax.SAXException;

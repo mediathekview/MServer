@@ -11,6 +11,7 @@ import mServer.crawler.sender.base.CrawlerUrlDTO;
 import mServer.crawler.sender.base.SendungOverviewDto;
 import mServer.crawler.sender.base.AbstractRecursivConverterTask;
 import mServer.crawler.sender.phoenix.parser.PhoenixSendungOverviewDeserializer;
+import mServer.crawler.sender.zdf.tasks.ZdfTaskBase;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -50,12 +51,12 @@ public class PhoenixOverviewTask extends ZdfTaskBase<CrawlerUrlDTO, CrawlerUrlDT
 
       SendungOverviewDto overviewDto = overviewDtoOptional.get();
       addResults(overviewDto.getUrls());
-
+/*
       if (overviewDto.getNextPageId().isPresent() 
         // Workaround to fix paging problem in Phönix-API
         && !aDTO.getUrl().endsWith(overviewDto.getNextPageId().get())) {
         taskResults.addAll(createNewOwnInstance(baseUrl + overviewDto.getNextPageId().get()).invoke());
-      }
+      }*/
     } catch (Exception e) {
       LOG.fatal(e);
     }
