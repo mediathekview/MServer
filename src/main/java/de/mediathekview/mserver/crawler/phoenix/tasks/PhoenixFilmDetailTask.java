@@ -24,6 +24,7 @@ import java.util.Optional;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import javax.ws.rs.client.WebTarget;
+import javax.xml.XMLConstants;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
@@ -43,7 +44,7 @@ public class PhoenixFilmDetailTask extends ZdfTaskBase<Film, CrawlerUrlDTO> {
   private final String filmDetailHost;
   private final String videoDetailHost;
 
-  private final ZdfVideoUrlOptimizer optimizer = new ZdfVideoUrlOptimizer();
+  private final transient ZdfVideoUrlOptimizer optimizer = new ZdfVideoUrlOptimizer();
 
   public PhoenixFilmDetailTask(AbstractCrawler aCrawler,
       ConcurrentLinkedQueue<CrawlerUrlDTO> aUrlToCrawlDTOs, Optional<String> aAuthKey,
@@ -134,6 +135,8 @@ public class PhoenixFilmDetailTask extends ZdfTaskBase<Film, CrawlerUrlDTO> {
 
       SAXParserFactory factory = SAXParserFactory.newInstance();
       SAXParser saxParser = factory.newSAXParser();
+      saxParser.setProperty(XMLConstants.ACCESS_EXTERNAL_DTD, "");
+      saxParser.setProperty(XMLConstants.ACCESS_EXTERNAL_SCHEMA, "");
       PhoenixFilmXmlHandler handler = new PhoenixFilmXmlHandler();
       saxParser.parse(xmlUrl, handler);
 
