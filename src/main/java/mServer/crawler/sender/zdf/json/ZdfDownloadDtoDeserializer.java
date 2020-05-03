@@ -124,7 +124,7 @@ public class ZdfDownloadDtoDeserializer implements JsonDeserializer<Optional<Dow
           if (foundGeoLocation.isPresent()) {
             dto.setGeoLocation(foundGeoLocation.get());
           } else {
-            LOG.debug(String.format("Can't find a GeoLocation for \"%s", geoValue.getAsString()));
+            LOG.debug("Can't find a GeoLocation for \"{}\"", geoValue.getAsString());
           }
         }
       }

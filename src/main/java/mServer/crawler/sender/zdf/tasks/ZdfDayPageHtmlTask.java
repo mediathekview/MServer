@@ -13,7 +13,7 @@ public class ZdfDayPageHtmlTask extends AbstractDocumentTask<CrawlerUrlDTO, Craw
 
   private final transient ZdfDayPageHtmlDeserializer deserializer;
   private final String apiUrlBase;
-  private final JsoupConnection jsoupConnection;
+  private final transient JsoupConnection jsoupConnection;
 
   public ZdfDayPageHtmlTask(
           final String apiUrlBase,

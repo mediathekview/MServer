@@ -2,10 +2,7 @@ package mServer.crawler.sender.dreisat;
 
 import de.mediathekview.mlib.Const;
 import org.jetbrains.annotations.NotNull;
-
-import java.util.Collection;
 import java.util.concurrent.ExecutionException;
-import java.util.concurrent.ForkJoinPool;
 import mServer.crawler.FilmeSuchen;
 import mServer.crawler.sender.zdf.AbstractZdfCrawler;
 import mServer.crawler.sender.zdf.ZdfConfiguration;
@@ -21,10 +18,10 @@ public class DreiSatCrawler extends AbstractZdfCrawler {
    * and videos the search auth key will be set as video key too.
    *
    * @return The configuration containing the auth key.
-   * @throws ExecutionException Could be thrown if something went's wrong while
-   * searching.
+   * @throws ExecutionException   Could be thrown if something went's wrong while
+   *                              searching.
    * @throws InterruptedException Could be thrown if the task will be
-   * interrupted.
+   *                              interrupted.
    */
   @Override
   protected ZdfConfiguration loadConfiguration() throws ExecutionException, InterruptedException {

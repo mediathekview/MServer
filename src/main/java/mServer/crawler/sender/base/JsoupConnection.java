@@ -1,17 +1,18 @@
 package mServer.crawler.sender.base;
 
-import java.io.IOException;
 import org.jsoup.Connection;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.parser.Parser;
+
+import java.io.IOException;
 
 /**
  * Helper Class to get rid of static method call for better testability
  */
 public class JsoupConnection {
 
-  public Connection getConnection(String url) throws IOException {
+  public Connection getConnection(String url) {
     return Jsoup.connect(url);
   }
 

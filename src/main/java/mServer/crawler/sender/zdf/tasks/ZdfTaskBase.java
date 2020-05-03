@@ -2,6 +2,10 @@ package mServer.crawler.sender.zdf.tasks;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import mServer.crawler.sender.MediathekReader;
+import mServer.crawler.sender.base.AbstractRestTask;
+import mServer.crawler.sender.base.CrawlerUrlDTO;
+import mServer.crawler.sender.zdf.ZdfConstants;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -11,21 +15,17 @@ import javax.ws.rs.core.Response;
 import java.lang.reflect.Type;
 import java.util.Optional;
 import java.util.concurrent.ConcurrentLinkedQueue;
-import mServer.crawler.sender.MediathekReader;
-import mServer.crawler.sender.base.AbstractRestTask;
-import mServer.crawler.sender.base.CrawlerUrlDTO;
-import mServer.crawler.sender.zdf.ZdfConstants;
 
 public abstract class ZdfTaskBase<T, D extends CrawlerUrlDTO> extends AbstractRestTask<T, D> {
 
   private static final Logger LOG = LogManager.getLogger(ZdfTaskBase.class);
 
-  private final GsonBuilder gsonBuilder;
+  private final transient GsonBuilder gsonBuilder;
 
   public ZdfTaskBase(
-          final MediathekReader aCrawler,
-          final ConcurrentLinkedQueue<D> aUrlToCrawlDtos,
-          final Optional<String> aAuthKey) {
+    final MediathekReader aCrawler,
+    final ConcurrentLinkedQueue<D> aUrlToCrawlDtos,
+    final Optional<String> aAuthKey) {
     super(aCrawler, aUrlToCrawlDtos, aAuthKey);
     gsonBuilder = new GsonBuilder();
   }
@@ -43,10 +43,9 @@ public abstract class ZdfTaskBase<T, D extends CrawlerUrlDTO> extends AbstractRe
       return gson.fromJson(jsonOutput, aType);
     } else {
       LOG.error(
-              "ZdfTaskBase: request of url "
-              + aTarget.getUri().toString()
-              + " failed: "
-              + response.getStatus());
+        "ZdfTaskBase: request of url {} failed: {}",
+        aTarget.getUri(),
+        response.getStatus());
     }
 
     return Optional.empty();
@@ -61,10 +60,9 @@ public abstract class ZdfTaskBase<T, D extends CrawlerUrlDTO> extends AbstractRe
       return gson.fromJson(jsonOutput, aType);
     } else {
       LOG.error(
-              "ZdfTaskBase: request of url "
-              + aTarget.getUri().toString()
-              + " failed: "
-              + response.getStatus());
+        "ZdfTaskBase: request of url {} failed: {}",
+        aTarget.getUri(),
+        response.getStatus());
     }
 
     return null;
@@ -74,8 +72,8 @@ public abstract class ZdfTaskBase<T, D extends CrawlerUrlDTO> extends AbstractRe
     Builder request = aTarget.request();
     if (authKey.isPresent()) {
       request
-              = request.header(
-                      ZdfConstants.HEADER_AUTHENTIFICATION, AUTHORIZATION_BEARER + authKey.get());
+        = request.header(
+        ZdfConstants.HEADER_AUTHENTIFICATION, AUTHORIZATION_BEARER + authKey.get());
     }
 
     return request.header(HEADER_ACCEPT_ENCODING, ENCODING_GZIP).get();

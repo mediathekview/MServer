@@ -96,7 +96,7 @@ public class ZdfIndexPageTask implements Callable<ZdfConfiguration> {
               (int) TimeUnit.SECONDS.toMillis(60));
       return Optional.of(document);
     } catch (final IOException ex) {
-      LOG.fatal("ZdfIndexPageTask: error loading url " + url, ex);
+      LOG.fatal("ZdfIndexPageTask: error loading url {}", url, ex);
     }
 
     return Optional.empty();
