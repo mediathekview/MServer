@@ -7,14 +7,15 @@ import mServer.crawler.sender.MediathekReader;
 import mServer.crawler.sender.base.AbstractRecursivConverterTask;
 import mServer.crawler.sender.base.CrawlerUrlDTO;
 import mServer.crawler.sender.base.Qualities;
-import mServer.crawler.sender.phoenix.DownloadDto;
 import mServer.crawler.sender.phoenix.PhoenixConstants;
 import mServer.crawler.sender.phoenix.parser.PhoenixFilmDetailDeserializer;
 import mServer.crawler.sender.phoenix.parser.PhoenixFilmDetailDto;
 import mServer.crawler.sender.phoenix.parser.PhoenixFilmXmlHandler;
-import mServer.crawler.sender.phoenix.parser.ZdfDownloadDtoDeserializer;
 import mServer.crawler.sender.zdf.DownloadDtoFilmConverter;
+import mServer.crawler.sender.zdf.ZdfConstants;
 import mServer.crawler.sender.zdf.ZdfVideoUrlOptimizer;
+import mServer.crawler.sender.zdf.json.DownloadDto;
+import mServer.crawler.sender.zdf.json.ZdfDownloadDtoDeserializer;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.xml.sax.SAXException;
@@ -77,7 +78,7 @@ public class PhoenixFilmDetailTask extends ZdfTaskBase<DatenFilm, CrawlerUrlDTO>
       PhoenixFilmDetailDto filmDetailDto = filmDetailDtoOptional.get();
       Optional<PhoenixFilmXmlHandler> filmXmlDtoOptional = loadFilmXml(filmDetailDto.getBaseName());
       if (!filmXmlDtoOptional.isPresent()) {
-        LOG.info("PhoenixFilmDetailTask: error parsing xml " + aDTO.getUrl());
+        LOG.info("PhoenixFilmDetailTask: error parsing xml {}", aDTO.getUrl());
         return;
       }
 
@@ -90,11 +91,11 @@ public class PhoenixFilmDetailTask extends ZdfTaskBase<DatenFilm, CrawlerUrlDTO>
       Optional<DownloadDto> videoDetailDtoOptional = deserializeOptional(createWebTarget(videoDetailHost + PhoenixConstants.URL_VIDEO_DETAILS_BASE + filmXmlHandler.getBaseName()),
         OPTIONAL_DOWNLOAD_DTO_TYPE_TOKEN);
       if (!videoDetailDtoOptional.isPresent()) {
-        LOG.info("PhoenixFilmDetailTask: error deserializing download dto " + aDTO.getUrl());
+        LOG.info("PhoenixFilmDetailTask: error deserializing download  {}.", aDTO.getUrl());
         return;
       }
 
-      addFilm(filmDetailDto, filmXmlHandler, videoDetailDtoOptional.get());
+      addFilm(filmDetailDto, filmXmlHandler, videoDetailDtoOptional.get(), ZdfConstants.LANGUAGE_GERMAN);
 
     } catch (Exception e) {
       // catch all exceptions to ensure that the crawler can process the other results
@@ -102,10 +103,10 @@ public class PhoenixFilmDetailTask extends ZdfTaskBase<DatenFilm, CrawlerUrlDTO>
     }
   }
 
-  private void addFilm(PhoenixFilmDetailDto filmDetailDto, PhoenixFilmXmlHandler filmXmlHandler, DownloadDto downloadDto) {
+  private void addFilm(PhoenixFilmDetailDto filmDetailDto, PhoenixFilmXmlHandler filmXmlHandler, DownloadDto downloadDto, final String language) {
 
     DownloadDtoFilmConverter.getOptimizedUrls(
-      downloadDto.getDownloadUrls(), Optional.of(optimizer));
+      downloadDto.getDownloadUrls(language), Optional.of(optimizer));
 
     String datum = filmXmlHandler.getTime().format(DATE_FORMAT);
     String zeit = filmXmlHandler.getTime().format(TIME_FORMAT);
@@ -114,18 +115,18 @@ public class PhoenixFilmDetailTask extends ZdfTaskBase<DatenFilm, CrawlerUrlDTO>
       filmDetailDto.getTopic(),
       filmDetailDto.getWebsite().get(),
       filmDetailDto.getTitle(),
-      downloadDto.getUrl(Qualities.NORMAL).get(),
+      downloadDto.getUrl(language, Qualities.NORMAL).get(),
       "",
       datum,
       zeit,
       filmXmlHandler.getDuration().getSeconds(),
       filmDetailDto.getDescription());
 
-    if (downloadDto.getUrl(Qualities.HD).isPresent()) {
-      CrawlerTool.addUrlHd(film, downloadDto.getUrl(Qualities.HD).get());
+    if (downloadDto.getUrl(language, Qualities.HD).isPresent()) {
+      CrawlerTool.addUrlHd(film, downloadDto.getUrl(language, Qualities.HD).get());
     }
-    if (downloadDto.getUrl(Qualities.SMALL).isPresent()) {
-      CrawlerTool.addUrlKlein(film, downloadDto.getUrl(Qualities.SMALL).get());
+    if (downloadDto.getUrl(language, Qualities.SMALL).isPresent()) {
+      CrawlerTool.addUrlKlein(film, downloadDto.getUrl(language, Qualities.SMALL).get());
     }
     if (downloadDto.getSubTitleUrl().isPresent()) {
       CrawlerTool.addUrlSubtitle(film, downloadDto.getSubTitleUrl().get());
