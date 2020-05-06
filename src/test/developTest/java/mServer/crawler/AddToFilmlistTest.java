@@ -20,7 +20,8 @@ public class AddToFilmlistTest {
     private static final String FILM_TITLE1 = "Title 1";
     private static final String FILM_TITLE2 = "Title 2";
     private static final String FILM_TITLE3 = "Title 3";
-    
+    private static final String FILM_TITLE_FILTER = "Geschichte einer Liebe - Freya";
+
     private static MockWebServer mockServer;
     private static String baseUrl;
     
@@ -65,7 +66,18 @@ public class AddToFilmlistTest {
     @Test
     public void testAddOldListDifferentSenderAndUrlAdded() {
         listToAdd.add(createTestFilm(Const.ARD, FILM_TOPIC1, FILM_TITLE1, FILM_NAME_ONLINE));
-        
+
+        AddToFilmlist target = new AddToFilmlist(list, listToAdd);
+        target.addOldList();
+
+        assertThat(list.size(), equalTo(3));
+    }
+
+    @Test
+    public void testAddOldListBannedFilmIgnored() {
+        listToAdd.add(createTestFilm(Const.ARD, FILM_TOPIC1, FILM_TITLE1, FILM_NAME_ONLINE));
+        listToAdd.add(createTestFilm(Const.ARD, FILM_TOPIC1, FILM_TITLE_FILTER, FILM_NAME_ONLINE));
+
         AddToFilmlist target = new AddToFilmlist(list, listToAdd);
         target.addOldList();
         

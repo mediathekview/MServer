@@ -27,6 +27,8 @@ import de.mediathekview.mlib.tool.MVHttpClient;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.*;
+
+import mServer.crawler.BannedFilmFilter;
 import mServer.crawler.CrawlerTool;
 import mServer.crawler.FilmeSuchen;
 import mServer.crawler.RunSender;
@@ -206,6 +208,10 @@ public abstract class MediathekReader extends Thread {
    */
   protected void addFilm(DatenFilm film) {
 
+    if (BannedFilmFilter.isBanned(film)) {
+      return;
+    }
+
     setFileSize(film);
     upgradeUrl(film);
 
@@ -231,6 +237,7 @@ public abstract class MediathekReader extends Thread {
             || film.arr[DatenFilm.FILM_URL].startsWith("http://mediandr-a.akamaihd.net//progressive_geo/")
             || film.arr[DatenFilm.FILM_URL].startsWith("https://mediandr-a.akamaihd.net//progressive_geo/")
             || film.arr[DatenFilm.FILM_URL].startsWith("https://pdodswr-a.akamaihd.net/swr/geo/de/")
+            || film.arr[DatenFilm.FILM_URL].startsWith("https://pdodswr-a.akamaihd.net/swrfernsehen/geo/de/")
             || film.arr[DatenFilm.FILM_URL].startsWith("http://mediandr-a.akamaihd.net/progressive_geo")
             || film.arr[DatenFilm.FILM_URL].startsWith("https://mediandr-a.akamaihd.net/progressive_geo")
             || film.arr[DatenFilm.FILM_URL].startsWith("http://cdn-storage.br.de/geo/")
