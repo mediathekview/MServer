@@ -8,7 +8,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
 import de.mediathekview.mlib.tool.Log;
-import mServer.crawler.sender.newsearch.Qualities;
+import mServer.crawler.sender.base.Qualities;
 import mServer.crawler.sender.orf.OrfVideoInfoDTO;
 
 public class OrfVideoDetailDeserializer implements JsonDeserializer<Optional<OrfVideoInfoDTO>> {

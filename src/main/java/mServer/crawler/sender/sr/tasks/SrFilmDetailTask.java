@@ -28,7 +28,7 @@ import mServer.crawler.sender.ard.json.ArdVideoInfoDto;
 import mServer.crawler.sender.ard.json.ArdVideoInfoJsonDeserializer;
 import mServer.crawler.sender.base.AbstractUrlTask;
 import mServer.crawler.sender.base.DateUtils;
-import mServer.crawler.sender.newsearch.Qualities;
+import mServer.crawler.sender.base.Qualities;
 import mServer.crawler.sender.base.HtmlDocumentUtils;
 
 public class SrFilmDetailTask extends SrRateLimitedDocumentTask<DatenFilm, SrTopicUrlDTO> {

@@ -2,7 +2,7 @@ package mServer.crawler.sender.wdr;
 
 import java.util.Arrays;
 import java.util.Collection;
-import mServer.crawler.sender.newsearch.Qualities;
+import mServer.crawler.sender.base.Qualities;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.junit.Assert.assertThat;

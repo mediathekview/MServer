@@ -13,7 +13,7 @@ import mServer.crawler.sender.ard.ArdFilmInfoDto;
 import mServer.crawler.sender.ard.ArdUrlBuilder;
 import mServer.crawler.sender.base.JsonUtils;
 import mServer.crawler.sender.base.UrlUtils;
-import mServer.crawler.sender.newsearch.Qualities;
+import mServer.crawler.sender.base.Qualities;
 import org.apache.logging.log4j.LogManager;
 
 import java.lang.reflect.Type;
@@ -134,8 +134,7 @@ public class ArdFilmDeserializer implements JsonDeserializer<List<ArdFilmDto>> {
 
     final JsonObject playerPageObject = playerPageElement.getAsJsonObject();
     final Optional<String> topic = parseTopic(playerPageObject);
-    final Optional<String> title
-            = JsonUtils.getAttributeAsString(playerPageObject, ATTRIBUTE_TITLE);
+    final Optional<String> title = JsonUtils.getAttributeAsString(playerPageObject, ATTRIBUTE_TITLE);
     final Optional<String> description
             = JsonUtils.getAttributeAsString(playerPageObject, ATTRIBUTE_SYNOPSIS);
     final Optional<LocalDateTime> date = parseDate(playerPageObject);
