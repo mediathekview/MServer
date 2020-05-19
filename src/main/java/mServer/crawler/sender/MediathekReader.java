@@ -253,7 +253,8 @@ public abstract class MediathekReader extends Thread {
             || film.arr[DatenFilm.FILM_URL].startsWith("http://wdrmedien-a.akamaihd.net/medp/ondemand/de/")
             || film.arr[DatenFilm.FILM_URL].startsWith("http://pd-videos.daserste.de/de/")
             || film.arr[DatenFilm.FILM_URL].startsWith("https://pdvideosdaserste-a.akamaihd.net/de/")
-            || film.arr[DatenFilm.FILM_URL].startsWith("https://odgeomdr-a.akamaihd.net/")) {
+            || film.arr[DatenFilm.FILM_URL].startsWith("https://odgeomdr-a.akamaihd.net/")
+            || film.arr[DatenFilm.FILM_URL].startsWith("https://rbbmediapmdp-a.akamaihd.net/content-de/")) {
       film.arr[DatenFilm.FILM_GEO] = DatenFilm.GEO_DE;
     }
     if (film.arr[DatenFilm.FILM_URL].startsWith("http://ondemand-dach.wdr.de/")
@@ -311,6 +312,7 @@ public abstract class MediathekReader extends Thread {
       case Const.SWR:
       case Const.MDR:
       case Const.BR:
+      case Const.RBB:
         processArd(film);
         break;
 
