@@ -2,7 +2,7 @@ package mServer.crawler.sender.hr;
 
 import java.util.Optional;
 import mServer.crawler.sender.ard.ArdVideoDTO;
-import mServer.crawler.sender.newsearch.Qualities;
+import mServer.crawler.sender.base.Qualities;
 
 public class HrVideoInfoDto extends ArdVideoDTO {
 

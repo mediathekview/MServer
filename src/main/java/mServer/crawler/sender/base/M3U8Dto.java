@@ -5,7 +5,6 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Objects;
 import java.util.Optional;
-import mServer.crawler.sender.newsearch.Qualities;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 

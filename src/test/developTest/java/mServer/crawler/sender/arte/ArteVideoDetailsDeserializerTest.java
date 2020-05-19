@@ -14,7 +14,7 @@ import org.junit.runners.Parameterized;
 
 import com.google.gson.JsonObject;
 
-import mServer.crawler.sender.newsearch.GeoLocations;
+import mServer.crawler.sender.base.GeoLocations;
 import mServer.test.JsonFileReader;
 
 @RunWith(Parameterized.class)

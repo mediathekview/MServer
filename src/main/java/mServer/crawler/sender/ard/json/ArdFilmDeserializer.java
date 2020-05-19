@@ -13,7 +13,7 @@ import mServer.crawler.sender.ard.ArdFilmInfoDto;
 import mServer.crawler.sender.ard.ArdUrlBuilder;
 import mServer.crawler.sender.base.JsonUtils;
 import mServer.crawler.sender.base.UrlUtils;
-import mServer.crawler.sender.newsearch.Qualities;
+import mServer.crawler.sender.base.Qualities;
 import org.apache.logging.log4j.LogManager;
 
 import java.lang.reflect.Type;

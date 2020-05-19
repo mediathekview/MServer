@@ -33,7 +33,7 @@ import mServer.crawler.FilmeSuchen;
 import mServer.crawler.GetUrl;
 import mServer.crawler.sender.dw.DwVideoDTO;
 import mServer.crawler.sender.dw.DwVideoDeserializer;
-import mServer.crawler.sender.newsearch.Qualities;
+import mServer.crawler.sender.base.Qualities;
 import mServer.tool.MserverDaten;
 
 public class MediathekDw extends MediathekReader implements Runnable {

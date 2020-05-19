@@ -1,6 +1,6 @@
 package mServer.crawler.sender.arte;
 
-import mServer.crawler.sender.newsearch.GeoLocations;
+import mServer.crawler.sender.base.GeoLocations;
 
 public class ArteVideoDetailsDTO {
     private String broadcastBegin = "";

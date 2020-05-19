@@ -2,7 +2,7 @@ package mServer.crawler.sender.ard;
 
 import java.util.HashMap;
 import java.util.Map;
-import mServer.crawler.sender.newsearch.Qualities;
+import mServer.crawler.sender.base.Qualities;
 
 public class ArdVideoDTO {
     private final Map<Qualities,String> videoUrls;

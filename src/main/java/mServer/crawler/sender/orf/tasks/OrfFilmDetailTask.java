@@ -20,7 +20,7 @@ import java.util.Optional;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import mServer.crawler.CrawlerTool;
 import mServer.crawler.sender.MediathekReader;
-import mServer.crawler.sender.newsearch.Qualities;
+import mServer.crawler.sender.base.Qualities;
 import mServer.crawler.sender.base.HtmlDocumentUtils;
 import mServer.crawler.sender.orf.OrfEpisodeInfoDTO;
 import mServer.crawler.sender.orf.OrfVideoInfoDTO;

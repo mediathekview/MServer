@@ -3,7 +3,7 @@ package mServer.crawler.sender.ard.json;
 import java.util.EnumMap;
 import java.util.Map;
 import java.util.Optional;
-import mServer.crawler.sender.newsearch.Qualities;
+import mServer.crawler.sender.base.Qualities;
 import org.apache.commons.lang3.StringUtils;
 
 /**

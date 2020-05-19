@@ -2,30 +2,35 @@ package mServer.crawler.sender.phoenix.tasks;
 
 import com.google.gson.reflect.TypeToken;
 import de.mediathekview.mlib.daten.DatenFilm;
-import java.io.IOException;
-import java.lang.reflect.Type;
-import java.net.MalformedURLException;
-import java.time.format.DateTimeFormatter;
-import java.util.Optional;
-import java.util.concurrent.ConcurrentLinkedQueue;
-import javax.ws.rs.client.WebTarget;
-import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.parsers.SAXParser;
-import javax.xml.parsers.SAXParserFactory;
 import mServer.crawler.CrawlerTool;
 import mServer.crawler.sender.MediathekReader;
-import mServer.crawler.sender.newsearch.Qualities;
-import mServer.crawler.sender.base.CrawlerUrlDTO;
 import mServer.crawler.sender.base.AbstractRecursivConverterTask;
-import mServer.crawler.sender.phoenix.DownloadDto;
+import mServer.crawler.sender.base.CrawlerUrlDTO;
+import mServer.crawler.sender.base.Qualities;
 import mServer.crawler.sender.phoenix.PhoenixConstants;
 import mServer.crawler.sender.phoenix.parser.PhoenixFilmDetailDeserializer;
 import mServer.crawler.sender.phoenix.parser.PhoenixFilmDetailDto;
 import mServer.crawler.sender.phoenix.parser.PhoenixFilmXmlHandler;
-import mServer.crawler.sender.phoenix.parser.ZdfDownloadDtoDeserializer;
+import mServer.crawler.sender.zdf.DownloadDtoFilmConverter;
+import mServer.crawler.sender.zdf.ZdfConstants;
+import mServer.crawler.sender.zdf.ZdfVideoUrlOptimizer;
+import mServer.crawler.sender.zdf.json.DownloadDto;
+import mServer.crawler.sender.zdf.json.ZdfDownloadDtoDeserializer;
+import mServer.crawler.sender.zdf.tasks.ZdfTaskBase;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.xml.sax.SAXException;
+
+import javax.ws.rs.client.WebTarget;
+import javax.xml.XMLConstants;
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.parsers.SAXParser;
+import javax.xml.parsers.SAXParserFactory;
+import java.io.IOException;
+import java.lang.reflect.Type;
+import java.time.format.DateTimeFormatter;
+import java.util.Optional;
+import java.util.concurrent.ConcurrentLinkedQueue;
 
 public class PhoenixFilmDetailTask extends ZdfTaskBase<DatenFilm, CrawlerUrlDTO> {
 
@@ -37,16 +42,18 @@ public class PhoenixFilmDetailTask extends ZdfTaskBase<DatenFilm, CrawlerUrlDTO>
   }.getType();
 
   private static final DateTimeFormatter DATE_FORMAT
-          = DateTimeFormatter.ofPattern("dd.MM.yyyy");
+    = DateTimeFormatter.ofPattern("dd.MM.yyyy");
   private static final DateTimeFormatter TIME_FORMAT
-          = DateTimeFormatter.ofPattern("HH:mm:ss");
+    = DateTimeFormatter.ofPattern("HH:mm:ss");
 
   private final String filmDetailHost;
   private final String videoDetailHost;
 
+  private final transient ZdfVideoUrlOptimizer optimizer = new ZdfVideoUrlOptimizer();
+
   public PhoenixFilmDetailTask(MediathekReader aCrawler,
-          ConcurrentLinkedQueue<CrawlerUrlDTO> aUrlToCrawlDTOs, Optional<String> aAuthKey,
-          String filmDetailHost, String videoDetailHost) {
+                               ConcurrentLinkedQueue<CrawlerUrlDTO> aUrlToCrawlDTOs, Optional<String> aAuthKey,
+                               String filmDetailHost, String videoDetailHost) {
     super(aCrawler, aUrlToCrawlDTOs, aAuthKey);
     this.filmDetailHost = filmDetailHost;
     this.videoDetailHost = videoDetailHost;
@@ -57,7 +64,7 @@ public class PhoenixFilmDetailTask extends ZdfTaskBase<DatenFilm, CrawlerUrlDTO>
 
   @Override
   protected AbstractRecursivConverterTask<DatenFilm, CrawlerUrlDTO> createNewOwnInstance(
-          ConcurrentLinkedQueue<CrawlerUrlDTO> aElementsToProcess) {
+    ConcurrentLinkedQueue<CrawlerUrlDTO> aElementsToProcess) {
     return new PhoenixFilmDetailTask(this.crawler, aElementsToProcess, this.authKey, this.filmDetailHost, this.videoDetailHost);
   }
 
@@ -73,7 +80,7 @@ public class PhoenixFilmDetailTask extends ZdfTaskBase<DatenFilm, CrawlerUrlDTO>
       PhoenixFilmDetailDto filmDetailDto = filmDetailDtoOptional.get();
       Optional<PhoenixFilmXmlHandler> filmXmlDtoOptional = loadFilmXml(filmDetailDto.getBaseName());
       if (!filmXmlDtoOptional.isPresent()) {
-        LOG.info("PhoenixFilmDetailTask: error parsing xml " + aDTO.getUrl());
+        LOG.info("PhoenixFilmDetailTask: error parsing xml {}", aDTO.getUrl());
         return;
       }
 
@@ -84,44 +91,44 @@ public class PhoenixFilmDetailTask extends ZdfTaskBase<DatenFilm, CrawlerUrlDTO>
       }
 
       Optional<DownloadDto> videoDetailDtoOptional = deserializeOptional(createWebTarget(videoDetailHost + PhoenixConstants.URL_VIDEO_DETAILS_BASE + filmXmlHandler.getBaseName()),
-              OPTIONAL_DOWNLOAD_DTO_TYPE_TOKEN);
+        OPTIONAL_DOWNLOAD_DTO_TYPE_TOKEN);
       if (!videoDetailDtoOptional.isPresent()) {
-        LOG.info("PhoenixFilmDetailTask: error deserializing download dto " + aDTO.getUrl());
+        LOG.info("PhoenixFilmDetailTask: error deserializing download  {}.", aDTO.getUrl());
         return;
       }
 
-      addFilm(filmDetailDto, filmXmlHandler, videoDetailDtoOptional.get());
+      addFilm(filmDetailDto, filmXmlHandler, videoDetailDtoOptional.get(), ZdfConstants.LANGUAGE_GERMAN);
 
-    } catch (MalformedURLException e) {
-      LOG.error("PhoenixFilmDetailTask: url can't be parsed: ", e);
     } catch (Exception e) {
       // catch all exceptions to ensure that the crawler can process the other results
       LOG.fatal(e);
     }
   }
 
-  private void addFilm(PhoenixFilmDetailDto filmDetailDto, PhoenixFilmXmlHandler filmXmlHandler, DownloadDto downloadDto)
-          throws MalformedURLException {
+  private void addFilm(PhoenixFilmDetailDto filmDetailDto, PhoenixFilmXmlHandler filmXmlHandler, DownloadDto downloadDto, final String language) {
+
+    DownloadDtoFilmConverter.getOptimizedUrls(
+      downloadDto.getDownloadUrls(language), Optional.of(optimizer));
 
     String datum = filmXmlHandler.getTime().format(DATE_FORMAT);
     String zeit = filmXmlHandler.getTime().format(TIME_FORMAT);
 
     final DatenFilm film = new DatenFilm(crawler.getSendername(),
-            filmDetailDto.getTopic(),
-            filmDetailDto.getWebsite().get(),
-            filmDetailDto.getTitle(),
-            downloadDto.getUrl(Qualities.NORMAL).get(),
-            "",
-            datum,
-            zeit,
-            filmXmlHandler.getDuration().getSeconds(),
-            filmDetailDto.getDescription());
+      filmDetailDto.getTopic(),
+      filmDetailDto.getWebsite().get(),
+      filmDetailDto.getTitle(),
+      downloadDto.getUrl(language, Qualities.NORMAL).get(),
+      "",
+      datum,
+      zeit,
+      filmXmlHandler.getDuration().getSeconds(),
+      filmDetailDto.getDescription());
 
-    if (downloadDto.getUrl(Qualities.HD).isPresent()) {
-      CrawlerTool.addUrlHd(film, downloadDto.getUrl(Qualities.HD).get());
+    if (downloadDto.getUrl(language, Qualities.HD).isPresent()) {
+      CrawlerTool.addUrlHd(film, downloadDto.getUrl(language, Qualities.HD).get());
     }
-    if (downloadDto.getUrl(Qualities.SMALL).isPresent()) {
-      CrawlerTool.addUrlKlein(film, downloadDto.getUrl(Qualities.SMALL).get());
+    if (downloadDto.getUrl(language, Qualities.SMALL).isPresent()) {
+      CrawlerTool.addUrlKlein(film, downloadDto.getUrl(language, Qualities.SMALL).get());
     }
     if (downloadDto.getSubTitleUrl().isPresent()) {
       CrawlerTool.addUrlSubtitle(film, downloadDto.getSubTitleUrl().get());
@@ -139,6 +146,8 @@ public class PhoenixFilmDetailTask extends ZdfTaskBase<DatenFilm, CrawlerUrlDTO>
 
       SAXParserFactory factory = SAXParserFactory.newInstance();
       SAXParser saxParser = factory.newSAXParser();
+      saxParser.setProperty(XMLConstants.ACCESS_EXTERNAL_DTD, "");
+      saxParser.setProperty(XMLConstants.ACCESS_EXTERNAL_SCHEMA, "");
       PhoenixFilmXmlHandler handler = new PhoenixFilmXmlHandler();
       saxParser.parse(xmlUrl, handler);
 

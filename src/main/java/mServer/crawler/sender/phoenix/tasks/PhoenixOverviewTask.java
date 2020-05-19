@@ -1,18 +1,20 @@
 package mServer.crawler.sender.phoenix.tasks;
 
 import com.google.gson.reflect.TypeToken;
+import mServer.crawler.sender.MediathekReader;
+import mServer.crawler.sender.base.AbstractRecursivConverterTask;
+import mServer.crawler.sender.base.CrawlerUrlDTO;
+import mServer.crawler.sender.base.SendungOverviewDto;
+import mServer.crawler.sender.phoenix.parser.PhoenixSendungOverviewDeserializer;
+import mServer.crawler.sender.zdf.tasks.ZdfTaskBase;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
+import javax.ws.rs.client.WebTarget;
 import java.lang.reflect.Type;
 import java.util.Collection;
 import java.util.Optional;
 import java.util.concurrent.ConcurrentLinkedQueue;
-import javax.ws.rs.client.WebTarget;
-import mServer.crawler.sender.MediathekReader;
-import mServer.crawler.sender.base.CrawlerUrlDTO;
-import mServer.crawler.sender.base.SendungOverviewDto;
-import mServer.crawler.sender.base.AbstractRecursivConverterTask;
-import mServer.crawler.sender.phoenix.parser.PhoenixSendungOverviewDeserializer;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 public class PhoenixOverviewTask extends ZdfTaskBase<CrawlerUrlDTO, CrawlerUrlDTO> {
 
@@ -25,12 +27,12 @@ public class PhoenixOverviewTask extends ZdfTaskBase<CrawlerUrlDTO, CrawlerUrlDT
   private final int subpage;
 
   public PhoenixOverviewTask(MediathekReader aCrawler,
-          ConcurrentLinkedQueue<CrawlerUrlDTO> aUrlToCrawlDtos, Optional<String> aAuthKey, String aBaseUrl) {
+                             ConcurrentLinkedQueue<CrawlerUrlDTO> aUrlToCrawlDtos, Optional<String> aAuthKey, String aBaseUrl) {
     this(aCrawler, aUrlToCrawlDtos, aAuthKey, aBaseUrl, 0);
   }
 
   public PhoenixOverviewTask(MediathekReader aCrawler,
-          ConcurrentLinkedQueue<CrawlerUrlDTO> aUrlToCrawlDtos, Optional<String> aAuthKey, String aBaseUrl, int aSubpage) {
+                             ConcurrentLinkedQueue<CrawlerUrlDTO> aUrlToCrawlDtos, Optional<String> aAuthKey, String aBaseUrl, int aSubpage) {
     super(aCrawler, aUrlToCrawlDtos, aAuthKey);
 
     baseUrl = aBaseUrl;
@@ -44,17 +46,18 @@ public class PhoenixOverviewTask extends ZdfTaskBase<CrawlerUrlDTO, CrawlerUrlDT
     try {
       Optional<SendungOverviewDto> overviewDtoOptional = deserializeOptional(aTarget, OPTIONAL_OVERVIEW_DTO_TYPE_TOKEN);
       if (!overviewDtoOptional.isPresent()) {
-        LOG.fatal("PhoenixOverviewTask: error processing url " + aDTO.getUrl());
+        LOG.fatal("PhoenixOverviewTask: error processing url {}", aDTO.getUrl());
         return;
       }
 
       SendungOverviewDto overviewDto = overviewDtoOptional.get();
       addResults(overviewDto.getUrls());
 
-      if (overviewDto.getNextPageId().isPresent() 
+      final Optional<String> nextPageId = overviewDto.getNextPageId();
+      if (nextPageId.isPresent()
         // Workaround to fix paging problem in Phönix-API
-        && !aDTO.getUrl().endsWith(overviewDto.getNextPageId().get())) {
-        taskResults.addAll(createNewOwnInstance(baseUrl + overviewDto.getNextPageId().get()).invoke());
+        && !aDTO.getUrl().endsWith(nextPageId.get())) {
+        taskResults.addAll(createNewOwnInstance(baseUrl + nextPageId.get()).invoke());
       }
     } catch (Exception e) {
       LOG.fatal(e);
@@ -69,7 +72,7 @@ public class PhoenixOverviewTask extends ZdfTaskBase<CrawlerUrlDTO, CrawlerUrlDT
 
   @Override
   protected AbstractRecursivConverterTask<CrawlerUrlDTO, CrawlerUrlDTO> createNewOwnInstance(
-          ConcurrentLinkedQueue<CrawlerUrlDTO> aElementsToProcess) {
+    ConcurrentLinkedQueue<CrawlerUrlDTO> aElementsToProcess) {
     return new PhoenixOverviewTask(crawler, aElementsToProcess, authKey, baseUrl, subpage + 1);
   }
 

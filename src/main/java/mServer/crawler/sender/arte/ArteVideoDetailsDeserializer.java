@@ -9,7 +9,7 @@ import com.google.gson.JsonParseException;
 import java.lang.reflect.Type;
 import java.text.ParseException;
 import java.util.Calendar;
-import mServer.crawler.sender.newsearch.GeoLocations;
+import mServer.crawler.sender.base.GeoLocations;
 import mServer.tool.DateWithoutTimeComparer;
 import org.apache.commons.lang3.time.FastDateFormat;
 import org.apache.logging.log4j.LogManager;

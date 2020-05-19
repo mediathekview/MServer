@@ -3,20 +3,20 @@ package mServer.crawler.sender.phoenix;
 import de.mediathekview.mlib.Const;
 import de.mediathekview.mlib.daten.DatenFilm;
 import de.mediathekview.mlib.tool.Log;
+import mServer.crawler.FilmeSuchen;
+import mServer.crawler.sender.MediathekCrawler;
+import mServer.crawler.sender.base.CrawlerUrlDTO;
+import mServer.crawler.sender.phoenix.tasks.PhoenixFilmDetailTask;
+import mServer.crawler.sender.phoenix.tasks.PhoenixOverviewTask;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import java.util.Collection;
 import java.util.Optional;
 import java.util.Set;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.RecursiveTask;
-import mServer.crawler.FilmeSuchen;
-import mServer.crawler.sender.MediathekCrawler;
-import mServer.crawler.sender.MediathekZdf;
-import mServer.crawler.sender.base.CrawlerUrlDTO;
-import mServer.crawler.sender.phoenix.tasks.PhoenixFilmDetailTask;
-import mServer.crawler.sender.phoenix.tasks.PhoenixOverviewTask;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 public class PhoenixCrawler extends MediathekCrawler {
 
@@ -26,11 +26,6 @@ public class PhoenixCrawler extends MediathekCrawler {
 
   public PhoenixCrawler(FilmeSuchen ssearch, int startPrio) {
     super(ssearch, SENDERNAME, 0, 1, startPrio);
-  }
-
-  @Override
-  protected void prepareFilm(DatenFilm film) {
-    MediathekZdf.urlTauschen(film, film.getUrl(), mlibFilmeSuchen);
   }
 
   @Override
@@ -70,7 +65,7 @@ public class PhoenixCrawler extends MediathekCrawler {
   }
 
   private Set<CrawlerUrlDTO> loadOverviewPages(final ConcurrentLinkedQueue<CrawlerUrlDTO> aQueue)
-          throws ExecutionException, InterruptedException {
+    throws ExecutionException, InterruptedException {
     PhoenixOverviewTask overviewTask = new PhoenixOverviewTask(this, aQueue, Optional.empty(), PhoenixConstants.URL_BASE);
     final Set<CrawlerUrlDTO> urls = forkJoinPool.submit(overviewTask).get();
 
