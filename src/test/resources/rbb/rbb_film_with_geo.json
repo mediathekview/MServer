@@ -1,0 +1,190 @@
+{
+  "data":{
+    "playerPage":{
+      "id":"Y3JpZDovL3JiYi1vbmxpbmUuZGUvYmVybGluLXNjaGlja3NhbHNqYWhyZS8yMDIwLTA1LTE2VDIwOjE1OjAwXzE1ODRiZTJiLWNhZGYtNDkwZC1hYWI2LTFkYWQ0ZTMyNTJlOC9iZXJsaW4tLS1zY2hpY2tzYWxzamFocmUtZWluZXItc3RhZHQtMjAwNQ",
+      "type":"player_ondemand",
+      "title":"Berlin - Schicksalsjahre einer Stadt: Das Jahr 2005",
+      "embeddable":true,
+      "image":{
+        "alt":"Holocaust - Mahnmals, im Hintergrund links die Kuppel des Reichstag (Deutscher Bundestag), rechts die Quadriga auf dem Brandenburger Tor, Berlin-Mitte, 15.12.2004, Bild: imago images / Rolf Zöllner",
+        "title":"Berlin - Schicksalsjahre einer Stadt: Das Jahr 2005 - Standbild",
+        "src":"https://img.ardmediathek.de/standard/00/75/53/46/72/-1774185891/16x9/{width}?mandant=ard",
+        "producerName":"imago images / Rolf Zöllner",
+        "__typename":"Image"
+
+      },
+      "maturityContentRating":"NONE",
+      "geoblocked":false,
+      "broadcastedOn":"2020-05-16T18:15:00Z",
+      "availableTo":"2030-05-16T21:59:59Z",
+      "synopsis":"Der Mord an Hatun Sürücü erschüttert die Stadt. Angela Merkel (CDU) wird Bundeskanzlerin - eine Frau aus Ostdeutschland. Die Berliner müssen Abschied von Harald Juhnke nehmen. Und in Berlins Mitte wird das Holocaust-Mahnmal eingeweiht.",
+      "show":{
+        "id":"Y3JpZDovL3JiYi1vbmxpbmUuZGUvYmVybGluLXNjaGlja3NhbHNqYWhyZQ",
+        "title":"Berlin - Schicksalsjahre einer Stadt",
+        "image":{
+          "alt":"Logo - Berlin -Schicksalsjahre einer Stadt",
+          "src":"https://img.ardmediathek.de/standard/00/57/96/21/14/-1774185891/16x9/{width}?mandant=ard",
+          "title":"Berlin - Schicksalsjahre einer Stadt - Standbild",
+          "producerName":"",
+          "__typename":"Image"
+
+        },
+        "__typename":"Show"
+
+      },
+      "publicationService":{
+        "name":"rbb Fernsehen",
+        "channelType":"rbb",
+        "__typename":"PublicationService"
+
+      },
+      "mediaCollection":{
+        "_type":"video",
+        "_isLive":false,
+        "_defaultQuality":[
+          "auto",
+          "2",
+          "4",
+          "3",
+          "1",
+          "0"
+
+        ],
+        "_previewImage":"https://img.ardmediathek.de/standard/00/75/53/46/72/-1774185891/16x9/960?mandant=ard",
+        "_subtitleUrl":"https://www.ardmediathek.de/subtitle/397554",
+        "_subtitleOffset":0,
+        "_mediaArray":[
+          {
+            "_plugin":1,
+            "_mediaStreamArray":[
+              {
+                "_quality":"auto",
+                "_stream":[
+                  "https://rbbmediaadp-vh.akamaihd.net/i/content-de/21/41/214126fc-5f8d-4b3c-9405-d6a448db73c2/214126fc-5f8d-4b3c-9405-d6a448db73c2_,512k,128k,256k,1024k,1800k,.mp4.csmil/master.m3u8?set-akamai-hls-revision=4"
+
+                ],
+                "__typename":"MediaStreamArray"
+
+              },
+              {
+                "_quality":"0",
+                "_stream":[
+                  "https://rbbmediapmdp-a.akamaihd.net/content-de/21/41/214126fc-5f8d-4b3c-9405-d6a448db73c2/214126fc-5f8d-4b3c-9405-d6a448db73c2_128k.mp4"
+
+                ],
+                "__typename":"MediaStreamArray"
+
+              },
+              {
+                "_quality":"1",
+                "_stream":[
+                  "https://rbbmediapmdp-a.akamaihd.net/content-de/21/41/214126fc-5f8d-4b3c-9405-d6a448db73c2/214126fc-5f8d-4b3c-9405-d6a448db73c2_1024k.mp4",
+                  "https://rbbmediapmdp-a.akamaihd.net/content-de/21/41/214126fc-5f8d-4b3c-9405-d6a448db73c2/214126fc-5f8d-4b3c-9405-d6a448db73c2_512k.mp4",
+                  "https://rbbmediapmdp-a.akamaihd.net/content-de/21/41/214126fc-5f8d-4b3c-9405-d6a448db73c2/214126fc-5f8d-4b3c-9405-d6a448db73c2_256k.mp4"
+
+                ],
+                "__typename":"MediaStreamArray"
+
+              },
+              {
+                "_quality":"2",
+                "_stream":[
+                  "https://rbbmediapmdp-a.akamaihd.net/content-de/21/41/214126fc-5f8d-4b3c-9405-d6a448db73c2/214126fc-5f8d-4b3c-9405-d6a448db73c2_1800k.mp4"
+
+                ],
+                "__typename":"MediaStreamArray"
+
+              }
+
+            ],
+            "__typename":"MediaArray"
+
+          }
+
+        ],
+        "_alternativeMediaArray":[
+
+
+        ],
+        "_sortierArray":[
+          1
+
+        ],
+        "_duration":5325,
+        "_dvrEnabled":false,
+        "_geoblocked":true,
+        "__typename":"MediaCollection"
+
+      },
+      "blockedByFsk":false,
+      "playerConfig":{
+        "href":"https://page.ardmediathek.de/page-gateway/playerconfig/75534668",
+        "_pixelConfig":[
+          {
+            "clipTitle":"Berlin - Schicksalsjahre einer Stadt: Das Jahr 2005",
+            "x5":"RBB",
+            "x6":"rbb+Fernsehen",
+            "x7":"Berlin+-+Schicksalsjahre+einer+Stadt",
+            "x14":"75534668",
+            "x20":"5325",
+            "apid":"PA02DC09C-B8D3-4098-87D2-2C023682D6D5",
+            "agfMetaDataSDK":{
+              "assetid":"https://rbbmediaadp-vh.akamaihd.net/i/content-de/21/41/214126fc-5f8d-4b3c-9405-d6a448db73c2/214126fc-5f8d-4b3c-9405-d6a448db73c2_,512k,128k,256k,1024k,1800k,.mp4.csmil/master.m3u8?set-akamai-hls-revision=4",
+              "type":"content",
+              "program":"Berlin - Schicksalsjahre einer Stadt",
+              "title":"rbb Fernsehen_Berlin - Schicksalsjahre einer Stadt_Berlin - Schicksalsjahre einer Stadt: Das Jahr 2005_16.05.2020 20:15",
+              "length":"5325",
+              "nol_c0":"p0,0",
+              "nol_c2":"p2,N",
+              "nol_c5":"p5,ARD Mediathek",
+              "nol_c7":"p7,crid://rbb-online.de/berlin-schicksalsjahre/2020-05-16T20:15:00_1584be2b-cadf-490d-aab6-1dad4e3252e8/berlin---schicksalsjahre-einer-stadt-2005",
+              "nol_c8":"p8,5325",
+              "nol_c9":"p9,Berlin - Schicksalsjahre einer Stadt_Berlin - Schicksalsjahre einer Stadt: Das Jahr 2005_16.05.2020 20:15",
+              "nol_c10":"p10,rbb Fernsehen",
+              "nol_c12":"p12,Content",
+              "nol_c15":null,
+              "nol_c16":"p16,Information",
+              "nol_c18":"p18,N",
+              "nol_c19":"p19,Rundfunk Berlin-Brandenburg",
+              "__typename":"AgfMetaDataSDK"
+
+            },
+            "__typename":"PixelConfig"
+
+          }
+
+        ],
+        "__typename":"PlayerConfig"
+
+      },
+      "relates": [],
+      "tracking":{
+        "szmType":"CP",
+        "environmentId":511893,
+        "aggregationLevelId":45,
+        "chapter2":"Player",
+        "chapter3":"Berlin - Schicksalsjahre einer Stadt",
+        "pageTitle":"Mediathek/Player/Berlin - Schicksalsjahre einer Stadt/Berlin - Schicksalsjahre einer Stadt: Das Jahr 2005/75534668/20200516_1815",
+        "atiCustomVars":{
+          "clipTitle":"Berlin - Schicksalsjahre einer Stadt: Das Jahr 2005",
+          "mediaType":"video",
+          "lra":"RBB",
+          "channel":"rbb Fernsehen",
+          "show":"Berlin - Schicksalsjahre einer Stadt",
+          "contentTypes":"UT",
+          "mediaDistributionType":1,
+          "contentId":75534668,
+          "metadataId":"crid://rbb-online.de/berlin-schicksalsjahre/2020-05-16T20:15:00_1584be2b-cadf-490d-aab6-1dad4e3252e8/berlin---schicksalsjahre-einer-stadt-2005",
+          "clipLength":5325,
+          "__typename":"ATICustomVars"
+
+        },
+        "__typename":"Tracking"
+
+      },
+      "__typename":"PlayerPage"
+
+    }
+
+  }
+}

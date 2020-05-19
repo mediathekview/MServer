@@ -228,7 +228,22 @@ public class ArdFilmDeserializerTest {
                 GeoLocations.GEO_NONE,
                 new ArdFilmInfoDto[0],
                 Optional.empty()
-            }
+            },
+          {
+            "/rbb/rbb_film_with_geo.json",
+            "Berlin - Schicksalsjahre einer Stadt",
+            "Berlin - Schicksalsjahre einer Stadt: Das Jahr 2005",
+            "Der Mord an Hatun Sürücü erschüttert die Stadt. Angela Merkel (CDU) wird Bundeskanzlerin - eine Frau aus Ostdeutschland. Die Berliner müssen Abschied von Harald Juhnke nehmen. Und in Berlins Mitte wird das Holocaust-Mahnmal eingeweiht.",
+            LocalDateTime.of(2020, 5, 16, 20, 15, 0),
+            Duration.ofMinutes(88).plusSeconds(45),
+            "https://rbbmediapmdp-a.akamaihd.net/content-de/21/41/214126fc-5f8d-4b3c-9405-d6a448db73c2/214126fc-5f8d-4b3c-9405-d6a448db73c2_1024k.mp4",
+            "https://rbbmediapmdp-a.akamaihd.net/content-de/21/41/214126fc-5f8d-4b3c-9405-d6a448db73c2/214126fc-5f8d-4b3c-9405-d6a448db73c2_1800k.mp4",
+            "",
+            "https://www.ardmediathek.de/subtitle/397554",
+            GeoLocations.GEO_DE,
+            new ArdFilmInfoDto[0],
+            Optional.of(Sender.RBB)
+          }
         });
   }
 
