@@ -3,16 +3,24 @@ package de.mediathekview.mserver.crawler.dreisat;
 import de.mediathekview.mlib.daten.Sender;
 import de.mediathekview.mlib.messages.listener.MessageListener;
 import de.mediathekview.mserver.base.config.MServerConfigManager;
+import de.mediathekview.mserver.base.webaccess.JsoupConnection;
+import de.mediathekview.mserver.crawler.basic.CrawlerUrlDTO;
 import de.mediathekview.mserver.crawler.zdf.AbstractZdfCrawler;
 import de.mediathekview.mserver.crawler.zdf.ZdfConfiguration;
 import de.mediathekview.mserver.progress.listeners.SenderProgressListener;
 import org.jetbrains.annotations.NotNull;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 import java.util.Collection;
+import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ForkJoinPool;
 
 public class DreiSatCrawler extends AbstractZdfCrawler {
+
+  private static final int MAXIMUM_DAYS_HTML_PAST = 14;
 
   public DreiSatCrawler(
       final ForkJoinPool aForkJoinPool,
@@ -56,4 +64,37 @@ public class DreiSatCrawler extends AbstractZdfCrawler {
   public Sender getSender() {
     return Sender.DREISAT;
   }
+
+  @Override
+  protected Collection<CrawlerUrlDTO> getExtraDaysEntries()
+    throws ExecutionException, InterruptedException {
+
+    final DreisatDayPageHtmlTask dayTask =
+      new DreisatDayPageHtmlTask(getApiUrlBase(), this, getExtraDayUrls(), new JsoupConnection());
+    return forkJoinPool.submit(dayTask).get();
+  }
+
+  private ConcurrentLinkedQueue<CrawlerUrlDTO> getExtraDayUrls() {
+    final ConcurrentLinkedQueue<CrawlerUrlDTO> urls = new ConcurrentLinkedQueue<>();
+    for (int i = 0; i <= getMaximumDaysPast(); i++) {
+
+      final LocalDateTime local = LocalDateTime.now().minus(i, ChronoUnit.DAYS);
+      final String date = local.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+      final String url = String.format(DreisatConstants.URL_HTML_DAY, date);
+      urls.add(new CrawlerUrlDTO(url));
+    }
+
+    return urls;
+  }
+
+  private int getMaximumDaysPast() {
+    Integer maximumDaysForSendungVerpasstSection =
+      crawlerConfig.getMaximumDaysForSendungVerpasstSection();
+    if (maximumDaysForSendungVerpasstSection == null
+      || maximumDaysForSendungVerpasstSection > MAXIMUM_DAYS_HTML_PAST) {
+      return MAXIMUM_DAYS_HTML_PAST;
+    }
+    return maximumDaysForSendungVerpasstSection;
+  }
+
 }
