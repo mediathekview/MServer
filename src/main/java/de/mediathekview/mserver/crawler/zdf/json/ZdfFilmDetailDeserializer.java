@@ -54,9 +54,11 @@ public class ZdfFilmDetailDeserializer implements JsonDeserializer<Optional<ZdfF
       DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ssXXX"); // 2016-10-29T16:15:00+02:00
 
   private final String apiUrlBase;
+  private Sender sender;
 
-  public ZdfFilmDetailDeserializer(final String apiUrlBase) {
+  public ZdfFilmDetailDeserializer(final String apiUrlBase, final Sender sender) {
     this.apiUrlBase = apiUrlBase;
+    this.sender = sender;
   }
 
   @Override
@@ -130,7 +132,7 @@ public class ZdfFilmDetailDeserializer implements JsonDeserializer<Optional<ZdfF
       final Film film =
           new Film(
               UUID.randomUUID(),
-              Sender.ZDF,
+              sender,
               aTitle,
               aTopic.orElse(aTitle),
               aTime.orElse(LocalDateTime.now()),
