@@ -31,6 +31,7 @@ public class WdrVideoJsonDeserializer implements JsonDeserializer<Optional<WdrMe
   private static final String MEDIA_VERSION_1_1 = "1.1.0";
   private static final String MEDIA_VERSION_1_2 = "1.2.0";
   private static final String MEDIA_VERSION_1_3 = "1.3.0";
+  private static final String MEDIA_VERSION_1_4 = "1.4.0";
 
   private final String protocol;
 
@@ -51,6 +52,8 @@ public class WdrVideoJsonDeserializer implements JsonDeserializer<Optional<WdrMe
           return deserializeVersion12(jsonObject);
         case MEDIA_VERSION_1_3:
           return deserializeVersion13(jsonObject);
+        case MEDIA_VERSION_1_4:
+          return deserializeVersion14(jsonObject);
         default:
           LOG.error("WdrVideoJsonDeserializer: unsupported media version: " + version.get());
       }
@@ -93,6 +96,30 @@ public class WdrVideoJsonDeserializer implements JsonDeserializer<Optional<WdrMe
   }
 
   private Optional<WdrMediaDto> deserializeVersion13(final JsonObject aJsonObject) {
+
+    if (aJsonObject.has(ELEMENT_MEDIA_RESOURCE)) {
+      final JsonObject mediaResourceObject = aJsonObject.get(ELEMENT_MEDIA_RESOURCE).getAsJsonObject();
+      Optional<String> subtitleUrl = Optional.empty();
+
+      if (mediaResourceObject.has(ELEMENT_CAPTION_HASH)) {
+        final JsonObject subtitleObject = mediaResourceObject.get(ELEMENT_CAPTION_HASH).getAsJsonObject();
+        subtitleUrl = JsonUtils.getAttributeAsString(subtitleObject, ATTRIBUTE_XML);
+      }
+
+      if (mediaResourceObject.has(ELEMENT_DFLT)) {
+        final JsonObject dfltObject = mediaResourceObject.get(ELEMENT_DFLT).getAsJsonObject();
+        Optional<String> m3u8Url = JsonUtils.getAttributeAsString(dfltObject, ATTRIBUTE_VIDEO_URL);
+        Optional<String> audioDescriptionUrl = JsonUtils.getAttributeAsString(dfltObject, ATTRIBUTE_AUDIO_DESCRIPTION);
+        Optional<String> signLanguageUrl = JsonUtils.getAttributeAsString(dfltObject, ATTRIBUTE_SIGN_LANUAGE);
+
+        return createMediaDto(m3u8Url, subtitleUrl, audioDescriptionUrl, signLanguageUrl);
+      }
+    }
+
+    return Optional.empty();
+  }
+
+  private Optional<WdrMediaDto> deserializeVersion14(final JsonObject aJsonObject) {
 
     if (aJsonObject.has(ELEMENT_MEDIA_RESOURCE)) {
       final JsonObject mediaResourceObject = aJsonObject.get(ELEMENT_MEDIA_RESOURCE).getAsJsonObject();
