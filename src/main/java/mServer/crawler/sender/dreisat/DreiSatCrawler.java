@@ -1,13 +1,23 @@
 package mServer.crawler.sender.dreisat;
 
 import de.mediathekview.mlib.Const;
-import org.jetbrains.annotations.NotNull;
-import java.util.concurrent.ExecutionException;
 import mServer.crawler.FilmeSuchen;
+import mServer.crawler.sender.base.CrawlerUrlDTO;
+import mServer.crawler.sender.base.JsoupConnection;
 import mServer.crawler.sender.zdf.AbstractZdfCrawler;
 import mServer.crawler.sender.zdf.ZdfConfiguration;
+import org.jetbrains.annotations.NotNull;
+
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
+import java.util.Collection;
+import java.util.concurrent.ConcurrentLinkedQueue;
+import java.util.concurrent.ExecutionException;
 
 public class DreiSatCrawler extends AbstractZdfCrawler {
+
+  private static final int MAXIMUM_DAYS_HTML_PAST = 14;
 
   public DreiSatCrawler(FilmeSuchen ssearch, int startPrio) {
     super(Const.DREISAT, ssearch, startPrio);
@@ -45,5 +55,27 @@ public class DreiSatCrawler extends AbstractZdfCrawler {
   protected @NotNull
   String getUrlDay() {
     return DreisatConstants.URL_DAY;
+  }
+
+  @Override
+  protected Collection<CrawlerUrlDTO> getExtraDaysEntries()
+    throws ExecutionException, InterruptedException {
+
+    final DreisatDayPageHtmlTask dayTask =
+      new DreisatDayPageHtmlTask(getApiUrlBase(), this, getExtraDayUrls(), new JsoupConnection());
+    return forkJoinPool.submit(dayTask).get();
+  }
+
+  private ConcurrentLinkedQueue<CrawlerUrlDTO> getExtraDayUrls() {
+    final ConcurrentLinkedQueue<CrawlerUrlDTO> urls = new ConcurrentLinkedQueue<>();
+    for (int i = 0; i <= MAXIMUM_DAYS_HTML_PAST; i++) {
+
+      final LocalDateTime local = LocalDateTime.now().minus(i, ChronoUnit.DAYS);
+      final String date = local.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+      final String url = String.format(DreisatConstants.URL_HTML_DAY, date);
+      urls.add(new CrawlerUrlDTO(url));
+    }
+
+    return urls;
   }
 }

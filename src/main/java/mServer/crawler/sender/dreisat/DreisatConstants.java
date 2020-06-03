@@ -17,6 +17,8 @@ public final class DreisatConstants {
           = URL_API_BASE
           + "/search/documents?hasVideo=true&q=*&types=page-video&sortOrder=desc&from=%sT00:00:00.000%%2B01:00&to=%sT23:59:59.999%%2B01:00&sortBy=date&page=1";
 
+  public static final String URL_HTML_DAY = URL_BASE + "/programm?airtimeDate=%s";
+
   private DreisatConstants() {
   }
 }
