@@ -88,6 +88,15 @@ public class ArdFilmDeserializer implements JsonDeserializer<List<ArdFilmDto>> {
     return JsonUtils.getAttributeAsString(playerPageObject, ATTRIBUTE_TITLE);
   }
 
+  private Optional<String> parseTitle(final JsonObject playerPageObject) {
+    Optional<String> title = JsonUtils.getAttributeAsString(playerPageObject, ATTRIBUTE_TITLE);
+    if (title.isPresent()) {
+      return Optional.of(title.get().replace("Hörfassung", "Audiodeskription"));
+    }
+
+    return title;
+  }
+
   private static Optional<LocalDateTime> parseDate(final JsonObject playerPageObject) {
     final Optional<String> dateValue
             = JsonUtils.getAttributeAsString(playerPageObject, ATTRIBUTE_BROADCAST);
@@ -134,7 +143,7 @@ public class ArdFilmDeserializer implements JsonDeserializer<List<ArdFilmDto>> {
 
     final JsonObject playerPageObject = playerPageElement.getAsJsonObject();
     final Optional<String> topic = parseTopic(playerPageObject);
-    final Optional<String> title = JsonUtils.getAttributeAsString(playerPageObject, ATTRIBUTE_TITLE);
+    final Optional<String> title = parseTitle(playerPageObject);
     final Optional<String> description
             = JsonUtils.getAttributeAsString(playerPageObject, ATTRIBUTE_SYNOPSIS);
     final Optional<LocalDateTime> date = parseDate(playerPageObject);
