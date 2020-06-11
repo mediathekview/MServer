@@ -113,6 +113,17 @@ public class ZdfFilmDetailDeserializerTest {
           "Mit Werken wie \"Der Besuch des Leibarztes\" gehörte er zu den bekanntesten Schrifstellern Schwedens. Jetzt ist Per Olov Enquist im Alter von 85 Jahren gestorben.",
           "https://www.3sat.de/kultur/kulturzeit/nachruf-auf-per-olov-enquist-100.html",
           "https://api.zdf.de/tmd/2/ngplayer_2_3/vod/ptmd/3sat/200427_enquist_kuz"
+        },
+        {
+          "/zdf/zdf_film_details_cc.json",
+          Sender.ZDF,
+          "Terra X",
+          "Wie die Römer Recht gesprochen haben",
+          LocalDateTime.of(2020, 6, 9, 12, 9, 0),
+          Duration.ofSeconds(43),
+          "Im römischen Reich wurden entscheidende Grundsteine der Rechtsprechung gelegt. Prozesse im alten Rom liefen ähnlich ab wie heute.",
+          "https://www.zdf.de/dokumentation/terra-x/rechtswesen-im-antiken-rom-creative-commons-100.html",
+          "https://api.zdf.de/tmd/2/ngplayer_2_3/vod/ptmd/mediathek/200428_132_0055303728_Rechtswesen_Antikes_Rom_CC_tex"
         }
       });
   }
