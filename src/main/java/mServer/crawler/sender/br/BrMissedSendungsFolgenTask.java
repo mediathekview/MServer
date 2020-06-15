@@ -1,7 +1,9 @@
 package mServer.crawler.sender.br;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
+import java.util.HashSet;
 import java.util.Set;
 import java.util.concurrent.Callable;
 import org.apache.logging.log4j.LogManager;
@@ -10,49 +12,64 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import java.net.URL;
 import mServer.crawler.sender.MediathekReader;
-import mServer.crawler.sender.br.Consts;
+import org.glassfish.jersey.uri.UriComponent;
+
+import static org.glassfish.jersey.uri.UriComponent.Type.QUERY_PARAM;
 
 public class BrMissedSendungsFolgenTask implements Callable<Set<String>> {
 
   private static final Logger LOG = LogManager.getLogger(BrMissedSendungsFolgenTask.class);
 
-  private static final String QUERY_TEMPLATE =
-      "{\"query\":\"query ProgrammeCalendarPageQuery(\\n  $broadcasterId: ID!\\n  $livestreamFilter: LivestreamFilter!\\n  $programmeFilter: ProgrammeFilter!\\n  $programmeStageFilter: ProgrammeFilter!\\n) {\\n  viewer {\\n    ...ProgrammeCalendarPage_viewer_5uC0z\\n    id\\n  }\\n}\\n\\nfragment ProgrammeCalendarPage_viewer_5uC0z on Viewer {\\n  broadcastService(id: $broadcasterId) {\\n    __typename\\n    ...ProgrammeStage_broadcastService_4juArI\\n    ...ProgrammeContainer_broadcastService_3zH8HL\\n    id\\n  }\\n  allLivestreams(filter: $livestreamFilter) {\\n    edges {\\n      node {\\n        __typename\\n        id\\n      }\\n    }\\n  }\\n}\\n\\nfragment ProgrammeStage_broadcastService_4juArI on BroadcastServiceInterface {\\n  today: programmes(last: 1, orderBy: BROADCASTS_START_ASC, filter: $programmeStageFilter) {\\n    edges {\\n      node {\\n        __typename\\n        ...ProgrammeInfo_programme\\n        id\\n      }\\n    }\\n  }\\n}\\n\\nfragment ProgrammeContainer_broadcastService_3zH8HL on BroadcastServiceInterface {\\n  id\\n  containerToday: programmes(first: 96, orderBy: BROADCASTS_START_ASC, filter: $programmeFilter) {\\n    ...ProgrammeTable_programmes\\n  }\\n}\\n\\nfragment ProgrammeTable_programmes on ProgrammeConnection {\\n  edges {\\n    node {\\n      __typename\\n      id\\n      ...ProgrammeTableRow_programme\\n    }\\n  }\\n}\\n\\nfragment ProgrammeTableRow_programme on ProgrammeInterface {\\n  ...ProgrammeTeaserBox_programme\\n  title\\n  kicker\\n  broadcasts(first: 1) {\\n    edges {\\n      node {\\n        __typename\\n        start\\n        end\\n        id\\n      }\\n    }\\n  }\\n  id\\n}\\n\\nfragment ProgrammeTeaserBox_programme on ProgrammeInterface {\\n  title\\n  broadcasts(first: 1) {\\n    edges {\\n      node {\\n        __typename\\n        start\\n        end\\n        id\\n      }\\n    }\\n  }\\n  ... on CreativeWorkInterface {\\n    ...TeaserImage_creativeWorkInterface\\n  }\\n  ... on ClipInterface {\\n    title\\n    kicker\\n    essences(first: 1) {\\n      count\\n    }\\n    ...Bookmark_clip\\n    ...Duration_clip\\n  }\\n}\\n\\nfragment TeaserImage_creativeWorkInterface on CreativeWorkInterface {\\n  id\\n  kicker\\n  title\\n  teaserImages(first: 1) {\\n    edges {\\n      node {\\n        __typename\\n        shortDescription\\n        id\\n      }\\n    }\\n  }\\n  defaultTeaserImage {\\n    __typename\\n    imageFiles(first: 1) {\\n      edges {\\n        node {\\n          __typename\\n          id\\n          publicLocation\\n          crops(first: 10) {\\n            count\\n            edges {\\n              node {\\n                __typename\\n                publicLocation\\n                width\\n                height\\n                id\\n              }\\n            }\\n          }\\n        }\\n      }\\n    }\\n    id\\n  }\\n}\\n\\nfragment Bookmark_clip on ClipInterface {\\n  id\\n  bookmarked\\n  title\\n}\\n\\nfragment Duration_clip on ClipInterface {\\n  duration\\n}\\n\\nfragment ProgrammeInfo_programme on ProgrammeInterface {\\n  id\\n  title\\n  kicker\\n  description\\n  broadcasts(first: 1) {\\n    edges {\\n      node {\\n        __typename\\n        start\\n        end\\n        id\\n      }\\n    }\\n  }\\n  ... on ClipInterface {\\n    ...Duration_clip\\n  }\\n}\\n\",\"variables\":{\"broadcasterId\":\"BroadcastService:http://ard.de/ontologies/ard#BR_Fernsehen\",\"livestreamFilter\":{\"broadcastedBy\":{\"id\":{\"eq\":\"BroadcastService:http://ard.de/ontologies/ard#BR_Fernsehen\"}}},\"programmeFilter\":{\"status\":{\"id\":{\"eq\":\"Status:http://ard.de/ontologies/lifeCycle#published\"}},\"broadcasts\":{\"start\":{\"gte\":\"2017-09-22T04:00:00.000Z\",\"lte\":\"2017-09-27T04:00:00.000Z\"}}},\"programmeStageFilter\":{\"status\":{\"id\":{\"eq\":\"Status:http://ard.de/ontologies/lifeCycle#published\"}},\"broadcasts\":{\"start\":{\"gte\":\"%sT00:00:00.000Z\",\"lte\":\"%sT00:00:00.000Z\"}}}}}";
+  private static final String QUERY_TEMPLATE = Consts.BR_API_URL +
+    "?operationName=ProgrammeCalendarPageQuery&variables=%s&extensions=%s";
+
+  private static final String SENDER_BR ="BR_Fernsehen";
+  private static final String SENDER_ALPHA ="ARD_alpha";
+
+  private static final String JSON_VARIABLES = "{\"day\":\"%s\",\"slots\":[\"MORNING\",\"NOON\",\"EVENING\",\"NIGHT\"],\"broadcasterId\":\"av:http://ard.de/ontologies/ard#%s\"}";
+  private static final String JSON_EXTENSION = "{\"persistedQuery\":{\"version\":1,\"sha256Hash\":\"ec36d20a87979c32146b32bea1953fe074e62c42d868483638f147a774984ed1\"}}";
 
   private final MediathekReader crawler;
 
   private final int maximumDays;
-  
-  private BrIdsDTO missedSendungsFolgen;
-  
+
+  private final Gson gson;
+
   public BrMissedSendungsFolgenTask(final MediathekReader aCrawler, int aMaximumDays) {
     crawler = aCrawler;
     maximumDays = aMaximumDays;
+
+    gson = new GsonBuilder()
+      .registerTypeAdapter(BrIdsDTO.class, new BrMissedSendungsFolgenDeserializer(crawler))
+      .create();
   }
 
+  private static String buildUrl(final LocalDateTime date, final String sender) {
+    final String variables = String.format(JSON_VARIABLES, date.format(DateTimeFormatter.ISO_LOCAL_DATE), sender);
+    return String.format(QUERY_TEMPLATE, UriComponent.encode(variables, QUERY_PARAM), UriComponent.encode(JSON_EXTENSION, QUERY_PARAM));
+
+  }
 
   @Override
   public Set<String> call() {
-    missedSendungsFolgen = new BrIdsDTO();
-    
-    BrWebAccessHelper.handleWebAccessExecution(LOG, crawler, () -> {
+    Set<String> filmIds = new HashSet<>();
 
-      // 2017-09-19T16:52:25.559Z
-      final String fromDateString =
-          LocalDateTime.now().plus(3, ChronoUnit.DAYS).format(Consts.BR_FORMATTER);
-      // 2017-09-22T04:00:00.000Z
-      final String toDateString = LocalDateTime.now()
-          .minus(maximumDays, ChronoUnit.DAYS)
-          .format(Consts.BR_FORMATTER);
+    getFilms(filmIds, SENDER_BR);
+    getFilms(filmIds, SENDER_ALPHA);
 
-      final Gson gson = new GsonBuilder()
-          .registerTypeAdapter(BrIdsDTO.class, new BrMissedSendungsFolgenDeserializer(crawler))
-          .create();
+    return filmIds;
+  }
 
-      final String response = WebAccessHelper.getJsonResultFromPostAccess(new URL(Consts.BR_API_URL), String.format(QUERY_TEMPLATE, toDateString, fromDateString));
-      missedSendungsFolgen = gson.fromJson(response, BrIdsDTO.class);
-    });
-    
-    return missedSendungsFolgen.getIds();
+  private void getFilms(final Set<String> filmIds, final String sender) {
+    for (int i = 0; i < maximumDays + 3; i++) {
+      LocalDateTime day = LocalDateTime.now().plus(3, ChronoUnit.DAYS).minusDays(i);
+
+      BrWebAccessHelper.handleWebAccessExecution(LOG, crawler, () -> {
+
+        final String response = WebAccessHelper.getJsonResultFromGetAccess(new URL(buildUrl(day, sender)));
+        final BrIdsDTO missedSendungsFolgen = gson.fromJson(response, BrIdsDTO.class);
+        filmIds.addAll(missedSendungsFolgen.getIds());
+      });
+    }
   }
 }

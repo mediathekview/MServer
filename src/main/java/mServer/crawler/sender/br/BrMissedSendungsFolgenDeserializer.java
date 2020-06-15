@@ -11,13 +11,14 @@ import mServer.crawler.sender.MediathekReader;
 
 public class BrMissedSendungsFolgenDeserializer implements JsonDeserializer<BrIdsDTO> {
 
-  private static final String JSON_ELEMENT_EDGES = "edges";
   private static final String JSON_ELEMENT_CONTAINER_TODAY = "containerToday";
   private static final String JSON_ELEMENT_BROADCAST_SERVICE = "broadcastService";
   private static final String JSON_ELEMENT_VIEWER = "viewer";
   private static final String JSON_ELEMENT_DATA = "data";
   private static final String JSON_ELEMENT_ID = "id";
-  private static final String JSON_ELEMENT_NODE = "node";
+  private static final String JSON_ELEMENT_BROADCAST_EVENT = "broadcastEvent";
+  private static final String JSON_ELEMENT_PUBLICATION = "publicationOf";
+
   private final MediathekReader crawler;
 
   public BrMissedSendungsFolgenDeserializer(final MediathekReader aCrawler) {
@@ -39,14 +40,17 @@ public class BrMissedSendungsFolgenDeserializer implements JsonDeserializer<BrId
     final BrIdsDTO results = new BrIdsDTO();
 
     final JsonObject baseObject = aElement.getAsJsonObject();
-    final Optional<JsonArray> edges = getEdges(baseObject);
-    if (edges.isPresent()) {
-      for (final JsonElement edge : edges.get()) {
-        final JsonObject ebdgeObj = edge.getAsJsonObject();
-        if (ebdgeObj.has(JSON_ELEMENT_NODE)) {
-          final JsonObject node = ebdgeObj.getAsJsonObject(JSON_ELEMENT_NODE);
-          if (node.has(JSON_ELEMENT_ID)) {
-            results.add(node.get(JSON_ELEMENT_ID).getAsString());
+    final Optional<JsonArray> dayEntries = getDayEntries(baseObject);
+    if (dayEntries.isPresent()) {
+      for (final JsonElement dayEntry : dayEntries.get()) {
+        final JsonObject dayEntryObject = dayEntry.getAsJsonObject();
+        if (dayEntryObject.has(JSON_ELEMENT_BROADCAST_EVENT)) {
+          final JsonObject broadcastEvent = dayEntryObject.getAsJsonObject(JSON_ELEMENT_BROADCAST_EVENT);
+          if (broadcastEvent.has(JSON_ELEMENT_PUBLICATION)) {
+            final JsonObject publication = broadcastEvent.getAsJsonObject(JSON_ELEMENT_PUBLICATION);
+            if (publication.has(JSON_ELEMENT_ID)) {
+              results.add(publication.get(JSON_ELEMENT_ID).getAsString());
+            }
           }
         }
       }
@@ -55,7 +59,7 @@ public class BrMissedSendungsFolgenDeserializer implements JsonDeserializer<BrId
     return results;
   }
 
-  private Optional<JsonArray> getEdges(final JsonObject aBaseObject) {
+  private Optional<JsonArray> getDayEntries(final JsonObject aBaseObject) {
     if (!aBaseObject.has(JSON_ELEMENT_DATA)) {
       return Optional.empty();
     }
@@ -75,13 +79,7 @@ public class BrMissedSendungsFolgenDeserializer implements JsonDeserializer<BrId
       return Optional.empty();
     }
 
-    final JsonObject containerToday =
-        broadcastService.getAsJsonObject(JSON_ELEMENT_CONTAINER_TODAY);
-    if (!containerToday.has(JSON_ELEMENT_EDGES)) {
-      return Optional.empty();
-    }
-
-    return Optional.of(containerToday.getAsJsonArray(JSON_ELEMENT_EDGES));
+    return Optional.of(broadcastService.getAsJsonArray(JSON_ELEMENT_CONTAINER_TODAY));
   }
 
 }
