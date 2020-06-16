@@ -185,6 +185,11 @@ public class ZdfFilmDetailDeserializer implements JsonDeserializer<Optional<ZdfF
   }
 
   private Optional<String> parseTitle(JsonObject aRootNode, JsonObject aTarget) {
+    Optional<String> title = parseTitleValue(aRootNode, aTarget);
+    return title.map(s -> s.replaceAll("\\(CC.*\\) - .* Creative Commons.*", ""));
+  }
+
+  private Optional<String> parseTitleValue(JsonObject aRootNode, JsonObject aTarget) {
     // use property "title" if found
     JsonElement titleElement = aRootNode.get(JSON_ELEMENT_TITLE);
     if (titleElement != null) {
