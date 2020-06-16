@@ -39,9 +39,7 @@ public class BrCrawler extends MediathekCrawler {
   @Override
   protected RecursiveTask<Set<DatenFilm>> createCrawlerTask() {
     final Callable<Set<String>> missedFilmsTask = createMissedFilmsCrawler();
-    final RecursiveTask<Set<String>> sendungenFilmsTask = createAllSendungenOverviewCrawler();
     final Future<Set<String>> missedFilmIds = forkJoinPool.submit(missedFilmsTask);
-    forkJoinPool.execute(sendungenFilmsTask);
 
     final ConcurrentLinkedQueue<String> brFilmIds = new ConcurrentLinkedQueue<>();
     try {
@@ -51,12 +49,19 @@ public class BrCrawler extends MediathekCrawler {
       Log.errorLog(782346382, exception);
     }
 
-    try {
-      brFilmIds.addAll(sendungenFilmsTask.join());
-      Log.sysLog("BR Anzahl: " + sendungenFilmsTask.join().size());
-    } catch (Exception exception) {
-      Log.errorLog(782346383, exception);
+    if (CrawlerTool.loadLongMax()) {
+      try {
+        final RecursiveTask<Set<String>> sendungenFilmsTask = createAllSendungenOverviewCrawler();
+
+        forkJoinPool.execute(sendungenFilmsTask);
+        Set<String> allSendungen = sendungenFilmsTask.join();
+        brFilmIds.addAll(allSendungen);
+        Log.sysLog("BR Anzahl alle Sendungen: " + allSendungen.size());
+      } catch (Exception exception) {
+        Log.errorLog(782346383, exception);
+      }
     }
+    Log.sysLog("BR Anzahl: " + brFilmIds.size());
 
     int max = (brFilmIds.size() / BrSendungDetailsTask.MAXIMUM_URLS_PER_TASK) + 1;
     meldungAddMax(max);
