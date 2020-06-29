@@ -1,7 +1,7 @@
 {
   "Filmliste" : [ "22.10.2018, 19:29", "22.10.2018, 19:29", "3", "MSearch [Rel: 550] - Compiled: 29.05.2016 / 16:16:25", "92bdd1d2c16779f916e64d0bcf493c81" ],
   "Filmliste" : [ "Sender", "Thema", "Titel", "Datum", "Zeit", "Dauer", "Größe [MB]", "Beschreibung", "Url", "Website", "Untertitel", "UrlRTMP", "Url_Klein", "UrlRTMP_Klein", "Url_HD", "UrlRTMP_HD", "DatumL", "Url_History", "Geo", "neu" ],
-  "X" : [ "3Sat", "Livestream", "3Sat Livestream", "", "", "", "", "", "http://zdfhls18-i.akamaihd.net/hls/live/744751/dach/high/master.m3u8", "http://www.zdf.de/ZDFmediathek/hauptnavigation/live", "", "", "", "", "", "", "", "", "", "" ],
+  "X" : [ "3Sat", "Livestream", "3Sat Livestream", "", "", "", "", "", "http://zdf-hls-18.akamaized.net/hls/live/2016501/dach/high/master.m3u8", "http://www.zdf.de/ZDFmediathek/hauptnavigation/live", "", "", "", "", "", "", "", "", "", "" ],
   "X" : [ "ARD", "Livestream", "ARD Livestream", "", "", "", "", "", "http://mcdn.daserste.de/daserste/de/master.m3u8", "http://www.ardmediathek.de/tv/live?kanal=Alle", "", "", "", "", "", "", "", "", "", "" ],
   "X" : [ "ARD", "Livestream", "ARD Alpha Livestream", "", "", "", "", "", "http://brlive-lh.akamaihd.net/i/bralpha_germany@119899/master.m3u8", "http://www.ardmediathek.de/tv/live?kanal=Alle", "", "", "", "", "", "", "", "", "", "" ],
   "X" : [ "ARD", "Livestream", "ARD ONE Livestream", "", "", "", "", "", "http://onelivestream-lh.akamaihd.net/i/one_livestream@568814/master.m3u8", "http://www.ardmediathek.de/tv/live?kanal=Alle", "", "", "", "", "", "", "", "", "", "" ],
@@ -26,8 +26,8 @@
   "X" : [ "SR", "Livestream", "SR Livestream", "", "", "", "", "", "http://srlive24-lh.akamaihd.net/i/sr_universal02@107595/master.m3u8", "http://www.ardmediathek.de/tv/live?kanal=Alle", "", "", "", "", "", "", "", "", "", "" ],
   "X" : [ "SWR", "Livestream", "SWR Livestream", "", "", "", "", "", "https://swrbwhls-i.akamaihd.net/hls/live/667638/swrbwd/master.m3u8", "http://www.ardmediathek.de/tv/live?kanal=Alle", "", "", "", "", "", "", "", "", "", "" ],
   "X" : [ "WDR", "Livestream", "WDR Livestream", "", "", "", "", "", "http://wdrfsgeo-lh.akamaihd.net/i/wdrfs_geogeblockt@530016/master.m3u8", "http://www.ardmediathek.de/tv/live?kanal=Alle", "", "", "", "", "", "", "", "", "", "" ],
-  "X" : [ "ZDF", "Livestream", "ZDF Livestream", "", "", "", "", "", "http://zdf-hls-01.akamaized.net/hls/live/2002460/de/high/master.m3u8", "http://www.zdf.de/ZDFmediathek/hauptnavigation/live", "", "", "", "", "", "", "", "", "", "" ],
-  "X" : [ "ZDF", "Livestream", "ZDF.info Livestream", "", "", "", "", "", "http://zdfhls17-i.akamaihd.net/hls/live/744750/de/high/master.m3u8", "http://www.zdf.de/ZDFmediathek/hauptnavigation/live", "", "", "", "", "", "", "", "", "", "" ],
-  "X" : [ "ZDF", "Livestream", "ZDF.neo Livestream", "", "", "", "", "", "http://zdf-hls-02.akamaized.net/hls/live/2002461/de/high/master.m3u8", "http://www.zdf.de/ZDFmediathek/hauptnavigation/live", "", "", "", "", "", "", "", "", "", "" ],
-  "X" : [ "PHOENIX", "Livestream", "PHOENIX Livestream", "", "", "", "", "", "http://zdfhls19-i.akamaihd.net/hls/live/744752/de/high/master.m3u8", "http://www.zdf.de/ZDFmediathek/hauptnavigation/live", "", "", "", "", "", "", "", "", "", "" ]
+  "X" : [ "ZDF", "Livestream", "ZDF Livestream", "", "", "", "", "", "http://zdf-hls-15.akamaized.net/hls/live/2016498/de/high/master.m3u8", "http://www.zdf.de/ZDFmediathek/hauptnavigation/live", "", "", "", "", "", "", "", "", "", "" ],
+  "X" : [ "ZDF", "Livestream", "ZDF.info Livestream", "", "", "", "", "", "http://zdf-hls-17.akamaized.net/hls/live/2016500/de/high/master.m3u8", "http://www.zdf.de/ZDFmediathek/hauptnavigation/live", "", "", "", "", "", "", "", "", "", "" ],
+  "X" : [ "ZDF", "Livestream", "ZDF.neo Livestream", "", "", "", "", "", "http://zdf-hls-16.akamaized.net/hls/live/2016499/de/high/master.m3u8", "http://www.zdf.de/ZDFmediathek/hauptnavigation/live", "", "", "", "", "", "", "", "", "", "" ],
+  "X" : [ "PHOENIX", "Livestream", "PHOENIX Livestream", "", "", "", "", "", "http://zdf-hls-19.akamaized.net/hls/live/2016502/de/high/master.m3u8", "http://www.zdf.de/ZDFmediathek/hauptnavigation/live", "", "", "", "", "", "", "", "", "", "" ]
 }
