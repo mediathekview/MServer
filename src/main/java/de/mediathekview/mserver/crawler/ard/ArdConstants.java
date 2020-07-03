@@ -2,7 +2,10 @@ package de.mediathekview.mserver.crawler.ard;
 
 public class ArdConstants {
 
+  public static final String API_URL = "https://api.ardmediathek.de";
   public static final String BASE_URL = "https://api.ardmediathek.de/public-gateway";
+
+  public static final String ITEM_URL = API_URL + "/page-gateway/pages/ard/item/";
 
   public static final String DEFAULT_CLIENT = "ard";
   public static final String DEFAULT_DEVICE = "pc";
