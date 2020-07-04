@@ -1,5 +1,6 @@
 package mServer.crawler.sender.ard.json;
 
+import com.google.gson.JsonArray;
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonDeserializer;
 import com.google.gson.JsonElement;
@@ -10,7 +11,6 @@ import mServer.crawler.CrawlerTool;
 import mServer.crawler.sender.ard.ArdConstants;
 import mServer.crawler.sender.ard.ArdFilmDto;
 import mServer.crawler.sender.ard.ArdFilmInfoDto;
-import mServer.crawler.sender.ard.ArdUrlBuilder;
 import mServer.crawler.sender.base.JsonUtils;
 import mServer.crawler.sender.base.UrlUtils;
 import mServer.crawler.sender.base.Qualities;
@@ -32,12 +32,12 @@ public class ArdFilmDeserializer implements JsonDeserializer<List<ArdFilmDto>> {
 
   private static final String GERMAN_TIME_ZONE = "Europe/Berlin";
 
-  private static final String ELEMENT_DATA = "data";
+  private static final String ELEMENT_EMBEDDED = "embedded";
   private static final String ELEMENT_MEDIA_COLLECTION = "mediaCollection";
-  private static final String ELEMENT_PLAYER_PAGE = "playerPage";
   private static final String ELEMENT_PUBLICATION_SERVICE = "publicationService";
-  private static final String ELEMENT_RELATES = "relates";
   private static final String ELEMENT_SHOW = "show";
+  private static final String ELEMENT_TEASERS = "teasers";
+  private static final String ELEMENT_WIDGETS = "widgets";
 
   private static final String ATTRIBUTE_BROADCAST = "broadcastedOn";
   private static final String ATTRIBUTE_CHANNEL_TYPE = "channelType";
@@ -69,10 +69,12 @@ public class ArdFilmDeserializer implements JsonDeserializer<List<ArdFilmDto>> {
     videoDeserializer = new ArdVideoInfoJsonDeserializer();
   }
 
-  private static Optional<JsonObject> getMediaCollectionObject(final JsonObject playerPageObject) {
-    if (playerPageObject.has(ELEMENT_MEDIA_COLLECTION)
-            && !playerPageObject.get(ELEMENT_MEDIA_COLLECTION).isJsonNull()) {
-      return Optional.of(playerPageObject.get(ELEMENT_MEDIA_COLLECTION).getAsJsonObject());
+  private static Optional<JsonObject> getMediaCollectionObject(final JsonObject itemObject) {
+    if (itemObject.has(ELEMENT_MEDIA_COLLECTION)
+      && !itemObject.get(ELEMENT_MEDIA_COLLECTION).isJsonNull()
+      && itemObject.getAsJsonObject(ELEMENT_MEDIA_COLLECTION).has(ELEMENT_EMBEDDED)) {
+
+      return Optional.of(itemObject.getAsJsonObject(ELEMENT_MEDIA_COLLECTION).getAsJsonObject(ELEMENT_EMBEDDED));
     }
 
     return Optional.empty();
@@ -130,26 +132,26 @@ public class ArdFilmDeserializer implements JsonDeserializer<List<ArdFilmDto>> {
 
     List<ArdFilmDto> films = new ArrayList<>();
 
-    if (!JsonUtils.checkTreePath(
-            jsonElement, ELEMENT_DATA, ELEMENT_PLAYER_PAGE)) {
+    if (!JsonUtils.hasElements(jsonElement, ELEMENT_WIDGETS)
+      || !jsonElement.getAsJsonObject().get(ELEMENT_WIDGETS).isJsonArray()) {
       return films;
     }
 
-    final JsonElement playerPageElement
-            = jsonElement.getAsJsonObject().get(ELEMENT_DATA).getAsJsonObject().get(ELEMENT_PLAYER_PAGE);
-    if (playerPageElement.isJsonNull()) {
+    final JsonArray widgets = jsonElement.getAsJsonObject().getAsJsonArray(ELEMENT_WIDGETS);
+    if (widgets.size() == 0) {
       return films;
     }
 
-    final JsonObject playerPageObject = playerPageElement.getAsJsonObject();
-    final Optional<String> topic = parseTopic(playerPageObject);
-    final Optional<String> title = parseTitle(playerPageObject);
+    final JsonObject itemObject = widgets.get(0).getAsJsonObject();
+
+    final Optional<String> topic = parseTopic(itemObject);
+    final Optional<String> title = parseTitle(itemObject);
     final Optional<String> description
-            = JsonUtils.getAttributeAsString(playerPageObject, ATTRIBUTE_SYNOPSIS);
-    final Optional<LocalDateTime> date = parseDate(playerPageObject);
-    final Optional<Duration> duration = parseDuration(playerPageObject);
-    final Optional<ArdVideoInfoDto> videoInfo = parseVideoUrls(playerPageObject);
-    final Optional<String> channelType = parseChannelType(playerPageObject);
+            = JsonUtils.getAttributeAsString(itemObject, ATTRIBUTE_SYNOPSIS);
+    final Optional<LocalDateTime> date = parseDate(itemObject);
+    final Optional<Duration> duration = parseDuration(itemObject);
+    final Optional<ArdVideoInfoDto> videoInfo = parseVideoUrls(itemObject);
+    final Optional<String> channelType = parseChannelType(itemObject);
 
     if (topic.isPresent()
             && title.isPresent()
@@ -166,7 +168,9 @@ public class ArdFilmDeserializer implements JsonDeserializer<List<ArdFilmDto>> {
                               date,
                               duration,
                               videoInfo.get()));
-      parseRelatedFilms(filmDto, playerPageObject);
+      if (widgets.size() > 1) {
+        parseRelatedFilms(filmDto, widgets.get(1).getAsJsonObject());
+      }
       films.add(filmDto);
 
       if (channelType.isPresent() && ADDITIONAL_SENDER.containsKey(channelType.get())) {
@@ -212,19 +216,15 @@ public class ArdFilmDeserializer implements JsonDeserializer<List<ArdFilmDto>> {
   }
 
   private void parseRelatedFilms(final ArdFilmDto filmDto, final JsonObject playerPageObject) {
-    if (playerPageObject.has(ELEMENT_RELATES)) {
-      final JsonElement relatesElement = playerPageObject.get(ELEMENT_RELATES);
-      if (relatesElement.isJsonArray()) {
-        for (final JsonElement relatesItemElement : relatesElement.getAsJsonArray()) {
-          final JsonObject relatesItemObject = relatesItemElement.getAsJsonObject();
+    if (playerPageObject.has(ELEMENT_TEASERS)) {
+      final JsonElement teasersElement = playerPageObject.get(ELEMENT_TEASERS);
+      if (teasersElement.isJsonArray()) {
+        for (final JsonElement teasersItemElement : teasersElement.getAsJsonArray()) {
+          final JsonObject teasersItemObject = teasersItemElement.getAsJsonObject();
           final Optional<String> id
-                  = JsonUtils.getAttributeAsString(relatesItemObject, ATTRIBUTE_ID);
+                  = JsonUtils.getAttributeAsString(teasersItemObject, ATTRIBUTE_ID);
           if (id.isPresent()) {
-            final String url
-                    = new ArdUrlBuilder(ArdConstants.BASE_URL, ArdConstants.DEFAULT_CLIENT)
-                            .addClipId(id.get(), ArdConstants.DEFAULT_DEVICE)
-                            .addSavedQuery(ArdConstants.QUERY_FILM_VERSION, ArdConstants.QUERY_FILM_HASH)
-                            .build();
+            final String url = ArdConstants.ITEM_URL + id.get();
 
             filmDto.addRelatedFilm(new ArdFilmInfoDto(id.get(), url, 0));
           }
