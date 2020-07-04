@@ -3,6 +3,7 @@ package mServer.crawler.sender.ard.tasks;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
+import de.mediathekview.mlib.tool.Log;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -54,11 +55,12 @@ public abstract class ArdTaskBase<T, D extends CrawlerUrlDTO> extends AbstractRe
         return Optional.of(gson.fromJson(jsonOutput, type));
       }
     } else {
-      LOG.warn(
-              "ArdTaskBase: request of url "
-              + target.getUri().toString()
-              + " failed: "
-              + response.getStatus());
+      final String logText ="ArdTaskBase: request of url "
+        + target.getUri().toString()
+        + " failed: "
+        + response.getStatus();
+      Log.errorLog(23646387, logText);
+      LOG.warn(logText);
     }
     return Optional.empty();
   }
@@ -72,13 +74,17 @@ public abstract class ArdTaskBase<T, D extends CrawlerUrlDTO> extends AbstractRe
     final Optional<ArdErrorInfoDto> error = gson.fromJson(jsonOutput, OPTIONAL_ERROR_DTO);
     error.ifPresent(
             ardErrorInfoDto
-            -> LOG.warn(
-                    "ArdTaskBase: request of url "
-                    + targetUrl
-                    + " contains error: "
-                    + ardErrorInfoDto.getCode()
-                    + ", "
-                    + ardErrorInfoDto.getMessage()));
+            -> {
+              final String logText =
+                "ArdTaskBase: request of url "
+                  + targetUrl
+                  + " contains error: "
+                  + ardErrorInfoDto.getCode()
+                  + ", "
+                  + ardErrorInfoDto.getMessage();
+              Log.errorLog(238423092, logText);
+              LOG.error(logText);
+            });
 
     return !error.isPresent();
   }
