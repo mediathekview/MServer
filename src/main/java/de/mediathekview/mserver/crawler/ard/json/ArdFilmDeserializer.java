@@ -67,6 +67,7 @@ public class ArdFilmDeserializer implements JsonDeserializer<List<ArdFilmDto>> {
 
   private static Optional<JsonObject> getMediaCollectionObject(final JsonObject itemObject) {
     if (itemObject.has(ELEMENT_MEDIA_COLLECTION)
+      && !itemObject.get(ELEMENT_MEDIA_COLLECTION).isJsonNull()
       && itemObject.getAsJsonObject(ELEMENT_MEDIA_COLLECTION).has(ELEMENT_EMBEDDED)) {
 
       return Optional.of(itemObject.getAsJsonObject(ELEMENT_MEDIA_COLLECTION).getAsJsonObject(ELEMENT_EMBEDDED));
