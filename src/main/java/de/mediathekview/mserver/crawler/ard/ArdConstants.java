@@ -7,8 +7,27 @@ public class ArdConstants {
 
   public static final String ITEM_URL = API_URL + "/page-gateway/pages/ard/item/";
 
+  public static final String DAY_PAGE_URL = API_URL + "/page-gateway/compilations/%s/pastbroadcasts?startDateTime=%sT00:00:00.000Z&endDateTime=%sT23:59:59.000Z&pageNumber=0&pageSize=100";
+
   public static final String DEFAULT_CLIENT = "ard";
   public static final String DEFAULT_DEVICE = "pc";
+
+  public static final String[] CLIENTS =
+      new String[] {
+        "daserste",
+        "br",
+        "hr",
+        "mdr",
+        "ndr",
+        "radiobremen",
+        "rbb",
+        "sr",
+        "swr",
+        "wdr",
+        "one",
+        "alpha",
+        "tagesschau24"
+      };
 
   public static final int QUERY_DAY_SEARCH_VERSION = 1;
   public static final String QUERY_DAY_SEARCH_HASH =
