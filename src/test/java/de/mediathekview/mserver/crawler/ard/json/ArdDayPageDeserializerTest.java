@@ -21,36 +21,36 @@ public class ArdDayPageDeserializerTest {
     final ArdFilmInfoDto[] expected =
         new ArdFilmInfoDto[] {
           new ArdFilmInfoDto(
-              "Y3JpZDovL2hyLW9ubGluZS8zODIxMDI3N18yMDIwLTA3LTA1VDEwOjA1",
-            ArdConstants.ITEM_URL + "Y3JpZDovL2hyLW9ubGluZS8zODIxMDI3N18yMDIwLTA3LTA1VDEwOjA1",
+              "Y3JpZDovL2hyLW9ubGluZS8xMDE5Nzc",
+            ArdConstants.ITEM_URL + "Y3JpZDovL2hyLW9ubGluZS8xMDE5Nzc",
               1),
           new ArdFilmInfoDto(
-              "Y3JpZDovL2hyLW9ubGluZS8zODIyMDA0N18yMDIwLTA3LTA1VDExOjQw",
-            ArdConstants.ITEM_URL + "Y3JpZDovL2hyLW9ubGluZS8zODIyMDA0N18yMDIwLTA3LTA1VDExOjQw",
+              "Y3JpZDovL2hyLW9ubGluZS8xMDE5Nzg",
+            ArdConstants.ITEM_URL + "Y3JpZDovL2hyLW9ubGluZS8xMDE5Nzg",
               1),
           new ArdFilmInfoDto(
-              "Y3JpZDovL2hyLW9ubGluZS8zODIxMDI3N18yMDIwLTA3LTA1VDEyOjMw",
-            ArdConstants.ITEM_URL + "Y3JpZDovL2hyLW9ubGluZS8zODIxMDI3N18yMDIwLTA3LTA1VDEyOjMw",
+              "Y3JpZDovL2hyLW9ubGluZS8xMDE5ODI",
+            ArdConstants.ITEM_URL + "Y3JpZDovL2hyLW9ubGluZS8xMDE5ODI",
               1),
           new ArdFilmInfoDto(
-              "Y3JpZDovL2hyLW9ubGluZS8zODIxMDI2OV8yMDIwLTA3LTA1VDE0OjQ1",
-            ArdConstants.ITEM_URL + "Y3JpZDovL2hyLW9ubGluZS8zODIxMDI2OV8yMDIwLTA3LTA1VDE0OjQ1",
+              "Y3JpZDovL2hyLW9ubGluZS8xMDE4MjA",
+            ArdConstants.ITEM_URL + "Y3JpZDovL2hyLW9ubGluZS8xMDE4MjA",
               1),
           new ArdFilmInfoDto(
-              "Y3JpZDovL2hyLW9ubGluZS8wMDAwMDEyMF8yMDIwLTA3LTA1VDE5OjAw",
-            ArdConstants.ITEM_URL + "Y3JpZDovL2hyLW9ubGluZS8wMDAwMDEyMF8yMDIwLTA3LTA1VDE5OjAw",
+              "Y3JpZDovL2hyLW9ubGluZS8xMDEyMDM",
+            ArdConstants.ITEM_URL + "Y3JpZDovL2hyLW9ubGluZS8xMDEyMDM",
               1),
           new ArdFilmInfoDto(
-              "Y3JpZDovL2hyLW9ubGluZS8zODAzNzQ0NF8yMDIwLTA3LTA1VDE5OjMw",
-            ArdConstants.ITEM_URL + "Y3JpZDovL2hyLW9ubGluZS8zODAzNzQ0NF8yMDIwLTA3LTA1VDE5OjMw",
+              "Y3JpZDovL2hyLW9ubGluZS8xMDE5OTI",
+            ArdConstants.ITEM_URL + "Y3JpZDovL2hyLW9ubGluZS8xMDE5OTI",
               7),
           new ArdFilmInfoDto(
-              "Y3JpZDovL2hyLW9ubGluZS8zODIxMDI1N18yMDIwLTA3LTA1VDIxOjQ1",
-            ArdConstants.ITEM_URL + "Y3JpZDovL2hyLW9ubGluZS8zODIxMDI1N18yMDIwLTA3LTA1VDIxOjQ1",
+              "Y3JpZDovL2hyLW9ubGluZS8xMDE5NzI",
+            ArdConstants.ITEM_URL + "Y3JpZDovL2hyLW9ubGluZS8xMDE5NzI",
               1),
           new ArdFilmInfoDto(
-              "Y3JpZDovL2hyLW9ubGluZS8zODIyMDA0M18yMDIwLTA3LTA2VDAwOjAw",
-            ArdConstants.ITEM_URL + "Y3JpZDovL2hyLW9ubGluZS8zODIyMDA0M18yMDIwLTA3LTA2VDAwOjAw",
+              "Y3JpZDovL2hyLW9ubGluZS8xMDE5NzE",
+            ArdConstants.ITEM_URL + "Y3JpZDovL2hyLW9ubGluZS8xMDE5NzE",
               1)
         };
 
