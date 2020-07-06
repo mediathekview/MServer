@@ -8,7 +8,6 @@ import java.util.Optional;
 import java.util.Set;
 import mServer.crawler.sender.ard.ArdConstants;
 import mServer.crawler.sender.ard.ArdFilmInfoDto;
-import mServer.crawler.sender.ard.ArdUrlBuilder;
 import mServer.crawler.sender.base.JsonUtils;
 
 abstract class ArdTeasersDeserializer {

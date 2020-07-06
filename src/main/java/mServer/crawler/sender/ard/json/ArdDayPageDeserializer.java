@@ -9,7 +9,6 @@ import java.lang.reflect.Type;
 import java.util.HashSet;
 import java.util.Set;
 import mServer.crawler.sender.ard.ArdFilmInfoDto;
-import mServer.crawler.sender.base.JsonUtils;
 
 public class ArdDayPageDeserializer extends ArdTeasersDeserializer implements JsonDeserializer<Set<ArdFilmInfoDto>> {
 
