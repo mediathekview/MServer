@@ -6,7 +6,6 @@ import com.google.gson.JsonObject;
 import de.mediathekview.mserver.base.utils.JsonUtils;
 import de.mediathekview.mserver.crawler.ard.ArdConstants;
 import de.mediathekview.mserver.crawler.ard.ArdFilmInfoDto;
-import de.mediathekview.mserver.crawler.ard.ArdUrlBuilder;
 import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
@@ -48,10 +47,7 @@ abstract class ArdTeasersDeserializer {
   }
 
   private ArdFilmInfoDto createFilmInfo(String id, int numberOfClips) {
-    final String url = new ArdUrlBuilder(ArdConstants.BASE_URL, ArdConstants.DEFAULT_CLIENT)
-        .addClipId(id, ArdConstants.DEFAULT_DEVICE)
-        .addSavedQuery(ArdConstants.QUERY_FILM_VERSION, ArdConstants.QUERY_FILM_HASH)
-        .build();
+    final String url = ArdConstants.ITEM_URL + id;
 
     return new ArdFilmInfoDto(id, url, numberOfClips);
   }

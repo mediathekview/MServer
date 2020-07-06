@@ -1,0 +1,530 @@
+[
+  {
+    "id":"Y29tcGlsYXRpb24rcGFzdGJyb2FkY2FzdHMrSFIrMjAyMC0wNy0wNVQwMzozMForMjAyMC0wNy0wNlQwMzoyOTo1OVorY2hhbm5lbC1IUg",
+    "pagination":{
+      "pageNumber":0,
+      "pageSize":100,
+      "totalElements":8
+
+    },
+    "personalized":false,
+    "links":{
+      "self":{
+        "id":"Y29tcGlsYXRpb24rcGFzdGJyb2FkY2FzdHMrSFIrMjAyMC0wNy0wNVQwMzozMForMjAyMC0wNy0wNlQwMzoyOTo1OVorY2hhbm5lbC1IUg",
+        "title":"Sendung verpasst - HR",
+        "href":"https://api.ardmediathek.de/page-gateway/compilations/hr/pastbroadcasts?startDateTime=2020-07-05T03:30:00Z&endDateTime=2020-07-06T03:29:59Z&channels=hr&pageNumber=0&pageSize=100&embedded=true",
+        "type":"application/vnd.ard.widget+json"
+
+      }
+
+    },
+    "teasers":[
+      {
+        "broadcastedOn":"2020-07-05T08:05:00Z",
+        "categories":[
+          "Flm",
+          "Soap & Serie",
+          "Filme & Serien",
+          "Film-Highlight"
+
+        ],
+        "decor":"none",
+        "id":"Y3JpZDovL2hyLW9ubGluZS8zODIxMDI3N18yMDIwLTA3LTA1VDEwOjA1",
+        "images":{
+          "aspect16x9":{
+            "alt":"Filme",
+            "producerName":"ARD/Jacqueline Krause-Burberg",
+            "src":"https://img.ardmediathek.de/standard/00/77/46/53/18/-1774185891/16x9/{width}?mandant=ard",
+            "title":"Blutsbande (106) - Standbild"
+
+          }
+
+        },
+        "longTitle":"Blutsbande (106)",
+        "mediumTitle":"Blutsbande (106)",
+        "numberOfClips":1,
+        "personalized":false,
+        "playtime":null,
+        "publicationService":{
+          "name":"hr-fernsehen",
+          "logo":{
+            "title":"HR Logo",
+            "alt":"HR Logo",
+            "producerName":"HR",
+            "src":"https://img.ardmediathek.de/standard/00/21/51/88/76/-295433861/0/{width}?mandant=ard",
+            "aspectRatio":"0"
+
+          },
+          "publisherType":"TV",
+          "partner":"hr",
+          "id":"b3JnYW5pemF0aW9uX0hS"
+
+        },
+        "links":{
+          "self":{
+            "id":"Y3JpZDovL2hyLW9ubGluZS8zODIxMDI3N18yMDIwLTA3LTA1VDEwOjA1",
+            "title":"Blutsbande (106)",
+            "href":"https://api.ardmediathek.de/page-gateway/teasers/hr/broadcastmainclip/Y3JpZDovL2hyLW9ubGluZS8zODIxMDI3N18yMDIwLTA3LTA1VDEwOjA1",
+            "type":"application/vnd.ard.teaser+json"
+
+          },
+          "target":{
+            "id":"Y3JpZDovL2hyLW9ubGluZS8xMDE5Nzc",
+            "title":"Blutsbande (106)",
+            "href":"https://api.ardmediathek.de/page-gateway/pages/hr/item/Y3JpZDovL2hyLW9ubGluZS8xMDE5Nzc?devicetype=pc&embedded=true",
+            "type":"application/vnd.ard.page+json"
+
+          }
+
+        },
+        "shortTitle":"Blutsbande (106)",
+        "type":"broadcastMainClip"
+
+      },
+      {
+        "broadcastedOn":"2020-07-05T09:40:00Z",
+        "categories":[
+          "Flm",
+          "Soap & Serie",
+          "Filme & Serien"
+
+        ],
+        "decor":"none",
+        "id":"Y3JpZDovL2hyLW9ubGluZS8zODIyMDA0N18yMDIwLTA3LTA1VDExOjQw",
+        "images":{
+          "aspect16x9":{
+            "alt":"In aller Freundschaft",
+            "producerName":"ARD/Markus Nass",
+            "src":"https://img.ardmediathek.de/standard/00/77/46/53/44/-1774185891/16x9/{width}?mandant=ard",
+            "title":"In aller Freundschaft - Die jungen Ärzte (153) - Standbild"
+
+          }
+
+        },
+        "longTitle":"In aller Freundschaft",
+        "mediumTitle":"In aller Freundschaft",
+        "numberOfClips":1,
+        "personalized":false,
+        "playtime":null,
+        "publicationService":{
+          "name":"hr-fernsehen",
+          "logo":{
+            "title":"HR Logo",
+            "alt":"HR Logo",
+            "producerName":"HR",
+            "src":"https://img.ardmediathek.de/standard/00/21/51/88/76/-295433861/0/{width}?mandant=ard",
+            "aspectRatio":"0"
+
+          },
+          "publisherType":"TV",
+          "partner":"hr",
+          "id":"b3JnYW5pemF0aW9uX0hS"
+
+        },
+        "links":{
+          "self":{
+            "id":"Y3JpZDovL2hyLW9ubGluZS8zODIyMDA0N18yMDIwLTA3LTA1VDExOjQw",
+            "title":"In aller Freundschaft",
+            "href":"https://api.ardmediathek.de/page-gateway/teasers/hr/broadcastmainclip/Y3JpZDovL2hyLW9ubGluZS8zODIyMDA0N18yMDIwLTA3LTA1VDExOjQw",
+            "type":"application/vnd.ard.teaser+json"
+
+          },
+          "target":{
+            "id":"Y3JpZDovL2hyLW9ubGluZS8xMDE5Nzg",
+            "title":"In aller Freundschaft",
+            "href":"https://api.ardmediathek.de/page-gateway/pages/hr/item/Y3JpZDovL2hyLW9ubGluZS8xMDE5Nzg?devicetype=pc&embedded=true",
+            "type":"application/vnd.ard.page+json"
+
+          }
+
+        },
+        "shortTitle":"In aller Freundschaft",
+        "type":"broadcastMainClip"
+
+      },
+      {
+        "broadcastedOn":"2020-07-05T10:30:00Z",
+        "categories":[
+          "Flm",
+          "Filme & Serien",
+          "Film-Highlight"
+
+        ],
+        "decor":"none",
+        "id":"Y3JpZDovL2hyLW9ubGluZS8zODIxMDI3N18yMDIwLTA3LTA1VDEyOjMw",
+        "images":{
+          "aspect16x9":{
+            "alt":"Filme",
+            "producerName":"HR/Degeto/Katrin Knoke",
+            "src":"https://img.ardmediathek.de/standard/00/77/46/57/62/-1774185891/16x9/{width}?mandant=ard",
+            "title":"Die Schokoladenkönigin - Standbild"
+
+          }
+
+        },
+        "longTitle":"Die Schokoladenkönigin",
+        "mediumTitle":"Die Schokoladenkönigin",
+        "numberOfClips":1,
+        "personalized":false,
+        "playtime":null,
+        "publicationService":{
+          "name":"hr-fernsehen",
+          "logo":{
+            "title":"HR Logo",
+            "alt":"HR Logo",
+            "producerName":"HR",
+            "src":"https://img.ardmediathek.de/standard/00/21/51/88/76/-295433861/0/{width}?mandant=ard",
+            "aspectRatio":"0"
+
+          },
+          "publisherType":"TV",
+          "partner":"hr",
+          "id":"b3JnYW5pemF0aW9uX0hS"
+
+        },
+        "links":{
+          "self":{
+            "id":"Y3JpZDovL2hyLW9ubGluZS8zODIxMDI3N18yMDIwLTA3LTA1VDEyOjMw",
+            "title":"Die Schokoladenkönigin",
+            "href":"https://api.ardmediathek.de/page-gateway/teasers/hr/broadcastmainclip/Y3JpZDovL2hyLW9ubGluZS8zODIxMDI3N18yMDIwLTA3LTA1VDEyOjMw",
+            "type":"application/vnd.ard.teaser+json"
+
+          },
+          "target":{
+            "id":"Y3JpZDovL2hyLW9ubGluZS8xMDE5ODI",
+            "title":"Die Schokoladenkönigin",
+            "href":"https://api.ardmediathek.de/page-gateway/pages/hr/item/Y3JpZDovL2hyLW9ubGluZS8xMDE5ODI?devicetype=pc&embedded=true",
+            "type":"application/vnd.ard.page+json"
+
+          }
+
+        },
+        "shortTitle":"Die Schokoladenkönigin",
+        "type":"broadcastMainClip"
+
+      },
+      {
+        "broadcastedOn":"2020-07-05T12:45:00Z",
+        "categories":[
+          "Reise",
+          "Dokumentation & Reportage",
+          "Natur & Freizeit"
+
+        ],
+        "decor":"none",
+        "id":"Y3JpZDovL2hyLW9ubGluZS8zODIxMDI2OV8yMDIwLTA3LTA1VDE0OjQ1",
+        "images":{
+          "aspect16x9":{
+            "alt":"Reisen",
+            "producerName":"Imago Images",
+            "src":"https://img.ardmediathek.de/standard/00/77/39/42/12/-1774185891/16x9/{width}?mandant=ard",
+            "title":"Buntes Mauritius - Standbild"
+
+          }
+
+        },
+        "longTitle":"Buntes Mauritius",
+        "mediumTitle":"Buntes Mauritius",
+        "numberOfClips":1,
+        "personalized":false,
+        "playtime":null,
+        "publicationService":{
+          "name":"hr-fernsehen",
+          "logo":{
+            "title":"HR Logo",
+            "alt":"HR Logo",
+            "producerName":"HR",
+            "src":"https://img.ardmediathek.de/standard/00/21/51/88/76/-295433861/0/{width}?mandant=ard",
+            "aspectRatio":"0"
+
+          },
+          "publisherType":"TV",
+          "partner":"hr",
+          "id":"b3JnYW5pemF0aW9uX0hS"
+
+        },
+        "links":{
+          "self":{
+            "id":"Y3JpZDovL2hyLW9ubGluZS8zODIxMDI2OV8yMDIwLTA3LTA1VDE0OjQ1",
+            "title":"Buntes Mauritius",
+            "href":"https://api.ardmediathek.de/page-gateway/teasers/hr/broadcastmainclip/Y3JpZDovL2hyLW9ubGluZS8zODIxMDI2OV8yMDIwLTA3LTA1VDE0OjQ1",
+            "type":"application/vnd.ard.teaser+json"
+
+          },
+          "target":{
+            "id":"Y3JpZDovL2hyLW9ubGluZS8xMDE4MjA",
+            "title":"Buntes Mauritius",
+            "href":"https://api.ardmediathek.de/page-gateway/pages/hr/item/Y3JpZDovL2hyLW9ubGluZS8xMDE4MjA?devicetype=pc&embedded=true",
+            "type":"application/vnd.ard.page+json"
+
+          }
+
+        },
+        "shortTitle":"Buntes Mauritius",
+        "type":"broadcastMainClip"
+
+      },
+      {
+        "broadcastedOn":"2020-07-05T17:00:00Z",
+        "categories":[
+          "Land & Leute",
+          "Hessen",
+          "Region",
+          "Heimat",
+          "In der Region",
+          "Magazin"
+
+        ],
+        "decor":"none",
+        "id":"Y3JpZDovL2hyLW9ubGluZS8wMDAwMDEyMF8yMDIwLTA3LTA1VDE5OjAw",
+        "images":{
+          "aspect16x9":{
+            "alt":"herkules",
+            "producerName":"hr",
+            "src":"https://img.ardmediathek.de/standard/00/77/23/27/00/-1774185891/16x9/{width}?mandant=ard",
+            "title":"Wie aus Schafmilch Seife wird - Standbild"
+
+          }
+
+        },
+        "longTitle":"herkules",
+        "mediumTitle":"herkules",
+        "numberOfClips":1,
+        "personalized":false,
+        "playtime":null,
+        "publicationService":{
+          "name":"hr-fernsehen",
+          "logo":{
+            "title":"HR Logo",
+            "alt":"HR Logo",
+            "producerName":"HR",
+            "src":"https://img.ardmediathek.de/standard/00/21/51/88/76/-295433861/0/{width}?mandant=ard",
+            "aspectRatio":"0"
+
+          },
+          "publisherType":"TV",
+          "partner":"hr",
+          "id":"b3JnYW5pemF0aW9uX0hS"
+
+        },
+        "links":{
+          "self":{
+            "id":"Y3JpZDovL2hyLW9ubGluZS8wMDAwMDEyMF8yMDIwLTA3LTA1VDE5OjAw",
+            "title":"herkules",
+            "href":"https://api.ardmediathek.de/page-gateway/teasers/hr/broadcastmainclip/Y3JpZDovL2hyLW9ubGluZS8wMDAwMDEyMF8yMDIwLTA3LTA1VDE5OjAw",
+            "type":"application/vnd.ard.teaser+json"
+
+          },
+          "target":{
+            "id":"Y3JpZDovL2hyLW9ubGluZS8xMDEyMDM",
+            "title":"herkules",
+            "href":"https://api.ardmediathek.de/page-gateway/pages/hr/item/Y3JpZDovL2hyLW9ubGluZS8xMDEyMDM?devicetype=pc&embedded=true",
+            "type":"application/vnd.ard.page+json"
+
+          }
+
+        },
+        "shortTitle":"herkules",
+        "type":"broadcastMainClip"
+
+      },
+      {
+        "broadcastedOn":"2020-07-05T17:30:00Z",
+        "categories":[
+          "Arbeit",
+          "Wetter",
+          "Aktuelles",
+          "Nachrichten",
+          "Hessen",
+          "Politik",
+          "Bildung",
+          "Region",
+          "Magazin"
+
+        ],
+        "decor":"none",
+        "id":"Y3JpZDovL2hyLW9ubGluZS8zODAzNzQ0NF8yMDIwLTA3LTA1VDE5OjMw",
+        "images":{
+          "aspect16x9":{
+            "alt":"hessenschau",
+            "producerName":"hr",
+            "src":"https://img.ardmediathek.de/standard/00/77/46/78/76/-1774185891/16x9/{width}?mandant=ard",
+            "title":"Marburger Forscher arbeiten an Corona-Gegenmittel - Standbild"
+
+          }
+
+        },
+        "longTitle":"hessenschau",
+        "mediumTitle":"hessenschau",
+        "numberOfClips":7,
+        "personalized":false,
+        "playtime":null,
+        "publicationService":{
+          "name":"hr-fernsehen",
+          "logo":{
+            "title":"HR Logo",
+            "alt":"HR Logo",
+            "producerName":"HR",
+            "src":"https://img.ardmediathek.de/standard/00/21/51/88/76/-295433861/0/{width}?mandant=ard",
+            "aspectRatio":"0"
+
+          },
+          "publisherType":"TV",
+          "partner":"hr",
+          "id":"b3JnYW5pemF0aW9uX0hS"
+
+        },
+        "links":{
+          "self":{
+            "id":"Y3JpZDovL2hyLW9ubGluZS8zODAzNzQ0NF8yMDIwLTA3LTA1VDE5OjMw",
+            "title":"hessenschau",
+            "href":"https://api.ardmediathek.de/page-gateway/teasers/hr/broadcastmainclip/Y3JpZDovL2hyLW9ubGluZS8zODAzNzQ0NF8yMDIwLTA3LTA1VDE5OjMw",
+            "type":"application/vnd.ard.teaser+json"
+
+          },
+          "target":{
+            "id":"Y3JpZDovL2hyLW9ubGluZS8xMDE5OTI",
+            "title":"hessenschau",
+            "href":"https://api.ardmediathek.de/page-gateway/pages/hr/item/Y3JpZDovL2hyLW9ubGluZS8xMDE5OTI?devicetype=pc&embedded=true",
+            "type":"application/vnd.ard.page+json"
+
+          }
+
+        },
+        "shortTitle":"hessenschau",
+        "type":"broadcastMainClip"
+
+      },
+      {
+        "broadcastedOn":"2020-07-05T19:45:00Z",
+        "categories":[
+          "Unterhaltung",
+          "Quiz",
+          "Hessen",
+          "Unterhaltung & Lifestyle",
+          "Show",
+          "Humor"
+
+        ],
+        "decor":"none",
+        "id":"Y3JpZDovL2hyLW9ubGluZS8zODIxMDI1N18yMDIwLTA3LTA1VDIxOjQ1",
+        "images":{
+          "aspect16x9":{
+            "alt":"strassen stars",
+            "producerName":"hr",
+            "src":"https://img.ardmediathek.de/standard/00/77/46/44/38/-1774185891/16x9/{width}?mandant=ard",
+            "title":"strassen stars vom 05.07.2020 - Standbild"
+
+          }
+
+        },
+        "longTitle":"strassen stars",
+        "mediumTitle":"strassen stars",
+        "numberOfClips":1,
+        "personalized":false,
+        "playtime":null,
+        "publicationService":{
+          "name":"hr-fernsehen",
+          "logo":{
+            "title":"HR Logo",
+            "alt":"HR Logo",
+            "producerName":"HR",
+            "src":"https://img.ardmediathek.de/standard/00/21/51/88/76/-295433861/0/{width}?mandant=ard",
+            "aspectRatio":"0"
+
+          },
+          "publisherType":"TV",
+          "partner":"hr",
+          "id":"b3JnYW5pemF0aW9uX0hS"
+
+        },
+        "links":{
+          "self":{
+            "id":"Y3JpZDovL2hyLW9ubGluZS8zODIxMDI1N18yMDIwLTA3LTA1VDIxOjQ1",
+            "title":"strassen stars",
+            "href":"https://api.ardmediathek.de/page-gateway/teasers/hr/broadcastmainclip/Y3JpZDovL2hyLW9ubGluZS8zODIxMDI1N18yMDIwLTA3LTA1VDIxOjQ1",
+            "type":"application/vnd.ard.teaser+json"
+
+          },
+          "target":{
+            "id":"Y3JpZDovL2hyLW9ubGluZS8xMDE5NzI",
+            "title":"strassen stars",
+            "href":"https://api.ardmediathek.de/page-gateway/pages/hr/item/Y3JpZDovL2hyLW9ubGluZS8xMDE5NzI?devicetype=pc&embedded=true",
+            "type":"application/vnd.ard.page+json"
+
+          }
+
+        },
+        "shortTitle":"strassen stars",
+        "type":"broadcastMainClip"
+
+      },
+      {
+        "broadcastedOn":"2020-07-05T22:00:00Z",
+        "categories":[
+          "Unterhaltung",
+          "Quiz",
+          "Unterhaltung & Lifestyle",
+          "Show"
+
+        ],
+        "decor":"none",
+        "id":"Y3JpZDovL2hyLW9ubGluZS8zODIyMDA0M18yMDIwLTA3LTA2VDAwOjAw",
+        "images":{
+          "aspect16x9":{
+            "alt":"die jackpot-jäger",
+            "producerName":"hr",
+            "src":"https://img.ardmediathek.de/standard/00/77/46/44/14/-1774185891/16x9/{width}?mandant=ard",
+            "title":"die jackpot-jäger vom 05.07.2020 - Standbild"
+
+          }
+
+        },
+        "longTitle":"die jackpot-jäger",
+        "mediumTitle":"die jackpot-jäger",
+        "numberOfClips":1,
+        "personalized":false,
+        "playtime":null,
+        "publicationService":{
+          "name":"hr-fernsehen",
+          "logo":{
+            "title":"HR Logo",
+            "alt":"HR Logo",
+            "producerName":"HR",
+            "src":"https://img.ardmediathek.de/standard/00/21/51/88/76/-295433861/0/{width}?mandant=ard",
+            "aspectRatio":"0"
+
+          },
+          "publisherType":"TV",
+          "partner":"hr",
+          "id":"b3JnYW5pemF0aW9uX0hS"
+
+        },
+        "links":{
+          "self":{
+            "id":"Y3JpZDovL2hyLW9ubGluZS8zODIyMDA0M18yMDIwLTA3LTA2VDAwOjAw",
+            "title":"die jackpot-jäger",
+            "href":"https://api.ardmediathek.de/page-gateway/teasers/hr/broadcastmainclip/Y3JpZDovL2hyLW9ubGluZS8zODIyMDA0M18yMDIwLTA3LTA2VDAwOjAw",
+            "type":"application/vnd.ard.teaser+json"
+
+          },
+          "target":{
+            "id":"Y3JpZDovL2hyLW9ubGluZS8xMDE5NzE",
+            "title":"die jackpot-jäger",
+            "href":"https://api.ardmediathek.de/page-gateway/pages/hr/item/Y3JpZDovL2hyLW9ubGluZS8xMDE5NzE?devicetype=pc&embedded=true",
+            "type":"application/vnd.ard.page+json"
+
+          }
+
+        },
+        "shortTitle":"die jackpot-jäger",
+        "type":"broadcastMainClip"
+
+      }
+
+    ],
+    "title":"Sendung verpasst - HR",
+    "type":"pastBroadcasts"
+
+  }
+]
