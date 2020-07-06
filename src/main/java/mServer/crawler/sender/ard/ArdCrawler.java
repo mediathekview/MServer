@@ -13,6 +13,7 @@ import mServer.crawler.sender.ard.tasks.ArdTopicsOverviewTask;
 import mServer.crawler.sender.base.CrawlerUrlDTO;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.concurrent.ConcurrentLinkedQueue;
@@ -22,6 +23,8 @@ import java.util.concurrent.RecursiveTask;
 public class ArdCrawler extends MediathekCrawler {
 
   private static final int MAX_DAYS_PAST = 2;
+  private static final DateTimeFormatter DAY_PAGE_DATE_FORMATTER
+          = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
   public static final String SENDERNAME = Const.ARD;
 
@@ -49,14 +52,12 @@ public class ArdCrawler extends MediathekCrawler {
 
     final LocalDateTime now = LocalDateTime.now();
     for (int i = 0; i < MAX_DAYS_PAST; i++) {
-      final String url
-              = new ArdUrlBuilder(ArdConstants.BASE_URL, ArdConstants.DEFAULT_CLIENT)
-                      .addSearchDate(now.minusDays(i))
-                      .addSavedQuery(
-                              ArdConstants.QUERY_DAY_SEARCH_VERSION, ArdConstants.QUERY_DAY_SEARCH_HASH)
-                      .build();
+      final String day = now.minusDays(i).format(DAY_PAGE_DATE_FORMATTER);
 
-      dayUrlsToCrawl.offer(new CrawlerUrlDTO(url));
+      for (String client : ArdConstants.CLIENTS) {
+        final String url = String.format(ArdConstants.DAY_PAGE_URL, client, day, day, ArdConstants.DAY_PAGE_SIZE);
+        dayUrlsToCrawl.offer(new CrawlerUrlDTO(url));
+      }
     }
     return dayUrlsToCrawl;
   }
@@ -96,18 +97,9 @@ public class ArdCrawler extends MediathekCrawler {
   private Set<ArdFilmInfoDto> getTopicsEntries() throws ExecutionException, InterruptedException {
     Set<CrawlerUrlDTO> topics = new HashSet<>();
     topics.addAll(getTopicEntriesBySender(ArdConstants.DEFAULT_CLIENT));
-    topics.addAll(getTopicEntriesBySender("daserste"));
-    topics.addAll(getTopicEntriesBySender("br"));
-    topics.addAll(getTopicEntriesBySender("hr"));
-    topics.addAll(getTopicEntriesBySender("mdr"));
-    topics.addAll(getTopicEntriesBySender("ndr"));
-    topics.addAll(getTopicEntriesBySender("radiobremen"));
-    topics.addAll(getTopicEntriesBySender("rbb"));
-    topics.addAll(getTopicEntriesBySender("sr"));
-    topics.addAll(getTopicEntriesBySender("swr"));
-    topics.addAll(getTopicEntriesBySender("wdr"));
-    topics.addAll(getTopicEntriesBySender("one"));
-    topics.addAll(getTopicEntriesBySender("alpha"));
+    for (String client : ArdConstants.CLIENTS) {
+      topics.addAll(getTopicEntriesBySender(client));
+    }
 
     ConcurrentLinkedQueue<CrawlerUrlDTO> topicUrls = new ConcurrentLinkedQueue<>(topics);
 
@@ -128,10 +120,7 @@ public class ArdCrawler extends MediathekCrawler {
   private ConcurrentLinkedQueue<CrawlerUrlDTO> createTopicsOverviewUrl(final String client) {
     final ConcurrentLinkedQueue<CrawlerUrlDTO> urls = new ConcurrentLinkedQueue<>();
 
-    final String url
-            = new ArdUrlBuilder(ArdConstants.BASE_URL, client)
-                    .addSavedQuery(ArdConstants.QUERY_TOPICS_VERSION, ArdConstants.QUERY_TOPICS_HASH)
-                    .build();
+    final String url = String.format(ArdConstants.TOPICS_URL, client);
 
     urls.add(new CrawlerUrlDTO(url));
 

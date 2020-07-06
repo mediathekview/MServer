@@ -6,62 +6,75 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import java.lang.reflect.Type;
 import java.util.HashSet;
+import java.util.Map.Entry;
 import java.util.Optional;
 import java.util.Set;
 import mServer.crawler.sender.ard.ArdConstants;
-import mServer.crawler.sender.ard.ArdUrlBuilder;
 import mServer.crawler.sender.base.CrawlerUrlDTO;
 import mServer.crawler.sender.base.JsonUtils;
 
 public class ArdTopicsOverviewDeserializer implements JsonDeserializer<Set<CrawlerUrlDTO>> {
 
-  private static final String ELEMENT_DATA = "data";
-  private static final String ELEMENT_GLOSSARY = "glossary";
-  private static final String ELEMENT_SHOWS_PAGE = "showsPage";
+  private static final String ELEMENT_COMPILATIONS = "compilations";
+  private static final String ELEMENT_TEASERS = "teasers";
+  private static final String ELEMENT_LINKS = "links";
+  private static final String ELEMENT_TARGET = "target";
+  private static final String ELEMENT_WIDGETS = "widgets";
 
   private static final String ATTRIBUTE_ID = "id";
 
   @Override
-  public Set<CrawlerUrlDTO> deserialize(JsonElement jsonElement, Type type, JsonDeserializationContext context) {
+  public Set<CrawlerUrlDTO> deserialize(JsonElement jsonElement, Type type,
+      JsonDeserializationContext context) {
     Set<CrawlerUrlDTO> results = new HashSet<>();
 
-    if (JsonUtils.checkTreePath(jsonElement, ELEMENT_DATA, ELEMENT_SHOWS_PAGE, ELEMENT_GLOSSARY)) {
-      JsonObject glossaryObject = jsonElement.getAsJsonObject()
-              .get(ELEMENT_DATA).getAsJsonObject()
-              .get(ELEMENT_SHOWS_PAGE).getAsJsonObject()
-              .get(ELEMENT_GLOSSARY).getAsJsonObject();
+    if (!jsonElement.getAsJsonObject().has(ELEMENT_WIDGETS)
+        || !jsonElement.getAsJsonObject().get(ELEMENT_WIDGETS).isJsonArray()
+        || jsonElement.getAsJsonObject().getAsJsonArray(ELEMENT_WIDGETS).size() == 0
+        || !jsonElement
+        .getAsJsonObject()
+        .getAsJsonArray(ELEMENT_WIDGETS)
+        .get(0)
+        .getAsJsonObject()
+        .has(ELEMENT_COMPILATIONS)) {
+      return results;
+    }
 
-      for (String key : glossaryObject.keySet()) {
-        if (key.startsWith("shows")) {
-          results.addAll(parseShowEntry(glossaryObject.get(key)));
-        }
-      }
+    final JsonObject compilationObject = jsonElement.getAsJsonObject()
+        .getAsJsonArray(ELEMENT_WIDGETS).get(0)
+        .getAsJsonObject().get(ELEMENT_COMPILATIONS).getAsJsonObject();
+
+    for (Entry<String, JsonElement> letterEntry : compilationObject.entrySet()) {
+      results.addAll(parseLetter(letterEntry.getValue().getAsJsonObject()));
     }
 
     return results;
   }
 
-  private Set<CrawlerUrlDTO> parseShowEntry(JsonElement jsonElement) {
+  private Set<CrawlerUrlDTO> parseLetter(final JsonObject letterObject) {
     Set<CrawlerUrlDTO> results = new HashSet<>();
 
-    if (jsonElement.isJsonArray()) {
-      for (JsonElement entryElement : jsonElement.getAsJsonArray()) {
-        JsonObject entryObject = entryElement.getAsJsonObject();
-        Optional<String> id = JsonUtils.getAttributeAsString(entryObject, ATTRIBUTE_ID);
-        id.ifPresent(s -> results.add(createUrlDto(s)));
+    if (!letterObject.getAsJsonObject().has(ELEMENT_TEASERS)
+        || !letterObject.getAsJsonObject().get(ELEMENT_TEASERS).isJsonArray()) {
+      return results;
+    }
+
+    for (JsonElement teaserElement :
+        letterObject.getAsJsonObject().getAsJsonArray(ELEMENT_TEASERS)) {
+      JsonObject teaserObject = teaserElement.getAsJsonObject();
+      Optional<String> id;
+      if (JsonUtils.checkTreePath(teaserObject, ELEMENT_LINKS, ELEMENT_TARGET)) {
+        JsonObject targetObject =
+            teaserObject.get(ELEMENT_LINKS).getAsJsonObject().get(ELEMENT_TARGET).getAsJsonObject();
+        id = JsonUtils.getAttributeAsString(targetObject, ATTRIBUTE_ID);
+      } else {
+        id = JsonUtils.getAttributeAsString(teaserObject, ATTRIBUTE_ID);
       }
+
+      id.ifPresent(s -> results.add(new CrawlerUrlDTO(
+          String.format(ArdConstants.TOPIC_URL, s, ArdConstants.TOPIC_PAGE_SIZE))));
     }
 
     return results;
-  }
-
-  private CrawlerUrlDTO createUrlDto(final String id) {
-    String url = new ArdUrlBuilder(ArdConstants.BASE_URL, ArdConstants.DEFAULT_CLIENT)
-            .addShowId(id)
-            .addPageNumber(0)
-            .addSavedQuery(ArdConstants.QUERY_TOPIC_VERSION, ArdConstants.QUERY_TOPIC_HASH)
-            .build();
-
-    return new CrawlerUrlDTO(url);
   }
 }

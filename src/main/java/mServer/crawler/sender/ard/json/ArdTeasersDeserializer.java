@@ -8,7 +8,6 @@ import java.util.Optional;
 import java.util.Set;
 import mServer.crawler.sender.ard.ArdConstants;
 import mServer.crawler.sender.ard.ArdFilmInfoDto;
-import mServer.crawler.sender.ard.ArdUrlBuilder;
 import mServer.crawler.sender.base.JsonUtils;
 
 abstract class ArdTeasersDeserializer {
@@ -48,10 +47,7 @@ abstract class ArdTeasersDeserializer {
   }
 
   private ArdFilmInfoDto createFilmInfo(String id, int numberOfClips) {
-    final String url = new ArdUrlBuilder(ArdConstants.BASE_URL, ArdConstants.DEFAULT_CLIENT)
-            .addClipId(id, ArdConstants.DEFAULT_DEVICE)
-            .addSavedQuery(ArdConstants.QUERY_FILM_VERSION, ArdConstants.QUERY_FILM_HASH)
-            .build();
+    final String url = ArdConstants.ITEM_URL + id;
 
     return new ArdFilmInfoDto(id, url, numberOfClips);
   }
