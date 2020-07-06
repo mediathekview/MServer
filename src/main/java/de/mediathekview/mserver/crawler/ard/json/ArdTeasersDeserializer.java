@@ -6,7 +6,6 @@ import com.google.gson.JsonObject;
 import de.mediathekview.mserver.base.utils.JsonUtils;
 import de.mediathekview.mserver.crawler.ard.ArdConstants;
 import de.mediathekview.mserver.crawler.ard.ArdFilmInfoDto;
-import de.mediathekview.mserver.crawler.ard.ArdUrlBuilder;
 import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
