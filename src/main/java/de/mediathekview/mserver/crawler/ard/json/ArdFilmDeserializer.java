@@ -16,7 +16,6 @@ import de.mediathekview.mserver.base.utils.UrlUtils;
 import de.mediathekview.mserver.crawler.ard.ArdConstants;
 import de.mediathekview.mserver.crawler.ard.ArdFilmDto;
 import de.mediathekview.mserver.crawler.ard.ArdFilmInfoDto;
-import de.mediathekview.mserver.crawler.ard.ArdUrlBuilder;
 import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.LogManager;
@@ -42,20 +41,18 @@ public class ArdFilmDeserializer implements JsonDeserializer<List<ArdFilmDto>> {
 
   private static final String GERMAN_TIME_ZONE = "Europe/Berlin";
 
-  private static final String ELEMENT_DATA = "data";
   private static final String ELEMENT_EMBEDDED = "embedded";
   private static final String ELEMENT_MEDIA_COLLECTION = "mediaCollection";
-  private static final String ELEMENT_PLAYER_PAGE = "playerPage";
   private static final String ELEMENT_PUBLICATION_SERVICE = "publicationService";
   private static final String ELEMENT_SHOW = "show";
   private static final String ELEMENT_TEASERS = "teasers";
   private static final String ELEMENT_WIDGETS = "widgets";
 
   private static final String ATTRIBUTE_BROADCAST = "broadcastedOn";
-  private static final String ATTRIBUTE_CHANNEL_TYPE = "channelType";
   private static final String ATTRIBUTE_DURATION = "_duration";
   private static final String ATTRIBUTE_ID = "id";
   private static final String ATTRIBUTE_NAME = "name";
+  private static final String ATTRIBUTE_PARTNER = "partner";
   private static final String ATTRIBUTE_SYNOPSIS = "synopsis";
   private static final String ATTRIBUTE_TITLE = "title";
 
@@ -139,7 +136,7 @@ public class ArdFilmDeserializer implements JsonDeserializer<List<ArdFilmDto>> {
     final Optional<LocalDateTime> date = parseDate(itemObject);
     final Optional<Duration> duration = parseDuration(itemObject);
     final Optional<ArdVideoInfoDto> videoInfo = parseVideoUrls(itemObject);
-    final Optional<String> channelType = parseChannelType(itemObject);
+    final Optional<String> partner = parsePartner(itemObject);
 
     if (topic.isPresent()
       && title.isPresent()
@@ -147,9 +144,9 @@ public class ArdFilmDeserializer implements JsonDeserializer<List<ArdFilmDto>> {
       && videoInfo.get().getVideoUrls().size() > 0) {
 
       final Sender sender;
-      // If channel type is present and a existing sender set it. Like for RBB
-      if (channelType.isPresent()) {
-        final Optional<Sender> additionalSender = Sender.getSenderByName(channelType.get());
+      // If partner is present and a existing sender set it. Like for RBB
+      if (partner.isPresent()) {
+        final Optional<Sender> additionalSender = Sender.getSenderByName(partner.get());
         sender = additionalSender.orElse(Sender.ARD);
       } else {
         sender = Sender.ARD;
@@ -178,12 +175,12 @@ public class ArdFilmDeserializer implements JsonDeserializer<List<ArdFilmDto>> {
     return title;
   }
 
-  private Optional<String> parseChannelType(final JsonObject playerPageObject) {
+  private Optional<String> parsePartner(final JsonObject playerPageObject) {
     if (playerPageObject.has(ELEMENT_PUBLICATION_SERVICE)) {
       final JsonObject publicationServiceObject =
         playerPageObject.get(ELEMENT_PUBLICATION_SERVICE).getAsJsonObject();
       final Optional<String> channelAttribute =
-        JsonUtils.getAttributeAsString(publicationServiceObject, ATTRIBUTE_CHANNEL_TYPE);
+        JsonUtils.getAttributeAsString(publicationServiceObject, ATTRIBUTE_PARTNER);
       if (channelAttribute.isPresent()) {
         return channelAttribute;
       }
