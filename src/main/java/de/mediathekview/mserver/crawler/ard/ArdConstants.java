@@ -7,6 +7,8 @@ public class ArdConstants {
 
   public static final String ITEM_URL = API_URL + "/page-gateway/pages/ard/item/";
 
+  public static final String TOPICS_URL = API_URL + "/page-gateway/pages/%s/shows/";
+  public static final String TOPIC_URL = API_URL + "/page-gateway/widgets/ard/asset/%s?pageSize=50";
   public static final String DAY_PAGE_URL = API_URL + "/page-gateway/compilations/%s/pastbroadcasts?startDateTime=%sT00:00:00.000Z&endDateTime=%sT23:59:59.000Z&pageNumber=0&pageSize=100";
 
   public static final String DEFAULT_CLIENT = "ard";

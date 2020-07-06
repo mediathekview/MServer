@@ -1,248 +1,504 @@
 {
-  "data":{
-    "showPage":{
-      "id":"U2hvd1BhZ2UrQVJEK2NyaWQ6Ly9kYXNlcnN0ZS5kZS9hZW5uYSBidXJkYQ",
-      "teasers":[
-        {
-          "id":"Y3JpZDovL2Rhc2Vyc3RlLmRlL2Flbm5hIGJ1cmRhL2IxZjY2NWQzLWIyOTYtNDQ4ZS05YmQ1LTk5MWUzZTcxZWNkMQ",
-          "links":{
-            "target":{
-              "id":"Y3JpZDovL2Rhc2Vyc3RlLmRlL2Flbm5hIGJ1cmRhL2IxZjY2NWQzLWIyOTYtNDQ4ZS05YmQ1LTk5MWUzZTcxZWNkMQ",
-              "title":"Dokumentation: Aenne Burda - Die Königin der Kleider",
-              "__typename":"Link"
-            },
-            "__typename":"TeaserLinks"
-          },
-          "shortTitle":"Dokumentation: Aenne Burda - Die Königin der Kleider",
-          "mediumTitle":"Dokumentation: Aenne Burda - Die Königin der Kleider",
-          "longTitle":"Dokumentation: Aenne Burda - Die Königin der Kleider",
-          "type":"ondemand",
-          "images":{
-            "aspect16x9":{
-              "title":"Dokumentation: Aenne Burda - Die Königin der Kleider - Standbild",
-              "src":"https://img.ardmediathek.de/standard/00/58/31/82/06/-1774185891/16x9/{width}?mandant=ard",
-              "producerName":"SWR",
-              "__typename":"Image"
-            },
-            "aspect1x1":null,
-            "__typename":"TeaserImages"
-          },
-          "duration":1783,
-          "availableTo":"2019-12-12T22:59:00Z",
-          "broadcastedOn":"2018-12-12T20:45:00Z",
-          "subtitled":false,
-          "publicationService":{
-            "name":"Das Erste",
-            "__typename":"PublicationService"
-          },
-          "__typename":"Teaser"
-        },
-        {
-          "id":"Y3JpZDovL2Rhc2Vyc3RlLmRlL2Flbm5hIGJ1cmRhLzdkMWRhYzhmLWMxOWEtNDdjZS1hNDBmLTgzN2NjZTRhNTNjZQ",
-          "links":{
-            "target":{
-              "id":"Y3JpZDovL2Rhc2Vyc3RlLmRlL2Flbm5hIGJ1cmRhLzdkMWRhYzhmLWMxOWEtNDdjZS1hNDBmLTgzN2NjZTRhNTNjZQ",
-              "title":"Aenne Burda - Die Wirtschaftswunderfrau (2)",
-              "__typename":"Link"
-            },
-            "__typename":"TeaserLinks"
-          },
-          "shortTitle":"Aenne Burda - Die Wirtschaftswunderfrau (2)",
-          "mediumTitle":"Aenne Burda - Die Wirtschaftswunderfrau (2)",
-          "longTitle":"Aenne Burda - Die Wirtschaftswunderfrau (2)",
-          "type":"ondemand",
-          "images":{
-            "aspect16x9":{
-              "title":"Aenne Burda - Die Wirtschaftswunderfrau (2) - Standbild",
-              "src":"https://img.ardmediathek.de/standard/00/58/31/82/36/-1774185891/16x9/{width}?mandant=ard",
-              "producerName":"SWR",
-              "__typename":"Image"
-            },
-            "aspect1x1":null,
-            "__typename":"TeaserImages"
-          },
-          "duration":5310,
-          "availableTo":"2019-03-04T22:59:00Z",
-          "broadcastedOn":"2018-12-12T19:15:00Z",
-          "subtitled":true,
-          "publicationService":{
-            "name":"Das Erste",
-            "__typename":"PublicationService"
-          },
-          "__typename":"Teaser"
-        },
-        {
-          "id":"Y3JpZDovL2Rhc2Vyc3RlLmRlL2Flbm5hIGJ1cmRhL2I0MWQ3MDhjLTMwNDItNGNhYy1iOTMyLTI0NzNlNjdiM2MwOQ",
-          "links":{
-            "target":{
-              "id":"Y3JpZDovL2Rhc2Vyc3RlLmRlL2Flbm5hIGJ1cmRhL2I0MWQ3MDhjLTMwNDItNGNhYy1iOTMyLTI0NzNlNjdiM2MwOQ",
-              "title":"Aenne Burda - Die Wirtschaftswunderfrau (2) (Hörfassung)",
-              "__typename":"Link"
-            },
-            "__typename":"TeaserLinks"
-          },
-          "shortTitle":"Aenne Burda - Die Wirtschaftswunderfrau (2) (Hörfassung)",
-          "mediumTitle":"Aenne Burda - Die Wirtschaftswunderfrau (2) (Hörfassung)",
-          "longTitle":"Aenne Burda - Die Wirtschaftswunderfrau (2) (Hörfassung)",
-          "type":"ondemand",
-          "images":{
-            "aspect16x9":{
-              "title":"Aenne Burda - Die Wirtschaftswunderfrau (2) (Hörfassung) - Standbild",
-              "src":"https://img.ardmediathek.de/standard/00/58/31/82/70/-1774185891/16x9/{width}?mandant=ard",
-              "producerName":"SWR",
-              "__typename":"Image"
-            },
-            "aspect1x1":null,
-            "__typename":"TeaserImages"
-          },
-          "duration":5310,
-          "availableTo":"2019-03-04T22:59:00Z",
-          "broadcastedOn":"2018-12-12T19:15:00Z",
-          "subtitled":false,
-          "publicationService":{
-            "name":"Das Erste",
-            "__typename":"PublicationService"
-          },
-          "__typename":"Teaser"
-        },
-        {
-          "id":"Y3JpZDovL2Rhc2Vyc3RlLmRlL2Flbm5hIGJ1cmRhLzhiMzE1ZTlkLWFmZjktNDE2Mi1iNzk1LWY3OTk3MGJjYWZkMw",
-          "links":{
-            "target":{
-              "id":"Y3JpZDovL2Rhc2Vyc3RlLmRlL2Flbm5hIGJ1cmRhLzhiMzE1ZTlkLWFmZjktNDE2Mi1iNzk1LWY3OTk3MGJjYWZkMw",
-              "title":"Making-of: Katharina Wackernagel ist Aenne Burda",
-              "__typename":"Link"
-            },
-            "__typename":"TeaserLinks"
-          },
-          "shortTitle":"Making-of: Katharina Wackernagel ist Aenne Burda",
-          "mediumTitle":"Making-of: Katharina Wackernagel ist Aenne Burda",
-          "longTitle":"Making-of: Katharina Wackernagel ist Aenne Burda",
-          "type":"ondemand",
-          "images":{
-            "aspect16x9":{
-              "title":"Making-of: Katharina Wackernagel ist Aenne Burda - Standbild",
-              "src":"https://img.ardmediathek.de/standard/00/58/00/01/26/-1774185891/16x9/{width}?mandant=ard",
-              "producerName":"SWR",
-              "__typename":"Image"
-            },
-            "aspect1x1":null,
-            "__typename":"TeaserImages"
-          },
-          "duration":215,
-          "availableTo":"2018-12-31T22:59:00Z",
-          "broadcastedOn":"2018-11-05T19:15:00Z",
-          "subtitled":false,
-          "publicationService":{
-            "name":"Das Erste",
-            "__typename":"PublicationService"
-          },
-          "__typename":"Teaser"
-        },
-        {
-          "id":"Y3JpZDovL2Rhc2Vyc3RlLmRlL2Flbm5hIGJ1cmRhLzk2OTI1NTQxLWRkZTQtNGJhOS1hZTUyLTQ0MDUwYzIwOGVlOA",
-          "links":{
-            "target":{
-              "id":"Y3JpZDovL2Rhc2Vyc3RlLmRlL2Flbm5hIGJ1cmRhLzk2OTI1NTQxLWRkZTQtNGJhOS1hZTUyLTQ0MDUwYzIwOGVlOA",
-              "title":"Making-of: Alexander Stolle kümmert sich um die historischen Fahrzeuge",
-              "__typename":"Link"
-            },
-            "__typename":"TeaserLinks"
-          },
-          "shortTitle":"Making-of: Alexander Stolle kümmert sich um die historischen Fahrzeuge",
-          "mediumTitle":"Making-of: Alexander Stolle kümmert sich um die historischen Fahrzeuge",
-          "longTitle":"Making-of: Alexander Stolle kümmert sich um die historischen Fahrzeuge",
-          "type":"ondemand",
-          "images":{
-            "aspect16x9":{
-              "title":"Making-of: Alexander Stolle kümmert sich um die historischen Fahrzeuge - Standbild",
-              "src":"https://img.ardmediathek.de/standard/00/58/27/98/40/-1774185891/16x9/{width}?mandant=ard",
-              "producerName":"ARD",
-              "__typename":"Image"
-            },
-            "aspect1x1":null,
-            "__typename":"TeaserImages"
-          },
-          "duration":150,
-          "availableTo":null,
-          "broadcastedOn":"2018-12-05T19:15:00Z",
-          "subtitled":false,
-          "publicationService":{
-            "name":"Das Erste",
-            "__typename":"PublicationService"
-          },
-          "__typename":"Teaser"
-        },
-        {
-          "id":"Y3JpZDovL2Rhc2Vyc3RlLmRlL2Flbm5hIGJ1cmRhLzhjYTk2MmFiLTgyOTctNDE4Yy05YzUxLTdlN2Y1Mjg4ZWY5ZS9hdWRpb2Rlc2tyaXB0aW9u",
-          "links":{
-            "target":{
-              "id":"Y3JpZDovL2Rhc2Vyc3RlLmRlL2Flbm5hIGJ1cmRhLzhjYTk2MmFiLTgyOTctNDE4Yy05YzUxLTdlN2Y1Mjg4ZWY5ZS9hdWRpb2Rlc2tyaXB0aW9u",
-              "title":"Aenne Burda - Die Wirtschaftswunderfrau (1) - Hörfassung",
-              "__typename":"Link"
-            },
-            "__typename":"TeaserLinks"
-          },
-          "shortTitle":"Aenne Burda - Die Wirtschaftswunderfrau (1) - Hörfassung",
-          "mediumTitle":"Aenne Burda - Die Wirtschaftswunderfrau (1) - Hörfassung",
-          "longTitle":"Aenne Burda - Die Wirtschaftswunderfrau (1) - Hörfassung",
-          "type":"ondemand",
-          "images":{
-            "aspect16x9":{
-              "title":"Aenne Burda - Die Wirtschaftswunderfrau (1) - Hörfassung - Standbild",
-              "src":"https://img.ardmediathek.de/standard/00/58/37/32/80/-1774185891/16x9/{width}?mandant=ard",
-              "producerName":"SWR",
-              "__typename":"Image"
-            },
-            "aspect1x1":null,
-            "__typename":"TeaserImages"
-          },
-          "duration":5274,
-          "availableTo":"2019-03-04T22:59:00Z",
-          "broadcastedOn":"2018-12-05T19:15:00Z",
-          "subtitled":true,
-          "publicationService":{
-            "name":"Das Erste",
-            "__typename":"PublicationService"
-          },
-          "__typename":"Teaser"
-        },
-        {
-          "id":"Y3JpZDovL2Rhc2Vyc3RlLmRlL2Flbm5hIGJ1cmRhLzhiMzE1ZTlkLWFmZjktNDE2Mi1iNzk1LWY3OTk3MGJjYWZkMw",
-          "links":{
-            "target":{
-              "id":"Y3JpZDovL2Rhc2Vyc3RlLmRlL2Flbm5hIGJ1cmRhLzhiMzE1ZTlkLWFmZjktNDE2Mi1iNzk1LWY3OTk3MGJjYWZkMw",
-              "title":"Making-of: Katharina Wackernagel ist Aenne Burda",
-              "__typename":"Link"
-            },
-            "__typename":"TeaserLinks"
-          },
-          "shortTitle":"Making-of: Katharina Wackernagel ist Aenne Burda",
-          "mediumTitle":"Making-of: Katharina Wackernagel ist Aenne Burda",
-          "longTitle":"Making-of: Katharina Wackernagel ist Aenne Burda",
-          "type":"ondemand",
-          "images":{
-            "aspect16x9":{
-              "title":"Making-of: Katharina Wackernagel ist Aenne Burda - Standbild",
-              "src":"https://img.ardmediathek.de/standard/00/58/00/01/26/-1774185891/16x9/{width}?mandant=ard",
-              "producerName":"SWR",
-              "__typename":"Image"
-            },
-            "aspect1x1":null,
-            "__typename":"TeaserImages"
-          },
-          "duration":215,
-          "availableTo":"2018-12-31T22:59:00Z",
-          "broadcastedOn":"2018-11-05T19:15:00Z",
-          "subtitled":false,
-          "publicationService":{
-            "name":"Das Erste",
-            "__typename":"PublicationService"
-          },
-          "__typename":"Teaser"
-        }
-      ],
-      "__typename":"ShowPage"
+  "compilationType":"itemsOfShow",
+  "id":"Y3JpZDovL3JhZGlvYnJlbWVuLmRlLzNuYWNoOQ",
+  "pagination":{
+    "pageNumber":0,
+    "pageSize":5,
+    "totalElements":78
+
+  },
+  "personalized":false,
+  "links":{
+    "self":{
+      "id":"Y3JpZDovL3JhZGlvYnJlbWVuLmRlLzNuYWNoOQ",
+      "title":"3nach9",
+      "href":"https://api.ardmediathek.de/page-gateway/widgets/ard/asset/Y3JpZDovL3JhZGlvYnJlbWVuLmRlLzNuYWNoOQ?pageNumber=0&pageSize=5&embedded=true",
+      "type":"application/vnd.ard.widget+json"
+
     }
-  }
+
+  },
+  "size":"m",
+  "swipeable":true,
+  "teasers":[
+    {
+      "availableTo":"2021-06-26T20:00:00Z",
+      "broadcastedOn":"2020-06-26T20:00:00Z",
+      "decor":"none",
+      "duration":7114,
+      "id":"Y3JpZDovL3JhZGlvYnJlbWVuLmRlLzFmOTkwMzNlLWY1MjUtNDk4Yy1iZjQ5LWIwZjZjYjhjNzRkYQ",
+      "images":{
+        "aspect16x9":{
+          "alt":"Judith Rakers und Giovanni di Lorenzo",
+          "producerName":"",
+          "src":"https://img.ardmediathek.de/standard/00/77/18/31/06/-1774185891/16x9/{width}?mandant=ard",
+          "title":"3nach9 am 26. Juni 2020 - Standbild"
+
+        }
+
+      },
+      "longTitle":"3nach9 am 26. Juni 2020",
+      "mediumTitle":"3nach9 am 26. Juni 2020",
+      "personalized":false,
+      "playtime":null,
+      "publicationService":{
+        "name":"Radio Bremen TV",
+        "logo":{
+          "title":"RB",
+          "alt":"RB Logo",
+          "producerName":"RB",
+          "src":"https://img.ardmediathek.de/standard/00/21/51/88/84/555337067/0/{width}?mandant=ard",
+          "aspectRatio":"0"
+
+        },
+        "publisherType":"TV",
+        "partner":"radio_bremen",
+        "id":"b3JnYW5pemF0aW9uX1JhZGlvQnJlbWVu"
+
+      },
+      "links":{
+        "self":{
+          "id":"Y3JpZDovL3JhZGlvYnJlbWVuLmRlLzFmOTkwMzNlLWY1MjUtNDk4Yy1iZjQ5LWIwZjZjYjhjNzRkYQ",
+          "title":"3nach9 am 26. Juni 2020",
+          "href":"https://api.ardmediathek.de/page-gateway/teasers/ard/items/Y3JpZDovL3JhZGlvYnJlbWVuLmRlLzFmOTkwMzNlLWY1MjUtNDk4Yy1iZjQ5LWIwZjZjYjhjNzRkYQ",
+          "type":"application/vnd.ard.teaser+json"
+
+        },
+        "target":{
+          "id":"Y3JpZDovL3JhZGlvYnJlbWVuLmRlLzFmOTkwMzNlLWY1MjUtNDk4Yy1iZjQ5LWIwZjZjYjhjNzRkYQ",
+          "title":"3nach9 am 26. Juni 2020",
+          "href":"https://api.ardmediathek.de/page-gateway/pages/ard/item/Y3JpZDovL3JhZGlvYnJlbWVuLmRlLzFmOTkwMzNlLWY1MjUtNDk4Yy1iZjQ5LWIwZjZjYjhjNzRkYQ?devicetype=pc&embedded=true",
+          "type":"application/vnd.ard.page+json"
+
+        }
+
+      },
+      "shortTitle":"3nach9 am 26. Juni 2020",
+      "show":{
+        "id":"crid://radiobremen.de/3nach9",
+        "coremediaId":967542,
+        "title":"3nach9",
+        "publisher":{
+          "name":"Radio Bremen TV",
+          "logo":{
+            "title":"RB",
+            "alt":"RB Logo",
+            "producerName":"RB",
+            "src":"https://img.ardmediathek.de/standard/00/21/51/88/84/555337067/0/{width}?mandant=ard",
+            "aspectRatio":"0"
+
+          },
+          "publisherType":"TV",
+          "partner":"radio_bremen",
+          "id":"b3JnYW5pemF0aW9uX1JhZGlvQnJlbWVu"
+
+        },
+        "self":null,
+        "images":{
+          "16x9":{
+            "title":"3 nach 9 - Standbild",
+            "alt":"Logo 3 nach 9",
+            "producerName":"Radio Bremen",
+            "src":"https://img.ardmediathek.de/standard/00/69/42/29/38/555337067/16x9/{width}?mandant=ard",
+            "aspectRatio":"16x9"
+
+          }
+
+        },
+        "shortSynopsis":"Einmal monatlich freitags um 22.00 Uhr (nach 9!) talken Judith Rakers und Giovanni di Lorenzo live im Dritten (3!) mit prominenten Köpfen aus Kultur, Wissenschaft, Politik und Sport. Immer dabei: Spektakuläre Live-Musik von Barock bis Heavy Metal.",
+        "synopsis":"Einmal monatlich freitags um 22.00 Uhr (nach 9!) talken Judith Rakers und Giovanni di Lorenzo live im Dritten (3!) mit prominenten Köpfen aus Kultur, Wissenschaft, Politik und Sport. Immer dabei: Spektakuläre Live-Musik von Barock bis Heavy Metal.",
+        "longSynopsis":"Einmal monatlich freitags um 22.00 Uhr (nach 9!) talken Judith Rakers und Giovanni di Lorenzo live im Dritten (3!) mit prominenten Köpfen aus Kultur, Wissenschaft, Politik und Sport. Immer dabei: Spektakuläre Live-Musik von Barock bis Heavy Metal.",
+        "groupingType":"SHOW",
+        "homepage":null
+
+      },
+      "subtitled":false,
+      "type":"ondemand"
+
+    },
+    {
+      "availableTo":"2021-06-26T20:00:00Z",
+      "broadcastedOn":"2020-06-26T20:00:00Z",
+      "decor":"none",
+      "duration":1296,
+      "id":"Y3JpZDovL3JhZGlvYnJlbWVuLmRlLzkzM2QzZjFjLTlkMWQtNGFlNy1hNDA5LTlhMjdjNGI0NTdjZA",
+      "images":{
+        "aspect16x9":{
+          "alt":"Signe Preuschoft mit einem Orang-Utan-Junges auf dem Arm",
+          "producerName":"",
+          "src":"https://img.ardmediathek.de/standard/00/77/17/81/16/-1774185891/16x9/{width}?mandant=ard",
+          "title":"Signe Preuschoft über Menschenaffen - Standbild"
+
+        }
+
+      },
+      "longTitle":"Signe Preuschoft über Menschenaffen",
+      "mediumTitle":"Signe Preuschoft über Menschenaffen",
+      "personalized":false,
+      "playtime":null,
+      "publicationService":{
+        "name":"Radio Bremen TV",
+        "logo":{
+          "title":"RB",
+          "alt":"RB Logo",
+          "producerName":"RB",
+          "src":"https://img.ardmediathek.de/standard/00/21/51/88/84/555337067/0/{width}?mandant=ard",
+          "aspectRatio":"0"
+
+        },
+        "publisherType":"TV",
+        "partner":"radio_bremen",
+        "id":"b3JnYW5pemF0aW9uX1JhZGlvQnJlbWVu"
+
+      },
+      "links":{
+        "self":{
+          "id":"Y3JpZDovL3JhZGlvYnJlbWVuLmRlLzkzM2QzZjFjLTlkMWQtNGFlNy1hNDA5LTlhMjdjNGI0NTdjZA",
+          "title":"Signe Preuschoft über Menschenaffen",
+          "href":"https://api.ardmediathek.de/page-gateway/teasers/ard/items/Y3JpZDovL3JhZGlvYnJlbWVuLmRlLzkzM2QzZjFjLTlkMWQtNGFlNy1hNDA5LTlhMjdjNGI0NTdjZA",
+          "type":"application/vnd.ard.teaser+json"
+
+        },
+        "target":{
+          "id":"Y3JpZDovL3JhZGlvYnJlbWVuLmRlLzkzM2QzZjFjLTlkMWQtNGFlNy1hNDA5LTlhMjdjNGI0NTdjZA",
+          "title":"Signe Preuschoft über Menschenaffen",
+          "href":"https://api.ardmediathek.de/page-gateway/pages/ard/item/Y3JpZDovL3JhZGlvYnJlbWVuLmRlLzkzM2QzZjFjLTlkMWQtNGFlNy1hNDA5LTlhMjdjNGI0NTdjZA?devicetype=pc&embedded=true",
+          "type":"application/vnd.ard.page+json"
+
+        }
+
+      },
+      "shortTitle":"Signe Preuschoft über Menschenaffen",
+      "show":{
+        "id":"crid://radiobremen.de/3nach9",
+        "coremediaId":967542,
+        "title":"3nach9",
+        "publisher":{
+          "name":"Radio Bremen TV",
+          "logo":{
+            "title":"RB",
+            "alt":"RB Logo",
+            "producerName":"RB",
+            "src":"https://img.ardmediathek.de/standard/00/21/51/88/84/555337067/0/{width}?mandant=ard",
+            "aspectRatio":"0"
+
+          },
+          "publisherType":"TV",
+          "partner":"radio_bremen",
+          "id":"b3JnYW5pemF0aW9uX1JhZGlvQnJlbWVu"
+
+        },
+        "self":null,
+        "images":{
+          "16x9":{
+            "title":"3 nach 9 - Standbild",
+            "alt":"Logo 3 nach 9",
+            "producerName":"Radio Bremen",
+            "src":"https://img.ardmediathek.de/standard/00/69/42/29/38/555337067/16x9/{width}?mandant=ard",
+            "aspectRatio":"16x9"
+
+          }
+
+        },
+        "shortSynopsis":"Einmal monatlich freitags um 22.00 Uhr (nach 9!) talken Judith Rakers und Giovanni di Lorenzo live im Dritten (3!) mit prominenten Köpfen aus Kultur, Wissenschaft, Politik und Sport. Immer dabei: Spektakuläre Live-Musik von Barock bis Heavy Metal.",
+        "synopsis":"Einmal monatlich freitags um 22.00 Uhr (nach 9!) talken Judith Rakers und Giovanni di Lorenzo live im Dritten (3!) mit prominenten Köpfen aus Kultur, Wissenschaft, Politik und Sport. Immer dabei: Spektakuläre Live-Musik von Barock bis Heavy Metal.",
+        "longSynopsis":"Einmal monatlich freitags um 22.00 Uhr (nach 9!) talken Judith Rakers und Giovanni di Lorenzo live im Dritten (3!) mit prominenten Köpfen aus Kultur, Wissenschaft, Politik und Sport. Immer dabei: Spektakuläre Live-Musik von Barock bis Heavy Metal.",
+        "groupingType":"SHOW",
+        "homepage":null
+
+      },
+      "subtitled":false,
+      "type":"ondemand"
+
+    },
+    {
+      "availableTo":"2021-06-26T20:00:00Z",
+      "broadcastedOn":"2020-06-26T20:00:00Z",
+      "decor":"none",
+      "duration":1167,
+      "id":"Y3JpZDovL3JhZGlvYnJlbWVuLmRlLzg1NTVhNjlmLWNkMDMtNDY3ZS04MWJmLWU3YmI4YjIxNGJjMw",
+      "images":{
+        "aspect16x9":{
+          "alt":"Sara Nuru",
+          "producerName":"",
+          "src":"https://img.ardmediathek.de/standard/00/77/17/81/40/-1774185891/16x9/{width}?mandant=ard",
+          "title":"Sara Nuru über das was sie im Leben wirklich glücklich macht - Standbild"
+
+        }
+
+      },
+      "longTitle":"Sara Nuru über das was sie im Leben wirklich glücklich macht",
+      "mediumTitle":"Sara Nuru über das was sie im Leben wirklich glücklich macht",
+      "personalized":false,
+      "playtime":null,
+      "publicationService":{
+        "name":"Radio Bremen TV",
+        "logo":{
+          "title":"RB",
+          "alt":"RB Logo",
+          "producerName":"RB",
+          "src":"https://img.ardmediathek.de/standard/00/21/51/88/84/555337067/0/{width}?mandant=ard",
+          "aspectRatio":"0"
+
+        },
+        "publisherType":"TV",
+        "partner":"radio_bremen",
+        "id":"b3JnYW5pemF0aW9uX1JhZGlvQnJlbWVu"
+
+      },
+      "links":{
+        "self":{
+          "id":"Y3JpZDovL3JhZGlvYnJlbWVuLmRlLzg1NTVhNjlmLWNkMDMtNDY3ZS04MWJmLWU3YmI4YjIxNGJjMw",
+          "title":"Sara Nuru über das was sie im Leben wirklich glücklich macht",
+          "href":"https://api.ardmediathek.de/page-gateway/teasers/ard/items/Y3JpZDovL3JhZGlvYnJlbWVuLmRlLzg1NTVhNjlmLWNkMDMtNDY3ZS04MWJmLWU3YmI4YjIxNGJjMw",
+          "type":"application/vnd.ard.teaser+json"
+
+        },
+        "target":{
+          "id":"Y3JpZDovL3JhZGlvYnJlbWVuLmRlLzg1NTVhNjlmLWNkMDMtNDY3ZS04MWJmLWU3YmI4YjIxNGJjMw",
+          "title":"Sara Nuru über das was sie im Leben wirklich glücklich macht",
+          "href":"https://api.ardmediathek.de/page-gateway/pages/ard/item/Y3JpZDovL3JhZGlvYnJlbWVuLmRlLzg1NTVhNjlmLWNkMDMtNDY3ZS04MWJmLWU3YmI4YjIxNGJjMw?devicetype=pc&embedded=true",
+          "type":"application/vnd.ard.page+json"
+
+        }
+
+      },
+      "shortTitle":"Sara Nuru über das was sie im Leben wirklich glücklich macht",
+      "show":{
+        "id":"crid://radiobremen.de/3nach9",
+        "coremediaId":967542,
+        "title":"3nach9",
+        "publisher":{
+          "name":"Radio Bremen TV",
+          "logo":{
+            "title":"RB",
+            "alt":"RB Logo",
+            "producerName":"RB",
+            "src":"https://img.ardmediathek.de/standard/00/21/51/88/84/555337067/0/{width}?mandant=ard",
+            "aspectRatio":"0"
+
+          },
+          "publisherType":"TV",
+          "partner":"radio_bremen",
+          "id":"b3JnYW5pemF0aW9uX1JhZGlvQnJlbWVu"
+
+        },
+        "self":null,
+        "images":{
+          "16x9":{
+            "title":"3 nach 9 - Standbild",
+            "alt":"Logo 3 nach 9",
+            "producerName":"Radio Bremen",
+            "src":"https://img.ardmediathek.de/standard/00/69/42/29/38/555337067/16x9/{width}?mandant=ard",
+            "aspectRatio":"16x9"
+
+          }
+
+        },
+        "shortSynopsis":"Einmal monatlich freitags um 22.00 Uhr (nach 9!) talken Judith Rakers und Giovanni di Lorenzo live im Dritten (3!) mit prominenten Köpfen aus Kultur, Wissenschaft, Politik und Sport. Immer dabei: Spektakuläre Live-Musik von Barock bis Heavy Metal.",
+        "synopsis":"Einmal monatlich freitags um 22.00 Uhr (nach 9!) talken Judith Rakers und Giovanni di Lorenzo live im Dritten (3!) mit prominenten Köpfen aus Kultur, Wissenschaft, Politik und Sport. Immer dabei: Spektakuläre Live-Musik von Barock bis Heavy Metal.",
+        "longSynopsis":"Einmal monatlich freitags um 22.00 Uhr (nach 9!) talken Judith Rakers und Giovanni di Lorenzo live im Dritten (3!) mit prominenten Köpfen aus Kultur, Wissenschaft, Politik und Sport. Immer dabei: Spektakuläre Live-Musik von Barock bis Heavy Metal.",
+        "groupingType":"SHOW",
+        "homepage":null
+
+      },
+      "subtitled":false,
+      "type":"ondemand"
+
+    },
+    {
+      "availableTo":"2021-06-26T20:00:00Z",
+      "broadcastedOn":"2020-06-26T20:00:00Z",
+      "decor":"none",
+      "duration":855,
+      "id":"Y3JpZDovL3JhZGlvYnJlbWVuLmRlL2FhNDRiYTVhLWMzOWItNDgyMy1iNDZjLTZhMjBlYTAyN2I0ZQ",
+      "images":{
+        "aspect16x9":{
+          "alt":"Sebastian Klussmann und Dr. Thomas Kinne",
+          "producerName":"",
+          "src":"https://img.ardmediathek.de/standard/00/77/17/81/60/-1774185891/16x9/{width}?mandant=ard",
+          "title":"Dr. Thomas Kinne und Sebastian Klussmann über unendliches Wissen - Standbild"
+
+        }
+
+      },
+      "longTitle":"Dr. Thomas Kinne und Sebastian Klussmann über unendliches Wissen",
+      "mediumTitle":"Dr. Thomas Kinne und Sebastian Klussmann über unendliches Wissen",
+      "personalized":false,
+      "playtime":null,
+      "publicationService":{
+        "name":"Radio Bremen TV",
+        "logo":{
+          "title":"RB",
+          "alt":"RB Logo",
+          "producerName":"RB",
+          "src":"https://img.ardmediathek.de/standard/00/21/51/88/84/555337067/0/{width}?mandant=ard",
+          "aspectRatio":"0"
+
+        },
+        "publisherType":"TV",
+        "partner":"radio_bremen",
+        "id":"b3JnYW5pemF0aW9uX1JhZGlvQnJlbWVu"
+
+      },
+      "links":{
+        "self":{
+          "id":"Y3JpZDovL3JhZGlvYnJlbWVuLmRlL2FhNDRiYTVhLWMzOWItNDgyMy1iNDZjLTZhMjBlYTAyN2I0ZQ",
+          "title":"Dr. Thomas Kinne und Sebastian Klussmann über unendliches Wissen",
+          "href":"https://api.ardmediathek.de/page-gateway/teasers/ard/items/Y3JpZDovL3JhZGlvYnJlbWVuLmRlL2FhNDRiYTVhLWMzOWItNDgyMy1iNDZjLTZhMjBlYTAyN2I0ZQ",
+          "type":"application/vnd.ard.teaser+json"
+
+        },
+        "target":{
+          "id":"Y3JpZDovL3JhZGlvYnJlbWVuLmRlL2FhNDRiYTVhLWMzOWItNDgyMy1iNDZjLTZhMjBlYTAyN2I0ZQ",
+          "title":"Dr. Thomas Kinne und Sebastian Klussmann über unendliches Wissen",
+          "href":"https://api.ardmediathek.de/page-gateway/pages/ard/item/Y3JpZDovL3JhZGlvYnJlbWVuLmRlL2FhNDRiYTVhLWMzOWItNDgyMy1iNDZjLTZhMjBlYTAyN2I0ZQ?devicetype=pc&embedded=true",
+          "type":"application/vnd.ard.page+json"
+
+        }
+
+      },
+      "shortTitle":"Dr. Thomas Kinne und Sebastian Klussmann über unendliches Wissen",
+      "show":{
+        "id":"crid://radiobremen.de/3nach9",
+        "coremediaId":967542,
+        "title":"3nach9",
+        "publisher":{
+          "name":"Radio Bremen TV",
+          "logo":{
+            "title":"RB",
+            "alt":"RB Logo",
+            "producerName":"RB",
+            "src":"https://img.ardmediathek.de/standard/00/21/51/88/84/555337067/0/{width}?mandant=ard",
+            "aspectRatio":"0"
+
+          },
+          "publisherType":"TV",
+          "partner":"radio_bremen",
+          "id":"b3JnYW5pemF0aW9uX1JhZGlvQnJlbWVu"
+
+        },
+        "self":null,
+        "images":{
+          "16x9":{
+            "title":"3 nach 9 - Standbild",
+            "alt":"Logo 3 nach 9",
+            "producerName":"Radio Bremen",
+            "src":"https://img.ardmediathek.de/standard/00/69/42/29/38/555337067/16x9/{width}?mandant=ard",
+            "aspectRatio":"16x9"
+
+          }
+
+        },
+        "shortSynopsis":"Einmal monatlich freitags um 22.00 Uhr (nach 9!) talken Judith Rakers und Giovanni di Lorenzo live im Dritten (3!) mit prominenten Köpfen aus Kultur, Wissenschaft, Politik und Sport. Immer dabei: Spektakuläre Live-Musik von Barock bis Heavy Metal.",
+        "synopsis":"Einmal monatlich freitags um 22.00 Uhr (nach 9!) talken Judith Rakers und Giovanni di Lorenzo live im Dritten (3!) mit prominenten Köpfen aus Kultur, Wissenschaft, Politik und Sport. Immer dabei: Spektakuläre Live-Musik von Barock bis Heavy Metal.",
+        "longSynopsis":"Einmal monatlich freitags um 22.00 Uhr (nach 9!) talken Judith Rakers und Giovanni di Lorenzo live im Dritten (3!) mit prominenten Köpfen aus Kultur, Wissenschaft, Politik und Sport. Immer dabei: Spektakuläre Live-Musik von Barock bis Heavy Metal.",
+        "groupingType":"SHOW",
+        "homepage":null
+
+      },
+      "subtitled":false,
+      "type":"ondemand"
+
+    },
+    {
+      "availableTo":"2021-06-26T20:00:00Z",
+      "broadcastedOn":"2020-06-26T20:00:00Z",
+      "decor":"none",
+      "duration":1063,
+      "id":"Y3JpZDovL3JhZGlvYnJlbWVuLmRlL2M2MzU2NTJjLWVkYTAtNDNkNS05ZTJkLTliMzBkZTI2NzM2Mw",
+      "images":{
+        "aspect16x9":{
+          "alt":"Schauspielerin Jasmin Tabatabai",
+          "producerName":"",
+          "src":"https://img.ardmediathek.de/standard/00/77/17/81/80/-1774185891/16x9/{width}?mandant=ard",
+          "title":"Jasmin Tabatabai über Unbequemsein als Frau - Standbild"
+
+        }
+
+      },
+      "longTitle":"Jasmin Tabatabai über Unbequemsein als Frau",
+      "mediumTitle":"Jasmin Tabatabai über Unbequemsein als Frau",
+      "personalized":false,
+      "playtime":null,
+      "publicationService":{
+        "name":"Radio Bremen TV",
+        "logo":{
+          "title":"RB",
+          "alt":"RB Logo",
+          "producerName":"RB",
+          "src":"https://img.ardmediathek.de/standard/00/21/51/88/84/555337067/0/{width}?mandant=ard",
+          "aspectRatio":"0"
+
+        },
+        "publisherType":"TV",
+        "partner":"radio_bremen",
+        "id":"b3JnYW5pemF0aW9uX1JhZGlvQnJlbWVu"
+
+      },
+      "links":{
+        "self":{
+          "id":"Y3JpZDovL3JhZGlvYnJlbWVuLmRlL2M2MzU2NTJjLWVkYTAtNDNkNS05ZTJkLTliMzBkZTI2NzM2Mw",
+          "title":"Jasmin Tabatabai über Unbequemsein als Frau",
+          "href":"https://api.ardmediathek.de/page-gateway/teasers/ard/items/Y3JpZDovL3JhZGlvYnJlbWVuLmRlL2M2MzU2NTJjLWVkYTAtNDNkNS05ZTJkLTliMzBkZTI2NzM2Mw",
+          "type":"application/vnd.ard.teaser+json"
+
+        },
+        "target":{
+          "id":"Y3JpZDovL3JhZGlvYnJlbWVuLmRlL2M2MzU2NTJjLWVkYTAtNDNkNS05ZTJkLTliMzBkZTI2NzM2Mw",
+          "title":"Jasmin Tabatabai über Unbequemsein als Frau",
+          "href":"https://api.ardmediathek.de/page-gateway/pages/ard/item/Y3JpZDovL3JhZGlvYnJlbWVuLmRlL2M2MzU2NTJjLWVkYTAtNDNkNS05ZTJkLTliMzBkZTI2NzM2Mw?devicetype=pc&embedded=true",
+          "type":"application/vnd.ard.page+json"
+
+        }
+
+      },
+      "shortTitle":"Jasmin Tabatabai über Unbequemsein als Frau",
+      "show":{
+        "id":"crid://radiobremen.de/3nach9",
+        "coremediaId":967542,
+        "title":"3nach9",
+        "publisher":{
+          "name":"Radio Bremen TV",
+          "logo":{
+            "title":"RB",
+            "alt":"RB Logo",
+            "producerName":"RB",
+            "src":"https://img.ardmediathek.de/standard/00/21/51/88/84/555337067/0/{width}?mandant=ard",
+            "aspectRatio":"0"
+
+          },
+          "publisherType":"TV",
+          "partner":"radio_bremen",
+          "id":"b3JnYW5pemF0aW9uX1JhZGlvQnJlbWVu"
+
+        },
+        "self":null,
+        "images":{
+          "16x9":{
+            "title":"3 nach 9 - Standbild",
+            "alt":"Logo 3 nach 9",
+            "producerName":"Radio Bremen",
+            "src":"https://img.ardmediathek.de/standard/00/69/42/29/38/555337067/16x9/{width}?mandant=ard",
+            "aspectRatio":"16x9"
+
+          }
+
+        },
+        "shortSynopsis":"Einmal monatlich freitags um 22.00 Uhr (nach 9!) talken Judith Rakers und Giovanni di Lorenzo live im Dritten (3!) mit prominenten Köpfen aus Kultur, Wissenschaft, Politik und Sport. Immer dabei: Spektakuläre Live-Musik von Barock bis Heavy Metal.",
+        "synopsis":"Einmal monatlich freitags um 22.00 Uhr (nach 9!) talken Judith Rakers und Giovanni di Lorenzo live im Dritten (3!) mit prominenten Köpfen aus Kultur, Wissenschaft, Politik und Sport. Immer dabei: Spektakuläre Live-Musik von Barock bis Heavy Metal.",
+        "longSynopsis":"Einmal monatlich freitags um 22.00 Uhr (nach 9!) talken Judith Rakers und Giovanni di Lorenzo live im Dritten (3!) mit prominenten Köpfen aus Kultur, Wissenschaft, Politik und Sport. Immer dabei: Spektakuläre Live-Musik von Barock bis Heavy Metal.",
+        "groupingType":"SHOW",
+        "homepage":null
+
+      },
+      "subtitled":false,
+      "type":"ondemand"
+
+    }
+
+  ],
+  "title":"3nach9",
+  "titleVisible":true,
+  "type":"gridlist"
 }

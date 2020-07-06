@@ -1,118 +1,1086 @@
 {
-  "data":{
-    "showsPage":{
-      "id":"R2xvc3NhcnkrQVJE",
-      "title":"Sendungen A-Z",
-      "glossary":{
-        "shows09":[
-          {
-            "id":"Y3JpZDovL25kci5kZS8xNTcx",
-            "__typename":"Teaser"
-          }
-        ],
-        "showsA":[
-          {
-            "id":"Y3JpZDovL21kci5kZS9zZW5kZXJlaWhlbi9mYjRlYTcwNC1lZTg4LTQ3M2MtYWEwNy1kOWY4Y2RmMjgyNTM",
-            "__typename":"Teaser"
-          }
-        ],
-        "showsB":[
-          {
-            "id":"Y3JpZDovL2JyLmRlL2Jyb2FkY2FzdFNlcmllcy9kM2MwNzcxZC1hNzgyLTRlOWItYWI3NC0zMTJjOTU2NWE0Y2Q",
-            "__typename":"Teaser"
-          },
-          {
-            "id":"Y3JpZDovL2Rhc2Vyc3RlLmRlL2JhYnlsb24tYmVybGlu",
-            "__typename":"Teaser"
-          },
-          {
-            "id":"Y3JpZDovL3JhZGlvYnJlbWVuLmRlL2J1dGVudW5iaW5uZW53ZXR0ZXI",
-            "__typename":"Teaser"
-          }
-        ],
-        "showsC":[
-        ],
-        "showsD":[
-        ],
-        "showsE":[
-        ],
-        "showsF":[
-        ],
-        "showsG":[
-        ],
-        "showsH":[
-        ],
-        "showsI":[
-        ],
-        "showsJ":[
-        ],
-        "showsK":[
-        ],
-        "showsL":[
-        ],
-        "showsM":[
-        ],
-        "showsN":[
-        ],
-        "showsO":[
-        ],
-        "showsP":[
-        ],
-        "showsQ":[
-          {
-            "id":"Y3JpZDovL21kci5kZS9zZW5kZXJlaWhlbi85YzhiYWE1Zi01ZDE0LTQwY2EtYjdjNC02NzAzNzNiYTUxOGQ",
-            "__typename":"Teaser"
-          }
-        ],
-        "showsR":[
-        ],
-        "showsS":[
-        ],
-        "showsT":[
-        ],
-        "showsU":[
-        ],
-        "showsV":[
-        ],
-        "showsW":[
-        ],
-        "showsX":[
+  "id":"R2xvc3NhcnkrUmFkaW8gQnJlbWVu",
+  "personalized":false,
+  "title":"Sendungen A-Z",
+  "tracking":{
+    "aggregationLevelId":44,
+    "atiCustomVars":{
 
-        ],
-        "showsY":[
 
-        ],
-        "showsZ":[
-          {
-            "id":"Y3JpZDovL2JyLmRlL2Jyb2FkY2FzdFNlcmllcy9icm9hZGNhc3RTZXJpZXM6L2JyZGUvZmVybnNlaGVuL2JheWVyaXNjaGVzLWZlcm5zZWhlbi9zZW5kdW5nZW4vemFtLXJvY2tlbi1ob2ZicmFldWhhdXM",
-            "__typename":"Teaser"
-          }
-        ],
-        "__typename":"Glossary"
-      },
-      "tracking":{
-        "szmType":"CP",
-        "environmentId":511893,
-        "aggregationLevelId":38,
-        "chapter2":"Sendung A-Z",
-        "chapter3":null,
-        "pageTitle":"Mediathek/Sendung A-Z",
-        "atiCustomVars":{
-          "clipTitle":null,
-          "mediaType":null,
-          "lra":null,
-          "channel":null,
-          "show":null,
-          "contentTypes":null,
-          "mediaDistributionType":null,
-          "contentId":null,
-          "metadataId":null,
-          "clipLength":null,
-          "__typename":"ATICustomVars"
+    },
+    "chapter2":"Sendung A-Z",
+    "chapter3":null,
+    "environmentId":511893,
+    "pageTitle":"Mediathek/Sendung A-Z",
+    "szmType":"CP"
+
+  },
+  "widgets":[
+    {
+      "compilations":{
+        "#":{
+          "id":"Y29tcGlsYXRpb24rUmFkaW8gQnJlbWVuKyM",
+          "pagination":{
+            "pageNumber":0,
+            "pageSize":200,
+            "totalElements":1
+
+          },
+          "personalized":false,
+          "links":{
+            "self":{
+              "id":"#",
+              "title":"#",
+              "href":"https://api.ardmediathek.de/page-gateway/compilations/radiobremen/shows/%23?pageNumber=0&pageSize=200&embedded=true",
+              "type":"application/vnd.ard.widget+json"
+
+            }
+
+          },
+          "teasers":[
+            {
+              "decor":"none",
+              "id":"Y3JpZDovL3JhZGlvYnJlbWVuLmRlLzNuYWNoOQ",
+              "images":{
+                "aspect16x9":{
+                  "alt":"Logo 3 nach 9",
+                  "producerName":"Radio Bremen",
+                  "src":"https://img.ardmediathek.de/standard/00/69/42/29/38/555337067/16x9/{width}?mandant=ard",
+                  "title":"3 nach 9 - Standbild"
+
+                }
+
+              },
+              "longTitle":"3nach9",
+              "mediumTitle":"3nach9",
+              "personalized":false,
+              "playtime":null,
+              "publicationService":{
+                "name":"Radio Bremen TV",
+                "logo":{
+                  "title":"RB",
+                  "alt":"RB Logo",
+                  "producerName":"RB",
+                  "src":"https://img.ardmediathek.de/standard/00/21/51/88/84/555337067/0/{width}?mandant=ard",
+                  "aspectRatio":"0"
+
+                },
+                "publisherType":"TV",
+                "partner":"radio_bremen",
+                "id":"b3JnYW5pemF0aW9uX1JhZGlvQnJlbWVu"
+
+              },
+              "links":{
+                "self":{
+                  "id":"Y3JpZDovL3JhZGlvYnJlbWVuLmRlLzNuYWNoOQ",
+                  "title":"3nach9",
+                  "href":"https://api.ardmediathek.de/page-gateway/teasers/radiobremen/groupings/Y3JpZDovL3JhZGlvYnJlbWVuLmRlLzNuYWNoOQ",
+                  "type":"application/vnd.ard.teaser+json"
+
+                },
+                "target":{
+                  "id":"Y3JpZDovL3JhZGlvYnJlbWVuLmRlLzNuYWNoOQ",
+                  "title":"3nach9",
+                  "href":"https://api.ardmediathek.de/page-gateway/pages/radiobremen/grouping/Y3JpZDovL3JhZGlvYnJlbWVuLmRlLzNuYWNoOQ?embedded=true",
+                  "type":"application/vnd.ard.page+json"
+
+                }
+
+              },
+              "shortTitle":"3nach9",
+              "type":"show"
+
+            }
+
+          ],
+          "title":"#",
+          "type":"shows"
+
         },
-        "__typename":"Tracking"
+        "A":{
+          "id":"Y29tcGlsYXRpb24rUmFkaW8gQnJlbWVuK0E",
+          "pagination":{
+            "pageNumber":0,
+            "pageSize":200,
+            "totalElements":0
+
+          },
+          "personalized":false,
+          "links":{
+            "self":{
+              "id":"A",
+              "title":"A",
+              "href":"https://api.ardmediathek.de/page-gateway/compilations/radiobremen/shows/A?pageNumber=0&pageSize=200&embedded=true",
+              "type":"application/vnd.ard.widget+json"
+
+            }
+
+          },
+          "teasers":[
+
+
+          ],
+          "title":"A",
+          "type":"shows"
+
+        },
+        "B":{
+          "id":"Y29tcGlsYXRpb24rUmFkaW8gQnJlbWVuK0I",
+          "pagination":{
+            "pageNumber":0,
+            "pageSize":200,
+            "totalElements":4
+
+          },
+          "personalized":false,
+          "links":{
+            "self":{
+              "id":"B",
+              "title":"B",
+              "href":"https://api.ardmediathek.de/page-gateway/compilations/radiobremen/shows/B?pageNumber=0&pageSize=200&embedded=true",
+              "type":"application/vnd.ard.widget+json"
+
+            }
+
+          },
+          "teasers":[
+            {
+              "decor":"none",
+              "id":"Y3JpZDovL3JhZGlvYnJlbWVuLmRlL2J1dGVudW5iaW5uZW4",
+              "images":{
+                "aspect16x9":{
+                  "alt":"Logo Buten un Binnen",
+                  "producerName":"Radio Bremen",
+                  "src":"https://img.ardmediathek.de/standard/00/69/42/43/72/-1774185891/16x9/{width}?mandant=ard",
+                  "title":""
+
+                }
+
+              },
+              "longTitle":"buten un binnen Regionalmagazin",
+              "mediumTitle":"buten un binnen Regionalmagazin",
+              "personalized":false,
+              "playtime":null,
+              "publicationService":{
+                "name":"Radio Bremen TV",
+                "logo":{
+                  "title":"RB",
+                  "alt":"RB Logo",
+                  "producerName":"RB",
+                  "src":"https://img.ardmediathek.de/standard/00/21/51/88/84/555337067/0/{width}?mandant=ard",
+                  "aspectRatio":"0"
+
+                },
+                "publisherType":"TV",
+                "partner":"radio_bremen",
+                "id":"b3JnYW5pemF0aW9uX1JhZGlvQnJlbWVu"
+
+              },
+              "links":{
+                "self":{
+                  "id":"Y3JpZDovL3JhZGlvYnJlbWVuLmRlL2J1dGVudW5iaW5uZW4",
+                  "title":"buten un binnen Regionalmagazin",
+                  "href":"https://api.ardmediathek.de/page-gateway/teasers/radiobremen/groupings/Y3JpZDovL3JhZGlvYnJlbWVuLmRlL2J1dGVudW5iaW5uZW4",
+                  "type":"application/vnd.ard.teaser+json"
+
+                },
+                "target":{
+                  "id":"Y3JpZDovL3JhZGlvYnJlbWVuLmRlL2J1dGVudW5iaW5uZW4",
+                  "title":"buten un binnen Regionalmagazin",
+                  "href":"https://api.ardmediathek.de/page-gateway/pages/radiobremen/grouping/Y3JpZDovL3JhZGlvYnJlbWVuLmRlL2J1dGVudW5iaW5uZW4?embedded=true",
+                  "type":"application/vnd.ard.page+json"
+
+                }
+
+              },
+              "shortTitle":"buten un binnen Regionalmagazin",
+              "type":"show"
+
+            },
+            {
+              "decor":"none",
+              "id":"Y3JpZDovL3JhZGlvYnJlbWVuLmRlL3Nwb3J0YmxpdHo",
+              "images":{
+                "aspect16x9":{
+                  "alt":"Logo buten un binnen | sportblitz",
+                  "producerName":"Radio Bremen",
+                  "src":"https://img.ardmediathek.de/standard/00/76/26/10/22/2121327408/16x9/{width}?mandant=ard",
+                  "title":""
+
+                }
+
+              },
+              "longTitle":"buten un binnen Sportblitz",
+              "mediumTitle":"buten un binnen Sportblitz",
+              "personalized":false,
+              "playtime":null,
+              "publicationService":{
+                "name":"Radio Bremen TV",
+                "logo":{
+                  "title":"RB",
+                  "alt":"RB Logo",
+                  "producerName":"RB",
+                  "src":"https://img.ardmediathek.de/standard/00/21/51/88/84/555337067/0/{width}?mandant=ard",
+                  "aspectRatio":"0"
+
+                },
+                "publisherType":"TV",
+                "partner":"radio_bremen",
+                "id":"b3JnYW5pemF0aW9uX1JhZGlvQnJlbWVu"
+
+              },
+              "links":{
+                "self":{
+                  "id":"Y3JpZDovL3JhZGlvYnJlbWVuLmRlL3Nwb3J0YmxpdHo",
+                  "title":"buten un binnen Sportblitz",
+                  "href":"https://api.ardmediathek.de/page-gateway/teasers/radiobremen/groupings/Y3JpZDovL3JhZGlvYnJlbWVuLmRlL3Nwb3J0YmxpdHo",
+                  "type":"application/vnd.ard.teaser+json"
+
+                },
+                "target":{
+                  "id":"Y3JpZDovL3JhZGlvYnJlbWVuLmRlL3Nwb3J0YmxpdHo",
+                  "title":"buten un binnen Sportblitz",
+                  "href":"https://api.ardmediathek.de/page-gateway/pages/radiobremen/grouping/Y3JpZDovL3JhZGlvYnJlbWVuLmRlL3Nwb3J0YmxpdHo?embedded=true",
+                  "type":"application/vnd.ard.page+json"
+
+                }
+
+              },
+              "shortTitle":"buten un binnen Sportblitz",
+              "type":"show"
+
+            },
+            {
+              "decor":"none",
+              "id":"Y3JpZDovL3JhZGlvYnJlbWVuLmRlL2J1dGVudW5iaW5uZW51bTY",
+              "images":{
+                "aspect16x9":{
+                  "alt":"Logo buten un binnen um 6",
+                  "producerName":"Radio Bremen",
+                  "src":"https://img.ardmediathek.de/standard/00/69/42/33/06/-1774185891/16x9/{width}?mandant=ard",
+                  "title":""
+
+                }
+
+              },
+              "longTitle":"buten un binnen um 6",
+              "mediumTitle":"buten un binnen um 6",
+              "personalized":false,
+              "playtime":null,
+              "publicationService":{
+                "name":"Radio Bremen TV",
+                "logo":{
+                  "title":"RB",
+                  "alt":"RB Logo",
+                  "producerName":"RB",
+                  "src":"https://img.ardmediathek.de/standard/00/21/51/88/84/555337067/0/{width}?mandant=ard",
+                  "aspectRatio":"0"
+
+                },
+                "publisherType":"TV",
+                "partner":"radio_bremen",
+                "id":"b3JnYW5pemF0aW9uX1JhZGlvQnJlbWVu"
+
+              },
+              "links":{
+                "self":{
+                  "id":"Y3JpZDovL3JhZGlvYnJlbWVuLmRlL2J1dGVudW5iaW5uZW51bTY",
+                  "title":"buten un binnen um 6",
+                  "href":"https://api.ardmediathek.de/page-gateway/teasers/radiobremen/groupings/Y3JpZDovL3JhZGlvYnJlbWVuLmRlL2J1dGVudW5iaW5uZW51bTY",
+                  "type":"application/vnd.ard.teaser+json"
+
+                },
+                "target":{
+                  "id":"Y3JpZDovL3JhZGlvYnJlbWVuLmRlL2J1dGVudW5iaW5uZW51bTY",
+                  "title":"buten un binnen um 6",
+                  "href":"https://api.ardmediathek.de/page-gateway/pages/radiobremen/grouping/Y3JpZDovL3JhZGlvYnJlbWVuLmRlL2J1dGVudW5iaW5uZW51bTY?embedded=true",
+                  "type":"application/vnd.ard.page+json"
+
+                }
+
+              },
+              "shortTitle":"buten un binnen um 6",
+              "type":"show"
+
+            },
+            {
+              "decor":"none",
+              "id":"Y3JpZDovL3JhZGlvYnJlbWVuLmRlL2J1dGVudW5iaW5uZW53ZXR0ZXI",
+              "images":{
+                "aspect16x9":{
+                  "alt":"Logo buten un binnen | wetter",
+                  "producerName":"Radio Bremen",
+                  "src":"https://img.ardmediathek.de/standard/00/69/42/42/52/-1774185891/16x9/{width}?mandant=ard",
+                  "title":""
+
+                }
+
+              },
+              "longTitle":"buten un binnen Wetter",
+              "mediumTitle":"buten un binnen Wetter",
+              "personalized":false,
+              "playtime":null,
+              "publicationService":{
+                "name":"Radio Bremen TV",
+                "logo":{
+                  "title":"RB",
+                  "alt":"RB Logo",
+                  "producerName":"RB",
+                  "src":"https://img.ardmediathek.de/standard/00/21/51/88/84/555337067/0/{width}?mandant=ard",
+                  "aspectRatio":"0"
+
+                },
+                "publisherType":"TV",
+                "partner":"radio_bremen",
+                "id":"b3JnYW5pemF0aW9uX1JhZGlvQnJlbWVu"
+
+              },
+              "links":{
+                "self":{
+                  "id":"Y3JpZDovL3JhZGlvYnJlbWVuLmRlL2J1dGVudW5iaW5uZW53ZXR0ZXI",
+                  "title":"buten un binnen Wetter",
+                  "href":"https://api.ardmediathek.de/page-gateway/teasers/radiobremen/groupings/Y3JpZDovL3JhZGlvYnJlbWVuLmRlL2J1dGVudW5iaW5uZW53ZXR0ZXI",
+                  "type":"application/vnd.ard.teaser+json"
+
+                },
+                "target":{
+                  "id":"Y3JpZDovL3JhZGlvYnJlbWVuLmRlL2J1dGVudW5iaW5uZW53ZXR0ZXI",
+                  "title":"buten un binnen Wetter",
+                  "href":"https://api.ardmediathek.de/page-gateway/pages/radiobremen/grouping/Y3JpZDovL3JhZGlvYnJlbWVuLmRlL2J1dGVudW5iaW5uZW53ZXR0ZXI?embedded=true",
+                  "type":"application/vnd.ard.page+json"
+
+                }
+
+              },
+              "shortTitle":"buten un binnen Wetter",
+              "type":"show"
+
+            }
+
+          ],
+          "title":"B",
+          "type":"shows"
+
+        },
+        "C":{
+          "id":"Y29tcGlsYXRpb24rUmFkaW8gQnJlbWVuK0M",
+          "pagination":{
+            "pageNumber":0,
+            "pageSize":200,
+            "totalElements":1
+
+          },
+          "personalized":false,
+          "links":{
+            "self":{
+              "id":"C",
+              "title":"C",
+              "href":"https://api.ardmediathek.de/page-gateway/compilations/radiobremen/shows/C?pageNumber=0&pageSize=200&embedded=true",
+              "type":"application/vnd.ard.widget+json"
+
+            }
+
+          },
+          "teasers":[
+            {
+              "decor":"none",
+              "id":"Y3JpZDovL3JhZGlvYnJlbWVuLmRlL2Nvcm9uYQ",
+              "images":{
+                "aspect16x9":{
+                  "alt":"Logo buten un binnen Corona-Update",
+                  "producerName":"Radio Bremen",
+                  "src":"https://img.ardmediathek.de/standard/00/73/41/00/92/-1774185891/16x9/{width}?mandant=ard",
+                  "title":"Corona-Update - Standbild"
+
+                }
+
+              },
+              "longTitle":"Corona-Update",
+              "mediumTitle":"Corona-Update",
+              "personalized":false,
+              "playtime":null,
+              "publicationService":{
+                "name":"radiobremen.de",
+                "logo":{
+                  "title":"RB",
+                  "alt":"RB Logo",
+                  "producerName":"RB",
+                  "src":"https://img.ardmediathek.de/standard/00/21/51/88/84/555337067/0/{width}?mandant=ard",
+                  "aspectRatio":"0"
+
+                },
+                "publisherType":"TV",
+                "partner":"radio_bremen",
+                "id":"b3JnYW5pemF0aW9uX1JhZGlvQnJlbWVu"
+
+              },
+              "links":{
+                "self":{
+                  "id":"Y3JpZDovL3JhZGlvYnJlbWVuLmRlL2Nvcm9uYQ",
+                  "title":"Corona-Update",
+                  "href":"https://api.ardmediathek.de/page-gateway/teasers/radiobremen/groupings/Y3JpZDovL3JhZGlvYnJlbWVuLmRlL2Nvcm9uYQ",
+                  "type":"application/vnd.ard.teaser+json"
+
+                },
+                "target":{
+                  "id":"Y3JpZDovL3JhZGlvYnJlbWVuLmRlL2Nvcm9uYQ",
+                  "title":"Corona-Update",
+                  "href":"https://api.ardmediathek.de/page-gateway/pages/radiobremen/grouping/Y3JpZDovL3JhZGlvYnJlbWVuLmRlL2Nvcm9uYQ?embedded=true",
+                  "type":"application/vnd.ard.page+json"
+
+                }
+
+              },
+              "shortTitle":"Corona-Update",
+              "type":"show"
+
+            }
+
+          ],
+          "title":"C",
+          "type":"shows"
+
+        },
+        "D":{
+          "id":"Y29tcGlsYXRpb24rUmFkaW8gQnJlbWVuK0Q",
+          "pagination":{
+            "pageNumber":0,
+            "pageSize":200,
+            "totalElements":0
+
+          },
+          "personalized":false,
+          "links":{
+            "self":{
+              "id":"D",
+              "title":"D",
+              "href":"https://api.ardmediathek.de/page-gateway/compilations/radiobremen/shows/D?pageNumber=0&pageSize=200&embedded=true",
+              "type":"application/vnd.ard.widget+json"
+
+            }
+
+          },
+          "teasers":[
+
+
+          ],
+          "title":"D",
+          "type":"shows"
+
+        },
+        "E":{
+          "id":"Y29tcGlsYXRpb24rUmFkaW8gQnJlbWVuK0U",
+          "pagination":{
+            "pageNumber":0,
+            "pageSize":200,
+            "totalElements":0
+
+          },
+          "personalized":false,
+          "links":{
+            "self":{
+              "id":"E",
+              "title":"E",
+              "href":"https://api.ardmediathek.de/page-gateway/compilations/radiobremen/shows/E?pageNumber=0&pageSize=200&embedded=true",
+              "type":"application/vnd.ard.widget+json"
+
+            }
+
+          },
+          "teasers":[
+
+
+          ],
+          "title":"E",
+          "type":"shows"
+
+        },
+        "F":{
+          "id":"Y29tcGlsYXRpb24rUmFkaW8gQnJlbWVuK0Y",
+          "pagination":{
+            "pageNumber":0,
+            "pageSize":200,
+            "totalElements":0
+
+          },
+          "personalized":false,
+          "links":{
+            "self":{
+              "id":"F",
+              "title":"F",
+              "href":"https://api.ardmediathek.de/page-gateway/compilations/radiobremen/shows/F?pageNumber=0&pageSize=200&embedded=true",
+              "type":"application/vnd.ard.widget+json"
+
+            }
+
+          },
+          "teasers":[
+
+
+          ],
+          "title":"F",
+          "type":"shows"
+
+        },
+        "G":{
+          "id":"Y29tcGlsYXRpb24rUmFkaW8gQnJlbWVuK0c",
+          "pagination":{
+            "pageNumber":0,
+            "pageSize":200,
+            "totalElements":0
+
+          },
+          "personalized":false,
+          "links":{
+            "self":{
+              "id":"G",
+              "title":"G",
+              "href":"https://api.ardmediathek.de/page-gateway/compilations/radiobremen/shows/G?pageNumber=0&pageSize=200&embedded=true",
+              "type":"application/vnd.ard.widget+json"
+
+            }
+
+          },
+          "teasers":[
+
+
+          ],
+          "title":"G",
+          "type":"shows"
+
+        },
+        "H":{
+          "id":"Y29tcGlsYXRpb24rUmFkaW8gQnJlbWVuK0g",
+          "pagination":{
+            "pageNumber":0,
+            "pageSize":200,
+            "totalElements":0
+
+          },
+          "personalized":false,
+          "links":{
+            "self":{
+              "id":"H",
+              "title":"H",
+              "href":"https://api.ardmediathek.de/page-gateway/compilations/radiobremen/shows/H?pageNumber=0&pageSize=200&embedded=true",
+              "type":"application/vnd.ard.widget+json"
+
+            }
+
+          },
+          "teasers":[
+
+
+          ],
+          "title":"H",
+          "type":"shows"
+
+        },
+        "I":{
+          "id":"Y29tcGlsYXRpb24rUmFkaW8gQnJlbWVuK0k",
+          "pagination":{
+            "pageNumber":0,
+            "pageSize":200,
+            "totalElements":0
+
+          },
+          "personalized":false,
+          "links":{
+            "self":{
+              "id":"I",
+              "title":"I",
+              "href":"https://api.ardmediathek.de/page-gateway/compilations/radiobremen/shows/I?pageNumber=0&pageSize=200&embedded=true",
+              "type":"application/vnd.ard.widget+json"
+
+            }
+
+          },
+          "teasers":[
+
+
+          ],
+          "title":"I",
+          "type":"shows"
+
+        },
+        "J":{
+          "id":"Y29tcGlsYXRpb24rUmFkaW8gQnJlbWVuK0o",
+          "pagination":{
+            "pageNumber":0,
+            "pageSize":200,
+            "totalElements":0
+
+          },
+          "personalized":false,
+          "links":{
+            "self":{
+              "id":"J",
+              "title":"J",
+              "href":"https://api.ardmediathek.de/page-gateway/compilations/radiobremen/shows/J?pageNumber=0&pageSize=200&embedded=true",
+              "type":"application/vnd.ard.widget+json"
+
+            }
+
+          },
+          "teasers":[
+
+
+          ],
+          "title":"J",
+          "type":"shows"
+
+        },
+        "K":{
+          "id":"Y29tcGlsYXRpb24rUmFkaW8gQnJlbWVuK0s",
+          "pagination":{
+            "pageNumber":0,
+            "pageSize":200,
+            "totalElements":0
+
+          },
+          "personalized":false,
+          "links":{
+            "self":{
+              "id":"K",
+              "title":"K",
+              "href":"https://api.ardmediathek.de/page-gateway/compilations/radiobremen/shows/K?pageNumber=0&pageSize=200&embedded=true",
+              "type":"application/vnd.ard.widget+json"
+
+            }
+
+          },
+          "teasers":[
+
+
+          ],
+          "title":"K",
+          "type":"shows"
+
+        },
+        "L":{
+          "id":"Y29tcGlsYXRpb24rUmFkaW8gQnJlbWVuK0w",
+          "pagination":{
+            "pageNumber":0,
+            "pageSize":200,
+            "totalElements":0
+
+          },
+          "personalized":false,
+          "links":{
+            "self":{
+              "id":"L",
+              "title":"L",
+              "href":"https://api.ardmediathek.de/page-gateway/compilations/radiobremen/shows/L?pageNumber=0&pageSize=200&embedded=true",
+              "type":"application/vnd.ard.widget+json"
+
+            }
+
+          },
+          "teasers":[
+
+
+          ],
+          "title":"L",
+          "type":"shows"
+
+        },
+        "M":{
+          "id":"Y29tcGlsYXRpb24rUmFkaW8gQnJlbWVuK00",
+          "pagination":{
+            "pageNumber":0,
+            "pageSize":200,
+            "totalElements":0
+
+          },
+          "personalized":false,
+          "links":{
+            "self":{
+              "id":"M",
+              "title":"M",
+              "href":"https://api.ardmediathek.de/page-gateway/compilations/radiobremen/shows/M?pageNumber=0&pageSize=200&embedded=true",
+              "type":"application/vnd.ard.widget+json"
+
+            }
+
+          },
+          "teasers":[
+
+
+          ],
+          "title":"M",
+          "type":"shows"
+
+        },
+        "N":{
+          "id":"Y29tcGlsYXRpb24rUmFkaW8gQnJlbWVuK04",
+          "pagination":{
+            "pageNumber":0,
+            "pageSize":200,
+            "totalElements":0
+
+          },
+          "personalized":false,
+          "links":{
+            "self":{
+              "id":"N",
+              "title":"N",
+              "href":"https://api.ardmediathek.de/page-gateway/compilations/radiobremen/shows/N?pageNumber=0&pageSize=200&embedded=true",
+              "type":"application/vnd.ard.widget+json"
+
+            }
+
+          },
+          "teasers":[
+
+
+          ],
+          "title":"N",
+          "type":"shows"
+
+        },
+        "O":{
+          "id":"Y29tcGlsYXRpb24rUmFkaW8gQnJlbWVuK08",
+          "pagination":{
+            "pageNumber":0,
+            "pageSize":200,
+            "totalElements":0
+
+          },
+          "personalized":false,
+          "links":{
+            "self":{
+              "id":"O",
+              "title":"O",
+              "href":"https://api.ardmediathek.de/page-gateway/compilations/radiobremen/shows/O?pageNumber=0&pageSize=200&embedded=true",
+              "type":"application/vnd.ard.widget+json"
+
+            }
+
+          },
+          "teasers":[
+
+
+          ],
+          "title":"O",
+          "type":"shows"
+
+        },
+        "P":{
+          "id":"Y29tcGlsYXRpb24rUmFkaW8gQnJlbWVuK1A",
+          "pagination":{
+            "pageNumber":0,
+            "pageSize":200,
+            "totalElements":0
+
+          },
+          "personalized":false,
+          "links":{
+            "self":{
+              "id":"P",
+              "title":"P",
+              "href":"https://api.ardmediathek.de/page-gateway/compilations/radiobremen/shows/P?pageNumber=0&pageSize=200&embedded=true",
+              "type":"application/vnd.ard.widget+json"
+
+            }
+
+          },
+          "teasers":[
+
+
+          ],
+          "title":"P",
+          "type":"shows"
+
+        },
+        "Q":{
+          "id":"Y29tcGlsYXRpb24rUmFkaW8gQnJlbWVuK1E",
+          "pagination":{
+            "pageNumber":0,
+            "pageSize":200,
+            "totalElements":0
+
+          },
+          "personalized":false,
+          "links":{
+            "self":{
+              "id":"Q",
+              "title":"Q",
+              "href":"https://api.ardmediathek.de/page-gateway/compilations/radiobremen/shows/Q?pageNumber=0&pageSize=200&embedded=true",
+              "type":"application/vnd.ard.widget+json"
+
+            }
+
+          },
+          "teasers":[
+
+
+          ],
+          "title":"Q",
+          "type":"shows"
+
+        },
+        "R":{
+          "id":"Y29tcGlsYXRpb24rUmFkaW8gQnJlbWVuK1I",
+          "pagination":{
+            "pageNumber":0,
+            "pageSize":200,
+            "totalElements":0
+
+          },
+          "personalized":false,
+          "links":{
+            "self":{
+              "id":"R",
+              "title":"R",
+              "href":"https://api.ardmediathek.de/page-gateway/compilations/radiobremen/shows/R?pageNumber=0&pageSize=200&embedded=true",
+              "type":"application/vnd.ard.widget+json"
+
+            }
+
+          },
+          "teasers":[
+
+
+          ],
+          "title":"R",
+          "type":"shows"
+
+        },
+        "S":{
+          "id":"Y29tcGlsYXRpb24rUmFkaW8gQnJlbWVuK1M",
+          "pagination":{
+            "pageNumber":0,
+            "pageSize":200,
+            "totalElements":0
+
+          },
+          "personalized":false,
+          "links":{
+            "self":{
+              "id":"S",
+              "title":"S",
+              "href":"https://api.ardmediathek.de/page-gateway/compilations/radiobremen/shows/S?pageNumber=0&pageSize=200&embedded=true",
+              "type":"application/vnd.ard.widget+json"
+
+            }
+
+          },
+          "teasers":[
+
+
+          ],
+          "title":"S",
+          "type":"shows"
+
+        },
+        "T":{
+          "id":"Y29tcGlsYXRpb24rUmFkaW8gQnJlbWVuK1Q",
+          "pagination":{
+            "pageNumber":0,
+            "pageSize":200,
+            "totalElements":0
+
+          },
+          "personalized":false,
+          "links":{
+            "self":{
+              "id":"T",
+              "title":"T",
+              "href":"https://api.ardmediathek.de/page-gateway/compilations/radiobremen/shows/T?pageNumber=0&pageSize=200&embedded=true",
+              "type":"application/vnd.ard.widget+json"
+
+            }
+
+          },
+          "teasers":[
+
+
+          ],
+          "title":"T",
+          "type":"shows"
+
+        },
+        "U":{
+          "id":"Y29tcGlsYXRpb24rUmFkaW8gQnJlbWVuK1U",
+          "pagination":{
+            "pageNumber":0,
+            "pageSize":200,
+            "totalElements":0
+
+          },
+          "personalized":false,
+          "links":{
+            "self":{
+              "id":"U",
+              "title":"U",
+              "href":"https://api.ardmediathek.de/page-gateway/compilations/radiobremen/shows/U?pageNumber=0&pageSize=200&embedded=true",
+              "type":"application/vnd.ard.widget+json"
+
+            }
+
+          },
+          "teasers":[
+
+
+          ],
+          "title":"U",
+          "type":"shows"
+
+        },
+        "V":{
+          "id":"Y29tcGlsYXRpb24rUmFkaW8gQnJlbWVuK1Y",
+          "pagination":{
+            "pageNumber":0,
+            "pageSize":200,
+            "totalElements":0
+
+          },
+          "personalized":false,
+          "links":{
+            "self":{
+              "id":"V",
+              "title":"V",
+              "href":"https://api.ardmediathek.de/page-gateway/compilations/radiobremen/shows/V?pageNumber=0&pageSize=200&embedded=true",
+              "type":"application/vnd.ard.widget+json"
+
+            }
+
+          },
+          "teasers":[
+
+
+          ],
+          "title":"V",
+          "type":"shows"
+
+        },
+        "W":{
+          "id":"Y29tcGlsYXRpb24rUmFkaW8gQnJlbWVuK1c",
+          "pagination":{
+            "pageNumber":0,
+            "pageSize":200,
+            "totalElements":0
+
+          },
+          "personalized":false,
+          "links":{
+            "self":{
+              "id":"W",
+              "title":"W",
+              "href":"https://api.ardmediathek.de/page-gateway/compilations/radiobremen/shows/W?pageNumber=0&pageSize=200&embedded=true",
+              "type":"application/vnd.ard.widget+json"
+
+            }
+
+          },
+          "teasers":[
+
+
+          ],
+          "title":"W",
+          "type":"shows"
+
+        },
+        "X":{
+          "id":"Y29tcGlsYXRpb24rUmFkaW8gQnJlbWVuK1g",
+          "pagination":{
+            "pageNumber":0,
+            "pageSize":200,
+            "totalElements":0
+
+          },
+          "personalized":false,
+          "links":{
+            "self":{
+              "id":"X",
+              "title":"X",
+              "href":"https://api.ardmediathek.de/page-gateway/compilations/radiobremen/shows/X?pageNumber=0&pageSize=200&embedded=true",
+              "type":"application/vnd.ard.widget+json"
+
+            }
+
+          },
+          "teasers":[
+
+
+          ],
+          "title":"X",
+          "type":"shows"
+
+        },
+        "Y":{
+          "id":"Y29tcGlsYXRpb24rUmFkaW8gQnJlbWVuK1k",
+          "pagination":{
+            "pageNumber":0,
+            "pageSize":200,
+            "totalElements":0
+
+          },
+          "personalized":false,
+          "links":{
+            "self":{
+              "id":"Y",
+              "title":"Y",
+              "href":"https://api.ardmediathek.de/page-gateway/compilations/radiobremen/shows/Y?pageNumber=0&pageSize=200&embedded=true",
+              "type":"application/vnd.ard.widget+json"
+
+            }
+
+          },
+          "teasers":[
+
+
+          ],
+          "title":"Y",
+          "type":"shows"
+
+        },
+        "Z":{
+          "id":"Y29tcGlsYXRpb24rUmFkaW8gQnJlbWVuK1o",
+          "pagination":{
+            "pageNumber":0,
+            "pageSize":200,
+            "totalElements":0
+
+          },
+          "personalized":false,
+          "links":{
+            "self":{
+              "id":"Z",
+              "title":"Z",
+              "href":"https://api.ardmediathek.de/page-gateway/compilations/radiobremen/shows/Z?pageNumber=0&pageSize=200&embedded=true",
+              "type":"application/vnd.ard.widget+json"
+
+            }
+
+          },
+          "teasers":[
+
+
+          ],
+          "title":"Z",
+          "type":"shows"
+
+        }
+
       },
-      "__typename":"ShowsPage"
+      "id":"U2hvd3MgLSBSYWRpbyBCcmVtZW4",
+      "personalized":false,
+      "links":{
+        "self":{
+          "id":"U2hvd3MgLSBSYWRpbyBCcmVtZW4",
+          "title":"Shows - Radio Bremen",
+          "href":"https://api.ardmediathek.de/page-gateway/widgets/radiobremen/glossary?pageNumber=0&pageSize=200&embedded=true",
+          "type":"application/vnd.ard.widget+json"
+
+        }
+
+      },
+      "title":"Shows - Radio Bremen",
+      "titleVisible":true,
+      "type":"glossary"
+
     }
-  }
+
+  ]
 }

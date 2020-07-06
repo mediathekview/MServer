@@ -125,11 +125,7 @@ public class ArdCrawler extends AbstractCrawler {
   private ConcurrentLinkedQueue<CrawlerUrlDTO> createTopicsOverviewUrl(final String client) {
     final ConcurrentLinkedQueue<CrawlerUrlDTO> urls = new ConcurrentLinkedQueue<>();
 
-    final String url =
-        new ArdUrlBuilder(ArdConstants.BASE_URL, client)
-            .addSavedQuery(ArdConstants.QUERY_TOPICS_VERSION, ArdConstants.QUERY_TOPICS_HASH)
-            .build();
-
+    final String url = String.format(ArdConstants.TOPICS_URL, client);
     urls.add(new CrawlerUrlDTO(url));
 
     return urls;

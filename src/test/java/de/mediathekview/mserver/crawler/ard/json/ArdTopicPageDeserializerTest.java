@@ -20,59 +20,25 @@ public class ArdTopicPageDeserializerTest {
       ArdFilmInfoDto[] expected =
               new ArdFilmInfoDto[]{
                       new ArdFilmInfoDto(
-                              "Y3JpZDovL2Rhc2Vyc3RlLmRlL2Flbm5hIGJ1cmRhL2IxZjY2NWQzLWIyOTYtNDQ4ZS05YmQ1LTk5MWUzZTcxZWNkMQ",
-                              "https://api.ardmediathek.de/public-gateway?variables="
-                                      + URLEncoder.encode(
-                                      "{\"client\":\"ard\",\"clipId\":\"Y3JpZDovL2Rhc2Vyc3RlLmRlL2Flbm5hIGJ1cmRhL2IxZjY2NWQzLWIyOTYtNDQ4ZS05YmQ1LTk5MWUzZTcxZWNkMQ\",\"deviceType\":\"pc\"}")
-                                      + "&extensions="
-                                      + URLEncoder.encode(
-                                      "{\"persistedQuery\":{\"version\":1,\"sha256Hash\":\"38e4c23d15b4b007e2e31068658944f19797c2fb7a75c93bc0a77fe1632476c6\"}}"),
+                              "Y3JpZDovL3JhZGlvYnJlbWVuLmRlLzFmOTkwMzNlLWY1MjUtNDk4Yy1iZjQ5LWIwZjZjYjhjNzRkYQ",
+                              "https://api.ardmediathek.de/page-gateway/pages/ard/item/Y3JpZDovL3JhZGlvYnJlbWVuLmRlLzFmOTkwMzNlLWY1MjUtNDk4Yy1iZjQ5LWIwZjZjYjhjNzRkYQ",
                               0),
                       new ArdFilmInfoDto(
-                              "Y3JpZDovL2Rhc2Vyc3RlLmRlL2Flbm5hIGJ1cmRhLzdkMWRhYzhmLWMxOWEtNDdjZS1hNDBmLTgzN2NjZTRhNTNjZQ",
-                              "https://api.ardmediathek.de/public-gateway?variables="
-                                      + URLEncoder.encode(
-                                      "{\"client\":\"ard\",\"clipId\":\"Y3JpZDovL2Rhc2Vyc3RlLmRlL2Flbm5hIGJ1cmRhLzdkMWRhYzhmLWMxOWEtNDdjZS1hNDBmLTgzN2NjZTRhNTNjZQ\",\"deviceType\":\"pc\"}")
-                                      + "&extensions="
-                                      + URLEncoder.encode(
-                                      "{\"persistedQuery\":{\"version\":1,\"sha256Hash\":\"38e4c23d15b4b007e2e31068658944f19797c2fb7a75c93bc0a77fe1632476c6\"}}"),
+                              "Y3JpZDovL3JhZGlvYnJlbWVuLmRlLzkzM2QzZjFjLTlkMWQtNGFlNy1hNDA5LTlhMjdjNGI0NTdjZA",
+                          "https://api.ardmediathek.de/page-gateway/pages/ard/item/Y3JpZDovL3JhZGlvYnJlbWVuLmRlLzkzM2QzZjFjLTlkMWQtNGFlNy1hNDA5LTlhMjdjNGI0NTdjZA",
                               0),
                       new ArdFilmInfoDto(
-                              "Y3JpZDovL2Rhc2Vyc3RlLmRlL2Flbm5hIGJ1cmRhL2I0MWQ3MDhjLTMwNDItNGNhYy1iOTMyLTI0NzNlNjdiM2MwOQ",
-                              "https://api.ardmediathek.de/public-gateway?variables="
-                                      + URLEncoder.encode(
-                                      "{\"client\":\"ard\",\"clipId\":\"Y3JpZDovL2Rhc2Vyc3RlLmRlL2Flbm5hIGJ1cmRhL2I0MWQ3MDhjLTMwNDItNGNhYy1iOTMyLTI0NzNlNjdiM2MwOQ\",\"deviceType\":\"pc\"}")
-                                      + "&extensions="
-                                      + URLEncoder.encode(
-                                      "{\"persistedQuery\":{\"version\":1,\"sha256Hash\":\"38e4c23d15b4b007e2e31068658944f19797c2fb7a75c93bc0a77fe1632476c6\"}}"),
+                              "Y3JpZDovL3JhZGlvYnJlbWVuLmRlLzg1NTVhNjlmLWNkMDMtNDY3ZS04MWJmLWU3YmI4YjIxNGJjMw",
+                          "https://api.ardmediathek.de/page-gateway/pages/ard/item/Y3JpZDovL3JhZGlvYnJlbWVuLmRlLzg1NTVhNjlmLWNkMDMtNDY3ZS04MWJmLWU3YmI4YjIxNGJjMw",
                               0),
                       new ArdFilmInfoDto(
-                              "Y3JpZDovL2Rhc2Vyc3RlLmRlL2Flbm5hIGJ1cmRhLzhiMzE1ZTlkLWFmZjktNDE2Mi1iNzk1LWY3OTk3MGJjYWZkMw",
-                              "https://api.ardmediathek.de/public-gateway?variables="
-                                      + URLEncoder.encode(
-                                      "{\"client\":\"ard\",\"clipId\":\"Y3JpZDovL2Rhc2Vyc3RlLmRlL2Flbm5hIGJ1cmRhLzhiMzE1ZTlkLWFmZjktNDE2Mi1iNzk1LWY3OTk3MGJjYWZkMw\",\"deviceType\":\"pc\"}")
-                                      + "&extensions="
-                                      + URLEncoder.encode(
-                                      "{\"persistedQuery\":{\"version\":1,\"sha256Hash\":\"38e4c23d15b4b007e2e31068658944f19797c2fb7a75c93bc0a77fe1632476c6\"}}"),
+                              "Y3JpZDovL3JhZGlvYnJlbWVuLmRlL2FhNDRiYTVhLWMzOWItNDgyMy1iNDZjLTZhMjBlYTAyN2I0ZQ",
+                          "https://api.ardmediathek.de/page-gateway/pages/ard/item/Y3JpZDovL3JhZGlvYnJlbWVuLmRlL2FhNDRiYTVhLWMzOWItNDgyMy1iNDZjLTZhMjBlYTAyN2I0ZQ",
                               0),
                       new ArdFilmInfoDto(
-                              "Y3JpZDovL2Rhc2Vyc3RlLmRlL2Flbm5hIGJ1cmRhLzk2OTI1NTQxLWRkZTQtNGJhOS1hZTUyLTQ0MDUwYzIwOGVlOA",
-                              "https://api.ardmediathek.de/public-gateway?variables="
-                                      + URLEncoder.encode(
-                                      "{\"client\":\"ard\",\"clipId\":\"Y3JpZDovL2Rhc2Vyc3RlLmRlL2Flbm5hIGJ1cmRhLzk2OTI1NTQxLWRkZTQtNGJhOS1hZTUyLTQ0MDUwYzIwOGVlOA\",\"deviceType\":\"pc\"}")
-                                      + "&extensions="
-                                      + URLEncoder.encode(
-                                      "{\"persistedQuery\":{\"version\":1,\"sha256Hash\":\"38e4c23d15b4b007e2e31068658944f19797c2fb7a75c93bc0a77fe1632476c6\"}}"),
+                              "Y3JpZDovL3JhZGlvYnJlbWVuLmRlL2M2MzU2NTJjLWVkYTAtNDNkNS05ZTJkLTliMzBkZTI2NzM2Mw",
+                          "https://api.ardmediathek.de/page-gateway/pages/ard/item/Y3JpZDovL3JhZGlvYnJlbWVuLmRlL2M2MzU2NTJjLWVkYTAtNDNkNS05ZTJkLTliMzBkZTI2NzM2Mw",
                               0),
-                      new ArdFilmInfoDto(
-                              "Y3JpZDovL2Rhc2Vyc3RlLmRlL2Flbm5hIGJ1cmRhLzhjYTk2MmFiLTgyOTctNDE4Yy05YzUxLTdlN2Y1Mjg4ZWY5ZS9hdWRpb2Rlc2tyaXB0aW9u",
-                              "https://api.ardmediathek.de/public-gateway?variables="
-                                      + URLEncoder.encode(
-                                      "{\"client\":\"ard\",\"clipId\":\"Y3JpZDovL2Rhc2Vyc3RlLmRlL2Flbm5hIGJ1cmRhLzhjYTk2MmFiLTgyOTctNDE4Yy05YzUxLTdlN2Y1Mjg4ZWY5ZS9hdWRpb2Rlc2tyaXB0aW9u\",\"deviceType\":\"pc\"}")
-                                      + "&extensions="
-                                      + URLEncoder.encode(
-                                      "{\"persistedQuery\":{\"version\":1,\"sha256Hash\":\"38e4c23d15b4b007e2e31068658944f19797c2fb7a75c93bc0a77fe1632476c6\"}}"),
-                              0)
               };
 
     ArdTopicPageDeserializer instance = new ArdTopicPageDeserializer();
