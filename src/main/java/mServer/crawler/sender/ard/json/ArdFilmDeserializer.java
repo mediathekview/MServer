@@ -180,9 +180,6 @@ public class ArdFilmDeserializer implements JsonDeserializer<List<ArdFilmDto>> {
       }
       films.add(filmDto);
 
-      if (partner.isPresent()) {
-        Log.sysLog(partner.get());
-      }
       if (partner.isPresent() && ADDITIONAL_SENDER.containsKey(partner.get())) {
         // add film to other sender (like RBB)
         DatenFilm additionalFilm
