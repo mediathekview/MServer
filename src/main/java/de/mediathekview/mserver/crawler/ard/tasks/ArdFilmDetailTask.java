@@ -36,7 +36,7 @@ public class ArdFilmDetailTask extends ArdTaskBase<Film, ArdFilmInfoDto> {
   @Override
   protected void processRestTarget(final ArdFilmInfoDto aDTO, final WebTarget aTarget) {
     try {
-      final List<ArdFilmDto> filmDtos = deserialize(aTarget, LIST_FILM_TYPE_TOKEN);
+      final List<ArdFilmDto> filmDtos = deserialize(aTarget, LIST_FILM_TYPE_TOKEN, aDTO);
 
       if (filmDtos == null || filmDtos.isEmpty()) {
         LOG.error("no film: {}", aDTO.getUrl());

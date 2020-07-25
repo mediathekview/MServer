@@ -77,6 +77,10 @@ public abstract class AbstractRecrusivConverterTask<T, D> extends RecursiveTask<
     }
   }
 
+  protected void addElementToProcess(final D newElementToProcess) {
+    elementsToProcess.add(newElementToProcess);
+  }
+
   /**
    * In this method you just have to create a new instance of yourself.
    *

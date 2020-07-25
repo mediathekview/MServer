@@ -33,7 +33,7 @@ public class ArdTopicPageTask extends ArdTaskBase<ArdFilmInfoDto, CrawlerUrlDTO>
 
   @Override
   protected void processRestTarget(final CrawlerUrlDTO aDTO, final WebTarget aTarget) {
-    final ArdTopicInfoDto topicInfo = deserialize(aTarget, ARDTOPICINFODTO_TYPE_TOKEN);
+    final ArdTopicInfoDto topicInfo = deserialize(aTarget, ARDTOPICINFODTO_TYPE_TOKEN, aDTO);
     if (topicInfo != null
         && topicInfo.getFilmInfos() != null
         && !topicInfo.getFilmInfos().isEmpty()) {

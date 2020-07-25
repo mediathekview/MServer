@@ -36,7 +36,7 @@ public class ArdTopicsOverviewTask extends ArdTaskBase<CrawlerUrlDTO, CrawlerUrl
 
   @Override
   protected void processRestTarget(final CrawlerUrlDTO aDTO, final WebTarget aTarget) {
-    final Set<CrawlerUrlDTO> results = deserialize(aTarget, SET_CRAWLER_URL_TYPE_TOKEN);
+    final Set<CrawlerUrlDTO> results = deserialize(aTarget, SET_CRAWLER_URL_TYPE_TOKEN, aDTO);
     LOG.debug("Found {} shows for {}.", results.size(), sender);
     taskResults.addAll(results);
   }

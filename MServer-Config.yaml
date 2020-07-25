@@ -1,7 +1,7 @@
 #### Server configurations ####
 
 # The maximum amount of cpu threads to be used.
-maximumCpuThreads: 16
+maximumCpuThreads: 8
 
 # The maximum duration in minutes the server should run.<br>
 # If set to 0 the server runs without a time limit.
@@ -111,7 +111,8 @@ senderConfigurations:
   ARD:
     # Actually the ARD has a maximum of 6 days in the past
     maximumDaysForSendungVerpasstSection: 6
-    maximumUrlsPerTask: 100
+    #2,4,8 ok
+    maximumUrlsPerTask: 32
     #10,20,40 ok
     maximumSubpages: 1
   ORF:

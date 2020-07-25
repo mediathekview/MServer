@@ -1,8 +1,5 @@
 package de.mediathekview.mserver.crawler.srf.parser;
 
-import static org.hamcrest.CoreMatchers.equalTo;
-import static org.junit.Assert.assertThat;
-
 import com.google.gson.JsonElement;
 import de.mediathekview.mlib.daten.Film;
 import de.mediathekview.mlib.daten.GeoLocations;
@@ -10,16 +7,20 @@ import de.mediathekview.mlib.daten.Sender;
 import de.mediathekview.mserver.crawler.srf.tasks.SrfTaskTestBase;
 import de.mediathekview.mserver.testhelper.AssertFilm;
 import de.mediathekview.mserver.testhelper.JsonFileReader;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.junit.runners.Parameterized;
+import org.junit.runners.Parameterized.Parameters;
+
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Optional;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
-import org.junit.runners.Parameterized.Parameters;
+
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.junit.MatcherAssert.assertThat;
 
 @RunWith(Parameterized.class)
 public class SrfFilmJsonDeserializerTest extends SrfTaskTestBase {
@@ -39,19 +40,19 @@ public class SrfFilmJsonDeserializerTest extends SrfTaskTestBase {
   private final String subtitleUrl;
 
   public SrfFilmJsonDeserializerTest(
-      String aJsonFile,
-      String aM3u8File,
-      String aM3u8Url,
-      String aTheme,
-      String aTitle,
-      LocalDateTime aLocalDateTime,
-      long aDuration,
-      String aDescription,
-      String aWebsite,
-      String aSmallUrl,
-      String aNormalUrl,
-      String aHdUrl,
-      String aSubtitleUrl) {
+      final String aJsonFile,
+      final String aM3u8File,
+      final String aM3u8Url,
+      final String aTheme,
+      final String aTitle,
+      final LocalDateTime aLocalDateTime,
+      final long aDuration,
+      final String aDescription,
+      final String aWebsite,
+      final String aSmallUrl,
+      final String aNormalUrl,
+      final String aHdUrl,
+      final String aSubtitleUrl) {
     jsonFile = aJsonFile;
     m3u8File = aM3u8File;
     m3u8Url = aM3u8Url;
@@ -151,15 +152,15 @@ public class SrfFilmJsonDeserializerTest extends SrfTaskTestBase {
 
   @Test
   public void test() {
-    JsonElement jsonElement = JsonFileReader.readJson(jsonFile);
+    final JsonElement jsonElement = JsonFileReader.readJson(jsonFile);
 
     setupSuccessfulResponse(m3u8Url, m3u8File);
 
-    SrfFilmJsonDeserializer target = new SrfFilmJsonDeserializer(createCrawler());
-    Optional<Film> actual = target.deserialize(jsonElement, Film.class, null);
+    final SrfFilmJsonDeserializer target = new SrfFilmJsonDeserializer(createCrawler());
+    final Optional<Film> actual = target.deserialize(jsonElement, Film.class, null);
 
     assertThat(actual.isPresent(), equalTo(true));
-    Film actualFilm = actual.get();
+    final Film actualFilm = actual.get();
     AssertFilm.assertEquals(
         actualFilm,
         Sender.SRF,
