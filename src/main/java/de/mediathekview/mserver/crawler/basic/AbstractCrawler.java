@@ -134,6 +134,10 @@ public abstract class AbstractCrawler implements Callable<Set<Film>> {
     return errorCount.incrementAndGet();
   }
 
+  public long decrementAndGetErrorCount() {
+    return errorCount.decrementAndGet();
+  }
+
   public long incrementAndGetMaxCount() {
     return maxCount.incrementAndGet();
   }

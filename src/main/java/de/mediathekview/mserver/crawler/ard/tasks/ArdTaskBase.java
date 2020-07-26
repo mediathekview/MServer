@@ -67,6 +67,7 @@ public abstract class ArdTaskBase<T, D extends CrawlerUrlDTO> extends AbstractRe
             "Can't reach the target host. Trying it again by adding the URL to the URL list.",
             processingException);
         addElementToProcess(currentElement);
+        crawler.decrementAndGetErrorCount();
       } else {
         LOG.error(
             "Something went wrong deserializing {}!",

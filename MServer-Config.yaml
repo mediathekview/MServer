@@ -1,7 +1,7 @@
 #### Server configurations ####
 
 # The maximum amount of cpu threads to be used.
-maximumCpuThreads: 8
+maximumCpuThreads: 16
 
 # The maximum duration in minutes the server should run.<br>
 # If set to 0 the server runs without a time limit.
