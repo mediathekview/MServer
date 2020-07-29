@@ -1,0 +1,125 @@
+{
+  "data":{
+    "next":"",
+    "data":[
+      {
+        "id":"342a1a95-42ec-4568-b653-a042c54f7763",
+        "urn":"urn:srf:video:342a1a95-42ec-4568-b653-a042c54f7763",
+        "title":"Mit Sandra Boner aufs «Meteo»-Dach",
+        "show":{
+          "id":"42e39d12-e1e5-4f2e-b620-7db7e23c575c",
+          "urn":"urn:srf:show:tv:42e39d12-e1e5-4f2e-b620-7db7e23c575c",
+          "title":"Anna erfüllt Wünsche",
+          "lead":"Hier werden Kinderwünsche wahr.",
+          "description":"Bei «Anna erfüllt Wünsche» werden Herzenswünsche erfüllt. Sei es ein Treffen mit einem Sänger oder ein Training mit einer Profisportlerin, Anna Zöllig macht das Unmögliche möglich.",
+          "imageUrl":"https://ws.srf.ch/asset/image/audio/4436ea86-3d66-4415-a5a4-4487e5fc494c/WEBVISUAL/1537175590.jpg",
+          "posterImageUrl":"https://ws.srf.ch/asset/image/audio/4436ea86-3d66-4415-a5a4-4487e5fc494c/POSTER/1589286688.jpg",
+          "posterImageIsFallbackUrl":false,
+          "transmission":"TV"
+
+        },
+        "lead":"Einen Tag bei «SRF Meteo» dabei sein und mit Sandra Boner aufs «Meteo»-Dach steigen, das ist der grösste Wunsch von Ladina. Sie ist ein riesiger Fan der Wettersendung und will später einmal Meteorologin werden. Ihre Schwester Flavia weiss davon und meldet den Wunsch Anna Zöllig.",
+        "description":"Als Anna Zöllig mit den beiden Mädchen aufs SRF-Gebäude in Zürich Oerlikon zugeht, realisiert Ladina langsam, dass ihr grösster Traum wahr wird.",
+        "imageUrl":"https://ws.srf.ch/asset/image/audio/c00cb094-2ac2-4395-9365-0ef34ff5227d/EPISODE_IMAGE/1587458363.jpg",
+        "duration":462000,
+        "type":"EPISODE",
+        "date":"2020-04-15T15:00:00.000Z",
+        "mediaType":"video",
+        "subtitlesAvailable":false,
+        "playableAbroad":true
+
+      },
+      {
+        "id":"aa44e19a-19d9-4584-88c7-ccd8658c0828",
+        "urn":"urn:srf:video:aa44e19a-19d9-4584-88c7-ccd8658c0828",
+        "title":"Eine Schlittenhundefahrt mit Huskys",
+        "show":{
+          "id":"42e39d12-e1e5-4f2e-b620-7db7e23c575c",
+          "urn":"urn:srf:show:tv:42e39d12-e1e5-4f2e-b620-7db7e23c575c",
+          "title":"Anna erfüllt Wünsche",
+          "lead":"Hier werden Kinderwünsche wahr.",
+          "description":"Bei «Anna erfüllt Wünsche» werden Herzenswünsche erfüllt. Sei es ein Treffen mit einem Sänger oder ein Training mit einer Profisportlerin, Anna Zöllig macht das Unmögliche möglich.",
+          "imageUrl":"https://ws.srf.ch/asset/image/audio/4436ea86-3d66-4415-a5a4-4487e5fc494c/WEBVISUAL/1537175590.jpg",
+          "posterImageUrl":"https://ws.srf.ch/asset/image/audio/4436ea86-3d66-4415-a5a4-4487e5fc494c/POSTER/1589286688.jpg",
+          "posterImageIsFallbackUrl":false,
+          "transmission":"TV"
+
+        },
+        "lead":"Huskys sind die Lieblingstiere von Aline. Ihr grösster Traum ist eine Fahrt mit einem Schlittenhundegespann.",
+        "description":"Im Berner Oberland wird dieser Traum wahr! Aline darf nicht nur einen ganzen Tag mit Huskys verbringen, sondern auch bei einer Fahrt mit einem Schlittenhundewagen dabei sein. \r\n\r\nAuf dem Hundeschlitten darf sie am Ende sogar selbst die Zügel in die Hand nehmen und den Hunden Kommandos geben.",
+        "imageUrl":"https://ws.srf.ch/asset/image/audio/b43c2018-44dc-448e-8520-992af7832484/EPISODE_IMAGE/1584537902.jpg",
+        "duration":368000,
+        "type":"EPISODE",
+        "date":"2020-03-18T11:00:00.000Z",
+        "mediaType":"video",
+        "subtitlesAvailable":false,
+        "playableAbroad":true
+
+      },
+      {
+        "id":"eba528a3-d85c-4936-af35-bca5f2b99960",
+        "urn":"urn:srf:video:eba528a3-d85c-4936-af35-bca5f2b99960",
+        "title":"Ein Tag mit Leichtathletin Géraldine Ruckstuhl",
+        "show":{
+          "id":"42e39d12-e1e5-4f2e-b620-7db7e23c575c",
+          "urn":"urn:srf:show:tv:42e39d12-e1e5-4f2e-b620-7db7e23c575c",
+          "title":"Anna erfüllt Wünsche",
+          "lead":"Hier werden Kinderwünsche wahr.",
+          "description":"Bei «Anna erfüllt Wünsche» werden Herzenswünsche erfüllt. Sei es ein Treffen mit einem Sänger oder ein Training mit einer Profisportlerin, Anna Zöllig macht das Unmögliche möglich.",
+          "imageUrl":"https://ws.srf.ch/asset/image/audio/4436ea86-3d66-4415-a5a4-4487e5fc494c/WEBVISUAL/1537175590.jpg",
+          "posterImageUrl":"https://ws.srf.ch/asset/image/audio/4436ea86-3d66-4415-a5a4-4487e5fc494c/POSTER/1589286688.jpg",
+          "posterImageIsFallbackUrl":false,
+          "transmission":"TV"
+
+        },
+        "lead":"Einmal mit der berühmten Siebenkämpferin Géraldine Ruckstuhl trainieren. Das ist der grösste Wunsch von Nora, die selbst diesen Sport ausübt. Ihre Schwester Salome weiss von ihrem grossen Traum und meldet den Herzenswunsch «Zambo»-Moderatorin Anna Zöllig.",
+        "description":"Im Sportzentrum Magglingen darf Nora zusammen mit der Leichtathletin Géraldine Ruckstuhl trainieren. Hürdenlauf und Speerwurf stehen auf dem Programm. Zusätzlich zu wunderbaren Erinnerungen erhält sie auch ein paar wertvolle Tipps von ihrem grossen Vorbild.",
+        "imageUrl":"https://ws.srf.ch/asset/image/audio/abdc30eb-3706-4397-aca4-b264ece7c884/EPISODE_IMAGE/1582024261.png",
+        "duration":454000,
+        "type":"EPISODE",
+        "date":"2020-02-19T11:00:00.000Z",
+        "mediaType":"video",
+        "subtitlesAvailable":false,
+        "playableAbroad":true
+
+      },
+      {
+        "id":"5716149f-5edd-4205-b7d8-60f23334af7e",
+        "urn":"urn:srf:video:5716149f-5edd-4205-b7d8-60f23334af7e",
+        "title":"Mit dem Springreiter Martin Fuchs trainieren",
+        "show":{
+          "id":"42e39d12-e1e5-4f2e-b620-7db7e23c575c",
+          "urn":"urn:srf:show:tv:42e39d12-e1e5-4f2e-b620-7db7e23c575c",
+          "title":"Anna erfüllt Wünsche",
+          "lead":"Hier werden Kinderwünsche wahr.",
+          "description":"Bei «Anna erfüllt Wünsche» werden Herzenswünsche erfüllt. Sei es ein Treffen mit einem Sänger oder ein Training mit einer Profisportlerin, Anna Zöllig macht das Unmögliche möglich.",
+          "imageUrl":"https://ws.srf.ch/asset/image/audio/4436ea86-3d66-4415-a5a4-4487e5fc494c/WEBVISUAL/1537175590.jpg",
+          "posterImageUrl":"https://ws.srf.ch/asset/image/audio/4436ea86-3d66-4415-a5a4-4487e5fc494c/POSTER/1589286688.jpg",
+          "posterImageIsFallbackUrl":false,
+          "transmission":"TV"
+
+        },
+        "lead":"Einmal mit dem berühmten Springreiter Martin Fuchs trainieren. Das ist der grösste Wunsch von Luna, deren Herz für Pferde schlägt. Dass Martin ihr grosses Idol ist, weiss Oona und meldet den Herzenswunsch ihrer besten Freundin bei «Anna erfüllt Wünsche».\r\n\r\nAuf dem eigenen Reithof von Martin Fuchs darf Luna dann sogar selber zu Ross steigen und erhält ein paar wertvolle Tipps vom Profi.",
+        "description":"",
+        "imageUrl":"https://ws.srf.ch/asset/image/audio/78850645-3eaa-4f6d-a48d-396230719e1a/EPISODE_IMAGE/1578388746.jpg",
+        "duration":403000,
+        "type":"EPISODE",
+        "date":"2020-01-22T11:00:00.000Z",
+        "mediaType":"video",
+        "subtitlesAvailable":false,
+        "playableAbroad":true
+
+      }
+
+    ]
+
+  },
+  "ilRequests":[
+    "https://il.srgssr.ch/integrationlayer/2.0/srf/mediaList/video/latest/byShow/42e39d12-e1e5-4f2e-b620-7db7e23c575c?vector=portalplay&pageSize=20"
+
+  ],
+  "failedIlRequests":[
+
+
+  ]
+}

@@ -10,16 +10,15 @@ public final class SrfConstants {
   public static final String OVERVIEW_PAGE_URL = "https://www.srf.ch/play/v3/api/srf/production/shows";
   /**
    * URL für Übersichtsseite einer Sendung
-   * Parameter: Id, Monat-Jahr, Anzahl der Filme pro Seite
+   * Parameter: Id
    */
   public static final String SHOW_OVERVIEW_PAGE_URL = "https://www.srf.ch/play/v3/api/srf/production/videos-by-show-id?showId=%s";
-
-
   /**
    * URL für Detailsinformation einer Folge
    * Parameter: Id
    */
-  public static final String SHOW_DETAIL_PAGE_URL = "https://il.srgssr.ch/integrationlayer/2.0/srf/mediaComposition/video/%s.json";
+  public static final String SHOW_DETAIL_PAGE_URL = "https://www.srf.ch/play/v3/api/srf/production/video?id=%s";
+
   /**
    * URL für Webseite einer Folge
    * Parameter: Thema, Titel, Id
