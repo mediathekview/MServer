@@ -1,0 +1,52 @@
+{
+  "data":{
+    "isSegment":false,
+    "publishDate":"2020-04-15T15:00:00.000Z",
+    "show":{
+      "id":"42e39d12-e1e5-4f2e-b620-7db7e23c575c",
+      "urn":"urn:srf:show:tv:42e39d12-e1e5-4f2e-b620-7db7e23c575c",
+      "title":"Anna erfüllt Wünsche",
+      "lead":"Hier werden Kinderwünsche wahr.",
+      "description":"Bei «Anna erfüllt Wünsche» werden Herzenswünsche erfüllt. Sei es ein Treffen mit einem Sänger oder ein Training mit einer Profisportlerin, Anna Zöllig macht das Unmögliche möglich.",
+      "imageUrl":"https://ws.srf.ch/asset/image/audio/4436ea86-3d66-4415-a5a4-4487e5fc494c/WEBVISUAL/1537175590.jpg",
+      "posterImageUrl":"https://ws.srf.ch/asset/image/audio/4436ea86-3d66-4415-a5a4-4487e5fc494c/POSTER/1589286688.jpg",
+      "posterImageIsFallbackUrl":false,
+      "transmission":"TV"
+
+    },
+    "episodeLinks":[
+
+
+    ],
+    "topics":[
+      {
+        "id":"1d7d9cfb-6682-4d5b-9e36-322e8fa93c03",
+        "urn":"urn:srf:topic:tv:1d7d9cfb-6682-4d5b-9e36-322e8fa93c03",
+        "title":"Kinder"
+
+      }
+
+    ],
+    "id":"342a1a95-42ec-4568-b653-a042c54f7763",
+    "urn":"urn:srf:video:342a1a95-42ec-4568-b653-a042c54f7763",
+    "title":"Mit Sandra Boner aufs «Meteo»-Dach",
+    "lead":"Einen Tag bei «SRF Meteo» dabei sein und mit Sandra Boner aufs «Meteo»-Dach steigen, das ist der grösste Wunsch von Ladina. Sie ist ein riesiger Fan der Wettersendung und will später einmal Meteorologin werden. Ihre Schwester Flavia weiss davon und meldet den Wunsch Anna Zöllig.",
+    "imageUrl":"https://ws.srf.ch/asset/image/audio/c00cb094-2ac2-4395-9365-0ef34ff5227d/EPISODE_IMAGE/1587458363.jpg",
+    "description":"Als Anna Zöllig mit den beiden Mädchen aufs SRF-Gebäude in Zürich Oerlikon zugeht, realisiert Ladina langsam, dass ihr grösster Traum wahr wird.",
+    "downloadSdUrl":"https://podcastsource.sf.tv/nps/77037528/462.08/Mit+Sandra+Boner+aufs+%C2%ABMeteo%C2%BB-Dach/podcast/annaerfuelltwuensche/2020/04/annaerfuelltwuensche_20200415_082933_20467830_v_podcast_h264_q10.mp4?assetId=342a1a95-42ec-4568-b653-a042c54f7763",
+    "downloadHdUrl":"https://podcastsource.sf.tv/nps/210262032/462.08/Mit+Sandra+Boner+aufs+%C2%ABMeteo%C2%BB-Dach/podcast/annaerfuelltwuensche/2020/04/annaerfuelltwuensche_20200415_082933_20467830_v_podcast_h264_q30.mp4?assetId=342a1a95-42ec-4568-b653-a042c54f7763",
+    "views":8154,
+    "playableAbroad":true,
+    "embedAllowed":true,
+    "duration":462080
+
+  },
+  "ilRequests":[
+    "https://il.srgssr.ch/integrationlayer/2.0/srf/mediaComposition/video/342a1a95-42ec-4568-b653-a042c54f7763"
+
+  ],
+  "failedIlRequests":[
+
+
+  ]
+}
