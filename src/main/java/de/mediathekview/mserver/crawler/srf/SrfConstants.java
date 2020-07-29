@@ -7,12 +7,14 @@ public final class SrfConstants {
   /**
    * URL für Übersichtsseite der Mediathek
    */
-  public static final String OVERVIEW_PAGE_URL = "https://www.srf.ch/play/v2/tv/shows";
+  public static final String OVERVIEW_PAGE_URL = "https://www.srf.ch/play/v3/api/srf/production/shows";
   /**
    * URL für Übersichtsseite einer Sendung
    * Parameter: Id, Monat-Jahr, Anzahl der Filme pro Seite
    */
-  public static final String SHOW_OVERVIEW_PAGE_URL = "https://www.srf.ch/play/v2/tv/show/%s/latestEpisodes?numberOfEpisodes=%d&tillMonth=%s&layout=json";
+  public static final String SHOW_OVERVIEW_PAGE_URL = "https://www.srf.ch/play/v3/api/srf/production/videos-by-show-id?showId=%s";
+
+
   /**
    * URL für Detailsinformation einer Folge
    * Parameter: Id

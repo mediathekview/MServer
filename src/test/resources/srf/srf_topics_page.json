@@ -1,0 +1,73 @@
+{
+  "data":[
+    {
+      "id":"c6a639e7-97a0-0001-5112-19c512b01474",
+      "urn":"urn:srf:show:tv:c6a639e7-97a0-0001-5112-19c512b01474",
+      "title":"#SRFglobal",
+      "lead":"Jeden Monat greift Sebastian Ramspeck mit SRF-Korrespondenten ein internationales Thema auf. ",
+      "description":"Im Magazin zum aktuellen Weltgeschehen greift Sebastian Ramspeck zusammen mit SRF-Korrespondenten einmal im Monat ein internationales Thema auf. Gastmoderatoren sind Arthur Honegger und Wasiliki Goutziomitros.",
+      "imageUrl":"https://ws.srf.ch/asset/image/audio/2c87ebcb-ce7a-476c-83b9-b7fa7393bdf4/WEBVISUAL/1582282561.jpg",
+      "posterImageUrl":"https://ws.srf.ch/asset/image/audio/2c87ebcb-ce7a-476c-83b9-b7fa7393bdf4/POSTER/1589456482.jpg",
+      "posterImageIsFallbackUrl":false,
+      "transmission":"TV"
+
+    },
+    {
+      "id":"c5a89422-4580-0001-4f24-1889dc30d730",
+      "urn":"urn:srf:show:tv:c5a89422-4580-0001-4f24-1889dc30d730",
+      "title":"8x15.",
+      "lead":"Acht Schweizer Bands zeigen auf der gleichen Bühne je 15 Minuten lang was sie können.",
+      "description":"SRF Virus bringt mit «8x15.» angesagte Schweizer Musik in die Clubs und auf die Bühne: Acht\r\nvielversprechende Bands und Acts treten während je 15 Minuten vor Publikum auf. Die Auftritte\r\nwerden live im Radio ausgestrahlt und für TV/online aufgezeichnet.",
+      "imageUrl":"https://ws.srf.ch/asset/image/audio/085bd746-044f-4dcf-b9f0-0eb306fdd5a3/WEBVISUAL/1448271806.jpg",
+      "posterImageUrl":"https://ws.srf.ch/asset/image/audio/085bd746-044f-4dcf-b9f0-0eb306fdd5a3/POSTER/1589451136.jpg",
+      "posterImageIsFallbackUrl":false,
+      "transmission":"TV"
+
+    },
+    {
+      "id":"c5e431c3-ab90-0001-3228-16001350159c",
+      "urn":"urn:srf:show:tv:c5e431c3-ab90-0001-3228-16001350159c",
+      "title":"Abstimmungen",
+      "lead":"Das Abstimmungsstudio berichtet über die eidgenössischen, kantonalen und kommunalen Urnengänge.",
+      "description":"Das Abstimmungsstudio berichtet über die eidgenössischen, kantonalen und wichtigen kommunalen Urnengänge. In der Spezialsendung werden Hochrechnungen und Resultate live kommentiert und analysiert. Gewinner und Verlierer diskutieren über die Abstimmungsergebnisse.",
+      "imageUrl":"https://ws.srf.ch/asset/image/audio/73d75e20-12ff-4cee-9aa9-6694a02365f4/WEBVISUAL/1454321928.jpg",
+      "posterImageUrl":"https://ws.srf.ch/asset/image/audio/73d75e20-12ff-4cee-9aa9-6694a02365f4/POSTER/1589370545.jpg",
+      "posterImageIsFallbackUrl":false,
+      "transmission":"TV"
+
+    },
+    {
+      "id":"42e39d12-e1e5-4f2e-b620-7db7e23c575c",
+      "urn":"urn:srf:show:tv:42e39d12-e1e5-4f2e-b620-7db7e23c575c",
+      "title":"Anna erfüllt Wünsche",
+      "lead":"Hier werden Kinderwünsche wahr.",
+      "description":"Bei «Anna erfüllt Wünsche» werden Herzenswünsche erfüllt. Sei es ein Treffen mit einem Sänger oder ein Training mit einer Profisportlerin, Anna Zöllig macht das Unmögliche möglich.",
+      "imageUrl":"https://ws.srf.ch/asset/image/audio/4436ea86-3d66-4415-a5a4-4487e5fc494c/WEBVISUAL/1537175590.jpg",
+      "posterImageUrl":"https://ws.srf.ch/asset/image/audio/4436ea86-3d66-4415-a5a4-4487e5fc494c/POSTER/1589286688.jpg",
+      "posterImageIsFallbackUrl":false,
+      "transmission":"TV"
+
+    },
+    {
+      "id":"79fe1336-b513-4342-b389-001bf89b8ea2",
+      "urn":"urn:srf:show:tv:79fe1336-b513-4342-b389-001bf89b8ea2",
+      "title":"Zwei am Morge",
+      "lead":"Die erste und einzige YouTube-Morgenshow der Schweiz mit Julian, Ramin und Robin.",
+      "description":"«SRF Zwei am Morge» ist die erste und einzige YouTube-Morgenshow der Schweiz. Julian, Ramin\r\nund Robin von UniGAG und Schwiizchiste liefern die spannendsten News, unglaubliche Stories und\r\ndie Trends der Woche direkt aufs Smartphone – und in die heimischen Stuben.",
+      "imageUrl":"https://ws.srf.ch/asset/image/audio/cf5ae36a-2c51-460b-bd35-0bf6924f5215/WEBVISUAL/1567666611.jpg",
+      "posterImageUrl":"https://ws.srf.ch/asset/image/audio/cf5ae36a-2c51-460b-bd35-0bf6924f5215/POSTER/1589451106.jpg",
+      "posterImageIsFallbackUrl":false,
+      "transmission":"TV"
+
+    }
+
+  ],
+  "ilRequests":[
+    "https://il.srgssr.ch/integrationlayer/2.0/srf/showList/tv/alphabetical?vector=portalplay&pageSize=unlimited"
+
+  ],
+  "failedIlRequests":[
+
+
+  ]
+}
