@@ -5,13 +5,10 @@ import de.mediathekview.mlib.daten.Sender;
 import de.mediathekview.mlib.messages.listener.MessageListener;
 import de.mediathekview.mserver.base.config.MServerConfigManager;
 import de.mediathekview.mserver.base.messages.ServerMessages;
-import de.mediathekview.mserver.base.webaccess.JsoupConnection;
 import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
 import de.mediathekview.mserver.crawler.basic.CrawlerUrlDTO;
 import de.mediathekview.mserver.crawler.basic.TopicUrlDTO;
 import de.mediathekview.mserver.crawler.srf.tasks.SrfFilmDetailTask;
-import de.mediathekview.mserver.crawler.srf.tasks.SrfSendungOverviewPageTask;
-import de.mediathekview.mserver.crawler.srf.tasks.SrfSendungenOverviewPageTask;
 import de.mediathekview.mserver.crawler.srf.tasks.SrfTopicOverviewTask;
 import de.mediathekview.mserver.crawler.srf.tasks.SrfTopicsOverviewTask;
 import de.mediathekview.mserver.progress.listeners.SenderProgressListener;
@@ -28,8 +25,6 @@ import java.util.concurrent.RecursiveTask;
 public class SrfCrawler extends AbstractCrawler {
 
   private static final Logger LOG = LogManager.getLogger(SrfCrawler.class);
-
-  JsoupConnection jsoupConnection = new JsoupConnection();
 
   public SrfCrawler(
           final ForkJoinPool aForkJoinPool,
