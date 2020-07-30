@@ -5,22 +5,22 @@ import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonDeserializer;
 import com.google.gson.JsonElement;
 import de.mediathekview.mserver.base.utils.JsonUtils;
-import de.mediathekview.mserver.crawler.basic.CrawlerUrlDTO;
+import de.mediathekview.mserver.crawler.basic.TopicUrlDTO;
 import de.mediathekview.mserver.crawler.srf.SrfConstants;
 import java.lang.reflect.Type;
 import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
 
-public class SrfTopicsDeserializer implements JsonDeserializer<Set<CrawlerUrlDTO>> {
+public class SrfTopicsDeserializer implements JsonDeserializer<Set<TopicUrlDTO>> {
 
   private static final String ELEMENT_DATA = "data";
   private static final String ATTRIBUTE_ID = "id";
 
   @Override
-  public Set<CrawlerUrlDTO> deserialize(
+  public Set<TopicUrlDTO> deserialize(
       JsonElement jsonElement, Type type, JsonDeserializationContext jsonDeserializationContext) {
-    final Set<CrawlerUrlDTO> results = new HashSet<>();
+    final Set<TopicUrlDTO> results = new HashSet<>();
 
     if (!jsonElement.getAsJsonObject().has(ELEMENT_DATA)
         || !jsonElement.getAsJsonObject().get(ELEMENT_DATA).isJsonArray()) {
@@ -34,8 +34,10 @@ public class SrfTopicsDeserializer implements JsonDeserializer<Set<CrawlerUrlDTO
           final Optional<String> id =
               JsonUtils.getAttributeAsString(entry.getAsJsonObject(), ATTRIBUTE_ID);
 
-          id.ifPresent(s -> results.add(
-              new CrawlerUrlDTO(String.format(SrfConstants.SHOW_OVERVIEW_PAGE_URL, s))));
+          id.ifPresent(
+              s ->
+                  results.add(
+                      new TopicUrlDTO(s, String.format(SrfConstants.SHOW_OVERVIEW_PAGE_URL, SrfConstants.BASE_URL, s))));
         });
 
     return results;

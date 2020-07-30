@@ -31,7 +31,8 @@ public class SrfSendungenOverviewPageTask
   JsoupConnection jsoupConnection;
 
   /** @param aCrawler The crawler which uses this task. */
-  public SrfSendungenOverviewPageTask(final AbstractCrawler aCrawler, final JsoupConnection jsoupConnection) {
+  public SrfSendungenOverviewPageTask(
+      final AbstractCrawler aCrawler, final JsoupConnection jsoupConnection) {
     crawler = aCrawler;
     this.jsoupConnection = jsoupConnection;
   }
@@ -42,9 +43,11 @@ public class SrfSendungenOverviewPageTask
 
     try {
       final Document document =
-          jsoupConnection.getDocumentTimeoutAfter(SrfConstants.OVERVIEW_PAGE_URL,
-              (int) TimeUnit.SECONDS.toMillis(
-                  crawler.getCrawlerConfig().getSocketTimeoutInSeconds()));
+          jsoupConnection.getDocumentTimeoutAfter(
+              SrfConstants.OVERVIEW_PAGE_URL,
+              (int)
+                  TimeUnit.SECONDS.toMillis(
+                      crawler.getCrawlerConfig().getSocketTimeoutInSeconds()));
       final Gson gson =
           new GsonBuilder()
               .registerTypeAdapter(Set.class, new SrfSendungenOverviewJsonDeserializer(urlBuilder))
@@ -78,7 +81,9 @@ public class SrfSendungenOverviewPageTask
 
   private Set<CrawlerUrlDTO> addSpecialShows() {
     final Set<CrawlerUrlDTO> shows = new HashSet<>();
-    shows.add(new CrawlerUrlDTO(urlBuilder.buildUrl(SrfConstants.ID_SHOW_SPORT_CLIP)));
+    shows.add(
+        new CrawlerUrlDTO(
+            urlBuilder.buildUrl(SrfConstants.BASE_URL, SrfConstants.ID_SHOW_SPORT_CLIP)));
 
     return shows;
   }

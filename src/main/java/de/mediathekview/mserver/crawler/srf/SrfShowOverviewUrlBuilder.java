@@ -13,7 +13,7 @@ public class SrfShowOverviewUrlBuilder {
     monthYear = today.getMonthValue() + "-" + today.getYear();
   }
 
-  public String buildUrl(String id) {
-    return String.format(SrfConstants.SHOW_OVERVIEW_PAGE_URL, id, FILMS_PER_PAGE, monthYear);
+  public String buildUrl(String baseUrl, String id) {
+    return String.format(SrfConstants.SHOW_OVERVIEW_PAGE_URL, baseUrl, id, FILMS_PER_PAGE, monthYear);
   }
 }

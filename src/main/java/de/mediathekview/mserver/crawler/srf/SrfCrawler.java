@@ -8,9 +8,12 @@ import de.mediathekview.mserver.base.messages.ServerMessages;
 import de.mediathekview.mserver.base.webaccess.JsoupConnection;
 import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
 import de.mediathekview.mserver.crawler.basic.CrawlerUrlDTO;
+import de.mediathekview.mserver.crawler.basic.TopicUrlDTO;
 import de.mediathekview.mserver.crawler.srf.tasks.SrfFilmDetailTask;
 import de.mediathekview.mserver.crawler.srf.tasks.SrfSendungOverviewPageTask;
 import de.mediathekview.mserver.crawler.srf.tasks.SrfSendungenOverviewPageTask;
+import de.mediathekview.mserver.crawler.srf.tasks.SrfTopicOverviewTask;
+import de.mediathekview.mserver.crawler.srf.tasks.SrfTopicsOverviewTask;
 import de.mediathekview.mserver.progress.listeners.SenderProgressListener;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -44,13 +47,15 @@ public class SrfCrawler extends AbstractCrawler {
   @Override
   protected RecursiveTask<Set<Film>> createCrawlerTask() {
     try {
-      final SrfSendungenOverviewPageTask overviewTask = new SrfSendungenOverviewPageTask(this, jsoupConnection);
-      final ConcurrentLinkedQueue<CrawlerUrlDTO> ids = forkJoinPool.submit(overviewTask).get();
+      final ConcurrentLinkedQueue<CrawlerUrlDTO> topicsUrls = new ConcurrentLinkedQueue<>();
+      topicsUrls.add(new CrawlerUrlDTO(SrfConstants.OVERVIEW_PAGE_URL));
+      final SrfTopicsOverviewTask overviewTask = new SrfTopicsOverviewTask(this, topicsUrls);
+      final ConcurrentLinkedQueue<TopicUrlDTO> topicUrls = new ConcurrentLinkedQueue<>(forkJoinPool.submit(overviewTask).get());
 
       printMessage(
-          ServerMessages.DEBUG_ALL_SENDUNG_FOLGEN_COUNT, getSender().getName(), ids.size());
+          ServerMessages.DEBUG_ALL_SENDUNG_FOLGEN_COUNT, getSender().getName(), topicUrls.size());
 
-      final SrfSendungOverviewPageTask task = new SrfSendungOverviewPageTask(this, ids);
+      final SrfTopicOverviewTask task = new SrfTopicOverviewTask(this, topicUrls, SrfConstants.BASE_URL);
       forkJoinPool.execute(task);
 
       final ConcurrentLinkedQueue<CrawlerUrlDTO> dtos = new ConcurrentLinkedQueue<>();
