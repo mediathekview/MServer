@@ -30,23 +30,13 @@ public class EnvManager {
 
     private boolean isEnvSet(String envName) {
         String envvalue = System.getenv(envName);
-
-        // if(envvalue == null) return false;
-
+        
         return envvalue != null && (
             envvalue.equalsIgnoreCase("y")
             || envvalue.equals("1")
             || envvalue.equalsIgnoreCase("yes")
             || envvalue.equalsIgnoreCase("true")
         );
-
-        // if(envvalue.equalsIgnoreCase("y")) return true;
-        // if(envvalue.equals("1")) return true;
-        // if(envvalue.equalsIgnoreCase("yes")) return true;
-        // if(envvalue.equalsIgnoreCase("true")) return true;
-
-        // return false;
-
     }
 
     private String getEnvValue(String envName) {

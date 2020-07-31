@@ -221,9 +221,9 @@ public class StatsUpload {
         String postBody = STRING_METRIC_SUCHLAUFAKTIV + tags + " "
             + STRING_METRIC_SUCHLAUFAKTIV_KEY_SUCHLAUFAKTIV +  "=";
 
-        String postBodyValue = postBody + "false";
+        String postBodyValue = postBody + "0i";
         sendData(postBodyValue);
-        postBodyValue = postBody + "true";
+        postBodyValue = postBody + "1i";
         sendData(postBodyValue);
     }
 
@@ -233,9 +233,9 @@ public class StatsUpload {
         String postBody = STRING_METRIC_SUCHLAUFAKTIV + tags + " "
             + STRING_METRIC_SUCHLAUFAKTIV_KEY_SUCHLAUFAKTIV +  "=";
 
-        String postBodyValue = postBody + "true";
+        String postBodyValue = postBody + "1i";
         sendData(postBodyValue);
-        postBodyValue = postBody + "false";
+        postBodyValue = postBody + "0i";
         sendData(postBodyValue);
     }
 
