@@ -8,7 +8,6 @@ import de.mediathekview.mlib.tool.Log;
 
 import java.util.concurrent.TimeUnit;
 import java.io.IOException;
-import java.net.SocketTimeoutException;
 
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -28,7 +27,7 @@ public class StatsUpload {
 
     public static final MediaType MEDIA_TYPE_TEXT = MediaType.parse("text/plain; charset=utf-8");
 
-    private static final String STRING_ENV_KEY_ENABLED = "METRIC_ENABLED";
+    private static final String BOOLEAN_STRING_FALSE = "false";
 
     public static final String STRING_TAG_KEY_SENDER = "sender";
     public static final String STRING_TAG_KEY_IMPORTLIVESTREAMS = "import_livestream";
@@ -76,11 +75,11 @@ public class StatsUpload {
     private long dataCrawlstatFilmeOrg = 0;
     private long dataCrawlstatOrgAlter = 0;
 
-    private String statusCrawlstatImportLivestreams = "false";
-    private String statusCrawlstatImport1 = "false";
-    private String statusCrawlstatImport2 = "false";
-    private String statusCrawlstatImportAkt = "false";
-    private String statusCrawlstatImportOld = "false";
+    private String statusCrawlstatImportLivestreams = BOOLEAN_STRING_FALSE;
+    private String statusCrawlstatImport1 = BOOLEAN_STRING_FALSE;
+    private String statusCrawlstatImport2 = BOOLEAN_STRING_FALSE;
+    private String statusCrawlstatImportAkt = BOOLEAN_STRING_FALSE;
+    private String statusCrawlstatImportOld = BOOLEAN_STRING_FALSE;
 
     private int tmpIndexImports = 1;
 
@@ -132,14 +131,13 @@ public class StatsUpload {
             + STRING_METRIC_SENDERSUCHLAUF_KEY_LAUFZEIT + "=" + laufzeit + "i,"
             + STRING_METRIC_SENDERSUCHLAUF_KEY_ANZAHLFILME + "=" + anzahlfilme + "i";
 
-        //Log.sysLog("Debug postBody: " + postBody);
         sendData(postBody);
     }
 
-    public void setData(StatsUpload.Data data_key, long value) {
+    public void setData(StatsUpload.Data dataKey, long value) {
         if(!collectEnabled) return;
 
-        switch(data_key){
+        switch(dataKey){
             case CRAWLSTAT_FILMENEU:
                 dataCrawlstatFilmeneu = value;
                 break;
@@ -180,7 +178,6 @@ public class StatsUpload {
                 break;
             case CRAWLSTAT_ORGLISTE:
                 dataCrawlstatFilmeOrg = value;
-                // statusCrawlstatDiffErzeugt = "true";
                 break;
             case CRAWLSTAT_ORGALTER:
                 dataCrawlstatOrgAlter = value;
@@ -214,7 +211,6 @@ public class StatsUpload {
             + STRING_METRIC_CRAWLSTAT_KEY_ORGALTER + "=" + dataCrawlstatOrgAlter + "i"
             ;
 
-        // Log.sysLog("Debug postBody: " + postBody);
         sendData(postBody);
     }
 
