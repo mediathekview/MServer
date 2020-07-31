@@ -176,7 +176,7 @@ public class MediathekArte_de extends MediathekReader {
 
     private void addFilmeForTag(String aUrl) {
 
-      ListeFilme loadedFilme = ArteHttpClient.executeRequest(LOG, gson, aUrl, ListeFilme.class);
+      ListeFilme loadedFilme = ArteHttpClient.executeRequest(SENDERNAME, LOG, gson, aUrl, ListeFilme.class);
       if (loadedFilme != null) {
         loadedFilme.forEach(film -> addFilm(film));
       }
@@ -261,7 +261,7 @@ public class MediathekArte_de extends MediathekReader {
     }
 
     private ArteCategoryFilmsDTO loadSubCategoryPage(Gson gson, String aUrl) {
-      return ArteHttpClient.executeRequest(LOG, gson, aUrl, ArteCategoryFilmsDTO.class);
+      return ArteHttpClient.executeRequest(SENDERNAME, LOG, gson, aUrl, ArteCategoryFilmsDTO.class);
     }
   }
 }

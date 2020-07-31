@@ -48,8 +48,10 @@ public abstract class AbstractUrlTask<T, D extends CrawlerUrlDTO>
 
   protected void traceRequest(long responseLength) {
     traceRequest();
-    increment(RunSender.Count.SUM_DATA_BYTE, responseLength);
-    increment(RunSender.Count.SUM_TRAFFIC_BYTE, responseLength);
+    if (responseLength > 0) {
+      increment(RunSender.Count.SUM_DATA_BYTE, responseLength);
+      increment(RunSender.Count.SUM_TRAFFIC_BYTE, responseLength);
+    }
   }
 
   private void increment(final RunSender.Count count) {
