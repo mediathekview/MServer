@@ -5,25 +5,23 @@
 package mServer.tool;
 
 
-import de.mediathekview.mlib.tool.Log;
-
 public class EnvManager {
 
-    private final static EnvManager instance = new EnvManager();
+    private static final EnvManager instance = new EnvManager();
 
 
     private static final String STRING_ENV_KEY_ENABLED = "METRIC_ENABLED";
     private static final String STRING_ENV_KEY_TELEGRAFURL = "METRIC_TELEGRAFURL";
 
 
-    public boolean env_metric_enabled;
+    public boolean envMetricEnabled;
 
-    public String env_metric_url;
+    public String envMetricUrl;
 
 
     private EnvManager() {
-        env_metric_enabled = isEnvSet(STRING_ENV_KEY_ENABLED);
-        env_metric_url = getEnvValue(STRING_ENV_KEY_TELEGRAFURL);
+        envMetricEnabled = isEnvSet(STRING_ENV_KEY_ENABLED);
+        envMetricUrl = getEnvValue(STRING_ENV_KEY_TELEGRAFURL);
     }
 
     public static EnvManager getInstance() {
@@ -33,14 +31,21 @@ public class EnvManager {
     private boolean isEnvSet(String envName) {
         String envvalue = System.getenv(envName);
 
-        if(envvalue == null) return false;
+        // if(envvalue == null) return false;
 
-        if(envvalue.equalsIgnoreCase("y")) return true;
-        if(envvalue.equals("1")) return true;
-        if(envvalue.equalsIgnoreCase("yes")) return true;
-        if(envvalue.equalsIgnoreCase("true")) return true;
+        return envvalue != null && (
+            envvalue.equalsIgnoreCase("y")
+            || envvalue.equals("1")
+            || envvalue.equalsIgnoreCase("yes")
+            || envvalue.equalsIgnoreCase("true")
+        );
 
-        return false;
+        // if(envvalue.equalsIgnoreCase("y")) return true;
+        // if(envvalue.equals("1")) return true;
+        // if(envvalue.equalsIgnoreCase("yes")) return true;
+        // if(envvalue.equalsIgnoreCase("true")) return true;
+
+        // return false;
 
     }
 

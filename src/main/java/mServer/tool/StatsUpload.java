@@ -22,7 +22,7 @@ import okhttp3.ConnectionPool;
 
 public class StatsUpload {
 
-    private final static StatsUpload instance = new StatsUpload();
+    private static final StatsUpload instance = new StatsUpload();
 
     private final OkHttpClient httpClient;
 
@@ -108,10 +108,10 @@ public class StatsUpload {
 
         EnvManager envmgr = EnvManager.getInstance();
 
-        collectEnabled = envmgr.env_metric_enabled;
+        collectEnabled = envmgr.envMetricEnabled;
         if(!collectEnabled) Log.sysLog("METRIC sammeln ist deaktiviert!!!!!!");
-        if(!envmgr.env_metric_url.equals("")) {
-            telegrafUrl = envmgr.env_metric_url;
+        if(!envmgr.envMetricUrl.equals("")) {
+            telegrafUrl = envmgr.envMetricUrl;
         }
     }
 
