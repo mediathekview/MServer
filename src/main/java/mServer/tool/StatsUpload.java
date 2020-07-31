@@ -110,7 +110,7 @@ public class StatsUpload {
 
         collectEnabled = envmgr.env_metric_enabled;
         if(!collectEnabled) Log.sysLog("METRIC sammeln ist deaktiviert!!!!!!");
-        if(envmgr.env_metric_url != "") {
+        if(!envmgr.env_metric_url.equals("")) {
             telegrafUrl = envmgr.env_metric_url;
         }
     }
