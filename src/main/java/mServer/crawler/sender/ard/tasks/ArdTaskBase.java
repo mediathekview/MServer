@@ -49,16 +49,17 @@ public abstract class ArdTaskBase<T, D extends CrawlerUrlDTO> extends AbstractRe
   private <A> Optional<A> deserializeUnsafe(final WebTarget target, final Type type) {
     final Gson gson = gsonBuilder.create();
     final Response response = executeRequest(target);
+    traceRequest(response.getLength());
     if (response.getStatus() == 200) {
       final String jsonOutput = response.readEntity(String.class);
       if (isSuccessResponse(jsonOutput, gson, target.getUri().toString())) {
         return Optional.of(gson.fromJson(jsonOutput, type));
       }
     } else {
-      final String logText ="ArdTaskBase: request of url "
-        + target.getUri().toString()
-        + " failed: "
-        + response.getStatus();
+      final String logText = "ArdTaskBase: request of url "
+              + target.getUri().toString()
+              + " failed: "
+              + response.getStatus();
       Log.errorLog(23646387, logText);
       LOG.warn(logText);
     }
@@ -75,16 +76,16 @@ public abstract class ArdTaskBase<T, D extends CrawlerUrlDTO> extends AbstractRe
     error.ifPresent(
             ardErrorInfoDto
             -> {
-              final String logText =
-                "ArdTaskBase: request of url "
-                  + targetUrl
-                  + " contains error: "
-                  + ardErrorInfoDto.getCode()
-                  + ", "
-                  + ardErrorInfoDto.getMessage();
-              Log.errorLog(238423092, logText);
-              LOG.error(logText);
-            });
+      final String logText
+              = "ArdTaskBase: request of url "
+              + targetUrl
+              + " contains error: "
+              + ardErrorInfoDto.getCode()
+              + ", "
+              + ardErrorInfoDto.getMessage();
+      Log.errorLog(238423092, logText);
+      LOG.error(logText);
+    });
 
     return !error.isPresent();
   }
