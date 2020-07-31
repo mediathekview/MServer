@@ -4,15 +4,17 @@ import de.mediathekview.mlib.Const;
 import de.mediathekview.mlib.daten.DatenFilm;
 import de.mediathekview.mlib.tool.Log;
 import mServer.crawler.sender.srf.tasks.SrfFilmDetailTask;
-import mServer.crawler.sender.srf.tasks.SrfSendungOverviewPageTask;
-import mServer.crawler.sender.srf.tasks.SrfSendungenOverviewPageTask;
 import java.util.Set;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.RecursiveTask;
+import mServer.crawler.CrawlerTool;
 import mServer.crawler.FilmeSuchen;
 import mServer.crawler.sender.MediathekCrawler;
 import mServer.crawler.sender.base.CrawlerUrlDTO;
+import mServer.crawler.sender.orf.TopicUrlDTO;
+import mServer.crawler.sender.srf.tasks.SrfTopicOverviewTask;
+import mServer.crawler.sender.srf.tasks.SrfTopicsOverviewTask;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -27,10 +29,12 @@ public class SrfCrawler extends MediathekCrawler {
   @Override
   protected RecursiveTask<Set<DatenFilm>> createCrawlerTask() {
     try {
-      SrfSendungenOverviewPageTask overviewTask = new SrfSendungenOverviewPageTask();
-      ConcurrentLinkedQueue<CrawlerUrlDTO> ids = forkJoinPool.submit(overviewTask).get();
+      final ConcurrentLinkedQueue<CrawlerUrlDTO> topicsUrls = new ConcurrentLinkedQueue<>();
+      topicsUrls.add(new CrawlerUrlDTO(SrfConstants.OVERVIEW_PAGE_URL));
+      final SrfTopicsOverviewTask overviewTask = new SrfTopicsOverviewTask(this, topicsUrls);
+      final ConcurrentLinkedQueue<TopicUrlDTO> topicUrls = new ConcurrentLinkedQueue<>(forkJoinPool.submit(overviewTask).get());
 
-      SrfSendungOverviewPageTask task = new SrfSendungOverviewPageTask(this, ids);
+      final SrfTopicOverviewTask task = new SrfTopicOverviewTask(this, topicUrls, SrfConstants.BASE_URL, getMaxSubPages());
       forkJoinPool.execute(task);
 
       final ConcurrentLinkedQueue<CrawlerUrlDTO> dtos
@@ -44,7 +48,16 @@ public class SrfCrawler extends MediathekCrawler {
 
     } catch (InterruptedException | ExecutionException ex) {
       LOG.fatal("Exception in SRF crawler.", ex);
+      Log.errorLog(745615611, ex);
     }
     return null;
+  }
+
+  private static int getMaxSubPages() {
+    if (CrawlerTool.loadLongMax()) {
+      return 3;
+    }
+
+    return 1;
   }
 }
