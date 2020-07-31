@@ -64,6 +64,7 @@ public class SrfCrawler extends AbstractCrawler {
 
     } catch (final InterruptedException | ExecutionException ex) {
       LOG.fatal("Exception in SRF crawler.", ex);
+      Thread.currentThread().interrupt();
     }
     return null;
   }

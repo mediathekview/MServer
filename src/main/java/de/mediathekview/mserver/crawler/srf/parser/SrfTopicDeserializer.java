@@ -11,7 +11,6 @@ import de.mediathekview.mserver.crawler.basic.PagedElementListDTO;
 import de.mediathekview.mserver.crawler.srf.SrfConstants;
 import java.lang.reflect.Type;
 import java.util.Optional;
-import org.checkerframework.checker.nullness.Opt;
 
 public class SrfTopicDeserializer implements JsonDeserializer<PagedElementListDTO<CrawlerUrlDTO>> {
 

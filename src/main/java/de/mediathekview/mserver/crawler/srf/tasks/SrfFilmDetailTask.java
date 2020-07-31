@@ -9,7 +9,6 @@ import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
 import de.mediathekview.mserver.crawler.basic.AbstractRestTask;
 import de.mediathekview.mserver.crawler.basic.AbstractUrlTask;
 import de.mediathekview.mserver.crawler.basic.CrawlerUrlDTO;
-import de.mediathekview.mserver.crawler.srf.SrfConstants;
 import de.mediathekview.mserver.crawler.srf.parser.SrfFilmJsonDeserializer;
 import java.lang.reflect.Type;
 import java.net.URI;
@@ -42,12 +41,12 @@ public class SrfFilmDetailTask extends AbstractRestTask<Film, CrawlerUrlDTO> {
         break;
       case 403:
         // Geo-Blocking für Crawler-Standort
-        LOG.error("SrfFilmDetailTask: Not authorized to access url " + aTarget.getUri().toString());
+        LOG.error("SrfFilmDetailTask: Not authorized to access url {}", aTarget.getUri());
         crawler.incrementAndGetErrorCount();
         crawler.updateProgress();
         break;
       default:
-        LOG.error("SrfFilmDetailTask: Error reading url " + aTarget.getUri().toString() + ": " + response.getStatus());
+        LOG.error("SrfFilmDetailTask: Error reading url {}: {}", aTarget.getUri(), response.getStatus());
         crawler.incrementAndGetErrorCount();
         crawler.updateProgress();
     }
