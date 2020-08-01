@@ -223,6 +223,12 @@ public class StatsUpload {
 
         String postBodyValue = postBody + "0i";
         sendData(postBodyValue);
+        // Kleine Verzögerung, da telegraf es sonst nicht beide Einträge aufnimmt
+        try {
+            Thread.sleep(100);
+        } catch(InterruptedException ex) {
+            Thread.currentThread().interrupt();
+        }
         postBodyValue = postBody + "1i";
         sendData(postBodyValue);
     }
@@ -235,6 +241,12 @@ public class StatsUpload {
 
         String postBodyValue = postBody + "1i";
         sendData(postBodyValue);
+        // Kleine Verzögerung, da telegraf es sonst nicht beide Einträge aufnimmt
+        try {
+            Thread.sleep(100);
+        } catch(InterruptedException ex) {
+            Thread.currentThread().interrupt();
+        }
         postBodyValue = postBody + "0i";
         sendData(postBodyValue);
     }
