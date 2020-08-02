@@ -6,8 +6,10 @@ import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
 import de.mediathekview.mserver.crawler.basic.AbstractRecrusivConverterTask;
 import de.mediathekview.mserver.crawler.basic.CrawlerUrlDTO;
 import de.mediathekview.mserver.crawler.basic.TopicUrlDTO;
+import de.mediathekview.mserver.crawler.srf.SrfConstants;
 import de.mediathekview.mserver.crawler.srf.parser.SrfTopicsDeserializer;
 import java.lang.reflect.Type;
+import java.util.HashSet;
 import java.util.Set;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import javax.ws.rs.client.WebTarget;
@@ -34,5 +36,19 @@ public class SrfTopicsOverviewTask extends ArdTaskBase<TopicUrlDTO, CrawlerUrlDT
   protected void processRestTarget(CrawlerUrlDTO aDTO, WebTarget aTarget) {
     Set<TopicUrlDTO> results = deserialize(aTarget, SET_CRAWLER_URL_TYPE_TOKEN);
     taskResults.addAll(results);
+    taskResults.addAll(addSpecialShows());
+  }
+
+  private Set<TopicUrlDTO> addSpecialShows() {
+    Set<TopicUrlDTO> shows = new HashSet<>();
+    shows.add(
+        new TopicUrlDTO(
+            SrfConstants.ID_SHOW_SPORT_CLIP,
+            String.format(
+                SrfConstants.SHOW_OVERVIEW_PAGE_URL,
+                SrfConstants.BASE_URL,
+                SrfConstants.ID_SHOW_SPORT_CLIP)));
+
+    return shows;
   }
 }

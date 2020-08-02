@@ -30,4 +30,9 @@ public final class SrfConstants {
    * Parameter: Thema, Titel, Id
    */
   public static final String WEBSITE_URL = "https://www.srf.ch/play/tv/%s/video/%s?id=%s";
+
+  /**
+   * Id der Sendung SportClip, die nicht unter Sendungen A-Z gelistet ist
+   */
+  public static final String ID_SHOW_SPORT_CLIP = "5327eac1-e5a1-40aa-9f71-707e48258097";
 }
