@@ -35,3 +35,22 @@ java -jar MServer.jar
 ## Entwicklung mit Eclipse
 * Falls noch nicht vorhanden: [Plugin buildship](https://projects.eclipse.org/projects/tools.buildship) installieren
 * Projekt `MServer` als Gradle-Projekt importieren. `MLib` wird automatisch mit importiert.
+
+
+# Überblick der Crawler
+
+| Crawler | liest Mediathek | beinhaltet Sender | bestückt Sender | entspricht Develop |
+|---------|-----------|--------|---------|--|
+| 3sat|3sat-Mediathek|3sat |3sat|x|
+| ARD|ARD-Mediathek|Alpha, BR, Das Erste, HR, MDR, NDR, ONE, Radio Bremen, RBB, SR, SWR, WDR, tagesschau24|ARD, MDR, NDR, Radio Bremen, RBB, SWR| x|
+| ARTE|ARTE-Mediathek|ARTE in DE, FR, EN, ES, PL, IT|ARTE.DE, ARTE.FR||
+| BR|BR-Mediathek|BR|BR||
+| DW|DW-Mediathek|DW|DW||
+| HR|HR-Mediathek|HR|HR||
+| KIKA|KIKA-Mediathek|KIKA|KIKA||
+| ORF|ORF-Mediathek|ORF1, ORF2, ORF3, ORFSport|ORF|x|
+| PHOENIX|PHOENIX-Mediathek|PHOENIX|PHOENIX|x|
+| SR|SR-Mediathek|SR|SR|x|
+| SRF|SRF-Mediathek|SRF1, SRF2, SRFinfo|SRF|x|
+| WDR|WDR-Mediathek|WDR|WDR||
+| ZDF|ZDF-Mediathek|ZDF, ZDFneo, ZDFinfo|ZDF|x|

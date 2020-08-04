@@ -13,6 +13,8 @@ import org.apache.logging.log4j.Logger;
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
+import mServer.crawler.FilmeSuchen;
+import mServer.crawler.RunSender;
 
 /**
  * Hilfsklasse für Arte Requests
@@ -45,7 +47,7 @@ public class ArteHttpClient {
     return b.url(aUrl).build();
   }
 
-  public static <T> T executeRequest(Logger logger, Gson gson, String aUrl, Class<T> aDtoType) {
+  public static <T> T executeRequest(final String sender, Logger logger, Gson gson, String aUrl, Class<T> aDtoType) {
     T result = null;
 
     java.util.logging.Logger x = java.util.logging.Logger.getLogger(OkHttpClient.class.getName());
@@ -64,23 +66,30 @@ public class ArteHttpClient {
         try (Response response = MVHttpClient.getInstance().getHttpClient().newCall(request).execute();
                 ResponseBody body = response.body()) {
           count++;
+          FilmeSuchen.listeSenderLaufen.inc(sender, RunSender.Count.ANZAHL);
           //response can be successful but empty...and we have to close both!
           if (response.isSuccessful() && body != null) {
-            result = gson.fromJson(body.string(), aDtoType);
+            final String content = body.string();
+            result = gson.fromJson(content, aDtoType);
+            FilmeSuchen.listeSenderLaufen.inc(sender, RunSender.Count.SUM_DATA_BYTE, content.length());
+            FilmeSuchen.listeSenderLaufen.inc(sender, RunSender.Count.SUM_TRAFFIC_BYTE, content.length());
             stop = true;
           } else {
             if (response.code() != 429) {
               logger.error(String.format("ARTE Request '%s' failed: %s", aUrl, response.code()));
+              FilmeSuchen.listeSenderLaufen.inc(sender, RunSender.Count.FEHLER);
               stop = true;
             } else {
               // bei 429 (too many requests) warten und nochmal versuchen
               // Wartezeit von 60s aus Header Retry-After
               try {
                 TimeUnit.MILLISECONDS.sleep(60000);
+                FilmeSuchen.listeSenderLaufen.inc(sender, RunSender.Count.FEHLVERSUCHE);
               } catch (InterruptedException ignored) {
               }
               if (count > 3) {
                 stop = true;
+                FilmeSuchen.listeSenderLaufen.inc(sender, RunSender.Count.FEHLER);
                 Log.errorLog(894330765, "ArteHttpClient failed - " + aUrl);
               }
             }

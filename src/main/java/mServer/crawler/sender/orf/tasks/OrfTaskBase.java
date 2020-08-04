@@ -7,6 +7,8 @@ import java.net.SocketException;
 import java.net.SocketTimeoutException;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.TimeUnit;
+import mServer.crawler.FilmeSuchen;
+import mServer.crawler.RunSender;
 import mServer.crawler.sender.MediathekReader;
 import mServer.crawler.sender.base.AbstractUrlTask;
 import mServer.crawler.sender.base.CrawlerUrlDTO;
@@ -59,12 +61,15 @@ public abstract class OrfTaskBase<T, D extends CrawlerUrlDTO>
         final Document document = loadDocument(aUrlDTO, timeout);
         processDocument(aUrlDTO, document);
       } catch (final HttpStatusException httpStatusError) {
+        FilmeSuchen.listeSenderLaufen.inc(crawler.getSendername(), RunSender.Count.FEHLER);
+        FilmeSuchen.listeSenderLaufen.inc(crawler.getSendername(), RunSender.Count.FEHLVERSUCHE);
         ORF_LOGGER.trace(httpStatusError);
         Log.sysLog(String.format(LOAD_DOCUMENT_HTTPERROR, crawler.getSendername(), aUrlDTO.getUrl()));
 
         Log.errorLog(96459855,
                 crawler.getSendername() + ": crawlerDocumentLoadError: " + aUrlDTO.getUrl() + ", " + httpStatusError.getStatusCode());
       } catch (final SocketException | SocketTimeoutException socketException) {
+        FilmeSuchen.listeSenderLaufen.inc(crawler.getSendername(), RunSender.Count.FEHLVERSUCHE);
         ORF_LOGGER.trace(socketException);
         retry = true;
         timeout *= 2;
@@ -74,6 +79,8 @@ public abstract class OrfTaskBase<T, D extends CrawlerUrlDTO>
           // just try again
         }
       } catch (final Exception exception) {
+        FilmeSuchen.listeSenderLaufen.inc(crawler.getSendername(), RunSender.Count.FEHLER);
+        FilmeSuchen.listeSenderLaufen.inc(crawler.getSendername(), RunSender.Count.FEHLVERSUCHE);
         Log.errorLog(96459856, exception);
         ORF_LOGGER.trace(exception);
       }
