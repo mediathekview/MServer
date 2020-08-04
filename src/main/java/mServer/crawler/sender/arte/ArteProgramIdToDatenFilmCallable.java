@@ -53,7 +53,7 @@ public class ArteProgramIdToDatenFilmCallable implements Callable<Set<DatenFilm>
             .create();
 
     String videosUrl = String.format(ARTE_VIDEO_INFORMATION_URL_PATTERN, langCode, programId);
-    ArteVideoDTO video = ArteHttpClient.executeRequest(LOG, gson, videosUrl, ArteVideoDTO.class);
+    ArteVideoDTO video = ArteHttpClient.executeRequest(senderName, LOG, gson, videosUrl, ArteVideoDTO.class);
 
     if (video != null) {
       //The duration as time so it can be formatted and co.
@@ -83,7 +83,7 @@ public class ArteProgramIdToDatenFilmCallable implements Callable<Set<DatenFilm>
 
     //https://api.arte.tv/api/opa/v3/programs/[language:de/fr]/[programId]
     String videosUrlVideoDetails2 = String.format(ARTE_VIDEO_INFORMATION_URL_PATTERN_2, langCode, programId);
-    ArteVideoDetailsDTO details = ArteHttpClient.executeRequest(LOG, gson, videosUrlVideoDetails2, ArteVideoDetailsDTO.class);
+    ArteVideoDetailsDTO details = ArteHttpClient.executeRequest(senderName, LOG, gson, videosUrlVideoDetails2, ArteVideoDetailsDTO.class);
     return details;
   }
 

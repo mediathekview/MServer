@@ -30,6 +30,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 import mServer.crawler.FilmeSuchen;
+import mServer.crawler.RunSender;
 import mServer.crawler.sender.hr.HrSendungOverviewCallable;
 import mServer.crawler.sender.hr.HrSendungenDto;
 import mServer.crawler.sender.hr.HrSendungenListDeserializer;
@@ -41,66 +42,69 @@ import org.jsoup.nodes.Document;
 
 public class MediathekHr extends MediathekReader {
 
-    public static final String SENDERNAME = Const.HR;
-    
-    private static final String URL_SENDUNGEN = "http://www.hr-fernsehen.de/sendungen-a-z/index.html";
-    
-    private static final Logger LOG = LogManager.getLogger(MediathekHr.class);
-    /**
-     *
-     * @param ssearch
-     * @param startPrio
-     */
-    public MediathekHr(FilmeSuchen ssearch, int startPrio) {
-        super(ssearch, SENDERNAME, /* threads */ 2, /* urlWarten */ 200, startPrio);
+  public static final String SENDERNAME = Const.HR;
+
+  private static final String URL_SENDUNGEN = "http://www.hr-fernsehen.de/sendungen-a-z/index.html";
+
+  private static final Logger LOG = LogManager.getLogger(MediathekHr.class);
+
+  /**
+   *
+   * @param ssearch
+   * @param startPrio
+   */
+  public MediathekHr(FilmeSuchen ssearch, int startPrio) {
+    super(ssearch, SENDERNAME, /* threads */ 2, /* urlWarten */ 200, startPrio);
+  }
+
+  /**
+   *
+   */
+  @Override
+  public void addToList() {
+    meldungStart();
+
+    List<HrSendungenDto> dtos = new ArrayList<>();
+
+    try {
+      FilmeSuchen.listeSenderLaufen.inc(Const.HR, RunSender.Count.ANZAHL);
+      final Document document = Jsoup.connect(URL_SENDUNGEN).get();
+      HrSendungenListDeserializer deserializer = new HrSendungenListDeserializer();
+
+      dtos = deserializer.deserialize(document);
+    } catch (IOException ex) {
+      FilmeSuchen.listeSenderLaufen.inc(Const.HR, RunSender.Count.FEHLER);
+      FilmeSuchen.listeSenderLaufen.inc(Const.HR, RunSender.Count.FEHLVERSUCHE);
+      Log.errorLog(894651554, ex);
     }
 
-    /**
-     *
-     */
-    @Override
-    public void addToList() {
-        meldungStart();
-        
-        List<HrSendungenDto> dtos = new ArrayList<>();
-        
-        try {
-            final Document document = Jsoup.connect(URL_SENDUNGEN).get();
-            HrSendungenListDeserializer deserializer = new HrSendungenListDeserializer();
+    meldungAddMax(dtos.size());
 
-            dtos = deserializer.deserialize(document);
-        } catch (IOException ex) {
-            Log.errorLog(894651554, ex);
-        }
-        
-        meldungAddMax(dtos.size());
+    Collection<Future<ListeFilme>> futureFilme = new ArrayList<>();
 
-        Collection<Future<ListeFilme>> futureFilme = new ArrayList<>();
+    dtos.forEach(dto -> {
 
-        dtos.forEach(dto -> {
+      ExecutorService executor = Executors.newCachedThreadPool();
+      futureFilme.add(executor.submit(new HrSendungOverviewCallable(dto)));
+      meldungProgress(dto.getUrl());
+    });
 
-            ExecutorService executor = Executors.newCachedThreadPool();
-            futureFilme.add(executor.submit(new HrSendungOverviewCallable(dto)));
-            meldungProgress(dto.getUrl());
-        });
+    futureFilme.forEach(e -> {
 
-        futureFilme.forEach(e -> {
-
-            try {
-                ListeFilme filmList = e.get();
-                if(filmList != null) {
-                    filmList.forEach(film -> {
-                        if(film != null) {
-                            addFilm(film);
-                        }
-                    });
-                }
-            } catch(Exception exception)
-            {
-                LOG.error("Es ist ein Fehler beim lesen der HR Filme aufgetreten.",exception);
+      try {
+        ListeFilme filmList = e.get();
+        if (filmList != null) {
+          filmList.forEach(film -> {
+            if (film != null) {
+              addFilm(film);
             }
-        });
+          });
+        }
+      } catch (Exception exception) {
+        LOG.error("Es ist ein Fehler beim lesen der HR Filme aufgetreten.", exception);
+      }
+    });
 
-        meldungThreadUndFertig();
-    }
+    meldungThreadUndFertig();
+  }
 }
