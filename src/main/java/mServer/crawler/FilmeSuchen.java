@@ -36,6 +36,7 @@ import mServer.crawler.sender.phoenix.PhoenixCrawler;
 import mServer.crawler.sender.sr.SrCrawler;
 import mServer.crawler.sender.srf.SrfCrawler;
 import mServer.crawler.sender.zdf.ZdfCrawler;
+import mServer.tool.StatsUpload;
 import org.apache.commons.lang3.time.FastDateFormat;
 
 import javax.swing.event.EventListenerList;
@@ -164,13 +165,18 @@ public class FilmeSuchen {
     RunSender run = listeSenderLaufen.senderFertig(sender);
     if (run != null) {
 
+      int sekunden = run.getLaufzeitSekunden();
+      long anzahlFilme = listeSenderLaufen.get(sender, RunSender.Count.FILME);
+
+      // Statistikexport pro Sender
+      StatsUpload.getInstance().catchSenderStat(sender, sekunden, anzahlFilme);
+
       long anzahlSeiten = listeSenderLaufen.get(run.sender, RunSender.Count.ANZAHL);
       final String rate = listeSenderLaufen.getRate(sender);
 
       zeile = "" + '\n';
       zeile += "-------------------------------------------------------------------------------------" + '\n';
-      zeile += "Fertig " + sender + ": " + new SimpleDateFormat("HH:mm:ss").format(new Date()) + " Uhr, Filme: " + listeSenderLaufen.get(sender, RunSender.Count.FILME) + '\n';
-      int sekunden = run.getLaufzeitSekunden();
+      zeile += "Fertig " + sender + ": " + new SimpleDateFormat("HH:mm:ss").format(new Date()) + " Uhr, Filme: " + anzahlFilme + '\n';
       zeile += "     -> Dauer[Min]: " + (sekunden / 60 == 0 ? "<1" : sekunden / 60) + '\n';
       zeile += "     ->     [kB/s]: " + rate + '\n';
       zeile += "     ->     Seiten: " + anzahlSeiten + '\n';
@@ -232,6 +238,12 @@ public class FilmeSuchen {
     // Gesamt ===============================================
     // ======================================================
     int sekunden = getDauerSekunden();
+
+    // Statistikexport Suchlauf Laufzeit
+    StatsUpload.getInstance().setData(StatsUpload.Data.CRAWLSTAT_LAUFZEIT, sekunden);
+    // Statistikexport Suchlauf neue Filme
+    StatsUpload.getInstance().setData(StatsUpload.Data.CRAWLSTAT_FILMENEU, listeSenderLaufen.get(RunSender.Count.FILME));
+
     retArray.add("");
     retArray.add("=================================================================================");
     retArray.add("=================================================================================");

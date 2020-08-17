@@ -31,6 +31,7 @@ import de.mediathekview.mlib.filmlisten.WriteFilmlistJson;
 import de.mediathekview.mlib.tool.Functions;
 import de.mediathekview.mlib.tool.Log;
 import mServer.tool.HashFileWriter;
+import mServer.tool.StatsUpload;
 
 public class Crawler implements Runnable {
 
@@ -46,6 +47,10 @@ public class Crawler implements Runnable {
     public synchronized void run() {
         // für den MServer
         serverLaufen = true;
+
+        // Statistikexport Suchlauf gestartet
+        StatsUpload.getInstance().sendCrawlStart();
+
         Config.setStop(false);//damits vom letzten mal stoppen nicht mehr gesetzt ist, falls es einen harten Abbruch gab
         if (CrawlerConfig.dirFilme.isEmpty()) {
             Log.sysLog("Kein Pfad der Filmlisten angegeben");
@@ -94,12 +99,14 @@ public class Crawler implements Runnable {
 
     private void importLive(ListeFilme tmpListe, String importUrl) {
         //================================================
-        // noch anere Listen importieren
+        // noch andere Listen importieren
         Log.sysLog("Live-Streams importieren von: " + importUrl);
         tmpListe.clear();
         new FilmlisteLesen().readFilmListe(importUrl, tmpListe, 0 /*all days*/);
         Log.sysLog("--> von  Anz. Filme: " + listeFilme.size());
         //listeFilme.addLive(tmpListe);
+        // Statistikexport Suchlauf Anzahl Livestreams
+        StatsUpload.getInstance().setData(StatsUpload.Data.CRAWLSTAT_LIVESTREAMS, tmpListe.size());
         new AddToFilmlist(listeFilme, tmpListe).addLiveStream();
         Log.sysLog("--> nach Anz. Filme: " + listeFilme.size());
         tmpListe.clear();
@@ -109,11 +116,29 @@ public class Crawler implements Runnable {
 
     private void importUrl(ListeFilme tmpListe, String importUrl) {
         //================================================
-        // noch anere Listen importieren
+        // noch andere Listen importieren
         Log.sysLog("Filmliste importieren von: " + importUrl);
         tmpListe.clear();
         new FilmlisteLesen().readFilmListe(importUrl, tmpListe, 0 /*all days*/);
         Log.sysLog("--> von  Anz. Filme: " + listeFilme.size());
+        // Statistikexport Suchlauf Anzahl import
+        StatsUpload.getInstance().setData(StatsUpload.Data.CRAWLSTAT_IMPORT, tmpListe.size());
+        listeFilme.updateListe(tmpListe, false /* nur URL vergleichen */, false /*ersetzen*/);
+        Log.sysLog("--> nach Anz. Filme: " + listeFilme.size());
+        tmpListe.clear();
+        System.gc();
+        listeFilme.sort();
+    }
+
+    private void importUrlAkt(ListeFilme tmpListe, String importUrl) {
+        //================================================
+        // noch andere Listen importieren
+        Log.sysLog("Aktuelle Filmliste importieren von: " + importUrl);
+        tmpListe.clear();
+        new FilmlisteLesen().readFilmListe(importUrl, tmpListe, 0 /*all days*/);
+        Log.sysLog("--> von  Anz. Filme: " + listeFilme.size());
+        // Statistikexport Suchlauf Anzahl import AKt
+        StatsUpload.getInstance().setData(StatsUpload.Data.CRAWLSTAT_AKTIMPORT, tmpListe.size());
         listeFilme.updateListe(tmpListe, false /* nur URL vergleichen */, false /*ersetzen*/);
         Log.sysLog("--> nach Anz. Filme: " + listeFilme.size());
         tmpListe.clear();
@@ -123,12 +148,14 @@ public class Crawler implements Runnable {
 
     private void importOld(ListeFilme tmpListe, String importUrl) {
         //================================================
-        // noch anere Listen importieren
+        // noch andere Listen importieren
         Log.sysLog("Alte Filmliste importieren von: " + importUrl);
         tmpListe.clear();
         new FilmlisteLesen().readFilmListe(importUrl, tmpListe, 0 /*all days*/);
         Log.sysLog("--> von  Anz. Filme: " + listeFilme.size());
         //int anz = listeFilme.updateListeOld(tmpListe);
+        // Statistikexport Suchlauf Anzahl import OLD
+        StatsUpload.getInstance().setData(StatsUpload.Data.CRAWLSTAT_OLDIMPORT, tmpListe.size());
         int anz = new AddToFilmlist(listeFilme, tmpListe).addOldList();
         Log.sysLog("    gefunden: " + anz);
         Log.sysLog("--> nach Anz. Filme: " + listeFilme.size());
@@ -146,6 +173,8 @@ public class Crawler implements Runnable {
         if(compressList == null) {
             compressList = "n";
         }
+
+
 
         //================================================
         // noch anere Listen importieren
@@ -180,7 +209,7 @@ public class Crawler implements Runnable {
             Log.sysLog("");
             Log.sysLog("============================================================================");
             Log.sysLog("Filmliste Import akt");
-            importUrl(tmpListe, CrawlerConfig.importAkt);
+            importUrlAkt(tmpListe, CrawlerConfig.importAkt);
             Log.sysLog("");
         }
         if (!CrawlerConfig.importOld.isEmpty() && CrawlerTool.loadLongMax()) {
@@ -191,6 +220,9 @@ public class Crawler implements Runnable {
             importOld(tmpListe, CrawlerConfig.importOld);
             Log.sysLog("");
         }
+
+        // Statistikexport Suchlauf Anzahl gesamt
+        StatsUpload.getInstance().setData(StatsUpload.Data.CRAWLSTAT_FILMEGESAMT, listeFilme.size());
 
         //================================================
         // Filmliste schreiben, normal, xz komprimiert
@@ -238,6 +270,10 @@ public class Crawler implements Runnable {
         tmpListe.clear();
         ListeFilme diff;
         new FilmlisteLesen().readFilmListe(org, tmpListe, 0 /*all days*/);
+        // Statistikexport Suchlauf Anzahl Filme in der Org-Liste
+        StatsUpload.getInstance().setData(StatsUpload.Data.CRAWLSTAT_ORGLISTE, tmpListe.size());
+        // Statistikexport Suchlauf Alter Org-Liste
+        StatsUpload.getInstance().setData(StatsUpload.Data.CRAWLSTAT_ORGALTER, tmpListe.getAge());
         if (tmpListe.isEmpty()) {
             // dann ist die komplette Liste das diff
             Log.sysLog("   --> Lesefehler der Orgliste: Diff bleibt leer!");
@@ -250,6 +286,9 @@ public class Crawler implements Runnable {
             // nur dann macht die Arbeit sinn
             diff = listeFilme.neueFilme(tmpListe);
         }
+        // Statistikexport Suchlauf Anzahl Diff (neue Filme)
+        StatsUpload.getInstance().setData(StatsUpload.Data.CRAWLSTAT_FILMEDIFF, diff.size());
+
         Log.sysLog("   --> und schreiben:");
         writer.filmlisteSchreibenJson(CrawlerTool.getPathFilmlist_json_diff(), diff);
         if(compressList.equalsIgnoreCase("n") || compressList.equals("0")) {
@@ -258,6 +297,12 @@ public class Crawler implements Runnable {
             Log.sysLog("Führe keine xz Komprimierung für die diff-Liste durch.");
         }
         Log.sysLog("   --> Anz. Filme Diff: " + diff.size());
+
+        // Statistikexport sende Crawler Statistik
+        StatsUpload.getInstance().sendCrawlStat();
+
+        // Statistikexport Suchlauf beendet
+        StatsUpload.getInstance().sendCrawlStopp();
 
         //================================================
         // fertig
