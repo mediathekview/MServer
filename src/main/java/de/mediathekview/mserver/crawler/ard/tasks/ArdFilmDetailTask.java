@@ -42,6 +42,12 @@ public class ArdFilmDetailTask extends ArdTaskBase<Film, ArdFilmInfoDto> {
         LOG.error("no film: {}", aDTO.getUrl());
         crawler.incrementAndGetErrorCount();
       } else {
+        /* Increase the max count because before we counted the shows and on the deserializing we get more then one film
+         * for one show. This is because we find related films in the document as well. The minus 1 because we already
+         * counted for the show itself.
+         */
+        crawler.incrementMaxCountBySizeAndGetNewSize(filmDtos.size() - 1L);
+
         for (final ArdFilmDto filmDto : filmDtos) {
 
           final Film result = filmDto.getFilm();
