@@ -2,6 +2,8 @@ package de.mediathekview.mserver.crawler.basic;
 
 import de.mediathekview.mserver.base.config.MServerBasicConfigDTO;
 import de.mediathekview.mserver.base.config.MServerConfigManager;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
@@ -21,6 +23,7 @@ import java.util.concurrent.RecursiveTask;
  * @param <D> A result objects type.
  */
 public abstract class AbstractRecrusivConverterTask<T, D> extends RecursiveTask<Set<T>> {
+  private static final Logger LOG = LogManager.getLogger(AbstractRecrusivConverterTask.class);
   private static final long serialVersionUID = 8416254950859957820L;
 
   private final ConcurrentLinkedQueue<D> elementsToProcess;
@@ -72,9 +75,11 @@ public abstract class AbstractRecrusivConverterTask<T, D> extends RecursiveTask<
         taskResults.addAll(rightTask.compute());
         taskResults.addAll(leftTask.join());
       }
-    } finally {
-      return taskResults;
+    } catch (final Exception exception){
+      crawler.printErrorMessage();
+      LOG.error("Something went wrong.",exception);
     }
+    return taskResults;
   }
 
   protected void addElementToProcess(final D newElementToProcess) {
