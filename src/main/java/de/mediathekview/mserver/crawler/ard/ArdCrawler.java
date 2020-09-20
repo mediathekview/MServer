@@ -48,7 +48,7 @@ public class ArdCrawler extends AbstractCrawler {
     for (int i = 0; i <= crawlerConfig.getMaximumDaysForSendungVerpasstSection(); i++) {
       final String day = now.minusDays(i).format(DAY_PAGE_DATE_FORMATTER);
 
-      for (String client : ArdConstants.CLIENTS) {
+      for (final String client : ArdConstants.CLIENTS) {
         final String url = String.format(ArdConstants.DAY_PAGE_URL, client, day, day, ArdConstants.DAY_PAGE_SIZE);
         dayUrlsToCrawl.offer(new CrawlerUrlDTO(url));
       }
@@ -83,7 +83,7 @@ public class ArdCrawler extends AbstractCrawler {
       printMessage(
           ServerMessages.DEBUG_ALL_SENDUNG_FOLGEN_COUNT, getSender().getName(), shows.size());
       getAndSetMaxCount(shows.size());
-      return new ArdFilmDetailTask(this, new ConcurrentLinkedQueue(shows));
+      return new ArdFilmDetailTask(this, new ConcurrentLinkedQueue<>(shows));
     } catch (final InterruptedException ex) {
       LOG.fatal("Exception in ARD crawler.", ex);
       Thread.currentThread().interrupt();
@@ -93,34 +93,17 @@ public class ArdCrawler extends AbstractCrawler {
     return null;
   }
 
-  private Set<ArdFilmInfoDto> getTopicsEntries() throws ExecutionException, InterruptedException {
-    final Set<CrawlerUrlDTO> topics = new HashSet<>();
-    topics.addAll(getTopicEntriesBySender(ArdConstants.DEFAULT_CLIENT));
-    for (String client : ArdConstants.CLIENTS) {
-      topics.addAll(getTopicEntriesBySender(client));
+  private Set<ForkJoinTask<Set<CrawlerUrlDTO>>> createSenderTopicTasks() {
+    final Set<ForkJoinTask<Set<CrawlerUrlDTO>>> topicTasks = new HashSet<>();
+    topicTasks.add(getTopicEntriesBySender(ArdConstants.DEFAULT_CLIENT));
+    for (final String client : ArdConstants.CLIENTS) {
+      topicTasks.add(getTopicEntriesBySender(client));
     }
-
-    LOG.info("ARD crawler found {} topics for all sub-sender.", topics.size());
-
-    final ConcurrentLinkedQueue<CrawlerUrlDTO> topicUrls = new ConcurrentLinkedQueue<>(topics);
-
-    final ArdTopicPageTask topicTask = new ArdTopicPageTask(this, topicUrls);
-    final Set<ArdFilmInfoDto> filmInfos = forkJoinPool.submit(topicTask).get();
-    printMessage(
-            ServerMessages.DEBUG_ALL_SENDUNG_FOLGEN_COUNT, getSender().getName(), filmInfos.size());
-
-    return filmInfos;
+    return topicTasks;
   }
 
-  private ConcurrentLinkedQueue<CrawlerUrlDTO> getTopicEntriesBySender(final String sender)
-          throws ExecutionException, InterruptedException {
-    final ArdTopicsOverviewTask topicsTask =
-            new ArdTopicsOverviewTask(this, createTopicsOverviewUrl(sender));
-
-    final ConcurrentLinkedQueue<CrawlerUrlDTO> queue =
-            new ConcurrentLinkedQueue<>(forkJoinPool.submit(topicsTask).get());
-    LOG.info("{} topic entries: {}", sender, queue.size());
-    return queue;
+  private ForkJoinTask<Set<CrawlerUrlDTO>> getTopicEntriesBySender(final String sender) {
+    return new ArdTopicsOverviewTask(this,sender, createTopicsOverviewUrl(sender));
   }
 
   private ConcurrentLinkedQueue<CrawlerUrlDTO> createTopicsOverviewUrl(final String client) {

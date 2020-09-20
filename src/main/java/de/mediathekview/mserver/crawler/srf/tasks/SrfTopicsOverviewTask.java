@@ -8,11 +8,12 @@ import de.mediathekview.mserver.crawler.basic.CrawlerUrlDTO;
 import de.mediathekview.mserver.crawler.basic.TopicUrlDTO;
 import de.mediathekview.mserver.crawler.srf.SrfConstants;
 import de.mediathekview.mserver.crawler.srf.parser.SrfTopicsDeserializer;
+
+import javax.ws.rs.client.WebTarget;
 import java.lang.reflect.Type;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.concurrent.ConcurrentLinkedQueue;
-import javax.ws.rs.client.WebTarget;
 
 public class SrfTopicsOverviewTask extends ArdTaskBase<TopicUrlDTO, CrawlerUrlDTO> {
 
@@ -20,7 +21,7 @@ public class SrfTopicsOverviewTask extends ArdTaskBase<TopicUrlDTO, CrawlerUrlDT
       new TypeToken<Set<TopicUrlDTO>>() {}.getType();
 
   public SrfTopicsOverviewTask(
-      AbstractCrawler aCrawler, ConcurrentLinkedQueue<CrawlerUrlDTO> aURLsToCrawl) {
+          final AbstractCrawler aCrawler, final ConcurrentLinkedQueue<CrawlerUrlDTO> aURLsToCrawl) {
     super(aCrawler, aURLsToCrawl);
 
     registerJsonDeserializer(SET_CRAWLER_URL_TYPE_TOKEN, new SrfTopicsDeserializer());
@@ -28,19 +29,19 @@ public class SrfTopicsOverviewTask extends ArdTaskBase<TopicUrlDTO, CrawlerUrlDT
 
   @Override
   protected AbstractRecrusivConverterTask createNewOwnInstance(
-      ConcurrentLinkedQueue aElementsToProcess) {
+          final ConcurrentLinkedQueue aElementsToProcess) {
     return new SrfTopicsOverviewTask(crawler, aElementsToProcess);
   }
 
   @Override
-  protected void processRestTarget(CrawlerUrlDTO aDTO, WebTarget aTarget) {
-    Set<TopicUrlDTO> results = deserialize(aTarget, SET_CRAWLER_URL_TYPE_TOKEN);
+  protected void processRestTarget(final CrawlerUrlDTO aDTO, final WebTarget aTarget) {
+    final Set<TopicUrlDTO> results = deserialize(aTarget, SET_CRAWLER_URL_TYPE_TOKEN, aDTO);
     taskResults.addAll(results);
     taskResults.addAll(addSpecialShows());
   }
 
   private Set<TopicUrlDTO> addSpecialShows() {
-    Set<TopicUrlDTO> shows = new HashSet<>();
+    final Set<TopicUrlDTO> shows = new HashSet<>();
     shows.add(
         new TopicUrlDTO(
             SrfConstants.ID_SHOW_SPORT_CLIP,
