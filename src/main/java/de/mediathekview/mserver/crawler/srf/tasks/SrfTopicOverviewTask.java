@@ -20,15 +20,17 @@ public class SrfTopicOverviewTask extends ArdTaskBase<CrawlerUrlDTO, TopicUrlDTO
   private final int pageNumber;
 
   public SrfTopicOverviewTask(
-          final AbstractCrawler aCrawler, final ConcurrentLinkedQueue<TopicUrlDTO> aURLsToCrawl, final String baseUrl) {
+      final AbstractCrawler aCrawler,
+      final ConcurrentLinkedQueue<TopicUrlDTO> aURLsToCrawl,
+      final String baseUrl) {
     this(aCrawler, aURLsToCrawl, baseUrl, 1);
   }
 
   public SrfTopicOverviewTask(
-          final AbstractCrawler aCrawler,
-          final ConcurrentLinkedQueue<TopicUrlDTO> aURLsToCrawl,
-          final String baseUrl,
-          final int aPageNumber) {
+      final AbstractCrawler aCrawler,
+      final ConcurrentLinkedQueue<TopicUrlDTO> aURLsToCrawl,
+      final String baseUrl,
+      final int aPageNumber) {
     super(aCrawler, aURLsToCrawl);
     this.baseUrl = baseUrl;
 
@@ -38,19 +40,19 @@ public class SrfTopicOverviewTask extends ArdTaskBase<CrawlerUrlDTO, TopicUrlDTO
 
   @Override
   protected AbstractRecrusivConverterTask<CrawlerUrlDTO, TopicUrlDTO> createNewOwnInstance(
-          final ConcurrentLinkedQueue aElementsToProcess) {
+      final ConcurrentLinkedQueue<TopicUrlDTO> aElementsToProcess) {
     return createNewOwnInstance(aElementsToProcess, 1);
   }
 
   private AbstractRecrusivConverterTask<CrawlerUrlDTO, TopicUrlDTO> createNewOwnInstance(
-          final ConcurrentLinkedQueue aElementsToProcess, final int pageNumber) {
+      final ConcurrentLinkedQueue<TopicUrlDTO> aElementsToProcess, final int pageNumber) {
     return new SrfTopicOverviewTask(crawler, aElementsToProcess, baseUrl, pageNumber);
   }
 
   @Override
   protected void processRestTarget(final TopicUrlDTO aDTO, final WebTarget aTarget) {
     final PagedElementListDTO<CrawlerUrlDTO> results =
-        deserialize(aTarget, PAGED_ELEMENT_LIST_URL_TYPE_TOKEN,aDTO);
+        deserialize(aTarget, PAGED_ELEMENT_LIST_URL_TYPE_TOKEN, aDTO);
     taskResults.addAll(results.getElements());
 
     final Optional<String> nextPageId = results.getNextPage();
@@ -60,7 +62,7 @@ public class SrfTopicOverviewTask extends ArdTaskBase<CrawlerUrlDTO, TopicUrlDTO
   }
 
   private void processNextPage(final String aTopic, final String aNextPageId) {
-    final ConcurrentLinkedQueue<CrawlerUrlDTO> urlDtos = new ConcurrentLinkedQueue<>();
+    final ConcurrentLinkedQueue<TopicUrlDTO> urlDtos = new ConcurrentLinkedQueue<>();
     urlDtos.add(
         new TopicUrlDTO(
             aTopic,
