@@ -21,8 +21,9 @@ public class ArdTopicPageTask extends ArdTaskBase<ArdFilmInfoDto, CrawlerUrlDTO>
 
   private static final Type ARDTOPICINFODTO_TYPE_TOKEN =
       new TypeToken<ArdTopicInfoDto>() {}.getType();
-  private static final String URL_PAGE_NUMBER_REPLACE_REGEX = "pageNumber%22%3A\\d+";
-  private static final String PAGE_NUMBER_URL_ENCODED = "pageNumber%22%3A";
+  private static final String PAGE_NUMBER = "pageNumber";
+  private static final String URL_PAGE_NUMBER_REPLACE_REGEX = PAGE_NUMBER+"%22%3A\\d+";
+  private static final String PAGE_NUMBER_URL_ENCODED = PAGE_NUMBER+"%22%3A";
 
   public ArdTopicPageTask(
       final AbstractCrawler aCrawler, final ConcurrentLinkedQueue<CrawlerUrlDTO> aUrlToCrawlDtos) {
@@ -83,7 +84,9 @@ public class ArdTopicPageTask extends ArdTaskBase<ArdFilmInfoDto, CrawlerUrlDTO>
   }
 
   private String changePageNumber(final WebTarget aTarget, final int newPageNumber) {
-    return aTarget
+    return
+            aTarget.getUri().toString().contains(PAGE_NUMBER) ?
+            aTarget
         .getUriBuilder()
         .replaceQuery(
             aTarget
@@ -91,7 +94,8 @@ public class ArdTopicPageTask extends ArdTaskBase<ArdFilmInfoDto, CrawlerUrlDTO>
                 .getRawQuery()
                 .replaceAll(URL_PAGE_NUMBER_REPLACE_REGEX, PAGE_NUMBER_URL_ENCODED + newPageNumber))
         .build()
-        .toString();
+        .toString()
+            : aTarget.queryParam(PAGE_NUMBER,newPageNumber).getUri().toString();
   }
 
   @Override

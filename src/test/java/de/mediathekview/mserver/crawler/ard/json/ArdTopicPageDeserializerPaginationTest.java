@@ -18,6 +18,6 @@ public class ArdTopicPageDeserializerPaginationTest {
     final ArdTopicInfoDto ardTopicInfoDto = instance.deserialize(jsonElement, null, null);
 
     assertThat(ardTopicInfoDto.getSubPageNumber(), is(0));
-    assertThat(ardTopicInfoDto.getMaxSubPageNumber(), is(63));
+    assertThat(ardTopicInfoDto.getMaxSubPageNumber(), is(5));
   }
 }

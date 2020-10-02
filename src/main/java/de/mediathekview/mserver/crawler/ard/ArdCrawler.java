@@ -103,7 +103,7 @@ public class ArdCrawler extends AbstractCrawler {
   }
 
   private ForkJoinTask<Set<CrawlerUrlDTO>> getTopicEntriesBySender(final String sender) {
-    return new ArdTopicsOverviewTask(this,sender, createTopicsOverviewUrl(sender));
+    return forkJoinPool.submit(new ArdTopicsOverviewTask(this,sender, createTopicsOverviewUrl(sender)));
   }
 
   private ConcurrentLinkedQueue<CrawlerUrlDTO> createTopicsOverviewUrl(final String client) {

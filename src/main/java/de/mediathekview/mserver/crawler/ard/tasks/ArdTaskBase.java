@@ -69,10 +69,7 @@ public abstract class ArdTaskBase<T, D extends CrawlerUrlDTO> extends AbstractRe
         addElementToProcess(currentElement);
         crawler.decrementAndGetErrorCount();
       } else {
-        LOG.error(
-            "Something went wrong deserializing {}!",
-            target.getUri().toString(),
-            processingException);
+        LOG.error("Something went wrong deserializing {}!", target.getUri(), processingException);
       }
     }
     return Optional.empty();
