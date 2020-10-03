@@ -19,7 +19,7 @@ import javax.ws.rs.core.Response;
 import java.lang.reflect.Type;
 import java.net.NoRouteToHostException;
 import java.util.Optional;
-import java.util.concurrent.ConcurrentLinkedQueue;
+import java.util.Queue;
 
 public abstract class ArdTaskBase<T, D extends CrawlerUrlDTO> extends AbstractRestTask<T, D> {
 
@@ -30,9 +30,8 @@ public abstract class ArdTaskBase<T, D extends CrawlerUrlDTO> extends AbstractRe
 
   private final transient GsonBuilder gsonBuilder;
 
-  public ArdTaskBase(
-      final AbstractCrawler aCrawler, final ConcurrentLinkedQueue<D> aUrlToCrawlDtos) {
-    super(aCrawler, aUrlToCrawlDtos, Optional.empty());
+  public ArdTaskBase(final AbstractCrawler aCrawler, final Queue<D> urlToCrawlDTOs) {
+    super(aCrawler, urlToCrawlDTOs, null);
     gsonBuilder = new GsonBuilder();
     registerJsonDeserializer(OPTIONAL_ERROR_DTO, new ArdErrorDeserializer());
   }
@@ -95,6 +94,7 @@ public abstract class ArdTaskBase<T, D extends CrawlerUrlDTO> extends AbstractRe
 
   private Response executeRequest(final WebTarget aTarget) {
     Builder request = aTarget.request();
+    final Optional<String> authKey = getAuthKey();
     if (authKey.isPresent()) {
       request =
           request.header(

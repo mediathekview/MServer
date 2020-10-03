@@ -9,23 +9,21 @@ import org.jsoup.HttpStatusException;
 import org.jsoup.nodes.Document;
 
 import java.io.IOException;
-import java.util.concurrent.ConcurrentLinkedQueue;
+import java.util.Queue;
 import java.util.concurrent.TimeUnit;
 
 /**
- * This is a abstract task based on {@link AbstractUrlTask} which takes a {@link
- * ConcurrentLinkedQueue} of {@link D} and loads the URL with JSOUP as {@link Document}.
+ * This is a abstract task based on {@link AbstractUrlTask} which takes a {@link Queue} of {@link D}
+ * and loads the URL with JSOUP as {@link Document}.
  *
  * @author Nicklas Wiegandt (Nicklas2751)<br>
  *     <b>Mail:</b> nicklas@wiegandt.eu<br>
- *     <b>Jabber:</b> nicklas2751@elaon.de<br>
  * @param <T> The type of objects which will be created from this task.
  * @param <D> A sub type of {@link CrawlerUrlDTO} which this task will use to create the result
  *     objects.
  */
 public abstract class AbstractDocumentTask<T, D extends CrawlerUrlDTO>
     extends AbstractUrlTask<T, D> {
-  private static final int SECONDS_TO_MILLIS_MULTIPLICATOR = 1000;
   private static final long serialVersionUID = -4124779055395250981L;
   private static final Logger LOG = LogManager.getLogger(AbstractDocumentTask.class);
   private static final String LOAD_DOCUMENT_ERRORTEXTPATTERN =
@@ -39,8 +37,10 @@ public abstract class AbstractDocumentTask<T, D extends CrawlerUrlDTO>
   JsoupConnection jsoupConnection;
 
   public AbstractDocumentTask(
-      final AbstractCrawler aCrawler, final ConcurrentLinkedQueue<D> aUrlToCrawlDTOs, final JsoupConnection jsoupConnection) {
-    super(aCrawler, aUrlToCrawlDTOs);
+      final AbstractCrawler aCrawler,
+      final Queue<D> urlToCrawlDTOs,
+      final JsoupConnection jsoupConnection) {
+    super(aCrawler, urlToCrawlDTOs);
     incrementErrorCounterOnHttpErrors = true;
     printErrorMessage = true;
     httpErrorLogLevel = Level.ERROR;
@@ -61,7 +61,9 @@ public abstract class AbstractDocumentTask<T, D extends CrawlerUrlDTO>
     try {
       // maxBodySize(0)=unlimited
       // necessary for ORF documents which are larger than the default size
-      final Document document = jsoupConnection.getConnection(urlDTO.getUrl())
+      final Document document =
+          jsoupConnection
+              .getConnection(urlDTO.getUrl())
               .timeout((int) TimeUnit.SECONDS.toMillis(config.getSocketTimeoutInSeconds()))
               .maxBodySize(0)
               .get();
@@ -69,7 +71,11 @@ public abstract class AbstractDocumentTask<T, D extends CrawlerUrlDTO>
     } catch (final HttpStatusException httpStatusError) {
       LOG.log(
           httpErrorLogLevel,
-          String.format(LOAD_DOCUMENT_HTTPERROR, crawler.getSender().getName(), urlDTO.getUrl(), httpStatusError.getStatusCode()));
+          String.format(
+              LOAD_DOCUMENT_HTTPERROR,
+              crawler.getSender().getName(),
+              urlDTO.getUrl(),
+              httpStatusError.getStatusCode()));
       if (printErrorMessage) {
         crawler.printMessage(
             ServerMessages.CRAWLER_DOCUMENT_LOAD_ERROR,
@@ -110,5 +116,4 @@ public abstract class AbstractDocumentTask<T, D extends CrawlerUrlDTO>
   public JsoupConnection getJsoupConnection() {
     return jsoupConnection;
   }
-
 }

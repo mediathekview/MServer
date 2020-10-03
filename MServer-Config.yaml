@@ -40,36 +40,36 @@ filmlistSaveFormats:
 
 # The paths where which filmlist should be safed to.
 filmlistSavePaths:
-  JSON: filmlists/filmliste.json
-  OLD_JSON: filmlists/filmliste_old.json
-  JSON_COMPRESSED_XZ: filmlists/filmliste.json.xz
-  OLD_JSON_COMPRESSED_XZ: filmlists/filmliste_old.json.xz
-  JSON_COMPRESSED_GZIP: filmlists/filmliste.json.gz
-  OLD_JSON_COMPRESSED_GZIP: filmlists/filmliste_old.json.gz
-  JSON_COMPRESSED_BZIP: filmlists/filmliste.json.bz
-  OLD_JSON_COMPRESSED_BZIP: filmlists/filmliste_old.json.bz
+  JSON: target/filmlists/filmliste.json
+  OLD_JSON: target/filmlists/filmliste_old.json
+  JSON_COMPRESSED_XZ: target/filmlists/filmliste.json.xz
+  OLD_JSON_COMPRESSED_XZ: target/filmlists/filmliste_old.json.xz
+  JSON_COMPRESSED_GZIP: target/filmlists/filmliste.json.gz
+  OLD_JSON_COMPRESSED_GZIP: target/filmlists/filmliste_old.json.gz
+  JSON_COMPRESSED_BZIP: target/filmlists/filmliste.json.bz
+  OLD_JSON_COMPRESSED_BZIP: target/filmlists/filmliste_old.json.bz
 
 # The paths where which diff film list should be safed to.
 # If not set no difference film lists will be safed.
 filmlistDiffSavePaths:
-  JSON: filmlists/filmliste_diff.json
-  OLD_JSON: filmlists/filmliste_old_diff.json
-  JSON_COMPRESSED_XZ: filmlists/filmliste_diff.json.xz
-  OLD_JSON_COMPRESSED_XZ: filmlists/filmliste_old_diff.json.xz
-  JSON_COMPRESSED_GZIP: filmlists/filmliste_diff.json.gz
-  OLD_JSON_COMPRESSED_GZIP: filmlists/filmliste_old_diff.json.gz
-  JSON_COMPRESSED_BZIP: filmlists/filmliste_diff.json.bz
-  OLD_JSON_COMPRESSED_BZIP: filmlists/filmliste_old_diff.json.bz
+  JSON: target/filmlists/filmliste_diff.json
+  OLD_JSON: target/filmlists/filmliste_old_diff.json
+  JSON_COMPRESSED_XZ: target/filmlists/filmliste_diff.json.xz
+  OLD_JSON_COMPRESSED_XZ: target/filmlists/filmliste_old_diff.json.xz
+  JSON_COMPRESSED_GZIP: target/filmlists/filmliste_diff.json.gz
+  OLD_JSON_COMPRESSED_GZIP: target/filmlists/filmliste_old_diff.json.gz
+  JSON_COMPRESSED_BZIP: target/filmlists/filmliste_diff.json.bz
+  OLD_JSON_COMPRESSED_BZIP: target/filmlists/filmliste_old_diff.json.bz
 
 #Sets if a filmlist hash file should be written
 writeFilmlistHashFileEnabled: true
 #The filmlist hash file path
-filmlistHashFilePath: filmlists/filmlist.hash
+filmlistHashFilePath: target/filmlists/filmlist.hash
 
 #Sets if a filmlist id file should be written
 writeFilmlistIdFileEnabled: true
 #The fimlist id file path
-filmlistIdFilePath: filmlists/filmlist.id
+filmlistIdFilePath: target/filmlists/filmlist.id
 
 # Sets if a filmlist should be imported
 filmlistImporEnabled: false
@@ -143,7 +143,7 @@ copySettings:
   # En- / disables FTP
   copyEnabled: false
 
-  # The paths where to safe the film list files.
+  # The paths where to safe the film list files.SrfTopicOverviewTask
   # WARNING: You can only set the path for film list formats you listed in "filmlistSaveFormats".
   # Required if enabled
   copyTargetFilePaths:
@@ -162,7 +162,7 @@ copySettings:
 logSettings:
   # The log level for the console.
   # Can be: DEBUG, INFO, WARN, ERROR, FATAL
-  logLevelConsole: INFO
+  logLevelConsole: DEBUG
 
   # The log level for the log file.
   # Can be: DEBUG, INFO, WARN, ERROR, FATAL

@@ -7,7 +7,7 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
-import java.util.concurrent.ConcurrentLinkedQueue;
+import java.util.Queue;
 
 public class OrfDayTask extends AbstractDocumentTask<TopicUrlDTO, CrawlerUrlDTO> {
 
@@ -16,14 +16,15 @@ public class OrfDayTask extends AbstractDocumentTask<TopicUrlDTO, CrawlerUrlDTO>
   private static final String TITLE_SELECTOR2 = ".teaser-title";
 
   public OrfDayTask(
-      final AbstractCrawler aCrawler, final ConcurrentLinkedQueue<CrawlerUrlDTO> aUrlToCrawlDtos, final
-      JsoupConnection jsoupConnection) {
-    super(aCrawler, aUrlToCrawlDtos, jsoupConnection);
+      final AbstractCrawler crawler,
+      final Queue<CrawlerUrlDTO> urlToCrawlDTOs,
+      final JsoupConnection jsoupConnection) {
+    super(crawler, urlToCrawlDTOs, jsoupConnection);
   }
 
   @Override
-  protected void processDocument(final CrawlerUrlDTO aUrlDto, final Document aDocument) {
-    final Elements elements = aDocument.select(ITEM_SELECTOR);
+  protected void processDocument(final CrawlerUrlDTO urlDto, final Document document) {
+    final Elements elements = document.select(ITEM_SELECTOR);
     elements.forEach(
         item -> {
           final Element titleElement = getTitleElement(item);
@@ -47,7 +48,7 @@ public class OrfDayTask extends AbstractDocumentTask<TopicUrlDTO, CrawlerUrlDTO>
 
   @Override
   protected AbstractUrlTask<TopicUrlDTO, CrawlerUrlDTO> createNewOwnInstance(
-      final ConcurrentLinkedQueue<CrawlerUrlDTO> aUrlsToCrawl) {
+      final Queue<CrawlerUrlDTO> aUrlsToCrawl) {
     return new OrfDayTask(crawler, aUrlsToCrawl, getJsoupConnection());
   }
 }

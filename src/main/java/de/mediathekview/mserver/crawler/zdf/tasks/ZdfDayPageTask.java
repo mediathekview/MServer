@@ -1,26 +1,28 @@
 package de.mediathekview.mserver.crawler.zdf.tasks;
 
 import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
-import de.mediathekview.mserver.crawler.basic.AbstractRecrusivConverterTask;
+import de.mediathekview.mserver.crawler.basic.AbstractRecursiveConverterTask;
 import de.mediathekview.mserver.crawler.basic.CrawlerUrlDTO;
 import de.mediathekview.mserver.crawler.zdf.json.ZdfDayPageDeserializer;
 import de.mediathekview.mserver.crawler.zdf.json.ZdfDayPageDto;
-import java.util.Optional;
-import java.util.concurrent.ConcurrentLinkedQueue;
+
+import javax.annotation.Nullable;
 import javax.ws.rs.client.WebTarget;
+import java.util.Queue;
+import java.util.concurrent.ConcurrentLinkedQueue;
 
 public class ZdfDayPageTask extends ZdfTaskBase<CrawlerUrlDTO, CrawlerUrlDTO> {
 
   private final String apiUrlBase;
 
   public ZdfDayPageTask(
-      final AbstractCrawler aCrawler,
-      final String aApiUrlBase,
-      final ConcurrentLinkedQueue<CrawlerUrlDTO> aUrlToCrawlDtos,
-      final Optional<String> aAuthKey) {
-    super(aCrawler, aUrlToCrawlDtos, aAuthKey);
-    apiUrlBase = aApiUrlBase;
-    registerJsonDeserializer(ZdfDayPageDto.class, new ZdfDayPageDeserializer(apiUrlBase));
+      final AbstractCrawler crawler,
+      final String apiUrlBase,
+      final Queue<CrawlerUrlDTO> urlToCrawlDTOs,
+      @Nullable final String authKey) {
+    super(crawler, urlToCrawlDTOs, authKey);
+    this.apiUrlBase = apiUrlBase;
+    registerJsonDeserializer(ZdfDayPageDto.class, new ZdfDayPageDeserializer(this.apiUrlBase));
   }
 
   @Override
@@ -33,14 +35,14 @@ public class ZdfDayPageTask extends ZdfTaskBase<CrawlerUrlDTO, CrawlerUrlDTO> {
   }
 
   @Override
-  protected AbstractRecrusivConverterTask<CrawlerUrlDTO, CrawlerUrlDTO> createNewOwnInstance(
-      final ConcurrentLinkedQueue<CrawlerUrlDTO> aElementsToProcess) {
-    return new ZdfDayPageTask(crawler, apiUrlBase, aElementsToProcess, authKey);
+  protected AbstractRecursiveConverterTask<CrawlerUrlDTO, CrawlerUrlDTO> createNewOwnInstance(
+      final Queue<CrawlerUrlDTO> aElementsToProcess) {
+    return new ZdfDayPageTask(crawler, apiUrlBase, aElementsToProcess, getAuthKey().orElse(null));
   }
 
   private void processNextPage(final ZdfDayPageDto entries) {
     if (entries.getNextPageUrl().isPresent() && !entries.getEntries().isEmpty()) {
-      final ConcurrentLinkedQueue<CrawlerUrlDTO> urls = new ConcurrentLinkedQueue<>();
+      final Queue<CrawlerUrlDTO> urls = new ConcurrentLinkedQueue<>();
       urls.add(new CrawlerUrlDTO(entries.getNextPageUrl().get()));
       taskResults.addAll(createNewOwnInstance(urls).invoke());
     }

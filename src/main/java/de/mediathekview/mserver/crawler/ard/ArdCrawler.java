@@ -19,6 +19,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.Queue;
 import java.util.Set;
 import java.util.concurrent.*;
 
@@ -41,15 +42,16 @@ public class ArdCrawler extends AbstractCrawler {
     return Sender.ARD;
   }
 
-  private ConcurrentLinkedQueue<CrawlerUrlDTO> createDayUrlsToCrawl() {
-    final ConcurrentLinkedQueue<CrawlerUrlDTO> dayUrlsToCrawl = new ConcurrentLinkedQueue<>();
+  private Queue<CrawlerUrlDTO> createDayUrlsToCrawl() {
+    final Queue<CrawlerUrlDTO> dayUrlsToCrawl = new ConcurrentLinkedQueue<>();
 
     final LocalDateTime now = LocalDateTime.now();
     for (int i = 0; i <= crawlerConfig.getMaximumDaysForSendungVerpasstSection(); i++) {
       final String day = now.minusDays(i).format(DAY_PAGE_DATE_FORMATTER);
 
       for (final String client : ArdConstants.CLIENTS) {
-        final String url = String.format(ArdConstants.DAY_PAGE_URL, client, day, day, ArdConstants.DAY_PAGE_SIZE);
+        final String url =
+            String.format(ArdConstants.DAY_PAGE_URL, client, day, day, ArdConstants.DAY_PAGE_SIZE);
         dayUrlsToCrawl.offer(new CrawlerUrlDTO(url));
       }
     }
@@ -103,16 +105,16 @@ public class ArdCrawler extends AbstractCrawler {
   }
 
   private ForkJoinTask<Set<CrawlerUrlDTO>> getTopicEntriesBySender(final String sender) {
-    return forkJoinPool.submit(new ArdTopicsOverviewTask(this,sender, createTopicsOverviewUrl(sender)));
+    return forkJoinPool.submit(
+        new ArdTopicsOverviewTask(this, sender, createTopicsOverviewUrl(sender)));
   }
 
-  private ConcurrentLinkedQueue<CrawlerUrlDTO> createTopicsOverviewUrl(final String client) {
-    final ConcurrentLinkedQueue<CrawlerUrlDTO> urls = new ConcurrentLinkedQueue<>();
+  private Queue<CrawlerUrlDTO> createTopicsOverviewUrl(final String client) {
+    final Queue<CrawlerUrlDTO> urls = new ConcurrentLinkedQueue<>();
 
     final String url = String.format(ArdConstants.TOPICS_URL, client);
     urls.add(new CrawlerUrlDTO(url));
 
     return urls;
   }
-
 }

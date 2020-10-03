@@ -11,11 +11,12 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import java.util.Optional;
+import java.util.Queue;
 import java.util.Set;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
-public class SrTopicArchivePageTask extends
-    SrRateLimitedDocumentTask<SrTopicUrlDTO, SrTopicUrlDTO> {
+public class SrTopicArchivePageTask
+    extends SrRateLimitedDocumentTask<SrTopicUrlDTO, SrTopicUrlDTO> {
 
   private static final String NEXT_PAGE_SELECTOR = "div.pagination__item > a[title*=weiter]";
   private static final String SHOW_SELECTOR = "h3.teaser__text__header";
@@ -24,15 +25,16 @@ public class SrTopicArchivePageTask extends
   private final int pageNumber;
 
   public SrTopicArchivePageTask(
-      final AbstractCrawler aCrawler, final ConcurrentLinkedQueue<SrTopicUrlDTO> aUrlToCrawlDTOs, final
-      JsoupConnection jsoupConnection) {
+      final AbstractCrawler aCrawler,
+      final Queue<SrTopicUrlDTO> aUrlToCrawlDTOs,
+      final JsoupConnection jsoupConnection) {
     super(aCrawler, aUrlToCrawlDTOs, jsoupConnection);
     pageNumber = 1;
   }
 
   public SrTopicArchivePageTask(
       final AbstractCrawler aCrawler,
-      final ConcurrentLinkedQueue<SrTopicUrlDTO> aUrlToCrawlDTOs,
+      final Queue<SrTopicUrlDTO> aUrlToCrawlDTOs,
       final JsoupConnection jsoupConnection,
       final int aPageNumber) {
     super(aCrawler, aUrlToCrawlDTOs, jsoupConnection);
@@ -51,12 +53,12 @@ public class SrTopicArchivePageTask extends
 
   @Override
   protected AbstractUrlTask<SrTopicUrlDTO, SrTopicUrlDTO> createNewOwnInstance(
-      final ConcurrentLinkedQueue<SrTopicUrlDTO> aURLsToCrawl) {
+      final Queue<SrTopicUrlDTO> aURLsToCrawl) {
     return new SrTopicArchivePageTask(crawler, aURLsToCrawl, getJsoupConnection());
   }
 
   private AbstractUrlTask<SrTopicUrlDTO, SrTopicUrlDTO> createNewOwnInstance(
-      final ConcurrentLinkedQueue<SrTopicUrlDTO> aURLsToCrawl, final int aPageNumber) {
+      final Queue<SrTopicUrlDTO> aURLsToCrawl, final int aPageNumber) {
     return new SrTopicArchivePageTask(crawler, aURLsToCrawl, getJsoupConnection(), aPageNumber);
   }
 
@@ -75,7 +77,7 @@ public class SrTopicArchivePageTask extends
         });
   }
 
-  private boolean isAudioShow(Element show) {
+  private boolean isAudioShow(final Element show) {
     final Elements selected = show.select(TYPE_SELECTOR);
     return !selected.isEmpty() && selected.first().text().contains("Audio");
   }
@@ -90,7 +92,7 @@ public class SrTopicArchivePageTask extends
   }
 
   private void processNextPage(final String aTheme, final String aNextPageId) {
-    final ConcurrentLinkedQueue<SrTopicUrlDTO> urlDtos = new ConcurrentLinkedQueue<>();
+    final Queue<SrTopicUrlDTO> urlDtos = new ConcurrentLinkedQueue<>();
     urlDtos.add(new SrTopicUrlDTO(aTheme, aNextPageId));
     final Set<SrTopicUrlDTO> x = createNewOwnInstance(urlDtos, pageNumber + 1).invoke();
     taskResults.addAll(x);

@@ -11,7 +11,7 @@ import org.apache.logging.log4j.Level;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 
-import java.util.concurrent.ConcurrentLinkedQueue;
+import java.util.Queue;
 
 public class HrSendungsfolgenOverviewPageTask
     extends AbstractDocumentTask<CrawlerUrlDTO, CrawlerUrlDTO> {
@@ -23,8 +23,10 @@ public class HrSendungsfolgenOverviewPageTask
   private static final long serialVersionUID = -6727831751148817578L;
 
   public HrSendungsfolgenOverviewPageTask(
-      final AbstractCrawler aCrawler, final ConcurrentLinkedQueue<CrawlerUrlDTO> aUrlToCrawlDTOs, final JsoupConnection jsoupConnection) {
-    super(aCrawler, aUrlToCrawlDTOs, jsoupConnection);
+      final AbstractCrawler aCrawler,
+      final Queue<CrawlerUrlDTO> urlToCrawlDTOs,
+      final JsoupConnection jsoupConnection) {
+    super(aCrawler, urlToCrawlDTOs, jsoupConnection);
     // Some HR entries for "Programm" don't have a "sendungen" sub page which will be tried to load
     // because this sub page usually contains the "Sendungsfolgen".
     setIncrementErrorCounterOnHttpErrors(false);
@@ -34,7 +36,7 @@ public class HrSendungsfolgenOverviewPageTask
 
   @Override
   protected AbstractUrlTask<CrawlerUrlDTO, CrawlerUrlDTO> createNewOwnInstance(
-      final ConcurrentLinkedQueue<CrawlerUrlDTO> aURLsToCrawl) {
+      final Queue<CrawlerUrlDTO> aURLsToCrawl) {
     return new HrSendungsfolgenOverviewPageTask(crawler, aURLsToCrawl, getJsoupConnection());
   }
 

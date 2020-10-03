@@ -3,7 +3,7 @@ package de.mediathekview.mserver.crawler.zdf.tasks;
 import com.google.gson.reflect.TypeToken;
 import de.mediathekview.mlib.daten.Film;
 import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
-import de.mediathekview.mserver.crawler.basic.AbstractRecrusivConverterTask;
+import de.mediathekview.mserver.crawler.basic.AbstractRecursiveConverterTask;
 import de.mediathekview.mserver.crawler.basic.CrawlerUrlDTO;
 import de.mediathekview.mserver.crawler.zdf.DownloadDtoFilmConverter;
 import de.mediathekview.mserver.crawler.zdf.ZdfConstants;
@@ -12,14 +12,15 @@ import de.mediathekview.mserver.crawler.zdf.ZdfVideoUrlOptimizer;
 import de.mediathekview.mserver.crawler.zdf.json.DownloadDto;
 import de.mediathekview.mserver.crawler.zdf.json.ZdfDownloadDtoDeserializer;
 import de.mediathekview.mserver.crawler.zdf.json.ZdfFilmDetailDeserializer;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
+import javax.ws.rs.client.WebTarget;
 import java.lang.reflect.Type;
 import java.net.MalformedURLException;
 import java.util.Optional;
+import java.util.Queue;
 import java.util.UUID;
-import java.util.concurrent.ConcurrentLinkedQueue;
-import javax.ws.rs.client.WebTarget;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 public class ZdfFilmDetailTask extends ZdfTaskBase<Film, CrawlerUrlDTO> {
   private static final Logger LOG = LogManager.getLogger(ZdfFilmDetailTask.class);
@@ -35,12 +36,13 @@ public class ZdfFilmDetailTask extends ZdfTaskBase<Film, CrawlerUrlDTO> {
   public ZdfFilmDetailTask(
       final AbstractCrawler aCrawler,
       final String aApiUrlBase,
-      final ConcurrentLinkedQueue<CrawlerUrlDTO> aUrlToCrawlDtos,
-      final Optional<String> aAuthKey) {
-    super(aCrawler, aUrlToCrawlDtos, aAuthKey);
+      final Queue<CrawlerUrlDTO> aUrlToCrawlDtos,
+      final String authKey) {
+    super(aCrawler, aUrlToCrawlDtos, authKey);
     apiUrlBase = aApiUrlBase;
 
-    registerJsonDeserializer(OPTIONAL_FILM_TYPE_TOKEN, new ZdfFilmDetailDeserializer(apiUrlBase, aCrawler.getSender()));
+    registerJsonDeserializer(
+        OPTIONAL_FILM_TYPE_TOKEN, new ZdfFilmDetailDeserializer(apiUrlBase, aCrawler.getSender()));
     registerJsonDeserializer(OPTIONAL_DOWNLOAD_DTO_TYPE_TOKEN, new ZdfDownloadDtoDeserializer());
   }
 
@@ -60,6 +62,27 @@ public class ZdfFilmDetailTask extends ZdfTaskBase<Film, CrawlerUrlDTO> {
     updateTitle(aLanguage, film);
 
     return film;
+  }
+
+  private static void updateTitle(final String aLanguage, final Film aFilm) {
+    String title = aFilm.getTitel();
+    switch (aLanguage) {
+      case ZdfConstants.LANGUAGE_GERMAN:
+        return;
+      case ZdfConstants.LANGUAGE_GERMAN_AD:
+        title += " (Audiodeskription)";
+        break;
+      case ZdfConstants.LANGUAGE_ENGLISH:
+        title += " (Englisch)";
+        break;
+      case ZdfConstants.LANGUAGE_FRENCH:
+        title += " (Französisch)";
+        break;
+      default:
+        title += "(" + aLanguage + ")";
+    }
+
+    aFilm.setTitel(title);
   }
 
   @Override
@@ -93,9 +116,10 @@ public class ZdfFilmDetailTask extends ZdfTaskBase<Film, CrawlerUrlDTO> {
   }
 
   @Override
-  protected AbstractRecrusivConverterTask<Film, CrawlerUrlDTO> createNewOwnInstance(
-      final ConcurrentLinkedQueue<CrawlerUrlDTO> aElementsToProcess) {
-    return new ZdfFilmDetailTask(crawler, apiUrlBase, aElementsToProcess, authKey);
+  protected AbstractRecursiveConverterTask<Film, CrawlerUrlDTO> createNewOwnInstance(
+      final Queue<CrawlerUrlDTO> aElementsToProcess) {
+    return new ZdfFilmDetailTask(
+        crawler, apiUrlBase, aElementsToProcess, getAuthKey().orElse(null));
   }
 
   private void addFilm(final DownloadDto downloadDto, final Film result)
@@ -109,26 +133,5 @@ public class ZdfFilmDetailTask extends ZdfTaskBase<Film, CrawlerUrlDTO> {
 
       taskResults.add(filmWithLanguage);
     }
-  }
-
-  private static void updateTitle(final String aLanguage, final Film aFilm) {
-    String title = aFilm.getTitel();
-    switch (aLanguage) {
-      case ZdfConstants.LANGUAGE_GERMAN:
-        return;
-      case ZdfConstants.LANGUAGE_GERMAN_AD:
-        title += " (Audiodeskription)";
-        break;
-      case ZdfConstants.LANGUAGE_ENGLISH:
-        title += " (Englisch)";
-        break;
-      case ZdfConstants.LANGUAGE_FRENCH:
-        title += " (Französisch)";
-        break;
-      default:
-        title += "(" + aLanguage + ")";
-    }
-
-    aFilm.setTitel(title);
   }
 }

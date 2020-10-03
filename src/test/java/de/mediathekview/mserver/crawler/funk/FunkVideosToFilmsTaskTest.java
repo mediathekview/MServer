@@ -18,14 +18,14 @@ import java.util.*;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
 import static org.hamcrest.CoreMatchers.equalTo;
-import static org.junit.Assert.assertThat;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 public class FunkVideosToFilmsTaskTest extends FunkTaskTestBase {
 
   private static final String TITLE =
       "Ansage an Hater, Reue, Reichtum uvm. | Money Boy im Talk + Live Performance";
   private static final String THEMA = "World Wide Wohnzimmer";
-  private static final @NotNull LocalDateTime TIME = parseTime("2019-04-21T15:00:00.000+0000");
+  private static final @NotNull LocalDateTime TIME = parseTime();
   private static final Duration DAUER = Duration.ofSeconds(855);
   private static final String BESCHREIBUNG =
       "Skrrt! Skrrt! Der Boy steppt ins Wohnzimmer und talkt über Hater, Reue, Reichtum und ein mögliches Feature mit Helene Fischer... Viel Fun! Yo!";
@@ -33,9 +33,9 @@ public class FunkVideosToFilmsTaskTest extends FunkTaskTestBase {
       "https://www.funk.net/channel/world-wide-wohnzimmer-1045/ansage-an-hater-reue-reichtum-uvm-money-boy-im-talk-live-performance-1605930";
 
   @NotNull
-  private static LocalDateTime parseTime(final String dateTimeText) {
+  private static LocalDateTime parseTime() {
     return LocalDateTime.parse(
-        dateTimeText, DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSSZ"));
+        "2019-04-21T15:00:00.000+0000", DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSSZ"));
   }
 
   @Test
@@ -43,7 +43,7 @@ public class FunkVideosToFilmsTaskTest extends FunkTaskTestBase {
     setupSuccessfulJsonPostResponse(
         "/v3/741/videos/byid/1605930", "/funk/nexx_cloud_video_details.json");
 
-    final ConcurrentLinkedQueue<FilmInfoDto> filmInfos = new ConcurrentLinkedQueue<>();
+    final Queue<FilmInfoDto> filmInfos = new ConcurrentLinkedQueue<>();
     final FilmInfoDto filmInfo =
         new FilmInfoDto("http://localhost:8589/v3/741/videos/byid/1605930");
     filmInfo.setTopic("1045");
@@ -109,9 +109,8 @@ public class FunkVideosToFilmsTaskTest extends FunkTaskTestBase {
   }
 
   private Set<Film> executeTask(
-      final ConcurrentLinkedQueue<FilmInfoDto> filmInfos,
-      final Map<String, FunkChannelDTO> channels) {
+      final Queue<FilmInfoDto> filmInfos, final Map<String, FunkChannelDTO> channels) {
     final FunkCrawler crawler = createCrawler();
-    return new FunkVideosToFilmsTask(crawler, 0L, filmInfos, channels, Optional.empty()).invoke();
+    return new FunkVideosToFilmsTask(crawler, 0L, filmInfos, channels, null).invoke();
   }
 }

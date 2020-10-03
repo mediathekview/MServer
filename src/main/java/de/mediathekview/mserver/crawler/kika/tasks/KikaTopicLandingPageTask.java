@@ -5,13 +5,13 @@ import de.mediathekview.mserver.base.utils.UrlUtils;
 import de.mediathekview.mserver.base.webaccess.JsoupConnection;
 import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
 import de.mediathekview.mserver.crawler.basic.AbstractDocumentTask;
-import de.mediathekview.mserver.crawler.basic.AbstractRecrusivConverterTask;
+import de.mediathekview.mserver.crawler.basic.AbstractRecursiveConverterTask;
 import de.mediathekview.mserver.crawler.basic.CrawlerUrlDTO;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
-import java.util.concurrent.ConcurrentLinkedQueue;
+import java.util.Queue;
 
 public class KikaTopicLandingPageTask extends AbstractDocumentTask<CrawlerUrlDTO, CrawlerUrlDTO> {
 
@@ -22,12 +22,12 @@ public class KikaTopicLandingPageTask extends AbstractDocumentTask<CrawlerUrlDTO
   private final String baseUrl;
 
   public KikaTopicLandingPageTask(
-      final AbstractCrawler aCrawler,
-      final ConcurrentLinkedQueue<CrawlerUrlDTO> aUrlToCrawlDTOs,
-      final String aBaseUrl,
+      final AbstractCrawler crawler,
+      final Queue<CrawlerUrlDTO> urlToCrawlDTOs,
+      final String baseUrl,
       final JsoupConnection jsoupConnection) {
-    super(aCrawler, aUrlToCrawlDTOs, jsoupConnection);
-    baseUrl = aBaseUrl;
+    super(crawler, urlToCrawlDTOs, jsoupConnection);
+    this.baseUrl = baseUrl;
   }
 
   @Override
@@ -47,8 +47,8 @@ public class KikaTopicLandingPageTask extends AbstractDocumentTask<CrawlerUrlDTO
   }
 
   @Override
-  protected AbstractRecrusivConverterTask<CrawlerUrlDTO, CrawlerUrlDTO> createNewOwnInstance(
-      final ConcurrentLinkedQueue<CrawlerUrlDTO> aElementsToProcess) {
+  protected AbstractRecursiveConverterTask<CrawlerUrlDTO, CrawlerUrlDTO> createNewOwnInstance(
+      final Queue<CrawlerUrlDTO> aElementsToProcess) {
     return new KikaTopicLandingPageTask(crawler, aElementsToProcess, baseUrl, getJsoupConnection());
   }
 }

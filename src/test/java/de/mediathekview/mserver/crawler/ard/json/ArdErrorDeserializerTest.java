@@ -7,29 +7,29 @@ import org.junit.Test;
 import java.util.Optional;
 
 import static org.hamcrest.CoreMatchers.equalTo;
-import static org.junit.Assert.assertThat;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 public class ArdErrorDeserializerTest {
 
   @Test
   public void deserializeTestNoError() {
-    JsonElement jsonElement = JsonFileReader.readJson("/ard/ard_day_page1.json");
+    final JsonElement jsonElement = JsonFileReader.readJson("/ard/ard_day_page1.json");
 
-    ArdErrorDeserializer target = new ArdErrorDeserializer();
-    Optional<ArdErrorInfoDto> actual = target.deserialize(jsonElement, null, null);
+    final ArdErrorDeserializer target = new ArdErrorDeserializer();
+    final Optional<ArdErrorInfoDto> actual = target.deserialize(jsonElement, null, null);
 
     assertThat(actual.isPresent(), equalTo(false));
   }
 
   @Test
   public void deserializeTestQueryNotFoundError() {
-    JsonElement jsonElement = JsonFileReader.readJson("/ard/ard_error_page_query_not_found.json");
+    final JsonElement jsonElement = JsonFileReader.readJson("/ard/ard_error_page_query_not_found.json");
 
-      ArdErrorInfoDto expected =
-              new ArdErrorInfoDto("PERSISTED_QUERY_NOT_FOUND", "PersistedQueryNotFound");
+    final ArdErrorInfoDto expected =
+        new ArdErrorInfoDto("PERSISTED_QUERY_NOT_FOUND", "PersistedQueryNotFound");
 
-    ArdErrorDeserializer target = new ArdErrorDeserializer();
-    Optional<ArdErrorInfoDto> actual = target.deserialize(jsonElement, null, null);
+    final ArdErrorDeserializer target = new ArdErrorDeserializer();
+    final Optional<ArdErrorInfoDto> actual = target.deserialize(jsonElement, null, null);
 
     assertThat(actual.isPresent(), equalTo(true));
     assertThat(actual.get(), equalTo(expected));
@@ -37,15 +37,15 @@ public class ArdErrorDeserializerTest {
 
   @Test
   public void deserializeTestInternalServerError() {
-      JsonElement jsonElement =
-              JsonFileReader.readJson("/ard/ard_error_page_internal_server_error.json");
+    final JsonElement jsonElement =
+        JsonFileReader.readJson("/ard/ard_error_page_internal_server_error.json");
 
-      ArdErrorInfoDto expected =
-              new ArdErrorInfoDto(
-                      "INTERNAL_SERVER_ERROR", "Cannot return null for non-nullable field Show.image.");
+    final ArdErrorInfoDto expected =
+        new ArdErrorInfoDto(
+            "INTERNAL_SERVER_ERROR", "Cannot return null for non-nullable field Show.image.");
 
-    ArdErrorDeserializer target = new ArdErrorDeserializer();
-    Optional<ArdErrorInfoDto> actual = target.deserialize(jsonElement, null, null);
+    final ArdErrorDeserializer target = new ArdErrorDeserializer();
+    final Optional<ArdErrorInfoDto> actual = target.deserialize(jsonElement, null, null);
 
     assertThat(actual.isPresent(), equalTo(true));
     assertThat(actual.get(), equalTo(expected));

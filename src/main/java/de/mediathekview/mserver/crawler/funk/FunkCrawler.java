@@ -50,19 +50,18 @@ public class FunkCrawler extends AbstractCrawler {
           featureFunkChannels.get().stream()
               .collect(Collectors.toMap(FunkChannelDTO::getChannelId, Function.identity()));
 
-      final ConcurrentLinkedQueue<CrawlerUrlDTO> funkVideosByChannelUrls =
+      final Queue<CrawlerUrlDTO> funkVideosByChannelUrls =
           convertChannelsToVideosByChannelUrls(new HashSet<>(channels.values()));
 
       final ForkJoinTask<Set<FilmInfoDto>> featureChannelVideos =
           createChannelVideos(funkVideosByChannelUrls);
 
-      final ConcurrentLinkedQueue<FilmInfoDto> filmInfos =
-          new ConcurrentLinkedQueue<>(featureLatestVideos.get());
+      final Queue<FilmInfoDto> filmInfos = new ConcurrentLinkedQueue<>(featureLatestVideos.get());
       filmInfos.addAll(featureChannelVideos.get());
 
       final Long sessionId = forkJoinPool.submit(new NexxCloudSessionInitiationTask(this)).get();
       if (sessionId != null) {
-        return new FunkVideosToFilmsTask(this, sessionId, filmInfos, channels, Optional.empty());
+        return new FunkVideosToFilmsTask(this, sessionId, filmInfos, channels, null);
       }
     } catch (final InterruptedException interruptedException) {
       printErrorMessage();
@@ -78,7 +77,7 @@ public class FunkCrawler extends AbstractCrawler {
   }
 
   private ForkJoinTask<Set<FilmInfoDto>> createChannelVideos(
-      final ConcurrentLinkedQueue<CrawlerUrlDTO> funkVideosByChannelUrls) {
+      final Queue<CrawlerUrlDTO> funkVideosByChannelUrls) {
     return forkJoinPool.submit(
         new FunkRestTask<>(
             this,
@@ -105,14 +104,10 @@ public class FunkCrawler extends AbstractCrawler {
   }
 
   @NotNull
-  private ConcurrentLinkedQueue<CrawlerUrlDTO> convertChannelsToVideosByChannelUrls(
+  private Queue<CrawlerUrlDTO> convertChannelsToVideosByChannelUrls(
       final Set<FunkChannelDTO> funkChannels) {
-    return funkChannels
-        .parallelStream()
-        .map(
-            channel ->
-                FunkApiUrls.VIDEOS_BY_CHANNEL.getAsCrawlerUrl(
-                    this, Optional.of(channel.getChannelId())))
+    return funkChannels.parallelStream()
+        .map(channel -> FunkApiUrls.VIDEOS_BY_CHANNEL.getAsCrawlerUrl(this, channel.getChannelId()))
         .collect(Collectors.toCollection(ConcurrentLinkedQueue::new));
   }
 }

@@ -5,7 +5,6 @@ package de.mediathekview.mserver.crawler.arte;
  *
  * @author Nicklas Wiegandt (Nicklas2751)<br>
  *     <b>Mail:</b> nicklas@wiegandt.eu<br>
- *     <b>Jabber:</b> nicklas2751@elaon.de<br>
  *     <b>Riot.im:</b> nicklas2751:matrix.elaon.de<br>
  */
 public enum ArteLanguage {

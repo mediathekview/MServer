@@ -14,6 +14,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.Collection;
+import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ForkJoinPool;
@@ -67,15 +68,15 @@ public class DreiSatCrawler extends AbstractZdfCrawler {
 
   @Override
   protected Collection<CrawlerUrlDTO> getExtraDaysEntries()
-    throws ExecutionException, InterruptedException {
+      throws ExecutionException, InterruptedException {
 
     final DreisatDayPageHtmlTask dayTask =
-      new DreisatDayPageHtmlTask(getApiUrlBase(), this, getExtraDayUrls(), new JsoupConnection());
+        new DreisatDayPageHtmlTask(getApiUrlBase(), this, getExtraDayUrls(), new JsoupConnection());
     return forkJoinPool.submit(dayTask).get();
   }
 
-  private ConcurrentLinkedQueue<CrawlerUrlDTO> getExtraDayUrls() {
-    final ConcurrentLinkedQueue<CrawlerUrlDTO> urls = new ConcurrentLinkedQueue<>();
+  private Queue<CrawlerUrlDTO> getExtraDayUrls() {
+    final Queue<CrawlerUrlDTO> urls = new ConcurrentLinkedQueue<>();
     for (int i = 0; i <= getMaximumDaysPast(); i++) {
 
       final LocalDateTime local = LocalDateTime.now().minus(i, ChronoUnit.DAYS);
@@ -88,13 +89,12 @@ public class DreiSatCrawler extends AbstractZdfCrawler {
   }
 
   private int getMaximumDaysPast() {
-    Integer maximumDaysForSendungVerpasstSection =
-      crawlerConfig.getMaximumDaysForSendungVerpasstSection();
+    final Integer maximumDaysForSendungVerpasstSection =
+        crawlerConfig.getMaximumDaysForSendungVerpasstSection();
     if (maximumDaysForSendungVerpasstSection == null
-      || maximumDaysForSendungVerpasstSection > MAXIMUM_DAYS_HTML_PAST) {
+        || maximumDaysForSendungVerpasstSection > MAXIMUM_DAYS_HTML_PAST) {
       return MAXIMUM_DAYS_HTML_PAST;
     }
     return maximumDaysForSendungVerpasstSection;
   }
-
 }

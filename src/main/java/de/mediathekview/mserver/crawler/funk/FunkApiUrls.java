@@ -5,8 +5,9 @@ import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
 import de.mediathekview.mserver.crawler.basic.CrawlerUrlDTO;
 import org.jetbrains.annotations.NotNull;
 
+import javax.annotation.Nullable;
 import java.util.Optional;
-import java.util.concurrent.ConcurrentLinkedQueue;
+import java.util.Queue;
 
 public enum FunkApiUrls {
   /** The channels overview url. No channel id needed. */
@@ -23,24 +24,24 @@ public enum FunkApiUrls {
   }
 
   public CrawlerUrlDTO getAsCrawlerUrl(
-      final AbstractCrawler crawler, final Optional<String> channelId) {
+      final AbstractCrawler crawler, final @Nullable String channelId) {
     return buildUrl(crawler, channelId).asCrawlerUrl();
   }
 
   @NotNull
-  private ApiUrlBuilder buildUrl(final AbstractCrawler crawler, final Optional<String> channelId) {
+  private ApiUrlBuilder buildUrl(final AbstractCrawler crawler, final @Nullable String channelId) {
     final ApiUrlBuilder apiUrlBuilder = new ApiUrlBuilder(CrawlerUrlType.FUNK_API_URL, urlTemplate);
-    channelId.ifPresent(apiUrlBuilder::withParameter);
+    Optional.ofNullable(channelId).ifPresent(apiUrlBuilder::withParameter);
     apiUrlBuilder.withParameter(String.valueOf(crawler.getCrawlerConfig().getMaximumUrlsPerTask()));
     return apiUrlBuilder;
   }
 
-  public ConcurrentLinkedQueue<CrawlerUrlDTO> getAsQueue(final AbstractCrawler crawler) {
-    return getAsQueue(crawler, Optional.empty());
+  public Queue<CrawlerUrlDTO> getAsQueue(final AbstractCrawler crawler) {
+    return getAsQueue(crawler, null);
   }
 
-  public ConcurrentLinkedQueue<CrawlerUrlDTO> getAsQueue(
-      final AbstractCrawler crawler, final Optional<String> channelId) {
+  public Queue<CrawlerUrlDTO> getAsQueue(
+      final AbstractCrawler crawler, final @Nullable String channelId) {
     return buildUrl(crawler, channelId).asQueue();
   }
 }

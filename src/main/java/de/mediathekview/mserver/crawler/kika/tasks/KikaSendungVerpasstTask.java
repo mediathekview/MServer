@@ -12,6 +12,7 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 
 import java.util.Optional;
+import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
 public class KikaSendungVerpasstTask extends AbstractDocumentTask<CrawlerUrlDTO, CrawlerUrlDTO> {
@@ -24,7 +25,7 @@ public class KikaSendungVerpasstTask extends AbstractDocumentTask<CrawlerUrlDTO,
 
   public KikaSendungVerpasstTask(
       final AbstractCrawler aCrawler,
-      final ConcurrentLinkedQueue<CrawlerUrlDTO> aUrlToCrawlDTOs,
+      final Queue<CrawlerUrlDTO> aUrlToCrawlDTOs,
       final String aBaseUrl,
       final JsoupConnection jsoupConnection) {
     super(aCrawler, aUrlToCrawlDTOs, jsoupConnection);
@@ -33,7 +34,7 @@ public class KikaSendungVerpasstTask extends AbstractDocumentTask<CrawlerUrlDTO,
 
   @Override
   protected AbstractUrlTask<CrawlerUrlDTO, CrawlerUrlDTO> createNewOwnInstance(
-      final ConcurrentLinkedQueue<CrawlerUrlDTO> aURLsToCrawl) {
+      final Queue<CrawlerUrlDTO> aURLsToCrawl) {
     return new KikaSendungVerpasstTask(crawler, aURLsToCrawl, baseUrl, getJsoupConnection());
   }
 
@@ -41,7 +42,7 @@ public class KikaSendungVerpasstTask extends AbstractDocumentTask<CrawlerUrlDTO,
   protected void processDocument(final CrawlerUrlDTO aUrlDTO, final Document aDocument) {
     parseFilmUrls(aDocument);
 
-    final ConcurrentLinkedQueue<CrawlerUrlDTO> flexLoadUrls = parseFlexLoad(aDocument);
+    final Queue<CrawlerUrlDTO> flexLoadUrls = parseFlexLoad(aDocument);
     if (!flexLoadUrls.isEmpty()) {
       taskResults.addAll(createNewOwnInstance(flexLoadUrls).invoke());
     }
@@ -60,8 +61,8 @@ public class KikaSendungVerpasstTask extends AbstractDocumentTask<CrawlerUrlDTO,
     }
   }
 
-  private ConcurrentLinkedQueue<CrawlerUrlDTO> parseFlexLoad(final Document aDocument) {
-    final ConcurrentLinkedQueue<CrawlerUrlDTO> urls = new ConcurrentLinkedQueue<>();
+  private Queue<CrawlerUrlDTO> parseFlexLoad(final Document aDocument) {
+    final Queue<CrawlerUrlDTO> urls = new ConcurrentLinkedQueue<>();
 
     for (final Element flexLoadElement : aDocument.select(SELECTOR_FLEX_LOAD)) {
       final Optional<String> url =

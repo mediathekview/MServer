@@ -5,13 +5,15 @@ import de.mediathekview.mserver.base.webaccess.JsoupConnection;
 import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
 import de.mediathekview.mserver.crawler.basic.TopicUrlDTO;
 import de.mediathekview.mserver.crawler.orf.OrfConstants;
-import java.util.concurrent.Callable;
-import java.util.concurrent.ConcurrentLinkedQueue;
-import java.util.concurrent.TimeUnit;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
 
-public class OrfHistoryOverviewTask implements Callable<ConcurrentLinkedQueue<TopicUrlDTO>> {
+import java.util.Queue;
+import java.util.concurrent.Callable;
+import java.util.concurrent.ConcurrentLinkedQueue;
+import java.util.concurrent.TimeUnit;
+
+public class OrfHistoryOverviewTask implements Callable<Queue<TopicUrlDTO>> {
 
   private static final String TOPIC_URL_SELECTOR = "section.has-4-in-row article > a";
 
@@ -19,18 +21,22 @@ public class OrfHistoryOverviewTask implements Callable<ConcurrentLinkedQueue<To
 
   JsoupConnection jsoupConnection;
 
-  public OrfHistoryOverviewTask(final AbstractCrawler aCrawler, final JsoupConnection jsoupConnection) {
+  public OrfHistoryOverviewTask(
+      final AbstractCrawler aCrawler, final JsoupConnection jsoupConnection) {
     crawler = aCrawler;
     this.jsoupConnection = jsoupConnection;
   }
 
   @Override
-  public ConcurrentLinkedQueue<TopicUrlDTO> call() throws Exception {
-    final ConcurrentLinkedQueue<TopicUrlDTO> results = new ConcurrentLinkedQueue<>();
+  public Queue<TopicUrlDTO> call() throws Exception {
+    final Queue<TopicUrlDTO> results = new ConcurrentLinkedQueue<>();
 
     // URLs für Seiten parsen
-    final Document document = jsoupConnection.getDocumentTimeoutAfter(OrfConstants.URL_ARCHIVE,
-        (int) TimeUnit.SECONDS.toMillis(crawler.getCrawlerConfig().getSocketTimeoutInSeconds()));
+    final Document document =
+        jsoupConnection.getDocumentTimeoutAfter(
+            OrfConstants.URL_ARCHIVE,
+            (int)
+                TimeUnit.SECONDS.toMillis(crawler.getCrawlerConfig().getSocketTimeoutInSeconds()));
 
     final Elements topics = document.select(TOPIC_URL_SELECTOR);
     topics.forEach(

@@ -9,7 +9,7 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
-import java.util.concurrent.ConcurrentLinkedQueue;
+import java.util.Queue;
 
 public class WdrDayPageTask extends AbstractDocumentTask<TopicUrlDTO, CrawlerUrlDTO> {
 
@@ -19,8 +19,10 @@ public class WdrDayPageTask extends AbstractDocumentTask<TopicUrlDTO, CrawlerUrl
   private static final String TOPIC_SELECTOR = "h3.ressort > a";
 
   public WdrDayPageTask(
-      final AbstractCrawler aCrawler, final ConcurrentLinkedQueue<CrawlerUrlDTO> aUrlToCrawlDtos, final JsoupConnection jsoupConnection) {
-    super(aCrawler, aUrlToCrawlDtos, jsoupConnection);
+      final AbstractCrawler crawler,
+      final Queue<CrawlerUrlDTO> urlToCrawlDTOs,
+      final JsoupConnection jsoupConnection) {
+    super(crawler, urlToCrawlDTOs, jsoupConnection);
   }
 
   private static boolean isRelevantEntry(final String aUrl) {
@@ -69,7 +71,7 @@ public class WdrDayPageTask extends AbstractDocumentTask<TopicUrlDTO, CrawlerUrl
 
   @Override
   protected AbstractUrlTask<TopicUrlDTO, CrawlerUrlDTO> createNewOwnInstance(
-      final ConcurrentLinkedQueue<CrawlerUrlDTO> aUrlsToCrawl) {
+      final Queue<CrawlerUrlDTO> aUrlsToCrawl) {
     return new WdrDayPageTask(crawler, aUrlsToCrawl, getJsoupConnection());
   }
 }

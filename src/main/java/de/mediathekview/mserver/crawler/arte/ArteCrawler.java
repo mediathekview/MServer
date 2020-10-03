@@ -20,6 +20,7 @@ import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.Queue;
 import java.util.Set;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.ExecutionException;
@@ -45,8 +46,8 @@ public class ArteCrawler extends AbstractCrawler {
     return Sender.ARTE_DE;
   }
 
-  private ConcurrentLinkedQueue<CrawlerUrlDTO> generateSendungVerpasstUrls() {
-    final ConcurrentLinkedQueue<CrawlerUrlDTO> sendungVerpasstUrls = new ConcurrentLinkedQueue<>();
+  private Queue<CrawlerUrlDTO> generateSendungVerpasstUrls() {
+    final Queue<CrawlerUrlDTO> sendungVerpasstUrls = new ConcurrentLinkedQueue<>();
     for (int i = 0;
         i
             < crawlerConfig.getMaximumDaysForSendungVerpasstSection()
@@ -72,7 +73,7 @@ public class ArteCrawler extends AbstractCrawler {
     final ArteSubcategoriesTask subcategoriesTask =
         new ArteSubcategoriesTask(this, createTopicsOverviewUrl());
 
-    final ConcurrentLinkedQueue subcategoriesUrl = new ConcurrentLinkedQueue();
+    final Queue subcategoriesUrl = new ConcurrentLinkedQueue();
     subcategoriesUrl.addAll(forkJoinPool.submit(subcategoriesTask).get());
 
     final ArteSubcategoryVideosTask subcategoryVideosTask =
@@ -86,8 +87,8 @@ public class ArteCrawler extends AbstractCrawler {
     return filmInfos;
   }
 
-  private ConcurrentLinkedQueue<CrawlerUrlDTO> createTopicsOverviewUrl() {
-    final ConcurrentLinkedQueue<CrawlerUrlDTO> urls = new ConcurrentLinkedQueue<>();
+  private Queue<CrawlerUrlDTO> createTopicsOverviewUrl() {
+    final Queue<CrawlerUrlDTO> urls = new ConcurrentLinkedQueue<>();
 
     final String url =
         String.format(ArteConstants.URL_SUBCATEGORIES, getLanguage().toString().toLowerCase());

@@ -7,14 +7,16 @@ import de.mediathekview.mserver.base.webaccess.JsoupConnection;
 import de.mediathekview.mserver.crawler.basic.CrawlerUrlDTO;
 import de.mediathekview.mserver.crawler.zdf.tasks.ZdfDayPageHtmlTask;
 import de.mediathekview.mserver.progress.listeners.SenderProgressListener;
+import org.jetbrains.annotations.NotNull;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.Collection;
+import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ForkJoinPool;
-import org.jetbrains.annotations.NotNull;
 
 public class ZdfCrawler extends AbstractZdfCrawler {
 
@@ -57,8 +59,8 @@ public class ZdfCrawler extends AbstractZdfCrawler {
     return forkJoinPool.submit(dayTask).get();
   }
 
-  private ConcurrentLinkedQueue<CrawlerUrlDTO> getExtraDayUrls() {
-    final ConcurrentLinkedQueue<CrawlerUrlDTO> urls = new ConcurrentLinkedQueue<>();
+  private Queue<CrawlerUrlDTO> getExtraDayUrls() {
+    final Queue<CrawlerUrlDTO> urls = new ConcurrentLinkedQueue<>();
     for (int i = 0; i <= getMaximumDaysPast(); i++) {
 
       final LocalDateTime local = LocalDateTime.now().minus(i, ChronoUnit.DAYS);
@@ -71,7 +73,7 @@ public class ZdfCrawler extends AbstractZdfCrawler {
   }
 
   private int getMaximumDaysPast() {
-    Integer maximumDaysForSendungVerpasstSection =
+    final Integer maximumDaysForSendungVerpasstSection =
         crawlerConfig.getMaximumDaysForSendungVerpasstSection();
     if (maximumDaysForSendungVerpasstSection == null
         || maximumDaysForSendungVerpasstSection > MAXIMUM_DAYS_HTML_PAST) {

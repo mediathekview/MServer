@@ -11,7 +11,7 @@ import de.mediathekview.mserver.crawler.arte.ArteFilmUrlDto;
 import de.mediathekview.mserver.crawler.arte.json.ArteFilmDeserializer;
 import de.mediathekview.mserver.crawler.arte.json.ArteVideoDetailsDeserializer;
 import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
-import de.mediathekview.mserver.crawler.basic.AbstractRecrusivConverterTask;
+import de.mediathekview.mserver.crawler.basic.AbstractRecursiveConverterTask;
 import de.mediathekview.mserver.crawler.basic.CrawlerUrlDTO;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -22,8 +22,8 @@ import java.net.MalformedURLException;
 import java.time.LocalDateTime;
 import java.util.Map;
 import java.util.Optional;
+import java.util.Queue;
 import java.util.UUID;
-import java.util.concurrent.ConcurrentLinkedQueue;
 
 public class ArteFilmTask extends ArteTaskBase<Film, ArteFilmUrlDto> {
 
@@ -36,17 +36,18 @@ public class ArteFilmTask extends ArteTaskBase<Film, ArteFilmUrlDto> {
   private final LocalDateTime today;
 
   public ArteFilmTask(
-      final AbstractCrawler aCrawler,
-      final ConcurrentLinkedQueue<ArteFilmUrlDto> aUrlToCrawlDtos,
+      final AbstractCrawler crawler,
+      final Queue<ArteFilmUrlDto> urlToCrawlDTOs,
       final Sender sender,
       final LocalDateTime today) {
-    super(aCrawler, aUrlToCrawlDtos, Optional.of(ArteConstants.AUTH_TOKEN));
+    super(crawler, urlToCrawlDTOs, ArteConstants.AUTH_TOKEN);
     this.sender = sender;
     this.today = today;
 
     registerJsonDeserializer(OPTIONAL_FILM_TYPE_TOKEN, new ArteFilmDeserializer(sender, today));
     registerJsonDeserializer(
-        OPTIONAL_VIDEO_DETAILS_TYPE_TOKEN, new ArteVideoDetailsDeserializer(crawler.getSender()));
+        OPTIONAL_VIDEO_DETAILS_TYPE_TOKEN,
+        new ArteVideoDetailsDeserializer(this.crawler.getSender()));
   }
 
   @Override
@@ -55,11 +56,9 @@ public class ArteFilmTask extends ArteTaskBase<Film, ArteFilmUrlDto> {
       final Optional<Film> filmDtoOptional = deserializeOptional(aTarget, OPTIONAL_FILM_TYPE_TOKEN);
 
       if (filmDtoOptional.isPresent()) {
-
         final Optional<ArteVideoDetailDTO> videoDetailDTO =
             deserializeVideoDetail(aDTO.getVideoDetailsUrl());
         if (videoDetailDTO.isPresent()) {
-
           final ArteVideoDetailDTO arteVideoDetailDTO = videoDetailDTO.get();
           final Film film = filmDtoOptional.get();
 
@@ -69,17 +68,15 @@ public class ArteFilmTask extends ArteTaskBase<Film, ArteFilmUrlDto> {
           addSpecialFilm(film, arteVideoDetailDTO.getUrlsAudioDescription(), " (Audiodeskription)");
 
           crawler.incrementAndGetActualCount();
-          crawler.updateProgress();
         } else {
           LOG.error("no video: " + aDTO.getUrl());
           crawler.incrementAndGetErrorCount();
-          crawler.updateProgress();
         }
       } else {
         LOG.error("no film: " + aDTO.getUrl());
         crawler.incrementAndGetErrorCount();
-        crawler.updateProgress();
       }
+      crawler.updateProgress();
     } catch (final Exception e) {
       LOG.error("exception: " + aDTO.getUrl(), e);
     }
@@ -116,7 +113,7 @@ public class ArteFilmTask extends ArteTaskBase<Film, ArteFilmUrlDto> {
             qualitiesEntry.getKey(),
             new FilmUrl(url, new FileSizeDeterminer(url).getFileSizeInMiB()));
       } catch (final MalformedURLException ex) {
-        LOG.error("InvalidUrl: " + url, ex);
+        LOG.error("InvalidUrl: {}", url, ex);
       }
     }
   }
@@ -127,8 +124,8 @@ public class ArteFilmTask extends ArteTaskBase<Film, ArteFilmUrlDto> {
   }
 
   @Override
-  protected AbstractRecrusivConverterTask<Film, ArteFilmUrlDto> createNewOwnInstance(
-      final ConcurrentLinkedQueue<ArteFilmUrlDto> aElementsToProcess) {
+  protected AbstractRecursiveConverterTask<Film, ArteFilmUrlDto> createNewOwnInstance(
+      final Queue<ArteFilmUrlDto> aElementsToProcess) {
     return new ArteFilmTask(crawler, aElementsToProcess, sender, today);
   }
 }

@@ -3,20 +3,20 @@ package de.mediathekview.mserver.crawler.basic;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+import javax.annotation.Nullable;
 import javax.ws.rs.client.Invocation.Builder;
 import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.Response;
 import java.lang.reflect.Type;
 import java.net.URI;
 import java.util.Optional;
-import java.util.concurrent.ConcurrentLinkedQueue;
+import java.util.Queue;
 
 /**
  * A abstract REST api task which requests the given url with the Funk Api settings.
  *
  * @author Nicklas Wiegandt (Nicklas2751)<br>
  *     <b>Mail:</b> nicklas@wiegandt.eu<br>
- *     <b>Jabber:</b> nicklas2751@elaon.de<br>
  *     <b>Riot.im:</b> nicklas2751:matrix.elaon.de<br>
  */
 public abstract class AbstractJsonRestTask<T, R, D extends CrawlerUrlDTO>
@@ -24,13 +24,13 @@ public abstract class AbstractJsonRestTask<T, R, D extends CrawlerUrlDTO>
   protected static final String ENCODING_GZIP = "gzip";
   protected static final String HEADER_ACCEPT_ENCODING = "Accept-Encoding";
   private static final long serialVersionUID = -1090560363478964885L;
-  protected final GsonBuilder gsonBuilder;
+  protected final transient GsonBuilder gsonBuilder;
 
   public AbstractJsonRestTask(
-      final AbstractCrawler aCrawler,
-      final ConcurrentLinkedQueue<D> aUrlToCrawlDTOs,
-      final Optional<String> aAuthKey) {
-    super(aCrawler, aUrlToCrawlDTOs, aAuthKey);
+      final AbstractCrawler crawler,
+      final Queue<D> urlToCrawlDTOs,
+      @Nullable final String authKey) {
+    super(crawler, urlToCrawlDTOs, authKey);
     gsonBuilder = new GsonBuilder();
   }
 
@@ -47,6 +47,7 @@ public abstract class AbstractJsonRestTask<T, R, D extends CrawlerUrlDTO>
     gsonBuilder.registerTypeAdapter(getType(), getParser(aDTO));
     final Gson gson = gsonBuilder.create();
     Builder request = aTarget.request();
+    final Optional<String> authKey = getAuthKey();
     if (authKey.isPresent()) {
       request = request.header(HEADER_AUTHORIZATION, authKey.get());
     }

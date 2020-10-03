@@ -10,24 +10,26 @@ import de.mediathekview.mserver.crawler.basic.CrawlerUrlDTO;
 import de.mediathekview.mserver.crawler.phoenix.tasks.PhoenixFilmDetailTask;
 import de.mediathekview.mserver.crawler.phoenix.tasks.PhoenixOverviewTask;
 import de.mediathekview.mserver.progress.listeners.SenderProgressListener;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import java.util.Collection;
-import java.util.Optional;
+import java.util.Queue;
 import java.util.Set;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ForkJoinPool;
 import java.util.concurrent.RecursiveTask;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 public class PhoenixCrawler extends AbstractCrawler {
 
   private static final Logger LOG = LogManager.getLogger(PhoenixCrawler.class);
 
-  public PhoenixCrawler(ForkJoinPool aForkJoinPool,
-      Collection<MessageListener> aMessageListeners,
-      Collection<SenderProgressListener> aProgressListeners,
-      MServerConfigManager rootConfig) {
+  public PhoenixCrawler(
+      final ForkJoinPool aForkJoinPool,
+      final Collection<MessageListener> aMessageListeners,
+      final Collection<SenderProgressListener> aProgressListeners,
+      final MServerConfigManager rootConfig) {
     super(aForkJoinPool, aMessageListeners, aProgressListeners, rootConfig);
   }
 
@@ -38,18 +40,20 @@ public class PhoenixCrawler extends AbstractCrawler {
 
   @Override
   protected RecursiveTask<Set<Film>> createCrawlerTask() {
-    final ConcurrentLinkedQueue<CrawlerUrlDTO> shows = new ConcurrentLinkedQueue<>();
 
     try {
-      shows.addAll(getShows());
-
-      printMessage(ServerMessages.DEBUG_ALL_SENDUNG_FOLGEN_COUNT, getSender().getName(),
-          shows.size());
+      final Queue<CrawlerUrlDTO> shows = new ConcurrentLinkedQueue<>(getShows());
+      printMessage(
+          ServerMessages.DEBUG_ALL_SENDUNG_FOLGEN_COUNT, getSender().getName(), shows.size());
       getAndSetMaxCount(shows.size());
 
-      return new PhoenixFilmDetailTask(this, shows, Optional.empty(), PhoenixConstants.URL_BASE, PhoenixConstants.URL_VIDEO_DETAILS_HOST);
-    } catch (ExecutionException | InterruptedException ex) {
-      LOG.fatal("Exception in Phönix crawler.", ex);
+      return new PhoenixFilmDetailTask(
+          this, shows, null, PhoenixConstants.URL_BASE, PhoenixConstants.URL_VIDEO_DETAILS_HOST);
+    } catch (final ExecutionException executionException) {
+      LOG.fatal("Exception in Phönix crawler.", executionException);
+    } catch (final InterruptedException interruptedException) {
+      LOG.fatal("Exception in Phönix crawler.", interruptedException);
+      Thread.currentThread().interrupt();
     }
 
     return null;
@@ -57,22 +61,23 @@ public class PhoenixCrawler extends AbstractCrawler {
 
   private Collection<CrawlerUrlDTO> getShows() throws ExecutionException, InterruptedException {
     // load sendungen page
-    CrawlerUrlDTO url = new CrawlerUrlDTO(PhoenixConstants.URL_BASE + PhoenixConstants.URL_OVERVIEW_JSON);
+    final CrawlerUrlDTO url =
+        new CrawlerUrlDTO(PhoenixConstants.URL_BASE + PhoenixConstants.URL_OVERVIEW_JSON);
 
-    final ConcurrentLinkedQueue<CrawlerUrlDTO> queue = new ConcurrentLinkedQueue<>();
+    final Queue<CrawlerUrlDTO> queue = new ConcurrentLinkedQueue<>();
     queue.add(url);
 
     final Set<CrawlerUrlDTO> overviewUrls = loadOverviewPages(queue);
 
     // load sendung overview pages
-    final ConcurrentLinkedQueue<CrawlerUrlDTO> queue1 = new ConcurrentLinkedQueue<>();
-    queue1.addAll(overviewUrls);
+    final Queue<CrawlerUrlDTO> queue1 = new ConcurrentLinkedQueue<>(overviewUrls);
     return loadOverviewPages(queue1);
   }
 
-  private Set<CrawlerUrlDTO> loadOverviewPages(final ConcurrentLinkedQueue<CrawlerUrlDTO> aQueue)
+  private Set<CrawlerUrlDTO> loadOverviewPages(final Queue<CrawlerUrlDTO> aQueue)
       throws ExecutionException, InterruptedException {
-    PhoenixOverviewTask overviewTask = new PhoenixOverviewTask(this, aQueue, Optional.empty(), PhoenixConstants.URL_BASE);
+    final PhoenixOverviewTask overviewTask =
+        new PhoenixOverviewTask(this, aQueue, null, PhoenixConstants.URL_BASE);
     return forkJoinPool.submit(overviewTask).get();
   }
 }

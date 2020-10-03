@@ -1,18 +1,9 @@
 package de.mediathekview.mserver.crawler.orf.tasks;
 
-import static org.hamcrest.CoreMatchers.equalTo;
-import static org.hamcrest.CoreMatchers.notNullValue;
-import static org.junit.Assert.assertThat;
-import static org.mockito.ArgumentMatchers.eq;
-import static org.mockito.Mockito.when;
-
 import de.mediathekview.mserver.base.webaccess.JsoupConnection;
 import de.mediathekview.mserver.crawler.basic.CrawlerUrlDTO;
 import de.mediathekview.mserver.crawler.basic.TopicUrlDTO;
 import de.mediathekview.mserver.testhelper.JsoupMock;
-import java.io.IOException;
-import java.util.Set;
-import java.util.concurrent.ConcurrentLinkedQueue;
 import org.hamcrest.Matchers;
 import org.jsoup.Connection;
 import org.junit.Before;
@@ -20,23 +11,33 @@ import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
+import java.io.IOException;
+import java.util.Queue;
+import java.util.Set;
+import java.util.concurrent.ConcurrentLinkedQueue;
+
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.CoreMatchers.notNullValue;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.Mockito.when;
+
 public class OrfDayTaskTest extends OrfTaskTestBase {
 
-  @Mock
-  JsoupConnection jsoupConnection;
+  @Mock JsoupConnection jsoupConnection;
 
   @Before
   public void setUp() {
-    MockitoAnnotations.initMocks(this);
+    MockitoAnnotations.openMocks(this);
   }
 
   @Test
   public void test() throws IOException {
     final String requestUrl = "http://tvthek.orf.at/schedule/03.02.2018";
-    Connection connection = JsoupMock.mock(requestUrl, "/orf/orf_day.html");
+    final Connection connection = JsoupMock.mock(requestUrl, "/orf/orf_day.html");
     when(jsoupConnection.getConnection(eq(requestUrl))).thenReturn(connection);
 
-    TopicUrlDTO[] expected =
+    final TopicUrlDTO[] expected =
         new TopicUrlDTO[] {
           new TopicUrlDTO(
               "Wetter-Panorama",
@@ -59,30 +60,25 @@ public class OrfDayTaskTest extends OrfTaskTestBase {
               "Vorarlberg heute",
               "https://tvthek.orf.at/profile/Vorarlberg-heute/70024/Vorarlberg-heute/14007821"),
           new TopicUrlDTO(
-              "Wien heute",
-              "https://tvthek.orf.at/profile/Wien-heute/70018/Wien-heute/14007816"),
+              "Wien heute", "https://tvthek.orf.at/profile/Wien-heute/70018/Wien-heute/14007816"),
           new TopicUrlDTO(
-              "Fußball",
-              "https://tvthek.orf.at/profile/Fussball/8205855/Fussball/14007727"),
+              "Fußball", "https://tvthek.orf.at/profile/Fussball/8205855/Fussball/14007727"),
           new TopicUrlDTO(
               "AD | Fußball",
               "https://tvthek.orf.at/profile/AD-Fussball/13886317/AD-Fussball/14007846"),
+          new TopicUrlDTO("ZIB 1", "https://tvthek.orf.at/profile/ZIB-1/1203/ZIB-1/14007730"),
           new TopicUrlDTO(
-              "ZIB 1",
-              "https://tvthek.orf.at/profile/ZIB-1/1203/ZIB-1/14007730"),
-          new TopicUrlDTO(
-              "ZIB 1 (ÖGS)",
-              "https://tvthek.orf.at/profile/ZIB-1-OeGS/145302/ZIB-1-OeGS/14007848"),
+              "ZIB 1 (ÖGS)", "https://tvthek.orf.at/profile/ZIB-1-OeGS/145302/ZIB-1-OeGS/14007848"),
           new TopicUrlDTO(
               "Embrace - Du bist schön",
               "https://tvthek.orf.at/profile/Embrace-Du-bist-schoen/13890275/Embrace-Du-bist-schoen/14007745")
         };
 
-    ConcurrentLinkedQueue<CrawlerUrlDTO> queue = new ConcurrentLinkedQueue<>();
+    final Queue<CrawlerUrlDTO> queue = new ConcurrentLinkedQueue<>();
     queue.add(new CrawlerUrlDTO(requestUrl));
 
-    OrfDayTask target = new OrfDayTask(createCrawler(), queue, jsoupConnection);
-    Set<TopicUrlDTO> actual = target.invoke();
+    final OrfDayTask target = new OrfDayTask(createCrawler(), queue, jsoupConnection);
+    final Set<TopicUrlDTO> actual = target.invoke();
 
     assertThat(actual, notNullValue());
     assertThat(actual.size(), equalTo(expected.length));

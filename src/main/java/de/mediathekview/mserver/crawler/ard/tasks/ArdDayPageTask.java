@@ -4,21 +4,21 @@ import com.google.gson.reflect.TypeToken;
 import de.mediathekview.mserver.crawler.ard.ArdFilmInfoDto;
 import de.mediathekview.mserver.crawler.ard.json.ArdDayPageDeserializer;
 import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
-import de.mediathekview.mserver.crawler.basic.AbstractRecrusivConverterTask;
+import de.mediathekview.mserver.crawler.basic.AbstractRecursiveConverterTask;
 import de.mediathekview.mserver.crawler.basic.CrawlerUrlDTO;
 
 import javax.ws.rs.client.WebTarget;
 import java.lang.reflect.Type;
+import java.util.Queue;
 import java.util.Set;
-import java.util.concurrent.ConcurrentLinkedQueue;
 
 public class ArdDayPageTask extends ArdTaskBase<ArdFilmInfoDto, CrawlerUrlDTO> {
 
   private static final Type SET_FILMINFO_TYPE_TOKEN =
       new TypeToken<Set<ArdFilmInfoDto>>() {}.getType();
 
-  public ArdDayPageTask(final AbstractCrawler aCrawler, final ConcurrentLinkedQueue aUrlToCrawlDTOs) {
-    super(aCrawler, aUrlToCrawlDTOs);
+  public ArdDayPageTask(final AbstractCrawler aCrawler, final Queue<CrawlerUrlDTO> urlToCrawlDTOs) {
+    super(aCrawler, urlToCrawlDTOs);
 
     registerJsonDeserializer(SET_FILMINFO_TYPE_TOKEN, new ArdDayPageDeserializer());
   }
@@ -33,8 +33,8 @@ public class ArdDayPageTask extends ArdTaskBase<ArdFilmInfoDto, CrawlerUrlDTO> {
   }
 
   @Override
-  protected AbstractRecrusivConverterTask createNewOwnInstance(
-          final ConcurrentLinkedQueue aElementsToProcess) {
+  protected AbstractRecursiveConverterTask<ArdFilmInfoDto, CrawlerUrlDTO> createNewOwnInstance(
+      final Queue<CrawlerUrlDTO> aElementsToProcess) {
     return new ArdDayPageTask(crawler, aElementsToProcess);
   }
 }

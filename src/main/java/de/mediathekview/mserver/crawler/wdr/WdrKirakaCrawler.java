@@ -3,11 +3,12 @@ package de.mediathekview.mserver.crawler.wdr;
 import de.mediathekview.mlib.daten.Sender;
 import de.mediathekview.mlib.messages.listener.MessageListener;
 import de.mediathekview.mserver.base.config.MServerConfigManager;
-import de.mediathekview.mserver.base.webaccess.JsoupConnection;
 import de.mediathekview.mserver.crawler.basic.CrawlerUrlDTO;
 import de.mediathekview.mserver.crawler.wdr.tasks.WdrRadioPageTask;
 import de.mediathekview.mserver.progress.listeners.SenderProgressListener;
+
 import java.util.Collection;
+import java.util.Queue;
 import java.util.Set;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.ExecutionException;
@@ -16,11 +17,11 @@ import java.util.concurrent.ForkJoinPool;
 public class WdrKirakaCrawler extends WdrRadioCrawlerBase {
 
   public WdrKirakaCrawler(
-      ForkJoinPool aForkJoinPool,
-      Collection<MessageListener> aMessageListeners,
-      Collection<SenderProgressListener> aProgressListeners,
-      MServerConfigManager rootConfig) {
-    super(aForkJoinPool, aMessageListeners, aProgressListeners, rootConfig);
+      final ForkJoinPool forkJoinPool,
+      final Collection<MessageListener> messageListeners,
+      final Collection<SenderProgressListener> progressListeners,
+      final MServerConfigManager rootConfig) {
+    super(forkJoinPool, messageListeners, progressListeners, rootConfig);
   }
 
   @Override
@@ -31,10 +32,10 @@ public class WdrKirakaCrawler extends WdrRadioCrawlerBase {
   @Override
   protected Set<WdrTopicUrlDto> getTopicOverviewPages()
       throws InterruptedException, ExecutionException {
-    ConcurrentLinkedQueue<CrawlerUrlDTO> urlToCrawl = new ConcurrentLinkedQueue<>();
+    final Queue<CrawlerUrlDTO> urlToCrawl = new ConcurrentLinkedQueue<>();
     urlToCrawl.add(new CrawlerUrlDTO(WdrConstants.URL_RADIO_KIRAKA));
 
-    WdrRadioPageTask radioPageTask = new WdrRadioPageTask(this, urlToCrawl, jsoupConnection);
+    final WdrRadioPageTask radioPageTask = new WdrRadioPageTask(this, urlToCrawl, jsoupConnection);
     return forkJoinPool.submit(radioPageTask).get();
   }
 }

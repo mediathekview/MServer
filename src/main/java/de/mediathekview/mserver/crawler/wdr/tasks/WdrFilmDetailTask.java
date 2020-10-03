@@ -9,25 +9,30 @@ import de.mediathekview.mserver.crawler.basic.AbstractUrlTask;
 import de.mediathekview.mserver.crawler.basic.TopicUrlDTO;
 import de.mediathekview.mserver.crawler.wdr.parser.WdrFilmDeserializer;
 import de.mediathekview.mserver.crawler.wdr.parser.WdrFilmPartDeserializer;
+import org.jsoup.nodes.Document;
+
 import java.util.Optional;
+import java.util.Queue;
 import java.util.Set;
 import java.util.concurrent.ConcurrentLinkedQueue;
-import org.jsoup.nodes.Document;
 
 public class WdrFilmDetailTask extends AbstractDocumentTask<Film, TopicUrlDTO> {
 
-  public WdrFilmDetailTask(AbstractCrawler aCrawler, ConcurrentLinkedQueue<TopicUrlDTO> aUrlToCrawlDtos, final
-      JsoupConnection jsoupConnection) {
+  public WdrFilmDetailTask(
+      final AbstractCrawler aCrawler,
+      final Queue<TopicUrlDTO> aUrlToCrawlDtos,
+      final JsoupConnection jsoupConnection) {
     super(aCrawler, aUrlToCrawlDtos, jsoupConnection);
   }
 
   @Override
-  protected void processDocument(TopicUrlDTO aUrlDto, Document aDocument) {
-    WdrFilmDeserializer deserializer = new WdrFilmDeserializer(getProtocol(aUrlDto), crawler.getSender());
-    WdrFilmPartDeserializer partDeserializer = new WdrFilmPartDeserializer();
+  protected void processDocument(final TopicUrlDTO aUrlDto, final Document aDocument) {
+    final WdrFilmDeserializer deserializer =
+        new WdrFilmDeserializer(getProtocol(aUrlDto), crawler.getSender());
+    final WdrFilmPartDeserializer partDeserializer = new WdrFilmPartDeserializer();
     processParts(partDeserializer.deserialize(aUrlDto.getTopic(), aDocument));
 
-    Optional<Film> film = deserializer.deserialize(aUrlDto, aDocument);
+    final Optional<Film> film = deserializer.deserialize(aUrlDto, aDocument);
     if (film.isPresent()) {
       taskResults.add(film.get());
       crawler.incrementAndGetActualCount();
@@ -39,14 +44,15 @@ public class WdrFilmDetailTask extends AbstractDocumentTask<Film, TopicUrlDTO> {
   }
 
   @Override
-  protected AbstractUrlTask<Film, TopicUrlDTO> createNewOwnInstance(ConcurrentLinkedQueue<TopicUrlDTO> aUrlsToCrawl) {
+  protected AbstractUrlTask<Film, TopicUrlDTO> createNewOwnInstance(
+      final Queue<TopicUrlDTO> aUrlsToCrawl) {
     return new WdrFilmDetailTask(crawler, aUrlsToCrawl, getJsoupConnection());
   }
 
-  private String getProtocol(TopicUrlDTO aUrlDto) {
+  private String getProtocol(final TopicUrlDTO aUrlDto) {
     String protocol = "https:";
 
-    Optional<String> usedProtocol = UrlUtils.getProtocol(aUrlDto.getUrl());
+    final Optional<String> usedProtocol = UrlUtils.getProtocol(aUrlDto.getUrl());
     if (usedProtocol.isPresent()) {
       protocol = usedProtocol.get();
     }
@@ -59,7 +65,7 @@ public class WdrFilmDetailTask extends AbstractDocumentTask<Film, TopicUrlDTO> {
       return;
     }
 
-    final ConcurrentLinkedQueue<TopicUrlDTO> queue = new ConcurrentLinkedQueue<>(aParts);
+    final Queue<TopicUrlDTO> queue = new ConcurrentLinkedQueue<>(aParts);
     taskResults.addAll(createNewOwnInstance(queue).invoke());
   }
 }

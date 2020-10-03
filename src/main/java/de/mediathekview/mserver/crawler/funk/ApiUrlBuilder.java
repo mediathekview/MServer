@@ -5,10 +5,7 @@ import de.mediathekview.mserver.base.config.MServerConfigManager;
 import de.mediathekview.mserver.crawler.basic.CrawlerUrlDTO;
 
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
 public class ApiUrlBuilder {
@@ -45,7 +42,7 @@ public class ApiUrlBuilder {
     return new CrawlerUrlDTO(asString());
   }
 
-  public ConcurrentLinkedQueue<CrawlerUrlDTO> asQueue() {
+  public Queue<CrawlerUrlDTO> asQueue() {
     return new ConcurrentLinkedQueue<>(Collections.singletonList(asCrawlerUrl()));
   }
 }

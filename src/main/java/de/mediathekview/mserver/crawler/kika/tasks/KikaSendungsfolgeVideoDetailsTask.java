@@ -1,10 +1,6 @@
 package de.mediathekview.mserver.crawler.kika.tasks;
 
-import de.mediathekview.mlib.daten.Film;
-import de.mediathekview.mlib.daten.FilmUrl;
-import de.mediathekview.mlib.daten.GeoLocations;
-import de.mediathekview.mlib.daten.Resolution;
-import de.mediathekview.mlib.daten.Sender;
+import de.mediathekview.mlib.daten.*;
 import de.mediathekview.mserver.base.utils.DateUtils;
 import de.mediathekview.mserver.base.utils.HtmlDocumentUtils;
 import de.mediathekview.mserver.base.webaccess.JsoupConnection;
@@ -12,6 +8,13 @@ import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
 import de.mediathekview.mserver.crawler.basic.AbstractUrlTask;
 import de.mediathekview.mserver.crawler.basic.CrawlerUrlDTO;
 import de.mediathekview.mserver.crawler.basic.FilmUrlInfoDto;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.parser.Parser;
+import org.jsoup.select.Elements;
+
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -19,21 +22,8 @@ import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Comparator;
-import java.util.Optional;
-import java.util.Set;
-import java.util.TreeSet;
-import java.util.UUID;
-import java.util.concurrent.ConcurrentLinkedQueue;
+import java.util.*;
 import java.util.concurrent.TimeUnit;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
-import org.jsoup.parser.Parser;
-import org.jsoup.select.Elements;
 
 public class KikaSendungsfolgeVideoDetailsTask extends AbstractUrlTask<Film, CrawlerUrlDTO> {
 
@@ -53,9 +43,9 @@ public class KikaSendungsfolgeVideoDetailsTask extends AbstractUrlTask<Film, Cra
   JsoupConnection jsoupConnection;
 
   public KikaSendungsfolgeVideoDetailsTask(
-      final AbstractCrawler aCrawler, final ConcurrentLinkedQueue<CrawlerUrlDTO> aUrlToCrawlDTOs) {
+      final AbstractCrawler aCrawler, final Queue<CrawlerUrlDTO> aUrlToCrawlDTOs) {
     super(aCrawler, aUrlToCrawlDTOs);
-    this.jsoupConnection = new JsoupConnection();
+    jsoupConnection = new JsoupConnection();
   }
 
   private void addFilmUrls(
@@ -146,15 +136,16 @@ public class KikaSendungsfolgeVideoDetailsTask extends AbstractUrlTask<Film, Cra
 
   @Override
   protected AbstractUrlTask<Film, CrawlerUrlDTO> createNewOwnInstance(
-      final ConcurrentLinkedQueue<CrawlerUrlDTO> aURLsToCrawl) {
+      final Queue<CrawlerUrlDTO> aURLsToCrawl) {
     return new KikaSendungsfolgeVideoDetailsTask(crawler, aURLsToCrawl);
   }
 
   @Override
   protected void processElement(final CrawlerUrlDTO urlDTO) {
     try {
-      final Document document = jsoupConnection
-          .getDocumentTimeoutAfterAlternativeDocumentType(urlDTO.getUrl(),
+      final Document document =
+          jsoupConnection.getDocumentTimeoutAfterAlternativeDocumentType(
+              urlDTO.getUrl(),
               (int) TimeUnit.SECONDS.toMillis(config.getSocketTimeoutInSeconds()),
               Parser.xmlParser());
       final Elements titleNodes = document.getElementsByTag(ELEMENT_TITLE);
@@ -249,7 +240,7 @@ public class KikaSendungsfolgeVideoDetailsTask extends AbstractUrlTask<Film, Cra
     return jsoupConnection;
   }
 
-  public void setJsoupConnection(JsoupConnection jsoupConnection) {
+  public void setJsoupConnection(final JsoupConnection jsoupConnection) {
     this.jsoupConnection = jsoupConnection;
   }
 }

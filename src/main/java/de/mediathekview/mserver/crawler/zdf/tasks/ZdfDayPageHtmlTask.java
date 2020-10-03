@@ -3,11 +3,12 @@ package de.mediathekview.mserver.crawler.zdf.tasks;
 import de.mediathekview.mserver.base.webaccess.JsoupConnection;
 import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
 import de.mediathekview.mserver.crawler.basic.AbstractDocumentTask;
-import de.mediathekview.mserver.crawler.basic.AbstractRecrusivConverterTask;
+import de.mediathekview.mserver.crawler.basic.AbstractRecursiveConverterTask;
 import de.mediathekview.mserver.crawler.basic.CrawlerUrlDTO;
 import de.mediathekview.mserver.crawler.zdf.parser.ZdfDayPageHtmlDeserializer;
-import java.util.concurrent.ConcurrentLinkedQueue;
 import org.jsoup.nodes.Document;
+
+import java.util.Queue;
 
 public class ZdfDayPageHtmlTask extends AbstractDocumentTask<CrawlerUrlDTO, CrawlerUrlDTO> {
 
@@ -17,7 +18,7 @@ public class ZdfDayPageHtmlTask extends AbstractDocumentTask<CrawlerUrlDTO, Craw
   public ZdfDayPageHtmlTask(
       final String apiUrlBase,
       final AbstractCrawler crawler,
-      final ConcurrentLinkedQueue<CrawlerUrlDTO> urlToCrawlDTOs,
+      final Queue<CrawlerUrlDTO> urlToCrawlDTOs,
       final JsoupConnection jsoupConnection) {
     super(crawler, urlToCrawlDTOs, jsoupConnection);
     this.apiUrlBase = apiUrlBase;
@@ -25,13 +26,13 @@ public class ZdfDayPageHtmlTask extends AbstractDocumentTask<CrawlerUrlDTO, Craw
   }
 
   @Override
-  protected void processDocument(CrawlerUrlDTO aUrlDTO, Document aDocument) {
+  protected void processDocument(final CrawlerUrlDTO aUrlDTO, final Document aDocument) {
     taskResults.addAll(deserializer.deserialize(aDocument));
   }
 
   @Override
-  protected AbstractRecrusivConverterTask<CrawlerUrlDTO, CrawlerUrlDTO> createNewOwnInstance(
-      ConcurrentLinkedQueue<CrawlerUrlDTO> aElementsToProcess) {
+  protected AbstractRecursiveConverterTask<CrawlerUrlDTO, CrawlerUrlDTO> createNewOwnInstance(
+      final Queue<CrawlerUrlDTO> aElementsToProcess) {
     return new ZdfDayPageHtmlTask(apiUrlBase, crawler, aElementsToProcess, getJsoupConnection());
   }
 }

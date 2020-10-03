@@ -1,18 +1,9 @@
 package de.mediathekview.mserver.crawler.wdr.tasks;
 
-import static org.hamcrest.CoreMatchers.equalTo;
-import static org.hamcrest.CoreMatchers.notNullValue;
-import static org.junit.Assert.assertThat;
-import static org.mockito.ArgumentMatchers.eq;
-import static org.mockito.Mockito.when;
-
 import de.mediathekview.mserver.base.webaccess.JsoupConnection;
 import de.mediathekview.mserver.crawler.basic.CrawlerUrlDTO;
 import de.mediathekview.mserver.crawler.basic.TopicUrlDTO;
 import de.mediathekview.mserver.testhelper.JsoupMock;
-import java.io.IOException;
-import java.util.Set;
-import java.util.concurrent.ConcurrentLinkedQueue;
 import org.hamcrest.Matchers;
 import org.jsoup.Connection;
 import org.junit.Before;
@@ -20,21 +11,31 @@ import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
+import java.io.IOException;
+import java.util.Queue;
+import java.util.Set;
+import java.util.concurrent.ConcurrentLinkedQueue;
+
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.CoreMatchers.notNullValue;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.Mockito.when;
+
 public class WdrDayPageTaskTest extends WdrTaskTestBase {
 
-  @Mock
-  JsoupConnection jsoupConnection;
+  @Mock JsoupConnection jsoupConnection;
 
   @Before
   public void setUp() {
-    MockitoAnnotations.initMocks(this);
+    MockitoAnnotations.openMocks(this);
   }
 
   @Test
   public void test() throws IOException {
     final String requestUrl =
         "https://www1.wdr.de/mediathek/video/sendungverpasst/sendung-verpasst-100~_tag-03022018.html";
-    Connection connection = JsoupMock.mock(requestUrl, "/wdr/wdr_day.html");
+    final Connection connection = JsoupMock.mock(requestUrl, "/wdr/wdr_day.html");
     when(jsoupConnection.getConnection(eq(requestUrl))).thenReturn(connection);
 
     final TopicUrlDTO[] expected =
@@ -77,7 +78,7 @@ public class WdrDayPageTaskTest extends WdrTaskTestBase {
               "https://www1.wdr.de/mediathek/video/sendungen/fernsehfilm/video-die-farben-der-liebe-102.html")
         };
 
-    final ConcurrentLinkedQueue<CrawlerUrlDTO> queue = new ConcurrentLinkedQueue<>();
+    final Queue<CrawlerUrlDTO> queue = new ConcurrentLinkedQueue<>();
     queue.add(new CrawlerUrlDTO(requestUrl));
 
     final WdrDayPageTask target = new WdrDayPageTask(createCrawler(), queue, jsoupConnection);

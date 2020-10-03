@@ -1,22 +1,11 @@
 package de.mediathekview.mserver.crawler.wdr.tasks;
 
-import static org.hamcrest.CoreMatchers.equalTo;
-import static org.junit.Assert.assertThat;
-import static org.junit.Assert.fail;
-import static org.mockito.ArgumentMatchers.anyInt;
-import static org.mockito.ArgumentMatchers.eq;
-import static org.mockito.Mockito.when;
-
 import de.mediathekview.mlib.daten.Sender;
 import de.mediathekview.mserver.base.config.MServerConfigManager;
 import de.mediathekview.mserver.base.webaccess.JsoupConnection;
 import de.mediathekview.mserver.crawler.wdr.WdrCrawler;
 import de.mediathekview.mserver.crawler.wdr.WdrTopicUrlDto;
 import de.mediathekview.mserver.testhelper.JsoupMock;
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Queue;
 import org.hamcrest.Matchers;
 import org.jsoup.nodes.Document;
 import org.junit.Before;
@@ -25,14 +14,25 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Queue;
+
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.junit.Assert.fail;
+import static org.mockito.ArgumentMatchers.anyInt;
+import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.Mockito.when;
+
 public class WdrLetterPageTaskTest {
 
-  @Mock
-  JsoupConnection jsoupConnection;
+  @Mock JsoupConnection jsoupConnection;
 
   @Before
   public void setUp() {
-    MockitoAnnotations.initMocks(this);
+    MockitoAnnotations.openMocks(this);
   }
 
   @Test
@@ -45,32 +45,33 @@ public class WdrLetterPageTaskTest {
         "https://www1.wdr.de/mediathek/video/sendungen-a-z/sendungen-u-102.html",
         "/wdr/wdr_letter_page2.html");
 
-    mapping.forEach((url, fileName) -> {
-      try {
-        Document document = JsoupMock.getFileDocument(url, fileName);
-        when(jsoupConnection.getDocumentTimeoutAfter(eq(url), anyInt())).thenReturn(document);
-      } catch (IOException iox) {
-        fail();
-      }
-    });
+    mapping.forEach(
+        (url, fileName) -> {
+          try {
+            final Document document = JsoupMock.getFileDocument(url, fileName);
+            when(jsoupConnection.getDocumentTimeoutAfter(eq(url), anyInt())).thenReturn(document);
+          } catch (final IOException iox) {
+            fail();
+          }
+        });
 
     final WdrTopicUrlDto[] expected = {
-        new WdrTopicUrlDto(
-            "Quarks & Co",
-            "https://www1.wdr.de/mediathek/video/sendungen/quarks-und-co/index.html",
-            false),
-        new WdrTopicUrlDto(
-            "Das Quiz für den Westen",
-            "https://www1.wdr.de/mediathek/video/sendungen/das-quiz-fuer-den-westen/index.html",
-            false),
-        new WdrTopicUrlDto(
-            "Unterhaltung",
-            "https://www1.wdr.de/mediathek/video/sendungen/unterhaltung/index.html",
-            false),
-        new WdrTopicUrlDto(
-            "Unser Westen",
-            "https://www1.wdr.de/mediathek/video/sendungen/unser-westen/index.html",
-            false)
+      new WdrTopicUrlDto(
+          "Quarks & Co",
+          "https://www1.wdr.de/mediathek/video/sendungen/quarks-und-co/index.html",
+          false),
+      new WdrTopicUrlDto(
+          "Das Quiz für den Westen",
+          "https://www1.wdr.de/mediathek/video/sendungen/das-quiz-fuer-den-westen/index.html",
+          false),
+      new WdrTopicUrlDto(
+          "Unterhaltung",
+          "https://www1.wdr.de/mediathek/video/sendungen/unterhaltung/index.html",
+          false),
+      new WdrTopicUrlDto(
+          "Unser Westen",
+          "https://www1.wdr.de/mediathek/video/sendungen/unser-westen/index.html",
+          false)
     };
     final WdrCrawler crawler = Mockito.mock(WdrCrawler.class);
     when(crawler.getCrawlerConfig())

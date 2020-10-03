@@ -10,14 +10,16 @@ import de.mediathekview.mserver.crawler.basic.TopicUrlDTO;
 import de.mediathekview.mserver.crawler.wdr.tasks.WdrFilmDetailTask;
 import de.mediathekview.mserver.crawler.wdr.tasks.WdrTopicOverviewTask;
 import de.mediathekview.mserver.progress.listeners.SenderProgressListener;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import java.util.Collection;
+import java.util.Queue;
 import java.util.Set;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ForkJoinPool;
 import java.util.concurrent.RecursiveTask;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 public abstract class WdrRadioCrawlerBase extends AbstractCrawler {
 
@@ -26,13 +28,13 @@ public abstract class WdrRadioCrawlerBase extends AbstractCrawler {
   JsoupConnection jsoupConnection;
 
   public WdrRadioCrawlerBase(
-      ForkJoinPool aForkJoinPool,
-      Collection<MessageListener> aMessageListeners,
-      Collection<SenderProgressListener> aProgressListeners,
-      MServerConfigManager rootConfig) {
+      final ForkJoinPool aForkJoinPool,
+      final Collection<MessageListener> aMessageListeners,
+      final Collection<SenderProgressListener> aProgressListeners,
+      final MServerConfigManager rootConfig) {
     super(aForkJoinPool, aMessageListeners, aProgressListeners, rootConfig);
 
-    this.jsoupConnection = new JsoupConnection();
+    jsoupConnection = new JsoupConnection();
   }
 
   protected abstract Set<WdrTopicUrlDto> getTopicOverviewPages()
@@ -41,26 +43,29 @@ public abstract class WdrRadioCrawlerBase extends AbstractCrawler {
   @Override
   protected RecursiveTask<Set<Film>> createCrawlerTask() {
     try {
-      ConcurrentLinkedQueue<TopicUrlDTO> shows = new ConcurrentLinkedQueue<>();
-      shows.addAll(getEntries());
+      final Queue<TopicUrlDTO> shows = new ConcurrentLinkedQueue<>(getEntries());
 
       printMessage(
           ServerMessages.DEBUG_ALL_SENDUNG_FOLGEN_COUNT, getSender().getName(), shows.size());
       getAndSetMaxCount(shows.size());
 
       return new WdrFilmDetailTask(this, shows, jsoupConnection);
-    } catch (InterruptedException | ExecutionException ex) {
-      LOG.fatal("Exception in WDR radio crawler.", ex);
+    } catch (final ExecutionException executionException) {
+      LOG.fatal("Exception in WDR radio crawler.", executionException);
+    } catch (final InterruptedException interruptedException) {
+      LOG.fatal("Exception in WDR radio crawler.", interruptedException);
+      Thread.currentThread().interrupt();
     }
     return null;
   }
 
   protected Set<TopicUrlDTO> getEntries() throws InterruptedException, ExecutionException {
-    ConcurrentLinkedQueue<WdrTopicUrlDto> topicOverviews = new ConcurrentLinkedQueue<>();
-    topicOverviews.addAll(getTopicOverviewPages());
+    final Queue<WdrTopicUrlDto> topicOverviews =
+        new ConcurrentLinkedQueue<>(getTopicOverviewPages());
 
-    WdrTopicOverviewTask overviewTask = new WdrTopicOverviewTask(this, topicOverviews, jsoupConnection, 0);
-    Set<TopicUrlDTO> shows = forkJoinPool.submit(overviewTask).get();
+    final WdrTopicOverviewTask overviewTask =
+        new WdrTopicOverviewTask(this, topicOverviews, jsoupConnection, 0);
+    final Set<TopicUrlDTO> shows = forkJoinPool.submit(overviewTask).get();
 
     printMessage(
         ServerMessages.DEBUG_ALL_SENDUNG_FOLGEN_COUNT, getSender().getName(), shows.size());

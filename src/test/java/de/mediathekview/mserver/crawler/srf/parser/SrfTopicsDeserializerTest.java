@@ -1,13 +1,14 @@
 package de.mediathekview.mserver.crawler.srf.parser;
 
-import static org.junit.Assert.assertThat;
-
 import com.google.gson.JsonElement;
 import de.mediathekview.mserver.crawler.basic.TopicUrlDTO;
 import de.mediathekview.mserver.testhelper.JsonFileReader;
-import java.util.Set;
 import org.hamcrest.Matchers;
 import org.junit.Test;
+
+import java.util.Set;
+
+import static org.hamcrest.MatcherAssert.assertThat;
 
 public class SrfTopicsDeserializerTest {
 

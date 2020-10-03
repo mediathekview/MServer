@@ -1,7 +1,5 @@
 package de.mediathekview.mserver.crawler.dw.tasks;
 
-import static de.mediathekview.mserver.base.HtmlConsts.ATTRIBUTE_VALUE;
-
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
@@ -16,6 +14,14 @@ import de.mediathekview.mserver.crawler.basic.AbstractDocumentTask;
 import de.mediathekview.mserver.crawler.basic.AbstractUrlTask;
 import de.mediathekview.mserver.crawler.basic.CrawlerUrlDTO;
 import de.mediathekview.mserver.crawler.dw.parser.DWDownloadUrlsParser;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.jsoup.nodes.Document;
+
+import javax.ws.rs.client.ClientBuilder;
+import javax.ws.rs.client.WebTarget;
+import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 import java.lang.reflect.Type;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -23,20 +29,11 @@ import java.time.Duration;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
-import java.util.Locale;
-import java.util.Map;
-import java.util.Optional;
-import java.util.UUID;
-import java.util.concurrent.ConcurrentLinkedQueue;
+import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import javax.ws.rs.client.ClientBuilder;
-import javax.ws.rs.client.WebTarget;
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-import org.jsoup.nodes.Document;
+
+import static de.mediathekview.mserver.base.HtmlConsts.ATTRIBUTE_VALUE;
 
 public class DWFilmDetailsTask extends AbstractDocumentTask<Film, CrawlerUrlDTO> {
 
@@ -59,7 +56,7 @@ public class DWFilmDetailsTask extends AbstractDocumentTask<Film, CrawlerUrlDTO>
 
   public DWFilmDetailsTask(
       final AbstractCrawler aCrawler,
-      final ConcurrentLinkedQueue<CrawlerUrlDTO> aUrlToCrawlDTOs,
+      final Queue<CrawlerUrlDTO> aUrlToCrawlDTOs,
       final String aBaseUrl,
       final JsoupConnection jsoupConnection) {
     super(aCrawler, aUrlToCrawlDTOs, jsoupConnection);
@@ -67,15 +64,16 @@ public class DWFilmDetailsTask extends AbstractDocumentTask<Film, CrawlerUrlDTO>
   }
 
   private void addDownloadUrls(
-      final CrawlerUrlDTO aUrlDTO, final Optional<String> fileName, final Film film) {
+      final CrawlerUrlDTO aUrlDTO, final String fileName, final Film film) {
     final String pageId =
         aUrlDTO.getUrl().substring(aUrlDTO.getUrl().lastIndexOf(URL_SPLITTERATOR) + 1);
     final String videoId = pageId.substring(pageId.indexOf('-') + 1);
     final String downloadUrl = String.format(DOWNLOAD_DETAILS_URL_TEMPLATE, baseUrl, videoId);
 
     try {
-      if (fileName.isPresent()) {
-        film.addUrl(Resolution.SMALL, new FilmUrl(fileName.get(), serialVersionUID));
+      final Optional<String> optionalFileName = Optional.ofNullable(fileName);
+      if (optionalFileName.isPresent()) {
+        film.addUrl(Resolution.SMALL, new FilmUrl(optionalFileName.get(), serialVersionUID));
       }
 
       final WebTarget target = ClientBuilder.newClient().target(new URL(downloadUrl).toString());
@@ -89,18 +87,20 @@ public class DWFilmDetailsTask extends AbstractDocumentTask<Film, CrawlerUrlDTO>
         film.addAllUrls(gson.fromJson(response.readEntity(String.class), urlMapType));
       } else {
         LOG.error(
-            "DWFilmDetailsTask: Error reading url " + downloadUrl + ": " + response.getStatus());
+            "DWFilmDetailsTask: Error reading url {}}: {}", downloadUrl, response.getStatus());
       }
 
     } catch (final MalformedURLException malformedURLException) {
       LOG.error(
-          String.format("Something wen't wrong on building a download url \"%s\".", downloadUrl));
+          String.format("Something went wrong on building a download url \"%s\".", downloadUrl));
     }
   }
 
-  private Optional<LocalDate> parseDate(final Optional<String> aDateText) {
-    if (aDateText.isPresent()) {
-      final Matcher dateMatcher = Pattern.compile(DATE_REGEX_PATTERN).matcher(aDateText.get());
+  private Optional<LocalDate> parseDate(final String dateText) {
+    final Optional<String> optionalDateText = Optional.ofNullable(dateText);
+    if (optionalDateText.isPresent()) {
+      final Matcher dateMatcher =
+          Pattern.compile(DATE_REGEX_PATTERN).matcher(optionalDateText.get());
       if (dateMatcher.find()) {
         return Optional.of(LocalDate.parse(dateMatcher.group(), DATE_FORMATTER));
       }
@@ -110,7 +110,7 @@ public class DWFilmDetailsTask extends AbstractDocumentTask<Film, CrawlerUrlDTO>
 
   @Override
   protected AbstractUrlTask<Film, CrawlerUrlDTO> createNewOwnInstance(
-      final ConcurrentLinkedQueue<CrawlerUrlDTO> aURLsToCrawl) {
+      final Queue<CrawlerUrlDTO> aURLsToCrawl) {
     return new DWFilmDetailsTask(crawler, aURLsToCrawl, baseUrl, getJsoupConnection());
   }
 
@@ -125,21 +125,38 @@ public class DWFilmDetailsTask extends AbstractDocumentTask<Film, CrawlerUrlDTO>
         HtmlDocumentUtils.getElementAttributeString(ELEMENT_FILENAME, ATTRIBUTE_VALUE, aDocument);
     final Optional<Duration> dauer = parseDuration(aDocument);
 
-    if (checkPreConditions(titel, thema, dauer)) {
-      final Optional<LocalDate> time = parseDate(dateText);
-
-      createFilm(aUrlDTO, titel.get(), thema.get(), description, fileName, dauer.get(), time);
+    if (thema.isEmpty()) {
+      crawler.printMissingElementErrorMessage("Thema");
+      return;
     }
+    if (titel.isEmpty()) {
+      crawler.printMissingElementErrorMessage("Titel");
+      return;
+    }
+    if (dauer.isEmpty()) {
+      crawler.printMissingElementErrorMessage("Dauer");
+      return;
+    }
+
+    final Optional<LocalDate> time = parseDate(dateText.orElse(null));
+    createFilm(
+        aUrlDTO,
+        titel.get(),
+        thema.get(),
+        description.orElse(null),
+        fileName.orElse(null),
+        dauer.get(),
+        time.orElse(null));
   }
 
   private void createFilm(
       final CrawlerUrlDTO aUrlDTO,
       final String title,
       final String topic,
-      final Optional<String> description,
-      final Optional<String> fileName,
+      final String description,
+      final String fileName,
       final Duration duration,
-      final Optional<LocalDate> time) {
+      final LocalDate time) {
     try {
       final Film newFilm =
           new Film(
@@ -147,9 +164,9 @@ public class DWFilmDetailsTask extends AbstractDocumentTask<Film, CrawlerUrlDTO>
               crawler.getSender(),
               title,
               topic,
-              time.orElse(LocalDate.now()).atStartOfDay(),
+              Optional.ofNullable(time).orElse(LocalDate.now()).atStartOfDay(),
               duration);
-      description.ifPresent(newFilm::setBeschreibung);
+      Optional.ofNullable(description).ifPresent(newFilm::setBeschreibung);
       newFilm.setWebsite(new URL(aUrlDTO.getUrl()));
       addDownloadUrls(aUrlDTO, fileName, newFilm);
 
@@ -167,26 +184,6 @@ public class DWFilmDetailsTask extends AbstractDocumentTask<Film, CrawlerUrlDTO>
       LOG.fatal("The website URL can't be parsed.", malformedURLException);
       crawler.printInvalidUrlErrorMessage(aUrlDTO.getUrl());
     }
-  }
-
-  private boolean checkPreConditions(
-      final Optional<String> title,
-      final Optional<String> topic,
-      final Optional<Duration> duration) {
-    if (!topic.isPresent()) {
-      crawler.printMissingElementErrorMessage("Thema");
-      return false;
-    }
-    if (!title.isPresent()) {
-      crawler.printMissingElementErrorMessage("Titel");
-      return false;
-    }
-    if (!duration.isPresent()) {
-      crawler.printMissingElementErrorMessage("Dauer");
-      return false;
-    }
-
-    return true;
   }
 
   private Optional<Duration> parseDuration(final Document aDocument) {

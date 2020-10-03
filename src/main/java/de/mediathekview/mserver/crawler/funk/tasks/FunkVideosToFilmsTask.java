@@ -13,6 +13,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.glassfish.jersey.internal.util.collection.MultivaluedStringMap;
 
+import javax.annotation.Nullable;
 import javax.ws.rs.client.Entity;
 import javax.ws.rs.client.Invocation;
 import javax.ws.rs.core.MultivaluedHashMap;
@@ -22,7 +23,6 @@ import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URL;
 import java.util.*;
-import java.util.concurrent.ConcurrentLinkedQueue;
 
 public class FunkVideosToFilmsTask
     extends AbstractJsonRestTask<Film, Set<FilmUrlInfoDto>, FilmInfoDto> {
@@ -37,13 +37,13 @@ public class FunkVideosToFilmsTask
 
   public FunkVideosToFilmsTask(
       final AbstractCrawler crawler,
-      final Long aSessionId,
-      final ConcurrentLinkedQueue<FilmInfoDto> aFilmInfos,
-      final Map<String, FunkChannelDTO> aChannels,
-      final Optional<String> authKey) {
-    super(crawler, aFilmInfos, authKey);
-    sessionId = aSessionId;
-    channels = aChannels;
+      final Long sessionId,
+      final Queue<FilmInfoDto> filmInfos,
+      final Map<String, FunkChannelDTO> channels,
+      @Nullable final String authKey) {
+    super(crawler, filmInfos, authKey);
+    this.sessionId = sessionId;
+    this.channels = channels;
   }
 
   @Override
@@ -60,9 +60,9 @@ public class FunkVideosToFilmsTask
   protected void handleHttpError(final URI url, final Response response) {
     crawler.printErrorMessage();
     LOG.error(
-        String.format(
-            "A HTTP error %d occurred when getting REST information from: \"%s\".",
-            response.getStatus(), url.toString()));
+        "A HTTP error {} occurred when getting REST information from: \"{}\".",
+        response.getStatus(),
+        url);
   }
 
   @Override
@@ -96,9 +96,7 @@ public class FunkVideosToFilmsTask
 
     if (film.getUrls().isEmpty()) {
       LOG.debug(
-          String.format(
-              "The Funk film \"%s\" - \"%s\" has no download URL.",
-              film.getThema(), film.getTitel()));
+          "The Funk film \"{}\" - \"{}\" has no download URL.", film.getThema(), film.getTitel());
       crawler.incrementAndGetErrorCount();
     } else {
       taskResults.add(film);
@@ -112,7 +110,7 @@ public class FunkVideosToFilmsTask
     try {
       film.addUrlIfAbsent(resolution, new FilmUrl(details.getUrl(), sessionId));
     } catch (final MalformedURLException malformedURLException) {
-      LOG.error("Invalid Funk Video Url: " + details.getUrl(), malformedURLException);
+      LOG.error("Invalid Funk Video Url: {}", details.getUrl(), malformedURLException);
     }
   }
 
@@ -129,8 +127,8 @@ public class FunkVideosToFilmsTask
   }
 
   @Override
-  protected FunkVideosToFilmsTask createNewOwnInstance(
-      final ConcurrentLinkedQueue<FilmInfoDto> aElementsToProcess) {
-    return new FunkVideosToFilmsTask(crawler, sessionId, aElementsToProcess, channels, authKey);
+  protected FunkVideosToFilmsTask createNewOwnInstance(final Queue<FilmInfoDto> elementsToProcess) {
+    return new FunkVideosToFilmsTask(
+        crawler, sessionId, elementsToProcess, channels, getAuthKey().orElse(null));
   }
 }

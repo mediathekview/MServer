@@ -1,30 +1,31 @@
 package de.mediathekview.mserver.crawler.zdf;
 
+import javax.annotation.Nullable;
 import java.util.Optional;
 
 public class ZdfConfiguration {
 
-  private Optional<String> searchAuthKey;
-  private Optional<String> videoAuthKey;
+  @Nullable private String searchAuthKey;
+  @Nullable private String videoAuthKey;
 
   public ZdfConfiguration() {
-    searchAuthKey = Optional.empty();
-    videoAuthKey = Optional.empty();
+    searchAuthKey = null;
+    videoAuthKey = null;
   }
 
   public Optional<String> getSearchAuthKey() {
-    return searchAuthKey;
+    return Optional.ofNullable(searchAuthKey);
   }
 
-  public void setSearchAuthKey(final String aAuthKey) {
-    searchAuthKey = Optional.of(aAuthKey);
+  public void setSearchAuthKey(@Nullable final String authKey) {
+    searchAuthKey = authKey;
   }
 
   public Optional<String> getVideoAuthKey() {
-    return videoAuthKey;
+    return Optional.ofNullable(videoAuthKey);
   }
 
-  public void setVideoAuthKey(final String aAuthKey) {
-    videoAuthKey = Optional.of(aAuthKey);
+  public void setVideoAuthKey(@Nullable final String authKey) {
+    videoAuthKey = authKey;
   }
 }

@@ -6,15 +6,16 @@ import de.mediathekview.mserver.crawler.arte.ArteFilmUrlDto;
 import de.mediathekview.mserver.crawler.arte.ArteLanguage;
 import de.mediathekview.mserver.crawler.arte.ArteSendungOverviewDto;
 import de.mediathekview.mserver.crawler.arte.json.ArteDayPageDeserializer;
-import de.mediathekview.mserver.crawler.arte.json.ArteSubcategoryVideosDeserializer;
 import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
-import de.mediathekview.mserver.crawler.basic.AbstractRecrusivConverterTask;
+import de.mediathekview.mserver.crawler.basic.AbstractRecursiveConverterTask;
 import de.mediathekview.mserver.crawler.basic.CrawlerUrlDTO;
+
+import javax.ws.rs.client.WebTarget;
 import java.lang.reflect.Type;
 import java.util.Optional;
+import java.util.Queue;
 import java.util.Set;
 import java.util.concurrent.ConcurrentLinkedQueue;
-import javax.ws.rs.client.WebTarget;
 
 public class ArteDayPageTask extends ArteTaskBase<ArteFilmUrlDto, CrawlerUrlDTO> {
 
@@ -25,33 +26,32 @@ public class ArteDayPageTask extends ArteTaskBase<ArteFilmUrlDto, CrawlerUrlDTO>
   private final ArteLanguage language;
 
   public ArteDayPageTask(
-      AbstractCrawler aCrawler,
-      ConcurrentLinkedQueue<CrawlerUrlDTO> aUrlToCrawlDtos,
-      final ArteLanguage aLanguage,
-      final int aPageNumber) {
-    super(aCrawler, aUrlToCrawlDtos, Optional.of(ArteConstants.AUTH_TOKEN));
+      final AbstractCrawler crawler,
+      final Queue<CrawlerUrlDTO> urlToCrawlDTOs,
+      final ArteLanguage language,
+      final int pageNumber) {
+    super(crawler, urlToCrawlDTOs, ArteConstants.AUTH_TOKEN);
 
-    registerJsonDeserializer(
-        SENDUNG_OVERVIEW_TYPE_TOKEN, new ArteDayPageDeserializer(aLanguage));
+    registerJsonDeserializer(SENDUNG_OVERVIEW_TYPE_TOKEN, new ArteDayPageDeserializer(language));
 
-    this.pageNumber = aPageNumber;
-    this.language = aLanguage;
+    this.pageNumber = pageNumber;
+    this.language = language;
   }
 
   public ArteDayPageTask(
-      AbstractCrawler aCrawler,
-      ConcurrentLinkedQueue<CrawlerUrlDTO> aUrlToCrawlDtos,
+      final AbstractCrawler aCrawler,
+      final Queue<CrawlerUrlDTO> aUrlToCrawlDtos,
       final ArteLanguage aLanguage) {
     this(aCrawler, aUrlToCrawlDtos, aLanguage, 1);
   }
 
   @Override
-  protected void processRestTarget(CrawlerUrlDTO aDTO, WebTarget aTarget) {
-    ArteSendungOverviewDto result = deserialize(aTarget, SENDUNG_OVERVIEW_TYPE_TOKEN);
+  protected void processRestTarget(final CrawlerUrlDTO aDTO, final WebTarget aTarget) {
+    final ArteSendungOverviewDto result = deserialize(aTarget, SENDUNG_OVERVIEW_TYPE_TOKEN);
     if (result != null) {
       taskResults.addAll(result.getUrls());
 
-      Optional<String> nextPageId = result.getNextPageId();
+      final Optional<String> nextPageId = result.getNextPageId();
       if (nextPageId.isPresent() && pageNumber < crawler.getCrawlerConfig().getMaximumSubpages()) {
         processNextPage(nextPageId.get());
       }
@@ -59,15 +59,15 @@ public class ArteDayPageTask extends ArteTaskBase<ArteFilmUrlDto, CrawlerUrlDTO>
   }
 
   private void processNextPage(final String aUrl) {
-    final ConcurrentLinkedQueue<CrawlerUrlDTO> urlDtos = new ConcurrentLinkedQueue<>();
+    final Queue<CrawlerUrlDTO> urlDtos = new ConcurrentLinkedQueue<>();
     urlDtos.add(new CrawlerUrlDTO(aUrl));
-    Set<ArteFilmUrlDto> results = createNewOwnInstance(urlDtos).invoke();
+    final Set<ArteFilmUrlDto> results = createNewOwnInstance(urlDtos).invoke();
     taskResults.addAll(results);
   }
 
   @Override
-  protected AbstractRecrusivConverterTask<ArteFilmUrlDto, CrawlerUrlDTO> createNewOwnInstance(
-      ConcurrentLinkedQueue<CrawlerUrlDTO> aElementsToProcess) {
+  protected AbstractRecursiveConverterTask<ArteFilmUrlDto, CrawlerUrlDTO> createNewOwnInstance(
+      final Queue<CrawlerUrlDTO> aElementsToProcess) {
     return new ArteDayPageTask(crawler, aElementsToProcess, language, pageNumber + 1);
   }
 }

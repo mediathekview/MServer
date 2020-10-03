@@ -1,13 +1,7 @@
 package de.mediathekview.mserver.crawler.wdr.parser;
 
-import static org.hamcrest.CoreMatchers.equalTo;
-import static org.junit.Assert.assertThat;
-
 import de.mediathekview.mserver.crawler.basic.TopicUrlDTO;
 import de.mediathekview.mserver.testhelper.FileReader;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Set;
 import org.hamcrest.Matchers;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -15,22 +9,29 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Set;
+
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.MatcherAssert.assertThat;
+
 @RunWith(Parameterized.class)
 public class WdrFilmPartDeserializerTest {
-    private final String filmPageFile;
-    private final String topic;
-    private final TopicUrlDTO[] expectedUrls;
+  private final String filmPageFile;
+  private final String topic;
+  private final TopicUrlDTO[] expectedUrls;
 
-    public WdrFilmPartDeserializerTest(
-            final String aFilmPageFilme, final String aTopic, final String[] aExpectedUrls) {
-        filmPageFile = aFilmPageFilme;
-        topic = aTopic;
-        expectedUrls = new TopicUrlDTO[aExpectedUrls.length];
+  public WdrFilmPartDeserializerTest(
+      final String aFilmPageFilme, final String aTopic, final String[] aExpectedUrls) {
+    filmPageFile = aFilmPageFilme;
+    topic = aTopic;
+    expectedUrls = new TopicUrlDTO[aExpectedUrls.length];
 
-        for (int i = 0; i < aExpectedUrls.length; i++) {
-            expectedUrls[i] = new TopicUrlDTO(topic, aExpectedUrls[i]);
-        }
+    for (int i = 0; i < aExpectedUrls.length; i++) {
+      expectedUrls[i] = new TopicUrlDTO(topic, aExpectedUrls[i]);
     }
+  }
 
   @Parameterized.Parameters
   public static Collection<Object[]> data() {
@@ -72,9 +73,9 @@ public class WdrFilmPartDeserializerTest {
   public void deserializeTest() {
     final Document document = Jsoup.parse(FileReader.readFile(filmPageFile));
 
-    WdrFilmPartDeserializer target = new WdrFilmPartDeserializer();
+    final WdrFilmPartDeserializer target = new WdrFilmPartDeserializer();
 
-    Set<TopicUrlDTO> actual = target.deserialize(topic, document);
+    final Set<TopicUrlDTO> actual = target.deserialize(topic, document);
 
     assertThat(actual.size(), equalTo(expectedUrls.length));
 

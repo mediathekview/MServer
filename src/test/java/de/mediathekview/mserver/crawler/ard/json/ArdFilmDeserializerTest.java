@@ -17,18 +17,13 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 
-import java.net.URLEncoder;
 import java.time.Duration;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.concurrent.ForkJoinPool;
 
 import static org.hamcrest.CoreMatchers.equalTo;
-import static org.junit.Assert.assertThat;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 @RunWith(Parameterized.class)
 public class ArdFilmDeserializerTest {
@@ -113,12 +108,21 @@ public class ArdFilmDeserializerTest {
             "https://www.ardmediathek.de/subtitle/410911",
             GeoLocations.GEO_NONE,
             new ArdFilmInfoDto[] {
-              new ArdFilmInfoDto("Y3JpZDovL2Rhc2Vyc3RlLmRlL2xpdmUgbmFjaCBuZXVuL2U2NjBiMDU0LWM3YmYtNDdkYy1iMmFlLWM1N2NkNmM1MjVhZA",
-                ArdConstants.ITEM_URL + "Y3JpZDovL2Rhc2Vyc3RlLmRlL2xpdmUgbmFjaCBuZXVuL2U2NjBiMDU0LWM3YmYtNDdkYy1iMmFlLWM1N2NkNmM1MjVhZA", 0),
-              new ArdFilmInfoDto("Y3JpZDovL2Rhc2Vyc3RlLmRlL2xpdmUgbmFjaCBuZXVuLzc2NjcyOTI0LWNmNjMtNDhkNy05ZTcwLTQ1Y2EzYmZmZTUzMg",
-                ArdConstants.ITEM_URL + "Y3JpZDovL2Rhc2Vyc3RlLmRlL2xpdmUgbmFjaCBuZXVuLzc2NjcyOTI0LWNmNjMtNDhkNy05ZTcwLTQ1Y2EzYmZmZTUzMg", 0),
-              new ArdFilmInfoDto("Y3JpZDovL2Rhc2Vyc3RlLmRlL2xpdmUgbmFjaCBuZXVuLzhmZWRlOTE2LTg4NmMtNDZhNy1iNmI5LTQ5NmMzMWJlNWZiZQ",
-                ArdConstants.ITEM_URL + "Y3JpZDovL2Rhc2Vyc3RlLmRlL2xpdmUgbmFjaCBuZXVuLzhmZWRlOTE2LTg4NmMtNDZhNy1iNmI5LTQ5NmMzMWJlNWZiZQ", 0)
+              new ArdFilmInfoDto(
+                  "Y3JpZDovL2Rhc2Vyc3RlLmRlL2xpdmUgbmFjaCBuZXVuL2U2NjBiMDU0LWM3YmYtNDdkYy1iMmFlLWM1N2NkNmM1MjVhZA",
+                  ArdConstants.ITEM_URL
+                      + "Y3JpZDovL2Rhc2Vyc3RlLmRlL2xpdmUgbmFjaCBuZXVuL2U2NjBiMDU0LWM3YmYtNDdkYy1iMmFlLWM1N2NkNmM1MjVhZA",
+                  0),
+              new ArdFilmInfoDto(
+                  "Y3JpZDovL2Rhc2Vyc3RlLmRlL2xpdmUgbmFjaCBuZXVuLzc2NjcyOTI0LWNmNjMtNDhkNy05ZTcwLTQ1Y2EzYmZmZTUzMg",
+                  ArdConstants.ITEM_URL
+                      + "Y3JpZDovL2Rhc2Vyc3RlLmRlL2xpdmUgbmFjaCBuZXVuLzc2NjcyOTI0LWNmNjMtNDhkNy05ZTcwLTQ1Y2EzYmZmZTUzMg",
+                  0),
+              new ArdFilmInfoDto(
+                  "Y3JpZDovL2Rhc2Vyc3RlLmRlL2xpdmUgbmFjaCBuZXVuLzhmZWRlOTE2LTg4NmMtNDZhNy1iNmI5LTQ5NmMzMWJlNWZiZQ",
+                  ArdConstants.ITEM_URL
+                      + "Y3JpZDovL2Rhc2Vyc3RlLmRlL2xpdmUgbmFjaCBuZXVuLzhmZWRlOTE2LTg4NmMtNDZhNy1iNmI5LTQ5NmMzMWJlNWZiZQ",
+                  0)
             },
             Optional.empty()
           },
@@ -127,7 +131,7 @@ public class ArdFilmDeserializerTest {
             "Wer weiß denn sowas? | 03.07.2020",
             "Wer weiß denn sowas? | 03.07.2020",
             "Das beliebte Wissensspiel mit Bernhard Hoëcker und Elton. Moderator Kai Pflaume präsentiert unglaubliche Rätselfragen. Welches Team gewinnt? Gäste: Hardy Krüger jr. und Oliver Masucci.",
-            LocalDateTime.of(2020, 7, 3,16, 25,0),
+            LocalDateTime.of(2020, 7, 3, 16, 25, 0),
             Duration.ofMinutes(44).plusSeconds(14),
             "https://mediandr-a.akamaihd.net/progressive/2020/0703/TV-20200703-1726-5500.ln.mp4",
             "https://mediandr-a.akamaihd.net/progressive/2020/0703/TV-20200703-1726-5500.hq.mp4",

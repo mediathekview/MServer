@@ -9,6 +9,7 @@ import de.mediathekview.mserver.crawler.srf.parser.SrfTopicDeserializer;
 import javax.ws.rs.client.WebTarget;
 import java.lang.reflect.Type;
 import java.util.Optional;
+import java.util.Queue;
 import java.util.Set;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
@@ -20,15 +21,13 @@ public class SrfTopicOverviewTask extends ArdTaskBase<CrawlerUrlDTO, TopicUrlDTO
   private final int pageNumber;
 
   public SrfTopicOverviewTask(
-      final AbstractCrawler aCrawler,
-      final ConcurrentLinkedQueue<TopicUrlDTO> aURLsToCrawl,
-      final String baseUrl) {
+      final AbstractCrawler aCrawler, final Queue<TopicUrlDTO> aURLsToCrawl, final String baseUrl) {
     this(aCrawler, aURLsToCrawl, baseUrl, 1);
   }
 
   public SrfTopicOverviewTask(
       final AbstractCrawler aCrawler,
-      final ConcurrentLinkedQueue<TopicUrlDTO> aURLsToCrawl,
+      final Queue<TopicUrlDTO> aURLsToCrawl,
       final String baseUrl,
       final int aPageNumber) {
     super(aCrawler, aURLsToCrawl);
@@ -39,13 +38,13 @@ public class SrfTopicOverviewTask extends ArdTaskBase<CrawlerUrlDTO, TopicUrlDTO
   }
 
   @Override
-  protected AbstractRecrusivConverterTask<CrawlerUrlDTO, TopicUrlDTO> createNewOwnInstance(
-      final ConcurrentLinkedQueue<TopicUrlDTO> aElementsToProcess) {
+  protected AbstractRecursiveConverterTask<CrawlerUrlDTO, TopicUrlDTO> createNewOwnInstance(
+      final Queue<TopicUrlDTO> aElementsToProcess) {
     return createNewOwnInstance(aElementsToProcess, 1);
   }
 
-  private AbstractRecrusivConverterTask<CrawlerUrlDTO, TopicUrlDTO> createNewOwnInstance(
-      final ConcurrentLinkedQueue<TopicUrlDTO> aElementsToProcess, final int pageNumber) {
+  private AbstractRecursiveConverterTask<CrawlerUrlDTO, TopicUrlDTO> createNewOwnInstance(
+      final Queue<TopicUrlDTO> aElementsToProcess, final int pageNumber) {
     return new SrfTopicOverviewTask(crawler, aElementsToProcess, baseUrl, pageNumber);
   }
 
@@ -62,7 +61,7 @@ public class SrfTopicOverviewTask extends ArdTaskBase<CrawlerUrlDTO, TopicUrlDTO
   }
 
   private void processNextPage(final String aTopic, final String aNextPageId) {
-    final ConcurrentLinkedQueue<TopicUrlDTO> urlDtos = new ConcurrentLinkedQueue<>();
+    final Queue<TopicUrlDTO> urlDtos = new ConcurrentLinkedQueue<>();
     urlDtos.add(
         new TopicUrlDTO(
             aTopic,

@@ -9,26 +9,26 @@ import de.mediathekview.mserver.testhelper.WireMockTestBase;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.ForkJoinPool;
 
 public abstract class OrfTaskTestBase extends WireMockTestBase {
 
-    protected MServerConfigManager rootConfig =
-            MServerConfigManager.getInstance("MServer-JUnit-Config.yaml");
+  protected MServerConfigManager rootConfig =
+      MServerConfigManager.getInstance("MServer-JUnit-Config.yaml");
 
-    public OrfTaskTestBase() {
-    }
+  public OrfTaskTestBase() {}
 
   protected OrfCrawler createCrawler() {
-    ForkJoinPool forkJoinPool = new ForkJoinPool();
-    Collection<MessageListener> nachrichten = new ArrayList<>();
-    Collection<SenderProgressListener> fortschritte = new ArrayList<>();
+    final ForkJoinPool forkJoinPool = new ForkJoinPool();
+    final Collection<MessageListener> nachrichten = new ArrayList<>();
+    final Collection<SenderProgressListener> fortschritte = new ArrayList<>();
     return new OrfCrawler(forkJoinPool, nachrichten, fortschritte, rootConfig);
   }
 
-  protected ConcurrentLinkedQueue<TopicUrlDTO> createCrawlerUrlDto(String aTheme, String aUrl) {
-    ConcurrentLinkedQueue<TopicUrlDTO> input = new ConcurrentLinkedQueue<>();
+  protected Queue<TopicUrlDTO> createCrawlerUrlDto(final String aTheme, final String aUrl) {
+    final Queue<TopicUrlDTO> input = new ConcurrentLinkedQueue<>();
     input.add(new TopicUrlDTO(aTheme, aUrl));
     return input;
   }

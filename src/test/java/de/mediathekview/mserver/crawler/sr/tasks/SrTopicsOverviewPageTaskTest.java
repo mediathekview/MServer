@@ -1,12 +1,5 @@
 package de.mediathekview.mserver.crawler.sr.tasks;
 
-import static org.hamcrest.CoreMatchers.notNullValue;
-import static org.junit.Assert.assertThat;
-import static org.junit.Assert.fail;
-import static org.mockito.ArgumentMatchers.anyInt;
-import static org.mockito.ArgumentMatchers.eq;
-import static org.mockito.Mockito.when;
-
 import de.mediathekview.mlib.daten.Sender;
 import de.mediathekview.mserver.base.config.MServerConfigManager;
 import de.mediathekview.mserver.base.webaccess.JsoupConnection;
@@ -14,10 +7,6 @@ import de.mediathekview.mserver.crawler.sr.SrConstants;
 import de.mediathekview.mserver.crawler.sr.SrCrawler;
 import de.mediathekview.mserver.crawler.sr.SrTopicUrlDTO;
 import de.mediathekview.mserver.testhelper.JsoupMock;
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.concurrent.ConcurrentLinkedQueue;
 import org.hamcrest.Matchers;
 import org.jsoup.nodes.Document;
 import org.junit.Before;
@@ -26,14 +15,25 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Queue;
+
+import static org.hamcrest.CoreMatchers.notNullValue;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.junit.Assert.fail;
+import static org.mockito.ArgumentMatchers.anyInt;
+import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.Mockito.when;
+
 public class SrTopicsOverviewPageTaskTest {
 
-  @Mock
-  JsoupConnection jsoupConnection;
+  @Mock JsoupConnection jsoupConnection;
 
   @Before
   public void setUp() {
-    MockitoAnnotations.initMocks(this);
+    MockitoAnnotations.openMocks(this);
   }
 
   private final SrTopicUrlDTO[] expectedUrls =
@@ -73,19 +73,20 @@ public class SrTopicsOverviewPageTaskTest {
     urlMapping.put(SrConstants.URL_OVERVIEW_PAGE + "vwxyz", "/sr/sr_overview_empty.html");
     urlMapping.put(SrConstants.URL_OVERVIEW_PAGE + "ziffern", "/sr/sr_overview_09.html");
 
-    urlMapping.forEach((url, fileName) -> {
-      try {
-        Document document = JsoupMock.getFileDocument(url, fileName);
-        when(jsoupConnection.getDocumentTimeoutAfter(eq(url), anyInt())).thenReturn(document);
-      } catch (IOException iox) {
-        fail();
-      }
-    });
+    urlMapping.forEach(
+        (url, fileName) -> {
+          try {
+            final Document document = JsoupMock.getFileDocument(url, fileName);
+            when(jsoupConnection.getDocumentTimeoutAfter(eq(url), anyInt())).thenReturn(document);
+          } catch (final IOException iox) {
+            fail();
+          }
+        });
 
     when(crawler.getCrawlerConfig())
         .thenReturn(MServerConfigManager.getInstance().getSenderConfig(Sender.SR));
     final SrTopicsOverviewPageTask target = new SrTopicsOverviewPageTask(crawler, jsoupConnection);
-    final ConcurrentLinkedQueue<SrTopicUrlDTO> actual = target.call();
+    final Queue<SrTopicUrlDTO> actual = target.call();
     assertThat(actual, notNullValue());
     assertThat(actual, Matchers.containsInAnyOrder(expectedUrls));
   }

@@ -1,23 +1,11 @@
 package de.mediathekview.mserver.crawler.orf.tasks;
 
-import static org.hamcrest.CoreMatchers.equalTo;
-import static org.hamcrest.CoreMatchers.notNullValue;
-import static org.junit.Assert.assertThat;
-import static org.mockito.ArgumentMatchers.eq;
-import static org.mockito.Mockito.when;
-
 import de.mediathekview.mlib.daten.Film;
 import de.mediathekview.mlib.daten.GeoLocations;
 import de.mediathekview.mlib.daten.Sender;
 import de.mediathekview.mserver.base.webaccess.JsoupConnection;
 import de.mediathekview.mserver.testhelper.AssertFilm;
 import de.mediathekview.mserver.testhelper.JsoupMock;
-import java.io.IOException;
-import java.time.Duration;
-import java.time.LocalDateTime;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Set;
 import org.jsoup.Connection;
 import org.junit.Before;
 import org.junit.Test;
@@ -25,6 +13,19 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+
+import java.io.IOException;
+import java.time.Duration;
+import java.time.LocalDateTime;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Set;
+
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.CoreMatchers.notNullValue;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.Mockito.when;
 
 @RunWith(Parameterized.class)
 public class OrfFilmDetailTaskTest extends OrfFilmDetailTaskTestBase {
@@ -69,12 +70,11 @@ public class OrfFilmDetailTaskTest extends OrfFilmDetailTaskTestBase {
     expectedGeoLocations = aExpectedGeoLocations;
   }
 
-  @Mock
-  JsoupConnection jsoupConnection;
+  @Mock JsoupConnection jsoupConnection;
 
   @Before
   public void setUp() {
-    MockitoAnnotations.initMocks(this);
+    MockitoAnnotations.openMocks(this);
   }
 
   @Parameterized.Parameters
@@ -137,27 +137,27 @@ public class OrfFilmDetailTaskTest extends OrfFilmDetailTaskTestBase {
             "http://localhost:8589/apasfiis.sf.apa.at/ipad/cms-austria/2019-03-19_2015_in_01_Soko-Donau--Ent_____14007925__o__2552019395__s14465271_Q8C.mp4/playlist.m3u8",
             new GeoLocations[] {GeoLocations.GEO_AT}
           },
-            {
-                "https://tvthek.orf.at/profile/DENK-mit-KULTUR/8728536/DENK-mit-KULTUR-Gerda-Rogers-und-Schiffkowitz/14034271",
-                "/orf/orf_film_new_description_block.html",
-                "DENK mit KULTUR",
-                "Gerda Rogers und Schiffkowitz",
-                LocalDateTime.of(2019, 12, 6, 21, 5, 0),
-                Duration.ofMinutes(45).plusSeconds(0),
-                "Birgit Denk hat diesmal Astrologin Gerda Rogers und STS-Star Schiffkowitz zum gemütlichen Late-Night-Talk ins Casino Baden eingeladen.",
-                "",
-                "https://apasfiis.sf.apa.at/ipad/cms-worldwide/2019-12-06_2105_sd_06_DENK-mit-KULTUR_____14034271__o__1025186593__s14603593_3__ORF3HD_21062006P_21511908P_Q4A.mp4/playlist.m3u8",
-                "https://apasfiis.sf.apa.at/ipad/cms-worldwide/2019-12-06_2105_sd_06_DENK-mit-KULTUR_____14034271__o__1025186593__s14603593_3__ORF3HD_21062006P_21511908P_Q6A.mp4/playlist.m3u8",
-                "https://apasfiis.sf.apa.at/ipad/cms-worldwide/2019-12-06_2105_sd_06_DENK-mit-KULTUR_____14034271__o__1025186593__s14603593_3__ORF3HD_21062006P_21511908P_Q8C.mp4/playlist.m3u8",
-                new GeoLocations[] {GeoLocations.GEO_NONE}
-            }
+          {
+            "https://tvthek.orf.at/profile/DENK-mit-KULTUR/8728536/DENK-mit-KULTUR-Gerda-Rogers-und-Schiffkowitz/14034271",
+            "/orf/orf_film_new_description_block.html",
+            "DENK mit KULTUR",
+            "Gerda Rogers und Schiffkowitz",
+            LocalDateTime.of(2019, 12, 6, 21, 5, 0),
+            Duration.ofMinutes(45).plusSeconds(0),
+            "Birgit Denk hat diesmal Astrologin Gerda Rogers und STS-Star Schiffkowitz zum gemütlichen Late-Night-Talk ins Casino Baden eingeladen.",
+            "",
+            "https://apasfiis.sf.apa.at/ipad/cms-worldwide/2019-12-06_2105_sd_06_DENK-mit-KULTUR_____14034271__o__1025186593__s14603593_3__ORF3HD_21062006P_21511908P_Q4A.mp4/playlist.m3u8",
+            "https://apasfiis.sf.apa.at/ipad/cms-worldwide/2019-12-06_2105_sd_06_DENK-mit-KULTUR_____14034271__o__1025186593__s14603593_3__ORF3HD_21062006P_21511908P_Q6A.mp4/playlist.m3u8",
+            "https://apasfiis.sf.apa.at/ipad/cms-worldwide/2019-12-06_2105_sd_06_DENK-mit-KULTUR_____14034271__o__1025186593__s14603593_3__ORF3HD_21062006P_21511908P_Q8C.mp4/playlist.m3u8",
+            new GeoLocations[] {GeoLocations.GEO_NONE}
+          }
         });
   }
 
   @Test
   public void test() throws IOException {
     setupHeadRequestForFileSize();
-    Connection connection = JsoupMock.mock(requestUrl, filmPageFile);
+    final Connection connection = JsoupMock.mock(requestUrl, filmPageFile);
     when(jsoupConnection.getConnection(eq(requestUrl))).thenReturn(connection);
 
     final Set<Film> actual = executeTask(theme, requestUrl, jsoupConnection);
@@ -165,7 +165,7 @@ public class OrfFilmDetailTaskTest extends OrfFilmDetailTaskTestBase {
     assertThat(actual, notNullValue());
     assertThat(actual.size(), equalTo(1));
 
-    Film actualFilm = (Film) actual.toArray()[0];
+    final Film actualFilm = (Film) actual.toArray()[0];
     AssertFilm.assertEquals(
         actualFilm,
         Sender.ORF,
