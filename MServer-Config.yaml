@@ -18,7 +18,7 @@ senderIncluded:
   #- NDR
   #- ORF
   #- ARTE_DE
-  - SR
+  - ARD
 
 # If set the server will be awake after the crawler run and restarts the run after the given amount.
 #schedules:
@@ -40,36 +40,36 @@ filmlistSaveFormats:
 
 # The paths where which filmlist should be safed to.
 filmlistSavePaths:
-  JSON: target/filmliste.json
-  OLD_JSON: target/filmliste_old.json
-  JSON_COMPRESSED_XZ: target/filmliste.json.xz
-  OLD_JSON_COMPRESSED_XZ: target/filmliste_old.json.xz
-  JSON_COMPRESSED_GZIP: target/filmliste.json.gz
-  OLD_JSON_COMPRESSED_GZIP: target/filmliste_old.json.gz
-  JSON_COMPRESSED_BZIP: target/filmliste.json.bz
-  OLD_JSON_COMPRESSED_BZIP: target/filmliste_old.json.bz
+  JSON: target/filmlists/filmliste.json
+  OLD_JSON: target/filmlists/filmliste_old.json
+  JSON_COMPRESSED_XZ: target/filmlists/filmliste.json.xz
+  OLD_JSON_COMPRESSED_XZ: target/filmlists/filmliste_old.json.xz
+  JSON_COMPRESSED_GZIP: target/filmlists/filmliste.json.gz
+  OLD_JSON_COMPRESSED_GZIP: target/filmlists/filmliste_old.json.gz
+  JSON_COMPRESSED_BZIP: target/filmlists/filmliste.json.bz
+  OLD_JSON_COMPRESSED_BZIP: target/filmlists/filmliste_old.json.bz
 
 # The paths where which diff film list should be safed to.
 # If not set no difference film lists will be safed.
 filmlistDiffSavePaths:
-  JSON: target/filmliste_diff.json
-  OLD_JSON: target/filmliste_old_diff.json
-  JSON_COMPRESSED_XZ: target/filmliste_diff.json.xz
-  OLD_JSON_COMPRESSED_XZ: target/filmliste_old_diff.json.xz
-  JSON_COMPRESSED_GZIP: target/filmliste_diff.json.gz
-  OLD_JSON_COMPRESSED_GZIP: target/filmliste_old_diff.json.gz
-  JSON_COMPRESSED_BZIP: target/filmliste_diff.json.bz
-  OLD_JSON_COMPRESSED_BZIP: target/filmliste_old_diff.json.bz
+  JSON: target/filmlists/filmliste_diff.json
+  OLD_JSON: target/filmlists/filmliste_old_diff.json
+  JSON_COMPRESSED_XZ: target/filmlists/filmliste_diff.json.xz
+  OLD_JSON_COMPRESSED_XZ: target/filmlists/filmliste_old_diff.json.xz
+  JSON_COMPRESSED_GZIP: target/filmlists/filmliste_diff.json.gz
+  OLD_JSON_COMPRESSED_GZIP: target/filmlists/filmliste_old_diff.json.gz
+  JSON_COMPRESSED_BZIP: target/filmlists/filmliste_diff.json.bz
+  OLD_JSON_COMPRESSED_BZIP: target/filmlists/filmliste_old_diff.json.bz
 
 #Sets if a filmlist hash file should be written
-writeFilmlistHashFileEnabled: false
+writeFilmlistHashFileEnabled: true
 #The filmlist hash file path
-filmlistHashFilePath: target/filmlist.hash
+filmlistHashFilePath: target/filmlists/filmlist.hash
 
 #Sets if a filmlist id file should be written
 writeFilmlistIdFileEnabled: true
 #The fimlist id file path
-filmlistIdFilePath: target/filmlist.id
+filmlistIdFilePath: target/filmlists/filmlist.id
 
 # Sets if a filmlist should be imported
 filmlistImporEnabled: false
@@ -86,7 +86,7 @@ filmlistImporEnabled: false
 maximumUrlsPerTask: 50
 
 # The maximum duration in minutes a crawler may run.
-maximumCrawlDurationInMinutes: 60
+maximumCrawlDurationInMinutes: 120
 
 # The maximum amount of sub pages to be crawled.<br>
 # Example: If a Sendung overview side has 10 pages with videos for this Sendung and
@@ -111,30 +111,19 @@ senderConfigurations:
   ARD:
     # Actually the ARD has a maximum of 6 days in the past
     maximumDaysForSendungVerpasstSection: 6
-    maximumCpuThreads: 8
     #2,4,8 ok
-    maximumUrlsPerTask: 40
+    maximumUrlsPerTask: 32
     #10,20,40 ok
+    maximumSubpages: 3
   ORF:
-    maximumCpuThreads: 8
     #2,4,8 ok
     maximumUrlsPerTask: 40
   ARTE_DE:
-    maximumCpuThreads: 16
     maximumUrlsPerTask: 1
     maximumDaysForSendungVerpasstSectionFuture: 21
     maximumRequestsPerSecond: 30.0
-  ARTE_EN:
-    maximumCpuThreads: 1
-  ARTE_ES:
-    maximumCpuThreads: 1
   ARTE_FR:
-    maximumCpuThreads: 1
     maximumDaysForSendungVerpasstSectionFuture: 21
-  ARTE_PL:
-    maximumCpuThreads: 1
-  ARTE_IT:
-    maximumCpuThreads: 1
     # The maximum amount of URLs to be processed per task.
     #        maximumUrlsPerTask: 25
     # The maximum duration in minutes a crawler may run.
@@ -154,7 +143,7 @@ copySettings:
   # En- / disables FTP
   copyEnabled: false
 
-  # The paths where to safe the film list files.
+  # The paths where to safe the film list files.SrfTopicOverviewTask
   # WARNING: You can only set the path for film list formats you listed in "filmlistSaveFormats".
   # Required if enabled
   copyTargetFilePaths:
@@ -182,7 +171,7 @@ logSettings:
   # Should be logged to console?
   logActivateConsole: true
 
-  # Should be logged to console?
+  # Should be logged to file?
   logActivateFile: true
 
   # En- or disables the rolling file appender.

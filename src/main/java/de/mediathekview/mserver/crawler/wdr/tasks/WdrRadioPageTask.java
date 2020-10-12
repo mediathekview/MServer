@@ -4,7 +4,7 @@ import de.mediathekview.mserver.base.utils.UrlUtils;
 import de.mediathekview.mserver.base.webaccess.JsoupConnection;
 import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
 import de.mediathekview.mserver.crawler.basic.AbstractDocumentTask;
-import de.mediathekview.mserver.crawler.basic.AbstractRecrusivConverterTask;
+import de.mediathekview.mserver.crawler.basic.AbstractRecursiveConverterTask;
 import de.mediathekview.mserver.crawler.basic.CrawlerUrlDTO;
 import de.mediathekview.mserver.crawler.wdr.WdrConstants;
 import de.mediathekview.mserver.crawler.wdr.WdrTopicUrlDto;
@@ -12,7 +12,7 @@ import org.apache.commons.text.WordUtils;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
 
-import java.util.concurrent.ConcurrentLinkedQueue;
+import java.util.Queue;
 
 import static de.mediathekview.mserver.base.HtmlConsts.ATTRIBUTE_HREF;
 
@@ -21,9 +21,10 @@ public class WdrRadioPageTask extends AbstractDocumentTask<WdrTopicUrlDto, Crawl
   private static final String SELECTOR_TOPIC = "h2 > a";
 
   public WdrRadioPageTask(
-      final AbstractCrawler aCrawler, final ConcurrentLinkedQueue<CrawlerUrlDTO> aUrlToCrawlDtos, final
-      JsoupConnection jsoupConnection) {
-    super(aCrawler, aUrlToCrawlDtos, jsoupConnection);
+      final AbstractCrawler crawler,
+      final Queue<CrawlerUrlDTO> urlToCrawlDTOs,
+      final JsoupConnection jsoupConnection) {
+    super(crawler, urlToCrawlDTOs, jsoupConnection);
   }
 
   @Override
@@ -43,8 +44,8 @@ public class WdrRadioPageTask extends AbstractDocumentTask<WdrTopicUrlDto, Crawl
   }
 
   @Override
-  protected AbstractRecrusivConverterTask<WdrTopicUrlDto, CrawlerUrlDTO> createNewOwnInstance(
-      final ConcurrentLinkedQueue<CrawlerUrlDTO> aElementsToProcess) {
+  protected AbstractRecursiveConverterTask<WdrTopicUrlDto, CrawlerUrlDTO> createNewOwnInstance(
+      final Queue<CrawlerUrlDTO> aElementsToProcess) {
     return new WdrRadioPageTask(crawler, aElementsToProcess, getJsoupConnection());
   }
 }

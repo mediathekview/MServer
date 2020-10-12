@@ -4,6 +4,8 @@ import de.mediathekview.mlib.config.ConfigManager;
 import de.mediathekview.mlib.daten.Sender;
 import org.apache.commons.lang3.StringUtils;
 
+import java.util.Optional;
+
 /** A {@link ConfigManager} for {@link MServerConfigDTO}. */
 public class MServerConfigManager extends ConfigManager<MServerConfigDTO> {
   public static final String DEFAULT_CONFIG_FILE = "MServer-Config.yaml";
@@ -23,12 +25,20 @@ public class MServerConfigManager extends ConfigManager<MServerConfigDTO> {
     if (null == instance) {
       instance = new MServerConfigManager(fileName);
       instance.readConfig();
+      instance.initializeSenderConfigurations();
     }
     return instance;
   }
 
   public static MServerConfigManager getInstance() {
     return getInstance(DEFAULT_CONFIG_FILE);
+  }
+
+  private void initializeSenderConfigurations() {
+    getConfig()
+        .getSenderConfigurations()
+        .values()
+        .forEach(senderConfig -> senderConfig.setParentConfig(Optional.of(getConfig())));
   }
 
   /**

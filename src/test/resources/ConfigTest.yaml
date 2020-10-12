@@ -1,0 +1,5 @@
+maximumUrlsPerTask: 50
+maximumSubpages: 2
+senderConfigurations:
+  ARD:
+    maximumUrlsPerTask: 25

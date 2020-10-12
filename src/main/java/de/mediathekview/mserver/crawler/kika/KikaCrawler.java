@@ -8,25 +8,20 @@ import de.mediathekview.mserver.base.messages.ServerMessages;
 import de.mediathekview.mserver.base.webaccess.JsoupConnection;
 import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
 import de.mediathekview.mserver.crawler.basic.CrawlerUrlDTO;
-import de.mediathekview.mserver.crawler.kika.tasks.KikaLetterPageTask;
-import de.mediathekview.mserver.crawler.kika.tasks.KikaLetterPageUrlTask;
-import de.mediathekview.mserver.crawler.kika.tasks.KikaSendungVerpasstOverviewUrlTask;
-import de.mediathekview.mserver.crawler.kika.tasks.KikaSendungVerpasstTask;
-import de.mediathekview.mserver.crawler.kika.tasks.KikaSendungsfolgeVideoDetailsTask;
-import de.mediathekview.mserver.crawler.kika.tasks.KikaSendungsfolgeVideoUrlTask;
-import de.mediathekview.mserver.crawler.kika.tasks.KikaTopicLandingPageTask;
-import de.mediathekview.mserver.crawler.kika.tasks.KikaTopicOverviewPageTask;
+import de.mediathekview.mserver.crawler.kika.tasks.*;
 import de.mediathekview.mserver.progress.listeners.SenderProgressListener;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.Queue;
 import java.util.Set;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ForkJoinPool;
 import java.util.concurrent.RecursiveTask;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 public class KikaCrawler extends AbstractCrawler {
   private static final Logger LOG = LogManager.getLogger(KikaCrawler.class);
@@ -40,7 +35,7 @@ public class KikaCrawler extends AbstractCrawler {
       final MServerConfigManager aRootConfig) {
     super(aForkJoinPool, aMessageListeners, aProgressListeners, aRootConfig);
 
-    this.jsoupConnection = new JsoupConnection();
+    jsoupConnection = new JsoupConnection();
   }
 
   @Override
@@ -50,11 +45,11 @@ public class KikaCrawler extends AbstractCrawler {
 
   @Override
   protected RecursiveTask<Set<Film>> createCrawlerTask() {
-    final ConcurrentLinkedQueue<CrawlerUrlDTO> sendungsfolgenUrls = new ConcurrentLinkedQueue<>();
+    final Queue<CrawlerUrlDTO> sendungsfolgenUrls = new ConcurrentLinkedQueue<>();
 
     try {
       sendungsfolgenUrls.addAll(getDaysEntries());
-    } catch (ExecutionException | InterruptedException ex) {
+    } catch (final ExecutionException | InterruptedException ex) {
       LOG.fatal("Exception in KIKA crawler.", ex);
     }
     try {
@@ -65,7 +60,7 @@ public class KikaCrawler extends AbstractCrawler {
                   sendungsfolgenUrls.add(show);
                 }
               });
-    } catch (ExecutionException | InterruptedException ex) {
+    } catch (final ExecutionException | InterruptedException ex) {
       LOG.fatal("Exception in KIKA crawler.", ex);
     }
 
@@ -81,7 +76,7 @@ public class KikaCrawler extends AbstractCrawler {
   }
 
   private Set<CrawlerUrlDTO> getLetterEntries() throws InterruptedException, ExecutionException {
-    ConcurrentLinkedQueue<CrawlerUrlDTO> letterPageUrls = new ConcurrentLinkedQueue<>();
+    final Queue<CrawlerUrlDTO> letterPageUrls = new ConcurrentLinkedQueue<>();
     letterPageUrls.add(new CrawlerUrlDTO(KikaConstants.URL_TOPICS_PAGE));
     final KikaLetterPageUrlTask letterUrlTask =
         new KikaLetterPageUrlTask(this, letterPageUrls, KikaConstants.BASE_URL, jsoupConnection);
@@ -99,7 +94,10 @@ public class KikaCrawler extends AbstractCrawler {
 
     final KikaTopicOverviewPageTask topicOverviewTask =
         new KikaTopicOverviewPageTask(
-            this, new ConcurrentLinkedQueue<>(topicOverviewUrls), KikaConstants.BASE_URL, jsoupConnection);
+            this,
+            new ConcurrentLinkedQueue<>(topicOverviewUrls),
+            KikaConstants.BASE_URL,
+            jsoupConnection);
     return forkJoinPool.submit(topicOverviewTask).get();
   }
 

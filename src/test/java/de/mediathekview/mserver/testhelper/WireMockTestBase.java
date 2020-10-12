@@ -1,20 +1,17 @@
 package de.mediathekview.mserver.testhelper;
 
-import static com.github.tomakehurst.wiremock.client.WireMock.aResponse;
-import static com.github.tomakehurst.wiremock.client.WireMock.anyUrl;
-import static com.github.tomakehurst.wiremock.client.WireMock.get;
-import static com.github.tomakehurst.wiremock.client.WireMock.head;
-import static com.github.tomakehurst.wiremock.client.WireMock.post;
-import static com.github.tomakehurst.wiremock.client.WireMock.urlEqualTo;
-import static com.github.tomakehurst.wiremock.client.WireMock.urlMatching;
-import static com.github.tomakehurst.wiremock.core.WireMockConfiguration.options;
-
 import com.github.tomakehurst.wiremock.WireMockServer;
 import de.mediathekview.mserver.crawler.basic.CrawlerUrlDTO;
-import java.util.Optional;
-import java.util.concurrent.ConcurrentLinkedQueue;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
+
+import javax.annotation.Nullable;
+import java.util.Optional;
+import java.util.Queue;
+import java.util.concurrent.ConcurrentLinkedQueue;
+
+import static com.github.tomakehurst.wiremock.client.WireMock.*;
+import static com.github.tomakehurst.wiremock.core.WireMockConfiguration.options;
 
 /** base class of tests with WireMock. */
 public abstract class WireMockTestBase {
@@ -31,8 +28,8 @@ public abstract class WireMockTestBase {
     wireMockServer.stop();
   }
 
-  protected ConcurrentLinkedQueue<CrawlerUrlDTO> createCrawlerUrlDto(final String aRequestUrl) {
-    final ConcurrentLinkedQueue<CrawlerUrlDTO> input = new ConcurrentLinkedQueue<>();
+  protected Queue<CrawlerUrlDTO> createCrawlerUrlDto(final String aRequestUrl) {
+    final Queue<CrawlerUrlDTO> input = new ConcurrentLinkedQueue<>();
     input.add(new CrawlerUrlDTO(wireMockServer.baseUrl() + aRequestUrl));
     return input;
   }
@@ -50,18 +47,18 @@ public abstract class WireMockTestBase {
 
   protected void setupSuccessfulJsonPostResponse(
       final String aRequestUrl, final String aResponseFile) {
-    setupSuccessfulJsonPostResponse(aRequestUrl, aResponseFile, Optional.empty());
+    setupSuccessfulJsonPostResponse(aRequestUrl, aResponseFile, null);
   }
 
   protected void setupSuccessfulJsonPostResponse(
-      final String aRequestUrl, final String aResponseFile, final Optional<Integer> status) {
+      final String aRequestUrl, final String aResponseFile, @Nullable final Integer status) {
     final String jsonBody = FileReader.readFile(aResponseFile);
     wireMockServer.stubFor(
         post(urlEqualTo(aRequestUrl))
             .willReturn(
                 aResponse()
                     .withHeader("Content-Type", "application/json")
-                    .withStatus(status.orElse(200))
+                    .withStatus(Optional.ofNullable(status).orElse(200))
                     .withBody(jsonBody)));
   }
 

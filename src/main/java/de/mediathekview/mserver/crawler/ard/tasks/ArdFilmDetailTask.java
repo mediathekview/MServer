@@ -7,7 +7,7 @@ import de.mediathekview.mserver.crawler.ard.ArdFilmDto;
 import de.mediathekview.mserver.crawler.ard.ArdFilmInfoDto;
 import de.mediathekview.mserver.crawler.ard.json.ArdFilmDeserializer;
 import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
-import de.mediathekview.mserver.crawler.basic.AbstractRecrusivConverterTask;
+import de.mediathekview.mserver.crawler.basic.AbstractRecursiveConverterTask;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -17,6 +17,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.List;
 import java.util.Optional;
+import java.util.Queue;
 import java.util.Set;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
@@ -26,7 +27,8 @@ public class ArdFilmDetailTask extends ArdTaskBase<Film, ArdFilmInfoDto> {
 
   private static final Type LIST_FILM_TYPE_TOKEN = new TypeToken<List<ArdFilmDto>>() {}.getType();
 
-  public ArdFilmDetailTask(final AbstractCrawler aCrawler, final ConcurrentLinkedQueue aUrlToCrawlDTOs) {
+  public ArdFilmDetailTask(
+      final AbstractCrawler aCrawler, final Queue<ArdFilmInfoDto> aUrlToCrawlDTOs) {
     super(aCrawler, aUrlToCrawlDTOs);
 
     registerJsonDeserializer(LIST_FILM_TYPE_TOKEN, new ArdFilmDeserializer(crawler));
@@ -35,9 +37,18 @@ public class ArdFilmDetailTask extends ArdTaskBase<Film, ArdFilmInfoDto> {
   @Override
   protected void processRestTarget(final ArdFilmInfoDto aDTO, final WebTarget aTarget) {
     try {
-      final List<ArdFilmDto> filmDtos = deserialize(aTarget, LIST_FILM_TYPE_TOKEN);
+      final List<ArdFilmDto> filmDtos = deserialize(aTarget, LIST_FILM_TYPE_TOKEN, aDTO);
 
-      if (filmDtos != null && filmDtos.size() > 0) {
+      if (filmDtos == null || filmDtos.isEmpty()) {
+        LOG.error("no film: {}", aDTO.getUrl());
+        crawler.incrementAndGetErrorCount();
+      } else {
+        /* Increase the max count because before we counted the shows and on the deserializing we get more then one film
+         * for one show. This is because we find related films in the document as well. The minus 1 because we already
+         * counted for the show itself.
+         */
+        crawler.incrementMaxCountBySizeAndGetNewSize(filmDtos.size() - 1L);
+
         for (final ArdFilmDto filmDto : filmDtos) {
 
           final Film result = filmDto.getFilm();
@@ -49,12 +60,8 @@ public class ArdFilmDetailTask extends ArdTaskBase<Film, ArdFilmInfoDto> {
           }
         }
         crawler.incrementAndGetActualCount();
-        crawler.updateProgress();
-      } else {
-        LOG.error("no film: " + aDTO.getUrl());
-        crawler.incrementAndGetErrorCount();
-        crawler.updateProgress();
       }
+      crawler.updateProgress();
     } catch (final Exception e) {
       LOG.error("exception: " + aDTO.getUrl(), e);
       crawler.incrementAndGetErrorCount();
@@ -64,7 +71,7 @@ public class ArdFilmDetailTask extends ArdTaskBase<Film, ArdFilmInfoDto> {
 
   private void processRelatedFilms(final Set<ArdFilmInfoDto> relatedFilms) {
     if (relatedFilms != null && !relatedFilms.isEmpty()) {
-      final ConcurrentLinkedQueue<ArdFilmInfoDto> queue = new ConcurrentLinkedQueue<>(relatedFilms);
+      final Queue<ArdFilmInfoDto> queue = new ConcurrentLinkedQueue<>(relatedFilms);
       final ArdFilmDetailTask task = (ArdFilmDetailTask) createNewOwnInstance(queue);
       task.fork();
       taskResults.addAll(task.join());
@@ -82,8 +89,8 @@ public class ArdFilmDetailTask extends ArdTaskBase<Film, ArdFilmInfoDto> {
   }
 
   @Override
-  protected AbstractRecrusivConverterTask createNewOwnInstance(
-          final ConcurrentLinkedQueue aElementsToProcess) {
+  protected AbstractRecursiveConverterTask<Film, ArdFilmInfoDto> createNewOwnInstance(
+      final Queue<ArdFilmInfoDto> aElementsToProcess) {
     return new ArdFilmDetailTask(crawler, aElementsToProcess);
   }
 }

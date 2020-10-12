@@ -5,13 +5,13 @@ import de.mediathekview.mserver.base.utils.UrlUtils;
 import de.mediathekview.mserver.base.webaccess.JsoupConnection;
 import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
 import de.mediathekview.mserver.crawler.basic.AbstractDocumentTask;
-import de.mediathekview.mserver.crawler.basic.AbstractRecrusivConverterTask;
+import de.mediathekview.mserver.crawler.basic.AbstractRecursiveConverterTask;
 import de.mediathekview.mserver.crawler.basic.CrawlerUrlDTO;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
-import java.util.concurrent.ConcurrentLinkedQueue;
+import java.util.Queue;
 
 public class KikaLetterPageUrlTask extends AbstractDocumentTask<CrawlerUrlDTO, CrawlerUrlDTO> {
 
@@ -19,11 +19,11 @@ public class KikaLetterPageUrlTask extends AbstractDocumentTask<CrawlerUrlDTO, C
   private final String baseUrl;
 
   public KikaLetterPageUrlTask(
-          final AbstractCrawler aCrawler,
-          final ConcurrentLinkedQueue<CrawlerUrlDTO> aUrlToCrawlDtos,
-          final String aBaseUrl,
-          final JsoupConnection jsoupConnection) {
-    super(aCrawler, aUrlToCrawlDtos, jsoupConnection);
+      final AbstractCrawler aCrawler,
+      final Queue<CrawlerUrlDTO> urlToCrawlDTOs,
+      final String aBaseUrl,
+      final JsoupConnection jsoupConnection) {
+    super(aCrawler, urlToCrawlDTOs, jsoupConnection);
     baseUrl = aBaseUrl;
   }
 
@@ -37,8 +37,8 @@ public class KikaLetterPageUrlTask extends AbstractDocumentTask<CrawlerUrlDTO, C
   }
 
   @Override
-  protected AbstractRecrusivConverterTask<CrawlerUrlDTO, CrawlerUrlDTO> createNewOwnInstance(
-          final ConcurrentLinkedQueue<CrawlerUrlDTO> aElementsToProcess) {
+  protected AbstractRecursiveConverterTask<CrawlerUrlDTO, CrawlerUrlDTO> createNewOwnInstance(
+      final Queue<CrawlerUrlDTO> aElementsToProcess) {
     return new KikaLetterPageUrlTask(crawler, aElementsToProcess, baseUrl, getJsoupConnection());
   }
 }

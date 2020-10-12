@@ -10,31 +10,32 @@ import de.mediathekview.mserver.crawler.basic.AbstractRestTask;
 import de.mediathekview.mserver.crawler.basic.AbstractUrlTask;
 import de.mediathekview.mserver.crawler.basic.CrawlerUrlDTO;
 import de.mediathekview.mserver.crawler.srf.parser.SrfFilmJsonDeserializer;
-import java.lang.reflect.Type;
-import java.net.URI;
-import java.util.Optional;
-import java.util.concurrent.ConcurrentLinkedQueue;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import javax.ws.rs.client.Invocation;
 import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.Response;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import java.lang.reflect.Type;
+import java.net.URI;
+import java.util.Optional;
+import java.util.Queue;
 
 public class SrfFilmDetailTask extends AbstractRestTask<Film, CrawlerUrlDTO> {
 
   private static final Logger LOG = LogManager.getLogger(SrfFilmDetailTask.class);
-  
-  public SrfFilmDetailTask(AbstractCrawler aCrawler, ConcurrentLinkedQueue<CrawlerUrlDTO> aURLsToCrawl)
-  {
-    super(aCrawler, aURLsToCrawl, Optional.empty());
+
+  public SrfFilmDetailTask(
+      final AbstractCrawler aCrawler, final Queue<CrawlerUrlDTO> aURLsToCrawl) {
+    super(aCrawler, aURLsToCrawl, null);
   }
-  
+
   @Override
-  protected void processRestTarget(CrawlerUrlDTO aDTO, WebTarget aTarget) {
-    Invocation.Builder request = aTarget.request();
+  protected void processRestTarget(final CrawlerUrlDTO aDTO, final WebTarget aTarget) {
+    final Invocation.Builder request = aTarget.request();
     final Response response = request.header(HEADER_ACCEPT_ENCODING, ENCODING_GZIP).get();
-    
-    switch(response.getStatus()) {
+
+    switch (response.getStatus()) {
       case 200:
       case 203:
         parseFilm(response, aTarget.getUri());
@@ -46,33 +47,38 @@ public class SrfFilmDetailTask extends AbstractRestTask<Film, CrawlerUrlDTO> {
         crawler.updateProgress();
         break;
       default:
-        LOG.error("SrfFilmDetailTask: Error reading url {}: {}", aTarget.getUri(), response.getStatus());
+        LOG.error(
+            "SrfFilmDetailTask: Error reading url {}: {}", aTarget.getUri(), response.getStatus());
         crawler.incrementAndGetErrorCount();
         crawler.updateProgress();
     }
   }
 
   @Override
-  protected AbstractUrlTask<Film, CrawlerUrlDTO> createNewOwnInstance(ConcurrentLinkedQueue<CrawlerUrlDTO> aURLsToCrawl) {
+  protected AbstractUrlTask<Film, CrawlerUrlDTO> createNewOwnInstance(
+      final Queue<CrawlerUrlDTO> aURLsToCrawl) {
     return new SrfFilmDetailTask(crawler, aURLsToCrawl);
   }
 
-  private void parseFilm(Response response, URI uri) {
+  private void parseFilm(final Response response, final URI uri) {
     final String jsonOutput = response.readEntity(String.class);
 
     try {
-      Type type = new TypeToken<Optional<Film>>() {}.getType();
-      final Gson gson = new GsonBuilder().registerTypeAdapter(type, new SrfFilmJsonDeserializer(crawler)).create();
-      
-      Optional<Film> film = gson.fromJson(jsonOutput, type);
+      final Type type = new TypeToken<Optional<Film>>() {}.getType();
+      final Gson gson =
+          new GsonBuilder()
+              .registerTypeAdapter(type, new SrfFilmJsonDeserializer(crawler))
+              .create();
+
+      final Optional<Film> film = gson.fromJson(jsonOutput, type);
       if (film.isPresent()) {
         taskResults.add(film.get());
 
         crawler.incrementAndGetActualCount();
         crawler.updateProgress();
       }
-    } catch (JsonSyntaxException e) {
-      LOG.error("SrfFilmDetailTask: Error reading url " + uri.toString(), e);
+    } catch (final JsonSyntaxException e) {
+      LOG.error("SrfFilmDetailTask: Error reading url {}", uri, e);
       crawler.incrementAndGetErrorCount();
       crawler.updateProgress();
     }

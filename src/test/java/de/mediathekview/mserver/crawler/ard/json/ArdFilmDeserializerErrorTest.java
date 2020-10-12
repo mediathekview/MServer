@@ -7,18 +7,18 @@ import de.mediathekview.mserver.crawler.ard.ArdCrawler;
 import de.mediathekview.mserver.crawler.ard.ArdFilmDto;
 import de.mediathekview.mserver.progress.listeners.SenderProgressListener;
 import de.mediathekview.mserver.testhelper.JsonFileReader;
-import java.util.Arrays;
 import org.junit.Test;
-
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.concurrent.ForkJoinPool;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.List;
+import java.util.concurrent.ForkJoinPool;
+
 import static org.hamcrest.CoreMatchers.equalTo;
-import static org.junit.Assert.assertThat;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 @RunWith(Parameterized.class)
 public class ArdFilmDeserializerErrorTest {
@@ -30,7 +30,10 @@ public class ArdFilmDeserializerErrorTest {
 
   @Parameterized.Parameters
   public static Collection<Object[]> data() {
-    return Arrays.asList(new Object[][] {{"/ard/ard_film_page_fsk_day11.json"}, {"/ard/ard_film_page_no_video11.json"}});
+    return Arrays.asList(
+        new Object[][] {
+          {"/ard/ard_film_page_fsk_day11.json"}, {"/ard/ard_film_page_no_video11.json"}
+        });
   }
 
   public ArdFilmDeserializerErrorTest(final String jsonFile) {

@@ -12,17 +12,16 @@ import de.mediathekview.mserver.crawler.ard.tasks.ArdTopicsOverviewTask;
 import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
 import de.mediathekview.mserver.crawler.basic.CrawlerUrlDTO;
 import de.mediathekview.mserver.progress.listeners.SenderProgressListener;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.Queue;
 import java.util.Set;
-import java.util.concurrent.ConcurrentLinkedQueue;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.ForkJoinPool;
-import java.util.concurrent.RecursiveTask;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import java.util.concurrent.*;
 
 public class ArdCrawler extends AbstractCrawler {
 
@@ -43,15 +42,16 @@ public class ArdCrawler extends AbstractCrawler {
     return Sender.ARD;
   }
 
-  private ConcurrentLinkedQueue<CrawlerUrlDTO> createDayUrlsToCrawl() {
-    final ConcurrentLinkedQueue<CrawlerUrlDTO> dayUrlsToCrawl = new ConcurrentLinkedQueue<>();
+  private Queue<CrawlerUrlDTO> createDayUrlsToCrawl() {
+    final Queue<CrawlerUrlDTO> dayUrlsToCrawl = new ConcurrentLinkedQueue<>();
 
     final LocalDateTime now = LocalDateTime.now();
     for (int i = 0; i <= crawlerConfig.getMaximumDaysForSendungVerpasstSection(); i++) {
       final String day = now.minusDays(i).format(DAY_PAGE_DATE_FORMATTER);
 
-      for (String client : ArdConstants.CLIENTS) {
-        final String url = String.format(ArdConstants.DAY_PAGE_URL, client, day, day, ArdConstants.DAY_PAGE_SIZE);
+      for (final String client : ArdConstants.CLIENTS) {
+        final String url =
+            String.format(ArdConstants.DAY_PAGE_URL, client, day, day, ArdConstants.DAY_PAGE_SIZE);
         dayUrlsToCrawl.offer(new CrawlerUrlDTO(url));
       }
     }
@@ -62,73 +62,59 @@ public class ArdCrawler extends AbstractCrawler {
   protected RecursiveTask<Set<Film>> createCrawlerTask() {
 
     try {
-      final ConcurrentLinkedQueue<ArdFilmInfoDto> shows = new ConcurrentLinkedQueue<>();
-      shows.addAll(getDaysEntries());
-      getTopicsEntries()
-          .forEach(
-              show -> {
-                if (!shows.contains(show)) {
-                  shows.add(show);
-                }
-              });
+      final Set<ForkJoinTask<Set<CrawlerUrlDTO>>> senderTopicTasks = createSenderTopicTasks();
+
+      final ForkJoinTask<Set<ArdFilmInfoDto>> dayTask =
+          forkJoinPool.submit(new ArdDayPageTask(this, createDayUrlsToCrawl()));
+
+      final Set<CrawlerUrlDTO> senderTopicUrls = new HashSet<>();
+      for (final ForkJoinTask<Set<CrawlerUrlDTO>> senderTopicTask : senderTopicTasks) {
+        senderTopicUrls.addAll(senderTopicTask.get());
+      }
+
+      final Set<ArdFilmInfoDto> shows = dayTask.get();
+      printMessage(
+          ServerMessages.DEBUG_ALL_SENDUNG_FOLGEN_COUNT, getSender().getName(), shows.size());
+
+      final ArdTopicPageTask topicTask =
+          new ArdTopicPageTask(this, new ConcurrentLinkedQueue<>(senderTopicUrls));
+      final int showsCountBefore = shows.size();
+      shows.addAll(forkJoinPool.submit(topicTask).get());
+      LOG.debug("ARD crawler found {} topics for all sub-sender.", shows.size() - showsCountBefore);
 
       printMessage(
           ServerMessages.DEBUG_ALL_SENDUNG_FOLGEN_COUNT, getSender().getName(), shows.size());
       getAndSetMaxCount(shows.size());
-
-      return new ArdFilmDetailTask(this, shows);
-    } catch (final InterruptedException | ExecutionException ex) {
+      return new ArdFilmDetailTask(this, new ConcurrentLinkedQueue<>(shows));
+    } catch (final InterruptedException ex) {
+      LOG.fatal("Exception in ARD crawler.", ex);
+      Thread.currentThread().interrupt();
+    } catch (final ExecutionException ex) {
       LOG.fatal("Exception in ARD crawler.", ex);
     }
     return null;
   }
 
-  private Set<ArdFilmInfoDto> getDaysEntries() throws InterruptedException, ExecutionException {
-    final ArdDayPageTask dayTask = new ArdDayPageTask(this, createDayUrlsToCrawl());
-    final Set<ArdFilmInfoDto> shows = forkJoinPool.submit(dayTask).get();
-
-    printMessage(
-        ServerMessages.DEBUG_ALL_SENDUNG_FOLGEN_COUNT, getSender().getName(), shows.size());
-
-    return shows;
-  }
-
-  private Set<ArdFilmInfoDto> getTopicsEntries() throws ExecutionException, InterruptedException {
-    Set<CrawlerUrlDTO> topics = new HashSet<>();
-    topics.addAll(getTopicEntriesBySender(ArdConstants.DEFAULT_CLIENT));
-    for (String client : ArdConstants.CLIENTS) {
-      topics.addAll(getTopicEntriesBySender(client));
+  private Set<ForkJoinTask<Set<CrawlerUrlDTO>>> createSenderTopicTasks() {
+    final Set<ForkJoinTask<Set<CrawlerUrlDTO>>> topicTasks = new HashSet<>();
+    topicTasks.add(getTopicEntriesBySender(ArdConstants.DEFAULT_CLIENT));
+    for (final String client : ArdConstants.CLIENTS) {
+      topicTasks.add(getTopicEntriesBySender(client));
     }
-
-    ConcurrentLinkedQueue<CrawlerUrlDTO> topicUrls = new ConcurrentLinkedQueue<>(topics);
-
-    final ArdTopicPageTask topicTask = new ArdTopicPageTask(this, topicUrls);
-    final Set<ArdFilmInfoDto> filmInfos = forkJoinPool.submit(topicTask).get();
-
-    printMessage(
-        ServerMessages.DEBUG_ALL_SENDUNG_FOLGEN_COUNT, getSender().getName(), filmInfos.size());
-
-    return filmInfos;
+    return topicTasks;
   }
 
-  private ConcurrentLinkedQueue<CrawlerUrlDTO> getTopicEntriesBySender(final String sender)
-      throws ExecutionException, InterruptedException {
-    ArdTopicsOverviewTask topicsTask =
-        new ArdTopicsOverviewTask(this, createTopicsOverviewUrl(sender));
-
-    ConcurrentLinkedQueue<CrawlerUrlDTO> queue =
-        new ConcurrentLinkedQueue<>(forkJoinPool.submit(topicsTask).get());
-    LOG.info(sender + " topic entries: " + queue.size());
-    return queue;
+  private ForkJoinTask<Set<CrawlerUrlDTO>> getTopicEntriesBySender(final String sender) {
+    return forkJoinPool.submit(
+        new ArdTopicsOverviewTask(this, sender, createTopicsOverviewUrl(sender)));
   }
 
-  private ConcurrentLinkedQueue<CrawlerUrlDTO> createTopicsOverviewUrl(final String client) {
-    final ConcurrentLinkedQueue<CrawlerUrlDTO> urls = new ConcurrentLinkedQueue<>();
+  private Queue<CrawlerUrlDTO> createTopicsOverviewUrl(final String client) {
+    final Queue<CrawlerUrlDTO> urls = new ConcurrentLinkedQueue<>();
 
     final String url = String.format(ArdConstants.TOPICS_URL, client);
     urls.add(new CrawlerUrlDTO(url));
 
     return urls;
   }
-
 }

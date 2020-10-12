@@ -5,17 +5,19 @@ import de.mediathekview.mserver.base.webaccess.JsoupConnection;
 import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
 import de.mediathekview.mserver.crawler.basic.TopicUrlDTO;
 import de.mediathekview.mserver.crawler.orf.OrfConstants;
-import java.io.IOException;
-import java.util.List;
-import java.util.concurrent.Callable;
-import java.util.concurrent.ConcurrentLinkedQueue;
-import java.util.concurrent.TimeUnit;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
 
-public class OrfLetterPageTask implements Callable<ConcurrentLinkedQueue<TopicUrlDTO>> {
+import java.io.IOException;
+import java.util.List;
+import java.util.Queue;
+import java.util.concurrent.Callable;
+import java.util.concurrent.ConcurrentLinkedQueue;
+import java.util.concurrent.TimeUnit;
+
+public class OrfLetterPageTask implements Callable<Queue<TopicUrlDTO>> {
 
   private static final Logger LOG = LogManager.getLogger(OrfLetterPageTask.class);
 
@@ -31,27 +33,30 @@ public class OrfLetterPageTask implements Callable<ConcurrentLinkedQueue<TopicUr
   }
 
   @Override
-  public ConcurrentLinkedQueue<TopicUrlDTO> call() throws Exception {
-    final ConcurrentLinkedQueue<TopicUrlDTO> results = new ConcurrentLinkedQueue<>();
+  public Queue<TopicUrlDTO> call() throws Exception {
+    final Queue<TopicUrlDTO> results = new ConcurrentLinkedQueue<>();
 
     // URLs für Seiten parsen
-    final Document document = jsoupConnection.getDocumentTimeoutAfter(
-        OrfConstants.URL_SHOW_LETTER_PAGE_A,
-        (int)
-            TimeUnit.SECONDS.toMillis(
-                crawler.getCrawlerConfig().getSocketTimeoutInSeconds()));
+    final Document document =
+        jsoupConnection.getDocumentTimeoutAfter(
+            OrfConstants.URL_SHOW_LETTER_PAGE_A,
+            (int)
+                TimeUnit.SECONDS.toMillis(crawler.getCrawlerConfig().getSocketTimeoutInSeconds()));
     final List<String> overviewLinks = OrfHelper.parseLetterLinks(document);
 
     // Sendungen für die einzelnen Seiten pro Buchstabe ermitteln
     overviewLinks.forEach(
         url -> {
           try {
-            final Document subpageDocument = jsoupConnection.getDocumentTimeoutAfter(url,
-                (int) TimeUnit.SECONDS
-                    .toMillis(crawler.getCrawlerConfig().getSocketTimeoutInSeconds()));
+            final Document subpageDocument =
+                jsoupConnection.getDocumentTimeoutAfter(
+                    url,
+                    (int)
+                        TimeUnit.SECONDS.toMillis(
+                            crawler.getCrawlerConfig().getSocketTimeoutInSeconds()));
             results.addAll(parseOverviewPage(subpageDocument));
           } catch (final IOException ex) {
-            LOG.fatal("OrfLetterPageTask: error parsing url " + url, ex);
+            LOG.fatal("OrfLetterPageTask: error parsing url {}", url, ex);
           } catch (final NullPointerException e) {
             LOG.fatal(e);
           }
@@ -60,8 +65,8 @@ public class OrfLetterPageTask implements Callable<ConcurrentLinkedQueue<TopicUr
     return results;
   }
 
-  private ConcurrentLinkedQueue<TopicUrlDTO> parseOverviewPage(final Document aDocument) {
-    final ConcurrentLinkedQueue<TopicUrlDTO> results = new ConcurrentLinkedQueue<>();
+  private Queue<TopicUrlDTO> parseOverviewPage(final Document aDocument) {
+    final Queue<TopicUrlDTO> results = new ConcurrentLinkedQueue<>();
 
     final Elements links = aDocument.select(SHOW_URL_SELECTOR);
     links.forEach(

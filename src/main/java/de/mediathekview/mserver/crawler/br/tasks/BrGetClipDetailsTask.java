@@ -18,6 +18,7 @@ import org.apache.logging.log4j.Logger;
 import java.lang.reflect.Type;
 import java.net.URL;
 import java.util.Optional;
+import java.util.Queue;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentLinkedQueue;
@@ -30,29 +31,27 @@ public class BrGetClipDetailsTask extends RecursiveTask<Set<Film>> {
   private static final Logger LOG = LogManager.getLogger(BrGetClipDetailsTask.class);
 
   private final transient AbstractCrawler crawler;
-  private final ConcurrentLinkedQueue<BrID> clipQueue;
+  private final Queue<BrID> clipQueue;
   private final transient Set<Film> convertedFilms;
   private final transient MServerBasicConfigDTO config;
 
-  public BrGetClipDetailsTask(
-      final AbstractCrawler crawler, final ConcurrentLinkedQueue<BrID> clipQueue) {
+  public BrGetClipDetailsTask(final AbstractCrawler crawler, final Queue<BrID> clipQueue) {
     this.crawler = crawler;
     this.clipQueue = clipQueue;
-    this.config = MServerConfigManager.getInstance().getSenderConfig(crawler.getSender());
-    this.convertedFilms = ConcurrentHashMap.newKeySet();
+    config = MServerConfigManager.getInstance().getSenderConfig(crawler.getSender());
+    convertedFilms = ConcurrentHashMap.newKeySet();
   }
 
-  private ConcurrentLinkedQueue<BrID> consumeHalfQueueToReturningOne(
-      final ConcurrentLinkedQueue<BrID> fullQueue) {
+  private Queue<BrID> consumeHalfQueueToReturningOne(final Queue<BrID> fullQueue) {
     final int halfSize = fullQueue.size() / 2;
-    final ConcurrentLinkedQueue<BrID> urlsToCrawlSubset = new ConcurrentLinkedQueue<>();
+    final Queue<BrID> urlsToCrawlSubset = new ConcurrentLinkedQueue<>();
     for (int i = 0; i < halfSize; i++) {
       urlsToCrawlSubset.offer(clipQueue.poll());
     }
     return urlsToCrawlSubset;
   }
 
-  private void filmIdsToFilms(final ConcurrentLinkedQueue<BrID> clipListe) {
+  private void filmIdsToFilms(final Queue<BrID> clipListe) {
     for (final BrID singleClipId : clipListe) {
       getClipDetailsForClipId(singleClipId);
     }
@@ -92,7 +91,8 @@ public class BrGetClipDetailsTask extends RecursiveTask<Set<Film>> {
         });
   }
 
-  private boolean tryBrApiCall(final Gson gson, final String response, final Type optionalFilmType) {
+  private boolean tryBrApiCall(
+      final Gson gson, final String response, final Type optionalFilmType) {
     int countRetries = 0;
     do {
       try {

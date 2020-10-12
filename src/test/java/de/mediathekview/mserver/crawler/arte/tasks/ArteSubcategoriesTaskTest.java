@@ -8,14 +8,14 @@ import java.util.Set;
 
 import static com.github.tomakehurst.wiremock.client.WireMock.*;
 import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.notNullValue;
-import static org.junit.Assert.assertThat;
 
 public class ArteSubcategoriesTaskTest extends ArteTaskTestBase {
 
   @Test
   public void testOverviewWithSinglePage() {
-      final String requestUrl = "/api/opa/v3/subcategories?language=de&limit=5";
+    final String requestUrl = "/api/opa/v3/subcategories?language=de&limit=5";
     setupSuccessfulJsonResponse(requestUrl, "/arte/arte_subcategory_page_last.json");
 
     final Set<TopicUrlDTO> actual = executeTask(requestUrl);
@@ -29,7 +29,7 @@ public class ArteSubcategoriesTaskTest extends ArteTaskTestBase {
 
     rootConfig.getConfig().setMaximumSubpages(5);
 
-      final String requestUrl = "/api/opa/v3/subcategories?language=de&limit=5";
+    final String requestUrl = "/api/opa/v3/subcategories?language=de&limit=5";
     setupSuccessfulJsonResponse(requestUrl, "/arte/arte_subcategory_page1.json");
     setupSuccessfulJsonResponse(
         "/api/opa/v3/subcategories?language=de&limit=5&page=2",
@@ -48,7 +48,7 @@ public class ArteSubcategoriesTaskTest extends ArteTaskTestBase {
   public void testOverviewWithMultiplePagesLimitSubpagesSmallerThanSubpageCount() {
     rootConfig.getSenderConfig(Sender.ARTE_DE).setMaximumSubpages(2);
 
-      final String requestUrl = "/api/opa/v3/subcategories?language=de&limit=5";
+    final String requestUrl = "/api/opa/v3/subcategories?language=de&limit=5";
     setupSuccessfulJsonResponse(requestUrl, "/arte/arte_subcategory_page1.json");
     setupSuccessfulJsonResponse(
         "/api/opa/v3/subcategories?language=de&limit=5&page=2",
@@ -62,7 +62,7 @@ public class ArteSubcategoriesTaskTest extends ArteTaskTestBase {
 
   @Test
   public void testOverviewPageNotFound() {
-      final String requestUrl = "/api/opa/v3/subcategories?language=de&limit=5";
+    final String requestUrl = "/api/opa/v3/subcategories?language=de&limit=5";
 
     wireMockServer.stubFor(
         get(urlEqualTo(requestUrl)).willReturn(aResponse().withStatus(404).withBody("Not Found")));
@@ -72,7 +72,7 @@ public class ArteSubcategoriesTaskTest extends ArteTaskTestBase {
     assertThat(actual.size(), equalTo(0));
   }
 
-    private Set<TopicUrlDTO> executeTask(final String aRequestUrl) {
+  private Set<TopicUrlDTO> executeTask(final String aRequestUrl) {
     return new ArteSubcategoriesTask(createCrawler(), createCrawlerUrlDto(aRequestUrl)).invoke();
   }
 }

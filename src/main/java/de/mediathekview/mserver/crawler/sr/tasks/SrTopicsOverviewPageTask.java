@@ -7,19 +7,21 @@ import de.mediathekview.mserver.base.webaccess.JsoupConnection;
 import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
 import de.mediathekview.mserver.crawler.sr.SrConstants;
 import de.mediathekview.mserver.crawler.sr.SrTopicUrlDTO;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import java.util.concurrent.Callable;
-import java.util.concurrent.ConcurrentLinkedQueue;
-import java.util.concurrent.TimeUnit;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
 
-public class SrTopicsOverviewPageTask implements Callable<ConcurrentLinkedQueue<SrTopicUrlDTO>> {
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+import java.util.Queue;
+import java.util.concurrent.Callable;
+import java.util.concurrent.ConcurrentLinkedQueue;
+import java.util.concurrent.TimeUnit;
+
+public class SrTopicsOverviewPageTask implements Callable<Queue<SrTopicUrlDTO>> {
 
   private static final Logger LOG = LogManager.getLogger(SrTopicsOverviewPageTask.class);
 
@@ -33,7 +35,8 @@ public class SrTopicsOverviewPageTask implements Callable<ConcurrentLinkedQueue<
   JsoupConnection jsoupConnection;
 
   /** @param aCrawler The crawler which uses this task. */
-  public SrTopicsOverviewPageTask(final AbstractCrawler aCrawler, final JsoupConnection jsoupConnection) {
+  public SrTopicsOverviewPageTask(
+      final AbstractCrawler aCrawler, final JsoupConnection jsoupConnection) {
     crawler = aCrawler;
     this.jsoupConnection = jsoupConnection;
   }
@@ -44,14 +47,15 @@ public class SrTopicsOverviewPageTask implements Callable<ConcurrentLinkedQueue<
   }
 
   @Override
-  public ConcurrentLinkedQueue<SrTopicUrlDTO> call() throws Exception {
-    final ConcurrentLinkedQueue<SrTopicUrlDTO> results = new ConcurrentLinkedQueue<>();
+  public Queue<SrTopicUrlDTO> call() throws Exception {
+    final Queue<SrTopicUrlDTO> results = new ConcurrentLinkedQueue<>();
 
     // URLs für Seiten parsen
     final Document document =
-        jsoupConnection.getDocumentTimeoutAfter(SrConstants.URL_OVERVIEW_PAGE,
-            (int) TimeUnit.SECONDS.toMillis(
-                crawler.getCrawlerConfig().getSocketTimeoutInSeconds()));
+        jsoupConnection.getDocumentTimeoutAfter(
+            SrConstants.URL_OVERVIEW_PAGE,
+            (int)
+                TimeUnit.SECONDS.toMillis(crawler.getCrawlerConfig().getSocketTimeoutInSeconds()));
     final List<String> overviewLinks = parseOverviewLinks(document);
 
     // Sendungen für erste Seite ermitteln
@@ -61,9 +65,12 @@ public class SrTopicsOverviewPageTask implements Callable<ConcurrentLinkedQueue<
     overviewLinks.forEach(
         url -> {
           try {
-            final Document subpageDocument = jsoupConnection.getDocumentTimeoutAfter(url,
-                (int) TimeUnit.SECONDS
-                    .toMillis(crawler.getCrawlerConfig().getSocketTimeoutInSeconds()));
+            final Document subpageDocument =
+                jsoupConnection.getDocumentTimeoutAfter(
+                    url,
+                    (int)
+                        TimeUnit.SECONDS.toMillis(
+                            crawler.getCrawlerConfig().getSocketTimeoutInSeconds()));
             results.addAll(parseOverviewPage(subpageDocument));
           } catch (final IOException ex) {
             LOG.fatal("SrTopicsOverviewPageTask: error parsing url " + url, ex);
@@ -100,8 +107,8 @@ public class SrTopicsOverviewPageTask implements Callable<ConcurrentLinkedQueue<
     return results;
   }
 
-  private ConcurrentLinkedQueue<SrTopicUrlDTO> parseOverviewPage(final Document aDocument) {
-    final ConcurrentLinkedQueue<SrTopicUrlDTO> results = new ConcurrentLinkedQueue<>();
+  private Queue<SrTopicUrlDTO> parseOverviewPage(final Document aDocument) {
+    final Queue<SrTopicUrlDTO> results = new ConcurrentLinkedQueue<>();
 
     final Elements links = aDocument.select(SHOW_LINK_SELECTOR);
     links.forEach(

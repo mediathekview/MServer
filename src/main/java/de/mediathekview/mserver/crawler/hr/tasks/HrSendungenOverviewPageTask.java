@@ -6,15 +6,16 @@ import de.mediathekview.mserver.base.webaccess.JsoupConnection;
 import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
 import de.mediathekview.mserver.crawler.basic.CrawlerUrlDTO;
 import de.mediathekview.mserver.crawler.hr.HrConstants;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+
 import java.io.IOException;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.concurrent.Callable;
 import java.util.concurrent.TimeUnit;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
 
 public class HrSendungenOverviewPageTask implements Callable<Set<CrawlerUrlDTO>> {
 
@@ -41,9 +42,11 @@ public class HrSendungenOverviewPageTask implements Callable<Set<CrawlerUrlDTO>>
 
     try {
       final Document document =
-          jsoupConnection
-              .getDocumentTimeoutAfter(baseUrl + HR_SENDUNGEN_URL, (int) TimeUnit.SECONDS.toMillis(
-                  crawler.getCrawlerConfig().getSocketTimeoutInSeconds()));
+          jsoupConnection.getDocumentTimeoutAfter(
+              baseUrl + HR_SENDUNGEN_URL,
+              (int)
+                  TimeUnit.SECONDS.toMillis(
+                      crawler.getCrawlerConfig().getSocketTimeoutInSeconds()));
       for (final Element filmUrlElement : document.select(SENDUNG_URL_SELECTOR)) {
         if (filmUrlElement.hasAttr(HtmlConsts.ATTRIBUTE_HREF)) {
           final String url = filmUrlElement.absUrl(HtmlConsts.ATTRIBUTE_HREF);
@@ -54,7 +57,7 @@ public class HrSendungenOverviewPageTask implements Callable<Set<CrawlerUrlDTO>>
       }
     } catch (final IOException ioException) {
       LOG.fatal(
-          "Something wen't terrible wrong on gathering the HR Sendung URLs from Sendungen overview page.",
+          "Something went terrible wrong on gathering the HR Sendung URLs from Sendungen overview page.",
           ioException);
     }
 

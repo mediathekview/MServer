@@ -31,6 +31,7 @@ import de.mediathekview.mserver.crawler.wdr.*;
 import de.mediathekview.mserver.crawler.zdf.ZdfCrawler;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
@@ -215,6 +216,29 @@ public class CrawlerManager extends AbstractManager {
       final Path aSavePath, final FilmlistFormats aFormat, final boolean aIsDiff) {
     final Path filteredSavePath = filterPath(aSavePath);
 
+    final Path filmlistFilePath = getFilmlistFilePath(aFormat, filteredSavePath).toAbsolutePath();
+
+    final Path parentDir = filmlistFilePath.getParent();
+    if (parentDir != null) {
+      try {
+        Files.createDirectories(parentDir);
+      } catch (final IOException ioException) {
+        LOG.debug("Can't create the parent directories!");
+        printMessage(ServerMessages.FILMLIST_SAVE_PATH_INVALID, filmlistFilePath.toString());
+        return;
+      }
+    }
+
+    filmlistManager.addAllMessageListener(messageListeners);
+    if (aIsDiff) {
+      filmlistManager.save(aFormat, differenceList, filmlistFilePath);
+    } else {
+      filmlistManager.save(aFormat, filmlist, filmlistFilePath);
+    }
+  }
+
+  @NotNull
+  private Path getFilmlistFilePath(final FilmlistFormats aFormat, final Path filteredSavePath) {
     final Path filmlistFileSafePath;
     if (Files.isDirectory(filteredSavePath)) {
       if (FilmlistFormats.JSON.equals(aFormat) || FilmlistFormats.OLD_JSON.equals(aFormat)) {
@@ -225,26 +249,7 @@ public class CrawlerManager extends AbstractManager {
     } else {
       filmlistFileSafePath = filteredSavePath;
     }
-
-    if (Files.exists(filmlistFileSafePath.toAbsolutePath().getParent())) {
-      if (Files.isWritable(filmlistFileSafePath.toAbsolutePath().getParent())) {
-        filmlistManager.addAllMessageListener(messageListeners);
-        if (aIsDiff) {
-          filmlistManager.save(aFormat, differenceList, filmlistFileSafePath);
-        } else {
-          filmlistManager.save(aFormat, filmlist, filmlistFileSafePath);
-        }
-
-      } else {
-        printMessage(
-            ServerMessages.FILMLIST_SAVE_PATH_MISSING_RIGHTS,
-            filmlistFileSafePath.toAbsolutePath().toString());
-      }
-    } else {
-      printMessage(
-          ServerMessages.FILMLIST_SAVE_PATH_INVALID,
-          filmlistFileSafePath.toAbsolutePath().toString());
-    }
+    return filmlistFileSafePath;
   }
 
   /**

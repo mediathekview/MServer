@@ -1,11 +1,8 @@
 package de.mediathekview.mserver.crawler.ard.json;
 
-import com.google.gson.JsonArray;
-import com.google.gson.JsonDeserializationContext;
-import com.google.gson.JsonDeserializer;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
+import com.google.gson.*;
 import de.mediathekview.mserver.crawler.ard.ArdFilmInfoDto;
+
 import java.lang.reflect.Type;
 import java.util.HashSet;
 import java.util.Set;
@@ -17,8 +14,8 @@ public class ArdDayPageDeserializer extends ArdTeasersDeserializer
 
   @Override
   public Set<ArdFilmInfoDto> deserialize(
-      JsonElement jsonElement, Type type, JsonDeserializationContext context) {
-    Set<ArdFilmInfoDto> results = new HashSet<>();
+          final JsonElement jsonElement, final Type type, final JsonDeserializationContext context) {
+    final Set<ArdFilmInfoDto> results = new HashSet<>();
 
     if (!jsonElement.isJsonArray()) {
       return results;

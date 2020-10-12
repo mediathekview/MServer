@@ -19,6 +19,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.Collection;
+import java.util.Queue;
 import java.util.Set;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.ExecutionException;
@@ -49,8 +50,8 @@ public class HrCrawler extends AbstractCrawler {
     return Sender.HR;
   }
 
-  private ConcurrentLinkedQueue<CrawlerUrlDTO> getSendungVerpasstStartUrls() {
-    final ConcurrentLinkedQueue<CrawlerUrlDTO> urls = new ConcurrentLinkedQueue<>();
+  private Queue<CrawlerUrlDTO> getSendungVerpasstStartUrls() {
+    final Queue<CrawlerUrlDTO> urls = new ConcurrentLinkedQueue<>();
     for (int i = 0;
         i
             < crawlerConfig.getMaximumDaysForSendungVerpasstSection()
@@ -76,15 +77,17 @@ public class HrCrawler extends AbstractCrawler {
     final HrSendungenOverviewPageTask sendungenOverviewPageTask =
         new HrSendungenOverviewPageTask(HrConstants.BASE_URL, this);
 
-    final ConcurrentLinkedQueue<CrawlerUrlDTO> sendungsfolgenUrls = new ConcurrentLinkedQueue<>();
+    final Queue<CrawlerUrlDTO> sendungsfolgenUrls = new ConcurrentLinkedQueue<>();
     try {
       final HrSendungsfolgenOverviewPageTask sendungsfolgenOverviewPageTask =
           new HrSendungsfolgenOverviewPageTask(
               this,
-              new ConcurrentLinkedQueue<>(forkJoinPool.submit(sendungenOverviewPageTask).get()), jsoupConnection);
+              new ConcurrentLinkedQueue<>(forkJoinPool.submit(sendungenOverviewPageTask).get()),
+              jsoupConnection);
 
       final HrSendungsfolgenVerpasstOverviewPageTask sendungVerpasstTask =
-          new HrSendungsfolgenVerpasstOverviewPageTask(this, getSendungVerpasstStartUrls(), jsoupConnection);
+          new HrSendungsfolgenVerpasstOverviewPageTask(
+              this, getSendungVerpasstStartUrls(), jsoupConnection);
 
       sendungsfolgenUrls.addAll(forkJoinPool.invoke(sendungsfolgenOverviewPageTask));
       sendungsfolgenUrls.addAll(forkJoinPool.invoke(sendungVerpasstTask));

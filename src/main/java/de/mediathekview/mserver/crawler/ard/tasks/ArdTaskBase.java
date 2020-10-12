@@ -12,12 +12,14 @@ import de.mediathekview.mserver.crawler.zdf.ZdfConstants;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import javax.ws.rs.ProcessingException;
 import javax.ws.rs.client.Invocation.Builder;
 import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.Response;
 import java.lang.reflect.Type;
+import java.net.NoRouteToHostException;
 import java.util.Optional;
-import java.util.concurrent.ConcurrentLinkedQueue;
+import java.util.Queue;
 
 public abstract class ArdTaskBase<T, D extends CrawlerUrlDTO> extends AbstractRestTask<T, D> {
 
@@ -26,11 +28,10 @@ public abstract class ArdTaskBase<T, D extends CrawlerUrlDTO> extends AbstractRe
   private static final Type OPTIONAL_ERROR_DTO =
       new TypeToken<Optional<ArdErrorInfoDto>>() {}.getType();
 
-  private final GsonBuilder gsonBuilder;
+  private final transient GsonBuilder gsonBuilder;
 
-  public ArdTaskBase(
-      final AbstractCrawler aCrawler, final ConcurrentLinkedQueue<D> aUrlToCrawlDtos) {
-    super(aCrawler, aUrlToCrawlDtos, Optional.empty());
+  public ArdTaskBase(final AbstractCrawler aCrawler, final Queue<D> urlToCrawlDTOs) {
+    super(aCrawler, urlToCrawlDTOs, null);
     gsonBuilder = new GsonBuilder();
     registerJsonDeserializer(OPTIONAL_ERROR_DTO, new ArdErrorDeserializer());
   }
@@ -39,30 +40,42 @@ public abstract class ArdTaskBase<T, D extends CrawlerUrlDTO> extends AbstractRe
     gsonBuilder.registerTypeAdapter(aType, aDeserializer);
   }
 
-  protected <A> Optional<A> deserializeOptional(final WebTarget target, final Type type) {
-    return this.<Optional<A>>deserializeUnsafe(target, type).orElse(Optional.empty());
+  protected <A> Optional<A> deserializeOptional(
+      final WebTarget target, final Type type, final D currentElement) {
+    return this.<Optional<A>>deserializeUnsafe(target, type, currentElement)
+        .orElse(Optional.empty());
   }
 
-  private <A> Optional<A> deserializeUnsafe(final WebTarget target, final Type type) {
+  private <A> Optional<A> deserializeUnsafe(
+      final WebTarget target, final Type type, final D currentElement) {
     final Gson gson = gsonBuilder.create();
-    final Response response = executeRequest(target);
-    if (response.getStatus() == 200) {
-      final String jsonOutput = response.readEntity(String.class);
-      if (isSuccessResponse(jsonOutput, gson, target.getUri().toString())) {
-        return Optional.of(gson.fromJson(jsonOutput, type));
+    try {
+      final Response response = executeRequest(target);
+      if (response.getStatus() == 200) {
+        final String jsonOutput = response.readEntity(String.class);
+        if (isSuccessResponse(jsonOutput, gson, target.getUri().toString())) {
+          return Optional.of(gson.fromJson(jsonOutput, type));
+        }
+      } else {
+        LOG.error(
+            "ArdTaskBase: request of url {} failed: {}", target.getUri(), response.getStatus());
       }
-    } else {
-      LOG.error(
-          "ArdTaskBase: request of url "
-              + target.getUri().toString()
-              + " failed: "
-              + response.getStatus());
+    } catch (final ProcessingException processingException) {
+      if (processingException.getCause() instanceof NoRouteToHostException) {
+        LOG.error(
+            "Can't reach the target host. Trying it again by adding the URL to the URL list.",
+            processingException);
+        addElementToProcess(currentElement);
+        crawler.decrementAndGetErrorCount();
+      } else {
+        LOG.error("Something went wrong deserializing {}!", target.getUri(), processingException);
+      }
     }
     return Optional.empty();
   }
 
-  protected <A> A deserialize(final WebTarget target, final Type type) {
-    return this.<A>deserializeUnsafe(target, type).orElse(null);
+  protected <A> A deserialize(final WebTarget target, final Type type, final D currentElement) {
+    return this.<A>deserializeUnsafe(target, type, currentElement).orElse(null);
   }
 
   private boolean isSuccessResponse(
@@ -71,18 +84,17 @@ public abstract class ArdTaskBase<T, D extends CrawlerUrlDTO> extends AbstractRe
     error.ifPresent(
         ardErrorInfoDto ->
             LOG.error(
-                "ArdTaskBase: request of url "
-                    + targetUrl
-                    + " contains error: "
-                    + ardErrorInfoDto.getCode()
-                    + ", "
-                    + ardErrorInfoDto.getMessage()));
+                "ArdTaskBase: request of url {}} contains error: {}}, {}",
+                targetUrl,
+                ardErrorInfoDto.getCode(),
+                ardErrorInfoDto.getMessage()));
 
-    return !error.isPresent();
+    return error.isEmpty();
   }
 
   private Response executeRequest(final WebTarget aTarget) {
     Builder request = aTarget.request();
+    final Optional<String> authKey = getAuthKey();
     if (authKey.isPresent()) {
       request =
           request.header(
@@ -90,7 +102,6 @@ public abstract class ArdTaskBase<T, D extends CrawlerUrlDTO> extends AbstractRe
     }
 
     return request
-        // .header(HEADER_ACCEPT_ENCODING, ENCODING_GZIP)
         .header(HEADER_ACCEPT, APPLICATION_JSON)
         .header(HEADER_CONTENT_TYPE, APPLICATION_JSON)
         .get();

@@ -15,6 +15,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.util.Collection;
+import java.util.Queue;
 import java.util.Set;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.ExecutionException;
@@ -34,7 +35,7 @@ public class SrCrawler extends AbstractCrawler {
       final MServerConfigManager rootConfig) {
     super(aForkJoinPool, aMessageListeners, aProgressListeners, rootConfig);
 
-    this.jsoupConnection = new JsoupConnection();
+    jsoupConnection = new JsoupConnection();
   }
 
   @Override
@@ -45,14 +46,16 @@ public class SrCrawler extends AbstractCrawler {
   @Override
   protected RecursiveTask<Set<Film>> createCrawlerTask() {
     try {
-      final SrTopicsOverviewPageTask overviewTask = new SrTopicsOverviewPageTask(this, jsoupConnection);
-      final ConcurrentLinkedQueue<SrTopicUrlDTO> shows = forkJoinPool.submit(overviewTask).get();
+      final SrTopicsOverviewPageTask overviewTask =
+          new SrTopicsOverviewPageTask(this, jsoupConnection);
+      final Queue<SrTopicUrlDTO> shows = forkJoinPool.submit(overviewTask).get();
 
       printMessage(
           ServerMessages.DEBUG_ALL_SENDUNG_FOLGEN_COUNT, getSender().getName(), shows.size());
 
-      final SrTopicArchivePageTask archiveTask = new SrTopicArchivePageTask(this, shows, jsoupConnection);
-      final ConcurrentLinkedQueue<SrTopicUrlDTO> filmDtos = new ConcurrentLinkedQueue<>();
+      final SrTopicArchivePageTask archiveTask =
+          new SrTopicArchivePageTask(this, shows, jsoupConnection);
+      final Queue<SrTopicUrlDTO> filmDtos = new ConcurrentLinkedQueue<>();
       filmDtos.addAll(forkJoinPool.submit(archiveTask).get());
 
       printMessage(

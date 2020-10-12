@@ -4,25 +4,26 @@ import de.mediathekview.mserver.base.HtmlConsts;
 import de.mediathekview.mserver.base.webaccess.JsoupConnection;
 import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
 import de.mediathekview.mserver.crawler.basic.AbstractDocumentTask;
-import de.mediathekview.mserver.crawler.basic.AbstractRecrusivConverterTask;
+import de.mediathekview.mserver.crawler.basic.AbstractRecursiveConverterTask;
 import de.mediathekview.mserver.crawler.basic.TopicUrlDTO;
 import org.jsoup.nodes.Document;
 
-import java.util.concurrent.ConcurrentLinkedQueue;
+import java.util.Queue;
 
 public class OrfHistoryTopicTask extends AbstractDocumentTask<TopicUrlDTO, TopicUrlDTO> {
 
   private static final String SHOW_URL_SELECTOR = "article > a";
 
   public OrfHistoryTopicTask(
-      final AbstractCrawler aCrawler, final ConcurrentLinkedQueue<TopicUrlDTO> aUrlToCrawlDtos, final
-      JsoupConnection jsoupConnection) {
-    super(aCrawler, aUrlToCrawlDtos, jsoupConnection);
+      final AbstractCrawler crawler,
+      final Queue<TopicUrlDTO> urlToCrawlDTOs,
+      final JsoupConnection jsoupConnection) {
+    super(crawler, urlToCrawlDTOs, jsoupConnection);
   }
 
   @Override
-  protected AbstractRecrusivConverterTask<TopicUrlDTO, TopicUrlDTO> createNewOwnInstance(
-      final ConcurrentLinkedQueue<TopicUrlDTO> aElementsToProcess) {
+  protected AbstractRecursiveConverterTask<TopicUrlDTO, TopicUrlDTO> createNewOwnInstance(
+      final Queue<TopicUrlDTO> aElementsToProcess) {
     return new OrfHistoryTopicTask(crawler, aElementsToProcess, getJsoupConnection());
   }
 

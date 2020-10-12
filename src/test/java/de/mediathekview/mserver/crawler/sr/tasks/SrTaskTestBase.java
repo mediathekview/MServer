@@ -9,23 +9,24 @@ import de.mediathekview.mserver.testhelper.WireMockTestBase;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.ForkJoinPool;
 
 public abstract class SrTaskTestBase extends WireMockTestBase {
 
-    protected MServerConfigManager rootConfig =
-            MServerConfigManager.getInstance("MServer-JUnit-Config.yaml");
+  protected MServerConfigManager rootConfig =
+      MServerConfigManager.getInstance("MServer-JUnit-Config.yaml");
 
   protected SrCrawler createCrawler() {
-    ForkJoinPool forkJoinPool = new ForkJoinPool();
-    Collection<MessageListener> nachrichten = new ArrayList<>();
-    Collection<SenderProgressListener> fortschritte = new ArrayList<>();
+    final ForkJoinPool forkJoinPool = new ForkJoinPool();
+    final Collection<MessageListener> nachrichten = new ArrayList<>();
+    final Collection<SenderProgressListener> fortschritte = new ArrayList<>();
     return new SrCrawler(forkJoinPool, nachrichten, fortschritte, rootConfig);
   }
 
-  protected ConcurrentLinkedQueue<SrTopicUrlDTO> createCrawlerUrlDto(String aTheme, String aUrl) {
-    ConcurrentLinkedQueue<SrTopicUrlDTO> input = new ConcurrentLinkedQueue<>();
+  protected Queue<SrTopicUrlDTO> createCrawlerUrlDto(final String aTheme, final String aUrl) {
+    final Queue<SrTopicUrlDTO> input = new ConcurrentLinkedQueue<>();
     input.add(new SrTopicUrlDTO(aTheme, aUrl));
     return input;
   }

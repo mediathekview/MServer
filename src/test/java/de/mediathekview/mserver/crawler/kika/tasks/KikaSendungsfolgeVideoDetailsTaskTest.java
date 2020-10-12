@@ -1,12 +1,5 @@
 package de.mediathekview.mserver.crawler.kika.tasks;
 
-import static org.hamcrest.CoreMatchers.equalTo;
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyInt;
-import static org.mockito.ArgumentMatchers.eq;
-import static org.mockito.Mockito.when;
-
 import de.mediathekview.mlib.daten.Film;
 import de.mediathekview.mlib.daten.GeoLocations;
 import de.mediathekview.mlib.daten.Sender;
@@ -14,13 +7,6 @@ import de.mediathekview.mserver.base.webaccess.JsoupConnection;
 import de.mediathekview.mserver.crawler.basic.CrawlerUrlDTO;
 import de.mediathekview.mserver.testhelper.AssertFilm;
 import de.mediathekview.mserver.testhelper.JsoupMock;
-import java.io.IOException;
-import java.time.Duration;
-import java.time.LocalDateTime;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Set;
-import java.util.concurrent.ConcurrentLinkedQueue;
 import org.jsoup.nodes.Document;
 import org.junit.Before;
 import org.junit.Test;
@@ -28,6 +14,20 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+
+import java.io.IOException;
+import java.time.Duration;
+import java.time.LocalDateTime;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Queue;
+import java.util.Set;
+import java.util.concurrent.ConcurrentLinkedQueue;
+
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.mockito.ArgumentMatchers.*;
+import static org.mockito.Mockito.when;
 
 @RunWith(Parameterized.class)
 public class KikaSendungsfolgeVideoDetailsTaskTest extends KikaTaskTestBase {
@@ -115,18 +115,19 @@ public class KikaSendungsfolgeVideoDetailsTaskTest extends KikaTaskTestBase {
 
   @Before
   public void setUp() {
-    MockitoAnnotations.initMocks(this);
+    MockitoAnnotations.openMocks(this);
   }
 
-  @Mock
-  JsoupConnection jsoupConnection;
+  @Mock JsoupConnection jsoupConnection;
 
   @Test
   public void test() throws IOException {
-    Document document = JsoupMock.mockXml(requestUrl, xmlFile);
-    when(jsoupConnection.getDocumentTimeoutAfterAlternativeDocumentType(eq(requestUrl), anyInt(), any())).thenReturn(document);
+    final Document document = JsoupMock.mockXml(requestUrl, xmlFile);
+    when(jsoupConnection.getDocumentTimeoutAfterAlternativeDocumentType(
+            eq(requestUrl), anyInt(), any()))
+        .thenReturn(document);
 
-    final ConcurrentLinkedQueue<CrawlerUrlDTO> urls = new ConcurrentLinkedQueue<>();
+    final Queue<CrawlerUrlDTO> urls = new ConcurrentLinkedQueue<>();
     urls.add(new CrawlerUrlDTO(requestUrl));
 
     final KikaSendungsfolgeVideoDetailsTask target =

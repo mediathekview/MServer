@@ -1,19 +1,17 @@
 package de.mediathekview.mserver.crawler.zdf.tasks;
 
-import static com.github.tomakehurst.wiremock.client.WireMock.aResponse;
-import static com.github.tomakehurst.wiremock.client.WireMock.get;
-import static com.github.tomakehurst.wiremock.client.WireMock.urlEqualTo;
-import static org.hamcrest.CoreMatchers.equalTo;
-import static org.hamcrest.CoreMatchers.notNullValue;
-import static org.junit.Assert.assertThat;
-
 import de.mediathekview.mserver.crawler.basic.CrawlerUrlDTO;
 import de.mediathekview.mserver.crawler.zdf.ZdfConstants;
-import java.util.Collection;
-import java.util.Optional;
-import java.util.Set;
 import org.hamcrest.Matchers;
 import org.junit.Test;
+
+import java.util.Collection;
+import java.util.Set;
+
+import static com.github.tomakehurst.wiremock.client.WireMock.*;
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.CoreMatchers.notNullValue;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 public class ZdfDayPageTaskTest extends ZdfTaskTestBase {
 
@@ -40,7 +38,6 @@ public class ZdfDayPageTaskTest extends ZdfTaskTestBase {
     setupSuccessfulJsonResponse(requestUrl, "/zdf/zdf_day_page_single.json");
 
     final Collection<CrawlerUrlDTO> actual = executeTask(requestUrl);
-
     assertThat(actual, notNullValue());
     assertThat(actual, Matchers.containsInAnyOrder(expectedEntries));
   }
@@ -78,10 +75,7 @@ public class ZdfDayPageTaskTest extends ZdfTaskTestBase {
 
   private Set<CrawlerUrlDTO> executeTask(final String aRequestUrl) {
     return new ZdfDayPageTask(
-            createCrawler(),
-            ZdfConstants.URL_API_BASE,
-            createCrawlerUrlDto(aRequestUrl),
-            Optional.empty())
+            createCrawler(), ZdfConstants.URL_API_BASE, createCrawlerUrlDto(aRequestUrl), null)
         .invoke();
   }
 }

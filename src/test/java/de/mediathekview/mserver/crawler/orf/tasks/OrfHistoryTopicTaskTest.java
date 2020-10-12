@@ -1,17 +1,8 @@
 package de.mediathekview.mserver.crawler.orf.tasks;
 
-import static org.hamcrest.CoreMatchers.equalTo;
-import static org.hamcrest.CoreMatchers.notNullValue;
-import static org.junit.Assert.assertThat;
-import static org.mockito.ArgumentMatchers.eq;
-import static org.mockito.Mockito.when;
-
 import de.mediathekview.mserver.base.webaccess.JsoupConnection;
 import de.mediathekview.mserver.crawler.basic.TopicUrlDTO;
 import de.mediathekview.mserver.testhelper.JsoupMock;
-import java.io.IOException;
-import java.util.Set;
-import java.util.concurrent.ConcurrentLinkedQueue;
 import org.hamcrest.Matchers;
 import org.jsoup.Connection;
 import org.junit.Before;
@@ -19,14 +10,24 @@ import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
+import java.io.IOException;
+import java.util.Queue;
+import java.util.Set;
+import java.util.concurrent.ConcurrentLinkedQueue;
+
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.CoreMatchers.notNullValue;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.Mockito.when;
+
 public class OrfHistoryTopicTaskTest extends OrfTaskTestBase {
 
-  @Mock
-  JsoupConnection jsoupConnection;
+  @Mock JsoupConnection jsoupConnection;
 
   @Before
   public void setUp() {
-    MockitoAnnotations.initMocks(this);
+    MockitoAnnotations.openMocks(this);
   }
 
   @Test
@@ -35,10 +36,11 @@ public class OrfHistoryTopicTaskTest extends OrfTaskTestBase {
         "https://tvthek.orf.at/history/Die-Geschichte-Niederoesterreichs/8378971";
     final String topic = "Die Geschichte Niederösterreichs";
 
-    Connection connection = JsoupMock.mock(requestUrl, "/orf/orf_history_topic_overview.html");
+    final Connection connection =
+        JsoupMock.mock(requestUrl, "/orf/orf_history_topic_overview.html");
     when(jsoupConnection.getConnection(eq(requestUrl))).thenReturn(connection);
 
-    TopicUrlDTO[] expected =
+    final TopicUrlDTO[] expected =
         new TopicUrlDTO[] {
           new TopicUrlDTO(
               topic,
@@ -123,11 +125,12 @@ public class OrfHistoryTopicTaskTest extends OrfTaskTestBase {
               "https://tvthek.orf.at/history/Stifte-und-Kloester/8378976/Pilgerstaette-am-Sonntagberg/8328932")
         };
 
-    ConcurrentLinkedQueue<TopicUrlDTO> queue = new ConcurrentLinkedQueue<>();
+    final Queue<TopicUrlDTO> queue = new ConcurrentLinkedQueue<>();
     queue.add(new TopicUrlDTO(topic, requestUrl));
 
-    OrfHistoryTopicTask target = new OrfHistoryTopicTask(createCrawler(), queue, jsoupConnection);
-    Set<TopicUrlDTO> actual = target.invoke();
+    final OrfHistoryTopicTask target =
+        new OrfHistoryTopicTask(createCrawler(), queue, jsoupConnection);
+    final Set<TopicUrlDTO> actual = target.invoke();
 
     assertThat(actual, notNullValue());
     assertThat(actual.size(), equalTo(expected.length));

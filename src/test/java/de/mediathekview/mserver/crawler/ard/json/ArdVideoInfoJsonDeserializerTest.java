@@ -1,20 +1,21 @@
 package de.mediathekview.mserver.crawler.ard.json;
 
-import static org.hamcrest.CoreMatchers.equalTo;
-import static org.hamcrest.CoreMatchers.notNullValue;
-import static org.junit.Assert.assertThat;
-
 import com.google.gson.JsonElement;
 import de.mediathekview.mlib.daten.Resolution;
 import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
 import de.mediathekview.mserver.testhelper.JsonFileReader;
 import de.mediathekview.mserver.testhelper.WireMockTestBase;
-import java.util.Arrays;
-import java.util.Collection;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.mockito.Mockito;
+
+import java.util.Arrays;
+import java.util.Collection;
+
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.CoreMatchers.notNullValue;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 @RunWith(Parameterized.class)
 public class ArdVideoInfoJsonDeserializerTest extends WireMockTestBase {
@@ -25,7 +26,7 @@ public class ArdVideoInfoJsonDeserializerTest extends WireMockTestBase {
   private final String expectedUrlHd;
 
   public ArdVideoInfoJsonDeserializerTest(
-      String aJsonFile, String aUrlSmall, String aUrlNormal, String aUrlHd) {
+          final String aJsonFile, final String aUrlSmall, final String aUrlNormal, final String aUrlHd) {
     jsonFile = aJsonFile;
     expectedUrlSmall = aUrlSmall;
     expectedUrlNormal = aUrlNormal;
@@ -132,16 +133,16 @@ public class ArdVideoInfoJsonDeserializerTest extends WireMockTestBase {
   @Test
   public void deserializeTest() {
 
-    JsonElement jsonElement = JsonFileReader.readJson(jsonFile);
+    final JsonElement jsonElement = JsonFileReader.readJson(jsonFile);
 
     setupSuccessfulResponse("/i/ndrfs_nds@430233/master.m3u8", "/ndr/ndr_film_detail_m3u8.m3u8");
     setupSuccessfulResponse(
         "/i/mir-live/bw1XsLzS/bLQH/bLOliLioMXZhiKT1/uLoXb69zbX06/MUJIuUOVBwQIb71S/bLWCMUJIuUOVBwQIb71S/_2rp9U1S/_-JS/_-Fp_H1S/d6b48cc8-60f3-4625-a56a-fba68c0841c7_,0,A,B,E,C,.mp4.csmil/master.m3u8?__b__=200",
         "/ard/ard_video_alpha_centauri.m3u8");
 
-    AbstractCrawler crawler = Mockito.mock(AbstractCrawler.class);
-    ArdVideoInfoJsonDeserializer target = new ArdVideoInfoJsonDeserializer(crawler);
-    ArdVideoInfoDto actual = target.deserialize(jsonElement, ArdVideoInfoDto.class, null);
+    final AbstractCrawler crawler = Mockito.mock(AbstractCrawler.class);
+    final ArdVideoInfoJsonDeserializer target = new ArdVideoInfoJsonDeserializer(crawler);
+    final ArdVideoInfoDto actual = target.deserialize(jsonElement, ArdVideoInfoDto.class, null);
 
     assertThat(actual, notNullValue());
 

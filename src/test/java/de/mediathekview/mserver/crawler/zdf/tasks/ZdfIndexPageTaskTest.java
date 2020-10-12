@@ -1,13 +1,5 @@
 package de.mediathekview.mserver.crawler.zdf.tasks;
 
-import static org.hamcrest.CoreMatchers.notNullValue;
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.equalTo;
-import static org.junit.Assert.fail;
-import static org.mockito.ArgumentMatchers.anyInt;
-import static org.mockito.ArgumentMatchers.eq;
-import static org.mockito.Mockito.when;
-
 import de.mediathekview.mlib.daten.Sender;
 import de.mediathekview.mserver.base.config.MServerConfigManager;
 import de.mediathekview.mserver.base.webaccess.JsoupConnection;
@@ -15,12 +7,6 @@ import de.mediathekview.mserver.crawler.zdf.ZdfConfiguration;
 import de.mediathekview.mserver.crawler.zdf.ZdfConstants;
 import de.mediathekview.mserver.crawler.zdf.ZdfCrawler;
 import de.mediathekview.mserver.testhelper.JsoupMock;
-import java.io.IOException;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Optional;
 import org.jsoup.nodes.Document;
 import org.junit.Before;
 import org.junit.Test;
@@ -28,6 +14,17 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+
+import java.io.IOException;
+import java.util.*;
+
+import static org.hamcrest.CoreMatchers.notNullValue;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.equalTo;
+import static org.junit.Assert.fail;
+import static org.mockito.ArgumentMatchers.anyInt;
+import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.Mockito.when;
 
 @RunWith(Parameterized.class)
 public class ZdfIndexPageTaskTest {
@@ -38,15 +35,13 @@ public class ZdfIndexPageTaskTest {
   private final String htmlFileSubpage;
   private final String urlSubpage;
 
-  @Mock
-  JsoupConnection jsoupConnection;
+  @Mock JsoupConnection jsoupConnection;
 
-  @Mock
-  ZdfCrawler crawler;
+  @Mock ZdfCrawler crawler;
 
   @Before
   public void setUp() {
-    MockitoAnnotations.initMocks(this);
+    MockitoAnnotations.openMocks(this);
   }
 
   public ZdfIndexPageTaskTest(
@@ -60,7 +55,6 @@ public class ZdfIndexPageTaskTest {
     urlSubpage = aUrlSubpage;
     expectedBearerSearch = aExpectedBearerSearch;
     expectedBearerVideo = aExpectedBearerVideo;
-
   }
 
   @Parameterized.Parameters
@@ -87,16 +81,17 @@ public class ZdfIndexPageTaskTest {
     if (!urlSubpage.isEmpty()) {
       urlMapping.put(ZdfConstants.URL_BASE + urlSubpage, htmlFileSubpage);
     }
-    urlMapping.forEach((url, fileName) -> {
-      try {
-        Document document = JsoupMock.getFileDocument(url, fileName);
-        when(jsoupConnection.getDocumentTimeoutAfter(eq(url), anyInt())).thenReturn(document);
-      } catch (IOException iox) {
-        fail();
-      }
-    });
+    urlMapping.forEach(
+        (url, fileName) -> {
+          try {
+            final Document document = JsoupMock.getFileDocument(url, fileName);
+            when(jsoupConnection.getDocumentTimeoutAfter(eq(url), anyInt())).thenReturn(document);
+          } catch (final IOException iox) {
+            fail();
+          }
+        });
 
-    ZdfIndexPageTask target = new ZdfIndexPageTask(crawler, ZdfConstants.URL_BASE, jsoupConnection);
+    final ZdfIndexPageTask target = new ZdfIndexPageTask(crawler, ZdfConstants.URL_BASE, jsoupConnection);
 
     final ZdfConfiguration actual = target.call();
 

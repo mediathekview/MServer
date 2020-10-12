@@ -1,15 +1,16 @@
 package de.mediathekview.mserver.crawler.basic;
 
-import static org.hamcrest.CoreMatchers.equalTo;
-import static org.junit.Assert.assertThat;
-
 import de.mediathekview.mlib.daten.Resolution;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Optional;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
+
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Optional;
+
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 @RunWith(Parameterized.class)
 public class M3U8DtoTestGetResolution {

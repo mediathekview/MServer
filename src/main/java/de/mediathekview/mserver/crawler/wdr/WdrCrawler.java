@@ -18,6 +18,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.Collection;
+import java.util.Queue;
 import java.util.Set;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.ExecutionException;
@@ -37,7 +38,7 @@ public class WdrCrawler extends AbstractCrawler {
       final MServerConfigManager rootConfig) {
     super(aForkJoinPool, aMessageListeners, aProgressListeners, rootConfig);
 
-    this.jsoupConnection = new JsoupConnection();
+    jsoupConnection = new JsoupConnection();
   }
 
   @Override
@@ -48,7 +49,7 @@ public class WdrCrawler extends AbstractCrawler {
   @Override
   protected RecursiveTask<Set<Film>> createCrawlerTask() {
     try {
-      final ConcurrentLinkedQueue<TopicUrlDTO> shows = new ConcurrentLinkedQueue<>();
+      final Queue<TopicUrlDTO> shows = new ConcurrentLinkedQueue<>();
       shows.addAll(getOrchestraEntries());
       shows.addAll(getDaysEntries());
 
@@ -83,10 +84,11 @@ public class WdrCrawler extends AbstractCrawler {
 
   private Set<TopicUrlDTO> getLetterPageEntries() throws InterruptedException, ExecutionException {
     final WdrLetterPageTask letterTask = new WdrLetterPageTask(this, jsoupConnection);
-    final ConcurrentLinkedQueue<WdrTopicUrlDto> letterPageEntries = new ConcurrentLinkedQueue<>();
+    final Queue<WdrTopicUrlDto> letterPageEntries = new ConcurrentLinkedQueue<>();
     letterPageEntries.addAll(forkJoinPool.submit(letterTask).get());
 
-    final WdrTopicOverviewTask overviewTask = new WdrTopicOverviewTask(this, letterPageEntries, jsoupConnection, 0);
+    final WdrTopicOverviewTask overviewTask =
+        new WdrTopicOverviewTask(this, letterPageEntries, jsoupConnection, 0);
     final Set<TopicUrlDTO> shows = forkJoinPool.submit(overviewTask).get();
 
     printMessage(
@@ -94,8 +96,8 @@ public class WdrCrawler extends AbstractCrawler {
     return shows;
   }
 
-  private ConcurrentLinkedQueue<CrawlerUrlDTO> getDayUrls() {
-    final ConcurrentLinkedQueue<CrawlerUrlDTO> urls = new ConcurrentLinkedQueue<>();
+  private Queue<CrawlerUrlDTO> getDayUrls() {
+    final Queue<CrawlerUrlDTO> urls = new ConcurrentLinkedQueue<>();
     for (int i = 0;
         i
             <= crawlerConfig.getMaximumDaysForSendungVerpasstSection()
@@ -117,15 +119,16 @@ public class WdrCrawler extends AbstractCrawler {
   }
 
   private Set<TopicUrlDTO> getOrchestraEntries() throws InterruptedException, ExecutionException {
-    final ConcurrentLinkedQueue<CrawlerUrlDTO> urlToCrawl = new ConcurrentLinkedQueue<>();
-    final ConcurrentLinkedQueue<WdrTopicUrlDto> topicOverviews = new ConcurrentLinkedQueue<>();
+    final Queue<CrawlerUrlDTO> urlToCrawl = new ConcurrentLinkedQueue<>();
+    final Queue<WdrTopicUrlDto> topicOverviews = new ConcurrentLinkedQueue<>();
 
     urlToCrawl.add(new CrawlerUrlDTO(WdrConstants.URL_RADIO_ORCHESTRA));
 
     final WdrRadioPageTask radioPageTask = new WdrRadioPageTask(this, urlToCrawl, jsoupConnection);
     topicOverviews.addAll(forkJoinPool.submit(radioPageTask).get());
 
-    final WdrTopicOverviewTask overviewTask = new WdrTopicOverviewTask(this, topicOverviews, jsoupConnection, 0);
+    final WdrTopicOverviewTask overviewTask =
+        new WdrTopicOverviewTask(this, topicOverviews, jsoupConnection, 0);
     final Set<TopicUrlDTO> shows = forkJoinPool.submit(overviewTask).get();
 
     printMessage(

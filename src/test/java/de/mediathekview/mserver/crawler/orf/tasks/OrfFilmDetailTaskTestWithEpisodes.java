@@ -1,21 +1,11 @@
 package de.mediathekview.mserver.crawler.orf.tasks;
 
-import static org.hamcrest.CoreMatchers.equalTo;
-import static org.hamcrest.CoreMatchers.notNullValue;
-import static org.junit.Assert.assertThat;
-import static org.mockito.ArgumentMatchers.eq;
-import static org.mockito.Mockito.when;
-
 import de.mediathekview.mlib.daten.Film;
 import de.mediathekview.mlib.daten.GeoLocations;
 import de.mediathekview.mlib.daten.Sender;
 import de.mediathekview.mserver.base.webaccess.JsoupConnection;
 import de.mediathekview.mserver.testhelper.AssertFilm;
 import de.mediathekview.mserver.testhelper.JsoupMock;
-import java.io.IOException;
-import java.time.Duration;
-import java.time.LocalDateTime;
-import java.util.Set;
 import org.jsoup.Connection;
 import org.junit.Before;
 import org.junit.Test;
@@ -23,6 +13,17 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+
+import java.io.IOException;
+import java.time.Duration;
+import java.time.LocalDateTime;
+import java.util.Set;
+
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.CoreMatchers.notNullValue;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.Mockito.when;
 
 @RunWith(Parameterized.class)
 public class OrfFilmDetailTaskTestWithEpisodes extends OrfFilmDetailTaskTestBase {
@@ -41,12 +42,11 @@ public class OrfFilmDetailTaskTestWithEpisodes extends OrfFilmDetailTaskTestBase
   private static final int INDEX_URL_NORMAL = 5;
   private static final int INDEX_URL_HD = 6;
 
-  @Mock
-  JsoupConnection jsoupConnection;
+  @Mock JsoupConnection jsoupConnection;
 
   @Before
   public void setUp() {
-    MockitoAnnotations.initMocks(this);
+    MockitoAnnotations.openMocks(this);
   }
 
   private static Object[][] data() {
@@ -138,10 +138,11 @@ public class OrfFilmDetailTaskTestWithEpisodes extends OrfFilmDetailTaskTestBase
   @Test
   public void test() throws IOException {
     setupHeadRequestForFileSize();
-    Connection connection = JsoupMock.mock(REQUEST_URL, "/orf/orf_film_with_several_parts.html");
+    final Connection connection =
+        JsoupMock.mock(REQUEST_URL, "/orf/orf_film_with_several_parts.html");
     when(jsoupConnection.getConnection(eq(REQUEST_URL))).thenReturn(connection);
 
-    Object[][] films = data();
+    final Object[][] films = data();
 
     final Set<Film> actual = executeTask(EXPECTED_THEME, REQUEST_URL, jsoupConnection);
 
@@ -150,7 +151,7 @@ public class OrfFilmDetailTaskTestWithEpisodes extends OrfFilmDetailTaskTestBase
 
     actual.forEach(
         actualFilm -> {
-          Object[] expectedData = getExpectedValues(films, actualFilm.getTitel());
+          final Object[] expectedData = getExpectedValues(films, actualFilm.getTitel());
           assertThat(expectedData, notNullValue());
 
           AssertFilm.assertEquals(
@@ -171,7 +172,7 @@ public class OrfFilmDetailTaskTestWithEpisodes extends OrfFilmDetailTaskTestBase
   }
 
   private Object[] getExpectedValues(final Object[][] aExpectedFilms, final String aActualTitle) {
-    for (Object[] expected : aExpectedFilms) {
+    for (final Object[] expected : aExpectedFilms) {
       if (expected[INDEX_TITLE].toString().compareToIgnoreCase(aActualTitle) == 0) {
         return expected;
       }

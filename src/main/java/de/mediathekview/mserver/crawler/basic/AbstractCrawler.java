@@ -10,6 +10,8 @@ import de.mediathekview.mserver.base.config.MServerConfigDTO;
 import de.mediathekview.mserver.base.config.MServerConfigManager;
 import de.mediathekview.mserver.base.messages.ServerMessages;
 import de.mediathekview.mserver.progress.listeners.SenderProgressListener;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.time.Duration;
 import java.time.LocalTime;
@@ -23,6 +25,7 @@ import java.util.concurrent.atomic.AtomicLong;
 
 /** A basic crawler task. */
 public abstract class AbstractCrawler implements Callable<Set<Film>> {
+  private static final Logger LOG = LogManager.getLogger(AbstractCrawler.class);
   protected final MServerConfigDTO runtimeConfig;
   protected final MServerBasicConfigDTO crawlerConfig;
   private final Collection<SenderProgressListener> progressListeners;
@@ -94,9 +97,11 @@ public abstract class AbstractCrawler implements Callable<Set<Film>> {
           actualCount.get(),
           errorCount.get(),
           progress.calcActualErrorQuoteInPercent());
-    } finally {
-      return films;
+    } catch (final Exception exception){
+      printErrorMessage();
+      LOG.error("Something went wrong crawling {}.",getSender().getName(),exception);
     }
+    return films;
   }
 
   private void removeInvalidEntries() {
@@ -132,6 +137,10 @@ public abstract class AbstractCrawler implements Callable<Set<Film>> {
 
   public long incrementAndGetErrorCount() {
     return errorCount.incrementAndGet();
+  }
+
+  public long decrementAndGetErrorCount() {
+    return errorCount.decrementAndGet();
   }
 
   public long incrementAndGetMaxCount() {

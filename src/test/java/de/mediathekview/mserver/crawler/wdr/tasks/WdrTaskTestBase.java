@@ -9,6 +9,7 @@ import de.mediathekview.mserver.testhelper.WireMockTestBase;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.ForkJoinPool;
 
@@ -23,9 +24,8 @@ public class WdrTaskTestBase extends WireMockTestBase {
     return new WdrCrawler(forkJoinPool, nachrichten, fortschritte, rootConfig);
   }
 
-  protected ConcurrentLinkedQueue<TopicUrlDTO> createCrawlerUrlDto(
-      final String aTopic, final String aUrl) {
-    final ConcurrentLinkedQueue<TopicUrlDTO> input = new ConcurrentLinkedQueue<>();
+  protected Queue<TopicUrlDTO> createCrawlerUrlDto(final String aTopic, final String aUrl) {
+    final Queue<TopicUrlDTO> input = new ConcurrentLinkedQueue<>();
     input.add(new TopicUrlDTO(aTopic, aUrl));
     return input;
   }

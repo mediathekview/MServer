@@ -1,23 +1,11 @@
 package de.mediathekview.mserver.crawler.sr.tasks;
 
-import static org.hamcrest.CoreMatchers.equalTo;
-import static org.hamcrest.CoreMatchers.notNullValue;
-import static org.junit.Assert.assertThat;
-import static org.mockito.ArgumentMatchers.eq;
-import static org.mockito.Mockito.when;
-
 import de.mediathekview.mlib.daten.Film;
 import de.mediathekview.mlib.daten.GeoLocations;
 import de.mediathekview.mlib.daten.Sender;
 import de.mediathekview.mserver.base.webaccess.JsoupConnection;
 import de.mediathekview.mserver.testhelper.AssertFilm;
 import de.mediathekview.mserver.testhelper.JsoupMock;
-import java.io.IOException;
-import java.time.Duration;
-import java.time.LocalDateTime;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Set;
 import org.jsoup.Connection;
 import org.junit.Before;
 import org.junit.Test;
@@ -25,6 +13,19 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+
+import java.io.IOException;
+import java.time.Duration;
+import java.time.LocalDateTime;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Set;
+
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.CoreMatchers.notNullValue;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.Mockito.when;
 
 @RunWith(Parameterized.class)
 public class SrFilmDetailTaskTest extends SrTaskTestBase {
@@ -43,12 +44,11 @@ public class SrFilmDetailTaskTest extends SrTaskTestBase {
   private final String expectedUrlNormal;
   private final String expectedUrlHd;
 
-  @Mock
-  JsoupConnection jsoupConnection;
+  @Mock JsoupConnection jsoupConnection;
 
   @Before
   public void setUp() {
-    MockitoAnnotations.initMocks(this);
+    MockitoAnnotations.openMocks(this);
   }
 
   public SrFilmDetailTaskTest(
@@ -119,7 +119,7 @@ public class SrFilmDetailTaskTest extends SrTaskTestBase {
 
   @Test
   public void test() throws IOException {
-    Connection connection = JsoupMock.mock(requestUrl, filmPageFile);
+    final Connection connection = JsoupMock.mock(requestUrl, filmPageFile);
     when(jsoupConnection.getConnection(eq(requestUrl))).thenReturn(connection);
 
     setupSuccessfulJsonResponse(videoDetailsUrl, videoDetailsFile);
@@ -129,7 +129,7 @@ public class SrFilmDetailTaskTest extends SrTaskTestBase {
     assertThat(actual, notNullValue());
     assertThat(actual.size(), equalTo(1));
 
-    Film actualFilm = (Film) actual.toArray()[0];
+    final Film actualFilm = (Film) actual.toArray()[0];
     AssertFilm.assertEquals(
         actualFilm,
         Sender.SR,
@@ -146,7 +146,9 @@ public class SrFilmDetailTaskTest extends SrTaskTestBase {
         expectedSubtitle);
   }
 
-  private Set<Film> executeTask(String aTheme, String aRequestUrl) {
-    return new SrFilmDetailTask(createCrawler(), createCrawlerUrlDto(aTheme, aRequestUrl), jsoupConnection).invoke();
+  private Set<Film> executeTask(final String aTheme, final String aRequestUrl) {
+    return new SrFilmDetailTask(
+            createCrawler(), createCrawlerUrlDto(aTheme, aRequestUrl), jsoupConnection)
+        .invoke();
   }
 }

@@ -14,6 +14,12 @@ import de.mediathekview.mserver.crawler.ard.json.ArdVideoInfoJsonDeserializer;
 import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
 import de.mediathekview.mserver.crawler.basic.AbstractUrlTask;
 import de.mediathekview.mserver.crawler.sr.SrTopicUrlDTO;
+import org.apache.commons.lang3.StringUtils;
+import org.apache.logging.log4j.LogManager;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Node;
+import org.jsoup.select.Elements;
+
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.MalformedURLException;
@@ -22,16 +28,7 @@ import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
-import java.util.Locale;
-import java.util.Map;
-import java.util.Optional;
-import java.util.UUID;
-import java.util.concurrent.ConcurrentLinkedQueue;
-import org.apache.commons.lang3.StringUtils;
-import org.apache.logging.log4j.LogManager;
-import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Node;
-import org.jsoup.select.Elements;
+import java.util.*;
 
 public class SrFilmDetailTask extends SrRateLimitedDocumentTask<Film, SrTopicUrlDTO> {
 
@@ -51,9 +48,10 @@ public class SrFilmDetailTask extends SrRateLimitedDocumentTask<Film, SrTopicUrl
   private static final String VIDEO_DETAIL_SELECTOR = "div[" + VIDEO_DETAIL_ATTRIBUTE + "]";
 
   public SrFilmDetailTask(
-      final AbstractCrawler aCrawler, final ConcurrentLinkedQueue<SrTopicUrlDTO> aUrlToCrawlDTOs, final
-      JsoupConnection jsoupConnection) {
-    super(aCrawler, aUrlToCrawlDTOs, jsoupConnection);
+      final AbstractCrawler crawler,
+      final Queue<SrTopicUrlDTO> urlToCrawlDTOs,
+      final JsoupConnection jsoupConnection) {
+    super(crawler, urlToCrawlDTOs, jsoupConnection);
   }
 
   private static Optional<String> parseDescription(final Document aDocument) {
@@ -180,7 +178,7 @@ public class SrFilmDetailTask extends SrRateLimitedDocumentTask<Film, SrTopicUrl
 
   @Override
   protected AbstractUrlTask<Film, SrTopicUrlDTO> createNewOwnInstance(
-      final ConcurrentLinkedQueue<SrTopicUrlDTO> aURLsToCrawl) {
+      final Queue<SrTopicUrlDTO> aURLsToCrawl) {
     return new SrFilmDetailTask(crawler, aURLsToCrawl, getJsoupConnection());
   }
 

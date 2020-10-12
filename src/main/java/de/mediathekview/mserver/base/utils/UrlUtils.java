@@ -14,7 +14,6 @@ import java.util.Optional;
  *
  * @author Nicklas Wiegandt (Nicklas2751)<br>
  *     <b>Mail:</b> nicklas@wiegandt.eu<br>
- *     <b>Jabber:</b> nicklas2751@elaon.de<br>
  *     <b>Riot.im:</b> nicklas2751:matrix.elaon.de<br>
  */
 public final class UrlUtils {
@@ -22,7 +21,7 @@ public final class UrlUtils {
   public static final String PROTOCOL_HTTPS = "https:";
 
   private static final String WRONG_PARAMETER_START = "?&";
-  private static final String REGEX_ESCAPOR = "\\";
+  private static final String REGEX_ESCAPOR = "\\\\";
   private static final String PARAMETER_PATTERN = "%s=%s";
   private static final String URL_PARAMETER_SEPPERATOR = "&";
   private static final String URL_TO_PARAMETERS_SPLITTERATOR = "?";

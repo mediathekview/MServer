@@ -9,38 +9,36 @@ import de.mediathekview.mserver.crawler.basic.PagedElementListDTO;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import javax.annotation.Nullable;
 import javax.ws.rs.core.Response;
 import java.lang.reflect.Type;
 import java.net.URI;
 import java.util.Optional;
+import java.util.Queue;
 import java.util.Set;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
 public class FunkRestTask<T>
     extends AbstractJsonRestTask<T, PagedElementListDTO<T>, CrawlerUrlDTO> {
   private static final Logger LOG = LogManager.getLogger(FunkRestTask.class);
-  private final FunkRestEndpoint<T> restEndpoint;
+  private final transient FunkRestEndpoint<T> restEndpoint;
 
   public FunkRestTask(final AbstractCrawler crawler, final FunkRestEndpoint<T> aRestEndpoint) {
-    this(
-        crawler,
-        aRestEndpoint,
-        aRestEndpoint.getEndpointUrl().getAsQueue(crawler),
-        Optional.empty());
+    this(crawler, aRestEndpoint, aRestEndpoint.getEndpointUrl().getAsQueue(crawler), null);
   }
 
   public FunkRestTask(
       final AbstractCrawler crawler,
       final FunkRestEndpoint<T> aRestEndpoint,
-      final ConcurrentLinkedQueue<CrawlerUrlDTO> aUrlToCrawlDTOs) {
-    this(crawler, aRestEndpoint, aUrlToCrawlDTOs, Optional.empty());
+      final Queue<CrawlerUrlDTO> aUrlToCrawlDTOs) {
+    this(crawler, aRestEndpoint, aUrlToCrawlDTOs, null);
   }
 
   public FunkRestTask(
       final AbstractCrawler crawler,
       final FunkRestEndpoint<T> aRestEndpoint,
-      final ConcurrentLinkedQueue<CrawlerUrlDTO> aUrlToCrawlDTOs,
-      final Optional<String> authKey) {
+      final Queue<CrawlerUrlDTO> aUrlToCrawlDTOs,
+      @Nullable final String authKey) {
     super(crawler, aUrlToCrawlDTOs, authKey);
     restEndpoint = aRestEndpoint;
   }
@@ -59,9 +57,9 @@ public class FunkRestTask<T>
   protected void handleHttpError(final URI url, final Response response) {
     crawler.printErrorMessage();
     LOG.fatal(
-        String.format(
-            "A HTTP error %d occurred when getting REST information from: \"%s\".",
-            response.getStatus(), url.toString()));
+        "A HTTP error {} occurred when getting REST information from: \"{}\".",
+        response.getStatus(),
+        url);
   }
 
   @Override
@@ -71,7 +69,7 @@ public class FunkRestTask<T>
 
     final Optional<FunkRestTask<T>> subpageCrawler;
     if (nextPageLink.isPresent() && config.getMaximumSubpages() > 0) {
-      final ConcurrentLinkedQueue<CrawlerUrlDTO> nextPageLinks = new ConcurrentLinkedQueue<>();
+      final Queue<CrawlerUrlDTO> nextPageLinks = new ConcurrentLinkedQueue<>();
       nextPageLinks.add(new CrawlerUrlDTO(nextPageLink.get()));
       subpageCrawler = Optional.of(createNewOwnInstance(nextPageLinks));
       subpageCrawler.get().fork();
@@ -84,8 +82,7 @@ public class FunkRestTask<T>
   }
 
   @Override
-  protected FunkRestTask<T> createNewOwnInstance(
-      final ConcurrentLinkedQueue<CrawlerUrlDTO> aElementsToProcess) {
-    return new FunkRestTask<>(crawler, restEndpoint, aElementsToProcess, authKey);
+  protected FunkRestTask<T> createNewOwnInstance(final Queue<CrawlerUrlDTO> aElementsToProcess) {
+    return new FunkRestTask<>(crawler, restEndpoint, aElementsToProcess, getAuthKey().orElse(null));
   }
 }

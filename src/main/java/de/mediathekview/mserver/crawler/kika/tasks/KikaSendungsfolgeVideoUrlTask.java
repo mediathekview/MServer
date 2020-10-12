@@ -5,18 +5,16 @@ import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
 import de.mediathekview.mserver.crawler.basic.AbstractDocumentTask;
 import de.mediathekview.mserver.crawler.basic.AbstractUrlTask;
 import de.mediathekview.mserver.crawler.basic.CrawlerUrlDTO;
-import java.util.concurrent.ConcurrentLinkedQueue;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
+import java.util.Queue;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 public class KikaSendungsfolgeVideoUrlTask
     extends AbstractDocumentTask<CrawlerUrlDTO, CrawlerUrlDTO> {
-  private static final Logger LOG = LogManager.getLogger(KikaSendungsfolgeVideoUrlTask.class);
   private static final String URL_TEMPLATE = "https://www.kika.de%s";
   private static final String HTTP = "http";
   private static final String ATTRIBUTE_ONCLICK = "onclick";
@@ -26,13 +24,14 @@ public class KikaSendungsfolgeVideoUrlTask
   private static final String VIDEO_URL_REGEX_PATTERN = "(?<=dataURL:')[^']*";
 
   public KikaSendungsfolgeVideoUrlTask(
-      final AbstractCrawler aCrawler, final ConcurrentLinkedQueue<CrawlerUrlDTO> aUrlToCrawlDTOs, final
-      JsoupConnection jsoupConnection) {
+      final AbstractCrawler aCrawler,
+      final Queue<CrawlerUrlDTO> aUrlToCrawlDTOs,
+      final JsoupConnection jsoupConnection) {
     super(aCrawler, aUrlToCrawlDTOs, jsoupConnection);
   }
 
   private String toKikaUrl(final String aUrl) {
-    String kikaUrl;
+    final String kikaUrl;
     if (aUrl.contains(HTTP)) {
       kikaUrl = aUrl;
     } else {
@@ -43,7 +42,7 @@ public class KikaSendungsfolgeVideoUrlTask
 
   @Override
   protected AbstractUrlTask<CrawlerUrlDTO, CrawlerUrlDTO> createNewOwnInstance(
-      final ConcurrentLinkedQueue<CrawlerUrlDTO> aURLsToCrawl) {
+      final Queue<CrawlerUrlDTO> aURLsToCrawl) {
     return new KikaSendungsfolgeVideoUrlTask(crawler, aURLsToCrawl, getJsoupConnection());
   }
 

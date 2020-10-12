@@ -8,13 +8,12 @@ import org.junit.Test;
 
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.Optional;
 
 import static com.github.tomakehurst.wiremock.client.WireMock.*;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.nullValue;
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.notNullValue;
-import static org.junit.Assert.assertThat;
 
 public class NexxCloudSessionInitiationTaskTest extends FunkTaskTestBase {
 
@@ -23,8 +22,7 @@ public class NexxCloudSessionInitiationTaskTest extends FunkTaskTestBase {
   @Test
   public void testSessionInitated() {
     final String requestUrl = "/v3/741/session/init";
-    setupSuccessfulJsonPostResponse(
-        requestUrl, "/funk/nexx_cloud_session_init.json", Optional.of(201));
+    setupSuccessfulJsonPostResponse(requestUrl, "/funk/nexx_cloud_session_init.json", 201);
 
     final Long actual = executeTask();
 
@@ -57,16 +55,12 @@ public class NexxCloudSessionInitiationTaskTest extends FunkTaskTestBase {
   }
 
   @Before
-  public void setUp() {
-    try {
-      crawler = createCrawler();
-      crawler
-          .getRuntimeConfig()
-          .getCrawlerURLs()
-          .put(CrawlerUrlType.NEXX_CLUD_API_URL, new URL("http://localhost:8589/v3/741"));
-    } catch (MalformedURLException mue) {
-
-    }
+  public void setUp() throws MalformedURLException {
+    crawler = createCrawler();
+    crawler
+        .getRuntimeConfig()
+        .getCrawlerURLs()
+        .put(CrawlerUrlType.NEXX_CLUD_API_URL, new URL("http://localhost:8589/v3/741"));
   }
 
   @After

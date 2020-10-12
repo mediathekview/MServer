@@ -1,14 +1,15 @@
 package de.mediathekview.mserver.base.utils;
 
-import static org.hamcrest.CoreMatchers.equalTo;
-import static org.junit.Assert.assertThat;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.junit.runners.Parameterized;
 
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Optional;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
+
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 @RunWith(Parameterized.class)
 public class UrlUtilsTestGetFileType {
@@ -16,7 +17,7 @@ public class UrlUtilsTestGetFileType {
   private final String inputUrl;
   private final Optional<String> expectedFileType;
 
-  public UrlUtilsTestGetFileType(String aInputUrl, Optional<String> aExpectedFileType) {
+  public UrlUtilsTestGetFileType(final String aInputUrl, final Optional<String> aExpectedFileType) {
     inputUrl = aInputUrl;
     expectedFileType = aExpectedFileType;
   }
@@ -41,7 +42,7 @@ public class UrlUtilsTestGetFileType {
 
   @Test
   public void getFileTypeTest() {
-    Optional<String> actual = UrlUtils.getFileType(inputUrl);
+    final Optional<String> actual = UrlUtils.getFileType(inputUrl);
 
     assertThat(actual, equalTo(expectedFileType));
   }

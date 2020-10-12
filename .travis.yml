@@ -42,13 +42,13 @@ jobs:
       script:
         - openssl aes-256-cbc -pass pass:$ENCRYPTION_PASSWORD -in scripte/deploy/secring.gpg.enc -out scripte/deploy/secring.gpg -d
         - gpg --fast-import scripte/deploy/secring.gpg
-        - ./mvnw --settings .maven.xml deploy -P docker
+        - ./mvnw --settings .maven.xml deploy -Pdocker
       cache:
         directories:
           - $HOME/.m2
     - stage: Release
       script:
-        - ./mvnw --settings .maven.xml deploy -P docker
+        - ./mvnw --settings .maven.xml deploy -Pdocker
       before_deploy:
         - openssl aes-256-cbc -pass pass:$ENCRYPTION_PASSWORD -in scripte/deploy/secring.gpg.enc -out scripte/deploy/secring.gpg -d
       deploy:

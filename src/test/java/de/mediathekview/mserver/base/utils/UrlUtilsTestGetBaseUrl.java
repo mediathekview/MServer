@@ -8,34 +8,34 @@ import java.util.Arrays;
 import java.util.Collection;
 
 import static org.hamcrest.CoreMatchers.equalTo;
-import static org.junit.Assert.assertThat;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 @RunWith(Parameterized.class)
 public class UrlUtilsTestGetBaseUrl {
-    private final String inputUrl;
-    private final String expectedBaseUrl;
+  private final String inputUrl;
+  private final String expectedBaseUrl;
 
-    public UrlUtilsTestGetBaseUrl(String aInputUrl, String aExpectedBaseUrl) {
-        inputUrl = aInputUrl;
-        expectedBaseUrl = aExpectedBaseUrl;
-    }
+  public UrlUtilsTestGetBaseUrl(final String aInputUrl, final String aExpectedBaseUrl) {
+    inputUrl = aInputUrl;
+    expectedBaseUrl = aExpectedBaseUrl;
+  }
 
   @Parameterized.Parameters
   public static Collection<Object[]> data() {
-      return Arrays.asList(
-              new Object[][]{
-                      {null, null},
-                      {"", ""},
-                      {"https://www.testurl.de/resource?query=3", "https://www.testurl.de"},
-                      {"www.urlohneschema.de/child", "www.urlohneschema.de"},
-                      {"http://www.test.de", "http://www.test.de"}
-              });
+    return Arrays.asList(
+        new Object[][] {
+          {null, null},
+          {"", ""},
+          {"https://www.testurl.de/resource?query=3", "https://www.testurl.de"},
+          {"www.urlohneschema.de/child", "www.urlohneschema.de"},
+          {"http://www.test.de", "http://www.test.de"}
+        });
   }
 
   @Test
   public void getBaseUrlTest() {
-    String actual = UrlUtils.getBaseUrl(inputUrl);
+    final String actual = UrlUtils.getBaseUrl(inputUrl);
 
-      assertThat(actual, equalTo(expectedBaseUrl));
+    assertThat(actual, equalTo(expectedBaseUrl));
   }
 }

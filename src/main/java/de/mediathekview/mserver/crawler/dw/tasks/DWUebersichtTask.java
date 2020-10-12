@@ -8,17 +8,20 @@ import de.mediathekview.mserver.crawler.basic.AbstractDocumentTask;
 import de.mediathekview.mserver.crawler.basic.AbstractUrlTask;
 import de.mediathekview.mserver.crawler.basic.CrawlerUrlDTO;
 import de.mediathekview.mserver.crawler.dw.DwCrawler;
-import java.io.IOException;
-import java.net.URL;
-import java.util.Optional;
-import java.util.concurrent.ConcurrentLinkedQueue;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+
+import java.io.IOException;
+import java.net.URL;
+import java.util.Optional;
+import java.util.Queue;
+import java.util.concurrent.ConcurrentLinkedQueue;
+import java.util.concurrent.ForkJoinTask;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class DWUebersichtTask extends AbstractDocumentTask<URL, CrawlerUrlDTO> {
   private static final String PARAMETER_RESULTS = "results";
@@ -35,8 +38,10 @@ public class DWUebersichtTask extends AbstractDocumentTask<URL, CrawlerUrlDTO> {
   private static final String RESULTS_COUNT_REGEX_PATTERN = "(?<=results=)\\d+";
 
   public DWUebersichtTask(
-      final AbstractCrawler aCrawler, final ConcurrentLinkedQueue<CrawlerUrlDTO> aUrlToCrawlDTOs, final JsoupConnection jsoupConnection) {
-    super(aCrawler, aUrlToCrawlDTOs, jsoupConnection);
+      final AbstractCrawler aCrawler,
+      final Queue<CrawlerUrlDTO> urlToCrawlDTOs,
+      final JsoupConnection jsoupConnection) {
+    super(aCrawler, urlToCrawlDTOs, jsoupConnection);
   }
 
   private String addBaseParameters(final String aUrl) {
@@ -52,7 +57,7 @@ public class DWUebersichtTask extends AbstractDocumentTask<URL, CrawlerUrlDTO> {
     final Optional<Integer> resultsCount = gatherResultsCount(aUrlDTO);
     final Optional<Integer> nextPageCount = getNextSiteCount(aFoundNextSiteLink);
 
-    final ConcurrentLinkedQueue<CrawlerUrlDTO> nextPageUrls = new ConcurrentLinkedQueue<>();
+    final Queue<CrawlerUrlDTO> nextPageUrls = new ConcurrentLinkedQueue<>();
     if (resultsCount.isPresent() && nextPageCount.isPresent()) {
       nextPageUrls.offer(
           new CrawlerUrlDTO(
@@ -73,7 +78,7 @@ public class DWUebersichtTask extends AbstractDocumentTask<URL, CrawlerUrlDTO> {
         return Optional.of(Integer.parseInt(resultsRegexMatcher.group()));
       } catch (final NumberFormatException numberFormatException) {
         LOG.error(
-            "Something wen't wrong on gathering the results count for DW.", numberFormatException);
+            "Something went wrong on gathering the results count for DW.", numberFormatException);
       }
     }
     return Optional.empty();
@@ -84,7 +89,7 @@ public class DWUebersichtTask extends AbstractDocumentTask<URL, CrawlerUrlDTO> {
       return Optional.of(Integer.parseInt(aFoundNextSiteLink.text()));
     } catch (final NumberFormatException numberFormatException) {
       LOG.error(
-          "Something wen't wrong on gathering the next page results count for DW.",
+          "Something went wrong on gathering the next page results count for DW.",
           numberFormatException);
     }
     return Optional.empty();
@@ -92,7 +97,7 @@ public class DWUebersichtTask extends AbstractDocumentTask<URL, CrawlerUrlDTO> {
 
   @Override
   protected AbstractUrlTask<URL, CrawlerUrlDTO> createNewOwnInstance(
-      final ConcurrentLinkedQueue<CrawlerUrlDTO> aURLsToCrawl) {
+      final Queue<CrawlerUrlDTO> aURLsToCrawl) {
     return new DWUebersichtTask(crawler, aURLsToCrawl, getJsoupConnection());
   }
 
@@ -110,9 +115,7 @@ public class DWUebersichtTask extends AbstractDocumentTask<URL, CrawlerUrlDTO> {
         nextPageTask = Optional.empty();
       } else {
         nextPageTask = createNextPageCrawler(aUrlDTO, foundNextSiteLink);
-        if (nextPageTask.isPresent()) {
-          nextPageTask.get().fork();
-        }
+        nextPageTask.ifPresent(ForkJoinTask::fork);
       }
 
       for (final Element link : foundLinks) {
@@ -123,12 +126,12 @@ public class DWUebersichtTask extends AbstractDocumentTask<URL, CrawlerUrlDTO> {
         }
       }
 
-      if (nextPageTask.isPresent()) {
-        taskResults.addAll(nextPageTask.get().join());
-      }
+      nextPageTask.ifPresent(
+          urlCrawlerUrlDTOAbstractUrlTask ->
+              taskResults.addAll(urlCrawlerUrlDTOAbstractUrlTask.join()));
     } catch (final IOException ioException) {
       LOG.fatal(
-          "Something wen't terrible wrong on getting the Sendung Verpasst for DW.", ioException);
+          "Something went terrible wrong on getting the Sendung Verpasst for DW.", ioException);
     }
   }
 }

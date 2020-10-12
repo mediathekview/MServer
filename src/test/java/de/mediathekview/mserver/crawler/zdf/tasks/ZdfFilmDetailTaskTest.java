@@ -1,26 +1,25 @@
 package de.mediathekview.mserver.crawler.zdf.tasks;
 
-import static org.hamcrest.CoreMatchers.equalTo;
-import static org.hamcrest.MatcherAssert.assertThat;
-
 import de.mediathekview.mlib.daten.Film;
 import de.mediathekview.mlib.daten.GeoLocations;
 import de.mediathekview.mlib.daten.Sender;
 import de.mediathekview.mserver.crawler.basic.CrawlerUrlDTO;
-import de.mediathekview.mserver.crawler.zdf.ZdfConstants;
 import de.mediathekview.mserver.testhelper.AssertFilm;
-import de.mediathekview.mserver.testhelper.WireMockTestBase;
-import java.time.Duration;
-import java.time.LocalDateTime;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Optional;
-import java.util.Set;
-import java.util.concurrent.ConcurrentLinkedQueue;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
+
+import java.time.Duration;
+import java.time.LocalDateTime;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Queue;
+import java.util.Set;
+import java.util.concurrent.ConcurrentLinkedQueue;
+
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 @RunWith(Parameterized.class)
 public class ZdfFilmDetailTaskTest extends ZdfTaskTestBase {
@@ -131,7 +130,7 @@ public class ZdfFilmDetailTaskTest extends ZdfTaskTestBase {
       setupHeadResponse(404);
     }
 
-    final Set<Film> actual = executeTask(filmUrl, videoUrl);
+    final Set<Film> actual = executeTask(filmUrl);
 
     assertThat(actual.size(), equalTo(1));
 
@@ -152,9 +151,9 @@ public class ZdfFilmDetailTaskTest extends ZdfTaskTestBase {
         expectedSubtitle);
   }
 
-  private Set<Film> executeTask(final String aDetailUrl, final String aVideoUrl) {
-    final ConcurrentLinkedQueue<CrawlerUrlDTO> urls = new ConcurrentLinkedQueue<>();
-    urls.add(new CrawlerUrlDTO(wireMockServer.baseUrl() + aDetailUrl));
-    return new ZdfFilmDetailTask(createCrawler(), wireMockServer.baseUrl(), urls, Optional.empty()).invoke();
+  private Set<Film> executeTask(final String detailUrl) {
+    final Queue<CrawlerUrlDTO> urls = new ConcurrentLinkedQueue<>();
+    urls.add(new CrawlerUrlDTO(wireMockServer.baseUrl() + detailUrl));
+    return new ZdfFilmDetailTask(createCrawler(), wireMockServer.baseUrl(), urls, null).invoke();
   }
 }

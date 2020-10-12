@@ -4,7 +4,7 @@ import de.mediathekview.mserver.base.config.CrawlerUrlType;
 import de.mediathekview.mserver.crawler.basic.CrawlerUrlDTO;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.concurrent.ConcurrentLinkedQueue;
+import java.util.Queue;
 import java.util.stream.Stream;
 
 public enum FunkUrls {
@@ -30,12 +30,8 @@ public enum FunkUrls {
     return apiUrlBuilder;
   }
 
-  public ConcurrentLinkedQueue<CrawlerUrlDTO> getAsQueue(final String... parameters) {
+  public Queue<CrawlerUrlDTO> getAsQueue(final String... parameters) {
     return buildUrl(parameters).asQueue();
-  }
-
-  public CrawlerUrlDTO getAsCrawlerUrl(final String... parameters) {
-    return buildUrl(parameters).asCrawlerUrl();
   }
 
   public String getAsString(final String... parameters) {

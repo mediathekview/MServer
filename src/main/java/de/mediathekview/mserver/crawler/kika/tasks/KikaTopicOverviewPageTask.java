@@ -5,7 +5,7 @@ import de.mediathekview.mserver.base.utils.UrlUtils;
 import de.mediathekview.mserver.base.webaccess.JsoupConnection;
 import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
 import de.mediathekview.mserver.crawler.basic.AbstractDocumentTask;
-import de.mediathekview.mserver.crawler.basic.AbstractRecrusivConverterTask;
+import de.mediathekview.mserver.crawler.basic.AbstractRecursiveConverterTask;
 import de.mediathekview.mserver.crawler.basic.CrawlerUrlDTO;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -13,6 +13,7 @@ import org.jsoup.select.Elements;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Queue;
 import java.util.Set;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
@@ -29,15 +30,15 @@ public class KikaTopicOverviewPageTask extends AbstractDocumentTask<CrawlerUrlDT
 
   public KikaTopicOverviewPageTask(
       final AbstractCrawler aCrawler,
-      final ConcurrentLinkedQueue<CrawlerUrlDTO> aUrlToCrawlDtos,
+      final Queue<CrawlerUrlDTO> aUrlToCrawlDtos,
       final String aBaseUrl,
       final JsoupConnection jsoupConnection) {
-    this(aCrawler, aUrlToCrawlDtos, aBaseUrl, jsoupConnection,1);
+    this(aCrawler, aUrlToCrawlDtos, aBaseUrl, jsoupConnection, 1);
   }
 
   private KikaTopicOverviewPageTask(
       final AbstractCrawler aCrawler,
-      final ConcurrentLinkedQueue<CrawlerUrlDTO> aUrlToCrawlDtos,
+      final Queue<CrawlerUrlDTO> aUrlToCrawlDtos,
       final String aBaseUrl,
       final JsoupConnection jsoupConnection,
       final int pageNumber) {
@@ -104,9 +105,9 @@ public class KikaTopicOverviewPageTask extends AbstractDocumentTask<CrawlerUrlDT
       return;
     }
 
-    final ConcurrentLinkedQueue<CrawlerUrlDTO> nextPageLinks = new ConcurrentLinkedQueue<>();
+    final Queue<CrawlerUrlDTO> nextPageLinks = new ConcurrentLinkedQueue<>();
     nextPageLinks.addAll(nextPageUrls);
-    final AbstractRecrusivConverterTask<CrawlerUrlDTO, CrawlerUrlDTO> subPageCrawler =
+    final AbstractRecursiveConverterTask<CrawlerUrlDTO, CrawlerUrlDTO> subPageCrawler =
         createNewOwnInstance(nextPageLinks, pageNumber + 1);
     subPageCrawler.fork();
     final Set<CrawlerUrlDTO> join = subPageCrawler.join();
@@ -125,14 +126,15 @@ public class KikaTopicOverviewPageTask extends AbstractDocumentTask<CrawlerUrlDT
   }
 
   @Override
-  protected AbstractRecrusivConverterTask<CrawlerUrlDTO, CrawlerUrlDTO> createNewOwnInstance(
-      final ConcurrentLinkedQueue<CrawlerUrlDTO> aElementsToProcess) {
+  protected AbstractRecursiveConverterTask<CrawlerUrlDTO, CrawlerUrlDTO> createNewOwnInstance(
+      final Queue<CrawlerUrlDTO> aElementsToProcess) {
     return createNewOwnInstance(aElementsToProcess, 1);
   }
 
-  private AbstractRecrusivConverterTask<CrawlerUrlDTO, CrawlerUrlDTO> createNewOwnInstance(
-      final ConcurrentLinkedQueue<CrawlerUrlDTO> aElementsToProcess, final int aPageNumber) {
-    return new KikaTopicOverviewPageTask(crawler, aElementsToProcess, baseUrl, getJsoupConnection(), aPageNumber);
+  private AbstractRecursiveConverterTask<CrawlerUrlDTO, CrawlerUrlDTO> createNewOwnInstance(
+      final Queue<CrawlerUrlDTO> aElementsToProcess, final int aPageNumber) {
+    return new KikaTopicOverviewPageTask(
+        crawler, aElementsToProcess, baseUrl, getJsoupConnection(), aPageNumber);
   }
 
   private List<CrawlerUrlDTO> parseNextPageUrls(final Document aDocument) {
