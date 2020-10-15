@@ -140,6 +140,21 @@ public class ArdFilmDeserializerTest {
             GeoLocations.GEO_NONE,
             new ArdFilmInfoDto[0],
             Optional.of(Sender.NDR)
+          },
+          {
+            "/ard/ard_film_page_funk.json",
+            "maiLab",
+            "Spieltheorie des Lebens | Tragödie des Gemeinguts",
+            "Dinge, von denen alle was haben, um die sich aber auch alle kümmern müssen, werden meist scheiße behandelt. Warum ist das so? Und muss das wirklich immer so sein?",
+            LocalDateTime.of(2019, 6, 19, 0, 0, 0),
+            Duration.ofMinutes(14).plusSeconds(27),
+            "",
+            "http://funk-01dd.akamaized.net/06961997-44b3-4888-8f86-ad60286370ce/1700458_src_1024x576_1500.mp4",
+            "http://funk-01dd.akamaized.net/06961997-44b3-4888-8f86-ad60286370ce/1700458_src_1920x1080_6000.mp4",
+            "",
+            GeoLocations.GEO_NONE,
+            new ArdFilmInfoDto[0],
+            Optional.of(Sender.FUNK)
           }
         });
   }

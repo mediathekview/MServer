@@ -150,7 +150,7 @@ public class ArdMediaArrayToDownloadUrlsConverter {
         LOG.debug("Found an Sendung with the old RTMP format: " + url);
       } else {
         final ArdFilmUrlInfoDto info =
-            new ArdFilmUrlInfoDto(UrlUtils.addProtocolIfMissing(url, "http:"), qualityText);
+            new ArdFilmUrlInfoDto(UrlUtils.removeParameters(UrlUtils.addProtocolIfMissing(url, "http:")), qualityText);
         if (height.isPresent() && width.isPresent()) {
           info.setResolution(Integer.parseInt(width.get()), Integer.parseInt(height.get()));
         }

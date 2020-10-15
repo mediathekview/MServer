@@ -244,4 +244,21 @@ public final class UrlUtils {
 
     return parameters;
   }
+
+  /**
+   * removes the query parameters of the url
+   * @param aUrl the url
+   * @return the url without query parameters
+   */
+  public static String removeParameters(String aUrl) {
+    if (aUrl == null) {
+      return null;
+    }
+
+    final int indexParameterStart = aUrl.indexOf('?');
+    if (indexParameterStart > 0) {
+      return aUrl.substring(0, indexParameterStart);
+    }
+    return aUrl;
+  }
 }
