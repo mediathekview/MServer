@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<avDocument>
+<type>video</type>
+<documentType>externalVideo</documentType>
+<ivwEnabled>true</ivwEnabled>
+<comScorePixelUrl/>
+<cmsTrackingUrl>/webapp/doTrack/pixel.png?docId=misch-masch-salat-108&amp;amp;docPath=61927491-6ba8-4a70-b340-fb7c2f23f90f%7C444cffc5-eb31-45fa-abaa-b437bcce0afc%7C70744580-46d0-4e2e-8d69-35c018e9ff11%7C8ca47820-0594-49e8-8c7e-ed93325f4c6d%7Cd58a76b6-bb9d-4a98-8589-cf2a44958f8a%7C3e9d7636-0173-461c-b4d4-e724c3719f20%7C3c776922-79d0-4bd3-81a2-66743d78d465&amp;amp;docType=externalVideo</cmsTrackingUrl>
+<webTime>12.10.2020 08:20</webTime>
+<effectiveEndDate>19.10.2020 09:20</effectiveEndDate>
+<language>de</language>
+<styleSheets/>
+<headline>Misch-Masch-Salat</headline>
+<topline>Gut gebrüllt, liebe Monster!</topline>
+<title>42. Misch-Masch-Salat</title>
+<teaserText>Diesmal haben die kleinen Monster Gemüse mitgebracht und bereiten daraus einen Salat zu.</teaserText>
+<htmlUrl>https://www.kika.de/gut-gebruellt-liebe-monster/sendungen/videos/misch-masch-salat-108.html</htmlUrl>
+<recommendUrl>https://www.kika.de/gut-gebruellt-liebe-monster/sendungen/videos/misch-masch-salat-108-recommendForm.html</recommendUrl>
+<recommendFormUrl>https://www.kika.de/gut-gebruellt-liebe-monster/sendungen/videos/misch-masch-salat-108-recommendForm.html</recommendFormUrl>
+<infoLayerUrl>https://www.kika.de/gut-gebruellt-liebe-monster/sendungen/videos/misch-masch-salat-108-infolayer.html</infoLayerUrl>
+<mainVideoUrl>https://www.kika.de/gut-gebruellt-liebe-monster/sendungen/videos/misch-masch-salat-108-avCustom.xml</mainVideoUrl>
+<offlineAvailable>false</offlineAvailable>
+<relatedVideosUrl>https://www.kika.de/gut-gebruellt-liebe-monster/sendungen/videos/misch-masch-salat-108-related.html</relatedVideosUrl>
+<agf-tracking>
+<type>content</type>
+<assetid>200805_folge42_mischmaschsalat_gut</assetid>
+<program>liebe Monster!</program>
+<title>liebe Monster!|Misch-Masch-Salat|200805_folge42_mischmaschsalat_gut</title>
+<length>420</length>
+<c2>N</c2>
+<c5>ZDFtivi</c5>
+<c7>200805_folge42_mischmaschsalat_gut</c7>
+<c8>420</c8>
+<c9>Misch-Masch-Salat</c9>
+<c10>KiKA</c10>
+<c12>Content</c12>
+<c14>2020-10-12T08:15:00</c14>
+<c15>76126455</c15>
+<c16>p16,Gut gebrüllt, liebe Monster!</c16>
+<c18>N</c18>
+<c19>ZDF|12.10.2020 08:20|19.10.2020 08:20|none|de|true</c19>
+</agf-tracking>
+<teaserimages>
+<teaserimage>
+<url>https://cdn.kika.de/gut-gebruellt-liebe-monster/sendungen/videos/imgto-misch-masch-salat-100-resimage_v-**aspectRatio**_w-**width**.jpg?version=12763</url>
+<variants>
+<large>tlarge169</large>
+<small>tsmall169</small>
+</variants>
+</teaserimage>
+</teaserimages>
+<assets>
+<asset>
+<profileName>quality = low</profileName>
+<fileName/>
+<mediaType/>
+<frameWidth/>
+<frameHeight/>
+<bitrateVideo/>
+<bitrateAudio/>
+<fileSize>0</fileSize>
+<flashMediaServerApplicationURL/>
+<flashMediaServerURL/>
+<adaptiveHttpStreamingRedirectorUrl>https://zdfvodde-vh.akamaihd.net/i/meta-files/tivi/smil/m3u8/300/20/08/200805_folge42_mischmaschsalat_gut/2/200805_folge42_mischmaschsalat_gut.smil/master.m3u8</adaptiveHttpStreamingRedirectorUrl>
+<dynamicHttpStreamingRedirectorUrl/>
+<rtspStreamingUrl>https://nrodlzdf-a.akamaihd.net/de/tivi/20/08/200805_folge42_mischmaschsalat_gut/2/200805_folge42_mischmaschsalat_gut_508k_p9v15.mp4</rtspStreamingUrl>
+<progressiveDownloadUrl>https://nrodlzdf-a.akamaihd.net/de/tivi/20/08/200805_folge42_mischmaschsalat_gut/2/200805_folge42_mischmaschsalat_gut_508k_p9v15.mp4</progressiveDownloadUrl>
+</asset>
+<asset>
+<profileName>quality = high</profileName>
+<fileName/>
+<mediaType/>
+<frameWidth/>
+<frameHeight/>
+<bitrateVideo/>
+<bitrateAudio/>
+<fileSize>0</fileSize>
+<flashMediaServerApplicationURL/>
+<flashMediaServerURL/>
+<adaptiveHttpStreamingRedirectorUrl>https://zdfvodde-vh.akamaihd.net/i/meta-files/tivi/smil/m3u8/300/20/08/200805_folge42_mischmaschsalat_gut/2/200805_folge42_mischmaschsalat_gut.smil/master.m3u8</adaptiveHttpStreamingRedirectorUrl>
+<dynamicHttpStreamingRedirectorUrl/>
+<rtspStreamingUrl>https://nrodlzdf-a.akamaihd.net/de/tivi/20/08/200805_folge42_mischmaschsalat_gut/2/200805_folge42_mischmaschsalat_gut_808k_p11v15.mp4</rtspStreamingUrl>
+<progressiveDownloadUrl>https://nrodlzdf-a.akamaihd.net/de/tivi/20/08/200805_folge42_mischmaschsalat_gut/2/200805_folge42_mischmaschsalat_gut_808k_p11v15.mp4</progressiveDownloadUrl>
+</asset>
+<asset>
+<profileName>Video 2018 | MP4 720p25 | Web XL| 16:9 | 1280x720</profileName>
+<fileName/>
+<mediaType/>
+<frameWidth/>
+<frameHeight/>
+<bitrateVideo/>
+<bitrateAudio/>
+<fileSize>0</fileSize>
+<flashMediaServerApplicationURL/>
+<flashMediaServerURL/>
+<adaptiveHttpStreamingRedirectorUrl>https://zdfvodde-vh.akamaihd.net/i/meta-files/tivi/smil/m3u8/300/20/08/200805_folge42_mischmaschsalat_gut/2/200805_folge42_mischmaschsalat_gut.smil/master.m3u8</adaptiveHttpStreamingRedirectorUrl>
+<dynamicHttpStreamingRedirectorUrl/>
+<rtspStreamingUrl>https://nrodlzdf-a.akamaihd.net/de/tivi/20/08/200805_folge42_mischmaschsalat_gut/2/200805_folge42_mischmaschsalat_gut_1628k_p13v15.mp4</rtspStreamingUrl>
+<progressiveDownloadUrl>https://nrodlzdf-a.akamaihd.net/de/tivi/20/08/200805_folge42_mischmaschsalat_gut/2/200805_folge42_mischmaschsalat_gut_1628k_p13v15.mp4</progressiveDownloadUrl>
+</asset>
+</assets>
+<duration>07:00</duration>
+<rights>ZDF</rights>
+<transmissionType>geo</transmissionType>
+<daysUntilOffline>7</daysUntilOffline>
+<chapterEntries/>
+<broadcast>
+<channelName>Gut gebrüllt, liebe Monster!</channelName>
+<broadcastName>42. Misch-Masch-Salat</broadcastName>
+<broadcastDescription>Diesmal haben die kleinen Monster Gemüse von daheim mitgebracht und bereiten daraus einen Salat zu. Weil Schnuffelplumps die Schatz-omaten darin nicht mag, versteckt er die Salatschüssel.</broadcastDescription>
+<broadcastDate>2020-10-12T08:10:00.000+0200</broadcastDate>
+<broadcastURL>https://www.kika.de/gut-gebruellt-liebe-monster/sendungen/sendung124430.html</broadcastURL>
+<broadcastSeriesName>Gut gebrüllt, liebe Monster!</broadcastSeriesName>
+<broadcastSeriesURL>https://www.kika.de/gut-gebruellt-liebe-monster/gut-gebruellt-liebe-monster-100.html</broadcastSeriesURL>
+</broadcast>
+<atiTracking>
+<site>596354</site>
+<page>
+<name>misch%2Dmasch%2Dsalat%2D108</name>
+<level2>1</level2>
+<chapter1>gut%2Dgebruellt%2Dliebe%2Dmonster</chapter1>
+<chapter2>sendungen</chapter2>
+<chapter3>videos</chapter3>
+<customObject>
+<G1/>
+<G2/>
+<G3/>
+<G4/>
+<G5/>
+<G6/>
+<G7/>
+<G8/>
+<G9/>
+<G10/>
+</customObject>
+</page>
+<customVars>
+<site>
+<x1>[http%3A%2F%2Fwww.kika.de%2Fgut%2Dgebruellt%2Dliebe%2Dmonster%2Fsendungen%2Fvideos%2Fmisch%2Dmasch%2Dsalat%2D108%2DavCustom.xml]</x1>
+<x2>[]</x2>
+<x3>[Web]</x3>
+<x4>0</x4>
+<x5>[]</x5>
+<x6>[kika.gut%2Dgebruellt%2Dliebe%2Dmonster.sendungen.videos.misch%2Dmasch%2Dsalat%2D108]</x6>
+<x7>[kika.sendungen.sendereihen.g.gut%2Dgebruellt%2Dliebe%2Dmonster.sendungen.videos]</x7>
+<x8>[misch%2Dmasch%2Dsalat%2D108]</x8>
+<x9>[dc850f5b%2Dd889%2D4630%2Da1c8%2D4890c4fb66cf]</x9>
+<x10>[Misch%2DMasch%2DSalat]</x10>
+<x11>[2020.10.12T08%3A55]</x11>
+<x12>[2020.10.12T12%3A23]</x12>
+<x13>[externalVideo]</x13>
+<x14>[]</x14>
+<x15>[42.%20Misch%2DMasch%2DSalat]</x15>
+<x16>[Gut%20gebr%C3%BCllt%2C%20liebe%20Monster%21]</x16>
+<x17>3</x17>
+<x18>[Ganze%20Sendung]</x18>
+<x19>[TV]</x19>
+<x20/>
+</site>
+</customVars>
+<richMedia>
+<mediaType>video</mediaType>
+<mediaLabel>misch%2Dmasch%2Dsalat%2D108</mediaLabel>
+<mediaTheme1>Gut%20gebr%C3%BCllt%2C%20liebe%20Monster%21</mediaTheme1>
+<mediaTheme2>Misch%2DMasch%2DSalat%7CTV%7CZG03%7C2020.10.12T08%3A55</mediaTheme2>
+<mediaTheme3>kika.gut%2Dgebruellt%2Dliebe%2Dmonster.sendungen.videos.misch%2Dmasch%2Dsalat%2D108.tool.avPlayer</mediaTheme3>
+<refreshDuration>0:10,1:30,10:60</refreshDuration>
+<duration>420</duration>
+<broadcastMode>clip</broadcastMode>
+</richMedia>
+</atiTracking>
+<ivw>
+<cp>ZDFtivi/Gut_gebruellt__liebe_Monster_</cp>
+</ivw>
+</avDocument>

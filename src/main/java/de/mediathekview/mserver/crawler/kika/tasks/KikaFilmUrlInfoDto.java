@@ -1,0 +1,38 @@
+package de.mediathekview.mserver.crawler.kika.tasks;
+
+import de.mediathekview.mserver.crawler.basic.FilmUrlInfoDto;
+
+import java.util.Objects;
+
+public class KikaFilmUrlInfoDto extends FilmUrlInfoDto {
+
+    private final String profileName;
+
+    public KikaFilmUrlInfoDto(String aUrl, String aProfileName) {
+        super(aUrl);
+        profileName = aProfileName;
+    }
+
+    public KikaFilmUrlInfoDto(String aUrl, int aWidth, int aHeight, String profileName) {
+        super(aUrl, aWidth, aHeight);
+        this.profileName = profileName;
+    }
+
+    public String getProfileName() {
+        return profileName;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
+        KikaFilmUrlInfoDto that = (KikaFilmUrlInfoDto) o;
+        return Objects.equals(profileName, that.profileName);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), profileName);
+    }
+}

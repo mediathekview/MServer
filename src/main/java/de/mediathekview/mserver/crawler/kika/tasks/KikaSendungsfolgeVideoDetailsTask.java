@@ -40,7 +40,7 @@ public class KikaSendungsfolgeVideoDetailsTask extends AbstractUrlTask<Film, Cra
   private static final Logger LOG = LogManager.getLogger(KikaSendungsfolgeVideoDetailsTask.class);
   private static final long serialVersionUID = 6336802731231493377L;
 
-  JsoupConnection jsoupConnection;
+  private transient JsoupConnection jsoupConnection;
 
   public KikaSendungsfolgeVideoDetailsTask(
       final AbstractCrawler aCrawler, final Queue<CrawlerUrlDTO> aUrlToCrawlDTOs) {
@@ -50,16 +50,19 @@ public class KikaSendungsfolgeVideoDetailsTask extends AbstractUrlTask<Film, Cra
 
   private void addFilmUrls(
       final Elements videoElements, final String thema, final String title, final Film newFilm) {
-    final Set<FilmUrlInfoDto> urlInfos = parseVideoElements(videoElements);
-    for (final FilmUrlInfoDto urlInfo : urlInfos) {
+    final Set<KikaFilmUrlInfoDto> urlInfos = parseVideoElements(videoElements);
+    for (final KikaFilmUrlInfoDto urlInfo : urlInfos) {
 
       if (!urlInfo.getUrl().isEmpty()
           && urlInfo.getFileType().isPresent()
           && urlInfo.getFileType().get().equalsIgnoreCase(MEDIA_TYPE_MP4)) {
-        final Resolution filmResolution = getResolutionFromWidth(urlInfo);
+        Optional<Resolution> filmResolution = getResolutionFromWidth(urlInfo);
+        if (filmResolution.isEmpty()) {
+          filmResolution = getResolutionFromProfile(urlInfo);
+        }
         try {
-          if (newFilm.getUrl(filmResolution) == null) {
-            newFilm.addUrl(filmResolution, new FilmUrl(urlInfo.getUrl(), serialVersionUID));
+          if (newFilm.getUrl(filmResolution.get()) == null) {
+            newFilm.addUrl(filmResolution.get(), new FilmUrl(urlInfo.getUrl(), serialVersionUID));
           }
         } catch (final MalformedURLException e) {
           LOG.debug(
@@ -72,39 +75,60 @@ public class KikaSendungsfolgeVideoDetailsTask extends AbstractUrlTask<Film, Cra
     }
   }
 
-  private Set<FilmUrlInfoDto> parseVideoElements(final Elements aVideoElements) {
-    final TreeSet<FilmUrlInfoDto> urlInfos =
-        new TreeSet<>(Comparator.comparing(FilmUrlInfoDto::getWidth));
+  private Optional<Resolution> getResolutionFromProfile(final KikaFilmUrlInfoDto urlInfo) {
+    final String profileName = urlInfo.getProfileName().toLowerCase();
+    if (profileName.contains("low")) {
+      return Optional.of(Resolution.SMALL);
+    }
+    if (profileName.contains("high")) {
+      return Optional.of(Resolution.NORMAL);
+    }
+    if (profileName.contains("720p25")) {
+      return Optional.of(Resolution.HD);
+    }
+    LOG.debug("KIKA: unknown profile: {}", profileName);
+    return Optional.empty();
+  }
+
+  private Set<KikaFilmUrlInfoDto> parseVideoElements(final Elements aVideoElements) {
+    final TreeSet<KikaFilmUrlInfoDto> urlInfos = new TreeSet<>(new KikaFilmUrlInfoComparator());
 
     for (final Element videoElement : aVideoElements) {
-      final FilmUrlInfoDto urlInfo = parseVideoElement(videoElement);
+      final KikaFilmUrlInfoDto urlInfo = parseVideoElement(videoElement);
       urlInfos.add(urlInfo);
     }
 
     return urlInfos.descendingSet();
   }
 
-  private FilmUrlInfoDto parseVideoElement(final Element aVideoElement) {
+  private KikaFilmUrlInfoDto parseVideoElement(final Element aVideoElement) {
     final Elements frameWidthNodes = aVideoElement.getElementsByTag("frameWidth");
     final Elements frameHeightNodes = aVideoElement.getElementsByTag("frameHeight");
     final Elements downloadUrlNodes = aVideoElement.getElementsByTag("progressiveDownloadUrl");
+    final Elements profileNameNodes = aVideoElement.getElementsByTag("profileName");
 
-    final FilmUrlInfoDto info = new FilmUrlInfoDto(downloadUrlNodes.get(0).text());
-    info.setResolution(
-        Integer.parseInt(frameWidthNodes.get(0).text()),
-        Integer.parseInt(frameHeightNodes.get(0).text()));
+    final KikaFilmUrlInfoDto info =
+        new KikaFilmUrlInfoDto(downloadUrlNodes.get(0).text(), profileNameNodes.get(0).text());
+    String width = frameWidthNodes.get(0).text();
+    String height = frameHeightNodes.get(0).text();
+
+    if (!width.isEmpty() && !height.isEmpty()) {
+      info.setResolution(Integer.parseInt(width), Integer.parseInt(height));
+    }
     return info;
   }
 
-  private Resolution getResolutionFromWidth(final FilmUrlInfoDto aUrlInfo) {
+  private Optional<Resolution> getResolutionFromWidth(final FilmUrlInfoDto aUrlInfo) {
     if (aUrlInfo.getWidth() >= 1280) {
-      return Resolution.HD;
+      return Optional.of(Resolution.HD);
     }
     if (aUrlInfo.getWidth() > 512) {
-      return Resolution.NORMAL;
+      return Optional.of(Resolution.NORMAL);
     }
-
-    return Resolution.SMALL;
+    if (aUrlInfo.getWidth() > 0) {
+      return Optional.of(Resolution.SMALL);
+    }
+    return Optional.empty();
   }
 
   private Elements orAlternative(final Document aDocucument, final String... aTags) {

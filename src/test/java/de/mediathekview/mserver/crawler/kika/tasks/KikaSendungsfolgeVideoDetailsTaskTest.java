@@ -109,6 +109,22 @@ public class KikaSendungsfolgeVideoDetailsTaskTest extends KikaTaskTestBase {
             "https://pmdgeokika-a.akamaihd.net/mp4dyn/f/FCMS-f6246737-fa13-4990-b801-2706fb13c1b6-5a2c8da1cdb7_f6.mp4",
             "",
             GeoLocations.GEO_DE
+          },
+          {
+            "https://www.kika.de/gut-gebruellt-liebe-monster/sendungen/videos/misch-masch-salat-108-avCustom.xml",
+            "/kika/kika_film_video_noresolution.xml",
+            "Gut gebrüllt, liebe Monster!",
+            "42. Misch-Masch-Salat",
+            "Diesmal haben die kleinen Monster Gemüse von daheim mitgebracht und bereiten daraus einen Salat zu. Weil Schnuffelplumps die Schatz-omaten darin nicht mag, versteckt er die Salatschüssel.",
+            LocalDateTime.of(2020, 10, 12, 8, 10, 0),
+            Duration.ofMinutes(7),
+            "https://www.kika.de/gut-gebruellt-liebe-monster/sendungen/sendung124430.html",
+            "https://nrodlzdf-a.akamaihd.net/de/tivi/20/08/200805_folge42_mischmaschsalat_gut/2/200805_folge42_mischmaschsalat_gut_508k_p9v15.mp4",
+            "https://nrodlzdf-a.akamaihd.net/de/tivi/20/08/200805_folge42_mischmaschsalat_gut/2/200805_folge42_mischmaschsalat_gut_808k_p11v15.mp4",
+            "https://nrodlzdf-a.akamaihd.net/de/tivi/20/08/200805_folge42_mischmaschsalat_gut/2/200805_folge42_mischmaschsalat_gut_1628k_p13v15.mp4",
+            "",
+            GeoLocations.GEO_NONE
+                  // TODO Geo none wirklich richtig??
           }
         });
   }
