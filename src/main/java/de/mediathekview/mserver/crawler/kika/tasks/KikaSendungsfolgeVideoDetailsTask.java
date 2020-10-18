@@ -34,7 +34,10 @@ public class KikaSendungsfolgeVideoDetailsTask extends AbstractUrlTask<Film, Cra
   private static final String ELEMENT_ASSET = "asset";
   private static final String ELEMENT_BROADCAST_DATE = "broadcastDate";
   private static final String ELEMENT_DURATION = "duration";
+  private static final String ELEMENT_BROADCAST_SERIES = "broadcastSeriesName";
+  private static final String ELEMENT_BROADCAST_NAME = "broadcastName";
   private static final String ELEMENT_BROADCAST_DESCRIPTION = "broadcastDescription";
+  private static final String ELEMENT_HEADLINE = "headline";
   private static final String ELEMENT_TITLE = "title";
   private static final String ELEMENT_CHANNELNAME = "channelName";
   private static final Logger LOG = LogManager.getLogger(KikaSendungsfolgeVideoDetailsTask.class);
@@ -172,8 +175,9 @@ public class KikaSendungsfolgeVideoDetailsTask extends AbstractUrlTask<Film, Cra
               urlDTO.getUrl(),
               (int) TimeUnit.SECONDS.toMillis(config.getSocketTimeoutInSeconds()),
               Parser.xmlParser());
-      final Elements titleNodes = document.getElementsByTag(ELEMENT_TITLE);
-      final Elements themaNodes = orAlternative(document, ELEMENT_CHANNELNAME, ELEMENT_TOPLINE);
+      final Elements titleNodes = orAlternative(document, ELEMENT_BROADCAST_NAME, ELEMENT_TITLE);
+      final Elements themaNodes =
+          orAlternative(document, ELEMENT_BROADCAST_SERIES, ELEMENT_CHANNELNAME, ELEMENT_TOPLINE, ELEMENT_HEADLINE);
       final Elements websiteUrlNodes =
           orAlternative(document, ELEMENT_BROADCAST_URL, ELEMENT_HTML_URL);
       final Elements descriptionNodes = document.getElementsByTag(ELEMENT_BROADCAST_DESCRIPTION);

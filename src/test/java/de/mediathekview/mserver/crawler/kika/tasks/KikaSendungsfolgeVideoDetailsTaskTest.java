@@ -124,7 +124,21 @@ public class KikaSendungsfolgeVideoDetailsTaskTest extends KikaTaskTestBase {
             "https://nrodlzdf-a.akamaihd.net/de/tivi/20/08/200805_folge42_mischmaschsalat_gut/2/200805_folge42_mischmaschsalat_gut_1628k_p13v15.mp4",
             "",
             GeoLocations.GEO_NONE
-                  // TODO Geo none wirklich richtig??
+          },
+          {
+            "https://www.kika.de/av-import/ohne-sendungsbezug/felix-sucht-bakterien100-avCustom.xml",
+            "/kika/kika_film_video3.xml",
+            "ERDE AN ZUKUNFT",
+            "Gefährliche Keime - wie schützen wir uns in Zukunft?",
+            "Immer mehr Keime machen uns krank, vor allem Bakterien und Viren. Sie sind winzig, aber trotzdem stark genug, Menschen schwer krank zu machen. Gegen manche dieser Bakterien und Viren hilft noch keines der Medikamente, die wir heute kennen. Wie können wir uns vor solchen Super-Keimen schützen?",
+            LocalDateTime.of(2020, 7, 12, 8, 0, 0),
+            Duration.ofMinutes(3).plusSeconds(59),
+            "https://www.kika.de/erde-an-zukunft/sendungen/sendung121534.html",
+            "https://pmdonlinekika-a.akamaihd.net/mp4dyn/b/FCMS-bc273f47-0dee-4577-86db-e74f64797421-2cc6c1c1f632_bc.mp4",
+            "https://pmdonlinekika-a.akamaihd.net/mp4dyn/b/FCMS-bc273f47-0dee-4577-86db-e74f64797421-31e0be270130_bc.mp4",
+            "https://pmdonlinekika-a.akamaihd.net/mp4dyn/b/FCMS-bc273f47-0dee-4577-86db-e74f64797421-5a2c8da1cdb7_bc.mp4",
+            "",
+            GeoLocations.GEO_NONE
           }
         });
   }
