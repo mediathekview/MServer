@@ -50,6 +50,7 @@ public class OrfVideoDetailDeserializer implements JsonDeserializer<Optional<Orf
         return Optional.of(Qualities.NORMAL);
       case "Q8C":
         return Optional.of(Qualities.HD);
+      case "Q0A":
       case "QXA":
       case "QXB":
       case "Q8A":
