@@ -139,6 +139,21 @@ public class KikaSendungsfolgeVideoDetailsTaskTest extends KikaTaskTestBase {
             "https://pmdonlinekika-a.akamaihd.net/mp4dyn/b/FCMS-bc273f47-0dee-4577-86db-e74f64797421-5a2c8da1cdb7_bc.mp4",
             "",
             GeoLocations.GEO_NONE
+          },
+          {
+            "https://www.kika.de/erde-an-zukunft/charaktere/wunschkind/kw-survival-102-avCustom.xml",
+            "/kika/kika_film_video4.xml",
+            "Tristans Wunsch",
+            "Überleben ohne Strom",
+            "Pfadfinder Tristan wünscht sich einen sonnen- und mondbetriebenen Kühlschrank, der bei Stromausfällen ein ganzes Dorf, oder eine ganze Stadt ernähren kann.",
+            LocalDateTime.of(2020, 7, 21, 12, 35, 0),
+            Duration.ofSeconds(30),
+            "https://www.kika.de/erde-an-zukunft/charaktere/wunschkind/kw-survival-102.html",
+            "https://pmdonlinekika-a.akamaihd.net/mp4dyn/7/FCMS-7b09f65c-8a90-4840-bef3-ea35b606f3a2-2cc6c1c1f632_7b.mp4",
+            "https://pmdonlinekika-a.akamaihd.net/mp4dyn/7/FCMS-7b09f65c-8a90-4840-bef3-ea35b606f3a2-31e0be270130_7b.mp4",
+            "https://pmdonlinekika-a.akamaihd.net/mp4dyn/7/FCMS-7b09f65c-8a90-4840-bef3-ea35b606f3a2-5a2c8da1cdb7_7b.mp4x",
+            "",
+            GeoLocations.GEO_NONE
           }
         });
   }

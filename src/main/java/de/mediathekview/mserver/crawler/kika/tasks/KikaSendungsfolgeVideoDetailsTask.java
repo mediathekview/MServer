@@ -18,6 +18,7 @@ import org.jsoup.select.Elements;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.time.DateTimeException;
 import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -38,10 +39,14 @@ public class KikaSendungsfolgeVideoDetailsTask extends AbstractUrlTask<Film, Cra
   private static final String ELEMENT_BROADCAST_NAME = "broadcastName";
   private static final String ELEMENT_BROADCAST_DESCRIPTION = "broadcastDescription";
   private static final String ELEMENT_HEADLINE = "headline";
+  private static final String ELEMENT_TEASERTEXT = "teaserText";
   private static final String ELEMENT_TITLE = "title";
+  private static final String ELEMENT_WEBTIME = "webTime";
   private static final String ELEMENT_CHANNELNAME = "channelName";
   private static final Logger LOG = LogManager.getLogger(KikaSendungsfolgeVideoDetailsTask.class);
   private static final long serialVersionUID = 6336802731231493377L;
+  private static final DateTimeFormatter webTimeFormatter =
+      DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm");
 
   private transient JsoupConnection jsoupConnection;
 
@@ -146,12 +151,15 @@ public class KikaSendungsfolgeVideoDetailsTask extends AbstractUrlTask<Film, Cra
 
   private LocalDateTime parseTime(
       final Elements dateNodes, final String thema, final String title) {
-    final LocalDateTime time;
+    LocalDateTime time;
     if (!dateNodes.isEmpty() && dateNodes.get(0).text() != null) {
-      time =
-          LocalDateTime.parse(
-              DateUtils.changeDateTimeForMissingISO8601Support(dateNodes.get(0).text()),
-              DateTimeFormatter.ISO_DATE_TIME);
+      final String timeString =
+          DateUtils.changeDateTimeForMissingISO8601Support(dateNodes.get(0).text());
+      try {
+        time = LocalDateTime.parse(timeString, DateTimeFormatter.ISO_DATE_TIME);
+      } catch (DateTimeException ignore) {
+        time = LocalDateTime.parse(timeString, webTimeFormatter);
+      }
     } else {
       time = LocalDate.now().atStartOfDay();
       LOG.debug(
@@ -177,12 +185,17 @@ public class KikaSendungsfolgeVideoDetailsTask extends AbstractUrlTask<Film, Cra
               Parser.xmlParser());
       final Elements titleNodes = orAlternative(document, ELEMENT_BROADCAST_NAME, ELEMENT_TITLE);
       final Elements themaNodes =
-          orAlternative(document, ELEMENT_BROADCAST_SERIES, ELEMENT_CHANNELNAME, ELEMENT_TOPLINE, ELEMENT_HEADLINE);
+          orAlternative(
+              document,
+              ELEMENT_BROADCAST_SERIES,
+              ELEMENT_CHANNELNAME,
+              ELEMENT_TOPLINE,
+              ELEMENT_HEADLINE);
       final Elements websiteUrlNodes =
           orAlternative(document, ELEMENT_BROADCAST_URL, ELEMENT_HTML_URL);
-      final Elements descriptionNodes = document.getElementsByTag(ELEMENT_BROADCAST_DESCRIPTION);
+      final Elements descriptionNodes = orAlternative(document, ELEMENT_BROADCAST_DESCRIPTION, ELEMENT_TEASERTEXT);
       final Elements durationNodes = document.getElementsByTag(ELEMENT_DURATION);
-      final Elements dateNodes = document.getElementsByTag(ELEMENT_BROADCAST_DATE);
+      final Elements dateNodes = orAlternative(document, ELEMENT_BROADCAST_DATE, ELEMENT_WEBTIME);
 
       final Elements videoElements = document.getElementsByTag(ELEMENT_ASSET);
 
