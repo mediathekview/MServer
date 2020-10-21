@@ -55,7 +55,7 @@ public class SrfCrawler extends MediathekCrawler {
 
   private static int getMaxSubPages() {
     if (CrawlerTool.loadLongMax()) {
-      return 3;
+      return 5;
     }
 
     return 1;
