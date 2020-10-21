@@ -151,7 +151,7 @@ public class SrFilmDetailTask extends SrRateLimitedDocumentTask<DatenFilm, SrTop
 
       Map<Qualities, String> videoUrls = videoInfo.getVideoUrls();
 
-      DatenFilm film = new DatenFilm(Const.SR, aUrlDTO.getTheme(), "", title.orElse(""), videoInfo.getDefaultVideoUrl(), "", dateValue, timeValue, duration.orElse(Duration.ZERO).getSeconds(), description.orElse(""));
+      DatenFilm film = new DatenFilm(Const.SR, aUrlDTO.getTheme(), aUrlDTO.getUrl(), title.orElse(""), videoInfo.getDefaultVideoUrl(), "", dateValue, timeValue, duration.orElse(Duration.ZERO).getSeconds(), description.orElse(""));
       if (videoUrls.containsKey(Qualities.SMALL)) {
         CrawlerTool.addUrlKlein(film, videoUrls.get(Qualities.SMALL));
       }
