@@ -52,7 +52,7 @@ public class SrfTopicOverviewTask extends ArdTaskBase<CrawlerUrlDTO, TopicUrlDTO
 
   private AbstractRecursivConverterTask<CrawlerUrlDTO, TopicUrlDTO> createNewOwnInstance(
           ConcurrentLinkedQueue aElementsToProcess, int pageNumber) {
-    return new SrfTopicOverviewTask(crawler, aElementsToProcess, baseUrl, pageNumber);
+    return new SrfTopicOverviewTask(crawler, aElementsToProcess, baseUrl, maxSubPages, pageNumber);
   }
 
   @Override
