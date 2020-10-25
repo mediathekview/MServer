@@ -11,7 +11,7 @@ All types of contributions are encouraged and valued. See the [Table of Contents
 > - Refer this project in your project's readme
 > - Mention the project at local meetups and tell your friends/colleagues
 
-**Hint:** As MediathekView is a german software for the DACH tv stations ["Öffentlich-Rechtliche"](https://de.wikipedia.org/wiki/%C3%96ffentlich-rechtlicher_Rundfunk), many things like issue descriptions, UI text and so on are in geman. If you don't understand something feel free to ask one of us. Also, feel free to create issues in english.
+**Hint:** As MediathekView is a German software for the DACH tv stations ["Öffentlich-Rechtliche"](https://de.wikipedia.org/wiki/%C3%96ffentlich-rechtlicher_Rundfunk), many things like issue descriptions, UI text and so on are in German. If you don't understand something feel free to ask one of us. Also, feel free to create issues in English.
 <!-- omit in toc -->
 ## Table of Contents
 
@@ -161,11 +161,11 @@ That's it. Happy coding! 🥳
 ## Styleguides
 We use the [SonarSource](https://rules.sonarsource.com/java) default rules. To check if your code against the rules use [SonarLint](https://www.sonarlint.org/). We also run a [SonarCloud](https://sonarcloud.io/dashboard?id=mediathekview_MServer) analysis with our builds. The [SonarCloud Bot](https://github.com/apps/sonarcloud) checks Pull-Request to not break the quality gate.
 
-For **code formatting** we use the [Google Jave Style](https://google.github.io/styleguide/javaguide.html) and for this the [google-java-format](https://github.com/google/google-java-format).
+For **code formatting** we use the [Google Java Style](https://google.github.io/styleguide/javaguide.html) and for this the [google-java-format](https://github.com/google/google-java-format).
 ### Branch name schema
 We use the [git-flow](https://nvie.com/posts/a-successful-git-branching-model/) branch names so `hotfix/ticketNumber_branch_name` for a hotfix and `feature/ticketNumber_branch_name` for a feature branch.
 
-Som of us use the [git-flow extension](https://github.com/nvie/gitflow).
+Some of us use the [git-flow extension](https://github.com/nvie/gitflow).
 ### Commit Messages
 Please read this: [Chris Beams - How to Write a Git Commit Message](https://chris.beams.io/posts/git-commit/)
 
