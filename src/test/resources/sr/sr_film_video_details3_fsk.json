@@ -1,0 +1,67 @@
+{
+    "_type":"video",
+    "_isLive":false,
+    "_defaultQuality": ["auto",
+	2,
+	1,
+	0],
+    "_previewImage": "https://www.sr-mediathek.de/json/fsk/img_fsk12_video.jpg",
+	"_mediaArray": [{
+		"_plugin": 0,
+		"_mediaStreamArray": [{
+			"_quality": "auto",
+			"_server": "",
+			"_stream": "http://sr_hds_od-vh.akamaihd.net/z/media/FSK/video_fsk12_20160311_,K,M,N,L,.mp4.csmil/manifest.f4m?hdcore",
+			"_cdn": "akamai"
+		},
+		{
+			"_quality": 0,
+			"_server": "",
+			"_stream": "http://sr_hds_od-vh.akamaihd.net/z/media/FSK/video_fsk12_20160311_,K,.mp4.csmil/manifest.f4m?hdcore",
+			"_cdn": "akamai"
+		},
+		{
+			"_quality": 1,
+			"_server": "",
+			"_stream": "http://sr_hds_od-vh.akamaihd.net/z/media/FSK/video_fsk12_20160311_,M,.mp4.csmil/manifest.f4m?hdcore",
+			"_cdn": "akamai"
+		},
+		{
+			"_quality": 2,
+			"_server": "",
+			"_stream": "http://sr_hds_od-vh.akamaihd.net/z/media/FSK/video_fsk12_20160311_,L,.mp4.csmil/manifest.f4m?hdcore",
+			"_cdn": "akamai"
+		}]
+	},
+	{
+		"_plugin": 1,
+		"_mediaStreamArray": [{
+			"_quality": "auto",
+			"_server": "",
+			"_stream": "https://sr_hls_od-vh.akamaihd.net/i/media/FSK/video_fsk12_20160311_,K,M,N,L,.mp4.csmil/master.m3u8",
+			"_cdn": "akamai"
+		},
+		{
+			"_quality": 0,
+			"_server": "",
+			"_stream": ["https://sr_hls_od-vh.akamaihd.net/i/media/FSK/video_fsk12_20160311_,K,.mp4.csmil/master.m3u8",
+			"https://srstorage01-a.akamaihd.net/Video/FSK/video_fsk12_20160311_K.mp4"],
+			"_cdn": "default"
+		},
+		{
+			"_quality": 1,
+			"_server": "",
+			"_stream": ["https://sr_hls_od-vh.akamaihd.net/i/media/FSK/video_fsk12_20160311_,M,.mp4.csmil/master.m3u8",
+			"https://srstorage01-a.akamaihd.net/Video/FSK/video_fsk12_20160311_M.mp4"],
+			"_cdn": "default"
+		},
+		{
+			"_quality": 2,
+			"_server": "",
+			"_stream": ["https://sr_hls_od-vh.akamaihd.net/i/media/FSK/video_fsk12_20160311_,L,.mp4.csmil/master.m3u8",
+			"https://srstorage01-a.akamaihd.net/Video/FSK/video_fsk12_20160311_L.mp4"],
+			"_cdn": "default"
+		}]
+	}],
+	"_sortierArray": [0,1]
+}

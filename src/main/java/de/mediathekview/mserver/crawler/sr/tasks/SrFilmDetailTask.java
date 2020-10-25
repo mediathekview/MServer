@@ -221,7 +221,9 @@ public class SrFilmDetailTask extends SrRateLimitedDocumentTask<Film, SrTopicUrl
       try {
         final ArdVideoInfoDto dto =
             gson.fromJson(new InputStreamReader(new URL(url).openStream()), ArdVideoInfoDto.class);
-        return Optional.of(dto);
+        if (dto.getVideoUrls().size() > 0) {
+          return Optional.of(dto);
+        }
       } catch (final IOException ex) {
         LOG.fatal(ex);
       }

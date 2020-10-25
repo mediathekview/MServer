@@ -10,18 +10,14 @@ import de.mediathekview.mserver.base.utils.UrlUtils;
 import de.mediathekview.mserver.crawler.ard.ArdFilmUrlInfoDto;
 import de.mediathekview.mserver.crawler.ard.ArdUrlOptimizer;
 import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.util.EnumMap;
-import java.util.LinkedHashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
-import java.util.Set;
-import java.util.stream.Collectors;
-import java.util.stream.StreamSupport;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 
 public class ArdMediaArrayToDownloadUrlsConverter {
 
@@ -39,6 +35,8 @@ public class ArdMediaArrayToDownloadUrlsConverter {
   private static final String ELEMENT_SORT_ARRAY = "_sortierArray";
   private static final String ELEMENT_WIDTH = "_width";
   private static final String PROTOCOL_RTMP = "rtmp";
+
+  private static final String FILE_TYPE_F4M = "f4m";
 
   private final ArdUrlOptimizer ardOptimizer;
   private final Map<Resolution, Set<ArdFilmUrlInfoDto>> urls;
@@ -150,7 +148,9 @@ public class ArdMediaArrayToDownloadUrlsConverter {
         LOG.debug("Found an Sendung with the old RTMP format: " + url);
       } else {
         final ArdFilmUrlInfoDto info =
-            new ArdFilmUrlInfoDto(UrlUtils.removeParameters(UrlUtils.addProtocolIfMissing(url, "http:")), qualityText);
+            new ArdFilmUrlInfoDto(
+                UrlUtils.removeParameters(UrlUtils.addProtocolIfMissing(url, "http:")),
+                qualityText);
         if (height.isPresent() && width.isPresent()) {
           info.setResolution(Integer.parseInt(width.get()), Integer.parseInt(height.get()));
         }
@@ -168,11 +168,18 @@ public class ArdMediaArrayToDownloadUrlsConverter {
 
     urls.entrySet().stream()
         .filter(entry -> !entry.getValue().isEmpty())
+        .filter(ArdMediaArrayToDownloadUrlsConverter::isFileTypeRelevant)
         .forEach(
             entry -> {
               finalizeUrl(entry).ifPresent(url -> downloadUrls.put(entry.getKey(), url));
             });
     return downloadUrls;
+  }
+
+  private static boolean isFileTypeRelevant(final Map.Entry<Resolution, Set<ArdFilmUrlInfoDto>> entry) {
+    return entry.getValue().stream()
+            .anyMatch(video -> video.getFileType().isPresent()
+                    && !FILE_TYPE_F4M.equalsIgnoreCase(video.getFileType().get()));
   }
 
   private Optional<URL> finalizeUrl(final Map.Entry<Resolution, Set<ArdFilmUrlInfoDto>> entry) {

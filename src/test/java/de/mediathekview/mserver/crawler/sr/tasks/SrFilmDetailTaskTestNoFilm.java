@@ -28,6 +28,8 @@ public class SrFilmDetailTaskTestNoFilm extends SrTaskTestBase {
   private final String requestUrl;
   private final String filmPageFile;
   private final String theme;
+  private final String videoDetailsUrl;
+  private final String videoDetailsFile;
 
   @Mock JsoupConnection jsoupConnection;
 
@@ -37,10 +39,16 @@ public class SrFilmDetailTaskTestNoFilm extends SrTaskTestBase {
   }
 
   public SrFilmDetailTaskTestNoFilm(
-      final String aRequestUrl, final String aFilmPageFile, final String aTheme) {
+      final String aRequestUrl,
+      final String aFilmPageFile,
+      final String aTheme,
+      final String videoDetailsUrl,
+      final String videoDetailsFile) {
     requestUrl = aRequestUrl;
     filmPageFile = aFilmPageFile;
     theme = aTheme;
+    this.videoDetailsUrl = videoDetailsUrl;
+    this.videoDetailsFile = videoDetailsFile;
   }
 
   @Parameterized.Parameters
@@ -50,12 +58,23 @@ public class SrFilmDetailTaskTestNoFilm extends SrTaskTestBase {
           {
             "https://www.sr-mediathek.de/index.php?seite=7&id=15808&pnr=0",
             "/sr/sr_podcast_page.html",
-            "Abendrot"
+            "Abendrot",
+            null,
+            null
           },
           {
             "https://www.sr-mediathek.de/index.php?seite=7&id=57773",
             "/sr/sr_audio_page.html",
-            "Bücherlese"
+            "Bücherlese",
+            null,
+            null
+          },
+          {
+            "https://www.sr-mediathek.de/index.php?seite=7&id=39741",
+            "/sr/sr_film_page3_fsk.html",
+            "Tatort",
+            "/sr_player/mc.php?id=39741&tbl=&pnr=0&hd=0&devicetype=",
+            "/sr/sr_film_video_details3_fsk.json"
           }
         });
   }
@@ -64,6 +83,10 @@ public class SrFilmDetailTaskTestNoFilm extends SrTaskTestBase {
   public void test() throws IOException {
     final Connection connection = JsoupMock.mock(requestUrl, filmPageFile);
     when(jsoupConnection.getConnection(eq(requestUrl))).thenReturn(connection);
+
+    if (videoDetailsUrl != null) {
+      setupSuccessfulJsonResponse(videoDetailsUrl, videoDetailsFile);
+    }
 
     final Set<Film> actual = executeTask(theme, requestUrl);
 
