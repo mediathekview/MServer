@@ -150,19 +150,20 @@ public class SrFilmDetailTask extends SrRateLimitedDocumentTask<DatenFilm, SrTop
       String timeValue = time.get().format(TIME_FORMAT);
 
       Map<Qualities, String> videoUrls = videoInfo.getVideoUrls();
+      if (videoUrls.size() > 0) {
+        DatenFilm film = new DatenFilm(Const.SR, aUrlDTO.getTheme(), aUrlDTO.getUrl(), title.orElse(""), videoInfo.getDefaultVideoUrl(), "", dateValue, timeValue, duration.orElse(Duration.ZERO).getSeconds(), description.orElse(""));
+        if (videoUrls.containsKey(Qualities.SMALL)) {
+          CrawlerTool.addUrlKlein(film, videoUrls.get(Qualities.SMALL));
+        }
+        if (videoUrls.containsKey(Qualities.HD)) {
+          CrawlerTool.addUrlHd(film, videoUrls.get(Qualities.HD));
+        }
+        if (videoInfo.getSubtitleUrlOptional().isPresent()) {
+          CrawlerTool.addUrlSubtitle(film, videoInfo.getSubtitleUrl());
+        }
 
-      DatenFilm film = new DatenFilm(Const.SR, aUrlDTO.getTheme(), aUrlDTO.getUrl(), title.orElse(""), videoInfo.getDefaultVideoUrl(), "", dateValue, timeValue, duration.orElse(Duration.ZERO).getSeconds(), description.orElse(""));
-      if (videoUrls.containsKey(Qualities.SMALL)) {
-        CrawlerTool.addUrlKlein(film, videoUrls.get(Qualities.SMALL));
+        taskResults.add(film);
       }
-      if (videoUrls.containsKey(Qualities.HD)) {
-        CrawlerTool.addUrlHd(film, videoUrls.get(Qualities.HD));
-      }
-      if (videoInfo.getSubtitleUrlOptional().isPresent()) {
-        CrawlerTool.addUrlSubtitle(film, videoInfo.getSubtitleUrl());
-      }
-
-      taskResults.add(film);
     } else {
       LOG.error("SrFilmDetailTask: no title or video found for url " + aUrlDTO.getUrl());
       Log.errorLog(74856890, "SrFilmDetailTask: no title or video found for url " + aUrlDTO.getUrl());
