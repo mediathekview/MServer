@@ -64,7 +64,7 @@ A good bug report shouldn't leave others needing to chase you up for more inform
   - Possibly your input and the output
   - Can you reliably reproduce the issue? And can you also reproduce it with older versions?
   
- Please make sure to report your issue in the correct project. This project is for the desktop client MediathekView. 
+ Please make sure to report your issue in the correct project. This project is for the crawlers of MediathekView. 
  If your issue relates to the desktop client [MediathekView](https://github.com/mediathekview/MediathekView) is the right place.
  If your issue relates to the web client MediathekViewWeb then [MediathekViewWeb](https://github.com/mediathekview/MediathekViewWeb) is the right place.
 
