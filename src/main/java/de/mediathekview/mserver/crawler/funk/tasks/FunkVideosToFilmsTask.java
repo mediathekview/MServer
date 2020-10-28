@@ -63,6 +63,7 @@ public class FunkVideosToFilmsTask
         "A HTTP error {} occurred when getting REST information from: \"{}\".",
         response.getStatus(),
         url);
+    crawler.incrementAndGetErrorCount();
   }
 
   @Override
@@ -79,30 +80,61 @@ public class FunkVideosToFilmsTask
   @Override
   protected void postProcessing(
       final Set<FilmUrlInfoDto> videoDetails, final FilmInfoDto filmInfo) {
-    final Film film =
-        new Film(
-            UUID.randomUUID(),
-            Sender.FUNK,
-            filmInfo.getTitle(),
-            channels.get(filmInfo.getTopic()).getChannelTitle(),
-            filmInfo.getTime(),
-            filmInfo.getDuration());
-    film.addGeolocation(GeoLocations.GEO_NONE);
-    film.setBeschreibung(filmInfo.getDescription());
-    addWebsite(filmInfo, film);
-    videoDetails.stream()
-        .sorted(Comparator.comparingInt(FilmUrlInfoDto::getWidth))
-        .forEachOrdered(details -> addIfResolutionMissing(details, film));
+    try {
+      final Film film =
+          new Film(
+              UUID.randomUUID(),
+              Sender.FUNK,
+              filmInfo.getTitle(),
+              getChannelTitle(filmInfo),
+              filmInfo.getTime(),
+              filmInfo.getDuration());
+      film.addGeolocation(GeoLocations.GEO_NONE);
+      filmInfo.getDescription().ifPresent(film::setBeschreibung);
+      filmInfo.getWebsite().ifPresent(website -> addWebsite(website, film));
+      videoDetails.stream()
+          .sorted(Comparator.comparingInt(FilmUrlInfoDto::getWidth))
+          .forEachOrdered(details -> addIfResolutionMissing(details, film));
 
-    if (film.getUrls().isEmpty()) {
-      LOG.debug(
-          "The Funk film \"{}\" - \"{}\" has no download URL.", film.getThema(), film.getTitel());
-      crawler.incrementAndGetErrorCount();
-    } else {
-      taskResults.add(film);
-      crawler.incrementAndGetActualCount();
+      if (film.getUrls().isEmpty()) {
+        LOG.debug(
+            "The Funk film \"{}\" - \"{}\" has no download URL.", film.getThema(), film.getTitel());
+        crawler.incrementAndGetErrorCount();
+      } else {
+        taskResults.add(film);
+        crawler.incrementAndGetActualCount();
+      }
+      crawler.updateProgress();
+    } catch (final Exception exception) {
+      exception.printStackTrace();
     }
-    crawler.updateProgress();
+  }
+
+  private String getChannelTitle(final FilmInfoDto filmInfoDto) {
+    final String channelId = filmInfoDto.getTopic();
+    if (channels.containsKey(channelId)) {
+      return channels.get(channelId).getChannelTitle();
+    }
+
+    LOG.debug(
+        "Can't find the channel {} for film info {}. Trying something different.",
+        channelId,
+        filmInfoDto);
+    final Optional<String> channelFromTitle = parseChannelFromTitle(filmInfoDto.getTitle());
+
+    return channelFromTitle.orElse("");
+  }
+
+  private Optional<String> parseChannelFromTitle(final String title) {
+    final List<String> titleSplits = Arrays.asList(title.split("\\|"));
+    if (titleSplits.isEmpty() || titleSplits.size() < 2) {
+      return Optional.empty();
+    }
+    // Using the last to cover things like Kickbox which includes many | and the channel is the last
+    // one
+    final String channelTitle = titleSplits.get(titleSplits.size() - 1).strip();
+    LOG.debug("Using {} as channel title instead.", channelTitle);
+    return Optional.ofNullable(channelTitle);
   }
 
   private void addIfResolutionMissing(final FilmUrlInfoDto details, final Film film) {
@@ -114,13 +146,12 @@ public class FunkVideosToFilmsTask
     }
   }
 
-  private void addWebsite(final FilmInfoDto filmInfo, final Film film) {
+  private void addWebsite(final String website, final Film film) {
     try {
-      film.setWebsite(new URL(filmInfo.getWebsite()));
+      film.setWebsite(new URL(website));
     } catch (final MalformedURLException malformedURLException) {
       LOG.error(
-          String.format("The website url \"%s\" isn't valid!", filmInfo.getWebsite()),
-          malformedURLException);
+          String.format("The website url \"%s\" isn't valid!", website), malformedURLException);
       crawler.incrementAndGetErrorCount();
       crawler.updateProgress();
     }
