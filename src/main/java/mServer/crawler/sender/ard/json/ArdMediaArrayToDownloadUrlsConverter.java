@@ -40,6 +40,8 @@ public class ArdMediaArrayToDownloadUrlsConverter {
   private static final String ELEMENT_WIDTH = "_width";
   private static final String PROTOCOL_RTMP = "rtmp";
 
+  private static final String FILE_TYPE_F4M = "f4m";
+
   private final SwrUrlOptimizer ardOptimizer;
   private final Map<Qualities, Set<ArdFilmUrlInfoDto>> urls;
   private MediathekReader crawler;
@@ -167,11 +169,18 @@ public class ArdMediaArrayToDownloadUrlsConverter {
 
     urls.entrySet().stream()
             .filter(entry -> !entry.getValue().isEmpty())
+            .filter(ArdMediaArrayToDownloadUrlsConverter::isFileTypeRelevant)
             .forEach(
                     entry -> {
                       finalizeUrl(entry).ifPresent(url -> downloadUrls.put(entry.getKey(), url));
                     });
     return downloadUrls;
+  }
+
+  private static boolean isFileTypeRelevant(final Map.Entry<Qualities, Set<ArdFilmUrlInfoDto>> entry) {
+    return entry.getValue().stream()
+            .anyMatch(video -> video.getFileType().isPresent()
+                    && !FILE_TYPE_F4M.equalsIgnoreCase(video.getFileType().get()));
   }
 
   private Optional<URL> finalizeUrl(final Map.Entry<Qualities, Set<ArdFilmUrlInfoDto>> entry) {
