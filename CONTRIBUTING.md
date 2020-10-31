@@ -37,7 +37,7 @@ to <info@mediathekview.de>.
 
 ## I Have a Question
 
-This repository is the MServer which are the crawler to get the information from the Öffentlich-Rechtliche. If you have a question to MediathekView or MediathekviewWeb use the [Forum](https://forum.mediathekview.de). 
+This repository is for MServer which is the crawler part of MediathekView to get information from Öffentlich-Rechtliche. If you have a question to MediathekView or MediathekviewWeb use the [Forum](https://forum.mediathekview.de). 
 
 If you have a question to one of the crawlers or how the code works, create an issue or also use the [Forum](https://forum.mediathekview.de). 
 
@@ -100,6 +100,7 @@ This section guides you through submitting an enhancement suggestion for MServer
 - Make sure the enhancement is something which has to be done on the **backend / crawler** side. This **aren't** the repository for the client MediathekView or MediathekViewWeb. 
 - Perform a search on [GitHub](https://github.com/mediathekview/MServer/issues) to see if the enhancement has already been suggested. If it has, add a comment to the existing issue instead of opening a new one.
 - Find out whether your idea fits with the scope and aims of the project. It's up to you to make a strong case to convince the project's developers of the merits of this feature. Keep in mind that we want features that will be useful to the majority of our users and not just a small subset.
+- Make sure in the case you want to submit an enhancement for a new tv station to be crawled that the station is a public station as in the [Öffentlich Rechtliche](https://de.wikipedia.org/wiki/%C3%96ffentlich-rechtlicher_Rundfunk) described. No crawling for private TV Stations would be accepted.
 
 <!-- omit in toc -->
 #### How Do I Submit a Good Enhancement Suggestion?
@@ -109,7 +110,7 @@ Enhancement suggestions are tracked as [GitHub issues](https://github.com/mediat
 - Use a **clear and descriptive title** for the issue to identify the suggestion.
 - Provide a **step-by-step description of the suggested enhancement** in as many details as possible.
 - **Describe the current behavior** and **explain which behavior you expected to see instead** and why. At this point you can also tell which alternatives do not work for you.
-- You may want to **include screenshots and animated GIFs** which help you demonstrate the steps or point out the part which the suggestion is related to. You can use [this tool](https://www.cockos.com/licecap/) to record GIFs on macOS and Windows, and [this tool](https://github.com/colinkeenan/silentcast) or [this tool](https://github.com/GNOME/byzanz) on Linux. <!-- this should only be included if the project has a GUI -->
+- You may want to **include screenshots and animated GIFs** which help you demonstrate the steps or point out the part which the suggestion is related to.
 - **Explain why this enhancement would be useful** to most MediathekView users. You may also want to point out the other projects that solved it better and which could serve as inspiration.
 
 <!-- You might want to create an issue template for enhancement suggestions that can be used as a guide and that defines the structure of the information to be included. If you do so, reference it here in the description. -->
@@ -120,7 +121,7 @@ Enhancement suggestions are tracked as [GitHub issues](https://github.com/mediat
 
 As MediathekView is written in java you need to have a JDK installed for the correct java version. You can find the currently used java version in the [pom.xml](https://github.com/mediathekview/MServer/blob/master/pom.xml) tag `jdk.language.version`.
 
-> We can recommend to use [SDKMan](https://sdkman.io/) to install the right [AdoptOpenJDK](https://adoptopenjdk.net/) version.
+> We recommend to use [SDKMan](https://sdkman.io/) to install the right [AdoptOpenJDK](https://adoptopenjdk.net/) version.
 
 **Building:**
 
