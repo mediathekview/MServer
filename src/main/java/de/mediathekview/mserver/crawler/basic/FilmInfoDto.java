@@ -3,6 +3,7 @@ package de.mediathekview.mserver.crawler.basic;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.Objects;
+import java.util.Optional;
 
 public class FilmInfoDto extends CrawlerUrlDTO {
 
@@ -15,10 +16,12 @@ public class FilmInfoDto extends CrawlerUrlDTO {
 
   public FilmInfoDto(final String aUrl) {
     super(aUrl);
+    topic = "";
+    title = "";
   }
 
-  public String getDescription() {
-    return description;
+  public Optional<String> getDescription() {
+    return Optional.ofNullable(description);
   }
 
   public Duration getDuration() {
@@ -37,8 +40,8 @@ public class FilmInfoDto extends CrawlerUrlDTO {
     return topic;
   }
 
-  public String getWebsite() {
-    return website;
+  public Optional<String> getWebsite() {
+    return Optional.ofNullable(website);
   }
 
   public void setDescription(final String aDescription) {

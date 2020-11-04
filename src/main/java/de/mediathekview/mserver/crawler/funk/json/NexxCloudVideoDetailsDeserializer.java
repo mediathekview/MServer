@@ -56,8 +56,7 @@ public class NexxCloudVideoDetailsDeserializer implements JsonDeserializer<Set<F
 
         final Set<NexxResolutionDTO> resolutions = gatherResolutions(streamdata);
         videoDetails.addAll(
-            resolutions
-                .parallelStream()
+            resolutions.parallelStream()
                 .map(
                     resolution ->
                         buildFilmUrlInfoDto(cdnShieldProgHTTP, azureLocator, id, resolution))
@@ -101,11 +100,16 @@ public class NexxCloudVideoDetailsDeserializer implements JsonDeserializer<Set<F
       final int size = Integer.parseInt(resolutionTextSplitted[0]);
       final String[] reolutions = resolutionTextSplitted[1].split(SPLITERATOR_X);
       if (reolutions.length == 2) {
-        final int width = Integer.parseInt(reolutions[0]);
-        final int height = Integer.parseInt(reolutions[1]);
+        final int width = Integer.parseInt(clearNumber(reolutions[0]));
+        final int height = Integer.parseInt(clearNumber(reolutions[1]));
         return Optional.of(new NexxResolutionDTO(width, height, size));
       }
     }
     return Optional.empty();
+  }
+
+  private String clearNumber(final String number) {
+    // Removes things like _AACAudio
+    return number.replaceAll("_.*", "");
   }
 }

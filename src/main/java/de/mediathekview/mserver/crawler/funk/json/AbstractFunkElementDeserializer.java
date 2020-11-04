@@ -78,7 +78,7 @@ public abstract class AbstractFunkElementDeserializer<T>
   }
 
   protected void addSizeToStatistic(final int actualSize) {
-    LOG.debug("Actual page size:" + actualSize);
+    LOG.debug("Actual page size: {}", actualSize);
   }
 
   protected abstract T mapToElement(JsonObject jsonObject);

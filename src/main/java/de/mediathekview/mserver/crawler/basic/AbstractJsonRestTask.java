@@ -9,8 +9,12 @@ import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.Response;
 import java.lang.reflect.Type;
 import java.net.URI;
+import java.nio.charset.StandardCharsets;
 import java.util.Optional;
 import java.util.Queue;
+
+import static javax.ws.rs.core.HttpHeaders.ACCEPT_CHARSET;
+import static javax.ws.rs.core.HttpHeaders.ACCEPT_ENCODING;
 
 /**
  * A abstract REST api task which requests the given url with the Funk Api settings.
@@ -22,7 +26,6 @@ import java.util.Queue;
 public abstract class AbstractJsonRestTask<T, R, D extends CrawlerUrlDTO>
     extends AbstractRestTask<T, D> {
   protected static final String ENCODING_GZIP = "gzip";
-  protected static final String HEADER_ACCEPT_ENCODING = "Accept-Encoding";
   private static final long serialVersionUID = -1090560363478964885L;
   protected final transient GsonBuilder gsonBuilder;
 
@@ -64,6 +67,7 @@ public abstract class AbstractJsonRestTask<T, R, D extends CrawlerUrlDTO>
   }
 
   protected Response createResponse(final Builder request) {
-    return request.header(HEADER_ACCEPT_ENCODING, ENCODING_GZIP).get();
+    request.header(ACCEPT_CHARSET, StandardCharsets.UTF_8);
+    return request.header(ACCEPT_ENCODING, ENCODING_GZIP).get();
   }
 }
