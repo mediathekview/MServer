@@ -78,7 +78,6 @@ public class FilmeSuchen {
     mediathekListe.add(new MediathekKika(this, 0));
     mediathekListe.add(new MediathekDw(this, 0));
     // Spalte 2
-    mediathekListe.add(new MediathekWdr(this, 1));
     mediathekListe.add(new MediathekHr(this, 0));
     mediathekListe.add(new SrCrawler(this, 1));
     mediathekListe.add(new BrCrawler(this, 0));
