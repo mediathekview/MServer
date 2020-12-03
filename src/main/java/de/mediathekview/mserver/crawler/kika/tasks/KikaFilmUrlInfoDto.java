@@ -7,6 +7,7 @@ import java.util.Objects;
 public class KikaFilmUrlInfoDto extends FilmUrlInfoDto {
 
     private final String profileName;
+    private long size = 0;
 
     public KikaFilmUrlInfoDto(String aUrl, String aProfileName) {
         super(aUrl);
@@ -18,6 +19,14 @@ public class KikaFilmUrlInfoDto extends FilmUrlInfoDto {
         this.profileName = profileName;
     }
 
+    public long getSize() {
+      return size;
+    }
+    
+    public void setSize(long size) {
+      this.size = size;
+    }
+    
     public String getProfileName() {
         return profileName;
     }

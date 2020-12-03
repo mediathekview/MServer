@@ -74,7 +74,7 @@ public class KikaSendungsfolgeVideoDetailsTask extends AbstractUrlTask<Film, Cra
         }
         try {
           if (newFilm.getUrl(filmResolution.get()) == null) {
-            newFilm.addUrl(filmResolution.get(), new FilmUrl(urlInfo.getUrl(), serialVersionUID));
+            newFilm.addUrl(filmResolution.get(), new FilmUrl(urlInfo.getUrl(), urlInfo.getSize()));
           }
         } catch (final MalformedURLException e) {
           LOG.debug(
@@ -120,6 +120,7 @@ public class KikaSendungsfolgeVideoDetailsTask extends AbstractUrlTask<Film, Cra
     final Elements frameHeightNodes = aVideoElement.getElementsByTag("frameHeight");
     final Elements downloadUrlNodes = aVideoElement.getElementsByTag("progressiveDownloadUrl");
     final Elements profileNameNodes = aVideoElement.getElementsByTag("profileName");
+    final Elements fileSizeNode = aVideoElement.getElementsByTag("fileSize");
     
     if (downloadUrlNodes.size() == 0 || profileNameNodes.size() == 0 || profileNameNodes.get(0).text().startsWith("Audio")) {
       LOG.info("Missnig Video element");
@@ -134,8 +135,27 @@ public class KikaSendungsfolgeVideoDetailsTask extends AbstractUrlTask<Film, Cra
     if (!width.isEmpty() && !height.isEmpty()) {
       info.setResolution(Integer.parseInt(width), Integer.parseInt(height));
     }
+    
+    if (fileSizeNode.size() > 0) {
+      if (KikaSendungsfolgeVideoDetailsTask.isLong(fileSizeNode.get(0).text())) {
+        info.setSize(Long.parseLong(fileSizeNode.get(0).text())/1024/1024);
+      }
+    }
+    
     return info;
   }
+  
+  public static boolean isLong(String strNum) {
+    if (strNum == null) {
+        return false;
+    }
+    try {
+        long d = Long.parseLong(strNum);
+    } catch (NumberFormatException nfe) {
+        return false;
+    }
+    return true;
+}
 
   private Optional<Resolution> getResolutionFromWidth(final FilmUrlInfoDto aUrlInfo) {
     if (aUrlInfo.getWidth() >= 1280) {
