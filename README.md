@@ -42,7 +42,7 @@ java -jar MServer.jar
 | Crawler | liest Mediathek | beinhaltet Sender | bestückt Sender | entspricht Develop |
 |---------|-----------|--------|---------|--|
 | 3sat|3sat-Mediathek|3sat |3sat|x|
-| ARD|ARD-Mediathek|Alpha, BR, Das Erste, HR, MDR, NDR, ONE, Radio Bremen, RBB, SR, SWR, WDR, tagesschau24|ARD, MDR, NDR, Radio Bremen, RBB, SWR| x|
+| ARD|ARD-Mediathek|Alpha, BR, Das Erste, HR, MDR, NDR, ONE, Radio Bremen, RBB, SR, SWR, WDR, tagesschau24|ARD, MDR, NDR, Radio Bremen, RBB, SWR, WDR| x|
 | ARTE|ARTE-Mediathek|ARTE in DE, FR, EN, ES, PL, IT|ARTE.DE, ARTE.FR||
 | BR|BR-Mediathek|BR|BR||
 | DW|DW-Mediathek|DW|DW||
@@ -52,5 +52,4 @@ java -jar MServer.jar
 | PHOENIX|PHOENIX-Mediathek|PHOENIX|PHOENIX|x|
 | SR|SR-Mediathek|SR|SR|x|
 | SRF|SRF-Mediathek|SRF1, SRF2, SRFinfo|SRF|x|
-| WDR|WDR-Mediathek|WDR|WDR||
 | ZDF|ZDF-Mediathek|ZDF, ZDFneo, ZDFinfo|ZDF|x|
