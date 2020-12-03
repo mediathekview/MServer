@@ -35,6 +35,7 @@ public class KikaSendungsfolgeVideoDetailsTask extends AbstractUrlTask<Film, Cra
   private static final String ELEMENT_ASSET = "asset";
   private static final String ELEMENT_BROADCAST_DATE = "broadcastDate";
   private static final String ELEMENT_DURATION = "duration";
+  private static final String ELEMENT_LENGTH = "length";
   private static final String ELEMENT_BROADCAST_SERIES = "broadcastSeriesName";
   private static final String ELEMENT_BROADCAST_NAME = "broadcastName";
   private static final String ELEMENT_BROADCAST_DESCRIPTION = "broadcastDescription";
@@ -67,6 +68,9 @@ public class KikaSendungsfolgeVideoDetailsTask extends AbstractUrlTask<Film, Cra
         Optional<Resolution> filmResolution = getResolutionFromWidth(urlInfo);
         if (filmResolution.isEmpty()) {
           filmResolution = getResolutionFromProfile(urlInfo);
+        }
+        if (filmResolution.isEmpty()) {
+          filmResolution = Optional.of(Resolution.SMALL);
         }
         try {
           if (newFilm.getUrl(filmResolution.get()) == null) {
@@ -103,7 +107,9 @@ public class KikaSendungsfolgeVideoDetailsTask extends AbstractUrlTask<Film, Cra
 
     for (final Element videoElement : aVideoElements) {
       final KikaFilmUrlInfoDto urlInfo = parseVideoElement(videoElement);
-      urlInfos.add(urlInfo);
+      if (urlInfo != null) {
+        urlInfos.add(urlInfo);
+      }
     }
 
     return urlInfos.descendingSet();
@@ -114,7 +120,12 @@ public class KikaSendungsfolgeVideoDetailsTask extends AbstractUrlTask<Film, Cra
     final Elements frameHeightNodes = aVideoElement.getElementsByTag("frameHeight");
     final Elements downloadUrlNodes = aVideoElement.getElementsByTag("progressiveDownloadUrl");
     final Elements profileNameNodes = aVideoElement.getElementsByTag("profileName");
-
+    
+    if (downloadUrlNodes.size() == 0 || profileNameNodes.size() == 0 || profileNameNodes.get(0).text().startsWith("Audio")) {
+      LOG.info("Missnig Video element");
+      return null;
+      // audio task do not have a video element
+    }
     final KikaFilmUrlInfoDto info =
         new KikaFilmUrlInfoDto(downloadUrlNodes.get(0).text(), profileNameNodes.get(0).text());
     String width = frameWidthNodes.get(0).text();
@@ -195,6 +206,7 @@ public class KikaSendungsfolgeVideoDetailsTask extends AbstractUrlTask<Film, Cra
           orAlternative(document, ELEMENT_BROADCAST_URL, ELEMENT_HTML_URL);
       final Elements descriptionNodes = orAlternative(document, ELEMENT_BROADCAST_DESCRIPTION, ELEMENT_TEASERTEXT);
       final Elements durationNodes = document.getElementsByTag(ELEMENT_DURATION);
+      final Elements durationNodesC8 = document.getElementsByTag(ELEMENT_LENGTH);
       final Elements dateNodes = orAlternative(document, ELEMENT_BROADCAST_DATE, ELEMENT_WEBTIME);
 
       final Elements videoElements = document.getElementsByTag(ELEMENT_ASSET);
@@ -207,8 +219,11 @@ public class KikaSendungsfolgeVideoDetailsTask extends AbstractUrlTask<Film, Cra
         final String title = titleNodes.get(0).text();
 
         final LocalDateTime time = parseTime(dateNodes, thema, title);
-        final Optional<Duration> dauer =
+        Optional<Duration> dauer =
             HtmlDocumentUtils.parseDuration(durationNodes.get(0).text());
+        if (dauer.isEmpty()) {
+          dauer = Optional.of(Duration.ofSeconds(Integer.parseInt(durationNodesC8.get(0).text())));
+        }
 
         if (dauer.isPresent()) {
 

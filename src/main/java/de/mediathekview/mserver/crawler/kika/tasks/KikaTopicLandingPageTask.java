@@ -14,9 +14,9 @@ import org.jsoup.select.Elements;
 import java.util.Queue;
 
 public class KikaTopicLandingPageTask extends AbstractDocumentTask<CrawlerUrlDTO, CrawlerUrlDTO> {
-
-  private static final String SELECTOR_TOPIC_OVERVIEW1 =
-      ".sectionArticleWrapperRight span.moreBtn > a";
+  // Landingpage with "Folgenübersicht"
+  private static final String SELECTOR_TOPIC_OVERVIEW1 = "span.moreBtn > a";
+  // Landingpage with "Alle Folgen"
   private static final String SELECTOR_TOPIC_OVERVIEW2 = "div.teaserMultiGroup > a.linkAll";
 
   private final String baseUrl;
