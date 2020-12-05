@@ -37,14 +37,17 @@ public class DownloadDtoFilmConverter {
           qualitiesEntry.getKey(),
           new FilmUrl(url, new FileSizeDeterminer(url).getFileSizeInMiB()));
     }
-
+    //
     if (!aFilm.hasHD() && aUrlOptimizer.isPresent()) {
-      final Optional<String> hdUrl =
-          aUrlOptimizer.get().determineUrlHd(aFilm.getUrl(Resolution.NORMAL).toString());
-      if (hdUrl.isPresent()) {
-        aFilm.addUrl(
-            Resolution.HD,
-            new FilmUrl(hdUrl.get(), new FileSizeDeterminer(hdUrl.get()).getFileSizeInMiB()));
+      FilmUrl normalQualityVideo = aFilm.getUrl(Resolution.NORMAL);
+      if (normalQualityVideo != null) {
+        final Optional<String> hdUrl =
+            aUrlOptimizer.get().determineUrlHd(aFilm.getUrl(Resolution.NORMAL).toString());
+        if (hdUrl.isPresent()) {
+          aFilm.addUrl(
+              Resolution.HD,
+              new FilmUrl(hdUrl.get(), new FileSizeDeterminer(hdUrl.get()).getFileSizeInMiB()));
+        }
       }
     }
 
