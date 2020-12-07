@@ -126,15 +126,15 @@ public class DWFilmDetailsTask extends AbstractDocumentTask<Film, CrawlerUrlDTO>
     final Optional<Duration> dauer = parseDuration(aDocument);
 
     if (thema.isEmpty()) {
-      crawler.printMissingElementErrorMessage("Thema");
+      crawler.printMissingElementErrorMessage("Thema " + aUrlDTO.getUrl());
       return;
     }
     if (titel.isEmpty()) {
-      crawler.printMissingElementErrorMessage("Titel");
+      crawler.printMissingElementErrorMessage("Titel " + aUrlDTO.getUrl());
       return;
     }
     if (dauer.isEmpty()) {
-      crawler.printMissingElementErrorMessage("Dauer");
+      crawler.printMissingElementErrorMessage("Dauer " + aUrlDTO.getUrl());
       return;
     }
 
