@@ -123,7 +123,7 @@ public class KikaSendungsfolgeVideoDetailsTask extends AbstractUrlTask<Film, Cra
     final Elements fileSizeNode = aVideoElement.getElementsByTag("fileSize");
     
     if (downloadUrlNodes.size() == 0 || profileNameNodes.size() == 0 || profileNameNodes.get(0).text().startsWith("Audio")) {
-      LOG.info("Missnig Video element");
+      LOG.info("Missing Video element");
       return null;
       // audio task do not have a video element
     }
@@ -138,7 +138,7 @@ public class KikaSendungsfolgeVideoDetailsTask extends AbstractUrlTask<Film, Cra
     
     if (fileSizeNode.size() > 0) {
       if (KikaSendungsfolgeVideoDetailsTask.isLong(fileSizeNode.get(0).text())) {
-        info.setSize(Long.parseLong(fileSizeNode.get(0).text())/1024/1024);
+        info.setSize(Long.parseLong(fileSizeNode.get(0).text()));
       }
     }
     
