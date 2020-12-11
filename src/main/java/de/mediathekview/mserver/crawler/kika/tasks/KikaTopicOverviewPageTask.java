@@ -19,6 +19,7 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 
 public class KikaTopicOverviewPageTask extends AbstractDocumentTask<CrawlerUrlDTO, CrawlerUrlDTO> {
 
+  // siehe PUR+, es gibt nicht immer einen boxBroadcast
   private static final String SELECTOR_TOPIC_OVERVIEW = "a.linkAll";
   private static final String SELECTOR_SUBPAGES =
       ".modBundleGroupNavi:eq(1) div.bundleNaviItem > a.pageItem";
