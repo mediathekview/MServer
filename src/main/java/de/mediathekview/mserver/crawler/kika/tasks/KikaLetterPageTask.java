@@ -15,6 +15,7 @@ import java.util.Queue;
 
 public class KikaLetterPageTask extends AbstractDocumentTask<CrawlerUrlDTO, CrawlerUrlDTO> {
 
+  // siehe Sonntagsmaerchen
   private static final String TOPIC_URL_SELECTOR = "div.teaserStandard a.linkAll";
   private final String baseUrl;
 
