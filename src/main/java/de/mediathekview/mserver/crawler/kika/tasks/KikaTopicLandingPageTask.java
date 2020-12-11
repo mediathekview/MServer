@@ -14,7 +14,7 @@ import org.jsoup.select.Elements;
 import java.util.Queue;
 
 public class KikaTopicLandingPageTask extends AbstractDocumentTask<CrawlerUrlDTO, CrawlerUrlDTO> {
-  // Landingpage with "Folgenübersicht"
+  // Button "Folgenübersicht" auch ohne "sectionArticleWrapperRight" (siehe tib und tum-tum)
   private static final String SELECTOR_TOPIC_OVERVIEW1 = "span.moreBtn > a";
   // Landingpage with "Alle Folgen"
   private static final String SELECTOR_TOPIC_OVERVIEW2 = "div.teaserMultiGroup > a.linkAll";
@@ -42,7 +42,9 @@ public class KikaTopicLandingPageTask extends AbstractDocumentTask<CrawlerUrlDTO
   private void parseOverviewLink(final Elements overviewUrlElements) {
     for (final Element overviewUrlElement : overviewUrlElements) {
       final String url = overviewUrlElement.attr(HtmlConsts.ATTRIBUTE_HREF);
-      taskResults.add(new CrawlerUrlDTO(UrlUtils.addDomainIfMissing(url, baseUrl)));
+      if (url.startsWith("http") || url.charAt(0) == '/') {
+        taskResults.add(new CrawlerUrlDTO(UrlUtils.addDomainIfMissing(url, baseUrl)));
+      }
     }
   }
 
