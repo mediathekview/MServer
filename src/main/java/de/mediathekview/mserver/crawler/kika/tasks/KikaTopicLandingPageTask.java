@@ -32,11 +32,16 @@ public class KikaTopicLandingPageTask extends AbstractDocumentTask<CrawlerUrlDTO
 
   @Override
   protected void processDocument(final CrawlerUrlDTO aUrlDTO, final Document aDocument) {
-    Elements overviewUrlElements = aDocument.select(SELECTOR_TOPIC_OVERVIEW1);
-    parseOverviewLink(overviewUrlElements);
+    Elements overviewUrlElementsMoteBtn = aDocument.select(SELECTOR_TOPIC_OVERVIEW1);
+    parseOverviewLink(overviewUrlElementsMoteBtn);
 
-    overviewUrlElements = aDocument.select(SELECTOR_TOPIC_OVERVIEW2);
-    parseOverviewLink(overviewUrlElements);
+    Elements overviewUrlElementsMultigroup = aDocument.select(SELECTOR_TOPIC_OVERVIEW2);
+    parseOverviewLink(overviewUrlElementsMultigroup);
+    
+    // es ist eine Uebersichtseite (z.B.Schnitzeljadgt / Schloss Einstein) ohne "Alle Folgen" knopf
+    if (overviewUrlElementsMoteBtn.size() == 0 && overviewUrlElementsMultigroup.size() == 0) {
+      taskResults.add(aUrlDTO);
+    }
   }
 
   private void parseOverviewLink(final Elements overviewUrlElements) {
