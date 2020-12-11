@@ -1,7 +1,6 @@
 package de.mediathekview.mserver.crawler.dw.tasks;
 
 import de.mediathekview.mserver.base.HtmlConsts;
-import de.mediathekview.mserver.base.utils.UrlUtils;
 import de.mediathekview.mserver.base.webaccess.JsoupConnection;
 import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
 import de.mediathekview.mserver.crawler.basic.AbstractDocumentTask;
@@ -17,12 +16,7 @@ import org.jsoup.select.Elements;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.Optional;
 import java.util.Queue;
-import java.util.concurrent.ConcurrentLinkedQueue;
-import java.util.concurrent.ForkJoinTask;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public class DWUebersichtTagTask extends AbstractDocumentTask<URL, CrawlerUrlDTO> {
   private static final long serialVersionUID = 2080583393530906001L;
