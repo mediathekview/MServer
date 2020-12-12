@@ -19,7 +19,8 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 
 public class KikaTopicOverviewPageTask extends AbstractDocumentTask<CrawlerUrlDTO, CrawlerUrlDTO> {
 
-  private static final String SELECTOR_TOPIC_OVERVIEW = "div.boxBroadcast a.linkAll";
+  // siehe PUR+, es gibt nicht immer einen boxBroadcast
+  private static final String SELECTOR_TOPIC_OVERVIEW = "a.linkAll";
   private static final String SELECTOR_SUBPAGES =
       ".modBundleGroupNavi:eq(1) div.bundleNaviItem > a.pageItem";
   private static final String SELECTOR_TYPE_ICON = "span.icon-font";
@@ -119,7 +120,7 @@ public class KikaTopicOverviewPageTask extends AbstractDocumentTask<CrawlerUrlDT
     for (final Element urlElement : urlElements) {
       final String url = urlElement.attr(HtmlConsts.ATTRIBUTE_HREF);
       final Element iconElement = urlElement.parent().select(SELECTOR_TYPE_ICON).first();
-      if (iconElement.text().equals(ENTRY_ICON_FILM)) {
+      if (iconElement != null && iconElement.text().equals(ENTRY_ICON_FILM)) {
         taskResults.add(new CrawlerUrlDTO(UrlUtils.addDomainIfMissing(url, baseUrl)));
       }
     }
