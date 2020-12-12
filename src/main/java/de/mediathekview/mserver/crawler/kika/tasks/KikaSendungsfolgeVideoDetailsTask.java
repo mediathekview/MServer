@@ -57,6 +57,18 @@ public class KikaSendungsfolgeVideoDetailsTask extends AbstractUrlTask<Film, Cra
     jsoupConnection = new JsoupConnection();
   }
 
+  private boolean isLong(final String number) {
+    if (number == null) {
+      return false;
+    }
+    try {
+      Long.parseLong(number);
+      return true;
+    } catch (final NumberFormatException numberFormatException) {
+      return false;
+    }
+  }
+
   private void addFilmUrls(
       final Elements videoElements, final String thema, final String title, final Film newFilm) {
     final Set<KikaFilmUrlInfoDto> urlInfos = parseVideoElements(videoElements);
@@ -102,60 +114,48 @@ public class KikaSendungsfolgeVideoDetailsTask extends AbstractUrlTask<Film, Cra
     return Optional.empty();
   }
 
-  private Set<KikaFilmUrlInfoDto> parseVideoElements(final Elements aVideoElements) {
+  private Set<KikaFilmUrlInfoDto> parseVideoElements(final Elements videoElements) {
     final TreeSet<KikaFilmUrlInfoDto> urlInfos = new TreeSet<>(new KikaFilmUrlInfoComparator());
 
-    for (final Element videoElement : aVideoElements) {
-      final KikaFilmUrlInfoDto urlInfo = parseVideoElement(videoElement);
-      if (urlInfo != null) {
-        urlInfos.add(urlInfo);
-      }
-    }
+    videoElements.stream()
+        .map(this::parseVideoElement)
+        .filter(Optional::isPresent)
+        .map(Optional::get)
+        .forEach(urlInfos::add);
 
     return urlInfos.descendingSet();
   }
 
-  private KikaFilmUrlInfoDto parseVideoElement(final Element aVideoElement) {
+  private Optional<KikaFilmUrlInfoDto> parseVideoElement(final Element aVideoElement) {
     final Elements frameWidthNodes = aVideoElement.getElementsByTag("frameWidth");
     final Elements frameHeightNodes = aVideoElement.getElementsByTag("frameHeight");
     final Elements downloadUrlNodes = aVideoElement.getElementsByTag("progressiveDownloadUrl");
     final Elements profileNameNodes = aVideoElement.getElementsByTag("profileName");
     final Elements fileSizeNode = aVideoElement.getElementsByTag("fileSize");
-    
-    if (downloadUrlNodes.size() == 0 || profileNameNodes.size() == 0 || profileNameNodes.get(0).text().startsWith("Audio")) {
+
+    if (downloadUrlNodes.isEmpty()
+        || profileNameNodes.isEmpty()
+        || profileNameNodes.get(0).text().startsWith("Audio")) {
       LOG.info("Missing Video element");
-      return null;
+      return Optional.empty();
       // audio task do not have a video element
     }
+
     final KikaFilmUrlInfoDto info =
         new KikaFilmUrlInfoDto(downloadUrlNodes.get(0).text(), profileNameNodes.get(0).text());
-    String width = frameWidthNodes.get(0).text();
-    String height = frameHeightNodes.get(0).text();
+    final String width = frameWidthNodes.get(0).text();
+    final String height = frameHeightNodes.get(0).text();
 
     if (!width.isEmpty() && !height.isEmpty()) {
       info.setResolution(Integer.parseInt(width), Integer.parseInt(height));
     }
-    
-    if (fileSizeNode.size() > 0) {
-      if (KikaSendungsfolgeVideoDetailsTask.isLong(fileSizeNode.get(0).text())) {
-        info.setSize(Long.parseLong(fileSizeNode.get(0).text()));
-      }
+
+    if (!fileSizeNode.isEmpty() && isLong(fileSizeNode.get(0).text())) {
+      info.setSize(Long.parseLong(fileSizeNode.get(0).text()));
     }
-    
-    return info;
+
+    return Optional.of(info);
   }
-  
-  public static boolean isLong(String strNum) {
-    if (strNum == null) {
-        return false;
-    }
-    try {
-        long d = Long.parseLong(strNum);
-    } catch (NumberFormatException nfe) {
-        return false;
-    }
-    return true;
-}
 
   private Optional<Resolution> getResolutionFromWidth(final FilmUrlInfoDto aUrlInfo) {
     if (aUrlInfo.getWidth() >= 1280) {
@@ -188,14 +188,12 @@ public class KikaSendungsfolgeVideoDetailsTask extends AbstractUrlTask<Film, Cra
           DateUtils.changeDateTimeForMissingISO8601Support(dateNodes.get(0).text());
       try {
         time = LocalDateTime.parse(timeString, DateTimeFormatter.ISO_DATE_TIME);
-      } catch (DateTimeException ignore) {
+      } catch (final DateTimeException ignore) {
         time = LocalDateTime.parse(timeString, webTimeFormatter);
       }
     } else {
       time = LocalDate.now().atStartOfDay();
-      LOG.debug(
-          String.format(
-              "The film \"%s - %s\" has no date so the actual date will be used.", thema, title));
+      LOG.debug("The film \"{} - {}\" has no date so the actual date will be used.", thema, title);
     }
     return time;
   }
@@ -224,7 +222,8 @@ public class KikaSendungsfolgeVideoDetailsTask extends AbstractUrlTask<Film, Cra
               ELEMENT_HEADLINE);
       final Elements websiteUrlNodes =
           orAlternative(document, ELEMENT_BROADCAST_URL, ELEMENT_HTML_URL);
-      final Elements descriptionNodes = orAlternative(document, ELEMENT_BROADCAST_DESCRIPTION, ELEMENT_TEASERTEXT);
+      final Elements descriptionNodes =
+          orAlternative(document, ELEMENT_BROADCAST_DESCRIPTION, ELEMENT_TEASERTEXT);
       final Elements durationNodes = document.getElementsByTag(ELEMENT_DURATION);
       final Elements durationNodesC8 = document.getElementsByTag(ELEMENT_LENGTH);
       final Elements dateNodes = orAlternative(document, ELEMENT_BROADCAST_DATE, ELEMENT_WEBTIME);
@@ -239,49 +238,33 @@ public class KikaSendungsfolgeVideoDetailsTask extends AbstractUrlTask<Film, Cra
         final String title = titleNodes.get(0).text();
 
         final LocalDateTime time = parseTime(dateNodes, thema, title);
-        Optional<Duration> dauer =
-            HtmlDocumentUtils.parseDuration(durationNodes.get(0).text());
+        Optional<Duration> dauer = HtmlDocumentUtils.parseDuration(durationNodes.get(0).text());
         if (dauer.isEmpty()) {
           dauer = Optional.of(Duration.ofSeconds(Integer.parseInt(durationNodesC8.get(0).text())));
         }
 
-        if (dauer.isPresent()) {
+        final Film newFilm =
+            new Film(UUID.randomUUID(), Sender.KIKA, title, thema, time, dauer.get());
+        newFilm.setWebsite(new URL(websiteUrlNodes.get(0).text()));
 
-          final Film newFilm =
-              new Film(UUID.randomUUID(), Sender.KIKA, title, thema, time, dauer.get());
-          newFilm.setWebsite(new URL(websiteUrlNodes.get(0).text()));
+        addFilmUrls(videoElements, thema, title, newFilm);
+        addGeo(newFilm);
 
-          addFilmUrls(videoElements, thema, title, newFilm);
-          addGeo(newFilm);
-
-          if (newFilm.getUrls().isEmpty()) {
-            LOG.error(
-                String.format(
-                    "Can't find/build valid download URLs for the film \"%s - %s\".",
-                    thema, title));
-            crawler.incrementAndGetErrorCount();
-            crawler.updateProgress();
-          } else {
-
-            if (!descriptionNodes.isEmpty()) {
-              newFilm.setBeschreibung(descriptionNodes.get(0).text());
-            }
-            taskResults.add(newFilm);
-            crawler.incrementAndGetActualCount();
-            crawler.updateProgress();
-          }
-        } else {
-          LOG.error(
-              String.format(
-                  "The duration for the film \"%s - %s\" can't be parsed: \"%s\"",
-                  thema, title, durationNodes.get(0).text()));
+        if (newFilm.getUrls().isEmpty()) {
+          LOG.error("Can't find/build valid download URLs for the film \"{} - {}\".", thema, title);
           crawler.incrementAndGetErrorCount();
+          crawler.updateProgress();
+        } else {
+
+          if (!descriptionNodes.isEmpty()) {
+            newFilm.setBeschreibung(descriptionNodes.get(0).text());
+          }
+          taskResults.add(newFilm);
+          crawler.incrementAndGetActualCount();
           crawler.updateProgress();
         }
       } else {
-        LOG.error(
-            String.format(
-                "The video with the URL \"%s\" has not all needed Elements", urlDTO.getUrl()));
+        LOG.error("The video with the URL \"{}\" has not all needed Elements", urlDTO.getUrl());
         crawler.incrementAndGetErrorCount();
         crawler.updateProgress();
       }
@@ -298,7 +281,7 @@ public class KikaSendungsfolgeVideoDetailsTask extends AbstractUrlTask<Film, Cra
 
   private void addGeo(final Film newFilm) {
     final Optional<FilmUrl> url = newFilm.getDefaultUrl();
-    if (!url.isPresent()) {
+    if (url.isEmpty()) {
       return;
     }
 
