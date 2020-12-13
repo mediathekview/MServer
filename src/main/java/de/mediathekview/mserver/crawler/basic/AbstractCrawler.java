@@ -14,7 +14,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.time.Duration;
-import java.time.LocalTime;
+import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.Set;
 import java.util.concurrent.Callable;
@@ -36,7 +36,7 @@ public abstract class AbstractCrawler implements Callable<Set<Film>> {
   protected ForkJoinPool forkJoinPool;
   protected RecursiveTask<Set<Film>> filmTask;
   protected Set<Film> films;
-  private LocalTime startTime;
+  private LocalDateTime startTime;
 
   public AbstractCrawler(
       final ForkJoinPool aForkJoinPool,
@@ -72,7 +72,7 @@ public abstract class AbstractCrawler implements Callable<Set<Film>> {
       timeoutRunner.start();
 
       printMessage(ServerMessages.CRAWLER_START, getSender());
-      startTime = LocalTime.now();
+      startTime = LocalDateTime.now();
 
       updateProgress();
       filmTask = createCrawlerTask();
@@ -81,7 +81,7 @@ public abstract class AbstractCrawler implements Callable<Set<Film>> {
       }
       removeInvalidEntries();
 
-      final LocalTime endTime = LocalTime.now();
+      final LocalDateTime endTime = LocalDateTime.now();
       final Progress progress =
           new Progress(
               maxCount.get(),
