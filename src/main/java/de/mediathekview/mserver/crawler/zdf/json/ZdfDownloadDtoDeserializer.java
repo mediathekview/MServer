@@ -142,7 +142,7 @@ public class ZdfDownloadDtoDeserializer implements JsonDeserializer<Optional<Dow
 
   private void parseSubtitle(final DownloadDto dto, final JsonObject rootNode) {
     final JsonArray captionList = rootNode.getAsJsonArray(JSON_ELEMENT_CAPTIONS);
-    if (captionList.size() > 0) {
+    if (captionList != null) {
       final Iterator<JsonElement> captionIterator = captionList.iterator();
       while (captionIterator.hasNext()) {
         final JsonObject caption = captionIterator.next().getAsJsonObject();
