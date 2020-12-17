@@ -111,7 +111,12 @@ public class ZdfFilmDetailDeserializer implements JsonDeserializer<Optional<ZdfF
     if (mainVideoContent != null) {
       Optional<String> urlOptional =
           JsonUtils.getAttributeAsString(mainVideoContent, JSON_ATTRIBUTE_TEMPLATE);
-
+      // alternative source
+      if (!urlOptional.isPresent()) {
+        if (JsonUtils.checkTreePath(mainVideoContent, Optional.empty() , "streams", "default", JSON_ATTRIBUTE_TEMPLATE)) {
+          urlOptional = JsonUtils.getAttributeAsString(mainVideoContent.getAsJsonObject("streams").getAsJsonObject("default"), JSON_ATTRIBUTE_TEMPLATE);
+        }
+      }
       if (urlOptional.isPresent()) {
         String url = UrlUtils.addDomainIfMissing(urlOptional.get(), apiUrlBase).replace(PLACEHOLDER_PLAYER_ID, PLAYER_ID);
         return Optional.of(url);
