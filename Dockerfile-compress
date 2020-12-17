@@ -1,0 +1,13 @@
+FROM alpine
+
+RUN apk --no-cache add xz bzip2 gzip inotify-tools coreutils && \
+    mkdir /tmp/in && \
+    mkdir /tmp/work && \
+    mkdir /tmp/compressed && \
+
+USER 1000
+
+WORKDIR /tmp
+
+COPY entrypoint.sh /tmp
+ENTRYPOINT ["entrypoint.sh"]

@@ -1,0 +1,21 @@
+version: "3.9"
+services:
+  mserver:
+    image: mediathekview/mserver
+    volumes:
+      - mserver_filmlisten:/opt/mserver/filmlisten
+      - mserver_conf:/opt/mserver/config
+    logging:
+      driver: "fluentd"
+      options:
+        fluentd-address: localhost:24224
+        tag: httpd.access
+  compress:
+    build:
+      context: .docker/compress
+      dockerfile: Dockerfile-compress
+
+
+volumes:
+  mserver_filmlisten: { }
+  mserver_conf: { }
