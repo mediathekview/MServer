@@ -14,9 +14,9 @@ import org.jsoup.select.Elements;
 import java.util.Queue;
 
 public class KikaTopicLandingPageTask extends AbstractDocumentTask<CrawlerUrlDTO, CrawlerUrlDTO> {
-
-  private static final String SELECTOR_TOPIC_OVERVIEW1 =
-      ".sectionArticleWrapperRight span.moreBtn > a";
+  // Button "Folgenübersicht" auch ohne "sectionArticleWrapperRight" (siehe tib und tum-tum)
+  private static final String SELECTOR_TOPIC_OVERVIEW1 = "span.moreBtn > a";
+  // Landingpage with "Alle Folgen"
   private static final String SELECTOR_TOPIC_OVERVIEW2 = "div.teaserMultiGroup > a.linkAll";
 
   private final String baseUrl;
@@ -32,17 +32,24 @@ public class KikaTopicLandingPageTask extends AbstractDocumentTask<CrawlerUrlDTO
 
   @Override
   protected void processDocument(final CrawlerUrlDTO aUrlDTO, final Document aDocument) {
-    Elements overviewUrlElements = aDocument.select(SELECTOR_TOPIC_OVERVIEW1);
-    parseOverviewLink(overviewUrlElements);
+    Elements overviewUrlElementsMoteBtn = aDocument.select(SELECTOR_TOPIC_OVERVIEW1);
+    parseOverviewLink(overviewUrlElementsMoteBtn);
 
-    overviewUrlElements = aDocument.select(SELECTOR_TOPIC_OVERVIEW2);
-    parseOverviewLink(overviewUrlElements);
+    Elements overviewUrlElementsMultigroup = aDocument.select(SELECTOR_TOPIC_OVERVIEW2);
+    parseOverviewLink(overviewUrlElementsMultigroup);
+    
+    // es ist eine Uebersichtseite (z.B.Schnitzeljadgt / Schloss Einstein) ohne "Alle Folgen" knopf
+    if (overviewUrlElementsMoteBtn.size() == 0 && overviewUrlElementsMultigroup.size() == 0) {
+      taskResults.add(aUrlDTO);
+    }
   }
 
   private void parseOverviewLink(final Elements overviewUrlElements) {
     for (final Element overviewUrlElement : overviewUrlElements) {
       final String url = overviewUrlElement.attr(HtmlConsts.ATTRIBUTE_HREF);
-      taskResults.add(new CrawlerUrlDTO(UrlUtils.addDomainIfMissing(url, baseUrl)));
+      if (url.startsWith("http") || url.charAt(0) == '/') {
+        taskResults.add(new CrawlerUrlDTO(UrlUtils.addDomainIfMissing(url, baseUrl)));
+      }
     }
   }
 
