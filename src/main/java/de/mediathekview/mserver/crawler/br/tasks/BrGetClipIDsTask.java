@@ -83,6 +83,10 @@ public class BrGetClipIDsTask implements Callable<Set<BrID>> {
                   break;
                 }
 
+                if (Thread.currentThread().isInterrupted()) {
+                  break;
+                }
+
               } while (idCollectResult.hasNextPage());
             } else {
               crawler.printErrorMessage();
@@ -93,6 +97,10 @@ public class BrGetClipIDsTask implements Callable<Set<BrID>> {
             startingRequestSize = startingRequestSize * 4 / 5; // 80%
 
             LOG.debug("Anzahl Elemente gemeldet:" + idCollectResult.getResultSize());
+
+            if (Thread.currentThread().isInterrupted()) {
+              break;
+            }
 
           } while (idCollectResult.getClipList().getIds().size() < idCollectResult.getResultSize());
         });
