@@ -54,7 +54,7 @@ public class BrClipIdsDeserializer  implements JsonDeserializer<BrClipCollectIDR
    *         "edges": [
    *           {
    *             "node": {
-   *               "__typename": "Item", <-- could be Item or Programme
+   *               "__typename": "Clip", <-- const. "clip" (in previous version this was "Item" or "Programme") 
    *               "id": "av:584f7f303b4679001197f6b2" <-- Uniq Clip IDs
    *             },
    *             "cursor": "bW9uZ29kYmNvbm5lY3Rpb246MA\u003d\u003d" <-- Cursor to get following Pages. Caution only within the same HTTP-Session

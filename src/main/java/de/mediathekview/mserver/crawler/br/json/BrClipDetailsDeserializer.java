@@ -271,6 +271,10 @@ public class BrClipDetailsDeserializer implements JsonDeserializer<Optional<Film
     if (clipDetails.isPresent()) {
       final JsonObject clipDetailRoot = clipDetails.get();
 
+      if (id.getType() == null) {
+        String type = clipDetailRoot.getAsJsonPrimitive(BrGraphQLElementNames.GRAPHQL_TYPE_ELEMENT.getName()).getAsString();
+        this.id.setType(BrClipType.getInstanceByName(type));
+      }
       // Done
       final Optional<String> titel = getTitel(clipDetailRoot);
       final Optional<String> thema = getThema(clipDetailRoot);
