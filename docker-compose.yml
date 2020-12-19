@@ -1,4 +1,4 @@
-version: "3.9"
+version: "3.3"
 services:
   mserver:
     image: mediathekview/mserver
@@ -10,12 +10,39 @@ services:
       options:
         fluentd-address: localhost:24224
         tag: httpd.access
+
   compress:
     build:
       context: .docker/compress
       dockerfile: Dockerfile-compress
+    volumes:
+      - mserver_filmlisten:/tmp/in
+      - mserver_compressed:/tmp/compressed
+    logging:
+      driver: "fluentd"
+      options:
+        fluentd-address: localhost:24224
+        tag: httpd.access
+
+  upload:
+    build:
+      context: .docker/upload
+      dockerfile: Dockerfile-upload
+    environment:
+      - MC_ENDPOINT=s3.example.com
+      - MC_ACCESS_KEY=[INSERT ACCESS KEY HERE]
+      - MC_SECRET_KEY=[INSERT SECRET KEY HERE]
+      - MC_BUCKET_NAME=[INSERT BUCKET NAME HERE]
+    volumes:
+      - mserver_compressed:/tmp/in
+    logging:
+      driver: "fluentd"
+      options:
+        fluentd-address: localhost:24224
+        tag: httpd.access
 
 
 volumes:
   mserver_filmlisten: { }
   mserver_conf: { }
+  mserver_compressed: { }
