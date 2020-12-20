@@ -3,7 +3,7 @@ services:
   mserver:
     image: mediathekview/mserver
     volumes:
-      - mserver_filmlisten:/opt/mserver/filmlisten
+      - mserver_filmlisten:/opt/mserver/config/filmlisten
       - mserver_conf:/opt/mserver/config
     logging:
       driver: "fluentd"
