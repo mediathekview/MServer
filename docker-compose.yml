@@ -2,9 +2,12 @@ version: "3.3"
 services:
   mserver:
     image: mediathekview/mserver
+    environment:
+      - MIN_RAM=2G
+      - MAX_RAM=4G
     volumes:
-      - mserver_filmlisten:/opt/mserver/config/filmlisten
-      - mserver_conf:/opt/mserver/config
+      - mserver_filmlisten:/opt/mserver/data/filmlisten
+      - ${PWD}/.docker/mserver_conf/mserver.xml:/opt/mserver/data/mserver.xml
     logging:
       driver: "fluentd"
       options:

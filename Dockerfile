@@ -13,12 +13,12 @@ RUN mkdir -p "/opt/mserver"
 WORKDIR /opt/mserver
 
 ADD ./build/distributions/MServer-$VERSION.tar.gz .
-RUN mkdir filmlisten && \
-    mkdir config && \
+RUN mkdir data && \
+    mkdir data/filmlisten && \
     mv MServer-$VERSION/MServer.jar . && \
     mv -r MServer-$VERSION/lib . && \
-    mv MServer-$VERSION/mserver.xml config/ && \
-    mv MServer-$VERSION/live-streams.json config/ && \
+    mv MServer-$VERSION/mserver.xml data/ && \
+    mv MServer-$VERSION/live-streams.json data/ && \
     rm -R MServer-$VERSION
 
-CMD java -Xms$MIN_RAM -Xmx$MAX_RAM -jar ./MServer.jar config
+CMD java -Xms$MIN_RAM -Xmx$MAX_RAM -jar ./MServer.jar data
