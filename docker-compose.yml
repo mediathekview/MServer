@@ -14,7 +14,7 @@ services:
   compress:
     build:
       context: .docker/compress
-      dockerfile: Dockerfile-compress
+      dockerfile: Dockerfile
     volumes:
       - mserver_filmlisten:/tmp/in
       - mserver_compressed:/tmp/compressed
@@ -27,7 +27,7 @@ services:
   upload:
     build:
       context: .docker/upload
-      dockerfile: Dockerfile-upload
+      dockerfile: Dockerfile
     environment:
       - MC_ENDPOINT=s3.example.com
       - MC_ACCESS_KEY=[INSERT ACCESS KEY HERE]

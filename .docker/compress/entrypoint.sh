@@ -1,5 +1,4 @@
 #!/bin/bash
-touch in/filmliste.id
 shopt -s nullglob
 while inotifywait -e modify in/filmliste.id 2>&1 >>/dev/null; do
   for liste in in/filme*.json; do
