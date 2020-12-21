@@ -11,21 +11,21 @@ jobs:
       - uses: actions/checkout@v2
         with:
           ref: develop
-      - name: Set up JDK 11
+      - name: Set up JDK 1.8
         uses: actions/setup-java@v1
         with:
-          java-version: 11
-          server-id: ossrh
-          server-username: MAVEN_USERNAME
-          server-password: MAVEN_PASSWORD
+          java-version: 1.8
       - name: Build and test
-        run: ./mvnw -B package
+        run: ./gradlew check developTest build
       - name: Publish to the Maven Central Repository
-        uses: samuelmeuli/action-maven-publish@v1
-        with:
-          gpg_private_key: ${{ secrets.GPG_PRIVATE_KEY }}
-          gpg_passphrase: ${{ secrets.GPG_PASSPHRASE }}
-          nexus_username: ${{ secrets.OSSRH_USERNAME }}
-          nexus_password: ${{ secrets.OSSRH_TOKEN }}
-          maven_profiles: deploy,docker
-          maven_args: --settings .maven.xml
+        run: ./gradlew release -PSONATYPE_USERNAME=${{ secrets.OSSRH_USERNAME }} -PSONATYPE_PASSWORD=${{ secrets.OSSRH_TOKEN }}
+        env:
+          ORG_GRADLE_PROJECT_signingKeyId: CE3BA5E0
+          ORG_GRADLE_PROJECT_signingKey: ${{ secrets.GPG_PRIVATE_KEY }}
+          ORG_GRADLE_PROJECT_signingPassword: ${{ secrets.GPG_PASSPHRASE }}
+      - name: Build and deploy docker
+        run: |
+          export VERSION=$(find . -name "MServer-*.tar.gz" | sed "s/.*MServer-\(.*\).tar.gz/\1/")
+          docker build . -t mediathekview/mserver:$VERSION -t mediathekview/mserver:latest --build-arg VERSION=$VERSION
+          echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
+          docker push mediathekview/mserver
