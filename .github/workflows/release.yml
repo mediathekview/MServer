@@ -1,7 +1,8 @@
 name: Release
 on:
-  release:
-    types: [ created ]
+  push:
+    tags:
+      - '*'
 
 jobs:
   build:
@@ -16,6 +17,13 @@ jobs:
         with:
           java-version: 11
           java-package: jdk+fx
+      - name: Cache local Maven repository
+        uses: actions/cache@v2
+        with:
+          path: ~/.m2/repository
+          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
+          restore-keys: |
+            ${{ runner.os }}-maven-
       - name: Build and test
         run: ./mvnw -B package
       - name: Publish to the Maven Central Repository
