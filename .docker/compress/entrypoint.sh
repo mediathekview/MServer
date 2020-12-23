@@ -1,10 +1,17 @@
 #!/bin/bash
 shopt -s nullglob
+echo "##############################"
+echo "## File watcher compressor ##"
+echo "##############################"
 while inotifywait -e modify in/filmliste.id 2>&1 >>/dev/null; do
+  sleep 1m
+  echo "Filmlist ID file changed, starting compression"
   for liste in in/filme*.json; do
     filename_withoutpath=$(basename -- "$liste")
     extension="${filename_withoutpath##*.}"
     filename="${filename_withoutpath%.*}"
+
+    echo "Starting compression of $filename_withoutpath ..."
 
     cp $liste work/
     cp $liste output/
@@ -19,7 +26,10 @@ while inotifywait -e modify in/filmliste.id 2>&1 >>/dev/null; do
       wait $pid
     done
 
+    echo "... finished"
+
   done
 
   cp in/filmliste.id output/
+  echo "Compression finished"
 done

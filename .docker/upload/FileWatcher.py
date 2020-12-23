@@ -16,12 +16,14 @@ class FileWatcher(FileSystemEventHandler):
         self.bucketName = bucketName
 
     def on_created(self, event):
-        logging.info(f"{event.src_path} has created, uploading it")
-        self.upload(event.src_path)
+        if os.path.isfile(event.src_path):
+            logging.info(f"{event.src_path} has created, uploading it")
+            self.upload(event.src_path)
 
     def on_modified(self, event):
-        logging.info(f"{event.src_path} has changed, uploading it")
-        self.upload(event.src_path)
+        if os.path.isfile(event.src_path):
+            logging.info(f"{event.src_path} has changed, uploading it")
+            self.upload(event.src_path)
 
     def upload(self, file_path):
         try:
@@ -39,11 +41,14 @@ if __name__ == "__main__":
     logging.basicConfig(level=logging.INFO,
                         format='%(asctime)s - %(message)s',
                         datefmt='%Y-%m-%d %H:%M:%S')
-    if len(sys.argv) == 1:
-        logging.info("""
+    logging.info("""
         #################################
         ## File watcher minio uploader ##
         #################################
+        """)
+        
+    if len(sys.argv) == 1:
+        logging.info("""
 
         #################################
         Watches a folder and uploads all

@@ -19,8 +19,8 @@ services:
       context: .docker/compress
       dockerfile: Dockerfile
     volumes:
-      - mserver_filmlisten:/tmp/in
-      - mserver_compressed:/tmp/compressed
+      - mserver_filmlisten:/tmp/in:rw
+      - mserver_compressed:/tmp/output:rw
     logging:
       driver: "fluentd"
       options:
@@ -47,5 +47,4 @@ services:
 
 volumes:
   mserver_filmlisten: { }
-  mserver_conf: { }
   mserver_compressed: { }
