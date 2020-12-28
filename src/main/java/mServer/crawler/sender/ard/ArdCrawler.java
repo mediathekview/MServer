@@ -23,6 +23,7 @@ import java.util.concurrent.RecursiveTask;
 public class ArdCrawler extends MediathekCrawler {
 
   private static final int MAX_DAYS_PAST = 2;
+  private static final int MAX_DAYS_PAST_AVAILABLE = 6;
   private static final DateTimeFormatter DAY_PAGE_DATE_FORMATTER
           = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
@@ -53,14 +54,36 @@ public class ArdCrawler extends MediathekCrawler {
 
     final LocalDateTime now = LocalDateTime.now();
     for (int i = 0; i < MAX_DAYS_PAST; i++) {
-      final String day = now.minusDays(i).format(DAY_PAGE_DATE_FORMATTER);
+      addDayUrls(dayUrlsToCrawl, now.minusDays(i));
+    }
 
-      for (String client : ArdConstants.CLIENTS) {
-        final String url = String.format(ArdConstants.DAY_PAGE_URL, client, day, day, ArdConstants.DAY_PAGE_SIZE);
-        dayUrlsToCrawl.offer(new CrawlerUrlDTO(url));
+    addSpecialDays(dayUrlsToCrawl);
+
+    return dayUrlsToCrawl;
+  }
+
+  private void addDayUrls(ConcurrentLinkedQueue<CrawlerUrlDTO> dayUrlsToCrawl, LocalDateTime day) {
+    final String formattedDay = day.format(DAY_PAGE_DATE_FORMATTER);
+    for (String client : ArdConstants.CLIENTS) {
+      final String url = String.format(ArdConstants.DAY_PAGE_URL, client, formattedDay, formattedDay, ArdConstants.DAY_PAGE_SIZE);
+      dayUrlsToCrawl.offer(new CrawlerUrlDTO(url));
+    }
+  }
+
+  private void addSpecialDays(
+      ConcurrentLinkedQueue<CrawlerUrlDTO> dayUrlsToCrawl) {
+    final LocalDateTime[] specialDates = new LocalDateTime[] {
+        LocalDateTime.of(2020, 12, 22, 23, 59, 59),
+        LocalDateTime.of(2020, 12, 23, 23, 59, 59)
+    };
+
+    final LocalDateTime minDayOnline = LocalDateTime.now().minusDays(MAX_DAYS_PAST_AVAILABLE);
+
+    for(LocalDateTime specialDate : specialDates) {
+      if (specialDate.isAfter(minDayOnline)) {
+        addDayUrls(dayUrlsToCrawl, specialDate);
       }
     }
-    return dayUrlsToCrawl;
   }
 
   @Override
