@@ -27,7 +27,6 @@ public class DwCrawler extends AbstractCrawler {
   // TODO: add me to config
   private static final int MAX_RESULTS_PER_PAGE = 500;
   private static final int MAX_DAYS_PER_CHUNK = 7;
-  private static final int MAX_CHUNKS = 100;
   //
   public static final String BASE_URL = "https://www.dw.com";
   private static final String ALLE_INHALTE_URL_NACH_TAG =
@@ -54,15 +53,18 @@ public class DwCrawler extends AbstractCrawler {
   protected RecursiveTask<Set<Film>> createCrawlerTask() {
     //
     final Queue<CrawlerUrlDTO> alleSeiten = new ConcurrentLinkedQueue<>();
-    for (int i = 0; i <= MAX_CHUNKS;i++) {
-      final LocalDateTime fromDate = LocalDateTime.now().minus( ((i+1)*MAX_DAYS_PER_CHUNK) , ChronoUnit.DAYS);
-      final LocalDateTime toDate = LocalDateTime.now().minus( ((i*MAX_DAYS_PER_CHUNK)+1) , ChronoUnit.DAYS);
+    final int fromDays = -1 * crawlerConfig.getMaximumDaysForSendungVerpasstSection();
+    final int toDays = crawlerConfig.getMaximumDaysForSendungVerpasstSectionFuture() + MAX_DAYS_PER_CHUNK;
+    for (int i = fromDays; i < toDays; i++) {
+      final LocalDateTime fromDate = LocalDateTime.now().plus( i, ChronoUnit.DAYS);
+      final LocalDateTime toDate = LocalDateTime.now().plus( i + MAX_DAYS_PER_CHUNK, ChronoUnit.DAYS);
       final String fromDateString = fromDate.format(DateTimeFormatter.ofPattern("dd.MM.yyyy"));
       final String toDateString = toDate.format(DateTimeFormatter.ofPattern("dd.MM.yyyy"));
       final String url = String.format(ALLE_INHALTE_URL_NACH_TAG, fromDateString, toDateString);
       alleSeiten.add(new CrawlerUrlDTO(url));
+      i += MAX_DAYS_PER_CHUNK;
     }
-    
+    //
     final DWUebersichtTagTask alleSendungenTask = new DWUebersichtTagTask(this, alleSeiten, jsoupConnection);
     final Set<URL> sendungFolgenUrls = forkJoinPool.invoke(alleSendungenTask);
 
