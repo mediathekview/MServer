@@ -151,7 +151,7 @@ public class KikaSendungsfolgeVideoDetailsTaskTest extends KikaTaskTestBase {
             "https://www.kika.de/erde-an-zukunft/charaktere/wunschkind/kw-survival-102.html",
             "https://pmdonlinekika-a.akamaihd.net/mp4dyn/7/FCMS-7b09f65c-8a90-4840-bef3-ea35b606f3a2-2cc6c1c1f632_7b.mp4",
             "https://pmdonlinekika-a.akamaihd.net/mp4dyn/7/FCMS-7b09f65c-8a90-4840-bef3-ea35b606f3a2-31e0be270130_7b.mp4",
-            "https://pmdonlinekika-a.akamaihd.net/mp4dyn/7/FCMS-7b09f65c-8a90-4840-bef3-ea35b606f3a2-5a2c8da1cdb7_7b.mp4x",
+            "https://pmdonlinekika-a.akamaihd.net/mp4dyn/7/FCMS-7b09f65c-8a90-4840-bef3-ea35b606f3a2-5a2c8da1cdb7_7b.mp4",
             "",
             GeoLocations.GEO_NONE
           }
