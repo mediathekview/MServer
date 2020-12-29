@@ -277,7 +277,7 @@ task updateVersion {
 processResources.dependsOn updateVersion
 
 licenseReport {
-    outputDir = "build/Copyright/"
+    outputDir = rootProject.projectDir.toPath().resolve("build/Copyright/").toString()
     excludes = [':MSearch', 'MediathekView:MLib']
     configurations = ['compile']
 }
