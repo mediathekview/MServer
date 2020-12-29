@@ -27,7 +27,6 @@ import de.mediathekview.mserver.crawler.orf.OrfCrawler;
 import de.mediathekview.mserver.crawler.phoenix.PhoenixCrawler;
 import de.mediathekview.mserver.crawler.sr.SrCrawler;
 import de.mediathekview.mserver.crawler.srf.SrfCrawler;
-import de.mediathekview.mserver.crawler.wdr.*;
 import de.mediathekview.mserver.crawler.zdf.ZdfCrawler;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -484,26 +483,6 @@ public class CrawlerManager extends AbstractManager {
         Sender.SRF, new SrfCrawler(forkJoinPool, messageListeners, progressListeners, rootConfig));
     crawlerMap.put(
         Sender.SR, new SrCrawler(forkJoinPool, messageListeners, progressListeners, rootConfig));
-    crawlerMap.put(
-        Sender.WDR, new WdrCrawler(forkJoinPool, messageListeners, progressListeners, rootConfig));
-    crawlerMap.put(
-        Sender.WDR2,
-        new Wdr2Crawler(forkJoinPool, messageListeners, progressListeners, rootConfig));
-    crawlerMap.put(
-        Sender.WDR3,
-        new Wdr3Crawler(forkJoinPool, messageListeners, progressListeners, rootConfig));
-    crawlerMap.put(
-        Sender.WDR4,
-        new Wdr4Crawler(forkJoinPool, messageListeners, progressListeners, rootConfig));
-    crawlerMap.put(
-        Sender.WDR5,
-        new Wdr5Crawler(forkJoinPool, messageListeners, progressListeners, rootConfig));
-    crawlerMap.put(
-        Sender.WDR_COSMO,
-        new WdrCosmoCrawler(forkJoinPool, messageListeners, progressListeners, rootConfig));
-    crawlerMap.put(
-        Sender.WDR_KIRAKA,
-        new WdrKirakaCrawler(forkJoinPool, messageListeners, progressListeners, rootConfig));
     crawlerMap.put(
         Sender.ZDF, new ZdfCrawler(forkJoinPool, messageListeners, progressListeners, rootConfig));
   }
