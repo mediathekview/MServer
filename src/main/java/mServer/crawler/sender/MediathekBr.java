@@ -27,8 +27,6 @@ import java.util.Date;
 import java.util.LinkedList;
 import java.util.Locale;
 
-import org.apache.commons.lang3.StringEscapeUtils;
-
 import de.mediathekview.mlib.Config;
 import de.mediathekview.mlib.Const;
 import de.mediathekview.mlib.daten.DatenFilm;
@@ -38,6 +36,7 @@ import mServer.crawler.CrawlerTool;
 import mServer.crawler.FilmeSuchen;
 import mServer.crawler.GetUrl;
 import mServer.tool.MserverDaten;
+import org.apache.commons.text.StringEscapeUtils;
 
 public class MediathekBr extends MediathekReader {
 
