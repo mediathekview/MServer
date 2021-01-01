@@ -254,7 +254,7 @@ public class AddToFilmlist {
           try (Response response = client.newCall(request).execute()) {
             if (response.isSuccessful()) {
               ResponseBody responseBody = response.body();
-              long respLength = responseBody == null ? -1 : responseBody.contentLength();
+              long respLength = responseBody == null ? -1 : Long.parseLong(response.header("Content-Length", "-1"));;
               if (respLength < 1_000_000) {
                 respLength = -1;
               } else if (respLength > 1_000_000) {
