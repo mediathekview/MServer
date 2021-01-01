@@ -15,7 +15,6 @@ import mServer.tool.MserverDaten;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
-import okhttp3.ResponseBody;
 
 import java.io.IOException;
 import java.net.SocketTimeoutException;
@@ -253,7 +252,7 @@ public class AddToFilmlist {
           Request request = new Request.Builder().url(url).head().build();
           try (Response response = client.newCall(request).execute()) {
             if (response.isSuccessful()) {
-              long respLength = Long.parseLong(response.header("Content-Length", "-1"));;
+              long respLength = Long.parseLong(response.header("Content-Length", "-1"));
               if (respLength < 1_000_000) {
                 respLength = -1;
               } else if (respLength > 1_000_000) {
