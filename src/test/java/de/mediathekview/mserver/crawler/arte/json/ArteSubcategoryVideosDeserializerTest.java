@@ -42,7 +42,7 @@ public class ArteSubcategoryVideosDeserializerTest {
     return Arrays.asList(
         new Object[][] {
           {
-            "/arte/arte_subcategory_films_page1.json",
+            "/arte/arte_subcategory_films_page_5_entries.json",
             ArteLanguage.DE,
             Optional.of(
                 "http://localhost:8589/api/emac/v3/de/web/zones/videos_subcategory?id=ART&page=2&limit=5"),

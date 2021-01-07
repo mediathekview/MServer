@@ -28,6 +28,10 @@ public class BrID implements Comparable<BrID>{
       return type;
     }
 
+    public synchronized void setType(BrClipType aType) {
+      this.type = aType;
+    }
+    
     public synchronized String getId() {
       return id;
     }
