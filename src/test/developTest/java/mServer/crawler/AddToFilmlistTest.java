@@ -4,6 +4,7 @@ import java.io.IOException;
 import de.mediathekview.mlib.Const;
 import de.mediathekview.mlib.daten.DatenFilm;
 import de.mediathekview.mlib.daten.ListeFilme;
+import javax.ws.rs.core.HttpHeaders;
 import okhttp3.mockwebserver.*;
 
 import org.junit.*;
@@ -14,6 +15,7 @@ import static org.junit.Assert.*;
 public class AddToFilmlistTest {
     private static final String FILM_NAME_ONLINE = "onlinefilm.mp4";
     private static final String FILM_NAME_ONLINE2 = "onlinefilm2.mp4";
+    private static final String FILM_NAME_OFFLINE_BUT_HTML_RESPONSE = "ardofflinefilm.mp4";
     private static final String FILM_TOPIC1 = "Topic 1";
     private static final String FILM_TOPIC2 = "Topic 2";
     private static final String FILM_TOPIC3 = "Topic 3";
@@ -39,7 +41,12 @@ public class AddToFilmlistTest {
                 switch(request.getPath()) {
                     case "/" + FILM_NAME_ONLINE:
                     case "/" + FILM_NAME_ONLINE2:
-                        return new MockResponse().setResponseCode(200);
+                        return new MockResponse()
+                            .setResponseCode(200);
+                    case "/" + FILM_NAME_OFFLINE_BUT_HTML_RESPONSE:
+                        return new MockResponse()
+                            .setResponseCode(200)
+                            .addHeader(HttpHeaders.CONTENT_TYPE, "text/html; charset=UTF-8");
                     default:
                         return new MockResponse().setResponseCode(404);
                 }
@@ -132,7 +139,17 @@ public class AddToFilmlistTest {
         target.addOldList();
         
         assertThat(list.size(), equalTo(2));
-    }    
+    }
+
+    @Test
+    public void testAddOldListOfflineButHeadRequestSuccessfulHtmlNotAdded() {
+        listToAdd.add(createTestFilm(Const.ARD, "ard film", "video offline", FILM_NAME_OFFLINE_BUT_HTML_RESPONSE));
+
+        AddToFilmlist target = new AddToFilmlist(list, listToAdd);
+        target.addOldList();
+
+        assertThat(list.size(), equalTo(2));
+    }
         
     // Test with list of 100000 different old entries which are online
     // to ensure the multithreaded onilne check is correct

@@ -11,6 +11,7 @@ import de.mediathekview.mlib.daten.ListeFilme;
 import de.mediathekview.mlib.tool.Hash;
 import de.mediathekview.mlib.tool.Log;
 import de.mediathekview.mlib.tool.MVHttpClient;
+import javax.ws.rs.core.HttpHeaders;
 import mServer.tool.MserverDaten;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -252,14 +253,9 @@ public class AddToFilmlist {
           Request request = new Request.Builder().url(url).head().build();
           try (Response response = client.newCall(request).execute()) {
             if (response.isSuccessful()) {
-              long respLength = Long.parseLong(response.header("Content-Length", "-1"));
-              if (respLength < 1_000_000) {
-                respLength = -1;
-              } else if (respLength > 1_000_000) {
-                respLength /= 1_000_000;
-              }
+              long respLength = determineContentLength(response);
 
-              if (respLength > MIN_SIZE_ADD_OLD) {
+              if (isRelevantContentType(response) && respLength > MIN_SIZE_ADD_OLD) {
                 addOld(film);
               }
             }
@@ -271,7 +267,7 @@ public class AddToFilmlist {
           if (Long.parseLong(film.arr[DatenFilm.FILM_GROESSE]) > MIN_SIZE_ADD_OLD) {
             Request request = new Request.Builder().url(url).head().build();
             try (Response response = client.newCall(request).execute()) {
-              if (response.isSuccessful()) {
+              if (response.isSuccessful() && isRelevantContentType(response)) {
                 addOld(film);
               }
             } catch (SocketTimeoutException ignored) {
@@ -282,6 +278,25 @@ public class AddToFilmlist {
         }
       }
       threadCounter.decrementAndGet();
+    }
+
+    private boolean isRelevantContentType(Response response) {
+      final String contentType = response.header(HttpHeaders.CONTENT_TYPE, "");
+
+      // html reponses indicate a redirect
+      // this is used for offline films
+      return !contentType.contains("text/html");
+    }
+
+    private long determineContentLength(Response response) {
+      final String contentLength = response.header("Content-Length", "-1");
+      long respLength = Long.parseLong(contentLength);
+      if (respLength < 1_000_000) {
+        respLength = -1;
+      } else if (respLength > 1_000_000) {
+        respLength /= 1_000_000;
+      }
+      return respLength;
     }
   }
 }
