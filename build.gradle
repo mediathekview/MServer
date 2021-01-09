@@ -120,7 +120,7 @@ tasks.withType(Test) {
 }
 
 dependencies {
-    compile 'de.mediathekview:MLib:3.0.6'
+    compile 'de.mediathekview:MLib:3.0.7'
     compile 'commons-net:commons-net:3.7.2'
     compile 'org.apache.commons:commons-compress:1.20'
     compile 'org.apache.commons:commons-text:1.8'
