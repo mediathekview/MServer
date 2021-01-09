@@ -8,6 +8,9 @@ public class BannedFilmFilter {
     if (film.arr[DatenFilm.FILM_TITEL].equalsIgnoreCase("Geschichte einer Liebe - Freya")) {
       return true;
     }
+    if (film.arr[DatenFilm.FILM_TITEL].equalsIgnoreCase("Wir haben genug - Wirtschaft ohne Wachstum")) {
+      return true;
+    }
 
     return false;
   }
