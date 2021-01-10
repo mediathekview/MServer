@@ -226,6 +226,7 @@ public class AddToFilmlist {
 
     private void addOld(DatenFilm film) {
       if (BannedFilmFilter.isBanned(film)) {
+        Log.sysLog("Blacklist Treffer im import Old (" + film.arr[DatenFilm.FILM_TITEL] + ")");
         return;
       }
 

@@ -209,6 +209,7 @@ public abstract class MediathekReader extends Thread {
   protected void addFilm(DatenFilm film) {
 
     if (BannedFilmFilter.isBanned(film)) {
+      Log.sysLog("Blacklist Treffer im addFilm (" + film.arr[DatenFilm.FILM_TITEL] + ")");
       return;
     }
 
