@@ -254,7 +254,7 @@ public class StatsUpload {
     private void sendData(String body) {
         Request request = new Request.Builder()
         .url(telegrafUrl)
-        .post(RequestBody.create(MEDIA_TYPE_TEXT, body))
+        .post(RequestBody.create(body, MEDIA_TYPE_TEXT))
         .build();
 
         httpClient.newCall(request).enqueue(new Callback() {
