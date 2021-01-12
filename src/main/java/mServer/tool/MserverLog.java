@@ -232,7 +232,6 @@ public class MserverLog {
                         writer.write("\n");
                     }
                 }
-                writer.close();
             } catch (Exception ex) {
                 System.out.println("Fehler beim Logfile schreiben: " + ex.getMessage());
             }

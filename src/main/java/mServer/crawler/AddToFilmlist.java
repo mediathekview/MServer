@@ -5,26 +5,25 @@
  */
 package mServer.crawler;
 
-import java.io.IOException;
-import java.net.SocketTimeoutException;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.concurrent.TimeUnit;
-import java.util.concurrent.atomic.AtomicInteger;
-
 import de.mediathekview.mlib.Config;
 import de.mediathekview.mlib.daten.DatenFilm;
 import de.mediathekview.mlib.daten.ListeFilme;
 import de.mediathekview.mlib.tool.Hash;
 import de.mediathekview.mlib.tool.Log;
 import de.mediathekview.mlib.tool.MVHttpClient;
-import java.util.Collections;
-import java.util.List;
 import mServer.tool.MserverDaten;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
-import okhttp3.internal.http.HttpHeaders;
+
+import java.io.IOException;
+import java.net.SocketTimeoutException;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.List;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class AddToFilmlist {
 
@@ -254,7 +253,7 @@ public class AddToFilmlist {
           Request request = new Request.Builder().url(url).head().build();
           try (Response response = client.newCall(request).execute()) {
             if (response.isSuccessful()) {
-              long respLength = HttpHeaders.contentLength(response);
+              long respLength = Long.parseLong(response.header("Content-Length", "-1"));
               if (respLength < 1_000_000) {
                 respLength = -1;
               } else if (respLength > 1_000_000) {
