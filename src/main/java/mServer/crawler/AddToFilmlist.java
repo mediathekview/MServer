@@ -11,9 +11,13 @@ import de.mediathekview.mlib.daten.ListeFilme;
 import de.mediathekview.mlib.tool.Hash;
 import de.mediathekview.mlib.tool.Log;
 import de.mediathekview.mlib.tool.MVHttpClient;
+import java.util.Optional;
+import javax.ws.rs.core.HttpHeaders;
+import mServer.crawler.sender.base.UrlUtils;
 import mServer.tool.MserverDaten;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
+import okhttp3.Request.Builder;
 import okhttp3.Response;
 
 import java.io.IOException;
@@ -24,6 +28,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
+import org.jetbrains.annotations.NotNull;
 
 public class AddToFilmlist {
 
@@ -89,8 +94,8 @@ public class AddToFilmlist {
   }
 
   /**
-   * Remove links which don´t start with http. - * Remove old film entries which
-   * are smaller than MIN_SIZE_ADD_OLD.
+   * Remove links which don´t start with http. - * Remove old film entries which are smaller than
+   * MIN_SIZE_ADD_OLD.
    */
   private void performInitialCleanup() {
     listeEinsortieren.removeIf(f -> !f.arr[DatenFilm.FILM_URL].toLowerCase().startsWith("http"));
@@ -132,8 +137,8 @@ public class AddToFilmlist {
   }
 
   /*
-     * Diese Methode sortiert eine vorhandene Liste in eine andere Filmliste ein,
-     * dabei werden nur nicht vorhandene Filme einsortiert.
+   * Diese Methode sortiert eine vorhandene Liste in eine andere Filmliste ein,
+   * dabei werden nur nicht vorhandene Filme einsortiert.
    */
   public int addOldList() {
     threadCounter = new AtomicInteger(0);
@@ -183,7 +188,6 @@ public class AddToFilmlist {
   }
 
   /**
-   *
    * Add all local thread results to the filmlist.
    *
    * @return the total number of entries found.
@@ -205,7 +209,8 @@ public class AddToFilmlist {
   private class ImportOldFilmlistThread extends Thread {
 
     private final List<DatenFilm> listeOld;
-    private final ArrayList<DatenFilm> localAddList = new ArrayList<>((vonListe.size() / NUMBER_OF_THREADS) + 500);
+    private final ArrayList<DatenFilm> localAddList = new ArrayList<>(
+        (vonListe.size() / NUMBER_OF_THREADS) + 500);
     private int treffer = 0;
     private OkHttpClient client = null;
 
@@ -250,17 +255,14 @@ public class AddToFilmlist {
       while (!isInterrupted() && (film = popOld(listeOld)) != null) {
         final String url = film.arr[DatenFilm.FILM_URL];
         if (film.arr[DatenFilm.FILM_GROESSE].isEmpty()) {
-          Request request = new Request.Builder().url(url).head().build();
+          Request request = createOnlineCheckRequest(url);
           try (Response response = client.newCall(request).execute()) {
             if (response.isSuccessful()) {
-              long respLength = Long.parseLong(response.header("Content-Length", "-1"));
-              if (respLength < 1_000_000) {
-                respLength = -1;
-              } else if (respLength > 1_000_000) {
-                respLength /= 1_000_000;
-              }
+              long respLength = determineContentLength(response);
 
-              if (respLength > MIN_SIZE_ADD_OLD) {
+              if (isRelevantContentType(response) &&
+                  // ignore file length of m3u8-files because it is always too small
+                  (isM3u8File(url) || respLength > MIN_SIZE_ADD_OLD)) {
                 addOld(film);
               }
             }
@@ -270,9 +272,9 @@ public class AddToFilmlist {
           }
         } else {
           if (Long.parseLong(film.arr[DatenFilm.FILM_GROESSE]) > MIN_SIZE_ADD_OLD) {
-            Request request = new Request.Builder().url(url).head().build();
+            Request request = createOnlineCheckRequest(url);
             try (Response response = client.newCall(request).execute()) {
-              if (response.isSuccessful()) {
+              if (response.isSuccessful() && isRelevantContentType(response)) {
                 addOld(film);
               }
             } catch (SocketTimeoutException ignored) {
@@ -283,6 +285,45 @@ public class AddToFilmlist {
         }
       }
       threadCounter.decrementAndGet();
+    }
+
+    @NotNull
+    private Request createOnlineCheckRequest(String url) {
+      Builder builder = new Builder().url(url);
+      if (isM3u8File(url)) {
+        // head request of m3u8 files always returns 405 => use get instead
+        return builder.get().build();
+      }
+
+      return builder.head().build();
+    }
+
+    private boolean isM3u8File(String url) {
+      final Optional<String> fileType = UrlUtils.getFileType(url);
+      if (fileType.isPresent() && fileType.get().equalsIgnoreCase("m3u8")) {
+        return true;
+      }
+
+      return false;
+    }
+
+    private boolean isRelevantContentType(Response response) {
+      final String contentType = response.header(HttpHeaders.CONTENT_TYPE, "");
+
+      // html reponses indicate a redirect
+      // this is used for offline films
+      return !contentType.contains("text/html");
+    }
+
+    private long determineContentLength(Response response) {
+      final String contentLength = response.header("Content-Length", "-1");
+      long respLength = Long.parseLong(contentLength);
+      if (respLength < 1_000_000) {
+        respLength = -1;
+      } else if (respLength > 1_000_000) {
+        respLength /= 1_000_000;
+      }
+      return respLength;
     }
   }
 }
