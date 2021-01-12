@@ -1,7 +1,8 @@
 name: Release
 on:
-  release:
-    types: [ created ]
+  push:
+    tags:
+      - '*'
 
 jobs:
   build:
@@ -9,8 +10,6 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
-        with:
-          ref: develop
       - name: Set up JDK 1.8
         uses: actions/setup-java@v1
         with:
