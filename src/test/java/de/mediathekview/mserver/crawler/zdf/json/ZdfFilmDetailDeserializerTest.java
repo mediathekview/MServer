@@ -25,7 +25,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 public class ZdfFilmDetailDeserializerTest {
 
   private final String jsonFile;
-  private Sender expectedSender;
+  private final Sender expectedSender;
   private final String expectedTopic;
   private final String expectedTitle;
   private final LocalDateTime expectedTime;
@@ -124,6 +124,17 @@ public class ZdfFilmDetailDeserializerTest {
           "Im römischen Reich wurden entscheidende Grundsteine der Rechtsprechung gelegt. Prozesse im alten Rom liefen ähnlich ab wie heute.",
           "https://www.zdf.de/dokumentation/terra-x/rechtswesen-im-antiken-rom-creative-commons-100.html",
           "https://api.zdf.de/tmd/2/ngplayer_2_3/vod/ptmd/mediathek/200428_132_0055303728_Rechtswesen_Antikes_Rom_CC_tex"
+        },
+        {
+          "/zdf/zdf_film_details_tab_in_title.json",
+          Sender.ZDF,
+          "Musik",
+          "Ludwig van Beethoven - Auf den Spuren großer Komponisten",
+          LocalDateTime.of(2020,12, 22, 19, 30, 0),
+          Duration.ofMinutes(54),
+          "Ludwig van Beethoven wurde im Dezember 1770 geboren. Zu Lebzeiten schon gefeierter Virtuose und Komponist, sprachen seine Werke eine zuvor nie gehörte Klangsprache. Heutzutage gilt er als derjenige, der die Wiener Klassik zur Vollendung brachte.",
+          "https://www.zdf.de/kultur/musik-und-theater/great-composers-beethoven-100.html",
+          "https://api.zdf.de/tmd/2/ngplayer_2_3/vod/ptmd/mediathek/201201_composerbeethoven_kul"
         }
       });
   }
