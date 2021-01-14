@@ -195,7 +195,7 @@ public class ZdfFilmDetailDeserializer implements JsonDeserializer<Optional<ZdfF
     if (titleElement != null) {
       JsonElement subTitleElement = aRootNode.get(JSON_ELEMENT_SUBTITLE);
       if (subTitleElement != null) {
-        return Optional.of(titleElement.getAsString() + " - " + subTitleElement.getAsString());
+        return Optional.of(titleElement.getAsString().trim() + " - " + subTitleElement.getAsString());
       } else {
         return Optional.of(titleElement.getAsString());
       }
@@ -208,7 +208,7 @@ public class ZdfFilmDetailDeserializer implements JsonDeserializer<Optional<ZdfF
         if (subTitle.isEmpty()) {
           return Optional.of(title);
         } else {
-          return Optional.of(title + " - " + subTitle);
+          return Optional.of(title.trim() + " - " + subTitle);
         }
       }
     }
