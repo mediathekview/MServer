@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import com.google.gson.JsonArray;
@@ -54,7 +55,7 @@ public class BrFilmDeserializer implements JsonDeserializer<Optional<DatenFilm>>
   private static final String JSON_ELEMENT_TITLE = "title";
   private static final String JSON_ELEMENT_KICKER = "kicker";
   private static final String JSON_ELEMENT_DURATION = "duration";
-  private static final String JSON_ELEMENT_BROADCASTS = "broadcasts";
+  private static final String JSON_ELEMENT_INITIAL_SCREENING = "initialScreening";
   private static final String JSON_ELEMENT_START = "start";
   private static final String JSON_ELEMENT_SHORT_DESCRIPTION = "shortDescription";
   private static final String JSON_ELEMENT_DESCRIPTION = "description";
@@ -226,7 +227,7 @@ public class BrFilmDeserializer implements JsonDeserializer<Optional<DatenFilm>>
   }
 
   private Optional<DatenFilm> createFilm(final JsonObject aDetailClip, String aDescription, Optional<String> aSubTitle, Map<Resolution, String> aUrls) {
-    final Optional<JsonElement> start = getBroadcastStart(aDetailClip);
+    final Optional<JsonElement> start = getDate(aDetailClip);
     if (aDetailClip.has(JSON_ELEMENT_TITLE) && aDetailClip.has(JSON_ELEMENT_KICKER)
             && aDetailClip.has(JSON_ELEMENT_DURATION)) {
       final String title = aDetailClip.get(JSON_ELEMENT_TITLE).getAsString();
@@ -295,32 +296,17 @@ public class BrFilmDeserializer implements JsonDeserializer<Optional<DatenFilm>>
     return urls;
   }
 
-  private Optional<JsonElement> getBroadcastStart(final JsonObject aDetailClip) {
-    if (!aDetailClip.has(JSON_ELEMENT_BROADCASTS)) {
+  private Optional<JsonElement> getDate(final JsonObject aDetailClip) {
+    if (!aDetailClip.has(JSON_ELEMENT_INITIAL_SCREENING)) {
       return Optional.empty();
     }
 
-    final JsonObject broadcast = aDetailClip.getAsJsonObject(JSON_ELEMENT_BROADCASTS);
-    if (!broadcast.has(JSON_ELEMENT_EDGES)) {
+    final JsonObject initialScreening = aDetailClip.getAsJsonObject(JSON_ELEMENT_INITIAL_SCREENING);
+    if (!initialScreening.has(JSON_ELEMENT_START)) {
       return Optional.empty();
     }
 
-    final JsonArray edges = broadcast.getAsJsonArray(JSON_ELEMENT_EDGES);
-    if (edges.size() <= 0) {
-      return Optional.empty();
-    }
-
-    final JsonObject arrayItem = edges.get(0).getAsJsonObject();
-    if (!arrayItem.has(JSON_ELEMENT_NODE)) {
-      return Optional.empty();
-    }
-
-    final JsonObject node = arrayItem.getAsJsonObject(JSON_ELEMENT_NODE);
-    if (!node.has(JSON_ELEMENT_START)) {
-      return Optional.empty();
-    }
-
-    return Optional.of(node.get(JSON_ELEMENT_START));
+    return Optional.of(initialScreening.get(JSON_ELEMENT_START));
   }
 
   private Optional<JsonObject> getDetailClip(final JsonObject aViewer) {
