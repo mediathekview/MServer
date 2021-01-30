@@ -265,6 +265,8 @@ public class AddToFilmlist {
                   (isM3u8File(url) || respLength > MIN_SIZE_ADD_OLD)) {
                 addOld(film);
               }
+            } else {
+              Log.sysLog("film removed: code: " + response.code() + ": " + url);
             }
           } catch (SocketTimeoutException ignored) {
           } catch (IOException ex) {
@@ -276,6 +278,8 @@ public class AddToFilmlist {
             try (Response response = client.newCall(request).execute()) {
               if (response.isSuccessful() && isRelevantContentType(response)) {
                 addOld(film);
+              } else {
+                Log.sysLog("film removed: code: " + response.code() + ": " + url);
               }
             } catch (SocketTimeoutException ignored) {
             } catch (IOException ex) {
