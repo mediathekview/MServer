@@ -78,7 +78,7 @@ public class MediathekArte_de extends MediathekReader {
     "ACC", "CMG", "FLM", "CMU", "MCL",
     "CHU", "FIC", "SES",
     "ART", "POP", "IDE",
-    "ADS", "CLA", "JAZ", "MUA", "MUD", "OPE", "MUE", "HIP", "MET",
+    "ADS", "BAR", "CLA", "JAZ", "MUA", "MUD", "OPE", "MUE", "HIP", "MET",
     "ENB", "ENN", "SAN", "TEC",
     "ATA", "EVA", "NEA", "VIA",
     "CIV", "LGP", "XXE"
