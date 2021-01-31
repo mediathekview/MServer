@@ -101,10 +101,10 @@ public class KikaSendungsfolgeVideoDetailsTask extends AbstractUrlTask<Film, Cra
 
   private Optional<Resolution> getResolutionFromProfile(final KikaFilmUrlInfoDto urlInfo) {
     final String profileName = urlInfo.getProfileName().toLowerCase();
-    if (profileName.contains("low")) {
+    if (profileName.contains("low") || profileName.contains("quality = 0")) {
       return Optional.of(Resolution.SMALL);
     }
-    if (profileName.contains("high")) {
+    if (profileName.contains("high") || profileName.contains("quality = 2") || profileName.contains("quality = 1")) {
       return Optional.of(Resolution.NORMAL);
     }
     if (profileName.contains("720p25")) {
@@ -251,7 +251,7 @@ public class KikaSendungsfolgeVideoDetailsTask extends AbstractUrlTask<Film, Cra
         addGeo(newFilm);
 
         if (newFilm.getUrls().isEmpty()) {
-          LOG.error("Can't find/build valid download URLs for the film \"{} - {}\".", thema, title);
+          LOG.error("Can't find/build valid download URLs for the film \"{} - {} - {}\".", thema, title, urlDTO.getUrl());
           crawler.incrementAndGetErrorCount();
           crawler.updateProgress();
         } else {

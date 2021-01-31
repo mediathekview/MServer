@@ -154,6 +154,21 @@ public class KikaSendungsfolgeVideoDetailsTaskTest extends KikaTaskTestBase {
             "https://pmdonlinekika-a.akamaihd.net/mp4dyn/7/FCMS-7b09f65c-8a90-4840-bef3-ea35b606f3a2-5a2c8da1cdb7_7b.mp4",
             "",
             GeoLocations.GEO_NONE
+          },
+          {
+            "https://www.kika.de/filme/sendungen/videos/tsatsiki-papa-und-der-olivenkrieg-104-avCustom.xml",
+            "/kika/kika_film_video5.xml",
+            "Filme",
+            "Tsatsiki - Papa und der Olivenkrieg",
+            "Der elfjährige Tsatsiki verbringt die Ferien bei seinem Vater in Griechenland. Ein perfekter Sommer, wäre sein Papa nicht in Geldnot.",
+            LocalDateTime.of(2021,1,26,10,15),
+            Duration.ofMinutes(87).plusSeconds(6),
+            "https://www.kika.de/filme/sendungen/videos/tsatsiki-papa-und-der-olivenkrieg-104.html",
+            "https://mediandr-a.akamaihd.net/progressive_geo/2018/1026/TV-20181026-1137-2700.mn.mp4",
+            "https://mediandr-a.akamaihd.net/progressive_geo/2018/1026/TV-20181026-1137-2700.hq.mp4",
+            "https://mediandr-a.akamaihd.net/progressive_geo/2018/1026/TV-20181026-1137-2700.hd.mp4",
+            "",
+            GeoLocations.GEO_NONE
           }
         });
   }
