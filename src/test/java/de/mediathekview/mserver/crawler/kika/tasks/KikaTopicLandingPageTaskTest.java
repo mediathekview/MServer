@@ -63,7 +63,8 @@ public class KikaTopicLandingPageTaskTest extends KikaTaskTestBase {
             "/kika/kika_topic2_landing_page.html",
             new CrawlerUrlDTO[] {
               new CrawlerUrlDTO(
-                  "https://www.kika.de/singalarm/sendungen/buendelgruppe2234_page-2_zc-d5c4767c_zs-e540764b.html")
+                  "https://www.kika.de/singalarm/sendungen/buendelgruppe2234_page-2_zc-d5c4767c_zs-e540764b.html"),
+                new CrawlerUrlDTO("https://www.kika.de/singalarm/sendungen/videos-singalarm-100.html")
             }
           },
           {
@@ -71,6 +72,21 @@ public class KikaTopicLandingPageTaskTest extends KikaTaskTestBase {
             "/kika/kika_topic3_landing_page.html",
             new CrawlerUrlDTO[] {
               new CrawlerUrlDTO("https://www.kika.de/alles-neu-fuer-lina/buendelgruppe2624.html")
+            }
+          },
+          {
+            "https://www.kika.de/sendungen/special/s/schnitzeljagd/uebersicht-116.html",
+            "/kika/kika_topic4_is_overview_page_without_all_button.html",
+            new CrawlerUrlDTO[] {
+              new CrawlerUrlDTO(
+                  "https://www.kika.de/sendungen/special/s/schnitzeljagd/uebersicht-116.html")
+            }
+          },
+          {
+            "https://www.kika.de/tib-tumtum/tib-und-tumtum-180.html",
+            "/kika/kika_topic5_only_new_videos_link.html",
+            new CrawlerUrlDTO[] {
+              new CrawlerUrlDTO("https://www.kika.de/tib-tumtum/buendelgruppe2730.html")
             }
           }
         });
