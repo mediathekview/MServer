@@ -34,7 +34,7 @@ public class KikaTopicOverviewPageTaskTest extends KikaTaskTestBase {
   }
 
   @Test
-  public void testOverviewWithSinglePage() throws IOException {
+  public void testOverviewWithSinglePageWithBoxBroadcastLayout() throws IOException {
     final String requestUrl =
         wireMockServer.baseUrl() + "/alles-neu-fuer-lina/buendelgruppe2624.html";
 
@@ -60,6 +60,32 @@ public class KikaTopicOverviewPageTaskTest extends KikaTaskTestBase {
               wireMockServer.baseUrl() + "/alles-neu-fuer-lina/sendungen/sendung108144.html"),
           new CrawlerUrlDTO(
               wireMockServer.baseUrl() + "/alles-neu-fuer-lina/sendungen/sendung108146.html")
+        };
+
+    actAndAssert(requestUrl, expected);
+  }
+
+  @Test
+  public void testOverviewWithSinglePageWithoutBoxBroadcastLayout() throws IOException {
+    rootConfig.getSenderConfig(Sender.KIKA).setMaximumSubpages(1);
+
+    final String requestUrl =
+        wireMockServer.baseUrl() + "/pur/sendungen/videos-pur-102.html";
+
+    final Connection connection =
+        JsoupMock.mock(requestUrl, "/kika/kika_topic6_overview_no_boxbroadcast.html");
+    when(jsoupConnection.getConnection(eq(requestUrl))).thenReturn(connection);
+
+    final CrawlerUrlDTO[] expected =
+        new CrawlerUrlDTO[] {
+            new CrawlerUrlDTO(
+                wireMockServer.baseUrl() + "/pur/sendungen/sendung133864.html"),
+            new CrawlerUrlDTO(
+                wireMockServer.baseUrl() + "/pur/sendungen/sendung133128.html"),
+            new CrawlerUrlDTO(
+                wireMockServer.baseUrl() + "/pur/sendungen/sendung132534.html"),
+            new CrawlerUrlDTO(
+                wireMockServer.baseUrl() + "/pur/sendungen/blobbing-horsing-und-co-spass-oder-sport-102.html")
         };
 
     actAndAssert(requestUrl, expected);
