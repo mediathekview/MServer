@@ -1,7 +1,8 @@
 package de.mediathekview.mserver.crawler.kika.tasks;
 
 import de.mediathekview.mserver.base.webaccess.JsoupConnection;
-import de.mediathekview.mserver.crawler.basic.CrawlerUrlDTO;
+import de.mediathekview.mserver.crawler.kika.KikaCrawlerUrlDto;
+import de.mediathekview.mserver.crawler.kika.KikaCrawlerUrlDto.FilmType;
 import de.mediathekview.mserver.testhelper.JsoupMock;
 import org.jsoup.Connection;
 import org.junit.Before;
@@ -35,18 +36,18 @@ public class KikaSendungsfolgeVideoUrlTaskTest extends KikaTaskTestBase {
     final Connection connection = JsoupMock.mock(requestUrl, "/kika/kika_film1.html");
     when(jsoupConnection.getConnection(eq(requestUrl))).thenReturn(connection);
 
-    final CrawlerUrlDTO[] expected =
-        new CrawlerUrlDTO[] {
-          new CrawlerUrlDTO(
-              "https://www.kika.de/rocket-ich/sendungen/videos/video14406-avCustom.xml")
+    final KikaCrawlerUrlDto[] expected =
+        new KikaCrawlerUrlDto[] {
+          new KikaCrawlerUrlDto(
+              "https://www.kika.de/rocket-ich/sendungen/videos/video14406-avCustom.xml", FilmType.NORMAL)
         };
 
-    final Queue<CrawlerUrlDTO> urls = new ConcurrentLinkedQueue<>();
-    urls.add(new CrawlerUrlDTO(requestUrl));
+    final Queue<KikaCrawlerUrlDto> urls = new ConcurrentLinkedQueue<>();
+    urls.add(new KikaCrawlerUrlDto(requestUrl, FilmType.NORMAL));
 
     final KikaSendungsfolgeVideoUrlTask target =
         new KikaSendungsfolgeVideoUrlTask(createCrawler(), urls, jsoupConnection);
-    final Set<CrawlerUrlDTO> actual = target.invoke();
+    final Set<KikaCrawlerUrlDto> actual = target.invoke();
 
     assertThat(actual.size(), equalTo(expected.length));
     assertThat(actual, containsInAnyOrder(expected));

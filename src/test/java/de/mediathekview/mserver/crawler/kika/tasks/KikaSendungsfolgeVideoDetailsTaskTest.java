@@ -4,7 +4,8 @@ import de.mediathekview.mlib.daten.Film;
 import de.mediathekview.mlib.daten.GeoLocations;
 import de.mediathekview.mlib.daten.Sender;
 import de.mediathekview.mserver.base.webaccess.JsoupConnection;
-import de.mediathekview.mserver.crawler.basic.CrawlerUrlDTO;
+import de.mediathekview.mserver.crawler.kika.KikaCrawlerUrlDto;
+import de.mediathekview.mserver.crawler.kika.KikaCrawlerUrlDto.FilmType;
 import de.mediathekview.mserver.testhelper.AssertFilm;
 import de.mediathekview.mserver.testhelper.JsoupMock;
 import org.jsoup.nodes.Document;
@@ -45,9 +46,11 @@ public class KikaSendungsfolgeVideoDetailsTaskTest extends KikaTaskTestBase {
   private final String expectedUrlHd;
   private final String expectedSubtitle;
   private final GeoLocations expectedGeoLocation;
+  private final FilmType filmType;
 
   public KikaSendungsfolgeVideoDetailsTaskTest(
       final String aRequestUrl,
+      final FilmType aFilmType,
       final String aXmlFile,
       final String aExpectedTopic,
       final String aExpectedTitle,
@@ -62,6 +65,7 @@ public class KikaSendungsfolgeVideoDetailsTaskTest extends KikaTaskTestBase {
       final GeoLocations aExpectedGeoLocation) {
 
     requestUrl = aRequestUrl;
+    filmType = aFilmType;
     xmlFile = aXmlFile;
     expectedTopic = aExpectedTopic;
     expectedTitle = aExpectedTitle;
@@ -82,6 +86,7 @@ public class KikaSendungsfolgeVideoDetailsTaskTest extends KikaTaskTestBase {
         new Object[][] {
           {
             "https://www.kika.de/rocket-ich/sendungen/videos/video14406-avCustom.xml",
+            FilmType.NORMAL,
             "/kika/kika_film_video1.xml",
             "Rocket & Ich",
             "38. Auf den Klon gekommen",
@@ -97,6 +102,7 @@ public class KikaSendungsfolgeVideoDetailsTaskTest extends KikaTaskTestBase {
           },
           {
             "https://www.kika.de/mama-fuchs-und-papa-dachs/sendungen/videos/video66904-avCustom.xml",
+            FilmType.NORMAL,
             "/kika/kika_film_video2.xml",
             "Mama Fuchs und Papa Dachs",
             "17. Der Teddy",
@@ -112,6 +118,7 @@ public class KikaSendungsfolgeVideoDetailsTaskTest extends KikaTaskTestBase {
           },
           {
             "https://www.kika.de/gut-gebruellt-liebe-monster/sendungen/videos/misch-masch-salat-108-avCustom.xml",
+            FilmType.NORMAL,
             "/kika/kika_film_video_noresolution.xml",
             "Gut gebrüllt, liebe Monster!",
             "42. Misch-Masch-Salat",
@@ -127,6 +134,7 @@ public class KikaSendungsfolgeVideoDetailsTaskTest extends KikaTaskTestBase {
           },
           {
             "https://www.kika.de/av-import/ohne-sendungsbezug/felix-sucht-bakterien100-avCustom.xml",
+            FilmType.NORMAL,
             "/kika/kika_film_video3.xml",
             "ERDE AN ZUKUNFT",
             "Gefährliche Keime - wie schützen wir uns in Zukunft?",
@@ -142,6 +150,7 @@ public class KikaSendungsfolgeVideoDetailsTaskTest extends KikaTaskTestBase {
           },
           {
             "https://www.kika.de/erde-an-zukunft/charaktere/wunschkind/kw-survival-102-avCustom.xml",
+            FilmType.NORMAL,
             "/kika/kika_film_video4.xml",
             "Tristans Wunsch",
             "Überleben ohne Strom",
@@ -152,6 +161,38 @@ public class KikaSendungsfolgeVideoDetailsTaskTest extends KikaTaskTestBase {
             "https://pmdonlinekika-a.akamaihd.net/mp4dyn/7/FCMS-7b09f65c-8a90-4840-bef3-ea35b606f3a2-2cc6c1c1f632_7b.mp4",
             "https://pmdonlinekika-a.akamaihd.net/mp4dyn/7/FCMS-7b09f65c-8a90-4840-bef3-ea35b606f3a2-31e0be270130_7b.mp4",
             "https://pmdonlinekika-a.akamaihd.net/mp4dyn/7/FCMS-7b09f65c-8a90-4840-bef3-ea35b606f3a2-5a2c8da1cdb7_7b.mp4",
+            "",
+            GeoLocations.GEO_NONE
+          },
+          {
+            "https://www.kika.de/filme/sendungen/videos/tsatsiki-papa-und-der-olivenkrieg-104-avCustom.xml",
+            FilmType.NORMAL,
+            "/kika/kika_film_video5.xml",
+            "Filme",
+            "Tsatsiki - Papa und der Olivenkrieg",
+            "Der elfjährige Tsatsiki verbringt die Ferien bei seinem Vater in Griechenland. Ein perfekter Sommer, wäre sein Papa nicht in Geldnot.",
+            LocalDateTime.of(2021, 1, 26, 10, 15),
+            Duration.ofMinutes(87).plusSeconds(6),
+            "https://www.kika.de/filme/sendungen/videos/tsatsiki-papa-und-der-olivenkrieg-104.html",
+            "https://mediandr-a.akamaihd.net/progressive_geo/2018/1026/TV-20181026-1137-2700.mn.mp4",
+            "https://mediandr-a.akamaihd.net/progressive_geo/2018/1026/TV-20181026-1137-2700.hq.mp4",
+            "https://mediandr-a.akamaihd.net/progressive_geo/2018/1026/TV-20181026-1137-2700.hd.mp4",
+            "",
+            GeoLocations.GEO_NONE
+          },
+          {
+            "https://www.kika.de/videos/alle-dgs/video80444_zc-32cf7dfb_zs-c6524396.html",
+            FilmType.SIGN_LANGUAGE,
+            "/kika/kika_film_video_gbs.xml",
+            "Triff...",
+            "2. Kleopatra (mit Gebärdensprache)",
+            "Bei einer Stiermumienzeremonie trifft die zeitreisende Promireporterin Clarissa das erste Mal Kleopatra und erlebt die legendäre letzte Pharaonin als clevere Machtstrategin. Sie ist dabei, als Kleopatra im Teppich zu Cäsar getragen wird und überlegt mit ihr, ob Perlen zum teuersten Essen der Welt taugen. Im Ägyten von heute trifft sie nicht nur Kleopatra-Fans, sondern taucht auch in Alexandria nac\n.....",
+            LocalDateTime.of(2021, 1, 27, 7, 25, 0),
+            Duration.ofSeconds(1463),
+            "https://www.kika.de/triff/sendungen/sendung133538.html",
+            "https://pmdonlinekika-a.akamaihd.net/mp4dyn/4/FCMS-49c88205-d81c-42bb-89cd-000642d60fda-2cc6c1c1f632_49.mp4",
+            "https://pmdonlinekika-a.akamaihd.net/mp4dyn/4/FCMS-49c88205-d81c-42bb-89cd-000642d60fda-31e0be270130_49.mp4",
+            "https://pmdonlinekika-a.akamaihd.net/mp4dyn/4/FCMS-49c88205-d81c-42bb-89cd-000642d60fda-5a2c8da1cdb7_49.mp4",
             "",
             GeoLocations.GEO_NONE
           }
@@ -172,8 +213,8 @@ public class KikaSendungsfolgeVideoDetailsTaskTest extends KikaTaskTestBase {
             eq(requestUrl), anyInt(), any()))
         .thenReturn(document);
 
-    final Queue<CrawlerUrlDTO> urls = new ConcurrentLinkedQueue<>();
-    urls.add(new CrawlerUrlDTO(requestUrl));
+    final Queue<KikaCrawlerUrlDto> urls = new ConcurrentLinkedQueue<>();
+    urls.add(new KikaCrawlerUrlDto(requestUrl, filmType));
 
     final KikaSendungsfolgeVideoDetailsTask target =
         new KikaSendungsfolgeVideoDetailsTask(createCrawler(), urls);

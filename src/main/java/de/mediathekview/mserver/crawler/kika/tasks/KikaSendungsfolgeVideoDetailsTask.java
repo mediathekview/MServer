@@ -6,8 +6,9 @@ import de.mediathekview.mserver.base.utils.HtmlDocumentUtils;
 import de.mediathekview.mserver.base.webaccess.JsoupConnection;
 import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
 import de.mediathekview.mserver.crawler.basic.AbstractUrlTask;
-import de.mediathekview.mserver.crawler.basic.CrawlerUrlDTO;
 import de.mediathekview.mserver.crawler.basic.FilmUrlInfoDto;
+import de.mediathekview.mserver.crawler.kika.KikaCrawlerUrlDto;
+import de.mediathekview.mserver.crawler.kika.KikaCrawlerUrlDto.FilmType;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.jsoup.nodes.Document;
@@ -26,7 +27,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.concurrent.TimeUnit;
 
-public class KikaSendungsfolgeVideoDetailsTask extends AbstractUrlTask<Film, CrawlerUrlDTO> {
+public class KikaSendungsfolgeVideoDetailsTask extends AbstractUrlTask<Film, KikaCrawlerUrlDto> {
 
   private static final String ELEMENT_HTML_URL = "htmlUrl";
   private static final String ELEMENT_TOPLINE = "topline";
@@ -44,6 +45,8 @@ public class KikaSendungsfolgeVideoDetailsTask extends AbstractUrlTask<Film, Cra
   private static final String ELEMENT_TITLE = "title";
   private static final String ELEMENT_WEBTIME = "webTime";
   private static final String ELEMENT_CHANNELNAME = "channelName";
+  private static final String TITLE_EXTENSION_SIGN_LANGUAGE = "(mit Gebärdensprache)";
+  private static final String TITLE_EXTENSION_AUDIO_DESCRIPTION = "(Audiodeskription)";
   private static final Logger LOG = LogManager.getLogger(KikaSendungsfolgeVideoDetailsTask.class);
   private static final long serialVersionUID = 6336802731231493377L;
   private static final DateTimeFormatter webTimeFormatter =
@@ -52,8 +55,8 @@ public class KikaSendungsfolgeVideoDetailsTask extends AbstractUrlTask<Film, Cra
   private transient JsoupConnection jsoupConnection;
 
   public KikaSendungsfolgeVideoDetailsTask(
-      final AbstractCrawler aCrawler, final Queue<CrawlerUrlDTO> aUrlToCrawlDTOs) {
-    super(aCrawler, aUrlToCrawlDTOs);
+      final AbstractCrawler aCrawler, final Queue<KikaCrawlerUrlDto> aUrlToCrawlDtos) {
+    super(aCrawler, aUrlToCrawlDtos);
     jsoupConnection = new JsoupConnection();
   }
 
@@ -101,10 +104,11 @@ public class KikaSendungsfolgeVideoDetailsTask extends AbstractUrlTask<Film, Cra
 
   private Optional<Resolution> getResolutionFromProfile(final KikaFilmUrlInfoDto urlInfo) {
     final String profileName = urlInfo.getProfileName().toLowerCase();
-    if (profileName.contains("low")) {
+    if (profileName.contains("low") || profileName.contains("quality = 0")) {
       return Optional.of(Resolution.SMALL);
     }
-    if (profileName.contains("high")) {
+    if (profileName.contains("high")
+        || profileName.contains("quality = 2") || profileName.contains("quality = 1")) {
       return Optional.of(Resolution.NORMAL);
     }
     if (profileName.contains("720p25")) {
@@ -170,9 +174,9 @@ public class KikaSendungsfolgeVideoDetailsTask extends AbstractUrlTask<Film, Cra
     return Optional.empty();
   }
 
-  private Elements orAlternative(final Document aDocucument, final String... aTags) {
+  private Elements orAlternative(final Document aDocument, final String... aTags) {
     for (final String tag : aTags) {
-      final Elements tagElements = aDocucument.getElementsByTag(tag);
+      final Elements tagElements = aDocument.getElementsByTag(tag);
       if (!tagElements.isEmpty()) {
         return tagElements;
       }
@@ -199,17 +203,17 @@ public class KikaSendungsfolgeVideoDetailsTask extends AbstractUrlTask<Film, Cra
   }
 
   @Override
-  protected AbstractUrlTask<Film, CrawlerUrlDTO> createNewOwnInstance(
-      final Queue<CrawlerUrlDTO> aURLsToCrawl) {
-    return new KikaSendungsfolgeVideoDetailsTask(crawler, aURLsToCrawl);
+  protected AbstractUrlTask<Film, KikaCrawlerUrlDto> createNewOwnInstance(
+      final Queue<KikaCrawlerUrlDto> aUrlsToCrawl) {
+    return new KikaSendungsfolgeVideoDetailsTask(crawler, aUrlsToCrawl);
   }
 
   @Override
-  protected void processElement(final CrawlerUrlDTO urlDTO) {
+  protected void processElement(final KikaCrawlerUrlDto urlDto) {
     try {
       final Document document =
           jsoupConnection.getDocumentTimeoutAfterAlternativeDocumentType(
-              urlDTO.getUrl(),
+              urlDto.getUrl(),
               (int) TimeUnit.SECONDS.toMillis(config.getSocketTimeoutInSeconds()),
               Parser.xmlParser());
       final Elements titleNodes = orAlternative(document, ELEMENT_BROADCAST_NAME, ELEMENT_TITLE);
@@ -235,7 +239,7 @@ public class KikaSendungsfolgeVideoDetailsTask extends AbstractUrlTask<Film, Cra
           && !durationNodes.isEmpty()
           && !videoElements.isEmpty()) {
         final String thema = themaNodes.get(0).text();
-        final String title = titleNodes.get(0).text();
+        final String title = getTitle(titleNodes.get(0).text(), urlDto.getFilmType());
 
         final LocalDateTime time = parseTime(dateNodes, thema, title);
         Optional<Duration> dauer = HtmlDocumentUtils.parseDuration(durationNodes.get(0).text());
@@ -251,7 +255,7 @@ public class KikaSendungsfolgeVideoDetailsTask extends AbstractUrlTask<Film, Cra
         addGeo(newFilm);
 
         if (newFilm.getUrls().isEmpty()) {
-          LOG.error("Can't find/build valid download URLs for the film \"{} - {}\".", thema, title);
+          LOG.error("Can't find/build valid download URLs for the film \"{} - {} - {}\".", thema, title, urlDto.getUrl());
           crawler.incrementAndGetErrorCount();
           crawler.updateProgress();
         } else {
@@ -264,7 +268,7 @@ public class KikaSendungsfolgeVideoDetailsTask extends AbstractUrlTask<Film, Cra
           crawler.updateProgress();
         }
       } else {
-        LOG.error("The video with the URL \"{}\" has not all needed Elements", urlDTO.getUrl());
+        LOG.error("The video with the URL \"{}\" has not all needed Elements", urlDto.getUrl());
         crawler.incrementAndGetErrorCount();
         crawler.updateProgress();
       }
@@ -272,11 +276,21 @@ public class KikaSendungsfolgeVideoDetailsTask extends AbstractUrlTask<Film, Cra
       LOG.fatal(
           String.format(
               "Something went teribble wrong on getting the film details for the Kika film \"%s\".",
-              urlDTO.getUrl()),
+              urlDto.getUrl()),
           exception);
       crawler.incrementAndGetErrorCount();
       crawler.printErrorMessage();
     }
+  }
+
+  private String getTitle(String text, FilmType filmType) {
+    if (filmType == FilmType.SIGN_LANGUAGE) {
+      return String.format("%s %s", text, TITLE_EXTENSION_SIGN_LANGUAGE);
+    }
+    if (filmType == FilmType.AUDIO_DESCRIPTION) {
+      return String.format("%s %s", text, TITLE_EXTENSION_AUDIO_DESCRIPTION);
+    }
+    return text;
   }
 
   private void addGeo(final Film newFilm) {
