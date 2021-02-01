@@ -8,6 +8,8 @@ import de.mediathekview.mserver.crawler.basic.AbstractDocumentTask;
 import de.mediathekview.mserver.crawler.basic.AbstractUrlTask;
 import de.mediathekview.mserver.crawler.basic.CrawlerUrlDTO;
 import de.mediathekview.mserver.crawler.kika.KikaConstants;
+import de.mediathekview.mserver.crawler.kika.KikaCrawlerUrlDto;
+import de.mediathekview.mserver.crawler.kika.KikaCrawlerUrlDto.FilmType;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 
@@ -15,7 +17,7 @@ import java.util.Optional;
 import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
-public class KikaSendungVerpasstTask extends AbstractDocumentTask<CrawlerUrlDTO, CrawlerUrlDTO> {
+public class KikaSendungVerpasstTask extends AbstractDocumentTask<KikaCrawlerUrlDto, CrawlerUrlDTO> {
   private static final long serialVersionUID = -6483678632833327433L;
   private static final String PAGE_ANKER = "#";
   private static final String URL_SELECTOR = ".hasAvContent.programEntry .linkAll";
@@ -25,22 +27,22 @@ public class KikaSendungVerpasstTask extends AbstractDocumentTask<CrawlerUrlDTO,
 
   public KikaSendungVerpasstTask(
       final AbstractCrawler aCrawler,
-      final Queue<CrawlerUrlDTO> aUrlToCrawlDTOs,
+      final Queue<CrawlerUrlDTO> aUrlToCrawlDtos,
       final String aBaseUrl,
       final JsoupConnection jsoupConnection) {
-    super(aCrawler, aUrlToCrawlDTOs, jsoupConnection);
+    super(aCrawler, aUrlToCrawlDtos, jsoupConnection);
     baseUrl = aBaseUrl;
   }
 
   @Override
-  protected AbstractUrlTask<CrawlerUrlDTO, CrawlerUrlDTO> createNewOwnInstance(
-      final Queue<CrawlerUrlDTO> aURLsToCrawl) {
-    return new KikaSendungVerpasstTask(crawler, aURLsToCrawl, baseUrl, getJsoupConnection());
+  protected AbstractUrlTask<KikaCrawlerUrlDto, CrawlerUrlDTO> createNewOwnInstance(
+      final Queue<CrawlerUrlDTO> aUrlsToCrawl) {
+    return new KikaSendungVerpasstTask(crawler, aUrlsToCrawl, baseUrl, getJsoupConnection());
   }
 
   @Override
-  protected void processDocument(final CrawlerUrlDTO aUrlDTO, final Document aDocument) {
-    parseFilmUrls(aDocument);
+  protected void processDocument(final CrawlerUrlDTO aUrlDto, final Document aDocument) {
+    parseFilmUrls(aDocument, FilmType.NORMAL);
 
     final Queue<CrawlerUrlDTO> flexLoadUrls = parseFlexLoad(aDocument);
     if (!flexLoadUrls.isEmpty()) {
@@ -48,7 +50,7 @@ public class KikaSendungVerpasstTask extends AbstractDocumentTask<CrawlerUrlDTO,
     }
   }
 
-  private void parseFilmUrls(final Document aDocument) {
+  private void parseFilmUrls(final Document aDocument, FilmType filmType) {
     for (final Element filmUrlElement : aDocument.select(URL_SELECTOR)) {
       if (filmUrlElement.hasAttr(HtmlConsts.ATTRIBUTE_HREF)
           && !PAGE_ANKER.equals(filmUrlElement.attr(HtmlConsts.ATTRIBUTE_HREF))) {
@@ -56,7 +58,7 @@ public class KikaSendungVerpasstTask extends AbstractDocumentTask<CrawlerUrlDTO,
         final String url =
             UrlUtils.addDomainIfMissing(
                 filmUrlElement.attr(HtmlConsts.ATTRIBUTE_HREF), KikaConstants.BASE_URL);
-        taskResults.add(new CrawlerUrlDTO(url));
+        taskResults.add(new KikaCrawlerUrlDto(url, filmType));
       }
     }
   }
@@ -68,9 +70,7 @@ public class KikaSendungVerpasstTask extends AbstractDocumentTask<CrawlerUrlDTO,
       final Optional<String> url =
           KikaHelper.gatherIpgTriggerUrlFromElement(
               flexLoadElement, ATTRIBUTE_IPG_FLEX_LOAD_TRIGGER, baseUrl);
-      if (url.isPresent()) {
-        urls.add(new CrawlerUrlDTO(url.get()));
-      }
+      url.ifPresent(s -> urls.add(new CrawlerUrlDTO(s)));
     }
 
     return urls;

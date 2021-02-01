@@ -2,6 +2,8 @@ package de.mediathekview.mserver.crawler.kika.tasks;
 
 import de.mediathekview.mserver.base.webaccess.JsoupConnection;
 import de.mediathekview.mserver.crawler.basic.CrawlerUrlDTO;
+import de.mediathekview.mserver.crawler.kika.KikaCrawlerUrlDto;
+import de.mediathekview.mserver.crawler.kika.KikaCrawlerUrlDto.FilmType;
 import de.mediathekview.mserver.testhelper.JsoupMock;
 import org.jsoup.Connection;
 import org.junit.Before;
@@ -40,10 +42,10 @@ public class KikaSendungVerpasstTaskTest extends KikaTaskTestBase {
         JsoupMock.mock(requestUrl, "/kika/kika_days_page1_no_before_after.html");
     when(jsoupConnection.getConnection(eq(requestUrl))).thenReturn(connection);
 
-    final CrawlerUrlDTO[] expected =
-        new CrawlerUrlDTO[] {
-          new CrawlerUrlDTO("https://www.kika.de/rocket-ich/sendungen/sendung41156.html"),
-          new CrawlerUrlDTO("https://www.kika.de/rocket-ich/sendungen/sendung41184.html")
+    final KikaCrawlerUrlDto[] expected =
+        new KikaCrawlerUrlDto[] {
+          new KikaCrawlerUrlDto("https://www.kika.de/rocket-ich/sendungen/sendung41156.html", FilmType.NORMAL),
+          new KikaCrawlerUrlDto("https://www.kika.de/rocket-ich/sendungen/sendung41184.html", FilmType.NORMAL)
         };
 
     final Queue<CrawlerUrlDTO> urls = new ConcurrentLinkedQueue<>();
@@ -52,7 +54,7 @@ public class KikaSendungVerpasstTaskTest extends KikaTaskTestBase {
     final KikaSendungVerpasstTask target =
         new KikaSendungVerpasstTask(
             createCrawler(), urls, wireMockServer.baseUrl(), jsoupConnection);
-    final Set<CrawlerUrlDTO> actual = target.invoke();
+    final Set<KikaCrawlerUrlDto> actual = target.invoke();
 
     assertThat(actual.size(), equalTo(expected.length));
     assertThat(actual, containsInAnyOrder(expected));
@@ -91,7 +93,7 @@ public class KikaSendungVerpasstTaskTest extends KikaTaskTestBase {
     final KikaSendungVerpasstTask target =
         new KikaSendungVerpasstTask(
             createCrawler(), urls, wireMockServer.baseUrl(), jsoupConnection);
-    final Set<CrawlerUrlDTO> actual = target.invoke();
+    final Set<KikaCrawlerUrlDto> actual = target.invoke();
 
     assertThat(actual.size(), equalTo(15));
   }

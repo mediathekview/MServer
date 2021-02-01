@@ -4,7 +4,7 @@ import de.mediathekview.mserver.base.webaccess.JsoupConnection;
 import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
 import de.mediathekview.mserver.crawler.basic.AbstractDocumentTask;
 import de.mediathekview.mserver.crawler.basic.AbstractUrlTask;
-import de.mediathekview.mserver.crawler.basic.CrawlerUrlDTO;
+import de.mediathekview.mserver.crawler.kika.KikaCrawlerUrlDto;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
@@ -14,7 +14,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class KikaSendungsfolgeVideoUrlTask
-    extends AbstractDocumentTask<CrawlerUrlDTO, CrawlerUrlDTO> {
+    extends AbstractDocumentTask<KikaCrawlerUrlDto, KikaCrawlerUrlDto> {
   private static final String URL_TEMPLATE = "https://www.kika.de%s";
   private static final String HTTP = "http";
   private static final String ATTRIBUTE_ONCLICK = "onclick";
@@ -25,9 +25,9 @@ public class KikaSendungsfolgeVideoUrlTask
 
   public KikaSendungsfolgeVideoUrlTask(
       final AbstractCrawler aCrawler,
-      final Queue<CrawlerUrlDTO> aUrlToCrawlDTOs,
+      final Queue<KikaCrawlerUrlDto> aUrlToCrawlDtos,
       final JsoupConnection jsoupConnection) {
-    super(aCrawler, aUrlToCrawlDTOs, jsoupConnection);
+    super(aCrawler, aUrlToCrawlDtos, jsoupConnection);
   }
 
   private String toKikaUrl(final String aUrl) {
@@ -41,13 +41,13 @@ public class KikaSendungsfolgeVideoUrlTask
   }
 
   @Override
-  protected AbstractUrlTask<CrawlerUrlDTO, CrawlerUrlDTO> createNewOwnInstance(
-      final Queue<CrawlerUrlDTO> aURLsToCrawl) {
-    return new KikaSendungsfolgeVideoUrlTask(crawler, aURLsToCrawl, getJsoupConnection());
+  protected AbstractUrlTask<KikaCrawlerUrlDto, KikaCrawlerUrlDto> createNewOwnInstance(
+      final Queue<KikaCrawlerUrlDto> aUrlsToCrawl) {
+    return new KikaSendungsfolgeVideoUrlTask(crawler, aUrlsToCrawl, getJsoupConnection());
   }
 
   @Override
-  protected void processDocument(final CrawlerUrlDTO aUrlDTO, final Document aDocument) {
+  protected void processDocument(final KikaCrawlerUrlDto aUrlDto, final Document aDocument) {
     final Elements videoElements = aDocument.select(VIDEO_DATA_ELEMENT_SELECTOR);
     for (final Element videoDataElement : videoElements) {
       if (videoDataElement.hasAttr(ATTRIBUTE_ONCLICK)) {
@@ -55,8 +55,7 @@ public class KikaSendungsfolgeVideoUrlTask
         final Matcher videoUrlMatcher =
             Pattern.compile(VIDEO_URL_REGEX_PATTERN).matcher(rawVideoData);
         if (videoUrlMatcher.find()) {
-          taskResults.add(new CrawlerUrlDTO(toKikaUrl(videoUrlMatcher.group())));
-
+          taskResults.add(new KikaCrawlerUrlDto(toKikaUrl(videoUrlMatcher.group()), aUrlDto.getFilmType()));
         } else {
           crawler.printMissingElementErrorMessage("data url");
         }

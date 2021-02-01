@@ -2,7 +2,8 @@ package de.mediathekview.mserver.crawler.kika.tasks;
 
 import de.mediathekview.mlib.daten.Sender;
 import de.mediathekview.mserver.base.webaccess.JsoupConnection;
-import de.mediathekview.mserver.crawler.basic.CrawlerUrlDTO;
+import de.mediathekview.mserver.crawler.kika.KikaCrawlerUrlDto;
+import de.mediathekview.mserver.crawler.kika.KikaCrawlerUrlDto.FilmType;
 import de.mediathekview.mserver.testhelper.JsoupMock;
 import org.jsoup.Connection;
 import org.junit.Before;
@@ -42,24 +43,32 @@ public class KikaTopicOverviewPageTaskTest extends KikaTaskTestBase {
         JsoupMock.mock(requestUrl, "/kika/kika_topic2_overview_page.html");
     when(jsoupConnection.getConnection(eq(requestUrl))).thenReturn(connection);
 
-    final CrawlerUrlDTO[] expected =
-        new CrawlerUrlDTO[] {
-          new CrawlerUrlDTO(
-              wireMockServer.baseUrl() + "/alles-neu-fuer-lina/sendungen/sendung108102.html"),
-          new CrawlerUrlDTO(
-              wireMockServer.baseUrl() + "/alles-neu-fuer-lina/sendungen/sendung108104.html"),
-          new CrawlerUrlDTO(
-              wireMockServer.baseUrl() + "/alles-neu-fuer-lina/sendungen/sendung108136.html"),
-          new CrawlerUrlDTO(
-              wireMockServer.baseUrl() + "/alles-neu-fuer-lina/sendungen/sendung108138.html"),
-          new CrawlerUrlDTO(
-              wireMockServer.baseUrl() + "/alles-neu-fuer-lina/sendungen/sendung108140.html"),
-          new CrawlerUrlDTO(
-              wireMockServer.baseUrl() + "/alles-neu-fuer-lina/sendungen/sendung108142.html"),
-          new CrawlerUrlDTO(
-              wireMockServer.baseUrl() + "/alles-neu-fuer-lina/sendungen/sendung108144.html"),
-          new CrawlerUrlDTO(
-              wireMockServer.baseUrl() + "/alles-neu-fuer-lina/sendungen/sendung108146.html")
+    final KikaCrawlerUrlDto[] expected =
+        new KikaCrawlerUrlDto[] {
+          new KikaCrawlerUrlDto(
+              wireMockServer.baseUrl() + "/alles-neu-fuer-lina/sendungen/sendung108102.html",
+              FilmType.NORMAL),
+          new KikaCrawlerUrlDto(
+              wireMockServer.baseUrl() + "/alles-neu-fuer-lina/sendungen/sendung108104.html",
+              FilmType.NORMAL),
+          new KikaCrawlerUrlDto(
+              wireMockServer.baseUrl() + "/alles-neu-fuer-lina/sendungen/sendung108136.html",
+              FilmType.NORMAL),
+          new KikaCrawlerUrlDto(
+              wireMockServer.baseUrl() + "/alles-neu-fuer-lina/sendungen/sendung108138.html",
+              FilmType.NORMAL),
+          new KikaCrawlerUrlDto(
+              wireMockServer.baseUrl() + "/alles-neu-fuer-lina/sendungen/sendung108140.html",
+              FilmType.NORMAL),
+          new KikaCrawlerUrlDto(
+              wireMockServer.baseUrl() + "/alles-neu-fuer-lina/sendungen/sendung108142.html",
+              FilmType.NORMAL),
+          new KikaCrawlerUrlDto(
+              wireMockServer.baseUrl() + "/alles-neu-fuer-lina/sendungen/sendung108144.html",
+              FilmType.NORMAL),
+          new KikaCrawlerUrlDto(
+              wireMockServer.baseUrl() + "/alles-neu-fuer-lina/sendungen/sendung108146.html",
+              FilmType.NORMAL)
         };
 
     actAndAssert(requestUrl, expected);
@@ -69,23 +78,24 @@ public class KikaTopicOverviewPageTaskTest extends KikaTaskTestBase {
   public void testOverviewWithSinglePageWithoutBoxBroadcastLayout() throws IOException {
     rootConfig.getSenderConfig(Sender.KIKA).setMaximumSubpages(1);
 
-    final String requestUrl =
-        wireMockServer.baseUrl() + "/pur/sendungen/videos-pur-102.html";
+    final String requestUrl = wireMockServer.baseUrl() + "/pur/sendungen/videos-pur-102.html";
 
     final Connection connection =
         JsoupMock.mock(requestUrl, "/kika/kika_topic6_overview_no_boxbroadcast.html");
     when(jsoupConnection.getConnection(eq(requestUrl))).thenReturn(connection);
 
-    final CrawlerUrlDTO[] expected =
-        new CrawlerUrlDTO[] {
-            new CrawlerUrlDTO(
-                wireMockServer.baseUrl() + "/pur/sendungen/sendung133864.html"),
-            new CrawlerUrlDTO(
-                wireMockServer.baseUrl() + "/pur/sendungen/sendung133128.html"),
-            new CrawlerUrlDTO(
-                wireMockServer.baseUrl() + "/pur/sendungen/sendung132534.html"),
-            new CrawlerUrlDTO(
-                wireMockServer.baseUrl() + "/pur/sendungen/blobbing-horsing-und-co-spass-oder-sport-102.html")
+    final KikaCrawlerUrlDto[] expected =
+        new KikaCrawlerUrlDto[] {
+          new KikaCrawlerUrlDto(
+              wireMockServer.baseUrl() + "/pur/sendungen/sendung133864.html", FilmType.NORMAL),
+          new KikaCrawlerUrlDto(
+              wireMockServer.baseUrl() + "/pur/sendungen/sendung133128.html", FilmType.NORMAL),
+          new KikaCrawlerUrlDto(
+              wireMockServer.baseUrl() + "/pur/sendungen/sendung132534.html", FilmType.NORMAL),
+          new KikaCrawlerUrlDto(
+              wireMockServer.baseUrl()
+                  + "/pur/sendungen/blobbing-horsing-und-co-spass-oder-sport-102.html",
+              FilmType.NORMAL)
         };
 
     actAndAssert(requestUrl, expected);
@@ -122,24 +132,32 @@ public class KikaTopicOverviewPageTaskTest extends KikaTaskTestBase {
           }
         });
 
-    final CrawlerUrlDTO[] expected =
-        new CrawlerUrlDTO[] {
-          new CrawlerUrlDTO(
-              wireMockServer.baseUrl() + "/mama-fuchs-und-papa-dachs/sendungen/sendung111036.html"),
-          new CrawlerUrlDTO(
-              wireMockServer.baseUrl() + "/mama-fuchs-und-papa-dachs/sendungen/sendung111120.html"),
-          new CrawlerUrlDTO(
-              wireMockServer.baseUrl() + "/mama-fuchs-und-papa-dachs/sendungen/sendung111128.html"),
-          new CrawlerUrlDTO(
-              wireMockServer.baseUrl() + "/mama-fuchs-und-papa-dachs/sendungen/sendung111174.html"),
-          new CrawlerUrlDTO(
-              wireMockServer.baseUrl() + "/mama-fuchs-und-papa-dachs/sendungen/sendung111176.html"),
-          new CrawlerUrlDTO(
-              wireMockServer.baseUrl() + "/mama-fuchs-und-papa-dachs/sendungen/sendung111182.html"),
-          new CrawlerUrlDTO(
-              wireMockServer.baseUrl() + "/mama-fuchs-und-papa-dachs/sendungen/sendung111214.html"),
-          new CrawlerUrlDTO(
-              wireMockServer.baseUrl() + "/mama-fuchs-und-papa-dachs/sendungen/sendung111248.html")
+    final KikaCrawlerUrlDto[] expected =
+        new KikaCrawlerUrlDto[] {
+          new KikaCrawlerUrlDto(
+              wireMockServer.baseUrl() + "/mama-fuchs-und-papa-dachs/sendungen/sendung111036.html",
+              FilmType.NORMAL),
+          new KikaCrawlerUrlDto(
+              wireMockServer.baseUrl() + "/mama-fuchs-und-papa-dachs/sendungen/sendung111120.html",
+              FilmType.NORMAL),
+          new KikaCrawlerUrlDto(
+              wireMockServer.baseUrl() + "/mama-fuchs-und-papa-dachs/sendungen/sendung111128.html",
+              FilmType.NORMAL),
+          new KikaCrawlerUrlDto(
+              wireMockServer.baseUrl() + "/mama-fuchs-und-papa-dachs/sendungen/sendung111174.html",
+              FilmType.NORMAL),
+          new KikaCrawlerUrlDto(
+              wireMockServer.baseUrl() + "/mama-fuchs-und-papa-dachs/sendungen/sendung111176.html",
+              FilmType.NORMAL),
+          new KikaCrawlerUrlDto(
+              wireMockServer.baseUrl() + "/mama-fuchs-und-papa-dachs/sendungen/sendung111182.html",
+              FilmType.NORMAL),
+          new KikaCrawlerUrlDto(
+              wireMockServer.baseUrl() + "/mama-fuchs-und-papa-dachs/sendungen/sendung111214.html",
+              FilmType.NORMAL),
+          new KikaCrawlerUrlDto(
+              wireMockServer.baseUrl() + "/mama-fuchs-und-papa-dachs/sendungen/sendung111248.html",
+              FilmType.NORMAL)
         };
 
     actAndAssert(requestUrl, expected);
@@ -167,20 +185,26 @@ public class KikaTopicOverviewPageTaskTest extends KikaTaskTestBase {
           }
         });
 
-    final CrawlerUrlDTO[] expected =
-        new CrawlerUrlDTO[] {
-          new CrawlerUrlDTO(
-              wireMockServer.baseUrl() + "/mama-fuchs-und-papa-dachs/sendungen/sendung111036.html"),
-          new CrawlerUrlDTO(
-              wireMockServer.baseUrl() + "/mama-fuchs-und-papa-dachs/sendungen/sendung111120.html"),
-          new CrawlerUrlDTO(
-              wireMockServer.baseUrl() + "/mama-fuchs-und-papa-dachs/sendungen/sendung111128.html"),
-          new CrawlerUrlDTO(
-              wireMockServer.baseUrl() + "/mama-fuchs-und-papa-dachs/sendungen/sendung111174.html"),
-          new CrawlerUrlDTO(
-              wireMockServer.baseUrl() + "/mama-fuchs-und-papa-dachs/sendungen/sendung111176.html"),
-          new CrawlerUrlDTO(
-              wireMockServer.baseUrl() + "/mama-fuchs-und-papa-dachs/sendungen/sendung111182.html")
+    final KikaCrawlerUrlDto[] expected =
+        new KikaCrawlerUrlDto[] {
+          new KikaCrawlerUrlDto(
+              wireMockServer.baseUrl() + "/mama-fuchs-und-papa-dachs/sendungen/sendung111036.html",
+              FilmType.NORMAL),
+          new KikaCrawlerUrlDto(
+              wireMockServer.baseUrl() + "/mama-fuchs-und-papa-dachs/sendungen/sendung111120.html",
+              FilmType.NORMAL),
+          new KikaCrawlerUrlDto(
+              wireMockServer.baseUrl() + "/mama-fuchs-und-papa-dachs/sendungen/sendung111128.html",
+              FilmType.NORMAL),
+          new KikaCrawlerUrlDto(
+              wireMockServer.baseUrl() + "/mama-fuchs-und-papa-dachs/sendungen/sendung111174.html",
+              FilmType.NORMAL),
+          new KikaCrawlerUrlDto(
+              wireMockServer.baseUrl() + "/mama-fuchs-und-papa-dachs/sendungen/sendung111176.html",
+              FilmType.NORMAL),
+          new KikaCrawlerUrlDto(
+              wireMockServer.baseUrl() + "/mama-fuchs-und-papa-dachs/sendungen/sendung111182.html",
+              FilmType.NORMAL)
         };
 
     actAndAssert(requestUrl, expected);
@@ -213,22 +237,29 @@ public class KikaTopicOverviewPageTaskTest extends KikaTaskTestBase {
           }
         });
 
-    final CrawlerUrlDTO[] expected =
-        new CrawlerUrlDTO[] {
-          new CrawlerUrlDTO(
-              wireMockServer.baseUrl() + "/mama-fuchs-und-papa-dachs/sendungen/sendung111036.html"),
-          new CrawlerUrlDTO(
-              wireMockServer.baseUrl() + "/mama-fuchs-und-papa-dachs/sendungen/sendung111120.html"),
-          new CrawlerUrlDTO(
-              wireMockServer.baseUrl() + "/mama-fuchs-und-papa-dachs/sendungen/sendung111128.html"),
-          new CrawlerUrlDTO(
-              wireMockServer.baseUrl() + "/mama-fuchs-und-papa-dachs/sendungen/sendung111174.html"),
-          new CrawlerUrlDTO(
-              wireMockServer.baseUrl() + "/mama-fuchs-und-papa-dachs/sendungen/sendung111176.html"),
-          new CrawlerUrlDTO(
-              wireMockServer.baseUrl() + "/mama-fuchs-und-papa-dachs/sendungen/sendung111214.html"),
-          new CrawlerUrlDTO(
-              wireMockServer.baseUrl() + "/mama-fuchs-und-papa-dachs/sendungen/sendung111248.html")
+    final KikaCrawlerUrlDto[] expected =
+        new KikaCrawlerUrlDto[] {
+          new KikaCrawlerUrlDto(
+              wireMockServer.baseUrl() + "/mama-fuchs-und-papa-dachs/sendungen/sendung111036.html",
+              FilmType.NORMAL),
+          new KikaCrawlerUrlDto(
+              wireMockServer.baseUrl() + "/mama-fuchs-und-papa-dachs/sendungen/sendung111120.html",
+              FilmType.NORMAL),
+          new KikaCrawlerUrlDto(
+              wireMockServer.baseUrl() + "/mama-fuchs-und-papa-dachs/sendungen/sendung111128.html",
+              FilmType.NORMAL),
+          new KikaCrawlerUrlDto(
+              wireMockServer.baseUrl() + "/mama-fuchs-und-papa-dachs/sendungen/sendung111174.html",
+              FilmType.NORMAL),
+          new KikaCrawlerUrlDto(
+              wireMockServer.baseUrl() + "/mama-fuchs-und-papa-dachs/sendungen/sendung111176.html",
+              FilmType.NORMAL),
+          new KikaCrawlerUrlDto(
+              wireMockServer.baseUrl() + "/mama-fuchs-und-papa-dachs/sendungen/sendung111214.html",
+              FilmType.NORMAL),
+          new KikaCrawlerUrlDto(
+              wireMockServer.baseUrl() + "/mama-fuchs-und-papa-dachs/sendungen/sendung111248.html",
+              FilmType.NORMAL)
         };
 
     actAndAssert(requestUrl, expected);
@@ -265,37 +296,45 @@ public class KikaTopicOverviewPageTaskTest extends KikaTaskTestBase {
           }
         });
 
-    final CrawlerUrlDTO[] expected =
-        new CrawlerUrlDTO[] {
-          new CrawlerUrlDTO(
-              wireMockServer.baseUrl() + "/mama-fuchs-und-papa-dachs/sendungen/sendung111036.html"),
-          new CrawlerUrlDTO(
-              wireMockServer.baseUrl() + "/mama-fuchs-und-papa-dachs/sendungen/sendung111120.html"),
-          new CrawlerUrlDTO(
-              wireMockServer.baseUrl() + "/mama-fuchs-und-papa-dachs/sendungen/sendung111128.html"),
-          new CrawlerUrlDTO(
-              wireMockServer.baseUrl() + "/mama-fuchs-und-papa-dachs/sendungen/sendung111174.html"),
-          new CrawlerUrlDTO(
-              wireMockServer.baseUrl() + "/mama-fuchs-und-papa-dachs/sendungen/sendung111176.html"),
-          new CrawlerUrlDTO(
-              wireMockServer.baseUrl() + "/mama-fuchs-und-papa-dachs/sendungen/sendung111182.html"),
-          new CrawlerUrlDTO(
-              wireMockServer.baseUrl() + "/mama-fuchs-und-papa-dachs/sendungen/sendung111214.html"),
-          new CrawlerUrlDTO(
-              wireMockServer.baseUrl() + "/mama-fuchs-und-papa-dachs/sendungen/sendung111248.html")
+    final KikaCrawlerUrlDto[] expected =
+        new KikaCrawlerUrlDto[] {
+          new KikaCrawlerUrlDto(
+              wireMockServer.baseUrl() + "/mama-fuchs-und-papa-dachs/sendungen/sendung111036.html",
+              FilmType.NORMAL),
+          new KikaCrawlerUrlDto(
+              wireMockServer.baseUrl() + "/mama-fuchs-und-papa-dachs/sendungen/sendung111120.html",
+              FilmType.NORMAL),
+          new KikaCrawlerUrlDto(
+              wireMockServer.baseUrl() + "/mama-fuchs-und-papa-dachs/sendungen/sendung111128.html",
+              FilmType.NORMAL),
+          new KikaCrawlerUrlDto(
+              wireMockServer.baseUrl() + "/mama-fuchs-und-papa-dachs/sendungen/sendung111174.html",
+              FilmType.NORMAL),
+          new KikaCrawlerUrlDto(
+              wireMockServer.baseUrl() + "/mama-fuchs-und-papa-dachs/sendungen/sendung111176.html",
+              FilmType.NORMAL),
+          new KikaCrawlerUrlDto(
+              wireMockServer.baseUrl() + "/mama-fuchs-und-papa-dachs/sendungen/sendung111182.html",
+              FilmType.NORMAL),
+          new KikaCrawlerUrlDto(
+              wireMockServer.baseUrl() + "/mama-fuchs-und-papa-dachs/sendungen/sendung111214.html",
+              FilmType.NORMAL),
+          new KikaCrawlerUrlDto(
+              wireMockServer.baseUrl() + "/mama-fuchs-und-papa-dachs/sendungen/sendung111248.html",
+              FilmType.NORMAL)
         };
 
     actAndAssert(requestUrl, expected);
   }
 
-  private void actAndAssert(final String requestUrl, final CrawlerUrlDTO[] expected) {
-    final Queue<CrawlerUrlDTO> urls = new ConcurrentLinkedQueue<>();
-    urls.add(new CrawlerUrlDTO(requestUrl));
+  private void actAndAssert(final String requestUrl, final KikaCrawlerUrlDto[] expected) {
+    final Queue<KikaCrawlerUrlDto> urls = new ConcurrentLinkedQueue<>();
+    urls.add(new KikaCrawlerUrlDto(requestUrl, FilmType.NORMAL));
 
     final KikaTopicOverviewPageTask target =
         new KikaTopicOverviewPageTask(
             createCrawler(), urls, wireMockServer.baseUrl(), jsoupConnection);
-    final Set<CrawlerUrlDTO> actual = target.invoke();
+    final Set<KikaCrawlerUrlDto> actual = target.invoke();
 
     assertThat(actual.size(), equalTo(expected.length));
     assertThat(actual, containsInAnyOrder(expected));

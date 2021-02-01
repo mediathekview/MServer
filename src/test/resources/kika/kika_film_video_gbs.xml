@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<avDocument>
+  <type>video</type>
+  <documentType>video</documentType>
+  <ivwEnabled>true</ivwEnabled>
+  <comScorePixelUrl />
+  <cmsTrackingUrl>/webapp/doTrack/pixel.png?docId=video80444&amp;amp;docPath=61927491-6ba8-4a70-b340-fb7c2f23f90f%7C444cffc5-eb31-45fa-abaa-b437bcce0afc%7C70744580-46d0-4e2e-8d69-35c018e9ff11%7Ce13e3c05-7a4c-41c9-b869-25f0bec29673%7Cc0525d2b-951e-433b-b524-13076b590896%7C1221e37d-dc4c-4708-a49e-3d2ef50cf4e2%7C6d95e5df-dfa5-4443-ae62-c8d7e595004c&amp;amp;docType=video</cmsTrackingUrl>
+  <webTime>27.01.2021 19:26</webTime>
+  <effectiveEndDate>27.01.2023 19:25</effectiveEndDate>
+  <language>de</language>
+  <styleSheets />
+  <headline>2. Kleopatra - mit Gebärdensprache</headline>
+  <topline>Triff...</topline>
+  <title>2. Kleopatra - mit Gebärdensprache</title>
+  <htmlUrl>https://www.kika.de/triff/sendungen/videos_gebaerde/video80444.html</htmlUrl>
+  <recommendUrl>https://www.kika.de/triff/sendungen/videos_gebaerde/video80444-recommendForm.html</recommendUrl>
+  <recommendFormUrl>https://www.kika.de/triff/sendungen/videos_gebaerde/video80444-recommendForm.html</recommendFormUrl>
+  <infoLayerUrl>https://www.kika.de/triff/sendungen/videos_gebaerde/video80444-infolayer.html</infoLayerUrl>
+  <adVideoUrl>https://www.kika.de/triff/sendungen/videos_hoerfilme/video80454-avCustom.xml</adVideoUrl>
+  <dgsVideoUrl>https://www.kika.de/triff/sendungen/videos_gebaerde/video80444-avCustom.xml</dgsVideoUrl>
+  <mainVideoUrl>https://www.kika.de/triff/sendungen/videos/video65198-avCustom.xml</mainVideoUrl>
+  <offlineAvailable>false</offlineAvailable>
+  <videoSubtitleUrl>https://www.kika.de/triff/sendungen/videos_gebaerde/video80444-subtitle.xml</videoSubtitleUrl>
+  <webvttUrl>https://www.kika.de/triff/sendungen/videos_gebaerde/video80444-subtitle_xsl-ebutt2webvttExtended_zc-cfe5fcbc.vtt</webvttUrl>
+  <relatedVideosUrl>https://www.kika.de/triff/sendungen/videos_gebaerde/video80444-related.html</relatedVideosUrl>
+  <agf-tracking>
+    <assetid>video80444</assetid>
+    <length>1463</length>
+    <c0>0</c0>
+    <c2>N</c2>
+    <c5>https://www.kika.de/triff/sendungen/videos_gebaerde/video80444.html</c5>
+    <c7>VOID49c88205-d81c-42bb-89cd-000642d60fda</c7>
+    <c8>1463</c8>
+    <c9>2. Kleopatra - mit Gebärdensprache_2. Kleopatra - mit Gebärdensprache_2021-01-27T19:25:00</c9>
+    <c10>kika.de</c10>
+    <c12>Content</c12>
+    <c14>2021-01-27T19:25:00</c14>
+    <c15>431/21/004.204.489</c15>
+    <c16>Kinder</c16>
+    <c18>N</c18>
+    <program>Triff...</program>
+    <title>2. Kleopatra - mit Gebärdensprache_2. Kleopatra - mit Gebärdensprache_2021-01-27T19:25:00</title>
+    <type>content</type>
+  </agf-tracking>
+  <teaserimages>
+    <teaserimage>
+      <url>https://cdn.kika.de/triff/sendungen/bilder/dg228-resimage_v-**aspectRatio**_w-**width**.jpg?version=38781</url>
+      <variants>
+        <large>tlarge169</large>
+        <small>tsmall169</small>
+      </variants>
+    </teaserimage>
+  </teaserimages>
+  <assets>
+    <asset>
+      <profileName>Video 2014 | MP4 Web M | 16:9 | 512x288</profileName>
+      <fileName>FCMS-49c88205-d81c-42bb-89cd-000642d60fda-2cc6c1c1f632_49.mp4</fileName>
+      <mediaType>MP4</mediaType>
+      <frameWidth>512</frameWidth>
+      <frameHeight>288</frameHeight>
+      <bitrateVideo>512000</bitrateVideo>
+      <bitrateAudio>96000</bitrateAudio>
+      <fileSize>111749620</fileSize>
+      <adaptiveHttpStreamingRedirectorUrl>https://kikaonlinehls-vh.akamaihd.net/i/mp4dyn/4/VOID49c88205-d81c-42bb-89cd-000642d60fda.smil/master.m3u8</adaptiveHttpStreamingRedirectorUrl>
+      <progressiveDownloadUrl>https://pmdonlinekika-a.akamaihd.net/mp4dyn/4/FCMS-49c88205-d81c-42bb-89cd-000642d60fda-2cc6c1c1f632_49.mp4</progressiveDownloadUrl>
+    </asset>
+    <asset>
+      <profileName>Video 2014 | MP4 Web L | 16:9 | 960x540</profileName>
+      <fileName>FCMS-49c88205-d81c-42bb-89cd-000642d60fda-31e0be270130_49.mp4</fileName>
+      <mediaType>MP4</mediaType>
+      <frameWidth>960</frameWidth>
+      <frameHeight>540</frameHeight>
+      <bitrateVideo>1800000</bitrateVideo>
+      <bitrateAudio>192000</bitrateAudio>
+      <fileSize>365038529</fileSize>
+      <adaptiveHttpStreamingRedirectorUrl>https://kikaonlinehls-vh.akamaihd.net/i/mp4dyn/4/VOID49c88205-d81c-42bb-89cd-000642d60fda.smil/master.m3u8</adaptiveHttpStreamingRedirectorUrl>
+      <progressiveDownloadUrl>https://pmdonlinekika-a.akamaihd.net/mp4dyn/4/FCMS-49c88205-d81c-42bb-89cd-000642d60fda-31e0be270130_49.mp4</progressiveDownloadUrl>
+    </asset>
+    <asset>
+      <profileName>Video 2014 | MP4 Web S | 16:9 | 320x180</profileName>
+      <fileName>FCMS-49c88205-d81c-42bb-89cd-000642d60fda-c0fb86e38f5a_49.mp4</fileName>
+      <mediaType>MP4</mediaType>
+      <frameWidth>320</frameWidth>
+      <frameHeight>180</frameHeight>
+      <bitrateVideo>128000</bitrateVideo>
+      <bitrateAudio>56000</bitrateAudio>
+      <fileSize>33831475</fileSize>
+      <adaptiveHttpStreamingRedirectorUrl>https://kikaonlinehls-vh.akamaihd.net/i/mp4dyn/4/VOID49c88205-d81c-42bb-89cd-000642d60fda.smil/master.m3u8</adaptiveHttpStreamingRedirectorUrl>
+      <progressiveDownloadUrl>https://pmdonlinekika-a.akamaihd.net/mp4dyn/4/FCMS-49c88205-d81c-42bb-89cd-000642d60fda-c0fb86e38f5a_49.mp4</progressiveDownloadUrl>
+    </asset>
+    <asset>
+      <profileName>Video 2018 | MP4 720p25 | Web XL| 16:9 | 1280x720</profileName>
+      <fileName>FCMS-49c88205-d81c-42bb-89cd-000642d60fda-5a2c8da1cdb7_49.mp4</fileName>
+      <mediaType>MP4</mediaType>
+      <frameWidth>1280</frameWidth>
+      <frameHeight>720</frameHeight>
+      <bitrateVideo>3584000</bitrateVideo>
+      <bitrateAudio>192000</bitrateAudio>
+      <fileSize>691486456</fileSize>
+      <adaptiveHttpStreamingRedirectorUrl>https://kikaonlinehls-vh.akamaihd.net/i/mp4dyn/4/VOID49c88205-d81c-42bb-89cd-000642d60fda.smil/master.m3u8</adaptiveHttpStreamingRedirectorUrl>
+      <rtspStreamingUrl>http://pmdonlinekika-a.akamaihd.net/mp4dyn/4/FCMS-49c88205-d81c-42bb-89cd-000642d60fda-5a2c8da1cdb7_49.mp4</rtspStreamingUrl>
+      <progressiveDownloadUrl>https://pmdonlinekika-a.akamaihd.net/mp4dyn/4/FCMS-49c88205-d81c-42bb-89cd-000642d60fda-5a2c8da1cdb7_49.mp4</progressiveDownloadUrl>
+    </asset>
+    <asset>
+      <profileName>Video 2014 | MP4 Web L mobil  | 16:9 | 640x360</profileName>
+      <fileName>FCMS-49c88205-d81c-42bb-89cd-000642d60fda-6b00429f6b07_49.mp4</fileName>
+      <mediaType>MP4</mediaType>
+      <frameWidth>640</frameWidth>
+      <frameHeight>360</frameHeight>
+      <bitrateVideo>1024000</bitrateVideo>
+      <bitrateAudio>192000</bitrateAudio>
+      <fileSize>223048335</fileSize>
+      <adaptiveHttpStreamingRedirectorUrl>https://kikaonlinehls-vh.akamaihd.net/i/mp4dyn/4/VOID49c88205-d81c-42bb-89cd-000642d60fda.smil/master.m3u8</adaptiveHttpStreamingRedirectorUrl>
+      <progressiveDownloadUrl>https://pmdonlinekika-a.akamaihd.net/mp4dyn/4/FCMS-49c88205-d81c-42bb-89cd-000642d60fda-6b00429f6b07_49.mp4</progressiveDownloadUrl>
+    </asset>
+    <asset>
+      <profileName>Video 2014 | MP4 Web M Mobil | 16:9 | 480x270</profileName>
+      <fileName>FCMS-49c88205-d81c-42bb-89cd-000642d60fda-3c3a2d2ca7c6_49.mp4</fileName>
+      <mediaType>MP4</mediaType>
+      <frameWidth>480</frameWidth>
+      <frameHeight>270</frameHeight>
+      <bitrateVideo>256000</bitrateVideo>
+      <bitrateAudio>64000</bitrateAudio>
+      <fileSize>59080846</fileSize>
+      <adaptiveHttpStreamingRedirectorUrl>https://kikaonlinehls-vh.akamaihd.net/i/mp4dyn/4/VOID49c88205-d81c-42bb-89cd-000642d60fda.smil/master.m3u8</adaptiveHttpStreamingRedirectorUrl>
+      <progressiveDownloadUrl>https://pmdonlinekika-a.akamaihd.net/mp4dyn/4/FCMS-49c88205-d81c-42bb-89cd-000642d60fda-3c3a2d2ca7c6_49.mp4</progressiveDownloadUrl>
+    </asset>
+  </assets>
+  <duration>24:23</duration>
+  <rights>KiKA</rights>
+  <transmissionType>online</transmissionType>
+  <chapterEntries />
+  <broadcast>
+    <channelName>Triff...</channelName>
+    <broadcastName>2. Kleopatra</broadcastName>
+    <broadcastDescription>Bei einer Stiermumienzeremonie trifft die zeitreisende Promireporterin Clarissa das erste Mal Kleopatra und erlebt die legendäre letzte Pharaonin als clevere Machtstrategin. Sie ist dabei, als Kleopatra im Teppich zu Cäsar getragen wird und überlegt mit ihr, ob Perlen zum teuersten Essen der Welt taugen. Im Ägyten von heute trifft sie nicht nur Kleopatra-Fans, sondern taucht auch in Alexandria nach den Ruinen von Kleopatras Palast.</broadcastDescription>
+    <broadcastDate>2021-01-27T07:25:00.000+0100</broadcastDate>
+    <broadcastURL>https://www.kika.de/triff/sendungen/sendung133538.html</broadcastURL>
+    <broadcastSeriesName>Triff...</broadcastSeriesName>
+    <broadcastSeriesURL>https://www.kika.de/triff/triff-106.html</broadcastSeriesURL>
+  </broadcast>
+  <atiTracking>
+    <site>596354</site>
+    <page>
+      <name>video80444</name>
+      <level2>1</level2>
+      <chapter1><!--#include virtual="/system/convertATInternetUrl.jsp?mode=chapter1&url=$DOCUMENT_URI&redirectUrl=$REDIRECT_URL&scriptUri=$SCRIPT_URI&additionalData=&correctedValue=" --></chapter1>
+      <chapter2><!--#include virtual="/system/convertATInternetUrl.jsp?mode=chapter2&url=$DOCUMENT_URI&redirectUrl=$REDIRECT_URL&scriptUri=$SCRIPT_URI&additionalData=&correctedValue=" --></chapter2>
+      <chapter3><!--#include virtual="/system/convertATInternetUrl.jsp?mode=chapter3&url=$DOCUMENT_URI&redirectUrl=$REDIRECT_URL&scriptUri=$SCRIPT_URI&additionalData=&correctedValue=" --></chapter3>
+      <customObject>
+        <G1 />
+        <G2 />
+        <G3 />
+        <G4 />
+        <G5 />
+        <G6 />
+        <G7 />
+        <G8 />
+        <G9 />
+        <G10 />
+      </customObject>
+    </page>
+    <customVars>
+      <site>
+        <x1>[<!--#include virtual="/system/convertATInternetUrl.jsp?mode=absoluteUrl&url=$DOCUMENT_URI&redirectUrl=$REDIRECT_URL&scriptUri=$SCRIPT_URI&additionalData=&correctedValue=" -->]</x1>
+        <x2>[]</x2>
+        <x3>[Web]</x3>
+        <x4>0</x4>
+        <x5>[]</x5>
+        <x6>[<!--#include virtual="/system/convertATInternetUrl.jsp?mode=urlPath&url=$DOCUMENT_URI&redirectUrl=$REDIRECT_URL&scriptUri=$SCRIPT_URI&additionalData=&correctedValue=" -->.video80444]</x6>
+        <x7>[kika.sendungen.sendereihen.t.triff.sendungen.videos%5Fgebaerde]</x7>
+        <x8>[video80444]</x8>
+        <x9>[6cb97ba1%2De0fa%2D47fe%2D884e%2D7a4afa35fe02]</x9>
+        <x10>[2.%20Kleopatra%20%2D%20mit%20Geb%C3%A4rdensprache]</x10>
+        <x11>[2020.02.02T19%3A33]</x11>
+        <x12>[2021.01.27T19%3A26]</x12>
+        <x13>[video]</x13>
+        <x14>[]</x14>
+        <x15>[2.%20Kleopatra]</x15>
+        <x16>[Triff...]</x16>
+        <x17>8</x17>
+        <x18>[Ganze%20Sendung]</x18>
+        <x19>[TV]</x19>
+        <x20 />
+      </site>
+    </customVars>
+    <richMedia>
+      <mediaType>video</mediaType>
+      <mediaLabel>video80444</mediaLabel>
+      <mediaTheme1>Triff...</mediaTheme1>
+      <mediaTheme2>2.%20Kleopatra%20%2D%20mit%20Geb%C3%A4rdensprache%7CTV%7CZG08%7C2020.02.02T19%3A33%7CDGS</mediaTheme2>
+      <mediaTheme3><!--#include virtual="/system/convertATInternetUrl.jsp?mode=urlPath&url=$DOCUMENT_URI&redirectUrl=$REDIRECT_URL&scriptUri=$SCRIPT_URI&additionalData=&correctedValue=" -->.video80444.tool.avPlayer</mediaTheme3>
+      <refreshDuration>0:10,1:30,10:60</refreshDuration>
+      <duration>1463</duration>
+      <broadcastMode>clip</broadcastMode>
+    </richMedia>
+  </atiTracking>
+</avDocument>

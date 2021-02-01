@@ -6,7 +6,8 @@ import de.mediathekview.mserver.base.webaccess.JsoupConnection;
 import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
 import de.mediathekview.mserver.crawler.basic.AbstractDocumentTask;
 import de.mediathekview.mserver.crawler.basic.AbstractRecursiveConverterTask;
-import de.mediathekview.mserver.crawler.basic.CrawlerUrlDTO;
+import de.mediathekview.mserver.crawler.kika.KikaCrawlerUrlDto;
+import de.mediathekview.mserver.crawler.kika.KikaCrawlerUrlDto.FilmType;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
@@ -17,7 +18,7 @@ import java.util.Queue;
 import java.util.Set;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
-public class KikaTopicOverviewPageTask extends AbstractDocumentTask<CrawlerUrlDTO, CrawlerUrlDTO> {
+public class KikaTopicOverviewPageTask extends AbstractDocumentTask<KikaCrawlerUrlDto, KikaCrawlerUrlDto> {
 
   private static final String SELECTOR_TOPIC_OVERVIEW_WITH_BOXBROADCAST = "div.boxBroadcast a.linkAll";
   // siehe PUR+, es gibt nicht immer einen boxBroadcast
@@ -32,7 +33,7 @@ public class KikaTopicOverviewPageTask extends AbstractDocumentTask<CrawlerUrlDT
 
   public KikaTopicOverviewPageTask(
       final AbstractCrawler aCrawler,
-      final Queue<CrawlerUrlDTO> aUrlToCrawlDtos,
+      final Queue<KikaCrawlerUrlDto> aUrlToCrawlDtos,
       final String aBaseUrl,
       final JsoupConnection jsoupConnection) {
     this(aCrawler, aUrlToCrawlDtos, aBaseUrl, jsoupConnection, 1);
@@ -40,7 +41,7 @@ public class KikaTopicOverviewPageTask extends AbstractDocumentTask<CrawlerUrlDT
 
   private KikaTopicOverviewPageTask(
       final AbstractCrawler aCrawler,
-      final Queue<CrawlerUrlDTO> aUrlToCrawlDtos,
+      final Queue<KikaCrawlerUrlDto> aUrlToCrawlDtos,
       final String aBaseUrl,
       final JsoupConnection jsoupConnection,
       final int pageNumber) {
@@ -50,12 +51,12 @@ public class KikaTopicOverviewPageTask extends AbstractDocumentTask<CrawlerUrlDT
   }
 
   @Override
-  protected void processDocument(final CrawlerUrlDTO aUrlDto, final Document aDocument) {
-    parseFilmUrls(aDocument);
+  protected void processDocument(final KikaCrawlerUrlDto aUrlDto, final Document aDocument) {
+    parseFilmUrls(aDocument, aUrlDto.getFilmType());
 
     if (pageNumber == 1) {
-      final List<CrawlerUrlDTO> nextPageUrls =
-          sortNextPageUrls(parseNextPageUrls(aDocument), aUrlDto);
+      final List<KikaCrawlerUrlDto> nextPageUrls =
+          sortNextPageUrls(parseNextPageUrls(aDocument, aUrlDto.getFilmType()), aUrlDto);
 
       if (!nextPageUrls.isEmpty()) {
         final int maxSubPage =
@@ -76,8 +77,8 @@ public class KikaTopicOverviewPageTask extends AbstractDocumentTask<CrawlerUrlDT
    * @param actualUrl Url der aktuellen Seite
    * @return sortierte Liste der Übersichtsseiten
    */
-  private List<CrawlerUrlDTO> sortNextPageUrls(
-      final List<CrawlerUrlDTO> nextPageUrls, final CrawlerUrlDTO actualUrl) {
+  private List<KikaCrawlerUrlDto> sortNextPageUrls(
+      final List<KikaCrawlerUrlDto> nextPageUrls, final KikaCrawlerUrlDto actualUrl) {
 
     if (nextPageUrls.isEmpty()) {
       return nextPageUrls;
@@ -90,7 +91,7 @@ public class KikaTopicOverviewPageTask extends AbstractDocumentTask<CrawlerUrlDT
       return nextPageUrls;
     }
 
-    final List<CrawlerUrlDTO> sortedUrls = new ArrayList<>();
+    final List<KikaCrawlerUrlDto> sortedUrls = new ArrayList<>();
 
     for (int i = actualIndex; i < nextPageUrls.size(); i++) {
       sortedUrls.add(nextPageUrls.get(i));
@@ -102,53 +103,52 @@ public class KikaTopicOverviewPageTask extends AbstractDocumentTask<CrawlerUrlDT
     return sortedUrls;
   }
 
-  private void loadNextPage(final List<CrawlerUrlDTO> nextPageUrls) {
+  private void loadNextPage(final List<KikaCrawlerUrlDto> nextPageUrls) {
     if (nextPageUrls.isEmpty()) {
       return;
     }
 
-    final Queue<CrawlerUrlDTO> nextPageLinks = new ConcurrentLinkedQueue<>();
-    nextPageLinks.addAll(nextPageUrls);
-    final AbstractRecursiveConverterTask<CrawlerUrlDTO, CrawlerUrlDTO> subPageCrawler =
+    final Queue<KikaCrawlerUrlDto> nextPageLinks = new ConcurrentLinkedQueue<>(nextPageUrls);
+    final AbstractRecursiveConverterTask<KikaCrawlerUrlDto, KikaCrawlerUrlDto> subPageCrawler =
         createNewOwnInstance(nextPageLinks, pageNumber + 1);
     subPageCrawler.fork();
-    final Set<CrawlerUrlDTO> join = subPageCrawler.join();
+    final Set<KikaCrawlerUrlDto> join = subPageCrawler.join();
     taskResults.addAll(join);
   }
 
-  private void parseFilmUrls(final Document aDocument) {
+  private void parseFilmUrls(final Document aDocument, FilmType filmType) {
     Elements urlElements = aDocument.select(SELECTOR_TOPIC_OVERVIEW_WITH_BOXBROADCAST);
-    if (urlElements.size() == 0) {
+    if (urlElements.isEmpty()) {
       urlElements = aDocument.select(SELECTOR_TOPIC_OVERVIEW_NO_BOXBROADCAST);
     }
     for (final Element urlElement : urlElements) {
       final String url = urlElement.attr(HtmlConsts.ATTRIBUTE_HREF);
       final Element iconElement = urlElement.parent().select(SELECTOR_TYPE_ICON).first();
       if (iconElement != null && iconElement.text().equals(ENTRY_ICON_FILM)) {
-        taskResults.add(new CrawlerUrlDTO(UrlUtils.addDomainIfMissing(url, baseUrl)));
+        taskResults.add(new KikaCrawlerUrlDto(UrlUtils.addDomainIfMissing(url, baseUrl), filmType));
       }
     }
   }
 
   @Override
-  protected AbstractRecursiveConverterTask<CrawlerUrlDTO, CrawlerUrlDTO> createNewOwnInstance(
-      final Queue<CrawlerUrlDTO> aElementsToProcess) {
+  protected AbstractRecursiveConverterTask<KikaCrawlerUrlDto, KikaCrawlerUrlDto> createNewOwnInstance(
+      final Queue<KikaCrawlerUrlDto> aElementsToProcess) {
     return createNewOwnInstance(aElementsToProcess, 1);
   }
 
-  private AbstractRecursiveConverterTask<CrawlerUrlDTO, CrawlerUrlDTO> createNewOwnInstance(
-      final Queue<CrawlerUrlDTO> aElementsToProcess, final int aPageNumber) {
+  private AbstractRecursiveConverterTask<KikaCrawlerUrlDto, KikaCrawlerUrlDto> createNewOwnInstance(
+      final Queue<KikaCrawlerUrlDto> aElementsToProcess, final int aPageNumber) {
     return new KikaTopicOverviewPageTask(
         crawler, aElementsToProcess, baseUrl, getJsoupConnection(), aPageNumber);
   }
 
-  private List<CrawlerUrlDTO> parseNextPageUrls(final Document aDocument) {
-    final List<CrawlerUrlDTO> nextPages = new ArrayList<>();
+  private List<KikaCrawlerUrlDto> parseNextPageUrls(final Document aDocument, FilmType filmType) {
+    final List<KikaCrawlerUrlDto> nextPages = new ArrayList<>();
 
     final Elements subPageElements = aDocument.select(SELECTOR_SUBPAGES);
     for (final Element subPageElement : subPageElements) {
       final String url = subPageElement.attr(HtmlConsts.ATTRIBUTE_HREF);
-      nextPages.add(new CrawlerUrlDTO(UrlUtils.addDomainIfMissing(url, baseUrl)));
+      nextPages.add(new KikaCrawlerUrlDto(UrlUtils.addDomainIfMissing(url, baseUrl), filmType));
     }
 
     return nextPages;
