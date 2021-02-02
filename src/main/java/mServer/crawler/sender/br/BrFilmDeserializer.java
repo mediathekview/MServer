@@ -301,7 +301,12 @@ public class BrFilmDeserializer implements JsonDeserializer<Optional<DatenFilm>>
       return Optional.empty();
     }
 
-    final JsonObject initialScreening = aDetailClip.getAsJsonObject(JSON_ELEMENT_INITIAL_SCREENING);
+    final JsonElement initialScreeningElement = aDetailClip.get(JSON_ELEMENT_INITIAL_SCREENING);
+    if (initialScreeningElement.isJsonNull()) {
+      return Optional.empty();
+    }
+
+    final JsonObject initialScreening = initialScreeningElement.getAsJsonObject();
     if (!initialScreening.has(JSON_ELEMENT_START)) {
       return Optional.empty();
     }
