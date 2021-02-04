@@ -31,6 +31,7 @@ import mServer.crawler.sender.arte.MediathekArte_de;
 import mServer.crawler.sender.arte.MediathekArte_fr;
 import mServer.crawler.sender.br.BrCrawler;
 import mServer.crawler.sender.dreisat.DreiSatCrawler;
+import mServer.crawler.sender.kika.KikaCrawler;
 import mServer.crawler.sender.orf.OrfCrawler;
 import mServer.crawler.sender.phoenix.PhoenixCrawler;
 import mServer.crawler.sender.sr.SrCrawler;
@@ -75,7 +76,7 @@ public class FilmeSuchen {
     mediathekListe.add(new MediathekArte_de(this, 0));
     mediathekListe.add(new MediathekArte_fr(this, 1));
     mediathekListe.add(new DreiSatCrawler(this, 1));
-    mediathekListe.add(new MediathekKika(this, 0));
+    mediathekListe.add(new KikaCrawler(this, 0));
     mediathekListe.add(new MediathekDw(this, 0));
     // Spalte 2
     mediathekListe.add(new MediathekHr(this, 0));

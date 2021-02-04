@@ -7,7 +7,6 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.TimeUnit;
 import mServer.crawler.sender.MediathekReader;
 import org.jsoup.HttpStatusException;
-import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 
 /**
@@ -26,9 +25,19 @@ public abstract class AbstractDocumentTask<T, D extends CrawlerUrlDTO>
   private static final String LOAD_DOCUMENT_HTTPERROR
           = "Some HTTP error happened while crawl the %s page \"%s\".";
 
-  public AbstractDocumentTask(final MediathekReader aCrawler,
-          final ConcurrentLinkedQueue<D> aUrlToCrawlDTOs) {
+  private final transient JsoupConnection jsoupConnection;
+
+  protected AbstractDocumentTask(final MediathekReader aCrawler,
+                              final ConcurrentLinkedQueue<D> aUrlToCrawlDTOs) {
     super(aCrawler, aUrlToCrawlDTOs);
+    this.jsoupConnection = new JsoupConnection();
+  }
+
+  protected AbstractDocumentTask(final MediathekReader aCrawler,
+          final ConcurrentLinkedQueue<D> aUrlToCrawlDTOs,
+                              final JsoupConnection jsoupConnection) {
+    super(aCrawler, aUrlToCrawlDTOs);
+    this.jsoupConnection = jsoupConnection;
   }
 
   /**
@@ -50,7 +59,7 @@ public abstract class AbstractDocumentTask<T, D extends CrawlerUrlDTO>
     try {
       // maxBodySize(0)=unlimited
       // necessary for ORF documents which are larger than the default size
-      final Document document = Jsoup.connect(aUrlDTO.getUrl())
+      final Document document = jsoupConnection.getConnection(aUrlDTO.getUrl())
               .timeout((int) TimeUnit.SECONDS.toMillis(60))
               .maxBodySize(0).get();
       traceRequest();
@@ -63,5 +72,9 @@ public abstract class AbstractDocumentTask<T, D extends CrawlerUrlDTO>
     } catch (final IOException ioException) {
       Log.errorLog(96459856, ioException);
     }
+  }
+
+  public JsoupConnection getJsoupConnection() {
+    return jsoupConnection;
   }
 }
