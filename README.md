@@ -47,7 +47,7 @@ java -jar MServer.jar
 | BR|BR-Mediathek|BR|BR||
 | DW|DW-Mediathek|DW|DW||
 | HR|HR-Mediathek|HR|HR||
-| KIKA|KIKA-Mediathek|KIKA|KIKA||
+| KIKA|KIKA-Mediathek|KIKA|KIKA|x|
 | ORF|ORF-Mediathek|ORF1, ORF2, ORF3, ORFSport|ORF|x|
 | PHOENIX|PHOENIX-Mediathek|PHOENIX|PHOENIX|x|
 | SR|SR-Mediathek|SR|SR|x|
