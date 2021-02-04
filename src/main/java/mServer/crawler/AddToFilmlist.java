@@ -6,6 +6,7 @@
 package mServer.crawler;
 
 import de.mediathekview.mlib.Config;
+import de.mediathekview.mlib.Const;
 import de.mediathekview.mlib.daten.DatenFilm;
 import de.mediathekview.mlib.daten.ListeFilme;
 import de.mediathekview.mlib.tool.Hash;
@@ -260,7 +261,7 @@ public class AddToFilmlist {
             if (response.isSuccessful()) {
               long respLength = determineContentLength(response);
 
-              if (isRelevantContentType(response) && !orfRemovedVideo(response) &&
+              if (isRelevantContentType(response) && !orfRemovedVideo(film, response) &&
                   // ignore file length of m3u8-files because it is always too small
                   (isM3u8File(url) || respLength > MIN_SIZE_ADD_OLD)) {
                 addOld(film);
@@ -278,7 +279,7 @@ public class AddToFilmlist {
           if (Long.parseLong(film.arr[DatenFilm.FILM_GROESSE]) > MIN_SIZE_ADD_OLD) {
             Request request = createOnlineCheckRequest(url);
             try (Response response = client.newCall(request).execute()) {
-              if (response.isSuccessful() && isRelevantContentType(response) && !orfRemovedVideo(response)) {
+              if (response.isSuccessful() && isRelevantContentType(response) && !orfRemovedVideo(film, response)) {
                 addOld(film);
               } else {
                 Log.sysLog("film removed: code: " + response.code() + ": " + url);
@@ -293,9 +294,13 @@ public class AddToFilmlist {
       threadCounter.decrementAndGet();
     }
 
-    private boolean orfRemovedVideo(Response response) {
-      String path = response.request().url().encodedPath();
-      return path.contains("/bearbeitung_");
+    private boolean orfRemovedVideo(DatenFilm film, Response response) {
+      if (film.arr[DatenFilm.FILM_SENDER] == Const.ORF) {
+        String path = response.request().url().encodedPath();
+        return path.contains("/bearbeitung_");
+      }
+
+      return false;
     }
 
     @NotNull
