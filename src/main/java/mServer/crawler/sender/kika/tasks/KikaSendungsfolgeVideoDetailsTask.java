@@ -55,8 +55,8 @@ public class KikaSendungsfolgeVideoDetailsTask extends AbstractUrlTask<DatenFilm
 
   private static final Logger LOG = LogManager.getLogger(KikaSendungsfolgeVideoDetailsTask.class);
   private static final long serialVersionUID = 6336802731231493377L;
-  private static final DateTimeFormatter webTimeFormatter =
-      DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm");
+  private static final DateTimeFormatter webTimeFormatter
+          = DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm");
 
   private transient JsoupConnection jsoupConnection;
 
@@ -111,7 +111,7 @@ public class KikaSendungsfolgeVideoDetailsTask extends AbstractUrlTask<DatenFilm
       return Optional.of(Qualities.SMALL);
     }
     if (profileName.contains("high")
-        || profileName.contains("quality = 2") || profileName.contains("quality = 1")) {
+            || profileName.contains("quality = 2") || profileName.contains("quality = 1")) {
       return Optional.of(Qualities.NORMAL);
     }
     if (profileName.contains("720p25")) {
@@ -125,10 +125,10 @@ public class KikaSendungsfolgeVideoDetailsTask extends AbstractUrlTask<DatenFilm
     final TreeSet<KikaFilmUrlInfoDto> urlInfos = new TreeSet<>(new KikaFilmUrlInfoComparator());
 
     videoElements.stream()
-        .map(this::parseVideoElement)
-        .filter(Optional::isPresent)
-        .map(Optional::get)
-        .forEach(urlInfos::add);
+            .map(this::parseVideoElement)
+            .filter(Optional::isPresent)
+            .map(Optional::get)
+            .forEach(urlInfos::add);
 
     return urlInfos.descendingSet();
   }
@@ -141,15 +141,15 @@ public class KikaSendungsfolgeVideoDetailsTask extends AbstractUrlTask<DatenFilm
     final Elements fileSizeNode = aVideoElement.getElementsByTag("fileSize");
 
     if (downloadUrlNodes.isEmpty()
-        || profileNameNodes.isEmpty()
-        || profileNameNodes.get(0).text().startsWith("Audio")) {
+            || profileNameNodes.isEmpty()
+            || profileNameNodes.get(0).text().startsWith("Audio")) {
       LOG.info("Missing Video element");
       return Optional.empty();
       // audio task do not have a video element
     }
 
-    final KikaFilmUrlInfoDto info =
-        new KikaFilmUrlInfoDto(downloadUrlNodes.get(0).text(), profileNameNodes.get(0).text());
+    final KikaFilmUrlInfoDto info
+            = new KikaFilmUrlInfoDto(downloadUrlNodes.get(0).text(), profileNameNodes.get(0).text());
     final String width = frameWidthNodes.get(0).text();
     final String height = frameHeightNodes.get(0).text();
 
@@ -188,11 +188,11 @@ public class KikaSendungsfolgeVideoDetailsTask extends AbstractUrlTask<DatenFilm
   }
 
   private LocalDateTime parseTime(
-      final Elements dateNodes, final String thema, final String title) {
+          final Elements dateNodes, final String thema, final String title) {
     LocalDateTime time;
     if (!dateNodes.isEmpty() && dateNodes.get(0).text() != null) {
-      final String timeString =
-          DateUtils.changeDateTimeForMissingISO8601Support(dateNodes.get(0).text());
+      final String timeString
+              = DateUtils.changeDateTimeForMissingISO8601Support(dateNodes.get(0).text());
       try {
         time = LocalDateTime.parse(timeString, DateTimeFormatter.ISO_DATE_TIME);
       } catch (final DateTimeException ignore) {
@@ -207,7 +207,7 @@ public class KikaSendungsfolgeVideoDetailsTask extends AbstractUrlTask<DatenFilm
 
   @Override
   protected AbstractUrlTask<DatenFilm, KikaCrawlerUrlDto> createNewOwnInstance(
-      final ConcurrentLinkedQueue<KikaCrawlerUrlDto> aUrlsToCrawl) {
+          final ConcurrentLinkedQueue<KikaCrawlerUrlDto> aUrlsToCrawl) {
     return new KikaSendungsfolgeVideoDetailsTask(crawler, aUrlsToCrawl);
   }
 
@@ -218,23 +218,23 @@ public class KikaSendungsfolgeVideoDetailsTask extends AbstractUrlTask<DatenFilm
     }
 
     try {
-      final Document document =
-          jsoupConnection.getDocumentTimeoutAfterAlternativeDocumentType(
-              urlDto.getUrl(),
-              (int) TimeUnit.SECONDS.toMillis(KikaConstants.SOCKET_TIMEOUT),
-              Parser.xmlParser());
+      final Document document
+              = jsoupConnection.getDocumentTimeoutAfterAlternativeDocumentType(
+                      urlDto.getUrl(),
+                      (int) TimeUnit.SECONDS.toMillis(KikaConstants.SOCKET_TIMEOUT),
+                      Parser.xmlParser());
       final Elements titleNodes = orAlternative(document, ELEMENT_BROADCAST_NAME, ELEMENT_TITLE);
-      final Elements themaNodes =
-          orAlternative(
-              document,
-              ELEMENT_BROADCAST_SERIES,
-              ELEMENT_CHANNELNAME,
-              ELEMENT_TOPLINE,
-              ELEMENT_HEADLINE);
-      final Elements websiteUrlNodes =
-          orAlternative(document, ELEMENT_BROADCAST_URL, ELEMENT_HTML_URL);
-      final Elements descriptionNodes =
-          orAlternative(document, ELEMENT_BROADCAST_DESCRIPTION, ELEMENT_TEASERTEXT);
+      final Elements themaNodes
+              = orAlternative(
+                      document,
+                      ELEMENT_BROADCAST_SERIES,
+                      ELEMENT_CHANNELNAME,
+                      ELEMENT_TOPLINE,
+                      ELEMENT_HEADLINE);
+      final Elements websiteUrlNodes
+              = orAlternative(document, ELEMENT_BROADCAST_URL, ELEMENT_HTML_URL);
+      final Elements descriptionNodes
+              = orAlternative(document, ELEMENT_BROADCAST_DESCRIPTION, ELEMENT_TEASERTEXT);
       final Elements durationNodes = document.getElementsByTag(ELEMENT_DURATION);
       final Elements durationNodesC8 = document.getElementsByTag(ELEMENT_LENGTH);
       final Elements dateNodes = orAlternative(document, ELEMENT_BROADCAST_DATE, ELEMENT_WEBTIME);
@@ -242,9 +242,9 @@ public class KikaSendungsfolgeVideoDetailsTask extends AbstractUrlTask<DatenFilm
       final Elements videoElements = document.getElementsByTag(ELEMENT_ASSET);
 
       if (!titleNodes.isEmpty()
-          && !themaNodes.isEmpty()
-          && !durationNodes.isEmpty()
-          && !videoElements.isEmpty()) {
+              && !themaNodes.isEmpty()
+              && !durationNodes.isEmpty()
+              && !videoElements.isEmpty()) {
         final String thema = themaNodes.get(0).text();
         final String title = getTitle(titleNodes.get(0).text(), urlDto.getFilmType());
 
@@ -260,7 +260,6 @@ public class KikaSendungsfolgeVideoDetailsTask extends AbstractUrlTask<DatenFilm
 
         final Map<Qualities, String> videoUrls = parseFilmUrls(videoElements);
 
-
         String dateValue = time.format(DATE_FORMAT);
         String timeValue = time.format(TIME_FORMAT);
 
@@ -273,16 +272,17 @@ public class KikaSendungsfolgeVideoDetailsTask extends AbstractUrlTask<DatenFilm
           CrawlerTool.addUrlHd(film, videoUrls.get(Qualities.HD));
         }
 
+        taskResults.add(film);
       } else {
         LOG.error("The video with the URL \"{}\" has not all needed Elements", urlDto.getUrl());
-        Log.errorLog(3859753, "The video with the URL " + urlDto.getUrl() +" has not all needed Elements");
+        Log.errorLog(3859753, "The video with the URL " + urlDto.getUrl() + " has not all needed Elements");
       }
     } catch (final IOException exception) {
       LOG.fatal(
-          String.format(
-              "Something went teribble wrong on getting the film details for the Kika film \"%s\".",
-              urlDto.getUrl()),
-          exception);
+              String.format(
+                      "Something went teribble wrong on getting the film details for the Kika film \"%s\".",
+                      urlDto.getUrl()),
+              exception);
       Log.errorLog(23842323, exception, urlDto.getUrl());
     }
   }
