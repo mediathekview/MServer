@@ -254,6 +254,9 @@ public class AddToFilmlist {
 
       DatenFilm film;
       while (!isInterrupted() && (film = popOld(listeOld)) != null) {
+        if (!film.arr[DatenFilm.FILM_SENDER].equals(Const.ORF)) {
+          continue;
+        }
         final String url = film.arr[DatenFilm.FILM_URL];
         if (film.arr[DatenFilm.FILM_GROESSE].isEmpty()) {
           Request request = createOnlineCheckRequest(url);
@@ -295,7 +298,7 @@ public class AddToFilmlist {
     }
 
     private boolean orfRemovedVideo(DatenFilm film, Response response) {
-      if (film.arr[DatenFilm.FILM_SENDER] == Const.ORF) {
+      if (film.arr[DatenFilm.FILM_SENDER].equals(Const.ORF)) {
         String path = response.request().url().encodedPath();
         return path.contains("/bearbeitung_");
       }
