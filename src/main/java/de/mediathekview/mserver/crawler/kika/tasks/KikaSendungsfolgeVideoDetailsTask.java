@@ -108,7 +108,9 @@ public class KikaSendungsfolgeVideoDetailsTask extends AbstractUrlTask<Film, Kik
       return Optional.of(Resolution.SMALL);
     }
     if (profileName.contains("high")
-        || profileName.contains("quality = 2") || profileName.contains("quality = 1")) {
+        || profileName.contains("quality = 3")
+        || profileName.contains("quality = 2")
+        || profileName.contains("quality = 1")) {
       return Optional.of(Resolution.NORMAL);
     }
     if (profileName.contains("720p25")) {
@@ -255,7 +257,11 @@ public class KikaSendungsfolgeVideoDetailsTask extends AbstractUrlTask<Film, Kik
         addGeo(newFilm);
 
         if (newFilm.getUrls().isEmpty()) {
-          LOG.error("Can't find/build valid download URLs for the film \"{} - {} - {}\".", thema, title, urlDto.getUrl());
+          LOG.error(
+              "Can't find/build valid download URLs for the film \"{} - {} - {}\".",
+              thema,
+              title,
+              urlDto.getUrl());
           crawler.incrementAndGetErrorCount();
           crawler.updateProgress();
         } else {
