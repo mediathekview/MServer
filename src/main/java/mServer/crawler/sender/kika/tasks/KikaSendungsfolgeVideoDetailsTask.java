@@ -98,7 +98,7 @@ public class KikaSendungsfolgeVideoDetailsTask extends AbstractUrlTask<DatenFilm
         }
 
         if (!videoUrls.containsKey(filmResolution.get())) {
-          videoUrls.put(filmResolution.get(), urlInfo.getUrl());
+          videoUrls.put(filmResolution.get(), UrlUtils.addProtocolIfMissing(urlInfo.getUrl(), "https:"));
         }
       }
     }
