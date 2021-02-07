@@ -195,6 +195,22 @@ public class KikaSendungsfolgeVideoDetailsTaskTest extends KikaTaskTestBase {
             "https://pmdonlinekika-a.akamaihd.net/mp4dyn/4/FCMS-49c88205-d81c-42bb-89cd-000642d60fda-5a2c8da1cdb7_49.mp4",
             "",
             GeoLocations.GEO_NONE
+          },
+          {
+            "https://www.kika.de/filme/sendungen/videos/doktor-proktors-pupspulver-104.html",
+            FilmType.NORMAL,
+            "/kika/kika_film_video_no_protocol.xml",
+            "Filme",
+            "Doktor Proktors Pupspulver",
+            "Der Erfinder Doktor Proktor ist stolz ist auf sein geruchloses Pupspulver, das man sogar als Raketenantrieb verwenden könnte. Lise und Bulle sind begeistert.",
+            LocalDateTime.of(2021, 2, 5, 18, 30, 0),
+            Duration.ofHours(1).plusMinutes(24).plusSeconds(18),
+            "https://www.kika.de/filme/sendungen/videos/doktor-proktors-pupspulver-104.html",
+            "https://hrardmediathek-a.akamaihd.net/video/as/geoblocking/2021_02/hrLogo_210205112856_177750_13265289_480x270-25p-250kbit.mp4",
+            "https://hrardmediathek-a.akamaihd.net/video/as/geoblocking/2021_02/hrLogo_210205112856_177750_13265289_1280x720-50p-5000kbit.mp4",
+            "https://hrardmediathek-a.akamaihd.net/video/as/geoblocking/2021_02/hrLogo_210205112856_177750_13265289_1920x1080-50p-8000kbit.mp4",
+            "",
+            GeoLocations.GEO_NONE
           }
         });
   }
