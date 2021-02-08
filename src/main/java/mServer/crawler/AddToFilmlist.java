@@ -295,7 +295,7 @@ public class AddToFilmlist {
     }
 
     private boolean orfRemovedVideo(DatenFilm film, Response response) {
-      if (film.arr[DatenFilm.FILM_SENDER] == Const.ORF) {
+      if (film.arr[DatenFilm.FILM_SENDER].equals(Const.ORF)) {
         String path = response.request().url().encodedPath();
         return path.contains("/bearbeitung_");
       }
