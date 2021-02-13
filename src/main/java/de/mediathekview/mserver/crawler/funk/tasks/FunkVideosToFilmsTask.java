@@ -119,7 +119,7 @@ public class FunkVideosToFilmsTask
     LOG.debug(
         "Can't find the channel {} for film info {}. Trying something different.",
         channelId,
-        filmInfoDto);
+        filmInfoDto.getTitle());
     final Optional<String> channelFromTitle = parseChannelFromTitle(filmInfoDto.getTitle());
 
     return channelFromTitle.orElse("");
