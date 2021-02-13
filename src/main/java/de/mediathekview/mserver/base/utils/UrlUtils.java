@@ -21,7 +21,7 @@ public final class UrlUtils {
   public static final String PROTOCOL_HTTPS = "https:";
 
   private static final String WRONG_PARAMETER_START = "?&";
-  private static final String REGEX_ESCAPOR = "\\\\";
+  private static final String REGEX_ESCAPOR = "\\";
   private static final String PARAMETER_PATTERN = "%s=%s";
   private static final String URL_PARAMETER_SEPPERATOR = "&";
   private static final String URL_TO_PARAMETERS_SPLITTERATOR = "?";
