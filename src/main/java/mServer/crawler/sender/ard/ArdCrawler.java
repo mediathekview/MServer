@@ -73,9 +73,9 @@ public class ArdCrawler extends MediathekCrawler {
   private void addSpecialDays(
       ConcurrentLinkedQueue<CrawlerUrlDTO> dayUrlsToCrawl) {
     final LocalDateTime[] specialDates = new LocalDateTime[] {
-        LocalDateTime.of(2021, 1, 19, 23, 59, 59),
-        LocalDateTime.of(2021, 1, 20, 23, 59, 59),
-        LocalDateTime.of(2021, 1, 21, 23, 59, 59)
+        LocalDateTime.of(2021, 2, 7, 23, 59, 59),
+        LocalDateTime.of(2021, 2, 8, 23, 59, 59),
+        LocalDateTime.of(2021, 2, 9, 23, 59, 59)
     };
 
     final LocalDateTime minDayOnline = LocalDateTime.now().minusDays(MAX_DAYS_PAST_AVAILABLE);
