@@ -1,12 +1,15 @@
 package de.mediathekview.mserver.crawler.zdf;
 
+import de.mediathekview.mlib.daten.FilmUrl;
 import de.mediathekview.mserver.base.utils.UrlUtils;
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
 /**
- * tries to find better video qualities than the used ones. checks whether video files with better qualities exists.
+ * tries to find better video qualities than the used ones. checks whether video files with better
+ * qualities exists.
  */
 public class ZdfVideoUrlOptimizer {
 
@@ -37,27 +40,27 @@ public class ZdfVideoUrlOptimizer {
   private static final Map<String, String[]> HD_OPTIMIZE = new HashMap<>();
 
   static {
-    NORMAL_OPTIMIZE.put(NORMAL_2256_14_11, new String[]{NORMAL_2328_35_11});
-    NORMAL_OPTIMIZE.put(NORMAL_2256_14_12, new String[]{NORMAL_2328_35_12});
-    NORMAL_OPTIMIZE.put(NORMAL_2296_14_13, new String[]{NORMAL_2328_35_13});
-    NORMAL_OPTIMIZE.put(NORMAL_2296_14_14, new String[]{NORMAL_2328_35_14});
-    NORMAL_OPTIMIZE.put(NORMAL_1456_13_11, new String[]{NORMAL_2328_35_11, NORMAL_2256_14_11});
-    NORMAL_OPTIMIZE.put(NORMAL_1456_13_12, new String[]{NORMAL_2328_35_12, NORMAL_2256_14_12});
-    NORMAL_OPTIMIZE.put(NORMAL_1496_13_13, new String[]{NORMAL_2328_35_13, NORMAL_2296_14_13});
-    NORMAL_OPTIMIZE.put(NORMAL_1496_13_14, new String[]{NORMAL_2328_35_14, NORMAL_2296_14_14});
-    NORMAL_OPTIMIZE.put(NORMAL_1628_13_15, new String[]{NORMAL_2360_35_15});
+    NORMAL_OPTIMIZE.put(NORMAL_2256_14_11, new String[] {NORMAL_2328_35_11});
+    NORMAL_OPTIMIZE.put(NORMAL_2256_14_12, new String[] {NORMAL_2328_35_12});
+    NORMAL_OPTIMIZE.put(NORMAL_2296_14_13, new String[] {NORMAL_2328_35_13});
+    NORMAL_OPTIMIZE.put(NORMAL_2296_14_14, new String[] {NORMAL_2328_35_14});
+    NORMAL_OPTIMIZE.put(NORMAL_1456_13_11, new String[] {NORMAL_2328_35_11, NORMAL_2256_14_11});
+    NORMAL_OPTIMIZE.put(NORMAL_1456_13_12, new String[] {NORMAL_2328_35_12, NORMAL_2256_14_12});
+    NORMAL_OPTIMIZE.put(NORMAL_1496_13_13, new String[] {NORMAL_2328_35_13, NORMAL_2296_14_13});
+    NORMAL_OPTIMIZE.put(NORMAL_1496_13_14, new String[] {NORMAL_2328_35_14, NORMAL_2296_14_14});
+    NORMAL_OPTIMIZE.put(NORMAL_1628_13_15, new String[] {NORMAL_2360_35_15});
 
-    HD_OPTIMIZE.put(NORMAL_1456_13_12, new String[]{HD_3328_12, HD_3256});
-    HD_OPTIMIZE.put(NORMAL_2256_14_12, new String[]{HD_3328_12, HD_3256});
-    HD_OPTIMIZE.put(NORMAL_2328_35_12, new String[]{HD_3328_12, HD_3256});
-    HD_OPTIMIZE.put(NORMAL_1496_13_13, new String[]{HD_3328_13, HD_3296});
-    HD_OPTIMIZE.put(NORMAL_2296_14_13, new String[]{HD_3328_13, HD_3296});
-    HD_OPTIMIZE.put(NORMAL_2328_35_13, new String[]{HD_3328_13, HD_3296});
-    HD_OPTIMIZE.put(NORMAL_1496_13_14, new String[]{HD_3328_14, HD_3328_35_14});
-    HD_OPTIMIZE.put(NORMAL_2296_14_14, new String[]{HD_3328_14, HD_3328_35_14});
-    HD_OPTIMIZE.put(NORMAL_2328_35_14, new String[]{HD_3328_14, HD_3328_35_14});
-    HD_OPTIMIZE.put(NORMAL_1628_13_15, new String[]{HD_3360_36_15});
-    HD_OPTIMIZE.put(NORMAL_2360_35_15, new String[]{HD_3360_36_15});
+    HD_OPTIMIZE.put(NORMAL_1456_13_12, new String[] {HD_3328_12, HD_3256});
+    HD_OPTIMIZE.put(NORMAL_2256_14_12, new String[] {HD_3328_12, HD_3256});
+    HD_OPTIMIZE.put(NORMAL_2328_35_12, new String[] {HD_3328_12, HD_3256});
+    HD_OPTIMIZE.put(NORMAL_1496_13_13, new String[] {HD_3328_13, HD_3296});
+    HD_OPTIMIZE.put(NORMAL_2296_14_13, new String[] {HD_3328_13, HD_3296});
+    HD_OPTIMIZE.put(NORMAL_2328_35_13, new String[] {HD_3328_13, HD_3296});
+    HD_OPTIMIZE.put(NORMAL_1496_13_14, new String[] {HD_3328_14, HD_3328_35_14});
+    HD_OPTIMIZE.put(NORMAL_2296_14_14, new String[] {HD_3328_14, HD_3328_35_14});
+    HD_OPTIMIZE.put(NORMAL_2328_35_14, new String[] {HD_3328_14, HD_3328_35_14});
+    HD_OPTIMIZE.put(NORMAL_1628_13_15, new String[] {HD_3360_36_15});
+    HD_OPTIMIZE.put(NORMAL_2360_35_15, new String[] {HD_3360_36_15});
   }
 
   /**
@@ -77,6 +80,10 @@ public class ZdfVideoUrlOptimizer {
    * @return the hd url or Optional.empty.
    */
   public Optional<String> determineUrlHd(final String aNormalUrl) {
+    if (aNormalUrl == null) {
+      return Optional.empty();
+    }
+
     final String url = optimize(aNormalUrl, HD_OPTIMIZE);
     if (url.equalsIgnoreCase(aNormalUrl)) {
       return Optional.empty();
@@ -84,21 +91,28 @@ public class ZdfVideoUrlOptimizer {
     return Optional.of(url);
   }
 
-  private String optimize(final String aUrl, Map<String, String[]> aOptimizerMap) {
+  public Optional<String> determineUrlHd(final FilmUrl normalUrl) {
+    if (null == normalUrl) {
+      return Optional.empty();
+    }
+    return determineUrlHd(normalUrl.toString());
+  }
+
+  private String optimize(final String aUrl, final Map<String, String[]> aOptimizerMap) {
     final Optional<String> fileNameOptional = UrlUtils.getFileName(aUrl);
-    if (!fileNameOptional.isPresent()) {
+    if (fileNameOptional.isEmpty()) {
       return aUrl;
     }
 
     final String fileName = fileNameOptional.get();
 
-    for (Map.Entry<String, String[]> entry : aOptimizerMap.entrySet()) {
+    for (final Map.Entry<String, String[]> entry : aOptimizerMap.entrySet()) {
 
       if (fileName.endsWith(entry.getKey())) {
         final String baseUrl = aUrl.substring(0, aUrl.indexOf(fileName));
 
-        for (String optimizedFileName : entry.getValue()) {
-          String optimizedUrl = baseUrl + fileName.replace(entry.getKey(), optimizedFileName);
+        for (final String optimizedFileName : entry.getValue()) {
+          final String optimizedUrl = baseUrl + fileName.replace(entry.getKey(), optimizedFileName);
 
           if (UrlUtils.existsUrl(optimizedUrl)) {
             return optimizedUrl;

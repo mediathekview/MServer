@@ -39,6 +39,7 @@ public class BrClipDetailsDeserializer implements JsonDeserializer<Optional<Film
 
   private static final String DEFAULT_BR_VIDEO_URL_PRAEFIX = "https://www.br.de/mediathek/video/";
   private static final Logger LOG = LogManager.getLogger(BrClipDetailsDeserializer.class);
+  private static final String JSON_ELEMENT_INITIAL_SCREENING = "initialScreening";
 
   private final AbstractCrawler crawler;
   private final BrID id;
@@ -482,33 +483,22 @@ public class BrClipDetailsDeserializer implements JsonDeserializer<Optional<Film
       return Optional.empty();
     }
 
-    final Optional<JsonObject> broadcastNodeElement = getFirstBroadcastNode(clipDetailRoot);
-    if (broadcastNodeElement.isPresent()) {
-      final JsonObject broadcastNode = broadcastNodeElement.get();
-
-      final Optional<JsonPrimitive> startElementOptional =
-          GsonGraphQLHelper.getChildPrimitiveIfExists(
-              broadcastNode, BrGraphQLElementNames.STRING_CLIP_START.getName());
-      if (startElementOptional.isEmpty()) {
-        return Optional.empty();
-      }
-
-      final JsonPrimitive startElement = startElementOptional.get();
-
-      final String startDateTimeString = startElement.getAsString();
-
-      return Optional.of(brDateTimeString2LocalDateTime(startDateTimeString));
+    if (!clipDetailRoot.has(JSON_ELEMENT_INITIAL_SCREENING)) {
+      return Optional.empty();
     }
 
-    return Optional.empty();
-  }
+    final JsonElement initialScreeningElement = clipDetailRoot.get(JSON_ELEMENT_INITIAL_SCREENING);
+    if (initialScreeningElement.isJsonNull()) {
+      return Optional.empty();
+    }
+    final JsonObject initialScreening = initialScreeningElement.getAsJsonObject();
+    if (!initialScreening.has(BrGraphQLElementNames.STRING_CLIP_START.getName())) {
+      return Optional.empty();
+    }
 
-  private Optional<JsonObject> getFirstBroadcastNode(final JsonObject clipDetailRoot) {
+    final String startDateTimeString = initialScreening.get(BrGraphQLElementNames.STRING_CLIP_START.getName()).getAsString();
 
-    final Optional<JsonObject> broadcastBaseNodeOptional =
-        GsonGraphQLHelper.getChildObjectIfExists(
-            clipDetailRoot, BrGraphQLNodeNames.RESUTL_CLIP_BROADCAST_ROOT.getName());
-    return getFirstNode(broadcastBaseNodeOptional);
+    return Optional.of(brDateTimeString2LocalDateTime(startDateTimeString));
   }
 
   private Optional<Map<Resolution, FilmUrl>> getVideos(final JsonObject clipDetailRoot) {

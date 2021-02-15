@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<avDocument>
+<type>video</type>
+<documentType>externalVideo</documentType>
+<ivwEnabled>true</ivwEnabled>
+<comScorePixelUrl />
+<cmsTrackingUrl>/webapp/doTrack/pixel.png?docId=tsatsiki-papa-und-der-olivenkrieg-104&amp;amp;docPath=61927491-6ba8-4a70-b340-fb7c2f23f90f%7C444cffc5-eb31-45fa-abaa-b437bcce0afc%7C5b7594e2-91d8-4231-a8bf-0ba195b057e6%7C1d9fb70e-ca66-4927-b382-3695ca2eec3f%7Ce92b02f8-56be-427f-a91c-d30aed57960f%7C20afc2fb-d6f2-4bb2-8c96-6daeca07b5cc&amp;amp;docType=externalVideo</cmsTrackingUrl>
+<webTime>26.01.2021 10:15</webTime>
+<effectiveEndDate>02.02.2021 10:15</effectiveEndDate>
+<language>de</language>
+<styleSheets />
+<headline>Tsatsiki - Papa und der Olivenkrieg</headline>
+<topline>Filme</topline>
+<title>Tsatsiki - Papa und der Olivenkrieg</title>
+<teaserText>Der elfjährige Tsatsiki verbringt die Ferien bei seinem Vater in Griechenland. Ein perfekter Sommer, wäre sein Papa nicht in Geldnot.</teaserText>
+<htmlUrl>https://www.kika.de/filme/sendungen/videos/tsatsiki-papa-und-der-olivenkrieg-104.html</htmlUrl>
+<recommendUrl>https://www.kika.de/filme/sendungen/videos/tsatsiki-papa-und-der-olivenkrieg-104-recommendForm.html</recommendUrl>
+<recommendFormUrl>https://www.kika.de/filme/sendungen/videos/tsatsiki-papa-und-der-olivenkrieg-104-recommendForm.html</recommendFormUrl>
+<infoLayerUrl>https://www.kika.de/filme/sendungen/videos/tsatsiki-papa-und-der-olivenkrieg-104-infolayer.html</infoLayerUrl>
+<offlineAvailable>false</offlineAvailable>
+<relatedVideosUrl>https://www.kika.de/filme/sendungen/videos/tsatsiki-papa-und-der-olivenkrieg-104-related.html</relatedVideosUrl>
+<agf-tracking>
+<assetid>https://ndrod-vh.akamaihd.net/i/geo/2018/1026/TV-20181026-1137-2700.,hd,hq,ln,hi,mn,lo,ao,.mp4.csmil/master.m3u8</assetid>
+<type>content</type>
+<program>Kinderfilme</program>
+<title>KiKA_Kinderfilme_Tsatsiki - Papa und der Olivenkrieg_26.01.2021 11:15</title>
+<length>5226</length>
+<c0>0</c0>
+<c2>N</c2>
+<c5>ARD Mediathek</c5>
+<c7>crid://ndr.de/69f258e3-ff8b-4c90-9676-ea766988bb8d</c7>
+<c8>5226</c8>
+<c9>Kinderfilme_Tsatsiki - Papa und der Olivenkrieg_26.01.2021 11:15</c9>
+<c10>KiKA</c10>
+<c12>Content</c12>
+<c16>ARD_Fiction</c16>
+<c18>N</c18>
+<c19>NDR</c19>
+</agf-tracking>
+<teaserimages>
+<teaserimage>
+<url>https://cdn.kika.de/filme/sendungen/videos/imgto-tsatsiki-papa-und-der-olivenkrieg-102-resimage_v-**aspectRatio**_w-**width**.jpg?version=7664</url>
+<variants>
+<large>tlarge169</large>
+<small>tsmall169</small>
+</variants>
+</teaserimage>
+</teaserimages>
+<assets>
+<asset>
+<profileName>quality = 0</profileName>
+<fileName />
+<mediaType />
+<frameWidth />
+<frameHeight />
+<bitrateVideo />
+<bitrateAudio />
+<fileSize>0</fileSize>
+<flashMediaServerApplicationURL />
+<flashMediaServerURL />
+<adaptiveHttpStreamingRedirectorUrl>https://ndrod-vh.akamaihd.net/i/geo/2018/1026/TV-20181026-1137-2700.,hd,hq,ln,hi,mn,lo,ao,.mp4.csmil/master.m3u8</adaptiveHttpStreamingRedirectorUrl>
+<dynamicHttpStreamingRedirectorUrl />
+<rtspStreamingUrl>https://mediandr-a.akamaihd.net/progressive_geo/2018/1026/TV-20181026-1137-2700.mn.mp4</rtspStreamingUrl>
+<progressiveDownloadUrl>https://mediandr-a.akamaihd.net/progressive_geo/2018/1026/TV-20181026-1137-2700.mn.mp4</progressiveDownloadUrl>
+</asset>
+<asset>
+<profileName>quality = 1</profileName>
+<fileName />
+<mediaType />
+<frameWidth />
+<frameHeight />
+<bitrateVideo />
+<bitrateAudio />
+<fileSize>0</fileSize>
+<flashMediaServerApplicationURL />
+<flashMediaServerURL />
+<adaptiveHttpStreamingRedirectorUrl>https://ndrod-vh.akamaihd.net/i/geo/2018/1026/TV-20181026-1137-2700.,hd,hq,ln,hi,mn,lo,ao,.mp4.csmil/master.m3u8</adaptiveHttpStreamingRedirectorUrl>
+<dynamicHttpStreamingRedirectorUrl />
+<rtspStreamingUrl>https://mediandr-a.akamaihd.net/progressive_geo/2018/1026/TV-20181026-1137-2700.ln.mp4</rtspStreamingUrl>
+<progressiveDownloadUrl>https://mediandr-a.akamaihd.net/progressive_geo/2018/1026/TV-20181026-1137-2700.ln.mp4</progressiveDownloadUrl>
+</asset>
+<asset>
+<profileName>quality = 2</profileName>
+<fileName />
+<mediaType />
+<frameWidth />
+<frameHeight />
+<bitrateVideo />
+<bitrateAudio />
+<fileSize>0</fileSize>
+<flashMediaServerApplicationURL />
+<flashMediaServerURL />
+<adaptiveHttpStreamingRedirectorUrl>https://ndrod-vh.akamaihd.net/i/geo/2018/1026/TV-20181026-1137-2700.,hd,hq,ln,hi,mn,lo,ao,.mp4.csmil/master.m3u8</adaptiveHttpStreamingRedirectorUrl>
+<dynamicHttpStreamingRedirectorUrl />
+<rtspStreamingUrl>https://mediandr-a.akamaihd.net/progressive_geo/2018/1026/TV-20181026-1137-2700.hq.mp4</rtspStreamingUrl>
+<progressiveDownloadUrl>https://mediandr-a.akamaihd.net/progressive_geo/2018/1026/TV-20181026-1137-2700.hq.mp4</progressiveDownloadUrl>
+</asset>
+<asset>
+<profileName>Video 2018 | MP4 720p25 | Web XL| 16:9 | 1280x720</profileName>
+<fileName />
+<mediaType />
+<frameWidth />
+<frameHeight />
+<bitrateVideo />
+<bitrateAudio />
+<fileSize>0</fileSize>
+<flashMediaServerApplicationURL />
+<flashMediaServerURL />
+<adaptiveHttpStreamingRedirectorUrl>https://ndrod-vh.akamaihd.net/i/geo/2018/1026/TV-20181026-1137-2700.,hd,hq,ln,hi,mn,lo,ao,.mp4.csmil/master.m3u8</adaptiveHttpStreamingRedirectorUrl>
+<dynamicHttpStreamingRedirectorUrl />
+<rtspStreamingUrl>https://mediandr-a.akamaihd.net/progressive_geo/2018/1026/TV-20181026-1137-2700.hd.mp4</rtspStreamingUrl>
+<progressiveDownloadUrl>https://mediandr-a.akamaihd.net/progressive_geo/2018/1026/TV-20181026-1137-2700.hd.mp4</progressiveDownloadUrl>
+</asset>
+</assets>
+<duration>87:06</duration>
+<rights>NDR</rights>
+<transmissionType>geo</transmissionType>
+<daysUntilOffline>2</daysUntilOffline>
+<chapterEntries />
+<atiTracking>
+<site>596354</site>
+<page>
+<name>tsatsiki%2Dpapa%2Dund%2Dder%2Dolivenkrieg%2D104</name>
+<level2>1</level2>
+<chapter1>filme</chapter1>
+<chapter2>sendungen</chapter2>
+<chapter3>videos</chapter3>
+<customObject>
+<G1 />
+<G2 />
+<G3 />
+<G4 />
+<G5 />
+<G6 />
+<G7 />
+<G8 />
+<G9 />
+<G10 />
+</customObject>
+</page>
+<customVars>
+<site>
+<x1>[http%3A%2F%2Fwww.kika.de%2Ffilme%2Fsendungen%2Fvideos%2Ftsatsiki%2Dpapa%2Dund%2Dder%2Dolivenkrieg%2D104%2DavCustom.xml]</x1>
+<x2>[]</x2>
+<x3>[Web]</x3>
+<x4>0</x4>
+<x5>[]</x5>
+<x6>[kika.filme.sendungen.videos.tsatsiki%2Dpapa%2Dund%2Dder%2Dolivenkrieg%2D104]</x6>
+<x7>[kika.sendungen.einzelsendungen.filme.sendungen.videos]</x7>
+<x8>[tsatsiki%2Dpapa%2Dund%2Dder%2Dolivenkrieg%2D104]</x8>
+<x9>[45571a76%2D6409%2D4cb9%2D802d%2Da2b8a913cb77]</x9>
+<x10>[Tsatsiki%20%2D%20Papa%20und%20der%20Olivenkrieg]</x10>
+<x11>[2021.01.26T11%3A45]</x11>
+<x12>[2021.01.26T12%3A35]</x12>
+<x13>[externalVideo]</x13>
+<x14>[]</x14>
+<x15>[no%5Fepisodetitle]</x15>
+<x16>[Filme]</x16>
+<x17 />
+<x18>[Ganze%20Sendung]</x18>
+<x19>[TV]</x19>
+<x20 />
+</site>
+</customVars>
+<richMedia>
+<mediaType>video</mediaType>
+<mediaLabel>tsatsiki%2Dpapa%2Dund%2Dder%2Dolivenkrieg%2D104</mediaLabel>
+<mediaTheme1>no%5Fseriestitle</mediaTheme1>
+<mediaTheme2>Tsatsiki%20%2D%20Papa%20und%20der%20Olivenkrieg%7CTV%7C%7C2021.01.26T11%3A45</mediaTheme2>
+<mediaTheme3>kika.filme.sendungen.videos.tsatsiki%2Dpapa%2Dund%2Dder%2Dolivenkrieg%2D104.tool.avPlayer</mediaTheme3>
+<refreshDuration>0:10,1:30,10:60</refreshDuration>
+<duration>5226</duration>
+<broadcastMode>clip</broadcastMode>
+</richMedia>
+</atiTracking>
+<ivw>
+<cp>NDR</cp>
+</ivw>
+</avDocument>

@@ -345,13 +345,10 @@ public class BrGraphQLQueries {
               , "scheduleInfo"
               , "shortDescription"
               )
-          , addObjectConstruct("broadcasts(first: 1, orderBy: START_DESC)"
-              , addObjectConstruct("edges"
-                  , addObjectConstruct("node"
-                      , "__typename"
+          , addObjectConstruct("initialScreening"
                       , "start"
                       , "id"
-                      ))));          
+                      ));
     }
     
     private static String addObjectConstruct(String title, String... subVariables) {

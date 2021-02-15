@@ -1,8 +1,9 @@
 package de.mediathekview.mserver.crawler.kika.tasks;
 
 import de.mediathekview.mserver.base.webaccess.JsoupConnection;
-import de.mediathekview.mserver.crawler.basic.CrawlerUrlDTO;
 import de.mediathekview.mserver.crawler.kika.KikaConstants;
+import de.mediathekview.mserver.crawler.kika.KikaCrawlerUrlDto;
+import de.mediathekview.mserver.crawler.kika.KikaCrawlerUrlDto.FilmType;
 import de.mediathekview.mserver.testhelper.JsoupMock;
 import org.jsoup.Connection;
 import org.junit.Before;
@@ -39,21 +40,66 @@ public class KikaLetterPageTaskTest extends KikaTaskTestBase {
     final Connection connection = JsoupMock.mock(requestUrl, "/kika/kika_letter_pageV.html");
     when(jsoupConnection.getConnection(eq(requestUrl))).thenReturn(connection);
 
-    final CrawlerUrlDTO[] expected =
-        new CrawlerUrlDTO[] {
-          new CrawlerUrlDTO("https://www.kika.de/verbotene-geschichten/sendereihe290.html"),
-          new CrawlerUrlDTO("https://www.kika.de/verknallt-abgedreht/sendereihe2128.html"),
-          new CrawlerUrlDTO("https://www.kika.de/vier-kartoffeln/sendereihe2124.html")
+    final KikaCrawlerUrlDto[] expected =
+        new KikaCrawlerUrlDto[] {
+          new KikaCrawlerUrlDto("https://www.kika.de/verbotene-geschichten/sendereihe290.html", FilmType.NORMAL),
+          new KikaCrawlerUrlDto("https://www.kika.de/verknallt-abgedreht/sendereihe2128.html", FilmType.NORMAL),
+          new KikaCrawlerUrlDto("https://www.kika.de/vier-kartoffeln/sendereihe2124.html", FilmType.NORMAL)
         };
 
-    final Queue<CrawlerUrlDTO> urls = new ConcurrentLinkedQueue<>();
-    urls.add(new CrawlerUrlDTO(requestUrl));
+    final Queue<KikaCrawlerUrlDto> urls = new ConcurrentLinkedQueue<>();
+    urls.add(new KikaCrawlerUrlDto(requestUrl, FilmType.NORMAL));
 
     final KikaLetterPageTask target =
         new KikaLetterPageTask(createCrawler(), urls, KikaConstants.BASE_URL, jsoupConnection);
-    final Set<CrawlerUrlDTO> actual = target.invoke();
+    final Set<KikaCrawlerUrlDto> actual = target.invoke();
 
     assertThat(actual.size(), equalTo(expected.length));
     assertThat(actual, containsInAnyOrder(expected));
   }
+
+  @Test
+  public void testSignLanguage() throws IOException {
+    final String requestUrl =
+        wireMockServer.baseUrl() + "/videos/alle-gbs/videos-gbs-100.html";
+
+    final Connection connection =
+        JsoupMock.mock(requestUrl, "/kika/kika_gbs1.html");
+    when(jsoupConnection.getConnection(eq(requestUrl))).thenReturn(connection);
+
+    final KikaCrawlerUrlDto[] expected =
+        new KikaCrawlerUrlDto[] {
+            new KikaCrawlerUrlDto(
+                "https://www.kika.de/videos/alle-dgs/video80444_zc-32cf7dfb_zs-c6524396.html", FilmType.SIGN_LANGUAGE),
+            new KikaCrawlerUrlDto(
+                "https://www.kika.de/videos/alle-dgs/neun-karl-den-grossen-104_zc-32cf7dfb_zs-c6524396.html", FilmType.SIGN_LANGUAGE),
+            new KikaCrawlerUrlDto(
+                "https://www.kika.de/videos/alle-dgs/zehn-napoleon-102_zc-32cf7dfb_zs-c6524396.html", FilmType.SIGN_LANGUAGE),
+            new KikaCrawlerUrlDto(
+                "https://www.kika.de/videos/alle-dgs/video79956_zc-32cf7dfb_zs-c6524396.html", FilmType.SIGN_LANGUAGE),
+            new KikaCrawlerUrlDto(
+                "https://www.kika.de/videos/alle-dgs/video80104_zc-32cf7dfb_zs-c6524396.html", FilmType.SIGN_LANGUAGE),
+            new KikaCrawlerUrlDto(
+                "https://www.kika.de/videos/alle-dgs/video80452_zc-32cf7dfb_zs-c6524396.html", FilmType.SIGN_LANGUAGE),
+            new KikaCrawlerUrlDto(
+                "https://www.kika.de/videos/alle-dgs/video80450_zc-32cf7dfb_zs-c6524396.html", FilmType.SIGN_LANGUAGE),
+            new KikaCrawlerUrlDto(
+                "https://www.kika.de/videos/alle-dgs/video80448_zc-32cf7dfb_zs-c6524396.html", FilmType.SIGN_LANGUAGE),
+            new KikaCrawlerUrlDto(
+                "https://www.kika.de/videos/alle-dgs/video79540_zc-32cf7dfb_zs-c6524396.html", FilmType.SIGN_LANGUAGE),
+            new KikaCrawlerUrlDto(
+                "https://www.kika.de/videos/alle-dgs/video79286_zc-32cf7dfb_zs-c6524396.html", FilmType.SIGN_LANGUAGE)
+        };
+
+    Queue<KikaCrawlerUrlDto> urls = new ConcurrentLinkedQueue<>();
+    urls.add(new KikaCrawlerUrlDto(requestUrl, FilmType.SIGN_LANGUAGE));
+    final KikaLetterPageTask target =
+        new KikaLetterPageTask(
+            createCrawler(), urls, KikaConstants.BASE_URL, jsoupConnection);
+    final Set<KikaCrawlerUrlDto> actual = target.invoke();
+
+    assertThat(actual.size(), equalTo(expected.length));
+    assertThat(actual, containsInAnyOrder(expected));
+  }
+
 }

@@ -40,7 +40,7 @@ public class DownloadDtoFilmConverter {
 
     if (!aFilm.hasHD() && aUrlOptimizer.isPresent()) {
       final Optional<String> hdUrl =
-          aUrlOptimizer.get().determineUrlHd(aFilm.getUrl(Resolution.NORMAL).toString());
+          aUrlOptimizer.get().determineUrlHd(aFilm.getUrl(Resolution.NORMAL));
       if (hdUrl.isPresent()) {
         aFilm.addUrl(
             Resolution.HD,
