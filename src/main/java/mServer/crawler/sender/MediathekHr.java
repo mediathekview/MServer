@@ -22,6 +22,20 @@ package mServer.crawler.sender;
 import de.mediathekview.mlib.Const;
 import de.mediathekview.mlib.daten.ListeFilme;
 import de.mediathekview.mlib.tool.Log;
+import de.mediathekview.mlib.tool.MVHttpClient;
+import mServer.crawler.FilmeSuchen;
+import mServer.crawler.RunSender;
+import mServer.crawler.sender.hr.HrSendungOverviewCallable;
+import mServer.crawler.sender.hr.HrSendungenDto;
+import mServer.crawler.sender.hr.HrSendungenListDeserializer;
+import okhttp3.Request;
+import okhttp3.Response;
+import okhttp3.ResponseBody;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -29,16 +43,6 @@ import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
-import mServer.crawler.FilmeSuchen;
-import mServer.crawler.RunSender;
-import mServer.crawler.sender.hr.HrSendungOverviewCallable;
-import mServer.crawler.sender.hr.HrSendungenDto;
-import mServer.crawler.sender.hr.HrSendungenListDeserializer;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
 
 public class MediathekHr extends MediathekReader {
 
@@ -48,30 +52,27 @@ public class MediathekHr extends MediathekReader {
 
   private static final Logger LOG = LogManager.getLogger(MediathekHr.class);
 
-  /**
-   *
-   * @param ssearch
-   * @param startPrio
-   */
   public MediathekHr(FilmeSuchen ssearch, int startPrio) {
     super(ssearch, SENDERNAME, /* threads */ 2, /* urlWarten */ 200, startPrio);
   }
 
-  /**
-   *
-   */
   @Override
   public void addToList() {
     meldungStart();
 
     List<HrSendungenDto> dtos = new ArrayList<>();
 
-    try {
-      FilmeSuchen.listeSenderLaufen.inc(Const.HR, RunSender.Count.ANZAHL);
-      final Document document = Jsoup.connect(URL_SENDUNGEN).get();
-      HrSendungenListDeserializer deserializer = new HrSendungenListDeserializer();
-
-      dtos = deserializer.deserialize(document);
+    Request request = new Request.Builder().url(URL_SENDUNGEN).get().build();
+    try (Response resp = MVHttpClient.getInstance().getReducedTimeOutClient().newCall(request).execute();
+         ResponseBody body = resp.body()){
+      if (resp.isSuccessful() && body != null) {
+        Document document = Jsoup.parse(body.string());
+        FilmeSuchen.listeSenderLaufen.inc(Const.HR, RunSender.Count.ANZAHL);
+        HrSendungenListDeserializer deserializer = new HrSendungenListDeserializer();
+        dtos = deserializer.deserialize(document);
+      }
+      else
+        LOG.error("HR response either unsuccessful or body is null, success = {}", resp.isSuccessful());
     } catch (IOException ex) {
       FilmeSuchen.listeSenderLaufen.inc(Const.HR, RunSender.Count.FEHLER);
       FilmeSuchen.listeSenderLaufen.inc(Const.HR, RunSender.Count.FEHLVERSUCHE);
@@ -101,7 +102,7 @@ public class MediathekHr extends MediathekReader {
           });
         }
       } catch (Exception exception) {
-        LOG.error("Es ist ein Fehler beim lesen der HR Filme aufgetreten.", exception);
+        LOG.error("Es ist ein Fehler beim Lesen der HR Filme aufgetreten.", exception);
       }
     });
 
