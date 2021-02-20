@@ -214,6 +214,41 @@ public class AddToFilmlistTest {
     assertThat(list.size(), equalTo(100002));
   }
 
+  @Test
+  public void testReplaceMdrAktuellTopic() {
+    listToAdd.add(createTestFilm(Const.MDR, "MDR aktuell 19:30 Uhr", "MDR aktuell 19:30 Uhr", FILM_NAME_ONLINE));
+
+    AddToFilmlist target = new AddToFilmlist(list, listToAdd);
+    target.addOldList();
+
+    assertThat(list.size(), equalTo(3));
+    assertThat(list.get(2).arr[DatenFilm.FILM_THEMA], equalTo("MDR aktuell"));
+    assertThat(list.get(2).arr[DatenFilm.FILM_TITEL], equalTo("MDR aktuell 19:30 Uhr"));
+  }
+
+  @Test
+  public void testReplaceTimeOnlyInOrfTopic() {
+    listToAdd.add(createTestFilm(Const.ORF, "ZIB 17:00", "ZIB 17:00", FILM_NAME_ONLINE));
+    listToAdd.add(createTestFilm(Const.ARD, "Tagesschau 20:15", "Tagesschau 20:15", FILM_NAME_ONLINE));
+    listToAdd.add(createTestFilm(Const.ZDF, "heute 19:00", "heute 19:00", FILM_NAME_ONLINE));
+    listToAdd.add(createTestFilm(Const.ORF, "Guten Morgen Österrreich 08:00", "Guten Morgen Österrreich 08:00", FILM_NAME_ONLINE));
+    listToAdd.add(createTestFilm(Const.ORF, "Uhrzeit 12:00 in der Mitte", "Uhrzeit 12:00 in der Mitte", FILM_NAME_ONLINE));
+
+    AddToFilmlist target = new AddToFilmlist(list, listToAdd);
+    target.addOldList();
+
+    assertThat(list.size(), equalTo(7));
+    assertThat(list.get(2).arr[DatenFilm.FILM_THEMA], equalTo("ZIB"));
+    assertThat(list.get(2).arr[DatenFilm.FILM_TITEL], equalTo("ZIB 17:00"));
+    assertThat(list.get(3).arr[DatenFilm.FILM_THEMA], equalTo("Tagesschau 20:15"));
+    assertThat(list.get(3).arr[DatenFilm.FILM_TITEL], equalTo("Tagesschau 20:15"));
+    assertThat(list.get(4).arr[DatenFilm.FILM_THEMA], equalTo("heute 19:00"));
+    assertThat(list.get(4).arr[DatenFilm.FILM_TITEL], equalTo("heute 19:00"));
+    assertThat(list.get(5).arr[DatenFilm.FILM_THEMA], equalTo("Guten Morgen Österrreich"));
+    assertThat(list.get(5).arr[DatenFilm.FILM_TITEL], equalTo("Guten Morgen Österrreich 08:00"));
+    assertThat(list.get(6).arr[DatenFilm.FILM_THEMA], equalTo("Uhrzeit 12:00 in der Mitte"));
+    assertThat(list.get(6).arr[DatenFilm.FILM_TITEL], equalTo("Uhrzeit 12:00 in der Mitte"));
+  }
 
   private static DatenFilm createTestFilm(String sender, String topic, String title,
       String filmUrl) {

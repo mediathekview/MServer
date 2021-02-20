@@ -29,6 +29,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.stream.Collectors;
 import org.jetbrains.annotations.NotNull;
 
 public class AddToFilmlist {
@@ -97,6 +98,7 @@ public class AddToFilmlist {
   /**
    * Remove links which don´t start with http. - * Remove old film entries which are smaller than
    * MIN_SIZE_ADD_OLD.
+   * remove time from mdr aktuell and orf topics
    */
   private void performInitialCleanup() {
     listeEinsortieren.removeIf(f -> !f.arr[DatenFilm.FILM_URL].toLowerCase().startsWith("http"));
@@ -109,6 +111,31 @@ public class AddToFilmlist {
       }
 
     });
+    removeTimeFromMdrAktuell(listeEinsortieren);
+    removeTimeFromOrf(listeEinsortieren);
+  }
+
+  private void removeTimeFromOrf(ListeFilme listeEinsortieren) {
+    final List<DatenFilm> list = listeEinsortieren.parallelStream()
+        .filter(
+            film -> film.arr[DatenFilm.FILM_SENDER] == Const.ORF && film.arr[DatenFilm.FILM_THEMA]
+                .matches(".*[0-9][0-9]:[0-9][0-9]$"))
+        .collect(Collectors.toList());
+    Log.sysLog("ORF: update Thema für " + list.size() + " Einträge.");
+    if (!list.isEmpty()) {
+      list.forEach(film -> film.arr[DatenFilm.FILM_THEMA] = film.arr[DatenFilm.FILM_THEMA].replaceAll("[0-9][0-9]:[0-9][0-9]$", "").trim());
+    }
+  }
+
+  private void removeTimeFromMdrAktuell(ListeFilme listeEinsortieren) {
+    final String topic = "MDR aktuell";
+    final List<DatenFilm> list = listeEinsortieren.parallelStream()
+        .filter(film -> film.arr[DatenFilm.FILM_THEMA].startsWith(topic))
+        .collect(Collectors.toList());
+    Log.sysLog("MDR aktuell: update Thema für " + list.size() + " Einträge.");
+    if (!list.isEmpty()) {
+      list.forEach(film -> film.arr[DatenFilm.FILM_THEMA] = topic);
+    }
   }
 
   private void startThreads() {
