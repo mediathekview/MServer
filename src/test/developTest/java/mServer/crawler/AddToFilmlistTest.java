@@ -2,11 +2,13 @@ package mServer.crawler;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertTrue;
 
 import de.mediathekview.mlib.Const;
 import de.mediathekview.mlib.daten.DatenFilm;
 import de.mediathekview.mlib.daten.ListeFilme;
 import java.io.IOException;
+import java.util.Optional;
 import javax.ws.rs.core.HttpHeaders;
 import okhttp3.mockwebserver.Dispatcher;
 import okhttp3.mockwebserver.MockResponse;
@@ -238,16 +240,30 @@ public class AddToFilmlistTest {
     target.addOldList();
 
     assertThat(list.size(), equalTo(7));
-    assertThat(list.get(2).arr[DatenFilm.FILM_THEMA], equalTo("ZIB"));
-    assertThat(list.get(2).arr[DatenFilm.FILM_TITEL], equalTo("ZIB 17:00"));
-    assertThat(list.get(3).arr[DatenFilm.FILM_THEMA], equalTo("Tagesschau 20:15"));
-    assertThat(list.get(3).arr[DatenFilm.FILM_TITEL], equalTo("Tagesschau 20:15"));
-    assertThat(list.get(4).arr[DatenFilm.FILM_THEMA], equalTo("heute 19:00"));
-    assertThat(list.get(4).arr[DatenFilm.FILM_TITEL], equalTo("heute 19:00"));
-    assertThat(list.get(5).arr[DatenFilm.FILM_THEMA], equalTo("Guten Morgen Österrreich"));
-    assertThat(list.get(5).arr[DatenFilm.FILM_TITEL], equalTo("Guten Morgen Österrreich 08:00"));
-    assertThat(list.get(6).arr[DatenFilm.FILM_THEMA], equalTo("Uhrzeit 12:00 in der Mitte"));
-    assertThat(list.get(6).arr[DatenFilm.FILM_TITEL], equalTo("Uhrzeit 12:00 in der Mitte"));
+    Optional<DatenFilm> actual = list.stream()
+        .filter(film -> film.arr[DatenFilm.FILM_TITEL].equals("ZIB 17:00")).findFirst();
+    assertTrue(actual.isPresent());
+    assertThat(actual.get().arr[DatenFilm.FILM_THEMA], equalTo("ZIB"));
+
+    actual = list.stream()
+        .filter(film -> film.arr[DatenFilm.FILM_TITEL].equals("Tagesschau 20:15")).findFirst();
+    assertTrue(actual.isPresent());
+    assertThat(actual.get().arr[DatenFilm.FILM_THEMA], equalTo("Tagesschau 20:15"));
+
+    actual = list.stream()
+        .filter(film -> film.arr[DatenFilm.FILM_TITEL].equals("heute 19:00")).findFirst();
+    assertTrue(actual.isPresent());
+    assertThat(actual.get().arr[DatenFilm.FILM_THEMA], equalTo("heute 19:00"));
+
+    actual = list.stream()
+        .filter(film -> film.arr[DatenFilm.FILM_TITEL].equals("Guten Morgen Österrreich 08:00")).findFirst();
+    assertTrue(actual.isPresent());
+    assertThat(actual.get().arr[DatenFilm.FILM_THEMA], equalTo("Guten Morgen Österrreich"));
+
+    actual = list.stream()
+        .filter(film -> film.arr[DatenFilm.FILM_TITEL].equals("Uhrzeit 12:00 in der Mitte")).findFirst();
+    assertTrue(actual.isPresent());
+    assertThat(actual.get().arr[DatenFilm.FILM_THEMA], equalTo("Uhrzeit 12:00 in der Mitte"));
   }
 
   private static DatenFilm createTestFilm(String sender, String topic, String title,
