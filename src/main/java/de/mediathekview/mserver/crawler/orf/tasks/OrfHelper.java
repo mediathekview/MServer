@@ -22,19 +22,20 @@ class OrfHelper {
   }
 
   static String parseTheme(final String theme) {
+    final String result = theme.replaceAll("[0-9][0-9]:[0-9][0-9]$", "").trim();
     // Thema steht vor Doppelpunkt
     // Ausnahmen
     // - ZIB-Sendungen mit Uhrzeit
     // - DokEins-Sendungen
     // - Ungarisches Magazin
-    final int index = theme.indexOf(':');
+    final int index = result.indexOf(':');
     if (index > 0
-        && !theme.startsWith("ZIB")
-        && !theme.startsWith("DOKeins")
-        && !theme.contains("Ungarisches Magazin")) {
-      return theme.substring(0, index);
+        && !result.startsWith("ZIB")
+        && !result.startsWith("DOKeins")
+        && !result.contains("Ungarisches Magazin")) {
+      return result.substring(0, index).trim();
     }
-    return theme;
+    return result;
   }
 
   /**
