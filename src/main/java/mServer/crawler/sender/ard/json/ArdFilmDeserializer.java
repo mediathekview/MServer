@@ -89,13 +89,23 @@ public class ArdFilmDeserializer implements JsonDeserializer<List<ArdFilmDto>> {
   }
 
   private static Optional<String> parseTopic(final JsonObject playerPageObject) {
+    Optional<String> topic;
     if (playerPageObject.has(ELEMENT_SHOW) && !playerPageObject.get(ELEMENT_SHOW).isJsonNull()) {
       final JsonObject showObject = playerPageObject.get(ELEMENT_SHOW).getAsJsonObject();
-      return JsonUtils.getAttributeAsString(showObject, ATTRIBUTE_TITLE);
+      topic = JsonUtils.getAttributeAsString(showObject, ATTRIBUTE_TITLE);
+    } else {
+      // no show element found -> use title as topic
+      topic = JsonUtils.getAttributeAsString(playerPageObject, ATTRIBUTE_TITLE);
     }
 
-    // no show element found -> use title as topic
-    return JsonUtils.getAttributeAsString(playerPageObject, ATTRIBUTE_TITLE);
+    if (topic.isPresent()) {
+      // remove time in topic
+      if (topic.get().contains("MDR aktuell")) {
+        return Optional.of(topic.get().replaceAll("[0-9][0-9]:[0-9][0-9] Uhr$", "").trim());
+      }
+    }
+
+    return topic;
   }
 
   private Optional<String> parseTitle(final JsonObject playerPageObject) {
