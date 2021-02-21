@@ -118,7 +118,7 @@ public class AddToFilmlist {
   private void removeTimeFromOrf(ListeFilme listeEinsortieren) {
     final List<DatenFilm> list = listeEinsortieren.parallelStream()
         .filter(
-            film -> film.arr[DatenFilm.FILM_SENDER] == Const.ORF && film.arr[DatenFilm.FILM_THEMA]
+            film -> film.arr[DatenFilm.FILM_SENDER].equals(Const.ORF) && film.arr[DatenFilm.FILM_THEMA]
                 .matches(".*[0-9][0-9]:[0-9][0-9]$"))
         .collect(Collectors.toList());
     Log.sysLog("ORF: update Thema für " + list.size() + " Einträge.");
