@@ -6,7 +6,7 @@ import mServer.crawler.sender.base.Qualities;
 
 public class OrfVideoInfoDTO {
 
-  private static final String FILTER_JUGENDSCHUTZ = ".*/Jugendschutz[0-9][0-9][0-9][0-9]b[0-9][0-9][0-9][0-9]_.*";
+  public static final String FILTER_JUGENDSCHUTZ = ".*/Jugendschutz[0-9][0-9][0-9][0-9]b[0-9][0-9][0-9][0-9]_.*";
   private final Map<Qualities, String> videoUrls;
   private String subtitleUrl;
 

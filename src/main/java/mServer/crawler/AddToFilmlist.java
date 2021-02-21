@@ -15,6 +15,7 @@ import de.mediathekview.mlib.tool.MVHttpClient;
 import java.util.Optional;
 import javax.ws.rs.core.HttpHeaders;
 import mServer.crawler.sender.base.UrlUtils;
+import mServer.crawler.sender.orf.OrfVideoInfoDTO;
 import mServer.tool.MserverDaten;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -102,6 +103,8 @@ public class AddToFilmlist {
    */
   private void performInitialCleanup() {
     listeEinsortieren.removeIf(f -> !f.arr[DatenFilm.FILM_URL].toLowerCase().startsWith("http"));
+    listeEinsortieren.removeIf(f -> f.arr[DatenFilm.FILM_SENDER].equals(Const.ORF) && f.arr[DatenFilm.FILM_URL]
+        .matches(OrfVideoInfoDTO.FILTER_JUGENDSCHUTZ));
     listeEinsortieren.removeIf(f -> {
       String groesse = f.arr[DatenFilm.FILM_GROESSE];
       if (groesse.isEmpty()) {
