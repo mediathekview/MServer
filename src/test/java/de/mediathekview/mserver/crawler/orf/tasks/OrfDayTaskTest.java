@@ -55,7 +55,7 @@ public class OrfDayTaskTest extends OrfTaskTestBase {
               "Was ich glaube",
               "https://tvthek.orf.at/profile/Was-ich-glaube/1287/Was-ich-glaube/14007720"),
           new TopicUrlDTO(
-              "ZIB 17:00", "https://tvthek.orf.at/profile/ZIB-1700/71284/ZIB-1700/14007722"),
+              "ZIB", "https://tvthek.orf.at/profile/ZIB-1700/71284/ZIB-1700/14007722"),
           new TopicUrlDTO(
               "Vorarlberg heute",
               "https://tvthek.orf.at/profile/Vorarlberg-heute/70024/Vorarlberg-heute/14007821"),
