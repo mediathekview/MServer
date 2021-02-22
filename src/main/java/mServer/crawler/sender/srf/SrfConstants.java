@@ -10,7 +10,7 @@ public final class SrfConstants {
   /**
    * URL für Übersichtsseite der Mediathek
    */
-  public static final String OVERVIEW_PAGE_URL = BASE_URL + "/play/v3/api/srf/production/shows";
+  public static final String OVERVIEW_PAGE_URL = BASE_URL + "/play/v3/api/srf/production/shows?onlyActiveShows=false";
   /**
    * URL für Übersichtsseite einer Sendung Parameter: Id
    */
