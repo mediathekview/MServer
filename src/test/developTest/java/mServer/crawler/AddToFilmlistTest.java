@@ -26,6 +26,7 @@ public class AddToFilmlistTest {
   private static final String FILM_NAME_ONLINE_M3U8 = "onlinefilm.m3u8";
   private static final String FILM_NAME_OFFLINE_M3U8 = "offlinefilm.m3u8";
   private static final String FILM_NAME_OFFLINE_BUT_HTML_RESPONSE = "ardofflinefilm.mp4";
+  private static final String FILM_NAME_ORF_JUGENDSCHUTZ = "ipad/gp/Jugendschutz0600b2000_Q8C.mp4/playlist.m3u8";
   private static final String FILM_TOPIC1 = "Topic 1";
   private static final String FILM_TOPIC2 = "Topic 2";
   private static final String FILM_TOPIC3 = "Topic 3";
@@ -71,6 +72,13 @@ public class AddToFilmlistTest {
           case "/" + FILM_NAME_OFFLINE_M3U8:
             if (request.getMethod().equalsIgnoreCase("get")) {
               return new MockResponse().setResponseCode(404);
+            } else {
+              // head not supported for m3u8
+              return new MockResponse().setResponseCode(405);
+            }
+          case "/" + FILM_NAME_ORF_JUGENDSCHUTZ:
+            if (request.getMethod().equalsIgnoreCase("get")) {
+              return new MockResponse().setResponseCode(200);
             } else {
               // head not supported for m3u8
               return new MockResponse().setResponseCode(405);
@@ -264,6 +272,16 @@ public class AddToFilmlistTest {
         .filter(film -> film.arr[DatenFilm.FILM_TITEL].equals("Uhrzeit 12:00 in der Mitte")).findFirst();
     assertTrue(actual.isPresent());
     assertThat(actual.get().arr[DatenFilm.FILM_THEMA], equalTo("Uhrzeit 12:00 in der Mitte"));
+  }
+
+  @Test
+  public void testNotAddJugendschutzOrf() {
+    listToAdd.add(createTestFilm(Const.ORF, "Tatort", "Tatort mit Jugendschutz", FILM_NAME_ORF_JUGENDSCHUTZ));
+
+    AddToFilmlist target = new AddToFilmlist(list, listToAdd);
+    target.addOldList();
+
+    assertThat(list.size(), equalTo(2));
   }
 
   private static DatenFilm createTestFilm(String sender, String topic, String title,
