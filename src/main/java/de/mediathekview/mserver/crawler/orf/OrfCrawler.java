@@ -107,7 +107,15 @@ public class OrfCrawler extends AbstractCrawler {
       final Queue<TopicUrlDTO> shows = new ConcurrentLinkedQueue<>();
 
       shows.addAll(getArchiveEntries());
-      shows.addAll(getLetterEntries());
+      //
+      getLetterEntries()
+      .forEach(
+          show -> {
+            if (!shows.contains(show)) {
+              shows.add(show);
+            }
+          });
+      //
       getDaysEntries()
           .forEach(
               show -> {
