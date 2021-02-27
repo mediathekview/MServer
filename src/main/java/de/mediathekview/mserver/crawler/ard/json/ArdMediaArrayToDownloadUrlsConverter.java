@@ -149,7 +149,7 @@ public class ArdMediaArrayToDownloadUrlsConverter {
       } else {
         final ArdFilmUrlInfoDto info =
             new ArdFilmUrlInfoDto(
-                UrlUtils.removeParameters(UrlUtils.addProtocolIfMissing(url, "http:")),
+                UrlUtils.removeParameters(UrlUtils.addProtocolIfMissing(url, "https:")),
                 qualityText);
         if (height.isPresent() && width.isPresent()) {
           info.setResolution(Integer.parseInt(width.get()), Integer.parseInt(height.get()));
