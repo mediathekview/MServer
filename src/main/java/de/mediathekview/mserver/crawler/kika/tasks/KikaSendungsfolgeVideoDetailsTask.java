@@ -157,7 +157,8 @@ public class KikaSendungsfolgeVideoDetailsTask extends AbstractUrlTask<Film, Kik
     }
 
     if (!fileSizeNode.isEmpty() && isLong(fileSizeNode.get(0).text())) {
-      info.setSize(Long.parseLong(fileSizeNode.get(0).text()));
+      // File size is in byte and should be KB
+      info.setSize(Long.parseLong(fileSizeNode.get(0).text())/1024);
     }
 
     return Optional.of(info);
