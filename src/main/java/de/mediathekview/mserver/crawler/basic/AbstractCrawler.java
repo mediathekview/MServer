@@ -100,6 +100,7 @@ public abstract class AbstractCrawler implements Callable<Set<Film>> {
     } catch (final Exception exception){
       printErrorMessage();
       LOG.error("Something went wrong crawling {}.",getSender().getName(),exception);
+      timeoutRunner.stopTimeout();
     }
     return films;
   }
