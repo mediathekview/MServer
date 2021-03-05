@@ -1,6 +1,5 @@
 package de.mediathekview.mserver.crawler.kika.tasks;
 
-import de.mediathekview.mserver.base.webaccess.JsoupConnection;
 import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
 import de.mediathekview.mserver.crawler.basic.AbstractDocumentTask;
 import de.mediathekview.mserver.crawler.basic.AbstractUrlTask;
@@ -25,9 +24,8 @@ public class KikaSendungsfolgeVideoUrlTask
 
   public KikaSendungsfolgeVideoUrlTask(
       final AbstractCrawler aCrawler,
-      final Queue<KikaCrawlerUrlDto> aUrlToCrawlDtos,
-      final JsoupConnection jsoupConnection) {
-    super(aCrawler, aUrlToCrawlDtos, jsoupConnection);
+      final Queue<KikaCrawlerUrlDto> aUrlToCrawlDtos) {
+    super(aCrawler, aUrlToCrawlDtos);
   }
 
   private String toKikaUrl(final String aUrl) {
@@ -43,7 +41,7 @@ public class KikaSendungsfolgeVideoUrlTask
   @Override
   protected AbstractUrlTask<KikaCrawlerUrlDto, KikaCrawlerUrlDto> createNewOwnInstance(
       final Queue<KikaCrawlerUrlDto> aUrlsToCrawl) {
-    return new KikaSendungsfolgeVideoUrlTask(crawler, aUrlsToCrawl, getJsoupConnection());
+    return new KikaSendungsfolgeVideoUrlTask(crawler, aUrlsToCrawl);
   }
 
   @Override

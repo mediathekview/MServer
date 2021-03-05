@@ -1,6 +1,5 @@
 package de.mediathekview.mserver.crawler.zdf.tasks;
 
-import de.mediathekview.mserver.base.webaccess.JsoupConnection;
 import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
 import de.mediathekview.mserver.crawler.basic.AbstractDocumentTask;
 import de.mediathekview.mserver.crawler.basic.AbstractRecursiveConverterTask;
@@ -18,9 +17,8 @@ public class ZdfDayPageHtmlTask extends AbstractDocumentTask<CrawlerUrlDTO, Craw
   public ZdfDayPageHtmlTask(
       final String apiUrlBase,
       final AbstractCrawler crawler,
-      final Queue<CrawlerUrlDTO> urlToCrawlDTOs,
-      final JsoupConnection jsoupConnection) {
-    super(crawler, urlToCrawlDTOs, jsoupConnection);
+      final Queue<CrawlerUrlDTO> urlToCrawlDTOs) {
+    super(crawler, urlToCrawlDTOs);
     this.apiUrlBase = apiUrlBase;
     deserializer = new ZdfDayPageHtmlDeserializer(apiUrlBase);
   }
@@ -33,6 +31,6 @@ public class ZdfDayPageHtmlTask extends AbstractDocumentTask<CrawlerUrlDTO, Craw
   @Override
   protected AbstractRecursiveConverterTask<CrawlerUrlDTO, CrawlerUrlDTO> createNewOwnInstance(
       final Queue<CrawlerUrlDTO> aElementsToProcess) {
-    return new ZdfDayPageHtmlTask(apiUrlBase, crawler, aElementsToProcess, getJsoupConnection());
+    return new ZdfDayPageHtmlTask(apiUrlBase, crawler, aElementsToProcess);
   }
 }

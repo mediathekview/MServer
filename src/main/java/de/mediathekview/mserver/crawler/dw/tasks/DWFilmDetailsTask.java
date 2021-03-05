@@ -8,7 +8,6 @@ import de.mediathekview.mlib.daten.FilmUrl;
 import de.mediathekview.mlib.daten.Resolution;
 import de.mediathekview.mserver.base.utils.GeoLocationGuesser;
 import de.mediathekview.mserver.base.utils.HtmlDocumentUtils;
-import de.mediathekview.mserver.base.webaccess.JsoupConnection;
 import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
 import de.mediathekview.mserver.crawler.basic.AbstractDocumentTask;
 import de.mediathekview.mserver.crawler.basic.AbstractUrlTask;
@@ -57,9 +56,8 @@ public class DWFilmDetailsTask extends AbstractDocumentTask<Film, CrawlerUrlDTO>
   public DWFilmDetailsTask(
       final AbstractCrawler aCrawler,
       final Queue<CrawlerUrlDTO> aUrlToCrawlDTOs,
-      final String aBaseUrl,
-      final JsoupConnection jsoupConnection) {
-    super(aCrawler, aUrlToCrawlDTOs, jsoupConnection);
+      final String aBaseUrl) {
+    super(aCrawler, aUrlToCrawlDTOs);
     baseUrl = aBaseUrl;
   }
 
@@ -111,7 +109,7 @@ public class DWFilmDetailsTask extends AbstractDocumentTask<Film, CrawlerUrlDTO>
   @Override
   protected AbstractUrlTask<Film, CrawlerUrlDTO> createNewOwnInstance(
       final Queue<CrawlerUrlDTO> aURLsToCrawl) {
-    return new DWFilmDetailsTask(crawler, aURLsToCrawl, baseUrl, getJsoupConnection());
+    return new DWFilmDetailsTask(crawler, aURLsToCrawl, baseUrl);
   }
 
   @Override

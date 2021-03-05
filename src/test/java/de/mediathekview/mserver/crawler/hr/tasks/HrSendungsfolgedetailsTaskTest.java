@@ -5,9 +5,9 @@ import de.mediathekview.mlib.daten.GeoLocations;
 import de.mediathekview.mlib.daten.Sender;
 import de.mediathekview.mserver.base.webaccess.JsoupConnection;
 import de.mediathekview.mserver.crawler.basic.CrawlerUrlDTO;
+import de.mediathekview.mserver.crawler.hr.HrCrawler;
 import de.mediathekview.mserver.testhelper.AssertFilm;
 import de.mediathekview.mserver.testhelper.JsoupMock;
-import org.jsoup.Connection;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -26,8 +26,6 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.mockito.ArgumentMatchers.eq;
-import static org.mockito.Mockito.when;
 
 @RunWith(Parameterized.class)
 public class HrSendungsfolgedetailsTaskTest extends HrTaskTestBase {
@@ -116,14 +114,15 @@ public class HrSendungsfolgedetailsTaskTest extends HrTaskTestBase {
 
   @Test
   public void test() throws IOException {
-    final Connection connection = JsoupMock.mock(requestUrl, htmlPage);
-    when(jsoupConnection.getConnection(eq(requestUrl))).thenReturn(connection);
+    jsoupConnection = JsoupMock.mock(requestUrl, htmlPage);
+    HrCrawler crawler = createCrawler();
+    crawler.setConnection(jsoupConnection);
 
     final Queue<CrawlerUrlDTO> urls = new ConcurrentLinkedQueue<>();
     urls.add(new CrawlerUrlDTO(requestUrl));
 
     final HrSendungsfolgedetailsTask target =
-        new HrSendungsfolgedetailsTask(createCrawler(), urls, jsoupConnection);
+        new HrSendungsfolgedetailsTask(crawler, urls);
     final Set<Film> actual = target.invoke();
 
     assertThat(actual.size(), equalTo(1));

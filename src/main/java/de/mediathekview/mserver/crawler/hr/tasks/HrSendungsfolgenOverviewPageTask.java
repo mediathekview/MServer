@@ -1,7 +1,6 @@
 package de.mediathekview.mserver.crawler.hr.tasks;
 
 import de.mediathekview.mserver.base.HtmlConsts;
-import de.mediathekview.mserver.base.webaccess.JsoupConnection;
 import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
 import de.mediathekview.mserver.crawler.basic.AbstractDocumentTask;
 import de.mediathekview.mserver.crawler.basic.AbstractUrlTask;
@@ -24,9 +23,8 @@ public class HrSendungsfolgenOverviewPageTask
 
   public HrSendungsfolgenOverviewPageTask(
       final AbstractCrawler aCrawler,
-      final Queue<CrawlerUrlDTO> urlToCrawlDTOs,
-      final JsoupConnection jsoupConnection) {
-    super(aCrawler, urlToCrawlDTOs, jsoupConnection);
+      final Queue<CrawlerUrlDTO> urlToCrawlDTOs) {
+    super(aCrawler, urlToCrawlDTOs);
     // Some HR entries for "Programm" don't have a "sendungen" sub page which will be tried to load
     // because this sub page usually contains the "Sendungsfolgen".
     setIncrementErrorCounterOnHttpErrors(false);
@@ -37,7 +35,7 @@ public class HrSendungsfolgenOverviewPageTask
   @Override
   protected AbstractUrlTask<CrawlerUrlDTO, CrawlerUrlDTO> createNewOwnInstance(
       final Queue<CrawlerUrlDTO> aURLsToCrawl) {
-    return new HrSendungsfolgenOverviewPageTask(crawler, aURLsToCrawl, getJsoupConnection());
+    return new HrSendungsfolgenOverviewPageTask(crawler, aURLsToCrawl);
   }
 
   protected String[] getSendungsfoleUrlSelector() {

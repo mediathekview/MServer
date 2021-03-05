@@ -4,7 +4,6 @@ import de.mediathekview.mlib.daten.Film;
 import de.mediathekview.mlib.daten.Sender;
 import de.mediathekview.mlib.messages.listener.MessageListener;
 import de.mediathekview.mserver.base.config.MServerConfigManager;
-import de.mediathekview.mserver.base.webaccess.JsoupConnection;
 import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
 import de.mediathekview.mserver.crawler.basic.CrawlerUrlDTO;
 import de.mediathekview.mserver.crawler.dw.tasks.DWFilmDetailsTask;
@@ -32,16 +31,12 @@ public class DwCrawler extends AbstractCrawler {
   private static final String ALLE_INHALTE_URL_NACH_TAG =
       BASE_URL + "/de/media-center/alle-inhalte/s-100814?filter=&type=18&from=%s&to=%s&sort=date&results=" + MAX_RESULTS_PER_PAGE;
 
-  JsoupConnection jsoupConnection;
-
   public DwCrawler(
       final ForkJoinPool aForkJoinPool,
       final Collection<MessageListener> aMessageListeners,
       final Collection<SenderProgressListener> aProgressListeners,
       final MServerConfigManager rootConfig) {
     super(aForkJoinPool, aMessageListeners, aProgressListeners, rootConfig);
-
-    jsoupConnection = new JsoupConnection();
   }
 
   @Override
@@ -65,14 +60,14 @@ public class DwCrawler extends AbstractCrawler {
       i += MAX_DAYS_PER_CHUNK;
     }
     //
-    final DWUebersichtTagTask alleSendungenTask = new DWUebersichtTagTask(this, alleSeiten, jsoupConnection);
+    final DWUebersichtTagTask alleSendungenTask = new DWUebersichtTagTask(this, alleSeiten);
     final Set<URL> sendungFolgenUrls = forkJoinPool.invoke(alleSendungenTask);
 
     return new DWFilmDetailsTask(
         this,
         new ConcurrentLinkedQueue<>(
             sendungFolgenUrls.stream().map(CrawlerUrlDTO::new).collect(Collectors.toList())),
-        DwCrawler.BASE_URL,
-        jsoupConnection);
+        DwCrawler.BASE_URL
+        );
   }
 }

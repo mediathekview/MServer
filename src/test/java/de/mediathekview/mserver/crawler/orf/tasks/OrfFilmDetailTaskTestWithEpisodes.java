@@ -4,12 +4,11 @@ import de.mediathekview.mlib.daten.Film;
 import de.mediathekview.mlib.daten.GeoLocations;
 import de.mediathekview.mlib.daten.Sender;
 import de.mediathekview.mserver.base.webaccess.JsoupConnection;
+import de.mediathekview.mserver.crawler.orf.OrfCrawler;
 import de.mediathekview.mserver.testhelper.AssertFilm;
 import de.mediathekview.mserver.testhelper.JsoupMock;
-import org.jsoup.Connection;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
@@ -17,15 +16,14 @@ import org.mockito.MockitoAnnotations;
 import java.io.IOException;
 import java.time.Duration;
 import java.time.LocalDateTime;
+import java.util.Arrays;
+import java.util.Collection;
 import java.util.Set;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.mockito.ArgumentMatchers.eq;
-import static org.mockito.Mockito.when;
 
-@RunWith(Parameterized.class)
 public class OrfFilmDetailTaskTestWithEpisodes extends OrfFilmDetailTaskTestBase {
 
   private static final String REQUEST_URL =
@@ -49,8 +47,10 @@ public class OrfFilmDetailTaskTestWithEpisodes extends OrfFilmDetailTaskTestBase
     MockitoAnnotations.openMocks(this);
   }
 
-  private static Object[][] data() {
-    return new Object[][] {
+  @Parameterized.Parameters
+  public static Collection<Object[]> data() {
+    return Arrays.asList(
+        new Object[][] {
       {
         "ZIB 9:00",
         Duration.ofMinutes(8).plusSeconds(38),
@@ -132,22 +132,22 @@ public class OrfFilmDetailTaskTestWithEpisodes extends OrfFilmDetailTaskTestBase
         "http://localhost:8589/apasfiis.sf.apa.at/ipad/cms-worldwide/2019-03-18_0900_tl_02_ZIB-9-00_Neuseeland--Att__14007767__o__1967360405__s14465208_8__ORF2HD_09001810P_09013812P_Q6A.mp4/playlist.m3u8",
         "http://localhost:8589/apasfiis.sf.apa.at/ipad/cms-worldwide/2019-03-18_0900_tl_02_ZIB-9-00_Neuseeland--Att__14007767__o__1967360405__s14465208_8__ORF2HD_09001810P_09013812P_Q8C.mp4/playlist.m3u8"
       }
-    };
+    });
   }
 
   @Test
   public void test() throws IOException {
     setupHeadRequestForFileSize();
-    final Connection connection =
-        JsoupMock.mock(REQUEST_URL, "/orf/orf_film_with_several_parts.html");
-    when(jsoupConnection.getConnection(eq(REQUEST_URL))).thenReturn(connection);
+    jsoupConnection = JsoupMock.mock(REQUEST_URL, "/orf/orf_film_with_several_parts.html");
+    OrfCrawler crawler = createCrawler();
+    crawler.setConnection(jsoupConnection);
 
-    final Object[][] films = data();
+    final Collection<Object[]> films = data();
 
-    final Set<Film> actual = executeTask(EXPECTED_THEME, REQUEST_URL, jsoupConnection);
+    final Set<Film> actual = executeTask(crawler, EXPECTED_THEME, REQUEST_URL);
 
     assertThat(actual, notNullValue());
-    assertThat(actual.size(), equalTo(films.length));
+    assertThat(actual.size(), equalTo(films.size()));
 
     actual.forEach(
         actualFilm -> {
@@ -171,7 +171,7 @@ public class OrfFilmDetailTaskTestWithEpisodes extends OrfFilmDetailTaskTestBase
         });
   }
 
-  private Object[] getExpectedValues(final Object[][] aExpectedFilms, final String aActualTitle) {
+  private Object[] getExpectedValues(final Collection<Object[]> aExpectedFilms, final String aActualTitle) {
     for (final Object[] expected : aExpectedFilms) {
       if (expected[INDEX_TITLE].toString().compareToIgnoreCase(aActualTitle) == 0) {
         return expected;

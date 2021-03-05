@@ -4,7 +4,6 @@ import de.mediathekview.mlib.daten.Film;
 import de.mediathekview.mlib.daten.Sender;
 import de.mediathekview.mlib.messages.listener.MessageListener;
 import de.mediathekview.mserver.base.config.MServerConfigManager;
-import de.mediathekview.mserver.base.webaccess.JsoupConnection;
 import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
 import de.mediathekview.mserver.crawler.basic.CrawlerUrlDTO;
 import de.mediathekview.mserver.crawler.hr.tasks.HrSendungenOverviewPageTask;
@@ -33,8 +32,6 @@ public class HrCrawler extends AbstractCrawler {
       HrConstants.BASE_URL + "tv-programm/guide_hrfernsehen-100~_date-%s.html";
   private static final DateTimeFormatter URL_DATE_TIME_FORMATTER = DateTimeFormatter.ISO_LOCAL_DATE;
 
-  JsoupConnection jsoupConnection;
-
   public HrCrawler(
       final ForkJoinPool aForkJoinPool,
       final Collection<MessageListener> aMessageListeners,
@@ -42,7 +39,6 @@ public class HrCrawler extends AbstractCrawler {
       final MServerConfigManager aRootConfig) {
     super(aForkJoinPool, aMessageListeners, aProgressListeners, aRootConfig);
 
-    jsoupConnection = new JsoupConnection();
   }
 
   @Override
@@ -82,12 +78,12 @@ public class HrCrawler extends AbstractCrawler {
       final HrSendungsfolgenOverviewPageTask sendungsfolgenOverviewPageTask =
           new HrSendungsfolgenOverviewPageTask(
               this,
-              new ConcurrentLinkedQueue<>(forkJoinPool.submit(sendungenOverviewPageTask).get()),
-              jsoupConnection);
+              new ConcurrentLinkedQueue<>(forkJoinPool.submit(sendungenOverviewPageTask).get())
+              );
 
       final HrSendungsfolgenVerpasstOverviewPageTask sendungVerpasstTask =
           new HrSendungsfolgenVerpasstOverviewPageTask(
-              this, getSendungVerpasstStartUrls(), jsoupConnection);
+              this, getSendungVerpasstStartUrls());
 
       sendungsfolgenUrls.addAll(forkJoinPool.invoke(sendungsfolgenOverviewPageTask));
       sendungsfolgenUrls.addAll(forkJoinPool.invoke(sendungVerpasstTask));
@@ -95,6 +91,6 @@ public class HrCrawler extends AbstractCrawler {
       LOG.fatal("Something went terrible wrong on crawlin the HR.", exception);
     }
 
-    return new HrSendungsfolgedetailsTask(this, sendungsfolgenUrls, jsoupConnection);
+    return new HrSendungsfolgedetailsTask(this, sendungsfolgenUrls);
   }
 }

@@ -2,7 +2,6 @@ package de.mediathekview.mserver.crawler.kika.tasks;
 
 import de.mediathekview.mserver.base.HtmlConsts;
 import de.mediathekview.mserver.base.utils.UrlUtils;
-import de.mediathekview.mserver.base.webaccess.JsoupConnection;
 import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
 import de.mediathekview.mserver.crawler.basic.AbstractDocumentTask;
 import de.mediathekview.mserver.crawler.basic.AbstractUrlTask;
@@ -28,16 +27,15 @@ public class KikaSendungVerpasstTask extends AbstractDocumentTask<KikaCrawlerUrl
   public KikaSendungVerpasstTask(
       final AbstractCrawler aCrawler,
       final Queue<CrawlerUrlDTO> aUrlToCrawlDtos,
-      final String aBaseUrl,
-      final JsoupConnection jsoupConnection) {
-    super(aCrawler, aUrlToCrawlDtos, jsoupConnection);
+      final String aBaseUrl) {
+    super(aCrawler, aUrlToCrawlDtos);
     baseUrl = aBaseUrl;
   }
 
   @Override
   protected AbstractUrlTask<KikaCrawlerUrlDto, CrawlerUrlDTO> createNewOwnInstance(
       final Queue<CrawlerUrlDTO> aUrlsToCrawl) {
-    return new KikaSendungVerpasstTask(crawler, aUrlsToCrawl, baseUrl, getJsoupConnection());
+    return new KikaSendungVerpasstTask(crawler, aUrlsToCrawl, baseUrl);
   }
 
   @Override

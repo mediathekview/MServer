@@ -3,7 +3,6 @@ package de.mediathekview.mserver.crawler.dreisat;
 import de.mediathekview.mlib.daten.Sender;
 import de.mediathekview.mlib.messages.listener.MessageListener;
 import de.mediathekview.mserver.base.config.MServerConfigManager;
-import de.mediathekview.mserver.base.webaccess.JsoupConnection;
 import de.mediathekview.mserver.crawler.basic.CrawlerUrlDTO;
 import de.mediathekview.mserver.crawler.zdf.AbstractZdfCrawler;
 import de.mediathekview.mserver.crawler.zdf.ZdfConfiguration;
@@ -20,7 +19,6 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ForkJoinPool;
 
 public class DreiSatCrawler extends AbstractZdfCrawler {
-
   private static final int MAXIMUM_DAYS_HTML_PAST = 14;
 
   public DreiSatCrawler(
@@ -71,7 +69,7 @@ public class DreiSatCrawler extends AbstractZdfCrawler {
       throws ExecutionException, InterruptedException {
 
     final DreisatDayPageHtmlTask dayTask =
-        new DreisatDayPageHtmlTask(getApiUrlBase(), this, getExtraDayUrls(), new JsoupConnection());
+        new DreisatDayPageHtmlTask(getApiUrlBase(), this, getExtraDayUrls());
     return forkJoinPool.submit(dayTask).get();
   }
 

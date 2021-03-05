@@ -1,30 +1,64 @@
 package de.mediathekview.mserver.base.webaccess;
 
 import java.io.IOException;
-import org.jsoup.Connection;
+import java.util.concurrent.TimeUnit;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.parser.Parser;
+
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 
 /**
  * Helper Class to get rid of static method call for better testability
  */
 public class JsoupConnection {
-
-  public Connection getConnection(String url) throws IOException {
-    return Jsoup.connect(url);
+  private static final Logger LOG = LogManager.getLogger(JsoupConnection.class);
+  protected OkHttpClient client = null;
+  
+  
+  public JsoupConnection(int timeout) {
+    client = new OkHttpClient.Builder()
+        .connectTimeout(timeout, TimeUnit.SECONDS)
+        .readTimeout(timeout, TimeUnit.SECONDS)
+        .callTimeout(timeout, TimeUnit.SECONDS)
+        .build();
   }
 
+  public String getString(String url) throws IOException {
+    int retry = 0;
+    int httpResponseCode = 0;
+    String responseString = "";
+    while (retry < 3) {
+      Request request = new Request.Builder()
+          .url(url)
+          .build();
+  
+      try (Response response = client.newCall(request).execute()) {
+        httpResponseCode = response.code();
+        if (httpResponseCode == 200) {
+          responseString = response.body().string();
+          break;
+        } else if (httpResponseCode == 404 || httpResponseCode == 410) {
+          break;
+        }
+      }      
+      retry++;
+      LOG.debug("Retry #{} due to {} for {}", retry, httpResponseCode, url);
+    }
+    return responseString;
+  }
+  
   public Document getDocument(String url) throws IOException {
-    return getConnection(url).get();
+    return Jsoup.parse(getString(url));
   }
-
-  public Document getDocumentTimeoutAfter(String url, int timeoutInMilliseconds) throws IOException {
-    return getConnection(url).timeout(timeoutInMilliseconds).get();
-  }
-
-  public Document getDocumentTimeoutAfterAlternativeDocumentType(String url, int timeoutInMilliseconds, Parser parser) throws IOException {
-    return getConnection(url).timeout(timeoutInMilliseconds).parser(parser).get();
+  
+  public Document getDocument(String url, Parser parser) throws IOException {
+    return Jsoup.parse(getString(url),url,parser);
   }
 
 }

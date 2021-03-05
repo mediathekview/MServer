@@ -1,7 +1,6 @@
 package de.mediathekview.mserver.crawler.kika.tasks;
 
 import de.mediathekview.mserver.base.messages.ServerMessages;
-import de.mediathekview.mserver.base.webaccess.JsoupConnection;
 import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
 import de.mediathekview.mserver.crawler.basic.CrawlerUrlDTO;
 import de.mediathekview.mserver.crawler.kika.KikaConstants;
@@ -19,7 +18,6 @@ import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
 import java.util.concurrent.Callable;
-import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
 /**
@@ -39,13 +37,10 @@ public class KikaSendungVerpasstOverviewUrlTask implements Callable<Set<CrawlerU
   private final AbstractCrawler crawler;
   private final LocalDateTime today;
 
-  JsoupConnection jsoupConnection;
-
   public KikaSendungVerpasstOverviewUrlTask(
       final AbstractCrawler aCrawler, final LocalDateTime aToday) {
     crawler = aCrawler;
     today = aToday;
-      jsoupConnection = new JsoupConnection();
   }
 
   @Override
@@ -64,12 +59,7 @@ public class KikaSendungVerpasstOverviewUrlTask implements Callable<Set<CrawlerU
   private Set<String> gatherAllRawSendungVerpasstOverviewPageUrls() {
     final Set<String> rawSendungVerpasstOverviewPageUrls = new HashSet<>();
     try {
-      final Document document =
-          jsoupConnection.getDocumentTimeoutAfter(
-              KikaConstants.URL_DAY_PAGE,
-              (int)
-                  TimeUnit.SECONDS.toMillis(
-                      crawler.getCrawlerConfig().getSocketTimeoutInSeconds()));
+      final Document document = crawler.getConnection().getDocument(KikaConstants.URL_DAY_PAGE);
       for (final Element urlElement : document.select(URL_SELECTOR)) {
         final Optional<String> rawSendungVerpasstOverviewPageUrl =
             KikaHelper.gatherIpgTriggerUrlFromElement(
@@ -107,11 +97,4 @@ public class KikaSendungVerpasstOverviewUrlTask implements Callable<Set<CrawlerU
     return dateStrings;
   }
 
-  public JsoupConnection getJsoupConnection() {
-    return jsoupConnection;
-  }
-
-  public void setJsoupConnection(final JsoupConnection jsoupConnection) {
-    this.jsoupConnection = jsoupConnection;
-  }
 }

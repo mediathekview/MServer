@@ -4,11 +4,11 @@ import de.mediathekview.mlib.daten.Film;
 import de.mediathekview.mlib.daten.GeoLocations;
 import de.mediathekview.mlib.daten.Sender;
 import de.mediathekview.mserver.base.webaccess.JsoupConnection;
+import de.mediathekview.mserver.crawler.kika.KikaCrawler;
 import de.mediathekview.mserver.crawler.kika.KikaCrawlerUrlDto;
 import de.mediathekview.mserver.crawler.kika.KikaCrawlerUrlDto.FilmType;
 import de.mediathekview.mserver.testhelper.AssertFilm;
 import de.mediathekview.mserver.testhelper.JsoupMock;
-import org.jsoup.nodes.Document;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -27,8 +27,6 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.mockito.ArgumentMatchers.*;
-import static org.mockito.Mockito.when;
 
 @RunWith(Parameterized.class)
 public class KikaSendungsfolgeVideoDetailsTaskTest extends KikaTaskTestBase {
@@ -224,17 +222,15 @@ public class KikaSendungsfolgeVideoDetailsTaskTest extends KikaTaskTestBase {
 
   @Test
   public void test() throws IOException {
-    final Document document = JsoupMock.mockXml(requestUrl, xmlFile);
-    when(jsoupConnection.getDocumentTimeoutAfterAlternativeDocumentType(
-            eq(requestUrl), anyInt(), any()))
-        .thenReturn(document);
-
+    jsoupConnection = JsoupMock.mock(requestUrl, xmlFile);
+    KikaCrawler crawler = createCrawler();
+    crawler.setConnection(jsoupConnection);
+    
     final Queue<KikaCrawlerUrlDto> urls = new ConcurrentLinkedQueue<>();
     urls.add(new KikaCrawlerUrlDto(requestUrl, filmType));
 
     final KikaSendungsfolgeVideoDetailsTask target =
-        new KikaSendungsfolgeVideoDetailsTask(createCrawler(), urls);
-    target.setJsoupConnection(jsoupConnection);
+        new KikaSendungsfolgeVideoDetailsTask(crawler, urls);
     final Set<Film> actual = target.invoke();
 
     assertThat(actual.size(), equalTo(1));
