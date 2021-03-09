@@ -107,22 +107,9 @@ public class OrfCrawler extends AbstractCrawler {
       final Queue<TopicUrlDTO> shows = new ConcurrentLinkedQueue<>();
 
       shows.addAll(getArchiveEntries());
-      //
-      getLetterEntries()
-      .forEach(
-          show -> {
-            if (!shows.contains(show)) {
-              shows.add(show);
-            }
-          });
-      //
-      getDaysEntries()
-          .forEach(
-              show -> {
-                if (!shows.contains(show)) {
-                  shows.add(show);
-                }
-              });
+
+      addShows(shows, getLetterEntries());
+      addShows(shows, getDaysEntries());
 
       printMessage(
           ServerMessages.DEBUG_ALL_SENDUNG_FOLGEN_COUNT, getSender().getName(), shows.size());
@@ -133,5 +120,17 @@ public class OrfCrawler extends AbstractCrawler {
       LOG.fatal("Exception in ORF crawler.", ex);
     }
     return null;
+  }
+
+  private void addShows(Queue<TopicUrlDTO> shows, Collection<TopicUrlDTO> showsToAdd) {
+    showsToAdd.forEach(
+            show -> {
+              // compare only urls because topics can be different in letter and day lists
+              if (shows.stream().noneMatch(s -> s.getUrl().equals(show.getUrl()))) {
+                shows.add(show);
+              } else {
+                LOG.debug("duplicated url {} of topic {} removed", show.getUrl(), show.getTopic());
+              }
+            });
   }
 }
