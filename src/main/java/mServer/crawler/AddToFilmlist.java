@@ -122,11 +122,11 @@ public class AddToFilmlist {
     final List<DatenFilm> list = listeEinsortieren.parallelStream()
         .filter(
             film -> film.arr[DatenFilm.FILM_SENDER].equals(Const.ORF) && film.arr[DatenFilm.FILM_THEMA]
-                .matches(".*[0-9][0-9]:[0-9][0-9]$"))
+                .matches(".*[0-9]{1,2}:[0-9][0-9]$"))
         .collect(Collectors.toList());
     Log.sysLog("ORF: update Thema für " + list.size() + " Einträge.");
     if (!list.isEmpty()) {
-      list.forEach(film -> film.arr[DatenFilm.FILM_THEMA] = film.arr[DatenFilm.FILM_THEMA].replaceAll("[0-9][0-9]:[0-9][0-9]$", "").trim());
+      list.forEach(film -> film.arr[DatenFilm.FILM_THEMA] = film.arr[DatenFilm.FILM_THEMA].replaceAll("[0-9]{1,2}:[0-9][0-9]$", "").trim());
     }
   }
 

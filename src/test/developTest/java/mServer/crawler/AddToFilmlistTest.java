@@ -238,18 +238,25 @@ public class AddToFilmlistTest {
 
   @Test
   public void testReplaceTimeOnlyInOrfTopic() {
+    listToAdd.add(createTestFilm(Const.ORF, "ZIB 7:00", "ZIB 7:00", FILM_NAME_ONLINE));
     listToAdd.add(createTestFilm(Const.ORF, "ZIB 17:00", "ZIB 17:00", FILM_NAME_ONLINE));
     listToAdd.add(createTestFilm(Const.ARD, "Tagesschau 20:15", "Tagesschau 20:15", FILM_NAME_ONLINE));
     listToAdd.add(createTestFilm(Const.ZDF, "heute 19:00", "heute 19:00", FILM_NAME_ONLINE));
     listToAdd.add(createTestFilm(Const.ORF, "Guten Morgen Österrreich 08:00", "Guten Morgen Österrreich 08:00", FILM_NAME_ONLINE));
+    listToAdd.add(createTestFilm(Const.ORF, "Guten Morgen Österrreich 8:30", "Guten Morgen Österrreich 8:30", FILM_NAME_ONLINE));
     listToAdd.add(createTestFilm(Const.ORF, "Uhrzeit 12:00 in der Mitte", "Uhrzeit 12:00 in der Mitte", FILM_NAME_ONLINE));
 
     AddToFilmlist target = new AddToFilmlist(list, listToAdd);
     target.addOldList();
 
-    assertThat(list.size(), equalTo(7));
+    assertThat(list.size(), equalTo(9));
     Optional<DatenFilm> actual = list.stream()
         .filter(film -> film.arr[DatenFilm.FILM_TITEL].equals("ZIB 17:00")).findFirst();
+    assertTrue(actual.isPresent());
+    assertThat(actual.get().arr[DatenFilm.FILM_THEMA], equalTo("ZIB"));
+
+    actual = list.stream()
+            .filter(film -> film.arr[DatenFilm.FILM_TITEL].equals("ZIB 7:00")).findFirst();
     assertTrue(actual.isPresent());
     assertThat(actual.get().arr[DatenFilm.FILM_THEMA], equalTo("ZIB"));
 
@@ -265,6 +272,11 @@ public class AddToFilmlistTest {
 
     actual = list.stream()
         .filter(film -> film.arr[DatenFilm.FILM_TITEL].equals("Guten Morgen Österrreich 08:00")).findFirst();
+    assertTrue(actual.isPresent());
+    assertThat(actual.get().arr[DatenFilm.FILM_THEMA], equalTo("Guten Morgen Österrreich"));
+
+    actual = list.stream()
+            .filter(film -> film.arr[DatenFilm.FILM_TITEL].equals("Guten Morgen Österrreich 8:30")).findFirst();
     assertTrue(actual.isPresent());
     assertThat(actual.get().arr[DatenFilm.FILM_THEMA], equalTo("Guten Morgen Österrreich"));
 
