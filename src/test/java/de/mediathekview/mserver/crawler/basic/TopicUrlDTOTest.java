@@ -20,7 +20,7 @@ public class TopicUrlDTOTest {
     final TopicUrlDTO dto1 = new TopicUrlDTO("Thema", "Url");
     final TopicUrlDTO dto2 = new TopicUrlDTO("Anders", "Url");
 
-    assertThat(dto1.equals(dto2), equalTo(true));
+    assertThat(dto1.equals(dto2), equalTo(false));
   }
 
   @Test
