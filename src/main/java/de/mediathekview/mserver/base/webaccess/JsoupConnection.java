@@ -12,6 +12,7 @@ import org.jsoup.parser.Parser;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
+import okhttp3.ResponseBody;
 
 /**
  * Helper Class to get rid of static method call for better testability
@@ -37,11 +38,13 @@ public class JsoupConnection {
       Request request = new Request.Builder()
           .url(url)
           .build();
-  
-      try (Response response = client.newCall(request).execute()) {
+      try (final Response response = client.newCall(request).execute();
+          final ResponseBody body = response.body()) {  
         httpResponseCode = response.code();
-        if (httpResponseCode == 200) {
-          responseString = response.body().string();
+        if (response.isSuccessful()) {
+          if (response.body() != null) {
+            responseString = response.body().string();
+          }
           break;
         } else if (httpResponseCode == 404 || httpResponseCode == 410) {
           break;

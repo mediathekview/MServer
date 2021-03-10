@@ -4,7 +4,6 @@ import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonDeserializer;
 import com.google.gson.JsonElement;
 import de.mediathekview.mlib.daten.Resolution;
-import de.mediathekview.mlib.tool.MVHttpClient;
 import de.mediathekview.mserver.base.utils.UrlUtils;
 import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
 import de.mediathekview.mserver.crawler.basic.M3U8Dto;
@@ -16,8 +15,6 @@ import java.net.URL;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-import okhttp3.Request;
-import okhttp3.ResponseBody;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -31,8 +28,6 @@ public class ArdVideoInfoJsonDeserializer implements JsonDeserializer<ArdVideoIn
   private static final String ELEMENT_SUBTITLE_URL = "_subtitleUrl";
 
   private static final Logger LOG = LogManager.getLogger(ArdVideoInfoJsonDeserializer.class);
-
-  private static final Request.Builder REQUEST_BUILDER = new Request.Builder();
 
   private final AbstractCrawler crawler;
 
@@ -75,22 +70,15 @@ public class ArdVideoInfoJsonDeserializer implements JsonDeserializer<ArdVideoIn
    * @param aUrl the url
    * @return the content of the url
    */
-  private static Optional<String> readContent(final URL aUrl) {
-    final Request request = REQUEST_BUILDER.url(aUrl).build();
-    try (final okhttp3.Response response =
-            MVHttpClient.getInstance().getHttpClient().newCall(request).execute();
-        final ResponseBody body = response.body()) {
-      if (response.isSuccessful()) {
-        return Optional.of(body.string());
-      } else {
-        LOG.error(
-            String.format(
-                "ArdVideoInfoJsonDeserializer: Request '%s' failed: %s", aUrl, response.code()));
+  private Optional<String> readContent(final URL aUrl) {
+    try {
+      Optional<String> content = Optional.of(crawler.getConnection().getString(aUrl.toString()));
+      if (content.isPresent() && content.get().length() > 0) {
+        return content;
       }
     } catch (final IOException ex) {
       LOG.error("ArdVideoInfoJsonDeserializer: ", ex);
     }
-
     return Optional.empty();
   }
 
