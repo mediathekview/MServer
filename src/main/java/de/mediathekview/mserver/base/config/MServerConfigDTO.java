@@ -220,8 +220,7 @@ public class MServerConfigDTO extends MServerBasicConfigDTO implements ConfigDTO
    *     configuration.
    */
   public MServerBasicConfigDTO getSenderConfig(final Sender aSender) {
-    senderConfigurations.computeIfAbsent(
-        aSender, sender -> senderConfigurations.put(sender, new MServerBasicConfigDTO(this)));
+    senderConfigurations.putIfAbsent(aSender, new MServerBasicConfigDTO(this));
     return senderConfigurations.get(aSender);
   }
 
