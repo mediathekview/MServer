@@ -27,7 +27,7 @@ public class OrfHistoryOverviewTask implements Callable<Queue<TopicUrlDTO>> {
     final Queue<TopicUrlDTO> results = new ConcurrentLinkedQueue<>();
 
     // URLs für Seiten parsen
-    final Document document = crawler.getConnection().getDocument(OrfConstants.URL_ARCHIVE);
+    final Document document = crawler.requestBodyAsHtmlDocument(OrfConstants.URL_ARCHIVE);
 
     final Elements topics = document.select(TOPIC_URL_SELECTOR);
     topics.forEach(

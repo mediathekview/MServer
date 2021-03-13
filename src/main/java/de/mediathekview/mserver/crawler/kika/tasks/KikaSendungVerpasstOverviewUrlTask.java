@@ -59,7 +59,7 @@ public class KikaSendungVerpasstOverviewUrlTask implements Callable<Set<CrawlerU
   private Set<String> gatherAllRawSendungVerpasstOverviewPageUrls() {
     final Set<String> rawSendungVerpasstOverviewPageUrls = new HashSet<>();
     try {
-      final Document document = crawler.getConnection().getDocument(KikaConstants.URL_DAY_PAGE);
+      final Document document = crawler.requestBodyAsHtmlDocument(KikaConstants.URL_DAY_PAGE);
       for (final Element urlElement : document.select(URL_SELECTOR)) {
         final Optional<String> rawSendungVerpasstOverviewPageUrl =
             KikaHelper.gatherIpgTriggerUrlFromElement(

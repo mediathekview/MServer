@@ -337,9 +337,9 @@ public class SrfFilmJsonDeserializer implements JsonDeserializer<Optional<Film>>
     Optional<String> content = Optional.empty();
  
     try {
-      content = Optional.of(crawler.getConnection().getString(optimizedUrl));
+      content = Optional.of(crawler.requestBodyAsString(optimizedUrl));
       if (content.isEmpty() || content.get().length() == 0) {
-        content = Optional.of(crawler.getConnection().getString(aM3U8Url));
+        content = Optional.of(crawler.requestBodyAsString(aM3U8Url));
       }
   
       if (content.isPresent() && content.get().length() > 0) {

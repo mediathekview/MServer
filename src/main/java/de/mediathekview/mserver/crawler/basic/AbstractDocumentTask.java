@@ -54,7 +54,7 @@ public abstract class AbstractDocumentTask<T, D extends CrawlerUrlDTO>
   @Override
   protected void processElement(final D urlDTO) {
     try {
-      final Document document = crawler.getConnection().getDocument(urlDTO.getUrl());
+      final Document document = crawler.requestBodyAsHtmlDocument(urlDTO.getUrl());
       processDocument(urlDTO, document);
     } catch (final HttpStatusException httpStatusError) {
       LOG.log(

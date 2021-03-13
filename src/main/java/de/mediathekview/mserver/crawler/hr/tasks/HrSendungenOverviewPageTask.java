@@ -37,7 +37,7 @@ public class HrSendungenOverviewPageTask implements Callable<Set<CrawlerUrlDTO>>
     final Set<CrawlerUrlDTO> results = new HashSet<>();
 
     try {
-      final Document document = crawler.getConnection().getDocument(baseUrl + HR_SENDUNGEN_URL);
+      final Document document = crawler.requestBodyAsHtmlDocument(baseUrl + HR_SENDUNGEN_URL);
       for (final Element filmUrlElement : document.select(SENDUNG_URL_SELECTOR)) {
         if (filmUrlElement.hasAttr(HtmlConsts.ATTRIBUTE_HREF)) {
           final String url = filmUrlElement.absUrl(HtmlConsts.ATTRIBUTE_HREF);

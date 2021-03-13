@@ -46,7 +46,7 @@ public class SrTopicsOverviewPageTask implements Callable<Queue<SrTopicUrlDTO>> 
     final Queue<SrTopicUrlDTO> results = new ConcurrentLinkedQueue<>();
 
     // URLs für Seiten parsen
-    final Document document = crawler.getConnection().getDocument(SrConstants.URL_OVERVIEW_PAGE);
+    final Document document = crawler.requestBodyAsHtmlDocument(SrConstants.URL_OVERVIEW_PAGE);
     final List<String> overviewLinks = parseOverviewLinks(document);
 
     // Sendungen für erste Seite ermitteln
@@ -56,7 +56,7 @@ public class SrTopicsOverviewPageTask implements Callable<Queue<SrTopicUrlDTO>> 
     overviewLinks.forEach(
         url -> {
           try {
-            final Document subpageDocument = crawler.getConnection().getDocument(url);
+            final Document subpageDocument = crawler.requestBodyAsHtmlDocument(url);
             results.addAll(parseOverviewPage(subpageDocument));
           } catch (final IOException ex) {
             LOG.fatal("SrTopicsOverviewPageTask: error parsing url " + url, ex);

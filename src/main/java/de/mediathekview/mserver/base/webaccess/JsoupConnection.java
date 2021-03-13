@@ -30,11 +30,11 @@ public class JsoupConnection {
         .build();
   }
 
-  public String getString(String url) throws IOException {
+  public String requestBodyAsString(String url) throws IOException {
     int retry = 0;
     int httpResponseCode = 0;
     String responseString = "";
-    while (retry < 3) {
+    do {
       Request request = new Request.Builder()
           .url(url)
           .build();
@@ -43,25 +43,25 @@ public class JsoupConnection {
         httpResponseCode = response.code();
         if (response.isSuccessful()) {
           if (response.body() != null) {
-            responseString = response.body().string();
+            return response.body().string();
           }
-          break;
-        } else if (httpResponseCode == 404 || httpResponseCode == 410) {
+        } 
+        if (response.body() == null || httpResponseCode == 404 || httpResponseCode == 410) {
           break;
         }
       }      
       retry++;
       LOG.debug("Retry #{} due to {} for {}", retry, httpResponseCode, url);
-    }
+    } while (retry < 3);
     return responseString;
   }
   
-  public Document getDocument(String url) throws IOException {
-    return Jsoup.parse(getString(url));
+  public Document requestBodyAsHtmlDocument(String url) throws IOException {
+    return Jsoup.parse(requestBodyAsString(url));
   }
-  
-  public Document getDocument(String url, Parser parser) throws IOException {
-    return Jsoup.parse(getString(url),url,parser);
+
+  public Document requestBodyAsXmlDocument(String url) throws IOException {
+    return Jsoup.parse(requestBodyAsString(url), url, Parser.xmlParser());
   }
 
 }

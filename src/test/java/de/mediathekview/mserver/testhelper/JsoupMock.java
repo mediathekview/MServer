@@ -1,7 +1,5 @@
 package de.mediathekview.mserver.testhelper;
 
-import static org.mockito.ArgumentMatchers.any;
-
 import de.mediathekview.mserver.base.webaccess.JsoupConnection;
 import java.io.IOException;
 import java.util.HashMap;
@@ -39,9 +37,9 @@ public class JsoupMock {
         final Document XmlDocument = Jsoup.parse(fileContent, url, Parser.xmlParser());
         
         
-        Mockito.when(connection.getString(url)).thenReturn(fileContent);
-        Mockito.when(connection.getDocument(url)).thenReturn(document);
-        Mockito.when(connection.getDocument(org.mockito.Mockito.eq(url), any(Parser.class))).thenReturn(XmlDocument);
+        Mockito.when(connection.requestBodyAsString(url)).thenReturn(fileContent);
+        Mockito.when(connection.requestBodyAsHtmlDocument(url)).thenReturn(document);
+        Mockito.when(connection.requestBodyAsXmlDocument(org.mockito.Mockito.eq(url))).thenReturn(XmlDocument);
       } catch (IOException error) {
         // TODO Auto-generated catch block
         error.printStackTrace();

@@ -52,8 +52,10 @@ public class OrfHistoryOverviewTaskTest {
         .thenReturn(MServerConfigManager.getInstance("MServer-JUnit-Config.yaml").getSenderConfig(Sender.ORF));
     final Document document =
         JsoupMock.getFileDocument(OrfConstants.URL_ARCHIVE, "/orf/orf_history_overview.html");
-    when(jsoupConnection.getDocument(eq(OrfConstants.URL_ARCHIVE)))
+    when(jsoupConnection.requestBodyAsHtmlDocument(eq(OrfConstants.URL_ARCHIVE)))
         .thenReturn(document);
+    when(crawler.requestBodyAsHtmlDocument(eq(OrfConstants.URL_ARCHIVE)))
+    .thenReturn(document);
     when(crawler.getConnection())
     .thenReturn(jsoupConnection);
 

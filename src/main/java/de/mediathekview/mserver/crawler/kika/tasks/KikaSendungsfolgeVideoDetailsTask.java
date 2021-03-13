@@ -12,7 +12,6 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
-import org.jsoup.parser.Parser;
 import org.jsoup.select.Elements;
 
 import java.io.IOException;
@@ -209,7 +208,7 @@ public class KikaSendungsfolgeVideoDetailsTask extends AbstractUrlTask<Film, Kik
   @Override
   protected void processElement(final KikaCrawlerUrlDto urlDto) {
     try {
-      final Document document = crawler.getConnection().getDocument(urlDto.getUrl(), Parser.xmlParser());
+      final Document document = crawler.requestBodyAsXmlDocument(urlDto.getUrl());
       final Elements titleNodes = orAlternative(document, ELEMENT_BROADCAST_NAME, ELEMENT_TITLE);
       final Elements themaNodes =
           orAlternative(

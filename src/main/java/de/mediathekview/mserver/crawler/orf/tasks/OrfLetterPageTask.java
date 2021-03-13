@@ -32,14 +32,14 @@ public class OrfLetterPageTask implements Callable<Queue<TopicUrlDTO>> {
     final Queue<TopicUrlDTO> results = new ConcurrentLinkedQueue<>();
 
     // URLs für Seiten parsen
-    final Document document = crawler.getConnection().getDocument(OrfConstants.URL_SHOW_LETTER_PAGE_A);
+    final Document document = crawler.getConnection().requestBodyAsHtmlDocument(OrfConstants.URL_SHOW_LETTER_PAGE_A);
     final List<String> overviewLinks = OrfHelper.parseLetterLinks(document);
 
     // Sendungen für die einzelnen Seiten pro Buchstabe ermitteln
     overviewLinks.forEach(
         url -> {
           try {
-            final Document subpageDocument = crawler.getConnection().getDocument(url);
+            final Document subpageDocument = crawler.requestBodyAsHtmlDocument(url);
             results.addAll(parseOverviewPage(subpageDocument));
           } catch (final IOException ex) {
             LOG.fatal("OrfLetterPageTask: error parsing url {}", url, ex);

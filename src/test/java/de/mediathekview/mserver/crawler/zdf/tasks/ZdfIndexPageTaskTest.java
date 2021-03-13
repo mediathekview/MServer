@@ -84,7 +84,8 @@ public class ZdfIndexPageTaskTest {
         (url, fileName) -> {
           try {
             final Document document = JsoupMock.getFileDocument(url, fileName);
-            when(jsoupConnection.getDocument(eq(url))).thenReturn(document);
+            when(jsoupConnection.requestBodyAsHtmlDocument(eq(url))).thenReturn(document);
+            when(crawler.requestBodyAsHtmlDocument(eq(url))).thenReturn(document);
           } catch (final IOException iox) {
             fail();
           }

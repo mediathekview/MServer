@@ -55,7 +55,7 @@ public class HrSendungenOverviewPageTaskTest extends HrTaskTestBase {
         };
 
     final Document document = JsoupMock.getFileDocument(requestUrl, "/hr/hr_topics_page.html");
-    when(jsoupConnection.getDocument(eq(requestUrl))).thenReturn(document);
+    when(jsoupConnection.requestBodyAsHtmlDocument(eq(requestUrl))).thenReturn(document);
     HrCrawler crawler = createCrawler();
     crawler.setConnection(jsoupConnection);
 
