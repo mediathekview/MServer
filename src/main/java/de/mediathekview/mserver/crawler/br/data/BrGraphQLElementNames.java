@@ -23,9 +23,10 @@ public enum BrGraphQLElementNames {
   STRING_CLIP_SLUG("slug"),
   STRING_CLIP_START("start"),
   STRING_CLIP_TITLE("title"),
-  STRING_CLIP_URL("publicLocation")
+  STRING_CLIP_URL("publicLocation"),
+  STRING_CLIP_FILESIZE("fileSize"),
   ;
-  
+
   private String elementName;
   
   private BrGraphQLElementNames(String elementName) {

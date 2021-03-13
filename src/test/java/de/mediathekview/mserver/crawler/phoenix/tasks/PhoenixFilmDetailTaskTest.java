@@ -116,6 +116,8 @@ public class PhoenixFilmDetailTaskTest extends WireMockTestBase {
     setupSuccessfulJsonResponse(filmUrl, filmJsonFile);
     setupSuccessfulXmlResponse(filmDetailXmlUrl, filmDetailXmlFile);
     setupSuccessfulJsonResponse(videoUrl, videoJsonFile);
+    setupHeadResponse(404);
+    setupHeadResponse("/none/phoenix/18/06/180624_phx_presseclub/1/180624_phx_presseclub_2328k_p35v13.mp4", 200);
 
     final Set<Film> actual = executeTask(filmUrl);
 

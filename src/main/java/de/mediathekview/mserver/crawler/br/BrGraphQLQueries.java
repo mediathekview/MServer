@@ -299,6 +299,7 @@ public class BrGraphQLQueries {
               , addObjectConstruct("node"
                   , "id"
                   , "publicLocation"
+                  , "fileSize"
                   , addObjectConstruct("accessibleIn(first: 50)"
                       , "count"
                       , addObjectConstruct("edges"

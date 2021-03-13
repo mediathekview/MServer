@@ -43,8 +43,8 @@ public class ArdVideoInfoJsonDeserializerTest extends WireMockTestBase {
         new Object[][] {
           {
             "/ard/ard_video_without_hd.json",
-            "http://wdrmedien-a.akamaihd.net/medp/ondemand/weltweit/fsk0/147/1471174/1471174_16874993.mp4",
-            "http://wdrmedien-a.akamaihd.net/medp/ondemand/weltweit/fsk0/147/1471174/1471174_16874995.mp4",
+            "https://wdrmedien-a.akamaihd.net/medp/ondemand/weltweit/fsk0/147/1471174/1471174_16874993.mp4",
+            "https://wdrmedien-a.akamaihd.net/medp/ondemand/weltweit/fsk0/147/1471174/1471174_16874995.mp4",
             null
           },
           {
@@ -91,9 +91,9 @@ public class ArdVideoInfoJsonDeserializerTest extends WireMockTestBase {
           },
           {
             "/ard/ard_video_hr_with_hd.json",
-            "http://hrardmediathek-a.akamaihd.net/video/as/allewetter/2017_12/hrLogo_171228193505_L279621_512x288-25p-500kbit.mp4",
-            "http://hrardmediathek-a.akamaihd.net/video/as/allewetter/2017_12/hrLogo_171228193505_L279621_960x540-50p-1800kbit.mp4",
-            "http://hrardmediathek-a.akamaihd.net/video/as/allewetter/2017_12/hrLogo_171228193505_L279621_1280x720-50p-5000kbit.mp4"
+            "https://hrardmediathek-a.akamaihd.net/video/as/allewetter/2017_12/hrLogo_171228193505_L279621_512x288-25p-500kbit.mp4",
+            "https://hrardmediathek-a.akamaihd.net/video/as/allewetter/2017_12/hrLogo_171228193505_L279621_960x540-50p-1800kbit.mp4",
+            "https://hrardmediathek-a.akamaihd.net/video/as/allewetter/2017_12/hrLogo_171228193505_L279621_1280x720-50p-5000kbit.mp4"
           },
           {
             "/ard/ard_video_mdr_with_hd.json",

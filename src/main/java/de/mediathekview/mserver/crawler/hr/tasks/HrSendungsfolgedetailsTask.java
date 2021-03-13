@@ -46,12 +46,14 @@ public class HrSendungsfolgedetailsTask extends AbstractDocumentTask<Film, Crawl
   private static final String THEMA_SELECTOR2 = ".c-programHeader__headline.text__headline";
   private static final String TITLE_SELECTOR1 = ".c-programHeader__subline.text__topline";
   private static final String TITLE_SELECTOR2 = ".c-contentHeader__headline";
+  private static final String TITLE_SELECTOR3 = ".c-programHeader__mediaWrapper .text__headline";
   private static final String DATE_TIME_SELECTOR1 = ".c-programHeader__mediaWrapper time";
   private static final String DATE_TIME_SELECTOR2 = ".c-contentHeader__lead time";
   private static final String DAUER_SELECTOR1 = ".c-programHeader__mediaWrapper .mediaInfo__byline";
   private static final String DAUER_SELECTOR2 = ".c-contentHeader .mediaInfo__byline";
   private static final String DESCRIPTION_SELECTOR1 = ".copytext__text.copytext__text strong";
   private static final String DESCRIPTION_SELECTOR2 = ".copytext__text";
+  private static final String VIDEO_URL_SELECTOR1 = ".c-videoplayer .js-loadScript";
   private static final String VIDEO_URL_SELECTOR2 = "figure .js-loadScript";
 
   private static final Type OPTIONAL_ARDVIDEOINFODTO_TYPE_TOKEN =
@@ -91,17 +93,29 @@ public class HrSendungsfolgedetailsTask extends AbstractDocumentTask<Film, Crawl
       if (title.isPresent()
           && topic.isPresent()
           && topic.get().compareToIgnoreCase(title.get()) == 0) {
-        title = HtmlDocumentUtils.getElementString(TITLE_SELECTOR1, TITLE_SELECTOR2, aDocument);
+        title = HtmlDocumentUtils.getElementString(TITLE_SELECTOR1, TITLE_SELECTOR2, TITLE_SELECTOR3, aDocument);
       }
     } else {
       // Ansonsten ist die Überschrift das Thema und die Unterüberschrift der Titel (betrifft v.a.
       // Hessenschau)
       topic = HtmlDocumentUtils.getElementString(THEMA_SELECTOR2, aDocument);
-      title = HtmlDocumentUtils.getElementString(TITLE_SELECTOR1, TITLE_SELECTOR2, aDocument);
+      title = HtmlDocumentUtils.getElementString(TITLE_SELECTOR1, TITLE_SELECTOR2, TITLE_SELECTOR3, aDocument);
       if (topic.isEmpty() && title.isPresent()) {
-        final String[] titleParts = title.get().split("-");
+        String[] titleParts = title.get().split("-");
+        if (titleParts.length == 1) {
+          titleParts = title.get().split("vom");
+        }
         topic = Optional.of(titleParts[0].trim());
       }
+    }
+
+    if (title.isPresent()) {
+      String value = title.get().replace("[Videoseite]", "");
+      final int index = value.indexOf("|");
+      if (index > 0) {
+        value = value.substring(0, index);
+      }
+      title = Optional.of(value.trim());
     }
 
     return new HrTopicTitleDTO(topic.orElse(null), title.orElse(null));
@@ -236,7 +250,7 @@ public class HrSendungsfolgedetailsTask extends AbstractDocumentTask<Film, Crawl
 
     final Optional<String> videoJson =
         HtmlDocumentUtils.getElementAttributeString(
-            VIDEO_URL_SELECTOR2, ATTRIBUTE_VIDEO_JSON, aDocument);
+            VIDEO_URL_SELECTOR1, VIDEO_URL_SELECTOR2, ATTRIBUTE_VIDEO_JSON, aDocument);
     if (videoJson.isPresent()) {
       return gson.fromJson(videoJson.get(), OPTIONAL_ARDVIDEOINFODTO_TYPE_TOKEN);
     }
