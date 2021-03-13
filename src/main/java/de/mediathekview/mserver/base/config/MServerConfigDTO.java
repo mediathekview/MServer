@@ -35,6 +35,7 @@ public class MServerConfigDTO extends MServerBasicConfigDTO implements ConfigDTO
   private Boolean filmlistImporEnabled;
 
   public MServerConfigDTO() {
+    super();
     senderConfigurations = new EnumMap<>(Sender.class);
     senderExcluded = new HashSet<>();
     senderIncluded = new HashSet<>();
@@ -219,9 +220,8 @@ public class MServerConfigDTO extends MServerBasicConfigDTO implements ConfigDTO
    *     configuration.
    */
   public MServerBasicConfigDTO getSenderConfig(final Sender aSender) {
-    if (!senderConfigurations.containsKey(aSender)) {
-      senderConfigurations.put(aSender, new MServerBasicConfigDTO(this));
-    }
+    senderConfigurations.computeIfAbsent(
+        aSender, sender -> senderConfigurations.put(sender, new MServerBasicConfigDTO(this)));
     return senderConfigurations.get(aSender);
   }
 
@@ -249,7 +249,7 @@ public class MServerConfigDTO extends MServerBasicConfigDTO implements ConfigDTO
         && Objects.equals(getMaximumCpuThreads(), that.getMaximumCpuThreads())
         && Objects.equals(
             getMaximumServerDurationInMinutes(), that.getMaximumServerDurationInMinutes())
-        && Objects.equals(getSenderConfigurations(), that.getSenderConfigurations())
+        && Objects.equals(senderConfigurations, that.senderConfigurations)
         && Objects.equals(getSenderExcluded(), that.getSenderExcluded())
         && Objects.equals(getSenderIncluded(), that.getSenderIncluded())
         && Objects.equals(getFilmlistSaveFormats(), that.getFilmlistSaveFormats())
@@ -273,7 +273,7 @@ public class MServerConfigDTO extends MServerBasicConfigDTO implements ConfigDTO
         getCopySettings(),
         getMaximumCpuThreads(),
         getMaximumServerDurationInMinutes(),
-        getSenderConfigurations(),
+        senderConfigurations,
         getSenderExcluded(),
         getSenderIncluded(),
         getFilmlistSaveFormats(),
@@ -288,5 +288,11 @@ public class MServerConfigDTO extends MServerBasicConfigDTO implements ConfigDTO
         getFilmlistHashFilePath(),
         getWriteFilmlistIdFileEnabled(),
         getFilmlistIdFilePath());
+  }
+
+  public void initializeSenderConfigurations() {
+    senderConfigurations
+        .values()
+        .forEach(senderConfig -> senderConfig.setParentConfig(Optional.of(this)));
   }
 }

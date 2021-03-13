@@ -74,7 +74,7 @@ public class ZdfIndexPageTaskTest {
   @Test
   public void test() throws Exception {
     when(crawler.getCrawlerConfig())
-        .thenReturn(MServerConfigManager.getInstance().getSenderConfig(Sender.ZDF));
+        .thenReturn(new MServerConfigManager().getSenderConfig(Sender.ZDF));
 
     final Map<String, String> urlMapping = new HashMap<>();
     urlMapping.put(ZdfConstants.URL_BASE, htmlFile);
@@ -91,7 +91,8 @@ public class ZdfIndexPageTaskTest {
           }
         });
 
-    final ZdfIndexPageTask target = new ZdfIndexPageTask(crawler, ZdfConstants.URL_BASE, jsoupConnection);
+    final ZdfIndexPageTask target =
+        new ZdfIndexPageTask(crawler, ZdfConstants.URL_BASE, jsoupConnection);
 
     final ZdfConfiguration actual = target.call();
 

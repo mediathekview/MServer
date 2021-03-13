@@ -32,7 +32,7 @@ public class NexxCloudVideoDetailsDeserializerTest {
   private final String jsonFile;
   private final Set<FilmUrlInfoDto> correctResults;
   private final MServerConfigManager rootConfig =
-      MServerConfigManager.getInstance("MServer-JUnit-Config.yaml");
+      new MServerConfigManager("MServer-JUnit-Config.yaml");
 
   public NexxCloudVideoDetailsDeserializerTest(
       final String jsonFile, final Set<FilmUrlInfoDto> correctResults) {

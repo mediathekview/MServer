@@ -42,7 +42,7 @@ public abstract class AbstractRecursiveConverterTask<T, D> extends RecursiveTask
     crawler = aCrawler;
     elementsToProcess = aUrlToCrawlDTOs;
     taskResults = ConcurrentHashMap.newKeySet();
-    config = MServerConfigManager.getInstance().getSenderConfig(crawler.getSender());
+    config = new MServerConfigManager().getSenderConfig(crawler.getSender());
   }
 
   private Queue<D> createSubSet(final Queue<D> aBaseQueue) {

@@ -69,7 +69,7 @@ public class CrawlerManager extends AbstractManager {
 
   private CrawlerManager() {
     super();
-    final MServerConfigManager rootConfig = MServerConfigManager.getInstance();
+    final MServerConfigManager rootConfig = new MServerConfigManager();
     config = rootConfig.getConfig();
     executorService = Executors.newFixedThreadPool(config.getMaximumCpuThreads());
     forkJoinPool = new ForkJoinPool(config.getMaximumCpuThreads());

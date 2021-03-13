@@ -27,7 +27,7 @@ public class NexxCloudSessionInitDeserializerTest {
   private final String jsonFile;
   private final Long correctResults;
   private final MServerConfigManager rootConfig =
-      MServerConfigManager.getInstance("MServer-JUnit-Config.yaml");
+      new MServerConfigManager("MServer-JUnit-Config.yaml");
 
   public NexxCloudSessionInitDeserializerTest(final String jsonFile, final Long correctResults) {
     this.jsonFile = jsonFile;

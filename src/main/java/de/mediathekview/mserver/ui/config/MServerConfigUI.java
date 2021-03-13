@@ -31,7 +31,7 @@ public final class MServerConfigUI {
 
   public MServerConfigUI() {
     super();
-    config = MServerConfigManager.getInstance().getConfig();
+    config = new MServerConfigManager().getConfig();
     final MServerLogSettingsDTO logSettings = config.getLogSettings();
     logSettings.setLogActivateConsole(true);
 

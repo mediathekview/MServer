@@ -118,7 +118,7 @@ public class OrfLetterPageTaskTest {
         });
 
     when(crawler.getCrawlerConfig())
-        .thenReturn(MServerConfigManager.getInstance().getSenderConfig(Sender.ORF));
+        .thenReturn(new MServerConfigManager().getSenderConfig(Sender.ORF));
 
     final OrfLetterPageTask target = new OrfLetterPageTask(crawler, jsoupConnection);
 

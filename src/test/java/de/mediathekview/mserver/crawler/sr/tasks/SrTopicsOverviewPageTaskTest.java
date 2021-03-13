@@ -84,7 +84,7 @@ public class SrTopicsOverviewPageTaskTest {
         });
 
     when(crawler.getCrawlerConfig())
-        .thenReturn(MServerConfigManager.getInstance().getSenderConfig(Sender.SR));
+        .thenReturn(new MServerConfigManager().getSenderConfig(Sender.SR));
     final SrTopicsOverviewPageTask target = new SrTopicsOverviewPageTask(crawler, jsoupConnection);
     final Queue<SrTopicUrlDTO> actual = target.call();
     assertThat(actual, notNullValue());

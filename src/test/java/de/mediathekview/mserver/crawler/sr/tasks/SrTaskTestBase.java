@@ -15,8 +15,7 @@ import java.util.concurrent.ForkJoinPool;
 
 public abstract class SrTaskTestBase extends WireMockTestBase {
 
-  protected MServerConfigManager rootConfig =
-      MServerConfigManager.getInstance("MServer-JUnit-Config.yaml");
+  protected MServerConfigManager rootConfig = new MServerConfigManager("MServer-JUnit-Config.yaml");
 
   protected SrCrawler createCrawler() {
     final ForkJoinPool forkJoinPool = new ForkJoinPool();

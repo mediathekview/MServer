@@ -50,7 +50,7 @@ public class OrfHistoryOverviewTaskTest {
   public void test() throws Exception {
     final OrfCrawler crawler = Mockito.mock(OrfCrawler.class);
     when(crawler.getCrawlerConfig())
-        .thenReturn(MServerConfigManager.getInstance().getSenderConfig(Sender.ORF));
+        .thenReturn(new MServerConfigManager().getSenderConfig(Sender.ORF));
     final Document document =
         JsoupMock.getFileDocument(OrfConstants.URL_ARCHIVE, "/orf/orf_history_overview.html");
     when(jsoupConnection.getDocumentTimeoutAfter(eq(OrfConstants.URL_ARCHIVE), anyInt()))

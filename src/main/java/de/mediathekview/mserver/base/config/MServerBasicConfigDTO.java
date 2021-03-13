@@ -40,7 +40,7 @@ public class MServerBasicConfigDTO {
   }
 
   public MServerBasicConfigDTO() {
-    this(MServerConfigManager.getInstance().getConfig());
+    this(null);
   }
 
   public Integer getMaximumCrawlDurationInMinutes() {

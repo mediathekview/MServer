@@ -1,7 +1,5 @@
 package de.mediathekview.mserver.base.config;
 
-import java.net.URI;
-
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.core.Filter;
 import org.apache.logging.log4j.core.LoggerContext;
@@ -10,137 +8,157 @@ import org.apache.logging.log4j.core.config.Configuration;
 import org.apache.logging.log4j.core.config.ConfigurationFactory;
 import org.apache.logging.log4j.core.config.ConfigurationSource;
 import org.apache.logging.log4j.core.config.Order;
-import org.apache.logging.log4j.core.config.builder.api.*;
+import org.apache.logging.log4j.core.config.builder.api.AppenderComponentBuilder;
+import org.apache.logging.log4j.core.config.builder.api.ComponentBuilder;
 import org.apache.logging.log4j.core.config.builder.api.ConfigurationBuilder;
+import org.apache.logging.log4j.core.config.builder.api.RootLoggerComponentBuilder;
 import org.apache.logging.log4j.core.config.builder.impl.BuiltConfiguration;
 import org.apache.logging.log4j.core.config.plugins.Plugin;
 
+import java.net.URI;
+
 /**
- * A programmatic Log4J configuration which uses the configuration of
- * {@link MServerLogSettingsDTO}
- * 
- * @author nicklas
+ * A programmatic Log4J configuration which uses the configuration of {@link MServerLogSettingsDTO}
  *
+ * @author nicklas
  */
 @Plugin(name = "Log4JConfigurationFactory", category = ConfigurationFactory.CATEGORY)
 @Order(1)
 public class Log4JConfigurationFactory extends ConfigurationFactory {
-	private static final String[] SUPPORTED_TYPES = new String[] { "*" };
-	private static final String ATTRIBUTE_FILE_NAME = "fileName";
-	private static final String ATTRIBUTE_FILE_PATTERN = "filePattern";
-	private static final String APPENDER_FILE = "File";
-	private static final String APPENDER_ROLLING_FILE = "RollingFile";
-	private static final String COMPONENT_ON_STARTUP_TRIGGERING_POLICY = "OnStartupTriggeringPolicy";
-	private static final String COMPONENT_POLICIES = "Policies";
-	private static final String APPENDER_NAME_STDERR = "Stderr";
-	private static final String APPENDER_NAME_STDOUT = "Stdout";
-	private static final String APPENDER_NAME_FILE = "file";
-	private static final String APPENDER_NAME_ROLLING_FILE = "rollingfile";
-	private static final String LAYOUT_PATTERN = "PatternLayout";
-	private static final String FILTER_THRESHOLD = "ThresholdFilter";
-	private static final String ATTRIBUTE_LEVEL = "level";
-	private static final String ATTRIBUTE_PATTERN = "pattern";
-	private static final String ATTRIBUTE_TARGET = "target";
-	private static final String CONSOLE = "CONSOLE";
+  private static final String[] SUPPORTED_TYPES = new String[] {"*"};
+  private static final String ATTRIBUTE_FILE_NAME = "fileName";
+  private static final String ATTRIBUTE_FILE_PATTERN = "filePattern";
+  private static final String APPENDER_FILE = "File";
+  private static final String APPENDER_ROLLING_FILE = "RollingFile";
+  private static final String COMPONENT_ON_STARTUP_TRIGGERING_POLICY = "OnStartupTriggeringPolicy";
+  private static final String COMPONENT_POLICIES = "Policies";
+  private static final String APPENDER_NAME_STDERR = "Stderr";
+  private static final String APPENDER_NAME_STDOUT = "Stdout";
+  private static final String APPENDER_NAME_FILE = "file";
+  private static final String APPENDER_NAME_ROLLING_FILE = "rollingfile";
+  private static final String LAYOUT_PATTERN = "PatternLayout";
+  private static final String FILTER_THRESHOLD = "ThresholdFilter";
+  private static final String ATTRIBUTE_LEVEL = "level";
+  private static final String ATTRIBUTE_PATTERN = "pattern";
+  private static final String ATTRIBUTE_TARGET = "target";
+  private static final String CONSOLE = "CONSOLE";
 
-	private static MServerLogSettingsDTO logSettings;
+  private static MServerLogSettingsDTO logSettings;
 
-	static Configuration createConfiguration(final String name,
-			final ConfigurationBuilder<BuiltConfiguration> aBuilder) {
-		logSettings = MServerConfigManager.getInstance().getConfig().getLogSettings();
+  static Configuration createConfiguration(
+      final String name, final ConfigurationBuilder<BuiltConfiguration> aBuilder) {
+    logSettings = new MServerConfigManager().getConfig().getLogSettings();
 
-		aBuilder.setConfigurationName(name);
+    aBuilder.setConfigurationName(name);
 
-		RootLoggerComponentBuilder rootLogger = aBuilder.newRootLogger(logSettings.getLogLevelConsole());
-		if (logSettings.getLogActivateConsole()) {
-			addConsoleOutBuilder(aBuilder);
-			addConsoleErrBuilder(aBuilder);
-			rootLogger.add(aBuilder.newAppenderRef(APPENDER_NAME_STDOUT));
-			rootLogger.add(aBuilder.newAppenderRef(APPENDER_NAME_STDERR));
-		}
+    final RootLoggerComponentBuilder rootLogger =
+        aBuilder.newRootLogger(logSettings.getLogLevelConsole());
+    if (logSettings.getLogActivateConsole()) {
+      addConsoleOutBuilder(aBuilder);
+      addConsoleErrBuilder(aBuilder);
+      rootLogger.add(aBuilder.newAppenderRef(APPENDER_NAME_STDOUT));
+      rootLogger.add(aBuilder.newAppenderRef(APPENDER_NAME_STDERR));
+    }
 
-		if (logSettings.getLogActivateFile()) {
-			addFileBuilder(aBuilder);
-			if (logSettings.getLogActivateRollingFileAppend()) {
-				rootLogger.add(aBuilder.newAppenderRef(APPENDER_NAME_ROLLING_FILE));
-			} else {
-				rootLogger.add(aBuilder.newAppenderRef(APPENDER_NAME_FILE));
-			}
+    if (logSettings.getLogActivateFile()) {
+      addFileBuilder(aBuilder);
+      if (logSettings.getLogActivateRollingFileAppend()) {
+        rootLogger.add(aBuilder.newAppenderRef(APPENDER_NAME_ROLLING_FILE));
+      } else {
+        rootLogger.add(aBuilder.newAppenderRef(APPENDER_NAME_FILE));
+      }
+    }
 
-		}
+    aBuilder.add(rootLogger);
+    return aBuilder.build();
+  }
 
-		aBuilder.add(rootLogger);
-		return aBuilder.build();
-	}
+  private static void addFileBuilder(final ConfigurationBuilder<BuiltConfiguration> aBuilder) {
+    final ComponentBuilder<?> triggeringPolicy =
+        aBuilder
+            .newComponent(COMPONENT_POLICIES)
+            .addComponent(aBuilder.newComponent(COMPONENT_ON_STARTUP_TRIGGERING_POLICY));
 
-	private static void addFileBuilder(final ConfigurationBuilder<BuiltConfiguration> aBuilder) {
-		ComponentBuilder<?> triggeringPolicy = aBuilder.newComponent(COMPONENT_POLICIES)
-				.addComponent(aBuilder.newComponent(COMPONENT_ON_STARTUP_TRIGGERING_POLICY));
+    final AppenderComponentBuilder appenderBuilder;
 
-		AppenderComponentBuilder appenderBuilder;
+    if (logSettings.getLogActivateRollingFileAppend()) {
+      appenderBuilder = aBuilder.newAppender(APPENDER_NAME_ROLLING_FILE, APPENDER_ROLLING_FILE);
 
-		if (logSettings.getLogActivateRollingFileAppend()) {
-			appenderBuilder = aBuilder.newAppender(APPENDER_NAME_ROLLING_FILE, APPENDER_ROLLING_FILE);
+      appenderBuilder
+          .addAttribute(ATTRIBUTE_FILE_PATTERN, logSettings.getLogFileRollingPattern())
+          .addComponent(triggeringPolicy);
+    } else {
+      appenderBuilder = aBuilder.newAppender(APPENDER_NAME_FILE, APPENDER_FILE);
+    }
 
-			appenderBuilder.addAttribute(ATTRIBUTE_FILE_PATTERN, logSettings.getLogFileRollingPattern())
-					.addComponent(triggeringPolicy);
-		} else {
-			appenderBuilder = aBuilder.newAppender(APPENDER_NAME_FILE, APPENDER_FILE);
-		}
+    appenderBuilder.addAttribute(ATTRIBUTE_FILE_NAME, logSettings.getLogFileSavePath());
 
-		appenderBuilder.addAttribute(ATTRIBUTE_FILE_NAME, logSettings.getLogFileSavePath());
+    addPattern(aBuilder, appenderBuilder, logSettings.getLogPatternFile());
 
-		addPattern(aBuilder, appenderBuilder, logSettings.getLogPatternFile());
+    appenderBuilder.add(
+        aBuilder
+            .newFilter(FILTER_THRESHOLD, Filter.Result.NEUTRAL, Filter.Result.DENY)
+            .addAttribute(ATTRIBUTE_LEVEL, logSettings.getLogLevelFile()));
 
-		appenderBuilder.add(aBuilder.newFilter(FILTER_THRESHOLD, Filter.Result.NEUTRAL, Filter.Result.DENY)
-				.addAttribute(ATTRIBUTE_LEVEL, logSettings.getLogLevelFile()));
+    aBuilder.add(appenderBuilder);
+  }
 
-		aBuilder.add(appenderBuilder);
+  private static void addConsoleOutBuilder(
+      final ConfigurationBuilder<BuiltConfiguration> aBuilder) {
+    final AppenderComponentBuilder consoleOutAppenderBuilder =
+        aBuilder
+            .newAppender(APPENDER_NAME_STDOUT, CONSOLE)
+            .addAttribute(ATTRIBUTE_TARGET, ConsoleAppender.Target.SYSTEM_OUT);
 
-	}
+    addPattern(aBuilder, consoleOutAppenderBuilder, logSettings.getLogPatternConsole());
+    consoleOutAppenderBuilder.add(
+        aBuilder
+            .newFilter(FILTER_THRESHOLD, Filter.Result.DENY, Filter.Result.NEUTRAL)
+            .addAttribute(ATTRIBUTE_LEVEL, Level.ERROR));
 
-	private static void addConsoleOutBuilder(final ConfigurationBuilder<BuiltConfiguration> aBuilder) {
-		final AppenderComponentBuilder consoleOutAppenderBuilder = aBuilder.newAppender(APPENDER_NAME_STDOUT, CONSOLE)
-				.addAttribute(ATTRIBUTE_TARGET, ConsoleAppender.Target.SYSTEM_OUT);
+    aBuilder.add(consoleOutAppenderBuilder);
+  }
 
-		addPattern(aBuilder, consoleOutAppenderBuilder, logSettings.getLogPatternConsole());
-		consoleOutAppenderBuilder.add(aBuilder.newFilter(FILTER_THRESHOLD, Filter.Result.DENY, Filter.Result.NEUTRAL)
-				.addAttribute(ATTRIBUTE_LEVEL, Level.ERROR));
+  private static void addConsoleErrBuilder(
+      final ConfigurationBuilder<BuiltConfiguration> aBuilder) {
+    final AppenderComponentBuilder consoleErrAppenderBuilder =
+        aBuilder
+            .newAppender(APPENDER_NAME_STDERR, CONSOLE)
+            .addAttribute(ATTRIBUTE_TARGET, ConsoleAppender.Target.SYSTEM_ERR);
 
-		aBuilder.add(consoleOutAppenderBuilder);
-	}
+    addPattern(aBuilder, consoleErrAppenderBuilder, logSettings.getLogPatternConsole());
 
-	private static void addConsoleErrBuilder(final ConfigurationBuilder<BuiltConfiguration> aBuilder) {
-		final AppenderComponentBuilder consoleErrAppenderBuilder = aBuilder.newAppender(APPENDER_NAME_STDERR, CONSOLE)
-				.addAttribute(ATTRIBUTE_TARGET, ConsoleAppender.Target.SYSTEM_ERR);
+    consoleErrAppenderBuilder.add(
+        aBuilder
+            .newFilter(FILTER_THRESHOLD, Filter.Result.ACCEPT, Filter.Result.DENY)
+            .addAttribute(ATTRIBUTE_LEVEL, Level.ERROR));
 
-		addPattern(aBuilder, consoleErrAppenderBuilder, logSettings.getLogPatternConsole());
+    aBuilder.add(consoleErrAppenderBuilder);
+  }
 
-		consoleErrAppenderBuilder.add(aBuilder.newFilter(FILTER_THRESHOLD, Filter.Result.ACCEPT, Filter.Result.DENY)
-				.addAttribute(ATTRIBUTE_LEVEL, Level.ERROR));
+  private static void addPattern(
+      final ConfigurationBuilder<BuiltConfiguration> aBuilder,
+      final AppenderComponentBuilder aAppenderBuilder,
+      final String aPattern) {
+    aAppenderBuilder.add(
+        aBuilder.newLayout(LAYOUT_PATTERN).addAttribute(ATTRIBUTE_PATTERN, aPattern));
+  }
 
-		aBuilder.add(consoleErrAppenderBuilder);
-	}
+  @Override
+  public Configuration getConfiguration(
+      final LoggerContext loggerContext, final ConfigurationSource source) {
+    return getConfiguration(loggerContext, source.toString(), null);
+  }
 
-	private static void addPattern(final ConfigurationBuilder<BuiltConfiguration> aBuilder,
-			final AppenderComponentBuilder aAppenderBuilder, String aPattern) {
-		aAppenderBuilder.add(aBuilder.newLayout(LAYOUT_PATTERN).addAttribute(ATTRIBUTE_PATTERN, aPattern));
-	}
+  @Override
+  public Configuration getConfiguration(
+      final LoggerContext loggerContext, final String name, final URI configLocation) {
+    final ConfigurationBuilder<BuiltConfiguration> aBuilder = newConfigurationBuilder();
+    return createConfiguration(name, aBuilder);
+  }
 
-	@Override
-	public Configuration getConfiguration(final LoggerContext loggerContext, final ConfigurationSource source) {
-		return getConfiguration(loggerContext, source.toString(), null);
-	}
-
-	@Override
-	public Configuration getConfiguration(final LoggerContext loggerContext, final String name,
-			final URI configLocation) {
-		final ConfigurationBuilder<BuiltConfiguration> aBuilder = newConfigurationBuilder();
-		return createConfiguration(name, aBuilder);
-	}
-
-	@Override
-	protected String[] getSupportedTypes() {
-		return SUPPORTED_TYPES;
-	}
+  @Override
+  protected String[] getSupportedTypes() {
+    return SUPPORTED_TYPES;
+  }
 }

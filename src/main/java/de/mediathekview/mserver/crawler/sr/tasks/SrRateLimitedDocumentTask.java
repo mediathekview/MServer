@@ -17,9 +17,7 @@ public abstract class SrRateLimitedDocumentTask<T, D extends CrawlerUrlDTO>
 
   private static final RateLimiter LIMITER =
       RateLimiter.create(
-          MServerConfigManager.getInstance()
-              .getSenderConfig(Sender.SR)
-              .getMaximumRequestsPerSecond());
+          new MServerConfigManager().getSenderConfig(Sender.SR).getMaximumRequestsPerSecond());
 
   SrRateLimitedDocumentTask(
       final AbstractCrawler crawler,

@@ -38,7 +38,7 @@ public class BrGetClipDetailsTask extends RecursiveTask<Set<Film>> {
   public BrGetClipDetailsTask(final AbstractCrawler crawler, final Queue<BrID> clipQueue) {
     this.crawler = crawler;
     this.clipQueue = clipQueue;
-    config = MServerConfigManager.getInstance().getSenderConfig(crawler.getSender());
+    config = new MServerConfigManager().getSenderConfig(crawler.getSender());
     convertedFilms = ConcurrentHashMap.newKeySet();
   }
 

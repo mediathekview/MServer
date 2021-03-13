@@ -27,7 +27,7 @@ public class ApiUrlBuilder {
 
   public String asString() {
     final Optional<URL> apiUrl =
-        MServerConfigManager.getInstance().getConfig().getSingleCrawlerURL(baseUrlUrlType);
+        new MServerConfigManager().getConfig().getSingleCrawlerURL(baseUrlUrlType);
     if (apiUrl.isPresent()) {
       final List<String> urlParameter = new ArrayList<>();
       urlParameter.add(String.valueOf(apiUrl.get()));
