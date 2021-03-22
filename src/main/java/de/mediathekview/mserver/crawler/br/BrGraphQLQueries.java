@@ -9,9 +9,13 @@
  */
 package de.mediathekview.mserver.crawler.br;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Optional;
 import org.apache.commons.lang3.StringUtils;
 import de.mediathekview.mserver.crawler.br.data.BrGraphQLElementNames;
 import de.mediathekview.mserver.crawler.br.data.BrGraphQLNodeNames;
@@ -26,10 +30,12 @@ import de.mediathekview.mserver.crawler.br.graphql.variables.StringVariable;
 import de.mediathekview.mserver.crawler.br.graphql.variables.VariableList;
 
 public class BrGraphQLQueries {
-    
-    
-    
-    private static final String JSON_GRAPHQL_HEADER = "{\"query\":\"";
+
+
+  private static final DateTimeFormatter DATE_FORMATTER =
+      DateTimeFormatter.ofPattern("yyyy-MM-dd");
+
+  private static final String JSON_GRAPHQL_HEADER = "{\"query\":\"";
     
     public static String getQuery2GetFilmCount() {
         
@@ -138,7 +144,21 @@ public class BrGraphQLQueries {
       return sb.toString();
       
     }
-    
+
+    public static String getQueryGetIds(LocalDate start, LocalDate end, int pageSize, Optional<String> cursor) {
+      String afterPart = "";
+      if (cursor.isPresent()) {
+        afterPart = String.format(", after: \"%s\"", cursor.get());
+      }
+
+    return String.format(
+        "{\"query\":\"query MediathekViewCountFilms(  $programmeFilter: ProgrammeFilter!) {  viewer {    ...on Viewer {      broadcastService(id: \\\"av:http://ard.de/ontologies/ard#BR_Fernsehen\\\") {        __typename        ...on BroadcastServiceInterface {          id           programmes(first: %d, orderBy: INITIALSCREENING_START_DESC, filter: $programmeFilter%s) {   count pageInfo {hasNextPage}         edges { cursor  node { id __typename description broadcasts { edges {node {start}}} initialScreening { start  }}}  }        }      }    }  }}\",\"variables\":{\"programmeFilter\":{\"status\":{\"id\":{\"eq\":\"av:http://ard.de/ontologies/lifeCycle#published\"}},\"broadcasts\":{\"start\":{\"gte\":\"%sT00:00:00.000Z\",\"lte\":\"%sT23:59:59.000Z\"}}}}}",
+        pageSize,
+        afterPart,
+        start.format(DATE_FORMATTER),
+        end.format(DATE_FORMATTER));
+    }
+
     public static String getQuery2GetAllClipIds(int clipCount, String cursor) {
       
       BooleanVariable triggerSearchVariable = new BooleanVariable("triggerSearch", true);

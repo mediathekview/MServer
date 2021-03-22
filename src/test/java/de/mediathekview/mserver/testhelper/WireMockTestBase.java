@@ -62,6 +62,19 @@ public abstract class WireMockTestBase {
                     .withBody(jsonBody)));
   }
 
+  protected void setupSuccessfulJsonPostResponse(
+      final String aRequestUrl, final String aResponseFile, final String aRequestBodyPart, @Nullable final Integer status) {
+    final String jsonBody = FileReader.readFile(aResponseFile);
+    wireMockServer.stubFor(
+        post(urlEqualTo(aRequestUrl))
+            .withRequestBody(containing(aRequestBodyPart))
+            .willReturn(
+                aResponse()
+                    .withHeader("Content-Type", "application/json")
+                    .withStatus(Optional.ofNullable(status).orElse(200))
+                    .withBody(jsonBody)));
+  }
+
   protected void setupSuccessfulXmlResponse(final String aRequestUrl, final String aResponseFile) {
     final String xmlBody = FileReader.readFile(aResponseFile);
     wireMockServer.stubFor(

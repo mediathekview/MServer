@@ -12,13 +12,19 @@ import de.mediathekview.mserver.crawler.br.graphql.AbstractVariable;
 import de.mediathekview.mserver.crawler.br.graphql.variables.BooleanVariable;
 import de.mediathekview.mserver.crawler.br.graphql.variables.StringVariable;
 import de.mediathekview.mserver.crawler.br.graphql.variables.VariableList;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.Optional;
 import org.junit.After;
 import org.junit.Test;
 
 import java.util.LinkedList;
 import java.util.List;
 
+import static org.hamcrest.CoreMatchers.equalTo;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertThrows;
 
 public class BrGraphQLQueriesTest {
 
@@ -37,6 +43,29 @@ public class BrGraphQLQueriesTest {
       assertEquals(
               "{\"query\":\"query MediathekViewGetClipIDs(  $triggerSearch: Boolean!  $clipCount: Int  $clipFilter: ClipFilter) {viewer {    searchAllClips: allClips(first: $clipCount, filter: $clipFilter) @include(if: $triggerSearch) {      count      pageInfo {        hasNextPage      }      edges {        node {          __typename          id        }        cursor      }    }    id  }}\",\"variables\":{\"triggerSearch\":true,\"clipCount\":1000,\"clipFilter\":{\"audioOnly\":{\"eq\":false},\"essences\":{\"empty\":{\"eq\":false}}}}}",
               BrGraphQLQueries.getQuery2GetAllClipIds(1000, ""));
+  }
+
+  @Test
+  public void getQueryGetIdsFirstPage() {
+    final LocalDate start = LocalDate.of(2021, 3, 20);
+    final LocalDate end = LocalDate.of(2021, 3, 25);
+    final String query = BrGraphQLQueries.getQueryGetIds(start, end, 10, Optional.empty());
+
+    assertThat(query, equalTo("{\"query\":\"query MediathekViewCountFilms(  $programmeFilter: ProgrammeFilter!) {  viewer {    ...on Viewer {      broadcastService(id: \\\"av:http://ard.de/ontologies/ard#BR_Fernsehen\\\") {        __typename        ...on BroadcastServiceInterface {          id           programmes(first: 10, orderBy: INITIALSCREENING_START_DESC, filter: $programmeFilter) {   count pageInfo {hasNextPage}         edges { cursor  node { id __typename description broadcasts { edges {node {start}}} initialScreening { start  }}}  }        }      }    }  }}\",\"variables\":{\"programmeFilter\":{\"status\":{\"id\":{\"eq\":\"av:http://ard.de/ontologies/lifeCycle#published\"}},\"broadcasts\":{\"start\":{\"gte\":\"2021-03-20T00:00:00.000Z\",\"lte\":\"2021-03-25T23:59:59.000Z\"}}}}}"));
+  }
+
+  @Test
+  public void getQueryGetIdsNextPage() {
+    final LocalDate start = LocalDate.of(2021, 3, 20);
+    final LocalDate end = LocalDate.of(2021, 3, 25);
+    final String cursor = "eyJfaWQiOiI2MDU2MzhhZjczYjViNzAwMTMwM2U4OGMiLCJfa2V5IjpudWxsfQ==";
+
+    final String query = BrGraphQLQueries.getQueryGetIds(start, end, 10, Optional.of(cursor));
+
+    assertThat(
+        query,
+        equalTo(
+            "{\"query\":\"query MediathekViewCountFilms(  $programmeFilter: ProgrammeFilter!) {  viewer {    ...on Viewer {      broadcastService(id: \\\"av:http://ard.de/ontologies/ard#BR_Fernsehen\\\") {        __typename        ...on BroadcastServiceInterface {          id           programmes(first: 10, orderBy: INITIALSCREENING_START_DESC, filter: $programmeFilter, after: \"eyJfaWQiOiI2MDU2MzhhZjczYjViNzAwMTMwM2U4OGMiLCJfa2V5IjpudWxsfQ==\") {   count pageInfo {hasNextPage}         edges { cursor  node { id __typename description broadcasts { edges {node {start}}} initialScreening { start  }}}  }        }      }    }  }}\",\"variables\":{\"programmeFilter\":{\"status\":{\"id\":{\"eq\":\"av:http://ard.de/ontologies/lifeCycle#published\"}},\"broadcasts\":{\"start\":{\"gte\":\"2021-03-20T00:00:00.000Z\",\"lte\":\"2021-03-25T23:59:59.000Z\"}}}}}"));
   }
 
   @Test
