@@ -3,6 +3,8 @@ package de.mediathekview.mserver.base.webaccess;
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
+import javax.ws.rs.core.HttpHeaders;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.jsoup.Jsoup;
@@ -62,6 +64,27 @@ public class JsoupConnection {
 
   public Document requestBodyAsXmlDocument(String url) throws IOException {
     return Jsoup.parse(requestBodyAsString(url), url, Parser.xmlParser());
+  }
+  
+  public long determineFileSize(String url) {
+    long rs = -1L;
+    final Request requestHead = new Request.Builder().url(url).head().build();
+    try (final Response response = client.newCall(requestHead).execute()) {
+      final String contentLengthHeader = response.header(HttpHeaders.CONTENT_LENGTH);
+      rs = Long.parseLong(contentLengthHeader);
+    } catch (final IOException ioException) {
+      ioException.printStackTrace();
+    }
+    if (rs == -1L) {
+      final Request requestGet = new Request.Builder().url(url).get().build();
+      try (final Response response = client.newCall(requestGet).execute()) {
+        final String contentLengthHeader = response.header(HttpHeaders.CONTENT_LENGTH);
+        rs = Long.parseLong(contentLengthHeader);
+      } catch (final IOException ioException) {
+        ioException.printStackTrace();
+      }
+    }
+    return rs;
   }
 
 }
