@@ -32,8 +32,6 @@ import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import static de.mediathekview.mserver.base.HtmlConsts.ATTRIBUTE_VALUE;
-
 public class DWFilmDetailsTask extends AbstractDocumentTask<Film, CrawlerUrlDTO> {
 
   private static final String URL_SPLITTERATOR = "/";
@@ -44,7 +42,6 @@ public class DWFilmDetailsTask extends AbstractDocumentTask<Film, CrawlerUrlDTO>
   private static final String ELEMENT_DATUM = ".group li:eq(0)";
   private static final String ELEMENT_DAUER = ".group li:eq(1)";
   private static final String ELEMENT_DESCRIPTION = ".intro";
-  private static final String ELEMENT_FILENAME = ".mediaItem input[name=file_name]";
   private static final String DOWNLOAD_DETAILS_URL_TEMPLATE = "%s/playersources/v-%s";
 
   private static final String DATE_REGEX_PATTERN = "(?<=Datum\\s)[\\.\\d]+";
@@ -62,18 +59,13 @@ public class DWFilmDetailsTask extends AbstractDocumentTask<Film, CrawlerUrlDTO>
   }
 
   private void addDownloadUrls(
-      final CrawlerUrlDTO aUrlDTO, final String fileName, final Film film) {
+      final CrawlerUrlDTO aUrlDTO, final Film film) {
     final String pageId =
         aUrlDTO.getUrl().substring(aUrlDTO.getUrl().lastIndexOf(URL_SPLITTERATOR) + 1);
     final String videoId = pageId.substring(pageId.indexOf('-') + 1);
     final String downloadUrl = String.format(DOWNLOAD_DETAILS_URL_TEMPLATE, baseUrl, videoId);
 
     try {
-      final Optional<String> optionalFileName = Optional.ofNullable(fileName);
-      if (optionalFileName.isPresent()) {
-        film.addUrl(Resolution.SMALL, new FilmUrl(optionalFileName.get(), serialVersionUID));
-      }
-
       final WebTarget target = ClientBuilder.newClient().target(new URL(downloadUrl).toString());
       final Response response = target.request(MediaType.APPLICATION_JSON_TYPE).get();
       if (response.getStatus() == 200) {
@@ -119,8 +111,6 @@ public class DWFilmDetailsTask extends AbstractDocumentTask<Film, CrawlerUrlDTO>
     final Optional<String> dateText = HtmlDocumentUtils.getElementString(ELEMENT_DATUM, aDocument);
     final Optional<String> description =
         HtmlDocumentUtils.getElementString(ELEMENT_DESCRIPTION, aDocument);
-    final Optional<String> fileName =
-        HtmlDocumentUtils.getElementAttributeString(ELEMENT_FILENAME, ATTRIBUTE_VALUE, aDocument);
     final Optional<Duration> dauer = parseDuration(aDocument);
 
     if (thema.isEmpty()) {
@@ -142,7 +132,6 @@ public class DWFilmDetailsTask extends AbstractDocumentTask<Film, CrawlerUrlDTO>
         titel.get(),
         thema.get(),
         description.orElse(null),
-        fileName.orElse(null),
         dauer.get(),
         time.orElse(null));
   }
@@ -152,7 +141,6 @@ public class DWFilmDetailsTask extends AbstractDocumentTask<Film, CrawlerUrlDTO>
       final String title,
       final String topic,
       final String description,
-      final String fileName,
       final Duration duration,
       final LocalDate time) {
     try {
@@ -166,7 +154,7 @@ public class DWFilmDetailsTask extends AbstractDocumentTask<Film, CrawlerUrlDTO>
               duration);
       Optional.ofNullable(description).ifPresent(newFilm::setBeschreibung);
       newFilm.setWebsite(new URL(aUrlDTO.getUrl()));
-      addDownloadUrls(aUrlDTO, fileName, newFilm);
+      addDownloadUrls(aUrlDTO, newFilm);
 
       final Optional<FilmUrl> defaultUrl = newFilm.getDefaultUrl();
       defaultUrl.ifPresent(

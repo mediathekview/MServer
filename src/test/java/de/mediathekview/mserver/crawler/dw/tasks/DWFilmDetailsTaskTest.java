@@ -91,9 +91,25 @@ public class DWFilmDetailsTaskTest extends DwTaskTestBase {
             LocalDateTime.of(2018, 10, 28, 0, 0, 0),
             Duration.ofMinutes(26).plusSeconds(1),
             "Manipulation von Videos, was ist noch echt? Die Waisenkinder von Mossul: wehrlose Opfer von Konflikten. Ein Comic-Heft verändert die Perspektiven von Kenias Jugend. Und für das Inselparadies Cozumel sind Kreuzfahrtschiffe Fluch und Segen zugleich.",
-            "https://tvdownloaddw-a.akamaihd.net/dwtv_video/flv/gld/gld20180319_gesamt_sd_vp6.flv",
+            "",
             "https://tvdownloaddw-a.akamaihd.net/dwtv_video/flv/gld/gld20180319_gesamt_sd_sor.mp4",
             "https://tvdownloaddw-a.akamaihd.net/dwtv_video/flv/gld/gld20180319_gesamt_sd_avc.mp4",
+            "",
+            GeoLocations.GEO_NONE
+          },
+          {
+            "https://www.dw.com/de/shift-leben-in-der-digitalen-welt/av-56780778",
+            "/dw/dw_film_detail2.html",
+            "/playersources/v-56780778",
+            "/dw/dw_film_detail2.json",
+            "Shift",
+            "Shift - Leben in der digitalen Welt",
+            LocalDateTime.of(2021, 3, 9, 0, 0, 0),
+            Duration.ofMinutes(12).plusSeconds(36),
+            "Spezial: In Japan wird intensiv an neuen Technologien für die Katastrophenhilfe geforscht. Roboter helfen bei den Aufräumarbeiten im Atomkraftwerk Fukushima Daiichi und unterstützen Rettungskräfte nach Erdbeben.",
+            "",
+            "https://tvdownloaddw-a.akamaihd.net/dwtv_video/flv/shd/shd210305_SpezialJapanRoboter_sd_sor.mp4",
+            "https://tvdownloaddw-a.akamaihd.net/dwtv_video/flv/shd/shd210305_SpezialJapanRoboter_sd_avc.mp4",
             "",
             GeoLocations.GEO_NONE
           }
