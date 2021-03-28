@@ -41,13 +41,11 @@ public class JsoupConnection {
       try (final Response response = client.newCall(request).execute();
           final ResponseBody body = response.body()) {  
         httpResponseCode = response.code();
-        if (response.isSuccessful()) {
-          if (response.body() != null) {
-            return response.body().string();
-          }
-        } 
         if (response.body() == null || httpResponseCode == 404 || httpResponseCode == 410) {
           break;
+        }
+        if (response.isSuccessful() && response.body() != null) {
+            return response.body().string();
         }
       }      
       retry++;
