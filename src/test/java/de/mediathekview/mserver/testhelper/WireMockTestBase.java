@@ -16,7 +16,7 @@ import static com.github.tomakehurst.wiremock.core.WireMockConfiguration.options
 /** base class of tests with WireMock. */
 public abstract class WireMockTestBase {
 
-  protected static WireMockServer wireMockServer = new WireMockServer(options().port(8589));
+  protected static WireMockServer wireMockServer = new WireMockServer(options().dynamicPort());
 
   @BeforeClass
   public static void setUpClass() {
