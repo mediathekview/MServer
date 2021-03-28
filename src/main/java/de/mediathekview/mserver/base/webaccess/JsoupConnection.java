@@ -44,7 +44,7 @@ public class JsoupConnection {
         if (response.body() == null || httpResponseCode == 404 || httpResponseCode == 410) {
           break;
         }
-        if (response.isSuccessful() && response.body() != null) {
+        if (response.isSuccessful()) {
             return response.body().string();
         }
       }      
