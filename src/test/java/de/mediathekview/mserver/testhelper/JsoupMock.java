@@ -1,34 +1,24 @@
 package de.mediathekview.mserver.testhelper;
 
-import static org.mockito.ArgumentMatchers.any;
-
 import de.mediathekview.mserver.base.webaccess.JsoupConnection;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import org.jsoup.Connection;
+import java.util.Map.Entry;
+
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
+import org.jsoup.parser.Parser;
 import org.mockito.Mockito;
+
 
 /** */
 public class JsoupMock {
   
-  public static Connection mock(String aUrl, String aHtmlFile) throws IOException {
-    final String fileContent = FileReader.readFile(aHtmlFile);
-    final Document document = Jsoup.parse(fileContent);
-
-    final Connection connection = Mockito.mock(Connection.class);
-    Mockito.when(connection.timeout(Mockito.anyInt())).thenReturn(connection);
-    Mockito.when(connection.maxBodySize(0)).thenReturn(connection);
-    Mockito.when(connection.get()).thenReturn(document);
-
-    final JsoupConnection jsoupConnectionMock = Mockito.mock(JsoupConnection.class);
-
-    Mockito.when(jsoupConnectionMock.getConnection(aUrl)).thenReturn(connection);
-    return jsoupConnectionMock.getConnection(aUrl);
+  public static JsoupConnection mock(String aUrl, String aHtmlFile) throws IOException {
+    Map<String, String> aUrlMapping = new HashMap<String, String>();
+    aUrlMapping.put(aUrl,  aHtmlFile);
+    return mock(aUrlMapping);
   }
 
   public static Document getFileDocument(String url, String htmlFile) throws IOException {
@@ -36,42 +26,26 @@ public class JsoupMock {
     return Jsoup.parse(fileContent);
   }
 
-  public static Document mockXml(String aUrl, String aXmlFile) throws IOException {
-    Connection connection = mock(aUrl, aXmlFile);
-
-    Mockito.when(connection.parser(any())).thenReturn(connection);
-
-    return getFileDocument(aUrl, aXmlFile);
-  }
-
-  public static Map<String, Connection> mock(final Map<String, String> aUrlMapping) {
-    final Map<String, Connection> resultMap = new HashMap<>();
-
-    aUrlMapping
-        .forEach(
-            (url, resultFileName) -> {
-              final String fileContent = FileReader.readFile(resultFileName);
-              final Document document = Jsoup.parse(fileContent);
-
-              final Connection connection = Mockito.mock(Connection.class);
-              try {
-                Mockito.when(connection.timeout(Mockito.anyInt())).thenReturn(connection);
-                Mockito.when(connection.maxBodySize(0)).thenReturn(connection);
-                Mockito.when(connection.get()).thenReturn(document);
-
-                final JsoupConnection jsoupConnectionMock = Mockito.mock(JsoupConnection.class);
-
-                Mockito.when(jsoupConnectionMock.getConnection(url)).thenReturn(connection);
-
-              } catch (final IOException ex) {
-                Logger.getLogger(JsoupMock.class.getName()).log(Level.SEVERE, null, ex);
-              }
-
-              resultMap.put(url, connection);
-
-            });
-
-    return resultMap;
-
+  public static JsoupConnection mock(final Map<String, String> aUrlMapping) {
+    final JsoupConnection connection = Mockito.mock(JsoupConnection.class);
+    for (Entry<String, String> e : aUrlMapping.entrySet()) {
+      String url = e.getKey();
+      String file = e.getValue();
+      try {
+        final String fileContent = FileReader.readFile(file);
+        final Document document = Jsoup.parse(fileContent);
+        final Document XmlDocument = Jsoup.parse(fileContent, url, Parser.xmlParser());
+        
+        
+        Mockito.when(connection.requestBodyAsString(url)).thenReturn(fileContent);
+        Mockito.when(connection.requestBodyAsHtmlDocument(url)).thenReturn(document);
+        Mockito.when(connection.requestBodyAsXmlDocument(org.mockito.Mockito.eq(url))).thenReturn(XmlDocument);
+      } catch (IOException error) {
+        // TODO Auto-generated catch block
+        error.printStackTrace();
+      }
+    }
+    return connection;
+    
   }
 }

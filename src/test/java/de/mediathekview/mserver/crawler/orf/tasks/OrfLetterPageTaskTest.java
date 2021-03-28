@@ -24,7 +24,6 @@ import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.Assert.fail;
-import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.when;
 
@@ -110,17 +109,18 @@ public class OrfLetterPageTaskTest {
         (url, fileName) -> {
           try {
             final Document document = JsoupMock.getFileDocument(url, fileName);
-            when(jsoupConnection.getDocumentTimeoutAfter(eq(url), anyInt())).thenReturn(document);
-
+            when(jsoupConnection.requestBodyAsHtmlDocument(eq(url))).thenReturn(document);
+            when(crawler.requestBodyAsHtmlDocument(eq(url))).thenReturn(document);
           } catch (final IOException iox) {
             fail();
           }
         });
 
     when(crawler.getCrawlerConfig())
-        .thenReturn(MServerConfigManager.getInstance().getSenderConfig(Sender.ORF));
+        .thenReturn(MServerConfigManager.getInstance("MServer-JUnit-Config.yaml").getSenderConfig(Sender.ORF));
+    when(crawler.getConnection()).thenReturn(jsoupConnection);
 
-    final OrfLetterPageTask target = new OrfLetterPageTask(crawler, jsoupConnection);
+    final OrfLetterPageTask target = new OrfLetterPageTask(crawler);
 
     final Queue<TopicUrlDTO> actual = target.call();
     assertThat(actual, notNullValue());

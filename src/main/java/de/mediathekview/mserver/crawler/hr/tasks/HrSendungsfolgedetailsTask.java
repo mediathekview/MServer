@@ -10,7 +10,6 @@ import de.mediathekview.mlib.tool.FileSizeDeterminer;
 import de.mediathekview.mserver.base.utils.DateUtils;
 import de.mediathekview.mserver.base.utils.GeoLocationGuesser;
 import de.mediathekview.mserver.base.utils.HtmlDocumentUtils;
-import de.mediathekview.mserver.base.webaccess.JsoupConnection;
 import de.mediathekview.mserver.crawler.ard.json.ArdVideoInfoDto;
 import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
 import de.mediathekview.mserver.crawler.basic.AbstractDocumentTask;
@@ -64,9 +63,8 @@ public class HrSendungsfolgedetailsTask extends AbstractDocumentTask<Film, Crawl
 
   public HrSendungsfolgedetailsTask(
       final AbstractCrawler aCrawler,
-      final Queue<CrawlerUrlDTO> urlToCrawlDTOs,
-      final JsoupConnection jsoupConnection) {
-    super(aCrawler, urlToCrawlDTOs, jsoupConnection);
+      final Queue<CrawlerUrlDTO> urlToCrawlDTOs) {
+    super(aCrawler, urlToCrawlDTOs);
 
     gson =
         new GsonBuilder()
@@ -77,7 +75,7 @@ public class HrSendungsfolgedetailsTask extends AbstractDocumentTask<Film, Crawl
   @Override
   protected AbstractUrlTask<Film, CrawlerUrlDTO> createNewOwnInstance(
       final Queue<CrawlerUrlDTO> aUrlsToCrawl) {
-    return new HrSendungsfolgedetailsTask(crawler, aUrlsToCrawl, getJsoupConnection());
+    return new HrSendungsfolgedetailsTask(crawler, aUrlsToCrawl);
   }
 
   private static HrTopicTitleDTO getTopicAndTitle(final Document aDocument) {

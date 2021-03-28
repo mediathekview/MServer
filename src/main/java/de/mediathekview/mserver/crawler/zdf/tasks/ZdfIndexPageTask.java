@@ -1,13 +1,11 @@
 package de.mediathekview.mserver.crawler.zdf.tasks;
 
 import de.mediathekview.mserver.base.HtmlConsts;
-import de.mediathekview.mserver.base.webaccess.JsoupConnection;
 import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
 import de.mediathekview.mserver.crawler.zdf.ZdfConfiguration;
 import java.io.IOException;
 import java.util.Optional;
 import java.util.concurrent.Callable;
-import java.util.concurrent.TimeUnit;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.jsoup.nodes.Document;
@@ -29,13 +27,10 @@ public class ZdfIndexPageTask implements Callable<ZdfConfiguration> {
   private final AbstractCrawler crawler;
   private final String urlBase;
 
-  JsoupConnection jsoupConnection;
-
   /** @param aCrawler The crawler which uses this task. */
-  public ZdfIndexPageTask(final AbstractCrawler aCrawler, final String aUrlBase, final JsoupConnection jsoupConnection) {
+  public ZdfIndexPageTask(final AbstractCrawler aCrawler, final String aUrlBase) {
     crawler = aCrawler;
     urlBase = aUrlBase;
-    this.jsoupConnection = jsoupConnection;
   }
 
   @Override
@@ -91,8 +86,7 @@ public class ZdfIndexPageTask implements Callable<ZdfConfiguration> {
 
   private Optional<Document> loadPage(final String url) {
     try {
-      final Document document = jsoupConnection.getDocumentTimeoutAfter(url,
-          (int) TimeUnit.SECONDS.toMillis(crawler.getCrawlerConfig().getSocketTimeoutInSeconds()));
+      final Document document = crawler.requestBodyAsHtmlDocument(url);
       return Optional.of(document);
     } catch (final IOException ex) {
       LOG.fatal("ZdfIndexPageTask: error loading url " + url, ex);

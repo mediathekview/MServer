@@ -1,11 +1,12 @@
 package de.mediathekview.mserver.crawler.kika.tasks;
 
 import de.mediathekview.mlib.daten.Sender;
+import de.mediathekview.mserver.base.config.MServerConfigManager;
 import de.mediathekview.mserver.base.webaccess.JsoupConnection;
+import de.mediathekview.mserver.crawler.kika.KikaCrawler;
 import de.mediathekview.mserver.crawler.kika.KikaCrawlerUrlDto;
 import de.mediathekview.mserver.crawler.kika.KikaCrawlerUrlDto.FilmType;
 import de.mediathekview.mserver.testhelper.JsoupMock;
-import org.jsoup.Connection;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
@@ -21,9 +22,6 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.containsInAnyOrder;
-import static org.junit.Assert.fail;
-import static org.mockito.ArgumentMatchers.eq;
-import static org.mockito.Mockito.when;
 
 public class KikaTopicOverviewPageTaskTest extends KikaTaskTestBase {
 
@@ -39,9 +37,10 @@ public class KikaTopicOverviewPageTaskTest extends KikaTaskTestBase {
     final String requestUrl =
         wireMockServer.baseUrl() + "/alles-neu-fuer-lina/buendelgruppe2624.html";
 
-    final Connection connection =
+    jsoupConnection =
         JsoupMock.mock(requestUrl, "/kika/kika_topic2_overview_page.html");
-    when(jsoupConnection.getConnection(eq(requestUrl))).thenReturn(connection);
+    KikaCrawler crawler = createCrawler();
+    crawler.setConnection(jsoupConnection);
 
     final KikaCrawlerUrlDto[] expected =
         new KikaCrawlerUrlDto[] {
@@ -71,18 +70,20 @@ public class KikaTopicOverviewPageTaskTest extends KikaTaskTestBase {
               FilmType.NORMAL)
         };
 
-    actAndAssert(requestUrl, expected);
+    actAndAssert(crawler, requestUrl, expected);
   }
 
   @Test
   public void testOverviewWithSinglePageWithoutBoxBroadcastLayout() throws IOException {
+    MServerConfigManager rootConfig = MServerConfigManager.getInstance("MServer-JUnit-Config.yaml");
     rootConfig.getSenderConfig(Sender.KIKA).setMaximumSubpages(1);
 
     final String requestUrl = wireMockServer.baseUrl() + "/pur/sendungen/videos-pur-102.html";
 
-    final Connection connection =
+    jsoupConnection =
         JsoupMock.mock(requestUrl, "/kika/kika_topic6_overview_no_boxbroadcast.html");
-    when(jsoupConnection.getConnection(eq(requestUrl))).thenReturn(connection);
+    KikaCrawler crawler = createCrawler();
+    crawler.setConnection(jsoupConnection);
 
     final KikaCrawlerUrlDto[] expected =
         new KikaCrawlerUrlDto[] {
@@ -98,11 +99,12 @@ public class KikaTopicOverviewPageTaskTest extends KikaTaskTestBase {
               FilmType.NORMAL)
         };
 
-    actAndAssert(requestUrl, expected);
+    actAndAssert(crawler, requestUrl, expected);
   }
 
   @Test
   public void testOverviewWithMultiplePagesLimitSubpagesLargerThanSubpageCount() {
+    MServerConfigManager rootConfig = MServerConfigManager.getInstance("MServer-JUnit-Config.yaml");
     rootConfig.getSenderConfig(Sender.KIKA).setMaximumSubpages(7);
 
     final String requestUrl =
@@ -122,15 +124,9 @@ public class KikaTopicOverviewPageTaskTest extends KikaTaskTestBase {
         wireMockServer.baseUrl()
             + "/mama-fuchs-und-papa-dachs/buendelgruppe2670_page-3_zc-c0952f36.html",
         "/kika/kika_topic1_overview_page4.html");
-    final Map<String, Connection> connections = JsoupMock.mock(mockUrls);
-    connections.forEach(
-        (url, currentConnection) -> {
-          try {
-            when(jsoupConnection.getConnection(eq(url))).thenReturn(currentConnection);
-          } catch (final IOException iox) {
-            fail();
-          }
-        });
+    jsoupConnection = JsoupMock.mock(mockUrls);
+    KikaCrawler crawler = createCrawler();
+    crawler.setConnection(jsoupConnection);
 
     final KikaCrawlerUrlDto[] expected =
         new KikaCrawlerUrlDto[] {
@@ -160,11 +156,12 @@ public class KikaTopicOverviewPageTaskTest extends KikaTaskTestBase {
               FilmType.NORMAL)
         };
 
-    actAndAssert(requestUrl, expected);
+    actAndAssert(crawler, requestUrl, expected);
   }
 
   @Test
   public void testOverviewWithMultiplePagesLimitSubpagesSmallerThanSubpageCount() {
+    MServerConfigManager rootConfig = MServerConfigManager.getInstance("MServer-JUnit-Config.yaml");
     rootConfig.getSenderConfig(Sender.KIKA).setMaximumSubpages(2);
 
     final String requestUrl =
@@ -175,15 +172,9 @@ public class KikaTopicOverviewPageTaskTest extends KikaTaskTestBase {
         wireMockServer.baseUrl()
             + "/mama-fuchs-und-papa-dachs/buendelgruppe2670_page-1_zc-43c28d56.html",
         "/kika/kika_topic1_overview_page2.html");
-    final Map<String, Connection> connections = JsoupMock.mock(mockUrls);
-    connections.forEach(
-        (url, currentConnection) -> {
-          try {
-            when(jsoupConnection.getConnection(eq(url))).thenReturn(currentConnection);
-          } catch (final IOException iox) {
-            fail();
-          }
-        });
+    jsoupConnection = JsoupMock.mock(mockUrls);
+    KikaCrawler crawler = createCrawler();
+    crawler.setConnection(jsoupConnection);
 
     final KikaCrawlerUrlDto[] expected =
         new KikaCrawlerUrlDto[] {
@@ -207,11 +198,12 @@ public class KikaTopicOverviewPageTaskTest extends KikaTaskTestBase {
               FilmType.NORMAL)
         };
 
-    actAndAssert(requestUrl, expected);
+    actAndAssert(crawler, requestUrl, expected);
   }
 
   @Test
   public void testOverviewLandingPageLinksNotToFirstPageSmallerThanSubpageCount() {
+    MServerConfigManager rootConfig = MServerConfigManager.getInstance("MServer-JUnit-Config.yaml");
     rootConfig.getSenderConfig(Sender.KIKA).setMaximumSubpages(3);
 
     final String requestUrl =
@@ -227,15 +219,9 @@ public class KikaTopicOverviewPageTaskTest extends KikaTaskTestBase {
         wireMockServer.baseUrl()
             + "/mama-fuchs-und-papa-dachs/buendelgruppe2670_page-0_zc-6615e895.html",
         "/kika/kika_topic1_overview_page1.html");
-    final Map<String, Connection> connections = JsoupMock.mock(mockUrls);
-    connections.forEach(
-        (url, currentConnection) -> {
-          try {
-            when(jsoupConnection.getConnection(url)).thenReturn(currentConnection);
-          } catch (final IOException iox) {
-            fail();
-          }
-        });
+    jsoupConnection = JsoupMock.mock(mockUrls);
+    KikaCrawler crawler = createCrawler();
+    crawler.setConnection(jsoupConnection);
 
     final KikaCrawlerUrlDto[] expected =
         new KikaCrawlerUrlDto[] {
@@ -262,11 +248,12 @@ public class KikaTopicOverviewPageTaskTest extends KikaTaskTestBase {
               FilmType.NORMAL)
         };
 
-    actAndAssert(requestUrl, expected);
+    actAndAssert(crawler, requestUrl, expected);
   }
 
   @Test
   public void testOverviewLandingPageLinksNotToFirstPageWithSubpagesLargerThanSubpageCount() {
+    MServerConfigManager rootConfig = MServerConfigManager.getInstance("MServer-JUnit-Config.yaml");
     rootConfig.getSenderConfig(Sender.KIKA).setMaximumSubpages(5);
 
     final String requestUrl =
@@ -286,15 +273,9 @@ public class KikaTopicOverviewPageTaskTest extends KikaTaskTestBase {
         wireMockServer.baseUrl()
             + "/mama-fuchs-und-papa-dachs/buendelgruppe2670_page-1_zc-43c28d56.html",
         "/kika/kika_topic1_overview_page2.html");
-    final Map<String, Connection> connections = JsoupMock.mock(mockUrls);
-    connections.forEach(
-        (url, currentConnection) -> {
-          try {
-            when(jsoupConnection.getConnection(eq(url))).thenReturn(currentConnection);
-          } catch (final IOException iox) {
-            fail();
-          }
-        });
+    jsoupConnection = JsoupMock.mock(mockUrls);
+    KikaCrawler crawler = createCrawler();
+    crawler.setConnection(jsoupConnection);
 
     final KikaCrawlerUrlDto[] expected =
         new KikaCrawlerUrlDto[] {
@@ -324,16 +305,16 @@ public class KikaTopicOverviewPageTaskTest extends KikaTaskTestBase {
               FilmType.NORMAL)
         };
 
-    actAndAssert(requestUrl, expected);
+    actAndAssert(crawler, requestUrl, expected);
   }
 
-  private void actAndAssert(final String requestUrl, final KikaCrawlerUrlDto[] expected) {
+  private void actAndAssert(final KikaCrawler crawler, final String requestUrl, final KikaCrawlerUrlDto[] expected) {
     final Queue<KikaCrawlerUrlDto> urls = new ConcurrentLinkedQueue<>();
     urls.add(new KikaCrawlerUrlDto(requestUrl, FilmType.NORMAL));
 
     final KikaTopicOverviewPageTask target =
         new KikaTopicOverviewPageTask(
-            createCrawler(), urls, wireMockServer.baseUrl(), jsoupConnection);
+            crawler, urls, wireMockServer.baseUrl());
     final Set<KikaCrawlerUrlDto> actual = target.invoke();
 
     assertThat(actual.size(), equalTo(expected.length));

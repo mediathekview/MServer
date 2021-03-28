@@ -20,7 +20,6 @@ import java.util.Queue;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.when;
 
@@ -50,13 +49,17 @@ public class OrfHistoryOverviewTaskTest {
   public void test() throws Exception {
     final OrfCrawler crawler = Mockito.mock(OrfCrawler.class);
     when(crawler.getCrawlerConfig())
-        .thenReturn(MServerConfigManager.getInstance().getSenderConfig(Sender.ORF));
+        .thenReturn(MServerConfigManager.getInstance("MServer-JUnit-Config.yaml").getSenderConfig(Sender.ORF));
     final Document document =
         JsoupMock.getFileDocument(OrfConstants.URL_ARCHIVE, "/orf/orf_history_overview.html");
-    when(jsoupConnection.getDocumentTimeoutAfter(eq(OrfConstants.URL_ARCHIVE), anyInt()))
+    when(jsoupConnection.requestBodyAsHtmlDocument(eq(OrfConstants.URL_ARCHIVE)))
         .thenReturn(document);
+    when(crawler.requestBodyAsHtmlDocument(eq(OrfConstants.URL_ARCHIVE)))
+    .thenReturn(document);
+    when(crawler.getConnection())
+    .thenReturn(jsoupConnection);
 
-    final OrfHistoryOverviewTask target = new OrfHistoryOverviewTask(crawler, jsoupConnection);
+    final OrfHistoryOverviewTask target = new OrfHistoryOverviewTask(crawler);
 
     final Queue<TopicUrlDTO> actual = target.call();
     assertThat(actual, notNullValue());

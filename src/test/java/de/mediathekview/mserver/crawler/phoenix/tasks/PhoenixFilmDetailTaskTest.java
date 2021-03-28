@@ -101,8 +101,9 @@ public class PhoenixFilmDetailTaskTest extends WireMockTestBase {
             Duration.ofMinutes(57).plusSeconds(12),
             "Moderation: Sonia Seymour Mikich",
             "https://www.phoenix.de/sendungen/gespraeche/presseclub/mehr-grenzschutz-und-eine-neue-asylpolitik--letzte-rettung-fuer-europa-und-merkel-a-271252.html",
-            "http://localhost:8589/none/phoenix/18/06/180624_phx_presseclub/1/180624_phx_presseclub_776k_p11v13.mp4",
-            "http://localhost:8589/none/phoenix/18/06/180624_phx_presseclub/1/180624_phx_presseclub_2328k_p35v13.mp4",
+            "https://rodlzdf-a.akamaihd.net/none/phoenix/18/06/180624_phx_presseclub/1/180624_phx_presseclub_776k_p11v13.mp4",
+            //"https://rodlzdf-a.akamaihd.net/none/phoenix/18/06/180624_phx_presseclub/1/180624_phx_presseclub_2328k_p35v13.mp4", // this video is not av. anymore
+            "https://rodlzdf-a.akamaihd.net/none/phoenix/18/06/180624_phx_presseclub/1/180624_phx_presseclub_1496k_p13v13.mp4",
             "",
             "",
             GeoLocations.GEO_NONE

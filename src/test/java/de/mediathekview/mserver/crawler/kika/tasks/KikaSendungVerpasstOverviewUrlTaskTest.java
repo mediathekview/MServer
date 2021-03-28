@@ -1,9 +1,11 @@
 package de.mediathekview.mserver.crawler.kika.tasks;
 
 import de.mediathekview.mlib.daten.Sender;
+import de.mediathekview.mserver.base.config.MServerConfigManager;
 import de.mediathekview.mserver.base.webaccess.JsoupConnection;
 import de.mediathekview.mserver.crawler.basic.CrawlerUrlDTO;
 import de.mediathekview.mserver.crawler.kika.KikaConstants;
+import de.mediathekview.mserver.crawler.kika.KikaCrawler;
 import de.mediathekview.mserver.testhelper.JsoupMock;
 import org.jsoup.nodes.Document;
 import org.junit.Before;
@@ -18,32 +20,29 @@ import java.util.Set;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.containsInAnyOrder;
-import static org.mockito.ArgumentMatchers.anyInt;
-import static org.mockito.ArgumentMatchers.eq;
-import static org.mockito.Mockito.when;
 
 public class KikaSendungVerpasstOverviewUrlTaskTest extends KikaTaskTestBase {
 
   @Mock JsoupConnection jsoupConnection;
 
   Document htmlPage;
+  
+  KikaCrawler crawler;
 
   @Before
   public void setUp() throws IOException {
     MockitoAnnotations.openMocks(this);
+    jsoupConnection= JsoupMock.mock(KikaConstants.URL_DAY_PAGE, "/kika/kika_days_overview.html");
+    crawler = createCrawler();
+    crawler.setConnection(jsoupConnection);
 
-    htmlPage =
-        JsoupMock.getFileDocument(KikaConstants.URL_DAY_PAGE, "/kika/kika_days_overview.html");
-
-    when(jsoupConnection.getDocumentTimeoutAfter(eq(KikaConstants.URL_DAY_PAGE), anyInt()))
-        .thenReturn(htmlPage);
   }
 
   private final LocalDateTime today = LocalDateTime.of(2019, 3, 10, 0, 0, 0);
 
   @Test
   public void callTestNoFutureUrls() throws IOException {
-
+    MServerConfigManager rootConfig = MServerConfigManager.getInstance("MServer-JUnit-Config.yaml");
     rootConfig.getSenderConfig(Sender.KIKA).setMaximumDaysForSendungVerpasstSection(4);
     rootConfig.getSenderConfig(Sender.KIKA).setMaximumDaysForSendungVerpasstSectionFuture(0);
 
@@ -60,8 +59,7 @@ public class KikaSendungVerpasstOverviewUrlTaskTest extends KikaTaskTestBase {
         };
 
     final KikaSendungVerpasstOverviewUrlTask target =
-        new KikaSendungVerpasstOverviewUrlTask(createCrawler(), today);
-    target.setJsoupConnection(jsoupConnection);
+        new KikaSendungVerpasstOverviewUrlTask(crawler, today);
 
     final Set<CrawlerUrlDTO> actual = target.call();
 
@@ -71,7 +69,7 @@ public class KikaSendungVerpasstOverviewUrlTaskTest extends KikaTaskTestBase {
 
   @Test
   public void callTestWithFutureUrls() throws IOException {
-
+    MServerConfigManager rootConfig = MServerConfigManager.getInstance("MServer-JUnit-Config.yaml");
     rootConfig.getSenderConfig(Sender.KIKA).setMaximumDaysForSendungVerpasstSection(4);
     rootConfig.getSenderConfig(Sender.KIKA).setMaximumDaysForSendungVerpasstSectionFuture(3);
 
@@ -94,8 +92,7 @@ public class KikaSendungVerpasstOverviewUrlTaskTest extends KikaTaskTestBase {
         };
 
     final KikaSendungVerpasstOverviewUrlTask target =
-        new KikaSendungVerpasstOverviewUrlTask(createCrawler(), today);
-    target.setJsoupConnection(jsoupConnection);
+        new KikaSendungVerpasstOverviewUrlTask(crawler, today);
 
     final Set<CrawlerUrlDTO> actual = target.call();
 
@@ -105,13 +102,12 @@ public class KikaSendungVerpasstOverviewUrlTaskTest extends KikaTaskTestBase {
 
   @Test
   public void callTestRangeLargerThanAvailableDays() throws IOException {
-
+    MServerConfigManager rootConfig = MServerConfigManager.getInstance("MServer-JUnit-Config.yaml");
     rootConfig.getSenderConfig(Sender.KIKA).setMaximumDaysForSendungVerpasstSection(40);
     rootConfig.getSenderConfig(Sender.KIKA).setMaximumDaysForSendungVerpasstSectionFuture(30);
 
     final KikaSendungVerpasstOverviewUrlTask target =
-        new KikaSendungVerpasstOverviewUrlTask(createCrawler(), today);
-    target.setJsoupConnection(jsoupConnection);
+        new KikaSendungVerpasstOverviewUrlTask(crawler, today);
 
     final Set<CrawlerUrlDTO> actual = target.call();
 

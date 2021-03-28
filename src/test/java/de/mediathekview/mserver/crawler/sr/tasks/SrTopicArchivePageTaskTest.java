@@ -1,10 +1,10 @@
 package de.mediathekview.mserver.crawler.sr.tasks;
 
 import de.mediathekview.mserver.base.webaccess.JsoupConnection;
+import de.mediathekview.mserver.crawler.sr.SrCrawler;
 import de.mediathekview.mserver.crawler.sr.SrTopicUrlDTO;
 import de.mediathekview.mserver.testhelper.JsoupMock;
 import org.hamcrest.Matchers;
-import org.jsoup.Connection;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
@@ -17,9 +17,6 @@ import java.util.Set;
 
 import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.junit.Assert.fail;
-import static org.mockito.ArgumentMatchers.eq;
-import static org.mockito.Mockito.when;
 
 public class SrTopicArchivePageTaskTest extends SrTaskTestBase {
 
@@ -43,11 +40,11 @@ public class SrTopicArchivePageTaskTest extends SrTaskTestBase {
         };
 
     final String requestUrl = "srf_sample.html";
-    final Connection connection =
-        JsoupMock.mock(requestUrl, "/sr/sr_sendung_overview_page_single.html");
-    when(jsoupConnection.getConnection(eq(requestUrl))).thenReturn(connection);
+    jsoupConnection = JsoupMock.mock(requestUrl, "/sr/sr_sendung_overview_page_single.html");
+    SrCrawler crawler = createCrawler();
+    crawler.setConnection(jsoupConnection);
 
-    final Set<SrTopicUrlDTO> actual = executeTask(theme, requestUrl);
+    final Set<SrTopicUrlDTO> actual = executeTask(crawler, theme, requestUrl);
 
     assertThat(actual, notNullValue());
     assertThat(actual, Matchers.containsInAnyOrder(expectedUrls));
@@ -86,17 +83,11 @@ public class SrTopicArchivePageTaskTest extends SrTaskTestBase {
     urlMapping.put(
         "https://www.sr-mediathek.de/index.php?seite=10&sen=MT&s=2",
         "/sr/sr_sendung_overview_page2.html");
-    final Map<String, Connection> connections = JsoupMock.mock(urlMapping);
-    connections.forEach(
-        (url, currentConnection) -> {
-          try {
-            when(jsoupConnection.getConnection(eq(url))).thenReturn(currentConnection);
-          } catch (final IOException iox) {
-            fail();
-          }
-        });
+    jsoupConnection = JsoupMock.mock(urlMapping);
+    SrCrawler crawler = createCrawler();
+    crawler.setConnection(jsoupConnection);
 
-    final Set<SrTopicUrlDTO> actual = executeTask(theme, requestUrl);
+    final Set<SrTopicUrlDTO> actual = executeTask(crawler, theme, requestUrl);
 
     assertThat(actual, notNullValue());
     assertThat(actual, Matchers.containsInAnyOrder(expectedUrls));
@@ -107,11 +98,11 @@ public class SrTopicArchivePageTaskTest extends SrTaskTestBase {
     final SrTopicUrlDTO[] expectedUrls = new SrTopicUrlDTO[0];
 
     final String requestUrl = "srf_sample.html";
-    final Connection connection =
-        JsoupMock.mock(requestUrl, "/sr/sr_sendung_overview_page_empty.html");
-    when(jsoupConnection.getConnection(eq(requestUrl))).thenReturn(connection);
+    jsoupConnection = JsoupMock.mock(requestUrl, "/sr/sr_sendung_overview_page_empty.html");
+    SrCrawler crawler = createCrawler();
+    crawler.setConnection(jsoupConnection);
 
-    final Set<SrTopicUrlDTO> actual = executeTask("Test", requestUrl);
+    final Set<SrTopicUrlDTO> actual = executeTask(crawler, "Test", requestUrl);
 
     assertThat(actual, notNullValue());
     assertThat(actual, Matchers.containsInAnyOrder(expectedUrls));
@@ -122,19 +113,19 @@ public class SrTopicArchivePageTaskTest extends SrTaskTestBase {
     final SrTopicUrlDTO[] expectedUrls = new SrTopicUrlDTO[0];
 
     final String requestUrl = "srf_sample.html";
-    final Connection connection =
-        JsoupMock.mock(requestUrl, "/sr/sr_sendung_overview_page_audio.html");
-    when(jsoupConnection.getConnection(eq(requestUrl))).thenReturn(connection);
-
-    final Set<SrTopicUrlDTO> actual = executeTask("Test", requestUrl);
+    jsoupConnection = JsoupMock.mock(requestUrl, "/sr/sr_sendung_overview_page_audio.html");
+    SrCrawler crawler = createCrawler();
+    crawler.setConnection(jsoupConnection);
+    
+    final Set<SrTopicUrlDTO> actual = executeTask(crawler, "Test", requestUrl);
 
     assertThat(actual, notNullValue());
     assertThat(actual, Matchers.containsInAnyOrder(expectedUrls));
   }
 
-  private Set<SrTopicUrlDTO> executeTask(final String aTheme, final String aRequestUrl) {
+  private Set<SrTopicUrlDTO> executeTask(final SrCrawler crawler, final String aTheme, final String aRequestUrl) {
     return new SrTopicArchivePageTask(
-            createCrawler(), createCrawlerUrlDto(aTheme, aRequestUrl), jsoupConnection)
+        crawler, createCrawlerUrlDto(aTheme, aRequestUrl))
         .invoke();
   }
 }

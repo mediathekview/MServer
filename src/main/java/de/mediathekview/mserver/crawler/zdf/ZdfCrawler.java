@@ -3,7 +3,6 @@ package de.mediathekview.mserver.crawler.zdf;
 import de.mediathekview.mlib.daten.Sender;
 import de.mediathekview.mlib.messages.listener.MessageListener;
 import de.mediathekview.mserver.base.config.MServerConfigManager;
-import de.mediathekview.mserver.base.webaccess.JsoupConnection;
 import de.mediathekview.mserver.crawler.basic.CrawlerUrlDTO;
 import de.mediathekview.mserver.crawler.zdf.tasks.ZdfDayPageHtmlTask;
 import de.mediathekview.mserver.progress.listeners.SenderProgressListener;
@@ -55,7 +54,7 @@ public class ZdfCrawler extends AbstractZdfCrawler {
       throws ExecutionException, InterruptedException {
 
     final ZdfDayPageHtmlTask dayTask =
-        new ZdfDayPageHtmlTask(getApiUrlBase(), this, getExtraDayUrls(), new JsoupConnection());
+        new ZdfDayPageHtmlTask(getApiUrlBase(), this, getExtraDayUrls());
     return forkJoinPool.submit(dayTask).get();
   }
 

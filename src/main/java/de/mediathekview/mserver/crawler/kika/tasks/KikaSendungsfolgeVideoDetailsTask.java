@@ -3,7 +3,6 @@ package de.mediathekview.mserver.crawler.kika.tasks;
 import de.mediathekview.mlib.daten.*;
 import de.mediathekview.mserver.base.utils.DateUtils;
 import de.mediathekview.mserver.base.utils.HtmlDocumentUtils;
-import de.mediathekview.mserver.base.webaccess.JsoupConnection;
 import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
 import de.mediathekview.mserver.crawler.basic.AbstractUrlTask;
 import de.mediathekview.mserver.crawler.basic.FilmUrlInfoDto;
@@ -13,7 +12,6 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
-import org.jsoup.parser.Parser;
 import org.jsoup.select.Elements;
 
 import java.io.IOException;
@@ -25,7 +23,6 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
-import java.util.concurrent.TimeUnit;
 
 public class KikaSendungsfolgeVideoDetailsTask extends AbstractUrlTask<Film, KikaCrawlerUrlDto> {
 
@@ -52,12 +49,9 @@ public class KikaSendungsfolgeVideoDetailsTask extends AbstractUrlTask<Film, Kik
   private static final DateTimeFormatter webTimeFormatter =
       DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm");
 
-  private transient JsoupConnection jsoupConnection;
-
   public KikaSendungsfolgeVideoDetailsTask(
       final AbstractCrawler aCrawler, final Queue<KikaCrawlerUrlDto> aUrlToCrawlDtos) {
     super(aCrawler, aUrlToCrawlDtos);
-    jsoupConnection = new JsoupConnection();
   }
 
   private boolean isLong(final String number) {
@@ -214,11 +208,7 @@ public class KikaSendungsfolgeVideoDetailsTask extends AbstractUrlTask<Film, Kik
   @Override
   protected void processElement(final KikaCrawlerUrlDto urlDto) {
     try {
-      final Document document =
-          jsoupConnection.getDocumentTimeoutAfterAlternativeDocumentType(
-              urlDto.getUrl(),
-              (int) TimeUnit.SECONDS.toMillis(config.getSocketTimeoutInSeconds()),
-              Parser.xmlParser());
+      final Document document = crawler.requestBodyAsXmlDocument(urlDto.getUrl());
       final Elements titleNodes = orAlternative(document, ELEMENT_BROADCAST_NAME, ELEMENT_TITLE);
       final Elements themaNodes =
           orAlternative(
@@ -316,11 +306,4 @@ public class KikaSendungsfolgeVideoDetailsTask extends AbstractUrlTask<Film, Kik
     newFilm.setGeoLocations(geoLocations);
   }
 
-  public JsoupConnection getJsoupConnection() {
-    return jsoupConnection;
-  }
-
-  public void setJsoupConnection(final JsoupConnection jsoupConnection) {
-    this.jsoupConnection = jsoupConnection;
-  }
 }

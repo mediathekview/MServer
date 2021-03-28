@@ -5,9 +5,9 @@ import de.mediathekview.mlib.daten.GeoLocations;
 import de.mediathekview.mlib.daten.Sender;
 import de.mediathekview.mserver.base.webaccess.JsoupConnection;
 import de.mediathekview.mserver.crawler.basic.CrawlerUrlDTO;
+import de.mediathekview.mserver.crawler.dw.DwCrawler;
 import de.mediathekview.mserver.testhelper.AssertFilm;
 import de.mediathekview.mserver.testhelper.JsoupMock;
-import org.jsoup.Connection;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -27,8 +27,6 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.mockito.ArgumentMatchers.eq;
-import static org.mockito.Mockito.when;
 
 @RunWith(Parameterized.class)
 public class DWFilmDetailsTaskTest extends DwTaskTestBase {
@@ -128,8 +126,9 @@ public class DWFilmDetailsTaskTest extends DwTaskTestBase {
   @Test
   public void test() throws IOException {
 
-    final Connection connection = JsoupMock.mock(requestUrl, htmlFile);
-    when(jsoupConnection.getConnection(requestUrl)).thenReturn(connection);
+    jsoupConnection = JsoupMock.mock(requestUrl, htmlFile);
+    DwCrawler crawler = createCrawler();
+    crawler.setConnection(jsoupConnection);
 
     setupSuccessfulJsonResponse(jsonRequestUrl, jsonFile);
 
@@ -137,7 +136,7 @@ public class DWFilmDetailsTaskTest extends DwTaskTestBase {
     urls.add(new CrawlerUrlDTO(requestUrl));
 
     final DWFilmDetailsTask classUnderTest =
-        new DWFilmDetailsTask(createCrawler(), urls, wireMockServer.baseUrl(), jsoupConnection);
+        new DWFilmDetailsTask(crawler, urls, wireMockServer.baseUrl());
 
     final Set<Film> actual = classUnderTest.invoke();
 

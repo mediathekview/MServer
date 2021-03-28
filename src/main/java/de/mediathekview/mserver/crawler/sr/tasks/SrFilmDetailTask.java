@@ -8,7 +8,6 @@ import de.mediathekview.mlib.daten.Resolution;
 import de.mediathekview.mlib.tool.FileSizeDeterminer;
 import de.mediathekview.mserver.base.utils.DateUtils;
 import de.mediathekview.mserver.base.utils.HtmlDocumentUtils;
-import de.mediathekview.mserver.base.webaccess.JsoupConnection;
 import de.mediathekview.mserver.crawler.ard.json.ArdVideoInfoDto;
 import de.mediathekview.mserver.crawler.ard.json.ArdVideoInfoJsonDeserializer;
 import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
@@ -49,9 +48,8 @@ public class SrFilmDetailTask extends SrRateLimitedDocumentTask<Film, SrTopicUrl
 
   public SrFilmDetailTask(
       final AbstractCrawler crawler,
-      final Queue<SrTopicUrlDTO> urlToCrawlDTOs,
-      final JsoupConnection jsoupConnection) {
-    super(crawler, urlToCrawlDTOs, jsoupConnection);
+      final Queue<SrTopicUrlDTO> urlToCrawlDTOs) {
+    super(crawler, urlToCrawlDTOs);
   }
 
   private static Optional<String> parseDescription(final Document aDocument) {
@@ -179,7 +177,7 @@ public class SrFilmDetailTask extends SrRateLimitedDocumentTask<Film, SrTopicUrl
   @Override
   protected AbstractUrlTask<Film, SrTopicUrlDTO> createNewOwnInstance(
       final Queue<SrTopicUrlDTO> aURLsToCrawl) {
-    return new SrFilmDetailTask(crawler, aURLsToCrawl, getJsoupConnection());
+    return new SrFilmDetailTask(crawler, aURLsToCrawl);
   }
 
   /**
