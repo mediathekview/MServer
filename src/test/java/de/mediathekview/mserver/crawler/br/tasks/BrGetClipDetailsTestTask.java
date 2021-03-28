@@ -28,12 +28,11 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ForkJoinPool;
 
 import static com.github.tomakehurst.wiremock.client.WireMock.*;
+import static com.github.tomakehurst.wiremock.core.WireMockConfiguration.wireMockConfig;
 
 public abstract class BrGetClipDetailsTestTask {
 
-  @Rule
-  public WireMockRule wireMockRule =
-      new WireMockRule(8589); // No-args constructor defaults to port 8080
+  @Rule public WireMockRule wireMockRule = new WireMockRule(wireMockConfig().dynamicPort());
 
   // @Test Not yet a Testcase
   public void test()

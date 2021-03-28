@@ -45,7 +45,7 @@ public class FunkVideosToFilmsTaskTest extends FunkTaskTestBase {
 
     final Queue<FilmInfoDto> filmInfos = new ConcurrentLinkedQueue<>();
     final FilmInfoDto filmInfo =
-        new FilmInfoDto("http://localhost:8589/v3/741/videos/byid/1605930");
+        new FilmInfoDto(wireMockServer.baseUrl() + "/v3/741/videos/byid/1605930");
     filmInfo.setTopic("1045");
     filmInfo.setTitle(TITLE);
     filmInfo.setTime(TIME);

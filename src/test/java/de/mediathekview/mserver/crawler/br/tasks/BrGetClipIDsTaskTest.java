@@ -21,37 +21,36 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 import static com.github.tomakehurst.wiremock.client.WireMock.*;
+import static com.github.tomakehurst.wiremock.core.WireMockConfiguration.wireMockConfig;
 
 public class BrGetClipIDsTaskTest {
 
-  @Rule
-  public WireMockRule wireMockRule =
-          new WireMockRule(8589); // No-args constructor defaults to port 8080
+  @Rule public WireMockRule wireMockRule = new WireMockRule(wireMockConfig().dynamicPort());
 
   // @Test Not yet a Teastcase
   public void test() throws Exception {
-    ClassLoader classLoader = getClass().getClassLoader();
-      String expectedJSONresult =
-              new String(
-                      Files.readAllBytes(
-                              Paths.get(
-                                      classLoader
-                                              .getResource(
-                                                      "de/mediathekview/mserver/crawler/br/tasks/filmCountResultGraphQL.json")
-                                              .toURI())));
+    final ClassLoader classLoader = getClass().getClassLoader();
+    final String expectedJSONresult =
+        new String(
+            Files.readAllBytes(
+                Paths.get(
+                    classLoader
+                        .getResource(
+                            "de/mediathekview/mserver/crawler/br/tasks/filmCountResultGraphQL.json")
+                        .toURI())));
 
-      wireMockRule.stubFor(
-              post(urlEqualTo("/myBrRequets"))
-                      .willReturn(
-                              aResponse()
-                                      .withHeader("Content-Type", "application/json")
-                                      .withStatus(200)
-                                      .withBody(expectedJSONresult)));
+    wireMockRule.stubFor(
+        post(urlEqualTo("/myBrRequets"))
+            .willReturn(
+                aResponse()
+                    .withHeader("Content-Type", "application/json")
+                    .withStatus(200)
+                    .withBody(expectedJSONresult)));
 
-    BrCrawler crawler = BrTestHelper.getTestCrawler("MServer-JUnit-Config.yaml");
+    final BrCrawler crawler = BrTestHelper.getTestCrawler("MServer-JUnit-Config.yaml");
 
-      BrGetClipIDsTask clipIds = new BrGetClipIDsTask(crawler);
-    ExecutorService lassLaufen = Executors.newSingleThreadExecutor();
-    Set<BrID> graphqlJsonResult = lassLaufen.submit(clipIds).get();
+    final BrGetClipIDsTask clipIds = new BrGetClipIDsTask(crawler);
+    final ExecutorService lassLaufen = Executors.newSingleThreadExecutor();
+    final Set<BrID> graphqlJsonResult = lassLaufen.submit(clipIds).get();
   }
 }
