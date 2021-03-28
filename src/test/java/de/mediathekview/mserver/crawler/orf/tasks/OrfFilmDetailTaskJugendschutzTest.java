@@ -1,30 +1,20 @@
 package de.mediathekview.mserver.crawler.orf.tasks;
 
+import de.mediathekview.mlib.daten.Film;
+import de.mediathekview.mserver.base.webaccess.JsoupConnection;
+import de.mediathekview.mserver.crawler.orf.OrfCrawler;
+import de.mediathekview.mserver.testhelper.JsoupMock;
+import org.junit.Before;
+import org.junit.Test;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
+
+import java.io.IOException;
+import java.util.Set;
+
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.mockito.ArgumentMatchers.eq;
-import static org.mockito.Mockito.when;
-
-import de.mediathekview.mlib.daten.Film;
-import de.mediathekview.mlib.daten.GeoLocations;
-import de.mediathekview.mlib.daten.Sender;
-import de.mediathekview.mserver.base.webaccess.JsoupConnection;
-import de.mediathekview.mserver.testhelper.AssertFilm;
-import de.mediathekview.mserver.testhelper.JsoupMock;
-import java.io.IOException;
-import java.time.Duration;
-import java.time.LocalDateTime;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Set;
-import org.jsoup.Connection;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
-import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
 
 public class OrfFilmDetailTaskJugendschutzTest extends OrfFilmDetailTaskTestBase {
 
@@ -38,11 +28,13 @@ public class OrfFilmDetailTaskJugendschutzTest extends OrfFilmDetailTaskTestBase
   @Test
   public void testJugendschutzNotAdded() throws IOException {
     setupHeadRequestForFileSize();
-    final String requestUrl = "https://tvthek.orf.at/profile/Tatort/2713749/Tatort-Hetzjagd/14081980";
-    final Connection connection = JsoupMock.mock(requestUrl, "/orf/orf_film_jugendschutz.html");
-    when(jsoupConnection.getConnection(eq(requestUrl))).thenReturn(connection);
+    final String requestUrl =
+        "https://tvthek.orf.at/profile/Tatort/2713749/Tatort-Hetzjagd/14081980";
+    jsoupConnection = JsoupMock.mock(requestUrl, "/orf/orf_film_jugendschutz.html");
+    OrfCrawler crawler = createCrawler();
+    crawler.setConnection(jsoupConnection);
 
-    final Set<Film> actual = executeTask("Tatort", requestUrl, jsoupConnection);
+    final Set<Film> actual = executeTask(crawler, "Tatort", requestUrl);
 
     assertThat(actual, notNullValue());
     assertThat(actual.size(), equalTo(0));
