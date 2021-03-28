@@ -1,7 +1,7 @@
 package de.mediathekview.mserver.crawler.funk;
 
 import de.mediathekview.mserver.base.config.CrawlerUrlType;
-import de.mediathekview.mserver.base.config.MServerConfigManager;
+import de.mediathekview.mserver.base.config.MServerConfigDTO;
 import de.mediathekview.mserver.crawler.basic.CrawlerUrlDTO;
 
 import java.net.URL;
@@ -12,12 +12,17 @@ public class ApiUrlBuilder {
   private final String urlTemplate;
   private final CrawlerUrlType baseUrlUrlType;
   private final List<String> parameters;
+  private final MServerConfigDTO config;
 
-  public ApiUrlBuilder(final CrawlerUrlType aBaseUrlUrlType, final String aUrlTemplate) {
+  public ApiUrlBuilder(
+      final CrawlerUrlType baseUrlUrlType,
+      final String urlTemplate,
+      final MServerConfigDTO config) {
     super();
     parameters = new ArrayList<>();
-    baseUrlUrlType = aBaseUrlUrlType;
-    urlTemplate = aUrlTemplate;
+    this.baseUrlUrlType = baseUrlUrlType;
+    this.urlTemplate = urlTemplate;
+    this.config = config;
   }
 
   public ApiUrlBuilder withParameter(final String parameter) {
@@ -26,8 +31,7 @@ public class ApiUrlBuilder {
   }
 
   public String asString() {
-    final Optional<URL> apiUrl =
-        new MServerConfigManager().getConfig().getSingleCrawlerURL(baseUrlUrlType);
+    final Optional<URL> apiUrl = config.getSingleCrawlerURL(baseUrlUrlType);
     if (apiUrl.isPresent()) {
       final List<String> urlParameter = new ArrayList<>();
       urlParameter.add(String.valueOf(apiUrl.get()));

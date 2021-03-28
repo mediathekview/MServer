@@ -30,7 +30,8 @@ public enum FunkApiUrls {
 
   @NotNull
   private ApiUrlBuilder buildUrl(final AbstractCrawler crawler, final @Nullable String channelId) {
-    final ApiUrlBuilder apiUrlBuilder = new ApiUrlBuilder(CrawlerUrlType.FUNK_API_URL, urlTemplate);
+    final ApiUrlBuilder apiUrlBuilder =
+        new ApiUrlBuilder(CrawlerUrlType.FUNK_API_URL, urlTemplate, crawler.getRuntimeConfig());
     Optional.ofNullable(channelId).ifPresent(apiUrlBuilder::withParameter);
     apiUrlBuilder.withParameter(String.valueOf(crawler.getCrawlerConfig().getMaximumUrlsPerTask()));
     return apiUrlBuilder;

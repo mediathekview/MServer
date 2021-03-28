@@ -294,4 +294,8 @@ public class MServerConfigDTO extends MServerBasicConfigDTO implements ConfigDTO
         .values()
         .forEach(senderConfig -> senderConfig.setParentConfig(Optional.of(this)));
   }
+
+  public URL putCrawlerUrl(final CrawlerUrlType key, final URL value) {
+    return crawlerURLs.put(key, value);
+  }
 }
