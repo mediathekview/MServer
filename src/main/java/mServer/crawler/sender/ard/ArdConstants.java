@@ -33,7 +33,7 @@ public class ArdConstants {
           "tagesschau24"
       };
 
-  public static final String WEBSITE_URL = "https://www.ardmediathek.de/ard/player/%s";
+  public static final String WEBSITE_URL = "https://www.ardmediathek.de/video/%s";
 
   public static final String BASE_URL_SUBTITLES = "https://classic.ardmediathek.de";
 
