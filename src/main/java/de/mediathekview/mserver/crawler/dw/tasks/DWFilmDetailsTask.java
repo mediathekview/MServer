@@ -72,7 +72,7 @@ public class DWFilmDetailsTask extends AbstractDocumentTask<Film, CrawlerUrlDTO>
 
         final Type urlMapType = new TypeToken<Map<Resolution, FilmUrl>>() {}.getType();
         final Gson gson =
-            new GsonBuilder().registerTypeAdapter(urlMapType, new DWDownloadUrlsParser()).create();
+            new GsonBuilder().registerTypeAdapter(urlMapType, new DWDownloadUrlsParser(crawler)).create();
 
         film.addAllUrls(gson.fromJson(response.readEntity(String.class), urlMapType));
       } else {

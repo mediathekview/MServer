@@ -129,7 +129,7 @@ public class ZdfFilmDetailTask extends ZdfTaskBase<Film, CrawlerUrlDTO> {
       final Film filmWithLanguage = clone(result, language);
 
       DownloadDtoFilmConverter.addUrlsToFilm(
-          filmWithLanguage, downloadDto, Optional.of(optimizer), language);
+          crawler, filmWithLanguage, downloadDto, Optional.of(optimizer), language);
 
       taskResults.add(filmWithLanguage);
     }

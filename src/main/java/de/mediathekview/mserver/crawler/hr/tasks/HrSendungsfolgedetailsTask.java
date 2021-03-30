@@ -6,7 +6,6 @@ import com.google.gson.reflect.TypeToken;
 import de.mediathekview.mlib.daten.Film;
 import de.mediathekview.mlib.daten.FilmUrl;
 import de.mediathekview.mlib.daten.Resolution;
-import de.mediathekview.mlib.tool.FileSizeDeterminer;
 import de.mediathekview.mserver.base.utils.DateUtils;
 import de.mediathekview.mserver.base.utils.GeoLocationGuesser;
 import de.mediathekview.mserver.base.utils.HtmlDocumentUtils;
@@ -210,7 +209,7 @@ public class HrSendungsfolgedetailsTask extends AbstractDocumentTask<Film, Crawl
       Optional.ofNullable(beschreibung).ifPresent(newFilm::setBeschreibung);
 
       for (final Entry<Resolution, String> videoUrl : videoUrls.entrySet()) {
-        newFilm.addUrl(videoUrl.getKey(), new FilmUrl(videoUrl.getValue(), new FileSizeDeterminer(videoUrl.getValue()).getFileSizeInMiB()));
+        newFilm.addUrl(videoUrl.getKey(), new FilmUrl(videoUrl.getValue(), crawler.determineFileSizeInKB(videoUrl.getValue())));
       }
 
       final Optional<String> optionalUntertitelUrlText = Optional.ofNullable(untertitelUrlText);

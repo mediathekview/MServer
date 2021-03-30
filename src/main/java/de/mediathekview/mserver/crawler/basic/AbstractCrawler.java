@@ -149,6 +149,9 @@ public abstract class AbstractCrawler implements Callable<Set<Film>> {
     return getConnection().requestBodyAsXmlDocument(url);
   }
 
+  public long determineFileSizeInKB(String url) {
+    return getConnection().determineFileSize(url) / 1024;
+  }
   /**
    * This method should just return the entry of {@link Sender} for the Sender which this crawler is
    * for.

@@ -3,6 +3,8 @@ package de.mediathekview.mserver.base.webaccess;
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
+import javax.ws.rs.core.HttpHeaders;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.jsoup.Jsoup;
@@ -19,9 +21,10 @@ import okhttp3.ResponseBody;
  */
 public class JsoupConnection {
   private static final Logger LOG = LogManager.getLogger(JsoupConnection.class);
+  private static final String PROTOCOL_RTMP = "rtmp";
+  private static final String FILE_TYPE_M3U8 = "m3u8";
   protected OkHttpClient client = null;
-  
-  
+
   public JsoupConnection(int timeout) {
     client = new OkHttpClient.Builder()
         .connectTimeout(timeout, TimeUnit.SECONDS)
@@ -62,4 +65,27 @@ public class JsoupConnection {
     return Jsoup.parse(requestBodyAsString(url), url, Parser.xmlParser());
   }
 
+  public Long determineFileSize(String url) {
+  	long fileSize = determineFileSize(url, new Request.Builder().url(url).head());
+  	if (fileSize == -1) {
+  		fileSize = determineFileSize(url, new Request.Builder().url(url).get());
+  	}
+  	return fileSize;
+  }
+  
+  public Long determineFileSize(String url, Request.Builder requestBuilder) {
+	long fileSize = -1L;
+	// Cant determine the file size of rtmp and m3u8.
+	if (!url.startsWith(PROTOCOL_RTMP) && !url.endsWith(FILE_TYPE_M3U8)) {
+	  try (final Response response =
+	      client.newCall(requestBuilder.build()).execute()) {
+	    final String contentLengthHeader = response.header(HttpHeaders.CONTENT_LENGTH);
+	    fileSize = Long.parseLong(contentLengthHeader);
+	  } catch (final IOException ioException) {
+	    LOG.error(
+	        "Something went wrong determining the file size of {}", url);
+	  }
+	}
+	return fileSize;
+  }
 }

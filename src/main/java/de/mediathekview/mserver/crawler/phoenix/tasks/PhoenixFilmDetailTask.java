@@ -148,7 +148,7 @@ public class PhoenixFilmDetailTask extends ZdfTaskBase<Film, CrawlerUrlDTO> {
     }
 
     DownloadDtoFilmConverter.addUrlsToFilm(
-        film, downloadDto, Optional.of(optimizer), ZdfConstants.LANGUAGE_GERMAN);
+        crawler, film, downloadDto, Optional.of(optimizer), ZdfConstants.LANGUAGE_GERMAN);
     taskResults.add(film);
   }
 
