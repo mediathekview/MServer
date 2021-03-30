@@ -5,7 +5,6 @@ import de.mediathekview.mlib.daten.Film;
 import de.mediathekview.mlib.daten.FilmUrl;
 import de.mediathekview.mlib.daten.Resolution;
 import de.mediathekview.mlib.daten.Sender;
-import de.mediathekview.mlib.tool.FileSizeDeterminer;
 import de.mediathekview.mserver.crawler.arte.ArteConstants;
 import de.mediathekview.mserver.crawler.arte.ArteFilmUrlDto;
 import de.mediathekview.mserver.crawler.arte.json.ArteFilmDeserializer;
@@ -111,7 +110,7 @@ public class ArteFilmTask extends ArteTaskBase<Film, ArteFilmUrlDto> {
       try {
         film.addUrl(
             qualitiesEntry.getKey(),
-            new FilmUrl(url, new FileSizeDeterminer(url).getFileSizeInMiB()));
+            new FilmUrl(url, crawler.determineFileSizeInKB(url)));
       } catch (final MalformedURLException ex) {
         LOG.error("InvalidUrl: {}", url, ex);
       }

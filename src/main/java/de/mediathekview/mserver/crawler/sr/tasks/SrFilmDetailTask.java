@@ -5,7 +5,6 @@ import com.google.gson.GsonBuilder;
 import de.mediathekview.mlib.daten.Film;
 import de.mediathekview.mlib.daten.FilmUrl;
 import de.mediathekview.mlib.daten.Resolution;
-import de.mediathekview.mlib.tool.FileSizeDeterminer;
 import de.mediathekview.mserver.base.utils.DateUtils;
 import de.mediathekview.mserver.base.utils.HtmlDocumentUtils;
 import de.mediathekview.mserver.crawler.ard.json.ArdVideoInfoDto;
@@ -199,7 +198,7 @@ public class SrFilmDetailTask extends SrRateLimitedDocumentTask<Film, SrTopicUrl
       final String url = qualitiesEntry.getValue();
       film.addUrl(
           qualitiesEntry.getKey(),
-          new FilmUrl(url, new FileSizeDeterminer(url).getFileSizeInMiB()));
+          new FilmUrl(url, crawler.determineFileSizeInKB(url)));
     }
   }
 

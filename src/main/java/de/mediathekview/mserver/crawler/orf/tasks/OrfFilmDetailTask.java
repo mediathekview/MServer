@@ -7,7 +7,6 @@ import de.mediathekview.mlib.daten.Film;
 import de.mediathekview.mlib.daten.FilmUrl;
 import de.mediathekview.mlib.daten.GeoLocations;
 import de.mediathekview.mlib.daten.Resolution;
-import de.mediathekview.mlib.tool.FileSizeDeterminer;
 import de.mediathekview.mserver.base.utils.HtmlDocumentUtils;
 import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
 import de.mediathekview.mserver.crawler.basic.AbstractDocumentTask;
@@ -215,7 +214,7 @@ public class OrfFilmDetailTask extends AbstractDocumentTask<Film, TopicUrlDTO> {
       final String url = qualitiesEntry.getValue();
       aFilm.addUrl(
           qualitiesEntry.getKey(),
-          new FilmUrl(url, new FileSizeDeterminer(url).getFileSizeInMiB()));
+          new FilmUrl(url, crawler.determineFileSizeInKB(url)));
     }
   }
 

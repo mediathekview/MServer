@@ -6,8 +6,9 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import de.mediathekview.mlib.daten.FilmUrl;
 import de.mediathekview.mlib.daten.Resolution;
-import de.mediathekview.mlib.tool.FileSizeDeterminer;
 import de.mediathekview.mserver.base.utils.JsonUtils;
+import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -22,6 +23,12 @@ public class DWDownloadUrlsParser implements JsonDeserializer<Map<Resolution, Fi
   private static final String ELEMENT_LABEL = "label";
   private static final String ELEMENT_FILE = "file";
 
+  private AbstractCrawler crawler;
+  
+  public DWDownloadUrlsParser(AbstractCrawler crawler) {
+    this.crawler = crawler;
+  }
+
   @Override
   public Map<Resolution, FilmUrl> deserialize(
       final JsonElement aJsonElement, final Type aType, final JsonDeserializationContext aContext) {
@@ -33,7 +40,7 @@ public class DWDownloadUrlsParser implements JsonDeserializer<Map<Resolution, Fi
         final int height = elementObj.get(ELEMENT_LABEL).getAsInt();
         final String url = elementObj.get(ELEMENT_FILE).getAsString();
         try {
-          urls.put(getResolution(height), new FilmUrl(url, new FileSizeDeterminer(url).getFileSizeInMiB()));
+          urls.put(getResolution(height), new FilmUrl(url, crawler.determineFileSizeInKB(url)));
         } catch (final MalformedURLException malformedUrlException) {
           LOG.error(String.format("A found download URL \"%s\" isn't valid.", url));
         }
