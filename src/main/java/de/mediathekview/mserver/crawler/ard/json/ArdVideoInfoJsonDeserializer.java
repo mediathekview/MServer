@@ -47,7 +47,7 @@ public class ArdVideoInfoJsonDeserializer implements JsonDeserializer<ArdVideoIn
     }
 
     final Map<Resolution, URL> resolutionUrlMap =
-        new ArdMediaArrayToDownloadUrlsConverter().toDownloadUrls(aJsonElement, crawler);
+        new ArdMediaArrayToDownloadUrlsConverter(crawler).toDownloadUrls(aJsonElement, crawler);
 
     // if map contains only a m3u8 url, load the m3u8 file and use the containing
     // urls
