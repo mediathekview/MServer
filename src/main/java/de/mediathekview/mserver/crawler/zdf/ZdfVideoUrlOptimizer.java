@@ -2,6 +2,7 @@ package de.mediathekview.mserver.crawler.zdf;
 
 import de.mediathekview.mlib.daten.FilmUrl;
 import de.mediathekview.mserver.base.utils.UrlUtils;
+import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -63,6 +64,12 @@ public class ZdfVideoUrlOptimizer {
     HD_OPTIMIZE.put(NORMAL_2360_35_15, new String[] {HD_3360_36_15});
   }
 
+  protected AbstractCrawler crawler;
+
+  public ZdfVideoUrlOptimizer(AbstractCrawler aCrawler) {
+    crawler = aCrawler;
+  }
+
   /**
    * optimizes the normal url.
    *
@@ -114,7 +121,7 @@ public class ZdfVideoUrlOptimizer {
         for (final String optimizedFileName : entry.getValue()) {
           final String optimizedUrl = baseUrl + fileName.replace(entry.getKey(), optimizedFileName);
 
-          if (UrlUtils.existsUrl(optimizedUrl)) {
+          if (crawler.requestUrlExists(optimizedUrl)) {
             return optimizedUrl;
           }
         }

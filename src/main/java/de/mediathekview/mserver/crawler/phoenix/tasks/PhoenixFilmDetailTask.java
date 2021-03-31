@@ -46,7 +46,7 @@ public class PhoenixFilmDetailTask extends ZdfTaskBase<Film, CrawlerUrlDTO> {
   private final String filmDetailHost;
   private final String videoDetailHost;
 
-  private final transient ZdfVideoUrlOptimizer optimizer = new ZdfVideoUrlOptimizer();
+  private final transient ZdfVideoUrlOptimizer optimizer = new ZdfVideoUrlOptimizer(crawler);
 
   public PhoenixFilmDetailTask(
       final AbstractCrawler aCrawler,

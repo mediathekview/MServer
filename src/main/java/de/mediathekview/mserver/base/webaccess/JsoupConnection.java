@@ -74,18 +74,30 @@ public class JsoupConnection {
   }
   
   public Long determineFileSize(String url, Request.Builder requestBuilder) {
-	long fileSize = -1L;
-	// Cant determine the file size of rtmp and m3u8.
-	if (!url.startsWith(PROTOCOL_RTMP) && !url.endsWith(FILE_TYPE_M3U8)) {
-	  try (final Response response =
-	      client.newCall(requestBuilder.build()).execute()) {
-	    final String contentLengthHeader = response.header(HttpHeaders.CONTENT_LENGTH);
-	    fileSize = Long.parseLong(contentLengthHeader);
-	  } catch (final IOException ioException) {
-	    LOG.error(
-	        "Something went wrong determining the file size of {}", url);
-	  }
-	}
-	return fileSize;
+    long fileSize = -1L;
+  	// Cant determine the file size of rtmp and m3u8.
+  	if (!url.startsWith(PROTOCOL_RTMP) && !url.endsWith(FILE_TYPE_M3U8)) {
+  	  try (final Response response =
+  	      client.newCall(requestBuilder.build()).execute()) {
+  	    final String contentLengthHeader = response.header(HttpHeaders.CONTENT_LENGTH);
+  	    fileSize = Long.parseLong(contentLengthHeader);
+  	  } catch (final IOException ioException) {
+  	    LOG.error(
+  	        "Something went wrong determining the file size of {}", url);
+  	  }
+  	}
+  	return fileSize;
+  }
+  
+  public boolean requestUrlExists(String url) {
+    boolean exists = false;
+    try (final Response response =
+        client.newCall(new Request.Builder().url(url).head().build()).execute()) {
+      exists = response.isSuccessful();
+    } catch (final IOException ioException) {
+      LOG.error(
+          "Error requeting resource {}", url);
+    }
+    return exists;
   }
 }

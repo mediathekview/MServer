@@ -30,7 +30,7 @@ public class ZdfFilmDetailTask extends ZdfTaskBase<Film, CrawlerUrlDTO> {
   private static final Type OPTIONAL_DOWNLOAD_DTO_TYPE_TOKEN =
       new TypeToken<Optional<DownloadDto>>() {}.getType();
 
-  private final transient ZdfVideoUrlOptimizer optimizer = new ZdfVideoUrlOptimizer();
+  private final transient ZdfVideoUrlOptimizer optimizer = new ZdfVideoUrlOptimizer(crawler);
   private final String apiUrlBase;
 
   public ZdfFilmDetailTask(
