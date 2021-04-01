@@ -75,12 +75,12 @@ public class KikaApiVideoInfoPageDeserializer implements JsonDeserializer<KikaAp
     // FIND BEST URL
     if (urls.size() > 0) {
       if (urls.size() > 2) {
-        addFilmUrl(aKikaApiTopicDto, urls.get(urls.size()-1));
+        addFilmUrl(aKikaApiTopicDto, Resolution.HD, urls.get(urls.size()-1));
       }
       if (urls.size() > 1) {
-        addFilmUrl(aKikaApiTopicDto, urls.get(urls.size()/2));
+        addFilmUrl(aKikaApiTopicDto, Resolution.NORMAL, urls.get(urls.size()/2));
       }
-      addFilmUrl(aKikaApiTopicDto, urls.get(0));
+      addFilmUrl(aKikaApiTopicDto, Resolution.SMALL, urls.get(0));
     }
     // SUBTITLE
     Optional<String> hasSubtitles = JsonUtils.getElementValueAsString(jsonElement, TAG_HAS_SUB);
@@ -108,12 +108,12 @@ public class KikaApiVideoInfoPageDeserializer implements JsonDeserializer<KikaAp
     return aKikaApiTopicDto;
   }
 
-  private void addFilmUrl(KikaApiVideoInfoDto aKikaApiTopicDto, String url) {
-    final FileSizeDeterminer smallFsd = new FileSizeDeterminer(url);
+  private void addFilmUrl(KikaApiVideoInfoDto aKikaApiTopicDto, Resolution aResolution, String url) {
+    final FileSizeDeterminer fsd = new FileSizeDeterminer(url);
     try {
-      final FilmUrl filmUrl = new FilmUrl(url, smallFsd.getFileSizeInMiB());
+      final FilmUrl filmUrl = new FilmUrl(url, fsd.getFileSizeInMiB());
       aKikaApiTopicDto.addUrl(
-          Resolution.SMALL, 
+          aResolution, 
           filmUrl
           );
     } catch (Exception e) {
