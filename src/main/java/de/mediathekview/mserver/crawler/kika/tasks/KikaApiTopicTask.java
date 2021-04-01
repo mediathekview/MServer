@@ -28,9 +28,11 @@ import de.mediathekview.mserver.crawler.kika.json.KikaApiTopicPageDeserializer;
 public class KikaApiTopicTask extends AbstractJsonRestTask<KikaApiFilmDto, KikaApiTopicDto, TopicUrlDTO> {
   private static final long serialVersionUID = 1L;
   private static final Logger LOG = LogManager.getLogger(KikaApiTopicTask.class);
+  private int subPageIndex = 0;
 
-  public KikaApiTopicTask(AbstractCrawler crawler, Queue<TopicUrlDTO> urlToCrawlDTOs) {
+  public KikaApiTopicTask(AbstractCrawler crawler, Queue<TopicUrlDTO> urlToCrawlDTOs, int subPageIndex) {
     super(crawler, urlToCrawlDTOs, null);
+    this.subPageIndex = subPageIndex;
   }
 
   @Override
@@ -65,7 +67,7 @@ public class KikaApiTopicTask extends AbstractJsonRestTask<KikaApiFilmDto, KikaA
     final Optional<AbstractRecursiveConverterTask<KikaApiFilmDto, TopicUrlDTO>> subpageCrawler;
     final Optional<TopicUrlDTO> nextPageLink = aResponseObj.getNextPage();
     //
-    if (nextPageLink.isPresent() && config.getMaximumSubpages() > 0) {
+    if (nextPageLink.isPresent() && config.getMaximumSubpages() > subPageIndex) {
       final Queue<TopicUrlDTO> nextPageLinks = new ConcurrentLinkedQueue<>();
       nextPageLinks.add(new TopicUrlDTO(aDTO.getTopic(), nextPageLink.get().getUrl())); // repack next page link to keep topic name
       subpageCrawler = Optional.of(createNewOwnInstance(nextPageLinks));
@@ -86,7 +88,7 @@ public class KikaApiTopicTask extends AbstractJsonRestTask<KikaApiFilmDto, KikaA
   @Override
   protected AbstractRecursiveConverterTask<KikaApiFilmDto, TopicUrlDTO> createNewOwnInstance(
       Queue<TopicUrlDTO> aElementsToProcess) {
-    return new KikaApiTopicTask(crawler, aElementsToProcess);
+    return new KikaApiTopicTask(crawler, aElementsToProcess, subPageIndex+1);
   }
 
   

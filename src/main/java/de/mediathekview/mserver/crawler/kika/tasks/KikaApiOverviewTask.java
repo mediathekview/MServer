@@ -28,9 +28,11 @@ import de.mediathekview.mserver.crawler.kika.json.KikaApiOverviewPageDeserialize
 public class KikaApiOverviewTask extends AbstractJsonRestTask<TopicUrlDTO, KikaApiBrandsDto, CrawlerUrlDTO> {
   private static final long serialVersionUID = 1L;
   private static final Logger LOG = LogManager.getLogger(KikaApiOverviewTask.class);
+  private int subPageIndex;
 
-  public KikaApiOverviewTask(AbstractCrawler crawler, Queue<CrawlerUrlDTO> urlToCrawlDTOs) {
+  public KikaApiOverviewTask(AbstractCrawler crawler, Queue<CrawlerUrlDTO> urlToCrawlDTOs, int subPageIndex) {
     super(crawler, urlToCrawlDTOs, null);
+    this.subPageIndex = subPageIndex;
   }
 
   @Override
@@ -65,7 +67,7 @@ public class KikaApiOverviewTask extends AbstractJsonRestTask<TopicUrlDTO, KikaA
     final Optional<CrawlerUrlDTO> nextPageLink = aResponseObj.getNextPage();
     Optional<AbstractRecursiveConverterTask<TopicUrlDTO, CrawlerUrlDTO>> subpageCrawler = Optional.empty();
     //
-    if (nextPageLink.isPresent() && config.getMaximumSubpages() > 0) {
+    if (nextPageLink.isPresent() && config.getMaximumSubpages() > subPageIndex) {
       final Queue<CrawlerUrlDTO> nextPageLinks = new ConcurrentLinkedQueue<>();
       nextPageLinks.add(nextPageLink.get());
       subpageCrawler = Optional.of(createNewOwnInstance(nextPageLinks));
@@ -80,7 +82,7 @@ public class KikaApiOverviewTask extends AbstractJsonRestTask<TopicUrlDTO, KikaA
 
   @Override
   protected AbstractRecursiveConverterTask<TopicUrlDTO, CrawlerUrlDTO> createNewOwnInstance(Queue<CrawlerUrlDTO> aElementsToProcess) {
-    return new KikaApiOverviewTask(crawler, aElementsToProcess);
+    return new KikaApiOverviewTask(crawler, aElementsToProcess, subPageIndex+1);
   }
   
 }
