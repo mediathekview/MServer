@@ -119,6 +119,7 @@ socketTimeoutInSeconds: 60
 
 crawlerURLs:
   BR_API_URL: https://proxy-base.master.mango.express/graphql
+  KIKA_API_URL: http://prod.kinderplayer.cdn.tvnext.tv
 
 
 #### Specific crawler configurations ####
