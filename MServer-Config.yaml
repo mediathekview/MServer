@@ -1,7 +1,7 @@
 #### Server configurations ####
 
 # The maximum amount of cpu threads to be used.
-maximumCpuThreads: 12
+maximumCpuThreads: 16
 
 # The maximum duration in minutes the server should run.<br>
 # If set to 0 the server runs without a time limit.
@@ -14,26 +14,11 @@ maximumServerDurationInMinutes: 0
 
 # If set only these Sender will be crawled all other will be ignored.
 senderIncluded:
-  - KIKA
-  #- ARTE_DE
-  #- ARTE_FR
-  #- ARTE_EN
-  #- ARTE_PL
-  #- ARTE_IT
-  #- ARTE_ES
-  #- BR
-  #- DREISAT
-  #- FUNK
-  #- HR
-  ##- KIKA
-  ##- DW
-  ##- ORF
-  #- PHOENIX
-  #- SRF
-  ##- SR
-  #- ZDF
-  ##- DREISAT
+  #- MDR
+  #- NDR
   #- ORF
+  #- ARTE_DE
+  - ARD
 
 # If set the server will be awake after the crawler run and restarts the run after the given amount.
 #schedules:
@@ -119,7 +104,7 @@ socketTimeoutInSeconds: 60
 
 crawlerURLs:
   BR_API_URL: https://proxy-base.master.mango.express/graphql
-  KIKA_API_URL: http://prod.kinderplayer.cdn.tvnext.tv
+	  KIKA_API_URL: http://prod.kinderplayer.cdn.tvnext.tv
 
 
 #### Specific crawler configurations ####
@@ -130,7 +115,7 @@ senderConfigurations:
     #2,4,8 ok
     maximumUrlsPerTask: 32
     #10,20,40 ok
-    maximumSubpages: 1
+    maximumSubpages: 3
   ORF:
     #2,4,8 ok
     maximumUrlsPerTask: 40
@@ -152,10 +137,6 @@ senderConfigurations:
     socketTimeoutInSeconds: 120
   SR:
     maximumRequestsPerSecond: 2.0
-  DW:
-    maximumDaysForSendungVerpasstSection: 730
-  DREISAT:
-    maximumDaysForSendungVerpasstSection: 730
 
 
 #### COPY ####
