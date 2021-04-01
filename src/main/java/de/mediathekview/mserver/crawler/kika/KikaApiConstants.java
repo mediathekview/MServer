@@ -7,7 +7,7 @@ public final class KikaApiConstants {
   //
   public static int LIMIT = 400;
   //
-  public static final String HOST = MServerConfigManager.getInstance().getConfig().getSingleCrawlerURL(CrawlerUrlType.KIKA_API_URL).toString();
+  public static final String HOST = MServerConfigManager.getInstance().getConfig().getSingleCrawlerURL(CrawlerUrlType.KIKA_API_URL).get().toString();
   //
   public static final String OVERVIEW = HOST + "/api/brands?limit=" + LIMIT;
   //
