@@ -3,7 +3,8 @@ package de.mediathekview.mserver.crawler.kika.tasks;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
-import de.mediathekview.mserver.crawler.kika.KikaApiBrandsDto;
+
+import de.mediathekview.mserver.crawler.kika.json.KikaApiBrandsDto;
 import de.mediathekview.mserver.crawler.kika.json.KikaApiOverviewPageDeserializer;
 
 import org.junit.Test;

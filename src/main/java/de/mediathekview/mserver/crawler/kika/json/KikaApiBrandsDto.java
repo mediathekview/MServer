@@ -1,4 +1,4 @@
-package de.mediathekview.mserver.crawler.kika;
+package de.mediathekview.mserver.crawler.kika.json;
 
 import java.util.HashSet;
 import java.util.Optional;

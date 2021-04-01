@@ -20,7 +20,7 @@ import de.mediathekview.mserver.crawler.basic.AbstractJsonRestTask;
 import de.mediathekview.mserver.crawler.basic.AbstractRecursiveConverterTask;
 import de.mediathekview.mserver.crawler.basic.CrawlerUrlDTO;
 import de.mediathekview.mserver.crawler.basic.TopicUrlDTO;
-import de.mediathekview.mserver.crawler.kika.KikaApiBrandsDto;
+import de.mediathekview.mserver.crawler.kika.json.KikaApiBrandsDto;
 import de.mediathekview.mserver.crawler.kika.json.KikaApiOverviewPageDeserializer;
 
 // <T, R, D extends CrawlerUrlDTO> extends AbstractRestTask<T, D>

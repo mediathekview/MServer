@@ -6,7 +6,6 @@ import de.mediathekview.mserver.base.utils.JsonUtils;
 import de.mediathekview.mserver.base.utils.UrlUtils;
 import de.mediathekview.mserver.crawler.basic.CrawlerUrlDTO;
 import de.mediathekview.mserver.crawler.basic.TopicUrlDTO;
-import de.mediathekview.mserver.crawler.kika.KikaApiBrandsDto;
 import de.mediathekview.mserver.crawler.kika.KikaApiConstants;
 
 import java.lang.reflect.Type;
