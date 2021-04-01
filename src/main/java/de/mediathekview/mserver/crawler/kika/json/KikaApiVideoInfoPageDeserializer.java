@@ -112,10 +112,9 @@ public class KikaApiVideoInfoPageDeserializer implements JsonDeserializer<KikaAp
   }
 
   private void addFilmUrl(KikaApiVideoInfoDto aKikaApiTopicDto, String url) {
-    //final FileSizeDeterminer smallFsd = new FileSizeDeterminer(url);
+    final FileSizeDeterminer smallFsd = new FileSizeDeterminer(url);
     try {
-      //final FilmUrl filmUrl = new FilmUrl(url, smallFsd.getFileSizeInMiB());
-      final FilmUrl filmUrl = new FilmUrl(url, crawler.getConnection().determineFileSize(url));
+      final FilmUrl filmUrl = new FilmUrl(url, smallFsd.getFileSizeInMiB());
       aKikaApiTopicDto.addUrl(
           Resolution.SMALL, 
           filmUrl
