@@ -8,13 +8,10 @@ import de.mediathekview.mlib.tool.FileSizeDeterminer;
 import de.mediathekview.mserver.base.utils.JsonUtils;
 import de.mediathekview.mserver.base.utils.UrlUtils;
 import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
-import de.mediathekview.mserver.crawler.basic.M3U8Dto;
-import de.mediathekview.mserver.crawler.basic.M3U8Parser;
 
 import java.lang.reflect.Type;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
 
 
