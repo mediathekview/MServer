@@ -19,7 +19,7 @@ import static com.github.tomakehurst.wiremock.core.WireMockConfiguration.options
 /** base class of tests with WireMock. */
 public abstract class WireMockTestBase {
   private final Logger LOG = LoggerFactory.getLogger(WireMockTestBase.class);
-  protected WireMockServer wireMockServer = new WireMockServer(options().dynamicPort());
+  protected WireMockServer wireMockServer = new WireMockServer(8589);
   private boolean wireMockStarted = false;
 
   @Before
@@ -44,6 +44,13 @@ public abstract class WireMockTestBase {
     LOG.info("Stopping WireMock");
     wireMockServer.stop();
     wireMockStarted = false;
+  }
+
+  protected String wireUrl(String url) {
+    if (url != null && url.startsWith("/")) {
+      return getWireMockBaseUrlSafe() + url;
+    }
+    return url;
   }
 
   protected String getWireMockBaseUrlSafe() {

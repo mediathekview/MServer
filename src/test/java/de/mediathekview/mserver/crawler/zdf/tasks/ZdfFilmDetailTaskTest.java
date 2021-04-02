@@ -68,13 +68,10 @@ public class ZdfFilmDetailTaskTest extends ZdfTaskTestBase {
     expectedDuration = aExpectedDuration;
     expectedDescription = aExpectedDescription;
     expectedWebsite = aExpectedWebsite;
-    expectedUrlSmall =
-        aExpectedUrlSmall.isEmpty() ? "" : getWireMockBaseUrlSafe() + aExpectedUrlSmall;
-    expectedUrlNormal =
-        aExpectedUrlNormal.isEmpty() ? "" : getWireMockBaseUrlSafe() + aExpectedUrlNormal;
-    expectedUrlHd = aExpectedUrlHd.isEmpty() ? "" : getWireMockBaseUrlSafe() + aExpectedUrlHd;
-    expectedSubtitle =
-        aExpectedSubtitle.isEmpty() ? "" : getWireMockBaseUrlSafe() + aExpectedSubtitle;
+    expectedUrlSmall = wireUrl(aExpectedUrlSmall);
+    expectedUrlNormal = wireUrl(aExpectedUrlNormal);
+    expectedUrlHd = wireUrl(aExpectedUrlHd);
+    expectedSubtitle = wireUrl(aExpectedSubtitle);
     expectedGeo = aExpectedGeo;
     optimizeUrls = aOptimizeUrls;
   }

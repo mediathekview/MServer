@@ -63,13 +63,10 @@ public class OrfFilmDetailTaskTest extends OrfFilmDetailTaskTestBase {
     expectedDate = aExpectedDate;
     expectedDuration = aExpectedDuration;
     expectedDescription = aExpectedDescription;
-    expectedUrlSmall =
-        aExpectedUrlSmall.isEmpty() ? "" : getWireMockBaseUrlSafe() + aExpectedUrlSmall;
-    expectedUrlNormal =
-        aExpectedUrlNormal.isEmpty() ? "" : getWireMockBaseUrlSafe() + aExpectedUrlNormal;
-    expectedUrlHd = aExpectedUrlHd.isEmpty() ? "" : getWireMockBaseUrlSafe() + aExpectedUrlHd;
-    expectedSubtitle =
-        aExpectedSubtitle.isEmpty() ? "" : getWireMockBaseUrlSafe() + aExpectedSubtitle;
+    expectedUrlSmall = wireUrl(aExpectedUrlSmall);
+    expectedUrlNormal = wireUrl(aExpectedUrlNormal);
+    expectedUrlHd = wireUrl(aExpectedUrlHd);
+    expectedSubtitle = aExpectedSubtitle;
     expectedGeoLocations = aExpectedGeoLocations;
   }
 

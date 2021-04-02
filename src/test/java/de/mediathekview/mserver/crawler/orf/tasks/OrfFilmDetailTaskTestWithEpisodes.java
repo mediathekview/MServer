@@ -170,9 +170,7 @@ public class OrfFilmDetailTaskTestWithEpisodes extends OrfFilmDetailTaskTestBase
               expectedData[INDEX_URL_HD].toString().isEmpty()
                   ? ""
                   : getWireMockBaseUrlSafe() + expectedData[INDEX_URL_HD].toString(),
-              expectedData[INDEX_SUBTITLE].toString().isEmpty()
-                  ? ""
-                  : getWireMockBaseUrlSafe() + expectedData[INDEX_SUBTITLE].toString());
+              expectedData[INDEX_SUBTITLE].toString());
         });
   }
 
