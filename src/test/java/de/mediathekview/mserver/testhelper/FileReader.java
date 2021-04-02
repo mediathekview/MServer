@@ -33,7 +33,7 @@ public class FileReader {
 
   private static String replaceAllWireMockUrls(
       final String readString, final String wireMockBaseUrl) {
-    return readString.replaceAll("http[s]?://localhost:\\d+", wireMockBaseUrl);
+    return readString.replaceAll("localhost:\\d+", wireMockBaseUrl);
   }
 
   public static Path getPath(String filePath) {

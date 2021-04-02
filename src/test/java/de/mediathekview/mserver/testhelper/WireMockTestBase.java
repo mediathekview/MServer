@@ -2,6 +2,7 @@ package de.mediathekview.mserver.testhelper;
 
 import com.github.tomakehurst.wiremock.WireMockServer;
 import de.mediathekview.mserver.crawler.basic.CrawlerUrlDTO;
+import org.jetbrains.annotations.NotNull;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 
@@ -49,7 +50,7 @@ public abstract class WireMockTestBase {
   }
 
   protected void setupSuccessfulJsonResponse(final String aRequestUrl, final String aResponseFile) {
-    final String jsonBody = FileReader.readFile(aResponseFile, wireMockServer.baseUrl());
+    final String jsonBody = FileReader.readFile(aResponseFile, getWireMockHostPort());
     wireMockServer.stubFor(
         get(urlEqualTo(aRequestUrl))
             .willReturn(
@@ -59,6 +60,11 @@ public abstract class WireMockTestBase {
                     .withBody(jsonBody)));
   }
 
+  @NotNull
+  private String getWireMockHostPort() {
+    return "localhost:" + wireMockServer.port();
+  }
+
   protected void setupSuccessfulJsonPostResponse(
       final String aRequestUrl, final String aResponseFile) {
     setupSuccessfulJsonPostResponse(aRequestUrl, aResponseFile, null);
@@ -66,7 +72,7 @@ public abstract class WireMockTestBase {
 
   protected void setupSuccessfulJsonPostResponse(
       final String aRequestUrl, final String aResponseFile, @Nullable final Integer status) {
-    final String jsonBody = FileReader.readFile(aResponseFile, wireMockServer.baseUrl());
+    final String jsonBody = FileReader.readFile(aResponseFile, getWireMockHostPort());
     wireMockServer.stubFor(
         post(urlEqualTo(aRequestUrl))
             .willReturn(
@@ -77,7 +83,7 @@ public abstract class WireMockTestBase {
   }
 
   protected void setupSuccessfulXmlResponse(final String aRequestUrl, final String aResponseFile) {
-    final String xmlBody = FileReader.readFile(aResponseFile, wireMockServer.baseUrl());
+    final String xmlBody = FileReader.readFile(aResponseFile, getWireMockHostPort());
     wireMockServer.stubFor(
         get(urlEqualTo(aRequestUrl))
             .willReturn(
@@ -88,7 +94,7 @@ public abstract class WireMockTestBase {
   }
 
   protected void setupSuccessfulResponse(final String aRequestUrl, final String aResponseFile) {
-    final String body = FileReader.readFile(aResponseFile, wireMockServer.baseUrl());
+    final String body = FileReader.readFile(aResponseFile, getWireMockHostPort());
     wireMockServer.stubFor(
         get(urlEqualTo(aRequestUrl)).willReturn(aResponse().withStatus(200).withBody(body)));
   }
