@@ -3,8 +3,10 @@ package de.mediathekview.mserver.testhelper;
 import com.github.tomakehurst.wiremock.WireMockServer;
 import de.mediathekview.mserver.crawler.basic.CrawlerUrlDTO;
 import org.jetbrains.annotations.NotNull;
-import org.junit.AfterClass;
-import org.junit.BeforeClass;
+import org.junit.After;
+import org.junit.Before;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.annotation.Nullable;
 import java.util.Optional;
@@ -16,43 +18,52 @@ import static com.github.tomakehurst.wiremock.core.WireMockConfiguration.options
 
 /** base class of tests with WireMock. */
 public abstract class WireMockTestBase {
+  private final Logger LOG = LoggerFactory.getLogger(WireMockTestBase.class);
+  protected WireMockServer wireMockServer = new WireMockServer(options().dynamicPort());
+  private boolean wireMockStarted = false;
 
-  protected static WireMockServer wireMockServer = new WireMockServer(options().dynamicPort());
-  private static boolean wireMockStarted = false;
-
-  @BeforeClass
-  public static void setUpClass() {
+  @Before
+  public void setUpClass() {
+    LOG.info("Setting up WireMock test class");
     startWireMock();
   }
 
-  private static void startWireMock() {
-    wireMockServer.start();
-    wireMockStarted = true;
+  protected synchronized void startWireMock() {
+    if (wireMockStarted) {
+      LOG.info("Trying to start already started WireMock");
+    } else {
+      LOG.info("Starting WireMock");
+      wireMockServer.start();
+      wireMockStarted = true;
+    }
   }
 
-  @AfterClass
-  public static void tearDownClass() {
+  @After
+  public void tearDownClass() {
+    LOG.info("Tear down WireMock test class");
+    LOG.info("Stopping WireMock");
     wireMockServer.stop();
     wireMockStarted = false;
   }
 
-  protected static String getWireMockBaseUrlSafe() {
+  protected String getWireMockBaseUrlSafe() {
     if (!wireMockStarted) {
       startWireMock();
     }
     return wireMockServer.baseUrl();
   }
 
-  protected Queue<CrawlerUrlDTO> createCrawlerUrlDto(final String aRequestUrl) {
+  protected Queue<CrawlerUrlDTO> createCrawlerUrlDto(final String requestUrl) {
     final Queue<CrawlerUrlDTO> input = new ConcurrentLinkedQueue<>();
-    input.add(new CrawlerUrlDTO(getWireMockBaseUrlSafe() + aRequestUrl));
+    input.add(new CrawlerUrlDTO(getWireMockBaseUrlSafe() + requestUrl));
     return input;
   }
 
-  protected void setupSuccessfulJsonResponse(final String aRequestUrl, final String aResponseFile) {
+  protected void setupSuccessfulJsonResponse(final String requestUrl, final String aResponseFile) {
     final String jsonBody = FileReader.readFile(aResponseFile, getWireMockHostPort());
+    LOG.info("Adding successful JSON response stub for {}", requestUrl);
     wireMockServer.stubFor(
-        get(urlEqualTo(aRequestUrl))
+        get(urlEqualTo(requestUrl))
             .willReturn(
                 aResponse()
                     .withHeader("Content-Type", "application/json")
@@ -66,15 +77,16 @@ public abstract class WireMockTestBase {
   }
 
   protected void setupSuccessfulJsonPostResponse(
-      final String aRequestUrl, final String aResponseFile) {
-    setupSuccessfulJsonPostResponse(aRequestUrl, aResponseFile, null);
+      final String requestUrl, final String aResponseFile) {
+    setupSuccessfulJsonPostResponse(requestUrl, aResponseFile, null);
   }
 
   protected void setupSuccessfulJsonPostResponse(
-      final String aRequestUrl, final String aResponseFile, @Nullable final Integer status) {
+      final String requestUrl, final String aResponseFile, @Nullable final Integer status) {
     final String jsonBody = FileReader.readFile(aResponseFile, getWireMockHostPort());
+    LOG.info("Adding successful JSON post response stub for {}", requestUrl);
     wireMockServer.stubFor(
-        post(urlEqualTo(aRequestUrl))
+        post(urlEqualTo(requestUrl))
             .willReturn(
                 aResponse()
                     .withHeader("Content-Type", "application/json")
@@ -82,10 +94,11 @@ public abstract class WireMockTestBase {
                     .withBody(jsonBody)));
   }
 
-  protected void setupSuccessfulXmlResponse(final String aRequestUrl, final String aResponseFile) {
+  protected void setupSuccessfulXmlResponse(final String requestUrl, final String aResponseFile) {
     final String xmlBody = FileReader.readFile(aResponseFile, getWireMockHostPort());
+    LOG.info("Adding successful XML response stub for {}", requestUrl);
     wireMockServer.stubFor(
-        get(urlEqualTo(aRequestUrl))
+        get(urlEqualTo(requestUrl))
             .willReturn(
                 aResponse()
                     .withHeader("Content-Type", "application/xml")
@@ -93,27 +106,32 @@ public abstract class WireMockTestBase {
                     .withBody(xmlBody)));
   }
 
-  protected void setupSuccessfulResponse(final String aRequestUrl, final String aResponseFile) {
+  protected void setupSuccessfulResponse(final String requestUrl, final String aResponseFile) {
     final String body = FileReader.readFile(aResponseFile, getWireMockHostPort());
+    LOG.info("Adding successful response stub for {}", requestUrl);
     wireMockServer.stubFor(
-        get(urlEqualTo(aRequestUrl)).willReturn(aResponse().withStatus(200).withBody(body)));
+        get(urlEqualTo(requestUrl)).willReturn(aResponse().withStatus(200).withBody(body)));
   }
 
-  protected void setupHeadResponse(final String aRequestUrl, final int aHttpCode) {
+  protected void setupHeadResponse(final String requestUrl, final int aHttpCode) {
+    LOG.info("Adding successful HEAD response stub for {}", requestUrl);
     wireMockServer.stubFor(
-        head(urlEqualTo(aRequestUrl)).willReturn(aResponse().withStatus(aHttpCode)));
+        head(urlEqualTo(requestUrl)).willReturn(aResponse().withStatus(aHttpCode)));
   }
 
   protected void setupHeadResponse(final int aHttpCode) {
+    LOG.info("Adding {} HEAD response stub for any URL.", aHttpCode);
     wireMockServer.stubFor(head(anyUrl()).willReturn(aResponse().withStatus(aHttpCode)));
   }
 
-  protected void setupResponseWithoutBody(final String aRequestUrl, final int aHttpCode) {
+  protected void setupResponseWithoutBody(final String requestUrl, final int aHttpCode) {
+    LOG.info("Adding {} stub for {}.", aHttpCode, requestUrl);
     wireMockServer.stubFor(
-        get(urlEqualTo(aRequestUrl)).willReturn(aResponse().withStatus(aHttpCode)));
+        get(urlEqualTo(requestUrl)).willReturn(aResponse().withStatus(aHttpCode)));
   }
 
   protected void setupHeadRequestForFileSize() {
+    LOG.info("Adding file size HEAD request stub for any url.");
     wireMockServer.stubFor(
         head(urlMatching(".*"))
             .willReturn(aResponse().withStatus(200).withHeader("Content-Length", "1")));

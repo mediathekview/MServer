@@ -76,10 +76,13 @@ public class PhoenixFilmDetailTaskTest extends WireMockTestBase {
     expectedDuration = aExpectedDuration;
     expectedDescription = aExpectedDescription;
     expectedWebsite = aExpectedWebsite;
-    expectedUrlSmall = aExpectedUrlSmall;
-    expectedUrlNormal = aExpectedUrlNormal;
-    expectedUrlHd = aExpectedUrlHd;
-    expectedSubtitle = aExpectedSubtitle;
+    expectedUrlSmall =
+        aExpectedUrlSmall.isEmpty() ? "" : getWireMockBaseUrlSafe() + aExpectedUrlSmall;
+    expectedUrlNormal =
+        aExpectedUrlNormal.isEmpty() ? "" : getWireMockBaseUrlSafe() + aExpectedUrlNormal;
+    expectedUrlHd = aExpectedUrlHd.isEmpty() ? "" : getWireMockBaseUrlSafe() + aExpectedUrlHd;
+    expectedSubtitle =
+        aExpectedSubtitle.isEmpty() ? "" : getWireMockBaseUrlSafe() + aExpectedSubtitle;
     expectedGeo = aExpectedGeo;
   }
 
@@ -100,10 +103,8 @@ public class PhoenixFilmDetailTaskTest extends WireMockTestBase {
             Duration.ofMinutes(57).plusSeconds(12),
             "Moderation: Sonia Seymour Mikich",
             "https://www.phoenix.de/sendungen/gespraeche/presseclub/mehr-grenzschutz-und-eine-neue-asylpolitik--letzte-rettung-fuer-europa-und-merkel-a-271252.html",
-            getWireMockBaseUrlSafe()
-                + "/none/phoenix/18/06/180624_phx_presseclub/1/180624_phx_presseclub_776k_p11v13.mp4",
-            getWireMockBaseUrlSafe()
-                + "/none/phoenix/18/06/180624_phx_presseclub/1/180624_phx_presseclub_2328k_p35v13.mp4",
+            "/none/phoenix/18/06/180624_phx_presseclub/1/180624_phx_presseclub_776k_p11v13.mp4",
+            "/none/phoenix/18/06/180624_phx_presseclub/1/180624_phx_presseclub_2328k_p35v13.mp4",
             "",
             "",
             GeoLocations.GEO_NONE

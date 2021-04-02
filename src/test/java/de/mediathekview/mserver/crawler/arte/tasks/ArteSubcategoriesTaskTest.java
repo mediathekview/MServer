@@ -26,6 +26,7 @@ public class ArteSubcategoriesTaskTest extends ArteTaskTestBase {
 
   @Test
   public void testOverviewWithMultiplePagesLimitSubpagesLargerThanSubpageCount() {
+    System.out.println("Wiremock server url is " + getWireMockBaseUrlSafe());
 
     rootConfig.getSenderConfig(Sender.ARTE_DE).setMaximumSubpages(5);
 
