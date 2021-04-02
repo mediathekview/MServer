@@ -2,16 +2,12 @@ package de.mediathekview.mserver.crawler.kika.json;
 
 import com.google.gson.*;
 
-import de.mediathekview.mlib.daten.GeoLocations;
 import de.mediathekview.mserver.base.utils.JsonUtils;
 import de.mediathekview.mserver.base.utils.UrlUtils;
 import de.mediathekview.mserver.crawler.basic.TopicUrlDTO;
 import de.mediathekview.mserver.crawler.kika.KikaApiConstants;
 
 import java.lang.reflect.Type;
-import java.time.Duration;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.Optional;
 
 
@@ -48,12 +44,12 @@ public class KikaApiTopicPageDeserializer implements JsonDeserializer<KikaApiTop
       aKikaApiTopicDto.setError(errorCode, errorMessage);
       return aKikaApiTopicDto;
     }
-    //
+    // next page
     Optional<String> nextPage = JsonUtils.getElementValueAsString(jsonElement, TAG_NEXT_PAGE);
     if (nextPage.isPresent()) {
       aKikaApiTopicDto.setNextPage(new TopicUrlDTO("next page", UrlUtils.addProtocolIfMissing(KikaApiConstants.HOST + nextPage.get(), UrlUtils.PROTOCOL_HTTPS)));
     }
-    //
+    // film element
     final JsonObject searchElement = jsonElement.getAsJsonObject();
     if (searchElement.has(TAG_FILM_ARRAY[0])) {
       final JsonObject embeddedElement = searchElement.getAsJsonObject(TAG_FILM_ARRAY[0]);
@@ -70,60 +66,25 @@ public class KikaApiTopicPageDeserializer implements JsonDeserializer<KikaApiTop
           Optional<String> oAired = JsonUtils.getElementValueAsString(arrayElement, TAG_FILM_APPEARDATE);
           Optional<String> website = JsonUtils.getElementValueAsString(arrayElement, TAG_BRAND_WEBSITE);
           Optional<String> oTopic = JsonUtils.getElementValueAsString(arrayElement, TAG_FILM_TOPIC);
-          if (oId.isPresent()) {
-            //
-            KikaApiFilmDto aFilm = new KikaApiFilmDto(
-                String.format(KikaApiConstants.FILM, oId.get()),
-                oTopic,
-                oTitle,
-                oId,
-                oDescription,
-                parseLocalDateTime(oDate),
-                parseDuration(oDuration),
-                parseGeo(oGeo),
-                parseLocalDateTime(oExpire),
-                parseLocalDateTime(oAired),
-                website
-                );
-            aKikaApiTopicDto.add(aFilm);
-          }
+          //
+          KikaApiFilmDto aFilm = new KikaApiFilmDto(
+              String.format(KikaApiConstants.FILM, oId.get()),
+              oTopic,
+              oTitle,
+              oId,
+              oDescription,
+              oDate,
+              oDuration,
+              oGeo,
+              oExpire,
+              oAired,
+              website
+              );
+          aKikaApiTopicDto.add(aFilm);
         }
       }
     }
     return aKikaApiTopicDto;
   }
 
-  public static Optional<LocalDateTime> parseLocalDateTime(Optional<String> text) {
-    if (text.isEmpty()) {
-      return Optional.empty();
-    }
-    //
-    DateTimeFormatter formatter = DateTimeFormatter
-        .ofPattern("yyyy-MM-dd'T'HH:mm:ss");
-    return Optional.of(LocalDateTime.parse(text.get().substring(0, 19), formatter));
-  }
-  //
-  public static Optional<Duration> parseDuration(Optional<String> text) {
-    if (text.isEmpty()) {
-      return Optional.empty();
-    }
-    //
-    int min = Integer.parseInt(text.get());
-    return Optional.of(Duration.ofSeconds(min));
-  }
-  //
-  public Optional<GeoLocations> parseGeo(Optional<String> text) {
-    if (text.isEmpty()) {
-      return Optional.empty();
-    }
-    //
-    if (text.get().equalsIgnoreCase("germany")) {
-      return Optional.of(GeoLocations.GEO_DE);
-    } else if (text.get().equalsIgnoreCase("worldwide")) {
-      return  Optional.empty();
-    } else {
-      System.out.println("GEOLOCATION " + text.get());
-    }
-    return Optional.empty();
-  }
 }

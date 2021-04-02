@@ -36,11 +36,12 @@ public class KikaApiOverviewPageDeserializer implements JsonDeserializer<KikaApi
       aKikaApiBrandsDto.setError(errorCode, errorMessage);
       return aKikaApiBrandsDto;
     }
+    // next page
     Optional<String> nextPage = JsonUtils.getElementValueAsString(jsonElement, TAG_NEXT_PAGE);
     if (nextPage.isPresent()) {
       aKikaApiBrandsDto.setNextPage(new CrawlerUrlDTO(UrlUtils.addProtocolIfMissing(KikaApiConstants.HOST + nextPage.get(), UrlUtils.PROTOCOL_HTTPS)));
     }
-    //
+    // all topics
     final JsonObject searchElement = jsonElement.getAsJsonObject();
     if (searchElement.has(TAG_TOPIC_ARRAY[0])) {
       final JsonObject embeddedElement = searchElement.getAsJsonObject(TAG_TOPIC_ARRAY[0]);

@@ -2,20 +2,17 @@ package de.mediathekview.mserver.crawler.kika.json;
 
 import com.google.gson.*;
 
-import de.mediathekview.mlib.daten.FilmUrl;
 import de.mediathekview.mlib.daten.Resolution;
-import de.mediathekview.mlib.tool.FileSizeDeterminer;
 import de.mediathekview.mserver.base.utils.JsonUtils;
 import de.mediathekview.mserver.base.utils.UrlUtils;
-import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
 
 import java.lang.reflect.Type;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.Optional;
 
 
 public class KikaApiVideoInfoPageDeserializer implements JsonDeserializer<KikaApiVideoInfoDto> {
+  //
   private static final String[] TAG_ERROR_CODE = new String[] {"error", "code"};
   private static final String[] TAG_ERROR_MESSAGE = new String[] {"error", "message"};
   private static final String TAG_MP4_ASSETS_ARRAY = "hbbtvAssets";
@@ -26,25 +23,18 @@ public class KikaApiVideoInfoPageDeserializer implements JsonDeserializer<KikaAp
   private static final String[] TAG_SUB_XML = {"additional", "closedCaption", "EBU-TT"};
   private static final String[] TAG_SUB_VTT = {"additional", "closedCaption", "WebVTT"};
   //
-  private AbstractCrawler crawler;
-
-
-  
-  public KikaApiVideoInfoPageDeserializer(AbstractCrawler aCrawler) {
-    this.crawler = aCrawler;
-  }
 
   @Override
   public KikaApiVideoInfoDto deserialize(
       final JsonElement jsonElement, final Type typeOfT, final JsonDeserializationContext context)
       throws JsonParseException {
-    KikaApiVideoInfoDto aKikaApiTopicDto = new KikaApiVideoInfoDto();
+    KikaApiVideoInfoDto aKikaApiVideoInfoDto = new KikaApiVideoInfoDto();
     // catch error
     Optional<String> errorCode = JsonUtils.getElementValueAsString(jsonElement, TAG_ERROR_MESSAGE);
     Optional<String> errorMessage = JsonUtils.getElementValueAsString(jsonElement, TAG_ERROR_CODE);
     if (errorCode.isPresent()) {
-      aKikaApiTopicDto.setError(errorCode, errorMessage);
-      return aKikaApiTopicDto;
+      aKikaApiVideoInfoDto.setError(errorCode, errorMessage);
+      return aKikaApiVideoInfoDto;
     }
     // search for urls
     final ArrayList<String> urls = new ArrayList<String>();
@@ -60,7 +50,7 @@ public class KikaApiVideoInfoPageDeserializer implements JsonDeserializer<KikaAp
         }
       }
     }
-    
+    // no mp4 url found, lets check for m3u8 playlist entries
     if (urls.size() == 0 && root.has(TAG_M3U8_ASSETS_ARRAY)) {
       final JsonArray m3u8Array = root.get(TAG_M3U8_ASSETS_ARRAY).getAsJsonArray();
       //
@@ -73,52 +63,36 @@ public class KikaApiVideoInfoPageDeserializer implements JsonDeserializer<KikaAp
     }
     
     // FIND BEST URL
+    // the last url in the list contain the highest quality, we will use it for HD
+    // the first url in the list contain the lowest quality, we will use it for SMALL
+    // gap into the middle (size/2) to take one of the medium quality urls
     if (urls.size() > 0) {
       if (urls.size() > 2) {
-        addFilmUrl(aKikaApiTopicDto, Resolution.HD, urls.get(urls.size()-1));
+        aKikaApiVideoInfoDto.addUrl(Resolution.HD, urls.get(urls.size()-1));
       }
       if (urls.size() > 1) {
-        addFilmUrl(aKikaApiTopicDto, Resolution.NORMAL, urls.get(urls.size()/2));
+        aKikaApiVideoInfoDto.addUrl(Resolution.NORMAL, urls.get(urls.size()/2));
       }
-      addFilmUrl(aKikaApiTopicDto, Resolution.SMALL, urls.get(0));
+      aKikaApiVideoInfoDto.addUrl(Resolution.SMALL, urls.get(0));
     }
     // SUBTITLE
     Optional<String> hasSubtitles = JsonUtils.getElementValueAsString(jsonElement, TAG_HAS_SUB);
     if (hasSubtitles.isPresent() && hasSubtitles.get().equalsIgnoreCase("true")) {
       //
-      try {
-        Optional<String> subXml = JsonUtils.getElementValueAsString(jsonElement, TAG_SUB_XML);          
-        if (subXml.isPresent()) {
-          aKikaApiTopicDto.add(new URL(UrlUtils.addProtocolIfMissing(subXml.get(), UrlUtils.PROTOCOL_HTTPS)));
-        }
-        //
-        Optional<String> subvtt = JsonUtils.getElementValueAsString(jsonElement, TAG_SUB_VTT);
-        if (subvtt.isPresent()) {
-          aKikaApiTopicDto.add(new URL(UrlUtils.addProtocolIfMissing(subvtt.get(), UrlUtils.PROTOCOL_HTTPS)));
-        }
-        //
-        if (subXml.isEmpty() && subvtt.isEmpty()) {
-          System.out.println("WHAT IS GOING ON ??"+jsonElement);
-        }
-      } catch (Exception e) {
-        System.out.println("FAILED ON " + jsonElement);
-        e.printStackTrace();
+      aKikaApiVideoInfoDto.setSubtitle(true);
+      //
+      Optional<String> subXml = JsonUtils.getElementValueAsString(jsonElement, TAG_SUB_XML);          
+      if (subXml.isPresent()) {
+        aKikaApiVideoInfoDto.addSubtitle(subXml.get());
       }
+      //
+      Optional<String> subvtt = JsonUtils.getElementValueAsString(jsonElement, TAG_SUB_VTT);
+      if (subvtt.isPresent()) {
+        aKikaApiVideoInfoDto.addSubtitle(subvtt.get());
+      }
+      //
     }
-    return aKikaApiTopicDto;
+    return aKikaApiVideoInfoDto;
   }
 
-  private void addFilmUrl(KikaApiVideoInfoDto aKikaApiTopicDto, Resolution aResolution, String url) {
-    final FileSizeDeterminer fsd = new FileSizeDeterminer(url);
-    try {
-      final FilmUrl filmUrl = new FilmUrl(url, fsd.getFileSizeInMiB());
-      aKikaApiTopicDto.addUrl(
-          aResolution, 
-          filmUrl
-          );
-    } catch (Exception e) {
-      System.out.println("FAILED ON " + url);
-      e.printStackTrace();
-    }
-  }
 }

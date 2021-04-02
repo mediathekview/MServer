@@ -4,9 +4,13 @@ import java.lang.reflect.Type;
 import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URL;
+import java.time.Duration;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Map;
+import java.util.Optional;
 import java.util.Queue;
 import java.util.Set;
 import java.util.UUID;
@@ -23,6 +27,8 @@ import de.mediathekview.mlib.daten.Film;
 import de.mediathekview.mlib.daten.FilmUrl;
 import de.mediathekview.mlib.daten.GeoLocations;
 import de.mediathekview.mlib.daten.Resolution;
+import de.mediathekview.mlib.tool.FileSizeDeterminer;
+import de.mediathekview.mserver.base.utils.UrlUtils;
 import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
 import de.mediathekview.mserver.crawler.basic.AbstractJsonRestTask;
 import de.mediathekview.mserver.crawler.basic.AbstractRecursiveConverterTask;
@@ -42,7 +48,7 @@ public class KikaApiFilmTask extends AbstractJsonRestTask<Film, KikaApiVideoInfo
 
   @Override
   protected JsonDeserializer<KikaApiVideoInfoDto> getParser(KikaApiFilmDto aDTO) {
-    return new KikaApiVideoInfoPageDeserializer(crawler);
+    return new KikaApiVideoInfoPageDeserializer();
   }
 
   @Override
@@ -75,37 +81,60 @@ public class KikaApiFilmTask extends AbstractJsonRestTask<Film, KikaApiVideoInfo
       return;
     }
     //
+    if (aDTO.getTitle().isEmpty() || aDTO.getTopic().isEmpty() || aDTO.getDate().isEmpty() || aDTO.getDuration().isEmpty()) {
+      LOG.error("Missing topic, title, date or duration for {}", aDTO.getUrl());
+      crawler.incrementAndGetErrorCount();
+      return;
+    }
+    //
     Film aFilm = new Film(
         UUID.randomUUID(),
         crawler.getSender(),
         aDTO.getTitle().get(),
         aDTO.getTopic().get(),
-        aDTO.getDate().get(),
-        aDTO.getDuration().get()
+        parseLocalDateTime(aDTO, aDTO.getDate()).get(),
+        parseDuration(aDTO, aDTO.getDuration()).get()
         );
     if (aDTO.getDescription().isPresent()) {
       aFilm.setBeschreibung(aDTO.getDescription().get());
     }
     if (aDTO.getGeoProtection().isPresent()) {
-      Collection<GeoLocations> collectionOfGeolocations = new ArrayList<GeoLocations>();
-      collectionOfGeolocations.add(aDTO.getGeoProtection().get());
-      aFilm.setGeoLocations(collectionOfGeolocations);
+      Optional<GeoLocations> geo = parseGeo(aDTO, aDTO.getGeoProtection());
+      if (geo.isPresent()) {
+        Collection<GeoLocations> collectionOfGeolocations = new ArrayList<GeoLocations>();
+        collectionOfGeolocations.add(geo.get());
+        aFilm.setGeoLocations(collectionOfGeolocations);
+      }
     }
     if (aDTO.getWebsite().isPresent()) {
       try {
         aFilm.setWebsite(new URL(aDTO.getWebsite().get()));
       } catch (MalformedURLException e) {
-        // TODO Auto-generated catch block
-        e.printStackTrace();
+        LOG.error("Invalid website url {} for {} error {}", aDTO.getWebsite().get(), aDTO.getUrl(), e);
       }
     }
     //
-    for (Map.Entry<Resolution,FilmUrl> element : aResponseObj.getVideoUrls().entrySet()) {
-      aFilm.addUrl(element.getKey(), element.getValue());
+    for (Map.Entry<Resolution,String> element : aResponseObj.getVideoUrls().entrySet()) {
+      try {
+        final FileSizeDeterminer fsd = new FileSizeDeterminer(element.getValue());
+        final FilmUrl filmUrl = new FilmUrl(element.getValue(), fsd.getFileSizeInMiB());
+        aFilm.addUrl(element.getKey(), filmUrl);
+      } catch (MalformedURLException e) {
+        LOG.error("Invalid video url {} for {} error {}", element.getValue(), aDTO.getUrl(), e);
+      }
     }
     //
-    for (URL element : aResponseObj.getSubtitle()) {
-      aFilm.addSubtitle(element);
+    if (aResponseObj.hasSubtitle()) {
+      for (String subtitleUrlAsString : aResponseObj.getSubtitle()) {
+        try {
+          aFilm.addSubtitle(new URL(UrlUtils.addProtocolIfMissing(subtitleUrlAsString, UrlUtils.PROTOCOL_HTTPS)));
+        } catch (MalformedURLException e) {
+          LOG.error("Invalid subtitle url {} for {} error {}", subtitleUrlAsString, aDTO.getUrl(), e);
+        }
+      }
+      if (aResponseObj.getSubtitle().size() == 0) {
+        LOG.error("Missing subtitle for {}", aDTO.getUrl());
+      }
     }
     taskResults.add(aFilm);
     crawler.incrementAndGetActualCount();
@@ -118,5 +147,46 @@ public class KikaApiFilmTask extends AbstractJsonRestTask<Film, KikaApiVideoInfo
     return new KikaApiFilmTask(crawler, aElementsToProcess);
   }
 
-  
+  ///////////////////////////////////////////////////////////////////////////////////
+
+  public Optional<LocalDateTime> parseLocalDateTime(KikaApiFilmDto sourceUrl, Optional<String> text) {
+    Optional<LocalDateTime> result = Optional.empty();
+    if (text.isPresent()) {
+      try {
+        DateTimeFormatter formatter = DateTimeFormatter
+            .ofPattern("yyyy-MM-dd'T'HH:mm:ss");
+        result = Optional.of(LocalDateTime.parse(text.get().substring(0, 19), formatter));
+      } catch (Exception e) {
+        LOG.error("DateTimeFormatter failed for string {} url {} exception {}", text.get(), sourceUrl.getUrl(), e);
+      }
+    }
+    return result;
+  }
+  //
+  public Optional<Duration> parseDuration(KikaApiFilmDto sourceUrl, Optional<String> text) {
+    Optional<Duration> result = Optional.empty();
+    if (text.isPresent()) {
+      try {
+        int min = Integer.parseInt(text.get());
+        result = Optional.of(Duration.ofSeconds(min));
+      } catch (Exception e) {
+        LOG.error("Parse duration failed for string {} url {} exception {}", text.get(), sourceUrl.getUrl(), e);
+      }
+    }
+    return result;
+  }
+  //
+  public Optional<GeoLocations> parseGeo(KikaApiFilmDto sourceUrl, Optional<String> text) {
+    Optional<GeoLocations> result = Optional.empty();
+    if (text.isPresent()) {
+      if (text.get().equalsIgnoreCase("germany")) {
+        return Optional.of(GeoLocations.GEO_DE);
+      } else if (text.get().equalsIgnoreCase("worldwide")) {
+        return  Optional.empty();
+      } else {
+        LOG.error("Unknow GeoLocations {} url {}", text.get(), sourceUrl.getUrl());
+      }
+    }
+    return result;
+  }
 }
