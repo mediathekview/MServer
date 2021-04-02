@@ -17,25 +17,39 @@ import static com.github.tomakehurst.wiremock.core.WireMockConfiguration.options
 public abstract class WireMockTestBase {
 
   protected static WireMockServer wireMockServer = new WireMockServer(options().dynamicPort());
+  private static boolean wireMockStarted = false;
 
   @BeforeClass
   public static void setUpClass() {
+    startWireMock();
+  }
+
+  private static void startWireMock() {
     wireMockServer.start();
+    wireMockStarted = true;
   }
 
   @AfterClass
   public static void tearDownClass() {
     wireMockServer.stop();
+    wireMockStarted = false;
+  }
+
+  protected static String getWireMockBaseUrlSafe() {
+    if (!wireMockStarted) {
+      startWireMock();
+    }
+    return wireMockServer.baseUrl();
   }
 
   protected Queue<CrawlerUrlDTO> createCrawlerUrlDto(final String aRequestUrl) {
     final Queue<CrawlerUrlDTO> input = new ConcurrentLinkedQueue<>();
-    input.add(new CrawlerUrlDTO(wireMockServer.baseUrl() + aRequestUrl));
+    input.add(new CrawlerUrlDTO(getWireMockBaseUrlSafe() + aRequestUrl));
     return input;
   }
 
   protected void setupSuccessfulJsonResponse(final String aRequestUrl, final String aResponseFile) {
-    final String jsonBody = FileReader.readFile(aResponseFile);
+    final String jsonBody = FileReader.readFile(aResponseFile, wireMockServer.baseUrl());
     wireMockServer.stubFor(
         get(urlEqualTo(aRequestUrl))
             .willReturn(
@@ -52,7 +66,7 @@ public abstract class WireMockTestBase {
 
   protected void setupSuccessfulJsonPostResponse(
       final String aRequestUrl, final String aResponseFile, @Nullable final Integer status) {
-    final String jsonBody = FileReader.readFile(aResponseFile);
+    final String jsonBody = FileReader.readFile(aResponseFile, wireMockServer.baseUrl());
     wireMockServer.stubFor(
         post(urlEqualTo(aRequestUrl))
             .willReturn(
@@ -63,7 +77,7 @@ public abstract class WireMockTestBase {
   }
 
   protected void setupSuccessfulXmlResponse(final String aRequestUrl, final String aResponseFile) {
-    final String xmlBody = FileReader.readFile(aResponseFile);
+    final String xmlBody = FileReader.readFile(aResponseFile, wireMockServer.baseUrl());
     wireMockServer.stubFor(
         get(urlEqualTo(aRequestUrl))
             .willReturn(
@@ -74,7 +88,7 @@ public abstract class WireMockTestBase {
   }
 
   protected void setupSuccessfulResponse(final String aRequestUrl, final String aResponseFile) {
-    final String body = FileReader.readFile(aResponseFile);
+    final String body = FileReader.readFile(aResponseFile, wireMockServer.baseUrl());
     wireMockServer.stubFor(
         get(urlEqualTo(aRequestUrl)).willReturn(aResponse().withStatus(200).withBody(body)));
   }

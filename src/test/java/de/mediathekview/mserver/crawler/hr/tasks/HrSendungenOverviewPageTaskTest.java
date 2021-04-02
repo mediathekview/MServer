@@ -27,7 +27,7 @@ public class HrSendungenOverviewPageTaskTest extends HrTaskTestBase {
 
   @InjectMocks @Spy
   HrSendungenOverviewPageTask classUnderTest =
-      new HrSendungenOverviewPageTask(wireMockServer.baseUrl() + "/", createCrawler());
+      new HrSendungenOverviewPageTask(getWireMockBaseUrlSafe() + "/", createCrawler());
 
   @Before
   public void setUp() {
@@ -36,7 +36,7 @@ public class HrSendungenOverviewPageTaskTest extends HrTaskTestBase {
 
   @Test
   public void test() throws IOException {
-    final String requestUrl = wireMockServer.baseUrl() + "/sendungen-a-z/index.html";
+    final String requestUrl = getWireMockBaseUrlSafe() + "/sendungen-a-z/index.html";
 
     setupHeadResponse("/sendungen-a-z/alle-wetter/sendungen/index.html", 200);
     setupHeadResponse("/sendungen-a-z/alles-wissen/sendungen/index.html", 200);
@@ -48,16 +48,16 @@ public class HrSendungenOverviewPageTaskTest extends HrTaskTestBase {
     final CrawlerUrlDTO[] expected =
         new CrawlerUrlDTO[] {
           new CrawlerUrlDTO(
-              wireMockServer.baseUrl() + "/sendungen-a-z/alle-wetter/sendungen/index.html"),
+              getWireMockBaseUrlSafe() + "/sendungen-a-z/alle-wetter/sendungen/index.html"),
           new CrawlerUrlDTO(
-              wireMockServer.baseUrl() + "/sendungen-a-z/alles-wissen/sendungen/index.html"),
-          new CrawlerUrlDTO(wireMockServer.baseUrl() + "/sendungen-a-z/besuch-mich/index.html"),
+              getWireMockBaseUrlSafe() + "/sendungen-a-z/alles-wissen/sendungen/index.html"),
+          new CrawlerUrlDTO(getWireMockBaseUrlSafe() + "/sendungen-a-z/besuch-mich/index.html"),
           new CrawlerUrlDTO("https://www.hessenschau.de/tv-sendung/sendungsarchiv/index.html"),
-          new CrawlerUrlDTO(wireMockServer.baseUrl() + "/sendungen-a-z/hr-katzen/index.html"),
+          new CrawlerUrlDTO(getWireMockBaseUrlSafe() + "/sendungen-a-z/hr-katzen/index.html"),
           new CrawlerUrlDTO(
-              wireMockServer.baseUrl() + "/sendungen-a-z/wer-weiss-es/sendungen/index.html"),
+              getWireMockBaseUrlSafe() + "/sendungen-a-z/wer-weiss-es/sendungen/index.html"),
           new CrawlerUrlDTO(
-              wireMockServer.baseUrl() + "/sendungen-a-z/wilde-camper/sendungen/index.html"),
+              getWireMockBaseUrlSafe() + "/sendungen-a-z/wilde-camper/sendungen/index.html"),
         };
 
     final Document document = JsoupMock.getFileDocument(requestUrl, "/hr/hr_topics_page.html");

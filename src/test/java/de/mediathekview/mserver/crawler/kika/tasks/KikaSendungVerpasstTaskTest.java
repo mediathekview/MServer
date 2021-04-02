@@ -44,8 +44,10 @@ public class KikaSendungVerpasstTaskTest extends KikaTaskTestBase {
 
     final KikaCrawlerUrlDto[] expected =
         new KikaCrawlerUrlDto[] {
-          new KikaCrawlerUrlDto("https://www.kika.de/rocket-ich/sendungen/sendung41156.html", FilmType.NORMAL),
-          new KikaCrawlerUrlDto("https://www.kika.de/rocket-ich/sendungen/sendung41184.html", FilmType.NORMAL)
+          new KikaCrawlerUrlDto(
+              "https://www.kika.de/rocket-ich/sendungen/sendung41156.html", FilmType.NORMAL),
+          new KikaCrawlerUrlDto(
+              "https://www.kika.de/rocket-ich/sendungen/sendung41184.html", FilmType.NORMAL)
         };
 
     final Queue<CrawlerUrlDTO> urls = new ConcurrentLinkedQueue<>();
@@ -53,7 +55,7 @@ public class KikaSendungVerpasstTaskTest extends KikaTaskTestBase {
 
     final KikaSendungVerpasstTask target =
         new KikaSendungVerpasstTask(
-            createCrawler(), urls, wireMockServer.baseUrl(), jsoupConnection);
+            createCrawler(), urls, getWireMockBaseUrlSafe(), jsoupConnection);
     final Set<KikaCrawlerUrlDto> actual = target.invoke();
 
     assertThat(actual.size(), equalTo(expected.length));
@@ -68,11 +70,11 @@ public class KikaSendungVerpasstTaskTest extends KikaTaskTestBase {
     final Map<String, String> urlMapping = new HashMap<>();
     urlMapping.put(requestUrl, "/kika/kika_days_page2_initial.html");
     urlMapping.put(
-        wireMockServer.baseUrl()
+        getWireMockBaseUrlSafe()
             + "/sendungen/ipg/ipg102-beforeEntries_date-10032019_min-1105_zc-c7c340da.html",
         "/kika/kika_days_page2_before.html");
     urlMapping.put(
-        wireMockServer.baseUrl()
+        getWireMockBaseUrlSafe()
             + "/sendungen/ipg/ipg102-afterEntries_date-10032019_max-1555_zc-8b42826a.html",
         "/kika/kika_days_page2_after.html");
 
@@ -92,7 +94,7 @@ public class KikaSendungVerpasstTaskTest extends KikaTaskTestBase {
 
     final KikaSendungVerpasstTask target =
         new KikaSendungVerpasstTask(
-            createCrawler(), urls, wireMockServer.baseUrl(), jsoupConnection);
+            createCrawler(), urls, getWireMockBaseUrlSafe(), jsoupConnection);
     final Set<KikaCrawlerUrlDto> actual = target.invoke();
 
     assertThat(actual.size(), equalTo(15));

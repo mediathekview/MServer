@@ -91,11 +91,11 @@ public class ZdfFilmDetailTaskTest extends ZdfTaskTestBase {
             Duration.ofHours(1).plusMinutes(27).plusSeconds(35),
             "Der Mord an Studienrat Lampert führt \"Das Duo\" an eine Schule, an der Täter und Opfer sich vermutlich begegnet sind. In deren Umfeld suchen Clara Hertz und Marion Ahrens auch das Motiv.",
             "https://www.zdf.de/filme/das-duo/das-duo-echte-kerle-102.html",
-            wireMockServer.baseUrl()
+            getWireMockBaseUrlSafe()
                 + "/none/zdf/16/06/160605_echte_kerle_das_duo_neo/6/160605_echte_kerle_das_duo_neo_436k_p9v12.mp4",
-            wireMockServer.baseUrl()
+            getWireMockBaseUrlSafe()
                 + "/none/zdf/16/06/160605_echte_kerle_das_duo_neo/6/160605_echte_kerle_das_duo_neo_1456k_p13v12.mp4",
-            wireMockServer.baseUrl()
+            getWireMockBaseUrlSafe()
                 + "/none/zdf/16/06/160605_echte_kerle_das_duo_neo/6/160605_echte_kerle_das_duo_neo_3328k_p36v12.mp4",
             "",
             GeoLocations.GEO_NONE,
@@ -112,11 +112,11 @@ public class ZdfFilmDetailTaskTest extends ZdfTaskTestBase {
             Duration.ofMinutes(24).plusSeconds(55),
             "Naya verliert beim Seiltanz ihre Glücksblume und alles geht schief. Kann ein anderer Glücksbringer helfen? Glühwürmchen Minou hat eine \"leuchtende\" Idee.",
             "https://www.zdf.de/kinder/jonalu/tanz-auf-dem-seil-102.html",
-            wireMockServer.baseUrl()
+            getWireMockBaseUrlSafe()
                 + "/dach/tivi/16/03/160301_folge25_tanzaufdemseil_jon/5/160301_folge25_tanzaufdemseil_jon_436k_p9v12.mp4",
-            wireMockServer.baseUrl()
+            getWireMockBaseUrlSafe()
                 + "/dach/tivi/16/03/160301_folge25_tanzaufdemseil_jon/5/160301_folge25_tanzaufdemseil_jon_2328k_p35v12.mp4",
-            wireMockServer.baseUrl()
+            getWireMockBaseUrlSafe()
                 + "/dach/tivi/16/03/160301_folge25_tanzaufdemseil_jon/5/160301_folge25_tanzaufdemseil_jon_3328k_p36v12.mp4",
             "",
             GeoLocations.GEO_DE_AT_CH,
@@ -159,7 +159,7 @@ public class ZdfFilmDetailTaskTest extends ZdfTaskTestBase {
 
   private Set<Film> executeTask(final String detailUrl) {
     final Queue<CrawlerUrlDTO> urls = new ConcurrentLinkedQueue<>();
-    urls.add(new CrawlerUrlDTO(wireMockServer.baseUrl() + detailUrl));
-    return new ZdfFilmDetailTask(createCrawler(), wireMockServer.baseUrl(), urls, null).invoke();
+    urls.add(new CrawlerUrlDTO(getWireMockBaseUrlSafe() + detailUrl));
+    return new ZdfFilmDetailTask(createCrawler(), getWireMockBaseUrlSafe(), urls, null).invoke();
   }
 }

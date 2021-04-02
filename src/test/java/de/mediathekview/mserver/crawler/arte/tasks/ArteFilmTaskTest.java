@@ -217,7 +217,7 @@ public class ArteFilmTaskTest extends ArteTaskTestBase {
     final Queue<ArteFilmUrlDto> urls = new ConcurrentLinkedQueue<>();
     urls.add(
         new ArteFilmUrlDto(
-            wireMockServer.baseUrl() + aDetailUrl, wireMockServer.baseUrl() + aVideoUrl));
+            getWireMockBaseUrlSafe() + aDetailUrl, getWireMockBaseUrlSafe() + aVideoUrl));
     return new ArteFilmTask(createCrawler(), urls, sender, LocalDateTime.of(2019, 1, 12, 16, 0, 0))
         .invoke();
   }

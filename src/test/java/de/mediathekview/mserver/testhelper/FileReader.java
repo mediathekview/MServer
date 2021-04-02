@@ -3,7 +3,6 @@ package de.mediathekview.mserver.testhelper;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -15,13 +14,26 @@ public class FileReader {
   private FileReader() {}
 
   public static String readFile(final String filePath) {
+    return readFile(filePath, null);
+  }
+
+  public static String readFile(final String filePath, final String wireMockBaseUrl) {
     try {
       final Path path = getPath(filePath);
-      return new String(Files.readAllBytes(path), StandardCharsets.UTF_8);
+      final String readString = Files.readString(path);
+
+      return wireMockBaseUrl == null
+          ? readString
+          : replaceAllWireMockUrls(readString, wireMockBaseUrl);
     } catch (final IOException ex) {
       fail("Exception reading file " + filePath + ": " + ex.getMessage());
     }
     return null;
+  }
+
+  private static String replaceAllWireMockUrls(
+      final String readString, final String wireMockBaseUrl) {
+    return readString.replaceAll("http[s]?://localhost:\\d+", wireMockBaseUrl);
   }
 
   public static Path getPath(String filePath) {

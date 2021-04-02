@@ -78,14 +78,14 @@ public class ArteSubcategoryVideosTaskTest extends ArteTaskTestBase {
     return new ArteSubcategoryVideosTask(
             createCrawler(),
             createTopicUrlDto(aRequestUrl, aTopic),
-            wireMockServer.baseUrl(),
+            getWireMockBaseUrlSafe(),
             language)
         .invoke();
   }
 
   private Queue<TopicUrlDTO> createTopicUrlDto(final String aRequestUrl, final String aTopic) {
     final Queue<TopicUrlDTO> input = new ConcurrentLinkedQueue<>();
-    input.add(new TopicUrlDTO(aTopic, wireMockServer.baseUrl() + aRequestUrl));
+    input.add(new TopicUrlDTO(aTopic, getWireMockBaseUrlSafe() + aRequestUrl));
     return input;
   }
 }

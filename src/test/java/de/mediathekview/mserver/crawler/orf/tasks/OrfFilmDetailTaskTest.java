@@ -90,11 +90,11 @@ public class OrfFilmDetailTaskTest extends OrfFilmDetailTaskTestBase {
             Duration.ofMinutes(87),
             "Staatsanwältin Klemm ist fassungslos. Die Frau, die mitten auf der Promenade in Münster erschossen wurde, sieht ihr zum Verwechseln ähnlich. Für Kommissar Thiel gibt es zunächst keinerlei Anhaltspunkte für ein Tatmotiv.",
             "",
-            wireMockServer.baseUrl()
+            getWireMockBaseUrlSafe()
                 + "/apasfiis.sf.apa.at/ipad/cms-austria/2019-03-17_2015_sd_00_AD---Tatort--Sp_____14007849__o__2088184633__s14465114_4__ORF2ADHD_20144904P_21415115P_Q4A.mp4/playlist.m3u8",
-            wireMockServer.baseUrl()
+            getWireMockBaseUrlSafe()
                 + "/apasfiis.sf.apa.at/ipad/cms-austria/2019-03-17_2015_sd_00_AD---Tatort--Sp_____14007849__o__2088184633__s14465114_4__ORF2ADHD_20144904P_21415115P_Q6A.mp4/playlist.m3u8",
-            wireMockServer.baseUrl()
+            getWireMockBaseUrlSafe()
                 + "/apasfiis.sf.apa.at/ipad/cms-austria/2019-03-17_2015_sd_00_AD---Tatort--Sp_____14007849__o__2088184633__s14465114_4__ORF2ADHD_20144904P_21415115P_Q8C.mp4/playlist.m3u8",
             new GeoLocations[] {GeoLocations.GEO_AT}
           },
@@ -107,11 +107,11 @@ public class OrfFilmDetailTaskTest extends OrfFilmDetailTaskTestBase {
             Duration.ofSeconds(30),
             "",
             "",
-            wireMockServer.baseUrl()
+            getWireMockBaseUrlSafe()
                 + "/apasfiis.sf.apa.at/ipad/cms-worldwide/20161011_1040_in_02_Bundesland-heut_____13890700__o__1693823857__s13890997_Q4A.mp4/playlist.m3u8",
-            wireMockServer.baseUrl()
+            getWireMockBaseUrlSafe()
                 + "/apasfiis.sf.apa.at/ipad/cms-worldwide/20161011_1040_in_02_Bundesland-heut_____13890700__o__1693823857__s13890997_Q6A.mp4/playlist.m3u8",
-            wireMockServer.baseUrl()
+            getWireMockBaseUrlSafe()
                 + "/apasfiis.sf.apa.at/ipad/cms-worldwide/20161011_1040_in_02_Bundesland-heut_____13890700__o__1693823857__s13890997_Q8C.mp4/playlist.m3u8",
             new GeoLocations[] {GeoLocations.GEO_NONE}
           },
@@ -124,11 +124,11 @@ public class OrfFilmDetailTaskTest extends OrfFilmDetailTaskTestBase {
             Duration.ofSeconds(174),
             "Der Ort Großwarasdorf war die erste burgenländische Gemeinde mit einer offiziellen zweisprachigen Ortstafel. Der damaliger Bundeskanzler Wolfgang Schüssel (ÖVP) war vor Ort, um sie feierlich zu enthüllen. Otkrita prva dvojezična seoska tabla u Gradišću Općina Veliki Borištof je bila prva gradišćanska općina u koj je postavljena oficijelna dvojezična tabla. Tadašnji savezni kancelar Wolfgang Schüss\n.....",
             "",
-            wireMockServer.baseUrl()
+            getWireMockBaseUrlSafe()
                 + "/apasfiis.sf.apa.at/ipad/cms-worldwide/2000-07-13_1200_in_00_Zweisprachige-Ortsta_____9056913__o__0001362620__s9056914___Q4A.mp4/playlist.m3u8",
-            wireMockServer.baseUrl()
+            getWireMockBaseUrlSafe()
                 + "/apasfiis.sf.apa.at/ipad/cms-worldwide/2000-07-13_1200_in_00_Zweisprachige-Ortsta_____9056913__o__0001362620__s9056914___Q6A.mp4/playlist.m3u8",
-            wireMockServer.baseUrl()
+            getWireMockBaseUrlSafe()
                 + "/apasfiis.sf.apa.at/ipad/cms-worldwide/2000-07-13_1200_in_00_Zweisprachige-Ortsta_____9056913__o__0001362620__s9056914___Q8C.mp4/playlist.m3u8",
             new GeoLocations[] {GeoLocations.GEO_NONE}
           },
@@ -141,11 +141,11 @@ public class OrfFilmDetailTaskTest extends OrfFilmDetailTaskTestBase {
             Duration.ofMinutes(43).plusSeconds(16),
             "Gewalttäter Gerd Weinzierl kommt nach drei Jahren Haft in elektronisch überwachten Hausarrest. Richard Kofler, Vater von Weinzierls damaligen Opfer Daniela, nimmt das mit großer Sorge wahr.",
             "https://api-tvthek.orf.at/uploads/media/subtitles/0076/35/d184eb43cd1d3a3c926810728cb99ee82204c43e.ttml",
-            wireMockServer.baseUrl()
+            getWireMockBaseUrlSafe()
                 + "/apasfiis.sf.apa.at/ipad/cms-austria/2019-03-19_2015_in_01_Soko-Donau--Ent_____14007925__o__2552019395__s14465271_Q4A.mp4/playlist.m3u8",
-            wireMockServer.baseUrl()
+            getWireMockBaseUrlSafe()
                 + "/apasfiis.sf.apa.at/ipad/cms-austria/2019-03-19_2015_in_01_Soko-Donau--Ent_____14007925__o__2552019395__s14465271_Q6A.mp4/playlist.m3u8",
-            wireMockServer.baseUrl()
+            getWireMockBaseUrlSafe()
                 + "/apasfiis.sf.apa.at/ipad/cms-austria/2019-03-19_2015_in_01_Soko-Donau--Ent_____14007925__o__2552019395__s14465271_Q8C.mp4/playlist.m3u8",
             new GeoLocations[] {GeoLocations.GEO_AT}
           },

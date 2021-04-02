@@ -60,7 +60,7 @@ public class NexxCloudSessionInitiationTaskTest extends FunkTaskTestBase {
     rootConfig
         .getConfig()
         .putCrawlerUrl(
-            CrawlerUrlType.NEXX_CLUD_API_URL, new URL(wireMockServer.baseUrl() + "/v3/741"));
+            CrawlerUrlType.NEXX_CLUD_API_URL, new URL(getWireMockBaseUrlSafe() + "/v3/741"));
   }
 
   @After

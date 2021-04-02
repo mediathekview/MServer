@@ -100,9 +100,9 @@ public class PhoenixFilmDetailTaskTest extends WireMockTestBase {
             Duration.ofMinutes(57).plusSeconds(12),
             "Moderation: Sonia Seymour Mikich",
             "https://www.phoenix.de/sendungen/gespraeche/presseclub/mehr-grenzschutz-und-eine-neue-asylpolitik--letzte-rettung-fuer-europa-und-merkel-a-271252.html",
-            wireMockServer.baseUrl()
+            getWireMockBaseUrlSafe()
                 + "/none/phoenix/18/06/180624_phx_presseclub/1/180624_phx_presseclub_776k_p11v13.mp4",
-            wireMockServer.baseUrl()
+            getWireMockBaseUrlSafe()
                 + "/none/phoenix/18/06/180624_phx_presseclub/1/180624_phx_presseclub_2328k_p35v13.mp4",
             "",
             "",
@@ -151,9 +151,9 @@ public class PhoenixFilmDetailTaskTest extends WireMockTestBase {
 
   private Set<Film> executeTask(final String aDetailUrl) {
     final Queue<CrawlerUrlDTO> urls = new ConcurrentLinkedQueue<>();
-    urls.add(new CrawlerUrlDTO(wireMockServer.baseUrl() + aDetailUrl));
+    urls.add(new CrawlerUrlDTO(getWireMockBaseUrlSafe() + aDetailUrl));
     return new PhoenixFilmDetailTask(
-            createCrawler(), urls, null, wireMockServer.baseUrl(), wireMockServer.baseUrl())
+            createCrawler(), urls, null, getWireMockBaseUrlSafe(), getWireMockBaseUrlSafe())
         .invoke();
   }
 }

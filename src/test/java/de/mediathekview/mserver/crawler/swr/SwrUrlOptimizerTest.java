@@ -11,8 +11,8 @@ public class SwrUrlOptimizerTest extends WireMockTestBase {
 
   @Test
   public void optimizeHdUrlTestFullHdExists() {
-    final String url = wireMockServer.baseUrl() + "/845421.xl.mp4";
-    final String expectedUrl = wireMockServer.baseUrl() + "/845421.xxl.mp4";
+    final String url = getWireMockBaseUrlSafe() + "/845421.xl.mp4";
+    final String expectedUrl = getWireMockBaseUrlSafe() + "/845421.xxl.mp4";
     setupHeadResponse("/845421.xxl.mp4", 200);
 
     final ArdUrlOptimizer target = new ArdUrlOptimizer();
@@ -23,7 +23,7 @@ public class SwrUrlOptimizerTest extends WireMockTestBase {
 
   @Test
   public void optimizeHdUrlTestFullHdDoesNotExists() {
-    final String url = wireMockServer.baseUrl() + "/845421.xl.mp4";
+    final String url = getWireMockBaseUrlSafe() + "/845421.xl.mp4";
     setupHeadResponse("/845421.xxl.mp4", 404);
 
     final ArdUrlOptimizer target = new ArdUrlOptimizer();
@@ -34,7 +34,7 @@ public class SwrUrlOptimizerTest extends WireMockTestBase {
 
   @Test
   public void optimizeHdUrlTestNoUrlToOptimize() {
-    final String url = wireMockServer.baseUrl() + "/78946584.l.mp4";
+    final String url = getWireMockBaseUrlSafe() + "/78946584.l.mp4";
 
     final ArdUrlOptimizer target = new ArdUrlOptimizer();
     final String actualUrl = target.optimizeHdUrl(url);
