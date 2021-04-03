@@ -33,6 +33,12 @@ public class JsoupConnection {
         .build();
   }
 
+  /**
+   * Request an url and receive the body as String
+   * @param url
+   * @return request body as String
+   * @throws IOException
+   */
   public String requestBodyAsString(String url) throws IOException {
     int retry = 0;
     int httpResponseCode = 0;
@@ -56,15 +62,35 @@ public class JsoupConnection {
     } while (retry < 3);
     return responseString;
   }
-  
+
+  /**
+   * Request an url and receive the body as HTML JSOUP Document
+   * @param url
+   * @return request body as HTML JSOUP Document
+   * @throws IOException
+   */
   public Document requestBodyAsHtmlDocument(String url) throws IOException {
     return Jsoup.parse(requestBodyAsString(url));
   }
 
+  /**
+   * Request an url and receive the body as XML JSOUP Document
+   * @param url
+   * @return request body as HTML JSOUP Document
+   * @throws IOException
+   */
   public Document requestBodyAsXmlDocument(String url) throws IOException {
     return Jsoup.parse(requestBodyAsString(url), url, Parser.xmlParser());
   }
 
+  /**
+   * Try to determine the size of the content of the URL.
+   * The size in byte is taken from the HEADER content length field.
+   * First we will try to get the size using a HEAD request, if this fails we will try a GET request.
+   * 
+   * @param url
+   * @return size of the response in byte or -1 in case we could not determine the size.
+   */
   public Long determineFileSize(String url) {
   	long fileSize = determineFileSize(url, new Request.Builder().url(url).head());
   	if (fileSize == -1) {
@@ -73,6 +99,15 @@ public class JsoupConnection {
   	return fileSize;
   }
   
+  /**
+   * Try to determine the size of the content of the REQUEST.
+   * The size in byte is taken from the HEADER content length field.
+   * The size of rtmp or m3u8 files is not checked and -1 is returned.
+   * 
+   * @param url
+   * @param requestBuilder
+   * @return size of the response in byte as per HEADER CONTENT LENGTH or -1 in case we could not determine the size
+   */
   public Long determineFileSize(String url, Request.Builder requestBuilder) {
     long fileSize = -1L;
   	// Cant determine the file size of rtmp and m3u8.
@@ -89,6 +124,12 @@ public class JsoupConnection {
   	return fileSize;
   }
   
+  /**
+   * Try to request a URL resource and return OKHTTP isSuccessful.
+   * 
+   * @param url
+   * @return return true if the request was successfully processed by the server
+   */
   public boolean requestUrlExists(String url) {
     boolean exists = false;
     try (final Response response =
