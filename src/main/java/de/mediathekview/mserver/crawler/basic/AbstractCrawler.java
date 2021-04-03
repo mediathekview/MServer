@@ -137,22 +137,52 @@ public abstract class AbstractCrawler implements Callable<Set<Film>> {
     jsoupConnection = connection;
   }
 
+  /**
+   * Request an url and receive the body as String
+   * @param url
+   * @return request body as String
+   * @throws IOException
+   */
   public String requestBodyAsString(String url) throws IOException {
     return getConnection().requestBodyAsString(url);
   }
   
+  /**
+   * Request an url and receive the body as HTML JSOUP Document
+   * @param url
+   * @return request body as HTML JSOUP Document
+   * @throws IOException
+   */
   public Document requestBodyAsHtmlDocument(String url) throws IOException {
     return getConnection().requestBodyAsHtmlDocument(url);
   }
 
+  /**
+   * Request an url and receive the body as XML JSOUP Document
+   * @param url
+   * @return request body as HTML JSOUP Document
+   * @throws IOException
+   */
   public Document requestBodyAsXmlDocument(String url) throws IOException {
     return getConnection().requestBodyAsXmlDocument(url);
   }
 
+  /**
+   * Try to determine the size of the content of the URL.
+   * The size in KB is taken from the HEADER content length field.
+   * 
+   * @param url
+   * @return size of the response in KB or -1 in case we could not determine the size.
+   */
   public long determineFileSizeInKB(String url) {
     return getConnection().determineFileSize(url) / 1024;
   }
 
+  /**
+   * Try to request a URL resource and return OKHTTP isSuccessful.
+   * @param url
+   * @return return true if the request was successfully processed by the server
+   */
   public boolean requestUrlExists(String url) {
     return getConnection().requestUrlExists(url);
   }
