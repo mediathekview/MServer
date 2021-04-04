@@ -125,7 +125,7 @@ public class AddToFilmlist {
             .collect(Collectors.toList());
     Log.sysLog("ARD: update webseite für " + list.size() + " Einträge.");
 
-    list.forEach(film -> film.arr[DatenFilm.FILM_WEBSEITE] = film.arr[DatenFilm.FILM_WEBSEITE].replaceAll("/ard/player/", "/video/").trim());
+    list.forEach(film -> film.arr[DatenFilm.FILM_WEBSEITE] = film.arr[DatenFilm.FILM_WEBSEITE].replace("/ard/player/", "/video/").trim());
   }
 
   private void removeTimeFromOrf(ListeFilme listeEinsortieren) {
