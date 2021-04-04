@@ -296,6 +296,24 @@ public class AddToFilmlistTest {
     assertThat(list.size(), equalTo(2));
   }
 
+  @Test
+  public void testRefreshArdWebsite() {
+    final DatenFilm testFilmUpdated = createTestFilm(Const.ARD, "Tatort", "Test Tatort", FILM_NAME_ONLINE);
+    testFilmUpdated.arr[DatenFilm.FILM_WEBSEITE] = "https://www.ardmediathek.de/ard/player/Y3JpZDovL21kci5kZS9iZWl0cmFnL2Ntcy9mZjMzYzMxMC0wMjczLTQzMDktODllZi03MTI0OTFjZmE3ZTM";
+    listToAdd.add(testFilmUpdated);
+    final DatenFilm testFilmNotUpdated = createTestFilm(Const.ARD, "Tatort", "Test Tatort", FILM_NAME_ONLINE);
+    testFilmNotUpdated.arr[DatenFilm.FILM_WEBSEITE] = "https://www.ardmediathek.de/video/KLJpZDovL21kci5kZS9iZWl0cmFnL2Ntcy9mZjMzYzMxMC0wMjczLTQzMDktODllZi03MTI0OTFjZmE3ZTM";
+    listToAdd.add(testFilmNotUpdated);
+
+    AddToFilmlist target = new AddToFilmlist(list, listToAdd);
+    target.addOldList();
+
+    assertThat(list.size(), equalTo(4));
+    assertThat(testFilmUpdated.arr[DatenFilm.FILM_WEBSEITE], equalTo("https://www.ardmediathek.de/video/Y3JpZDovL21kci5kZS9iZWl0cmFnL2Ntcy9mZjMzYzMxMC0wMjczLTQzMDktODllZi03MTI0OTFjZmE3ZTM"));
+    assertThat(testFilmNotUpdated.arr[DatenFilm.FILM_WEBSEITE], equalTo("https://www.ardmediathek.de/video/KLJpZDovL21kci5kZS9iZWl0cmFnL2Ntcy9mZjMzYzMxMC0wMjczLTQzMDktODllZi03MTI0OTFjZmE3ZTM"));
+  }
+
+
   private static DatenFilm createTestFilm(String sender, String topic, String title,
       String filmUrl) {
     DatenFilm film = new DatenFilm(sender, topic, "url", title, baseUrl + filmUrl, "", "", "", 12,

@@ -116,6 +116,16 @@ public class AddToFilmlist {
     });
     removeTimeFromMdrAktuell(listeEinsortieren);
     removeTimeFromOrf(listeEinsortieren);
+    updateArdWebsite(listeEinsortieren);
+  }
+
+  private void updateArdWebsite(ListeFilme listeEinsortieren) {
+    final List<DatenFilm> list = listeEinsortieren.parallelStream()
+            .filter(film -> film.arr[DatenFilm.FILM_SENDER].equals(Const.ARD) && !film.arr[DatenFilm.FILM_WEBSEITE].startsWith("https://www.ardmediathek.de/video/"))
+            .collect(Collectors.toList());
+    Log.sysLog("ARD: update webseite für " + list.size() + " Einträge.");
+
+    list.forEach(film -> film.arr[DatenFilm.FILM_WEBSEITE] = film.arr[DatenFilm.FILM_WEBSEITE].replaceAll("/ard/player/", "/video/").trim());
   }
 
   private void removeTimeFromOrf(ListeFilme listeEinsortieren) {
