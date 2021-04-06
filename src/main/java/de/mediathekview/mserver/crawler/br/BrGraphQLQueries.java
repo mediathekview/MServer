@@ -1,33 +1,27 @@
 /*
  * BrGraphQLQueries.java
- * 
+ *
  * Projekt    : MServer
  * erstellt am: 17.11.2017
  * Autor      : Sascha
- * 
+ *
  * (c) 2017 by Sascha Wiegandt
  */
 package de.mediathekview.mserver.crawler.br;
 
+import de.mediathekview.mserver.crawler.br.data.BrGraphQLElementNames;
+import de.mediathekview.mserver.crawler.br.data.BrGraphQLNodeNames;
+import de.mediathekview.mserver.crawler.br.data.BrID;
+import de.mediathekview.mserver.crawler.br.graphql.AbstractVariable;
+import de.mediathekview.mserver.crawler.br.graphql.variables.*;
+import org.apache.commons.lang3.StringUtils;
+
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
-import org.apache.commons.lang3.StringUtils;
-import de.mediathekview.mserver.crawler.br.data.BrGraphQLElementNames;
-import de.mediathekview.mserver.crawler.br.data.BrGraphQLNodeNames;
-import de.mediathekview.mserver.crawler.br.data.BrID;
-import de.mediathekview.mserver.crawler.br.graphql.AbstractVariable;
-import de.mediathekview.mserver.crawler.br.graphql.variables.BooleanVariable;
-import de.mediathekview.mserver.crawler.br.graphql.variables.FloatVariable;
-import de.mediathekview.mserver.crawler.br.graphql.variables.IDVariable;
-import de.mediathekview.mserver.crawler.br.graphql.variables.IntegerVariable;
-import de.mediathekview.mserver.crawler.br.graphql.variables.RecursiveAbstractVariable;
-import de.mediathekview.mserver.crawler.br.graphql.variables.StringVariable;
-import de.mediathekview.mserver.crawler.br.graphql.variables.VariableList;
 
 public class BrGraphQLQueries {
 
@@ -36,9 +30,9 @@ public class BrGraphQLQueries {
       DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
   private static final String JSON_GRAPHQL_HEADER = "{\"query\":\"";
-    
+
     public static String getQuery2GetFilmCount() {
-        
+
       StringVariable lteVariable = new StringVariable("lte", "2017-11-14T05:00:00.000Z");
       StringVariable gteVariable = new StringVariable("gte", "1970-01-01T05:00:00.000Z");
       List<AbstractVariable> startList = new LinkedList<>();
@@ -46,26 +40,26 @@ public class BrGraphQLQueries {
       startList.add(lteVariable);
       VariableList startListVariable = new VariableList("start", startList);
       RecursiveAbstractVariable broadcastsVariable = new RecursiveAbstractVariable("broadcasts", startListVariable);
-      
+
       StringVariable eqOntologyVariable = new StringVariable("eq", "av:http://ard.de/ontologies/lifeCycle#published");
       RecursiveAbstractVariable idEqOntologyVariable = new RecursiveAbstractVariable("id", eqOntologyVariable);
       RecursiveAbstractVariable statusIdEqOntologyVariable = new RecursiveAbstractVariable("status", idEqOntologyVariable);
-      
+
       List<AbstractVariable> programmeFilterList = new LinkedList<>();
       programmeFilterList.add(statusIdEqOntologyVariable);
       programmeFilterList.add(broadcastsVariable);
       VariableList programmeFilterVariable = new VariableList("programmeFilter", programmeFilterList);
       programmeFilterVariable.setAsNotNullableType();
-      
+
       List<AbstractVariable> variablesList = new LinkedList<>();
       variablesList.add(programmeFilterVariable);
       VariableList variables = new VariableList(variablesList);
-      
+
       StringBuilder sb = new StringBuilder();
-      
+
       sb.append(JSON_GRAPHQL_HEADER);
       sb.append(getGraphQLHeaderWithVariable("MediathekViewCountFilms",  variables));
-        
+
       sb.append("  viewer {");
       sb.append("    ...on Viewer {");
       sb.append("      broadcastService(id: \\\"av:http://ard.de/ontologies/ard#BR_Fernsehen\\\") {");
@@ -81,11 +75,11 @@ public class BrGraphQLQueries {
       sb.append("  }");
       sb.append("}");
       sb.append(getGraphQLFooterWithVariable(variables));
-        
+
       return sb.toString();
-        
+
     }
-    
+
     public static String getQuery2GetClipDetails(BrID clipId) {
 
       boolean addAuthors            = true;
@@ -96,18 +90,18 @@ public class BrGraphQLQueries {
       boolean addCategorizations    = true;
       boolean addGenres             = true;
       boolean addCaptionFiles       = true;
-      
+
       IDVariable clipID = new IDVariable("clipID", clipId.getId());
       clipID.setAsNotNullableType();
       List<AbstractVariable> variablesList = new LinkedList<>();
       variablesList.add(clipID);
-      
+
       VariableList rootVariable = new VariableList(variablesList);
-      
+
       String searchTitle = "MediathekViewGetClipDetails";
-      
+
       StringBuilder sb = new StringBuilder();
-      
+
       sb.append(JSON_GRAPHQL_HEADER);
       sb.append(getGraphQLHeaderWithVariable(searchTitle, rootVariable));
       sb.append(addObjectConstruct(BrGraphQLNodeNames.RESULT_ROOT_BR_NODE.getName()
@@ -136,23 +130,24 @@ public class BrGraphQLQueries {
               )
           , "id"
           ));
-      
+
       sb.append("}");
-      
-      sb.append(getGraphQLFooterWithVariable(rootVariable));      
-      
+
+      sb.append(getGraphQLFooterWithVariable(rootVariable));
+
       return sb.toString();
-      
+
     }
 
-    public static String getQueryGetIds(LocalDate start, LocalDate end, int pageSize, Optional<String> cursor) {
+    public static String getQueryGetIds(String broadcastServiceName, LocalDate start, LocalDate end, int pageSize, Optional<String> cursor) {
       String afterPart = "";
       if (cursor.isPresent()) {
         afterPart = String.format(", after: \\\"%s\\\"", cursor.get());
       }
 
     return String.format(
-        "{\"query\":\"query MediathekViewCountFilms(  $programmeFilter: ProgrammeFilter!) {  viewer {    ...on Viewer {      broadcastService(id: \\\"av:http://ard.de/ontologies/ard#BR_Fernsehen\\\") {        __typename        ...on BroadcastServiceInterface {          id           programmes(first: %d, orderBy: INITIALSCREENING_START_DESC, filter: $programmeFilter%s) {   count pageInfo {hasNextPage}         edges { cursor  node { id __typename description broadcasts { edges {node {start}}} initialScreening { start  }}}  }        }      }    }  }}\",\"variables\":{\"programmeFilter\":{\"status\":{\"id\":{\"eq\":\"av:http://ard.de/ontologies/lifeCycle#published\"}},\"broadcasts\":{\"start\":{\"gte\":\"%sT00:00:00.000Z\",\"lte\":\"%sT23:59:59.000Z\"}}}}}",
+        "{\"query\":\"query MediathekViewCountFilms(  $programmeFilter: ProgrammeFilter!) {  viewer {    ...on Viewer {      broadcastService(id: \\\"av:http://ard.de/ontologies/ard#%s\\\") {        __typename        ...on BroadcastServiceInterface {          id           programmes(first: %d, orderBy: INITIALSCREENING_START_DESC, filter: $programmeFilter%s) {   count pageInfo {hasNextPage}         edges { cursor  node { id __typename description broadcasts { edges {node {start}}} initialScreening { start  }}}  }        }      }    }  }}\",\"variables\":{\"programmeFilter\":{\"status\":{\"id\":{\"eq\":\"av:http://ard.de/ontologies/lifeCycle#published\"}},\"broadcasts\":{\"start\":{\"gte\":\"%sT00:00:00.000Z\",\"lte\":\"%sT23:59:59.000Z\"}}}}}",
+        broadcastServiceName,
         pageSize,
         afterPart,
         start.format(DATE_FORMATTER),
@@ -160,33 +155,33 @@ public class BrGraphQLQueries {
     }
 
     public static String getQuery2GetAllClipIds(int clipCount, String cursor) {
-      
+
       BooleanVariable triggerSearchVariable = new BooleanVariable("triggerSearch", true);
       triggerSearchVariable.setAsNotNullableType();
-      
-      IntegerVariable clipCountVariable = new IntegerVariable("clipCount", clipCount); 
-      
+
+      IntegerVariable clipCountVariable = new IntegerVariable("clipCount", clipCount);
+
       BooleanVariable eqFalseVariable = new BooleanVariable("eq", false);
       RecursiveAbstractVariable emptyEqFalseVariable = new RecursiveAbstractVariable("empty", eqFalseVariable);
       RecursiveAbstractVariable essencesEmptyEqFalseVariable = new RecursiveAbstractVariable("essences", emptyEqFalseVariable);
-      
+
       RecursiveAbstractVariable audioOnlyEqFalseVariable = new RecursiveAbstractVariable("audioOnly", eqFalseVariable);
-      
+
       List<AbstractVariable> clipFilterList = new LinkedList<>();
       clipFilterList.add(audioOnlyEqFalseVariable);
       clipFilterList.add(essencesEmptyEqFalseVariable);
-      
+
       VariableList clipFilter = new VariableList("clipFilter", clipFilterList);
-      
+
       List<AbstractVariable> variablesList = new LinkedList<>();
       variablesList.add(triggerSearchVariable);
       variablesList.add(clipCountVariable);
       variablesList.add(clipFilter);
-      
+
       VariableList rootVariable = new VariableList(variablesList);
-      
+
       String searchTitle = "MediathekViewGetClipIDs";
-      
+
       StringBuilder sb = new StringBuilder();
 
       sb.append(JSON_GRAPHQL_HEADER);
@@ -215,26 +210,26 @@ public class BrGraphQLQueries {
       sb.append("    id");
       sb.append("  }");
       sb.append("}");
-      
+
       sb.append(getGraphQLFooterWithVariable(rootVariable));
-      
-      return sb.toString();      
-      
+
+      return sb.toString();
+
     }
-    
+
     static String getGraphQLHeaderWithVariable(String queryName, VariableList rootElement) throws IllegalArgumentException {
-        
+
       if(!rootElement.isRootElement())
         throw new IllegalArgumentException("Header basieren auf einer echten rootElement Liste. Bitte diese übergeben!");
-      
+
       StringBuilder sb = new StringBuilder();
 
       sb.append("query ");
       sb.append(queryName);
       sb.append("(");
-        
+
       List<AbstractVariable> elements = rootElement.getValue();
-      
+
       elements.stream().forEach( (AbstractVariable v) -> {
         sb.append(getVariableNameAsJSON(v.getName()));
         if(v instanceof BooleanVariable) {
@@ -255,13 +250,13 @@ public class BrGraphQLQueries {
           sb.append("!");
         }
       });
-        
+
       sb.append(") {");
-      
+
       return sb.toString();
-        
+
     }
-    
+
     static String getGraphQLFooterWithVariable(VariableList rootElement) {
       return "\"," + rootElement.getJSONFromVariableOrDefaulNull() + "}";
     }
@@ -269,23 +264,23 @@ public class BrGraphQLQueries {
     private static String getVariableNameAsJSON(String variable) {
       return "  $" + variable.substring(0,1).toLowerCase() + variable.substring(1, variable.length()) + ": ";
     }
-    
+
     private static String addAuthors() {
       return addObjectConstruct("authors", "count", addObjectConstruct("edges", addObjectConstruct("node", "id", "name")));
     }
-    
+
     private static String addSubjects() {
       return addObjectConstruct("subjects", "count", addObjectConstruct("edges", addObjectConstruct("node", "id")));
     }
-    
+
     private static String addTags() {
       return addObjectConstruct("tags", "count", addObjectConstruct("edges", addObjectConstruct("node", "id", "label")));
     }
-    
+
     private static String addExecutiveProducers() {
       return addObjectConstruct("executiveProducers", "count", addObjectConstruct("edges", addObjectConstruct("node", "id", "name")));
     }
-    
+
     private static String addCredits() {
       return addObjectConstruct("credits"
           , "count"
@@ -311,7 +306,7 @@ public class BrGraphQLQueries {
                   , "id"
                   , "label")));
     }
-    
+
     private static String addVideoFiles() {
       return addObjectConstruct("videoFiles(first: 50, orderBy: FILESIZE_DESC)"
           , "count"
@@ -332,7 +327,7 @@ public class BrGraphQLQueries {
                       , "width"
       ))));
     }
-    
+
     private static String addCaptionFiles() {
       return addObjectConstruct("captionFiles(first: 50, orderBy: FILESIZE_DESC)"
           , "count"
@@ -342,7 +337,7 @@ public class BrGraphQLQueries {
                   , "publicLocation"
                   )));
     }
-    
+
     private static String addOnItemInterface() {
       return addObjectConstruct("... on ItemInterface"
           , "availableUntil"
@@ -354,7 +349,7 @@ public class BrGraphQLQueries {
                       , "title"
                       ))));
     }
-    
+
     private static String addOnProgrammeInterface() {
       return addObjectConstruct("... on ProgrammeInterface"
           , "episodeNumber"
@@ -370,21 +365,21 @@ public class BrGraphQLQueries {
                       , "id"
                       ));
     }
-    
+
     private static String addObjectConstruct(String title, String... subVariables) {
-      
+
       StringBuilder sb = new StringBuilder();
       sb.append(" ");
       sb.append(title);
       sb.append(" { ");
-      Arrays.asList(subVariables).forEach( (String name) -> sb.append(name + " "));  
+      Arrays.asList(subVariables).forEach( (String name) -> sb.append(name + " "));
       sb.append(" } ");
-      
+
       return sb.toString();
-      
-      
+
+
     }
-    
+
 }
 
 

@@ -7,23 +7,26 @@ import java.util.Optional;
 
 public class BrQueryDto extends GraphQlUrlDto {
 
+  private String broadcastServiceName;
   private final LocalDate start;
   private final LocalDate end;
   private final int pageSize;
   private final Optional<String> cursor;
 
   public BrQueryDto(
-      String url, LocalDate start, LocalDate end, int pageSize, Optional<String> cursor) {
-    super(url, BrGraphQLQueries.getQueryGetIds(start, end, pageSize, cursor));
+      String url, String broadcastServiceName, LocalDate start, LocalDate end, int pageSize, Optional<String> cursor) {
+    super(url, BrGraphQLQueries.getQueryGetIds(broadcastServiceName, start, end, pageSize, cursor));
+    this.broadcastServiceName = broadcastServiceName;
     this.start = start;
     this.end = end;
     this.pageSize = pageSize;
     this.cursor = cursor;
   }
 
-  public LocalDate getStart() {
-    return start;
+  public String getBroadcastServiceName() {
+    return broadcastServiceName;
   }
+  public LocalDate getStart() { return start;  }
 
   public LocalDate getEnd() {
     return end;
@@ -50,6 +53,7 @@ public class BrQueryDto extends GraphQlUrlDto {
     }
     BrQueryDto that = (BrQueryDto) o;
     return pageSize == that.pageSize
+        && Objects.equals(broadcastServiceName, that.broadcastServiceName)
         && Objects.equals(start, that.start)
         && Objects.equals(end, that.end);
   }

@@ -7,6 +7,7 @@ import static org.hamcrest.Matchers.containsInAnyOrder;
 
 import de.mediathekview.mlib.messages.listener.MessageListener;
 import de.mediathekview.mserver.base.config.MServerConfigManager;
+import de.mediathekview.mserver.crawler.br.BrConstants;
 import de.mediathekview.mserver.crawler.br.BrCrawler;
 import de.mediathekview.mserver.crawler.br.BrQueryDto;
 import de.mediathekview.mserver.crawler.br.data.BrClipType;
@@ -40,7 +41,7 @@ public class BrBroadcastsTaskTest extends WireMockTestBase {
     final Queue<BrQueryDto> input = new ConcurrentLinkedQueue<>();
     final LocalDate day = LocalDate.of(2021, 3, 15);
     input.add(
-        new BrQueryDto(wireMockServer.baseUrl() + requestUrl, day, day, 10, Optional.empty()));
+        new BrQueryDto(wireMockServer.baseUrl() + requestUrl, BrConstants.BROADCAST_SERVICE_BR, day, day, 10, Optional.empty()));
     return input;
   }
 

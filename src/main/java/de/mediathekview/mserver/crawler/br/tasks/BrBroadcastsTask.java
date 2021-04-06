@@ -54,6 +54,7 @@ public class BrBroadcastsTask extends AbstractGraphQlTask<BrID, BrClipCollectIDR
       BrQueryDto nextPage =
           new BrQueryDto(
               dto.getUrl(),
+              dto.getBroadcastServiceName(),
               dto.getStart(),
               dto.getEnd(),
               dto.getPageSize(),

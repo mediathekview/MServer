@@ -68,13 +68,13 @@ public class BrCrawler extends AbstractCrawler {
 
     for (int i = 0; i <= crawlerConfig.getMaximumDaysForSendungVerpasstSection(); i++) {
       final LocalDate day = now.minusDays(i);
-      BrQueryDto dto = new BrQueryDto(BrConstants.GRAPHQL_API, day, day, BrConstants.PAGE_SIZE, Optional.empty());
-      input.add(dto);
+      input.add(new BrQueryDto(BrConstants.GRAPHQL_API, BrConstants.BROADCAST_SERVICE_BR, day, day, BrConstants.PAGE_SIZE, Optional.empty()));
+      input.add(new BrQueryDto(BrConstants.GRAPHQL_API, BrConstants.BROADCAST_SERVICE_ALPHA, day, day, BrConstants.PAGE_SIZE, Optional.empty()));
     }
     for (int i = 1; i <= crawlerConfig.getMaximumDaysForSendungVerpasstSectionFuture(); i++) {
       final LocalDate day = now.plusDays(i);
-      BrQueryDto dto = new BrQueryDto(BrConstants.GRAPHQL_API, day, day, BrConstants.PAGE_SIZE, Optional.empty());
-      input.add(dto);
+      input.add(new BrQueryDto(BrConstants.GRAPHQL_API, BrConstants.BROADCAST_SERVICE_BR, day, day, BrConstants.PAGE_SIZE, Optional.empty()));
+      input.add(new BrQueryDto(BrConstants.GRAPHQL_API, BrConstants.BROADCAST_SERVICE_ALPHA, day, day, BrConstants.PAGE_SIZE, Optional.empty()));
     }
     return new BrBroadcastsTask(this, input);
   }
