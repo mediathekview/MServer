@@ -148,7 +148,7 @@ public class BrGraphQLQueries {
     public static String getQueryGetIds(LocalDate start, LocalDate end, int pageSize, Optional<String> cursor) {
       String afterPart = "";
       if (cursor.isPresent()) {
-        afterPart = String.format(", after: \"%s\"", cursor.get());
+        afterPart = String.format(", after: \\\"%s\\\"", cursor.get());
       }
 
     return String.format(
