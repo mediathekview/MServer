@@ -23,7 +23,6 @@ import java.util.Queue;
 import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.Assert.fail;
-import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.when;
 
 public class SrTopicsOverviewPageTaskTest {
@@ -75,16 +74,17 @@ public class SrTopicsOverviewPageTaskTest {
     urlMapping.forEach(
         (url, fileName) -> {
           try {
-            final Document document = JsoupMock.getFileDocument(url, fileName);
-            when(jsoupConnection.requestBodyAsHtmlDocument(eq(url))).thenReturn(document);
-            when(crawler.requestBodyAsHtmlDocument(eq(url))).thenReturn(document);
+            final Document document = JsoupMock.getFileDocument(fileName);
+            when(jsoupConnection.requestBodyAsHtmlDocument(url)).thenReturn(document);
+            when(crawler.requestBodyAsHtmlDocument(url)).thenReturn(document);
           } catch (final IOException iox) {
             fail();
           }
         });
 
     when(crawler.getCrawlerConfig())
-        .thenReturn(new MServerConfigManager("MServer-JUnit-Config.yaml").getSenderConfig(Sender.SR));
+        .thenReturn(
+            new MServerConfigManager("MServer-JUnit-Config.yaml").getSenderConfig(Sender.SR));
     when(crawler.getConnection()).thenReturn(jsoupConnection);
 
     final SrTopicsOverviewPageTask target = new SrTopicsOverviewPageTask(crawler);

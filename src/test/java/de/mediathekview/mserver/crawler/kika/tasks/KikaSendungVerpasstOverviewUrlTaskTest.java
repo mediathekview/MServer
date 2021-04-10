@@ -26,23 +26,22 @@ public class KikaSendungVerpasstOverviewUrlTaskTest extends KikaTaskTestBase {
   @Mock JsoupConnection jsoupConnection;
 
   Document htmlPage;
-  
+
   KikaCrawler crawler;
 
   @Before
   public void setUp() throws IOException {
     MockitoAnnotations.openMocks(this);
-    jsoupConnection= JsoupMock.mock(KikaConstants.URL_DAY_PAGE, "/kika/kika_days_overview.html");
+    jsoupConnection = JsoupMock.mock(KikaConstants.URL_DAY_PAGE, "/kika/kika_days_overview.html");
     crawler = createCrawler();
     crawler.setConnection(jsoupConnection);
-
   }
 
   private final LocalDateTime today = LocalDateTime.of(2019, 3, 10, 0, 0, 0);
 
   @Test
   public void callTestNoFutureUrls() throws IOException {
-    MServerConfigManager rootConfig = MServerConfigManager.getInstance("MServer-JUnit-Config.yaml");
+    final MServerConfigManager rootConfig = new MServerConfigManager("MServer-JUnit-Config.yaml");
     rootConfig.getSenderConfig(Sender.KIKA).setMaximumDaysForSendungVerpasstSection(4);
     rootConfig.getSenderConfig(Sender.KIKA).setMaximumDaysForSendungVerpasstSectionFuture(0);
 
@@ -69,7 +68,7 @@ public class KikaSendungVerpasstOverviewUrlTaskTest extends KikaTaskTestBase {
 
   @Test
   public void callTestWithFutureUrls() throws IOException {
-    MServerConfigManager rootConfig = MServerConfigManager.getInstance("MServer-JUnit-Config.yaml");
+    final MServerConfigManager rootConfig = new MServerConfigManager("MServer-JUnit-Config.yaml");
     rootConfig.getSenderConfig(Sender.KIKA).setMaximumDaysForSendungVerpasstSection(4);
     rootConfig.getSenderConfig(Sender.KIKA).setMaximumDaysForSendungVerpasstSectionFuture(3);
 
@@ -102,7 +101,7 @@ public class KikaSendungVerpasstOverviewUrlTaskTest extends KikaTaskTestBase {
 
   @Test
   public void callTestRangeLargerThanAvailableDays() throws IOException {
-    MServerConfigManager rootConfig = MServerConfigManager.getInstance("MServer-JUnit-Config.yaml");
+    final MServerConfigManager rootConfig = new MServerConfigManager("MServer-JUnit-Config.yaml");
     rootConfig.getSenderConfig(Sender.KIKA).setMaximumDaysForSendungVerpasstSection(40);
     rootConfig.getSenderConfig(Sender.KIKA).setMaximumDaysForSendungVerpasstSectionFuture(30);
 

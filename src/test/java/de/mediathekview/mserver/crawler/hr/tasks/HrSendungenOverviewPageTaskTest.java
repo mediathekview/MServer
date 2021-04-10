@@ -16,7 +16,6 @@ import java.util.Set;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.when;
 
 public class HrSendungenOverviewPageTaskTest extends HrTaskTestBase {
@@ -56,12 +55,12 @@ public class HrSendungenOverviewPageTaskTest extends HrTaskTestBase {
 
     final Document document =
         JsoupMock.getFileDocumentWithModifications(
-            requestUrl, "/hr/hr_topics_page.html", this::fixupAllWireMockUrls);
-    when(jsoupConnection.requestBodyAsHtmlDocument(eq(requestUrl))).thenReturn(document);
-    HrCrawler crawler = createCrawler();
+            "/hr/hr_topics_page.html", this::fixupAllWireMockUrls);
+    when(jsoupConnection.requestBodyAsHtmlDocument(requestUrl)).thenReturn(document);
+    final HrCrawler crawler = createCrawler();
     crawler.setConnection(jsoupConnection);
 
-    HrSendungenOverviewPageTask classUnderTest =
+    final HrSendungenOverviewPageTask classUnderTest =
         new HrSendungenOverviewPageTask(wireMockServer.baseUrl() + "/", crawler);
 
     final Set<CrawlerUrlDTO> actual = classUnderTest.call();

@@ -108,7 +108,7 @@ public class OrfLetterPageTaskTest {
     urlMapping.forEach(
         (url, fileName) -> {
           try {
-            final Document document = JsoupMock.getFileDocument(url, fileName);
+            final Document document = JsoupMock.getFileDocument(fileName);
             when(jsoupConnection.requestBodyAsHtmlDocument(eq(url))).thenReturn(document);
             when(crawler.requestBodyAsHtmlDocument(eq(url))).thenReturn(document);
           } catch (final IOException iox) {
@@ -117,7 +117,8 @@ public class OrfLetterPageTaskTest {
         });
 
     when(crawler.getCrawlerConfig())
-        .thenReturn(new MServerConfigManager("MServer-JUnit-Config.yaml").getSenderConfig(Sender.ORF));
+        .thenReturn(
+            new MServerConfigManager("MServer-JUnit-Config.yaml").getSenderConfig(Sender.ORF));
     when(crawler.getConnection()).thenReturn(jsoupConnection);
 
     final OrfLetterPageTask target = new OrfLetterPageTask(crawler);

@@ -37,9 +37,8 @@ public class KikaTopicOverviewPageTaskTest extends KikaTaskTestBase {
     final String requestUrl =
         getWireMockBaseUrlSafe() + "/alles-neu-fuer-lina/buendelgruppe2624.html";
 
-    jsoupConnection =
-        JsoupMock.mock(requestUrl, "/kika/kika_topic2_overview_page.html");
-    KikaCrawler crawler = createCrawler();
+    jsoupConnection = JsoupMock.mock(requestUrl, "/kika/kika_topic2_overview_page.html");
+    final KikaCrawler crawler = createCrawler();
     crawler.setConnection(jsoupConnection);
 
     final KikaCrawlerUrlDto[] expected =
@@ -75,14 +74,13 @@ public class KikaTopicOverviewPageTaskTest extends KikaTaskTestBase {
 
   @Test
   public void testOverviewWithSinglePageWithoutBoxBroadcastLayout() throws IOException {
-    MServerConfigManager rootConfig = MServerConfigManager.getInstance("MServer-JUnit-Config.yaml");
+    final MServerConfigManager rootConfig = new MServerConfigManager("MServer-JUnit-Config.yaml");
     rootConfig.getSenderConfig(Sender.KIKA).setMaximumSubpages(1);
 
     final String requestUrl = getWireMockBaseUrlSafe() + "/pur/sendungen/videos-pur-102.html";
 
-    jsoupConnection =
-        JsoupMock.mock(requestUrl, "/kika/kika_topic6_overview_no_boxbroadcast.html");
-    KikaCrawler crawler = createCrawler();
+    jsoupConnection = JsoupMock.mock(requestUrl, "/kika/kika_topic6_overview_no_boxbroadcast.html");
+    final KikaCrawler crawler = createCrawler();
     crawler.setConnection(jsoupConnection);
 
     final KikaCrawlerUrlDto[] expected =
@@ -104,7 +102,7 @@ public class KikaTopicOverviewPageTaskTest extends KikaTaskTestBase {
 
   @Test
   public void testOverviewWithMultiplePagesLimitSubpagesLargerThanSubpageCount() {
-    MServerConfigManager rootConfig = MServerConfigManager.getInstance("MServer-JUnit-Config.yaml");
+    final MServerConfigManager rootConfig = new MServerConfigManager("MServer-JUnit-Config.yaml");
     rootConfig.getSenderConfig(Sender.KIKA).setMaximumSubpages(7);
 
     final String requestUrl =
@@ -125,7 +123,7 @@ public class KikaTopicOverviewPageTaskTest extends KikaTaskTestBase {
             + "/mama-fuchs-und-papa-dachs/buendelgruppe2670_page-3_zc-c0952f36.html",
         "/kika/kika_topic1_overview_page4.html");
     jsoupConnection = JsoupMock.mock(mockUrls);
-    KikaCrawler crawler = createCrawler();
+    final KikaCrawler crawler = createCrawler();
     crawler.setConnection(jsoupConnection);
 
     final KikaCrawlerUrlDto[] expected =
@@ -161,7 +159,7 @@ public class KikaTopicOverviewPageTaskTest extends KikaTaskTestBase {
 
   @Test
   public void testOverviewWithMultiplePagesLimitSubpagesSmallerThanSubpageCount() {
-    MServerConfigManager rootConfig = MServerConfigManager.getInstance("MServer-JUnit-Config.yaml");
+    final MServerConfigManager rootConfig = new MServerConfigManager("MServer-JUnit-Config.yaml");
     rootConfig.getSenderConfig(Sender.KIKA).setMaximumSubpages(2);
 
     final String requestUrl =
@@ -173,7 +171,7 @@ public class KikaTopicOverviewPageTaskTest extends KikaTaskTestBase {
             + "/mama-fuchs-und-papa-dachs/buendelgruppe2670_page-1_zc-43c28d56.html",
         "/kika/kika_topic1_overview_page2.html");
     jsoupConnection = JsoupMock.mock(mockUrls);
-    KikaCrawler crawler = createCrawler();
+    final KikaCrawler crawler = createCrawler();
     crawler.setConnection(jsoupConnection);
 
     final KikaCrawlerUrlDto[] expected =
@@ -203,7 +201,7 @@ public class KikaTopicOverviewPageTaskTest extends KikaTaskTestBase {
 
   @Test
   public void testOverviewLandingPageLinksNotToFirstPageSmallerThanSubpageCount() {
-    MServerConfigManager rootConfig = MServerConfigManager.getInstance("MServer-JUnit-Config.yaml");
+    final MServerConfigManager rootConfig = new MServerConfigManager("MServer-JUnit-Config.yaml");
     rootConfig.getSenderConfig(Sender.KIKA).setMaximumSubpages(3);
 
     final String requestUrl =
@@ -220,7 +218,7 @@ public class KikaTopicOverviewPageTaskTest extends KikaTaskTestBase {
             + "/mama-fuchs-und-papa-dachs/buendelgruppe2670_page-0_zc-6615e895.html",
         "/kika/kika_topic1_overview_page1.html");
     jsoupConnection = JsoupMock.mock(mockUrls);
-    KikaCrawler crawler = createCrawler();
+    final KikaCrawler crawler = createCrawler();
     crawler.setConnection(jsoupConnection);
 
     final KikaCrawlerUrlDto[] expected =
@@ -253,7 +251,7 @@ public class KikaTopicOverviewPageTaskTest extends KikaTaskTestBase {
 
   @Test
   public void testOverviewLandingPageLinksNotToFirstPageWithSubpagesLargerThanSubpageCount() {
-    MServerConfigManager rootConfig = MServerConfigManager.getInstance("MServer-JUnit-Config.yaml");
+    final MServerConfigManager rootConfig = new MServerConfigManager("MServer-JUnit-Config.yaml");
     rootConfig.getSenderConfig(Sender.KIKA).setMaximumSubpages(5);
 
     final String requestUrl =
@@ -274,7 +272,7 @@ public class KikaTopicOverviewPageTaskTest extends KikaTaskTestBase {
             + "/mama-fuchs-und-papa-dachs/buendelgruppe2670_page-1_zc-43c28d56.html",
         "/kika/kika_topic1_overview_page2.html");
     jsoupConnection = JsoupMock.mock(mockUrls);
-    KikaCrawler crawler = createCrawler();
+    final KikaCrawler crawler = createCrawler();
     crawler.setConnection(jsoupConnection);
 
     final KikaCrawlerUrlDto[] expected =
@@ -308,13 +306,13 @@ public class KikaTopicOverviewPageTaskTest extends KikaTaskTestBase {
     actAndAssert(crawler, requestUrl, expected);
   }
 
-  private void actAndAssert(final KikaCrawler crawler, final String requestUrl, final KikaCrawlerUrlDto[] expected) {
+  private void actAndAssert(
+      final KikaCrawler crawler, final String requestUrl, final KikaCrawlerUrlDto[] expected) {
     final Queue<KikaCrawlerUrlDto> urls = new ConcurrentLinkedQueue<>();
     urls.add(new KikaCrawlerUrlDto(requestUrl, FilmType.NORMAL));
 
     final KikaTopicOverviewPageTask target =
-        new KikaTopicOverviewPageTask(
-            crawler, urls, getWireMockBaseUrlSafe());
+        new KikaTopicOverviewPageTask(crawler, urls, getWireMockBaseUrlSafe());
     final Set<KikaCrawlerUrlDto> actual = target.invoke();
 
     assertThat(actual.size(), equalTo(expected.length));

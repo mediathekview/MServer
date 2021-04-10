@@ -49,15 +49,13 @@ public class OrfHistoryOverviewTaskTest {
   public void test() throws Exception {
     final OrfCrawler crawler = Mockito.mock(OrfCrawler.class);
     when(crawler.getCrawlerConfig())
-        .thenReturn(new MServerConfigManager("MServer-JUnit-Config.yaml").getSenderConfig(Sender.ORF));
-    final Document document =
-        JsoupMock.getFileDocument(OrfConstants.URL_ARCHIVE, "/orf/orf_history_overview.html");
+        .thenReturn(
+            new MServerConfigManager("MServer-JUnit-Config.yaml").getSenderConfig(Sender.ORF));
+    final Document document = JsoupMock.getFileDocument("/orf/orf_history_overview.html");
     when(jsoupConnection.requestBodyAsHtmlDocument(eq(OrfConstants.URL_ARCHIVE)))
         .thenReturn(document);
-    when(crawler.requestBodyAsHtmlDocument(eq(OrfConstants.URL_ARCHIVE)))
-    .thenReturn(document);
-    when(crawler.getConnection())
-    .thenReturn(jsoupConnection);
+    when(crawler.requestBodyAsHtmlDocument(eq(OrfConstants.URL_ARCHIVE))).thenReturn(document);
+    when(crawler.getConnection()).thenReturn(jsoupConnection);
 
     final OrfHistoryOverviewTask target = new OrfHistoryOverviewTask(crawler);
 

@@ -157,12 +157,16 @@ public class ArdVideoInfoJsonDeserializerTest extends WireMockTestBase {
     assertThat(actual.getVideoUrls().get(Resolution.NORMAL), equalTo(expectedUrlNormal));
     assertThat(actual.getVideoUrls().get(Resolution.HD), equalTo(expectedUrlHd));
   }
-  
-  protected ArdCrawler createCrawler() {
-    ForkJoinPool forkJoinPool = new ForkJoinPool();
-    Collection<MessageListener> nachrichten = new ArrayList<>();
-    Collection<SenderProgressListener> fortschritte = new ArrayList<>();
 
-    return new ArdCrawler(forkJoinPool, nachrichten, fortschritte, MServerConfigManager.getInstance("MServer-JUnit-Config.yaml"));
+  protected ArdCrawler createCrawler() {
+    final ForkJoinPool forkJoinPool = new ForkJoinPool();
+    final Collection<MessageListener> nachrichten = new ArrayList<>();
+    final Collection<SenderProgressListener> fortschritte = new ArrayList<>();
+
+    return new ArdCrawler(
+        forkJoinPool,
+        nachrichten,
+        fortschritte,
+        new MServerConfigManager("MServer-JUnit-Config.yaml"));
   }
 }
