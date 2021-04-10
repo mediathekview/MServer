@@ -32,4 +32,4 @@ jobs:
           nexus_username: ${{ secrets.OSSRH_USERNAME }}
           nexus_password: ${{ secrets.OSSRH_TOKEN }}
           maven_profiles: deploy,docker
-          maven_args: --settings .maven.xml
+          maven_args: "--settings .maven.xml -DskipTests"
