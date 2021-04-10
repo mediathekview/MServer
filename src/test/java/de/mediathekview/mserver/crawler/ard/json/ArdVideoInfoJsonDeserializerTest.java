@@ -26,7 +26,10 @@ public class ArdVideoInfoJsonDeserializerTest extends WireMockTestBase {
   private final String expectedUrlHd;
 
   public ArdVideoInfoJsonDeserializerTest(
-          final String aJsonFile, final String aUrlSmall, final String aUrlNormal, final String aUrlHd) {
+      final String aJsonFile,
+      final String aUrlSmall,
+      final String aUrlNormal,
+      final String aUrlHd) {
     jsonFile = aJsonFile;
     expectedUrlSmall = aUrlSmall;
     expectedUrlNormal = aUrlNormal;
@@ -133,7 +136,8 @@ public class ArdVideoInfoJsonDeserializerTest extends WireMockTestBase {
   @Test
   public void deserializeTest() {
 
-    final JsonElement jsonElement = JsonFileReader.readJson(jsonFile);
+    final JsonElement jsonElement =
+        JsonFileReader.readJsonWithTextModification(jsonFile, this::fixupAllWireMockUrls);
 
     setupSuccessfulResponse("/i/ndrfs_nds@430233/master.m3u8", "/ndr/ndr_film_detail_m3u8.m3u8");
     setupSuccessfulResponse(

@@ -60,7 +60,9 @@ public class HrSendungenOverviewPageTaskTest extends HrTaskTestBase {
               getWireMockBaseUrlSafe() + "/sendungen-a-z/wilde-camper/sendungen/index.html"),
         };
 
-    final Document document = JsoupMock.getFileDocument(requestUrl, "/hr/hr_topics_page.html");
+    final Document document =
+        JsoupMock.getFileDocumentWithModifications(
+            requestUrl, "/hr/hr_topics_page.html", this::fixupAllWireMockUrls);
     when(jsoupConnection.getDocumentTimeoutAfter(eq(requestUrl), anyInt())).thenReturn(document);
 
     final Set<CrawlerUrlDTO> actual = classUnderTest.call();

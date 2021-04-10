@@ -63,9 +63,9 @@ public class OrfFilmDetailTaskTest extends OrfFilmDetailTaskTestBase {
     expectedDate = aExpectedDate;
     expectedDuration = aExpectedDuration;
     expectedDescription = aExpectedDescription;
-    expectedUrlSmall = wireUrl(aExpectedUrlSmall);
-    expectedUrlNormal = wireUrl(aExpectedUrlNormal);
-    expectedUrlHd = wireUrl(aExpectedUrlHd);
+    expectedUrlSmall = buildWireMockUrl(aExpectedUrlSmall);
+    expectedUrlNormal = buildWireMockUrl(aExpectedUrlNormal);
+    expectedUrlHd = buildWireMockUrl(aExpectedUrlHd);
     expectedSubtitle = aExpectedSubtitle;
     expectedGeoLocations = aExpectedGeoLocations;
   }

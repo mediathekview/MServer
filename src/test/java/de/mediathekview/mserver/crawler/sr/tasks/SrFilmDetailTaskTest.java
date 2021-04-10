@@ -119,7 +119,8 @@ public class SrFilmDetailTaskTest extends SrTaskTestBase {
 
   @Test
   public void test() throws IOException {
-    final Connection connection = JsoupMock.mock(requestUrl, filmPageFile);
+    final Connection connection =
+        JsoupMock.mockWikthTextModification(requestUrl, filmPageFile, this::fixupAllWireMockUrls);
     when(jsoupConnection.getConnection(eq(requestUrl))).thenReturn(connection);
 
     setupSuccessfulJsonResponse(videoDetailsUrl, videoDetailsFile);
