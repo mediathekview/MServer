@@ -2,32 +2,26 @@ package de.mediathekview.mserver.crawler.hr.tasks;
 
 import de.mediathekview.mserver.base.webaccess.JsoupConnection;
 import de.mediathekview.mserver.crawler.basic.CrawlerUrlDTO;
+import de.mediathekview.mserver.crawler.hr.HrCrawler;
 import de.mediathekview.mserver.testhelper.JsoupMock;
 import org.hamcrest.Matchers;
 import org.jsoup.nodes.Document;
 import org.junit.Before;
 import org.junit.Test;
-import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.mockito.Spy;
 
 import java.io.IOException;
 import java.util.Set;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.when;
 
 public class HrSendungenOverviewPageTaskTest extends HrTaskTestBase {
 
   @Mock JsoupConnection jsoupConnection;
-
-  @InjectMocks @Spy
-  HrSendungenOverviewPageTask classUnderTest =
-      new HrSendungenOverviewPageTask(getWireMockBaseUrlSafe() + "/", createCrawler());
 
   @Before
   public void setUp() {
@@ -63,7 +57,12 @@ public class HrSendungenOverviewPageTaskTest extends HrTaskTestBase {
     final Document document =
         JsoupMock.getFileDocumentWithModifications(
             requestUrl, "/hr/hr_topics_page.html", this::fixupAllWireMockUrls);
-    when(jsoupConnection.getDocumentTimeoutAfter(eq(requestUrl), anyInt())).thenReturn(document);
+    when(jsoupConnection.requestBodyAsHtmlDocument(eq(requestUrl))).thenReturn(document);
+    HrCrawler crawler = createCrawler();
+    crawler.setConnection(jsoupConnection);
+
+    HrSendungenOverviewPageTask classUnderTest =
+        new HrSendungenOverviewPageTask(wireMockServer.baseUrl() + "/", crawler);
 
     final Set<CrawlerUrlDTO> actual = classUnderTest.call();
 

@@ -50,7 +50,7 @@ public class SrfCrawler extends AbstractCrawler {
           new ConcurrentLinkedQueue<>(forkJoinPool.submit(overviewTask).get());
 
       printMessage(
-          ServerMessages.DEBUG_ALL_SENDUNG_FOLGEN_COUNT, getSender().getName(), topicUrls.size());
+          ServerMessages.DEBUG_ALL_SENDUNG_COUNT, getSender().getName(), topicUrls.size());
 
       final SrfTopicOverviewTask task =
           new SrfTopicOverviewTask(this, topicUrls, SrfConstants.BASE_URL);

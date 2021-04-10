@@ -83,7 +83,7 @@ public class ArdFilmDetailTaskTest extends ArdTaskTestBase {
             LocalDateTime.of(2020, 7, 3, 9, 0, 0),
             Duration.ofMinutes(4).plusSeconds(9),
             "Themen der Sendung: Bundestag und Bundesrat stimmen über Kohleausstieg ab, Werbeverbot für Tabak wird verschärft, Großbritannien lockert Corona-Einreisebeschränkungen, Zahl der Corona-Neuinfektionen in den USA erreicht neuen Höchststand, Urteil im Prozess gegen Menschenrechtler Steudtner in Istanbul erwartet, Hongkonger Bürgerrechtsaktivist bittet Deutschland um Hilfe für die Demokratie-Bewegung, \n.....",
-            "https://www.ardmediathek.de/ard/player/Y3JpZDovL2Rhc2Vyc3RlLmRlL3RhZ2Vzc2NoYXUvYTQ2ODI0YjctNThlMy00ODViLTgzMzktNzI1MTJlMjk2ODBi",
+            "https://www.ardmediathek.de/video/Y3JpZDovL2Rhc2Vyc3RlLmRlL3RhZ2Vzc2NoYXUvYTQ2ODI0YjctNThlMy00ODViLTgzMzktNzI1MTJlMjk2ODBi",
             "https://media.tagesschau.de/video/2020/0703/TV-20200703-0912-2800.webml.h264.mp4",
             "https://media.tagesschau.de/video/2020/0703/TV-20200703-0912-2800.webl.h264.mp4",
             "https://media.tagesschau.de/video/2020/0703/TV-20200703-0912-2800.webxl.h264.mp4",

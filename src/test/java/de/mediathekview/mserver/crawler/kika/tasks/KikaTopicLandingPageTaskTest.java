@@ -2,10 +2,10 @@ package de.mediathekview.mserver.crawler.kika.tasks;
 
 import de.mediathekview.mserver.base.webaccess.JsoupConnection;
 import de.mediathekview.mserver.crawler.kika.KikaConstants;
+import de.mediathekview.mserver.crawler.kika.KikaCrawler;
 import de.mediathekview.mserver.crawler.kika.KikaCrawlerUrlDto;
 import de.mediathekview.mserver.crawler.kika.KikaCrawlerUrlDto.FilmType;
 import de.mediathekview.mserver.testhelper.JsoupMock;
-import org.jsoup.Connection;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -23,8 +23,6 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.containsInAnyOrder;
-import static org.mockito.ArgumentMatchers.eq;
-import static org.mockito.Mockito.when;
 
 @RunWith(Parameterized.class)
 public class KikaTopicLandingPageTaskTest extends KikaTaskTestBase {
@@ -95,15 +93,16 @@ public class KikaTopicLandingPageTaskTest extends KikaTaskTestBase {
 
   @Test
   public void testLandingPageWithMoreButton() throws IOException {
-    final Connection connection = JsoupMock.mock(requestUrl, htmlFile);
-    when(jsoupConnection.getConnection(eq(requestUrl))).thenReturn(connection);
+    jsoupConnection = JsoupMock.mock(requestUrl, htmlFile);
+    KikaCrawler crawler = createCrawler();
+    crawler.setConnection(jsoupConnection);
 
     final Queue<KikaCrawlerUrlDto> urls = new ConcurrentLinkedQueue<>();
     urls.add(new KikaCrawlerUrlDto(requestUrl, FilmType.NORMAL));
 
     final KikaTopicLandingPageTask target =
         new KikaTopicLandingPageTask(
-            createCrawler(), urls, KikaConstants.BASE_URL, jsoupConnection);
+            crawler, urls, KikaConstants.BASE_URL);
     final Set<KikaCrawlerUrlDto> actual = target.invoke();
 
     assertThat(actual.size(), equalTo(expectedUrls.length));

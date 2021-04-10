@@ -2,8 +2,8 @@ package de.mediathekview.mserver.crawler.sr.tasks;
 
 import de.mediathekview.mlib.daten.Film;
 import de.mediathekview.mserver.base.webaccess.JsoupConnection;
+import de.mediathekview.mserver.crawler.sr.SrCrawler;
 import de.mediathekview.mserver.testhelper.JsoupMock;
-import org.jsoup.Connection;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -19,8 +19,6 @@ import java.util.Set;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.mockito.ArgumentMatchers.eq;
-import static org.mockito.Mockito.when;
 
 @RunWith(Parameterized.class)
 public class SrFilmDetailTaskTestNoFilm extends SrTaskTestBase {
@@ -81,22 +79,23 @@ public class SrFilmDetailTaskTestNoFilm extends SrTaskTestBase {
 
   @Test
   public void test() throws IOException {
-    final Connection connection = JsoupMock.mock(requestUrl, filmPageFile);
-    when(jsoupConnection.getConnection(eq(requestUrl))).thenReturn(connection);
+    jsoupConnection = JsoupMock.mock(requestUrl, filmPageFile);
+    SrCrawler crawler = createCrawler();
+    crawler.setConnection(jsoupConnection);
 
     if (videoDetailsUrl != null) {
       setupSuccessfulJsonResponse(videoDetailsUrl, videoDetailsFile);
     }
 
-    final Set<Film> actual = executeTask(theme, requestUrl);
+    final Set<Film> actual = executeTask(crawler, theme, requestUrl);
 
     assertThat(actual, notNullValue());
     assertThat(actual.size(), equalTo(0));
   }
 
-  private Set<Film> executeTask(final String aTheme, final String aRequestUrl) {
+  private Set<Film> executeTask(final SrCrawler crawler, final String aTheme, final String aRequestUrl) {
     return new SrFilmDetailTask(
-            createCrawler(), createCrawlerUrlDto(aTheme, aRequestUrl), jsoupConnection)
+        crawler, createCrawlerUrlDto(aTheme, aRequestUrl))
         .invoke();
   }
 }

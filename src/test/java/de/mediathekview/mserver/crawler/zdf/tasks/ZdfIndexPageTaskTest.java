@@ -22,7 +22,6 @@ import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 import static org.junit.Assert.fail;
-import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.when;
 
@@ -74,7 +73,7 @@ public class ZdfIndexPageTaskTest {
   @Test
   public void test() throws Exception {
     when(crawler.getCrawlerConfig())
-        .thenReturn(new MServerConfigManager().getSenderConfig(Sender.ZDF));
+        .thenReturn(new MServerConfigManager("MServer-JUnit-Config.yaml").getSenderConfig(Sender.ZDF));
 
     final Map<String, String> urlMapping = new HashMap<>();
     urlMapping.put(ZdfConstants.URL_BASE, htmlFile);
@@ -85,14 +84,16 @@ public class ZdfIndexPageTaskTest {
         (url, fileName) -> {
           try {
             final Document document = JsoupMock.getFileDocument(url, fileName);
-            when(jsoupConnection.getDocumentTimeoutAfter(eq(url), anyInt())).thenReturn(document);
+            when(jsoupConnection.requestBodyAsHtmlDocument(eq(url))).thenReturn(document);
+            when(crawler.requestBodyAsHtmlDocument(eq(url))).thenReturn(document);
           } catch (final IOException iox) {
             fail();
           }
         });
+    when(crawler.getConnection()).thenReturn(jsoupConnection);
 
     final ZdfIndexPageTask target =
-        new ZdfIndexPageTask(crawler, ZdfConstants.URL_BASE, jsoupConnection);
+        new ZdfIndexPageTask(crawler, ZdfConstants.URL_BASE);
 
     final ZdfConfiguration actual = target.call();
 

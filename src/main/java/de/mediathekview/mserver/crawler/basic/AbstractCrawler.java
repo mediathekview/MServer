@@ -9,10 +9,13 @@ import de.mediathekview.mserver.base.config.MServerBasicConfigDTO;
 import de.mediathekview.mserver.base.config.MServerConfigDTO;
 import de.mediathekview.mserver.base.config.MServerConfigManager;
 import de.mediathekview.mserver.base.messages.ServerMessages;
+import de.mediathekview.mserver.base.webaccess.JsoupConnection;
 import de.mediathekview.mserver.progress.listeners.SenderProgressListener;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.jsoup.nodes.Document;
 
+import java.io.IOException;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.Collection;
@@ -37,6 +40,7 @@ public abstract class AbstractCrawler implements Callable<Set<Film>> {
   protected RecursiveTask<Set<Film>> filmTask;
   protected Set<Film> films;
   private LocalDateTime startTime;
+  protected JsoupConnection jsoupConnection;
 
   public AbstractCrawler(
       final ForkJoinPool aForkJoinPool,
@@ -54,6 +58,7 @@ public abstract class AbstractCrawler implements Callable<Set<Film>> {
 
     runtimeConfig = rootConfig.getConfig();
     crawlerConfig = rootConfig.getSenderConfig(getSender());
+    jsoupConnection = new JsoupConnection(crawlerConfig.getSocketTimeoutInSeconds());
 
     films = ConcurrentHashMap.newKeySet();
   }
@@ -122,6 +127,26 @@ public abstract class AbstractCrawler implements Callable<Set<Film>> {
 
   public synchronized MServerConfigDTO getRuntimeConfig() {
     return runtimeConfig;
+  }
+  
+  public JsoupConnection getConnection() {
+    return jsoupConnection;
+  }
+
+  public void setConnection(JsoupConnection connection) {
+    jsoupConnection = connection;
+  }
+
+  public String requestBodyAsString(String url) throws IOException {
+    return getConnection().requestBodyAsString(url);
+  }
+  
+  public Document requestBodyAsHtmlDocument(String url) throws IOException {
+    return getConnection().requestBodyAsHtmlDocument(url);
+  }
+
+  public Document requestBodyAsXmlDocument(String url) throws IOException {
+    return getConnection().requestBodyAsXmlDocument(url);
   }
 
   /**

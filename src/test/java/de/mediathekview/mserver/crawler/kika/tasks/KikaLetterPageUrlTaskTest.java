@@ -2,10 +2,10 @@ package de.mediathekview.mserver.crawler.kika.tasks;
 
 import de.mediathekview.mserver.base.webaccess.JsoupConnection;
 import de.mediathekview.mserver.crawler.kika.KikaConstants;
+import de.mediathekview.mserver.crawler.kika.KikaCrawler;
 import de.mediathekview.mserver.crawler.kika.KikaCrawlerUrlDto;
 import de.mediathekview.mserver.crawler.kika.KikaCrawlerUrlDto.FilmType;
 import de.mediathekview.mserver.testhelper.JsoupMock;
-import org.jsoup.Connection;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
@@ -19,8 +19,6 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.containsInAnyOrder;
-import static org.mockito.ArgumentMatchers.eq;
-import static org.mockito.Mockito.when;
 
 public class KikaLetterPageUrlTaskTest extends KikaTaskTestBase {
 
@@ -36,8 +34,9 @@ public class KikaLetterPageUrlTaskTest extends KikaTaskTestBase {
   @Test
   public void test() throws IOException {
     final String requestUrl = KikaConstants.URL_TOPICS_PAGE;
-    final Connection connection = JsoupMock.mock(requestUrl, "/kika/kika_letter_pageA.html");
-    when(jsoupConnection.getConnection(eq(requestUrl))).thenReturn(connection);
+    jsoupConnection = JsoupMock.mock(requestUrl, "/kika/kika_letter_pageA.html");
+    KikaCrawler crawler = createCrawler();
+    crawler.setConnection(jsoupConnection);
 
     final KikaCrawlerUrlDto[] expected =
         new KikaCrawlerUrlDto[] {
@@ -59,7 +58,7 @@ public class KikaLetterPageUrlTaskTest extends KikaTaskTestBase {
     urls.add(new KikaCrawlerUrlDto(requestUrl, FilmType.NORMAL));
 
     final KikaLetterPageUrlTask target =
-        new KikaLetterPageUrlTask(createCrawler(), urls, KikaConstants.BASE_URL, jsoupConnection);
+        new KikaLetterPageUrlTask(crawler, urls, KikaConstants.BASE_URL);
     final Set<KikaCrawlerUrlDto> actual = target.invoke();
 
     assertThat(actual.size(), equalTo(expected.length));
@@ -69,8 +68,9 @@ public class KikaLetterPageUrlTaskTest extends KikaTaskTestBase {
   @Test
   public void testDgs() throws IOException {
     final String requestUrl = KikaConstants.URL_DGS_PAGE;
-    final Connection connection = JsoupMock.mock(requestUrl, "/kika/kika_gbs1.html");
-    when(jsoupConnection.getConnection(eq(requestUrl))).thenReturn(connection);
+    jsoupConnection = JsoupMock.mock(requestUrl, "/kika/kika_gbs1.html");
+    KikaCrawler crawler = createCrawler();
+    crawler.setConnection(jsoupConnection);
 
     final KikaCrawlerUrlDto[] expected =
         new KikaCrawlerUrlDto[] {
@@ -89,7 +89,7 @@ public class KikaLetterPageUrlTaskTest extends KikaTaskTestBase {
     urls.add(new KikaCrawlerUrlDto(requestUrl, FilmType.SIGN_LANGUAGE));
 
     final KikaLetterPageUrlTask target =
-        new KikaLetterPageUrlTask(createCrawler(), urls, KikaConstants.BASE_URL, jsoupConnection);
+        new KikaLetterPageUrlTask(crawler, urls, KikaConstants.BASE_URL);
     final Set<KikaCrawlerUrlDto> actual = target.invoke();
 
     assertThat(actual.size(), equalTo(expected.length));

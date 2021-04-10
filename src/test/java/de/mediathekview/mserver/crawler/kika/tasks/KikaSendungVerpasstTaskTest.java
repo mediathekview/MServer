@@ -2,10 +2,10 @@ package de.mediathekview.mserver.crawler.kika.tasks;
 
 import de.mediathekview.mserver.base.webaccess.JsoupConnection;
 import de.mediathekview.mserver.crawler.basic.CrawlerUrlDTO;
+import de.mediathekview.mserver.crawler.kika.KikaCrawler;
 import de.mediathekview.mserver.crawler.kika.KikaCrawlerUrlDto;
 import de.mediathekview.mserver.crawler.kika.KikaCrawlerUrlDto.FilmType;
 import de.mediathekview.mserver.testhelper.JsoupMock;
-import org.jsoup.Connection;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
@@ -21,9 +21,6 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.containsInAnyOrder;
-import static org.junit.Assert.fail;
-import static org.mockito.ArgumentMatchers.eq;
-import static org.mockito.Mockito.when;
 
 public class KikaSendungVerpasstTaskTest extends KikaTaskTestBase {
 
@@ -38,9 +35,10 @@ public class KikaSendungVerpasstTaskTest extends KikaTaskTestBase {
   public void test() throws IOException {
     final String requestUrl =
         "https://www.kika.de/sendungen/ipg/ipg102-initialEntries_date-09032019_zc-8f00c70b.html";
-    final Connection connection =
+    jsoupConnection =
         JsoupMock.mock(requestUrl, "/kika/kika_days_page1_no_before_after.html");
-    when(jsoupConnection.getConnection(eq(requestUrl))).thenReturn(connection);
+    KikaCrawler crawler = createCrawler();
+    crawler.setConnection(jsoupConnection);
 
     final KikaCrawlerUrlDto[] expected =
         new KikaCrawlerUrlDto[] {
@@ -55,7 +53,7 @@ public class KikaSendungVerpasstTaskTest extends KikaTaskTestBase {
 
     final KikaSendungVerpasstTask target =
         new KikaSendungVerpasstTask(
-            createCrawler(), urls, getWireMockBaseUrlSafe(), jsoupConnection);
+            crawler, urls, getWireMockBaseUrlSafe());
     final Set<KikaCrawlerUrlDto> actual = target.invoke();
 
     assertThat(actual.size(), equalTo(expected.length));
@@ -78,23 +76,16 @@ public class KikaSendungVerpasstTaskTest extends KikaTaskTestBase {
             + "/sendungen/ipg/ipg102-afterEntries_date-10032019_max-1555_zc-8b42826a.html",
         "/kika/kika_days_page2_after.html");
 
-    final Map<String, Connection> resultMap = JsoupMock.mock(urlMapping);
-
-    resultMap.forEach(
-        (currentUrl, currentResultConnection) -> {
-          try {
-            when(jsoupConnection.getConnection(currentUrl)).thenReturn(currentResultConnection);
-          } catch (final IOException ioe) {
-            fail();
-          }
-        });
+    jsoupConnection = JsoupMock.mock(urlMapping);
+    KikaCrawler crawler = createCrawler();
+    crawler.setConnection(jsoupConnection);
 
     final Queue<CrawlerUrlDTO> urls = new ConcurrentLinkedQueue<>();
     urls.add(new CrawlerUrlDTO(requestUrl));
 
     final KikaSendungVerpasstTask target =
         new KikaSendungVerpasstTask(
-            createCrawler(), urls, getWireMockBaseUrlSafe(), jsoupConnection);
+            crawler, urls, getWireMockBaseUrlSafe());
     final Set<KikaCrawlerUrlDto> actual = target.invoke();
 
     assertThat(actual.size(), equalTo(15));

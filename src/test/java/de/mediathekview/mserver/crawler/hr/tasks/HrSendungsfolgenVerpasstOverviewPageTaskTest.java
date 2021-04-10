@@ -2,9 +2,9 @@ package de.mediathekview.mserver.crawler.hr.tasks;
 
 import de.mediathekview.mserver.base.webaccess.JsoupConnection;
 import de.mediathekview.mserver.crawler.basic.CrawlerUrlDTO;
+import de.mediathekview.mserver.crawler.hr.HrCrawler;
 import de.mediathekview.mserver.testhelper.JsoupMock;
 import org.hamcrest.Matchers;
-import org.jsoup.Connection;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
@@ -17,8 +17,6 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.mockito.ArgumentMatchers.eq;
-import static org.mockito.Mockito.when;
 
 public class HrSendungsfolgenVerpasstOverviewPageTaskTest extends HrTaskTestBase {
 
@@ -33,8 +31,9 @@ public class HrSendungsfolgenVerpasstOverviewPageTaskTest extends HrTaskTestBase
   public void test() throws IOException {
     final String requestUrl =
         "https://www.hr-fernsehen.de/tv-programm/guide_hrfernsehen-100~_date-2018-09-24.html";
-    final Connection connection = JsoupMock.mock(requestUrl, "/hr/hr_day_page.html");
-    when(jsoupConnection.getConnection(eq(requestUrl))).thenReturn(connection);
+    jsoupConnection = JsoupMock.mock(requestUrl, "/hr/hr_day_page.html");
+    HrCrawler crawler = createCrawler();
+    crawler.setConnection(jsoupConnection);
 
     final CrawlerUrlDTO[] expected =
         new CrawlerUrlDTO[] {
@@ -94,7 +93,7 @@ public class HrSendungsfolgenVerpasstOverviewPageTaskTest extends HrTaskTestBase
     urls.add(new CrawlerUrlDTO(requestUrl));
 
     final HrSendungsfolgenVerpasstOverviewPageTask target =
-        new HrSendungsfolgenVerpasstOverviewPageTask(createCrawler(), urls, jsoupConnection);
+        new HrSendungsfolgenVerpasstOverviewPageTask(crawler, urls);
     final Set<CrawlerUrlDTO> actual = target.invoke();
 
     assertThat(actual.size(), equalTo(expected.length));

@@ -2,7 +2,6 @@ package de.mediathekview.mserver.crawler.kika.tasks;
 
 import de.mediathekview.mserver.base.HtmlConsts;
 import de.mediathekview.mserver.base.utils.UrlUtils;
-import de.mediathekview.mserver.base.webaccess.JsoupConnection;
 import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
 import de.mediathekview.mserver.crawler.basic.AbstractDocumentTask;
 import de.mediathekview.mserver.crawler.basic.AbstractRecursiveConverterTask;
@@ -25,9 +24,8 @@ public class KikaTopicLandingPageTask extends AbstractDocumentTask<KikaCrawlerUr
   public KikaTopicLandingPageTask(
       final AbstractCrawler crawler,
       final Queue<KikaCrawlerUrlDto> urlToCrawlDtos,
-      final String baseUrl,
-      final JsoupConnection jsoupConnection) {
-    super(crawler, urlToCrawlDtos, jsoupConnection);
+      final String baseUrl) {
+    super(crawler, urlToCrawlDtos);
     this.baseUrl = baseUrl;
   }
 
@@ -57,6 +55,6 @@ public class KikaTopicLandingPageTask extends AbstractDocumentTask<KikaCrawlerUr
   @Override
   protected AbstractRecursiveConverterTask<KikaCrawlerUrlDto, KikaCrawlerUrlDto> createNewOwnInstance(
       final Queue<KikaCrawlerUrlDto> aElementsToProcess) {
-    return new KikaTopicLandingPageTask(crawler, aElementsToProcess, baseUrl, getJsoupConnection());
+    return new KikaTopicLandingPageTask(crawler, aElementsToProcess, baseUrl);
   }
 }

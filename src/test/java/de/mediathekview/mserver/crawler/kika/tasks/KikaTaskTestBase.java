@@ -12,13 +12,12 @@ import java.util.concurrent.ForkJoinPool;
 
 public abstract class KikaTaskTestBase extends WireMockTestBase {
 
-  protected MServerConfigManager rootConfig = new MServerConfigManager("MServer-JUnit-Config.yaml");
-
   protected KikaCrawler createCrawler() {
     final ForkJoinPool forkJoinPool = new ForkJoinPool();
     final Collection<MessageListener> nachrichten = new ArrayList<>();
     final Collection<SenderProgressListener> fortschritte = new ArrayList<>();
 
+    MServerConfigManager rootConfig = new MServerConfigManager("MServer-JUnit-Config.yaml");
     return new KikaCrawler(forkJoinPool, nachrichten, fortschritte, rootConfig);
   }
 }
