@@ -35,4 +35,10 @@ public final class SrfConstants {
    * Id der Sendung SportClip, die nicht unter Sendungen A-Z gelistet ist
    */
   public static final String ID_SHOW_SPORT_CLIP = "5327eac1-e5a1-40aa-9f71-707e48258097";
+
+  /**
+   * Sendung verpasst nach Datum
+   */
+  public static final String SCHEDULE_PER_DAY = "https://www.srf.ch/play/v3/api/srf/production/videos-by-date/%s";
+  
 }
