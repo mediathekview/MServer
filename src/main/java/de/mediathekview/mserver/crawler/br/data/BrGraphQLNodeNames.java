@@ -14,9 +14,9 @@ public enum BrGraphQLNodeNames {
   RESULT_ERRORS_NODE("errors"),
   RESULT_ROOT_NODE("data"),
   RESULT_ROOT_BR_NODE("viewer"),
-  RESUTL_CLIP_BROADCAST_ROOT("broadcasts"),
+  RESULT_CLIP_BROADCAST_ROOT("broadcasts"),
   RESULT_CLIP_BROADCASTSERVICE_ROOT("broadcastService"),
-  RESULt_CLIP_PROGRAMMES_ROOT("programmes"),
+  RESULT_CLIP_PROGRAMMES_ROOT("programmes"),
   RESULT_CLIP_CAPTION_FILES("captionFiles"),
   RESULT_CLIP_ID_ROOT("searchAllClips"),
   RESULT_CLIP_DETAILS_ROOT("clipDetails"),
@@ -29,9 +29,9 @@ public enum BrGraphQLNodeNames {
   RESULT_NODE("node")
   ;
   
-  private String nodeName;
+  private final String nodeName;
   
-  private BrGraphQLNodeNames(String nodeName) {
+  BrGraphQLNodeNames(String nodeName) {
     this.nodeName = nodeName;
   }
   

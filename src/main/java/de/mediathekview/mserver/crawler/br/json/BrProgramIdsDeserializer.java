@@ -80,13 +80,13 @@ public class BrProgramIdsDeserializer implements JsonDeserializer<BrClipCollectI
         BrGraphQLNodeNames.RESULT_ROOT_NODE.getName(),
         BrGraphQLNodeNames.RESULT_ROOT_BR_NODE.getName(),
         BrGraphQLNodeNames.RESULT_CLIP_BROADCASTSERVICE_ROOT.getName(),
-        BrGraphQLNodeNames.RESULt_CLIP_PROGRAMMES_ROOT.getName())) {
+        BrGraphQLNodeNames.RESULT_CLIP_PROGRAMMES_ROOT.getName())) {
       LOG.error(
           "one of the following elements is missing {}, {}, {}, {}",
           BrGraphQLNodeNames.RESULT_ROOT_NODE.getName(),
           BrGraphQLNodeNames.RESULT_ROOT_BR_NODE.getName(),
           BrGraphQLNodeNames.RESULT_CLIP_BROADCASTSERVICE_ROOT.getName(),
-          BrGraphQLNodeNames.RESULt_CLIP_PROGRAMMES_ROOT.getName());
+          BrGraphQLNodeNames.RESULT_CLIP_PROGRAMMES_ROOT.getName());
       return Optional.empty();
     }
 
@@ -98,7 +98,7 @@ public class BrProgramIdsDeserializer implements JsonDeserializer<BrClipCollectI
             .getAsJsonObject()
             .get(BrGraphQLNodeNames.RESULT_CLIP_BROADCASTSERVICE_ROOT.getName())
             .getAsJsonObject()
-            .get(BrGraphQLNodeNames.RESULt_CLIP_PROGRAMMES_ROOT.getName())
+            .get(BrGraphQLNodeNames.RESULT_CLIP_PROGRAMMES_ROOT.getName())
             .getAsJsonObject();
 
     if (programmesObject.isJsonNull()) {

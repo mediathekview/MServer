@@ -27,9 +27,9 @@ public enum BrGraphQLElementNames {
   STRING_CLIP_FILE_SIZE("fileSize")
   ;
   
-  private String elementName;
+  private final String elementName;
   
-  private BrGraphQLElementNames(String elementName) {
+  BrGraphQLElementNames(String elementName) {
     this.elementName = elementName;
   }
   

@@ -16,7 +16,7 @@ import de.mediathekview.mserver.crawler.br.graphql.AbstractVariable;
 
 public class VariableList extends AbstractVariable<List<AbstractVariable>> {
 
-  private boolean isRootNode = false;
+  private boolean isRootNode;
   
   public VariableList(String name, List<AbstractVariable> values) {
     super(name, values);
@@ -33,7 +33,7 @@ public class VariableList extends AbstractVariable<List<AbstractVariable>> {
   
   @Override
   protected String getVariable() {
-    return getAsJSONWithoutValue() + getVariableWithCurlyBracketsSurrounding(this.value.stream().map(variableListElement -> variableListElement.getJSONFromVariableOrDefaulNull()).collect(Collectors.joining(",")));
+    return getAsJSONWithoutValue() + getVariableWithCurlyBracketsSurrounding(this.value.stream().map(AbstractVariable::getJSONFromVariableOrDefaulNull).collect(Collectors.joining(",")));
   }
   
   private void changeAllChildElementsToBeNoRootElement() {
@@ -41,7 +41,7 @@ public class VariableList extends AbstractVariable<List<AbstractVariable>> {
       this.value.stream()
                 .filter(VariableList.class::isInstance)
                 .map(VariableList.class::cast)
-                .forEach((VariableList v) -> v.setNodeType2NotRoot());
+                .forEach(VariableList::setNodeType2NotRoot);
     }
   }
   

@@ -7,7 +7,7 @@ import java.util.Optional;
 
 public class BrQueryDto extends GraphQlUrlDto {
 
-  private String broadcastServiceName;
+  private final String broadcastServiceName;
   private final LocalDate start;
   private final LocalDate end;
   private final int pageSize;

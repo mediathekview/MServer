@@ -14,7 +14,7 @@ public abstract class AbstractVariable<T> {
   protected T value;
   protected boolean notNullType = false; // Default = false: http://facebook.github.io/graphql/October2016/#sec-Types.Non-Null 
   
-  public AbstractVariable(String name, T value) {
+  protected AbstractVariable(String name, T value) {
     this.name = name;
     this.value = value;
   }
@@ -47,10 +47,6 @@ public abstract class AbstractVariable<T> {
 
   public void setAsNotNullableType() {
     this.notNullType = true;
-  }
-  
-  public void setAsNullableType() {
-    this.notNullType = false;
   }
   
   public boolean isNullableType() {
