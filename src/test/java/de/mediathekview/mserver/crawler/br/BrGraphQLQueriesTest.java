@@ -13,7 +13,6 @@ import de.mediathekview.mserver.crawler.br.graphql.variables.BooleanVariable;
 import de.mediathekview.mserver.crawler.br.graphql.variables.StringVariable;
 import de.mediathekview.mserver.crawler.br.graphql.variables.VariableList;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.Optional;
 import org.junit.After;
 import org.junit.Test;
@@ -24,7 +23,6 @@ import java.util.List;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThat;
-import static org.junit.Assert.assertThrows;
 
 public class BrGraphQLQueriesTest {
 
@@ -86,12 +84,12 @@ public class BrGraphQLQueriesTest {
   public void testQuery2GetClipDetails() {
     BrID id = new BrID(BrClipType.PROGRAMME, "av:5a0603ce8c16b90012f4bc49");
       assertEquals(
-              "{\"query\":\"query MediathekViewGetClipDetails(  $clipID: ID!) { viewer {  clipDetails: clip(id: $clipID) { __typename id title kicker duration ageRestriction description shortDescription slug availableUntil  authors { count  edges {  node { id name  }   }   }   subjects { count  edges {  node { id  }   }   }   tags { count  edges {  node { id label  }   }   }   executiveProducers { count  edges {  node { id name  }   }   }   credits { count  edges {  node { id name  }   }   }   categorizations { count  edges {  node { id  }   }   }   genres { count  edges {  node { id label  }   }   }   videoFiles(first: 50, orderBy: FILESIZE_DESC) { count  edges {  node { id publicLocation  accessibleIn(first: 50) { count  edges {  node { id baseIdPrefix  }   }   }   videoProfile { id height width  }   }   }   }   captionFiles(first: 50, orderBy: FILESIZE_DESC) { count  edges {  node { id publicLocation  }   }   }   ... on ItemInterface { availableUntil  itemOf { count  edges {  node { id title  }   }   }   }   ... on ProgrammeInterface { episodeNumber  episodeOf { id title kicker scheduleInfo shortDescription  }   initialScreening { start id  }   }   }  id  } }\",\"variables\":{\"clipID\":\"av:5a0603ce8c16b90012f4bc49\"}}",
+              "{\"query\":\"query MediathekViewGetClipDetails(  $clipID: ID!) { viewer {  clipDetails: clip(id: $clipID) { __typename id title kicker duration ageRestriction description shortDescription slug availableUntil  authors { count  edges {  node { id name  }   }   }   subjects { count  edges {  node { id  }   }   }   tags { count  edges {  node { id label  }   }   }   executiveProducers { count  edges {  node { id name  }   }   }   credits { count  edges {  node { id name  }   }   }   categorizations { count  edges {  node { id  }   }   }   genres { count  edges {  node { id label  }   }   }   videoFiles(first: 50, orderBy: FILESIZE_DESC) { count  edges {  node { id fileSize publicLocation  accessibleIn(first: 50) { count  edges {  node { id baseIdPrefix  }   }   }   videoProfile { id height width  }   }   }   }   captionFiles(first: 50, orderBy: FILESIZE_DESC) { count  edges {  node { id publicLocation  }   }   }   ... on ItemInterface { availableUntil  itemOf { count  edges {  node { id title  }   }   }   }   ... on ProgrammeInterface { episodeNumber  episodeOf { id title kicker scheduleInfo shortDescription  }   initialScreening { start id  }   }   }  id  } }\",\"variables\":{\"clipID\":\"av:5a0603ce8c16b90012f4bc49\"}}",
               BrGraphQLQueries.getQuery2GetClipDetails(id));
   }
 
   @Test
-  public void testFooterGenerator() throws Exception {
+  public void testFooterGenerator() {
 
     BooleanVariable bv = new BooleanVariable("isClip", true);
     List<AbstractVariable> rootList = new LinkedList<>();
