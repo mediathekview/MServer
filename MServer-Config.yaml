@@ -102,9 +102,6 @@ maximumDaysForSendungVerpasstSectionFuture: 0
 # The time in seconds before a socket connection should time out.
 socketTimeoutInSeconds: 60
 
-crawlerURLs:
-  BR_API_URL: https://proxy-base.master.mango.express/graphql
-
 
 #### Specific crawler configurations ####
 senderConfigurations:
