@@ -17,7 +17,11 @@ import com.google.gson.JsonSyntaxException;
 import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
 import de.mediathekview.mserver.crawler.br.BrWebAccessExecution;
 
-public class BrWebAccessHelper<V> {
+import javax.ws.rs.ServerErrorException;
+
+public class BrWebAccessHelper {
+
+    private BrWebAccessHelper() {}
 
     public static void handleWebAccessExecution(Logger log, AbstractCrawler crawler, BrWebAccessExecution action) {
         try {
@@ -28,6 +32,8 @@ public class BrWebAccessHelper<V> {
             handleError("The URL given to WebAccess is not valid.", malformedURLException, log, crawler);
         } catch (final IllegalArgumentException illegalArgumentException) {
             handleError("URL given to the WebAccess was Null", illegalArgumentException, log, crawler);
+        } catch (final ServerErrorException serverErrorException) {
+            handleError("Error access br api", serverErrorException, log, crawler);
         }
     }
     
