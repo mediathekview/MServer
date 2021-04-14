@@ -11,6 +11,7 @@ package de.mediathekview.mserver.crawler.br.json;
 import com.google.gson.*;
 import de.mediathekview.mlib.daten.Film;
 import de.mediathekview.mlib.daten.FilmUrl;
+import de.mediathekview.mlib.daten.GeoLocations;
 import de.mediathekview.mlib.daten.Resolution;
 import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
 import de.mediathekview.mserver.crawler.br.data.BrClipType;
@@ -273,7 +274,10 @@ public class BrClipDetailsDeserializer implements JsonDeserializer<Optional<Film
       final JsonObject clipDetailRoot = clipDetails.get();
 
       if (id.getType() == null) {
-        String type = clipDetailRoot.getAsJsonPrimitive(BrGraphQLElementNames.GRAPHQL_TYPE_ELEMENT.getName()).getAsString();
+        String type =
+            clipDetailRoot
+                .getAsJsonPrimitive(BrGraphQLElementNames.GRAPHQL_TYPE_ELEMENT.getName())
+                .getAsString();
         this.id.setType(BrClipType.getInstanceByName(type));
       }
       // Done
@@ -282,9 +286,7 @@ public class BrClipDetailsDeserializer implements JsonDeserializer<Optional<Film
       final Optional<LocalDateTime> sendeZeitpunkt = getSendeZeitpunkt(clipDetailRoot);
       final Optional<Duration> clipLaenge = getClipLaenge(clipDetailRoot);
 
-      // Todo
       final Optional<Set<URL>> subtitles = getSubtitles(clipDetailRoot);
-      // final Optional<Set<GeoLocations>> geoLocations = Optional.empty();
       final Optional<Map<Resolution, FilmUrl>> videoUrls = getVideos(clipDetailRoot);
       final Optional<String> beschreibung = getBeschreibung(clipDetailRoot);
       final Optional<URL> webSite = getWebSite(clipDetailRoot);
@@ -301,6 +303,7 @@ public class BrClipDetailsDeserializer implements JsonDeserializer<Optional<Film
 
         videoUrls.ifPresent(currentFilm::addAllUrls);
 
+        currentFilm.setGeoLocations(getGeoLocations(currentFilm.getUrl(Resolution.NORMAL)));
         beschreibung.ifPresent(currentFilm::setBeschreibung);
 
         currentFilm.setWebsite(webSite.orElse(null));
@@ -318,6 +321,18 @@ public class BrClipDetailsDeserializer implements JsonDeserializer<Optional<Film
     }
     crawler.incrementAndGetErrorCount();
     return Optional.empty();
+  }
+
+  private Collection<GeoLocations> getGeoLocations(final FilmUrl videoUrls) {
+    Set<GeoLocations> geoLocations = new HashSet<>();
+
+    if (videoUrls.getUrl().toString().contains("/geo/")) {
+      geoLocations.add(GeoLocations.GEO_DE);
+    } else {
+      geoLocations.add(GeoLocations.GEO_NONE);
+    }
+
+    return geoLocations;
   }
 
   private Optional<JsonObject> getClipDetailsNode(final JsonObject rootObject) {
@@ -496,7 +511,8 @@ public class BrClipDetailsDeserializer implements JsonDeserializer<Optional<Film
       return Optional.empty();
     }
 
-    final String startDateTimeString = initialScreening.get(BrGraphQLElementNames.STRING_CLIP_START.getName()).getAsString();
+    final String startDateTimeString =
+        initialScreening.get(BrGraphQLElementNames.STRING_CLIP_START.getName()).getAsString();
 
     return Optional.of(brDateTimeString2LocalDateTime(startDateTimeString));
   }
