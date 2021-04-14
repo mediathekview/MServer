@@ -43,8 +43,8 @@ public class BrProgramIdsDeserializer implements JsonDeserializer<BrClipCollectI
     Optional<JsonObject> searchAllClips = getClipIDsBaseNode(json);
     if (searchAllClips.isPresent()) {
 
-      Optional<Boolean> hasNextClipPage = clipIdResultsHasNextPage(searchAllClips.get());
-      if (hasNextClipPage.isPresent() && hasNextClipPage.get()) {
+      boolean hasNextClipPage = clipIdResultsHasNextPage(searchAllClips.get());
+      if (hasNextClipPage) {
         idCollectResult.setHasNextPage();
       } else {
         idCollectResult.setHasNonNextPage();
@@ -123,12 +123,12 @@ public class BrProgramIdsDeserializer implements JsonDeserializer<BrClipCollectI
     return Optional.of(elementCount.getAsInt());
   }
 
-  private Optional<Boolean> clipIdResultsHasNextPage(JsonObject searchAllClipsNode) {
+  private boolean clipIdResultsHasNextPage(JsonObject searchAllClipsNode) {
     Optional<JsonObject> searchAllClipsNodeOptional =
         GsonGraphQLHelper.getChildObjectIfExists(
             searchAllClipsNode, BrGraphQLNodeNames.RESULT_PAGE_INFO.getName());
     if (searchAllClipsNodeOptional.isEmpty()) {
-      return Optional.empty();
+      return false;
     }
     JsonObject resultPageInfo = searchAllClipsNodeOptional.get();
 
@@ -136,15 +136,15 @@ public class BrProgramIdsDeserializer implements JsonDeserializer<BrClipCollectI
         GsonGraphQLHelper.getChildPrimitiveIfExists(
             resultPageInfo, BrGraphQLElementNames.BOOLEAN_HAS_NEXT_PAGE.getName());
     if (hasNextPageOptional.isEmpty()) {
-      return Optional.empty();
+      return false;
     }
 
     JsonPrimitive hasNextPage = hasNextPageOptional.get();
     if (!hasNextPage.isBoolean()) {
-      return Optional.empty();
+      return false;
     }
 
-    return Optional.of(hasNextPage.getAsBoolean());
+    return hasNextPage.getAsBoolean();
   }
 
   private Optional<JsonArray> getClipIdEdges(JsonObject searchAllClipsNode) {
