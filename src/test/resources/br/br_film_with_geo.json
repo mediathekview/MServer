@@ -1,1 +1,236 @@
-{"data":{"viewer":{"clipDetails":{"__typename":"Programme","id":"av:5be427420d112e0018031587","title":"Gernstl in Oberfranken (1/2)","kicker":"Gernstl - Sieben mal Bayern | Reportage","duration":817,"ageRestriction":null,"description":"Das filmische Pfadfinderteam ist wieder unterwegs: Franz X. Gernstl, HP Fischer (Kamera) und Stefan Ravasz (Ton) haben sich die sieben Regierungsbezirke vorgenommen. Sie wollen herauszufinden, wie die Bayern sind. Was sie ausmacht, die Franken, die Schwaben und die Altbayern. Was sie gemeinsam haben, und was sie unterscheidet.","shortDescription":"Das filmische Pfadfinderteam ist wieder unterwegs: Franz X. Gernstl, HP Fischer (Kamera) und Stefan Ravasz (Ton) haben sich die sieben Regierungsbezirke vorgenommen. Sie wollen herausfinden, wie die Bayern sind. Was sie ausmacht, die Franken, die Schwaben und die Altbayern. Was sie gemeinsam haben, und was sie unterscheidet.","slug":"gernstl-sieben-mal-bayern-reportage-gernstl-in-oberfranken-1-2","availableUntil":null,"authors":{"count":1,"edges":[{"node":{"id":"av:5a36f774a3e96100189bf466","name":"Franz X. Gernstl"}}]},"subjects":{"count":0,"edges":[]},"tags":{"count":0,"edges":[]},"executiveProducers":{"count":0,"edges":[]},"credits":{"count":1,"edges":[{"node":{"id":"av:5a36f774a3e96100189bf466","name":"Franz X. Gernstl"}}]},"categorizations":{"count":6,"edges":[{"node":{"id":"av:http://ard.de/ontologies/categories#bayern"}},{"node":{"id":"av:http://ard.de/ontologies/categories#heimat"}},{"node":{"id":"av:http://ard.de/ontologies/categories#reise"}},{"node":{"id":"av:http://br.de/ontologies/viam/categories#gesellschaft-und-soziales"}},{"node":{"id":"av:http://br.de/ontologies/viam/formats#dokumentarbericht"}},{"node":{"id":"av:http://ard.de/ontologies/genres#reportage"}}]},"genres":{"count":1,"edges":[{"node":{"id":"av:http://ard.de/ontologies/genres#reportage","label":"Reportage"}}]},"videoFiles":{"count":6,"edges":[{"node":{"id":"av:5beaf78e6073210018d2f177","publicLocation":"https://cdn-storage.br.de/geo/b7/2018-11/13/5fed645ae75e11e8bca2984be109059a_X.mp4","accessibleIn":{"count":0,"edges":[]},"videoProfile":{"id":"av:http://ard.de/ontologies/audioVideo#VideoProfile_HD","height":720,"width":1280}}},{"node":{"id":"av:5beaf78e6073210018d2f175","publicLocation":"https://cdn-storage.br.de/geo/b7/2018-11/13/5fed645ae75e11e8bca2984be109059a_C.mp4","accessibleIn":{"count":0,"edges":[]},"videoProfile":{"id":"av:http://ard.de/ontologies/audioVideo#VideoProfile_Premium","height":540,"width":969}}},{"node":{"id":"av:5beaf78e6073210018d2f176","publicLocation":"https://cdn-storage.br.de/geo/b7/2018-11/13/5fed645ae75e11e8bca2984be109059a_E.mp4","accessibleIn":{"count":0,"edges":[]},"videoProfile":{"id":"av:http://ard.de/ontologies/audioVideo#VideoProfile_Large","height":360,"width":640}}},{"node":{"id":"av:5beaf78e6073210018d2f174","publicLocation":"https://cdn-storage.br.de/geo/b7/2018-11/13/5fed645ae75e11e8bca2984be109059a_B.mp4","accessibleIn":{"count":0,"edges":[]},"videoProfile":{"id":"av:http://ard.de/ontologies/audioVideo#VideoProfile_Standard","height":288,"width":512}}},{"node":{"id":"av:5beaf78e6073210018d2f173","publicLocation":"https://cdn-storage.br.de/geo/b7/2018-11/13/5fed645ae75e11e8bca2984be109059a_A.mp4","accessibleIn":{"count":0,"edges":[]},"videoProfile":{"id":"av:http://ard.de/ontologies/audioVideo#VideoProfile_Mobile","height":270,"width":480}}},{"node":{"id":"av:5beaf78e6073210018d2f178","publicLocation":"https://br-i.akamaihd.net/i/geo/b7/2018-11/13/5fed645ae75e11e8bca2984be109059a_,A,E,C,X,.mp4.csmil/master.m3u8?__b__=200","accessibleIn":{"count":0,"edges":[]},"videoProfile":{"id":"av:http://ard.de/ontologies/audioVideo#VideoProfile_HLS","height":null,"width":null}}}]},"captionFiles":{"count":0,"edges":[]},"episodeNumber":null,"episodeOf":{"id":"av:584f4c7a3b467900117c2417","title":"Gernstl unterwegs","kicker":"Gernstl unterwegs","scheduleInfo":"Reisereportagen mit Franz Xaver Gernstl","shortDescription":"Franz Xaver Gernstl und sein Team, Kameramann Hans Peter Fischer und Tonmann Stefan Ravasz, muss man nicht mehr vorstellen – sie sind über die Grenzen Bayerns hinaus bekannt, für ihre feinen und eigenwilligen Reisereportagen."},"initialScreening":{"start":"2021-05-09T13:00:00.000Z","id":"av:5be427420d112e0018031587|606f385a76dfa7001a51d0d6"}},"id":"Viewer:__VIEWER"}}}
+{
+  "data":{
+    "viewer":{
+      "clipDetails":{
+        "__typename":"Programme",
+        "id":"av:5be427420d112e0018031587",
+        "title":"Gernstl in Oberfranken (1/2)",
+        "kicker":"Gernstl - Sieben mal Bayern | Reportage",
+        "duration":817,
+        "ageRestriction":null,
+        "description":"Das filmische Pfadfinderteam ist wieder unterwegs: Franz X. Gernstl, HP Fischer (Kamera) und Stefan Ravasz (Ton) haben sich die sieben Regierungsbezirke vorgenommen. Sie wollen herauszufinden, wie die Bayern sind. Was sie ausmacht, die Franken, die Schwaben und die Altbayern. Was sie gemeinsam haben, und was sie unterscheidet.",
+        "shortDescription":"Das filmische Pfadfinderteam ist wieder unterwegs: Franz X. Gernstl, HP Fischer (Kamera) und Stefan Ravasz (Ton) haben sich die sieben Regierungsbezirke vorgenommen. Sie wollen herausfinden, wie die Bayern sind. Was sie ausmacht, die Franken, die Schwaben und die Altbayern. Was sie gemeinsam haben, und was sie unterscheidet.",
+        "slug":"gernstl-sieben-mal-bayern-reportage-gernstl-in-oberfranken-1-2",
+        "availableUntil":null,
+        "authors":{
+          "count":1,
+          "edges":[
+            {
+              "node":{
+                "id":"av:5a36f774a3e96100189bf466",
+                "name":"Franz X. Gernstl"
+              }
+            }
+          ]
+        },
+        "subjects":{
+          "count":0,
+          "edges":[
+
+          ]
+        },
+        "tags":{
+          "count":0,
+          "edges":[
+
+          ]
+        },
+        "executiveProducers":{
+          "count":0,
+          "edges":[
+
+          ]
+        },
+        "credits":{
+          "count":1,
+          "edges":[
+            {
+              "node":{
+                "id":"av:5a36f774a3e96100189bf466",
+                "name":"Franz X. Gernstl"
+              }
+            }
+          ]
+        },
+        "categorizations":{
+          "count":6,
+          "edges":[
+            {
+              "node":{
+                "id":"av:http://ard.de/ontologies/categories#bayern"
+              }
+            },
+            {
+              "node":{
+                "id":"av:http://ard.de/ontologies/categories#heimat"
+              }
+            },
+            {
+              "node":{
+                "id":"av:http://ard.de/ontologies/categories#reise"
+              }
+            },
+            {
+              "node":{
+                "id":"av:http://br.de/ontologies/viam/categories#gesellschaft-und-soziales"
+              }
+            },
+            {
+              "node":{
+                "id":"av:http://br.de/ontologies/viam/formats#dokumentarbericht"
+              }
+            },
+            {
+              "node":{
+                "id":"av:http://ard.de/ontologies/genres#reportage"
+              }
+            }
+          ]
+        },
+        "genres":{
+          "count":1,
+          "edges":[
+            {
+              "node":{
+                "id":"av:http://ard.de/ontologies/genres#reportage",
+                "label":"Reportage"
+              }
+            }
+          ]
+        },
+        "videoFiles":{
+          "count":6,
+          "edges":[
+            {
+              "node":{
+                "id":"av:5beaf78e6073210018d2f177",
+                "fileSize":385411812,
+                "publicLocation":"https://cdn-storage.br.de/geo/b7/2018-11/13/5fed645ae75e11e8bca2984be109059a_X.mp4",
+                "accessibleIn":{
+                  "count":0,
+                  "edges":[
+
+                  ]
+                },
+                "videoProfile":{
+                  "id":"av:http://ard.de/ontologies/audioVideo#VideoProfile_HD",
+                  "height":720,
+                  "width":1280
+                }
+              }
+            },
+            {
+              "node":{
+                "id":"av:5beaf78e6073210018d2f175",
+                "fileSize":203231582,
+                "publicLocation":"https://cdn-storage.br.de/geo/b7/2018-11/13/5fed645ae75e11e8bca2984be109059a_C.mp4",
+                "accessibleIn":{
+                  "count":0,
+                  "edges":[
+
+                  ]
+                },
+                "videoProfile":{
+                  "id":"av:http://ard.de/ontologies/audioVideo#VideoProfile_Premium",
+                  "height":540,
+                  "width":969
+                }
+              }
+            },
+            {
+              "node":{
+                "id":"av:5beaf78e6073210018d2f176",
+                "fileSize":124003789,
+                "publicLocation":"https://cdn-storage.br.de/geo/b7/2018-11/13/5fed645ae75e11e8bca2984be109059a_E.mp4",
+                "accessibleIn":{
+                  "count":0,
+                  "edges":[
+
+                  ]
+                },
+                "videoProfile":{
+                  "id":"av:http://ard.de/ontologies/audioVideo#VideoProfile_Large",
+                  "height":360,
+                  "width":640
+                }
+              }
+            },
+            {
+              "node":{
+                "id":"av:5beaf78e6073210018d2f174",
+                "fileSize":61923465,
+                "publicLocation":"https://cdn-storage.br.de/geo/b7/2018-11/13/5fed645ae75e11e8bca2984be109059a_B.mp4",
+                "accessibleIn":{
+                  "count":0,
+                  "edges":[
+
+                  ]
+                },
+                "videoProfile":{
+                  "id":"av:http://ard.de/ontologies/audioVideo#VideoProfile_Standard",
+                  "height":288,
+                  "width":512
+                }
+              }
+            },
+            {
+              "node":{
+                "id":"av:5beaf78e6073210018d2f173",
+                "fileSize":32507304,
+                "publicLocation":"https://cdn-storage.br.de/geo/b7/2018-11/13/5fed645ae75e11e8bca2984be109059a_A.mp4",
+                "accessibleIn":{
+                  "count":0,
+                  "edges":[
+
+                  ]
+                },
+                "videoProfile":{
+                  "id":"av:http://ard.de/ontologies/audioVideo#VideoProfile_Mobile",
+                  "height":270,
+                  "width":480
+                }
+              }
+            },
+            {
+              "node":{
+                "id":"av:5beaf78e6073210018d2f178",
+                "fileSize":null,
+                "publicLocation":"https://br-i.akamaihd.net/i/geo/b7/2018-11/13/5fed645ae75e11e8bca2984be109059a_,A,E,C,X,.mp4.csmil/master.m3u8?__b__=200",
+                "accessibleIn":{
+                  "count":0,
+                  "edges":[
+
+                  ]
+                },
+                "videoProfile":{
+                  "id":"av:http://ard.de/ontologies/audioVideo#VideoProfile_HLS",
+                  "height":null,
+                  "width":null
+                }
+              }
+            }
+          ]
+        },
+        "captionFiles":{
+          "count":0,
+          "edges":[
+
+          ]
+        },
+        "episodeNumber":null,
+        "episodeOf":{
+          "id":"av:584f4c7a3b467900117c2417",
+          "title":"Gernstl unterwegs",
+          "kicker":"Gernstl unterwegs",
+          "scheduleInfo":"Reisereportagen mit Franz Xaver Gernstl",
+          "shortDescription":"Franz Xaver Gernstl und sein Team, Kameramann Hans Peter Fischer und Tonmann Stefan Ravasz, muss man nicht mehr vorstellen – sie sind über die Grenzen Bayerns hinaus bekannt, für ihre feinen und eigenwilligen Reisereportagen."
+        },
+        "initialScreening":{
+          "start":"2021-05-09T13:00:00.000Z",
+          "id":"av:5be427420d112e0018031587|606f385a76dfa7001a51d0d6"
+        }
+      },
+      "id":"Viewer:__VIEWER"
+    }
+  }
+}
