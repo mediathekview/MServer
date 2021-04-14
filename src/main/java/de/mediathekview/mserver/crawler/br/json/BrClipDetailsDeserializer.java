@@ -291,7 +291,10 @@ public class BrClipDetailsDeserializer implements JsonDeserializer<Optional<Film
       final Optional<String> beschreibung = getBeschreibung(clipDetailRoot);
       final Optional<URL> webSite = getWebSite(clipDetailRoot);
 
-      if (titel.isPresent() && thema.isPresent() && clipLaenge.isPresent()) {
+      if (videoUrls.isPresent()
+          && titel.isPresent()
+          && thema.isPresent()
+          && clipLaenge.isPresent()) {
         final Film currentFilm =
             new Film(
                 UUID.randomUUID(),
@@ -312,11 +315,12 @@ public class BrClipDetailsDeserializer implements JsonDeserializer<Optional<Film
         return Optional.of(currentFilm);
       } else {
         LOG.error(
-            "Kein komplett gültiger Film: {} Titel da? {} Thema da? {} Länge da? {}",
+            "Kein komplett gültiger Film: {} Titel da? {} Thema da? {} Länge da? {} Video da? {}",
             id.getId(),
             titel.isPresent(),
             thema.isPresent(),
-            clipLaenge.isPresent());
+            clipLaenge.isPresent(),
+            videoUrls.isPresent());
       }
     }
     crawler.incrementAndGetErrorCount();
