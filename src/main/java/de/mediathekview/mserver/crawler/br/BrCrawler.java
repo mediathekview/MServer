@@ -59,7 +59,7 @@ public class BrCrawler extends AbstractCrawler {
       printErrorMessage();
     }
 
-    return new BrGetClipDetailsTask(this, idList);
+    return new BrGetClipDetailsTask(this, idList, BrConstants.GRAPHQL_API);
   }
 
   private RecursiveTask<Set<BrID>> createGetClipListCrawler() {

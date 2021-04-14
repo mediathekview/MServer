@@ -7,6 +7,7 @@ import java.net.URL;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import static org.hamcrest.CoreMatchers.*;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -73,7 +74,8 @@ public final class AssertFilm {
     assertThat(aActualFilm.hasUT(), equalTo(!aExpectedSubtitle.isEmpty()));
     if (!aExpectedSubtitle.isEmpty()) {
       assertThat(
-          aActualFilm.getSubtitles().toArray(new URL[0])[0].toString(), equalTo(aExpectedSubtitle));
+          aActualFilm.getSubtitles().stream().map(URL::toString).collect(Collectors.toList()),
+          hasItem(aExpectedSubtitle));
     }
   }
 

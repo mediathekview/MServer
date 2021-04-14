@@ -5,7 +5,6 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import de.mediathekview.mlib.communication.WebAccessHelper;
 import de.mediathekview.mlib.daten.Film;
-import de.mediathekview.mserver.base.config.CrawlerUrlType;
 import de.mediathekview.mserver.base.config.MServerBasicConfigDTO;
 import de.mediathekview.mserver.base.config.MServerConfigManager;
 import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
@@ -34,11 +33,14 @@ public class BrGetClipDetailsTask extends RecursiveTask<Set<Film>> {
   private final Queue<BrID> clipQueue;
   private final transient Set<Film> convertedFilms;
   private final transient MServerBasicConfigDTO config;
+  private final String apiUrl;
 
-  public BrGetClipDetailsTask(final AbstractCrawler crawler, final Queue<BrID> clipQueue) {
+  public BrGetClipDetailsTask(
+      final AbstractCrawler crawler, final Queue<BrID> clipQueue, final String apiUrl) {
     this.crawler = crawler;
     this.clipQueue = clipQueue;
     config = MServerConfigManager.getInstance().getSenderConfig(crawler.getSender());
+    this.apiUrl = apiUrl;
     convertedFilms = ConcurrentHashMap.newKeySet();
   }
 
@@ -70,23 +72,15 @@ public class BrGetClipDetailsTask extends RecursiveTask<Set<Film>> {
                       optionalFilmType, new BrClipDetailsDeserializer(crawler, singleClipId))
                   .create();
 
-          final Optional<URL> apiUrl =
-              crawler.getRuntimeConfig().getSingleCrawlerURL(CrawlerUrlType.BR_API_URL);
-          if (apiUrl.isPresent()) {
-            final String response =
-                WebAccessHelper.getJsonResultFromPostAccess(
-                    apiUrl.get(),
-                    BrGraphQLQueries.getQuery2GetClipDetails(singleClipId),
-                    config.getSocketTimeoutInSeconds());
+          final String response =
+              WebAccessHelper.getJsonResultFromPostAccess(
+                  new URL(apiUrl),
+                  BrGraphQLQueries.getQuery2GetClipDetails(singleClipId),
+                  config.getSocketTimeoutInSeconds());
 
-            if (!tryBrApiCall(gson, response, optionalFilmType)) {
-              crawler.incrementAndGetErrorCount();
-              crawler.updateProgress();
-            }
-
-          } else {
-            crawler.printErrorMessage();
-            LOG.error("The BR Api URL wasn't set right.");
+          if (!tryBrApiCall(gson, response, optionalFilmType)) {
+            crawler.incrementAndGetErrorCount();
+            crawler.updateProgress();
           }
         });
   }
@@ -123,8 +117,8 @@ public class BrGetClipDetailsTask extends RecursiveTask<Set<Film>> {
       filmIdsToFilms(clipQueue);
     } else {
       final BrGetClipDetailsTask rightTask =
-          new BrGetClipDetailsTask(crawler, consumeHalfQueueToReturningOne(clipQueue));
-      final BrGetClipDetailsTask leftTask = new BrGetClipDetailsTask(crawler, clipQueue);
+          new BrGetClipDetailsTask(crawler, consumeHalfQueueToReturningOne(clipQueue), apiUrl);
+      final BrGetClipDetailsTask leftTask = new BrGetClipDetailsTask(crawler, clipQueue, apiUrl);
       leftTask.fork();
       convertedFilms.addAll(rightTask.compute());
       convertedFilms.addAll(leftTask.join());
