@@ -111,6 +111,6 @@ public class FunkVideosToFilmsTaskTest extends FunkTaskTestBase {
   private Set<Film> executeTask(
       final Queue<FilmInfoDto> filmInfos, final Map<String, FunkChannelDTO> channels) {
     final FunkCrawler crawler = createCrawler();
-    return new FunkVideosToFilmsTask(crawler, 0L, filmInfos, channels, null).invoke();
+    return new FunkVideosToFilmsTask(crawler, filmInfos, channels, null).invoke();
   }
 }

@@ -1,16 +1,19 @@
 package de.mediathekview.mserver.crawler.funk.json;
 
 import java.util.Objects;
+import java.util.Optional;
 
 public class NexxResolutionDTO {
   private final int widht;
   private final int height;
   private final int size;
+  private Optional<String> fileId;
 
-  public NexxResolutionDTO(final int widht, final int height, final int size) {
+  public NexxResolutionDTO(final int widht, final int height, final int size, Optional<String> aFileId) {
     this.widht = widht;
     this.height = height;
     this.size = size;
+    this.fileId = aFileId;
   }
 
   public int getWidht() {
@@ -23,6 +26,10 @@ public class NexxResolutionDTO {
 
   public int getSize() {
     return size;
+  }
+
+  public Optional<String> getFileId() {
+    return fileId;
   }
 
   @Override

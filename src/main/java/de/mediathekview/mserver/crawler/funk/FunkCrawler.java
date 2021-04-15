@@ -4,6 +4,7 @@ import de.mediathekview.mlib.daten.Film;
 import de.mediathekview.mlib.daten.Sender;
 import de.mediathekview.mlib.messages.listener.MessageListener;
 import de.mediathekview.mserver.base.config.MServerConfigManager;
+import de.mediathekview.mserver.base.messages.ServerMessages;
 import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
 import de.mediathekview.mserver.crawler.basic.CrawlerUrlDTO;
 import de.mediathekview.mserver.crawler.basic.FilmInfoDto;
@@ -12,7 +13,6 @@ import de.mediathekview.mserver.crawler.funk.json.FunkVideoDeserializer;
 import de.mediathekview.mserver.crawler.funk.tasks.FunkRestEndpoint;
 import de.mediathekview.mserver.crawler.funk.tasks.FunkRestTask;
 import de.mediathekview.mserver.crawler.funk.tasks.FunkVideosToFilmsTask;
-import de.mediathekview.mserver.crawler.funk.tasks.NexxCloudSessionInitiationTask;
 import de.mediathekview.mserver.progress.listeners.SenderProgressListener;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -59,10 +59,10 @@ public class FunkCrawler extends AbstractCrawler {
       final Queue<FilmInfoDto> filmInfos = new ConcurrentLinkedQueue<>(featureLatestVideos.get());
       filmInfos.addAll(featureChannelVideos.get());
 
-      final Long sessionId = forkJoinPool.submit(new NexxCloudSessionInitiationTask(this)).get();
-      if (sessionId != null) {
-        return new FunkVideosToFilmsTask(this, sessionId, filmInfos, channels, null);
-      }
+      printMessage(ServerMessages.DEBUG_ALL_SENDUNG_FOLGEN_COUNT, getSender().getName(), filmInfos.size());
+      getAndSetMaxCount(filmInfos.size());
+
+      return new FunkVideosToFilmsTask(this, filmInfos, channels, null);
     } catch (final InterruptedException interruptedException) {
       printErrorMessage();
       LOG.debug("Funk got interrupted.", interruptedException);
