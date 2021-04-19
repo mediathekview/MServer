@@ -2,6 +2,7 @@ package mServer.crawler.sender.arte;
 
 import java.util.concurrent.Callable;
 
+import de.mediathekview.mlib.tool.Log;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -38,6 +39,7 @@ public class ArteJsonObjectToDatenFilmCallable implements Callable<Set<DatenFilm
     } catch (Exception e) {
       e.printStackTrace();
       LOG.error(e);
+      Log.errorLog(348833773, e);
     }
 
     return films;
