@@ -135,6 +135,10 @@ public class ZdfVideoUrlOptimizerTest extends WireMockTestBase {
     final Collection<MessageListener> nachrichten = new ArrayList<>();
     final Collection<SenderProgressListener> fortschritte = new ArrayList<>();
 
-    return new ZdfCrawler(forkJoinPool, nachrichten, fortschritte, MServerConfigManager.getInstance("MServer-JUnit-Config.yaml"));
+    return new ZdfCrawler(
+        forkJoinPool,
+        nachrichten,
+        fortschritte,
+        new MServerConfigManager("MServer-JUnit-Config.yaml"));
   }
 }

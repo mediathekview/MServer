@@ -8,12 +8,12 @@ import de.mediathekview.mserver.progress.listeners.SenderProgressListener;
 import de.mediathekview.mserver.testhelper.WireMockTestBase;
 import org.junit.Test;
 
-import static org.hamcrest.CoreMatchers.equalTo;
-import static org.hamcrest.MatcherAssert.assertThat;
-
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.concurrent.ForkJoinPool;
+
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 public class SwrUrlOptimizerTest extends WireMockTestBase {
 
@@ -55,6 +55,10 @@ public class SwrUrlOptimizerTest extends WireMockTestBase {
     final Collection<MessageListener> nachrichten = new ArrayList<>();
     final Collection<SenderProgressListener> fortschritte = new ArrayList<>();
 
-    return new ArdCrawler(forkJoinPool, nachrichten, fortschritte, MServerConfigManager.getInstance("MServer-JUnit-Config.yaml"));
+    return new ArdCrawler(
+        forkJoinPool,
+        nachrichten,
+        fortschritte,
+        new MServerConfigManager("MServer-JUnit-Config.yaml"));
   }
 }
