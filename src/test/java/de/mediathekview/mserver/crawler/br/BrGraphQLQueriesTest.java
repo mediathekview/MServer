@@ -1,9 +1,3 @@
-/*
- * BrGraphQLQueriesTest.java
- *
- * Projekt : MServer erstellt am: 17.11.2017 Autor : Sascha
- *
- */
 package de.mediathekview.mserver.crawler.br;
 
 import de.mediathekview.mserver.crawler.br.data.BrClipType;
@@ -35,7 +29,7 @@ public class BrGraphQLQueriesTest {
     final LocalDate end = LocalDate.of(2021, 3, 25);
     final String query = BrGraphQLQueries.getQueryGetIds(BrConstants.BROADCAST_SERVICE_BR, start, end, 10, Optional.empty());
 
-    assertThat(query, equalTo("{\"query\":\"query MediathekViewCountFilms(  $programmeFilter: ProgrammeFilter!) {  viewer {    ...on Viewer {      broadcastService(id: \\\"av:http://ard.de/ontologies/ard#BR_Fernsehen\\\") {        __typename        ...on BroadcastServiceInterface {          id           programmes(first: 10, orderBy: INITIALSCREENING_START_DESC, filter: $programmeFilter) {   count pageInfo {hasNextPage}         edges { cursor  node { id __typename description broadcasts { edges {node {start}}} initialScreening { start  }}}  }        }      }    }  }}\",\"variables\":{\"programmeFilter\":{\"status\":{\"id\":{\"eq\":\"av:http://ard.de/ontologies/lifeCycle#published\"}},\"broadcasts\":{\"start\":{\"gte\":\"2021-03-20T00:00:00.000Z\",\"lte\":\"2021-03-25T23:59:59.000Z\"}}}}}"));
+    assertThat(query, equalTo("{\"query\":\"query MediathekViewCountFilms(  $programmeFilter: ProgrammeFilter!) {  viewer {    ...on Viewer {      broadcastService(id: \\\"av:http://ard.de/ontologies/ard#BR_Fernsehen\\\") {        __typename        ...on BroadcastServiceInterface {          id           programmes(first: 10, orderBy: INITIALSCREENING_START_DESC, filter: $programmeFilter) {   count pageInfo {hasNextPage} edges { node { videoFiles { count } } }         edges { cursor  node { id __typename description broadcasts { edges {node {start}}} initialScreening { start  }}}  }        }      }    }  }}\",\"variables\":{\"programmeFilter\":{\"status\":{\"id\":{\"eq\":\"av:http://ard.de/ontologies/lifeCycle#published\"}},\"broadcasts\":{\"start\":{\"gte\":\"2021-03-20T00:00:00.000Z\",\"lte\":\"2021-03-25T23:59:59.000Z\"}}}}}"));
   }
 
   @Test
@@ -49,7 +43,7 @@ public class BrGraphQLQueriesTest {
     assertThat(
         query,
         equalTo(
-            "{\"query\":\"query MediathekViewCountFilms(  $programmeFilter: ProgrammeFilter!) {  viewer {    ...on Viewer {      broadcastService(id: \\\"av:http://ard.de/ontologies/ard#BR_Fernsehen\\\") {        __typename        ...on BroadcastServiceInterface {          id           programmes(first: 10, orderBy: INITIALSCREENING_START_DESC, filter: $programmeFilter, after: \\\"eyJfaWQiOiI2MDU2MzhhZjczYjViNzAwMTMwM2U4OGMiLCJfa2V5IjpudWxsfQ==\\\") {   count pageInfo {hasNextPage}         edges { cursor  node { id __typename description broadcasts { edges {node {start}}} initialScreening { start  }}}  }        }      }    }  }}\",\"variables\":{\"programmeFilter\":{\"status\":{\"id\":{\"eq\":\"av:http://ard.de/ontologies/lifeCycle#published\"}},\"broadcasts\":{\"start\":{\"gte\":\"2021-03-20T00:00:00.000Z\",\"lte\":\"2021-03-25T23:59:59.000Z\"}}}}}"));
+            "{\"query\":\"query MediathekViewCountFilms(  $programmeFilter: ProgrammeFilter!) {  viewer {    ...on Viewer {      broadcastService(id: \\\"av:http://ard.de/ontologies/ard#BR_Fernsehen\\\") {        __typename        ...on BroadcastServiceInterface {          id           programmes(first: 10, orderBy: INITIALSCREENING_START_DESC, filter: $programmeFilter, after: \\\"eyJfaWQiOiI2MDU2MzhhZjczYjViNzAwMTMwM2U4OGMiLCJfa2V5IjpudWxsfQ==\\\") {   count pageInfo {hasNextPage} edges { node { videoFiles { count } } }         edges { cursor  node { id __typename description broadcasts { edges {node {start}}} initialScreening { start  }}}  }        }      }    }  }}\",\"variables\":{\"programmeFilter\":{\"status\":{\"id\":{\"eq\":\"av:http://ard.de/ontologies/lifeCycle#published\"}},\"broadcasts\":{\"start\":{\"gte\":\"2021-03-20T00:00:00.000Z\",\"lte\":\"2021-03-25T23:59:59.000Z\"}}}}}"));
   }
 
   @Test

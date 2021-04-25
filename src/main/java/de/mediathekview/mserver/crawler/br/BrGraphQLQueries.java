@@ -1,12 +1,3 @@
-/*
- * BrGraphQLQueries.java
- *
- * Projekt    : MServer
- * erstellt am: 17.11.2017
- * Autor      : Sascha
- *
- * (c) 2017 by Sascha Wiegandt
- */
 package de.mediathekview.mserver.crawler.br;
 
 import de.mediathekview.mserver.crawler.br.data.BrGraphQLElementNames;
@@ -92,7 +83,7 @@ public class BrGraphQLQueries {
     }
 
     return String.format(
-        "{\"query\":\"query MediathekViewCountFilms(  $programmeFilter: ProgrammeFilter!) {  viewer {    ...on Viewer {      broadcastService(id: \\\"av:http://ard.de/ontologies/ard#%s\\\") {        __typename        ...on BroadcastServiceInterface {          id           programmes(first: %d, orderBy: INITIALSCREENING_START_DESC, filter: $programmeFilter%s) {   count pageInfo {hasNextPage}         edges { cursor  node { id __typename description broadcasts { edges {node {start}}} initialScreening { start  }}}  }        }      }    }  }}\",\"variables\":{\"programmeFilter\":{\"status\":{\"id\":{\"eq\":\"av:http://ard.de/ontologies/lifeCycle#published\"}},\"broadcasts\":{\"start\":{\"gte\":\"%sT00:00:00.000Z\",\"lte\":\"%sT23:59:59.000Z\"}}}}}",
+        "{\"query\":\"query MediathekViewCountFilms(  $programmeFilter: ProgrammeFilter!) {  viewer {    ...on Viewer {      broadcastService(id: \\\"av:http://ard.de/ontologies/ard#%s\\\") {        __typename        ...on BroadcastServiceInterface {          id           programmes(first: %d, orderBy: INITIALSCREENING_START_DESC, filter: $programmeFilter%s) {   count pageInfo {hasNextPage} edges { node { videoFiles { count } } }         edges { cursor  node { id __typename description broadcasts { edges {node {start}}} initialScreening { start  }}}  }        }      }    }  }}\",\"variables\":{\"programmeFilter\":{\"status\":{\"id\":{\"eq\":\"av:http://ard.de/ontologies/lifeCycle#published\"}},\"broadcasts\":{\"start\":{\"gte\":\"%sT00:00:00.000Z\",\"lte\":\"%sT23:59:59.000Z\"}}}}}",
         broadcastServiceName,
         pageSize,
         afterPart,

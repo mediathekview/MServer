@@ -73,13 +73,13 @@ public class BrBroadcastsTaskTest extends WireMockTestBase {
         new BrClipQueryDto[] {
           new BrClipQueryDto(
               BrConstants.GRAPHQL_API,
-              new BrID(BrClipType.PROGRAMME, "av:6019326ea636b2001a16d491")),
+              new BrID(BrClipType.PROGRAMME, "av:60813b5f0b25e4000731b248")),
           new BrClipQueryDto(
               BrConstants.GRAPHQL_API,
-              new BrID(BrClipType.PROGRAMME, "av:601932287b541b001316ce4b")),
+              new BrID(BrClipType.PROGRAMME, "av:604b4c5f3ba50f001a1e64e0")),
           new BrClipQueryDto(
               BrConstants.GRAPHQL_API,
-              new BrID(BrClipType.PROGRAMME, "av:5e3aa3378583a30013890d58"))
+              new BrID(BrClipType.PROGRAMME, "av:604b4c2973b5b70013facd0f"))
         };
 
     final Set<BrClipQueryDto> actual = executeTask(request);

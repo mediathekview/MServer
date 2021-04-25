@@ -1,33 +1,14 @@
-/*
- * BrClipIdsDeserializer.java
- *
- * Projekt    : MServer
- * erstellt am: 12.12.2017
- * Autor      : Sascha
- *
- * (c) 2017 by Sascha Wiegandt
- */
-
 package de.mediathekview.mserver.crawler.br.json;
 
-import com.google.gson.JsonArray;
-import com.google.gson.JsonDeserializationContext;
-import com.google.gson.JsonDeserializer;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParseException;
-import com.google.gson.JsonPrimitive;
+import com.google.gson.*;
 import de.mediathekview.mserver.base.utils.JsonUtils;
-import de.mediathekview.mserver.crawler.br.data.BrClipCollectIDResult;
-import de.mediathekview.mserver.crawler.br.data.BrClipType;
-import de.mediathekview.mserver.crawler.br.data.BrGraphQLElementNames;
-import de.mediathekview.mserver.crawler.br.data.BrGraphQLNodeNames;
-import de.mediathekview.mserver.crawler.br.data.BrID;
+import de.mediathekview.mserver.crawler.br.data.*;
 import de.mediathekview.mserver.crawler.br.graphql.GsonGraphQLHelper;
-import java.lang.reflect.Type;
-import java.util.Optional;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
+import java.lang.reflect.Type;
+import java.util.Optional;
 
 public class BrProgramIdsDeserializer implements JsonDeserializer<BrClipCollectIDResult> {
 
@@ -54,22 +35,46 @@ public class BrProgramIdsDeserializer implements JsonDeserializer<BrClipCollectI
       resultSize.ifPresent(idCollectResult::setResultSize);
 
       Optional<JsonArray> edges = getClipIdEdges(searchAllClips.get());
-      edges.ifPresent(jsonElements -> jsonElements
-          .forEach(
-              (JsonElement element) -> {
-                if (element.isJsonObject()) {
-                  JsonObject singleEdge = element.getAsJsonObject();
+      edges.ifPresent(
+          jsonElements ->
+              jsonElements.forEach(
+                  (JsonElement element) -> {
+                    if (element.isJsonObject()) {
+                      JsonObject singleEdge = element.getAsJsonObject();
 
-                  Optional<String> cursor = getCursor(singleEdge);
-                  cursor.ifPresent(idCollectResult::setCursor);
+                      if (getVideoCount(singleEdge) > 0) {
+                        Optional<String> cursor = getCursor(singleEdge);
+                        cursor.ifPresent(idCollectResult::setCursor);
 
-                  Optional<BrID> brId = getBrId(singleEdge);
-                  brId.ifPresent(brID -> idCollectResult.getClipList().add(brID));
-                }
-              }));
+                        Optional<BrID> brId = getBrId(singleEdge);
+                        brId.ifPresent(brID -> idCollectResult.getClipList().add(brID));
+                      }
+                    }
+                  }));
     }
 
     return idCollectResult;
+  }
+
+  private int getVideoCount(JsonElement json) {
+    if (!JsonUtils.checkTreePath(
+        json,
+        Optional.empty(),
+        BrGraphQLNodeNames.RESULT_NODE.getName(),
+        BrGraphQLNodeNames.RESULT_CLIP_VIDEO_FILES.getName())) {
+      return 0;
+    }
+
+    final JsonObject videoFiles =
+        json.getAsJsonObject()
+            .get(BrGraphQLNodeNames.RESULT_NODE.getName())
+            .getAsJsonObject()
+            .get(BrGraphQLNodeNames.RESULT_CLIP_VIDEO_FILES.getName())
+            .getAsJsonObject();
+    if (videoFiles.has(BrGraphQLElementNames.INT_COUNTER_ELEMENT.getName())) {
+      return videoFiles.get(BrGraphQLElementNames.INT_COUNTER_ELEMENT.getName()).getAsInt();
+    }
+    return 0;
   }
 
   private Optional<JsonObject> getClipIDsBaseNode(JsonElement json) {
@@ -149,7 +154,7 @@ public class BrProgramIdsDeserializer implements JsonDeserializer<BrClipCollectI
 
   private Optional<JsonArray> getClipIdEdges(JsonObject searchAllClipsNode) {
     return GsonGraphQLHelper.getChildArrayIfExists(
-            searchAllClipsNode, BrGraphQLNodeNames.RESULT_NODE_EDGES.getName());
+        searchAllClipsNode, BrGraphQLNodeNames.RESULT_NODE_EDGES.getName());
   }
 
   private Optional<BrID> getBrId(JsonObject singleEdge) {
