@@ -89,9 +89,10 @@ public class CrawlerManagerTest implements MessageListener {
   @Test
   public void testSaveAndImport() {
     final Path filmListFilePath = FileReader.getPath(filmlistPath);
-
-    CRAWLER_MANAGER.addMessageListener(this);
-    CRAWLER_MANAGER.importFilmlist(format, filmListFilePath.toAbsolutePath().toString());
-    CRAWLER_MANAGER.saveFilmlist(testFileFolderPath.resolve(filmlistPath), format);
+    synchronized (CRAWLER_MANAGER) {
+      CRAWLER_MANAGER.addMessageListener(this);
+      CRAWLER_MANAGER.importFilmlist(format, filmListFilePath.toAbsolutePath().toString());
+      CRAWLER_MANAGER.saveFilmlist(testFileFolderPath.resolve(filmlistPath), format);
+    }
   }
 }
