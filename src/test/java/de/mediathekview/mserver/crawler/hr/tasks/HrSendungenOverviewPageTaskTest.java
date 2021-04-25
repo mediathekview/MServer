@@ -31,26 +31,21 @@ public class HrSendungenOverviewPageTaskTest extends HrTaskTestBase {
   public void test() throws IOException {
     final String requestUrl = getWireMockBaseUrlSafe() + "/sendungen-a-z/index.html";
 
-    setupHeadResponse("/sendungen-a-z/alle-wetter/sendungen/index.html", 200);
-    setupHeadResponse("/sendungen-a-z/alles-wissen/sendungen/index.html", 200);
-    setupHeadResponse("/sendungen-a-z/wer-weiss-es/sendungen/index.html", 200);
-    setupHeadResponse("/sendungen-a-z/wilde-camper/sendungen/index.html", 200);
-    setupHeadResponse("/sendungen-a-z/besuch-mich/sendungen/index.html", 404);
-    setupHeadResponse("/sendungen-a-z/hr-katzen/sendungen/index.html", 404);
-
     final CrawlerUrlDTO[] expected =
         new CrawlerUrlDTO[] {
           new CrawlerUrlDTO(
               getWireMockBaseUrlSafe() + "/sendungen-a-z/alle-wetter/sendungen/index.html"),
           new CrawlerUrlDTO(
               getWireMockBaseUrlSafe() + "/sendungen-a-z/alles-wissen/sendungen/index.html"),
-          new CrawlerUrlDTO(getWireMockBaseUrlSafe() + "/sendungen-a-z/besuch-mich/index.html"),
-          new CrawlerUrlDTO("https://www.hessenschau.de/tv-sendung/sendungsarchiv/index.html"),
-          new CrawlerUrlDTO(getWireMockBaseUrlSafe() + "/sendungen-a-z/hr-katzen/index.html"),
+          new CrawlerUrlDTO(
+              getWireMockBaseUrlSafe() + "/sendungen-a-z/besuch-mich/index.html"),
+          new CrawlerUrlDTO(
+              getWireMockBaseUrlSafe() + "/sendungen-a-z/hr-katzen/index.html"),
           new CrawlerUrlDTO(
               getWireMockBaseUrlSafe() + "/sendungen-a-z/wer-weiss-es/sendungen/index.html"),
           new CrawlerUrlDTO(
               getWireMockBaseUrlSafe() + "/sendungen-a-z/wilde-camper/sendungen/index.html"),
+          new CrawlerUrlDTO("https://www.hessenschau.de/tv-sendung/sendungsarchiv/index.html"),
         };
 
     final Document document =
@@ -59,7 +54,14 @@ public class HrSendungenOverviewPageTaskTest extends HrTaskTestBase {
     when(jsoupConnection.requestBodyAsHtmlDocument(requestUrl)).thenReturn(document);
     final HrCrawler crawler = createCrawler();
     crawler.setConnection(jsoupConnection);
-
+    //
+    when(jsoupConnection.requestUrlExists(getWireMockBaseUrlSafe() + "/sendungen-a-z/alle-wetter/sendungen/index.html")).thenReturn(true);
+    when(jsoupConnection.requestUrlExists(getWireMockBaseUrlSafe() + "/sendungen-a-z/alles-wissen/sendungen/index.html")).thenReturn(true);
+    when(jsoupConnection.requestUrlExists(getWireMockBaseUrlSafe() + "/sendungen-a-z/wer-weiss-es/sendungen/index.html")).thenReturn(true);
+    when(jsoupConnection.requestUrlExists(getWireMockBaseUrlSafe() + "/sendungen-a-z/wilde-camper/sendungen/index.html")).thenReturn(true);
+    when(jsoupConnection.requestUrlExists(getWireMockBaseUrlSafe() + "/sendungen-a-z/besuch-mich/sendungen/index.html")).thenReturn(false);
+    when(jsoupConnection.requestUrlExists(getWireMockBaseUrlSafe() + "/sendungen-a-z/hr-katzen/sendungen/index.html")).thenReturn(false);
+    
     final HrSendungenOverviewPageTask classUnderTest =
         new HrSendungenOverviewPageTask(wireMockServer.baseUrl() + "/", crawler);
 
