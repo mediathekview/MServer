@@ -7,7 +7,6 @@ import de.mediathekview.mlib.communication.WebAccessHelper;
 import de.mediathekview.mlib.daten.Film;
 import de.mediathekview.mserver.base.config.CrawlerUrlType;
 import de.mediathekview.mserver.base.config.MServerBasicConfigDTO;
-import de.mediathekview.mserver.base.config.MServerConfigManager;
 import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
 import de.mediathekview.mserver.crawler.br.BrGraphQLQueries;
 import de.mediathekview.mserver.crawler.br.data.BrID;
@@ -38,7 +37,7 @@ public class BrGetClipDetailsTask extends RecursiveTask<Set<Film>> {
   public BrGetClipDetailsTask(final AbstractCrawler crawler, final Queue<BrID> clipQueue) {
     this.crawler = crawler;
     this.clipQueue = clipQueue;
-    config = new MServerConfigManager().getSenderConfig(crawler.getSender());
+    config = crawler.getCrawlerConfig();
     convertedFilms = ConcurrentHashMap.newKeySet();
   }
 
