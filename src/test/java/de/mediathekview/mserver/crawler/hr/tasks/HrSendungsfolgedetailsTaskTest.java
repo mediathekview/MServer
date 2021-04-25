@@ -5,9 +5,9 @@ import de.mediathekview.mlib.daten.GeoLocations;
 import de.mediathekview.mlib.daten.Sender;
 import de.mediathekview.mserver.base.webaccess.JsoupConnection;
 import de.mediathekview.mserver.crawler.basic.CrawlerUrlDTO;
+import de.mediathekview.mserver.crawler.hr.HrCrawler;
 import de.mediathekview.mserver.testhelper.AssertFilm;
 import de.mediathekview.mserver.testhelper.JsoupMock;
-import org.jsoup.Connection;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -25,9 +25,7 @@ import java.util.Set;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
 import static org.hamcrest.CoreMatchers.equalTo;
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.mockito.ArgumentMatchers.eq;
-import static org.mockito.Mockito.when;
+import static org.hamcrest.junit.MatcherAssert.assertThat;
 
 @RunWith(Parameterized.class)
 public class HrSendungsfolgedetailsTaskTest extends HrTaskTestBase {
@@ -110,20 +108,64 @@ public class HrSendungsfolgedetailsTaskTest extends HrTaskTestBase {
             "https://hr-a.akamaihd.net/video/as/herrlicheshessen/2019_06/hrLogo_190619163506_0202835_1280x720-50p-5000kbit.mp4",
             "https://hr-a.akamaihd.net/video/as/herrlicheshessen/2019_06/hrLogo_190619163506_0202835_512x288-25p-500kbit.vtt",
             GeoLocations.GEO_NONE
+          },
+          {
+            "https://www.hessenschau.de/tv-sendung/hessenschau-vom-16022021,video-143982.html",
+            "/hr/hr_film_detail3.html",
+            "hessenschau",
+            "hessenschau vom 16.02.2021",
+            "Weiter Schnee-Ärger in Kassel / Wie Kinder unter der Pandemie leiden / Wie Sekten in Corona-Zeiten Mitglieder suchen / Immer mehr Heimbewohner geimpft / Gastronomie in der Krise: Nachhaltiges Frühstück statt Fastfood / Kunst auf der Straße / \"Wunderwigwam“ - Kinderpodcast mit hr-Moderatorin Jennifer Sieglar",
+            LocalDateTime.of(2021, 2, 16, 19, 30, 0),
+            Duration.ofMinutes(27).plusSeconds(32),
+            "https://hr-a.akamaihd.net/video/as/hessenschau/2021_02/hrLogo_210216200427_L393641_512x288-25p-500kbit.mp4",
+            "https://hr-a.akamaihd.net/video/as/hessenschau/2021_02/hrLogo_210216200427_L393641_960x540-50p-1800kbit.mp4",
+            "https://hr-a.akamaihd.net/video/as/hessenschau/2021_02/hrLogo_210216200427_L393641_1920x1080-50p-8000kbit.mp4",
+            "https://hr-a.akamaihd.net/video/as/hessenschau/2021_02/hrLogo_210216200427_L393641_512x288-25p-500kbit.vtt",
+            GeoLocations.GEO_NONE
+          },
+          {
+            "https://www.hr-fernsehen.de/sendungen-a-z/jackpotjaeger/sendungen/die-jackpot-jaeger,sendung-88894.html",
+            "/hr/hr_film_detail4.html",
+            "die jackpot-jäger",
+            "die jackpot-jäger vom 12.10.2020",
+            "\"die jackpot-jäger\" ist eine Quiz-Show, in der ein Dreierteam aus Freunden, Kollegen oder Familienmitgliedern 45 Minuten Zeit hat, den Jackpot zu knacken.",
+            LocalDateTime.of(2020, 10, 12, 0, 0, 0),
+            Duration.ofMinutes(44).plusSeconds(15),
+            "https://hr-a.akamaihd.net/video/as/jackpotjaeger/2020_10/hrLogo_201011174436_0211025_512x288-25p-500kbit.mp4",
+            "https://hr-a.akamaihd.net/video/as/jackpotjaeger/2020_10/hrLogo_201011174436_0211025_960x540-50p-1800kbit.mp4",
+            "https://hr-a.akamaihd.net/video/as/jackpotjaeger/2020_10/hrLogo_201011174436_0211025_1920x1080-50p-8000kbit.mp4",
+            "",
+            GeoLocations.GEO_NONE
+          },
+          {
+            "https://www.hr-fernsehen.de/sendungen-a-z/heimspiel/sendungen/heimspiel,sendung-83948.html",
+            "/hr/hr_film_detail5.html",
+            "heimspiel!",
+            "Olympische Spiele in Zeiten des Coronavirus?",
+            "Ist der geplante Olympia-Termin in Tokio ist noch zu halten?",
+            LocalDateTime.of(2020, 3, 23, 0, 0, 0),
+            Duration.ofMinutes(45).plusSeconds(48),
+            "https://hr-a.akamaihd.net/video/as/heimspiel/2020_03/hrLogo_200323195905_0207984_512x288-25p-500kbit.mp4",
+            "https://hr-a.akamaihd.net/video/as/heimspiel/2020_03/hrLogo_200323195905_0207984_960x540-50p-1800kbit.mp4",
+            "https://hr-a.akamaihd.net/video/as/heimspiel/2020_03/hrLogo_200323195905_0207984_1920x1080-50p-8000kbit.mp4",
+            "",
+            GeoLocations.GEO_NONE
           }
         });
   }
 
   @Test
   public void test() throws IOException {
-    final Connection connection = JsoupMock.mock(requestUrl, htmlPage);
-    when(jsoupConnection.getConnection(eq(requestUrl))).thenReturn(connection);
+    jsoupConnection = JsoupMock.mock(requestUrl, htmlPage);
+    HrCrawler crawler = createCrawler();
+    crawler.setConnection(jsoupConnection);
+
 
     final Queue<CrawlerUrlDTO> urls = new ConcurrentLinkedQueue<>();
     urls.add(new CrawlerUrlDTO(requestUrl));
 
     final HrSendungsfolgedetailsTask target =
-        new HrSendungsfolgedetailsTask(createCrawler(), urls, jsoupConnection);
+        new HrSendungsfolgedetailsTask(crawler, urls);
     final Set<Film> actual = target.invoke();
 
     assertThat(actual.size(), equalTo(1));

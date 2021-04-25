@@ -1,10 +1,10 @@
 package de.mediathekview.mserver.crawler.kika.tasks;
 
 import de.mediathekview.mserver.base.webaccess.JsoupConnection;
+import de.mediathekview.mserver.crawler.kika.KikaCrawler;
 import de.mediathekview.mserver.crawler.kika.KikaCrawlerUrlDto;
 import de.mediathekview.mserver.crawler.kika.KikaCrawlerUrlDto.FilmType;
 import de.mediathekview.mserver.testhelper.JsoupMock;
-import org.jsoup.Connection;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
@@ -18,8 +18,6 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.collection.IsIterableContainingInAnyOrder.containsInAnyOrder;
-import static org.mockito.ArgumentMatchers.eq;
-import static org.mockito.Mockito.when;
 
 public class KikaSendungsfolgeVideoUrlTaskTest extends KikaTaskTestBase {
 
@@ -33,8 +31,9 @@ public class KikaSendungsfolgeVideoUrlTaskTest extends KikaTaskTestBase {
   @Test
   public void test() throws IOException {
     final String requestUrl = "https://www.kika.de/rocket-ich/sendungen/sendung41184.html";
-    final Connection connection = JsoupMock.mock(requestUrl, "/kika/kika_film1.html");
-    when(jsoupConnection.getConnection(eq(requestUrl))).thenReturn(connection);
+    jsoupConnection = JsoupMock.mock(requestUrl, "/kika/kika_film1.html");
+    KikaCrawler crawler = createCrawler();
+    crawler.setConnection(jsoupConnection);
 
     final KikaCrawlerUrlDto[] expected =
         new KikaCrawlerUrlDto[] {
@@ -46,7 +45,7 @@ public class KikaSendungsfolgeVideoUrlTaskTest extends KikaTaskTestBase {
     urls.add(new KikaCrawlerUrlDto(requestUrl, FilmType.NORMAL));
 
     final KikaSendungsfolgeVideoUrlTask target =
-        new KikaSendungsfolgeVideoUrlTask(createCrawler(), urls, jsoupConnection);
+        new KikaSendungsfolgeVideoUrlTask(crawler, urls);
     final Set<KikaCrawlerUrlDto> actual = target.invoke();
 
     assertThat(actual.size(), equalTo(expected.length));

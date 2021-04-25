@@ -2,16 +2,20 @@ package de.mediathekview.mserver.crawler.ard.json;
 
 import com.google.gson.JsonElement;
 import de.mediathekview.mlib.daten.Resolution;
-import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
+import de.mediathekview.mlib.messages.listener.MessageListener;
+import de.mediathekview.mserver.base.config.MServerConfigManager;
+import de.mediathekview.mserver.crawler.ard.ArdCrawler;
+import de.mediathekview.mserver.progress.listeners.SenderProgressListener;
 import de.mediathekview.mserver.testhelper.JsonFileReader;
 import de.mediathekview.mserver.testhelper.WireMockTestBase;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
-import org.mockito.Mockito;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.concurrent.ForkJoinPool;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.notNullValue;
@@ -39,8 +43,8 @@ public class ArdVideoInfoJsonDeserializerTest extends WireMockTestBase {
         new Object[][] {
           {
             "/ard/ard_video_without_hd.json",
-            "http://wdrmedien-a.akamaihd.net/medp/ondemand/weltweit/fsk0/147/1471174/1471174_16874993.mp4",
-            "http://wdrmedien-a.akamaihd.net/medp/ondemand/weltweit/fsk0/147/1471174/1471174_16874995.mp4",
+            "https://wdrmedien-a.akamaihd.net/medp/ondemand/weltweit/fsk0/147/1471174/1471174_16874993.mp4",
+            "https://wdrmedien-a.akamaihd.net/medp/ondemand/weltweit/fsk0/147/1471174/1471174_16874995.mp4",
             null
           },
           {
@@ -87,9 +91,9 @@ public class ArdVideoInfoJsonDeserializerTest extends WireMockTestBase {
           },
           {
             "/ard/ard_video_hr_with_hd.json",
-            "http://hrardmediathek-a.akamaihd.net/video/as/allewetter/2017_12/hrLogo_171228193505_L279621_512x288-25p-500kbit.mp4",
-            "http://hrardmediathek-a.akamaihd.net/video/as/allewetter/2017_12/hrLogo_171228193505_L279621_960x540-50p-1800kbit.mp4",
-            "http://hrardmediathek-a.akamaihd.net/video/as/allewetter/2017_12/hrLogo_171228193505_L279621_1280x720-50p-5000kbit.mp4"
+            "https://hrardmediathek-a.akamaihd.net/video/as/allewetter/2017_12/hrLogo_171228193505_L279621_512x288-25p-500kbit.mp4",
+            "https://hrardmediathek-a.akamaihd.net/video/as/allewetter/2017_12/hrLogo_171228193505_L279621_960x540-50p-1800kbit.mp4",
+            "https://hrardmediathek-a.akamaihd.net/video/as/allewetter/2017_12/hrLogo_171228193505_L279621_1280x720-50p-5000kbit.mp4"
           },
           {
             "/ard/ard_video_mdr_with_hd.json",
@@ -140,8 +144,7 @@ public class ArdVideoInfoJsonDeserializerTest extends WireMockTestBase {
         "/i/mir-live/bw1XsLzS/bLQH/bLOliLioMXZhiKT1/uLoXb69zbX06/MUJIuUOVBwQIb71S/bLWCMUJIuUOVBwQIb71S/_2rp9U1S/_-JS/_-Fp_H1S/d6b48cc8-60f3-4625-a56a-fba68c0841c7_,0,A,B,E,C,.mp4.csmil/master.m3u8",
         "/ard/ard_video_alpha_centauri.m3u8");
 
-    final AbstractCrawler crawler = Mockito.mock(AbstractCrawler.class);
-    final ArdVideoInfoJsonDeserializer target = new ArdVideoInfoJsonDeserializer(crawler);
+    final ArdVideoInfoJsonDeserializer target = new ArdVideoInfoJsonDeserializer(createCrawler());
     final ArdVideoInfoDto actual = target.deserialize(jsonElement, ArdVideoInfoDto.class, null);
 
     assertThat(actual, notNullValue());
@@ -149,5 +152,13 @@ public class ArdVideoInfoJsonDeserializerTest extends WireMockTestBase {
     assertThat(actual.getVideoUrls().get(Resolution.SMALL), equalTo(expectedUrlSmall));
     assertThat(actual.getVideoUrls().get(Resolution.NORMAL), equalTo(expectedUrlNormal));
     assertThat(actual.getVideoUrls().get(Resolution.HD), equalTo(expectedUrlHd));
+  }
+  
+  protected ArdCrawler createCrawler() {
+    ForkJoinPool forkJoinPool = new ForkJoinPool();
+    Collection<MessageListener> nachrichten = new ArrayList<>();
+    Collection<SenderProgressListener> fortschritte = new ArrayList<>();
+
+    return new ArdCrawler(forkJoinPool, nachrichten, fortschritte, MServerConfigManager.getInstance("MServer-JUnit-Config.yaml"));
   }
 }

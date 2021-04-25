@@ -1,7 +1,6 @@
 package de.mediathekview.mserver.crawler.basic;
 
 import de.mediathekview.mserver.base.messages.ServerMessages;
-import de.mediathekview.mserver.base.webaccess.JsoupConnection;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -10,7 +9,6 @@ import org.jsoup.nodes.Document;
 
 import java.io.IOException;
 import java.util.Queue;
-import java.util.concurrent.TimeUnit;
 
 /**
  * This is a abstract task based on {@link AbstractUrlTask} which takes a {@link Queue} of {@link D}
@@ -34,17 +32,14 @@ public abstract class AbstractDocumentTask<T, D extends CrawlerUrlDTO>
   private boolean printErrorMessage;
   private Level httpErrorLogLevel;
 
-  JsoupConnection jsoupConnection;
 
   public AbstractDocumentTask(
       final AbstractCrawler aCrawler,
-      final Queue<D> urlToCrawlDTOs,
-      final JsoupConnection jsoupConnection) {
+      final Queue<D> urlToCrawlDTOs) {
     super(aCrawler, urlToCrawlDTOs);
     incrementErrorCounterOnHttpErrors = true;
     printErrorMessage = true;
     httpErrorLogLevel = Level.ERROR;
-    this.jsoupConnection = jsoupConnection;
   }
 
   /**
@@ -59,14 +54,7 @@ public abstract class AbstractDocumentTask<T, D extends CrawlerUrlDTO>
   @Override
   protected void processElement(final D urlDTO) {
     try {
-      // maxBodySize(0)=unlimited
-      // necessary for ORF documents which are larger than the default size
-      final Document document =
-          jsoupConnection
-              .getConnection(urlDTO.getUrl())
-              .timeout((int) TimeUnit.SECONDS.toMillis(config.getSocketTimeoutInSeconds()))
-              .maxBodySize(0)
-              .get();
+      final Document document = crawler.requestBodyAsHtmlDocument(urlDTO.getUrl());
       processDocument(urlDTO, document);
     } catch (final HttpStatusException httpStatusError) {
       LOG.log(
@@ -113,7 +101,4 @@ public abstract class AbstractDocumentTask<T, D extends CrawlerUrlDTO>
     printErrorMessage = aPrintErrorMessage;
   }
 
-  public JsoupConnection getJsoupConnection() {
-    return jsoupConnection;
-  }
 }

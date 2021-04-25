@@ -1,6 +1,5 @@
 package de.mediathekview.mserver.crawler.dreisat;
 
-import de.mediathekview.mserver.base.webaccess.JsoupConnection;
 import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
 import de.mediathekview.mserver.crawler.basic.AbstractDocumentTask;
 import de.mediathekview.mserver.crawler.basic.AbstractRecursiveConverterTask;
@@ -17,9 +16,8 @@ public class DreisatDayPageHtmlTask extends AbstractDocumentTask<CrawlerUrlDTO, 
   public DreisatDayPageHtmlTask(
       final String apiUrlBase,
       final AbstractCrawler crawler,
-      final Queue<CrawlerUrlDTO> urlToCrawlDTOs,
-      final JsoupConnection jsoupConnection) {
-    super(crawler, urlToCrawlDTOs, jsoupConnection);
+      final Queue<CrawlerUrlDTO> urlToCrawlDTOs) {
+    super(crawler, urlToCrawlDTOs);
     this.apiUrlBase = apiUrlBase;
     deserializer = new DreisatDayPageHtmlDeserializer(apiUrlBase);
   }
@@ -33,6 +31,6 @@ public class DreisatDayPageHtmlTask extends AbstractDocumentTask<CrawlerUrlDTO, 
   protected AbstractRecursiveConverterTask<CrawlerUrlDTO, CrawlerUrlDTO> createNewOwnInstance(
       final Queue<CrawlerUrlDTO> aElementsToProcess) {
     return new DreisatDayPageHtmlTask(
-        apiUrlBase, crawler, aElementsToProcess, getJsoupConnection());
+        apiUrlBase, crawler, aElementsToProcess);
   }
 }

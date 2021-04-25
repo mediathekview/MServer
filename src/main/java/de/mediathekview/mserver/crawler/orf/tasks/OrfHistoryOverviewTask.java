@@ -1,7 +1,6 @@
 package de.mediathekview.mserver.crawler.orf.tasks;
 
 import de.mediathekview.mserver.base.HtmlConsts;
-import de.mediathekview.mserver.base.webaccess.JsoupConnection;
 import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
 import de.mediathekview.mserver.crawler.basic.TopicUrlDTO;
 import de.mediathekview.mserver.crawler.orf.OrfConstants;
@@ -11,7 +10,6 @@ import org.jsoup.select.Elements;
 import java.util.Queue;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ConcurrentLinkedQueue;
-import java.util.concurrent.TimeUnit;
 
 public class OrfHistoryOverviewTask implements Callable<Queue<TopicUrlDTO>> {
 
@@ -19,12 +17,9 @@ public class OrfHistoryOverviewTask implements Callable<Queue<TopicUrlDTO>> {
 
   private final AbstractCrawler crawler;
 
-  JsoupConnection jsoupConnection;
-
   public OrfHistoryOverviewTask(
-      final AbstractCrawler aCrawler, final JsoupConnection jsoupConnection) {
+      final AbstractCrawler aCrawler) {
     crawler = aCrawler;
-    this.jsoupConnection = jsoupConnection;
   }
 
   @Override
@@ -32,11 +27,7 @@ public class OrfHistoryOverviewTask implements Callable<Queue<TopicUrlDTO>> {
     final Queue<TopicUrlDTO> results = new ConcurrentLinkedQueue<>();
 
     // URLs für Seiten parsen
-    final Document document =
-        jsoupConnection.getDocumentTimeoutAfter(
-            OrfConstants.URL_ARCHIVE,
-            (int)
-                TimeUnit.SECONDS.toMillis(crawler.getCrawlerConfig().getSocketTimeoutInSeconds()));
+    final Document document = crawler.requestBodyAsHtmlDocument(OrfConstants.URL_ARCHIVE);
 
     final Elements topics = document.select(TOPIC_URL_SELECTOR);
     topics.forEach(

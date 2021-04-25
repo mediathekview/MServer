@@ -2,9 +2,9 @@ package de.mediathekview.mserver.crawler.orf.tasks;
 
 import de.mediathekview.mserver.base.webaccess.JsoupConnection;
 import de.mediathekview.mserver.crawler.basic.TopicUrlDTO;
+import de.mediathekview.mserver.crawler.orf.OrfCrawler;
 import de.mediathekview.mserver.testhelper.JsoupMock;
 import org.hamcrest.Matchers;
-import org.jsoup.Connection;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
@@ -18,8 +18,6 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.mockito.ArgumentMatchers.eq;
-import static org.mockito.Mockito.when;
 
 public class OrfHistoryTopicTaskTest extends OrfTaskTestBase {
 
@@ -36,10 +34,10 @@ public class OrfHistoryTopicTaskTest extends OrfTaskTestBase {
         "https://tvthek.orf.at/history/Die-Geschichte-Niederoesterreichs/8378971";
     final String topic = "Die Geschichte Niederösterreichs";
 
-    final Connection connection =
-        JsoupMock.mock(requestUrl, "/orf/orf_history_topic_overview.html");
-    when(jsoupConnection.getConnection(eq(requestUrl))).thenReturn(connection);
-
+    jsoupConnection = JsoupMock.mock(requestUrl, "/orf/orf_history_topic_overview.html");
+    OrfCrawler crawler = createCrawler();
+    crawler.setConnection(jsoupConnection);
+    
     final TopicUrlDTO[] expected =
         new TopicUrlDTO[] {
           new TopicUrlDTO(
@@ -129,7 +127,7 @@ public class OrfHistoryTopicTaskTest extends OrfTaskTestBase {
     queue.add(new TopicUrlDTO(topic, requestUrl));
 
     final OrfHistoryTopicTask target =
-        new OrfHistoryTopicTask(createCrawler(), queue, jsoupConnection);
+        new OrfHistoryTopicTask(crawler, queue);
     final Set<TopicUrlDTO> actual = target.invoke();
 
     assertThat(actual, notNullValue());

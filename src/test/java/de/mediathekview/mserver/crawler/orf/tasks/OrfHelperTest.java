@@ -1,13 +1,14 @@
 package de.mediathekview.mserver.crawler.orf.tasks;
 
-import static org.hamcrest.CoreMatchers.equalTo;
-import static org.hamcrest.MatcherAssert.assertThat;
-
-import java.util.Arrays;
-import java.util.Collection;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
+
+import java.util.Arrays;
+import java.util.Collection;
+
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 @RunWith(Parameterized.class)
 public class OrfHelperTest {
@@ -31,6 +32,8 @@ public class OrfHelperTest {
           {"Sport 20", "Sport 20"},
           {"ZIB Flash 19:55", "ZIB Flash"},
           {"ZIB 17:00", "ZIB"},
+          {"ZIB 9:00", "ZIB"},
+          {"Guten Morgen Österreich 8:30", "Guten Morgen Österreich"},
           {"Guten Morgen Österreich 08:00", "Guten Morgen Österreich"},
           {"Thema hier : hier kommt was anderes", "Thema hier"}
         });

@@ -2,7 +2,6 @@ package de.mediathekview.mserver.crawler.kika.tasks;
 
 import de.mediathekview.mserver.base.HtmlConsts;
 import de.mediathekview.mserver.base.utils.UrlUtils;
-import de.mediathekview.mserver.base.webaccess.JsoupConnection;
 import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
 import de.mediathekview.mserver.crawler.basic.AbstractDocumentTask;
 import de.mediathekview.mserver.crawler.basic.AbstractRecursiveConverterTask;
@@ -34,18 +33,16 @@ public class KikaTopicOverviewPageTask extends AbstractDocumentTask<KikaCrawlerU
   public KikaTopicOverviewPageTask(
       final AbstractCrawler aCrawler,
       final Queue<KikaCrawlerUrlDto> aUrlToCrawlDtos,
-      final String aBaseUrl,
-      final JsoupConnection jsoupConnection) {
-    this(aCrawler, aUrlToCrawlDtos, aBaseUrl, jsoupConnection, 1);
+      final String aBaseUrl) {
+    this(aCrawler, aUrlToCrawlDtos, aBaseUrl, 1);
   }
 
   private KikaTopicOverviewPageTask(
       final AbstractCrawler aCrawler,
       final Queue<KikaCrawlerUrlDto> aUrlToCrawlDtos,
       final String aBaseUrl,
-      final JsoupConnection jsoupConnection,
       final int pageNumber) {
-    super(aCrawler, aUrlToCrawlDtos, jsoupConnection);
+    super(aCrawler, aUrlToCrawlDtos);
     baseUrl = aBaseUrl;
     this.pageNumber = pageNumber;
   }
@@ -139,7 +136,7 @@ public class KikaTopicOverviewPageTask extends AbstractDocumentTask<KikaCrawlerU
   private AbstractRecursiveConverterTask<KikaCrawlerUrlDto, KikaCrawlerUrlDto> createNewOwnInstance(
       final Queue<KikaCrawlerUrlDto> aElementsToProcess, final int aPageNumber) {
     return new KikaTopicOverviewPageTask(
-        crawler, aElementsToProcess, baseUrl, getJsoupConnection(), aPageNumber);
+        crawler, aElementsToProcess, baseUrl, aPageNumber);
   }
 
   private List<KikaCrawlerUrlDto> parseNextPageUrls(final Document aDocument, FilmType filmType) {

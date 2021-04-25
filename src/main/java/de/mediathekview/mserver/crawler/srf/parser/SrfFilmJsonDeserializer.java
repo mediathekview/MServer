@@ -10,7 +10,6 @@ import de.mediathekview.mlib.daten.FilmUrl;
 import de.mediathekview.mlib.daten.Resolution;
 import de.mediathekview.mlib.daten.Sender;
 import de.mediathekview.mlib.tool.FileSizeDeterminer;
-import de.mediathekview.mlib.tool.MVHttpClient;
 import de.mediathekview.mserver.base.utils.UrlParseException;
 import de.mediathekview.mserver.base.utils.UrlUtils;
 import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
@@ -30,10 +29,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.Response;
-import okhttp3.ResponseBody;
 import org.apache.logging.log4j.LogManager;
 
 public class SrfFilmJsonDeserializer implements JsonDeserializer<Optional<Film>> {
@@ -335,51 +330,41 @@ public class SrfFilmJsonDeserializer implements JsonDeserializer<Optional<Film>>
     return result;
   }
 
-  private EnumMap readUrls(final String aM3U8Url) {
-    final EnumMap urls = new EnumMap(Resolution.class);
+  private Map<Resolution, String> readUrls(final String aM3U8Url) {
+    //final EnumMap urls = new EnumMap(Resolution.class);
+    Map<Resolution, String> urls = new EnumMap<Resolution, String>(Resolution.class);
     final String optimizedUrl = getOptimizedUrl(aM3U8Url);
-
-    Optional<String> content = loadM3u8(optimizedUrl);
-    if (!content.isPresent()) {
-      content = loadM3u8(aM3U8Url);
-    }
-
-    if (content.isPresent()) {
-      final M3U8Parser parser = new M3U8Parser();
-      final List<M3U8Dto> m3u8Data = parser.parse(content.get());
-      m3u8Data.forEach(
-          entry -> {
-            final Optional<Resolution> resolution = getResolution(entry);
-            if (resolution.isPresent()) {
-              urls.put(resolution.get(), entry.getUrl());
-            }
-          });
-
-    } else {
+    Optional<String> content = Optional.empty();
+ 
+    try {
+      content = Optional.of(crawler.requestBodyAsString(optimizedUrl));
+      if (content.isEmpty() || content.get().length() == 0) {
+        content = Optional.of(crawler.requestBodyAsString(aM3U8Url));
+      }
+  
+      if (content.isPresent() && content.get().length() > 0) {
+        final M3U8Parser parser = new M3U8Parser();
+        final List<M3U8Dto> m3u8Data = parser.parse(content.get());
+        m3u8Data.forEach(
+            entry -> {
+              final Optional<Resolution> resolution = getResolution(entry);
+              if (resolution.isPresent()) {
+                urls.put(resolution.get(), entry.getUrl());
+              }
+            });
+  
+      } else {
+        LOG.error(String.format("SrfFilmJsonDeserializer: Loading m3u8-url failed: %s", aM3U8Url));
+        crawler.incrementAndGetErrorCount();
+        crawler.updateProgress();
+      }
+    } catch (Exception e) {
       LOG.error(String.format("SrfFilmJsonDeserializer: Loading m3u8-url failed: %s", aM3U8Url));
       crawler.incrementAndGetErrorCount();
       crawler.updateProgress();
     }
 
     return urls;
-  }
-
-  private Optional<String> loadM3u8(final String aM3U8Url) {
-
-    final MVHttpClient mvhttpClient = MVHttpClient.getInstance();
-    final OkHttpClient httpClient = mvhttpClient.getHttpClient();
-    final Request request = new Request.Builder().url(aM3U8Url).build();
-
-    try (final Response response = httpClient.newCall(request).execute();
-        final ResponseBody body = response.body()) {
-      if (response.isSuccessful() && body != null) {
-        return Optional.of(body.string());
-      }
-    } catch (final Exception e) {
-      LOG.error(e);
-    }
-
-    return Optional.empty();
   }
 
   private String getOptimizedUrl(final String aM3U8Url) {

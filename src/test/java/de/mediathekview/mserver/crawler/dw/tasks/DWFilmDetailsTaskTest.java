@@ -5,9 +5,9 @@ import de.mediathekview.mlib.daten.GeoLocations;
 import de.mediathekview.mlib.daten.Sender;
 import de.mediathekview.mserver.base.webaccess.JsoupConnection;
 import de.mediathekview.mserver.crawler.basic.CrawlerUrlDTO;
+import de.mediathekview.mserver.crawler.dw.DwCrawler;
 import de.mediathekview.mserver.testhelper.AssertFilm;
 import de.mediathekview.mserver.testhelper.JsoupMock;
-import org.jsoup.Connection;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -27,8 +27,6 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.mockito.ArgumentMatchers.eq;
-import static org.mockito.Mockito.when;
 
 @RunWith(Parameterized.class)
 public class DWFilmDetailsTaskTest extends DwTaskTestBase {
@@ -93,9 +91,25 @@ public class DWFilmDetailsTaskTest extends DwTaskTestBase {
             LocalDateTime.of(2018, 10, 28, 0, 0, 0),
             Duration.ofMinutes(26).plusSeconds(1),
             "Manipulation von Videos, was ist noch echt? Die Waisenkinder von Mossul: wehrlose Opfer von Konflikten. Ein Comic-Heft verändert die Perspektiven von Kenias Jugend. Und für das Inselparadies Cozumel sind Kreuzfahrtschiffe Fluch und Segen zugleich.",
-            "https://tvdownloaddw-a.akamaihd.net/dwtv_video/flv/gld/gld20180319_gesamt_sd_vp6.flv",
+            "",
             "https://tvdownloaddw-a.akamaihd.net/dwtv_video/flv/gld/gld20180319_gesamt_sd_sor.mp4",
             "https://tvdownloaddw-a.akamaihd.net/dwtv_video/flv/gld/gld20180319_gesamt_sd_avc.mp4",
+            "",
+            GeoLocations.GEO_NONE
+          },
+          {
+            "https://www.dw.com/de/shift-leben-in-der-digitalen-welt/av-56780778",
+            "/dw/dw_film_detail2.html",
+            "/playersources/v-56780778",
+            "/dw/dw_film_detail2.json",
+            "Shift",
+            "Shift - Leben in der digitalen Welt",
+            LocalDateTime.of(2021, 3, 9, 0, 0, 0),
+            Duration.ofMinutes(12).plusSeconds(36),
+            "Spezial: In Japan wird intensiv an neuen Technologien für die Katastrophenhilfe geforscht. Roboter helfen bei den Aufräumarbeiten im Atomkraftwerk Fukushima Daiichi und unterstützen Rettungskräfte nach Erdbeben.",
+            "",
+            "https://tvdownloaddw-a.akamaihd.net/dwtv_video/flv/shd/shd210305_SpezialJapanRoboter_sd_sor.mp4",
+            "https://tvdownloaddw-a.akamaihd.net/dwtv_video/flv/shd/shd210305_SpezialJapanRoboter_sd_avc.mp4",
             "",
             GeoLocations.GEO_NONE
           }
@@ -112,8 +126,9 @@ public class DWFilmDetailsTaskTest extends DwTaskTestBase {
   @Test
   public void test() throws IOException {
 
-    final Connection connection = JsoupMock.mock(requestUrl, htmlFile);
-    when(jsoupConnection.getConnection(eq(requestUrl))).thenReturn(connection);
+    jsoupConnection = JsoupMock.mock(requestUrl, htmlFile);
+    DwCrawler crawler = createCrawler();
+    crawler.setConnection(jsoupConnection);
 
     setupSuccessfulJsonResponse(jsonRequestUrl, jsonFile);
 
@@ -121,7 +136,7 @@ public class DWFilmDetailsTaskTest extends DwTaskTestBase {
     urls.add(new CrawlerUrlDTO(requestUrl));
 
     final DWFilmDetailsTask classUnderTest =
-        new DWFilmDetailsTask(createCrawler(), urls, wireMockServer.baseUrl(), jsoupConnection);
+        new DWFilmDetailsTask(crawler, urls, wireMockServer.baseUrl());
 
     final Set<Film> actual = classUnderTest.invoke();
 
