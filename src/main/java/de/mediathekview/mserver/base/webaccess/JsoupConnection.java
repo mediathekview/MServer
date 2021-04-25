@@ -115,7 +115,9 @@ public class JsoupConnection {
   	  try (final Response response =
   	      client.newCall(requestBuilder.build()).execute()) {
   	    final String contentLengthHeader = response.header(HttpHeaders.CONTENT_LENGTH);
-  	    fileSize = Long.parseLong(contentLengthHeader);
+  	    if (contentLengthHeader != null) {
+  	      fileSize = Long.parseLong(contentLengthHeader);
+  	    }
   	  } catch (final IOException ioException) {
   	    LOG.error(
   	        "Something went wrong determining the file size of {}", url);
