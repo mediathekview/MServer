@@ -133,7 +133,8 @@ senderConfigurations:
     socketTimeoutInSeconds: 120
   SR:
     maximumRequestsPerSecond: 2.0
-
+  ZDF:
+    maximumRequestsPerSecond: 10.0
 
 #### COPY ####
 copySettings:

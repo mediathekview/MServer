@@ -20,10 +20,11 @@ public class TopicUrlDTO extends CrawlerUrlDTO {
     if (obj == null || getClass() != obj.getClass()) {
       return false;
     }
+
     if (super.equals(obj)) {
       return getTopic().equals(((TopicUrlDTO)obj).getTopic());
     }
-    
+
     return false;
   }
 

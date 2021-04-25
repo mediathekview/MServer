@@ -23,7 +23,6 @@ import java.util.Queue;
 import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.Assert.fail;
-import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.when;
 
@@ -77,15 +76,18 @@ public class SrTopicsOverviewPageTaskTest {
         (url, fileName) -> {
           try {
             final Document document = JsoupMock.getFileDocument(url, fileName);
-            when(jsoupConnection.getDocumentTimeoutAfter(eq(url), anyInt())).thenReturn(document);
+            when(jsoupConnection.requestBodyAsHtmlDocument(eq(url))).thenReturn(document);
+            when(crawler.requestBodyAsHtmlDocument(eq(url))).thenReturn(document);
           } catch (final IOException iox) {
             fail();
           }
         });
 
     when(crawler.getCrawlerConfig())
-        .thenReturn(MServerConfigManager.getInstance().getSenderConfig(Sender.SR));
-    final SrTopicsOverviewPageTask target = new SrTopicsOverviewPageTask(crawler, jsoupConnection);
+        .thenReturn(MServerConfigManager.getInstance("MServer-JUnit-Config.yaml").getSenderConfig(Sender.SR));
+    when(crawler.getConnection()).thenReturn(jsoupConnection);
+
+    final SrTopicsOverviewPageTask target = new SrTopicsOverviewPageTask(crawler);
     final Queue<SrTopicUrlDTO> actual = target.call();
     assertThat(actual, notNullValue());
     assertThat(actual, Matchers.containsInAnyOrder(expectedUrls));

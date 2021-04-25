@@ -1,6 +1,5 @@
 package de.mediathekview.mserver.crawler.hr.tasks;
 
-import de.mediathekview.mserver.base.webaccess.JsoupConnection;
 import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
 import de.mediathekview.mserver.crawler.basic.CrawlerUrlDTO;
 
@@ -13,9 +12,8 @@ public class HrSendungsfolgenVerpasstOverviewPageTask extends HrSendungsfolgenOv
 
   public HrSendungsfolgenVerpasstOverviewPageTask(
       final AbstractCrawler aCrawler,
-      final Queue<CrawlerUrlDTO> urlToCrawlDTOs,
-      final JsoupConnection jsoupConnection) {
-    super(aCrawler, urlToCrawlDTOs, jsoupConnection);
+      final Queue<CrawlerUrlDTO> urlToCrawlDTOs) {
+    super(aCrawler, urlToCrawlDTOs);
   }
 
   @Override

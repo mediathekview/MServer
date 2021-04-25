@@ -5,7 +5,6 @@ import de.mediathekview.mlib.daten.Sender;
 import de.mediathekview.mlib.messages.listener.MessageListener;
 import de.mediathekview.mserver.base.config.MServerConfigManager;
 import de.mediathekview.mserver.base.messages.ServerMessages;
-import de.mediathekview.mserver.base.webaccess.JsoupConnection;
 import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
 import de.mediathekview.mserver.crawler.basic.CrawlerUrlDTO;
 import de.mediathekview.mserver.crawler.kika.KikaCrawlerUrlDto.FilmType;
@@ -27,8 +26,6 @@ import java.util.concurrent.RecursiveTask;
 public class KikaCrawler extends AbstractCrawler {
   private static final Logger LOG = LogManager.getLogger(KikaCrawler.class);
 
-  JsoupConnection jsoupConnection;
-
   public KikaCrawler(
       final ForkJoinPool aForkJoinPool,
       final Collection<MessageListener> aMessageListeners,
@@ -36,7 +33,6 @@ public class KikaCrawler extends AbstractCrawler {
       final MServerConfigManager aRootConfig) {
     super(aForkJoinPool, aMessageListeners, aProgressListeners, aRootConfig);
 
-    jsoupConnection = new JsoupConnection();
   }
 
   @Override
@@ -70,7 +66,7 @@ public class KikaCrawler extends AbstractCrawler {
 
     printMessage(ServerMessages.DEBUG_KIKA_SENDUNGSFOLGEN_URL_CONVERTING, getSender().getName());
     final KikaSendungsfolgeVideoUrlTask sendungsfolgeVideoUrlsTask =
-        new KikaSendungsfolgeVideoUrlTask(this, sendungsfolgenUrls, jsoupConnection);
+        new KikaSendungsfolgeVideoUrlTask(this, sendungsfolgenUrls);
     final Set<KikaCrawlerUrlDto> sendungsfolgeVideoUrls =
         forkJoinPool.invoke(sendungsfolgeVideoUrlsTask);
     printMessage(ServerMessages.DEBUG_KIKA_CONVERTING_FINISHED, getSender().getName());
@@ -83,25 +79,24 @@ public class KikaCrawler extends AbstractCrawler {
     final Queue<KikaCrawlerUrlDto> letterPageUrls = new ConcurrentLinkedQueue<>();
     letterPageUrls.add(new KikaCrawlerUrlDto(KikaConstants.URL_TOPICS_PAGE, FilmType.NORMAL));
     final KikaLetterPageUrlTask letterUrlTask =
-        new KikaLetterPageUrlTask(this, letterPageUrls, KikaConstants.BASE_URL, jsoupConnection);
+        new KikaLetterPageUrlTask(this, letterPageUrls, KikaConstants.BASE_URL);
     final Set<KikaCrawlerUrlDto> letterUrls = forkJoinPool.submit(letterUrlTask).get();
 
     final KikaLetterPageTask letterTask =
         new KikaLetterPageTask(
-            this, new ConcurrentLinkedQueue<>(letterUrls), KikaConstants.BASE_URL, jsoupConnection);
+            this, new ConcurrentLinkedQueue<>(letterUrls), KikaConstants.BASE_URL);
     final Set<KikaCrawlerUrlDto> topicUrls = forkJoinPool.submit(letterTask).get();
 
     final KikaTopicLandingPageTask landingTask =
         new KikaTopicLandingPageTask(
-            this, new ConcurrentLinkedQueue<>(topicUrls), KikaConstants.BASE_URL, jsoupConnection);
+            this, new ConcurrentLinkedQueue<>(topicUrls), KikaConstants.BASE_URL);
     final Set<KikaCrawlerUrlDto> topicOverviewUrls = forkJoinPool.submit(landingTask).get();
 
     final KikaTopicOverviewPageTask topicOverviewTask =
         new KikaTopicOverviewPageTask(
             this,
             new ConcurrentLinkedQueue<>(topicOverviewUrls),
-            KikaConstants.BASE_URL,
-            jsoupConnection);
+            KikaConstants.BASE_URL);
     Set<KikaCrawlerUrlDto> urls = forkJoinPool.submit(topicOverviewTask).get();
     LOG.info("KIKA: urls from topics: {}", urls.size());
     return urls;
@@ -113,15 +108,15 @@ public class KikaCrawler extends AbstractCrawler {
     letterPageUrls.add(new KikaCrawlerUrlDto(KikaConstants.URL_DGS_PAGE, FilmType.SIGN_LANGUAGE));
     letterPageUrls.add(new KikaCrawlerUrlDto(KikaConstants.URL_AUDIO_DESCRIPTION_PAGE, FilmType.AUDIO_DESCRIPTION));
     final KikaLetterPageUrlTask letterUrlTask =
-        new KikaLetterPageUrlTask(this, letterPageUrls, KikaConstants.BASE_URL, jsoupConnection);
+        new KikaLetterPageUrlTask(this, letterPageUrls, KikaConstants.BASE_URL);
     final Set<KikaCrawlerUrlDto> letterUrls = forkJoinPool.submit(letterUrlTask).get();
 
     final KikaLetterPageTask letterPageTask =
         new KikaLetterPageTask(
             this,
             new ConcurrentLinkedQueue<>(letterUrls),
-            KikaConstants.BASE_URL,
-            jsoupConnection);
+            KikaConstants.BASE_URL
+            );
 
     return forkJoinPool.submit(letterPageTask).get();
   }
@@ -138,7 +133,7 @@ public class KikaCrawler extends AbstractCrawler {
 
     final KikaSendungVerpasstTask dayTask =
         new KikaSendungVerpasstTask(
-            this, new ConcurrentLinkedQueue<>(daysUrls), KikaConstants.BASE_URL, jsoupConnection);
+            this, new ConcurrentLinkedQueue<>(daysUrls), KikaConstants.BASE_URL);
     filmUrls.addAll(forkJoinPool.invoke(dayTask));
 
     printMessage(

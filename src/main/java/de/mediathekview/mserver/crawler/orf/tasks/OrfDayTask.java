@@ -1,7 +1,6 @@
 package de.mediathekview.mserver.crawler.orf.tasks;
 
 import de.mediathekview.mserver.base.HtmlConsts;
-import de.mediathekview.mserver.base.webaccess.JsoupConnection;
 import de.mediathekview.mserver.crawler.basic.*;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -17,9 +16,8 @@ public class OrfDayTask extends AbstractDocumentTask<TopicUrlDTO, CrawlerUrlDTO>
 
   public OrfDayTask(
       final AbstractCrawler crawler,
-      final Queue<CrawlerUrlDTO> urlToCrawlDTOs,
-      final JsoupConnection jsoupConnection) {
-    super(crawler, urlToCrawlDTOs, jsoupConnection);
+      final Queue<CrawlerUrlDTO> urlToCrawlDTOs) {
+    super(crawler, urlToCrawlDTOs);
   }
 
   @Override
@@ -49,6 +47,6 @@ public class OrfDayTask extends AbstractDocumentTask<TopicUrlDTO, CrawlerUrlDTO>
   @Override
   protected AbstractUrlTask<TopicUrlDTO, CrawlerUrlDTO> createNewOwnInstance(
       final Queue<CrawlerUrlDTO> aUrlsToCrawl) {
-    return new OrfDayTask(crawler, aUrlsToCrawl, getJsoupConnection());
+    return new OrfDayTask(crawler, aUrlsToCrawl);
   }
 }

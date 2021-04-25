@@ -107,6 +107,35 @@ public final class HtmlDocumentUtils {
 		return result;
 	}
 
+	/**
+	 * Searches for the given selector if found it returns the text of the first
+	 * result.
+	 *
+	 * @param aElementSelector1 The selector for the searched element.
+	 * @param aElementSelector2 The selector for the searched element if
+	 *                          aElementSelector1 is not found
+	 * @param aElementSelector3 The selector for the searched element if
+	 *                          aElementSelector1 and aElementSelector2 is not found
+	 * @param aDocument         The document in which will be searched.
+	 * @return A {@link Optional} containing the found element or else an empty
+	 *         {@link Optional}.
+	 */
+	public static Optional<String> getElementString(final String aElementSelector1,
+																									final String aElementSelector2,
+																									final String aElementSelector3,
+																									final Document aDocument) {
+
+		Optional<String> result = getElementString(aElementSelector1, aDocument);
+		if (!result.isPresent()) {
+			result = getElementString(aElementSelector2, aDocument);
+		}
+		if (!result.isPresent()) {
+			result = getElementString(aElementSelector3, aDocument);
+		}
+
+		return result;
+	}
+
 	public static Optional<Duration> parseDuration(final Optional<String> aDauerText) {
 		return aDauerText.isPresent() ? parseDuration(aDauerText.get()) : Optional.empty();
 	}

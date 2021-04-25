@@ -6,10 +6,10 @@ import com.google.gson.reflect.TypeToken;
 import de.mediathekview.mlib.daten.Film;
 import de.mediathekview.mlib.daten.FilmUrl;
 import de.mediathekview.mlib.daten.Resolution;
+import de.mediathekview.mlib.tool.FileSizeDeterminer;
 import de.mediathekview.mserver.base.utils.DateUtils;
 import de.mediathekview.mserver.base.utils.GeoLocationGuesser;
 import de.mediathekview.mserver.base.utils.HtmlDocumentUtils;
-import de.mediathekview.mserver.base.webaccess.JsoupConnection;
 import de.mediathekview.mserver.crawler.ard.json.ArdVideoInfoDto;
 import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
 import de.mediathekview.mserver.crawler.basic.AbstractDocumentTask;
@@ -46,12 +46,14 @@ public class HrSendungsfolgedetailsTask extends AbstractDocumentTask<Film, Crawl
   private static final String THEMA_SELECTOR2 = ".c-programHeader__headline.text__headline";
   private static final String TITLE_SELECTOR1 = ".c-programHeader__subline.text__topline";
   private static final String TITLE_SELECTOR2 = ".c-contentHeader__headline";
+  private static final String TITLE_SELECTOR3 = ".c-programHeader__mediaWrapper .text__headline";
   private static final String DATE_TIME_SELECTOR1 = ".c-programHeader__mediaWrapper time";
   private static final String DATE_TIME_SELECTOR2 = ".c-contentHeader__lead time";
   private static final String DAUER_SELECTOR1 = ".c-programHeader__mediaWrapper .mediaInfo__byline";
   private static final String DAUER_SELECTOR2 = ".c-contentHeader .mediaInfo__byline";
   private static final String DESCRIPTION_SELECTOR1 = ".copytext__text.copytext__text strong";
   private static final String DESCRIPTION_SELECTOR2 = ".copytext__text";
+  private static final String VIDEO_URL_SELECTOR1 = ".c-videoplayer .js-loadScript";
   private static final String VIDEO_URL_SELECTOR2 = "figure .js-loadScript";
 
   private static final Type OPTIONAL_ARDVIDEOINFODTO_TYPE_TOKEN =
@@ -61,9 +63,8 @@ public class HrSendungsfolgedetailsTask extends AbstractDocumentTask<Film, Crawl
 
   public HrSendungsfolgedetailsTask(
       final AbstractCrawler aCrawler,
-      final Queue<CrawlerUrlDTO> urlToCrawlDTOs,
-      final JsoupConnection jsoupConnection) {
-    super(aCrawler, urlToCrawlDTOs, jsoupConnection);
+      final Queue<CrawlerUrlDTO> urlToCrawlDTOs) {
+    super(aCrawler, urlToCrawlDTOs);
 
     gson =
         new GsonBuilder()
@@ -74,7 +75,7 @@ public class HrSendungsfolgedetailsTask extends AbstractDocumentTask<Film, Crawl
   @Override
   protected AbstractUrlTask<Film, CrawlerUrlDTO> createNewOwnInstance(
       final Queue<CrawlerUrlDTO> aUrlsToCrawl) {
-    return new HrSendungsfolgedetailsTask(crawler, aUrlsToCrawl, getJsoupConnection());
+    return new HrSendungsfolgedetailsTask(crawler, aUrlsToCrawl);
   }
 
   private static HrTopicTitleDTO getTopicAndTitle(final Document aDocument) {
@@ -92,17 +93,29 @@ public class HrSendungsfolgedetailsTask extends AbstractDocumentTask<Film, Crawl
       if (title.isPresent()
           && topic.isPresent()
           && topic.get().compareToIgnoreCase(title.get()) == 0) {
-        title = HtmlDocumentUtils.getElementString(TITLE_SELECTOR1, TITLE_SELECTOR2, aDocument);
+        title = HtmlDocumentUtils.getElementString(TITLE_SELECTOR1, TITLE_SELECTOR2, TITLE_SELECTOR3, aDocument);
       }
     } else {
       // Ansonsten ist die Überschrift das Thema und die Unterüberschrift der Titel (betrifft v.a.
       // Hessenschau)
       topic = HtmlDocumentUtils.getElementString(THEMA_SELECTOR2, aDocument);
-      title = HtmlDocumentUtils.getElementString(TITLE_SELECTOR1, TITLE_SELECTOR2, aDocument);
+      title = HtmlDocumentUtils.getElementString(TITLE_SELECTOR1, TITLE_SELECTOR2, TITLE_SELECTOR3, aDocument);
       if (topic.isEmpty() && title.isPresent()) {
-        final String[] titleParts = title.get().split("-");
+        String[] titleParts = title.get().split("-");
+        if (titleParts.length == 1) {
+          titleParts = title.get().split("vom");
+        }
         topic = Optional.of(titleParts[0].trim());
       }
+    }
+
+    if (title.isPresent()) {
+      String value = title.get().replace("[Videoseite]", "");
+      final int index = value.indexOf("|");
+      if (index > 0) {
+        value = value.substring(0, index);
+      }
+      title = Optional.of(value.trim());
     }
 
     return new HrTopicTitleDTO(topic.orElse(null), title.orElse(null));
@@ -197,7 +210,7 @@ public class HrSendungsfolgedetailsTask extends AbstractDocumentTask<Film, Crawl
       Optional.ofNullable(beschreibung).ifPresent(newFilm::setBeschreibung);
 
       for (final Entry<Resolution, String> videoUrl : videoUrls.entrySet()) {
-        newFilm.addUrl(videoUrl.getKey(), new FilmUrl(videoUrl.getValue(), serialVersionUID));
+        newFilm.addUrl(videoUrl.getKey(), new FilmUrl(videoUrl.getValue(), new FileSizeDeterminer(videoUrl.getValue()).getFileSizeInMiB()));
       }
 
       final Optional<String> optionalUntertitelUrlText = Optional.ofNullable(untertitelUrlText);
@@ -237,7 +250,7 @@ public class HrSendungsfolgedetailsTask extends AbstractDocumentTask<Film, Crawl
 
     final Optional<String> videoJson =
         HtmlDocumentUtils.getElementAttributeString(
-            VIDEO_URL_SELECTOR2, ATTRIBUTE_VIDEO_JSON, aDocument);
+            VIDEO_URL_SELECTOR1, VIDEO_URL_SELECTOR2, ATTRIBUTE_VIDEO_JSON, aDocument);
     if (videoJson.isPresent()) {
       return gson.fromJson(videoJson.get(), OPTIONAL_ARDVIDEOINFODTO_TYPE_TOKEN);
     }

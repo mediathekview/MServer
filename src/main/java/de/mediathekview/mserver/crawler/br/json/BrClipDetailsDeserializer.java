@@ -371,11 +371,7 @@ public class BrClipDetailsDeserializer implements JsonDeserializer<Optional<Film
                     final URL videoURL;
                     try {
                       videoURL = new URL(videoFileURL.getAsString());
-                      long fileSize = 0L;
-                      if (fileSizeOptional.isPresent()) {
-                        fileSize = fileSizeOptional.get().getAsLong() / 1024 / 1024;
-                      }
-                      final FilmUrl filmUrl = new FilmUrl(videoURL, fileSize);
+                      final FilmUrl filmUrl = new FilmUrl(videoURL, getFileSizeInKB(fileSizeOptional));
 
                       if (!videoListe.containsKey(resolution)) {
                         videoListe.put(resolution, filmUrl);
@@ -398,6 +394,15 @@ public class BrClipDetailsDeserializer implements JsonDeserializer<Optional<Film
     }
     LOG.error("Erzeugung der VideoURLs fehlgeschlagen für ID: {}", id.getId());
     return Optional.empty();
+  }
+
+  private long getFileSizeInKB(Optional<JsonPrimitive> fileSizeOptional) {
+    if(fileSizeOptional.isPresent() && !fileSizeOptional.get().isJsonNull()) {
+      // fileSize is in bytes
+      return fileSizeOptional.get().getAsLong() / 1024;
+    }
+
+    return 0;
   }
 
   private Optional<String> getBeschreibung(final JsonObject clipDetailRoot) {

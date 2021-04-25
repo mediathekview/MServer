@@ -3,7 +3,6 @@ package de.mediathekview.mserver.crawler.sr.tasks;
 import de.mediathekview.mserver.base.HtmlConsts;
 import de.mediathekview.mserver.base.utils.UrlParseException;
 import de.mediathekview.mserver.base.utils.UrlUtils;
-import de.mediathekview.mserver.base.webaccess.JsoupConnection;
 import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
 import de.mediathekview.mserver.crawler.sr.SrConstants;
 import de.mediathekview.mserver.crawler.sr.SrTopicUrlDTO;
@@ -19,7 +18,6 @@ import java.util.Optional;
 import java.util.Queue;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ConcurrentLinkedQueue;
-import java.util.concurrent.TimeUnit;
 
 public class SrTopicsOverviewPageTask implements Callable<Queue<SrTopicUrlDTO>> {
 
@@ -32,13 +30,10 @@ public class SrTopicsOverviewPageTask implements Callable<Queue<SrTopicUrlDTO>> 
   private static final String SHOW_LINK_SELECTOR = "h3.teaser__text__header a";
   private final AbstractCrawler crawler;
 
-  JsoupConnection jsoupConnection;
-
   /** @param aCrawler The crawler which uses this task. */
   public SrTopicsOverviewPageTask(
-      final AbstractCrawler aCrawler, final JsoupConnection jsoupConnection) {
+      final AbstractCrawler aCrawler) {
     crawler = aCrawler;
-    this.jsoupConnection = jsoupConnection;
   }
 
   private static SrTopicUrlDTO createDto(final String aTheme, final String aShowShort) {
@@ -51,11 +46,7 @@ public class SrTopicsOverviewPageTask implements Callable<Queue<SrTopicUrlDTO>> 
     final Queue<SrTopicUrlDTO> results = new ConcurrentLinkedQueue<>();
 
     // URLs für Seiten parsen
-    final Document document =
-        jsoupConnection.getDocumentTimeoutAfter(
-            SrConstants.URL_OVERVIEW_PAGE,
-            (int)
-                TimeUnit.SECONDS.toMillis(crawler.getCrawlerConfig().getSocketTimeoutInSeconds()));
+    final Document document = crawler.requestBodyAsHtmlDocument(SrConstants.URL_OVERVIEW_PAGE);
     final List<String> overviewLinks = parseOverviewLinks(document);
 
     // Sendungen für erste Seite ermitteln
@@ -65,12 +56,7 @@ public class SrTopicsOverviewPageTask implements Callable<Queue<SrTopicUrlDTO>> 
     overviewLinks.forEach(
         url -> {
           try {
-            final Document subpageDocument =
-                jsoupConnection.getDocumentTimeoutAfter(
-                    url,
-                    (int)
-                        TimeUnit.SECONDS.toMillis(
-                            crawler.getCrawlerConfig().getSocketTimeoutInSeconds()));
+            final Document subpageDocument = crawler.requestBodyAsHtmlDocument(url);
             results.addAll(parseOverviewPage(subpageDocument));
           } catch (final IOException ex) {
             LOG.fatal("SrTopicsOverviewPageTask: error parsing url " + url, ex);
