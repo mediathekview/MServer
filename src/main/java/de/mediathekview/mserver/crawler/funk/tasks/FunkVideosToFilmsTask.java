@@ -57,7 +57,7 @@ public class FunkVideosToFilmsTask
   }
 
   @Override
-  protected void handleHttpError(final URI url, final Response response) {
+  protected void handleHttpError(final FilmInfoDto dto, final URI url, final Response response) {
     crawler.printErrorMessage();
     LOG.error(
         "A HTTP error {} occurred when getting REST information from: \"{}\".",

@@ -13,6 +13,7 @@ import de.mediathekview.mlib.daten.GeoLocations;
 import de.mediathekview.mlib.daten.Sender;
 import de.mediathekview.mlib.messages.listener.MessageListener;
 import de.mediathekview.mserver.base.config.MServerConfigManager;
+import de.mediathekview.mserver.crawler.br.BrClipQueryDto;
 import de.mediathekview.mserver.crawler.br.BrCrawler;
 import de.mediathekview.mserver.crawler.br.data.BrClipType;
 import de.mediathekview.mserver.crawler.br.data.BrID;
@@ -114,7 +115,6 @@ public class BrGetClipDetailsTaskTest extends WireMockTestBase {
           }
         });
   }
-  ;
 
   protected MServerConfigManager rootConfig =
       MServerConfigManager.getInstance("MServer-JUnit-Config.yaml");
@@ -129,14 +129,14 @@ public class BrGetClipDetailsTaskTest extends WireMockTestBase {
 
   @Test
   public void test() {
-    final Queue<BrID> queue = new ConcurrentLinkedQueue<>();
-    queue.add(new BrID(BrClipType.PROGRAMME, id));
+    final Queue<BrClipQueryDto> queue = new ConcurrentLinkedQueue<>();
+    queue.add(new BrClipQueryDto(wireMockServer.baseUrl() + "/graphql", new BrID(BrClipType.PROGRAMME, id)));
 
     setupSuccessfulJsonPostResponse("/graphql", filmJsonFile);
 
     final BrGetClipDetailsTask task =
-        new BrGetClipDetailsTask(createCrawler(), queue, wireMockServer.baseUrl() + "/graphql");
-    final Set<Film> actual = task.compute();
+        new BrGetClipDetailsTask(createCrawler(), queue);
+    final Set<Film> actual = task.invoke();
     assertThat(actual.size(), equalTo(1));
 
     final Film film = actual.iterator().next();

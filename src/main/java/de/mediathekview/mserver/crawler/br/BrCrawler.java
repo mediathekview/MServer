@@ -6,7 +6,6 @@ import de.mediathekview.mlib.messages.listener.MessageListener;
 import de.mediathekview.mserver.base.config.MServerConfigManager;
 import de.mediathekview.mserver.base.messages.ServerMessages;
 import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
-import de.mediathekview.mserver.crawler.br.data.BrID;
 import de.mediathekview.mserver.crawler.br.tasks.BrBroadcastsTask;
 import de.mediathekview.mserver.crawler.br.tasks.BrGetClipDetailsTask;
 import de.mediathekview.mserver.progress.listeners.SenderProgressListener;
@@ -43,11 +42,13 @@ public class BrCrawler extends AbstractCrawler {
   @Override
   protected RecursiveTask<Set<Film>> createCrawlerTask() {
 
-    final RecursiveTask<Set<BrID>> createCompleteClipListTask = createGetClipListCrawler();
-    ConcurrentLinkedQueue<BrID> idList = null;
+    final RecursiveTask<Set<BrClipQueryDto>> createCompleteClipListTask =
+        createGetClipListCrawler();
+    ConcurrentLinkedQueue<BrClipQueryDto> idList = null;
 
     try {
-      final Set<BrID> completeClipList = forkJoinPool.submit(createCompleteClipListTask).get();
+      final Set<BrClipQueryDto> completeClipList =
+          forkJoinPool.submit(createCompleteClipListTask).get();
 
       idList = new ConcurrentLinkedQueue<>(completeClipList);
       incrementMaxCountBySizeAndGetNewSize(idList.size());
@@ -59,22 +60,50 @@ public class BrCrawler extends AbstractCrawler {
       printErrorMessage();
     }
 
-    return new BrGetClipDetailsTask(this, idList, BrConstants.GRAPHQL_API);
+    return new BrGetClipDetailsTask(this, idList);
   }
 
-  private RecursiveTask<Set<BrID>> createGetClipListCrawler() {
+  private RecursiveTask<Set<BrClipQueryDto>> createGetClipListCrawler() {
     final LocalDate now = LocalDate.now();
     final Queue<BrQueryDto> input = new ConcurrentLinkedQueue<>();
 
     for (int i = 0; i <= crawlerConfig.getMaximumDaysForSendungVerpasstSection(); i++) {
       final LocalDate day = now.minusDays(i);
-      input.add(new BrQueryDto(BrConstants.GRAPHQL_API, BrConstants.BROADCAST_SERVICE_BR, day, day, BrConstants.PAGE_SIZE, Optional.empty()));
-      input.add(new BrQueryDto(BrConstants.GRAPHQL_API, BrConstants.BROADCAST_SERVICE_ALPHA, day, day, BrConstants.PAGE_SIZE, Optional.empty()));
+      input.add(
+          new BrQueryDto(
+              BrConstants.GRAPHQL_API,
+              BrConstants.BROADCAST_SERVICE_BR,
+              day,
+              day,
+              BrConstants.PAGE_SIZE,
+              Optional.empty()));
+      input.add(
+          new BrQueryDto(
+              BrConstants.GRAPHQL_API,
+              BrConstants.BROADCAST_SERVICE_ALPHA,
+              day,
+              day,
+              BrConstants.PAGE_SIZE,
+              Optional.empty()));
     }
     for (int i = 1; i <= crawlerConfig.getMaximumDaysForSendungVerpasstSectionFuture(); i++) {
       final LocalDate day = now.plusDays(i);
-      input.add(new BrQueryDto(BrConstants.GRAPHQL_API, BrConstants.BROADCAST_SERVICE_BR, day, day, BrConstants.PAGE_SIZE, Optional.empty()));
-      input.add(new BrQueryDto(BrConstants.GRAPHQL_API, BrConstants.BROADCAST_SERVICE_ALPHA, day, day, BrConstants.PAGE_SIZE, Optional.empty()));
+      input.add(
+          new BrQueryDto(
+              BrConstants.GRAPHQL_API,
+              BrConstants.BROADCAST_SERVICE_BR,
+              day,
+              day,
+              BrConstants.PAGE_SIZE,
+              Optional.empty()));
+      input.add(
+          new BrQueryDto(
+              BrConstants.GRAPHQL_API,
+              BrConstants.BROADCAST_SERVICE_ALPHA,
+              day,
+              day,
+              BrConstants.PAGE_SIZE,
+              Optional.empty()));
     }
     return new BrBroadcastsTask(this, input);
   }

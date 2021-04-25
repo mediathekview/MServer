@@ -1,11 +1,7 @@
 package de.mediathekview.mserver.crawler.br.json;
 
 import com.google.gson.*;
-import de.mediathekview.mlib.daten.Film;
-import de.mediathekview.mlib.daten.FilmUrl;
-import de.mediathekview.mlib.daten.GeoLocations;
-import de.mediathekview.mlib.daten.Resolution;
-import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
+import de.mediathekview.mlib.daten.*;
 import de.mediathekview.mserver.crawler.br.data.BrClipType;
 import de.mediathekview.mserver.crawler.br.data.BrGraphQLElementNames;
 import de.mediathekview.mserver.crawler.br.data.BrGraphQLNodeNames;
@@ -34,12 +30,12 @@ public class BrClipDetailsDeserializer implements JsonDeserializer<Optional<Film
   private static final Logger LOG = LogManager.getLogger(BrClipDetailsDeserializer.class);
   private static final String JSON_ELEMENT_INITIAL_SCREENING = "initialScreening";
 
-  private final AbstractCrawler crawler;
   private final BrID id;
+  private final Sender sender;
 
-  public BrClipDetailsDeserializer(final AbstractCrawler crawler, final BrID id) {
+  public BrClipDetailsDeserializer(final Sender sender, final BrID id) {
     super();
-    this.crawler = crawler;
+    this.sender = sender;
     this.id = id;
   }
 
@@ -83,7 +79,7 @@ public class BrClipDetailsDeserializer implements JsonDeserializer<Optional<Film
         final Film currentFilm =
             new Film(
                 UUID.randomUUID(),
-                crawler.getSender(),
+                sender,
                 titel.get(),
                 thema.get(),
                 sendeZeitpunkt.orElse(null),
@@ -108,7 +104,6 @@ public class BrClipDetailsDeserializer implements JsonDeserializer<Optional<Film
             videoUrls.isPresent());
       }
     }
-    crawler.incrementAndGetErrorCount();
     return Optional.empty();
   }
 
@@ -334,8 +329,8 @@ public class BrClipDetailsDeserializer implements JsonDeserializer<Optional<Film
                   GsonGraphQLHelper.getChildPrimitiveIfExists(
                       videoFilesEdgeNode, BrGraphQLElementNames.STRING_CLIP_URL.getName());
               final Optional<JsonPrimitive> fileSizeOptional =
-                      GsonGraphQLHelper.getChildPrimitiveIfExists(
-                              videoFilesEdgeNode, BrGraphQLElementNames.STRING_CLIP_FILE_SIZE.getName());
+                  GsonGraphQLHelper.getChildPrimitiveIfExists(
+                      videoFilesEdgeNode, BrGraphQLElementNames.STRING_CLIP_FILE_SIZE.getName());
 
               final Optional<JsonObject> accessibleInOptional =
                   GsonGraphQLHelper.getChildObjectIfExists(videoFilesEdgeNode, "accessibleIn");
@@ -378,7 +373,7 @@ public class BrClipDetailsDeserializer implements JsonDeserializer<Optional<Film
                       videoURL = new URL(videoFileURL.getAsString());
                       long fileSize = 0L;
                       if (fileSizeOptional.isPresent()) {
-                        fileSize = fileSizeOptional.get().getAsLong() / 1024/ 1024;
+                        fileSize = fileSizeOptional.get().getAsLong() / 1024 / 1024;
                       }
                       final FilmUrl filmUrl = new FilmUrl(videoURL, fileSize);
 
