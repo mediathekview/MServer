@@ -57,7 +57,7 @@ public class FunkVideosToFilmsTask
   }
 
   @Override
-  protected void handleHttpError(final URI url, final Response response) {
+  protected void handleHttpError(final FilmInfoDto dto, final URI url, final Response response) {
     crawler.printErrorMessage();
     LOG.error(
         "A HTTP error {} occurred when getting REST information from: \"{}\".",
@@ -67,7 +67,7 @@ public class FunkVideosToFilmsTask
   }
 
   @Override
-  protected Response createResponse(final Invocation.Builder request) {
+  protected Response createResponse(final Invocation.Builder request, final FilmInfoDto dto) {
     final MultivaluedHashMap<String, String> formData = new MultivaluedStringMap();
     formData.add(POST_FORM_FIELD_ADD_STREAM_DETAILS, POST_FORM_FIELD_VALUE_ONE);
     return request

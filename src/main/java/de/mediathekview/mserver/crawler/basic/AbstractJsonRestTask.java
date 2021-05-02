@@ -29,7 +29,7 @@ public abstract class AbstractJsonRestTask<T, R, D extends CrawlerUrlDTO>
   private static final long serialVersionUID = -1090560363478964885L;
   protected final transient GsonBuilder gsonBuilder;
 
-  public AbstractJsonRestTask(
+  protected AbstractJsonRestTask(
       final AbstractCrawler crawler,
       final Queue<D> urlToCrawlDTOs,
       @Nullable final String authKey) {
@@ -41,7 +41,7 @@ public abstract class AbstractJsonRestTask<T, R, D extends CrawlerUrlDTO>
 
   protected abstract Type getType();
 
-  protected abstract void handleHttpError(URI url, Response response);
+  protected abstract void handleHttpError(D dto, URI url, Response response);
 
   protected abstract void postProcessing(R aResponseObj, D aDTO);
 
@@ -55,18 +55,18 @@ public abstract class AbstractJsonRestTask<T, R, D extends CrawlerUrlDTO>
       request = request.header(HEADER_AUTHORIZATION, authKey.get());
     }
 
-    final Response response = createResponse(request);
+    final Response response = createResponse(request, aDTO);
 
     if (response.getStatus() == 200) {
       final String jsonOutput = response.readEntity(String.class);
       final R responseObj = gson.fromJson(jsonOutput, getType());
       postProcessing(responseObj, aDTO);
     } else {
-      handleHttpError(aTarget.getUri(), response);
+      handleHttpError(aDTO, aTarget.getUri(), response);
     }
   }
 
-  protected Response createResponse(final Builder request) {
+  protected Response createResponse(final Builder request, D aDTO) {
     request.header(ACCEPT_CHARSET, StandardCharsets.UTF_8);
     return request.header(ACCEPT_ENCODING, ENCODING_GZIP).get();
   }
