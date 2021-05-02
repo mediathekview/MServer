@@ -30,7 +30,10 @@ public class ArdVideoInfoJsonDeserializerTest extends WireMockTestBase {
   private final String expectedUrlHd;
 
   public ArdVideoInfoJsonDeserializerTest(
-          final String aJsonFile, final String aUrlSmall, final String aUrlNormal, final String aUrlHd) {
+      final String aJsonFile,
+      final String aUrlSmall,
+      final String aUrlNormal,
+      final String aUrlHd) {
     jsonFile = aJsonFile;
     expectedUrlSmall = aUrlSmall;
     expectedUrlNormal = aUrlNormal;
@@ -137,7 +140,8 @@ public class ArdVideoInfoJsonDeserializerTest extends WireMockTestBase {
   @Test
   public void deserializeTest() {
 
-    final JsonElement jsonElement = JsonFileReader.readJson(jsonFile);
+    final JsonElement jsonElement =
+        JsonFileReader.readJsonWithTextModification(jsonFile, this::fixupAllWireMockUrls);
 
     setupSuccessfulResponse("/i/ndrfs_nds@430233/master.m3u8", "/ndr/ndr_film_detail_m3u8.m3u8");
     setupSuccessfulResponse(
@@ -153,12 +157,16 @@ public class ArdVideoInfoJsonDeserializerTest extends WireMockTestBase {
     assertThat(actual.getVideoUrls().get(Resolution.NORMAL), equalTo(expectedUrlNormal));
     assertThat(actual.getVideoUrls().get(Resolution.HD), equalTo(expectedUrlHd));
   }
-  
-  protected ArdCrawler createCrawler() {
-    ForkJoinPool forkJoinPool = new ForkJoinPool();
-    Collection<MessageListener> nachrichten = new ArrayList<>();
-    Collection<SenderProgressListener> fortschritte = new ArrayList<>();
 
-    return new ArdCrawler(forkJoinPool, nachrichten, fortschritte, MServerConfigManager.getInstance("MServer-JUnit-Config.yaml"));
+  protected ArdCrawler createCrawler() {
+    final ForkJoinPool forkJoinPool = new ForkJoinPool();
+    final Collection<MessageListener> nachrichten = new ArrayList<>();
+    final Collection<SenderProgressListener> fortschritte = new ArrayList<>();
+
+    return new ArdCrawler(
+        forkJoinPool,
+        nachrichten,
+        fortschritte,
+        new MServerConfigManager("MServer-JUnit-Config.yaml"));
   }
 }

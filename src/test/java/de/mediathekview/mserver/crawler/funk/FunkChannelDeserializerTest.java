@@ -149,8 +149,7 @@ public class FunkChannelDeserializerTest {
   @Test
   public void testDeserialize() throws URISyntaxException, IOException {
     final Type funkChannelsType = new TypeToken<PagedElementListDTO<FunkChannelDTO>>() {}.getType();
-    final MServerConfigManager rootConfig =
-        MServerConfigManager.getInstance("MServer-JUnit-Config.yaml");
+    final MServerConfigManager rootConfig = new MServerConfigManager("MServer-JUnit-Config.yaml");
     final MServerBasicConfigDTO senderConfig = rootConfig.getSenderConfig(Sender.FUNK);
     senderConfig.setMaximumSubpages(2);
     final Gson gson =

@@ -38,7 +38,8 @@ public class NexxCloudSessionInitiationTask implements Callable<Long> {
     final Gson gson = createGson();
 
     final Client client = createClient();
-    final WebTarget target = client.target(FunkUrls.NEXX_CLOUD_SESSION_INIT.getAsString());
+    final WebTarget target =
+        client.target(FunkUrls.NEXX_CLOUD_SESSION_INIT.getAsString(crawler.getRuntimeConfig()));
 
     final MultivaluedHashMap<String, String> formData = createForm();
 
@@ -50,9 +51,8 @@ public class NexxCloudSessionInitiationTask implements Callable<Long> {
     } else {
       crawler.printErrorMessage();
       LOG.fatal(
-          String.format(
-              "A HTTP error %d occurred when initialising the Nexx cloud session.",
-              response.getStatus()));
+          "A HTTP error {} occurred when initialising the Nexx cloud session.",
+          response.getStatus());
     }
     return null;
   }

@@ -7,7 +7,6 @@ import de.mediathekview.mserver.crawler.funk.tasks.FunkRestEndpoint;
 import de.mediathekview.mserver.crawler.funk.tasks.FunkRestTask;
 import org.junit.Test;
 
-import java.util.Optional;
 import java.util.Set;
 
 import static com.github.tomakehurst.wiremock.client.WireMock.*;
@@ -78,8 +77,7 @@ public class FunkVideoRestTaskTest extends FunkTaskTestBase {
     return new FunkRestTask<>(
             crawler,
             new FunkRestEndpoint<>(
-                FunkApiUrls.VIDEOS,
-                new FunkVideoDeserializer(Optional.of(crawler), crawler.getCrawlerConfig())),
+                FunkApiUrls.VIDEOS, new FunkVideoDeserializer(crawler, crawler.getCrawlerConfig())),
             createCrawlerUrlDto(aRequestUrl))
         .invoke();
   }

@@ -3,7 +3,6 @@ package de.mediathekview.mserver.crawler.zdf.tasks;
 import com.google.common.util.concurrent.RateLimiter;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-
 import de.mediathekview.mlib.daten.Sender;
 import de.mediathekview.mserver.base.config.MServerConfigManager;
 import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
@@ -25,9 +24,7 @@ public abstract class ZdfTaskBase<T, D extends CrawlerUrlDTO> extends AbstractRe
 
   private static final RateLimiter limiter =
       RateLimiter.create(
-          MServerConfigManager.getInstance()
-              .getSenderConfig(Sender.ZDF)
-              .getMaximumRequestsPerSecond());
+          new MServerConfigManager().getSenderConfig(Sender.ZDF).getMaximumRequestsPerSecond());
 
   private final GsonBuilder gsonBuilder;
 

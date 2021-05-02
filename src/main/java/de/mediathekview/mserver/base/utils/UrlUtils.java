@@ -103,6 +103,7 @@ public final class UrlUtils {
    * @param aUrl the url to check
    * @return true if url exists else false.
    */
+  @Deprecated
   public static boolean existsUrl(final String aUrl) {
     boolean result = false;
 

@@ -143,11 +143,11 @@ copySettings:
 logSettings:
   # The log level for the console.
   # Can be: DEBUG, INFO, WARN, ERROR, FATAL
-  logLevelConsole: DEBUG
+  logLevelConsole: INFO
 
   # The log level for the log file.
   # Can be: DEBUG, INFO, WARN, ERROR, FATAL
-  logLevelFile: DEBUG
+  logLevelFile: INFO
 
   # Should be logged to console?
   logActivateConsole: true

@@ -36,8 +36,7 @@ public class ArteFilmDeserializerTest {
   private final LocalDateTime expectedDateTime;
   private final Duration expectedDuration;
   private final GeoLocations[] expectedGeo;
-  protected MServerConfigManager rootConfig =
-      MServerConfigManager.getInstance("MServer-JUnit-Config.yaml");
+  protected MServerConfigManager rootConfig = new MServerConfigManager("MServer-JUnit-Config.yaml");
 
   public ArteFilmDeserializerTest(
       final String jsonFile,

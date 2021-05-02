@@ -12,7 +12,7 @@ public class UrlUtilsTestExistsUrl extends WireMockTestBase {
   public void existsUrlTestNull() {
     final String url = null;
 
-    boolean actual = UrlUtils.existsUrl(url);
+    final boolean actual = UrlUtils.existsUrl(url);
 
     assertThat(actual, equalTo(false));
   }
@@ -22,7 +22,7 @@ public class UrlUtilsTestExistsUrl extends WireMockTestBase {
     final String url = "/my/url/exists";
     setupHeadResponse(url, 200);
 
-    boolean actual = UrlUtils.existsUrl(wireMockServer.baseUrl() + url);
+    final boolean actual = UrlUtils.existsUrl(getWireMockBaseUrlSafe() + url);
 
     assertThat(actual, equalTo(true));
   }
@@ -32,7 +32,7 @@ public class UrlUtilsTestExistsUrl extends WireMockTestBase {
     final String url = "/my/url/exists";
     setupHeadResponse(url, 404);
 
-    boolean actual = UrlUtils.existsUrl(wireMockServer.baseUrl() + url);
+    final boolean actual = UrlUtils.existsUrl(getWireMockBaseUrlSafe() + url);
 
     assertThat(actual, equalTo(false));
   }
@@ -41,7 +41,7 @@ public class UrlUtilsTestExistsUrl extends WireMockTestBase {
   public void existsUrlTestInvalidUrl() {
     final String url = ":/:notvalid";
 
-    boolean actual = UrlUtils.existsUrl(wireMockServer.baseUrl() + url);
+    final boolean actual = UrlUtils.existsUrl(getWireMockBaseUrlSafe() + url);
 
     assertThat(actual, equalTo(false));
   }

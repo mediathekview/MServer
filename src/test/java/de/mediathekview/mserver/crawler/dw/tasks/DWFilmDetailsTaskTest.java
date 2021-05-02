@@ -136,7 +136,7 @@ public class DWFilmDetailsTaskTest extends DwTaskTestBase {
     urls.add(new CrawlerUrlDTO(requestUrl));
 
     final DWFilmDetailsTask classUnderTest =
-        new DWFilmDetailsTask(crawler, urls, wireMockServer.baseUrl());
+        new DWFilmDetailsTask(crawler, urls, getWireMockBaseUrlSafe());
 
     final Set<Film> actual = classUnderTest.invoke();
 

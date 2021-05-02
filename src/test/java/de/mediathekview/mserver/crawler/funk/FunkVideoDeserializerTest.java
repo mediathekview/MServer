@@ -13,6 +13,7 @@ import org.jetbrains.annotations.NotNull;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
+import org.mockito.Mockito;
 
 import java.io.IOException;
 import java.lang.reflect.Type;
@@ -87,13 +88,19 @@ public class FunkVideoDeserializerTest {
   @Test
   public void testDeserialize() throws URISyntaxException, IOException {
     final Type funkVideosType = new TypeToken<PagedElementListDTO<FilmInfoDto>>() {}.getType();
-    final MServerConfigManager rootConfig =
-        MServerConfigManager.getInstance("MServer-JUnit-Config.yaml");
+    final MServerConfigManager rootConfig = new MServerConfigManager("MServer-JUnit-Config.yaml");
     final MServerBasicConfigDTO senderConfig = rootConfig.getSenderConfig(Sender.FUNK);
     senderConfig.setMaximumSubpages(2);
+
+    final FunkCrawler mockedFunkCrawler = Mockito.mock(FunkCrawler.class);
+    Mockito.when(mockedFunkCrawler.getRuntimeConfig()).thenReturn(rootConfig.getConfig());
+    Mockito.when(mockedFunkCrawler.incrementMaxCountBySizeAndGetNewSize(Mockito.anyLong()))
+        .thenReturn(1L);
+
     final Gson gson =
         new GsonBuilder()
-            .registerTypeAdapter(funkVideosType, new FunkVideoDeserializer(senderConfig))
+            .registerTypeAdapter(
+                funkVideosType, new FunkVideoDeserializer(mockedFunkCrawler, senderConfig))
             .create();
 
     final PagedElementListDTO<FilmInfoDto> videoResultList =

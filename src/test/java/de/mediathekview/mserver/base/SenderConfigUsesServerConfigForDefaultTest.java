@@ -16,7 +16,7 @@ public class SenderConfigUsesServerConfigForDefaultTest {
 
   @Before
   public void setUp() {
-    configManager = MServerConfigManager.getInstance("ConfigTest.yaml");
+    configManager = new MServerConfigManager("ConfigTest.yaml");
   }
 
   @Test

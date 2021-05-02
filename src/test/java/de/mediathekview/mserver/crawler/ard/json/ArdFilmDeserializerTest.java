@@ -43,8 +43,7 @@ public class ArdFilmDeserializerTest {
   private final Optional<Sender> additionalSender;
   private final int expectedFilmCount;
 
-  protected MServerConfigManager rootConfig =
-      MServerConfigManager.getInstance("MServer-JUnit-Config.yaml");
+  protected MServerConfigManager rootConfig = new MServerConfigManager("MServer-JUnit-Config.yaml");
 
   public ArdFilmDeserializerTest(
       final String jsonFile,

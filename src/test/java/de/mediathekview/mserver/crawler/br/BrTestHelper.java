@@ -25,42 +25,42 @@ public class BrTestHelper {
 
   public static final String DEFAULT_TEST_CONFIG_FILENAME = "MServer-JUnit-Config.yaml";
 
-  public static BrCrawler getTestCrawler(String configFilename) {
-    ForkJoinPool forkJoinPool = new ForkJoinPool();
+  public static BrCrawler getTestCrawler(final String configFilename) {
+    final ForkJoinPool forkJoinPool = new ForkJoinPool();
     return getTestCrawler(configFilename, forkJoinPool);
   }
 
-  public static BrCrawler getTestCrawler(String configFilename, ForkJoinPool forkJoinPool) {
-      Collection<MessageListener> nachrichten = new ArrayList<>();
-      MessageListener nachricht =
-              new MessageListener() {
+  public static BrCrawler getTestCrawler(String configFilename, final ForkJoinPool forkJoinPool) {
+    final Collection<MessageListener> nachrichten = new ArrayList<>();
+    final MessageListener nachricht =
+        new MessageListener() {
 
-                  @Override
-                  public void consumeMessage(Message arg0, Object... arg1) {
+          @Override
+          public void consumeMessage(final Message arg0, final Object... arg1) {
             // TODO Auto-generated method stub
 
-                  }
-              };
+          }
+        };
     nachrichten.add(nachricht);
 
-    Collection<SenderProgressListener> fortschritte = new ArrayList<>();
-      SenderProgressListener fortschritt =
-              new SenderProgressListener() {
+    final Collection<SenderProgressListener> fortschritte = new ArrayList<>();
+    final SenderProgressListener fortschritt =
+        new SenderProgressListener() {
 
-                  @Override
-                  public void updateProgess(Sender aSender, Progress aCrawlerProgress) {
+          @Override
+          public void updateProgess(final Sender aSender, final Progress aCrawlerProgress) {
             // TODO Auto-generated method stub
 
-                  }
-              };
+          }
+        };
     fortschritte.add(fortschritt);
 
-      if (StringUtils.isBlank(configFilename)) {
+    if (StringUtils.isBlank(configFilename)) {
       configFilename = DEFAULT_TEST_CONFIG_FILENAME;
     }
 
-      MServerConfigManager rootConfig = MServerConfigManager.getInstance(configFilename);
+    final MServerConfigManager rootConfig = new MServerConfigManager(configFilename);
 
-      return new BrCrawler(forkJoinPool, nachrichten, fortschritte, rootConfig);
+    return new BrCrawler(forkJoinPool, nachrichten, fortschritte, rootConfig);
   }
 }

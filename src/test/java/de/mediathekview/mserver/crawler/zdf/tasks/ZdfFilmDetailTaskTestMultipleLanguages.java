@@ -26,13 +26,17 @@ public class ZdfFilmDetailTaskTestMultipleLanguages extends ZdfTaskTestBase {
         };
     final String[] expectedUrlsSmall =
         new String[] {
-          "http://localhost:8589/de/zdf/18/04/180416_2215_sendung_hsn/7/180416_2215_sendung_hsn_a1a2_476k_p9v13.mp4",
-          "http://localhost:8589/de/zdf/18/04/180416_2215_sendung_hsn/7/180416_2215_sendung_hsn_a3a4_476k_p9v13.mp4",
+          getWireMockBaseUrlSafe()
+              + "/de/zdf/18/04/180416_2215_sendung_hsn/7/180416_2215_sendung_hsn_a1a2_476k_p9v13.mp4",
+          getWireMockBaseUrlSafe()
+              + "/de/zdf/18/04/180416_2215_sendung_hsn/7/180416_2215_sendung_hsn_a3a4_476k_p9v13.mp4",
         };
     final String[] expectedUrlsNormal =
         new String[] {
-          "http://localhost:8589/de/zdf/18/04/180416_2215_sendung_hsn/7/180416_2215_sendung_hsn_a1a2_1496k_p13v13.mp4",
-          "http://localhost:8589/de/zdf/18/04/180416_2215_sendung_hsn/7/180416_2215_sendung_hsn_a3a4_1496k_p13v13.mp4",
+          getWireMockBaseUrlSafe()
+              + "/de/zdf/18/04/180416_2215_sendung_hsn/7/180416_2215_sendung_hsn_a1a2_1496k_p13v13.mp4",
+          getWireMockBaseUrlSafe()
+              + "/de/zdf/18/04/180416_2215_sendung_hsn/7/180416_2215_sendung_hsn_a3a4_1496k_p13v13.mp4",
         };
 
     final String filmUrl = "/content/documents/zdf/serien/hardsun/hard-sun-1-100.json";
@@ -76,13 +80,17 @@ public class ZdfFilmDetailTaskTestMultipleLanguages extends ZdfTaskTestBase {
         };
     final String[] expectedUrlsSmall =
         new String[] {
-          "http://localhost:8589/de/zdf/19/07/190715_schatz_nimm_du_sie_mok/4/190715_schatz_nimm_du_sie_mok_a1a2_776k_p11v14.mp4",
-          "http://localhost:8589/de/zdf/19/07/190715_schatz_nimm_du_sie_mok/4/190715_schatz_nimm_du_sie_mok_a3a4_776k_p11v14.mp4",
+          getWireMockBaseUrlSafe()
+              + "/de/zdf/19/07/190715_schatz_nimm_du_sie_mok/4/190715_schatz_nimm_du_sie_mok_a1a2_776k_p11v14.mp4",
+          getWireMockBaseUrlSafe()
+              + "/de/zdf/19/07/190715_schatz_nimm_du_sie_mok/4/190715_schatz_nimm_du_sie_mok_a3a4_776k_p11v14.mp4",
         };
     final String[] expectedUrlsNormal =
         new String[] {
-          "http://localhost:8589/de/zdf/19/07/190715_schatz_nimm_du_sie_mok/4/190715_schatz_nimm_du_sie_mok_a1a2_1496k_p13v14.mp4",
-          "http://localhost:8589/de/zdf/19/07/190715_schatz_nimm_du_sie_mok/4/190715_schatz_nimm_du_sie_mok_a3a4_1496k_p13v14.mp4",
+          getWireMockBaseUrlSafe()
+              + "/de/zdf/19/07/190715_schatz_nimm_du_sie_mok/4/190715_schatz_nimm_du_sie_mok_a1a2_1496k_p13v14.mp4",
+          getWireMockBaseUrlSafe()
+              + "/de/zdf/19/07/190715_schatz_nimm_du_sie_mok/4/190715_schatz_nimm_du_sie_mok_a3a4_1496k_p13v14.mp4",
         };
 
     final String filmUrl = "/content/documents/zdf/filme/montagskino/schatz-nimm-du-sie-100.json";
@@ -119,7 +127,7 @@ public class ZdfFilmDetailTaskTestMultipleLanguages extends ZdfTaskTestBase {
 
   private Set<Film> executeTask(final String aDetailUrl) {
     final Queue<CrawlerUrlDTO> urls = new ConcurrentLinkedQueue<>();
-    urls.add(new CrawlerUrlDTO(wireMockServer.baseUrl() + aDetailUrl));
-    return new ZdfFilmDetailTask(createCrawler(), wireMockServer.baseUrl(), urls, null).invoke();
+    urls.add(new CrawlerUrlDTO(getWireMockBaseUrlSafe() + aDetailUrl));
+    return new ZdfFilmDetailTask(createCrawler(), getWireMockBaseUrlSafe(), urls, null).invoke();
   }
 }

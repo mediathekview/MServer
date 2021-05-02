@@ -1,6 +1,7 @@
 package de.mediathekview.mserver.crawler.funk;
 
 import de.mediathekview.mserver.base.config.CrawlerUrlType;
+import de.mediathekview.mserver.base.config.MServerConfigDTO;
 import de.mediathekview.mserver.crawler.basic.CrawlerUrlDTO;
 import org.jetbrains.annotations.NotNull;
 
@@ -24,17 +25,18 @@ public enum FunkUrls {
   }
 
   @NotNull
-  private ApiUrlBuilder buildUrl(final String... parameters) {
-    final ApiUrlBuilder apiUrlBuilder = new ApiUrlBuilder(baseUrlUrlType, urlTemplate);
+  private ApiUrlBuilder buildUrl(final MServerConfigDTO config, final String... parameters) {
+    final ApiUrlBuilder apiUrlBuilder = new ApiUrlBuilder(baseUrlUrlType, urlTemplate, config);
     Stream.of(parameters).forEachOrdered(apiUrlBuilder::withParameter);
     return apiUrlBuilder;
   }
 
-  public Queue<CrawlerUrlDTO> getAsQueue(final String... parameters) {
-    return buildUrl(parameters).asQueue();
+  public Queue<CrawlerUrlDTO> getAsQueue(
+      final MServerConfigDTO config, final String... parameters) {
+    return buildUrl(config, parameters).asQueue();
   }
 
-  public String getAsString(final String... parameters) {
-    return buildUrl(parameters).asString();
+  public String getAsString(final MServerConfigDTO config, final String... parameters) {
+    return buildUrl(config, parameters).asString();
   }
 }

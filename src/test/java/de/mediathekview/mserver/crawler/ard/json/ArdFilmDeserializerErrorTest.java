@@ -23,8 +23,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 @RunWith(Parameterized.class)
 public class ArdFilmDeserializerErrorTest {
 
-  protected MServerConfigManager rootConfig =
-      MServerConfigManager.getInstance("MServer-JUnit-Config.yaml");
+  protected MServerConfigManager rootConfig = new MServerConfigManager("MServer-JUnit-Config.yaml");
 
   private final String jsonFile;
 

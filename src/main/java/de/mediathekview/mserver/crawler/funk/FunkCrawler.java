@@ -82,8 +82,7 @@ public class FunkCrawler extends AbstractCrawler {
         new FunkRestTask<>(
             this,
             new FunkRestEndpoint<>(
-                FunkApiUrls.VIDEOS_BY_CHANNEL,
-                new FunkVideoDeserializer(Optional.of(this), crawlerConfig)),
+                FunkApiUrls.VIDEOS_BY_CHANNEL, new FunkVideoDeserializer(this, crawlerConfig)),
             funkVideosByChannelUrls));
   }
 
@@ -92,7 +91,7 @@ public class FunkCrawler extends AbstractCrawler {
         new FunkRestTask<>(
             this,
             new FunkRestEndpoint<>(
-                FunkApiUrls.VIDEOS, new FunkVideoDeserializer(Optional.of(this), crawlerConfig))));
+                FunkApiUrls.VIDEOS, new FunkVideoDeserializer(this, crawlerConfig))));
   }
 
   private ForkJoinTask<Set<FunkChannelDTO>> createChannelTask() {

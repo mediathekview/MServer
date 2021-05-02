@@ -20,8 +20,8 @@ public class SrfTopicOverviewTaskTest extends SrfTaskTestBase {
     urls.add(
         new TopicUrlDTO(
             "1",
-            wireMockServer.baseUrl() + "/play/v3/api/srf/production/videos-by-show-id?showId=1"));
-    return new SrfTopicOverviewTask(createCrawler(), urls, wireMockServer.baseUrl()).invoke();
+            getWireMockBaseUrlSafe() + "/play/v3/api/srf/production/videos-by-show-id?showId=1"));
+    return new SrfTopicOverviewTask(createCrawler(), urls, getWireMockBaseUrlSafe()).invoke();
   }
 
   @Test

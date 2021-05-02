@@ -2,6 +2,8 @@ package de.mediathekview.mserver.crawler.funk.json;
 
 import com.google.gson.JsonObject;
 import de.mediathekview.mserver.base.config.MServerBasicConfigDTO;
+import de.mediathekview.mserver.base.config.MServerConfigDTO;
+import de.mediathekview.mserver.base.config.MServerConfigManager;
 import de.mediathekview.mserver.base.utils.JsonUtils;
 import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
 import de.mediathekview.mserver.crawler.basic.FilmInfoDto;
@@ -30,13 +32,9 @@ public class FunkVideoDeserializer extends AbstractFunkElementDeserializer<FilmI
   private static final String TAG_ALIAS = "alias";
   private static final String TAG_CHANNEL_ID = "channelId";
 
-  public FunkVideoDeserializer(final MServerBasicConfigDTO aSenderConfig) {
-    super(aSenderConfig);
-  }
-
   public FunkVideoDeserializer(
-          final Optional<AbstractCrawler> aCrawler, final MServerBasicConfigDTO aSenderConfig) {
-    super(aCrawler, aSenderConfig);
+      final AbstractCrawler crawler, final MServerBasicConfigDTO aSenderConfig) {
+    super(Optional.of(crawler), aSenderConfig);
   }
 
   @Override
@@ -68,14 +66,21 @@ public class FunkVideoDeserializer extends AbstractFunkElementDeserializer<FilmI
         JsonUtils.getAttributeAsString(jsonObject, TAG_CHANNEL_ALIAS);
     final Optional<String> alias = JsonUtils.getAttributeAsString(jsonObject, TAG_ALIAS);
     if (channelAlias.isPresent() && alias.isPresent()) {
-      filmInfo.setWebsite(FunkUrls.WEBSITE.getAsString(channelAlias.get(), alias.get()));
+      filmInfo.setWebsite(
+          FunkUrls.WEBSITE.getAsString(getRuntimeConfig(), channelAlias.get(), alias.get()));
     }
 
     return filmInfo;
   }
 
+  private MServerConfigDTO getRuntimeConfig() {
+    return crawler
+        .map(AbstractCrawler::getRuntimeConfig)
+        .orElseGet(() -> new MServerConfigManager().getConfig());
+  }
+
   private String createNexxCloudUrl(final String entityId) {
-    return FunkUrls.NEXX_CLOUD_VIDEO.getAsString(entityId);
+    return FunkUrls.NEXX_CLOUD_VIDEO.getAsString(getRuntimeConfig(), entityId);
   }
 
   @Override

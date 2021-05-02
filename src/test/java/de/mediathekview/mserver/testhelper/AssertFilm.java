@@ -130,8 +130,14 @@ public final class AssertFilm {
     if (aExpectedUrl.isEmpty()) {
       assertThat(aActualUrl, nullValue());
     } else {
-      assertThat(aActualUrl.toString(), equalTo(aExpectedUrl));
+      assertThat(
+          cleanupWireMockUrlForCheck(aActualUrl.toString()),
+          equalTo(cleanupWireMockUrlForCheck(aExpectedUrl)));
     }
+  }
+
+  private static String cleanupWireMockUrlForCheck(final String urlToCleanUp) {
+    return urlToCleanUp.replaceAll("localhost:\\d+", "localhost:8589");
   }
 
   public static void assertUrl(final String aExpectedUrl, final Optional<String> aActualUrl) {

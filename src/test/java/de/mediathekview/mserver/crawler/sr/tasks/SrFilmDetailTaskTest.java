@@ -117,8 +117,9 @@ public class SrFilmDetailTaskTest extends SrTaskTestBase {
 
   @Test
   public void test() throws IOException {
-    jsoupConnection = JsoupMock.mock(requestUrl, filmPageFile);
-    SrCrawler crawler = createCrawler();
+    jsoupConnection =
+        JsoupMock.mockWithTextModifications(requestUrl, filmPageFile, this::fixupAllWireMockUrls);
+    final SrCrawler crawler = createCrawler();
     crawler.setConnection(jsoupConnection);
 
     setupSuccessfulJsonResponse(videoDetailsUrl, videoDetailsFile);
@@ -145,9 +146,8 @@ public class SrFilmDetailTaskTest extends SrTaskTestBase {
         expectedSubtitle);
   }
 
-  private Set<Film> executeTask(final SrCrawler crawler, final String aTheme, final String aRequestUrl) {
-    return new SrFilmDetailTask(
-        crawler, createCrawlerUrlDto(aTheme, aRequestUrl))
-        .invoke();
+  private Set<Film> executeTask(
+      final SrCrawler crawler, final String aTheme, final String aRequestUrl) {
+    return new SrFilmDetailTask(crawler, createCrawlerUrlDto(aTheme, aRequestUrl)).invoke();
   }
 }
