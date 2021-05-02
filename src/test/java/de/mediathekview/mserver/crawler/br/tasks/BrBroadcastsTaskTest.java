@@ -22,18 +22,7 @@ import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.containsInAnyOrder;
 
-public class BrBroadcastsTaskTest extends WireMockTestBase {
-
-  protected MServerConfigManager rootConfig =
-      MServerConfigManager.getInstance("MServer-JUnit-Config.yaml");
-
-  protected BrCrawler createCrawler() {
-    final ForkJoinPool forkJoinPool = new ForkJoinPool();
-    final Collection<MessageListener> nachrichten = new ArrayList<>();
-    final Collection<SenderProgressListener> fortschritte = new ArrayList<>();
-
-    return new BrCrawler(forkJoinPool, nachrichten, fortschritte, rootConfig);
-  }
+public class BrBroadcastsTaskTest extends BrTaskTestBase {
 
   protected Queue<BrQueryDto> createQueryDto(final String requestUrl) {
     final Queue<BrQueryDto> input = new ConcurrentLinkedQueue<>();

@@ -34,7 +34,7 @@ import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 @RunWith(Parameterized.class)
-public class BrGetClipDetailsTaskTest extends WireMockTestBase {
+public class BrGetClipDetailsTaskTest extends BrTaskTestBase {
 
   private final String filmJsonFile;
   private final String expectedTopic;
@@ -114,17 +114,6 @@ public class BrGetClipDetailsTaskTest extends WireMockTestBase {
             GeoLocations.GEO_DE,
           }
         });
-  }
-
-  protected MServerConfigManager rootConfig =
-      MServerConfigManager.getInstance("MServer-JUnit-Config.yaml");
-
-  protected BrCrawler createCrawler() {
-    final ForkJoinPool forkJoinPool = new ForkJoinPool();
-    final Collection<MessageListener> nachrichten = new ArrayList<>();
-    final Collection<SenderProgressListener> fortschritte = new ArrayList<>();
-
-    return new BrCrawler(forkJoinPool, nachrichten, fortschritte, rootConfig);
   }
 
   @Test
