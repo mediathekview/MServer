@@ -1,7 +1,7 @@
 #### Server configurations ####
 
 # The maximum amount of cpu threads to be used.
-maximumCpuThreads: 16
+maximumCpuThreads: 10
 
 # The maximum duration in minutes the server should run.<br>
 # If set to 0 the server runs without a time limit.
@@ -103,7 +103,6 @@ maximumDaysForSendungVerpasstSectionFuture: 0
 # The time in seconds before a socket connection should time out.
 socketTimeoutInSeconds: 60
 
-
 #### Specific crawler configurations ####
 senderConfigurations:
   ARD:
@@ -139,6 +138,10 @@ senderConfigurations:
   FUNK:
     maximumUrlsPerTask: 99
 
+# configure string variables
+crawlerApiParams:
+  FUNK_REQUEST_TOKEN: 137782e774d7cadc93dcbffbbde0ce9c
+  
 #### COPY ####
 copySettings:
   # En- / disables FTP

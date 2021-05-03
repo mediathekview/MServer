@@ -22,6 +22,10 @@ senderIncluded:
 #        duration: 12
 #        unit: HOURS
 
+# configure string variables
+crawlerApiParams:
+  FUNK_REQUEST_TOKEN: 137782e774d7cadc93dcbffbbde0ce9c
+
 # The formats in which the filmlist should be saved to.
 # Possible are: JSON, OLD_JSON, JSON_COMPRESSED_XZ, OLD_JSON_COMPRESSED_XZ
 filmlistSaveFormats:

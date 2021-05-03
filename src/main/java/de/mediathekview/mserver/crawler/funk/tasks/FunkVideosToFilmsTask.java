@@ -3,6 +3,7 @@ package de.mediathekview.mserver.crawler.funk.tasks;
 import com.google.gson.JsonDeserializer;
 import com.google.gson.reflect.TypeToken;
 import de.mediathekview.mlib.daten.*;
+import de.mediathekview.mserver.base.config.CrawlerApiParam;
 import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
 import de.mediathekview.mserver.crawler.basic.AbstractJsonRestTask;
 import de.mediathekview.mserver.crawler.basic.FilmInfoDto;
@@ -31,7 +32,7 @@ public class FunkVideosToFilmsTask
   private static final String POST_FORM_FIELD_VALUE_ONE = "1";
   private static final String HEADER_X_REQUEST_CID = "x-request-cid";
   private static final String HEADER_X_REQUEST_TOKEN = "x-request-token";
-  private static final String REQUEST_TOKEN = "137782e774d7cadc93dcbffbbde0ce9c";
+  private String REQUEST_TOKEN = "";
   private Long sessionId;
   private final Map<String, FunkChannelDTO> channels;
 
@@ -42,6 +43,7 @@ public class FunkVideosToFilmsTask
       @Nullable final String authKey) {
     super(crawler, filmInfos, authKey);
     this.sessionId = new NexxCloudSessionInitiationTask(crawler).call();
+    this.REQUEST_TOKEN = crawler.getRuntimeConfig().getCrawlerApiParam(CrawlerApiParam.FUNK_REQUEST_TOKEN).get();
     this.channels = channels;
   }
 
