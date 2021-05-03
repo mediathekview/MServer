@@ -19,6 +19,7 @@ senderIncluded:
   #- ORF
   #- ARTE_DE
   - FUNK
+  #- BR
 
 # If set the server will be awake after the crawler run and restarts the run after the given amount.
 #schedules:
@@ -31,35 +32,35 @@ senderIncluded:
 filmlistSaveFormats:
   - JSON
   - OLD_JSON
-  - JSON_COMPRESSED_XZ
-  - OLD_JSON_COMPRESSED_XZ
-  - JSON_COMPRESSED_GZIP
-  - OLD_JSON_COMPRESSED_GZIP
-  - JSON_COMPRESSED_BZIP
-  - OLD_JSON_COMPRESSED_BZIP
+#  - JSON_COMPRESSED_XZ
+#  - OLD_JSON_COMPRESSED_XZ
+#  - JSON_COMPRESSED_GZIP
+#  - OLD_JSON_COMPRESSED_GZIP
+#  - JSON_COMPRESSED_BZIP
+#  - OLD_JSON_COMPRESSED_BZIP
 
 # The paths where which filmlist should be safed to.
 filmlistSavePaths:
-  JSON: target/filmlists/filmliste.json
+#  JSON: target/filmlists/filmliste.json
   OLD_JSON: target/filmlists/filmliste_old.json
-  JSON_COMPRESSED_XZ: target/filmlists/filmliste.json.xz
-  OLD_JSON_COMPRESSED_XZ: target/filmlists/filmliste_old.json.xz
-  JSON_COMPRESSED_GZIP: target/filmlists/filmliste.json.gz
-  OLD_JSON_COMPRESSED_GZIP: target/filmlists/filmliste_old.json.gz
-  JSON_COMPRESSED_BZIP: target/filmlists/filmliste.json.bz
-  OLD_JSON_COMPRESSED_BZIP: target/filmlists/filmliste_old.json.bz
+#  JSON_COMPRESSED_XZ: target/filmlists/filmliste.json.xz
+#  OLD_JSON_COMPRESSED_XZ: target/filmlists/filmliste_old.json.xz
+#  JSON_COMPRESSED_GZIP: target/filmlists/filmliste.json.gz
+#  OLD_JSON_COMPRESSED_GZIP: target/filmlists/filmliste_old.json.gz
+#  JSON_COMPRESSED_BZIP: target/filmlists/filmliste.json.bz
+#  OLD_JSON_COMPRESSED_BZIP: target/filmlists/filmliste_old.json.bz
 
 # The paths where which diff film list should be safed to.
 # If not set no difference film lists will be safed.
 filmlistDiffSavePaths:
-  JSON: target/filmlists/filmliste_diff.json
-  OLD_JSON: target/filmlists/filmliste_old_diff.json
-  JSON_COMPRESSED_XZ: target/filmlists/filmliste_diff.json.xz
-  OLD_JSON_COMPRESSED_XZ: target/filmlists/filmliste_old_diff.json.xz
-  JSON_COMPRESSED_GZIP: target/filmlists/filmliste_diff.json.gz
-  OLD_JSON_COMPRESSED_GZIP: target/filmlists/filmliste_old_diff.json.gz
-  JSON_COMPRESSED_BZIP: target/filmlists/filmliste_diff.json.bz
-  OLD_JSON_COMPRESSED_BZIP: target/filmlists/filmliste_old_diff.json.bz
+#  JSON: target/filmlists/filmliste_diff.json
+#  OLD_JSON: target/filmlists/filmliste_old_diff.json
+#  JSON_COMPRESSED_XZ: target/filmlists/filmliste_diff.json.xz
+#  OLD_JSON_COMPRESSED_XZ: target/filmlists/filmliste_old_diff.json.xz
+#  JSON_COMPRESSED_GZIP: target/filmlists/filmliste_diff.json.gz
+#  OLD_JSON_COMPRESSED_GZIP: target/filmlists/filmliste_old_diff.json.gz
+#  JSON_COMPRESSED_BZIP: target/filmlists/filmliste_diff.json.bz
+#  OLD_JSON_COMPRESSED_BZIP: target/filmlists/filmliste_old_diff.json.bz
 
 #Sets if a filmlist hash file should be written
 writeFilmlistHashFileEnabled: true
@@ -91,37 +92,34 @@ maximumCrawlDurationInMinutes: 120
 # The maximum amount of sub pages to be crawled.<br>
 # Example: If a Sendung overview side has 10 pages with videos for this Sendung and
 # the amount set by this is 5 then the crawler crawls pages 1 to 5.
-maximumSubpages: 25
+maximumSubpages: 10
 
 # The maximum amount of days going to past will be crawled for the "Sendung Verpasst?" section.
-maximumDaysForSendungVerpasstSection: 30
+maximumDaysForSendungVerpasstSection: 1
 
 # The maximum amount of days going to future will be crawled for the "Sendung Verpasst?" section.
-maximumDaysForSendungVerpasstSectionFuture: 3
+maximumDaysForSendungVerpasstSectionFuture: 0
 
 # The time in seconds before a socket connection should time out.
 socketTimeoutInSeconds: 60
-
-crawlerURLs:
-  BR_API_URL: https://proxy-base.master.mango.express/graphql
 
 
 #### Specific crawler configurations ####
 senderConfigurations:
   ARD:
     # Actually the ARD has a maximum of 6 days in the past
-    maximumDaysForSendungVerpasstSection: 6
+    maximumDaysForSendungVerpasstSection: 1
     #2,4,8 ok
     maximumUrlsPerTask: 32
     #10,20,40 ok
-    maximumSubpages: 3
+    maximumSubpages: 0
   ORF:
     #2,4,8 ok
     maximumUrlsPerTask: 40
   ARTE_DE:
     maximumUrlsPerTask: 1
-    maximumDaysForSendungVerpasstSectionFuture: 21
-    maximumRequestsPerSecond: 30.0
+    maximumDaysForSendungVerpasstSectionFuture: 0
+    maximumRequestsPerSecond: 2.0
   ARTE_FR:
     maximumDaysForSendungVerpasstSectionFuture: 21
     # The maximum amount of URLs to be processed per task.

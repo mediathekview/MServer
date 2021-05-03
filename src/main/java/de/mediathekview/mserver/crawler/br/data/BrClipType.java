@@ -17,19 +17,15 @@ public enum BrClipType {
   PROGRAMME("Programme"),
   ITEM("Item");
   
-  private String graphQLName;
+  private final String graphQLName;
   
-  private BrClipType(String graphQLName) {
+  BrClipType(String graphQLName) {
     this.graphQLName = graphQLName;
   }
  
   public static BrClipType getInstanceByName(String name) {
-    Optional<BrClipType> value = Arrays.asList(BrClipType.values()).stream().filter(v -> v.getGraphQLName().equals(name)).findFirst();
-    if(value.isPresent()) {
-      return value.get();
-    } else {
-      return null;
-    }
+    Optional<BrClipType> value = Arrays.stream(BrClipType.values()).filter(v -> v.getGraphQLName().equals(name)).findFirst();
+    return value.orElse(null);
     
   }
   

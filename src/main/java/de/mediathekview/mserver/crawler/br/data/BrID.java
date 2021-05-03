@@ -48,18 +48,18 @@ public class BrID implements Comparable<BrID>{
     public boolean equals(Object obj) {
       if (this == obj)
         return true;
-      if (obj == null)
+      if (obj == null) {
         return false;
-      if (getClass() != obj.getClass())
+      }
+      if (getClass() != obj.getClass()) {
         return false;
+      }
       BrID other = (BrID) obj;
       if (id == null) {
-        if (other.id != null)
-          return false;
-      } else if (!id.equals(other.id))
-        return false;
-      //System.out.println("Duplikat + id: " + this.id);
-      return true;
+        return other.id == null;
+      } else {
+        return id.equals(other.id);
+      }
     }
 
     @Override

@@ -54,7 +54,7 @@ public class FunkRestTask<T>
   }
 
   @Override
-  protected void handleHttpError(final URI url, final Response response) {
+  protected void handleHttpError(final CrawlerUrlDTO dto, final URI url, final Response response) {
     crawler.printErrorMessage();
     LOG.fatal(
         "A HTTP error {} occurred when getting REST information from: \"{}\".",
