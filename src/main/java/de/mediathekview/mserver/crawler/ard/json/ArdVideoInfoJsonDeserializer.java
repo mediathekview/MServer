@@ -54,7 +54,7 @@ public class ArdVideoInfoJsonDeserializer implements JsonDeserializer<ArdVideoIn
     if (resolutionUrlMap.size() == 1
         && resolutionUrlMap.containsKey(Resolution.NORMAL)
         && UrlUtils.getFileType(resolutionUrlMap.get(Resolution.NORMAL).getFile())
-            .get()
+            .orElse("")
             .equals("m3u8")) {
 
       loadM3U8(resolutionUrlMap);
@@ -97,7 +97,7 @@ public class ArdVideoInfoJsonDeserializer implements JsonDeserializer<ArdVideoIn
               try {
                 resolutionUrlMap.put(resolution.get(), new URL(entry.getUrl()));
               } catch (final MalformedURLException e) {
-                LOG.error("ArdVideoInfoJsonDeserializer: invalid url " + entry.getUrl(), e);
+                LOG.error("ArdVideoInfoJsonDeserializer: invalid url {}", entry.getUrl(), e);
               }
             }
           });

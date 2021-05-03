@@ -53,16 +53,16 @@ public class Log4JConfigurationFactory extends ConfigurationFactory {
 
     final RootLoggerComponentBuilder rootLogger =
         aBuilder.newRootLogger(logSettings.getLogLevelConsole());
-    if (logSettings.getLogActivateConsole()) {
+    if (Boolean.TRUE.equals(logSettings.getLogActivateConsole())) {
       addConsoleOutBuilder(aBuilder);
       addConsoleErrBuilder(aBuilder);
       rootLogger.add(aBuilder.newAppenderRef(APPENDER_NAME_STDOUT));
       rootLogger.add(aBuilder.newAppenderRef(APPENDER_NAME_STDERR));
     }
 
-    if (logSettings.getLogActivateFile()) {
+    if (Boolean.TRUE.equals(logSettings.getLogActivateFile())) {
       addFileBuilder(aBuilder);
-      if (logSettings.getLogActivateRollingFileAppend()) {
+      if (Boolean.TRUE.equals(logSettings.getLogActivateRollingFileAppend())) {
         rootLogger.add(aBuilder.newAppenderRef(APPENDER_NAME_ROLLING_FILE));
       } else {
         rootLogger.add(aBuilder.newAppenderRef(APPENDER_NAME_FILE));
@@ -81,7 +81,7 @@ public class Log4JConfigurationFactory extends ConfigurationFactory {
 
     final AppenderComponentBuilder appenderBuilder;
 
-    if (logSettings.getLogActivateRollingFileAppend()) {
+    if (Boolean.TRUE.equals(logSettings.getLogActivateRollingFileAppend())) {
       appenderBuilder = aBuilder.newAppender(APPENDER_NAME_ROLLING_FILE, APPENDER_ROLLING_FILE);
 
       appenderBuilder

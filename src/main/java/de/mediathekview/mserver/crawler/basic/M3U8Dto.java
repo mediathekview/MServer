@@ -77,7 +77,7 @@ public class M3U8Dto {
         case "1920x1080":
           return Optional.of(Resolution.HD);
         default:
-          LOG.debug("Unknown resolution: " + resolution.get());
+          LOG.debug("Unknown resolution: {}", resolution.get());
       }
     }
 

@@ -72,8 +72,7 @@ public class KikaSendungsfolgeVideoDetailsTask extends AbstractUrlTask<Film, Kik
     for (final KikaFilmUrlInfoDto urlInfo : urlInfos) {
 
       if (!urlInfo.getUrl().isEmpty()
-          && urlInfo.getFileType().isPresent()
-          && urlInfo.getFileType().get().equalsIgnoreCase(MEDIA_TYPE_MP4)) {
+          && urlInfo.getFileType().orElse("").equalsIgnoreCase(MEDIA_TYPE_MP4)) {
         Optional<Resolution> filmResolution = getResolutionFromWidth(urlInfo);
         if (filmResolution.isEmpty()) {
           filmResolution = getResolutionFromProfile(urlInfo);

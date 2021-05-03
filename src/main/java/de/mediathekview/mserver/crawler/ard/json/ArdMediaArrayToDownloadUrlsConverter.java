@@ -146,7 +146,7 @@ public class ArdMediaArrayToDownloadUrlsConverter {
 
     if (!url.isEmpty()) {
       if (url.startsWith(PROTOCOL_RTMP)) {
-        LOG.debug("Found an Sendung with the old RTMP format: " + url);
+        LOG.debug("Found an Sendung with the old RTMP format: {}", url);
       } else {
         final ArdFilmUrlInfoDto info =
             new ArdFilmUrlInfoDto(
@@ -155,7 +155,8 @@ public class ArdMediaArrayToDownloadUrlsConverter {
         if (height.isPresent() && width.isPresent()) {
           info.setResolution(Integer.parseInt(width.get()), Integer.parseInt(height.get()));
         }
-
+        urls.computeIfAbsent(quality, k -> new LinkedHashSet<>()); 
+        
         if (!urls.containsKey(quality)) {
           urls.put(quality, new LinkedHashSet<>());
         }

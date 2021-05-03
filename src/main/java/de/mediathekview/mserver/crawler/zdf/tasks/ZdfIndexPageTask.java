@@ -89,7 +89,7 @@ public class ZdfIndexPageTask implements Callable<ZdfConfiguration> {
       final Document document = crawler.requestBodyAsHtmlDocument(url);
       return Optional.of(document);
     } catch (final IOException ex) {
-      LOG.fatal("ZdfIndexPageTask: error loading url " + url, ex);
+      LOG.fatal("ZdfIndexPageTask: error loading url {}", url, ex);
     }
 
     return Optional.empty();

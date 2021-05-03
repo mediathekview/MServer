@@ -12,7 +12,7 @@ public abstract class AbstractManager
     protected final Collection<SenderProgressListener> progressListeners;
     protected final Collection<MessageListener> messageListeners;
 
-    public AbstractManager()
+    protected AbstractManager()
     {
         progressListeners = new ArrayList<>();
         messageListeners = new ArrayList<>();

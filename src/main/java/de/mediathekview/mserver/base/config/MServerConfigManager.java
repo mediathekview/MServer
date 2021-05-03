@@ -7,7 +7,6 @@ import org.apache.commons.lang3.StringUtils;
 /** A {@link ConfigManager} for {@link MServerConfigDTO}. */
 public class MServerConfigManager extends ConfigManager<MServerConfigDTO> {
   public static final String DEFAULT_CONFIG_FILE = "MServer-Config.yaml";
-  private static MServerConfigManager instance;
   private final String configFileName;
 
   public MServerConfigManager(final String fileName) {

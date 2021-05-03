@@ -85,11 +85,10 @@ public class ArdFilmDeserializer implements JsonDeserializer<List<ArdFilmDto>> {
       topic = JsonUtils.getAttributeAsString(playerPageObject, ATTRIBUTE_TITLE);
     }
 
-    if (topic.isPresent()) {
+    if (topic.isPresent() &&
+        topic.get().contains("MDR aktuell")) {
       // remove time in topic
-      if (topic.get().contains("MDR aktuell")) {
-        return Optional.of(topic.get().replaceAll("[0-9][0-9]:[0-9][0-9] Uhr$", "").trim());
-      }
+      return Optional.of(topic.get().replaceAll("[0-9][0-9]:[0-9][0-9] Uhr$", "").trim());
     }
 
     return topic;
@@ -105,7 +104,7 @@ public class ArdFilmDeserializer implements JsonDeserializer<List<ArdFilmDto>> {
           inputDateTime.withZoneSameInstant(ZoneId.of(GERMAN_TIME_ZONE)).toLocalDateTime();
         return Optional.of(localDateTime);
       } catch (final DateTimeParseException ex) {
-        LOG.error("Error parsing date time value " + dateValue.get(), ex);
+        LOG.error("Error parsing date time value '{}'",dateValue.get(), ex);
       }
     }
 
@@ -254,15 +253,7 @@ public class ArdFilmDeserializer implements JsonDeserializer<List<ArdFilmDto>> {
       try {
         film.addSubtitle(new URL(prepareSubtitleUrl(videoInfo.getSubtitleUrl())));
       } catch (final MalformedURLException ex) {
-        LOG.error(
-          topic
-            + ", "
-            + title
-            + ", "
-            + date.toString()
-            + "Invalid subtitle url: "
-            + videoInfo.getSubtitleUrl(),
-          ex);
+        LOG.error("{}, {}, {} Invalid subtitle url: {}", topic, title, date.toString(), videoInfo.getSubtitleUrl(), ex); 
       }
     }
     addUrls(film, videoInfo.getVideoUrls());
@@ -278,7 +269,7 @@ public class ArdFilmDeserializer implements JsonDeserializer<List<ArdFilmDto>> {
           qualitiesEntry.getKey(),
           new FilmUrl(url, crawler.determineFileSizeInKB(url)));
       } catch (final MalformedURLException ex) {
-        LOG.error("InvalidUrl: " + url, ex);
+        LOG.error("InvalidUrl: {}", url, ex);
       }
     }
   }

@@ -94,7 +94,7 @@ public class ArteFilmDeserializer implements JsonDeserializer<Optional<Film>> {
       try {
         film.setWebsite(new URL(urlWeb));
       } catch (MalformedURLException e) {
-        LOG.error("Invalid url: " + urlWeb);
+        LOG.error("Invalid url: {}", urlWeb, e);
       }
 
       GeoLocations geoLocation = getGeoLocation(programElement);
@@ -181,7 +181,7 @@ public class ArteFilmDeserializer implements JsonDeserializer<Optional<Film>> {
               geo = GeoLocations.GEO_NONE;
               break;
             default:
-              LOG.debug("New ARTE GeoLocation: " + code);
+              LOG.debug("New ARTE GeoLocation: {}", code);
           }
         }
       }
@@ -249,7 +249,7 @@ public class ArteFilmDeserializer implements JsonDeserializer<Optional<Film>> {
               broadcastBeginMinor = value;
               break;
             default:
-              LOG.debug("New broadcasttype: " + type);
+              LOG.debug("New broadcasttype: {}", type);
           }
         }
       }

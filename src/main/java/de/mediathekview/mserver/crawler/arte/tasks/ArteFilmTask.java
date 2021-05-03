@@ -68,16 +68,16 @@ public class ArteFilmTask extends ArteTaskBase<Film, ArteFilmUrlDto> {
 
           crawler.incrementAndGetActualCount();
         } else {
-          LOG.error("no video: " + aDTO.getUrl());
+          LOG.error("no video: {}", aDTO.getUrl());
           crawler.incrementAndGetErrorCount();
         }
       } else {
-        LOG.error("no film: " + aDTO.getUrl());
+        LOG.error("no film: {}", aDTO.getUrl());
         crawler.incrementAndGetErrorCount();
       }
       crawler.updateProgress();
     } catch (final Exception e) {
-      LOG.error("exception: " + aDTO.getUrl(), e);
+      LOG.error("exception: {}", aDTO.getUrl(), e);
     }
   }
 

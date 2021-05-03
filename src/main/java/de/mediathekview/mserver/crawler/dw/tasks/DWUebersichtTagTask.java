@@ -43,7 +43,7 @@ public class DWUebersichtTagTask extends AbstractDocumentTask<URL, CrawlerUrlDTO
         foundLinks.addAll(aDocument.select(SENDUNG_LINK_SELEKTOR2));
       }
       if (foundLinks.size() > 499) {
-        LOG.error("DW MaxPageSize reached - change settings " + aUrlDTO.getUrl());
+        LOG.error("DW MaxPageSize reached - change settings {}", aUrlDTO.getUrl());
       }
       for (final Element link : foundLinks) {
         if (link.hasAttr(HtmlConsts.ATTRIBUTE_HREF)) {

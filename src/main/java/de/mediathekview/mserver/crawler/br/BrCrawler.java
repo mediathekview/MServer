@@ -55,8 +55,7 @@ public class BrCrawler extends AbstractCrawler {
       printMessage(
           ServerMessages.DEBUG_MSSING_SENDUNGFOLGEN_COUNT, getSender().getName(), idList.size());
     } catch (final InterruptedException | ExecutionException exception) {
-      LOG.fatal("Something went terrible wrong collecting the clip details");
-      exception.printStackTrace();
+      LOG.fatal("Something went terrible wrong collecting the clip details", exception);
       printErrorMessage();
     }
 

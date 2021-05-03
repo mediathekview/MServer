@@ -50,11 +50,7 @@ public class PagedElementListDTO<T> {
     } else if (!elements.equals(other.elements)) {
       return false;
     }
-    if (nextPage == null) {
-      return other.nextPage == null;
-    } else {
-      return nextPage.equals(other.nextPage);
-    }
+    return nextPage.equals(other.nextPage);
   }
 
   public Set<T> getElements() {
@@ -79,7 +75,7 @@ public class PagedElementListDTO<T> {
     final int prime = 31;
     int result = 1;
     result = prime * result + (elements == null ? 0 : elements.hashCode());
-    result = prime * result + (nextPage == null ? 0 : nextPage.hashCode());
+    result = prime * result + nextPage.hashCode();
     return result;
   }
 

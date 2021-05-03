@@ -17,19 +17,16 @@ import java.util.Map;
 
 public class GeoLocationGuesser {
 
+  private GeoLocationGuesser() {
+    
+  }
+
   public static Collection<GeoLocations> getGeoLocations(final Sender aSender, final String aUrl) {
     switch (aSender) {
-      case ARD:
-      case WDR:
-      case NDR:
-      case SWR:
-      case MDR:
-      case BR:
-      case RBB:
+      case ARD, WDR, NDR, SWR, MDR, BR, RBB:
         return getGeoLocationsArd(aUrl);
 
-      case ZDF_TIVI:
-      case DREISAT:
+      case ZDF_TIVI, DREISAT:
         return getGeoLocationsZdfPart(aUrl);
 
       case ORF:
@@ -48,7 +45,7 @@ public class GeoLocationGuesser {
   }
 
   private static Collection<GeoLocations> getGeoLocationsArd(final String aUrl) {
-    final Map<GeoLocations, List<String>> geoUrls = new HashMap<>();
+    final Map<GeoLocations, List<String>> geoUrls = new HashMap<GeoLocations, List<String>>();
     geoUrls.put(
       GeoLocations.GEO_DE,
       Arrays.asList(
@@ -85,14 +82,13 @@ public class GeoLocationGuesser {
     final Map<GeoLocations, List<String>> aGeoUrls, final String aUrl) {
     final Collection<GeoLocations> geoLocations = new HashSet<>();
 
-    for (final GeoLocations geoLocation : aGeoUrls.keySet()) {
-      for (final String geoUrl : aGeoUrls.get(geoLocation)) {
+    for (final Map.Entry<GeoLocations,List<String>> entry : aGeoUrls.entrySet()) {
+      for (final String geoUrl : entry.getValue()) {
         if (aUrl.contains(geoUrl)) {
-          geoLocations.add(geoLocation);
+          geoLocations.add(entry.getKey());
         }
       }
     }
-
     if (geoLocations.isEmpty()) {
       geoLocations.add(GeoLocations.GEO_NONE);
     }
@@ -100,7 +96,7 @@ public class GeoLocationGuesser {
   }
 
   private static Collection<GeoLocations> getGeoLocationsKiKa(final String aUrl) {
-    final Map<GeoLocations, List<String>> geoUrls = new HashMap<>();
+    final Map<GeoLocations, List<String>> geoUrls = new HashMap<GeoLocations, List<String>>();
     geoUrls.put(GeoLocations.GEO_AT, Arrays.asList("pmdgeo.kika.de", "kika_geo-lh.akamaihd.net"));
 
     return getGeolocationsForGeoUrls(geoUrls, aUrl);
@@ -119,7 +115,7 @@ public class GeoLocationGuesser {
   }
 
   private static Collection<GeoLocations> getGeoLocationsSrfPodcast(final String aUrl) {
-    final Map<GeoLocations, List<String>> geoUrls = new HashMap<>();
+    final Map<GeoLocations, List<String>> geoUrls = new HashMap<GeoLocations, List<String>>();
     geoUrls.put(GeoLocations.GEO_CH, Arrays.asList("podcasts.srf.ch/ch/audio"));
 
     return getGeolocationsForGeoUrls(geoUrls, aUrl);

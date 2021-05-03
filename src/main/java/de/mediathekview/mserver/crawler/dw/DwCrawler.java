@@ -50,7 +50,7 @@ public class DwCrawler extends AbstractCrawler {
     final Queue<CrawlerUrlDTO> alleSeiten = new ConcurrentLinkedQueue<>();
     final int fromDays = -1 * crawlerConfig.getMaximumDaysForSendungVerpasstSection();
     final int toDays = crawlerConfig.getMaximumDaysForSendungVerpasstSectionFuture() + MAX_DAYS_PER_CHUNK;
-    for (int i = fromDays; i < toDays; i++) {
+    for (long i = fromDays; i < toDays; i++) {
       final LocalDateTime fromDate = LocalDateTime.now().plus( i, ChronoUnit.DAYS);
       final LocalDateTime toDate = LocalDateTime.now().plus( i + MAX_DAYS_PER_CHUNK, ChronoUnit.DAYS);
       final String fromDateString = fromDate.format(DateTimeFormatter.ofPattern("dd.MM.yyyy"));

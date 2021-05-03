@@ -118,7 +118,7 @@ public class FunkVideosToFilmsTask
       }
       crawler.updateProgress();
     } catch (final Exception exception) {
-      exception.printStackTrace();
+      LOG.error("Something went wrong", exception);
     }
   }
 

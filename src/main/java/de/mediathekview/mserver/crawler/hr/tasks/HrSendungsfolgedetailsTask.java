@@ -178,8 +178,8 @@ public class HrSendungsfolgedetailsTask extends AbstractDocumentTask<Film, Crawl
 
     createFilm(
         urlDto,
-        topicAndTitle.getTopic().get(),
-        topicAndTitle.getTitle().get(),
+        topicAndTitle.getTopic().orElse(null),
+        topicAndTitle.getTitle().orElse(null),
         beschreibung.orElse(null),
         ardVideoInfoDto.get().getVideoUrls(),
         ardVideoInfoDto.get().getSubtitleUrlOptional().orElse(null),

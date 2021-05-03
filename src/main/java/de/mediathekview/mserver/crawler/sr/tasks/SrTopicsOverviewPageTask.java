@@ -59,7 +59,7 @@ public class SrTopicsOverviewPageTask implements Callable<Queue<SrTopicUrlDTO>> 
             final Document subpageDocument = crawler.requestBodyAsHtmlDocument(url);
             results.addAll(parseOverviewPage(subpageDocument));
           } catch (final IOException ex) {
-            LOG.fatal("SrTopicsOverviewPageTask: error parsing url " + url, ex);
+            LOG.fatal("SrTopicsOverviewPageTask: error parsing url {}", url, ex);
           }
         });
 

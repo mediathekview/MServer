@@ -53,7 +53,7 @@ public class ArteSubcategoryVideosTask extends ArteTaskBase<ArteFilmUrlDto, Topi
       //
       int nextPageId = 0;
       try {
-        nextPageId = Integer.parseInt(UrlUtils.getUrlParameterValue(aDTO.getUrl(),"page").get());
+        nextPageId = Integer.parseInt(UrlUtils.getUrlParameterValue(aDTO.getUrl(),"page").orElse("0"));
       } catch (UrlParseException|NumberFormatException e) {
         LOG.error("Failed to parse page from url {} error {}",aDTO.getUrl(), e.getMessage());
       }
