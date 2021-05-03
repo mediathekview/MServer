@@ -31,18 +31,17 @@ public class FunkVideosToFilmsTask
   private static final String POST_FORM_FIELD_VALUE_ONE = "1";
   private static final String HEADER_X_REQUEST_CID = "x-request-cid";
   private static final String HEADER_X_REQUEST_TOKEN = "x-request-token";
-  private static final String REQUEST_TOKEN = "f058a27469d8b709c3b9db648cae47c2";
-  private final Long sessionId;
+  private static final String REQUEST_TOKEN = "137782e774d7cadc93dcbffbbde0ce9c";
+  private Long sessionId;
   private final Map<String, FunkChannelDTO> channels;
 
   public FunkVideosToFilmsTask(
       final AbstractCrawler crawler,
-      final Long sessionId,
       final Queue<FilmInfoDto> filmInfos,
       final Map<String, FunkChannelDTO> channels,
       @Nullable final String authKey) {
     super(crawler, filmInfos, authKey);
-    this.sessionId = sessionId;
+    this.sessionId = new NexxCloudSessionInitiationTask(crawler).call();
     this.channels = channels;
   }
 
@@ -64,6 +63,13 @@ public class FunkVideosToFilmsTask
         response.getStatus(),
         url);
     crawler.incrementAndGetErrorCount();
+    if (response.getStatus() == 403) {
+      final Long sessionId = new NexxCloudSessionInitiationTask(crawler).call();
+      if (sessionId != null) {
+        LOG.debug("403 FORBIDDEN - lets try a new session id ({} > {})", this.sessionId, sessionId);
+        this.sessionId = sessionId;
+      }
+    }
   }
 
   @Override
@@ -101,7 +107,13 @@ public class FunkVideosToFilmsTask
             "The Funk film \"{}\" - \"{}\" has no download URL.", film.getThema(), film.getTitel());
         crawler.incrementAndGetErrorCount();
       } else {
-        taskResults.add(film);
+        if (!taskResults.add(film)) {
+          taskResults.forEach( aFilmEntry -> {
+            if (aFilmEntry.equals(film)) {
+              LOG.debug("Duplicate entry {} vs {} on url {}", film, aFilmEntry, filmInfo.getUrl());
+            }
+          });
+        }
         crawler.incrementAndGetActualCount();
       }
       crawler.updateProgress();
@@ -140,7 +152,7 @@ public class FunkVideosToFilmsTask
   private void addIfResolutionMissing(final FilmUrlInfoDto details, final Film film) {
     final Resolution resolution = Resolution.getResolutionFromWidth(details.getWidth());
     try {
-      film.addUrlIfAbsent(resolution, new FilmUrl(details.getUrl(), sessionId));
+      film.addUrlIfAbsent(resolution, new FilmUrl(details.getUrl(), 0L));
     } catch (final MalformedURLException malformedURLException) {
       LOG.error("Invalid Funk Video Url: {}", details.getUrl(), malformedURLException);
     }
@@ -160,6 +172,6 @@ public class FunkVideosToFilmsTask
   @Override
   protected FunkVideosToFilmsTask createNewOwnInstance(final Queue<FilmInfoDto> elementsToProcess) {
     return new FunkVideosToFilmsTask(
-        crawler, sessionId, elementsToProcess, channels, getAuthKey().orElse(null));
+        crawler, elementsToProcess, channels, getAuthKey().orElse(null));
   }
 }

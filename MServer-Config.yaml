@@ -18,7 +18,8 @@ senderIncluded:
   #- NDR
   #- ORF
   #- ARTE_DE
-  - BR
+  - FUNK
+  #- BR
 
 # If set the server will be awake after the crawler run and restarts the run after the given amount.
 #schedules:
@@ -135,6 +136,8 @@ senderConfigurations:
     maximumRequestsPerSecond: 2.0
   ZDF:
     maximumRequestsPerSecond: 10.0
+  FUNK:
+    maximumUrlsPerTask: 99
 
 #### COPY ####
 copySettings:
