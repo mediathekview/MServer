@@ -32,7 +32,8 @@ public class ArdConstants {
         "alpha",
         "tagesschau24",
         "funk",
-        "phoenix"
+        "phoenix",
+        "arte"
       };
 
   public static final String WEBSITE_URL = "https://www.ardmediathek.de/video/%s";
