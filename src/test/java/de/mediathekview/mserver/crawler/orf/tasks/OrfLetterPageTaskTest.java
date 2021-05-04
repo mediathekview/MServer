@@ -24,7 +24,6 @@ import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.Assert.fail;
-import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.when;
 
 public class OrfLetterPageTaskTest {
@@ -109,8 +108,8 @@ public class OrfLetterPageTaskTest {
         (url, fileName) -> {
           try {
             final Document document = JsoupMock.getFileDocument(fileName);
-            when(jsoupConnection.requestBodyAsHtmlDocument(eq(url))).thenReturn(document);
-            when(crawler.requestBodyAsHtmlDocument(eq(url))).thenReturn(document);
+            when(jsoupConnection.requestBodyAsHtmlDocument(url)).thenReturn(document);
+            when(crawler.requestBodyAsHtmlDocument(url)).thenReturn(document);
           } catch (final IOException iox) {
             fail();
           }

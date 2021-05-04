@@ -20,7 +20,6 @@ import java.util.Queue;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.when;
 
 public class OrfHistoryOverviewTaskTest {
@@ -52,9 +51,9 @@ public class OrfHistoryOverviewTaskTest {
         .thenReturn(
             new MServerConfigManager("MServer-JUnit-Config.yaml").getSenderConfig(Sender.ORF));
     final Document document = JsoupMock.getFileDocument("/orf/orf_history_overview.html");
-    when(jsoupConnection.requestBodyAsHtmlDocument(eq(OrfConstants.URL_ARCHIVE)))
+    when(jsoupConnection.requestBodyAsHtmlDocument(OrfConstants.URL_ARCHIVE))
         .thenReturn(document);
-    when(crawler.requestBodyAsHtmlDocument(eq(OrfConstants.URL_ARCHIVE))).thenReturn(document);
+    when(crawler.requestBodyAsHtmlDocument(OrfConstants.URL_ARCHIVE)).thenReturn(document);
     when(crawler.getConnection()).thenReturn(jsoupConnection);
 
     final OrfHistoryOverviewTask target = new OrfHistoryOverviewTask(crawler);
