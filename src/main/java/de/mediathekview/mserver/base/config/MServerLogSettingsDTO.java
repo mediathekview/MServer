@@ -108,52 +108,18 @@ public class MServerLogSettingsDTO {
 		if (!(obj instanceof MServerLogSettingsDTO))
 			return false;
 		MServerLogSettingsDTO other = (MServerLogSettingsDTO) obj;
-		if (logActivateConsole == null) {
-			if (other.logActivateConsole != null)
-				return false;
-		} else if (!logActivateConsole.equals(other.logActivateConsole))
-			return false;
-		if (logActivateFile == null) {
-			if (other.logActivateFile != null)
-				return false;
-		} else if (!logActivateFile.equals(other.logActivateFile))
-			return false;
-		if (logActivateRollingFileAppend == null) {
-			if (other.logActivateRollingFileAppend != null)
-				return false;
-		} else if (!logActivateRollingFileAppend.equals(other.logActivateRollingFileAppend))
-			return false;
-		if (logFileRollingPattern == null) {
-			if (other.logFileRollingPattern != null)
-				return false;
-		} else if (!logFileRollingPattern.equals(other.logFileRollingPattern))
-			return false;
-		if (logFileSavePath == null) {
-			if (other.logFileSavePath != null)
-				return false;
-		} else if (!logFileSavePath.equals(other.logFileSavePath))
-			return false;
-		if (logLevelConsole == null) {
-			if (other.logLevelConsole != null)
-				return false;
-		} else if (!logLevelConsole.equals(other.logLevelConsole))
-			return false;
-		if (logLevelFile == null) {
-			if (other.logLevelFile != null)
-				return false;
-		} else if (!logLevelFile.equals(other.logLevelFile))
-			return false;
-		if (logPatternConsole == null) {
-			if (other.logPatternConsole != null)
-				return false;
-		} else if (!logPatternConsole.equals(other.logPatternConsole))
-			return false;
-		if (logPatternFile == null) {
-			if (other.logPatternFile != null)
-				return false;
-		} else if (!logPatternFile.equals(other.logPatternFile))
-			return false;
-		return true;
+		if (logActivateConsole == other.logActivateConsole &&
+		    logActivateFile == other.logActivateFile &&
+		    logActivateRollingFileAppend == other.logActivateRollingFileAppend &&
+		    logFileRollingPattern == other.logFileRollingPattern &&
+		    logFileSavePath == other.logFileSavePath &&
+		    logLevelConsole == other.logLevelConsole &&
+		    logLevelFile == other.logLevelFile &&
+		    logPatternConsole == other.logPatternConsole &&
+		    logPatternFile == other.logPatternFile){
+		  return true;
+		}
+		return false;
 	}
 
 }
