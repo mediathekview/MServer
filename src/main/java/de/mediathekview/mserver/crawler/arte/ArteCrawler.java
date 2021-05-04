@@ -11,6 +11,7 @@ import de.mediathekview.mserver.crawler.arte.tasks.ArteSubcategoriesTask;
 import de.mediathekview.mserver.crawler.arte.tasks.ArteSubcategoryVideosTask;
 import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
 import de.mediathekview.mserver.crawler.basic.CrawlerUrlDTO;
+import de.mediathekview.mserver.crawler.basic.TopicUrlDTO;
 import de.mediathekview.mserver.progress.listeners.SenderProgressListener;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -73,7 +74,7 @@ public class ArteCrawler extends AbstractCrawler {
     final ArteSubcategoriesTask subcategoriesTask =
         new ArteSubcategoriesTask(this, createTopicsOverviewUrl());
 
-    final Queue subcategoriesUrl = new ConcurrentLinkedQueue();
+    final Queue<TopicUrlDTO> subcategoriesUrl = new ConcurrentLinkedQueue<TopicUrlDTO>();
     subcategoriesUrl.addAll(forkJoinPool.submit(subcategoriesTask).get());
 
     final ArteSubcategoryVideosTask subcategoryVideosTask =

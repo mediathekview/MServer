@@ -42,7 +42,8 @@ public class PagedElementListDTO<T> {
     if (!(obj instanceof PagedElementListDTO)) {
       return false;
     }
-    final PagedElementListDTO other = (PagedElementListDTO) obj;
+    @SuppressWarnings("unchecked")
+    final PagedElementListDTO<T> other = (PagedElementListDTO<T>) obj;
     if (elements == null) {
       if (other.elements != null) {
         return false;
