@@ -2,11 +2,8 @@ package de.mediathekview.mserver.crawler.arte.json;
 
 import com.google.gson.JsonObject;
 import de.mediathekview.mserver.base.utils.JsonUtils;
-import java.net.URI;
-import java.net.URISyntaxException;
 import java.util.Optional;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+
 
 public abstract class ArteDeserializerBase {
 
