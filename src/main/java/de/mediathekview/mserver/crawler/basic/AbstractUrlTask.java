@@ -19,7 +19,7 @@ public abstract class AbstractUrlTask<T, D extends CrawlerUrlDTO>
     extends AbstractRecursiveConverterTask<T, D> {
   private static final long serialVersionUID = -4077156510484515410L;
 
-  public AbstractUrlTask(final AbstractCrawler aCrawler, final Queue<D> aUrlToCrawlDTOs) {
+  protected AbstractUrlTask(final AbstractCrawler aCrawler, final Queue<D> aUrlToCrawlDTOs) {
     super(aCrawler, aUrlToCrawlDTOs);
   }
 

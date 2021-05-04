@@ -28,7 +28,7 @@ public abstract class ZdfTaskBase<T, D extends CrawlerUrlDTO> extends AbstractRe
 
   private final GsonBuilder gsonBuilder;
 
-  public ZdfTaskBase(
+  protected ZdfTaskBase(
       final AbstractCrawler aCrawler, final Queue<D> aUrlToCrawlDtos, final String authKey) {
     super(aCrawler, aUrlToCrawlDtos, authKey);
     gsonBuilder = new GsonBuilder();

@@ -34,7 +34,7 @@ public abstract class AbstractRestTask<T, D extends CrawlerUrlDTO> extends Abstr
   private final transient String authKey;
   private final transient Client client;
 
-  public AbstractRestTask(
+  protected AbstractRestTask(
       final AbstractCrawler aCrawler,
       final Queue<D> aUrlToCrawlDTOs,
       @Nullable final String aAuthKey) {

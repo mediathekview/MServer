@@ -36,7 +36,7 @@ public abstract class AbstractRecursiveConverterTask<T, D> extends RecursiveTask
   /** The set of results. This set will be returned at the end of the task. */
   protected transient Set<T> taskResults;
 
-  public AbstractRecursiveConverterTask(
+  protected AbstractRecursiveConverterTask(
       final AbstractCrawler aCrawler, final Queue<D> aUrlToCrawlDTOs) {
     crawler = aCrawler;
     elementsToProcess = aUrlToCrawlDTOs;

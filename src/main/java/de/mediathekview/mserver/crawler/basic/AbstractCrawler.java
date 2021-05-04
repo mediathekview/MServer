@@ -42,7 +42,7 @@ public abstract class AbstractCrawler implements Callable<Set<Film>> {
   private LocalDateTime startTime;
   protected JsoupConnection jsoupConnection;
 
-  public AbstractCrawler(
+  protected AbstractCrawler(
       final ForkJoinPool aForkJoinPool,
       final Collection<MessageListener> aMessageListeners,
       final Collection<SenderProgressListener> aProgressListeners,

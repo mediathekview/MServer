@@ -30,11 +30,11 @@ public abstract class AbstractFunkElementDeserializer<T>
   protected final Optional<AbstractCrawler> crawler;
   private final MServerBasicConfigDTO senderConfig;
 
-  public AbstractFunkElementDeserializer(final MServerBasicConfigDTO aSenderConfig) {
+  protected AbstractFunkElementDeserializer(final MServerBasicConfigDTO aSenderConfig) {
     this(Optional.empty(), aSenderConfig);
   }
 
-  public AbstractFunkElementDeserializer(
+  protected AbstractFunkElementDeserializer(
       final Optional<AbstractCrawler> aCrawler, final MServerBasicConfigDTO aSenderConfig) {
     super();
     crawler = aCrawler;

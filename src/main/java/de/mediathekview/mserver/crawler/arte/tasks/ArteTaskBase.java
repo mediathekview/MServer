@@ -23,7 +23,7 @@ public abstract class ArteTaskBase<T, D extends CrawlerUrlDTO> extends AbstractR
   private static RateLimiter limiter = null;
   private final GsonBuilder gsonBuilder;
 
-  public ArteTaskBase(
+  protected ArteTaskBase(
       final AbstractCrawler aCrawler,
       final Queue<D> aUrlToCrawlDtos,
       @Nullable final String authToken) {
