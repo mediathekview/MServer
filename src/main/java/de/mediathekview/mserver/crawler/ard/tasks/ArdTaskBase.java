@@ -84,7 +84,7 @@ public abstract class ArdTaskBase<T, D extends CrawlerUrlDTO> extends AbstractRe
     error.ifPresent(
         ardErrorInfoDto ->
             LOG.error(
-                "ArdTaskBase: request of url {}} contains error: {}}, {}",
+                "ArdTaskBase: request of url {} contains error: {}, {}",
                 targetUrl,
                 ardErrorInfoDto.getCode(),
                 ardErrorInfoDto.getMessage()));
