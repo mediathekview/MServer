@@ -73,7 +73,7 @@ public class ArdVideoInfoJsonDeserializer implements JsonDeserializer<ArdVideoIn
   private Optional<String> readContent(final URL aUrl) {
     try {
       Optional<String> content = Optional.of(crawler.requestBodyAsString(aUrl.toString()));
-      if (content.isPresent() && content.get().length() > 0) {
+      if (content.get().length() > 0) {
         return content;
       }
     } catch (final IOException ex) {

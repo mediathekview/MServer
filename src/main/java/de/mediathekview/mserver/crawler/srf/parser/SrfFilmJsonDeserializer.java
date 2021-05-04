@@ -337,11 +337,11 @@ public class SrfFilmJsonDeserializer implements JsonDeserializer<Optional<Film>>
  
     try {
       content = Optional.of(crawler.requestBodyAsString(optimizedUrl));
-      if (content.isEmpty() || content.get().length() == 0) {
+      if (content.get().length() == 0) {
         content = Optional.of(crawler.requestBodyAsString(aM3U8Url));
-      }
+      } 
   
-      if (content.isPresent() && content.get().length() > 0) {
+      if (content.get().length() > 0) {
         final M3U8Parser parser = new M3U8Parser();
         final List<M3U8Dto> m3u8Data = parser.parse(content.get());
         m3u8Data.forEach(
