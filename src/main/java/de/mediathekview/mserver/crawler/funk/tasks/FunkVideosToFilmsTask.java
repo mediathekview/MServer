@@ -43,7 +43,7 @@ public class FunkVideosToFilmsTask
       @Nullable final String authKey) {
     super(crawler, filmInfos, authKey);
     this.sessionId = new NexxCloudSessionInitiationTask(crawler).call();
-    this.REQUEST_TOKEN = crawler.getRuntimeConfig().getCrawlerApiParam(CrawlerApiParam.FUNK_REQUEST_TOKEN).get();
+    this.REQUEST_TOKEN = crawler.getRuntimeConfig().getCrawlerApiParam(CrawlerApiParam.FUNK_REQUEST_TOKEN).orElse("");
     this.channels = channels;
   }
 
