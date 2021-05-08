@@ -42,7 +42,7 @@ public class LivestreamZdfOverviewTask extends AbstractJsonRestTask<TopicUrlDTO,
   }
 
   @Override
-  protected void handleHttpError(URI url, Response response) {
+  protected void handleHttpError(CrawlerUrlDTO dto, URI url, Response response) {
     crawler.printErrorMessage();
     LOG.fatal(
         "A HTTP error {} occurred when getting REST information from: \"{}\".",
@@ -50,8 +50,6 @@ public class LivestreamZdfOverviewTask extends AbstractJsonRestTask<TopicUrlDTO,
         url);
     
   }
-
-
 
   @Override
   protected AbstractRecursiveConverterTask<TopicUrlDTO, CrawlerUrlDTO> createNewOwnInstance(

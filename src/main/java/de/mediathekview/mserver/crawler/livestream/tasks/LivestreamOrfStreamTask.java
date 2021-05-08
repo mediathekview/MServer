@@ -44,7 +44,7 @@ public class LivestreamOrfStreamTask extends AbstractJsonRestTask<TopicUrlDTO, C
   }
 
   @Override
-  protected void handleHttpError(URI url, Response response) {
+  protected void handleHttpError(CrawlerUrlDTO dto, URI url, Response response) {
     crawler.printErrorMessage();
     LOG.fatal(
         "A HTTP error {} occurred when getting REST information from: \"{}\".",
