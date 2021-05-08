@@ -41,15 +41,6 @@ public class LivestreamArdOverviewTask extends AbstractJsonRestTask<TopicUrlDTO,
     return new TypeToken<TopicUrlDTO>(){}.getType();
   }
 
-  @Override
-  protected void handleHttpError(URI url, Response response) {
-    crawler.printErrorMessage();
-    LOG.fatal(
-        "A HTTP error {} occurred when getting REST information from: \"{}\".",
-        response.getStatus(),
-        url);
-    
-  }
 
 
 
@@ -62,6 +53,16 @@ public class LivestreamArdOverviewTask extends AbstractJsonRestTask<TopicUrlDTO,
   @Override
   protected void postProcessing(Set<TopicUrlDTO> aResponseObj, CrawlerUrlDTO aDTO) {
     taskResults.addAll(aResponseObj);
+    
+  }
+
+  @Override
+  protected void handleHttpError(CrawlerUrlDTO dto, URI url, Response response) {
+    crawler.printErrorMessage();
+    LOG.fatal(
+        "A HTTP error {} occurred when getting REST information from: \"{}\".",
+        response.getStatus(),
+        url);
     
   }
 

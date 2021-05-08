@@ -44,16 +44,6 @@ public class LivestreamOrfStreamTask extends AbstractJsonRestTask<TopicUrlDTO, C
   }
 
   @Override
-  protected void handleHttpError(URI url, Response response) {
-    crawler.printErrorMessage();
-    LOG.fatal(
-        "A HTTP error {} occurred when getting REST information from: \"{}\".",
-        response.getStatus(),
-        url);
-    
-  }
-
-  @Override
   protected void postProcessing(CrawlerUrlDTO aResponseObj, TopicUrlDTO aDTO) {
     taskResults.add(new TopicUrlDTO(aDTO.getTopic(), aResponseObj.getUrl()));
     
@@ -63,6 +53,15 @@ public class LivestreamOrfStreamTask extends AbstractJsonRestTask<TopicUrlDTO, C
   protected AbstractRecursiveConverterTask<TopicUrlDTO, TopicUrlDTO> createNewOwnInstance(
       Queue<TopicUrlDTO> aElementsToProcess) {
     return new LivestreamOrfStreamTask(crawler, aElementsToProcess);
+  }
+
+  @Override
+  protected void handleHttpError(TopicUrlDTO dto, URI url, Response response) {
+    crawler.printErrorMessage();
+    LOG.fatal(
+        "A HTTP error {} occurred when getting REST information from: \"{}\".",
+        response.getStatus(),
+        url);
   }
 
 
