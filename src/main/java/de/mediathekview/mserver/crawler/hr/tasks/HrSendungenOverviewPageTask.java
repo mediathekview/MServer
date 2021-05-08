@@ -62,7 +62,7 @@ public class HrSendungenOverviewPageTask implements Callable<Set<CrawlerUrlDTO>>
 
     final String preparedUrl =
         aUrl.replace(INDEX_PAGE_NAME, SENDUNGSFOLEN_OVERVIEW_URL_REPLACEMENT);
-    if (UrlUtils.existsUrl(preparedUrl)) {
+    if (crawler.requestUrlExists(preparedUrl)) {
       return preparedUrl;
     }
 

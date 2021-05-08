@@ -1,10 +1,16 @@
 package de.mediathekview.mserver.crawler.zdf;
 
+import de.mediathekview.mlib.messages.listener.MessageListener;
+import de.mediathekview.mserver.base.config.MServerConfigManager;
+import de.mediathekview.mserver.progress.listeners.SenderProgressListener;
 import de.mediathekview.mserver.testhelper.WireMockTestBase;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Optional;
+import java.util.concurrent.ForkJoinPool;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -15,7 +21,7 @@ public class ZdfVideoUrlOptimizerTest extends WireMockTestBase {
 
   @Before
   public void setup() {
-    target = new ZdfVideoUrlOptimizer();
+    target = new ZdfVideoUrlOptimizer(createCrawler());
   }
 
   @Test
@@ -122,5 +128,17 @@ public class ZdfVideoUrlOptimizerTest extends WireMockTestBase {
   private void assertDetermineUrlHd(final Optional<String> aExpectedUrl, final String aUrlToCheck) {
     final Optional<String> actual = target.determineUrlHd(aUrlToCheck);
     assertThat(actual, equalTo(aExpectedUrl));
+  }
+
+  protected ZdfCrawler createCrawler() {
+    final ForkJoinPool forkJoinPool = new ForkJoinPool();
+    final Collection<MessageListener> nachrichten = new ArrayList<>();
+    final Collection<SenderProgressListener> fortschritte = new ArrayList<>();
+
+    return new ZdfCrawler(
+        forkJoinPool,
+        nachrichten,
+        fortschritte,
+        new MServerConfigManager("MServer-JUnit-Config.yaml"));
   }
 }

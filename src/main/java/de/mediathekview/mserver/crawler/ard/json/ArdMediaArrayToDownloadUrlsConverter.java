@@ -42,8 +42,9 @@ public class ArdMediaArrayToDownloadUrlsConverter {
   private final Map<Resolution, Set<ArdFilmUrlInfoDto>> urls;
   private AbstractCrawler crawler;
 
-  public ArdMediaArrayToDownloadUrlsConverter() {
-    ardOptimizer = new ArdUrlOptimizer();
+  public ArdMediaArrayToDownloadUrlsConverter(AbstractCrawler aCrawler) {
+    crawler = aCrawler;
+    ardOptimizer = new ArdUrlOptimizer(crawler);
     urls = new EnumMap<>(Resolution.class);
   }
 

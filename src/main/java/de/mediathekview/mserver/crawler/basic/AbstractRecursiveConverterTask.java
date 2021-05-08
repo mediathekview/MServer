@@ -1,7 +1,6 @@
 package de.mediathekview.mserver.crawler.basic;
 
 import de.mediathekview.mserver.base.config.MServerBasicConfigDTO;
-import de.mediathekview.mserver.base.config.MServerConfigManager;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -42,7 +41,7 @@ public abstract class AbstractRecursiveConverterTask<T, D> extends RecursiveTask
     crawler = aCrawler;
     elementsToProcess = aUrlToCrawlDTOs;
     taskResults = ConcurrentHashMap.newKeySet();
-    config = new MServerConfigManager().getSenderConfig(crawler.getSender());
+    config = crawler.getCrawlerConfig();
   }
 
   private Queue<D> createSubSet(final Queue<D> aBaseQueue) {

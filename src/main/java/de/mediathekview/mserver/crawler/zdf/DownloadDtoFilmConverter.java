@@ -4,7 +4,7 @@ import de.mediathekview.mlib.daten.Film;
 import de.mediathekview.mlib.daten.FilmUrl;
 import de.mediathekview.mlib.daten.GeoLocations;
 import de.mediathekview.mlib.daten.Resolution;
-import de.mediathekview.mlib.tool.FileSizeDeterminer;
+import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
 import de.mediathekview.mserver.crawler.zdf.json.DownloadDto;
 
 import java.net.MalformedURLException;
@@ -16,9 +16,11 @@ import java.util.Optional;
 
 public class DownloadDtoFilmConverter {
 
+  
   private DownloadDtoFilmConverter() {}
 
   public static void addUrlsToFilm(
+      final AbstractCrawler crawler,
       final Film aFilm,
       final DownloadDto downloadDto,
       final Optional<ZdfVideoUrlOptimizer> aUrlOptimizer,
@@ -35,7 +37,7 @@ public class DownloadDtoFilmConverter {
 
       aFilm.addUrl(
           qualitiesEntry.getKey(),
-          new FilmUrl(url, new FileSizeDeterminer(url).getFileSizeInMiB()));
+          new FilmUrl(url, crawler.determineFileSizeInKB(url)));
     }
 
     if (!aFilm.hasHD() && aUrlOptimizer.isPresent()) {
@@ -44,7 +46,7 @@ public class DownloadDtoFilmConverter {
       if (hdUrl.isPresent()) {
         aFilm.addUrl(
             Resolution.HD,
-            new FilmUrl(hdUrl.get(), new FileSizeDeterminer(hdUrl.get()).getFileSizeInMiB()));
+            new FilmUrl(hdUrl.get(), crawler.determineFileSizeInKB(hdUrl.get())));
       }
     }
 

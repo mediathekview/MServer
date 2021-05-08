@@ -26,6 +26,7 @@ public abstract class AbstractFunkElementDeserializer<T>
   private static final String TAG_PAGE = "page";
   private static final String ATTRIBUTE_SIZE = "size";
   private static final String ATTRIBUTE_NUMBER = "number";
+  private static final String ATTRIBUTE_TOTAL = "totalElements";
   protected final Optional<AbstractCrawler> crawler;
   private final MServerBasicConfigDTO senderConfig;
 
@@ -48,7 +49,7 @@ public abstract class AbstractFunkElementDeserializer<T>
     final JsonObject baseObject = baseElement.getAsJsonObject();
 
     funkElementList.setNextPage(getNextPageLink(baseElement, baseObject));
-    analyzeActualSize(baseElement);
+    analyzeActualSize(baseElement, funkElementList.getNextPage().isPresent());
 
     if (JsonUtils.checkTreePath(baseElement, crawler, TAG_EMBEDDED, getElementListTag())) {
       funkElementList.addElements(
@@ -64,16 +65,26 @@ public abstract class AbstractFunkElementDeserializer<T>
               .filter(Objects::nonNull)
               .collect(Collectors.toSet()));
     } else {
-      LOG.fatal("A Funk list is broken!");
+      LOG.fatal("A Funk list is broken! {}",baseElement);
     }
 
     return funkElementList;
   }
 
-  private void analyzeActualSize(final JsonElement baseElement) {
+  /*
+   * the size element contains the size we requested - regardless the number of elements on the page.
+   */
+  private void analyzeActualSize(final JsonElement baseElement, final boolean hasNext) {
     if (JsonUtils.checkTreePath(baseElement, Optional.empty(), TAG_PAGE, ATTRIBUTE_SIZE)) {
-      addSizeToStatistic(
-          baseElement.getAsJsonObject().getAsJsonObject(TAG_PAGE).get(ATTRIBUTE_SIZE).getAsInt());
+      int total = baseElement.getAsJsonObject().getAsJsonObject(TAG_PAGE).get(ATTRIBUTE_TOTAL).getAsInt();
+      int pageSize = baseElement.getAsJsonObject().getAsJsonObject(TAG_PAGE).get(ATTRIBUTE_SIZE).getAsInt();
+      int elementCount = pageSize; // for all pages
+      if (pageSize > total) {
+        elementCount = total; // first page and not filled
+      } else if (!hasNext) {
+        elementCount = (total % pageSize); // last page
+      }
+      addSizeToStatistic(elementCount);
     }
   }
 

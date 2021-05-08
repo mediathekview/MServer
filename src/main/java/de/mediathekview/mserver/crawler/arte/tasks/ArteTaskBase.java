@@ -3,8 +3,6 @@ package de.mediathekview.mserver.crawler.arte.tasks;
 import com.google.common.util.concurrent.RateLimiter;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import de.mediathekview.mlib.daten.Sender;
-import de.mediathekview.mserver.base.config.MServerConfigManager;
 import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
 import de.mediathekview.mserver.crawler.basic.AbstractRestTask;
 import de.mediathekview.mserver.crawler.basic.CrawlerUrlDTO;
@@ -22,9 +20,7 @@ import java.util.Queue;
 public abstract class ArteTaskBase<T, D extends CrawlerUrlDTO> extends AbstractRestTask<T, D> {
 
   private static final Logger LOG = LogManager.getLogger(ArteTaskBase.class);
-  private static final RateLimiter limiter =
-      RateLimiter.create(
-          new MServerConfigManager().getSenderConfig(Sender.ARTE_DE).getMaximumRequestsPerSecond());
+  private static RateLimiter limiter = null;
   private final GsonBuilder gsonBuilder;
 
   public ArteTaskBase(
@@ -33,6 +29,8 @@ public abstract class ArteTaskBase<T, D extends CrawlerUrlDTO> extends AbstractR
       @Nullable final String authToken) {
     super(aCrawler, aUrlToCrawlDtos, authToken);
     gsonBuilder = new GsonBuilder();
+
+    // limiter bei ersten aufruf bauen?
   }
 
   protected void registerJsonDeserializer(final Type aType, final Object aDeserializer) {
@@ -124,6 +122,9 @@ public abstract class ArteTaskBase<T, D extends CrawlerUrlDTO> extends AbstractR
       request = request.header(HEADER_AUTHORIZATION, authKey.get());
     }
 
+    if (limiter == null) {
+      limiter = RateLimiter.create(crawler.getCrawlerConfig().getMaximumRequestsPerSecond());
+    }
     limiter.acquire();
     return request
         .header(HEADER_ACCEPT_ENCODING, ENCODING_GZIP)
