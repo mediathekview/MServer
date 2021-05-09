@@ -66,6 +66,10 @@ maximumUrlsPerTask: 50
 # The maximum duration in minutes a crawler may run.
 maximumCrawlDurationInMinutes: 30
 
+# Enables the topics search
+# maximumSubpages limits the depth of the topics search
+topicsSearchEnabled: true
+
 # The maximum amount of sub pages to be crawled.<br>
 # Example: If a Sendung overview side has 10 pages with videos for this Sendung and
 # the amount set by this is 5 then the crawler crawls pages 1 to 5.
