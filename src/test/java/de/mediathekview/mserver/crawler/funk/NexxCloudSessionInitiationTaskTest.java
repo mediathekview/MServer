@@ -60,19 +60,19 @@ public class NexxCloudSessionInitiationTaskTest extends FunkTaskTestBase {
     rootConfig
         .getConfig()
         .putCrawlerUrl(
-            CrawlerUrlType.NEXX_CLUD_API_URL, new URL(getWireMockBaseUrlSafe() + "/v3/741"));
+            CrawlerUrlType.NEXX_CLOUD_API_URL, new URL(getWireMockBaseUrlSafe() + "/v3/741"));
   }
 
   @After
   public void tearDown() {
-    CrawlerUrlType.NEXX_CLUD_API_URL
+    CrawlerUrlType.NEXX_CLOUD_API_URL
         .getDefaultUrl()
         .ifPresent(
             url ->
                 crawler
                     .getRuntimeConfig()
                     .getCrawlerURLs()
-                    .put(CrawlerUrlType.NEXX_CLUD_API_URL, url));
+                    .put(CrawlerUrlType.NEXX_CLOUD_API_URL, url));
   }
 
   private Long executeTask() {
