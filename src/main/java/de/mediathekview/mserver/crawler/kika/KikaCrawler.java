@@ -52,16 +52,19 @@ public class KikaCrawler extends AbstractCrawler {
       Thread.currentThread().interrupt();
     }
     try {
-      final Set<KikaCrawlerUrlDto> topicOverviewUrls = new HashSet<>();
-      topicOverviewUrls.addAll(getAudioDescriptionAndSignLanguageEntries());
-      topicOverviewUrls.addAll(getLetterEntries());
+      if (Boolean.TRUE.equals(crawlerConfig.getTopicsSearchEnabled())) {
 
-      topicOverviewUrls.forEach(
-          show -> {
-            if (!sendungsfolgenUrls.contains(show)) {
-              sendungsfolgenUrls.add(show);
-            }
-          });
+        final Set<KikaCrawlerUrlDto> topicOverviewUrls = new HashSet<>();
+        topicOverviewUrls.addAll(getAudioDescriptionAndSignLanguageEntries());
+        topicOverviewUrls.addAll(getLetterEntries());
+
+        topicOverviewUrls.forEach(
+            show -> {
+              if (!sendungsfolgenUrls.contains(show)) {
+                sendungsfolgenUrls.add(show);
+              }
+            });
+      }
     } catch (final ExecutionException executionException) {
       LOG.fatal("Exception in KIKA crawler.", executionException);
     } catch (final InterruptedException interruptedException) {
