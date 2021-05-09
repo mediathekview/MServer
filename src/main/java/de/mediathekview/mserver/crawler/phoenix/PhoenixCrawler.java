@@ -42,7 +42,10 @@ public class PhoenixCrawler extends AbstractCrawler {
   protected RecursiveTask<Set<Film>> createCrawlerTask() {
 
     try {
-      final Queue<CrawlerUrlDTO> shows = new ConcurrentLinkedQueue<>(getShows());
+      final Queue<CrawlerUrlDTO> shows = new ConcurrentLinkedQueue<>();
+      if (Boolean.TRUE.equals(crawlerConfig.getTopicsSearchEnabled())) {
+        shows.addAll(getShows());
+      }
       printMessage(
           ServerMessages.DEBUG_ALL_SENDUNG_FOLGEN_COUNT, getSender().getName(), shows.size());
       getAndSetMaxCount(shows.size());

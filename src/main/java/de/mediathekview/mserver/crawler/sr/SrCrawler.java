@@ -31,7 +31,6 @@ public class SrCrawler extends AbstractCrawler {
       final Collection<SenderProgressListener> aProgressListeners,
       final MServerConfigManager rootConfig) {
     super(aForkJoinPool, aMessageListeners, aProgressListeners, rootConfig);
-
   }
 
   @Override
@@ -41,21 +40,22 @@ public class SrCrawler extends AbstractCrawler {
 
   @Override
   protected RecursiveTask<Set<Film>> createCrawlerTask() {
+    final Queue<SrTopicUrlDTO> filmDtos = new ConcurrentLinkedQueue<>();
+
     try {
-      final SrTopicsOverviewPageTask overviewTask =
-          new SrTopicsOverviewPageTask(this);
-      final Queue<SrTopicUrlDTO> shows = forkJoinPool.submit(overviewTask).get();
+      if (Boolean.TRUE.equals(crawlerConfig.getTopicsSearchEnabled())) {
+        final SrTopicsOverviewPageTask overviewTask = new SrTopicsOverviewPageTask(this);
+        final Queue<SrTopicUrlDTO> shows = forkJoinPool.submit(overviewTask).get();
+
+        printMessage(
+            ServerMessages.DEBUG_ALL_SENDUNG_FOLGEN_COUNT, getSender().getName(), shows.size());
+
+        final SrTopicArchivePageTask archiveTask = new SrTopicArchivePageTask(this, shows);
+        filmDtos.addAll(forkJoinPool.submit(archiveTask).get());
+      }
 
       printMessage(
-          ServerMessages.DEBUG_ALL_SENDUNG_FOLGEN_COUNT, getSender().getName(), shows.size());
-
-      final SrTopicArchivePageTask archiveTask =
-          new SrTopicArchivePageTask(this, shows);
-      final Queue<SrTopicUrlDTO> filmDtos = new ConcurrentLinkedQueue<>();
-      filmDtos.addAll(forkJoinPool.submit(archiveTask).get());
-
-      printMessage(
-          ServerMessages.DEBUG_ALL_SENDUNG_FOLGEN_COUNT, getSender().getName(), filmDtos.size());
+              ServerMessages.DEBUG_ALL_SENDUNG_FOLGEN_COUNT, getSender().getName(), filmDtos.size());
       getAndSetMaxCount(filmDtos.size());
 
       return new SrFilmDetailTask(this, filmDtos);
