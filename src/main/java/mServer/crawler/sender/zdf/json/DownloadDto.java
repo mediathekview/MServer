@@ -1,5 +1,6 @@
 package mServer.crawler.sender.zdf.json;
 
+import java.time.Duration;
 import java.util.EnumMap;
 import java.util.HashMap;
 import java.util.Map;
@@ -16,6 +17,7 @@ public class DownloadDto {
   private Optional<GeoLocations> geoLocation;
   private Optional<String> subTitleUrl;
   private final Map<String, Map<Qualities, String>> downloadUrls;
+  private Optional<Duration> duration;
 
   public DownloadDto() {
     downloadUrls = new HashMap<>();
@@ -40,6 +42,8 @@ public class DownloadDto {
     return new EnumMap<>(Qualities.class);
   }
 
+  public Optional<Duration> getDuration() { return duration; }
+
   public Set<String> getLanguages() {
     return downloadUrls.keySet();
   }
@@ -60,6 +64,10 @@ public class DownloadDto {
       }
     }
     return Optional.empty();
+  }
+
+  public void setDuration(final Duration duration) {
+    this.duration = Optional.of(duration);
   }
 
   public void setGeoLocation(final GeoLocations aGeoLocation) {
