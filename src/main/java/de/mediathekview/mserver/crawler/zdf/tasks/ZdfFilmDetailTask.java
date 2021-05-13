@@ -96,6 +96,9 @@ public class ZdfFilmDetailTask extends ZdfTaskBase<Film, CrawlerUrlDTO> {
       if (downloadDto.isPresent()) {
         try {
           final Film result = film.get().getFilm();
+          if (result.getDuration().isZero() && downloadDto.get().getDuration().isPresent()) {
+            result.setDuration(downloadDto.get().getDuration().get());
+          }
           addFilm(downloadDto.get(), result);
 
           crawler.incrementAndGetActualCount();

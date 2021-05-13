@@ -97,7 +97,7 @@ public class PhoenixFilmDetailTaskTest extends WireMockTestBase {
             "Alles was Recht ist",
             "(2/5): Persönlichkeit oder Öffentlichkeit?",
             LocalDateTime.of(2021, 4, 16, 15, 40, 0),
-            Duration.ofMinutes(0).plusSeconds(0),
+            Duration.ofMinutes(15).plusSeconds(1),
             "Dürfen Medien die Namen Prominenter nennen, wenn gegen sie ermittelt wird? Diese Frage stellte sich zuletzt im Fall von Ex-Fußballnationalspieler Christoph Metzelder. Was ist wichtiger? Persönlichkeitsrechte oder das Interesse der Öffentlichkeit? Richterinnen und Richter müssen das von Fall zu Fall aufs Neue entscheiden und stecken dabei in einem juristischen Dilemma: Der Schutz der Persönlichkeit\n.....",
             "https://www.phoenix.de/sendungen/dokumentationen/alles-was-recht-ist/25-persoenlichkeit-oder-effentlichkeit-a-2120685.html",
             "/none/phoenix/21/04/210416_phx_doku_awri_2/2/210416_phx_doku_awri_2_776k_p11v13.mp4",

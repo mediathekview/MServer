@@ -2,25 +2,23 @@ package de.mediathekview.mserver.crawler.zdf.json;
 
 import de.mediathekview.mlib.daten.GeoLocations;
 import de.mediathekview.mlib.daten.Resolution;
-import java.util.EnumMap;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Optional;
-import java.util.Set;
 
-/**
- * A data transfer object containing the information for downloading a video.
- */
+import java.time.Duration;
+import java.util.*;
+
+/** A data transfer object containing the information for downloading a video. */
 public class DownloadDto {
 
   private Optional<GeoLocations> geoLocation;
   private Optional<String> subTitleUrl;
   private final Map<String, Map<Resolution, String>> downloadUrls;
+  private Optional<Duration> duration;
 
   public DownloadDto() {
     downloadUrls = new HashMap<>();
     geoLocation = Optional.empty();
     subTitleUrl = Optional.empty();
+    duration = Optional.empty();
   }
 
   public void addUrl(final String language, final Resolution quality, final String url) {
@@ -38,6 +36,10 @@ public class DownloadDto {
     }
 
     return new EnumMap<>(Resolution.class);
+  }
+
+  public Optional<Duration> getDuration() {
+    return duration;
   }
 
   public Set<String> getLanguages() {
@@ -68,5 +70,9 @@ public class DownloadDto {
 
   public void setSubTitleUrl(final String aUrl) {
     subTitleUrl = Optional.of(aUrl);
+  }
+
+  public void setDuration(final Duration duration) {
+    this.duration = Optional.of(duration);
   }
 }
