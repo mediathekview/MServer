@@ -9,6 +9,7 @@ import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
 import de.mediathekview.mserver.crawler.basic.CrawlerUrlDTO;
 import de.mediathekview.mserver.crawler.phoenix.tasks.PhoenixFilmDetailTask;
 import de.mediathekview.mserver.crawler.phoenix.tasks.PhoenixOverviewTask;
+import de.mediathekview.mserver.crawler.zdf.tasks.ZdfFilmDetailTask;
 import de.mediathekview.mserver.progress.listeners.SenderProgressListener;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -40,9 +41,11 @@ public class PhoenixCrawler extends AbstractCrawler {
 
   @Override
   protected RecursiveTask<Set<Film>> createCrawlerTask() {
+    Queue<CrawlerUrlDTO> shows =new ConcurrentLinkedQueue<>();
+    // TODO Dauer fehlt
+    // TODO phoenix vor ort fehlt => müssten mehrere Videos pro Seite sein!
 
     try {
-      final Queue<CrawlerUrlDTO> shows = new ConcurrentLinkedQueue<>();
       if (Boolean.TRUE.equals(crawlerConfig.getTopicsSearchEnabled())) {
         shows.addAll(getShows());
       }
@@ -51,7 +54,7 @@ public class PhoenixCrawler extends AbstractCrawler {
       getAndSetMaxCount(shows.size());
 
       return new PhoenixFilmDetailTask(
-          this, shows, null, PhoenixConstants.URL_BASE, PhoenixConstants.URL_VIDEO_DETAILS_HOST);
+          this, shows, null, PhoenixConstants.URL_BASE);
     } catch (final ExecutionException executionException) {
       LOG.fatal("Exception in Phönix crawler.", executionException);
     } catch (final InterruptedException interruptedException) {

@@ -1,0 +1,88 @@
+{
+  "id":2120685,
+  "typ": "",
+  "titel": "Alles was Recht ist",
+  "subtitel": "(2\/5): Persönlichkeit oder Öffentlichkeit?",
+  "autor":"",
+  "herkunftssender": "",
+  "online":"",
+  "offline": "",
+  "verortung":
+  [{"link":"\/alles-was-recht-ist-s-2076355.html","titel":"Alles was Recht ist"},{"link":"\/sendungen\/dokumentationen-s-121583.html","titel":"Dokumentationen"},{"link":"\/sendungen.html","titel":"Sendungen"}]	,
+  "vorspann": "",
+  "absaetze":[
+    {
+
+      "typ":"video-smubl",
+      "titel":"Alles, was Recht ist (2\/5): Persönlichkeit oder Öffentlichkeit? ",
+      "beschreibung":"",
+      "basename": 2121010,
+      "bild_l": "/sixcms/media.php/phoenix_tl_01.a.21.de/thumbnail_large/Folge%202.png",
+      "content": 2121010,
+      "startImage": "/sixcms/media.php/phoenix_tl_01.a.21.de/thumbnail_large/Folge%202.png"
+
+    },
+    {
+      "typ":"fliesstext",
+      "text":"<p><strong>D&uuml;rfen Medien die Namen Prominenter nennen, wenn gegen sie ermittelt wird? Diese Frage stellte sich zuletzt im Fall von Ex-Fu&szlig;ballnationalspieler Christoph Metzelder. <\/strong><\/p>\r\n<p><span>Was ist wichtiger? Pers&ouml;nlichkeitsrechte oder das Interesse der &Ouml;ffentlichkeit? Richterinnen und Richter m&uuml;ssen das von Fall zu Fall aufs Neue entscheiden und stecken dabei in einem juristischen Dilemma: Der Schutz der Pers&ouml;nlichkeit ist ein hohes Gut - doch das Recht auf Information ist es auch.<\/span><\/p>"},
+    {
+      "typ": "programmhinweis",
+      "title": "",
+      "items": [
+
+
+        {
+          "titel": "Alles was Recht ist",
+          "subtitel": "(2\/5): Persönlichkeit oder Öffentlichkeit?",
+          "sendung": {
+            "sendezeit":"2021-05-10 14:45"
+          }
+        }
+
+      ]}],
+
+  "meta": {
+    "bild_l": "https:\/\/www.phoenix.de\/sixcms\/media.php\/21\/thumbnails\/Folge%202.png.1384775.png",
+    "description":"",
+    "canonical": "https:\/\/www.phoenix.de\/sendungen\/dokumentationen\/alles-was-recht-ist\/25-persoenlichkeit-oder-effentlichkeit-a-2120685.html",
+    "description_og":""	},
+  "test": "2120650",
+  "metaspalte":
+  []	,
+  "related":{
+    "sendungen": [
+
+      {
+        "link": "\/sendungen\/dokumentationen\/alles-was-recht-ist\/15-freiheit-oder-sicherheit-a-2120665.html",
+        "artikel_id": 2120665,
+        "titel": "Alles was Recht ist",
+        "subtitel": "(1\/5): Freiheit oder Sicherheit?",
+        "vorspann": "",
+        "epg_hint": "",
+        "bild_l": "\/sixcms\/media.php\/21\/thumbnails\/Folge%201.png.1384750.png",
+        "bild_ml": "\/sixcms\/media.php\/21\/thumbnails\/Folge%201.png.1384755.jpg",
+        "bild_m": "\/sixcms\/media.php\/21\/thumbnails\/Folge%201.png.1384760.jpg",
+        "inhalt_video": true,
+        "inhalt_text": true,
+        "typ": "Doku",
+        "sendung": {
+          "sendezeit":
+          "2021-05-08 13:45",
+          "vps": "",
+          "highlight": false,
+          "themenblock": {
+            "titel": "",
+            "link": ""			},
+          "attribute": {
+            "ut": false,
+            "gs": false,
+            "zk": false			}
+        }
+      }
+    ],
+    "collection":[
+    ]
+  }
+
+}
+
