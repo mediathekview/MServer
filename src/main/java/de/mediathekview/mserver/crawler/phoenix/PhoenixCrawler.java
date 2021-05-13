@@ -40,15 +40,19 @@ public class PhoenixCrawler extends AbstractCrawler {
 
   @Override
   protected RecursiveTask<Set<Film>> createCrawlerTask() {
+    Queue<CrawlerUrlDTO> shows =new ConcurrentLinkedQueue<>();
+    // TODO phoenix vor ort fehlt => müssten mehrere Videos pro Seite sein!
 
     try {
-      final Queue<CrawlerUrlDTO> shows = new ConcurrentLinkedQueue<>(getShows());
+      if (Boolean.TRUE.equals(crawlerConfig.getTopicsSearchEnabled())) {
+        shows.addAll(getShows());
+      }
       printMessage(
           ServerMessages.DEBUG_ALL_SENDUNG_FOLGEN_COUNT, getSender().getName(), shows.size());
       getAndSetMaxCount(shows.size());
 
       return new PhoenixFilmDetailTask(
-          this, shows, null, PhoenixConstants.URL_BASE, PhoenixConstants.URL_VIDEO_DETAILS_HOST);
+          this, shows, null, PhoenixConstants.URL_BASE);
     } catch (final ExecutionException executionException) {
       LOG.fatal("Exception in Phönix crawler.", executionException);
     } catch (final InterruptedException interruptedException) {

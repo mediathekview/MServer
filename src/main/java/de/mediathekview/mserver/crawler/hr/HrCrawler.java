@@ -38,7 +38,6 @@ public class HrCrawler extends AbstractCrawler {
       final Collection<SenderProgressListener> aProgressListeners,
       final MServerConfigManager aRootConfig) {
     super(aForkJoinPool, aMessageListeners, aProgressListeners, aRootConfig);
-
   }
 
   @Override
@@ -75,17 +74,17 @@ public class HrCrawler extends AbstractCrawler {
 
     final Queue<CrawlerUrlDTO> sendungsfolgenUrls = new ConcurrentLinkedQueue<>();
     try {
-      final HrSendungsfolgenOverviewPageTask sendungsfolgenOverviewPageTask =
-          new HrSendungsfolgenOverviewPageTask(
-              this,
-              new ConcurrentLinkedQueue<>(forkJoinPool.submit(sendungenOverviewPageTask).get())
-              );
+      if (Boolean.TRUE.equals(crawlerConfig.getTopicsSearchEnabled())) {
+        final HrSendungsfolgenOverviewPageTask sendungsfolgenOverviewPageTask =
+            new HrSendungsfolgenOverviewPageTask(
+                this,
+                new ConcurrentLinkedQueue<>(forkJoinPool.submit(sendungenOverviewPageTask).get()));
+        sendungsfolgenUrls.addAll(forkJoinPool.invoke(sendungsfolgenOverviewPageTask));
+      }
 
       final HrSendungsfolgenVerpasstOverviewPageTask sendungVerpasstTask =
-          new HrSendungsfolgenVerpasstOverviewPageTask(
-              this, getSendungVerpasstStartUrls());
+              new HrSendungsfolgenVerpasstOverviewPageTask(this, getSendungVerpasstStartUrls());
 
-      sendungsfolgenUrls.addAll(forkJoinPool.invoke(sendungsfolgenOverviewPageTask));
       sendungsfolgenUrls.addAll(forkJoinPool.invoke(sendungVerpasstTask));
     } catch (final InterruptedException | ExecutionException exception) {
       LOG.fatal("Something went terrible wrong on crawlin the HR.", exception);

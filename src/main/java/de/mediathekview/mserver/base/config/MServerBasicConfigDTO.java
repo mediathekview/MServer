@@ -15,6 +15,8 @@ public class MServerBasicConfigDTO {
   private Integer maximumUrlsPerTask;
   /** The maximum duration in minutes a crawler may run. */
   private Integer maximumCrawlDurationInMinutes;
+  /** enables the topics search */
+  private Boolean topicsSearchEnabled;
   /**
    * The maximum amount of sub pages to be crawled.<br>
    * <br>
@@ -78,6 +80,17 @@ public class MServerBasicConfigDTO {
     maximumDaysForSendungVerpasstSectionFuture = aMaximumDaysForSendungVerpasstSectionFuture;
   }
 
+  public Boolean getTopicsSearchEnabled() {
+    if (topicsSearchEnabled == null && parentConfig.isPresent()) {
+      return parentConfig.get().getTopicsSearchEnabled();
+    }
+    return topicsSearchEnabled;
+  }
+
+  public void setTopicsSearchEnabled(final Boolean topicsSearchEnabled) {
+    this.topicsSearchEnabled = topicsSearchEnabled;
+  }
+
   public Integer getMaximumSubpages() {
     if (maximumSubpages == null && parentConfig.isPresent()) {
       return parentConfig.get().getMaximumSubpages();
@@ -139,6 +152,7 @@ public class MServerBasicConfigDTO {
         && Objects.equals(getMaximumUrlsPerTask(), that.getMaximumUrlsPerTask())
         && Objects.equals(
             getMaximumCrawlDurationInMinutes(), that.getMaximumCrawlDurationInMinutes())
+        && Objects.equals(getTopicsSearchEnabled(), that.getTopicsSearchEnabled())
         && Objects.equals(getMaximumSubpages(), that.getMaximumSubpages())
         && Objects.equals(
             getMaximumDaysForSendungVerpasstSection(),
@@ -155,6 +169,7 @@ public class MServerBasicConfigDTO {
         getSocketTimeoutInSeconds(),
         getMaximumUrlsPerTask(),
         getMaximumCrawlDurationInMinutes(),
+        getTopicsSearchEnabled(),
         getMaximumSubpages(),
         getMaximumDaysForSendungVerpasstSection(),
         getMaximumDaysForSendungVerpasstSectionFuture(),

@@ -117,11 +117,14 @@ public class ArteCrawler extends AbstractCrawler {
       if (isDayEntriesEnabled()) {
         shows.addAll(getDaysEntries());
       }
-      getCategoriesEntries()
-          .forEach(
-              show -> {
-                shows.add(show);
-              });
+
+      if (Boolean.TRUE.equals(crawlerConfig.getTopicsSearchEnabled())) {
+        getCategoriesEntries()
+            .forEach(
+                show -> {
+                  shows.add(show);
+                });
+      }
 
       printMessage(
           ServerMessages.DEBUG_ALL_SENDUNG_FOLGEN_COUNT, getSender().getName(), shows.size());

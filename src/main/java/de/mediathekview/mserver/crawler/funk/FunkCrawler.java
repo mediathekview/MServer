@@ -41,25 +41,28 @@ public class FunkCrawler extends AbstractCrawler {
 
   @Override
   protected RecursiveTask<Set<Film>> createCrawlerTask() {
-    final ForkJoinTask<Set<FunkChannelDTO>> featureFunkChannels = createChannelTask();
 
-    final ForkJoinTask<Set<FilmInfoDto>> featureLatestVideos = createLatestVideosTask();
+    final Queue<FilmInfoDto> filmInfos = new ConcurrentLinkedQueue<>();
 
     try {
+      final ForkJoinTask<Set<FilmInfoDto>> featureLatestVideos = createLatestVideosTask();
+      final ForkJoinTask<Set<FunkChannelDTO>> featureFunkChannels = createChannelTask();
       final Map<String, FunkChannelDTO> channels =
-          featureFunkChannels.get().stream()
-              .collect(Collectors.toMap(FunkChannelDTO::getChannelId, Function.identity()));
+              featureFunkChannels.get().stream()
+                      .collect(Collectors.toMap(FunkChannelDTO::getChannelId, Function.identity()));
 
-      final Queue<CrawlerUrlDTO> funkVideosByChannelUrls =
-          convertChannelsToVideosByChannelUrls(new HashSet<>(channels.values()));
+      if (Boolean.TRUE.equals(crawlerConfig.getTopicsSearchEnabled())) {
+        final Queue<CrawlerUrlDTO> funkVideosByChannelUrls =
+                convertChannelsToVideosByChannelUrls(new HashSet<>(channels.values()));
+        final ForkJoinTask<Set<FilmInfoDto>> featureChannelVideos =
+                createChannelVideos(funkVideosByChannelUrls);
+        filmInfos.addAll(featureChannelVideos.get());
+      }
 
-      final ForkJoinTask<Set<FilmInfoDto>> featureChannelVideos =
-          createChannelVideos(funkVideosByChannelUrls);
+      filmInfos.addAll(featureLatestVideos.get());
 
-      final Queue<FilmInfoDto> filmInfos = new ConcurrentLinkedQueue<>(featureLatestVideos.get());
-      filmInfos.addAll(featureChannelVideos.get());
-
-      printMessage(ServerMessages.DEBUG_ALL_SENDUNG_FOLGEN_COUNT, getSender().getName(), filmInfos.size());
+      printMessage(
+          ServerMessages.DEBUG_ALL_SENDUNG_FOLGEN_COUNT, getSender().getName(), filmInfos.size());
       getAndSetMaxCount(filmInfos.size());
 
       return new FunkVideosToFilmsTask(this, filmInfos, channels, null);

@@ -57,8 +57,8 @@ public class SrfCrawler extends AbstractCrawler {
       final Set<CrawlerUrlDTO> scheduleFilmUrls = forkJoinPool.submit(schedulePageTask).get();
       dtos.addAll(scheduleFilmUrls);
       //
-      //@TODO is topic search enabled
-      if (true) {
+
+      if (Boolean.TRUE.equals(crawlerConfig.getTopicsSearchEnabled())) {
         final Queue<CrawlerUrlDTO> topicsUrls = new ConcurrentLinkedQueue<>();
         topicsUrls.add(new CrawlerUrlDTO(SrfConstants.OVERVIEW_PAGE_URL));
         final SrfTopicsOverviewTask overviewTask = new SrfTopicsOverviewTask(this, topicsUrls);

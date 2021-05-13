@@ -1,0 +1,71 @@
+{
+  "profile":"http:\/\/zdf.de\/rels\/vcms",
+  "self":"2121010",
+  "http:\/\/zdf.de\/rels\/sharing-url":"https:\/\/www.phoenix.de\/vod\/id\/2121010",
+  "title":"Alles, was Recht ist (2\/5): Pers\u00f6nlichkeit oder \u00d6ffentlichkeit?",
+  "leadParagraph":"D\u00fcrfen Medien die Namen Prominenter nennen, wenn gegen sie ermittelt wird? Diese Frage stellte sich zuletzt im Fall von Ex-Fu\u00dfballnationalspieler Christoph Metzelder. Was ist wichtiger? Pers\u00f6nlichkeitsrechte oder das Interesse der \u00d6ffentlichkeit? Richterinnen und Richter m\u00fcssen das von Fall zu Fall aufs Neue entscheiden und stecken dabei in einem juristischen Dilemma: Der Schutz der Pers\u00f6nlichkeit ist ein hohes Gut - doch das Recht auf Information ist es auch.",
+  "contentType":"episode",
+  "tracking":{
+    "szmng":{
+
+    },
+    "atInternet":{
+
+    },
+    "nielsen":{
+      "content":{
+        "type":"content",
+        "assetid":"210416_phx_doku_awri_2",
+        "program":"Alles was Recht ist",
+        "title":"Alles was Recht ist|Alles, was Recht ist (2\/5): Pers\u00f6nlichkeit oder \u00d6ffentlichkeit?|210416_phx_doku_awri_2",
+        "length":"901",
+        "nol_c2":"p2,N",
+        "nol_c7":"p7,210416_phx_doku_awri_2",
+        "nol_c8":"p8,901",
+        "nol_c9":"p9,Alles, was Recht ist (2\/5): Pers\u00f6nlichkeit oder \u00d6ffentlichkeit?",
+        "nol_c10":"p10,Phoenix",
+        "nol_c12":"p12,Content",
+        "nol_c14":"p14,2021-04-16T13:40:00",
+        "nol_c15":"p15,ATE001624",
+        "nol_c16":"p16,Alles was Recht ist",
+        "nol_c18":"p18,N",
+        "nol_c19":"p19,|15.04.2021 22:00|15.10.2021 22:00|0|none|true"
+      }
+    }
+  },
+  "tvService":"Phoenix",
+  "embeddingPossible":true,
+  "editorialDate":"2021-04-16T13:40:00.000Z",
+  "http:\/\/zdf.de\/rels\/brand":{
+    "title":"Alles was Recht ist"
+  },
+  "mainVideoContent":{
+    "profile":"http:\/\/zdf.de\/rels\/content-reference\/video-content",
+    "contentTypeShort":"ref-video-content",
+    "http:\/\/zdf.de\/rels\/fallback-stream":null,
+    "http:\/\/zdf.de\/rels\/target":{
+      "visible":true,
+      "visibleFrom":"2021-04-15T22:00:00.000Z",
+      "visibleTo":"2021-10-15T22:00:00.000Z",
+      "http:\/\/zdf.de\/rels\/streams\/ptmd-template":"http:\/\/localhost:8589\/tmd\/2\/ngplayer_2_3\/vod\/ptmd\/phoenix\/210416_phx_doku_awri_2",
+      "streamAnchorTag":[
+
+      ]
+    }
+  },
+  "teaserImageRef":{
+    "profile":"http:\/\/zdf.de\/rels\/image",
+    "layouts":{
+      "352x198":"\/sixcms\/media.php\/21\/thumbnails\/Folge%202.png.1384785.jpg",
+      "812x456":"\/sixcms\/media.php\/21\/thumbnails\/Folge%202.png.1384780.jpg",
+      "1280x720":"\/sixcms\/media.php\/21\/thumbnails\/Folge%202.png.1384775.png",
+      "original":"\/sixcms\/media.php\/21\/Folge%202.png"
+    }
+  },
+  "programmeItem":[
+    {
+      "profile":"http:\/\/zdf.de\/rels\/epg\/programme-item",
+      "source":"vcms"
+    }
+  ]
+}
