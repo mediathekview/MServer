@@ -1,6 +1,8 @@
 package mServer.crawler.sender.phoenix.tasks;
 
 import com.google.gson.reflect.TypeToken;
+import jakarta.ws.rs.client.WebTarget;
+import mServer.crawler.CrawlerTool;
 import mServer.crawler.sender.MediathekReader;
 import mServer.crawler.sender.base.AbstractRecursivConverterTask;
 import mServer.crawler.sender.base.CrawlerUrlDTO;
@@ -10,7 +12,6 @@ import mServer.crawler.sender.zdf.tasks.ZdfTaskBase;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import jakarta.ws.rs.client.WebTarget;
 import java.lang.reflect.Type;
 import java.util.Collection;
 import java.util.Optional;
@@ -53,11 +54,13 @@ public class PhoenixOverviewTask extends ZdfTaskBase<CrawlerUrlDTO, CrawlerUrlDT
       SendungOverviewDto overviewDto = overviewDtoOptional.get();
       addResults(overviewDto.getUrls());
 
-      final Optional<String> nextPageId = overviewDto.getNextPageId();
-      if (nextPageId.isPresent()
-        // Workaround to fix paging problem in Phönix-API
-        && !aDTO.getUrl().endsWith(nextPageId.get())) {
-        taskResults.addAll(createNewOwnInstance(baseUrl + nextPageId.get()).invoke());
+      if (CrawlerTool.loadLongMax()) {
+        final Optional<String> nextPageId = overviewDto.getNextPageId();
+        if (nextPageId.isPresent()
+                // Workaround to fix paging problem in Phönix-API
+                && !aDTO.getUrl().endsWith(nextPageId.get())) {
+          taskResults.addAll(createNewOwnInstance(baseUrl + nextPageId.get()).invoke());
+        }
       }
     } catch (Exception e) {
       LOG.fatal(e);
@@ -72,7 +75,7 @@ public class PhoenixOverviewTask extends ZdfTaskBase<CrawlerUrlDTO, CrawlerUrlDT
 
   @Override
   protected AbstractRecursivConverterTask<CrawlerUrlDTO, CrawlerUrlDTO> createNewOwnInstance(
-    ConcurrentLinkedQueue<CrawlerUrlDTO> aElementsToProcess) {
+          ConcurrentLinkedQueue<CrawlerUrlDTO> aElementsToProcess) {
     return new PhoenixOverviewTask(crawler, aElementsToProcess, authKey, baseUrl, subpage + 1);
   }
 
