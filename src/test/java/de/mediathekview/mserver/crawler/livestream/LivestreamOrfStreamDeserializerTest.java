@@ -1,4 +1,4 @@
-package de.mediathekview.mserver.crawler.ard.json.livestream;
+package de.mediathekview.mserver.crawler.livestream;
 
 import com.google.gson.JsonElement;
 
@@ -10,7 +10,7 @@ import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 
-public class LivesreamOrfStreamDeserializerTest {
+public class LivestreamOrfStreamDeserializerTest {
 
   @Test
   public void test() {

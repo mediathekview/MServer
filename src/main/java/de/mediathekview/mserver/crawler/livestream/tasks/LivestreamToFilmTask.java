@@ -1,10 +1,12 @@
 package de.mediathekview.mserver.crawler.livestream.tasks;
 
 import java.net.MalformedURLException;
-import java.time.Duration;
 import java.util.Hashtable;
 import java.util.Queue;
 import java.util.UUID;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import de.mediathekview.mlib.daten.Film;
 import de.mediathekview.mlib.daten.FilmUrl;
@@ -16,8 +18,10 @@ import de.mediathekview.mserver.crawler.basic.TopicUrlDTO;
 
 public class LivestreamToFilmTask extends AbstractRecursiveConverterTask<Film, TopicUrlDTO>{
   private static final long serialVersionUID = -2729059830661477520L;
+  private static final Logger LOG = LogManager.getLogger(LivestreamToFilmTask.class);
 
   // REFERENCES
+  // lookup name, a SenderInfo Object ( Sender, Title, useThisStream)
   private static final Hashtable<String, SenderInfo> senderLookup = new Hashtable<>();
   static {
     senderLookup.put("3sat im Livestream",new SenderInfo(Sender.DREISAT, "3Sat im Livestream", false));
@@ -54,7 +58,7 @@ public class LivestreamToFilmTask extends AbstractRecursiveConverterTask<Film, T
     senderLookup.put("SRF 1",new SenderInfo(Sender.SRF, "SRF 1 Livestream", true));
     senderLookup.put("SRF info",new SenderInfo(Sender.SRF, "SRF info Livestream", true));
     senderLookup.put("SRF zwei",new SenderInfo(Sender.SRF, "SRF zwei Livestream", true));
-    senderLookup.put("SWR Fernsehen Baden-Württemberg",new SenderInfo(Sender.SWR, "SWR BW Livestream", true));
+    senderLookup.put("SWR Baden-Württemberg",new SenderInfo(Sender.SWR, "SWR BW Livestream", true));
     senderLookup.put("SWR Fernsehen Rheinland-Pfalz",new SenderInfo(Sender.SWR, "SWR RP Livestream", true));
     senderLookup.put("tagesschau24-Livestream",new SenderInfo(Sender.TAGESSCHAU24, "tagesschau24 Livestream", true));
     senderLookup.put("WDR Fernsehen im Livestream",new SenderInfo(Sender.WDR, "WDR Livestream", true));
@@ -88,6 +92,9 @@ public class LivestreamToFilmTask extends AbstractRecursiveConverterTask<Film, T
       }
       taskResults.add(aFilm);
       crawler.incrementAndGetActualCount();
+    } 
+    if (info == null) {
+      LOG.error("Unknown LIVESTREAM \"{}\"",aElement.getTopic());
     }
     
   }

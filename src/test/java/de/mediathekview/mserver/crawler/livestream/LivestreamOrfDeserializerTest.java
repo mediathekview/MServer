@@ -1,4 +1,4 @@
-package de.mediathekview.mserver.crawler.ard.json.livestream;
+package de.mediathekview.mserver.crawler.livestream;
 
 import com.google.gson.JsonElement;
 import de.mediathekview.mserver.crawler.basic.TopicUrlDTO;
@@ -13,7 +13,7 @@ import java.util.Set;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.Assert.assertEquals;
 
-public class LivesreamOrfDeserializerTest {
+public class LivestreamOrfDeserializerTest {
 
   @Test
   public void test() {
