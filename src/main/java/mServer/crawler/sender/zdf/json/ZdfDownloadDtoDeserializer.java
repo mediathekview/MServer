@@ -6,6 +6,7 @@ import com.google.gson.JsonDeserializer;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import java.lang.reflect.Type;
+import java.time.Duration;
 import java.util.Iterator;
 import java.util.Optional;
 import mServer.crawler.sender.base.GeoLocations;
@@ -28,6 +29,7 @@ public class ZdfDownloadDtoDeserializer implements JsonDeserializer<Optional<Dow
   private static final String JSON_ELEMENT_AUDIO = "audio";
   private static final String JSON_ELEMENT_CAPTIONS = "captions";
   private static final String JSON_ELEMENT_CLASS = "class";
+  private static final String JSON_ELEMENT_DURATION = "duration";
   private static final String JSON_ELEMENT_FORMITAET = "formitaeten";
   private static final String JSON_ELEMENT_GEOLOCATION = "geoLocation";
   private static final String JSON_ELEMENT_HD = "hd";
@@ -55,6 +57,7 @@ public class ZdfDownloadDtoDeserializer implements JsonDeserializer<Optional<Dow
     try {
       final JsonObject rootNode = aJsonElement.getAsJsonObject();
 
+      parseDuration(dto, rootNode);
       parseVideoUrls(dto, rootNode);
       parseSubtitle(dto, rootNode);
       parseGeoLocation(dto, rootNode);
@@ -66,6 +69,19 @@ public class ZdfDownloadDtoDeserializer implements JsonDeserializer<Optional<Dow
     }
 
     return Optional.empty();
+  }
+
+  private void parseDuration(final DownloadDto dto, final JsonObject rootNode) {
+    final JsonElement attributes = rootNode.get(JSON_ELEMENT_ATTRIBUTES);
+    if (attributes != null) {
+      final JsonElement durationElement = attributes.getAsJsonObject().get(JSON_ELEMENT_DURATION);
+      if (durationElement != null) {
+        final JsonElement durationValue = durationElement.getAsJsonObject().get(JSON_PROPERTY_VALUE);
+        if (durationValue != null) {
+          dto.setDuration(Duration.ofMillis(durationValue.getAsLong()));
+        }
+      }
+    }
   }
 
   private void parseFormitaet(final DownloadDto dto, final JsonElement formitaet) {

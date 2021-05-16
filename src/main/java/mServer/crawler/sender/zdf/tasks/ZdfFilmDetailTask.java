@@ -138,10 +138,12 @@ public class ZdfFilmDetailTask extends ZdfTaskBase<DatenFilm, CrawlerUrlDTO> {
 
     Map<Qualities, String> downloadUrls = downloadDto.getDownloadUrls(aLanguage);
 
+    Duration duration = zdfFilmDto.getDuration().orElse(downloadDto.getDuration().orElse(Duration.ZERO));
+
     DatenFilm film = new ZdfDatenFilm(crawler.getSendername(),
       zdfFilmDto.getTopic().orElse(title),
       zdfFilmDto.getWebsite().orElse(""),
-      title, downloadUrls.get(Qualities.NORMAL), "", dateValue, timeValue, zdfFilmDto.getDuration().orElse(Duration.ZERO).getSeconds(), zdfFilmDto.getDescription().orElse(""));
+      title, downloadUrls.get(Qualities.NORMAL), "", dateValue, timeValue, duration.getSeconds(), zdfFilmDto.getDescription().orElse(""));
     if (downloadUrls.containsKey(Qualities.SMALL)) {
       CrawlerTool.addUrlKlein(film, downloadUrls.get(Qualities.SMALL));
     }

@@ -39,7 +39,7 @@ public class PhoenixCrawler extends MediathekCrawler {
 
       meldungAddMax(shows.size());
 
-      return new PhoenixFilmDetailTask(this, shows, Optional.empty(), PhoenixConstants.URL_BASE, PhoenixConstants.URL_VIDEO_DETAILS_HOST);
+      return new PhoenixFilmDetailTask(this, shows, Optional.empty(), PhoenixConstants.URL_BASE);
     } catch (ExecutionException | InterruptedException ex) {
       LOG.fatal("Exception in Phönix crawler.", ex);
     }
