@@ -42,6 +42,19 @@ public class LivestreamArdStreamTask extends AbstractJsonRestTask<TopicUrlDTO, S
   }
 
   @Override
+<<<<<<< HEAD
+=======
+  protected void handleHttpError(CrawlerUrlDTO dto, URI url, Response response) {
+    crawler.printErrorMessage();
+    LOG.fatal(
+        "A HTTP error {} occurred when getting REST information from: \"{}\".",
+        response.getStatus(),
+        url);
+    
+  }
+
+  @Override
+>>>>>>> 635f6e0b24fcadb9c89d9b1bcb6abb5765fe95e0
   protected void postProcessing(Set<CrawlerUrlDTO> aResponseObj, TopicUrlDTO aDTO) {
     aResponseObj.forEach(url -> {
       taskResults.add(new TopicUrlDTO(aDTO.getTopic(), url.getUrl()));  

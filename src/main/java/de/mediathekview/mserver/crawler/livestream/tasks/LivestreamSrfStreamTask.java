@@ -41,6 +41,18 @@ public class LivestreamSrfStreamTask extends AbstractJsonRestTask<TopicUrlDTO, C
     return new TypeToken<CrawlerUrlDTO>(){}.getType();
   }
 
+<<<<<<< HEAD
+=======
+  @Override
+  protected void handleHttpError(CrawlerUrlDTO dto, URI url, Response response) {
+    crawler.printErrorMessage();
+    LOG.fatal(
+        "A HTTP error {} occurred when getting REST information from: \"{}\".",
+        response.getStatus(),
+        url);
+    
+  }
+>>>>>>> 635f6e0b24fcadb9c89d9b1bcb6abb5765fe95e0
 
   @Override
   protected void postProcessing(CrawlerUrlDTO aResponseObj, TopicUrlDTO aDTO) {
