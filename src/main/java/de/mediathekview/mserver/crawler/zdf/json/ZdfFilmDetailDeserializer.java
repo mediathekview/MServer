@@ -71,8 +71,11 @@ public class ZdfFilmDetailDeserializer implements JsonDeserializer<Optional<ZdfF
     if (rootNode.has(JSON_ELEMENT_PROGRAM_ITEM)
         && !rootNode.get(JSON_ELEMENT_PROGRAM_ITEM).isJsonNull()) {
       JsonArray programItem = rootNode.getAsJsonArray(JSON_ELEMENT_PROGRAM_ITEM);
-      programItemTarget =
-          programItem.get(0).getAsJsonObject().get(JSON_ELEMENT_TARGET).getAsJsonObject();
+      final JsonObject asJsonObject = programItem.get(0).getAsJsonObject();
+      if (asJsonObject.has(JSON_ELEMENT_TARGET)) {
+      programItemTarget =asJsonObject
+          .get(JSON_ELEMENT_TARGET).getAsJsonObject();
+      }
     }
     if (rootNode.has(JSON_ELEMENT_MAIN_VIDEO)
         && !rootNode.get(JSON_ELEMENT_MAIN_VIDEO).isJsonNull()) {

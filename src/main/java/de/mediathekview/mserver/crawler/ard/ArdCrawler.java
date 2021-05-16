@@ -62,25 +62,27 @@ public class ArdCrawler extends AbstractCrawler {
   protected RecursiveTask<Set<Film>> createCrawlerTask() {
 
     try {
-      final Set<ForkJoinTask<Set<CrawlerUrlDTO>>> senderTopicTasks = createSenderTopicTasks();
-
       final ForkJoinTask<Set<ArdFilmInfoDto>> dayTask =
           forkJoinPool.submit(new ArdDayPageTask(this, createDayUrlsToCrawl()));
-
-      final Set<CrawlerUrlDTO> senderTopicUrls = new HashSet<>();
-      for (final ForkJoinTask<Set<CrawlerUrlDTO>> senderTopicTask : senderTopicTasks) {
-        senderTopicUrls.addAll(senderTopicTask.get());
-      }
 
       final Set<ArdFilmInfoDto> shows = dayTask.get();
       printMessage(
           ServerMessages.DEBUG_ALL_SENDUNG_FOLGEN_COUNT, getSender().getName(), shows.size());
 
-      final ArdTopicPageTask topicTask =
-          new ArdTopicPageTask(this, new ConcurrentLinkedQueue<>(senderTopicUrls));
-      final int showsCountBefore = shows.size();
-      shows.addAll(forkJoinPool.submit(topicTask).get());
-      LOG.debug("ARD crawler found {} topics for all sub-sender.", shows.size() - showsCountBefore);
+      if (Boolean.TRUE.equals(crawlerConfig.getTopicsSearchEnabled())) {
+        final Set<ForkJoinTask<Set<CrawlerUrlDTO>>> senderTopicTasks = createSenderTopicTasks();
+
+        final Set<CrawlerUrlDTO> senderTopicUrls = new HashSet<>();
+        for (final ForkJoinTask<Set<CrawlerUrlDTO>> senderTopicTask : senderTopicTasks) {
+          senderTopicUrls.addAll(senderTopicTask.get());
+        }
+        final ArdTopicPageTask topicTask =
+            new ArdTopicPageTask(this, new ConcurrentLinkedQueue<>(senderTopicUrls));
+        final int showsCountBefore = shows.size();
+        shows.addAll(forkJoinPool.submit(topicTask).get());
+        LOG.debug(
+            "ARD crawler found {} topics for all sub-sender.", shows.size() - showsCountBefore);
+      }
 
       printMessage(
           ServerMessages.DEBUG_ALL_SENDUNG_FOLGEN_COUNT, getSender().getName(), shows.size());

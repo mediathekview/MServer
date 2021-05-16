@@ -29,8 +29,8 @@ public class PhoenixFilmDetailTaskTest extends WireMockTestBase {
 
   private final String filmUrl;
   private final String filmJsonFile;
-  private final String filmDetailXmlUrl;
-  private final String filmDetailXmlFile;
+  private final String filmDetailUrl;
+  private final String filmDetailFile;
   private final String videoUrl;
   private final String videoJsonFile;
   private final String expectedTopic;
@@ -49,8 +49,8 @@ public class PhoenixFilmDetailTaskTest extends WireMockTestBase {
   public PhoenixFilmDetailTaskTest(
       final String aFilmUrl,
       final String aFilmJsonFile,
-      final String aFilmDetailXmlUrl,
-      final String aFilmDetailXmlFile,
+      final String aFilmDetailUrl,
+      final String aFilmDetailFile,
       final String aVideoUrl,
       final String aVideoJsonFile,
       final String aExpectedTopic,
@@ -66,8 +66,8 @@ public class PhoenixFilmDetailTaskTest extends WireMockTestBase {
       final GeoLocations aExpectedGeo) {
     filmUrl = aFilmUrl;
     filmJsonFile = aFilmJsonFile;
-    filmDetailXmlUrl = aFilmDetailXmlUrl;
-    filmDetailXmlFile = aFilmDetailXmlFile;
+    filmDetailUrl = aFilmDetailUrl;
+    filmDetailFile = aFilmDetailFile;
     videoUrl = aVideoUrl;
     videoJsonFile = aVideoJsonFile;
     expectedTopic = aExpectedTopic;
@@ -88,20 +88,20 @@ public class PhoenixFilmDetailTaskTest extends WireMockTestBase {
     return Arrays.asList(
         new Object[][] {
           {
-            "/response/id/271252",
-            "/phoenix/phoenix_film_detail1.json",
-            "/php/mediaplayer/data/beitrags_details.php?ak=web&ptmd=true&id=293872",
-            "/phoenix/phoenix_film_detail1.xml",
-            "/tmd/2/ngplayer_2_3/vod/ptmd/phoenix/180624_phx_presseclub",
-            "/phoenix/phoenix_video_detail1.json",
-            "Presseclub",
-            "Mehr Grenzschutz und eine neue Asylpolitik – letzte Rettung für Europa und Merkel?",
-            LocalDateTime.of(2018, 6, 24, 12, 0, 0),
-            Duration.ofMinutes(57).plusSeconds(12),
-            "Moderation: Sonia Seymour Mikich",
-            "https://www.phoenix.de/sendungen/gespraeche/presseclub/mehr-grenzschutz-und-eine-neue-asylpolitik--letzte-rettung-fuer-europa-und-merkel-a-271252.html",
-            "/none/phoenix/18/06/180624_phx_presseclub/1/180624_phx_presseclub_776k_p11v13.mp4",
-            "/none/phoenix/18/06/180624_phx_presseclub/1/180624_phx_presseclub_2328k_p35v13.mp4",
+            "/response/id/2121010",
+            "/phoenix/phoenix_film_detail2_reponse.json",
+            "/php/mediaplayer/data/beitrags_details.php?id=2121010",
+            "/phoenix/phoenix_film_detail2_beitrag_details.json",
+            "/tmd/2/ngplayer_2_3/vod/ptmd/phoenix/210416_phx_doku_awri_2",
+            "/phoenix/phoenix_film_detail2_video.json",
+            "Alles was Recht ist",
+            "(2/5): Persönlichkeit oder Öffentlichkeit?",
+            LocalDateTime.of(2021, 4, 16, 15, 40, 0),
+            Duration.ofMinutes(15).plusSeconds(1),
+            "Dürfen Medien die Namen Prominenter nennen, wenn gegen sie ermittelt wird? Diese Frage stellte sich zuletzt im Fall von Ex-Fußballnationalspieler Christoph Metzelder. Was ist wichtiger? Persönlichkeitsrechte oder das Interesse der Öffentlichkeit? Richterinnen und Richter müssen das von Fall zu Fall aufs Neue entscheiden und stecken dabei in einem juristischen Dilemma: Der Schutz der Persönlichkeit\n.....",
+            "https://www.phoenix.de/sendungen/dokumentationen/alles-was-recht-ist/25-persoenlichkeit-oder-effentlichkeit-a-2120685.html",
+            "/none/phoenix/21/04/210416_phx_doku_awri_2/2/210416_phx_doku_awri_2_776k_p11v13.mp4",
+            "/none/phoenix/21/04/210416_phx_doku_awri_2/2/210416_phx_doku_awri_2_2328k_p35v13.mp4",
             "",
             "",
             GeoLocations.GEO_NONE
@@ -112,11 +112,11 @@ public class PhoenixFilmDetailTaskTest extends WireMockTestBase {
   @Test
   public void test() {
     setupSuccessfulJsonResponse(filmUrl, filmJsonFile);
-    setupSuccessfulXmlResponse(filmDetailXmlUrl, filmDetailXmlFile);
+    setupSuccessfulJsonResponse(filmDetailUrl, filmDetailFile);
     setupSuccessfulJsonResponse(videoUrl, videoJsonFile);
     setupHeadResponse(404);
     setupHeadResponse(
-        "/none/phoenix/18/06/180624_phx_presseclub/1/180624_phx_presseclub_2328k_p35v13.mp4", 200);
+        "/none/phoenix/21/04/210416_phx_doku_awri_2/2/210416_phx_doku_awri_2_2328k_p35v13.mp4", 200);
 
     final Set<Film> actual = executeTask(filmUrl);
 
@@ -150,8 +150,7 @@ public class PhoenixFilmDetailTaskTest extends WireMockTestBase {
   private Set<Film> executeTask(final String aDetailUrl) {
     final Queue<CrawlerUrlDTO> urls = new ConcurrentLinkedQueue<>();
     urls.add(new CrawlerUrlDTO(getWireMockBaseUrlSafe() + aDetailUrl));
-    return new PhoenixFilmDetailTask(
-            createCrawler(), urls, null, getWireMockBaseUrlSafe(), getWireMockBaseUrlSafe())
+    return new PhoenixFilmDetailTask(createCrawler(), urls, null, getWireMockBaseUrlSafe())
         .invoke();
   }
 }

@@ -102,9 +102,11 @@ public class OrfCrawler extends AbstractCrawler {
 
       final Queue<TopicUrlDTO> shows = new ConcurrentLinkedQueue<>();
 
-      shows.addAll(getArchiveEntries());
+      if (Boolean.TRUE.equals(crawlerConfig.getTopicsSearchEnabled())) {
+        shows.addAll(getArchiveEntries());
 
-      addShows(shows, getLetterEntries());
+        addShows(shows, getLetterEntries());
+      }
       addShows(shows, getDaysEntries());
 
       printMessage(
