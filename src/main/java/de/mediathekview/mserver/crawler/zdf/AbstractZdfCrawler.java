@@ -44,12 +44,16 @@ public abstract class AbstractZdfCrawler extends AbstractCrawler {
     try {
       final ZdfConfiguration configuration = loadConfiguration();
 
-      final Queue<CrawlerUrlDTO> shows = new ConcurrentLinkedQueue<>(getDaysEntries(configuration));
+      final Set<CrawlerUrlDTO> shows = new HashSet<>(getDaysEntries(configuration));
+
+      if (Boolean.TRUE.equals(crawlerConfig.getTopicsSearchEnabled())) {
+        shows.addAll(getTopicsEntries());
+      }
 
       getAndSetMaxCount(shows.size());
 
       return new ZdfFilmDetailTask(
-          this, getApiUrlBase(), shows, configuration.getVideoAuthKey().orElse(null));
+          this, getApiUrlBase(), new ConcurrentLinkedQueue<>(shows), configuration.getVideoAuthKey().orElse(null));
     } catch (final InterruptedException ex) {
       LOG.debug("{} crawler interrupted.", getSender().getName(), ex);
       Thread.currentThread().interrupt();
@@ -62,6 +66,11 @@ public abstract class AbstractZdfCrawler extends AbstractCrawler {
   protected ZdfConfiguration loadConfiguration() throws ExecutionException, InterruptedException {
     final ZdfIndexPageTask task = new ZdfIndexPageTask(this, getUrlBase());
     return forkJoinPool.submit(task).get();
+  }
+
+
+  protected Queue<CrawlerUrlDTO> getTopicsEntries() throws ExecutionException, InterruptedException {
+    return new ConcurrentLinkedQueue<>();
   }
 
   @NotNull
