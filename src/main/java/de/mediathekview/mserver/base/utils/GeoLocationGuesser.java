@@ -55,28 +55,20 @@ public class GeoLocationGuesser {
         "mvideos-geo.daserste.de",
         "media.ndr.de/progressive_geo",
         "mediandr-a.akamaihd.net//progressive_geo",
-        "pdodswr-a.akamaihd.net/swr/geo/de",
-        "pdodswr-a.akamaihd.net/swrfernsehen/geo/de",
+        "/de/",
         "mediandr-a.akamaihd.net/progressive_geo",
         "cdn-storage.br.de/geo",
         "cdn-sotschi.br.de/geo/b7",
-        "pd-ondemand.swr.de/geo/de",
         "ondemandgeo.mdr.de",
         "ondemand-de.wdr.de",
         "wdr_fs_geo-lh.akamaihd.net",
-        "adaptiv.wdr.de/i/medp/de",
-        "pd-videos.daserste.de/de",
-        "wdradaptiv-vh.akamaihd.net/i/medp/ondemand/de",
-        "wdrmedien-a.akamaihd.net/medp/ondemand/de",
         "odgeomdr-a.akamaihd.net",
         "rbbmediapmdp-a.akamaihd.net/content-de/"));
     geoUrls.put(
       GeoLocations.GEO_DE_AT_CH,
       Arrays.asList(
         "ondemand-dach.wdr.de",
-        "wdradaptiv-vh.akamaihd.net/i/medp/ondemand/dach",
-        "wdrmedien-a.akamaihd.net/medp/ondemand/dach",
-        "adaptiv.wdr.de/i/medp/dach"));
+        "/dach/"));
 
     return getGeolocationsForGeoUrls(geoUrls, aUrl);
   }

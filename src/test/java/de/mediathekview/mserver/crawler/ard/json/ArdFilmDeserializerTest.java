@@ -105,7 +105,7 @@ public class ArdFilmDeserializerTest {
             "https://pdvideosdaserste-a.akamaihd.net/de/2020/07/03/live_20200703_070454_sendeton_960x540-50p-2600kbit.mp4",
             "https://pdvideosdaserste-a.akamaihd.net/de/2020/07/03/live_20200703_070454_sendeton_1920x1080-50p-8000kbit.mp4",
             "https://www.ardmediathek.de/subtitle/410911",
-            GeoLocations.GEO_NONE,
+            GeoLocations.GEO_DE,
             new ArdFilmInfoDto[] {
               new ArdFilmInfoDto(
                   "Y3JpZDovL2Rhc2Vyc3RlLmRlL2xpdmUgbmFjaCBuZXVuL2U2NjBiMDU0LWM3YmYtNDdkYy1iMmFlLWM1N2NkNmM1MjVhZA",
