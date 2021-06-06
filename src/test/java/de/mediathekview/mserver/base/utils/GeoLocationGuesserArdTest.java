@@ -56,6 +56,10 @@ public class GeoLocationGuesserArdTest extends TestCase {
             GeoLocations.GEO_DE
           },
           {
+            "https://hrardmediathek-a.akamaihd.net/video/as/geoblocking/2021_06/hrLogo_210605093605_0215219_960x540-50p-1800kbit.mp4",
+            GeoLocations.GEO_DE
+          },
+          {
             "https://pdvideosdaserste-a.akamaihd.net/dach/2021/02/05/bcc5d307-7b30-4386-b037-1c6dcd6ab428/960-1_838479.mp4",
             GeoLocations.GEO_DE_AT_CH
           },

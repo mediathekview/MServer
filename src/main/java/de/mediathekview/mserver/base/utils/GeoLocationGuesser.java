@@ -63,6 +63,7 @@ public class GeoLocationGuesser {
         "ondemand-de.wdr.de",
         "wdr_fs_geo-lh.akamaihd.net",
         "odgeomdr-a.akamaihd.net",
+        "hrardmediathek-a.akamaihd.net/video/as/geoblocking/",
         "rbbmediapmdp-a.akamaihd.net/content-de/"));
     geoUrls.put(
       GeoLocations.GEO_DE_AT_CH,
