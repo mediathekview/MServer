@@ -69,7 +69,8 @@ public class GeoLocationGuesser {
       GeoLocations.GEO_DE_AT_CH,
       Arrays.asList(
         "ondemand-dach.wdr.de",
-        "/dach/"));
+        "/dach/",
+        "/deChAt/"));
 
     return getGeolocationsForGeoUrls(geoUrls, aUrl);
   }

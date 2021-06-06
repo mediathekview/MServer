@@ -64,6 +64,10 @@ public class GeoLocationGuesserArdTest extends TestCase {
             GeoLocations.GEO_DE_AT_CH
           },
           {
+            "https://wdrmedien-a.akamaihd.net/medp/ondemand/deChAt/fsk0/244/2442535/2442535_35333716.mp4",
+            GeoLocations.GEO_DE_AT_CH
+          },
+          {
             "http://cdn-storage.br.de/MUJIuUOVBwQIbtC2uKJDM6OhuLnC_2rH_K1S/_-JS/_AvH_AbG_71S/192b42c4-d7ba-4b46-81ef-3c03452b762a_C.mp4",
             GeoLocations.GEO_NONE
           },
