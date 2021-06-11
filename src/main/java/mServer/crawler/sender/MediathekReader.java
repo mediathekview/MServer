@@ -234,6 +234,8 @@ public abstract class MediathekReader extends Thread {
 
   private void processArd(DatenFilm film) {
     if (film.arr[DatenFilm.FILM_URL].startsWith("http://mvideos-geo.daserste.de/")
+            || film.arr[DatenFilm.FILM_URL].contains("/geoblocking/")
+            || film.arr[DatenFilm.FILM_URL].contains("/de/")
             || film.arr[DatenFilm.FILM_URL].startsWith("http://media.ndr.de/progressive_geo/")
             || film.arr[DatenFilm.FILM_URL].startsWith("http://mediandr-a.akamaihd.net//progressive_geo/")
             || film.arr[DatenFilm.FILM_URL].startsWith("https://mediandr-a.akamaihd.net//progressive_geo/")
@@ -259,9 +261,8 @@ public abstract class MediathekReader extends Thread {
       film.arr[DatenFilm.FILM_GEO] = DatenFilm.GEO_DE;
     }
     if (film.arr[DatenFilm.FILM_URL].startsWith("http://ondemand-dach.wdr.de/")
-            || film.arr[DatenFilm.FILM_URL].startsWith("http://wdradaptiv-vh.akamaihd.net/i/medp/ondemand/dach/")
-            || film.arr[DatenFilm.FILM_URL].startsWith("http://wdrmedien-a.akamaihd.net/medp/ondemand/dach/")
-            || film.arr[DatenFilm.FILM_URL].startsWith("http://adaptiv.wdr.de/i/medp/dach/")) {
+            || film.arr[DatenFilm.FILM_URL].contains("/dach/")
+            || film.arr[DatenFilm.FILM_URL].contains("/deChAt/")) {
       film.arr[DatenFilm.FILM_GEO] = GeoLocations.GEO_DE_AT_CH.getDescription();
     }
   }
