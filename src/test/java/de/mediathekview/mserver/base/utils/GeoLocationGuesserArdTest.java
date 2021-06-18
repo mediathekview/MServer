@@ -102,6 +102,10 @@ public class GeoLocationGuesserArdTest extends TestCase {
           {
             "http://wdrmedien-a.akamaihd.net/medp/ondemand/weltweit/fsk0/148/1480533/1480533_16978374.mp4",
             GeoLocations.GEO_NONE
+          },
+          {
+            "https://arte-ard-mediathek.akamaized.net/am/mp4/084000/084600/084657-000-A_EQ_1_VOA_05911351_MP4-1500_AMM-IPTV-ARD_1ZbnIfgtFZ.mp4",
+            GeoLocations.GEO_DE_FR
           }
         });
   }

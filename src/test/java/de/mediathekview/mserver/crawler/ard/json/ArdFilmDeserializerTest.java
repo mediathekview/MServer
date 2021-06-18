@@ -154,6 +154,21 @@ public class ArdFilmDeserializerTest {
             GeoLocations.GEO_NONE,
             new ArdFilmInfoDto[0],
             Optional.of(Sender.FUNK)
+          },
+          {
+            "/ard/ard_film_page_arte_geo.json",
+            "ARTE",
+            "Der Sommer nach dem Abitur",
+            "Nach dem Abitur wollten die drei Schulfreunde Alexander, Paul und Ole auf ein Konzert ihrer Lieblingsband Madness. Doch irgendetwas kam für alle dazwischen. Zu ihrem Glück gibt es die Band immer noch und so machen sie sich ein Vierteljahrhundert später auf den Weg ... - Tragikomödie (2019, Regie: Eoin Moore) über Lebenslügen, verpasste Träume und Existenzängste.",
+            LocalDateTime.of(2021, 6, 18, 5, 0, 0),
+            Duration.ofMinutes(88).plusSeconds(29),
+            "https://arte-ard-mediathek.akamaized.net/am/mp4/084000/084600/084657-000-A_HQ_1_VOA_05911353_MP4-800_AMM-IPTV-ARD_1ZbnJfgtHA.mp4",
+            "https://arte-ard-mediathek.akamaized.net/am/mp4/084000/084600/084657-000-A_EQ_1_VOA_05911351_MP4-1500_AMM-IPTV-ARD_1ZbnIfgtFZ.mp4",
+            "https://arte-ard-mediathek.akamaized.net/am/mp4/084000/084600/084657-000-A_SQ_1_VOA_05911354_MP4-2200_AMM-IPTV-ARD_1ZbnKfgtJr.mp4",
+            "",
+            GeoLocations.GEO_DE_FR,
+            new ArdFilmInfoDto[0],
+            Optional.empty()
           }
         });
   }

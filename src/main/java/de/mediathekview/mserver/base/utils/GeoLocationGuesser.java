@@ -7,13 +7,7 @@ package de.mediathekview.mserver.base.utils;
 import de.mediathekview.mlib.daten.GeoLocations;
 import de.mediathekview.mlib.daten.Sender;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class GeoLocationGuesser {
 
@@ -71,6 +65,7 @@ public class GeoLocationGuesser {
         "ondemand-dach.wdr.de",
         "/dach/",
         "/deChAt/"));
+    geoUrls.put(GeoLocations.GEO_DE_FR, Arrays.asList("arte-ard-mediathek"));
 
     return getGeolocationsForGeoUrls(geoUrls, aUrl);
   }
