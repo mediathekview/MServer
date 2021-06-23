@@ -265,6 +265,9 @@ public abstract class MediathekReader extends Thread {
             || film.arr[DatenFilm.FILM_URL].contains("/deChAt/")) {
       film.arr[DatenFilm.FILM_GEO] = GeoLocations.GEO_DE_AT_CH.getDescription();
     }
+    if (film.arr[DatenFilm.FILM_URL].contains("arte-ard-mediathek")) {
+      film.arr[DatenFilm.FILM_GEO] = GeoLocations.GEO_DE_FR.getDescription();
+    }
   }
 
   private void processZdfPart(DatenFilm film) {
