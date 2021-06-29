@@ -297,6 +297,20 @@ public class AddToFilmlistTest {
   }
 
   @Test
+  public void testNotAddOrfGeoBlockOffline() {
+    DatenFilm film = new DatenFilm();
+    film.arr[DatenFilm.FILM_SENDER] = Const.ORF;
+    film.arr[DatenFilm.FILM_URL] = "https://apasfiis.sf.apa.at/ipad/cms-austria/2021-06-18_1330_tl_01_EM-2020--Das-wa_____14095766__o__7163875146__s14941321_1__ORF1HD_13322618P_13325906P_Q6A.mp4/playlist.m3u8";
+    film.arr[DatenFilm.FILM_GROESSE]="";
+    listToAdd.add(film);
+
+    AddToFilmlist target = new AddToFilmlist(list, listToAdd);
+    target.addOldList();
+
+    assertThat(list.size(), equalTo(2));
+  }
+
+  @Test
   public void testRefreshArdWebsite() {
     final DatenFilm testFilmUpdated = createTestFilm(Const.ARD, "Tatort", "Test Tatort", FILM_NAME_ONLINE);
     testFilmUpdated.arr[DatenFilm.FILM_WEBSEITE] = "https://www.ardmediathek.de/ard/player/Y3JpZDovL21kci5kZS9iZWl0cmFnL2Ntcy9mZjMzYzMxMC0wMjczLTQzMDktODllZi03MTI0OTFjZmE3ZTM";
