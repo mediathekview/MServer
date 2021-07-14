@@ -155,6 +155,19 @@ public class ZdfTopicPageHtmlDeserializerTest {
                   "https://api.zdf.de/content/documents/freiheit-kampf-um-grundrechte-100.json"),
               new CrawlerUrlDTO(
                   "https://api.zdf.de/content/documents/buecher-fruehling-literatur-ostdeutschland-100.json"),
+              new CrawlerUrlDTO(
+                  "https://api.zdf.de/content/documents/geschichte-der-freiheit-100.json"),
+              new CrawlerUrlDTO(
+                  "https://api.zdf.de/content/documents/freiheit-nachtleben-clubs-bars-hamburg-100.json"),
+              new CrawlerUrlDTO("https://api.zdf.de/content/documents/live-acts-buehne-102.json"),
+              new CrawlerUrlDTO(
+                  "https://api.zdf.de/content/documents/der-mauretanier-film-berlinale-guantanamo-grundrechte-100.json"),
+              new CrawlerUrlDTO(
+                  "https://api.zdf.de/content/documents/ganze-sendungen-uebersicht-100.json"),
+              new CrawlerUrlDTO(
+                  "https://api.zdf.de/content/documents/generationskonflikt-um-freiheit-100.json"),
+              new CrawlerUrlDTO(
+                  "https://api.zdf.de/content/documents/jan-delay-jo-schueck-gespraech-100.json")
             }
           },
           {

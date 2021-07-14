@@ -33,7 +33,20 @@ public class ZdfTopicPageHtmlDeserializer {
         "neoriginal",
         "Komödien",
         "Beliebte ",
-        "Mehr ",
+        "Mehr zum Herzkino",
+        "Mehr Samstagskrimis",
+        "Mehr tolle Filme",
+        "Mehr zum Thema",
+        "Mehr zur SOKO",
+        "Mehr Talk und Show",
+        "Mehr ZDFkultur",
+        "Mehr bei ZDFkultur",
+        "Mehr Doku-Themen",
+        "Mehr Wissenssendungen",
+        "Mehr Bier",
+        "Mehr Zweiteiler",
+        "Mehr Wissenschaft",
+        "Mehr Quiz und Show",
         "Krimis",
         "Shows",
         "Weitere Dokus",
@@ -86,7 +99,10 @@ public class ZdfTopicPageHtmlDeserializer {
 
             if (Arrays.stream(BLACKLIST_HEADLINES)
                 .noneMatch(blacklistEntry -> x.text().contains(blacklistEntry))) {
-              LOG.info(x.text());
+              LOG.debug(x.text());
+              if (x.text().contains("Mehr ")) {
+                LOG.info(x.text());
+              }
 
               parseHeadline(results, headline);
             }
