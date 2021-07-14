@@ -5,6 +5,9 @@ import de.mediathekview.mlib.messages.listener.MessageListener;
 import de.mediathekview.mserver.base.config.MServerConfigManager;
 import de.mediathekview.mserver.crawler.basic.CrawlerUrlDTO;
 import de.mediathekview.mserver.crawler.zdf.tasks.ZdfDayPageHtmlTask;
+import de.mediathekview.mserver.crawler.zdf.tasks.ZdfLetterListHtmlTask;
+import de.mediathekview.mserver.crawler.zdf.tasks.ZdfTopicPageHtmlTask;
+import de.mediathekview.mserver.crawler.zdf.tasks.ZdfTopicsPageHtmlTask;
 import de.mediathekview.mserver.progress.listeners.SenderProgressListener;
 import org.jetbrains.annotations.NotNull;
 
@@ -13,6 +16,7 @@ import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.Collection;
 import java.util.Queue;
+import java.util.Set;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ForkJoinPool;
@@ -47,6 +51,24 @@ public class ZdfCrawler extends AbstractZdfCrawler {
   @Override
   public Sender getSender() {
     return Sender.ZDF;
+  }
+
+  @Override
+  public Queue<CrawlerUrlDTO> getTopicsEntries() throws ExecutionException, InterruptedException {
+
+    final Queue<CrawlerUrlDTO> letterListUrl = new ConcurrentLinkedQueue<>();
+    letterListUrl.add(new CrawlerUrlDTO(ZdfConstants.URL_TOPICS));
+
+    final ZdfLetterListHtmlTask letterTask = new ZdfLetterListHtmlTask(this, letterListUrl);
+    final Set<CrawlerUrlDTO> letterUrls = forkJoinPool.submit(letterTask).get();
+
+    final ZdfTopicsPageHtmlTask topicsTask =
+        new ZdfTopicsPageHtmlTask(this, new ConcurrentLinkedQueue<>(letterUrls));
+    final Set<CrawlerUrlDTO> topicsUrls = forkJoinPool.submit(topicsTask).get();
+
+    final ZdfTopicPageHtmlTask topicTask =
+        new ZdfTopicPageHtmlTask(this, new ConcurrentLinkedQueue<>(topicsUrls));
+    return new ConcurrentLinkedQueue<>(forkJoinPool.submit(topicTask).get());
   }
 
   @Override

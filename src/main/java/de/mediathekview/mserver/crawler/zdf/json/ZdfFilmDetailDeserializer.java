@@ -102,7 +102,7 @@ public class ZdfFilmDetailDeserializer implements JsonDeserializer<Optional<ZdfF
       if (film.isPresent() && downloadUrl.isPresent()) {
         return Optional.of(new ZdfFilmDto(film.get(), downloadUrl.get()));
       }
-      LOG.error("ZdfFilmDetailDeserializer: no film or downloadUrl");
+      LOG.error("ZdfFilmDetailDeserializer: no film or downloadUrl: {}, {}", topic, title.get());
     } else {
       LOG.error("ZdfFilmDetailDeserializer: no title found");
     }
