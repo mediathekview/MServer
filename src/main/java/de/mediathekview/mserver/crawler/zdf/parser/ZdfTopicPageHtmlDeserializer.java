@@ -4,6 +4,8 @@ import de.mediathekview.mserver.base.utils.UrlParseException;
 import de.mediathekview.mserver.base.utils.UrlUtils;
 import de.mediathekview.mserver.crawler.basic.CrawlerUrlDTO;
 import de.mediathekview.mserver.crawler.zdf.ZdfConstants;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
@@ -16,6 +18,8 @@ import java.util.Set;
 import static de.mediathekview.mserver.base.HtmlConsts.ATTRIBUTE_HREF;
 
 public class ZdfTopicPageHtmlDeserializer {
+
+  private static final Logger LOG = LogManager.getLogger(ZdfTopicPageHtmlDeserializer.class);
   private static final String HEADLINES = "article.b-cluster";
   private static final String HEADLINES2 = "section.b-content-teaser-list";
   private static final String LINK_SELECTOR1 = "article.b-content-teaser-item h3 a";
@@ -131,7 +135,7 @@ public class ZdfTopicPageHtmlDeserializer {
                         new CrawlerUrlDTO(
                             String.format(ZdfConstants.URL_FILM_JSON, urlApiBase, s))));
           } catch (UrlParseException e) {
-            e.printStackTrace();
+            LOG.error(e);
           }
         });
   }
