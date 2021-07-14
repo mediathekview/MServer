@@ -5,6 +5,7 @@ import de.mediathekview.mlib.messages.listener.MessageListener;
 import de.mediathekview.mserver.base.config.MServerConfigManager;
 import de.mediathekview.mserver.crawler.basic.CrawlerUrlDTO;
 import de.mediathekview.mserver.crawler.zdf.tasks.ZdfDayPageHtmlTask;
+import de.mediathekview.mserver.crawler.zdf.tasks.ZdfLetterListHtmlTask;
 import de.mediathekview.mserver.crawler.zdf.tasks.ZdfTopicPageHtmlTask;
 import de.mediathekview.mserver.crawler.zdf.tasks.ZdfTopicsPageHtmlTask;
 import de.mediathekview.mserver.progress.listeners.SenderProgressListener;
@@ -54,20 +55,20 @@ public class ZdfCrawler extends AbstractZdfCrawler {
 
   @Override
   public Queue<CrawlerUrlDTO> getTopicsEntries() throws ExecutionException, InterruptedException {
-    final Queue<CrawlerUrlDTO> shows = new ConcurrentLinkedQueue<>();
 
     final Queue<CrawlerUrlDTO> letterListUrl = new ConcurrentLinkedQueue<>();
-    //letterListUrl.add(new CrawlerUrlDTO(ZdfConstants.URL_TOPICS));
-    letterListUrl.add(new CrawlerUrlDTO("https://www.zdf.de/sendungen-a-z?group=h"));
-    /*final ZdfLetterListHtmlTask letterTask = new ZdfLetterListHtmlTask(this, letterListUrl);
+    letterListUrl.add(new CrawlerUrlDTO(ZdfConstants.URL_TOPICS));
+
+    final ZdfLetterListHtmlTask letterTask = new ZdfLetterListHtmlTask(this, letterListUrl);
     final Set<CrawlerUrlDTO> letterUrls = forkJoinPool.submit(letterTask).get();
-*/
-    final ZdfTopicsPageHtmlTask topicsTask = new ZdfTopicsPageHtmlTask(this, new ConcurrentLinkedQueue<>(letterListUrl));
+
+    final ZdfTopicsPageHtmlTask topicsTask =
+        new ZdfTopicsPageHtmlTask(this, new ConcurrentLinkedQueue<>(letterUrls));
     final Set<CrawlerUrlDTO> topicsUrls = forkJoinPool.submit(topicsTask).get();
-    System.out.println(topicsUrls.size());
-    final ZdfTopicPageHtmlTask topicTask = new ZdfTopicPageHtmlTask(this, new ConcurrentLinkedQueue<>(topicsUrls));
-    shows.addAll(forkJoinPool.submit(topicTask).get());
-    return shows;
+
+    final ZdfTopicPageHtmlTask topicTask =
+        new ZdfTopicPageHtmlTask(this, new ConcurrentLinkedQueue<>(topicsUrls));
+    return new ConcurrentLinkedQueue<>(forkJoinPool.submit(topicTask).get());
   }
 
   @Override
