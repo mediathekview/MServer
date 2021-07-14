@@ -156,11 +156,37 @@ public class ZdfTopicPageHtmlDeserializerTest {
               new CrawlerUrlDTO(
                   "https://api.zdf.de/content/documents/buecher-fruehling-literatur-ostdeutschland-100.json"),
             }
+          },
+          {
+            "/zdf/zdf_topic_page1.html",
+            new CrawlerUrlDTO[] {
+              new CrawlerUrlDTO(
+                  "https://api.zdf.de/content/documents/bonustrailer-zur-dritten-staffel-100.json"),
+              new CrawlerUrlDTO(
+                  "https://api.zdf.de/content/documents/tonio--julia---dem-himmel-so-nah-102.json"),
+              new CrawlerUrlDTO(
+                  "https://api.zdf.de/content/documents/tonio--julia---mut-zu-leben-102.json"),
+              new CrawlerUrlDTO(
+                  "https://api.zdf.de/content/documents/rueckblick-auf-die-zweite-staffel-102.json"),
+              new CrawlerUrlDTO(
+                  "https://api.zdf.de/content/documents/volle-kanne---service-taeglich-vom-9-oktober-2020-mit-oona-devi-liebich-100.json")
+            }
+          },
+          {
+            "/zdf/zdf_topic_page_reload.html",
+            new CrawlerUrlDTO[] {
+              new CrawlerUrlDTO("https://api.zdf.de/content/documents/filmgorillas-290.json"),
+              new CrawlerUrlDTO("https://api.zdf.de/content/documents/filmgorillas-288.json"),
+              new CrawlerUrlDTO("https://api.zdf.de/content/documents/filmgorillas-286.json"),
+              new CrawlerUrlDTO("https://api.zdf.de/content/documents/filmgorillas-284.json"),
+              new CrawlerUrlDTO("https://api.zdf.de/content/documents/filmgorillas-282.json"),
+              new CrawlerUrlDTO("https://api.zdf.de/content/documents/filmgorillas-280.json"),
+              new CrawlerUrlDTO("https://api.zdf.de/content/documents/filmgorillas-278.json"),
+              new CrawlerUrlDTO("https://api.zdf.de/content/documents/filmgorillas-276.json"),
+              new CrawlerUrlDTO(
+                  "https://api.zdf.de/content/documents/auftritt-filmgorillas-100.json")
+            }
           }
-
-          // TODO mit nachladen, evtl. Sportstudio
-          // TODO: filmgorillas: wie viele da? 1? 7? 9? => auch leer!!
-          // TODO: Tonio und Julia: wie viele? => nichts, passt nicht!
         });
   }
 
@@ -184,9 +210,6 @@ public class ZdfTopicPageHtmlDeserializerTest {
 
     assertThat(actual, notNullValue());
     assertThat(actual.size(), equalTo(expectedEntries.length));
-    /*assertThat(
-    Arrays.stream(expectedEntries).collect(Collectors.toList()),
-    Matchers.containsInAnyOrder(actual));*/
     assertThat(actual, Matchers.containsInAnyOrder(expectedEntries));
   }
 }

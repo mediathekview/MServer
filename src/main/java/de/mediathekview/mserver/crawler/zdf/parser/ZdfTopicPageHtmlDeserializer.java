@@ -53,7 +53,9 @@ public class ZdfTopicPageHtmlDeserializer {
         "Weitere Thriller",
         "Direkt zu",
         "Das könnte",
-        "Auch interessant"
+        "Auch interessant",
+        "Alle Herzkino",
+        "Film-Highlights"
       };
 
   private final String urlApiBase;
@@ -86,37 +88,42 @@ public class ZdfTopicPageHtmlDeserializer {
                 .noneMatch(blacklistEntry -> x.text().contains(blacklistEntry))) {
               LOG.info(x.text());
 
-              Elements filmUrls = headline.select(LINK_SELECTOR1);
-              filmUrls.addAll(headline.select(LINK_SELECTOR2));
-              filmUrls.forEach(
-                  filmUrlElement -> {
-                    final String href = filmUrlElement.attr(ATTRIBUTE_HREF);
-                    final Optional<String> url = buildFilmUrlJsonFromHtmlLink(href);
-                    url.ifPresent(u -> results.add(new CrawlerUrlDTO(u)));
-                  });
-
-              Elements teasers = headline.select(TEASER_SELECTOR);
-              teasers.forEach(
-                  teaserElement -> {
-                    final String teaserUrl = teaserElement.attr("data-teaser-xhr-url");
-                    final Optional<String> sophoraId;
-                    try {
-                      sophoraId = UrlUtils.getUrlParameterValue(teaserUrl, "sophoraId");
-                      sophoraId.ifPresent(s -> results.add(
-                              new CrawlerUrlDTO(
-                                      String.format(
-                                              ZdfConstants.URL_FILM_JSON, urlApiBase, s))));
-                    } catch (UrlParseException e) {
-                      e.printStackTrace();
-                    }
-                  });
+              parseHeadline(results, headline);
             }
           } else {
-            LOG.info("no h2");
+            parseHeadline(results, headline);
           }
         });
 
     return results;
+  }
+
+  private void parseHeadline(Set<CrawlerUrlDTO> results, Element headline) {
+    Elements filmUrls = headline.select(LINK_SELECTOR1);
+    filmUrls.addAll(headline.select(LINK_SELECTOR2));
+    filmUrls.forEach(
+        filmUrlElement -> {
+          final String href = filmUrlElement.attr(ATTRIBUTE_HREF);
+          final Optional<String> url = buildFilmUrlJsonFromHtmlLink(href);
+          url.ifPresent(u -> results.add(new CrawlerUrlDTO(u)));
+        });
+
+    Elements teasers = headline.select(TEASER_SELECTOR);
+    teasers.forEach(
+        teaserElement -> {
+          final String teaserUrl = teaserElement.attr("data-teaser-xhr-url");
+          final Optional<String> sophoraId;
+          try {
+            sophoraId = UrlUtils.getUrlParameterValue(teaserUrl, "sophoraId");
+            sophoraId.ifPresent(
+                s ->
+                    results.add(
+                        new CrawlerUrlDTO(
+                            String.format(ZdfConstants.URL_FILM_JSON, urlApiBase, s))));
+          } catch (UrlParseException e) {
+            e.printStackTrace();
+          }
+        });
   }
 
   private Optional<String> buildFilmUrlJsonFromHtmlLink(String attr) {
