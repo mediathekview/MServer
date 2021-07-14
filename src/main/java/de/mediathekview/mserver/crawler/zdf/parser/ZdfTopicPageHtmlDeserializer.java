@@ -4,8 +4,6 @@ import de.mediathekview.mserver.base.utils.UrlParseException;
 import de.mediathekview.mserver.base.utils.UrlUtils;
 import de.mediathekview.mserver.crawler.basic.CrawlerUrlDTO;
 import de.mediathekview.mserver.crawler.zdf.ZdfConstants;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
@@ -18,8 +16,6 @@ import java.util.Set;
 import static de.mediathekview.mserver.base.HtmlConsts.ATTRIBUTE_HREF;
 
 public class ZdfTopicPageHtmlDeserializer {
-  private static final Logger LOG = LogManager.getLogger(ZdfTopicPageHtmlDeserializer.class);
-
   private static final String HEADLINES = "article.b-cluster";
   private static final String HEADLINES2 = "section.b-content-teaser-list";
   private static final String LINK_SELECTOR1 = "article.b-content-teaser-item h3 a";
@@ -41,6 +37,8 @@ public class ZdfTopicPageHtmlDeserializer {
         "Mehr Talk und Show",
         "Mehr ZDFkultur",
         "Mehr bei ZDFkultur",
+        "Mehr von ZDFkultur",
+        "Mehr Unterhaltung in Spielfilmlänge",
         "Mehr Doku-Themen",
         "Mehr Wissenssendungen",
         "Mehr Bier",
@@ -99,10 +97,6 @@ public class ZdfTopicPageHtmlDeserializer {
 
             if (Arrays.stream(BLACKLIST_HEADLINES)
                 .noneMatch(blacklistEntry -> x.text().contains(blacklistEntry))) {
-              LOG.debug(x.text());
-              if (x.text().contains("Mehr ")) {
-                LOG.info(x.text());
-              }
 
               parseHeadline(results, headline);
             }
