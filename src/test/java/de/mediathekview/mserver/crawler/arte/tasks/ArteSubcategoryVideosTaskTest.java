@@ -34,10 +34,10 @@ public class ArteSubcategoryVideosTaskTest extends ArteTaskTestBase {
     rootConfig.getConfig().setMaximumSubpages(5);
 
     final String requestUrl =
-        "/guide/api/emac/v3/de/web/zones/videos_subcategory/?id=ART&limit=100&page=1";
+        "/api/rproxy/emac/v3/de/web/zones/videos_subcategory/?id=ART&limit=100&page=1";
     setupSuccessfulJsonResponse(requestUrl, "/arte/arte_subcategory_films_page1.json");
     setupSuccessfulJsonResponse(
-        "/guide/api/emac/v3/de/web/zones/videos_subcategory/?id=ART&limit=100&page=2",
+        "/api/rproxy/emac/v3/de/web/zones/videos_subcategory/?id=ART&limit=100&page=2",
         "/arte/arte_subcategory_films_page_last.json");
 
     final Set<ArteFilmUrlDto> actual = executeTask(requestUrl, "ART", ArteLanguage.DE);
@@ -51,7 +51,7 @@ public class ArteSubcategoryVideosTaskTest extends ArteTaskTestBase {
     rootConfig.getSenderConfig(Sender.ARTE_DE).setMaximumSubpages(1);
 
     final String requestUrl =
-        "/guide/api/emac/v3/de/web/zones/videos_subcategory/?id=ART&limit=100&page=1";
+        "/api/rproxy/emac/v3/de/web/zones/videos_subcategory/?id=ART&limit=100&page=1";
     setupSuccessfulJsonResponse(requestUrl, "/arte/arte_subcategory_films_page1.json");
 
     final Set<ArteFilmUrlDto> actual = executeTask(requestUrl, "ART", ArteLanguage.DE);

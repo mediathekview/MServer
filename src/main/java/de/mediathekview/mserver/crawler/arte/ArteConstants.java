@@ -11,7 +11,7 @@ public class ArteConstants {
   public static final String URL_SUBCATEGORIES =
       "https://api.arte.tv/api/opa/v3/subcategories?language=%s&limit="+SUBCATEGORY_LIMIT;
   public static final String URL_SUBCATEGORY_VIDEOS =
-      "%s/guide/api/emac/v3/%s/web/zones/videos_subcategory/?id=%s&limit="+SUBCATEGORY_LIMIT+"&page=%s";
+      "%s/api/rproxy/emac/v3/%s/web/zones/videos_subcategory/?id=%s&limit="+SUBCATEGORY_LIMIT+"&page=%s";
 
   public static final String URL_FILM_DETAILS = "https://api.arte.tv/api/opa/v3/programs/%s/%s";
   public static final String URL_FILM_VIDEOS =
