@@ -60,7 +60,14 @@ public class ZdfIndexPageTaskTest {
             "/serien/parfum/ambra-parfum-100.html",
             Optional.of("c4aa601db94912547f29ba036fbc96165cb18ee7"),
             Optional.of("d984c7d728b6a3912b41b70e715c7ba26cbf4872")
-          }
+          },
+                {
+                        "/zdf/zdf_index_page_with_bearer2.html",
+                        "",
+                        "",
+                        Optional.of("5bb200097db507149612d7d983131d06c79706d5"),
+                        Optional.of("20c238b5345eb428d01ae5c748c5076f033dfcc7")
+                }
         });
   }
 
