@@ -38,16 +38,20 @@ public abstract class AbstractZdfCrawler extends MediathekCrawler {
   protected RecursiveTask<Set<DatenFilm>> createCrawlerTask() {
 
     try {
+      Set<CrawlerUrlDTO> shows = new HashSet<>();
+
       final ZdfConfiguration configuration = loadConfiguration();
+      if (configuration.getSearchAuthKey().isPresent() && configuration.getVideoAuthKey().isPresent()) {
 
-      final Set<CrawlerUrlDTO> shows = new HashSet<>(getDaysEntries(configuration));
+        shows = new HashSet<>(getDaysEntries(configuration));
 
-      if (CrawlerTool.loadLongMax()) {
-        shows.addAll(getTopicsEntries());
+        if (CrawlerTool.loadLongMax()) {
+          shows.addAll(getTopicsEntries());
+        }
+
+        Log.sysLog(getSendername() + " Anzahl: " + shows.size());
+        meldungAddMax(shows.size());
       }
-
-      Log.sysLog(getSendername() + " Anzahl: " + shows.size());
-      meldungAddMax(shows.size());
 
       return new ZdfFilmDetailTask(this, getApiUrlBase(), new ConcurrentLinkedQueue<>(shows), configuration.getVideoAuthKey());
     } catch (final InterruptedException ex) {
@@ -71,9 +75,9 @@ public abstract class AbstractZdfCrawler extends MediathekCrawler {
   protected abstract String getUrlBase();
 
   private Set<CrawlerUrlDTO> getDaysEntries(final ZdfConfiguration configuration)
-    throws InterruptedException, ExecutionException {
+          throws InterruptedException, ExecutionException {
     final ZdfDayPageTask dayTask
-      = new ZdfDayPageTask(this, getApiUrlBase(), getDayUrls(), configuration.getSearchAuthKey());
+            = new ZdfDayPageTask(this, getApiUrlBase(), getDayUrls(), configuration.getSearchAuthKey());
     final Set<CrawlerUrlDTO> shows = forkJoinPool.submit(dayTask).get();
 
     Collection<? extends CrawlerUrlDTO> extraDaysEntries = getExtraDaysEntries();
@@ -85,7 +89,7 @@ public abstract class AbstractZdfCrawler extends MediathekCrawler {
   }
 
   protected Collection<CrawlerUrlDTO> getExtraDaysEntries()
-    throws ExecutionException, InterruptedException {
+          throws ExecutionException, InterruptedException {
     return new HashSet<>();
   }
 
@@ -99,14 +103,14 @@ public abstract class AbstractZdfCrawler extends MediathekCrawler {
     final ConcurrentLinkedQueue<CrawlerUrlDTO> urls = new ConcurrentLinkedQueue<>();
     for (int i = 0;
          i
-           <= daysPast
-           + daysFuture;
+                 <= daysPast
+                 + daysFuture;
          i++) {
 
       final LocalDateTime local
-        = LocalDateTime.now()
-        .plus(daysFuture, ChronoUnit.DAYS)
-        .minus(i, ChronoUnit.DAYS);
+              = LocalDateTime.now()
+              .plus(daysFuture, ChronoUnit.DAYS)
+              .minus(i, ChronoUnit.DAYS);
       final String date = local.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
       final String url = String.format(getUrlDay(), date, date);
       urls.add(new CrawlerUrlDTO(url));
