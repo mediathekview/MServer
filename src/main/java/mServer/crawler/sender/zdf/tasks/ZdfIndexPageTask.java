@@ -1,9 +1,6 @@
 package mServer.crawler.sender.zdf.tasks;
 
-import java.io.IOException;
-import java.util.Optional;
-import java.util.concurrent.Callable;
-import java.util.concurrent.TimeUnit;
+import de.mediathekview.mlib.tool.Log;
 import mServer.crawler.sender.MediathekReader;
 import mServer.crawler.sender.base.JsoupConnection;
 import mServer.crawler.sender.zdf.ZdfConfiguration;
@@ -13,12 +10,18 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
+import java.io.IOException;
+import java.util.Optional;
+import java.util.concurrent.Callable;
+import java.util.concurrent.TimeUnit;
+
 public class ZdfIndexPageTask implements Callable<ZdfConfiguration> {
 
   private static final Logger LOG = LogManager.getLogger(ZdfIndexPageTask.class);
 
   private static final String QUERY_SEARCH_BEARER = "head > script";
   private static final String QUERY_VIDEO_BEARER_INDEX_PAGE = "article > script";
+  private static final String QUERY_VIDEO_BEARER_INDEX_PAGE2 = "main > script";
   private static final String QUERY_VIDEO_BEARER_SUBPAGE = "div.b-playerbox";
   private static final String QUERY_SUPAGE_URL = "div.stage-item a";
   private static final String JSON_API_TOKEN = "apiToken";
@@ -54,10 +57,18 @@ public class ZdfIndexPageTask implements Callable<ZdfConfiguration> {
               = parseBearerIndexPage(document.get(), QUERY_VIDEO_BEARER_INDEX_PAGE, "\"");
 
       if (!videoBearer.isPresent()) {
-        videoBearer = parseTokenFromSubPage(document.get());
+        videoBearer = parseBearerIndexPage(document.get(), QUERY_VIDEO_BEARER_INDEX_PAGE2, "\"");
+        if (!videoBearer.isPresent()) {
+          videoBearer = parseTokenFromSubPage(document.get());
+        }
       }
 
-      videoBearer.ifPresent(configuration::setVideoAuthKey);
+      if (videoBearer.isPresent()) {
+        configuration.setVideoAuthKey(videoBearer.get());
+      } else {
+        LOG.error("ZDF: no video bearer token found.");
+        Log.sysLog("ZDF: no video bearer token found.");
+      }
     }
 
     return configuration;
