@@ -20,7 +20,7 @@ import java.util.Collection;
 import java.util.Optional;
 
 import static org.hamcrest.CoreMatchers.equalTo;
-import static org.hamcrest.junit.MatcherAssert.assertThat;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 @RunWith(Parameterized.class)
 public class SrfFilmJsonDeserializerTest extends SrfTaskTestBase {
