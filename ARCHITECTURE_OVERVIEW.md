@@ -74,3 +74,28 @@ clients.
 ![Architectural Overview](docs/architecture/images/Architectural_Overview.svg "Architectural Overview")
 
 An informal architecture overview diagram for MServer
+
+### YAML Configuration
+
+How many threads are allowed to use, which crawlers should run and crawler configurations are set in the YAML
+configuration of MServer.
+
+### Yacl4J
+
+A library to read the YAML configuration as objects.
+
+### Crawler Manager
+
+Starts all configured crawlers, collects the results and start the filmlist writing.
+
+### AbstractCrawler
+
+Contains basic logic needed in every crawler like the work splitting.
+
+### MLib
+
+An internal library which contains the model objects of MediathekView.
+
+### Crawler
+
+The heart of MServer crawlers for the public broadcaster media libraries.
