@@ -1,24 +1,28 @@
 # Architecture Overview
 
-MServer is a free open-source software that crawls the media libraries of the German-speaking public broadcasters and prepares them as a machine-readable list for clients such as [MediathekView](https://github.com/mediathekview/MediathekView).
+MServer is a free open-source software that crawls the media libraries of the German-speaking public broadcasters and
+prepares them as a machine-readable list for clients such
+as [MediathekView](https://github.com/mediathekview/MediathekView).
 
 ## Table of Content
 
 - [Architecture Overview](#architecture-overview)
-  - [Table of Content](#table-of-content)
-  - [Context](#context)
-    - [Administrator (user)](#administrator-user)
-    - [Public broadcaster media libaries (external system)](#public-broadcaster-media-libaries-external-system)
-    - [MediathekView (external system)](#mediathekview-external-system)
-    - [MediathekViewWeb (external system)](#mediathekviewweb-external-system)
-    - [Other clients (external system)](#other-clients-external-system)
-  - [Quality Goals](#quality-goals)
-  - [Solution Strategy](#solution-strategy)
-  - [Architectural Overview Diagram](#architectural-overview-diagram)
+    - [Table of Content](#table-of-content)
+    - [Context](#context)
+        - [Administrator (user)](#administrator-user)
+        - [Public broadcaster media libaries (external system)](#public-broadcaster-media-libaries-external-system)
+        - [MediathekView (external system)](#mediathekview-external-system)
+        - [MediathekViewWeb (external system)](#mediathekviewweb-external-system)
+        - [Other clients (external system)](#other-clients-external-system)
+    - [Quality Goals](#quality-goals)
+    - [Solution Strategy](#solution-strategy)
+    - [Architectural Overview Diagram](#architectural-overview-diagram)
 
 ## Context
 
 ![System context](docs/architecture/images/System_Context.svg "System Context")
+
+A simplified overview of the MediathekView system context.
 
 ### Administrator (user)
 
@@ -26,19 +30,24 @@ The only real user of MServer is the administrator who configures and runs it.
 
 ### Public broadcaster media libaries (external system)
 
-Each public broadcaster media libary is a own external system and needs it's own crawler. For some media libraries, no API exists, in which case the website itself is examined.
+Each public broadcaster media libary is a own external system and needs it's own crawler. For some media libraries, no
+API exists, in which case the website itself is examined.
 
 ### MediathekView (external system)
 
-[MediathekView](https://github.com/mediathekview/MediathekView) is the main supported client in the form of a desktop application.
+[MediathekView](https://github.com/mediathekview/MediathekView) is the main supported client in the form of a desktop
+application.
 
 ### MediathekViewWeb (external system)
 
-[MediathekViewWeb](https://github.com/mediathekview/MediathekViewWeb) is the second most important client in the form of a web application.
+[MediathekViewWeb](https://github.com/mediathekview/MediathekViewWeb) is the second most important client in the form of
+a web application.
 
 ### Other clients (external system)
 
-Other clients like [Zapp](https://github.com/mediathekview/zapp), [MediathekView Kodi Plugin](https://github.com/mediathekview/plugin.video.mediathekview) and other, often unkown, clients.
+Other clients like [Zapp](https://github.com/mediathekview/zapp)
+, [MediathekView Kodi Plugin](https://github.com/mediathekview/plugin.video.mediathekview) and other, often unkown,
+clients.
 
 ## Quality Goals
 
@@ -63,3 +72,5 @@ Other clients like [Zapp](https://github.com/mediathekview/zapp), [MediathekView
 ## Architectural Overview Diagram
 
 ![Architectural Overview](docs/architecture/images/Architectural_Overview.svg "Architectural Overview")
+
+An informal architecture overview diagram for MServer
