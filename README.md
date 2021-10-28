@@ -58,4 +58,4 @@ Our current roadmap is:
 
 ## Architecture Overview
 
-For an architectural overview see [Architecture Overview](ARCHITECTURE_OVERVIEW.md)
+For an architectural overview see [Architecture Overview](ARCHITECTURE_OVERVIEW.adoc)
