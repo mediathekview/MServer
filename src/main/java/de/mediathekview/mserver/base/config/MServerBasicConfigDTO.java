@@ -1,14 +1,14 @@
 package de.mediathekview.mserver.base.config;
 
+import javax.annotation.Nullable;
 import java.util.Objects;
-import java.util.Optional;
 
 /**
  * The basic configs which can be set for all {@link de.mediathekview.mlib.daten.Sender} and can be
  * overwritten for particular one.
  */
 public class MServerBasicConfigDTO {
-  private Optional<MServerConfigDTO> parentConfig;
+  @Nullable private MServerConfigDTO parentConfig;
   /** The time in seconds before a socket connection should time out. */
   private Integer socketTimeoutInSeconds;
   /** The maximum amount of URLs to be processed per task. */
@@ -36,9 +36,9 @@ public class MServerBasicConfigDTO {
   /** The maximum amount of requests allowed per second. Only used for a few sender. */
   private Double maximumRequestsPerSecond;
 
-  public MServerBasicConfigDTO(final MServerConfigDTO parent) {
+  public MServerBasicConfigDTO(final @Nullable MServerConfigDTO parent) {
     super();
-    parentConfig = Optional.ofNullable(parent);
+    parentConfig = parent;
   }
 
   public MServerBasicConfigDTO() {
@@ -46,8 +46,8 @@ public class MServerBasicConfigDTO {
   }
 
   public Integer getMaximumCrawlDurationInMinutes() {
-    if (maximumCrawlDurationInMinutes == null && parentConfig.isPresent()) {
-      return parentConfig.get().getMaximumCrawlDurationInMinutes();
+    if (maximumCrawlDurationInMinutes == null && parentConfig != null) {
+      return parentConfig.getMaximumCrawlDurationInMinutes();
     }
     return maximumCrawlDurationInMinutes;
   }
@@ -57,8 +57,8 @@ public class MServerBasicConfigDTO {
   }
 
   public Integer getMaximumDaysForSendungVerpasstSection() {
-    if (maximumDaysForSendungVerpasstSection == null && parentConfig.isPresent()) {
-      return parentConfig.get().getMaximumDaysForSendungVerpasstSection();
+    if (maximumDaysForSendungVerpasstSection == null && parentConfig != null) {
+      return parentConfig.getMaximumDaysForSendungVerpasstSection();
     }
     return maximumDaysForSendungVerpasstSection;
   }
@@ -69,8 +69,8 @@ public class MServerBasicConfigDTO {
   }
 
   public Integer getMaximumDaysForSendungVerpasstSectionFuture() {
-    if (maximumDaysForSendungVerpasstSectionFuture == null && parentConfig.isPresent()) {
-      return parentConfig.get().getMaximumDaysForSendungVerpasstSectionFuture();
+    if (maximumDaysForSendungVerpasstSectionFuture == null && parentConfig != null) {
+      return parentConfig.getMaximumDaysForSendungVerpasstSectionFuture();
     }
     return maximumDaysForSendungVerpasstSectionFuture;
   }
@@ -81,8 +81,8 @@ public class MServerBasicConfigDTO {
   }
 
   public Boolean getTopicsSearchEnabled() {
-    if (topicsSearchEnabled == null && parentConfig.isPresent()) {
-      return parentConfig.get().getTopicsSearchEnabled();
+    if (topicsSearchEnabled == null && parentConfig != null) {
+      return parentConfig.getTopicsSearchEnabled();
     }
     return topicsSearchEnabled;
   }
@@ -92,8 +92,8 @@ public class MServerBasicConfigDTO {
   }
 
   public Integer getMaximumSubpages() {
-    if (maximumSubpages == null && parentConfig.isPresent()) {
-      return parentConfig.get().getMaximumSubpages();
+    if (maximumSubpages == null && parentConfig != null) {
+      return parentConfig.getMaximumSubpages();
     }
     return maximumSubpages;
   }
@@ -103,8 +103,8 @@ public class MServerBasicConfigDTO {
   }
 
   public Integer getMaximumUrlsPerTask() {
-    if (maximumUrlsPerTask == null && parentConfig.isPresent()) {
-      return parentConfig.get().getMaximumUrlsPerTask();
+    if (maximumUrlsPerTask == null && parentConfig != null) {
+      return parentConfig.getMaximumUrlsPerTask();
     }
     return maximumUrlsPerTask;
   }
@@ -114,8 +114,8 @@ public class MServerBasicConfigDTO {
   }
 
   public Integer getSocketTimeoutInSeconds() {
-    if (socketTimeoutInSeconds == null && parentConfig.isPresent()) {
-      return parentConfig.get().getSocketTimeoutInSeconds();
+    if (socketTimeoutInSeconds == null && parentConfig != null) {
+      return parentConfig.getSocketTimeoutInSeconds();
     }
     return socketTimeoutInSeconds;
   }
@@ -125,8 +125,8 @@ public class MServerBasicConfigDTO {
   }
 
   public Double getMaximumRequestsPerSecond() {
-    if (maximumRequestsPerSecond == null && parentConfig.isPresent()) {
-      return parentConfig.get().getMaximumRequestsPerSecond();
+    if (maximumRequestsPerSecond == null && parentConfig != null) {
+      return parentConfig.getMaximumRequestsPerSecond();
     }
     return maximumRequestsPerSecond;
   }
@@ -135,7 +135,7 @@ public class MServerBasicConfigDTO {
     this.maximumRequestsPerSecond = maximumRequestsPerSecond;
   }
 
-  public void setParentConfig(final Optional<MServerConfigDTO> parentConfig) {
+  public void setParentConfig(@Nullable final MServerConfigDTO parentConfig) {
     this.parentConfig = parentConfig;
   }
 
@@ -144,10 +144,9 @@ public class MServerBasicConfigDTO {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof MServerBasicConfigDTO)) {
+    if (!(o instanceof final MServerBasicConfigDTO that)) {
       return false;
     }
-    final MServerBasicConfigDTO that = (MServerBasicConfigDTO) o;
     return Objects.equals(getSocketTimeoutInSeconds(), that.getSocketTimeoutInSeconds())
         && Objects.equals(getMaximumUrlsPerTask(), that.getMaximumUrlsPerTask())
         && Objects.equals(

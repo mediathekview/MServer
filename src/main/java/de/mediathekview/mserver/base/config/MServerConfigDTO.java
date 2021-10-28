@@ -105,7 +105,7 @@ public class MServerConfigDTO extends MServerBasicConfigDTO implements ConfigDTO
   }
 
   public void setCrawlerApiParams(final Map<CrawlerApiParam, String> pCrawlerApiParams) {
-    this.crawlerApiParams = pCrawlerApiParams;
+    crawlerApiParams = pCrawlerApiParams;
   }
 
   public Map<FilmlistFormats, String> getFilmlistDiffSavePaths() {
@@ -253,13 +253,12 @@ public class MServerConfigDTO extends MServerBasicConfigDTO implements ConfigDTO
     if (this == o) {
       return true;
     }
-    if (!(o instanceof MServerConfigDTO)) {
+    if (!(o instanceof final MServerConfigDTO that)) {
       return false;
     }
     if (!super.equals(o)) {
       return false;
     }
-    final MServerConfigDTO that = (MServerConfigDTO) o;
     return Objects.equals(getCopySettings(), that.getCopySettings())
         && Objects.equals(getMaximumCpuThreads(), that.getMaximumCpuThreads())
         && Objects.equals(
@@ -308,11 +307,11 @@ public class MServerConfigDTO extends MServerBasicConfigDTO implements ConfigDTO
   public void initializeSenderConfigurations() {
     senderConfigurations
         .values()
-        .forEach(senderConfig -> senderConfig.setParentConfig(Optional.of(this)));
+        .forEach(senderConfig -> senderConfig.setParentConfig(this));
   }
 
-  public URL putCrawlerUrl(final CrawlerUrlType key, final URL value) {
-    return crawlerURLs.put(key, value);
+  public void putCrawlerUrl(final CrawlerUrlType key, final URL value) {
+    crawlerURLs.put(key, value);
   }
 
   public String putCrawlerApiParam(final CrawlerApiParam key, final String value) {
