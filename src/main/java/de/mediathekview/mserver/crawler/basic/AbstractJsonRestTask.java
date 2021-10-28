@@ -16,13 +16,7 @@ import java.util.Queue;
 import static javax.ws.rs.core.HttpHeaders.ACCEPT_CHARSET;
 import static javax.ws.rs.core.HttpHeaders.ACCEPT_ENCODING;
 
-/**
- * A abstract REST api task which requests the given url with the Funk Api settings.
- *
- * @author Nicklas Wiegandt (Nicklas2751)<br>
- *     <b>Mail:</b> nicklas@wiegandt.eu<br>
- *     <b>Riot.im:</b> nicklas2751:matrix.elaon.de<br>
- */
+/** A abstract REST api task which requests the given url with the Funk Api settings. */
 public abstract class AbstractJsonRestTask<T, R, D extends CrawlerUrlDTO>
     extends AbstractRestTask<T, D> {
   protected static final String ENCODING_GZIP = "gzip";
@@ -66,7 +60,7 @@ public abstract class AbstractJsonRestTask<T, R, D extends CrawlerUrlDTO>
     }
   }
 
-  protected Response createResponse(final Builder request, D aDTO) {
+  protected Response createResponse(final Builder request, final D aDTO) {
     request.header(ACCEPT_CHARSET, StandardCharsets.UTF_8);
     return request.header(ACCEPT_ENCODING, ENCODING_GZIP).get();
   }

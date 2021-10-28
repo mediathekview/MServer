@@ -33,7 +33,7 @@ public class NexxCloudVideoDetailsDeserializer implements JsonDeserializer<Set<F
   private static final String STREAMDATA_LOCATOR = "qLocator";
   private static final String STREAMDATA_CDN_TYPE = "cdnType";
   private static final String STREAMDATA_SSH_HOST = "cdnShieldHTTPS";
-  
+
   private final AbstractCrawler crawler;
 
   public NexxCloudVideoDetailsDeserializer(final AbstractCrawler aCrawler) {
@@ -45,27 +45,29 @@ public class NexxCloudVideoDetailsDeserializer implements JsonDeserializer<Set<F
       final JsonElement jsonElement, final Type typeOfT, final JsonDeserializationContext context)
       throws JsonParseException {
     final Set<FilmUrlInfoDto> videoDetails = new HashSet<>();
-    if (JsonUtils.checkTreePath(jsonElement, Optional.of(crawler), TAG_RESULT, TAG_STREAMDATA)
-        && JsonUtils.checkTreePath(jsonElement, Optional.of(crawler), TAG_RESULT, TAG_GENERAL)) {
+    if (JsonUtils.checkTreePath(jsonElement, crawler, TAG_RESULT, TAG_STREAMDATA)
+        && JsonUtils.checkTreePath(jsonElement, crawler, TAG_RESULT, TAG_GENERAL)) {
       final JsonObject result = jsonElement.getAsJsonObject().getAsJsonObject(TAG_RESULT);
       final JsonObject streamdata = result.getAsJsonObject(TAG_STREAMDATA);
       final JsonObject general = result.getAsJsonObject(TAG_GENERAL);
-      //
-      Optional<String> streamdata_cdn_type = JsonUtils.getAttributeAsString(streamdata, STREAMDATA_CDN_TYPE);
-      //
-      if (streamdata_cdn_type.isPresent() && streamdata_cdn_type.get().equalsIgnoreCase("azure")) {
-        final String cdnShieldProgHTTP = streamdata.get(ATTRIBUTE_CDN_SHIELD_PROG_HTTPS).getAsString();
+
+      final Optional<String> streamdataCdnType =
+          JsonUtils.getAttributeAsString(streamdata, STREAMDATA_CDN_TYPE);
+
+      if (streamdataCdnType.isPresent() && streamdataCdnType.get().equalsIgnoreCase("azure")) {
+        final String cdnShieldProgHTTP =
+            streamdata.get(ATTRIBUTE_CDN_SHIELD_PROG_HTTPS).getAsString();
         if (JsonUtils.hasElements(
                 streamdata,
-                Optional.of(crawler),
+                crawler,
                 ATTRIBUTE_CDN_SHIELD_PROG_HTTPS,
                 ATTRIBUTE_AZURE_LOCATOR,
                 ATTRIBUTE_AZURE_FILE_DISTRIBUTION)
-            && JsonUtils.hasStringElements(general, Optional.of(crawler), ATTRIBUTE_ID)) {
-          
+            && JsonUtils.hasStringElements(general, crawler, ATTRIBUTE_ID)) {
+
           final String azureLocator = streamdata.get(ATTRIBUTE_AZURE_LOCATOR).getAsString();
           final String id = general.get(ATTRIBUTE_ID).getAsString();
-  
+
           final Set<NexxResolutionDTO> resolutions = gatherResolutions(streamdata);
           videoDetails.addAll(
               resolutions.parallelStream()
@@ -74,31 +76,36 @@ public class NexxCloudVideoDetailsDeserializer implements JsonDeserializer<Set<F
                           buildFilmUrlInfoDtoAzure(cdnShieldProgHTTP, azureLocator, id, resolution))
                   .collect(Collectors.toSet()));
         }
-      } else if (streamdata_cdn_type.isPresent() && streamdata_cdn_type.get().equalsIgnoreCase("3q")) {
+      } else if (streamdataCdnType.isPresent() && streamdataCdnType.get().equalsIgnoreCase("3q")) {
         //
-        Optional<String> streamdata_account = JsonUtils.getAttributeAsString(streamdata, STREAMDATA_ACCOUNT);
-        Optional<String> streamdata_prefix = JsonUtils.getAttributeAsString(streamdata, STREAMDATA_PREFIX);
-        Optional<String> streamdata_locator = JsonUtils.getAttributeAsString(streamdata, STREAMDATA_LOCATOR);
-        Optional<String> streamdata_ssh_host = JsonUtils.getAttributeAsString(streamdata, STREAMDATA_SSH_HOST);
-        
-        if (streamdata_account.isPresent() && 
-            streamdata_prefix.isPresent() &&
-            streamdata_locator.isPresent() &&
-            streamdata_ssh_host.isPresent()) {
+        final Optional<String> streamdataAccount =
+            JsonUtils.getAttributeAsString(streamdata, STREAMDATA_ACCOUNT);
+        final Optional<String> streamdataPrefix =
+            JsonUtils.getAttributeAsString(streamdata, STREAMDATA_PREFIX);
+        final Optional<String> streamdataLocator =
+            JsonUtils.getAttributeAsString(streamdata, STREAMDATA_LOCATOR);
+        final Optional<String> streamdataSshHost =
+            JsonUtils.getAttributeAsString(streamdata, STREAMDATA_SSH_HOST);
+
+        if (streamdataAccount.isPresent()
+            && streamdataPrefix.isPresent()
+            && streamdataLocator.isPresent()
+            && streamdataSshHost.isPresent()) {
           final Set<NexxResolutionDTO> resolutions = gatherResolutions(streamdata);
-          resolutions.forEach(aNexxResolutionDto -> {
-            if (aNexxResolutionDto.getFileId().isPresent()) {
-              videoDetails.add(buildFilmUrlInfoDto3q(
-                  streamdata_ssh_host.get(),
-                  streamdata_account.get(),
-                  streamdata_prefix.get(),
-                  streamdata_locator.get(),
-                  aNexxResolutionDto.getFileId().get(),
-                  aNexxResolutionDto.getWidht(),
-                  aNexxResolutionDto.getHeight()
-                  ));
-            }
-          });
+          resolutions.forEach(
+              aNexxResolutionDto -> {
+                if (aNexxResolutionDto.getFileId().isPresent()) {
+                  videoDetails.add(
+                      buildFilmUrlInfoDto3q(
+                          streamdataSshHost.get(),
+                          streamdataAccount.get(),
+                          streamdataPrefix.get(),
+                          streamdataLocator.get(),
+                          aNexxResolutionDto.getFileId().get(),
+                          aNexxResolutionDto.getWidht(),
+                          aNexxResolutionDto.getHeight()));
+                }
+              });
         }
       }
     }
@@ -125,7 +132,7 @@ public class NexxCloudVideoDetailsDeserializer implements JsonDeserializer<Set<F
         res.getWidht(),
         res.getHeight());
   }
-  
+
   /*
    * 3Q Service Storage
    */
@@ -139,12 +146,7 @@ public class NexxCloudVideoDetailsDeserializer implements JsonDeserializer<Set<F
       final int height) {
     return new FilmUrlInfoDto(
         String.format(
-            VIDEO_FILE_URL_PATTERN_3Q,
-            cdnShieldProgHTTP,
-            account,
-            prefix,
-            locator,
-            fileId),
+            VIDEO_FILE_URL_PATTERN_3Q, cdnShieldProgHTTP, account, prefix, locator, fileId),
         width,
         height);
   }

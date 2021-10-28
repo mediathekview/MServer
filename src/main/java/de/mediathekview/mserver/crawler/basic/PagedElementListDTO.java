@@ -5,13 +5,7 @@ import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
 
-/**
- * A simple Data-Transfer-Object to get the elements and the optionally found next page link.
- *
- * @author Nicklas Wiegandt (Nicklas2751)<br>
- *     <b>Mail:</b> nicklas@wiegandt.eu<br>
- *     <b>Riot.im:</b> nicklas2751:matrix.elaon.de<br>
- */
+/** A simple Data-Transfer-Object to get the elements and the optionally found next page link. */
 public class PagedElementListDTO<T> {
   private final Set<T> elements;
   private Optional<String> nextPage;

@@ -1,50 +1,44 @@
 package de.mediathekview.mserver.base.progress;
 
-import java.util.ArrayList;
-import java.util.Collection;
-
 import de.mediathekview.mlib.messages.Message;
 import de.mediathekview.mlib.messages.listener.MessageListener;
 import de.mediathekview.mserver.progress.listeners.SenderProgressListener;
 
-public abstract class AbstractManager
-{
-    protected final Collection<SenderProgressListener> progressListeners;
-    protected final Collection<MessageListener> messageListeners;
+import java.util.ArrayList;
+import java.util.Collection;
 
-    public AbstractManager()
-    {
-        progressListeners = new ArrayList<>();
-        messageListeners = new ArrayList<>();
-    }
+public abstract class AbstractManager {
+  protected final Collection<SenderProgressListener> progressListeners;
+  protected final Collection<MessageListener> messageListeners;
 
-    public boolean addSenderProgressListener(final SenderProgressListener aCrawlerSenderProgressListener)
-    {
-        return progressListeners.add(aCrawlerSenderProgressListener);
-    }
+  protected AbstractManager() {
+    progressListeners = new ArrayList<>();
+    messageListeners = new ArrayList<>();
+  }
 
-    public boolean addMessageListener(final MessageListener aMessageListener)
-    {
-        return messageListeners.add(aMessageListener);
-    }
+  public boolean addSenderProgressListener(
+      final SenderProgressListener aCrawlerSenderProgressListener) {
+    return progressListeners.add(aCrawlerSenderProgressListener);
+  }
 
-    public boolean addAllProgressListener(final Collection<? extends SenderProgressListener> c)
-    {
-        return progressListeners.addAll(c);
-    }
+  public boolean addMessageListener(final MessageListener aMessageListener) {
+    return messageListeners.add(aMessageListener);
+  }
 
-    public boolean addAllMessageListener(final Collection<? extends MessageListener> c)
-    {
-        return messageListeners.addAll(c);
-    }
+  public boolean addAllProgressListener(final Collection<? extends SenderProgressListener> c) {
+    return progressListeners.addAll(c);
+  }
 
-    protected void printMessage(final Message aMessage, final Object... args)
-    {
-        messageListeners.parallelStream().forEach(l -> l.consumeMessage(aMessage, args));
-    }
+  public boolean addAllMessageListener(final Collection<? extends MessageListener> c) {
+    return messageListeners.addAll(c);
+  }
 
-    public boolean removeSenderProgressListener(final SenderProgressListener aSenderProgressListener)
-    {
-        return progressListeners.remove(aSenderProgressListener);
-    }
+  protected void printMessage(final Message aMessage, final Object... args) {
+    messageListeners.parallelStream().forEach(l -> l.consumeMessage(aMessage, args));
+  }
+
+  public boolean removeSenderProgressListener(
+      final SenderProgressListener aSenderProgressListener) {
+    return progressListeners.remove(aSenderProgressListener);
+  }
 }

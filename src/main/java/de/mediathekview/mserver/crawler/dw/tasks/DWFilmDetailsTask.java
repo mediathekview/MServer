@@ -21,6 +21,7 @@ import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import java.io.Serial;
 import java.lang.reflect.Type;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -35,7 +36,7 @@ import java.util.regex.Pattern;
 public class DWFilmDetailsTask extends AbstractDocumentTask<Film, CrawlerUrlDTO> {
 
   private static final String URL_SPLITTERATOR = "/";
-  private static final long serialVersionUID = 7992707335502505844L;
+  @Serial private static final long serialVersionUID = 7992707335502505844L;
   private static final Logger LOG = LogManager.getLogger(DWFilmDetailsTask.class);
   private static final String ELEMENT_THEMA = ".artikel";
   private static final String ELEMENT_TITEL = ".group h1";
@@ -58,8 +59,7 @@ public class DWFilmDetailsTask extends AbstractDocumentTask<Film, CrawlerUrlDTO>
     baseUrl = aBaseUrl;
   }
 
-  private void addDownloadUrls(
-      final CrawlerUrlDTO aUrlDTO, final Film film) {
+  private void addDownloadUrls(final CrawlerUrlDTO aUrlDTO, final Film film) {
     final String pageId =
         aUrlDTO.getUrl().substring(aUrlDTO.getUrl().lastIndexOf(URL_SPLITTERATOR) + 1);
     final String videoId = pageId.substring(pageId.indexOf('-') + 1);
@@ -72,7 +72,9 @@ public class DWFilmDetailsTask extends AbstractDocumentTask<Film, CrawlerUrlDTO>
 
         final Type urlMapType = new TypeToken<Map<Resolution, FilmUrl>>() {}.getType();
         final Gson gson =
-            new GsonBuilder().registerTypeAdapter(urlMapType, new DWDownloadUrlsParser(crawler)).create();
+            new GsonBuilder()
+                .registerTypeAdapter(urlMapType, new DWDownloadUrlsParser(crawler))
+                .create();
 
         film.addAllUrls(gson.fromJson(response.readEntity(String.class), urlMapType));
       } else {
@@ -173,14 +175,7 @@ public class DWFilmDetailsTask extends AbstractDocumentTask<Film, CrawlerUrlDTO>
   }
 
   private Optional<Duration> parseDuration(final Document aDocument) {
-    final Optional<String> dauerText = HtmlDocumentUtils.getElementString(ELEMENT_DAUER, aDocument);
-
-    final Optional<Duration> dauer;
-    if (dauerText.isPresent()) {
-      dauer = HtmlDocumentUtils.parseDuration(dauerText);
-    } else {
-      dauer = Optional.empty();
-    }
-    return dauer;
+    return HtmlDocumentUtils.getElementString(ELEMENT_DAUER, aDocument)
+        .flatMap(HtmlDocumentUtils::parseDuration);
   }
 }

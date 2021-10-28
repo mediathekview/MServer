@@ -9,13 +9,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
-/**
- * A util class to collect useful URL related methods.
- *
- * @author Nicklas Wiegandt (Nicklas2751)<br>
- *     <b>Mail:</b> nicklas@wiegandt.eu<br>
- *     <b>Riot.im:</b> nicklas2751:matrix.elaon.de<br>
- */
+/** A util class to collect useful URL related methods. */
 public final class UrlUtils {
 
   public static final String PROTOCOL_HTTPS = "https:";
@@ -248,10 +242,11 @@ public final class UrlUtils {
 
   /**
    * removes the query parameters of the url
+   *
    * @param aUrl the url
    * @return the url without query parameters
    */
-  public static String removeParameters(String aUrl) {
+  public static String removeParameters(final String aUrl) {
     if (aUrl == null) {
       return null;
     }

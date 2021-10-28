@@ -13,7 +13,7 @@ public abstract class UploadTask<T extends UploadTarget> implements Runnable {
   protected final Path sourcePath;
   protected final T uploadTarget;
 
-  public UploadTask(final Path aSourcePath, final T aUploadTarget) {
+  protected UploadTask(final Path aSourcePath, final T aUploadTarget) {
     progressListeners = new ArrayList<>();
     messageListeners = new ArrayList<>();
     sourcePath = aSourcePath;
