@@ -1,0 +1,97 @@
+= Architecture Overview
+:toc: macro
+
+MServer is a free open-source software that crawls the media libraries of the German-speaking public broadcasters and prepares them as a machine-readable list for clients such as https://github.com/mediathekview/MediathekView[MediathekView].
+
+toc::[]
+
+== Context
+
+image:docs/architecture/images/System_Context.svg[System context]
+
+A simplified overview of the MediathekView system context.
+
+=== Administrator (user)
+
+The only real user of MServer is the administrator who configures and runs it.
+
+=== Public broadcaster media libraries (external system)
+
+Each public broadcaster media library is an own external system and needs its own crawler.
+For some media libraries, no API exists, in which case the website itself is examined.
+
+=== MediathekView (external system)
+
+https://github.com/mediathekview/MediathekView[MediathekView] is the main supported client in the form of a desktop application.
+
+=== MediathekViewWeb (external system)
+
+https://github.com/mediathekview/MediathekViewWeb[MediathekViewWeb] is the second most important client in the form of a web application.
+
+=== Other clients (external system)
+
+Other clients like https://github.com/mediathekview/zapp[Zapp]
+, https://github.com/mediathekview/plugin.video.mediathekview[MediathekView Kodi Plugin] and other, often unknown, clients.
+
+== Quality Goals
+
+[cols="<,>"]
+|===
+|Quality Goal |Motivation/description
+
+|Easy to configure and operate (Configurability) |For the administrator, it is very easy and quick to configure and operate MServer
+|Good performance (Efficiency) |The application runs very fast and uses the system resources as good as possible
+|Machine-readable output (Interoperability) |Results are machine-readable and easy for clients to consume
+|Good maintainability |It's easy to change and adapt to the changes in the media libraries
+|Good reliability |It doesn't crash despite errors, but continues to run until its task is completed
+|===
+
+== Solution Strategy
+
+[cols="<,>"]
+|===
+|Quality Goal |Matching approaches in the solution
+
+|Easy to configure and operate (Configurability) a|
+* A YAML configuration file for the entire application with overridable default values and comments in the configuration
+* Packaged as executable JAR and Docker container
+|Good performance (Efficiency) |Using the Java Fork/Join framework to run all crawlers at the same time and divide up their work
+|Machine-readable output (Interoperability) |The results can be saved as a normal JSON file or as the custom JSON-like legacy format used by the old server
+|Good maintainability a|
+* Each media library has its own crawler which is stored in its own package
+* The Java version and dependencies are kept up to date
+* Clean code is emphasized and checked via SonarQube
+* Every change is reviewed via a code review
+
+|Good reliability |All exceptions are handled and none are passed through to the outside
+|===
+
+== Architectural Overview Diagram
+
+image:docs/architecture/images/Architectural_Overview.svg[Architectural Overview]
+
+An informal architecture overview diagram for MServer
+
+=== YAML Configuration
+
+How many threads are allowed to use, which crawlers should run and crawler configurations are set in the YAML configuration of MServer.
+
+=== Yacl4J
+
+A library to read the YAML configuration as objects.
+
+=== Crawler Manager
+
+Starts all configured crawlers, collects the results and start the filmlist writing.
+
+=== AbstractCrawler
+
+Contains basic logic needed in every crawler like the work splitting.
+
+=== MLib
+
+An internal library which contains the model objects of MediathekView.
+
+=== Crawler
+
+The heart of MServer crawlers for the public broadcaster media libraries.
