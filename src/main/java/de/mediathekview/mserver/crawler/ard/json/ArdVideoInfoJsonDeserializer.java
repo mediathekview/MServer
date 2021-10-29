@@ -8,6 +8,9 @@ import de.mediathekview.mserver.base.utils.UrlUtils;
 import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
 import de.mediathekview.mserver.crawler.basic.M3U8Dto;
 import de.mediathekview.mserver.crawler.basic.M3U8Parser;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import java.io.IOException;
 import java.lang.reflect.Type;
 import java.net.MalformedURLException;
@@ -15,8 +18,6 @@ import java.net.URL;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 /**
  * Converts json with basic video from {@literal
@@ -51,13 +52,12 @@ public class ArdVideoInfoJsonDeserializer implements JsonDeserializer<ArdVideoIn
 
     // if map contains only a m3u8 url, load the m3u8 file and use the containing
     // urls
-    if (resolutionUrlMap.size() == 1
-        && resolutionUrlMap.containsKey(Resolution.NORMAL)
-        && UrlUtils.getFileType(resolutionUrlMap.get(Resolution.NORMAL).getFile())
-            .get()
-            .equals("m3u8")) {
-
-      loadM3U8(resolutionUrlMap);
+    if (resolutionUrlMap.size() == 1 && resolutionUrlMap.containsKey(Resolution.NORMAL)) {
+      final Optional<String> fileType =
+          UrlUtils.getFileType(resolutionUrlMap.get(Resolution.NORMAL).getFile());
+      if (fileType.isPresent() && fileType.get().equals("m3u8")) {
+        loadM3U8(resolutionUrlMap);
+      }
     }
 
     resolutionUrlMap.forEach((key, value) -> videoInfo.put(key, value.toString()));
@@ -67,14 +67,14 @@ public class ArdVideoInfoJsonDeserializer implements JsonDeserializer<ArdVideoIn
   /**
    * reads an url.
    *
-   * @param aUrl the url
+   * @param url the url
    * @return the content of the url
    */
-  private Optional<String> readContent(final URL aUrl) {
+  private Optional<String> readContent(final URL url) {
     try {
-      Optional<String> content = Optional.of(crawler.requestBodyAsString(aUrl.toString()));
-      if (content.isPresent() && content.get().length() > 0) {
-        return content;
+      final String content = crawler.requestBodyAsString(url.toString());
+      if (!content.isEmpty()) {
+        return Optional.of(content);
       }
     } catch (final IOException ex) {
       LOG.error("ArdVideoInfoJsonDeserializer: ", ex);
@@ -96,8 +96,11 @@ public class ArdVideoInfoJsonDeserializer implements JsonDeserializer<ArdVideoIn
             if (resolution.isPresent()) {
               try {
                 resolutionUrlMap.put(resolution.get(), new URL(entry.getUrl()));
-              } catch (final MalformedURLException e) {
-                LOG.error("ArdVideoInfoJsonDeserializer: invalid url " + entry.getUrl(), e);
+              } catch (final MalformedURLException malformedURLException) {
+                LOG.error(
+                    "ArdVideoInfoJsonDeserializer: invalid url {}",
+                    entry.getUrl(),
+                    malformedURLException);
               }
             }
           });

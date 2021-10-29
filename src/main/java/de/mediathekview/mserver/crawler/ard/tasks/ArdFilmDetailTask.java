@@ -62,8 +62,9 @@ public class ArdFilmDetailTask extends ArdTaskBase<Film, ArdFilmInfoDto> {
         crawler.incrementAndGetActualCount();
       }
       crawler.updateProgress();
-    } catch (final Exception e) {
-      LOG.error("exception: " + aDTO.getUrl(), e);
+      // TODO Find concrete exceptions and handle them
+    } catch (final Exception exception) {
+      LOG.error("exception: {}", aDTO.getUrl(), exception);
       crawler.incrementAndGetErrorCount();
       crawler.updateProgress();
     }

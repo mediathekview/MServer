@@ -1,6 +1,7 @@
 package de.mediathekview.mserver.crawler.ard;
 
 import de.mediathekview.mserver.crawler.basic.FilmUrlInfoDto;
+
 import java.util.Objects;
 
 public class ArdFilmUrlInfoDto extends FilmUrlInfoDto {
@@ -17,17 +18,16 @@ public class ArdFilmUrlInfoDto extends FilmUrlInfoDto {
   }
 
   @Override
-  public boolean equals(Object o) {
+  public boolean equals(final Object o) {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof ArdFilmUrlInfoDto)) {
+    if (!(o instanceof final ArdFilmUrlInfoDto that)) {
       return false;
     }
     if (!super.equals(o)) {
       return false;
     }
-    ArdFilmUrlInfoDto that = (ArdFilmUrlInfoDto) o;
     return Objects.equals(quality, that.quality);
   }
 

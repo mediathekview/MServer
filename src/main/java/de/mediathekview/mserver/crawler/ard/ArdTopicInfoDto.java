@@ -39,10 +39,9 @@ public class ArdTopicInfoDto {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof ArdTopicInfoDto)) {
+    if (!(o instanceof final ArdTopicInfoDto that)) {
       return false;
     }
-    final ArdTopicInfoDto that = (ArdTopicInfoDto) o;
     return getSubPageNumber() == that.getSubPageNumber()
         && getMaxSubPageNumber() == that.getMaxSubPageNumber()
         && Objects.equals(filmInfos, that.filmInfos);
