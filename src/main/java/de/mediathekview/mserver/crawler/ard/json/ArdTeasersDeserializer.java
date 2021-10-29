@@ -7,7 +7,6 @@ import de.mediathekview.mserver.base.utils.JsonUtils;
 import de.mediathekview.mserver.crawler.ard.ArdConstants;
 import de.mediathekview.mserver.crawler.ard.ArdFilmInfoDto;
 
-
 import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
@@ -44,7 +43,7 @@ abstract class ArdTeasersDeserializer {
   }
 
   private Optional<String> toId(final JsonObject teaserObject) {
-    if (JsonUtils.checkTreePath(teaserObject, Optional.empty(), ELEMENT_LINKS, ELEMENT_TARGET)) {
+    if (JsonUtils.checkTreePath(teaserObject, null, ELEMENT_LINKS, ELEMENT_TARGET)) {
       final JsonObject targetObject =
           teaserObject.get(ELEMENT_LINKS).getAsJsonObject().get(ELEMENT_TARGET).getAsJsonObject();
       return JsonUtils.getAttributeAsString(targetObject, ATTRIBUTE_ID);
@@ -53,8 +52,7 @@ abstract class ArdTeasersDeserializer {
   }
 
   private ArdFilmInfoDto createFilmInfo(final String id, final int numberOfClips) {
-    final String url =
-         ArdConstants.ITEM_URL + id;
+    final String url = ArdConstants.ITEM_URL + id;
 
     return new ArdFilmInfoDto(id, url, numberOfClips);
   }

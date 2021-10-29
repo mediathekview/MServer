@@ -8,7 +8,6 @@ import de.mediathekview.mserver.base.utils.JsonUtils;
 import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
 
 import java.lang.reflect.Type;
-import java.util.Optional;
 
 public class NexxCloudSessionInitDeserializer implements JsonDeserializer<Long> {
   private static final String TAG_RESULT = "result";
@@ -24,8 +23,7 @@ public class NexxCloudSessionInitDeserializer implements JsonDeserializer<Long> 
   public Long deserialize(
       final JsonElement jsonElement, final Type typeOfT, final JsonDeserializationContext context)
       throws JsonParseException {
-    if (JsonUtils.checkTreePath(
-        jsonElement, Optional.of(crawler), TAG_RESULT, TAG_GENERAL, ATTRIBUTE_CID)) {
+    if (JsonUtils.checkTreePath(jsonElement, crawler, TAG_RESULT, TAG_GENERAL, ATTRIBUTE_CID)) {
       return jsonElement
           .getAsJsonObject()
           .getAsJsonObject(TAG_RESULT)

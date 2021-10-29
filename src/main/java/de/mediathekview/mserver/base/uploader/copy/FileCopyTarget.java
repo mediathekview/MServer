@@ -1,17 +1,17 @@
 package de.mediathekview.mserver.base.uploader.copy;
 
-import java.nio.file.Path;
-
 import de.mediathekview.mserver.base.uploader.UploadTarget;
 
+import java.nio.file.Path;
+
 public class FileCopyTarget implements UploadTarget {
-    private Path targetFolderPath;
-    
-    public FileCopyTarget(Path aTargetPath) {
-        targetFolderPath = aTargetPath;
-    }
-    
-    public Path getTargetPath() {
-        return targetFolderPath;
-    }
+  private final Path targetFolderPath;
+
+  public FileCopyTarget(final Path aTargetPath) {
+    targetFolderPath = aTargetPath;
+  }
+
+  public Path getTargetPath() {
+    return targetFolderPath;
+  }
 }

@@ -30,7 +30,7 @@ public abstract class ArdTaskBase<T, D extends CrawlerUrlDTO> extends AbstractRe
 
   private final transient GsonBuilder gsonBuilder;
 
-  public ArdTaskBase(final AbstractCrawler aCrawler, final Queue<D> urlToCrawlDTOs) {
+  protected ArdTaskBase(final AbstractCrawler aCrawler, final Queue<D> urlToCrawlDTOs) {
     super(aCrawler, urlToCrawlDTOs, null);
     gsonBuilder = new GsonBuilder();
     registerJsonDeserializer(OPTIONAL_ERROR_DTO, new ArdErrorDeserializer());

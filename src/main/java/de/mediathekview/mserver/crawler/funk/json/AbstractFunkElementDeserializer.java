@@ -51,7 +51,8 @@ public abstract class AbstractFunkElementDeserializer<T>
     funkElementList.setNextPage(getNextPageLink(baseElement, baseObject));
     analyzeActualSize(baseElement, funkElementList.getNextPage().isPresent());
 
-    if (JsonUtils.checkTreePath(baseElement, crawler, TAG_EMBEDDED, getElementListTag())) {
+    if (JsonUtils.checkTreePath(
+        baseElement, crawler.orElse(null), TAG_EMBEDDED, getElementListTag())) {
       funkElementList.addElements(
           StreamSupport.stream(
                   baseObject
@@ -65,7 +66,7 @@ public abstract class AbstractFunkElementDeserializer<T>
               .filter(Objects::nonNull)
               .collect(Collectors.toSet()));
     } else {
-      LOG.fatal("A Funk list is broken! {}",baseElement);
+      LOG.fatal("A Funk list is broken! {}", baseElement);
     }
 
     return funkElementList;
@@ -75,9 +76,11 @@ public abstract class AbstractFunkElementDeserializer<T>
    * the size element contains the size we requested - regardless the number of elements on the page.
    */
   private void analyzeActualSize(final JsonElement baseElement, final boolean hasNext) {
-    if (JsonUtils.checkTreePath(baseElement, Optional.empty(), TAG_PAGE, ATTRIBUTE_SIZE)) {
-      int total = baseElement.getAsJsonObject().getAsJsonObject(TAG_PAGE).get(ATTRIBUTE_TOTAL).getAsInt();
-      int pageSize = baseElement.getAsJsonObject().getAsJsonObject(TAG_PAGE).get(ATTRIBUTE_SIZE).getAsInt();
+    if (JsonUtils.checkTreePath(baseElement, null, TAG_PAGE, ATTRIBUTE_SIZE)) {
+      final int total =
+          baseElement.getAsJsonObject().getAsJsonObject(TAG_PAGE).get(ATTRIBUTE_TOTAL).getAsInt();
+      final int pageSize =
+          baseElement.getAsJsonObject().getAsJsonObject(TAG_PAGE).get(ATTRIBUTE_SIZE).getAsInt();
       int elementCount = pageSize; // for all pages
       if (pageSize > total) {
         elementCount = total; // first page and not filled
@@ -101,8 +104,7 @@ public abstract class AbstractFunkElementDeserializer<T>
   private Optional<String> getNextPageLink(
       final JsonElement baseElement, final JsonObject baseObject) {
     if (chekIfNextPage(baseElement, baseObject)
-        && JsonUtils.checkTreePath(
-            baseElement, Optional.empty(), TAG_LINKS, TAG_NEXT, ATTRIBUTE_HREF)) {
+        && JsonUtils.checkTreePath(baseElement, null, TAG_LINKS, TAG_NEXT, ATTRIBUTE_HREF)) {
       return Optional.of(
           fixNextPageUrl(
               baseObject
@@ -115,7 +117,7 @@ public abstract class AbstractFunkElementDeserializer<T>
   }
 
   private boolean chekIfNextPage(final JsonElement baseElement, final JsonObject baseObject) {
-    if (JsonUtils.checkTreePath(baseElement, Optional.empty(), TAG_PAGE, ATTRIBUTE_NUMBER)) {
+    if (JsonUtils.checkTreePath(baseElement, null, TAG_PAGE, ATTRIBUTE_NUMBER)) {
       return baseObject.getAsJsonObject(TAG_PAGE).get(ATTRIBUTE_NUMBER).getAsInt() + 1
           < senderConfig.getMaximumSubpages();
     }

@@ -4,16 +4,11 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
 
+import javax.annotation.Nullable;
 import java.util.Arrays;
 import java.util.Optional;
 
-/**
- * A util class to collect useful Json related methods.
- *
- * @author Nicklas Wiegandt (Nicklas2751)<br>
- *     <b>Mail:</b> nicklas@wiegandt.eu<br>
- *     <b>Riot.im:</b> nicklas2751:matrix.elaon.de<br>
- */
+/** An util class to collect useful Json related methods. */
 public final class JsonUtils {
   private JsonUtils() {
     super();
@@ -26,24 +21,25 @@ public final class JsonUtils {
    * given JsonElement is MainObj and the element IDs are "FirstChild,SecondChild" this will return
    * true.
    *
-   * @param aJsonElement The first element from which the tree will be checked.
-   * @param aCrawler The crawler which using this. If it's given and a element is missing the {@link
+   * @param jsonElement The first element from which the tree will be checked.
+   * @param crawler The crawler which using this. If it's given and an element is missing the {@link
    *     AbstractCrawler#printMissingElementErrorMessage(String)} will be called for it.
-   * @param aElementIds The tree-childs in the order in which they should be checked.
+   * @param elementIds The tree-children in the order in which they should be checked.
    * @return true if the JSON tree path is correct and all given element IDs exist in the given
    *     order.
    */
   public static boolean checkTreePath(
-      final JsonElement aJsonElement,
-      final Optional<AbstractCrawler> aCrawler,
-      final String... aElementIds) {
-    JsonElement elemToCheck = aJsonElement;
-    for (final String elementId : aElementIds) {
+      final JsonElement jsonElement,
+      @Nullable final AbstractCrawler crawler,
+      final String... elementIds) {
+    JsonElement elemToCheck = jsonElement;
+    for (final String elementId : elementIds) {
       if (elemToCheck.isJsonObject() && elemToCheck.getAsJsonObject().has(elementId)) {
         elemToCheck = elemToCheck.getAsJsonObject().get(elementId);
       } else {
-        aCrawler.ifPresent(
-            abstractCrawler -> abstractCrawler.printMissingElementErrorMessage(elementId));
+        Optional.ofNullable(crawler)
+            .ifPresent(
+                abstractCrawler -> abstractCrawler.printMissingElementErrorMessage(elementId));
         return false;
       }
     }
@@ -53,14 +49,14 @@ public final class JsonUtils {
   /**
    * Gets the value of an attribute
    *
-   * @param aJsonObject the object
-   * @param aAttributeName the name of the attribute
+   * @param jsonObject the object
+   * @param attributeName the name of the attribute
    * @return the value of the attribute, if it exists, else Optional.empty
    */
   public static Optional<String> getAttributeAsString(
-      final JsonObject aJsonObject, final String aAttributeName) {
-    if (aJsonObject.has(aAttributeName)) {
-      final JsonElement aElement = aJsonObject.get(aAttributeName);
+      final JsonObject jsonObject, final String attributeName) {
+    if (jsonObject.has(attributeName)) {
+      final JsonElement aElement = jsonObject.get(attributeName);
       if (!aElement.isJsonNull()) {
         return Optional.of(aElement.getAsString());
       }
@@ -73,52 +69,50 @@ public final class JsonUtils {
    * Checks if the {@link JsonElement} is a {@link JsonObject} and if it has all given elements and
    * if no element is null.
    *
-   * @param aJsonElement The element to check.
-   * @param aCrawler The crawler which runs this task. When given and a given element is missing the
+   * @param jsonElement The element to check.
+   * @param crawler The crawler which runs this task. When given and a given element is missing the
    *     error counter will be increased and a debug message will be printed.
-   * @param aElementIds The elements which it should has.
+   * @param elementIds The elements which it should have.
    * @return true when the element is a {@link JsonObject} and if it has all given elements and if
    *     no element is null.
    */
   public static boolean hasElements(
-      final JsonElement aJsonElement,
-      final Optional<? extends AbstractCrawler> aCrawler,
-      final String... aElementIds) {
-    return aJsonElement.isJsonObject()
-        && hasElements(aJsonElement.getAsJsonObject(), aCrawler, aElementIds);
+      final JsonElement jsonElement,
+      @Nullable final AbstractCrawler crawler,
+      final String... elementIds) {
+    return jsonElement.isJsonObject()
+        && hasElements(jsonElement.getAsJsonObject(), crawler, elementIds);
   }
 
   /**
    * Checks if the {@link JsonElement} is a {@link JsonObject} and if it has all given elements and
    * if no element is null.
    *
-   * @param aJsonElement The element to check.
-   * @param aElementIds The elements which it should has.
+   * @param jsonElement The element to check.
+   * @param elementIds The elements which it should have.
    * @return true when the element is a {@link JsonObject} and if it has all given elements and if
    *     no element is null.
    */
-  public static boolean hasElements(final JsonElement aJsonElement, final String... aElementIds) {
-    return hasElements(aJsonElement, Optional.empty(), aElementIds);
+  public static boolean hasElements(final JsonElement jsonElement, final String... elementIds) {
+    return hasElements(jsonElement, null, elementIds);
   }
 
   /**
    * Checks if the {@link JsonObject} has all given elements and if no element is null.
    *
-   * @param aJsonObject The object to check.
-   * @param aCrawler The crawler which runs this task. When given and a given element is missing the
+   * @param jsonObject The object to check.
+   * @param crawler The crawler which runs this task. When given and a given element is missing the
    *     error counter will be increased and a debug message will be printed.
-   * @param aElementIds The elements which it should has.
+   * @param elementIds The elements which it should have.
    * @return true when the object has all given elements and if no element is null.
    */
   public static boolean hasElements(
-      final JsonObject aJsonObject,
-      final Optional<? extends AbstractCrawler> aCrawler,
-      final String... aElementIds) {
-    for (final String elementId : aElementIds) {
-      if (!aJsonObject.has(elementId) || aJsonObject.get(elementId).isJsonNull()) {
-        if (aCrawler.isPresent()) {
-          aCrawler.get().printMissingElementErrorMessage(elementId);
-        }
+      final JsonObject jsonObject,
+      @Nullable final AbstractCrawler crawler,
+      final String... elementIds) {
+    for (final String elementId : elementIds) {
+      if (!jsonObject.has(elementId) || jsonObject.get(elementId).isJsonNull()) {
+        Optional.ofNullable(crawler).ifPresent(c -> c.printMissingElementErrorMessage(elementId));
         return false;
       }
     }
@@ -128,19 +122,19 @@ public final class JsonUtils {
   /**
    * Checks if the {@link JsonObject} has all given elements and if no element is null or empty.
    *
-   * @param aJsonObject The object to check.
-   * @param aCrawler The crawler which runs this task. When given and a given element is missing the
+   * @param jsonObject The object to check.
+   * @param crawler The crawler which runs this task. When given and a given element is missing the
    *     error counter will be increased and a debug message will be printed.
-   * @param aElementIds The elements which it should has.
+   * @param elementIds The elements which it should have.
    * @return true when the object has all given elements and if no element is null.
    */
   public static boolean hasStringElements(
-      final JsonObject aJsonObject,
-      final Optional<? extends AbstractCrawler> aCrawler,
-      final String... aElementIds) {
-    return hasElements(aJsonObject, aCrawler, aElementIds)
-        && Arrays.stream(aElementIds)
-            .map(aJsonObject::get)
+      final JsonObject jsonObject,
+      @Nullable final AbstractCrawler crawler,
+      final String... elementIds) {
+    return hasElements(jsonObject, crawler, elementIds)
+        && Arrays.stream(elementIds)
+            .map(jsonObject::get)
             .map(JsonElement::getAsString)
             .noneMatch(String::isEmpty);
   }
@@ -148,11 +142,11 @@ public final class JsonUtils {
   /**
    * Checks if the {@link JsonObject} has all given elements and if no element is null.
    *
-   * @param aJsonObject The object to check.
-   * @param aElementIds The elements which it should has.
+   * @param jsonObject The object to check.
+   * @param elementIds The elements which it should have.
    * @return true when the object has all given elements and if no element is null.
    */
-  public static boolean hasElements(final JsonObject aJsonObject, final String... aElementIds) {
-    return hasElements(aJsonObject, Optional.empty(), aElementIds);
+  public static boolean hasElements(final JsonObject jsonObject, final String... elementIds) {
+    return hasElements(jsonObject, null, elementIds);
   }
 }

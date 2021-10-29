@@ -10,6 +10,9 @@ import de.mediathekview.mlib.daten.Sender;
 import java.util.*;
 
 public class GeoLocationGuesser {
+  private GeoLocationGuesser() {
+    super();
+  }
 
   public static Collection<GeoLocations> getGeoLocations(final Sender aSender, final String aUrl) {
     switch (aSender) {
@@ -42,42 +45,38 @@ public class GeoLocationGuesser {
   }
 
   private static Collection<GeoLocations> getGeoLocationsArd(final String aUrl) {
-    final Map<GeoLocations, List<String>> geoUrls = new HashMap<>();
+    final Map<GeoLocations, List<String>> geoUrls = new EnumMap<>(GeoLocations.class);
     geoUrls.put(
-      GeoLocations.GEO_DE,
-      Arrays.asList(
-        "mvideos-geo.daserste.de",
-        "media.ndr.de/progressive_geo",
-        "mediandr-a.akamaihd.net//progressive_geo",
-        "/de/",
-        "mediandr-a.akamaihd.net/progressive_geo",
-        "cdn-storage.br.de/geo",
-        "cdn-sotschi.br.de/geo/b7",
-        "ondemandgeo.mdr.de",
-        "ondemand-de.wdr.de",
-        "wdr_fs_geo-lh.akamaihd.net",
-        "odgeomdr-a.akamaihd.net",
-        "hrardmediathek-a.akamaihd.net/video/as/geoblocking/",
-        "rbbmediapmdp-a.akamaihd.net/content-de/"));
+        GeoLocations.GEO_DE,
+        Arrays.asList(
+            "mvideos-geo.daserste.de",
+            "media.ndr.de/progressive_geo",
+            "mediandr-a.akamaihd.net//progressive_geo",
+            "/de/",
+            "mediandr-a.akamaihd.net/progressive_geo",
+            "cdn-storage.br.de/geo",
+            "cdn-sotschi.br.de/geo/b7",
+            "ondemandgeo.mdr.de",
+            "ondemand-de.wdr.de",
+            "wdr_fs_geo-lh.akamaihd.net",
+            "odgeomdr-a.akamaihd.net",
+            "hrardmediathek-a.akamaihd.net/video/as/geoblocking/",
+            "rbbmediapmdp-a.akamaihd.net/content-de/"));
     geoUrls.put(
-      GeoLocations.GEO_DE_AT_CH,
-      Arrays.asList(
-        "ondemand-dach.wdr.de",
-        "/dach/",
-        "/deChAt/"));
-    geoUrls.put(GeoLocations.GEO_DE_FR, Arrays.asList("arte-ard-mediathek"));
+        GeoLocations.GEO_DE_AT_CH, Arrays.asList("ondemand-dach.wdr.de", "/dach/", "/deChAt/"));
+    geoUrls.put(GeoLocations.GEO_DE_FR, List.of("arte-ard-mediathek"));
 
     return getGeolocationsForGeoUrls(geoUrls, aUrl);
   }
 
   private static Collection<GeoLocations> getGeolocationsForGeoUrls(
-    final Map<GeoLocations, List<String>> aGeoUrls, final String aUrl) {
+      final Map<GeoLocations, List<String>> geolocationUrls, final String url) {
     final Collection<GeoLocations> geoLocations = new HashSet<>();
 
-    for (final GeoLocations geoLocation : aGeoUrls.keySet()) {
-      for (final String geoUrl : aGeoUrls.get(geoLocation)) {
-        if (aUrl.contains(geoUrl)) {
-          geoLocations.add(geoLocation);
+    for (final var geoUrlEntry : geolocationUrls.entrySet()) {
+      for (final String geoUrl : geoUrlEntry.getValue()) {
+        if (url.contains(geoUrl)) {
+          geoLocations.add(geoUrlEntry.getKey());
         }
       }
     }
@@ -88,43 +87,42 @@ public class GeoLocationGuesser {
     return geoLocations;
   }
 
-  private static Collection<GeoLocations> getGeoLocationsKiKa(final String aUrl) {
-    final Map<GeoLocations, List<String>> geoUrls = new HashMap<>();
+  private static Collection<GeoLocations> getGeoLocationsKiKa(final String url) {
+    final Map<GeoLocations, List<String>> geoUrls = new EnumMap<>(GeoLocations.class);
     geoUrls.put(GeoLocations.GEO_AT, Arrays.asList("pmdgeo.kika.de", "kika_geo-lh.akamaihd.net"));
 
-    return getGeolocationsForGeoUrls(geoUrls, aUrl);
+    return getGeolocationsForGeoUrls(geoUrls, url);
   }
 
   private static Collection<GeoLocations> getGeoLocationsOrf(final String aUrl) {
-    final Map<GeoLocations, List<String>> geoUrls = new HashMap<>();
+    final Map<GeoLocations, List<String>> geoUrls = new EnumMap<>(GeoLocations.class);
     geoUrls.put(
-      GeoLocations.GEO_AT,
-      Arrays.asList(
-        "apasfpd.apa.at/cms-austria",
-        "apasfpd.sf.apa.at/cms-austria",
-        "apasfw.apa.at/cms-austria"));
-
+        GeoLocations.GEO_AT,
+        Arrays.asList(
+            "apasfpd.apa.at/cms-austria",
+            "apasfpd.sf.apa.at/cms-austria",
+            "apasfw.apa.at/cms-austria"));
     return getGeolocationsForGeoUrls(geoUrls, aUrl);
   }
 
   private static Collection<GeoLocations> getGeoLocationsSrfPodcast(final String aUrl) {
-    final Map<GeoLocations, List<String>> geoUrls = new HashMap<>();
-    geoUrls.put(GeoLocations.GEO_CH, Arrays.asList("podcasts.srf.ch/ch/audio"));
+    final Map<GeoLocations, List<String>> geoUrls = new EnumMap<>(GeoLocations.class);
+    geoUrls.put(GeoLocations.GEO_CH, List.of("podcasts.srf.ch/ch/audio"));
 
     return getGeolocationsForGeoUrls(geoUrls, aUrl);
   }
 
   private static Collection<GeoLocations> getGeoLocationsZdfPart(final String aUrl) {
-    final Map<GeoLocations, List<String>> geoUrls = new HashMap<>();
+    final Map<GeoLocations, List<String>> geoUrls = new EnumMap<>(GeoLocations.class);
     geoUrls.put(GeoLocations.GEO_DE, Arrays.asList("rodl.zdf.de/de", "rodlzdf-a.akamaihd.net/de"));
 
     geoUrls.put(
-      GeoLocations.GEO_DE_AT_CH,
-      Arrays.asList("rodl.zdf.de/dach", "rodlzdf-a.akamaihd.net/dach"));
+        GeoLocations.GEO_DE_AT_CH,
+        Arrays.asList("rodl.zdf.de/dach", "rodlzdf-a.akamaihd.net/dach"));
 
     geoUrls.put(
-      GeoLocations.GEO_DE_AT_CH_EU,
-      Arrays.asList("rodl.zdf.de/ebu", "rodlzdf-a.akamaihd.net/ebu"));
+        GeoLocations.GEO_DE_AT_CH_EU,
+        Arrays.asList("rodl.zdf.de/ebu", "rodlzdf-a.akamaihd.net/ebu"));
     return getGeolocationsForGeoUrls(geoUrls, aUrl);
   }
 }

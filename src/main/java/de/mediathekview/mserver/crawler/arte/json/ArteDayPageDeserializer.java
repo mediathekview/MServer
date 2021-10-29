@@ -7,6 +7,7 @@ import com.google.gson.JsonObject;
 import de.mediathekview.mserver.base.utils.JsonUtils;
 import de.mediathekview.mserver.crawler.arte.ArteLanguage;
 import de.mediathekview.mserver.crawler.arte.ArteSendungOverviewDto;
+
 import java.lang.reflect.Type;
 import java.util.Optional;
 
@@ -19,15 +20,15 @@ public class ArteDayPageDeserializer extends ArteFilmListDeserializer {
 
   private static final String ZONE_NAME_GUIDE = "listing_TV_GUIDE";
 
-  public ArteDayPageDeserializer(ArteLanguage language) {
+  public ArteDayPageDeserializer(final ArteLanguage language) {
     super(language);
   }
 
   @Override
   public ArteSendungOverviewDto deserialize(
-      JsonElement aJsonElement,
-      Type aType,
-      JsonDeserializationContext aJsonDeserializationContext) {
+      final JsonElement aJsonElement,
+      final Type aType,
+      final JsonDeserializationContext aJsonDeserializationContext) {
 
     final ArteSendungOverviewDto result = new ArteSendungOverviewDto();
     if (aJsonElement.isJsonObject()) {
@@ -44,13 +45,13 @@ public class ArteDayPageDeserializer extends ArteFilmListDeserializer {
     return JSON_ELEMENT_DATA;
   }
 
-  private Optional<JsonObject> getRelevantZone(JsonElement aJsonElement) {
+  private Optional<JsonObject> getRelevantZone(final JsonElement aJsonElement) {
     if (aJsonElement.isJsonObject()) {
       final JsonObject mainObj = aJsonElement.getAsJsonObject();
 
       if (mainObj.has(ATTRIBUTE_ZONES) && mainObj.get(ATTRIBUTE_ZONES).isJsonArray()) {
         final JsonArray zones = mainObj.get(ATTRIBUTE_ZONES).getAsJsonArray();
-        for (JsonElement zoneElement : zones) {
+        for (final JsonElement zoneElement : zones) {
           if (isZoneRelevant(zoneElement)) {
             return Optional.of(zoneElement.getAsJsonObject());
           }
@@ -61,10 +62,10 @@ public class ArteDayPageDeserializer extends ArteFilmListDeserializer {
     return Optional.empty();
   }
 
-  private boolean isZoneRelevant(JsonElement aZoneElement) {
-    if (JsonUtils.checkTreePath(aZoneElement, Optional.empty(), ATTRIBUTE_CODE, ATTRIBUTE_NAME)) {
+  private boolean isZoneRelevant(final JsonElement aZoneElement) {
+    if (JsonUtils.checkTreePath(aZoneElement, null, ATTRIBUTE_CODE, ATTRIBUTE_NAME)) {
       final JsonObject zoneObject = aZoneElement.getAsJsonObject();
-      String zoneName =
+      final String zoneName =
           zoneObject.get(ATTRIBUTE_CODE).getAsJsonObject().get(ATTRIBUTE_NAME).getAsString();
       return zoneName.equalsIgnoreCase(ZONE_NAME_GUIDE);
     }

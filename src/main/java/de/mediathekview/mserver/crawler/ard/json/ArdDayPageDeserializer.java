@@ -14,17 +14,17 @@ public class ArdDayPageDeserializer extends ArdTeasersDeserializer
 
   @Override
   public Set<ArdFilmInfoDto> deserialize(
-          final JsonElement jsonElement, final Type type, final JsonDeserializationContext context) {
+      final JsonElement jsonElement, final Type type, final JsonDeserializationContext context) {
     final Set<ArdFilmInfoDto> results = new HashSet<>();
 
     if (!jsonElement.isJsonArray()) {
       return results;
     }
 
-    JsonObject element0 = jsonElement.getAsJsonArray().get(0).getAsJsonObject();
+    final JsonObject firstElement = jsonElement.getAsJsonArray().get(0).getAsJsonObject();
 
-    if (element0.has(ELEMENT_TEASERS)) {
-      JsonArray teasers = element0.get(ELEMENT_TEASERS).getAsJsonArray();
+    if (firstElement.has(ELEMENT_TEASERS)) {
+      final JsonArray teasers = firstElement.get(ELEMENT_TEASERS).getAsJsonArray();
       results.addAll(parseTeasers(teasers));
     }
 

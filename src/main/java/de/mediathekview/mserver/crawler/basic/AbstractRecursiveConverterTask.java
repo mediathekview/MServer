@@ -15,9 +15,6 @@ import java.util.concurrent.RecursiveTask;
  * elements to process on instances of it self based on the crawler configuration and calls the
  * {@link AbstractRecursiveConverterTask#processElement(Object)} for each.
  *
- * @author Nicklas Wiegandt (Nicklas2751)<br>
- *     <b>Mail:</b> nicklas@wiegandt.eu<br>
- *     <b>Riot.im:</b> nicklas2751:matrix.elaon.de<br>
  * @param <T> The type of objects which will be created from this task.
  * @param <D> A result objects type.
  */

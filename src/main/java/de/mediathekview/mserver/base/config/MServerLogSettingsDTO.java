@@ -30,55 +30,55 @@ public class MServerLogSettingsDTO {
 	public Level getLogLevelConsole() {
 		return logLevelConsole;
 	}
-	public void setLogLevelConsole(Level logLevelConsole) {
+	public void setLogLevelConsole(final Level logLevelConsole) {
 		this.logLevelConsole = logLevelConsole;
 	}
 	public Level getLogLevelFile() {
 		return logLevelFile;
 	}
-	public void setLogLevelFile(Level logLevelFile) {
+	public void setLogLevelFile(final Level logLevelFile) {
 		this.logLevelFile = logLevelFile;
 	}
 	public Boolean getLogActivateConsole() {
 		return logActivateConsole;
 	}
-	public void setLogActivateConsole(Boolean logActivateConsole) {
+	public void setLogActivateConsole(final Boolean logActivateConsole) {
 		this.logActivateConsole = logActivateConsole;
 	}
 	public Boolean getLogActivateFile() {
 		return logActivateFile;
 	}
-	public void setLogActivateFile(Boolean logActivateFile) {
+	public void setLogActivateFile(final Boolean logActivateFile) {
 		this.logActivateFile = logActivateFile;
 	}
 	public Boolean getLogActivateRollingFileAppend() {
 		return logActivateRollingFileAppend;
 	}
-	public void setLogActivateRollingFileAppend(Boolean logActivateRollingFileAppend) {
+	public void setLogActivateRollingFileAppend(final Boolean logActivateRollingFileAppend) {
 		this.logActivateRollingFileAppend = logActivateRollingFileAppend;
 	}
 	public String getLogPatternConsole() {
 		return logPatternConsole;
 	}
-	public void setLogPatternConsole(String logPatternConsole) {
+	public void setLogPatternConsole(final String logPatternConsole) {
 		this.logPatternConsole = logPatternConsole;
 	}
 	public String getLogPatternFile() {
 		return logPatternFile;
 	}
-	public void setLogPatternFile(String logPatternFile) {
+	public void setLogPatternFile(final String logPatternFile) {
 		this.logPatternFile = logPatternFile;
 	}
 	public String getLogFileSavePath() {
 		return logFileSavePath;
 	}
-	public void setLogFileSavePath(String logFileSavePath) {
+	public void setLogFileSavePath(final String logFileSavePath) {
 		this.logFileSavePath = logFileSavePath;
 	}
 	public String getLogFileRollingPattern() {
 		return logFileRollingPattern;
 	}
-	public void setLogFileRollingPattern(String logFileRollingPattern) {
+	public void setLogFileRollingPattern(final String logFileRollingPattern) {
 		this.logFileRollingPattern = logFileRollingPattern;
 	}
 
@@ -100,60 +100,77 @@ public class MServerLogSettingsDTO {
 	}
 
 	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
+	public boolean equals(final Object obj) {
+		if (this == obj) {
 			return true;
-		if (obj == null)
+		}
+		if (obj == null) {
 			return false;
-		if (!(obj instanceof MServerLogSettingsDTO))
+		}
+		if (!(obj instanceof MServerLogSettingsDTO other)) {
 			return false;
-		MServerLogSettingsDTO other = (MServerLogSettingsDTO) obj;
+		}
 		if (logActivateConsole == null) {
-			if (other.logActivateConsole != null)
+			if (other.logActivateConsole != null) {
 				return false;
-		} else if (!logActivateConsole.equals(other.logActivateConsole))
+			}
+		} else if (!logActivateConsole.equals(other.logActivateConsole)) {
 			return false;
+		}
 		if (logActivateFile == null) {
-			if (other.logActivateFile != null)
+			if (other.logActivateFile != null) {
 				return false;
-		} else if (!logActivateFile.equals(other.logActivateFile))
+			}
+		} else if (!logActivateFile.equals(other.logActivateFile)) {
 			return false;
+		}
 		if (logActivateRollingFileAppend == null) {
-			if (other.logActivateRollingFileAppend != null)
+			if (other.logActivateRollingFileAppend != null) {
 				return false;
-		} else if (!logActivateRollingFileAppend.equals(other.logActivateRollingFileAppend))
+			}
+		} else if (!logActivateRollingFileAppend.equals(other.logActivateRollingFileAppend)) {
 			return false;
+		}
 		if (logFileRollingPattern == null) {
-			if (other.logFileRollingPattern != null)
+			if (other.logFileRollingPattern != null) {
 				return false;
-		} else if (!logFileRollingPattern.equals(other.logFileRollingPattern))
+			}
+		} else if (!logFileRollingPattern.equals(other.logFileRollingPattern)) {
 			return false;
+		}
 		if (logFileSavePath == null) {
-			if (other.logFileSavePath != null)
+			if (other.logFileSavePath != null) {
 				return false;
-		} else if (!logFileSavePath.equals(other.logFileSavePath))
+			}
+		} else if (!logFileSavePath.equals(other.logFileSavePath)) {
 			return false;
+		}
 		if (logLevelConsole == null) {
-			if (other.logLevelConsole != null)
+			if (other.logLevelConsole != null) {
 				return false;
-		} else if (!logLevelConsole.equals(other.logLevelConsole))
+			}
+		} else if (!logLevelConsole.equals(other.logLevelConsole)) {
 			return false;
+		}
 		if (logLevelFile == null) {
-			if (other.logLevelFile != null)
+			if (other.logLevelFile != null) {
 				return false;
-		} else if (!logLevelFile.equals(other.logLevelFile))
+			}
+		} else if (!logLevelFile.equals(other.logLevelFile)) {
 			return false;
+		}
 		if (logPatternConsole == null) {
-			if (other.logPatternConsole != null)
+			if (other.logPatternConsole != null) {
 				return false;
-		} else if (!logPatternConsole.equals(other.logPatternConsole))
+			}
+		} else if (!logPatternConsole.equals(other.logPatternConsole)) {
 			return false;
+		}
 		if (logPatternFile == null) {
-			if (other.logPatternFile != null)
-				return false;
-		} else if (!logPatternFile.equals(other.logPatternFile))
-			return false;
-		return true;
+			return other.logPatternFile == null;
+		} else {
+			return logPatternFile.equals(other.logPatternFile);
+		}
 	}
 
 }

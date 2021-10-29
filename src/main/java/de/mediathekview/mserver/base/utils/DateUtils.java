@@ -1,14 +1,6 @@
 package de.mediathekview.mserver.base.utils;
 
-/**
- * A set of util methods to work with dates.
- * 
- * @author Nicklas Wiegandt (Nicklas2751)<br>
- *         <b>Mail:</b> nicklas@wiegandt.eu<br>
- *         <b>Jabber:</b> nicklas2751@elaon.de<br>
- *         <b>Riot.im:</b> nicklas2751:matrix.elaon.de<br>
- *
- */
+/** A set of util methods to work with dates. */
 public class DateUtils {
   private static final String SPLITTED_NUMBERS_REGEX_PATTERN = "$1:$2";
   private static final String SPLIT_NUMBERS_REGEX_PATTERN = "(\\+\\d{1,2})(\\d{1,2})";

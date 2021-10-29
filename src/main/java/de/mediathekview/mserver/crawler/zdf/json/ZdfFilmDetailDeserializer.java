@@ -1,15 +1,14 @@
 package de.mediathekview.mserver.crawler.zdf.json;
 
-import com.google.gson.JsonArray;
-import com.google.gson.JsonDeserializationContext;
-import com.google.gson.JsonDeserializer;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
+import com.google.gson.*;
 import de.mediathekview.mlib.daten.Film;
 import de.mediathekview.mlib.daten.Sender;
 import de.mediathekview.mserver.base.utils.JsonUtils;
 import de.mediathekview.mserver.base.utils.UrlUtils;
 import de.mediathekview.mserver.crawler.zdf.ZdfFilmDto;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import java.lang.reflect.Type;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -20,8 +19,6 @@ import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Optional;
 import java.util.UUID;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 public class ZdfFilmDetailDeserializer implements JsonDeserializer<Optional<ZdfFilmDto>> {
 
@@ -54,7 +51,7 @@ public class ZdfFilmDetailDeserializer implements JsonDeserializer<Optional<ZdfF
       DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ssXXX"); // 2016-10-29T16:15:00+02:00
 
   private final String apiUrlBase;
-  private Sender sender;
+  private final Sender sender;
 
   public ZdfFilmDetailDeserializer(final String apiUrlBase, final Sender sender) {
     this.apiUrlBase = apiUrlBase;
@@ -63,41 +60,41 @@ public class ZdfFilmDetailDeserializer implements JsonDeserializer<Optional<ZdfF
 
   @Override
   public Optional<ZdfFilmDto> deserialize(
-      JsonElement aJsonObject, Type aType, JsonDeserializationContext aContext) {
-    JsonObject rootNode = aJsonObject.getAsJsonObject();
+      final JsonElement aJsonObject, final Type aType, final JsonDeserializationContext aContext) {
+    final JsonObject rootNode = aJsonObject.getAsJsonObject();
     JsonObject programItemTarget = null;
     JsonObject mainVideoTarget = null;
 
     if (rootNode.has(JSON_ELEMENT_PROGRAM_ITEM)
         && !rootNode.get(JSON_ELEMENT_PROGRAM_ITEM).isJsonNull()) {
-      JsonArray programItem = rootNode.getAsJsonArray(JSON_ELEMENT_PROGRAM_ITEM);
+      final JsonArray programItem = rootNode.getAsJsonArray(JSON_ELEMENT_PROGRAM_ITEM);
       final JsonObject asJsonObject = programItem.get(0).getAsJsonObject();
       if (asJsonObject.has(JSON_ELEMENT_TARGET)) {
-      programItemTarget =asJsonObject
-          .get(JSON_ELEMENT_TARGET).getAsJsonObject();
+        programItemTarget = asJsonObject.get(JSON_ELEMENT_TARGET).getAsJsonObject();
       }
     }
     if (rootNode.has(JSON_ELEMENT_MAIN_VIDEO)
         && !rootNode.get(JSON_ELEMENT_MAIN_VIDEO).isJsonNull()) {
-      JsonObject mainVideoElement = rootNode.get(JSON_ELEMENT_MAIN_VIDEO).getAsJsonObject();
+      final JsonObject mainVideoElement = rootNode.get(JSON_ELEMENT_MAIN_VIDEO).getAsJsonObject();
       if (mainVideoElement != null) {
-        JsonObject mainVideo = mainVideoElement.getAsJsonObject();
+        final JsonObject mainVideo = mainVideoElement.getAsJsonObject();
         mainVideoTarget = mainVideo.get(JSON_ELEMENT_TARGET).getAsJsonObject();
       }
     }
 
-    Optional<String> title = parseTitle(rootNode, programItemTarget);
-    Optional<String> topic = parseTopic(rootNode);
-    Optional<String> description = parseDescription(rootNode);
+    final Optional<String> title = parseTitle(rootNode, programItemTarget);
+    final Optional<String> topic = parseTopic(rootNode);
+    final Optional<String> description = parseDescription(rootNode);
 
-    Optional<String> website = parseWebsiteUrl(rootNode);
-    Optional<LocalDateTime> time = parseAirtime(rootNode, programItemTarget);
-    Optional<Duration> duration = parseDuration(mainVideoTarget);
+    final Optional<String> website = parseWebsiteUrl(rootNode);
+    final Optional<LocalDateTime> time = parseAirtime(rootNode, programItemTarget);
+    final Optional<Duration> duration = parseDuration(mainVideoTarget);
 
-    Optional<String> downloadUrl = parseDownloadUrl(mainVideoTarget);
+    final Optional<String> downloadUrl = parseDownloadUrl(mainVideoTarget);
 
     if (title.isPresent()) {
-      final Optional<Film> film = createFilm(topic, title.get(), description, website, time, duration);
+      final Optional<Film> film =
+          createFilm(topic, title.get(), description, website, time, duration);
 
       if (film.isPresent() && downloadUrl.isPresent()) {
         return Optional.of(new ZdfFilmDto(film.get(), downloadUrl.get()));
@@ -110,18 +107,23 @@ public class ZdfFilmDetailDeserializer implements JsonDeserializer<Optional<ZdfF
     return Optional.empty();
   }
 
-  private Optional<String> parseDownloadUrl(JsonObject mainVideoContent) {
+  private Optional<String> parseDownloadUrl(final JsonObject mainVideoContent) {
     if (mainVideoContent != null) {
       Optional<String> urlOptional =
           JsonUtils.getAttributeAsString(mainVideoContent, JSON_ATTRIBUTE_TEMPLATE);
       // alternative source
-      if (!urlOptional.isPresent()) {
-        if (JsonUtils.checkTreePath(mainVideoContent, Optional.empty() , "streams", "default", JSON_ATTRIBUTE_TEMPLATE)) {
-          urlOptional = JsonUtils.getAttributeAsString(mainVideoContent.getAsJsonObject("streams").getAsJsonObject("default"), JSON_ATTRIBUTE_TEMPLATE);
-        }
+      if (urlOptional.isEmpty()
+          && JsonUtils.checkTreePath(
+              mainVideoContent, null, "streams", "default", JSON_ATTRIBUTE_TEMPLATE)) {
+        urlOptional =
+            JsonUtils.getAttributeAsString(
+                mainVideoContent.getAsJsonObject("streams").getAsJsonObject("default"),
+                JSON_ATTRIBUTE_TEMPLATE);
       }
       if (urlOptional.isPresent()) {
-        String url = UrlUtils.addDomainIfMissing(urlOptional.get(), apiUrlBase).replace(PLACEHOLDER_PLAYER_ID, PLAYER_ID);
+        final String url =
+            UrlUtils.addDomainIfMissing(urlOptional.get(), apiUrlBase)
+                .replace(PLACEHOLDER_PLAYER_ID, PLAYER_ID);
         return Optional.of(url);
       }
     }
@@ -149,12 +151,10 @@ public class ZdfFilmDetailDeserializer implements JsonDeserializer<Optional<ZdfF
       if (aWebsite.isPresent()) {
         film.setWebsite(new URL(aWebsite.get()));
       }
-      if (aDescription.isPresent()) {
-        film.setBeschreibung(aDescription.get());
-      }
+      aDescription.ifPresent(film::setBeschreibung);
 
       return Optional.of(film);
-    } catch (MalformedURLException ex) {
+    } catch (final MalformedURLException ex) {
       LOG.fatal("ZdfFilmDeserializer: url can't be parsed.", ex);
     }
 
@@ -162,13 +162,13 @@ public class ZdfFilmDetailDeserializer implements JsonDeserializer<Optional<ZdfF
   }
 
   private Optional<LocalDateTime> parseAirtime(
-      JsonObject aRootNode, JsonObject aProgramItemTarget) {
-    Optional<String> date;
-    DateTimeFormatter formatter;
+      final JsonObject aRootNode, final JsonObject aProgramItemTarget) {
+    final Optional<String> date;
+    final DateTimeFormatter formatter;
 
     // use broadcast airtime if found
     if (aProgramItemTarget != null) {
-      JsonArray broadcastArray = aProgramItemTarget.getAsJsonArray(JSON_ELEMENT_BROADCAST);
+      final JsonArray broadcastArray = aProgramItemTarget.getAsJsonArray(JSON_ELEMENT_BROADCAST);
 
       if (broadcastArray == null || broadcastArray.size() < 1) {
         date = getEditorialDate(aRootNode);
@@ -195,7 +195,7 @@ public class ZdfFilmDetailDeserializer implements JsonDeserializer<Optional<ZdfF
     return Optional.empty();
   }
 
-  private Optional<String> getEditorialDate(JsonObject aRootNode) {
+  private Optional<String> getEditorialDate(final JsonObject aRootNode) {
     if (aRootNode.has(JSON_ELEMENT_EDITORIAL_DATE)) {
       return Optional.of(aRootNode.get(JSON_ELEMENT_EDITORIAL_DATE).getAsString());
     }
@@ -203,7 +203,7 @@ public class ZdfFilmDetailDeserializer implements JsonDeserializer<Optional<ZdfF
     return Optional.empty();
   }
 
-  private Optional<String> parseWebsiteUrl(JsonObject aRootNode) {
+  private Optional<String> parseWebsiteUrl(final JsonObject aRootNode) {
     if (aRootNode.has(JSON_ELEMENT_SHARING_URL)) {
       return Optional.of(aRootNode.get(JSON_ELEMENT_SHARING_URL).getAsString());
     }
@@ -211,9 +211,9 @@ public class ZdfFilmDetailDeserializer implements JsonDeserializer<Optional<ZdfF
     return Optional.empty();
   }
 
-  private Optional<Duration> parseDuration(JsonObject mainVideoTarget) {
+  private Optional<Duration> parseDuration(final JsonObject mainVideoTarget) {
     if (mainVideoTarget != null) {
-      JsonElement duration = mainVideoTarget.get(JSON_ELEMENT_DURATION);
+      final JsonElement duration = mainVideoTarget.get(JSON_ELEMENT_DURATION);
       if (duration != null) {
         return Optional.of(Duration.ofSeconds(duration.getAsInt()));
       }
@@ -222,12 +222,12 @@ public class ZdfFilmDetailDeserializer implements JsonDeserializer<Optional<ZdfF
     return Optional.empty();
   }
 
-  private Optional<String> parseDescription(JsonObject aRootNode) {
-    JsonElement leadParagraph = aRootNode.get(JSON_ELEMENT_LEAD_PARAGRAPH);
+  private Optional<String> parseDescription(final JsonObject aRootNode) {
+    final JsonElement leadParagraph = aRootNode.get(JSON_ELEMENT_LEAD_PARAGRAPH);
     if (leadParagraph != null) {
       return Optional.of(leadParagraph.getAsString());
     } else {
-      JsonElement teaserText = aRootNode.get(JSON_ELEMENT_TEASER_TEXT);
+      final JsonElement teaserText = aRootNode.get(JSON_ELEMENT_TEASER_TEXT);
       if (teaserText != null) {
         return Optional.of(teaserText.getAsString());
       }
@@ -236,26 +236,27 @@ public class ZdfFilmDetailDeserializer implements JsonDeserializer<Optional<ZdfF
     return Optional.empty();
   }
 
-  private Optional<String> parseTitle(JsonObject aRootNode, JsonObject aTarget) {
-    Optional<String> title = parseTitleValue(aRootNode, aTarget);
+  private Optional<String> parseTitle(final JsonObject aRootNode, final JsonObject aTarget) {
+    final Optional<String> title = parseTitleValue(aRootNode, aTarget);
     return title.map(s -> s.replaceAll("\\(CC.*\\) - .* Creative Commons.*", ""));
   }
 
-  private Optional<String> parseTitleValue(JsonObject aRootNode, JsonObject aTarget) {
+  private Optional<String> parseTitleValue(final JsonObject aRootNode, final JsonObject aTarget) {
     // use property "title" if found
-    JsonElement titleElement = aRootNode.get(JSON_ELEMENT_TITLE);
+    final JsonElement titleElement = aRootNode.get(JSON_ELEMENT_TITLE);
     if (titleElement != null) {
-      JsonElement subTitleElement = aRootNode.get(JSON_ELEMENT_SUBTITLE);
+      final JsonElement subTitleElement = aRootNode.get(JSON_ELEMENT_SUBTITLE);
       if (subTitleElement != null) {
-        return Optional.of(titleElement.getAsString().trim() + " - " + subTitleElement.getAsString());
+        return Optional.of(
+            titleElement.getAsString().trim() + " - " + subTitleElement.getAsString());
       } else {
         return Optional.of(titleElement.getAsString());
       }
     } else {
       // programmItem target required to determine title
       if (aTarget != null && aTarget.has(JSON_ELEMENT_TITLE)) {
-        String title = aTarget.get(JSON_ELEMENT_TITLE).getAsString();
-        String subTitle = aTarget.get(JSON_ELEMENT_SUBTITLE).getAsString();
+        final String title = aTarget.get(JSON_ELEMENT_TITLE).getAsString();
+        final String subTitle = aTarget.get(JSON_ELEMENT_SUBTITLE).getAsString();
 
         if (subTitle.isEmpty()) {
           return Optional.of(title);
@@ -268,13 +269,13 @@ public class ZdfFilmDetailDeserializer implements JsonDeserializer<Optional<ZdfF
     return Optional.empty();
   }
 
-  private Optional<String> parseTopic(JsonObject aRootNode) {
-    JsonObject brand = aRootNode.getAsJsonObject(JSON_ELEMENT_BRAND);
-    JsonObject category = aRootNode.getAsJsonObject(JSON_ELEMENT_CATEGORY);
+  private Optional<String> parseTopic(final JsonObject aRootNode) {
+    final JsonObject brand = aRootNode.getAsJsonObject(JSON_ELEMENT_BRAND);
+    final JsonObject category = aRootNode.getAsJsonObject(JSON_ELEMENT_CATEGORY);
 
     if (brand != null) {
       // first use brand
-      JsonElement topic = brand.get(JSON_ELEMENT_TITLE);
+      final JsonElement topic = brand.get(JSON_ELEMENT_TITLE);
       if (topic != null) {
         return Optional.of(topic.getAsString());
       }
@@ -282,7 +283,7 @@ public class ZdfFilmDetailDeserializer implements JsonDeserializer<Optional<ZdfF
 
     if (category != null) {
       // second use category
-      JsonElement topic = category.get(JSON_ELEMENT_TITLE);
+      final JsonElement topic = category.get(JSON_ELEMENT_TITLE);
       if (topic != null) {
         return Optional.of(topic.getAsString());
       }
