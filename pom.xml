@@ -359,6 +359,7 @@
                     <parallel>classes</parallel>
                     <useUnlimitedThreads>true</useUnlimitedThreads>
                     <perCoreThreadCount>true</perCoreThreadCount>
+                    <argLine>--enable-preview</argLine>
                 </configuration>
             </plugin>
             <plugin>
