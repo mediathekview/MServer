@@ -169,6 +169,21 @@ public class ArdFilmDeserializerTest {
             GeoLocations.GEO_DE_FR,
             new ArdFilmInfoDto[0],
             Optional.empty()
+          },
+          {
+            "/ard/ard_film_page_encoding_nbsp.json",
+            "Die Stein",
+            "Folge 8: Neues Glück (S01/E08)",
+            "Karola hat ein Stipendium für Italien bekommen. Aufgeregt ruft sie Katja an, die gerade mit Stefan ausreitet. Als Katja mit Stefan im Atelier erscheint, bricht Karola plötzlich zusammen. In der Klinik stellt sich heraus: Karola ist schwanger. Und alles spricht dafür, dass Oliver der Vater ist. Katja ist niedergeschlagen, hat sie doch ihr gemeinsames Kind damals verloren. Aber auch Karola ist kreuz\n.....",
+            LocalDateTime.of(2021, 10, 28, 17, 0, 0),
+            Duration.ofMinutes(47).plusSeconds(57),
+            "https://wdrmedien-a.akamaihd.net/medp/ondemand/weltweit/fsk0/255/2559347/2559347_39488364.mp4",
+            "https://wdrmedien-a.akamaihd.net/medp/ondemand/weltweit/fsk0/255/2559347/2559347_39488365.mp4",
+            "https://wdrmedien-a.akamaihd.net/medp/ondemand/weltweit/fsk0/255/2559347/2559347_39488366.mp4",
+            "",
+            GeoLocations.GEO_NONE,
+            new ArdFilmInfoDto[0],
+            Optional.of(Sender.ONE)
           }
         });
   }
