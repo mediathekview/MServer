@@ -6,13 +6,16 @@ import com.google.gson.JsonDeserializer;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import de.mediathekview.mserver.base.utils.JsonUtils;
+
 import java.lang.reflect.Type;
 import java.util.Optional;
 
-public class PhoenixFilmDetailDeserializer implements JsonDeserializer<Optional<PhoenixFilmDetailDto>> {
+public class PhoenixFilmDetailDeserializer
+    implements JsonDeserializer<Optional<PhoenixFilmDetailDto>> {
 
   private static final String ELEMENT_ABSAETZE = "absaetze";
   private static final String ELEMENT_BASENAME = "basename";
+  private static final String ELEMENT_CONTENT = "content";
   private static final String ELEMENT_CANONICAL = "canonical";
   private static final String ELEMENT_META = "meta";
   private static final String ELEMENT_SUBTITLE = "subtitel";
@@ -23,13 +26,15 @@ public class PhoenixFilmDetailDeserializer implements JsonDeserializer<Optional<
   private static final String TYP_VIDEO = "video-smubl";
 
   @Override
-  public Optional<PhoenixFilmDetailDto> deserialize(JsonElement aJsonElement, Type aType, JsonDeserializationContext aContext) {
+  public Optional<PhoenixFilmDetailDto> deserialize(
+      JsonElement aJsonElement, Type aType, JsonDeserializationContext aContext) {
 
     final JsonObject jsonObject = aJsonElement.getAsJsonObject();
 
     final Optional<String> topic = JsonUtils.getAttributeAsString(jsonObject, ELEMENT_TITLE);
     final Optional<String> title = JsonUtils.getAttributeAsString(jsonObject, ELEMENT_SUBTITLE);
-    final Optional<String> description = JsonUtils.getAttributeAsString(jsonObject, ELEMENT_VORSPANN);
+    final Optional<String> description =
+        JsonUtils.getAttributeAsString(jsonObject, ELEMENT_VORSPANN);
     final Optional<String> baseName = parseBaseName(jsonObject);
     final Optional<String> website = parseWebsite(jsonObject);
 
@@ -74,7 +79,11 @@ public class PhoenixFilmDetailDeserializer implements JsonDeserializer<Optional<
         final Optional<String> typ = JsonUtils.getAttributeAsString(absatzObject, ELEMENT_TYP);
 
         if (typ.isPresent() && TYP_VIDEO.equals(typ.get())) {
-          return JsonUtils.getAttributeAsString(absatzObject, ELEMENT_BASENAME);
+          if (absatzObject.has(ELEMENT_BASENAME)) {
+            return JsonUtils.getAttributeAsString(absatzObject, ELEMENT_BASENAME);
+          } else {
+            return JsonUtils.getAttributeAsString(absatzObject, ELEMENT_CONTENT);
+          }
         }
       }
     }
