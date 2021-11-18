@@ -13,6 +13,7 @@ public class PhoenixFilmDetailDeserializer implements JsonDeserializer<Optional<
 
   private static final String ELEMENT_ABSAETZE = "absaetze";
   private static final String ELEMENT_BASENAME = "basename";
+  private static final String ELEMENT_CONTENT = "content";
   private static final String ELEMENT_CANONICAL = "canonical";
   private static final String ELEMENT_META = "meta";
   private static final String ELEMENT_SUBTITLE = "subtitel";
@@ -74,7 +75,11 @@ public class PhoenixFilmDetailDeserializer implements JsonDeserializer<Optional<
         final Optional<String> typ = JsonUtils.getAttributeAsString(absatzObject, ELEMENT_TYP);
 
         if (typ.isPresent() && TYP_VIDEO.equals(typ.get())) {
-          return JsonUtils.getAttributeAsString(absatzObject, ELEMENT_BASENAME);
+          if (absatzObject.has(ELEMENT_BASENAME)) {
+            return JsonUtils.getAttributeAsString(absatzObject, ELEMENT_BASENAME);
+          } else {
+            return JsonUtils.getAttributeAsString(absatzObject, ELEMENT_CONTENT);
+          }
         }
       }
     }
