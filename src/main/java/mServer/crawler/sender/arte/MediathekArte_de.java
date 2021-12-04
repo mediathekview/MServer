@@ -88,10 +88,6 @@ public class MediathekArte_de extends MediathekReader {
   private static final boolean PARSE_SUBCATEGORY_SUB_PAGES = false; // Flag, ob Unterseiten der Unterkategorien verarbeitet werden soll
 
   protected String LANG_CODE = "de";
-  protected String URL_CONCERT = "http://concert.arte.tv/de/videos/all";
-  protected String URL_CONCERT_NOT_CONTAIN = "-STF";
-  protected String TIME_1 = "<li>Sendetermine:</li>";
-  protected String TIME_2 = "um";
 
   public MediathekArte_de(FilmeSuchen ssearch, int startPrio) {
     super(ssearch, SENDERNAME,/* threads */ 2, /* urlWarten */ 200, startPrio);
@@ -176,7 +172,7 @@ public class MediathekArte_de extends MediathekReader {
 
     private void addFilmeForTag(String aUrl) {
 
-      ListeFilme loadedFilme = ArteHttpClient.executeRequest(SENDERNAME, LOG, gson, aUrl, ListeFilme.class);
+      ListeFilme loadedFilme = ArteHttpClient.executeRequest(getSendername(), LOG, gson, aUrl, ListeFilme.class);
       if (loadedFilme != null) {
         loadedFilme.forEach(film -> addFilm(film));
       }
@@ -261,7 +257,7 @@ public class MediathekArte_de extends MediathekReader {
     }
 
     private ArteCategoryFilmsDTO loadSubCategoryPage(Gson gson, String aUrl) {
-      return ArteHttpClient.executeRequest(SENDERNAME, LOG, gson, aUrl, ArteCategoryFilmsDTO.class);
+      return ArteHttpClient.executeRequest(getSendername(), LOG, gson, aUrl, ArteCategoryFilmsDTO.class);
     }
   }
 }

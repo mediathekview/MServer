@@ -33,10 +33,6 @@ public class MediathekArte_fr extends MediathekArte_de {
      */
     public MediathekArte_fr(FilmeSuchen ssearch, int startPrio) {
         super(ssearch, startPrio, SENDERNAME);
-        URL_CONCERT = "http://concert.arte.tv/fr/videos/all";
-        URL_CONCERT_NOT_CONTAIN = "-STA";
-        TIME_1 = "<li>Diffusion :</li>";
-        TIME_2 = "à";
         LANG_CODE = "fr";
     }
 }
