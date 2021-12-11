@@ -1,22 +1,3 @@
-/*
- * MediathekView
- * Copyright (C) 2008 W. Xaver
- * W.Xaver[at]googlemail.com
- * http://zdfmediathk.sourceforge.net/
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program. If not, see <http://www.gnu.org/licenses/>.
- */
 package mServer.crawler.sender.arte;
 
 import com.google.gson.Gson;
@@ -30,7 +11,9 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -41,7 +24,7 @@ import mServer.crawler.sender.MediathekReader;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-public class MediathekArte_de extends MediathekReader {
+public class MediathekArte extends MediathekReader {
 
   /*
      * Informationen zu den ARTE-URLs:
@@ -65,8 +48,7 @@ public class MediathekArte_de extends MediathekReader {
      * 3. für jede Unterkategorie die enthaltenen ProgramId ermitteln: URL_SUBCATEGORY
      * 4. für alle ProgramIds die Videoinformationen laden (wie kurze Variante)
    */
-  private static final Logger LOG = LogManager.getLogger(MediathekArte_de.class);
-  protected final static String SENDERNAME = Const.ARTE_DE;
+  private static final Logger LOG = LogManager.getLogger(MediathekArte.class);
   private static final String ARTE_API_TAG_URL_PATTERN = "https://api.arte.tv/api/opa/v3/videos?channel=%s&arteSchedulingDay=%s";
 
   private static final String URL_SUBCATEGORY
@@ -87,14 +69,36 @@ public class MediathekArte_de extends MediathekReader {
   private static final DateTimeFormatter ARTE_API_DATEFORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd");
   private static final boolean PARSE_SUBCATEGORY_SUB_PAGES = false; // Flag, ob Unterseiten der Unterkategorien verarbeitet werden soll
 
-  protected String LANG_CODE = "de";
+  private static final String ARTE_EN = "ARTE.EN";
 
-  public MediathekArte_de(FilmeSuchen ssearch, int startPrio) {
-    super(ssearch, SENDERNAME,/* threads */ 2, /* urlWarten */ 200, startPrio);
+  private static final Map<String, String> LANG_CODES;
+
+  static {
+    LANG_CODES = new HashMap<>();
+    LANG_CODES.put(Const.ARTE_DE, "de");
+    LANG_CODES.put(Const.ARTE_FR, "fr");
+    LANG_CODES.put(ARTE_EN, "en");
   }
 
-  public MediathekArte_de(FilmeSuchen ssearch, int startPrio, String name) {
+  public MediathekArte(FilmeSuchen ssearch, int startPrio) {
+    super(ssearch, Const.ARTE_DE,/* threads */ 2, /* urlWarten */ 200, startPrio);
+  }
+
+
+  public MediathekArte(FilmeSuchen ssearch, int startPrio, String name) {
     super(ssearch, name,/* threads */ 2, /* urlWarten */ 200, startPrio);
+  }
+
+  @Override
+  protected synchronized void meldungThreadUndFertig() {
+    // der MediathekReader ist erst fertig wenn nur noch ein Thread läuft
+    // dann zusätzliche Sender, die der Crawler bearbeitet, beenden
+    if (getThreads() <= 1) {
+      mlibFilmeSuchen.meldenFertig(Const.ARTE_FR);
+      mlibFilmeSuchen.meldenFertig(ARTE_EN);
+    }
+
+    super.meldungThreadUndFertig();
   }
 
   //===================================
@@ -111,7 +115,7 @@ public class MediathekArte_de extends MediathekReader {
         meldungAddMax(listeThemen.size());
 
         for (int t = 0; t < getMaxThreadLaufen(); ++t) {
-          Thread th = new CategoryLoader(this.getSendername());
+          Thread th = new CategoryLoader();
           th.setName(getSendername() + t);
           th.start();
         }
@@ -129,30 +133,37 @@ public class MediathekArte_de extends MediathekReader {
   }
 
   private void addCategories() {
-    for (String subCategory : SUBCATEGORIES) {
-      String subCategoryUrl = String.format(URL_SUBCATEGORY, LANG_CODE.toLowerCase(), subCategory, 1);
-      listeThemen.add(new String[]{subCategory, subCategoryUrl});
-    }
+    LANG_CODES.forEach((sender, langCode) -> {
+      for (String subCategory : SUBCATEGORIES) {
+        String subCategoryUrl = String.format(URL_SUBCATEGORY, langCode.toLowerCase(), subCategory, 1);
+          listeThemen.add(new String[]{sender, langCode, subCategory, subCategoryUrl});
+      }
+    });
   }
 
   private void addTage() {
-    // http://www.arte.tv/guide/de/plus7/videos?day=-2&page=1&isLoading=true&sort=newest&country=DE
-    for (int i = 0; i <= 14; ++i) {
-      String u = String.format(ARTE_API_TAG_URL_PATTERN, LANG_CODE.toUpperCase(), LocalDate.now().minusDays(i).format(ARTE_API_DATEFORMATTER));
-      listeThemen.add(new String[]{u});
-    }
-    for (int i = 1; i <= 21; ++i) {
-      String u = String.format(ARTE_API_TAG_URL_PATTERN, LANG_CODE.toUpperCase(), LocalDate.now().plusDays(i).format(ARTE_API_DATEFORMATTER));
-      listeThemen.add(new String[]{u});
-    }
+    LANG_CODES.forEach((sender, langCode) -> {
+      // http://www.arte.tv/guide/de/plus7/videos?day=-2&page=1&isLoading=true&sort=newest&country=DE
+      for (int i = 0; i <= 14; ++i) {
+        String u = String.format(ARTE_API_TAG_URL_PATTERN, langCode.toUpperCase(), LocalDate.now().minusDays(i).format(ARTE_API_DATEFORMATTER));
+        listeThemen.add(new String[]{sender, u});
+      }
+      for (int i = 1; i <= 21; ++i) {
+        String u = String.format(ARTE_API_TAG_URL_PATTERN, langCode.toUpperCase(), LocalDate.now().plusDays(i).format(ARTE_API_DATEFORMATTER));
+        listeThemen.add(new String[]{sender, u});
+      }
+    });
   }
 
   class ThemaLaden extends Thread {
 
-    private final Gson gson;
+    private final Map<String, Gson> senderGsonMap;
 
     public ThemaLaden() {
-      gson = new GsonBuilder().registerTypeAdapter(ListeFilme.class, new ArteDatenFilmDeserializer(LANG_CODE, getSendername())).create();
+      senderGsonMap = new HashMap<>();
+      senderGsonMap.put(ARTE_EN, new GsonBuilder().registerTypeAdapter(ListeFilme.class, new ArteDatenFilmDeserializer("en", ARTE_EN)).create());
+      senderGsonMap.put(Const.ARTE_FR, new GsonBuilder().registerTypeAdapter(ListeFilme.class, new ArteDatenFilmDeserializer("fr", Const.ARTE_FR)).create());
+      senderGsonMap.put(Const.ARTE_DE, new GsonBuilder().registerTypeAdapter(ListeFilme.class, new ArteDatenFilmDeserializer("de", Const.ARTE_DE)).create());
     }
 
     @Override
@@ -161,8 +172,8 @@ public class MediathekArte_de extends MediathekReader {
         meldungAddThread();
         String[] link;
         while (!Config.getStop() && (link = listeThemen.getListeThemen()) != null) {
-          meldungProgress(link[0]);
-          addFilmeForTag(link[0]);
+          meldungProgress(link[1]);
+          addFilmeForTag(link[0], link[1]);
         }
       } catch (Exception ex) {
         Log.errorLog(894330854, ex, "");
@@ -170,9 +181,9 @@ public class MediathekArte_de extends MediathekReader {
       meldungThreadUndFertig();
     }
 
-    private void addFilmeForTag(String aUrl) {
+    private void addFilmeForTag(String sender, String aUrl) {
 
-      ListeFilme loadedFilme = ArteHttpClient.executeRequest(getSendername(), LOG, gson, aUrl, ListeFilme.class);
+      ListeFilme loadedFilme = ArteHttpClient.executeRequest(sender, LOG, senderGsonMap.get(sender), aUrl, ListeFilme.class);
       if (loadedFilme != null) {
         loadedFilme.forEach(film -> addFilm(film));
       }
@@ -184,20 +195,14 @@ public class MediathekArte_de extends MediathekReader {
    */
   class CategoryLoader extends Thread {
 
-    private final String sender;
-
-    public CategoryLoader(String sender) {
-      this.sender = sender;
-    }
-
     @Override
     public void run() {
       try {
         meldungAddThread();
         String[] link;
         while (!Config.getStop() && (link = listeThemen.getListeThemen()) != null) {
-          meldungProgress(link[0] + "/" + link[1] /* url */);
-          loadSubCategory(link[0], link[1]);
+          meldungProgress(link[2] + "/" + link[3] /* url */);
+          loadSubCategory(link[0], link[1], link[2], link[3]);
         }
       } catch (Exception ex) {
         Log.errorLog(894330854, ex, "");
@@ -205,19 +210,19 @@ public class MediathekArte_de extends MediathekReader {
       meldungThreadUndFertig();
     }
 
-    private void loadSubCategory(String aCategory, String aUrl) {
+    private void loadSubCategory(String sender, String langCode, String aCategory, String aUrl) {
       Gson gson = new GsonBuilder().registerTypeAdapter(ArteCategoryFilmsDTO.class, new ArteCategoryFilmListDeserializer()).create();
 
       // erste Seite laden
       int i = 2;
-      ArteCategoryFilmsDTO dto = loadSubCategoryPage(gson, aUrl);
+      ArteCategoryFilmsDTO dto = loadSubCategoryPage(gson, sender, aUrl);
       if (dto != null) {
         ArteCategoryFilmsDTO nextDto = dto;
         while (PARSE_SUBCATEGORY_SUB_PAGES && nextDto != null && nextDto.hasNextPage()) {
 
           // weitere Seiten laden und zu programId-liste des ersten DTO hinzufügen
-          String url = String.format(URL_SUBCATEGORY, LANG_CODE.toLowerCase(), aCategory, i);
-          nextDto = loadSubCategoryPage(gson, url);
+          String url = String.format(URL_SUBCATEGORY, langCode.toLowerCase(), aCategory, i);
+          nextDto = loadSubCategoryPage(gson, sender, url);
           if (nextDto != null) {
             nextDto.getProgramIds().forEach(programId -> dto.addProgramId(programId));
           }
@@ -226,19 +231,19 @@ public class MediathekArte_de extends MediathekReader {
         }
 
         // alle programIds verarbeiten
-        ListeFilme loadedFilme = loadPrograms(dto);
+        ListeFilme loadedFilme = loadPrograms(sender, langCode, dto);
         loadedFilme.forEach((film) -> addFilm(film));
         Log.sysLog(String.format("%s: Subcategory %s: %d Filme", sender, aCategory, loadedFilme.size()));
       }
     }
 
-    private ListeFilme loadPrograms(ArteCategoryFilmsDTO dto) {
+    private ListeFilme loadPrograms(String sender, String langCode, ArteCategoryFilmsDTO dto) {
       ListeFilme listeFilme = new ListeFilme();
 
       Collection<DatenFilm> futureFilme = new ArrayList<>();
       dto.getProgramIds().forEach(programId -> {
         try {
-          Set<DatenFilm> films = new ArteProgramIdToDatenFilmCallable(programId, LANG_CODE, getSendername()).call();
+          Set<DatenFilm> films = new ArteProgramIdToDatenFilmCallable(programId, langCode, sender).call();
           for (DatenFilm film : films) {
             futureFilme.add(film);
           }
@@ -256,8 +261,8 @@ public class MediathekArte_de extends MediathekReader {
       return listeFilme;
     }
 
-    private ArteCategoryFilmsDTO loadSubCategoryPage(Gson gson, String aUrl) {
-      return ArteHttpClient.executeRequest(getSendername(), LOG, gson, aUrl, ArteCategoryFilmsDTO.class);
+    private ArteCategoryFilmsDTO loadSubCategoryPage(Gson gson, String sender, String aUrl) {
+      return ArteHttpClient.executeRequest(sender, LOG, gson, aUrl, ArteCategoryFilmsDTO.class);
     }
   }
 }

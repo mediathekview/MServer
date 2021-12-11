@@ -27,9 +27,7 @@ import de.mediathekview.mlib.filmesuchen.ListenerFilmeLadenEvent;
 import de.mediathekview.mlib.tool.Log;
 import mServer.crawler.sender.*;
 import mServer.crawler.sender.ard.ArdCrawler;
-import mServer.crawler.sender.arte.MediathekArte_de;
-import mServer.crawler.sender.arte.MediathekArte_en;
-import mServer.crawler.sender.arte.MediathekArte_fr;
+import mServer.crawler.sender.arte.MediathekArte;
 import mServer.crawler.sender.br.BrCrawler;
 import mServer.crawler.sender.dreisat.DreiSatCrawler;
 import mServer.crawler.sender.kika.KikaCrawler;
@@ -74,9 +72,7 @@ public class FilmeSuchen {
     //Reader laden Spaltenweises Laden
     mediathekListe.add(new ArdCrawler(this, 0));
     mediathekListe.add(new ZdfCrawler(this, 0));
-    mediathekListe.add(new MediathekArte_de(this, 0));
-    mediathekListe.add(new MediathekArte_en(this, 1));
-    mediathekListe.add(new MediathekArte_fr(this, 1));
+    mediathekListe.add(new MediathekArte(this, 0));
     mediathekListe.add(new DreiSatCrawler(this, 1));
     mediathekListe.add(new KikaCrawler(this, 0));
     mediathekListe.add(new MediathekDw(this, 0));
