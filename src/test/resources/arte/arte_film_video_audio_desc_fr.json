@@ -411,7 +411,7 @@
         "mediaType":"hls",
         "mimeType":"application\/vnd.apple.mpegurl",
         "bitrate":800,
-        "url":"https:\/\/arteptweb-vh.akamaihd.net\/i\/am\/ptweb\/043000\/043100\/043187-000-B_0_VA-STMA_AMM-PTWEB_XQ.1D8uFzvxwz.smil\/master.m3u8",
+       "url":"https:\/\/arteptweb-vh.akamaihd.net\/i\/am\/ptweb\/043000\/043100\/043187-000-B_0_VA-STMA_AMM-PTWEB_XQ.1D8uFzvxwz.smil\/master.m3u8",
         "versionProg":5,
         "versionCode":"VA-STMA",
         "versionLibelle":"Allemand (sourds et malentendants)",
