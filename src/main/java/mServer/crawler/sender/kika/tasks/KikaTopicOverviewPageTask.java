@@ -70,7 +70,7 @@ public class KikaTopicOverviewPageTask extends AbstractDocumentTask<KikaCrawlerU
 
   private int getMaximumSubpages() {
     if (CrawlerTool.loadLongMax()) {
-      return 3;
+      return 6;
     }
     return 0;
   }
