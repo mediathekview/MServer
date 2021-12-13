@@ -83,7 +83,7 @@
         <jsoup.version>1.13.1</jsoup.version>
         <jersey.version>2.29.1</jersey.version>
         <javax-jaxb.version>2.3.1</javax-jaxb.version>
-        <log4j2.version>2.14.1</log4j2.version>
+        <log4j2.version>2.15.0</log4j2.version>
         <junit.version>4.13.2</junit.version>
         <license-maven-plugin.version>2.0.0</license-maven-plugin.version>
         <maven-assembly-plugin.version>3.3.0</maven-assembly-plugin.version>
