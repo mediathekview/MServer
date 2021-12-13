@@ -14,16 +14,25 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.RecursiveTask;
+import java.util.function.Supplier;
 
 public class KikaCrawler extends MediathekCrawler {
   private static final Logger LOG = LogManager.getLogger(KikaCrawler.class);
 
   JsoupConnection jsoupConnection;
+
+  static final Supplier<List<KikaCrawlerUrlDto>> ADDITIONAL_URLS = () -> {
+    List<KikaCrawlerUrlDto> urls1 = new ArrayList<>();
+    urls1.add(new KikaCrawlerUrlDto("https://www.kika.de/bernd-das-brot/bernd-klassiker-videos-100.html", FilmType.NORMAL));
+    return urls1;
+  };
 
   public KikaCrawler(FilmeSuchen ssearch, int startPrio) {
        super(ssearch, Const.KIKA, 0, 1, startPrio);
@@ -88,6 +97,7 @@ public class KikaCrawler extends MediathekCrawler {
         new KikaTopicLandingPageTask(
             this, new ConcurrentLinkedQueue<>(topicUrls), KikaConstants.BASE_URL, jsoupConnection);
     final Set<KikaCrawlerUrlDto> topicOverviewUrls = forkJoinPool.submit(landingTask).get();
+    topicOverviewUrls.addAll(ADDITIONAL_URLS.get());
 
     final KikaTopicOverviewPageTask topicOverviewTask =
         new KikaTopicOverviewPageTask(

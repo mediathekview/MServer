@@ -27,8 +27,7 @@ import de.mediathekview.mlib.filmesuchen.ListenerFilmeLadenEvent;
 import de.mediathekview.mlib.tool.Log;
 import mServer.crawler.sender.*;
 import mServer.crawler.sender.ard.ArdCrawler;
-import mServer.crawler.sender.arte.MediathekArte_de;
-import mServer.crawler.sender.arte.MediathekArte_fr;
+import mServer.crawler.sender.arte.MediathekArte;
 import mServer.crawler.sender.br.BrCrawler;
 import mServer.crawler.sender.dreisat.DreiSatCrawler;
 import mServer.crawler.sender.kika.KikaCrawler;
@@ -73,8 +72,7 @@ public class FilmeSuchen {
     //Reader laden Spaltenweises Laden
     mediathekListe.add(new ArdCrawler(this, 0));
     mediathekListe.add(new ZdfCrawler(this, 0));
-    mediathekListe.add(new MediathekArte_de(this, 0));
-    mediathekListe.add(new MediathekArte_fr(this, 1));
+    mediathekListe.add(new MediathekArte(this, 0));
     mediathekListe.add(new DreiSatCrawler(this, 1));
     mediathekListe.add(new KikaCrawler(this, 0));
     mediathekListe.add(new MediathekDw(this, 0));
@@ -82,7 +80,7 @@ public class FilmeSuchen {
     mediathekListe.add(new SrCrawler(this, 1));
     mediathekListe.add(new BrCrawler(this, 0));
     mediathekListe.add(new SrfCrawler(this, 1));
-    mediathekListe.add(new MediathekSrfPod(this, 0));
+    mediathekListe.add(new MediathekSrfPod(this, 1));
     mediathekListe.add(new OrfCrawler(this, 1));
     mediathekListe.add(new PhoenixCrawler(this, 1));
   }

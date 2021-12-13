@@ -17,7 +17,7 @@ sourceCompatibility = 1.8
 targetCompatibility = 1.8
 group = 'de.mediathekview'
 archivesBaseName = "MServer"
-version = '3.1.179'
+version = '3.1.180'
 
 def jarName = 'MServer.jar'
 def mainClass = 'mServer.Main'
@@ -132,7 +132,7 @@ dependencies {
     compile 'org.jsoup:jsoup:1.13.1'
     compile 'javax.activation:activation:1.1.1'
     compile 'com.google.guava:guava:30.1-jre'
-    compile 'org.apache.logging.log4j:log4j-core:2.14.0'
+    compile 'org.apache.logging.log4j:log4j-core:2.15.0'
     compile 'fm.void.jetm:jetm:1.2.3'
 
     testCompile "junit:junit:4.13.1"

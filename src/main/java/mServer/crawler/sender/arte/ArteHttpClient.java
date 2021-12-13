@@ -1,5 +1,6 @@
 package mServer.crawler.sender.arte;
 
+import com.google.common.util.concurrent.RateLimiter;
 import com.google.gson.Gson;
 import de.mediathekview.mlib.tool.Log;
 import de.mediathekview.mlib.tool.MVHttpClient;
@@ -28,12 +29,14 @@ public class ArteHttpClient {
   private static final Builder BUILDER_OPA;
   private static final Builder BUILDER;
 
+  private static final RateLimiter LIMITER;
+
   static {
     BUILDER_OPA = new Request.Builder().addHeader(USER_AGENT, USER_AGENT_VALUE)
             .addHeader(AUTH_HEADER, AUTH_TOKEN);
 
     BUILDER = new Request.Builder().addHeader(USER_AGENT, USER_AGENT_VALUE);
-
+    LIMITER = RateLimiter.create(2);
   }
 
   private static Request createRequest(String aUrl) {
@@ -54,15 +57,16 @@ public class ArteHttpClient {
     x.setLevel(Level.FINE);
 
     try {
-      // Wartezeit nötig wegen zu vieler paralleler Requests
-      TimeUnit.MILLISECONDS.sleep(200);
-
       Request request = createRequest(aUrl);
 
       boolean stop = false;
 
       int count = 0;
       do {
+        if (!aUrl.contains("www.arte.tv")) {
+          LIMITER.acquire();
+        }
+
         try (Response response = MVHttpClient.getInstance().getHttpClient().newCall(request).execute();
                 ResponseBody body = response.body()) {
           count++;
@@ -82,6 +86,7 @@ public class ArteHttpClient {
             } else {
               // bei 429 (too many requests) warten und nochmal versuchen
               // Wartezeit von 60s aus Header Retry-After
+              Log.sysLog("429: " + aUrl);
               try {
                 TimeUnit.MILLISECONDS.sleep(60000);
                 FilmeSuchen.listeSenderLaufen.inc(sender, RunSender.Count.FEHLVERSUCHE);
@@ -98,7 +103,7 @@ public class ArteHttpClient {
         }
       } while (!stop);
 
-    } catch (IOException | InterruptedException ex) {
+    } catch (IOException ex) {
       logger.error("Beim laden der Filme für Arte kam es zu Verbindungsproblemen.", ex);
       Log.errorLog(3895449, ex);
     }
