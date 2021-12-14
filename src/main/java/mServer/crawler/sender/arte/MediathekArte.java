@@ -70,6 +70,7 @@ public class MediathekArte extends MediathekReader {
   private static final boolean PARSE_SUBCATEGORY_SUB_PAGES = false; // Flag, ob Unterseiten der Unterkategorien verarbeitet werden soll
 
   private static final String ARTE_EN = "ARTE.EN";
+  private static final String ARTE_ES = "ARTE.ES";
 
   private static final Map<String, String> LANG_CODES;
 
@@ -78,6 +79,7 @@ public class MediathekArte extends MediathekReader {
     LANG_CODES.put(Const.ARTE_DE, "de");
     LANG_CODES.put(Const.ARTE_FR, "fr");
     LANG_CODES.put(ARTE_EN, "en");
+    LANG_CODES.put(ARTE_ES, "es");
   }
 
   public MediathekArte(FilmeSuchen ssearch, int startPrio) {
@@ -96,6 +98,7 @@ public class MediathekArte extends MediathekReader {
     if (getThreads() <= 1) {
       mlibFilmeSuchen.meldenFertig(Const.ARTE_FR);
       mlibFilmeSuchen.meldenFertig(ARTE_EN);
+      mlibFilmeSuchen.meldenFertig(ARTE_ES);
     }
 
     super.meldungThreadUndFertig();
@@ -162,6 +165,7 @@ public class MediathekArte extends MediathekReader {
     public ThemaLaden() {
       senderGsonMap = new HashMap<>();
       senderGsonMap.put(ARTE_EN, new GsonBuilder().registerTypeAdapter(ListeFilme.class, new ArteDatenFilmDeserializer("en", ARTE_EN)).create());
+      senderGsonMap.put(ARTE_ES, new GsonBuilder().registerTypeAdapter(ListeFilme.class, new ArteDatenFilmDeserializer("es", ARTE_ES)).create());
       senderGsonMap.put(Const.ARTE_FR, new GsonBuilder().registerTypeAdapter(ListeFilme.class, new ArteDatenFilmDeserializer("fr", Const.ARTE_FR)).create());
       senderGsonMap.put(Const.ARTE_DE, new GsonBuilder().registerTypeAdapter(ListeFilme.class, new ArteDatenFilmDeserializer("de", Const.ARTE_DE)).create());
     }
