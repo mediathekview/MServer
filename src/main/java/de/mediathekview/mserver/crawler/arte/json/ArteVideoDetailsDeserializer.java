@@ -64,7 +64,7 @@ public class ArteVideoDetailsDeserializer
             final String url = value.get(ATTRIBUTE_URL).getAsString();
 
             final Optional<Resolution> resolution = mapQuality(quality);
-            final Optional<ArteVideoType> arteVideoType = ArteVideoTypeMapper.map(sender, code);
+              final Optional<ArteVideoType> arteVideoType = ArteVideoTypeMapper.map(sender, code);
 
             if (resolution.isPresent() && arteVideoType.isPresent()) {
               switch (arteVideoType.get()) {
