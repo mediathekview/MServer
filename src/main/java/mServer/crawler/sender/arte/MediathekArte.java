@@ -69,7 +69,10 @@ public class MediathekArte extends MediathekReader {
   private static final DateTimeFormatter ARTE_API_DATEFORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd");
   private static final boolean PARSE_SUBCATEGORY_SUB_PAGES = false; // Flag, ob Unterseiten der Unterkategorien verarbeitet werden soll
 
-  private static final String ARTE_EN = "ARTE.EN";
+  public static final String ARTE_EN = "ARTE.EN";
+  public static final String ARTE_ES = "ARTE.ES";
+  public static final String ARTE_IT = "ARTE.IT";
+  public static final String ARTE_PL = "ARTE.PL";
 
   private static final Map<String, String> LANG_CODES;
 
