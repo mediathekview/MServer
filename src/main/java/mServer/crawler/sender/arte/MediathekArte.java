@@ -29,19 +29,19 @@ public class MediathekArte extends MediathekReader {
   /*
      * Informationen zu den ARTE-URLs:
      * {} sind nur Makierungen, dass es Platzhalter sind, sie gehören nicht zur URL.
-     * 
+     *
      * Allgemeine URL eines Films:  (050169-002-A = ID des Films); (die-spur-der-steine = Titel)
      * http://www.arte.tv/de/videos/{050169-002-A}/{die-spur-der-steine}
-     * 
+     *
      * Alle Sendungen: (Deutsch = DE; Französisch = FR)
      * https://api.arte.tv/api/opa/v3/videos?channel={DE}
-     * 
+     *
      * Informationen zum Film: (050169-002-A = ID des Films); (de für deutsch / fr für französisch)
      * https://api.arte.tv/api/player/v1/config/{de}/{050169-002-A}?platform=ARTE_NEXT
-     * 
+     *
      * Zweite Quelle für Informationen zum Film: (050169-002-A = ID des Films); (de für deutsch / fr für französisch)
      * https://api.arte.tv/api/opa/v3/programs/{de}/{050169-002-A}
-     * 
+     *
      * Hintergrundinfos zum Laden der Filme nach Kategorien im langen Lauf:
      * 1. statische Informationen über verfügbare Kategorien laden: URL_STATIC_CONTENT
      * 2. für jede Kategorie die Unterkategorien ermitteln: URL_CATEGORY
@@ -69,7 +69,10 @@ public class MediathekArte extends MediathekReader {
   private static final DateTimeFormatter ARTE_API_DATEFORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd");
   private static final boolean PARSE_SUBCATEGORY_SUB_PAGES = false; // Flag, ob Unterseiten der Unterkategorien verarbeitet werden soll
 
-  private static final String ARTE_EN = "ARTE.EN";
+  public static final String ARTE_EN = "ARTE.EN";
+  public static final String ARTE_ES = "ARTE.ES";
+  public static final String ARTE_IT = "ARTE.IT";
+  public static final String ARTE_PL = "ARTE.PL";
 
   private static final Map<String, String> LANG_CODES;
 
@@ -78,6 +81,7 @@ public class MediathekArte extends MediathekReader {
     LANG_CODES.put(Const.ARTE_DE, "de");
     LANG_CODES.put(Const.ARTE_FR, "fr");
     LANG_CODES.put(ARTE_EN, "en");
+    LANG_CODES.put(ARTE_ES, "es");
   }
 
   public MediathekArte(FilmeSuchen ssearch, int startPrio) {
@@ -96,6 +100,7 @@ public class MediathekArte extends MediathekReader {
     if (getThreads() <= 1) {
       mlibFilmeSuchen.meldenFertig(Const.ARTE_FR);
       mlibFilmeSuchen.meldenFertig(ARTE_EN);
+      mlibFilmeSuchen.meldenFertig(ARTE_ES);
     }
 
     super.meldungThreadUndFertig();
@@ -162,6 +167,7 @@ public class MediathekArte extends MediathekReader {
     public ThemaLaden() {
       senderGsonMap = new HashMap<>();
       senderGsonMap.put(ARTE_EN, new GsonBuilder().registerTypeAdapter(ListeFilme.class, new ArteDatenFilmDeserializer("en", ARTE_EN)).create());
+      senderGsonMap.put(ARTE_ES, new GsonBuilder().registerTypeAdapter(ListeFilme.class, new ArteDatenFilmDeserializer("es", ARTE_ES)).create());
       senderGsonMap.put(Const.ARTE_FR, new GsonBuilder().registerTypeAdapter(ListeFilme.class, new ArteDatenFilmDeserializer("fr", Const.ARTE_FR)).create());
       senderGsonMap.put(Const.ARTE_DE, new GsonBuilder().registerTypeAdapter(ListeFilme.class, new ArteDatenFilmDeserializer("de", Const.ARTE_DE)).create());
     }
