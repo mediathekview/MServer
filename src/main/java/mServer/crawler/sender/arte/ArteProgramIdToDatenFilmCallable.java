@@ -3,13 +3,6 @@ package mServer.crawler.sender.arte;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import de.mediathekview.mlib.daten.DatenFilm;
-import java.io.IOException;
-import java.time.LocalTime;
-import java.util.Calendar;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
-import java.util.concurrent.Callable;
 import mServer.crawler.CrawlerTool;
 import mServer.crawler.sender.base.GeoLocations;
 import mServer.crawler.sender.base.Qualities;
@@ -17,6 +10,13 @@ import mServer.tool.MserverDatumZeit;
 import org.apache.commons.lang3.time.FastDateFormat;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
+import java.time.LocalTime;
+import java.util.Calendar;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
+import java.util.concurrent.Callable;
 
 /**
  * Liest anhand einer ProgramId die Daten eines Films
@@ -59,32 +59,35 @@ public class ArteProgramIdToDatenFilmCallable implements Callable<Set<DatenFilm>
       //The duration as time so it can be formatted and co.
       LocalTime durationAsTime = durationAsTime(video.getDurationInSeconds());
 
-      if (video.getVideoUrls().containsKey(Qualities.NORMAL)) {
-        ArteVideoDetailsDTO details = getVideoDetails(gson, programId);
-        if (details != null) {
+      ArteVideoDetailsDTO details = getVideoDetails(gson, programId);
+      if (details != null) {
+        if (!video.getVideoUrls().isEmpty()) {
           films.add(createFilm(details.getTheme(), details.getWebsite(), details.getTitle(), video.getVideoUrls(), details, durationAsTime, details.getDescription()));
-
-          if (video.getVideoUrlsWithAudioDescription().containsKey(Qualities.NORMAL)) {
-            films.add(createFilm(details.getTheme(), details.getWebsite(), details.getTitle() + " (Audiodeskription)", video.getVideoUrlsWithAudioDescription(), details, durationAsTime, details.getDescription()));
-          }
-          if (video.getVideoUrlsWithSubtitle().containsKey(Qualities.NORMAL)) {
-            films.add(createFilm(details.getTheme(), details.getWebsite(), details.getTitle() + " (mit Untertitel)", video.getVideoUrlsWithSubtitle(), details, durationAsTime, details.getDescription()));
-          }
         }
-      } else {
-        LOG.debug(String.format("Keine \"normale\" Video URL für den Film \"%s\"", programId));
+
+        if (video.getVideoUrlsWithAudioDescription().containsKey(Qualities.NORMAL)) {
+          films.add(createFilm(details.getTheme(), details.getWebsite(), details.getTitle() + " (Audiodeskription)", video.getVideoUrlsWithAudioDescription(), details, durationAsTime, details.getDescription()));
+        }
+        if (video.getVideoUrlsWithSubtitle().containsKey(Qualities.NORMAL)) {
+          films.add(createFilm(details.getTheme(), details.getWebsite(), details.getTitle() + " (mit Untertitel)", video.getVideoUrlsWithSubtitle(), details, durationAsTime, details.getDescription()));
+        }
+        if (video.getVideoUrlsOriginal().containsKey(Qualities.NORMAL)) {
+          films.add(createFilm(details.getTheme(), details.getWebsite(), details.getTitle() + " (Originalversion)", video.getVideoUrlsOriginal(), details, durationAsTime, details.getDescription()));
+        }
+        if (video.getVideoUrlsOriginalWithSubtitle().containsKey(Qualities.NORMAL)) {
+          films.add(createFilm(details.getTheme(), details.getWebsite(), details.getTitle() + " (Originalversion mit Untertitel)", video.getVideoUrlsOriginalWithSubtitle(), details, durationAsTime, details.getDescription()));
+        }
       }
     }
 
     return films;
   }
 
-  private ArteVideoDetailsDTO getVideoDetails(Gson gson, String programId) throws IOException {
+  private ArteVideoDetailsDTO getVideoDetails(Gson gson, String programId) {
 
     //https://api.arte.tv/api/opa/v3/programs/[language:de/fr]/[programId]
     String videosUrlVideoDetails2 = String.format(ARTE_VIDEO_INFORMATION_URL_PATTERN_2, langCode, programId);
-    ArteVideoDetailsDTO details = ArteHttpClient.executeRequest(senderName, LOG, gson, videosUrlVideoDetails2, ArteVideoDetailsDTO.class);
-    return details;
+    return ArteHttpClient.executeRequest(senderName, LOG, gson, videosUrlVideoDetails2, ArteVideoDetailsDTO.class);
   }
 
   private DatenFilm createFilm(String thema, String urlWeb, String titel, Map<Qualities, String> videos, ArteVideoDetailsDTO details, LocalTime durationAsTime, String beschreibung) {
