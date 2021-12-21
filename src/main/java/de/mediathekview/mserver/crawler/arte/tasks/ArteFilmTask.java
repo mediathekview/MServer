@@ -61,10 +61,14 @@ public class ArteFilmTask extends ArteTaskBase<Film, ArteFilmUrlDto> {
           final ArteVideoDetailDTO arteVideoDetailDTO = videoDetailDTO.get();
           final Film film = filmDtoOptional.get();
 
-          addFilm(film, arteVideoDetailDTO.getUrls());
+          if (!arteVideoDetailDTO.getUrls().isEmpty()) {
+            addFilm(film, arteVideoDetailDTO.getUrls());
+          }
 
           addSpecialFilm(film, arteVideoDetailDTO.getUrlsWithSubtitle(), " (mit Untertitel)");
+          addSpecialFilm(film, arteVideoDetailDTO.getUrlsOriginalWithSubtitle(), " (Originalversion mit Untertitel)");
           addSpecialFilm(film, arteVideoDetailDTO.getUrlsAudioDescription(), " (Audiodeskription)");
+          addSpecialFilm(film, arteVideoDetailDTO.getUrlsOriginal(), " (Originalversion)");
 
           crawler.incrementAndGetActualCount();
         } else {
