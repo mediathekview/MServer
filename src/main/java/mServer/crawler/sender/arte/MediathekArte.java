@@ -94,6 +94,15 @@ public class MediathekArte extends MediathekReader {
   }
 
   @Override
+  protected synchronized void meldungStart() {
+    super.meldungStart();
+    // starte Sprachen Sender, da es sonst zu doppelten Sendern kommen kann
+    mlibFilmeSuchen.melden(Const.ARTE_FR, getMax(), getProgress(), "");
+    mlibFilmeSuchen.melden(ARTE_EN, getMax(), getProgress(), "");
+    mlibFilmeSuchen.melden(ARTE_ES, getMax(), getProgress(), "");
+  }
+
+  @Override
   protected synchronized void meldungThreadUndFertig() {
     // der MediathekReader ist erst fertig wenn nur noch ein Thread läuft
     // dann zusätzliche Sender, die der Crawler bearbeitet, beenden
