@@ -74,15 +74,7 @@ public class MediathekArte extends MediathekReader {
   public static final String ARTE_IT = "ARTE.IT";
   public static final String ARTE_PL = "ARTE.PL";
 
-  private static final Map<String, String> LANG_CODES;
-
-  static {
-    LANG_CODES = new HashMap<>();
-    LANG_CODES.put(Const.ARTE_DE, "de");
-    LANG_CODES.put(Const.ARTE_FR, "fr");
-    LANG_CODES.put(ARTE_EN, "en");
-    LANG_CODES.put(ARTE_ES, "es");
-  }
+  private final Map<String, String> senderLanguages = new HashMap<>();
 
   public MediathekArte(FilmeSuchen ssearch, int startPrio) {
     super(ssearch, Const.ARTE_DE,/* threads */ 2, /* urlWarten */ 200, startPrio);
@@ -96,10 +88,19 @@ public class MediathekArte extends MediathekReader {
   @Override
   protected synchronized void meldungStart() {
     super.meldungStart();
+
+    senderLanguages.put(Const.ARTE_DE, "de");
+    senderLanguages.put(Const.ARTE_FR, "fr");
+    if (LocalDate.now().getDayOfYear() % 2 == 0) {
+      senderLanguages.put(ARTE_EN, "en");
+      senderLanguages.put(ARTE_ES, "es");
+    } else {
+      senderLanguages.put(ARTE_IT, "it");
+      senderLanguages.put(ARTE_PL, "pl");
+    }
+
     // starte Sprachen Sender, da es sonst zu doppelten Sendern kommen kann
-    mlibFilmeSuchen.melden(Const.ARTE_FR, getMax(), getProgress(), "");
-    mlibFilmeSuchen.melden(ARTE_EN, getMax(), getProgress(), "");
-    mlibFilmeSuchen.melden(ARTE_ES, getMax(), getProgress(), "");
+    senderLanguages.keySet().forEach(sender -> mlibFilmeSuchen.melden(sender, getMax(), getProgress(), ""));
   }
 
   @Override
@@ -107,9 +108,10 @@ public class MediathekArte extends MediathekReader {
     // der MediathekReader ist erst fertig wenn nur noch ein Thread läuft
     // dann zusätzliche Sender, die der Crawler bearbeitet, beenden
     if (getThreads() <= 1) {
-      mlibFilmeSuchen.meldenFertig(Const.ARTE_FR);
-      mlibFilmeSuchen.meldenFertig(ARTE_EN);
-      mlibFilmeSuchen.meldenFertig(ARTE_ES);
+      senderLanguages.keySet().stream()
+              // DE nicht beenden, das erfolgt durch den Aufruf der Basisklasse
+              .filter(sender -> !sender.equals(Const.ARTE_DE))
+              .forEach(sender -> mlibFilmeSuchen.meldenFertig(sender));
     }
 
     super.meldungThreadUndFertig();
@@ -147,7 +149,7 @@ public class MediathekArte extends MediathekReader {
   }
 
   private void addCategories() {
-    LANG_CODES.forEach((sender, langCode) -> {
+    senderLanguages.forEach((sender, langCode) -> {
       for (String subCategory : SUBCATEGORIES) {
         String subCategoryUrl = String.format(URL_SUBCATEGORY, langCode.toLowerCase(), subCategory, 1);
           listeThemen.add(new String[]{sender, langCode, subCategory, subCategoryUrl});
@@ -156,7 +158,7 @@ public class MediathekArte extends MediathekReader {
   }
 
   private void addTage() {
-    LANG_CODES.forEach((sender, langCode) -> {
+    senderLanguages.forEach((sender, langCode) -> {
       // http://www.arte.tv/guide/de/plus7/videos?day=-2&page=1&isLoading=true&sort=newest&country=DE
       for (int i = 0; i <= 14; ++i) {
         String u = String.format(ARTE_API_TAG_URL_PATTERN, langCode.toUpperCase(), LocalDate.now().minusDays(i).format(ARTE_API_DATEFORMATTER));
@@ -175,10 +177,7 @@ public class MediathekArte extends MediathekReader {
 
     public ThemaLaden() {
       senderGsonMap = new HashMap<>();
-      senderGsonMap.put(ARTE_EN, new GsonBuilder().registerTypeAdapter(ListeFilme.class, new ArteDatenFilmDeserializer("en", ARTE_EN)).create());
-      senderGsonMap.put(ARTE_ES, new GsonBuilder().registerTypeAdapter(ListeFilme.class, new ArteDatenFilmDeserializer("es", ARTE_ES)).create());
-      senderGsonMap.put(Const.ARTE_FR, new GsonBuilder().registerTypeAdapter(ListeFilme.class, new ArteDatenFilmDeserializer("fr", Const.ARTE_FR)).create());
-      senderGsonMap.put(Const.ARTE_DE, new GsonBuilder().registerTypeAdapter(ListeFilme.class, new ArteDatenFilmDeserializer("de", Const.ARTE_DE)).create());
+      senderLanguages.forEach((sender, language) -> senderGsonMap.put(sender, new GsonBuilder().registerTypeAdapter(ListeFilme.class, new ArteDatenFilmDeserializer(language, sender)).create()));
     }
 
     @Override
