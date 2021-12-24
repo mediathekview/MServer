@@ -8,6 +8,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
 import java.lang.reflect.Type;
 import java.text.ParseException;
+import java.time.Duration;
 import java.util.Calendar;
 import mServer.crawler.sender.base.GeoLocations;
 import mServer.tool.DateWithoutTimeComparer;
@@ -36,6 +37,7 @@ public class ArteVideoDetailsDeserializer implements JsonDeserializer<ArteVideoD
   private static final String BROADCASTTTYPE_FIRST = "FIRST_BROADCAST";
   private static final String BROADCASTTTYPE_MINOR_RE = "MINOR_REBROADCAST";
   private static final String BROADCASTTTYPE_MAJOR_RE = "MAJOR_REBROADCAST";
+  private static final String ATTRIBUTE_DURATION = "durationSeconds";
 
   private static final Logger LOG = LogManager.getLogger(ArteVideoDeserializer.class);
 
@@ -61,12 +63,15 @@ public class ArteVideoDetailsDeserializer implements JsonDeserializer<ArteVideoD
       String thema = getSubject(programElement);
 
       String beschreibung = getElementValue(programElement, JSON_ELEMENT_KEY_SHORT_DESCRIPTION);
+      Duration duration = parseDuration(programElement);
+
 
       String urlWeb = getElementValue(programElement, JSON_ELEMENT_KEY_URL);
       detailsDTO.setDescription(beschreibung);
       detailsDTO.setTheme(thema);
       detailsDTO.setTitle(titel);
       detailsDTO.setWebsite(urlWeb);
+      detailsDTO.setDuration(duration);
 
       JsonArray broadcastArray = programElement.get(JSON_ELEMENT_BROADCAST_ELTERNKNOTEN_2).getAsJsonArray();
 
@@ -86,6 +91,16 @@ public class ArteVideoDetailsDeserializer implements JsonDeserializer<ArteVideoD
     }
 
     return detailsDTO;
+  }
+
+  private Duration parseDuration(JsonObject programElement) {
+    long durationValue = 0;
+
+    if (programElement.has(ATTRIBUTE_DURATION)) {
+      durationValue = programElement.get(ATTRIBUTE_DURATION).getAsLong();
+    }
+
+    return Duration.ofSeconds(durationValue);
   }
 
   private static String getSubject(JsonObject programObject) {
