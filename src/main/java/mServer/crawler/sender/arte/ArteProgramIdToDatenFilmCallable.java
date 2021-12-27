@@ -56,11 +56,11 @@ public class ArteProgramIdToDatenFilmCallable implements Callable<Set<DatenFilm>
     ArteVideoDTO video = ArteHttpClient.executeRequest(senderName, LOG, gson, videosUrl, ArteVideoDTO.class);
 
     if (video != null) {
-      //The duration as time so it can be formatted and co.
-      LocalTime durationAsTime = durationAsTime(video.getDurationInSeconds());
 
       ArteVideoDetailsDTO details = getVideoDetails(gson, programId);
       if (details != null) {
+        //The duration as time so it can be formatted and co.
+        LocalTime durationAsTime = durationAsTime(details.getDuration().getSeconds());
         if (!video.getVideoUrls().isEmpty()) {
           films.add(createFilm(details.getTheme(), details.getWebsite(), details.getTitle(), video.getVideoUrls(), details, durationAsTime, details.getDescription()));
         }
