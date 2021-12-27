@@ -2,6 +2,8 @@ package mServer.crawler.sender.arte;
 
 import mServer.crawler.sender.base.GeoLocations;
 
+import java.time.Duration;
+
 public class ArteVideoDetailsDTO {
     private String broadcastBegin = "";
     private GeoLocations geo = GeoLocations.GEO_NONE;
@@ -10,6 +12,7 @@ public class ArteVideoDetailsDTO {
     private String theme = "";
     private String description = "";
     private String website = "";
+    private Duration duration = Duration.ZERO;
 
     public String getBroadcastBegin() {
         return this.broadcastBegin;
@@ -51,4 +54,7 @@ public class ArteVideoDetailsDTO {
     public String getWebsite() {
         return website;
     }
+
+    public void setDuration(Duration duration) { this.duration = duration; }
+    public Duration getDuration() { return duration; }
 }
