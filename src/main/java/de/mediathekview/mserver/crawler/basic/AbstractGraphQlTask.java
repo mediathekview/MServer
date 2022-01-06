@@ -2,15 +2,15 @@ package de.mediathekview.mserver.crawler.basic;
 
 import org.jetbrains.annotations.Nullable;
 
-import javax.ws.rs.client.Entity;
-import javax.ws.rs.client.Invocation.Builder;
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
+import jakarta.ws.rs.client.Entity;
+import jakarta.ws.rs.client.Invocation.Builder;
+import jakarta.ws.rs.core.MediaType;
+import jakarta.ws.rs.core.Response;
 import java.nio.charset.StandardCharsets;
 import java.util.Queue;
 
-import static javax.ws.rs.core.HttpHeaders.ACCEPT_CHARSET;
-import static javax.ws.rs.core.HttpHeaders.ACCEPT_ENCODING;
+import static jakarta.ws.rs.core.HttpHeaders.ACCEPT_CHARSET;
+import static jakarta.ws.rs.core.HttpHeaders.ACCEPT_ENCODING;
 
 public abstract class AbstractGraphQlTask<T, R, D extends GraphQlUrlDto>
     extends AbstractJsonRestTask<T, R, D> {

@@ -9,7 +9,7 @@ import de.mediathekview.mserver.crawler.phoenix.parser.PhoenixSendungOverviewDes
 import de.mediathekview.mserver.crawler.zdf.tasks.ZdfTaskBase;
 
 import javax.annotation.Nullable;
-import javax.ws.rs.client.WebTarget;
+import jakarta.ws.rs.client.WebTarget;
 import java.lang.reflect.Type;
 import java.util.Collection;
 import java.util.Optional;

@@ -10,11 +10,11 @@ import de.mediathekview.mserver.crawler.phoenix.parser.PhoenixFilmDetailDeserial
 import de.mediathekview.mserver.crawler.phoenix.parser.PhoenixFilmDetailDto;
 import de.mediathekview.mserver.crawler.zdf.tasks.ZdfFilmDetailTask;
 import de.mediathekview.mserver.crawler.zdf.tasks.ZdfTaskBase;
+import jakarta.ws.rs.client.WebTarget;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import javax.annotation.Nullable;
-import javax.ws.rs.client.WebTarget;
 import java.lang.reflect.Type;
 import java.net.MalformedURLException;
 import java.net.URL;

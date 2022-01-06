@@ -15,10 +15,10 @@ import org.apache.logging.log4j.Logger;
 import org.glassfish.jersey.internal.util.collection.MultivaluedStringMap;
 
 import javax.annotation.Nullable;
-import javax.ws.rs.client.Entity;
-import javax.ws.rs.client.Invocation;
-import javax.ws.rs.core.MultivaluedHashMap;
-import javax.ws.rs.core.Response;
+import jakarta.ws.rs.client.Entity;
+import jakarta.ws.rs.client.Invocation;
+import jakarta.ws.rs.core.MultivaluedHashMap;
+import jakarta.ws.rs.core.Response;
 import java.lang.reflect.Type;
 import java.net.MalformedURLException;
 import java.net.URI;
