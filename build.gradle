@@ -3,8 +3,8 @@ import org.apache.tools.ant.filters.ReplaceTokens
 import java.nio.file.Files
 
 plugins {
-    id "com.github.jk1.dependency-license-report" version "0.3.5"
-    id "org.sonarqube" version "2.7.1"
+    id "com.github.jk1.dependency-license-report" version "1.17"
+    id "org.sonarqube" version "3.3"
 }
 
 apply plugin: 'java'
