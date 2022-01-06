@@ -154,7 +154,7 @@ public class FunkChannelDeserializerTest {
     senderConfig.setMaximumSubpages(2);
     final Gson gson =
         new GsonBuilder()
-            .registerTypeAdapter(funkChannelsType, new FunkChannelDeserializer(senderConfig))
+            .registerTypeAdapter(funkChannelsType, new FunkChannelDeserializer(Optional.empty()))
             .create();
 
     final PagedElementListDTO<FunkChannelDTO> channelList =
