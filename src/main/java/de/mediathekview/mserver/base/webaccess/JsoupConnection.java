@@ -10,9 +10,10 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.parser.Parser;
 
-import javax.ws.rs.core.HttpHeaders;
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
+
+import static jakarta.ws.rs.core.HttpHeaders.CONTENT_LENGTH;
 
 /** Helper Class to get rid of static method call for better testability */
 public class JsoupConnection {
@@ -111,7 +112,7 @@ public class JsoupConnection {
     // Cant determine the file size of rtmp and m3u8.
     if (!url.startsWith(PROTOCOL_RTMP) && !url.endsWith(FILE_TYPE_M3U8)) {
       try (final Response response = client.newCall(requestBuilder.build()).execute()) {
-        final String contentLengthHeader = response.header(HttpHeaders.CONTENT_LENGTH);
+        final String contentLengthHeader = response.header(CONTENT_LENGTH);
         if (contentLengthHeader != null) {
           fileSize = Long.parseLong(contentLengthHeader);
         }

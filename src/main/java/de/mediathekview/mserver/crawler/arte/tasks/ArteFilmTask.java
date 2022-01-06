@@ -15,7 +15,7 @@ import de.mediathekview.mserver.crawler.basic.CrawlerUrlDTO;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import javax.ws.rs.client.WebTarget;
+import jakarta.ws.rs.client.WebTarget;
 import java.lang.reflect.Type;
 import java.net.MalformedURLException;
 import java.time.LocalDateTime;
