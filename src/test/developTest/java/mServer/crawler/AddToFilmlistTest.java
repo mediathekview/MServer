@@ -1,5 +1,7 @@
 package mServer.crawler;
 
+import static jakarta.ws.rs.core.HttpHeaders.CONTENT_LENGTH;
+import static jakarta.ws.rs.core.HttpHeaders.CONTENT_TYPE;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
@@ -9,7 +11,6 @@ import de.mediathekview.mlib.daten.DatenFilm;
 import de.mediathekview.mlib.daten.ListeFilme;
 import java.io.IOException;
 import java.util.Optional;
-import javax.ws.rs.core.HttpHeaders;
 import okhttp3.mockwebserver.Dispatcher;
 import okhttp3.mockwebserver.MockResponse;
 import okhttp3.mockwebserver.MockWebServer;
@@ -57,14 +58,14 @@ public class AddToFilmlistTest {
           case "/" + FILM_NAME_OFFLINE_BUT_HTML_RESPONSE:
             return new MockResponse()
                 .setResponseCode(200)
-                .addHeader(HttpHeaders.CONTENT_TYPE, "text/html; charset=UTF-8");
+                .addHeader(CONTENT_TYPE, "text/html; charset=UTF-8");
           case "/" + FILM_NAME_ONLINE_M3U8:
             if (request.getMethod().equalsIgnoreCase("get")) {
               return new MockResponse()
                   .setResponseCode(200)
-                  .addHeader(HttpHeaders.CONTENT_TYPE,
+                  .addHeader(CONTENT_TYPE,
                       "application/vnd.apple.mpegurl")
-                  .addHeader(HttpHeaders.CONTENT_LENGTH, 125);
+                  .addHeader(CONTENT_LENGTH, 125);
             } else {
               // head not supported for m3u8
               return new MockResponse().setResponseCode(405);

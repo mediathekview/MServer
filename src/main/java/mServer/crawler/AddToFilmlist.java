@@ -13,7 +13,6 @@ import de.mediathekview.mlib.tool.Hash;
 import de.mediathekview.mlib.tool.Log;
 import de.mediathekview.mlib.tool.MVHttpClient;
 import java.util.Optional;
-import javax.ws.rs.core.HttpHeaders;
 import mServer.crawler.sender.base.UrlUtils;
 import mServer.crawler.sender.orf.OrfVideoInfoDTO;
 import mServer.tool.MserverDaten;
@@ -32,6 +31,8 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 import org.jetbrains.annotations.NotNull;
+
+import static jakarta.ws.rs.core.HttpHeaders.CONTENT_TYPE;
 
 public class AddToFilmlist {
 
@@ -364,7 +365,7 @@ public class AddToFilmlist {
     }
 
     private boolean isRelevantContentType(Response response) {
-      final String contentType = response.header(HttpHeaders.CONTENT_TYPE, "");
+      final String contentType = response.header(CONTENT_TYPE, "");
 
       // html reponses indicate a redirect
       // this is used for offline films
