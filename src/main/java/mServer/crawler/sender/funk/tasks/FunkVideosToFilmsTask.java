@@ -124,7 +124,8 @@ public class FunkVideosToFilmsTask
                 "The Funk film \"{}\" - \"{}\" has no download URL.", getChannelTitle(filmInfo), filmInfo.getTitle());
       }
     } catch (final Exception exception) {
-      exception.printStackTrace();
+      LOG.error(exception);
+      LOG.error(147853125, exception);
     }
   }
 
