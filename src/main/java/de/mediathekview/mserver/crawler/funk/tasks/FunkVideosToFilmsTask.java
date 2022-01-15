@@ -32,9 +32,9 @@ public class FunkVideosToFilmsTask
   private static final String POST_FORM_FIELD_VALUE_ONE = "1";
   private static final String HEADER_X_REQUEST_CID = "x-request-cid";
   private static final String HEADER_X_REQUEST_TOKEN = "x-request-token";
-  private String REQUEST_TOKEN = "";
+  private final String requestToken;
   private Long sessionId;
-  private final Map<String, FunkChannelDTO> channels;
+  private final transient Map<String, FunkChannelDTO> channels;
 
   public FunkVideosToFilmsTask(
       final AbstractCrawler crawler,
@@ -43,7 +43,7 @@ public class FunkVideosToFilmsTask
       @Nullable final String authKey) {
     super(crawler, filmInfos, authKey);
     this.sessionId = new NexxCloudSessionInitiationTask(crawler).call();
-    this.REQUEST_TOKEN = crawler.getRuntimeConfig().getCrawlerApiParam(CrawlerApiParam.FUNK_REQUEST_TOKEN).orElse("");
+    this.requestToken = crawler.getRuntimeConfig().getCrawlerApiParam(CrawlerApiParam.FUNK_REQUEST_TOKEN).orElse("");
     this.channels = channels;
   }
 
@@ -66,10 +66,10 @@ public class FunkVideosToFilmsTask
         url);
     crawler.incrementAndGetErrorCount();
     if (response.getStatus() == 403) {
-      final Long sessionId = new NexxCloudSessionInitiationTask(crawler).call();
-      if (sessionId != null) {
-        LOG.debug("403 FORBIDDEN - lets try a new session id ({} > {})", this.sessionId, sessionId);
-        this.sessionId = sessionId;
+      final Long newSessionId = new NexxCloudSessionInitiationTask(crawler).call();
+      if (newSessionId != null) {
+        LOG.debug("403 FORBIDDEN - lets try a new session id ({} > {})", this.sessionId, newSessionId);
+        this.sessionId = newSessionId;
       }
     }
   }
@@ -80,7 +80,7 @@ public class FunkVideosToFilmsTask
     formData.add(POST_FORM_FIELD_ADD_STREAM_DETAILS, POST_FORM_FIELD_VALUE_ONE);
     return request
         .header(HEADER_ACCEPT_ENCODING, ENCODING_GZIP)
-        .header(HEADER_X_REQUEST_TOKEN, REQUEST_TOKEN)
+        .header(HEADER_X_REQUEST_TOKEN, requestToken)
         .header(HEADER_X_REQUEST_CID, sessionId)
         .post(Entity.form(formData));
   }
@@ -120,7 +120,7 @@ public class FunkVideosToFilmsTask
       }
       crawler.updateProgress();
     } catch (final Exception exception) {
-      exception.printStackTrace();
+      LOG.error(exception);
     }
   }
 
@@ -153,7 +153,7 @@ public class FunkVideosToFilmsTask
 
   private void addIfResolutionMissing(final FilmUrlInfoDto details, final Film film) {
     // some videos are vertical video => use height instead of width
-    final int width = details.getWidth() > details.getHeight() ? details.getWidth() : details.getHeight();
+    final int width = Math.max(details.getWidth(), details.getHeight());
     final Resolution resolution = Resolution.getResolutionFromWidth(width);
     try {
       film.addUrlIfAbsent(resolution, new FilmUrl(details.getUrl(), 0L));
