@@ -77,7 +77,7 @@ public class FunkVideoRestTaskTest extends FunkTaskTestBase {
     return new FunkRestTask<>(
             crawler,
             new FunkRestEndpoint<>(
-                FunkApiUrls.VIDEOS, new FunkVideoDeserializer(crawler, crawler.getCrawlerConfig())),
+                FunkApiUrls.VIDEOS, new FunkVideoDeserializer(crawler)),
             createCrawlerUrlDto(aRequestUrl))
         .invoke();
   }

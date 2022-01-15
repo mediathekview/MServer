@@ -2,8 +2,8 @@ package de.mediathekview.mserver.crawler.funk;
 
 import de.mediathekview.mlib.daten.Sender;
 import de.mediathekview.mserver.crawler.funk.json.FunkChannelDeserializer;
+import de.mediathekview.mserver.crawler.funk.tasks.FunkChannelsRestTask;
 import de.mediathekview.mserver.crawler.funk.tasks.FunkRestEndpoint;
-import de.mediathekview.mserver.crawler.funk.tasks.FunkRestTask;
 import org.junit.Test;
 
 import java.util.Optional;
@@ -57,7 +57,7 @@ public class FunkChannelsRestTaskTest extends FunkTaskTestBase {
     final Set<FunkChannelDTO> actual = executeTask(requestUrl);
 
     assertThat(actual, notNullValue());
-    assertThat(actual.size(), equalTo(100));
+    assertThat(actual.size(), equalTo(103));
   }
 
   @Test
@@ -74,12 +74,10 @@ public class FunkChannelsRestTaskTest extends FunkTaskTestBase {
 
   private Set<FunkChannelDTO> executeTask(final String aRequestUrl) {
     final FunkCrawler crawler = createCrawler();
-    return new FunkRestTask<>(
+    return new FunkChannelsRestTask(
             crawler,
             new FunkRestEndpoint<>(
-                FunkApiUrls.CHANNELS,
-                new FunkChannelDeserializer(
-                    Optional.of(crawler), rootConfig.getSenderConfig(Sender.FUNK))),
+                FunkApiUrls.CHANNELS, new FunkChannelDeserializer(Optional.of(crawler))),
             createCrawlerUrlDto(aRequestUrl))
         .invoke();
   }

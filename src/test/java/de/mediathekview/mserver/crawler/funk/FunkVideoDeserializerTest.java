@@ -100,7 +100,7 @@ public class FunkVideoDeserializerTest {
     final Gson gson =
         new GsonBuilder()
             .registerTypeAdapter(
-                funkVideosType, new FunkVideoDeserializer(mockedFunkCrawler, senderConfig))
+                funkVideosType, new FunkVideoDeserializer(mockedFunkCrawler))
             .create();
 
     final PagedElementListDTO<FilmInfoDto> videoResultList =

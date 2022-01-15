@@ -152,7 +152,9 @@ public class FunkVideosToFilmsTask
   }
 
   private void addIfResolutionMissing(final FilmUrlInfoDto details, final Film film) {
-    final Resolution resolution = Resolution.getResolutionFromWidth(details.getWidth());
+    // some videos are vertical video => use height instead of width
+    final int width = details.getWidth() > details.getHeight() ? details.getWidth() : details.getHeight();
+    final Resolution resolution = Resolution.getResolutionFromWidth(width);
     try {
       film.addUrlIfAbsent(resolution, new FilmUrl(details.getUrl(), 0L));
     } catch (final MalformedURLException malformedURLException) {

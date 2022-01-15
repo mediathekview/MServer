@@ -1,7 +1,6 @@
 package de.mediathekview.mserver.crawler.funk.json;
 
 import com.google.gson.*;
-import de.mediathekview.mserver.base.config.MServerBasicConfigDTO;
 import de.mediathekview.mserver.base.utils.JsonUtils;
 import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
 import de.mediathekview.mserver.crawler.basic.PagedElementListDTO;
@@ -28,17 +27,11 @@ public abstract class AbstractFunkElementDeserializer<T>
   private static final String ATTRIBUTE_NUMBER = "number";
   private static final String ATTRIBUTE_TOTAL = "totalElements";
   protected final Optional<AbstractCrawler> crawler;
-  private final MServerBasicConfigDTO senderConfig;
 
-  public AbstractFunkElementDeserializer(final MServerBasicConfigDTO aSenderConfig) {
-    this(Optional.empty(), aSenderConfig);
-  }
-
-  public AbstractFunkElementDeserializer(
-      final Optional<AbstractCrawler> aCrawler, final MServerBasicConfigDTO aSenderConfig) {
+  protected AbstractFunkElementDeserializer(
+      final Optional<AbstractCrawler> aCrawler) {
     super();
     crawler = aCrawler;
-    senderConfig = aSenderConfig;
   }
 
   @Override
@@ -103,7 +96,7 @@ public abstract class AbstractFunkElementDeserializer<T>
 
   private Optional<String> getNextPageLink(
       final JsonElement baseElement, final JsonObject baseObject) {
-    if (chekIfNextPage(baseElement, baseObject)
+    if (JsonUtils.checkTreePath(baseElement, null, TAG_PAGE, ATTRIBUTE_NUMBER)
         && JsonUtils.checkTreePath(baseElement, null, TAG_LINKS, TAG_NEXT, ATTRIBUTE_HREF)) {
       return Optional.of(
           fixNextPageUrl(
@@ -114,14 +107,6 @@ public abstract class AbstractFunkElementDeserializer<T>
                   .getAsString()));
     }
     return Optional.empty();
-  }
-
-  private boolean chekIfNextPage(final JsonElement baseElement, final JsonObject baseObject) {
-    if (JsonUtils.checkTreePath(baseElement, null, TAG_PAGE, ATTRIBUTE_NUMBER)) {
-      return baseObject.getAsJsonObject(TAG_PAGE).get(ATTRIBUTE_NUMBER).getAsInt() + 1
-          < senderConfig.getMaximumSubpages();
-    }
-    return false;
   }
 
   private String fixNextPageUrl(final String url) {

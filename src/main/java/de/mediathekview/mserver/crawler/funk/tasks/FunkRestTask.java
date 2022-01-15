@@ -68,7 +68,7 @@ public class FunkRestTask<T>
     final Optional<String> nextPageLink = responseObj.getNextPage();
 
     final Optional<FunkRestTask<T>> subpageCrawler;
-    if (nextPageLink.isPresent() && config.getMaximumSubpages() > 0) {
+    if (nextPageLink.isPresent() && getMaximumSubpages() > 1) {
       final Queue<CrawlerUrlDTO> nextPageLinks = new ConcurrentLinkedQueue<>();
       nextPageLinks.add(new CrawlerUrlDTO(nextPageLink.get()));
       subpageCrawler = Optional.of(createNewOwnInstance(nextPageLinks));
@@ -79,6 +79,10 @@ public class FunkRestTask<T>
 
     taskResults.addAll(responseObj.getElements());
     subpageCrawler.ifPresent(funkChannelTask -> taskResults.addAll(funkChannelTask.join()));
+  }
+
+  protected Integer getMaximumSubpages() {
+    return config.getMaximumSubpages();
   }
 
   @Override
