@@ -157,7 +157,8 @@ public class FunkVideosToFilmsTask
   }
 
   private void addIfResolutionMissing(final FilmUrlInfoDto details, final Map<Qualities, String> filmUrls) {
-    final Qualities quality = details.getWidth() > details.getHeight() ? getQualityFromWidth(details.getWidth()) : getQualityFromWidth(details.getHeight());
+    final int width = Math.max(details.getWidth(), details.getHeight());
+    final Qualities quality = getQualityFromWidth(width);
     filmUrls.putIfAbsent(quality, details.getUrl());
   }
 
