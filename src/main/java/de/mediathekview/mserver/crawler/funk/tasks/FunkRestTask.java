@@ -21,26 +21,29 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 public class FunkRestTask<T>
     extends AbstractJsonRestTask<T, PagedElementListDTO<T>, CrawlerUrlDTO> {
   private static final Logger LOG = LogManager.getLogger(FunkRestTask.class);
-  private final transient FunkRestEndpoint<T> restEndpoint;
+  protected final transient FunkRestEndpoint<T> restEndpoint;
+  protected final int pageNumber;
 
   public FunkRestTask(final AbstractCrawler crawler, final FunkRestEndpoint<T> aRestEndpoint) {
-    this(crawler, aRestEndpoint, aRestEndpoint.getEndpointUrl().getAsQueue(crawler), null);
+    this(crawler, aRestEndpoint, aRestEndpoint.getEndpointUrl().getAsQueue(crawler), null, 1);
   }
 
   public FunkRestTask(
       final AbstractCrawler crawler,
       final FunkRestEndpoint<T> aRestEndpoint,
       final Queue<CrawlerUrlDTO> aUrlToCrawlDTOs) {
-    this(crawler, aRestEndpoint, aUrlToCrawlDTOs, null);
+    this(crawler, aRestEndpoint, aUrlToCrawlDTOs, null, 1);
   }
 
   public FunkRestTask(
       final AbstractCrawler crawler,
       final FunkRestEndpoint<T> aRestEndpoint,
       final Queue<CrawlerUrlDTO> aUrlToCrawlDTOs,
-      @Nullable final String authKey) {
+      @Nullable final String authKey,
+      final int pageNumber) {
     super(crawler, aUrlToCrawlDTOs, authKey);
     restEndpoint = aRestEndpoint;
+    this.pageNumber = pageNumber;
   }
 
   @Override
@@ -68,7 +71,8 @@ public class FunkRestTask<T>
     final Optional<String> nextPageLink = responseObj.getNextPage();
 
     final Optional<FunkRestTask<T>> subpageCrawler;
-    if (nextPageLink.isPresent() && getMaximumSubpages() > 1) {
+    if (nextPageLink.isPresent() && pageNumber < getMaximumSubpages()) {
+      LOG.debug(nextPageLink.get());
       final Queue<CrawlerUrlDTO> nextPageLinks = new ConcurrentLinkedQueue<>();
       nextPageLinks.add(new CrawlerUrlDTO(nextPageLink.get()));
       subpageCrawler = Optional.of(createNewOwnInstance(nextPageLinks));
@@ -87,6 +91,6 @@ public class FunkRestTask<T>
 
   @Override
   protected FunkRestTask<T> createNewOwnInstance(final Queue<CrawlerUrlDTO> aElementsToProcess) {
-    return new FunkRestTask<>(crawler, restEndpoint, aElementsToProcess, getAuthKey().orElse(null));
+    return new FunkRestTask<>(crawler, restEndpoint, aElementsToProcess, getAuthKey().orElse(null), pageNumber + 1);
   }
 }
