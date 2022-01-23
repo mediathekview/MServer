@@ -20,26 +20,29 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 public class FunkRestTask<T>
         extends AbstractJsonRestTask<T, PagedElementListDTO<T>, CrawlerUrlDTO> {
   private static final Logger LOG = LogManager.getLogger(FunkRestTask.class);
-  private final transient FunkRestEndpoint<T> restEndpoint;
+  protected final transient FunkRestEndpoint<T> restEndpoint;
+  protected final int pageNumber;
 
   public FunkRestTask(final MediathekReader crawler, final FunkRestEndpoint<T> aRestEndpoint) {
-    this(crawler, aRestEndpoint, aRestEndpoint.getEndpointUrl().getAsQueue(), Optional.empty());
+    this(crawler, aRestEndpoint, aRestEndpoint.getEndpointUrl().getAsQueue(), Optional.empty(), 1);
   }
 
   public FunkRestTask(
           final MediathekReader crawler,
           final FunkRestEndpoint<T> aRestEndpoint,
           final ConcurrentLinkedQueue<CrawlerUrlDTO> aUrlToCrawlDTOs) {
-    this(crawler, aRestEndpoint, aUrlToCrawlDTOs, Optional.empty());
+    this(crawler, aRestEndpoint, aUrlToCrawlDTOs, Optional.empty(), 1);
   }
 
   public FunkRestTask(
           final MediathekReader crawler,
           final FunkRestEndpoint<T> aRestEndpoint,
           final ConcurrentLinkedQueue<CrawlerUrlDTO> aUrlToCrawlDTOs,
-          final Optional<String> authKey) {
+          final Optional<String> authKey,
+          final int pageNumber) {
     super(crawler, aUrlToCrawlDTOs, authKey);
     restEndpoint = aRestEndpoint;
+    this.pageNumber = pageNumber;
   }
 
   @Override
@@ -67,10 +70,10 @@ public class FunkRestTask<T>
     final Optional<String> nextPageLink = responseObj.getNextPage();
 
     final Optional<FunkRestTask<T>> subpageCrawler;
-    if (nextPageLink.isPresent() && getMaximumSubpages() > 0) {
+    if (nextPageLink.isPresent() && pageNumber < getMaximumSubpages()) {
       final ConcurrentLinkedQueue<CrawlerUrlDTO> nextPageLinks = new ConcurrentLinkedQueue<>();
       nextPageLinks.add(new CrawlerUrlDTO(nextPageLink.get()));
-      subpageCrawler = Optional.of(createNewOwnInstance(nextPageLinks));
+      subpageCrawler = Optional.of(createNewOwnInstance(nextPageLinks, pageNumber + 1));
       subpageCrawler.get().fork();
     } else {
       subpageCrawler = Optional.empty();
@@ -82,13 +85,17 @@ public class FunkRestTask<T>
 
   protected Integer getMaximumSubpages() {
     if (CrawlerTool.loadLongMax()) {
-      return 3;
+      return 2;
     }
-    return 1;
+    return 3;
   }
 
   @Override
   protected FunkRestTask<T> createNewOwnInstance(final ConcurrentLinkedQueue<CrawlerUrlDTO> aElementsToProcess) {
-    return new FunkRestTask<>(crawler, restEndpoint, aElementsToProcess, getAuthKey());
+    return createNewOwnInstance(aElementsToProcess, 1);
+  }
+
+  protected FunkRestTask<T> createNewOwnInstance(final ConcurrentLinkedQueue<CrawlerUrlDTO> aElementsToProcess, int pageNumber) {
+    return new FunkRestTask<>(crawler, restEndpoint, aElementsToProcess, getAuthKey(), pageNumber);
   }
 }

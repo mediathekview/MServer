@@ -52,7 +52,7 @@ public abstract class AbstractFunkElementDeserializer<T>
                       .filter(Objects::nonNull)
                       .collect(Collectors.toSet()));
     } else {
-      Log.errorLog(178522355, String.format("A Funk list is broken! %s", baseElement.getAsString()));
+      Log.errorLog(178522355, String.format("A Funk list is broken! %s", baseElement));
       LOG.fatal("A Funk list is broken! {}", baseElement);
     }
 
@@ -63,7 +63,7 @@ public abstract class AbstractFunkElementDeserializer<T>
    * the size element contains the size we requested - regardless the number of elements on the page.
    */
   private void analyzeActualSize(final JsonElement baseElement, final boolean hasNext) {
-    if (JsonUtils.checkTreePath(baseElement, null, TAG_PAGE, ATTRIBUTE_SIZE)) {
+    if (JsonUtils.checkTreePath(baseElement, TAG_PAGE, ATTRIBUTE_SIZE)) {
       final int total =
               baseElement.getAsJsonObject().getAsJsonObject(TAG_PAGE).get(ATTRIBUTE_TOTAL).getAsInt();
       final int pageSize =
@@ -90,8 +90,8 @@ public abstract class AbstractFunkElementDeserializer<T>
 
   private Optional<String> getNextPageLink(
           final JsonElement baseElement, final JsonObject baseObject) {
-    if (JsonUtils.checkTreePath(baseElement, null, TAG_PAGE, ATTRIBUTE_NUMBER)
-            && JsonUtils.checkTreePath(baseElement, null, TAG_LINKS, TAG_NEXT, ATTRIBUTE_HREF)) {
+    if (JsonUtils.checkTreePath(baseElement, TAG_PAGE, ATTRIBUTE_NUMBER)
+            && JsonUtils.checkTreePath(baseElement, TAG_LINKS, TAG_NEXT, ATTRIBUTE_HREF)) {
       return Optional.of(
               fixNextPageUrl(
                       baseObject

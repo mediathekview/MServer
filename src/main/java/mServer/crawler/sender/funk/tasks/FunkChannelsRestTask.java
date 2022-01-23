@@ -20,9 +20,22 @@ public class FunkChannelsRestTask extends FunkRestTask<FunkChannelDTO> {
     super(crawler, funkChannelDTOFunkRestEndpoint, urlsToCrawl);
   }
 
+  private FunkChannelsRestTask(
+          MediathekReader crawler,
+          FunkRestEndpoint<FunkChannelDTO> funkChannelDTOFunkRestEndpoint,
+          final ConcurrentLinkedQueue<CrawlerUrlDTO> urlsToCrawl,
+          final int pageNumber) {
+    super(crawler, funkChannelDTOFunkRestEndpoint, urlsToCrawl);
+  }
+
   @Override
   protected Integer getMaximumSubpages() {
     // load all channels to fill channel list completely
     return Integer.MAX_VALUE;
+  }
+
+  @Override
+  protected FunkChannelsRestTask createNewOwnInstance(final ConcurrentLinkedQueue<CrawlerUrlDTO> aElementsToProcess, int pageNumber) {
+    return new FunkChannelsRestTask(crawler, restEndpoint, aElementsToProcess, pageNumber);
   }
 }
