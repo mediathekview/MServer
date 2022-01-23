@@ -35,7 +35,7 @@ public class FunkChannelsRestTask extends FunkRestTask<FunkChannelDTO> {
   }
 
   @Override
-  protected FunkChannelsRestTask createNewOwnInstance(final Queue<CrawlerUrlDTO> aElementsToProcess) {
-    return new FunkChannelsRestTask(crawler, restEndpoint, aElementsToProcess, pageNumber + 1);
+  protected FunkChannelsRestTask createNewOwnInstance(final Queue<CrawlerUrlDTO> aElementsToProcess, int pageNumber) {
+    return new FunkChannelsRestTask(crawler, restEndpoint, aElementsToProcess, pageNumber);
   }
 }

@@ -72,10 +72,9 @@ public class FunkRestTask<T>
 
     final Optional<FunkRestTask<T>> subpageCrawler;
     if (nextPageLink.isPresent() && pageNumber < getMaximumSubpages()) {
-      LOG.debug(nextPageLink.get());
       final Queue<CrawlerUrlDTO> nextPageLinks = new ConcurrentLinkedQueue<>();
       nextPageLinks.add(new CrawlerUrlDTO(nextPageLink.get()));
-      subpageCrawler = Optional.of(createNewOwnInstance(nextPageLinks));
+      subpageCrawler = Optional.of(createNewOwnInstance(nextPageLinks, pageNumber + 1));
       subpageCrawler.get().fork();
     } else {
       subpageCrawler = Optional.empty();
@@ -91,6 +90,10 @@ public class FunkRestTask<T>
 
   @Override
   protected FunkRestTask<T> createNewOwnInstance(final Queue<CrawlerUrlDTO> aElementsToProcess) {
-    return new FunkRestTask<>(crawler, restEndpoint, aElementsToProcess, getAuthKey().orElse(null), pageNumber + 1);
+    return createNewOwnInstance(aElementsToProcess, 1);
+  }
+
+  protected FunkRestTask<T> createNewOwnInstance(Queue<CrawlerUrlDTO> aElementsToProcess, int pageNumber) {
+    return new FunkRestTask<>(crawler, restEndpoint, aElementsToProcess, getAuthKey().orElse(null), pageNumber);
   }
 }
