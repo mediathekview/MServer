@@ -80,7 +80,6 @@ public class ArteVideoTypeMapper {
       case "VFAUD":
         return Optional.of(ArteVideoType.AUDIO_DESCRIPTION);
       case "VO-STF":
-      case "VOF-STA":
         return Optional.of(ArteVideoType.ORIGINAL_WITH_SUBTITLE);
       default:
         return Optional.empty();
@@ -103,6 +102,7 @@ public class ArteVideoTypeMapper {
         return Optional.of(ArteVideoType.ORIGINAL);
       case "VO-STA":
       case "VOA-STF":
+      case "VOF-STA":
         return Optional.of(ArteVideoType.ORIGINAL_WITH_SUBTITLE);
       default:
         return Optional.empty();
