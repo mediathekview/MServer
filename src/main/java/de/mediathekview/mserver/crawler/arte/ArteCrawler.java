@@ -5,12 +5,10 @@ import de.mediathekview.mlib.daten.Sender;
 import de.mediathekview.mlib.messages.listener.MessageListener;
 import de.mediathekview.mserver.base.config.MServerConfigManager;
 import de.mediathekview.mserver.base.messages.ServerMessages;
-import de.mediathekview.mserver.crawler.arte.tasks.ArteDayPageTask;
-import de.mediathekview.mserver.crawler.arte.tasks.ArteFilmTask;
-import de.mediathekview.mserver.crawler.arte.tasks.ArteSubcategoriesTask;
-import de.mediathekview.mserver.crawler.arte.tasks.ArteSubcategoryVideosTask;
+import de.mediathekview.mserver.crawler.arte.tasks.*;
 import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
 import de.mediathekview.mserver.crawler.basic.CrawlerUrlDTO;
+import de.mediathekview.mserver.crawler.basic.TopicUrlDTO;
 import de.mediathekview.mserver.progress.listeners.SenderProgressListener;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -73,7 +71,7 @@ public class ArteCrawler extends AbstractCrawler {
     final ArteSubcategoriesTask subcategoriesTask =
         new ArteSubcategoriesTask(this, createTopicsOverviewUrl());
 
-    final Queue subcategoriesUrl = new ConcurrentLinkedQueue();
+    final Queue<TopicUrlDTO> subcategoriesUrl = new ConcurrentLinkedQueue<>();
     subcategoriesUrl.addAll(forkJoinPool.submit(subcategoriesTask).get());
 
     final ArteSubcategoryVideosTask subcategoryVideosTask =
@@ -98,6 +96,35 @@ public class ArteCrawler extends AbstractCrawler {
     return urls;
   }
 
+  private Set<ArteFilmUrlDto> getVideoListVideos(String videoListType)
+      throws ExecutionException, InterruptedException {
+    final ArteAllVideosTask videosTask =
+        new ArteAllVideosTask(this, createVideoListUrls(videoListType), getLanguage());
+    final Set<ArteFilmUrlDto> filmInfos = forkJoinPool.submit(videosTask).get();
+
+    printMessage(
+        ServerMessages.DEBUG_ALL_SENDUNG_FOLGEN_COUNT, getSender().getName(), filmInfos.size());
+
+    return filmInfos;
+  }
+
+  private Queue<CrawlerUrlDTO> createVideoListUrls(String videoListType) {
+    final Queue<CrawlerUrlDTO> urls = new ConcurrentLinkedQueue<>();
+
+    for (int i = 1; i <= getCrawlerConfig().getMaximumSubpages(); i++) {
+      final String url =
+          String.format(
+              ArteConstants.URL_VIDEO_LIST,
+              ArteConstants.BASE_URL_WWW,
+              getLanguage().toString().toLowerCase(),
+              videoListType,
+              i);
+
+      urls.add(new CrawlerUrlDTO(url));
+    }
+    return urls;
+  }
+
   private Set<ArteFilmUrlDto> getDaysEntries() throws InterruptedException, ExecutionException {
 
     final ArteDayPageTask dayTask =
@@ -117,13 +144,13 @@ public class ArteCrawler extends AbstractCrawler {
       if (isDayEntriesEnabled()) {
         shows.addAll(getDaysEntries());
       }
+      getVideoListVideos(ArteConstants.VIDEO_LIST_TYPE_RECENT).forEach(shows::add);
 
       if (Boolean.TRUE.equals(crawlerConfig.getTopicsSearchEnabled())) {
-        getCategoriesEntries()
-            .forEach(
-                show -> {
-                  shows.add(show);
-                });
+        getCategoriesEntries().forEach(shows::add);
+
+        getVideoListVideos(ArteConstants.VIDEO_LIST_TYPE_LAST_CHANCE)
+            .forEach(shows::add);
       }
 
       printMessage(

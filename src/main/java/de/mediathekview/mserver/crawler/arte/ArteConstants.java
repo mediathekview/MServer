@@ -12,6 +12,11 @@ public class ArteConstants {
       "https://api.arte.tv/api/opa/v3/subcategories?language=%s&limit="+SUBCATEGORY_LIMIT;
   public static final String URL_SUBCATEGORY_VIDEOS =
       "%s/api/rproxy/emac/v3/%s/web/zones/videos_subcategory/?id=%s&limit="+SUBCATEGORY_LIMIT+"&page=%s";
+  public static final String URL_VIDEO_LIST =
+          "%s/api/rproxy/emac/v3/%s/web/data/VIDEO_LISTING/?imageFormats=landscape&authorizedAreas=DE_FR,EUR_DE_FR,SAT,ALL&videoType=%s&imageWithText=true&page=%s&limit=100";
+
+  public static final String VIDEO_LIST_TYPE_RECENT = "MOST_RECENT";
+  public static final String VIDEO_LIST_TYPE_LAST_CHANCE = "LAST_CHANCE";
 
   public static final String URL_FILM_DETAILS = "https://api.arte.tv/api/opa/v3/programs/%s/%s";
   public static final String URL_FILM_VIDEOS =
