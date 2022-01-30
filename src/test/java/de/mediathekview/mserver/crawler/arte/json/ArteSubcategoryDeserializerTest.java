@@ -44,19 +44,19 @@ public class ArteSubcategoryDeserializerTest {
                             new TopicUrlDTO[]{
                                     new TopicUrlDTO(
                                             "AUT",
-                                            "https://www.arte.tv/api/rproxy/emac/v3/de/web/zones/videos_subcategory/?id=AUT&limit=100&page=1"),
+                                            "https://www.arte.tv/api/rproxy/emac/v3/de/web/data/MOST_RECENT_SUBCATEGORY/?subCategoryCode=AUT&page=1&limit=100"),
                                     new TopicUrlDTO(
                                             "AJO",
-                                            "https://www.arte.tv/api/rproxy/emac/v3/de/web/zones/videos_subcategory/?id=AJO&limit=100&page=1"),
+                                            "https://www.arte.tv/api/rproxy/emac/v3/de/web/data/MOST_RECENT_SUBCATEGORY/?subCategoryCode=AJO&page=1&limit=100"),
                                     new TopicUrlDTO(
                                             "MUA",
-                                            "https://www.arte.tv/api/rproxy/emac/v3/de/web/zones/videos_subcategory/?id=MUA&limit=100&page=1"),
+                                            "https://www.arte.tv/api/rproxy/emac/v3/de/web/data/MOST_RECENT_SUBCATEGORY/?subCategoryCode=MUA&page=1&limit=100"),
                                     new TopicUrlDTO(
                                             "FLM",
-                                            "https://www.arte.tv/api/rproxy/emac/v3/de/web/zones/videos_subcategory/?id=FLM&limit=100&page=1"),
+                                            "https://www.arte.tv/api/rproxy/emac/v3/de/web/data/MOST_RECENT_SUBCATEGORY/?subCategoryCode=FLM&page=1&limit=100"),
                                     new TopicUrlDTO(
                                             "ENQ",
-                                            "https://www.arte.tv/api/rproxy/emac/v3/de/web/zones/videos_subcategory/?id=ENQ&limit=100&page=1")
+                                            "https://www.arte.tv/api/rproxy/emac/v3/de/web/data/MOST_RECENT_SUBCATEGORY/?subCategoryCode=ENQ&page=1&limit=100")
                             }
                     },
                     {
@@ -65,7 +65,7 @@ public class ArteSubcategoryDeserializerTest {
                             new TopicUrlDTO[]{
                                     new TopicUrlDTO(
                                             "AUV",
-                                            "https://www.arte.tv/api/rproxy/emac/v3/de/web/zones/videos_subcategory/?id=AUV&limit=100&page=1")
+                                            "https://www.arte.tv/api/rproxy/emac/v3/de/web/data/MOST_RECENT_SUBCATEGORY/?subCategoryCode=AUV&page=1&limit=100")
                             }
                     },
                     {
@@ -74,7 +74,7 @@ public class ArteSubcategoryDeserializerTest {
                             new TopicUrlDTO[]{
                                     new TopicUrlDTO(
                                             "AUV",
-                                            "https://www.arte.tv/api/rproxy/emac/v3/es/web/zones/videos_subcategory/?id=AUV&limit=100&page=1")
+                                            "https://www.arte.tv/api/rproxy/emac/v3/es/web/data/MOST_RECENT_SUBCATEGORY/?subCategoryCode=AUV&page=1&limit=100")
                             }
                     }
         });
