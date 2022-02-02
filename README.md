@@ -46,6 +46,7 @@ java -jar MServer.jar
 | ARTE|ARTE-Mediathek|ARTE in DE, FR, EN, ES, PL, IT|ARTE.DE, ARTE.FR||
 | BR|BR-Mediathek|BR|BR||
 | DW|DW-Mediathek|DW|DW||
+| FUNK | FUNK-Webseite | FUNK |FUNK |x|
 | KIKA|KIKA-Mediathek|KIKA|KIKA|x|
 | ORF|ORF-Mediathek|ORF1, ORF2, ORF3, ORFSport|ORF|x|
 | PHOENIX|PHOENIX-Mediathek|PHOENIX|PHOENIX|x|

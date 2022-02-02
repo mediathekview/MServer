@@ -34,9 +34,9 @@ public abstract class AbstractRestTask<T, D extends CrawlerUrlDTO> extends Abstr
   protected static final String AUTHORIZATION_BEARER = "Bearer ";
 
   protected final transient Optional<String> authKey;
-  private final Client client;
+  private final transient Client client;
 
-  public AbstractRestTask(final MediathekReader aCrawler,
+  protected AbstractRestTask(final MediathekReader aCrawler,
           final ConcurrentLinkedQueue<D> aUrlToCrawlDTOs, final Optional<String> aAuthKey) {
     super(aCrawler, aUrlToCrawlDTOs);
     authKey = aAuthKey;
@@ -80,5 +80,9 @@ public abstract class AbstractRestTask<T, D extends CrawlerUrlDTO> extends Abstr
    */
   protected WebTarget createWebTarget(final String aUrl) {
     return client.target(aUrl);
+  }
+
+  protected Optional<String> getAuthKey() {
+    return authKey;
   }
 }
