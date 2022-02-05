@@ -2,11 +2,13 @@ package de.mediathekview.mserver.crawler.arte.tasks;
 
 import de.mediathekview.mlib.daten.Resolution;
 
+import java.time.Duration;
 import java.util.EnumMap;
 import java.util.Map;
 
 public class ArteVideoDetailDTO {
 
+  private Duration duration;
   private final Map<Resolution, String> urls;
   private final Map<Resolution, String> urlsWithSubtitle;
   private final Map<Resolution, String> urlsAudioDescription;
@@ -24,6 +26,8 @@ public class ArteVideoDetailDTO {
   public String get(final Object aKey) {
     return urls.get(aKey);
   }
+
+  public Duration getDuration() { return duration; }
 
   public String getSubtitle(final Object aKey) {
     return urlsWithSubtitle.get(aKey);
@@ -60,6 +64,8 @@ public class ArteVideoDetailDTO {
   public Map<Resolution, String> getUrlsOriginal() {
     return new EnumMap<>(urlsOriginal);
   }
+
+  public void setDuration(final Duration duration) { this.duration = duration; }
 
   public String put(final Resolution aResolution, final String aUrl) {
     return urls.put(aResolution, aUrl);

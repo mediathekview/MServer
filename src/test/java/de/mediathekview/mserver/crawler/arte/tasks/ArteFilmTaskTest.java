@@ -147,6 +147,31 @@ public class ArteFilmTaskTest extends ArteTaskTestBase {
             "https://arteptweb-a.akamaihd.net/am/ptweb/043000/043100/043187-000-B_SQ_0_VAAUD_04530706_MP4-2200_AMM-PTWEB_1D78azrOGD.mp4",
             "",
             GeoLocations.GEO_NONE
+          },
+          {
+            1,
+            Sender.ARTE_DE,
+            "/api/opa/v3/programs/de/087367-000-A",
+            "/arte/arte_film_detail_trailer.json",
+            "/api/player/v1/config/de/087367-000-A?platform=ARTE_NEXT",
+            "/arte/arte_film_video_trailer.json",
+            "Kino - Filme",
+            "Die Hexen von Eastwick",
+            "Text",
+            LocalDateTime.of(2019, 7, 21, 20, 15, 0),
+            Duration.ofMinutes(2),
+            "https://www.arte.tv/de/videos/087367-000-A/die-hexen-von-eastwick/",
+            "https://arteptweb-a.akamaihd.net/am/ptweb/087000/087300/087367-000-A_EXT_HQ_1_VA-STA_06389104_MP4-800_AMM-PTWEB_EXTRAIT_1h9Hv72NUw.mp4",
+            "https://arteptweb-a.akamaihd.net/am/ptweb/087000/087300/087367-000-A_EXT_EQ_1_VA-STA_06389106_MP4-1500_AMM-PTWEB_EXTRAIT_1h9Hx72NUy.mp4",
+            "https://arteptweb-a.akamaihd.net/am/ptweb/087000/087300/087367-000-A_EXT_SQ_1_VA-STA_06389105_MP4-2200_AMM-PTWEB_EXTRAIT_1h9Hw72NUy.mp4",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            GeoLocations.GEO_NONE
           }
         });
   }
