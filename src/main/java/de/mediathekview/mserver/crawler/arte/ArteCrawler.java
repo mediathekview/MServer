@@ -44,7 +44,7 @@ public class ArteCrawler extends AbstractCrawler {
     return Sender.ARTE_DE;
   }
 
-  private Queue<CrawlerUrlDTO> generateSendungVerpasstUrls() {
+  private Queue<CrawlerUrlDTO> generateSendungVerpasstUrls(ArteLanguage language) {
     final Queue<CrawlerUrlDTO> sendungVerpasstUrls = new ConcurrentLinkedQueue<>();
     for (int i = 0;
         i
@@ -55,7 +55,7 @@ public class ArteCrawler extends AbstractCrawler {
           new CrawlerUrlDTO(
               String.format(
                   ArteConstants.DAY_PAGE_URL,
-                  getLanguage().getLanguageCode().toLowerCase(),
+                  language.getLanguageCode().toLowerCase(),
                   LocalDateTime.now()
                       .plus(
                           crawlerConfig.getMaximumDaysForSendungVerpasstSectionFuture(),
@@ -66,17 +66,17 @@ public class ArteCrawler extends AbstractCrawler {
     return sendungVerpasstUrls;
   }
 
-  private Set<ArteFilmUrlDto> getCategoriesEntries()
+  private Set<ArteFilmUrlDto> getCategoriesEntries(ArteLanguage language)
       throws ExecutionException, InterruptedException {
     final ArteSubcategoriesTask subcategoriesTask =
-        new ArteSubcategoriesTask(this, createTopicsOverviewUrl());
+        new ArteSubcategoriesTask(this, createTopicsOverviewUrl(language));
 
     final Queue<TopicUrlDTO> subcategoriesUrl = new ConcurrentLinkedQueue<>();
     subcategoriesUrl.addAll(forkJoinPool.submit(subcategoriesTask).get());
 
     final ArteSubcategoryVideosTask subcategoryVideosTask =
         new ArteSubcategoryVideosTask(
-            this, subcategoriesUrl, ArteConstants.BASE_URL_WWW, getLanguage());
+            this, subcategoriesUrl, ArteConstants.BASE_URL_WWW, language);
     final Set<ArteFilmUrlDto> filmInfos = forkJoinPool.submit(subcategoryVideosTask).get();
 
     printMessage(
@@ -85,21 +85,21 @@ public class ArteCrawler extends AbstractCrawler {
     return filmInfos;
   }
 
-  private Queue<CrawlerUrlDTO> createTopicsOverviewUrl() {
+  private Queue<CrawlerUrlDTO> createTopicsOverviewUrl(ArteLanguage language) {
     final Queue<CrawlerUrlDTO> urls = new ConcurrentLinkedQueue<>();
 
     final String url =
-        String.format(ArteConstants.URL_SUBCATEGORIES, getLanguage().toString().toLowerCase());
+        String.format(ArteConstants.URL_SUBCATEGORIES, language.getLanguageCode().toLowerCase());
 
     urls.add(new CrawlerUrlDTO(url));
 
     return urls;
   }
 
-  private Set<ArteFilmUrlDto> getVideoListVideos(String videoListType)
+  private Set<ArteFilmUrlDto> getVideoListVideos(ArteLanguage language, String videoListType)
       throws ExecutionException, InterruptedException {
     final ArteAllVideosTask videosTask =
-        new ArteAllVideosTask(this, createVideoListUrls(videoListType), getLanguage());
+        new ArteAllVideosTask(this, createVideoListUrls(language, videoListType), language);
     final Set<ArteFilmUrlDto> filmInfos = forkJoinPool.submit(videosTask).get();
 
     printMessage(
@@ -108,7 +108,7 @@ public class ArteCrawler extends AbstractCrawler {
     return filmInfos;
   }
 
-  private Queue<CrawlerUrlDTO> createVideoListUrls(String videoListType) {
+  private Queue<CrawlerUrlDTO> createVideoListUrls(ArteLanguage language, String videoListType) {
     final Queue<CrawlerUrlDTO> urls = new ConcurrentLinkedQueue<>();
 
     for (int i = 1; i <= getCrawlerConfig().getMaximumSubpages(); i++) {
@@ -116,7 +116,7 @@ public class ArteCrawler extends AbstractCrawler {
           String.format(
               ArteConstants.URL_VIDEO_LIST,
               ArteConstants.BASE_URL_WWW,
-              getLanguage().toString().toLowerCase(),
+              language.getLanguageCode().toLowerCase(),
               videoListType,
               i);
 
@@ -125,10 +125,10 @@ public class ArteCrawler extends AbstractCrawler {
     return urls;
   }
 
-  private Set<ArteFilmUrlDto> getDaysEntries() throws InterruptedException, ExecutionException {
+  private Set<ArteFilmUrlDto> getDaysEntries(ArteLanguage language) throws InterruptedException, ExecutionException {
 
     final ArteDayPageTask dayTask =
-        new ArteDayPageTask(this, generateSendungVerpasstUrls(), getLanguage());
+        new ArteDayPageTask(this, generateSendungVerpasstUrls(language), language);
     final Set<ArteFilmUrlDto> shows = forkJoinPool.submit(dayTask).get();
 
     printMessage(
@@ -139,17 +139,18 @@ public class ArteCrawler extends AbstractCrawler {
 
   @Override
   protected RecursiveTask<Set<Film>> createCrawlerTask() {
+    final ArteLanguage language = getLanguage();
     try {
       final Set<ArteFilmUrlDto> shows = new HashSet<>();
       if (isDayEntriesEnabled()) {
-        shows.addAll(getDaysEntries());
+        shows.addAll(getDaysEntries(language));
       }
-      getVideoListVideos(ArteConstants.VIDEO_LIST_TYPE_RECENT).forEach(shows::add);
+      getVideoListVideos(language, ArteConstants.VIDEO_LIST_TYPE_RECENT).forEach(shows::add);
 
       if (Boolean.TRUE.equals(crawlerConfig.getTopicsSearchEnabled())) {
-        getCategoriesEntries().forEach(shows::add);
+        getCategoriesEntries(language).forEach(shows::add);
 
-        getVideoListVideos(ArteConstants.VIDEO_LIST_TYPE_LAST_CHANCE)
+        getVideoListVideos(language, ArteConstants.VIDEO_LIST_TYPE_LAST_CHANCE)
             .forEach(shows::add);
       }
 
