@@ -9,6 +9,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.lang.reflect.Type;
+import java.time.Duration;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
@@ -20,6 +21,7 @@ public class ArteVideoDeserializer
 
   private static final String JSON_OBJECT_KEY_PLAYER = "videoJsonPlayer";
   private static final String JSON_OBJECT_KEY_VSR = "VSR";
+  private static final String ATTRIBUTE_DURATION = "videoDurationSeconds";
   private static final String ATTRIBUTE_URL = "url";
   private static final String ATTRIBUTE_QUALITY = "quality";
   private static final String ATTRIBUTE_VERSION_CODE = "versionCode";
@@ -51,6 +53,9 @@ public class ArteVideoDeserializer
       JsonObject playerObject =
               aJsonElement.getAsJsonObject().get(JSON_OBJECT_KEY_PLAYER).getAsJsonObject();
       JsonObject vsrJsonObject = playerObject.get(JSON_OBJECT_KEY_VSR).getAsJsonObject();
+
+      final long duration = playerObject.has(ATTRIBUTE_DURATION) ? playerObject.get(ATTRIBUTE_DURATION).getAsLong() : 0;
+      arteVideoDTO.setDuration(Duration.ofSeconds(duration));
 
       final Set<Map.Entry<String, JsonElement>> entries = vsrJsonObject.entrySet();
       entries.forEach(
