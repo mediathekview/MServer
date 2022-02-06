@@ -43,7 +43,7 @@ java -jar MServer.jar
 |---------|-----------|--------|---------|--|
 | 3sat|3sat-Mediathek|3sat |3sat|x|
 | ARD|ARD-Mediathek|Alpha, BR, Das Erste, HR, MDR, NDR, ONE, Radio Bremen, RBB, SR, SWR, WDR, tagesschau24|ARD, HR, MDR, NDR, Radio Bremen, RBB, SWR, WDR| x|
-| ARTE|ARTE-Mediathek|ARTE in DE, FR, EN, ES, PL, IT|ARTE.DE, ARTE.FR||
+| ARTE|ARTE-Mediathek|ARTE in DE, FR, EN, ES, PL, IT|ARTE.DE, ARTE.FR|x|
 | BR|BR-Mediathek|BR|BR||
 | DW|DW-Mediathek|DW|DW||
 | FUNK | FUNK-Webseite | FUNK |FUNK |x|
