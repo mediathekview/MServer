@@ -40,27 +40,25 @@ public class ArteFilmTask extends ArteTaskBase<DatenFilm, ArteFilmUrlDto> {
 
   private static final Logger LOG = LogManager.getLogger(ArteFilmTask.class);
 
-  private final String sender;
   private final LocalDateTime today;
 
   public ArteFilmTask(
           final MediathekReader crawler,
           final ConcurrentLinkedQueue<ArteFilmUrlDto> urlToCrawlDTOs,
-          final String sender,
           final LocalDateTime today) {
     super(crawler, urlToCrawlDTOs, Optional.of(ArteConstants.AUTH_TOKEN));
-    this.sender = sender;
     this.today = today;
-
-    registerJsonDeserializer(OPTIONAL_FILM_TYPE_TOKEN, new ArteFilmDeserializer(sender, today));
-    registerJsonDeserializer(
-            OPTIONAL_VIDEO_DETAILS_TYPE_TOKEN,
-            new ArteVideoDetailsDeserializer(sender));
   }
 
   @Override
   protected void processRestTarget(final ArteFilmUrlDto aDTO, final WebTarget aTarget) {
     try {
+      final String sender = aDTO.getSender();
+      registerJsonDeserializer(OPTIONAL_FILM_TYPE_TOKEN, new ArteFilmDeserializer(sender, today));
+      registerJsonDeserializer(
+              OPTIONAL_VIDEO_DETAILS_TYPE_TOKEN,
+              new ArteVideoDetailsDeserializer(sender));
+
       final Optional<ArteFilmDto> filmDtoOptional = deserializeOptional(aTarget, OPTIONAL_FILM_TYPE_TOKEN);
 
       if (filmDtoOptional.isPresent()) {
@@ -95,6 +93,8 @@ public class ArteFilmTask extends ArteTaskBase<DatenFilm, ArteFilmUrlDto> {
     } catch (final Exception e) {
       LOG.error("exception: {}", aDTO.getUrl(), e);
       Log.errorLog(421256665, e);
+    } finally {
+      deregisterJsonDeserializer();
     }
   }
 
@@ -135,6 +135,6 @@ public class ArteFilmTask extends ArteTaskBase<DatenFilm, ArteFilmUrlDto> {
   @Override
   protected AbstractRecursivConverterTask<DatenFilm, ArteFilmUrlDto> createNewOwnInstance(
           final ConcurrentLinkedQueue<ArteFilmUrlDto> aElementsToProcess) {
-    return new ArteFilmTask(crawler, aElementsToProcess, sender, today);
+    return new ArteFilmTask(crawler, aElementsToProcess, today);
   }
 }

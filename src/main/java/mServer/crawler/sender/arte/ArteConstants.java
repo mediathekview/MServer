@@ -2,6 +2,11 @@ package mServer.crawler.sender.arte;
 
 public class ArteConstants {
 
+  public static final String ARTE_EN = "ARTE.EN";
+  public static final String ARTE_ES = "ARTE.ES";
+  public static final String ARTE_IT = "ARTE.IT";
+  public static final String ARTE_PL = "ARTE.PL";
+
   public static final String BASE_URL_WWW = "https://www.arte.tv";
 
   public static final String DAY_PAGE_URL =

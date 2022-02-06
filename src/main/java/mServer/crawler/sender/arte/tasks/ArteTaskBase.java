@@ -23,7 +23,7 @@ import java.util.concurrent.TimeUnit;
 public abstract class ArteTaskBase<T, D extends CrawlerUrlDTO> extends AbstractRestTask<T, D> {
 
   private static final Logger LOG = LogManager.getLogger(ArteTaskBase.class);
-  private transient final GsonBuilder gsonBuilder;
+  private transient GsonBuilder gsonBuilder;
 
   private static final RateLimiter LIMITER;
 
@@ -43,6 +43,10 @@ public abstract class ArteTaskBase<T, D extends CrawlerUrlDTO> extends AbstractR
 
   protected void registerJsonDeserializer(final Type aType, final Object aDeserializer) {
     gsonBuilder.registerTypeAdapter(aType, aDeserializer);
+  }
+
+  protected void deregisterJsonDeserializer() {
+    gsonBuilder = new GsonBuilder();
   }
 
   /**
