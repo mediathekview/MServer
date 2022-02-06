@@ -4,7 +4,7 @@ import mServer.crawler.sender.base.AbstractUrlTask;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import mServer.crawler.sender.MediathekReader;
 import mServer.crawler.sender.base.CrawlerUrlDTO;
-import mServer.crawler.sender.orf.TopicUrlDTO;
+import mServer.crawler.sender.base.TopicUrlDTO;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;

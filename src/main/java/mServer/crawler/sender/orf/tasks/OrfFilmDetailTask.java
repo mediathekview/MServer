@@ -24,7 +24,7 @@ import mServer.crawler.sender.base.Qualities;
 import mServer.crawler.sender.base.HtmlDocumentUtils;
 import mServer.crawler.sender.orf.OrfEpisodeInfoDTO;
 import mServer.crawler.sender.orf.OrfVideoInfoDTO;
-import mServer.crawler.sender.orf.TopicUrlDTO;
+import mServer.crawler.sender.base.TopicUrlDTO;
 import mServer.crawler.sender.orf.parser.OrfPlaylistDeserializer;
 import org.apache.commons.lang3.StringUtils;
 import org.jsoup.nodes.Document;

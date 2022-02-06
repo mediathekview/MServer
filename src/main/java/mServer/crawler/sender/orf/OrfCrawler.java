@@ -14,6 +14,7 @@ import java.util.concurrent.RecursiveTask;
 import mServer.crawler.CrawlerTool;
 import mServer.crawler.FilmeSuchen;
 import mServer.crawler.sender.MediathekCrawler;
+import mServer.crawler.sender.base.TopicUrlDTO;
 import mServer.crawler.sender.orf.tasks.OrfDayTask;
 import mServer.crawler.sender.orf.tasks.OrfFilmDetailTask;
 import mServer.crawler.sender.orf.tasks.OrfLetterPageTask;
