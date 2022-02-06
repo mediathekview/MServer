@@ -1,7 +1,7 @@
 package mServer.crawler.sender.arte.json;
 
 import de.mediathekview.mlib.Const;
-import mServer.crawler.sender.arte.MediathekArte;
+import mServer.crawler.sender.arte.ArteConstants;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -18,15 +18,15 @@ public class ArteVideoTypeMapper {
     switch (sender) {
       case Const.ARTE_DE:
         return mapGerman(code);
-      case MediathekArte.ARTE_EN:
+      case ArteConstants.ARTE_EN:
         return mapEnglish(code);
-      case MediathekArte.ARTE_ES:
+      case ArteConstants.ARTE_ES:
         return mapSpanish(code);
       case Const.ARTE_FR:
         return mapFrench(code);
-      case MediathekArte.ARTE_IT:
+      case ArteConstants.ARTE_IT:
         return mapItalian(code);
-      case MediathekArte.ARTE_PL:
+      case ArteConstants.ARTE_PL:
         return mapPolish(code);
       default:
         LOG.debug("unknown sender: {}", sender);
