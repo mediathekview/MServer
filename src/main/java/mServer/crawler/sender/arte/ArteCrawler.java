@@ -183,7 +183,9 @@ public class ArteCrawler extends MediathekCrawler {
 
     senderLanguages.forEach((sender, language) -> {
       try {
-        getDaysEntries(language).forEach(show -> addShow(shows, sender, show));
+        if (isDayEntriesEnabled(sender)) {
+          getDaysEntries(language).forEach(show -> addShow(shows, sender, show));
+        }
         getVideoListVideos(language, ArteConstants.VIDEO_LIST_TYPE_RECENT).forEach(show -> addShow(shows, sender, show));
 
         if (CrawlerTool.loadLongMax()) {
@@ -203,6 +205,10 @@ public class ArteCrawler extends MediathekCrawler {
 
     return new ArteFilmTask(
             this, new ConcurrentLinkedQueue<>(shows), LocalDateTime.now());
+  }
+
+  private boolean isDayEntriesEnabled(String sender) {
+    return Const.ARTE_DE.equals(sender) || Const.ARTE_FR.equals(sender);
   }
 
   private void addShow(Set<ArteFilmUrlDto> shows, String sender, ArteFilmUrlDto show) {
