@@ -59,8 +59,16 @@ public class ArteProgramIdToDatenFilmCallable implements Callable<Set<DatenFilm>
 
       ArteVideoDetailsDTO details = getVideoDetails(gson, programId);
       if (details != null) {
-        //The duration as time so it can be formatted and co.
-        LocalTime durationAsTime = durationAsTime(details.getDuration().getSeconds());
+        LocalTime durationAsTime;
+        // update duration if video contains different duration and the difference is larger than 1
+        // e.g. trailers has the original film length in film details but the correct trailer length in video details
+        // but difference is 1 second, the film length in film details is the correct one
+        if (!video.getDuration().isZero()
+                && video.getDuration().getSeconds() != (details.getDuration().getSeconds() + 1)) {
+          durationAsTime = durationAsTime(video.getDuration().getSeconds());
+        } else {
+          durationAsTime = durationAsTime(details.getDuration().getSeconds());
+        }
         if (!video.getVideoUrls().isEmpty()) {
           films.add(createFilm(details.getTheme(), details.getWebsite(), details.getTitle(), video.getVideoUrls(), details, durationAsTime, details.getDescription()));
         }

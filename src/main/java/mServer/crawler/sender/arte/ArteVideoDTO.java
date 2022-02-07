@@ -2,17 +2,18 @@ package mServer.crawler.sender.arte;
 
 import mServer.crawler.sender.base.Qualities;
 
+import java.time.Duration;
 import java.util.EnumMap;
 import java.util.Map;
 
 public class ArteVideoDTO {
 
+  private Duration duration;
   private final Map<Qualities, String> videoUrls;
   private final Map<Qualities, String> videoUrlsWithSubtitle;
   private final Map<Qualities, String> videoUrlsWithAudioDescription;
   private final Map<Qualities, String> videoUrlsOriginal;
   private final Map<Qualities, String> videoUrlsOriginalWithSubtitle;
-  private long durationInSeconds;
 
   public ArteVideoDTO() {
     videoUrls = new EnumMap<>(Qualities.class);
@@ -20,7 +21,7 @@ public class ArteVideoDTO {
     videoUrlsWithAudioDescription = new EnumMap<>(Qualities.class);
     videoUrlsOriginal = new EnumMap<>(Qualities.class);
     videoUrlsOriginalWithSubtitle = new EnumMap<>(Qualities.class);
-    durationInSeconds = 0;
+    duration = Duration.ZERO;
   }
 
   public void addVideo(Qualities aQualities, String aUrl) {
@@ -40,6 +41,8 @@ public class ArteVideoDTO {
   public void addVideoOriginalWithSubtitle(Qualities qualities, String url) {
     videoUrlsOriginalWithSubtitle.put(qualities, url);
   }
+
+  public Duration getDuration() { return duration; }
 
   public Map<Qualities, String> getVideoUrls() {
     return videoUrls;
@@ -61,11 +64,7 @@ public class ArteVideoDTO {
     return videoUrlsOriginalWithSubtitle;
   }
 
-  public void setDurationInSeconds(long durationInSeconds) {
-    this.durationInSeconds = durationInSeconds;
-  }
-
-  public long getDurationInSeconds() {
-    return durationInSeconds;
+  public void setDuration(Duration duration) {
+    this.duration = duration;
   }
 }
