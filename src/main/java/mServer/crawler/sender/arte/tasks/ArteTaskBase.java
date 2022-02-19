@@ -41,6 +41,11 @@ public abstract class ArteTaskBase<T, D extends CrawlerUrlDTO> extends AbstractR
     // limiter bei ersten aufruf bauen?
   }
 
+  @Override
+  protected Integer getMaxElementsToProcess() {
+    return 1000;
+  }
+
   protected void registerJsonDeserializer(final Type aType, final Object aDeserializer) {
     gsonBuilder.registerTypeAdapter(aType, aDeserializer);
   }
