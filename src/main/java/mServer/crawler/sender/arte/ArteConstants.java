@@ -12,7 +12,7 @@ public class ArteConstants {
   public static final String DAY_PAGE_URL =
       BASE_URL_WWW + "/api/rproxy/emac/v3/%s/web/pages/TV_GUIDE/?day=%s";
 
-  public static final int SUBCATEGORY_LIMIT = 50;
+  public static final int SUBCATEGORY_LIMIT = 40;
   public static final String URL_SUBCATEGORIES =
       "https://api.arte.tv/api/opa/v3/subcategories?language=%s&limit="+SUBCATEGORY_LIMIT;
   public static final String URL_SUBCATEGORY_VIDEOS =
