@@ -5,6 +5,7 @@ import java.util.Set;
 
 public class ArdTopicInfoDto {
   private final Set<ArdFilmInfoDto> filmInfos;
+  private String id;
   private int subPageNumber;
   private int maxSubPageNumber;
 
@@ -16,6 +17,14 @@ public class ArdTopicInfoDto {
 
   public Set<ArdFilmInfoDto> getFilmInfos() {
     return filmInfos;
+  }
+
+  public String getId() {
+    return id;
+  }
+
+  public void setId(String id) {
+    this.id = id;
   }
 
   public int getSubPageNumber() {
@@ -39,11 +48,11 @@ public class ArdTopicInfoDto {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     ArdTopicInfoDto that = (ArdTopicInfoDto) o;
-    return subPageNumber == that.subPageNumber && maxSubPageNumber == that.maxSubPageNumber && Objects.equals(filmInfos, that.filmInfos);
+    return Objects.equals(id, that.id) && subPageNumber == that.subPageNumber && maxSubPageNumber == that.maxSubPageNumber && Objects.equals(filmInfos, that.filmInfos);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(filmInfos, subPageNumber, maxSubPageNumber);
+    return Objects.hash(id, filmInfos, subPageNumber, maxSubPageNumber);
   }
 }

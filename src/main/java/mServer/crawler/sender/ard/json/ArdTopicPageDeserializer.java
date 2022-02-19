@@ -3,14 +3,17 @@ package mServer.crawler.sender.ard.json;
 import com.google.gson.*;
 import mServer.crawler.sender.ard.ArdFilmInfoDto;
 import mServer.crawler.sender.ard.ArdTopicInfoDto;
+import mServer.crawler.sender.base.JsonUtils;
 
 import java.lang.reflect.Type;
 import java.util.HashSet;
+import java.util.Optional;
 import java.util.Set;
 
 public class ArdTopicPageDeserializer extends ArdTeasersDeserializer
         implements JsonDeserializer<ArdTopicInfoDto> {
 
+  private static final String ELEMENT_ID = "id";
   private static final String ELEMENT_TEASERS = "teasers";
   private static final String ELEMENT_PAGE_NUMBER = "pageNumber";
   private static final String ELEMENT_TOTAL_ELEMENTS = "totalElements";
@@ -28,6 +31,8 @@ public class ArdTopicPageDeserializer extends ArdTeasersDeserializer
       final JsonArray teasers = showPageObject.get(ELEMENT_TEASERS).getAsJsonArray();
       results.addAll(parseTeasers(teasers));
     }
+    final Optional<String> id = JsonUtils.getAttributeAsString(showPageObject, ELEMENT_ID);
+    id.ifPresent(ardTopicInfoDto::setId);
 
     final JsonElement paginationElement = showPageObject.get(ELEMENT_PAGINATION);
     ardTopicInfoDto.setSubPageNumber(
