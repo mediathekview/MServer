@@ -1,30 +1,63 @@
 package mServer.crawler.sender.ard.json;
 
-import com.google.gson.JsonArray;
-import com.google.gson.JsonDeserializationContext;
-import com.google.gson.JsonDeserializer;
-import com.google.gson.JsonElement;
+import com.google.gson.*;
+import mServer.crawler.sender.ard.ArdFilmInfoDto;
+import mServer.crawler.sender.ard.ArdTopicInfoDto;
+import mServer.crawler.sender.base.JsonUtils;
 
 import java.lang.reflect.Type;
 import java.util.HashSet;
+import java.util.Optional;
 import java.util.Set;
-import mServer.crawler.sender.ard.ArdFilmInfoDto;
 
 public class ArdTopicPageDeserializer extends ArdTeasersDeserializer
-        implements JsonDeserializer<Set<ArdFilmInfoDto>> {
+        implements JsonDeserializer<ArdTopicInfoDto> {
 
+  private static final String ELEMENT_ID = "id";
   private static final String ELEMENT_TEASERS = "teasers";
+  private static final String ELEMENT_PAGE_NUMBER = "pageNumber";
+  private static final String ELEMENT_TOTAL_ELEMENTS = "totalElements";
+  private static final String ELEMENT_PAGE_SIZE = "pageSize";
+  private static final String ELEMENT_PAGINATION = "pagination";
 
   @Override
-  public Set<ArdFilmInfoDto> deserialize(
-          final JsonElement jsonElement, final Type type, final JsonDeserializationContext context) {
+  public ArdTopicInfoDto deserialize(
+          final JsonElement showPageElement, final Type type, final JsonDeserializationContext context) {
     final Set<ArdFilmInfoDto> results = new HashSet<>();
+    final ArdTopicInfoDto ardTopicInfoDto = new ArdTopicInfoDto(results);
 
-    if (jsonElement.getAsJsonObject().has(ELEMENT_TEASERS)) {
-      JsonArray teasers = jsonElement.getAsJsonObject().get(ELEMENT_TEASERS).getAsJsonArray();
+    final JsonObject showPageObject = showPageElement.getAsJsonObject();
+    if (showPageObject.has(ELEMENT_TEASERS)) {
+      final JsonArray teasers = showPageObject.get(ELEMENT_TEASERS).getAsJsonArray();
       results.addAll(parseTeasers(teasers));
     }
+    final Optional<String> id = JsonUtils.getAttributeAsString(showPageObject, ELEMENT_ID);
+    id.ifPresent(ardTopicInfoDto::setId);
 
-    return results;
+    final JsonElement paginationElement = showPageObject.get(ELEMENT_PAGINATION);
+    ardTopicInfoDto.setSubPageNumber(
+            getChildElementAsIntOrNullIfNotExist(paginationElement, ELEMENT_PAGE_NUMBER));
+    final int totalElements = getChildElementAsIntOrNullIfNotExist(paginationElement, ELEMENT_TOTAL_ELEMENTS);
+    final int pageSize = getChildElementAsIntOrNullIfNotExist(paginationElement, ELEMENT_PAGE_SIZE);
+    ardTopicInfoDto.setMaxSubPageNumber(pageSize == 0 ? 0 :
+            (totalElements + pageSize - 1) / pageSize);
+
+    return ardTopicInfoDto;
+  }
+
+  private int getChildElementAsIntOrNullIfNotExist(
+          final JsonElement parentElement, final String childElementName) {
+    if (parentElement == null || parentElement.isJsonNull()) {
+      return 0;
+    }
+    return getJsonElementAsIntOrNullIfNotExist(
+            parentElement.getAsJsonObject().get(childElementName));
+  }
+
+  private int getJsonElementAsIntOrNullIfNotExist(final JsonElement element) {
+    if (element.isJsonNull()) {
+      return 0;
+    }
+    return element.getAsInt();
   }
 }
