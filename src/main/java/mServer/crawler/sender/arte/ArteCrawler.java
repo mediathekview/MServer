@@ -19,6 +19,7 @@ import java.time.temporal.ChronoUnit;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Set;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.ExecutionException;
@@ -145,7 +146,7 @@ public class ArteCrawler extends MediathekCrawler {
   private ConcurrentLinkedQueue<CrawlerUrlDTO> createVideoListUrls(ArteLanguage language, String videoListType) {
     final ConcurrentLinkedQueue<CrawlerUrlDTO> urls = new ConcurrentLinkedQueue<>();
 
-    for (int i = 1; i <= getVideoListMaximumSubpages(); i++) {
+    for (int i = 1; i <= getVideoListMaximumSubpages(videoListType); i++) {
       final String url =
               String.format(
                       ArteConstants.URL_VIDEO_LIST,
@@ -159,9 +160,12 @@ public class ArteCrawler extends MediathekCrawler {
     return urls;
   }
 
-  private int getVideoListMaximumSubpages() {
+  private int getVideoListMaximumSubpages(String videoListType) {
     if (CrawlerTool.loadLongMax()) {
-      return VIDEO_LIST_SUBPAGES_LONG;
+      if (Objects.equals(videoListType, ArteConstants.VIDEO_LIST_TYPE_RECENT)) {
+        return VIDEO_LIST_SUBPAGES_LONG;
+      }
+      return VIDEO_LIST_SUBPAGES_SHORT;
     }
     return VIDEO_LIST_SUBPAGES_SHORT;
   }
