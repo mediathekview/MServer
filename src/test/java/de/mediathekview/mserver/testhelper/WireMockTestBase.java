@@ -54,6 +54,9 @@ public abstract class WireMockTestBase {
   }
 
   protected String fixupAllWireMockUrls(final String text) {
+    if (text == null) {
+      return null;
+    }
     return text.replaceAll("localhost:\\d+", getWireMockHostPort());
   }
 

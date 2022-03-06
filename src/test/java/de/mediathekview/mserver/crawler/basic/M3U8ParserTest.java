@@ -184,4 +184,135 @@ public class M3U8ParserTest {
 
     assertThat(actual, Matchers.containsInAnyOrder(expected));
   }
+
+
+  @Test
+  public void parseTestArdFunk() {
+
+    final M3U8Dto[] expected =
+            new M3U8Dto[] {
+                    createDto(
+                            "22679-qhFBn6dpPtxVW9K-audio=128000-video=316000.m3u8",
+                            new String[] {
+                                    M3U8Constants.M3U8_BANDWIDTH,
+                                    M3U8Constants.M3U8_CODECS,
+                                    M3U8Constants.M3U8_RESOLUTION,
+                                    "AUDIO",
+                                    M3U8Constants.M3U8_CLOSED_CAPTIONS
+                            },
+                            new String[] {
+                                    "471000", "\"mp4a.40.2,avc1.4D401F\"", "426x240", "\"audio-aacl-128\"", "NONE"
+                            }),
+                    createDto(
+                            "22679-qhFBn6dpPtxVW9K-audio=152000-video=748000.m3u8",
+                            new String[] {
+                                    M3U8Constants.M3U8_BANDWIDTH,
+                                    M3U8Constants.M3U8_CODECS,
+                                    M3U8Constants.M3U8_RESOLUTION,
+                                    "AUDIO",
+                                    M3U8Constants.M3U8_CLOSED_CAPTIONS
+                            },
+                            new String[] {
+                                    "954000", "\"mp4a.40.2,avc1.4D401F\"", "640x360", "\"audio-aacl-152\"", "NONE"
+                            }),
+                    createDto(
+                            "22679-qhFBn6dpPtxVW9K-audio=152000-video=1451000.m3u8",
+                            new String[] {
+                                    M3U8Constants.M3U8_BANDWIDTH,
+                                    M3U8Constants.M3U8_CODECS,
+                                    M3U8Constants.M3U8_RESOLUTION,
+                                    "AUDIO",
+                                    M3U8Constants.M3U8_CLOSED_CAPTIONS
+                            },
+                            new String[] {
+                                    "1700000", "\"mp4a.40.2,avc1.4D401F\"", "1024x576", "\"audio-aacl-152\"", "NONE"
+                            }),
+                    createDto(
+                            "22679-qhFBn6dpPtxVW9K-audio=152000-video=2771000.m3u8",
+                            new String[] {
+                                    M3U8Constants.M3U8_BANDWIDTH,
+                                    M3U8Constants.M3U8_CODECS,
+                                    M3U8Constants.M3U8_RESOLUTION,
+                                    "AUDIO",
+                                    M3U8Constants.M3U8_CLOSED_CAPTIONS
+                            },
+                            new String[] {
+                                    "3099000", "\"mp4a.40.2,avc1.4D401F\"", "1280x720", "\"audio-aacl-152\"", "NONE"
+                            }),
+                    createDto(
+                            "22679-qhFBn6dpPtxVW9K-audio=152000-video=3838000.m3u8",
+                            new String[] {
+                                    M3U8Constants.M3U8_BANDWIDTH,
+                                    M3U8Constants.M3U8_CODECS,
+                                    M3U8Constants.M3U8_RESOLUTION,
+                                    "AUDIO",
+                                    M3U8Constants.M3U8_CLOSED_CAPTIONS
+                            },
+                            new String[] {
+                                    "4230000", "\"mp4a.40.2,avc1.4D401F\"", "1920x1080", "\"audio-aacl-152\"", "NONE"
+                            }),
+                    createDto(
+                            "22679-qhFBn6dpPtxVW9K-audio=128000.m3u8",
+                            new String[] {
+                                    M3U8Constants.M3U8_BANDWIDTH,
+                                    M3U8Constants.M3U8_CODECS,
+                                    "AUDIO"
+                            },
+                            new String[] {
+                                    "136000", "\"mp4a.40.2\"", "\"audio-aacl-128\""
+                            }),
+                    createDto(
+                            "22679-qhFBn6dpPtxVW9K-audio=152000.m3u8",
+                            new String[] {
+                                    M3U8Constants.M3U8_BANDWIDTH,
+                                    M3U8Constants.M3U8_CODECS,
+                                    "AUDIO"
+                            },
+                            new String[] {
+                                    "162000", "\"mp4a.40.2\"", "\"audio-aacl-152\""
+                            }),
+            };
+
+    final M3U8Parser target = new M3U8Parser();
+    final List<M3U8Dto> actual =
+        target.parse(
+            "#EXTM3U\n"
+                + "#EXT-X-VERSION:4\n"
+                + "## Created with Unified Streaming Platform  (version=1.11.3-24483)\n"
+                + "\n"
+                + "# AUDIO groups\n"
+                + "#EXT-X-MEDIA:TYPE=AUDIO,GROUP-ID=\"audio-aacl-128\",NAME=\"audio\",DEFAULT=YES,AUTOSELECT=YES,CHANNELS=\"2\"\n"
+                + "#EXT-X-MEDIA:TYPE=AUDIO,GROUP-ID=\"audio-aacl-152\",NAME=\"audio\",DEFAULT=YES,AUTOSELECT=YES,CHANNELS=\"2\"\n"
+                + "\n"
+                + "# variants\n"
+                + "#EXT-X-STREAM-INF:BANDWIDTH=471000,CODECS=\"mp4a.40.2,avc1.4D401F\",RESOLUTION=426x240,AUDIO=\"audio-aacl-128\",CLOSED-CAPTIONS=NONE\n"
+                + "22679-qhFBn6dpPtxVW9K-audio=128000-video=316000.m3u8\n"
+                + "#EXT-X-STREAM-INF:BANDWIDTH=954000,CODECS=\"mp4a.40.2,avc1.4D401F\",RESOLUTION=640x360,AUDIO=\"audio-aacl-152\",CLOSED-CAPTIONS=NONE\n"
+                + "22679-qhFBn6dpPtxVW9K-audio=152000-video=748000.m3u8\n"
+                + "#EXT-X-STREAM-INF:BANDWIDTH=1700000,CODECS=\"mp4a.40.2,avc1.4D401F\",RESOLUTION=1024x576,AUDIO=\"audio-aacl-152\",CLOSED-CAPTIONS=NONE\n"
+                + "22679-qhFBn6dpPtxVW9K-audio=152000-video=1451000.m3u8\n"
+                + "#EXT-X-STREAM-INF:BANDWIDTH=3099000,CODECS=\"mp4a.40.2,avc1.4D401F\",RESOLUTION=1280x720,AUDIO=\"audio-aacl-152\",CLOSED-CAPTIONS=NONE\n"
+                + "22679-qhFBn6dpPtxVW9K-audio=152000-video=2771000.m3u8\n"
+                + "#EXT-X-STREAM-INF:BANDWIDTH=4230000,CODECS=\"mp4a.40.2,avc1.4D401F\",RESOLUTION=1920x1080,AUDIO=\"audio-aacl-152\",CLOSED-CAPTIONS=NONE\n"
+                + "22679-qhFBn6dpPtxVW9K-audio=152000-video=3838000.m3u8\n"
+                + "\n"
+                + "# variants\n"
+                + "#EXT-X-STREAM-INF:BANDWIDTH=136000,CODECS=\"mp4a.40.2\",AUDIO=\"audio-aacl-128\"\n"
+                + "22679-qhFBn6dpPtxVW9K-audio=128000.m3u8\n"
+                + "#EXT-X-STREAM-INF:BANDWIDTH=162000,CODECS=\"mp4a.40.2\",AUDIO=\"audio-aacl-152\"\n"
+                + "22679-qhFBn6dpPtxVW9K-audio=152000.m3u8\n"
+                + "\n"
+                + "# keyframes\n"
+                + "#EXT-X-I-FRAME-STREAM-INF:BANDWIDTH=42000,CODECS=\"avc1.4D401F\",RESOLUTION=426x240,URI=\"keyframes/22679-qhFBn6dpPtxVW9K-video=316000.m3u8\"\n"
+                + "#EXT-X-I-FRAME-STREAM-INF:BANDWIDTH=100000,CODECS=\"avc1.4D401F\",RESOLUTION=640x360,URI=\"keyframes/22679-qhFBn6dpPtxVW9K-video=748000.m3u8\"\n"
+                + "#EXT-X-I-FRAME-STREAM-INF:BANDWIDTH=193000,CODECS=\"avc1.4D401F\",RESOLUTION=1024x576,URI=\"keyframes/22679-qhFBn6dpPtxVW9K-video=1451000.m3u8\"\n"
+                + "#EXT-X-I-FRAME-STREAM-INF:BANDWIDTH=368000,CODECS=\"avc1.4D401F\",RESOLUTION=1280x720,URI=\"keyframes/22679-qhFBn6dpPtxVW9K-video=2771000.m3u8\"\n"
+                + "#EXT-X-I-FRAME-STREAM-INF:BANDWIDTH=509000,CODECS=\"avc1.4D401F\",RESOLUTION=1920x1080,URI=\"keyframes/22679-qhFBn6dpPtxVW9K-video=3838000.m3u8\"");
+
+    assertThat(actual, notNullValue());
+    assertThat(actual.size(), equalTo(7));
+
+    assertThat(actual, Matchers.containsInAnyOrder(expected));
+  }
+
 }
