@@ -64,7 +64,7 @@ public class OrfVideoDetailDeserializer implements JsonDeserializer<Optional<Orf
                     final String quality = videoObject.get(ATTRIBUTE_QUALITY).getAsString();
                     final String url = fixHttpsUrl(videoObject.get(ATTRIBUTE_SRC).getAsString());
 
-                    final Optional<Resolution> resolution = getQuality(quality);
+                      final Optional<Resolution> resolution = getQuality(quality);
                     resolution.ifPresent(resolution1 -> dto.put(resolution1, url));
                   }
                 }
@@ -130,12 +130,15 @@ public class OrfVideoDetailDeserializer implements JsonDeserializer<Optional<Orf
       case "Q8C":
         return Optional.of(Resolution.HD);
       case "Q0A":
+      // QXA/QXB(DRM): another m3u8 has to be loaded which is often geoblocked
       case "QXA":
+      case "QXADRM":
       case "QXB":
+      case "QXBDRM":
       case "Q8A":
         return Optional.empty();
       default:
-        LOG.debug("ORF: unknown quality: " + aQuality);
+        LOG.debug("ORF: unknown quality: {}", aQuality);
     }
     return Optional.empty();
   }
