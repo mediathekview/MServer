@@ -51,8 +51,11 @@ public class OrfVideoDetailDeserializer implements JsonDeserializer<Optional<Orf
       case "Q8C":
         return Optional.of(Qualities.HD);
       case "Q0A":
+        // QXA/QXB(DRM): another m3u8 has to be loaded which is often geoblocked
       case "QXA":
+      case "QXADRM":
       case "QXB":
+      case "QXBDRM":
       case "Q8A":
         return Optional.empty();
       default:
