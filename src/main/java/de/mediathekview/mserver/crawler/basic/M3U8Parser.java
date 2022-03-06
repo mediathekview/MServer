@@ -1,9 +1,10 @@
 package de.mediathekview.mserver.crawler.basic;
 
+import org.apache.commons.lang3.StringUtils;
+
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
-import org.apache.commons.lang3.StringUtils;
 
 /** Parses M3U8 files. */
 public class M3U8Parser {
@@ -22,7 +23,7 @@ public class M3U8Parser {
     pairs.clear();
     result.sort(
         Comparator.comparing(
-            (M3U8Dto dto) -> dto.getMeta(M3U8Constants.M3U8_RESOLUTION).orElse("")));
+            (M3U8Dto dto) -> dto.getNormalizedMeta(M3U8Constants.M3U8_RESOLUTION).orElse("")));
 
     return result;
   }
@@ -94,7 +95,9 @@ public class M3U8Parser {
     for (String line : lines) {
       if (line.startsWith("#EXT-X-STREAM-INF")) {
         currentMeta = line;
-      } else if (line.startsWith("http")) {
+      } else if (line.startsWith("#")) {
+        currentMeta = null;
+      } else if (!line.isEmpty()) {
         currentUrl = line;
       }
 

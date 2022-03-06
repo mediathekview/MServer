@@ -1,0 +1,34 @@
+{
+    "_defaultQuality": [
+      "auto",
+      2,
+      3,
+      4,
+      1,
+      0,
+      5
+    ],
+    "_duration": 3158,
+    "_dvrEnabled": false,
+    "_geoblocked": false,
+    "_isLive": false,
+    "_mediaArray": [
+      {
+        "_mediaStreamArray": [
+          {
+            "_quality": "auto",
+            "_stream": "http://localhost:8589/22679/files/21/12/22/4418917/22679-qhFBn6dpPtxVW9K.ism/manifest.m3u8.m3u8"
+          }
+        ],
+        "_plugin": 1
+      }
+    ],
+    "_previewImage": "https://api.ardmediathek.de/image-service/images/urn:ard:image:8778ef8602309593?w=960&f=jp2&ch=7dd7547c78a11424",
+    "_sortierArray": [
+      1
+    ],
+    "_subtitleUrl": "https://api.ardmediathek.de/subtitle-format-service/ebutt/urn:ard:subtitle:7ad171e0d3218a0b",
+    "_subtitleWebVTTUrl": "https://api.ardmediathek.de/subtitle-format-service/webvtt/urn:ard:subtitle:7ad171e0d3218a0b.vtt",
+    "_type": "video"
+
+}

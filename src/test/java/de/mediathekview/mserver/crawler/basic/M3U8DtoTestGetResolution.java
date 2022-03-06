@@ -41,6 +41,7 @@ public class M3U8DtoTestGetResolution {
           {"normal.url", "avc1", "720x544", Optional.of(Resolution.NORMAL)},
           {"normal.url", "avc1", "960x544", Optional.of(Resolution.NORMAL)},
           {"hd.url", "avc1", "1280x720", Optional.of(Resolution.HD)},
+          {"uhd.url", "avc1", "3840x2160", Optional.of(Resolution.UHD)},
           {"unknown.url", "avc1", "1280x719", Optional.empty()}
         });
   }
