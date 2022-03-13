@@ -199,6 +199,18 @@ public class ZdfTopicPageHtmlDeserializerTest {
               new CrawlerUrlDTO(
                   "https://api.zdf.de/content/documents/auftritt-filmgorillas-100.json")
             }
+          },
+          {
+            "/zdf/zdf_topic_page_reload_article.html",
+            new CrawlerUrlDTO[] {
+              new CrawlerUrlDTO("https://api.zdf.de/content/documents/vorschau-spy-city-100.json"),
+              new CrawlerUrlDTO("https://api.zdf.de/content/documents/spy-city-1-100.json"),
+              new CrawlerUrlDTO("https://api.zdf.de/content/documents/spy-city-2-108.json"),
+              new CrawlerUrlDTO("https://api.zdf.de/content/documents/spy-city-3-104.json"),
+              new CrawlerUrlDTO("https://api.zdf.de/content/documents/spy-city-4-100.json"),
+              new CrawlerUrlDTO("https://api.zdf.de/content/documents/spy-city-5-100.json"),
+              new CrawlerUrlDTO("https://api.zdf.de/content/documents/spy-city-6-100.json")
+            }
           }
         });
   }
