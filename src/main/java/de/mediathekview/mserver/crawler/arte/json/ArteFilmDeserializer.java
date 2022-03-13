@@ -171,8 +171,10 @@ public class ArteFilmDeserializer implements JsonDeserializer<Optional<Film>> {
           String code = geoObject.get("code").getAsString();
           switch (code) {
             case "DE_FR":
-            case "EUR_DE_FR":
               geo = GeoLocations.GEO_DE_FR;
+              break;
+            case "EUR_DE_FR":
+              geo = GeoLocations.GEO_DE_AT_CH_FR;
               break;
             case "SAT":
               geo = GeoLocations.GEO_DE_AT_CH_EU;
