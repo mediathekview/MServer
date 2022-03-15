@@ -50,23 +50,48 @@ public class M3U8Dto {
     // Auflösung verwenden, wenn vorhanden
     if (resolution.isPresent()) {
       switch (resolution.get()) {
+        case "192x144":
+        case "240x180":
         case "256x144":
+        case "288x216":
         case "320x180":
+        case "320x240":
+        case "360x270":
+        case "384x288":
+        case "424x240":
+        case "426x240":
+        case "442x240":
+        case "480x240":
         case "480x270":
         case "480x272":
         case "480x320":
+        case "480x360":
         case "512x288":
           return Optional.of(Qualities.SMALL);
+        case "636x360":
         case "640x360":
+        case "640x480":
+        case "664x360":
+        case "720x360":
+        case "720x540":
         case "720x544":
+        case "768x576":
+        case "852x480":
         case "960x540":
         case "960x544":
+        case "1024x576":
+        case "1064x576":
+        case "1152x576":
           return Optional.of(Qualities.NORMAL);
         case "1280x720":
+        case "1330x720":
+        case "1440x720":
         case "1920x1080":
+        case "2560x1440":
+        case "3840x2160":
           return Optional.of(Qualities.HD);
         default:
-          LOG.debug("Unknown resolution: " + resolution.get());
+          LOG.debug("Unknown resolution: {}", resolution.get());
       }
     }
 
@@ -123,5 +148,20 @@ public class M3U8Dto {
     }
 
     return hash;
+  }
+
+  public Optional<String> getNormalizedMeta(String m3u8Resolution) {
+    final Optional<String> resolutionMeta = getMeta(m3u8Resolution);
+    if (!resolutionMeta.isPresent()) {
+      return Optional.empty();
+    }
+
+    final String metaValue = resolutionMeta.get();
+    final int index = metaValue.indexOf('x');
+    if (index == 4) {
+      return resolutionMeta;
+    }
+    return Optional.of(
+            String.format("0%sx0%s", metaValue.substring(0, index), metaValue.substring(index + 1)));
   }
 }
