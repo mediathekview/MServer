@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import de.mediathekview.mlib.tool.Log;
+import jakarta.ws.rs.ProcessingException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -47,21 +48,28 @@ public abstract class ArdTaskBase<T, D extends CrawlerUrlDTO> extends AbstractRe
   }
 
   private <A> Optional<A> deserializeUnsafe(final WebTarget target, final Type type) {
-    final Gson gson = gsonBuilder.create();
-    final Response response = executeRequest(target);
-    traceRequest(response.getLength());
-    if (response.getStatus() == 200) {
-      final String jsonOutput = response.readEntity(String.class);
-      if (isSuccessResponse(jsonOutput, gson, target.getUri().toString())) {
-        return Optional.of(gson.fromJson(jsonOutput, type));
+    try {
+      final Gson gson = gsonBuilder.create();
+      final Response response = executeRequest(target);
+      traceRequest(response.getLength());
+      if (response.getStatus() == 200) {
+        final String jsonOutput = response.readEntity(String.class);
+        if (isSuccessResponse(jsonOutput, gson, target.getUri().toString())) {
+          return Optional.of(gson.fromJson(jsonOutput, type));
+        }
+      } else {
+        final String logText = "ArdTaskBase: request of url "
+                + target.getUri().toString()
+                + " failed: "
+                + response.getStatus();
+        Log.errorLog(23646387, logText);
+        LOG.warn(logText);
       }
-    } else {
-      final String logText = "ArdTaskBase: request of url "
-              + target.getUri().toString()
-              + " failed: "
-              + response.getStatus();
-      Log.errorLog(23646387, logText);
-      LOG.warn(logText);
+    } catch (ProcessingException e) {
+      final String logText = "ArdTaskBase: timeout accessing "
+              + target.getUri().toString();
+      Log.errorLog(23646388, e, logText);
+      LOG.error(logText);
     }
     return Optional.empty();
   }

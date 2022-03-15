@@ -3,6 +3,7 @@ package mServer.crawler.sender.base;
 import de.mediathekview.mlib.Config;
 import de.mediathekview.mlib.tool.Log;
 import java.io.IOException;
+import java.net.SocketTimeoutException;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.TimeUnit;
 import mServer.crawler.sender.MediathekReader;
@@ -69,6 +70,8 @@ public abstract class AbstractDocumentTask<T, D extends CrawlerUrlDTO>
 
       Log.errorLog(96459855,
               crawler.getSendername() + ": crawlerDocumentLoadError: " + aUrlDTO.getUrl() + ", " + httpStatusError.getStatusCode());
+    } catch(final SocketTimeoutException timeoutException) {
+      Log.errorLog(964598567, crawler.getSendername() + ": timeout: " + aUrlDTO.getUrl());
     } catch (final IOException ioException) {
       Log.errorLog(96459856, ioException);
     }
