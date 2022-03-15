@@ -5,6 +5,8 @@ import com.google.gson.GsonBuilder;
 import jakarta.ws.rs.client.Invocation.Builder;
 import jakarta.ws.rs.client.WebTarget;
 import jakarta.ws.rs.core.Response;
+import mServer.crawler.FilmeSuchen;
+import mServer.crawler.RunSender;
 import mServer.crawler.sender.MediathekReader;
 
 import java.lang.reflect.Type;
@@ -52,12 +54,14 @@ public abstract class AbstractJsonRestTask<T, R, D extends CrawlerUrlDTO>
     }
 
     final Response response = createResponse(request, aDTO);
-
+    traceRequest(response.getLength());
     if (response.getStatus() == 200) {
       final String jsonOutput = response.readEntity(String.class);
       final R responseObj = gson.fromJson(jsonOutput, getType());
       postProcessing(responseObj, aDTO);
     } else {
+      FilmeSuchen.listeSenderLaufen.inc(crawler.getSendername(), RunSender.Count.FEHLER);
+      FilmeSuchen.listeSenderLaufen.inc(crawler.getSendername(), RunSender.Count.FEHLVERSUCHE);
       handleHttpError(aDTO, aTarget.getUri(), response);
     }
   }
