@@ -22,6 +22,8 @@ public class ZdfTopicPageHtmlDeserializer {
   private static final String LINK_SELECTOR1 = "article.b-content-teaser-item h3 a";
   private static final String LINK_SELECTOR2 = "article.b-cluster-teaser h3 a";
   private static final String TEASER_SELECTOR = "div.b-cluster-teaser.lazyload";
+  private static final String ARTICLE_TEASER_SELECTOR =
+          "article.b-cluster article.b-cluster-teaser.lazyload";
   private static final String MAIN_VIDEO_SELECTOR = "div.b-playerbox";
 
   private static final String[] BLACKLIST_HEADLINES =
@@ -67,7 +69,8 @@ public class ZdfTopicPageHtmlDeserializer {
                   "Das könnte",
                   "Auch interessant",
                   "Alle Herzkino",
-                  "Film-Highlights"
+                  "Film-Highlights",
+                  "Thriller Serien"
           };
   private static final String ATTRIBUTE_HREF = "href";
 
@@ -121,6 +124,7 @@ public class ZdfTopicPageHtmlDeserializer {
             });
 
     Elements teasers = headline.select(TEASER_SELECTOR);
+    teasers.addAll(headline.select(ARTICLE_TEASER_SELECTOR));
     teasers.forEach(
             teaserElement -> {
               final String teaserUrl = teaserElement.attr("data-teaser-xhr-url");
