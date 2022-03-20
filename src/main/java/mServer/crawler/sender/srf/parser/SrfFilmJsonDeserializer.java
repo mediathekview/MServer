@@ -273,8 +273,8 @@ public class SrfFilmJsonDeserializer implements JsonDeserializer<Optional<DatenF
     return url;
   }
 
-  private EnumMap readUrls(String aM3U8Url) {
-    EnumMap urls = new EnumMap(Qualities.class);
+  private Map<Qualities, String> readUrls(String aM3U8Url) {
+    Map<Qualities, String> urls = new EnumMap<>(Qualities.class);
     final String optimizedUrl = getOptimizedUrl(aM3U8Url);
 
     Optional<String> content = loadM3u8(optimizedUrl);
@@ -288,15 +288,27 @@ public class SrfFilmJsonDeserializer implements JsonDeserializer<Optional<DatenF
       m3u8Data.forEach(entry -> {
         Optional<Qualities> resolution = getResolution(entry);
         if (resolution.isPresent()) {
-          urls.put(resolution.get(), entry.getUrl());
+          urls.put(resolution.get(), enrichUrl(optimizedUrl, entry.getUrl()));
         }
       });
 
     } else {
-      LOG.error(String.format("SrfFilmJsonDeserializer: Loading m3u8-url failed: %s", aM3U8Url));
+      LOG.error("SrfFilmJsonDeserializer: Loading m3u8-url failed: {}", aM3U8Url);
     }
 
     return urls;
+  }
+
+  private String enrichUrl(String m3u8Url, String videoUrl) {
+    // some video urls contain only filename
+    if (!UrlUtils.getProtocol(videoUrl).isPresent()) {
+      final String m3u8WithoutParameters = UrlUtils.removeParameters(m3u8Url);
+      final Optional<String> m3u8File = UrlUtils.getFileName(m3u8WithoutParameters);
+      if (m3u8File.isPresent()) {
+        return m3u8WithoutParameters.replace(m3u8File.get(), videoUrl);
+      }
+    }
+    return videoUrl;
   }
 
   private Optional<String> loadM3u8(String aM3U8Url) {
