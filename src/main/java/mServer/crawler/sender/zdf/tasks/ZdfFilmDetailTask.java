@@ -100,8 +100,6 @@ public class ZdfFilmDetailTask extends ZdfTaskBase<DatenFilm, CrawlerUrlDTO> {
 
         final DatenFilm filmWithLanguage = createFilm(result, downloadDto, language);
         taskResults.add(filmWithLanguage);
-      } else {
-        Log.sysLog("no video present for film " + result.getTitle());
       }
     }
   }
