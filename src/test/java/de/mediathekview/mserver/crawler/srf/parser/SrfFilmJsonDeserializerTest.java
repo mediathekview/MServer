@@ -146,6 +146,21 @@ public class SrfFilmJsonDeserializerTest extends SrfTaskTestBase {
             "https://hdvodsrforigin-f.akamaihd.net/i/vod/reporter/2019/12/reporter_20191211_172931_18722867_v_webcast_h264_,q40,q10,q20,q30,q50,q60,.mp4.csmil/index_4_av.m3u8",
             "https://hdvodsrforigin-f.akamaihd.net/i/vod/reporter/2019/12/reporter_20191211_172931_18722867_v_webcast_h264_,q40,q10,q20,q30,q50,q60,.mp4.csmil/index_5_av.m3u8",
             "https://www.srf.ch/subtitles/srf/07630ff9-9858-4a00-bf10-9856c9891970/episode/de/vod/vod.vtt"
+          },
+          {
+            "/srf/srf_film_page_only_filename_in_m3u8.json",
+            "/srf/srf_film_page_only_filename_in_m3u8.m3u8",
+            "/world/hls/motel/2022/03/motel_20220314_001922_9130234_v_webcast_h264_,q40,q10,q20,q30,q50,q60,.mp4.csmil/master.m3u8?start=0.0&end=1559.4",
+            "Motel",
+            "Modeschau (Staffel 1, Folge 29)",
+            LocalDateTime.of(2022, 3, 17, 15, 10, 0),
+            1559400,
+            "Im Motel geht es zu wie in einem Bienenhaus – in einem der glamourösen Art: Der rührige Motel-Direktor Bieri hat eine Modeschau organisiert. Bei dieser Gelegenheit begegnet er seiner Ex-Freundin Roberta. Sie ist als Stylistin für die Models tätig. Verblüfft und auch etwas eifersüchtig erfährt Bieri, dass Roberta inzwischen geheiratet hat. Als sie ihm ihren Gatten vorstellt, fallen dem Direktor fas\n.....",
+            "https://www.srf.ch/play/tv/motel/video/modeschau-(staffel-1-folge-29)?id=7aae02fd-efb2-43de-8521-babd80718e89",
+            "http://localhost:8589/world/hls/motel/2022/03/motel_20220314_001922_9130234_v_webcast_h264_,q40,q10,q20,q30,q50,q60,.mp4.csmil/index-f3-v1-a1.m3u8",
+            "http://localhost:8589/world/hls/motel/2022/03/motel_20220314_001922_9130234_v_webcast_h264_,q40,q10,q20,q30,q50,q60,.mp4.csmil/index-f1-v1-a1.m3u8",
+            "http://localhost:8589/world/hls/motel/2022/03/motel_20220314_001922_9130234_v_webcast_h264_,q40,q10,q20,q30,q50,q60,.mp4.csmil/index-f6-v1-a1.m3u8",
+            ""
           }
         });
   }
