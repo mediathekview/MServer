@@ -81,7 +81,7 @@ public class ZdfFilmDetailTask extends ZdfTaskBase<DatenFilm, CrawlerUrlDTO> {
       }
     } catch (Exception e) {
       LOG.error("exception: {}", aDto.getUrl(), e);
-      Log.errorLog(453455465, e);
+      Log.errorLog(453455465, e, aDto.getUrl());
     }
   }
 
