@@ -75,7 +75,7 @@ public class SrfFilmJsonDeserializer implements JsonDeserializer<Optional<Film>>
         (key, value) -> {
           try {
             aFilm.addUrl(key, new FilmUrl(value, crawler.determineFileSizeInKB(value)));
-          } catch (final MalformedURLException ex) {
+          } catch (final MalformedURLException | IllegalArgumentException ex) {
             LOG.error(String.format("A found download URL \"%s\" isn't valid.", value), ex);
           }
         });
@@ -199,7 +199,7 @@ public class SrfFilmJsonDeserializer implements JsonDeserializer<Optional<Film>>
   private static Optional<Resolution> getResolution(final M3U8Dto aDto) {
     final Optional<Resolution> resolution = aDto.getResolution();
 
-    if (!resolution.isPresent()) {
+    if (resolution.isEmpty()) {
       final Optional<String> codecMeta = aDto.getMeta(M3U8Constants.M3U8_CODECS);
 
       // Codec muss "avcl" beinhalten, sonst ist es kein Video
@@ -330,10 +330,9 @@ public class SrfFilmJsonDeserializer implements JsonDeserializer<Optional<Film>>
   }
 
   private Map<Resolution, String> readUrls(final String aM3U8Url) {
-    //final EnumMap urls = new EnumMap(Resolution.class);
-    Map<Resolution, String> urls = new EnumMap<Resolution, String>(Resolution.class);
+    Map<Resolution, String> urls = new EnumMap<>(Resolution.class);
     final String optimizedUrl = getOptimizedUrl(aM3U8Url);
-    Optional<String> content = Optional.empty();
+    Optional<String> content;
  
     try {
       content = Optional.of(crawler.requestBodyAsString(optimizedUrl));
@@ -348,22 +347,34 @@ public class SrfFilmJsonDeserializer implements JsonDeserializer<Optional<Film>>
             entry -> {
               final Optional<Resolution> resolution = getResolution(entry);
               if (resolution.isPresent()) {
-                urls.put(resolution.get(), entry.getUrl());
+                urls.put(resolution.get(), enrichUrl(optimizedUrl, entry.getUrl()));
               }
             });
   
       } else {
-        LOG.error(String.format("SrfFilmJsonDeserializer: Loading m3u8-url failed: %s", aM3U8Url));
+        LOG.error("SrfFilmJsonDeserializer: Loading m3u8-url failed: {}", aM3U8Url);
         crawler.incrementAndGetErrorCount();
         crawler.updateProgress();
       }
     } catch (Exception e) {
-      LOG.error(String.format("SrfFilmJsonDeserializer: Loading m3u8-url failed: %s", aM3U8Url));
+      LOG.error("SrfFilmJsonDeserializer: Loading m3u8-url failed: {}", aM3U8Url);
       crawler.incrementAndGetErrorCount();
       crawler.updateProgress();
     }
 
     return urls;
+  }
+
+  private String enrichUrl(String m3u8Url, String videoUrl) {
+    // some video urls contain only filename
+    if (UrlUtils.getProtocol(videoUrl).isEmpty()) {
+      final String m3u8WithoutParameters = UrlUtils.removeParameters(m3u8Url);
+      final Optional<String> m3u8File = UrlUtils.getFileName(m3u8WithoutParameters);
+      if (m3u8File.isPresent()) {
+        return m3u8WithoutParameters.replace(m3u8File.get(), videoUrl);
+      }
+    }
+    return videoUrl;
   }
 
   private String getOptimizedUrl(final String aM3U8Url) {
