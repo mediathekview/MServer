@@ -81,7 +81,7 @@ public class ZdfFilmDetailTask extends ZdfTaskBase<DatenFilm, CrawlerUrlDTO> {
       }
     } catch (Exception e) {
       LOG.error("exception: {}", aDto.getUrl(), e);
-      Log.errorLog(453455465, e);
+      Log.errorLog(453455465, e, aDto.getUrl());
     }
   }
 
@@ -100,8 +100,6 @@ public class ZdfFilmDetailTask extends ZdfTaskBase<DatenFilm, CrawlerUrlDTO> {
 
         final DatenFilm filmWithLanguage = createFilm(result, downloadDto, language);
         taskResults.add(filmWithLanguage);
-      } else {
-        Log.sysLog("no video present for film " + result.getTitle());
       }
     }
   }
