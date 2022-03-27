@@ -1,0 +1,252 @@
+{
+  "chapterUrn" : "urn:srf:video:cf776586-de57-481f-8473-f96f9b0f91b4",
+  "episode" : {
+    "id" : "948d8f5a-03a7-49e2-b174-a4b7b3c4a043",
+    "title" : "Familienbande (Staffel 4, Folge 3)",
+    "lead" : "Sullivans Disziplinaranhörung steht an, bei der über seine Karriere entschieden wird. Während Richard Webber ihm beisteht, belastet Michael Dixon Sullivan dagegen schwer. Währenddessen wird die Crew der Station 19 zu einem verlassenen Wohnhaus gerufen, aus dem tiefschwarzer Qualm aufsteigt.",
+    "description" : "Die Zukunft von Sullivan hängt am seidenen Faden: Seine Anhörung vor der Feuerwehr-Kommission steht an. Als Zeugen sind Ben Warren, Richard Webber, Emmett Dixon und der ehemalige Fire Chief Michael Dixon vorgesehen. Ben versucht, während der Verhandlung auf die landesweite Opioid-Krise hinzuweisen und macht diese für Sullivans Handlungen mitverantwortlich. Webber hält eine flammende Rede für Abhängige. Michael Dixon belastet Sullivan dagegen schwer. Er wirft ihm vor, seine Kollegen und selbst seinen Sohn Emmett manipuliert zu haben.\r\n\r\nInzwischen untersucht das Team ein Feuer in einem vernachlässigten Wohnhaus, in dem sich Seattles bekannteste Drag Queens eingerichtet haben.",
+    "publishedDate" : "2022-03-21T21:45:00+01:00",
+    "imageUrl" : "https://ws.srf.ch/asset/image/audio/0f28110e-bd61-4bcc-b800-b14573d28515/WEBVISUAL/1532357634.jpg",
+    "seasonNumber" : 4,
+    "number" : 3
+  },
+  "show" : {
+    "id" : "150ea636-e9ab-460e-abc9-3ad2f359e9e1",
+    "vendor" : "SRF",
+    "transmission" : "TV",
+    "urn" : "urn:srf:show:tv:150ea636-e9ab-460e-abc9-3ad2f359e9e1",
+    "title" : "Station 19",
+    "lead" : "Andys Aussichten auf den Chefposten rücken in weite Ferne und auch in der Liebe läuft es nicht rund.",
+    "description" : "Das Team von «Station 19» bekommt einen neuen Captain. Andy – eben noch selbst Anwärterin auf diesen Posten – legt sich mit dem Neuen an. «Station 19» verspricht die ganze Spannung und Dramatik ihrer Mutterserie «Grey’s Anatomy».",
+    "imageUrl" : "https://ws.srf.ch/asset/image/audio/0f28110e-bd61-4bcc-b800-b14573d28515/WEBVISUAL/1532357634.jpg",
+    "posterImageUrl" : "https://ws.srf.ch/asset/image/audio/0f28110e-bd61-4bcc-b800-b14573d28515/POSTER/1598521908.jpg",
+    "posterImageIsFallbackUrl" : false,
+    "timeTableUrl" : "https://www.srf.ch/programm/tv/mediagroup/station19",
+    "primaryChannelId" : "E4D5AD08-C1E8-46A3-BB58-4875051D60D2",
+    "primaryChannelUrn" : "urn:srf:channel:tv:E4D5AD08-C1E8-46A3-BB58-4875051D60D2",
+    "numberOfEpisodes" : 1,
+    "topicList" : [ {
+      "id" : "fa793c13-bebc-41b9-9710-bf8a34192c15",
+      "vendor" : "SRF",
+      "transmission" : "TV",
+      "urn" : "urn:srf:topic:tv:fa793c13-bebc-41b9-9710-bf8a34192c15",
+      "title" : "Serien",
+      "lead" : "Von der täglichen Telenovela über Top US-Serien und Krimi-Serien bis zu exklusiven Eigenproduktionen - hier finden User alle Serien, die SRF online zur Verfügung stellt.",
+      "description" : "Zu einen werden Top-Serien wie «Grey's Anatomy» oder «Chicago Fire» geboten. Zum anderen stehen die Geschichten der «Wege zum Glück»-Telenovelas zur Verfügung, oder spannende Krimiserien aus dem Norden sowie Eigenproduktion sorgen für Nervenkitzel."
+    } ]
+  },
+  "channel" : {
+    "id" : "E4D5AD08-C1E8-46A3-BB58-4875051D60D2",
+    "vendor" : "SRF",
+    "urn" : "urn:srf:channel:tv:E4D5AD08-C1E8-46A3-BB58-4875051D60D2",
+    "title" : "SRF zwei",
+    "imageUrl" : "https://ws.srf.ch/asset/image/audio/c5231053-8da9-4b5e-8e21-6b3c54029cad/EPISODE_IMAGE",
+    "imageTitle" : "Logo",
+    "transmission" : "TV"
+  },
+  "chapterList" : [ {
+    "id" : "cf776586-de57-481f-8473-f96f9b0f91b4",
+    "mediaType" : "VIDEO",
+    "vendor" : "SRF",
+    "urn" : "urn:srf:video:cf776586-de57-481f-8473-f96f9b0f91b4",
+    "title" : "Familienbande (Staffel 4, Folge 3)",
+    "lead" : "Sullivans Disziplinaranhörung steht an, bei der über seine Karriere entschieden wird. Während Richard Webber ihm beisteht, belastet Michael Dixon Sullivan dagegen schwer. Währenddessen wird die Crew der Station 19 zu einem verlassenen Wohnhaus gerufen, aus dem tiefschwarzer Qualm aufsteigt.",
+    "description" : "Die Zukunft von Sullivan hängt am seidenen Faden: Seine Anhörung vor der Feuerwehr-Kommission steht an. Als Zeugen sind Ben Warren, Richard Webber, Emmett Dixon und der ehemalige Fire Chief Michael Dixon vorgesehen. Ben versucht, während der Verhandlung auf die landesweite Opioid-Krise hinzuweisen und macht diese für Sullivans Handlungen mitverantwortlich. Webber hält eine flammende Rede für Abhängige. Michael Dixon belastet Sullivan dagegen schwer. Er wirft ihm vor, seine Kollegen und selbst seinen Sohn Emmett manipuliert zu haben.\r\n\r\nInzwischen untersucht das Team ein Feuer in einem vernachlässigten Wohnhaus, in dem sich Seattles bekannteste Drag Queens eingerichtet haben.",
+    "imageUrl" : "https://ws.srf.ch/asset/image/audio/c49fb6c0-7134-406a-9f12-b3aa66f3ae61/EPISODE_IMAGE/1648037157.jpg",
+    "imageTitle" : "Familienbande (Staffel 4, Folge 3)",
+    "blockReason" : "GEOBLOCK",
+    "type" : "EPISODE",
+    "date" : "2022-03-21T21:45:00+01:00",
+    "duration" : 2413920,
+    "validFrom" : "2022-03-21T22:36:00+01:00",
+    "validTo" : "2022-03-28T23:59:00+02:00",
+    "playableAbroad" : false,
+    "socialCountList" : [ {
+      "key" : "srgView",
+      "value" : 1440
+    }, {
+      "key" : "srgLike",
+      "value" : 0
+    }, {
+      "key" : "fbShare",
+      "value" : 0
+    }, {
+      "key" : "twitterShare",
+      "value" : 0
+    }, {
+      "key" : "googleShare",
+      "value" : 0
+    }, {
+      "key" : "whatsAppShare",
+      "value" : 1
+    } ],
+    "displayable" : true,
+    "position" : 0,
+    "noEmbed" : true,
+    "analyticsData" : {
+      "ns_st_ep" : "Familienbande (Staffel 4, Folge 3)",
+      "ns_st_ty" : "Video",
+      "ns_st_ci" : "cf776586-de57-481f-8473-f96f9b0f91b4",
+      "ns_st_el" : "2413920",
+      "ns_st_cl" : "2413920",
+      "ns_st_sl" : "2413920",
+      "srg_mgeobl" : "true",
+      "ns_st_tp" : "1",
+      "ns_st_cn" : "1",
+      "ns_st_ct" : "vc12",
+      "ns_st_pn" : "1"
+    },
+    "analyticsMetadata" : {
+      "media_segment" : "Familienbande (Staffel 4, Folge 3)",
+      "media_type" : "Video",
+      "media_segment_id" : "cf776586-de57-481f-8473-f96f9b0f91b4",
+      "media_episode_length" : "2414",
+      "media_segment_length" : "2414",
+      "media_number_of_segment_selected" : "1",
+      "media_number_of_segments_total" : "1",
+      "media_duration_category" : "long",
+      "media_is_geoblocked" : "true",
+      "media_urn" : "urn:srf:video:cf776586-de57-481f-8473-f96f9b0f91b4"
+    },
+    "eventData" : "$51dee7c09def7855$2254872d047bcd83f43a39dd0c79b5091f5ca8d1877bb8851379de923c979593d33a1c7ac0943407f45ee664362b41e62d6c3c79d555680136c42fc883044ed0814f9b994aac42177dedfffd44bb2dc8642e3fb9b934a2927fd29b7f227b8ff5eccc1949d7efff7afcec4db736efce61f98b0c8e10de2889c83834dc2c3a150d32064a1442d91819048401b263c3aa2e1d5a7cd80fd7248bde4098e18b7637dc509b55282e035d161c2e19d878bca88674f5d9b1a0f4bb3f5df9b157dcf4aa645bbdc2dba91d3ea73bac25bbac0250342caeda3fd1d7a76bf57fa3aaab500739363c824a46b4417c3e23b4f8a665397b602677c28c17a3f2a1cd39a7bcf781d36d67561ab633cdb643f2ff7d7b00b8d06ac8fed6e4741a28579a325c4396bc882ada8c458eb7daff29c65af83bd5615fb86be8e9a1de75ae54decdee0e9312b8e39384c47af7fc798470afb4a1b05450fa8f7055f56e52e3b515a6287552d2f7a2ce164a3ef624475ff155a3f782a81f8e5f5eb707d5574889cd58a07390190d5bed0cb0f8c6fe950942fbe2dd9e34d60fdc381f821a705ecd8ecc727fab9c6fe193b74a49f1f3b4ca1605ad5e4dd5aadfbadd2c8786164a89fdf543801e9beb4d322db7608948b79ad6df80689b5afcdc53c23f9c90ba187448a8355e95c69c4b87c26d4896ac2285d408cfd3f83958",
+    "resourceList" : [ {
+      "url" : "https://srfvod-euwe.akamaized.net:443/ad8d4d80-5639-43e2-a59f-9a981029b4de/SRFVOD-ee4a4797-3dde.ism/manifest(format=mpd-time-csf,encryption=cenc)?caption=srf/948d8f5a-03a7-49e2-b174-a4b7b3c4a043/episode/de/vod/vod.vtt:de:Deutsch:sdh&webvttbaseurl=https://www.srf.ch/subtitles",
+      "drmList" : [ {
+        "type" : "PLAYREADY",
+        "licenseUrl" : "https://srg.live.ott.irdeto.com/licenseServer/playready/v1/SRG/license?contentId=SRFVOD"
+      }, {
+        "type" : "WIDEVINE",
+        "licenseUrl" : "https://srg.live.ott.irdeto.com/licenseServer/widevine/v1/SRG/license?contentId=SRFVOD"
+      } ],
+      "quality" : "SD",
+      "protocol" : "DASH",
+      "encoding" : "H264",
+      "mimeType" : "application/dash+xml",
+      "presentation" : "DEFAULT",
+      "streaming" : "DASH",
+      "dvr" : false,
+      "live" : false,
+      "mediaContainer" : "MP4",
+      "audioCodec" : "AAC",
+      "videoCodec" : "H264",
+      "tokenType" : "NONE",
+      "subtitleInformationList" : [ {
+        "locale" : "de",
+        "language" : "Deutsch",
+        "source" : "DASH",
+        "type" : "SDH"
+      } ],
+      "analyticsData" : {
+        "srg_mqual" : "SD",
+        "srg_mpres" : "DEFAULT"
+      },
+      "analyticsMetadata" : {
+        "media_streaming_quality" : "SD",
+        "media_special_format" : "DEFAULT",
+        "media_url" : "https://srfvod-euwe.akamaized.net:443/ad8d4d80-5639-43e2-a59f-9a981029b4de/SRFVOD-ee4a4797-3dde.ism/manifest(format=mpd-time-csf,encryption=cenc)?caption=srf/948d8f5a-03a7-49e2-b174-a4b7b3c4a043/episode/de/vod/vod.vtt:de:Deutsch:sdh&webvttbaseurl=https://www.srf.ch/subtitles"
+      }
+    }, {
+      "url" : "http://localhost:8589/ad8d4d80-5639-43e2-a59f-9a981029b4de/SRFVOD-ee4a4797-3dde.ism/manifest(format=m3u8-aapl,encryption=cbcs-aapl)?caption=srf/948d8f5a-03a7-49e2-b174-a4b7b3c4a043/episode/de/vod/vod.m3u8:de:Deutsch:sdh&webvttbaseurl=https://www.srf.ch/subtitles",
+      "drmList" : [ {
+        "type" : "FAIRPLAY",
+        "licenseUrl" : "https://srg.live.ott.irdeto.com/licenseServer/streaming/v1/SRG/getckc?contentId=SRFVOD&keyId=b16a6656-ccd7-4390-855e-8d6dff10a9dd",
+        "certificateUrl" : "https://srg.live.ott.irdeto.com/licenseServer/streaming/v1/SRG/getcertificate?applicationId=live"
+      } ],
+      "quality" : "SD",
+      "protocol" : "HLS",
+      "encoding" : "H264",
+      "mimeType" : "application/x-mpegURL",
+      "presentation" : "DEFAULT",
+      "streaming" : "HLS",
+      "dvr" : false,
+      "live" : false,
+      "mediaContainer" : "MP4",
+      "audioCodec" : "AAC",
+      "videoCodec" : "H264",
+      "tokenType" : "NONE",
+      "subtitleInformationList" : [ {
+        "locale" : "de",
+        "language" : "Deutsch",
+        "source" : "HLS",
+        "type" : "SDH"
+      } ],
+      "analyticsData" : {
+        "srg_mqual" : "SD",
+        "srg_mpres" : "DEFAULT"
+      },
+      "analyticsMetadata" : {
+        "media_streaming_quality" : "SD",
+        "media_special_format" : "DEFAULT",
+        "media_url" : "https://srfvod-euwe.akamaized.net:443/ad8d4d80-5639-43e2-a59f-9a981029b4de/SRFVOD-ee4a4797-3dde.ism/manifest(format=m3u8-aapl,encryption=cbcs-aapl)?caption=srf/948d8f5a-03a7-49e2-b174-a4b7b3c4a043/episode/de/vod/vod.m3u8:de:Deutsch:sdh&webvttbaseurl=https://www.srf.ch/subtitles"
+      }
+    } ],
+    "aspectRatio" : "16:9",
+    "timeIntervalList" : [ {
+      "type" : "CLOSING_CREDITS",
+      "markIn" : 38370560,
+      "markOut" : 38413880
+    } ]
+  } ],
+  "topicList" : [ {
+    "id" : "fa793c13-bebc-41b9-9710-bf8a34192c15",
+    "vendor" : "SRF",
+    "transmission" : "TV",
+    "urn" : "urn:srf:topic:tv:fa793c13-bebc-41b9-9710-bf8a34192c15",
+    "title" : "Serien",
+    "lead" : "Von der täglichen Telenovela über Top US-Serien und Krimi-Serien bis zu exklusiven Eigenproduktionen - hier finden User alle Serien, die SRF online zur Verfügung stellt.",
+    "description" : "Zu einen werden Top-Serien wie «Grey's Anatomy» oder «Chicago Fire» geboten. Zum anderen stehen die Geschichten der «Wege zum Glück»-Telenovelas zur Verfügung, oder spannende Krimiserien aus dem Norden sowie Eigenproduktion sorgen für Nervenkitzel."
+  } ],
+  "analyticsData" : {
+    "srg_pr_id" : "948d8f5a-03a7-49e2-b174-a4b7b3c4a043",
+    "srg_plid" : "150ea636-e9ab-460e-abc9-3ad2f359e9e1",
+    "ns_st_pl" : "Station 19",
+    "ns_st_pr" : "Station 19 vom 21.03.2022",
+    "ns_st_dt" : "2022-03-21",
+    "ns_st_ddt" : "2022-03-21",
+    "ns_st_tdt" : "2022-03-21",
+    "ns_st_tm" : "21:48:42",
+    "ns_st_tep" : "1171188825527",
+    "ns_st_li" : "0",
+    "ns_st_stc" : "0866",
+    "ns_st_st" : "SRF Online",
+    "ns_st_tpr" : "150ea636-e9ab-460e-abc9-3ad2f359e9e1",
+    "ns_st_en" : "*null",
+    "ns_st_ge" : "*null",
+    "ns_st_ia" : "*null",
+    "ns_st_ce" : "1",
+    "ns_st_cdm" : "to",
+    "ns_st_cmt" : "fc",
+    "srg_unit" : "SRF",
+    "srg_c1" : "Serien",
+    "srg_c2" : "full",
+    "srg_wo" : "0",
+    "srg_tv_id" : "1469827222812",
+    "srg_fullLength" : "full"
+  },
+  "analyticsMetadata" : {
+    "media_episode_id" : "948d8f5a-03a7-49e2-b174-a4b7b3c4a043",
+    "media_show_id" : "150ea636-e9ab-460e-abc9-3ad2f359e9e1",
+    "media_show" : "Station 19",
+    "media_episode" : "Station 19 vom 21.03.2022",
+    "media_is_livestream" : "false",
+    "media_full_length" : "full",
+    "media_enterprise_units" : "SRF",
+    "media_joker1" : "Serien",
+    "media_is_web_only" : "false",
+    "media_production_source" : "produced.for.broadcasting",
+    "media_tv_id" : "1171188825527",
+    "media_thumbnail" : "https://ws.srf.ch/asset/image/audio/c49fb6c0-7134-406a-9f12-b3aa66f3ae61/EPISODE_IMAGE/1648037157.jpg/scale/width/344",
+    "media_publication_date" : "2022-03-21",
+    "media_publication_time" : "22:36:00",
+    "media_publication_datetime" : "2022-03-21T22:36:00+01:00",
+    "media_tv_date" : "2022-03-21",
+    "media_tv_time" : "21:48:42",
+    "media_tv_datetime" : "2022-03-21T21:48:42+01:00",
+    "media_content_group" : "Serien",
+    "media_channel_id" : "E4D5AD08-C1E8-46A3-BB58-4875051D60D2",
+    "media_channel_cs" : "0866",
+    "media_channel_name" : "SRF zwei",
+    "media_since_publication_d" : "5",
+    "media_since_publication_h" : "130"
+  }
+}

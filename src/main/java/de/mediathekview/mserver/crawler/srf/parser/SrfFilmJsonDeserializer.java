@@ -1,10 +1,6 @@
 package de.mediathekview.mserver.crawler.srf.parser;
 
-import com.google.gson.JsonArray;
-import com.google.gson.JsonDeserializationContext;
-import com.google.gson.JsonDeserializer;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
+import com.google.gson.*;
 import de.mediathekview.mlib.daten.Film;
 import de.mediathekview.mlib.daten.FilmUrl;
 import de.mediathekview.mlib.daten.Resolution;
@@ -16,6 +12,8 @@ import de.mediathekview.mserver.crawler.basic.M3U8Constants;
 import de.mediathekview.mserver.crawler.basic.M3U8Dto;
 import de.mediathekview.mserver.crawler.basic.M3U8Parser;
 import de.mediathekview.mserver.crawler.srf.SrfConstants;
+import org.apache.logging.log4j.LogManager;
+
 import java.lang.reflect.Type;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -23,12 +21,7 @@ import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
-import java.util.EnumMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
-import java.util.UUID;
-import org.apache.logging.log4j.LogManager;
+import java.util.*;
 
 public class SrfFilmJsonDeserializer implements JsonDeserializer<Optional<Film>> {
 
@@ -128,11 +121,12 @@ public class SrfFilmJsonDeserializer implements JsonDeserializer<Optional<Film>>
       Optional<String> caption = UrlUtils.getUrlParameterValue(videoUrl, "caption");
 
       if (subtitleBaseUrl.isPresent() && caption.isPresent()) {
-        return String.format(
-            "%s//%s/%s",
-            UrlUtils.PROTOCOL_HTTPS,
+        String subtitleUrl = String.format(
+            "%s/%s",
             subtitleBaseUrl.get(),
             convertVideoCaptionToSubtitleFile(caption.get()));
+
+        return UrlUtils.addProtocolIfMissing(subtitleUrl, UrlUtils.PROTOCOL_HTTPS);
       }
 
     } catch (UrlParseException e) {
@@ -333,13 +327,13 @@ public class SrfFilmJsonDeserializer implements JsonDeserializer<Optional<Film>>
     Map<Resolution, String> urls = new EnumMap<>(Resolution.class);
     final String optimizedUrl = getOptimizedUrl(aM3U8Url);
     Optional<String> content;
- 
+
     try {
       content = Optional.of(crawler.requestBodyAsString(optimizedUrl));
       if (content.isEmpty() || content.get().length() == 0) {
         content = Optional.of(crawler.requestBodyAsString(aM3U8Url));
       }
-  
+
       if (content.isPresent() && content.get().length() > 0) {
         final M3U8Parser parser = new M3U8Parser();
         final List<M3U8Dto> m3u8Data = parser.parse(content.get());
@@ -350,7 +344,7 @@ public class SrfFilmJsonDeserializer implements JsonDeserializer<Optional<Film>>
                 urls.put(resolution.get(), enrichUrl(optimizedUrl, entry.getUrl()));
               }
             });
-  
+
       } else {
         LOG.error("SrfFilmJsonDeserializer: Loading m3u8-url failed: {}", aM3U8Url);
         crawler.incrementAndGetErrorCount();
@@ -372,6 +366,11 @@ public class SrfFilmJsonDeserializer implements JsonDeserializer<Optional<Film>>
       final Optional<String> m3u8File = UrlUtils.getFileName(m3u8WithoutParameters);
       if (m3u8File.isPresent()) {
         return m3u8WithoutParameters.replace(m3u8File.get(), videoUrl);
+      }
+
+      final Optional<String> lastSegment = UrlUtils.getLastSegment(m3u8WithoutParameters);
+      if (lastSegment.isPresent()) {
+        return m3u8WithoutParameters.replace(lastSegment.get(), videoUrl);
       }
     }
     return videoUrl;

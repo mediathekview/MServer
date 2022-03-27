@@ -161,6 +161,21 @@ public class SrfFilmJsonDeserializerTest extends SrfTaskTestBase {
             "http://localhost:8589/world/hls/motel/2022/03/motel_20220314_001922_9130234_v_webcast_h264_,q40,q10,q20,q30,q50,q60,.mp4.csmil/index-f1-v1-a1.m3u8",
             "http://localhost:8589/world/hls/motel/2022/03/motel_20220314_001922_9130234_v_webcast_h264_,q40,q10,q20,q30,q50,q60,.mp4.csmil/index-f6-v1-a1.m3u8",
             ""
+          },
+          {
+            "/srf/srf_film_page_only_filename_in_m3u8_2.json",
+            "/srf/srf_film_page_only_filename_in_m3u8_2.m3u8",
+            "/ad8d4d80-5639-43e2-a59f-9a981029b4de/SRFVOD-ee4a4797-3dde.ism/manifest(format=m3u8-aapl,encryption=cbcs-aapl)?caption=srf/948d8f5a-03a7-49e2-b174-a4b7b3c4a043/episode/de/vod/vod.m3u8:de:Deutsch:sdh&webvttbaseurl=https://www.srf.ch/subtitles",
+            "Station 19",
+            "Familienbande (Staffel 4, Folge 3)",
+            LocalDateTime.of(2022, 3, 21, 21, 45, 0),
+            2413920,
+            "Die Zukunft von Sullivan hängt am seidenen Faden: Seine Anhörung vor der Feuerwehr-Kommission steht an. Als Zeugen sind Ben Warren, Richard Webber, Emmett Dixon und der ehemalige Fire Chief Michael Dixon vorgesehen. Ben versucht, während der Verhandlung auf die landesweite Opioid-Krise hinzuweisen und macht diese für Sullivans Handlungen mitverantwortlich. Webber hält eine flammende Rede für Abhän\n.....",
+            "https://www.srf.ch/play/tv/station-19/video/familienbande-(staffel-4-folge-3)?id=cf776586-de57-481f-8473-f96f9b0f91b4",
+            "http://localhost:8589/ad8d4d80-5639-43e2-a59f-9a981029b4de/SRFVOD-ee4a4797-3dde.ism/QualityLevels(499936)/Manifest(video,format=m3u8-aapl)",
+            "http://localhost:8589/ad8d4d80-5639-43e2-a59f-9a981029b4de/SRFVOD-ee4a4797-3dde.ism/QualityLevels(1999872)/Manifest(video,format=m3u8-aapl)",
+            "",
+            "https://www.srf.ch/subtitles/srf/948d8f5a-03a7-49e2-b174-a4b7b3c4a043/episode/de/vod/vod.vtt"
           }
         });
   }
