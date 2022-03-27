@@ -176,7 +176,8 @@ public final class UrlUtils {
   public static Optional<String> getLastSegment(final String aUrl) {
     if (aUrl != null) {
       final int index = aUrl.lastIndexOf('/');
-      if (index > 0) {
+      final int indexProtocol = aUrl.indexOf("://");
+      if (index > 0 && (indexProtocol < 0 || indexProtocol < index - 2)) {
         final String segment = aUrl.substring(index + 1);
         return Optional.of(segment);
       }
