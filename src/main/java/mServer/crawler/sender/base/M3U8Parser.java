@@ -71,9 +71,9 @@ public class M3U8Parser {
   private static String prepareUrl(String aUrl) {
     String url = aUrl;
 
-    int indexSuffix = aUrl.lastIndexOf("m3u8");
+    int indexSuffix = aUrl.lastIndexOf(".m3u8");
     if (indexSuffix > 0) {
-      url = aUrl.substring(0, indexSuffix + 4);
+      url = aUrl.substring(0, indexSuffix + 5);
     }
 
     return url;
@@ -99,6 +99,7 @@ public class M3U8Parser {
         currentMeta = line;
       } else if (line.startsWith("#")) {
         currentMeta = null;
+        currentUrl = null;
       } else if (!line.isEmpty()) {
         currentUrl = line;
       }
