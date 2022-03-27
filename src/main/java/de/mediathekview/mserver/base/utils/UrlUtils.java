@@ -48,8 +48,15 @@ public final class UrlUtils {
    * @return the url including the protocol
    */
   public static String addProtocolIfMissing(final String aUrl, final String aProtocol) {
-    if (aUrl != null && aUrl.startsWith("//")) {
+    if (aUrl == null || aUrl.isEmpty()) {
+      return aUrl;
+    }
+
+    if (aUrl.startsWith("//")) {
       return aProtocol + aUrl;
+    }
+    if (!aUrl.contains("://") && !aUrl.startsWith("/")) {
+      return aProtocol + "//" + aUrl;
     }
 
     return aUrl;
@@ -154,6 +161,24 @@ public final class UrlUtils {
         if (file.contains(".")) {
           return Optional.of(file);
         }
+      }
+    }
+
+    return Optional.empty();
+  }
+
+  /**
+   * returns the last segment of the url.
+   *
+   * @param aUrl the url
+   * @return the last segment of the url
+   */
+  public static Optional<String> getLastSegment(final String aUrl) {
+    if (aUrl != null) {
+      final int index = aUrl.lastIndexOf('/');
+      if (index > 0) {
+        final String segment = aUrl.substring(index + 1);
+        return Optional.of(segment);
       }
     }
 

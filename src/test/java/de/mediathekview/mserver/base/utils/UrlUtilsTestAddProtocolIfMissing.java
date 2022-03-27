@@ -29,7 +29,8 @@ public class UrlUtilsTestAddProtocolIfMissing {
           {null, null},
           {"", ""},
           {"https://www.testurl.de/resource?query=3", "https://www.testurl.de/resource?query=3"},
-          {"www.urlohneschema.de", "www.urlohneschema.de"},
+          {"http://www.testurl.de/resource?query=3", "http://www.testurl.de/resource?query=3"},
+          {"www.urlohneschema.de", PROTOCOL + "//www.urlohneschema.de"},
           {"/child/sub", "/child/sub"},
           {"//www.mydomain.de/child/sub", PROTOCOL + "//www.mydomain.de/child/sub"}
         });
