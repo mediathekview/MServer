@@ -227,10 +227,12 @@ public class SrfFilmJsonDeserializer implements JsonDeserializer<Optional<DatenF
       Optional<String> caption = UrlUtils.getUrlParameterValue(videoUrl, "caption");
 
       if (subtitleBaseUrl.isPresent() && caption.isPresent()) {
-        return String.format(
-                "https://%s/%s",
+        String subtitleUrl = String.format(
+                "%s/%s",
                 subtitleBaseUrl.get(),
                 convertVideoCaptionToSubtitleFile(caption.get()));
+
+        return UrlUtils.addProtocolIfMissing(subtitleUrl, UrlUtils.PROTOCOL_HTTPS);
       }
 
     } catch (UrlParseException e) {
@@ -306,6 +308,10 @@ public class SrfFilmJsonDeserializer implements JsonDeserializer<Optional<DatenF
       final Optional<String> m3u8File = UrlUtils.getFileName(m3u8WithoutParameters);
       if (m3u8File.isPresent()) {
         return m3u8WithoutParameters.replace(m3u8File.get(), videoUrl);
+      }
+      final Optional<String> lastSegment = UrlUtils.getLastSegment(m3u8WithoutParameters);
+      if (lastSegment.isPresent()) {
+        return m3u8WithoutParameters.replace(lastSegment.get(), videoUrl);
       }
     }
     return videoUrl;
