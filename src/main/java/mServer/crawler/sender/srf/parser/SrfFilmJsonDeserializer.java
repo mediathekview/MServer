@@ -8,7 +8,19 @@ import com.google.gson.JsonObject;
 import de.mediathekview.mlib.Const;
 import de.mediathekview.mlib.daten.DatenFilm;
 import de.mediathekview.mlib.tool.MVHttpClient;
+import mServer.crawler.CrawlerTool;
+import mServer.crawler.sender.base.M3U8Constants;
+import mServer.crawler.sender.base.M3U8Dto;
+import mServer.crawler.sender.base.M3U8Parser;
+import mServer.crawler.sender.base.Qualities;
+import mServer.crawler.sender.base.UrlParseException;
+import mServer.crawler.sender.base.UrlUtils;
 import mServer.crawler.sender.srf.SrfConstants;
+import okhttp3.Request;
+import okhttp3.Response;
+import okhttp3.ResponseBody;
+import org.apache.logging.log4j.LogManager;
+
 import java.lang.reflect.Type;
 import java.time.Duration;
 import java.time.LocalDateTime;
@@ -19,23 +31,13 @@ import java.util.EnumMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-import mServer.crawler.CrawlerTool;
-import mServer.crawler.sender.base.M3U8Constants;
-import mServer.crawler.sender.base.M3U8Dto;
-import mServer.crawler.sender.base.M3U8Parser;
-import mServer.crawler.sender.base.UrlParseException;
-import mServer.crawler.sender.base.UrlUtils;
-import mServer.crawler.sender.base.Qualities;
-import okhttp3.Request;
-import okhttp3.Response;
-import okhttp3.ResponseBody;
-import org.apache.logging.log4j.LogManager;
 
 public class SrfFilmJsonDeserializer implements JsonDeserializer<Optional<DatenFilm>> {
 
   private static final org.apache.logging.log4j.Logger LOG = LogManager.getLogger(SrfFilmJsonDeserializer.class);
 
   private static final String ATTRIBUTE_DESCRIPTION = "description";
+  private static final String ATTRIBUTE_DRM_LIST = "drmList";
   private static final String ATTRIBUTE_DURATION = "duration";
   private static final String ATTRIBUTE_FORMAT = "format";
   private static final String ATTRIBUTE_ID = "id";
@@ -259,7 +261,8 @@ public class SrfFilmJsonDeserializer implements JsonDeserializer<Optional<DatenF
       if (!arrayItemElement.isJsonNull()) {
         JsonObject arrayItemObject = arrayItemElement.getAsJsonObject();
 
-        if (arrayItemObject.has(ATTRIBUTE_MIMETYPE)
+        if (!arrayItemObject.has(ATTRIBUTE_DRM_LIST)
+                && arrayItemObject.has(ATTRIBUTE_MIMETYPE)
                 && arrayItemObject.has(ATTRIBUTE_URL)
                 && arrayItemObject.get(ATTRIBUTE_MIMETYPE).getAsString().contains("x-mpegURL")) {
           if (url.isEmpty()
@@ -323,7 +326,7 @@ public class SrfFilmJsonDeserializer implements JsonDeserializer<Optional<DatenF
             .url(aM3U8Url).build();
 
     try (Response response = MVHttpClient.getInstance().getHttpClient().newCall(request).execute();
-            ResponseBody body = response.body()) {
+         ResponseBody body = response.body()) {
       if (response.isSuccessful() && body != null) {
         return Optional.of(body.string());
       }
