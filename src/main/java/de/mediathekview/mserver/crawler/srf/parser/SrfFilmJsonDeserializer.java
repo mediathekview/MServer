@@ -1,10 +1,6 @@
 package de.mediathekview.mserver.crawler.srf.parser;
 
-import com.google.gson.JsonArray;
-import com.google.gson.JsonDeserializationContext;
-import com.google.gson.JsonDeserializer;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
+import com.google.gson.*;
 import de.mediathekview.mlib.daten.Film;
 import de.mediathekview.mlib.daten.FilmUrl;
 import de.mediathekview.mlib.daten.Resolution;
@@ -25,11 +21,7 @@ import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
-import java.util.EnumMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
 
 public class SrfFilmJsonDeserializer implements JsonDeserializer<Optional<Film>> {
 
@@ -37,6 +29,7 @@ public class SrfFilmJsonDeserializer implements JsonDeserializer<Optional<Film>>
       LogManager.getLogger(SrfFilmJsonDeserializer.class);
 
   private static final String ATTRIBUTE_DESCRIPTION = "description";
+  private static final String ATTRIBUTE_DRM_LIST = "drmList";
   private static final String ATTRIBUTE_DURATION = "duration";
   private static final String ATTRIBUTE_FORMAT = "format";
   private static final String ATTRIBUTE_ID = "id";
@@ -129,10 +122,9 @@ public class SrfFilmJsonDeserializer implements JsonDeserializer<Optional<Film>>
       Optional<String> caption = UrlUtils.getUrlParameterValue(videoUrl, "caption");
 
       if (subtitleBaseUrl.isPresent() && caption.isPresent()) {
-        String subtitleUrl = String.format(
-            "%s/%s",
-            subtitleBaseUrl.get(),
-            convertVideoCaptionToSubtitleFile(caption.get()));
+        String subtitleUrl =
+            String.format(
+                "%s/%s", subtitleBaseUrl.get(), convertVideoCaptionToSubtitleFile(caption.get()));
 
         return UrlUtils.addProtocolIfMissing(subtitleUrl, UrlUtils.PROTOCOL_HTTPS);
       }
@@ -182,7 +174,8 @@ public class SrfFilmJsonDeserializer implements JsonDeserializer<Optional<Film>>
       if (!arrayItemElement.isJsonNull()) {
         final JsonObject arrayItemObject = arrayItemElement.getAsJsonObject();
 
-        if (arrayItemObject.has(ATTRIBUTE_MIMETYPE)
+        if (!arrayItemObject.has(ATTRIBUTE_DRM_LIST)
+            && arrayItemObject.has(ATTRIBUTE_MIMETYPE)
             && arrayItemObject.has(ATTRIBUTE_URL)
             && arrayItemObject.get(ATTRIBUTE_MIMETYPE).getAsString().contains("x-mpegURL")) {
           if (url.isEmpty()
