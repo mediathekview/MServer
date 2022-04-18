@@ -241,6 +241,7 @@ public abstract class MediathekReader extends Thread {
             || film.arr[DatenFilm.FILM_URL].startsWith("https://mediandr-a.akamaihd.net//progressive_geo/")
             || film.arr[DatenFilm.FILM_URL].startsWith("https://pdodswr-a.akamaihd.net/swr/geo/de/")
             || film.arr[DatenFilm.FILM_URL].startsWith("https://pdodswr-a.akamaihd.net/swrfernsehen/geo/de/")
+            || film.arr[DatenFilm.FILM_URL].startsWith("https://pdodswr-a.akamaihd.net/kindernetz/geo/de/")
             || film.arr[DatenFilm.FILM_URL].startsWith("http://mediandr-a.akamaihd.net/progressive_geo")
             || film.arr[DatenFilm.FILM_URL].startsWith("https://mediandr-a.akamaihd.net/progressive_geo")
             || film.arr[DatenFilm.FILM_URL].startsWith("http://cdn-storage.br.de/geo/")
@@ -304,8 +305,12 @@ public abstract class MediathekReader extends Thread {
   private void processKiKa(DatenFilm film) {
     if (film.arr[DatenFilm.FILM_URL].startsWith("http://pmdgeo.kika.de/")
             || film.arr[DatenFilm.FILM_URL].startsWith("https://pmdgeokika-a.akamaihd.net/")
-            || film.arr[DatenFilm.FILM_URL].startsWith("http://kika_geo-lh.akamaihd.net")) {
+            || film.arr[DatenFilm.FILM_URL].startsWith("http://kika_geo-lh.akamaihd.net")
+            || film.arr[DatenFilm.FILM_URL].contains("//tvdlzdf-a.akamaihd.net/de/")) {
       film.arr[DatenFilm.FILM_GEO] = DatenFilm.GEO_DE;
+    } else {
+      processArd(film);
+      processZdfPart(film);
     }
   }
 
