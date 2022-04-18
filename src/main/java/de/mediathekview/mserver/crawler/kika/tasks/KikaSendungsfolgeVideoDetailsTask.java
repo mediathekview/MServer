@@ -2,6 +2,7 @@ package de.mediathekview.mserver.crawler.kika.tasks;
 
 import de.mediathekview.mlib.daten.*;
 import de.mediathekview.mserver.base.utils.DateUtils;
+import de.mediathekview.mserver.base.utils.GeoLocationGuesser;
 import de.mediathekview.mserver.base.utils.HtmlDocumentUtils;
 import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
 import de.mediathekview.mserver.crawler.basic.AbstractUrlTask;
@@ -296,13 +297,7 @@ public class KikaSendungsfolgeVideoDetailsTask extends AbstractUrlTask<Film, Kik
       return;
     }
 
-    GeoLocations geoLocation = GeoLocations.GEO_NONE;
-    if (url.get().getUrl().getHost().contains("pmdgeokika")) {
-      geoLocation = GeoLocations.GEO_DE;
-    }
-
-    final Collection<GeoLocations> geoLocations = new ArrayList<>();
-    geoLocations.add(geoLocation);
+    final Collection<GeoLocations> geoLocations = GeoLocationGuesser.getGeoLocations(Sender.KIKA, url.get().toString());
     newFilm.setGeoLocations(geoLocations);
   }
 
