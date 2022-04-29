@@ -62,6 +62,10 @@ public class ArdTopicPageTask extends ArdTaskBase<ArdFilmInfoDto, CrawlerUrlDTO>
     TOPICS_LOAD_ALL_PAGES.add("Y3JpZDovL2hyLW9ubGluZS8zODIyMDA5NQ");
     TOPICS_LOAD_ALL_PAGES.add("Y3JpZDovL2hyLW9ubGluZS8zODIyMDA5Ng");
     TOPICS_LOAD_ALL_PAGES.add("Y3JpZDovL3JhZGlvYnJlbWVuLmRlL2IwYTJlZWFlLWI2NjAtNDI5Yi05ZTE3LTM5YzlkZDhmNTc4Ng");
+    // Tatort
+    TOPICS_LOAD_ALL_PAGES.add("Y3JpZDovL2Rhc2Vyc3RlLmRlL3RhdG9ydA");
+    // Filme im Ersten
+    TOPICS_LOAD_ALL_PAGES.add("Y3JpZDovL2Rhc2Vyc3RlLmRlL2Zlcm5zZWhmaWxtZSBpbSBlcnN0ZW4");
   }
 
   public ArdTopicPageTask(MediathekReader aCrawler,
