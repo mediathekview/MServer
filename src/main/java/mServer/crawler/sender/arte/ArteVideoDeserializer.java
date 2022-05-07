@@ -1,30 +1,22 @@
 package mServer.crawler.sender.arte;
 
-import com.google.gson.JsonDeserializationContext;
-import com.google.gson.JsonDeserializer;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
+import com.google.gson.*;
 import mServer.crawler.sender.base.Qualities;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.lang.reflect.Type;
-import java.time.Duration;
-import java.util.Map;
 import java.util.Optional;
-import java.util.Set;
 
 public class ArteVideoDeserializer
         implements JsonDeserializer<ArteVideoDTO> {
 
   private static final Logger LOG = LogManager.getLogger(ArteVideoDeserializer.class);
 
-  private static final String JSON_OBJECT_KEY_PLAYER = "videoJsonPlayer";
-  private static final String JSON_OBJECT_KEY_VSR = "VSR";
-  private static final String ATTRIBUTE_DURATION = "videoDurationSeconds";
+  private static final String JSON_OBJECT_KEY_PLAYER = "videoStreams";
   private static final String ATTRIBUTE_URL = "url";
   private static final String ATTRIBUTE_QUALITY = "quality";
-  private static final String ATTRIBUTE_VERSION_CODE = "versionCode";
+  private static final String ATTRIBUTE_VERSION_CODE = "audioCode";
 
   private final String sender;
 
@@ -38,29 +30,13 @@ public class ArteVideoDeserializer
     ArteVideoDTO arteVideoDTO = new ArteVideoDTO();
     if (aJsonElement.isJsonObject()
             && aJsonElement.getAsJsonObject().has(JSON_OBJECT_KEY_PLAYER)
-            && aJsonElement.getAsJsonObject().get(JSON_OBJECT_KEY_PLAYER).isJsonObject()
-            && aJsonElement
-            .getAsJsonObject()
-            .get(JSON_OBJECT_KEY_PLAYER)
-            .getAsJsonObject()
-            .has(JSON_OBJECT_KEY_VSR)
-            && aJsonElement
-            .getAsJsonObject()
-            .get(JSON_OBJECT_KEY_PLAYER)
-            .getAsJsonObject()
-            .get(JSON_OBJECT_KEY_VSR)
-            .isJsonObject()) {
-      JsonObject playerObject =
-              aJsonElement.getAsJsonObject().get(JSON_OBJECT_KEY_PLAYER).getAsJsonObject();
-      JsonObject vsrJsonObject = playerObject.get(JSON_OBJECT_KEY_VSR).getAsJsonObject();
+            && aJsonElement.getAsJsonObject().get(JSON_OBJECT_KEY_PLAYER).isJsonArray()) {
+      JsonArray videoStreams =
+              aJsonElement.getAsJsonObject().get(JSON_OBJECT_KEY_PLAYER).getAsJsonArray();
 
-      final long duration = playerObject.has(ATTRIBUTE_DURATION) ? playerObject.get(ATTRIBUTE_DURATION).getAsLong() : 0;
-      arteVideoDTO.setDuration(Duration.ofSeconds(duration));
-
-      final Set<Map.Entry<String, JsonElement>> entries = vsrJsonObject.entrySet();
-      entries.forEach(
+      videoStreams.forEach(
               entry -> {
-                final JsonObject value = entry.getValue().getAsJsonObject();
+                final JsonObject value = entry.getAsJsonObject();
 
                 final String code = value.get(ATTRIBUTE_VERSION_CODE).getAsString();
                 final String quality = value.get(ATTRIBUTE_QUALITY).getAsString();
