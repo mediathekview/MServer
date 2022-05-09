@@ -25,7 +25,7 @@ public class ArteProgramIdToDatenFilmCallable implements Callable<Set<DatenFilm>
 
   private static final Logger LOG = LogManager.getLogger(ArteProgramIdToDatenFilmCallable.class);
 
-  private static final String ARTE_VIDEO_INFORMATION_URL_PATTERN = "https://api.arte.tv/api/opa/v3/videoStreams?programId=%s&mediaType=mp4&limit=100&language=%s";
+  private static final String ARTE_VIDEO_INFORMATION_URL_PATTERN = "https://api.arte.tv/api/opa/v3/videoStreams?programId=%s&limit=100&language=%s&protocol=HTTPS&kind=SHOW";
   private static final String ARTE_VIDEO_INFORMATION_URL_PATTERN_2 = "https://api.arte.tv/api/opa/v3/programs/%s/%s"; // Für broadcastBeginRounded
 
   private final FastDateFormat broadcastDateFormat = FastDateFormat.getInstance("yyyy-MM-dd'T'HH:mm:ssX");//2016-10-29T16:15:00Z
