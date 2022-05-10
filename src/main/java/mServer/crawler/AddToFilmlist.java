@@ -302,7 +302,7 @@ public class AddToFilmlist {
             if (response.isSuccessful()) {
               long respLength = determineContentLength(response);
 
-              if (isRelevantContentType(response) && !orfRemovedVideo(film, response) &&
+              if (isRelevantContentType(response) && !removedVideo(film, response) &&
                   // ignore file length of m3u8-files because it is always too small
                   (isM3u8File(url) || respLength > MIN_SIZE_ADD_OLD)) {
                 addOld(film);
@@ -320,7 +320,7 @@ public class AddToFilmlist {
           if (Long.parseLong(film.arr[DatenFilm.FILM_GROESSE]) > MIN_SIZE_ADD_OLD) {
             Request request = createOnlineCheckRequest(url);
             try (Response response = client.newCall(request).execute()) {
-              if (response.isSuccessful() && isRelevantContentType(response) && !orfRemovedVideo(film, response)) {
+              if (response.isSuccessful() && isRelevantContentType(response) && !removedVideo(film, response)) {
                 addOld(film);
               } else {
                 Log.sysLog("film removed: code: " + response.code() + ": " + url);
@@ -333,6 +333,19 @@ public class AddToFilmlist {
         }
       }
       threadCounter.decrementAndGet();
+    }
+
+    private boolean removedVideo(DatenFilm film, Response response) {
+      return orfRemovedVideo(film, response) || arteRemovedVideo(film, response);
+    }
+
+    private boolean arteRemovedVideo(DatenFilm film, Response response) {
+      if (film.arr[DatenFilm.FILM_SENDER].equals(Const.ARTE_DE)) {
+        String path = response.request().url().encodedPath();
+        return path.contains("_EXTRAIT_");
+      }
+
+      return false;
     }
 
     private boolean orfRemovedVideo(DatenFilm film, Response response) {

@@ -27,6 +27,7 @@ public class AddToFilmlistTest {
   private static final String FILM_NAME_ONLINE_M3U8 = "onlinefilm.m3u8";
   private static final String FILM_NAME_OFFLINE_M3U8 = "offlinefilm.m3u8";
   private static final String FILM_NAME_OFFLINE_BUT_HTML_RESPONSE = "ardofflinefilm.mp4";
+  private static final String FILM_NAME_ARTE_EXTRAIT = "/am/ptweb/106000/106200/106287-011-A_EXT_EQ_1_VA-STA_06707579_MP4-1500_AMM-PTWEB_EXTRAIT_1mQDhYFo2y.mp4";
   private static final String FILM_NAME_ORF_JUGENDSCHUTZ = "ipad/gp/Jugendschutz0600b2000_Q8C.mp4/playlist.m3u8";
   private static final String FILM_TOPIC1 = "Topic 1";
   private static final String FILM_TOPIC2 = "Topic 2";
@@ -53,6 +54,7 @@ public class AddToFilmlistTest {
         switch (request.getPath()) {
           case "/" + FILM_NAME_ONLINE:
           case "/" + FILM_NAME_ONLINE2:
+          case "/" + FILM_NAME_ARTE_EXTRAIT:
             return new MockResponse()
                 .setResponseCode(200);
           case "/" + FILM_NAME_OFFLINE_BUT_HTML_RESPONSE:
@@ -304,6 +306,16 @@ public class AddToFilmlistTest {
     film.arr[DatenFilm.FILM_URL] = "https://apasfiis.sf.apa.at/ipad/cms-austria/2021-06-18_1330_tl_01_EM-2020--Das-wa_____14095766__o__7163875146__s14941321_1__ORF1HD_13322618P_13325906P_Q6A.mp4/playlist.m3u8";
     film.arr[DatenFilm.FILM_GROESSE]="";
     listToAdd.add(film);
+
+    AddToFilmlist target = new AddToFilmlist(list, listToAdd);
+    target.addOldList();
+
+    assertThat(list.size(), equalTo(2));
+  }
+
+  @Test
+  public void testNotAddArteExtraits() {
+    listToAdd.add(createTestFilm(Const.ARTE_DE, FILM_TOPIC1, FILM_TITLE1, FILM_NAME_ARTE_EXTRAIT));
 
     AddToFilmlist target = new AddToFilmlist(list, listToAdd);
     target.addOldList();
