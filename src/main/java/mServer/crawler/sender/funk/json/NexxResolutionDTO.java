@@ -6,10 +6,10 @@ import java.util.Optional;
 public class NexxResolutionDTO {
   private final int widht;
   private final int height;
-  private final int size;
+  private final String size;
   private Optional<String> fileId;
 
-  public NexxResolutionDTO(final int widht, final int height, final int size, Optional<String> aFileId) {
+  public NexxResolutionDTO(final int widht, final int height, final String size, Optional<String> aFileId) {
     this.widht = widht;
     this.height = height;
     this.size = size;
@@ -24,7 +24,7 @@ public class NexxResolutionDTO {
     return height;
   }
 
-  public int getSize() {
+  public String getSize() {
     return size;
   }
 
@@ -41,7 +41,7 @@ public class NexxResolutionDTO {
       return false;
     }
     final NexxResolutionDTO that = (NexxResolutionDTO) o;
-    return widht == that.widht && height == that.height && size == that.size;
+    return widht == that.widht && height == that.height && Objects.equals(size, that.size);
   }
 
   @Override

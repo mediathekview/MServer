@@ -1,8 +1,11 @@
 package mServer.crawler.sender.funk.json;
 
 import com.google.gson.*;
+import de.mediathekview.mlib.tool.Log;
 import mServer.crawler.sender.base.FilmUrlInfoDto;
 import mServer.crawler.sender.base.JsonUtils;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.lang.reflect.Type;
 import java.util.Arrays;
@@ -13,7 +16,7 @@ import java.util.stream.Collectors;
 
 public class NexxCloudVideoDetailsDeserializer implements JsonDeserializer<Set<FilmUrlInfoDto>> {
   // https://[result.streamdata.cdnShieldProgHTTP]/[result.streamdata.azureLocator]/[result.general.ID]_src_[result.streamdata.azureFileDistribution].mp4
-  private static final String VIDEO_FILE_URL_PATTERN = "https://%s%s/%s_src_%dx%d_%d.mp4";
+  private static final String VIDEO_FILE_URL_PATTERN = "https://%s%s/%s_src_%dx%d_%s.mp4";
   // globalstatic+details["qAccount"]+"/files/"+details["qPrefix"]+"/"+details["qLocator"]+"/"+ss+".mp4"
   private static final String VIDEO_FILE_URL_PATTERN_3Q = "https://%s%s/files/%s/%s/%s.mp4";
   private static final String TAG_RESULT = "result";
@@ -32,6 +35,9 @@ public class NexxCloudVideoDetailsDeserializer implements JsonDeserializer<Set<F
   private static final String STREAMDATA_LOCATOR = "qLocator";
   private static final String STREAMDATA_CDN_TYPE = "cdnType";
   private static final String STREAMDATA_SSH_HOST = "cdnShieldHTTPS";
+
+  private static final Logger LOGGER =
+          LogManager.getLogger(NexxCloudVideoDetailsDeserializer.class);
 
   @Override
   public Set<FilmUrlInfoDto> deserialize(
@@ -163,15 +169,20 @@ public class NexxCloudVideoDetailsDeserializer implements JsonDeserializer<Set<F
     final String[] resolutionTextSplitted = resolutionText.split(SPLITERATOR_COLON);
     Optional<String> fileId = Optional.empty();
     if (resolutionTextSplitted.length >= 2) {
-      final int size = Integer.parseInt(resolutionTextSplitted[0]);
-      final String[] reolutions = resolutionTextSplitted[1].split(SPLITERATOR_X);
-      if (reolutions.length == 2) {
-        final int width = Integer.parseInt(clearNumber(reolutions[0]));
-        final int height = Integer.parseInt(clearNumber(reolutions[1]));
-        if (resolutionTextSplitted.length > 2) {
-          fileId = Optional.of(resolutionTextSplitted[2]);
+      try {
+        final String size = resolutionTextSplitted[0].replaceAll("^0+(?!$)", "");
+        final String[] reolutions = resolutionTextSplitted[1].split(SPLITERATOR_X);
+        if (reolutions.length == 2) {
+          final int width = Integer.parseInt(clearNumber(reolutions[0]));
+          final int height = Integer.parseInt(clearNumber(reolutions[1]));
+          if (resolutionTextSplitted.length > 2) {
+            fileId = Optional.of(resolutionTextSplitted[2]);
+          }
+          return Optional.of(new NexxResolutionDTO(width, height, size, fileId));
         }
-        return Optional.of(new NexxResolutionDTO(width, height, size, fileId));
+      } catch (NumberFormatException e) {
+        LOGGER.error(e);
+        Log.errorLog(62345326, e);
       }
     }
     return Optional.empty();
