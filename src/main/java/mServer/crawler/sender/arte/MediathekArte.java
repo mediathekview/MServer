@@ -7,46 +7,40 @@ import de.mediathekview.mlib.Const;
 import de.mediathekview.mlib.daten.DatenFilm;
 import de.mediathekview.mlib.daten.ListeFilme;
 import de.mediathekview.mlib.tool.Log;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
-import java.util.Set;
-import java.util.stream.Collectors;
-
 import mServer.crawler.CrawlerTool;
 import mServer.crawler.FilmeSuchen;
 import mServer.crawler.sender.MediathekReader;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.*;
+import java.util.stream.Collectors;
+
 public class MediathekArte extends MediathekReader {
 
   /*
-     * Informationen zu den ARTE-URLs:
-     * {} sind nur Makierungen, dass es Platzhalter sind, sie gehören nicht zur URL.
-     *
-     * Allgemeine URL eines Films:  (050169-002-A = ID des Films); (die-spur-der-steine = Titel)
-     * http://www.arte.tv/de/videos/{050169-002-A}/{die-spur-der-steine}
-     *
-     * Alle Sendungen: (Deutsch = DE; Französisch = FR)
-     * https://api.arte.tv/api/opa/v3/videos?channel={DE}
-     *
-     * Informationen zum Film: (050169-002-A = ID des Films); (de für deutsch / fr für französisch)
-     * https://api.arte.tv/api/player/v1/config/{de}/{050169-002-A}?platform=ARTE_NEXT
-     *
-     * Zweite Quelle für Informationen zum Film: (050169-002-A = ID des Films); (de für deutsch / fr für französisch)
-     * https://api.arte.tv/api/opa/v3/programs/{de}/{050169-002-A}
-     *
-     * Hintergrundinfos zum Laden der Filme nach Kategorien im langen Lauf:
-     * 1. statische Informationen über verfügbare Kategorien laden: URL_STATIC_CONTENT
-     * 2. für jede Kategorie die Unterkategorien ermitteln: URL_CATEGORY
-     * 3. für jede Unterkategorie die enthaltenen ProgramId ermitteln: URL_SUBCATEGORY
-     * 4. für alle ProgramIds die Videoinformationen laden (wie kurze Variante)
+   * Informationen zu den ARTE-URLs:
+   * {} sind nur Makierungen, dass es Platzhalter sind, sie gehören nicht zur URL.
+   *
+   * Allgemeine URL eines Films:  (050169-002-A = ID des Films); (die-spur-der-steine = Titel)
+   * http://www.arte.tv/de/videos/{050169-002-A}/{die-spur-der-steine}
+   *
+   * Alle Sendungen: (Deutsch = DE; Französisch = FR)
+   * https://api.arte.tv/api/opa/v3/videos?channel={DE}
+   *
+   * Informationen zum Film: (050169-002-A = ID des Films); (de für deutsch / fr für französisch)
+   * https://api.arte.tv/api/player/v1/config/{de}/{050169-002-A}?platform=ARTE_NEXT
+   *
+   * Zweite Quelle für Informationen zum Film: (050169-002-A = ID des Films); (de für deutsch / fr für französisch)
+   * https://api.arte.tv/api/opa/v3/programs/{de}/{050169-002-A}
+   *
+   * Hintergrundinfos zum Laden der Filme nach Kategorien im langen Lauf:
+   * 1. statische Informationen über verfügbare Kategorien laden: URL_STATIC_CONTENT
+   * 2. für jede Kategorie die Unterkategorien ermitteln: URL_CATEGORY
+   * 3. für jede Unterkategorie die enthaltenen ProgramId ermitteln: URL_SUBCATEGORY
+   * 4. für alle ProgramIds die Videoinformationen laden (wie kurze Variante)
    */
   private static final Logger LOG = LogManager.getLogger(MediathekArte.class);
   private static final String ARTE_API_TAG_URL_PATTERN = "https://api.arte.tv/api/opa/v3/videos?channel=%s&arteSchedulingDay=%s";
@@ -65,6 +59,8 @@ public class MediathekArte extends MediathekReader {
     "ATA", "EVA", "NEA", "VIA",
     "CIV", "LGP", "XXE"
   };
+
+  private static final String COLLECTION_URL = "https://api.arte.tv/api/opa/v3/programs/%s/%s";
 
   private static final DateTimeFormatter ARTE_API_DATEFORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd");
   private static final boolean PARSE_SUBCATEGORY_SUB_PAGES = false; // Flag, ob Unterseiten der Unterkategorien verarbeitet werden soll
@@ -152,7 +148,7 @@ public class MediathekArte extends MediathekReader {
     senderLanguages.forEach((sender, langCode) -> {
       for (String subCategory : SUBCATEGORIES) {
         String subCategoryUrl = String.format(URL_SUBCATEGORY, langCode.toLowerCase(), subCategory, 1);
-          listeThemen.add(new String[]{sender, langCode, subCategory, subCategoryUrl});
+        listeThemen.add(new String[]{sender, langCode, subCategory, subCategoryUrl});
       }
     });
   }
@@ -209,6 +205,7 @@ public class MediathekArte extends MediathekReader {
    */
   class CategoryLoader extends Thread {
 
+
     @Override
     public void run() {
       try {
@@ -225,12 +222,19 @@ public class MediathekArte extends MediathekReader {
     }
 
     private void loadSubCategory(String sender, String langCode, String aCategory, String aUrl) {
-      Gson gson = new GsonBuilder().registerTypeAdapter(ArteCategoryFilmsDTO.class, new ArteCategoryFilmListDeserializer()).create();
+      Gson gson = new GsonBuilder()
+              .registerTypeAdapter(ArteCategoryFilmsDTO.class, new ArteCategoryFilmListDeserializer())
+              .create();
+      Gson gsonCollection = new GsonBuilder()
+              .registerTypeAdapter(ArteCategoryFilmsDTO.class, new ArteCollectionDeserializer())
+              .create();
 
       // erste Seite laden
       int i = 2;
       ArteCategoryFilmsDTO dto = loadSubCategoryPage(gson, sender, aUrl);
       if (dto != null) {
+        loadCollections(sender, langCode, gsonCollection, dto);
+
         ArteCategoryFilmsDTO nextDto = dto;
         while (PARSE_SUBCATEGORY_SUB_PAGES && nextDto != null && nextDto.hasNextPage()) {
 
@@ -238,6 +242,7 @@ public class MediathekArte extends MediathekReader {
           String url = String.format(URL_SUBCATEGORY, langCode.toLowerCase(), aCategory, i);
           nextDto = loadSubCategoryPage(gson, sender, url);
           if (nextDto != null) {
+            loadCollections(sender, langCode, gsonCollection, nextDto);
             nextDto.getProgramIds().forEach(programId -> dto.addProgramId(programId));
           }
 
@@ -249,6 +254,20 @@ public class MediathekArte extends MediathekReader {
         loadedFilme.forEach((film) -> addFilm(film));
         Log.sysLog(String.format("%s: Subcategory %s: %d Filme", sender, aCategory, loadedFilme.size()));
       }
+    }
+
+    private void loadCollections(String sender, String langCode, Gson gson, ArteCategoryFilmsDTO dto) {
+      dto.getCollectionIds().forEach(collectionId -> {
+        final String url = String.format(COLLECTION_URL, langCode, collectionId);
+        try {
+          final ArteCategoryFilmsDTO collectionDto = ArteHttpClient.executeRequest(sender, LOG, gson, url, ArteCategoryFilmsDTO.class);
+          if (collectionDto != null) {
+            collectionDto.getProgramIds().forEach(dto::addProgramId);
+          }
+        } catch (Exception e) {
+          Log.errorLog(894330855, e, url);
+        }
+      });
     }
 
     private ListeFilme loadPrograms(String sender, String langCode, ArteCategoryFilmsDTO dto) {

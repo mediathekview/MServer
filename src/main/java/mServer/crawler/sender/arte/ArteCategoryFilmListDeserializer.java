@@ -5,6 +5,8 @@ import com.google.gson.JsonDeserializer;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
+import de.mediathekview.mlib.tool.Log;
+
 import java.lang.reflect.Type;
 
 /**
@@ -25,7 +27,17 @@ public class ArteCategoryFilmListDeserializer implements JsonDeserializer<ArteCa
     for (JsonElement jsonElement : aJsonElement.getAsJsonObject().get(JSON_ELEMENT_DATA).getAsJsonArray()) {
       String programId = jsonElement.getAsJsonObject().get(JSON_ELEMENT_PROGRAMID).getAsString();
       if (programId != null) {
-        dto.addProgramId(programId);
+        if (programId.startsWith("RC-")) {
+          // add 1 to collection id to get list of episodes
+          try {
+            long collectionId = Long.parseLong(programId.replace("RC-", "")) + 1;
+            dto.addCollection(String.format("RC-%06d", collectionId));
+          } catch (NumberFormatException e) {
+            Log.errorLog(12834939, "Invalid collection id: " + programId);
+          }
+        } else {
+          dto.addProgramId(programId);
+        }
       }
     }
 
