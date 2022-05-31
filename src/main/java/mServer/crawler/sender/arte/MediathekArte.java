@@ -225,15 +225,18 @@ public class MediathekArte extends MediathekReader {
       Gson gson = new GsonBuilder()
               .registerTypeAdapter(ArteCategoryFilmsDTO.class, new ArteCategoryFilmListDeserializer())
               .create();
-      Gson gsonCollection = new GsonBuilder()
-              .registerTypeAdapter(ArteCategoryFilmsDTO.class, new ArteCollectionDeserializer())
+      Gson gsonCollectionParent = new GsonBuilder()
+              .registerTypeAdapter(ArteCategoryFilmsDTO.class, new ArteCollectionParentDeserializer())
+              .create();
+      Gson gsonCollectionChild = new GsonBuilder()
+              .registerTypeAdapter(ArteCategoryFilmsDTO.class, new ArteCollectionChildDeserializer())
               .create();
 
       // erste Seite laden
       int i = 2;
       ArteCategoryFilmsDTO dto = loadSubCategoryPage(gson, sender, aUrl);
       if (dto != null) {
-        loadCollections(sender, langCode, gsonCollection, dto);
+        loadCollections(sender, langCode, gsonCollectionParent, gsonCollectionChild, dto);
 
         ArteCategoryFilmsDTO nextDto = dto;
         while (PARSE_SUBCATEGORY_SUB_PAGES && nextDto != null && nextDto.hasNextPage()) {
@@ -242,7 +245,7 @@ public class MediathekArte extends MediathekReader {
           String url = String.format(URL_SUBCATEGORY, langCode.toLowerCase(), aCategory, i);
           nextDto = loadSubCategoryPage(gson, sender, url);
           if (nextDto != null) {
-            loadCollections(sender, langCode, gsonCollection, nextDto);
+            loadCollections(sender, langCode, gsonCollectionParent, gsonCollectionChild, nextDto);
             nextDto.getProgramIds().forEach(programId -> dto.addProgramId(programId));
           }
 
@@ -256,13 +259,19 @@ public class MediathekArte extends MediathekReader {
       }
     }
 
-    private void loadCollections(String sender, String langCode, Gson gson, ArteCategoryFilmsDTO dto) {
+    private void loadCollections(String sender, String langCode, Gson gsonParent, Gson gsonChild, ArteCategoryFilmsDTO dto) {
       dto.getCollectionIds().forEach(collectionId -> {
         final String url = String.format(COLLECTION_URL, langCode, collectionId);
         try {
-          final ArteCategoryFilmsDTO collectionDto = ArteHttpClient.executeRequest(sender, LOG, gson, url, ArteCategoryFilmsDTO.class);
-          if (collectionDto != null) {
-            collectionDto.getProgramIds().forEach(dto::addProgramId);
+          final ArteCategoryFilmsDTO parentDto = ArteHttpClient.executeRequest(sender, LOG, gsonParent, url, ArteCategoryFilmsDTO.class);
+          if (parentDto != null) {
+            parentDto.getCollectionIds().forEach(childCollectionId -> {
+              final String urlChild = String.format(COLLECTION_URL, langCode, childCollectionId);
+              final ArteCategoryFilmsDTO collectionDto = ArteHttpClient.executeRequest(sender, LOG, gsonChild, urlChild, ArteCategoryFilmsDTO.class);
+              if (collectionDto != null) {
+                collectionDto.getProgramIds().forEach(dto::addProgramId);
+              }
+            });
           }
         } catch (Exception e) {
           Log.errorLog(894330855, e, url);

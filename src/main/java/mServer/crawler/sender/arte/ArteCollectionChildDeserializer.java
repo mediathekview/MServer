@@ -5,7 +5,7 @@ import mServer.crawler.sender.base.JsonUtils;
 
 import java.lang.reflect.Type;
 
-public class ArteCollectionDeserializer implements JsonDeserializer<ArteCategoryFilmsDTO> {
+public class ArteCollectionChildDeserializer implements JsonDeserializer<ArteCategoryFilmsDTO> {
   private static final String ATTRIBUTE_PROGRAM_ID = "programId";
   private static final String ELEMENT_PROGRAMS = "programs";
   private static final String ELEMENT_VIDEOS = "videos";
