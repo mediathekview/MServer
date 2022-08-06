@@ -1,20 +1,11 @@
 package mServer.crawler.sender.srf.parser;
 
-import com.google.gson.JsonArray;
-import com.google.gson.JsonDeserializationContext;
-import com.google.gson.JsonDeserializer;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
+import com.google.gson.*;
 import de.mediathekview.mlib.Const;
 import de.mediathekview.mlib.daten.DatenFilm;
 import de.mediathekview.mlib.tool.MVHttpClient;
 import mServer.crawler.CrawlerTool;
-import mServer.crawler.sender.base.M3U8Constants;
-import mServer.crawler.sender.base.M3U8Dto;
-import mServer.crawler.sender.base.M3U8Parser;
-import mServer.crawler.sender.base.Qualities;
-import mServer.crawler.sender.base.UrlParseException;
-import mServer.crawler.sender.base.UrlUtils;
+import mServer.crawler.sender.base.*;
 import mServer.crawler.sender.srf.SrfConstants;
 import okhttp3.Request;
 import okhttp3.Response;
@@ -55,58 +46,10 @@ public class SrfFilmJsonDeserializer implements JsonDeserializer<Optional<DatenF
   private static final String ELEMENT_SUBTITLE_LIST = "subtitleList";
 
   private static final String SUBTITLE_FORMAT = "TTML";
+  private static final String TEXT_AUDIO_DESCRIPTION = " mit Audiodeskription";
 
   private final DateTimeFormatter dateFormatDatenFilm = DateTimeFormatter.ofPattern("dd.MM.yyyy");
   private final DateTimeFormatter timeFormatDatenFilm = DateTimeFormatter.ofPattern("HH:mm:ss");
-
-  @Override
-  public Optional<DatenFilm> deserialize(JsonElement aJsonElement, Type aType, JsonDeserializationContext aContext) {
-
-    JsonObject object = aJsonElement.getAsJsonObject();
-    String theme = parseShow(object);
-    EpisodeData episodeData = parseEpisode(object);
-    ChapterListData chapterList = parseChapterList(object);
-
-    if (chapterList.videoUrl.equals("")) {
-      return Optional.empty();
-    }
-
-    Map<Qualities, String> videoUrls = readUrls(chapterList.videoUrl);
-    if (videoUrls.isEmpty() || !videoUrls.containsKey(Qualities.NORMAL)) {
-      return Optional.empty();
-    }
-
-    String documentUrl = buildWebsiteUrl(chapterList.id, episodeData.title, theme);
-    String date = "";
-    String time = "";
-
-    try {
-      date = episodeData.publishDate.format(dateFormatDatenFilm);
-      time = episodeData.publishDate.format(timeFormatDatenFilm);
-    } catch (DateTimeParseException ex) {
-      LOG.error(documentUrl, ex);
-    }
-
-    DatenFilm film = new DatenFilm(Const.SRF,
-            theme, documentUrl,
-            episodeData.title,
-            videoUrls.get(Qualities.NORMAL), "",
-            date, time,
-            chapterList.duration.getSeconds(),
-            chapterList.description);
-
-    if (videoUrls.containsKey(Qualities.SMALL)) {
-      CrawlerTool.addUrlKlein(film, videoUrls.get(Qualities.SMALL));
-    }
-    if (videoUrls.containsKey(Qualities.HD)) {
-      CrawlerTool.addUrlHd(film, videoUrls.get(Qualities.HD));
-    }
-    if (!chapterList.subtitleUrl.isEmpty()) {
-      CrawlerTool.addUrlSubtitle(film, chapterList.subtitleUrl);
-    }
-
-    return Optional.of(film);
-  }
 
   private static String buildWebsiteUrl(String aId, String aTitle, String aTheme) {
 
@@ -131,75 +74,6 @@ public class SrfFilmJsonDeserializer implements JsonDeserializer<Optional<DatenF
     }
 
     return "";
-  }
-
-  private EpisodeData parseEpisode(JsonObject aJsonObject) {
-    EpisodeData result = new EpisodeData();
-
-    if (aJsonObject.has(ELEMENT_EPISODE)) {
-      JsonElement episodeElement = aJsonObject.get(ELEMENT_EPISODE);
-
-      if (!episodeElement.isJsonNull()) {
-        JsonObject episodeObject = episodeElement.getAsJsonObject();
-
-        if (episodeObject.has(ATTRIBUTE_TITLE)) {
-          result.title = episodeObject.get(ATTRIBUTE_TITLE).getAsString();
-        }
-
-        if (episodeObject.has(ATTRIBUTE_PUBLISHED_DATE)) {
-          String date = episodeObject.get(ATTRIBUTE_PUBLISHED_DATE).getAsString();
-          result.publishDate = LocalDateTime.parse(date, DateTimeFormatter.ISO_OFFSET_DATE_TIME);
-        }
-      }
-    }
-
-    return result;
-  }
-
-  private ChapterListData parseChapterList(JsonObject aJsonObject) {
-    ChapterListData result = new ChapterListData();
-
-    if (!aJsonObject.has(ELEMENT_CHAPTER_LIST)) {
-      return result;
-    }
-
-    JsonElement chapterListElement = aJsonObject.get(ELEMENT_CHAPTER_LIST);
-    if (chapterListElement.isJsonNull()) {
-      return result;
-    }
-
-    JsonArray chapterListArray = chapterListElement.getAsJsonArray();
-    if (chapterListArray.size() != 1) {
-      return result;
-    }
-
-    JsonObject chapterListEntry = chapterListArray.get(0).getAsJsonObject();
-    if (chapterListEntry.has(ATTRIBUTE_ID)) {
-      result.id = chapterListEntry.get(ATTRIBUTE_ID).getAsString();
-    }
-
-    if (chapterListEntry.has(ATTRIBUTE_DURATION)) {
-      long duration = chapterListEntry.get(ATTRIBUTE_DURATION).getAsLong();
-      result.duration = Duration.of(duration, ChronoUnit.MILLIS);
-    }
-
-    if (chapterListEntry.has(ATTRIBUTE_DESCRIPTION)) {
-      result.description = chapterListEntry.get(ATTRIBUTE_DESCRIPTION).getAsString();
-    } else if (chapterListEntry.has(ATTRIBUTE_LEAD)) {
-      result.description = chapterListEntry.get(ATTRIBUTE_LEAD).getAsString();
-    }
-
-    if (chapterListEntry.has(ELEMENT_RESOURCE_LIST)) {
-      result.videoUrl = parseResourceList(chapterListEntry.get(ELEMENT_RESOURCE_LIST));
-    }
-
-    if (chapterListEntry.has(ELEMENT_SUBTITLE_LIST)) {
-      result.subtitleUrl = parseSubtitleList(chapterListEntry.get(ELEMENT_SUBTITLE_LIST));
-    } else {
-      result.subtitleUrl = extractSubtitleFromVideoUrl(result.videoUrl);
-    }
-
-    return result;
   }
 
   private static String parseSubtitleList(JsonElement aSubtitleListElement) {
@@ -278,6 +152,156 @@ public class SrfFilmJsonDeserializer implements JsonDeserializer<Optional<DatenF
     return url;
   }
 
+  private static Optional<Qualities> getResolution(M3U8Dto aDto) {
+    Optional<Qualities> resolution = aDto.getResolution();
+
+    if (!resolution.isPresent()) {
+      Optional<String> codecMeta = aDto.getMeta(M3U8Constants.M3U8_CODECS);
+
+      // Codec muss "avcl" beinhalten, sonst ist es kein Video
+      if (codecMeta.isPresent() && !codecMeta.get().contains("avc1")) {
+        return Optional.empty();
+      }
+
+      Optional<String> widthMeta = aDto.getMeta(M3U8Constants.M3U8_BANDWIDTH);
+
+      // Bandbreite verwenden
+      if (widthMeta.isPresent()) {
+        int width = Integer.parseInt(widthMeta.get());
+
+        if (width <= 700000) {
+          return Optional.of(Qualities.SMALL);
+        } else if (width > 3000000) {
+          return Optional.of(Qualities.HD);
+        } else {
+          return Optional.of(Qualities.NORMAL);
+        }
+      }
+    }
+
+    return resolution;
+  }
+
+  @Override
+  public Optional<DatenFilm> deserialize(JsonElement aJsonElement, Type aType, JsonDeserializationContext aContext) {
+
+    JsonObject object = aJsonElement.getAsJsonObject();
+    String theme = parseShow(object);
+    final boolean isAudioDescription = theme.contains(TEXT_AUDIO_DESCRIPTION);
+    EpisodeData episodeData = parseEpisode(object);
+    ChapterListData chapterList = parseChapterList(object);
+
+    if (chapterList.videoUrl.equals("")) {
+      return Optional.empty();
+    }
+
+    Map<Qualities, String> videoUrls = readUrls(chapterList.videoUrl);
+    if (videoUrls.isEmpty() || !videoUrls.containsKey(Qualities.NORMAL)) {
+      return Optional.empty();
+    }
+
+    String documentUrl = buildWebsiteUrl(chapterList.id, episodeData.title, theme);
+    String date = "";
+    String time = "";
+
+    try {
+      date = episodeData.publishDate.format(dateFormatDatenFilm);
+      time = episodeData.publishDate.format(timeFormatDatenFilm);
+    } catch (DateTimeParseException ex) {
+      LOG.error(documentUrl, ex);
+    }
+
+    DatenFilm film = new DatenFilm(Const.SRF,
+            isAudioDescription ? theme.replace(TEXT_AUDIO_DESCRIPTION, "").trim() : theme,
+            documentUrl,
+            isAudioDescription ? episodeData.title.replace(TEXT_AUDIO_DESCRIPTION, "").trim() + " (Audiodeskription)" : episodeData.title,
+            videoUrls.get(Qualities.NORMAL), "",
+            date, time,
+            chapterList.duration.getSeconds(),
+            chapterList.description);
+
+    if (videoUrls.containsKey(Qualities.SMALL)) {
+      CrawlerTool.addUrlKlein(film, videoUrls.get(Qualities.SMALL));
+    }
+    if (videoUrls.containsKey(Qualities.HD)) {
+      CrawlerTool.addUrlHd(film, videoUrls.get(Qualities.HD));
+    }
+    if (!chapterList.subtitleUrl.isEmpty()) {
+      CrawlerTool.addUrlSubtitle(film, chapterList.subtitleUrl);
+    }
+
+    return Optional.of(film);
+  }
+
+  private EpisodeData parseEpisode(JsonObject aJsonObject) {
+    EpisodeData result = new EpisodeData();
+
+    if (aJsonObject.has(ELEMENT_EPISODE)) {
+      JsonElement episodeElement = aJsonObject.get(ELEMENT_EPISODE);
+
+      if (!episodeElement.isJsonNull()) {
+        JsonObject episodeObject = episodeElement.getAsJsonObject();
+
+        if (episodeObject.has(ATTRIBUTE_TITLE)) {
+          result.title = episodeObject.get(ATTRIBUTE_TITLE).getAsString();
+        }
+
+        if (episodeObject.has(ATTRIBUTE_PUBLISHED_DATE)) {
+          String date = episodeObject.get(ATTRIBUTE_PUBLISHED_DATE).getAsString();
+          result.publishDate = LocalDateTime.parse(date, DateTimeFormatter.ISO_OFFSET_DATE_TIME);
+        }
+      }
+    }
+
+    return result;
+  }
+
+  private ChapterListData parseChapterList(JsonObject aJsonObject) {
+    ChapterListData result = new ChapterListData();
+
+    if (!aJsonObject.has(ELEMENT_CHAPTER_LIST)) {
+      return result;
+    }
+
+    JsonElement chapterListElement = aJsonObject.get(ELEMENT_CHAPTER_LIST);
+    if (chapterListElement.isJsonNull()) {
+      return result;
+    }
+
+    JsonArray chapterListArray = chapterListElement.getAsJsonArray();
+    if (chapterListArray.size() != 1) {
+      return result;
+    }
+
+    JsonObject chapterListEntry = chapterListArray.get(0).getAsJsonObject();
+    if (chapterListEntry.has(ATTRIBUTE_ID)) {
+      result.id = chapterListEntry.get(ATTRIBUTE_ID).getAsString();
+    }
+
+    if (chapterListEntry.has(ATTRIBUTE_DURATION)) {
+      long duration = chapterListEntry.get(ATTRIBUTE_DURATION).getAsLong();
+      result.duration = Duration.of(duration, ChronoUnit.MILLIS);
+    }
+
+    if (chapterListEntry.has(ATTRIBUTE_DESCRIPTION)) {
+      result.description = chapterListEntry.get(ATTRIBUTE_DESCRIPTION).getAsString();
+    } else if (chapterListEntry.has(ATTRIBUTE_LEAD)) {
+      result.description = chapterListEntry.get(ATTRIBUTE_LEAD).getAsString();
+    }
+
+    if (chapterListEntry.has(ELEMENT_RESOURCE_LIST)) {
+      result.videoUrl = parseResourceList(chapterListEntry.get(ELEMENT_RESOURCE_LIST));
+    }
+
+    if (chapterListEntry.has(ELEMENT_SUBTITLE_LIST)) {
+      result.subtitleUrl = parseSubtitleList(chapterListEntry.get(ELEMENT_SUBTITLE_LIST));
+    } else {
+      result.subtitleUrl = extractSubtitleFromVideoUrl(result.videoUrl);
+    }
+
+    return result;
+  }
+
   private Map<Qualities, String> readUrls(String aM3U8Url) {
     Map<Qualities, String> urls = new EnumMap<>(Qualities.class);
     final String optimizedUrl = getOptimizedUrl(aM3U8Url);
@@ -344,36 +368,6 @@ public class SrfFilmJsonDeserializer implements JsonDeserializer<Optional<DatenF
     }
 
     return aM3U8Url.replace("q10,q20,q30,.mp4.csmil", "q10,q20,q30,q50,q60,.mp4.csmil");
-  }
-
-  private static Optional<Qualities> getResolution(M3U8Dto aDto) {
-    Optional<Qualities> resolution = aDto.getResolution();
-
-    if (!resolution.isPresent()) {
-      Optional<String> codecMeta = aDto.getMeta(M3U8Constants.M3U8_CODECS);
-
-      // Codec muss "avcl" beinhalten, sonst ist es kein Video
-      if (codecMeta.isPresent() && !codecMeta.get().contains("avc1")) {
-        return Optional.empty();
-      }
-
-      Optional<String> widthMeta = aDto.getMeta(M3U8Constants.M3U8_BANDWIDTH);
-
-      // Bandbreite verwenden
-      if (widthMeta.isPresent()) {
-        int width = Integer.parseInt(widthMeta.get());
-
-        if (width <= 700000) {
-          return Optional.of(Qualities.SMALL);
-        } else if (width > 3000000) {
-          return Optional.of(Qualities.HD);
-        } else {
-          return Optional.of(Qualities.NORMAL);
-        }
-      }
-    }
-
-    return resolution;
   }
 
   private class EpisodeData {
