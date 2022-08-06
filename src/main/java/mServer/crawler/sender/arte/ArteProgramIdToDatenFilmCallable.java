@@ -3,7 +3,10 @@ package mServer.crawler.sender.arte;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import de.mediathekview.mlib.daten.DatenFilm;
+import de.mediathekview.mlib.tool.Log;
 import mServer.crawler.CrawlerTool;
+import mServer.crawler.FilmeSuchen;
+import mServer.crawler.RunSender;
 import mServer.crawler.sender.base.GeoLocations;
 import mServer.crawler.sender.base.Qualities;
 import mServer.tool.MserverDatumZeit;
@@ -70,7 +73,12 @@ public class ArteProgramIdToDatenFilmCallable implements Callable<Set<DatenFilm>
           durationAsTime = durationAsTime(details.getDuration().getSeconds());
         }
         if (!video.getVideoUrls().isEmpty()) {
-          films.add(createFilm(details.getTheme(), details.getWebsite(), details.getTitle(), video.getVideoUrls(), details, durationAsTime, details.getDescription()));
+          if (video.getVideoUrls().containsKey(Qualities.NORMAL)) {
+            films.add(createFilm(details.getTheme(), details.getWebsite(), details.getTitle(), video.getVideoUrls(), details, durationAsTime, details.getDescription()));
+          } else {
+            Log.sysLog(String.format("%s: no normal video url found for film %s, but small/hd", senderName, programId));
+            FilmeSuchen.listeSenderLaufen.inc(senderName, RunSender.Count.FEHLER);
+          }
         }
 
         if (video.getVideoUrlsWithAudioDescription().containsKey(Qualities.NORMAL)) {
