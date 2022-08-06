@@ -6,7 +6,6 @@ import com.google.gson.JsonObject;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.EnumMap;
-import java.util.HashMap;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
