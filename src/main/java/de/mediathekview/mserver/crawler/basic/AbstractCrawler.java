@@ -114,7 +114,8 @@ public abstract class AbstractCrawler implements Callable<Set<Film>> {
     // Removes entries without url or neither thema nor title.
     films.removeIf(
         enty ->
-            enty.getUrls().isEmpty() || (enty.getThema().isEmpty() && enty.getTitel().isEmpty()));
+                (enty.getUrls().isEmpty() && enty.getAudioDescriptions().isEmpty() && enty.getSignLanguages().isEmpty())
+                    || (enty.getThema().isEmpty() && enty.getTitel().isEmpty()));
   }
 
   public long getAndSetMaxCount(final long aNewMaxValue) {

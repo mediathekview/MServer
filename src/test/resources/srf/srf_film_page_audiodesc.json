@@ -1,0 +1,250 @@
+{
+  "chapterUrn": "urn:srf:video:9168b52f-2b37-4638-9ed0-cfd9c22eec1c",
+  "episode": {
+    "id": "c0408b2f-7335-459d-b8f4-95b53146f6c4",
+    "title": "Ostfriesenkiller mit Audiodeskription",
+    "description": "Ostfriesenkiller",
+    "publishedDate": "2022-08-02T21:37:00+02:00",
+    "imageUrl": "https://ws.srf.ch/asset/image/audio/4ab5c4d3-dabc-4f3a-87a7-895c3ad41c31/WEBVISUAL/1635951411.jpg"
+  },
+  "show": {
+    "id": "c6a5dbe3-0aa0-0001-c219-15c012905c10",
+    "vendor": "SRF",
+    "transmission": "TV",
+    "urn": "urn:srf:show:tv:c6a5dbe3-0aa0-0001-c219-15c012905c10",
+    "title": "Film mit Audiodeskription",
+    "lead": "Von guter Unterhaltung über Spannung bis zum Drama: Hier finden Sie alle Filme mit Audiodeskription.",
+    "description": "Von guter Unterhaltung über Spannung bis zum Drama: Bei «Film mit Audiodeskription» finden Sie alle Filme, die mit Audiodeskription online zur Verfügung stehen. ",
+    "imageUrl": "https://ws.srf.ch/asset/image/audio/4ab5c4d3-dabc-4f3a-87a7-895c3ad41c31/WEBVISUAL/1635951411.jpg",
+    "imageTitle": "Schweizer Film mit Audiodeskription",
+    "posterImageUrl": "https://ws.srf.ch/asset/image/audio/4ab5c4d3-dabc-4f3a-87a7-895c3ad41c31/POSTER/1589455259.jpg",
+    "posterImageIsFallbackUrl": false,
+    "timeTableUrl": "https://www.srf.ch/programm/tv/mediagroup/spielfilm_aud",
+    "links": [
+      {
+        "title": "Ohne Audiodeskription",
+        "link": "https://www.srf.ch/play/tv/sendung/schweizer-film?id=a5430171-dbcd-4880-925e-ffcc621cac29"
+      }
+    ],
+    "primaryChannelId": "23FFBE1B-65CE-4188-ADD2-C724186C2C9F",
+    "primaryChannelUrn": "urn:srf:channel:tv:23FFBE1B-65CE-4188-ADD2-C724186C2C9F",
+    "numberOfEpisodes": 14,
+    "topicList": [
+      {
+        "id": "4acf86dd-7ff7-45d3-baf8-33375340d976",
+        "vendor": "SRF",
+        "transmission": "TV",
+        "urn": "urn:srf:topic:tv:4acf86dd-7ff7-45d3-baf8-33375340d976",
+        "title": "Audiodeskription",
+        "lead": "Hier finden Sie Inhalte mit Audiodeskription.",
+        "description": "SRF bietet diverse Sendungen mit Audiodeskription an. Hier finden Sie die entsprechenden Inhalte."
+      }
+    ]
+  },
+  "channel": {
+    "id": "23FFBE1B-65CE-4188-ADD2-C724186C2C9F",
+    "vendor": "SRF",
+    "urn": "urn:srf:channel:tv:23FFBE1B-65CE-4188-ADD2-C724186C2C9F",
+    "title": "SRF 1",
+    "imageUrl": "https://ws.srf.ch/asset/image/audio/d91bbe14-55dd-458c-bc88-963462972687/EPISODE_IMAGE",
+    "imageUrlRaw": "https://il.srgssr.ch/image-service/dynamic/536ef7.svg",
+    "imageTitle": "Logo",
+    "transmission": "TV"
+  },
+  "chapterList": [
+    {
+      "id": "9168b52f-2b37-4638-9ed0-cfd9c22eec1c",
+      "mediaType": "VIDEO",
+      "vendor": "SRF",
+      "urn": "urn:srf:video:9168b52f-2b37-4638-9ed0-cfd9c22eec1c",
+      "title": "Ostfriesenkiller mit Audiodeskription",
+      "lead": "Drei Mitarbeiter des Regenbogenvereins, der sich um Menschen mit Behinderung kümmert, werden kurz nacheinander ermordet. Kommissarin Ann Kathrin Klaasen und ihr Team stossen bei ihren Ermittlungen auf Erstaunliches. Erster Ostfrieslandkrimi nach den Romanen von Klaus-Peter Wolf mit Christiane Paul.",
+      "description": "Norddeich ist ein wahrhaft friedlicher Urlaubsort an der Nordseeküste – bis eine Serie von Morden die kleine Stadt erschüttert. Für Hauptkommissarin Ann Kathrin Klaasen (Christiane Paul), die gerade selbst in einer tiefen Lebenskrise steckt, wird dieser Fall zu einer Bewährungsprobe, die ihre bisherige Vorstellung von Gut und Böse vollkommen über den Haufen wirft.\r\n\r\nUlf Speicher (Michael Sideris) liegt mit einem Loch in der Stirn in seiner Küche, erschossen mit einer historischen Waffe. Kai Uphoff ist als nächster dran. Seine Leiche wird zwischen den friedlich am Deich grasenden Schafen gefunden. Die beiden mit äusserster Brutalität und Präzision getöteten Opfer führen Kommissarin Ann Kathrin Klaasen und ihre Kollegen Weller (Christian Erdmann) und Rupert (Barnaby Metschurat) zum Regenbogenverein, der sich nicht nur um Menschen mit Behinderung kümmert, sondern auch deren teilweise beachtliche Vermögenswerte verwaltet.\r\n\r\nDie Nerven der Mitarbeitenden liegen blank. Was haben ihr Speicher und Kai, der sein Freiwilliges Soziales Jahr bei ihnen absolvierte, getan, dass sie sterben mussten? Wer wird als Nächster dran glauben? Dann findet ein kleiner Junge auf dem Weg zum Strand den stellvertretenden Leiter des Vereins, ebenfalls grausam ermordet.",
+      "imageUrl": "https://ws.srf.ch/asset/image/audio/feea3fc4-c612-4f52-93a6-b6a67e86e7fa/EPISODE_IMAGE/1658759190.png",
+      "imageTitle": "Ostfriesenkiller mit Audiodeskription",
+      "blockReason": "GEOBLOCK",
+      "youthProtectionColor": "YELLOW",
+      "type": "EPISODE",
+      "date": "2022-08-02T21:37:00+02:00",
+      "duration": 5370000,
+      "validFrom": "2022-08-02T21:37:00+02:00",
+      "validTo": "2022-09-01T23:59:00+02:00",
+      "playableAbroad": false,
+      "socialCountList": [
+        {
+          "key": "srgView",
+          "value": 106
+        },
+        {
+          "key": "srgLike",
+          "value": 0
+        },
+        {
+          "key": "fbShare",
+          "value": 0
+        },
+        {
+          "key": "twitterShare",
+          "value": 0
+        },
+        {
+          "key": "googleShare",
+          "value": 0
+        },
+        {
+          "key": "whatsAppShare",
+          "value": 0
+        }
+      ],
+      "displayable": true,
+      "position": 0,
+      "noEmbed": true,
+      "analyticsData": {
+        "ns_st_ep": "Ostfriesenkiller mit Audiodeskription",
+        "ns_st_ty": "Video",
+        "ns_st_ci": "9168b52f-2b37-4638-9ed0-cfd9c22eec1c",
+        "ns_st_el": "5370000",
+        "ns_st_cl": "5370000",
+        "ns_st_sl": "5370000",
+        "srg_mgeobl": "true",
+        "ns_st_tp": "1",
+        "ns_st_cn": "1",
+        "ns_st_ct": "vc12",
+        "ns_st_pn": "1"
+      },
+      "analyticsMetadata": {
+        "media_segment": "Ostfriesenkiller mit Audiodeskription",
+        "media_type": "Video",
+        "media_segment_id": "9168b52f-2b37-4638-9ed0-cfd9c22eec1c",
+        "media_episode_length": "5370",
+        "media_segment_length": "5370",
+        "media_number_of_segment_selected": "1",
+        "media_number_of_segments_total": "1",
+        "media_duration_category": "long",
+        "media_is_geoblocked": "true",
+        "media_urn": "urn:srf:video:9168b52f-2b37-4638-9ed0-cfd9c22eec1c"
+      },
+      "eventData": "$05265d3560d6551f$30434b83c42368b0226deb63557455f5480d8be5011b65d5b15fa26fbb5b8da13b7bc27344c5f720d5b5afc99c24bb0cc886cf3ce02ea1c3e02324a09a8fb6b53cf08a422e10a16e7409ba226d0ce470d329080eaa8a223ae8c1a3acd56b33484f5f470744b7cb84895b7ef9b7cbf6e95f104a875c54efa421846eb8aace9ccf13178e1658b66a134425e8a2fea6ee1f37b73acb2e1cc1f89b47c1a5220a41856329249e387925e106ba28e1e663c7260e11d25a301eaa6d229598539e75a70ebfe7985740d493c51a7b9f37cc162514f91043d52be77882fb02b2aacfba52ea45a5e228032fd167d7cbc0c62bdb1ada37bd6218fbf318567caffa3c300caece1afda0428f52370854fe36ad82f0bcf6709fe96adcfb25d5eb669d864d9edd3426acac5e3d3318740700a15880a89f001356693dfe313a41bce0d022d55e4d79e088580285c7bec070011af992d3d0473afa966fc00076c7fc52f072faeabd1ab036e1980a7b132f23474739324eed006bb4c3b20e14f95b2ec2003d78eb27d53807da2eb4f25b7eba163ce92758de9c6a56bb6c6fc718492c0106ced7f4ea23fc0af26514046ac7f4eb8fedc490f8b44aafb6aad4d20ed6e94929d5138cdaf51c7b905ea4c0e2ce1a20a5239bb8d72aa8516bfefb415b5ad9b9e5edb4f16fc9e91ce4fa385aa0c3fae39401a1747b5a70353a65397a1527a9d85948123bcf8e",
+      "resourceList": [
+        {
+          "url": "http://localhost:8589/ch/hls/spielfilm_aud/2022/08/spielfilm_aud_20220725_161504_11142089_v_webcast_h264_,q40,q10,q20,q30,q50,q60,.mp4.csmil/master.m3u8",
+          "quality": "HD",
+          "protocol": "HLS",
+          "encoding": "H264",
+          "mimeType": "application/x-mpegURL",
+          "presentation": "DEFAULT",
+          "streaming": "HLS",
+          "dvr": false,
+          "live": false,
+          "mediaContainer": "MP4",
+          "audioCodec": "UNKNOWN",
+          "videoCodec": "H264",
+          "tokenType": "NONE",
+          "analyticsData": {
+            "srg_mqual": "HD",
+            "srg_mpres": "DEFAULT"
+          },
+          "analyticsMetadata": {
+            "media_streaming_quality": "HD",
+            "media_special_format": "DEFAULT",
+            "media_url": "https://srf-vod-amd.akamaized.net/ch/hls/spielfilm_aud/2022/08/spielfilm_aud_20220725_161504_11142089_v_webcast_h264_,q40,q10,q20,q30,q50,q60,.mp4.csmil/master.m3u8"
+          }
+        },
+        {
+          "url": "https://srf-vod-amd.akamaized.net/ch/hls/spielfilm_aud/2022/08/spielfilm_aud_20220725_161504_11142089_v_webcast_h264_,q40,q10,q20,q30,q50,.mp4.csmil/master.m3u8",
+          "quality": "SD",
+          "protocol": "HLS",
+          "encoding": "H264",
+          "mimeType": "application/x-mpegURL",
+          "presentation": "DEFAULT",
+          "streaming": "HLS",
+          "dvr": false,
+          "live": false,
+          "mediaContainer": "MP4",
+          "audioCodec": "UNKNOWN",
+          "videoCodec": "H264",
+          "tokenType": "NONE",
+          "analyticsData": {
+            "srg_mqual": "SD",
+            "srg_mpres": "DEFAULT"
+          },
+          "analyticsMetadata": {
+            "media_streaming_quality": "SD",
+            "media_special_format": "DEFAULT",
+            "media_url": "https://srf-vod-amd.akamaized.net/ch/hls/spielfilm_aud/2022/08/spielfilm_aud_20220725_161504_11142089_v_webcast_h264_,q40,q10,q20,q30,q50,.mp4.csmil/master.m3u8"
+          }
+        }
+      ],
+      "aspectRatio": "16:9",
+      "spriteSheet": {
+        "urn": "urn:srf:video:9168b52f-2b37-4638-9ed0-cfd9c22eec1c",
+        "rows": 30,
+        "columns": 20,
+        "thumbnailHeight": 84,
+        "thumbnailWidth": 150,
+        "interval": 9000,
+        "url": "https://il.srgssr.ch/spritesheet/urn/srf/video/9168b52f-2b37-4638-9ed0-cfd9c22eec1c/sprite-9168b52f-2b37-4638-9ed0-cfd9c22eec1c.jpeg"
+      }
+    }
+  ],
+  "topicList": [
+    {
+      "id": "4acf86dd-7ff7-45d3-baf8-33375340d976",
+      "vendor": "SRF",
+      "transmission": "TV",
+      "urn": "urn:srf:topic:tv:4acf86dd-7ff7-45d3-baf8-33375340d976",
+      "title": "Audiodeskription",
+      "lead": "Hier finden Sie Inhalte mit Audiodeskription.",
+      "description": "SRF bietet diverse Sendungen mit Audiodeskription an. Hier finden Sie die entsprechenden Inhalte."
+    }
+  ],
+  "analyticsData": {
+    "srg_pr_id": "c0408b2f-7335-459d-b8f4-95b53146f6c4",
+    "srg_plid": "c6a5dbe3-0aa0-0001-c219-15c012905c10",
+    "ns_st_pl": "Film mit Audiodeskription",
+    "ns_st_pr": "Film mit Audiodeskription vom 02.08.2022",
+    "ns_st_dt": "2022-08-02",
+    "ns_st_ddt": "2022-08-02",
+    "ns_st_tdt": "*null",
+    "ns_st_tm": "*null",
+    "ns_st_tep": "*null",
+    "ns_st_li": "0",
+    "ns_st_stc": "0866",
+    "ns_st_st": "SRF Online",
+    "ns_st_tpr": "c6a5dbe3-0aa0-0001-c219-15c012905c10",
+    "ns_st_en": "*null",
+    "ns_st_ge": "*null",
+    "ns_st_ia": "*null",
+    "ns_st_ce": "1",
+    "ns_st_cdm": "to",
+    "ns_st_cmt": "fc",
+    "srg_unit": "SRF",
+    "srg_c1": "Audiodeskription",
+    "srg_c2": "full",
+    "srg_wo": "0",
+    "srg_fullLength": "full"
+  },
+  "analyticsMetadata": {
+    "media_episode_id": "c0408b2f-7335-459d-b8f4-95b53146f6c4",
+    "media_show_id": "c6a5dbe3-0aa0-0001-c219-15c012905c10",
+    "media_show": "Film mit Audiodeskription",
+    "media_episode": "Film mit Audiodeskription vom 02.08.2022",
+    "media_is_livestream": "false",
+    "media_full_length": "full",
+    "media_enterprise_units": "SRF",
+    "media_joker1": "Audiodeskription",
+    "media_is_web_only": "false",
+    "media_production_source": "produced.for.broadcasting",
+    "media_tv_id": "*null",
+    "media_thumbnail": "https://ws.srf.ch/asset/image/audio/feea3fc4-c612-4f52-93a6-b6a67e86e7fa/EPISODE_IMAGE/1658759190.png/scale/width/344",
+    "media_publication_date": "2022-08-02",
+    "media_publication_time": "21:37:00",
+    "media_publication_datetime": "2022-08-02T21:37:00+02:00",
+    "media_content_group": "Audiodeskription",
+    "media_channel_id": "23FFBE1B-65CE-4188-ADD2-C724186C2C9F",
+    "media_channel_cs": "0866",
+    "media_channel_name": "SRF 1",
+    "media_since_publication_d": "3",
+    "media_since_publication_h": "87"
+  }
+}
