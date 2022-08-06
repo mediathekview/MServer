@@ -17,6 +17,7 @@ import javax.annotation.Nullable;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.*;
+import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
@@ -143,6 +144,7 @@ public class ArdMediaArrayToDownloadUrlsConverter {
       case 0 -> Resolution.VERY_SMALL;
       case 1 -> Resolution.SMALL;
       case 3, 4 -> Resolution.HD;
+      case 5 -> Resolution.UHD;
       case 2, default -> Resolution.NORMAL;
     };
   }
@@ -225,12 +227,64 @@ public class ArdMediaArrayToDownloadUrlsConverter {
   private Map<Resolution, URL> extractRelevantUrls() {
     final Map<Resolution, URL> downloadUrls = new EnumMap<>(Resolution.class);
 
+    removeAutoM3u8IfMp4Exists();
+
     urls.entrySet().stream()
         .filter(entry -> !entry.getValue().isEmpty())
         .filter(ArdMediaArrayToDownloadUrlsConverter::isFileTypeRelevant)
         .forEach(
             entry -> finalizeUrl(entry).ifPresent(url -> downloadUrls.put(entry.getKey(), url)));
+
+    // add lowest HD-Url as NORMAL if normal is not present
+    if (!downloadUrls.containsKey(Resolution.NORMAL) && urls.containsKey(Resolution.HD)) {
+      Optional<URL> normalUrl = determineNormalUrlFromHd(urls.get(Resolution.HD));
+      normalUrl.ifPresent(url -> downloadUrls.put(Resolution.NORMAL, url));
+    }
+
     return downloadUrls;
+  }
+
+  // removes m3u8-url with quality=auto if at least one mp4 url exists
+  // otherwise m3u8-url could be the normal url while small+hd contains mp4-urls
+  private void removeAutoM3u8IfMp4Exists() {
+    AtomicBoolean existsMp4 = new AtomicBoolean(false);
+
+    urls.values().forEach(set ->
+      set.forEach(value -> {
+        final Optional<String> fileType = UrlUtils.getFileType(value.getUrl());
+        if (fileType.isPresent() && "mp4".equalsIgnoreCase(fileType.get())) {
+          existsMp4.set(true);
+        }
+      }));
+
+    if(existsMp4.get() && urls.containsKey(Resolution.NORMAL)) {
+      urls.get(Resolution.NORMAL).removeIf(urlInfo -> urlInfo.getQuality().equalsIgnoreCase("auto"));
+    }
+  }
+
+  private Optional<URL> determineNormalUrlFromHd(Set<ArdFilmUrlInfoDto> ardFilmUrlInfoDtos) {
+    ArdFilmUrlInfoDto relevantInfo = null;
+
+    for (final ArdFilmUrlInfoDto info : ardFilmUrlInfoDtos) {
+      if (info.getWidth() > 0 && info.getHeight() > 0) {
+        if (relevantInfo == null) {
+          relevantInfo = info;
+        } else if (relevantInfo.getQuality().compareTo(info.getQuality()) > 0) {
+          relevantInfo = info;
+        }
+      }
+    }
+
+    if (relevantInfo != null) {
+      try {
+        return Optional.of(new URL(relevantInfo.getUrl()));
+      } catch (final MalformedURLException malformedUrlException) {
+        LOG.error("A download URL is defect.", malformedUrlException);
+        crawler.printMessage(ServerMessages.DEBUG_INVALID_URL, crawler.getSender().getName(), relevantInfo.getUrl());
+      }
+    }
+
+    return Optional.empty();
   }
 
   private Optional<URL> finalizeUrl(final Map.Entry<Resolution, Set<ArdFilmUrlInfoDto>> entry) {

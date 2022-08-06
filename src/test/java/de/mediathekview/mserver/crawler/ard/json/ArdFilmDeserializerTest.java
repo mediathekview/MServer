@@ -184,6 +184,36 @@ public class ArdFilmDeserializerTest {
             GeoLocations.GEO_NONE,
             new ArdFilmInfoDto[0],
             Optional.of(Sender.ONE)
+          },
+          {
+            "/ard/ard_film_page_uhd.json",
+            "Leeroy will's wissen",
+            "Wie ist das DOWN-SYNDROM ZU HABEN?",
+            "Tamara ist 26 Jahre alt und hat das Down-Syndrom. Doch das ist für sie kein Hindernis – ganz im Gegenteil! Seit Jahren ist sie als Model und Schauspielerin sehr erfolgreich. So stand sie schon für die Designer Hugo Boss und Victoria Beckham vor der Kamera",
+            LocalDateTime.of(2022, 7, 24, 20, 0, 0),
+            Duration.ofMinutes(15).plusSeconds(50),
+            "https://funk-02dd.akamaized.net/22679/files/22/07/12/5933559/4-q4xvKF6nmVLY7Pw8Ckr9.mp4",
+            "https://funk-02dd.akamaized.net/22679/files/22/07/12/5933559/2-M7wvJWnjNmgfBGCLDYZV.mp4",
+            "https://funk-02dd.akamaized.net/22679/files/22/07/12/5933559/1-dz73ZV4wXPrfK8YDMBxj.mp4",
+            "",
+            GeoLocations.GEO_NONE,
+            new ArdFilmInfoDto[0],
+            Optional.of(Sender.FUNK)
+          },
+          {
+            "/ard/ard_film_page_only_single_resolution.json",
+            "Planet Schule",
+            "Der Spargel · Feldküche: Vom Acker direkt in den Topf",
+            "Spargelernte ist Knochenarbeit! Das erlebt auch Tom bei Landwirtin Regina Rothkopf und ihrem Sohn Maximilian in Euskirchen. Ob grün oder weiß, die Stangen sind der Spross der Spargelpflanze und ein gesundes Frühlingsgemüse. Zusammen mit Maximilian brät Tom am Feldrand aus dem frisch geernteten Spargel ein schnelles Pfannengericht.",
+            LocalDateTime.of(2023, 2, 10, 5, 30, 0),
+            Duration.ofMinutes(10),
+            "https://odplanetschule-a.akamaihd.net/schulfernsehen/feldkueche/feldkueche-vom-acker-direkt-in-den-topf-spargel.mp4",
+            "",
+            "",
+            "https://api.ardmediathek.de/subtitle-format-service/ebutt/urn:ard:subtitle:1090d019e4f165e1",
+            GeoLocations.GEO_NONE,
+            new ArdFilmInfoDto[0],
+            Optional.of(Sender.SWR)
           }
         });
   }
