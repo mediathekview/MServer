@@ -44,6 +44,8 @@ public class OrfFilmDetailTask extends AbstractDocumentTask<Film, TopicUrlDTO> {
   private static final String ATTRIBUTE_DATETIME = "datetime";
   private static final String ATTRIBUTE_DATA_JSB = "data-jsb";
 
+  private static final String PREFIX_AUDIO_DESCRIPTION = "AD |";
+
   private static final DateTimeFormatter DATE_TIME_FORMATTER =
       DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
@@ -51,8 +53,7 @@ public class OrfFilmDetailTask extends AbstractDocumentTask<Film, TopicUrlDTO> {
       new TypeToken<List<OrfEpisodeInfoDTO>>() {}.getType();
 
   public OrfFilmDetailTask(
-      final AbstractCrawler aCrawler,
-      final Queue<TopicUrlDTO> aUrlToCrawlDtos) {
+      final AbstractCrawler aCrawler, final Queue<TopicUrlDTO> aUrlToCrawlDtos) {
     super(aCrawler, aUrlToCrawlDtos);
   }
 
@@ -161,12 +162,18 @@ public class OrfFilmDetailTask extends AbstractDocumentTask<Film, TopicUrlDTO> {
 
     try {
       if (aTitle.isPresent()) {
+        boolean isAudioDescription = aUrlDto.getTopic().startsWith(PREFIX_AUDIO_DESCRIPTION);
+
         final Film film =
             new Film(
                 UUID.randomUUID(),
                 crawler.getSender(),
-                aTitle.get(),
-                aUrlDto.getTopic(),
+                isAudioDescription
+                    ? trimAudioDescriptionPrefix(aTitle.get())
+                    : aTitle.get(),
+                isAudioDescription
+                    ? trimAudioDescriptionPrefix(aUrlDto.getTopic())
+                    : aUrlDto.getTopic(),
                 aTime.orElse(LocalDateTime.now()),
                 aDuration.orElse(Duration.ZERO));
 
@@ -177,7 +184,7 @@ public class OrfFilmDetailTask extends AbstractDocumentTask<Film, TopicUrlDTO> {
           film.addSubtitle(new URL(aVideoInfo.getSubtitleUrl()));
         }
 
-        addUrls(film, aVideoInfo.getVideoUrls());
+        addUrls(film, aVideoInfo.getVideoUrls(), isAudioDescription);
 
         setGeoLocations(aVideoInfo, film);
 
@@ -197,6 +204,10 @@ public class OrfFilmDetailTask extends AbstractDocumentTask<Film, TopicUrlDTO> {
     }
   }
 
+  private String trimAudioDescriptionPrefix(String text) {
+    return text.substring(PREFIX_AUDIO_DESCRIPTION.length());
+  }
+
   private void setGeoLocations(final OrfVideoInfoDTO aVideoInfo, final Film film) {
     final List<GeoLocations> geoLocations = new ArrayList<>();
     if (aVideoInfo.getDefaultVideoUrl().contains("cms-austria")) {
@@ -207,14 +218,21 @@ public class OrfFilmDetailTask extends AbstractDocumentTask<Film, TopicUrlDTO> {
     film.setGeoLocations(geoLocations);
   }
 
-  private void addUrls(final Film aFilm, final Map<Resolution, String> aVideoUrls)
+  private void addUrls(
+      final Film aFilm, final Map<Resolution, String> aVideoUrls, boolean isAudioDescription)
       throws MalformedURLException {
 
     for (final Map.Entry<Resolution, String> qualitiesEntry : aVideoUrls.entrySet()) {
       final String url = qualitiesEntry.getValue();
-      aFilm.addUrl(
-          qualitiesEntry.getKey(),
-          new FilmUrl(url, crawler.determineFileSizeInKB(url)));
+      final FilmUrl filmUrl = new FilmUrl(url, crawler.determineFileSizeInKB(url));
+      final Resolution key = qualitiesEntry.getKey();
+
+      if (isAudioDescription) {
+        aFilm.addAudioDescription(key, filmUrl);
+      } else {
+        aFilm.addUrl(key, filmUrl);
+      }
+
     }
   }
 
