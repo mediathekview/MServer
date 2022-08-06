@@ -1,0 +1,213 @@
+{
+  "fskRating":"NONE",
+  "id":"1m0kFcyvowSiEYW4c6YYWg",
+  "isChildContent":false,
+  "personalized":false,
+  "links":{
+    "self":{
+      "id":"1m0kFcyvowSiEYW4c6YYWg",
+      "urlId":"1m0kFcyvowSiEYW4c6YYWg",
+      "title":"Ondemand PlayerPage ARD",
+      "href":"https://api.ardmediathek.de/page-gateway/pages/ard/item/Y3JpZDovL2Z1bmsubmV0LzEyMTg3L3ZpZGVvLzE4MTI2OTU?embedded=true",
+      "type":"application/vnd.ard.page+json",
+      "partner":"ard"
+    }
+  },
+  "title":"Wie ist das DOWN-SYNDROM ZU HABEN?",
+  "tracking":{
+    "aggregationLevelId":38,
+    "atiCustomVars":{
+      "clipTitle":"Wie ist das DOWN-SYNDROM ZU HABEN.",
+      "mediaType":"video",
+      "lra":"funk",
+      "channel":"funk",
+      "show":"Leeroy will's wissen",
+      "contentTypes":"",
+      "mediaDistributionType":1,
+      "contentId":10651005,
+      "metadataId":"crid://funk.net/12187/video/1812695",
+      "clipLength":950
+    },
+    "chapter2":"Player",
+    "chapter3":"Leeroy will's wissen",
+    "environmentId":511893,
+    "pageTitle":"Mediathek/Player/Leeroy will's wissen/Wie ist das DOWN-SYNDROM ZU HABEN./10651005/20220724_1800",
+    "szmType":"CP"
+  },
+  "widgets":[
+    {
+      "availableTo":null,
+      "blockedByFsk":false,
+      "broadcastedOn":"2022-07-24T18:00:00Z",
+      "embeddable":false,
+      "geoblocked":false,
+      "id":"Y3JpZDovL2Z1bmsubmV0LzEyMTg3L3ZpZGVvLzE4MTI2OTU",
+      "image":{
+        "alt":"Wie ist das DOWN-SYNDROM ZU HABEN? - Thumbnail",
+        "producerName":"funk",
+        "src":"https://api.ardmediathek.de/image-service/images/urn:ard:image:e43c99f3311675cb?w={width}&ch=6adcbcd327f902ca",
+        "title":"Wie ist das DOWN-SYNDROM ZU HABEN? - Thumbnail"
+      },
+      "isChildContent":false,
+      "maturityContentRating":"NONE",
+      "mediaCollection":{
+        "embedded":{
+          "_defaultQuality":[
+            "auto",
+            2,
+            3,
+            4,
+            1,
+            0,
+            5
+          ],
+          "_duration":950,
+          "_dvrEnabled":false,
+          "_geoblocked":false,
+          "_isLive":false,
+          "_mediaArray":[
+            {
+              "_mediaStreamArray":[
+                {
+                  "_height":720,
+                  "_quality":3,
+                  "_stream":"https://funk-02dd.akamaized.net/22679/files/22/07/12/5933559/2-M7wvJWnjNmgfBGCLDYZV.mp4?fv=1",
+                  "_width":1280
+                },
+                {
+                  "_quality":"auto",
+                  "_stream":"https://funk-02.akamaized.net/22679/files/22/07/12/5933559/22679-kfbZDB6QCjKvr7Y.ism/manifest.m3u8"
+                },
+                {
+                  "_height":360,
+                  "_quality":1,
+                  "_stream":"https://funk-02dd.akamaized.net/22679/files/22/07/12/5933559/4-q4xvKF6nmVLY7Pw8Ckr9.mp4?fv=1",
+                  "_width":640
+                },
+                {
+                  "_height":1080,
+                  "_quality":4,
+                  "_stream":"https://funk-02dd.akamaized.net/22679/files/22/07/12/5933559/1-dz73ZV4wXPrfK8YDMBxj.mp4?fv=1",
+                  "_width":1920
+                },
+                {
+                  "_height":2160,
+                  "_quality":5,
+                  "_stream":"https://funk-02dd.akamaized.net/22679/files/22/07/12/5933559/34-tMcygV2Kzjf9QXxh7Jqd.mp4?fv=1",
+                  "_width":3840
+                }
+              ],
+              "_plugin":1
+            }
+          ],
+          "_previewImage":"https://api.ardmediathek.de/image-service/images/urn:ard:image:e43c99f3311675cb?w=960&ch=6adcbcd327f902ca",
+          "_sortierArray":[
+            1
+          ],
+          "_type":"video"
+        },
+        "href":"https://api.ardmediathek.de/page-gateway/mediacollection/Y3JpZDovL2Z1bmsubmV0LzEyMTg3L3ZpZGVvLzE4MTI2OTU?devicetype=pc"
+      },
+      "pagination":null,
+      "personalized":false,
+      "playerConfig":{
+        "embedded":{
+          "_autoplay":"FORCE",
+          "_baseAssetUrl":"/ard/static/player/base/",
+          "_baseUrl":"/ard/static/player/",
+          "_pixelConfig":[
+            {
+              "agfMetaDataSDK":{
+                "assetId":"10651005",
+                "length":"950",
+                "nol_c0":"p0,0",
+                "nol_c10":"p10,funk",
+                "nol_c12":"p12,Content",
+                "nol_c15":"p15,",
+                "nol_c16":"p16,",
+                "nol_c18":"p18,N",
+                "nol_c19":"p19,funk",
+                "nol_c2":"p2,Y",
+                "nol_c5":"p5,ARD Mediathek",
+                "nol_c7":"p7,funk/episode/video/1812695",
+                "nol_c8":"p8,950",
+                "nol_c9":"p9,Leeroy will's wissen_Wie ist das DOWN-SYNDROM ZU HABEN?_24.07.2022 18:00",
+                "program":"Leeroy will's wissen",
+                "title":"funk_Leeroy will's wissen_Wie ist das DOWN-SYNDROM ZU HABEN?_24.07.2022 18:00",
+                "type":"content"
+              },
+              "appId":"PA02DC09C-B8D3-4098-87D2-2C023682D6D5",
+              "tracker":"AGF"
+            }
+          ],
+          "_showSubtitelAtStart":false
+        },
+        "href":"https://api.ardmediathek.de/page-gateway/playerconfig/Y3JpZDovL2Z1bmsubmV0LzEyMTg3L3ZpZGVvLzE4MTI2OTU"
+      },
+      "publicationService":{
+        "name":"funk",
+        "logo":{
+          "title":"Logo funk",
+          "alt":"Logo funk",
+          "producerName":"funk",
+          "src":"https://api.ardmediathek.de/image-service/image-collections/urn:ard:image-collection:2213972a8d101de1/16x9?w={width}",
+          "aspectRatio":"16x9"
+        },
+        "publisherType":"TV",
+        "partner":"funk",
+        "id":"b3JnYW5pemF0aW9uX2Z1bms"
+      },
+      "links":{
+        "self":{
+          "id":"5kG69Jms5UMSSUMwMCY0k0",
+          "urlId":"5kG69Jms5UMSSUMwMCY0k0",
+          "title":"Player Widget ARD",
+          "href":"https://api.ardmediathek.de/page-gateway/widgets/ard/editorials/5kG69Jms5UMSSUMwMCY0k0/item/Y3JpZDovL2Z1bmsubmV0LzEyMTg3L3ZpZGVvLzE4MTI2OTU?pageNumber=0&pageSize=100&embedded=true",
+          "type":"application/vnd.ard.widget+json",
+          "partner":"ard"
+        }
+      },
+      "show":{
+        "id":"Y3JpZDovL2Z1bmsubmV0LzEyMTg3",
+        "title":"Leeroy will's wissen",
+        "image":{
+          "alt":"Leeroy will's wissen - Teaser",
+          "producerName":"funk",
+          "src":"https://api.ardmediathek.de/image-service/images/urn:ard:image:0caedf72350156b8?w={width}&ch=91defea8ba718df1",
+          "title":"Leeroy will's wissen - Teaser"
+        }
+      },
+      "synopsis":"Tamara ist 26 Jahre alt und hat das Down-Syndrom. Doch das ist für sie kein Hindernis – ganz im Gegenteil! Seit Jahren ist sie als Model und Schauspielerin sehr erfolgreich. So stand sie schon für die Designer Hugo Boss und Victoria Beckham vor der Kamera",
+      "title":"Wie ist das DOWN-SYNDROM ZU HABEN?",
+      "type":"player_ondemand"
+    },
+    {
+      "compilationType":"itemsOfShow",
+      "id":"Y3JpZDovL2Z1bmsubmV0LzEyMTg3",
+      "isChildContent":false,
+      "pagination":{
+        "pageNumber":0,
+        "pageSize":24,
+        "totalElements":119
+      },
+      "personalized":false,
+      "links":{
+        "self":{
+          "id":"Y3JpZDovL2Z1bmsubmV0LzEyMTg3",
+          "urlId":"Y3JpZDovL2Z1bmsubmV0LzEyMTg3",
+          "title":"Leeroy will's wissen",
+          "href":"https://api.ardmediathek.de/page-gateway/widgets/ard/asset/Y3JpZDovL2Z1bmsubmV0LzEyMTg3?excludedAssetIds=Y3JpZDovL2Z1bmsubmV0LzEyMTg3L3ZpZGVvLzE4MTI2OTU&pageNumber=0&pageSize=24&embedded=true&seasoned=false&seasonNumber=&withAudiodescription=false&withOriginalWithSubtitle=false&withOriginalversion=false",
+          "type":"application/vnd.ard.widget+json",
+          "partner":"ard"
+        }
+      },
+      "size":"m",
+      "swipeable":true,
+      "teasers":[
+     ],
+      "title":"Leeroy will's wissen",
+      "titleVisible":true,
+      "type":"gridlist"
+    }
+  ]
+}

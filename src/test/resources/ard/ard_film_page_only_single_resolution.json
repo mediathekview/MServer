@@ -1,0 +1,196 @@
+{
+  "fskRating": "NONE",
+  "id": "1m0kFcyvowSiEYW4c6YYWg",
+  "isChildContent": false,
+  "personalized": false,
+  "links": {
+    "self": {
+      "id": "1m0kFcyvowSiEYW4c6YYWg",
+      "urlId": "1m0kFcyvowSiEYW4c6YYWg",
+      "title": "Ondemand PlayerPage ARD",
+      "href": "https://api.ardmediathek.de/page-gateway/pages/ard/item/Y3JpZDovL3BsYW5ldC1zY2h1bGUuZGUvQVJEXzEwNTQ3X3ZpZGVv?embedded=true",
+      "type": "application/vnd.ard.page+json",
+      "partner": "ard"
+    }
+  },
+  "title": "Der Spargel · Feldküche: Vom Acker direkt in den Topf",
+  "tracking": {
+    "aggregationLevelId": 38,
+    "atiCustomVars": {
+      "clipTitle": "Der Spargel · Feldküche: Vom Acker direkt in den Topf",
+      "mediaType": "video",
+      "lra": "SWR",
+      "channel": "SWR",
+      "show": "Planet Schule",
+      "contentTypes": "UT | Online first",
+      "mediaDistributionType": 1,
+      "contentId": 10492683,
+      "metadataId": "crid://planet-schule.de/ARD_10547_video",
+      "clipLength": 600
+    },
+    "chapter2": "Player",
+    "chapter3": "Planet Schule",
+    "environmentId": 511893,
+    "pageTitle": "Mediathek/Player/Planet Schule/Der Spargel · Feldküche: Vom Acker direkt in den Topf/10492683/20230210_0430",
+    "szmType": "CP"
+  },
+  "widgets": [
+    {
+      "availableTo": "2028-02-10T04:30:00Z",
+      "blockedByFsk": false,
+      "broadcastedOn": "2023-02-10T04:30:00Z",
+      "embeddable": true,
+      "geoblocked": false,
+      "id": "Y3JpZDovL3BsYW5ldC1zY2h1bGUuZGUvQVJEXzEwNTQ3X3ZpZGVv",
+      "image": {
+        "alt": "ohne Beschreibung",
+        "producerName": "WDR",
+        "src": "https://api.ardmediathek.de/image-service/images/urn:ard:image:fbb9b4ba3de7165a?w={width}&ch=816f04230bb72443",
+        "title": "Der Spargel · Feldküche: Vom Acker direkt in den Topf"
+      },
+      "isChildContent": false,
+      "maturityContentRating": "NONE",
+      "mediaCollection": {
+        "embedded": {
+          "_defaultQuality": [
+            "auto",
+            2,
+            3,
+            4,
+            1,
+            0,
+            5
+          ],
+          "_duration": 600,
+          "_dvrEnabled": false,
+          "_geoblocked": false,
+          "_isLive": false,
+          "_mediaArray": [
+            {
+              "_mediaStreamArray": [
+                {
+                  "_height": 360,
+                  "_quality": 1,
+                  "_stream": "https://odplanetschule-a.akamaihd.net/schulfernsehen/feldkueche/feldkueche-vom-acker-direkt-in-den-topf-spargel.mp4",
+                  "_width": 640
+                },
+                {
+                  "_quality": "auto",
+                  "_stream": "https://swrplanetschulevod.akamaized.net/i/schulfernsehen/feldkueche/feldkueche-vom-acker-direkt-in-den-topf-spargel,,.mp4/master.m3u8"
+                }
+              ],
+              "_plugin": 1
+            }
+          ],
+          "_previewImage": "https://api.ardmediathek.de/image-service/images/urn:ard:image:fbb9b4ba3de7165a?w=960&ch=816f04230bb72443",
+          "_sortierArray": [
+            1
+          ],
+          "_subtitleUrl": "https://api.ardmediathek.de/subtitle-format-service/ebutt/urn:ard:subtitle:1090d019e4f165e1",
+          "_subtitleWebVTTUrl": "https://api.ardmediathek.de/subtitle-format-service/webvtt/urn:ard:subtitle:1090d019e4f165e1.vtt",
+          "_type": "video"
+        },
+        "href": "https://api.ardmediathek.de/page-gateway/mediacollection/Y3JpZDovL3BsYW5ldC1zY2h1bGUuZGUvQVJEXzEwNTQ3X3ZpZGVv?devicetype=pc"
+      },
+      "pagination": null,
+      "personalized": false,
+      "playerConfig": {
+        "embedded": {
+          "_autoplay": "FORCE",
+          "_baseAssetUrl": "/ard/static/player/base/",
+          "_baseUrl": "/ard/static/player/",
+          "_pixelConfig": [
+            {
+              "agfMetaDataSDK": {
+                "assetId": "10492683",
+                "length": "600",
+                "nol_c0": "p0,666",
+                "nol_c10": "p10,SWR",
+                "nol_c12": "p12,Content",
+                "nol_c15": "p15,",
+                "nol_c16": "p16,ARD_Information",
+                "nol_c18": "p18,N",
+                "nol_c19": "p19,WDR",
+                "nol_c2": "p2,N",
+                "nol_c5": "p5,ARD Mediathek",
+                "nol_c7": "p7,crid://planet-schule.de/ARD_10547_video",
+                "nol_c8": "p8,600",
+                "nol_c9": "p9,Planet Schule_Der Spargel · Feldküche: Vom Acker direkt in den Topf_0",
+                "program": "Planet Schule",
+                "title": "SWR_Planet Schule_Der Spargel · Feldküche: Vom Acker direkt in den Topf_0",
+                "type": "content"
+              },
+              "appId": "PA02DC09C-B8D3-4098-87D2-2C023682D6D5",
+              "tracker": "AGF"
+            }
+          ],
+          "_showSubtitelAtStart": false
+        },
+        "href": "https://api.ardmediathek.de/page-gateway/playerconfig/Y3JpZDovL3BsYW5ldC1zY2h1bGUuZGUvQVJEXzEwNTQ3X3ZpZGVv"
+      },
+      "publicationService": {
+        "name": "SWR",
+        "logo": {
+          "title": "Logo SWR",
+          "alt": "Logo SWR",
+          "producerName": "SWR",
+          "src": "https://api.ardmediathek.de/image-service/image-collections/urn:ard:image-collection:2213972a8d101de1/16x9?w={width}",
+          "aspectRatio": "16x9"
+        },
+        "publisherType": "TV",
+        "partner": "swr",
+        "id": "b3JnYW5pemF0aW9uX1NXUg"
+      },
+      "links": {
+        "self": {
+          "id": "5kG69Jms5UMSSUMwMCY0k0",
+          "urlId": "5kG69Jms5UMSSUMwMCY0k0",
+          "title": "Player Widget ARD",
+          "href": "https://api.ardmediathek.de/page-gateway/widgets/ard/editorials/5kG69Jms5UMSSUMwMCY0k0/item/Y3JpZDovL3BsYW5ldC1zY2h1bGUuZGUvQVJEXzEwNTQ3X3ZpZGVv?pageNumber=0&pageSize=100&embedded=true",
+          "type": "application/vnd.ard.widget+json",
+          "partner": "ard"
+        }
+      },
+      "show": {
+        "id": "Y3JpZDovL3N3ci5kZS8yNTgyNzUw",
+        "title": "Planet Schule",
+        "image": {
+          "alt": "Logo Planet Schule",
+          "producerName": "SWR, SWR",
+          "src": "https://api.ardmediathek.de/image-service/images/urn:ard:image:ea5e08eeec8ef204?w={width}&ch=ae7717289dd776ef",
+          "title": "Planet Schule"
+        }
+      },
+      "synopsis": "Spargelernte ist Knochenarbeit! Das erlebt auch Tom bei Landwirtin Regina Rothkopf und ihrem Sohn Maximilian in Euskirchen. Ob grün oder weiß, die Stangen sind der Spross der Spargelpflanze und ein gesundes Frühlingsgemüse. Zusammen mit Maximilian brät Tom am Feldrand aus dem frisch geernteten Spargel ein schnelles Pfannengericht.",
+      "title": "Der Spargel · Feldküche: Vom Acker direkt in den Topf",
+      "type": "player_ondemand"
+    },
+    {
+      "compilationType": "itemsOfShow",
+      "id": "Y3JpZDovL3N3ci5kZS8yNTgyNzUw",
+      "isChildContent": false,
+      "pagination": {
+        "pageNumber": 0,
+        "pageSize": 24,
+        "totalElements": 1326
+      },
+      "personalized": false,
+      "links": {
+        "self": {
+          "id": "Y3JpZDovL3N3ci5kZS8yNTgyNzUw",
+          "urlId": "Y3JpZDovL3N3ci5kZS8yNTgyNzUw",
+          "title": "Planet Schule",
+          "href": "https://api.ardmediathek.de/page-gateway/widgets/ard/asset/Y3JpZDovL3N3ci5kZS8yNTgyNzUw?excludedAssetIds=Y3JpZDovL3BsYW5ldC1zY2h1bGUuZGUvQVJEXzEwNTQ3X3ZpZGVv&pageNumber=0&pageSize=24&embedded=true&seasoned=false&seasonNumber=&withAudiodescription=false&withOriginalWithSubtitle=false&withOriginalversion=false",
+          "type": "application/vnd.ard.widget+json",
+          "partner": "ard"
+        }
+      },
+      "size": "m",
+      "swipeable": true,
+      "teasers": [],
+      "title": "Planet Schule",
+      "titleVisible": true,
+      "type": "gridlist"
+    }
+  ]
+}
