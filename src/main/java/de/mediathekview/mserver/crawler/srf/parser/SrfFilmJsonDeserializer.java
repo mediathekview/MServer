@@ -47,6 +47,7 @@ public class SrfFilmJsonDeserializer implements JsonDeserializer<Optional<Film>>
   private static final String ELEMENT_SUBTITLE_LIST = "subtitleList";
 
   private static final String SUBTITLE_FORMAT = "TTML";
+  private static final String TEXT_AUDIO_DESCRIPTION = " mit Audiodeskription";
 
   private final AbstractCrawler crawler;
 
@@ -64,11 +65,16 @@ public class SrfFilmJsonDeserializer implements JsonDeserializer<Optional<Film>>
     }
   }
 
-  private void addUrls(final Map<Resolution, String> aVideoUrls, final Film aFilm) {
+  private void addUrls(final Map<Resolution, String> aVideoUrls, final Film aFilm, boolean isAudioDescription) {
     aVideoUrls.forEach(
         (key, value) -> {
           try {
-            aFilm.addUrl(key, new FilmUrl(value, crawler.determineFileSizeInKB(value)));
+            final FilmUrl filmUrl = new FilmUrl(value, crawler.determineFileSizeInKB(value));
+            if (isAudioDescription) {
+              aFilm.addAudioDescription(key, filmUrl);
+            } else {
+              aFilm.addUrl(key, filmUrl);
+            }
           } catch (final MalformedURLException | IllegalArgumentException ex) {
             LOG.error(String.format("A found download URL \"%s\" isn't valid.", value), ex);
           }
@@ -227,6 +233,7 @@ public class SrfFilmJsonDeserializer implements JsonDeserializer<Optional<Film>>
 
     final JsonObject object = aJsonElement.getAsJsonObject();
     final String theme = parseShow(object);
+    final boolean isAudioDescription = theme.contains(TEXT_AUDIO_DESCRIPTION);
     final EpisodeData episodeData = parseEpisode(object);
     final ChapterListData chapterList = parseChapterList(object);
 
@@ -243,13 +250,13 @@ public class SrfFilmJsonDeserializer implements JsonDeserializer<Optional<Film>>
         new Film(
             UUID.randomUUID(),
             Sender.SRF,
-            episodeData.title,
-            theme,
+            isAudioDescription ? episodeData.title.replace(TEXT_AUDIO_DESCRIPTION, "").trim() : episodeData.title,
+            isAudioDescription ? theme.replace(TEXT_AUDIO_DESCRIPTION, "").trim() : theme,
             episodeData.publishDate,
             chapterList.duration);
     film.setBeschreibung(chapterList.description);
     film.setWebsite(buildWebsiteUrl(chapterList.id, episodeData.title, theme).orElse(null));
-    addUrls(videoUrls, film);
+    addUrls(videoUrls, film, isAudioDescription);
     addSubtitle(chapterList.subtitleUrl, film);
 
     return Optional.of(film);
