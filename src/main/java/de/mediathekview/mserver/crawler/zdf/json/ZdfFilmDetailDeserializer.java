@@ -17,6 +17,8 @@ import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -36,6 +38,7 @@ public class ZdfFilmDetailDeserializer implements JsonDeserializer<Optional<ZdfF
   private static final String JSON_ELEMENT_MAIN_VIDEO = "mainVideoContent";
   private static final String JSON_ELEMENT_PROGRAM_ITEM = "programmeItem";
   private static final String JSON_ELEMENT_SHARING_URL = "http://zdf.de/rels/sharing-url";
+  private static final String JSON_ELEMENT_STREAMS = "streams";
   private static final String JSON_ELEMENT_SUBTITLE = "subtitle";
   private static final String JSON_ELEMENT_TARGET = "http://zdf.de/rels/target";
   private static final String JSON_ELEMENT_TITLE = "title";
@@ -44,6 +47,12 @@ public class ZdfFilmDetailDeserializer implements JsonDeserializer<Optional<ZdfF
 
   private static final String PLACEHOLDER_PLAYER_ID = "{playerId}";
   private static final String PLAYER_ID = "ngplayer_2_3";
+
+  private static final String DOWNLOAD_URL_DEFAULT = "default";
+  private static final String DOWNLOAD_URL_DGS = "dgs";
+
+  private static final String[] KNOWN_STREAMS =
+      new String[] {DOWNLOAD_URL_DEFAULT, DOWNLOAD_URL_DGS};
 
   private static final DateTimeFormatter DATE_FORMATTER_EDITORIAL =
       DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSSXXX"); // 2016-10-29T16:15:00.000+02:00
@@ -90,14 +99,14 @@ public class ZdfFilmDetailDeserializer implements JsonDeserializer<Optional<ZdfF
     final Optional<LocalDateTime> time = parseAirtime(rootNode, programItemTarget);
     final Optional<Duration> duration = parseDuration(mainVideoTarget);
 
-    final Optional<String> downloadUrl = parseDownloadUrl(mainVideoTarget);
+    final Map<String, String> downloadUrl = parseDownloadUrls(mainVideoTarget);
 
     if (title.isPresent()) {
       final Optional<Film> film =
           createFilm(topic, title.get(), description, website, time, duration);
 
-      if (film.isPresent() && downloadUrl.isPresent()) {
-        return Optional.of(new ZdfFilmDto(film.get(), downloadUrl.get()));
+      if (film.isPresent() && downloadUrl.containsKey(DOWNLOAD_URL_DEFAULT)) {
+        return Optional.of(new ZdfFilmDto(film.get(), downloadUrl.get(DOWNLOAD_URL_DEFAULT), downloadUrl.get(DOWNLOAD_URL_DGS)));
       }
       LOG.error("ZdfFilmDetailDeserializer: no film or downloadUrl: {}, {}", topic, title.get());
     } else {
@@ -107,27 +116,41 @@ public class ZdfFilmDetailDeserializer implements JsonDeserializer<Optional<ZdfF
     return Optional.empty();
   }
 
-  private Optional<String> parseDownloadUrl(final JsonObject mainVideoContent) {
+  private Map<String, String> parseDownloadUrls(final JsonObject mainVideoContent) {
+    // key: type of download url, value: the download url
+    final Map<String, String> result = new HashMap<>();
+
     if (mainVideoContent != null) {
-      Optional<String> urlOptional =
-          JsonUtils.getAttributeAsString(mainVideoContent, JSON_ATTRIBUTE_TEMPLATE);
-      // alternative source
-      if (urlOptional.isEmpty()
-          && JsonUtils.checkTreePath(
-              mainVideoContent, null, "streams", "default", JSON_ATTRIBUTE_TEMPLATE)) {
-        urlOptional =
-            JsonUtils.getAttributeAsString(
-                mainVideoContent.getAsJsonObject("streams").getAsJsonObject("default"),
-                JSON_ATTRIBUTE_TEMPLATE);
+      for (String knownStream : KNOWN_STREAMS) {
+        if (JsonUtils.checkTreePath(
+            mainVideoContent, null, JSON_ELEMENT_STREAMS, knownStream, JSON_ATTRIBUTE_TEMPLATE)) {
+
+          final Optional<String> url =
+              JsonUtils.getAttributeAsString(
+                  mainVideoContent
+                      .getAsJsonObject(JSON_ELEMENT_STREAMS)
+                      .getAsJsonObject(knownStream),
+                  JSON_ATTRIBUTE_TEMPLATE);
+          if (url.isPresent()) {
+            result.put(knownStream, finalizeDownloadUrl(url.get()));
+          }
+        }
       }
-      if (urlOptional.isPresent()) {
-        final String url =
-            UrlUtils.addDomainIfMissing(urlOptional.get(), apiUrlBase)
-                .replace(PLACEHOLDER_PLAYER_ID, PLAYER_ID);
-        return Optional.of(url);
+
+      if (!result.containsKey(DOWNLOAD_URL_DEFAULT)) {
+        Optional<String> urlOptional =
+            JsonUtils.getAttributeAsString(mainVideoContent, JSON_ATTRIBUTE_TEMPLATE);
+        if (urlOptional.isPresent()) {
+          result.put(DOWNLOAD_URL_DEFAULT, finalizeDownloadUrl(urlOptional.get()));
+        }
       }
     }
-    return Optional.empty();
+
+    return result;
+  }
+
+  private String finalizeDownloadUrl(final String url) {
+    return UrlUtils.addDomainIfMissing(url, apiUrlBase).replace(PLACEHOLDER_PLAYER_ID, PLAYER_ID);
   }
 
   private Optional<Film> createFilm(

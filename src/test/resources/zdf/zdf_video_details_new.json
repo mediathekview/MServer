@@ -1,0 +1,311 @@
+{
+  "attributes" : {
+    "downloadAllowed" : {
+      "profile" : "http://zdf.de/rels/streams/ptmd/attributes/attribute",
+      "value" : false
+    },
+    "duration" : {
+      "profile" : "http://zdf.de/rels/streams/ptmd/attributes/attribute",
+      "value" : 2582000
+    },
+    "fsk" : {
+      "profile" : "http://zdf.de/rels/streams/ptmd/attributes/attribute",
+      "value" : "none"
+    },
+    "geoLocation" : {
+      "profile" : "http://zdf.de/rels/streams/ptmd/attributes/attribute",
+      "value" : "none"
+    },
+    "profile" : "http://zdf.de/rels/streams/ptmd/attributes"
+  },
+  "basename" : "220808_ermittler_frauen_in_gefahr_inf",
+  "captions" : [
+    {
+      "class" : "hoh",
+      "format" : "ebu-tt-d-basic-de",
+      "language" : "deu",
+      "offset" : 0,
+      "profile" : "http://zdf.de/rels/streams/ptmd/caption",
+      "uri" : "https://utstreaming.zdf.de/mtt/zdf/22/08/220808_ermittler_frauen_in_gefahr_inf/5/F1035736_hoh_deu_Ermittler_Frauen_in_Gefahr_010822.xml"
+    },
+    {
+      "class" : "hoh",
+      "format" : "webvtt",
+      "language" : "deu",
+      "offset" : 0,
+      "profile" : "http://zdf.de/rels/streams/ptmd/caption",
+      "uri" : "https://utstreaming.zdf.de/mtt/zdf/22/08/220808_ermittler_frauen_in_gefahr_inf/5/F1035736_hoh_deu_Ermittler_Frauen_in_Gefahr_010822.vtt"
+    }
+  ],
+  "documentVersion" : 2,
+  "mandant" : "mediathek",
+  "playerId" : "ngplayer_2_4",
+  "priorityList" : [
+    {
+      "formitaeten" : [
+        {
+          "facets" : [
+            "progressive"
+          ],
+          "isAdaptive" : false,
+          "mimeType" : "video/webm",
+          "profile" : "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet",
+          "qualities" : [
+            {
+              "audio" : {
+                "profile" : "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality/audio",
+                "tracks" : [
+                  {
+                    "cdn" : "akamai",
+                    "class" : "main",
+                    "language" : "deu",
+                    "profile" : "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality/audio/track",
+                    "uri" : "https://nrodlzdf-a.akamaihd.net/none/zdf/22/08/220808_ermittler_frauen_in_gefahr_inf/1/220808_ermittler_frauen_in_gefahr_inf_2128k_p18v15.webm"
+                  }
+                ]
+              },
+              "hd" : true,
+              "mimeCodec" : "vp9, opus",
+              "profile" : "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality",
+              "quality" : "hd"
+            },
+            {
+              "audio" : {
+                "profile" : "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality/audio",
+                "tracks" : [
+                  {
+                    "cdn" : "akamai",
+                    "class" : "main",
+                    "language" : "deu",
+                    "profile" : "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality/audio/track",
+                    "uri" : "https://nrodlzdf-a.akamaihd.net/none/zdf/22/08/220808_ermittler_frauen_in_gefahr_inf/1/220808_ermittler_frauen_in_gefahr_inf_1128k_p17v15.webm"
+                  }
+                ]
+              },
+              "hd" : false,
+              "mimeCodec" : "vp9, opus",
+              "profile" : "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality",
+              "quality" : "veryhigh"
+            },
+            {
+              "audio" : {
+                "profile" : "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality/audio",
+                "tracks" : [
+                  {
+                    "cdn" : "akamai",
+                    "class" : "main",
+                    "language" : "deu",
+                    "profile" : "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality/audio/track",
+                    "uri" : "https://nrodlzdf-a.akamaihd.net/none/zdf/22/08/220808_ermittler_frauen_in_gefahr_inf/1/220808_ermittler_frauen_in_gefahr_inf_368k_p16v15.webm"
+                  }
+                ]
+              },
+              "hd" : false,
+              "mimeCodec" : "vp9, opus",
+              "profile" : "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality",
+              "quality" : "high"
+            }
+          ],
+          "type" : "vp9_opus_webm_http_na_na"
+        }
+      ],
+      "profile" : "http://zdf.de/rels/streams/ptmd/priority-list-item"
+    },
+    {
+      "formitaeten" : [
+        {
+          "facets" : [],
+          "isAdaptive" : true,
+          "mimeType" : "application/x-mpegURL",
+          "profile" : "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet",
+          "qualities" : [
+            {
+              "audio" : {
+                "profile" : "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality/audio",
+                "tracks" : [
+                  {
+                    "cdn" : "akamai",
+                    "class" : "main",
+                    "language" : "deu",
+                    "profile" : "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality/audio/track",
+                    "uri" : "https://zdfvod.akamaized.net/i/mp4/none/zdf/22/08/220808_ermittler_frauen_in_gefahr_inf/1/220808_ermittler_frauen_in_gefahr_inf,_508k_p9,_808k_p11,_1628k_p13,_3328k_p15,v15.mp4.csmil/master.m3u8"
+                  }
+                ]
+              },
+              "hd" : true,
+              "profile" : "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality",
+              "quality" : "auto"
+            },
+            {
+              "audio" : {
+                "profile" : "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality/audio",
+                "tracks" : [
+                  {
+                    "cdn" : "akamai",
+                    "class" : "main",
+                    "language" : "deu",
+                    "profile" : "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality/audio/track",
+                    "uri" : "https://zdfvod.akamaized.net/i/mp4/none/zdf/22/08/220808_ermittler_frauen_in_gefahr_inf/1/220808_ermittler_frauen_in_gefahr_inf,_508k_p9,_808k_p11,_1628k_p13,_3328k_p15,v15.mp4.csmil/master.m3u8"
+                  }
+                ]
+              },
+              "hd" : true,
+              "profile" : "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality",
+              "quality" : "high"
+            },
+            {
+              "audio" : {
+                "profile" : "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality/audio",
+                "tracks" : [
+                  {
+                    "cdn" : "akamai",
+                    "class" : "main",
+                    "language" : "deu",
+                    "profile" : "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality/audio/track",
+                    "uri" : "https://zdfvod.akamaized.net/i/mp4/none/zdf/22/08/220808_ermittler_frauen_in_gefahr_inf/1/220808_ermittler_frauen_in_gefahr_inf,_508k_p9,_808k_p11,_1628k_p13,v15.mp4.csmil/master.m3u8"
+                  }
+                ]
+              },
+              "hd" : false,
+              "profile" : "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality",
+              "quality" : "med"
+            }
+          ],
+          "type" : "h264_aac_ts_http_m3u8_http"
+        }
+      ],
+      "profile" : "http://zdf.de/rels/streams/ptmd/priority-list-item"
+    },
+    {
+      "formitaeten" : [
+        {
+          "facets" : [
+            "progressive"
+          ],
+          "isAdaptive" : false,
+          "mimeType" : "video/mp4",
+          "profile" : "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet",
+          "qualities" : [
+            {
+              "audio" : {
+                "profile" : "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality/audio",
+                "tracks" : [
+                  {
+                    "cdn" : "akamai",
+                    "class" : "main",
+                    "language" : "deu",
+                    "profile" : "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality/audio/track",
+                    "uri" : "https://nrodlzdf-a.akamaihd.net/none/zdf/22/08/220808_ermittler_frauen_in_gefahr_inf/1/220808_ermittler_frauen_in_gefahr_inf_1628k_p13v15.mp4"
+                  }
+                ]
+              },
+              "hd" : false,
+              "mimeCodec" : "avc1.4d401f, mp4a.40.2",
+              "profile" : "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality",
+              "quality" : "veryhigh"
+            },
+            {
+              "audio" : {
+                "profile" : "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality/audio",
+                "tracks" : [
+                  {
+                    "cdn" : "akamai",
+                    "class" : "main",
+                    "language" : "deu",
+                    "profile" : "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality/audio/track",
+                    "uri" : "https://nrodlzdf-a.akamaihd.net/none/zdf/22/08/220808_ermittler_frauen_in_gefahr_inf/1/220808_ermittler_frauen_in_gefahr_inf_808k_p11v15.mp4"
+                  }
+                ]
+              },
+              "hd" : false,
+              "mimeCodec" : "avc1.4d401f, mp4a.40.2",
+              "profile" : "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality",
+              "quality" : "high"
+            },
+            {
+              "audio" : {
+                "profile" : "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality/audio",
+                "tracks" : [
+                  {
+                    "cdn" : "akamai",
+                    "class" : "main",
+                    "language" : "deu",
+                    "profile" : "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality/audio/track",
+                    "uri" : "https://nrodlzdf-a.akamaihd.net/none/zdf/22/08/220808_ermittler_frauen_in_gefahr_inf/1/220808_ermittler_frauen_in_gefahr_inf_508k_p9v15.mp4"
+                  }
+                ]
+              },
+              "hd" : false,
+              "mimeCodec" : "avc1.4d401f, mp4a.40.2",
+              "profile" : "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality",
+              "quality" : "low"
+            }
+          ],
+          "type" : "h264_aac_mp4_http_na_na"
+        }
+      ],
+      "profile" : "http://zdf.de/rels/streams/ptmd/priority-list-item"
+    },
+    {
+      "formitaeten" : [
+        {
+          "facets" : [
+            "restriction_useragent"
+          ],
+          "isAdaptive" : false,
+          "mimeType" : "video/mp4",
+          "profile" : "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet",
+          "qualities" : [
+            {
+              "audio" : {
+                "profile" : "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality/audio",
+                "tracks" : [
+                  {
+                    "cdn" : "akamai",
+                    "class" : "main",
+                    "language" : "deu",
+                    "profile" : "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality/audio/track",
+                    "uri" : "https://rodlzdf-a.akamaihd.net/none/zdf/22/08/220808_ermittler_frauen_in_gefahr_inf/1/220808_ermittler_frauen_in_gefahr_inf_1628k_p13v15.mp4"
+                  }
+                ]
+              },
+              "hd" : false,
+              "mimeCodec" : "avc1.4d401f, mp4a.40.2",
+              "profile" : "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality",
+              "quality" : "veryhigh"
+            },
+            {
+              "audio" : {
+                "profile" : "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality/audio",
+                "tracks" : [
+                  {
+                    "cdn" : "akamai",
+                    "class" : "main",
+                    "language" : "deu",
+                    "profile" : "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality/audio/track",
+                    "uri" : "https://rodlzdf-a.akamaihd.net/none/zdf/22/08/220808_ermittler_frauen_in_gefahr_inf/1/220808_ermittler_frauen_in_gefahr_inf_808k_p11v15.mp4"
+                  }
+                ]
+              },
+              "hd" : false,
+              "mimeCodec" : "avc1.4d401f, mp4a.40.2",
+              "profile" : "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality",
+              "quality" : "high"
+            }
+          ],
+          "type" : "h264_aac_mp4_http_na_na"
+        }
+      ],
+      "profile" : "http://zdf.de/rels/streams/ptmd/priority-list-item"
+    }
+  ],
+  "profile" : "http://zdf.de/rels/streams/ptmd",
+  "scrubPreview" : {
+    "ImageInterval" : "2000",
+    "ImageUrlScheme" : "https://pvstreaming.zdf.de/none/img/zdf/22/08/220808_ermittler_frauen_in_gefahr_inf/5/scrubpreview/220808_ermittler_frauen_in_gefahr_inf_%index%.jpg",
+    "ImagesPerColumn" : "5",
+    "ImagesPerRow" : "5"
+  },
+  "self" : "/tmd/2/ngplayer_2_4/vod/ptmd/mediathek/220808_ermittler_frauen_in_gefahr_inf/5",
+  "version" : 5
+}
