@@ -111,7 +111,7 @@ public class ZdfFilmDetailDeserializer implements JsonDeserializer<Optional<ZdfF
     if (mainVideoContent != null) {
       for (String knownStream : KNOWN_STREAMS) {
         if (JsonUtils.checkTreePath(
-                mainVideoContent, null, JSON_ELEMENT_STREAMS, knownStream, JSON_ATTRIBUTE_TEMPLATE)) {
+                mainVideoContent, JSON_ELEMENT_STREAMS, knownStream, JSON_ATTRIBUTE_TEMPLATE)) {
 
           final Optional<String> url =
                   JsonUtils.getAttributeAsString(
