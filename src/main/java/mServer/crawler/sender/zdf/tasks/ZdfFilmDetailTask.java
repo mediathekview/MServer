@@ -70,18 +70,38 @@ public class ZdfFilmDetailTask extends ZdfTaskBase<DatenFilm, CrawlerUrlDTO> {
     try {
       final Optional<ZdfFilmDto> film = deserializeOptional(aTarget, OPTIONAL_FILM_TYPE_TOKEN);
       if (film.isPresent()) {
-        final Optional<DownloadDto> downloadDto
+        final Optional<DownloadDto> downloadDtoOptional
           = deserializeOptional(
           createWebTarget(film.get().getUrl()), OPTIONAL_DOWNLOAD_DTO_TYPE_TOKEN);
 
-        if (downloadDto.isPresent()) {
+        if (downloadDtoOptional.isPresent()) {
+          final DownloadDto downloadDto = downloadDtoOptional.get();
+          appendSignLanguage(downloadDto, film.get().getUrlSignLanguage());
+
           final ZdfFilmDto result = film.get();
-          addFilm(downloadDto.get(), result);
+          addFilm(downloadDto, result);
         }
       }
     } catch (Exception e) {
       LOG.error("exception: {}", aDto.getUrl(), e);
       Log.errorLog(453455465, e, aDto.getUrl());
+    }
+  }
+
+  private void appendSignLanguage(DownloadDto downloadDto, Optional<String> urlSignLanguage) {
+    if (urlSignLanguage.isPresent()) {
+      final Optional<DownloadDto> downloadSignLanguage =
+              deserializeOptional(
+                      createWebTarget(urlSignLanguage.get()), OPTIONAL_DOWNLOAD_DTO_TYPE_TOKEN);
+
+      if (downloadSignLanguage.isPresent()) {
+        downloadSignLanguage
+                .get()
+                .getDownloadUrls(ZdfConstants.LANGUAGE_GERMAN)
+                .forEach(
+                        (resolution, url) ->
+                                downloadDto.addUrl(ZdfConstants.LANGUAGE_GERMAN_DGS, resolution, url));
+      }
     }
   }
 
@@ -111,6 +131,9 @@ public class ZdfFilmDetailTask extends ZdfTaskBase<DatenFilm, CrawlerUrlDTO> {
         return title;
       case ZdfConstants.LANGUAGE_GERMAN_AD:
         title += " (Audiodeskription)";
+        break;
+      case ZdfConstants.LANGUAGE_GERMAN_DGS:
+        title += " (Gebärdensprache)";
         break;
       case ZdfConstants.LANGUAGE_ENGLISH:
         title += " (Englisch)";

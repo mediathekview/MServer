@@ -2,8 +2,6 @@ package mServer.crawler.sender.zdf;
 
 public final class ZdfConstants {
 
-  private ZdfConstants() {}
-
   /** Name of the header required for authentification. */
   public static final String HEADER_AUTHENTIFICATION = "Api-Auth";
 
@@ -25,6 +23,9 @@ public final class ZdfConstants {
   /** Url to request film details */
   public static final String URL_FILM_JSON = "%s/content/documents/%s.json";
 
+  public static final String LANGUAGE_SUFFIX_AD = "-ad";
+  public static final String LANGUAGE_SUFFIX_DGS = "-dgs";
+
   /** The language key of english. */
   public static final String LANGUAGE_ENGLISH = "eng";
   /** The language key of french. */
@@ -32,5 +33,8 @@ public final class ZdfConstants {
   /** The language key of german. */
   public static final String LANGUAGE_GERMAN = "deu";
   /** The language key of german audio description. */
-  public static final String LANGUAGE_GERMAN_AD = "deu-ad";
+  public static final String LANGUAGE_GERMAN_AD = LANGUAGE_GERMAN + LANGUAGE_SUFFIX_AD;
+  public static final String LANGUAGE_GERMAN_DGS = LANGUAGE_GERMAN + LANGUAGE_SUFFIX_DGS;
+
+  private ZdfConstants() {}
 }

@@ -1,10 +1,11 @@
 package mServer.crawler.sender.zdf;
 
+import mServer.crawler.sender.base.CrawlerUrlDTO;
+
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.Objects;
 import java.util.Optional;
-import mServer.crawler.sender.base.CrawlerUrlDTO;
 
 public class ZdfFilmDto extends CrawlerUrlDTO {
 
@@ -14,10 +15,11 @@ public class ZdfFilmDto extends CrawlerUrlDTO {
   private final Optional<String> website;
   private final Optional<LocalDateTime> time;
   private final Optional<Duration> duration;
+  private final Optional<String> urlSignLanguage;
 
   public ZdfFilmDto(String url, Optional<String> topic, String title,
-          Optional<String> description, Optional<String> website,
-          Optional<LocalDateTime> time, Optional<Duration> duration) {
+                    Optional<String> description, Optional<String> website,
+                    Optional<LocalDateTime> time, Optional<Duration> duration, String urlSignLanguage) {
     super(url);
     this.topic = topic;
     this.title = title;
@@ -25,6 +27,12 @@ public class ZdfFilmDto extends CrawlerUrlDTO {
     this.website = website;
     this.time = time;
     this.duration = duration;
+
+    if (urlSignLanguage != null && !urlSignLanguage.isEmpty()) {
+      this.urlSignLanguage = Optional.of(urlSignLanguage);
+    } else {
+      this.urlSignLanguage = Optional.empty();
+    }
   }
 
   public Optional<String> getTopic() {
@@ -51,6 +59,10 @@ public class ZdfFilmDto extends CrawlerUrlDTO {
     return duration;
   }
 
+  public Optional<String> getUrlSignLanguage() {
+    return urlSignLanguage;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) {
@@ -68,11 +80,12 @@ public class ZdfFilmDto extends CrawlerUrlDTO {
             && Objects.equals(description, that.description)
             && Objects.equals(website, that.website)
             && Objects.equals(time, that.time)
-            && Objects.equals(duration, that.duration);
+            && Objects.equals(duration, that.duration)
+            && Objects.equals(urlSignLanguage, that.urlSignLanguage);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(super.hashCode(), topic, title, description, website, time, duration);
+    return Objects.hash(super.hashCode(), topic, title, description, website, time, duration, urlSignLanguage);
   }
 }
