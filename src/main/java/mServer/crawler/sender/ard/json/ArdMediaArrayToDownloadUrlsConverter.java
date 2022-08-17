@@ -6,12 +6,12 @@ import com.google.gson.JsonObject;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.EnumMap;
-import java.util.HashMap;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
+import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 import mServer.crawler.sender.MediathekReader;
@@ -165,7 +165,9 @@ public class ArdMediaArrayToDownloadUrlsConverter {
   }
 
   private Map<Qualities, URL> extractRelevantUrls() {
-    final Map<Qualities, URL> downloadUrls = new HashMap<>();
+    final Map<Qualities, URL> downloadUrls = new EnumMap<>(Qualities.class);
+
+    removeAutoM3u8IfMp4Exists();
 
     urls.entrySet().stream()
             .filter(entry -> !entry.getValue().isEmpty())
@@ -174,7 +176,56 @@ public class ArdMediaArrayToDownloadUrlsConverter {
                     entry -> {
                       finalizeUrl(entry).ifPresent(url -> downloadUrls.put(entry.getKey(), url));
                     });
+
+    // add lowest HD-Url as NORMAL if normal is not present
+    if (!downloadUrls.containsKey(Qualities.NORMAL) && urls.containsKey(Qualities.HD)) {
+      Optional<URL> normalUrl = determineNormalUrlFromHd(urls.get(Qualities.HD));
+      normalUrl.ifPresent(url -> downloadUrls.put(Qualities.NORMAL, url));
+    }
+
     return downloadUrls;
+  }
+
+  // removes m3u8-url with quality=auto if at least one mp4 url exists
+  // otherwise m3u8-url could be the normal url while small+hd contains mp4-urls
+  private void removeAutoM3u8IfMp4Exists() {
+    AtomicBoolean existsMp4 = new AtomicBoolean(false);
+
+    urls.values().forEach(set ->
+            set.forEach(value -> {
+              final Optional<String> fileType = UrlUtils.getFileType(value.getUrl());
+              if (fileType.isPresent() && "mp4".equalsIgnoreCase(fileType.get())) {
+                existsMp4.set(true);
+              }
+            }));
+
+    if(existsMp4.get() && urls.containsKey(Qualities.NORMAL)) {
+      urls.get(Qualities.NORMAL).removeIf(urlInfo -> urlInfo.getQuality().equalsIgnoreCase("auto"));
+    }
+  }
+
+  private Optional<URL> determineNormalUrlFromHd(Set<ArdFilmUrlInfoDto> ardFilmUrlInfoDtos) {
+    ArdFilmUrlInfoDto relevantInfo = null;
+
+    for (final ArdFilmUrlInfoDto info : ardFilmUrlInfoDtos) {
+      if (info.getWidth() > 0 && info.getHeight() > 0) {
+        if (relevantInfo == null) {
+          relevantInfo = info;
+        } else if (relevantInfo.getQuality().compareTo(info.getQuality()) > 0) {
+          relevantInfo = info;
+        }
+      }
+    }
+
+    if (relevantInfo != null) {
+      try {
+        return Optional.of(new URL(relevantInfo.getUrl()));
+      } catch (final MalformedURLException malformedUrlException) {
+        LOG.error("A download URL is defect.", malformedUrlException);
+      }
+    }
+
+    return Optional.empty();
   }
 
   private static boolean isFileTypeRelevant(final Map.Entry<Qualities, Set<ArdFilmUrlInfoDto>> entry) {
@@ -212,7 +263,8 @@ public class ArdMediaArrayToDownloadUrlsConverter {
       case 3:
       case 4:
         return Qualities.HD;
-
+      case 5:
+        return Qualities.UHD;
       case 2:
       default:
         return Qualities.NORMAL;
