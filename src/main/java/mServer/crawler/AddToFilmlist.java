@@ -101,6 +101,7 @@ public class AddToFilmlist {
    * Remove links which don´t start with http. - * Remove old film entries which are smaller than
    * MIN_SIZE_ADD_OLD.
    * remove time from mdr aktuell and orf topics
+   * replace topic and title of audio description entries for orf+srf
    */
   private void performInitialCleanup() {
     listeEinsortieren.removeIf(f -> !f.arr[DatenFilm.FILM_URL].toLowerCase().startsWith("http"));
@@ -117,6 +118,8 @@ public class AddToFilmlist {
     });
     removeTimeFromMdrAktuell(listeEinsortieren);
     removeTimeFromOrf(listeEinsortieren);
+    updateAudioDescriptionOrf(listeEinsortieren);
+    updateAudioDescriptionSrf(listeEinsortieren);
     updateArdWebsite(listeEinsortieren);
   }
 
@@ -127,6 +130,37 @@ public class AddToFilmlist {
     Log.sysLog("ARD: update webseite für " + list.size() + " Einträge.");
 
     list.forEach(film -> film.arr[DatenFilm.FILM_WEBSEITE] = film.arr[DatenFilm.FILM_WEBSEITE].replace("/ard/player/", "/video/").trim());
+  }
+
+
+  private void updateAudioDescriptionOrf(ListeFilme listeEinsortieren) {
+    final List<DatenFilm> list = listeEinsortieren.parallelStream()
+            .filter(
+                    film -> film.arr[DatenFilm.FILM_SENDER].equals(Const.ORF) && film.arr[DatenFilm.FILM_THEMA]
+                            .startsWith("AD |"))
+            .collect(Collectors.toList());
+    Log.sysLog("ORF: update Thema/Titel für " + list.size() + " Einträge mit Audiodeskription.");
+    if (!list.isEmpty()) {
+      list.forEach(film -> {
+        film.arr[DatenFilm.FILM_THEMA] = film.arr[DatenFilm.FILM_THEMA].replace("AD |", "").trim();
+        film.arr[DatenFilm.FILM_TITEL] = film.arr[DatenFilm.FILM_TITEL].replace("AD |", "").trim() + " (Audiodeskription)";
+      });
+    }
+  }
+
+  private void updateAudioDescriptionSrf(ListeFilme listeEinsortieren) {
+    final List<DatenFilm> list = listeEinsortieren.parallelStream()
+            .filter(
+                    film -> film.arr[DatenFilm.FILM_SENDER].equals(Const.SRF) && film.arr[DatenFilm.FILM_THEMA]
+                            .contains("mit Audiodeskription"))
+            .collect(Collectors.toList());
+    Log.sysLog("SRF: update Thema/Titel für " + list.size() + " Einträge mit Audiodeskription.");
+    if (!list.isEmpty()) {
+      list.forEach(film -> {
+        film.arr[DatenFilm.FILM_THEMA] = film.arr[DatenFilm.FILM_THEMA].replace("mit Audiodeskription", "").trim();
+        film.arr[DatenFilm.FILM_TITEL] = film.arr[DatenFilm.FILM_TITEL].replace(" mit Audiodeskription", "").trim() + " (Audiodeskription)";
+      });
+    }
   }
 
   private void removeTimeFromOrf(ListeFilme listeEinsortieren) {
