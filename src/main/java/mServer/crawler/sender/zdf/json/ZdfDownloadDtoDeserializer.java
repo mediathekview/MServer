@@ -1,18 +1,15 @@
 package mServer.crawler.sender.zdf.json;
 
-import com.google.gson.JsonArray;
-import com.google.gson.JsonDeserializationContext;
-import com.google.gson.JsonDeserializer;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import java.lang.reflect.Type;
-import java.time.Duration;
-import java.util.Iterator;
-import java.util.Optional;
+import com.google.gson.*;
 import mServer.crawler.sender.base.GeoLocations;
 import mServer.crawler.sender.base.Qualities;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
+import java.lang.reflect.Type;
+import java.time.Duration;
+import java.util.Iterator;
+import java.util.Optional;
 
 /**
  * A JSON deserializer to gather the needed information for a
@@ -161,19 +158,21 @@ public class ZdfDownloadDtoDeserializer implements JsonDeserializer<Optional<Dow
 
   private void parseSubtitle(final DownloadDto dto, final JsonObject rootNode) {
     final JsonArray captionList = rootNode.getAsJsonArray(JSON_ELEMENT_CAPTIONS);
-    final Iterator<JsonElement> captionIterator = captionList.iterator();
-    while (captionIterator.hasNext()) {
-      final JsonObject caption = captionIterator.next().getAsJsonObject();
-      final JsonElement uri = caption.get(JSON_ELEMENT_URI);
-      if (uri != null) {
-        final String uriValue = uri.getAsString();
+    if (captionList != null) {
+      final Iterator<JsonElement> captionIterator = captionList.iterator();
+      while (captionIterator.hasNext()) {
+        final JsonObject caption = captionIterator.next().getAsJsonObject();
+        final JsonElement uri = caption.get(JSON_ELEMENT_URI);
+        if (uri != null) {
+          final String uriValue = uri.getAsString();
 
-        // prefer xml subtitles
-        if (uriValue.endsWith(RELEVANT_SUBTITLE_TYPE)) {
-          dto.setSubTitleUrl(uriValue);
-          break;
-        } else if (dto.getSubTitleUrl().isPresent()) {
-          dto.setSubTitleUrl(uriValue);
+          // prefer xml subtitles
+          if (uriValue.endsWith(RELEVANT_SUBTITLE_TYPE)) {
+            dto.setSubTitleUrl(uriValue);
+            break;
+          } else if (dto.getSubTitleUrl().isPresent()) {
+            dto.setSubTitleUrl(uriValue);
+          }
         }
       }
     }

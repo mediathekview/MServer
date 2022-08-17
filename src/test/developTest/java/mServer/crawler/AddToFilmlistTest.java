@@ -240,6 +240,39 @@ public class AddToFilmlistTest {
   }
 
   @Test
+  public void testReplaceOrfAudioDescriptionNaming() {
+    listToAdd.add(createTestFilm(Const.ORF, "AD | Film", "AD | Film Testfilm", FILM_NAME_ONLINE));
+    listToAdd.add(createTestFilm(Const.ARD, "AD | Film", "AD | Film ARD", FILM_NAME_ONLINE));
+
+    AddToFilmlist target = new AddToFilmlist(list, listToAdd);
+    target.addOldList();
+
+    assertThat(list.size(), equalTo(4));
+    assertThat(list.get(2).arr[DatenFilm.FILM_THEMA], equalTo("Film"));
+    assertThat(list.get(2).arr[DatenFilm.FILM_TITEL], equalTo("Film Testfilm (Audiodeskription)"));
+    assertThat(list.get(3).arr[DatenFilm.FILM_THEMA], equalTo("AD | Film"));
+    assertThat(list.get(3).arr[DatenFilm.FILM_TITEL], equalTo("AD | Film ARD"));
+  }
+
+  @Test
+  public void testReplaceSrfAudioDescriptionNaming() {
+    listToAdd.add(createTestFilm(Const.SRF, "Film mit Audiodeskription", "Testfilm mit Audiodeskription (Staffel 1)", FILM_NAME_ONLINE));
+    listToAdd.add(createTestFilm(Const.SRF, "Film mit Audiodeskription", "Testfilm2", FILM_NAME_ONLINE));
+    listToAdd.add(createTestFilm(Const.ARD, "Film mit Audiodeskription", "Testfilm mit Audiodeskription", FILM_NAME_ONLINE));
+
+    AddToFilmlist target = new AddToFilmlist(list, listToAdd);
+    target.addOldList();
+
+    assertThat(list.size(), equalTo(5));
+    assertThat(list.get(2).arr[DatenFilm.FILM_THEMA], equalTo("Film"));
+    assertThat(list.get(2).arr[DatenFilm.FILM_TITEL], equalTo("Testfilm (Staffel 1) (Audiodeskription)"));
+    assertThat(list.get(3).arr[DatenFilm.FILM_THEMA], equalTo("Film"));
+    assertThat(list.get(3).arr[DatenFilm.FILM_TITEL], equalTo("Testfilm2 (Audiodeskription)"));
+    assertThat(list.get(4).arr[DatenFilm.FILM_THEMA], equalTo("Film mit Audiodeskription"));
+    assertThat(list.get(4).arr[DatenFilm.FILM_TITEL], equalTo("Testfilm mit Audiodeskription"));
+  }
+
+  @Test
   public void testReplaceTimeOnlyInOrfTopic() {
     listToAdd.add(createTestFilm(Const.ORF, "ZIB 7:00", "ZIB 7:00", FILM_NAME_ONLINE));
     listToAdd.add(createTestFilm(Const.ORF, "ZIB 17:00", "ZIB 17:00", FILM_NAME_ONLINE));

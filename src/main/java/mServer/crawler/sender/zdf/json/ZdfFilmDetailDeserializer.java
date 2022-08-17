@@ -1,10 +1,6 @@
 package mServer.crawler.sender.zdf.json;
 
-import com.google.gson.JsonArray;
-import com.google.gson.JsonDeserializationContext;
-import com.google.gson.JsonDeserializer;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
+import com.google.gson.*;
 import mServer.crawler.sender.base.JsonUtils;
 import mServer.crawler.sender.base.UrlUtils;
 import mServer.crawler.sender.zdf.ZdfFilmDto;
@@ -17,6 +13,8 @@ import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Optional;
 
 public class ZdfFilmDetailDeserializer implements JsonDeserializer<Optional<ZdfFilmDto>> {
@@ -35,6 +33,7 @@ public class ZdfFilmDetailDeserializer implements JsonDeserializer<Optional<ZdfF
   private static final String JSON_ELEMENT_MAIN_VIDEO = "mainVideoContent";
   private static final String JSON_ELEMENT_PROGRAM_ITEM = "programmeItem";
   private static final String JSON_ELEMENT_SHARING_URL = "http://zdf.de/rels/sharing-url";
+  private static final String JSON_ELEMENT_STREAMS = "streams";
   private static final String JSON_ELEMENT_SUBTITLE = "subtitle";
   private static final String JSON_ELEMENT_TARGET = "http://zdf.de/rels/target";
   private static final String JSON_ELEMENT_TITLE = "title";
@@ -43,6 +42,12 @@ public class ZdfFilmDetailDeserializer implements JsonDeserializer<Optional<ZdfF
 
   private static final String PLACEHOLDER_PLAYER_ID = "{playerId}";
   private static final String PLAYER_ID = "ngplayer_2_3";
+
+  private static final String DOWNLOAD_URL_DEFAULT = "default";
+  private static final String DOWNLOAD_URL_DGS = "dgs";
+
+  private static final String[] KNOWN_STREAMS =
+          new String[]{DOWNLOAD_URL_DEFAULT, DOWNLOAD_URL_DGS};
 
   private static final DateTimeFormatter DATE_FORMATTER_EDITORIAL
           = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSSXXX"); // 2016-10-29T16:15:00.000+02:00
@@ -67,7 +72,7 @@ public class ZdfFilmDetailDeserializer implements JsonDeserializer<Optional<ZdfF
       JsonArray programItem = rootNode.getAsJsonArray(JSON_ELEMENT_PROGRAM_ITEM);
       final JsonObject asJsonObject = programItem.get(0).getAsJsonObject();
       if (asJsonObject.has(JSON_ELEMENT_TARGET)) {
-        programItemTarget =asJsonObject
+        programItemTarget = asJsonObject
                 .get(JSON_ELEMENT_TARGET).getAsJsonObject();
       }
     }
@@ -88,10 +93,10 @@ public class ZdfFilmDetailDeserializer implements JsonDeserializer<Optional<ZdfF
     Optional<LocalDateTime> time = parseAirtime(rootNode, programItemTarget);
     Optional<Duration> duration = parseDuration(mainVideoTarget);
 
-    Optional<String> downloadUrl = parseDownloadUrl(mainVideoTarget);
+    final Map<String, String> downloadUrl = parseDownloadUrls(mainVideoTarget);
 
-    if (title.isPresent() && downloadUrl.isPresent()) {
-      return Optional.of(new ZdfFilmDto(downloadUrl.get(), topic, title.get(), description, website, time, duration));
+    if (title.isPresent() && downloadUrl.containsKey(DOWNLOAD_URL_DEFAULT)) {
+      return Optional.of(new ZdfFilmDto(downloadUrl.get(DOWNLOAD_URL_DEFAULT), topic, title.get(), description, website, time, duration, downloadUrl.get(DOWNLOAD_URL_DGS)));
     } else {
       LOG.error("ZdfFilmDetailDeserializer: no title or url found");
     }
@@ -99,17 +104,40 @@ public class ZdfFilmDetailDeserializer implements JsonDeserializer<Optional<ZdfF
     return Optional.empty();
   }
 
-  private Optional<String> parseDownloadUrl(JsonObject mainVideoContent) {
-    if (mainVideoContent != null) {
-      Optional<String> urlOptional
-              = JsonUtils.getAttributeAsString(mainVideoContent, JSON_ATTRIBUTE_TEMPLATE);
+  private Map<String, String> parseDownloadUrls(final JsonObject mainVideoContent) {
+    // key: type of download url, value: the download url
+    final Map<String, String> result = new HashMap<>();
 
-      if (urlOptional.isPresent()) {
-        String url = UrlUtils.addDomainIfMissing(urlOptional.get(), apiUrlBase).replace(PLACEHOLDER_PLAYER_ID, PLAYER_ID);
-        return Optional.of(url);
+    if (mainVideoContent != null) {
+      for (String knownStream : KNOWN_STREAMS) {
+        if (JsonUtils.checkTreePath(
+                mainVideoContent, JSON_ELEMENT_STREAMS, knownStream, JSON_ATTRIBUTE_TEMPLATE)) {
+
+          final Optional<String> url =
+                  JsonUtils.getAttributeAsString(
+                          mainVideoContent
+                                  .getAsJsonObject(JSON_ELEMENT_STREAMS)
+                                  .getAsJsonObject(knownStream),
+                          JSON_ATTRIBUTE_TEMPLATE);
+          if (url.isPresent()) {
+            result.put(knownStream, finalizeDownloadUrl(url.get()));
+          }
+        }
+      }
+
+      if (!result.containsKey(DOWNLOAD_URL_DEFAULT)) {
+        Optional<String> urlOptional =
+                JsonUtils.getAttributeAsString(mainVideoContent, JSON_ATTRIBUTE_TEMPLATE);
+        if (urlOptional.isPresent()) {
+          result.put(DOWNLOAD_URL_DEFAULT, finalizeDownloadUrl(urlOptional.get()));
+        }
       }
     }
-    return Optional.empty();
+    return result;
+  }
+
+  private String finalizeDownloadUrl(final String url) {
+    return UrlUtils.addDomainIfMissing(url, apiUrlBase).replace(PLACEHOLDER_PLAYER_ID, PLAYER_ID);
   }
 
   private Optional<LocalDateTime> parseAirtime(
@@ -128,7 +156,7 @@ public class ZdfFilmDetailDeserializer implements JsonDeserializer<Optional<ZdfF
         // array is ordered ascending though the oldest broadcast is the first entry
         date
                 = Optional.of(
-                        broadcastArray.get(0).getAsJsonObject().get(JSON_ELEMENT_BEGIN).getAsString());
+                broadcastArray.get(0).getAsJsonObject().get(JSON_ELEMENT_BEGIN).getAsString());
         formatter = DATE_FORMATTER_AIRTIME;
       }
       return date.map(s -> LocalDateTime.parse(s, formatter));

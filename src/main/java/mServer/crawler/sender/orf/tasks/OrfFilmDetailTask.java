@@ -7,7 +7,6 @@ import com.google.gson.reflect.TypeToken;
 import de.mediathekview.mlib.daten.DatenFilm;
 import de.mediathekview.mlib.tool.Log;
 import java.lang.reflect.Type;
-import java.net.MalformedURLException;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -40,6 +39,8 @@ public class OrfFilmDetailTask extends OrfTaskBase<DatenFilm, TopicUrlDTO> {
 
   private static final String ATTRIBUTE_DATETIME = "datetime";
   private static final String ATTRIBUTE_DATA_JSB = "data-jsb";
+
+  private static final String PREFIX_AUDIO_DESCRIPTION = "AD |";
 
   private static final DateTimeFormatter DATE_TIME_FORMATTER
           = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
@@ -90,42 +91,47 @@ public class OrfFilmDetailTask extends OrfTaskBase<DatenFilm, TopicUrlDTO> {
           final Optional<LocalDateTime> aTime,
           final Optional<Duration> aDuration) {
 
-    try {
-      if (aTitle.isPresent()) {
-        LocalDateTime time = aTime.orElse(LocalDateTime.now());
+    if (aTitle.isPresent()) {
+      boolean isAudioDescription = aUrlDTO.getTopic().startsWith(PREFIX_AUDIO_DESCRIPTION);
 
-        String datum = time.format(DATE_FORMAT);
-        String zeit = time.format(TIME_FORMAT);
-        String url = aVideoInfo.getDefaultVideoUrl();
+      LocalDateTime time = aTime.orElse(LocalDateTime.now());
 
-        final DatenFilm film = new DatenFilm(crawler.getSendername(),
-                aUrlDTO.getTopic(),
-                aUrlDTO.getUrl(),
-                aTitle.get(),
-                url,
-                "",
-                datum,
-                zeit,
-                aDuration.orElse(Duration.ZERO).getSeconds(),
-                aDescription.orElse(""));
+      String datum = time.format(DATE_FORMAT);
+      String zeit = time.format(TIME_FORMAT);
+      String url = aVideoInfo.getDefaultVideoUrl();
 
-        if (StringUtils.isNotBlank(aVideoInfo.getSubtitleUrl())) {
-          CrawlerTool.addUrlSubtitle(film, aVideoInfo.getSubtitleUrl());
-        }
+      final DatenFilm film = new DatenFilm(crawler.getSendername(),
+              isAudioDescription
+                      ? trimAudioDescriptionPrefix(aUrlDTO.getTopic())
+                      : aUrlDTO.getTopic(),
+              aUrlDTO.getUrl(),
+              isAudioDescription
+                      ? trimAudioDescriptionPrefix(aTitle.get()) + " (Audiodeskription)"
+                      : aTitle.get(),
+              url,
+              "",
+              datum,
+              zeit,
+              aDuration.orElse(Duration.ZERO).getSeconds(),
+              aDescription.orElse(""));
 
-        addUrls(film, aVideoInfo.getVideoUrls());
-
-        taskResults.add(film);
-      } else {
-        Log.sysLog("OrfFilmDetailTask: no title or video found for url " + aUrlDTO.getUrl());
+      if (StringUtils.isNotBlank(aVideoInfo.getSubtitleUrl())) {
+        CrawlerTool.addUrlSubtitle(film, aVideoInfo.getSubtitleUrl());
       }
-    } catch (MalformedURLException ex) {
-      Log.errorLog(984514561, ex);
+
+      addUrls(film, aVideoInfo.getVideoUrls());
+
+      taskResults.add(film);
+    } else {
+      Log.sysLog("OrfFilmDetailTask: no title or video found for url " + aUrlDTO.getUrl());
     }
   }
 
-  private void addUrls(final DatenFilm aFilm, final Map<Qualities, String> aVideoUrls)
-          throws MalformedURLException {
+  private String trimAudioDescriptionPrefix(String text) {
+    return text.substring(PREFIX_AUDIO_DESCRIPTION.length());
+  }
+
+  private void addUrls(final DatenFilm aFilm, final Map<Qualities, String> aVideoUrls) {
 
     if (aVideoUrls.containsKey(Qualities.HD)) {
       CrawlerTool.addUrlHd(aFilm, aVideoUrls.get(Qualities.HD));
