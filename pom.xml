@@ -64,7 +64,6 @@
         <byte-buddy.version>1.12.18</byte-buddy.version>
         <commons-net.version>3.8.0</commons-net.version>
         <commons-text.version>1.10.0</commons-text.version>
-        <dockerfile-maven-plugin.version>1.4.13</dockerfile-maven-plugin.version>
         <exec-maven-plugin.version>3.0.0</exec-maven-plugin.version>
         <hamcrest.version>2.2</hamcrest.version>
         <guava.version>31.1-jre</guava.version>
@@ -89,6 +88,7 @@
         <mockito.version>4.8.0</mockito.version>
         <nexus-staging-maven-plugin.version>1.6.13</nexus-staging-maven-plugin.version>
         <wiremock.version>2.34.0</wiremock.version>
+        <docker-maven-plugin.version>0.40.2</docker-maven-plugin.version>
     </properties>
 
     <dependencyManagement>
@@ -422,28 +422,38 @@
             <build>
                 <plugins>
                     <!-- Build docker -->
+
                     <plugin>
-                        <groupId>com.spotify</groupId>
-                        <artifactId>dockerfile-maven-plugin</artifactId>
-                        <version>${dockerfile-maven-plugin.version}</version>
+                        <groupId>io.fabric8</groupId>
+                        <artifactId>docker-maven-plugin</artifactId>
+                        <version>${docker-maven-plugin.version}</version>
                         <configuration>
-                            <repository>mediathekview/mserver</repository>
-                            <tag>${project.version}</tag>
-                            <username>${env.DOCKER_USERNAME}</username>
-                            <password>${env.DOCKER_PASSWORD}</password>
-                            <buildArgs>
-                                <VERSION>${project.version}</VERSION>
-                            </buildArgs>
+                            <images>
+                                <image>
+                                    <name>mediathekview/mserver:${project.version}</name>
+
+                                    <build>
+                                        <from>eclipse-temurin:${maven.compiler.target}</from>
+                                        <maintainer>Nicklas Wiegandt &lt;nicklas@wiegandt.eu&gt;</maintainer>
+                                        <assembly>
+                                            <descriptor>docker-assembly.xml</descriptor>
+                                        </assembly>
+                                        <env>
+                                            <JAVA_OPTS>-Xmx4G</JAVA_OPTS>
+                                        </env>
+                                        <entryPoint>
+                                            <shell>java ${JAVA_OPTS} -jar /maven/MServer.jar</shell>
+                                        </entryPoint>
+                                        <buildx>
+                                            <platforms>
+                                                <platform>linux/amd64</platform>
+                                                <platform>linux/arm64</platform>
+                                            </platforms>
+                                        </buildx>
+                                    </build>
+                                </image>
+                            </images>
                         </configuration>
-                        <executions>
-                            <execution>
-                                <id>default</id>
-                                <goals>
-                                    <goal>build</goal>
-                                    <goal>push</goal>
-                                </goals>
-                            </execution>
-                        </executions>
                     </plugin>
                 </plugins>
             </build>
