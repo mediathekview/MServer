@@ -51,4 +51,4 @@ jobs:
             target/*.jar
             target/*.tar.*
             target/*.zip
-            target/**/THIRD-PARTY.txt
+            target/classes/THIRD-PARTY.txt
