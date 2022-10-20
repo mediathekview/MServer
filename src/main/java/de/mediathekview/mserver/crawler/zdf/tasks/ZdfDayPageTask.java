@@ -7,7 +7,7 @@ import de.mediathekview.mserver.crawler.zdf.json.ZdfDayPageDeserializer;
 import de.mediathekview.mserver.crawler.zdf.json.ZdfDayPageDto;
 
 import javax.annotation.Nullable;
-import javax.ws.rs.client.WebTarget;
+import jakarta.ws.rs.client.WebTarget;
 import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
 

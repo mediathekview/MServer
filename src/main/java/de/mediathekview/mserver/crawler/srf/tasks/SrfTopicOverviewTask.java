@@ -6,7 +6,7 @@ import de.mediathekview.mserver.crawler.basic.*;
 import de.mediathekview.mserver.crawler.srf.SrfConstants;
 import de.mediathekview.mserver.crawler.srf.parser.SrfTopicDeserializer;
 
-import javax.ws.rs.client.WebTarget;
+import jakarta.ws.rs.client.WebTarget;
 import java.lang.reflect.Type;
 import java.util.Optional;
 import java.util.Queue;

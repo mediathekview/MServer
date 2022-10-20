@@ -9,7 +9,7 @@ import de.mediathekview.mserver.crawler.basic.TopicUrlDTO;
 import de.mediathekview.mserver.crawler.srf.SrfConstants;
 import de.mediathekview.mserver.crawler.srf.parser.SrfTopicsDeserializer;
 
-import javax.ws.rs.client.WebTarget;
+import jakarta.ws.rs.client.WebTarget;
 import java.lang.reflect.Type;
 import java.util.HashSet;
 import java.util.Queue;

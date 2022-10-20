@@ -10,6 +10,7 @@ import de.mediathekview.mserver.crawler.basic.CrawlerUrlDTO;
 import de.mediathekview.mserver.crawler.basic.FilmInfoDto;
 import de.mediathekview.mserver.crawler.funk.json.FunkChannelDeserializer;
 import de.mediathekview.mserver.crawler.funk.json.FunkVideoDeserializer;
+import de.mediathekview.mserver.crawler.funk.tasks.FunkChannelsRestTask;
 import de.mediathekview.mserver.crawler.funk.tasks.FunkRestEndpoint;
 import de.mediathekview.mserver.crawler.funk.tasks.FunkRestTask;
 import de.mediathekview.mserver.crawler.funk.tasks.FunkVideosToFilmsTask;
@@ -85,7 +86,7 @@ public class FunkCrawler extends AbstractCrawler {
         new FunkRestTask<>(
             this,
             new FunkRestEndpoint<>(
-                FunkApiUrls.VIDEOS_BY_CHANNEL, new FunkVideoDeserializer(this, crawlerConfig)),
+                FunkApiUrls.VIDEOS_BY_CHANNEL, new FunkVideoDeserializer(this)),
             funkVideosByChannelUrls));
   }
 
@@ -94,15 +95,15 @@ public class FunkCrawler extends AbstractCrawler {
         new FunkRestTask<>(
             this,
             new FunkRestEndpoint<>(
-                FunkApiUrls.VIDEOS, new FunkVideoDeserializer(this, crawlerConfig))));
+                FunkApiUrls.VIDEOS, new FunkVideoDeserializer(this))));
   }
 
   private ForkJoinTask<Set<FunkChannelDTO>> createChannelTask() {
     return forkJoinPool.submit(
-        new FunkRestTask<>(
+        new FunkChannelsRestTask(
             this,
             new FunkRestEndpoint<>(
-                FunkApiUrls.CHANNELS, new FunkChannelDeserializer(crawlerConfig))));
+                FunkApiUrls.CHANNELS, new FunkChannelDeserializer(Optional.of(this)))));
   }
 
   @NotNull

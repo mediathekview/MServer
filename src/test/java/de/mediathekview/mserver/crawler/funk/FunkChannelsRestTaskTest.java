@@ -2,8 +2,8 @@ package de.mediathekview.mserver.crawler.funk;
 
 import de.mediathekview.mlib.daten.Sender;
 import de.mediathekview.mserver.crawler.funk.json.FunkChannelDeserializer;
+import de.mediathekview.mserver.crawler.funk.tasks.FunkChannelsRestTask;
 import de.mediathekview.mserver.crawler.funk.tasks.FunkRestEndpoint;
-import de.mediathekview.mserver.crawler.funk.tasks.FunkRestTask;
 import org.junit.Test;
 
 import java.util.Optional;
@@ -33,31 +33,43 @@ public class FunkChannelsRestTaskTest extends FunkTaskTestBase {
     rootConfig.getSenderConfig(Sender.FUNK).setMaximumSubpages(5);
 
     final String requestUrl = "/api/v4.0/channels/";
-    setupSuccessfulJsonResponse(requestUrl, "/funk/funk_channel_page_1.json");
+    setupSuccessfulJsonResponse(requestUrl, "/funk/funk_channel_page1_1.json");
     setupSuccessfulJsonResponse(
-        "/api/v4.0/channels/?page=1&size=100&sort=updateDate,desc",
-        "/funk/funk_channel_page_last.json");
+            "/api/v4.0/channels/?page=1&size=10&sort=updateDate,desc",
+            "/funk/funk_channel_page1_2.json");
+    setupSuccessfulJsonResponse(
+            "/api/v4.0/channels/?page=2&size=10&sort=updateDate,desc",
+            "/funk/funk_channel_page1_3.json");
+    setupSuccessfulJsonResponse(
+        "/api/v4.0/channels/?page=3&size=10&sort=updateDate,desc",
+        "/funk/funk_channel_page1_last.json");
 
     final Set<FunkChannelDTO> actual = executeTask(requestUrl);
 
     assertThat(actual, notNullValue());
-    assertThat(actual.size(), equalTo(103));
+    assertThat(actual.size(), equalTo(33));
   }
 
   @Test
   public void testOverviewWithMultiplePagesLimitSubpagesSmallerThanSubpageCount() {
-    rootConfig.getSenderConfig(Sender.FUNK).setMaximumSubpages(1);
+    rootConfig.getSenderConfig(Sender.FUNK).setMaximumSubpages(3);
 
     final String requestUrl = "/api/v4.0/channels/";
-    setupSuccessfulJsonResponse(requestUrl, "/funk/funk_channel_page_1.json");
+    setupSuccessfulJsonResponse(requestUrl, "/funk/funk_channel_page1_1.json");
     setupSuccessfulJsonResponse(
-        "/api/v4.0/channels/?page=1&size=100&sort=updateDate,desc",
-        "/funk/funk_channel_page_last.json");
+        "/api/v4.0/channels/?page=1&size=10&sort=updateDate,desc",
+        "/funk/funk_channel_page1_2.json");
+    setupSuccessfulJsonResponse(
+            "/api/v4.0/channels/?page=2&size=10&sort=updateDate,desc",
+            "/funk/funk_channel_page1_3.json");
+    setupSuccessfulJsonResponse(
+            "/api/v4.0/channels/?page=3&size=10&sort=updateDate,desc",
+            "/funk/funk_channel_page1_last.json");
 
     final Set<FunkChannelDTO> actual = executeTask(requestUrl);
 
     assertThat(actual, notNullValue());
-    assertThat(actual.size(), equalTo(100));
+    assertThat(actual.size(), equalTo(33));
   }
 
   @Test
@@ -74,12 +86,10 @@ public class FunkChannelsRestTaskTest extends FunkTaskTestBase {
 
   private Set<FunkChannelDTO> executeTask(final String aRequestUrl) {
     final FunkCrawler crawler = createCrawler();
-    return new FunkRestTask<>(
+    return new FunkChannelsRestTask(
             crawler,
             new FunkRestEndpoint<>(
-                FunkApiUrls.CHANNELS,
-                new FunkChannelDeserializer(
-                    Optional.of(crawler), rootConfig.getSenderConfig(Sender.FUNK))),
+                FunkApiUrls.CHANNELS, new FunkChannelDeserializer(Optional.of(crawler))),
             createCrawlerUrlDto(aRequestUrl))
         .invoke();
   }

@@ -1,0 +1,251 @@
+{
+  "_embedded": {
+    "channelDTOList": [
+      {
+        "creationDate": "2019-04-17T09:02:56.000+0000",
+        "linkModels": [
+          {
+            "link": "https://podcasts.apple.com/de/podcast/deutschland3000-ne-gute-stunde-mit-eva-schulz/id1460129996",
+            "linkType": "itunesLink"
+          },
+          {
+            "link": "https://open.spotify.com/show/529zZ0Yna08EWFnqJgO3CX?si=zldYbFR4RDi4kA_TerAezA",
+            "linkType": "spotifyLink"
+          },
+          {
+            "link": "https://www.youtube.com/channel/UCmiQ_T2HNcsP1k1ydNZ-JKA/featured",
+            "linkType": "youtubeLink"
+          },
+          {
+            "link": "https://www.instagram.com/deutschland3000",
+            "linkType": "instagramLink"
+          },
+          {
+            "link": "https://www.facebook.com/Deutschland3000",
+            "linkType": "facebookLink"
+          },
+          {
+            "link": "https://rss.nexx.cloud/BY3027EHVZ5ODH",
+            "linkType": ""
+          }
+        ],
+        "shortDescription": "Wenn man jemand anderen kennenlernt, erfährt man immer auch was Neues über sich selbst. Deshalb trifft Eva Schulz hier jede Woche Menschen aus ganz verschiedenen Bereichen, irgendwo zwischen Pop und Politik, zum Interview - und macht sich so ihre Gedanken.",
+        "type": "format",
+        "description": "Wenn man jemand anderen kennenlernt, erfährt man immer auch was Neues über sich selbst. Deshalb trifft Eva Schulz hier jede Woche Menschen aus ganz verschiedenen Bereichen, irgendwo zwischen Pop und Politik, zum Interview - und macht sich so ihre Gedanken.",
+        "title": "Deutschland3000 - ‘ne gute Stunde mit Eva Schulz",
+        "publicationDate": "2019-04-16T22:00:00.000+0000",
+        "importDate": "2019-04-23T14:07:04.977+0000",
+        "alias": "deutschland3000-ne-gute-stunde-mit-eva-schulz-12034",
+        "updateDate": "2019-04-17T09:18:10.000+0000",
+        "imageUrlOrigin": "https://localhost:8589/api/v4.0/thumbnails/5cb704cb3a475a00014b45c3",
+        "imageUrlLandscape": "https://localhost:8589/api/v4.0/thumbnails/5cb708d03a475a00014b45ed",
+        "imageUrlSquare": "https://localhost:8589/api/v4.0/thumbnails/5cb6efa83a475a00014b44e0",
+        "imageUrlPortrait": "https://localhost:8589/api/v4.0/thumbnails/5cb704c23a475a00014b45bb",
+        "entityId": 12034
+      },
+      {
+        "creationDate": "2019-03-18T13:20:24.000+0000",
+        "linkModels": [
+          {
+            "link": "https://localhost:8589",
+            "linkType": "whatsappLink/whatsapp-same"
+          },
+          {
+            "link": "https://www.instagram.com/same_memes",
+            "linkType": "instagramLink"
+          }
+        ],
+        "shortDescription": "Witzig, weird, aber vor allem: relatable. “Same” ist ein Meme-Kanal für Mädchen, die Internetkultur zum Atmen brauchen.",
+        "type": "format",
+        "description": "Witzig, weird, aber vor allem: relatable. “Same” ist ein Meme-Kanal auf Instagram. Das Motto ist: sich selbst nicht zu ernst nehmen. Alles so schön bunt hier!\r\n\r\nKennst du das? Du lachst über ein Meme, das so komplett absurd ist, dass du nicht mal ansatzweise versuchen könntest, es deinen Eltern zu erklären. So Banane, dass du dir denkst “so… genug Internet für heute.” Und dann aber trotzdem weiter durch Insta scrollst, während du dir einen ablachst.\r\n\r\nFür jede Gruppe gibt es mittlerweile einen Meme-Kanal: Rich-Kids-Memes. Bauarbeiter-Memes. Stadtkinder-Memes. Klasse-11-Bio-Leistungskurs-an-der-Schiller-Gesamtschule-Memes. Same ist für Mädchen wie dich.\r\n\r\nDu hast keine Ahnung, was nach der Realschule passiert. Du hast die Klausur verkackt. Dein erstes Lehrjahr als Azubi – voll der fail. Egal ob du zuhause bei deinen Eltern sitzt, in der WG-Küche oder Berufsschule. Beim Warten auf die mündliche Abiprüfung, das Bumble-Date, den Bus. Du bist geistesabwesend, nervös oder gelangweilt und scrollst durch Instagram. Und für fast jede Situation gibt es ein passendes Meme, das dich trotz allem Stress zum Lachen bringen wird.\r\n\r\nSame ist Popkultur. Musik, Filme, Serien, Fashion, Promis, Internetzeug. Schon die neuste Serie gesehen? Was ist Ariana Grande’s nächstes Tattoo? Ist TikTok geil oder cringe?\r\n\r\nSame ist empowering. Bei uns geht’s um Freundschaft, Familie, Beziehungen, Mental Health, LGBTQ & Gender, Body Image, Identität, Weltgeschehen, Umwelt. Über sich selbst lachen, Probleme mit Humor angehen, verstehen, dass du special bist... und alle anderen den gleichen Scheiß durchmachen wie du: Same.\r\n\r\nSame ist auch: Fails, Katzen (!), Reisen, Spongebob (!!), Beauty, Hunde (!!!), Food (!!!!), Beziehungen und vieles mehr.\r\n\r\nUnd wenn du jetzt denkst, das war schon alles, dann sagen wir: nö! Wir machen nämlich auch geniale Insta-Storys, posten coolen Shit auf WhatsApp und wollen, dass du überall dabei bist. Werde Teil einer Community. Tagge deine Freunde, lerne neue Leute kennen, feiert gemeinsam die Meme-Kultur – solange sie unter Artikel 13 noch besteht... (ups.) Voll interaktiv und so!\r\n\r\nOk? Ok.",
+        "title": "Same",
+        "publicationDate": "2019-04-15T04:00:00.000+0000",
+        "importDate": "2019-04-16T07:27:36.184+0000",
+        "alias": "same-12026",
+        "updateDate": "2019-04-15T11:04:40.000+0000",
+        "imageUrlOrigin": "https://localhost:8589/api/v4.0/thumbnails/5ca75827b740d900017034cd",
+        "imageUrlLandscape": "https://localhost:8589/api/v4.0/thumbnails/5ca757f3b740d900017034c6",
+        "imageUrlSquare": "https://localhost:8589/api/v4.0/thumbnails/5ca7583fb740d900017034d1",
+        "imageUrlPortrait": "https://localhost:8589/api/v4.0/thumbnails/5ca75804b740d900017034c8",
+        "entityId": 12026
+      },
+      {
+        "creationDate": "2019-04-03T11:59:34.000+0000",
+        "shortDescription": "Im Bundestag geht es ab: Jan Schipmann und Aline Abboud informieren euch über hitzige Debatten aus dem Parlament und liefern euch die Highlights aus dem Zentrum der Macht.",
+        "type": "format",
+        "description": "Im Bundestag ist Feuer drin! In jeder Sitzungswoche sprechen viele hundert Abgeordnete aus sechs verschiedenen Fraktionen über eine Vielzahl an Themen, die uns alle angehen. Es wird debattiert, gestritten, gebrüllt und gelacht – nur kaum einer bekommt es mit. Obwohl es um Themen geht, die unseren Lebensalltag direkt betreffen, schaffen es unsere Politiker nicht, Menschen unter dreißig abzuholen und für ihre Arbeit zu interessieren. Alles ist zu lang, zu dröge, zu verkopft und nicht digital genug. Das Resultat: Viele junge Menschen haben keine Ahnung, womit sich „die da oben“ überhaupt beschäftigen und wie der politische Alltag im Parlament aussieht. \r\n\r\nDer gesellschaftliche Diskurs ist zu stark von Emotionen und zu wenig von Fakten geprägt. „Die da oben tun doch eh nichts!“ – doch, das tun sie. Das kommt aber bei vielen Menschen nicht an. DIE DA OBEN! ändert das: Jan Schipmann (INFORMR) und Aline Abboud (ZDF heute) fassen Debatten aus dem Parlament kompakt, humorvoll und immer informativ zusammen. Ob es um Klimaschutz oder Flüchtlingspolitik geht, um Bildung oder unsere Gesundheit: In unter fünf Minuten wird der User über die Meinungen und Forderungen unserer Politiker und Parteien informiert, wichtige Aussagen werden verglichen und eingeordnet. Kein labbriger Politsprech, sondern zeitgemäßer Politikjournalismus mit einer direkten Ansprache an die Zielgruppe unter 30. Das Ziel: Der Parlamentsalltag soll auch von der Generation Y wahrgenommen, hinterfragt und in den sozialen Netzwerken kritisch und gut informiert diskutiert werden.",
+        "title": "DIE DA OBEN!",
+        "publicationDate": "2019-04-02T23:00:00.000+0000",
+        "importDate": "2019-04-18T08:51:40.476+0000",
+        "alias": "die-da-oben-12030",
+        "updateDate": "2019-04-09T11:43:05.000+0000",
+        "entityGroup": 2,
+        "imageUrlOrigin": "https://localhost:8589/api/v4.0/thumbnails/5cac62a5b740d90001703fd0",
+        "imageUrlLandscape": "https://localhost:8589/api/v4.0/thumbnails/5cac6246b740d90001703fab",
+        "imageUrlSquare": "https://localhost:8589/api/v4.0/thumbnails/5cac6278b740d90001703fb3",
+        "imageUrlPortrait": "https://localhost:8589/api/v4.0/thumbnails/5cac625eb740d90001703fae",
+        "entityId": 12030
+      },
+      {
+        "creationDate": "2018-12-07T12:19:01.000+0000",
+        "shortDescription": "Was heißt es eigentlich, sein eigenes Ding machen - und behindert sein?\r\nBei 100percentme kannst du zeigen, wie du lebst. Realtalk statt Schöngerede, denn #Inspirationporn ist sowas von vorbei.",
+        "type": "format",
+        "description": "Was heißt es eigentlich, 2019 sein eigenes Ding zu machen – und behindert sein? \r\n100percentme soll deine Plattform sein, hier kannst du zeigen, wie du lebst. Ohne Filter, auch wenn es manchmal weh tut. Du willst Realtalk statt Schöngerede, denn #Inspirationporn ist sowas von vorbei? \r\n\r\nDann lass uns über Behinderungen in unserer Zeit sprechen, wenn es sein muss Finger in Wunden legen, gemeinsam etwas erreichen. Und einfach eine gute Zeit haben. Zusammen sind wir eine starke Community!\r\n\r\nGerade posten hier Schugga, Marlon, Cindy, Cem, Young Krillin UND vielleicht bald auch du. Jeden Dienstag und Donnerstag um 16 Uhr gibt es ein neues Video.\r\nDu hast Lust bei 100percentme mitzumachen? Dich langweilt oder beschäftigt ein konkretes Thema? Willst einfach Feedback, Fragen oder Ideen hier lassen? Dann schreibe jetzt in die Kommentare oder eine Nachricht. Wird Zeit, dass wir zusammen ein Video machen!",
+        "title": "100percentme",
+        "publicationDate": "2019-04-09T11:17:00.000+0000",
+        "importDate": "2019-04-11T17:14:55.810+0000",
+        "alias": "100percentme-12004",
+        "updateDate": "2019-04-09T11:26:15.000+0000",
+        "entityGroup": 4,
+        "imageUrlLandscape": "https://localhost:8589/api/v4.0/thumbnails/5caf7615b740d90001704dd7",
+        "imageUrlSquare": "https://localhost:8589/api/v4.0/thumbnails/5cac504bb740d90001703f07",
+        "imageUrlPortrait": "https://localhost:8589/api/v4.0/thumbnails/5caef1bfb740d9000170496c",
+        "entityId": 12004
+      },
+      {
+        "creationDate": "2019-02-06T13:18:19.000+0000",
+        "linkModels": [
+          {
+            "link": "https://www.instagram.com/ozon",
+            "linkType": "instagramLink"
+          }
+        ],
+        "shortDescription": "Umwelt- und Nachhaltigkeitsthemen kompakt erklärt? Das ist OZON! Mit einfachen Tipps und unterhaltsamen Challenges sind wir eine Community, die zusammen grüner wird.",
+        "type": "format",
+        "description": "OZON ist das erste Format im funk-Kosmos, das sich ausschließlich mit Umweltfragen befasst. Jede Woche widmet sich einer unserer Hosts einer konkreten Frage, der wir uns multiperspektivisch nähern: mit kompakten Infos, einfach umsetzbaren Alltagstipps und gemeinsamen Challenges. Zwischen den großen globalen Umweltproblemen, wie beispielsweise Mikroplastik im Meer und unseren Alltagsentscheidungen stellen wir Verbindungen her. So zeigen wir auf, wo jeder einzelne seinen Beitrag zum Schutz unserer Umwelt leisten kann und folgen dabei dem Leitspruch “reduce, reuse, recycle”. Das Besondere an OZON ist, dass es sich um keine reine Infoplattform sondern ein “Mitmach”-Format mit starkem Community Gedanken handelt. Mit Jakob, Pia und Fabian haben wir drei Hosts, die sich auch privat durch ihr Engagement (z.B. bei fridays for future) auszeichnen und andere ermutigen aktiv zu werden. Durch Aktionen, die sowohl on- als auch offline stattfinden, entsteht ein Dialog mit den Followern, ein Austausch über Fragen und Ideen, der sich auf die redaktionelle Arbeit im Hintergrund auswirkt.\r\n\r\nOZON findet auf Instagram statt und spielt mit allen Erzählmöglichkeiten der Plattform. Jedes Thema findet seine ganz eigene Umsetzung. Also seid gespannt auf unterhaltsame Quiz-Elemente, bunte DIYs, und informative Kurzreportagen, die zum Nachdenken anregen",
+        "title": "OZON",
+        "publicationDate": "2019-04-08T04:00:00.000+0000",
+        "importDate": "2019-04-09T09:32:37.187+0000",
+        "alias": "ozon-12014",
+        "updateDate": "2019-04-05T11:39:09.000+0000",
+        "entityGroup": 3,
+        "imageUrlOrigin": "https://localhost:8589/api/v4.0/thumbnails/5ca74113b740d90001703362",
+        "imageUrlLandscape": "https://localhost:8589/api/v4.0/thumbnails/5ca73f55b740d90001703353",
+        "imageUrlSquare": "https://localhost:8589/api/v4.0/thumbnails/5ca7410ab740d9000170335e",
+        "imageUrlPortrait": "https://localhost:8589/api/v4.0/thumbnails/5ca76475b740d90001703541",
+        "entityId": 12014
+      },
+      {
+        "creationDate": "2018-07-25T09:41:51.000+0000",
+        "linkModels": [
+          {
+            "link": "https://www.instagram.com/carolafray",
+            "linkType": "instagramLink"
+          },
+          {
+            "link": "https://www.youtube.com/channel/UC28vN_rPD_FOS3Wf7qwHyLw",
+            "linkType": "youtubeLink"
+          }
+        ],
+        "shortDescription": "Lern- oder Serienmarathon? Beides! Studentin Caro zeigt, wie Selbstdisziplin und Unterhaltungspausen zum Lernen motivieren. Der Mix macht‘s.",
+        "type": "format",
+        "description": "Lasst sich Zielstrebigkeit und Erfolg mit dem ein oder anderen Serienmarathon vereinbaren? Klar! Das beweist Caro auf ihrem Kanal „alwaysxcaro“. Sie zeigt den Alltag einer jungen Studentin: Einerseits wird für die Uni und das Leben gelernt und andererseits bei einem Erdbeer-Bananen-Smoothie entspannt. Caro macht die stetige Weiterentwicklung Spaß- sei es in der Uni, im Alltag oder Beruf. In ihren Vlogs zeigt sie, wie man den Spagat zwischen Lern- und Serienmarathon schafft: Sie bietet ihrer Community sowohl Einblicke in ihre Lieblingsserien, als auch einen gewaltigen Motivationsboost durch ihre „Study with me“ Videos. Denn Caro ist sich sicher: Es gibt nichts, was man sich nicht selbst beibringen kann, man muss nur wissen, wie man sich selbst motiviert.",
+        "title": "alwaysxcaro",
+        "publicationDate": "2018-08-18T22:00:00.000+0000",
+        "importDate": "2019-04-03T11:55:10.525+0000",
+        "alias": "alwaysxcaro-11956",
+        "updateDate": "2019-04-03T11:55:08.000+0000",
+        "imageUrlOrigin": "https://localhost:8589/api/v4.0/thumbnails/5c8fa6738ce5cb0001d3d1f9",
+        "imageUrlLandscape": "https://localhost:8589/api/v4.0/thumbnails/5c8fa6738ce5cb0001d3d1f3",
+        "imageUrlSquare": "https://localhost:8589/api/v4.0/thumbnails/5c8fa6738ce5cb0001d3d1f7",
+        "imageUrlPortrait": "https://localhost:8589/api/v4.0/thumbnails/5c8fa6738ce5cb0001d3d1fd",
+        "entityId": 11956
+      },
+      {
+        "creationDate": "2017-11-07T12:40:30.000+0000",
+        "linkModels": [
+          {
+            "link": "https://www.youtube.com/channel/UCQV_5DDp97f5sPpuAEQEQvQ?view_as=subscriber",
+            "linkType": "youtubeLink"
+          }
+        ],
+        "shortDescription": "Komm mit auf eine Reise durch Herr Bergmanns Geschichtenwelt: Manche wahr, manche nicht so, aber vor allem immer eines: Höchst unterhaltsam!",
+        "type": "archiveformat",
+        "description": "Bergmann is back und macht, was er will: Reportagen übers Eisfischen in Norwegen, dramatische Kurzfilme und investigativen Journalismus. Dabei deckt der lang Verschollene mit verblüffendem Insiderwissen YouTube-Skandale auf. Manches wahr, manches nicht so, aber vor allem immer eines: Höchst unterhaltsam! ",
+        "title": "Boah Bergmann!",
+        "publicationDate": "2017-11-19T23:00:00.000+0000",
+        "importDate": "2019-04-04T14:02:19.151+0000",
+        "alias": "boah-bergmann-11097",
+        "updateDate": "2019-04-03T11:54:44.000+0000",
+        "imageUrlOrigin": "https://localhost:8589/api/v4.0/thumbnails/5ca49ca72e2d560001e5cf88",
+        "imageUrlLandscape": "https://localhost:8589/api/v4.0/thumbnails/5ca49ca62e2d560001e5cf82",
+        "imageUrlSquare": "https://localhost:8589/api/v4.0/thumbnails/5ca49ca72e2d560001e5cf8b",
+        "imageUrlPortrait": "https://localhost:8589/api/v4.0/thumbnails/5ca49ca62e2d560001e5cf85",
+        "entityId": 11097
+      },
+      {
+        "creationDate": "2018-06-26T14:26:47.000+0000",
+        "linkModels": [
+          {
+            "link": "https://www.youtube.com/channel/UCrHfruul8sKtqtG9lOVwQDA",
+            "linkType": "youtubeLink"
+          }
+        ],
+        "shortDescription": "In S.O.S. – Sick of Silence sprechen junge Menschen über die Momente im Leben, über die oft geschwiegen wird: Psychische Erkrankungen, Gewalt, Mobbing.",
+        "type": "archiveformat",
+        "title": "S.O.S. - Sick of Silence",
+        "publicationDate": "2018-11-04T23:00:00.000+0000",
+        "importDate": "2019-04-04T14:00:04.604+0000",
+        "alias": "sos-sick-of-silence-11943",
+        "updateDate": "2019-04-03T11:51:40.000+0000",
+        "imageUrlOrigin": "https://localhost:8589/api/v4.0/thumbnails/5ca49c032e2d560001e5cf7b",
+        "imageUrlLandscape": "https://localhost:8589/api/v4.0/thumbnails/5ca49c032e2d560001e5cf79",
+        "imageUrlSquare": "https://localhost:8589/api/v4.0/thumbnails/5ca49c032e2d560001e5cf80",
+        "imageUrlPortrait": "https://localhost:8589/api/v4.0/thumbnails/5ca49c032e2d560001e5cf7d",
+        "entityId": 11943
+      },
+      {
+        "creationDate": "2018-08-07T07:24:25.000+0000",
+        "shortDescription": "PlusPlusPlus Videos sind Schnittkunstwerke mit einer derben Ladung Ironie und Sarkasmus.",
+        "type": "format",
+        "description": "Direkt aus der großen Pause zeigt „PlusPlusPlus“ mit viel Sarkasmus und derben Schnitt-Skills, was in der Welt heute los ist. Modetrends, Brexit oder Antimaterie – alles betrachtet mit dem gewissen PLUS.\r\n„PlusPlusPlus“ beleuchtet Themen aus Gesellschaft, Politik und Naturwissenschaften aus seiner Weltansicht als Teenager in einer deutschen Kleinstadt. Er sucht im Netz, auf dem Schulhof und im Alltag nach Erklärungen für das legendäre Bermuda-Dreieck, die Antimaterie, schwarze Löcher, Klimaerwärmung oder Ufo-Sichtungen.",
+        "title": "PlusPlusPlus",
+        "publicationDate": "2018-08-28T22:00:00.000+0000",
+        "importDate": "2019-04-03T11:51:28.442+0000",
+        "alias": "plusplusplus-11961",
+        "updateDate": "2019-04-03T11:51:26.000+0000",
+        "imageUrlOrigin": "https://localhost:8589/api/v4.0/thumbnails/5ca49be92e2d560001e5cf6b",
+        "imageUrlLandscape": "https://localhost:8589/api/v4.0/thumbnails/5ca49be82e2d560001e5cf5d",
+        "imageUrlSquare": "https://localhost:8589/api/v4.0/thumbnails/5ca49be82e2d560001e5cf66",
+        "imageUrlPortrait": "https://localhost:8589/api/v4.0/thumbnails/5ca49be82e2d560001e5cf62",
+        "entityId": 11961
+      },
+      {
+        "creationDate": "2016-09-25T15:04:20.000+0000",
+        "linkModels": [
+          {
+            "link": "https://www.youtube.com/user/KostaasKind",
+            "linkType": "youtubeLink"
+          }
+        ],
+        "shortDescription": "Kostas ist Videokünstler, der seinen kreativen Kopf voller Ideen mit seiner Community teilt und Klischees hinterfragt. In seinen Videos geht um Liebe, Schule, sein Leben, peinliche Situationen oder was die Welt sonst bewegt.",
+        "type": "format",
+        "description": "Auf seinem YouTube-Kanal »Kostas Kind« spricht Kostas über das Leben, das Erwachsenwerden oder die erste Liebe. In Formaten wie »#Fishtank« oder »#Kostask« geht er direkt auf die Fragen seiner Community ein, gibt Ratschläge, hinterfragt vorgefertigte Ansichten und Klischees. Über den Macher Kostas ist Videokünstler, gelernter Physiotherapeut und Tänzer. Er ist aufgedreht, tollpatschig und verplant, aber auch ein Quatschkopf mit gutem Draht zu seiner Community.",
+        "title": "Kostas Kind",
+        "publicationDate": "2016-09-30T22:00:00.000+0000",
+        "importDate": "2019-04-03T11:51:07.544+0000",
+        "alias": "kostas-kind-940",
+        "updateDate": "2019-04-03T11:51:06.000+0000",
+        "imageUrlOrigin": "https://localhost:8589/api/v4.0/thumbnails/5ca49b342e2d560001e5cf2e",
+        "imageUrlLandscape": "https://localhost:8589/api/v4.0/thumbnails/5ca49b342e2d560001e5cf27",
+        "imageUrlSquare": "https://localhost:8589/api/v4.0/thumbnails/5ca49b342e2d560001e5cf25",
+        "imageUrlPortrait": "https://localhost:8589/api/v4.0/thumbnails/5ca49b342e2d560001e5cf2a",
+        "entityId": 940
+      }
+   ]
+  },
+  "_links": {
+    "self": {
+      "href": "http://localhost:8589/v4.0/channels/?page=0&size=10&sort=updateDate,desc"
+    },
+    "next": {
+      "href": "http://localhost:8589/v4.0/channels/?page=1&size=10&sort=updateDate,desc"
+    }
+  },
+  "page": {
+    "size": 10,
+    "totalElements": 33,
+    "totalPages": 4,
+    "number": 0
+  }
+}

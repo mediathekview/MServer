@@ -25,6 +25,7 @@ public class GeoLocationGuesser {
       case RBB:
         return getGeoLocationsArd(aUrl);
 
+      case ZDF:
       case ZDF_TIVI:
       case DREISAT:
         return getGeoLocationsZdfPart(aUrl);
@@ -89,9 +90,18 @@ public class GeoLocationGuesser {
 
   private static Collection<GeoLocations> getGeoLocationsKiKa(final String url) {
     final Map<GeoLocations, List<String>> geoUrls = new EnumMap<>(GeoLocations.class);
-    geoUrls.put(GeoLocations.GEO_AT, Arrays.asList("pmdgeo.kika.de", "kika_geo-lh.akamaihd.net"));
+    geoUrls.put(GeoLocations.GEO_DE, Arrays.asList("pmdgeo.kika.de", "kika_geo-lh.akamaihd.net", "pmdgeokika"));
 
-    return getGeolocationsForGeoUrls(geoUrls, url);
+    final Collection<GeoLocations> geo = getGeolocationsForGeoUrls(geoUrls, url);
+    if (geo.contains(GeoLocations.GEO_NONE)) {
+      geo.clear();
+      geo.addAll(getGeoLocationsArd(url));
+    }
+    if (geo.contains(GeoLocations.GEO_NONE)) {
+      geo.clear();
+      geo.addAll(getGeoLocationsZdfPart(url));
+    }
+    return geo;
   }
 
   private static Collection<GeoLocations> getGeoLocationsOrf(final String aUrl) {

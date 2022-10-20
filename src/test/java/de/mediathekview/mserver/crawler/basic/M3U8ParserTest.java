@@ -85,6 +85,103 @@ public class M3U8ParserTest {
   }
 
   @Test
+  public void parseTestSrf2() {
+
+    final M3U8Dto[] expected =
+        new M3U8Dto[] {
+          createDto(
+              "QualityLevels(128000)/Manifest(audio_deu,format=m3u8-aapl)",
+              new String[] {
+                "SUBTITLES",
+                M3U8Constants.M3U8_CLOSED_CAPTIONS,
+                M3U8Constants.M3U8_BANDWIDTH,
+                M3U8Constants.M3U8_CODECS,
+                "AUDIO"
+              },
+              new String[] {"\"subs\"", "NONE", "138976", "\"mp4a.40.2\"", "\"audio\""}),
+          createDto(
+              "QualityLevels(499936)/Manifest(video,format=m3u8-aapl)",
+              new String[] {
+                "SUBTITLES",
+                M3U8Constants.M3U8_CLOSED_CAPTIONS,
+                M3U8Constants.M3U8_BANDWIDTH,
+                M3U8Constants.M3U8_RESOLUTION,
+                M3U8Constants.M3U8_CODECS,
+                "AUDIO"
+              },
+              new String[] {
+                "\"subs\"", "NONE", "658070", "480x270", "\"avc1.4d4015,mp4a.40.2\"", "\"audio\""
+              }),
+          createDto(
+              "QualityLevels(249968)/Manifest(video,format=m3u8-aapl)",
+              new String[] {
+                "SUBTITLES",
+                M3U8Constants.M3U8_CLOSED_CAPTIONS,
+                M3U8Constants.M3U8_BANDWIDTH,
+                M3U8Constants.M3U8_RESOLUTION,
+                M3U8Constants.M3U8_CODECS,
+                "AUDIO"
+              },
+              new String[] {
+                "\"subs\"", "NONE", "402603", "320x180", "\"avc1.42c00c,mp4a.40.2\"", "\"audio\""
+              }),
+          createDto(
+              "QualityLevels(1199924)/Manifest(video,format=m3u8-aapl)",
+              new String[] {
+                "SUBTITLES",
+                M3U8Constants.M3U8_CLOSED_CAPTIONS,
+                M3U8Constants.M3U8_BANDWIDTH,
+                M3U8Constants.M3U8_RESOLUTION,
+                M3U8Constants.M3U8_CODECS,
+                "AUDIO"
+              },
+              new String[] {
+                "\"subs\"", "NONE", "1373458", "640x360", "\"avc1.4d401e,mp4a.40.2\"", "\"audio\""
+              }),
+          createDto(
+              "QualityLevels(1999872)/Manifest(video,format=m3u8-aapl)",
+              new String[] {
+                "SUBTITLES",
+                M3U8Constants.M3U8_CLOSED_CAPTIONS,
+                M3U8Constants.M3U8_BANDWIDTH,
+                M3U8Constants.M3U8_RESOLUTION,
+                M3U8Constants.M3U8_CODECS,
+                "AUDIO"
+              },
+              new String[] {
+                "\"subs\"", "NONE", "2191005", "960x540", "\"avc1.4d401f,mp4a.40.2\"", "\"audio\""
+              }),
+        };
+
+    final M3U8Parser target = new M3U8Parser();
+    final List<M3U8Dto> actual =
+        target.parse(
+            "Optional[#EXTM3U\n"
+                + "#EXT-X-VERSION:5\n"
+                + "#EXT-X-MEDIA:TYPE=SUBTITLES,GROUP-ID=\"subs\",LANGUAGE=\"de\",NAME=\"Deutsch\",DEFAULT=NO,AUTOSELECT=YES,FORCED=NO,URI=\"https://www.srf.ch/subtitles/srf/948d8f5a-03a7-49e2-b174-a4b7b3c4a043/episode/de/vod/vod.m3u8\"\n"
+                + "#EXT-X-MEDIA:TYPE=AUDIO,GROUP-ID=\"audio\",NAME=\"audio_deu\",LANGUAGE=\"deu\",DEFAULT=YES,AUTOSELECT=YES,URI=\"QualityLevels(128000)/Manifest(audio_deu,format=m3u8-aapl)\"\n"
+                + "#EXT-X-STREAM-INF:SUBTITLES=\"subs\",CLOSED-CAPTIONS=NONE,BANDWIDTH=138976,CODECS=\"mp4a.40.2\",AUDIO=\"audio\"\n"
+                + "QualityLevels(128000)/Manifest(audio_deu,format=m3u8-aapl)\n"
+                + "#EXT-X-STREAM-INF:SUBTITLES=\"subs\",CLOSED-CAPTIONS=NONE,BANDWIDTH=658070,RESOLUTION=480x270,CODECS=\"avc1.4d4015,mp4a.40.2\",AUDIO=\"audio\"\n"
+                + "QualityLevels(499936)/Manifest(video,format=m3u8-aapl)\n"
+                + "#EXT-X-I-FRAME-STREAM-INF:BANDWIDTH=658070,RESOLUTION=480x270,CODECS=\"avc1.4d4015\",URI=\"QualityLevels(499936)/Manifest(video,format=m3u8-aapl,type=keyframes)\"\n"
+                + "#EXT-X-STREAM-INF:SUBTITLES=\"subs\",CLOSED-CAPTIONS=NONE,BANDWIDTH=402603,RESOLUTION=320x180,CODECS=\"avc1.42c00c,mp4a.40.2\",AUDIO=\"audio\"\n"
+                + "QualityLevels(249968)/Manifest(video,format=m3u8-aapl)\n"
+                + "#EXT-X-I-FRAME-STREAM-INF:BANDWIDTH=402603,RESOLUTION=320x180,CODECS=\"avc1.42c00c\",URI=\"QualityLevels(249968)/Manifest(video,format=m3u8-aapl,type=keyframes)\"\n"
+                + "#EXT-X-STREAM-INF:SUBTITLES=\"subs\",CLOSED-CAPTIONS=NONE,BANDWIDTH=1373458,RESOLUTION=640x360,CODECS=\"avc1.4d401e,mp4a.40.2\",AUDIO=\"audio\"\n"
+                + "QualityLevels(1199924)/Manifest(video,format=m3u8-aapl)\n"
+                + "#EXT-X-I-FRAME-STREAM-INF:BANDWIDTH=1373458,RESOLUTION=640x360,CODECS=\"avc1.4d401e\",URI=\"QualityLevels(1199924)/Manifest(video,format=m3u8-aapl,type=keyframes)\"\n"
+                + "#EXT-X-STREAM-INF:SUBTITLES=\"subs\",CLOSED-CAPTIONS=NONE,BANDWIDTH=2191005,RESOLUTION=960x540,CODECS=\"avc1.4d401f,mp4a.40.2\",AUDIO=\"audio\"\n"
+                + "QualityLevels(1999872)/Manifest(video,format=m3u8-aapl)\n"
+                + "#EXT-X-I-FRAME-STREAM-INF:BANDWIDTH=2191005,RESOLUTION=960x540,CODECS=\"avc1.4d401f\",URI=\"QualityLevels(1999872)/Manifest(video,format=m3u8-aapl,type=keyframes)\"]");
+
+    assertThat(actual, notNullValue());
+    assertThat(actual.size(), equalTo(5));
+
+    assertThat(actual, Matchers.containsInAnyOrder(expected));
+  }
+
+  @Test
   public void parseTestArd() {
 
     final M3U8Dto[] expected =
@@ -181,6 +278,123 @@ public class M3U8ParserTest {
 
     assertThat(actual, notNullValue());
     assertThat(actual.size(), equalTo(3));
+
+    assertThat(actual, Matchers.containsInAnyOrder(expected));
+  }
+
+  @Test
+  public void parseTestArdFunk() {
+
+    final M3U8Dto[] expected =
+        new M3U8Dto[] {
+          createDto(
+              "22679-qhFBn6dpPtxVW9K-audio=128000-video=316000.m3u8",
+              new String[] {
+                M3U8Constants.M3U8_BANDWIDTH,
+                M3U8Constants.M3U8_CODECS,
+                M3U8Constants.M3U8_RESOLUTION,
+                "AUDIO",
+                M3U8Constants.M3U8_CLOSED_CAPTIONS
+              },
+              new String[] {
+                "471000", "\"mp4a.40.2,avc1.4D401F\"", "426x240", "\"audio-aacl-128\"", "NONE"
+              }),
+          createDto(
+              "22679-qhFBn6dpPtxVW9K-audio=152000-video=748000.m3u8",
+              new String[] {
+                M3U8Constants.M3U8_BANDWIDTH,
+                M3U8Constants.M3U8_CODECS,
+                M3U8Constants.M3U8_RESOLUTION,
+                "AUDIO",
+                M3U8Constants.M3U8_CLOSED_CAPTIONS
+              },
+              new String[] {
+                "954000", "\"mp4a.40.2,avc1.4D401F\"", "640x360", "\"audio-aacl-152\"", "NONE"
+              }),
+          createDto(
+              "22679-qhFBn6dpPtxVW9K-audio=152000-video=1451000.m3u8",
+              new String[] {
+                M3U8Constants.M3U8_BANDWIDTH,
+                M3U8Constants.M3U8_CODECS,
+                M3U8Constants.M3U8_RESOLUTION,
+                "AUDIO",
+                M3U8Constants.M3U8_CLOSED_CAPTIONS
+              },
+              new String[] {
+                "1700000", "\"mp4a.40.2,avc1.4D401F\"", "1024x576", "\"audio-aacl-152\"", "NONE"
+              }),
+          createDto(
+              "22679-qhFBn6dpPtxVW9K-audio=152000-video=2771000.m3u8",
+              new String[] {
+                M3U8Constants.M3U8_BANDWIDTH,
+                M3U8Constants.M3U8_CODECS,
+                M3U8Constants.M3U8_RESOLUTION,
+                "AUDIO",
+                M3U8Constants.M3U8_CLOSED_CAPTIONS
+              },
+              new String[] {
+                "3099000", "\"mp4a.40.2,avc1.4D401F\"", "1280x720", "\"audio-aacl-152\"", "NONE"
+              }),
+          createDto(
+              "22679-qhFBn6dpPtxVW9K-audio=152000-video=3838000.m3u8",
+              new String[] {
+                M3U8Constants.M3U8_BANDWIDTH,
+                M3U8Constants.M3U8_CODECS,
+                M3U8Constants.M3U8_RESOLUTION,
+                "AUDIO",
+                M3U8Constants.M3U8_CLOSED_CAPTIONS
+              },
+              new String[] {
+                "4230000", "\"mp4a.40.2,avc1.4D401F\"", "1920x1080", "\"audio-aacl-152\"", "NONE"
+              }),
+          createDto(
+              "22679-qhFBn6dpPtxVW9K-audio=128000.m3u8",
+              new String[] {M3U8Constants.M3U8_BANDWIDTH, M3U8Constants.M3U8_CODECS, "AUDIO"},
+              new String[] {"136000", "\"mp4a.40.2\"", "\"audio-aacl-128\""}),
+          createDto(
+              "22679-qhFBn6dpPtxVW9K-audio=152000.m3u8",
+              new String[] {M3U8Constants.M3U8_BANDWIDTH, M3U8Constants.M3U8_CODECS, "AUDIO"},
+              new String[] {"162000", "\"mp4a.40.2\"", "\"audio-aacl-152\""}),
+        };
+
+    final M3U8Parser target = new M3U8Parser();
+    final List<M3U8Dto> actual =
+        target.parse(
+            "#EXTM3U\n"
+                + "#EXT-X-VERSION:4\n"
+                + "## Created with Unified Streaming Platform  (version=1.11.3-24483)\n"
+                + "\n"
+                + "# AUDIO groups\n"
+                + "#EXT-X-MEDIA:TYPE=AUDIO,GROUP-ID=\"audio-aacl-128\",NAME=\"audio\",DEFAULT=YES,AUTOSELECT=YES,CHANNELS=\"2\"\n"
+                + "#EXT-X-MEDIA:TYPE=AUDIO,GROUP-ID=\"audio-aacl-152\",NAME=\"audio\",DEFAULT=YES,AUTOSELECT=YES,CHANNELS=\"2\"\n"
+                + "\n"
+                + "# variants\n"
+                + "#EXT-X-STREAM-INF:BANDWIDTH=471000,CODECS=\"mp4a.40.2,avc1.4D401F\",RESOLUTION=426x240,AUDIO=\"audio-aacl-128\",CLOSED-CAPTIONS=NONE\n"
+                + "22679-qhFBn6dpPtxVW9K-audio=128000-video=316000.m3u8\n"
+                + "#EXT-X-STREAM-INF:BANDWIDTH=954000,CODECS=\"mp4a.40.2,avc1.4D401F\",RESOLUTION=640x360,AUDIO=\"audio-aacl-152\",CLOSED-CAPTIONS=NONE\n"
+                + "22679-qhFBn6dpPtxVW9K-audio=152000-video=748000.m3u8\n"
+                + "#EXT-X-STREAM-INF:BANDWIDTH=1700000,CODECS=\"mp4a.40.2,avc1.4D401F\",RESOLUTION=1024x576,AUDIO=\"audio-aacl-152\",CLOSED-CAPTIONS=NONE\n"
+                + "22679-qhFBn6dpPtxVW9K-audio=152000-video=1451000.m3u8\n"
+                + "#EXT-X-STREAM-INF:BANDWIDTH=3099000,CODECS=\"mp4a.40.2,avc1.4D401F\",RESOLUTION=1280x720,AUDIO=\"audio-aacl-152\",CLOSED-CAPTIONS=NONE\n"
+                + "22679-qhFBn6dpPtxVW9K-audio=152000-video=2771000.m3u8\n"
+                + "#EXT-X-STREAM-INF:BANDWIDTH=4230000,CODECS=\"mp4a.40.2,avc1.4D401F\",RESOLUTION=1920x1080,AUDIO=\"audio-aacl-152\",CLOSED-CAPTIONS=NONE\n"
+                + "22679-qhFBn6dpPtxVW9K-audio=152000-video=3838000.m3u8\n"
+                + "\n"
+                + "# variants\n"
+                + "#EXT-X-STREAM-INF:BANDWIDTH=136000,CODECS=\"mp4a.40.2\",AUDIO=\"audio-aacl-128\"\n"
+                + "22679-qhFBn6dpPtxVW9K-audio=128000.m3u8\n"
+                + "#EXT-X-STREAM-INF:BANDWIDTH=162000,CODECS=\"mp4a.40.2\",AUDIO=\"audio-aacl-152\"\n"
+                + "22679-qhFBn6dpPtxVW9K-audio=152000.m3u8\n"
+                + "\n"
+                + "# keyframes\n"
+                + "#EXT-X-I-FRAME-STREAM-INF:BANDWIDTH=42000,CODECS=\"avc1.4D401F\",RESOLUTION=426x240,URI=\"keyframes/22679-qhFBn6dpPtxVW9K-video=316000.m3u8\"\n"
+                + "#EXT-X-I-FRAME-STREAM-INF:BANDWIDTH=100000,CODECS=\"avc1.4D401F\",RESOLUTION=640x360,URI=\"keyframes/22679-qhFBn6dpPtxVW9K-video=748000.m3u8\"\n"
+                + "#EXT-X-I-FRAME-STREAM-INF:BANDWIDTH=193000,CODECS=\"avc1.4D401F\",RESOLUTION=1024x576,URI=\"keyframes/22679-qhFBn6dpPtxVW9K-video=1451000.m3u8\"\n"
+                + "#EXT-X-I-FRAME-STREAM-INF:BANDWIDTH=368000,CODECS=\"avc1.4D401F\",RESOLUTION=1280x720,URI=\"keyframes/22679-qhFBn6dpPtxVW9K-video=2771000.m3u8\"\n"
+                + "#EXT-X-I-FRAME-STREAM-INF:BANDWIDTH=509000,CODECS=\"avc1.4D401F\",RESOLUTION=1920x1080,URI=\"keyframes/22679-qhFBn6dpPtxVW9K-video=3838000.m3u8\"");
+
+    assertThat(actual, notNullValue());
+    assertThat(actual.size(), equalTo(7));
 
     assertThat(actual, Matchers.containsInAnyOrder(expected));
   }

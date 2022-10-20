@@ -4,17 +4,17 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 import javax.annotation.Nullable;
-import javax.ws.rs.client.Invocation.Builder;
-import javax.ws.rs.client.WebTarget;
-import javax.ws.rs.core.Response;
+import jakarta.ws.rs.client.Invocation.Builder;
+import jakarta.ws.rs.client.WebTarget;
+import jakarta.ws.rs.core.Response;
 import java.lang.reflect.Type;
 import java.net.URI;
 import java.nio.charset.StandardCharsets;
 import java.util.Optional;
 import java.util.Queue;
 
-import static javax.ws.rs.core.HttpHeaders.ACCEPT_CHARSET;
-import static javax.ws.rs.core.HttpHeaders.ACCEPT_ENCODING;
+import static jakarta.ws.rs.core.HttpHeaders.ACCEPT_CHARSET;
+import static jakarta.ws.rs.core.HttpHeaders.ACCEPT_ENCODING;
 
 /** A abstract REST api task which requests the given url with the Funk Api settings. */
 public abstract class AbstractJsonRestTask<T, R, D extends CrawlerUrlDTO>

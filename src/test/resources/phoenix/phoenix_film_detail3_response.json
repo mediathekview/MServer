@@ -1,0 +1,517 @@
+{
+  "id":2320549,
+  "typ": "",
+  "titel": "Presseclub",
+  "subtitel": "Handeln statt Reden: Impfpflicht für alle?",
+  "autor":"",
+  "herkunftssender": "",
+  "online":"",
+  "offline": "",
+  "verortung":
+  [{"link":"\/sendungen\/gespraeche\/presseclub-s-252853.html","titel":"Presseclub"},{"link":"","titel":"Gespr\u00e4che"},{"link":"\/sendungen.html","titel":"Sendungen"}]	,
+  "vorspann": "Moderation: Jörg Schönenborn",
+  "absaetze":[
+    {
+
+      "typ":"video-smubl",
+      "subtype":"vod",
+      "titel":"Handeln statt Reden: Impfpflicht für alle?",
+      "beschreibung":"",
+      "content": 2361354,
+      "bild_l": "/sixcms/media.php/phoenix_tl_01.a.21.de/thumbnail_large/Bildschirmfoto%202021-11-14%20um%2016.17.02%201.png",
+      "startImageMaxi": "/sixcms/media.php/phoenix_tl_01.a.21.de/thumbnail_large/Bildschirmfoto%202021-11-14%20um%2016.17.02%201.png",
+      "startImageNormal": "/sixcms/media.php/phoenix_tl_01.a.21.de/thumbnail_medium_large/Bildschirmfoto%202021-11-14%20um%2016.17.02%201.png",
+      "startImageSmall": "/sixcms/media.php/phoenix_tl_01.a.21.de/thumbnail_medium/Bildschirmfoto%202021-11-14%20um%2016.17.02%201.png",
+      "startImageMini": "/sixcms/media.php/phoenix_tl_01.a.21.de/thumbnail_small/Bildschirmfoto%202021-11-14%20um%2016.17.02%201.png"
+    },
+    {
+      "typ":"fliesstext",
+      "text":"<p><strong>Corona ist mit voller Wucht zur&uuml;ck: Noch nie seit Beginn der Pandemie haben sich so viele Menschen infiziert wie in dieser Woche. Das RKI meldet t&auml;glich neue Rekordwerte bei der 7-Tage-Inzidenz. In Altenheimen sterben wieder Menschen und in manchen Regionen wie in Sachsen, Th&uuml;ringen oder Bayern werden Intensivbetten knapp. Das kann t&ouml;dlich sein - nicht nur f&uuml;r Covid-Kranke, sondern auch f&uuml;r Unfallopfer oder Notfallpatienten. Wie konnte es so weit kommen? Ist jetzt die Zeit f&uuml;r rigidere Ma&szlig;nahmen?<\/strong><\/p>\r\n<p>Die &ouml;ffentliche Stimmung scheint sich zu drehen: Diese Woche hat der Ethikrat eine Impfpflicht f&uuml;r die Berufsgruppen gefordert, die besonders schutzbed&uuml;rftige Menschen versorgen m&uuml;ssen, also Alte und Kranke. Die Nationale Akademie der Wissenschaften Leopoldina will noch einen Schritt weitergehen und auch all jene impfen lassen, die viel Kontakt zu anderen Menschen haben wie zum Beispiel das Lehrpersonal. Au&szlig;erdem m&uuml;ssten die Besch&auml;ftigten dazu verpflichtet werden, ihren Impfstatus offen zu legen. Laut Deutschlandtrend ist eine Mehrheit sogar f&uuml;r eine allgemeine Impfpflicht gegen Corona. Denn noch immer sind in Deutschland rund 16 Millionen Menschen ungeimpft. Ganz anders die Situation in Spanien, wo rund 90 % der &Uuml;ber-12-J&auml;hrigen immunisiert sind. Die Inzidenz liegt unter 50. Warum l&auml;uft es dort so viel besser als bei uns? Was k&ouml;nnen wir von Spanien lernen? Die Ampelkoalition&auml;re haben gestern einen Gesetzentwurf eingebracht, der vorsieht, die epidemische Notlage Ende November auslaufen zu lassen.<\/p>\r\n<p>Der Instrumentenkasten, den die L&auml;nder dann zur Verf&uuml;gung h&auml;tten, w&auml;re kleiner als bisher: Lockdowns wie jetzt in den Niederlanden w&auml;ren nicht mehr m&ouml;glich. Von einer Impfpflicht ist keine Rede. Ebenso wenig von einer bundesweiten 2G-Regel, wie &Ouml;sterreich sie angesichts drastisch steigender Infektionen gerade eingef&uuml;hrt hat. Ist das die politisch richtige Antwort in der jetzigen Situation?<\/p>"},
+    {
+      "typ":"fliesstext-bild",
+      "text":"<p>WDR Programmdirektor <strong>J&ouml;rg Sch&ouml;nenborn<\/strong> diskutiert mit den G&auml;sten:<\/p>\r\n<p>- <strong>Natalia Bachmayer<\/strong>, ARD Studio Madrid.<br \/>- <strong>Werner Bartens<\/strong>, S&uuml;ddeutsche Zeitung<br \/>- <strong>Alexander Kissler<\/strong>, NZZ<br \/>- <strong>Cornelia Schmergal<\/strong>, Der Spiegel<\/p>",
+      "bildposition":"links",
+      "items":[
+        {
+          "titel":"Jörg Schönenborn",
+          "rechte":"WDR\/Herby Sachs",
+          "unterschrift":"Jörg Schönenborn",
+          "bild_l":"/sixcms/media.php/16/thumbnails/Joerg_Schoenenborn.250435.jpg.250438.jpg",
+          "bild_m":"/sixcms/media.php/16/thumbnails/Joerg_Schoenenborn.250435.jpg.250444.jpg",
+          "bild_s":"/sixcms/media.php/16/thumbnails/Joerg_Schoenenborn.250435.jpg.250447.jpg"
+        }
+      ]
+    },
+    {
+      "typ": "programmhinweis",
+      "title": "",
+      "items": [
+
+
+      ]}],
+
+  "meta": {
+    "bild_l": "https:\/\/www.phoenix.de\/sixcms\/media.php\/21\/thumbnails\/Bildschirmfoto%202021-11-14%20um%2016.17.02%201.png.1611599.png",
+    "description":"Moderation: Jörg Schönenborn",
+    "canonical": "https:\/\/www.phoenix.de\/sendungen\/gespraeche\/presseclub\/handeln-statt-reden-impfpflicht-fuer-alle-a-2320549.html",
+    "description_og":"So., 14.11.2021 um 12:00 Uhr."	},
+  "test": "143",
+  "metaspalte":
+  []	,
+  "related":{
+    "sendungen": [
+
+      {
+        "link": "\/sendungen\/gespraeche\/presseclub\/energiepreisschock-und-klimaschutz-wie-teuer-wirds-noch-a-2291909.html",
+        "artikel_id": 2291909,
+        "titel": "Presseclub",
+        "subtitel": "Energiepreisschock und Klimaschutz: Wie teuer wird’s noch?",
+        "vorspann": "Moderation: Jörg Schönenborn",
+        "epg_hint": "",
+        "bild_l": "\/sixcms\/media.php\/21\/thumbnails\/Energieee333.jpg.jpg.1563594.jpg",
+        "bild_ml": "\/sixcms\/media.php\/21\/thumbnails\/Energieee333.jpg.jpg.1563599.jpg",
+        "bild_m": "\/sixcms\/media.php\/21\/thumbnails\/Energieee333.jpg.jpg.1563604.jpg",
+        "inhalt_video": true,
+        "inhalt_text": true,
+        "typ": "Talk",
+        "sendung": {
+          "sendezeit":
+          "2021-10-31 12:00",
+          "vps": "",
+          "highlight": true,
+          "themenblock": {
+            "titel": "",
+            "link": ""			},
+          "attribute": {
+            "ut": false,
+            "gs": false,
+            "zk": false			}
+        }
+      }
+    ,
+      {
+        "link": "\/sendungen\/gespraeche\/presseclub\/ja-zur-eu-aber-ohne-ihre-werte--sprengt-polen-die-gemeinschaft-a-2290154.html",
+        "artikel_id": 2290154,
+        "titel": "Presseclub",
+        "subtitel": "Ja zur EU, aber ohne ihre Werte – Sprengt Polen die Gemeinschaft?",
+        "vorspann": "Moderation: Ellen Ehni",
+        "epg_hint": "",
+        "bild_l": "\/sixcms\/media.php\/21\/thumbnails\/flaggen169.jpg.1555219.jpg",
+        "bild_ml": "\/sixcms\/media.php\/21\/thumbnails\/flaggen169.jpg.1555224.jpg",
+        "bild_m": "\/sixcms\/media.php\/21\/thumbnails\/flaggen169.jpg.1555229.jpg",
+        "inhalt_video": true,
+        "inhalt_text": true,
+        "typ": "Talk",
+        "sendung": {
+          "sendezeit":
+          "2021-10-24 12:00",
+          "vps": "",
+          "highlight": false,
+          "themenblock": {
+            "titel": "",
+            "link": ""			},
+          "attribute": {
+            "ut": false,
+            "gs": false,
+            "zk": false			}
+        }
+      }
+    ,
+      {
+        "link": "\/sendungen\/gespraeche\/presseclub\/abbruch-oder-aufbruch-wie-kann-sich-die-cdu-erneuern-a-2280555.html",
+        "artikel_id": 2280555,
+        "titel": "Presseclub",
+        "subtitel": "Abbruch oder Aufbruch: Wie kann sich die CDU erneuern?",
+        "vorspann": "Moderation: Volker Herres",
+        "epg_hint": "",
+        "bild_l": "\/sixcms\/media.php\/21\/thumbnails\/21-1282274%2C%28epa%2C09144816%2CA19_04_2021%29%2CHauptsitz_der_CDU.jpg.1551149.jpg",
+        "bild_ml": "\/sixcms\/media.php\/21\/thumbnails\/21-1282274%2C%28epa%2C09144816%2CA19_04_2021%29%2CHauptsitz_der_CDU.jpg.1551154.jpg",
+        "bild_m": "\/sixcms\/media.php\/21\/thumbnails\/21-1282274%2C%28epa%2C09144816%2CA19_04_2021%29%2CHauptsitz_der_CDU.jpg.1551159.jpg",
+        "inhalt_video": true,
+        "inhalt_text": true,
+        "typ": "Talk",
+        "sendung": {
+          "sendezeit":
+          "2021-10-17 12:00",
+          "vps": "",
+          "highlight": true,
+          "themenblock": {
+            "titel": "",
+            "link": ""			},
+          "attribute": {
+            "ut": false,
+            "gs": false,
+            "zk": false			}
+        }
+      }
+    ,
+      {
+        "link": "\/sendungen\/gespraeche\/presseclub\/wochen-der-entscheidung-bestimmen-jetzt-die-jungen-die-politik-a-2272285.html",
+        "artikel_id": 2272285,
+        "titel": "Presseclub",
+        "subtitel": "Wochen der Entscheidung: Bestimmen jetzt die Jungen die Politik?",
+        "vorspann": "",
+        "epg_hint": "",
+        "bild_l": "\/sixcms\/media.php\/21\/thumbnails\/presseclub1.jpg.1553659.jpg",
+        "bild_ml": "\/sixcms\/media.php\/21\/thumbnails\/presseclub1.jpg.1553664.jpg",
+        "bild_m": "\/sixcms\/media.php\/21\/thumbnails\/presseclub1.jpg.1553669.jpg",
+        "inhalt_video": true,
+        "inhalt_text": true,
+        "typ": "Talk",
+        "sendung": {
+          "sendezeit":
+          "2021-10-10 12:00",
+          "vps": "",
+          "highlight": false,
+          "themenblock": {
+            "titel": "",
+            "link": ""			},
+          "attribute": {
+            "ut": false,
+            "gs": false,
+            "zk": false			}
+        }
+      }
+    ,
+      {
+        "link": "\/sendungen\/gespraeche\/presseclub\/deutschlands-rolle-in-der-welt---was-kommt-nach-merkel-a-2261715.html",
+        "artikel_id": 2261715,
+        "titel": "Presseclub",
+        "subtitel": "Deutschlands Rolle in der Welt - Was kommt nach Merkel?",
+        "vorspann": "Moderation: Volker Herres",
+        "epg_hint": "",
+        "bild_l": "\/sixcms\/media.php\/15\/thumbnails\/sHgLdTlKeqw.jpg.1525394.jpg",
+        "bild_ml": "\/sixcms\/media.php\/15\/thumbnails\/sHgLdTlKeqw.jpg.1525399.jpg",
+        "bild_m": "\/sixcms\/media.php\/15\/thumbnails\/sHgLdTlKeqw.jpg.1525404.jpg",
+        "inhalt_video": true,
+        "inhalt_text": true,
+        "typ": "Talk",
+        "sendung": {
+          "sendezeit":
+          "2021-09-26 12:00",
+          "vps": "",
+          "highlight": true,
+          "themenblock": {
+            "titel": "",
+            "link": ""			},
+          "attribute": {
+            "ut": false,
+            "gs": false,
+            "zk": false			}
+        }
+      }
+    ,
+      {
+        "link": "\/sendungen\/gespraeche\/presseclub\/wahlkrimi---wer-macht-das-rennen-a-2255520.html",
+        "artikel_id": 2255520,
+        "titel": "Presseclub",
+        "subtitel": "Wahlkrimi - Wer macht das Rennen?",
+        "vorspann": "Moderation: Jörg Schönenborn",
+        "epg_hint": "",
+        "bild_l": "\/sixcms\/media.php\/phoenix_tl_01.a.16.de\/thumbnail_large\/21-3398207%2C%28dpa%2C90-028476%2CU15_09_2021%29%2CBerlin_waehlt_am_26._September_ein_neues_Abgeordnetenhaus.jpg",
+        "bild_ml": "\/sixcms\/media.php\/phoenix_tl_01.a.16.de\/thumbnail_medium_large\/21-3398207%2C%28dpa%2C90-028476%2CU15_09_2021%29%2CBerlin_waehlt_am_26._September_ein_neues_Abgeordnetenhaus.jpg",
+        "bild_m": "\/sixcms\/media.php\/phoenix_tl_01.a.16.de\/thumbnail_medium\/21-3398207%2C%28dpa%2C90-028476%2CU15_09_2021%29%2CBerlin_waehlt_am_26._September_ein_neues_Abgeordnetenhaus.jpg",
+        "inhalt_video": true,
+        "inhalt_text": true,
+        "typ": "Talk",
+        "sendung": {
+          "sendezeit":
+          "2021-09-19 15:06",
+          "vps": "12:00",
+          "highlight": true,
+          "themenblock": {
+            "titel": "",
+            "link": ""			},
+          "attribute": {
+            "ut": false,
+            "gs": false,
+            "zk": false			}
+        }
+      }
+    ,
+      {
+        "link": "\/sendungen\/gespraeche\/presseclub\/abtritt-einer-kanzlerin--merkels-bilanz-und-erbe-a-2250340.html",
+        "artikel_id": 2250340,
+        "titel": "Presseclub",
+        "subtitel": "Abtritt einer Kanzlerin – Merkels Bilanz und Erbe",
+        "vorspann": "Moderation: Volker Herres",
+        "epg_hint": "",
+        "bild_l": "\/sixcms\/media.php\/21\/thumbnails\/RSCN2qheQmg.jpg.jpg.1553839.jpg",
+        "bild_ml": "\/sixcms\/media.php\/21\/thumbnails\/RSCN2qheQmg.jpg.jpg.1553844.jpg",
+        "bild_m": "\/sixcms\/media.php\/21\/thumbnails\/RSCN2qheQmg.jpg.jpg.1553849.jpg",
+        "inhalt_video": true,
+        "inhalt_text": true,
+        "typ": "Talk",
+        "sendung": {
+          "sendezeit":
+          "2021-09-12 12:00",
+          "vps": "",
+          "highlight": false,
+          "themenblock": {
+            "titel": "",
+            "link": ""			},
+          "attribute": {
+            "ut": false,
+            "gs": false,
+            "zk": false			}
+        }
+      }
+    ,
+      {
+        "link": "\/sendungen\/gespraeche\/presseclub\/farbenspiele--wer-will-und-kann-mit-wem-a-2247795.html",
+        "artikel_id": 2247795,
+        "titel": "Presseclub",
+        "subtitel": "Farbenspiele – wer will und kann mit wem?",
+        "vorspann": "Moderation: Volker Herres",
+        "epg_hint": "",
+        "bild_l": "\/sixcms\/media.php\/21\/thumbnails\/00-560500%2C%28dpa%2Cfkh002%2CA20_09_2005%29%2Csymbolfoto_grosse_koalition.jpg.jpg.1507260.jpg",
+        "bild_ml": "\/sixcms\/media.php\/21\/thumbnails\/00-560500%2C%28dpa%2Cfkh002%2CA20_09_2005%29%2Csymbolfoto_grosse_koalition.jpg.jpg.1507265.jpg",
+        "bild_m": "\/sixcms\/media.php\/21\/thumbnails\/00-560500%2C%28dpa%2Cfkh002%2CA20_09_2005%29%2Csymbolfoto_grosse_koalition.jpg.jpg.1507270.jpg",
+        "inhalt_video": true,
+        "inhalt_text": true,
+        "typ": "Talk",
+        "sendung": {
+          "sendezeit":
+          "2021-09-05 12:00",
+          "vps": "",
+          "highlight": true,
+          "themenblock": {
+            "titel": "",
+            "link": ""			},
+          "attribute": {
+            "ut": false,
+            "gs": false,
+            "zk": false			}
+        }
+      }
+    ,
+      {
+        "link": "\/sendungen\/gespraeche\/presseclub\/das-scheitern-in-afghanistan---was-folgt-daraus-a-2235710.html",
+        "artikel_id": 2235710,
+        "titel": "Presseclub",
+        "subtitel": "Das Scheitern in Afghanistan - was folgt daraus?",
+        "vorspann": "Moderation: Jörg Schönenborn",
+        "epg_hint": "",
+        "bild_l": "\/sixcms\/media.php\/15\/thumbnails\/P7TjikHgHbs.jpg.1495995.jpg",
+        "bild_ml": "\/sixcms\/media.php\/15\/thumbnails\/P7TjikHgHbs.jpg.1496000.jpg",
+        "bild_m": "\/sixcms\/media.php\/15\/thumbnails\/P7TjikHgHbs.jpg.1496005.jpg",
+        "inhalt_video": true,
+        "inhalt_text": true,
+        "typ": "Talk",
+        "sendung": {
+          "sendezeit":
+          "2021-08-22 12:00",
+          "vps": "",
+          "highlight": true,
+          "themenblock": {
+            "titel": "",
+            "link": ""			},
+          "attribute": {
+            "ut": false,
+            "gs": false,
+            "zk": false			}
+        }
+      }
+    ,
+      {
+        "link": "\/sendungen\/gespraeche\/presseclub\/klimaziele---grosser-wurf-oder-grosse-illusion-a-2226090.html",
+        "artikel_id": 2226090,
+        "titel": "Presseclub",
+        "subtitel": "Klimaziele - Großer Wurf oder große Illusion?",
+        "vorspann": "Moderation: Sabine Scholt ",
+        "epg_hint": "",
+        "bild_l": "\/sixcms\/media.php\/phoenix_tl_01.a.16.de\/thumbnail_large\/19-3932095%2C%28dpa%2C99-813400%2CU29_11_2019%29%2Cglobaler_klimastreik_-_duesseldorf.jpg",
+        "bild_ml": "\/sixcms\/media.php\/phoenix_tl_01.a.16.de\/thumbnail_medium_large\/19-3932095%2C%28dpa%2C99-813400%2CU29_11_2019%29%2Cglobaler_klimastreik_-_duesseldorf.jpg",
+        "bild_m": "\/sixcms\/media.php\/phoenix_tl_01.a.16.de\/thumbnail_medium\/19-3932095%2C%28dpa%2C99-813400%2CU29_11_2019%29%2Cglobaler_klimastreik_-_duesseldorf.jpg",
+        "inhalt_video": true,
+        "inhalt_text": true,
+        "typ": "Talk",
+        "sendung": {
+          "sendezeit":
+          "2021-08-15 12:00",
+          "vps": "",
+          "highlight": true,
+          "themenblock": {
+            "titel": "",
+            "link": ""			},
+          "attribute": {
+            "ut": false,
+            "gs": false,
+            "zk": false			}
+        }
+      }
+    ,
+      {
+        "link": "\/sendungen\/gespraeche\/presseclub\/impfpflicht-fuer-mehr-freiheit-a-2213670.html",
+        "artikel_id": 2213670,
+        "titel": "Presseclub",
+        "subtitel": "Impfpflicht für mehr Freiheit?",
+        "vorspann": "Moderation: Volker Herres",
+        "epg_hint": "",
+        "bild_l": "\/sixcms\/media.php\/21\/thumbnails\/c495936e-1174-4b26-9a73-d9acf7fe43c9.jpg.jpg.1486045.jpg",
+        "bild_ml": "\/sixcms\/media.php\/21\/thumbnails\/c495936e-1174-4b26-9a73-d9acf7fe43c9.jpg.jpg.1486050.jpg",
+        "bild_m": "\/sixcms\/media.php\/21\/thumbnails\/c495936e-1174-4b26-9a73-d9acf7fe43c9.jpg.jpg.1486055.jpg",
+        "inhalt_video": true,
+        "inhalt_text": true,
+        "typ": "Talk",
+        "sendung": {
+          "sendezeit":
+          "2021-08-01 12:00",
+          "vps": "",
+          "highlight": true,
+          "themenblock": {
+            "titel": "",
+            "link": ""			},
+          "attribute": {
+            "ut": false,
+            "gs": false,
+            "zk": false			}
+        }
+      }
+    ,
+      {
+        "link": "\/sendungen\/gespraeche\/presseclub\/flut-katastrophe-und-sahara-hitze-welche-klimapolitik-brauchen-wir-a-2190145.html",
+        "artikel_id": 2190145,
+        "titel": "Presseclub",
+        "subtitel": "Flut-Katastrophe und Sahara-Hitze: Welche Klimapolitik brauchen wir?",
+        "vorspann": "Moderation: Ellen Ehni",
+        "epg_hint": "",
+        "bild_l": "\/sixcms\/media.php\/21\/thumbnails\/warnschild_weist_auf_ueberflutete_bundesstrasse_hin.jpg.1476965.jpg",
+        "bild_ml": "\/sixcms\/media.php\/21\/thumbnails\/warnschild_weist_auf_ueberflutete_bundesstrasse_hin.jpg.1476970.jpg",
+        "bild_m": "\/sixcms\/media.php\/21\/thumbnails\/warnschild_weist_auf_ueberflutete_bundesstrasse_hin.jpg.1476975.jpg",
+        "inhalt_video": true,
+        "inhalt_text": true,
+        "typ": "Talk",
+        "sendung": {
+          "sendezeit":
+          "2021-07-18 12:00",
+          "vps": "",
+          "highlight": true,
+          "themenblock": {
+            "titel": "",
+            "link": ""			},
+          "attribute": {
+            "ut": false,
+            "gs": false,
+            "zk": false			}
+        }
+      }
+    ,
+      {
+        "link": "\/sendungen\/gespraeche\/presseclub\/kampf-ums-kanzleramt-schlammschlacht-oder-fair-play-a-2188485.html",
+        "artikel_id": 2188485,
+        "titel": "Presseclub",
+        "subtitel": "Kampf ums Kanzleramt: Schlammschlacht oder Fair Play?",
+        "vorspann": "Moderation: Jörg Schönenborn",
+        "epg_hint": "",
+        "bild_l": "\/sixcms\/media.php\/21\/thumbnails\/Pressclub%20110721.png.1471965.png",
+        "bild_ml": "\/sixcms\/media.php\/21\/thumbnails\/Pressclub%20110721.png.1471970.jpg",
+        "bild_m": "\/sixcms\/media.php\/21\/thumbnails\/Pressclub%20110721.png.1471975.jpg",
+        "inhalt_video": true,
+        "inhalt_text": true,
+        "typ": "Talk",
+        "sendung": {
+          "sendezeit":
+          "2021-07-11 12:00",
+          "vps": "",
+          "highlight": true,
+          "themenblock": {
+            "titel": "",
+            "link": ""			},
+          "attribute": {
+            "ut": false,
+            "gs": false,
+            "zk": false			}
+        }
+      }
+    ,
+      {
+        "link": "\/sendungen\/gespraeche\/presseclub\/sommer-sonne-sorglos--wie-verhindern-wir-die-vierte-corona-welle-a-2165865.html",
+        "artikel_id": 2165865,
+        "titel": "Presseclub",
+        "subtitel": "Sommer, Sonne, sorglos – wie verhindern wir die vierte Corona-Welle?",
+        "vorspann": "",
+        "epg_hint": "",
+        "bild_l": "\/sixcms\/media.php\/21\/thumbnails\/presseclub-260621-thumb-smubl.jpg.1460705.jpg",
+        "bild_ml": "\/sixcms\/media.php\/21\/thumbnails\/presseclub-260621-thumb-smubl.jpg.1460710.jpg",
+        "bild_m": "\/sixcms\/media.php\/21\/thumbnails\/presseclub-260621-thumb-smubl.jpg.1460715.jpg",
+        "inhalt_video": true,
+        "inhalt_text": true,
+        "typ": "Talk",
+        "sendung": {
+          "sendezeit":
+          "2021-06-27 12:00",
+          "vps": "",
+          "highlight": true,
+          "themenblock": {
+            "titel": "",
+            "link": ""			},
+          "attribute": {
+            "ut": false,
+            "gs": false,
+            "zk": false			}
+        }
+      }
+    ,
+      {
+        "link": "\/sendungen\/gespraeche\/presseclub\/klimaschutz-sichere-renten-weniger-steuern-wie-glaubwuerdig-ist-das-wahlprogramm-der-union-a-2162450.html",
+        "artikel_id": 2162450,
+        "titel": "Presseclub",
+        "subtitel": "Klimaschutz, sichere Renten, weniger Steuern: Wie glaubwürdig ist das Wahlprogramm der Union?",
+        "vorspann": "Moderation: Volker Herres",
+        "epg_hint": "",
+        "bild_l": "\/sixcms\/media.php\/21\/thumbnails\/pc%202.jpg.1453910.jpg",
+        "bild_ml": "\/sixcms\/media.php\/21\/thumbnails\/pc%202.jpg.1453915.jpg",
+        "bild_m": "\/sixcms\/media.php\/21\/thumbnails\/pc%202.jpg.1453920.jpg",
+        "inhalt_video": true,
+        "inhalt_text": true,
+        "typ": "Talk",
+        "sendung": {
+          "sendezeit":
+          "2021-06-20 12:00",
+          "vps": "",
+          "highlight": false,
+          "themenblock": {
+            "titel": "",
+            "link": ""			},
+          "attribute": {
+            "ut": false,
+            "gs": false,
+            "zk": false			}
+        }
+      }
+    ,
+      {
+        "link": "\/sendungen\/gespraeche\/presseclub\/pleiten-pech-und-baerbock--koennen-die-gruenen-den-abwaertstrend-stoppen-a-2193540.html",
+        "artikel_id": 2193540,
+        "titel": "Presseclub",
+        "subtitel": "Pleiten, Pech und Baerbock – Können die Grünen den Abwärtstrend stoppen?",
+        "vorspann": "Moderation: Ellen Ehni",
+        "epg_hint": "",
+        "bild_l": "\/sixcms\/media.php\/15\/thumbnails\/44hWFwtlNIY.jpg.1446945.jpg",
+        "bild_ml": "\/sixcms\/media.php\/15\/thumbnails\/44hWFwtlNIY.jpg.1446950.jpg",
+        "bild_m": "\/sixcms\/media.php\/15\/thumbnails\/44hWFwtlNIY.jpg.1446955.jpg",
+        "inhalt_video": true,
+        "inhalt_text": true,
+        "typ": "Talk",
+        "sendung": {
+          "sendezeit":
+          "2021-06-14 10:30",
+          "vps": "",
+          "highlight": true,
+          "themenblock": {
+            "titel": "",
+            "link": ""			},
+          "attribute": {
+            "ut": false,
+            "gs": false,
+            "zk": false			}
+        }
+      }
+    ],
+    "collection":[
+    ]
+  }
+
+}
+

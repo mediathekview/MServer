@@ -1,0 +1,1241 @@
+	{
+    "meta": {
+        "programs": {
+            "totalCount": 1,
+            "limit": 50,
+            "href": "https:\/\/api.arte.tv\/api\/opa\/v3\/programs\/de\/087367-000-A",
+            "pages": 1,
+            "page": 1,
+            "links": {
+                "first": {
+                    "href": "https:\/\/api.arte.tv\/api\/opa\/v3\/programs\/de\/087367-000-A?page=1"
+                }
+            }
+        }
+    },
+    "programs": [
+        {
+            "durationSeconds": 6681,
+            "views": 148761,
+            "broadcastProgrammings": [
+                {
+                    "id": "2696993_DE_de_087367-000-A_A",
+                    "programmingId": 2696993,
+                    "broadcastBeginRounded": "2019-07-21T18:15:00Z",
+                    "durationRounded": 6660,
+                    "arteSchedulingDay": "2019-07-21",
+                    "broadcastType": "FIRST_BROADCAST",
+                    "broadcastBegin": "2019-07-21T18:16:05Z",
+                    "broadcastEnd": "2019-07-21T20:07:26Z",
+                    "origins": [
+                        {
+                            "order": 1,
+                            "label": "ARTE F"
+                        }
+                    ],
+                    "pictureRatio": "16\/9",
+                    "realHd": true,
+                    "premiere": false,
+                    "audioFormat": {
+                        "code": "S",
+                        "label": "Stéréo"
+                    },
+                    "audioDescription": true,
+                    "case": {
+                        "code": 614,
+                        "label": "CINEMA DIMANCHE PRIME TIME"
+                    },
+                    "catchupRightsBegin": null,
+                    "catchupRightsEnd": null,
+                    "audioVersion": {
+                        "code": "VA",
+                        "displayShortLabel": null
+                    },
+                    "dubbedVersion": true
+                },
+                {
+                    "id": "2697320_DE_de_087367-000-A_A",
+                    "programmingId": 2697320,
+                    "broadcastBeginRounded": "2019-07-24T11:55:00Z",
+                    "durationRounded": 6660,
+                    "arteSchedulingDay": "2019-07-24",
+                    "broadcastType": "MINOR_REBROADCAST",
+                    "broadcastBegin": "2019-07-24T11:57:18Z",
+                    "broadcastEnd": "2019-07-24T13:48:39Z",
+                    "origins": [
+                        {
+                            "order": 1,
+                            "label": "ARTE F"
+                        }
+                    ],
+                    "pictureRatio": "16\/9",
+                    "realHd": true,
+                    "premiere": false,
+                    "audioFormat": {
+                        "code": "S",
+                        "label": "Stéréo"
+                    },
+                    "audioDescription": true,
+                    "case": {
+                        "code": 614,
+                        "label": "CINEMA DIMANCHE PRIME TIME"
+                    },
+                    "catchupRightsBegin": null,
+                    "catchupRightsEnd": null,
+                    "audioVersion": {
+                        "code": "VA",
+                        "displayShortLabel": null
+                    },
+                    "dubbedVersion": true
+                },
+                {
+                    "id": "2700820_DE_de_087367-000-A_A",
+                    "programmingId": 2700820,
+                    "broadcastBeginRounded": "2019-08-02T11:50:00Z",
+                    "durationRounded": 6660,
+                    "arteSchedulingDay": "2019-08-02",
+                    "broadcastType": "MINOR_REBROADCAST",
+                    "broadcastBegin": "2019-08-02T11:54:20Z",
+                    "broadcastEnd": "2019-08-02T13:45:41Z",
+                    "origins": [
+                        {
+                            "order": 1,
+                            "label": "ARTE F"
+                        }
+                    ],
+                    "pictureRatio": "16\/9",
+                    "realHd": true,
+                    "premiere": false,
+                    "audioFormat": {
+                        "code": "S",
+                        "label": "Stéréo"
+                    },
+                    "audioDescription": true,
+                    "case": {
+                        "code": 614,
+                        "label": "CINEMA DIMANCHE PRIME TIME"
+                    },
+                    "catchupRightsBegin": null,
+                    "catchupRightsEnd": null,
+                    "audioVersion": {
+                        "code": "VA",
+                        "displayShortLabel": null
+                    },
+                    "dubbedVersion": true
+                },
+                {
+                    "id": "3532569_DE_de_087367-000-A_A",
+                    "programmingId": 3532569,
+                    "broadcastBeginRounded": "2022-01-24T21:05:00Z",
+                    "durationRounded": 6660,
+                    "arteSchedulingDay": "2022-01-24",
+                    "broadcastType": "MAJOR_REBROADCAST",
+                    "broadcastBegin": "2022-01-24T21:09:00Z",
+                    "broadcastEnd": "2022-01-24T23:00:21Z",
+                    "origins": [
+                        {
+                            "order": 1,
+                            "label": "ARTE"
+                        }
+                    ],
+                    "pictureRatio": "16\/9",
+                    "realHd": true,
+                    "premiere": false,
+                    "audioFormat": {
+                        "code": "S",
+                        "label": "Stéréo"
+                    },
+                    "audioDescription": true,
+                    "case": {
+                        "code": 218,
+                        "label": "TOUS LES CINEMAS"
+                    },
+                    "catchupRightsBegin": null,
+                    "catchupRightsEnd": null,
+                    "audioVersion": {
+                        "code": "VA",
+                        "displayShortLabel": null
+                    },
+                    "dubbedVersion": true
+                },
+                {
+                    "id": "3533082_DE_de_087367-000-A_A",
+                    "programmingId": 3533082,
+                    "broadcastBeginRounded": "2022-02-03T13:15:00Z",
+                    "durationRounded": 6660,
+                    "arteSchedulingDay": "2022-02-03",
+                    "broadcastType": "MINOR_REBROADCAST",
+                    "broadcastBegin": "2022-02-03T13:17:36Z",
+                    "broadcastEnd": "2022-02-03T15:08:57Z",
+                    "origins": [
+                        {
+                            "order": 1,
+                            "label": "ARTE"
+                        }
+                    ],
+                    "pictureRatio": "16\/9",
+                    "realHd": true,
+                    "premiere": false,
+                    "audioFormat": {
+                        "code": "S",
+                        "label": "Stéréo"
+                    },
+                    "audioDescription": true,
+                    "case": {
+                        "code": 214,
+                        "label": "CINEMA CLASSIQUE"
+                    },
+                    "catchupRightsBegin": null,
+                    "catchupRightsEnd": null,
+                    "audioVersion": {
+                        "code": "VA",
+                        "displayShortLabel": null
+                    },
+                    "dubbedVersion": true
+                },
+                {
+                    "id": "3534204_DE_de_087367-000-A_A",
+                    "programmingId": 3534204,
+                    "broadcastBeginRounded": "2022-02-24T13:15:00Z",
+                    "durationRounded": 6660,
+                    "arteSchedulingDay": "2022-02-24",
+                    "broadcastType": "MINOR_REBROADCAST",
+                    "broadcastBegin": "2022-02-24T13:13:30Z",
+                    "broadcastEnd": "2022-02-24T15:04:51Z",
+                    "origins": [
+                        {
+                            "order": 1,
+                            "label": "ARTE"
+                        }
+                    ],
+                    "pictureRatio": "16\/9",
+                    "realHd": true,
+                    "premiere": false,
+                    "audioFormat": {
+                        "code": "S",
+                        "label": "Stéréo"
+                    },
+                    "audioDescription": true,
+                    "case": {
+                        "code": 214,
+                        "label": "CINEMA CLASSIQUE"
+                    },
+                    "catchupRightsBegin": null,
+                    "catchupRightsEnd": null,
+                    "audioVersion": {
+                        "code": "VA",
+                        "displayShortLabel": null
+                    },
+                    "dubbedVersion": true
+                },
+                {
+                    "id": "3644816_DE_de_087367-000-A_A",
+                    "programmingId": 3644816,
+                    "broadcastBeginRounded": "2022-03-04T01:00:00Z",
+                    "durationRounded": 6660,
+                    "arteSchedulingDay": "2022-03-03",
+                    "broadcastType": "MINOR_REBROADCAST",
+                    "broadcastBegin": "2022-03-04T00:49:50Z",
+                    "broadcastEnd": "2022-03-04T02:41:11Z",
+                    "origins": [
+                        {
+                            "order": 1,
+                            "label": "ARTE"
+                        }
+                    ],
+                    "pictureRatio": "16\/9",
+                    "realHd": true,
+                    "premiere": false,
+                    "audioFormat": {
+                        "code": "S",
+                        "label": "Stéréo"
+                    },
+                    "audioDescription": true,
+                    "case": {
+                        "code": 214,
+                        "label": "CINEMA CLASSIQUE"
+                    },
+                    "catchupRightsBegin": null,
+                    "catchupRightsEnd": null,
+                    "audioVersion": {
+                        "code": "VA",
+                        "displayShortLabel": null
+                    },
+                    "dubbedVersion": true
+                }
+            ],
+            "videos": [
+                {
+                    "firstBroadcastDate": "2019-07-21T18:16:05Z",
+                    "durationSeconds": 120,
+                    "creationDate": "2019-01-21T08:58:21Z",
+                    "lastModified": "2022-01-31T01:01:51Z",
+                    "language": "de",
+                    "illico": false,
+                    "title": "Die Hexen von Eastwick",
+                    "subtitle": null,
+                    "reassembly": "A",
+                    "programId": "087367-000-A",
+                    "platform": "EXTRAIT",
+                    "mainPlatformCode": "CINEMA",
+                    "kind": "CLIP",
+                    "kindLabel": "AUSSCHNITT",
+                    "url": "https:\/\/www.arte.tv\/de\/videos\/087367-000-A\/die-hexen-von-eastwick\/",
+                    "permalink": "https:\/\/www.arte.tv\/de\/videos\/087367-000-A\/permalink\/",
+                    "videoRightsBegin": "2022-01-13T13:13:30Z",
+                    "previewRightsBegin": "2022-01-13T13:13:30Z",
+                    "videoRightsEnd": "2022-02-10T13:13:30Z",
+                    "oEmbed": "https:\/\/api.arte.tv\/api\/player\/v1\/oembed\/de\/087367-000-A?platform=EXTRAIT",
+                    "mainProgramming": true,
+                    "availableScreens": [
+                        "desktop",
+                        "mobile",
+                        "tv"
+                    ],
+                    "caseCode": 214,
+                    "case": "CINEMA CLASSIQUE",
+                    "genrePresseCode": 5,
+                    "genrePresse": "Spielfilm",
+                    "mainPlatform": true,
+                    "geoblockingZone": "ALL",
+                    "tracking": {
+                        "tablet": {
+                            "ANDROID": "https:\/\/www.arte.tv\/pa\/api\/multimedia\/v1\/087367-000\/A\/de\/EXTRAIT\/TABLET\/ANDROID\/arte.gif"
+                        },
+                        "mobile": {
+                            "ANDROID": "https:\/\/www.arte.tv\/pa\/api\/multimedia\/v1\/087367-000\/A\/de\/EXTRAIT\/MOBILE\/ANDROID\/arte.gif"
+                        },
+                        "download": {
+                            "ANDROID": "https:\/\/www.arte.tv\/pa\/api\/multimedia\/v1\/087367-000\/A\/de\/EXTRAIT\/DOWNLOAD\/ANDROID\/arte.gif"
+                        }
+                    },
+                    "programType": "BROADCAST",
+                    "markings": [],
+                    "webLinks": [],
+                    "arteClub": false,
+                    "channel": "DE",
+                    "shortDescription": "Die Freundinnen Alexandra, Jane und Sukie sind die drei Außenseiterinnen ihrer konservativen Kleinstadt Eastwick. Als sie gemeinsam ihre Sehnsüchte nach einem mystischen Junggesellen austauschen, ist ihnen noch nicht bewusst, dass sie diesen durch ihre Vorstellungen tatsächlich heraufbeschwören werden. - Hochkarätig besetzte schwarze Komödie von George Miller. Mit Jack Nicholson",
+                    "warning": null,
+                    "chapters": [],
+                    "chaptersSpriteUrl": null,
+                    "videoLibrary": false,
+                    "broadcastBegin": null,
+                    "broadcastBeginRounded": null,
+                    "mainImage": {
+                        "creationDate": "2021-12-07T08:13:36Z",
+                        "lastModified": "2021-12-07T08:15:19Z",
+                        "width": 940,
+                        "height": 530,
+                        "keyframe": false,
+                        "alternateResolutions": [],
+                        "type": "DEFAULT",
+                        "name": "087367-000-A_3545144.jpg",
+                        "extension": "jpg",
+                        "caption": null,
+                        "url": "https:\/\/api-cdn.arte.tv\/api\/mami\/v1\/program\/de\/087367-000-A\/940x530?ts=1638864919",
+                        "imageId": "3545144",
+                        "programId": "087367-000-A",
+                        "language": "de",
+                        "copyright": "",
+                        "blurImage": "https:\/\/api-cdn.arte.tv\/api\/mami\/v1\/program\/de\/087367-000-A\/80x45?blur=true&ts=1638864919"
+                    },
+                    "category": {
+                        "order": 2,
+                        "code": "CIN",
+                        "name": "Kino",
+                        "url": "https:\/\/www.arte.tv\/de\/videos\/kino\/",
+                        "slug": "kino"
+                    },
+                    "subcategory": {
+                        "order": 1,
+                        "code": "FLM",
+                        "name": "Filme",
+                        "url": "https:\/\/www.arte.tv\/de\/videos\/kino\/filme\/",
+                        "slug": "filme"
+                    },
+                    "isMainVideo": true,
+                    "eStat": {
+                        "streamName": "Die Hexen von Eastwick",
+                        "streamDuration": 120,
+                        "streamGenre": "2_filme",
+                        "level1": "CIN_kino",
+                        "level2": null,
+                        "level3": "de",
+                        "level4": "FLM_filme",
+                        "level5": "087367-000-A",
+                        "newLevel1": "CLIP",
+                        "newLevel2": null,
+                        "newLevel11": "214_cinema-classique",
+                        "mediaChannel": "850",
+                        "mediaContentId": "087367-000-A",
+                        "mediaDiffMode": "TVOD"
+                    },
+                    "genre": {
+                        "code": 2,
+                        "label": "Filme"
+                    },
+                    "id": "087367-000-A_CLIP_EXTRAIT_DE_de",
+                    "livestreamRights": false,
+                    "playFirst": false,
+                    "adtech": {
+                        "kvprogramid": "087367-000-A",
+                        "kvvty": "EXTRAIT",
+                        "kvcategory": "CIN",
+                        "kvsubcategory": "FLM",
+                        "kvwebonly": false,
+                        "kvbroadcast": true,
+                        "kvduration": 120,
+                        "kvcaseprogram": "214_cinema-classique",
+                        "kvvideoisolang": "de"
+                    },
+                    "agf": {
+                        "type": "content",
+                        "assetid": "087367-000-A",
+                        "program": "214_cinema-classique",
+                        "title": "die-hexen-von-eastwick",
+                        "length": 120,
+                        "nol_c2": "p2,N",
+                        "nol_c7": "p7,087367-000-A",
+                        "nol_c8": "p8,120",
+                        "nol_c9": "p9,die-hexen-von-eastwick",
+                        "nol_c10": "p10,ARTE",
+                        "nol_c12": "p12,Trailer",
+                        "nol_c15": "p15,087367-000-A",
+                        "nol_c18": "p18,N"
+                    },
+                    "offlineAvailability": false,
+                    "links": {
+                        "videoStreams": {
+                            "iOS": {
+                                "href": "https:\/\/api.arte.tv\/api\/opa\/v3\/videoStreams?programId=087367-000-A&reassembly=A&platform=EXTRAIT&channel=DE&kind=CLIP&protocol=HLS&quality=SQ,XQ&profileAmm=%24in:AMM-PTWEB,AMM-PTHLS,AMM-OPERA,AMM-CONCERT-NEXT,AMM-Tvguide&limit=100"
+                            },
+                            "android": {
+                                "href": "https:\/\/api.arte.tv\/api\/opa\/v3\/videoStreams?programId=087367-000-A&reassembly=A&platform=EXTRAIT&channel=DE&kind=CLIP&protocol=HTTPS,HLS&quality=XQ,MQ,SQ,EQ&profileAmm=%24in:AMM-PTWEB,AMM-PTHLS,AMM-OPERA,AMM-CONCERT-NEXT,AMM-Tvguide&limit=100"
+                            },
+                            "hbbtv": {
+                                "href": "https:\/\/api.arte.tv\/api\/opa\/v3\/videoStreams?programId=087367-000-A&reassembly=A&platform=EXTRAIT&channel=DE&kind=CLIP&protocol=HTTP,DASH&quality=EQ,SQ,HQ,DA&mediaType=mp4,mpd&profileAmm=%24in:AMM-PTWEB,AMM-PTHLS,AMM-OPERA,AMM-CONCERT-NEXT,AMM-Tvguide&limit=100"
+                            },
+                            "web": {
+                                "href": "https:\/\/api.arte.tv\/api\/opa\/v3\/videoStreams?programId=087367-000-A&reassembly=A&platform=EXTRAIT&channel=DE&kind=CLIP&protocol=%24in:HTTPS,HLS&quality=%24in:EQ,HQ,MQ,SQ,XQ&profileAmm=%24in:AMM-PTWEB,AMM-PTHLS,AMM-OPERA,AMM-CONCERT-NEXT,AMM-Tvguide&limit=100"
+                            }
+                        }
+                    }
+                }
+            ],
+            "mainVideo": {
+                "firstBroadcastDate": "2019-07-21T18:16:05Z",
+                "durationSeconds": 120,
+                "creationDate": "2019-01-21T08:58:21Z",
+                "lastModified": "2022-01-31T01:01:51Z",
+                "language": "de",
+                "illico": false,
+                "title": "Die Hexen von Eastwick",
+                "subtitle": null,
+                "reassembly": "A",
+                "programId": "087367-000-A",
+                "platform": "EXTRAIT",
+                "mainPlatformCode": "CINEMA",
+                "kind": "CLIP",
+                "kindLabel": "AUSSCHNITT",
+                "url": "https:\/\/www.arte.tv\/de\/videos\/087367-000-A\/die-hexen-von-eastwick\/",
+                "permalink": "https:\/\/www.arte.tv\/de\/videos\/087367-000-A\/permalink\/",
+                "videoRightsBegin": "2022-01-13T13:13:30Z",
+                "previewRightsBegin": "2022-01-13T13:13:30Z",
+                "videoRightsEnd": "2022-02-10T13:13:30Z",
+                "oEmbed": "https:\/\/api.arte.tv\/api\/player\/v1\/oembed\/de\/087367-000-A?platform=EXTRAIT",
+                "mainProgramming": true,
+                "availableScreens": [
+                    "desktop",
+                    "mobile",
+                    "tv"
+                ],
+                "caseCode": 214,
+                "case": "CINEMA CLASSIQUE",
+                "genrePresseCode": 5,
+                "genrePresse": "Spielfilm",
+                "mainPlatform": true,
+                "geoblockingZone": "ALL",
+                "tracking": {
+                    "tablet": {
+                        "ANDROID": "https:\/\/www.arte.tv\/pa\/api\/multimedia\/v1\/087367-000\/A\/de\/EXTRAIT\/TABLET\/ANDROID\/arte.gif"
+                    },
+                    "mobile": {
+                        "ANDROID": "https:\/\/www.arte.tv\/pa\/api\/multimedia\/v1\/087367-000\/A\/de\/EXTRAIT\/MOBILE\/ANDROID\/arte.gif"
+                    },
+                    "download": {
+                        "ANDROID": "https:\/\/www.arte.tv\/pa\/api\/multimedia\/v1\/087367-000\/A\/de\/EXTRAIT\/DOWNLOAD\/ANDROID\/arte.gif"
+                    }
+                },
+                "programType": "BROADCAST",
+                "markings": [],
+                "webLinks": [],
+                "arteClub": false,
+                "channel": "DE",
+                "shortDescription": "Die Freundinnen Alexandra, Jane und Sukie sind die drei Außenseiterinnen ihrer konservativen Kleinstadt Eastwick. Als sie gemeinsam ihre Sehnsüchte nach einem mystischen Junggesellen austauschen, ist ihnen noch nicht bewusst, dass sie diesen durch ihre Vorstellungen tatsächlich heraufbeschwören werden. - Hochkarätig besetzte schwarze Komödie von George Miller. Mit Jack Nicholson",
+                "warning": null,
+                "chapters": [],
+                "chaptersSpriteUrl": null,
+                "videoLibrary": false,
+                "broadcastBegin": null,
+                "broadcastBeginRounded": null,
+                "mainImage": {
+                    "creationDate": "2021-12-07T08:13:36Z",
+                    "lastModified": "2021-12-07T08:15:19Z",
+                    "width": 940,
+                    "height": 530,
+                    "keyframe": false,
+                    "alternateResolutions": [],
+                    "type": "DEFAULT",
+                    "name": "087367-000-A_3545144.jpg",
+                    "extension": "jpg",
+                    "caption": null,
+                    "url": "https:\/\/api-cdn.arte.tv\/api\/mami\/v1\/program\/de\/087367-000-A\/940x530?ts=1638864919",
+                    "imageId": "3545144",
+                    "programId": "087367-000-A",
+                    "language": "de",
+                    "copyright": "",
+                    "blurImage": "https:\/\/api-cdn.arte.tv\/api\/mami\/v1\/program\/de\/087367-000-A\/80x45?blur=true&ts=1638864919"
+                },
+                "category": {
+                    "order": 2,
+                    "code": "CIN",
+                    "name": "Kino",
+                    "url": "https:\/\/www.arte.tv\/de\/videos\/kino\/",
+                    "slug": "kino"
+                },
+                "subcategory": {
+                    "order": 1,
+                    "code": "FLM",
+                    "name": "Filme",
+                    "url": "https:\/\/www.arte.tv\/de\/videos\/kino\/filme\/",
+                    "slug": "filme"
+                },
+                "isMainVideo": true,
+                "eStat": {
+                    "streamName": "Die Hexen von Eastwick",
+                    "streamDuration": 120,
+                    "streamGenre": "2_filme",
+                    "level1": "CIN_kino",
+                    "level2": null,
+                    "level3": "de",
+                    "level4": "FLM_filme",
+                    "level5": "087367-000-A",
+                    "newLevel1": "CLIP",
+                    "newLevel2": null,
+                    "newLevel11": "214_cinema-classique",
+                    "mediaChannel": "850",
+                    "mediaContentId": "087367-000-A",
+                    "mediaDiffMode": "TVOD"
+                },
+                "genre": {
+                    "code": 2,
+                    "label": "Filme"
+                },
+                "id": "087367-000-A_CLIP_EXTRAIT_DE_de",
+                "livestreamRights": false,
+                "playFirst": false,
+                "adtech": {
+                    "kvprogramid": "087367-000-A",
+                    "kvvty": "EXTRAIT",
+                    "kvcategory": "CIN",
+                    "kvsubcategory": "FLM",
+                    "kvwebonly": false,
+                    "kvbroadcast": true,
+                    "kvduration": 120,
+                    "kvcaseprogram": "214_cinema-classique",
+                    "kvvideoisolang": "de"
+                },
+                "agf": {
+                    "type": "content",
+                    "assetid": "087367-000-A",
+                    "program": "214_cinema-classique",
+                    "title": "die-hexen-von-eastwick",
+                    "length": 120,
+                    "nol_c2": "p2,N",
+                    "nol_c7": "p7,087367-000-A",
+                    "nol_c8": "p8,120",
+                    "nol_c9": "p9,die-hexen-von-eastwick",
+                    "nol_c10": "p10,ARTE",
+                    "nol_c12": "p12,Trailer",
+                    "nol_c15": "p15,087367-000-A",
+                    "nol_c18": "p18,N"
+                },
+                "offlineAvailability": false,
+                "links": {
+                    "videoStreams": {
+                        "iOS": {
+                            "href": "https:\/\/api.arte.tv\/api\/opa\/v3\/videoStreams?programId=087367-000-A&reassembly=A&platform=EXTRAIT&channel=DE&kind=CLIP&protocol=HLS&quality=SQ,XQ&profileAmm=%24in:AMM-PTWEB,AMM-PTHLS,AMM-OPERA,AMM-CONCERT-NEXT,AMM-Tvguide&limit=100"
+                        },
+                        "android": {
+                            "href": "https:\/\/api.arte.tv\/api\/opa\/v3\/videoStreams?programId=087367-000-A&reassembly=A&platform=EXTRAIT&channel=DE&kind=CLIP&protocol=HTTPS,HLS&quality=XQ,MQ,SQ,EQ&profileAmm=%24in:AMM-PTWEB,AMM-PTHLS,AMM-OPERA,AMM-CONCERT-NEXT,AMM-Tvguide&limit=100"
+                        },
+                        "hbbtv": {
+                            "href": "https:\/\/api.arte.tv\/api\/opa\/v3\/videoStreams?programId=087367-000-A&reassembly=A&platform=EXTRAIT&channel=DE&kind=CLIP&protocol=HTTP,DASH&quality=EQ,SQ,HQ,DA&mediaType=mp4,mpd&profileAmm=%24in:AMM-PTWEB,AMM-PTHLS,AMM-OPERA,AMM-CONCERT-NEXT,AMM-Tvguide&limit=100"
+                        },
+                        "web": {
+                            "href": "https:\/\/api.arte.tv\/api\/opa\/v3\/videoStreams?programId=087367-000-A&reassembly=A&platform=EXTRAIT&channel=DE&kind=CLIP&protocol=%24in:HTTPS,HLS&quality=%24in:EQ,HQ,MQ,SQ,XQ&profileAmm=%24in:AMM-PTWEB,AMM-PTHLS,AMM-OPERA,AMM-CONCERT-NEXT,AMM-Tvguide&limit=100"
+                        }
+                    }
+                }
+            },
+            "mainBroadcastProgramming": {
+                "id": "3532569_DE_de_087367-000-A_A",
+                "programmingId": 3532569,
+                "broadcastBeginRounded": "2022-01-24T21:05:00Z",
+                "durationRounded": 6660,
+                "arteSchedulingDay": "2022-01-24",
+                "broadcastType": "MAJOR_REBROADCAST",
+                "broadcastBegin": "2022-01-24T21:09:00Z",
+                "broadcastEnd": "2022-01-24T23:00:21Z",
+                "origins": [
+                    {
+                        "order": 1,
+                        "label": "ARTE"
+                    }
+                ],
+                "pictureRatio": "16\/9",
+                "realHd": true,
+                "premiere": false,
+                "audioFormat": {
+                    "code": "S",
+                    "label": "Stéréo"
+                },
+                "audioDescription": true,
+                "case": {
+                    "code": 218,
+                    "label": "TOUS LES CINEMAS"
+                },
+                "catchupRightsBegin": null,
+                "catchupRightsEnd": null,
+                "audioVersion": {
+                    "code": "VA",
+                    "displayShortLabel": null
+                },
+                "dubbedVersion": true
+            },
+            "catchupAvailable": false,
+            "catchupRightsBegin": null,
+            "catchupRightsEnd": null,
+            "displayAudioVersions": [
+                {
+                    "code": "AD",
+                    "shortLabel": "AD",
+                    "label": "Audiodeskription",
+                    "icon": {
+                        "class": "arte-icon--audiodescription",
+                        "sprite": "https:\/\/static-cdn.arte.tv\/static\/styleguide\/icomoon\/symbol-defs.svg",
+                        "svg": "https:\/\/static-cdn.arte.tv\/static\/styleguide\/icomoon\/SVG\/icon--audiodescription.svg",
+                        "png": "https:\/\/static-cdn.arte.tv\/static\/styleguide\/icomoon\/PNG\/icon--audiodescription.png"
+                    }
+                },
+                {
+                    "code": "DE",
+                    "shortLabel": "DE",
+                    "label": "Synchronisation",
+                    "icon": {
+                        "class": "arte-icon--de",
+                        "sprite": "https:\/\/static-cdn.arte.tv\/static\/styleguide\/icomoon\/symbol-defs.svg",
+                        "svg": "https:\/\/static-cdn.arte.tv\/static\/styleguide\/icomoon\/SVG\/icon--de.svg",
+                        "png": "https:\/\/static-cdn.arte.tv\/static\/styleguide\/icomoon\/PNG\/icon--de.png"
+                    }
+                },
+                {
+                    "code": "STM",
+                    "shortLabel": "UT-G",
+                    "label": "Untertitel für Gehörlose",
+                    "icon": {
+                        "class": "arte-icon--malentendant",
+                        "sprite": "https:\/\/static-cdn.arte.tv\/static\/styleguide\/icomoon\/symbol-defs.svg",
+                        "svg": "https:\/\/static-cdn.arte.tv\/static\/styleguide\/icomoon\/SVG\/icon--malentendant.svg",
+                        "png": "https:\/\/static-cdn.arte.tv\/static\/styleguide\/icomoon\/PNG\/icon--malentendant.png"
+                    }
+                }
+            ],
+            "collections": [
+                {
+                    "kind": "TOPIC",
+                    "platform": "ARTE_NEXT",
+                    "url": "https:\/\/www.arte.tv\/de\/videos\/RC-021778\/winter-of-mysteries\/",
+                    "offline": "2022-03-01T04:00:00Z",
+                    "online": "2021-11-26T14:30:00Z",
+                    "title": "Winter of Mysteries",
+                    "subtitle": null,
+                    "mainImage": {
+                        "creationDate": "2021-12-13T13:24:51Z",
+                        "lastModified": "2021-12-13T13:25:19Z",
+                        "width": 940,
+                        "height": 530,
+                        "keyframe": false,
+                        "alternateResolutions": [],
+                        "type": "DEFAULT",
+                        "name": "RC-021778-A_3534105.jpg",
+                        "extension": "jpg",
+                        "caption": "Winter of Mysteries",
+                        "url": "https:\/\/api-cdn.arte.tv\/api\/mami\/v1\/program\/de\/RC-021778\/940x530?ts=1639401919",
+                        "imageId": "3534105",
+                        "programId": "RC-021778",
+                        "language": "de",
+                        "copyright": "",
+                        "blurImage": "https:\/\/api-cdn.arte.tv\/api\/mami\/v1\/program\/de\/RC-021778\/80x45?blur=true&ts=1639401919"
+                    },
+                    "shortDescription": "Seit jeher sind Mysterien Inspiration und Erfolgsrezept für großes Kino. Regisseure wie David Lynch oder Alfred Hitchcock lassen die Zuschauer:innen bewusst im Dunkeln tappen. Die Forschung hingegen setzt alles daran, aus Mysterien Fakten zu schaffen. Im \"Winter of Mysteries\" wagt ARTE den Aufbruch ins Ungewisse – in der Welt des Kinos, der Popkultur und der Wissenschaft: vom 15. bis 28. Januar 2022",
+                    "order": 20,
+                    "videoLibrary": true,
+                    "catalogType": null,
+                    "collectionId": "RC-021778",
+                    "mainCollection": true,
+                    "href": "https:\/\/api.arte.tv\/api\/opa\/v3\/collections?collectionId=RC-021778&language=de&platform=ARTE_NEXT"
+                },
+                {
+                    "kind": "TOPIC",
+                    "platform": "ARTE_NEXT",
+                    "url": "https:\/\/www.arte.tv\/de\/videos\/RC-021985\/die-spielfilme-des-winter-of-mysteries\/",
+                    "offline": "2022-02-03T22:59:00Z",
+                    "online": "2022-01-15T14:00:00Z",
+                    "title": "Die Spielfilme des Winter of Mysteries",
+                    "subtitle": null,
+                    "mainImage": {
+                        "creationDate": "2012-08-24T22:00:00Z",
+                        "lastModified": "2012-08-24T22:00:00Z",
+                        "width": 940,
+                        "height": 530,
+                        "keyframe": false,
+                        "alternateResolutions": [],
+                        "type": "DEFAULT",
+                        "name": "RC-021985-A_3555886.jpg",
+                        "extension": "jpg",
+                        "caption": "Winter of Mysteries",
+                        "url": "https:\/\/api-cdn.arte.tv\/api\/mami\/v1\/program\/de\/RC-021985\/940x530?ts=1345845600",
+                        "imageId": "3555886",
+                        "programId": "RC-021985",
+                        "language": "de",
+                        "copyright": null,
+                        "blurImage": "https:\/\/api-cdn.arte.tv\/api\/mami\/v1\/program\/de\/RC-021985\/80x45?blur=true&ts=1345845600"
+                    },
+                    "shortDescription": "In unserem Winter of Mysteries bieten wir Ihnen Filme voller mysteriöser Begebenheiten und unerklärlicher Ereignisse. Mit dabei sind David Lynch, Barbet Schroeder, David Cronenberg, Bruno Podalydès, Nicolas Roeg, George Romero oder auch Dino Risi. Auf ARTE und arte.tv vom 15. bis 28. Januar 2022.",
+                    "order": 8,
+                    "videoLibrary": true,
+                    "catalogType": null,
+                    "collectionId": "RC-021985",
+                    "mainCollection": false,
+                    "href": "https:\/\/api.arte.tv\/api\/opa\/v3\/collections?collectionId=RC-021985&language=de&platform=ARTE_NEXT"
+                }
+            ],
+            "publishBegin": "2022-01-02T21:09:01Z",
+            "publishEnd": "2022-03-26T02:41:11Z",
+            "publishPressBegin": "2019-05-19T18:16:05Z",
+            "publishPressEnd": "2022-03-11T02:41:11Z",
+            "videoRightsBegin": null,
+            "videoRightsEnd": null,
+            "videoAvailable": false,
+            "geoblocking": {
+                "code": "ALL",
+                "label": "Weltweit verfügbar",
+                "inclusion": [],
+                "exclusion": []
+            },
+            "alternativeLanguages": [
+                {
+                    "language": "de",
+                    "url": "https:\/\/www.arte.tv\/de\/videos\/087367-000-A\/die-hexen-von-eastwick\/",
+                    "title": "Die Hexen von Eastwick"
+                },
+                {
+                    "language": "fr",
+                    "url": "https:\/\/www.arte.tv\/fr\/videos\/087367-000-A\/les-sorcieres-d-eastwick\/",
+                    "title": "Les sorcières d'Eastwick"
+                }
+            ],
+            "publishes": [
+                {
+                    "platform": "ARTE_NEXT",
+                    "begin": "2022-01-02T21:09:01Z",
+                    "end": "2022-03-26T02:41:11Z",
+                    "searchBegin": "2022-01-02T21:09:01Z",
+                    "searchEnd": "2022-03-04T02:41:11Z"
+                },
+                {
+                    "platform": "PRESSE_D",
+                    "begin": "2019-05-19T18:16:05Z",
+                    "end": "2022-03-11T02:41:11Z",
+                    "searchBegin": "2019-05-19T18:16:05Z",
+                    "searchEnd": "2022-03-11T02:41:11Z"
+                }
+            ],
+            "firstBroadcastDate": "2019-07-21T18:16:05Z",
+            "programId": "087367-000-A",
+            "language": "de",
+            "kind": "SHOW",
+            "catalogType": null,
+            "programType": "BROADCAST",
+            "programFamily": "PROGRAM",
+            "title": "Die Hexen von Eastwick",
+            "slug": "die-hexen-von-eastwick",
+            "subtitle": null,
+            "originalTitle": "(The Witches of Eastwick)",
+            "originalLanguage": {
+                "arteCode": "ANG",
+                "label": "Englisch",
+                "iso6391Code": "en"
+            },
+            "tags": [],
+            "twitterAccount": null,
+            "twitterHashTag": null,
+            "shortDescription": "Text",
+            "shortDescriptionRich": "<p>Die Freundinnen Alexandra, Jane und Sukie sind die drei Außenseiterinnen ihrer konservativen Kleinstadt Eastwick. Als sie gemeinsam ihre Sehnsüchte nach einem mystischen Junggesellen austauschen, ist ihnen noch nicht bewusst, dass sie diesen durch ihre Vorstellungen tatsächlich heraufbeschwören werden. - Hochkarätig besetzte schwarze Komödie von George Miller. Mit Jack Nicholson<\/p>",
+            "fullDescription": "Die drei Freundinnen Jane, Alexandra und Sukie haben etwas gemeinsam: Sie sind Außenseiterinnen in ihrer kleinen konservativen Gemeinde, weil sie mit Mitte 40 keinen Mann an ihrer Seite haben. Als die drei sich beim wöchentlichen Kaffeeklatsch von ihrer Sehnsucht nach einem mysteriösen Fremden erzählen, ist ihnen nicht bewusst, dass sie ihn auf diese Weise tatsächlich heraufbeschwören. Ein geheimnisvoller Mann namens Daryl Van Horne taucht in dem verschlafenen Ort auf und bezieht die von Geistergeschichten umwobene Lennox-Villa. Er gibt sich als Kunstsammler aus – ist in Wirklichkeit aber niemand anderes als der Teufel in Person. Mit dem Eintreffen des Fremden gerät das bürgerliche Wohlbefinden der Kleinstadt ins Wanken.\nDaryl gibt den drei Frauen ein Gefühl von Sicherheit. Er befreit sie von ihren Verklemmungen und lässt sie ihren intimsten Wünschen nachgehen. Doch durch seine teuflischen Kräfte, die er benutzt, um Jane, Alexandra und Sukie an sich zu binden, wird auch die gottesfürchtige Felicia auf sein Treiben aufmerksam. Sie hetzt die Bürger des Ortes auf die drei Außenseiterinnen, die angeblich einen Pakt mit dem Teufel geschlossen hätten. Mit dem plötzlichen und unergründlichen Tod von Felicia erkennen die Freundinnen das wahre Ausmaß des Bösen in Daryl – und beschließen, sich von ihm abzuwenden. Doch die Entscheidung, sich dem Teufel zu verwehren, bleibt nicht unbezahlt …",
+            "fullDescriptionRich": "Die drei Freundinnen Jane, Alexandra und Sukie haben etwas gemeinsam: Sie sind Außenseiterinnen in ihrer kleinen konservativen Gemeinde, weil sie mit Mitte 40 keinen Mann an ihrer Seite haben. Als die drei sich beim wöchentlichen Kaffeeklatsch von ihrer Sehnsucht nach einem mysteriösen Fremden erzählen, ist ihnen nicht bewusst, dass sie ihn auf diese Weise tatsächlich heraufbeschwören. Ein geheimnisvoller Mann namens Daryl Van Horne taucht in dem verschlafenen Ort auf und bezieht die von Geistergeschichten umwobene Lennox-Villa. Er gibt sich als Kunstsammler aus – ist in Wirklichkeit aber niemand anderes als der Teufel in Person. Mit dem Eintreffen des Fremden gerät das bürgerliche Wohlbefinden der Kleinstadt ins Wanken.<br>Daryl gibt den drei Frauen ein Gefühl von Sicherheit. Er befreit sie von ihren Verklemmungen und lässt sie ihren intimsten Wünschen nachgehen. Doch durch seine teuflischen Kräfte, die er benutzt, um Jane, Alexandra und Sukie an sich zu binden, wird auch die gottesfürchtige Felicia auf sein Treiben aufmerksam. Sie hetzt die Bürger des Ortes auf die drei Außenseiterinnen, die angeblich einen Pakt mit dem Teufel geschlossen hätten. Mit dem plötzlichen und unergründlichen Tod von Felicia erkennen die Freundinnen das wahre Ausmaß des Bösen in Daryl – und beschließen, sich von ihm abzuwenden. Doch die Entscheidung, sich dem Teufel zu verwehren, bleibt nicht unbezahlt …",
+            "teaserText": "Hochkarätig besetzte schwarze Komödie von George Miller. Mit Jack Nicholson, Michelle Pfeiffer, Susan Sarandon u.a.",
+            "teaserTextRich": "Hochkarätig besetzte schwarze Komödie von George Miller. Mit Jack Nicholson, Michelle Pfeiffer, Susan Sarandon u.a.",
+            "shortPressText": "Drei Außenseiterinnen in einer konservativen Kleinstadt: Die Freundinnen Alexandra, Jane und Sukie tauschen sich über ihre Vorstellungen von einem mysteriösen Junggesellen aus. Ihnen ist nicht bewusst, dass sie diesen durch ihre Sehnsucht tatsächlich heraufbeschwören. Kurz darauf trifft ein geheimnisvoller Fremder in der Stadt ein und entfacht ein so verführerisches wie teuflisches Spiel …",
+            "shortPressTextRich": "Drei Außenseiterinnen in einer konservativen Kleinstadt: Die Freundinnen Alexandra, Jane und Sukie tauschen sich über ihre Vorstellungen von einem mysteriösen Junggesellen aus. Ihnen ist nicht bewusst, dass sie diesen durch ihre Sehnsucht tatsächlich heraufbeschwören. Kurz darauf trifft ein geheimnisvoller Fremder in der Stadt ein und entfacht ein so verführerisches wie teuflisches Spiel …",
+            "additionalPressText": "Die Verfilmung des 1984 erschienenen gleichnamigen Romans von John Updike erhielt im Jahr 1988 Oscarnominierungen für den besten Ton und die beste Filmmusik. Das „Lexikon des Internationalen Films“ schreibt von einer „stimmungsvoll-amüsanten“ und „ätzend-ironischen“ Komödie. Der Film erzählt von moralischen Wertvorstellungen, modernem Hexenkult und dem Blick seiner Zeit auf weibliche Emanzipation.",
+            "additionalPressTextRich": "Die Verfilmung des 1984 erschienenen gleichnamigen Romans von John Updike erhielt im Jahr 1988 Oscarnominierungen für den besten Ton und die beste Filmmusik. Das „Lexikon des Internationalen Films“ schreibt von einer „stimmungsvoll-amüsanten“ und „ätzend-ironischen“ Komödie. Der Film erzählt von moralischen Wertvorstellungen, modernem Hexenkult und dem Blick seiner Zeit auf weibliche Emanzipation.",
+            "headerText": "Spielfilm von George Miller (USA 1987, 114 Min)",
+            "headerTextRich": "Spielfilm von George Miller (USA 1987, 114 Min)",
+            "producer": "WARNER BROS.  INTERNATIONAL TELEVISION DISTRIBUTION HAMBURG",
+            "productionYear": 1987,
+            "shootingDate": null,
+            "allowEmbed": true,
+            "mainImage": {
+                "creationDate": "2021-12-07T08:13:36Z",
+                "lastModified": "2021-12-07T08:15:19Z",
+                "width": 940,
+                "height": 530,
+                "keyframe": false,
+                "alternateResolutions": [],
+                "type": "DEFAULT",
+                "name": "087367-000-A_3545144.jpg",
+                "extension": "jpg",
+                "caption": null,
+                "url": "https:\/\/api-cdn.arte.tv\/api\/mami\/v1\/program\/de\/087367-000-A\/940x530?ts=1638864919",
+                "imageId": "3545144",
+                "programId": "087367-000-A",
+                "language": "de",
+                "copyright": "",
+                "blurImage": "https:\/\/api-cdn.arte.tv\/api\/mami\/v1\/program\/de\/087367-000-A\/80x45?blur=true&ts=1638864919"
+            },
+            "bannerImage": null,
+            "parents": [
+                "RC-017688",
+                "RC-016948",
+                "RC-021294",
+                "RC-021778",
+                "RC-021985",
+                "087367-000-A"
+            ],
+            "partners": [],
+            "director": "George Miller",
+            "casting": [
+                {
+                    "name": "Jack Nicholson",
+                    "activity": "Darsteller",
+                    "activityCode": "ACT",
+                    "characterName": "Daryl Van Horne"
+                },
+                {
+                    "name": "Cher",
+                    "activity": "Darsteller",
+                    "activityCode": "ACT",
+                    "characterName": "Alexandra Medford"
+                },
+                {
+                    "name": "Susan Sarandon",
+                    "activity": "Darsteller",
+                    "activityCode": "ACT",
+                    "characterName": "Jane Spofford"
+                },
+                {
+                    "name": "Michelle Pfeiffer",
+                    "activity": "Darsteller",
+                    "activityCode": "ACT",
+                    "characterName": "Sukie Ridgemont"
+                },
+                {
+                    "name": "Veronica Cartwright",
+                    "activity": "Darsteller",
+                    "activityCode": "ACT",
+                    "characterName": "Felicia Alden"
+                },
+                {
+                    "name": "Richard Jenkins",
+                    "activity": "Darsteller",
+                    "activityCode": "ACT",
+                    "characterName": "Clyde Alden"
+                }
+            ],
+            "crew": [
+                {
+                    "name": "George Miller",
+                    "activity": "Regie",
+                    "activityCode": "REA",
+                    "characterName": null
+                },
+                {
+                    "name": "Michael Cristofer",
+                    "activity": "Drehbuch",
+                    "activityCode": "SCE",
+                    "characterName": null
+                },
+                {
+                    "name": "John Updike",
+                    "activity": "Autor:in",
+                    "activityCode": "AUT",
+                    "characterName": null
+                },
+                {
+                    "name": "Guber-Peters Company",
+                    "activity": "Produktion",
+                    "activityCode": "PRD",
+                    "characterName": null
+                },
+                {
+                    "name": "Kennedy Miller Productions",
+                    "activity": "Produktion",
+                    "activityCode": "PRD",
+                    "characterName": null
+                },
+                {
+                    "name": "Warner Bros.",
+                    "activity": "Produktion",
+                    "activityCode": "PRD",
+                    "characterName": null
+                },
+                {
+                    "name": "Neil Canton",
+                    "activity": "Produzent\/-in",
+                    "activityCode": "PRO",
+                    "characterName": null
+                },
+                {
+                    "name": "Peter Guber",
+                    "activity": "Produzent\/-in",
+                    "activityCode": "PRO",
+                    "characterName": null
+                },
+                {
+                    "name": "Jon Peters",
+                    "activity": "Produzent\/-in",
+                    "activityCode": "PRO",
+                    "characterName": null
+                },
+                {
+                    "name": "Vilmos Zsigmond",
+                    "activity": "Kamera",
+                    "activityCode": "IMA",
+                    "characterName": null
+                },
+                {
+                    "name": "Richard Francis-Bruce",
+                    "activity": "Schnitt",
+                    "activityCode": "MON",
+                    "characterName": null
+                },
+                {
+                    "name": "Hubert C. de la Bouillerie",
+                    "activity": "Schnitt",
+                    "activityCode": "MON",
+                    "characterName": null
+                },
+                {
+                    "name": "John Williams",
+                    "activity": "Musik",
+                    "activityCode": "MUS",
+                    "characterName": null
+                }
+            ],
+            "chapters": [],
+            "chaptersSpriteUrl": null,
+            "caseCode": 214,
+            "case": "CINEMA CLASSIQUE",
+            "genrePresseCode": 5,
+            "genrePresse": "Spielfilm",
+            "url": "https:\/\/www.arte.tv\/de\/videos\/087367-000-A\/die-hexen-von-eastwick\/",
+            "permalink": "https:\/\/www.arte.tv\/de\/videos\/087367-000-A\/permalink\/",
+            "categories": [
+                {
+                    "order": 3,
+                    "code": "CIN",
+                    "name": "Kino",
+                    "url": null,
+                    "slug": "kino"
+                }
+            ],
+            "category": {
+                "order": 2,
+                "code": "CIN",
+                "name": "Kino",
+                "url": "https:\/\/www.arte.tv\/de\/videos\/kino\/",
+                "slug": "kino"
+            },
+            "subcategory": {
+                "order": 1,
+                "code": "FLM",
+                "name": "Filme",
+                "url": "https:\/\/www.arte.tv\/de\/videos\/kino\/filme\/",
+                "slug": "filme"
+            },
+            "thesaurus": [
+                {
+                    "code": 5209,
+                    "label": "Hexerei",
+                    "parents": [
+                        1,
+                        2216,
+                        5251,
+                        2267,
+                        5209
+                    ]
+                },
+                {
+                    "code": 13502,
+                    "label": "Dämon",
+                    "parents": [
+                        1,
+                        2216,
+                        5251,
+                        13506,
+                        13502
+                    ]
+                },
+                {
+                    "code": 635,
+                    "label": "Komödie-Kino",
+                    "parents": [
+                        1,
+                        613,
+                        631,
+                        4946,
+                        635
+                    ]
+                },
+                {
+                    "code": 5184,
+                    "label": "Freundschaft",
+                    "parents": [
+                        1,
+                        4022,
+                        5484,
+                        4142,
+                        4079,
+                        5144,
+                        5184
+                    ]
+                }
+            ],
+            "deletedAt": null,
+            "legalBan": "NONE",
+            "productionCountries": [
+                {
+                    "arteCode": "USA",
+                    "isoAlpha2Code": "US",
+                    "label": "USA"
+                }
+            ],
+            "clusters": [],
+            "season": 0,
+            "episode": 0,
+            "totalEpisodes": 0,
+            "kindLabel": "PROGRAMM",
+            "platformLabel": "CINEMA",
+            "videoLibrary": true,
+            "videosCount": 0,
+            "displayTechnicalInformations": [
+                {
+                    "code": "WID",
+                    "shortLabel": "16:9",
+                    "label": "16:9",
+                    "icon": {
+                        "class": "arte-icon--widescreen",
+                        "sprite": "https:\/\/static-cdn.arte.tv\/static\/styleguide\/icomoon\/symbol-defs.svg",
+                        "svg": "https:\/\/static-cdn.arte.tv\/static\/styleguide\/icomoon\/SVG\/icon--widescreen.svg",
+                        "png": "https:\/\/static-cdn.arte.tv\/static\/styleguide\/icomoon\/PNG\/icon--widescreen.png"
+                    }
+                },
+                {
+                    "code": "HD",
+                    "shortLabel": "HD",
+                    "label": "HDTV",
+                    "icon": {
+                        "class": "arte-icon--hd",
+                        "sprite": "https:\/\/static-cdn.arte.tv\/static\/styleguide\/icomoon\/symbol-defs.svg",
+                        "svg": "https:\/\/static-cdn.arte.tv\/static\/styleguide\/icomoon\/SVG\/icon--hd.svg",
+                        "png": "https:\/\/static-cdn.arte.tv\/static\/styleguide\/icomoon\/PNG\/icon--hd.png"
+                    }
+                },
+                {
+                    "code": "STE",
+                    "shortLabel": "Stereo",
+                    "label": "Stereofonie",
+                    "icon": {
+                        "class": "arte-icon--stereo",
+                        "sprite": "https:\/\/static-cdn.arte.tv\/static\/styleguide\/icomoon\/symbol-defs.svg",
+                        "svg": "https:\/\/static-cdn.arte.tv\/static\/styleguide\/icomoon\/SVG\/icon--stereo.svg",
+                        "png": "https:\/\/static-cdn.arte.tv\/static\/styleguide\/icomoon\/PNG\/icon--stereo.png"
+                    }
+                }
+            ],
+            "webLinks": [],
+            "children": [
+                {
+                    "kind": "WEEKLY_TEASER",
+                    "programId": "SMWA0134",
+                    "order": 19,
+                    "catalogType": null
+                },
+                {
+                    "kind": "WEEKLY_TEASER",
+                    "programId": "SMWF0134",
+                    "order": 19,
+                    "catalogType": null
+                },
+                {
+                    "kind": "WEEKLY_TEASER",
+                    "programId": "SMA0150",
+                    "order": 19,
+                    "catalogType": null
+                },
+                {
+                    "kind": "WEEKLY_TEASER",
+                    "programId": "SMF0150",
+                    "order": 19,
+                    "catalogType": null
+                },
+                {
+                    "kind": "PREFACE",
+                    "programId": "PRA0280",
+                    "order": 2,
+                    "catalogType": null
+                },
+                {
+                    "kind": "PREFACE",
+                    "programId": "PRF0281",
+                    "order": 1,
+                    "catalogType": null
+                },
+                {
+                    "kind": "DEFAULT",
+                    "programId": "RA240122A",
+                    "order": 2,
+                    "catalogType": null
+                },
+                {
+                    "kind": "DEFAULT",
+                    "programId": "RF240122A",
+                    "order": 1,
+                    "catalogType": null
+                },
+                {
+                    "kind": "DEFAULT",
+                    "programId": "RA240122B",
+                    "order": 2,
+                    "catalogType": null
+                },
+                {
+                    "kind": "DEFAULT",
+                    "programId": "CNA20794",
+                    "order": 1,
+                    "catalogType": null
+                },
+                {
+                    "kind": "DEFAULT",
+                    "programId": "CNF20794",
+                    "order": 1,
+                    "catalogType": null
+                },
+                {
+                    "kind": "DEFAULT",
+                    "programId": "NPA0839",
+                    "order": 1,
+                    "catalogType": null
+                },
+                {
+                    "kind": "PROMOTION",
+                    "programId": "PF16042",
+                    "order": 1,
+                    "catalogType": null
+                },
+                {
+                    "kind": "PROMOTION_TOMORROW",
+                    "programId": "PDF16042",
+                    "order": 1,
+                    "catalogType": null
+                },
+                {
+                    "kind": "PROMOTION_EVENING",
+                    "programId": "PSF16042",
+                    "order": 1,
+                    "catalogType": null
+                },
+                {
+                    "kind": "TRAILER",
+                    "programId": "PWF16042",
+                    "order": 1,
+                    "catalogType": null
+                },
+                {
+                    "kind": "DEFAULT",
+                    "programId": "NA5167",
+                    "order": 1,
+                    "catalogType": null
+                },
+                {
+                    "kind": "DEFAULT",
+                    "programId": "NF5167",
+                    "order": 1,
+                    "catalogType": null
+                }
+            ],
+            "viewsPeriod": 749,
+            "markings": [],
+            "availability": {
+                "type": "BROADCAST",
+                "start": "2022-02-03T13:15:00Z",
+                "end": "2022-02-03T15:08:57Z",
+                "hasVideoStreams": false,
+                "broadcastBegin": "2022-02-03T13:17:36Z",
+                "displayDate": "2022-02-03T13:15:00Z"
+            },
+            "publishSearchBegin": "2022-01-02T21:09:01Z",
+            "publishSearchEnd": "2022-03-04T02:41:11Z",
+            "oEmbed": "https:\/\/api.arte.tv\/api\/player\/v1\/oembed\/de\/087367-000-A",
+            "isCollection": false,
+            "id": "087367-000-A_de",
+            "ageRating": 12,
+            "imageColor": {
+                "code": "COLOR",
+                "label": "Farbfilm"
+            },
+            "videoOnDemand": null,
+            "livestreamRights": false,
+            "warning": null,
+            "publishRecommendationBegin": null,
+            "publishRecommendationEnd": null,
+            "offlineAvailability": false,
+            "genre": {
+                "code": 2,
+                "label": "Filme"
+            },
+            "origins": [
+                {
+                    "order": 1,
+                    "label": "ARTE"
+                }
+            ],
+            "audioDescription": false,
+            "indexBegin": "2019-05-19T18:16:05Z",
+            "indexEnd": "2022-04-26T02:41:11Z",
+            "episodic": false,
+            "creationDate": "2019-01-21T08:58:21Z",
+            "lastModified": "2022-02-01T16:33:31Z",
+            "links": {
+                "broadcastProgrammings": {
+                    "href": "https:\/\/api.arte.tv\/api\/opa\/v3\/broadcastProgrammings?programId=087367-000-A&language=de&country=DE"
+                },
+                "broadcasts": {
+                    "href": "https:\/\/api.arte.tv\/api\/opa\/v3\/programs\/087367-000-A\/broadcastProgrammings?language=de&country=DE"
+                }
+            }
+        }
+    ]
+}

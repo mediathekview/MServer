@@ -34,10 +34,10 @@ public class ArteSubcategoryVideosTaskTest extends ArteTaskTestBase {
     rootConfig.getConfig().setMaximumSubpages(5);
 
     final String requestUrl =
-        "/api/rproxy/emac/v3/de/web/zones/videos_subcategory/?id=ART&limit=100&page=1";
+        "/api/rproxy/emac/v3/de/web/data/MOST_RECENT_SUBCATEGORY/?subCategoryCode=ART&page=1&limit=100";
     setupSuccessfulJsonResponse(requestUrl, "/arte/arte_subcategory_films_page1.json");
     setupSuccessfulJsonResponse(
-        "/api/rproxy/emac/v3/de/web/zones/videos_subcategory/?id=ART&limit=100&page=2",
+        "/api/rproxy/emac/v3/de/web/data/MOST_RECENT_SUBCATEGORY/?subCategoryCode=ART&page=2&limit=100",
         "/arte/arte_subcategory_films_page_last.json");
 
     final Set<ArteFilmUrlDto> actual = executeTask(requestUrl, "ART", ArteLanguage.DE);
@@ -51,7 +51,7 @@ public class ArteSubcategoryVideosTaskTest extends ArteTaskTestBase {
     rootConfig.getSenderConfig(Sender.ARTE_DE).setMaximumSubpages(1);
 
     final String requestUrl =
-        "/api/rproxy/emac/v3/de/web/zones/videos_subcategory/?id=ART&limit=100&page=1";
+        "/api/rproxy/emac/v3/de/web/data/MOST_RECENT_SUBCATEGORY/?subCategoryCode=ART&page=1&limit=100";
     setupSuccessfulJsonResponse(requestUrl, "/arte/arte_subcategory_films_page1.json");
 
     final Set<ArteFilmUrlDto> actual = executeTask(requestUrl, "ART", ArteLanguage.DE);
@@ -63,7 +63,7 @@ public class ArteSubcategoryVideosTaskTest extends ArteTaskTestBase {
   @Test
   public void testOverviewPageNotFound() {
     final String requestUrl =
-        "/guide/api/emac/v3/de/web/zones/videos_subcategory/?id=ART&limit=100&page=1";
+        "/guide/api/emac/v3/de/web/data/MOST_RECENT_SUBCATEGORY/?subCategoryCode=ART&page=1&limit=100";
 
     wireMockServer.stubFor(
         get(urlEqualTo(requestUrl)).willReturn(aResponse().withStatus(404).withBody("Not Found")));

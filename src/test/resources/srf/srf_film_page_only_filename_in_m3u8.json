@@ -1,0 +1,231 @@
+{
+  "chapterUrn" : "urn:srf:video:7aae02fd-efb2-43de-8521-babd80718e89",
+  "episode" : {
+    "id" : "1f9434ac-f4e2-4caf-8cf0-68568192684e",
+    "title" : "Modeschau (Staffel 1, Folge 29)",
+    "lead" : "Bei einer Modeschau im Motel geht es zu wie ihm Bienenhaus. Direktor Bieri trifft seine Ex wieder. Ihre News sorgen bei ihm für Verblüffung und Eifersucht. Paul wird von einem flamboyanten Modeschöpfer umworben. Und Erikas Mutter Gertrud erfährt Verstörendes und kriegt einen Nervenzusammenbruch.",
+    "description" : "Im Motel geht es zu wie in einem Bienenhaus – in einem der glamourösen Art: Der rührige Motel-Direktor Bieri hat eine Modeschau organisiert. Bei dieser Gelegenheit begegnet er seiner Ex-Freundin Roberta. Sie ist als Stylistin für die Models tätig. Verblüfft und auch etwas eifersüchtig erfährt Bieri, dass Roberta inzwischen geheiratet hat. Als sie ihm ihren Gatten vorstellt, fallen dem Direktor fast die Augen aus dem Kopf – sowas hätte er Roberta nun wirklich nicht zugetraut.\r\n\r\nChef-de-service Paul hat während der Modeschau alle Hände voll zu tun. Zudem macht ihm der flamboyante Modeschöpfer Oskar de Luca schöne Augen. Leider entspricht Oskar nun überhaupt nicht dem Beuteschema von Paul. Doch Oskar lässt nicht locker. Wird er Erfolg haben?\r\n\r\nErikas Schwester Cornelia moderiert die Modeschau. Mutter Gertrud lässt es sich deshalb nicht nehmen, ebenfalls im Motel aufzutauchen. Dort kriegt sie eine Unterhaltung der beiden Schwestern mit. Deren Inhalt verstört Gertrud so sehr, dass sie einen Nervenzusammenbruch kriegt – mitten in der Küche vom Motel.",
+    "publishedDate" : "2022-03-17T15:10:00+01:00",
+    "imageUrl" : "https://ws.srf.ch/asset/image/audio/a1255f44-5ba0-498d-832c-e924d80df95d/WEBVISUAL/1592399405.jpg",
+    "seasonNumber" : 1,
+    "number" : 29
+  },
+  "show" : {
+    "id" : "1c198c7e-ed8b-4880-945d-4b98e10658b1",
+    "vendor" : "SRF",
+    "transmission" : "TV",
+    "urn" : "urn:srf:show:tv:1c198c7e-ed8b-4880-945d-4b98e10658b1",
+    "title" : "Motel",
+    "lead" : "Kultserie und ein Wiedersehen mit Publikumslieblingen wie Jörg Schneider und Stephanie Glaser.",
+    "description" : "Strassenfeger von damals: «Motel» erzählt die Alltagsgeschichten um den melancholischen Koch Koni Frey, die patente Gouvernante Erika und den frechen Stift Peperoni. In der vierzigteiligen Kultserie gibt es ein Wiedersehen mit zahlreichen Publikumslieblingen. Darunter Jörg Schneider, Hans Heinz Moser, Stephanie Glaser und Peter Freiburghaus.",
+    "imageUrl" : "https://ws.srf.ch/asset/image/audio/a1255f44-5ba0-498d-832c-e924d80df95d/WEBVISUAL/1592399405.jpg",
+    "posterImageUrl" : "https://ws.srf.ch/asset/image/audio/a1255f44-5ba0-498d-832c-e924d80df95d/POSTER/1592399363.jpg",
+    "posterImageIsFallbackUrl" : false,
+    "timeTableUrl" : "https://www.srf.ch/programm/tv/mediagroup/motel",
+    "primaryChannelId" : "23FFBE1B-65CE-4188-ADD2-C724186C2C9F",
+    "primaryChannelUrn" : "urn:srf:channel:tv:23FFBE1B-65CE-4188-ADD2-C724186C2C9F",
+    "numberOfEpisodes" : 61,
+    "topicList" : [ {
+      "id" : "fa793c13-bebc-41b9-9710-bf8a34192c15",
+      "vendor" : "SRF",
+      "transmission" : "TV",
+      "urn" : "urn:srf:topic:tv:fa793c13-bebc-41b9-9710-bf8a34192c15",
+      "title" : "Serien",
+      "lead" : "Von der täglichen Telenovela über Top US-Serien und Krimi-Serien bis zu exklusiven Eigenproduktionen - hier finden User alle Serien, die SRF online zur Verfügung stellt.",
+      "description" : "Zu einen werden Top-Serien wie «Grey's Anatomy» oder «Chicago Fire» geboten. Zum anderen stehen die Geschichten der «Wege zum Glück»-Telenovelas zur Verfügung, oder spannende Krimiserien aus dem Norden sowie Eigenproduktion sorgen für Nervenkitzel."
+    } ]
+  },
+  "channel" : {
+    "id" : "23FFBE1B-65CE-4188-ADD2-C724186C2C9F",
+    "vendor" : "SRF",
+    "urn" : "urn:srf:channel:tv:23FFBE1B-65CE-4188-ADD2-C724186C2C9F",
+    "title" : "SRF 1",
+    "imageUrl" : "https://ws.srf.ch/asset/image/audio/d91bbe14-55dd-458c-bc88-963462972687/EPISODE_IMAGE",
+    "imageTitle" : "Logo",
+    "transmission" : "TV"
+  },
+  "chapterList" : [ {
+    "id" : "7aae02fd-efb2-43de-8521-babd80718e89",
+    "mediaType" : "VIDEO",
+    "vendor" : "SRF",
+    "urn" : "urn:srf:video:7aae02fd-efb2-43de-8521-babd80718e89",
+    "title" : "Modeschau (Staffel 1, Folge 29)",
+    "lead" : "Bei einer Modeschau im Motel geht es zu wie ihm Bienenhaus. Direktor Bieri trifft seine Ex wieder. Ihre News sorgen bei ihm für Verblüffung und Eifersucht. Paul wird von einem flamboyanten Modeschöpfer umworben. Und Erikas Mutter Gertrud erfährt Verstörendes und kriegt einen Nervenzusammenbruch.",
+    "description" : "Im Motel geht es zu wie in einem Bienenhaus – in einem der glamourösen Art: Der rührige Motel-Direktor Bieri hat eine Modeschau organisiert. Bei dieser Gelegenheit begegnet er seiner Ex-Freundin Roberta. Sie ist als Stylistin für die Models tätig. Verblüfft und auch etwas eifersüchtig erfährt Bieri, dass Roberta inzwischen geheiratet hat. Als sie ihm ihren Gatten vorstellt, fallen dem Direktor fast die Augen aus dem Kopf – sowas hätte er Roberta nun wirklich nicht zugetraut.\r\n\r\nChef-de-service Paul hat während der Modeschau alle Hände voll zu tun. Zudem macht ihm der flamboyante Modeschöpfer Oskar de Luca schöne Augen. Leider entspricht Oskar nun überhaupt nicht dem Beuteschema von Paul. Doch Oskar lässt nicht locker. Wird er Erfolg haben?\r\n\r\nErikas Schwester Cornelia moderiert die Modeschau. Mutter Gertrud lässt es sich deshalb nicht nehmen, ebenfalls im Motel aufzutauchen. Dort kriegt sie eine Unterhaltung der beiden Schwestern mit. Deren Inhalt verstört Gertrud so sehr, dass sie einen Nervenzusammenbruch kriegt – mitten in der Küche vom Motel.",
+    "imageUrl" : "https://ws.srf.ch/asset/image/audio/cd14f353-a9d5-4a7f-abc3-0f1d57b12a8a/EPISODE_IMAGE/1647213673.jpg",
+    "imageTitle" : "Modeschau (Staffel 1, Folge 29)",
+    "imageCopyright" : "SRF",
+    "type" : "EPISODE",
+    "date" : "2022-03-17T15:10:00+01:00",
+    "duration" : 1559400,
+    "validFrom" : "2022-03-17T15:13:08+01:00",
+    "playableAbroad" : true,
+    "socialCountList" : [ {
+      "key" : "srgView",
+      "value" : 4289
+    }, {
+      "key" : "srgLike",
+      "value" : 0
+    }, {
+      "key" : "fbShare",
+      "value" : 0
+    }, {
+      "key" : "twitterShare",
+      "value" : 0
+    }, {
+      "key" : "googleShare",
+      "value" : 0
+    }, {
+      "key" : "whatsAppShare",
+      "value" : 2
+    } ],
+    "displayable" : true,
+    "position" : 0,
+    "noEmbed" : false,
+    "analyticsData" : {
+      "ns_st_ep" : "Modeschau (Staffel 1, Folge 29)",
+      "ns_st_ty" : "Video",
+      "ns_st_ci" : "7aae02fd-efb2-43de-8521-babd80718e89",
+      "ns_st_el" : "1559400",
+      "ns_st_cl" : "1559400",
+      "ns_st_sl" : "1559400",
+      "srg_mgeobl" : "false",
+      "ns_st_tp" : "1",
+      "ns_st_cn" : "1",
+      "ns_st_ct" : "vc12",
+      "ns_st_pn" : "1"
+    },
+    "analyticsMetadata" : {
+      "media_segment" : "Modeschau (Staffel 1, Folge 29)",
+      "media_type" : "Video",
+      "media_segment_id" : "7aae02fd-efb2-43de-8521-babd80718e89",
+      "media_episode_length" : "1559",
+      "media_segment_length" : "1559",
+      "media_number_of_segment_selected" : "1",
+      "media_number_of_segments_total" : "1",
+      "media_duration_category" : "long",
+      "media_is_geoblocked" : "false",
+      "media_urn" : "urn:srf:video:7aae02fd-efb2-43de-8521-babd80718e89"
+    },
+    "eventData" : "$bcde8fb34879dbea$b04ddb26ceadbf06f41444f726e234880a31ea95fcbe5d5d972bb0e9c8ff3710726e62f40ac4a9e883c39b16651973de7f57b9083d7601477767c45cff03b2c730ae845ed9fa2bb34eeb278d4821a8c3eb71d71edd7b10af0078991604bfb5984e9289947faafa4cb44bf7047d92f1f2b627f1e4a4e799f08a861d30174bb90c42d2d1313886daa3ee05c368b2c175c368e0056f7232311ff742e5aec36732b6d8761c22ef302ca2d3ca81175e7998d70d746da07eb435a47421b4520167aa6538d57fa4f4c25599784c34c0c9b789dde6ad377759a66a50b9e176df814b8a75f19d9e99cec6686fc02cf2810d3e5a8e12c2c25602196dbde158bf4f2b9c0522a458995215bc971d5037e4959ac45724b97ad661db33a2d592e6416dfbbc33175a066609cf49fa8efcf8d86297de4a108a2537bd1bad327280bc0e289f7a4d3deb4db9a7064b72412cd8b0cb256bffcfe30a9455ea9a5dfe004fd60322a118223a1b4cdce44ae96c3d2b4e8236d3f661dfc45d11f55541616101c3342be0f8d036d0532b3484cf92d93ae86a68b0c9fc1927b65d4005666b253966ec2888ba102831a1a7f185ef317f3a33cc3d4a12d4001f872540787edad49b2cd4a6bc1aac65a4e5ff1dd72e98a5c7fd517d0f6b70320f2724e6dcd5c5c866e1abf6dc6b9600310aabe96c6a1e5098e1a6a071ad99f422c069f059233f50f8744d2d2625ba",
+    "resourceList" : [ {
+      "url" : "https://srf-vod-amd.akamaized.net/world/hls/motel/2022/03/motel_20220314_001922_9130234_v_webcast_h264_,q40,q10,q20,q30,q50,.mp4.csmil/master.m3u8?start=0.0&end=1559.4",
+      "quality" : "SD",
+      "protocol" : "HLS",
+      "encoding" : "H264",
+      "mimeType" : "application/x-mpegURL",
+      "presentation" : "DEFAULT",
+      "streaming" : "HLS",
+      "dvr" : false,
+      "live" : false,
+      "mediaContainer" : "MP4",
+      "audioCodec" : "UNKNOWN",
+      "videoCodec" : "H264",
+      "tokenType" : "AKAMAI",
+      "analyticsData" : {
+        "srg_mqual" : "SD",
+        "srg_mpres" : "DEFAULT"
+      },
+      "analyticsMetadata" : {
+        "media_streaming_quality" : "SD",
+        "media_special_format" : "DEFAULT",
+        "media_url" : "https://srf-vod-amd.akamaized.net/world/hls/motel/2022/03/motel_20220314_001922_9130234_v_webcast_h264_,q40,q10,q20,q30,q50,.mp4.csmil/master.m3u8?start=0.0&end=1559.4"
+      }
+    }, {
+      "url" : "http://localhost:8589/world/hls/motel/2022/03/motel_20220314_001922_9130234_v_webcast_h264_,q40,q10,q20,q30,q50,q60,.mp4.csmil/master.m3u8?start=0.0&end=1559.4",
+      "quality" : "HD",
+      "protocol" : "HLS",
+      "encoding" : "H264",
+      "mimeType" : "application/x-mpegURL",
+      "presentation" : "DEFAULT",
+      "streaming" : "HLS",
+      "dvr" : false,
+      "live" : false,
+      "mediaContainer" : "MP4",
+      "audioCodec" : "UNKNOWN",
+      "videoCodec" : "H264",
+      "tokenType" : "AKAMAI",
+      "analyticsData" : {
+        "srg_mqual" : "HD",
+        "srg_mpres" : "DEFAULT"
+      },
+      "analyticsMetadata" : {
+        "media_streaming_quality" : "HD",
+        "media_special_format" : "DEFAULT",
+        "media_url" : "https://srf-vod-amd.akamaized.net/world/hls/motel/2022/03/motel_20220314_001922_9130234_v_webcast_h264_,q40,q10,q20,q30,q50,q60,.mp4.csmil/master.m3u8?start=0.0&end=1559.4"
+      }
+    } ],
+    "aspectRatio" : "16:9",
+    "spriteSheet" : {
+      "urn" : "urn:srf:video:7aae02fd-efb2-43de-8521-babd80718e89",
+      "rows" : 30,
+      "columns" : 20,
+      "thumbnailHeight" : 84,
+      "thumbnailWidth" : 150,
+      "interval" : 2599,
+      "url" : "https://il.srgssr.ch/spritesheet/urn/srf/video/7aae02fd-efb2-43de-8521-babd80718e89/sprite-7aae02fd-efb2-43de-8521-babd80718e89.jpeg"
+    }
+  } ],
+  "topicList" : [ {
+    "id" : "fa793c13-bebc-41b9-9710-bf8a34192c15",
+    "vendor" : "SRF",
+    "transmission" : "TV",
+    "urn" : "urn:srf:topic:tv:fa793c13-bebc-41b9-9710-bf8a34192c15",
+    "title" : "Serien",
+    "lead" : "Von der täglichen Telenovela über Top US-Serien und Krimi-Serien bis zu exklusiven Eigenproduktionen - hier finden User alle Serien, die SRF online zur Verfügung stellt.",
+    "description" : "Zu einen werden Top-Serien wie «Grey's Anatomy» oder «Chicago Fire» geboten. Zum anderen stehen die Geschichten der «Wege zum Glück»-Telenovelas zur Verfügung, oder spannende Krimiserien aus dem Norden sowie Eigenproduktion sorgen für Nervenkitzel."
+  } ],
+  "analyticsData" : {
+    "srg_pr_id" : "1f9434ac-f4e2-4caf-8cf0-68568192684e",
+    "srg_plid" : "1c198c7e-ed8b-4880-945d-4b98e10658b1",
+    "ns_st_pl" : "Motel",
+    "ns_st_pr" : "Motel vom 17.03.2022",
+    "ns_st_dt" : "2022-03-17",
+    "ns_st_ddt" : "2022-03-17",
+    "ns_st_tdt" : "2022-03-17",
+    "ns_st_tm" : "15:13:08",
+    "ns_st_tep" : "722693976527",
+    "ns_st_li" : "0",
+    "ns_st_stc" : "0866",
+    "ns_st_st" : "SRF Online",
+    "ns_st_tpr" : "1c198c7e-ed8b-4880-945d-4b98e10658b1",
+    "ns_st_en" : "*null",
+    "ns_st_ge" : "*null",
+    "ns_st_ia" : "*null",
+    "ns_st_ce" : "1",
+    "ns_st_cdm" : "to",
+    "ns_st_cmt" : "fc",
+    "srg_unit" : "SRF",
+    "srg_c1" : "Serien",
+    "srg_c2" : "full",
+    "srg_wo" : "0",
+    "srg_tv_id" : "1430287535812",
+    "srg_fullLength" : "full"
+  },
+  "analyticsMetadata" : {
+    "media_episode_id" : "1f9434ac-f4e2-4caf-8cf0-68568192684e",
+    "media_show_id" : "1c198c7e-ed8b-4880-945d-4b98e10658b1",
+    "media_show" : "Motel",
+    "media_episode" : "Motel vom 17.03.2022",
+    "media_is_livestream" : "false",
+    "media_full_length" : "full",
+    "media_enterprise_units" : "SRF",
+    "media_joker1" : "Serien",
+    "media_is_web_only" : "false",
+    "media_production_source" : "produced.for.broadcasting",
+    "media_tv_id" : "722693976527",
+    "media_thumbnail" : "https://ws.srf.ch/asset/image/audio/cd14f353-a9d5-4a7f-abc3-0f1d57b12a8a/EPISODE_IMAGE/1647213673.jpg/scale/width/344",
+    "media_publication_date" : "2022-03-17",
+    "media_publication_time" : "15:13:08",
+    "media_publication_datetime" : "2022-03-17T15:13:08+01:00",
+    "media_tv_date" : "2022-03-17",
+    "media_tv_time" : "15:13:08",
+    "media_tv_datetime" : "2022-03-17T15:13:08+01:00",
+    "media_content_group" : "Serien",
+    "media_channel_id" : "23FFBE1B-65CE-4188-ADD2-C724186C2C9F",
+    "media_channel_cs" : "0866",
+    "media_channel_name" : "SRF 1",
+    "media_since_publication_d" : "2",
+    "media_since_publication_h" : "64"
+  }
+}

@@ -35,29 +35,41 @@ public class FunkVideoRestTaskTest extends FunkTaskTestBase {
     final String requestUrl = "/api/v4.0/videos/";
     setupSuccessfulJsonResponse(requestUrl, "/funk/funk_video_page_1.json");
     setupSuccessfulJsonResponse(
-        "/api/v4.0/videos/?page=1&size=100&sort=updateDate,desc",
-        "/funk/funk_video_page_last.json");
+        "/api/v4.0/videos/?page=1&size=20&sort=updateDate,desc",
+        "/funk/funk_video_page_2.json");
+    setupSuccessfulJsonResponse(
+            "/api/v4.0/videos/?page=2&size=20&sort=updateDate,desc",
+            "/funk/funk_video_page_3.json");
+    setupSuccessfulJsonResponse(
+            "/api/v4.0/videos/?page=3&size=20&sort=updateDate,desc",
+            "/funk/funk_video_page_last.json");
 
     final Set<FilmInfoDto> actual = executeTask(requestUrl);
 
     assertThat(actual, notNullValue());
-    assertThat(actual.size(), equalTo(103));
+    assertThat(actual.size(), equalTo(63));
   }
 
   @Test
   public void testOverviewWithMultiplePagesLimitSubpagesSmallerThanSubpageCount() {
-    rootConfig.getSenderConfig(Sender.FUNK).setMaximumSubpages(1);
+    rootConfig.getSenderConfig(Sender.FUNK).setMaximumSubpages(2);
 
     final String requestUrl = "/api/v4.0/videos/";
     setupSuccessfulJsonResponse(requestUrl, "/funk/funk_video_page_1.json");
     setupSuccessfulJsonResponse(
-        "/api/v4.0/videos/?page=1&size=100&sort=updateDate,desc",
-        "/funk/funk_video_page_last.json");
+            "/api/v4.0/videos/?page=1&size=20&sort=updateDate,desc",
+            "/funk/funk_video_page_2.json");
+    setupSuccessfulJsonResponse(
+            "/api/v4.0/videos/?page=2&size=20&sort=updateDate,desc",
+            "/funk/funk_video_page_3.json");
+    setupSuccessfulJsonResponse(
+            "/api/v4.0/videos/?page=3&size=20&sort=updateDate,desc",
+            "/funk/funk_video_page_last.json");
 
     final Set<FilmInfoDto> actual = executeTask(requestUrl);
 
     assertThat(actual, notNullValue());
-    assertThat(actual.size(), equalTo(100));
+    assertThat(actual.size(), equalTo(40));
   }
 
   @Test
@@ -77,7 +89,7 @@ public class FunkVideoRestTaskTest extends FunkTaskTestBase {
     return new FunkRestTask<>(
             crawler,
             new FunkRestEndpoint<>(
-                FunkApiUrls.VIDEOS, new FunkVideoDeserializer(crawler, crawler.getCrawlerConfig())),
+                FunkApiUrls.VIDEOS, new FunkVideoDeserializer(crawler)),
             createCrawlerUrlDto(aRequestUrl))
         .invoke();
   }

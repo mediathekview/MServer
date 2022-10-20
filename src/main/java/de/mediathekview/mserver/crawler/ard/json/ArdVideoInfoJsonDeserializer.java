@@ -83,9 +83,13 @@ public class ArdVideoInfoJsonDeserializer implements JsonDeserializer<ArdVideoIn
   }
 
   private void loadM3U8(final Map<Resolution, URL> resolutionUrlMap) {
-    final Optional<String> m3u8Content = readContent(resolutionUrlMap.get(Resolution.NORMAL));
+    final URL m3u8File = resolutionUrlMap.get(Resolution.NORMAL);
+    final Optional<String> m3u8Content = readContent(m3u8File);
     resolutionUrlMap.clear();
     if (m3u8Content.isPresent()) {
+
+      final String url = m3u8File.toString();
+      String baseUrl = url.replaceAll(UrlUtils.getFileName(url).get(), "");
 
       final M3U8Parser parser = new M3U8Parser();
       final List<M3U8Dto> m3u8Data = parser.parse(m3u8Content.get());
@@ -95,7 +99,11 @@ public class ArdVideoInfoJsonDeserializer implements JsonDeserializer<ArdVideoIn
             final Optional<Resolution> resolution = entry.getResolution();
             if (resolution.isPresent()) {
               try {
-                resolutionUrlMap.put(resolution.get(), new URL(entry.getUrl()));
+                String videoUrl = entry.getUrl();
+                if (UrlUtils.getProtocol(videoUrl).isEmpty()) {
+                  videoUrl = baseUrl + videoUrl;
+                }
+                resolutionUrlMap.put(resolution.get(), new URL(videoUrl));
               } catch (final MalformedURLException malformedURLException) {
                 LOG.error(
                     "ArdVideoInfoJsonDeserializer: invalid url {}",

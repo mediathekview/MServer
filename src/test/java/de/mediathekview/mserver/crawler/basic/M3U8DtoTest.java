@@ -2,8 +2,11 @@ package de.mediathekview.mserver.crawler.basic;
 
 import org.junit.Test;
 
+import java.util.Optional;
+
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.junit.Assert.assertTrue;
 
 public class M3U8DtoTest {
 
@@ -92,5 +95,27 @@ public class M3U8DtoTest {
     final boolean actual = target.equals(other);
 
     assertThat(actual, equalTo(true));
+  }
+
+  @Test
+  public void getNormalizedMetaWithoutModification() {
+    final M3U8Dto target = new M3U8Dto("test");
+    target.addMeta(M3U8Constants.M3U8_RESOLUTION, "1920x1200");
+
+    final Optional<String> actual = target.getNormalizedMeta(M3U8Constants.M3U8_RESOLUTION);
+
+    assertTrue(actual.isPresent());
+    assertThat(actual.get(), equalTo("1920x1200"));
+  }
+
+  @Test
+  public void getNormalizedMetaWithModification() {
+    final M3U8Dto target = new M3U8Dto("test");
+    target.addMeta(M3U8Constants.M3U8_RESOLUTION, "960x540");
+
+    final Optional<String> actual = target.getNormalizedMeta(M3U8Constants.M3U8_RESOLUTION);
+
+    assertTrue(actual.isPresent());
+    assertThat(actual.get(), equalTo("0960x0540"));
   }
 }

@@ -34,9 +34,12 @@ public class SrfFilmJsonDeserializerTest extends SrfTaskTestBase {
   private final long duration;
   private final String description;
   private final String website;
-  private final String smallUrl;
-  private final String normalUrl;
-  private final String hdUrl;
+  private final String urlSmall;
+  private final String urlNormal;
+  private final String urlHd;
+  private final String urlAudioDescriptionSmall;
+  private final String urlAudioDescriptionNormal;
+  private final String urlAudioDescriptionHd;
   private final String subtitleUrl;
 
   public SrfFilmJsonDeserializerTest(
@@ -49,9 +52,12 @@ public class SrfFilmJsonDeserializerTest extends SrfTaskTestBase {
       final long aDuration,
       final String aDescription,
       final String aWebsite,
-      final String aSmallUrl,
-      final String aNormalUrl,
-      final String aHdUrl,
+      final String aUrlSmall,
+      final String aUrlNormal,
+      final String aUrlHd,
+      final String aUrlAudioDescriptionSmall,
+      final String aUrlAudioDescriptionNormal,
+      final String aUrlAudioDescriptionHd,
       final String aSubtitleUrl) {
     jsonFile = aJsonFile;
     m3u8File = aM3u8File;
@@ -62,9 +68,12 @@ public class SrfFilmJsonDeserializerTest extends SrfTaskTestBase {
     duration = aDuration;
     description = aDescription;
     website = aWebsite;
-    smallUrl = aSmallUrl;
-    normalUrl = aNormalUrl;
-    hdUrl = aHdUrl;
+    urlSmall = aUrlSmall;
+    urlNormal = aUrlNormal;
+    urlHd = aUrlHd;
+    urlAudioDescriptionSmall = aUrlAudioDescriptionSmall;
+    urlAudioDescriptionNormal = aUrlAudioDescriptionNormal;
+    urlAudioDescriptionHd = aUrlAudioDescriptionHd;
     subtitleUrl = aSubtitleUrl;
   }
 
@@ -85,6 +94,9 @@ public class SrfFilmJsonDeserializerTest extends SrfTaskTestBase {
             "https://hdvodsrforigin-f.akamaihd.net/i/vod/1gegen100/2010/05/1gegen100_20100517_200706_web_h264_16zu9_,lq1,mq1,hq1,.mp4.csmil/index_0_av.m3u8",
             "https://hdvodsrforigin-f.akamaihd.net/i/vod/1gegen100/2010/05/1gegen100_20100517_200706_web_h264_16zu9_,lq1,mq1,hq1,.mp4.csmil/index_2_av.m3u8",
             "",
+            "",
+            "",
+            "",
             ""
           },
           {
@@ -100,6 +112,9 @@ public class SrfFilmJsonDeserializerTest extends SrfTaskTestBase {
             "https://srfvodhd-vh.akamaihd.net/i/vod/meteo/2018/01/meteo_20180102_195400_8400830_v_webcast_h264_,q40,q10,q20,q30,q50,q60,.mp4.csmil/index_3_av.m3u8",
             "https://srfvodhd-vh.akamaihd.net/i/vod/meteo/2018/01/meteo_20180102_195400_8400830_v_webcast_h264_,q40,q10,q20,q30,q50,q60,.mp4.csmil/index_4_av.m3u8",
             "https://srfvodhd-vh.akamaihd.net/i/vod/meteo/2018/01/meteo_20180102_195400_8400830_v_webcast_h264_,q40,q10,q20,q30,q50,q60,.mp4.csmil/index_5_av.m3u8",
+            "",
+            "",
+            "",
             "https://ws.srf.ch/subtitles/urn:srf:ais:video:4228f550-8702-4276-8001-03a1589804ef/subtitle.ttml"
           },
           {
@@ -115,6 +130,9 @@ public class SrfFilmJsonDeserializerTest extends SrfTaskTestBase {
             "https://srfvodhd-vh.akamaihd.net/i/vod/sportflashtv/2018/11/sportflashtv_20181108_200102_12368079_v_webcast_h264_,q40,q10,q20,q30,q50,q60,.mp4.csmil/index_3_av.m3u8",
             "https://srfvodhd-vh.akamaihd.net/i/vod/sportflashtv/2018/11/sportflashtv_20181108_200102_12368079_v_webcast_h264_,q40,q10,q20,q30,q50,q60,.mp4.csmil/index_4_av.m3u8",
             "https://srfvodhd-vh.akamaihd.net/i/vod/sportflashtv/2018/11/sportflashtv_20181108_200102_12368079_v_webcast_h264_,q40,q10,q20,q30,q50,q60,.mp4.csmil/index_5_av.m3u8",
+            "",
+            "",
+            "",
             ""
           },
           {
@@ -130,6 +148,9 @@ public class SrfFilmJsonDeserializerTest extends SrfTaskTestBase {
             "https://srfvodhd-vh.akamaihd.net/i/vod/lena/2018/11/lena_20181114_114517_12440540_v_webcast_h264_,q40,q10,q20,q30,q50,q60,.mp4.csmil/index_3_av.m3u8",
             "https://srfvodhd-vh.akamaihd.net/i/vod/lena/2018/11/lena_20181114_114517_12440540_v_webcast_h264_,q40,q10,q20,q30,q50,q60,.mp4.csmil/index_4_av.m3u8",
             "https://srfvodhd-vh.akamaihd.net/i/vod/lena/2018/11/lena_20181114_114517_12440540_v_webcast_h264_,q40,q10,q20,q30,q50,q60,.mp4.csmil/index_5_av.m3u8",
+            "",
+            "",
+            "",
             "https://ws.srf.ch/subtitles/urn:srf:ais:video:69d9fc3f-a3fd-4802-b2ee-ede92145e87c/subtitle.ttml"
           },
           {
@@ -145,7 +166,64 @@ public class SrfFilmJsonDeserializerTest extends SrfTaskTestBase {
             "https://hdvodsrforigin-f.akamaihd.net/i/vod/reporter/2019/12/reporter_20191211_172931_18722867_v_webcast_h264_,q40,q10,q20,q30,q50,q60,.mp4.csmil/index_3_av.m3u8",
             "https://hdvodsrforigin-f.akamaihd.net/i/vod/reporter/2019/12/reporter_20191211_172931_18722867_v_webcast_h264_,q40,q10,q20,q30,q50,q60,.mp4.csmil/index_4_av.m3u8",
             "https://hdvodsrforigin-f.akamaihd.net/i/vod/reporter/2019/12/reporter_20191211_172931_18722867_v_webcast_h264_,q40,q10,q20,q30,q50,q60,.mp4.csmil/index_5_av.m3u8",
+            "",
+            "",
+            "",
             "https://www.srf.ch/subtitles/srf/07630ff9-9858-4a00-bf10-9856c9891970/episode/de/vod/vod.vtt"
+          },
+          {
+            "/srf/srf_film_page_only_filename_in_m3u8.json",
+            "/srf/srf_film_page_only_filename_in_m3u8.m3u8",
+            "/world/hls/motel/2022/03/motel_20220314_001922_9130234_v_webcast_h264_,q40,q10,q20,q30,q50,q60,.mp4.csmil/master.m3u8?start=0.0&end=1559.4",
+            "Motel",
+            "Modeschau (Staffel 1, Folge 29)",
+            LocalDateTime.of(2022, 3, 17, 15, 10, 0),
+            1559400,
+            "Im Motel geht es zu wie in einem Bienenhaus – in einem der glamourösen Art: Der rührige Motel-Direktor Bieri hat eine Modeschau organisiert. Bei dieser Gelegenheit begegnet er seiner Ex-Freundin Roberta. Sie ist als Stylistin für die Models tätig. Verblüfft und auch etwas eifersüchtig erfährt Bieri, dass Roberta inzwischen geheiratet hat. Als sie ihm ihren Gatten vorstellt, fallen dem Direktor fas\n.....",
+            "https://www.srf.ch/play/tv/motel/video/modeschau-(staffel-1-folge-29)?id=7aae02fd-efb2-43de-8521-babd80718e89",
+            "http://localhost:8589/world/hls/motel/2022/03/motel_20220314_001922_9130234_v_webcast_h264_,q40,q10,q20,q30,q50,q60,.mp4.csmil/index-f3-v1-a1.m3u8",
+            "http://localhost:8589/world/hls/motel/2022/03/motel_20220314_001922_9130234_v_webcast_h264_,q40,q10,q20,q30,q50,q60,.mp4.csmil/index-f1-v1-a1.m3u8",
+            "http://localhost:8589/world/hls/motel/2022/03/motel_20220314_001922_9130234_v_webcast_h264_,q40,q10,q20,q30,q50,q60,.mp4.csmil/index-f6-v1-a1.m3u8",
+            "",
+            "",
+            "",
+            ""
+          },
+          {
+            "/srf/srf_film_page_only_filename_in_m3u8_2.json",
+            "/srf/srf_film_page_only_filename_in_m3u8_2.m3u8",
+            "/ad8d4d80-5639-43e2-a59f-9a981029b4de/SRFVOD-ee4a4797-3dde.ism/manifest(format=m3u8-aapl,encryption=cbcs-aapl)?caption=srf/948d8f5a-03a7-49e2-b174-a4b7b3c4a043/episode/de/vod/vod.m3u8:de:Deutsch:sdh&webvttbaseurl=https://www.srf.ch/subtitles",
+            "Station 19",
+            "Familienbande (Staffel 4, Folge 3)",
+            LocalDateTime.of(2022, 3, 21, 21, 45, 0),
+            2413920,
+            "Die Zukunft von Sullivan hängt am seidenen Faden: Seine Anhörung vor der Feuerwehr-Kommission steht an. Als Zeugen sind Ben Warren, Richard Webber, Emmett Dixon und der ehemalige Fire Chief Michael Dixon vorgesehen. Ben versucht, während der Verhandlung auf die landesweite Opioid-Krise hinzuweisen und macht diese für Sullivans Handlungen mitverantwortlich. Webber hält eine flammende Rede für Abhän\n.....",
+            "https://www.srf.ch/play/tv/station-19/video/familienbande-(staffel-4-folge-3)?id=cf776586-de57-481f-8473-f96f9b0f91b4",
+            "http://localhost:8589/ad8d4d80-5639-43e2-a59f-9a981029b4de/SRFVOD-ee4a4797-3dde.ism/QualityLevels(499936)/Manifest(video,format=m3u8-aapl)",
+            "http://localhost:8589/ad8d4d80-5639-43e2-a59f-9a981029b4de/SRFVOD-ee4a4797-3dde.ism/QualityLevels(1999872)/Manifest(video,format=m3u8-aapl)",
+            "",
+            "",
+            "",
+            "",
+            "https://www.srf.ch/subtitles/srf/948d8f5a-03a7-49e2-b174-a4b7b3c4a043/episode/de/vod/vod.vtt"
+          },
+          {
+            "/srf/srf_film_page_audiodesc.json",
+            "/srf/srf_film_page_audiodesc.m3u8",
+            "/ch/hls/spielfilm_aud/2022/08/spielfilm_aud_20220725_161504_11142089_v_webcast_h264_,q40,q10,q20,q30,q50,q60,.mp4.csmil/master.m3u8",
+            "Film",
+            "Ostfriesenkiller",
+            LocalDateTime.of(2022, 8, 2, 21, 37, 0),
+            5370000,
+            "Norddeich ist ein wahrhaft friedlicher Urlaubsort an der Nordseeküste – bis eine Serie von Morden die kleine Stadt erschüttert. Für Hauptkommissarin Ann Kathrin Klaasen (Christiane Paul), die gerade selbst in einer tiefen Lebenskrise steckt, wird dieser Fall zu einer Bewährungsprobe, die ihre bisherige Vorstellung von Gut und Böse vollkommen über den Haufen wirft.    Ulf Speicher (Michael Sideris)\n.....",
+            "https://www.srf.ch/play/tv/film-mit-audiodeskription/video/ostfriesenkiller-mit-audiodeskription?id=9168b52f-2b37-4638-9ed0-cfd9c22eec1c",
+            "",
+            "",
+            "",
+            "http://localhost:8589/ch/hls/spielfilm_aud/2022/08/spielfilm_aud_20220725_161504_11142089_v_webcast_h264_,q40,q10,q20,q30,q50,q60,.mp4.csmil/index-f3-v1-a1.m3u8",
+            "http://localhost:8589/ch/hls/spielfilm_aud/2022/08/spielfilm_aud_20220725_161504_11142089_v_webcast_h264_,q40,q10,q20,q30,q50,q60,.mp4.csmil/index-f1-v1-a1.m3u8",
+            "http://localhost:8589/ch/hls/spielfilm_aud/2022/08/spielfilm_aud_20220725_161504_11142089_v_webcast_h264_,q40,q10,q20,q30,q50,q60,.mp4.csmil/index-f6-v1-a1.m3u8",
+            ""
           }
         });
   }
@@ -172,9 +250,15 @@ public class SrfFilmJsonDeserializerTest extends SrfTaskTestBase {
         description,
         website,
         new GeoLocations[0],
-        smallUrl,
-        normalUrl,
-        hdUrl,
+        urlSmall,
+        urlNormal,
+        urlHd,
+        "",
+        "",
+        "",
+        urlAudioDescriptionSmall,
+        urlAudioDescriptionNormal,
+        urlAudioDescriptionHd,
         subtitleUrl);
   }
 }

@@ -105,6 +105,25 @@ public class PhoenixFilmDetailTaskTest extends WireMockTestBase {
             "",
             "",
             GeoLocations.GEO_NONE
+          },
+          {
+            "/response/id/2320549",
+            "/phoenix/phoenix_film_detail3_response.json",
+            "/php/mediaplayer/data/beitrags_details.php?id=2361354",
+            "/phoenix/phoenix_film_detail3_beitrag_details.json",
+            "/tmd/2/ngplayer_2_3/vod/ptmd/phoenix/211114_1200_phx_presseclub",
+            "/phoenix/phoenix_film_detail3_video.json",
+            "Presseclub",
+            "Handeln statt Reden: Impfpflicht für alle?",
+            LocalDateTime.of(2021, 11, 14, 12, 0, 0),
+            Duration.ofMinutes(58).plusSeconds(56),
+            "Corona ist mit voller Wucht zurück: Noch nie seit Beginn der Pandemie haben sich so viele Menschen infiziert wie in dieser Woche. Das RKI meldet täglich neue Rekordwerte bei der 7-Tage-Inzidenz. In Altenheimen sterben wieder Menschen und in manchen Regionen wie in Sachsen, Thüringen oder Bayern werden Intensivbetten knapp. Das kann tödlich sein - nicht nur für Covid-Kranke, sondern auch für Unfall\n.....",
+            "https://www.phoenix.de/sendungen/gespraeche/presseclub/handeln-statt-reden-impfpflicht-fuer-alle-a-2320549.html",
+            "/de/phoenix/21/11/211114_1200_phx_presseclub/1/211114_1200_phx_presseclub_776k_p11v13.mp4",
+            "/de/phoenix/21/11/211114_1200_phx_presseclub/1/211114_1200_phx_presseclub_1496k_p13v13.mp4",
+            "",
+            "",
+            GeoLocations.GEO_DE
           }
         });
   }
@@ -116,7 +135,8 @@ public class PhoenixFilmDetailTaskTest extends WireMockTestBase {
     setupSuccessfulJsonResponse(videoUrl, videoJsonFile);
     setupHeadResponse(404);
     setupHeadResponse(
-        "/none/phoenix/21/04/210416_phx_doku_awri_2/2/210416_phx_doku_awri_2_2328k_p35v13.mp4", 200);
+        "/none/phoenix/21/04/210416_phx_doku_awri_2/2/210416_phx_doku_awri_2_2328k_p35v13.mp4",
+        200);
 
     final Set<Film> actual = executeTask(filmUrl);
 

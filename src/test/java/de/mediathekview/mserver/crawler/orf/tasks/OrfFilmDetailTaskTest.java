@@ -31,6 +31,7 @@ public class OrfFilmDetailTaskTest extends OrfFilmDetailTaskTestBase {
   private final String requestUrl;
   private final String filmPageFile;
   private final String theme;
+  private final String expectedTheme;
   private final String expectedTitle;
   private final LocalDateTime expectedDate;
   private final Duration expectedDuration;
@@ -39,12 +40,17 @@ public class OrfFilmDetailTaskTest extends OrfFilmDetailTaskTestBase {
   private final String expectedUrlSmall;
   private final String expectedUrlNormal;
   private final String expectedUrlHd;
+  private final String expectedUrlAudioDescriptionSmall;
+  private final String expectedUrlAudioDescriptionNormal;
+  private final String expectedUrlAudioDescriptionHd;
   private final GeoLocations[] expectedGeoLocations;
+  @Mock JsoupConnection jsoupConnection;
 
   public OrfFilmDetailTaskTest(
       final String aRequestUrl,
       final String aFilmPageFile,
       final String aTheme,
+      final String aExpectedTheme,
       final String aExpectedTitle,
       final LocalDateTime aExpectedDate,
       final Duration aExpectedDuration,
@@ -53,10 +59,14 @@ public class OrfFilmDetailTaskTest extends OrfFilmDetailTaskTestBase {
       final String aExpectedUrlSmall,
       final String aExpectedUrlNormal,
       final String aExpectedUrlHd,
+      final String aExpectedUrlAudioDescriptionSmall,
+      final String aExpectedUrlAudioDescriptionNormal,
+      final String aExpectedUrlAudioDescriptionHd,
       final GeoLocations[] aExpectedGeoLocations) {
     requestUrl = aRequestUrl;
     filmPageFile = aFilmPageFile;
     theme = aTheme;
+    expectedTheme = aExpectedTheme;
     expectedTitle = aExpectedTitle;
     expectedDate = aExpectedDate;
     expectedDuration = aExpectedDuration;
@@ -64,15 +74,11 @@ public class OrfFilmDetailTaskTest extends OrfFilmDetailTaskTestBase {
     expectedUrlSmall = buildWireMockUrl(aExpectedUrlSmall);
     expectedUrlNormal = buildWireMockUrl(aExpectedUrlNormal);
     expectedUrlHd = buildWireMockUrl(aExpectedUrlHd);
+    expectedUrlAudioDescriptionSmall = buildWireMockUrl(aExpectedUrlAudioDescriptionSmall);
+    expectedUrlAudioDescriptionNormal = buildWireMockUrl(aExpectedUrlAudioDescriptionNormal);
+    expectedUrlAudioDescriptionHd = buildWireMockUrl(aExpectedUrlAudioDescriptionHd);
     expectedSubtitle = aExpectedSubtitle;
     expectedGeoLocations = aExpectedGeoLocations;
-  }
-
-  @Mock JsoupConnection jsoupConnection;
-
-  @Before
-  public void setUp() {
-    MockitoAnnotations.openMocks(this);
   }
 
   @Parameterized.Parameters
@@ -81,12 +87,16 @@ public class OrfFilmDetailTaskTest extends OrfFilmDetailTaskTestBase {
         new Object[][] {
           {
             "https://tvthek.orf.at/profile/Hilfe-ich-hab-meine-Lehrerin-geschrumpft/13889696/Hilfe-ich-hab-meine-Lehrerin-geschrumpft/13993284",
-            "/orf/orf_film_duration_hour.html",
+            "/orf/orf_film_audiodescription_duration_hour.html",
             "AD | Tatort",
-            "AD | Tatort: Spieglein, Spieglein",
+            "Tatort",
+            "Tatort: Spieglein, Spieglein",
             LocalDateTime.of(2019, 3, 17, 20, 15, 0),
             Duration.ofMinutes(87),
             "Staatsanwältin Klemm ist fassungslos. Die Frau, die mitten auf der Promenade in Münster erschossen wurde, sieht ihr zum Verwechseln ähnlich. Für Kommissar Thiel gibt es zunächst keinerlei Anhaltspunkte für ein Tatmotiv.",
+            "",
+            "",
+            "",
             "",
             "/apasfiis.sf.apa.at/ipad/cms-austria/2019-03-17_2015_sd_00_AD---Tatort--Sp_____14007849__o__2088184633__s14465114_4__ORF2ADHD_20144904P_21415115P_Q4A.mp4/playlist.m3u8",
             "/apasfiis.sf.apa.at/ipad/cms-austria/2019-03-17_2015_sd_00_AD---Tatort--Sp_____14007849__o__2088184633__s14465114_4__ORF2ADHD_20144904P_21415115P_Q6A.mp4/playlist.m3u8",
@@ -98,6 +108,7 @@ public class OrfFilmDetailTaskTest extends OrfFilmDetailTaskTestBase {
             "/orf/orf_film_date_cest.html",
             "Bundesland heute",
             "Bundesland heute",
+            "Bundesland heute",
             LocalDateTime.of(2016, 10, 1, 12, 55, 9),
             Duration.ofSeconds(30),
             "",
@@ -105,11 +116,15 @@ public class OrfFilmDetailTaskTest extends OrfFilmDetailTaskTestBase {
             "/apasfiis.sf.apa.at/ipad/cms-worldwide/20161011_1040_in_02_Bundesland-heut_____13890700__o__1693823857__s13890997_Q4A.mp4/playlist.m3u8",
             "/apasfiis.sf.apa.at/ipad/cms-worldwide/20161011_1040_in_02_Bundesland-heut_____13890700__o__1693823857__s13890997_Q6A.mp4/playlist.m3u8",
             "/apasfiis.sf.apa.at/ipad/cms-worldwide/20161011_1040_in_02_Bundesland-heut_____13890700__o__1693823857__s13890997_Q8C.mp4/playlist.m3u8",
+            "",
+            "",
+            "",
             new GeoLocations[] {GeoLocations.GEO_NONE}
           },
           {
             "http://tvthek.orf.at/archive/Die-Geschichte-des-Burgenlands/9236430/Zweisprachige-Ortstafeln/9056913",
             "/orf/orf_history_film.html",
+            "Die Geschichte des Burgenlandes",
             "Die Geschichte des Burgenlandes",
             "Erste zweisprachige Ortstafel im Burgenland enthüllt",
             LocalDateTime.of(2000, 7, 13, 12, 0, 0),
@@ -119,11 +134,15 @@ public class OrfFilmDetailTaskTest extends OrfFilmDetailTaskTestBase {
             "/apasfiis.sf.apa.at/ipad/cms-worldwide/2000-07-13_1200_in_00_Zweisprachige-Ortsta_____9056913__o__0001362620__s9056914___Q4A.mp4/playlist.m3u8",
             "/apasfiis.sf.apa.at/ipad/cms-worldwide/2000-07-13_1200_in_00_Zweisprachige-Ortsta_____9056913__o__0001362620__s9056914___Q6A.mp4/playlist.m3u8",
             "/apasfiis.sf.apa.at/ipad/cms-worldwide/2000-07-13_1200_in_00_Zweisprachige-Ortsta_____9056913__o__0001362620__s9056914___Q8C.mp4/playlist.m3u8",
+            "",
+            "",
+            "",
             new GeoLocations[] {GeoLocations.GEO_NONE}
           },
           {
             "https://tvthek.orf.at/profile/Soko-Donau/2672809/Soko-Donau-Entfesselt/14007925",
             "/orf/orf_film_with_subtitle.html",
+            "Soko Donau",
             "Soko Donau",
             "Soko Donau: Entfesselt",
             LocalDateTime.of(2019, 3, 19, 20, 15, 0),
@@ -133,11 +152,15 @@ public class OrfFilmDetailTaskTest extends OrfFilmDetailTaskTestBase {
             "/apasfiis.sf.apa.at/ipad/cms-austria/2019-03-19_2015_in_01_Soko-Donau--Ent_____14007925__o__2552019395__s14465271_Q4A.mp4/playlist.m3u8",
             "/apasfiis.sf.apa.at/ipad/cms-austria/2019-03-19_2015_in_01_Soko-Donau--Ent_____14007925__o__2552019395__s14465271_Q6A.mp4/playlist.m3u8",
             "/apasfiis.sf.apa.at/ipad/cms-austria/2019-03-19_2015_in_01_Soko-Donau--Ent_____14007925__o__2552019395__s14465271_Q8C.mp4/playlist.m3u8",
+            "",
+            "",
+            "",
             new GeoLocations[] {GeoLocations.GEO_AT}
           },
           {
             "https://tvthek.orf.at/profile/DENK-mit-KULTUR/8728536/DENK-mit-KULTUR-Gerda-Rogers-und-Schiffkowitz/14034271",
             "/orf/orf_film_new_description_block.html",
+            "DENK mit KULTUR",
             "DENK mit KULTUR",
             "Gerda Rogers und Schiffkowitz",
             LocalDateTime.of(2019, 12, 6, 21, 5, 0),
@@ -147,9 +170,17 @@ public class OrfFilmDetailTaskTest extends OrfFilmDetailTaskTestBase {
             "https://apasfiis.sf.apa.at/ipad/cms-worldwide/2019-12-06_2105_sd_06_DENK-mit-KULTUR_____14034271__o__1025186593__s14603593_3__ORF3HD_21062006P_21511908P_Q4A.mp4/playlist.m3u8",
             "https://apasfiis.sf.apa.at/ipad/cms-worldwide/2019-12-06_2105_sd_06_DENK-mit-KULTUR_____14034271__o__1025186593__s14603593_3__ORF3HD_21062006P_21511908P_Q6A.mp4/playlist.m3u8",
             "https://apasfiis.sf.apa.at/ipad/cms-worldwide/2019-12-06_2105_sd_06_DENK-mit-KULTUR_____14034271__o__1025186593__s14603593_3__ORF3HD_21062006P_21511908P_Q8C.mp4/playlist.m3u8",
+            "",
+            "",
+            "",
             new GeoLocations[] {GeoLocations.GEO_NONE}
           }
         });
+  }
+
+  @Before
+  public void setUp() {
+    MockitoAnnotations.openMocks(this);
   }
 
   @Test
@@ -159,7 +190,7 @@ public class OrfFilmDetailTaskTest extends OrfFilmDetailTaskTestBase {
     OrfCrawler crawler = createCrawler();
     crawler.setConnection(jsoupConnection);
 
-    final Set<Film> actual = executeTask(crawler,theme, requestUrl);
+    final Set<Film> actual = executeTask(crawler, theme, requestUrl);
 
     assertThat(actual, notNullValue());
     assertThat(actual.size(), equalTo(1));
@@ -168,7 +199,7 @@ public class OrfFilmDetailTaskTest extends OrfFilmDetailTaskTestBase {
     AssertFilm.assertEquals(
         actualFilm,
         Sender.ORF,
-        theme,
+        expectedTheme,
         expectedTitle,
         expectedDate,
         expectedDuration,
@@ -178,6 +209,12 @@ public class OrfFilmDetailTaskTest extends OrfFilmDetailTaskTestBase {
         expectedUrlSmall,
         expectedUrlNormal,
         expectedUrlHd,
+        "",
+        "",
+        "",
+        expectedUrlAudioDescriptionSmall,
+        expectedUrlAudioDescriptionNormal,
+        expectedUrlAudioDescriptionHd,
         expectedSubtitle);
   }
 }

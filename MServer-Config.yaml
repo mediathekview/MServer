@@ -16,9 +16,7 @@ maximumServerDurationInMinutes: 0
 senderIncluded:
   #- MDR
   #- NDR
-  #- ORF
-  #- ARTE_DE
-  - ARD
+  - ZDF
   #- BR
 
 # If set the server will be awake after the crawler run and restarts the run after the given amount.
@@ -91,15 +89,15 @@ maximumCrawlDurationInMinutes: 120
 
 # Enables the topics search
 # maximumSubpages limits the depth of the topics search
-topicsSearchEnabled: true
+topicsSearchEnabled: false
 
 # The maximum amount of sub pages to be crawled.<br>
 # Example: If a Sendung overview side has 10 pages with videos for this Sendung and
 # the amount set by this is 5 then the crawler crawls pages 1 to 5.
-maximumSubpages: 10
+maximumSubpages: 1
 
 # The maximum amount of days going to past will be crawled for the "Sendung Verpasst?" section.
-maximumDaysForSendungVerpasstSection: 1
+maximumDaysForSendungVerpasstSection: 7
 
 # The maximum amount of days going to future will be crawled for the "Sendung Verpasst?" section.
 maximumDaysForSendungVerpasstSectionFuture: 0
@@ -124,7 +122,7 @@ senderConfigurations:
     maximumDaysForSendungVerpasstSectionFuture: 0
     maximumRequestsPerSecond: 2.0
   ARTE_FR:
-    maximumDaysForSendungVerpasstSectionFuture: 21
+    maximumDaysForSendungVerpasstSectionFuture: 0
     # The maximum amount of URLs to be processed per task.
     #        maximumUrlsPerTask: 25
     # The maximum duration in minutes a crawler may run.
@@ -170,7 +168,7 @@ copySettings:
 logSettings:
   # The log level for the console.
   # Can be: DEBUG, INFO, WARN, ERROR, FATAL
-  logLevelConsole: INFO
+  logLevelConsole: DEBUG
 
   # The log level for the log file.
   # Can be: DEBUG, INFO, WARN, ERROR, FATAL

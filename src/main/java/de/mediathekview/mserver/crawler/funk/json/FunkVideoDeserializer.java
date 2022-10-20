@@ -1,7 +1,6 @@
 package de.mediathekview.mserver.crawler.funk.json;
 
 import com.google.gson.JsonObject;
-import de.mediathekview.mserver.base.config.MServerBasicConfigDTO;
 import de.mediathekview.mserver.base.config.MServerConfigDTO;
 import de.mediathekview.mserver.base.config.MServerConfigManager;
 import de.mediathekview.mserver.base.utils.JsonUtils;
@@ -33,8 +32,8 @@ public class FunkVideoDeserializer extends AbstractFunkElementDeserializer<FilmI
   private static final String TAG_CHANNEL_ID = "channelId";
 
   public FunkVideoDeserializer(
-      final AbstractCrawler crawler, final MServerBasicConfigDTO aSenderConfig) {
-    super(Optional.of(crawler), aSenderConfig);
+      final AbstractCrawler crawler) {
+    super(Optional.of(crawler));
   }
 
   @Override

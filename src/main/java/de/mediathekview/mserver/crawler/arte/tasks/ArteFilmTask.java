@@ -15,7 +15,7 @@ import de.mediathekview.mserver.crawler.basic.CrawlerUrlDTO;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import javax.ws.rs.client.WebTarget;
+import jakarta.ws.rs.client.WebTarget;
 import java.lang.reflect.Type;
 import java.net.MalformedURLException;
 import java.time.LocalDateTime;
@@ -61,23 +61,35 @@ public class ArteFilmTask extends ArteTaskBase<Film, ArteFilmUrlDto> {
           final ArteVideoDetailDTO arteVideoDetailDTO = videoDetailDTO.get();
           final Film film = filmDtoOptional.get();
 
-          addFilm(film, arteVideoDetailDTO.getUrls());
+          // update duration if video contains different duration and the difference is larger than 1
+          // e.g. trailers has the original film length in film details but the correct trailer length in video details
+          // but difference is 1 second, the film length in film details is the correct one
+          if (!arteVideoDetailDTO.getDuration().isZero()
+                  && arteVideoDetailDTO.getDuration().getSeconds() != (film.getDuration().getSeconds() +1)) {
+            film.setDuration(arteVideoDetailDTO.getDuration());
+          }
+
+          if (!arteVideoDetailDTO.getUrls().isEmpty()) {
+            addFilm(film, arteVideoDetailDTO.getUrls());
+          }
 
           addSpecialFilm(film, arteVideoDetailDTO.getUrlsWithSubtitle(), " (mit Untertitel)");
+          addSpecialFilm(film, arteVideoDetailDTO.getUrlsOriginalWithSubtitle(), " (Originalversion mit Untertitel)");
           addSpecialFilm(film, arteVideoDetailDTO.getUrlsAudioDescription(), " (Audiodeskription)");
+          addSpecialFilm(film, arteVideoDetailDTO.getUrlsOriginal(), " (Originalversion)");
 
           crawler.incrementAndGetActualCount();
         } else {
-          LOG.error("no video: " + aDTO.getUrl());
+          LOG.error("no video: {}", aDTO.getUrl());
           crawler.incrementAndGetErrorCount();
         }
       } else {
-        LOG.error("no film: " + aDTO.getUrl());
+        LOG.error("no film: {}", aDTO.getUrl());
         crawler.incrementAndGetErrorCount();
       }
       crawler.updateProgress();
     } catch (final Exception e) {
-      LOG.error("exception: " + aDTO.getUrl(), e);
+      LOG.error("exception: {}", aDTO.getUrl(), e);
     }
   }
 
