@@ -2,9 +2,7 @@ name: Develop Pre-Release
 on:
   push:
     branches:
-#      - "develop"
-# TODO just to test this, remove before PR
-       - "feature/developGitHubPreRelease"
+      - "develop"
 
 jobs:
   develop-pre-release:
