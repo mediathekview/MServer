@@ -49,6 +49,6 @@ jobs:
           files: |
             LICENSE.md
             target/*.jar
-            target/*.tar
+            target/*.tar.*
             target/*.zip
             target/**/THIRD-PARTY.txt
