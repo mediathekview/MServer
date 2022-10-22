@@ -1,11 +1,8 @@
 name: Release
 on:
   push:
-#    tags:
-#      - "*"
-      # TODO just to test this, remove before PR
-    branches:
-      - "feature/upgradeMasterDependencies"
+    tags:
+      - "*"
 
 jobs:
   release:
@@ -45,7 +42,7 @@ jobs:
           DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
           DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
 
-      - name: Publish GitHub pre-Release
+      - name: Publish GitHub Release
         uses: marvinpinto/action-automatic-releases@latest
         with:
           repo_token: "${{ secrets.GITHUB_TOKEN }}"
