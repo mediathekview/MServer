@@ -248,8 +248,7 @@ public class AddToFilmlistTest {
     AddToFilmlist target = new AddToFilmlist(list, listToAdd);
     target.addOldList();
 
-    Assertions.assertThat(list).size().isEqualTo(4);
-    Assertions.assertThat(list)
+    Assertions.assertThat(list).hasSize(4)
             .anySatisfy(film -> checkFilmThemaAndTitle(film, "Film", "Film Testfilm (Audiodeskription)"))
             .anySatisfy(film -> checkFilmThemaAndTitle(film, "AD | Film", "AD | Film ARD"));
   }
@@ -268,8 +267,7 @@ public class AddToFilmlistTest {
     AddToFilmlist target = new AddToFilmlist(list, listToAdd);
     target.addOldList();
 
-    Assertions.assertThat(list).size().isEqualTo(5);
-    Assertions.assertThat(list)
+    Assertions.assertThat(list).hasSize(5)
             .anySatisfy(film -> checkFilmThemaAndTitle(film, "Film", "Testfilm (Staffel 1) (Audiodeskription)"))
             .anySatisfy(film -> checkFilmThemaAndTitle(film, "Film", "Testfilm2 (Audiodeskription)"))
             .anySatisfy(film -> checkFilmThemaAndTitle(film, "Film mit Audiodeskription", "Testfilm mit Audiodeskription"));
