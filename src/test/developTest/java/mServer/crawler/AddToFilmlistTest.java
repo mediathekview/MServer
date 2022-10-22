@@ -268,13 +268,11 @@ public class AddToFilmlistTest {
     AddToFilmlist target = new AddToFilmlist(list, listToAdd);
     target.addOldList();
 
-    assertThat(list.size(), equalTo(5));
-    assertThat(list.get(2).arr[DatenFilm.FILM_THEMA], equalTo("Film"));
-    assertThat(list.get(2).arr[DatenFilm.FILM_TITEL], equalTo("Testfilm (Staffel 1) (Audiodeskription)"));
-    assertThat(list.get(3).arr[DatenFilm.FILM_THEMA], equalTo("Film"));
-    assertThat(list.get(3).arr[DatenFilm.FILM_TITEL], equalTo("Testfilm2 (Audiodeskription)"));
-    assertThat(list.get(4).arr[DatenFilm.FILM_THEMA], equalTo("Film mit Audiodeskription"));
-    assertThat(list.get(4).arr[DatenFilm.FILM_TITEL], equalTo("Testfilm mit Audiodeskription"));
+    Assertions.assertThat(list).size().isEqualTo(5);
+    Assertions.assertThat(list)
+            .anySatisfy(film -> checkFilmThemaAndTitle(film, "Film", "Testfilm (Staffel 1) (Audiodeskription)"))
+            .anySatisfy(film -> checkFilmThemaAndTitle(film, "Film", "Testfilm2 (Audiodeskription)"))
+            .anySatisfy(film -> checkFilmThemaAndTitle(film, "Film mit Audiodeskription", "Testfilm mit Audiodeskription"));
   }
 
   @Test
