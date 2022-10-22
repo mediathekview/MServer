@@ -8,37 +8,31 @@
  */
 package de.mediathekview.mserver.crawler.br.graphql.variables;
 
-import org.junit.After;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertEquals;
+import static org.assertj.core.api.Assertions.assertThat;
 
-public class StringVariableTest {
-
-  @After
-  public void tearDown() throws Exception {}
+class StringVariableTest {
 
   @Test
-  public void testNormalString() {
-      final StringVariable graphQLVariable =
-              new StringVariable("broadcasterId", "av:http://ard.de/ontologies/ard#BR_Fernsehen");
-      assertEquals(
-              "\"broadcasterId\":\"av:http://ard.de/ontologies/ard#BR_Fernsehen\"",
-              graphQLVariable.getJSONFromVariableOrDefaulNull());
+  void testNormalString() {
+    final StringVariable graphQLVariable =
+        new StringVariable("broadcasterId", "av:http://ard.de/ontologies/ard#BR_Fernsehen");
+    assertThat(graphQLVariable.getJSONFromVariableOrDefaulNull())
+        .isEqualTo("\"broadcasterId\":\"av:http://ard.de/ontologies/ard#BR_Fernsehen\"");
   }
 
   @Test
-  public void testStringWithQuotes() {
-      final StringVariable graphQLVariable =
-              new StringVariable("term", "\"Fit - auch ohne Sport!\". Wie das geht");
-      assertEquals(
-              "\"term\":\"\\\"Fit - auch ohne Sport!\\\". Wie das geht\"",
-              graphQLVariable.getJSONFromVariableOrDefaulNull());
+  void testStringWithQuotes() {
+    final StringVariable graphQLVariable =
+        new StringVariable("term", "\"Fit - auch ohne Sport!\". Wie das geht");
+    assertThat(graphQLVariable.getJSONFromVariableOrDefaulNull())
+        .isEqualTo("\"term\":\"\\\"Fit - auch ohne Sport!\\\". Wie das geht\"");
   }
 
   @Test
-  public void testNullString() {
-      final StringVariable graphQLVariable = new StringVariable("term", null);
-    assertEquals("\"term\":null", graphQLVariable.getJSONFromVariableOrDefaulNull());
+  void testNullString() {
+    final StringVariable graphQLVariable = new StringVariable("term", null);
+    assertThat(graphQLVariable.getJSONFromVariableOrDefaulNull()).isEqualTo("\"term\":null");
   }
 }

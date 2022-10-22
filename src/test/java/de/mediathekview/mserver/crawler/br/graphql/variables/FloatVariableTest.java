@@ -9,32 +9,29 @@
  */
 package de.mediathekview.mserver.crawler.br.graphql.variables;
 
-import org.junit.After;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertEquals;
+import static org.assertj.core.api.Assertions.assertThat;
 
-public class FloatVariableTest {
-
-  @After
-  public void tearDown() throws Exception {}
+class FloatVariableTest {
 
   @Test
-  public void testMaxFloatValue() {
-      final FloatVariable graphQLVariable = new FloatVariable("degress", Double.MAX_VALUE);
-      assertEquals(
-              "\"degress\":1.7976931348623157E308", graphQLVariable.getJSONFromVariableOrDefaulNull());
+  void testMaxFloatValue() {
+    final FloatVariable graphQLVariable = new FloatVariable("degress", Double.MAX_VALUE);
+    assertThat(graphQLVariable.getJSONFromVariableOrDefaulNull())
+        .isEqualTo("\"degress\":1.7976931348623157E308");
   }
 
   @Test
-  public void testMinFloatValue() {
-      final FloatVariable graphQLVariable = new FloatVariable("negativeDegress", Double.MIN_VALUE);
-    assertEquals("\"negativeDegress\":4.9E-324", graphQLVariable.getJSONFromVariableOrDefaulNull());
+  void testMinFloatValue() {
+    final FloatVariable graphQLVariable = new FloatVariable("negativeDegress", Double.MIN_VALUE);
+    assertThat(graphQLVariable.getJSONFromVariableOrDefaulNull())
+        .isEqualTo("\"negativeDegress\":4.9E-324");
   }
 
   @Test
-  public void testNullFloatValue() {
-      final FloatVariable graphQLVariable = new FloatVariable("lenght", null);
-    assertEquals("\"lenght\":null", graphQLVariable.getJSONFromVariableOrDefaulNull());
+  void testNullFloatValue() {
+    final FloatVariable graphQLVariable = new FloatVariable("lenght", null);
+    assertThat(graphQLVariable.getJSONFromVariableOrDefaulNull()).isEqualTo("\"lenght\":null");
   }
 }

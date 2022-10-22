@@ -12,59 +12,52 @@ package de.mediathekview.mserver.crawler.br.graphql;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonNull;
 import com.google.gson.JsonObject;
-import org.junit.After;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-import java.util.Optional;
+import static org.assertj.core.api.Assertions.assertThat;
 
-import static org.junit.Assert.assertEquals;
-
-public class GsonGraphQLHelperTest {
-
-  @After
-  public void tearDown() throws Exception {}
+class GsonGraphQLHelperTest {
 
   @Test
-  public void testChildIsRegularJsonArray() {
+  void testChildIsRegularJsonArray() {
 
     JsonObject jo = new JsonObject();
 
-      JsonArray ja = new JsonArray();
+    JsonArray ja = new JsonArray();
 
-      ja.add("one");
+    ja.add("one");
     ja.add("two");
 
-      jo.add("childArray", ja);
+    jo.add("childArray", ja);
 
-      assertEquals(
-              JsonArray.class,
-              GsonGraphQLHelper.getChildArrayIfExists(jo, "childArray").get().getClass());
+    assertThat(GsonGraphQLHelper.getChildArrayIfExists(jo, "childArray").get().getClass())
+        .hasSameClassAs(JsonArray.class);
   }
 
   @Test
-  public void testChildWithWrongArrayName() {
+  void testChildWithWrongArrayName() {
 
-      JsonObject jo = new JsonObject();
+    JsonObject jo = new JsonObject();
 
-      JsonArray ja = new JsonArray();
+    JsonArray ja = new JsonArray();
 
-      ja.add("one");
+    ja.add("one");
     ja.add("two");
 
-      jo.add("wrongName", ja);
+    jo.add("wrongName", ja);
 
-      assertEquals(Optional.empty(), GsonGraphQLHelper.getChildArrayIfExists(jo, "childArray"));
+    assertThat(GsonGraphQLHelper.getChildArrayIfExists(jo, "childArray")).isEmpty();
   }
 
-    @Test
-  public void testChildIsJsonNull() {
+  @Test
+  void testChildIsJsonNull() {
 
-        JsonObject jo = new JsonObject();
+    JsonObject jo = new JsonObject();
 
-        JsonNull jn = JsonNull.INSTANCE;
+    JsonNull jn = JsonNull.INSTANCE;
 
-        jo.add("childArray", jn);
+    jo.add("childArray", jn);
 
-        assertEquals(Optional.empty(), GsonGraphQLHelper.getChildArrayIfExists(jo, "childArray"));
+    assertThat(GsonGraphQLHelper.getChildArrayIfExists(jo, "childArray")).isEmpty();
   }
 }
