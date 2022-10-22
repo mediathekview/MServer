@@ -9,31 +9,28 @@
  */
 package de.mediathekview.mserver.crawler.br.graphql.variables;
 
-import org.junit.After;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertEquals;
+import static org.assertj.core.api.Assertions.assertThat;
 
-public class BooleanVariableTest {
-
-  @After
-  public void tearDown() throws Exception {}
+class BooleanVariableTest {
 
   @Test
-  public void testBooleanVariableIsTrue() {
-      final BooleanVariable graphQLVariable = new BooleanVariable("triggerSearch", true);
-    assertEquals("\"triggerSearch\":true", graphQLVariable.getJSONFromVariableOrDefaulNull());
+  void testBooleanVariableIsTrue() {
+    final BooleanVariable graphQLVariable = new BooleanVariable("triggerSearch", true);
+    assertThat(graphQLVariable.getJSONFromVariableOrDefaulNull())
+        .isEqualTo("\"triggerSearch\":true");
   }
 
   @Test
-  public void testBooleanVariableIsFalse() {
-      final BooleanVariable graphQLVariable = new BooleanVariable("eq", false);
-    assertEquals("\"eq\":false", graphQLVariable.getJSONFromVariableOrDefaulNull());
+  void testBooleanVariableIsFalse() {
+    final BooleanVariable graphQLVariable = new BooleanVariable("eq", false);
+    assertThat(graphQLVariable.getJSONFromVariableOrDefaulNull()).isEqualTo("\"eq\":false");
   }
 
   @Test
-  public void testBooleanVariableIsNull() {
-      final BooleanVariable graphQLVariable = new BooleanVariable("eq", null);
-    assertEquals("\"eq\":null", graphQLVariable.getJSONFromVariableOrDefaulNull());
+  void testBooleanVariableIsNull() {
+    final BooleanVariable graphQLVariable = new BooleanVariable("eq", null);
+    assertThat(graphQLVariable.getJSONFromVariableOrDefaulNull()).isEqualTo("\"eq\":null");
   }
 }

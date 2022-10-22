@@ -9,37 +9,33 @@
  */
 package de.mediathekview.mserver.crawler.br.graphql.variables;
 
-import org.junit.After;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertEquals;
+import static org.assertj.core.api.Assertions.assertThat;
 
-public class IntegerVariableTest {
-
-  @After
-  public void tearDown() throws Exception {}
+class IntegerVariableTest {
 
   @Test
-  public void testIntegerVariableWithoutSign() {
-      final IntegerVariable graphQLVariable = new IntegerVariable("clipCount", 24);
-    assertEquals("\"clipCount\":24", graphQLVariable.getJSONFromVariableOrDefaulNull());
+  void testIntegerVariableWithoutSign() {
+    final IntegerVariable graphQLVariable = new IntegerVariable("clipCount", 24);
+    assertThat(graphQLVariable.getJSONFromVariableOrDefaulNull()).isEqualTo("\"clipCount\":24");
   }
 
   @Test
-  public void testIntegerVariableWithNegativeSign() {
-      final IntegerVariable graphQLVariable = new IntegerVariable("seriesCount", -12);
-    assertEquals("\"seriesCount\":-12", graphQLVariable.getJSONFromVariableOrDefaulNull());
+  void testIntegerVariableWithNegativeSign() {
+    final IntegerVariable graphQLVariable = new IntegerVariable("seriesCount", -12);
+    assertThat(graphQLVariable.getJSONFromVariableOrDefaulNull()).isEqualTo("\"seriesCount\":-12");
   }
 
   @Test
-  public void testIntegerVariableWithPostiveSign() {
-      final IntegerVariable graphQLVariable = new IntegerVariable("height", +180);
-    assertEquals("\"height\":180", graphQLVariable.getJSONFromVariableOrDefaulNull());
+  void testIntegerVariableWithPostiveSign() {
+    final IntegerVariable graphQLVariable = new IntegerVariable("height", +180);
+    assertThat(graphQLVariable.getJSONFromVariableOrDefaulNull()).isEqualTo("\"height\":180");
   }
 
   @Test
-  public void testIntegerVariableWithNull() {
-      final IntegerVariable graphQLVariable = new IntegerVariable("height", null);
-    assertEquals("\"height\":null", graphQLVariable.getJSONFromVariableOrDefaulNull());
+  void testIntegerVariableWithNull() {
+    final IntegerVariable graphQLVariable = new IntegerVariable("height", null);
+    assertThat(graphQLVariable.getJSONFromVariableOrDefaulNull()).isEqualTo("\"height\":null");
   }
 }
