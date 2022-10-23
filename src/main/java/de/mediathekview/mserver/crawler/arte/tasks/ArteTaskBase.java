@@ -18,23 +18,22 @@ import java.util.Optional;
 import java.util.Queue;
 
 public abstract class ArteTaskBase<T, D extends CrawlerUrlDTO> extends AbstractRestTask<T, D> {
-
   private static final Logger LOG = LogManager.getLogger(ArteTaskBase.class);
   private static RateLimiter limiter = null;
-  private final GsonBuilder gsonBuilder;
+  private final transient GsonBuilder gsonBuilder;
 
-  public ArteTaskBase(
-      final AbstractCrawler aCrawler,
-      final Queue<D> aUrlToCrawlDtos,
+  protected ArteTaskBase(
+      final AbstractCrawler crawler,
+      final Queue<D> urlToCrawlDtos,
       @Nullable final String authToken) {
-    super(aCrawler, aUrlToCrawlDtos, authToken);
+    super(crawler, urlToCrawlDtos, authToken);
     gsonBuilder = new GsonBuilder();
 
     // limiter bei ersten aufruf bauen?
   }
 
-  protected void registerJsonDeserializer(final Type aType, final Object aDeserializer) {
-    gsonBuilder.registerTypeAdapter(aType, aDeserializer);
+  protected void registerJsonDeserializer(final Type type, final Object deserializer) {
+    gsonBuilder.registerTypeAdapter(type, deserializer);
   }
 
   /**
@@ -42,59 +41,45 @@ public abstract class ArteTaskBase<T, D extends CrawlerUrlDTO> extends AbstractR
    * error is not a reason for retry and null is returned Mainly this is to take care of ARTE 429
    * (too many request) response
    *
-   * @param aTarget
+   * @param target
    * @return
    */
-  protected String requestWebtarget(final WebTarget aTarget) {
-    Response response = null;
-    WebTarget webTargetClone = aTarget;
+  protected String requestWebtarget(final WebTarget target) {
+    WebTarget webTarget = target;
     int retry = 0;
-    String responseAsString = null;
     int status = 0;
     while (retry < 5) {
-      try {
-        response = executeRequest(webTargetClone);
+      try(Response response = executeRequest(webTarget)) {
         status = response.getStatus();
         if (status == 200) {
-          responseAsString = response.readEntity(String.class);
-          return responseAsString;
+          return response.readEntity(String.class);
         } else if (status == 404) {
           LOG.warn(
               "ArteTaskBase: attempt {} failed 404 for url {}",
               retry,
-              webTargetClone.getUri().toString());
+              webTarget.getUri());
           return null;
-        } else {
-          throw new Exception("HTTP: " + status);
         }
       } catch (final Exception e) {
-        String msg = status + "";
-        if (status == 0) {
-          msg = e.getMessage();
-        }
+        String msg = status + status == 0 ? "" :  e.getMessage() ;
         if (retry == 4) {
           LOG.error(
               "ArteTaskBase: attempt {} failed {} for url {}",
               retry,
               msg,
-              webTargetClone.getUri().toString());
+              webTarget.getUri());
         } else {
           LOG.warn(
               "ArteTaskBase: attempt {} failed {} for url {}",
               retry,
               msg,
-              webTargetClone.getUri().toString());
+              webTarget.getUri());
         }
         retry++;
-      } finally {
-        try {
-          response.close();
-        } catch (final Exception e) {
-        }
       }
-      webTargetClone = createWebTarget(webTargetClone.getUri().toString());
+      webTarget = createWebTarget(webTarget.getUri().toString());
     }
-    return responseAsString;
+    return null;
   }
 
   protected <O> Optional<O> deserializeOptional(final WebTarget aTarget, final Type aType) {

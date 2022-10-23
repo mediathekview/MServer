@@ -241,17 +241,10 @@ public class ArteFilmDeserializer implements JsonDeserializer<Optional<Film>> {
         if (!value.isEmpty()) {
           String type = broadcastObject.get(JSON_ELEMENT_BROADCASTTYPE).getAsString();
           switch (type) {
-            case BROADCASTTTYPE_FIRST:
-              broadcastBeginFirst = value;
-              break;
-            case BROADCASTTTYPE_MAJOR_RE:
-              broadcastBeginMajor = value;
-              break;
-            case BROADCASTTTYPE_MINOR_RE:
-              broadcastBeginMinor = value;
-              break;
-            default:
-              LOG.debug("New broadcasttype: " + type);
+            case BROADCASTTTYPE_FIRST -> broadcastBeginFirst = value;
+            case BROADCASTTTYPE_MAJOR_RE -> broadcastBeginMajor = value;
+            case BROADCASTTTYPE_MINOR_RE -> broadcastBeginMinor = value;
+            default -> LOG.debug("New broadcasttype: {}", type);
           }
         }
       }
