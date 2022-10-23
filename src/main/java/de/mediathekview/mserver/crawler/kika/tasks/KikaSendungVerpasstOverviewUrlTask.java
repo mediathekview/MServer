@@ -20,7 +20,13 @@ import java.util.Set;
 import java.util.concurrent.Callable;
 import java.util.stream.Collectors;
 
-/** Gathers the URLs needed to get the "verpasste Sendungen". */
+/**
+ * Gathers the URLs needed to get the "verpasste Sendungen".
+ *
+ * @author Nicklas Wiegandt (Nicklas2751)<br>
+ *     <b>Mail:</b> nicklas@wiegandt.eu<br>
+ *     <b>Riot.im:</b> nicklas2751:matrix.elaon.de<br>
+ */
 public class KikaSendungVerpasstOverviewUrlTask implements Callable<Set<CrawlerUrlDTO>> {
 
   private static final Logger LOG = LogManager.getLogger(KikaSendungVerpasstOverviewUrlTask.class);
@@ -90,4 +96,5 @@ public class KikaSendungVerpasstOverviewUrlTask implements Callable<Set<CrawlerU
 
     return dateStrings;
   }
+
 }

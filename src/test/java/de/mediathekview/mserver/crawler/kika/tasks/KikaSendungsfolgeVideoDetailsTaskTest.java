@@ -128,7 +128,7 @@ public class KikaSendungsfolgeVideoDetailsTaskTest extends KikaTaskTestBase {
             "https://nrodlzdf-a.akamaihd.net/de/tivi/20/08/200805_folge42_mischmaschsalat_gut/2/200805_folge42_mischmaschsalat_gut_808k_p11v15.mp4",
             "https://nrodlzdf-a.akamaihd.net/de/tivi/20/08/200805_folge42_mischmaschsalat_gut/2/200805_folge42_mischmaschsalat_gut_1628k_p13v15.mp4",
             "",
-            GeoLocations.GEO_DE
+            GeoLocations.GEO_NONE
           },
           {
             "https://www.kika.de/av-import/ohne-sendungsbezug/felix-sucht-bakterien100-avCustom.xml",
@@ -176,7 +176,7 @@ public class KikaSendungsfolgeVideoDetailsTaskTest extends KikaTaskTestBase {
             "https://mediandr-a.akamaihd.net/progressive_geo/2018/1026/TV-20181026-1137-2700.hq.mp4",
             "https://mediandr-a.akamaihd.net/progressive_geo/2018/1026/TV-20181026-1137-2700.hd.mp4",
             "",
-            GeoLocations.GEO_DE
+            GeoLocations.GEO_NONE
           },
           {
             "https://www.kika.de/videos/alle-dgs/video80444_zc-32cf7dfb_zs-c6524396.html",
@@ -208,7 +208,7 @@ public class KikaSendungsfolgeVideoDetailsTaskTest extends KikaTaskTestBase {
             "https://hrardmediathek-a.akamaihd.net/video/as/geoblocking/2021_02/hrLogo_210205112856_177750_13265289_1280x720-50p-5000kbit.mp4",
             "https://hrardmediathek-a.akamaihd.net/video/as/geoblocking/2021_02/hrLogo_210205112856_177750_13265289_1920x1080-50p-8000kbit.mp4",
             "",
-            GeoLocations.GEO_DE
+            GeoLocations.GEO_NONE
           }
         });
   }

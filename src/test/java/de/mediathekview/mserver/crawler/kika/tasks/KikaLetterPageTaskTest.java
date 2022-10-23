@@ -41,12 +41,9 @@ public class KikaLetterPageTaskTest extends KikaTaskTestBase {
 
     final KikaCrawlerUrlDto[] expected =
         new KikaCrawlerUrlDto[] {
-          new KikaCrawlerUrlDto(
-              "https://www.kika.de/verbotene-geschichten/sendereihe290.html", FilmType.NORMAL),
-          new KikaCrawlerUrlDto(
-              "https://www.kika.de/verknallt-abgedreht/sendereihe2128.html", FilmType.NORMAL),
-          new KikaCrawlerUrlDto(
-              "https://www.kika.de/vier-kartoffeln/sendereihe2124.html", FilmType.NORMAL)
+          new KikaCrawlerUrlDto("https://www.kika.de/verbotene-geschichten/sendereihe290.html", FilmType.NORMAL),
+          new KikaCrawlerUrlDto("https://www.kika.de/verknallt-abgedreht/sendereihe2128.html", FilmType.NORMAL),
+          new KikaCrawlerUrlDto("https://www.kika.de/vier-kartoffeln/sendereihe2124.html", FilmType.NORMAL)
         };
 
     final Queue<KikaCrawlerUrlDto> urls = new ConcurrentLinkedQueue<>();
@@ -62,53 +59,47 @@ public class KikaLetterPageTaskTest extends KikaTaskTestBase {
 
   @Test
   public void testSignLanguage() throws IOException {
-    final String requestUrl = getWireMockBaseUrlSafe() + "/videos/alle-gbs/videos-gbs-100.html";
+    final String requestUrl =
+        wireMockServer.baseUrl() + "/videos/alle-gbs/videos-gbs-100.html";
 
-    jsoupConnection = JsoupMock.mock(requestUrl, "/kika/kika_gbs1.html");
+    jsoupConnection =
+        JsoupMock.mock(requestUrl, "/kika/kika_gbs1.html");
     KikaCrawler crawler = createCrawler();
     crawler.setConnection(jsoupConnection);
 
     final KikaCrawlerUrlDto[] expected =
         new KikaCrawlerUrlDto[] {
-          new KikaCrawlerUrlDto(
-              "https://www.kika.de/videos/alle-dgs/video80444_zc-32cf7dfb_zs-c6524396.html",
-              FilmType.SIGN_LANGUAGE),
-          new KikaCrawlerUrlDto(
-              "https://www.kika.de/videos/alle-dgs/neun-karl-den-grossen-104_zc-32cf7dfb_zs-c6524396.html",
-              FilmType.SIGN_LANGUAGE),
-          new KikaCrawlerUrlDto(
-              "https://www.kika.de/videos/alle-dgs/zehn-napoleon-102_zc-32cf7dfb_zs-c6524396.html",
-              FilmType.SIGN_LANGUAGE),
-          new KikaCrawlerUrlDto(
-              "https://www.kika.de/videos/alle-dgs/video79956_zc-32cf7dfb_zs-c6524396.html",
-              FilmType.SIGN_LANGUAGE),
-          new KikaCrawlerUrlDto(
-              "https://www.kika.de/videos/alle-dgs/video80104_zc-32cf7dfb_zs-c6524396.html",
-              FilmType.SIGN_LANGUAGE),
-          new KikaCrawlerUrlDto(
-              "https://www.kika.de/videos/alle-dgs/video80452_zc-32cf7dfb_zs-c6524396.html",
-              FilmType.SIGN_LANGUAGE),
-          new KikaCrawlerUrlDto(
-              "https://www.kika.de/videos/alle-dgs/video80450_zc-32cf7dfb_zs-c6524396.html",
-              FilmType.SIGN_LANGUAGE),
-          new KikaCrawlerUrlDto(
-              "https://www.kika.de/videos/alle-dgs/video80448_zc-32cf7dfb_zs-c6524396.html",
-              FilmType.SIGN_LANGUAGE),
-          new KikaCrawlerUrlDto(
-              "https://www.kika.de/videos/alle-dgs/video79540_zc-32cf7dfb_zs-c6524396.html",
-              FilmType.SIGN_LANGUAGE),
-          new KikaCrawlerUrlDto(
-              "https://www.kika.de/videos/alle-dgs/video79286_zc-32cf7dfb_zs-c6524396.html",
-              FilmType.SIGN_LANGUAGE)
+            new KikaCrawlerUrlDto(
+                "https://www.kika.de/videos/alle-dgs/video80444_zc-32cf7dfb_zs-c6524396.html", FilmType.SIGN_LANGUAGE),
+            new KikaCrawlerUrlDto(
+                "https://www.kika.de/videos/alle-dgs/neun-karl-den-grossen-104_zc-32cf7dfb_zs-c6524396.html", FilmType.SIGN_LANGUAGE),
+            new KikaCrawlerUrlDto(
+                "https://www.kika.de/videos/alle-dgs/zehn-napoleon-102_zc-32cf7dfb_zs-c6524396.html", FilmType.SIGN_LANGUAGE),
+            new KikaCrawlerUrlDto(
+                "https://www.kika.de/videos/alle-dgs/video79956_zc-32cf7dfb_zs-c6524396.html", FilmType.SIGN_LANGUAGE),
+            new KikaCrawlerUrlDto(
+                "https://www.kika.de/videos/alle-dgs/video80104_zc-32cf7dfb_zs-c6524396.html", FilmType.SIGN_LANGUAGE),
+            new KikaCrawlerUrlDto(
+                "https://www.kika.de/videos/alle-dgs/video80452_zc-32cf7dfb_zs-c6524396.html", FilmType.SIGN_LANGUAGE),
+            new KikaCrawlerUrlDto(
+                "https://www.kika.de/videos/alle-dgs/video80450_zc-32cf7dfb_zs-c6524396.html", FilmType.SIGN_LANGUAGE),
+            new KikaCrawlerUrlDto(
+                "https://www.kika.de/videos/alle-dgs/video80448_zc-32cf7dfb_zs-c6524396.html", FilmType.SIGN_LANGUAGE),
+            new KikaCrawlerUrlDto(
+                "https://www.kika.de/videos/alle-dgs/video79540_zc-32cf7dfb_zs-c6524396.html", FilmType.SIGN_LANGUAGE),
+            new KikaCrawlerUrlDto(
+                "https://www.kika.de/videos/alle-dgs/video79286_zc-32cf7dfb_zs-c6524396.html", FilmType.SIGN_LANGUAGE)
         };
 
-    final Queue<KikaCrawlerUrlDto> urls = new ConcurrentLinkedQueue<>();
+    Queue<KikaCrawlerUrlDto> urls = new ConcurrentLinkedQueue<>();
     urls.add(new KikaCrawlerUrlDto(requestUrl, FilmType.SIGN_LANGUAGE));
     final KikaLetterPageTask target =
-        new KikaLetterPageTask(crawler, urls, KikaConstants.BASE_URL);
+        new KikaLetterPageTask(
+            crawler, urls, KikaConstants.BASE_URL);
     final Set<KikaCrawlerUrlDto> actual = target.invoke();
 
     assertThat(actual.size(), equalTo(expected.length));
     assertThat(actual, containsInAnyOrder(expected));
   }
+
 }

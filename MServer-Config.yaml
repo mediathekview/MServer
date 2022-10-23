@@ -105,6 +105,9 @@ maximumDaysForSendungVerpasstSectionFuture: 0
 # The time in seconds before a socket connection should time out.
 socketTimeoutInSeconds: 60
 
+crawlerURLs:
+  KIKA_API_URL: http://prod.kinderplayer.cdn.tvnext.tv
+  
 #### Specific crawler configurations ####
 senderConfigurations:
   ARD:
