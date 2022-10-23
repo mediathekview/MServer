@@ -19,10 +19,13 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Comparator;
 import java.util.Date;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 @RunWith(Parameterized.class)
 public class CrawlerManagerTest implements MessageListener {
@@ -93,6 +96,7 @@ public class CrawlerManagerTest implements MessageListener {
       CRAWLER_MANAGER.addMessageListener(this);
       CRAWLER_MANAGER.importFilmlist(format, filmListFilePath.toAbsolutePath().toString());
       CRAWLER_MANAGER.saveFilmlist(testFileFolderPath.resolve(filmlistPath), format);
+      assertThat(testFileFolderPath.resolve(filmlistPath)).exists();
     }
   }
 }

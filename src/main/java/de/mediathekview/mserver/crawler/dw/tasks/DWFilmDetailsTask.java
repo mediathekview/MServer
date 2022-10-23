@@ -65,8 +65,8 @@ public class DWFilmDetailsTask extends AbstractDocumentTask<Film, CrawlerUrlDTO>
     final String videoId = pageId.substring(pageId.indexOf('-') + 1);
     final String downloadUrl = String.format(DOWNLOAD_DETAILS_URL_TEMPLATE, baseUrl, videoId);
 
-    try {
-      final WebTarget target = ClientBuilder.newClient().target(new URL(downloadUrl).toString());
+    try(var client = ClientBuilder.newClient()) {
+      final WebTarget target = client.target(new URL(downloadUrl).toString());
       final Response response = target.request(MediaType.APPLICATION_JSON_TYPE).get();
       if (response.getStatus() == 200) {
 
@@ -128,7 +128,7 @@ public class DWFilmDetailsTask extends AbstractDocumentTask<Film, CrawlerUrlDTO>
       return;
     }
 
-    final Optional<LocalDate> time = parseDate(dateText.orElse(null));
+    final Optional<LocalDate> time = dateText.flatMap(this::parseDate);
     createFilm(
         aUrlDTO,
         titel.get(),

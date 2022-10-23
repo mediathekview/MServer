@@ -15,7 +15,6 @@ public final class UrlUtils {
   public static final String PROTOCOL_HTTPS = "https:";
 
   private static final String WRONG_PARAMETER_START = "?&";
-  private static final String REGEX_ESCAPOR = "\\";
   private static final String PARAMETER_PATTERN = "%s=%s";
   private static final String URL_PARAMETER_SEPPERATOR = "&";
   private static final String URL_TO_PARAMETERS_SPLITTERATOR = "?";
@@ -73,7 +72,7 @@ public final class UrlUtils {
   public static String changeOrAddParameter(
       final String aUrl, final String aParameter, final String aValue) {
     final StringBuilder newUrlBuilder = new StringBuilder();
-    final String[] splittedUrl = aUrl.split(REGEX_ESCAPOR + URL_TO_PARAMETERS_SPLITTERATOR);
+    final String[] splittedUrl = aUrl.split("\\" + URL_TO_PARAMETERS_SPLITTERATOR);
     newUrlBuilder.append(splittedUrl[0]);
 
     if (splittedUrl.length == 2) {
@@ -82,8 +81,8 @@ public final class UrlUtils {
               + URL_TO_PARAMETERS_SPLITTERATOR
                   .replaceAll(
                       String.format(URL_PARAMETER_REPLACEMENT_REGEX_PATTERN, aParameter), "")
-                  .replaceAll(
-                      REGEX_ESCAPOR + WRONG_PARAMETER_START, URL_TO_PARAMETERS_SPLITTERATOR);
+                  .replace(
+                      WRONG_PARAMETER_START, URL_TO_PARAMETERS_SPLITTERATOR);
 
       newUrlBuilder.append(URL_TO_PARAMETERS_SPLITTERATOR);
       newUrlBuilder.append(cleanedParameters);

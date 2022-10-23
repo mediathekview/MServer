@@ -1,11 +1,11 @@
 package de.mediathekview.mserver.testhelper;
 
 import de.mediathekview.mserver.base.webaccess.JsoupConnection;
+import org.apache.logging.log4j.LogManager;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.parser.Parser;
 import org.mockito.Mockito;
-import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -57,7 +57,7 @@ public class JsoupMock {
         Mockito.when(connection.requestBodyAsXmlDocument(org.mockito.Mockito.eq(url)))
             .thenReturn(XmlDocument);
       } catch (final IOException ioException) {
-        LoggerFactory.getLogger(JsoupMock.class)
+        LogManager.getLogger(JsoupMock.class)
             .error("Something went wrong mocking the JSoupConnection for  {}", url, ioException);
       }
     }
