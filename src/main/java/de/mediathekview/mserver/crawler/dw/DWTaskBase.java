@@ -23,11 +23,11 @@ import java.util.Queue;
 public abstract class DWTaskBase<T, D extends CrawlerUrlDTO> extends AbstractRestTask<T, D> {
   private static final Logger LOG = LogManager.getLogger(DWTaskBase.class);
 
-  private RateLimiter limiter = null;
+  private transient RateLimiter limiter = null;
 
-  private final GsonBuilder gsonBuilder;
+  private transient final GsonBuilder gsonBuilder;
 
-  public DWTaskBase(
+  protected DWTaskBase(
       final AbstractCrawler aCrawler, final Queue<D> aUrlToCrawlDtos, final String authKey) {
     super(aCrawler, aUrlToCrawlDtos, authKey);
     gsonBuilder = new GsonBuilder();aCrawler.getSender();

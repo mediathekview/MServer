@@ -4,7 +4,6 @@ import com.google.gson.*;
 import de.mediathekview.mserver.base.utils.JsonUtils;
 import de.mediathekview.mserver.crawler.basic.CrawlerUrlDTO;
 import de.mediathekview.mserver.crawler.basic.PagedElementListDTO;
-import de.mediathekview.mserver.crawler.dw.DwConstants;
 
 import java.lang.reflect.Type;
 import java.util.HashSet;
@@ -28,9 +27,7 @@ public class DWSendungOverviewDeserializer
 		return Optional.empty();
 	}
     final JsonElement paginationElement = contentObject.get(ELEMENT_PAGINATION);
-    final Optional<String> nextUrl =
-        JsonUtils.getAttributeAsString(paginationElement.getAsJsonObject(), ELEMENT_PAGINATION_NEXT);
-    return nextUrl;
+    return JsonUtils.getAttributeAsString(paginationElement.getAsJsonObject(), ELEMENT_PAGINATION_NEXT);
   }
 
   private static Set<CrawlerUrlDTO> parseItems(final JsonObject aContentObject) {

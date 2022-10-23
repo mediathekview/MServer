@@ -66,8 +66,7 @@ public class DwCrawler extends AbstractCrawler {
     startUrl.add(url);
 
     final DWOverviewTask overviewTask = new DWOverviewTask(this, startUrl, 0);
-    Set<CrawlerUrlDTO> videoList = forkJoinPool.submit(overviewTask).get();
-    
-    return videoList;
+    return forkJoinPool.submit(overviewTask).get();
+
   }
 }

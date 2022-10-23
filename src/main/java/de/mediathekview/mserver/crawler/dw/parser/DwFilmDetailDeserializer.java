@@ -21,8 +21,6 @@ import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
@@ -101,12 +99,12 @@ public class DwFilmDetailDeserializer
         new Film(UUID.randomUUID(), sender, title.get(), topic.get(), getAiredDate(thisPageUrl.get(),jsonObject), getDuration(thisPageUrl.get(),jsonObjectMainContent));
     //
     final Optional<String> description = JsonUtils.getAttributeAsString(jsonObject, ELEMENT_TEASER);
-    description.ifPresent(c -> film.setBeschreibung(c));
+    description.ifPresent(film::setBeschreibung);
     //
-    getWebsite(thisPageUrl.get(), jsonObject).ifPresent(c -> film.setWebsite(c));
+    getWebsite(thisPageUrl.get(), jsonObject).ifPresent(film::setWebsite);
     //
     final JsonArray jsonObjectMainContentSources = jsonObjectMainContent.get(ELEMENT_MAINCONTENT_SOURCES).getAsJsonArray();
-    getVideos(title.get(),jsonObjectMainContentSources).ifPresent(c -> film.addAllUrls(c));
+    getVideos(title.get(),jsonObjectMainContentSources).ifPresent(film::addAllUrls);
     //
     return Optional.of(film);
   }
@@ -121,24 +119,24 @@ public class DwFilmDetailDeserializer
         LOG.error("Error getWebsite for video {} on value '{}'", videoid, websiteString.get());
       }
     } else {
-      LOG.error("no error getWebsite found for video {}" + videoid);
+      LOG.error("no error getWebsite found for video {}", videoid);
     }
     return websiteUrl;
   }
   
   private LocalDateTime getAiredDate(final String videoid, final JsonObject jsonObject) {
-    final DateTimeFormatter DATE_FORMATTER =
+    final DateTimeFormatter dateFormatter =
         DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSSX");
     LocalDateTime airedDatetime = LocalDateTime.now();
     final Optional<String> displayDate = JsonUtils.getAttributeAsString(jsonObject, ELEMENT_DATETIME);
     if (displayDate.isPresent()) {
       try {
-        airedDatetime = LocalDateTime.parse(displayDate.get(), DATE_FORMATTER);
+        airedDatetime = LocalDateTime.parse(displayDate.get(), dateFormatter);
       } catch (Exception e) {
         LOG.error("error getAiredDate for video {} on value '{}'", videoid, displayDate.get());
       }
     } else {
-      LOG.error("no error airedDate found for video {}" + videoid);
+      LOG.error("no error airedDate found for video {}",  videoid);
     }
     return airedDatetime;
   }
@@ -156,7 +154,7 @@ public class DwFilmDetailDeserializer
         LOG.error("error getDuration for video {} on value '{}'", videoid, durationString.get());
       }
     } else {
-      LOG.error("no error duration found for video {}" + videoid);
+      LOG.error("no error duration found for video {}", videoid);
     }
     return duration;
   }
