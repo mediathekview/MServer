@@ -92,6 +92,10 @@ public class DwFilmDetailDeserializer
       LOG.error("Could not find sources for video {} url {}", videoId.get(), thisPageUrl.orElse(""));
       return Optional.empty();
     }
+    if (thisPageUrl.isEmpty()) {
+      LOG.error("Could not find thisPageUrl for video {}", videoId.get());
+      return Optional.empty();
+    }
     
     final Film film =
         new Film(UUID.randomUUID(), sender, title.get(), topic.get(), getAiredDate(thisPageUrl.get(),jsonObject), getDuration(thisPageUrl.get(),jsonObjectMainContent));
@@ -144,7 +148,10 @@ public class DwFilmDetailDeserializer
     final Optional<String> durationString = JsonUtils.getAttributeAsString(jsonObject, ELEMENT_MAINCONTENT_DURATION);
     if (durationString.isPresent()) {
       try {
-        duration = Duration.ofSeconds(Integer.parseInt(JsonUtils.getAttributeAsString(jsonObject, ELEMENT_MAINCONTENT_DURATION).get()));
+    	Optional<String> durationInSeconds = JsonUtils.getAttributeAsString(jsonObject, ELEMENT_MAINCONTENT_DURATION);
+    	if (durationInSeconds.isPresent()) {
+    		duration = Duration.ofSeconds(Integer.parseInt(durationInSeconds.get()));
+    	}
       } catch (Exception e) {
         LOG.error("error getDuration for video {} on value '{}'", videoid, durationString.get());
       }
