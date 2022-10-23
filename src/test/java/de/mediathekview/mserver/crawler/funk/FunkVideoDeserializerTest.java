@@ -10,9 +10,9 @@ import de.mediathekview.mserver.crawler.basic.FilmInfoDto;
 import de.mediathekview.mserver.crawler.basic.PagedElementListDTO;
 import de.mediathekview.mserver.crawler.funk.json.FunkVideoDeserializer;
 import org.jetbrains.annotations.NotNull;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
 import org.mockito.Mockito;
 
 import java.io.IOException;
@@ -24,24 +24,14 @@ import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Optional;
+import java.util.stream.Stream;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.equalTo;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.params.provider.Arguments.arguments;
 
-@RunWith(Parameterized.class)
-public class FunkVideoDeserializerTest {
+class FunkVideoDeserializerTest {
 
-  private final String jsonFile;
-  private final PagedElementListDTO<FilmInfoDto> correctResults;
-
-  public FunkVideoDeserializerTest(
-      final String jsonFile, final PagedElementListDTO<FilmInfoDto> correctResults) {
-    this.jsonFile = jsonFile;
-    this.correctResults = correctResults;
-  }
-
-  @Parameterized.Parameters
-  public static Object[][] data() {
+  static Stream<Arguments> data() {
     final PagedElementListDTO<FilmInfoDto> videos = new PagedElementListDTO<>();
     videos.setNextPage(Optional.empty());
     final FilmInfoDto film1 = new FilmInfoDto("https://api.nexx.cloud/v3/741/videos/byid/1605930");
@@ -76,7 +66,8 @@ public class FunkVideoDeserializerTest {
     film3.setWebsite(
         "https://www.funk.net/channel/patchwork-gangsta-12011/patchwork-gangsta-folge-03-drogendrohnendeal-1600790");
     videos.addElement(film3);
-    return new Object[][] {{"/funk/funk_video_page_last.json", videos}};
+
+    return Stream.of(arguments("/funk/funk_video_page_last.json", videos));
   }
 
   @NotNull
@@ -85,8 +76,10 @@ public class FunkVideoDeserializerTest {
         dateTimeText, DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSSZ"));
   }
 
-  @Test
-  public void testDeserialize() throws URISyntaxException, IOException {
+  @ParameterizedTest
+  @MethodSource("data")
+  void testDeserialize(String jsonFile, PagedElementListDTO<FilmInfoDto> correctResults)
+      throws URISyntaxException, IOException {
     final Type funkVideosType = new TypeToken<PagedElementListDTO<FilmInfoDto>>() {}.getType();
     final MServerConfigManager rootConfig = new MServerConfigManager("MServer-JUnit-Config.yaml");
     final MServerBasicConfigDTO senderConfig = rootConfig.getSenderConfig(Sender.FUNK);
@@ -99,8 +92,7 @@ public class FunkVideoDeserializerTest {
 
     final Gson gson =
         new GsonBuilder()
-            .registerTypeAdapter(
-                funkVideosType, new FunkVideoDeserializer(mockedFunkCrawler))
+            .registerTypeAdapter(funkVideosType, new FunkVideoDeserializer(mockedFunkCrawler))
             .create();
 
     final PagedElementListDTO<FilmInfoDto> videoResultList =
@@ -108,6 +100,6 @@ public class FunkVideoDeserializerTest {
             Files.newBufferedReader(Paths.get(getClass().getResource(jsonFile).toURI())),
             funkVideosType);
 
-    assertThat(videoResultList, equalTo(correctResults));
+    assertThat(videoResultList).isEqualTo(correctResults);
   }
 }
