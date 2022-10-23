@@ -1,0 +1,1196 @@
+{
+  "type" : "Video",
+  "id" : 59567960,
+  "languageId" : 1,
+  "trackingInfo" : {
+    "level2" : "1",
+    "page" : "<prefix>::TV::DW Nachrichten::Kremlkritiker Alexej Nawalny erhält Sacharow-Preis",
+    "customCriteria" : {
+      "x8" : "",
+      "x9" : "20211020",
+      "x10" : "<prefix>::TV::DW Nachrichten",
+      "x1" : "18",
+      "x2" : "1",
+      "X14" : "",
+      "x3" : "59567960",
+      "x4" : "3230",
+      "x5" : "Kremlkritiker Alexej Nawalny erhält Sacharow-Preis",
+      "X15" : "",
+      "x6" : "0",
+      "X18" : "",
+      "x7" : ""
+    }
+  },
+  "mainContent" : {
+    "id" : 59567960,
+    "type" : "Video",
+    "name" : "Kremlkritiker Alexej Nawalny erhält Sacharow-Preis",
+    "permaLink" : "https://p.dw.com/p/41wLY",
+    "url" : "https://api.dw.com/api/detail/video/59567960",
+    "duration" : 102,
+    "sources" : [ {
+      "protocol" : "https",
+      "format" : "mp4",
+      "bitrate" : 531,
+      "url" : "https://tvdownloaddw-a.akamaihd.net/dwtv_video/flv/jd/jd20211020_sacha19cneu_sd_sor.mp4",
+      "quality" : "medium"
+    }, {
+      "protocol" : "https",
+      "format" : "mp4",
+      "bitrate" : 2467,
+      "url" : "https://tvdownloaddw-a.akamaihd.net/dwtv_video/flv/jd/jd20211020_sacha19cneu_sd_avc.mp4",
+      "quality" : "high"
+    }, {
+      "protocol" : "https",
+      "format" : "mp4",
+      "bitrate" : 656,
+      "url" : "https://tvdownloaddw-a.akamaihd.net/Events/mp4/jd/jd20211020_sacha19cneu_sd.mp4",
+      "quality" : "medium"
+    }, {
+      "protocol" : "https",
+      "format" : "mp4",
+      "bitrate" : 1861,
+      "url" : "https://tvdownloaddw-a.akamaihd.net/Events/mp4/jd/jd20211020_sacha19cneu_hd.mp4",
+      "quality" : "high"
+    }, {
+      "protocol" : "https",
+      "format" : "HLS",
+      "bitrate" : 2467,
+      "url" : "https://hlsvod.dw.com/i/dwtv_video/flv/jd/jd20211020_sacha19cneu_,sd_avc,sd_sor,.mp4.csmil/master.m3u8",
+      "quality" : "HLS"
+    } ],
+    "previewImage" : {
+      "id" : 57347616,
+      "type" : "Image",
+      "name" : "Der Menschenrechtspreis des Europaparlaments geht 2021 an den russischen Oppositionellen Alexej Nawalny.",
+      "sizes" : [ {
+        "width" : 220,
+        "height" : 124,
+        "url" : "https://static.dw.com/image/57347616_301.jpg"
+      }, {
+        "width" : 460,
+        "height" : 259,
+        "url" : "https://static.dw.com/image/57347616_302.jpg"
+      }, {
+        "width" : 700,
+        "height" : 394,
+        "url" : "https://static.dw.com/image/57347616_303.jpg"
+      }, {
+        "width" : 940,
+        "height" : 529,
+        "url" : "https://static.dw.com/image/57347616_304.jpg"
+      } ]
+    },
+    "trackingInfo" : {
+      "level2" : "1",
+      "page" : "<prefix>::TV::DW Nachrichten::V_Kremlkritiker Alexej Nawalny erhält Sacharow-Preis",
+      "customCriteria" : {
+        "x8" : "",
+        "x9" : "20211020",
+        "x10" : "<prefix>::TV::DW Nachrichten",
+        "x12" : "",
+        "x1" : "201",
+        "x11" : "jd/jd20211020_sacha19cneu_sd",
+        "x2" : "1",
+        "x3" : "59567960",
+        "x4" : "3230",
+        "x5" : "V_Kremlkritiker Alexej Nawalny erhält Sacharow-Preis",
+        "x6" : "1",
+        "x7" : ""
+      }
+    },
+    "mediaTrackingInfo" : {
+      "mediaType" : "Video",
+      "level2" : "1",
+      "playerId" : "1",
+      "mediaName" : "jd/jd20211020_sacha19cneu_sd",
+      "mediaDuration" : 102,
+      "live" : false
+    },
+    "programId" : 262045
+  },
+  "name" : "Kremlkritiker Alexej Nawalny erhält Sacharow-Preis",
+  "teaser" : "Der Menschenrechtspreis des Europaparlaments geht 2021 an den russischen Oppositionellen Alexej Nawalny. Der 45-Jährige, der sich derzeit in Haft befindet, wird für seinen unermüdlichen Kampf gegen die Korruption des Regimes von Wladimir Putin ausgezeichnet.",
+  "categoryName" : "DW Nachrichten",
+  "text" : "",
+  "permaLink" : "https://p.dw.com/p/41wLY",
+  "displayDate" : "2021-10-20T19:15:40.878Z",
+  "referenceGroups" : [ {
+    "name" : "Schlagwörter",
+    "type" : "Keywords",
+    "items" : [ {
+      "type" : "SearchRef",
+      "name" : "Alexej Nawalny",
+      "url" : "https://api.dw.com/api/search/global?terms=Alexej+Nawalny&languageId=1"
+    }, {
+      "type" : "SearchRef",
+      "name" : "Sacharow-Preis",
+      "url" : "https://api.dw.com/api/search/global?terms=Sacharow-Preis&languageId=1"
+    }, {
+      "type" : "SearchRef",
+      "name" : "Europäisches Parlament",
+      "url" : "https://api.dw.com/api/search/global?terms=Europ%C3%A4isches+Parlament&languageId=1"
+    }, {
+      "type" : "SearchRef",
+      "name" : "Menschenrechte",
+      "url" : "https://api.dw.com/api/search/global?terms=Menschenrechte&languageId=1"
+    }, {
+      "type" : "SearchRef",
+      "name" : "Russland",
+      "url" : "https://api.dw.com/api/search/global?terms=Russland&languageId=1"
+    }, {
+      "type" : "SearchRef",
+      "name" : "Opposition",
+      "url" : "https://api.dw.com/api/search/global?terms=Opposition&languageId=1"
+    }, {
+      "type" : "SearchRef",
+      "name" : "Wladimir Putin",
+      "url" : "https://api.dw.com/api/search/global?terms=Wladimir+Putin&languageId=1"
+    } ]
+  } ],
+  "commentsEnabled" : false,
+  "teaserGroup" : {
+    "name" : "Mehr zum Thema",
+    "type" : "AdditionalMultimediaContent",
+    "items" : [ {
+      "type" : "AudioTeaser",
+      "name" : "Nawalny gegen Putin: Wer gewinnt den Machtkampf?",
+      "teaserText" : "Regimekritiker Alexej Nawalny fordert Russlands Präsident Putin heraus. Kann er ihm gefährlich werden?",
+      "displayDate" : "2021-01-29T08:57:12.720Z",
+      "image" : {
+        "id" : 56371271,
+        "type" : "Image",
+        "name" : "DW Sendung To The Point | Totale DEU",
+        "sizes" : [ {
+          "width" : 220,
+          "height" : 124,
+          "url" : "https://static.dw.com/image/56371271_301.jpg"
+        }, {
+          "width" : 460,
+          "height" : 259,
+          "url" : "https://static.dw.com/image/56371271_302.jpg"
+        }, {
+          "width" : 700,
+          "height" : 394,
+          "url" : "https://static.dw.com/image/56371271_303.jpg"
+        }, {
+          "width" : 940,
+          "height" : 529,
+          "url" : "https://static.dw.com/image/56371271_304.jpg"
+        } ]
+      },
+      "reference" : {
+        "id" : 56374179,
+        "type" : "AudioRef",
+        "name" : "Nawalny gegen Putin: Wer gewinnt den Machtkampf?",
+        "url" : "https://api.dw.com/api/detail/audio/56374179"
+      },
+      "columnCount" : 1,
+      "allowedColumnCounts" : [ 1, 2 ],
+      "commentsEnabled" : false,
+      "duration" : 2551
+    }, {
+      "type" : "VideoTeaser",
+      "name" : "Großbritannien: Tories suchen neuen Parteivorsitz",
+      "teaserText" : "Favoriten sind Ex-Finanzminister Sunak, Ex-Verteidigungsministerin Mordaunt und Ex-Premier Johnson.",
+      "displayDate" : "2022-10-21T18:19:18.147Z",
+      "image" : {
+        "id" : 62408755,
+        "type" : "Image",
+        "name" : "Großbritannien | Penny Mordaunt ",
+        "sizes" : [ {
+          "width" : 220,
+          "height" : 124,
+          "url" : "https://static.dw.com/image/62408755_301.jpg"
+        }, {
+          "width" : 460,
+          "height" : 259,
+          "url" : "https://static.dw.com/image/62408755_302.jpg"
+        }, {
+          "width" : 700,
+          "height" : 394,
+          "url" : "https://static.dw.com/image/62408755_303.jpg"
+        }, {
+          "width" : 940,
+          "height" : 529,
+          "url" : "https://static.dw.com/image/62408755_304.jpg"
+        } ]
+      },
+      "reference" : {
+        "id" : 63523465,
+        "type" : "VideoRef",
+        "name" : "Großbritannien: Tories suchen neuen Parteivorsitz",
+        "url" : "https://api.dw.com/api/detail/video/63523465"
+      },
+      "columnCount" : 1,
+      "allowedColumnCounts" : [ 1, 2 ],
+      "commentsEnabled" : false,
+      "duration" : 82,
+      "programId" : 262045
+    }, {
+      "type" : "VideoTeaser",
+      "name" : "Kiew: Russland will Staudamm sprengen",
+      "teaserText" : "Ukraine-Präsident Selenskyj sieht \"hunderttausende von Menschen\" betroffen. ",
+      "displayDate" : "2022-10-21T18:17:42.812Z",
+      "image" : {
+        "type" : "Image",
+        "sizes" : [ {
+          "width" : 512,
+          "height" : 288,
+          "url" : "https://tvdownloaddw-a.akamaihd.net/stills/images/jd/jd221021_ukraine19e_image_512x288_3.jpg"
+        }, {
+          "width" : 1024,
+          "height" : 576,
+          "url" : "https://tvdownloaddw-a.akamaihd.net/stills/images/jd/jd221021_ukraine19e_image_1024x576_3.jpg"
+        } ]
+      },
+      "reference" : {
+        "id" : 63523464,
+        "type" : "VideoRef",
+        "name" : "Kiew: Russland will Staudamm sprengen",
+        "url" : "https://api.dw.com/api/detail/video/63523464"
+      },
+      "columnCount" : 1,
+      "allowedColumnCounts" : [ 1, 2 ],
+      "commentsEnabled" : false,
+      "duration" : 98,
+      "programId" : 262045
+    }, {
+      "type" : "VideoTeaser",
+      "name" : "Putin-Kritiker Glukhovsky auf der Buchmesse",
+      "teaserText" : "Der russische Schriftsteller lebt im Exil. Er schreibt mit politischem Witz über die schwierige Lage in seiner Heimat.",
+      "displayDate" : "2022-10-20T18:38:38.020Z",
+      "image" : {
+        "id" : 59535960,
+        "type" : "Image",
+        "name" : "2021 GQ Men of the Year I Dmitry Glukhovsky",
+        "sizes" : [ {
+          "width" : 220,
+          "height" : 124,
+          "url" : "https://static.dw.com/image/59535960_301.jpg"
+        }, {
+          "width" : 460,
+          "height" : 259,
+          "url" : "https://static.dw.com/image/59535960_302.jpg"
+        }, {
+          "width" : 700,
+          "height" : 394,
+          "url" : "https://static.dw.com/image/59535960_303.jpg"
+        }, {
+          "width" : 940,
+          "height" : 529,
+          "url" : "https://static.dw.com/image/59535960_304.jpg"
+        } ]
+      },
+      "reference" : {
+        "id" : 63512750,
+        "type" : "VideoRef",
+        "name" : "Putin-Kritiker Glukhovsky auf der Buchmesse",
+        "url" : "https://api.dw.com/api/detail/video/63512750"
+      },
+      "columnCount" : 1,
+      "allowedColumnCounts" : [ 1, 2 ],
+      "commentsEnabled" : false,
+      "duration" : 89,
+      "programId" : 262045
+    }, {
+      "type" : "VideoTeaser",
+      "name" : "EU-Gipfel sucht Lösungen in der Energiekrise",
+      "teaserText" : "Streit in Brüssel ist programmiert: Beim Thema Gaspreis-Deckel gehen die Meinungen auseinander.",
+      "displayDate" : "2022-10-20T18:36:05.675Z",
+      "image" : {
+        "id" : 63512529,
+        "type" : "Image",
+        "name" : "Deutschland Gaszähler im Heizungskeller eines Wohnhauses",
+        "sizes" : [ {
+          "width" : 220,
+          "height" : 124,
+          "url" : "https://static.dw.com/image/63512529_301.jpg"
+        }, {
+          "width" : 460,
+          "height" : 259,
+          "url" : "https://static.dw.com/image/63512529_302.jpg"
+        }, {
+          "width" : 700,
+          "height" : 394,
+          "url" : "https://static.dw.com/image/63512529_303.jpg"
+        }, {
+          "width" : 940,
+          "height" : 529,
+          "url" : "https://static.dw.com/image/63512529_304.jpg"
+        } ]
+      },
+      "reference" : {
+        "id" : 63512672,
+        "type" : "VideoRef",
+        "name" : "EU-Gipfel sucht Lösungen in der Energiekrise",
+        "url" : "https://api.dw.com/api/detail/video/63512672"
+      },
+      "columnCount" : 1,
+      "allowedColumnCounts" : [ 1, 2 ],
+      "commentsEnabled" : false,
+      "duration" : 116,
+      "programId" : 262045
+    }, {
+      "type" : "VideoTeaser",
+      "name" : "Ukrainer im Osten trotzen der Kälte ",
+      "teaserText" : "Die Ukrainer sind aufgefordert, Strom zu sparen: In der Region Charkiw bleibt den Menschen ohnehin nichts anderes übrig.",
+      "displayDate" : "2022-10-20T18:33:59.418Z",
+      "image" : {
+        "id" : 63502374,
+        "type" : "Image",
+        "name" : "Videostill | Kharkiv on the threshold to winter",
+        "sizes" : [ {
+          "width" : 220,
+          "height" : 124,
+          "url" : "https://static.dw.com/image/63502374_301.jpg"
+        }, {
+          "width" : 460,
+          "height" : 259,
+          "url" : "https://static.dw.com/image/63502374_302.jpg"
+        }, {
+          "width" : 700,
+          "height" : 394,
+          "url" : "https://static.dw.com/image/63502374_303.jpg"
+        }, {
+          "width" : 940,
+          "height" : 529,
+          "url" : "https://static.dw.com/image/63502374_304.jpg"
+        } ]
+      },
+      "reference" : {
+        "id" : 63512634,
+        "type" : "VideoRef",
+        "name" : "Ukrainer im Osten ertragen Kälte bei sinkenden Temperaturen",
+        "url" : "https://api.dw.com/api/detail/video/63512634"
+      },
+      "columnCount" : 1,
+      "allowedColumnCounts" : [ 1, 2 ],
+      "commentsEnabled" : false,
+      "duration" : 125,
+      "programId" : 262045
+    }, {
+      "type" : "VideoTeaser",
+      "name" : "Truss: Kürzeste Amtszeit der britischen Geschichte",
+      "teaserText" : "Kaum anderthalb Monate nach ihrem Antsantritt gibt die Premierministerin auf.",
+      "displayDate" : "2022-10-20T18:30:44.517Z",
+      "image" : {
+        "id" : 63507224,
+        "type" : "Image",
+        "name" : "England Liz Truss Rücktritt",
+        "sizes" : [ {
+          "width" : 220,
+          "height" : 124,
+          "url" : "https://static.dw.com/image/63507224_301.jpg"
+        }, {
+          "width" : 460,
+          "height" : 259,
+          "url" : "https://static.dw.com/image/63507224_302.jpg"
+        }, {
+          "width" : 700,
+          "height" : 394,
+          "url" : "https://static.dw.com/image/63507224_303.jpg"
+        }, {
+          "width" : 940,
+          "height" : 529,
+          "url" : "https://static.dw.com/image/63507224_304.jpg"
+        } ]
+      },
+      "reference" : {
+        "id" : 63512628,
+        "type" : "VideoRef",
+        "name" : "Truss: Kürzeste Amtszeit der britischen Geschichte",
+        "url" : "https://api.dw.com/api/detail/video/63512628"
+      },
+      "columnCount" : 1,
+      "allowedColumnCounts" : [ 1, 2 ],
+      "commentsEnabled" : false,
+      "duration" : 119,
+      "programId" : 262045
+    }, {
+      "type" : "VideoTeaser",
+      "name" : "Wie kam Afrika durch die Coronakrise?",
+      "teaserText" : "Afrika war von der Pandemie besonders betroffen. Wie ist es den Menschen vor Ort ergangen?",
+      "displayDate" : "2022-10-20T13:13:54.565Z",
+      "image" : {
+        "id" : 53074208,
+        "type" : "Image",
+        "name" : "DW Covid-19 Spezial Sendungslogo Composite",
+        "sizes" : [ {
+          "width" : 220,
+          "height" : 124,
+          "url" : "https://static.dw.com/image/53074208_301.jpg"
+        }, {
+          "width" : 460,
+          "height" : 259,
+          "url" : "https://static.dw.com/image/53074208_302.jpg"
+        }, {
+          "width" : 700,
+          "height" : 394,
+          "url" : "https://static.dw.com/image/53074208_303.jpg"
+        }, {
+          "width" : 940,
+          "height" : 529,
+          "url" : "https://static.dw.com/image/53074208_304.jpg"
+        } ]
+      },
+      "reference" : {
+        "id" : 63507426,
+        "type" : "VideoRef",
+        "name" : "Wie kam Afrika durch die Coronakrise?",
+        "url" : "https://api.dw.com/api/detail/video/63507426"
+      },
+      "columnCount" : 1,
+      "allowedColumnCounts" : [ 1, 2 ],
+      "commentsEnabled" : false,
+      "duration" : 1566,
+      "programId" : 262045
+    }, {
+      "type" : "VideoTeaser",
+      "name" : "Können Farben psychische Störungen heilen helfen?",
+      "teaserText" : "In Ghana will ein Künstler mit seinen Bildern Menschen helfen. Seine Begeisterung ist ansteckend.",
+      "displayDate" : "2022-10-20T13:12:49.232Z",
+      "image" : {
+        "type" : "Image",
+        "sizes" : [ {
+          "width" : 512,
+          "height" : 288,
+          "url" : "https://tvdownloaddw-a.akamaihd.net/stills/images/c19de/c19de20221020_ghanakunst_image_512x288_3.jpg"
+        }, {
+          "width" : 1024,
+          "height" : 576,
+          "url" : "https://tvdownloaddw-a.akamaihd.net/stills/images/c19de/c19de20221020_ghanakunst_image_1024x576_3.jpg"
+        } ]
+      },
+      "reference" : {
+        "id" : 63507397,
+        "type" : "VideoRef",
+        "name" : "Können Farben psychische Störungen heilen helfen?",
+        "url" : "https://api.dw.com/api/detail/video/63507397"
+      },
+      "columnCount" : 1,
+      "allowedColumnCounts" : [ 1, 2 ],
+      "commentsEnabled" : false,
+      "duration" : 265,
+      "programId" : 262045
+    }, {
+      "type" : "VideoTeaser",
+      "name" : "Covid-19 und neurologische Erkrankungen",
+      "teaserText" : "DW-Wissenschaftsredakteur Derrick Williams hat für Sie recherchiert. Und erklärt die Hintergründe.",
+      "displayDate" : "2022-10-20T13:11:47.206Z",
+      "image" : {
+        "type" : "Image",
+        "sizes" : [ {
+          "width" : 512,
+          "height" : 288,
+          "url" : "https://tvdownloaddw-a.akamaihd.net/stills/images/c19de/c19de20221020_askderrick_image_512x288_3.jpg"
+        }, {
+          "width" : 1024,
+          "height" : 576,
+          "url" : "https://tvdownloaddw-a.akamaihd.net/stills/images/c19de/c19de20221020_askderrick_image_1024x576_3.jpg"
+        } ]
+      },
+      "reference" : {
+        "id" : 63507387,
+        "type" : "VideoRef",
+        "name" : "Covid-19 und neurologische Erkrankungen",
+        "url" : "https://api.dw.com/api/detail/video/63507387"
+      },
+      "columnCount" : 1,
+      "allowedColumnCounts" : [ 1, 2 ],
+      "commentsEnabled" : false,
+      "duration" : 212,
+      "programId" : 262045
+    }, {
+      "type" : "VideoTeaser",
+      "name" : "Infektionen im Wandel der Zeit",
+      "teaserText" : "Impfstoffe haben vielen Krankheiten den Schrecken genommen. Eine Ausstellung zur Medizingeschichte.",
+      "displayDate" : "2022-10-20T13:10:38.387Z",
+      "image" : {
+        "type" : "Image",
+        "sizes" : [ {
+          "width" : 512,
+          "height" : 288,
+          "url" : "https://tvdownloaddw-a.akamaihd.net/stills/images/c19de/c19de20221020_medizinischesmuseum_image_512x288_3.jpg"
+        }, {
+          "width" : 1024,
+          "height" : 576,
+          "url" : "https://tvdownloaddw-a.akamaihd.net/stills/images/c19de/c19de20221020_medizinischesmuseum_image_1024x576_3.jpg"
+        } ]
+      },
+      "reference" : {
+        "id" : 63507348,
+        "type" : "VideoRef",
+        "name" : "Infektionen im Wandel der Zeit",
+        "url" : "https://api.dw.com/api/detail/video/63507348"
+      },
+      "columnCount" : 1,
+      "allowedColumnCounts" : [ 1, 2 ],
+      "commentsEnabled" : false,
+      "duration" : 222,
+      "programId" : 262045
+    }, {
+      "type" : "VideoTeaser",
+      "name" : "Neue Virus-Varianten auf dem Vormarsch",
+      "teaserText" : "Was bringen sinkende Temperaturen auf der Nordhalbkugel? Immunologin Christine Falk macht Hoffnung.",
+      "displayDate" : "2022-10-20T13:09:24.565Z",
+      "image" : {
+        "type" : "Image",
+        "sizes" : [ {
+          "width" : 512,
+          "height" : 288,
+          "url" : "https://tvdownloaddw-a.akamaihd.net/stills/images/c19de/c19de20221020_interview_image_512x288_3.jpg"
+        }, {
+          "width" : 1024,
+          "height" : 576,
+          "url" : "https://tvdownloaddw-a.akamaihd.net/stills/images/c19de/c19de20221020_interview_image_1024x576_3.jpg"
+        } ]
+      },
+      "reference" : {
+        "id" : 63507344,
+        "type" : "VideoRef",
+        "name" : "Neue Virus-Varianten auf dem Vormarsch",
+        "url" : "https://api.dw.com/api/detail/video/63507344"
+      },
+      "columnCount" : 1,
+      "allowedColumnCounts" : [ 1, 2 ],
+      "commentsEnabled" : false,
+      "duration" : 205,
+      "programId" : 262045
+    }, {
+      "type" : "VideoTeaser",
+      "name" : "Mein Covid",
+      "teaserText" : "Violeta Barate Silverio aus Spaniens Hauptstadt Madrid erzählt ihre Covid-Geschichte.",
+      "displayDate" : "2022-10-20T13:07:59.263Z",
+      "image" : {
+        "type" : "Image",
+        "sizes" : [ {
+          "width" : 512,
+          "height" : 288,
+          "url" : "https://tvdownloaddw-a.akamaihd.net/stills/images/c19de/c19de20221020_meincovidmadrid_image_512x288_3.jpg"
+        }, {
+          "width" : 1024,
+          "height" : 576,
+          "url" : "https://tvdownloaddw-a.akamaihd.net/stills/images/c19de/c19de20221020_meincovidmadrid_image_1024x576_3.jpg"
+        } ]
+      },
+      "reference" : {
+        "id" : 63507333,
+        "type" : "VideoRef",
+        "name" : "Mein Covid",
+        "url" : "https://api.dw.com/api/detail/video/63507333"
+      },
+      "columnCount" : 1,
+      "allowedColumnCounts" : [ 1, 2 ],
+      "commentsEnabled" : false,
+      "duration" : 203,
+      "programId" : 262045
+    }, {
+      "type" : "VideoTeaser",
+      "name" : "NFTs: Mit digitaler Kunst Geld verdienen",
+      "teaserText" : "Kolumbianische Künstler haben Wege gesucht, auch im Metaverse Werke zu vermarkten – mit Erfolg.",
+      "displayDate" : "2022-10-20T13:06:58.227Z",
+      "image" : {
+        "type" : "Image",
+        "sizes" : [ {
+          "width" : 512,
+          "height" : 288,
+          "url" : "https://tvdownloaddw-a.akamaihd.net/stills/images/c19de/c19de20221020_nft_image_512x288_3.jpg"
+        }, {
+          "width" : 1024,
+          "height" : 576,
+          "url" : "https://tvdownloaddw-a.akamaihd.net/stills/images/c19de/c19de20221020_nft_image_1024x576_3.jpg"
+        } ]
+      },
+      "reference" : {
+        "id" : 63507327,
+        "type" : "VideoRef",
+        "name" : "NFTs: Mit digitaler Kunst Geld verdienen",
+        "url" : "https://api.dw.com/api/detail/video/63507327"
+      },
+      "columnCount" : 1,
+      "allowedColumnCounts" : [ 1, 2 ],
+      "commentsEnabled" : false,
+      "duration" : 285,
+      "programId" : 262045
+    }, {
+      "type" : "VideoTeaser",
+      "name" : "Plastikmüll bedroht die Malediven",
+      "teaserText" : "Nur Sandstrände und strahlend blaues Wasser? Die Inselbewohner sind mit einer anderen Realität konfrontiert.",
+      "displayDate" : "2022-10-20T09:50:00.000Z",
+      "image" : {
+        "type" : "Image",
+        "sizes" : [ {
+          "width" : 512,
+          "height" : 288,
+          "url" : "https://tvdownloaddw-a.akamaihd.net/stills/images/jd/jd20221019_Maldives19c_image_512x288_3.jpg"
+        }, {
+          "width" : 1024,
+          "height" : 576,
+          "url" : "https://tvdownloaddw-a.akamaihd.net/stills/images/jd/jd20221019_Maldives19c_image_1024x576_3.jpg"
+        } ]
+      },
+      "reference" : {
+        "id" : 63499387,
+        "type" : "VideoRef",
+        "name" : "Plastikmüll bedroht die Malediven",
+        "url" : "https://api.dw.com/api/detail/video/63499387"
+      },
+      "columnCount" : 1,
+      "allowedColumnCounts" : [ 1, 2 ],
+      "commentsEnabled" : false,
+      "duration" : 121,
+      "programId" : 262045
+    }, {
+      "type" : "VideoTeaser",
+      "name" : "Iranische Klettersportlerin wieder in Teheran",
+      "teaserText" : "Elnaz Rekabi distanziert sich öffentlich von ihrer Aktion, ohne Kopftuch am Boulder-Finale teilgenommen zu haben.",
+      "displayDate" : "2022-10-19T19:06:40.541Z",
+      "image" : {
+        "id" : 63486391,
+        "type" : "Image",
+        "name" : "Iran Elnaz Rekabi am Flugfahen in Teheran",
+        "sizes" : [ {
+          "width" : 220,
+          "height" : 124,
+          "url" : "https://static.dw.com/image/63486391_301.jpg"
+        }, {
+          "width" : 460,
+          "height" : 259,
+          "url" : "https://static.dw.com/image/63486391_302.jpg"
+        }, {
+          "width" : 700,
+          "height" : 394,
+          "url" : "https://static.dw.com/image/63486391_303.jpg"
+        }, {
+          "width" : 940,
+          "height" : 529,
+          "url" : "https://static.dw.com/image/63486391_304.jpg"
+        } ]
+      },
+      "reference" : {
+        "id" : 63499382,
+        "type" : "VideoRef",
+        "name" : "Iranische Klettersportlerin wieder in Teheran",
+        "url" : "https://api.dw.com/api/detail/video/63499382"
+      },
+      "columnCount" : 1,
+      "allowedColumnCounts" : [ 1, 2 ],
+      "commentsEnabled" : false,
+      "duration" : 108,
+      "programId" : 262045
+    }, {
+      "type" : "VideoTeaser",
+      "name" : "Arzt berät verletzte Iraner per Ferndiagnose",
+      "teaserText" : "Dr. Kayvan Mirhadi aus dem Bundesstaat New York wird für viele Demonstrierende zum Retter in der Not. ",
+      "displayDate" : "2022-10-19T18:54:50.142Z",
+      "image" : {
+        "type" : "Image",
+        "sizes" : [ {
+          "width" : 512,
+          "height" : 288,
+          "url" : "https://tvdownloaddw-a.akamaihd.net/stills/images/jd/jd20221019_Doc19c_image_512x288_3.jpg"
+        }, {
+          "width" : 1024,
+          "height" : 576,
+          "url" : "https://tvdownloaddw-a.akamaihd.net/stills/images/jd/jd20221019_Doc19c_image_1024x576_3.jpg"
+        } ]
+      },
+      "reference" : {
+        "id" : 63499329,
+        "type" : "VideoRef",
+        "name" : "Arzt berät verletzte Iraner per Ferndiagnose",
+        "url" : "https://api.dw.com/api/detail/video/63499329"
+      },
+      "columnCount" : 1,
+      "allowedColumnCounts" : [ 1, 2 ],
+      "commentsEnabled" : false,
+      "duration" : 216,
+      "programId" : 262045
+    }, {
+      "type" : "VideoTeaser",
+      "name" : "Kriegszustand in annektierten Gebieten",
+      "teaserText" : "Russlands Präsident Wladimir Putin weitet seine Besatzung der Ukraine aus.",
+      "displayDate" : "2022-10-19T18:49:28.213Z",
+      "image" : {
+        "id" : 63497187,
+        "type" : "Image",
+        "name" : "Russland | Sitzung Sicherheitsrat | Wladimir Putin",
+        "sizes" : [ {
+          "width" : 220,
+          "height" : 124,
+          "url" : "https://static.dw.com/image/63497187_301.jpg"
+        }, {
+          "width" : 460,
+          "height" : 259,
+          "url" : "https://static.dw.com/image/63497187_302.jpg"
+        }, {
+          "width" : 700,
+          "height" : 394,
+          "url" : "https://static.dw.com/image/63497187_303.jpg"
+        }, {
+          "width" : 940,
+          "height" : 529,
+          "url" : "https://static.dw.com/image/63497187_304.jpg"
+        } ]
+      },
+      "reference" : {
+        "id" : 63499306,
+        "type" : "VideoRef",
+        "name" : "Ukraine: Kriegszustand in annektierten Gebieten",
+        "url" : "https://api.dw.com/api/detail/video/63499306"
+      },
+      "columnCount" : 1,
+      "allowedColumnCounts" : [ 1, 2 ],
+      "commentsEnabled" : false,
+      "duration" : 147,
+      "programId" : 262045
+    }, {
+      "type" : "VideoTeaser",
+      "name" : "Hürden für russische Wehrdienstverweigerer",
+      "teaserText" : "Die DW hat Menschen getroffen, die vor der Wehrpflicht in Russland geflohen sind und in Deutschland auf Asyl hoffen.",
+      "displayDate" : "2022-10-18T18:55:07.331Z",
+      "image" : {
+        "id" : 63439175,
+        "type" : "Image",
+        "name" : "MOskau Außenministerium Werbung Militärdienst Ukraine",
+        "sizes" : [ {
+          "width" : 220,
+          "height" : 124,
+          "url" : "https://static.dw.com/image/63439175_301.jpg"
+        }, {
+          "width" : 460,
+          "height" : 259,
+          "url" : "https://static.dw.com/image/63439175_302.jpg"
+        }, {
+          "width" : 700,
+          "height" : 394,
+          "url" : "https://static.dw.com/image/63439175_303.jpg"
+        }, {
+          "width" : 940,
+          "height" : 529,
+          "url" : "https://static.dw.com/image/63439175_304.jpg"
+        } ]
+      },
+      "reference" : {
+        "id" : 63483569,
+        "type" : "VideoRef",
+        "name" : "Hürden für russische Wehrdienstverweigerer",
+        "url" : "https://api.dw.com/api/detail/video/63483569"
+      },
+      "columnCount" : 1,
+      "allowedColumnCounts" : [ 1, 2 ],
+      "commentsEnabled" : false,
+      "duration" : 201,
+      "programId" : 262045
+    }, {
+      "type" : "VideoTeaser",
+      "name" : "Schreiben für ein gerechteres Spanien",
+      "teaserText" : "Spanien, ein Land zwischen Historie, Tradition und Arbeitslosigkeit: Drei Autorinnen machen daraus kraftvolle Literatur.",
+      "displayDate" : "2022-10-18T18:40:54.743Z",
+      "image" : {
+        "type" : "Image",
+        "sizes" : [ {
+          "width" : 512,
+          "height" : 288,
+          "url" : "https://tvdownloaddw-a.akamaihd.net/stills/images/dt/dt20221018_Span_image_512x288_3.jpg"
+        }, {
+          "width" : 1024,
+          "height" : 576,
+          "url" : "https://tvdownloaddw-a.akamaihd.net/stills/images/dt/dt20221018_Span_image_1024x576_3.jpg"
+        } ]
+      },
+      "reference" : {
+        "id" : 63483579,
+        "type" : "VideoRef",
+        "name" : "Schreiben für ein gerechteres Spanien",
+        "url" : "https://api.dw.com/api/detail/video/63483579"
+      },
+      "columnCount" : 1,
+      "allowedColumnCounts" : [ 1, 2 ],
+      "commentsEnabled" : false,
+      "duration" : 137,
+      "programId" : 262045
+    }, {
+      "type" : "VideoTeaser",
+      "name" : "Kongos schmutziges Gold",
+      "teaserText" : "Die Goldminen im Osten der DR Kongo sind für die einen Quellen des Reichtums, für die anderen Orte der Höllenqual.",
+      "displayDate" : "2022-10-18T18:39:46.611Z",
+      "image" : {
+        "id" : 63452121,
+        "type" : "Image",
+        "name" : "Demokratische Republik Kongo Goldhandel",
+        "sizes" : [ {
+          "width" : 220,
+          "height" : 124,
+          "url" : "https://static.dw.com/image/63452121_301.jpeg"
+        }, {
+          "width" : 460,
+          "height" : 259,
+          "url" : "https://static.dw.com/image/63452121_302.jpeg"
+        }, {
+          "width" : 700,
+          "height" : 394,
+          "url" : "https://static.dw.com/image/63452121_303.jpeg"
+        }, {
+          "width" : 940,
+          "height" : 529,
+          "url" : "https://static.dw.com/image/63452121_304.jpeg"
+        } ]
+      },
+      "reference" : {
+        "id" : 63483578,
+        "type" : "VideoRef",
+        "name" : "Kongos schmutziges Gold",
+        "url" : "https://api.dw.com/api/detail/video/63483578"
+      },
+      "columnCount" : 1,
+      "allowedColumnCounts" : [ 1, 2 ],
+      "commentsEnabled" : false,
+      "duration" : 266,
+      "programId" : 262045
+    }, {
+      "type" : "VideoTeaser",
+      "name" : "Ukraine: Schläge gegen die Stromversorgung",
+      "teaserText" : "Nach Angaben aus Kiew wurden binnen einer Woche fast ein Drittel der Kraftwerke zerstört.",
+      "displayDate" : "2022-10-18T18:37:28.739Z",
+      "image" : {
+        "id" : 63478213,
+        "type" : "Image",
+        "name" : "Ukraine Krieg | Angriff auf Mykolajiw",
+        "sizes" : [ {
+          "width" : 220,
+          "height" : 124,
+          "url" : "https://static.dw.com/image/63478213_301.jpg"
+        }, {
+          "width" : 460,
+          "height" : 259,
+          "url" : "https://static.dw.com/image/63478213_302.jpg"
+        }, {
+          "width" : 700,
+          "height" : 394,
+          "url" : "https://static.dw.com/image/63478213_303.jpg"
+        }, {
+          "width" : 940,
+          "height" : 529,
+          "url" : "https://static.dw.com/image/63478213_304.jpg"
+        } ]
+      },
+      "reference" : {
+        "id" : 63483567,
+        "type" : "VideoRef",
+        "name" : "Ukraine: Schläge gegen die Stromversorgung",
+        "url" : "https://api.dw.com/api/detail/video/63483567"
+      },
+      "columnCount" : 1,
+      "allowedColumnCounts" : [ 1, 2 ],
+      "commentsEnabled" : false,
+      "duration" : 119,
+      "programId" : 262045
+    }, {
+      "type" : "VideoTeaser",
+      "name" : "Schaden Sanktionen nur dem iranischen Volk?",
+      "teaserText" : "Sanktionen ja oder nein? Unterstützer der iranischen Regimekritiker sind gespalten.",
+      "displayDate" : "2022-10-17T18:56:33.645Z",
+      "image" : {
+        "id" : 63463206,
+        "type" : "Image",
+        "name" : "EU Außenministertreffen Luxemburg | Proteste gegen Iran-Regime",
+        "sizes" : [ {
+          "width" : 220,
+          "height" : 124,
+          "url" : "https://static.dw.com/image/63463206_301.jpg"
+        }, {
+          "width" : 460,
+          "height" : 259,
+          "url" : "https://static.dw.com/image/63463206_302.jpg"
+        }, {
+          "width" : 700,
+          "height" : 394,
+          "url" : "https://static.dw.com/image/63463206_303.jpg"
+        }, {
+          "width" : 940,
+          "height" : 529,
+          "url" : "https://static.dw.com/image/63463206_304.jpg"
+        } ]
+      },
+      "reference" : {
+        "id" : 63466982,
+        "type" : "VideoRef",
+        "name" : "Schaden Sanktionen nur dem iranischen Volk?",
+        "url" : "https://api.dw.com/api/detail/video/63466982"
+      },
+      "columnCount" : 1,
+      "allowedColumnCounts" : [ 1, 2 ],
+      "commentsEnabled" : false,
+      "duration" : 123,
+      "programId" : 262045
+    }, {
+      "type" : "VideoTeaser",
+      "name" : "Auf ein Wort...mit Michel Friedman",
+      "teaserText" : "Was ist das Gegenteil von Diversität? In welchem Zusammenhang stehen Diversität und Emanzipation? ",
+      "displayDate" : "2022-10-07T01:16:17.047Z",
+      "image" : {
+        "id" : 57461211,
+        "type" : "Image",
+        "name" : "DW TV AEW Auf ein Wort mit Emilia Roig zum Thema Diversität",
+        "sizes" : [ {
+          "width" : 220,
+          "height" : 124,
+          "url" : "https://static.dw.com/image/57461211_301.jpeg"
+        }, {
+          "width" : 460,
+          "height" : 259,
+          "url" : "https://static.dw.com/image/57461211_302.jpeg"
+        }, {
+          "width" : 700,
+          "height" : 394,
+          "url" : "https://static.dw.com/image/57461211_303.jpeg"
+        }, {
+          "width" : 940,
+          "height" : 529,
+          "url" : "https://static.dw.com/image/57461211_304.jpeg"
+        } ]
+      },
+      "reference" : {
+        "id" : 57528718,
+        "type" : "VideoRef",
+        "name" : "Auf ein Wort...Diversität ",
+        "url" : "https://api.dw.com/api/detail/video/57528718"
+      },
+      "columnCount" : 1,
+      "allowedColumnCounts" : [ 1, 2 ],
+      "commentsEnabled" : false,
+      "duration" : 2549,
+      "programId" : 40471480
+    }, {
+      "type" : "VideoTeaser",
+      "name" : "Kultur kämpferisch – beim Beethovenfest",
+      "teaserText" : "Beim Beethovenfest Bonn kämpfen Musiker aus der Ukraine und Belarus für Freiheit - gegen Gewalt.",
+      "displayDate" : "2022-09-24T05:54:24.133Z",
+      "image" : {
+        "id" : 48752996,
+        "type" : "Image",
+        "name" : "DW Kultur.21 (Sendungslogo Composite)",
+        "sizes" : [ {
+          "width" : 220,
+          "height" : 124,
+          "url" : "https://static.dw.com/image/48752996_301.jpg"
+        }, {
+          "width" : 460,
+          "height" : 259,
+          "url" : "https://static.dw.com/image/48752996_302.jpg"
+        }, {
+          "width" : 700,
+          "height" : 394,
+          "url" : "https://static.dw.com/image/48752996_303.jpg"
+        }, {
+          "width" : 940,
+          "height" : 529,
+          "url" : "https://static.dw.com/image/48752996_304.jpg"
+        } ]
+      },
+      "reference" : {
+        "id" : 63208258,
+        "type" : "VideoRef",
+        "name" : "Kultur kämpferisch - Ukraine und Belarus beim Beethovenfest",
+        "url" : "https://api.dw.com/api/detail/video/63208258"
+      },
+      "columnCount" : 1,
+      "allowedColumnCounts" : [ 1, 2 ],
+      "commentsEnabled" : false,
+      "duration" : 1566,
+      "programId" : 1045945
+    }, {
+      "type" : "VideoTeaser",
+      "name" : "Gandhis Vermächtnis (2)",
+      "teaserText" : "Indien, die größte Demokratie der Welt, wird 75.",
+      "displayDate" : "2022-08-14T01:14:23.711Z",
+      "image" : {
+        "id" : 62722566,
+        "type" : "Image",
+        "name" : "DW Doku KW 32 | Gandhis Vermächtnis Teil 2",
+        "sizes" : [ {
+          "width" : 220,
+          "height" : 124,
+          "url" : "https://static.dw.com/image/62722566_301.jpg"
+        }, {
+          "width" : 460,
+          "height" : 259,
+          "url" : "https://static.dw.com/image/62722566_302.jpg"
+        }, {
+          "width" : 700,
+          "height" : 394,
+          "url" : "https://static.dw.com/image/62722566_303.jpg"
+        }, {
+          "width" : 940,
+          "height" : 529,
+          "url" : "https://static.dw.com/image/62722566_304.jpg"
+        } ]
+      },
+      "reference" : {
+        "id" : 62761799,
+        "type" : "VideoRef",
+        "name" : "Gandhis Vermächtnis - Wohin steuert Indien? - Teil 2",
+        "url" : "https://api.dw.com/api/detail/video/62761799"
+      },
+      "columnCount" : 1,
+      "allowedColumnCounts" : [ 1, 2 ],
+      "commentsEnabled" : false,
+      "duration" : 1220,
+      "programId" : 293837
+    }, {
+      "type" : "VideoTeaser",
+      "name" : "Auf ein Wort... mit Michel Friedman",
+      "teaserText" : "Sind Sie sich fremd? Was ist das Gegenteil von Fremd? Wann wird das Fremde bedrohlich?",
+      "displayDate" : "2022-07-08T06:06:09.326Z",
+      "image" : {
+        "id" : 46452966,
+        "type" : "Image",
+        "name" : "DW AEW Fremd",
+        "sizes" : [ {
+          "width" : 220,
+          "height" : 124,
+          "url" : "https://static.dw.com/image/46452966_301.jpeg"
+        }, {
+          "width" : 460,
+          "height" : 259,
+          "url" : "https://static.dw.com/image/46452966_302.jpeg"
+        }, {
+          "width" : 700,
+          "height" : 394,
+          "url" : "https://static.dw.com/image/46452966_303.jpeg"
+        }, {
+          "width" : 940,
+          "height" : 529,
+          "url" : "https://static.dw.com/image/46452966_304.jpeg"
+        } ]
+      },
+      "reference" : {
+        "id" : 46958026,
+        "type" : "VideoRef",
+        "name" : "Auf ein Wort...Fremd",
+        "url" : "https://api.dw.com/api/detail/video/46958026"
+      },
+      "columnCount" : 1,
+      "allowedColumnCounts" : [ 1, 2 ],
+      "commentsEnabled" : false,
+      "duration" : 2555,
+      "programId" : 40471480
+    }, {
+      "type" : "VideoTeaser",
+      "name" : "Kleidermüll in Chiles Atacama-Wüste",
+      "teaserText" : "Gigantische Müllberge aus Altkleidern türmen sich in Chiles Atacama-Wüste.",
+      "displayDate" : "2022-05-30T14:23:23.743Z",
+      "image" : {
+        "id" : -1,
+        "type" : "Image",
+        "name" : "default video preview image",
+        "sizes" : [ {
+          "width" : 220,
+          "height" : 124,
+          "url" : "https://api.dw.com/i/video-cy-1sp.gif"
+        }, {
+          "width" : 460,
+          "height" : 259,
+          "url" : "https://api.dw.com/i/video-cy-2sp.gif"
+        }, {
+          "width" : 700,
+          "height" : 394,
+          "url" : "https://api.dw.com/i/video-cy-3sp.gif"
+        }, {
+          "width" : 940,
+          "height" : 529,
+          "url" : "https://api.dw.com/i/video-cy-4sp.gif"
+        } ]
+      },
+      "reference" : {
+        "id" : 61978246,
+        "type" : "VideoRef",
+        "name" : "Fast Fashion - Kleidermüll in Chiles Atacama-Wüste",
+        "url" : "https://api.dw.com/api/detail/video/61978246"
+      },
+      "columnCount" : 1,
+      "allowedColumnCounts" : [ 1, 2 ],
+      "commentsEnabled" : false,
+      "duration" : 1716,
+      "programId" : 16687561
+    }, {
+      "type" : "VideoTeaser",
+      "name" : "Die Macht der Drogenmafia",
+      "teaserText" : "Mit dem Kokainhandel wächst die organisierte Kriminalität in den Niederlanden.",
+      "displayDate" : "2022-04-11T14:02:50.286Z",
+      "image" : {
+        "id" : 61395454,
+        "type" : "Image",
+        "name" : "Video Thumbnail \"Die Macht der Drogenmafia – Das Kokain und die Niederlande\"",
+        "sizes" : [ {
+          "width" : 220,
+          "height" : 124,
+          "url" : "https://static.dw.com/image/61395454_301.jpg"
+        }, {
+          "width" : 460,
+          "height" : 259,
+          "url" : "https://static.dw.com/image/61395454_302.jpg"
+        }, {
+          "width" : 700,
+          "height" : 394,
+          "url" : "https://static.dw.com/image/61395454_303.jpg"
+        }, {
+          "width" : 940,
+          "height" : 529,
+          "url" : "https://static.dw.com/image/61395454_304.jpg"
+        } ]
+      },
+      "reference" : {
+        "id" : 61438393,
+        "type" : "VideoRef",
+        "name" : "Die Macht der Drogenmafia - Wie der Kokainhandel die Niederlande angreift",
+        "url" : "https://api.dw.com/api/detail/video/61438393"
+      },
+      "columnCount" : 1,
+      "allowedColumnCounts" : [ 1, 2 ],
+      "commentsEnabled" : false,
+      "duration" : 1711,
+      "programId" : 16687561
+    }, {
+      "type" : "VideoTeaser",
+      "name" : "\"Ich will mein Leben zurück!\"",
+      "teaserText" : "Tanya ist 31 und verliert zum zweiten Mal ihr zu Hause.",
+      "displayDate" : "2022-04-06T12:05:09.954Z",
+      "image" : {
+        "id" : 61332613,
+        "type" : "Image",
+        "name" : "DW Dokumentationen | Ich will mein Leben zurück!",
+        "sizes" : [ {
+          "width" : 220,
+          "height" : 124,
+          "url" : "https://static.dw.com/image/61332613_301.jpg"
+        }, {
+          "width" : 460,
+          "height" : 259,
+          "url" : "https://static.dw.com/image/61332613_302.jpg"
+        }, {
+          "width" : 700,
+          "height" : 394,
+          "url" : "https://static.dw.com/image/61332613_303.jpg"
+        }, {
+          "width" : 940,
+          "height" : 529,
+          "url" : "https://static.dw.com/image/61332613_304.jpg"
+        } ]
+      },
+      "reference" : {
+        "id" : 61355409,
+        "type" : "VideoRef",
+        "name" : "\"Ich will mein Leben zurück!\" - Tanyas Flucht vor dem Krieg",
+        "url" : "https://api.dw.com/api/detail/video/61355409"
+      },
+      "columnCount" : 1,
+      "allowedColumnCounts" : [ 1, 2 ],
+      "commentsEnabled" : false,
+      "duration" : 1710,
+      "programId" : 16687561
+    } ]
+  }
+}

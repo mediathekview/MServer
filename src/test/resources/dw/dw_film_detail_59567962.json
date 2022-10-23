@@ -1,0 +1,1257 @@
+{
+  "type" : "Video",
+  "id" : 59567962,
+  "languageId" : 1,
+  "trackingInfo" : {
+    "level2" : "1",
+    "page" : "<prefix>::TV::DW Nachrichten::Afghanistan-Konferenz in Moskau",
+    "customCriteria" : {
+      "x8" : "",
+      "x9" : "20211020",
+      "x10" : "<prefix>::TV::DW Nachrichten",
+      "x1" : "18",
+      "x2" : "1",
+      "X14" : "",
+      "x3" : "59567962",
+      "x4" : "3230",
+      "x5" : "Afghanistan-Konferenz in Moskau",
+      "X15" : "",
+      "x6" : "0",
+      "X18" : "",
+      "x7" : ""
+    }
+  },
+  "mainContent" : {
+    "id" : 59567962,
+    "type" : "Video",
+    "name" : "Afghanistan-Konferenz in Moskau",
+    "permaLink" : "https://p.dw.com/p/41wLa",
+    "url" : "https://api.dw.com/api/detail/video/59567962",
+    "duration" : 122,
+    "sources" : [ {
+      "protocol" : "https",
+      "format" : "mp4",
+      "bitrate" : 538,
+      "url" : "https://tvdownloaddw-a.akamaihd.net/dwtv_video/flv/jd/jd20211020_afghan19c_sd_sor.mp4",
+      "quality" : "medium"
+    }, {
+      "protocol" : "https",
+      "format" : "mp4",
+      "bitrate" : 2478,
+      "url" : "https://tvdownloaddw-a.akamaihd.net/dwtv_video/flv/jd/jd20211020_afghan19c_sd_avc.mp4",
+      "quality" : "high"
+    }, {
+      "protocol" : "https",
+      "format" : "mp4",
+      "bitrate" : 656,
+      "url" : "https://tvdownloaddw-a.akamaihd.net/Events/mp4/jd/jd20211020_afghan19c_sd.mp4",
+      "quality" : "medium"
+    }, {
+      "protocol" : "https",
+      "format" : "mp4",
+      "bitrate" : 1879,
+      "url" : "https://tvdownloaddw-a.akamaihd.net/Events/mp4/jd/jd20211020_afghan19c_hd.mp4",
+      "quality" : "high"
+    }, {
+      "protocol" : "https",
+      "format" : "HLS",
+      "bitrate" : 2478,
+      "url" : "https://hlsvod.dw.com/i/dwtv_video/flv/jd/jd20211020_afghan19c_,sd_avc,sd_sor,.mp4.csmil/master.m3u8",
+      "quality" : "HLS"
+    } ],
+    "previewImage" : {
+      "id" : 59564707,
+      "type" : "Image",
+      "name" : "Wie geht es weiter in Afghanistan? Darüber hat eine internationale Konferenz in Moskau beraten.",
+      "sizes" : [ {
+        "width" : 220,
+        "height" : 124,
+        "url" : "https://static.dw.com/image/59564707_301.jpg"
+      }, {
+        "width" : 460,
+        "height" : 259,
+        "url" : "https://static.dw.com/image/59564707_302.jpg"
+      }, {
+        "width" : 700,
+        "height" : 394,
+        "url" : "https://static.dw.com/image/59564707_303.jpg"
+      }, {
+        "width" : 940,
+        "height" : 529,
+        "url" : "https://static.dw.com/image/59564707_304.jpg"
+      } ]
+    },
+    "trackingInfo" : {
+      "level2" : "1",
+      "page" : "<prefix>::TV::DW Nachrichten::V_Afghanistan-Konferenz in Moskau",
+      "customCriteria" : {
+        "x8" : "",
+        "x9" : "20211020",
+        "x10" : "<prefix>::TV::DW Nachrichten",
+        "x12" : "",
+        "x1" : "201",
+        "x11" : "jd/jd20211020_afghan19c_sd",
+        "x2" : "1",
+        "x3" : "59567962",
+        "x4" : "3230",
+        "x5" : "V_Afghanistan-Konferenz in Moskau",
+        "x6" : "1",
+        "x7" : ""
+      }
+    },
+    "mediaTrackingInfo" : {
+      "mediaType" : "Video",
+      "level2" : "1",
+      "playerId" : "1",
+      "mediaName" : "jd/jd20211020_afghan19c_sd",
+      "mediaDuration" : 122,
+      "live" : false
+    },
+    "programId" : 262045
+  },
+  "name" : "Afghanistan-Konferenz in Moskau",
+  "teaser" : "Wie geht es weiter in Afghanistan? Darüber hat eine internationale Konferenz in Moskau beraten. An den Gesprächen nahmen Vertreter der Taliban, Russlands, Chinas, des Iran, Indiens und mehrerer asiatischer Staaten teil.",
+  "categoryName" : "DW Nachrichten",
+  "text" : "",
+  "permaLink" : "https://p.dw.com/p/41wLa",
+  "displayDate" : "2021-10-20T19:03:32.916Z",
+  "referenceGroups" : [ {
+    "name" : "Schlagwörter",
+    "type" : "Keywords",
+    "items" : [ {
+      "type" : "SearchRef",
+      "name" : "Russland",
+      "url" : "https://api.dw.com/api/search/global?terms=Russland&languageId=1"
+    }, {
+      "type" : "SearchRef",
+      "name" : "Taliban",
+      "url" : "https://api.dw.com/api/search/global?terms=Taliban&languageId=1"
+    }, {
+      "type" : "SearchRef",
+      "name" : "Afghanistan",
+      "url" : "https://api.dw.com/api/search/global?terms=Afghanistan&languageId=1"
+    }, {
+      "type" : "SearchRef",
+      "name" : "Konferenz",
+      "url" : "https://api.dw.com/api/search/global?terms=Konferenz&languageId=1"
+    }, {
+      "type" : "SearchRef",
+      "name" : "Menschenrechte",
+      "url" : "https://api.dw.com/api/search/global?terms=Menschenrechte&languageId=1"
+    }, {
+      "type" : "SearchRef",
+      "name" : "Sicherheit",
+      "url" : "https://api.dw.com/api/search/global?terms=Sicherheit&languageId=1"
+    }, {
+      "type" : "SearchRef",
+      "name" : "Moskau",
+      "url" : "https://api.dw.com/api/search/global?terms=Moskau&languageId=1"
+    } ]
+  } ],
+  "commentsEnabled" : false,
+  "teaserGroup" : {
+    "name" : "Mehr zum Thema",
+    "type" : "AdditionalMultimediaContent",
+    "items" : [ {
+      "type" : "VideoTeaser",
+      "name" : "Der Tag vom 20.10.2021",
+      "teaserText" : "Illegale Einreisen über Belarus-Route | Sacharow-Preis für Nawalny | Afghanistan-Konferenz in Moskau",
+      "displayDate" : "2021-10-20T19:28:01.024Z",
+      "image" : {
+        "type" : "Image",
+        "sizes" : [ {
+          "width" : 512,
+          "height" : 288,
+          "url" : "https://tvdownloaddw-a.akamaihd.net/stills/images/dt/dt20211020_mittwoch_image_512x288_3.jpg"
+        }, {
+          "width" : 1024,
+          "height" : 576,
+          "url" : "https://tvdownloaddw-a.akamaihd.net/stills/images/dt/dt20211020_mittwoch_image_1024x576_3.jpg"
+        } ]
+      },
+      "reference" : {
+        "id" : 59568034,
+        "type" : "VideoRef",
+        "name" : "Der Tag vom 20.10.2021",
+        "url" : "https://api.dw.com/api/detail/video/59568034"
+      },
+      "columnCount" : 1,
+      "allowedColumnCounts" : [ 1, 2 ],
+      "commentsEnabled" : false,
+      "duration" : 1676,
+      "programId" : 18983076
+    }, {
+      "type" : "VideoTeaser",
+      "name" : "Ukraine: Front in Bewegung",
+      "teaserText" : "DW-Reporter Mathias Bölinger hat ukrainische Truppen nahe der Frontlinie im Süden des Landes besucht.",
+      "displayDate" : "2022-10-15T13:44:04.127Z",
+      "image" : {
+        "id" : 63341238,
+        "type" : "Image",
+        "name" : "DW Videostill | Optimism on front line in Ukraine's south",
+        "sizes" : [ {
+          "width" : 220,
+          "height" : 124,
+          "url" : "https://static.dw.com/image/63341238_301.jpg"
+        }, {
+          "width" : 460,
+          "height" : 259,
+          "url" : "https://static.dw.com/image/63341238_302.jpg"
+        }, {
+          "width" : 700,
+          "height" : 394,
+          "url" : "https://static.dw.com/image/63341238_303.jpg"
+        }, {
+          "width" : 940,
+          "height" : 529,
+          "url" : "https://static.dw.com/image/63341238_304.jpg"
+        } ]
+      },
+      "reference" : {
+        "id" : 63349167,
+        "type" : "VideoRef",
+        "name" : "Ukraine: Front in Bewegung",
+        "url" : "https://api.dw.com/api/detail/video/63349167"
+      },
+      "columnCount" : 1,
+      "allowedColumnCounts" : [ 1, 2 ],
+      "commentsEnabled" : false,
+      "duration" : 177,
+      "programId" : 18365188
+    }, {
+      "type" : "VideoTeaser",
+      "name" : "Vom Terroristen zum Landwirt",
+      "teaserText" : "Indonesien setzt seit den islamistischen Bombenanschlägen auf Bali vor 20 Jahren auf Deradikalisierungsprogramme.",
+      "displayDate" : "2022-10-15T13:38:12.432Z",
+      "image" : {
+        "type" : "Image",
+        "sizes" : [ {
+          "width" : 512,
+          "height" : 288,
+          "url" : "https://tvdownloaddw-a.akamaihd.net/stills/images/jd/jd20221012_dbali_image_512x288_3.jpg"
+        }, {
+          "width" : 1024,
+          "height" : 576,
+          "url" : "https://tvdownloaddw-a.akamaihd.net/stills/images/jd/jd20221012_dbali_image_1024x576_3.jpg"
+        } ]
+      },
+      "reference" : {
+        "id" : 63420252,
+        "type" : "VideoRef",
+        "name" : "Indonesien: Gnade für Ex-Terroristen ",
+        "url" : "https://api.dw.com/api/detail/video/63420252"
+      },
+      "columnCount" : 1,
+      "allowedColumnCounts" : [ 1, 2 ],
+      "commentsEnabled" : false,
+      "duration" : 188,
+      "programId" : 18365188
+    }, {
+      "type" : "VideoTeaser",
+      "name" : "Türkei verabschiedet Gesetz gegen \"Desinformation\"",
+      "teaserText" : "Das neue Gesetz weckt Befürchtungen, dass Meinungsfreiheit und unabhängige Medien weiter eingeschränkt werden.",
+      "displayDate" : "2022-10-14T19:04:06.586Z",
+      "image" : {
+        "id" : 63438381,
+        "type" : "Image",
+        "name" : "Türkei | Zeitungen an einen Kiosk in Istanbul",
+        "sizes" : [ {
+          "width" : 220,
+          "height" : 124,
+          "url" : "https://static.dw.com/image/63438381_301.jpg"
+        }, {
+          "width" : 460,
+          "height" : 259,
+          "url" : "https://static.dw.com/image/63438381_302.jpg"
+        }, {
+          "width" : 700,
+          "height" : 394,
+          "url" : "https://static.dw.com/image/63438381_303.jpg"
+        }, {
+          "width" : 940,
+          "height" : 529,
+          "url" : "https://static.dw.com/image/63438381_304.jpg"
+        } ]
+      },
+      "reference" : {
+        "id" : 63448927,
+        "type" : "VideoRef",
+        "name" : "Türkei verabschiedet Gesetz gegen \"Desinformation\"",
+        "url" : "https://api.dw.com/api/detail/video/63448927"
+      },
+      "columnCount" : 1,
+      "allowedColumnCounts" : [ 1, 2 ],
+      "commentsEnabled" : false,
+      "duration" : 154,
+      "programId" : 262045
+    }, {
+      "type" : "VideoTeaser",
+      "name" : "Erstmals öffentlicher Muezzin-Ruf in Köln",
+      "teaserText" : "Was als Signal für Vielfalt und Religionsfreiheit gemeint ist, stößt auch auf scharfe Kritik. ",
+      "displayDate" : "2022-10-14T19:02:16.016Z",
+      "image" : {
+        "id" : 63446801,
+        "type" : "Image",
+        "name" : "Erster Muezzinruf in Köln",
+        "sizes" : [ {
+          "width" : 220,
+          "height" : 124,
+          "url" : "https://static.dw.com/image/63446801_301.jpg"
+        }, {
+          "width" : 460,
+          "height" : 259,
+          "url" : "https://static.dw.com/image/63446801_302.jpg"
+        }, {
+          "width" : 700,
+          "height" : 394,
+          "url" : "https://static.dw.com/image/63446801_303.jpg"
+        }, {
+          "width" : 940,
+          "height" : 529,
+          "url" : "https://static.dw.com/image/63446801_304.jpg"
+        } ]
+      },
+      "reference" : {
+        "id" : 63448924,
+        "type" : "VideoRef",
+        "name" : "Erstmals öffentlicher Muezzin-Ruf in Köln",
+        "url" : "https://api.dw.com/api/detail/video/63448924"
+      },
+      "columnCount" : 1,
+      "allowedColumnCounts" : [ 1, 2 ],
+      "commentsEnabled" : false,
+      "duration" : 132,
+      "programId" : 262045
+    }, {
+      "type" : "VideoTeaser",
+      "name" : "Schlechte Ausrüstung bei Moskaus Soldaten",
+      "teaserText" : "Präsident Putins Teilmobilmachung und der Zustand der Armee produzieren auch in Russland Negativ-Schlagzeilen. ",
+      "displayDate" : "2022-10-14T19:00:11.297Z",
+      "image" : {
+        "id" : 63439175,
+        "type" : "Image",
+        "name" : "MOskau Außenministerium Werbung Militärdienst Ukraine",
+        "sizes" : [ {
+          "width" : 220,
+          "height" : 124,
+          "url" : "https://static.dw.com/image/63439175_301.jpg"
+        }, {
+          "width" : 460,
+          "height" : 259,
+          "url" : "https://static.dw.com/image/63439175_302.jpg"
+        }, {
+          "width" : 700,
+          "height" : 394,
+          "url" : "https://static.dw.com/image/63439175_303.jpg"
+        }, {
+          "width" : 940,
+          "height" : 529,
+          "url" : "https://static.dw.com/image/63439175_304.jpg"
+        } ]
+      },
+      "reference" : {
+        "id" : 63448870,
+        "type" : "VideoRef",
+        "name" : "Schlechte Ausrüstung bei Moskaus Soldaten",
+        "url" : "https://api.dw.com/api/detail/video/63448870"
+      },
+      "columnCount" : 1,
+      "allowedColumnCounts" : [ 1, 2 ],
+      "commentsEnabled" : false,
+      "duration" : 136,
+      "programId" : 262045
+    }, {
+      "type" : "VideoTeaser",
+      "name" : "Seltener Fund in Homs, Syrien",
+      "teaserText" : "Nahe der Stadt Homs im Norden Syrien wurde ein nahezu intaktes Mosaik aus der Römerzeit freigelegt.",
+      "displayDate" : "2022-10-13T19:15:26.267Z",
+      "image" : {
+        "id" : 63433703,
+        "type" : "Image",
+        "name" : "Syrien Archäologen graben in Syrien Mosaik aus Römerzeit aus",
+        "sizes" : [ {
+          "width" : 220,
+          "height" : 124,
+          "url" : "https://static.dw.com/image/63433703_301.jpg"
+        }, {
+          "width" : 460,
+          "height" : 259,
+          "url" : "https://static.dw.com/image/63433703_302.jpg"
+        }, {
+          "width" : 700,
+          "height" : 394,
+          "url" : "https://static.dw.com/image/63433703_303.jpg"
+        }, {
+          "width" : 940,
+          "height" : 529,
+          "url" : "https://static.dw.com/image/63433703_304.jpg"
+        } ]
+      },
+      "reference" : {
+        "id" : 63434287,
+        "type" : "VideoRef",
+        "name" : "Seltenes Mosaik aus der Römerzeit in Syrien entdeckt",
+        "url" : "https://api.dw.com/api/detail/video/63434287"
+      },
+      "columnCount" : 1,
+      "allowedColumnCounts" : [ 1, 2 ],
+      "commentsEnabled" : false,
+      "duration" : 94,
+      "programId" : 262045
+    }, {
+      "type" : "VideoTeaser",
+      "name" : "Putin und Erdogan: Noch ein Gipfeltreffen",
+      "teaserText" : "Putin will Türkei zum Gasknotenpunkt für den Verkauf von Gas an andere Länder machen.",
+      "displayDate" : "2022-10-13T19:14:24.936Z",
+      "image" : {
+        "id" : 63428106,
+        "type" : "Image",
+        "name" : "Kasachstan Diplomatie l Treffen zwischen Erdogan und Putin",
+        "sizes" : [ {
+          "width" : 220,
+          "height" : 124,
+          "url" : "https://static.dw.com/image/63428106_301.jpeg"
+        }, {
+          "width" : 460,
+          "height" : 259,
+          "url" : "https://static.dw.com/image/63428106_302.jpeg"
+        }, {
+          "width" : 700,
+          "height" : 394,
+          "url" : "https://static.dw.com/image/63428106_303.jpeg"
+        }, {
+          "width" : 940,
+          "height" : 529,
+          "url" : "https://static.dw.com/image/63428106_304.jpeg"
+        } ]
+      },
+      "reference" : {
+        "id" : 63434082,
+        "type" : "VideoRef",
+        "name" : "Putin und Erdogan treffen sich in Kasachstan",
+        "url" : "https://api.dw.com/api/detail/video/63434082"
+      },
+      "columnCount" : 1,
+      "allowedColumnCounts" : [ 1, 2 ],
+      "commentsEnabled" : false,
+      "duration" : 134,
+      "programId" : 262045
+    }, {
+      "type" : "VideoTeaser",
+      "name" : "UN-Vollversammlung verurteilt Annexionen",
+      "teaserText" : "Die UN-Vollversammlung verurteilt die russische Annexion in der Ukraine mit überwältigender Mehrheit.",
+      "displayDate" : "2022-10-13T19:13:47.308Z",
+      "image" : {
+        "id" : 63420543,
+        "type" : "Image",
+        "name" : "UN - Mehrheit verurteilt Annexionen Moskaus",
+        "sizes" : [ {
+          "width" : 220,
+          "height" : 124,
+          "url" : "https://static.dw.com/image/63420543_301.jpg"
+        }, {
+          "width" : 460,
+          "height" : 259,
+          "url" : "https://static.dw.com/image/63420543_302.jpg"
+        }, {
+          "width" : 700,
+          "height" : 394,
+          "url" : "https://static.dw.com/image/63420543_303.jpg"
+        }, {
+          "width" : 940,
+          "height" : 529,
+          "url" : "https://static.dw.com/image/63420543_304.jpg"
+        } ]
+      },
+      "reference" : {
+        "id" : 63433946,
+        "type" : "VideoRef",
+        "name" : "UN-Vollversammlung setzt Zeichen gegen Russland",
+        "url" : "https://api.dw.com/api/detail/video/63433946"
+      },
+      "columnCount" : 1,
+      "allowedColumnCounts" : [ 1, 2 ],
+      "commentsEnabled" : false,
+      "duration" : 139,
+      "programId" : 262045
+    }, {
+      "type" : "VideoTeaser",
+      "name" : "NATO will europäische Luftabwehr verbessern",
+      "teaserText" : "Mit der Initiative European Sky Shield will die NATO Lücken im Schutzschirm für Europa schließen.",
+      "displayDate" : "2022-10-13T18:59:26.238Z",
+      "image" : {
+        "id" : 63417512,
+        "type" : "Image",
+        "name" : "Flugabwehrsystem IRIS-T SLM",
+        "sizes" : [ {
+          "width" : 220,
+          "height" : 124,
+          "url" : "https://static.dw.com/image/63417512_301.jpg"
+        }, {
+          "width" : 460,
+          "height" : 259,
+          "url" : "https://static.dw.com/image/63417512_302.jpg"
+        }, {
+          "width" : 700,
+          "height" : 394,
+          "url" : "https://static.dw.com/image/63417512_303.jpg"
+        }, {
+          "width" : 940,
+          "height" : 529,
+          "url" : "https://static.dw.com/image/63417512_304.jpg"
+        } ]
+      },
+      "reference" : {
+        "id" : 63434076,
+        "type" : "VideoRef",
+        "name" : "European Sky Shield soll europäische Luftabwehr verbessern",
+        "url" : "https://api.dw.com/api/detail/video/63434076"
+      },
+      "columnCount" : 1,
+      "allowedColumnCounts" : [ 1, 2 ],
+      "commentsEnabled" : false,
+      "duration" : 124,
+      "programId" : 262045
+    }, {
+      "type" : "VideoTeaser",
+      "name" : "Können die NATO-Länder genügend Waffen liefern?",
+      "teaserText" : "Einige Regierungen machen sich Sorgen, wie sie fortwährende Waffenlieferungen in die Ukraine bewerkstelligen können.",
+      "displayDate" : "2022-10-12T19:12:56.317Z",
+      "image" : {
+        "id" : 62037252,
+        "type" : "Image",
+        "name" : "Kampfpanzer Leopard 2 A4",
+        "sizes" : [ {
+          "width" : 220,
+          "height" : 124,
+          "url" : "https://static.dw.com/image/62037252_301.jpg"
+        }, {
+          "width" : 460,
+          "height" : 259,
+          "url" : "https://static.dw.com/image/62037252_302.jpg"
+        }, {
+          "width" : 700,
+          "height" : 394,
+          "url" : "https://static.dw.com/image/62037252_303.jpg"
+        }, {
+          "width" : 940,
+          "height" : 529,
+          "url" : "https://static.dw.com/image/62037252_304.jpg"
+        } ]
+      },
+      "reference" : {
+        "id" : 63420251,
+        "type" : "VideoRef",
+        "name" : "Können die NATO-Länder genügend Waffen liefern?",
+        "url" : "https://api.dw.com/api/detail/video/63420251"
+      },
+      "columnCount" : 1,
+      "allowedColumnCounts" : [ 1, 2 ],
+      "commentsEnabled" : false,
+      "duration" : 196,
+      "programId" : 262045
+    }, {
+      "type" : "VideoTeaser",
+      "name" : "Krimbrücke: Russland nimmt acht Personen fest",
+      "teaserText" : "Der russische Geheimdienst behauptet, hinter dem Anschlag auf die Brücke stehe der ukrainische Geheimdienst.",
+      "displayDate" : "2022-10-12T19:12:09.432Z",
+      "image" : {
+        "id" : 63379635,
+        "type" : "Image",
+        "name" : "Krim | Brand auf Kertsch-Brücke",
+        "sizes" : [ {
+          "width" : 220,
+          "height" : 124,
+          "url" : "https://static.dw.com/image/63379635_301.jpg"
+        }, {
+          "width" : 460,
+          "height" : 259,
+          "url" : "https://static.dw.com/image/63379635_302.jpg"
+        }, {
+          "width" : 700,
+          "height" : 394,
+          "url" : "https://static.dw.com/image/63379635_303.jpg"
+        }, {
+          "width" : 940,
+          "height" : 529,
+          "url" : "https://static.dw.com/image/63379635_304.jpg"
+        } ]
+      },
+      "reference" : {
+        "id" : 63420250,
+        "type" : "VideoRef",
+        "name" : "Krimbrücke: Russland nimmt acht Personen fest",
+        "url" : "https://api.dw.com/api/detail/video/63420250"
+      },
+      "columnCount" : 1,
+      "allowedColumnCounts" : [ 1, 2 ],
+      "commentsEnabled" : false,
+      "duration" : 111,
+      "programId" : 262045
+    }, {
+      "type" : "VideoTeaser",
+      "name" : "Shortlist Deutscher Buchpreis: Daniela Dröscher",
+      "teaserText" : "DW stellt alle 6 Buchpreiskandidaten vor. Diesmal: \"Lügen über meine Mutter\".",
+      "displayDate" : "2022-10-11T18:22:41.112Z",
+      "image" : {
+        "id" : 63172078,
+        "type" : "Image",
+        "name" : "Buchcover | Lügen über meine Mutter | von Daniela Dröscher",
+        "sizes" : [ {
+          "width" : 220,
+          "height" : 124,
+          "url" : "https://static.dw.com/image/63172078_301.jpg"
+        }, {
+          "width" : 460,
+          "height" : 259,
+          "url" : "https://static.dw.com/image/63172078_302.jpg"
+        }, {
+          "width" : 700,
+          "height" : 394,
+          "url" : "https://static.dw.com/image/63172078_303.jpg"
+        }, {
+          "width" : 940,
+          "height" : 529,
+          "url" : "https://static.dw.com/image/63172078_304.jpg"
+        } ]
+      },
+      "reference" : {
+        "id" : 63408991,
+        "type" : "VideoRef",
+        "name" : "Shortlist Deutscher Buchpreis: Daniela Dröscher",
+        "url" : "https://api.dw.com/api/detail/video/63408991"
+      },
+      "columnCount" : 1,
+      "allowedColumnCounts" : [ 1, 2 ],
+      "commentsEnabled" : false,
+      "duration" : 133,
+      "programId" : 262045
+    }, {
+      "type" : "VideoTeaser",
+      "name" : "Hurrikan \"Julia\" richtet schwere Schäden an",
+      "teaserText" : "In Venezuela brachten heftige Regenfälle Verwüstung und Tod.",
+      "displayDate" : "2022-10-11T18:21:40.531Z",
+      "image" : {
+        "id" : 63399431,
+        "type" : "Image",
+        "name" : "Hurrikan Julia | Nicaragua",
+        "sizes" : [ {
+          "width" : 220,
+          "height" : 124,
+          "url" : "https://static.dw.com/image/63399431_301.jpg"
+        }, {
+          "width" : 460,
+          "height" : 259,
+          "url" : "https://static.dw.com/image/63399431_302.jpg"
+        }, {
+          "width" : 700,
+          "height" : 394,
+          "url" : "https://static.dw.com/image/63399431_303.jpg"
+        }, {
+          "width" : 940,
+          "height" : 529,
+          "url" : "https://static.dw.com/image/63399431_304.jpg"
+        } ]
+      },
+      "reference" : {
+        "id" : 63408986,
+        "type" : "VideoRef",
+        "name" : "Hurrikan \"Julia\" richtet schwere Schäden an",
+        "url" : "https://api.dw.com/api/detail/video/63408986"
+      },
+      "columnCount" : 1,
+      "allowedColumnCounts" : [ 1, 2 ],
+      "commentsEnabled" : false,
+      "duration" : 100,
+      "programId" : 262045
+    }, {
+      "type" : "VideoTeaser",
+      "name" : "Ukraine: Angriffe und Luftalarm",
+      "teaserText" : "Auch am Dienstag hat Russland wieder Ziele in der ganzen Ukraine mit Raketen und Kampfdrohnen beschossen.",
+      "displayDate" : "2022-10-11T18:21:27.438Z",
+      "image" : {
+        "type" : "Image",
+        "sizes" : [ {
+          "width" : 512,
+          "height" : 288,
+          "url" : "https://tvdownloaddw-a.akamaihd.net/stills/images/dt/dt20221011_UKRA19b_image_512x288_3.jpg"
+        }, {
+          "width" : 1024,
+          "height" : 576,
+          "url" : "https://tvdownloaddw-a.akamaihd.net/stills/images/dt/dt20221011_UKRA19b_image_1024x576_3.jpg"
+        } ]
+      },
+      "reference" : {
+        "id" : 63408984,
+        "type" : "VideoRef",
+        "name" : "Ukraine: Angriffe und Luftalarm",
+        "url" : "https://api.dw.com/api/detail/video/63408984"
+      },
+      "columnCount" : 1,
+      "allowedColumnCounts" : [ 1, 2 ],
+      "commentsEnabled" : false,
+      "duration" : 127,
+      "programId" : 262045
+    }, {
+      "type" : "VideoTeaser",
+      "name" : "Kunst als Lebenshilfe – der Roman \"Spitzweg\"",
+      "teaserText" : "Roman \"Spitzweg\" von Eckhart Nickel stellt auf unterhaltsame Weise die Kunst in den Mittelpunkt.",
+      "displayDate" : "2022-10-10T20:40:31.957Z",
+      "image" : {
+        "type" : "Image",
+        "sizes" : [ {
+          "width" : 512,
+          "height" : 288,
+          "url" : "https://tvdownloaddw-a.akamaihd.net/stills/images/sonder/sonder20221011_buchpreisnickel_image_512x288_3.jpg"
+        }, {
+          "width" : 1024,
+          "height" : 576,
+          "url" : "https://tvdownloaddw-a.akamaihd.net/stills/images/sonder/sonder20221011_buchpreisnickel_image_1024x576_3.jpg"
+        } ]
+      },
+      "reference" : {
+        "id" : 63398883,
+        "type" : "VideoRef",
+        "name" : "Kunst als Lebenshilfe – Eckhart Nickels Roman \"Spitzweg\"",
+        "url" : "https://api.dw.com/api/detail/video/63398883"
+      },
+      "columnCount" : 1,
+      "allowedColumnCounts" : [ 1, 2 ],
+      "commentsEnabled" : false,
+      "duration" : 112,
+      "programId" : 262045
+    }, {
+      "type" : "VideoTeaser",
+      "name" : "\"Mit aller Härte\" – Kiew unter Beschuss",
+      "teaserText" : "In Kiew und anderen ukrainischen Großstädten beginnt die Woche mit stundenlangem Luftalarm.",
+      "displayDate" : "2022-10-10T20:15:30.642Z",
+      "image" : {
+        "id" : 63388556,
+        "type" : "Image",
+        "name" : "Ukraine Krieg mit Russland Raketen auf Kiew",
+        "sizes" : [ {
+          "width" : 220,
+          "height" : 124,
+          "url" : "https://static.dw.com/image/63388556_301.jpg"
+        }, {
+          "width" : 460,
+          "height" : 259,
+          "url" : "https://static.dw.com/image/63388556_302.jpg"
+        }, {
+          "width" : 700,
+          "height" : 394,
+          "url" : "https://static.dw.com/image/63388556_303.jpg"
+        }, {
+          "width" : 940,
+          "height" : 529,
+          "url" : "https://static.dw.com/image/63388556_304.jpg"
+        } ]
+      },
+      "reference" : {
+        "id" : 63398859,
+        "type" : "VideoRef",
+        "name" : "\"Mit aller Härte\" – Russland nimmt Kiew unter Beschuss",
+        "url" : "https://api.dw.com/api/detail/video/63398859"
+      },
+      "columnCount" : 1,
+      "allowedColumnCounts" : [ 1, 2 ],
+      "commentsEnabled" : false,
+      "duration" : 159,
+      "programId" : 262045
+    }, {
+      "type" : "VideoTeaser",
+      "name" : "Shortlist Deutscher Buchpreis: Fatma Aydemir",
+      "teaserText" : "DW stellt alle 6 Buchpreiskandidaten vor; \"Dschinns\" macht den Anfang. ",
+      "displayDate" : "2022-10-07T19:12:44.953Z",
+      "image" : {
+        "id" : 63178804,
+        "type" : "Image",
+        "name" : "Shortlist Deutscher Buchpreis 2022 | Finale",
+        "sizes" : [ {
+          "width" : 220,
+          "height" : 124,
+          "url" : "https://static.dw.com/image/63178804_301.jpg"
+        }, {
+          "width" : 460,
+          "height" : 259,
+          "url" : "https://static.dw.com/image/63178804_302.jpg"
+        }, {
+          "width" : 700,
+          "height" : 394,
+          "url" : "https://static.dw.com/image/63178804_303.jpg"
+        }, {
+          "width" : 940,
+          "height" : 529,
+          "url" : "https://static.dw.com/image/63178804_304.jpg"
+        } ]
+      },
+      "reference" : {
+        "id" : 63375760,
+        "type" : "VideoRef",
+        "name" : "Shortlist Deutscher Buchpreis: Fatma Aydemir",
+        "url" : "https://api.dw.com/api/detail/video/63375760"
+      },
+      "columnCount" : 1,
+      "allowedColumnCounts" : [ 1, 2 ],
+      "commentsEnabled" : false,
+      "duration" : 108,
+      "programId" : 262045
+    }, {
+      "type" : "VideoTeaser",
+      "name" : "Friedensnobelpreis für Bürgerrechtler ",
+      "teaserText" : "Die diesjährigen Preisträger sind Aktivisten aus der Zivilgesellschaft in der Ukraine, in Russland und Belarus. ",
+      "displayDate" : "2022-10-07T19:10:49.610Z",
+      "image" : {
+        "id" : 63370881,
+        "type" : "Image",
+        "name" : "Friedensnobelpreis für Ales Bialiatski",
+        "sizes" : [ {
+          "width" : 220,
+          "height" : 124,
+          "url" : "https://static.dw.com/image/63370881_301.jpg"
+        }, {
+          "width" : 460,
+          "height" : 259,
+          "url" : "https://static.dw.com/image/63370881_302.jpg"
+        }, {
+          "width" : 700,
+          "height" : 394,
+          "url" : "https://static.dw.com/image/63370881_303.jpg"
+        }, {
+          "width" : 940,
+          "height" : 529,
+          "url" : "https://static.dw.com/image/63370881_304.jpg"
+        } ]
+      },
+      "reference" : {
+        "id" : 63375748,
+        "type" : "VideoRef",
+        "name" : "Friedensnobelpreis für Bürgerrechtler ",
+        "url" : "https://api.dw.com/api/detail/video/63375748"
+      },
+      "columnCount" : 1,
+      "allowedColumnCounts" : [ 1, 2 ],
+      "commentsEnabled" : false,
+      "duration" : 164,
+      "programId" : 262045
+    }, {
+      "type" : "VideoTeaser",
+      "name" : "Informeller EU-Gipfel in Prag",
+      "teaserText" : "Die Staats- und Regierungschefs wollen Einigkeit gegen Putin zeigen, doch beim Thema Energieversorgung gibt es Streit.",
+      "displayDate" : "2022-10-07T19:06:57.181Z",
+      "image" : {
+        "id" : 63372140,
+        "type" : "Image",
+        "name" : "EU-Gipfel in Prag 7.10.2022",
+        "sizes" : [ {
+          "width" : 220,
+          "height" : 124,
+          "url" : "https://static.dw.com/image/63372140_301.jpg"
+        }, {
+          "width" : 460,
+          "height" : 259,
+          "url" : "https://static.dw.com/image/63372140_302.jpg"
+        }, {
+          "width" : 700,
+          "height" : 394,
+          "url" : "https://static.dw.com/image/63372140_303.jpg"
+        }, {
+          "width" : 940,
+          "height" : 529,
+          "url" : "https://static.dw.com/image/63372140_304.jpg"
+        } ]
+      },
+      "reference" : {
+        "id" : 63375749,
+        "type" : "VideoRef",
+        "name" : "Informeller EU-Gipfel in Prag",
+        "url" : "https://api.dw.com/api/detail/video/63375749"
+      },
+      "columnCount" : 1,
+      "allowedColumnCounts" : [ 1, 2 ],
+      "commentsEnabled" : false,
+      "duration" : 108,
+      "programId" : 262045
+    }, {
+      "type" : "VideoTeaser",
+      "name" : "Literaturnobelpreis für Annie Ernaux",
+      "teaserText" : "Die franzöische Schriftstellerin Annie Ernaux erhält die renommierteste literarische Auszeichnung der Welt.",
+      "displayDate" : "2022-10-06T18:50:06.999Z",
+      "image" : {
+        "id" : 63357664,
+        "type" : "Image",
+        "name" : "Schweden | Bekanntgabe des Literaturnobelpreis 2022 | Anders Olsson und Ellen Mattson",
+        "sizes" : [ {
+          "width" : 220,
+          "height" : 124,
+          "url" : "https://static.dw.com/image/63357664_301.jpg"
+        }, {
+          "width" : 460,
+          "height" : 259,
+          "url" : "https://static.dw.com/image/63357664_302.jpg"
+        }, {
+          "width" : 700,
+          "height" : 394,
+          "url" : "https://static.dw.com/image/63357664_303.jpg"
+        }, {
+          "width" : 940,
+          "height" : 529,
+          "url" : "https://static.dw.com/image/63357664_304.jpg"
+        } ]
+      },
+      "reference" : {
+        "id" : 63364275,
+        "type" : "VideoRef",
+        "name" : "Literaturnobelpreis für Französin Annie Ernaux",
+        "url" : "https://api.dw.com/api/detail/video/63364275"
+      },
+      "columnCount" : 1,
+      "allowedColumnCounts" : [ 1, 2 ],
+      "commentsEnabled" : false,
+      "duration" : 134,
+      "programId" : 262045
+    }, {
+      "type" : "VideoTeaser",
+      "name" : "Gipfel der Europäer in neuer Formation",
+      "teaserText" : "Europa geeint gegen Putin: Dieses Signal soll von einem Gipfeltreffen in Prag ausgehen.",
+      "displayDate" : "2022-10-06T18:49:53.494Z",
+      "image" : {
+        "id" : 63360292,
+        "type" : "Image",
+        "name" : "Tschechien Prag | Gründungsgipfel Europäische Politische Gemeinschaft | Gruppenbild",
+        "sizes" : [ {
+          "width" : 220,
+          "height" : 124,
+          "url" : "https://static.dw.com/image/63360292_301.jpg"
+        }, {
+          "width" : 460,
+          "height" : 259,
+          "url" : "https://static.dw.com/image/63360292_302.jpg"
+        }, {
+          "width" : 700,
+          "height" : 394,
+          "url" : "https://static.dw.com/image/63360292_303.jpg"
+        }, {
+          "width" : 940,
+          "height" : 529,
+          "url" : "https://static.dw.com/image/63360292_304.jpg"
+        } ]
+      },
+      "reference" : {
+        "id" : 63364273,
+        "type" : "VideoRef",
+        "name" : "Prag: Gipfel der Europäer in neuer Formation",
+        "url" : "https://api.dw.com/api/detail/video/63364273"
+      },
+      "columnCount" : 1,
+      "allowedColumnCounts" : [ 1, 2 ],
+      "commentsEnabled" : false,
+      "duration" : 126,
+      "programId" : 262045
+    }, {
+      "type" : "VideoTeaser",
+      "name" : "Ukraine: Angriffe auf die Stadt Saporischschja",
+      "teaserText" : "Nach russischem Beschuss sterben ukrainischen Behörden zufolge mindestens drei Menschen.",
+      "displayDate" : "2022-10-06T18:49:41.175Z",
+      "image" : {
+        "id" : 63353472,
+        "type" : "Image",
+        "name" : "Ukraine | Raketenangriff auf Saporischschja ",
+        "sizes" : [ {
+          "width" : 220,
+          "height" : 124,
+          "url" : "https://static.dw.com/image/63353472_301.jpg"
+        }, {
+          "width" : 460,
+          "height" : 259,
+          "url" : "https://static.dw.com/image/63353472_302.jpg"
+        }, {
+          "width" : 700,
+          "height" : 394,
+          "url" : "https://static.dw.com/image/63353472_303.jpg"
+        }, {
+          "width" : 940,
+          "height" : 529,
+          "url" : "https://static.dw.com/image/63353472_304.jpg"
+        } ]
+      },
+      "reference" : {
+        "id" : 63364274,
+        "type" : "VideoRef",
+        "name" : "Ukraine: Angriffe auf die Stadt Saporischschja",
+        "url" : "https://api.dw.com/api/detail/video/63364274"
+      },
+      "columnCount" : 1,
+      "allowedColumnCounts" : [ 1, 2 ],
+      "commentsEnabled" : false,
+      "duration" : 88,
+      "programId" : 262045
+    }, {
+      "type" : "VideoTeaser",
+      "name" : "Auf ein Wort...mit Michel Friedman",
+      "teaserText" : "Was ist das Gegenteil von Diversität? In welchem Zusammenhang stehen Diversität und Emanzipation? ",
+      "displayDate" : "2022-10-07T01:16:17.047Z",
+      "image" : {
+        "id" : 57461211,
+        "type" : "Image",
+        "name" : "DW TV AEW Auf ein Wort mit Emilia Roig zum Thema Diversität",
+        "sizes" : [ {
+          "width" : 220,
+          "height" : 124,
+          "url" : "https://static.dw.com/image/57461211_301.jpeg"
+        }, {
+          "width" : 460,
+          "height" : 259,
+          "url" : "https://static.dw.com/image/57461211_302.jpeg"
+        }, {
+          "width" : 700,
+          "height" : 394,
+          "url" : "https://static.dw.com/image/57461211_303.jpeg"
+        }, {
+          "width" : 940,
+          "height" : 529,
+          "url" : "https://static.dw.com/image/57461211_304.jpeg"
+        } ]
+      },
+      "reference" : {
+        "id" : 57528718,
+        "type" : "VideoRef",
+        "name" : "Auf ein Wort...Diversität ",
+        "url" : "https://api.dw.com/api/detail/video/57528718"
+      },
+      "columnCount" : 1,
+      "allowedColumnCounts" : [ 1, 2 ],
+      "commentsEnabled" : false,
+      "duration" : 2549,
+      "programId" : 40471480
+    }, {
+      "type" : "VideoTeaser",
+      "name" : "Kultur kämpferisch – beim Beethovenfest",
+      "teaserText" : "Beim Beethovenfest Bonn kämpfen Musiker aus der Ukraine und Belarus für Freiheit - gegen Gewalt.",
+      "displayDate" : "2022-09-24T05:54:24.133Z",
+      "image" : {
+        "id" : 48752996,
+        "type" : "Image",
+        "name" : "DW Kultur.21 (Sendungslogo Composite)",
+        "sizes" : [ {
+          "width" : 220,
+          "height" : 124,
+          "url" : "https://static.dw.com/image/48752996_301.jpg"
+        }, {
+          "width" : 460,
+          "height" : 259,
+          "url" : "https://static.dw.com/image/48752996_302.jpg"
+        }, {
+          "width" : 700,
+          "height" : 394,
+          "url" : "https://static.dw.com/image/48752996_303.jpg"
+        }, {
+          "width" : 940,
+          "height" : 529,
+          "url" : "https://static.dw.com/image/48752996_304.jpg"
+        } ]
+      },
+      "reference" : {
+        "id" : 63208258,
+        "type" : "VideoRef",
+        "name" : "Kultur kämpferisch - Ukraine und Belarus beim Beethovenfest",
+        "url" : "https://api.dw.com/api/detail/video/63208258"
+      },
+      "columnCount" : 1,
+      "allowedColumnCounts" : [ 1, 2 ],
+      "commentsEnabled" : false,
+      "duration" : 1566,
+      "programId" : 1045945
+    }, {
+      "type" : "VideoTeaser",
+      "name" : "Gandhis Vermächtnis (2)",
+      "teaserText" : "Indien, die größte Demokratie der Welt, wird 75.",
+      "displayDate" : "2022-08-14T01:14:23.711Z",
+      "image" : {
+        "id" : 62722566,
+        "type" : "Image",
+        "name" : "DW Doku KW 32 | Gandhis Vermächtnis Teil 2",
+        "sizes" : [ {
+          "width" : 220,
+          "height" : 124,
+          "url" : "https://static.dw.com/image/62722566_301.jpg"
+        }, {
+          "width" : 460,
+          "height" : 259,
+          "url" : "https://static.dw.com/image/62722566_302.jpg"
+        }, {
+          "width" : 700,
+          "height" : 394,
+          "url" : "https://static.dw.com/image/62722566_303.jpg"
+        }, {
+          "width" : 940,
+          "height" : 529,
+          "url" : "https://static.dw.com/image/62722566_304.jpg"
+        } ]
+      },
+      "reference" : {
+        "id" : 62761799,
+        "type" : "VideoRef",
+        "name" : "Gandhis Vermächtnis - Wohin steuert Indien? - Teil 2",
+        "url" : "https://api.dw.com/api/detail/video/62761799"
+      },
+      "columnCount" : 1,
+      "allowedColumnCounts" : [ 1, 2 ],
+      "commentsEnabled" : false,
+      "duration" : 1220,
+      "programId" : 293837
+    }, {
+      "type" : "VideoTeaser",
+      "name" : "Auf ein Wort... mit Michel Friedman",
+      "teaserText" : "Sind Sie sich fremd? Was ist das Gegenteil von Fremd? Wann wird das Fremde bedrohlich?",
+      "displayDate" : "2022-07-08T06:06:09.326Z",
+      "image" : {
+        "id" : 46452966,
+        "type" : "Image",
+        "name" : "DW AEW Fremd",
+        "sizes" : [ {
+          "width" : 220,
+          "height" : 124,
+          "url" : "https://static.dw.com/image/46452966_301.jpeg"
+        }, {
+          "width" : 460,
+          "height" : 259,
+          "url" : "https://static.dw.com/image/46452966_302.jpeg"
+        }, {
+          "width" : 700,
+          "height" : 394,
+          "url" : "https://static.dw.com/image/46452966_303.jpeg"
+        }, {
+          "width" : 940,
+          "height" : 529,
+          "url" : "https://static.dw.com/image/46452966_304.jpeg"
+        } ]
+      },
+      "reference" : {
+        "id" : 46958026,
+        "type" : "VideoRef",
+        "name" : "Auf ein Wort...Fremd",
+        "url" : "https://api.dw.com/api/detail/video/46958026"
+      },
+      "columnCount" : 1,
+      "allowedColumnCounts" : [ 1, 2 ],
+      "commentsEnabled" : false,
+      "duration" : 2555,
+      "programId" : 40471480
+    }, {
+      "type" : "VideoTeaser",
+      "name" : "Kleidermüll in Chiles Atacama-Wüste",
+      "teaserText" : "Gigantische Müllberge aus Altkleidern türmen sich in Chiles Atacama-Wüste.",
+      "displayDate" : "2022-05-30T14:23:23.743Z",
+      "image" : {
+        "id" : -1,
+        "type" : "Image",
+        "name" : "default video preview image",
+        "sizes" : [ {
+          "width" : 220,
+          "height" : 124,
+          "url" : "https://api.dw.com/i/video-cy-1sp.gif"
+        }, {
+          "width" : 460,
+          "height" : 259,
+          "url" : "https://api.dw.com/i/video-cy-2sp.gif"
+        }, {
+          "width" : 700,
+          "height" : 394,
+          "url" : "https://api.dw.com/i/video-cy-3sp.gif"
+        }, {
+          "width" : 940,
+          "height" : 529,
+          "url" : "https://api.dw.com/i/video-cy-4sp.gif"
+        } ]
+      },
+      "reference" : {
+        "id" : 61978246,
+        "type" : "VideoRef",
+        "name" : "Fast Fashion - Kleidermüll in Chiles Atacama-Wüste",
+        "url" : "https://api.dw.com/api/detail/video/61978246"
+      },
+      "columnCount" : 1,
+      "allowedColumnCounts" : [ 1, 2 ],
+      "commentsEnabled" : false,
+      "duration" : 1716,
+      "programId" : 16687561
+    }, {
+      "type" : "VideoTeaser",
+      "name" : "Die Macht der Drogenmafia",
+      "teaserText" : "Mit dem Kokainhandel wächst die organisierte Kriminalität in den Niederlanden.",
+      "displayDate" : "2022-04-11T14:02:50.286Z",
+      "image" : {
+        "id" : 61395454,
+        "type" : "Image",
+        "name" : "Video Thumbnail \"Die Macht der Drogenmafia – Das Kokain und die Niederlande\"",
+        "sizes" : [ {
+          "width" : 220,
+          "height" : 124,
+          "url" : "https://static.dw.com/image/61395454_301.jpg"
+        }, {
+          "width" : 460,
+          "height" : 259,
+          "url" : "https://static.dw.com/image/61395454_302.jpg"
+        }, {
+          "width" : 700,
+          "height" : 394,
+          "url" : "https://static.dw.com/image/61395454_303.jpg"
+        }, {
+          "width" : 940,
+          "height" : 529,
+          "url" : "https://static.dw.com/image/61395454_304.jpg"
+        } ]
+      },
+      "reference" : {
+        "id" : 61438393,
+        "type" : "VideoRef",
+        "name" : "Die Macht der Drogenmafia - Wie der Kokainhandel die Niederlande angreift",
+        "url" : "https://api.dw.com/api/detail/video/61438393"
+      },
+      "columnCount" : 1,
+      "allowedColumnCounts" : [ 1, 2 ],
+      "commentsEnabled" : false,
+      "duration" : 1711,
+      "programId" : 16687561
+    }, {
+      "type" : "VideoTeaser",
+      "name" : "\"Ich will mein Leben zurück!\"",
+      "teaserText" : "Tanya ist 31 und verliert zum zweiten Mal ihr zu Hause.",
+      "displayDate" : "2022-04-06T12:05:09.954Z",
+      "image" : {
+        "id" : 61332613,
+        "type" : "Image",
+        "name" : "DW Dokumentationen | Ich will mein Leben zurück!",
+        "sizes" : [ {
+          "width" : 220,
+          "height" : 124,
+          "url" : "https://static.dw.com/image/61332613_301.jpg"
+        }, {
+          "width" : 460,
+          "height" : 259,
+          "url" : "https://static.dw.com/image/61332613_302.jpg"
+        }, {
+          "width" : 700,
+          "height" : 394,
+          "url" : "https://static.dw.com/image/61332613_303.jpg"
+        }, {
+          "width" : 940,
+          "height" : 529,
+          "url" : "https://static.dw.com/image/61332613_304.jpg"
+        } ]
+      },
+      "reference" : {
+        "id" : 61355409,
+        "type" : "VideoRef",
+        "name" : "\"Ich will mein Leben zurück!\" - Tanyas Flucht vor dem Krieg",
+        "url" : "https://api.dw.com/api/detail/video/61355409"
+      },
+      "columnCount" : 1,
+      "allowedColumnCounts" : [ 1, 2 ],
+      "commentsEnabled" : false,
+      "duration" : 1710,
+      "programId" : 16687561
+    } ]
+  }
+}

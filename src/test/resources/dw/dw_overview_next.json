@@ -1,0 +1,158 @@
+{
+  "languageId" : 1,
+  "type" : "MediaCenter",
+  "paginationInfo" : {
+    "availableItems" : 5320,
+    "availablePages" : 178,
+    "pageSize" : 30,
+    "currentPage" : 177,
+    "itemsOnPage" : 30,
+    "firstItem" : 5280,
+    "lastItem" : 5309,
+    "previousPageUrl" : "https://api.dw.com/api/list/mediacenter/1?pageIndex=176",
+    "nextPageUrl" : "https://api.dw.com/api/list/mediacenter/1?pageIndex=178"
+  },
+  "resultCount" : 5320,
+  "items" : [ {
+    "type" : "VideoTeaser",
+    "name" : "Nawalny erhält Sacharow-Preis",
+    "teaserText" : "Der Menschenrechtspreis des Europaparlaments geht 2021 an den russischen Oppositionellen Alexej Nawalny.",
+    "displayDate" : "2021-10-20T19:15:40.878Z",
+    "image" : {
+      "id" : 57347616,
+      "type" : "Image",
+      "name" : "Weltspiegel | Nawalny | Archivbild",
+      "sizes" : [ {
+        "width" : 220,
+        "height" : 124,
+        "url" : "https://static.dw.com/image/57347616_301.jpg"
+      }, {
+        "width" : 460,
+        "height" : 259,
+        "url" : "https://static.dw.com/image/57347616_302.jpg"
+      }, {
+        "width" : 700,
+        "height" : 394,
+        "url" : "https://static.dw.com/image/57347616_303.jpg"
+      }, {
+        "width" : 940,
+        "height" : 529,
+        "url" : "https://static.dw.com/image/57347616_304.jpg"
+      } ]
+    },
+    "reference" : {
+      "id" : 59567960,
+      "type" : "VideoRef",
+      "name" : "Kremlkritiker Alexej Nawalny erhält Sacharow-Preis",
+      "url" : "https://api.dw.com/api/detail/video/59567960"
+    },
+    "columnCount" : 1,
+    "allowedColumnCounts" : [ 1, 2 ],
+    "commentsEnabled" : false,
+    "duration" : 102,
+    "programId" : 262045
+  }, {
+    "type" : "VideoTeaser",
+    "name" : "Afghanistan-Konferenz in Moskau",
+    "teaserText" : "Wie geht es weiter in Afghanistan? Darüber hat eine internationale Konferenz in Moskau beraten.",
+    "displayDate" : "2021-10-20T19:03:32.916Z",
+    "image" : {
+      "id" : 59564707,
+      "type" : "Image",
+      "name" : "Russland I Konferenz mit den Taliban in Moskau",
+      "sizes" : [ {
+        "width" : 220,
+        "height" : 124,
+        "url" : "https://static.dw.com/image/59564707_301.jpg"
+      }, {
+        "width" : 460,
+        "height" : 259,
+        "url" : "https://static.dw.com/image/59564707_302.jpg"
+      }, {
+        "width" : 700,
+        "height" : 394,
+        "url" : "https://static.dw.com/image/59564707_303.jpg"
+      }, {
+        "width" : 940,
+        "height" : 529,
+        "url" : "https://static.dw.com/image/59564707_304.jpg"
+      } ]
+    },
+    "reference" : {
+      "id" : 59567962,
+      "type" : "VideoRef",
+      "name" : "Afghanistan-Konferenz in Moskau",
+      "url" : "https://api.dw.com/api/detail/video/59567962"
+    },
+    "columnCount" : 1,
+    "allowedColumnCounts" : [ 1, 2 ],
+    "commentsEnabled" : false,
+    "duration" : 122,
+    "programId" : 262045
+  }, {
+    "type" : "AudioTeaser",
+    "name" : "Weidmann wirft hin",
+    "teaserText" : "Der wichtigste Kritiker der EZB-Geldpolitik tritt zurück +++ In Europa steigen die Preise +++ Die Zukunft des Bitcoin",
+    "displayDate" : "2021-10-20T14:48:31.465Z",
+    "image" : {
+      "id" : 53201152,
+      "type" : "Image",
+      "name" : "Wirtschaft Teaser Podcast",
+      "sizes" : [ {
+        "width" : 220,
+        "height" : 124,
+        "url" : "https://static.dw.com/image/53201152_301.png"
+      }, {
+        "width" : 460,
+        "height" : 259,
+        "url" : "https://static.dw.com/image/53201152_302.png"
+      }, {
+        "width" : 700,
+        "height" : 394,
+        "url" : "https://static.dw.com/image/53201152_303.png"
+      }, {
+        "width" : 940,
+        "height" : 529,
+        "url" : "https://static.dw.com/image/53201152_304.png"
+      } ]
+    },
+    "reference" : {
+      "id" : 59565006,
+      "type" : "AudioRef",
+      "name" : "Weidmann wirft hin",
+      "url" : "https://api.dw.com/api/detail/audio/59565006"
+    },
+    "columnCount" : 1,
+    "allowedColumnCounts" : [ 1, 2 ],
+    "commentsEnabled" : false,
+    "duration" : 944
+  } ],
+  "trackingInfo" : {
+    "level2" : "1",
+    "page" : "<prefix>::Media Center::Alle Inhalte::Alle Inhalte_next_176",
+    "customCriteria" : {
+      "x8" : "",
+      "x9" : "20221017",
+      "x10" : "<prefix>::Media Center::Alle Inhalte",
+      "x1" : "99",
+      "x2" : "1",
+      "X14" : "",
+      "x3" : "100814",
+      "x4" : "100814",
+      "x5" : "Alle Inhalte_next_176",
+      "X15" : "",
+      "x6" : "1",
+      "X18" : "",
+      "x7" : ""
+    }
+  },
+  "filterParameters" : {
+    "terms" : "",
+    "startDate" : "2021-10-17T16:21:32.193Z",
+    "endDate" : "2022-10-17T16:21:32.193Z",
+    "sortByDate" : true,
+    "contentTypes" : [ "Audio", "Video", "ImageGallery" ],
+    "themes" : [ ],
+    "programs" : [ ]
+  }
+}
