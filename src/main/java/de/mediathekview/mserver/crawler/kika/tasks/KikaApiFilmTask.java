@@ -15,14 +15,12 @@ import java.util.Queue;
 import java.util.Set;
 import java.util.UUID;
 
-import javax.ws.rs.core.Response;
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import com.google.gson.JsonDeserializer;
 import com.google.gson.reflect.TypeToken;
-
+import jakarta.ws.rs.core.Response;
 import de.mediathekview.mlib.daten.Film;
 import de.mediathekview.mlib.daten.FilmUrl;
 import de.mediathekview.mlib.daten.GeoLocations;
@@ -57,13 +55,12 @@ public class KikaApiFilmTask extends AbstractJsonRestTask<Film, KikaApiVideoInfo
   }
 
   @Override
-  protected void handleHttpError(URI url, Response response) {
-    crawler.printErrorMessage();
-    LOG.fatal(
-        "A HTTP error {} occurred when getting REST information from: \"{}\".",
-        response.getStatus(),
-        url);
-    
+  protected void handleHttpError(KikaApiFilmDto dto, URI url, Response response) {
+	    crawler.printErrorMessage();
+	    LOG.fatal(
+	        "A HTTP error {} occurred when getting REST information from: \"{}\".",
+	        response.getStatus(),
+	        url);
   }
 
   @Override
@@ -81,8 +78,22 @@ public class KikaApiFilmTask extends AbstractJsonRestTask<Film, KikaApiVideoInfo
       return;
     }
     //
-    if (aDTO.getTitle().isEmpty() || aDTO.getTopic().isEmpty() || aDTO.getDate().isEmpty() || aDTO.getDuration().isEmpty()) {
-      LOG.error("Missing topic, title, date or duration for {}", aDTO.getUrl());
+    final Optional<LocalDateTime> airedDate;
+    if (aDTO.getDate().isPresent()) {
+    	airedDate = parseLocalDateTime(aDTO, aDTO.getDate());	
+    } else {
+    	airedDate = parseLocalDateTime(aDTO, aDTO.getAppearDate());
+    }
+    if (aDTO.getTitle().isEmpty() || aDTO.getTopic().isEmpty() || airedDate.isEmpty() || aDTO.getDuration().isEmpty()) {
+      if (aDTO.getTitle().isEmpty()) {
+        LOG.error("Missing title for {}", aDTO.getUrl());
+      } else if (aDTO.getTopic().isEmpty()) {
+    	  LOG.error("Missing topic for {}", aDTO.getUrl());
+      } else if (aDTO.getDate().isEmpty()) {
+    	LOG.error("Missing date for {}", aDTO.getUrl());
+      } else if (aDTO.getDuration().isEmpty()) {
+    	LOG.error("Missing duration for {}", aDTO.getUrl());
+      }
       crawler.incrementAndGetErrorCount();
       return;
     }
@@ -92,7 +103,7 @@ public class KikaApiFilmTask extends AbstractJsonRestTask<Film, KikaApiVideoInfo
         crawler.getSender(),
         aDTO.getTitle().get(),
         aDTO.getTopic().get(),
-        parseLocalDateTime(aDTO, aDTO.getDate()).get(),
+        airedDate.get(),
         parseDuration(aDTO, aDTO.getDuration()).get()
         );
     if (aDTO.getDescription().isPresent()) {
@@ -189,4 +200,6 @@ public class KikaApiFilmTask extends AbstractJsonRestTask<Film, KikaApiVideoInfo
     }
     return result;
   }
+
+
 }

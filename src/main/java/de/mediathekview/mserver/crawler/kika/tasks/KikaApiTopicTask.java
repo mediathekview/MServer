@@ -7,8 +7,6 @@ import java.util.Queue;
 import java.util.Set;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
-import javax.ws.rs.core.Response;
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -22,6 +20,7 @@ import de.mediathekview.mserver.crawler.basic.TopicUrlDTO;
 import de.mediathekview.mserver.crawler.kika.json.KikaApiFilmDto;
 import de.mediathekview.mserver.crawler.kika.json.KikaApiTopicDto;
 import de.mediathekview.mserver.crawler.kika.json.KikaApiTopicPageDeserializer;
+import jakarta.ws.rs.core.Response;
 
 // <T, R, D extends CrawlerUrlDTO> extends AbstractRestTask<T, D>
 // return T Class from this task, desirialisation of class R , D , Reasearch in this url
@@ -43,16 +42,6 @@ public class KikaApiTopicTask extends AbstractJsonRestTask<KikaApiFilmDto, KikaA
   @Override
   protected Type getType() {
     return new TypeToken<Set<KikaApiTopicDto>>() {}.getType();
-  }
-
-  @Override
-  protected void handleHttpError(URI url, Response response) {
-    crawler.printErrorMessage();
-    LOG.fatal(
-        "A HTTP error {} occurred when getting REST information from: \"{}\".",
-        response.getStatus(),
-        url);
-    
   }
 
   @Override
@@ -89,6 +78,15 @@ public class KikaApiTopicTask extends AbstractJsonRestTask<KikaApiFilmDto, KikaA
   protected AbstractRecursiveConverterTask<KikaApiFilmDto, TopicUrlDTO> createNewOwnInstance(
       Queue<TopicUrlDTO> aElementsToProcess) {
     return new KikaApiTopicTask(crawler, aElementsToProcess, subPageIndex+1);
+  }
+
+  @Override
+  protected void handleHttpError(TopicUrlDTO dto, URI url, Response response) {
+      crawler.printErrorMessage();
+      LOG.fatal(
+          "A HTTP error {} occurred when getting REST information from: \"{}\".",
+          response.getStatus(),
+          url);
   }
 
   

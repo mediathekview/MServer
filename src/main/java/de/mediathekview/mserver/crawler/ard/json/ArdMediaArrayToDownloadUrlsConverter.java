@@ -145,7 +145,8 @@ public class ArdMediaArrayToDownloadUrlsConverter {
       case 1 -> Resolution.SMALL;
       case 3, 4 -> Resolution.HD;
       case 5 -> Resolution.UHD;
-      case 2, default -> Resolution.NORMAL;
+      case 2 -> Resolution.NORMAL;
+      default -> Resolution.NORMAL;
     };
   }
 

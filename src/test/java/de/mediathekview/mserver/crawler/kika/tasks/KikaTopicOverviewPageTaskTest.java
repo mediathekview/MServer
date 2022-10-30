@@ -75,7 +75,7 @@ public class KikaTopicOverviewPageTaskTest extends KikaTaskTestBase {
 
   @Test
   public void testOverviewWithSinglePageWithoutBoxBroadcastLayout() throws IOException {
-    MServerConfigManager rootConfig = MServerConfigManager.getInstance("MServer-JUnit-Config.yaml");
+    MServerConfigManager rootConfig = new MServerConfigManager("MServer-JUnit-Config.yaml");
     rootConfig.getSenderConfig(Sender.KIKA).setMaximumSubpages(1);
 
     final String requestUrl = wireMockServer.baseUrl() + "/pur/sendungen/videos-pur-102.html";
@@ -104,7 +104,7 @@ public class KikaTopicOverviewPageTaskTest extends KikaTaskTestBase {
 
   @Test
   public void testOverviewWithMultiplePagesLimitSubpagesLargerThanSubpageCount() {
-    MServerConfigManager rootConfig = MServerConfigManager.getInstance("MServer-JUnit-Config.yaml");
+    MServerConfigManager rootConfig = new MServerConfigManager("MServer-JUnit-Config.yaml");
     rootConfig.getSenderConfig(Sender.KIKA).setMaximumSubpages(7);
 
     final String requestUrl =
@@ -161,7 +161,7 @@ public class KikaTopicOverviewPageTaskTest extends KikaTaskTestBase {
 
   @Test
   public void testOverviewWithMultiplePagesLimitSubpagesSmallerThanSubpageCount() {
-    MServerConfigManager rootConfig = MServerConfigManager.getInstance("MServer-JUnit-Config.yaml");
+    MServerConfigManager rootConfig = new MServerConfigManager("MServer-JUnit-Config.yaml");
     rootConfig.getSenderConfig(Sender.KIKA).setMaximumSubpages(2);
 
     final String requestUrl =
@@ -203,7 +203,7 @@ public class KikaTopicOverviewPageTaskTest extends KikaTaskTestBase {
 
   @Test
   public void testOverviewLandingPageLinksNotToFirstPageSmallerThanSubpageCount() {
-    MServerConfigManager rootConfig = MServerConfigManager.getInstance("MServer-JUnit-Config.yaml");
+    MServerConfigManager rootConfig = new MServerConfigManager("MServer-JUnit-Config.yaml");
     rootConfig.getSenderConfig(Sender.KIKA).setMaximumSubpages(3);
 
     final String requestUrl =
@@ -253,7 +253,7 @@ public class KikaTopicOverviewPageTaskTest extends KikaTaskTestBase {
 
   @Test
   public void testOverviewLandingPageLinksNotToFirstPageWithSubpagesLargerThanSubpageCount() {
-    MServerConfigManager rootConfig = MServerConfigManager.getInstance("MServer-JUnit-Config.yaml");
+    MServerConfigManager rootConfig = new MServerConfigManager("MServer-JUnit-Config.yaml");
     rootConfig.getSenderConfig(Sender.KIKA).setMaximumSubpages(5);
 
     final String requestUrl =

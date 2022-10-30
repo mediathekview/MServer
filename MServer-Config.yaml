@@ -16,7 +16,7 @@ maximumServerDurationInMinutes: 0
 senderIncluded:
   #- MDR
   #- NDR
-  - ZDF
+  - KIKA
   #- BR
 
 # If set the server will be awake after the crawler run and restarts the run after the given amount.
@@ -105,9 +105,7 @@ maximumDaysForSendungVerpasstSectionFuture: 0
 # The time in seconds before a socket connection should time out.
 socketTimeoutInSeconds: 60
 
-crawlerURLs:
-  KIKA_API_URL: http://prod.kinderplayer.cdn.tvnext.tv
-  
+
 #### Specific crawler configurations ####
 senderConfigurations:
   ARD:

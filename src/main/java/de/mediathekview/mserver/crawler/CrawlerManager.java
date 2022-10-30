@@ -21,6 +21,7 @@ import de.mediathekview.mserver.crawler.br.BrCrawler;
 import de.mediathekview.mserver.crawler.dreisat.DreiSatCrawler;
 import de.mediathekview.mserver.crawler.dw.DwCrawler;
 import de.mediathekview.mserver.crawler.funk.FunkCrawler;
+import de.mediathekview.mserver.crawler.kika.KikaApiCrawler;
 import de.mediathekview.mserver.crawler.kika.KikaCrawler;
 import de.mediathekview.mserver.crawler.orf.OrfCrawler;
 import de.mediathekview.mserver.crawler.phoenix.PhoenixCrawler;
@@ -468,7 +469,7 @@ public class CrawlerManager extends AbstractManager {
         new FunkCrawler(forkJoinPool, messageListeners, progressListeners, rootConfig));
     crawlerMap.put(
         Sender.KIKA,
-        new KikaCrawler(forkJoinPool, messageListeners, progressListeners, rootConfig));
+        new KikaApiCrawler(forkJoinPool, messageListeners, progressListeners, rootConfig));
     crawlerMap.put(
         Sender.DW, new DwCrawler(forkJoinPool, messageListeners, progressListeners, rootConfig));
     crawlerMap.put(

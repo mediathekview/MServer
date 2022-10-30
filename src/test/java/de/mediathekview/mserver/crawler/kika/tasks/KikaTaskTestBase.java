@@ -16,7 +16,7 @@ public abstract class KikaTaskTestBase extends WireMockTestBase {
     Collection<MessageListener> nachrichten = new ArrayList<>();
     Collection<SenderProgressListener> fortschritte = new ArrayList<>();
 
-    MServerConfigManager rootConfig = MServerConfigManager.getInstance("MServer-JUnit-Config.yaml");
+    MServerConfigManager rootConfig = new MServerConfigManager("MServer-JUnit-Config.yaml");
     return new KikaCrawler(forkJoinPool, nachrichten, fortschritte, rootConfig);
   }
 }

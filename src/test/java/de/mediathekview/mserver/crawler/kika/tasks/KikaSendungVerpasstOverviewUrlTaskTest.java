@@ -42,7 +42,8 @@ public class KikaSendungVerpasstOverviewUrlTaskTest extends KikaTaskTestBase {
 
   @Test
   public void callTestNoFutureUrls() throws IOException {
-    MServerConfigManager rootConfig = MServerConfigManager.getInstance("MServer-JUnit-Config.yaml");
+    MServerConfigManager rootConfig = new MServerConfigManager("MServer-JUnit-Config.yaml");
+
     rootConfig.getSenderConfig(Sender.KIKA).setMaximumDaysForSendungVerpasstSection(4);
     rootConfig.getSenderConfig(Sender.KIKA).setMaximumDaysForSendungVerpasstSectionFuture(0);
 
@@ -69,7 +70,7 @@ public class KikaSendungVerpasstOverviewUrlTaskTest extends KikaTaskTestBase {
 
   @Test
   public void callTestWithFutureUrls() throws IOException {
-    MServerConfigManager rootConfig = MServerConfigManager.getInstance("MServer-JUnit-Config.yaml");
+    MServerConfigManager rootConfig = new MServerConfigManager("MServer-JUnit-Config.yaml");
     rootConfig.getSenderConfig(Sender.KIKA).setMaximumDaysForSendungVerpasstSection(4);
     rootConfig.getSenderConfig(Sender.KIKA).setMaximumDaysForSendungVerpasstSectionFuture(3);
 
@@ -102,7 +103,7 @@ public class KikaSendungVerpasstOverviewUrlTaskTest extends KikaTaskTestBase {
 
   @Test
   public void callTestRangeLargerThanAvailableDays() throws IOException {
-    MServerConfigManager rootConfig = MServerConfigManager.getInstance("MServer-JUnit-Config.yaml");
+    MServerConfigManager rootConfig = new MServerConfigManager("MServer-JUnit-Config.yaml");
     rootConfig.getSenderConfig(Sender.KIKA).setMaximumDaysForSendungVerpasstSection(40);
     rootConfig.getSenderConfig(Sender.KIKA).setMaximumDaysForSendungVerpasstSectionFuture(30);
 
