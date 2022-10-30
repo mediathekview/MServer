@@ -10,68 +10,57 @@
 package de.mediathekview.mserver.crawler.br.graphql.variables;
 
 import de.mediathekview.mserver.crawler.br.graphql.AbstractVariable;
-import org.junit.After;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.util.LinkedList;
 import java.util.List;
 
-import static org.junit.Assert.*;
+import static org.assertj.core.api.Assertions.assertThat;
 
-public class RecursiveAbstractVariableTest {
+class RecursiveAbstractVariableTest {
 
-  @After
-  public void tearDown() throws Exception {}
 
-  @Test
-  public void testOneRecursion() {
-      final BooleanVariable eqFalseVariable = new BooleanVariable("eq", false);
-      final RecursiveAbstractVariable emptyEqFalseVariable =
-              new RecursiveAbstractVariable("empty", eqFalseVariable);
-      assertEquals(
-              "\"empty\":{\"eq\":false}", emptyEqFalseVariable.getJSONFromVariableOrDefaulNull());
-  }
-
-  @Test
-  public void testDoubleRecursion() {
-      final BooleanVariable eqFalseVariable = new BooleanVariable("eq", false);
-      final RecursiveAbstractVariable emptyEqFalseVariable =
-              new RecursiveAbstractVariable("empty", eqFalseVariable);
-      final RecursiveAbstractVariable essencesEmptyEqFalseVariable =
-              new RecursiveAbstractVariable("essences", emptyEqFalseVariable);
-      assertEquals(
-              "\"essences\":{\"empty\":{\"eq\":false}}",
-              essencesEmptyEqFalseVariable.getJSONFromVariableOrDefaulNull());
-  }
-
-  @Test
-  public void testNullObject() {
-      final BooleanVariable booleanVariable = null;
-      final RecursiveAbstractVariable variableWithBooleanNull =
-              new RecursiveAbstractVariable("eq", booleanVariable);
-    assertEquals("\"eq\":null", variableWithBooleanNull.getJSONFromVariableOrDefaulNull());
-  }
-
-  @Test
-  public void testSubListSetsStatusRootNodeToFalse() {
-      final BooleanVariable bv = new BooleanVariable("bv", false);
-      final StringVariable sv = new StringVariable("sv", "text");
-      final List<AbstractVariable> subList = new LinkedList<>();
-    subList.add(bv);
-    subList.add(sv);
-
-      final VariableList vl = new VariableList("SubList", subList);
-
-      assertTrue(vl.isRootElement());
-
-      final RecursiveAbstractVariable rv = new RecursiveAbstractVariable("father", vl);
-
-      if (rv.getValue() instanceof VariableList) {
-          final VariableList sub = (VariableList) rv.getValue();
-          sub.getValue().stream()
-                  .filter(VariableList.class::isInstance)
-                  .map(VariableList.class::cast)
-                  .forEach(v -> assertFalse(v.isRootElement()));
+    @Test
+    void testOneRecursion() {
+        final BooleanVariable eqFalseVariable = new BooleanVariable("eq", false);
+        final RecursiveAbstractVariable emptyEqFalseVariable = new RecursiveAbstractVariable("empty", eqFalseVariable);
+        assertThat(emptyEqFalseVariable.getJSONFromVariableOrDefaulNull()).isEqualTo("\"empty\":{\"eq\":false}");
     }
-  }
+
+    @Test
+    void testDoubleRecursion() {
+        final BooleanVariable eqFalseVariable = new BooleanVariable("eq", false);
+        final RecursiveAbstractVariable emptyEqFalseVariable = new RecursiveAbstractVariable("empty", eqFalseVariable);
+        final RecursiveAbstractVariable essencesEmptyEqFalseVariable = new RecursiveAbstractVariable("essences", emptyEqFalseVariable);
+        assertThat(essencesEmptyEqFalseVariable.getJSONFromVariableOrDefaulNull()).isEqualTo("\"essences\":{\"empty\":{\"eq\":false}}");
+    }
+
+    @Test
+    void testNullObject() {
+        final RecursiveAbstractVariable variableWithBooleanNull =
+                new RecursiveAbstractVariable("eq", null);
+        assertThat(variableWithBooleanNull.getJSONFromVariableOrDefaulNull()).isEqualTo("\"eq\":null");
+    }
+
+    @Test
+    void testSubListSetsStatusRootNodeToFalse() {
+        final BooleanVariable bv = new BooleanVariable("bv", false);
+        final StringVariable sv = new StringVariable("sv", "text");
+        final List<AbstractVariable> subList = new LinkedList<>();
+        subList.add(bv);
+        subList.add(sv);
+
+        final VariableList vl = new VariableList("SubList", subList);
+
+        assertThat(vl.isRootElement()).isTrue();
+
+        final RecursiveAbstractVariable rv = new RecursiveAbstractVariable("father", vl);
+
+        if (rv.getValue() instanceof final VariableList sub) {
+            sub.getValue().stream()
+                    .filter(VariableList.class::isInstance)
+                    .map(VariableList.class::cast)
+                    .forEach(v -> assertThat(v.isRootElement()).isFalse());
+        }
+    }
 }

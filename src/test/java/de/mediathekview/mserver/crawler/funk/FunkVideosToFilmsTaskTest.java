@@ -7,7 +7,7 @@ import de.mediathekview.mlib.daten.Sender;
 import de.mediathekview.mserver.crawler.basic.FilmInfoDto;
 import de.mediathekview.mserver.crawler.funk.tasks.FunkVideosToFilmsTask;
 import org.jetbrains.annotations.NotNull;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -20,7 +20,7 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
 
-public class FunkVideosToFilmsTaskTest extends FunkTaskTestBase {
+class FunkVideosToFilmsTaskTest extends FunkTaskTestBase {
 
   private static final String TITLE =
       "Ansage an Hater, Reue, Reichtum uvm. | Money Boy im Talk + Live Performance";
@@ -39,7 +39,7 @@ public class FunkVideosToFilmsTaskTest extends FunkTaskTestBase {
   }
 
   @Test
-  public void testVideoToFilm() throws MalformedURLException {
+  void testVideoToFilm() throws MalformedURLException {
     setupSuccessfulJsonPostResponse(
         "/v3/741/videos/byid/1605930", "/funk/nexx_cloud_video_details.json");
 

@@ -5,91 +5,79 @@ import de.mediathekview.mserver.crawler.basic.FilmInfoDto;
 import de.mediathekview.mserver.crawler.funk.json.FunkVideoDeserializer;
 import de.mediathekview.mserver.crawler.funk.tasks.FunkRestEndpoint;
 import de.mediathekview.mserver.crawler.funk.tasks.FunkRestTask;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.util.Set;
 
 import static com.github.tomakehurst.wiremock.client.WireMock.*;
-import static org.hamcrest.CoreMatchers.equalTo;
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.notNullValue;
+import static org.assertj.core.api.Assertions.assertThat;
 
-public class FunkVideoRestTaskTest extends FunkTaskTestBase {
+class FunkVideoRestTaskTest extends FunkTaskTestBase {
 
   @Test
-  public void testOverviewWithSinglePage() {
+  void testOverviewWithSinglePage() {
     final String requestUrl = "/api/v4.0/videos/";
     setupSuccessfulJsonResponse(requestUrl, "/funk/funk_video_page_last.json");
 
     final Set<FilmInfoDto> actual = executeTask(requestUrl);
 
-    assertThat(actual, notNullValue());
-    assertThat(actual.size(), equalTo(3));
+    assertThat(actual).isNotNull().hasSize(3);
   }
 
   @Test
-  public void testOverviewWithMultiplePagesLimitSubpagesLargerThanSubpageCount() {
+  void testOverviewWithMultiplePagesLimitSubpagesLargerThanSubpageCount() {
 
     rootConfig.getSenderConfig(Sender.FUNK).setMaximumSubpages(5);
 
     final String requestUrl = "/api/v4.0/videos/";
     setupSuccessfulJsonResponse(requestUrl, "/funk/funk_video_page_1.json");
     setupSuccessfulJsonResponse(
-        "/api/v4.0/videos/?page=1&size=20&sort=updateDate,desc",
-        "/funk/funk_video_page_2.json");
+        "/api/v4.0/videos/?page=1&size=20&sort=updateDate,desc", "/funk/funk_video_page_2.json");
     setupSuccessfulJsonResponse(
-            "/api/v4.0/videos/?page=2&size=20&sort=updateDate,desc",
-            "/funk/funk_video_page_3.json");
+        "/api/v4.0/videos/?page=2&size=20&sort=updateDate,desc", "/funk/funk_video_page_3.json");
     setupSuccessfulJsonResponse(
-            "/api/v4.0/videos/?page=3&size=20&sort=updateDate,desc",
-            "/funk/funk_video_page_last.json");
+        "/api/v4.0/videos/?page=3&size=20&sort=updateDate,desc", "/funk/funk_video_page_last.json");
 
     final Set<FilmInfoDto> actual = executeTask(requestUrl);
 
-    assertThat(actual, notNullValue());
-    assertThat(actual.size(), equalTo(63));
+    assertThat(actual).isNotNull().hasSize(63);
   }
 
   @Test
-  public void testOverviewWithMultiplePagesLimitSubpagesSmallerThanSubpageCount() {
+  void testOverviewWithMultiplePagesLimitSubpagesSmallerThanSubpageCount() {
     rootConfig.getSenderConfig(Sender.FUNK).setMaximumSubpages(2);
 
     final String requestUrl = "/api/v4.0/videos/";
     setupSuccessfulJsonResponse(requestUrl, "/funk/funk_video_page_1.json");
     setupSuccessfulJsonResponse(
-            "/api/v4.0/videos/?page=1&size=20&sort=updateDate,desc",
-            "/funk/funk_video_page_2.json");
+        "/api/v4.0/videos/?page=1&size=20&sort=updateDate,desc", "/funk/funk_video_page_2.json");
     setupSuccessfulJsonResponse(
-            "/api/v4.0/videos/?page=2&size=20&sort=updateDate,desc",
-            "/funk/funk_video_page_3.json");
+        "/api/v4.0/videos/?page=2&size=20&sort=updateDate,desc", "/funk/funk_video_page_3.json");
     setupSuccessfulJsonResponse(
-            "/api/v4.0/videos/?page=3&size=20&sort=updateDate,desc",
-            "/funk/funk_video_page_last.json");
+        "/api/v4.0/videos/?page=3&size=20&sort=updateDate,desc", "/funk/funk_video_page_last.json");
 
     final Set<FilmInfoDto> actual = executeTask(requestUrl);
 
-    assertThat(actual, notNullValue());
-    assertThat(actual.size(), equalTo(40));
+    assertThat(actual).isNotNull().hasSize(40);
   }
 
   @Test
-  public void testOverviewPageNotFound() {
+  void testOverviewPageNotFound() {
     final String requestUrl = "/api/v4.0/videos/";
 
     wireMockServer.stubFor(
         get(urlEqualTo(requestUrl)).willReturn(aResponse().withStatus(404).withBody("Not Found")));
 
     final Set<FilmInfoDto> actual = executeTask(requestUrl);
-    assertThat(actual, notNullValue());
-    assertThat(actual.size(), equalTo(0));
+
+    assertThat(actual).isNotNull().isEmpty();
   }
 
   private Set<FilmInfoDto> executeTask(final String aRequestUrl) {
     final FunkCrawler crawler = createCrawler();
     return new FunkRestTask<>(
             crawler,
-            new FunkRestEndpoint<>(
-                FunkApiUrls.VIDEOS, new FunkVideoDeserializer(crawler)),
+            new FunkRestEndpoint<>(FunkApiUrls.VIDEOS, new FunkVideoDeserializer(crawler)),
             createCrawlerUrlDto(aRequestUrl))
         .invoke();
   }

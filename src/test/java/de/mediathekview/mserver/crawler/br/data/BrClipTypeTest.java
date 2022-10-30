@@ -9,39 +9,34 @@
  */
 package de.mediathekview.mserver.crawler.br.data;
 
-import org.junit.After;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
+import static org.assertj.core.api.Assertions.assertThat;
 
-public class BrClipTypeTest {
-
-  @After
-  public void tearDown() throws Exception {}
+class BrClipTypeTest {
 
   @Test
-  public void testGetInstanceByNameWithValidItem() {
-    assertEquals(BrClipType.ITEM, BrClipType.getInstanceByName("Item"));
+  void testGetInstanceByNameWithValidItem() {
+    assertThat(BrClipType.getInstanceByName("Item")).isEqualTo(BrClipType.ITEM);
   }
 
   @Test
-  public void testGetInstanceByeNameWithProgramme() {
-    assertEquals(BrClipType.PROGRAMME, BrClipType.getInstanceByName("Programme"));
+  void testGetInstanceByeNameWithProgramme() {
+    assertThat(BrClipType.getInstanceByName("Programme")).isEqualTo(BrClipType.PROGRAMME);
   }
 
-    @Test
-  public void testGetInstanceByeNameWithWringName() {
-    assertNull(BrClipType.getInstanceByName("brzlfitz"));
+  @Test
+  void testGetInstanceByeNameWithWringName() {
+    assertThat(BrClipType.getInstanceByName("brzlfitz")).isNull();
   }
 
-    @Test
-  public void testGetNameItem() {
-    assertEquals("Item", BrClipType.ITEM.getGraphQLName());
+  @Test
+  void testGetNameItem() {
+    assertThat(BrClipType.ITEM.getGraphQLName()).isEqualTo("Item");
   }
 
-    @Test
-  public void testGetNameProgramm() {
-    assertEquals("Programme", BrClipType.PROGRAMME.getGraphQLName());
+  @Test
+  void testGetNameProgramm() {
+    assertThat(BrClipType.PROGRAMME.getGraphQLName()).isEqualTo("Programme");
   }
 }

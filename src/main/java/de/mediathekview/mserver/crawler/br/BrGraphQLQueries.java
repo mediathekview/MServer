@@ -15,9 +15,22 @@ import java.util.Optional;
 
 public class BrGraphQLQueries {
 
+  public static final String OBJECT_TITLE_EDGES = "edges";
+  public static final String     OBJECT_TITLE_CATEGORIZATIONS = "categorizations";
   private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
   private static final String JSON_GRAPHQL_HEADER = "{\"query\":\"";
+  public static final String SUB_VARIABLE_COUNT = "count";
+  public static final String OBJECT_TITLE_AUTHORS = "authors";
+  public static final String OBJECT_TITLE_NODE = "node";
+  public static final String SUB_VARIABLE_ID = "id";
+  public static final String SUB_VARIABLE_NAME = "name";
+  public static final String OBJECT_TITLE_SUBJECTS = "subjects";
+  public static final String OBJECT_TITLE_TAGS = "tags";
+  public static final String SUB_VARIABLE_LABEL = "label";
+  public static final String OBJECT_TITLE_EXECUTIVE_PRODUCERS = "executiveProducers";
+  public static final String OBJECT_TITLE_CREDITS = "credits";
+  public static final String OBJECT_TITLE_GENRES = "genres";
 
   private BrGraphQLQueries() {}
 
@@ -32,11 +45,10 @@ public class BrGraphQLQueries {
 
     String searchTitle = "MediathekViewGetClipDetails";
 
-    StringBuilder sb = new StringBuilder();
-
-    sb.append(JSON_GRAPHQL_HEADER);
-    sb.append(getGraphQLHeaderWithVariable(searchTitle, rootVariable));
-    sb.append(
+    StringBuilder queryBuilder = new StringBuilder();
+    queryBuilder.append(JSON_GRAPHQL_HEADER);
+    queryBuilder.append(getGraphQLHeaderWithVariable(searchTitle, rootVariable));
+    queryBuilder.append(
         addObjectConstruct(
             BrGraphQLNodeNames.RESULT_ROOT_BR_NODE.getName(),
             addObjectConstruct(
@@ -62,13 +74,13 @@ public class BrGraphQLQueries {
                 addCaptionFiles(),
                 addOnItemInterface(),
                 addOnProgrammeInterface()),
-            "id"));
+                SUB_VARIABLE_ID));
 
-    sb.append("}");
+    queryBuilder.append("}");
 
-    sb.append(getGraphQLFooterWithVariable(rootVariable));
+    queryBuilder.append(getGraphQLFooterWithVariable(rootVariable));
 
-    return sb.toString();
+    return queryBuilder.toString();
   }
 
   public static String getQueryGetIds(
@@ -145,65 +157,64 @@ public class BrGraphQLQueries {
   }
 
   private static String addAuthors() {
-    return addObjectConstruct(
-        "authors", "count", addObjectConstruct("edges", addObjectConstruct("node", "id", "name")));
+    return addObjectConstruct(OBJECT_TITLE_AUTHORS, SUB_VARIABLE_COUNT, addObjectConstruct(OBJECT_TITLE_EDGES, addObjectConstruct(OBJECT_TITLE_NODE, SUB_VARIABLE_ID, SUB_VARIABLE_NAME)));
   }
 
   private static String addSubjects() {
     return addObjectConstruct(
-        "subjects", "count", addObjectConstruct("edges", addObjectConstruct("node", "id")));
+            OBJECT_TITLE_SUBJECTS, SUB_VARIABLE_COUNT, addObjectConstruct(OBJECT_TITLE_EDGES, addObjectConstruct(OBJECT_TITLE_NODE, SUB_VARIABLE_ID)));
   }
 
   private static String addTags() {
     return addObjectConstruct(
-        "tags", "count", addObjectConstruct("edges", addObjectConstruct("node", "id", "label")));
+            OBJECT_TITLE_TAGS, SUB_VARIABLE_COUNT, addObjectConstruct(OBJECT_TITLE_EDGES, addObjectConstruct(OBJECT_TITLE_NODE, SUB_VARIABLE_ID, SUB_VARIABLE_LABEL)));
   }
 
   private static String addExecutiveProducers() {
     return addObjectConstruct(
-        "executiveProducers",
-        "count",
-        addObjectConstruct("edges", addObjectConstruct("node", "id", "name")));
+            OBJECT_TITLE_EXECUTIVE_PRODUCERS,
+            SUB_VARIABLE_COUNT,
+        addObjectConstruct(OBJECT_TITLE_EDGES, addObjectConstruct(OBJECT_TITLE_NODE, SUB_VARIABLE_ID, SUB_VARIABLE_NAME)));
   }
 
   private static String addCredits() {
     return addObjectConstruct(
-        "credits", "count", addObjectConstruct("edges", addObjectConstruct("node", "id", "name")));
+            OBJECT_TITLE_CREDITS, SUB_VARIABLE_COUNT, addObjectConstruct(OBJECT_TITLE_EDGES, addObjectConstruct(OBJECT_TITLE_NODE, SUB_VARIABLE_ID, SUB_VARIABLE_NAME)));
   }
 
   private static String addCategorizations() {
     return addObjectConstruct(
-        "categorizations", "count", addObjectConstruct("edges", addObjectConstruct("node", "id")));
+            OBJECT_TITLE_CATEGORIZATIONS, SUB_VARIABLE_COUNT, addObjectConstruct(OBJECT_TITLE_EDGES, addObjectConstruct(OBJECT_TITLE_NODE, SUB_VARIABLE_ID)));
   }
 
   private static String addGenres() {
     return addObjectConstruct(
-        "genres", "count", addObjectConstruct("edges", addObjectConstruct("node", "id", "label")));
+            OBJECT_TITLE_GENRES, SUB_VARIABLE_COUNT, addObjectConstruct(OBJECT_TITLE_EDGES, addObjectConstruct(OBJECT_TITLE_NODE, SUB_VARIABLE_ID, SUB_VARIABLE_LABEL)));
   }
 
   private static String addVideoFiles() {
     return addObjectConstruct(
         "videoFiles(first: 50, orderBy: FILESIZE_DESC)",
-        "count",
+            SUB_VARIABLE_COUNT,
         addObjectConstruct(
-            "edges",
+                OBJECT_TITLE_EDGES,
             addObjectConstruct(
-                "node",
-                "id",
+                    OBJECT_TITLE_NODE,
+                    SUB_VARIABLE_ID,
                 "fileSize",
                 "publicLocation",
                 addObjectConstruct(
                     "accessibleIn(first: 50)",
-                    "count",
-                    addObjectConstruct("edges", addObjectConstruct("node", "id", "baseIdPrefix"))),
-                addObjectConstruct("videoProfile", "id", "height", "width"))));
+                        SUB_VARIABLE_COUNT,
+                    addObjectConstruct(OBJECT_TITLE_EDGES, addObjectConstruct(OBJECT_TITLE_NODE, SUB_VARIABLE_ID, "baseIdPrefix"))),
+                addObjectConstruct("videoProfile", SUB_VARIABLE_ID, "height", "width"))));
   }
 
   private static String addCaptionFiles() {
     return addObjectConstruct(
         "captionFiles(first: 50, orderBy: FILESIZE_DESC)",
-        "count",
-        addObjectConstruct("edges", addObjectConstruct("node", "id", "publicLocation")));
+            SUB_VARIABLE_COUNT,
+        addObjectConstruct(OBJECT_TITLE_EDGES, addObjectConstruct(OBJECT_TITLE_NODE, SUB_VARIABLE_ID, "publicLocation")));
   }
 
   private static String addOnItemInterface() {
@@ -212,8 +223,8 @@ public class BrGraphQLQueries {
         "availableUntil",
         addObjectConstruct(
             "itemOf",
-            "count",
-            addObjectConstruct("edges", addObjectConstruct("node", "id", "title"))));
+                SUB_VARIABLE_COUNT,
+            addObjectConstruct(OBJECT_TITLE_EDGES, addObjectConstruct(OBJECT_TITLE_NODE, SUB_VARIABLE_ID, "title"))));
   }
 
   private static String addOnProgrammeInterface() {
@@ -221,8 +232,8 @@ public class BrGraphQLQueries {
         "... on ProgrammeInterface",
         "episodeNumber",
         addObjectConstruct(
-            "episodeOf", "id", "title", "kicker", "scheduleInfo", "shortDescription"),
-        addObjectConstruct("initialScreening", "start", "id"));
+            "episodeOf", SUB_VARIABLE_ID, "title", "kicker", "scheduleInfo", "shortDescription"),
+        addObjectConstruct("initialScreening", "start", SUB_VARIABLE_ID));
   }
 
   private static String addObjectConstruct(String title, String... subVariables) {

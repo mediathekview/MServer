@@ -2,11 +2,11 @@ package de.mediathekview.mserver.testhelper;
 
 import com.github.tomakehurst.wiremock.WireMockServer;
 import de.mediathekview.mserver.crawler.basic.CrawlerUrlDTO;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.jetbrains.annotations.NotNull;
-import org.junit.After;
-import org.junit.Before;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.annotation.Nullable;
 import java.util.Optional;
@@ -17,12 +17,12 @@ import static com.github.tomakehurst.wiremock.client.WireMock.*;
 import static com.github.tomakehurst.wiremock.core.WireMockConfiguration.options;
 
 /** base class of tests with WireMock. */
-public abstract class WireMockTestBase {
-  private final Logger LOG = LogManager.getLogger(WireMockTestBase.class);
+public abstract class WireMockTestBaseJUnit5 {
+  private final Logger LOG = LoggerFactory.getLogger(WireMockTestBaseJUnit5.class);
   protected WireMockServer wireMockServer = new WireMockServer(options().dynamicPort());
   private boolean wireMockStarted = false;
 
-  @Before
+  @BeforeEach
   public void setUpClass() {
     LOG.info("Setting up WireMock test class");
     startWireMock();
@@ -38,7 +38,7 @@ public abstract class WireMockTestBase {
     }
   }
 
-  @After
+  @AfterEach
   public void tearDownClass() {
     LOG.info("Tear down WireMock test class");
     LOG.info("Stopping WireMock");
