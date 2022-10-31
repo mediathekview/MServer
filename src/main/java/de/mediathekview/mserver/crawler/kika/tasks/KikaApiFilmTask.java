@@ -9,6 +9,8 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.EnumMap;
+import java.util.HashSet;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Queue;
@@ -72,18 +74,13 @@ public class KikaApiFilmTask extends AbstractJsonRestTask<Film, KikaApiVideoInfo
       return;
     }
     //
-    if (aResponseObj.getVideoUrls().size() == 0) {
+    if (aResponseObj.getVideoUrls().isEmpty()) {
       LOG.error("No VideoUrls for {}", aDTO.getUrl());
       crawler.incrementAndGetErrorCount();
       return;
     }
     //
-    final Optional<LocalDateTime> airedDate;
-    if (aDTO.getDate().isPresent()) {
-    	airedDate = parseLocalDateTime(aDTO, aDTO.getDate());	
-    } else {
-    	airedDate = parseLocalDateTime(aDTO, aDTO.getAppearDate());
-    }
+    final Optional<LocalDateTime> airedDate = getAiredDateTime(aDTO);
     if (aDTO.getTitle().isEmpty() || aDTO.getTopic().isEmpty() || airedDate.isEmpty() || aDTO.getDuration().isEmpty()) {
       if (aDTO.getTitle().isEmpty()) {
         LOG.error("Missing title for {}", aDTO.getUrl());
@@ -109,44 +106,11 @@ public class KikaApiFilmTask extends AbstractJsonRestTask<Film, KikaApiVideoInfo
     if (aDTO.getDescription().isPresent()) {
       aFilm.setBeschreibung(aDTO.getDescription().get());
     }
-    if (aDTO.getGeoProtection().isPresent()) {
-      Optional<GeoLocations> geo = parseGeo(aDTO, aDTO.getGeoProtection());
-      if (geo.isPresent()) {
-        Collection<GeoLocations> collectionOfGeolocations = new ArrayList<GeoLocations>();
-        collectionOfGeolocations.add(geo.get());
-        aFilm.setGeoLocations(collectionOfGeolocations);
-      }
-    }
-    if (aDTO.getWebsite().isPresent()) {
-      try {
-        aFilm.setWebsite(new URL(aDTO.getWebsite().get()));
-      } catch (MalformedURLException e) {
-        LOG.error("Invalid website url {} for {} error {}", aDTO.getWebsite().get(), aDTO.getUrl(), e);
-      }
-    }
+    getGeo(aDTO).ifPresent(aFilm::setGeoLocations);
+    getWebsite(aDTO).ifPresent(aFilm::setWebsite);
+    aFilm.setUrls(getVideoUrls(aResponseObj, aDTO));
+    aFilm.addAllSubtitleUrls(getSubtitle(aResponseObj, aDTO));
     //
-    for (Map.Entry<Resolution,String> element : aResponseObj.getVideoUrls().entrySet()) {
-      try {
-        final FileSizeDeterminer fsd = new FileSizeDeterminer(element.getValue());
-        final FilmUrl filmUrl = new FilmUrl(element.getValue(), fsd.getFileSizeInMiB());
-        aFilm.addUrl(element.getKey(), filmUrl);
-      } catch (MalformedURLException e) {
-        LOG.error("Invalid video url {} for {} error {}", element.getValue(), aDTO.getUrl(), e);
-      }
-    }
-    //
-    if (aResponseObj.hasSubtitle()) {
-      for (String subtitleUrlAsString : aResponseObj.getSubtitle()) {
-        try {
-          aFilm.addSubtitle(new URL(UrlUtils.addProtocolIfMissing(subtitleUrlAsString, UrlUtils.PROTOCOL_HTTPS)));
-        } catch (MalformedURLException e) {
-          LOG.error("Invalid subtitle url {} for {} error {}", subtitleUrlAsString, aDTO.getUrl(), e);
-        }
-      }
-      if (aResponseObj.getSubtitle().size() == 0) {
-        LOG.error("Missing subtitle for {}", aDTO.getUrl());
-      }
-    }
     taskResults.add(aFilm);
     crawler.incrementAndGetActualCount();
     crawler.updateProgress();
@@ -158,9 +122,73 @@ public class KikaApiFilmTask extends AbstractJsonRestTask<Film, KikaApiVideoInfo
     return new KikaApiFilmTask(crawler, aElementsToProcess);
   }
 
-  ///////////////////////////////////////////////////////////////////////////////////
-
-  public Optional<LocalDateTime> parseLocalDateTime(KikaApiFilmDto sourceUrl, Optional<String> text) {
+  protected Optional<LocalDateTime> getAiredDateTime(KikaApiFilmDto aDTO) {
+	Optional<LocalDateTime> airedDate = Optional.empty();
+	if (aDTO.getDate().isPresent()) {
+	  airedDate = parseLocalDateTime(aDTO, aDTO.getDate());	
+	} else {
+	  airedDate = parseLocalDateTime(aDTO, aDTO.getAppearDate());
+	}
+	return airedDate;
+  }
+  
+  protected Set<URL> getSubtitle(KikaApiVideoInfoDto aResponseObj, KikaApiFilmDto aDTO) {
+	Set<URL> urls = new HashSet<>();
+	if (aResponseObj.hasSubtitle()) {
+      for (String subtitleUrlAsString : aResponseObj.getSubtitle()) {
+        try {
+          urls.add(new URL(UrlUtils.addProtocolIfMissing(subtitleUrlAsString, UrlUtils.PROTOCOL_HTTPS)));
+        } catch (MalformedURLException e) {
+          LOG.error("Invalid subtitle url {} for {} error {}", subtitleUrlAsString, aDTO.getUrl(), e);
+        }
+      }
+      if (aResponseObj.getSubtitle().isEmpty()) {
+        LOG.error("Missing subtitle for {}", aDTO.getUrl());
+      }
+    }
+	return urls;
+  } 
+  
+  protected Map<Resolution,FilmUrl> getVideoUrls(KikaApiVideoInfoDto aResponseObj, KikaApiFilmDto aDTO) {
+	  Map<Resolution, FilmUrl> urls = new EnumMap<>(Resolution.class);
+	  for (Map.Entry<Resolution,String> element : aResponseObj.getVideoUrls().entrySet()) {
+	  try {
+	    final FileSizeDeterminer fsd = new FileSizeDeterminer(element.getValue());
+	    final FilmUrl filmUrl = new FilmUrl(element.getValue(), fsd.getFileSizeInMiB());
+	    urls.put(element.getKey(), filmUrl);
+	  } catch (MalformedURLException e) {
+	    LOG.error("Invalid video url {} for {} error {}", element.getValue(), aDTO.getUrl(), e);
+	  }
+    }
+    return urls;
+  }
+  
+  protected Optional<URL> getWebsite(KikaApiFilmDto aDTO) {
+	Optional<URL> rs = Optional.empty();
+	if (aDTO.getWebsite().isPresent()) {
+      try {
+        rs = Optional.of(new URL(aDTO.getWebsite().get()));
+      } catch (MalformedURLException e) {
+        LOG.error("Invalid website url {} for {} error {}", aDTO.getWebsite().get(), aDTO.getUrl(), e);
+      }
+    }
+	return rs;
+  }
+  
+  protected Optional<Collection<GeoLocations>> getGeo(KikaApiFilmDto aDTO) {
+    Optional<Collection<GeoLocations>> rs = Optional.empty();
+    if (aDTO.getGeoProtection().isPresent()) {
+      Optional<GeoLocations> geo = parseGeo(aDTO, aDTO.getGeoProtection());
+      if (geo.isPresent()) {
+        Collection<GeoLocations> collectionOfGeolocations = new ArrayList<GeoLocations>();
+        collectionOfGeolocations.add(geo.get());
+        rs = Optional.of(collectionOfGeolocations);
+      }
+    }
+    return rs;
+  }
+  
+  protected Optional<LocalDateTime> parseLocalDateTime(KikaApiFilmDto sourceUrl, Optional<String> text) {
     Optional<LocalDateTime> result = Optional.empty();
     if (text.isPresent()) {
       try {
@@ -174,7 +202,7 @@ public class KikaApiFilmTask extends AbstractJsonRestTask<Film, KikaApiVideoInfo
     return result;
   }
   //
-  public Optional<Duration> parseDuration(KikaApiFilmDto sourceUrl, Optional<String> text) {
+  protected Optional<Duration> parseDuration(KikaApiFilmDto sourceUrl, Optional<String> text) {
     Optional<Duration> result = Optional.empty();
     if (text.isPresent()) {
       try {
@@ -187,7 +215,7 @@ public class KikaApiFilmTask extends AbstractJsonRestTask<Film, KikaApiVideoInfo
     return result;
   }
   //
-  public Optional<GeoLocations> parseGeo(KikaApiFilmDto sourceUrl, Optional<String> text) {
+  protected Optional<GeoLocations> parseGeo(KikaApiFilmDto sourceUrl, Optional<String> text) {
     Optional<GeoLocations> result = Optional.empty();
     if (text.isPresent()) {
       if (text.get().equalsIgnoreCase("germany")) {

@@ -26,6 +26,8 @@ public class KikaApiTopicPageDeserializer implements JsonDeserializer<KikaApiTop
   private static final String TAG_FILM_DURATION = "duration";
   private static final String TAG_FILM_GEO = "geoProtection";
   private static final String[] TAG_FILM_TOPIC = new String[] {"_embedded","brand","title"};
+  private static final String TAG_FILM_SOPHORAID = "sophoraId";
+  private static final String TAG_FILM_TEASERIMAGEURL = "teaserImageUrl";
   //
   
   public KikaApiTopicPageDeserializer() {
@@ -66,6 +68,17 @@ public class KikaApiTopicPageDeserializer implements JsonDeserializer<KikaApiTop
           Optional<String> oAired = JsonUtils.getElementValueAsString(arrayElement, TAG_FILM_APPEARDATE);
           Optional<String> website = JsonUtils.getElementValueAsString(arrayElement, TAG_BRAND_WEBSITE);
           Optional<String> oTopic = JsonUtils.getElementValueAsString(arrayElement, TAG_FILM_TOPIC);
+          Optional<String> oSophoraId = JsonUtils.getElementValueAsString(arrayElement, TAG_FILM_SOPHORAID);
+          Optional<String> oTeaserImageUrl = JsonUtils.getElementValueAsString(arrayElement, TAG_FILM_TEASERIMAGEURL);
+          if (website.isEmpty() && oSophoraId.isPresent() && oTeaserImageUrl.isPresent()) {
+        	  // try to reconstruct the website
+        	  String base = "https://www.kika.de/";
+        	  int start = oTeaserImageUrl.get().indexOf("/", "https://".length()+1);
+        	  int stop = oTeaserImageUrl.get().indexOf("/", start+1);
+        	  base += oTeaserImageUrl.get().substring(start, stop);
+        	  base += "/videos/" + oSophoraId.get() + ".html";
+        	  website = Optional.of(base);
+          }
           //
           KikaApiFilmDto aFilm = new KikaApiFilmDto(
               String.format(KikaApiConstants.FILM, oId.get()),

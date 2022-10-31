@@ -7,6 +7,9 @@ maximumCpuThreads: 10
 # If set to 0 the server runs without a time limit.
 maximumServerDurationInMinutes: 0
 
+# Rate limiter
+maximumRequestsPerSecond: 999.0
+
 # These Sender will NOT be crawled.
 # If no Sender are included the server will crawl all Sender but these.
 #senderExcluded:
@@ -133,7 +136,8 @@ senderConfigurations:
     # the amount set by this is 5 then the crawler crawls pages 1 to 5.
   #          maximumSubpages: 3
   KIKA:
-    socketTimeoutInSeconds: 120
+    maximumSubpages: 20
+    maximumRequestsPerSecond: 10.0
   SR:
     maximumRequestsPerSecond: 2.0
   ZDF:

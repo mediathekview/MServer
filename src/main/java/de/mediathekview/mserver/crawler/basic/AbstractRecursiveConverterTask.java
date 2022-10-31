@@ -53,7 +53,12 @@ public abstract class AbstractRecursiveConverterTask<T, D> extends RecursiveTask
   private void processElements(final Queue<D> aElementsToProcess) {
     D elementToProcess;
     while ((elementToProcess = aElementsToProcess.poll()) != null) {
-      processElement(elementToProcess);
+      try {
+    	  processElement(elementToProcess);
+      } catch (Exception e) {
+    	  LOG.error("Error processing Element {}",elementToProcess, e);
+    	  crawler.incrementAndGetErrorCount();
+      }
     }
   }
 
