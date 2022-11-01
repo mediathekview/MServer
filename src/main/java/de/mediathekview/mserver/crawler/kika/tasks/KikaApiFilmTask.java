@@ -86,10 +86,10 @@ public class KikaApiFilmTask extends AbstractJsonRestTask<Film, KikaApiVideoInfo
         LOG.error("Missing title for {}", aDTO.getUrl());
       } else if (aDTO.getTopic().isEmpty()) {
     	  LOG.error("Missing topic for {}", aDTO.getUrl());
-      } else if (aDTO.getDate().isEmpty()) {
-    	LOG.error("Missing date for {}", aDTO.getUrl());
+      } else if (airedDate.isEmpty()) {
+    	  LOG.error("Missing date for {}", aDTO.getUrl());
       } else if (aDTO.getDuration().isEmpty()) {
-    	LOG.error("Missing duration for {}", aDTO.getUrl());
+    	  LOG.error("Missing duration for {}", aDTO.getUrl());
       }
       crawler.incrementAndGetErrorCount();
       return;
@@ -123,13 +123,13 @@ public class KikaApiFilmTask extends AbstractJsonRestTask<Film, KikaApiVideoInfo
   }
 
   protected Optional<LocalDateTime> getAiredDateTime(KikaApiFilmDto aDTO) {
-	Optional<LocalDateTime> airedDate = Optional.empty();
-	if (aDTO.getDate().isPresent()) {
-	  airedDate = parseLocalDateTime(aDTO, aDTO.getDate());	
-	} else {
-	  airedDate = parseLocalDateTime(aDTO, aDTO.getAppearDate());
-	}
-	return airedDate;
+    Optional<LocalDateTime> airedDate = null;
+    if (aDTO.getDate().isPresent()) {
+      airedDate = parseLocalDateTime(aDTO, aDTO.getDate());	
+    } else {
+      airedDate = parseLocalDateTime(aDTO, aDTO.getAppearDate());
+    }
+    return airedDate;
   }
   
   protected Set<URL> getSubtitle(KikaApiVideoInfoDto aResponseObj, KikaApiFilmDto aDTO) {
@@ -180,7 +180,7 @@ public class KikaApiFilmTask extends AbstractJsonRestTask<Film, KikaApiVideoInfo
     if (aDTO.getGeoProtection().isPresent()) {
       Optional<GeoLocations> geo = parseGeo(aDTO, aDTO.getGeoProtection());
       if (geo.isPresent()) {
-        Collection<GeoLocations> collectionOfGeolocations = new ArrayList<GeoLocations>();
+        Collection<GeoLocations> collectionOfGeolocations = new ArrayList<>();
         collectionOfGeolocations.add(geo.get());
         rs = Optional.of(collectionOfGeolocations);
       }

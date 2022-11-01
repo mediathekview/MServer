@@ -10,7 +10,7 @@ public class KikaApiTopicDto {
   private Optional<String> errorMesssage = Optional.empty();
   private Optional<String> errorCode = Optional.empty();
   private Optional<TopicUrlDTO> nextUrl = Optional.empty();
-  private Set<KikaApiFilmDto> elements = new HashSet<KikaApiFilmDto>();
+  private Set<KikaApiFilmDto> elements = new HashSet<>();
   
   public void add(KikaApiFilmDto aKikaApiFilmDto) {
     elements.add(aKikaApiFilmDto);

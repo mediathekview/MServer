@@ -38,15 +38,15 @@ public class KikaApiVideoInfoPageDeserializer implements JsonDeserializer<KikaAp
     }
     
     // Video
-    aKikaApiVideoInfoDto = addVideoUrlAndResolution(extractAllVideoUrls(jsonElement.getAsJsonObject()), aKikaApiVideoInfoDto);
+    addVideoUrlAndResolution(extractAllVideoUrls(jsonElement.getAsJsonObject()), aKikaApiVideoInfoDto);
     // SUBTITLE
-    aKikaApiVideoInfoDto = addSubtitle(jsonElement, aKikaApiVideoInfoDto);
+    addSubtitle(jsonElement, aKikaApiVideoInfoDto);
     return aKikaApiVideoInfoDto;
   }
 
   private ArrayList<String> extractAllVideoUrls(JsonObject root) {
 	// search for urls
-    final ArrayList<String> urls = new ArrayList<String>();
+    final ArrayList<String> urls = new ArrayList<>();
     // we will use the mp4 but in case missing - we will take the play list m3u8
     if (root.has(TAG_MP4_ASSETS_ARRAY)) {
       final JsonArray mp4Array = root.get(TAG_MP4_ASSETS_ARRAY).getAsJsonArray();
@@ -72,12 +72,12 @@ public class KikaApiVideoInfoPageDeserializer implements JsonDeserializer<KikaAp
     return urls;
   }
   
-  private KikaApiVideoInfoDto addVideoUrlAndResolution(final ArrayList<String> urls, KikaApiVideoInfoDto aKikaApiVideoInfoDto) {
+  private void addVideoUrlAndResolution(final ArrayList<String> urls, KikaApiVideoInfoDto aKikaApiVideoInfoDto) {
 	// FIND BEST URL
     // the last url in the list contain the highest quality, we will use it for HD
     // the first url in the list contain the lowest quality, we will use it for SMALL
     // gap into the middle (size/2) to take one of the medium quality urls
-    if (urls.size() > 0) {
+    if (urls.isEmpty()) {
       if (urls.size() > 2) {
         aKikaApiVideoInfoDto.addUrl(Resolution.HD, urls.get(urls.size()-1));
       }
@@ -86,10 +86,9 @@ public class KikaApiVideoInfoPageDeserializer implements JsonDeserializer<KikaAp
       }
       aKikaApiVideoInfoDto.addUrl(Resolution.SMALL, urls.get(0));
     }
-    return aKikaApiVideoInfoDto;
   }
 
-  private KikaApiVideoInfoDto addSubtitle(final JsonElement jsonElement, KikaApiVideoInfoDto aKikaApiVideoInfoDto) {
+  private void addSubtitle(final JsonElement jsonElement, KikaApiVideoInfoDto aKikaApiVideoInfoDto) {
 	// SUBTITLE
     Optional<String> hasSubtitles = JsonUtils.getElementValueAsString(jsonElement, TAG_HAS_SUB);
     if (hasSubtitles.isPresent() && hasSubtitles.get().equalsIgnoreCase("true")) {
@@ -107,7 +106,6 @@ public class KikaApiVideoInfoPageDeserializer implements JsonDeserializer<KikaAp
       }
       //
     }
-    return aKikaApiVideoInfoDto;
   }
   
 }

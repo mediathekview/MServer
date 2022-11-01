@@ -1,6 +1,6 @@
 package de.mediathekview.mserver.crawler.kika.json;
 
-import java.util.HashMap;
+import java.util.EnumMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Optional;
@@ -13,13 +13,10 @@ public class KikaApiVideoInfoDto {
   //
   private Optional<String> errorMesssage = Optional.empty();
   private Optional<String> errorCode = Optional.empty();
-  private Map<Resolution, String> videoUrls = new HashMap<Resolution, String>();
+  private Map<Resolution, String> videoUrls = new EnumMap<>(Resolution.class);
   private boolean hasSubtitle = false;
-  private Set<String> subtitles = new HashSet<String>();
-
-  public KikaApiVideoInfoDto() {
-  }
-  
+  private Set<String> subtitles = new HashSet<>();
+ 
   public void addUrl(Resolution aResolution, String aFilmUrl) {
     videoUrls.put(aResolution, aFilmUrl);
   }

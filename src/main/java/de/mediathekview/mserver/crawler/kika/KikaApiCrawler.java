@@ -42,16 +42,16 @@ public class KikaApiCrawler extends AbstractCrawler {
 
     try {
       // get all brands from json doc
-      final Queue<CrawlerUrlDTO> root = new ConcurrentLinkedQueue<CrawlerUrlDTO>();
+      final Queue<CrawlerUrlDTO> root = new ConcurrentLinkedQueue<>();
       root.add(new CrawlerUrlDTO(KikaApiConstants.OVERVIEW));
       final KikaApiOverviewTask aKikaApiTopicOverviewTask = new KikaApiOverviewTask(this, root, 0);
-      final Queue<TopicUrlDTO> topics = new ConcurrentLinkedQueue<TopicUrlDTO>();
+      final Queue<TopicUrlDTO> topics = new ConcurrentLinkedQueue<>();
       topics.addAll(aKikaApiTopicOverviewTask.fork().join());
       printMessage(ServerMessages.DEBUG_ALL_SENDUNG_COUNT, getSender().getName(), topics.size());
       //
       // go through each topic and get all episodes for this topic
       final KikaApiTopicTask aKikaApiTopicTask = new KikaApiTopicTask(this, topics, 0);
-      final Queue<KikaApiFilmDto> episodes = new ConcurrentLinkedQueue<KikaApiFilmDto>();
+      final Queue<KikaApiFilmDto> episodes = new ConcurrentLinkedQueue<>();
       episodes.addAll(aKikaApiTopicTask.fork().join());
       //
       printMessage(ServerMessages.DEBUG_ALL_SENDUNG_FOLGEN_COUNT, getSender().getName(), episodes.size());

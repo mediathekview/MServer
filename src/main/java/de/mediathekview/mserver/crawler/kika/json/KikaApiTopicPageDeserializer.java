@@ -30,9 +30,6 @@ public class KikaApiTopicPageDeserializer implements JsonDeserializer<KikaApiTop
   private static final String TAG_FILM_TEASERIMAGEURL = "teaserImageUrl";
   //
   
-  public KikaApiTopicPageDeserializer() {
-  }
-
   @Override
   public KikaApiTopicDto deserialize(
       final JsonElement jsonElement, final Type typeOfT, final JsonDeserializationContext context)
@@ -58,48 +55,57 @@ public class KikaApiTopicPageDeserializer implements JsonDeserializer<KikaApiTop
       if (embeddedElement.has(TAG_FILM_ARRAY[1])) {
         final JsonArray itemArray = embeddedElement.getAsJsonArray(TAG_FILM_ARRAY[1]);
         for (JsonElement arrayElement : itemArray) {
-          Optional<String> oId = JsonUtils.getElementValueAsString(arrayElement, TAG_FILM_ID);
-          Optional<String> oTitle = JsonUtils.getElementValueAsString(arrayElement, TAG_FILM_NAME);
-          Optional<String> oDescription = JsonUtils.getElementValueAsString(arrayElement, TAG_FILM_DESCRIPTION);
-          Optional<String> oDate = JsonUtils.getElementValueAsString(arrayElement, TAG_FILM_DATE);
-          Optional<String> oDuration = JsonUtils.getElementValueAsString(arrayElement, TAG_FILM_DURATION);
-          Optional<String> oGeo = JsonUtils.getElementValueAsString(arrayElement, TAG_FILM_GEO);
-          Optional<String> oExpire = JsonUtils.getElementValueAsString(arrayElement, TAG_FILM_EXPIRATIONDATE);
-          Optional<String> oAired = JsonUtils.getElementValueAsString(arrayElement, TAG_FILM_APPEARDATE);
-          Optional<String> website = JsonUtils.getElementValueAsString(arrayElement, TAG_BRAND_WEBSITE);
-          Optional<String> oTopic = JsonUtils.getElementValueAsString(arrayElement, TAG_FILM_TOPIC);
-          Optional<String> oSophoraId = JsonUtils.getElementValueAsString(arrayElement, TAG_FILM_SOPHORAID);
-          Optional<String> oTeaserImageUrl = JsonUtils.getElementValueAsString(arrayElement, TAG_FILM_TEASERIMAGEURL);
-          if (website.isEmpty() && oSophoraId.isPresent() && oTeaserImageUrl.isPresent()) {
-        	  // try to reconstruct the website
-        	  String base = KikaApiConstants.WEBSITE;
-        	  int start = oTeaserImageUrl.get().indexOf("/", "https://".length()+1);
-        	  int stop = oTeaserImageUrl.get().indexOf("/", start+1);
-        	  base += oTeaserImageUrl.get().substring(start, stop);
-        	  base += "/videos/" + oSophoraId.get() + ".html";
-        	  website = Optional.of(base);
-          }
-          //
-          if (oId.isPresent()) {
-            KikaApiFilmDto aFilm = new KikaApiFilmDto(
-                String.format(KikaApiConstants.FILM, oId.get()),
-                oTopic,
-                oTitle,
-                oId,
-                oDescription,
-                oDate,
-                oDuration,
-                oGeo,
-                oExpire,
-                oAired,
-                website
-                );
-            aKikaApiTopicDto.add(aFilm);
-          }
+          parseFilm(arrayElement).ifPresent(aKikaApiTopicDto::add);
         }
       }
     }
     return aKikaApiTopicDto;
   }
-
+  
+  protected Optional<KikaApiFilmDto> parseFilm(final JsonElement arrayElement) {
+    Optional<KikaApiFilmDto> aFilm = Optional.empty();
+    //
+    Optional<String> oId = JsonUtils.getElementValueAsString(arrayElement, TAG_FILM_ID);
+    Optional<String> oTitle = JsonUtils.getElementValueAsString(arrayElement, TAG_FILM_NAME);
+    Optional<String> oDescription = JsonUtils.getElementValueAsString(arrayElement, TAG_FILM_DESCRIPTION);
+    Optional<String> oDate = JsonUtils.getElementValueAsString(arrayElement, TAG_FILM_DATE);
+    Optional<String> oDuration = JsonUtils.getElementValueAsString(arrayElement, TAG_FILM_DURATION);
+    Optional<String> oGeo = JsonUtils.getElementValueAsString(arrayElement, TAG_FILM_GEO);
+    Optional<String> oExpire = JsonUtils.getElementValueAsString(arrayElement, TAG_FILM_EXPIRATIONDATE);
+    Optional<String> oAired = JsonUtils.getElementValueAsString(arrayElement, TAG_FILM_APPEARDATE);
+    Optional<String> website = JsonUtils.getElementValueAsString(arrayElement, TAG_BRAND_WEBSITE);
+    Optional<String> oTopic = JsonUtils.getElementValueAsString(arrayElement, TAG_FILM_TOPIC);
+    Optional<String> oSophoraId = JsonUtils.getElementValueAsString(arrayElement, TAG_FILM_SOPHORAID);
+    Optional<String> oTeaserImageUrl = JsonUtils.getElementValueAsString(arrayElement, TAG_FILM_TEASERIMAGEURL);
+    if (website.isEmpty() && oSophoraId.isPresent() && oTeaserImageUrl.isPresent()) {
+      // try to reconstruct the website
+      website = reconstructWebsite(oTeaserImageUrl,oSophoraId);
+    }
+    //
+    if (oId.isPresent()) {
+      aFilm = Optional.of(new KikaApiFilmDto(
+          String.format(KikaApiConstants.FILM, oId.get()),
+          oTopic,
+          oTitle,
+          oId,
+          oDescription,
+          oDate,
+          oDuration,
+          oGeo,
+          oExpire,
+          oAired,
+          website
+          ));
+    }
+    return aFilm;
+  }
+  
+  protected Optional<String> reconstructWebsite(Optional<String> oTeaserImageUrl, Optional<String> oSophoraId) {
+    String base = KikaApiConstants.WEBSITE;
+    int start = oTeaserImageUrl.get().indexOf("/", "https://".length()+1);
+    int stop = oTeaserImageUrl.get().indexOf("/", start+1);
+    base += oTeaserImageUrl.get().substring(start, stop);
+    base += "/videos/" + oSophoraId.get() + ".html";
+    return Optional.of(base);
+  }
 }

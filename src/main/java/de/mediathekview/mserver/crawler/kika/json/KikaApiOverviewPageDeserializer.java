@@ -20,9 +20,6 @@ public class KikaApiOverviewPageDeserializer implements JsonDeserializer<KikaApi
   private static final String TAG_TOPIC_NAME = "title";
   private static final String TAG_TOPIC_ID = "id";
 
-  public KikaApiOverviewPageDeserializer() {
-  }
-
   @Override
   public KikaApiBrandsDto deserialize(
       final JsonElement jsonElement, final Type typeOfT, final JsonDeserializationContext context)

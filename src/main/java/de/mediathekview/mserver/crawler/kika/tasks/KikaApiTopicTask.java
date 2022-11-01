@@ -47,11 +47,11 @@ public class KikaApiTopicTask extends AbstractJsonRestTask<KikaApiFilmDto, KikaA
   @Override
   protected void postProcessing(KikaApiTopicDto aResponseObj, TopicUrlDTO aDTO) {
     //
-    if (aResponseObj.getErrorCode().isPresent()) {
-      LOG.error("Error {} : {} for target {} ", aResponseObj.getErrorCode().get(), aResponseObj.getErrorMesssage().orElse(""), aDTO.getUrl());
+    aResponseObj.getErrorCode().ifPresent(errorCode -> {
+      LOG.error("Error {} : {} for target {} ", errorCode, aResponseObj.getErrorMesssage().orElse(""), aDTO.getUrl());
       crawler.incrementAndGetErrorCount();
       return;
-    }
+    });
     //
     final Optional<AbstractRecursiveConverterTask<KikaApiFilmDto, TopicUrlDTO>> subpageCrawler;
     final Optional<TopicUrlDTO> nextPageLink = aResponseObj.getNextPage();
