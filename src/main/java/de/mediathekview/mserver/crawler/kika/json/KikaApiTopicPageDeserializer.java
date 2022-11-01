@@ -80,20 +80,22 @@ public class KikaApiTopicPageDeserializer implements JsonDeserializer<KikaApiTop
         	  website = Optional.of(base);
           }
           //
-          KikaApiFilmDto aFilm = new KikaApiFilmDto(
-              String.format(KikaApiConstants.FILM, oId.get()),
-              oTopic,
-              oTitle,
-              oId,
-              oDescription,
-              oDate,
-              oDuration,
-              oGeo,
-              oExpire,
-              oAired,
-              website
-              );
-          aKikaApiTopicDto.add(aFilm);
+          if (oId.isPresent()) {
+            KikaApiFilmDto aFilm = new KikaApiFilmDto(
+                String.format(KikaApiConstants.FILM, oId.get()),
+                oTopic,
+                oTitle,
+                oId,
+                oDescription,
+                oDate,
+                oDuration,
+                oGeo,
+                oExpire,
+                oAired,
+                website
+                );
+            aKikaApiTopicDto.add(aFilm);
+          }
         }
       }
     }

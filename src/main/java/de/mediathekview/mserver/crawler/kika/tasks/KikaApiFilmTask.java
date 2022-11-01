@@ -69,7 +69,7 @@ public class KikaApiFilmTask extends AbstractJsonRestTask<Film, KikaApiVideoInfo
   protected void postProcessing(KikaApiVideoInfoDto aResponseObj, KikaApiFilmDto aDTO) {
     //
     if (aResponseObj.getErrorCode().isPresent()) {
-      LOG.error("Error {} : {} for target {} ", aResponseObj.getErrorCode().get(), aResponseObj.getErrorMesssage().get(), aDTO.getUrl());
+      LOG.error("Error {} : {} for target {} ", aResponseObj.getErrorCode().get(), aResponseObj.getErrorMesssage().orElse(""), aDTO.getUrl());
       crawler.incrementAndGetErrorCount();
       return;
     }
