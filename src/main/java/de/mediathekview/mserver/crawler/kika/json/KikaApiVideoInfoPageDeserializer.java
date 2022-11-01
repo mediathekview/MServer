@@ -77,7 +77,7 @@ public class KikaApiVideoInfoPageDeserializer implements JsonDeserializer<KikaAp
     // the last url in the list contain the highest quality, we will use it for HD
     // the first url in the list contain the lowest quality, we will use it for SMALL
     // gap into the middle (size/2) to take one of the medium quality urls
-    if (urls.isEmpty()) {
+    if (!urls.isEmpty()) {
       if (urls.size() > 2) {
         aKikaApiVideoInfoDto.addUrl(Resolution.HD, urls.get(urls.size()-1));
       }
