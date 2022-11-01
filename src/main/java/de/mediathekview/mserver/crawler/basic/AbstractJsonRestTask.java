@@ -65,7 +65,6 @@ public abstract class AbstractJsonRestTask<T, R, D extends CrawlerUrlDTO>
   protected Response createResponse(final Builder request, final D aDTO) {
     if (limiter == null) {
       limiter = RateLimiter.create(crawler.getCrawlerConfig().getMaximumRequestsPerSecond());
-      System.out.println("RATE LIMITER "+crawler.getCrawlerConfig().getMaximumRequestsPerSecond());
 	  }
 	  limiter.acquire();
 	  request.header(ACCEPT_CHARSET, StandardCharsets.UTF_8);
