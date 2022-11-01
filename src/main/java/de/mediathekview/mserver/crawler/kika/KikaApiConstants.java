@@ -1,11 +1,10 @@
 package de.mediathekview.mserver.crawler.kika;
 
-import de.mediathekview.mserver.base.config.CrawlerUrlType;
-import de.mediathekview.mserver.base.config.MServerConfigManager;
-
 public final class KikaApiConstants {
   //
   public static int LIMIT = 400;
+  //
+  public static final String WEBSITE = "https://www.kika.de/";
   //
   public static final String HOST = "https://www.kika.de/api/v1/kikaplayer/kikaapp";
   //

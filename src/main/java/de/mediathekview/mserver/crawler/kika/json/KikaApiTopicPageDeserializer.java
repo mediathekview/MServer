@@ -72,7 +72,7 @@ public class KikaApiTopicPageDeserializer implements JsonDeserializer<KikaApiTop
           Optional<String> oTeaserImageUrl = JsonUtils.getElementValueAsString(arrayElement, TAG_FILM_TEASERIMAGEURL);
           if (website.isEmpty() && oSophoraId.isPresent() && oTeaserImageUrl.isPresent()) {
         	  // try to reconstruct the website
-        	  String base = "https://www.kika.de/";
+        	  String base = KikaApiConstants.WEBSITE;
         	  int start = oTeaserImageUrl.get().indexOf("/", "https://".length()+1);
         	  int stop = oTeaserImageUrl.get().indexOf("/", start+1);
         	  base += oTeaserImageUrl.get().substring(start, stop);
