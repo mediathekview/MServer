@@ -3,17 +3,9 @@ package de.mediathekview.mserver.crawler.dw.tasks;
 
 import de.mediathekview.mlib.daten.Film;
 import de.mediathekview.mlib.daten.Resolution;
-import de.mediathekview.mlib.messages.listener.MessageListener;
-import de.mediathekview.mserver.base.config.MServerConfigManager;
 import de.mediathekview.mserver.base.webaccess.JsoupConnection;
-import de.mediathekview.mserver.crawler.basic.CrawlerUrlDTO;
-import de.mediathekview.mserver.crawler.basic.PagedElementListDTO;
-import de.mediathekview.mserver.crawler.dw.DwCrawler;
-import de.mediathekview.mserver.crawler.dw.parser.DWSendungOverviewDeserializer;
 import de.mediathekview.mserver.crawler.dw.parser.DwFilmDetailDeserializer;
-import de.mediathekview.mserver.progress.listeners.SenderProgressListener;
 import de.mediathekview.mserver.testhelper.JsonFileReader;
-import de.mediathekview.mserver.testhelper.JsoupMock;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -31,14 +23,9 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import java.io.IOException;
 import java.time.Duration;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Optional;
-import java.util.Queue;
-import java.util.Set;
-import java.util.concurrent.ConcurrentLinkedQueue;
-import java.util.concurrent.ForkJoinPool;
 
 
 @RunWith(Parameterized.class)
@@ -92,9 +79,9 @@ public class DWDetailDeserializerTest extends DwTaskTestBase {
             Duration.ofSeconds(102),
             LocalDateTime.of(2021, 10, 20, 19, 15, 40, 878*1000000),
             "https://tvdownloaddw-a.akamaihd.net/dwtv_video/flv/jd/jd20211020_sacha19cneu_sd_sor.mp4",
-            "https://tvdownloaddw-a.akamaihd.net/dwtv_video/flv/jd/jd20211020_sacha19cneu_sd_avc.mp4",
             "https://tvdownloaddw-a.akamaihd.net/Events/mp4/jd/jd20211020_sacha19cneu_sd.mp4",
-            "https://tvdownloaddw-a.akamaihd.net/Events/mp4/jd/jd20211020_sacha19cneu_hd.mp4"
+            "https://tvdownloaddw-a.akamaihd.net/Events/mp4/jd/jd20211020_sacha19cneu_hd.mp4",
+            "https://tvdownloaddw-a.akamaihd.net/dwtv_video/flv/jd/jd20211020_sacha19cneu_sd_avc.mp4"
           },
           {
               "/dw/dw_film_detail_59567962.json",
@@ -104,9 +91,9 @@ public class DWDetailDeserializerTest extends DwTaskTestBase {
               Duration.ofSeconds(122),
               LocalDateTime.of(2021, 10, 20, 19, 03, 32, 916*1000000),
               "https://tvdownloaddw-a.akamaihd.net/dwtv_video/flv/jd/jd20211020_afghan19c_sd_sor.mp4",
-              "https://tvdownloaddw-a.akamaihd.net/dwtv_video/flv/jd/jd20211020_afghan19c_sd_avc.mp4",
               "https://tvdownloaddw-a.akamaihd.net/Events/mp4/jd/jd20211020_afghan19c_sd.mp4",
-              "https://tvdownloaddw-a.akamaihd.net/Events/mp4/jd/jd20211020_afghan19c_hd.mp4"
+              "https://tvdownloaddw-a.akamaihd.net/Events/mp4/jd/jd20211020_afghan19c_hd.mp4",
+              "https://tvdownloaddw-a.akamaihd.net/dwtv_video/flv/jd/jd20211020_afghan19c_sd_avc.mp4"
             }
           
         });
@@ -130,6 +117,7 @@ public class DWDetailDeserializerTest extends DwTaskTestBase {
     assertThat(actual.get().getThema(), equalTo(topic));
     assertThat(actual.get().getDuration(), equalTo(duration));
     assertThat(actual.get().getTime(), equalTo(time));
+    assertThat(actual.get().getWebsite().get().toString(), equalTo(website));
     assertThat(actual.get().getUrl(Resolution.VERY_SMALL).getUrl().toString(), equalTo(video_q0));
     assertThat(actual.get().getUrl(Resolution.SMALL).getUrl().toString(), equalTo(video_q1));
     assertThat(actual.get().getUrl(Resolution.NORMAL).getUrl().toString(), equalTo(video_q2));

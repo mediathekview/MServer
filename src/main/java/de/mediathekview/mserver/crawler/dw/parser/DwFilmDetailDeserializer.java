@@ -21,6 +21,7 @@ import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
@@ -133,10 +134,10 @@ public class DwFilmDetailDeserializer
       try {
         airedDatetime = LocalDateTime.parse(displayDate.get(), dateFormatter);
       } catch (Exception e) {
-        LOG.error("error getAiredDate for video {} on value '{}'", videoid, displayDate.get());
+        LOG.error("error parsing getAiredDate value '{}' for video {}", displayDate.get(), videoid);
       }
     } else {
-      LOG.error("no error airedDate found for video {}",  videoid);
+      LOG.error("no airedDate found for video {}",  videoid);
     }
     return airedDatetime;
   }
@@ -193,6 +194,7 @@ public class DwFilmDetailDeserializer
       }
     );
     //
+    videoListeRaw.sort(Comparator.comparing(DwVideoDto::getBitrate));
     for (int quality = 0; quality < videoListeRaw.size(); quality++) {
       final FilmUrl filmUrl = new FilmUrl(videoListeRaw.get(quality).getUrl(), crawler.determineFileSizeInKB(videoListeRaw.get(quality).getUrl().toExternalForm()));
       videoListe.put(getResolutionFromPosition(quality), filmUrl);
@@ -206,7 +208,7 @@ public class DwFilmDetailDeserializer
   }
   
   private Resolution getResolutionFromPosition(int pos) {
-	switch (pos) {
+    switch (pos) {
 	  case 0: {
 		return Resolution.VERY_SMALL;
 	  }

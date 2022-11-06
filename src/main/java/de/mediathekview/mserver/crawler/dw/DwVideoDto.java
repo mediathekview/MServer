@@ -32,13 +32,4 @@ public class DwVideoDto {
     return format;
   }
   
-  public int getQualityId() {
-    if (getQuality().equalsIgnoreCase("high")) {
-      return 10;
-    } else if (getQuality().equalsIgnoreCase("medium")) {
-      return 5;
-    }
-    return 1;
-  }
-  
 }
