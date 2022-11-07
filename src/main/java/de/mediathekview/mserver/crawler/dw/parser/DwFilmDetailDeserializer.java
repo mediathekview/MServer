@@ -59,6 +59,34 @@ public class DwFilmDetailDeserializer
     crawler = aCrawler;
   }
 
+  protected boolean isValidVideo(final JsonObject jsonObject, Optional<String> videoId, Optional<String> type, Optional<String> title, Optional<String> topic) {
+    if (videoId.isEmpty()) {
+      LOG.error("Could not find mandatory element videoId");
+      return false;
+    } else if (title.isEmpty()) {
+      LOG.error("Could not find mandatory element title for videoId {} ", videoId.get());
+      return false;
+    } else if (topic.isEmpty()) {
+      LOG.error("Could not find mandatory element topic for videoId {} ", videoId.get());
+      return false;
+    } else if (type.isEmpty()) {
+      LOG.error("Could not find mandatory element type for videoId {} ", videoId.get());
+      return false;
+    } else if (!type.get().equalsIgnoreCase("video")) {
+      return false;
+    } else if (!jsonObject.has(ELEMENT_MAINCONTENT)) {
+      LOG.error("Could not find maincontent for videoId {}", videoId.get());
+      return false;
+    } else if (!jsonObject.get(ELEMENT_MAINCONTENT).getAsJsonObject().has(ELEMENT_MAINCONTENT_SOURCES))  {
+      LOG.error("Could not find sources for videoId {}", videoId.get());
+      return false;
+    } else if (JsonUtils.getAttributeAsString(jsonObject.get(ELEMENT_MAINCONTENT).getAsJsonObject(), ELEMENT_MAINCONTENT_LINK).isEmpty()) {
+      LOG.error("Could not find thisPageUrl for videoId {}", videoId.get());
+      return false;
+    }
+    return true;
+  }
+  
   @Override
   public Optional<Film> deserialize(
       JsonElement aJsonElement, Type aType, JsonDeserializationContext aContext) {
@@ -70,32 +98,13 @@ public class DwFilmDetailDeserializer
     final Optional<String> title = JsonUtils.getAttributeAsString(jsonObject, ELEMENT_NAME);
     final Optional<String> topic = JsonUtils.getAttributeAsString(jsonObject, ELEMENT_CATEGORY);
 
-    if (!topic.isPresent() || !title.isPresent() || !videoId.isPresent() || !type.isPresent()) {
-      LOG.error("Could not find mandatory element title {} or topic {} or videoid {} or type {}", title.orElse(""), topic.orElse(""),videoId.orElse(""),type.orElse(""));
-      return Optional.empty();
-    }
-    if (!type.get().equalsIgnoreCase("video")) {
-    	//LOG.error("element is not a video {} but {}", videoId.orElse(title.orElse(topic.orElse(""))), type.orElse(""));
-        return Optional.empty();    	
-    }
-    
-    if (!jsonObject.has(ELEMENT_MAINCONTENT)) {
-      LOG.error("Could not find maincontent for video {}", videoId.get());
+    if (!isValidVideo(jsonObject, videoId, type, title, topic)) {
       return Optional.empty();
     }
 
     final JsonObject jsonObjectMainContent = jsonObject.get(ELEMENT_MAINCONTENT).getAsJsonObject();
     final Optional<String> thisPageUrl = JsonUtils.getAttributeAsString(jsonObjectMainContent, ELEMENT_MAINCONTENT_LINK);
-    
-    if (!jsonObjectMainContent.has(ELEMENT_MAINCONTENT_SOURCES)) {
-      LOG.error("Could not find sources for video {} url {}", videoId.get(), thisPageUrl.orElse(""));
-      return Optional.empty();
-    }
-    if (thisPageUrl.isEmpty()) {
-      LOG.error("Could not find thisPageUrl for video {}", videoId.get());
-      return Optional.empty();
-    }
-    
+
     final Film film =
         new Film(UUID.randomUUID(), sender, title.get(), topic.get(), getAiredDate(thisPageUrl.get(),jsonObject), getDuration(thisPageUrl.get(),jsonObjectMainContent));
     //
@@ -167,7 +176,7 @@ public class DwFilmDetailDeserializer
     }
 
     final Map<Resolution, FilmUrl> videoListe = new ConcurrentHashMap<>();
-    final ArrayList<DwVideoDto> videoListeRaw = new ArrayList<DwVideoDto>();
+    final ArrayList<DwVideoDto> videoListeRaw = new ArrayList<>();
 
     videos.forEach(
       (JsonElement currentElement) -> {

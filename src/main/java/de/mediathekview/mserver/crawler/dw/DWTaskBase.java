@@ -25,7 +25,7 @@ public abstract class DWTaskBase<T, D extends CrawlerUrlDTO> extends AbstractRes
 
   private transient RateLimiter limiter = null;
 
-  private transient final GsonBuilder gsonBuilder;
+  private final transient GsonBuilder gsonBuilder;
 
   protected DWTaskBase(
       final AbstractCrawler aCrawler, final Queue<D> aUrlToCrawlDtos, final String authKey) {
