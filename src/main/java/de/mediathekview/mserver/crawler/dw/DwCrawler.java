@@ -50,11 +50,11 @@ public class DwCrawler extends AbstractCrawler {
 
       return new DwFilmDetailTask(this,shows);
       
-    } catch (final ExecutionException executionException) {
-      LOG.fatal("Exception in DW crawler.", executionException);
-    } catch (final InterruptedException interruptedException) {
-      LOG.fatal("Exception in DW crawler.", interruptedException);
+    } catch (final InterruptedException ex) {
+      LOG.debug("{} crawler interrupted.", getSender().getName(), ex);
       Thread.currentThread().interrupt();
+    } catch (final ExecutionException ex) {
+      LOG.fatal("Exception in {} crawler.", getSender().getName(), ex);
     }
     return null;
   }

@@ -81,9 +81,11 @@ public class SrfCrawler extends AbstractCrawler {
 
       return new SrfFilmDetailTask(this, new ConcurrentLinkedQueue<>(dtos));
 
-    } catch (final InterruptedException | ExecutionException ex) {
-      LOG.fatal("Exception in SRF crawler.", ex);
+    } catch (final InterruptedException ex) {
+      LOG.debug("{} crawler interrupted.", getSender().getName(), ex);
       Thread.currentThread().interrupt();
+    } catch (final ExecutionException ex) {
+      LOG.fatal("Exception in {} crawler.", getSender().getName(), ex);
     }
     return null;
   }
