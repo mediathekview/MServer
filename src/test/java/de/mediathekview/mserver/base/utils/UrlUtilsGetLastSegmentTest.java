@@ -12,12 +12,12 @@ import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 @RunWith(Parameterized.class)
-public class UrlUtilsTestGetLastSegment {
+public class UrlUtilsGetLastSegmentTest {
 
   private final String inputUrl;
   private final Optional<String> expectedResult;
 
-  public UrlUtilsTestGetLastSegment(final String inputUrl, final Optional<String> expectedResult) {
+  public UrlUtilsGetLastSegmentTest(final String inputUrl, final Optional<String> expectedResult) {
     this.inputUrl = inputUrl;
     this.expectedResult = expectedResult;
   }

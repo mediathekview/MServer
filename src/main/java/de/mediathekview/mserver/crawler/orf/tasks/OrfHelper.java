@@ -22,7 +22,7 @@ class OrfHelper {
   }
 
   static String parseTheme(final String theme) {
-    final String result = theme.replaceAll("[0-9]{1,2}:[0-9][0-9]$", "").trim();
+    final String result = theme.replaceAll("\\d{1,2}:\\d{2}$", "").trim();
     // Thema steht vor Doppelpunkt
     // Ausnahmen
     // - ZIB-Sendungen mit Uhrzeit

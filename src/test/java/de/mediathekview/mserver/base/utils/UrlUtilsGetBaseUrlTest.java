@@ -11,31 +11,30 @@ import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 @RunWith(Parameterized.class)
-public class UrlUtilsTestAddDomainIfMissing {
-  private static final String DOMAIN = "https://mydomain.de";
+public class UrlUtilsGetBaseUrlTest {
   private final String inputUrl;
   private final String expectedBaseUrl;
 
-  public UrlUtilsTestAddDomainIfMissing(final String aInputUrl, final String aExpectedBaseUrl) {
+  public UrlUtilsGetBaseUrlTest(final String aInputUrl, final String aExpectedBaseUrl) {
     inputUrl = aInputUrl;
     expectedBaseUrl = aExpectedBaseUrl;
   }
 
   @Parameterized.Parameters
-  public static Collection<String[]> data() {
+  public static Collection<Object[]> data() {
     return Arrays.asList(
-        new String[][] {
+        new Object[][] {
           {null, null},
           {"", ""},
-          {"https://www.testurl.de/resource?query=3", "https://www.testurl.de/resource?query=3"},
-          {"www.urlohneschema.de", "www.urlohneschema.de"},
-          {"/child/sub", DOMAIN + "/child/sub"}
+          {"https://www.testurl.de/resource?query=3", "https://www.testurl.de"},
+          {"www.urlohneschema.de/child", "www.urlohneschema.de"},
+          {"http://www.test.de", "http://www.test.de"}
         });
   }
 
   @Test
-  public void addDomainIfMissingTest() {
-    final String actual = UrlUtils.addDomainIfMissing(inputUrl, DOMAIN);
+  public void getBaseUrlTest() {
+    final String actual = UrlUtils.getBaseUrl(inputUrl);
 
     assertThat(actual, equalTo(expectedBaseUrl));
   }

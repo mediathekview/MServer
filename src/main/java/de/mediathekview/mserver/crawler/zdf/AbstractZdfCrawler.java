@@ -30,7 +30,7 @@ public abstract class AbstractZdfCrawler extends AbstractCrawler {
 
   private static final Logger LOG = LogManager.getLogger(AbstractZdfCrawler.class);
 
-  public AbstractZdfCrawler(
+  protected AbstractZdfCrawler(
       final ForkJoinPool aForkJoinPool,
       final Collection<MessageListener> aMessageListeners,
       final Collection<SenderProgressListener> aProgressListeners,

@@ -50,7 +50,7 @@ public class SrfCrawler extends AbstractCrawler {
   @Override
   protected RecursiveTask<Set<Film>> createCrawlerTask() {
     try {
-      final Set<CrawlerUrlDTO> dtos = new HashSet<CrawlerUrlDTO>();
+      final Set<CrawlerUrlDTO> dtos = new HashSet<>();
       //
       final Queue<CrawlerUrlDTO> schedulePageUrls = createScheduleUrls();
       final SrfScheduleOverviewTask schedulePageTask = new SrfScheduleOverviewTask(this, schedulePageUrls);

@@ -81,7 +81,7 @@ public class Log4JConfigurationFactory extends ConfigurationFactory {
 
     final AppenderComponentBuilder appenderBuilder;
 
-    if (logSettings.getLogActivateRollingFileAppend()) {
+    if (Boolean.TRUE.equals(logSettings.getLogActivateRollingFileAppend())) {
       appenderBuilder = aBuilder.newAppender(APPENDER_NAME_ROLLING_FILE, APPENDER_ROLLING_FILE);
 
       appenderBuilder

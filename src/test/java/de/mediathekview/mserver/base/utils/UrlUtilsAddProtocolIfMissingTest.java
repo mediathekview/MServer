@@ -11,13 +11,13 @@ import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 @RunWith(Parameterized.class)
-public class UrlUtilsTestAddProtocolIfMissing {
+public class UrlUtilsAddProtocolIfMissingTest {
 
   private static final String PROTOCOL = "https:";
   private final String inputUrl;
   private final String expectedBaseUrl;
 
-  public UrlUtilsTestAddProtocolIfMissing(final String aInputUrl, final String aExpectedBaseUrl) {
+  public UrlUtilsAddProtocolIfMissingTest(final String aInputUrl, final String aExpectedBaseUrl) {
     inputUrl = aInputUrl;
     expectedBaseUrl = aExpectedBaseUrl;
   }

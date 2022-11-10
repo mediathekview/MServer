@@ -21,7 +21,7 @@ import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 @RunWith(Parameterized.class)
-public class SrFilmDetailTaskTestNoFilm extends SrTaskTestBase {
+public class SrFilmDetailTaskNoFilmTest extends SrTaskTestBase {
 
   private final String requestUrl;
   private final String filmPageFile;
@@ -36,7 +36,7 @@ public class SrFilmDetailTaskTestNoFilm extends SrTaskTestBase {
     MockitoAnnotations.openMocks(this);
   }
 
-  public SrFilmDetailTaskTestNoFilm(
+  public SrFilmDetailTaskNoFilmTest(
       final String aRequestUrl,
       final String aFilmPageFile,
       final String aTheme,

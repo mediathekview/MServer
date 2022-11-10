@@ -22,12 +22,7 @@ public class DownloadDto {
   }
 
   public void addUrl(final String language, final Resolution quality, final String url) {
-    if (!downloadUrls.containsKey(language)) {
-      downloadUrls.put(language, new EnumMap<>(Resolution.class));
-    }
-
-    Map<Resolution, String> urlMap = downloadUrls.get(language);
-    urlMap.put(quality, url);
+    downloadUrls.computeIfAbsent(language, k -> (new EnumMap<>(Resolution.class))).put(quality, url);
   }
 
   public Map<Resolution, String> getDownloadUrls(final String language) {

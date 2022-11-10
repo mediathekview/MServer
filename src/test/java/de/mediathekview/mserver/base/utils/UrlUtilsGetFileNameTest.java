@@ -12,12 +12,12 @@ import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 @RunWith(Parameterized.class)
-public class UrlUtilsTestGetFileName {
+public class UrlUtilsGetFileNameTest {
 
   private final String inputUrl;
   private final Optional<String> expectedFileType;
 
-  public UrlUtilsTestGetFileName(final String aInputUrl, final Optional<String> aExpectedFileType) {
+  public UrlUtilsGetFileNameTest(final String aInputUrl, final Optional<String> aExpectedFileType) {
     inputUrl = aInputUrl;
     expectedFileType = aExpectedFileType;
   }

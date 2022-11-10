@@ -11,11 +11,11 @@ import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 @RunWith(Parameterized.class)
-public class UrlUtilsTestRemoveParameters {
+public class UrlUtilsRemoveParametersTest {
   private final String inputUrl;
   private final String expectedUrl;
 
-  public UrlUtilsTestRemoveParameters(final String aInputUrl, final String aExpectedUrl) {
+  public UrlUtilsRemoveParametersTest(final String aInputUrl, final String aExpectedUrl) {
     inputUrl = aInputUrl;
     expectedUrl = aExpectedUrl;
   }
