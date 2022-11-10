@@ -89,7 +89,11 @@ public class ArdVideoInfoJsonDeserializer implements JsonDeserializer<ArdVideoIn
     if (m3u8Content.isPresent()) {
 
       final String url = m3u8File.toString();
-      String baseUrl = url.replaceAll(UrlUtils.getFileName(url).get(), "");
+      final Optional<String> filename = UrlUtils.getFileName(url);
+      if (filename.isEmpty()) {
+        return;
+      }
+      String baseUrl = url.replaceAll(filename.get(), "");
 
       final M3U8Parser parser = new M3U8Parser();
       final List<M3U8Dto> m3u8Data = parser.parse(m3u8Content.get());

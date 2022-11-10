@@ -126,7 +126,7 @@ public class OrfFilmDetailTask extends AbstractDocumentTask<Film, TopicUrlDTO> {
 
     final List<OrfEpisodeInfoDTO> episodes = parseEpisodes(aDocument);
     if (episodes.size() > 1) {
-      crawler.incrementMaxCountBySizeAndGetNewSize(episodes.size() - 1);
+      crawler.incrementMaxCountBySizeAndGetNewSize(episodes.size() - 1L);
       crawler.updateProgress();
     }
 

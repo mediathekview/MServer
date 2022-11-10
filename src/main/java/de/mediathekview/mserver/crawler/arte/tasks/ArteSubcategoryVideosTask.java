@@ -19,6 +19,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.lang.reflect.Type;
+import java.util.Optional;
 import java.util.Queue;
 import java.util.Set;
 import java.util.concurrent.ConcurrentLinkedQueue;
@@ -53,7 +54,10 @@ public class ArteSubcategoryVideosTask extends ArteTaskBase<ArteFilmUrlDto, Topi
       //
       int nextPageId = 0;
       try {
-        nextPageId = Integer.parseInt(UrlUtils.getUrlParameterValue(aDTO.getUrl(),"page").get());
+        Optional<String> urlParameterPage = UrlUtils.getUrlParameterValue(aDTO.getUrl(),"page");
+        if (urlParameterPage.isPresent()) {
+          nextPageId = Integer.parseInt(urlParameterPage.get());
+        }
       } catch (UrlParseException|NumberFormatException e) {
         LOG.error("Failed to parse page from url {} error {}",aDTO.getUrl(), e.getMessage());
       }
