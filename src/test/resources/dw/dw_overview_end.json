@@ -1,0 +1,119 @@
+{
+  "languageId" : 1,
+  "type" : "MediaCenter",
+  "paginationInfo" : {
+    "availableItems" : 5324,
+    "availablePages" : 178,
+    "pageSize" : 30,
+    "currentPage" : 178,
+    "itemsOnPage" : 14,
+    "firstItem" : 5310,
+    "lastItem" : 5323,
+    "previousPageUrl" : "https://api.dw.com/api/list/mediacenter/1?pageIndex=177"
+  },
+  "resultCount" : 5324,
+  "items" : [ {
+    "type" : "GalleryTeaser",
+    "name" : "Judentum: Wie man richtig koscher isst ",
+    "teaserText" : "Die jüdisch-orthodoxen Speisevorschriften sind gar nicht so einfach umzusetzen.",
+    "displayDate" : "2021-10-23T14:07:00.462Z",
+    "image" : {
+      "id" : 58937973,
+      "type" : "Image",
+      "name" : "Bg I koscheres Essen",
+      "sizes" : [ {
+        "width" : 220,
+        "height" : 124,
+        "url" : "https://static.dw.com/image/58937973_301.jpg"
+      }, {
+        "width" : 460,
+        "height" : 259,
+        "url" : "https://static.dw.com/image/58937973_302.jpg"
+      }, {
+        "width" : 700,
+        "height" : 394,
+        "url" : "https://static.dw.com/image/58937973_303.jpg"
+      }, {
+        "width" : 940,
+        "height" : 529,
+        "url" : "https://static.dw.com/image/58937973_304.jpg"
+      } ]
+    },
+    "reference" : {
+      "id" : 58936613,
+      "type" : "GalleryRef",
+      "name" : "Judentum: Wie man richtig koscher isst ",
+      "url" : "https://api.dw.com/api/detail/gallery/58936613"
+    },
+    "columnCount" : 1,
+    "allowedColumnCounts" : [ 1, 2 ],
+    "commentsEnabled" : false,
+    "imageCount" : 13
+  }, {
+    "type" : "VideoTeaser",
+    "name" : "Euromaxx - Leben und Kultur in Europa",
+    "teaserText" : "Mode-Influencerin Leonie Hanne, der „fröhliche Friedhof“ in Rumänien, Kunst im ICC Berlin ",
+    "displayDate" : "2021-10-23T11:22:34.385Z",
+    "image" : {
+      "id" : 37108762,
+      "type" : "Image",
+      "name" : "DW Euromaxx (Sendungslogo Composite)",
+      "sizes" : [ {
+        "width" : 220,
+        "height" : 124,
+        "url" : "https://static.dw.com/image/37108762_301.jpg"
+      }, {
+        "width" : 460,
+        "height" : 259,
+        "url" : "https://static.dw.com/image/37108762_302.jpg"
+      }, {
+        "width" : 700,
+        "height" : 394,
+        "url" : "https://static.dw.com/image/37108762_303.jpg"
+      }, {
+        "width" : 940,
+        "height" : 529,
+        "url" : "https://static.dw.com/image/37108762_304.jpg"
+      } ]
+    },
+    "reference" : {
+      "id" : 59600182,
+      "type" : "VideoRef",
+      "name" : "Euromaxx - Leben und Kultur in Europa",
+      "url" : "https://api.dw.com/api/detail/video/59600182"
+    },
+    "columnCount" : 1,
+    "allowedColumnCounts" : [ 1, 2 ],
+    "commentsEnabled" : false,
+    "duration" : 1561,
+    "programId" : 877837
+  } ],
+  "trackingInfo" : {
+    "level2" : "1",
+    "page" : "<prefix>::Media Center::Alle Inhalte::Alle Inhalte_next_177",
+    "customCriteria" : {
+      "x8" : "",
+      "x9" : "20221023",
+      "x10" : "<prefix>::Media Center::Alle Inhalte",
+      "x1" : "99",
+      "x2" : "1",
+      "X14" : "",
+      "x3" : "100814",
+      "x4" : "100814",
+      "x5" : "Alle Inhalte_next_177",
+      "X15" : "",
+      "x6" : "1",
+      "X18" : "",
+      "x7" : ""
+    }
+  },
+  "filterParameters" : {
+    "terms" : "",
+    "startDate" : "2021-10-23T07:45:45.649Z",
+    "endDate" : "2022-10-23T07:45:45.649Z",
+    "sortByDate" : true,
+    "contentTypes" : [ "Audio", "Video", "ImageGallery" ],
+    "themes" : [ ],
+    "programs" : [ ]
+  }
+}

@@ -18,7 +18,7 @@ public class StringVariable extends AbstractVariable<String> {
   
   @Override
   protected String getVariable() {
-    return getAsJSONWithoutValue() + getVariableWithDoubleQuoteSurrounding(this.value.replaceAll("\"", "\\\\\""));
+    return getAsJSONWithoutValue() + getVariableWithDoubleQuoteSurrounding(this.value.replace("\"", "\\\""));
   }
 
 }

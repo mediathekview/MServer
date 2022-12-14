@@ -8,44 +8,32 @@ import de.mediathekview.mserver.base.config.MServerConfigManager;
 import de.mediathekview.mserver.crawler.basic.FilmUrlInfoDto;
 import de.mediathekview.mserver.crawler.funk.json.NexxCloudVideoDetailsDeserializer;
 import de.mediathekview.mserver.progress.listeners.SenderProgressListener;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
 
 import java.io.IOException;
 import java.lang.reflect.Type;
 import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 import java.util.concurrent.ForkJoinPool;
+import java.util.stream.Stream;
 
-import static org.hamcrest.CoreMatchers.equalTo;
-import static org.hamcrest.MatcherAssert.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.params.provider.Arguments.arguments;
 
-@RunWith(Parameterized.class)
-public class NexxCloudVideoDetailsDeserializerTest {
+class NexxCloudVideoDetailsDeserializerTest {
 
-  private final String jsonFile;
-  private final Set<FilmUrlInfoDto> correctResults;
   private final MServerConfigManager rootConfig =
       new MServerConfigManager("MServer-JUnit-Config.yaml");
 
-  public NexxCloudVideoDetailsDeserializerTest(
-      final String jsonFile, final Set<FilmUrlInfoDto> correctResults) {
-    this.jsonFile = jsonFile;
-    this.correctResults = correctResults;
-  }
+  static Stream<Arguments> data() {
 
-  @Parameterized.Parameters
-  public static Object[][] data() {
-    
     final String filenameAzure = "/funk/nexx_cloud_video_details.json";
     final Set<FilmUrlInfoDto> videoDetailsAzure = new HashSet<>();
-    
+
     videoDetailsAzure.add(
         new FilmUrlInfoDto(
             "https://funk-01dd.akamaized.net/b4fd4025-3285-4dc8-a0ee-53c5c967d347/1605930_src_320x180_400.mp4",
@@ -84,7 +72,7 @@ public class NexxCloudVideoDetailsDeserializerTest {
     // 3Q
     final String filename3q = "/funk/nexx_cloud_video_details_3q.json";
     final Set<FilmUrlInfoDto> videoDetails3q = new HashSet<>();
-        
+
     videoDetails3q.add(
         new FilmUrlInfoDto(
             "https://funk-02.akamaized.net/22679/files/21/03/22/3044074/5-GmkJ6y3hHMvqNfC9x8gr.mp4",
@@ -111,10 +99,8 @@ public class NexxCloudVideoDetailsDeserializerTest {
             1920,
             1080));
 
-    return new Object[][] {
-        {filenameAzure, videoDetailsAzure},
-        {filename3q, videoDetails3q}
-      };
+    return Stream.of(
+        arguments(filenameAzure, videoDetailsAzure), arguments(filename3q, videoDetails3q));
   }
 
   private FunkCrawler createCrawler() {
@@ -125,8 +111,10 @@ public class NexxCloudVideoDetailsDeserializerTest {
     return new FunkCrawler(forkJoinPool, nachrichten, fortschritte, rootConfig);
   }
 
-  @Test
-  public void testDeserialize() throws URISyntaxException, IOException {
+  @ParameterizedTest
+  @MethodSource("data")
+  void testDeserialize(String jsonFile, Set<FilmUrlInfoDto> correctResults)
+      throws URISyntaxException, IOException {
     final Type funkVideosType = new TypeToken<Set<FilmUrlInfoDto>>() {}.getType();
     final Gson gson =
         new GsonBuilder()
@@ -136,9 +124,10 @@ public class NexxCloudVideoDetailsDeserializerTest {
 
     final Set<FilmUrlInfoDto> videoResultList =
         gson.fromJson(
-            Files.newBufferedReader(Paths.get(getClass().getResource(jsonFile).toURI())),
+            Files.newBufferedReader(
+                Paths.get(Objects.requireNonNull(getClass().getResource(jsonFile)).toURI())),
             funkVideosType);
 
-    assertThat(videoResultList, equalTo(correctResults));
+    assertThat(videoResultList).isEqualTo(correctResults);
   }
 }

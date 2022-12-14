@@ -8,41 +8,31 @@ import de.mediathekview.mserver.base.config.MServerBasicConfigDTO;
 import de.mediathekview.mserver.base.config.MServerConfigManager;
 import de.mediathekview.mserver.crawler.basic.PagedElementListDTO;
 import de.mediathekview.mserver.crawler.funk.json.FunkChannelDeserializer;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
 
 import java.io.IOException;
 import java.lang.reflect.Type;
 import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.Arrays;
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Stream;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.equalTo;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.params.provider.Arguments.arguments;
 
-@RunWith(Parameterized.class)
-public class FunkChannelDeserializerTest {
+class FunkChannelDeserializerTest {
 
-  private final String jsonFile;
-  private final PagedElementListDTO<FunkChannelDTO> correctResults;
-
-  public FunkChannelDeserializerTest(
-      final String jsonFile, final PagedElementListDTO<FunkChannelDTO> correctResults) {
-    this.jsonFile = jsonFile;
-    this.correctResults = correctResults;
-  }
-
-  @Parameterized.Parameters
-  public static Object[][] data() {
+  static Stream<Arguments> data() {
     final PagedElementListDTO<FunkChannelDTO> channelList = new PagedElementListDTO<>();
     channelList.setNextPage(
         Optional.of(
             "https://www.funk.net/api/v4.0/channels/?page=1&size=100&sort=updateDate,desc"));
     channelList.addElements(
-        Arrays.asList(
+        List.of(
             new FunkChannelDTO("12034", "Deutschland3000 - ‘ne gute Stunde mit Eva Schulz"),
             new FunkChannelDTO("12026", "Same"),
             new FunkChannelDTO("12030", "DIE DA OBEN!"),
@@ -143,11 +133,14 @@ public class FunkChannelDeserializerTest {
             new FunkChannelDTO("11965", "Straight Family"),
             new FunkChannelDTO("11966", "mynoupa"),
             new FunkChannelDTO("11967", "Einigkeit & Rap & Freiheit")));
-    return new Object[][] {{"/funk/FunkChannels.json", channelList}};
+
+    return Stream.of(arguments("/funk/FunkChannels.json", channelList));
   }
 
-  @Test
-  public void testDeserialize() throws URISyntaxException, IOException {
+  @ParameterizedTest
+  @MethodSource("data")
+  void testDeserialize(String jsonFile, PagedElementListDTO<FunkChannelDTO> correctResults)
+      throws URISyntaxException, IOException {
     final Type funkChannelsType = new TypeToken<PagedElementListDTO<FunkChannelDTO>>() {}.getType();
     final MServerConfigManager rootConfig = new MServerConfigManager("MServer-JUnit-Config.yaml");
     final MServerBasicConfigDTO senderConfig = rootConfig.getSenderConfig(Sender.FUNK);
@@ -161,6 +154,7 @@ public class FunkChannelDeserializerTest {
         gson.fromJson(
             Files.newBufferedReader(Paths.get(getClass().getResource(jsonFile).toURI())),
             funkChannelsType);
-    assertThat(channelList, equalTo(correctResults));
+
+    assertThat(channelList).isEqualTo(correctResults);
   }
 }

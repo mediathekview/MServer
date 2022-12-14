@@ -5,6 +5,12 @@ import com.google.gson.GsonBuilder;
 import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
 import de.mediathekview.mserver.crawler.funk.FunkUrls;
 import de.mediathekview.mserver.crawler.funk.json.NexxCloudSessionInitDeserializer;
+import jakarta.ws.rs.client.Client;
+import jakarta.ws.rs.client.ClientBuilder;
+import jakarta.ws.rs.client.Entity;
+import jakarta.ws.rs.client.WebTarget;
+import jakarta.ws.rs.core.MultivaluedHashMap;
+import jakarta.ws.rs.core.Response;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.glassfish.jersey.client.filter.EncodingFilter;
@@ -13,12 +19,6 @@ import org.glassfish.jersey.message.DeflateEncoder;
 import org.glassfish.jersey.message.GZipEncoder;
 import org.jetbrains.annotations.NotNull;
 
-import jakarta.ws.rs.client.Client;
-import jakarta.ws.rs.client.ClientBuilder;
-import jakarta.ws.rs.client.Entity;
-import jakarta.ws.rs.client.WebTarget;
-import jakarta.ws.rs.core.MultivaluedHashMap;
-import jakarta.ws.rs.core.Response;
 import java.util.concurrent.Callable;
 import java.util.concurrent.TimeUnit;
 
@@ -37,22 +37,24 @@ public class NexxCloudSessionInitiationTask implements Callable<Long> {
   public Long call() {
     final Gson gson = createGson();
 
-    final Client client = createClient();
-    final WebTarget target =
-        client.target(FunkUrls.NEXX_CLOUD_SESSION_INIT.getAsString(crawler.getRuntimeConfig()));
+    try(final Client client = createClient()) {
+      final WebTarget target =
+          client.target(FunkUrls.NEXX_CLOUD_SESSION_INIT.getAsString(crawler.getRuntimeConfig()));
 
-    final MultivaluedHashMap<String, String> formData = createForm();
+      final MultivaluedHashMap<String, String> formData = createForm();
 
-    final Response response = target.request().post(Entity.form(formData));
-
-    if (response.getStatus() == 201) {
-      final String jsonOutput = response.readEntity(String.class);
-      return gson.fromJson(jsonOutput, Long.class);
-    } else {
-      crawler.printErrorMessage();
-      LOG.fatal(
-          "A HTTP error {} occurred when initialising the Nexx cloud session.",
-          response.getStatus());
+      try(final Response response = target.request().post(Entity.form(formData)))
+      {
+        if (response.getStatus() == 201) {
+          final String jsonOutput = response.readEntity(String.class);
+          return gson.fromJson(jsonOutput, Long.class);
+        } else {
+          crawler.printErrorMessage();
+          LOG.fatal(
+              "A HTTP error {} occurred when initialising the Nexx cloud session.",
+              response.getStatus());
+        }
+      }
     }
     return null;
   }

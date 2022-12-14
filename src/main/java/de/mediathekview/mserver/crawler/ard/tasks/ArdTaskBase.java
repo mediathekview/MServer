@@ -49,8 +49,7 @@ public abstract class ArdTaskBase<T, D extends CrawlerUrlDTO> extends AbstractRe
   private <A> Optional<A> deserializeUnsafe(
       final WebTarget target, final Type type, final D currentElement) {
     final Gson gson = gsonBuilder.create();
-    try {
-      final Response response = executeRequest(target);
+    try(Response response = executeRequest(target)) {
       if (response.getStatus() == 200) {
         final String jsonOutput = response.readEntity(String.class);
         if (isSuccessResponse(jsonOutput, gson, target.getUri().toString())) {
