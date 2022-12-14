@@ -136,8 +136,8 @@ senderConfigurations:
     # the amount set by this is 5 then the crawler crawls pages 1 to 5.
   #          maximumSubpages: 3
   KIKA:
-    maximumSubpages: 20
-    maximumRequestsPerSecond: 10.0
+    maximumSubpages: 2
+    maximumRequestsPerSecond: 8.0
   SR:
     maximumRequestsPerSecond: 2.0
   ZDF:

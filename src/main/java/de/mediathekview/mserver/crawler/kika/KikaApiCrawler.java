@@ -6,7 +6,6 @@ import de.mediathekview.mlib.messages.listener.MessageListener;
 import de.mediathekview.mserver.base.config.MServerConfigManager;
 import de.mediathekview.mserver.base.messages.ServerMessages;
 import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
-import de.mediathekview.mserver.crawler.basic.CrawlerUrlDTO;
 import de.mediathekview.mserver.crawler.basic.TopicUrlDTO;
 import de.mediathekview.mserver.crawler.kika.json.KikaApiFilmDto;
 import de.mediathekview.mserver.crawler.kika.tasks.*;
@@ -42,23 +41,17 @@ public class KikaApiCrawler extends AbstractCrawler {
 
     try {
       // get all brands from json doc
-      final Queue<CrawlerUrlDTO> root = new ConcurrentLinkedQueue<>();
-      root.add(new CrawlerUrlDTO(KikaApiConstants.OVERVIEW));
-      final KikaApiOverviewTask aKikaApiTopicOverviewTask = new KikaApiOverviewTask(this, root, 0);
-      final Queue<TopicUrlDTO> topics = new ConcurrentLinkedQueue<>();
-      topics.addAll(aKikaApiTopicOverviewTask.fork().join());
-      printMessage(ServerMessages.DEBUG_ALL_SENDUNG_COUNT, getSender().getName(), topics.size());
+      final Queue<TopicUrlDTO> root = new ConcurrentLinkedQueue<>();
+      root.add(new TopicUrlDTO("all videos",KikaApiConstants.ALL_VIDEOS));
+      final KikaApiTopicTask aKikaApiTopicOverviewTask = new KikaApiTopicTask(this, root, 0);
+      final Queue<KikaApiFilmDto> videos = new ConcurrentLinkedQueue<>();
+      videos.addAll(aKikaApiTopicOverviewTask.fork().join());
       //
-      // go through each topic and get all episodes for this topic
-      final KikaApiTopicTask aKikaApiTopicTask = new KikaApiTopicTask(this, topics, 0);
-      final Queue<KikaApiFilmDto> episodes = new ConcurrentLinkedQueue<>();
-      episodes.addAll(aKikaApiTopicTask.fork().join());
-      //
-      printMessage(ServerMessages.DEBUG_ALL_SENDUNG_FOLGEN_COUNT, getSender().getName(), episodes.size());
-      getAndSetMaxCount(episodes.size());
+      printMessage(ServerMessages.DEBUG_ALL_SENDUNG_FOLGEN_COUNT, getSender().getName(), videos.size());
+      getAndSetMaxCount(videos.size());
       //
       // get all video urls for this episode
-      return new KikaApiFilmTask(this, episodes);
+      return new KikaApiFilmTask(this, videos);
     } catch (final Exception ex) {
       LOG.fatal("Exception in KIKA crawler.", ex);
     }
