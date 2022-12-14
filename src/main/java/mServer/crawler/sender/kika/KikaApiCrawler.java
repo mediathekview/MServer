@@ -44,10 +44,6 @@ public class KikaApiCrawler extends MediathekCrawler {
       maxPages = 999;
     }
     
-    maxPages = 1;
-    
-    
-    
     try {
       final ConcurrentLinkedQueue<TopicUrlDTO> overivew = new ConcurrentLinkedQueue<>();
       overivew.add(new TopicUrlDTO("starting point", KikaApiConstants.ALL_VIDEOS));
