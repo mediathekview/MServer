@@ -57,7 +57,6 @@ public class SrfCrawler extends AbstractCrawler {
       final Set<CrawlerUrlDTO> scheduleFilmUrls = forkJoinPool.submit(schedulePageTask).get();
       dtos.addAll(scheduleFilmUrls);
       //
-
       if (Boolean.TRUE.equals(crawlerConfig.getTopicsSearchEnabled())) {
         final Queue<CrawlerUrlDTO> topicsUrls = new ConcurrentLinkedQueue<>();
         topicsUrls.add(new CrawlerUrlDTO(SrfConstants.OVERVIEW_PAGE_URL));
@@ -96,6 +95,9 @@ public class SrfCrawler extends AbstractCrawler {
       final String url = String.format(SrfConstants.SCHEDULE_PER_DAY, day);
       scheduleUrls.offer(new CrawlerUrlDTO(url));
     }
+    LOG.debug("SRF crawler for schedule {} to {}",
+            now.minusDays(crawlerConfig.getMaximumDaysForSendungVerpasstSection()).format(ISO_DATE_FORMAT),
+            now.minusDays(0).format(ISO_DATE_FORMAT));
     return scheduleUrls;
   }
   

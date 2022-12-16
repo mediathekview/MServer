@@ -18,13 +18,13 @@ public class SrfTopicDeserializerTest {
     final CrawlerUrlDTO[] expectedUrls =
         new CrawlerUrlDTO[] {
           new CrawlerUrlDTO(
-              "https://il.srgssr.ch/integrationlayer/2.0/mediaComposition/byUrn/urn:srf:video:342a1a95-42ec-4568-b653-a042c54f7763.json"),
+              "https://il.srgssr.ch/integrationlayer/2.0/mediaComposition/byUrn/urn:srf:video:342a1a95-42ec-4568-b653-a042c54f7763"),
           new CrawlerUrlDTO(
-              "https://il.srgssr.ch/integrationlayer/2.0/mediaComposition/byUrn/urn:srf:video:aa44e19a-19d9-4584-88c7-ccd8658c0828.json"),
+              "https://il.srgssr.ch/integrationlayer/2.0/mediaComposition/byUrn/urn:srf:video:aa44e19a-19d9-4584-88c7-ccd8658c0828"),
           new CrawlerUrlDTO(
-              "https://il.srgssr.ch/integrationlayer/2.0/mediaComposition/byUrn/urn:srf:video:eba528a3-d85c-4936-af35-bca5f2b99960.json"),
+              "https://il.srgssr.ch/integrationlayer/2.0/mediaComposition/byUrn/urn:srf:video:eba528a3-d85c-4936-af35-bca5f2b99960"),
           new CrawlerUrlDTO(
-              "https://il.srgssr.ch/integrationlayer/2.0/mediaComposition/byUrn/urn:srf:video:5716149f-5edd-4205-b7d8-60f23334af7e.json")
+              "https://il.srgssr.ch/integrationlayer/2.0/mediaComposition/byUrn/urn:srf:video:5716149f-5edd-4205-b7d8-60f23334af7e")
         };
 
     final JsonElement jsonElement = JsonFileReader.readJson("/srf/srf_topic_page1.json");
@@ -41,9 +41,9 @@ public class SrfTopicDeserializerTest {
     final CrawlerUrlDTO[] expectedUrls =
         new CrawlerUrlDTO[] {
           new CrawlerUrlDTO(
-              "https://il.srgssr.ch/integrationlayer/2.0/mediaComposition/byUrn/urn:srf:video:a798a1a5-8808-426d-a47a-7a95b16650ea.json"),
+              "https://il.srgssr.ch/integrationlayer/2.0/mediaComposition/byUrn/urn:srf:video:a798a1a5-8808-426d-a47a-7a95b16650ea"),
           new CrawlerUrlDTO(
-              "https://il.srgssr.ch/integrationlayer/2.0/mediaComposition/byUrn/urn:srf:video:2042ad51-80b7-4a98-808f-a7bf447c8756.json")
+              "https://il.srgssr.ch/integrationlayer/2.0/mediaComposition/byUrn/urn:srf:video:2042ad51-80b7-4a98-808f-a7bf447c8756")
         };
 
     final JsonElement jsonElement = JsonFileReader.readJson("/srf/srf_topic_page_with_next.json");

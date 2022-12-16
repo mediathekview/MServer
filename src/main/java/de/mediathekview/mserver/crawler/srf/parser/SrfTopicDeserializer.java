@@ -15,7 +15,7 @@ import java.util.Optional;
 public class SrfTopicDeserializer implements JsonDeserializer<PagedElementListDTO<CrawlerUrlDTO>> {
 
   private static final String ELEMENT_DATA = "data";
-  private static final String ATTRIBUTE_ID = "id";
+  private static final String ATTRIBUTE_ID = "urn";
   private static final String ATTRIBUTE_NEXT = "next";
 
   @Override
