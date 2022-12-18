@@ -41,7 +41,6 @@ public class PhoenixCrawler extends AbstractCrawler {
   @Override
   protected RecursiveTask<Set<Film>> createCrawlerTask() {
     Queue<CrawlerUrlDTO> shows =new ConcurrentLinkedQueue<>();
-    // TODO phoenix vor ort fehlt => müssten mehrere Videos pro Seite sein!
 
     try {
       if (Boolean.TRUE.equals(crawlerConfig.getTopicsSearchEnabled())) {
@@ -64,14 +63,11 @@ public class PhoenixCrawler extends AbstractCrawler {
   }
 
   private Collection<CrawlerUrlDTO> getShows() throws ExecutionException, InterruptedException {
-    // load sendungen page
-    final CrawlerUrlDTO url =
-        new CrawlerUrlDTO(PhoenixConstants.URL_BASE + PhoenixConstants.URL_OVERVIEW_JSON);
-    final CrawlerUrlDTO rubriken =
-            new CrawlerUrlDTO(PhoenixConstants.URL_BASE + PhoenixConstants.URL_RUBRIKEN_JSON);
+    // load overview pages
     final Queue<CrawlerUrlDTO> queue = new ConcurrentLinkedQueue<>();
-    queue.add(rubriken);
-    queue.add(url);
+    for (String overviewUrl : PhoenixConstants.URL_OVERVIEW) {
+      queue.add(new CrawlerUrlDTO(PhoenixConstants.URL_BASE + overviewUrl));  
+    }
     final Set<CrawlerUrlDTO> overviewUrls = loadOverviewPages(queue);
 
     // load sendung overview pages

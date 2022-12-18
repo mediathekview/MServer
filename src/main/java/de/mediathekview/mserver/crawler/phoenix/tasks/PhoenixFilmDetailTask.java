@@ -57,6 +57,7 @@ public class PhoenixFilmDetailTask extends ZdfTaskBase<Film, CrawlerUrlDTO> {
         deserializeOptional(aTarget, OPTIONAL_FILM_DETAIL_DTO_TYPE_TOKEN);
     if (filmDetailDtoOptional.isEmpty()) {
       // tritt auf, wenn kein Film vorhanden
+      // Das video liegt dann z.B. bei youtube
       crawler.incrementAndGetErrorCount();
       crawler.updateProgress();
       return;
