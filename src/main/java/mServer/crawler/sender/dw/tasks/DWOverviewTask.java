@@ -2,6 +2,7 @@ package mServer.crawler.sender.dw.tasks;
 
 import com.google.gson.reflect.TypeToken;
 import jakarta.ws.rs.client.WebTarget;
+import mServer.crawler.CrawlerTool;
 import mServer.crawler.sender.MediathekReader;
 import mServer.crawler.sender.base.CrawlerUrlDTO;
 import mServer.crawler.sender.base.PagedElementListDTO;
@@ -25,7 +26,7 @@ public class DWOverviewTask extends DWTaskBase<CrawlerUrlDTO, CrawlerUrlDTO> {
       final ConcurrentLinkedQueue<CrawlerUrlDTO> urlToCrawlDTOs,
       final int subpage)
   {
-	  super(crawler, urlToCrawlDTOs, null);
+	  super(crawler, urlToCrawlDTOs, Optional.empty());
 	  this.subpage = subpage;
 	  registerJsonDeserializer(
 	    OPTIONAL_OVERVIEW_DTO_TYPE_TOKEN, new DWSendungOverviewDeserializer());
@@ -57,8 +58,10 @@ public class DWOverviewTask extends DWTaskBase<CrawlerUrlDTO, CrawlerUrlDTO> {
   }
 
   private int getMaximumSubpages() {
-    // TODO
-    return 1;
+    if (CrawlerTool.loadShort()) {
+      return 10;
+    }
+    return 100;
   }
 
   private void addResults(final Collection<CrawlerUrlDTO> aUrls) {
