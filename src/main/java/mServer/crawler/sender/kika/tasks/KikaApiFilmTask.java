@@ -67,13 +67,11 @@ public class KikaApiFilmTask extends AbstractJsonRestTask<DatenFilm, KikaApiVide
     if (aResponseObj.getErrorCode().isPresent()) {
       LOG.error("Error {} : {} for target {} ", aResponseObj.getErrorCode().get(), aResponseObj.getErrorMesssage().orElse(""), aDTO.getUrl());
       Log.errorLog(324978335, String.format("Error %s} : %s for target %s ", aResponseObj.getErrorCode().get(), aResponseObj.getErrorMesssage().orElse(""), aDTO.getUrl()));
-      //crawler.incrementAndGetErrorCount();
       return;
     }
     //
     if (aResponseObj.getVideoUrls().isEmpty()) {
       LOG.error("No VideoUrls for {}", aDTO.getUrl());
-      //crawler.incrementAndGetErrorCount();
       return;
     }
     //
@@ -88,7 +86,6 @@ public class KikaApiFilmTask extends AbstractJsonRestTask<DatenFilm, KikaApiVide
       } else if (!aDTO.getDuration().isPresent()) {
         LOG.error("Missing duration for {}", aDTO.getUrl());
       }
-      //crawler.incrementAndGetErrorCount();
       return;
     }
     //
@@ -118,13 +115,11 @@ public class KikaApiFilmTask extends AbstractJsonRestTask<DatenFilm, KikaApiVide
     // ??? getGeo(aDTO).ifPresent(aFilm::setGeoLocations);
     //
     taskResults.add(aFilm);
-    //crawler.incrementAndGetActualCount();
-    //crawler.updateProgress();
   }
 
 
   protected Optional<LocalDateTime> getAiredDateTime(KikaApiFilmDto aDTO) {
-    Optional<LocalDateTime> airedDate = null;
+    Optional<LocalDateTime> airedDate;
     if (aDTO.getDate().isPresent()) {
       airedDate = parseLocalDateTime(aDTO, aDTO.getDate());
     } else {
@@ -153,13 +148,7 @@ public class KikaApiFilmTask extends AbstractJsonRestTask<DatenFilm, KikaApiVide
   protected Map<Resolution, String> getVideoUrls(KikaApiVideoInfoDto aResponseObj, KikaApiFilmDto aDTO) {
     Map<Resolution, String> urls = new EnumMap<>(Resolution.class);
     for (Map.Entry<Resolution, String> element : aResponseObj.getVideoUrls().entrySet()) {
-      //try {
-      //final FileSizeDeterminer fsd = new FileSizeDeterminer(element.getValue());
-      //final FilmUrl filmUrl = new FilmUrl(element.getValue(), fsd.getFileSizeInMiB());
       urls.put(element.getKey(), element.getValue());
-      //} catch (MalformedURLException e) {
-      //LOG.error("Invalid video url {} for {} error {}", element.getValue(), aDTO.getUrl(), e);
-      //}
     }
     return urls;
   }

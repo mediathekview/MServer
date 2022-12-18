@@ -50,15 +50,13 @@ public class KikaApiTopicTask extends AbstractJsonRestTask<KikaApiFilmDto, KikaA
     //
     aResponseObj.getErrorCode().ifPresent(errorCode -> {
       LOG.error("Error {} : {} for target {} ", errorCode, aResponseObj.getErrorMesssage().orElse(""), aDTO.getUrl());
-      Log.errorLog(324978332, String.format("Error {} : {} for target {} ", errorCode, aResponseObj.getErrorMesssage().orElse(""), aDTO.getUrl()));
-      //crawler.incrementAndGetErrorCount();
+      Log.errorLog(324978332, String.format("Error %s : %s for target %s ", errorCode, aResponseObj.getErrorMesssage().orElse(""), aDTO.getUrl()));
       return;
     });
     //
     final Optional<AbstractRecursivConverterTask<KikaApiFilmDto, TopicUrlDTO>> subpageCrawler;
     final Optional<TopicUrlDTO> nextPageLink = aResponseObj.getNextPage();
     //
-    //if (nextPageLink.isPresent() && crawler.config.getMaximumSubpages() > subPageIndex) {
     if (nextPageLink.isPresent() && maxPages > subPageIndex) {
       final ConcurrentLinkedQueue<TopicUrlDTO> nextPageLinks = new ConcurrentLinkedQueue<>();
       nextPageLinks.add(new TopicUrlDTO(aDTO.getTopic(), nextPageLink.get().getUrl())); // repack next page link to keep topic name
@@ -79,7 +77,6 @@ public class KikaApiTopicTask extends AbstractJsonRestTask<KikaApiFilmDto, KikaA
 
   @Override
   protected void handleHttpError(TopicUrlDTO dto, URI url, Response response) {
-    //(crawler.printErrorMessage();
     LOG.fatal(
             "A HTTP error {} occurred when getting REST information from: \"{}\".",
             response.getStatus(),
