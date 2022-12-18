@@ -57,6 +57,7 @@ public class KikaApiCrawler extends MediathekCrawler {
           this, new ConcurrentLinkedQueue<>(allVideos));
     } catch (final Exception ex) {
       LOG.fatal("Exception in KIKA crawler.", ex);
+      Log.errorLog(324978332, ex);
     }
 
     

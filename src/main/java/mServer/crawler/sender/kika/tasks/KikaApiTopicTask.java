@@ -1,17 +1,8 @@
 package mServer.crawler.sender.kika.tasks;
 
-import java.lang.reflect.Type;
-import java.net.URI;
-import java.util.Optional;
-import java.util.Set;
-import java.util.concurrent.ConcurrentLinkedQueue;
-
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
 import com.google.gson.JsonDeserializer;
 import com.google.gson.reflect.TypeToken;
-
+import de.mediathekview.mlib.tool.Log;
 import jakarta.ws.rs.core.Response;
 import mServer.crawler.sender.MediathekReader;
 import mServer.crawler.sender.base.AbstractJsonRestTask;
@@ -20,6 +11,14 @@ import mServer.crawler.sender.kika.KikaApiFilmDto;
 import mServer.crawler.sender.kika.KikaApiTopicDto;
 import mServer.crawler.sender.kika.json.KikaApiTopicPageDeserializer;
 import mServer.crawler.sender.orf.TopicUrlDTO;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
+import java.lang.reflect.Type;
+import java.net.URI;
+import java.util.Optional;
+import java.util.Set;
+import java.util.concurrent.ConcurrentLinkedQueue;
 
 // <T, R, D extends CrawlerUrlDTO> extends AbstractRestTask<T, D>
 // return T Class from this task, desirialisation of class R , D , Reasearch in this url
@@ -30,7 +29,7 @@ public class KikaApiTopicTask extends AbstractJsonRestTask<KikaApiFilmDto, KikaA
   private int maxPages = 1;
 
   public KikaApiTopicTask(MediathekReader crawler, ConcurrentLinkedQueue<TopicUrlDTO> urlToCrawlDTOs, int subPageIndex, int maxPages) {
-    super(crawler,urlToCrawlDTOs,Optional.empty());
+    super(crawler, urlToCrawlDTOs, Optional.empty());
     this.subPageIndex = subPageIndex;
     this.maxPages = maxPages;
   }
@@ -42,7 +41,8 @@ public class KikaApiTopicTask extends AbstractJsonRestTask<KikaApiFilmDto, KikaA
 
   @Override
   protected Type getType() {
-    return new TypeToken<Set<KikaApiTopicDto>>() {}.getType();
+    return new TypeToken<Set<KikaApiTopicDto>>() {
+    }.getType();
   }
 
   @Override
@@ -50,6 +50,7 @@ public class KikaApiTopicTask extends AbstractJsonRestTask<KikaApiFilmDto, KikaA
     //
     aResponseObj.getErrorCode().ifPresent(errorCode -> {
       LOG.error("Error {} : {} for target {} ", errorCode, aResponseObj.getErrorMesssage().orElse(""), aDTO.getUrl());
+      Log.errorLog(324978332, String.format("Error {} : {} for target {} ", errorCode, aResponseObj.getErrorMesssage().orElse(""), aDTO.getUrl()));
       //crawler.incrementAndGetErrorCount();
       return;
     });
@@ -73,23 +74,26 @@ public class KikaApiTopicTask extends AbstractJsonRestTask<KikaApiFilmDto, KikaA
       taskResults.add(aFilm);
     }
     //
-    subpageCrawler.ifPresent(nextPageCrawler -> taskResults.addAll(nextPageCrawler.join()));    
+    subpageCrawler.ifPresent(nextPageCrawler -> taskResults.addAll(nextPageCrawler.join()));
   }
 
   @Override
   protected void handleHttpError(TopicUrlDTO dto, URI url, Response response) {
-      //(crawler.printErrorMessage();
-      LOG.fatal(
-          "A HTTP error {} occurred when getting REST information from: \"{}\".",
-          response.getStatus(),
-          url);
+    //(crawler.printErrorMessage();
+    LOG.fatal(
+            "A HTTP error {} occurred when getting REST information from: \"{}\".",
+            response.getStatus(),
+            url);
+    Log.errorLog(324978333, String.format("A HTTP error %d occurred when getting REST information from: \"%s}\".",
+            response.getStatus(),
+            url));
   }
 
   @Override
   protected AbstractRecursivConverterTask<KikaApiFilmDto, TopicUrlDTO> createNewOwnInstance(
-      ConcurrentLinkedQueue<TopicUrlDTO> aElementsToProcess) {
-    return new KikaApiTopicTask(crawler, aElementsToProcess, subPageIndex+1,maxPages);
+          ConcurrentLinkedQueue<TopicUrlDTO> aElementsToProcess) {
+    return new KikaApiTopicTask(crawler, aElementsToProcess, subPageIndex + 1, maxPages);
   }
 
-  
+
 }
