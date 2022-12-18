@@ -19,7 +19,7 @@ public class SrfScheduleDeserializerTest {
     final SrfScheduleDeserializer target = new SrfScheduleDeserializer();
     final Set<CrawlerUrlDTO> actual = target.deserialize(jsonElement, null, null);
 
-    assertThat(actual.size(), equalTo(14));
+    assertThat(actual.size(), equalTo(48));
   }
 
 }

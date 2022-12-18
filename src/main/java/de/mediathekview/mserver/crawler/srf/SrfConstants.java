@@ -23,7 +23,7 @@ public final class SrfConstants {
    * URL für Detailsinformation einer Folge
    * Parameter: Id
    */
-  public static final String SHOW_DETAIL_PAGE_URL = "https://il.srgssr.ch/integrationlayer/2.0/mediaComposition/byUrn/urn:srf:video:%s.json";
+  public static final String SHOW_DETAIL_PAGE_URL = "https://il.srgssr.ch/integrationlayer/2.0/mediaComposition/byUrn/%s";
 
   /**
    * URL für Webseite einer Folge
@@ -39,6 +39,7 @@ public final class SrfConstants {
   /**
    * Sendung verpasst nach Datum
    */
-  public static final String SCHEDULE_PER_DAY = "https://www.srf.ch/play/v3/api/srf/production/videos-by-date/%s";
+  public static final String SCHEDULE_PER_DAY = "https://www.srf.ch/play/v3/api/srf/production/tv-program-guide?date=%s";
+
   
 }

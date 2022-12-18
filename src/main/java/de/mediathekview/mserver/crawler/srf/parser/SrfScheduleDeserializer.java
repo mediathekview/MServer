@@ -15,9 +15,9 @@ import java.util.Set;
 public class SrfScheduleDeserializer implements JsonDeserializer<Set<CrawlerUrlDTO>> {
 
   private static final String ELEMENT_DATA = "data";
-  private static final String ATTRIBUTE_ID = "id";
-
-  @Override
+  private static final String ATTRIBUTE_ID = "mediaUrn";
+  private static final String PROGRAMLIST = "programList";
+    @Override
   public Set<CrawlerUrlDTO> deserialize(
       JsonElement jsonElement, Type type, JsonDeserializationContext jsonDeserializationContext) {
     final Set<CrawlerUrlDTO> results = new HashSet<>();
@@ -31,13 +31,19 @@ public class SrfScheduleDeserializer implements JsonDeserializer<Set<CrawlerUrlD
 
     data.forEach(
         entry -> {
-          final Optional<String> id =
-              JsonUtils.getAttributeAsString(entry.getAsJsonObject(), ATTRIBUTE_ID);
+          final JsonArray programList = entry.getAsJsonObject().getAsJsonArray(PROGRAMLIST);
 
-          id.ifPresent(
-              s ->
-                  results.add(
-                      new CrawlerUrlDTO(String.format(SrfConstants.SHOW_DETAIL_PAGE_URL, s))));
+          programList.forEach(
+                  element -> {
+                      final Optional<String> id =
+                              JsonUtils.getAttributeAsString(element.getAsJsonObject(), ATTRIBUTE_ID);
+
+                      id.ifPresent(
+                              s ->
+                                      results.add(
+                                              new CrawlerUrlDTO(String.format(SrfConstants.SHOW_DETAIL_PAGE_URL, s))));
+                  }
+          );
         });
 
     return results;
