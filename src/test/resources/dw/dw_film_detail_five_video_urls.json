@@ -1,0 +1,1284 @@
+{
+  "type" : "Video",
+  "id" : 63725621,
+  "languageId" : 1,
+  "trackingInfo" : {
+    "level2" : "1",
+    "page" : "<prefix>::TV::Projekt Zukunft::Energiezukunft? Schwimmende Windkraftanlagen",
+    "customCriteria" : {
+      "x8" : "",
+      "x9" : "20221112",
+      "x10" : "<prefix>::TV::Projekt Zukunft",
+      "x1" : "18",
+      "x2" : "1",
+      "X14" : "",
+      "x3" : "63725621",
+      "x4" : "3210",
+      "x5" : "Energiezukunft? Schwimmende Windkraftanlagen",
+      "X15" : "",
+      "x6" : "1",
+      "X18" : "",
+      "x7" : ""
+    }
+  },
+  "mainContent" : {
+    "id" : 63725621,
+    "type" : "Video",
+    "name" : "Energiezukunft? Schwimmende Windkraftanlagen",
+    "permaLink" : "https://p.dw.com/p/4JNwb",
+    "url" : "https://api.dw.com/api/detail/video/63725621",
+    "duration" : 385,
+    "sources" : [ {
+      "protocol" : "https",
+      "format" : "mp4",
+      "bitrate" : 3500,
+      "url" : "https://tvdownloaddw-a.akamaihd.net/dwtv_video/flv/pz/pz221111_WindkraftNEU_AVC_1280x720.mp4",
+      "quality" : "avc_1280x720"
+    }, {
+      "protocol" : "https",
+      "format" : "mp4",
+      "bitrate" : 6500,
+      "url" : "https://tvdownloaddw-a.akamaihd.net/dwtv_video/flv/pz/pz221111_WindkraftNEU_AVC_1920x1080.mp4",
+      "quality" : "avc_1920x1080"
+    }, {
+      "protocol" : "https",
+      "format" : "mp4",
+      "bitrate" : 1800,
+      "url" : "https://tvdownloaddw-a.akamaihd.net/dwtv_video/flv/pz/pz221111_WindkraftNEU_AVC_960x540.mp4",
+      "quality" : "avc_960x540"
+    }, {
+      "protocol" : "https",
+      "format" : "mp4",
+      "bitrate" : 1024,
+      "url" : "https://tvdownloaddw-a.akamaihd.net/dwtv_video/flv/pz/pz221111_WindkraftNEU_AVC_640x360.mp4",
+      "quality" : "avc_640x360"
+    }, {
+      "protocol" : "https",
+      "format" : "mp4",
+      "bitrate" : 512,
+      "url" : "https://tvdownloaddw-a.akamaihd.net/dwtv_video/flv/pz/pz221111_WindkraftNEU_AVC_512x288.mp4",
+      "quality" : "avc_512x288"
+    }, {
+      "protocol" : "https",
+      "format" : "mp4",
+      "bitrate" : 256,
+      "url" : "https://tvdownloaddw-a.akamaihd.net/dwtv_video/flv/pz/pz221111_WindkraftNEU_AVC_480x270.mp4",
+      "quality" : "avc_480x270"
+    }, {
+      "protocol" : "https",
+      "format" : "HLS",
+      "bitrate" : 6500,
+      "url" : "https://hlsvod.dw.com/i/dwtv_video/flv/pz/pz221111_WindkraftNEU_,AVC_1920x1080,AVC_1280x720,AVC_960x540,AVC_640x360,AVC_512x288,AVC_480x270,.mp4.csmil/master.m3u8",
+      "quality" : "HLS"
+    } ],
+    "previewImage" : {
+      "id" : 60116988,
+      "type" : "Image",
+      "name" : "Bildergalerie | Windkraft | Windenergie",
+      "sizes" : [ {
+        "width" : 220,
+        "height" : 124,
+        "url" : "https://static.dw.com/image/60116988_301.jpg"
+      }, {
+        "width" : 460,
+        "height" : 259,
+        "url" : "https://static.dw.com/image/60116988_302.jpg"
+      }, {
+        "width" : 700,
+        "height" : 394,
+        "url" : "https://static.dw.com/image/60116988_303.jpg"
+      }, {
+        "width" : 940,
+        "height" : 529,
+        "url" : "https://static.dw.com/image/60116988_304.jpg"
+      } ]
+    },
+    "trackingInfo" : {
+      "level2" : "1",
+      "page" : "<prefix>::TV::Projekt Zukunft::V_Energiezukunft? Schwimmende Windkraftanlagen",
+      "customCriteria" : {
+        "x8" : "",
+        "x9" : "20221111",
+        "x10" : "<prefix>::TV::Projekt Zukunft",
+        "x12" : "",
+        "x1" : "201",
+        "x11" : "pz/pz221111_WindkraftNEU_AVC_1920x1080.mp4",
+        "x2" : "1",
+        "x3" : "63725621",
+        "x4" : "3210",
+        "x5" : "V_Energiezukunft? Schwimmende Windkraftanlagen",
+        "x6" : "1",
+        "x7" : ""
+      }
+    },
+    "mediaTrackingInfo" : {
+      "mediaType" : "Video",
+      "level2" : "1",
+      "playerId" : "1",
+      "mediaName" : "pz/pz221111_WindkraftNEU_AVC_1920x1080.mp4",
+      "mediaDuration" : 385,
+      "live" : false
+    },
+    "programId" : 257314
+  },
+  "name" : "Energiezukunft? Schwimmende Windkraftanlagen",
+  "teaser" : "In Dänemark werden schwimmende Windkraftanlagen gebaut. Deren künftiger Einsatzort ist das offene Meer - fernab von Feldern, Wäldern und Menschen.",
+  "categoryName" : "Projekt Zukunft",
+  "text" : "",
+  "permaLink" : "https://p.dw.com/p/4JNwb",
+  "displayDate" : "2022-11-12T22:00:00.000Z",
+  "referenceGroups" : [ {
+    "name" : "Schlagwörter",
+    "type" : "Keywords",
+    "items" : [ {
+      "type" : "SearchRef",
+      "name" : "Windkraft",
+      "url" : "https://api.dw.com/api/search/global?terms=Windkraft&languageId=1"
+    }, {
+      "type" : "SearchRef",
+      "name" : "erneuerbare Energie",
+      "url" : "https://api.dw.com/api/search/global?terms=erneuerbare+Energie&languageId=1"
+    }, {
+      "type" : "SearchRef",
+      "name" : "schwimmende Windparks",
+      "url" : "https://api.dw.com/api/search/global?terms=schwimmende+Windparks&languageId=1"
+    } ]
+  } ],
+  "commentsEnabled" : false,
+  "teaserGroup" : {
+    "name" : "Mehr zum Thema",
+    "type" : "AdditionalMultimediaContent",
+    "items" : [ {
+      "type" : "VideoTeaser",
+      "name" : "La Palma – Dieselkraftwerk statt Erneuerbare Energien",
+      "teaserText" : "Die spanische Insel setzt vor allem auf Energie, erzeugt von einem Dieselkraftwerk. Dabei gibt es Sonne und Wind genug.",
+      "displayDate" : "2022-09-09T08:36:34.316Z",
+      "image" : {
+        "id" : 59101264,
+        "type" : "Image",
+        "name" : "Spanien | Observatorium in La Palma",
+        "sizes" : [ {
+          "width" : 220,
+          "height" : 124,
+          "url" : "https://static.dw.com/image/59101264_301.jpeg"
+        }, {
+          "width" : 460,
+          "height" : 259,
+          "url" : "https://static.dw.com/image/59101264_302.jpeg"
+        }, {
+          "width" : 700,
+          "height" : 394,
+          "url" : "https://static.dw.com/image/59101264_303.jpeg"
+        }, {
+          "width" : 940,
+          "height" : 529,
+          "url" : "https://static.dw.com/image/59101264_304.jpeg"
+        } ]
+      },
+      "reference" : {
+        "id" : 63066727,
+        "type" : "VideoRef",
+        "name" : "La Palma – Dieselkraftwerk statt Erneuerbare Energien",
+        "url" : "https://api.dw.com/api/detail/video/63066727"
+      },
+      "columnCount" : 1,
+      "allowedColumnCounts" : [ 1, 2 ],
+      "commentsEnabled" : false,
+      "duration" : 184,
+      "programId" : 15607732
+    }, {
+      "type" : "AudioTeaser",
+      "name" : "Gemeinsam in die Krise",
+      "teaserText" : "Russisches Gas und Erneuerbare Energien +++ Steigende Preise und die gemeinsame Sache +++ Wiederaufbau und Zerstörung ",
+      "displayDate" : "2022-07-05T14:57:00.709Z",
+      "image" : {
+        "id" : 53201152,
+        "type" : "Image",
+        "name" : "Wirtschaft Teaser Podcast",
+        "sizes" : [ {
+          "width" : 220,
+          "height" : 124,
+          "url" : "https://static.dw.com/image/53201152_301.png"
+        }, {
+          "width" : 460,
+          "height" : 259,
+          "url" : "https://static.dw.com/image/53201152_302.png"
+        }, {
+          "width" : 700,
+          "height" : 394,
+          "url" : "https://static.dw.com/image/53201152_303.png"
+        }, {
+          "width" : 940,
+          "height" : 529,
+          "url" : "https://static.dw.com/image/53201152_304.png"
+        } ]
+      },
+      "reference" : {
+        "id" : 62370206,
+        "type" : "AudioRef",
+        "name" : "Gemeinsam in die Krise",
+        "url" : "https://api.dw.com/api/detail/audio/62370206"
+      },
+      "columnCount" : 1,
+      "allowedColumnCounts" : [ 1, 2 ],
+      "commentsEnabled" : false,
+      "duration" : 1044
+    }, {
+      "type" : "VideoTeaser",
+      "name" : "Schwimmende Windräder",
+      "teaserText" : "Auf hoher See weht der meiste Wind. Doch das Wasser ist zu tief, um Windräder verankern zu können. Vor vier Jahren hat das norwegische Unternehmen Equinor vor Schottland den ersten schwimmenden Windpark der Welt gebaut. Nun soll ein zweiter dazu kommen.  ",
+      "displayDate" : "2021-11-04T08:13:05.059Z",
+      "image" : {
+        "id" : 17558884,
+        "type" : "Image",
+        "name" : "Offshore-Windpark Horns Rev 2 vor Dänemark",
+        "sizes" : [ {
+          "width" : 220,
+          "height" : 124,
+          "url" : "https://static.dw.com/image/17558884_301.jpg"
+        }, {
+          "width" : 460,
+          "height" : 259,
+          "url" : "https://static.dw.com/image/17558884_302.jpg"
+        }, {
+          "width" : 700,
+          "height" : 394,
+          "url" : "https://static.dw.com/image/17558884_303.jpg"
+        }, {
+          "width" : 940,
+          "height" : 529,
+          "url" : "https://static.dw.com/image/17558884_304.jpg"
+        } ]
+      },
+      "reference" : {
+        "id" : 59713184,
+        "type" : "VideoRef",
+        "name" : "Schwimmende Windräder",
+        "url" : "https://api.dw.com/api/detail/video/59713184"
+      },
+      "columnCount" : 1,
+      "allowedColumnCounts" : [ 1, 2 ],
+      "commentsEnabled" : false,
+      "duration" : 149,
+      "programId" : 15607732
+    }, {
+      "type" : "AudioTeaser",
+      "name" : "Apple und Google im Visier der EU",
+      "teaserText" : "Neue Wege für Weizen gesucht +++ Engpass beim Palmöl +++ Windkraft mit Rückenwind +++ eine grüne Mauer gegen die Wüste",
+      "displayDate" : "2022-05-02T15:08:27.818Z",
+      "image" : {
+        "id" : 53201152,
+        "type" : "Image",
+        "name" : "Wirtschaft Teaser Podcast",
+        "sizes" : [ {
+          "width" : 220,
+          "height" : 124,
+          "url" : "https://static.dw.com/image/53201152_301.png"
+        }, {
+          "width" : 460,
+          "height" : 259,
+          "url" : "https://static.dw.com/image/53201152_302.png"
+        }, {
+          "width" : 700,
+          "height" : 394,
+          "url" : "https://static.dw.com/image/53201152_303.png"
+        }, {
+          "width" : 940,
+          "height" : 529,
+          "url" : "https://static.dw.com/image/53201152_304.png"
+        } ]
+      },
+      "reference" : {
+        "id" : 61664506,
+        "type" : "AudioRef",
+        "name" : "Apple und Google im Visier der EU",
+        "url" : "https://api.dw.com/api/detail/audio/61664506"
+      },
+      "columnCount" : 1,
+      "allowedColumnCounts" : [ 1, 2 ],
+      "commentsEnabled" : false,
+      "duration" : 1101
+    }, {
+      "type" : "AudioTeaser",
+      "name" : "Die neue Ungleichheit",
+      "teaserText" : "Entwicklungs- und Schwellenländer und die Pandemie +++ transatlantischer Kuschelkurs +++ Windkraft in den USA",
+      "displayDate" : "2021-06-15T14:42:40.896Z",
+      "image" : {
+        "id" : 53201152,
+        "type" : "Image",
+        "name" : "Wirtschaft Teaser Podcast",
+        "sizes" : [ {
+          "width" : 220,
+          "height" : 124,
+          "url" : "https://static.dw.com/image/53201152_301.png"
+        }, {
+          "width" : 460,
+          "height" : 259,
+          "url" : "https://static.dw.com/image/53201152_302.png"
+        }, {
+          "width" : 700,
+          "height" : 394,
+          "url" : "https://static.dw.com/image/53201152_303.png"
+        }, {
+          "width" : 940,
+          "height" : 529,
+          "url" : "https://static.dw.com/image/53201152_304.png"
+        } ]
+      },
+      "reference" : {
+        "id" : 57906538,
+        "type" : "AudioRef",
+        "name" : "Die neue Ungleichheit",
+        "url" : "https://api.dw.com/api/detail/audio/57906538"
+      },
+      "columnCount" : 1,
+      "allowedColumnCounts" : [ 1, 2 ],
+      "commentsEnabled" : false,
+      "duration" : 992
+    }, {
+      "type" : "AudioTeaser",
+      "name" : "Der Widerspruch in der Haltung des Westens",
+      "teaserText" : "Einerseits verhängt der Westen harte Sanktionen, andererseits kauft er Russland weiter Öl und Gas ab",
+      "displayDate" : "2022-03-03T17:01:40.320Z",
+      "image" : {
+        "id" : 53201152,
+        "type" : "Image",
+        "name" : "Wirtschaft Teaser Podcast",
+        "sizes" : [ {
+          "width" : 220,
+          "height" : 124,
+          "url" : "https://static.dw.com/image/53201152_301.png"
+        }, {
+          "width" : 460,
+          "height" : 259,
+          "url" : "https://static.dw.com/image/53201152_302.png"
+        }, {
+          "width" : 700,
+          "height" : 394,
+          "url" : "https://static.dw.com/image/53201152_303.png"
+        }, {
+          "width" : 940,
+          "height" : 529,
+          "url" : "https://static.dw.com/image/53201152_304.png"
+        } ]
+      },
+      "reference" : {
+        "id" : 61005156,
+        "type" : "AudioRef",
+        "name" : "Der Widerspruch in der Haltung des Westens",
+        "url" : "https://api.dw.com/api/detail/audio/61005156"
+      },
+      "columnCount" : 1,
+      "allowedColumnCounts" : [ 1, 2 ],
+      "commentsEnabled" : false,
+      "duration" : 972
+    }, {
+      "type" : "AudioTeaser",
+      "name" : "Viren und Skandale",
+      "teaserText" : "Bei Viren wissen Sie, was gemeint ist. Zu den Skandalen: Wirecard, Dieselgate und Fleischfabriken.",
+      "displayDate" : "2020-12-17T16:09:16.702Z",
+      "image" : {
+        "id" : 53201152,
+        "type" : "Image",
+        "name" : "Wirtschaft Teaser Podcast",
+        "sizes" : [ {
+          "width" : 220,
+          "height" : 124,
+          "url" : "https://static.dw.com/image/53201152_301.png"
+        }, {
+          "width" : 460,
+          "height" : 259,
+          "url" : "https://static.dw.com/image/53201152_302.png"
+        }, {
+          "width" : 700,
+          "height" : 394,
+          "url" : "https://static.dw.com/image/53201152_303.png"
+        }, {
+          "width" : 940,
+          "height" : 529,
+          "url" : "https://static.dw.com/image/53201152_304.png"
+        } ]
+      },
+      "reference" : {
+        "id" : 55977608,
+        "type" : "AudioRef",
+        "name" : "Viren und Skandale",
+        "url" : "https://api.dw.com/api/detail/audio/55977608"
+      },
+      "columnCount" : 1,
+      "allowedColumnCounts" : [ 1, 2 ],
+      "commentsEnabled" : false,
+      "duration" : 991
+    }, {
+      "type" : "VideoTeaser",
+      "name" : "Atommüll-Recycling?",
+      "teaserText" : "Hochradioaktiver Atommüll soll durch Transmutation schneller etwas weniger gefährlich werden.",
+      "displayDate" : "2022-11-11T17:30:57.527Z",
+      "image" : {
+        "id" : 63025380,
+        "type" : "Image",
+        "name" : "Deutschland Atomkraftwerk Emsland, Lingen",
+        "sizes" : [ {
+          "width" : 220,
+          "height" : 124,
+          "url" : "https://static.dw.com/image/63025380_301.jpg"
+        }, {
+          "width" : 460,
+          "height" : 259,
+          "url" : "https://static.dw.com/image/63025380_302.jpg"
+        }, {
+          "width" : 700,
+          "height" : 394,
+          "url" : "https://static.dw.com/image/63025380_303.jpg"
+        }, {
+          "width" : 940,
+          "height" : 529,
+          "url" : "https://static.dw.com/image/63025380_304.jpg"
+        } ]
+      },
+      "reference" : {
+        "id" : 63725855,
+        "type" : "VideoRef",
+        "name" : "Atommüll-Recycling?",
+        "url" : "https://api.dw.com/api/detail/video/63725855"
+      },
+      "columnCount" : 1,
+      "allowedColumnCounts" : [ 1, 2 ],
+      "commentsEnabled" : false,
+      "duration" : 352,
+      "programId" : 257314
+    }, {
+      "type" : "VideoTeaser",
+      "name" : "Wie grün ist Solarenergie?",
+      "teaserText" : "Sonnenenergie wird mehr genutzt und ist kostengünstiger. Aber sind Solaranlagen wirklich grün?",
+      "displayDate" : "2022-11-11T17:26:44.473Z",
+      "image" : {
+        "id" : 60422206,
+        "type" : "Image",
+        "name" : "Deutschland Freiburg Solarenergie",
+        "sizes" : [ {
+          "width" : 220,
+          "height" : 124,
+          "url" : "https://static.dw.com/image/60422206_301.jpg"
+        }, {
+          "width" : 460,
+          "height" : 259,
+          "url" : "https://static.dw.com/image/60422206_302.jpg"
+        }, {
+          "width" : 700,
+          "height" : 394,
+          "url" : "https://static.dw.com/image/60422206_303.jpg"
+        }, {
+          "width" : 940,
+          "height" : 529,
+          "url" : "https://static.dw.com/image/60422206_304.jpg"
+        } ]
+      },
+      "reference" : {
+        "id" : 63725849,
+        "type" : "VideoRef",
+        "name" : "Wie grün ist Solarenergie?",
+        "url" : "https://api.dw.com/api/detail/video/63725849"
+      },
+      "columnCount" : 1,
+      "allowedColumnCounts" : [ 1, 2 ],
+      "commentsEnabled" : false,
+      "duration" : 408,
+      "programId" : 257314
+    }, {
+      "type" : "VideoTeaser",
+      "name" : "Solaranlagen in den Alpen",
+      "teaserText" : "Solaranlagen hoch oben in den Bergen könnten mehr Energie liefern als in tieferliegenden Gebieten.",
+      "displayDate" : "2022-11-11T17:24:01.434Z",
+      "image" : {
+        "id" : 57755195,
+        "type" : "Image",
+        "name" : "Schweiz Photovoltaikanlage an einem Stausee",
+        "sizes" : [ {
+          "width" : 220,
+          "height" : 124,
+          "url" : "https://static.dw.com/image/57755195_301.jpg"
+        }, {
+          "width" : 460,
+          "height" : 259,
+          "url" : "https://static.dw.com/image/57755195_302.jpg"
+        }, {
+          "width" : 700,
+          "height" : 394,
+          "url" : "https://static.dw.com/image/57755195_303.jpg"
+        }, {
+          "width" : 940,
+          "height" : 529,
+          "url" : "https://static.dw.com/image/57755195_304.jpg"
+        } ]
+      },
+      "reference" : {
+        "id" : 63725722,
+        "type" : "VideoRef",
+        "name" : "Solaranlagen in den Alpen",
+        "url" : "https://api.dw.com/api/detail/video/63725722"
+      },
+      "columnCount" : 1,
+      "allowedColumnCounts" : [ 1, 2 ],
+      "commentsEnabled" : false,
+      "duration" : 237,
+      "programId" : 257314
+    }, {
+      "type" : "VideoTeaser",
+      "name" : "Mikroben für fruchtbare Böden",
+      "teaserText" : "Erosion, Versalzung und Kontamination vernichten fruchtbare Böden. Das gefährdet die Ernährungssicherheit.",
+      "displayDate" : "2022-11-09T11:20:00.000Z",
+      "image" : {
+        "id" : 18173810,
+        "type" : "Image",
+        "name" : "Humus Erde",
+        "sizes" : [ {
+          "width" : 220,
+          "height" : 124,
+          "url" : "https://static.dw.com/image/18173810_301.jpg"
+        }, {
+          "width" : 460,
+          "height" : 259,
+          "url" : "https://static.dw.com/image/18173810_302.jpg"
+        }, {
+          "width" : 700,
+          "height" : 394,
+          "url" : "https://static.dw.com/image/18173810_303.jpg"
+        }, {
+          "width" : 940,
+          "height" : 529,
+          "url" : "https://static.dw.com/image/18173810_304.jpg"
+        } ]
+      },
+      "reference" : {
+        "id" : 63656244,
+        "type" : "VideoRef",
+        "name" : "Mikroben für fruchtbare Böden",
+        "url" : "https://api.dw.com/api/detail/video/63656244"
+      },
+      "columnCount" : 1,
+      "allowedColumnCounts" : [ 1, 2 ],
+      "commentsEnabled" : false,
+      "duration" : 442,
+      "programId" : 257314
+    }, {
+      "type" : "VideoTeaser",
+      "name" : "Gibt es im Weltraum flüssiges Wasser? ",
+      "teaserText" : "Die Frage an Projekt Zukunft kommt diese Woche von Brown Mbadiwe aus Nigeria. ",
+      "displayDate" : "2022-11-04T19:00:03.923Z",
+      "image" : {
+        "id" : 63055926,
+        "type" : "Image",
+        "name" : "JWST Tarantula Nebula",
+        "sizes" : [ {
+          "width" : 220,
+          "height" : 124,
+          "url" : "https://static.dw.com/image/63055926_301.jpg"
+        }, {
+          "width" : 460,
+          "height" : 259,
+          "url" : "https://static.dw.com/image/63055926_302.jpg"
+        }, {
+          "width" : 700,
+          "height" : 394,
+          "url" : "https://static.dw.com/image/63055926_303.jpg"
+        }, {
+          "width" : 940,
+          "height" : 529,
+          "url" : "https://static.dw.com/image/63055926_304.jpg"
+        } ]
+      },
+      "reference" : {
+        "id" : 63650896,
+        "type" : "VideoRef",
+        "name" : "Gibt es im Weltraum flüssiges Wasser? ",
+        "url" : "https://api.dw.com/api/detail/video/63650896"
+      },
+      "columnCount" : 1,
+      "allowedColumnCounts" : [ 1, 2 ],
+      "commentsEnabled" : false,
+      "duration" : 142,
+      "programId" : 257314
+    }, {
+      "type" : "VideoTeaser",
+      "name" : "Exoplaneten auf der Spur ",
+      "teaserText" : "Die Physikerin Laura Kreidberg erzählt über ihre spannende Suche nach Exoplaneten. ",
+      "displayDate" : "2022-11-04T18:58:16.555Z",
+      "image" : {
+        "id" : 63650895,
+        "type" : "Image",
+        "name" : "Thumbnail Laura Kreidberg, Physikerin",
+        "sizes" : [ {
+          "width" : 220,
+          "height" : 124,
+          "url" : "https://static.dw.com/image/63650895_301.jpg"
+        }, {
+          "width" : 460,
+          "height" : 259,
+          "url" : "https://static.dw.com/image/63650895_302.jpg"
+        }, {
+          "width" : 700,
+          "height" : 394,
+          "url" : "https://static.dw.com/image/63650895_303.jpg"
+        }, {
+          "width" : 940,
+          "height" : 529,
+          "url" : "https://static.dw.com/image/63650895_304.jpg"
+        } ]
+      },
+      "reference" : {
+        "id" : 63651046,
+        "type" : "VideoRef",
+        "name" : "Exoplaneten auf der Spur",
+        "url" : "https://api.dw.com/api/detail/video/63651046"
+      },
+      "columnCount" : 1,
+      "allowedColumnCounts" : [ 1, 2 ],
+      "commentsEnabled" : false,
+      "duration" : 728,
+      "programId" : 257314
+    }, {
+      "type" : "VideoTeaser",
+      "name" : "Leben ohne Smartphone? (1)",
+      "teaserText" : "Ein Leben ohne Smartphone? Heute ist das kaum vorstellbar, in Zukunft aber wahrscheinlich.",
+      "displayDate" : "2022-10-30T18:47:26.581Z",
+      "image" : {
+        "id" : 46973603,
+        "type" : "Image",
+        "name" : "Symbolfoto | Datensicherheit auf dem Smartphone ",
+        "sizes" : [ {
+          "width" : 220,
+          "height" : 124,
+          "url" : "https://static.dw.com/image/46973603_301.jpg"
+        }, {
+          "width" : 460,
+          "height" : 259,
+          "url" : "https://static.dw.com/image/46973603_302.jpg"
+        }, {
+          "width" : 700,
+          "height" : 394,
+          "url" : "https://static.dw.com/image/46973603_303.jpg"
+        }, {
+          "width" : 940,
+          "height" : 529,
+          "url" : "https://static.dw.com/image/46973603_304.jpg"
+        } ]
+      },
+      "reference" : {
+        "id" : 63368998,
+        "type" : "VideoRef",
+        "name" : "Leben ohne Smartphone? (1)",
+        "url" : "https://api.dw.com/api/detail/video/63368998"
+      },
+      "columnCount" : 1,
+      "allowedColumnCounts" : [ 1, 2 ],
+      "commentsEnabled" : false,
+      "duration" : 302,
+      "programId" : 257314
+    }, {
+      "type" : "VideoTeaser",
+      "name" : "Leben ohne Smartphone? (2)",
+      "teaserText" : "AR, BCI, Metaverse? In der digitalen Welt von morgen hat das Smartphone keinen Platz mehr.",
+      "displayDate" : "2022-10-30T18:47:18.895Z",
+      "image" : {
+        "id" : 62001081,
+        "type" : "Image",
+        "name" : "Brain connected to smartphone",
+        "sizes" : [ {
+          "width" : 220,
+          "height" : 124,
+          "url" : "https://static.dw.com/image/62001081_301.jpg"
+        }, {
+          "width" : 460,
+          "height" : 259,
+          "url" : "https://static.dw.com/image/62001081_302.jpg"
+        }, {
+          "width" : 700,
+          "height" : 394,
+          "url" : "https://static.dw.com/image/62001081_303.jpg"
+        }, {
+          "width" : 940,
+          "height" : 529,
+          "url" : "https://static.dw.com/image/62001081_304.jpg"
+        } ]
+      },
+      "reference" : {
+        "id" : 63369001,
+        "type" : "VideoRef",
+        "name" : "Leben ohne Smartphone? (2)",
+        "url" : "https://api.dw.com/api/detail/video/63369001"
+      },
+      "columnCount" : 1,
+      "allowedColumnCounts" : [ 1, 2 ],
+      "commentsEnabled" : false,
+      "duration" : 408,
+      "programId" : 257314
+    }, {
+      "type" : "VideoTeaser",
+      "name" : "Orientierung für blinde Menschen",
+      "teaserText" : "Tamás Nemes hat ein Gerät entwickelt, das Objekte in der Umgebung erkennt und über Kopfhörer blinde Menschen leitet.",
+      "displayDate" : "2022-10-30T18:47:09.811Z",
+      "image" : {
+        "id" : 15939785,
+        "type" : "Image",
+        "name" : "Symbolbild Blinde Menschen",
+        "sizes" : [ {
+          "width" : 220,
+          "height" : 124,
+          "url" : "https://static.dw.com/image/15939785_301.jpg"
+        }, {
+          "width" : 460,
+          "height" : 259,
+          "url" : "https://static.dw.com/image/15939785_302.jpg"
+        }, {
+          "width" : 700,
+          "height" : 394,
+          "url" : "https://static.dw.com/image/15939785_303.jpg"
+        }, {
+          "width" : 940,
+          "height" : 529,
+          "url" : "https://static.dw.com/image/15939785_304.jpg"
+        } ]
+      },
+      "reference" : {
+        "id" : 63369040,
+        "type" : "VideoRef",
+        "name" : "Orientierung für blinde Menschen",
+        "url" : "https://api.dw.com/api/detail/video/63369040"
+      },
+      "columnCount" : 1,
+      "allowedColumnCounts" : [ 1, 2 ],
+      "commentsEnabled" : false,
+      "duration" : 330,
+      "programId" : 257314
+    }, {
+      "type" : "VideoTeaser",
+      "name" : "Wie Satelliten Kriege beobachten",
+      "teaserText" : "Eine Künstliche Intelligenz wertet sie aus.",
+      "displayDate" : "2022-10-30T13:03:00.000Z",
+      "image" : {
+        "id" : 63422059,
+        "type" : "Image",
+        "name" : "Ukraine-Krieg - Kiew",
+        "sizes" : [ {
+          "width" : 220,
+          "height" : 124,
+          "url" : "https://static.dw.com/image/63422059_301.jpg"
+        }, {
+          "width" : 460,
+          "height" : 259,
+          "url" : "https://static.dw.com/image/63422059_302.jpg"
+        }, {
+          "width" : 700,
+          "height" : 394,
+          "url" : "https://static.dw.com/image/63422059_303.jpg"
+        }, {
+          "width" : 940,
+          "height" : 529,
+          "url" : "https://static.dw.com/image/63422059_304.jpg"
+        } ]
+      },
+      "reference" : {
+        "id" : 63586195,
+        "type" : "VideoRef",
+        "name" : "Wie Satelliten Kriege beobachten",
+        "url" : "https://api.dw.com/api/detail/video/63586195"
+      },
+      "columnCount" : 1,
+      "allowedColumnCounts" : [ 1, 2 ],
+      "commentsEnabled" : false,
+      "duration" : 324,
+      "programId" : 257314
+    }, {
+      "type" : "VideoTeaser",
+      "name" : "Fortschritte in der Kernfusion",
+      "teaserText" : "Fast 60 Megajoule Energie wurden in der Kernfusions-Versuchsanlage JET in Großbritannien freigesetzt. Ein Rekord.",
+      "displayDate" : "2022-10-28T13:43:28.547Z",
+      "image" : {
+        "id" : 60735265,
+        "type" : "Image",
+        "name" : " Großbritannien | Wissenschaftler melden Fusionsenergie-Rekord",
+        "sizes" : [ {
+          "width" : 460,
+          "height" : 613,
+          "url" : "https://static.dw.com/image/60735265_401.jpg"
+        }, {
+          "width" : 700,
+          "height" : 933,
+          "url" : "https://static.dw.com/image/60735265_403.jpg"
+        }, {
+          "width" : 220,
+          "height" : 293,
+          "url" : "https://static.dw.com/image/60735265_404.jpg"
+        } ]
+      },
+      "reference" : {
+        "id" : 63586264,
+        "type" : "VideoRef",
+        "name" : "Fortschritte in der Kernfusion",
+        "url" : "https://api.dw.com/api/detail/video/63586264"
+      },
+      "columnCount" : 1,
+      "allowedColumnCounts" : [ 1, 2 ],
+      "commentsEnabled" : false,
+      "duration" : 155,
+      "programId" : 257314
+    }, {
+      "type" : "VideoTeaser",
+      "name" : "Frag doch!",
+      "teaserText" : "Die Frage an Projekt Zukunft kommt diese Woche von Raphael Glary aus Nigeria.",
+      "displayDate" : "2022-10-28T13:42:11.340Z",
+      "image" : {
+        "id" : 63447610,
+        "type" : "Image",
+        "name" : "Israel Auktion l Handschriftliche Notiz von Albert Einstein versteigert",
+        "sizes" : [ {
+          "width" : 220,
+          "height" : 124,
+          "url" : "https://static.dw.com/image/63447610_301.jpeg"
+        }, {
+          "width" : 460,
+          "height" : 259,
+          "url" : "https://static.dw.com/image/63447610_302.jpeg"
+        }, {
+          "width" : 700,
+          "height" : 394,
+          "url" : "https://static.dw.com/image/63447610_303.jpeg"
+        }, {
+          "width" : 940,
+          "height" : 529,
+          "url" : "https://static.dw.com/image/63447610_304.jpeg"
+        } ]
+      },
+      "reference" : {
+        "id" : 63586213,
+        "type" : "VideoRef",
+        "name" : "Was bedeutet E=MC²?",
+        "url" : "https://api.dw.com/api/detail/video/63586213"
+      },
+      "columnCount" : 1,
+      "allowedColumnCounts" : [ 1, 2 ],
+      "commentsEnabled" : false,
+      "duration" : 143,
+      "programId" : 257314
+    }, {
+      "type" : "VideoTeaser",
+      "name" : "Hilft Kernenergie gegen den Klimawandel?",
+      "teaserText" : "Atommüll und das Risiko einer nuklearen Katastrophe oder Stromgewinnung ohne Treibhausgase. ",
+      "displayDate" : "2022-10-28T13:40:58.551Z",
+      "image" : {
+        "id" : 63457100,
+        "type" : "Image",
+        "name" : "Atomkraftwerke Isar 2 und Neckarwestheim sollen weiter betrieben werden.",
+        "sizes" : [ {
+          "width" : 220,
+          "height" : 124,
+          "url" : "https://static.dw.com/image/63457100_301.jpg"
+        }, {
+          "width" : 460,
+          "height" : 259,
+          "url" : "https://static.dw.com/image/63457100_302.jpg"
+        }, {
+          "width" : 700,
+          "height" : 394,
+          "url" : "https://static.dw.com/image/63457100_303.jpg"
+        }, {
+          "width" : 940,
+          "height" : 529,
+          "url" : "https://static.dw.com/image/63457100_304.jpg"
+        } ]
+      },
+      "reference" : {
+        "id" : 63586202,
+        "type" : "VideoRef",
+        "name" : "Brauchen wir Kernenergie, um den Klimawandel zu stoppen?",
+        "url" : "https://api.dw.com/api/detail/video/63586202"
+      },
+      "columnCount" : 1,
+      "allowedColumnCounts" : [ 1, 2 ],
+      "commentsEnabled" : false,
+      "duration" : 465,
+      "programId" : 257314
+    }, {
+      "type" : "VideoTeaser",
+      "name" : "Frag doch! Hurrikans in den USA",
+      "teaserText" : "Die Frage an Projekt Zukunft kommt diese Woche von Luis Correra aus Panama.",
+      "displayDate" : "2022-10-27T22:00:00.000Z",
+      "image" : {
+        "id" : 63352218,
+        "type" : "Image",
+        "name" : "USA Folgen des Hurrikans Ian in Florida",
+        "sizes" : [ {
+          "width" : 220,
+          "height" : 124,
+          "url" : "https://static.dw.com/image/63352218_301.jpg"
+        }, {
+          "width" : 460,
+          "height" : 259,
+          "url" : "https://static.dw.com/image/63352218_302.jpg"
+        }, {
+          "width" : 700,
+          "height" : 394,
+          "url" : "https://static.dw.com/image/63352218_303.jpg"
+        }, {
+          "width" : 940,
+          "height" : 529,
+          "url" : "https://static.dw.com/image/63352218_304.jpg"
+        } ]
+      },
+      "reference" : {
+        "id" : 63516086,
+        "type" : "VideoRef",
+        "name" : "Frag doch! Warum gibt es so viele Hurrikans in den USA?",
+        "url" : "https://api.dw.com/api/detail/video/63516086"
+      },
+      "columnCount" : 1,
+      "allowedColumnCounts" : [ 1, 2 ],
+      "commentsEnabled" : false,
+      "duration" : 161,
+      "programId" : 257314
+    }, {
+      "type" : "VideoTeaser",
+      "name" : "Cloud Seeding",
+      "teaserText" : "Wie in den Vereinigten Arabischen Emiraten Wolken mit Salz geimpft werden, um es regnen zu lassen.",
+      "displayDate" : "2022-10-21T14:28:06.006Z",
+      "image" : {
+        "id" : 61978806,
+        "type" : "Image",
+        "name" : "Indien | \"Cloud Seeding\" ",
+        "sizes" : [ {
+          "width" : 220,
+          "height" : 124,
+          "url" : "https://static.dw.com/image/61978806_301.jpg"
+        }, {
+          "width" : 460,
+          "height" : 259,
+          "url" : "https://static.dw.com/image/61978806_302.jpg"
+        }, {
+          "width" : 700,
+          "height" : 394,
+          "url" : "https://static.dw.com/image/61978806_303.jpg"
+        }, {
+          "width" : 940,
+          "height" : 529,
+          "url" : "https://static.dw.com/image/61978806_304.jpg"
+        } ]
+      },
+      "reference" : {
+        "id" : 63516094,
+        "type" : "VideoRef",
+        "name" : "Künstliche Regenwolken über den Vereinigten Arabischen Emiraten",
+        "url" : "https://api.dw.com/api/detail/video/63516094"
+      },
+      "columnCount" : 1,
+      "allowedColumnCounts" : [ 1, 2 ],
+      "commentsEnabled" : false,
+      "duration" : 410,
+      "programId" : 257314
+    }, {
+      "type" : "VideoTeaser",
+      "name" : "Wenn ein Riese schmilzt",
+      "teaserText" : "90 % des globalen Eises lagern in der Antarktis. Ein Gletscher macht Forschenden besondere Sorgen: der Thwaites.",
+      "displayDate" : "2022-10-21T14:24:19.428Z",
+      "image" : {
+        "id" : 60315146,
+        "type" : "Image",
+        "name" : "Antarktis Thwaites-Gletscher Klimawandel",
+        "sizes" : [ {
+          "width" : 220,
+          "height" : 124,
+          "url" : "https://static.dw.com/image/60315146_301.jpg"
+        }, {
+          "width" : 460,
+          "height" : 259,
+          "url" : "https://static.dw.com/image/60315146_302.jpg"
+        }, {
+          "width" : 700,
+          "height" : 394,
+          "url" : "https://static.dw.com/image/60315146_303.jpg"
+        }, {
+          "width" : 940,
+          "height" : 529,
+          "url" : "https://static.dw.com/image/60315146_304.jpg"
+        } ]
+      },
+      "reference" : {
+        "id" : 63516085,
+        "type" : "VideoRef",
+        "name" : "Der Thwaites-Gletscher: Wenn ein Riese schmilzt",
+        "url" : "https://api.dw.com/api/detail/video/63516085"
+      },
+      "columnCount" : 1,
+      "allowedColumnCounts" : [ 1, 2 ],
+      "commentsEnabled" : false,
+      "duration" : 228,
+      "programId" : 257314
+    }, {
+      "type" : "VideoTeaser",
+      "name" : "Geschichte aus kalten Gletschern",
+      "teaserText" : "Die Erderwärmung nagt an den Gletschern. In den Alpen will ein Forschungsteam die Geschichte retten, die im Eis steckt.",
+      "displayDate" : "2022-10-21T14:22:16.488Z",
+      "image" : {
+        "id" : 63338872,
+        "type" : "Image",
+        "name" : "Schweiz Gletscher Klimawandel",
+        "sizes" : [ {
+          "width" : 220,
+          "height" : 124,
+          "url" : "https://static.dw.com/image/63338872_301.jpg"
+        }, {
+          "width" : 460,
+          "height" : 259,
+          "url" : "https://static.dw.com/image/63338872_302.jpg"
+        }, {
+          "width" : 700,
+          "height" : 394,
+          "url" : "https://static.dw.com/image/63338872_303.jpg"
+        }, {
+          "width" : 940,
+          "height" : 529,
+          "url" : "https://static.dw.com/image/63338872_304.jpg"
+        } ]
+      },
+      "reference" : {
+        "id" : 63516034,
+        "type" : "VideoRef",
+        "name" : "Kalte Gletscher: Wie altes Eis Geschichte bewahrt",
+        "url" : "https://api.dw.com/api/detail/video/63516034"
+      },
+      "columnCount" : 1,
+      "allowedColumnCounts" : [ 1, 2 ],
+      "commentsEnabled" : false,
+      "duration" : 446,
+      "programId" : 257314
+    }, {
+      "type" : "VideoTeaser",
+      "name" : "Pflanzenkohle: Gut für Klima und Boden?",
+      "teaserText" : "Pflanzenkohle soll sowohl der Landwirtschaft als auch dem Klimaschutz nutzen. Was zeichnet sie aus?",
+      "displayDate" : "2022-10-14T14:34:22.651Z",
+      "image" : {
+        "id" : 61013716,
+        "type" : "Image",
+        "name" : "Projekt Zukunft | Pflanzenkohle",
+        "sizes" : [ {
+          "width" : 220,
+          "height" : 124,
+          "url" : "https://static.dw.com/image/61013716_301.jpg"
+        }, {
+          "width" : 460,
+          "height" : 259,
+          "url" : "https://static.dw.com/image/61013716_302.jpg"
+        }, {
+          "width" : 700,
+          "height" : 394,
+          "url" : "https://static.dw.com/image/61013716_303.jpg"
+        }, {
+          "width" : 940,
+          "height" : 529,
+          "url" : "https://static.dw.com/image/61013716_304.jpg"
+        } ]
+      },
+      "reference" : {
+        "id" : 61016833,
+        "type" : "VideoRef",
+        "name" : "Pflanzenkohle: Gut für Klima und Boden?",
+        "url" : "https://api.dw.com/api/detail/video/61016833"
+      },
+      "columnCount" : 1,
+      "allowedColumnCounts" : [ 1, 2 ],
+      "commentsEnabled" : false,
+      "duration" : 422,
+      "programId" : 257314
+    }, {
+      "type" : "VideoTeaser",
+      "name" : "Welche Tiere haben die Dinosaurier überlebt?",
+      "teaserText" : "Die Zuschauerfrage kommt diesmal von David Burgos aus Kolumbien.",
+      "displayDate" : "2022-10-14T14:31:57.348Z",
+      "image" : {
+        "id" : 61013746,
+        "type" : "Image",
+        "name" : "Projekt Zukunft | Zuschauerfrage Dinos",
+        "sizes" : [ {
+          "width" : 220,
+          "height" : 124,
+          "url" : "https://static.dw.com/image/61013746_301.jpg"
+        }, {
+          "width" : 460,
+          "height" : 259,
+          "url" : "https://static.dw.com/image/61013746_302.jpg"
+        }, {
+          "width" : 700,
+          "height" : 394,
+          "url" : "https://static.dw.com/image/61013746_303.jpg"
+        }, {
+          "width" : 940,
+          "height" : 529,
+          "url" : "https://static.dw.com/image/61013746_304.jpg"
+        } ]
+      },
+      "reference" : {
+        "id" : 61016826,
+        "type" : "VideoRef",
+        "name" : "Welche Tiere haben die Dinosaurier überlebt?",
+        "url" : "https://api.dw.com/api/detail/video/61016826"
+      },
+      "columnCount" : 1,
+      "allowedColumnCounts" : [ 1, 2 ],
+      "commentsEnabled" : false,
+      "duration" : 134,
+      "programId" : 257314
+    }, {
+      "type" : "VideoTeaser",
+      "name" : "Schlaue Vögel",
+      "teaserText" : "Obwohl Vogelgehirne anders aufgebaut sind als die der Säuger: Vögel zeigen erstaunliche kognitive Fähigkeiten.",
+      "displayDate" : "2022-10-14T14:30:28.663Z",
+      "image" : {
+        "id" : 61013737,
+        "type" : "Image",
+        "name" : "Projekt Zukunft | Schlaue Vögel, Projekt Zukunft",
+        "sizes" : [ {
+          "width" : 220,
+          "height" : 124,
+          "url" : "https://static.dw.com/image/61013737_301.jpg"
+        }, {
+          "width" : 460,
+          "height" : 259,
+          "url" : "https://static.dw.com/image/61013737_302.jpg"
+        }, {
+          "width" : 700,
+          "height" : 394,
+          "url" : "https://static.dw.com/image/61013737_303.jpg"
+        }, {
+          "width" : 940,
+          "height" : 529,
+          "url" : "https://static.dw.com/image/61013737_304.jpg"
+        } ]
+      },
+      "reference" : {
+        "id" : 61016775,
+        "type" : "VideoRef",
+        "name" : "Schlaue Vögel",
+        "url" : "https://api.dw.com/api/detail/video/61016775"
+      },
+      "columnCount" : 1,
+      "allowedColumnCounts" : [ 1, 2 ],
+      "commentsEnabled" : false,
+      "duration" : 396,
+      "programId" : 257314
+    }, {
+      "type" : "VideoTeaser",
+      "name" : "Fischfreundliches Schachtkraftwerk?",
+      "teaserText" : "Erzeugt ein Schachtkraftwerk Energie aus Wasserkraft, ohne den Fischen zu schaden?",
+      "displayDate" : "2022-09-30T11:29:08.477Z",
+      "image" : {
+        "id" : 63221785,
+        "type" : "Image",
+        "name" : "Videostill | Projekt Zukunft | Schachtkraftwerk",
+        "sizes" : [ {
+          "width" : 220,
+          "height" : 124,
+          "url" : "https://static.dw.com/image/63221785_301.jpeg"
+        }, {
+          "width" : 460,
+          "height" : 259,
+          "url" : "https://static.dw.com/image/63221785_302.jpeg"
+        }, {
+          "width" : 700,
+          "height" : 394,
+          "url" : "https://static.dw.com/image/63221785_303.jpeg"
+        }, {
+          "width" : 940,
+          "height" : 529,
+          "url" : "https://static.dw.com/image/63221785_304.jpeg"
+        } ]
+      },
+      "reference" : {
+        "id" : 63292677,
+        "type" : "VideoRef",
+        "name" : "Fischfreundliches Schachtkraftwerk? ",
+        "url" : "https://api.dw.com/api/detail/video/63292677"
+      },
+      "columnCount" : 1,
+      "allowedColumnCounts" : [ 1, 2 ],
+      "commentsEnabled" : false,
+      "duration" : 401,
+      "programId" : 257314
+    }, {
+      "type" : "VideoTeaser",
+      "name" : "Projekt Zukunft - Das Wissenschaftsmagazin",
+      "teaserText" : "Schwimmende Windräder und Solaranlagen in den Bergen könnten viel saubere Energie liefern.  ",
+      "displayDate" : "2022-11-11T16:55:08.850Z",
+      "image" : {
+        "id" : 43844032,
+        "type" : "Image",
+        "name" : "DW Projekt Zukunft Sendungslogo Deutsch",
+        "sizes" : [ {
+          "width" : 220,
+          "height" : 124,
+          "url" : "https://static.dw.com/image/43844032_301.png"
+        }, {
+          "width" : 460,
+          "height" : 259,
+          "url" : "https://static.dw.com/image/43844032_302.png"
+        }, {
+          "width" : 700,
+          "height" : 394,
+          "url" : "https://static.dw.com/image/43844032_303.png"
+        }, {
+          "width" : 940,
+          "height" : 529,
+          "url" : "https://static.dw.com/image/43844032_304.png"
+        } ]
+      },
+      "reference" : {
+        "id" : 63725618,
+        "type" : "VideoRef",
+        "name" : "Projekt Zukunft - Das Wissenschaftsmagazin",
+        "url" : "https://api.dw.com/api/detail/video/63725618"
+      },
+      "columnCount" : 1,
+      "allowedColumnCounts" : [ 1, 2 ],
+      "commentsEnabled" : false,
+      "duration" : 1566,
+      "programId" : 257314
+    }, {
+      "type" : "VideoTeaser",
+      "name" : "Projekt Zukunft – Das Wissenschaftsmagazin",
+      "teaserText" : "Mikroben für gesunde Böden / Suche nach Exoplaneten / Gibt es im Weltraum flüssiges Wasser? ",
+      "displayDate" : "2022-11-04T18:47:42.416Z",
+      "image" : {
+        "id" : 43844032,
+        "type" : "Image",
+        "name" : "DW Projekt Zukunft Sendungslogo Deutsch",
+        "sizes" : [ {
+          "width" : 220,
+          "height" : 124,
+          "url" : "https://static.dw.com/image/43844032_301.png"
+        }, {
+          "width" : 460,
+          "height" : 259,
+          "url" : "https://static.dw.com/image/43844032_302.png"
+        }, {
+          "width" : 700,
+          "height" : 394,
+          "url" : "https://static.dw.com/image/43844032_303.png"
+        }, {
+          "width" : 940,
+          "height" : 529,
+          "url" : "https://static.dw.com/image/43844032_304.png"
+        } ]
+      },
+      "reference" : {
+        "id" : 63650907,
+        "type" : "VideoRef",
+        "name" : "Projekt Zukunft - Das Wissenschaftsmagazin",
+        "url" : "https://api.dw.com/api/detail/video/63650907"
+      },
+      "columnCount" : 1,
+      "allowedColumnCounts" : [ 1, 2 ],
+      "commentsEnabled" : false,
+      "duration" : 1566,
+      "programId" : 257314
+    } ]
+  }
+}

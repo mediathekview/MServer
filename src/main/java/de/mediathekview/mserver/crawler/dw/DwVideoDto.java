@@ -1,35 +1,26 @@
 package de.mediathekview.mserver.crawler.dw;
 
-import java.net.URL;
-
 public class DwVideoDto {
 
-  private int bitrate = 0;
-  private String quality = null;
-  private String format = null;
-  private URL url = null;
-  
-  public DwVideoDto(int bitrate, String quality, String format, URL url) {
-    this.bitrate = bitrate;
-    this.quality = quality;
+  private final int bitRate;
+  private final String url;
+  private final int width;
+
+  public DwVideoDto(String url, int width, int bitRate) {
     this.url = url;
-    this.format = format;
+    this.width = width;
+    this.bitRate = bitRate;
   }
-  
-  public int getBitrate() {
-    return bitrate;
+
+  public int getBitRate() {
+    return bitRate;
   }
-  
-  public String getQuality() {
-    return quality;
-  }
-  
-  public URL getUrl() {
+
+  public String getUrl() {
     return url;
   }
-  
-  public String getFormat() {
-    return format;
+
+  public int getWidth() {
+    return width;
   }
-  
 }
