@@ -93,17 +93,17 @@ public class KikaApiFilmTask extends AbstractJsonRestTask<DatenFilm, KikaApiVide
     Set<URL> subs = getSubtitle(aResponseObj, aDTO);
 
     DatenFilm aFilm = new DatenFilm(
-            Const.KIKA,
-            "***" + aDTO.getTopic().get(),
-            aDTO.getWebsite().orElse(""),
-            aDTO.getTitle().get(),
-            videoUrls.get(Resolution.NORMAL),
-            ((subs.isEmpty()) ? "" : subs.toArray()[0].toString()),
-            airedDate.get().format(DateTimeFormatter.ofPattern("dd.MM.yyyy")),
-            airedDate.get().format(DateTimeFormatter.ofPattern("HH:mm:ss")),
-            parseDuration(aDTO, aDTO.getDuration()).get().getSeconds(),
-            aDTO.getDescription().orElse("")
-    );
+        Const.KIKA,
+        aDTO.getTopic().get(),
+        aDTO.getWebsite().orElse(""),
+        aDTO.getTitle().get(),
+        videoUrls.get(Resolution.NORMAL),
+        ((subs.isEmpty()) ? "" : subs.toArray()[0].toString()),
+        airedDate.get().format(DateTimeFormatter.ofPattern("dd.MM.yyyy")),
+        airedDate.get().format(DateTimeFormatter.ofPattern("HH:mm:ss")),
+        parseDuration(aDTO, aDTO.getDuration()).get().getSeconds(),
+        aDTO.getDescription().orElse("")
+     );
     //
     if (videoUrls.containsKey(Resolution.SMALL)) {
       CrawlerTool.addUrlKlein(aFilm, videoUrls.get(Resolution.SMALL));
