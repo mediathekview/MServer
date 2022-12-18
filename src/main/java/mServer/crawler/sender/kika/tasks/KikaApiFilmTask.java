@@ -112,7 +112,11 @@ public class KikaApiFilmTask extends AbstractJsonRestTask<DatenFilm, KikaApiVide
       CrawlerTool.addUrlHd(aFilm, videoUrls.get(Resolution.HD));
     }
     //
-    // ??? getGeo(aDTO).ifPresent(aFilm::setGeoLocations);
+    getGeo(aDTO).ifPresent(geos -> {
+      geos.forEach(geo -> {
+        aFilm.arr[DatenFilm.FILM_GEO] = geo.getDescription();
+      });
+    });
     //
     taskResults.add(aFilm);
   }
