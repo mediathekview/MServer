@@ -12,12 +12,12 @@ import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 @RunWith(Parameterized.class)
-public class UrlUtilsTestGetUrlParameterValue {
+public class UrlUtilsGetUrlParameterValueTest {
   private final String inputUrl;
   private final String parameterName;
   private final Optional<String> expectedParameterValue;
 
-  public UrlUtilsTestGetUrlParameterValue(
+  public UrlUtilsGetUrlParameterValueTest(
           final String aInputUrl, final String aParameterName, final Optional<String> aExpectedParameterValue) {
     inputUrl = aInputUrl;
     parameterName = aParameterName;

@@ -7,13 +7,11 @@ import java.util.Set;
 
 /** A simple Data-Transfer-Object to get the elements and the optionally found next page link. */
 public class PagedElementListDTO<T> {
-  private final Set<T> elements;
-  private Optional<String> nextPage;
+  private final Set<T> elements = new HashSet<>();
+  private Optional<String> nextPage = Optional.empty();
 
   public PagedElementListDTO() {
     super();
-    elements = new HashSet<>();
-    nextPage = Optional.empty();
   }
 
   public boolean addElements(final Collection<T> elements) {
@@ -37,18 +35,10 @@ public class PagedElementListDTO<T> {
       return false;
     }
     final PagedElementListDTO other = (PagedElementListDTO) obj;
-    if (elements == null) {
-      if (other.elements != null) {
-        return false;
-      }
-    } else if (!elements.equals(other.elements)) {
+    if (!elements.equals(other.elements)) {
       return false;
     }
-    if (nextPage == null) {
-      return other.nextPage == null;
-    } else {
-      return nextPage.equals(other.nextPage);
-    }
+    return nextPage.equals(other.nextPage);
   }
 
   public Set<T> getElements() {
@@ -72,8 +62,8 @@ public class PagedElementListDTO<T> {
   public int hashCode() {
     final int prime = 31;
     int result = 1;
-    result = prime * result + (elements == null ? 0 : elements.hashCode());
-    result = prime * result + (nextPage == null ? 0 : nextPage.hashCode());
+    result = prime * result + (elements.isEmpty() ? 0 : elements.hashCode());
+    result = prime * result + (nextPage.isEmpty() ? 0 : nextPage.hashCode());
     return result;
   }
 

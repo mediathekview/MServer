@@ -50,7 +50,7 @@ public class SrfCrawler extends AbstractCrawler {
   @Override
   protected RecursiveTask<Set<Film>> createCrawlerTask() {
     try {
-      final Set<CrawlerUrlDTO> dtos = new HashSet<CrawlerUrlDTO>();
+      final Set<CrawlerUrlDTO> dtos = new HashSet<>();
       //
       final Queue<CrawlerUrlDTO> schedulePageUrls = createScheduleUrls();
       final SrfScheduleOverviewTask schedulePageTask = new SrfScheduleOverviewTask(this, schedulePageUrls);
@@ -81,9 +81,11 @@ public class SrfCrawler extends AbstractCrawler {
 
       return new SrfFilmDetailTask(this, new ConcurrentLinkedQueue<>(dtos));
 
-    } catch (final InterruptedException | ExecutionException ex) {
-      LOG.fatal("Exception in SRF crawler.", ex);
+    } catch (final InterruptedException ex) {
+      LOG.debug("{} crawler interrupted.", getSender().getName(), ex);
       Thread.currentThread().interrupt();
+    } catch (final ExecutionException ex) {
+      LOG.fatal("Exception in {} crawler.", getSender().getName(), ex);
     }
     return null;
   }

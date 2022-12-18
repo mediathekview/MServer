@@ -414,7 +414,7 @@ public class CrawlerManager extends AbstractManager {
   }
 
   public void writeHashFile() {
-    if (config.getWriteFilmlistHashFileEnabled()) {
+    if (Boolean.TRUE.equals(config.getWriteFilmlistHashFileEnabled())) {
       final Path hashFilePath =
           filterPath(Paths.get(config.getFilmlistHashFilePath())).toAbsolutePath();
       if (!Files.exists(hashFilePath.getParent())
@@ -426,7 +426,7 @@ public class CrawlerManager extends AbstractManager {
   }
 
   public void writeIdFile() {
-    if (config.getWriteFilmlistIdFileEnabled()) {
+    if (Boolean.TRUE.equals(config.getWriteFilmlistIdFileEnabled())) {
       final Path idFilePath =
           filterPath(Paths.get(config.getFilmlistIdFilePath())).toAbsolutePath();
       if (!Files.exists(idFilePath.getParent())

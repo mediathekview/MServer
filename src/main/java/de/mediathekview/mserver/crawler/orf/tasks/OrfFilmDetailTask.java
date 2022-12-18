@@ -66,7 +66,7 @@ public class OrfFilmDetailTask extends AbstractDocumentTask<Film, TopicUrlDTO> {
         final LocalDateTime localDate = LocalDateTime.parse(dateValue, DATE_TIME_FORMATTER);
         return Optional.of(localDate);
       } catch (final DateTimeParseException e) {
-        LOG.debug("OrfFilmDetailTask: unknown date format: " + date.get());
+        LOG.debug("OrfFilmDetailTask: unknown date format: {}", date.get());
       }
     }
 
@@ -82,13 +82,13 @@ public class OrfFilmDetailTask extends AbstractDocumentTask<Film, TopicUrlDTO> {
 
     final Optional<ChronoUnit> unit = determineChronoUnit(duration.get());
     if (!unit.isPresent()) {
-      LOG.debug("OrfFilmDetailTask: unknown duration type: " + duration.get());
+      LOG.debug("OrfFilmDetailTask: unknown duration type: {}", duration.get());
       return Optional.empty();
     }
 
     final String[] parts = duration.get().split(" ")[0].trim().split(":");
     if (parts.length != 2) {
-      LOG.debug("OrfFilmDetailTask: unknown duration part count: " + duration.get());
+      LOG.debug("OrfFilmDetailTask: unknown duration part count: {}", duration.get());
       return Optional.empty();
     }
 
@@ -126,7 +126,7 @@ public class OrfFilmDetailTask extends AbstractDocumentTask<Film, TopicUrlDTO> {
 
     final List<OrfEpisodeInfoDTO> episodes = parseEpisodes(aDocument);
     if (episodes.size() > 1) {
-      crawler.incrementMaxCountBySizeAndGetNewSize(episodes.size() - 1);
+      crawler.incrementMaxCountBySizeAndGetNewSize(episodes.size() - 1L);
       crawler.updateProgress();
     }
 
@@ -192,7 +192,7 @@ public class OrfFilmDetailTask extends AbstractDocumentTask<Film, TopicUrlDTO> {
         crawler.incrementAndGetActualCount();
         crawler.updateProgress();
       } else {
-        LOG.error("OrfFilmDetailTask: no title or video found for url " + aUrlDto.getUrl());
+        LOG.error("OrfFilmDetailTask: no title or video found for url {}", aUrlDto.getUrl());
         crawler.incrementAndGetErrorCount();
         crawler.updateProgress();
       }

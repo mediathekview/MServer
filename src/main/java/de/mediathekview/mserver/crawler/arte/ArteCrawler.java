@@ -161,9 +161,11 @@ public class ArteCrawler extends AbstractCrawler {
       updateProgress();
       return new ArteFilmTask(
           this, new ConcurrentLinkedQueue<>(shows), getSender(), LocalDateTime.now());
-    } catch (final InterruptedException | ExecutionException ex) {
-      LOG.fatal("Exception in ARTE crawler.", ex);
+    } catch (final InterruptedException ex) {
+      LOG.debug("{} crawler interrupted.", getSender().getName(), ex);
       Thread.currentThread().interrupt();
+    } catch (final ExecutionException ex) {
+      LOG.fatal("Exception in {} crawler.", getSender().getName(), ex);
     }
     return null;
   }

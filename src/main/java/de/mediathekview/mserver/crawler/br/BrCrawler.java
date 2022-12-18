@@ -54,10 +54,11 @@ public class BrCrawler extends AbstractCrawler {
       incrementMaxCountBySizeAndGetNewSize(idList.size());
       printMessage(
           ServerMessages.DEBUG_MSSING_SENDUNGFOLGEN_COUNT, getSender().getName(), idList.size());
-    } catch (final InterruptedException | ExecutionException exception) {
-      LOG.fatal("Something went terrible wrong collecting the clip details");
-      exception.printStackTrace();
-      printErrorMessage();
+    } catch (final InterruptedException ex) {
+      LOG.debug("{} crawler interrupted.", getSender().getName(), ex);
+      Thread.currentThread().interrupt();
+    } catch (final ExecutionException ex) {
+      LOG.fatal("Exception in {} crawler.", getSender().getName(), ex);
     }
 
     return new BrGetClipDetailsTask(this, idList);

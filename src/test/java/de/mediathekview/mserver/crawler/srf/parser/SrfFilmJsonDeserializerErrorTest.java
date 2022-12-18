@@ -12,7 +12,7 @@ import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 /** Tests error scenarios of SrfFilmJsonDeserializer */
-public class SrfFilmJsonDeserializerTestError extends SrfTaskTestBase {
+public class SrfFilmJsonDeserializerErrorTest extends SrfTaskTestBase {
 
   @Test
   public void testDrmUrl() {

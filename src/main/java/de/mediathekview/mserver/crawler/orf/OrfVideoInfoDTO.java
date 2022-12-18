@@ -6,7 +6,7 @@ import de.mediathekview.mlib.daten.Resolution;
 
 public class OrfVideoInfoDTO {
 
-  private static final String FILTER_JUGENDSCHUTZ = ".*/Jugendschutz[0-9][0-9][0-9][0-9]b[0-9][0-9][0-9][0-9]_.*";
+  private static final String FILTER_JUGENDSCHUTZ = ".*/Jugendschutz\\d{4}b\\d{4}_.*";
   private final Map<Resolution, String> videoUrls;
   private String subtitleUrl;
 

@@ -67,14 +67,11 @@ public class FunkCrawler extends AbstractCrawler {
       getAndSetMaxCount(filmInfos.size());
 
       return new FunkVideosToFilmsTask(this, filmInfos, channels, null);
-    } catch (final InterruptedException interruptedException) {
-      printErrorMessage();
-      LOG.debug("Funk got interrupted.", interruptedException);
+    } catch (final InterruptedException ex) {
+      LOG.debug("{} crawler interrupted.", getSender().getName(), ex);
       Thread.currentThread().interrupt();
-    } catch (final ExecutionException executionException) {
-      printErrorMessage();
-      LOG.fatal(
-          "Something really bad happened while gathering the Funk channels.", executionException);
+    } catch (final ExecutionException ex) {
+      LOG.fatal("Exception in {} crawler.", getSender().getName(), ex);
     }
 
     return null;

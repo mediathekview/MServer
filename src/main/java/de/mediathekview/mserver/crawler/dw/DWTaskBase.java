@@ -3,6 +3,8 @@ package de.mediathekview.mserver.crawler.dw;
 import com.google.common.util.concurrent.RateLimiter;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+
+import de.mediathekview.mlib.daten.Sender;
 import de.mediathekview.mserver.base.config.MServerConfigManager;
 import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
 import de.mediathekview.mserver.crawler.basic.AbstractRestTask;
@@ -23,7 +25,9 @@ import java.util.Queue;
 public abstract class DWTaskBase<T, D extends CrawlerUrlDTO> extends AbstractRestTask<T, D> {
   private static final Logger LOG = LogManager.getLogger(DWTaskBase.class);
 
-  private transient RateLimiter limiter = null;
+  private static final RateLimiter limiter =
+      RateLimiter.create(
+          new MServerConfigManager().getSenderConfig(Sender.DW).getMaximumRequestsPerSecond());
 
   private final transient GsonBuilder gsonBuilder;
 
@@ -31,8 +35,6 @@ public abstract class DWTaskBase<T, D extends CrawlerUrlDTO> extends AbstractRes
       final AbstractCrawler aCrawler, final Queue<D> aUrlToCrawlDtos, final String authKey) {
     super(aCrawler, aUrlToCrawlDtos, authKey);
     gsonBuilder = new GsonBuilder();aCrawler.getSender();
-    limiter = RateLimiter.create(
-    	          new MServerConfigManager().getSenderConfig(aCrawler.getSender()).getMaximumRequestsPerSecond());
   }
 
   protected void registerJsonDeserializer(final Type aType, final Object aDeserializer) {

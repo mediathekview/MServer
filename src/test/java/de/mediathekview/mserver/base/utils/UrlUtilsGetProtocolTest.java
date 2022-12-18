@@ -12,11 +12,11 @@ import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 @RunWith(Parameterized.class)
-public class UrlUtilsTestGetProtocol {
+public class UrlUtilsGetProtocolTest {
   private final String inputUrl;
   private final Optional<String> expectedProtocol;
 
-  public UrlUtilsTestGetProtocol(final String aInputUrl, final Optional<String> aExpectedProtocol) {
+  public UrlUtilsGetProtocolTest(final String aInputUrl, final Optional<String> aExpectedProtocol) {
     inputUrl = aInputUrl;
     expectedProtocol = aExpectedProtocol;
   }

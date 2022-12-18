@@ -33,7 +33,7 @@ public abstract class AbstractDocumentTask<T, D extends CrawlerUrlDTO>
   private Level httpErrorLogLevel;
 
 
-  public AbstractDocumentTask(
+  protected AbstractDocumentTask(
       final AbstractCrawler aCrawler,
       final Queue<D> urlToCrawlDTOs) {
     super(aCrawler, urlToCrawlDTOs);

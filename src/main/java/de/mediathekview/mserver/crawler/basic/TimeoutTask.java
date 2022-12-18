@@ -7,7 +7,7 @@ public abstract class TimeoutTask extends Thread {
   private final long maxTime;
   private boolean isRun;
 
-  public TimeoutTask(final long aMaxTime) {
+  protected TimeoutTask(final long aMaxTime) {
     isRun = true;
     maxTime = aMaxTime;
   }

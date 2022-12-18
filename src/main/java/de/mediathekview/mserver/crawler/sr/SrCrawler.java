@@ -59,8 +59,11 @@ public class SrCrawler extends AbstractCrawler {
       getAndSetMaxCount(filmDtos.size());
 
       return new SrFilmDetailTask(this, filmDtos);
-    } catch (final InterruptedException | ExecutionException ex) {
-      LOG.fatal("Exception in SR crawler.", ex);
+    } catch (final InterruptedException ex) {
+      LOG.debug("{} crawler interrupted.", getSender().getName(), ex);
+      Thread.currentThread().interrupt();
+    } catch (final ExecutionException ex) {
+      LOG.fatal("Exception in {} crawler.", getSender().getName(), ex);
     }
     return null;
   }

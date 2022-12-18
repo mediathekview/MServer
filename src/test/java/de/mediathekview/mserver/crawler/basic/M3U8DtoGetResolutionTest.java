@@ -13,11 +13,11 @@ import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 @RunWith(Parameterized.class)
-public class M3U8DtoTestGetResolution {
+public class M3U8DtoGetResolutionTest {
   private final Optional<Resolution> expectedResolution;
   private final M3U8Dto target;
 
-  public M3U8DtoTestGetResolution(
+  public M3U8DtoGetResolutionTest(
       final String aUrl,
       final String aCodec,
       final String aResolution,

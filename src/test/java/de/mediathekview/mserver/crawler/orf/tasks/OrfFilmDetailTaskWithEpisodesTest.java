@@ -24,7 +24,7 @@ import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.hamcrest.MatcherAssert.assertThat;
 
-public class OrfFilmDetailTaskTestWithEpisodes extends OrfFilmDetailTaskTestBase {
+public class OrfFilmDetailTaskWithEpisodesTest extends OrfFilmDetailTaskTestBase {
 
   private static final String REQUEST_URL =
       "https://tvthek.orf.at/profile/ZIB-900/71256/ZIB-900/14007767";

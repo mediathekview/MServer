@@ -83,7 +83,7 @@ public class ArdFilmDeserializer implements JsonDeserializer<List<ArdFilmDto>> {
     }
     // remove time in topic
     if (topic.isPresent() && topic.get().contains("MDR aktuell")) {
-      return Optional.of(topic.get().replaceAll("[0-9][0-9]:[0-9][0-9] Uhr$", "").trim());
+      return Optional.of(topic.get().replaceAll("\\d{2}:\\\\d{2} Uhr$", "").trim());
     }
 
     return topic;
