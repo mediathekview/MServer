@@ -39,15 +39,18 @@ public abstract class ZdfTaskBase<T, D extends CrawlerUrlDTO> extends AbstractRe
   }
 
   protected <O> Optional<O> deserializeOptional(final WebTarget aTarget, final Type aType) {
-
-    final Gson gson = gsonBuilder.create();
-    final Response response = executeRequest(aTarget);
-    if (response.getStatus() == 200) {
-      final String jsonOutput = response.readEntity(String.class);
-      return gson.fromJson(jsonOutput, aType);
-    } else {
-      LOG.error(
-          "ZdfTaskBase: request of url {} failed: {}", aTarget.getUri(), response.getStatus());
+    try {
+      final Gson gson = gsonBuilder.create();
+      final Response response = executeRequest(aTarget);
+      if (response.getStatus() == 200) {
+        final String jsonOutput = response.readEntity(String.class);
+        return gson.fromJson(jsonOutput, aType);
+      } else {
+        LOG.error(
+                "ZdfTaskBase: request of url {} failed: {}", aTarget.getUri(), response.getStatus());
+      }
+    } catch(Exception e) {
+      LOG.error("ZdfTaskBase: throws error for {}",aTarget.getUri().toString(),e);
     }
 
     return Optional.empty();

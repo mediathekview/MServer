@@ -67,10 +67,11 @@ public class PhoenixCrawler extends AbstractCrawler {
     // load sendungen page
     final CrawlerUrlDTO url =
         new CrawlerUrlDTO(PhoenixConstants.URL_BASE + PhoenixConstants.URL_OVERVIEW_JSON);
-
+    final CrawlerUrlDTO rubriken =
+            new CrawlerUrlDTO(PhoenixConstants.URL_BASE + PhoenixConstants.URL_RUBRIKEN_JSON);
     final Queue<CrawlerUrlDTO> queue = new ConcurrentLinkedQueue<>();
+    queue.add(rubriken);
     queue.add(url);
-
     final Set<CrawlerUrlDTO> overviewUrls = loadOverviewPages(queue);
 
     // load sendung overview pages

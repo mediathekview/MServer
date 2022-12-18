@@ -7,6 +7,8 @@ public final class PhoenixConstants {
 
   public static final String URL_OVERVIEW_JSON = "/response/template/sendungseite_overview_json";
 
+  public static final String URL_RUBRIKEN_JSON = "/response/template/rubrik_overview_json";
+
   public static final String URL_FILM_DETAIL_JSON = "/response/id/";
 
   public  static final String URL_VIDEO_DETAILS = "%s/php/mediaplayer/data/beitrags_details.php?id=%s";
