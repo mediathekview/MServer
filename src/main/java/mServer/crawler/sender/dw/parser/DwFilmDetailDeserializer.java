@@ -4,7 +4,6 @@ import com.google.gson.*;
 import de.mediathekview.mlib.Const;
 import de.mediathekview.mlib.daten.DatenFilm;
 import mServer.crawler.CrawlerTool;
-import mServer.crawler.sender.MediathekReader;
 import mServer.crawler.sender.base.JsonUtils;
 import mServer.crawler.sender.base.Qualities;
 import mServer.crawler.sender.dw.DwVideoDto;
@@ -46,14 +45,6 @@ public class DwFilmDetailDeserializer implements JsonDeserializer<Optional<Daten
       Pattern.compile(".+_(\\d+)x(\\d+)\\.mp4");
   private static final Comparator<? super DwVideoDto> DW_VIDEO_COMPARATOR =
       Comparator.comparing(DwVideoDto::getWidth).thenComparing(DwVideoDto::getBitRate);
-
-  private final String sender;
-  private final MediathekReader crawler;
-
-  public DwFilmDetailDeserializer(final MediathekReader aCrawler) {
-    this.sender = aCrawler.getSendername();
-    crawler = aCrawler;
-  }
 
   protected boolean isValidVideo(
       final JsonObject jsonObject,

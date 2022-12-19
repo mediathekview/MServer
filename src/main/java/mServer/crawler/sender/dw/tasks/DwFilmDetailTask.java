@@ -29,7 +29,7 @@ public class DwFilmDetailTask extends DWTaskBase<DatenFilm, CrawlerUrlDTO> {
     super(aCrawler, aUrlToCrawlDTOs, Optional.empty());
 
     registerJsonDeserializer(
-        OPTIONAL_FILM_DETAIL_DTO_TYPE_TOKEN, new DwFilmDetailDeserializer(this.crawler));
+        OPTIONAL_FILM_DETAIL_DTO_TYPE_TOKEN, new DwFilmDetailDeserializer());
   }
 
   @Override
