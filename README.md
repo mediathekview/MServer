@@ -45,7 +45,7 @@ java -jar MServer.jar
 | ARD|ARD-Mediathek|Alpha, BR, Das Erste, HR, MDR, NDR, ONE, Radio Bremen, RBB, SR, SWR, WDR, tagesschau24|ARD, HR, MDR, NDR, Radio Bremen, RBB, SWR, WDR| x|
 | ARTE|ARTE-Mediathek|ARTE in DE, FR, EN, ES, PL, IT|ARTE.DE, ARTE.FR||
 | BR|BR-Mediathek|BR|BR||
-| DW|DW-Mediathek|DW|DW||
+| DW|DW-Mediathek|DW|DW|x|
 | FUNK | FUNK-Webseite | FUNK |FUNK |x|
 | KIKA|KIKA-Mediathek|KIKA|KIKA|x|
 | ORF|ORF-Mediathek|ORF1, ORF2, ORF3, ORFSport|ORF|x|
