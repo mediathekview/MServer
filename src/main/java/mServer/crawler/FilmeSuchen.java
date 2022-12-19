@@ -32,7 +32,7 @@ import mServer.crawler.sender.br.BrCrawler;
 import mServer.crawler.sender.dreisat.DreiSatCrawler;
 import mServer.crawler.sender.dw.DwCrawler;
 import mServer.crawler.sender.funk.FunkCrawler;
-import mServer.crawler.sender.kika.KikaCrawler;
+import mServer.crawler.sender.kika.KikaApiCrawler;
 import mServer.crawler.sender.orf.OrfCrawler;
 import mServer.crawler.sender.phoenix.PhoenixCrawler;
 import mServer.crawler.sender.sr.SrCrawler;
@@ -76,8 +76,8 @@ public class FilmeSuchen {
     mediathekListe.add(new ZdfCrawler(this, 0));
     mediathekListe.add(new MediathekArte(this, 0));
     mediathekListe.add(new DreiSatCrawler(this, 1));
-    mediathekListe.add(new KikaCrawler(this, 0));
     mediathekListe.add(new DwCrawler(this, 0));
+    mediathekListe.add(new KikaApiCrawler(this, 0));
     mediathekListe.add(new FunkCrawler(this, 0));
     // Spalte 2
     mediathekListe.add(new SrCrawler(this, 1));
@@ -108,7 +108,7 @@ public class FilmeSuchen {
     mrStarten(0);
     if (!Config.getStop()) {
       // waren und wenn Suchlauf noch nicht abgebrochen weiter mit dem Rest
-      mrWarten();
+      mrWarten(4*60);//4*60);
       mrStarten(1);
       allStarted = true;
     }
@@ -277,10 +277,10 @@ public class FilmeSuchen {
     mediathekListe.forEach(MediathekReader::clear);
   }
 
-  private synchronized void mrWarten() {
+  private synchronized void mrWarten(int seconds) {
     // 4 Minuten warten, alle 10 Sekunden auf STOP prüfen
     try {
-      for (int i = 0; i < 4 * 60; ++i) {
+      for (int i = 0; i < seconds; ++i) {
         if (Config.getStop()) {
           break;
         }

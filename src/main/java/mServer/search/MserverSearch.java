@@ -40,6 +40,9 @@ import mServer.tool.MserverLog;
 public class MserverSearch {
 
     Crawler crawler;
+    int wartenLang = 30; //30;
+    int wartenkurz = 20; //20;
+    int minNumberOfFilms = 10000; //10000;
 
     public MserverSearch() {
         this.crawler = null;
@@ -117,9 +120,9 @@ public class MserverSearch {
 
                     int w;
                     if (loadLongMax())
-                        w = 30; // 30 Minuten bei langen Läufen
+                        w = wartenLang; // 30 Minuten bei langen Läufen
                     else
-                        w = 20;// 20 Minuten warten, das Erstellen/Komprimieren der Liste dauert
+                        w = wartenkurz;// 20 Minuten warten, das Erstellen/Komprimieren der Liste dauert
                     TimeUnit.MINUTES.timedJoin(t, w);
 
                     if (t.isAlive()) {
@@ -146,7 +149,7 @@ public class MserverSearch {
         MserverLog.systemMeldung("");
         MserverLog.systemMeldung("================================");
         MserverLog.systemMeldung("Filmliste Anzahl Filme: " + l);
-        if (l < 10_000) {
+        if (l < minNumberOfFilms) {
             //dann hat was nicht gepasst
             MserverLog.systemMeldung("   Fehler!!");
             MserverLog.systemMeldung("================================");
