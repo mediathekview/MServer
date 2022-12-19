@@ -3,6 +3,8 @@ package mServer.crawler.sender.dw.tasks;
 import com.google.gson.reflect.TypeToken;
 import jakarta.ws.rs.client.WebTarget;
 import mServer.crawler.CrawlerTool;
+import mServer.crawler.FilmeSuchen;
+import mServer.crawler.RunSender;
 import mServer.crawler.sender.MediathekReader;
 import mServer.crawler.sender.base.CrawlerUrlDTO;
 import mServer.crawler.sender.base.PagedElementListDTO;
@@ -12,7 +14,6 @@ import mServer.crawler.sender.dw.parser.DWSendungOverviewDeserializer;
 import java.lang.reflect.Type;
 import java.util.Collection;
 import java.util.Optional;
-import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
 public class DWOverviewTask extends DWTaskBase<CrawlerUrlDTO, CrawlerUrlDTO> {
@@ -37,9 +38,8 @@ public class DWOverviewTask extends DWTaskBase<CrawlerUrlDTO, CrawlerUrlDTO> {
     final Optional<PagedElementListDTO<CrawlerUrlDTO>> overviewDtoOptional =
         deserializeOptional(aTarget, OPTIONAL_OVERVIEW_DTO_TYPE_TOKEN);
     if (!overviewDtoOptional.isPresent()) {
-      // TODO...
-      //crawler.incrementAndGetErrorCount();
-      //crawler.updateProgress();
+      FilmeSuchen.listeSenderLaufen.inc(crawler.getSendername(), RunSender.Count.FEHLER);
+      FilmeSuchen.listeSenderLaufen.inc(crawler.getSendername(), RunSender.Count.FEHLVERSUCHE);
       return;
     }
 

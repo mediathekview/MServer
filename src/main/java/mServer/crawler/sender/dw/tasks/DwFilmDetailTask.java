@@ -8,6 +8,8 @@ import java.lang.reflect.Type;
 import java.util.Optional;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
+import mServer.crawler.FilmeSuchen;
+import mServer.crawler.RunSender;
 import mServer.crawler.sender.MediathekReader;
 import mServer.crawler.sender.base.CrawlerUrlDTO;
 import mServer.crawler.sender.dw.DWTaskBase;
@@ -45,9 +47,8 @@ public class DwFilmDetailTask extends DWTaskBase<DatenFilm, CrawlerUrlDTO> {
       LOG.error("error processing {} ", aDTO.getUrl(), e);
     }
     if (!filmDetailDtoOptional.isPresent()) {
-      // TODO
-      // crawler.incrementAndGetErrorCount();
-      // crawler.updateProgress();
+      FilmeSuchen.listeSenderLaufen.inc(crawler.getSendername(), RunSender.Count.FEHLER);
+      FilmeSuchen.listeSenderLaufen.inc(crawler.getSendername(), RunSender.Count.FEHLVERSUCHE);
       return;
     }
     this.taskResults.add(filmDetailDtoOptional.get());
