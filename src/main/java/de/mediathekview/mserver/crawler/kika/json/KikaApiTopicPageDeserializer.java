@@ -77,7 +77,7 @@ public class KikaApiTopicPageDeserializer implements JsonDeserializer<KikaApiTop
     Optional<String> oTopic = JsonUtils.getElementValueAsString(arrayElement, TAG_FILM_TOPIC);
     Optional<String> oSophoraId = JsonUtils.getElementValueAsString(arrayElement, TAG_FILM_SOPHORAID);
     Optional<String> oTeaserImageUrl = JsonUtils.getElementValueAsString(arrayElement, TAG_FILM_TEASERIMAGEURL);
-    if (website.isEmpty() && oSophoraId.isPresent() && oTeaserImageUrl.isPresent()) {
+    if (oSophoraId.isPresent() && oTeaserImageUrl.isPresent()) {
       // try to reconstruct the website
       website = reconstructWebsite(oTeaserImageUrl,oSophoraId);
     }
