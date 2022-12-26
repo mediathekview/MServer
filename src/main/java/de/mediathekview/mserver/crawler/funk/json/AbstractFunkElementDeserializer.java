@@ -27,7 +27,7 @@ public abstract class AbstractFunkElementDeserializer<T>
   private static final String ATTRIBUTE_NUMBER = "number";
   private static final String ATTRIBUTE_TOTAL = "totalElements";
   private static final String FUNK_CORE_SERVICE = "funk-core-service.default.svc";
-  private static final String FUNK_CORE_SERVICE_HOST = "www.funk.net/api";
+  private static final String FUNK_CORE_SERVICE_HOST = "www.funk.net";
   protected final Optional<AbstractCrawler> crawler;
 
   protected AbstractFunkElementDeserializer(
