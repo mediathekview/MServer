@@ -26,6 +26,8 @@ public abstract class AbstractFunkElementDeserializer<T>
   private static final String ATTRIBUTE_SIZE = "size";
   private static final String ATTRIBUTE_NUMBER = "number";
   private static final String ATTRIBUTE_TOTAL = "totalElements";
+  private static final String FUNK_CORE_SERVICE = "funk-core-service.default.svc";
+  private static final String FUNK_CORE_SERVICE_HOST = "www.funk.net";
 
   @Override
   public PagedElementListDTO<T> deserialize(
@@ -104,6 +106,6 @@ public abstract class AbstractFunkElementDeserializer<T>
   }
 
   private String fixNextPageUrl(final String url) {
-    return url.replace(WRONG_URL_PART, RIGHT_URL_PART);
+    return url.replace(WRONG_URL_PART, RIGHT_URL_PART).replace(FUNK_CORE_SERVICE, FUNK_CORE_SERVICE_HOST);
   }
 }
