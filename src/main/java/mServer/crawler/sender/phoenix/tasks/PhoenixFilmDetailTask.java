@@ -60,6 +60,7 @@ public class PhoenixFilmDetailTask extends ZdfTaskBase<DatenFilm, CrawlerUrlDTO>
     final Set<DatenFilm> films = zdfFilmDetailTask.invoke();
     films.forEach(
             film -> {
+              film.arr[DatenFilm.FILM_THEMA] = filmDetailDto.getTopic();
               film.arr[DatenFilm.FILM_TITEL] = filmDetailDto.getTitle();
               if (filmDetailDto.getWebsite().isPresent()) {
                 film.arr[DatenFilm.FILM_WEBSEITE] = filmDetailDto.getWebsite().get();

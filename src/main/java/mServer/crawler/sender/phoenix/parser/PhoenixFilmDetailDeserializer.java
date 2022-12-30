@@ -19,6 +19,7 @@ public class PhoenixFilmDetailDeserializer implements JsonDeserializer<Optional<
   private static final String ELEMENT_SUBTITLE = "subtitel";
   private static final String ELEMENT_TITLE = "titel";
   private static final String ELEMENT_TYP = "typ";
+  private static final String ELEMENT_VERORTUNG = "verortung";
   private static final String ELEMENT_VORSPANN = "vorspann";
 
   private static final String TYP_VIDEO = "video-smubl";
@@ -28,24 +29,58 @@ public class PhoenixFilmDetailDeserializer implements JsonDeserializer<Optional<
 
     final JsonObject jsonObject = aJsonElement.getAsJsonObject();
 
-    final Optional<String> topic = JsonUtils.getAttributeAsString(jsonObject, ELEMENT_TITLE);
-    final Optional<String> title = JsonUtils.getAttributeAsString(jsonObject, ELEMENT_SUBTITLE);
+    final Optional<String> title = JsonUtils.getAttributeAsString(jsonObject, ELEMENT_TITLE);
+    final Optional<String> subtitle = JsonUtils.getAttributeAsString(jsonObject, ELEMENT_SUBTITLE);
     final Optional<String> description = JsonUtils.getAttributeAsString(jsonObject, ELEMENT_VORSPANN);
     final Optional<String> baseName = parseBaseName(jsonObject);
     final Optional<String> website = parseWebsite(jsonObject);
 
-    if (!topic.isPresent() || !title.isPresent() || !baseName.isPresent()) {
+    if (!title.isPresent() || !subtitle.isPresent() || !baseName.isPresent()) {
       return Optional.empty();
     }
 
+    final Optional<String> verortung = parseFirstVerortung(jsonObject);
+
     PhoenixFilmDetailDto dto = new PhoenixFilmDetailDto();
     dto.setBaseName(baseName.get());
-    dto.setTopic(topic.get());
-    dto.setTitle(title.get());
+    dto.setTopic(determineTopic(title, verortung));
+    dto.setTitle(determineTitle(title, subtitle, verortung));
     description.ifPresent(dto::setDescription);
     website.ifPresent(dto::setWebsite);
 
     return Optional.of(dto);
+  }
+
+
+  private String determineTitle(Optional<String> title, Optional<String> subtitle, Optional<String> verortung) {
+    if (!verortung.isPresent() || verortung.get().equalsIgnoreCase(title.get())) {
+      return subtitle.get();
+    }
+
+    if (!subtitle.isPresent() || subtitle.get().isEmpty()) {
+      return title.get();
+    }
+
+    return String.format("%s - %s", title.get(), subtitle.get());
+  }
+
+  private String determineTopic(Optional<String> title, Optional<String> verortung) {
+    if (!verortung.isPresent()) {
+      return title.get();
+    }
+    return verortung.get();
+  }
+
+  private Optional<String> parseFirstVerortung(JsonObject jsonObject) {
+    if (!jsonObject.has(ELEMENT_VERORTUNG)) {
+      return Optional.empty();
+    }
+
+    final JsonArray verortungArray = jsonObject.get(ELEMENT_VERORTUNG).getAsJsonArray();
+    if (verortungArray.size() > 0) {
+      return JsonUtils.getAttributeAsString(verortungArray.get(0).getAsJsonObject(), ELEMENT_TITLE);
+    }
+    return Optional.empty();
   }
 
   private Optional<String> parseWebsite(JsonObject aJsonObject) {
