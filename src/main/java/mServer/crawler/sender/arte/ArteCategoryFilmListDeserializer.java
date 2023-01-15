@@ -19,12 +19,23 @@ public class ArteCategoryFilmListDeserializer implements JsonDeserializer<ArteCa
   private static final String JSON_ELEMENT_DATA = "data";
   private static final String JSON_ELEMENT_NEXTPAGE = "nextPage";
   private static final String JSON_ELEMENT_PROGRAMID = "programId";
+  private static final String JSON_ELEMENT_VALUE = "value";
 
   @Override
   public ArteCategoryFilmsDTO deserialize(JsonElement aJsonElement, Type aType, JsonDeserializationContext aContext) throws JsonParseException {
     ArteCategoryFilmsDTO dto = new ArteCategoryFilmsDTO();
 
-    for (JsonElement jsonElement : aJsonElement.getAsJsonObject().get(JSON_ELEMENT_DATA).getAsJsonArray()) {
+    JsonElement rootElement = aJsonElement;
+    if(aJsonElement.getAsJsonObject().has(JSON_ELEMENT_VALUE)) {
+      rootElement = aJsonElement.getAsJsonObject().get(JSON_ELEMENT_VALUE);
+    }
+    final JsonElement dataElement = rootElement.getAsJsonObject().get(JSON_ELEMENT_DATA);
+    if (dataElement == null || dataElement.isJsonNull() || !dataElement.isJsonArray()) {
+      Log.errorLog(12834940, "data element not found");
+      return dto;
+    }
+
+    for (JsonElement jsonElement : dataElement.getAsJsonArray()) {
       String programId = jsonElement.getAsJsonObject().get(JSON_ELEMENT_PROGRAMID).getAsString();
       if (programId != null) {
         if (programId.startsWith("RC-")) {
@@ -40,7 +51,7 @@ public class ArteCategoryFilmListDeserializer implements JsonDeserializer<ArteCa
       }
     }
 
-    dto.setNextPage(hasNextPage(aJsonElement.getAsJsonObject()));
+    dto.setNextPage(hasNextPage(rootElement.getAsJsonObject()));
 
     return dto;
   }
