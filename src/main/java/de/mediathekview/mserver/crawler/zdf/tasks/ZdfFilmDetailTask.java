@@ -205,6 +205,8 @@ public class ZdfFilmDetailTask extends ZdfTaskBase<Film, CrawlerUrlDTO> {
 
       if (qualitiesEntry.getKey() == Resolution.NORMAL) {
         url = optimizer.getOptimizedUrlNormal(url);
+      } else if (qualitiesEntry.getKey() == Resolution.HD) {
+        url = optimizer.getOptimizedUrlHd(url);
       }
 
       result.put(qualitiesEntry.getKey(), new FilmUrl(url, crawler.determineFileSizeInKB(url)));
