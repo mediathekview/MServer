@@ -1,0 +1,538 @@
+{
+  "attributes": {
+    "downloadAllowed": {
+      "profile": "http://zdf.de/rels/streams/ptmd/attributes/attribute",
+      "value": true
+    },
+    "duration": {
+      "profile": "http://zdf.de/rels/streams/ptmd/attributes/attribute",
+      "value": 5336000
+    },
+    "fsk": {
+      "profile": "http://zdf.de/rels/streams/ptmd/attributes/attribute",
+      "value": "none"
+    },
+    "geoLocation": {
+      "profile": "http://zdf.de/rels/streams/ptmd/attributes/attribute",
+      "value": "none"
+    },
+    "profile": "http://zdf.de/rels/streams/ptmd/attributes"
+  },
+  "basename": "230101_2015_sendung_trs",
+  "captions": [
+    {
+      "class": "hoh",
+      "format": "ebu-tt-d-basic-de",
+      "language": "deu",
+      "offset": 3000,
+      "profile": "http://zdf.de/rels/streams/ptmd/caption",
+      "uri": "https://utstreaming.zdf.de/mtt/zdf/23/01/230101_2015_sendung_trs/6/F1037067_hoh_deu_Das_Traumschiff_Bahamas_Karibik_final_010123.xml"
+    },
+    {
+      "class": "hoh",
+      "format": "webvtt",
+      "language": "deu",
+      "offset": 3000,
+      "profile": "http://zdf.de/rels/streams/ptmd/caption",
+      "uri": "https://utstreaming.zdf.de/mtt/zdf/23/01/230101_2015_sendung_trs/6/F1037067_hoh_deu_Das_Traumschiff_Bahamas_Karibik_final_010123.vtt"
+    }
+  ],
+  "documentVersion": 2,
+  "mandant": "mediathek",
+  "playerId": "android_native_5",
+  "priorityList": [
+    {
+      "formitaeten": [
+        {
+          "facets": [
+            "hdr_hlg",
+            "progressive"
+          ],
+          "isAdaptive": false,
+          "mimeType": "video/mp4",
+          "profile": "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet",
+          "qualities": [
+            {
+              "audio": {
+                "profile": "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality/audio",
+                "tracks": [
+                  {
+                    "cdn": "akamai",
+                    "class": "main",
+                    "filesize": 3017591313,
+                    "language": "deu",
+                    "profile": "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality/audio/track",
+                    "uri": "http://localhost:8589/none/zdf/23/01/230101_2015_sendung_trs/3/230101_2015_sendung_trs_a1a2_4692k_p72v16.mp4"
+                  },
+                  {
+                    "cdn": "akamai",
+                    "class": "ad",
+                    "filesize": 3017591313,
+                    "language": "deu",
+                    "profile": "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality/audio/track",
+                    "uri": "http://localhost:8589/none/zdf/23/01/230101_2015_sendung_trs/3/230101_2015_sendung_trs_a3a4_4692k_p72v16.mp4"
+                  }
+                ]
+              },
+              "hd": true,
+              "highestVerticalResolution": 2160,
+              "mimeCodec": "hvc1.1.7.L120.b0, mp4a.40.2",
+              "profile": "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality",
+              "quality": "uhd"
+            }
+          ],
+          "type": "h265_aac_mp4_http_na_na"
+        }
+      ],
+      "profile": "http://zdf.de/rels/streams/ptmd/priority-list-item"
+    },
+    {
+      "formitaeten": [
+        {
+          "facets": [
+            "progressive"
+          ],
+          "isAdaptive": false,
+          "mimeType": "video/webm",
+          "profile": "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet",
+          "qualities": [
+            {
+              "audio": {
+                "profile": "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality/audio",
+                "tracks": [
+                  {
+                    "cdn": "akamai",
+                    "class": "main",
+                    "filesize": 1785945383,
+                    "language": "deu",
+                    "profile": "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality/audio/track",
+                    "uri": "http://localhost:8589/none/zdf/23/01/230101_2015_sendung_trs/3/230101_2015_sendung_trs_a1a2_2128k_p18v15.webm"
+                  },
+                  {
+                    "cdn": "akamai",
+                    "class": "ad",
+                    "filesize": 1787159362,
+                    "language": "deu",
+                    "profile": "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality/audio/track",
+                    "uri": "http://localhost:8589/none/zdf/23/01/230101_2015_sendung_trs/3/230101_2015_sendung_trs_a3a4_2128k_p18v15.webm"
+                  }
+                ]
+              },
+              "hd": true,
+              "highestVerticalResolution": 720,
+              "mimeCodec": "vp9, opus",
+              "profile": "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality",
+              "quality": "hd"
+            },
+            {
+              "audio": {
+                "profile": "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality/audio",
+                "tracks": [
+                  {
+                    "cdn": "akamai",
+                    "class": "main",
+                    "filesize": 1035602365,
+                    "language": "deu",
+                    "profile": "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality/audio/track",
+                    "uri": "http://localhost:8589/none/zdf/23/01/230101_2015_sendung_trs/3/230101_2015_sendung_trs_a1a2_1128k_p17v15.webm"
+                  },
+                  {
+                    "cdn": "akamai",
+                    "class": "ad",
+                    "filesize": 1036816344,
+                    "language": "deu",
+                    "profile": "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality/audio/track",
+                    "uri": "http://localhost:8589/none/zdf/23/01/230101_2015_sendung_trs/3/230101_2015_sendung_trs_a3a4_1128k_p17v15.webm"
+                  }
+                ]
+              },
+              "hd": false,
+              "highestVerticalResolution": 540,
+              "mimeCodec": "vp9, opus",
+              "profile": "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality",
+              "quality": "veryhigh"
+            },
+            {
+              "audio": {
+                "profile": "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality/audio",
+                "tracks": [
+                  {
+                    "cdn": "akamai",
+                    "class": "main",
+                    "filesize": 320074922,
+                    "language": "deu",
+                    "profile": "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality/audio/track",
+                    "uri": "http://localhost:8589/none/zdf/23/01/230101_2015_sendung_trs/3/230101_2015_sendung_trs_a1a2_368k_p16v15.webm"
+                  },
+                  {
+                    "cdn": "akamai",
+                    "class": "ad",
+                    "filesize": 321288901,
+                    "language": "deu",
+                    "profile": "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality/audio/track",
+                    "uri": "http://localhost:8589/none/zdf/23/01/230101_2015_sendung_trs/3/230101_2015_sendung_trs_a3a4_368k_p16v15.webm"
+                  }
+                ]
+              },
+              "hd": false,
+              "highestVerticalResolution": 270,
+              "mimeCodec": "vp9, opus",
+              "profile": "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality",
+              "quality": "high"
+            }
+          ],
+          "type": "vp9_opus_webm_http_na_na"
+        }
+      ],
+      "profile": "http://zdf.de/rels/streams/ptmd/priority-list-item"
+    },
+    {
+      "formitaeten": [
+        {
+          "facets": [],
+          "isAdaptive": true,
+          "mimeType": "application/x-mpegURL",
+          "profile": "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet",
+          "qualities": [
+            {
+              "audio": {
+                "profile": "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality/audio",
+                "tracks": [
+                  {
+                    "cdn": "akamai",
+                    "class": "main",
+                    "language": "deu",
+                    "profile": "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality/audio/track",
+                    "uri": "https://zdfvod.akamaized.net/i/mp4/none/zdf/23/01/230101_2015_sendung_trs/3/230101_2015_sendung_trs,_a1a2_508k_p9,_a3a4_508k_p9,_a1a2_808k_p11,_a1a2_1628k_p13,_a1a2_3328k_p15,v15.mp4.csmil/master.m3u8?audiotrack=0:deu:TV%20Ton,1:deu:Audiodeskription"
+                  },
+                  {
+                    "cdn": "akamai",
+                    "class": "ad",
+                    "language": "deu",
+                    "profile": "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality/audio/track",
+                    "uri": "https://zdfvod.akamaized.net/i/mp4/none/zdf/23/01/230101_2015_sendung_trs/3/230101_2015_sendung_trs,_a3a4_508k_p9,_a1a2_508k_p9,_a3a4_808k_p11,_a3a4_1628k_p13,_a3a4_3328k_p15,v15.mp4.csmil/master.m3u8?audiotrack=0:deu:Audiodeskription,1:deu:TV%20Ton"
+                  }
+                ]
+              },
+              "hd": true,
+              "highestVerticalResolution": 720,
+              "profile": "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality",
+              "quality": "auto"
+            },
+            {
+              "audio": {
+                "profile": "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality/audio",
+                "tracks": [
+                  {
+                    "cdn": "akamai",
+                    "class": "main",
+                    "language": "deu",
+                    "profile": "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality/audio/track",
+                    "uri": "https://zdfvod.akamaized.net/i/mp4/none/zdf/23/01/230101_2015_sendung_trs/3/230101_2015_sendung_trs,_a1a2_1628k_p13,_a3a4_1628k_p13,_a1a2_3328k_p15,v15.mp4.csmil/master.m3u8?audiotrack=0:deu:TV%20Ton,1:deu:Audiodeskription"
+                  },
+                  {
+                    "cdn": "akamai",
+                    "class": "ad",
+                    "language": "deu",
+                    "profile": "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality/audio/track",
+                    "uri": "https://zdfvod.akamaized.net/i/mp4/none/zdf/23/01/230101_2015_sendung_trs/3/230101_2015_sendung_trs,_a3a4_1628k_p13,_a1a2_1628k_p13,_a3a4_3328k_p15,v15.mp4.csmil/master.m3u8?audiotrack=0:deu:Audiodeskription,1:deu:TV%20Ton"
+                  }
+                ]
+              },
+              "hd": true,
+              "highestVerticalResolution": 720,
+              "profile": "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality",
+              "quality": "veryhigh"
+            },
+            {
+              "audio": {
+                "profile": "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality/audio",
+                "tracks": [
+                  {
+                    "cdn": "akamai",
+                    "class": "main",
+                    "language": "deu",
+                    "profile": "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality/audio/track",
+                    "uri": "https://zdfvod.akamaized.net/i/mp4/none/zdf/23/01/230101_2015_sendung_trs/3/230101_2015_sendung_trs,_a1a2_508k_p9,_a3a4_508k_p9,_a1a2_808k_p11,_a1a2_1628k_p13,_a1a2_3328k_p15,v15.mp4.csmil/master.m3u8?audiotrack=0:deu:TV%20Ton,1:deu:Audiodeskription"
+                  },
+                  {
+                    "cdn": "akamai",
+                    "class": "ad",
+                    "language": "deu",
+                    "profile": "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality/audio/track",
+                    "uri": "https://zdfvod.akamaized.net/i/mp4/none/zdf/23/01/230101_2015_sendung_trs/3/230101_2015_sendung_trs,_a3a4_508k_p9,_a1a2_508k_p9,_a3a4_808k_p11,_a3a4_1628k_p13,_a3a4_3328k_p15,v15.mp4.csmil/master.m3u8?audiotrack=0:deu:Audiodeskription,1:deu:TV%20Ton"
+                  }
+                ]
+              },
+              "hd": true,
+              "highestVerticalResolution": 720,
+              "profile": "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality",
+              "quality": "high"
+            },
+            {
+              "audio": {
+                "profile": "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality/audio",
+                "tracks": [
+                  {
+                    "cdn": "akamai",
+                    "class": "main",
+                    "language": "deu",
+                    "profile": "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality/audio/track",
+                    "uri": "https://zdfvod.akamaized.net/i/mp4/none/zdf/23/01/230101_2015_sendung_trs/3/230101_2015_sendung_trs,_a1a2_508k_p9,_a3a4_508k_p9,_a1a2_808k_p11,_a1a2_1628k_p13,v15.mp4.csmil/master.m3u8?audiotrack=0:deu:TV%20Ton,1:deu:Audiodeskription"
+                  },
+                  {
+                    "cdn": "akamai",
+                    "class": "ad",
+                    "language": "deu",
+                    "profile": "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality/audio/track",
+                    "uri": "https://zdfvod.akamaized.net/i/mp4/none/zdf/23/01/230101_2015_sendung_trs/3/230101_2015_sendung_trs,_a3a4_508k_p9,_a1a2_508k_p9,_a3a4_808k_p11,_a3a4_1628k_p13,v15.mp4.csmil/master.m3u8?audiotrack=0:deu:Audiodeskription,1:deu:TV%20Ton"
+                  }
+                ]
+              },
+              "hd": false,
+              "highestVerticalResolution": 540,
+              "profile": "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality",
+              "quality": "med"
+            },
+            {
+              "audio": {
+                "profile": "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality/audio",
+                "tracks": [
+                  {
+                    "cdn": "akamai",
+                    "class": "main",
+                    "language": "deu",
+                    "profile": "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality/audio/track",
+                    "uri": "https://zdfvod.akamaized.net/i/mp4/none/zdf/23/01/230101_2015_sendung_trs/3/230101_2015_sendung_trs,_a1a2_508k_p9,_a3a4_508k_p9,_a1a2_808k_p11,v15.mp4.csmil/master.m3u8?audiotrack=0:deu:TV%20Ton,1:deu:Audiodeskription"
+                  },
+                  {
+                    "cdn": "akamai",
+                    "class": "ad",
+                    "language": "deu",
+                    "profile": "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality/audio/track",
+                    "uri": "https://zdfvod.akamaized.net/i/mp4/none/zdf/23/01/230101_2015_sendung_trs/3/230101_2015_sendung_trs,_a3a4_508k_p9,_a1a2_508k_p9,_a3a4_808k_p11,v15.mp4.csmil/master.m3u8?audiotrack=0:deu:Audiodeskription,1:deu:TV%20Ton"
+                  }
+                ]
+              },
+              "hd": false,
+              "highestVerticalResolution": 360,
+              "profile": "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality",
+              "quality": "low"
+            }
+          ],
+          "type": "h264_aac_ts_http_m3u8_http"
+        }
+      ],
+      "profile": "http://zdf.de/rels/streams/ptmd/priority-list-item"
+    },
+    {
+      "formitaeten": [
+        {
+          "facets": [
+            "progressive"
+          ],
+          "isAdaptive": false,
+          "mimeType": "video/mp4",
+          "profile": "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet",
+          "qualities": [
+            {
+              "audio": {
+                "profile": "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality/audio",
+                "tracks": [
+                  {
+                    "cdn": "akamai",
+                    "class": "main",
+                    "filesize": 1749394430,
+                    "language": "deu",
+                    "profile": "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality/audio/track",
+                    "uri": "http://localhost:8589/none/zdf/23/01/230101_2015_sendung_trs/3/230101_2015_sendung_trs_a1a2_3328k_p15v15.mp4"
+                  },
+                  {
+                    "cdn": "akamai",
+                    "class": "ad",
+                    "filesize": 1749394430,
+                    "language": "deu",
+                    "profile": "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality/audio/track",
+                    "uri": "http://localhost:8589/none/zdf/23/01/230101_2015_sendung_trs/3/230101_2015_sendung_trs_a3a4_3328k_p15v15.mp4"
+                  }
+                ]
+              },
+              "hd": true,
+              "highestVerticalResolution": 720,
+              "mimeCodec": "avc1.640028, mp4a.40.2",
+              "profile": "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality",
+              "quality": "hd"
+            },
+            {
+              "audio": {
+                "profile": "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality/audio",
+                "tracks": [
+                  {
+                    "cdn": "akamai",
+                    "class": "main",
+                    "filesize": 861779088,
+                    "language": "deu",
+                    "profile": "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality/audio/track",
+                    "uri": "http://localhost:8589/none/zdf/23/01/230101_2015_sendung_trs/3/230101_2015_sendung_trs_a1a2_1628k_p13v15.mp4"
+                  },
+                  {
+                    "cdn": "akamai",
+                    "class": "ad",
+                    "filesize": 861779088,
+                    "language": "deu",
+                    "profile": "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality/audio/track",
+                    "uri": "http://localhost:8589/none/zdf/23/01/230101_2015_sendung_trs/3/230101_2015_sendung_trs_a3a4_1628k_p13v15.mp4"
+                  }
+                ]
+              },
+              "hd": false,
+              "highestVerticalResolution": 540,
+              "mimeCodec": "avc1.4d401f, mp4a.40.2",
+              "profile": "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality",
+              "quality": "veryhigh"
+            },
+            {
+              "audio": {
+                "profile": "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality/audio",
+                "tracks": [
+                  {
+                    "cdn": "akamai",
+                    "class": "main",
+                    "filesize": 436592366,
+                    "language": "deu",
+                    "profile": "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality/audio/track",
+                    "uri": "http://localhost:8589/none/zdf/23/01/230101_2015_sendung_trs/3/230101_2015_sendung_trs_a1a2_808k_p11v15.mp4"
+                  },
+                  {
+                    "cdn": "akamai",
+                    "class": "ad",
+                    "filesize": 436592366,
+                    "language": "deu",
+                    "profile": "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality/audio/track",
+                    "uri": "http://localhost:8589/none/zdf/23/01/230101_2015_sendung_trs/3/230101_2015_sendung_trs_a3a4_808k_p11v15.mp4"
+                  }
+                ]
+              },
+              "hd": false,
+              "highestVerticalResolution": 360,
+              "mimeCodec": "avc1.4d401f, mp4a.40.2",
+              "profile": "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality",
+              "quality": "high"
+            },
+            {
+              "audio": {
+                "profile": "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality/audio",
+                "tracks": [
+                  {
+                    "cdn": "akamai",
+                    "class": "main",
+                    "filesize": 281801745,
+                    "language": "deu",
+                    "profile": "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality/audio/track",
+                    "uri": "http://localhost:8589/none/zdf/23/01/230101_2015_sendung_trs/3/230101_2015_sendung_trs_a1a2_508k_p9v15.mp4"
+                  },
+                  {
+                    "cdn": "akamai",
+                    "class": "ad",
+                    "filesize": 281801745,
+                    "language": "deu",
+                    "profile": "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality/audio/track",
+                    "uri": "http://localhost:8589/none/zdf/23/01/230101_2015_sendung_trs/3/230101_2015_sendung_trs_a3a4_508k_p9v15.mp4"
+                  }
+                ]
+              },
+              "hd": false,
+              "highestVerticalResolution": 270,
+              "mimeCodec": "avc1.4d401f, mp4a.40.2",
+              "profile": "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality",
+              "quality": "low"
+            }
+          ],
+          "type": "h264_aac_mp4_http_na_na"
+        }
+      ],
+      "profile": "http://zdf.de/rels/streams/ptmd/priority-list-item"
+    },
+    {
+      "formitaeten": [
+        {
+          "facets": [
+            "restriction_useragent"
+          ],
+          "isAdaptive": false,
+          "mimeType": "video/mp4",
+          "profile": "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet",
+          "qualities": [
+            {
+              "audio": {
+                "profile": "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality/audio",
+                "tracks": [
+                  {
+                    "cdn": "akamai",
+                    "class": "main",
+                    "filesize": 861779088,
+                    "language": "deu",
+                    "profile": "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality/audio/track",
+                    "uri": "http://localhost:8589/none/zdf/23/01/230101_2015_sendung_trs/3/230101_2015_sendung_trs_a1a2_1628k_p13v15.mp4"
+                  },
+                  {
+                    "cdn": "akamai",
+                    "class": "ad",
+                    "filesize": 861779088,
+                    "language": "deu",
+                    "profile": "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality/audio/track",
+                    "uri": "http://localhost:8589/none/zdf/23/01/230101_2015_sendung_trs/3/230101_2015_sendung_trs_a3a4_1628k_p13v15.mp4"
+                  }
+                ]
+              },
+              "hd": false,
+              "highestVerticalResolution": 540,
+              "mimeCodec": "avc1.4d401f, mp4a.40.2",
+              "profile": "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality",
+              "quality": "veryhigh"
+            },
+            {
+              "audio": {
+                "profile": "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality/audio",
+                "tracks": [
+                  {
+                    "cdn": "akamai",
+                    "class": "main",
+                    "filesize": 436592366,
+                    "language": "deu",
+                    "profile": "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality/audio/track",
+                    "uri": "http://localhost:8589/none/zdf/23/01/230101_2015_sendung_trs/3/230101_2015_sendung_trs_a1a2_808k_p11v15.mp4"
+                  },
+                  {
+                    "cdn": "akamai",
+                    "class": "ad",
+                    "filesize": 436592366,
+                    "language": "deu",
+                    "profile": "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality/audio/track",
+                    "uri": "http://localhost:8589/none/zdf/23/01/230101_2015_sendung_trs/3/230101_2015_sendung_trs_a3a4_808k_p11v15.mp4"
+                  }
+                ]
+              },
+              "hd": false,
+              "highestVerticalResolution": 360,
+              "mimeCodec": "avc1.4d401f, mp4a.40.2",
+              "profile": "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality",
+              "quality": "high"
+            }
+          ],
+          "type": "h264_aac_mp4_http_na_na"
+        }
+      ],
+      "profile": "http://zdf.de/rels/streams/ptmd/priority-list-item"
+    }
+  ],
+  "profile": "http://zdf.de/rels/streams/ptmd",
+  "scrubPreview": {
+    "ImageInterval": "2000",
+    "ImageUrlScheme": "https://pvstreaming.zdf.de/none/img/zdf/23/01/230101_2015_sendung_trs/6/scrubpreview/230101_2015_sendung_trs_%index%.jpg",
+    "ImagesPerColumn": "5",
+    "ImagesPerRow": "5"
+  },
+  "self": "/tmd/2/android_native_5/vod/ptmd/mediathek/230101_2015_sendung_trs/6",
+  "version": 6
+}

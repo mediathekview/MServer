@@ -47,7 +47,7 @@
       "visible":true,
       "visibleFrom":"2021-04-15T22:00:00.000Z",
       "visibleTo":"2021-10-15T22:00:00.000Z",
-      "http:\/\/zdf.de\/rels\/streams\/ptmd-template":"http:\/\/localhost:8589\/tmd\/2\/ngplayer_2_3\/vod\/ptmd\/phoenix\/210416_phx_doku_awri_2",
+      "http:\/\/zdf.de\/rels\/streams\/ptmd-template":"http:\/\/localhost:8589\/tmd\/2\/android_native_5\/vod\/ptmd\/phoenix\/210416_phx_doku_awri_2",
       "streamAnchorTag":[
 
       ]

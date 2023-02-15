@@ -65,6 +65,17 @@ public final class JsonUtils {
     return Optional.empty();
   }
 
+  public static Optional<Integer> getAttributeAsInt(final JsonObject jsonObject, final String attributeName) {
+    if (jsonObject.has(attributeName)) {
+      final JsonElement aElement = jsonObject.get(attributeName);
+      if (!aElement.isJsonNull()) {
+        return Optional.of(aElement.getAsInt());
+      }
+    }
+
+    return Optional.empty();
+  }
+
   public static Optional<String> getElementValueAsString(final JsonElement aJsonElement, final String... aElementIds) {
     Optional<String> rs = Optional.empty();
     JsonObject aJsonObject = aJsonElement.getAsJsonObject();

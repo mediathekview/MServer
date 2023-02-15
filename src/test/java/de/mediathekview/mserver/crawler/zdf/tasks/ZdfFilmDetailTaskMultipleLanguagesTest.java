@@ -40,7 +40,7 @@ public class ZdfFilmDetailTaskMultipleLanguagesTest extends ZdfTaskTestBase {
         };
 
     final String filmUrl = "/content/documents/zdf/serien/hardsun/hard-sun-1-100.json";
-    final String videoUrl = "/tmd/2/ngplayer_2_3/vod/ptmd/mediathek/180416_2215_sendung_hsn";
+    final String videoUrl = "/tmd/2/android_native_5/vod/ptmd/mediathek/180416_2215_sendung_hsn";
     setupSuccessfulJsonResponse(filmUrl, "/zdf/zdf_film_details_english.json");
     setupSuccessfulJsonResponse(videoUrl, "/zdf/zdf_video_details_english.json");
 

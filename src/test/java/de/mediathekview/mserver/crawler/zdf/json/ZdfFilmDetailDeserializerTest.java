@@ -71,7 +71,7 @@ public class ZdfFilmDetailDeserializerTest {
             Duration.ofHours(1).plusMinutes(27).plusSeconds(35),
             "Der Mord an Studienrat Lampert führt \"Das Duo\" an eine Schule, an der Täter und Opfer sich vermutlich begegnet sind. In deren Umfeld suchen Clara Hertz und Marion Ahrens auch das Motiv.",
             "https://www.zdf.de/filme/das-duo/das-duo-echte-kerle-102.html",
-            "https://api.zdf.de/tmd/2/ngplayer_2_3/vod/ptmd/mediathek/160605_echte_kerle_das_duo_neo",
+            "https://api.zdf.de/tmd/2/android_native_5/vod/ptmd/mediathek/160605_echte_kerle_das_duo_neo",
             Optional.empty()
           },
           {
@@ -83,7 +83,7 @@ public class ZdfFilmDetailDeserializerTest {
             Duration.ofMinutes(8).plusSeconds(14),
             "Schaut euch hier die logo!-Sendung von Freitagabend noch einmal an! Die Sendungen sind eine Woche online.",
             "https://www.zdf.de/kinder/logo/logo-am-freitagabend-104.html",
-            "https://api.zdf.de/tmd/2/ngplayer_2_3/vod/ptmd/mediathek/180302_fr_lot",
+            "https://api.zdf.de/tmd/2/android_native_5/vod/ptmd/mediathek/180302_fr_lot",
             Optional.empty()
           },
           {
@@ -95,7 +95,7 @@ public class ZdfFilmDetailDeserializerTest {
             Duration.ofMinutes(24).plusSeconds(55),
             "Naya verliert beim Seiltanz ihre Glücksblume und alles geht schief. Kann ein anderer Glücksbringer helfen? Glühwürmchen Minou hat eine \"leuchtende\" Idee.",
             "https://www.zdf.de/kinder/jonalu/tanz-auf-dem-seil-102.html",
-            "https://api.zdf.de/tmd/2/ngplayer_2_3/vod/ptmd/tivi/160301_folge25_tanzaufdemseil_jon",
+            "https://api.zdf.de/tmd/2/android_native_5/vod/ptmd/tivi/160301_folge25_tanzaufdemseil_jon",
             Optional.empty()
           },
           {
@@ -107,7 +107,7 @@ public class ZdfFilmDetailDeserializerTest {
             Duration.ofMinutes(2).plusSeconds(34),
             "Die diesjährigen Oscar-Gewinner stehen schon fest. Denn die rund 8000 Juroren haben ihre Stimmzettel längst eingereicht. Am Sonntag werden die Oscars zum 90. Mal vergeben - und dann kennen auch wir die Gewinner.",
             "https://www.zdf.de/nachrichten/zdf-morgenmagazin/videos/oscars-106.html",
-            "https://api.zdf.de/tmd/2/ngplayer_2_3/vod/ptmd/mediathek/180302_clip_12_mom",
+            "https://api.zdf.de/tmd/2/android_native_5/vod/ptmd/mediathek/180302_clip_12_mom",
             Optional.empty()
           },
           {
@@ -119,7 +119,7 @@ public class ZdfFilmDetailDeserializerTest {
             Duration.ofMinutes(2).plusSeconds(37),
             "Mit Werken wie \"Der Besuch des Leibarztes\" gehörte er zu den bekanntesten Schrifstellern Schwedens. Jetzt ist Per Olov Enquist im Alter von 85 Jahren gestorben.",
             "https://www.3sat.de/kultur/kulturzeit/nachruf-auf-per-olov-enquist-100.html",
-            "https://api.zdf.de/tmd/2/ngplayer_2_3/vod/ptmd/3sat/200427_enquist_kuz",
+            "https://api.zdf.de/tmd/2/android_native_5/vod/ptmd/3sat/200427_enquist_kuz",
             Optional.empty()
           },
           {
@@ -131,7 +131,7 @@ public class ZdfFilmDetailDeserializerTest {
             Duration.ofSeconds(43),
             "Im römischen Reich wurden entscheidende Grundsteine der Rechtsprechung gelegt. Prozesse im alten Rom liefen ähnlich ab wie heute.",
             "https://www.zdf.de/dokumentation/terra-x/rechtswesen-im-antiken-rom-creative-commons-100.html",
-            "https://api.zdf.de/tmd/2/ngplayer_2_3/vod/ptmd/mediathek/200428_132_0055303728_Rechtswesen_Antikes_Rom_CC_tex",
+            "https://api.zdf.de/tmd/2/android_native_5/vod/ptmd/mediathek/200428_132_0055303728_Rechtswesen_Antikes_Rom_CC_tex",
             Optional.empty()
           },
           {
@@ -143,7 +143,7 @@ public class ZdfFilmDetailDeserializerTest {
             Duration.ofMinutes(54),
             "Ludwig van Beethoven wurde im Dezember 1770 geboren. Zu Lebzeiten schon gefeierter Virtuose und Komponist, sprachen seine Werke eine zuvor nie gehörte Klangsprache. Heutzutage gilt er als derjenige, der die Wiener Klassik zur Vollendung brachte.",
             "https://www.zdf.de/kultur/musik-und-theater/great-composers-beethoven-100.html",
-            "https://api.zdf.de/tmd/2/ngplayer_2_3/vod/ptmd/mediathek/201201_composerbeethoven_kul",
+            "https://api.zdf.de/tmd/2/android_native_5/vod/ptmd/mediathek/201201_composerbeethoven_kul",
             Optional.empty()
           },
           {
@@ -155,9 +155,9 @@ public class ZdfFilmDetailDeserializerTest {
             Duration.ofMinutes(44).plusSeconds(24),
             "Trotz aller Bemühung um Inklusion erleben Menschen mit Behinderungen in Deutschland immer noch täglich Ablehnung und Ausgrenzung. Warum ist das so? Und war das schon immer so?",
             "https://www.zdf.de/dokumentation/zdfinfo-doku/geliebt-geduldet-getoetet-die-geschichte-von-menschen-mit-behinderungen-100.html",
-            "https://api.zdf.de/tmd/2/ngplayer_2_3/vod/ptmd/mediathek/220505_geliebt_geduldet_getoetet_inf/4",
+            "https://api.zdf.de/tmd/2/android_native_5/vod/ptmd/mediathek/220505_geliebt_geduldet_getoetet_inf/4",
             Optional.of(
-                "https://api.zdf.de/tmd/2/ngplayer_2_3/vod/ptmd/mediathek/220505_geliebt_geduldet_getoetet_inf_dgs/2")
+                "https://api.zdf.de/tmd/2/android_native_5/vod/ptmd/mediathek/220505_geliebt_geduldet_getoetet_inf_dgs/2")
           }
         });
   }

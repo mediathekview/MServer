@@ -107,7 +107,7 @@ public class ZdfFilmDetailTaskTest extends ZdfTaskTestBase {
           {
             "/content/documents/zdf/filme/das-duo/das-duo-echte-kerle-102.json",
             "/zdf/zdf_film_details1.json",
-            "/tmd/2/ngplayer_2_3/vod/ptmd/mediathek/160605_echte_kerle_das_duo_neo",
+            "/tmd/2/android_native_5/vod/ptmd/mediathek/160605_echte_kerle_das_duo_neo",
             "/zdf/zdf_video_details1.json",
             "",
             "",
@@ -133,7 +133,7 @@ public class ZdfFilmDetailTaskTest extends ZdfTaskTestBase {
           {
             "/content/documents/zdf/kinder/jonalu/tanz-auf-dem-seil-102.json",
             "/zdf/zdf_film_details3.json",
-            "/tmd/2/ngplayer_2_3/vod/ptmd/tivi/160301_folge25_tanzaufdemseil_jon",
+            "/tmd/2/android_native_5/vod/ptmd/tivi/160301_folge25_tanzaufdemseil_jon",
             "/zdf/zdf_video_details3.json",
             "",
             "",
@@ -159,7 +159,7 @@ public class ZdfFilmDetailTaskTest extends ZdfTaskTestBase {
           {
             "/content/documents/zdf/filme/montagskino/schatz-nimm-du-sie-100.json",
             "/zdf/zdf_film_details_with_audiodescription.json",
-            "/tmd/2/ngplayer_2_3/vod/ptmd/mediathek/190715_schatz_nimm_du_sie_mok",
+            "/tmd/2/android_native_5/vod/ptmd/mediathek/190715_schatz_nimm_du_sie_mok",
             "/zdf/zdf_video_details_with_audiodescription.json",
             "",
             "",
@@ -185,9 +185,9 @@ public class ZdfFilmDetailTaskTest extends ZdfTaskTestBase {
           {
             "/content/documents/zdf/dokumentation/zdfinfo-doku/leben-auf-der-strasse-obdachlos-und-abgehaengt-100.json",
             "/zdf/zdf_film_details_with_dgs.json",
-            "/tmd/2/ngplayer_2_3/vod/ptmd/mediathek/220505_geliebt_geduldet_getoetet_inf/4",
+            "/tmd/2/android_native_5/vod/ptmd/mediathek/220505_geliebt_geduldet_getoetet_inf/4",
             "/zdf/zdf_video_details_with_dgs_default.json",
-            "/tmd/2/ngplayer_2_3/vod/ptmd/mediathek/220505_geliebt_geduldet_getoetet_inf_dgs/2",
+            "/tmd/2/android_native_5/vod/ptmd/mediathek/220505_geliebt_geduldet_getoetet_inf_dgs/2",
             "/zdf/zdf_video_details_with_dgs.json",
             "ZDFinfo Doku",
             "Geliebt, geduldet, getötet",

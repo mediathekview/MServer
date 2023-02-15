@@ -1,0 +1,409 @@
+{
+  "attributes": {
+    "downloadAllowed": {
+      "profile": "http://zdf.de/rels/streams/ptmd/attributes/attribute",
+      "value": true
+    },
+    "duration": {
+      "profile": "http://zdf.de/rels/streams/ptmd/attributes/attribute",
+      "value": 42000
+    },
+    "fsk": {
+      "profile": "http://zdf.de/rels/streams/ptmd/attributes/attribute",
+      "value": "none"
+    },
+    "geoLocation": {
+      "profile": "http://zdf.de/rels/streams/ptmd/attributes/attribute",
+      "value": "dach"
+    },
+    "profile": "http://zdf.de/rels/streams/ptmd/attributes"
+  },
+  "basename": "201222_schwarm_meerestroemung_tex",
+  "captions": [],
+  "documentVersion": 2,
+  "mandant": "mediathek",
+  "playerId": "android_native_5",
+  "priorityList": [
+    {
+      "formitaeten": [
+        {
+          "facets": [
+            "progressive"
+          ],
+          "isAdaptive": false,
+          "mimeType": "video/webm",
+          "profile": "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet",
+          "qualities": [
+            {
+              "audio": {
+                "profile": "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality/audio",
+                "tracks": [
+                  {
+                    "cdn": "akamai",
+                    "class": "main",
+                    "filesize": 25517750,
+                    "language": "deu",
+                    "profile": "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality/audio/track",
+                    "uri": "http://localhost:8589/dach/zdf/20/12/201222_schwarm_meerestroemung_tex/3/201222_schwarm_meerestroemung_tex_4328k_p19v17.webm"
+                  }
+                ]
+              },
+              "hd": true,
+              "highestVerticalResolution": 1080,
+              "mimeCodec": "vp9, opus",
+              "profile": "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality",
+              "quality": "fhd"
+            },
+            {
+              "audio": {
+                "profile": "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality/audio",
+                "tracks": [
+                  {
+                    "cdn": "akamai",
+                    "class": "main",
+                    "filesize": 12967728,
+                    "language": "deu",
+                    "profile": "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality/audio/track",
+                    "uri": "http://localhost:8589/dach/zdf/20/12/201222_schwarm_meerestroemung_tex/3/201222_schwarm_meerestroemung_tex_2128k_p18v17.webm"
+                  }
+                ]
+              },
+              "hd": true,
+              "highestVerticalResolution": 720,
+              "mimeCodec": "vp9, opus",
+              "profile": "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality",
+              "quality": "hd"
+            },
+            {
+              "audio": {
+                "profile": "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality/audio",
+                "tracks": [
+                  {
+                    "cdn": "akamai",
+                    "class": "main",
+                    "filesize": 5780089,
+                    "language": "deu",
+                    "profile": "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality/audio/track",
+                    "uri": "http://localhost:8589/dach/zdf/20/12/201222_schwarm_meerestroemung_tex/3/201222_schwarm_meerestroemung_tex_1128k_p17v17.webm"
+                  }
+                ]
+              },
+              "hd": false,
+              "highestVerticalResolution": 540,
+              "mimeCodec": "vp9, opus",
+              "profile": "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality",
+              "quality": "veryhigh"
+            },
+            {
+              "audio": {
+                "profile": "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality/audio",
+                "tracks": [
+                  {
+                    "cdn": "akamai",
+                    "class": "main",
+                    "filesize": 2055269,
+                    "language": "deu",
+                    "profile": "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality/audio/track",
+                    "uri": "http://localhost:8589/dach/zdf/20/12/201222_schwarm_meerestroemung_tex/3/201222_schwarm_meerestroemung_tex_368k_p16v17.webm"
+                  }
+                ]
+              },
+              "hd": false,
+              "highestVerticalResolution": 270,
+              "mimeCodec": "vp9, opus",
+              "profile": "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality",
+              "quality": "high"
+            }
+          ],
+          "type": "vp9_opus_webm_http_na_na"
+        }
+      ],
+      "profile": "http://zdf.de/rels/streams/ptmd/priority-list-item"
+    },
+    {
+      "formitaeten": [
+        {
+          "facets": [],
+          "isAdaptive": true,
+          "mimeType": "application/x-mpegURL",
+          "profile": "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet",
+          "qualities": [
+            {
+              "audio": {
+                "profile": "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality/audio",
+                "tracks": [
+                  {
+                    "cdn": "akamai",
+                    "class": "main",
+                    "language": "deu",
+                    "profile": "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality/audio/track",
+                    "uri": "https://zdfvod.akamaized.net/i/mp4/dach/zdf/20/12/201222_schwarm_meerestroemung_tex/3/201222_schwarm_meerestroemung_tex,_508k_p9,_808k_p11,_1628k_p13,_3328k_p15,_6628k_p61,v17.mp4.csmil/master.m3u8"
+                  }
+                ]
+              },
+              "hd": true,
+              "highestVerticalResolution": 1080,
+              "profile": "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality",
+              "quality": "auto"
+            },
+            {
+              "audio": {
+                "profile": "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality/audio",
+                "tracks": [
+                  {
+                    "cdn": "akamai",
+                    "class": "main",
+                    "language": "deu",
+                    "profile": "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality/audio/track",
+                    "uri": "https://zdfvod.akamaized.net/i/mp4/dach/zdf/20/12/201222_schwarm_meerestroemung_tex/3/201222_schwarm_meerestroemung_tex,_1628k_p13,_3328k_p15,_6628k_p61,v17.mp4.csmil/master.m3u8"
+                  }
+                ]
+              },
+              "hd": true,
+              "highestVerticalResolution": 1080,
+              "profile": "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality",
+              "quality": "veryhigh"
+            },
+            {
+              "audio": {
+                "profile": "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality/audio",
+                "tracks": [
+                  {
+                    "cdn": "akamai",
+                    "class": "main",
+                    "language": "deu",
+                    "profile": "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality/audio/track",
+                    "uri": "https://zdfvod.akamaized.net/i/mp4/dach/zdf/20/12/201222_schwarm_meerestroemung_tex/3/201222_schwarm_meerestroemung_tex,_508k_p9,_808k_p11,_1628k_p13,_3328k_p15,_6628k_p61,v17.mp4.csmil/master.m3u8"
+                  }
+                ]
+              },
+              "hd": true,
+              "highestVerticalResolution": 1080,
+              "profile": "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality",
+              "quality": "high"
+            },
+            {
+              "audio": {
+                "profile": "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality/audio",
+                "tracks": [
+                  {
+                    "cdn": "akamai",
+                    "class": "main",
+                    "language": "deu",
+                    "profile": "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality/audio/track",
+                    "uri": "https://zdfvod.akamaized.net/i/mp4/dach/zdf/20/12/201222_schwarm_meerestroemung_tex/3/201222_schwarm_meerestroemung_tex,_508k_p9,_808k_p11,_1628k_p13,v17.mp4.csmil/master.m3u8"
+                  }
+                ]
+              },
+              "hd": false,
+              "highestVerticalResolution": 540,
+              "profile": "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality",
+              "quality": "med"
+            },
+            {
+              "audio": {
+                "profile": "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality/audio",
+                "tracks": [
+                  {
+                    "cdn": "akamai",
+                    "class": "main",
+                    "language": "deu",
+                    "profile": "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality/audio/track",
+                    "uri": "https://zdfvod.akamaized.net/i/mp4/dach/zdf/20/12/201222_schwarm_meerestroemung_tex/3/201222_schwarm_meerestroemung_tex,_508k_p9,_808k_p11,v17.mp4.csmil/master.m3u8"
+                  }
+                ]
+              },
+              "hd": false,
+              "highestVerticalResolution": 360,
+              "profile": "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality",
+              "quality": "low"
+            }
+          ],
+          "type": "h264_aac_ts_http_m3u8_http"
+        }
+      ],
+      "profile": "http://zdf.de/rels/streams/ptmd/priority-list-item"
+    },
+    {
+      "formitaeten": [
+        {
+          "facets": [
+            "progressive"
+          ],
+          "isAdaptive": false,
+          "mimeType": "video/mp4",
+          "profile": "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet",
+          "qualities": [
+            {
+              "audio": {
+                "profile": "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality/audio",
+                "tracks": [
+                  {
+                    "cdn": "akamai",
+                    "class": "main",
+                    "filesize": 21706380,
+                    "language": "deu",
+                    "profile": "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality/audio/track",
+                    "uri": "http://localhost:8589/dach/zdf/20/12/201222_schwarm_meerestroemung_tex/3/201222_schwarm_meerestroemung_tex_6628k_p61v17.mp4"
+                  }
+                ]
+              },
+              "hd": true,
+              "highestVerticalResolution": 1080,
+              "mimeCodec": "avc1.64002a, mp4a.40.2",
+              "profile": "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality",
+              "quality": "fhd"
+            },
+            {
+              "audio": {
+                "profile": "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality/audio",
+                "tracks": [
+                  {
+                    "cdn": "akamai",
+                    "class": "main",
+                    "filesize": 11033100,
+                    "language": "deu",
+                    "profile": "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality/audio/track",
+                    "uri": "http://localhost:8589/dach/zdf/20/12/201222_schwarm_meerestroemung_tex/3/201222_schwarm_meerestroemung_tex_3328k_p15v17.mp4"
+                  }
+                ]
+              },
+              "hd": true,
+              "highestVerticalResolution": 720,
+              "mimeCodec": "avc1.640028, mp4a.40.2",
+              "profile": "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality",
+              "quality": "hd"
+            },
+            {
+              "audio": {
+                "profile": "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality/audio",
+                "tracks": [
+                  {
+                    "cdn": "akamai",
+                    "class": "main",
+                    "filesize": 5670492,
+                    "language": "deu",
+                    "profile": "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality/audio/track",
+                    "uri": "http://localhost:8589/dach/zdf/20/12/201222_schwarm_meerestroemung_tex/3/201222_schwarm_meerestroemung_tex_1628k_p13v17.mp4"
+                  }
+                ]
+              },
+              "hd": false,
+              "highestVerticalResolution": 540,
+              "mimeCodec": "avc1.4d401f, mp4a.40.2",
+              "profile": "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality",
+              "quality": "veryhigh"
+            },
+            {
+              "audio": {
+                "profile": "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality/audio",
+                "tracks": [
+                  {
+                    "cdn": "akamai",
+                    "class": "main",
+                    "filesize": 2956483,
+                    "language": "deu",
+                    "profile": "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality/audio/track",
+                    "uri": "http://localhost:8589/dach/zdf/20/12/201222_schwarm_meerestroemung_tex/3/201222_schwarm_meerestroemung_tex_808k_p11v17.mp4"
+                  }
+                ]
+              },
+              "hd": false,
+              "highestVerticalResolution": 360,
+              "mimeCodec": "avc1.4d401f, mp4a.40.2",
+              "profile": "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality",
+              "quality": "high"
+            },
+            {
+              "audio": {
+                "profile": "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality/audio",
+                "tracks": [
+                  {
+                    "cdn": "akamai",
+                    "class": "main",
+                    "filesize": 1991129,
+                    "language": "deu",
+                    "profile": "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality/audio/track",
+                    "uri": "http://localhost:8589/dach/zdf/20/12/201222_schwarm_meerestroemung_tex/3/201222_schwarm_meerestroemung_tex_508k_p9v17.mp4"
+                  }
+                ]
+              },
+              "hd": false,
+              "highestVerticalResolution": 270,
+              "mimeCodec": "avc1.4d401f, mp4a.40.2",
+              "profile": "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality",
+              "quality": "low"
+            }
+          ],
+          "type": "h264_aac_mp4_http_na_na"
+        }
+      ],
+      "profile": "http://zdf.de/rels/streams/ptmd/priority-list-item"
+    },
+    {
+      "formitaeten": [
+        {
+          "facets": [
+            "restriction_useragent"
+          ],
+          "isAdaptive": false,
+          "mimeType": "video/mp4",
+          "profile": "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet",
+          "qualities": [
+            {
+              "audio": {
+                "profile": "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality/audio",
+                "tracks": [
+                  {
+                    "cdn": "akamai",
+                    "class": "main",
+                    "filesize": 5670492,
+                    "language": "deu",
+                    "profile": "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality/audio/track",
+                    "uri": "http://localhost:8589/dach/zdf/20/12/201222_schwarm_meerestroemung_tex/3/201222_schwarm_meerestroemung_tex_1628k_p13v17.mp4"
+                  }
+                ]
+              },
+              "hd": false,
+              "highestVerticalResolution": 540,
+              "mimeCodec": "avc1.4d401f, mp4a.40.2",
+              "profile": "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality",
+              "quality": "veryhigh"
+            },
+            {
+              "audio": {
+                "profile": "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality/audio",
+                "tracks": [
+                  {
+                    "cdn": "akamai",
+                    "class": "main",
+                    "filesize": 2956483,
+                    "language": "deu",
+                    "profile": "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality/audio/track",
+                    "uri": "http://localhost:8589/dach/zdf/20/12/201222_schwarm_meerestroemung_tex/3/201222_schwarm_meerestroemung_tex_808k_p11v17.mp4"
+                  }
+                ]
+              },
+              "hd": false,
+              "highestVerticalResolution": 360,
+              "mimeCodec": "avc1.4d401f, mp4a.40.2",
+              "profile": "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality",
+              "quality": "high"
+            }
+          ],
+          "type": "h264_aac_mp4_http_na_na"
+        }
+      ],
+      "profile": "http://zdf.de/rels/streams/ptmd/priority-list-item"
+    }
+  ],
+  "profile": "http://zdf.de/rels/streams/ptmd",
+  "scrubPreview": {
+    "ImageInterval": "2000",
+    "ImageUrlScheme": "https://pvstreaming.zdf.de/dach/img/zdf/20/12/201222_schwarm_meerestroemung_tex/4/scrubpreview/201222_schwarm_meerestroemung_tex_%index%.jpg",
+    "ImagesPerColumn": "5",
+    "ImagesPerRow": "5"
+  },
+  "self": "/tmd/2/android_native_5/vod/ptmd/mediathek/201222_schwarm_meerestroemung_tex/4",
+  "version": 4
+}
