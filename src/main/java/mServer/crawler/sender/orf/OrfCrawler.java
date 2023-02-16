@@ -1,9 +1,14 @@
 package mServer.crawler.sender.orf;
 
-import mServer.crawler.sender.base.CrawlerUrlDTO;
 import de.mediathekview.mlib.Const;
 import de.mediathekview.mlib.daten.DatenFilm;
 import de.mediathekview.mlib.tool.Log;
+import mServer.crawler.CrawlerTool;
+import mServer.crawler.FilmeSuchen;
+import mServer.crawler.sender.MediathekCrawler;
+import mServer.crawler.sender.base.CrawlerUrlDTO;
+import mServer.crawler.sender.orf.tasks.*;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
@@ -11,12 +16,6 @@ import java.util.Set;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.RecursiveTask;
-import mServer.crawler.CrawlerTool;
-import mServer.crawler.FilmeSuchen;
-import mServer.crawler.sender.MediathekCrawler;
-import mServer.crawler.sender.orf.tasks.OrfDayTask;
-import mServer.crawler.sender.orf.tasks.OrfFilmDetailTask;
-import mServer.crawler.sender.orf.tasks.OrfLetterPageTask;
 
 public class OrfCrawler extends MediathekCrawler {
 
@@ -50,6 +49,19 @@ public class OrfCrawler extends MediathekCrawler {
     return urls;
   }
 
+
+  private Set<TopicUrlDTO> getArchiveEntries() throws InterruptedException, ExecutionException {
+    final OrfHistoryOverviewTask historyTask = new OrfHistoryOverviewTask(this);
+    final ConcurrentLinkedQueue<TopicUrlDTO> topics = forkJoinPool.submit(historyTask).get();
+
+    final OrfHistoryTopicTask topicTask = new OrfHistoryTopicTask(this, topics);
+    final Set<TopicUrlDTO> shows = forkJoinPool.submit(topicTask).get();
+
+    Log.sysLog("ORF: Anzahl Sendungen History: " + shows.size());
+
+    return shows;
+  }
+
   private ConcurrentLinkedQueue<TopicUrlDTO> getLetterEntries() throws InterruptedException, ExecutionException {
     final OrfLetterPageTask letterTask = new OrfLetterPageTask();
     final ConcurrentLinkedQueue<TopicUrlDTO> shows = forkJoinPool.submit(letterTask).get();
@@ -67,6 +79,7 @@ public class OrfCrawler extends MediathekCrawler {
 
       if (CrawlerTool.loadLongMax()) {
         shows.addAll(getLetterEntries());
+        shows.addAll(getArchiveEntries());
       }
 
       getDaysEntries().forEach(show -> {
