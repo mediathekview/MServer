@@ -1,5 +1,6 @@
 package mServer.crawler.sender.kika.tasks;
 
+import com.google.common.util.concurrent.RateLimiter;
 import com.google.gson.JsonDeserializer;
 import com.google.gson.reflect.TypeToken;
 import de.mediathekview.mlib.Const;
@@ -34,6 +35,7 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 public class KikaApiFilmTask extends AbstractJsonRestTask<DatenFilm, KikaApiVideoInfoDto, KikaApiFilmDto> {
   private static final long serialVersionUID = 1L;
   private static final Logger LOG = LogManager.getLogger(KikaApiFilmTask.class);
+  private static final RateLimiter LIMITER = RateLimiter.create(15);
 
   public KikaApiFilmTask(MediathekReader crawler, ConcurrentLinkedQueue<KikaApiFilmDto> urlToCrawlDTOs) {
     super(crawler, urlToCrawlDTOs, Optional.empty());
@@ -63,6 +65,8 @@ public class KikaApiFilmTask extends AbstractJsonRestTask<DatenFilm, KikaApiVide
 
   @Override
   protected void postProcessing(KikaApiVideoInfoDto aResponseObj, KikaApiFilmDto aDTO) {
+    //
+    LIMITER.acquire();
     //
     if (aResponseObj.getErrorCode().isPresent()) {
       LOG.error("Error {} : {} for target {} ", aResponseObj.getErrorCode().get(), aResponseObj.getErrorMesssage().orElse(""), aDTO.getUrl());
