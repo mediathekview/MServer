@@ -21,6 +21,10 @@ public class DownloadDtoFilmConverter {
         url = aUrlOptimizer.get().getOptimizedUrlNormal(url);
         qualitiesEntry.setValue(url);
       }
+      if (qualitiesEntry.getKey() == Qualities.HD && aUrlOptimizer.isPresent()) {
+        url = aUrlOptimizer.get().getOptimizedUrlHd(url);
+        qualitiesEntry.setValue(url);
+      }
     }
 
     if (!downloadUrls.containsKey(Qualities.HD) && aUrlOptimizer.isPresent()) {

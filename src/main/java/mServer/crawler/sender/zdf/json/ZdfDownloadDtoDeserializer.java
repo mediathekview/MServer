@@ -1,15 +1,16 @@
 package mServer.crawler.sender.zdf.json;
 
 import com.google.gson.*;
+import de.mediathekview.mlib.tool.Log;
 import mServer.crawler.sender.base.GeoLocations;
+import mServer.crawler.sender.base.JsonUtils;
 import mServer.crawler.sender.base.Qualities;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.lang.reflect.Type;
 import java.time.Duration;
-import java.util.Iterator;
-import java.util.Optional;
+import java.util.*;
 
 /**
  * A JSON deserializer to gather the needed information for a
@@ -17,9 +18,13 @@ import java.util.Optional;
  */
 public class ZdfDownloadDtoDeserializer implements JsonDeserializer<Optional<DownloadDto>> {
 
+  private static final String ZDF_QUALITY_UHD = "uhd";
+  private static final String ZDF_QUALITY_FHD = "fhd";
+  private static final String ZDF_QUALITY_HD = "hd";
   private static final String ZDF_QUALITY_VERYHIGH = "veryhigh";
   private static final String ZDF_QUALITY_HIGH = "high";
   private static final String ZDF_QUALITY_MED = "med";
+  private static final String ZDF_QUALITY_MEDIUM = "medium";
   private static final String ZDF_QUALITY_LOW = "low";
   private static final Logger LOG = LogManager.getLogger(ZdfDownloadDtoDeserializer.class);
   private static final String JSON_ELEMENT_ATTRIBUTES = "attributes";
@@ -29,7 +34,7 @@ public class ZdfDownloadDtoDeserializer implements JsonDeserializer<Optional<Dow
   private static final String JSON_ELEMENT_DURATION = "duration";
   private static final String JSON_ELEMENT_FORMITAET = "formitaeten";
   private static final String JSON_ELEMENT_GEOLOCATION = "geoLocation";
-  private static final String JSON_ELEMENT_HD = "hd";
+  private static final String JSON_ELEMENT_HIGHEST_VERTIVAL_RESOLUTION = "highestVerticalResolution";
   private static final String JSON_ELEMENT_LANGUAGE = "language";
   private static final String JSON_ELEMENT_MIMETYPE = "mimeType";
   private static final String JSON_ELEMENT_PRIORITYLIST = "priorityList";
@@ -85,6 +90,7 @@ public class ZdfDownloadDtoDeserializer implements JsonDeserializer<Optional<Dow
     // only mp4-videos are relevant
     final JsonElement mimeType = formitaet.getAsJsonObject().get(JSON_ELEMENT_MIMETYPE);
     if (mimeType != null && mimeType.getAsString().equalsIgnoreCase(RELEVANT_MIME_TYPE)) {
+      List<DownloadInfo> downloads = new ArrayList<>();
 
       // array Resolution
       final JsonArray qualityList
@@ -92,6 +98,7 @@ public class ZdfDownloadDtoDeserializer implements JsonDeserializer<Optional<Dow
       for (final JsonElement quality : qualityList) {
 
         final Qualities qualityValue = parseVideoQuality(quality.getAsJsonObject());
+        final Optional<Integer> verticalResolution = JsonUtils.getAttributeAsInt(quality.getAsJsonObject(), JSON_ELEMENT_HIGHEST_VERTIVAL_RESOLUTION);
 
         // subelement audio
         final JsonElement audio = quality.getAsJsonObject().get(JSON_ELEMENT_AUDIO);
@@ -101,15 +108,18 @@ public class ZdfDownloadDtoDeserializer implements JsonDeserializer<Optional<Dow
           final JsonArray tracks = audio.getAsJsonObject().getAsJsonArray(JSON_ELEMENT_TRACKS);
 
           for (JsonElement trackElement : tracks) {
-            extractTrack(dto, qualityValue, trackElement);
+            final AbstractMap.SimpleEntry<String, String> languageUri = extractTrack(trackElement);
+            downloads.add(new DownloadInfo(languageUri.getKey(), languageUri.getValue(), verticalResolution.orElse(0), qualityValue));
           }
         }
       }
+      downloads.sort(Comparator.comparingInt(DownloadInfo::getVerticalResolution));
+      downloads.forEach(info -> dto.addUrl(info.getLanguage(), info.getQuality(), info.getUri()));
     }
   }
 
-  private static void extractTrack(
-          DownloadDto aDto, Qualities aQualityValue, JsonElement aTrackElement) {
+  private static AbstractMap.SimpleEntry<String, String> extractTrack(
+          JsonElement aTrackElement) {
     JsonObject trackObject = aTrackElement.getAsJsonObject();
     String classValue = trackObject.get(JSON_ELEMENT_CLASS).getAsString();
     String language = trackObject.get(JSON_ELEMENT_LANGUAGE).getAsString();
@@ -119,10 +129,10 @@ public class ZdfDownloadDtoDeserializer implements JsonDeserializer<Optional<Dow
     if (CLASS_AD.equalsIgnoreCase(classValue)) {
       language += "-ad";
     }
-    if (aQualityValue != null && uri != null) {
-      aDto.addUrl(language, aQualityValue, uri);
+    if (uri != null) {
+      return new AbstractMap.SimpleEntry<>(language, uri);
     } else {
-      throw new RuntimeException("either quality or uri is null");
+      throw new RuntimeException("uri is null");
     }
   }
 
@@ -180,27 +190,28 @@ public class ZdfDownloadDtoDeserializer implements JsonDeserializer<Optional<Dow
 
   private Qualities parseVideoQuality(final JsonObject quality) {
     Qualities qualityValue;
-    final JsonElement hd = quality.get(JSON_ELEMENT_HD);
-    if (hd != null && hd.getAsBoolean()) {
-      qualityValue = Qualities.HD;
-    } else {
-      final String zdfQuality = quality.get(JSON_ELEMENT_QUALITY).getAsString();
-      switch (zdfQuality) {
-        case ZDF_QUALITY_LOW:
-          qualityValue = Qualities.SMALL;
-          break;
-        case ZDF_QUALITY_MED:
-          qualityValue = Qualities.SMALL;
-          break;
-        case ZDF_QUALITY_HIGH:
-          qualityValue = Qualities.SMALL;
-          break;
-        case ZDF_QUALITY_VERYHIGH:
-          qualityValue = Qualities.NORMAL;
-          break;
-        default:
-          qualityValue = Qualities.SMALL;
-      }
+    final String zdfQuality = quality.get(JSON_ELEMENT_QUALITY).getAsString();
+    switch (zdfQuality) {
+      case ZDF_QUALITY_LOW:
+      case ZDF_QUALITY_MED:
+      case ZDF_QUALITY_MEDIUM:
+      case ZDF_QUALITY_HIGH:
+        qualityValue = Qualities.SMALL;
+        break;
+      case ZDF_QUALITY_VERYHIGH:
+        qualityValue = Qualities.NORMAL;
+        break;
+      case ZDF_QUALITY_HD:
+      case ZDF_QUALITY_FHD:
+        qualityValue = Qualities.HD;
+        break;
+      case ZDF_QUALITY_UHD:
+        qualityValue = Qualities.UHD;
+        break;
+      default:
+        LOG.error("unknown quality: {}", zdfQuality);
+        Log.sysLog("ZDF: unknown quality: " + zdfQuality);
+        qualityValue = Qualities.SMALL;
     }
     return qualityValue;
   }
@@ -211,6 +222,36 @@ public class ZdfDownloadDtoDeserializer implements JsonDeserializer<Optional<Dow
     for (final JsonElement priority : priorityList) {
 
       parsePriority(dto, priority);
+    }
+  }
+
+  private class DownloadInfo {
+    private String language;
+    private String uri;
+    private int verticalResolution;
+    private Qualities quality;
+
+    DownloadInfo(String language, String uri, int verticalResolution, Qualities quality) {
+      this.language = language;
+      this.uri = uri;
+      this.verticalResolution = verticalResolution;
+      this.quality = quality;
+    }
+
+    public String getLanguage() {
+      return language;
+    }
+
+    public String getUri() {
+      return uri;
+    }
+
+    public int getVerticalResolution() {
+      return verticalResolution;
+    }
+
+    public Qualities getQuality() {
+      return quality;
     }
   }
 }
