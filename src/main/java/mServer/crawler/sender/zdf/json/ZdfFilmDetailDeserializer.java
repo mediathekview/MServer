@@ -41,7 +41,7 @@ public class ZdfFilmDetailDeserializer implements JsonDeserializer<Optional<ZdfF
   private static final String JSON_ATTRIBUTE_TEMPLATE = "http://zdf.de/rels/streams/ptmd-template";
 
   private static final String PLACEHOLDER_PLAYER_ID = "{playerId}";
-  private static final String PLAYER_ID = "ngplayer_2_3";
+  private static final String PLAYER_ID = "android_native_5";
 
   private static final String DOWNLOAD_URL_DEFAULT = "default";
   private static final String DOWNLOAD_URL_DGS = "dgs";
