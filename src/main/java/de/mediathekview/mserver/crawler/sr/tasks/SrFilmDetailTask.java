@@ -221,8 +221,8 @@ public class SrFilmDetailTask extends SrRateLimitedDocumentTask<Film, SrTopicUrl
         if (dto.getVideoUrls().size() > 0) {
           return Optional.of(dto);
         }
-      } catch (final IOException ex) {
-        LOG.fatal(ex);
+      } catch (final Exception ex) {
+        LOG.fatal(url, ex);
       }
     }
 
