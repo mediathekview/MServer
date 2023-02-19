@@ -11,7 +11,6 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Node;
 import org.jsoup.select.Elements;
 
-import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.time.Duration;
@@ -100,7 +99,7 @@ public class SrFilmDetailTask extends SrRateLimitedDocumentTask<DatenFilm, SrTop
                         .plusMinutes(Long.parseLong(parts[1]))
                         .plusSeconds(Long.parseLong(parts[2])));
       } else {
-        LOG.debug("SrFilmDetailTask: unknown duration part count: " + duration.get());
+        LOG.debug("SrFilmDetailTask: unknown duration part count: {}", duration.get());
       }
     }
 
@@ -115,7 +114,7 @@ public class SrFilmDetailTask extends SrRateLimitedDocumentTask<DatenFilm, SrTop
       if (parts.length == 4) {
         return Optional.of(parts[index]);
       } else {
-        LOG.debug("SrFilmDetailTask: unknown details part count: " + details.get());
+        LOG.debug("SrFilmDetailTask: unknown details part count: {}", details.get());
       }
     }
 
@@ -165,7 +164,7 @@ public class SrFilmDetailTask extends SrRateLimitedDocumentTask<DatenFilm, SrTop
         taskResults.add(film);
       }
     } else {
-      LOG.error("SrFilmDetailTask: no title or video found for url " + aUrlDTO.getUrl());
+      LOG.error("SrFilmDetailTask: no title or video found for url {}", aUrlDTO.getUrl());
       Log.errorLog(74856890, "SrFilmDetailTask: no title or video found for url " + aUrlDTO.getUrl());
     }
   }
@@ -205,8 +204,9 @@ public class SrFilmDetailTask extends SrRateLimitedDocumentTask<DatenFilm, SrTop
         final ArdVideoInfoDto dto
                 = gson.fromJson(new InputStreamReader(new URL(url).openStream()), ArdVideoInfoDto.class);
         return Optional.of(dto);
-      } catch (final IOException ex) {
-        LOG.fatal(ex);
+      } catch (Exception ex) {
+        LOG.fatal(url, ex);
+        Log.errorLog(32784393, ex, "SR failed: " + url);
       }
     }
 
