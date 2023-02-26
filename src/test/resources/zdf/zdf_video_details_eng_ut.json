@@ -1,0 +1,741 @@
+{
+  "attributes": {
+    "downloadAllowed": {
+      "profile": "http://zdf.de/rels/streams/ptmd/attributes/attribute",
+      "value": true
+    },
+    "duration": {
+      "profile": "http://zdf.de/rels/streams/ptmd/attributes/attribute",
+      "value": 2681000
+    },
+    "fsk": {
+      "profile": "http://zdf.de/rels/streams/ptmd/attributes/attribute",
+      "value": "none"
+    },
+    "geoLocation": {
+      "profile": "http://zdf.de/rels/streams/ptmd/attributes/attribute",
+      "value": "de"
+    },
+    "profile": "http://zdf.de/rels/streams/ptmd/attributes"
+  },
+  "basename": "230222_1001_sendung_swm",
+  "captions": [
+    {
+      "class": "hoh",
+      "format": "ebu-tt-d-basic-de",
+      "language": "deu",
+      "offset": 0,
+      "profile": "http://zdf.de/rels/streams/ptmd/caption",
+      "uri": "https://utstreaming.zdf.de/mtt/zdf/23/02/230222_1001_sendung_swm/11/F1038617_hoh_deu_Der_Schwarm_101_Mediathek_220223.xml"
+    },
+    {
+      "class": "hoh",
+      "format": "webvtt",
+      "language": "deu",
+      "offset": 0,
+      "profile": "http://zdf.de/rels/streams/ptmd/caption",
+      "uri": "https://utstreaming.zdf.de/mtt/zdf/23/02/230222_1001_sendung_swm/11/F1038617_hoh_deu_Der_Schwarm_101_Mediathek_220223.vtt"
+    },
+    {
+      "class": "omu",
+      "format": "ebu-tt-d-basic-de",
+      "language": "eng",
+      "offset": 0,
+      "profile": "http://zdf.de/rels/streams/ptmd/caption",
+      "uri": "https://utstreaming.zdf.de/mtt/zdf/23/02/230222_1001_sendung_swm/11/The_Swarm_Folge1_Mediathek_EN_UT_neu_.xml"
+    },
+    {
+      "class": "omu",
+      "format": "webvtt",
+      "language": "eng",
+      "offset": 0,
+      "profile": "http://zdf.de/rels/streams/ptmd/caption",
+      "uri": "https://utstreaming.zdf.de/mtt/zdf/23/02/230222_1001_sendung_swm/11/The_Swarm_Folge1_Mediathek_EN_UT_neu_.vtt"
+    }
+  ],
+  "documentVersion": 2,
+  "mandant": "mediathek",
+  "playerId": "android_native_5",
+  "priorityList": [
+    {
+      "formitaeten": [
+        {
+          "facets": [
+            "hdr_hlg",
+            "progressive"
+          ],
+          "isAdaptive": false,
+          "mimeType": "video/mp4",
+          "profile": "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet",
+          "qualities": [
+            {
+              "audio": {
+                "profile": "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality/audio",
+                "tracks": [
+                  {
+                    "cdn": "akamai",
+                    "class": "main",
+                    "filesize": 1481010075,
+                    "language": "deu",
+                    "profile": "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality/audio/track",
+                    "uri": "http://localhost:8589/de/zdf/23/02/230222_1001_sendung_swm/7/230222_1001_sendung_swm_a1a2_4692k_p72v16.mp4"
+                  },
+                  {
+                    "cdn": "akamai",
+                    "class": "ot",
+                    "filesize": 1481010075,
+                    "language": "eng",
+                    "profile": "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality/audio/track",
+                    "uri": "http://localhost:8589/de/zdf/23/02/230222_1001_sendung_swm/7/230222_1001_sendung_swm_a3a4_4692k_p72v16.mp4"
+                  },
+                  {
+                    "cdn": "akamai",
+                    "class": "ad",
+                    "filesize": 1481010075,
+                    "language": "deu",
+                    "profile": "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality/audio/track",
+                    "uri": "http://localhost:8589/de/zdf/23/02/230222_1001_sendung_swm/7/230222_1001_sendung_swm_a5a6_4692k_p72v16.mp4"
+                  }
+                ]
+              },
+              "hd": true,
+              "highestVerticalResolution": 2160,
+              "mimeCodec": "hvc1.1.7.L120.b0, mp4a.40.2",
+              "profile": "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality",
+              "quality": "uhd"
+            }
+          ],
+          "type": "h265_aac_mp4_http_na_na"
+        }
+      ],
+      "profile": "http://zdf.de/rels/streams/ptmd/priority-list-item"
+    },
+    {
+      "formitaeten": [
+        {
+          "facets": [
+            "progressive"
+          ],
+          "isAdaptive": false,
+          "mimeType": "video/webm",
+          "profile": "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet",
+          "qualities": [
+            {
+              "audio": {
+                "profile": "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality/audio",
+                "tracks": [
+                  {
+                    "cdn": "akamai",
+                    "class": "main",
+                    "filesize": 1863138186,
+                    "language": "deu",
+                    "profile": "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality/audio/track",
+                    "uri": "http://localhost:8589/de/zdf/23/02/230222_1001_sendung_swm/7/230222_1001_sendung_swm_a1a2_4328k_p19v17.webm"
+                  },
+                  {
+                    "cdn": "akamai",
+                    "class": "ot",
+                    "filesize": 1863326616,
+                    "language": "eng",
+                    "profile": "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality/audio/track",
+                    "uri": "http://localhost:8589/de/zdf/23/02/230222_1001_sendung_swm/7/230222_1001_sendung_swm_a3a4_4328k_p19v17.webm"
+                  },
+                  {
+                    "cdn": "akamai",
+                    "class": "ad",
+                    "filesize": 1864032001,
+                    "language": "deu",
+                    "profile": "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality/audio/track",
+                    "uri": "http://localhost:8589/de/zdf/23/02/230222_1001_sendung_swm/7/230222_1001_sendung_swm_a5a6_4328k_p19v17.webm"
+                  }
+                ]
+              },
+              "hd": true,
+              "highestVerticalResolution": 1080,
+              "mimeCodec": "vp9, opus",
+              "profile": "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality",
+              "quality": "fhd"
+            },
+            {
+              "audio": {
+                "profile": "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality/audio",
+                "tracks": [
+                  {
+                    "cdn": "akamai",
+                    "class": "main",
+                    "filesize": 888725163,
+                    "language": "deu",
+                    "profile": "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality/audio/track",
+                    "uri": "http://localhost:8589/de/zdf/23/02/230222_1001_sendung_swm/7/230222_1001_sendung_swm_a1a2_2128k_p18v17.webm"
+                  },
+                  {
+                    "cdn": "akamai",
+                    "class": "ot",
+                    "filesize": 888913593,
+                    "language": "eng",
+                    "profile": "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality/audio/track",
+                    "uri": "http://localhost:8589/de/zdf/23/02/230222_1001_sendung_swm/7/230222_1001_sendung_swm_a3a4_2128k_p18v17.webm"
+                  },
+                  {
+                    "cdn": "akamai",
+                    "class": "ad",
+                    "filesize": 889618978,
+                    "language": "deu",
+                    "profile": "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality/audio/track",
+                    "uri": "http://localhost:8589/de/zdf/23/02/230222_1001_sendung_swm/7/230222_1001_sendung_swm_a5a6_2128k_p18v17.webm"
+                  }
+                ]
+              },
+              "hd": true,
+              "highestVerticalResolution": 720,
+              "mimeCodec": "vp9, opus",
+              "profile": "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality",
+              "quality": "hd"
+            },
+            {
+              "audio": {
+                "profile": "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality/audio",
+                "tracks": [
+                  {
+                    "cdn": "akamai",
+                    "class": "main",
+                    "filesize": 515712293,
+                    "language": "deu",
+                    "profile": "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality/audio/track",
+                    "uri": "http://localhost:8589/de/zdf/23/02/230222_1001_sendung_swm/7/230222_1001_sendung_swm_a1a2_1128k_p17v17.webm"
+                  },
+                  {
+                    "cdn": "akamai",
+                    "class": "ot",
+                    "filesize": 515900724,
+                    "language": "eng",
+                    "profile": "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality/audio/track",
+                    "uri": "http://localhost:8589/de/zdf/23/02/230222_1001_sendung_swm/7/230222_1001_sendung_swm_a3a4_1128k_p17v17.webm"
+                  },
+                  {
+                    "cdn": "akamai",
+                    "class": "ad",
+                    "filesize": 516606098,
+                    "language": "deu",
+                    "profile": "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality/audio/track",
+                    "uri": "http://localhost:8589/de/zdf/23/02/230222_1001_sendung_swm/7/230222_1001_sendung_swm_a5a6_1128k_p17v17.webm"
+                  }
+                ]
+              },
+              "hd": false,
+              "highestVerticalResolution": 540,
+              "mimeCodec": "vp9, opus",
+              "profile": "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality",
+              "quality": "veryhigh"
+            },
+            {
+              "audio": {
+                "profile": "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality/audio",
+                "tracks": [
+                  {
+                    "cdn": "akamai",
+                    "class": "main",
+                    "filesize": 148673615,
+                    "language": "deu",
+                    "profile": "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality/audio/track",
+                    "uri": "http://localhost:8589/de/zdf/23/02/230222_1001_sendung_swm/7/230222_1001_sendung_swm_a1a2_368k_p16v17.webm"
+                  },
+                  {
+                    "cdn": "akamai",
+                    "class": "ot",
+                    "filesize": 148862046,
+                    "language": "eng",
+                    "profile": "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality/audio/track",
+                    "uri": "http://localhost:8589/de/zdf/23/02/230222_1001_sendung_swm/7/230222_1001_sendung_swm_a3a4_368k_p16v17.webm"
+                  },
+                  {
+                    "cdn": "akamai",
+                    "class": "ad",
+                    "filesize": 149567420,
+                    "language": "deu",
+                    "profile": "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality/audio/track",
+                    "uri": "http://localhost:8589/de/zdf/23/02/230222_1001_sendung_swm/7/230222_1001_sendung_swm_a5a6_368k_p16v17.webm"
+                  }
+                ]
+              },
+              "hd": false,
+              "highestVerticalResolution": 270,
+              "mimeCodec": "vp9, opus",
+              "profile": "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality",
+              "quality": "high"
+            }
+          ],
+          "type": "vp9_opus_webm_http_na_na"
+        }
+      ],
+      "profile": "http://zdf.de/rels/streams/ptmd/priority-list-item"
+    },
+    {
+      "formitaeten": [
+        {
+          "facets": [],
+          "isAdaptive": true,
+          "mimeType": "application/x-mpegURL",
+          "profile": "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet",
+          "qualities": [
+            {
+              "audio": {
+                "profile": "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality/audio",
+                "tracks": [
+                  {
+                    "cdn": "akamai",
+                    "class": "main",
+                    "language": "deu",
+                    "profile": "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality/audio/track",
+                    "uri": "https://zdfvod.akamaized.net/i/mp4/de/zdf/23/02/230222_1001_sendung_swm/7/230222_1001_sendung_swm,_a1a2_508k_p9,_a3a4_508k_p9,_a5a6_508k_p9,_a1a2_808k_p11,_a1a2_1628k_p13,_a1a2_3328k_p15,_a1a2_6628k_p61,v17.mp4.csmil/master.m3u8?audiotrack=0:deu:TV%20Ton,1:eng:Originalton%20englisch,2:deu:Audiodeskription"
+                  },
+                  {
+                    "cdn": "akamai",
+                    "class": "ot",
+                    "language": "eng",
+                    "profile": "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality/audio/track",
+                    "uri": "https://zdfvod.akamaized.net/i/mp4/de/zdf/23/02/230222_1001_sendung_swm/7/230222_1001_sendung_swm,_a3a4_508k_p9,_a1a2_508k_p9,_a5a6_508k_p9,_a3a4_808k_p11,_a3a4_1628k_p13,_a3a4_3328k_p15,_a3a4_6628k_p61,v17.mp4.csmil/master.m3u8?audiotrack=0:eng:Originalton%20englisch,1:deu:TV%20Ton,2:deu:Audiodeskription"
+                  },
+                  {
+                    "cdn": "akamai",
+                    "class": "ad",
+                    "language": "deu",
+                    "profile": "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality/audio/track",
+                    "uri": "https://zdfvod.akamaized.net/i/mp4/de/zdf/23/02/230222_1001_sendung_swm/7/230222_1001_sendung_swm,_a5a6_508k_p9,_a1a2_508k_p9,_a3a4_508k_p9,_a5a6_808k_p11,_a5a6_1628k_p13,_a5a6_3328k_p15,_a5a6_6628k_p61,v17.mp4.csmil/master.m3u8?audiotrack=0:deu:Audiodeskription,1:deu:TV%20Ton,2:eng:Originalton%20englisch"
+                  }
+                ]
+              },
+              "hd": true,
+              "highestVerticalResolution": 1080,
+              "profile": "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality",
+              "quality": "auto"
+            },
+            {
+              "audio": {
+                "profile": "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality/audio",
+                "tracks": [
+                  {
+                    "cdn": "akamai",
+                    "class": "main",
+                    "language": "deu",
+                    "profile": "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality/audio/track",
+                    "uri": "https://zdfvod.akamaized.net/i/mp4/de/zdf/23/02/230222_1001_sendung_swm/7/230222_1001_sendung_swm,_a1a2_1628k_p13,_a3a4_1628k_p13,_a5a6_1628k_p13,_a1a2_3328k_p15,_a1a2_6628k_p61,v17.mp4.csmil/master.m3u8?audiotrack=0:deu:TV%20Ton,1:eng:Originalton%20englisch,2:deu:Audiodeskription"
+                  },
+                  {
+                    "cdn": "akamai",
+                    "class": "ot",
+                    "language": "eng",
+                    "profile": "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality/audio/track",
+                    "uri": "https://zdfvod.akamaized.net/i/mp4/de/zdf/23/02/230222_1001_sendung_swm/7/230222_1001_sendung_swm,_a3a4_1628k_p13,_a1a2_1628k_p13,_a5a6_1628k_p13,_a3a4_3328k_p15,_a3a4_6628k_p61,v17.mp4.csmil/master.m3u8?audiotrack=0:eng:Originalton%20englisch,1:deu:TV%20Ton,2:deu:Audiodeskription"
+                  },
+                  {
+                    "cdn": "akamai",
+                    "class": "ad",
+                    "language": "deu",
+                    "profile": "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality/audio/track",
+                    "uri": "https://zdfvod.akamaized.net/i/mp4/de/zdf/23/02/230222_1001_sendung_swm/7/230222_1001_sendung_swm,_a5a6_1628k_p13,_a1a2_1628k_p13,_a3a4_1628k_p13,_a5a6_3328k_p15,_a5a6_6628k_p61,v17.mp4.csmil/master.m3u8?audiotrack=0:deu:Audiodeskription,1:deu:TV%20Ton,2:eng:Originalton%20englisch"
+                  }
+                ]
+              },
+              "hd": true,
+              "highestVerticalResolution": 1080,
+              "profile": "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality",
+              "quality": "veryhigh"
+            },
+            {
+              "audio": {
+                "profile": "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality/audio",
+                "tracks": [
+                  {
+                    "cdn": "akamai",
+                    "class": "main",
+                    "language": "deu",
+                    "profile": "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality/audio/track",
+                    "uri": "https://zdfvod.akamaized.net/i/mp4/de/zdf/23/02/230222_1001_sendung_swm/7/230222_1001_sendung_swm,_a1a2_508k_p9,_a3a4_508k_p9,_a5a6_508k_p9,_a1a2_808k_p11,_a1a2_1628k_p13,_a1a2_3328k_p15,_a1a2_6628k_p61,v17.mp4.csmil/master.m3u8?audiotrack=0:deu:TV%20Ton,1:eng:Originalton%20englisch,2:deu:Audiodeskription"
+                  },
+                  {
+                    "cdn": "akamai",
+                    "class": "ot",
+                    "language": "eng",
+                    "profile": "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality/audio/track",
+                    "uri": "https://zdfvod.akamaized.net/i/mp4/de/zdf/23/02/230222_1001_sendung_swm/7/230222_1001_sendung_swm,_a3a4_508k_p9,_a1a2_508k_p9,_a5a6_508k_p9,_a3a4_808k_p11,_a3a4_1628k_p13,_a3a4_3328k_p15,_a3a4_6628k_p61,v17.mp4.csmil/master.m3u8?audiotrack=0:eng:Originalton%20englisch,1:deu:TV%20Ton,2:deu:Audiodeskription"
+                  },
+                  {
+                    "cdn": "akamai",
+                    "class": "ad",
+                    "language": "deu",
+                    "profile": "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality/audio/track",
+                    "uri": "https://zdfvod.akamaized.net/i/mp4/de/zdf/23/02/230222_1001_sendung_swm/7/230222_1001_sendung_swm,_a5a6_508k_p9,_a1a2_508k_p9,_a3a4_508k_p9,_a5a6_808k_p11,_a5a6_1628k_p13,_a5a6_3328k_p15,_a5a6_6628k_p61,v17.mp4.csmil/master.m3u8?audiotrack=0:deu:Audiodeskription,1:deu:TV%20Ton,2:eng:Originalton%20englisch"
+                  }
+                ]
+              },
+              "hd": true,
+              "highestVerticalResolution": 1080,
+              "profile": "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality",
+              "quality": "high"
+            },
+            {
+              "audio": {
+                "profile": "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality/audio",
+                "tracks": [
+                  {
+                    "cdn": "akamai",
+                    "class": "main",
+                    "language": "deu",
+                    "profile": "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality/audio/track",
+                    "uri": "https://zdfvod.akamaized.net/i/mp4/de/zdf/23/02/230222_1001_sendung_swm/7/230222_1001_sendung_swm,_a1a2_508k_p9,_a3a4_508k_p9,_a5a6_508k_p9,_a1a2_808k_p11,_a1a2_1628k_p13,v17.mp4.csmil/master.m3u8?audiotrack=0:deu:TV%20Ton,1:eng:Originalton%20englisch,2:deu:Audiodeskription"
+                  },
+                  {
+                    "cdn": "akamai",
+                    "class": "ot",
+                    "language": "eng",
+                    "profile": "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality/audio/track",
+                    "uri": "https://zdfvod.akamaized.net/i/mp4/de/zdf/23/02/230222_1001_sendung_swm/7/230222_1001_sendung_swm,_a3a4_508k_p9,_a1a2_508k_p9,_a5a6_508k_p9,_a3a4_808k_p11,_a3a4_1628k_p13,v17.mp4.csmil/master.m3u8?audiotrack=0:eng:Originalton%20englisch,1:deu:TV%20Ton,2:deu:Audiodeskription"
+                  },
+                  {
+                    "cdn": "akamai",
+                    "class": "ad",
+                    "language": "deu",
+                    "profile": "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality/audio/track",
+                    "uri": "https://zdfvod.akamaized.net/i/mp4/de/zdf/23/02/230222_1001_sendung_swm/7/230222_1001_sendung_swm,_a5a6_508k_p9,_a1a2_508k_p9,_a3a4_508k_p9,_a5a6_808k_p11,_a5a6_1628k_p13,v17.mp4.csmil/master.m3u8?audiotrack=0:deu:Audiodeskription,1:deu:TV%20Ton,2:eng:Originalton%20englisch"
+                  }
+                ]
+              },
+              "hd": false,
+              "highestVerticalResolution": 540,
+              "profile": "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality",
+              "quality": "med"
+            },
+            {
+              "audio": {
+                "profile": "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality/audio",
+                "tracks": [
+                  {
+                    "cdn": "akamai",
+                    "class": "main",
+                    "language": "deu",
+                    "profile": "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality/audio/track",
+                    "uri": "https://zdfvod.akamaized.net/i/mp4/de/zdf/23/02/230222_1001_sendung_swm/7/230222_1001_sendung_swm,_a1a2_508k_p9,_a3a4_508k_p9,_a5a6_508k_p9,_a1a2_808k_p11,v17.mp4.csmil/master.m3u8?audiotrack=0:deu:TV%20Ton,1:eng:Originalton%20englisch,2:deu:Audiodeskription"
+                  },
+                  {
+                    "cdn": "akamai",
+                    "class": "ot",
+                    "language": "eng",
+                    "profile": "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality/audio/track",
+                    "uri": "https://zdfvod.akamaized.net/i/mp4/de/zdf/23/02/230222_1001_sendung_swm/7/230222_1001_sendung_swm,_a3a4_508k_p9,_a1a2_508k_p9,_a5a6_508k_p9,_a3a4_808k_p11,v17.mp4.csmil/master.m3u8?audiotrack=0:eng:Originalton%20englisch,1:deu:TV%20Ton,2:deu:Audiodeskription"
+                  },
+                  {
+                    "cdn": "akamai",
+                    "class": "ad",
+                    "language": "deu",
+                    "profile": "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality/audio/track",
+                    "uri": "https://zdfvod.akamaized.net/i/mp4/de/zdf/23/02/230222_1001_sendung_swm/7/230222_1001_sendung_swm,_a5a6_508k_p9,_a1a2_508k_p9,_a3a4_508k_p9,_a5a6_808k_p11,v17.mp4.csmil/master.m3u8?audiotrack=0:deu:Audiodeskription,1:deu:TV%20Ton,2:eng:Originalton%20englisch"
+                  }
+                ]
+              },
+              "hd": false,
+              "highestVerticalResolution": 360,
+              "profile": "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality",
+              "quality": "low"
+            }
+          ],
+          "type": "h264_aac_ts_http_m3u8_http"
+        }
+      ],
+      "profile": "http://zdf.de/rels/streams/ptmd/priority-list-item"
+    },
+    {
+      "formitaeten": [
+        {
+          "facets": [
+            "progressive"
+          ],
+          "isAdaptive": false,
+          "mimeType": "video/mp4",
+          "profile": "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet",
+          "qualities": [
+            {
+              "audio": {
+                "profile": "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality/audio",
+                "tracks": [
+                  {
+                    "cdn": "akamai",
+                    "class": "main",
+                    "filesize": 1790429567,
+                    "language": "deu",
+                    "profile": "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality/audio/track",
+                    "uri": "http://localhost:8589/de/zdf/23/02/230222_1001_sendung_swm/7/230222_1001_sendung_swm_a1a2_6628k_p61v17.mp4"
+                  },
+                  {
+                    "cdn": "akamai",
+                    "class": "ot",
+                    "filesize": 1790429567,
+                    "language": "eng",
+                    "profile": "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality/audio/track",
+                    "uri": "http://localhost:8589/de/zdf/23/02/230222_1001_sendung_swm/7/230222_1001_sendung_swm_a3a4_6628k_p61v17.mp4"
+                  },
+                  {
+                    "cdn": "akamai",
+                    "class": "ad",
+                    "filesize": 1790429567,
+                    "language": "deu",
+                    "profile": "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality/audio/track",
+                    "uri": "http://localhost:8589/de/zdf/23/02/230222_1001_sendung_swm/7/230222_1001_sendung_swm_a5a6_6628k_p61v17.mp4"
+                  }
+                ]
+              },
+              "hd": true,
+              "highestVerticalResolution": 1080,
+              "mimeCodec": "avc1.64002a, mp4a.40.2",
+              "profile": "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality",
+              "quality": "fhd"
+            },
+            {
+              "audio": {
+                "profile": "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality/audio",
+                "tracks": [
+                  {
+                    "cdn": "akamai",
+                    "class": "main",
+                    "filesize": 894427234,
+                    "language": "deu",
+                    "profile": "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality/audio/track",
+                    "uri": "http://localhost:8589/de/zdf/23/02/230222_1001_sendung_swm/7/230222_1001_sendung_swm_a1a2_3328k_p15v17.mp4"
+                  },
+                  {
+                    "cdn": "akamai",
+                    "class": "ot",
+                    "filesize": 894427234,
+                    "language": "eng",
+                    "profile": "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality/audio/track",
+                    "uri": "http://localhost:8589/de/zdf/23/02/230222_1001_sendung_swm/7/230222_1001_sendung_swm_a3a4_3328k_p15v17.mp4"
+                  },
+                  {
+                    "cdn": "akamai",
+                    "class": "ad",
+                    "filesize": 894427234,
+                    "language": "deu",
+                    "profile": "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality/audio/track",
+                    "uri": "http://localhost:8589/de/zdf/23/02/230222_1001_sendung_swm/7/230222_1001_sendung_swm_a5a6_3328k_p15v17.mp4"
+                  }
+                ]
+              },
+              "hd": true,
+              "highestVerticalResolution": 720,
+              "mimeCodec": "avc1.640028, mp4a.40.2",
+              "profile": "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality",
+              "quality": "hd"
+            },
+            {
+              "audio": {
+                "profile": "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality/audio",
+                "tracks": [
+                  {
+                    "cdn": "akamai",
+                    "class": "main",
+                    "filesize": 437287668,
+                    "language": "deu",
+                    "profile": "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality/audio/track",
+                    "uri": "http://localhost:8589/de/zdf/23/02/230222_1001_sendung_swm/7/230222_1001_sendung_swm_a1a2_1628k_p13v17.mp4"
+                  },
+                  {
+                    "cdn": "akamai",
+                    "class": "ot",
+                    "filesize": 437287668,
+                    "language": "eng",
+                    "profile": "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality/audio/track",
+                    "uri": "http://localhost:8589/de/zdf/23/02/230222_1001_sendung_swm/7/230222_1001_sendung_swm_a3a4_1628k_p13v17.mp4"
+                  },
+                  {
+                    "cdn": "akamai",
+                    "class": "ad",
+                    "filesize": 437287668,
+                    "language": "deu",
+                    "profile": "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality/audio/track",
+                    "uri": "http://localhost:8589/de/zdf/23/02/230222_1001_sendung_swm/7/230222_1001_sendung_swm_a5a6_1628k_p13v17.mp4"
+                  }
+                ]
+              },
+              "hd": false,
+              "highestVerticalResolution": 540,
+              "mimeCodec": "avc1.4d401f, mp4a.40.2",
+              "profile": "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality",
+              "quality": "veryhigh"
+            },
+            {
+              "audio": {
+                "profile": "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality/audio",
+                "tracks": [
+                  {
+                    "cdn": "akamai",
+                    "class": "main",
+                    "filesize": 219065854,
+                    "language": "deu",
+                    "profile": "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality/audio/track",
+                    "uri": "http://localhost:8589/de/zdf/23/02/230222_1001_sendung_swm/7/230222_1001_sendung_swm_a1a2_808k_p11v17.mp4"
+                  },
+                  {
+                    "cdn": "akamai",
+                    "class": "ot",
+                    "filesize": 219065854,
+                    "language": "eng",
+                    "profile": "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality/audio/track",
+                    "uri": "http://localhost:8589/de/zdf/23/02/230222_1001_sendung_swm/7/230222_1001_sendung_swm_a3a4_808k_p11v17.mp4"
+                  },
+                  {
+                    "cdn": "akamai",
+                    "class": "ad",
+                    "filesize": 219065854,
+                    "language": "deu",
+                    "profile": "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality/audio/track",
+                    "uri": "http://localhost:8589/de/zdf/23/02/230222_1001_sendung_swm/7/230222_1001_sendung_swm_a5a6_808k_p11v17.mp4"
+                  }
+                ]
+              },
+              "hd": false,
+              "highestVerticalResolution": 360,
+              "mimeCodec": "avc1.4d401f, mp4a.40.2",
+              "profile": "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality",
+              "quality": "high"
+            },
+            {
+              "audio": {
+                "profile": "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality/audio",
+                "tracks": [
+                  {
+                    "cdn": "akamai",
+                    "class": "main",
+                    "filesize": 142087566,
+                    "language": "deu",
+                    "profile": "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality/audio/track",
+                    "uri": "http://localhost:8589/de/zdf/23/02/230222_1001_sendung_swm/7/230222_1001_sendung_swm_a1a2_508k_p9v17.mp4"
+                  },
+                  {
+                    "cdn": "akamai",
+                    "class": "ot",
+                    "filesize": 142087566,
+                    "language": "eng",
+                    "profile": "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality/audio/track",
+                    "uri": "http://localhost:8589/de/zdf/23/02/230222_1001_sendung_swm/7/230222_1001_sendung_swm_a3a4_508k_p9v17.mp4"
+                  },
+                  {
+                    "cdn": "akamai",
+                    "class": "ad",
+                    "filesize": 142087566,
+                    "language": "deu",
+                    "profile": "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality/audio/track",
+                    "uri": "http://localhost:8589/de/zdf/23/02/230222_1001_sendung_swm/7/230222_1001_sendung_swm_a5a6_508k_p9v17.mp4"
+                  }
+                ]
+              },
+              "hd": false,
+              "highestVerticalResolution": 270,
+              "mimeCodec": "avc1.4d401f, mp4a.40.2",
+              "profile": "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality",
+              "quality": "low"
+            }
+          ],
+          "type": "h264_aac_mp4_http_na_na"
+        }
+      ],
+      "profile": "http://zdf.de/rels/streams/ptmd/priority-list-item"
+    },
+    {
+      "formitaeten": [
+        {
+          "facets": [
+            "restriction_useragent"
+          ],
+          "isAdaptive": false,
+          "mimeType": "video/mp4",
+          "profile": "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet",
+          "qualities": [
+            {
+              "audio": {
+                "profile": "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality/audio",
+                "tracks": [
+                  {
+                    "cdn": "akamai",
+                    "class": "main",
+                    "filesize": 437287668,
+                    "language": "deu",
+                    "profile": "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality/audio/track",
+                    "uri": "http://localhost:8589/de/zdf/23/02/230222_1001_sendung_swm/7/230222_1001_sendung_swm_a1a2_1628k_p13v17.mp4"
+                  },
+                  {
+                    "cdn": "akamai",
+                    "class": "ot",
+                    "filesize": 437287668,
+                    "language": "eng",
+                    "profile": "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality/audio/track",
+                    "uri": "http://localhost:8589/de/zdf/23/02/230222_1001_sendung_swm/7/230222_1001_sendung_swm_a3a4_1628k_p13v17.mp4"
+                  },
+                  {
+                    "cdn": "akamai",
+                    "class": "ad",
+                    "filesize": 437287668,
+                    "language": "deu",
+                    "profile": "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality/audio/track",
+                    "uri": "http://localhost:8589/de/zdf/23/02/230222_1001_sendung_swm/7/230222_1001_sendung_swm_a5a6_1628k_p13v17.mp4"
+                  }
+                ]
+              },
+              "hd": false,
+              "highestVerticalResolution": 540,
+              "mimeCodec": "avc1.4d401f, mp4a.40.2",
+              "profile": "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality",
+              "quality": "veryhigh"
+            },
+            {
+              "audio": {
+                "profile": "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality/audio",
+                "tracks": [
+                  {
+                    "cdn": "akamai",
+                    "class": "main",
+                    "filesize": 219065854,
+                    "language": "deu",
+                    "profile": "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality/audio/track",
+                    "uri": "http://localhost:8589/de/zdf/23/02/230222_1001_sendung_swm/7/230222_1001_sendung_swm_a1a2_808k_p11v17.mp4"
+                  },
+                  {
+                    "cdn": "akamai",
+                    "class": "ot",
+                    "filesize": 219065854,
+                    "language": "eng",
+                    "profile": "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality/audio/track",
+                    "uri": "http://localhost:8589/de/zdf/23/02/230222_1001_sendung_swm/7/230222_1001_sendung_swm_a3a4_808k_p11v17.mp4"
+                  },
+                  {
+                    "cdn": "akamai",
+                    "class": "ad",
+                    "filesize": 219065854,
+                    "language": "deu",
+                    "profile": "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality/audio/track",
+                    "uri": "http://localhost:8589/de/zdf/23/02/230222_1001_sendung_swm/7/230222_1001_sendung_swm_a5a6_808k_p11v17.mp4"
+                  }
+                ]
+              },
+              "hd": false,
+              "highestVerticalResolution": 360,
+              "mimeCodec": "avc1.4d401f, mp4a.40.2",
+              "profile": "http://zdf.de/rels/streams/ptmd/priority-list-item/formitaet/quality",
+              "quality": "high"
+            }
+          ],
+          "type": "h264_aac_mp4_http_na_na"
+        }
+      ],
+      "profile": "http://zdf.de/rels/streams/ptmd/priority-list-item"
+    }
+  ],
+  "profile": "http://zdf.de/rels/streams/ptmd",
+  "scrubPreview": {
+    "ImageInterval": "2000",
+    "ImageUrlScheme": "https://pvstreaming.zdf.de/de/img/zdf/23/02/230222_1001_sendung_swm/11/scrubpreview/230222_1001_sendung_swm_%index%.jpg",
+    "ImagesPerColumn": "5",
+    "ImagesPerRow": "5"
+  },
+  "self": "/tmd/2/android_native_5/vod/ptmd/mediathek/230222_1001_sendung_swm/11",
+  "version": 11
+}

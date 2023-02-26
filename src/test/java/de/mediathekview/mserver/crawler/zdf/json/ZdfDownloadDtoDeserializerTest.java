@@ -35,6 +35,7 @@ public class ZdfDownloadDtoDeserializerTest {
   private final String expectedUrlHdAd;
   private final String expectedUrlUhdAd;
   private final Optional<String> expectedSubtitle;
+  private final Optional<String> expectedSubtitleEnglish;
   private final Optional<GeoLocations> expectedGeo;
 
   public ZdfDownloadDtoDeserializerTest(
@@ -52,6 +53,7 @@ public class ZdfDownloadDtoDeserializerTest {
       final String aExpectedUrlHdAd,
       final String aExpectedUrlUhdAd,
       final Optional<String> aExpectedSubtitle,
+      final Optional<String> aExpectedSubtitleEnglish,
       final Optional<GeoLocations> aExpectedGeo) {
     jsonFile = aJsonFile;
     expectedUrlSmall = aExpectedUrlSmall;
@@ -67,6 +69,7 @@ public class ZdfDownloadDtoDeserializerTest {
     this.expectedUrlHdAd = aExpectedUrlHdAd;
     this.expectedUrlUhdAd = aExpectedUrlUhdAd;
     expectedSubtitle = aExpectedSubtitle;
+    expectedSubtitleEnglish = aExpectedSubtitleEnglish;
     expectedGeo = aExpectedGeo;
   }
 
@@ -89,6 +92,7 @@ public class ZdfDownloadDtoDeserializerTest {
             "",
             "",
             Optional.empty(),
+            Optional.empty(),
             Optional.of(GeoLocations.GEO_NONE)
           },
           {
@@ -106,6 +110,7 @@ public class ZdfDownloadDtoDeserializerTest {
             "",
             "",
             Optional.of("https://utstreaming.zdf.de/mtt/zdf/18/03/180302_fr_lot/2/logo_020318.xml"),
+            Optional.empty(),
             Optional.of(GeoLocations.GEO_DE_AT_CH_EU)
           },
           {
@@ -122,6 +127,7 @@ public class ZdfDownloadDtoDeserializerTest {
             "",
             "",
             "",
+            Optional.empty(),
             Optional.empty(),
             Optional.of(GeoLocations.GEO_DE_AT_CH)
           },
@@ -141,6 +147,7 @@ public class ZdfDownloadDtoDeserializerTest {
             "",
             Optional.of(
                 "https://utstreaming.zdf.de/mtt/zdf/18/04/180416_2215_sendung_hsn/7/Hard_Sun_Teil1_OmU.xml"),
+            Optional.empty(),
             Optional.of(GeoLocations.GEO_DE)
           },
           {
@@ -157,6 +164,7 @@ public class ZdfDownloadDtoDeserializerTest {
             "",
             "",
             "",
+            Optional.empty(),
             Optional.empty(),
             Optional.of(GeoLocations.GEO_NONE)
           },
@@ -176,6 +184,7 @@ public class ZdfDownloadDtoDeserializerTest {
             "",
             Optional.of(
                 "https://utstreaming.zdf.de/mtt/zdf/19/07/190715_schatz_nimm_du_sie_mok/4/F1021200_hoh_deu_Schatz_nimm_du_sie_150719.xml"),
+            Optional.empty(),
             Optional.of(GeoLocations.GEO_DE)
           },
           {
@@ -194,6 +203,7 @@ public class ZdfDownloadDtoDeserializerTest {
             "http://localhost:8589/none/zdf/23/01/230101_2015_sendung_trs/3/230101_2015_sendung_trs_a3a4_4692k_p72v16.mp4",
             Optional.of(
                 "https://utstreaming.zdf.de/mtt/zdf/23/01/230101_2015_sendung_trs/6/F1037067_hoh_deu_Das_Traumschiff_Bahamas_Karibik_final_010123.xml"),
+            Optional.empty(),
             Optional.of(GeoLocations.GEO_NONE)
           },
           {
@@ -211,7 +221,28 @@ public class ZdfDownloadDtoDeserializerTest {
             "",
             "",
             Optional.empty(),
+            Optional.empty(),
             Optional.of(GeoLocations.GEO_DE_AT_CH)
+          },
+          {
+            "/zdf/zdf_video_details_eng_ut.json",
+            "http://localhost:8589/de/zdf/23/02/230222_1001_sendung_swm/7/230222_1001_sendung_swm_a1a2_808k_p11v17.mp4",
+            "http://localhost:8589/de/zdf/23/02/230222_1001_sendung_swm/7/230222_1001_sendung_swm_a1a2_1628k_p13v17.mp4",
+            "http://localhost:8589/de/zdf/23/02/230222_1001_sendung_swm/7/230222_1001_sendung_swm_a1a2_6628k_p61v17.mp4",
+            "http://localhost:8589/de/zdf/23/02/230222_1001_sendung_swm/7/230222_1001_sendung_swm_a1a2_4692k_p72v16.mp4",
+            "http://localhost:8589/de/zdf/23/02/230222_1001_sendung_swm/7/230222_1001_sendung_swm_a3a4_808k_p11v17.mp4",
+            "http://localhost:8589/de/zdf/23/02/230222_1001_sendung_swm/7/230222_1001_sendung_swm_a3a4_1628k_p13v17.mp4",
+            "http://localhost:8589/de/zdf/23/02/230222_1001_sendung_swm/7/230222_1001_sendung_swm_a3a4_6628k_p61v17.mp4",
+            "http://localhost:8589/de/zdf/23/02/230222_1001_sendung_swm/7/230222_1001_sendung_swm_a3a4_4692k_p72v16.mp4",
+            "http://localhost:8589/de/zdf/23/02/230222_1001_sendung_swm/7/230222_1001_sendung_swm_a5a6_808k_p11v17.mp4",
+            "http://localhost:8589/de/zdf/23/02/230222_1001_sendung_swm/7/230222_1001_sendung_swm_a5a6_1628k_p13v17.mp4",
+            "http://localhost:8589/de/zdf/23/02/230222_1001_sendung_swm/7/230222_1001_sendung_swm_a5a6_6628k_p61v17.mp4",
+            "http://localhost:8589/de/zdf/23/02/230222_1001_sendung_swm/7/230222_1001_sendung_swm_a5a6_4692k_p72v16.mp4",
+            Optional.of(
+                "https://utstreaming.zdf.de/mtt/zdf/23/02/230222_1001_sendung_swm/11/F1038617_hoh_deu_Der_Schwarm_101_Mediathek_220223.xml"),
+            Optional.of(
+                "https://utstreaming.zdf.de/mtt/zdf/23/02/230222_1001_sendung_swm/11/The_Swarm_Folge1_Mediathek_EN_UT_neu_.xml"),
+            Optional.of(GeoLocations.GEO_DE)
           }
         });
   }
@@ -250,7 +281,8 @@ public class ZdfDownloadDtoDeserializerTest {
         expectedUrlHdAd, dto.getUrl(ZdfConstants.LANGUAGE_GERMAN_AD, Resolution.HD));
     AssertFilm.assertUrl(
         expectedUrlUhdAd, dto.getUrl(ZdfConstants.LANGUAGE_GERMAN_AD, Resolution.UHD));
-    assertThat(dto.getSubTitleUrl(), equalTo(expectedSubtitle));
+    assertThat(dto.getSubTitleUrl(ZdfConstants.LANGUAGE_GERMAN), equalTo(expectedSubtitle));
+    assertThat(dto.getSubTitleUrl(ZdfConstants.LANGUAGE_ENGLISH), equalTo(expectedSubtitleEnglish));
     assertThat(dto.getGeoLocation(), equalTo(expectedGeo));
   }
 }

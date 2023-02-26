@@ -30,7 +30,8 @@ public class ZdfDownloadDtoDeserializer implements JsonDeserializer<Optional<Dow
   private static final String JSON_ELEMENT_DURATION = "duration";
   private static final String JSON_ELEMENT_FORMITAET = "formitaeten";
   private static final String JSON_ELEMENT_GEOLOCATION = "geoLocation";
-  private static final String JSON_ELEMENT_HIGHEST_VERTIVAL_RESOLUTION = "highestVerticalResolution";
+  private static final String JSON_ELEMENT_HIGHEST_VERTIVAL_RESOLUTION =
+      "highestVerticalResolution";
   private static final String JSON_ELEMENT_LANGUAGE = "language";
   private static final String JSON_ELEMENT_MIMETYPE = "mimeType";
   private static final String JSON_ELEMENT_PRIORITYLIST = "priorityList";
@@ -46,8 +47,7 @@ public class ZdfDownloadDtoDeserializer implements JsonDeserializer<Optional<Dow
   private static final String RELEVANT_SUBTITLE_TYPE = ".xml";
   private static final String JSON_ELEMENT_QUALITIES = "qualities";
 
-  private static AbstractMap.SimpleEntry<String, String> extractTrack(
-          JsonElement aTrackElement) {
+  private static AbstractMap.SimpleEntry<String, String> extractTrack(JsonElement aTrackElement) {
     JsonObject trackObject = aTrackElement.getAsJsonObject();
     String classValue = trackObject.get(JSON_ELEMENT_CLASS).getAsString();
     String language = trackObject.get(JSON_ELEMENT_LANGUAGE).getAsString();
@@ -114,7 +114,9 @@ public class ZdfDownloadDtoDeserializer implements JsonDeserializer<Optional<Dow
       for (final JsonElement quality : qualityList) {
 
         final Resolution resolution = parseVideoQuality(quality.getAsJsonObject());
-        final Optional<Integer> verticalResolution = JsonUtils.getAttributeAsInt(quality.getAsJsonObject(), JSON_ELEMENT_HIGHEST_VERTIVAL_RESOLUTION);
+        final Optional<Integer> verticalResolution =
+            JsonUtils.getAttributeAsInt(
+                quality.getAsJsonObject(), JSON_ELEMENT_HIGHEST_VERTIVAL_RESOLUTION);
         // subelement audio
         final JsonElement audio = quality.getAsJsonObject().get(JSON_ELEMENT_AUDIO);
         if (audio != null) {
@@ -124,7 +126,12 @@ public class ZdfDownloadDtoDeserializer implements JsonDeserializer<Optional<Dow
 
           for (JsonElement trackElement : tracks) {
             final AbstractMap.SimpleEntry<String, String> languageUri = extractTrack(trackElement);
-            downloads.add(new DownloadInfo(languageUri.getKey(), languageUri.getValue(), verticalResolution.orElse(0), resolution));
+            downloads.add(
+                new DownloadInfo(
+                    languageUri.getKey(),
+                    languageUri.getValue(),
+                    verticalResolution.orElse(0),
+                    resolution));
           }
         }
       }
@@ -173,13 +180,12 @@ public class ZdfDownloadDtoDeserializer implements JsonDeserializer<Optional<Dow
         final JsonElement uri = caption.get(JSON_ELEMENT_URI);
         if (uri != null) {
           final String uriValue = uri.getAsString();
-  
+          final String language = caption.get(JSON_ELEMENT_LANGUAGE).getAsString();
+
           // prefer xml subtitles
-          if (uriValue.endsWith(RELEVANT_SUBTITLE_TYPE)) {
-            dto.setSubTitleUrl(uriValue);
-            break;
-          } else if (dto.getSubTitleUrl().isPresent()) {
-            dto.setSubTitleUrl(uriValue);
+          if (uriValue.endsWith(RELEVANT_SUBTITLE_TYPE)
+              || !dto.getSubTitleUrl(language).isPresent()) {
+            dto.addSubTitleUrl(language, uriValue);
           }
         }
       }
@@ -222,6 +228,6 @@ public class ZdfDownloadDtoDeserializer implements JsonDeserializer<Optional<Dow
     }
   }
 
-  private record DownloadInfo(String language, String uri, int verticalResolution, Resolution resolution) {
-  }
+  private record DownloadInfo(
+      String language, String uri, int verticalResolution, Resolution resolution) {}
 }
