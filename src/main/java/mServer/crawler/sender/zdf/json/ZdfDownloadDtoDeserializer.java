@@ -175,13 +175,12 @@ public class ZdfDownloadDtoDeserializer implements JsonDeserializer<Optional<Dow
         final JsonElement uri = caption.get(JSON_ELEMENT_URI);
         if (uri != null) {
           final String uriValue = uri.getAsString();
+          final String language = caption.get(JSON_ELEMENT_LANGUAGE).getAsString();
 
           // prefer xml subtitles
-          if (uriValue.endsWith(RELEVANT_SUBTITLE_TYPE)) {
-            dto.setSubTitleUrl(uriValue);
-            break;
-          } else if (dto.getSubTitleUrl().isPresent()) {
-            dto.setSubTitleUrl(uriValue);
+          if (uriValue.endsWith(RELEVANT_SUBTITLE_TYPE)
+                  || !dto.getSubTitleUrl(language).isPresent()) {
+            dto.addSubTitleUrl(language, uriValue);
           }
         }
       }
