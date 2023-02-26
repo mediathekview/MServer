@@ -166,7 +166,7 @@ public class ZdfFilmDetailTask extends ZdfTaskBase<Film, CrawlerUrlDTO> {
         }
       } else {
         final Film filmWithLanguage = clone(result, language);
-        setSubtitle(downloadDto, filmWithLanguage);
+        setSubtitle(downloadDto, filmWithLanguage, language);
         setGeoLocation(downloadDto, filmWithLanguage);
 
         final Map<Resolution, FilmUrl> urls =
@@ -180,8 +180,8 @@ public class ZdfFilmDetailTask extends ZdfTaskBase<Film, CrawlerUrlDTO> {
     }
   }
 
-  private static void setSubtitle(DownloadDto downloadDto, Film filmWithLanguage) throws MalformedURLException {
-    final Optional<String> subtitleUrl = downloadDto.getSubTitleUrl();
+  private static void setSubtitle(DownloadDto downloadDto, Film filmWithLanguage, String language) throws MalformedURLException {
+    final Optional<String> subtitleUrl = downloadDto.getSubTitleUrl(language);
     if (subtitleUrl.isPresent()) {
       filmWithLanguage.addSubtitle(new URL(subtitleUrl.get()));
     }

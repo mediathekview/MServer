@@ -38,6 +38,11 @@ public class ZdfFilmDetailTaskMultipleLanguagesTest extends ZdfTaskTestBase {
           getWireMockBaseUrlSafe()
               + "/de/zdf/18/04/180416_2215_sendung_hsn/7/180416_2215_sendung_hsn_a3a4_1496k_p13v13.mp4",
         };
+    final String[] expectedSubitleUrls =
+            new String[] {
+                    "https://utstreaming.zdf.de/mtt/zdf/18/04/180416_2215_sendung_hsn/7/Hard_Sun_Teil1_OmU.xml",
+                    "",
+            };
 
     final String filmUrl = "/content/documents/zdf/serien/hardsun/hard-sun-1-100.json";
     final String videoUrl = "/tmd/2/android_native_5/vod/ptmd/mediathek/180416_2215_sendung_hsn";
@@ -67,7 +72,7 @@ public class ZdfFilmDetailTaskMultipleLanguagesTest extends ZdfTaskTestBase {
           expectedUrlsSmall[i],
           expectedUrlsNormal[i],
           "",
-          "https://utstreaming.zdf.de/mtt/zdf/18/04/180416_2215_sendung_hsn/7/Hard_Sun_Teil1_OmU.xml");
+          expectedSubitleUrls[i]);
     }
   }
 

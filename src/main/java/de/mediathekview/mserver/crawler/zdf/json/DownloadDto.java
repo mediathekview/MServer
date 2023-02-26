@@ -10,14 +10,14 @@ import java.util.*;
 public class DownloadDto {
 
   private Optional<GeoLocations> geoLocation;
-  private Optional<String> subTitleUrl;
+  private final Map<String, String> subTitleUrls;
   private final Map<String, Map<Resolution, String>> downloadUrls;
   private Optional<Duration> duration;
 
   public DownloadDto() {
     downloadUrls = new HashMap<>();
     geoLocation = Optional.empty();
-    subTitleUrl = Optional.empty();
+    subTitleUrls = new HashMap<>();
     duration = Optional.empty();
   }
 
@@ -45,8 +45,11 @@ public class DownloadDto {
     return geoLocation;
   }
 
-  public Optional<String> getSubTitleUrl() {
-    return subTitleUrl;
+  public Optional<String> getSubTitleUrl(String language) {
+    if (subTitleUrls.containsKey(language)) {
+      return Optional.of(subTitleUrls.get(language));
+    }
+    return Optional.empty();
   }
 
   public Optional<String> getUrl(final String language, final Resolution resolution) {
@@ -63,8 +66,8 @@ public class DownloadDto {
     geoLocation = Optional.of(aGeoLocation);
   }
 
-  public void setSubTitleUrl(final String aUrl) {
-    subTitleUrl = Optional.of(aUrl);
+  public void addSubTitleUrl(final String language, final String aUrl) {
+    subTitleUrls.put(language, aUrl);
   }
 
   public void setDuration(final Duration duration) {
