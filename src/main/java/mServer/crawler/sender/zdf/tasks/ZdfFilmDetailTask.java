@@ -171,7 +171,7 @@ public class ZdfFilmDetailTask extends ZdfTaskBase<DatenFilm, CrawlerUrlDTO> {
     if (downloadUrls.containsKey(Qualities.HD)) {
       CrawlerTool.addUrlHd(film, downloadUrls.get(Qualities.HD));
     }
-    final Optional<String> subTitleUrl = downloadDto.getSubTitleUrl();
+    final Optional<String> subTitleUrl = downloadDto.getSubTitleUrl(aLanguage);
     if (subTitleUrl.isPresent()) {
       CrawlerTool.addUrlSubtitle(film, subTitleUrl.get());
     }
