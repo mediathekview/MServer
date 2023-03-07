@@ -346,9 +346,10 @@ public class AddToFilmlist {
             } else {
               Log.sysLog("film removed: code: " + response.code() + ": " + url);
             }
-          } catch (SocketTimeoutException ignored) {
-          } catch (IOException ex) {
-            ex.printStackTrace();
+          } catch (Exception ex) {
+            Log.errorLog(12834738, ex, "exception online check film: " + url);
+            // add film to list, because online check failed
+            addOld(film);
           }
         } else {
           if (Long.parseLong(film.arr[DatenFilm.FILM_GROESSE]) > MIN_SIZE_ADD_OLD) {
