@@ -99,8 +99,38 @@ class NexxCloudVideoDetailsDeserializerTest {
             1920,
             1080));
 
+    // missing host
+    final String filenameMissingHost = "/funk/nexx_cloud_video_details_missing_host.json";
+    final Set<FilmUrlInfoDto> videoDetailsMissingHost = new HashSet<>();
+
+    videoDetailsMissingHost.add(
+            new FilmUrlInfoDto(
+                    "https://funk-02.akamaized.net/22679/files/21/03/13/3001584/5-Whp4LcmHqkMT3xvrj6tn.mp4",
+                    426,
+                    240));
+    videoDetailsMissingHost.add(
+            new FilmUrlInfoDto(
+                    "https://funk-02.akamaized.net/22679/files/21/03/13/3001584/4-dQbWHRfxchTPBYNktz8v.mp4",
+                    640,
+                    360));
+    videoDetailsMissingHost.add(
+            new FilmUrlInfoDto(
+                    "https://funk-02.akamaized.net/22679/files/21/03/13/3001584/32-4FtRmXdGq8TbnJyjDZKP.mp4",
+                    1024,
+                    576));
+    videoDetailsMissingHost.add(
+            new FilmUrlInfoDto(
+                    "https://funk-02.akamaized.net/22679/files/21/03/13/3001584/2-6XCHrkDzB9nN4QjZmtJ3.mp4",
+                    1280,
+                    720));
+    videoDetailsMissingHost.add(
+            new FilmUrlInfoDto(
+                    "https://funk-02.akamaized.net/22679/files/21/03/13/3001584/1-cCJK39Y6pRVNZtmgyzBj.mp4",
+                    1920,
+                    1080));
+
     return Stream.of(
-        arguments(filenameAzure, videoDetailsAzure), arguments(filename3q, videoDetails3q));
+        arguments(filenameAzure, videoDetailsAzure), arguments(filename3q, videoDetails3q), arguments(filenameMissingHost, videoDetailsMissingHost));
   }
 
   private FunkCrawler createCrawler() {
