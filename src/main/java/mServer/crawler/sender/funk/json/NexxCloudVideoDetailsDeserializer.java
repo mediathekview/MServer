@@ -35,6 +35,7 @@ public class NexxCloudVideoDetailsDeserializer implements JsonDeserializer<Set<F
   private static final String STREAMDATA_LOCATOR = "qLocator";
   private static final String STREAMDATA_CDN_TYPE = "cdnType";
   private static final String STREAMDATA_SSH_HOST = "cdnShieldHTTPS";
+  private static final String DEFAULT_CDN = "funk-02.akamaized.net/";
 
   private static final Logger LOGGER =
           LogManager.getLogger(NexxCloudVideoDetailsDeserializer.class);
@@ -135,13 +136,17 @@ public class NexxCloudVideoDetailsDeserializer implements JsonDeserializer<Set<F
    * 3Q Service Storage
    */
   private FilmUrlInfoDto buildFilmUrlInfoDto3q(
-          final String cdnShieldProgHTTP,
+          String cdnShieldProgHTTP,
           final String account,
           final String prefix,
           final String locator,
           final String fileId,
           final int width,
           final int height) {
+    if (cdnShieldProgHTTP.isEmpty()) {
+      cdnShieldProgHTTP = DEFAULT_CDN;
+    }
+
     return new FilmUrlInfoDto(
             String.format(
                     VIDEO_FILE_URL_PATTERN_3Q, cdnShieldProgHTTP, account, prefix, locator, fileId),
