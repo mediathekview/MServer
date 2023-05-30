@@ -11,6 +11,10 @@ public class BannedFilmFilter {
     if (film.arr[DatenFilm.FILM_TITEL].equalsIgnoreCase("Wir haben genug - Wirtschaft ohne Wachstum")) {
       return true;
     }
+    if (film.arr[DatenFilm.FILM_TITEL].equalsIgnoreCase("Auslegung der Wirklichkeit - Georg Stefan Troller - Dokumentarfilm von Ruth Rieser, Österreich 2021")) {
+      return true;
+    }
+    
 
     return false;
   }
