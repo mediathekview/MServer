@@ -1,26 +1,33 @@
 package mServer.crawler.sender.dw;
 
-public class DwVideoDto {
+import java.util.HashMap;
+import java.util.Map;
+import mServer.crawler.sender.base.Qualities;
 
-  private final int bitRate;
-  private final String url;
-  private final int width;
+public class DwVideoDTO {
 
-  public DwVideoDto(String url, int width, int bitRate) {
-    this.url = url;
-    this.width = width;
-    this.bitRate = bitRate;
-  }
-
-  public int getBitRate() {
-    return bitRate;
-  }
-
-  public String getUrl() {
-    return url;
-  }
-
-  public int getWidth() {
-    return width;
-  }
+    private final Map<Qualities,String> videoUrls;
+    
+    public DwVideoDTO() {
+        videoUrls=new HashMap<>();
+    }
+    
+    public void addVideo(Qualities aQualitie, String aUrl)
+    {
+        videoUrls.put(aQualitie,aUrl);
+    }
+    
+    public Map<Qualities,String> getVideoUrls()
+    {
+        return videoUrls;
+    }
+    
+    public String getUrl(Qualities aQualitie)
+    {
+        String url = videoUrls.get(aQualitie);
+        if (url == null) {
+            return "";
+        }
+        return url;
+    }
 }
