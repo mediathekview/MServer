@@ -304,7 +304,7 @@ public class SrfFilmJsonDeserializer implements JsonDeserializer<Optional<DatenF
 
   private Map<Qualities, String> readUrls(String aM3U8Url) {
     Map<Qualities, String> urls = new EnumMap<>(Qualities.class);
-    final String optimizedUrl = getOptimizedUrl(aM3U8Url);
+    final String optimizedUrl = UrlUtils.removeParameters(getOptimizedUrl(aM3U8Url));
 
     Optional<String> content = loadM3u8(optimizedUrl);
     if (!content.isPresent()) {
