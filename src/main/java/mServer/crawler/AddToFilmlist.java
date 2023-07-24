@@ -398,7 +398,7 @@ public class AddToFilmlist {
     private boolean orfRemovedVideo(DatenFilm film, Response response) {
       if (film.arr[DatenFilm.FILM_SENDER].equals(Const.ORF)) {
         String path = response.request().url().encodedPath();
-        return path.contains("/bearbeitung_") || path.contains("/geoprotection");
+        return path.toLowerCase().contains("/bearbeitung_") || path.toLowerCase().contains("/geoprotection");
       }
 
       return false;
