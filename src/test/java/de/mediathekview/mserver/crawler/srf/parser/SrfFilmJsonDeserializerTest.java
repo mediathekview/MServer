@@ -138,7 +138,7 @@ public class SrfFilmJsonDeserializerTest extends SrfTaskTestBase {
           {
             "/srf/srf_film_page_with_optimize_m3u8url.json",
             "/srf/srf_film_page_with_optimize_m3u8url.m3u8",
-            "/i/vod/lena/2018/11/lena_20181114_114517_12440540_v_webcast_h264_,q40,q10,q20,q30,q50,q60,.mp4.csmil/master.m3u8?start=0.0&end=2549.76",
+            "/i/vod/lena/2018/11/lena_20181114_114517_12440540_v_webcast_h264_,q40,q10,q20,q30,q50,q60,.mp4.csmil/master.m3u8",
             "Lena – Liebe meines Lebens",
             "Kapitel 156",
             LocalDateTime.of(2018, 11, 14, 11, 45, 0),
