@@ -14,7 +14,8 @@ import org.junit.Test;
 
 public class HashFileWriterTest {
 	private static final String FILE_NAME_FILMLISTE_HASH = "filmliste.id";
-	private static final Path basePath = Paths.get(HashFileWriterTest.class.getResource("").getPath());
+	//private static final Path basePath = Paths.get(HashFileWriterTest.class.getResource("").getPath());
+	private static final Path basePath = Paths.get(".");
 
 	@Test
 	public void testWriteHash() throws IOException {
