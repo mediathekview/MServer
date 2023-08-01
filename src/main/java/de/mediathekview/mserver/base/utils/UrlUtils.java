@@ -237,27 +237,30 @@ public final class UrlUtils {
     if (aUrl != null) {
       final Map<String, String> parameters = getUrlParameters(aUrl);
       if (parameters.containsKey(aParameterName)) {
-        return Optional.of(parameters.get(aParameterName));
+          return Optional.of(parameters.get(aParameterName));
       }
     }
 
     return Optional.empty();
   }
-
+  
+  // parsen von urls mit den Formaten
+  // https://my.domain.com?key1=abc&key2=def
+  // https://my.domain.com?key1=abc&key2=
+  // https://my.domain.com?key1=abc&key2
+  // https://my.domain.com?key1=ab=c&key2=def
   private static Map<String, String> getUrlParameters(final String aUrl) throws UrlParseException {
     final Map<String, String> parameters = new HashMap<>();
-
     final int indexParameterStart = aUrl.indexOf('?');
     if (indexParameterStart > 0) {
       final String parameterPart = aUrl.substring(indexParameterStart + 1);
       final String[] parameterArray = parameterPart.split("&");
-
       for (final String parameter : parameterArray) {
-        final String[] parts = parameter.split("=");
-        if (parts.length == 2) {
-          parameters.put(parts[0], parts[1]);
+        int splitKeyValue = parameter.indexOf('=');
+        if (splitKeyValue > 0 && splitKeyValue != parameter.length() ) {
+          parameters.put(parameter.substring(0, splitKeyValue) , parameter.substring(splitKeyValue+1));  
         } else {
-          throw new UrlParseException("Invalid url paramters: " + aUrl);
+          parameters.put(parameter, "");
         }
       }
     }

@@ -333,7 +333,7 @@ public class SrfFilmJsonDeserializer implements JsonDeserializer<Optional<Film>>
 
   private Map<Resolution, String> readUrls(final String aM3U8Url) {
     Map<Resolution, String> urls = new EnumMap<>(Resolution.class);
-    final String optimizedUrl = getOptimizedUrl(aM3U8Url);
+    final String optimizedUrl = UrlUtils.removeParameters(getOptimizedUrl(aM3U8Url));
     Optional<String> content;
 
     try {
