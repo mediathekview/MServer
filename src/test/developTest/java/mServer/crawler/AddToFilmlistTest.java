@@ -3,6 +3,7 @@ package mServer.crawler;
 import static jakarta.ws.rs.core.HttpHeaders.CONTENT_LENGTH;
 import static jakarta.ws.rs.core.HttpHeaders.CONTENT_TYPE;
 import static org.hamcrest.CoreMatchers.equalTo;
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 
@@ -168,6 +169,21 @@ public class AddToFilmlistTest {
     target.addOldList();
 
     assertThat(list.size(), equalTo(3));
+  }
+
+  @Test
+  public void testAddOldListKeepArdSportschauTourDeFranceStages() {
+    list.clear();
+    list.add(createTestFilm(Const.ARD, "Sportschau", "3. Etappe - die komplette Übertragung", FILM_NAME_ONLINE));
+    list.add(createTestFilm(Const.ARD, FILM_TOPIC1, FILM_TITLE1, FILM_NAME_ONLINE));
+
+    listToAdd.add(createTestFilm(Const.ARD, "Sportschau", "3. Etappe - die komplette Übertragung", FILM_NAME_ONLINE2));
+    listToAdd.add(createTestFilm(Const.ARD, FILM_TOPIC1, FILM_TITLE1, FILM_NAME_ONLINE2));
+
+    AddToFilmlist target = new AddToFilmlist(list, listToAdd);
+    target.addOldList();
+
+    assertEquals(list.size(), 3);
   }
 
   @Test

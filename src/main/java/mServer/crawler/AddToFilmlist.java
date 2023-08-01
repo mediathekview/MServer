@@ -66,7 +66,14 @@ public class AddToFilmlist {
   private void performTitleSearch(HashSet<Hash> hash, final int size) {
     vonListe.parallelStream().forEach(f -> {
       synchronized (hash) {
-        hash.add(f.getHashValueIndexAddOld());
+        // tour de france entries of men and women use the same title
+        // => do not add this entries to hash list to keep all entries
+        // => for details see https://github.com/mediathekview/MServer/issues/908
+        if (!(f.arr[DatenFilm.FILM_SENDER] == Const.ARD
+                && f.arr[DatenFilm.FILM_THEMA].equals("Sportschau")
+                && f.arr[DatenFilm.FILM_TITEL].contains("Etappe"))) {
+          hash.add(f.getHashValueIndexAddOld());
+        }
       }
     });
 
