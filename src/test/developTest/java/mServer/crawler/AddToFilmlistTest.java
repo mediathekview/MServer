@@ -240,9 +240,6 @@ public class AddToFilmlistTest {
     Optional<DatenFilm> themaStringwithoutTime = list.stream()
             .filter(film -> (film.arr[DatenFilm.FILM_THEMA].equals("MDR aktuell") && film.arr[DatenFilm.FILM_TITEL].equals("MDR aktuell 19:30 Uhr"))).findFirst();
     assertTrue(themaStringwithoutTime.isPresent());
-    
-    //assertThat(list.get(2).arr[DatenFilm.FILM_THEMA], equalTo("MDR aktuell"));
-    //assertThat(list.get(2).arr[DatenFilm.FILM_TITEL], equalTo("MDR aktuell 19:30 Uhr"));
   }
 
   @Test
@@ -260,13 +257,6 @@ public class AddToFilmlistTest {
     Optional<DatenFilm> doNothing = list.stream()
             .filter(film -> (film.arr[DatenFilm.FILM_THEMA].equals("AD | Film") && film.arr[DatenFilm.FILM_TITEL].equals("AD | Film ARD"))).findFirst();
     assertTrue(doNothing.isPresent());
-    
-    
-    
-    //assertThat(list.get(2).arr[DatenFilm.FILM_THEMA], equalTo("Film"));
-    //assertThat(list.get(2).arr[DatenFilm.FILM_TITEL], equalTo("Film Testfilm (Audiodeskription)"));
-    //assertThat(list.get(3).arr[DatenFilm.FILM_THEMA], equalTo("AD | Film"));
-    //assertThat(list.get(3).arr[DatenFilm.FILM_TITEL], equalTo("AD | Film ARD"));
   }
 
   @Test
@@ -421,9 +411,6 @@ public class AddToFilmlistTest {
     Optional<DatenFilm> sortInDifferentUrls2 = list.stream()
             .filter(film -> (film.arr[DatenFilm.FILM_WEBSEITE].equals("https://www.ardmediathek.de/video/KLJpZDovL21kci5kZS9iZWl0cmFnL2Ntcy9mZjMzYzMxMC0wMjczLTQzMDktODllZi03MTI0OTFjZmE3ZTM"))).findFirst();
     assertTrue(sortInDifferentUrls2.isPresent());
-    
-    //assertThat(testFilmUpdated.arr[DatenFilm.FILM_WEBSEITE], equalTo("https://www.ardmediathek.de/video/Y3JpZDovL21kci5kZS9iZWl0cmFnL2Ntcy9mZjMzYzMxMC0wMjczLTQzMDktODllZi03MTI0OTFjZmE3ZTM"));
-    //assertThat(testFilmNotUpdated.arr[DatenFilm.FILM_WEBSEITE], equalTo("https://www.ardmediathek.de/video/KLJpZDovL21kci5kZS9iZWl0cmFnL2Ntcy9mZjMzYzMxMC0wMjczLTQzMDktODllZi03MTI0OTFjZmE3ZTM"));
   }
 
 
