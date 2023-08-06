@@ -120,6 +120,18 @@ public class AddToFilmlist {
     updateAudioDescriptionOrf(listeEinsortieren);
     updateAudioDescriptionSrf(listeEinsortieren);
     updateArdWebsite(listeEinsortieren);
+    updateFunkMissingHost(listeEinsortieren);
+  }
+
+  private void updateFunkMissingHost(ListeFilme listeEinsortieren) {
+    final List<DatenFilm> list = listeEinsortieren.parallelStream()
+            .filter(film -> film.arr[DatenFilm.FILM_SENDER].equals("Funk.net") && film.arr[DatenFilm.FILM_URL].matches("https:\\/\\/[0-9]*\\/.*"))
+            .collect(Collectors.toList());
+    Log.sysLog("FUNK: add missing host für " + list.size() + " Einträge.");
+
+    list.forEach(film -> film.arr[DatenFilm.FILM_URL] = film.arr[DatenFilm.FILM_URL].replace("https://", "https://funk-02.akamaized.net/").trim());
+    list.forEach(film -> film.arr[DatenFilm.FILM_URL_KLEIN] = film.arr[DatenFilm.FILM_URL_KLEIN].replace("https://", "https://funk-02.akamaized.net/").trim());
+    list.forEach(film -> film.arr[DatenFilm.FILM_URL_HD] = film.arr[DatenFilm.FILM_URL_HD].replace("https://", "https://funk-02.akamaized.net/").trim());
   }
 
   private void updateArdWebsite(ListeFilme listeEinsortieren) {
@@ -337,9 +349,10 @@ public class AddToFilmlist {
             } else {
               Log.sysLog("film removed: code: " + response.code() + ": " + url);
             }
-          } catch (SocketTimeoutException ignored) {
-          } catch (IOException ex) {
-            ex.printStackTrace();
+          } catch (Exception ex) {
+            Log.errorLog(12834738, ex, "exception online check film: " + url);
+            // add film to list, because online check failed
+            addOld(film);
           }
         } else {
           if (Long.parseLong(film.arr[DatenFilm.FILM_GROESSE]) > MIN_SIZE_ADD_OLD) {

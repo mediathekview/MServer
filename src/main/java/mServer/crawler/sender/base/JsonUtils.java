@@ -66,6 +66,17 @@ public final class JsonUtils {
     return Optional.empty();
   }
 
+  public static Optional<Integer> getAttributeAsInt(final JsonObject jsonObject, final String attributeName) {
+    if (jsonObject.has(attributeName)) {
+      final JsonElement aElement = jsonObject.get(attributeName);
+      if (!aElement.isJsonNull()) {
+        return Optional.of(aElement.getAsInt());
+      }
+    }
+
+    return Optional.empty();
+  }
+
   /**
    * Checks if the {@link JsonElement} is a {@link JsonObject} and if it has all
    * given elements and if no element is null.
@@ -120,4 +131,27 @@ public final class JsonUtils {
                     .map(JsonElement::getAsString)
                     .noneMatch(String::isEmpty);
   }
+  
+  public static Optional<String> getElementValueAsString(final JsonElement aJsonElement, final String... aElementIds) {
+    Optional<String> rs = Optional.empty();
+    JsonObject aJsonObject = aJsonElement.getAsJsonObject();
+    for (int i = 0; i < aElementIds.length-1; i++) {
+      String elementId = aElementIds[i];
+      if (aJsonObject.has(elementId) && aJsonObject.get(elementId).isJsonObject()) {
+        aJsonObject = aJsonObject.getAsJsonObject(elementId);
+      } else {
+        aJsonObject = null;
+        break;
+      }
+    }
+    //
+    String elementId = aElementIds[aElementIds.length-1];
+    if (aJsonObject != null && aJsonObject.has(elementId) && !aJsonObject.get(elementId).isJsonNull()) {
+      rs =  Optional.of(aJsonObject.get(elementId).getAsString());
+    }
+    //
+    return rs;
+  }
+
+
 }
