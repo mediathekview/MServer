@@ -50,8 +50,8 @@ Build and Deploy:
     - ./gradlew build
     - ls -l build/distributions/
     - cd build/distributions
-    - tar -xzf MServer-${CI_COMMIT_TAG}.tar.gz
-    - cd MServer-${CI_COMMIT_TAG}
+    - "tar -xzf MServer-${CI_COMMIT_TAG}.tar.gz"
+    - "cd MServer-${CI_COMMIT_TAG}"
     - rm -R Copyright/ upload.xml mserver.xml STARTEN__MServer.sh STOPPEN__MServer.sh MServer.sh
     - ls -l
     - mkdir ../MServer
@@ -62,7 +62,7 @@ Build and Deploy:
     - ls -l /var/www/res.mediathekview.de/web/MServer/
     - tar -czf /var/www/res.mediathekview.de/web/MServer/MServer.tar.gz *
     - 'echo "Version vorher: " && cat /var/www/res.mediathekview.de/web/MServer/MServer.version'
-    - echo ${CI_COMMIT_TAG} > /var/www/res.mediathekview.de/web/MServer/MServer.version
+    - "echo ${CI_COMMIT_TAG} > /var/www/res.mediathekview.de/web/MServer/MServer.version"
     - 'echo "Version jetzt: " && cat /var/www/res.mediathekview.de/web/MServer/MServer.version'
   tags:
     - mvweb1
