@@ -2,7 +2,7 @@ variables:
   GIT_SUBMODULE_STRATEGY: recursive
 
 #image: maven:3.9-eclipse-temurin-8
-image: bellsoft/liberica-openjdk-debian:8u
+image: bellsoft/liberica-openjdk-debian:17
 
 cache:
   paths:
