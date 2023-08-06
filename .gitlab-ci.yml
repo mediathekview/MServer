@@ -1,5 +1,6 @@
 variables:
   GIT_SUBMODULE_STRATEGY: recursive
+  TZ: Europe/Berlin
 
 #image: maven:3.9-eclipse-temurin-8
 image: bellsoft/liberica-openjdk-debian:17
