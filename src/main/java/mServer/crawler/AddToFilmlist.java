@@ -42,6 +42,7 @@ public class AddToFilmlist {
   private final static int NUMBER_OF_THREADS = 32;//(Runtime.getRuntime().availableProcessors() * Runtime.getRuntime().availableProcessors()) / 2;
   private final ListeFilme vonListe;
   private final ListeFilme listeEinsortieren;
+  private final BannedFilmFilter bannedFilmFilter;
   /**
    * List of all locally started import threads.
    */
@@ -51,6 +52,7 @@ public class AddToFilmlist {
   public AddToFilmlist(ListeFilme vonListe, ListeFilme listeEinsortieren) {
     this.vonListe = vonListe;
     this.listeEinsortieren = listeEinsortieren;
+    this.bannedFilmFilter = new BannedFilmFilter();
   }
 
   public synchronized void addLiveStream() {
@@ -316,7 +318,7 @@ public class AddToFilmlist {
     }
 
     private void addOld(DatenFilm film) {
-      if (BannedFilmFilter.isBanned(film)) {
+      if (bannedFilmFilter.isBanned(film)) {
         Log.sysLog("Blacklist Treffer im import Old (" + film.arr[DatenFilm.FILM_TITEL] + ")");
         return;
       }
