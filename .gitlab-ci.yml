@@ -48,11 +48,26 @@ Build and Deploy:
 #    - mvn clean
 #    - mvn -B package
     - ./gradlew build
+    - ls -l build/distributions/
+    - cd build/distributions
+    - tar -xzf MServer-${CI_COMMIT_TAG}.tar.gz
+    - cd MServer-${CI_COMMIT_TAG}
+    - rm -R Copyright/ upload.xml mserver.xml STARTEN__MServer.sh STOPPEN__MServer.sh MServer.sh
     - ls -l
+    - mkdir ../MServer
+    - mv * ../MServer
+    - cd ../MServer
+    - ls -l
+    - "test -d /var/www/res.mediathekview.de/web/MServer || mkdir /var/www/res.mediathekview.de/web/MServer"
+    - ls -l /var/www/res.mediathekview.de/web/MServer/
+    - tar -czf /var/www/res.mediathekview.de/web/MServer/MServer.tar.gz *
+    - 'echo "Version vorher: " && cat /var/www/res.mediathekview.de/web/MServer/MServer.version'
+    - echo ${CI_COMMIT_TAG} > /var/www/res.mediathekview.de/web/MServer/MServer.version
+    - 'echo "Version jetzt: " && cat /var/www/res.mediathekview.de/web/MServer/MServer.version'
   tags:
     - mvweb1
-#  rules:
-#    - if: $CI_COMMIT_TAG
+  rules:
+    - if: $CI_COMMIT_TAG
 
 
 notify-github-success:
