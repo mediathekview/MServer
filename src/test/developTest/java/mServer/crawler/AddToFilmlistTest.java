@@ -272,20 +272,23 @@ public class AddToFilmlistTest {
 
   @Test
   public void testReplaceSrfAudioDescriptionNaming() {
-    listToAdd.add(createTestFilm(Const.SRF, "Film mit Audiodeskription", "Testfilm mit Audiodeskription (Staffel 1)", FILM_NAME_ONLINE));
-    listToAdd.add(createTestFilm(Const.SRF, "Film mit Audiodeskription", "Testfilm2", FILM_NAME_ONLINE));
-    listToAdd.add(createTestFilm(Const.ARD, "Film mit Audiodeskription", "Testfilm mit Audiodeskription", FILM_NAME_ONLINE));
+    final DatenFilm film1 = createTestFilm(Const.SRF, "Film mit Audiodeskription", "Testfilm mit Audiodeskription (Staffel 1)", FILM_NAME_ONLINE);
+    final DatenFilm film2 = createTestFilm(Const.SRF, "Film mit Audiodeskription", "Testfilm2", FILM_NAME_ONLINE);
+    final DatenFilm film3 = createTestFilm(Const.ARD, "Film mit Audiodeskription", "Testfilm mit Audiodeskription", FILM_NAME_ONLINE);
+    listToAdd.add(film1);
+    listToAdd.add(film2);
+    listToAdd.add(film3);
 
     AddToFilmlist target = new AddToFilmlist(list, listToAdd);
     target.addOldList();
 
     assertThat(list.size(), equalTo(5));
-    assertThat(list.get(2).arr[DatenFilm.FILM_THEMA], equalTo("Film"));
-    assertThat(list.get(2).arr[DatenFilm.FILM_TITEL], equalTo("Testfilm (Staffel 1) (Audiodeskription)"));
-    assertThat(list.get(3).arr[DatenFilm.FILM_THEMA], equalTo("Film"));
-    assertThat(list.get(3).arr[DatenFilm.FILM_TITEL], equalTo("Testfilm2 (Audiodeskription)"));
-    assertThat(list.get(4).arr[DatenFilm.FILM_THEMA], equalTo("Film mit Audiodeskription"));
-    assertThat(list.get(4).arr[DatenFilm.FILM_TITEL], equalTo("Testfilm mit Audiodeskription"));
+    assertThat(film1.arr[DatenFilm.FILM_THEMA], equalTo("Film"));
+    assertThat(film1.arr[DatenFilm.FILM_TITEL], equalTo("Testfilm (Staffel 1) (Audiodeskription)"));
+    assertThat(film2.arr[DatenFilm.FILM_THEMA], equalTo("Film"));
+    assertThat(film2.arr[DatenFilm.FILM_TITEL], equalTo("Testfilm2 (Audiodeskription)"));
+    assertThat(film3.arr[DatenFilm.FILM_THEMA], equalTo("Film mit Audiodeskription"));
+    assertThat(film3.arr[DatenFilm.FILM_TITEL], equalTo("Testfilm mit Audiodeskription"));
   }
 
   @Test
