@@ -11,7 +11,7 @@ cache:
 
 default:
   tags:
-    - mvrunner1
+    - mvweb1
   before_script:
     - apt-get update -qq
     - apt-get install -y -qq ssh lib32ncurses6 lib32z1 wget tar file gnupg2 git-lfs > /dev/null
