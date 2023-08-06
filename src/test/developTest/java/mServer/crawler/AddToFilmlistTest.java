@@ -15,6 +15,7 @@ import okhttp3.mockwebserver.Dispatcher;
 import okhttp3.mockwebserver.MockResponse;
 import okhttp3.mockwebserver.MockWebServer;
 import okhttp3.mockwebserver.RecordedRequest;
+import org.assertj.core.api.Assertions;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
@@ -247,11 +248,14 @@ public class AddToFilmlistTest {
     AddToFilmlist target = new AddToFilmlist(list, listToAdd);
     target.addOldList();
 
-    assertThat(list.size(), equalTo(4));
-    assertThat(list.get(2).arr[DatenFilm.FILM_THEMA], equalTo("Film"));
-    assertThat(list.get(2).arr[DatenFilm.FILM_TITEL], equalTo("Film Testfilm (Audiodeskription)"));
-    assertThat(list.get(3).arr[DatenFilm.FILM_THEMA], equalTo("AD | Film"));
-    assertThat(list.get(3).arr[DatenFilm.FILM_TITEL], equalTo("AD | Film ARD"));
+    Assertions.assertThat(list).hasSize(4)
+            .anySatisfy(film -> checkFilmThemaAndTitle(film, "Film", "Film Testfilm (Audiodeskription)"))
+            .anySatisfy(film -> checkFilmThemaAndTitle(film, "AD | Film", "AD | Film ARD"));
+  }
+
+  private void checkFilmThemaAndTitle(DatenFilm film, final String expectedThema, final String expectedTitle) {
+    Assertions.assertThat(film.arr[DatenFilm.FILM_THEMA]).isEqualTo(expectedThema);
+    Assertions.assertThat(film.arr[DatenFilm.FILM_TITEL]).isEqualTo(expectedTitle);
   }
 
   @Test
@@ -263,13 +267,10 @@ public class AddToFilmlistTest {
     AddToFilmlist target = new AddToFilmlist(list, listToAdd);
     target.addOldList();
 
-    assertThat(list.size(), equalTo(5));
-    assertThat(list.get(2).arr[DatenFilm.FILM_THEMA], equalTo("Film"));
-    assertThat(list.get(2).arr[DatenFilm.FILM_TITEL], equalTo("Testfilm (Staffel 1) (Audiodeskription)"));
-    assertThat(list.get(3).arr[DatenFilm.FILM_THEMA], equalTo("Film"));
-    assertThat(list.get(3).arr[DatenFilm.FILM_TITEL], equalTo("Testfilm2 (Audiodeskription)"));
-    assertThat(list.get(4).arr[DatenFilm.FILM_THEMA], equalTo("Film mit Audiodeskription"));
-    assertThat(list.get(4).arr[DatenFilm.FILM_TITEL], equalTo("Testfilm mit Audiodeskription"));
+    Assertions.assertThat(list).hasSize(5)
+            .anySatisfy(film -> checkFilmThemaAndTitle(film, "Film", "Testfilm (Staffel 1) (Audiodeskription)"))
+            .anySatisfy(film -> checkFilmThemaAndTitle(film, "Film", "Testfilm2 (Audiodeskription)"))
+            .anySatisfy(film -> checkFilmThemaAndTitle(film, "Film mit Audiodeskription", "Testfilm mit Audiodeskription"));
   }
 
   @Test

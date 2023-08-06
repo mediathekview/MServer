@@ -18,7 +18,7 @@ git clone https://github.com/mediathekview/Mlib.git
 ## Bauen und starten an der Kommandozeile
 ```bash
 cd MServer
-./gradlew run
+./gradlew start
 ```
 
 ## Einstellungen

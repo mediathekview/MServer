@@ -12,7 +12,9 @@ import de.mediathekview.mlib.daten.ListeFilme;
 import de.mediathekview.mlib.tool.Hash;
 import de.mediathekview.mlib.tool.Log;
 import de.mediathekview.mlib.tool.MVHttpClient;
-import java.util.Optional;
+
+import java.util.*;
+
 import mServer.crawler.sender.base.UrlUtils;
 import mServer.crawler.sender.orf.OrfVideoInfoDTO;
 import mServer.tool.MserverDaten;
@@ -23,10 +25,7 @@ import okhttp3.Response;
 
 import java.io.IOException;
 import java.net.SocketTimeoutException;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.List;
+import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
@@ -201,7 +200,7 @@ public class AddToFilmlist {
   private void startThreads() {
     final OkHttpClient client = MVHttpClient.getInstance().getReducedTimeOutClient();
 
-    List syncList = Collections.synchronizedList(listeEinsortieren);
+    Queue<DatenFilm> syncList = new LinkedBlockingQueue<>(listeEinsortieren);
     for (int i = 0; i < NUMBER_OF_THREADS; ++i) {
       ImportOldFilmlistThread t = new ImportOldFilmlistThread(syncList, client);
       t.setName("ImportOldFilmlistThread Thread-" + i);
@@ -296,13 +295,13 @@ public class AddToFilmlist {
 
   private class ImportOldFilmlistThread extends Thread {
 
-    private final List<DatenFilm> listeOld;
+    private final Queue<DatenFilm> listeOld;
     private final ArrayList<DatenFilm> localAddList = new ArrayList<>(
         (vonListe.size() / NUMBER_OF_THREADS) + 500);
     private int treffer = 0;
     private OkHttpClient client = null;
 
-    public ImportOldFilmlistThread(List<DatenFilm> listeOld, OkHttpClient client) {
+    public ImportOldFilmlistThread(Queue<DatenFilm> listeOld, OkHttpClient client) {
       this.listeOld = listeOld;
       threadCounter.incrementAndGet();
       this.client = client;
@@ -328,19 +327,11 @@ public class AddToFilmlist {
       localAddList.add(film);
     }
 
-    private synchronized DatenFilm popOld(List<DatenFilm> listeOld) {
-      if (!listeOld.isEmpty()) {
-        return listeOld.remove(0);
-      } else {
-        return null;
-      }
-    }
-
     @Override
     public void run() {
 
       DatenFilm film;
-      while (!isInterrupted() && (film = popOld(listeOld)) != null) {
+      while (!isInterrupted() && (film = listeOld.poll()) != null) {
         final String url = film.arr[DatenFilm.FILM_URL];
         if (film.arr[DatenFilm.FILM_GROESSE].isEmpty()) {
           Request request = createOnlineCheckRequest(url);
