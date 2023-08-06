@@ -22,4 +22,9 @@ build/
 /src/main/resources/version.properties
 RepoZugang.properties
 
+logs/
+/target/
+/.checkstyle
+
 ui/
+devenv/
