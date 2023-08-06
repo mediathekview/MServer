@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Installiere curl
-apt-get install curl
+apt-get update -qq && apt-get install curl
 
 GITHUB_ORG="mediathekview"
 GITHUB_REPO="MServer"
