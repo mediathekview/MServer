@@ -1,8 +1,8 @@
 variables:
   GIT_SUBMODULE_STRATEGY: recursive
 
-image: maven:3.9-eclipse-temurin-8
-
+#image: maven:3.9-eclipse-temurin-8
+image: azul/zulu-openjdk:8-latest
 
 cache:
   paths:
