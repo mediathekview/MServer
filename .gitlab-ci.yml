@@ -61,8 +61,8 @@ Build and Deploy:
     - "test -d /var/www/res.mediathekview.de/web/MServer || mkdir /var/www/res.mediathekview.de/web/MServer"
     - ls -l /var/www/res.mediathekview.de/web/MServer/
     - tar -czf /var/www/res.mediathekview.de/web/MServer/MServer.tar.gz *
-    - 'echo "Version vorher: " && cat /var/www/res.mediathekview.de/web/MServer/MServer.version'
-    - "echo ${CI_COMMIT_TAG} > /var/www/res.mediathekview.de/web/MServer/MServer.version"
+    - 'echo "Version vorher: " && (cat /var/www/res.mediathekview.de/web/MServer/MServer.version || echo "Keine Versionsdatei vorhanden")'
+    - "echo \"${CI_COMMIT_TAG}\" > /var/www/res.mediathekview.de/web/MServer/MServer.version"
     - 'echo "Version jetzt: " && cat /var/www/res.mediathekview.de/web/MServer/MServer.version'
   tags:
     - mvweb1
