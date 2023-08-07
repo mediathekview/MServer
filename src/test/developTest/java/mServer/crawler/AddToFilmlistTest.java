@@ -12,6 +12,9 @@ import de.mediathekview.mlib.daten.DatenFilm;
 import de.mediathekview.mlib.daten.ListeFilme;
 import java.io.IOException;
 import java.util.Optional;
+
+import mServer.tool.MserverDaten;
+import mServer.tool.MserverKonstanten;
 import okhttp3.mockwebserver.Dispatcher;
 import okhttp3.mockwebserver.MockResponse;
 import okhttp3.mockwebserver.MockWebServer;
@@ -105,6 +108,7 @@ public class AddToFilmlistTest {
 
   @Before
   public void setUp() {
+    MserverDaten.system[MserverKonstanten.SYSTEM_BANNEDFILMLIST_NR] = "file:dist/bannedFilmList.txt";
     listToAdd = new ListeFilme();
     list = new ListeFilme();
     list.add(createTestFilm(Const.BR, FILM_TOPIC1, FILM_TITLE1, "film1.mp4"));
