@@ -27,7 +27,7 @@ sourceCompatibility = JavaVersion.VERSION_17
 targetCompatibility = JavaVersion.VERSION_17
 group = 'de.mediathekview'
 archivesBaseName = "MServer"
-version = '3.1.216'
+version = '3.1.217'
 
 def jarName = 'MServer.jar'
 def mainClass = 'mServer.Main'
