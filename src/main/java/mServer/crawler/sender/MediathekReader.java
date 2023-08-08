@@ -48,6 +48,7 @@ public abstract class MediathekReader extends Thread {
   private int threads; // aktuelle Anz. laufender Threads
   private int max; // Anz. zu suchender Themen
   private int progress; // Prograss eben
+  private final BannedFilmFilter bannedFilmFilter;
 
   public MediathekReader(FilmeSuchen aMSearchFilmeSuchen, String aSendername, int aSenderMaxThread, int aSenderWartenSeiteLaden, int aStartPrio) {
     mlibFilmeSuchen = aMSearchFilmeSuchen;
@@ -61,6 +62,7 @@ public abstract class MediathekReader extends Thread {
     max = 0;
     progress = 0;
     listeThemen = new LinkedListUrl();
+    bannedFilmFilter = new BannedFilmFilter();
   }
 
   public static boolean urlExists(String url) {
@@ -208,7 +210,7 @@ public abstract class MediathekReader extends Thread {
    */
   protected void addFilm(DatenFilm film) {
 
-    if (BannedFilmFilter.isBanned(film)) {
+    if (bannedFilmFilter.isBanned(film)) {
       Log.sysLog("Blacklist Treffer im addFilm (" + film.arr[DatenFilm.FILM_TITEL] + ")");
       return;
     }

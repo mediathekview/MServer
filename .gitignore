@@ -22,4 +22,16 @@ build/
 /src/main/resources/version.properties
 RepoZugang.properties
 
+logs/
+/target/
+/.checkstyle
+
 ui/
+
+# Ignore Gradle project-specific cache directory
+.gradle
+
+# Ignore Gradle build output directory
+build
+
+devenv/

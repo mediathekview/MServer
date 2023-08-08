@@ -12,7 +12,9 @@ import de.mediathekview.mlib.daten.ListeFilme;
 import de.mediathekview.mlib.tool.Hash;
 import de.mediathekview.mlib.tool.Log;
 import de.mediathekview.mlib.tool.MVHttpClient;
-import java.util.Optional;
+
+import java.util.*;
+
 import mServer.crawler.sender.base.UrlUtils;
 import mServer.crawler.sender.orf.OrfVideoInfoDTO;
 import mServer.tool.MserverDaten;
@@ -23,10 +25,7 @@ import okhttp3.Response;
 
 import java.io.IOException;
 import java.net.SocketTimeoutException;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.List;
+import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
@@ -43,6 +42,7 @@ public class AddToFilmlist {
   private final static int NUMBER_OF_THREADS = 32;//(Runtime.getRuntime().availableProcessors() * Runtime.getRuntime().availableProcessors()) / 2;
   private final ListeFilme vonListe;
   private final ListeFilme listeEinsortieren;
+  private final BannedFilmFilter bannedFilmFilter;
   /**
    * List of all locally started import threads.
    */
@@ -52,6 +52,7 @@ public class AddToFilmlist {
   public AddToFilmlist(ListeFilme vonListe, ListeFilme listeEinsortieren) {
     this.vonListe = vonListe;
     this.listeEinsortieren = listeEinsortieren;
+    this.bannedFilmFilter = new BannedFilmFilter();
   }
 
   public synchronized void addLiveStream() {
@@ -66,7 +67,14 @@ public class AddToFilmlist {
   private void performTitleSearch(HashSet<Hash> hash, final int size) {
     vonListe.parallelStream().forEach(f -> {
       synchronized (hash) {
-        hash.add(f.getHashValueIndexAddOld());
+        // tour de france entries of men and women use the same title
+        // => do not add this entries to hash list to keep all entries
+        // => for details see https://github.com/mediathekview/MServer/issues/908
+        if (!(f.arr[DatenFilm.FILM_SENDER].equals(Const.ARD)
+                && f.arr[DatenFilm.FILM_THEMA].equals("Sportschau")
+                && f.arr[DatenFilm.FILM_TITEL].contains("Etappe"))) {
+          hash.add(f.getHashValueIndexAddOld());
+        }
       }
     });
 
@@ -231,7 +239,7 @@ public class AddToFilmlist {
   private void startThreads() {
     final OkHttpClient client = MVHttpClient.getInstance().getReducedTimeOutClient();
 
-    List syncList = Collections.synchronizedList(listeEinsortieren);
+    Queue<DatenFilm> syncList = new LinkedBlockingQueue<>(listeEinsortieren);
     for (int i = 0; i < NUMBER_OF_THREADS; ++i) {
       ImportOldFilmlistThread t = new ImportOldFilmlistThread(syncList, client);
       t.setName("ImportOldFilmlistThread Thread-" + i);
@@ -326,13 +334,13 @@ public class AddToFilmlist {
 
   private class ImportOldFilmlistThread extends Thread {
 
-    private final List<DatenFilm> listeOld;
+    private final Queue<DatenFilm> listeOld;
     private final ArrayList<DatenFilm> localAddList = new ArrayList<>(
         (vonListe.size() / NUMBER_OF_THREADS) + 500);
     private int treffer = 0;
     private OkHttpClient client = null;
 
-    public ImportOldFilmlistThread(List<DatenFilm> listeOld, OkHttpClient client) {
+    public ImportOldFilmlistThread(Queue<DatenFilm> listeOld, OkHttpClient client) {
       this.listeOld = listeOld;
       threadCounter.incrementAndGet();
       this.client = client;
@@ -347,7 +355,7 @@ public class AddToFilmlist {
     }
 
     private void addOld(DatenFilm film) {
-      if (BannedFilmFilter.isBanned(film)) {
+      if (bannedFilmFilter.isBanned(film)) {
         Log.sysLog("Blacklist Treffer im import Old (" + film.arr[DatenFilm.FILM_TITEL] + ")");
         return;
       }
@@ -358,19 +366,11 @@ public class AddToFilmlist {
       localAddList.add(film);
     }
 
-    private synchronized DatenFilm popOld(List<DatenFilm> listeOld) {
-      if (!listeOld.isEmpty()) {
-        return listeOld.remove(0);
-      } else {
-        return null;
-      }
-    }
-
     @Override
     public void run() {
 
       DatenFilm film;
-      while (!isInterrupted() && (film = popOld(listeOld)) != null) {
+      while (!isInterrupted() && (film = listeOld.poll()) != null) {
         final String url = film.arr[DatenFilm.FILM_URL];
         if (film.arr[DatenFilm.FILM_GROESSE].isEmpty()) {
           Request request = createOnlineCheckRequest(url);
@@ -427,8 +427,8 @@ public class AddToFilmlist {
 
     private boolean orfRemovedVideo(DatenFilm film, Response response) {
       if (film.arr[DatenFilm.FILM_SENDER].equals(Const.ORF)) {
-        String path = response.request().url().encodedPath();
-        return path.toLowerCase().contains("/bearbeitung_") || path.toLowerCase().contains("/geoprotection");
+        String path = response.request().url().encodedPath().toLowerCase();
+        return path.contains("/bearbeitung_") || path.contains("/geoprotection");
       }
 
       return false;

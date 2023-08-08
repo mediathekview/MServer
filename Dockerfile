@@ -16,6 +16,7 @@ ADD ./build/distributions/MServer-$VERSION.tar.gz .
 RUN mkdir config && \
     mv MServer-$VERSION/* . && \
     mv mserver.xml config/ && \
+    mv bannedFilmList.txt config/ && \
     mv upload.xml config/ && \
     mv live-streams.json config/
 

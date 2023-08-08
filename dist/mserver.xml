@@ -21,6 +21,9 @@
 
 	<!-- die Orginal-Liste nach der die Diff erstellt wird -->
 	<system-filmliste-org>filme-org.xz</system-filmliste-org>
+	
+	<!-- banned film list (titles) -->
+	<system-bannedFilmList>file:bannedFilmList.txt</system-bannedFilmList>
 
     <system-proxy-url></system-proxy-url>
     <system-proxy-port></system-proxy-port>
