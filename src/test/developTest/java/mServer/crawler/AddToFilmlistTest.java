@@ -25,6 +25,7 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+//FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class AddToFilmlistTest {
 
   private static final String FILM_NAME_ONLINE = "onlinefilm.mp4";
@@ -60,6 +61,8 @@ public class AddToFilmlistTest {
           case "/" + FILM_NAME_ONLINE:
           case "/" + FILM_NAME_ONLINE2:
           case "/" + FILM_NAME_ARTE_EXTRAIT:
+          case "/world/hls/10vor10/2023/07/10vor10_20230731_215000_19875207_v_webcast_h264_,q40,q10,q20,q30,q50,q60,.mp4.csmil/index-f1-v1-a1.m3u8":
+          case "/ch/hls/guetnachtgschichtli/2023/07/guetnachtgschichtli_20230729_000517_19830744_v_webcast_h264_,q40,q10,q20,q30,q50,q60,.mp4.csmil/index-f1-v1-a1.m3u8?caption=srf/4289848a-b5d2-42c6-bf7d-2bfaf29629b1/episode/de/vod/vod.m3u8":
             return new MockResponse()
                 .setResponseCode(200);
           case "/" + FILM_NAME_OFFLINE_BUT_HTML_RESPONSE:
@@ -122,7 +125,7 @@ public class AddToFilmlistTest {
     AddToFilmlist target = new AddToFilmlist(list, listToAdd);
     target.addOldList();
 
-    assertThat(list.size(), equalTo(3));
+    assertEquals(list.size(), 3);
   }
 
   @Test
@@ -133,7 +136,7 @@ public class AddToFilmlistTest {
     AddToFilmlist target = new AddToFilmlist(list, listToAdd);
     target.addOldList();
 
-    assertThat(list.size(), equalTo(3));
+    assertEquals(list.size(), 3);
   }
 
   @Test
@@ -143,7 +146,7 @@ public class AddToFilmlistTest {
     AddToFilmlist target = new AddToFilmlist(list, listToAdd);
     target.addOldList();
 
-    assertThat(list.size(), equalTo(3));
+    assertEquals(list.size(), 3);
   }
 
   @Test
@@ -153,7 +156,7 @@ public class AddToFilmlistTest {
     AddToFilmlist target = new AddToFilmlist(list, listToAdd);
     target.addOldList();
 
-    assertThat(list.size(), equalTo(3));
+    assertEquals(list.size(), 3);
   }
 
   @Test
@@ -163,7 +166,7 @@ public class AddToFilmlistTest {
     AddToFilmlist target = new AddToFilmlist(list, listToAdd);
     target.addOldList();
 
-    assertThat(list.size(), equalTo(2));
+    assertEquals(list.size(), 2);
   }
 
   @Test
@@ -173,7 +176,7 @@ public class AddToFilmlistTest {
     AddToFilmlist target = new AddToFilmlist(list, listToAdd);
     target.addOldList();
 
-    assertThat(list.size(), equalTo(3));
+    assertEquals(list.size(), 3);
   }
 
   @Test
@@ -198,7 +201,7 @@ public class AddToFilmlistTest {
     AddToFilmlist target = new AddToFilmlist(list, listToAdd);
     target.addOldList();
 
-    assertThat(list.size(), equalTo(2));
+    assertEquals(list.size(), 2);
   }
 
   @Test
@@ -209,7 +212,7 @@ public class AddToFilmlistTest {
     AddToFilmlist target = new AddToFilmlist(list, listToAdd);
     target.addOldList();
 
-    assertThat(list.size(), equalTo(2));
+    assertEquals(list.size(), 2);
   }
 
   @Test
@@ -220,7 +223,7 @@ public class AddToFilmlistTest {
     AddToFilmlist target = new AddToFilmlist(list, listToAdd);
     target.addOldList();
 
-    assertThat(list.size(), equalTo(2));
+    assertEquals(list.size(), 2);
   }
 
   @Test
@@ -231,7 +234,7 @@ public class AddToFilmlistTest {
     AddToFilmlist target = new AddToFilmlist(list, listToAdd);
     target.addOldList();
 
-    assertThat(list.size(), equalTo(3));
+    assertEquals(list.size(), 3);
   }
 
   // Test with list of 100000 different old entries which are online
@@ -245,7 +248,7 @@ public class AddToFilmlistTest {
     AddToFilmlist target = new AddToFilmlist(list, listToAdd);
     target.addOldList();
 
-    assertThat(list.size(), equalTo(100002));
+    assertEquals(list.size(), 100002);
   }
 
   @Test
@@ -255,9 +258,10 @@ public class AddToFilmlistTest {
     AddToFilmlist target = new AddToFilmlist(list, listToAdd);
     target.addOldList();
 
-    assertThat(list.size(), equalTo(3));
-    assertThat(list.get(2).arr[DatenFilm.FILM_THEMA], equalTo("MDR aktuell"));
-    assertThat(list.get(2).arr[DatenFilm.FILM_TITEL], equalTo("MDR aktuell 19:30 Uhr"));
+    assertEquals(list.size(), 3);
+    Optional<DatenFilm> themaStringwithoutTime = list.stream()
+            .filter(film -> (film.arr[DatenFilm.FILM_THEMA].equals("MDR aktuell") && film.arr[DatenFilm.FILM_TITEL].equals("MDR aktuell 19:30 Uhr"))).findFirst();
+    assertTrue(themaStringwithoutTime.isPresent());
   }
 
   @Test
@@ -278,6 +282,33 @@ public class AddToFilmlistTest {
     Assertions.assertThat(film.arr[DatenFilm.FILM_TITEL]).isEqualTo(expectedTitle);
   }
 
+  @Test
+  public void testRemoveSrfUrlParams() {
+    final DatenFilm testFilmRemoveParams = createTestFilm(Const.SRF, "10vor", "10vor1", "world/hls/10vor10/2023/07/10vor10_20230731_215000_19875207_v_webcast_h264_,q40,q10,q20,q30,q50,q60,.mp4.csmil/hdntl=exp=1690999574~acl=%2f*~data=hdntl,0.04-1562.28~hmac=29f18372882182cc035b155825bb4772faeca5126909064987eed4e28ffa291b/index-f1-v1-a1.m3u8?start=0.04&end=1562.28&caption=srf/b2c07ad6-4904-486e-94ca-5a10745d95cb/episode/de/vod/vod.m3u8");
+    testFilmRemoveParams.arr[DatenFilm.FILM_URL_KLEIN] = "275|3-v1-a1.m3u8?start=0.04&end=1562.28&caption=srf/b2c07ad6-4904-486e-94ca-5a10745d95cb/episode/de/vod/vod.m3u8";
+    testFilmRemoveParams.arr[DatenFilm.FILM_URL_HD] = "275|6-v1-a1.m3u8?start=0.04&end=1562.28&caption=srf/b2c07ad6-4904-486e-94ca-5a10745d95cb/episode/de/vod/vod.m3u8";
+    listToAdd.add(testFilmRemoveParams);
+
+    final DatenFilm testFilmRemoveParamsOnlyNormal = createTestFilm(Const.SRF, "10vor", "10vor2", "world/hls/10vor10/2023/07/10vor10_20230731_215000_19875207_v_webcast_h264_,q40,q10,q20,q30,q50,q60,.mp4.csmil/hdntl=exp=1690999574~acl=%2f*~data=hdntl,0.04-1562.28~hmac=29f18372882182cc035b155825bb4772faeca5126909064987eed4e28ffa291b/index-f1-v1-a1.m3u8?start=0.04&end=1562.28&caption=srf/b2c07ad6-4904-486e-94ca-5a10745d95cb/episode/de/vod/vod.m3u8");
+    listToAdd.add(testFilmRemoveParamsOnlyNormal);
+
+    final DatenFilm testFilmDontRemoveParams = createTestFilm(Const.SRF, "10vor", "10vor3", "ch/hls/guetnachtgschichtli/2023/07/guetnachtgschichtli_20230729_000517_19830744_v_webcast_h264_,q40,q10,q20,q30,q50,q60,.mp4.csmil/index-f1-v1-a1.m3u8?caption=srf/4289848a-b5d2-42c6-bf7d-2bfaf29629b1/episode/de/vod/vod.m3u8");
+    listToAdd.add(testFilmDontRemoveParams);
+
+    AddToFilmlist target = new AddToFilmlist(list, listToAdd);
+    target.addOldList();
+
+    assertEquals(list.size(), 5);
+
+    assertEquals(testFilmRemoveParams.arr[DatenFilm.FILM_URL], baseUrl + "world/hls/10vor10/2023/07/10vor10_20230731_215000_19875207_v_webcast_h264_,q40,q10,q20,q30,q50,q60,.mp4.csmil/index-f1-v1-a1.m3u8");
+    assertEquals(testFilmRemoveParams.arr[DatenFilm.FILM_URL_KLEIN], "151|3-v1-a1.m3u8");
+    assertEquals(testFilmRemoveParams.arr[DatenFilm.FILM_URL_HD], "151|6-v1-a1.m3u8");
+    assertEquals(testFilmRemoveParamsOnlyNormal.arr[DatenFilm.FILM_URL], baseUrl + "world/hls/10vor10/2023/07/10vor10_20230731_215000_19875207_v_webcast_h264_,q40,q10,q20,q30,q50,q60,.mp4.csmil/index-f1-v1-a1.m3u8");
+    assertEquals(testFilmRemoveParamsOnlyNormal.arr[DatenFilm.FILM_URL_KLEIN], "");
+    assertEquals(testFilmRemoveParamsOnlyNormal.arr[DatenFilm.FILM_URL_HD], "");
+    assertEquals(testFilmDontRemoveParams.arr[DatenFilm.FILM_URL], baseUrl + "ch/hls/guetnachtgschichtli/2023/07/guetnachtgschichtli_20230729_000517_19830744_v_webcast_h264_,q40,q10,q20,q30,q50,q60,.mp4.csmil/index-f1-v1-a1.m3u8?caption=srf/4289848a-b5d2-42c6-bf7d-2bfaf29629b1/episode/de/vod/vod.m3u8");
+
+  }
   @Test
   public void testReplaceSrfAudioDescriptionNaming() {
     final DatenFilm film1 = createTestFilm(Const.SRF, "Film mit Audiodeskription", "Testfilm mit Audiodeskription (Staffel 1)", FILM_NAME_ONLINE);
@@ -309,41 +340,41 @@ public class AddToFilmlistTest {
     AddToFilmlist target = new AddToFilmlist(list, listToAdd);
     target.addOldList();
 
-    assertThat(list.size(), equalTo(9));
+    assertEquals(list.size(), 9);
     Optional<DatenFilm> actual = list.stream()
         .filter(film -> film.arr[DatenFilm.FILM_TITEL].equals("ZIB 17:00")).findFirst();
     assertTrue(actual.isPresent());
-    assertThat(actual.get().arr[DatenFilm.FILM_THEMA], equalTo("ZIB"));
+    assertEquals(actual.get().arr[DatenFilm.FILM_THEMA], "ZIB");
 
     actual = list.stream()
             .filter(film -> film.arr[DatenFilm.FILM_TITEL].equals("ZIB 7:00")).findFirst();
     assertTrue(actual.isPresent());
-    assertThat(actual.get().arr[DatenFilm.FILM_THEMA], equalTo("ZIB"));
+    assertEquals(actual.get().arr[DatenFilm.FILM_THEMA], "ZIB");
 
     actual = list.stream()
         .filter(film -> film.arr[DatenFilm.FILM_TITEL].equals("Tagesschau 20:15")).findFirst();
     assertTrue(actual.isPresent());
-    assertThat(actual.get().arr[DatenFilm.FILM_THEMA], equalTo("Tagesschau 20:15"));
+    assertEquals(actual.get().arr[DatenFilm.FILM_THEMA], "Tagesschau 20:15");
 
     actual = list.stream()
         .filter(film -> film.arr[DatenFilm.FILM_TITEL].equals("heute 19:00")).findFirst();
     assertTrue(actual.isPresent());
-    assertThat(actual.get().arr[DatenFilm.FILM_THEMA], equalTo("heute 19:00"));
+    assertEquals(actual.get().arr[DatenFilm.FILM_THEMA], "heute 19:00");
 
     actual = list.stream()
         .filter(film -> film.arr[DatenFilm.FILM_TITEL].equals("Guten Morgen Österrreich 08:00")).findFirst();
     assertTrue(actual.isPresent());
-    assertThat(actual.get().arr[DatenFilm.FILM_THEMA], equalTo("Guten Morgen Österrreich"));
+    assertEquals(actual.get().arr[DatenFilm.FILM_THEMA], "Guten Morgen Österrreich");
 
     actual = list.stream()
             .filter(film -> film.arr[DatenFilm.FILM_TITEL].equals("Guten Morgen Österrreich 8:30")).findFirst();
     assertTrue(actual.isPresent());
-    assertThat(actual.get().arr[DatenFilm.FILM_THEMA], equalTo("Guten Morgen Österrreich"));
+    assertEquals(actual.get().arr[DatenFilm.FILM_THEMA], "Guten Morgen Österrreich");
 
     actual = list.stream()
         .filter(film -> film.arr[DatenFilm.FILM_TITEL].equals("Uhrzeit 12:00 in der Mitte")).findFirst();
     assertTrue(actual.isPresent());
-    assertThat(actual.get().arr[DatenFilm.FILM_THEMA], equalTo("Uhrzeit 12:00 in der Mitte"));
+    assertEquals(actual.get().arr[DatenFilm.FILM_THEMA], "Uhrzeit 12:00 in der Mitte");
   }
 
   @Test
@@ -353,7 +384,7 @@ public class AddToFilmlistTest {
     AddToFilmlist target = new AddToFilmlist(list, listToAdd);
     target.addOldList();
 
-    assertThat(list.size(), equalTo(2));
+    assertEquals(list.size(), 2);
   }
 
   @Test
@@ -367,7 +398,7 @@ public class AddToFilmlistTest {
     AddToFilmlist target = new AddToFilmlist(list, listToAdd);
     target.addOldList();
 
-    assertThat(list.size(), equalTo(2));
+    assertEquals(list.size(), 2);
   }
 
   @Test
@@ -377,7 +408,7 @@ public class AddToFilmlistTest {
     AddToFilmlist target = new AddToFilmlist(list, listToAdd);
     target.addOldList();
 
-    assertThat(list.size(), equalTo(2));
+    assertEquals(list.size(), 2);
   }
 
   @Test
@@ -392,9 +423,13 @@ public class AddToFilmlistTest {
     AddToFilmlist target = new AddToFilmlist(list, listToAdd);
     target.addOldList();
 
-    assertThat(list.size(), equalTo(4));
-    assertThat(testFilmUpdated.arr[DatenFilm.FILM_WEBSEITE], equalTo("https://www.ardmediathek.de/video/Y3JpZDovL21kci5kZS9iZWl0cmFnL2Ntcy9mZjMzYzMxMC0wMjczLTQzMDktODllZi03MTI0OTFjZmE3ZTM"));
-    assertThat(testFilmNotUpdated.arr[DatenFilm.FILM_WEBSEITE], equalTo("https://www.ardmediathek.de/video/KLJpZDovL21kci5kZS9iZWl0cmFnL2Ntcy9mZjMzYzMxMC0wMjczLTQzMDktODllZi03MTI0OTFjZmE3ZTM"));
+    assertEquals(list.size(), 4);
+    Optional<DatenFilm> sortInDifferentUrls1 = list.stream()
+            .filter(film -> (film.arr[DatenFilm.FILM_WEBSEITE].equals("https://www.ardmediathek.de/video/Y3JpZDovL21kci5kZS9iZWl0cmFnL2Ntcy9mZjMzYzMxMC0wMjczLTQzMDktODllZi03MTI0OTFjZmE3ZTM"))).findFirst();
+    assertTrue(sortInDifferentUrls1.isPresent());
+    Optional<DatenFilm> sortInDifferentUrls2 = list.stream()
+            .filter(film -> (film.arr[DatenFilm.FILM_WEBSEITE].equals("https://www.ardmediathek.de/video/KLJpZDovL21kci5kZS9iZWl0cmFnL2Ntcy9mZjMzYzMxMC0wMjczLTQzMDktODllZi03MTI0OTFjZmE3ZTM"))).findFirst();
+    assertTrue(sortInDifferentUrls2.isPresent());
   }
 
 

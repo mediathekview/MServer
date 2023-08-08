@@ -130,6 +130,36 @@ public class AddToFilmlist {
     updateAudioDescriptionSrf(listeEinsortieren);
     updateArdWebsite(listeEinsortieren);
     updateFunkMissingHost(listeEinsortieren);
+    removeSrfUrlParameter(listeEinsortieren);
+  }
+  
+  // check https://github.com/mediathekview/MServer/issues/904 for examples and more information
+  private void removeSrfUrlParameter(ListeFilme listeEinsortieren) {
+      final List<DatenFilm> list = listeEinsortieren.parallelStream()
+              .filter(film -> film.arr[DatenFilm.FILM_SENDER].equals(Const.SRF) && film.arr[DatenFilm.FILM_URL].contains("/hdntl=exp"))
+              .collect(Collectors.toList());
+      Log.sysLog("SRF: remove url parameter für " + list.size() + " Einträge von " + listeEinsortieren.size() );
+      
+      list.forEach(film -> {
+          String url = film.arr[DatenFilm.FILM_URL];
+          String urlKlein = film.arr[DatenFilm.FILM_URL_KLEIN] == null || film.arr[DatenFilm.FILM_URL_KLEIN].isEmpty() ? "" : film.getUrlFuerAufloesung(DatenFilm.AUFLOESUNG_KLEIN);
+          String urlGross = film.arr[DatenFilm.FILM_URL_HD] == null || film.arr[DatenFilm.FILM_URL_HD].isEmpty() ? "" : film.getUrlFuerAufloesung(DatenFilm.AUFLOESUNG_HD);
+          film.arr[DatenFilm.FILM_URL] = cutOutSrfParameterInUrl(UrlUtils.removeParameters(url));
+          CrawlerTool.addUrlKlein(film,cutOutSrfParameterInUrl(UrlUtils.removeParameters(urlKlein)));
+          CrawlerTool.addUrlHd(film, cutOutSrfParameterInUrl(UrlUtils.removeParameters(urlGross)));
+      });
+      
+
+
+  }
+  
+  private static String cutOutSrfParameterInUrl(String url) {
+      int startIndex = url.indexOf("/hdntl=exp");
+      int endIndex = url.indexOf("/index-f");
+      if (endIndex > -1 && startIndex < endIndex) {
+          url = url.substring(0, startIndex) + url.substring(endIndex);
+      }
+      return url;
   }
 
   private void updateFunkMissingHost(ListeFilme listeEinsortieren) {
@@ -137,7 +167,7 @@ public class AddToFilmlist {
             .filter(film -> film.arr[DatenFilm.FILM_SENDER].equals("Funk.net") && film.arr[DatenFilm.FILM_URL].matches("https:\\/\\/[0-9]*\\/.*"))
             .collect(Collectors.toList());
     Log.sysLog("FUNK: add missing host für " + list.size() + " Einträge.");
-
+    // ich glaube dies macht die urls (klein/dh) kaputt. Diese liegen in index Form (123|abc.mp4) vor und der index verschiebt sich wenn man die FILM_URL ändert
     list.forEach(film -> film.arr[DatenFilm.FILM_URL] = film.arr[DatenFilm.FILM_URL].replace("https://", "https://funk-02.akamaized.net/").trim());
     list.forEach(film -> film.arr[DatenFilm.FILM_URL_KLEIN] = film.arr[DatenFilm.FILM_URL_KLEIN].replace("https://", "https://funk-02.akamaized.net/").trim());
     list.forEach(film -> film.arr[DatenFilm.FILM_URL_HD] = film.arr[DatenFilm.FILM_URL_HD].replace("https://", "https://funk-02.akamaized.net/").trim());
