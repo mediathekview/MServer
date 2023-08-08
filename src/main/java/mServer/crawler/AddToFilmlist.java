@@ -142,8 +142,8 @@ public class AddToFilmlist {
       
       list.forEach(film -> {
           String url = film.arr[DatenFilm.FILM_URL];
-          String urlKlein = film.arr[DatenFilm.FILM_URL_KLEIN] == null || film.arr[DatenFilm.FILM_URL_KLEIN] == "" ? "" : film.getUrlFuerAufloesung(DatenFilm.AUFLOESUNG_KLEIN);
-          String urlGross = film.arr[DatenFilm.FILM_URL_HD] == null || film.arr[DatenFilm.FILM_URL_HD] == "" ? "" : film.getUrlFuerAufloesung(DatenFilm.AUFLOESUNG_HD);
+          String urlKlein = film.arr[DatenFilm.FILM_URL_KLEIN] == null || film.arr[DatenFilm.FILM_URL_KLEIN].isEmpty() ? "" : film.getUrlFuerAufloesung(DatenFilm.AUFLOESUNG_KLEIN);
+          String urlGross = film.arr[DatenFilm.FILM_URL_HD] == null || film.arr[DatenFilm.FILM_URL_HD].isEmpty() ? "" : film.getUrlFuerAufloesung(DatenFilm.AUFLOESUNG_HD);
           film.arr[DatenFilm.FILM_URL] = cutOutSrfParameterInUrl(UrlUtils.removeParameters(url));
           CrawlerTool.addUrlKlein(film,cutOutSrfParameterInUrl(UrlUtils.removeParameters(urlKlein)));
           CrawlerTool.addUrlHd(film, cutOutSrfParameterInUrl(UrlUtils.removeParameters(urlGross)));
