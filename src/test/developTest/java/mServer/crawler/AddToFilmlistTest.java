@@ -3,6 +3,7 @@ package mServer.crawler;
 import static jakarta.ws.rs.core.HttpHeaders.CONTENT_LENGTH;
 import static jakarta.ws.rs.core.HttpHeaders.CONTENT_TYPE;
 import static org.hamcrest.CoreMatchers.equalTo;
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 
@@ -11,6 +12,9 @@ import de.mediathekview.mlib.daten.DatenFilm;
 import de.mediathekview.mlib.daten.ListeFilme;
 import java.io.IOException;
 import java.util.Optional;
+
+import mServer.tool.MserverDaten;
+import mServer.tool.MserverKonstanten;
 import okhttp3.mockwebserver.Dispatcher;
 import okhttp3.mockwebserver.MockResponse;
 import okhttp3.mockwebserver.MockWebServer;
@@ -104,6 +108,7 @@ public class AddToFilmlistTest {
 
   @Before
   public void setUp() {
+    MserverDaten.system[MserverKonstanten.SYSTEM_BANNEDFILMLIST_NR] = "file:dist/bannedFilmList.txt";
     listToAdd = new ListeFilme();
     list = new ListeFilme();
     list.add(createTestFilm(Const.BR, FILM_TOPIC1, FILM_TITLE1, "film1.mp4"));
@@ -169,6 +174,21 @@ public class AddToFilmlistTest {
     target.addOldList();
 
     assertThat(list.size(), equalTo(3));
+  }
+
+  @Test
+  public void testAddOldListKeepArdSportschauTourDeFranceStages() {
+    list.clear();
+    list.add(createTestFilm(Const.ARD, "Sportschau", "3. Etappe - die komplette Übertragung", FILM_NAME_ONLINE));
+    list.add(createTestFilm(Const.ARD, FILM_TOPIC1, FILM_TITLE1, FILM_NAME_ONLINE));
+
+    listToAdd.add(createTestFilm(Const.ARD, "Sportschau", "3. Etappe - die komplette Übertragung", FILM_NAME_ONLINE2));
+    listToAdd.add(createTestFilm(Const.ARD, FILM_TOPIC1, FILM_TITLE1, FILM_NAME_ONLINE2));
+
+    AddToFilmlist target = new AddToFilmlist(list, listToAdd);
+    target.addOldList();
+
+    assertEquals(list.size(), 3);
   }
 
   @Test
@@ -260,9 +280,12 @@ public class AddToFilmlistTest {
 
   @Test
   public void testReplaceSrfAudioDescriptionNaming() {
-    listToAdd.add(createTestFilm(Const.SRF, "Film mit Audiodeskription", "Testfilm mit Audiodeskription (Staffel 1)", FILM_NAME_ONLINE));
-    listToAdd.add(createTestFilm(Const.SRF, "Film mit Audiodeskription", "Testfilm2", FILM_NAME_ONLINE));
-    listToAdd.add(createTestFilm(Const.ARD, "Film mit Audiodeskription", "Testfilm mit Audiodeskription", FILM_NAME_ONLINE));
+    final DatenFilm film1 = createTestFilm(Const.SRF, "Film mit Audiodeskription", "Testfilm mit Audiodeskription (Staffel 1)", FILM_NAME_ONLINE);
+    final DatenFilm film2 = createTestFilm(Const.SRF, "Film mit Audiodeskription", "Testfilm2", FILM_NAME_ONLINE);
+    final DatenFilm film3 = createTestFilm(Const.ARD, "Film mit Audiodeskription", "Testfilm mit Audiodeskription", FILM_NAME_ONLINE);
+    listToAdd.add(film1);
+    listToAdd.add(film2);
+    listToAdd.add(film3);
 
     AddToFilmlist target = new AddToFilmlist(list, listToAdd);
     target.addOldList();

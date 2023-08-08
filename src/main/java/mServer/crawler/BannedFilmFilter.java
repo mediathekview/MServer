@@ -1,7 +1,6 @@
 package mServer.crawler;
 
 import java.io.BufferedReader;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -17,11 +16,11 @@ import mServer.tool.MserverDaten;
 import mServer.tool.MserverKonstanten;
 
 public class BannedFilmFilter {
-  private List<String> bannedTitles = new ArrayList<String>();
+  private final List<String> bannedTitles;
 	
   public BannedFilmFilter() {
   	Log.progress("create BannedFilmFilter from " + MserverDaten.system[MserverKonstanten.SYSTEM_BANNEDFILMLIST_NR] );
-  	bannedTitles = new ArrayList<String>();
+  	bannedTitles = new ArrayList<>();
   	try (
   	        InputStream is = getInputStreamFromPath(MserverDaten.system[MserverKonstanten.SYSTEM_BANNEDFILMLIST_NR]);
   			    InputStreamReader isr = new InputStreamReader(is);
@@ -29,13 +28,11 @@ public class BannedFilmFilter {
   	) {
   		String line = "";
   		while ((line = reader.readLine()) != null) {
-        if (line.trim().length() > 0) {
+        if (!line.trim().isEmpty()) {
           bannedTitles.add(line.trim());
           Log.progress("add entry to bannedFilmList");
         }
       }
-    } catch (FileNotFoundException e) {
-      Log.errorLog(-1, e);
     } catch (IOException e) {
       Log.errorLog(-1, e);
     }
