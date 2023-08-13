@@ -1,6 +1,7 @@
 package de.mediathekview.mserver.crawler.basic;
 
 import java.io.BufferedReader;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -67,10 +68,17 @@ public class IgnoreFilmFilter {
   }
   
   private List<String> read(final String aFilePath) throws IOException {
-    try (final InputStream is = getClass().getClassLoader().getResourceAsStream(aFilePath);
-         final InputStreamReader isr = new InputStreamReader(is, StandardCharsets.UTF_8);
-        final BufferedReader reader = new BufferedReader(isr)) {
-      return readIgnoreList(reader);
+    if (getClass().getClassLoader().getResourceAsStream(aFilePath) != null) {
+      try (final InputStream is = getClass().getClassLoader().getResourceAsStream(aFilePath);
+           final InputStreamReader isr = new InputStreamReader(is, StandardCharsets.UTF_8);
+          final BufferedReader reader = new BufferedReader(isr)) {
+        return readIgnoreList(reader);
+      }
+    } else {
+      try (final FileReader fr = new FileReader(aFilePath);
+         final BufferedReader reader = new BufferedReader(fr)) {
+       return readIgnoreList(reader);
+     }
     }
   }
   
