@@ -21,7 +21,7 @@ import okhttp3.ResponseBody;
 
 public class IgnoreFilmFilter {
   private static final Logger LOG = LogManager.getLogger(IgnoreFilmFilter.class);
-  private List<String> ignoreFilmTitles = new ArrayList<String>();
+  private List<String> ignoreFilmTitles = new ArrayList();
   
   public IgnoreFilmFilter(String configFileNameAndPath) {
     try {
@@ -58,7 +58,7 @@ public class IgnoreFilmFilter {
     try (final Response response = httpClient.newCall(request).execute()) {
       final ResponseBody responseBody = response.body();
       if (responseBody == null) {
-        return new ArrayList<String>();
+        return new ArrayList();
       }
       try (final BufferedReader reader = new BufferedReader(responseBody.charStream())){
         return readIgnoreList( reader);
@@ -67,7 +67,7 @@ public class IgnoreFilmFilter {
   }
   
   private List<String> read(final String aFilePath) throws IOException {
-    try (final InputStream is = getClass().getClassLoader().getResourceAsStream(aFilePath.toString());
+    try (final InputStream is = getClass().getClassLoader().getResourceAsStream(aFilePath);
          final InputStreamReader isr = new InputStreamReader(is, StandardCharsets.UTF_8);
         final BufferedReader reader = new BufferedReader(isr)) {
       return readIgnoreList(reader);
@@ -75,7 +75,7 @@ public class IgnoreFilmFilter {
   }
   
   private List<String> readIgnoreList(BufferedReader is) throws IOException {
-    List<String> listOfTitles = new ArrayList<String>();
+    List<String> listOfTitles = new ArrayList();
     String line = "";
     while ((line = is.readLine()) != null) {
       if (line.trim().length() > 0) {
