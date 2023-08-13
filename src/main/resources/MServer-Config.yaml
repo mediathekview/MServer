@@ -23,6 +23,9 @@ senderIncluded:
 #        duration: 12
 #        unit: HOURS
 
+# list of films to be ignored by crawler search
+ignoreFilmlistPath: "ignoreFilmlist.txt"
+
 # The formats in which the filmlist should be saved to.
 # Possible are: JSON, OLD_JSON, JSON_COMPRESSED_XZ, OLD_JSON_COMPRESSED_XZ, JSON_COMPRESSED_GZIP, OLD_JSON_COMPRESSED_BZIP, JSON_COMPRESSED_GZIP, OLD_JSON_COMPRESSED_BZIP
 filmlistSaveFormats:

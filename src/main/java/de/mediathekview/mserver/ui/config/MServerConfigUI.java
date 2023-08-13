@@ -102,6 +102,7 @@ public final class MServerConfigUI {
         manager.importFilmlist();
       }
     } finally {
+      manager.filterFilmlist();
       manager.saveFilmlist();
       manager.saveDifferenceFilmlist();
       manager.writeHashFile();

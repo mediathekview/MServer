@@ -16,6 +16,7 @@ import de.mediathekview.mserver.base.uploader.copy.FileCopyTask;
 import de.mediathekview.mserver.crawler.ard.ArdCrawler;
 import de.mediathekview.mserver.crawler.arte.*;
 import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
+import de.mediathekview.mserver.crawler.basic.IgnoreFilmFilter;
 import de.mediathekview.mserver.crawler.basic.TimeoutTask;
 import de.mediathekview.mserver.crawler.br.BrCrawler;
 import de.mediathekview.mserver.crawler.dreisat.DreiSatCrawler;
@@ -58,6 +59,7 @@ public class CrawlerManager extends AbstractManager {
   private final MServerConfigDTO config;
   private final ForkJoinPool forkJoinPool;
   private final Filmlist filmlist;
+  private final IgnoreFilmFilter ingoreFilmFilter;
   private final ExecutorService executorService;
 
   private final Map<Sender, AbstractCrawler> crawlerMap;
@@ -70,6 +72,7 @@ public class CrawlerManager extends AbstractManager {
     super();
     final MServerConfigManager rootConfig = new MServerConfigManager();
     config = rootConfig.getConfig();
+    ingoreFilmFilter = new IgnoreFilmFilter(config.getIgnoreFilmslistPath());
     executorService = Executors.newFixedThreadPool(config.getMaximumCpuThreads());
     forkJoinPool = new ForkJoinPool(config.getMaximumCpuThreads());
 
@@ -138,6 +141,12 @@ public class CrawlerManager extends AbstractManager {
     return executorService;
   }
 
+  public void filterFilmlist() {
+    if (ingoreFilmFilter.size() > 0) {
+      filmlist.getFilms().entrySet().removeIf(entry -> ingoreFilmFilter.ignoreFilm(entry.getValue()));
+    }
+  }
+  
   /**
    * Imports the film list with the given {@link MServerConfigDTO#getFilmlistImportFormat()} of
    * {@link MServerConfigDTO#getFilmlistImportLocation()}.
