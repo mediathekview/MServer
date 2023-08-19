@@ -14,6 +14,8 @@ public class MServerConfigDTO extends MServerBasicConfigDTO implements ConfigDTO
   private final String filmlistHashFilePath;
   private final Boolean writeFilmlistIdFileEnabled;
   private final String filmlistIdFilePath;
+  /** ignore certain film by title **/
+  private final String ignoreFilmlistPath;
   /** The maximum amount of cpu threads to be used. */
   private Integer maximumCpuThreads;
   /**
@@ -83,6 +85,7 @@ public class MServerConfigDTO extends MServerBasicConfigDTO implements ConfigDTO
     filmlistHashFilePath = "filmlist.hash";
     writeFilmlistIdFileEnabled = true;
     filmlistIdFilePath = "filmlist.id";
+    ignoreFilmlistPath = "ignoreFilmlist.txt";
 
     Arrays.stream(Sender.values())
         .forEach(sender -> senderConfigurations.put(sender, new MServerBasicConfigDTO(this)));
@@ -228,6 +231,10 @@ public class MServerConfigDTO extends MServerBasicConfigDTO implements ConfigDTO
     return filmlistIdFilePath;
   }
 
+  public String getIgnoreFilmslistPath() {
+    return ignoreFilmlistPath;
+  }
+
   /**
    * Loads the {@link Sender} specific configuration and if it not exist creates one.
    *
@@ -277,7 +284,8 @@ public class MServerConfigDTO extends MServerBasicConfigDTO implements ConfigDTO
         && Objects.equals(getWriteFilmlistHashFileEnabled(), that.getWriteFilmlistHashFileEnabled())
         && Objects.equals(getFilmlistHashFilePath(), that.getFilmlistHashFilePath())
         && Objects.equals(getWriteFilmlistIdFileEnabled(), that.getWriteFilmlistIdFileEnabled())
-        && Objects.equals(getFilmlistIdFilePath(), that.getFilmlistIdFilePath());
+        && Objects.equals(getFilmlistIdFilePath(), that.getFilmlistIdFilePath())
+        && Objects.equals(getIgnoreFilmslistPath(), that.getIgnoreFilmslistPath());
   }
 
   @Override
@@ -301,7 +309,8 @@ public class MServerConfigDTO extends MServerBasicConfigDTO implements ConfigDTO
         getWriteFilmlistHashFileEnabled(),
         getFilmlistHashFilePath(),
         getWriteFilmlistIdFileEnabled(),
-        getFilmlistIdFilePath());
+        getFilmlistIdFilePath(),
+        getIgnoreFilmslistPath());
   }
 
   public void initializeSenderConfigurations() {
