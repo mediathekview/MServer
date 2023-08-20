@@ -66,14 +66,15 @@ public class CrawlerManagerLivestreamTest implements MessageListener {
   public static Collection<Object[]> data() {
     return Arrays.asList(
         new Object[][] {
-          {FilmlistFormats.JSON, "filmlists/TestFilmlistNewJson.json", "filmlists/livestream/live-streams.json", 3, 127},
-          {FilmlistFormats.JSON_COMPRESSED_XZ, "filmlists/TestFilmlistNewJson.json.xz", "filmlists/livestream/live-streams.json.xz", 3, 127},
-          {FilmlistFormats.JSON_COMPRESSED_BZIP, "filmlists/TestFilmlistNewJson.json.bz", "filmlists/livestream/live-streams.json.bz", 3, 127},
-          {FilmlistFormats.JSON_COMPRESSED_GZIP, "filmlists/TestFilmlistNewJson.json.gz", "filmlists/livestream/live-streams.json.gz", 3, 127},
+          {FilmlistFormats.JSON, "filmlists/TestFilmlistNewJson.json", "filmlists/livestream/live-streams.json", 3, 50},
+          {FilmlistFormats.JSON_COMPRESSED_XZ, "filmlists/TestFilmlistNewJson.json.xz", "filmlists/livestream/live-streams.json.xz", 3, 50},
+          {FilmlistFormats.JSON_COMPRESSED_BZIP, "filmlists/TestFilmlistNewJson.json.bz", "filmlists/livestream/live-streams.json.bz", 3, 50},
+          {FilmlistFormats.JSON_COMPRESSED_GZIP, "filmlists/TestFilmlistNewJson.json.gz", "filmlists/livestream/live-streams.json.gz", 3, 50},
           {FilmlistFormats.OLD_JSON, "filmlists/TestFilmlist.json", "filmlists/livestream/live-streams_old.json", 3, 50},
-          {FilmlistFormats.OLD_JSON_COMPRESSED_XZ, "filmlists/TestFilmlist.json.xz", "filmlists/livestream/live-streams_old.json.xz", 3, 127},
-          {FilmlistFormats.OLD_JSON_COMPRESSED_BZIP, "filmlists/TestFilmlist.json.bz", "filmlists/livestream/live-streams_old.json.bz", 3, 127},
-          {FilmlistFormats.OLD_JSON_COMPRESSED_GZIP, "filmlists/TestFilmlist.json.gz", "filmlists/livestream/live-streams_old.json.gz", 3, 127}
+          {FilmlistFormats.OLD_JSON_COMPRESSED_XZ, "filmlists/TestFilmlist.json.xz", "filmlists/livestream/live-streams_old.json.xz", 3, 50},
+          {FilmlistFormats.OLD_JSON_COMPRESSED_BZIP, "filmlists/TestFilmlist.json.bz", "filmlists/livestream/live-streams_old.json.bz", 3, 50},
+          {FilmlistFormats.OLD_JSON_COMPRESSED_GZIP, "filmlists/TestFilmlist.json.gz", "filmlists/livestream/live-streams_old.json.gz", 3, 50},
+          {FilmlistFormats.JSON, "filmlists/livestream/live-streams.json", "filmlists/livestream/live-streams.json", 47, 47},
         });
   }
 
