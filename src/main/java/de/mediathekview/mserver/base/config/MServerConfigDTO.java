@@ -16,6 +16,8 @@ public class MServerConfigDTO extends MServerBasicConfigDTO implements ConfigDTO
   private final String filmlistIdFilePath;
   /** ignore certain film by title **/
   private final String ignoreFilmlistPath;
+  /** add livestreams from external list **/
+  private final ImportLivestreamConfiguration importLivestreamConfiguration;
   /** The maximum amount of cpu threads to be used. */
   private Integer maximumCpuThreads;
   /**
@@ -86,7 +88,8 @@ public class MServerConfigDTO extends MServerBasicConfigDTO implements ConfigDTO
     writeFilmlistIdFileEnabled = true;
     filmlistIdFilePath = "filmlist.id";
     ignoreFilmlistPath = "ignoreFilmlist.txt";
-
+    importLivestreamConfiguration = new ImportLivestreamConfiguration(false, "live-streams.json", FilmlistFormats.OLD_JSON);
+    
     Arrays.stream(Sender.values())
         .forEach(sender -> senderConfigurations.put(sender, new MServerBasicConfigDTO(this)));
   }
@@ -235,6 +238,11 @@ public class MServerConfigDTO extends MServerBasicConfigDTO implements ConfigDTO
     return ignoreFilmlistPath;
   }
 
+  public ImportLivestreamConfiguration getImportLivestreamConfiguration() {
+    return importLivestreamConfiguration;
+  }
+  
+ 
   /**
    * Loads the {@link Sender} specific configuration and if it not exist creates one.
    *
@@ -285,7 +293,8 @@ public class MServerConfigDTO extends MServerBasicConfigDTO implements ConfigDTO
         && Objects.equals(getFilmlistHashFilePath(), that.getFilmlistHashFilePath())
         && Objects.equals(getWriteFilmlistIdFileEnabled(), that.getWriteFilmlistIdFileEnabled())
         && Objects.equals(getFilmlistIdFilePath(), that.getFilmlistIdFilePath())
-        && Objects.equals(getIgnoreFilmslistPath(), that.getIgnoreFilmslistPath());
+        && Objects.equals(getIgnoreFilmslistPath(), that.getIgnoreFilmslistPath())
+        && Objects.equals(getImportLivestreamConfiguration(), that.getImportLivestreamConfiguration());
   }
 
   @Override
@@ -310,7 +319,8 @@ public class MServerConfigDTO extends MServerBasicConfigDTO implements ConfigDTO
         getFilmlistHashFilePath(),
         getWriteFilmlistIdFileEnabled(),
         getFilmlistIdFilePath(),
-        getIgnoreFilmslistPath());
+        getIgnoreFilmslistPath(),
+        getImportLivestreamConfiguration());
   }
 
   public void initializeSenderConfigurations() {

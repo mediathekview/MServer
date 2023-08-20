@@ -28,21 +28,27 @@ import java.util.Date;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @RunWith(Parameterized.class)
-public class CrawlerManagerTest implements MessageListener {
+public class CrawlerManagerLivestreamTest implements MessageListener {
 
-  private static final Logger LOG = LogManager.getLogger(CrawlerManagerTest.class);
+  private static final Logger LOG = LogManager.getLogger(CrawlerManagerLivestreamTest.class);
   private static final String TEMP_FOLDER_NAME_PATTERN = "MSERVER_TEST_%d";
   private static Path testFileFolderPath;
 
-  private final CrawlerManager CRAWLER_MANAGER;
-  private final String filmlistPath;
+  private final CrawlerManager crawlerManager;
   private final FilmlistFormats format;
-  private final int expectedSize;
+  private final String filmlistPath;
+  private final String livestreamPath;
+  private final int expectedInitialSize;
+  private final int expectedAfterImport;
+  
 
-  public CrawlerManagerTest(final String aFilmlistPath, final FilmlistFormats aFormat, final int aExpectedSize) {
-    filmlistPath = aFilmlistPath;
-    expectedSize = aExpectedSize;
+  public CrawlerManagerLivestreamTest(final FilmlistFormats aFormat, final String aFilmlistPath,final String aLivestreamPath,  final int aExpectedInitialSize, final int aExpectedAfterImport ) {
     format = aFormat;
+    filmlistPath = aFilmlistPath;
+    livestreamPath = aLivestreamPath;
+    expectedInitialSize = aExpectedInitialSize;
+    expectedAfterImport = aExpectedAfterImport;
+    
     // reset singelton CrawlerManager
     Field instance;
     try {
@@ -53,21 +59,21 @@ public class CrawlerManagerTest implements MessageListener {
       // TODO Auto-generated catch block
       e.printStackTrace();
     }    //
-    CRAWLER_MANAGER = CrawlerManager.getInstance();
+    crawlerManager = CrawlerManager.getInstance();
   }
 
   @Parameterized.Parameters(name = "Test {index} Filmlist for {0} with {1}")
   public static Collection<Object[]> data() {
     return Arrays.asList(
         new Object[][] {
-          {"filmlists/TestFilmlistNewJson.json", FilmlistFormats.JSON,3},
-          {"filmlists/TestFilmlistNewJson.json.xz", FilmlistFormats.JSON_COMPRESSED_XZ, 3},
-          {"filmlists/TestFilmlistNewJson.json.bz", FilmlistFormats.JSON_COMPRESSED_BZIP, 3},
-          {"filmlists/TestFilmlistNewJson.json.gz", FilmlistFormats.JSON_COMPRESSED_GZIP, 3},
-          {"filmlists/TestFilmlist.json", FilmlistFormats.OLD_JSON, 3},
-          {"filmlists/TestFilmlist.json.xz", FilmlistFormats.OLD_JSON_COMPRESSED_XZ, 3},
-          {"filmlists/TestFilmlist.json.bz", FilmlistFormats.OLD_JSON_COMPRESSED_BZIP, 3},
-          {"filmlists/TestFilmlist.json.gz", FilmlistFormats.OLD_JSON_COMPRESSED_GZIP, 3}
+          {FilmlistFormats.JSON, "filmlists/TestFilmlistNewJson.json", "filmlists/livestream/live-streams.json", 3, 127},
+          {FilmlistFormats.JSON_COMPRESSED_XZ, "filmlists/TestFilmlistNewJson.json.xz", "filmlists/livestream/live-streams.json.xz", 3, 127},
+          {FilmlistFormats.JSON_COMPRESSED_BZIP, "filmlists/TestFilmlistNewJson.json.bz", "filmlists/livestream/live-streams.json.bz", 3, 127},
+          {FilmlistFormats.JSON_COMPRESSED_GZIP, "filmlists/TestFilmlistNewJson.json.gz", "filmlists/livestream/live-streams.json.gz", 3, 127},
+          {FilmlistFormats.OLD_JSON, "filmlists/TestFilmlist.json", "filmlists/livestream/live-streams_old.json", 3, 50},
+          {FilmlistFormats.OLD_JSON_COMPRESSED_XZ, "filmlists/TestFilmlist.json.xz", "filmlists/livestream/live-streams_old.json.xz", 3, 127},
+          {FilmlistFormats.OLD_JSON_COMPRESSED_BZIP, "filmlists/TestFilmlist.json.bz", "filmlists/livestream/live-streams_old.json.bz", 3, 127},
+          {FilmlistFormats.OLD_JSON_COMPRESSED_GZIP, "filmlists/TestFilmlist.json.gz", "filmlists/livestream/live-streams_old.json.gz", 3, 127}
         });
   }
 
@@ -105,11 +111,19 @@ public class CrawlerManagerTest implements MessageListener {
   @Test
   public void testSaveAndImport() {
     final Path filmListFilePath = FileReader.getPath(filmlistPath);
-    synchronized (CRAWLER_MANAGER) {
-      CRAWLER_MANAGER.addMessageListener(this);
-      CRAWLER_MANAGER.importFilmlist(format, filmListFilePath.toAbsolutePath().toString());
-      assertThat(CRAWLER_MANAGER.getFilmlist().getFilms().size()).isEqualTo(expectedSize);
-      CRAWLER_MANAGER.saveFilmlist(testFileFolderPath.resolve(filmlistPath), format);
+    final Path livesreamFilmListFilePath = FileReader.getPath(livestreamPath);
+    synchronized (crawlerManager) {
+      crawlerManager.addMessageListener(this);
+      crawlerManager.importFilmlist(format, filmListFilePath.toAbsolutePath().toString());
+      //
+      assertThat(crawlerManager.getFilmlist().getFilms().size()).isEqualTo(expectedInitialSize);
+      //
+      crawlerManager.importLivestreamFilmlist(format, livesreamFilmListFilePath.toAbsolutePath().toString());
+      //
+      assertThat(crawlerManager.getFilmlist().getFilms().size()).isEqualTo(expectedAfterImport);
+      //
+      crawlerManager.saveFilmlist(testFileFolderPath.resolve(filmlistPath), format);
+      //
       assertThat(testFileFolderPath.resolve(filmlistPath)).exists();
     }
   }

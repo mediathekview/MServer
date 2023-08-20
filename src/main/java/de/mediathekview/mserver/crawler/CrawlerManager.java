@@ -156,6 +156,30 @@ public class CrawlerManager extends AbstractManager {
       importFilmlist(config.getFilmlistImportFormat(), config.getFilmlistImportLocation());
     }
   }
+  
+  public void importLivestreamFilmlist() {
+    if (config.getImportLivestreamConfiguration().isActive()) {
+      importLivestreamFilmlist(config.getImportLivestreamConfiguration().getFormat(), config.getImportLivestreamConfiguration().getPath());
+    }
+  }
+  
+  public void importLivestreamFilmlist(final FilmlistFormats aFormat, final String aFilmlistLocation) {
+    try {
+      final Optional<Filmlist> importedFilmlist;
+      if (aFilmlistLocation.startsWith(HTTP)) {
+        importedFilmlist = importFilmListFromURl(aFormat, aFilmlistLocation);
+      } else {
+        importedFilmlist = importFilmlistFromFile(aFormat, aFilmlistLocation);
+      }
+      // remove livestreams
+      filmlist.getFilms().entrySet().removeIf(entry -> entry.getValue().getThema().equalsIgnoreCase("Livestream"));
+      // add new
+      importedFilmlist.get().getFilms().entrySet().forEach( entry -> filmlist.add(entry.getValue()));
+      //
+    } catch (final IOException ioException) {
+      LOG.fatal(String.format(FILMLIST_IMPORT_ERROR_TEMPLATE, aFilmlistLocation), ioException);
+    }
+  }
 
   /**
    * Imports the film list with the given {@link FilmlistFormats} and the given location.
@@ -505,5 +529,10 @@ public class CrawlerManager extends AbstractManager {
       LOG.fatal("Something went wrong while exeuting the crawlers.", exception);
       Thread.currentThread().interrupt();
     }
+  }
+  
+  // Added to allow JUNIT tests
+  public Filmlist getFilmlist() {
+    return filmlist;
   }
 }

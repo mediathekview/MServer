@@ -101,6 +101,9 @@ public final class MServerConfigUI {
       if (config.getFilmlistImporEnabled() != null && config.getFilmlistImporEnabled()) {
         manager.importFilmlist();
       }
+      if (config.getImportLivestreamConfiguration().isActive()) {
+        manager.importLivestreamFilmlist();
+      }
     } finally {
       manager.filterFilmlist();
       manager.saveFilmlist();
