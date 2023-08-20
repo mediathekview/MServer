@@ -33,9 +33,9 @@ senderIncluded:
 ignoreFilmlistPath: "ignoreFilmlist.txt"
 
 # list of livestreams to be added
-ImportLivestreamConfiguration: 
+importLivestreamConfiguration: 
   active: false
-  path: "live-streams.json"
+  path: "src/main/resources/live-streams.json"
   format: OLD_JSON
 
 # The formats in which the filmlist should be saved to.

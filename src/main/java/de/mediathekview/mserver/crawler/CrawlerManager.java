@@ -174,7 +174,7 @@ public class CrawlerManager extends AbstractManager {
       // remove livestreams
       filmlist.getFilms().entrySet().removeIf(entry -> entry.getValue().getThema().equalsIgnoreCase("Livestream"));
       // add new
-      importedFilmlist.get().getFilms().entrySet().forEach( entry -> filmlist.add(entry.getValue()));
+      importedFilmlist.ifPresent( imp -> imp.getFilms().entrySet().forEach( entry -> filmlist.add(entry.getValue())));
       //
     } catch (final IOException ioException) {
       LOG.fatal(String.format(FILMLIST_IMPORT_ERROR_TEMPLATE, aFilmlistLocation), ioException);

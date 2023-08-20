@@ -10,10 +10,15 @@ public class ImportLivestreamConfiguration {
   private final FilmlistFormats format;
 
   public ImportLivestreamConfiguration(Boolean active, String path, FilmlistFormats format) {
-    super();
     this.active = active;
     this.path = path;
     this.format = format;
+  }
+  
+  public ImportLivestreamConfiguration() {
+    this.active = null;
+    this.path = null;
+    this.format = null;
   }
   
   public Boolean isActive() {
