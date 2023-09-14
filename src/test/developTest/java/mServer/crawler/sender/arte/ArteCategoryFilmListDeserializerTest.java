@@ -32,9 +32,7 @@ public class ArteCategoryFilmListDeserializerTest {
   @Parameterized.Parameters
   public static Collection<Object[]> data() {
     return Arrays.asList(new Object[][]{
-            {"/arte/arte_subcategory_old_page1.json", new String[]{"078666-012-A", "078664-000-A", "080928-000-A", "074484-000-A", "074485-000-A", "079479-002-A", "080921-000-A", "082406-000-A", "072391-000-A", "080920-000-A"}, true},
-            {"/arte/arte_subcategory_old_page_last.json", new String[]{"062866-009-A"}, false},
-            {"/arte/arte_subcategory_page.json", new String[]{"107023-009-A","086862-000-A","107342-038-A","081587-000-A","072442-000-A"}, true}
+            {"/arte/arte_category.json", new String[]{"112511-000-A", "047389-000-A", "109066-000-A", "082669-000-A", "003982-000-A", "021109-000-A"}, false},
     });
   }
 
