@@ -45,25 +45,23 @@ public class MediathekArte extends MediathekReader {
   private static final Logger LOG = LogManager.getLogger(MediathekArte.class);
   private static final String ARTE_API_TAG_URL_PATTERN = "https://api.arte.tv/api/opa/v3/videos?channel=%s&arteSchedulingDay=%s";
 
-  private static final String URL_SUBCATEGORY
-          = "https://www.arte.tv/api/rproxy/emac/v3/%s/web/data/MOST_RECENT_SUBCATEGORY/?subCategoryCode=%s&page=%s&limit=50";
+  private static final String URL_CATEGORY = "https://www.arte.tv/api/rproxy/emac/v4/%s/web/pages/%s";
 
-  private static final String[] SUBCATEGORIES = new String[]{
-    "WEB", "AUT",
-    "AJO", "AUV", "KUL", "DCY", "ENQ", "JUN",
-    "ACC", "CMG", "FLM", "CMU", "MCL",
-    "CHU", "FIC", "SES",
-    "ART", "POP", "IDE",
-    "ADS", "BAR", "CLA", "JAZ", "MUA", "MUD", "OPE", "MUE", "HIP", "MET",
-    "ENB", "ENN", "SAN", "TEC",
-    "ATA", "EVA", "NEA", "VIA",
-    "CIV", "LGP", "XXE"
+  private static final String[] CATEGORIES = {
+          "ARS",
+          "DOR",
+          "CIN",
+          "SER",
+          "ACT",
+          "CPO",
+          "SCI",
+          "DEC",
+          "HIS"
   };
 
   private static final String COLLECTION_URL = "https://api.arte.tv/api/opa/v3/programs/%s/%s";
 
   private static final DateTimeFormatter ARTE_API_DATEFORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-  private static final boolean PARSE_SUBCATEGORY_SUB_PAGES = false; // Flag, ob Unterseiten der Unterkategorien verarbeitet werden soll
 
   public static final String ARTE_EN = "ARTE.EN";
   public static final String ARTE_ES = "ARTE.ES";
@@ -86,7 +84,7 @@ public class MediathekArte extends MediathekReader {
     super.meldungStart();
 
     senderLanguages.put(Const.ARTE_DE, "de");
-    senderLanguages.put(Const.ARTE_FR, "fr");
+  //  senderLanguages.put(Const.ARTE_FR, "fr");
     /*if (LocalDate.now().getDayOfYear() % 2 == 0) {
       senderLanguages.put(ARTE_EN, "en");
       senderLanguages.put(ARTE_ES, "es");
@@ -146,9 +144,9 @@ public class MediathekArte extends MediathekReader {
 
   private void addCategories() {
     senderLanguages.forEach((sender, langCode) -> {
-      for (String subCategory : SUBCATEGORIES) {
-        String subCategoryUrl = String.format(URL_SUBCATEGORY, langCode.toLowerCase(), subCategory, 1);
-        listeThemen.add(new String[]{sender, langCode, subCategory, subCategoryUrl});
+      for (String category : CATEGORIES) {
+        String categoryUrl = String.format(URL_CATEGORY, langCode.toLowerCase(), category);
+        listeThemen.add(new String[]{sender, langCode, category, categoryUrl});
       }
     });
   }
@@ -213,7 +211,7 @@ public class MediathekArte extends MediathekReader {
         String[] link;
         while (!Config.getStop() && (link = listeThemen.getListeThemen()) != null) {
           meldungProgress(link[2] + "/" + link[3] /* url */);
-          loadSubCategory(link[0], link[1], link[2], link[3]);
+          loadCategory(link[0], link[1], link[2], link[3]);
         }
       } catch (Exception ex) {
         Log.errorLog(894330854, ex, "");
@@ -221,7 +219,7 @@ public class MediathekArte extends MediathekReader {
       meldungThreadUndFertig();
     }
 
-    private void loadSubCategory(String sender, String langCode, String aCategory, String aUrl) {
+    private void loadCategory(String sender, String langCode, String aCategory, String aUrl) {
       Gson gson = new GsonBuilder()
               .registerTypeAdapter(ArteCategoryFilmsDTO.class, new ArteCategoryFilmListDeserializer())
               .create();
@@ -232,29 +230,13 @@ public class MediathekArte extends MediathekReader {
               .registerTypeAdapter(ArteCategoryFilmsDTO.class, new ArteCollectionChildDeserializer())
               .create();
 
-      // erste Seite laden
-      int i = 2;
       ArteCategoryFilmsDTO dto = loadSubCategoryPage(gson, sender, aUrl);
       if (dto != null) {
         loadCollections(sender, langCode, gsonCollectionParent, gsonCollectionChild, dto);
-
-        ArteCategoryFilmsDTO nextDto = dto;
-        while (PARSE_SUBCATEGORY_SUB_PAGES && nextDto != null && nextDto.hasNextPage()) {
-
-          // weitere Seiten laden und zu programId-liste des ersten DTO hinzufügen
-          String url = String.format(URL_SUBCATEGORY, langCode.toLowerCase(), aCategory, i);
-          nextDto = loadSubCategoryPage(gson, sender, url);
-          if (nextDto != null) {
-            loadCollections(sender, langCode, gsonCollectionParent, gsonCollectionChild, nextDto);
-            nextDto.getProgramIds().forEach(programId -> dto.addProgramId(programId));
-          }
-
-          i++;
-        }
-
+        Log.sysLog(String.format("%s: %d, %d", aCategory, dto.getProgramIds().size(), dto.getCollectionIds().size()));
         // alle programIds verarbeiten
         ListeFilme loadedFilme = loadPrograms(sender, langCode, dto);
-        loadedFilme.forEach((film) -> addFilm(film));
+        loadedFilme.forEach(film -> addFilm(film));
         Log.sysLog(String.format("%s: Subcategory %s: %d Filme", sender, aCategory, loadedFilme.size()));
       }
     }

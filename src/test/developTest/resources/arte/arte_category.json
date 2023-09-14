@@ -1,0 +1,1138 @@
+{
+  "tag":"Ok",
+  "value":{
+    "code":"CIN",
+    "language":"de",
+    "support":"web",
+    "type":"page",
+    "level":1,
+    "parent":null,
+    "alternativeLanguages":[
+      {
+        "code":"fr",
+        "label":"Français",
+        "page":"CIN",
+        "url":"/fr/videos/cinema/",
+        "title":"Cinéma | ARTE"
+      },
+      {
+        "code":"de",
+        "label":"Deutsch",
+        "page":"CIN",
+        "url":"/de/videos/kino/",
+        "title":"Kino | ARTE"
+      },
+      {
+        "code":"en",
+        "label":"English",
+        "page":"CIN",
+        "url":"/en/videos/cinema/",
+        "title":"Cinema | ARTE"
+      },
+      {
+        "code":"es",
+        "label":"Español",
+        "page":"CIN",
+        "url":"/es/videos/cine/",
+        "title":"Cine | ARTE"
+      },
+      {
+        "code":"pl",
+        "label":"Polski",
+        "page":"CIN",
+        "url":"/pl/videos/kino/",
+        "title":"Kino | ARTE"
+      },
+      {
+        "code":"it",
+        "label":"Italiano",
+        "page":"CIN",
+        "url":"/it/videos/cinema/",
+        "title":"Cinema | ARTE"
+      }
+    ],
+    "url":"/de/videos/kino/",
+    "deeplink":"arte://emac/CIN",
+    "slug":"kino",
+    "zones":[
+      {
+        "id":"71dd0ddd-602f-4a28-91d9-acbf0aeb79e5_CIN",
+        "code":"highlights_category_CIN",
+        "title":"Aktuelle Highlights",
+        "slug":null,
+        "description":null,
+        "displayOptions":{
+          "template":"slider-square",
+          "theme":"grey",
+          "showZoneTitle":false,
+          "showItemTitle":true
+        },
+        "link":null,
+        "authenticatedContent":null,
+        "groupedZonesName":null,
+        "content":{
+          "data":[
+            {
+              "id":"7cb78744-9640-4fb2-bf74-0a4036c70ea2",
+              "type":"teaser",
+              "kind":{
+                "code":"SHOW",
+                "label":"Programm",
+                "isCollection":false
+              },
+              "url":"/de/videos/112511-000-A/lucie-aubrac-heldin-der-resistance/",
+              "deeplink":"arte://live",
+              "title":"Lucie Aubrac",
+              "subtitle":"Heldin der Résistance",
+              "shortDescription":"Basierend auf wahren Begebenheiten: Lucie Aubrac lebt mit ihrem Mann Raymond und ihrem kleinen Sohn im besetzten Lyon von 1943. Raymond kämpft in der Résistance gegen das Vichy-Regime und den immer weitreichenderen Einfluss der Nationalsozialisten im Land. Als er von der Gestapo zum Tode verurteilt wird, ist es Lucie, die mit Wagemut das Unmögliche versucht: Ihren Mann zu befreien.",
+              "mainImage":{
+                "caption":null,
+                "url":"https://api-cdn.arte.tv/img/v2/image/cbktiSSfoHykR8LV2REBsL/__SIZE__"
+              },
+              "stickers":[
+                {
+                  "code":"TV_LIVE",
+                  "label":"Live"
+                }
+              ],
+              "trackingPixel":"/ct/?abv=A&em=112511-000-A&language=de&pageid=CIN&position=1&support=web&teaserid=7cb78744-9640-4fb2-bf74-0a4036c70ea2&teasertitle=Lucie%20Aubrac&zoneCode=highlights_category_CIN&zoneIndexInPage=0&zoneTemplate=slider_square&zoneid=highlights_category&zonename=Aktuelle%20Highlights",
+              "programId":"112511-000-A",
+              "teaserText":"Lyon 1943: Lucie Aubrac rettet ihren Mann Raymond, Mitglied der Résistance, aus den Fängen der Gestapo.",
+              "duration":6600,
+              "durationLabel":"110 Min.",
+              "geoblocking":{
+                "code":"ALL",
+                "label":"Weltweit verfügbar",
+                "inclusion":[
+
+                ],
+                "exclusion":[
+
+                ]
+              },
+              "genre":null,
+              "audioVersions":[
+
+              ],
+              "availability":{
+                "type":"LIVESTREAM_TV",
+                "start":"2023-09-11T18:15:00Z",
+                "end":"2023-09-11T20:05:32Z",
+                "upcomingDate":"2023-09-11T18:15:00Z",
+                "label":null
+              },
+              "ageRating":0,
+              "callToAction":"Abspielen",
+              "clip":{
+                "id":"LIVE",
+                "config":"https://api.arte.tv/api/player/v2/config/de/LIVE"
+              },
+              "trailer":{
+                "id":"112511-000-A",
+                "config":"https://api.arte.tv/api/player/v2/trailer/de/112511-000-A"
+              },
+              "childrenCount":0
+            }
+          ],
+          "pagination":null
+        }
+      },
+      {
+        "id":"e6d9ea9b-178d-4f8b-9710-3a6c42de1d41",
+        "code":"e6d9ea9b-178d-4f8b-9710-3a6c42de1d41",
+        "title":"Unser Spielfilmangebot",
+        "slug":null,
+        "description":null,
+        "displayOptions":{
+          "template":"horizontal-portrait",
+          "theme":null,
+          "showZoneTitle":true,
+          "showItemTitle":false
+        },
+        "link":{
+          "page":"FLM",
+          "title":"Mehr",
+          "url":"/de/videos/kino/filme/",
+          "deeplink":"arte://emac/FLM"
+        },
+        "authenticatedContent":null,
+        "groupedZonesName":null,
+        "content":{
+          "data":[
+            {
+              "id":"09d446dc-1a10-43d5-8eab-d52f894522b9",
+              "type":"teaser",
+              "kind":{
+                "code":"SHOW",
+                "label":"Programm",
+                "isCollection":false
+              },
+              "url":"/de/videos/047389-000-A/gilbert-grape-irgendwo-in-iowa/",
+              "deeplink":"arte://program/047389-000-A",
+              "title":"Gilbert Grape",
+              "subtitle":"Irgendwo in Iowa",
+              "shortDescription":"Endora im US-Bundesstaat Iowa: In der Einöde dieser fiktiven Kleinstadt führt Gilbert Grape ein Leben geprägt von Langeweile und erdrückenden familiären Problemen – bis ein schönes Mädchen neuen Wind in seine Welt bringt. - Ein bewegender Spielfilm (1993), grandios besetzt mit Johnny Depp in der Titelrolle, Juliette Lewis als Becky und Leonardo DiCaprio als kleiner Bruder Arnie.",
+              "mainImage":{
+                "caption":null,
+                "url":"https://api-cdn.arte.tv/img/v2/image/XP6xCwGWZStrALo6oV7WG/__SIZE__?type=TEXT"
+              },
+              "stickers":[
+                {
+                  "code":"PLAYABLE",
+                  "label":"PLAYABLE"
+                },
+                {
+                  "code":"FULL_VIDEO",
+                  "label":"Das Programm sehen"
+                },
+                {
+                  "code":"LAST_DAY",
+                  "label":"Letzter Tag"
+                }
+              ],
+              "trackingPixel":"/ct/?abv=A&em=047389-000-A&language=de&pageid=CIN&position=1&support=web&teaserid=09d446dc-1a10-43d5-8eab-d52f894522b9&teasertitle=Gilbert%20Grape&zoneCode=e6d9ea9b-178d-4f8b-9710-3a6c42de1d41&zoneIndexInPage=1&zoneTemplate=horizontal_portrait&zoneid=e6d9ea9b-178d-4f8b-9710-3a6c42de1d41&zonename=Unser%20Spielfilmangebot",
+              "programId":"047389-000-A",
+              "teaserText":"Grandios besetzter Kultfilm mit Johnny Depp, Juliette Lewis und Leonardo DiCaprio.",
+              "duration":6681,
+              "durationLabel":"112 Min.",
+              "geoblocking":{
+                "code":"DE_FR",
+                "label":"Verfügbar in Deutschland und Frankreich",
+                "inclusion":[
+
+                ],
+                "exclusion":[
+
+                ]
+              },
+              "genre":null,
+              "audioVersions":[
+
+              ],
+              "availability":{
+                "type":"VOD",
+                "start":"2023-08-13T03:00:00Z",
+                "end":"2023-09-12T03:00:00Z",
+                "upcomingDate":"2023-08-13T03:00:00Z",
+                "label":null
+              },
+              "ageRating":0,
+              "callToAction":"Abspielen",
+              "clip":null,
+              "trailer":{
+                "id":"047389-000-A",
+                "config":"https://api.arte.tv/api/player/v2/trailer/de/047389-000-A"
+              },
+              "childrenCount":0
+            },
+            {
+              "id":"a312f602-5db6-404d-9157-2f9c95e5d2d5",
+              "type":"teaser",
+              "kind":{
+                "code":"SHOW",
+                "label":"Programm",
+                "isCollection":false
+              },
+              "url":"/de/videos/109066-000-A/der-sommer-mit-anais/",
+              "deeplink":"arte://program/109066-000-A",
+              "title":"Der Sommer mit Anaïs",
+              "subtitle":"Sommer, Sonne, Sinnlichkeit",
+              "shortDescription":"Anaïs, eine junge Französin, eilt durch ihr Leben. Ihre Liebesbeziehungen sind intensiv, aber sprunghaft. Als sie eines Tages den älteren Daniel kennenlernt, erwächst aus einer Affäre mit ihm schnell ein näheres Interesse an seiner Frau Emilie ... - Temporeiche Liebeskomödie (2020) der französischen Regisseurin und Schauspielerin Charline Bourgeois-Tacquet",
+              "mainImage":{
+                "caption":null,
+                "url":"https://api-cdn.arte.tv/img/v2/image/qqvovu9pVidHhsjjdUEfY5/__SIZE__?type=TEXT"
+              },
+              "stickers":[
+                {
+                  "code":"PLAYABLE",
+                  "label":"PLAYABLE"
+                },
+                {
+                  "code":"FULL_VIDEO",
+                  "label":"Das Programm sehen"
+                }
+              ],
+              "trackingPixel":"/ct/?abv=A&em=109066-000-A&language=de&pageid=CIN&position=2&support=web&teaserid=a312f602-5db6-404d-9157-2f9c95e5d2d5&teasertitle=Der%20Sommer%20mit%20Ana%C3%AFs&zoneCode=e6d9ea9b-178d-4f8b-9710-3a6c42de1d41&zoneIndexInPage=1&zoneTemplate=horizontal_portrait&zoneid=e6d9ea9b-178d-4f8b-9710-3a6c42de1d41&zonename=Unser%20Spielfilmangebot",
+              "programId":"109066-000-A",
+              "teaserText":"Anaïs, eine junge Französin, eilt durch ihr Leben. Ihre Liebesbeziehungen sind intensiv, aber sprunghaft ...",
+              "duration":5550,
+              "durationLabel":"93 Min.",
+              "geoblocking":{
+                "code":"DE_FR",
+                "label":"Verfügbar in Deutschland und Frankreich",
+                "inclusion":[
+
+                ],
+                "exclusion":[
+
+                ]
+              },
+              "genre":null,
+              "audioVersions":[
+
+              ],
+              "availability":{
+                "type":"VOD",
+                "start":"2023-09-06T03:00:00Z",
+                "end":"2023-10-06T03:00:00Z",
+                "upcomingDate":"2023-09-06T03:00:00Z",
+                "label":null
+              },
+              "ageRating":0,
+              "callToAction":"Abspielen",
+              "clip":{
+                "id":"PNA0741",
+                "config":"https://api.arte.tv/api/player/v2/config/de/PNA0741"
+              },
+              "trailer":{
+                "id":"109066-000-A",
+                "config":"https://api.arte.tv/api/player/v2/trailer/de/109066-000-A"
+              },
+              "childrenCount":0
+            },
+            {
+              "id":"4131dffb-0905-45d5-92a5-28c3cbf17eef",
+              "type":"teaser",
+              "kind":{
+                "code":"SHOW",
+                "label":"Programm",
+                "isCollection":false
+              },
+              "url":"/de/videos/082669-000-A/copilot-die-welt-wird-eine-andere-sein/",
+              "deeplink":"arte://program/082669-000-A",
+              "title":"Copilot",
+              "subtitle":"Die Welt wird eine andere sein",
+              "shortDescription":"Hamburg 1996: Die deutsch-türkische Asli und der libanesische Saeed studieren gemeinsam in der Hafenstadt Medizin. Schnell verlieben sie sich ineinander und schließen, aller Widerstände zum Trotz, heimlich eine muslimische Ehe. Doch Saeed hat Geheimnisse vor seiner Frau ... - Die Rolle des Saeed ist angelehnt an den libanesischen 9/11-Selbstmordattentäter Ziad Jarrah (1975-2001).",
+              "mainImage":{
+                "caption":null,
+                "url":"https://api-cdn.arte.tv/img/v2/image/NxWsVdDNKAdDoWeCVF4Ez9/__SIZE__?type=TEXT"
+              },
+              "stickers":[
+                {
+                  "code":"PLAYABLE",
+                  "label":"PLAYABLE"
+                },
+                {
+                  "code":"FULL_VIDEO",
+                  "label":"Das Programm sehen"
+                }
+              ],
+              "trackingPixel":"/ct/?abv=A&em=082669-000-A&language=de&pageid=CIN&position=3&support=web&teaserid=4131dffb-0905-45d5-92a5-28c3cbf17eef&teasertitle=Copilot&zoneCode=e6d9ea9b-178d-4f8b-9710-3a6c42de1d41&zoneIndexInPage=1&zoneTemplate=horizontal_portrait&zoneid=e6d9ea9b-178d-4f8b-9710-3a6c42de1d41&zonename=Unser%20Spielfilmangebot",
+              "programId":"082669-000-A",
+              "teaserText":"Hamburg, 1996: Die deutsch-türkische Asli und der libanesische Saeed lieben sich. Doch Saeed hat Geheimnisse...",
+              "duration":6630,
+              "durationLabel":"111 Min.",
+              "geoblocking":{
+                "code":"DE_FR",
+                "label":"Verfügbar in Deutschland und Frankreich",
+                "inclusion":[
+
+                ],
+                "exclusion":[
+
+                ]
+              },
+              "genre":null,
+              "audioVersions":[
+
+              ],
+              "availability":{
+                "type":"VOD",
+                "start":"2023-09-11T03:00:00Z",
+                "end":"2023-10-11T03:00:00Z",
+                "upcomingDate":"2023-09-11T03:00:00Z",
+                "label":null
+              },
+              "ageRating":0,
+              "callToAction":"Abspielen",
+              "clip":null,
+              "trailer":null,
+              "childrenCount":0
+            }
+          ],
+          "pagination":null
+        }
+      },
+      {
+        "id":"1c2cd865-a94f-4f1b-94c9-60744521ea04",
+        "code":"1c2cd865-a94f-4f1b-94c9-60744521ea04",
+        "title":"Die Filme von Jim Jarmusch",
+        "slug":null,
+        "description":"ARTE zeigt fünf Werke des US-amerikanischen Independant-Filmemachers Jim Jarmusch.",
+        "displayOptions":{
+          "template":"horizontal-landscape",
+          "theme":null,
+          "showZoneTitle":true,
+          "showItemTitle":true
+        },
+        "link":{
+          "page":"RC-024165",
+          "title":"Mehr",
+          "url":"/de/videos/RC-024165/die-filme-von-jim-jarmusch/",
+          "deeplink":"arte://collection/RC-024165"
+        },
+        "authenticatedContent":null,
+        "groupedZonesName":null,
+        "content":{
+          "data":[
+            {
+              "id":"003982-000-A_de",
+              "type":"teaser",
+              "kind":{
+                "code":"SHOW",
+                "label":"Programm",
+                "isCollection":false
+              },
+              "url":"/de/videos/003982-000-A/night-on-earth/",
+              "deeplink":"arte://program/003982-000-A",
+              "title":"Night on Earth",
+              "subtitle":null,
+              "shortDescription":"\"Night on Earth\" ist ein starbesetzter Episodenfilm über fünf Taxifahrer und spielt in fünf verschiedenen Städten der U.S.A und Europas: Los Angeles, New York, Rom, Paris und Helsinki.",
+              "mainImage":{
+                "caption":null,
+                "url":"https://api-cdn.arte.tv/img/v2/image/iaVh5VAWRta7WoironDBZN/__SIZE__"
+              },
+              "stickers":[
+                {
+                  "code":"PLAYABLE",
+                  "label":"PLAYABLE"
+                },
+                {
+                  "code":"FULL_VIDEO",
+                  "label":"Das Programm sehen"
+                }
+              ],
+              "trackingPixel":"/ct/?abv=A&em=003982-000-A&language=de&pageid=CIN&position=1&support=web&teaserid=003982-000-A_de&teasertitle=Night%20on%20Earth&zoneCode=1c2cd865-a94f-4f1b-94c9-60744521ea04&zoneIndexInPage=2&zoneTemplate=horizontal_landscape&zoneid=1c2cd865-a94f-4f1b-94c9-60744521ea04&zonename=Die%20Filme%20von%20Jim%20Jarmusch",
+              "programId":"003982-000-A",
+              "teaserText":"\"Night on Earth\" ist ein Episodenfilm über fünf Taxifahrer in fünf verschiedenen Städten der U.S.A und Europas.",
+              "duration":7379,
+              "durationLabel":"123 Min.",
+              "geoblocking":{
+                "code":"DE_FR",
+                "label":"Verfügbar in Deutschland und Frankreich",
+                "inclusion":[
+
+                ],
+                "exclusion":[
+
+                ]
+              },
+              "genre":null,
+              "audioVersions":[
+
+              ],
+              "availability":{
+                "type":"VOD",
+                "start":"2023-08-07T11:01:00Z",
+                "end":"2023-10-31T22:59:00Z",
+                "upcomingDate":"2023-08-07T11:01:00Z",
+                "label":"Verfügbar vom 07/08/2023 bis 31/10/2023"
+              },
+              "ageRating":12,
+              "callToAction":"Abspielen",
+              "clip":null,
+              "trailer":null,
+              "childrenCount":null
+            },
+            {
+              "id":"021109-000-A_de",
+              "type":"teaser",
+              "kind":{
+                "code":"SHOW",
+                "label":"Programm",
+                "isCollection":false
+              },
+              "url":"/de/videos/021109-000-A/dead-man/",
+              "deeplink":"arte://program/021109-000-A",
+              "title":"Dead Man",
+              "subtitle":null,
+              "shortDescription":"Im Jahr 1876 reist der junge William Blake (Johnny Depp) mit dem Zug von Cleveland in den amerikanischen Westen. Bei einem Feuergefecht wird er schwer verletzt, auf sich allein gestellt, bricht Blake zusammen und entrinnt nur knapp dem Tod, als ihn der etwas merkwürdige, ausgestoßene Indianer Nobody (Gary Farmer) findet.",
+              "mainImage":{
+                "caption":null,
+                "url":"https://api-cdn.arte.tv/img/v2/image/GipF6GbxoVpdBmqgTum3u/__SIZE__"
+              },
+              "stickers":[
+                {
+                  "code":"PLAYABLE",
+                  "label":"PLAYABLE"
+                },
+                {
+                  "code":"FULL_VIDEO",
+                  "label":"Das Programm sehen"
+                }
+              ],
+              "trackingPixel":"/ct/?abv=A&em=021109-000-A&language=de&pageid=CIN&position=2&support=web&teaserid=021109-000-A_de&teasertitle=Dead%20Man&zoneCode=1c2cd865-a94f-4f1b-94c9-60744521ea04&zoneIndexInPage=2&zoneTemplate=horizontal_landscape&zoneid=1c2cd865-a94f-4f1b-94c9-60744521ea04&zonename=Die%20Filme%20von%20Jim%20Jarmusch",
+              "programId":"021109-000-A",
+              "teaserText":"Im Jahr 1876 reist der junge William Blake (Johnny Depp) mit dem Zug von Cleveland in den amerikanischen Westen.",
+              "duration":6921,
+              "durationLabel":"116 Min.",
+              "geoblocking":{
+                "code":"DE_FR",
+                "label":"Verfügbar in Deutschland und Frankreich",
+                "inclusion":[
+
+                ],
+                "exclusion":[
+
+                ]
+              },
+              "genre":null,
+              "audioVersions":[
+
+              ],
+              "availability":{
+                "type":"VOD",
+                "start":"2023-07-31T22:00:00Z",
+                "end":"2023-11-30T22:59:00Z",
+                "upcomingDate":"2023-07-31T22:00:00Z",
+                "label":"Verfügbar vom 31/07/2023 bis 30/11/2023"
+              },
+              "ageRating":12,
+              "callToAction":"Abspielen",
+              "clip":null,
+              "trailer":null,
+              "childrenCount":null
+            }
+          ],
+          "pagination":null
+        }
+      },
+      {
+        "id":"82f5ef16-8655-4e15-a52a-bc426cfccdeb_CIN",
+        "code":"collections_CIN",
+        "title":"Kollektionen",
+        "slug":null,
+        "description":null,
+        "displayOptions":{
+          "template":"horizontal-landscapeBig",
+          "theme":null,
+          "showZoneTitle":true,
+          "showItemTitle":true
+        },
+        "link":null,
+        "authenticatedContent":null,
+        "groupedZonesName":null,
+        "content":{
+          "data":[
+            {
+              "id":"19276a4a-7c23-4685-92ae-19f173a7fb51",
+              "type":"teaser",
+              "kind":{
+                "code":"TOPIC",
+                "label":"Kollektion",
+                "isCollection":true
+              },
+              "url":"/de/videos/RC-024286/die-kurzfilme-der-filmgroessen/",
+              "deeplink":"arte://collection/RC-024286",
+              "title":"Die Kurzfilme der Filmgrößen",
+              "subtitle":"Von Ozon bis Varda",
+              "shortDescription":"Elf Kurzfilme von Regisseuren und Regisseurinnen, die sich im Anschluss mit ihren Werken einen Namen machten - darunter François Ozon, Agnès Varda oder auch Jean-Luc Godard.",
+              "mainImage":{
+                "caption":null,
+                "url":"https://api-cdn.arte.tv/img/v2/image/e9ko72CAatHyeKybot9akf/__SIZE__"
+              },
+              "stickers":[
+                {
+                  "code":"COLLECTION",
+                  "label":"COLLECTION"
+                }
+              ],
+              "trackingPixel":"/ct/?abv=A&em=RC-024286&language=de&pageid=CIN&position=1&support=web&teaserid=19276a4a-7c23-4685-92ae-19f173a7fb51&teasertitle=Die%20Kurzfilme%20der%20Filmgr%C3%B6%C3%9Fen&zoneCode=collections_CIN&zoneIndexInPage=15&zoneTemplate=horizontal_landscapeBig&zoneid=collections&zonename=Kollektionen",
+              "programId":"RC-024286",
+              "teaserText":"Elf Kurzfilme von Regisseuren und Regisseurinnen, die sich im Anschluss mit ihren Werken einen Namen machten.",
+              "duration":null,
+              "durationLabel":"Kollektion",
+              "geoblocking":{
+                "code":"SAT",
+                "label":"Verfügbar in Europa",
+                "inclusion":[
+
+                ],
+                "exclusion":[
+
+                ]
+              },
+              "genre":null,
+              "audioVersions":[
+
+              ],
+              "availability":null,
+              "ageRating":0,
+              "callToAction":"Abspielen",
+              "clip":null,
+              "trailer":null,
+              "childrenCount":0
+            },
+            {
+              "id":"154c8d5d-8b22-45c9-85bd-185469dbc262",
+              "type":"teaser",
+              "kind":{
+                "code":"TOPIC",
+                "label":"Kollektion",
+                "isCollection":true
+              },
+              "url":"/de/videos/RC-024320/welche-filme-zeigt-arte-im-september/",
+              "deeplink":"arte://collection/RC-024320",
+              "title":"Welche Filme zeigt ARTE im September?",
+              "subtitle":null,
+              "shortDescription":"Im September erwarten Sie auf ARTE sowohl Klassiker wie \"Der letzte Befehl\" von John Ford oder \"Der Fremde im Zug\" von Alfred Hitchcock als auch Entdeckungen wie Anne Zohra Berracheds Film \"Copilot (Die Welt wird eine andere sein)\".",
+              "mainImage":{
+                "caption":null,
+                "url":"https://api-cdn.arte.tv/img/v2/image/jmk7foTvrHuW6QVk2gfy6K/__SIZE__"
+              },
+              "stickers":[
+                {
+                  "code":"COLLECTION",
+                  "label":"COLLECTION"
+                }
+              ],
+              "trackingPixel":"/ct/?abv=A&em=RC-024320&language=de&pageid=CIN&position=2&support=web&teaserid=154c8d5d-8b22-45c9-85bd-185469dbc262&teasertitle=Welche%20Filme%20zeigt%20ARTE%20im%20September%3F&zoneCode=collections_CIN&zoneIndexInPage=15&zoneTemplate=horizontal_landscapeBig&zoneid=collections&zonename=Kollektionen",
+              "programId":"RC-024320",
+              "teaserText":"Im September erwarten Sie auf ARTE Spielfilme von unter anderem Guillermo del Toro, John Ford und Alfred Hitchcock.",
+              "duration":null,
+              "durationLabel":"Kollektion",
+              "geoblocking":{
+                "code":"SAT",
+                "label":"Verfügbar in Europa",
+                "inclusion":[
+
+                ],
+                "exclusion":[
+
+                ]
+              },
+              "genre":null,
+              "audioVersions":[
+
+              ],
+              "availability":null,
+              "ageRating":0,
+              "callToAction":"Abspielen",
+              "clip":null,
+              "trailer":null,
+              "childrenCount":0
+            },
+            {
+              "id":"a99c07a7-5d23-45c2-b245-64baa4d0d9f2",
+              "type":"teaser",
+              "kind":{
+                "code":"TOPIC",
+                "label":"Kollektion",
+                "isCollection":true
+              },
+              "url":"/de/videos/RC-024165/die-filme-von-jim-jarmusch/",
+              "deeplink":"arte://collection/RC-024165",
+              "title":"Die Filme von Jim Jarmusch",
+              "subtitle":"Von \"Permanent Vacation\" bis \"Dead Man\"",
+              "shortDescription":"ARTE zeigt fünf Werke des US-amerikanischen Independant-Filmemachers Jim Jarmusch, darunter die beiden Klassiker \"Night on Earth\" mit Armin Müller-Stahl und \"Dead Man\" mit Johnny Depp.",
+              "mainImage":{
+                "caption":null,
+                "url":"https://api-cdn.arte.tv/img/v2/image/YNGagUwTmCMhDStvErtfaB/__SIZE__"
+              },
+              "stickers":[
+                {
+                  "code":"COLLECTION",
+                  "label":"COLLECTION"
+                }
+              ],
+              "trackingPixel":"/ct/?abv=A&em=RC-024165&language=de&pageid=CIN&position=3&support=web&teaserid=a99c07a7-5d23-45c2-b245-64baa4d0d9f2&teasertitle=Die%20Filme%20von%20Jim%20Jarmusch&zoneCode=collections_CIN&zoneIndexInPage=15&zoneTemplate=horizontal_landscapeBig&zoneid=collections&zonename=Kollektionen",
+              "programId":"RC-024165",
+              "teaserText":"ARTE zeigt fünf Werke des US-amerikanischen Independant-Filmemachers Jim Jarmusch.",
+              "duration":null,
+              "durationLabel":"Kollektion",
+              "geoblocking":{
+                "code":"DE_FR",
+                "label":"Verfügbar in Deutschland und Frankreich",
+                "inclusion":[
+
+                ],
+                "exclusion":[
+
+                ]
+              },
+              "genre":null,
+              "audioVersions":[
+
+              ],
+              "availability":null,
+              "ageRating":0,
+              "callToAction":"Mehr erfahren",
+              "clip":null,
+              "trailer":null,
+              "childrenCount":0
+            },
+            {
+              "id":"cfb711db-9191-4c79-8887-aae7787d53ad",
+              "type":"teaser",
+              "kind":{
+                "code":"TOPIC",
+                "label":"Kollektion",
+                "isCollection":true
+              },
+              "url":"/de/videos/RC-023835/cinema-italiano/",
+              "deeplink":"arte://collection/RC-023835",
+              "title":"Cinema italiano",
+              "subtitle":"Eine Reise durch Italien in sechs Filmen",
+              "shortDescription":"ARTE zeigt fünf emblematische italienische Filme der späten 50er und frühen 60er Jahre, sowie Lugi Comencinis Klassiker \"Das Verbrechen\" von 1974. Mit von der Partie: Marcello Mastroianni, Claudia Cardinale, Alain Delon, Simone Signoret, Jean-Louis Trintignant oder auch Stefania Sandrelli…",
+              "mainImage":{
+                "caption":null,
+                "url":"https://api-cdn.arte.tv/img/v2/image/WsduWXpPCEeJBUEgfYfvZP/__SIZE__"
+              },
+              "stickers":[
+                {
+                  "code":"COLLECTION",
+                  "label":"COLLECTION"
+                }
+              ],
+              "trackingPixel":"/ct/?abv=A&em=RC-023835&language=de&pageid=CIN&position=4&support=web&teaserid=cfb711db-9191-4c79-8887-aae7787d53ad&teasertitle=Cinema%20italiano&zoneCode=collections_CIN&zoneIndexInPage=15&zoneTemplate=horizontal_landscapeBig&zoneid=collections&zonename=Kollektionen",
+              "programId":"RC-023835",
+              "teaserText":"ARTE zeigt fünf italienische Filme der späten 50er und frühen 60er Jahre, sowie \"Das Verbrechen\" von 1974.",
+              "duration":null,
+              "durationLabel":"Kollektion",
+              "geoblocking":{
+                "code":"EUR_DE_FR",
+                "label":"Verfügbar in den deutsch- und französischsprachigen Ländern Europas",
+                "inclusion":[
+
+                ],
+                "exclusion":[
+
+                ]
+              },
+              "genre":null,
+              "audioVersions":[
+
+              ],
+              "availability":null,
+              "ageRating":0,
+              "callToAction":"Abspielen",
+              "clip":null,
+              "trailer":{
+                "id":"RC-023835",
+                "config":"https://api.arte.tv/api/player/v2/trailer/de/RC-023835"
+              },
+              "childrenCount":0
+            },
+            {
+              "id":"88ab5e10-59b8-48b2-96d8-a88aa7ca4c17",
+              "type":"teaser",
+              "kind":{
+                "code":"TOPIC",
+                "label":"Kollektion",
+                "isCollection":true
+              },
+              "url":"/de/videos/RC-023350/viva-espana/",
+              "deeplink":"arte://collection/RC-023350",
+              "title":"Viva España",
+              "subtitle":"Acht Filme aus Spanien",
+              "shortDescription":"Luis García-Berlanga, Luis Buñuel, Víctor Erice, Mario Camus, Vicente Aranda, Juan Antonio Bardem, Fernando Trueba und Pedro Almodóvar: ARTE zeigt eine Auswahl von acht spanischen Spielfilmen aus unterschiedlichen Jahrzehnten.",
+              "mainImage":{
+                "caption":null,
+                "url":"https://api-cdn.arte.tv/img/v2/image/cw6AfxJsLojg4B38zRj5mi/__SIZE__"
+              },
+              "stickers":[
+                {
+                  "code":"COLLECTION",
+                  "label":"COLLECTION"
+                }
+              ],
+              "trackingPixel":"/ct/?abv=A&em=RC-023350&language=de&pageid=CIN&position=5&support=web&teaserid=88ab5e10-59b8-48b2-96d8-a88aa7ca4c17&teasertitle=Viva%20Espa%C3%B1a&zoneCode=collections_CIN&zoneIndexInPage=15&zoneTemplate=horizontal_landscapeBig&zoneid=collections&zonename=Kollektionen",
+              "programId":"RC-023350",
+              "teaserText":"Tauchen Sie ein in acht spanische Meisterwerke von Regisseuren wie Pedro Almodóvar und Luis Buñuel. Film ab!",
+              "duration":null,
+              "durationLabel":"Kollektion",
+              "geoblocking":{
+                "code":"SAT",
+                "label":"Verfügbar in Europa",
+                "inclusion":[
+
+                ],
+                "exclusion":[
+
+                ]
+              },
+              "genre":null,
+              "audioVersions":[
+
+              ],
+              "availability":null,
+              "ageRating":0,
+              "callToAction":"Abspielen",
+              "clip":null,
+              "trailer":{
+                "id":"RC-023350",
+                "config":"https://api.arte.tv/api/player/v2/trailer/de/RC-023350"
+              },
+              "childrenCount":0
+            },
+            {
+              "id":"a073557a-047c-44b3-b72e-a0be17bd21e8",
+              "type":"teaser",
+              "kind":{
+                "code":"MAGAZINE",
+                "label":"Sendung",
+                "isCollection":true
+              },
+              "url":"/de/videos/RC-014095/blow-up/",
+              "deeplink":"arte://collection/RC-014095",
+              "title":"Blow up",
+              "subtitle":"Das aktuelle Filmgeschehen",
+              "shortDescription":"Jede Woche wirft das Webmagazin von ARTE einen originellen, informativen und schrägen Blick auf aktuelle Filmereignisse. \nDiese Woche essen wir Muscheln und Meeresfrüchte aller Art.",
+              "mainImage":{
+                "caption":null,
+                "url":"https://api-cdn.arte.tv/img/v2/image/QJsAEa8YuQCQxob7bLDZNc/__SIZE__"
+              },
+              "stickers":[
+                {
+                  "code":"COLLECTION",
+                  "label":"COLLECTION"
+                }
+              ],
+              "trackingPixel":"/ct/?abv=A&em=RC-014095&language=de&pageid=CIN&position=6&support=web&teaserid=a073557a-047c-44b3-b72e-a0be17bd21e8&teasertitle=Blow%20up&zoneCode=collections_CIN&zoneIndexInPage=15&zoneTemplate=horizontal_landscapeBig&zoneid=collections&zonename=Kollektionen",
+              "programId":"RC-014095",
+              "teaserText":"",
+              "duration":null,
+              "durationLabel":"Sendung",
+              "geoblocking":{
+                "code":"ALL",
+                "label":"Weltweit verfügbar",
+                "inclusion":[
+
+                ],
+                "exclusion":[
+
+                ]
+              },
+              "genre":null,
+              "audioVersions":[
+
+              ],
+              "availability":null,
+              "ageRating":0,
+              "callToAction":"Abspielen",
+              "clip":null,
+              "trailer":null,
+              "childrenCount":0
+            },
+            {
+              "id":"ebff4533-8d0f-482b-9f35-d1b2e0e5d55c",
+              "type":"teaser",
+              "kind":{
+                "code":"MAGAZINE",
+                "label":"Sendung",
+                "isCollection":true
+              },
+              "url":"/de/videos/RC-014513/kurzschluss/",
+              "deeplink":"arte://collection/RC-014513",
+              "title":"Kurzschluss ",
+              "subtitle":"Das Kurzfilm-Magazin",
+              "shortDescription":"\"Kurzschluss - Das Magazin\" zeigt jeden Samstag gegen Mitternacht die neuesten Kurzfilme aus aller Welt – und wirft einen Blick hinter die Kulissen: mit Porträts, Drehberichten, aktuellen Festival- und Filmtipps und vielen spannenden Interviews.",
+              "mainImage":{
+                "caption":null,
+                "url":"https://api-cdn.arte.tv/img/v2/image/5bpEu93Wn742yVmydJFPkA/__SIZE__"
+              },
+              "stickers":[
+                {
+                  "code":"COLLECTION",
+                  "label":"COLLECTION"
+                }
+              ],
+              "trackingPixel":"/ct/?abv=A&em=RC-014513&language=de&pageid=CIN&position=7&support=web&teaserid=ebff4533-8d0f-482b-9f35-d1b2e0e5d55c&teasertitle=Kurzschluss%20&zoneCode=collections_CIN&zoneIndexInPage=15&zoneTemplate=horizontal_landscapeBig&zoneid=collections&zonename=Kollektionen",
+              "programId":"RC-014513",
+              "teaserText":"",
+              "duration":null,
+              "durationLabel":"Sendung",
+              "geoblocking":{
+                "code":"ALL",
+                "label":"Weltweit verfügbar",
+                "inclusion":[
+
+                ],
+                "exclusion":[
+
+                ]
+              },
+              "genre":null,
+              "audioVersions":[
+
+              ],
+              "availability":null,
+              "ageRating":0,
+              "callToAction":"Abspielen",
+              "clip":null,
+              "trailer":null,
+              "childrenCount":0
+            },
+            {
+              "id":"01780d8b-3e19-48af-839f-3590ed110c38",
+              "type":"teaser",
+              "kind":{
+                "code":"TOPIC",
+                "label":"Kollektion",
+                "isCollection":true
+              },
+              "url":"/de/videos/RC-023066/komoedien-zum-totlachen/",
+              "deeplink":"arte://collection/RC-023066",
+              "title":"Komödien zum Totlachen",
+              "subtitle":"Tiefschwarze Kurzfilme",
+              "shortDescription":"Natürlich ist Halloween zum Gruseln da, aber was spricht gegen etwas schwarzen Humor? Denn auch wenn in unseren Kurzfilmen das Blut nur so spritzt, können wir uns das Lachen nicht verkneifen.",
+              "mainImage":{
+                "caption":null,
+                "url":"https://api-cdn.arte.tv/img/v2/image/72YzqxwLHndVWBFEmZZQL9/__SIZE__"
+              },
+              "stickers":[
+                {
+                  "code":"COLLECTION",
+                  "label":"COLLECTION"
+                }
+              ],
+              "trackingPixel":"/ct/?abv=A&em=RC-023066&language=de&pageid=CIN&position=8&support=web&teaserid=01780d8b-3e19-48af-839f-3590ed110c38&teasertitle=Kom%C3%B6dien%20zum%20Totlachen&zoneCode=collections_CIN&zoneIndexInPage=15&zoneTemplate=horizontal_landscapeBig&zoneid=collections&zonename=Kollektionen",
+              "programId":"RC-023066",
+              "teaserText":"Unsere Kurzfilme sind bitterböse - und voller schwarzem Humor.",
+              "duration":null,
+              "durationLabel":"Kollektion",
+              "geoblocking":{
+                "code":"SAT",
+                "label":"Verfügbar in Europa",
+                "inclusion":[
+
+                ],
+                "exclusion":[
+
+                ]
+              },
+              "genre":null,
+              "audioVersions":[
+
+              ],
+              "availability":null,
+              "ageRating":0,
+              "callToAction":"Abspielen",
+              "clip":null,
+              "trailer":null,
+              "childrenCount":0
+            },
+            {
+              "id":"45ffac56-d68a-4620-8f1c-dcbe690070be",
+              "type":"teaser",
+              "kind":{
+                "code":"TOPIC",
+                "label":"Kollektion",
+                "isCollection":true
+              },
+              "url":"/de/videos/RC-015454/short-cuts/",
+              "deeplink":"arte://collection/RC-015454",
+              "title":"Short Cuts",
+              "subtitle":"Filmklassiker in 60 animierten Sekunden",
+              "shortDescription":"Verschiedene französische Animationsfilmemacher, darunter Jérémy Clapin oder auch Marie de Lapparent, resümieren für uns Klassiker wie \"Tatis Schützenfest\", \"Der Name der Rose\", \"Der Pianist\", \"Im Reich der Sinne\", \"2001: Odyssee im Weltraum\", \"Der Leopard\", \"Der Pate\" oder \"Ein Mann und eine Frau\" in nur einer Minute.",
+              "mainImage":{
+                "caption":null,
+                "url":"https://api-cdn.arte.tv/img/v2/image/VM56JeETWv3r8i6A9jx8iR/__SIZE__"
+              },
+              "stickers":[
+                {
+                  "code":"COLLECTION",
+                  "label":"COLLECTION"
+                }
+              ],
+              "trackingPixel":"/ct/?abv=A&em=RC-015454&language=de&pageid=CIN&position=9&support=web&teaserid=45ffac56-d68a-4620-8f1c-dcbe690070be&teasertitle=Short%20Cuts&zoneCode=collections_CIN&zoneIndexInPage=15&zoneTemplate=horizontal_landscapeBig&zoneid=collections&zonename=Kollektionen",
+              "programId":"RC-015454",
+              "teaserText":"",
+              "duration":null,
+              "durationLabel":"Kollektion",
+              "geoblocking":{
+                "code":"ALL",
+                "label":"Weltweit verfügbar",
+                "inclusion":[
+
+                ],
+                "exclusion":[
+
+                ]
+              },
+              "genre":null,
+              "audioVersions":[
+
+              ],
+              "availability":null,
+              "ageRating":0,
+              "callToAction":"Abspielen",
+              "clip":null,
+              "trailer":null,
+              "childrenCount":0
+            }
+          ],
+          "pagination":null
+        }
+      },
+      {
+        "id":"04d4c2fa-b9be-4c66-b39f-f5557db64980",
+        "code":"04d4c2fa-b9be-4c66-b39f-f5557db64980",
+        "title":"Sendungen",
+        "slug":null,
+        "description":null,
+        "displayOptions":{
+          "template":"horizontal-landscape",
+          "theme":null,
+          "showZoneTitle":true,
+          "showItemTitle":true
+        },
+        "link":null,
+        "authenticatedContent":null,
+        "groupedZonesName":null,
+        "content":{
+          "data":[
+            {
+              "id":"ebff4533-8d0f-482b-9f35-d1b2e0e5d55c",
+              "type":"teaser",
+              "kind":{
+                "code":"MAGAZINE",
+                "label":"Sendung",
+                "isCollection":true
+              },
+              "url":"/de/videos/RC-014513/kurzschluss/",
+              "deeplink":"arte://collection/RC-014513",
+              "title":"Kurzschluss ",
+              "subtitle":"Das Kurzfilm-Magazin",
+              "shortDescription":"\"Kurzschluss - Das Magazin\" zeigt jeden Samstag gegen Mitternacht die neuesten Kurzfilme aus aller Welt – und wirft einen Blick hinter die Kulissen: mit Porträts, Drehberichten, aktuellen Festival- und Filmtipps und vielen spannenden Interviews.",
+              "mainImage":{
+                "caption":null,
+                "url":"https://api-cdn.arte.tv/img/v2/image/5bpEu93Wn742yVmydJFPkA/__SIZE__"
+              },
+              "stickers":[
+                {
+                  "code":"COLLECTION",
+                  "label":"COLLECTION"
+                }
+              ],
+              "trackingPixel":"/ct/?abv=A&em=RC-014513&language=de&pageid=CIN&position=1&support=web&teaserid=ebff4533-8d0f-482b-9f35-d1b2e0e5d55c&teasertitle=Kurzschluss%20&zoneCode=04d4c2fa-b9be-4c66-b39f-f5557db64980&zoneIndexInPage=16&zoneTemplate=horizontal_landscape&zoneid=04d4c2fa-b9be-4c66-b39f-f5557db64980&zonename=Sendungen",
+              "programId":"RC-014513",
+              "teaserText":"",
+              "duration":null,
+              "durationLabel":"Sendung",
+              "geoblocking":{
+                "code":"ALL",
+                "label":"Weltweit verfügbar",
+                "inclusion":[
+
+                ],
+                "exclusion":[
+
+                ]
+              },
+              "genre":null,
+              "audioVersions":[
+
+              ],
+              "availability":null,
+              "ageRating":0,
+              "callToAction":"Abspielen",
+              "clip":null,
+              "trailer":null,
+              "childrenCount":0
+            },
+            {
+              "id":"a073557a-047c-44b3-b72e-a0be17bd21e8",
+              "type":"teaser",
+              "kind":{
+                "code":"MAGAZINE",
+                "label":"Sendung",
+                "isCollection":true
+              },
+              "url":"/de/videos/RC-014095/blow-up/",
+              "deeplink":"arte://collection/RC-014095",
+              "title":"Blow up",
+              "subtitle":"Das aktuelle Filmgeschehen",
+              "shortDescription":"Jede Woche wirft das Webmagazin von ARTE einen originellen, informativen und schrägen Blick auf aktuelle Filmereignisse. \nDiese Woche essen wir Muscheln und Meeresfrüchte aller Art.",
+              "mainImage":{
+                "caption":null,
+                "url":"https://api-cdn.arte.tv/img/v2/image/QJsAEa8YuQCQxob7bLDZNc/__SIZE__"
+              },
+              "stickers":[
+                {
+                  "code":"COLLECTION",
+                  "label":"COLLECTION"
+                }
+              ],
+              "trackingPixel":"/ct/?abv=A&em=RC-014095&language=de&pageid=CIN&position=2&support=web&teaserid=a073557a-047c-44b3-b72e-a0be17bd21e8&teasertitle=Blow%20up&zoneCode=04d4c2fa-b9be-4c66-b39f-f5557db64980&zoneIndexInPage=16&zoneTemplate=horizontal_landscape&zoneid=04d4c2fa-b9be-4c66-b39f-f5557db64980&zonename=Sendungen",
+              "programId":"RC-014095",
+              "teaserText":"",
+              "duration":null,
+              "durationLabel":"Sendung",
+              "geoblocking":{
+                "code":"ALL",
+                "label":"Weltweit verfügbar",
+                "inclusion":[
+
+                ],
+                "exclusion":[
+
+                ]
+              },
+              "genre":null,
+              "audioVersions":[
+
+              ],
+              "availability":null,
+              "ageRating":0,
+              "callToAction":"Abspielen",
+              "clip":null,
+              "trailer":null,
+              "childrenCount":0
+            }
+          ],
+          "pagination":null
+        }
+      }
+    ],
+    "stats":{
+      "xiti":{
+        "page_name":"Home_CIN",
+        "chapter1":"CIN_kino",
+        "chapter2":null,
+        "chapter3":null,
+        "x1":"de",
+        "x2":"Home",
+        "x4":"A",
+        "s2":1,
+        "siteId":"582046",
+        "env_work":"prod",
+        "search_keywords":null
+      },
+      "serverSideTracking":{
+        "page":{
+          "id":"CIN",
+          "language":"de",
+          "url":"/de/videos/kino/",
+          "abv":"A",
+          "query":null,
+          "category":null,
+          "subcategories":null
+        },
+        "content":null
+      }
+    },
+    "metadata":{
+      "title":"Kino",
+      "description":"Ob Meisterwerk der Filmgeschichte, Kurzfilm oder Trash – ARTE ehrt das Filmgenre in all seinen Facetten.",
+      "seo":{
+        "title":"Kino - Klassiker und neue Filme im Livestream und im Replay  | ARTE",
+        "description":"Kino, Kurzfilm, Arthouse: Beste Film-Unterhaltung im Livestream und im Replay.",
+        "canonical":"/de/videos/kino/"
+      },
+      "og":{
+        "image":{
+          "url":"/img/SHARE_DEFAULT.jpg",
+          "width":1200,
+          "height":630
+        }
+      },
+      "twitter":{
+        "image":{
+          "url":"/img/SHARE_DEFAULT.jpg"
+        },
+        "site":"@ARTEde"
+      }
+    }
+  }
+}
