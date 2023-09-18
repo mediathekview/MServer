@@ -1,11 +1,12 @@
 package mServer.crawler.sender.arte;
 
-import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 
 public class ArteCategoryFilmsDTO {
 
-  private final ArrayList<String> programIds = new ArrayList<>();
-  private final ArrayList<String> collectionIds = new ArrayList<>();
+  private final Set<String> programIds = new HashSet<>();
+  private final Set<String> collectionIds = new HashSet<>();
 
   private boolean hasNextPage;
 
@@ -16,10 +17,10 @@ public class ArteCategoryFilmsDTO {
     collectionIds.add(aCollectionId);
   }
 
-  public ArrayList<String> getProgramIds() {
+  public Set<String> getProgramIds() {
     return programIds;
   }
-  public ArrayList<String> getCollectionIds() {
+  public Set<String> getCollectionIds() {
     return collectionIds;
   }
 

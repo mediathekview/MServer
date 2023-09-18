@@ -41,17 +41,19 @@ public class ArteCategoryFilmListDeserializer implements JsonDeserializer<ArteCa
         final JsonObject contentObject = jsonElement.getAsJsonObject().get(JSON_ELEMENT_CONTENT).getAsJsonObject();
         if (contentObject.has(JSON_ELEMENT_DATA)) {
           for(JsonElement dataElement : contentObject.get(JSON_ELEMENT_DATA).getAsJsonArray()) {
-            String programId = dataElement.getAsJsonObject().get(JSON_ELEMENT_PROGRAMID).getAsString();
-            if (programId != null) {
-              if (programId.startsWith("RC-")) {
-                try {
-                  long collectionId = Long.parseLong(programId.replace("RC-", ""));
-                  dto.addCollection(String.format("RC-%06d", collectionId));
-                } catch (NumberFormatException e) {
-                  Log.errorLog(12834939, "Invalid collection id: " + programId);
+            if (!dataElement.getAsJsonObject().get(JSON_ELEMENT_PROGRAMID).isJsonNull()) {
+              String programId = dataElement.getAsJsonObject().get(JSON_ELEMENT_PROGRAMID).getAsString();
+              if (programId != null) {
+                if (programId.startsWith("RC-")) {
+                  try {
+                    long collectionId = Long.parseLong(programId.replace("RC-", ""));
+                    dto.addCollection(String.format("RC-%06d", collectionId));
+                  } catch (NumberFormatException e) {
+                    Log.errorLog(12834939, "Invalid collection id: " + programId);
+                  }
+                } else {
+                  dto.addProgramId(programId);
                 }
-              } else {
-                dto.addProgramId(programId);
               }
             }
           }
