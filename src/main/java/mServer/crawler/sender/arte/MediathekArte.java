@@ -84,7 +84,7 @@ public class MediathekArte extends MediathekReader {
     super.meldungStart();
 
     senderLanguages.put(Const.ARTE_DE, "de");
-  //  senderLanguages.put(Const.ARTE_FR, "fr");
+    senderLanguages.put(Const.ARTE_FR, "fr");
     /*if (LocalDate.now().getDayOfYear() % 2 == 0) {
       senderLanguages.put(ARTE_EN, "en");
       senderLanguages.put(ARTE_ES, "es");
@@ -233,11 +233,11 @@ public class MediathekArte extends MediathekReader {
       ArteCategoryFilmsDTO dto = loadSubCategoryPage(gson, sender, aUrl);
       if (dto != null) {
         loadCollections(sender, langCode, gsonCollectionParent, gsonCollectionChild, dto);
-        Log.sysLog(String.format("%s: %d, %d", aCategory, dto.getProgramIds().size(), dto.getCollectionIds().size()));
+        Log.sysLog(String.format("%s: category %s: %d programs, %d collections", sender, aCategory, dto.getProgramIds().size(), dto.getCollectionIds().size()));
         // alle programIds verarbeiten
         ListeFilme loadedFilme = loadPrograms(sender, langCode, dto);
         loadedFilme.forEach(film -> addFilm(film));
-        Log.sysLog(String.format("%s: Subcategory %s: %d Filme", sender, aCategory, loadedFilme.size()));
+        Log.sysLog(String.format("%s: category %s: %d Filme", sender, aCategory, loadedFilme.size()));
       }
     }
 
