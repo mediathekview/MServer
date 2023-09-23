@@ -7,9 +7,9 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.Set;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.notNullValue;
@@ -45,7 +45,7 @@ public class ArteCategoryFilmListDeserializerTest {
 
     assertThat(actual, notNullValue());
     assertThat(actual.hasNextPage(), equalTo(expectedHasNextPage));
-    ArrayList<String> actualProgramIds = actual.getProgramIds();
+    Set<String> actualProgramIds = actual.getProgramIds();
     assertThat(actualProgramIds, Matchers.containsInAnyOrder(expectedProgramIds));
   }
 }
