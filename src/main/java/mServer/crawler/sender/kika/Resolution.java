@@ -1,4 +1,4 @@
-package mServer.crawler.sender.br;
+package mServer.crawler.sender.kika;
 
 import java.util.Arrays;
 import java.util.Comparator;
@@ -37,8 +37,8 @@ public enum Resolution {
 
   public static List<Resolution> getFromBestToLowest() {
     return Arrays.asList(Resolution.values()).stream()
-        .sorted(Comparator.comparing(Resolution::getResolutionSize).reversed())
-        .collect(Collectors.toList());
+            .sorted(Comparator.comparing(Resolution::getResolutionSize).reversed())
+            .collect(Collectors.toList());
   }
 
   public static Resolution getHighestResolution() {
@@ -72,7 +72,7 @@ public enum Resolution {
    * @return
    */
   public static Resolution getResolutionFromArdAudioVideoOrdinalsByProfileName(
-      final String profileName) {
+          final String profileName) {
     if (profileName.endsWith("HD")) {
       return Resolution.HD;
     }
@@ -89,7 +89,7 @@ public enum Resolution {
       return Resolution.VERY_SMALL;
     }
     if (profileName.endsWith("Mobile_S")) {
-        return Resolution.VERY_SMALL;
+      return Resolution.VERY_SMALL;
     }
 
     return Resolution.VERY_SMALL;
@@ -120,12 +120,12 @@ public enum Resolution {
     }
     return Resolution.VERY_SMALL;
   }
-  
+
   static Resolution getNextResolutionByDirection(final Resolution startingResolution,
-      final CountingDirection direction) {
+                                                 final CountingDirection direction) {
     try {
       return getResoultionByResolutionSize(
-          startingResolution.getResolutionSize() + direction.getDirectionValue());
+              startingResolution.getResolutionSize() + direction.getDirectionValue());
     } catch (final NoSuchElementException nsee) {
       return startingResolution;
     }
@@ -140,7 +140,7 @@ public enum Resolution {
     }
 
     throw new NoSuchElementException(
-        String.format("Resolution with ResolutionIndex %d not found", searchedResolutionSize));
+            String.format("Resolution with ResolutionIndex %d not found", searchedResolutionSize));
   }
 
   public String getDescription() {

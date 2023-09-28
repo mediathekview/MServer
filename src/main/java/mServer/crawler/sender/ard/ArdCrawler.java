@@ -44,6 +44,7 @@ public class ArdCrawler extends MediathekCrawler {
       mlibFilmeSuchen.meldenFertig(Const.NDR);
       mlibFilmeSuchen.meldenFertig(Const.WDR);
       mlibFilmeSuchen.meldenFertig(Const.HR);
+      mlibFilmeSuchen.meldenFertig(Const.BR);
       mlibFilmeSuchen.meldenFertig("rbtv");
     }
 
@@ -74,9 +75,6 @@ public class ArdCrawler extends MediathekCrawler {
   private void addSpecialDays(
       ConcurrentLinkedQueue<CrawlerUrlDTO> dayUrlsToCrawl) {
     final LocalDateTime[] specialDates = new LocalDateTime[] {
-        LocalDateTime.of(2021, 2, 7, 23, 59, 59),
-        LocalDateTime.of(2021, 2, 8, 23, 59, 59),
-        LocalDateTime.of(2021, 2, 9, 23, 59, 59)
     };
 
     final LocalDateTime minDayOnline = LocalDateTime.now().minusDays(MAX_DAYS_PAST_AVAILABLE);

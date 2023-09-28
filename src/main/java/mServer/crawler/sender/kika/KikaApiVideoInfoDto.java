@@ -6,10 +6,6 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 
-import mServer.crawler.sender.br.Resolution;
-
-
-
 public class KikaApiVideoInfoDto {
   //
   private Optional<String> errorMesssage = Optional.empty();
