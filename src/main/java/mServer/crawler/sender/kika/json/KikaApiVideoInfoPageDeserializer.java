@@ -4,8 +4,8 @@ import com.google.gson.*;
 
 import mServer.crawler.sender.base.JsonUtils;
 import mServer.crawler.sender.base.UrlUtils;
-import mServer.crawler.sender.br.Resolution;
 import mServer.crawler.sender.kika.KikaApiVideoInfoDto;
+import mServer.crawler.sender.kika.Resolution;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
