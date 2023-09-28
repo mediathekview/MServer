@@ -66,13 +66,15 @@ public class ArdTopicPageTask extends ArdTaskBase<ArdFilmInfoDto, CrawlerUrlDTO>
     TOPICS_LOAD_ALL_PAGES.add("Y3JpZDovL2Rhc2Vyc3RlLmRlL3RhdG9ydA");
     // Filme im Ersten
     TOPICS_LOAD_ALL_PAGES.add("Y3JpZDovL2Rhc2Vyc3RlLmRlL2Zlcm5zZWhmaWxtZSBpbSBlcnN0ZW4");
-    // temporary load all => remove if old entries exists
-    // Unter unserem Himmel
-    TOPICS_LOAD_ALL_PAGES.add("Y3JpZDovL2JyLmRlL2Jyb2FkY2FzdFNlcmllcy9icm9hZGNhc3RTZXJpZXM6L2JyZGUvZmVybnNlaGVuL2JheWVyaXNjaGVzLWZlcm5zZWhlbi9zZW5kdW5nZW4vdW50ZXItdW5zZXJlbS1oaW1tZWw");
-    // in aller freundschaft die jungen ärzte    
-    TOPICS_LOAD_ALL_PAGES.add("Y3JpZDovL2Rhc2Vyc3RlLmRlL2luLWFsbGVyLWZyZXVuZHNjaGFmdC1kaWUtanVuZ2VuLWFlcnp0ZQ");
     // Sportschau
     TOPICS_LOAD_ALL_PAGES.add("Y3JpZDovL2Rhc2Vyc3RlLmRlL3Nwb3J0c2NoYXU");
+    // temporary load all => remove if old entries exists
+    // Morden im Norden
+    TOPICS_LOAD_ALL_PAGES.add("Y3JpZDovL2Rhc2Vyc3RlLmRlL21vcmRlbi1pbS1ub3JkZW4");
+    // Babylon Berlin
+    TOPICS_LOAD_ALL_PAGES.add("Y3JpZDovL2Rhc2Vyc3RlLmRlL2JhYnlsb24tYmVybGlu");
+    // Watzmann ermittelt
+    TOPICS_LOAD_ALL_PAGES.add("Y3JpZDovL2Rhc2Vyc3RlLmRlL3dhdHptYW5uLWVybWl0dGVsdA");
   }
 
   public ArdTopicPageTask(MediathekReader aCrawler,
