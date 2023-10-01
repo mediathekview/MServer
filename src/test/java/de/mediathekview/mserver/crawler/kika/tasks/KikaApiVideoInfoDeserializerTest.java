@@ -22,7 +22,7 @@ import org.junit.jupiter.params.provider.MethodSource;
 public class KikaApiVideoInfoDeserializerTest {
 
   @ParameterizedTest
-  @MethodSource("getTestData")
+  @MethodSource("getDeserializeBrandTestArgumentSource")
   public void testDeserializeBrand(
       final String jsonFile, final int numberOfExpectedRecords, final boolean hasError)
       throws URISyntaxException, IOException {
@@ -44,7 +44,7 @@ public class KikaApiVideoInfoDeserializerTest {
     //
   }
 
-  static Stream<Arguments> getTestData() {
+  static Stream<Arguments> getDeserializeBrandTestArgumentSource() {
     return Stream.of(
         arguments("/kika/KikaApiFilm1.json", 3, false),
         arguments("/kika/KikaApiFilm2.json", 3, false),
