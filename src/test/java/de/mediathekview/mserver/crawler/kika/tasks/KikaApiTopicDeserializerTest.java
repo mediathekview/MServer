@@ -22,7 +22,7 @@ import org.junit.jupiter.params.provider.MethodSource;
 public class KikaApiTopicDeserializerTest {
 
   @ParameterizedTest
-  @MethodSource("getTestData")
+  @MethodSource("getDeserializeBrandTestArgumentSource")
   void testDeserializeBrand(
       final String jsonFile,
       final int numberOfExpectedRecords,
@@ -49,7 +49,7 @@ public class KikaApiTopicDeserializerTest {
     //
   }
 
-  static Stream<Arguments> getTestData() {
+  static Stream<Arguments> getDeserializeBrandTestArgumentSource() {
     return Stream.of(
         arguments("/kika/KikaApiTopic1.json", 10, true, false),
         arguments("/kika/KikaApiTopic2.json", 11, false, false),
