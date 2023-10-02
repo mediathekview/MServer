@@ -52,16 +52,16 @@ public class DwFilmDetailDeserializer implements JsonDeserializer<Optional<Daten
       Optional<String> type,
       Optional<String> title,
       Optional<String> topic) {
-    if (!videoId.isPresent()) {
+    if (videoId.isEmpty()) {
       LOG.error("Could not find mandatory element videoId");
       return false;
-    } else if (!title.isPresent()) {
+    } else if (title.isEmpty()) {
       LOG.error("Could not find mandatory element title for videoId {} ", videoId.get());
       return false;
-    } else if (!topic.isPresent()) {
+    } else if (topic.isEmpty()) {
       LOG.error("Could not find mandatory element topic for videoId {} ", videoId.get());
       return false;
-    } else if (!type.isPresent()) {
+    } else if (type.isEmpty()) {
       LOG.error("Could not find mandatory element type for videoId {} ", videoId.get());
       return false;
     } else if (!type.get().equalsIgnoreCase("video")) {
@@ -75,9 +75,8 @@ public class DwFilmDetailDeserializer implements JsonDeserializer<Optional<Daten
         .has(ELEMENT_MAINCONTENT_SOURCES)) {
       LOG.error("Could not find sources for videoId {}", videoId.get());
       return false;
-    } else if (!JsonUtils.getAttributeAsString(
-            jsonObject.get(ELEMENT_MAINCONTENT).getAsJsonObject(), ELEMENT_MAINCONTENT_LINK)
-        .isPresent()) {
+    } else if (JsonUtils.getAttributeAsString(
+            jsonObject.get(ELEMENT_MAINCONTENT).getAsJsonObject(), ELEMENT_MAINCONTENT_LINK).isEmpty()) {
       LOG.error("Could not find thisPageUrl for videoId {}", videoId.get());
       return false;
     }

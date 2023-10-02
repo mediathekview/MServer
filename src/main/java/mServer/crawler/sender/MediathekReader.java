@@ -229,7 +229,7 @@ public abstract class MediathekReader extends Thread {
   private void setFileSize(DatenFilm film) {
     // optimization for ORF and some others: don't try to determine filesize of m3u8-files
     Optional<String> fileType = UrlUtils.getFileType(film.arr[DatenFilm.FILM_URL]);
-    if (!fileType.isPresent() || !fileType.get().equalsIgnoreCase("m3u8")) {
+    if (fileType.isEmpty() || !fileType.get().equalsIgnoreCase("m3u8")) {
       film.setFileSize();
     }
   }

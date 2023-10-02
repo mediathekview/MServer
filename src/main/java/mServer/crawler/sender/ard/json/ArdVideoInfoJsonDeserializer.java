@@ -74,7 +74,7 @@ public class ArdVideoInfoJsonDeserializer implements JsonDeserializer<ArdVideoIn
         if (resolution.isPresent()) {
           try {
             String videoUrl = entry.getUrl();
-            if (!UrlUtils.getProtocol(videoUrl).isPresent()) {
+            if (UrlUtils.getProtocol(videoUrl).isEmpty()) {
               videoUrl = baseUrl + videoUrl;
             }
             resolutionUrlMap.put(resolution.get(), new URL(videoUrl));
@@ -99,7 +99,7 @@ public class ArdVideoInfoJsonDeserializer implements JsonDeserializer<ArdVideoIn
         return Optional.of(body.string());
       } else {
         LOG.error(
-                String.format("ArdVideoInfoJsonDeserializer: Request '%s' failed: %s", aUrl, response.code()));
+                "ArdVideoInfoJsonDeserializer: Request '%s' failed: %s".formatted(aUrl, response.code()));
       }
     } catch (IOException ex) {
       LOG.error("ArdVideoInfoJsonDeserializer: ", ex);

@@ -120,14 +120,14 @@ public class NexxCloudVideoDetailsDeserializer implements JsonDeserializer<Set<F
           final String id,
           final NexxResolutionDTO res) {
     return new FilmUrlInfoDto(
-            String.format(
-                    VIDEO_FILE_URL_PATTERN,
-                    cdnShieldProgHTTP,
-                    azureLocator,
-                    id,
-                    res.getWidht(),
-                    res.getHeight(),
-                    res.getSize()),
+            
+                    VIDEO_FILE_URL_PATTERN.formatted(
+                            cdnShieldProgHTTP,
+                            azureLocator,
+                            id,
+                            res.getWidht(),
+                            res.getHeight(),
+                            res.getSize()),
             res.getWidht(),
             res.getHeight());
   }
@@ -148,8 +148,8 @@ public class NexxCloudVideoDetailsDeserializer implements JsonDeserializer<Set<F
     }
 
     return new FilmUrlInfoDto(
-            String.format(
-                    VIDEO_FILE_URL_PATTERN_3Q, cdnShieldProgHTTP, account, prefix, locator, fileId),
+            
+                    VIDEO_FILE_URL_PATTERN_3Q.formatted(cdnShieldProgHTTP, account, prefix, locator, fileId),
             width,
             height);
   }

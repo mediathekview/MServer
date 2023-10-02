@@ -46,7 +46,7 @@ public class PhoenixOverviewTask extends ZdfTaskBase<CrawlerUrlDTO, CrawlerUrlDT
   protected void processRestTarget(CrawlerUrlDTO aDTO, WebTarget aTarget) {
     try {
       Optional<SendungOverviewDto> overviewDtoOptional = deserializeOptional(aTarget, OPTIONAL_OVERVIEW_DTO_TYPE_TOKEN);
-      if (!overviewDtoOptional.isPresent()) {
+      if (overviewDtoOptional.isEmpty()) {
         LOG.fatal("PhoenixOverviewTask: error processing url {}", aDTO.getUrl());
         return;
       }

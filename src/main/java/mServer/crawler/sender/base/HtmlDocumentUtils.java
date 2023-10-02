@@ -75,7 +75,7 @@ public final class HtmlDocumentUtils {
                                                   final Document aDocument) {
 
     Optional<String> result = getElementString(aElementSelector1, aDocument);
-    if (!result.isPresent()) {
+    if (result.isEmpty()) {
       result = getElementString(aElementSelector2, aDocument);
     }
 

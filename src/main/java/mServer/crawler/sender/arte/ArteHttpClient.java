@@ -80,8 +80,8 @@ public class ArteHttpClient {
             stop = true;
           } else {
             if (response.code() != 429) {
-              logger.error(String.format("ARTE Request '%s' failed: %s", aUrl, response.code()));
-              Log.sysLog(String.format("ARTE Request '%s' failed: %s", aUrl, response.code()));
+              logger.error("ARTE Request '%s' failed: %s".formatted(aUrl, response.code()));
+              Log.sysLog("ARTE Request '%s' failed: %s".formatted(aUrl, response.code()));
               FilmeSuchen.listeSenderLaufen.inc(sender, RunSender.Count.FEHLER);
               stop = true;
             } else {

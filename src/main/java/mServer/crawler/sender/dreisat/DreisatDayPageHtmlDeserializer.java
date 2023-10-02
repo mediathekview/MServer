@@ -36,6 +36,6 @@ public class DreisatDayPageHtmlDeserializer {
 
   private Optional<String> buildFilmUrlJsonFromHtmlLink(String attr) {
     return UrlUtils.getFileName(attr)
-      .map(s -> String.format(ZdfConstants.URL_FILM_JSON, urlApiBase, s.split("\\.")[0]));
+      .map(s -> (ZdfConstants.URL_FILM_JSON).formatted(urlApiBase, s.split("\\.")[0]));
   }
 }

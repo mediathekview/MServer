@@ -45,8 +45,8 @@ public class SrfTopicsOverviewTask extends ArdTaskBase<TopicUrlDTO, CrawlerUrlDT
     shows.add(
             new TopicUrlDTO(
                     SrfConstants.ID_SHOW_SPORT_CLIP,
-                    String.format(
-                            SrfConstants.SHOW_OVERVIEW_PAGE_URL,
+                    (
+                            SrfConstants.SHOW_OVERVIEW_PAGE_URL).formatted(
                             SrfConstants.BASE_URL,
                             SrfConstants.ID_SHOW_SPORT_CLIP)));
 

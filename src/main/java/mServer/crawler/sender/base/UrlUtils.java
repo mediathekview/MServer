@@ -86,7 +86,7 @@ public final class UrlUtils {
 
     if (splittedUrl.length == 2) {
       final String cleanedParameters = splittedUrl[1] + URL_TO_PARAMETERS_SPLITTERATOR
-              .replaceAll(String.format(URL_PARAMETER_REPLACEMENT_REGEX_PATTERN, aParameter), "")
+              .replaceAll(URL_PARAMETER_REPLACEMENT_REGEX_PATTERN.formatted(aParameter), "")
               .replaceAll(REGEX_ESCAPOR + WRONG_PARAMETER_START, URL_TO_PARAMETERS_SPLITTERATOR);
 
       newUrlBuilder.append(URL_TO_PARAMETERS_SPLITTERATOR);
@@ -98,7 +98,7 @@ public final class UrlUtils {
       newUrlBuilder.append(URL_TO_PARAMETERS_SPLITTERATOR);
     }
 
-    newUrlBuilder.append(String.format(PARAMETER_PATTERN, aParameter, aValue));
+    newUrlBuilder.append(PARAMETER_PATTERN.formatted(aParameter, aValue));
     return newUrlBuilder.toString();
   }
 

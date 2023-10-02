@@ -145,7 +145,7 @@ public class MediathekArte extends MediathekReader {
   private void addCategories() {
     senderLanguages.forEach((sender, langCode) -> {
       for (String category : CATEGORIES) {
-        String categoryUrl = String.format(URL_CATEGORY, langCode.toLowerCase(), category);
+        String categoryUrl = URL_CATEGORY.formatted(langCode.toLowerCase(), category);
         listeThemen.add(new String[]{sender, langCode, category, categoryUrl});
       }
     });
@@ -155,11 +155,11 @@ public class MediathekArte extends MediathekReader {
     senderLanguages.forEach((sender, langCode) -> {
       // http://www.arte.tv/guide/de/plus7/videos?day=-2&page=1&isLoading=true&sort=newest&country=DE
       for (int i = 0; i <= 14; ++i) {
-        String u = String.format(ARTE_API_TAG_URL_PATTERN, langCode.toUpperCase(), LocalDate.now().minusDays(i).format(ARTE_API_DATEFORMATTER));
+        String u = ARTE_API_TAG_URL_PATTERN.formatted(langCode.toUpperCase(), LocalDate.now().minusDays(i).format(ARTE_API_DATEFORMATTER));
         listeThemen.add(new String[]{sender, u});
       }
       for (int i = 1; i <= 21; ++i) {
-        String u = String.format(ARTE_API_TAG_URL_PATTERN, langCode.toUpperCase(), LocalDate.now().plusDays(i).format(ARTE_API_DATEFORMATTER));
+        String u = ARTE_API_TAG_URL_PATTERN.formatted(langCode.toUpperCase(), LocalDate.now().plusDays(i).format(ARTE_API_DATEFORMATTER));
         listeThemen.add(new String[]{sender, u});
       }
     });
@@ -233,22 +233,22 @@ public class MediathekArte extends MediathekReader {
       ArteCategoryFilmsDTO dto = loadSubCategoryPage(gson, sender, aUrl);
       if (dto != null) {
         loadCollections(sender, langCode, gsonCollectionParent, gsonCollectionChild, dto);
-        Log.sysLog(String.format("%s: category %s: %d programs, %d collections", sender, aCategory, dto.getProgramIds().size(), dto.getCollectionIds().size()));
+        Log.sysLog("%s: category %s: %d programs, %d collections".formatted(sender, aCategory, dto.getProgramIds().size(), dto.getCollectionIds().size()));
         // alle programIds verarbeiten
         ListeFilme loadedFilme = loadPrograms(sender, langCode, dto);
         loadedFilme.forEach(film -> addFilm(film));
-        Log.sysLog(String.format("%s: category %s: %d Filme", sender, aCategory, loadedFilme.size()));
+        Log.sysLog("%s: category %s: %d Filme".formatted(sender, aCategory, loadedFilme.size()));
       }
     }
 
     private void loadCollections(String sender, String langCode, Gson gsonParent, Gson gsonChild, ArteCategoryFilmsDTO dto) {
       dto.getCollectionIds().forEach(collectionId -> {
-        final String url = String.format(COLLECTION_URL, langCode, collectionId);
+        final String url = COLLECTION_URL.formatted(langCode, collectionId);
         try {
           final ArteCategoryFilmsDTO parentDto = ArteHttpClient.executeRequest(sender, LOG, gsonParent, url, ArteCategoryFilmsDTO.class);
           if (parentDto != null) {
             parentDto.getCollectionIds().forEach(childCollectionId -> {
-              final String urlChild = String.format(COLLECTION_URL, langCode, childCollectionId);
+              final String urlChild = COLLECTION_URL.formatted(langCode, childCollectionId);
               final ArteCategoryFilmsDTO collectionDto = ArteHttpClient.executeRequest(sender, LOG, gsonChild, urlChild, ArteCategoryFilmsDTO.class);
               if (collectionDto != null) {
                 collectionDto.getProgramIds().forEach(dto::addProgramId);

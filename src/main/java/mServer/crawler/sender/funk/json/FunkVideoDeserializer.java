@@ -42,8 +42,8 @@ public class FunkVideoDeserializer extends AbstractFunkElementDeserializer<FilmI
       filmInfo.setTime(LocalDateTime.parse(timeText, DATE_TIME_FORMATTER));
     } catch (final DateTimeParseException dateTimeParseException) {
       LOG.error(
-              String.format(
-                      "The text \"%s\" couldn't be parsed withe the pattern \"%s\".",
+              
+              "The text \"%s\" couldn't be parsed withe the pattern \"%s\".".formatted(
                       timeText, DATE_TIME_FORMAT_PATTERN),
               dateTimeParseException);
     }

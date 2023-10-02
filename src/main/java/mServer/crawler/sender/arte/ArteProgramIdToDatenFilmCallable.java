@@ -55,7 +55,7 @@ public class ArteProgramIdToDatenFilmCallable implements Callable<Set<DatenFilm>
             .registerTypeAdapter(ArteVideoDetailsDTO.class, new ArteVideoDetailsDeserializer(today))
             .create();
 
-    String videosUrl = String.format(ARTE_VIDEO_INFORMATION_URL_PATTERN, programId, langCode);
+    String videosUrl = ARTE_VIDEO_INFORMATION_URL_PATTERN.formatted(programId, langCode);
     ArteVideoDTO video = ArteHttpClient.executeRequest(senderName, LOG, gson, videosUrl, ArteVideoDTO.class);
 
     if (video != null) {
@@ -76,7 +76,7 @@ public class ArteProgramIdToDatenFilmCallable implements Callable<Set<DatenFilm>
           if (video.getVideoUrls().containsKey(Qualities.NORMAL)) {
             films.add(createFilm(details.getTheme(), details.getWebsite(), details.getTitle(), video.getVideoUrls(), details, durationAsTime, details.getDescription()));
           } else {
-            Log.sysLog(String.format("%s: no normal video url found for film %s, but small/hd", senderName, programId));
+            Log.sysLog("%s: no normal video url found for film %s, but small/hd".formatted(senderName, programId));
             FilmeSuchen.listeSenderLaufen.inc(senderName, RunSender.Count.FEHLER);
           }
         }
@@ -102,7 +102,7 @@ public class ArteProgramIdToDatenFilmCallable implements Callable<Set<DatenFilm>
   private ArteVideoDetailsDTO getVideoDetails(Gson gson, String programId) {
 
     //https://api.arte.tv/api/opa/v3/programs/[language:de/fr]/[programId]
-    String videosUrlVideoDetails2 = String.format(ARTE_VIDEO_INFORMATION_URL_PATTERN_2, langCode, programId);
+    String videosUrlVideoDetails2 = ARTE_VIDEO_INFORMATION_URL_PATTERN_2.formatted(langCode, programId);
     return ArteHttpClient.executeRequest(senderName, LOG, gson, videosUrlVideoDetails2, ArteVideoDetailsDTO.class);
   }
 

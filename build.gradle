@@ -33,15 +33,18 @@ def jarName = 'MServer.jar'
 def mainClass = 'mServer.Main'
 
 dependencies {
+    compileOnly "com.sun.xml.ws:jaxws-rt:2.3.6"
+    compileOnly "org.glassfish.jaxb:jaxb-runtime:2.3.8"
+
     implementation 'de.mediathekview:MLib:3.0.13'
     implementation 'commons-net:commons-net:3.9.0'
-    implementation 'org.apache.commons:commons-compress:1.22'
+    implementation 'org.apache.commons:commons-compress:1.23.0'
     implementation 'org.apache.commons:commons-text:1.10.0'
     implementation 'org.tukaani:xz:1.9'
     implementation 'com.google.code.gson:gson:2.10.1'
-    implementation 'org.glassfish.jersey.core:jersey-client:3.0.8'
-    implementation 'org.glassfish.jersey.inject:jersey-hk2:3.0.8'
-    implementation 'org.jsoup:jsoup:1.15.4'
+    implementation 'org.glassfish.jersey.core:jersey-client:3.1.3'
+    implementation 'org.glassfish.jersey.inject:jersey-hk2:3.1.3'
+    implementation 'org.jsoup:jsoup:1.16.1'
     implementation 'javax.activation:activation:1.1.1'
     implementation 'com.google.guava:guava:31.1-jre'
     implementation 'org.apache.logging.log4j:log4j-core:2.20.0'
@@ -49,10 +52,12 @@ dependencies {
 
 
     testImplementation 'junit:junit:4.13.2'
-    testImplementation 'org.mockito:mockito-core:4.11.0'
+    testImplementation 'org.mockito:mockito-core:5.4.0'
     testImplementation 'com.squareup.okhttp3:mockwebserver:4.10.0'
     testImplementation "org.hamcrest:hamcrest-all:1.3"
-    testImplementation 'org.assertj:assertj-core:3.23.1'
+    testImplementation 'org.assertj:assertj-core:3.24.2'
+    testImplementation "com.sun.xml.ws:jaxws-rt:2.3.6"
+    testImplementation "org.glassfish.jaxb:jaxb-runtime:2.3.8"
 
 }
 
@@ -174,7 +179,7 @@ processResources.dependsOn generateLicenseReport
 
 [distZip, distTar]*.shouldRunAfter compileJava, updateVersion, jar
 distTar.compression = Compression.GZIP
-distTar.extension = 'tar.gz'
+distTar.archiveExtension = 'tar.gz'
 
 jar {
     manifest {
@@ -183,7 +188,7 @@ jar {
                 'Class-Path': configurations.compileClasspath.files.collect { "lib/$it.name" }.join(' ')
         )
     }
-    archiveName = jarName
+    archiveFileName = jarName
 }
 
 distributions {

@@ -72,7 +72,7 @@ public class SrfTopicOverviewTask extends ArdTaskBase<CrawlerUrlDTO, TopicUrlDTO
     urlDtos.add(
             new TopicUrlDTO(
                     aTopic,
-                    String.format(SrfConstants.SHOW_OVERVIEW_NEXT_PAGE_URL, baseUrl, aTopic, aNextPageId)));
+                    (SrfConstants.SHOW_OVERVIEW_NEXT_PAGE_URL).formatted(baseUrl, aTopic, aNextPageId)));
     Set<CrawlerUrlDTO> results = createNewOwnInstance(urlDtos, pageNumber + 1).invoke();
     taskResults.addAll(results);
   }

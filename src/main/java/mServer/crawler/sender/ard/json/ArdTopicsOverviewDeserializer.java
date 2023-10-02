@@ -72,7 +72,7 @@ public class ArdTopicsOverviewDeserializer implements JsonDeserializer<Set<Crawl
       }
 
       id.ifPresent(s -> results.add(new CrawlerUrlDTO(
-          String.format(ArdConstants.TOPIC_URL, s, ArdConstants.TOPIC_PAGE_SIZE))));
+              (ArdConstants.TOPIC_URL).formatted(s, ArdConstants.TOPIC_PAGE_SIZE))));
     }
 
     return results;

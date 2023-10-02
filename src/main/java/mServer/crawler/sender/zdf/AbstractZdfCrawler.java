@@ -112,7 +112,7 @@ public abstract class AbstractZdfCrawler extends MediathekCrawler {
               .plus(daysFuture, ChronoUnit.DAYS)
               .minus(i, ChronoUnit.DAYS);
       final String date = local.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-      final String url = String.format(getUrlDay(), date, date);
+      final String url = getUrlDay().formatted(date, date);
       urls.add(new CrawlerUrlDTO(url));
     }
 

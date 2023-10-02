@@ -116,7 +116,7 @@ public class ZdfVideoUrlOptimizer {
 
   private String optimize(final String aUrl, Map<String, String[]> aOptimizerMap) {
     final Optional<String> fileNameOptional = UrlUtils.getFileName(aUrl);
-    if (!fileNameOptional.isPresent()) {
+    if (fileNameOptional.isEmpty()) {
       return aUrl;
     }
 

@@ -37,7 +37,7 @@ public class DWOverviewTask extends DWTaskBase<CrawlerUrlDTO, CrawlerUrlDTO> {
   protected void processRestTarget(final CrawlerUrlDTO aDTO, final WebTarget aTarget) {
     final Optional<PagedElementListDTO<CrawlerUrlDTO>> overviewDtoOptional =
         deserializeOptional(aTarget, OPTIONAL_OVERVIEW_DTO_TYPE_TOKEN);
-    if (!overviewDtoOptional.isPresent()) {
+    if (overviewDtoOptional.isEmpty()) {
       FilmeSuchen.listeSenderLaufen.inc(crawler.getSendername(), RunSender.Count.FEHLER);
       FilmeSuchen.listeSenderLaufen.inc(crawler.getSendername(), RunSender.Count.FEHLVERSUCHE);
       return;

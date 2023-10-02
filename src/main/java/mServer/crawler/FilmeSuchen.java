@@ -254,7 +254,7 @@ public class FilmeSuchen {
 
     // Durchschnittswerte ausgeben
     double doub = (1.0 * listeSenderLaufen.get(RunSender.Count.SUM_TRAFFIC_BYTE)) / (sekunden == 0 ? 1 : sekunden) / 1000;
-    String rate = doub < 1 ? "<1" : String.format("%.1f", (doub));
+    String rate = doub < 1 ? "<1" : "%.1f".formatted((doub));
     retArray.add("    ->    Rate[kB/s]: " + rate);
     retArray.add("    ->    Dauer[Min]: " + (sekunden / 60 == 0 ? "<1" : sekunden / 60));
     retArray.add("           ->  Start: " + sdf.format(startZeit));
@@ -367,24 +367,24 @@ public class FilmeSuchen {
 
   private void notifyStart(ListenerFilmeLadenEvent event) {
     for (Object l : listeners.getListenerList()) {
-      if (l instanceof ListenerFilmeLaden) {
-        ((ListenerFilmeLaden) l).start(event);
+      if (l instanceof ListenerFilmeLaden laden) {
+        laden.start(event);
       }
     }
   }
 
   private void notifyProgress(ListenerFilmeLadenEvent event) {
     for (Object l : listeners.getListenerList()) {
-      if (l instanceof ListenerFilmeLaden) {
-        ((ListenerFilmeLaden) l).progress(event);
+      if (l instanceof ListenerFilmeLaden laden) {
+        laden.progress(event);
       }
     }
   }
 
   private void notifyFertig(ListenerFilmeLadenEvent event) {
     for (Object l : listeners.getListenerList()) {
-      if (l instanceof ListenerFilmeLaden) {
-        ((ListenerFilmeLaden) l).fertig(event);
+      if (l instanceof ListenerFilmeLaden laden) {
+        laden.fertig(event);
       }
     }
   }

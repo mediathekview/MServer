@@ -34,7 +34,7 @@ public class ApiUrlBuilder {
       final List<String> urlParameter = new ArrayList<>();
       urlParameter.add(String.valueOf(apiUrl.get()));
       urlParameter.addAll(parameters);
-      return String.format(urlTemplate, urlParameter.toArray());
+      return urlTemplate.formatted(urlParameter.toArray());
     } else {
       throw new IllegalStateException("The API base URL is empty!");
     }

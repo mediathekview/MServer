@@ -58,7 +58,7 @@ public class KikaApiFilmTask extends AbstractJsonRestTask<DatenFilm, KikaApiVide
             "A HTTP error {} occurred when getting REST information from: \"{}\".",
             response.getStatus(),
             url);
-    Log.errorLog(324978334, String.format("A HTTP error %d occurred when getting REST information from: \"%s\".",
+    Log.errorLog(324978334, "A HTTP error %d occurred when getting REST information from: \"%s\".".formatted(
             response.getStatus(),
             url));
   }
@@ -70,7 +70,7 @@ public class KikaApiFilmTask extends AbstractJsonRestTask<DatenFilm, KikaApiVide
     //
     if (aResponseObj.getErrorCode().isPresent()) {
       LOG.error("Error {} : {} for target {} ", aResponseObj.getErrorCode().get(), aResponseObj.getErrorMesssage().orElse(""), aDTO.getUrl());
-      Log.errorLog(324978335, String.format("Error %s} : %s for target %s ", aResponseObj.getErrorCode().get(), aResponseObj.getErrorMesssage().orElse(""), aDTO.getUrl()));
+      Log.errorLog(324978335, "Error %s} : %s for target %s ".formatted(aResponseObj.getErrorCode().get(), aResponseObj.getErrorMesssage().orElse(""), aDTO.getUrl()));
       return;
     }
     //
@@ -80,14 +80,14 @@ public class KikaApiFilmTask extends AbstractJsonRestTask<DatenFilm, KikaApiVide
     }
     //
     final Optional<LocalDateTime> airedDate = getAiredDateTime(aDTO);
-    if (!aDTO.getTitle().isPresent() || !aDTO.getTopic().isPresent() || !airedDate.isPresent() || !aDTO.getDuration().isPresent()) {
-      if (!aDTO.getTitle().isPresent()) {
+    if (aDTO.getTitle().isEmpty() || aDTO.getTopic().isEmpty() || airedDate.isEmpty() || aDTO.getDuration().isEmpty()) {
+      if (aDTO.getTitle().isEmpty()) {
         LOG.error("Missing title for {}", aDTO.getUrl());
-      } else if (!aDTO.getTopic().isPresent()) {
+      } else if (aDTO.getTopic().isEmpty()) {
         LOG.error("Missing topic for {}", aDTO.getUrl());
-      } else if (!airedDate.isPresent()) {
+      } else if (airedDate.isEmpty()) {
         LOG.error("Missing date for {}", aDTO.getUrl());
-      } else if (!aDTO.getDuration().isPresent()) {
+      } else if (aDTO.getDuration().isEmpty()) {
         LOG.error("Missing duration for {}", aDTO.getUrl());
       }
       return;

@@ -53,7 +53,7 @@ public class SrfFilmJsonDeserializer implements JsonDeserializer<Optional<DatenF
 
   private static String buildWebsiteUrl(String aId, String aTitle, String aTheme) {
 
-    return String.format(SrfConstants.WEBSITE_URL,
+    return (SrfConstants.WEBSITE_URL).formatted(
             replaceCharForUrl(aTheme), replaceCharForUrl(aTitle), aId);
   }
 
@@ -103,10 +103,10 @@ public class SrfFilmJsonDeserializer implements JsonDeserializer<Optional<DatenF
       Optional<String> caption = UrlUtils.getUrlParameterValue(videoUrl, "caption");
 
       if (subtitleBaseUrl.isPresent() && caption.isPresent()) {
-        String subtitleUrl = String.format(
-                "%s/%s",
-                subtitleBaseUrl.get(),
-                convertVideoCaptionToSubtitleFile(caption.get()));
+        String subtitleUrl = 
+                "%s/%s".formatted(
+                        subtitleBaseUrl.get(),
+                        convertVideoCaptionToSubtitleFile(caption.get()));
 
         return UrlUtils.addProtocolIfMissing(subtitleUrl, UrlUtils.PROTOCOL_HTTPS);
       }
@@ -155,7 +155,7 @@ public class SrfFilmJsonDeserializer implements JsonDeserializer<Optional<DatenF
   private static Optional<Qualities> getResolution(M3U8Dto aDto) {
     Optional<Qualities> resolution = aDto.getResolution();
 
-    if (!resolution.isPresent()) {
+    if (resolution.isEmpty()) {
       Optional<String> codecMeta = aDto.getMeta(M3U8Constants.M3U8_CODECS);
 
       // Codec muss "avcl" beinhalten, sonst ist es kein Video
@@ -307,7 +307,7 @@ public class SrfFilmJsonDeserializer implements JsonDeserializer<Optional<DatenF
     final String optimizedUrl = UrlUtils.removeParameters(getOptimizedUrl(aM3U8Url));
 
     Optional<String> content = loadM3u8(optimizedUrl);
-    if (!content.isPresent()) {
+    if (content.isEmpty()) {
       content = loadM3u8(aM3U8Url);
     }
 
@@ -330,7 +330,7 @@ public class SrfFilmJsonDeserializer implements JsonDeserializer<Optional<DatenF
 
   private String enrichUrl(String m3u8Url, String videoUrl) {
     // some video urls contain only filename
-    if (!UrlUtils.getProtocol(videoUrl).isPresent()) {
+    if (UrlUtils.getProtocol(videoUrl).isEmpty()) {
       final String m3u8WithoutParameters = UrlUtils.removeParameters(m3u8Url);
       final Optional<String> m3u8File = UrlUtils.getFileName(m3u8WithoutParameters);
       if (m3u8File.isPresent()) {

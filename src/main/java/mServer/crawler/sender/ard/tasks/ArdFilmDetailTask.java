@@ -70,7 +70,7 @@ public class ArdFilmDetailTask extends ArdTaskBase<DatenFilm, ArdFilmInfoDto> {
   }
 
   private String getWebsiteUrl(final ArdFilmInfoDto aDTO) {
-    return String.format(ArdConstants.WEBSITE_URL, aDTO.getId());
+    return (ArdConstants.WEBSITE_URL).formatted(aDTO.getId());
   }
 
   @Override

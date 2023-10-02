@@ -35,7 +35,7 @@ public class PhoenixFilmDetailDeserializer implements JsonDeserializer<Optional<
     final Optional<String> baseName = parseBaseName(jsonObject);
     final Optional<String> website = parseWebsite(jsonObject);
 
-    if (!title.isPresent() || !subtitle.isPresent() || !baseName.isPresent()) {
+    if (title.isEmpty() || subtitle.isEmpty() || baseName.isEmpty()) {
       return Optional.empty();
     }
 
@@ -53,19 +53,19 @@ public class PhoenixFilmDetailDeserializer implements JsonDeserializer<Optional<
 
 
   private String determineTitle(Optional<String> title, Optional<String> subtitle, Optional<String> verortung) {
-    if (!verortung.isPresent() || verortung.get().equalsIgnoreCase(title.get())) {
+    if (verortung.isEmpty() || verortung.get().equalsIgnoreCase(title.get())) {
       return subtitle.get();
     }
 
-    if (!subtitle.isPresent() || subtitle.get().isEmpty()) {
+    if (subtitle.isEmpty() || subtitle.get().isEmpty()) {
       return title.get();
     }
 
-    return String.format("%s - %s", title.get(), subtitle.get());
+    return "%s - %s".formatted(title.get(), subtitle.get());
   }
 
   private String determineTopic(Optional<String> title, Optional<String> verortung) {
-    if (!verortung.isPresent()) {
+    if (verortung.isEmpty()) {
       return title.get();
     }
     return verortung.get();
