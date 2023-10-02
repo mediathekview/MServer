@@ -158,7 +158,7 @@ public class CrawlerManager extends AbstractManager {
   }
   
   public void importLivestreamFilmlist() {
-    if (config.getImportLivestreamConfiguration().isActive()) {
+    if (Boolean.TRUE.equals(config.getImportLivestreamConfiguration().isActive())) {
       importLivestreamFilmlist(config.getImportLivestreamConfiguration().getFormat(), config.getImportLivestreamConfiguration().getPath());
     }
   }

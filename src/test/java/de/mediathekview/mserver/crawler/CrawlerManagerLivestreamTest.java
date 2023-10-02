@@ -26,6 +26,7 @@ import java.util.Comparator;
 import java.util.Date;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.Assert.fail;
 
 @RunWith(Parameterized.class)
 public class CrawlerManagerLivestreamTest implements MessageListener {
@@ -56,8 +57,7 @@ public class CrawlerManagerLivestreamTest implements MessageListener {
       instance.setAccessible(true);
       instance.set(null, null);
     } catch (Exception e) {
-      // TODO Auto-generated catch block
-      e.printStackTrace();
+      fail("Exception mooking crawler manager: " + e.getMessage());
     }    //
     crawlerManager = CrawlerManager.getInstance();
   }
@@ -117,11 +117,11 @@ public class CrawlerManagerLivestreamTest implements MessageListener {
       crawlerManager.addMessageListener(this);
       crawlerManager.importFilmlist(format, filmListFilePath.toAbsolutePath().toString());
       //
-      assertThat(crawlerManager.getFilmlist().getFilms().size()).isEqualTo(expectedInitialSize);
+      assertThat(crawlerManager.getFilmlist().getFilms()).hasSize(expectedInitialSize);
       //
       crawlerManager.importLivestreamFilmlist(format, livesreamFilmListFilePath.toAbsolutePath().toString());
       //
-      assertThat(crawlerManager.getFilmlist().getFilms().size()).isEqualTo(expectedAfterImport);
+      assertThat(crawlerManager.getFilmlist().getFilms()).hasSize(expectedAfterImport);
       //
       crawlerManager.saveFilmlist(testFileFolderPath.resolve(filmlistPath), format);
       //
