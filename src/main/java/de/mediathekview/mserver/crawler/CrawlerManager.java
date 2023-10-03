@@ -18,7 +18,6 @@ import de.mediathekview.mserver.crawler.arte.*;
 import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
 import de.mediathekview.mserver.crawler.basic.IgnoreFilmFilter;
 import de.mediathekview.mserver.crawler.basic.TimeoutTask;
-import de.mediathekview.mserver.crawler.br.BrCrawler;
 import de.mediathekview.mserver.crawler.dreisat.DreiSatCrawler;
 import de.mediathekview.mserver.crawler.dw.DwCrawler;
 import de.mediathekview.mserver.crawler.funk.FunkCrawler;
@@ -467,8 +466,6 @@ public class CrawlerManager extends AbstractManager {
     crawlerMap.put(
         Sender.ARTE_ES,
         new ArteCrawler_ES(forkJoinPool, messageListeners, progressListeners, rootConfig));
-    crawlerMap.put(
-        Sender.BR, new BrCrawler(forkJoinPool, messageListeners, progressListeners, rootConfig));
     crawlerMap.put(
         Sender.DREISAT,
         new DreiSatCrawler(forkJoinPool, messageListeners, progressListeners, rootConfig));
