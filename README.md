@@ -42,9 +42,8 @@ java -jar MServer.jar
 | Crawler | liest Mediathek | beinhaltet Sender | bestückt Sender | entspricht Develop |
 |---------|-----------|--------|---------|--|
 | 3sat|3sat-Mediathek|3sat |3sat|x|
-| ARD|ARD-Mediathek|Alpha, BR, Das Erste, HR, MDR, NDR, ONE, Radio Bremen, RBB, SR, SWR, WDR, tagesschau24|ARD, HR, MDR, NDR, Radio Bremen, RBB, SWR, WDR| x|
+| ARD|ARD-Mediathek|Alpha, BR, Das Erste, HR, MDR, NDR, ONE, Radio Bremen, RBB, SR, SWR, WDR, tagesschau24|ARD, BR, HR, MDR, NDR, Radio Bremen, RBB, SWR, WDR| x|
 | ARTE|ARTE-Mediathek|ARTE in DE, FR, EN, ES, PL, IT|ARTE.DE, ARTE.FR||
-| BR|BR-Mediathek|BR|BR||
 | DW|DW-Mediathek|DW|DW|x|
 | FUNK | FUNK-Webseite | FUNK |FUNK |x|
 | KIKA|KIKA-Mediathek|KIKA|KIKA|x|
