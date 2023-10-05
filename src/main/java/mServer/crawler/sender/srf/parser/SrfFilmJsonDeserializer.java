@@ -317,14 +317,17 @@ public class SrfFilmJsonDeserializer implements JsonDeserializer<Optional<DatenF
       m3u8Data.forEach(entry -> {
         Optional<Qualities> resolution = getResolution(entry);
         if (resolution.isPresent()) {
-          urls.put(resolution.get(), enrichUrl(optimizedUrl, entry.getUrl()));
+          String m3u8Url = entry.getUrl();
+          if (m3u8Url.startsWith("hdntl")) {
+            m3u8Url = m3u8Url.substring(m3u8Url.indexOf("/index")+1);
+          }
+          urls.put(resolution.get(), enrichUrl(optimizedUrl, m3u8Url));
         }
       });
 
     } else {
       LOG.error("SrfFilmJsonDeserializer: Loading m3u8-url failed: {}", aM3U8Url);
     }
-
     return urls;
   }
 
