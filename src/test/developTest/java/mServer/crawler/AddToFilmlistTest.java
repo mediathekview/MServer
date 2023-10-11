@@ -3,9 +3,7 @@ package mServer.crawler;
 import static jakarta.ws.rs.core.HttpHeaders.CONTENT_LENGTH;
 import static jakarta.ws.rs.core.HttpHeaders.CONTENT_TYPE;
 import static org.hamcrest.CoreMatchers.equalTo;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertThat;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 import de.mediathekview.mlib.Const;
 import de.mediathekview.mlib.daten.DatenFilm;
@@ -432,6 +430,29 @@ public class AddToFilmlistTest {
     assertTrue(sortInDifferentUrls2.isPresent());
   }
 
+  @Test
+  public void testArdEntriesOfZdfArteKikaRemoved() {
+    final DatenFilm testFilmArd = createTestFilm(Const.ARD, "Tatort", "Test Tatort", FILM_NAME_ONLINE);
+    final DatenFilm testFilmZdf = createTestFilm(Const.ARD, "Zdf", "Test Film", FILM_NAME_ONLINE);
+    testFilmZdf.arr[DatenFilm.FILM_URL] = "https://tvdlzdf-a.akamaihd.net/none/zdf/23/10/231015_dk_ungeloeste_faelle_pyramiden_tex/1/231015_dk_ungeloeste_faelle_pyramiden_tex_6660k_p37v17.mp4";
+    final DatenFilm testFilmArte = createTestFilm(Const.ARD, "Arte", "Test Film2", FILM_NAME_ONLINE);
+    testFilmArte.arr[DatenFilm.FILM_URL] = "https://arteptweb-a.akamaihd.net/am/ptweb/109000/109800/109816-008-A_SQ_0_VF-STF_08198098_MP4-2200_AMM-PTWEB-101134210619353_29XEz10k15i.mp4";
+    final DatenFilm testFilmKika = createTestFilm(Const.ARD, "Kika", "Test Film3", FILM_NAME_ONLINE);
+    testFilmKika.arr[DatenFilm.FILM_URL] = "https://pmdonlinekika-a.akamaihd.net/mp4dyn/5/FCMS-5239e997-a0e9-4829-adba-ac0b4d26139b-5a2c8da1cdb7_52.mp4";
+    listToAdd.add(testFilmArd);
+    listToAdd.add(testFilmZdf);
+    listToAdd.add(testFilmArte);
+    listToAdd.add(testFilmKika);
+
+    AddToFilmlist target =new AddToFilmlist(list, listToAdd);
+    target.addOldList();
+
+    assertEquals(list.size(),3);
+    assertTrue(list.contains(testFilmArd));
+    assertFalse(list.contains(testFilmArte));
+    assertFalse(list.contains(testFilmKika));
+    assertFalse(list.contains(testFilmZdf));
+  }
 
   private static DatenFilm createTestFilm(String sender, String topic, String title,
       String filmUrl) {
