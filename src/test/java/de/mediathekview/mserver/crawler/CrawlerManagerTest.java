@@ -17,44 +17,57 @@ import org.junit.runners.Parameterized;
 
 import java.io.File;
 import java.io.IOException;
+import java.lang.reflect.Field;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Comparator;
 import java.util.Date;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.Assert.fail;
 
 @RunWith(Parameterized.class)
 public class CrawlerManagerTest implements MessageListener {
 
   private static final Logger LOG = LogManager.getLogger(CrawlerManagerTest.class);
   private static final String TEMP_FOLDER_NAME_PATTERN = "MSERVER_TEST_%d";
-  private static final CrawlerManager CRAWLER_MANAGER = CrawlerManager.getInstance();
   private static Path testFileFolderPath;
 
+  private final CrawlerManager CRAWLER_MANAGER;
   private final String filmlistPath;
   private final FilmlistFormats format;
+  private final int expectedSize;
 
-  public CrawlerManagerTest(final String aFilmlistPath, final FilmlistFormats aFormat) {
+  public CrawlerManagerTest(final String aFilmlistPath, final FilmlistFormats aFormat, final int aExpectedSize) {
     filmlistPath = aFilmlistPath;
+    expectedSize = aExpectedSize;
     format = aFormat;
+    // reset singelton CrawlerManager
+    Field instance;
+    try {
+      instance = CrawlerManager.class.getDeclaredField("instance");
+      instance.setAccessible(true);
+      instance.set(null, null);
+    } catch (Exception e) {
+      fail("Exception mooking crawler manager: " + e.getMessage());
+    }    //
+    CRAWLER_MANAGER = CrawlerManager.getInstance();
   }
 
   @Parameterized.Parameters(name = "Test {index} Filmlist for {0} with {1}")
   public static Collection<Object[]> data() {
     return Arrays.asList(
         new Object[][] {
-          {"filmlists/TestFilmlistNewJson.json", FilmlistFormats.JSON},
-          {"filmlists/TestFilmlistNewJson.json.xz", FilmlistFormats.JSON_COMPRESSED_XZ},
-          {"filmlists/TestFilmlistNewJson.json.bz", FilmlistFormats.JSON_COMPRESSED_BZIP},
-          {"filmlists/TestFilmlistNewJson.json.gz", FilmlistFormats.JSON_COMPRESSED_GZIP},
-          {"filmlists/TestFilmlist.json", FilmlistFormats.OLD_JSON},
-          {"filmlists/TestFilmlist.json.xz", FilmlistFormats.OLD_JSON_COMPRESSED_XZ},
-          {"filmlists/TestFilmlist.json.bz", FilmlistFormats.OLD_JSON_COMPRESSED_BZIP},
-          {"filmlists/TestFilmlist.json.gz", FilmlistFormats.OLD_JSON_COMPRESSED_GZIP}
+          {"filmlists/TestFilmlistNewJson.json", FilmlistFormats.JSON,3},
+          {"filmlists/TestFilmlistNewJson.json.xz", FilmlistFormats.JSON_COMPRESSED_XZ, 3},
+          {"filmlists/TestFilmlistNewJson.json.bz", FilmlistFormats.JSON_COMPRESSED_BZIP, 3},
+          {"filmlists/TestFilmlistNewJson.json.gz", FilmlistFormats.JSON_COMPRESSED_GZIP, 3},
+          {"filmlists/TestFilmlist.json", FilmlistFormats.OLD_JSON, 3},
+          {"filmlists/TestFilmlist.json.xz", FilmlistFormats.OLD_JSON_COMPRESSED_XZ, 3},
+          {"filmlists/TestFilmlist.json.bz", FilmlistFormats.OLD_JSON_COMPRESSED_BZIP, 3},
+          {"filmlists/TestFilmlist.json.gz", FilmlistFormats.OLD_JSON_COMPRESSED_GZIP, 3}
         });
   }
 
@@ -67,7 +80,7 @@ public class CrawlerManagerTest implements MessageListener {
   }
 
   @BeforeClass
-  public static void initTestData() throws IOException {
+  public static void initTestData() throws Exception {
     testFileFolderPath = Files.createTempDirectory(formatWithDate(TEMP_FOLDER_NAME_PATTERN));
     Files.createDirectory(testFileFolderPath.resolve("filmlists"));
   }
@@ -95,6 +108,7 @@ public class CrawlerManagerTest implements MessageListener {
     synchronized (CRAWLER_MANAGER) {
       CRAWLER_MANAGER.addMessageListener(this);
       CRAWLER_MANAGER.importFilmlist(format, filmListFilePath.toAbsolutePath().toString());
+      assertThat(CRAWLER_MANAGER.getFilmlist().getFilms()).hasSize(expectedSize);
       CRAWLER_MANAGER.saveFilmlist(testFileFolderPath.resolve(filmlistPath), format);
       assertThat(testFileFolderPath.resolve(filmlistPath)).exists();
     }

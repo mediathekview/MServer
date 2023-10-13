@@ -16,6 +16,12 @@ maximumServerDurationInMinutes: 0
 senderIncluded:
   - BR
 
+# list of livestreams to be added
+importLivestreamConfiguration: 
+  active: false
+  path: "src/main/resources/live-streams.json"
+  format: OLD_JSON
+
 # If set the server will be awake after the crawler run and restarts the run after the given amount.
 #schedules:
 #   HalfDay:
