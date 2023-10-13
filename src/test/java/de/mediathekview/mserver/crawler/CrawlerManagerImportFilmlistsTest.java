@@ -32,45 +32,54 @@ import java.util.Date;
 import java.util.stream.Stream;
 
 
-public class CrawlerManagerLivestreamTest implements MessageListener {
+public class CrawlerManagerImportFilmlistsTest implements MessageListener {
 
-  private static final Logger LOG = LogManager.getLogger(CrawlerManagerLivestreamTest.class);
+  private static final Logger LOG = LogManager.getLogger(CrawlerManagerImportFilmlistsTest.class);
   private static final String TEMP_FOLDER_NAME_PATTERN = "MSERVER_TEST_%d";
   private static Path testFileFolderPath;
 
   static Stream<Arguments> getTestArgumentForFilmlistsInDifferentFormats() {
+    ImportFilmlistConfiguration import1 = new ImportFilmlistConfiguration(
+        true,
+        FileReader.getPath("./filmlists/importFilmlist/FilmlistImportTest1.json").toString(),
+        FilmlistFormats.OLD_JSON,
+        true);
+    ImportFilmlistConfiguration import2 = new ImportFilmlistConfiguration(
+        true,
+        FileReader.getPath("./filmlists/importFilmlist/FilmlistImportTest2.json").toString(),
+        FilmlistFormats.OLD_JSON,
+        true);
+    ImportFilmlistConfiguration import3 = new ImportFilmlistConfiguration(
+        true,
+        FileReader.getPath("./filmlists/importFilmlist/FilmlistImportTest3.json").toString(),
+        FilmlistFormats.OLD_JSON,
+        true);
+    ImportFilmlistConfiguration import4 = new ImportFilmlistConfiguration(
+        true,
+        FileReader.getPath("./filmlists/importFilmlist/FilmlistImportTest2.json").toString(),
+        FilmlistFormats.OLD_JSON,
+        false);
+    
     return Stream.of(
-        arguments(FilmlistFormats.JSON, "filmlists/TestFilmlistNewJson.json", "filmlists/livestream/live-streams.json", 3, 50),
-        arguments(FilmlistFormats.JSON_COMPRESSED_XZ, "filmlists/TestFilmlistNewJson.json.xz", "filmlists/livestream/live-streams.json.xz", 3, 50),
-        arguments(FilmlistFormats.JSON_COMPRESSED_BZIP, "filmlists/TestFilmlistNewJson.json.bz", "filmlists/livestream/live-streams.json.bz", 3, 50),
-        arguments(FilmlistFormats.JSON_COMPRESSED_GZIP, "filmlists/TestFilmlistNewJson.json.gz", "filmlists/livestream/live-streams.json.gz", 3, 50),
-        arguments(FilmlistFormats.OLD_JSON, "filmlists/TestFilmlist.json", "filmlists/livestream/live-streams_old.json", 3, 50),
-        arguments(FilmlistFormats.OLD_JSON_COMPRESSED_XZ, "filmlists/TestFilmlist.json.xz", "filmlists/livestream/live-streams_old.json.xz", 3, 50),
-        arguments(FilmlistFormats.OLD_JSON_COMPRESSED_BZIP, "filmlists/TestFilmlist.json.bz", "filmlists/livestream/live-streams_old.json.bz", 3, 50),
-        arguments(FilmlistFormats.OLD_JSON_COMPRESSED_GZIP, "filmlists/TestFilmlist.json.gz", "filmlists/livestream/live-streams_old.json.gz", 3, 50),
-        arguments(FilmlistFormats.JSON, "filmlists/livestream/live-streams.json", "filmlists/livestream/live-streams.json", 47, 47)
+        arguments(import1, import1, 3, 0), // two times the same list should result in no additional films
+        arguments(import1, import2, 5, 3), // two different lists should result in the sum of both lists - the fist list is also diff since list two is "old"
+        arguments(import1, import3, 4, 1), // overlapping lists - one entry is new compared to the "old" list
+        arguments(import2, import3, 4, 1), // overlapping lists - one entry is new compared to the "old" list
+        arguments(import1, import4, 5, 0)  // two different lists and not diff list active
+        
     );
   }
   
   @ParameterizedTest
   @Execution(ExecutionMode.SAME_THREAD)
   @MethodSource("getTestArgumentForFilmlistsInDifferentFormats")
-  public void testSaveAndImport(final FilmlistFormats format, final String filmlistPath,final String livestreamPath,  final int expectedInitialSize, final int expectedAfterImport) {
+  public void testSaveAndImport(final ImportFilmlistConfiguration initialList, final ImportFilmlistConfiguration additionalList,  final int expectedSize, final int expectedDiffListSize) {
     CrawlerManager crawlerManagerForEachRun = createEmptyCrawlerManager();
-    final Path filmListFilePath = FileReader.getPath(filmlistPath);
-    final Path livestreamFilmListFilePath = FileReader.getPath(livestreamPath);
     crawlerManagerForEachRun.addMessageListener(this);
-    crawlerManagerForEachRun.importFilmlist(new ImportFilmlistConfiguration(true, filmListFilePath.toAbsolutePath().toString(), format, false));
-    //    
-    assertThat(crawlerManagerForEachRun.getFilmlist().getFilms()).hasSize(expectedInitialSize);
-    //
-    crawlerManagerForEachRun.importLivestreamFilmlist(format, livestreamFilmListFilePath.toAbsolutePath().toString());
-    //
-    assertThat(crawlerManagerForEachRun.getFilmlist().getFilms()).hasSize(expectedAfterImport);
-    //
-    crawlerManagerForEachRun.saveFilmlist(testFileFolderPath.resolve(filmlistPath), format);
-    //
-    assertThat(testFileFolderPath.resolve(filmlistPath)).exists();
+    crawlerManagerForEachRun.importFilmlist(initialList);
+    crawlerManagerForEachRun.importFilmlist(additionalList);
+    assertThat(crawlerManagerForEachRun.getFilmlist().getFilms()).hasSize(expectedSize);
+    assertThat(crawlerManagerForEachRun.getDifferenceList().getFilms()).hasSize(expectedDiffListSize);
   }
 
   public CrawlerManager createEmptyCrawlerManager() {

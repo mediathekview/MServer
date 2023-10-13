@@ -2,10 +2,12 @@ package de.mediathekview.mserver.crawler;
 
 import de.mediathekview.mlib.daten.Film;
 import de.mediathekview.mlib.daten.Filmlist;
+import de.mediathekview.mlib.daten.Podcast;
 import de.mediathekview.mlib.daten.Sender;
 import de.mediathekview.mlib.filmlisten.FilmlistFormats;
 import de.mediathekview.mlib.filmlisten.FilmlistManager;
 import de.mediathekview.mlib.progress.ProgressListener;
+import de.mediathekview.mserver.base.config.ImportFilmlistConfiguration;
 import de.mediathekview.mserver.base.config.MServerConfigDTO;
 import de.mediathekview.mserver.base.config.MServerConfigManager;
 import de.mediathekview.mserver.base.config.MServerCopySettings;
@@ -37,6 +39,7 @@ import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.time.LocalDateTime;
 import java.util.*;
 import java.util.Map.Entry;
 import java.util.concurrent.*;
@@ -65,7 +68,7 @@ public class CrawlerManager extends AbstractManager {
 
   private final FilmlistManager filmlistManager;
   private final Collection<ProgressListener> copyProgressListeners;
-  private Filmlist differenceList;
+  private final Filmlist differenceList;
 
   private CrawlerManager() {
     super();
@@ -77,6 +80,7 @@ public class CrawlerManager extends AbstractManager {
 
     crawlerMap = new EnumMap<>(Sender.class);
     filmlist = new Filmlist();
+    differenceList = new Filmlist();
     filmlistManager = FilmlistManager.getInstance();
     copyProgressListeners = new ArrayList<>();
     initializeCrawler(rootConfig);
@@ -151,9 +155,12 @@ public class CrawlerManager extends AbstractManager {
    * {@link MServerConfigDTO#getFilmlistImportLocation()}.
    */
   public void importFilmlist() {
-    if (checkConfigForFilmlistImport()) {
-      importFilmlist(config.getFilmlistImportFormat(), config.getFilmlistImportLocation());
+    for (ImportFilmlistConfiguration importFilmlistConfiguration : config.getImportFilmlistConfigurations()) {
+      if (checkImportFilmlistConfig(importFilmlistConfiguration) && importFilmlistConfiguration.isActive()) {
+        importFilmlist(importFilmlistConfiguration);
+      }  
     }
+    
   }
   
   public void importLivestreamFilmlist() {
@@ -188,18 +195,22 @@ public class CrawlerManager extends AbstractManager {
    *     </code> or <code>https</code> it tries to import from URL. Otherwise it tries to import
    *     from the given Location as a file path.
    */
-  public void importFilmlist(final FilmlistFormats aFormat, final String aFilmlistLocation) {
+  public void importFilmlist(final ImportFilmlistConfiguration importFilmlistConfiguration) {
     try {
       final Optional<Filmlist> importedFilmlist;
-      if (aFilmlistLocation.startsWith(HTTP)) {
-        importedFilmlist = importFilmListFromURl(aFormat, aFilmlistLocation);
+      if (importFilmlistConfiguration.getPath().startsWith(HTTP)) {
+        importedFilmlist = importFilmListFromURl(importFilmlistConfiguration.getFormat(), importFilmlistConfiguration.getPath());
       } else {
-        importedFilmlist = importFilmlistFromFile(aFormat, aFilmlistLocation);
+        importedFilmlist = importFilmlistFromFile(importFilmlistConfiguration.getFormat(), importFilmlistConfiguration.getPath());
       }
-
-      importedFilmlist.ifPresent(value -> differenceList = filmlist.merge(value));
+      //
+      final Filmlist difflist = new Filmlist(UUID.randomUUID(), LocalDateTime.now());
+      importedFilmlist.ifPresent(value -> addAllToFilmlist(mergeTwoFilmlists(filmlist,value),difflist));
+      if (importFilmlistConfiguration.isCreateDiff()) {
+        addAllToFilmlist(difflist, differenceList);
+      }
     } catch (final IOException ioException) {
-      LOG.fatal(String.format(FILMLIST_IMPORT_ERROR_TEMPLATE, aFilmlistLocation), ioException);
+      LOG.fatal(String.format(FILMLIST_IMPORT_ERROR_TEMPLATE, importFilmlistConfiguration.getPath()), ioException);
     }
   }
 
@@ -348,14 +359,23 @@ public class CrawlerManager extends AbstractManager {
     return missingSavePathFormats.isEmpty();
   }
 
-  private boolean checkConfigForFilmlistImport() {
-    if (config.getFilmlistImportFormat() == null) {
-      printMessage(ServerMessages.NO_FILMLIST_IMPORT_FORMAT_IN_CONFIG);
+  private boolean checkImportFilmlistConfig(ImportFilmlistConfiguration config) {
+    if (config.getPath() == null || config.getPath().isBlank() ) {
+      printMessage(ServerMessages.NO_FILMLIST_IMPORT_LOCATION_IN_CONFIG);
       return false;
     }
 
-    if (config.getFilmlistImportLocation() == null) {
-      printMessage(ServerMessages.NO_FILMLIST_IMPORT_LOCATION_IN_CONFIG);
+    if (config.getFormat() == null) {
+      printMessage(ServerMessages.NO_FILMLIST_IMPORT_FORMAT_IN_CONFIG);
+      return false;
+    }
+    // @TODO define message
+    if (config.isActive() == null) {
+      printMessage(ServerMessages.NO_FILMLIST_IMPORT_FORMAT_IN_CONFIG);
+      return false;
+    }
+    if (config.isCreateDiff() == null) {
+      printMessage(ServerMessages.NO_FILMLIST_IMPORT_FORMAT_IN_CONFIG);
       return false;
     }
 
@@ -532,4 +552,70 @@ public class CrawlerManager extends AbstractManager {
   public Filmlist getFilmlist() {
     return filmlist;
   }
+  // added to allow JUNIT tests
+  public Filmlist getDifferenceList() {
+    return differenceList;
+  }
+  
+  // move this to MLIB after PR merge
+  public static void addAllToFilmlist(final Filmlist source,final Filmlist target) {
+    target.addAllFilms(source.getFilms().values());
+    target.addAllLivestreams(source.getLivestreams().values());
+    target.addAllPodcasts(source.getPodcasts().values());
+  }
+  
+  // move this to MLIB and replace merge function after PR merge
+  public static Filmlist mergeTwoFilmlists(final Filmlist aThis, final Filmlist aFilmlist) {
+    final Filmlist toBeAdded = new Filmlist(UUID.randomUUID(), LocalDateTime.now());
+    final Filmlist diff = new Filmlist(UUID.randomUUID(), LocalDateTime.now());
+    // add all from old list not in the new list
+    aFilmlist.getFilms().entrySet().stream()
+        .filter(e -> !containsFilm(aThis, e.getValue()))
+        .forEachOrdered(e -> toBeAdded.getFilms().put(e.getKey(), e.getValue()));
+    // the diff list contains all new entries (fresh list) which are not already in the old list
+    aThis.getFilms().entrySet().stream()
+    .filter(e -> !containsFilm(aFilmlist,e.getValue()))
+    .forEachOrdered(e -> diff.getFilms().put(e.getKey(), e.getValue()));
+    // add the history to the current list
+    aThis.getFilms().putAll(toBeAdded.getFilms());
+    //
+    // the same for podcast
+    aFilmlist.getPodcasts().entrySet().stream()
+        .filter(e -> !containsPodcast(aThis,e.getValue()))
+        .forEachOrdered(e -> toBeAdded.getPodcasts().put(e.getKey(), e.getValue()));
+    aThis.getFilms().entrySet().stream()
+    .filter(e -> !containsPodcast(aFilmlist,e.getValue()))
+    .forEachOrdered(e -> diff.getPodcasts().put(e.getKey(), e.getValue()));
+    aThis.getPodcasts().putAll(toBeAdded.getPodcasts());
+    //
+    return diff;
+  }
+  
+  public static boolean containsFilm(Filmlist athis, Film film) {
+    Optional<Film> check = athis.getFilms().entrySet().stream()
+        .filter(entry -> 
+            film.getTitel().equalsIgnoreCase(entry.getValue().getTitel()) &&
+            film.getThema().equalsIgnoreCase(entry.getValue().getThema()) &&
+            film.getSender().equals(entry.getValue().getSender()) &&
+            film.getDuration().equals(entry.getValue().getDuration()))
+        .map(Map.Entry::getValue)
+        .findFirst();
+        
+    return check.isPresent();
+  }
+  
+  public static boolean containsPodcast(Filmlist athis, Podcast prodcast) {
+    Optional<Podcast> check = athis.getPodcasts().entrySet().stream()
+        .filter(entry -> 
+        prodcast.getTitel().equalsIgnoreCase(entry.getValue().getTitel()) &&
+        prodcast.getThema().equalsIgnoreCase(entry.getValue().getThema()) &&
+        prodcast.getSender().equals(entry.getValue().getSender()) &&
+        prodcast.getDuration().equals(entry.getValue().getDuration()))
+        .map(Map.Entry::getValue)
+        .findFirst();
+        
+    return check.isPresent();
+  } 
+  
+  
 }

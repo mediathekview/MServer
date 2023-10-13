@@ -83,8 +83,25 @@ writeFilmlistIdFileEnabled: true
 #The fimlist id file path
 filmlistIdFilePath: target/filmlists/filmlist.id
 
+
+# import additional filmlist sources
+importFilmlistConfigurations :
+    - active: false
+      path: "someCrawlerlist.json"
+      format: OLD_JSON
+      createDiff: false
+    - active: false
+      path: "filme-org.xz"
+      format: OLD_JSON_COMPRESSED_XZ
+      createDiff: true
+
+#     filmlistImporEnabled = true;
+#    filmlistImportFormat = FilmlistFormats.OLD_JSON_COMPRESSED_XZ;
+#    filmlistImportLocation = "https://verteiler1.mediathekview.de/Filmliste-akt.xz";
+
+
 # Sets if a filmlist should be imported
-filmlistImporEnabled: false
+#filmlistImporEnabled: false
 
 # The format of the film list to import.
 # Possible are: JSON, OLD_JSON, JSON_COMPRESSED_XZ, OLD_JSON_COMPRESSED_XZ, JSON_COMPRESSED_GZIP, OLD_JSON_COMPRESSED_BZIP, JSON_COMPRESSED_GZIP, OLD_JSON_COMPRESSED_BZIP

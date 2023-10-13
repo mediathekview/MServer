@@ -18,6 +18,8 @@ public class MServerConfigDTO extends MServerBasicConfigDTO implements ConfigDTO
   private final String ignoreFilmlistPath;
   /** add livestreams from external list **/
   private final ImportLivestreamConfiguration importLivestreamConfiguration;
+  /** add additional filmlist from external **/
+  private final List<ImportFilmlistConfiguration> ImportFilmlistConfigurations;
   /** The maximum amount of cpu threads to be used. */
   private Integer maximumCpuThreads;
   /**
@@ -32,12 +34,10 @@ public class MServerConfigDTO extends MServerBasicConfigDTO implements ConfigDTO
   private Set<FilmlistFormats> filmlistSaveFormats;
   private Map<FilmlistFormats, String> filmlistSavePaths;
   private Map<FilmlistFormats, String> filmlistDiffSavePaths;
-  private FilmlistFormats filmlistImportFormat;
   private String filmlistImportLocation;
   private MServerLogSettingsDTO logSettings;
   private Map<CrawlerUrlType, URL> crawlerURLs;
   private Map<CrawlerApiParam, String> crawlerApiParams;
-  private Boolean filmlistImporEnabled;
 
   public MServerConfigDTO() {
     super();
@@ -79,16 +79,14 @@ public class MServerConfigDTO extends MServerBasicConfigDTO implements ConfigDTO
     filmlistSavePaths.put(FilmlistFormats.JSON_COMPRESSED_BZIP, "filmliste.json.bz");
     filmlistSavePaths.put(FilmlistFormats.OLD_JSON_COMPRESSED_BZIP, "filmliste_old.json.bz");
 
-    filmlistImporEnabled = true;
-    filmlistImportFormat = FilmlistFormats.OLD_JSON_COMPRESSED_XZ;
-    filmlistImportLocation = "https://verteiler1.mediathekview.de/Filmliste-akt.xz";
-
     writeFilmlistHashFileEnabled = false;
     filmlistHashFilePath = "filmlist.hash";
     writeFilmlistIdFileEnabled = true;
     filmlistIdFilePath = "filmlist.id";
     ignoreFilmlistPath = "ignoreFilmlist.txt";
     importLivestreamConfiguration = new ImportLivestreamConfiguration(false, "live-streams.json", FilmlistFormats.OLD_JSON);
+    ImportFilmlistConfigurations = new ArrayList<ImportFilmlistConfiguration>();
+    //ImportFilmlistConfigurations.add(new ImportFilmlistConfiguration(false, "https://verteiler1.mediathekview.de/Filmliste-akt.xz", FilmlistFormats.OLD_JSON_COMPRESSED_XZ, true));
     
     Arrays.stream(Sender.values())
         .forEach(sender -> senderConfigurations.put(sender, new MServerBasicConfigDTO(this)));
@@ -120,14 +118,6 @@ public class MServerConfigDTO extends MServerBasicConfigDTO implements ConfigDTO
 
   public void setFilmlistDiffSavePaths(final Map<FilmlistFormats, String> filmlistDiffSavePaths) {
     this.filmlistDiffSavePaths = filmlistDiffSavePaths;
-  }
-
-  public FilmlistFormats getFilmlistImportFormat() {
-    return filmlistImportFormat;
-  }
-
-  public void setFilmlistImportFormat(final FilmlistFormats filmlistImportFormat) {
-    this.filmlistImportFormat = filmlistImportFormat;
   }
 
   public String getFilmlistImportLocation() {
@@ -242,6 +232,9 @@ public class MServerConfigDTO extends MServerBasicConfigDTO implements ConfigDTO
     return importLivestreamConfiguration;
   }
   
+  public List<ImportFilmlistConfiguration> getImportFilmlistConfigurations() {
+    return ImportFilmlistConfigurations;
+  }
  
   /**
    * Loads the {@link Sender} specific configuration and if it not exist creates one.
@@ -253,14 +246,6 @@ public class MServerConfigDTO extends MServerBasicConfigDTO implements ConfigDTO
   public MServerBasicConfigDTO getSenderConfig(final Sender aSender) {
     senderConfigurations.putIfAbsent(aSender, new MServerBasicConfigDTO(this));
     return senderConfigurations.get(aSender);
-  }
-
-  public Boolean getFilmlistImporEnabled() {
-    return filmlistImporEnabled;
-  }
-
-  public void setFilmlistImporEnabled(final Boolean filmlistImporEnabled) {
-    this.filmlistImporEnabled = filmlistImporEnabled;
   }
 
   @Override
@@ -284,17 +269,16 @@ public class MServerConfigDTO extends MServerBasicConfigDTO implements ConfigDTO
         && Objects.equals(getFilmlistSaveFormats(), that.getFilmlistSaveFormats())
         && Objects.equals(getFilmlistSavePaths(), that.getFilmlistSavePaths())
         && Objects.equals(getFilmlistDiffSavePaths(), that.getFilmlistDiffSavePaths())
-        && getFilmlistImportFormat() == that.getFilmlistImportFormat()
         && Objects.equals(getFilmlistImportLocation(), that.getFilmlistImportLocation())
         && Objects.equals(getLogSettings(), that.getLogSettings())
         && Objects.equals(getCrawlerURLs(), that.getCrawlerURLs())
-        && Objects.equals(getFilmlistImporEnabled(), that.getFilmlistImporEnabled())
         && Objects.equals(getWriteFilmlistHashFileEnabled(), that.getWriteFilmlistHashFileEnabled())
         && Objects.equals(getFilmlistHashFilePath(), that.getFilmlistHashFilePath())
         && Objects.equals(getWriteFilmlistIdFileEnabled(), that.getWriteFilmlistIdFileEnabled())
         && Objects.equals(getFilmlistIdFilePath(), that.getFilmlistIdFilePath())
         && Objects.equals(getIgnoreFilmslistPath(), that.getIgnoreFilmslistPath())
-        && Objects.equals(getImportLivestreamConfiguration(), that.getImportLivestreamConfiguration());
+        && Objects.equals(getImportLivestreamConfiguration(), that.getImportLivestreamConfiguration())
+        && Objects.equals(getImportFilmlistConfigurations(), that.getImportFilmlistConfigurations());
   }
 
   @Override
@@ -310,17 +294,16 @@ public class MServerConfigDTO extends MServerBasicConfigDTO implements ConfigDTO
         getFilmlistSaveFormats(),
         getFilmlistSavePaths(),
         getFilmlistDiffSavePaths(),
-        getFilmlistImportFormat(),
         getFilmlistImportLocation(),
         getLogSettings(),
         getCrawlerURLs(),
-        getFilmlistImporEnabled(),
         getWriteFilmlistHashFileEnabled(),
         getFilmlistHashFilePath(),
         getWriteFilmlistIdFileEnabled(),
         getFilmlistIdFilePath(),
         getIgnoreFilmslistPath(),
-        getImportLivestreamConfiguration());
+        getImportLivestreamConfiguration(),
+        getImportFilmlistConfigurations());
   }
 
   public void initializeSenderConfigurations() {
