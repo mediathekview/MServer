@@ -57,13 +57,13 @@ public class CrawlerManagerLivestreamTest implements MessageListener {
   public void testSaveAndImport(final FilmlistFormats format, final String filmlistPath,final String livestreamPath,  final int expectedInitialSize, final int expectedAfterImport) {
     CrawlerManager crawlerManagerForEachRun = createEmptyCrawlerManager();
     final Path filmListFilePath = FileReader.getPath(filmlistPath);
-    final Path livesreamFilmListFilePath = FileReader.getPath(livestreamPath);
+    final Path livestreamFilmListFilePath = FileReader.getPath(livestreamPath);
     crawlerManagerForEachRun.addMessageListener(this);
     crawlerManagerForEachRun.importFilmlist(format, filmListFilePath.toAbsolutePath().toString());
     //    
     assertThat(crawlerManagerForEachRun.getFilmlist().getFilms()).hasSize(expectedInitialSize);
     //
-    crawlerManagerForEachRun.importLivestreamFilmlist(format, livesreamFilmListFilePath.toAbsolutePath().toString());
+    crawlerManagerForEachRun.importLivestreamFilmlist(format, livestreamFilmListFilePath.toAbsolutePath().toString());
     //
     assertThat(crawlerManagerForEachRun.getFilmlist().getFilms()).hasSize(expectedAfterImport);
     //
