@@ -115,6 +115,7 @@ public class AddToFilmlist {
     listeEinsortieren.removeIf(f -> !f.arr[DatenFilm.FILM_URL].toLowerCase().startsWith("http"));
     listeEinsortieren.removeIf(f -> f.arr[DatenFilm.FILM_SENDER].equals(Const.ORF) && f.arr[DatenFilm.FILM_URL]
         .matches(OrfVideoInfoDTO.FILTER_JUGENDSCHUTZ));
+    listeEinsortieren.removeIf(f -> f.arr[DatenFilm.FILM_SENDER].equals(Const.ARD) && isArdUrlToRemove(f.arr[DatenFilm.FILM_URL]));
     listeEinsortieren.removeIf(f -> {
       String groesse = f.arr[DatenFilm.FILM_GROESSE];
       if (groesse.isEmpty()) {
@@ -132,7 +133,13 @@ public class AddToFilmlist {
     updateFunkMissingHost(listeEinsortieren);
     removeSrfUrlParameter(listeEinsortieren);
   }
-  
+
+  private boolean isArdUrlToRemove(final String url) {
+    return url.startsWith("https://tvdlzdf-a.akamaihd.net")
+            || url.startsWith("https://arteptweb-a.akamaihd.net")
+            || url.startsWith("https://pmdonlinekika-a.akamaihd.net");
+  }
+
   // check https://github.com/mediathekview/MServer/issues/904 for examples and more information
   private void removeSrfUrlParameter(ListeFilme listeEinsortieren) {
       final List<DatenFilm> list = listeEinsortieren.parallelStream()
