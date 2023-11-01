@@ -2,7 +2,6 @@ package de.mediathekview.mserver.crawler;
 
 import de.mediathekview.mlib.daten.Film;
 import de.mediathekview.mlib.daten.Filmlist;
-import de.mediathekview.mlib.daten.Podcast;
 import de.mediathekview.mlib.daten.Sender;
 import de.mediathekview.mlib.filmlisten.FilmlistFormats;
 import de.mediathekview.mlib.filmlisten.FilmlistManager;
@@ -210,9 +209,9 @@ public class CrawlerManager extends AbstractManager {
       }
       //
       final Filmlist difflist = new Filmlist(UUID.randomUUID(), LocalDateTime.now());
-      importedFilmlist.ifPresent(value -> addAllToFilmlist(mergeTwoFilmlists(filmlist,value),difflist));
+      importedFilmlist.ifPresent(value -> Film.addAllToFilmlist(Film.mergeTwoFilmlists(filmlist,value),difflist));
       if (importFilmlistConfiguration.isCreateDiff()) {
-        addAllToFilmlist(difflist, differenceList);
+        Film.addAllToFilmlist(difflist, differenceList);
       }
     } catch (final IOException ioException) {
       LOG.fatal(String.format(FILMLIST_IMPORT_ERROR_TEMPLATE, importFilmlistConfiguration.getPath()), ioException);
@@ -560,67 +559,6 @@ public class CrawlerManager extends AbstractManager {
   // added to allow JUNIT tests
   public Filmlist getDifferenceList() {
     return differenceList;
-  }
-  
-  // move this to MLIB after PR merge
-  public static void addAllToFilmlist(final Filmlist source,final Filmlist target) {
-    target.addAllFilms(source.getFilms().values());
-    target.addAllLivestreams(source.getLivestreams().values());
-    target.addAllPodcasts(source.getPodcasts().values());
-  }
-  
-  // move this to MLIB and replace merge function after PR merge
-  public static Filmlist mergeTwoFilmlists(final Filmlist aThis, final Filmlist aFilmlist) {
-    final Filmlist toBeAdded = new Filmlist(UUID.randomUUID(), LocalDateTime.now());
-    final Filmlist diff = new Filmlist(UUID.randomUUID(), LocalDateTime.now());
-    // add all from old list not in the new list
-    aFilmlist.getFilms().entrySet().stream()
-        .filter(e -> !containsFilm(aThis, e.getValue()))
-        .forEachOrdered(e -> toBeAdded.getFilms().put(e.getKey(), e.getValue()));
-    // the diff list contains all new entries (fresh list) which are not already in the old list
-    aThis.getFilms().entrySet().stream()
-    .filter(e -> !containsFilm(aFilmlist,e.getValue()))
-    .forEachOrdered(e -> diff.getFilms().put(e.getKey(), e.getValue()));
-    // add the history to the current list
-    aThis.getFilms().putAll(toBeAdded.getFilms());
-    //
-    // the same for podcast
-    aFilmlist.getPodcasts().entrySet().stream()
-        .filter(e -> !containsPodcast(aThis,e.getValue()))
-        .forEachOrdered(e -> toBeAdded.getPodcasts().put(e.getKey(), e.getValue()));
-    aThis.getPodcasts().entrySet().stream()
-    .filter(e -> !containsPodcast(aFilmlist,e.getValue()))
-    .forEachOrdered(e -> diff.getPodcasts().put(e.getKey(), e.getValue()));
-    aThis.getPodcasts().putAll(toBeAdded.getPodcasts());
-    //
-    return diff;
-  }
-  
-  public static boolean containsFilm(Filmlist athis, Film film) {
-    Optional<Film> check = athis.getFilms().entrySet().stream()
-        .filter(entry -> 
-            film.getTitel().equalsIgnoreCase(entry.getValue().getTitel()) &&
-            film.getThema().equalsIgnoreCase(entry.getValue().getThema()) &&
-            film.getSender().equals(entry.getValue().getSender()) &&
-            film.getDuration().equals(entry.getValue().getDuration()))
-        .map(Map.Entry::getValue)
-        .findFirst();
-        
-    return check.isPresent();
-  }
-  
-  public static boolean containsPodcast(Filmlist athis, Podcast prodcast) {
-    Optional<Podcast> check = athis.getPodcasts().entrySet().stream()
-        .filter(entry -> 
-        prodcast.getTitel().equalsIgnoreCase(entry.getValue().getTitel()) &&
-        prodcast.getThema().equalsIgnoreCase(entry.getValue().getThema()) &&
-        prodcast.getSender().equals(entry.getValue().getSender()) &&
-        prodcast.getDuration().equals(entry.getValue().getDuration()))
-        .map(Map.Entry::getValue)
-        .findFirst();
-        
-    return check.isPresent();
-  } 
-  
-  
+  }  
+
 }
