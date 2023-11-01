@@ -27,6 +27,9 @@ public enum ServerMessages implements Message {
   NO_FILMLIST_IMPORT_FORMAT_IN_CONFIG("noFilmlistImportFormatInConfig", MessageTypes.FATAL_ERROR),
   NO_FILMLIST_IMPORT_LOCATION_IN_CONFIG(
       "noFilmlistImportLocationInConfig", MessageTypes.FATAL_ERROR),
+  NO_FILMLIST_IMPORT_ACTIVE_IN_CONFIG("noFilmlistImportActgiveInConfig", MessageTypes.FATAL_ERROR),
+  NO_FILMLIST_IMPORT_DIFF_IN_CONFIG("noFilmlistImportCreateDiffInConfig", MessageTypes.FATAL_ERROR),
+  NO_FILMLIST_IMPORT_CHECK_IN_CONFIG("noFilmlistImportCheckUrlInConfig", MessageTypes.FATAL_ERROR),
   FORMAT_NOT_IN_SAVE_FORMATS("formatNotInSaveFormats", MessageTypes.ERROR),
   UI_TO_MANY_ARGUMENTS("uiToManyArguments", MessageTypes.ERROR),
   UI_UNKNOWN_ARGUMENT("uiUnknownArgument", MessageTypes.FATAL_ERROR),

@@ -150,10 +150,6 @@ public class CrawlerManager extends AbstractManager {
     }
   }
   
-  /**
-   * Imports the film list with the given {@link MServerConfigDTO#getFilmlistImportFormat()} of
-   * {@link MServerConfigDTO#getFilmlistImportLocation()}.
-   */
   public void importFilmlist() {
     for (ImportFilmlistConfiguration importFilmlistConfiguration : config.getImportFilmlistConfigurations()) {
       if (checkImportFilmlistConfig(importFilmlistConfiguration) && importFilmlistConfiguration.isActive()) {
@@ -187,14 +183,7 @@ public class CrawlerManager extends AbstractManager {
     }
   }
 
-  /**
-   * Imports the film list with the given {@link FilmlistFormats} and the given location.
-   *
-   * @param aFormat The{@link FilmlistFormats} to import.
-   * @param aFilmlistLocation The given location from which to import. If it starts with <code>http
-   *     </code> or <code>https</code> it tries to import from URL. Otherwise it tries to import
-   *     from the given Location as a file path.
-   */
+
   public void importFilmlist(final ImportFilmlistConfiguration importFilmlistConfiguration) {
     try {
       Optional<Filmlist> importedFilmlist;
@@ -368,21 +357,22 @@ public class CrawlerManager extends AbstractManager {
       printMessage(ServerMessages.NO_FILMLIST_IMPORT_LOCATION_IN_CONFIG);
       return false;
     }
-
     if (config.getFormat() == null) {
       printMessage(ServerMessages.NO_FILMLIST_IMPORT_FORMAT_IN_CONFIG);
       return false;
     }
-    // @TODO define message
     if (config.isActive() == null) {
-      printMessage(ServerMessages.NO_FILMLIST_IMPORT_FORMAT_IN_CONFIG);
+      printMessage(ServerMessages.NO_FILMLIST_IMPORT_ACTIVE_IN_CONFIG);
       return false;
     }
     if (config.isCreateDiff() == null) {
-      printMessage(ServerMessages.NO_FILMLIST_IMPORT_FORMAT_IN_CONFIG);
+      printMessage(ServerMessages.NO_FILMLIST_IMPORT_DIFF_IN_CONFIG);
       return false;
     }
-
+    if (config.isCheckImportListUrl() == null) {
+      printMessage(ServerMessages.NO_FILMLIST_IMPORT_CHECK_IN_CONFIG);
+      return false;
+    }
     return true;
   }
 
