@@ -16,7 +16,7 @@ public class CheckUrlAvailability {
   private static final Logger LOG = LogManager.getLogger(CheckUrlAvailability.class);
   private Long minFileSize = 2048L;
   private int removedCounter = 0;
-  private long timeoutInMS = 1*60*1000;
+  private long timeoutInMS = 1*60*1000L;
   private boolean timeout = false;
   private long start = 0;
   private FileSizeDeterminer fsd = new FileSizeDeterminer();
@@ -32,7 +32,7 @@ public class CheckUrlAvailability {
     Filmlist filteredFilmlist = new Filmlist();
     filteredFilmlist.setCreationDate(importList.getCreationDate());
     filteredFilmlist.setListId(importList.getListId());
-    importList.getFilms().values().stream().parallel().filter(e -> { return isAvailable(e);}).forEach(filteredFilmlist::add);
+    importList.getFilms().values().stream().parallel().filter(this::isAvailable).forEach(filteredFilmlist::add);
     LOG.debug("checked {} urls and removed {} in {} sec and timeout was reached: {}", importList.getFilms().size(), removedCounter, ((System.currentTimeMillis()-start)/1000), timeout);
     return filteredFilmlist;
   }

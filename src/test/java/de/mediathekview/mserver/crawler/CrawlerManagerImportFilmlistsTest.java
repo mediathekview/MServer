@@ -77,7 +77,7 @@ public class CrawlerManagerImportFilmlistsTest implements MessageListener {
   @ParameterizedTest
   @Execution(ExecutionMode.SAME_THREAD)
   @MethodSource("getTestArgumentForFilmlistsInDifferentFormats")
-  public void testSaveAndImport(final ImportFilmlistConfiguration initialList, final ImportFilmlistConfiguration additionalList,  final int expectedSize, final int expectedDiffListSize) {
+  void testSaveAndImport(final ImportFilmlistConfiguration initialList, final ImportFilmlistConfiguration additionalList,  final int expectedSize, final int expectedDiffListSize) {
     CrawlerManager crawlerManagerForEachRun = createEmptyCrawlerManager();
     crawlerManagerForEachRun.addMessageListener(this);
     crawlerManagerForEachRun.importFilmlist(initialList);

@@ -19,7 +19,7 @@ public class MServerConfigDTO extends MServerBasicConfigDTO implements ConfigDTO
   /** add livestreams from external list **/
   private final ImportLivestreamConfiguration importLivestreamConfiguration;
   /** add additional filmlist from external **/
-  private final List<ImportFilmlistConfiguration> ImportFilmlistConfigurations;
+  private final List<ImportFilmlistConfiguration> importFilmlistConfigurations;
   /** The maximum amount of cpu threads to be used. */
   private Integer maximumCpuThreads;
   /**
@@ -90,8 +90,7 @@ public class MServerConfigDTO extends MServerBasicConfigDTO implements ConfigDTO
     filmlistIdFilePath = "filmlist.id";
     ignoreFilmlistPath = "ignoreFilmlist.txt";
     importLivestreamConfiguration = new ImportLivestreamConfiguration(false, "live-streams.json", FilmlistFormats.OLD_JSON);
-    ImportFilmlistConfigurations = new ArrayList<ImportFilmlistConfiguration>();
-    //ImportFilmlistConfigurations.add(new ImportFilmlistConfiguration(false, "https://verteiler1.mediathekview.de/Filmliste-akt.xz", FilmlistFormats.OLD_JSON_COMPRESSED_XZ, true));
+    importFilmlistConfigurations = new ArrayList<>();
     
     Arrays.stream(Sender.values())
         .forEach(sender -> senderConfigurations.put(sender, new MServerBasicConfigDTO(this)));
@@ -254,7 +253,7 @@ public class MServerConfigDTO extends MServerBasicConfigDTO implements ConfigDTO
   }
   
   public List<ImportFilmlistConfiguration> getImportFilmlistConfigurations() {
-    return ImportFilmlistConfigurations;
+    return importFilmlistConfigurations;
   }
  
   /**
