@@ -108,16 +108,6 @@ checkImportListUrlMinSize: 5012
 # abort url checking after x sec
 checkImportListUrlTimeoutInSec: 1800
 
-# Sets if a filmlist should be imported
-#filmlistImporEnabled: false
-
-# The format of the film list to import.
-# Possible are: JSON, OLD_JSON, JSON_COMPRESSED_XZ, OLD_JSON_COMPRESSED_XZ, JSON_COMPRESSED_GZIP, OLD_JSON_COMPRESSED_BZIP, JSON_COMPRESSED_GZIP, OLD_JSON_COMPRESSED_BZIP
-#filmlistImportFormat: OLD_JSON_COMPRESSED_XZ
-
-# The path/URL of the film list to import.
-#filmlistImportLocation: http://verteiler1.mediathekview.de/Filmliste-akt.xz
-
 #### Default crawler configurations ####
 # The maximum amount of URLs to be processed per task.
 maximumUrlsPerTask: 50
