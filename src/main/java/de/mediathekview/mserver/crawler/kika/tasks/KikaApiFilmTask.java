@@ -153,8 +153,7 @@ public class KikaApiFilmTask extends AbstractJsonRestTask<Film, KikaApiVideoInfo
 	  Map<Resolution, FilmUrl> urls = new EnumMap<>(Resolution.class);
 	  for (Map.Entry<Resolution,String> element : aResponseObj.getVideoUrls().entrySet()) {
 	  try {
-	    final FileSizeDeterminer fsd = new FileSizeDeterminer(element.getValue());
-	    final FilmUrl filmUrl = new FilmUrl(element.getValue(), fsd.getFileSizeInMiB());
+	    final FilmUrl filmUrl = new FilmUrl(element.getValue(), crawler.determineFileSizeInKB(element.getValue()));
 	    urls.put(element.getKey(), filmUrl);
 	  } catch (MalformedURLException e) {
 	    LOG.error("Invalid video url {} for {} error {}", element.getValue(), aDTO.getUrl(), e);
