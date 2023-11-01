@@ -36,7 +36,7 @@ public class NexxCloudSessionInitiationTask implements Callable<Long> {
   @Override
   public Long call() {
     final Gson gson = createGson();
-/*
+
     try(final Client client = createClient()) {
       final WebTarget target =
           client.target(FunkUrls.NEXX_CLOUD_SESSION_INIT.getAsString(crawler.getRuntimeConfig()));
@@ -55,7 +55,7 @@ public class NexxCloudSessionInitiationTask implements Callable<Long> {
               response.getStatus());
         }
       }
-    }*/
+    }
     return null;
   }
 
