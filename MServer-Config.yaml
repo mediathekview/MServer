@@ -90,15 +90,23 @@ importFilmlistConfigurations :
       path: "someCrawlerlist.json"
       format: OLD_JSON
       createDiff: false
+      checkImportListUrl: false
     - active: false
-      path: "filme-org.xz"
+      path: "someMoreCrawlerlist.json"
+      format: OLD_JSON
+      createDiff: false
+      checkImportListUrl: false
+    - active: false
+      path: "https://verteiler1.mediathekview.de/filme-org.xz"
       format: OLD_JSON_COMPRESSED_XZ
       createDiff: true
+      checkImportListUrl: true    
 
-#     filmlistImporEnabled = true;
-#    filmlistImportFormat = FilmlistFormats.OLD_JSON_COMPRESSED_XZ;
-#    filmlistImportLocation = "https://verteiler1.mediathekview.de/Filmliste-akt.xz";
+# film url is consider invalid if the size is below the minSize
+checkImportListUrlMinSize: 5012
 
+# abort url checking after x sec
+checkImportListUrlTimeoutInSec: 1800
 
 # Sets if a filmlist should be imported
 #filmlistImporEnabled: false

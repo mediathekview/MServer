@@ -9,13 +9,15 @@ public class ImportFilmlistConfiguration {
   private final String path;
   private final FilmlistFormats format;
   private final Boolean createDiff;
+  private final Boolean checkImportListUrl;
   
 
-  public ImportFilmlistConfiguration(Boolean active, String path, FilmlistFormats format, Boolean createDiff) {
+  public ImportFilmlistConfiguration(Boolean active, String path, FilmlistFormats format, Boolean createDiff, Boolean checkImportListUrl) {
     this.active = active;
     this.path = path;
     this.format = format;
     this.createDiff = createDiff;
+    this.checkImportListUrl = checkImportListUrl; 
   }
   
   public ImportFilmlistConfiguration() {
@@ -23,6 +25,11 @@ public class ImportFilmlistConfiguration {
     this.path = null;
     this.format = null;
     this.createDiff = null;
+    this.checkImportListUrl = null;
+  }
+  
+  public Boolean isCheckImportListUrl() {
+    return checkImportListUrl;
   }
   
   public Boolean isActive() {
@@ -52,7 +59,8 @@ public class ImportFilmlistConfiguration {
     return Objects.equals(isActive(), that.isActive())
         && Objects.equals(getPath(), that.getPath())
         && Objects.equals(getFormat(), that.getFormat())
-        && Objects.equals(isCreateDiff(), that.isCreateDiff());
+        && Objects.equals(isCreateDiff(), that.isCreateDiff()
+        && Objects.equals(isCheckImportListUrl(), that.isCheckImportListUrl()));
   }
   
   @Override
@@ -62,6 +70,7 @@ public class ImportFilmlistConfiguration {
         isActive(),
         getPath(),
         getFormat(),
-        isCreateDiff());
+        isCreateDiff(),
+        isCheckImportListUrl());
   }
 }

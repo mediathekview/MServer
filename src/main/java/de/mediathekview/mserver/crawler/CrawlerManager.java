@@ -15,6 +15,7 @@ import de.mediathekview.mserver.base.messages.ServerMessages;
 import de.mediathekview.mserver.base.progress.AbstractManager;
 import de.mediathekview.mserver.base.uploader.copy.FileCopyTarget;
 import de.mediathekview.mserver.base.uploader.copy.FileCopyTask;
+import de.mediathekview.mserver.base.utils.CheckUrlAvailability;
 import de.mediathekview.mserver.crawler.ard.ArdCrawler;
 import de.mediathekview.mserver.crawler.arte.*;
 import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
@@ -197,11 +198,15 @@ public class CrawlerManager extends AbstractManager {
    */
   public void importFilmlist(final ImportFilmlistConfiguration importFilmlistConfiguration) {
     try {
-      final Optional<Filmlist> importedFilmlist;
+      Optional<Filmlist> importedFilmlist;
       if (importFilmlistConfiguration.getPath().startsWith(HTTP)) {
         importedFilmlist = importFilmListFromURl(importFilmlistConfiguration.getFormat(), importFilmlistConfiguration.getPath());
       } else {
         importedFilmlist = importFilmlistFromFile(importFilmlistConfiguration.getFormat(), importFilmlistConfiguration.getPath());
+      }
+      //
+      if (importFilmlistConfiguration.isCheckImportListUrl() && importedFilmlist.isPresent() ) {
+        importedFilmlist = Optional.of(new CheckUrlAvailability(config.getCheckImportListUrlMinSize() ,config.getCheckImportListUrlTimeoutInSec()).getAvaiableFilmlist(importedFilmlist.get()));
       }
       //
       final Filmlist difflist = new Filmlist(UUID.randomUUID(), LocalDateTime.now());
@@ -220,7 +225,7 @@ public class CrawlerManager extends AbstractManager {
    * MServerConfigDTO#getFilmlistSavePaths()}.
    */
   public void saveDifferenceFilmlist() {
-    config.getFilmlistDiffSavePaths().forEach((key, value) -> saveFilmlist(Paths.get(value), key));
+    config.getFilmlistDiffSavePaths().forEach((key, value) -> saveFilmlist(Paths.get(value), key, true));
   }
 
   /**
@@ -583,7 +588,7 @@ public class CrawlerManager extends AbstractManager {
     aFilmlist.getPodcasts().entrySet().stream()
         .filter(e -> !containsPodcast(aThis,e.getValue()))
         .forEachOrdered(e -> toBeAdded.getPodcasts().put(e.getKey(), e.getValue()));
-    aThis.getFilms().entrySet().stream()
+    aThis.getPodcasts().entrySet().stream()
     .filter(e -> !containsPodcast(aFilmlist,e.getValue()))
     .forEachOrdered(e -> diff.getPodcasts().put(e.getKey(), e.getValue()));
     aThis.getPodcasts().putAll(toBeAdded.getPodcasts());

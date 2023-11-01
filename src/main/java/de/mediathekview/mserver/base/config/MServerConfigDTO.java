@@ -27,7 +27,9 @@ public class MServerConfigDTO extends MServerBasicConfigDTO implements ConfigDTO
    * If set to 0 the server runs without a time limit.
    */
   private Integer maximumServerDurationInMinutes;
-
+  private Long checkImportListUrlMinSize;
+  private Long checkImportListUrlTimeoutInSec;
+  
   private Map<Sender, MServerBasicConfigDTO> senderConfigurations;
   private Set<Sender> senderExcluded;
   private Set<Sender> senderIncluded;
@@ -61,6 +63,9 @@ public class MServerConfigDTO extends MServerBasicConfigDTO implements ConfigDTO
 
     maximumCpuThreads = 80;
     maximumServerDurationInMinutes = 0;
+    checkImportListUrlMinSize = 2048L;
+    checkImportListUrlTimeoutInSec = 3600L;
+    
     filmlistSaveFormats.add(FilmlistFormats.JSON);
     filmlistSaveFormats.add(FilmlistFormats.OLD_JSON);
     filmlistSaveFormats.add(FilmlistFormats.JSON_COMPRESSED_XZ);
@@ -167,6 +172,22 @@ public class MServerConfigDTO extends MServerBasicConfigDTO implements ConfigDTO
   public void setMaximumServerDurationInMinutes(final Integer aMaximumServerDurationInMinutes) {
     maximumServerDurationInMinutes = aMaximumServerDurationInMinutes;
   }
+  
+  public Long getCheckImportListUrlMinSize() {
+    return checkImportListUrlMinSize;
+  }
+
+  public void setCheckImportListUrlMinSize(final Long checkImportListUrlMinSize) {
+    this.checkImportListUrlMinSize = checkImportListUrlMinSize;
+  }
+
+  public Long getCheckImportListUrlTimeoutInSec() {
+    return checkImportListUrlTimeoutInSec;
+  }
+
+  public void setCheckImportListUrlTimeoutInSec(final Long checkImportListUrlTimeoutInSec) {
+    this.checkImportListUrlTimeoutInSec = checkImportListUrlTimeoutInSec;
+  }
 
   public Map<Sender, MServerBasicConfigDTO> getSenderConfigurations() {
     return senderConfigurations;
@@ -261,8 +282,9 @@ public class MServerConfigDTO extends MServerBasicConfigDTO implements ConfigDTO
     }
     return Objects.equals(getCopySettings(), that.getCopySettings())
         && Objects.equals(getMaximumCpuThreads(), that.getMaximumCpuThreads())
-        && Objects.equals(
-            getMaximumServerDurationInMinutes(), that.getMaximumServerDurationInMinutes())
+        && Objects.equals(getMaximumServerDurationInMinutes(), that.getMaximumServerDurationInMinutes())
+        && Objects.equals(getCheckImportListUrlMinSize(), that.getCheckImportListUrlMinSize())
+        && Objects.equals(getCheckImportListUrlTimeoutInSec(), that.getCheckImportListUrlTimeoutInSec())
         && Objects.equals(senderConfigurations, that.senderConfigurations)
         && Objects.equals(getSenderExcluded(), that.getSenderExcluded())
         && Objects.equals(getSenderIncluded(), that.getSenderIncluded())
@@ -288,6 +310,8 @@ public class MServerConfigDTO extends MServerBasicConfigDTO implements ConfigDTO
         getCopySettings(),
         getMaximumCpuThreads(),
         getMaximumServerDurationInMinutes(),
+        getCheckImportListUrlMinSize(),
+        getCheckImportListUrlTimeoutInSec(),
         senderConfigurations,
         getSenderExcluded(),
         getSenderIncluded(),

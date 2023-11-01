@@ -108,7 +108,7 @@ public class CrawlerManagerTest implements MessageListener {
     final Path filmListFilePath = FileReader.getPath(filmlistPath);
     synchronized (CRAWLER_MANAGER) {
       CRAWLER_MANAGER.addMessageListener(this);
-      CRAWLER_MANAGER.importFilmlist(new ImportFilmlistConfiguration(true, filmListFilePath.toAbsolutePath().toString(), format, false));
+      CRAWLER_MANAGER.importFilmlist(new ImportFilmlistConfiguration(true, filmListFilePath.toAbsolutePath().toString(), format, false, false));
       assertThat(CRAWLER_MANAGER.getFilmlist().getFilms()).hasSize(expectedSize);
       CRAWLER_MANAGER.saveFilmlist(testFileFolderPath.resolve(filmlistPath), format);
       assertThat(testFileFolderPath.resolve(filmlistPath)).exists();

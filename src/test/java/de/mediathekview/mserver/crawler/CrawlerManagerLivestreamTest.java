@@ -60,7 +60,7 @@ public class CrawlerManagerLivestreamTest implements MessageListener {
     final Path filmListFilePath = FileReader.getPath(filmlistPath);
     final Path livestreamFilmListFilePath = FileReader.getPath(livestreamPath);
     crawlerManagerForEachRun.addMessageListener(this);
-    crawlerManagerForEachRun.importFilmlist(new ImportFilmlistConfiguration(true, filmListFilePath.toAbsolutePath().toString(), format, false));
+    crawlerManagerForEachRun.importFilmlist(new ImportFilmlistConfiguration(true, filmListFilePath.toAbsolutePath().toString(), format, false, false));
     //    
     assertThat(crawlerManagerForEachRun.getFilmlist().getFilms()).hasSize(expectedInitialSize);
     //

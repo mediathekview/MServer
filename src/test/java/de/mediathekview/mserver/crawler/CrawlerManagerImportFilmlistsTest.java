@@ -43,21 +43,25 @@ public class CrawlerManagerImportFilmlistsTest implements MessageListener {
         true,
         FileReader.getPath("./filmlists/importFilmlist/FilmlistImportTest1.json").toString(),
         FilmlistFormats.OLD_JSON,
-        true);
+        true,
+        false);
     ImportFilmlistConfiguration import2 = new ImportFilmlistConfiguration(
         true,
         FileReader.getPath("./filmlists/importFilmlist/FilmlistImportTest2.json").toString(),
         FilmlistFormats.OLD_JSON,
-        true);
+        true,
+        false);
     ImportFilmlistConfiguration import3 = new ImportFilmlistConfiguration(
         true,
         FileReader.getPath("./filmlists/importFilmlist/FilmlistImportTest3.json").toString(),
         FilmlistFormats.OLD_JSON,
-        true);
+        true,
+        false);
     ImportFilmlistConfiguration import4 = new ImportFilmlistConfiguration(
         true,
         FileReader.getPath("./filmlists/importFilmlist/FilmlistImportTest2.json").toString(),
         FilmlistFormats.OLD_JSON,
+        false,
         false);
     
     return Stream.of(
