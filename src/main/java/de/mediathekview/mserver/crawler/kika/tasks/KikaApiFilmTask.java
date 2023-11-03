@@ -27,7 +27,6 @@ import de.mediathekview.mlib.daten.Film;
 import de.mediathekview.mlib.daten.FilmUrl;
 import de.mediathekview.mlib.daten.GeoLocations;
 import de.mediathekview.mlib.daten.Resolution;
-import de.mediathekview.mlib.tool.FileSizeDeterminer;
 import de.mediathekview.mserver.base.utils.UrlUtils;
 import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
 import de.mediathekview.mserver.crawler.basic.AbstractJsonRestTask;
@@ -153,8 +152,7 @@ public class KikaApiFilmTask extends AbstractJsonRestTask<Film, KikaApiVideoInfo
 	  Map<Resolution, FilmUrl> urls = new EnumMap<>(Resolution.class);
 	  for (Map.Entry<Resolution,String> element : aResponseObj.getVideoUrls().entrySet()) {
 	  try {
-	    final FileSizeDeterminer fsd = new FileSizeDeterminer(element.getValue());
-	    final FilmUrl filmUrl = new FilmUrl(element.getValue(), fsd.getFileSizeInMiB());
+	    final FilmUrl filmUrl = new FilmUrl(element.getValue(), crawler.determineFileSizeInKB(element.getValue()));
 	    urls.put(element.getKey(), filmUrl);
 	  } catch (MalformedURLException e) {
 	    LOG.error("Invalid video url {} for {} error {}", element.getValue(), aDTO.getUrl(), e);

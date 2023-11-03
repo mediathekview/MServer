@@ -18,6 +18,8 @@ public class MServerConfigDTO extends MServerBasicConfigDTO implements ConfigDTO
   private final String ignoreFilmlistPath;
   /** add livestreams from external list **/
   private final ImportLivestreamConfiguration importLivestreamConfiguration;
+  /** add additional filmlist from external **/
+  private final List<ImportFilmlistConfiguration> importFilmlistConfigurations;
   /** The maximum amount of cpu threads to be used. */
   private Integer maximumCpuThreads;
   /**
@@ -25,19 +27,19 @@ public class MServerConfigDTO extends MServerBasicConfigDTO implements ConfigDTO
    * If set to 0 the server runs without a time limit.
    */
   private Integer maximumServerDurationInMinutes;
-
+  private Long checkImportListUrlMinSize;
+  private Long checkImportListUrlTimeoutInSec;
+  
   private Map<Sender, MServerBasicConfigDTO> senderConfigurations;
   private Set<Sender> senderExcluded;
   private Set<Sender> senderIncluded;
   private Set<FilmlistFormats> filmlistSaveFormats;
   private Map<FilmlistFormats, String> filmlistSavePaths;
   private Map<FilmlistFormats, String> filmlistDiffSavePaths;
-  private FilmlistFormats filmlistImportFormat;
   private String filmlistImportLocation;
   private MServerLogSettingsDTO logSettings;
   private Map<CrawlerUrlType, URL> crawlerURLs;
   private Map<CrawlerApiParam, String> crawlerApiParams;
-  private Boolean filmlistImporEnabled;
 
   public MServerConfigDTO() {
     super();
@@ -61,6 +63,9 @@ public class MServerConfigDTO extends MServerBasicConfigDTO implements ConfigDTO
 
     maximumCpuThreads = 80;
     maximumServerDurationInMinutes = 0;
+    checkImportListUrlMinSize = 2048L;
+    checkImportListUrlTimeoutInSec = 3600L;
+    
     filmlistSaveFormats.add(FilmlistFormats.JSON);
     filmlistSaveFormats.add(FilmlistFormats.OLD_JSON);
     filmlistSaveFormats.add(FilmlistFormats.JSON_COMPRESSED_XZ);
@@ -79,16 +84,13 @@ public class MServerConfigDTO extends MServerBasicConfigDTO implements ConfigDTO
     filmlistSavePaths.put(FilmlistFormats.JSON_COMPRESSED_BZIP, "filmliste.json.bz");
     filmlistSavePaths.put(FilmlistFormats.OLD_JSON_COMPRESSED_BZIP, "filmliste_old.json.bz");
 
-    filmlistImporEnabled = true;
-    filmlistImportFormat = FilmlistFormats.OLD_JSON_COMPRESSED_XZ;
-    filmlistImportLocation = "https://verteiler1.mediathekview.de/Filmliste-akt.xz";
-
     writeFilmlistHashFileEnabled = false;
     filmlistHashFilePath = "filmlist.hash";
     writeFilmlistIdFileEnabled = true;
     filmlistIdFilePath = "filmlist.id";
     ignoreFilmlistPath = "ignoreFilmlist.txt";
     importLivestreamConfiguration = new ImportLivestreamConfiguration(false, "live-streams.json", FilmlistFormats.OLD_JSON);
+    importFilmlistConfigurations = new ArrayList<>();
     
     Arrays.stream(Sender.values())
         .forEach(sender -> senderConfigurations.put(sender, new MServerBasicConfigDTO(this)));
@@ -120,14 +122,6 @@ public class MServerConfigDTO extends MServerBasicConfigDTO implements ConfigDTO
 
   public void setFilmlistDiffSavePaths(final Map<FilmlistFormats, String> filmlistDiffSavePaths) {
     this.filmlistDiffSavePaths = filmlistDiffSavePaths;
-  }
-
-  public FilmlistFormats getFilmlistImportFormat() {
-    return filmlistImportFormat;
-  }
-
-  public void setFilmlistImportFormat(final FilmlistFormats filmlistImportFormat) {
-    this.filmlistImportFormat = filmlistImportFormat;
   }
 
   public String getFilmlistImportLocation() {
@@ -176,6 +170,22 @@ public class MServerConfigDTO extends MServerBasicConfigDTO implements ConfigDTO
 
   public void setMaximumServerDurationInMinutes(final Integer aMaximumServerDurationInMinutes) {
     maximumServerDurationInMinutes = aMaximumServerDurationInMinutes;
+  }
+  
+  public Long getCheckImportListUrlMinSize() {
+    return checkImportListUrlMinSize;
+  }
+
+  public void setCheckImportListUrlMinSize(final Long checkImportListUrlMinSize) {
+    this.checkImportListUrlMinSize = checkImportListUrlMinSize;
+  }
+
+  public Long getCheckImportListUrlTimeoutInSec() {
+    return checkImportListUrlTimeoutInSec;
+  }
+
+  public void setCheckImportListUrlTimeoutInSec(final Long checkImportListUrlTimeoutInSec) {
+    this.checkImportListUrlTimeoutInSec = checkImportListUrlTimeoutInSec;
   }
 
   public Map<Sender, MServerBasicConfigDTO> getSenderConfigurations() {
@@ -242,6 +252,9 @@ public class MServerConfigDTO extends MServerBasicConfigDTO implements ConfigDTO
     return importLivestreamConfiguration;
   }
   
+  public List<ImportFilmlistConfiguration> getImportFilmlistConfigurations() {
+    return importFilmlistConfigurations;
+  }
  
   /**
    * Loads the {@link Sender} specific configuration and if it not exist creates one.
@@ -253,14 +266,6 @@ public class MServerConfigDTO extends MServerBasicConfigDTO implements ConfigDTO
   public MServerBasicConfigDTO getSenderConfig(final Sender aSender) {
     senderConfigurations.putIfAbsent(aSender, new MServerBasicConfigDTO(this));
     return senderConfigurations.get(aSender);
-  }
-
-  public Boolean getFilmlistImporEnabled() {
-    return filmlistImporEnabled;
-  }
-
-  public void setFilmlistImporEnabled(final Boolean filmlistImporEnabled) {
-    this.filmlistImporEnabled = filmlistImporEnabled;
   }
 
   @Override
@@ -276,25 +281,25 @@ public class MServerConfigDTO extends MServerBasicConfigDTO implements ConfigDTO
     }
     return Objects.equals(getCopySettings(), that.getCopySettings())
         && Objects.equals(getMaximumCpuThreads(), that.getMaximumCpuThreads())
-        && Objects.equals(
-            getMaximumServerDurationInMinutes(), that.getMaximumServerDurationInMinutes())
+        && Objects.equals(getMaximumServerDurationInMinutes(), that.getMaximumServerDurationInMinutes())
+        && Objects.equals(getCheckImportListUrlMinSize(), that.getCheckImportListUrlMinSize())
+        && Objects.equals(getCheckImportListUrlTimeoutInSec(), that.getCheckImportListUrlTimeoutInSec())
         && Objects.equals(senderConfigurations, that.senderConfigurations)
         && Objects.equals(getSenderExcluded(), that.getSenderExcluded())
         && Objects.equals(getSenderIncluded(), that.getSenderIncluded())
         && Objects.equals(getFilmlistSaveFormats(), that.getFilmlistSaveFormats())
         && Objects.equals(getFilmlistSavePaths(), that.getFilmlistSavePaths())
         && Objects.equals(getFilmlistDiffSavePaths(), that.getFilmlistDiffSavePaths())
-        && getFilmlistImportFormat() == that.getFilmlistImportFormat()
         && Objects.equals(getFilmlistImportLocation(), that.getFilmlistImportLocation())
         && Objects.equals(getLogSettings(), that.getLogSettings())
         && Objects.equals(getCrawlerURLs(), that.getCrawlerURLs())
-        && Objects.equals(getFilmlistImporEnabled(), that.getFilmlistImporEnabled())
         && Objects.equals(getWriteFilmlistHashFileEnabled(), that.getWriteFilmlistHashFileEnabled())
         && Objects.equals(getFilmlistHashFilePath(), that.getFilmlistHashFilePath())
         && Objects.equals(getWriteFilmlistIdFileEnabled(), that.getWriteFilmlistIdFileEnabled())
         && Objects.equals(getFilmlistIdFilePath(), that.getFilmlistIdFilePath())
         && Objects.equals(getIgnoreFilmslistPath(), that.getIgnoreFilmslistPath())
-        && Objects.equals(getImportLivestreamConfiguration(), that.getImportLivestreamConfiguration());
+        && Objects.equals(getImportLivestreamConfiguration(), that.getImportLivestreamConfiguration())
+        && Objects.equals(getImportFilmlistConfigurations(), that.getImportFilmlistConfigurations());
   }
 
   @Override
@@ -304,23 +309,24 @@ public class MServerConfigDTO extends MServerBasicConfigDTO implements ConfigDTO
         getCopySettings(),
         getMaximumCpuThreads(),
         getMaximumServerDurationInMinutes(),
+        getCheckImportListUrlMinSize(),
+        getCheckImportListUrlTimeoutInSec(),
         senderConfigurations,
         getSenderExcluded(),
         getSenderIncluded(),
         getFilmlistSaveFormats(),
         getFilmlistSavePaths(),
         getFilmlistDiffSavePaths(),
-        getFilmlistImportFormat(),
         getFilmlistImportLocation(),
         getLogSettings(),
         getCrawlerURLs(),
-        getFilmlistImporEnabled(),
         getWriteFilmlistHashFileEnabled(),
         getFilmlistHashFilePath(),
         getWriteFilmlistIdFileEnabled(),
         getFilmlistIdFilePath(),
         getIgnoreFilmslistPath(),
-        getImportLivestreamConfiguration());
+        getImportLivestreamConfiguration(),
+        getImportFilmlistConfigurations());
   }
 
   public void initializeSenderConfigurations() {

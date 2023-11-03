@@ -3,7 +3,13 @@ package de.mediathekview.mserver.crawler.basic;
 import java.time.Duration;
 import java.time.LocalDateTime;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
+import de.mediathekview.mserver.crawler.arte.ArteCrawler;
+
 public abstract class TimeoutTask extends Thread {
+  private static final Logger LOG = LogManager.getLogger(ArteCrawler.class);
   private final long maxTime;
   private boolean isRun;
 
@@ -23,6 +29,9 @@ public abstract class TimeoutTask extends Thread {
       if (Duration.between(beginTime, LocalDateTime.now()).toMinutes() >= maxTime) {
         shutdown();
         stopTimeout();
+      }
+      try {Thread.sleep(60*1000L);} catch (InterruptedException e) {
+        LOG.error(e);
       }
     }
   }

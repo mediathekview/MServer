@@ -6,6 +6,7 @@ import de.mediathekview.mlib.daten.Sender;
 import de.mediathekview.mlib.filmlisten.FilmlistFormats;
 import de.mediathekview.mlib.filmlisten.FilmlistManager;
 import de.mediathekview.mlib.progress.ProgressListener;
+import de.mediathekview.mserver.base.config.ImportFilmlistConfiguration;
 import de.mediathekview.mserver.base.config.MServerConfigDTO;
 import de.mediathekview.mserver.base.config.MServerConfigManager;
 import de.mediathekview.mserver.base.config.MServerCopySettings;
@@ -13,6 +14,7 @@ import de.mediathekview.mserver.base.messages.ServerMessages;
 import de.mediathekview.mserver.base.progress.AbstractManager;
 import de.mediathekview.mserver.base.uploader.copy.FileCopyTarget;
 import de.mediathekview.mserver.base.uploader.copy.FileCopyTask;
+import de.mediathekview.mserver.base.utils.CheckUrlAvailability;
 import de.mediathekview.mserver.crawler.ard.ArdCrawler;
 import de.mediathekview.mserver.crawler.arte.*;
 import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
@@ -37,6 +39,7 @@ import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.time.LocalDateTime;
 import java.util.*;
 import java.util.Map.Entry;
 import java.util.concurrent.*;
@@ -65,7 +68,7 @@ public class CrawlerManager extends AbstractManager {
 
   private final FilmlistManager filmlistManager;
   private final Collection<ProgressListener> copyProgressListeners;
-  private Filmlist differenceList;
+  private final Filmlist differenceList;
 
   private CrawlerManager() {
     super();
@@ -77,6 +80,7 @@ public class CrawlerManager extends AbstractManager {
 
     crawlerMap = new EnumMap<>(Sender.class);
     filmlist = new Filmlist();
+    differenceList = new Filmlist();
     filmlistManager = FilmlistManager.getInstance();
     copyProgressListeners = new ArrayList<>();
     initializeCrawler(rootConfig);
@@ -146,14 +150,13 @@ public class CrawlerManager extends AbstractManager {
     }
   }
   
-  /**
-   * Imports the film list with the given {@link MServerConfigDTO#getFilmlistImportFormat()} of
-   * {@link MServerConfigDTO#getFilmlistImportLocation()}.
-   */
   public void importFilmlist() {
-    if (checkConfigForFilmlistImport()) {
-      importFilmlist(config.getFilmlistImportFormat(), config.getFilmlistImportLocation());
+    for (ImportFilmlistConfiguration importFilmlistConfiguration : config.getImportFilmlistConfigurations()) {
+      if (checkImportFilmlistConfig(importFilmlistConfiguration) && importFilmlistConfiguration.isActive()) {
+        importFilmlist(importFilmlistConfiguration);
+      }  
     }
+    
   }
   
   public void importLivestreamFilmlist() {
@@ -180,26 +183,27 @@ public class CrawlerManager extends AbstractManager {
     }
   }
 
-  /**
-   * Imports the film list with the given {@link FilmlistFormats} and the given location.
-   *
-   * @param aFormat The{@link FilmlistFormats} to import.
-   * @param aFilmlistLocation The given location from which to import. If it starts with <code>http
-   *     </code> or <code>https</code> it tries to import from URL. Otherwise it tries to import
-   *     from the given Location as a file path.
-   */
-  public void importFilmlist(final FilmlistFormats aFormat, final String aFilmlistLocation) {
-    try {
-      final Optional<Filmlist> importedFilmlist;
-      if (aFilmlistLocation.startsWith(HTTP)) {
-        importedFilmlist = importFilmListFromURl(aFormat, aFilmlistLocation);
-      } else {
-        importedFilmlist = importFilmlistFromFile(aFormat, aFilmlistLocation);
-      }
 
-      importedFilmlist.ifPresent(value -> differenceList = filmlist.merge(value));
+  public void importFilmlist(final ImportFilmlistConfiguration importFilmlistConfiguration) {
+    try {
+      Optional<Filmlist> importedFilmlist;
+      if (importFilmlistConfiguration.getPath().startsWith(HTTP)) {
+        importedFilmlist = importFilmListFromURl(importFilmlistConfiguration.getFormat(), importFilmlistConfiguration.getPath());
+      } else {
+        importedFilmlist = importFilmlistFromFile(importFilmlistConfiguration.getFormat(), importFilmlistConfiguration.getPath());
+      }
+      //
+      if (importFilmlistConfiguration.isCheckImportListUrl() && importedFilmlist.isPresent() ) {
+        importedFilmlist = Optional.of(new CheckUrlAvailability(config.getCheckImportListUrlMinSize() ,config.getCheckImportListUrlTimeoutInSec()).getAvaiableFilmlist(importedFilmlist.get()));
+      }
+      //
+      final Filmlist difflist = new Filmlist(UUID.randomUUID(), LocalDateTime.now());
+      importedFilmlist.ifPresent(value -> Film.addAllToFilmlist(Film.mergeTwoFilmlists(filmlist,value),difflist));
+      if (importFilmlistConfiguration.isCreateDiff()) {
+        Film.addAllToFilmlist(difflist, differenceList);
+      }
     } catch (final IOException ioException) {
-      LOG.fatal(String.format(FILMLIST_IMPORT_ERROR_TEMPLATE, aFilmlistLocation), ioException);
+      LOG.fatal(String.format(FILMLIST_IMPORT_ERROR_TEMPLATE, importFilmlistConfiguration.getPath()), ioException);
     }
   }
 
@@ -209,7 +213,7 @@ public class CrawlerManager extends AbstractManager {
    * MServerConfigDTO#getFilmlistSavePaths()}.
    */
   public void saveDifferenceFilmlist() {
-    config.getFilmlistDiffSavePaths().forEach((key, value) -> saveFilmlist(Paths.get(value), key));
+    config.getFilmlistDiffSavePaths().forEach((key, value) -> saveFilmlist(Paths.get(value), key, true));
   }
 
   /**
@@ -348,17 +352,27 @@ public class CrawlerManager extends AbstractManager {
     return missingSavePathFormats.isEmpty();
   }
 
-  private boolean checkConfigForFilmlistImport() {
-    if (config.getFilmlistImportFormat() == null) {
-      printMessage(ServerMessages.NO_FILMLIST_IMPORT_FORMAT_IN_CONFIG);
-      return false;
-    }
-
-    if (config.getFilmlistImportLocation() == null) {
+  private boolean checkImportFilmlistConfig(ImportFilmlistConfiguration config) {
+    if (config.getPath() == null || config.getPath().isBlank() ) {
       printMessage(ServerMessages.NO_FILMLIST_IMPORT_LOCATION_IN_CONFIG);
       return false;
     }
-
+    if (config.getFormat() == null) {
+      printMessage(ServerMessages.NO_FILMLIST_IMPORT_FORMAT_IN_CONFIG);
+      return false;
+    }
+    if (config.isActive() == null) {
+      printMessage(ServerMessages.NO_FILMLIST_IMPORT_ACTIVE_IN_CONFIG);
+      return false;
+    }
+    if (config.isCreateDiff() == null) {
+      printMessage(ServerMessages.NO_FILMLIST_IMPORT_DIFF_IN_CONFIG);
+      return false;
+    }
+    if (config.isCheckImportListUrl() == null) {
+      printMessage(ServerMessages.NO_FILMLIST_IMPORT_CHECK_IN_CONFIG);
+      return false;
+    }
     return true;
   }
 
@@ -532,4 +546,9 @@ public class CrawlerManager extends AbstractManager {
   public Filmlist getFilmlist() {
     return filmlist;
   }
+  // added to allow JUNIT tests
+  public Filmlist getDifferenceList() {
+    return differenceList;
+  }  
+
 }
