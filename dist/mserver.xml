@@ -24,6 +24,8 @@
 	
 	<!-- banned film list (titles) -->
 	<system-bannedFilmList>file:bannedFilmList.txt</system-bannedFilmList>
+	
+	<system-crawler-list>ARD,ZDF,ARTE,DW,KIKA,FRUNK,3SAT,SR,SRFPOD,ORF,PHONIX</system-crawler-list>
 
     <system-proxy-url></system-proxy-url>
     <system-proxy-port></system-proxy-port>
