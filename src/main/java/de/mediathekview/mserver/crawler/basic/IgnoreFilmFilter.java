@@ -31,7 +31,7 @@ public class IgnoreFilmFilter {
       } else {
         ignoreFilmTitles = read(configFileNameAndPath);
       }
-      LOG.debug("ignoreFilmList setup with {} entries", size());
+      LOG.debug("ignoreFilmList {} setup with {} entries", configFileNameAndPath, size());
     } catch (IOException e) {
       LOG.error("Could not read ignorefilmlist from {} ",configFileNameAndPath, e);
     }

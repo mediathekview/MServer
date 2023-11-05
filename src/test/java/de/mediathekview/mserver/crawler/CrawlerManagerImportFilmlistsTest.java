@@ -6,6 +6,7 @@ import de.mediathekview.mlib.messages.MessageTypes;
 import de.mediathekview.mlib.messages.MessageUtil;
 import de.mediathekview.mlib.messages.listener.MessageListener;
 import de.mediathekview.mserver.base.config.ImportFilmlistConfiguration;
+import de.mediathekview.mserver.base.config.MServerConfigManager;
 import de.mediathekview.mserver.testhelper.FileReader;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -24,7 +25,6 @@ import static org.junit.jupiter.api.Assertions.fail;
 
 import java.io.File;
 import java.io.IOException;
-import java.lang.reflect.Field;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Comparator;
@@ -34,7 +34,7 @@ import java.util.stream.Stream;
 
 public class CrawlerManagerImportFilmlistsTest implements MessageListener {
 
-  private static final Logger LOG = LogManager.getLogger(CrawlerManagerImportFilmlistsTest.class);
+  private Logger LOG;
   private static final String TEMP_FOLDER_NAME_PATTERN = "MSERVER_TEST_%d";
   private static Path testFileFolderPath;
 
@@ -87,16 +87,9 @@ public class CrawlerManagerImportFilmlistsTest implements MessageListener {
   }
 
   public CrawlerManager createEmptyCrawlerManager() {
-    // reset singelton CrawlerManager to have an empty filmlist
-    Field instance;
-    try {
-      instance = CrawlerManager.class.getDeclaredField("instance");
-      instance.setAccessible(true);
-      instance.set(null, null);
-    } catch (Exception e) {
-      fail("Exception mooking crawler manager: " + e.getMessage());
-    }    //
-    return CrawlerManager.getInstance();
+    CrawlerManager cm = new CrawlerManager(new MServerConfigManager(MServerConfigManager.DEFAULT_CONFIG_FILE));
+    LOG = LogManager.getLogger(CrawlerManagerImportFilmlistsTest.class);
+    return cm;
   }
 
   @AfterAll

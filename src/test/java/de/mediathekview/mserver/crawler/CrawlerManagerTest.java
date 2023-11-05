@@ -6,6 +6,7 @@ import de.mediathekview.mlib.messages.MessageTypes;
 import de.mediathekview.mlib.messages.MessageUtil;
 import de.mediathekview.mlib.messages.listener.MessageListener;
 import de.mediathekview.mserver.base.config.ImportFilmlistConfiguration;
+import de.mediathekview.mserver.base.config.MServerConfigManager;
 import de.mediathekview.mserver.testhelper.FileReader;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -18,7 +19,6 @@ import org.junit.runners.Parameterized;
 
 import java.io.File;
 import java.io.IOException;
-import java.lang.reflect.Field;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Arrays;
@@ -27,12 +27,11 @@ import java.util.Comparator;
 import java.util.Date;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.Assert.fail;
 
 @RunWith(Parameterized.class)
 public class CrawlerManagerTest implements MessageListener {
 
-  private static final Logger LOG = LogManager.getLogger(CrawlerManagerTest.class);
+  private Logger LOG;
   private static final String TEMP_FOLDER_NAME_PATTERN = "MSERVER_TEST_%d";
   private static Path testFileFolderPath;
 
@@ -45,16 +44,8 @@ public class CrawlerManagerTest implements MessageListener {
     filmlistPath = aFilmlistPath;
     expectedSize = aExpectedSize;
     format = aFormat;
-    // reset singelton CrawlerManager
-    Field instance;
-    try {
-      instance = CrawlerManager.class.getDeclaredField("instance");
-      instance.setAccessible(true);
-      instance.set(null, null);
-    } catch (Exception e) {
-      fail("Exception mooking crawler manager: " + e.getMessage());
-    }    //
-    CRAWLER_MANAGER = CrawlerManager.getInstance();
+    CRAWLER_MANAGER = new CrawlerManager(new MServerConfigManager(MServerConfigManager.DEFAULT_CONFIG_FILE));
+    LOG = LogManager.getLogger(CrawlerManagerTest.class);
   }
 
   @Parameterized.Parameters(name = "Test {index} Filmlist for {0} with {1}")

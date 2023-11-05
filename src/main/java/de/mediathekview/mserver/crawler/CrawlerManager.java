@@ -57,8 +57,8 @@ public class CrawlerManager extends AbstractManager {
   private static final String FILMLIST_JSON_COMPRESSED_DEFAULT_NAME =
       FILMLIST_JSON_DEFAULT_NAME + ".xz";
   private static final Logger LOG = LogManager.getLogger(CrawlerManager.class);
-  private static CrawlerManager instance;
   private final MServerConfigDTO config;
+  private final MServerConfigManager rootConfig;
   private final ForkJoinPool forkJoinPool;
   private final Filmlist filmlist;
   private final IgnoreFilmFilter ingoreFilmFilter;
@@ -70,9 +70,9 @@ public class CrawlerManager extends AbstractManager {
   private final Collection<ProgressListener> copyProgressListeners;
   private final Filmlist differenceList;
 
-  private CrawlerManager() {
+  public CrawlerManager(MServerConfigManager aMServerConfigManager) {
     super();
-    final MServerConfigManager rootConfig = new MServerConfigManager();
+    rootConfig = aMServerConfigManager;
     config = rootConfig.getConfig();
     ingoreFilmFilter = new IgnoreFilmFilter(config.getIgnoreFilmslistPath());
     executorService = Executors.newFixedThreadPool(config.getMaximumCpuThreads());
@@ -86,11 +86,8 @@ public class CrawlerManager extends AbstractManager {
     initializeCrawler(rootConfig);
   }
 
-  public static CrawlerManager getInstance() {
-    if (instance == null) {
-      instance = new CrawlerManager();
-    }
-    return instance;
+  public MServerConfigManager getConfigManager() {
+    return rootConfig;
   }
 
   public void copyFilmlist() {
@@ -166,6 +163,7 @@ public class CrawlerManager extends AbstractManager {
   }
   
   public void importLivestreamFilmlist(final FilmlistFormats aFormat, final String aFilmlistLocation) {
+    LOG.debug("importLivestreamFilmlist {}", aFilmlistLocation);
     try {
       final Optional<Filmlist> importedFilmlist;
       if (aFilmlistLocation.startsWith(HTTP)) {

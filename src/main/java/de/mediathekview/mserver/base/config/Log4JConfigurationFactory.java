@@ -45,9 +45,19 @@ public class Log4JConfigurationFactory extends ConfigurationFactory {
 
   private static MServerLogSettingsDTO logSettings;
 
+  public Log4JConfigurationFactory(MServerLogSettingsDTO logSettings) {
+    Log4JConfigurationFactory.logSettings = logSettings;
+  }
+  
+  
+  public Log4JConfigurationFactory() {
+    if (Log4JConfigurationFactory.logSettings == null) {
+      Log4JConfigurationFactory.logSettings = new MServerConfigManager(MServerConfigManager.DEFAULT_CONFIG_FILE).getConfig().getLogSettings();
+    }
+  }
+  
   static Configuration createConfiguration(
       final String name, final ConfigurationBuilder<BuiltConfiguration> aBuilder) {
-    logSettings = new MServerConfigManager().getConfig().getLogSettings();
 
     aBuilder.setConfigurationName(name);
 

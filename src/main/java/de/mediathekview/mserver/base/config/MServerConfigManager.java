@@ -14,10 +14,6 @@ public class MServerConfigManager extends ConfigManager<MServerConfigDTO> {
     configFileName = fileName;
   }
 
-  public MServerConfigManager() {
-    this(DEFAULT_CONFIG_FILE);
-  }
-
   /**
    * @param aSender The {@link Sender} for which the config will be loaded.
    * @return The Sender specific config.

@@ -73,9 +73,7 @@ public class FunkVideoDeserializer extends AbstractFunkElementDeserializer<FilmI
   }
 
   private MServerConfigDTO getRuntimeConfig() {
-    return crawler
-        .map(AbstractCrawler::getRuntimeConfig)
-        .orElseGet(() -> new MServerConfigManager().getConfig());
+    return crawler.get().getRuntimeConfig();
   }
 
   private String createNexxCloudUrl(final String entityId) {

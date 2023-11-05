@@ -1,7 +1,6 @@
 package de.mediathekview.mserver.crawler.zdf.parser;
 
 import de.mediathekview.mserver.crawler.basic.CrawlerUrlDTO;
-import de.mediathekview.mserver.crawler.zdf.ZdfConstants;
 import de.mediathekview.mserver.testhelper.FileReader;
 import org.hamcrest.Matchers;
 import org.jsoup.Jsoup;
