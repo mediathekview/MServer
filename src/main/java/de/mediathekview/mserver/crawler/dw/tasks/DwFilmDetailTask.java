@@ -2,7 +2,6 @@ package de.mediathekview.mserver.crawler.dw.tasks;
 
 import com.google.gson.reflect.TypeToken;
 import de.mediathekview.mlib.daten.Film;
-import de.mediathekview.mserver.base.utils.FilmlistDebugHelper;
 import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
 import de.mediathekview.mserver.crawler.basic.AbstractRecursiveConverterTask;
 import de.mediathekview.mserver.crawler.basic.CrawlerUrlDTO;
@@ -55,8 +54,7 @@ public class DwFilmDetailTask extends DWTaskBase<Film, CrawlerUrlDTO> {
     }
     if (!this.taskResults.add(filmDetailDtoOptional.get())) {
       crawler.incrementAndGetErrorCount();
-      Film dup = FilmlistDebugHelper.getFilmFromSet(this.taskResults, filmDetailDtoOptional.get());
-      LOG.warn("Entry was rejected {} \nBecause exists as {}", filmDetailDtoOptional.get(), dup);
+      LOG.warn("Entry was rejected because existing {}", filmDetailDtoOptional.get());
     } else {
       crawler.incrementAndGetActualCount();
     }
