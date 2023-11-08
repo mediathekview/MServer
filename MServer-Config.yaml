@@ -182,7 +182,7 @@ copySettings:
   # En- / disables FTP
   copyEnabled: false
 
-  # The paths where to safe the film list files.SrfTopicOverviewTask
+  # The paths where to safe the film list files.
   # WARNING: You can only set the path for film list formats you listed in "filmlistSaveFormats".
   # Required if enabled
   copyTargetFilePaths:
