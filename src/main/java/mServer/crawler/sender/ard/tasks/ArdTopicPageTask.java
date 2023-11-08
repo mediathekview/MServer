@@ -69,12 +69,8 @@ public class ArdTopicPageTask extends ArdTaskBase<ArdFilmInfoDto, CrawlerUrlDTO>
     // Sportschau
     TOPICS_LOAD_ALL_PAGES.add("Y3JpZDovL2Rhc2Vyc3RlLmRlL3Nwb3J0c2NoYXU");
     // temporary load all => remove if old entries exists
-    // Morden im Norden
-    TOPICS_LOAD_ALL_PAGES.add("Y3JpZDovL2Rhc2Vyc3RlLmRlL21vcmRlbi1pbS1ub3JkZW4");
-    // Babylon Berlin
-    TOPICS_LOAD_ALL_PAGES.add("Y3JpZDovL2Rhc2Vyc3RlLmRlL2JhYnlsb24tYmVybGlu");
-    // Watzmann ermittelt
-    TOPICS_LOAD_ALL_PAGES.add("Y3JpZDovL2Rhc2Vyc3RlLmRlL3dhdHptYW5uLWVybWl0dGVsdA");
+    // Parlament
+    TOPICS_LOAD_ALL_PAGES.add("Y3JpZDovL3dkci5kZS9vbmUvcGFybGFtZW50bmV1");
   }
 
   public ArdTopicPageTask(MediathekReader aCrawler,
