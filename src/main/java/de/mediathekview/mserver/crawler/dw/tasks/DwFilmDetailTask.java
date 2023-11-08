@@ -2,6 +2,7 @@ package de.mediathekview.mserver.crawler.dw.tasks;
 
 import com.google.gson.reflect.TypeToken;
 import de.mediathekview.mlib.daten.Film;
+import de.mediathekview.mserver.base.utils.FilmlistDebugHelper;
 import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
 import de.mediathekview.mserver.crawler.basic.AbstractRecursiveConverterTask;
 import de.mediathekview.mserver.crawler.basic.CrawlerUrlDTO;
@@ -44,14 +45,21 @@ public class DwFilmDetailTask extends DWTaskBase<Film, CrawlerUrlDTO> {
       filmDetailDtoOptional = deserializeOptional(aTarget, OPTIONAL_FILM_DETAIL_DTO_TYPE_TOKEN);
     } catch (Exception e) {
       LOG.error("error processing {} ", aDTO.getUrl(), e);
+      crawler.incrementAndGetErrorCount();
+      crawler.updateProgress();
     }
     if (filmDetailDtoOptional.isEmpty()) {
       crawler.incrementAndGetErrorCount();
       crawler.updateProgress();
       return;
     }
-    this.taskResults.add(filmDetailDtoOptional.get());
-    crawler.incrementAndGetActualCount();
+    if (!this.taskResults.add(filmDetailDtoOptional.get())) {
+      crawler.incrementAndGetErrorCount();
+      Film dup = FilmlistDebugHelper.getFilmFromSet(this.taskResults, filmDetailDtoOptional.get());
+      LOG.warn("Entry was rejected {} \nBecause exists as {}", filmDetailDtoOptional.get(), dup);
+    } else {
+      crawler.incrementAndGetActualCount();
+    }
     crawler.updateProgress();
   }
 }
