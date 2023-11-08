@@ -192,7 +192,13 @@ public class CrawlerManager extends AbstractManager {
       }
       //
       if (importFilmlistConfiguration.isCheckImportListUrl() && importedFilmlist.isPresent() ) {
-        importedFilmlist = Optional.of(new CheckUrlAvailability(config.getCheckImportListUrlMinSize() ,config.getCheckImportListUrlTimeoutInSec()).getAvaiableFilmlist(importedFilmlist.get()));
+        importedFilmlist = Optional.of(
+            new CheckUrlAvailability(
+                config.getCheckImportListUrlMinSize(),
+                config.getCheckImportListUrlTimeoutInSec(),
+                config.getMaximumCpuThreads())
+            .getAvaiableFilmlist(importedFilmlist.get())
+        );
       }
       //
       final Filmlist difflist = new Filmlist(UUID.randomUUID(), LocalDateTime.now());
