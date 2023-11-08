@@ -15,7 +15,7 @@ public class MServerConfigDTO extends MServerBasicConfigDTO implements ConfigDTO
   private final Boolean writeFilmlistIdFileEnabled;
   private final String filmlistIdFilePath;
   /** ignore certain film by title **/
-  private final String ignoreFilmlistPath;
+  private String ignoreFilmlistPath;
   /** add livestreams from external list **/
   private final ImportLivestreamConfiguration importLivestreamConfiguration;
   /** add additional filmlist from external **/
@@ -146,6 +146,10 @@ public class MServerConfigDTO extends MServerBasicConfigDTO implements ConfigDTO
 
   public void setFilmlistSavePaths(final Map<FilmlistFormats, String> filmlistSavePaths) {
     this.filmlistSavePaths = filmlistSavePaths;
+  }
+  
+  public void setIgnoreFilmlistPath(final String ignoreFilmlistPath) {
+    this.ignoreFilmlistPath = ignoreFilmlistPath;
   }
 
   public MServerLogSettingsDTO getLogSettings() {

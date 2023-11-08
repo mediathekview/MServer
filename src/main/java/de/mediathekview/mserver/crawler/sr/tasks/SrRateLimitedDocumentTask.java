@@ -14,9 +14,7 @@ public abstract class SrRateLimitedDocumentTask<T, D extends CrawlerUrlDTO>
 
   private static final long serialVersionUID = -4077182368484515410L;
 
-  private static final RateLimiter LIMITER =
-      RateLimiter.create(
-          new MServerConfigManager().getSenderConfig(Sender.SR).getMaximumRequestsPerSecond());
+  private static RateLimiter LIMITER = null;
 
   SrRateLimitedDocumentTask(
       final AbstractCrawler crawler,
@@ -26,6 +24,9 @@ public abstract class SrRateLimitedDocumentTask<T, D extends CrawlerUrlDTO>
 
   @Override
   protected void processElement(final D urlDTO) {
+    if (LIMITER== null) {
+      LIMITER = RateLimiter.create(crawler.getRuntimeConfig().getSenderConfig(Sender.SR).getMaximumRequestsPerSecond());
+    }
     LIMITER.acquire();
     super.processElement(urlDTO);
   }

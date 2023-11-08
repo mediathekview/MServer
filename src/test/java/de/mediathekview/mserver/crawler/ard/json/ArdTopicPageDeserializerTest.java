@@ -7,10 +7,8 @@ import de.mediathekview.mserver.testhelper.JsonFileReader;
 import org.hamcrest.Matchers;
 import org.junit.Test;
 
-import java.net.URLEncoder;
 import java.util.Set;
 
-import static java.nio.charset.StandardCharsets.UTF_8;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
 

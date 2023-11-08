@@ -1,6 +1,8 @@
 package de.mediathekview.mserver.base.utils;
 
 
+import java.util.concurrent.ForkJoinPool;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -14,16 +16,19 @@ import de.mediathekview.mlib.tool.FileSizeDeterminer.RespoonseInfo;
 
 public class CheckUrlAvailability {
   private static final Logger LOG = LogManager.getLogger(CheckUrlAvailability.class);
+  private final FileSizeDeterminer fsd;
+  private int numberOfThreads = 10;
   private Long minFileSize = 2048L;
   private int removedCounter = 0;
   private long timeoutInMS = 1*60*1000L;
   private boolean timeout = false;
   private long start = 0;
-  private FileSizeDeterminer fsd = new FileSizeDeterminer();
-
-  public CheckUrlAvailability(long minFileSize, long timeoutInSec) {
+  
+  public CheckUrlAvailability(final long minFileSize, final long timeoutInSec, final int numberOfThreads) {
     this.minFileSize = minFileSize;
     this.timeoutInMS = timeoutInSec*1000;
+    this.numberOfThreads = numberOfThreads;
+    fsd = new FileSizeDeterminer(30L, 30L, numberOfThreads);
   }
   
   public Filmlist getAvaiableFilmlist(final Filmlist importList) {
@@ -32,7 +37,14 @@ public class CheckUrlAvailability {
     Filmlist filteredFilmlist = new Filmlist();
     filteredFilmlist.setCreationDate(importList.getCreationDate());
     filteredFilmlist.setListId(importList.getListId());
-    importList.getFilms().values().stream().parallel().filter(this::isAvailable).forEach(filteredFilmlist::add);
+    //
+    ForkJoinPool customThreadPool = new ForkJoinPool(numberOfThreads);
+    customThreadPool.submit(() -> importList.getFilms().values().parallelStream()
+            .filter(this::isAvailable)
+            .forEach(filteredFilmlist::add))
+            .join();
+    customThreadPool.shutdown();
+    //
     LOG.debug("checked {} urls and removed {} in {} sec and timeout was reached: {}", importList.getFilms().size(), removedCounter, ((System.currentTimeMillis()-start)/1000), timeout);
     return filteredFilmlist;
   }
@@ -49,7 +61,7 @@ public class CheckUrlAvailability {
     if (pFilm.getThema().equalsIgnoreCase("Livestream")) {
       // do not remove livestreams
       return true;
-    } else if (ri.getCode() == 404) {
+    } else if (!(ri.getCode() >= 200 && ri.getCode() < 300)) {
       LOG.debug("Film response ({}): {} # {} # {} # {} ", ri.getCode(), normalUrl, pFilm.getSender(), pFilm.getThema(), pFilm.getTitel());
       removedCounter++;
       return false;
@@ -66,11 +78,6 @@ public class CheckUrlAvailability {
       removedCounter++;
       return false;
     }
-    // just for debugging
-    if (ri.getCode() != 200) {
-      LOG.debug("Film not removed but status!=200 ({}): {} # {} # {} # {} ", ri.getCode(), normalUrl, pFilm.getSender(), pFilm.getThema(), pFilm.getTitel());
-    }
-    
     return true;
   }
   
