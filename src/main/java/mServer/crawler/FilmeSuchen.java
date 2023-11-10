@@ -78,8 +78,8 @@ public class FilmeSuchen {
     // sofort gestartet oder erst später
     //Reader laden Spaltenweises Laden
     List<String> crawlerList = Arrays.asList(MserverDaten.system[MserverKonstanten.SYSTEM_CRAWLER_LIST_NR].split(","));  
-    if (crawlerList.isEmpty()) {
-      crawlerList = new ArrayList<>(Arrays.asList("ARD","ZDF","ARTE","DW","KIKA","FRUNK","3SAT","SR","SRFPOD","ORF","PHONIX"));
+    if (MserverDaten.system[MserverKonstanten.SYSTEM_CRAWLER_LIST_NR].isEmpty()) {
+      crawlerList = new ArrayList<>(Arrays.asList("ARD","ZDF","ARTE","DW","KIKA","FUNK","3SAT","SR","SRF","SRFPOD","ORF","PHONIX"));
     }
     
     if (crawlerList.contains("ARD")) {
