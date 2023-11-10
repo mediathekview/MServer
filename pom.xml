@@ -446,9 +446,10 @@
                     </assembly>
                     <env>
                       <JAVA_OPTS>-Xmx4G</JAVA_OPTS>
+                      <MSERVER_OPTS>config.yaml</MSERVER_OPTS>
                     </env>
                     <entryPoint>
-                      <shell>java ${JAVA_OPTS} -jar /maven/MServer.jar</shell>
+                      <shell>java ${JAVA_OPTS} -jar /maven/MServer.jar ${MSERVER_OPTS}</shell>
                     </entryPoint>
                     <buildx>
                       <platforms>
