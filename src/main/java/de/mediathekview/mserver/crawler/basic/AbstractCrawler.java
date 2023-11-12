@@ -15,6 +15,8 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.jsoup.nodes.Document;
 
+import com.google.common.util.concurrent.RateLimiter;
+
 import java.io.IOException;
 import java.time.Duration;
 import java.time.LocalDateTime;
@@ -41,6 +43,7 @@ public abstract class AbstractCrawler implements Callable<Set<Film>> {
   protected Set<Film> films;
   private LocalDateTime startTime;
   protected JsoupConnection jsoupConnection;
+  protected RateLimiter rateLimiter;
 
   protected AbstractCrawler(
       final ForkJoinPool aForkJoinPool,
@@ -58,8 +61,11 @@ public abstract class AbstractCrawler implements Callable<Set<Film>> {
 
     runtimeConfig = rootConfig.getConfig();
     crawlerConfig = rootConfig.getSenderConfig(getSender());
-    jsoupConnection = new JsoupConnection(crawlerConfig.getSocketTimeoutInSeconds());
-
+    jsoupConnection = new JsoupConnection(
+        rootConfig.getSenderConfig(getSender()).getSocketTimeoutInSeconds(), 
+        runtimeConfig.getMaximumCpuThreads());
+    rateLimiter = RateLimiter.create(rootConfig.getSenderConfig(getSender()).getMaximumRequestsPerSecond());
+    
     films = ConcurrentHashMap.newKeySet();
   }
 
@@ -136,6 +142,14 @@ public abstract class AbstractCrawler implements Callable<Set<Film>> {
 
   public void setConnection(JsoupConnection connection) {
     jsoupConnection = connection;
+  }
+  
+  public RateLimiter getRateLimiter() {
+    return rateLimiter;
+  }
+  
+  public void setRateLimiter(RateLimiter rateLimiter) {
+    this.rateLimiter = rateLimiter;
   }
 
   /**

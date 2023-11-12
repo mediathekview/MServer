@@ -1,6 +1,5 @@
 package de.mediathekview.mserver.crawler.basic;
 
-import com.google.common.util.concurrent.RateLimiter;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -23,7 +22,6 @@ public abstract class AbstractJsonRestTask<T, R, D extends CrawlerUrlDTO>
   protected static final String ENCODING_GZIP = "gzip";
   private static final long serialVersionUID = -1090560363478964885L;
   protected final transient GsonBuilder gsonBuilder;
-  private static RateLimiter limiter = null;
 
   protected AbstractJsonRestTask(
       final AbstractCrawler crawler,
@@ -63,10 +61,6 @@ public abstract class AbstractJsonRestTask<T, R, D extends CrawlerUrlDTO>
   }
 
   protected Response createResponse(final Builder request, final D aDTO) {
-    if (limiter == null) {
-      limiter = RateLimiter.create(crawler.getCrawlerConfig().getMaximumRequestsPerSecond());
-	  }
-	  limiter.acquire();
 	  request.header(ACCEPT_CHARSET, StandardCharsets.UTF_8);
     return request.header(ACCEPT_ENCODING, ENCODING_GZIP).header("User-Agent", "Mozilla").get();
   }

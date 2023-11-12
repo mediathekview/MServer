@@ -1,9 +1,7 @@
 package de.mediathekview.mserver.crawler.zdf.tasks;
 
-import com.google.common.util.concurrent.RateLimiter;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import de.mediathekview.mlib.daten.Sender;
 import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
 import de.mediathekview.mserver.crawler.basic.AbstractRestTask;
 import de.mediathekview.mserver.crawler.basic.CrawlerUrlDTO;
@@ -20,9 +18,6 @@ import java.util.Queue;
 
 public abstract class ZdfTaskBase<T, D extends CrawlerUrlDTO> extends AbstractRestTask<T, D> {
   private static final Logger LOG = LogManager.getLogger(ZdfTaskBase.class);
-
-  private static RateLimiter limiter = null;
-
   private final GsonBuilder gsonBuilder;
 
   protected ZdfTaskBase(
@@ -73,11 +68,6 @@ public abstract class ZdfTaskBase<T, D extends CrawlerUrlDTO> extends AbstractRe
           request.header(
               ZdfConstants.HEADER_AUTHENTIFICATION, AUTHORIZATION_BEARER + authKey.get());
     }
-    if (limiter == null) {
-      limiter = RateLimiter.create(crawler.getRuntimeConfig().getSenderConfig(Sender.ZDF).getMaximumRequestsPerSecond());
-    }
-    
-    limiter.acquire();
     return request.header(HEADER_ACCEPT_ENCODING, ENCODING_GZIP).get();
   }
 }

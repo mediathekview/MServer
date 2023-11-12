@@ -72,6 +72,7 @@ public abstract class AbstractRestTask<T, D extends CrawlerUrlDTO> extends Abstr
    * @return the {@link WebTarget} to access the url.
    */
   protected WebTarget createWebTarget(final String aUrl) {
+    crawler.getRateLimiter().acquire();
     return client.target(aUrl);
   }
 
