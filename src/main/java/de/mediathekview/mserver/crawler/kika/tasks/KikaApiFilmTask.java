@@ -17,6 +17,8 @@ import java.util.Queue;
 import java.util.Set;
 import java.util.UUID;
 
+import de.mediathekview.mserver.crawler.ard.ArdUrlOptimizer;
+import de.mediathekview.mserver.crawler.zdf.ZdfVideoUrlOptimizer;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -41,8 +43,13 @@ public class KikaApiFilmTask extends AbstractJsonRestTask<Film, KikaApiVideoInfo
   private static final long serialVersionUID = 1L;
   private static final Logger LOG = LogManager.getLogger(KikaApiFilmTask.class);
 
+  private transient ArdUrlOptimizer ardUrlOptimizer;
+  private transient ZdfVideoUrlOptimizer zdfVideoUrlOptimizer;
+
   public KikaApiFilmTask(AbstractCrawler crawler, Queue<KikaApiFilmDto> urlToCrawlDTOs) {
     super(crawler, urlToCrawlDTOs, null);
+    ardUrlOptimizer = new ArdUrlOptimizer(crawler);
+    zdfVideoUrlOptimizer = new ZdfVideoUrlOptimizer(crawler);
   }
 
   @Override
@@ -128,7 +135,7 @@ public class KikaApiFilmTask extends AbstractJsonRestTask<Film, KikaApiVideoInfo
   }
 
   protected Optional<LocalDateTime> getAiredDateTime(KikaApiFilmDto aDTO) {
-    Optional<LocalDateTime> airedDate = null;
+    Optional<LocalDateTime> airedDate;
     if (aDTO.getDate().isPresent()) {
       airedDate = parseLocalDateTime(aDTO, aDTO.getDate());	
     } else {
@@ -157,12 +164,18 @@ public class KikaApiFilmTask extends AbstractJsonRestTask<Film, KikaApiVideoInfo
   protected Map<Resolution,FilmUrl> getVideoUrls(KikaApiVideoInfoDto aResponseObj, KikaApiFilmDto aDTO) {
 	  Map<Resolution, FilmUrl> urls = new EnumMap<>(Resolution.class);
 	  for (Map.Entry<Resolution,String> element : aResponseObj.getVideoUrls().entrySet()) {
-	  try {
-	    final FilmUrl filmUrl = new FilmUrl(element.getValue(), crawler.determineFileSizeInKB(element.getValue()));
-	    urls.put(element.getKey(), filmUrl);
-	  } catch (MalformedURLException e) {
-	    LOG.error("Invalid video url {} for {} error {}", element.getValue(), aDTO.getUrl(), e);
-	  }
+      try {
+        String url = element.getValue();
+        if (Resolution.HD.equals(element.getKey())) {
+          url = ardUrlOptimizer.optimizeHdUrl(url);
+          url = zdfVideoUrlOptimizer.getOptimizedUrlHd(url);
+        }
+
+        final FilmUrl filmUrl = new FilmUrl(url, crawler.determineFileSizeInKB(url));
+        urls.put(element.getKey(), filmUrl);
+      } catch (MalformedURLException e) {
+        LOG.error("Invalid video url {} for {} error {}", element.getValue(), aDTO.getUrl(), e);
+      }
     }
     return urls;
   }

@@ -72,7 +72,7 @@ public class ArdVideoInfoJsonDeserializerTest extends WireMockTestBase {
             "",
             "https://mediastorage01.sr-online.de/Video/UD/DOKU/1505155201_20170911_KANDIDATENCHECK_LUKSIC_M.mp4",
             "https://srstorage01-a.akamaihd.net/Video/UD/DOKU/1505155201_20170911_KANDIDATENCHECK_LUKSIC_L.mp4",
-            "https://srstorage01-a.akamaihd.net/Video/UD/DOKU/1505155201_20170911_KANDIDATENCHECK_LUKSIC_P.mp4"
+            "https://srstorage01-a.akamaihd.net/Video/UD/DOKU/1505155201_20170911_KANDIDATENCHECK_LUKSIC_H.mp4"
           },
           {
             "/ard/ard_video_use_http_url.json",
@@ -144,7 +144,7 @@ public class ArdVideoInfoJsonDeserializerTest extends WireMockTestBase {
             "",
             "https://srstorage01-a.akamaihd.net/Video/FS/SA/sportarena_20190815_184401_M.mp4",
             "https://srstorage01-a.akamaihd.net/Video/FS/SA/sportarena_20190815_184401_L.mp4",
-            "https://srstorage01-a.akamaihd.net/Video/FS/SA/sportarena_20190815_184401_P.mp4"
+            "https://srstorage01-a.akamaihd.net/Video/FS/SA/sportarena_20190815_184401_H  .mp4"
           },
           {
             "/ndr/ndr_film_detail_m3u8.json",
