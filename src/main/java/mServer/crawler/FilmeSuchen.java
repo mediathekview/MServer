@@ -37,14 +37,20 @@ import mServer.crawler.sender.phoenix.PhoenixCrawler;
 import mServer.crawler.sender.sr.SrCrawler;
 import mServer.crawler.sender.srf.SrfCrawler;
 import mServer.crawler.sender.zdf.ZdfCrawler;
+import mServer.tool.MserverDaten;
+import mServer.tool.MserverKonstanten;
 import mServer.tool.StatsUpload;
 import org.apache.commons.lang3.time.FastDateFormat;
 
 import javax.swing.event.EventListenerList;
+
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.LinkedList;
+import java.util.List;
+
 
 /**
  * ###########################################################################################################
@@ -71,19 +77,48 @@ public class FilmeSuchen {
     // für jeden Sender einen MediathekReader anlegen, mit der Prio ob
     // sofort gestartet oder erst später
     //Reader laden Spaltenweises Laden
-    mediathekListe.add(new ArdCrawler(this, 0));
-    mediathekListe.add(new ZdfCrawler(this, 0));
-    mediathekListe.add(new MediathekArte(this, 0));
-    mediathekListe.add(new DreiSatCrawler(this, 1));
-    mediathekListe.add(new DwCrawler(this, 0));
-    mediathekListe.add(new KikaApiCrawler(this, 0));
-    mediathekListe.add(new FunkCrawler(this, 0));
-    // Spalte 2
-    mediathekListe.add(new SrCrawler(this, 1));
-    mediathekListe.add(new SrfCrawler(this, 1));
-    mediathekListe.add(new MediathekSrfPod(this, 1));
-    mediathekListe.add(new OrfCrawler(this, 1));
-    mediathekListe.add(new PhoenixCrawler(this, 1));
+    List<String> crawlerList = Arrays.asList(MserverDaten.system[MserverKonstanten.SYSTEM_CRAWLER_LIST_NR].split(","));  
+    if (MserverDaten.system[MserverKonstanten.SYSTEM_CRAWLER_LIST_NR].isEmpty()) {
+      crawlerList = new ArrayList<>(Arrays.asList("ARD","ZDF","ARTE","DW","KIKA","FUNK","3SAT","SR","SRF","SRFPOD","ORF","PHONIX"));
+    }
+    
+    if (crawlerList.contains("ARD")) {
+      mediathekListe.add(new ArdCrawler(this, 0));
+    }
+    if (crawlerList.contains("ZDF")) {
+      mediathekListe.add(new ZdfCrawler(this, 0));
+    }
+    if (crawlerList.contains("ARTE")) {
+      mediathekListe.add(new MediathekArte(this, 0));
+    }
+    if (crawlerList.contains("DW")) {
+      mediathekListe.add(new DwCrawler(this, 0));
+    }
+    if (crawlerList.contains("KIKA")) {
+      mediathekListe.add(new KikaApiCrawler(this, 0));
+    }
+    if (crawlerList.contains("FUNK")) {
+      mediathekListe.add(new FunkCrawler(this, 0));
+    }
+    if (crawlerList.contains("3SAT")) {
+      mediathekListe.add(new DreiSatCrawler(this, 1));
+    }
+    if (crawlerList.contains("SR")) {
+      mediathekListe.add(new SrCrawler(this, 1));
+    }
+    if (crawlerList.contains("SRF")) {
+      mediathekListe.add(new SrfCrawler(this, 1));
+    }
+    if (crawlerList.contains("SRFPOD")) {
+      mediathekListe.add(new MediathekSrfPod(this, 1));
+    }
+    if (crawlerList.contains("ORF")) {
+      mediathekListe.add(new OrfCrawler(this, 1));
+    }
+    if (crawlerList.contains("PHONIX")) {
+      mediathekListe.add(new PhoenixCrawler(this, 1));
+    }
+  
   }
 
   public static String[] getNamenSender() {
