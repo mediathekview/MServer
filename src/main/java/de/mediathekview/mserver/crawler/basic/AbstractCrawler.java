@@ -159,6 +159,7 @@ public abstract class AbstractCrawler implements Callable<Set<Film>> {
    * @throws IOException
    */
   public String requestBodyAsString(String url) throws IOException {
+    getRateLimiter().acquire();
     return getConnection().requestBodyAsString(url);
   }
   
@@ -169,6 +170,7 @@ public abstract class AbstractCrawler implements Callable<Set<Film>> {
    * @throws IOException
    */
   public Document requestBodyAsHtmlDocument(String url) throws IOException {
+    getRateLimiter().acquire();
     return getConnection().requestBodyAsHtmlDocument(url);
   }
 
@@ -179,6 +181,7 @@ public abstract class AbstractCrawler implements Callable<Set<Film>> {
    * @throws IOException
    */
   public Document requestBodyAsXmlDocument(String url) throws IOException {
+    getRateLimiter().acquire();
     return getConnection().requestBodyAsXmlDocument(url);
   }
 
@@ -190,6 +193,7 @@ public abstract class AbstractCrawler implements Callable<Set<Film>> {
    * @return size of the response in KB or -1 in case we could not determine the size.
    */
   public long determineFileSizeInKB(String url) {
+    getRateLimiter().acquire();
     return getConnection().determineFileSize(url) / 1024;
   }
 
@@ -199,6 +203,7 @@ public abstract class AbstractCrawler implements Callable<Set<Film>> {
    * @return return true if the request was successfully processed by the server
    */
   public boolean requestUrlExists(String url) {
+    getRateLimiter().acquire();
     return getConnection().requestUrlExists(url);
   }
   /**

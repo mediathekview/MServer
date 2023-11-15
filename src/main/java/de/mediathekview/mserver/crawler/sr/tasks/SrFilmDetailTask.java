@@ -157,8 +157,12 @@ public class SrFilmDetailTask extends AbstractDocumentTask<Film, SrTopicUrlDTO> 
 
         addUrls(film, videoInfo.getVideoUrls());
 
-        taskResults.add(film);
-        crawler.incrementAndGetActualCount();
+        if (taskResults.add(film)) {
+          crawler.incrementAndGetActualCount();
+        } else {
+          crawler.incrementAndGetErrorCount();
+          LOG.error("Rejected duplicate {}", film);
+        }
         crawler.updateProgress();
       } else {
         LOG.error("SrFilmDetailTask: no title or video found for url {}", aUrlDTO.getUrl());

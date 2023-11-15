@@ -110,8 +110,14 @@ public class KikaApiFilmTask extends AbstractJsonRestTask<Film, KikaApiVideoInfo
     aFilm.setUrls(getVideoUrls(aResponseObj, aDTO));
     aFilm.addAllSubtitleUrls(getSubtitle(aResponseObj, aDTO));
     //
-    taskResults.add(aFilm);
-    crawler.incrementAndGetActualCount();
+    
+    
+    if (!taskResults.add(aFilm)) {
+      LOG.debug("Rejected duplicate {}",aFilm);
+      crawler.incrementAndGetErrorCount();
+    } else {
+      crawler.incrementAndGetActualCount();
+    }
     crawler.updateProgress();
   }
 

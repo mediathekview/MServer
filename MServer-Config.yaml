@@ -17,12 +17,22 @@ maximumRequestsPerSecond: 999.0
 
 # If set only these Sender will be crawled all other will be ignored.
 senderIncluded:
-  #- MDR
-  #- NDR
+  #- ARD
+  #- ARTE_DE
+  #- ARGE_FR
+  #- ARTE_EN
+  #- ARTE_PL
+  #- ARTE_IT
+  #- ARTE_ES
+  #- 3SAT
+  #- FUNK
   #- KIKA
-  - DW
-  #- BR
+  #- DW
+  #- ORF
   #- PHOENIX
+  #- SRF
+  - SR
+  #- ZDF
 
 # If set the server will be awake after the crawler run and restarts the run after the given amount.
 #schedules:
@@ -111,14 +121,14 @@ checkImportListUrlTimeoutInSec: 1800
 
 #### Default crawler configurations ####
 # The maximum amount of URLs to be processed per task.
-maximumUrlsPerTask: 50
+maximumUrlsPerTask: 10
 
 # The maximum duration in minutes a crawler may run.
 maximumCrawlDurationInMinutes: 120
 
 # Enables the topics search
 # maximumSubpages limits the depth of the topics search
-topicsSearchEnabled: false
+topicsSearchEnabled: true
 
 # The maximum amount of sub pages to be crawled.<br>
 # Example: If a Sendung overview side has 10 pages with videos for this Sendung and
@@ -164,14 +174,14 @@ senderConfigurations:
   KIKA:
     maximumSubpages: 2
     maximumRequestsPerSecond: 8.0
-  SR:
-    maximumRequestsPerSecond: 2.0
   ZDF:
     maximumRequestsPerSecond: 10.0
   FUNK:
     maximumUrlsPerTask: 99
   DW:
     maximumSubpages: 0
+  SR:
+    maximumSubpages: 5
 
 # configure string variables
 crawlerApiParams:
