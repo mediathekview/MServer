@@ -1,10 +1,8 @@
 package de.mediathekview.mserver.crawler.dw;
 
-import com.google.common.util.concurrent.RateLimiter;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
-import de.mediathekview.mlib.daten.Sender;
 import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
 import de.mediathekview.mserver.crawler.basic.AbstractRestTask;
 import de.mediathekview.mserver.crawler.basic.CrawlerUrlDTO;
@@ -23,9 +21,6 @@ import java.util.Queue;
 @SuppressWarnings("serial")
 public abstract class DWTaskBase<T, D extends CrawlerUrlDTO> extends AbstractRestTask<T, D> {
   private static final Logger LOG = LogManager.getLogger(DWTaskBase.class);
-
-  private static RateLimiter limiter = null;
-
   private final transient GsonBuilder gsonBuilder;
 
   protected DWTaskBase(
@@ -78,10 +73,6 @@ public abstract class DWTaskBase<T, D extends CrawlerUrlDTO> extends AbstractRes
           request.header(
               ZdfConstants.HEADER_AUTHENTIFICATION, AUTHORIZATION_BEARER + authKey.get());
     }
-    if (limiter == null) {
-      limiter = RateLimiter.create(crawler.getRuntimeConfig().getSenderConfig(Sender.DW).getMaximumRequestsPerSecond());
-    }
-    limiter.acquire();
     return request.header(HEADER_ACCEPT_ENCODING, ENCODING_GZIP).get();
   }
 }

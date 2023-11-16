@@ -1,5 +1,6 @@
 package de.mediathekview.mserver.base.webaccess;
 
+import okhttp3.ConnectionPool;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
@@ -22,12 +23,13 @@ public class JsoupConnection {
   private static final String FILE_TYPE_M3U8 = "m3u8";
   protected OkHttpClient client;
 
-  public JsoupConnection(final int timeout) {
+  public JsoupConnection(final int timeout, final int threadPoolSize) {
     client =
         new OkHttpClient.Builder()
             .connectTimeout(timeout, TimeUnit.SECONDS)
             .readTimeout(timeout, TimeUnit.SECONDS)
             .callTimeout(timeout, TimeUnit.SECONDS)
+            .connectionPool(new ConnectionPool(threadPoolSize, 5L, TimeUnit.MINUTES))
             .build();
   }
 

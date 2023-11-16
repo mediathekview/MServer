@@ -10,6 +10,7 @@ import de.mediathekview.mserver.base.utils.HtmlDocumentUtils;
 import de.mediathekview.mserver.crawler.ard.json.ArdVideoInfoDto;
 import de.mediathekview.mserver.crawler.ard.json.ArdVideoInfoJsonDeserializer;
 import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
+import de.mediathekview.mserver.crawler.basic.AbstractDocumentTask;
 import de.mediathekview.mserver.crawler.basic.AbstractUrlTask;
 import de.mediathekview.mserver.crawler.sr.SrTopicUrlDTO;
 import org.apache.commons.lang3.StringUtils;
@@ -27,7 +28,7 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.*;
 
-public class SrFilmDetailTask extends SrRateLimitedDocumentTask<Film, SrTopicUrlDTO> {
+public class SrFilmDetailTask extends AbstractDocumentTask<Film, SrTopicUrlDTO> {
 
   private static final org.apache.logging.log4j.Logger LOG =
       LogManager.getLogger(SrFilmDetailTask.class);
@@ -156,8 +157,12 @@ public class SrFilmDetailTask extends SrRateLimitedDocumentTask<Film, SrTopicUrl
 
         addUrls(film, videoInfo.getVideoUrls());
 
-        taskResults.add(film);
-        crawler.incrementAndGetActualCount();
+        if (taskResults.add(film)) {
+          crawler.incrementAndGetActualCount();
+        } else {
+          crawler.incrementAndGetErrorCount();
+          LOG.error("Rejected duplicate {}", film);
+        }
         crawler.updateProgress();
       } else {
         LOG.error("SrFilmDetailTask: no title or video found for url {}", aUrlDTO.getUrl());

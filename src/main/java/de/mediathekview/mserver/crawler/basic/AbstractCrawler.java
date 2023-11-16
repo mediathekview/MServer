@@ -15,6 +15,8 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.jsoup.nodes.Document;
 
+import com.google.common.util.concurrent.RateLimiter;
+
 import java.io.IOException;
 import java.time.Duration;
 import java.time.LocalDateTime;
@@ -41,6 +43,7 @@ public abstract class AbstractCrawler implements Callable<Set<Film>> {
   protected Set<Film> films;
   private LocalDateTime startTime;
   protected JsoupConnection jsoupConnection;
+  protected RateLimiter rateLimiter;
 
   protected AbstractCrawler(
       final ForkJoinPool aForkJoinPool,
@@ -58,8 +61,11 @@ public abstract class AbstractCrawler implements Callable<Set<Film>> {
 
     runtimeConfig = rootConfig.getConfig();
     crawlerConfig = rootConfig.getSenderConfig(getSender());
-    jsoupConnection = new JsoupConnection(crawlerConfig.getSocketTimeoutInSeconds());
-
+    jsoupConnection = new JsoupConnection(
+        rootConfig.getSenderConfig(getSender()).getSocketTimeoutInSeconds(), 
+        runtimeConfig.getMaximumCpuThreads());
+    rateLimiter = RateLimiter.create(rootConfig.getSenderConfig(getSender()).getMaximumRequestsPerSecond());
+    
     films = ConcurrentHashMap.newKeySet();
   }
 
@@ -137,6 +143,14 @@ public abstract class AbstractCrawler implements Callable<Set<Film>> {
   public void setConnection(JsoupConnection connection) {
     jsoupConnection = connection;
   }
+  
+  public RateLimiter getRateLimiter() {
+    return rateLimiter;
+  }
+  
+  public void setRateLimiter(RateLimiter rateLimiter) {
+    this.rateLimiter = rateLimiter;
+  }
 
   /**
    * Request an url and receive the body as String
@@ -145,6 +159,7 @@ public abstract class AbstractCrawler implements Callable<Set<Film>> {
    * @throws IOException
    */
   public String requestBodyAsString(String url) throws IOException {
+    getRateLimiter().acquire();
     return getConnection().requestBodyAsString(url);
   }
   
@@ -155,6 +170,7 @@ public abstract class AbstractCrawler implements Callable<Set<Film>> {
    * @throws IOException
    */
   public Document requestBodyAsHtmlDocument(String url) throws IOException {
+    getRateLimiter().acquire();
     return getConnection().requestBodyAsHtmlDocument(url);
   }
 
@@ -165,6 +181,7 @@ public abstract class AbstractCrawler implements Callable<Set<Film>> {
    * @throws IOException
    */
   public Document requestBodyAsXmlDocument(String url) throws IOException {
+    getRateLimiter().acquire();
     return getConnection().requestBodyAsXmlDocument(url);
   }
 
@@ -176,6 +193,7 @@ public abstract class AbstractCrawler implements Callable<Set<Film>> {
    * @return size of the response in KB or -1 in case we could not determine the size.
    */
   public long determineFileSizeInKB(String url) {
+    getRateLimiter().acquire();
     return getConnection().determineFileSize(url) / 1024;
   }
 
@@ -185,6 +203,7 @@ public abstract class AbstractCrawler implements Callable<Set<Film>> {
    * @return return true if the request was successfully processed by the server
    */
   public boolean requestUrlExists(String url) {
+    getRateLimiter().acquire();
     return getConnection().requestUrlExists(url);
   }
   /**
