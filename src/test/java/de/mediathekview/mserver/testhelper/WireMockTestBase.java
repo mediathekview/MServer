@@ -23,7 +23,7 @@ public abstract class WireMockTestBase {
   private boolean wireMockStarted = false;
 
   @Before
-  public synchronized void setUpClass() {
+  public void setUpClass() {
     LOG.info("Setting up WireMock test class");
     startWireMock();
   }
@@ -73,7 +73,7 @@ public abstract class WireMockTestBase {
     return input;
   }
 
-  protected synchronized void setupSuccessfulJsonResponse(final String requestUrl, final String aResponseFile) {
+  protected void setupSuccessfulJsonResponse(final String requestUrl, final String aResponseFile) {
     final String jsonBody = FileReader.readFile(aResponseFile, getWireMockHostPort());
     LOG.info("Adding successful JSON response stub for {}", requestUrl);
     wireMockServer.stubFor(
@@ -95,7 +95,7 @@ public abstract class WireMockTestBase {
     setupSuccessfulJsonPostResponse(requestUrl, aResponseFile, null);
   }
 
-  protected synchronized void setupSuccessfulJsonPostResponse(
+  protected void setupSuccessfulJsonPostResponse(
       final String requestUrl, final String aResponseFile, @Nullable final Integer status) {
     final String jsonBody = FileReader.readFile(aResponseFile, getWireMockHostPort());
     LOG.info("Adding successful JSON post response stub for {}", requestUrl);
@@ -108,7 +108,7 @@ public abstract class WireMockTestBase {
                     .withBody(jsonBody)));
   }
 
-  protected synchronized void setupSuccessfulJsonPostResponse(
+  protected void setupSuccessfulJsonPostResponse(
       final String requestUrl, final String responsefile, final String requestBodyPart, @Nullable final Integer status) {
     final String jsonBody = FileReader.readFile(responsefile);
     wireMockServer.stubFor(
@@ -121,7 +121,7 @@ public abstract class WireMockTestBase {
                     .withBody(jsonBody)));
   }
 
-  protected synchronized void setupSuccessfulXmlResponse(final String requestUrl, final String aResponseFile) {
+  protected void setupSuccessfulXmlResponse(final String requestUrl, final String aResponseFile) {
     final String xmlBody = FileReader.readFile(aResponseFile, getWireMockHostPort());
     LOG.info("Adding successful XML response stub for {}", requestUrl);
     wireMockServer.stubFor(
@@ -133,31 +133,31 @@ public abstract class WireMockTestBase {
                     .withBody(xmlBody)));
   }
 
-  protected synchronized void setupSuccessfulResponse(final String requestUrl, final String aResponseFile) {
+  protected void setupSuccessfulResponse(final String requestUrl, final String aResponseFile) {
     final String body = FileReader.readFile(aResponseFile, getWireMockHostPort());
     LOG.info("Adding successful response stub for {}", requestUrl);
     wireMockServer.stubFor(
         get(urlEqualTo(requestUrl)).willReturn(aResponse().withStatus(200).withBody(body)));
   }
 
-  protected synchronized void setupHeadResponse(final String requestUrl, final int aHttpCode) {
+  protected void setupHeadResponse(final String requestUrl, final int aHttpCode) {
     LOG.info("Adding successful HEAD response stub for {}", requestUrl);
     wireMockServer.stubFor(
         head(urlEqualTo(requestUrl)).willReturn(aResponse().withStatus(aHttpCode)));
   }
 
-  protected synchronized void setupHeadResponse(final int aHttpCode) {
+  protected void setupHeadResponse(final int aHttpCode) {
     LOG.info("Adding {} HEAD response stub for any URL.", aHttpCode);
     wireMockServer.stubFor(head(anyUrl()).willReturn(aResponse().withStatus(aHttpCode)));
   }
 
-  protected synchronized void setupResponseWithoutBody(final String requestUrl, final int aHttpCode) {
+  protected void setupResponseWithoutBody(final String requestUrl, final int aHttpCode) {
     LOG.info("Adding {} stub for {}.", aHttpCode, requestUrl);
     wireMockServer.stubFor(
         get(urlEqualTo(requestUrl)).willReturn(aResponse().withStatus(aHttpCode)));
   }
 
-  protected synchronized void setupHeadRequestForFileSize() {
+  protected void setupHeadRequestForFileSize() {
     LOG.info("Adding file size HEAD request stub for any url.");
     wireMockServer.stubFor(
         head(urlMatching(".*"))
