@@ -79,6 +79,10 @@ public class SrfFilmJsonDeserializer implements JsonDeserializer<Optional<Film>>
             LOG.error(String.format("A found download URL \"%s\" isn't valid.", value), ex);
           }
         });
+    // we are not ready to have pure audiodescription entries
+    if (aFilm.getUrls().size() == 0 && aFilm.getAudioDescriptions().size() > 0) {
+      aFilm.addAllUrls(aFilm.getAudioDescriptions());
+    }
   }
 
   private static Optional<URL> buildWebsiteUrl(
@@ -258,6 +262,7 @@ public class SrfFilmJsonDeserializer implements JsonDeserializer<Optional<Film>>
     film.setWebsite(buildWebsiteUrl(chapterList.id, episodeData.title, theme).orElse(null));
     addUrls(videoUrls, film, isAudioDescription);
     addSubtitle(chapterList.subtitleUrl, film);
+    
 
     return Optional.of(film);
   }

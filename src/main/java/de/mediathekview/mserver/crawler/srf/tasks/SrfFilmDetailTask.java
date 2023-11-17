@@ -72,9 +72,12 @@ public class SrfFilmDetailTask extends AbstractRestTask<Film, CrawlerUrlDTO> {
 
       final Optional<Film> film = gson.fromJson(jsonOutput, type);
       if (film.isPresent()) {
-        taskResults.add(film.get());
-
-        crawler.incrementAndGetActualCount();
+        if (taskResults.add(film.get())) {
+          crawler.incrementAndGetActualCount();  
+        } else {
+          LOG.debug("Rejected duplicate {}",film.get());
+          crawler.incrementAndGetErrorCount();
+        }
         crawler.updateProgress();
       }
     } catch (final JsonSyntaxException e) {

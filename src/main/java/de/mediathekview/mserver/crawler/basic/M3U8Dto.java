@@ -55,6 +55,7 @@ public class M3U8Dto {
         case "256x144":
         case "288x216":
         case "320x180":
+        case "180x320":
         case "320x240":
         case "360x270":
         case "384x288":
@@ -63,6 +64,7 @@ public class M3U8Dto {
         case "442x240":
         case "480x240":
         case "480x270":
+        case "270x480":
         case "480x272":
         case "480x320":
         case "480x360":
@@ -72,21 +74,25 @@ public class M3U8Dto {
         case "640x360":
         case "640x480":
         case "664x360":
+        case "360x640":
         case "720x360":
         case "720x540":
         case "720x544":
         case "768x576":
         case "852x480":
         case "960x540":
+        case "540x960":
         case "960x544":
         case "1024x576":
         case "1064x576":
         case "1152x576":
           return Optional.of(Resolution.NORMAL);
         case "1280x720":
+        case "720x1280":
         case "1330x720":
         case "1440x720":
         case "1920x1080":
+        case "1080x1920":
           // todo this resolution is qhd
         case "2560x1440":
           return Optional.of(Resolution.HD);
