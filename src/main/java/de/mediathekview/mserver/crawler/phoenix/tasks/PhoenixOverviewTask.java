@@ -52,8 +52,6 @@ public class PhoenixOverviewTask extends ZdfTaskBase<CrawlerUrlDTO, CrawlerUrlDT
     final Optional<PagedElementListDTO<CrawlerUrlDTO>> overviewDtoOptional =
         deserializeOptional(aTarget, OPTIONAL_OVERVIEW_DTO_TYPE_TOKEN);
     if (overviewDtoOptional.isEmpty()) {
-      crawler.incrementAndGetErrorCount();
-      crawler.updateProgress();
       return;
     }
 

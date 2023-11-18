@@ -85,9 +85,9 @@ public class PhoenixFilmDetailTask extends ZdfTaskBase<Film, CrawlerUrlDTO> {
               LOG.error("invalid url: ", e);
             }
           }
-          this.taskResults.add(film);
-          crawler.incrementAndGetActualCount();
-          crawler.updateProgress();
+          if (!this.taskResults.add(film)) {
+            LOG.error("Rejected duplicate {}", film);
+          }
         });
   }
 }
