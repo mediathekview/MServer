@@ -234,7 +234,15 @@ public class DwFilmDetailDeserializer implements JsonDeserializer<Optional<Film>
             LOG.error("Malformed video url for video: {}", videoid);
           }
         });
-
+    if (videoListe.size() > 0 && !videoListe.containsKey(Resolution.NORMAL)) {
+      if (videoListe.containsKey(Resolution.SMALL)) {
+        videoListe.put(Resolution.NORMAL, videoListe.get(Resolution.SMALL));
+        videoListe.remove(Resolution.SMALL);
+      } else {
+        videoListe.put(Resolution.NORMAL, videoListe.get(Resolution.HD));
+        videoListe.remove(Resolution.HD);
+      }
+    }
     if (videoListe.size() > 0) {
       return Optional.of(videoListe);
     }
