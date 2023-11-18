@@ -44,9 +44,7 @@ public class PhoenixCrawler extends AbstractCrawler {
     // TODO phoenix vor ort fehlt => müssten mehrere Videos pro Seite sein!
 
     try {
-      if (Boolean.TRUE.equals(crawlerConfig.getTopicsSearchEnabled())) {
-        shows.addAll(getShows());
-      }
+      shows.addAll(getShows());
       printMessage(
           ServerMessages.DEBUG_ALL_SENDUNG_FOLGEN_COUNT, getSender().getName(), shows.size());
       getAndSetMaxCount(shows.size());
