@@ -62,8 +62,10 @@ public class ArdUrlOptimizer {
   /**
    * wdr urls uses the following pattern: the last part of the filename determines the quality this
    * is the actual order: 1920, 480, 640, 960, 1280 to determine the 1920-url by the 1280-url
-   * substract 4 example: 1280: https://wdrmedien-a.akamaihd.net/.../2625725_54085881.mp4 1920:
-   * https://wdrmedien-a.akamaihd.net/.../2625725_54085877.mp4
+   * substract 4
+   * example:
+   * 1280: https://wdrmedien-a.akamaihd.net/.../2625725_54085881.mp4
+   * 1920: https://wdrmedien-a.akamaihd.net/.../2625725_54085877.mp4
    */
   private String determineWdrFullHdUrl(String url) {
     final Optional<String> fileName = UrlUtils.getFileName(url);
