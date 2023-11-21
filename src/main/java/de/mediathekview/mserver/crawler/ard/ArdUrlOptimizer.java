@@ -1,9 +1,10 @@
 package de.mediathekview.mserver.crawler.ard;
 
+import de.mediathekview.mserver.base.utils.UrlUtils;
 import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
-
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 
 public class ArdUrlOptimizer {
 
@@ -38,17 +39,40 @@ public class ArdUrlOptimizer {
   }
 
   public String optimizeHdUrl(final String url) {
-    for (Map.Entry<String, String[]> entry : HD_OPTIMIZE.entrySet()) {
-      if (url.contains(entry.getKey())) {
-        for (String optimizeFragment : entry.getValue()) {
-          final String optimizedUrl = url.replace(entry.getKey(), optimizeFragment);
-          if (crawler.requestUrlExists(optimizedUrl)) {
-            return optimizedUrl;
+    String fullHdUrl = "";
+    if (url.contains("wdrmedien")) {
+      fullHdUrl = determineWdrFullHdUrl(url);
+    } else {
+      for (Map.Entry<String, String[]> entry : HD_OPTIMIZE.entrySet()) {
+        if (url.contains(entry.getKey())) {
+          for (String optimizeFragment : entry.getValue()) {
+            fullHdUrl = url.replace(entry.getKey(), optimizeFragment);
           }
         }
       }
     }
 
+    if (!fullHdUrl.isEmpty() && crawler.requestUrlExists(fullHdUrl)) {
+      return fullHdUrl;
+    }
+
+    return url;
+  }
+
+  /**
+   * wdr urls uses the following pattern: the last part of the filename determines the quality this
+   * is the actual order: 1920, 480, 640, 960, 1280 to determine the 1920-url by the 1280-url
+   * substract 4 example: 1280: https://wdrmedien-a.akamaihd.net/.../2625725_54085881.mp4 1920:
+   * https://wdrmedien-a.akamaihd.net/.../2625725_54085877.mp4
+   */
+  private String determineWdrFullHdUrl(String url) {
+    final Optional<String> fileName = UrlUtils.getFileName(url);
+    if (fileName.isPresent()) {
+      final String s = fileName.get();
+      final String substring = s.substring(s.indexOf("_") + 1).replace(".mp4", "");
+      final int hdInt = Integer.parseInt(substring) - 4;
+      return url.replace(substring, Integer.toString(hdInt));
+    }
     return url;
   }
 }
