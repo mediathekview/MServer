@@ -69,8 +69,8 @@ public class ArdTopicPageTask extends ArdTaskBase<ArdFilmInfoDto, CrawlerUrlDTO>
     // Sportschau
     TOPICS_LOAD_ALL_PAGES.add("Y3JpZDovL2Rhc2Vyc3RlLmRlL3Nwb3J0c2NoYXU");
     // temporary load all => remove if old entries exists
-    // Parlament
-    TOPICS_LOAD_ALL_PAGES.add("Y3JpZDovL3dkci5kZS9vbmUvcGFybGFtZW50bmV1");
+    // Odysso
+    TOPICS_LOAD_ALL_PAGES.add("Y3JpZDovL3N3ci5kZS8yMjI2MTE0");
   }
 
   public ArdTopicPageTask(MediathekReader aCrawler,
