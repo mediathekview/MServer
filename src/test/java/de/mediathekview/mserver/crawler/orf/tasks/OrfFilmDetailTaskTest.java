@@ -1,5 +1,9 @@
 package de.mediathekview.mserver.crawler.orf.tasks;
 
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.CoreMatchers.notNullValue;
+import static org.hamcrest.MatcherAssert.assertThat;
+
 import de.mediathekview.mlib.daten.Film;
 import de.mediathekview.mlib.daten.GeoLocations;
 import de.mediathekview.mlib.daten.Sender;
@@ -7,23 +11,18 @@ import de.mediathekview.mserver.base.webaccess.JsoupConnection;
 import de.mediathekview.mserver.crawler.orf.OrfCrawler;
 import de.mediathekview.mserver.testhelper.AssertFilm;
 import de.mediathekview.mserver.testhelper.JsoupMock;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
-import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
-
 import java.io.IOException;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Set;
-
-import static org.hamcrest.CoreMatchers.equalTo;
-import static org.hamcrest.CoreMatchers.notNullValue;
-import static org.hamcrest.MatcherAssert.assertThat;
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.junit.runners.Parameterized;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
 
 @RunWith(Parameterized.class)
 public class OrfFilmDetailTaskTest extends OrfFilmDetailTaskTestBase {
@@ -170,6 +169,24 @@ public class OrfFilmDetailTaskTest extends OrfFilmDetailTaskTestBase {
             "https://apasfiis.sf.apa.at/ipad/cms-worldwide/2019-12-06_2105_sd_06_DENK-mit-KULTUR_____14034271__o__1025186593__s14603593_3__ORF3HD_21062006P_21511908P_Q4A.mp4/playlist.m3u8",
             "https://apasfiis.sf.apa.at/ipad/cms-worldwide/2019-12-06_2105_sd_06_DENK-mit-KULTUR_____14034271__o__1025186593__s14603593_3__ORF3HD_21062006P_21511908P_Q6A.mp4/playlist.m3u8",
             "https://apasfiis.sf.apa.at/ipad/cms-worldwide/2019-12-06_2105_sd_06_DENK-mit-KULTUR_____14034271__o__1025186593__s14603593_3__ORF3HD_21062006P_21511908P_Q8C.mp4/playlist.m3u8",
+            "",
+            "",
+            "",
+            new GeoLocations[] {GeoLocations.GEO_NONE}
+          },
+          {
+            "https://tvthek.orf.at/profile/Burgenland-heute-kompakt/13891025/Burgenland-heute-kompakt/14203644",
+            "/orf/orf_film_with_seconds.html",
+            "Burgenland heute kompakt",
+            "Burgenland heute kompakt",
+            "Burgenland heute kompakt",
+            LocalDateTime.of(2023, 12, 1, 16, 57, 0),
+            Duration.ofSeconds(49),
+            "",
+            "",
+            "https://apasfiis.sf.apa.at/ipad/cms-worldwide/2023-12-01_1657_tl_23_Burgenland-heut_____14203644__o__1338501503__s15520121_1__BLBHD_16570412P_16575304P_Q4A.mp4/playlist.m3u8",
+            "https://apasfiis.sf.apa.at/ipad/cms-worldwide/2023-12-01_1657_tl_23_Burgenland-heut_____14203644__o__1338501503__s15520121_1__BLBHD_16570412P_16575304P_Q6A.mp4/playlist.m3u8",
+            "https://apasfiis.sf.apa.at/ipad/cms-worldwide/2023-12-01_1657_tl_23_Burgenland-heut_____14203644__o__1338501503__s15520121_1__BLBHD_16570412P_16575304P_Q8C.mp4/playlist.m3u8",
             "",
             "",
             "",

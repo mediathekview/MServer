@@ -93,7 +93,7 @@ public class OrfFilmDetailTask extends AbstractDocumentTask<Film, TopicUrlDTO> {
     }
 
     final ChronoUnit unitValue = unit.get();
-    if (unitValue == ChronoUnit.MINUTES) {
+    if (unitValue == ChronoUnit.SECONDS || unitValue == ChronoUnit.MINUTES) {
       return Optional.of(
           Duration.ofMinutes(Long.parseLong(parts[0])).plusSeconds(Long.parseLong(parts[1])));
     }
@@ -111,6 +111,9 @@ public class OrfFilmDetailTask extends AbstractDocumentTask<Film, TopicUrlDTO> {
     }
     if (aDuration.contains("Std.")) {
       return Optional.of(ChronoUnit.HOURS);
+    }
+    if (aDuration.contains("Sek.")) {
+      return Optional.of(ChronoUnit.SECONDS);
     }
 
     return Optional.empty();
