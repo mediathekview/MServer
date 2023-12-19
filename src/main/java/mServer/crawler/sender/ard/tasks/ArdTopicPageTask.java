@@ -73,6 +73,8 @@ public class ArdTopicPageTask extends ArdTaskBase<ArdFilmInfoDto, CrawlerUrlDTO>
     TOPICS_LOAD_ALL_PAGES.add("Y3JpZDovL3N3ci5kZS8yMjI2MTE0");
     // MDR in aller Freundschaft
     TOPICS_LOAD_ALL_PAGES.add("Y3JpZDovL21kci5kZS9zZW5kZXJlaWhlbi9zdGFmZmVsc2VyaWUtaW4tYWxsZXItZnJldW5kc2NoYWZ0");
+    // Super.markt
+    TOPICS_LOAD_ALL_PAGES.add("Y3JpZDovL3JiYi1vbmxpbmUuZGUvc3VwZXJtYXJrdA");
   }
 
   public ArdTopicPageTask(MediathekReader aCrawler,
