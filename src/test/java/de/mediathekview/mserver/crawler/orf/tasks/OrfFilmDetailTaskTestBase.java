@@ -12,7 +12,7 @@ public abstract class OrfFilmDetailTaskTestBase extends OrfTaskTestBase {
     }
 
   protected Set<Film> executeTask(OrfCrawler crawler, String aTheme, String aRequestUrl) {
-      return new OrfFilmDetailTask(crawler, createCrawlerUrlDto(aTheme, aRequestUrl))
+      return new OrfFilmDetailTask(crawler, createCrawlerUrlDto(aTheme, aRequestUrl), false)
               .invoke();
   }
 }
