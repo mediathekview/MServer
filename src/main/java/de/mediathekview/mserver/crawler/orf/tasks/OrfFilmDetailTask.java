@@ -163,7 +163,7 @@ public class OrfFilmDetailTask extends AbstractDocumentTask<Film, TopicUrlDTO> {
   @Override
   protected AbstractUrlTask<Film, TopicUrlDTO> createNewOwnInstance(
       final Queue<TopicUrlDTO> aUrlsToCrawl) {
-    return createNewOwnInstance(aUrlsToCrawl, true);
+    return createNewOwnInstance(aUrlsToCrawl, processMoreEpisodes);
   }
 
   private AbstractUrlTask<Film, TopicUrlDTO> createNewOwnInstance(final Queue<TopicUrlDTO> urlsToCrawl, boolean processMoreEpisodes) {

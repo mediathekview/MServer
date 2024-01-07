@@ -107,14 +107,15 @@ public class OrfCrawler extends AbstractCrawler {
         shows.addAll(getArchiveEntries());
         addShows(shows, getLetterEntries());
         processMoreEpisodes = true;
+      } else {
+        addShows(shows, getDaysEntries());
+        processMoreEpisodes = false;
       }
-      addShows(shows, getDaysEntries());
 
       printMessage(
           ServerMessages.DEBUG_ALL_SENDUNG_FOLGEN_COUNT, getSender().getName(), shows.size());
       getAndSetMaxCount(shows.size());
 
-      // TODO Problem mit Sport aktuell u.ä. lösen => more episodes pro show setzen (topic ja, day nein?)
       return new OrfFilmDetailTask(this, shows, processMoreEpisodes);
     } catch (final InterruptedException ex) {
       LOG.debug("{} crawler interrupted.", getSender().getName(), ex);
