@@ -47,7 +47,7 @@ public class ArteCategoryFilmListDeserializer implements JsonDeserializer<ArteCa
                 if (programId.startsWith("RC-")) {
                   try {
                     long collectionId = Long.parseLong(programId.replace("RC-", ""));
-                    dto.addCollection(String.format("RC-%06d", collectionId));
+                    dto.addCollection("RC-%06d".formatted(collectionId));
                   } catch (NumberFormatException e) {
                     Log.errorLog(12834939, "Invalid collection id: " + programId);
                   }

@@ -33,7 +33,7 @@ public class SrTopicsOverviewPageTask implements Callable<ConcurrentLinkedQueue<
   private static final int TIMEOUT_IN_SECONDS = 60;
 
   private static SrTopicUrlDTO createDto(final String aTheme, final String aShowShort) {
-    final String url = String.format(SrConstants.URL_SHOW_ARCHIVE_PAGE, aShowShort, 1);
+    final String url = (SrConstants.URL_SHOW_ARCHIVE_PAGE).formatted(aShowShort, 1);
     return new SrTopicUrlDTO(aTheme, url);
   }
 

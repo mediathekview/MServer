@@ -64,7 +64,7 @@ public abstract class OrfTaskBase<T, D extends CrawlerUrlDTO>
         FilmeSuchen.listeSenderLaufen.inc(crawler.getSendername(), RunSender.Count.FEHLER);
         FilmeSuchen.listeSenderLaufen.inc(crawler.getSendername(), RunSender.Count.FEHLVERSUCHE);
         ORF_LOGGER.trace(httpStatusError);
-        Log.sysLog(String.format(LOAD_DOCUMENT_HTTPERROR, crawler.getSendername(), aUrlDTO.getUrl()));
+        Log.sysLog(LOAD_DOCUMENT_HTTPERROR.formatted(crawler.getSendername(), aUrlDTO.getUrl()));
 
         Log.errorLog(96459855,
                 crawler.getSendername() + ": crawlerDocumentLoadError: " + aUrlDTO.getUrl() + ", " + httpStatusError.getStatusCode());
@@ -97,13 +97,13 @@ public abstract class OrfTaskBase<T, D extends CrawlerUrlDTO>
 
     long end = System.currentTimeMillis();
 
-    ORF_LOGGER.trace(String.format("%s: %d - loaded in %d ms", aUrlDTO.getUrl(), response.statusCode(), end - start));
+    ORF_LOGGER.trace("%s: %d - loaded in %d ms".formatted(aUrlDTO.getUrl(), response.statusCode(), end - start));
     traceRequest();
 
     final Document document = response.parse();
 
     end = System.currentTimeMillis();
-    ORF_LOGGER.trace(String.format("%s: %d - parsed in %d ms", aUrlDTO.getUrl(), response.statusCode(), end - start));
+    ORF_LOGGER.trace("%s: %d - parsed in %d ms".formatted(aUrlDTO.getUrl(), response.statusCode(), end - start));
 
     return document;
   }

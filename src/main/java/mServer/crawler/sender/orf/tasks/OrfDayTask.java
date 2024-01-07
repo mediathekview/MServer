@@ -36,7 +36,7 @@ public class OrfDayTask extends OrfTaskBase<TopicUrlDTO, CrawlerUrlDTO> {
               }
             });
 
-    ORF_LOGGER.trace(String.format("%s: Anzahl Filme: %d", aUrlDTO.getUrl(), taskResults.size()));
+    ORF_LOGGER.trace("%s: Anzahl Filme: %d".formatted(aUrlDTO.getUrl(), taskResults.size()));
   }
 
   private Element getTitleElement(Element item) {

@@ -88,7 +88,7 @@ public class ZdfTopicPageHtmlDeserializer {
             mainVideo -> {
               final String id = mainVideo.attr("data-zdfplayer-id");
               if (id != null) {
-                final String url = String.format(ZdfConstants.URL_FILM_JSON, urlApiBase, id);
+                final String url = (ZdfConstants.URL_FILM_JSON).formatted(urlApiBase, id);
                 results.add(new CrawlerUrlDTO(url));
               }
             });
@@ -135,7 +135,7 @@ public class ZdfTopicPageHtmlDeserializer {
                         s ->
                                 results.add(
                                         new CrawlerUrlDTO(
-                                                String.format(ZdfConstants.URL_FILM_JSON, urlApiBase, s))));
+                                                (ZdfConstants.URL_FILM_JSON).formatted(urlApiBase, s))));
               } catch (UrlParseException e) {
                 LOG.error(e);
               }
@@ -144,6 +144,6 @@ public class ZdfTopicPageHtmlDeserializer {
 
   private Optional<String> buildFilmUrlJsonFromHtmlLink(String attr) {
     return UrlUtils.getFileName(attr)
-            .map(s -> String.format(ZdfConstants.URL_FILM_JSON, urlApiBase, s.split("\\.")[0]));
+            .map(s -> (ZdfConstants.URL_FILM_JSON).formatted(urlApiBase, s.split("\\.")[0]));
   }
 }

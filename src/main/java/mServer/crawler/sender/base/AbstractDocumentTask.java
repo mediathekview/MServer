@@ -66,7 +66,7 @@ public abstract class AbstractDocumentTask<T, D extends CrawlerUrlDTO>
       traceRequest();
       processDocument(aUrlDTO, document);
     } catch (final HttpStatusException httpStatusError) {
-      Log.sysLog(String.format(LOAD_DOCUMENT_HTTPERROR, crawler.getSendername(), aUrlDTO.getUrl()));
+      Log.sysLog(LOAD_DOCUMENT_HTTPERROR.formatted(crawler.getSendername(), aUrlDTO.getUrl()));
 
       Log.errorLog(96459855,
               crawler.getSendername() + ": crawlerDocumentLoadError: " + aUrlDTO.getUrl() + ", " + httpStatusError.getStatusCode());

@@ -179,7 +179,7 @@ public class ZdfDownloadDtoDeserializer implements JsonDeserializer<Optional<Dow
 
           // prefer xml subtitles
           if (uriValue.endsWith(RELEVANT_SUBTITLE_TYPE)
-                  || !dto.getSubTitleUrl(language).isPresent()) {
+                  || dto.getSubTitleUrl(language).isEmpty()) {
             dto.addSubTitleUrl(language, uriValue);
           }
         }

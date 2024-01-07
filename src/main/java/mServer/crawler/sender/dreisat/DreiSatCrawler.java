@@ -72,7 +72,7 @@ public class DreiSatCrawler extends AbstractZdfCrawler {
 
       final LocalDateTime local = LocalDateTime.now().minus(i, ChronoUnit.DAYS);
       final String date = local.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-      final String url = String.format(DreisatConstants.URL_HTML_DAY, date);
+      final String url = (DreisatConstants.URL_HTML_DAY).formatted(date);
       urls.add(new CrawlerUrlDTO(url));
     }
 

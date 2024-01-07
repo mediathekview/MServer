@@ -83,7 +83,7 @@ public class MserverDatumZeit {
         try {
             return FDF_OUT_DAY.format(sdf.parse(dateValue));
         } catch (ParseException ex) {
-            LOG.debug(String.format("Fehler beim Parsen des Datums %s: %s", dateValue, ex.getMessage()));
+            LOG.debug("Fehler beim Parsen des Datums %s: %s".formatted(dateValue, ex.getMessage()));
         }
         
         return "";
@@ -99,7 +99,7 @@ public class MserverDatumZeit {
         try {
             return FDF_OUT_TIME.format(sdf.parse(dateValue));
         } catch (ParseException ex) {
-            LOG.debug(String.format("Fehler beim Parsen des Datums %s: %s", dateValue, ex.getMessage()));
+            LOG.debug("Fehler beim Parsen des Datums %s: %s".formatted(dateValue, ex.getMessage()));
         }
         
         return "";

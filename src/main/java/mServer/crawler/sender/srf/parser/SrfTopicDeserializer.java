@@ -47,7 +47,7 @@ public class SrfTopicDeserializer implements JsonDeserializer<PagedElementListDT
               id.ifPresent(
                       s
                       -> results.addElement(
-                              new CrawlerUrlDTO(String.format(SrfConstants.SHOW_DETAIL_PAGE_URL, s))));
+                              new CrawlerUrlDTO((SrfConstants.SHOW_DETAIL_PAGE_URL).formatted(s))));
             });
 
     return results;

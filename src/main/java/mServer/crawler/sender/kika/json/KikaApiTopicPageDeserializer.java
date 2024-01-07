@@ -86,7 +86,7 @@ public class KikaApiTopicPageDeserializer implements JsonDeserializer<KikaApiTop
     //
     if (oId.isPresent()) {
       aFilm = Optional.of(new KikaApiFilmDto(
-          String.format(KikaApiConstants.FILM, oId.get()),
+              (KikaApiConstants.FILM).formatted(oId.get()),
           oTopic,
           oTitle,
           oId,

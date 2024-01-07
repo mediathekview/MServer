@@ -56,9 +56,9 @@ public class ZdfIndexPageTask implements Callable<ZdfConfiguration> {
       Optional<String> videoBearer
               = parseBearerIndexPage(document.get(), QUERY_VIDEO_BEARER_INDEX_PAGE, "\"");
 
-      if (!videoBearer.isPresent()) {
+      if (videoBearer.isEmpty()) {
         videoBearer = parseBearerIndexPage(document.get(), QUERY_VIDEO_BEARER_INDEX_PAGE2, "\"");
-        if (!videoBearer.isPresent()) {
+        if (videoBearer.isEmpty()) {
           videoBearer = parseTokenFromSubPage(document.get());
         }
       }

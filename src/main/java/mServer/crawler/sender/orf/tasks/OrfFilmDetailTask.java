@@ -76,7 +76,7 @@ public class OrfFilmDetailTask extends OrfTaskBase<DatenFilm, TopicUrlDTO> {
       }
     }
 
-    ORF_LOGGER.trace(String.format("%s - %s: Anzahl Filme: %d", aUrlDTO.getTopic(), aUrlDTO.getUrl(), taskResults.size()));
+    ORF_LOGGER.trace("%s - %s: Anzahl Filme: %d".formatted(aUrlDTO.getTopic(), aUrlDTO.getUrl(), taskResults.size()));
   }
 
   @Override
@@ -172,12 +172,12 @@ public class OrfFilmDetailTask extends OrfTaskBase<DatenFilm, TopicUrlDTO> {
 
   private static Optional<Duration> parseDuration(Document aDocument) {
     Optional<String> duration = HtmlDocumentUtils.getElementString(DURATION_SELECTOR, aDocument);
-    if (!duration.isPresent()) {
+    if (duration.isEmpty()) {
       return Optional.empty();
     }
 
     Optional<ChronoUnit> unit = determineChronoUnit(duration.get());
-    if (!unit.isPresent()) {
+    if (unit.isEmpty()) {
       Log.sysLog("OrfFilmDetailTask: unknown duration type: " + duration.get());
       return Optional.empty();
     }

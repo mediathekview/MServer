@@ -54,7 +54,7 @@ public abstract class AbstractFunkElementDeserializer<T>
                       .filter(Objects::nonNull)
                       .collect(Collectors.toSet()));
     } else {
-      Log.errorLog(178522355, String.format("A Funk list is broken! %s", baseElement));
+      Log.errorLog(178522355, "A Funk list is broken! %s".formatted(baseElement));
       LOG.fatal("A Funk list is broken! {}", baseElement);
     }
 

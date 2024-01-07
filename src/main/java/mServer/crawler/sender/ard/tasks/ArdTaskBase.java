@@ -95,7 +95,7 @@ public abstract class ArdTaskBase<T, D extends CrawlerUrlDTO> extends AbstractRe
       LOG.error(logText);
     });
 
-    return !error.isPresent();
+    return error.isEmpty();
   }
 
   private Response executeRequest(final WebTarget aTarget) {

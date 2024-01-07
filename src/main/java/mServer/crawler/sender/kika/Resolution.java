@@ -140,7 +140,7 @@ public enum Resolution {
     }
 
     throw new NoSuchElementException(
-            String.format("Resolution with ResolutionIndex %d not found", searchedResolutionSize));
+            "Resolution with ResolutionIndex %d not found".formatted(searchedResolutionSize));
   }
 
   public String getDescription() {

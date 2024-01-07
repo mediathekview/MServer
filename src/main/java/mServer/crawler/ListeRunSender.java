@@ -122,7 +122,7 @@ public class ListeRunSender extends LinkedList<RunSender> {
         long groesseByte = get(sender, RunSender.Count.SUM_TRAFFIC_BYTE);
         if (groesseByte > 0 && dauerSender > 0) {
             double doub = (1.0 * groesseByte / dauerSender / 1000); // kB/s
-            rate = doub < 1 ? "<1" : String.format("%.1f", (doub));
+            rate = doub < 1 ? "<1" : "%.1f".formatted((doub));
         }
         return rate;
     }
@@ -169,12 +169,12 @@ public class ListeRunSender extends LinkedList<RunSender> {
             String rate = "";
             if (groesseByte > 0 && dauerSender > 0) {
                 double doub = (1.0 * groesseByte / dauerSender / 1000); // kB/s
-                rate = doub < 1 ? "<1" : String.format("%.1f", (doub));
+                rate = doub < 1 ? "<1" : "%.1f".formatted((doub));
             }
 
             String dauerProSeite = "";
             if (anzahlSeiten > 0) {
-                dauerProSeite = String.format("%.2f", (1.0 * dauerSender / anzahlSeiten));
+                dauerProSeite = "%.2f".formatted((1.0 * dauerSender / anzahlSeiten));
             }
 
             // =================================

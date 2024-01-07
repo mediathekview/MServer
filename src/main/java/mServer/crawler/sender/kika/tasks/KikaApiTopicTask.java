@@ -50,7 +50,7 @@ public class KikaApiTopicTask extends AbstractJsonRestTask<KikaApiFilmDto, KikaA
     //
     aResponseObj.getErrorCode().ifPresent(errorCode -> {
       LOG.error("Error {} : {} for target {} ", errorCode, aResponseObj.getErrorMesssage().orElse(""), aDTO.getUrl());
-      Log.errorLog(324978332, String.format("Error %s : %s for target %s ", errorCode, aResponseObj.getErrorMesssage().orElse(""), aDTO.getUrl()));
+      Log.errorLog(324978332, "Error %s : %s for target %s ".formatted(errorCode, aResponseObj.getErrorMesssage().orElse(""), aDTO.getUrl()));
       return;
     });
     //
@@ -66,7 +66,7 @@ public class KikaApiTopicTask extends AbstractJsonRestTask<KikaApiFilmDto, KikaA
       subpageCrawler = Optional.empty();
     }
     for (KikaApiFilmDto aFilm : aResponseObj.getElements()) {
-      if (!aFilm.getTopic().isPresent()) {
+      if (aFilm.getTopic().isEmpty()) {
         aFilm.setTopic(Optional.of(aDTO.getTopic()));
       }
       taskResults.add(aFilm);
@@ -81,7 +81,7 @@ public class KikaApiTopicTask extends AbstractJsonRestTask<KikaApiFilmDto, KikaA
             "A HTTP error {} occurred when getting REST information from: \"{}\".",
             response.getStatus(),
             url);
-    Log.errorLog(324978333, String.format("A HTTP error %d occurred when getting REST information from: \"%s}\".",
+    Log.errorLog(324978333, "A HTTP error %d occurred when getting REST information from: \"%s}\".".formatted(
             response.getStatus(),
             url));
   }
