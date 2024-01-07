@@ -9,6 +9,7 @@ import de.mediathekview.mlib.tool.Log;
 import jakarta.ws.rs.core.Response;
 import mServer.crawler.CrawlerTool;
 import mServer.crawler.sender.MediathekReader;
+import mServer.crawler.sender.ard.ArdUrlOptimizer;
 import mServer.crawler.sender.base.AbstractJsonRestTask;
 import mServer.crawler.sender.base.AbstractRecursivConverterTask;
 import mServer.crawler.sender.base.GeoLocations;
@@ -17,6 +18,7 @@ import mServer.crawler.sender.kika.KikaApiFilmDto;
 import mServer.crawler.sender.kika.KikaApiVideoInfoDto;
 import mServer.crawler.sender.kika.Resolution;
 import mServer.crawler.sender.kika.json.KikaApiVideoInfoPageDeserializer;
+import mServer.crawler.sender.zdf.ZdfVideoUrlOptimizer;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -36,9 +38,13 @@ public class KikaApiFilmTask extends AbstractJsonRestTask<DatenFilm, KikaApiVide
   private static final long serialVersionUID = 1L;
   private static final Logger LOG = LogManager.getLogger(KikaApiFilmTask.class);
   private static final RateLimiter LIMITER = RateLimiter.create(15);
+  private transient ArdUrlOptimizer ardUrlOptimizer;
+  private transient ZdfVideoUrlOptimizer zdfVideoUrlOptimizer;
 
   public KikaApiFilmTask(MediathekReader crawler, ConcurrentLinkedQueue<KikaApiFilmDto> urlToCrawlDTOs) {
     super(crawler, urlToCrawlDTOs, Optional.empty());
+    ardUrlOptimizer = new ArdUrlOptimizer();
+    zdfVideoUrlOptimizer = new ZdfVideoUrlOptimizer();
   }
 
   @Override
@@ -113,7 +119,10 @@ public class KikaApiFilmTask extends AbstractJsonRestTask<DatenFilm, KikaApiVide
       CrawlerTool.addUrlKlein(aFilm, videoUrls.get(Resolution.SMALL));
     }
     if (videoUrls.containsKey(Resolution.HD)) {
-      CrawlerTool.addUrlHd(aFilm, videoUrls.get(Resolution.HD));
+      String url = videoUrls.get(Resolution.HD);
+      url = ardUrlOptimizer.optimizeHdUrl(url);
+      url = zdfVideoUrlOptimizer.getOptimizedUrlHd(url);
+      CrawlerTool.addUrlHd(aFilm, url);
     }
     //
     getGeo(aDTO).ifPresent(geos -> {

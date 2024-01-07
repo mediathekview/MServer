@@ -5,6 +5,7 @@ import com.google.gson.JsonDeserializer;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import java.lang.reflect.Type;
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Map.Entry;
 import java.util.Optional;
@@ -16,12 +17,16 @@ import mServer.crawler.sender.base.JsonUtils;
 public class ArdTopicsOverviewDeserializer implements JsonDeserializer<Set<CrawlerUrlDTO>> {
 
   private static final String ELEMENT_COMPILATIONS = "compilations";
+  private static final String ELEMENT_PUBLICATION_SERVICE = "publicationService";
   private static final String ELEMENT_TEASERS = "teasers";
   private static final String ELEMENT_LINKS = "links";
   private static final String ELEMENT_TARGET = "target";
   private static final String ELEMENT_WIDGETS = "widgets";
 
   private static final String ATTRIBUTE_ID = "id";
+  private static final String ATTRIBUTE_NAME = "name";
+
+  private static final String[] IGNORED_SENDER = new String[] {"zdf", "kika", "3sat", "arte"};
 
   @Override
   public Set<CrawlerUrlDTO> deserialize(JsonElement jsonElement, Type type,
@@ -71,10 +76,29 @@ public class ArdTopicsOverviewDeserializer implements JsonDeserializer<Set<Crawl
         id = JsonUtils.getAttributeAsString(teaserObject, ATTRIBUTE_ID);
       }
 
-      id.ifPresent(s -> results.add(new CrawlerUrlDTO(
-              (ArdConstants.TOPIC_URL).formatted(s, ArdConstants.TOPIC_PAGE_SIZE))));
+      if (isRelevant(teaserObject)) {
+        id.ifPresent(s -> results.add(new CrawlerUrlDTO(
+                (ArdConstants.TOPIC_URL).formatted(s, ArdConstants.TOPIC_PAGE_SIZE))));
+      }
     }
 
     return results;
+  }
+
+
+  private boolean isRelevant(final JsonObject teaserObject) {
+    if (teaserObject.has(ELEMENT_PUBLICATION_SERVICE)) {
+      final JsonObject publicationService =
+              teaserObject.get(ELEMENT_PUBLICATION_SERVICE).getAsJsonObject();
+      final Optional<String> attributeAsString =
+              JsonUtils.getAttributeAsString(publicationService, ATTRIBUTE_NAME);
+      if (attributeAsString.isPresent()) {
+
+        return !Arrays.stream(IGNORED_SENDER)
+                .anyMatch(sender -> sender.equalsIgnoreCase(attributeAsString.get()));
+      }
+    }
+
+    return true;
   }
 }

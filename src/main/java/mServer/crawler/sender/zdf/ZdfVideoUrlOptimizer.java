@@ -32,6 +32,7 @@ public class ZdfVideoUrlOptimizer {
   private static final String HD_3296_15_13 = "3296k_p15v13.mp4";
   private static final String HD_3296_15_14 = "3296k_p15v14.mp4";
   private static final String HD_3328_15_15 = "3328k_p15v15.mp4";
+  private static final String HD_3328_15_17 = "3328k_p15v17.mp4";
   private static final String HD_3328_12 = "3328k_p36v12.mp4";
   private static final String HD_3328_13 = "3328k_p36v13.mp4";
   private static final String HD_3328_14 = "3328k_p36v14.mp4";
@@ -75,6 +76,7 @@ public class ZdfVideoUrlOptimizer {
 
     HD_OPTIMIZE.put(HD_3360_36_17, new String[] {HD_6660_37_17, HD_6628_61_17});
     HD_OPTIMIZE.put(HD_6628_61_17, new String[] {HD_6660_37_17});
+    HD_OPTIMIZE.put(HD_3328_15_17, new String[] {HD_6660_37_17, HD_6628_61_17, HD_3360_36_17});
     HD_OPTIMIZE.put(HD_3328_15_15, new String[] {HD_3360_36_15});
     HD_OPTIMIZE.put(HD_3256, new String[] {HD_3328_12});
     HD_OPTIMIZE.put(HD_3296_15_14, new String[] {HD_3328_36_14});

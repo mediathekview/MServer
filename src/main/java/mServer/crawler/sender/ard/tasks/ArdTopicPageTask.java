@@ -69,12 +69,12 @@ public class ArdTopicPageTask extends ArdTaskBase<ArdFilmInfoDto, CrawlerUrlDTO>
     // Sportschau
     TOPICS_LOAD_ALL_PAGES.add("Y3JpZDovL2Rhc2Vyc3RlLmRlL3Nwb3J0c2NoYXU");
     // temporary load all => remove if old entries exists
-    // Morden im Norden
-    TOPICS_LOAD_ALL_PAGES.add("Y3JpZDovL2Rhc2Vyc3RlLmRlL21vcmRlbi1pbS1ub3JkZW4");
-    // Babylon Berlin
-    TOPICS_LOAD_ALL_PAGES.add("Y3JpZDovL2Rhc2Vyc3RlLmRlL2JhYnlsb24tYmVybGlu");
-    // Watzmann ermittelt
-    TOPICS_LOAD_ALL_PAGES.add("Y3JpZDovL2Rhc2Vyc3RlLmRlL3dhdHptYW5uLWVybWl0dGVsdA");
+    // Odysso
+    TOPICS_LOAD_ALL_PAGES.add("Y3JpZDovL3N3ci5kZS8yMjI2MTE0");
+    // MDR in aller Freundschaft
+    TOPICS_LOAD_ALL_PAGES.add("Y3JpZDovL21kci5kZS9zZW5kZXJlaWhlbi9zdGFmZmVsc2VyaWUtaW4tYWxsZXItZnJldW5kc2NoYWZ0");
+    // Super.markt
+    TOPICS_LOAD_ALL_PAGES.add("Y3JpZDovL3JiYi1vbmxpbmUuZGUvc3VwZXJtYXJrdA");
   }
 
   public ArdTopicPageTask(MediathekReader aCrawler,

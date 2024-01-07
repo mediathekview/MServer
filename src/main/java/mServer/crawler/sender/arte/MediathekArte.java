@@ -85,13 +85,13 @@ public class MediathekArte extends MediathekReader {
 
     senderLanguages.put(Const.ARTE_DE, "de");
     senderLanguages.put(Const.ARTE_FR, "fr");
-    /*if (LocalDate.now().getDayOfYear() % 2 == 0) {
+    if (LocalDate.now().getDayOfYear() % 2 == 0) {
       senderLanguages.put(ARTE_EN, "en");
       senderLanguages.put(ARTE_ES, "es");
     } else {
       senderLanguages.put(ARTE_IT, "it");
       senderLanguages.put(ARTE_PL, "pl");
-    }*/
+    }
 
     // starte Sprachen Sender, da es sonst zu doppelten Sendern kommen kann
     senderLanguages.keySet().forEach(sender -> mlibFilmeSuchen.melden(sender, getMax(), getProgress(), ""));
