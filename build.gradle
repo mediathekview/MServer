@@ -3,7 +3,7 @@ import java.nio.file.Files
 plugins {
     id 'application'
     id 'com.github.jk1.dependency-license-report' version "2.0"
-    id "org.sonarqube" version "3.4.0.2513"
+    id "org.sonarqube" version "4.4.1.3373"
     id 'org.openjfx.javafxplugin' version '0.0.13'
 }
 
