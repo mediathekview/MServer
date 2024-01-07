@@ -99,21 +99,24 @@ public class OrfCrawler extends AbstractCrawler {
   @Override
   protected RecursiveTask<Set<Film>> createCrawlerTask() {
     try {
+      boolean processMoreEpisodes = false;
 
       final Queue<TopicUrlDTO> shows = new ConcurrentLinkedQueue<>();
 
       if (Boolean.TRUE.equals(crawlerConfig.getTopicsSearchEnabled())) {
         shows.addAll(getArchiveEntries());
-
         addShows(shows, getLetterEntries());
+        processMoreEpisodes = true;
+      } else {
+        addShows(shows, getDaysEntries());
+        processMoreEpisodes = false;
       }
-      addShows(shows, getDaysEntries());
 
       printMessage(
           ServerMessages.DEBUG_ALL_SENDUNG_FOLGEN_COUNT, getSender().getName(), shows.size());
       getAndSetMaxCount(shows.size());
 
-      return new OrfFilmDetailTask(this, shows);
+      return new OrfFilmDetailTask(this, shows, processMoreEpisodes);
     } catch (final InterruptedException ex) {
       LOG.debug("{} crawler interrupted.", getSender().getName(), ex);
       Thread.currentThread().interrupt();
