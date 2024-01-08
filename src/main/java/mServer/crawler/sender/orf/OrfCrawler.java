@@ -74,19 +74,22 @@ public class OrfCrawler extends MediathekCrawler {
   @Override
   protected RecursiveTask<Set<DatenFilm>> createCrawlerTask() {
 
+    boolean processMoreEpisodes = false;
+
     final ConcurrentLinkedQueue<TopicUrlDTO> shows = new ConcurrentLinkedQueue<>();
     try {
 
       if (CrawlerTool.loadLongMax()) {
         shows.addAll(getLetterEntries());
         shows.addAll(getArchiveEntries());
+        processMoreEpisodes = true;
+      } else {
+        getDaysEntries().forEach(show -> {
+          if (!shows.contains(show)) {
+            shows.add(show);
+          }
+        });
       }
-
-      getDaysEntries().forEach(show -> {
-        if (!shows.contains(show)) {
-          shows.add(show);
-        }
-      });
 
     } catch (InterruptedException | ExecutionException exception) {
       Log.errorLog(56146546, exception);
@@ -95,7 +98,7 @@ public class OrfCrawler extends MediathekCrawler {
 
     meldungAddMax(shows.size());
 
-    return new OrfFilmDetailTask(this, shows);
+    return new OrfFilmDetailTask(this, shows, processMoreEpisodes);
   }
 
 }

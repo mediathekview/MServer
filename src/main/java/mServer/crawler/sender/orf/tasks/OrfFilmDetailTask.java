@@ -1,11 +1,13 @@
 package mServer.crawler.sender.orf.tasks;
 
-import mServer.crawler.sender.base.AbstractUrlTask;
+import mServer.crawler.sender.base.*;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import de.mediathekview.mlib.daten.DatenFilm;
 import de.mediathekview.mlib.tool.Log;
+
+import java.io.IOException;
 import java.lang.reflect.Type;
 import java.time.Duration;
 import java.time.LocalDateTime;
@@ -19,11 +21,11 @@ import java.util.Optional;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import mServer.crawler.CrawlerTool;
 import mServer.crawler.sender.MediathekReader;
-import mServer.crawler.sender.base.Qualities;
-import mServer.crawler.sender.base.HtmlDocumentUtils;
 import mServer.crawler.sender.orf.OrfEpisodeInfoDTO;
 import mServer.crawler.sender.orf.OrfVideoInfoDTO;
 import mServer.crawler.sender.orf.TopicUrlDTO;
+import mServer.crawler.sender.orf.json.OrfMoreEpisodesDeserializer;
+import mServer.crawler.sender.orf.parser.OrfMoreEpisodesParser;
 import mServer.crawler.sender.orf.parser.OrfPlaylistDeserializer;
 import org.apache.commons.lang3.StringUtils;
 import org.jsoup.nodes.Document;
@@ -36,6 +38,7 @@ public class OrfFilmDetailTask extends OrfTaskBase<DatenFilm, TopicUrlDTO> {
   private static final String DURATION_SELECTOR = VIDEO_META_DATA_SELECTOR + " span.duration";
   private static final String DESCRIPTION_SELECTOR = ".description-container .description-text";
   private static final String VIDEO_SELECTOR = "div.jsb_VideoPlaylist";
+  private static final String MORE_EPISODES_SELECTOR = "div.more-episodes";
 
   private static final String ATTRIBUTE_DATETIME = "datetime";
   private static final String ATTRIBUTE_DATA_JSB = "data-jsb";
@@ -50,12 +53,18 @@ public class OrfFilmDetailTask extends OrfTaskBase<DatenFilm, TopicUrlDTO> {
   private static final DateTimeFormatter TIME_FORMAT
           = DateTimeFormatter.ofPattern("HH:mm:ss");
 
+  private static final Type CRAWLER_URL_TYPE_TOKEN = new TypeToken<CrawlerUrlDTO>() {}.getType();
   private static final Type LIST_EPISODEINFO_TYPE_TOKEN = new TypeToken<List<OrfEpisodeInfoDTO>>() {
   }.getType();
 
+  private final boolean processMoreEpisodes;
+  private final transient JsoupConnection jsoupConnection;
+
   public OrfFilmDetailTask(final MediathekReader aCrawler,
-          final ConcurrentLinkedQueue<TopicUrlDTO> aUrlToCrawlDTOs) {
+          final ConcurrentLinkedQueue<TopicUrlDTO> aUrlToCrawlDTOs, boolean processMoreEpisodes) {
     super(aCrawler, aUrlToCrawlDTOs);
+    this.processMoreEpisodes = processMoreEpisodes;
+    jsoupConnection = new JsoupConnection();
   }
 
   @Override
@@ -76,12 +85,22 @@ public class OrfFilmDetailTask extends OrfTaskBase<DatenFilm, TopicUrlDTO> {
       }
     }
 
+    if (processMoreEpisodes) {
+      final List<TopicUrlDTO> topicUrlDTOS = parseMoreEpisodes(aDocument, aUrlDTO.getTopic());
+      topicUrlDTOS.remove(aUrlDTO);
+      processMoreEpisodes(topicUrlDTOS);
+    }
+
     ORF_LOGGER.trace(String.format("%s - %s: Anzahl Filme: %d", aUrlDTO.getTopic(), aUrlDTO.getUrl(), taskResults.size()));
   }
 
   @Override
   protected AbstractUrlTask<DatenFilm, TopicUrlDTO> createNewOwnInstance(ConcurrentLinkedQueue<TopicUrlDTO> aURLsToCrawl) {
-    return new OrfFilmDetailTask(crawler, aURLsToCrawl);
+    return createNewOwnInstance(aURLsToCrawl, processMoreEpisodes);
+  }
+
+  private AbstractUrlTask<DatenFilm, TopicUrlDTO> createNewOwnInstance(final ConcurrentLinkedQueue<TopicUrlDTO> urlsToCrawl, boolean processMoreEpisodes) {
+    return new OrfFilmDetailTask(crawler, urlsToCrawl, processMoreEpisodes);
   }
 
   private void createFilm(final TopicUrlDTO aUrlDTO,
@@ -217,5 +236,37 @@ public class OrfFilmDetailTask extends OrfTaskBase<DatenFilm, TopicUrlDTO> {
     }
 
     return Optional.empty();
+  }
+
+  private List<TopicUrlDTO> parseMoreEpisodes(final Document document, final String topic) {
+    final Optional<String> json = HtmlDocumentUtils.getElementAttributeString(MORE_EPISODES_SELECTOR, ATTRIBUTE_DATA_JSB, document);
+    if (json.isPresent()) {
+      final Gson gson =
+              new GsonBuilder()
+                      .registerTypeAdapter(CRAWLER_URL_TYPE_TOKEN, new OrfMoreEpisodesDeserializer())
+                      .create();
+
+      CrawlerUrlDTO moreEpisodesUrl = gson.fromJson(json.get(), CRAWLER_URL_TYPE_TOKEN);
+      if (moreEpisodesUrl != null) {
+        try {
+          final Document moreEpisodesDocument = jsoupConnection.getDocument(moreEpisodesUrl.getUrl());
+          OrfMoreEpisodesParser parser = new OrfMoreEpisodesParser();
+          return parser.parse(moreEpisodesDocument, topic);
+        } catch (IOException e) {
+          Log.errorLog(237462889, String.format("OrfFilmDetailTask: loading more episodes url %s failed.", moreEpisodesUrl.getUrl()));
+        }
+      }
+    }
+
+    return new ArrayList<>();
+  }
+
+  private void processMoreEpisodes(final List<TopicUrlDTO> moreFilms) {
+    if (moreFilms != null && !moreFilms.isEmpty()) {
+      final ConcurrentLinkedQueue<TopicUrlDTO> queue = new ConcurrentLinkedQueue<>(moreFilms);
+      final OrfFilmDetailTask task = (OrfFilmDetailTask) createNewOwnInstance(queue, false);
+      task.fork();
+      taskResults.addAll(task.join());
+    }
   }
 }
