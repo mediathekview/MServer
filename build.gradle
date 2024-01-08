@@ -36,7 +36,7 @@ dependencies {
     compileOnly "com.sun.xml.ws:jaxws-rt:2.3.6"
     compileOnly "org.glassfish.jaxb:jaxb-runtime:2.3.8"
 
-    implementation 'de.mediathekview:MLib:3.0.13'
+    implementation 'de.mediathekview:MLib:3.0.14'
     implementation 'commons-net:commons-net:3.9.0'
     implementation 'org.apache.commons:commons-compress:1.24.0'
     implementation 'org.apache.commons:commons-text:1.10.0'
