@@ -5,10 +5,7 @@ import de.mediathekview.mlib.daten.Sender;
 import de.mediathekview.mlib.messages.listener.MessageListener;
 import de.mediathekview.mserver.base.config.MServerConfigManager;
 import de.mediathekview.mserver.base.messages.ServerMessages;
-import de.mediathekview.mserver.crawler.ard.tasks.ArdDayPageTask;
-import de.mediathekview.mserver.crawler.ard.tasks.ArdFilmDetailTask;
-import de.mediathekview.mserver.crawler.ard.tasks.ArdTopicPageTask;
-import de.mediathekview.mserver.crawler.ard.tasks.ArdTopicsOverviewTask;
+import de.mediathekview.mserver.crawler.ard.tasks.*;
 import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
 import de.mediathekview.mserver.crawler.basic.CrawlerUrlDTO;
 import de.mediathekview.mserver.progress.listeners.SenderProgressListener;
@@ -76,6 +73,7 @@ public class ArdCrawler extends AbstractCrawler {
         for (final ForkJoinTask<Set<CrawlerUrlDTO>> senderTopicTask : senderTopicTasks) {
           senderTopicUrls.addAll(senderTopicTask.get());
         }
+        LOG.debug("sender topic tasks: {}", senderTopicUrls.size());
         final ArdTopicPageTask topicTask =
             new ArdTopicPageTask(this, new ConcurrentLinkedQueue<>(senderTopicUrls));
         final int showsCountBefore = shows.size();
@@ -99,16 +97,27 @@ public class ArdCrawler extends AbstractCrawler {
 
   private Set<ForkJoinTask<Set<CrawlerUrlDTO>>> createSenderTopicTasks() {
     final Set<ForkJoinTask<Set<CrawlerUrlDTO>>> topicTasks = new HashSet<>();
-    topicTasks.add(getTopicEntriesBySender(ArdConstants.DEFAULT_CLIENT));
+    try {
+      topicTasks.add(getTopicEntriesBySender(ArdConstants.DEFAULT_CLIENT));
+    } catch (ExecutionException | InterruptedException e) {
+      LOG.error("exception sender topic {}", ArdConstants.DEFAULT_CLIENT, e);
+    }
     for (final String client : ArdConstants.CLIENTS) {
-      topicTasks.add(getTopicEntriesBySender(client));
+      try {
+        topicTasks.add(getTopicEntriesBySender(client));
+      } catch (ExecutionException | InterruptedException e) {
+        LOG.error("exception sender topic {}", client, e);
+      }
     }
     return topicTasks;
   }
 
-  private ForkJoinTask<Set<CrawlerUrlDTO>> getTopicEntriesBySender(final String sender) {
-    return forkJoinPool.submit(
-        new ArdTopicsOverviewTask(this, sender, createTopicsOverviewUrl(sender)));
+  private ForkJoinTask<Set<CrawlerUrlDTO>> getTopicEntriesBySender(final String sender) throws ExecutionException, InterruptedException {
+     Set<CrawlerUrlDTO> senderTopics = forkJoinPool.submit(
+        new ArdTopicsTask(this, sender, createTopicsOverviewUrl(sender))).get();
+
+    LOG.debug("topics task result {}", senderTopics.size());
+     return forkJoinPool.submit(new ArdTopicsLetterTask(this, sender, new ConcurrentLinkedQueue<>(senderTopics)));
   }
 
   private Queue<CrawlerUrlDTO> createTopicsOverviewUrl(final String client) {
