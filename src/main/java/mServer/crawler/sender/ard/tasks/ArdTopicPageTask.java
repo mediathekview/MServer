@@ -75,6 +75,10 @@ public class ArdTopicPageTask extends ArdTaskBase<ArdFilmInfoDto, CrawlerUrlDTO>
     TOPICS_LOAD_ALL_PAGES.add("Y3JpZDovL21kci5kZS9zZW5kZXJlaWhlbi9zdGFmZmVsc2VyaWUtaW4tYWxsZXItZnJldW5kc2NoYWZ0");
     // Super.markt
     TOPICS_LOAD_ALL_PAGES.add("Y3JpZDovL3JiYi1vbmxpbmUuZGUvc3VwZXJtYXJrdA");
+    // Verrückt nach Meer
+    TOPICS_LOAD_ALL_PAGES.add("Y3JpZDovL2JyLmRlL2Jyb2FkY2FzdFNlcmllcy92ZXJydWVja3QtbmFjaC1tZWVy");
+    // Dahoam is dahoam
+    TOPICS_LOAD_ALL_PAGES.add("Y3JpZDovL2JyLmRlL2Jyb2FkY2FzdFNlcmllcy9icm9hZGNhc3RTZXJpZXM6L2JyZGUvZmVybnNlaGVuL2JheWVyaXNjaGVzLWZlcm5zZWhlbi9zZW5kdW5nZW4vZGFob2FtLWlzLWRhaG9hbQ");
   }
 
   public ArdTopicPageTask(MediathekReader aCrawler,
