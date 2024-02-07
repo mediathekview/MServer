@@ -21,7 +21,7 @@ public class ArdTopicsTask extends ArdTaskBase<CrawlerUrlDTO, CrawlerUrlDTO> {
   public ArdTopicsTask(AbstractCrawler aCrawler, String sender, Queue<CrawlerUrlDTO> urlToCrawlDTOs) {
     super(aCrawler, urlToCrawlDTOs);
     this.sender = sender;
-    registerJsonDeserializer(SET_CRAWLER_URL_TYPE_TOKEN, new ArdTopicsDeserializer());
+    registerJsonDeserializer(SET_CRAWLER_URL_TYPE_TOKEN, new ArdTopicsDeserializer(sender));
   }
 
   @Override

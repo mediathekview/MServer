@@ -16,6 +16,11 @@ public class ArdTopicsDeserializer implements JsonDeserializer<Set<CrawlerUrlDTO
   private static final String ELEMENT_SELF = "self";
 
   private static final String ATTRIBUTE_ID = "id";
+  private final String sender;
+
+  public ArdTopicsDeserializer(String sender) {
+    this.sender = sender;
+  }
 
   @Override
   public Set<CrawlerUrlDTO> deserialize(
@@ -41,6 +46,7 @@ public class ArdTopicsDeserializer implements JsonDeserializer<Set<CrawlerUrlDTO
             new CrawlerUrlDTO(
                 String.format(
                     ArdConstants.TOPICS_COMPILATION_URL,
+                    sender,
                     id.get(),
                     ArdConstants.TOPICS_COMPILATION_PAGE_SIZE)));
       }
