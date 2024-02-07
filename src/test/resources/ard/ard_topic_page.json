@@ -1,0 +1,413 @@
+{
+  "aZContent":true,
+  "compilationType":"editorial",
+  "id":"UmFkaW9CcmVtZW4uYg",
+  "isChildContent":false,
+  "pagination":{
+    "pageNumber":0,
+    "pageSize":200,
+    "totalElements":5
+  },
+  "personalized":false,
+  "links":{
+    "self":{
+      "id":"UmFkaW9CcmVtZW4uYg",
+      "urlId":"UmFkaW9CcmVtZW4uYg",
+      "title":"B",
+      "href":"https://api.ardmediathek.de/page-gateway/widgets/ard/editorials/UmFkaW9CcmVtZW4uYg?pageNumber=0&pageSize=200&embedded=true",
+      "type":"application/vnd.ard.widget+json",
+      "partner":"ard"
+    }
+  },
+  "size":"m",
+  "swipeable":true,
+  "teasers":[
+    {
+      "availableSeasons":null,
+      "binaryFeatures":[
+        "DGS",
+        "AD"
+      ],
+      "coreAssetType":"INFINITE_SERIES",
+      "id":"urn:ard:show:008e3be2e23c986a",
+      "images":{
+        "aspect16x9":{
+          "alt":"Logo buten un binnen",
+          "producerName":"Radio Bremen",
+          "src":"https://api.ardmediathek.de/image-service/images/urn:ard:image:bca6f57ebb4de810?w={width}&ch=1512640745f9782c",
+          "title":"Logo buten un binnen"
+        },
+        "aspect16x7":{
+          "alt":"Logo buten un binnen",
+          "producerName":"Radio Bremen",
+          "src":"https://api.ardmediathek.de/image-service/images/urn:ard:image:28f3f024cb781e6e?w={width}&ch=964c6f142f463c54",
+          "title":"Logo buten un binnen"
+        },
+        "aspect1x1":{
+          "alt":"Logo buten un binnen",
+          "producerName":"Radio Bremen",
+          "src":"https://api.ardmediathek.de/image-service/images/urn:ard:image:36285a892fd9b8d3?w={width}&ch=39487e9e744b682c",
+          "title":"Logo buten un binnen"
+        }
+      },
+      "isChildContent":false,
+      "longTitle":"buten un binnen | regionalmagazin",
+      "mediumTitle":"buten un binnen | regionalmagazin",
+      "personalized":false,
+      "playtime":null,
+      "publicationService":{
+        "name":"Radio Bremen",
+        "logo":{
+          "title":"Logo Radio Bremen",
+          "alt":"Logo Radio Bremen",
+          "producerName":"Logo Radio Bremen",
+          "src":"https://api.ardmediathek.de/image-service/image-collections/urn:ard:image-collection:2213972a8d101de1/16x9?w={width}",
+          "aspectRatio":"16x9"
+        },
+        "publisherType":"TV",
+        "partner":"radio_bremen",
+        "id":"b3JnYW5pemF0aW9uX1JhZGlvQnJlbWVu",
+        "coreId":"urn:ard:publisher:bc809dbaddf5ad61"
+      },
+      "links":{
+        "self":{
+          "id":"urn:ard:show:008e3be2e23c986a",
+          "urlId":"urn:ard:show:008e3be2e23c986a",
+          "title":"buten un binnen | regionalmagazin",
+          "href":"https://api.ardmediathek.de/page-gateway/teasers/ard/editorials/urn%3Aard%3Ashow%3A008e3be2e23c986a",
+          "type":"application/vnd.ard.teaser+json",
+          "partner":"ard"
+        },
+        "target":{
+          "id":"Y3JpZDovL3JhZGlvYnJlbWVuLmRlL3NlbmRlcmVpaGVuL2lkX2J1dGVudW5iaW5uZW4",
+          "urlId":"Y3JpZDovL3JhZGlvYnJlbWVuLmRlL3NlbmRlcmVpaGVuL2lkX2J1dGVudW5iaW5uZW4",
+          "title":"buten un binnen | regionalmagazin",
+          "href":"https://api.ardmediathek.de/page-gateway/pages/ard/grouping/Y3JpZDovL3JhZGlvYnJlbWVuLmRlL3NlbmRlcmVpaGVuL2lkX2J1dGVudW5iaW5uZW4?embedded=true",
+          "type":"application/vnd.ard.page+json",
+          "partner":"ard"
+        }
+      },
+      "shortTitle":"buten un binnen | regionalmagazin",
+      "titleVisible":false,
+      "trackingPiano":{
+        "teaser_content_type":"show",
+        "teaser_id":"urn:ard:show:008e3be2e23c986a",
+        "teaser_institution":"ARD",
+        "teaser_institution_id":"urn:ard:institution:453603d77920d274",
+        "teaser_title":"buten un binnen | regionalmagazin"
+      },
+      "type":"show"
+    },
+    {
+      "availableSeasons":null,
+      "binaryFeatures":[
+        "UT"
+      ],
+      "coreAssetType":"INFINITE_SERIES",
+      "id":"urn:ard:show:949668b26db5b5d2",
+      "images":{
+        "aspect16x9":{
+          "alt":"Logo buten un binnen Sportblitz",
+          "producerName":"Radio Bremen",
+          "src":"https://api.ardmediathek.de/image-service/images/urn:ard:image:cfd3d1a54b880770?w={width}&ch=1637f5f0866debc9",
+          "title":"Logo buten un binnen Sportblitz"
+        },
+        "aspect16x7":{
+          "alt":"Logo buten un binnen Sportblitz",
+          "producerName":"Radio Bremen",
+          "src":"https://api.ardmediathek.de/image-service/images/urn:ard:image:00de993d65b59d53?w={width}&ch=85d63bd0caeb21f4",
+          "title":"Logo buten un binnen Sportblitz"
+        },
+        "aspect1x1":{
+          "alt":"Logo buten un binnen Sportblitz",
+          "producerName":"Radio Bremen",
+          "src":"https://api.ardmediathek.de/image-service/images/urn:ard:image:455d7e52df1c57b3?w={width}&ch=a08635a2676c21c6",
+          "title":"Logo buten un binnen Sportblitz"
+        }
+      },
+      "isChildContent":false,
+      "longTitle":"buten un binnen | sportblitz",
+      "mediumTitle":"buten un binnen | sportblitz",
+      "personalized":false,
+      "playtime":null,
+      "publicationService":{
+        "name":"Radio Bremen",
+        "logo":{
+          "title":"Logo Radio Bremen",
+          "alt":"Logo Radio Bremen",
+          "producerName":"Logo Radio Bremen",
+          "src":"https://api.ardmediathek.de/image-service/image-collections/urn:ard:image-collection:2213972a8d101de1/16x9?w={width}",
+          "aspectRatio":"16x9"
+        },
+        "publisherType":"TV",
+        "partner":"radio_bremen",
+        "id":"b3JnYW5pemF0aW9uX1JhZGlvQnJlbWVu",
+        "coreId":"urn:ard:publisher:bc809dbaddf5ad61"
+      },
+      "links":{
+        "self":{
+          "id":"urn:ard:show:949668b26db5b5d2",
+          "urlId":"urn:ard:show:949668b26db5b5d2",
+          "title":"buten un binnen | sportblitz",
+          "href":"https://api.ardmediathek.de/page-gateway/teasers/ard/editorials/urn%3Aard%3Ashow%3A949668b26db5b5d2",
+          "type":"application/vnd.ard.teaser+json",
+          "partner":"ard"
+        },
+        "target":{
+          "id":"Y3JpZDovL3JhZGlvYnJlbWVuLmRlL3NlbmRlcmVpaGVuL2lkX3Nwb3J0YmxpdHo",
+          "urlId":"Y3JpZDovL3JhZGlvYnJlbWVuLmRlL3NlbmRlcmVpaGVuL2lkX3Nwb3J0YmxpdHo",
+          "title":"buten un binnen | sportblitz",
+          "href":"https://api.ardmediathek.de/page-gateway/pages/ard/grouping/Y3JpZDovL3JhZGlvYnJlbWVuLmRlL3NlbmRlcmVpaGVuL2lkX3Nwb3J0YmxpdHo?embedded=true",
+          "type":"application/vnd.ard.page+json",
+          "partner":"ard"
+        }
+      },
+      "shortTitle":"buten un binnen | sportblitz",
+      "titleVisible":false,
+      "trackingPiano":{
+        "teaser_content_type":"show",
+        "teaser_id":"urn:ard:show:949668b26db5b5d2",
+        "teaser_institution":"ARD",
+        "teaser_institution_id":"urn:ard:institution:453603d77920d274",
+        "teaser_title":"buten un binnen | sportblitz"
+      },
+      "type":"show"
+    },
+    {
+      "availableSeasons":null,
+      "binaryFeatures":[
+        "UT"
+      ],
+      "coreAssetType":"INFINITE_SERIES",
+      "id":"urn:ard:show:877f633c894962f9",
+      "images":{
+        "aspect16x9":{
+          "alt":"Logo buten un binnen | wetter",
+          "producerName":"Radio Bremen",
+          "src":"https://api.ardmediathek.de/image-service/images/urn:ard:image:6a6b2d894712ee80?w={width}&ch=13af9d08b6e8012d",
+          "title":"Logo buten un binnen | wetter"
+        },
+        "aspect16x7":{
+          "alt":"Logo buten un binnen | wetter",
+          "producerName":"Radio Bremen",
+          "src":"https://api.ardmediathek.de/image-service/images/urn:ard:image:44e817a5195d2977?w={width}&ch=e0552707c8681a7b",
+          "title":"Logo buten un binnen | wetter"
+        },
+        "aspect1x1":{
+          "alt":"Logo buten un binnen | wetter",
+          "producerName":"Radio Bremen",
+          "src":"https://api.ardmediathek.de/image-service/images/urn:ard:image:e0e5827ed386be43?w={width}&ch=851c40728ee14fd1",
+          "title":"Logo buten un binnen | wetter"
+        }
+      },
+      "isChildContent":false,
+      "longTitle":"buten un binnen | wetter",
+      "mediumTitle":"buten un binnen | wetter",
+      "personalized":false,
+      "playtime":null,
+      "publicationService":{
+        "name":"Radio Bremen",
+        "logo":{
+          "title":"Logo Radio Bremen",
+          "alt":"Logo Radio Bremen",
+          "producerName":"Logo Radio Bremen",
+          "src":"https://api.ardmediathek.de/image-service/image-collections/urn:ard:image-collection:2213972a8d101de1/16x9?w={width}",
+          "aspectRatio":"16x9"
+        },
+        "publisherType":"TV",
+        "partner":"radio_bremen",
+        "id":"b3JnYW5pemF0aW9uX1JhZGlvQnJlbWVu",
+        "coreId":"urn:ard:publisher:bc809dbaddf5ad61"
+      },
+      "links":{
+        "self":{
+          "id":"urn:ard:show:877f633c894962f9",
+          "urlId":"urn:ard:show:877f633c894962f9",
+          "title":"buten un binnen | wetter",
+          "href":"https://api.ardmediathek.de/page-gateway/teasers/ard/editorials/urn%3Aard%3Ashow%3A877f633c894962f9",
+          "type":"application/vnd.ard.teaser+json",
+          "partner":"ard"
+        },
+        "target":{
+          "id":"Y3JpZDovL3JhZGlvYnJlbWVuLmRlL3NlbmRlcmVpaGVuL2lkX2J1dGVudW5iaW5uZW53ZXR0ZXI",
+          "urlId":"Y3JpZDovL3JhZGlvYnJlbWVuLmRlL3NlbmRlcmVpaGVuL2lkX2J1dGVudW5iaW5uZW53ZXR0ZXI",
+          "title":"buten un binnen | wetter",
+          "href":"https://api.ardmediathek.de/page-gateway/pages/ard/grouping/Y3JpZDovL3JhZGlvYnJlbWVuLmRlL3NlbmRlcmVpaGVuL2lkX2J1dGVudW5iaW5uZW53ZXR0ZXI?embedded=true",
+          "type":"application/vnd.ard.page+json",
+          "partner":"ard"
+        }
+      },
+      "shortTitle":"buten un binnen | wetter",
+      "titleVisible":false,
+      "trackingPiano":{
+        "teaser_content_type":"show",
+        "teaser_id":"urn:ard:show:877f633c894962f9",
+        "teaser_institution":"ARD",
+        "teaser_institution_id":"urn:ard:institution:453603d77920d274",
+        "teaser_title":"buten un binnen | wetter"
+      },
+      "type":"show"
+    },
+    {
+      "availableSeasons":null,
+      "binaryFeatures":[
+        "UT",
+        "DGS"
+      ],
+      "coreAssetType":"INFINITE_SERIES",
+      "id":"urn:ard:show:e746f957755bb08a",
+      "images":{
+        "aspect16x9":{
+          "alt":"Logo buten un binnen um 6",
+          "producerName":"Radio Bremen",
+          "src":"https://api.ardmediathek.de/image-service/images/urn:ard:image:83380437c445399b?w={width}&ch=62f889efb4844ff0",
+          "title":"Logo buten un binnen um 6"
+        },
+        "aspect16x7":{
+          "alt":"Logo buten un binnen um 6",
+          "producerName":"Radio Bremen",
+          "src":"https://api.ardmediathek.de/image-service/images/urn:ard:image:82e169cee014b674?w={width}&ch=deca4dee360c90a4",
+          "title":"Logo buten un binnen um 6"
+        },
+        "aspect1x1":{
+          "alt":"Logo buten un binnen um 6",
+          "producerName":"Radio Bremen",
+          "src":"https://api.ardmediathek.de/image-service/images/urn:ard:image:09b6abc050d16958?w={width}&ch=e81684fb1f6ef5ea",
+          "title":"Logo buten un binnen um 6"
+        }
+      },
+      "isChildContent":false,
+      "longTitle":"buten un binnen um 6",
+      "mediumTitle":"buten un binnen um 6",
+      "personalized":false,
+      "playtime":null,
+      "publicationService":{
+        "name":"Radio Bremen",
+        "logo":{
+          "title":"Logo Radio Bremen",
+          "alt":"Logo Radio Bremen",
+          "producerName":"Logo Radio Bremen",
+          "src":"https://api.ardmediathek.de/image-service/image-collections/urn:ard:image-collection:2213972a8d101de1/16x9?w={width}",
+          "aspectRatio":"16x9"
+        },
+        "publisherType":"TV",
+        "partner":"radio_bremen",
+        "id":"b3JnYW5pemF0aW9uX1JhZGlvQnJlbWVu",
+        "coreId":"urn:ard:publisher:bc809dbaddf5ad61"
+      },
+      "links":{
+        "self":{
+          "id":"urn:ard:show:e746f957755bb08a",
+          "urlId":"urn:ard:show:e746f957755bb08a",
+          "title":"buten un binnen um 6",
+          "href":"https://api.ardmediathek.de/page-gateway/teasers/ard/editorials/urn%3Aard%3Ashow%3Ae746f957755bb08a",
+          "type":"application/vnd.ard.teaser+json",
+          "partner":"ard"
+        },
+        "target":{
+          "id":"Y3JpZDovL3JhZGlvYnJlbWVuLmRlL3NlbmRlcmVpaGVuL2lkX2J1dGVudW5iaW5uZW51bTY",
+          "urlId":"Y3JpZDovL3JhZGlvYnJlbWVuLmRlL3NlbmRlcmVpaGVuL2lkX2J1dGVudW5iaW5uZW51bTY",
+          "title":"buten un binnen um 6",
+          "href":"https://api.ardmediathek.de/page-gateway/pages/ard/grouping/Y3JpZDovL3JhZGlvYnJlbWVuLmRlL3NlbmRlcmVpaGVuL2lkX2J1dGVudW5iaW5uZW51bTY?embedded=true",
+          "type":"application/vnd.ard.page+json",
+          "partner":"ard"
+        }
+      },
+      "shortTitle":"buten un binnen um 6",
+      "titleVisible":false,
+      "trackingPiano":{
+        "teaser_content_type":"show",
+        "teaser_id":"urn:ard:show:e746f957755bb08a",
+        "teaser_institution":"ARD",
+        "teaser_institution_id":"urn:ard:institution:453603d77920d274",
+        "teaser_title":"buten un binnen um 6"
+      },
+      "type":"show"
+    },
+    {
+      "availableSeasons":null,
+      "binaryFeatures":[
+        "DGS"
+      ],
+      "coreAssetType":"INFINITE_SERIES",
+      "id":"urn:ard:show:b330bb19d42e88b1",
+      "images":{
+        "aspect16x9":{
+          "alt":"Symbolbild Gebärdensprache",
+          "producerName":"Radio Bremen",
+          "src":"https://api.ardmediathek.de/image-service/images/urn:ard:image:597a7769a070c62e?w={width}&ch=30bb509d092e6b9b",
+          "title":"Symbolbild Gebärdensprache"
+        },
+        "aspect16x7":{
+          "alt":"Symbolbild Gebärdensprache",
+          "producerName":"Radio Bremen",
+          "src":"https://api.ardmediathek.de/image-service/images/urn:ard:image:81fc3a9f828abdd0?w={width}&ch=4883308db045ab2f",
+          "title":"Symbolbild Gebärdensprache"
+        },
+        "aspect1x1":{
+          "alt":"Symbolbild Gebärdensprache",
+          "producerName":"Radio Bremen",
+          "src":"https://api.ardmediathek.de/image-service/images/urn:ard:image:3c730b98698ca399?w={width}&ch=0b6534d2cbdb60c6",
+          "title":"Symbolbild Gebärdensprache"
+        }
+      },
+      "isChildContent":false,
+      "longTitle":"buten un binnen um 6 in Gebärdensprache",
+      "mediumTitle":"buten un binnen um 6 in Gebärdensprache",
+      "personalized":false,
+      "playtime":null,
+      "publicationService":{
+        "name":"Radio Bremen",
+        "logo":{
+          "title":"Logo Radio Bremen",
+          "alt":"Logo Radio Bremen",
+          "producerName":"Logo Radio Bremen",
+          "src":"https://api.ardmediathek.de/image-service/image-collections/urn:ard:image-collection:2213972a8d101de1/16x9?w={width}",
+          "aspectRatio":"16x9"
+        },
+        "publisherType":"TV",
+        "partner":"radio_bremen",
+        "id":"b3JnYW5pemF0aW9uX1JhZGlvQnJlbWVu",
+        "coreId":"urn:ard:publisher:bc809dbaddf5ad61"
+      },
+      "links":{
+        "self":{
+          "id":"urn:ard:show:b330bb19d42e88b1",
+          "urlId":"urn:ard:show:b330bb19d42e88b1",
+          "title":"buten un binnen um 6 in Gebärdensprache",
+          "href":"https://api.ardmediathek.de/page-gateway/teasers/ard/editorials/urn%3Aard%3Ashow%3Ab330bb19d42e88b1",
+          "type":"application/vnd.ard.teaser+json",
+          "partner":"ard"
+        },
+        "target":{
+          "id":"Y3JpZDovL3JhZGlvYnJlbWVuLmRlL2J1dGVudW5iaW5uZW5nZWJhZXJkZW5zcHJhY2hl",
+          "urlId":"Y3JpZDovL3JhZGlvYnJlbWVuLmRlL2J1dGVudW5iaW5uZW5nZWJhZXJkZW5zcHJhY2hl",
+          "title":"buten un binnen um 6 in Gebärdensprache",
+          "href":"https://api.ardmediathek.de/page-gateway/pages/ard/grouping/Y3JpZDovL3JhZGlvYnJlbWVuLmRlL2J1dGVudW5iaW5uZW5nZWJhZXJkZW5zcHJhY2hl?embedded=true",
+          "type":"application/vnd.ard.page+json",
+          "partner":"ard"
+        }
+      },
+      "shortTitle":"buten un binnen um 6 in Gebärdensprache",
+      "titleVisible":false,
+      "trackingPiano":{
+        "teaser_content_type":"show",
+        "teaser_id":"urn:ard:show:b330bb19d42e88b1",
+        "teaser_institution":"ARD",
+        "teaser_institution_id":"urn:ard:institution:453603d77920d274",
+        "teaser_title":"buten un binnen um 6 in Gebärdensprache"
+      },
+      "type":"show"
+    }
+  ],
+  "title":"B",
+  "titleVisible":true,
+  "trackingPiano":{
+    "teaser_recommended":false,
+    "widget_id":"UmFkaW9CcmVtZW4uYg",
+    "widget_title":"B",
+    "widget_typ":"gridlist"
+  },
+  "type":"gridlist",
+  "userVisibility":"ALWAYS"
+}
