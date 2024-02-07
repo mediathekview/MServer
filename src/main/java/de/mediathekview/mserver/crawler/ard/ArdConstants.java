@@ -8,7 +8,7 @@ public class ArdConstants {
   public static final String ITEM_URL = API_URL + "/page-gateway/pages/ard/item/";
 
   public static final String TOPICS_URL = API_URL + "/page-gateway/pages/%s/editorial/experiment-a-z?embedded=false";
-  public static final String TOPICS_COMPILATION_URL = API_URL + "/page-gateway/widgets/radiobremen/editorials/%s?pageNumber=0&pageSize=%s";
+  public static final String TOPICS_COMPILATION_URL = API_URL + "/page-gateway/widgets/%s/editorials/%s?pageNumber=0&pageSize=%s";
   public static final String TOPIC_URL = API_URL + "/page-gateway/widgets/ard/asset/%s?pageSize=%d";
   public static final String DAY_PAGE_URL = API_URL + "/page-gateway/compilations/%s/pastbroadcasts?startDateTime=%sT00:00:00.000Z&endDateTime=%sT23:59:59.000Z&pageNumber=0&pageSize=%d";
 

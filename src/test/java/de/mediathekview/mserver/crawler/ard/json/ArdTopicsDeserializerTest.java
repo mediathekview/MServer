@@ -51,7 +51,7 @@ class ArdTopicsDeserializerTest {
               "https://api.ardmediathek.de/page-gateway/widgets/radiobremen/editorials/UmFkaW9CcmVtZW4uIw?pageNumber=0&pageSize=200")
         };
 
-    final ArdTopicsDeserializer target = new ArdTopicsDeserializer();
+    final ArdTopicsDeserializer target = new ArdTopicsDeserializer("radiobremen");
     final Set<CrawlerUrlDTO> actual = target.deserialize(jsonElement, null, null);
 
     assertEquals(expected.length, actual.size());
