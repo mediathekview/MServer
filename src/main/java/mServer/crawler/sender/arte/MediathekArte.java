@@ -272,7 +272,7 @@ public class MediathekArte extends MediathekReader {
     }
 
     private boolean shouldLoadNextPage(String sender) {
-      if (sender == Const.ARTE_DE) {
+      if (Const.ARTE_DE.equals(sender)) {
         return true;
       }
 
