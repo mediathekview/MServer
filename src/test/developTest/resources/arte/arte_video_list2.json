@@ -1,0 +1,353 @@
+{
+  "tag":"Ok",
+  "value":{
+    "data":[
+      {
+        "id":"099708-000-A_de",
+        "type":"teaser",
+        "kind":{
+          "code":"SHOW",
+          "label":"Programm",
+          "isCollection":false
+        },
+        "deeplink":"arte://program/099708-000-A",
+        "title":"USA gegen Hitler",
+        "subtitle":"Wie ein Spion den Nazis den Krieg erklärte",
+        "shortDescription":"Die packende Geschichte des britischen Geheimagenten William Stephenson, der die USA an der Seite Großbritanniens in den Zweiten Weltkrieg trieb: Archivmaterial und Interviews, u.a. mit Timothy Naftali, einer der wenigen lebenden Historiker, der Einblick in die streng geheimen Akten hatte, ordnen die Geschehnisse ein und ziehen Parallelen zu heutigen Ereignissen.",
+        "mainImage":{
+          "caption":"William Stephenson (James Loye, li.) zeigt William Donovan (Eric Davis, re.) eine gefälschte Karte mit Hitlers angeblichen Eroberungsplänen Amerikas ...",
+          "url":"https://api-cdn.arte.tv/img/v2/image/Dr7Nj2X9Uk6UzKYoFK4GCm/__SIZE__?type=TEXT"
+        },
+        "stickers":[
+          {
+            "code":"PLAYABLE",
+            "label":"PLAYABLE"
+          },
+          {
+            "code":"FULL_VIDEO",
+            "label":"Das Programm sehen"
+          }
+        ],
+        "trackingPixel":"/ct/?abv=A&em=099708-000-A&language=de&pageid=MOST_VIEWED&position=1&support=web&teaserid=099708-000-A_de&teasertitle=USA%20gegen%20Hitler&zoneCode=listing_MOST_VIEWED&zoneIndexInPage=0&zoneTemplate=vertical_landscape&zoneid=listing_MOST_VIEWED&zonename=Video%20Listing%20%28MOST_VIEWED%29",
+        "url":"/de/videos/099708-000-A/usa-gegen-hitler/",
+        "programId":"099708-000-A",
+        "teaserText":"1939 wurde ein britisch-kanadischer Geschäftsmann zu einem der größten Spione des 20. Jahrhunderts.",
+        "duration":5488,
+        "durationLabel":"92 Min.",
+        "geoblocking":{
+          "code":"DE_FR",
+          "label":"Verfügbar in Deutschland und Frankreich",
+          "inclusion":[
+
+          ],
+          "exclusion":[
+
+          ]
+        },
+        "genre":{
+          "label":"Dokus und Reportagen",
+          "url":"/de/videos/dokumentationen-und-reportagen/",
+          "deeplink":"arte://emac/DOR"
+        },
+        "audioVersions":[
+          {
+            "code":"DE",
+            "label":"Synchronisation"
+          },
+          {
+            "code":"STM",
+            "label":"Untertitel für Gehörlose"
+          }
+        ],
+        "availability":{
+          "type":"VOD",
+          "start":"2024-01-29T04:00:00Z",
+          "end":"2024-04-29T03:00:00Z",
+          "upcomingDate":"2024-01-29T04:00:00Z",
+          "label":"Verfügbar vom 29/01/2024 bis 28/04/2024"
+        },
+        "ageRating":0,
+        "callToAction":"Abspielen",
+        "clip":null,
+        "trailer":null,
+        "childrenCount":null
+      },
+      {
+        "id":"098846-000-A_de",
+        "type":"teaser",
+        "kind":{
+          "code":"SHOW",
+          "label":"Programm",
+          "isCollection":false
+        },
+        "deeplink":"arte://program/098846-000-A",
+        "title":"Die Normannen - Herrscher von Sizilien",
+        "subtitle":null,
+        "shortDescription":"Sie kamen aus dem hohen Norden, waren als wilde Krieger verschrien und schufen auf Sizilien das reichste und fortschrittlichste Königreich Europas: die Normannen. Der Dokumentarfilm macht diese facettenreiche Geschichte aus dem Mittelalter lebendig und präsentiert sie so bunt und vielfältig, wie Sizilien heute ist.",
+        "mainImage":{
+          "caption":"Königin Konstanze von Sizilien (Alessia Guerrieri, Mi.) in Gegnerschaft zu Walter von Pagliara (Alessandro Cremona, 2.v.l.), einem Gefolgsmann ihres soeben verstorbenen Gatten Heinrich VI.",
+          "url":"https://api-cdn.arte.tv/img/v2/image/Y3p4LbePETFeFSqtWppdUN/__SIZE__?type=TEXT"
+        },
+        "stickers":[
+          {
+            "code":"PLAYABLE",
+            "label":"PLAYABLE"
+          },
+          {
+            "code":"FULL_VIDEO",
+            "label":"Das Programm sehen"
+          }
+        ],
+        "trackingPixel":"/ct/?abv=A&em=098846-000-A&language=de&pageid=MOST_VIEWED&position=2&support=web&teaserid=098846-000-A_de&teasertitle=Die%20Normannen%20-%20Herrscher%20von%20Sizilien&zoneCode=listing_MOST_VIEWED&zoneIndexInPage=0&zoneTemplate=vertical_landscape&zoneid=listing_MOST_VIEWED&zonename=Video%20Listing%20%28MOST_VIEWED%29",
+        "url":"/de/videos/098846-000-A/die-normannen-herrscher-von-sizilien/",
+        "programId":"098846-000-A",
+        "teaserText":"Sie waren als wilde Krieger verschrien und schufen das fortschrittlichste Königreich jener Zeit: die Normannen.",
+        "duration":5219,
+        "durationLabel":"87 Min.",
+        "geoblocking":{
+          "code":"DE_FR",
+          "label":"Verfügbar in Deutschland und Frankreich",
+          "inclusion":[
+
+          ],
+          "exclusion":[
+
+          ]
+        },
+        "genre":{
+          "label":"Dokus und Reportagen",
+          "url":"/de/videos/dokumentationen-und-reportagen/",
+          "deeplink":"arte://emac/DOR"
+        },
+        "audioVersions":[
+          {
+            "code":"STM",
+            "label":"Untertitel für Gehörlose"
+          }
+        ],
+        "availability":{
+          "type":"VOD",
+          "start":"2024-01-26T04:00:00Z",
+          "end":"2024-02-26T04:00:00Z",
+          "upcomingDate":"2024-01-26T04:00:00Z",
+          "label":"Verfügbar vom 26/01/2024 bis 25/02/2024"
+        },
+        "ageRating":0,
+        "callToAction":"Abspielen",
+        "clip":null,
+        "trailer":null,
+        "childrenCount":null
+      },
+      {
+        "id":"111648-001-A_de",
+        "type":"teaser",
+        "kind":{
+          "code":"SHOW",
+          "label":"Programm",
+          "isCollection":false
+        },
+        "deeplink":"arte://program/111648-001-A",
+        "title":"Südafrikas Garden Route",
+        "subtitle":"Eine legendäre Küstenstraße",
+        "shortDescription":"Am südlichsten Zipfel des afrikanischen Kontinents treffen der raue Atlantische und der milde Indische Ozean aufeinander. Entlang dieser Küstenregion verläuft eine der spektakulärsten Panoramastraßen der Welt: Südafrikas Garden Route. In der ersten Episode der zweiteiligen Doku fahren wir von Kapstadt bis in die Lagunenstadt Knysna.",
+        "mainImage":{
+          "caption":"Kap Agulhas ist das Ende des afrikanischen Kontinents: Danach kommt nichts als Wasser und ein paar Tausend Kilometer weiter die Antarktis.",
+          "url":"https://api-cdn.arte.tv/img/v2/image/sbV6S8JqYSJSvpEQPjYa5W/__SIZE__?type=TEXT"
+        },
+        "stickers":[
+          {
+            "code":"PLAYABLE",
+            "label":"PLAYABLE"
+          },
+          {
+            "code":"FULL_VIDEO",
+            "label":"Das Programm sehen"
+          }
+        ],
+        "trackingPixel":"/ct/?abv=A&em=111648-001-A&language=de&pageid=MOST_VIEWED&position=3&support=web&teaserid=111648-001-A_de&teasertitle=S%C3%BCdafrikas%20Garden%20Route&zoneCode=listing_MOST_VIEWED&zoneIndexInPage=0&zoneTemplate=vertical_landscape&zoneid=listing_MOST_VIEWED&zonename=Video%20Listing%20%28MOST_VIEWED%29",
+        "url":"/de/videos/111648-001-A/suedafrikas-garden-route/",
+        "programId":"111648-001-A",
+        "teaserText":"Porträt einer der spektakulärsten Panoramastraßen der Welt: Südafrikas Garden Route.",
+        "duration":2610,
+        "durationLabel":"44 Min.",
+        "geoblocking":{
+          "code":"DE_FR",
+          "label":"Verfügbar in Deutschland und Frankreich",
+          "inclusion":[
+
+          ],
+          "exclusion":[
+
+          ]
+        },
+        "genre":{
+          "label":"Dokus und Reportagen",
+          "url":"/de/videos/dokumentationen-und-reportagen/",
+          "deeplink":"arte://emac/DOR"
+        },
+        "audioVersions":[
+
+        ],
+        "availability":{
+          "type":"VOD",
+          "start":"2024-02-08T04:00:00Z",
+          "end":"2025-02-07T04:00:00Z",
+          "upcomingDate":"2024-02-08T04:00:00Z",
+          "label":"Verfügbar vom 08/02/2024 bis 06/02/2025"
+        },
+        "ageRating":0,
+        "callToAction":"Abspielen",
+        "clip":null,
+        "trailer":null,
+        "childrenCount":null
+      },
+      {
+        "id":"112235-000-A_de",
+        "type":"teaser",
+        "kind":{
+          "code":"SHOW",
+          "label":"Programm",
+          "isCollection":false
+        },
+        "deeplink":"arte://program/112235-000-A",
+        "title":"Enthüllung einer Staatsaffäre",
+        "subtitle":null,
+        "shortDescription":"Paris 2015: Der Zoll beschlagnahmt mehr als sieben Tonnen Cannabis. Kurz darauf kontaktiert der ehemalige Agent der Drogenfahndung, Hubert Antoine, den Journalisten Stéphane Vilner. Antoine gibt an über Beweise zu haben, die den Chef der zentralen Drogenfahndung schwer belasten ... - Politthriller (2021), inspiriert von dem Buch \"L'Infiltré\" von Hubert Avoine und Emmanuel Fansten",
+        "mainImage":{
+          "caption":"Der junge Journalist Stéphane Vilner (Pio Marmaï, re.) blickt auf Entwürfe seiner Titelstory für die „Libération“.",
+          "url":"https://api-cdn.arte.tv/img/v2/image/qbtv9ATfr4wyzGXm3F9zSV/__SIZE__?type=TEXT"
+        },
+        "stickers":[
+          {
+            "code":"PLAYABLE",
+            "label":"PLAYABLE"
+          },
+          {
+            "code":"FULL_VIDEO",
+            "label":"Das Programm sehen"
+          }
+        ],
+        "trackingPixel":"/ct/?abv=A&em=112235-000-A&language=de&pageid=MOST_VIEWED&position=4&support=web&teaserid=112235-000-A_de&teasertitle=Enth%C3%BCllung%20einer%20Staatsaff%C3%A4re&zoneCode=listing_MOST_VIEWED&zoneIndexInPage=0&zoneTemplate=vertical_landscape&zoneid=listing_MOST_VIEWED&zonename=Video%20Listing%20%28MOST_VIEWED%29",
+        "url":"/de/videos/112235-000-A/enthuellung-einer-staatsaffaere/",
+        "programId":"112235-000-A",
+        "teaserText":"Paris 2015: Der Zoll beschlagnahmt mehr als sieben Tonnen Cannabis. Steckt die Drogenfahndung selbst dahinter?",
+        "duration":6924,
+        "durationLabel":"116 Min.",
+        "geoblocking":{
+          "code":"DE_FR",
+          "label":"Verfügbar in Deutschland und Frankreich",
+          "inclusion":[
+
+          ],
+          "exclusion":[
+
+          ]
+        },
+        "genre":{
+          "label":"Filme",
+          "url":"/de/videos/kino/",
+          "deeplink":"arte://emac/CIN"
+        },
+        "audioVersions":[
+          {
+            "code":"AD",
+            "label":"Audiodeskription"
+          },
+          {
+            "code":"DE",
+            "label":"Synchronisation"
+          },
+          {
+            "code":"STM",
+            "label":"Untertitel für Gehörlose"
+          }
+        ],
+        "availability":{
+          "type":"VOD",
+          "start":"2024-01-17T04:00:00Z",
+          "end":"2024-02-16T04:00:00Z",
+          "upcomingDate":"2024-01-17T04:00:00Z",
+          "label":"Verfügbar vom 17/01/2024 bis 15/02/2024"
+        },
+        "ageRating":0,
+        "callToAction":"Abspielen",
+        "clip":null,
+        "trailer":null,
+        "childrenCount":null
+      },
+      {
+        "id":"113043-139-A_de",
+        "type":"teaser",
+        "kind":{
+          "code":"SHOW",
+          "label":"Programm",
+          "isCollection":false
+        },
+        "deeplink":"arte://program/113043-139-A",
+        "title":"Taylor Swift: Ein politisches Schwergewicht?",
+        "subtitle":"ARTE Info Expresso",
+        "shortDescription":"Sie hat 16 Mal so viele Follower wie der US-Präsident, mobilisiert junge Wähler, kurbelt mit ihren Konzerten die Wirtschaft an und wurde vom Time Magazine zur einflussreichsten Person des Jahres gekürt: Wie viel Einfluss könnte Mega-Star Taylor Swift auf die Politik der USA und die bevorstehenden Präsidentschaftwahlen nehmen? Und warum reißen sich führende Politiker weltweit um ihren Besuch?",
+        "mainImage":{
+          "caption":null,
+          "url":"https://api-cdn.arte.tv/img/v2/image/y43c6rZXcFXVaxNCfE89Zg/__SIZE__?type=TEXT"
+        },
+        "stickers":[
+          {
+            "code":"PLAYABLE",
+            "label":"PLAYABLE"
+          },
+          {
+            "code":"FULL_VIDEO",
+            "label":"Das Programm sehen"
+          }
+        ],
+        "trackingPixel":"/ct/?abv=A&em=113043-139-A&language=de&pageid=MOST_VIEWED&position=5&support=web&teaserid=113043-139-A_de&teasertitle=Taylor%20Swift%3A%20Ein%20politisches%20Schwergewicht%3F&zoneCode=listing_MOST_VIEWED&zoneIndexInPage=0&zoneTemplate=vertical_landscape&zoneid=listing_MOST_VIEWED&zonename=Video%20Listing%20%28MOST_VIEWED%29",
+        "url":"/de/videos/113043-139-A/taylor-swift-ein-politisches-schwergewicht/",
+        "programId":"113043-139-A",
+        "teaserText":"Die Sängerin hat 16 Mal so viele Follower wie US-Präsident Joe Biden und mobilisiert junge Wähler.",
+        "duration":132,
+        "durationLabel":"3 Min.",
+        "geoblocking":{
+          "code":"ALL",
+          "label":"Weltweit verfügbar",
+          "inclusion":[
+
+          ],
+          "exclusion":[
+
+          ]
+        },
+        "genre":{
+          "label":"Dokus und Reportagen",
+          "url":"/de/videos/dokumentationen-und-reportagen/",
+          "deeplink":"arte://emac/DOR"
+        },
+        "audioVersions":[
+
+        ],
+        "availability":{
+          "type":"VOD",
+          "start":"2023-12-13T11:41:00Z",
+          "end":"2024-12-14T23:00:00Z",
+          "upcomingDate":"2023-12-13T11:41:00Z",
+          "label":"Verfügbar vom 13/12/2023 bis 14/12/2024"
+        },
+        "ageRating":0,
+        "callToAction":"Abspielen",
+        "clip":null,
+        "trailer":null,
+        "childrenCount":null
+      }
+   ],
+    "pagination":{
+      "page":2,
+      "pages":100,
+      "totalCount":2000,
+      "links":{
+        "first":"/api/emac/v4/de/web/zones/82b597d7-a83b-4dd8-bea8-ad71675fdf23/content?abv=A&authorizedCountry=DE&page=1&pageId=MOST_VIEWED&zoneIndexInPage=0",
+        "next":"/api/emac/v4/de/web/zones/82b597d7-a83b-4dd8-bea8-ad71675fdf23/content?abv=A&authorizedCountry=DE&page=3&pageId=MOST_VIEWED&zoneIndexInPage=0",
+        "last":"/api/emac/v4/de/web/zones/82b597d7-a83b-4dd8-bea8-ad71675fdf23/content?abv=A&authorizedCountry=DE&page=100&pageId=MOST_VIEWED&zoneIndexInPage=0"
+      }
+    }
+  }
+}

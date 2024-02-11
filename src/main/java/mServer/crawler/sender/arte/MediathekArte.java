@@ -121,7 +121,8 @@ public class MediathekArte extends MediathekReader {
       meldungThreadUndFertig();
     } else {
       if (CrawlerTool.loadLongMax()) {
-        addCategories();
+        addRecentList();
+        //addCategories();
         meldungAddMax(listeThemen.size());
 
         for (int t = 0; t < getMaxThreadLaufen(); ++t) {
@@ -148,6 +149,13 @@ public class MediathekArte extends MediathekReader {
         String categoryUrl = String.format(URL_CATEGORY, langCode.toLowerCase(), category);
         listeThemen.add(new String[]{sender, langCode, category, categoryUrl});
       }
+    });
+  }
+
+  private void addRecentList() {
+    senderLanguages.forEach((sender, langCode) -> {
+      String u = String.format("https://www.arte.tv/api/rproxy/emac/v4/%s/web/pages/MOST_RECENT/", langCode);
+      listeThemen.add(new String[]{sender, langCode, "recent", u});
     });
   }
 
@@ -203,6 +211,7 @@ public class MediathekArte extends MediathekReader {
    */
   class CategoryLoader extends Thread {
 
+    private int subPage = 0;
 
     @Override
     public void run() {
@@ -229,6 +238,8 @@ public class MediathekArte extends MediathekReader {
       Gson gsonCollectionChild = new GsonBuilder()
               .registerTypeAdapter(ArteCategoryFilmsDTO.class, new ArteCollectionChildDeserializer())
               .create();
+      Gson gsonNextPage =new GsonBuilder()
+              .registerTypeAdapter(ArteCategoryFilmsDTO.class, new ArteSubPageDeserializer()).create();
 
       ArteCategoryFilmsDTO dto = loadSubCategoryPage(gson, sender, aUrl);
       if (dto != null) {
@@ -238,7 +249,34 @@ public class MediathekArte extends MediathekReader {
         ListeFilme loadedFilme = loadPrograms(sender, langCode, dto);
         loadedFilme.forEach(film -> addFilm(film));
         Log.sysLog(String.format("%s: category %s: %d Filme", sender, aCategory, loadedFilme.size()));
+        if (dto.hasNextPage()) {
+          loadNextPage(sender, langCode, aCategory, dto.getNextPageUrl(), gsonCollectionParent, gsonCollectionChild, gsonNextPage);
+        }
       }
+    }
+
+    private void loadNextPage(String sender, String langCode, String aCategory, String url, Gson gsonCollectionParent, Gson gsonCollectionChild, Gson gsonNextPage) {
+      subPage++;
+      ArteCategoryFilmsDTO dto = loadSubCategoryPage(gsonNextPage, sender, url);
+      if (dto != null) {
+        loadCollections(sender, langCode, gsonCollectionParent, gsonCollectionChild, dto);
+        Log.sysLog(String.format("%s: category %s: %d programs, %d collections", sender, aCategory, dto.getProgramIds().size(), dto.getCollectionIds().size()));
+        // alle programIds verarbeiten
+        ListeFilme loadedFilme = loadPrograms(sender, langCode, dto);
+        loadedFilme.forEach(film -> addFilm(film));
+        Log.sysLog(String.format("%s: category %s - page %d: %d Filme", sender, aCategory, subPage, loadedFilme.size()));
+        if (dto.hasNextPage() && shouldLoadNextPage(sender)) {
+          loadNextPage(sender, langCode, aCategory, dto.getNextPageUrl(), gsonCollectionParent, gsonCollectionChild, gsonNextPage);
+        }
+      }
+    }
+
+    private boolean shouldLoadNextPage(String sender) {
+      if (sender == Const.ARTE_DE) {
+        return true;
+      }
+
+      return subPage < 5;
     }
 
     private void loadCollections(String sender, String langCode, Gson gsonParent, Gson gsonChild, ArteCategoryFilmsDTO dto) {

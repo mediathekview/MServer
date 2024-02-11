@@ -1,0 +1,213 @@
+{
+  "tag":"Ok",
+  "value":{
+    "data":[
+      {
+        "id":"102805-000-A_de",
+        "type":"teaser",
+        "kind":{
+          "code":"SHOW",
+          "label":"Programm",
+          "isCollection":false
+        },
+        "deeplink":"arte://program/102805-000-A",
+        "title":"Modeselektor presents: Work",
+        "subtitle":"Ein Film von Corey Scott-Gilbert, Krsn Brasko und Tobias Staab",
+        "shortDescription":"Am 9. April 2021 erscheint das fünfte Album Extended des Berliner Duos Modeselektor auf ihrem Label Monkeytown Records. In Form eines Visual Albums präsentiert sich die Musik des 27 Stücke umfassenden Mixtapes in Verbindung mit dem eigens dafür produzierten Film Work, der die Energie der Musik in eine radikale Performance des Ausnahmetänzers Corey Scott-Gilbert übersetzt. Work entstand unter Mithilfe von Corey Scott-Gilbert (artistic director, performance), Krsn Brasko (film & creative director), Tobias Staab (creative director) und Modeselektor (music).\n\nAufzeichnung von April 2021",
+        "mainImage":{
+          "caption":"Modeselektor",
+          "url":"https://api-cdn.arte.tv/img/v2/image/oRN9BuXWBguqK9zn7vfSph/__SIZE__?type=TEXT"
+        },
+        "stickers":[
+          {
+            "code":"PLAYABLE",
+            "label":"PLAYABLE"
+          },
+          {
+            "code":"FULL_VIDEO",
+            "label":"Das Programm sehen"
+          },
+          {
+            "code":"ARTE_CONCERT",
+            "label":"ARTE Concert"
+          }
+        ],
+        "trackingPixel":"/ct/?abv=A&em=102805-000-A&language=de&pageid=MOST_VIEWED&position=1&support=web&teaserid=102805-000-A_de&teasertitle=Modeselektor%20presents%3A%20Work&zoneCode=listing_MOST_VIEWED&zoneIndexInPage=0&zoneTemplate=vertical_landscape&zoneid=listing_MOST_VIEWED&zonename=Video%20Listing%20%28MOST_VIEWED%29",
+        "url":"/de/videos/102805-000-A/modeselektor-presents-work/",
+        "programId":"102805-000-A",
+        "teaserText":"Ein filmischer Trip mit Corey Scott-Gilbert zur Musik von Modeselektor. ",
+        "duration":3600,
+        "durationLabel":"60 Min.",
+        "geoblocking":{
+          "code":"ALL",
+          "label":"Weltweit verfügbar",
+          "inclusion":[
+
+          ],
+          "exclusion":[
+
+          ]
+        },
+        "genre":{
+          "label":"Bühne und Konzert",
+          "url":"/de/arte-concert/",
+          "deeplink":"arte://emac/ARTE_CONCERT"
+        },
+        "audioVersions":[
+
+        ],
+        "availability":{
+          "type":"VOD",
+          "start":"2023-03-05T09:00:00Z",
+          "end":"2033-03-04T09:00:00Z",
+          "upcomingDate":"2023-03-05T09:00:00Z",
+          "label":"Verfügbar vom 05/03/2023 bis 04/03/2033"
+        },
+        "ageRating":0,
+        "callToAction":"Abspielen",
+        "clip":null,
+        "trailer":null,
+        "childrenCount":null
+      },
+      {
+        "id":"104017-000-A_de",
+        "type":"teaser",
+        "kind":{
+          "code":"SHOW",
+          "label":"Programm",
+          "isCollection":false
+        },
+        "deeplink":"arte://program/104017-000-A",
+        "title":"Sisters with Transistors: Die verkannten Heldinnen der elektronischen Musik",
+        "subtitle":null,
+        "shortDescription":"Die Dokumentation erzählt die verblüffende Geschichte der Pionierinnen der elektronischen Musik. In einer virtuosen Mischung aus Archivmaterial, Interviews und visionärer Musik entsteht ein unterhaltsames Zeit- und Sittenbild von den Kriegsjahren bis heute, das von der befreienden Kraft neuer Technologien erzählt. Erzählerin ist die Musik-Ikone Laurie Anderson.",
+        "mainImage":{
+          "caption":"Sisters with Transistors",
+          "url":"https://api-cdn.arte.tv/img/v2/image/NeLcWu6wFMEyZmVAsVhfPP/__SIZE__?type=TEXT"
+        },
+        "stickers":[
+          {
+            "code":"PLAYABLE",
+            "label":"PLAYABLE"
+          },
+          {
+            "code":"FULL_VIDEO",
+            "label":"Das Programm sehen"
+          }
+        ],
+        "trackingPixel":"/ct/?abv=A&em=104017-000-A&language=de&pageid=MOST_VIEWED&position=2&support=web&teaserid=104017-000-A_de&teasertitle=Sisters%20with%20Transistors%3A%20Die%20verkannten%20Heldinnen%20der%20elektronischen%20Musik&zoneCode=listing_MOST_VIEWED&zoneIndexInPage=0&zoneTemplate=vertical_landscape&zoneid=listing_MOST_VIEWED&zonename=Video%20Listing%20%28MOST_VIEWED%29",
+        "url":"/de/videos/104017-000-A/sisters-with-transistors-die-verkannten-heldinnen-der-elektronischen-musik/",
+        "programId":"104017-000-A",
+        "teaserText":"Die verblüffende Geschichte der Pionierinnen der elektronischen Musik",
+        "duration":3180,
+        "durationLabel":"53 Min.",
+        "geoblocking":{
+          "code":"EUR_DE_FR",
+          "label":"Verfügbar in den deutsch- und französischsprachigen Ländern Europas",
+          "inclusion":[
+
+          ],
+          "exclusion":[
+
+          ]
+        },
+        "genre":{
+          "label":"Dokus und Reportagen",
+          "url":"/de/videos/dokumentationen-und-reportagen/",
+          "deeplink":"arte://emac/DOR"
+        },
+        "audioVersions":[
+          {
+            "code":"OmU",
+            "label":"Untertitel"
+          }
+        ],
+        "availability":{
+          "type":"VOD",
+          "start":"2022-01-05T09:56:19Z",
+          "end":"2025-03-31T03:00:00Z",
+          "upcomingDate":"2022-01-05T09:56:19Z",
+          "label":"Verfügbar vom 05/01/2022 bis 30/03/2025"
+        },
+        "ageRating":0,
+        "callToAction":"Abspielen",
+        "clip":null,
+        "trailer":null,
+        "childrenCount":null
+      },
+      {
+        "id":"106273-006-A_de",
+        "type":"teaser",
+        "kind":{
+          "code":"SHOW",
+          "label":"Programm",
+          "isCollection":false
+        },
+        "deeplink":"arte://program/106273-006-A",
+        "title":"Reminded – Maria Montessori",
+        "subtitle":"Lernen ohne Noten",
+        "shortDescription":"Facebook, Amazon, Google, Microsoft: Einige Gründer großer Tech-Firmen waren auf Montessori-Schulen. Das pädagogische Konzept von Maria Montessori ist über 100 Jahre alt und wird heute weltweit angewandt. Aber es ist nicht unumstritten. Malcolm besucht eine Montessori-Schule und fragt eine Erziehungswissenschaftlerin: Ist diese Schulform für jedes Kind geeignet?",
+        "mainImage":{
+          "caption":"Maria Montessori",
+          "url":"https://api-cdn.arte.tv/img/v2/image/hKBgcjWs9ZuJYFc7uHxGiV/__SIZE__?type=TEXT"
+        },
+        "stickers":[
+          {
+            "code":"PLAYABLE",
+            "label":"PLAYABLE"
+          },
+          {
+            "code":"FULL_VIDEO",
+            "label":"Das Programm sehen"
+          }
+        ],
+        "trackingPixel":"/ct/?abv=A&em=106273-006-A&language=de&pageid=MOST_VIEWED&position=3&support=web&teaserid=106273-006-A_de&teasertitle=Reminded%20%E2%80%93%20Maria%20Montessori&zoneCode=listing_MOST_VIEWED&zoneIndexInPage=0&zoneTemplate=vertical_landscape&zoneid=listing_MOST_VIEWED&zonename=Video%20Listing%20%28MOST_VIEWED%29",
+        "url":"/de/videos/106273-006-A/reminded-maria-montessori/",
+        "programId":"106273-006-A",
+        "teaserText":"Einige Gründer großer Firmen waren auf Montessori-Schulen. Wie aktuell ist dieses Konzept nach 100 Jahren?",
+        "duration":1045,
+        "durationLabel":"18 Min.",
+        "geoblocking":{
+          "code":"ALL",
+          "label":"Weltweit verfügbar",
+          "inclusion":[
+
+          ],
+          "exclusion":[
+
+          ]
+        },
+        "genre":{
+          "label":"Dokus und Reportagen",
+          "url":"/de/videos/dokumentationen-und-reportagen/",
+          "deeplink":"arte://emac/DOR"
+        },
+        "audioVersions":[
+
+        ],
+        "availability":{
+          "type":"VOD",
+          "start":"2023-04-12T03:00:00Z",
+          "end":"2024-04-12T03:00:00Z",
+          "upcomingDate":"2023-04-12T03:00:00Z",
+          "label":"Verfügbar vom 12/04/2023 bis 11/04/2024"
+        },
+        "ageRating":0,
+        "callToAction":"Abspielen",
+        "clip":null,
+        "trailer":null,
+        "childrenCount":null
+      }
+   ],
+    "pagination":{
+      "page":100,
+      "pages":100,
+      "totalCount":2000,
+      "links":{
+        "first":"/api/emac/v4/de/web/zones/82b597d7-a83b-4dd8-bea8-ad71675fdf23/content?abv=A&authorizedCountry=DE&page=1&pageId=MOST_VIEWED&zoneIndexInPage=0",
+        "next":null,
+        "last":"/api/emac/v4/de/web/zones/82b597d7-a83b-4dd8-bea8-ad71675fdf23/content?abv=A&authorizedCountry=DE&page=100&pageId=MOST_VIEWED&zoneIndexInPage=0"
+      }
+    }
+  }
+}
