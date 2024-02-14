@@ -1,24 +1,19 @@
 package mServer.crawler.sender.arte;
 
-import com.google.gson.JsonDeserializationContext;
-import com.google.gson.JsonDeserializer;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParseException;
+import com.google.gson.*;
 import de.mediathekview.mlib.tool.Log;
 
 import java.lang.reflect.Type;
+import java.util.Optional;
 
 /**
  * Deserialisiert Ergebnisse der Anfrage den Filmen einer Kategorie.
  * Beispiel-URL:
  * https://www.arte.tv/guide/api/api/zones/de/web/videos_subcategory_CMG/?page=1&limit=100
  */
-public class ArteCategoryFilmListDeserializer implements JsonDeserializer<ArteCategoryFilmsDTO> {
+public class ArteCategoryFilmListDeserializer extends ArteListBaseDeserializer implements JsonDeserializer<ArteCategoryFilmsDTO> {
 
   private static final String JSON_ELEMENT_CONTENT = "content";
-  private static final String JSON_ELEMENT_DATA = "data";
-  private static final String JSON_ELEMENT_PROGRAMID = "programId";
   private static final String JSON_ELEMENT_VALUE = "value";
   private static final String JSON_ELEMENT_ZONES = "zones";
 
@@ -39,29 +34,12 @@ public class ArteCategoryFilmListDeserializer implements JsonDeserializer<ArteCa
     for (JsonElement jsonElement : zoneElement.getAsJsonArray()) {
       if(jsonElement.getAsJsonObject().has(JSON_ELEMENT_CONTENT)) {
         final JsonObject contentObject = jsonElement.getAsJsonObject().get(JSON_ELEMENT_CONTENT).getAsJsonObject();
-        if (contentObject.has(JSON_ELEMENT_DATA)) {
-          for(JsonElement dataElement : contentObject.get(JSON_ELEMENT_DATA).getAsJsonArray()) {
-            if (!dataElement.getAsJsonObject().get(JSON_ELEMENT_PROGRAMID).isJsonNull()) {
-              String programId = dataElement.getAsJsonObject().get(JSON_ELEMENT_PROGRAMID).getAsString();
-              if (programId != null) {
-                if (programId.startsWith("RC-")) {
-                  try {
-                    long collectionId = Long.parseLong(programId.replace("RC-", ""));
-                    dto.addCollection(String.format("RC-%06d", collectionId));
-                  } catch (NumberFormatException e) {
-                    Log.errorLog(12834939, "Invalid collection id: " + programId);
-                  }
-                } else {
-                  dto.addProgramId(programId);
-                }
-              }
-            }
-          }
-        }
+        extractProgramIdFromData(contentObject, dto);
+
+        Optional<String> url = parsePagination(contentObject);
+        url.ifPresent(dto::setNextPageUrl);
       }
     }
-
-    dto.setNextPage(false);
 
     return dto;
   }

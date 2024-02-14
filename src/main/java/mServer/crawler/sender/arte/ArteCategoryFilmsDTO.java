@@ -8,7 +8,7 @@ public class ArteCategoryFilmsDTO {
   private final Set<String> programIds = new HashSet<>();
   private final Set<String> collectionIds = new HashSet<>();
 
-  private boolean hasNextPage;
+  private String nextPageUrl;
 
   public void addProgramId(String aProgramId) {
     programIds.add(aProgramId);
@@ -25,10 +25,13 @@ public class ArteCategoryFilmsDTO {
   }
 
   public boolean hasNextPage() {
-    return hasNextPage;
+    return nextPageUrl != null && !nextPageUrl.isEmpty();
   }
 
-  public void setNextPage(boolean aNextPage) {
-    hasNextPage = aNextPage;
+  public String getNextPageUrl() {
+    return nextPageUrl;
+  }
+  public void setNextPageUrl(String url) {
+    nextPageUrl = url;
   }
 }

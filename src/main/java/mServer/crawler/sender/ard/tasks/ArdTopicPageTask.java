@@ -7,6 +7,7 @@ import mServer.crawler.sender.MediathekReader;
 import mServer.crawler.sender.ard.ArdFilmInfoDto;
 import mServer.crawler.sender.ard.ArdTopicInfoDto;
 import mServer.crawler.sender.ard.json.ArdTopicPageDeserializer;
+
 import mServer.crawler.sender.base.AbstractRecursivConverterTask;
 import mServer.crawler.sender.base.CrawlerUrlDTO;
 import org.apache.logging.log4j.LogManager;
@@ -75,6 +76,14 @@ public class ArdTopicPageTask extends ArdTaskBase<ArdFilmInfoDto, CrawlerUrlDTO>
     TOPICS_LOAD_ALL_PAGES.add("Y3JpZDovL21kci5kZS9zZW5kZXJlaWhlbi9zdGFmZmVsc2VyaWUtaW4tYWxsZXItZnJldW5kc2NoYWZ0");
     // Super.markt
     TOPICS_LOAD_ALL_PAGES.add("Y3JpZDovL3JiYi1vbmxpbmUuZGUvc3VwZXJtYXJrdA");
+    // Verrückt nach Meer
+    TOPICS_LOAD_ALL_PAGES.add("Y3JpZDovL2JyLmRlL2Jyb2FkY2FzdFNlcmllcy92ZXJydWVja3QtbmFjaC1tZWVy");
+    // Dahoam is dahoam
+    TOPICS_LOAD_ALL_PAGES.add("Y3JpZDovL2JyLmRlL2Jyb2FkY2FzdFNlcmllcy9icm9hZGNhc3RTZXJpZXM6L2JyZGUvZmVybnNlaGVuL2JheWVyaXNjaGVzLWZlcm5zZWhlbi9zZW5kdW5nZW4vZGFob2FtLWlzLWRhaG9hbQ");
+    // Rote Rosen
+    TOPICS_LOAD_ALL_PAGES.add("Y3JpZDovL3dkci5kZS9vbmUvcm90ZXJvc2Vu");
+    // Heimatflimmern
+    TOPICS_LOAD_ALL_PAGES.add("Y3JpZDovL3dkci5kZS9oZWltYXRmbGltbWVybg");
   }
 
   public ArdTopicPageTask(MediathekReader aCrawler,

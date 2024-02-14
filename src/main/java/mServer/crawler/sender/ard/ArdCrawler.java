@@ -6,10 +6,7 @@ import de.mediathekview.mlib.tool.Log;
 import mServer.crawler.CrawlerTool;
 import mServer.crawler.FilmeSuchen;
 import mServer.crawler.sender.MediathekCrawler;
-import mServer.crawler.sender.ard.tasks.ArdDayPageTask;
-import mServer.crawler.sender.ard.tasks.ArdFilmDetailTask;
-import mServer.crawler.sender.ard.tasks.ArdTopicPageTask;
-import mServer.crawler.sender.ard.tasks.ArdTopicsOverviewTask;
+import mServer.crawler.sender.ard.tasks.*;
 import mServer.crawler.sender.base.CrawlerUrlDTO;
 
 import java.time.LocalDateTime;
@@ -22,12 +19,11 @@ import java.util.concurrent.RecursiveTask;
 
 public class ArdCrawler extends MediathekCrawler {
 
+  public static final String SENDERNAME = Const.ARD;
   private static final int MAX_DAYS_PAST = 2;
   private static final int MAX_DAYS_PAST_AVAILABLE = 6;
   private static final DateTimeFormatter DAY_PAGE_DATE_FORMATTER
           = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-
-  public static final String SENDERNAME = Const.ARD;
 
   public ArdCrawler(FilmeSuchen ssearch, int startPrio) {
     super(ssearch, SENDERNAME, 0, 1, startPrio);
@@ -73,13 +69,13 @@ public class ArdCrawler extends MediathekCrawler {
   }
 
   private void addSpecialDays(
-      ConcurrentLinkedQueue<CrawlerUrlDTO> dayUrlsToCrawl) {
-    final LocalDateTime[] specialDates = new LocalDateTime[] {
+          ConcurrentLinkedQueue<CrawlerUrlDTO> dayUrlsToCrawl) {
+    final LocalDateTime[] specialDates = new LocalDateTime[]{
     };
 
     final LocalDateTime minDayOnline = LocalDateTime.now().minusDays(MAX_DAYS_PAST_AVAILABLE);
 
-    for(LocalDateTime specialDate : specialDates) {
+    for (LocalDateTime specialDate : specialDates) {
       if (specialDate.isAfter(minDayOnline)) {
         addDayUrls(dayUrlsToCrawl, specialDate);
       }
@@ -95,7 +91,7 @@ public class ArdCrawler extends MediathekCrawler {
       if (CrawlerTool.loadLongMax()) {
         shows.addAll(getTopicsEntries());
       }
-
+      Log.sysLog("ARD Anzahl topics: " + shows.size());
       getDaysEntries().forEach(show -> {
         if (!shows.contains(show)) {
           shows.add(show);
@@ -125,20 +121,25 @@ public class ArdCrawler extends MediathekCrawler {
       topics.addAll(getTopicEntriesBySender(client));
     }
 
+    Log.sysLog("ard mediathek topics: " + topics.size());
     ConcurrentLinkedQueue<CrawlerUrlDTO> topicUrls = new ConcurrentLinkedQueue<>(topics);
 
     final ArdTopicPageTask topicTask = new ArdTopicPageTask(this, topicUrls);
     final Set<ArdFilmInfoDto> filmInfos = forkJoinPool.submit(topicTask).get();
+    Log.sysLog("ard shows by topics: " + filmInfos.size());
     return filmInfos;
   }
 
-  private ConcurrentLinkedQueue<CrawlerUrlDTO> getTopicEntriesBySender(final String sender) throws ExecutionException, InterruptedException {
-    ArdTopicsOverviewTask topicsTask
-            = new ArdTopicsOverviewTask(this, createTopicsOverviewUrl(sender));
+  private Set<CrawlerUrlDTO> getTopicEntriesBySender(final String sender) throws ExecutionException, InterruptedException {
+    ArdTopicsTask topicsTask
+            = new ArdTopicsTask(this, sender, createTopicsOverviewUrl(sender));
 
     ConcurrentLinkedQueue<CrawlerUrlDTO> queue = new ConcurrentLinkedQueue<>(forkJoinPool.submit(topicsTask).get());
-    Log.sysLog(sender + " topic entries: " + queue.size());
-    return queue;
+    Log.sysLog(sender + " topics task entries: " + queue.size());
+
+    final Set<CrawlerUrlDTO> topicUrls = forkJoinPool.submit(new ArdTopicsLetterTask(this, sender, queue)).get();
+    Log.sysLog(sender + " topics: " + topicUrls.size());
+    return topicUrls;
   }
 
   private ConcurrentLinkedQueue<CrawlerUrlDTO> createTopicsOverviewUrl(final String client) {
