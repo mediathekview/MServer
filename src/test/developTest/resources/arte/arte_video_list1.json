@@ -1,0 +1,482 @@
+{
+   "tag":"Ok",
+   "value":{
+      "code":"MOST_RECENT",
+      "language":"de",
+      "support":"web",
+      "type":"videoType",
+      "level":0,
+      "parent":null,
+      "alternativeLanguages":[
+         {
+            "code":"fr",
+            "label":"Français",
+            "page":"MOST_RECENT",
+            "url":"/fr/videos/plus-recentes/",
+            "title":"Les plus récentes"
+         },
+         {
+            "code":"de",
+            "label":"Deutsch",
+            "page":"MOST_RECENT",
+            "url":"/de/videos/neueste-videos/",
+            "title":"Neueste Videos"
+         },
+         {
+            "code":"en",
+            "label":"English",
+            "page":"MOST_RECENT",
+            "url":"/en/videos/most-recent/",
+            "title":"Most recent"
+         },
+         {
+            "code":"es",
+            "label":"Español",
+            "page":"MOST_RECENT",
+            "url":"/es/videos/los-mas-recientes/",
+            "title":"Los más recientes"
+         },
+         {
+            "code":"pl",
+            "label":"Polski",
+            "page":"MOST_RECENT",
+            "url":"/pl/videos/najnowsze/",
+            "title":"Najnowsze"
+         },
+         {
+            "code":"it",
+            "label":"Italiano",
+            "page":"MOST_RECENT",
+            "url":"/it/videos/piu-recenti/",
+            "title":"I più recenti"
+         }
+      ],
+      "url":"/de/videos/neueste-videos/",
+      "deeplink":"arte://programs/recent",
+      "slug":"neueste-videos",
+      "stats":{
+         "xiti":{
+            "page_name":"Most_recent",
+            "chapter1":"Looking_for",
+            "chapter2":null,
+            "chapter3":null,
+            "x1":"de",
+            "x2":"Search",
+            "x4":"A",
+            "s2":4,
+            "siteId":"582046",
+            "env_work":"prod",
+            "search_keywords":null
+         },
+         "serverSideTracking":{
+            "page":{
+               "id":"MOST_RECENT",
+               "language":"de",
+               "url":"/de/videos/neueste-videos/",
+               "abv":"A",
+               "query":null,
+               "category":null,
+               "subcategories":null
+            },
+            "content":null
+         }
+      },
+      "metadata":{
+         "title":"Neueste Videos",
+         "description":"Filme, Dokus, Sendungen, Serien … Entdecken Sie die Programme, die der ARTE Mediathek neu hinzugefügt wurden.",
+         "seo":{
+            "title":"Neueste Videos | ARTE",
+            "description":null,
+            "canonical":"/de/videos/neueste-videos/"
+         },
+         "og":{
+            "image":{
+               "url":"/img/SHARE_DEFAULT.jpg",
+               "width":1200,
+               "height":630
+            }
+         },
+         "twitter":{
+            "image":{
+               "url":"/img/SHARE_DEFAULT.jpg"
+            },
+            "site":"@ARTEde"
+         }
+      },
+      "zones":[
+         {
+            "id":"daeadc71-4306-411a-8590-1c1f484ef5aa",
+            "code":"listing_MOST_RECENT",
+            "title":"Video Listing (MOST_RECENT)",
+            "slug":null,
+            "description":null,
+            "displayOptions":{
+               "template":"vertical-landscape",
+               "theme":null,
+               "showZoneTitle":true,
+               "showItemTitle":true
+            },
+            "link":null,
+            "authenticatedContent":null,
+            "groupedZonesName":null,
+            "content":{
+               "data":[
+                  {
+                     "id":"033559-000-A_de",
+                     "type":"teaser",
+                     "kind":{
+                        "code":"SHOW",
+                        "label":"Programm",
+                        "isCollection":false
+                     },
+                     "deeplink":"arte://program/033559-000-A",
+                     "title":"Ein süßer Fratz",
+                     "subtitle":null,
+                     "shortDescription":"Eine junge Buchhändlerin wird von einem Fotografen entdeckt, der sie zum erfolgreichen Cover-Girl eines Modemagazins macht. Die unscheinbare, graue Maus verwandelt sich in eine attraktive Frau. - Audrey Hepburn und Fred Astaire spielen die Hauptrollen in diesem amüsanten Filmmusical (1957), das an Originalschauplätzen in Paris realisiert wurde.",
+                     "mainImage":{
+                        "caption":null,
+                        "url":"https://api-cdn.arte.tv/img/v2/image/jj9S3FSnvKh4KYTTpW9B3Y/__SIZE__?type=TEXT"
+                     },
+                     "stickers":[
+                        {
+                           "code":"PLAYABLE",
+                           "label":"PLAYABLE"
+                        },
+                        {
+                           "code":"FULL_VIDEO",
+                           "label":"Das Programm sehen"
+                        }
+                     ],
+                     "trackingPixel":"/ct/?abv=B&em=033559-000-A&language=de&pageid=MOST_RECENT&position=1&support=web&teaserid=033559-000-A_de&teasertitle=Ein%20s%C3%BC%C3%9Fer%20Fratz&zoneCode=listing_MOST_RECENT&zoneIndexInPage=0&zoneTemplate=vertical_landscape&zoneid=listing_MOST_RECENT&zonename=Video%20Listing%20%28MOST_RECENT%29",
+                     "url":"/de/videos/033559-000-A/ein-suesser-fratz/",
+                     "programId":"033559-000-A",
+                     "teaserText":"Audrey Hepburn wird an der Seite von Fred Astaire vom hässlichen Entlein zum schönen Schwan.",
+                     "duration":5940,
+                     "durationLabel":"99 Min.",
+                     "geoblocking":{
+                        "code":"DE_FR",
+                        "label":"Verfügbar in Deutschland und Frankreich",
+                        "inclusion":[
+                           
+                        ],
+                        "exclusion":[
+                           
+                        ]
+                     },
+                     "genre":{
+                        "label":"Filme",
+                        "url":"/de/videos/kino/",
+                        "deeplink":"arte://emac/CIN"
+                     },
+                     "audioVersions":[
+                        {
+                           "code":"AD",
+                           "label":"Audiodeskription"
+                        },
+                        {
+                           "code":"DE",
+                           "label":"Synchronisation"
+                        },
+                        {
+                           "code":"STM",
+                           "label":"Untertitel für Gehörlose"
+                        }
+                     ],
+                     "availability":{
+                        "type":"VOD",
+                        "start":"2024-02-11T04:00:00Z",
+                        "end":"2024-02-18T04:00:00Z",
+                        "upcomingDate":"2024-02-11T04:00:00Z",
+                        "label":"Verfügbar vom 11/02/2024 bis 17/02/2024"
+                     },
+                     "ageRating":0,
+                     "callToAction":"Abspielen",
+                     "clip":null,
+                     "trailer":null,
+                     "childrenCount":null
+                  },
+                  {
+                     "id":"078154-000-A_de",
+                     "type":"teaser",
+                     "kind":{
+                        "code":"SHOW",
+                        "label":"Programm",
+                        "isCollection":false
+                     },
+                     "deeplink":"arte://program/078154-000-A",
+                     "title":"Australiens unbekanntes Paradies",
+                     "subtitle":"Die Inseln der Torres-Straße",
+                     "shortDescription":"274 Inseln mit weißen Korallensandstränden erheben sich aus der Torres-Straße, der Meerenge zwischen Australien und Papua-Neuguinea. Die rund 20 bewohnten Inseln liegen oft viele Kilometer voneinander entfernt, der dortige Alltag ist von Isolation und Ressourcenknappheit geprägt. Die Dokumentation bietet überraschende Einblicke in die Lebenswelt der Torres-Straßen-Insulaner.",
+                     "mainImage":{
+                        "caption":"Die idyllische Inselgruppe der Torres-Straße liegt in einer Meerenge zwischen Papua-Neuguinea und Australien.",
+                        "url":"https://api-cdn.arte.tv/img/v2/image/hfer4Uf8bRCCbjLDtDbyB8/__SIZE__?type=TEXT"
+                     },
+                     "stickers":[
+                        {
+                           "code":"PLAYABLE",
+                           "label":"PLAYABLE"
+                        },
+                        {
+                           "code":"FULL_VIDEO",
+                           "label":"Das Programm sehen"
+                        }
+                     ],
+                     "trackingPixel":"/ct/?abv=B&em=078154-000-A&language=de&pageid=MOST_RECENT&position=2&support=web&teaserid=078154-000-A_de&teasertitle=Australiens%20unbekanntes%20Paradies&zoneCode=listing_MOST_RECENT&zoneIndexInPage=0&zoneTemplate=vertical_landscape&zoneid=listing_MOST_RECENT&zonename=Video%20Listing%20%28MOST_RECENT%29",
+                     "url":"/de/videos/078154-000-A/australiens-unbekanntes-paradies/",
+                     "programId":"078154-000-A",
+                     "teaserText":"Die Dokumentation bietet überraschende Einblicke in die einzigartige Lebenswelt der Torres-Straßen-Insulaner.",
+                     "duration":2606,
+                     "durationLabel":"44 Min.",
+                     "geoblocking":{
+                        "code":"ALL",
+                        "label":"Weltweit verfügbar",
+                        "inclusion":[
+                           
+                        ],
+                        "exclusion":[
+                           
+                        ]
+                     },
+                     "genre":{
+                        "label":"Dokus und Reportagen",
+                        "url":"/de/videos/dokumentationen-und-reportagen/",
+                        "deeplink":"arte://emac/DOR"
+                     },
+                     "audioVersions":[
+                        {
+                           "code":"STM",
+                           "label":"Untertitel für Gehörlose"
+                        }
+                     ],
+                     "availability":{
+                        "type":"VOD",
+                        "start":"2024-02-11T04:00:00Z",
+                        "end":"2024-03-04T04:00:00Z",
+                        "upcomingDate":"2024-02-11T04:00:00Z",
+                        "label":"Verfügbar vom 11/02/2024 bis 03/03/2024"
+                     },
+                     "ageRating":0,
+                     "callToAction":"Abspielen",
+                     "clip":null,
+                     "trailer":null,
+                     "childrenCount":null
+                  },
+                  {
+                     "id":"101398-000-A_de",
+                     "type":"teaser",
+                     "kind":{
+                        "code":"SHOW",
+                        "label":"Programm",
+                        "isCollection":false
+                     },
+                     "deeplink":"arte://program/101398-000-A",
+                     "title":"Albrecht Dürer - Ein Meister des Selbstporträts",
+                     "subtitle":null,
+                     "shortDescription":"Albrecht Dürer, einer der größten Maler der Renaissance, begründete an der Schwelle vom 15. zum 16. Jahrhundert einen neuen Künstlerstatus, der ihm Unabhängigkeit und Anerkennung bescherte. Seine zwölf, bis heute erhaltenen, Selbstporträts stellen ein wertvolles Erbe dar. Dieses Erbe zeugt von einem gesellschaftlichen Umbruch in Nordeuropa.",
+                     "mainImage":{
+                        "caption":"Albrecht Dürer",
+                        "url":"https://api-cdn.arte.tv/img/v2/image/EfwnqtdkLvHSfpPjSYuhr9/__SIZE__?type=TEXT"
+                     },
+                     "stickers":[
+                        {
+                           "code":"PLAYABLE",
+                           "label":"PLAYABLE"
+                        },
+                        {
+                           "code":"FULL_VIDEO",
+                           "label":"Das Programm sehen"
+                        }
+                     ],
+                     "trackingPixel":"/ct/?abv=B&em=101398-000-A&language=de&pageid=MOST_RECENT&position=3&support=web&teaserid=101398-000-A_de&teasertitle=Albrecht%20D%C3%BCrer%20-%20Ein%20Meister%20des%20Selbstportr%C3%A4ts&zoneCode=listing_MOST_RECENT&zoneIndexInPage=0&zoneTemplate=vertical_landscape&zoneid=listing_MOST_RECENT&zonename=Video%20Listing%20%28MOST_RECENT%29",
+                     "url":"/de/videos/101398-000-A/albrecht-duerer-ein-meister-des-selbstportraets/",
+                     "programId":"101398-000-A",
+                     "teaserText":"Albrecht Dürers zwölf, bis heute erhaltenen Selbstporträts zeugen von einem gesellschaftlichen Umbruch in Nordeuropa.",
+                     "duration":3141,
+                     "durationLabel":"53 Min.",
+                     "geoblocking":{
+                        "code":"SAT",
+                        "label":"Verfügbar in Europa",
+                        "inclusion":[
+                           
+                        ],
+                        "exclusion":[
+                           
+                        ]
+                     },
+                     "genre":{
+                        "label":"Dokus und Reportagen",
+                        "url":"/de/videos/dokumentationen-und-reportagen/",
+                        "deeplink":"arte://emac/DOR"
+                     },
+                     "audioVersions":[
+                        {
+                           "code":"DE",
+                           "label":"Synchronisation"
+                        }
+                     ],
+                     "availability":{
+                        "type":"VOD",
+                        "start":"2024-02-11T04:00:00Z",
+                        "end":"2024-05-18T03:00:00Z",
+                        "upcomingDate":"2024-02-11T04:00:00Z",
+                        "label":"Verfügbar vom 11/02/2024 bis 17/05/2024"
+                     },
+                     "ageRating":0,
+                     "callToAction":"Abspielen",
+                     "clip":null,
+                     "trailer":null,
+                     "childrenCount":null
+                  },
+                  {
+                     "id":"109332-000-A_de",
+                     "type":"teaser",
+                     "kind":{
+                        "code":"SHOW",
+                        "label":"Programm",
+                        "isCollection":false
+                     },
+                     "deeplink":"arte://program/109332-000-A",
+                     "title":"Dance! – von Latin bis Voguing",
+                     "subtitle":"Mit Sylvia Camarda, Oumi Janta u.v.m.",
+                     "shortDescription":"Ein Feuerwerk der Bewegung: Die Tänzerin und Choreografin Sylvia Camarda und weitere Tänzerinnen sowie Tänzer zeigen verschiedene Tanzstile, von Modern und Urban Dance über Latin Show Dance bis zu Voguing.",
+                     "mainImage":{
+                        "caption":"Im Mittelpunkt der Sendung steht der Tänzer Ahmad Joudeh.",
+                        "url":"https://api-cdn.arte.tv/img/v2/image/7U5ZRZ3duP8jEifekUvWSm/__SIZE__?type=TEXT"
+                     },
+                     "stickers":[
+                        {
+                           "code":"PLAYABLE",
+                           "label":"PLAYABLE"
+                        },
+                        {
+                           "code":"FULL_VIDEO",
+                           "label":"Das Programm sehen"
+                        },
+                        {
+                           "code":"ARTE_CONCERT",
+                           "label":"ARTE Concert"
+                        }
+                     ],
+                     "trackingPixel":"/ct/?abv=B&em=109332-000-A&language=de&pageid=MOST_RECENT&position=4&support=web&teaserid=109332-000-A_de&teasertitle=Dance%21%20%E2%80%93%20von%20Latin%20bis%20Voguing&zoneCode=listing_MOST_RECENT&zoneIndexInPage=0&zoneTemplate=vertical_landscape&zoneid=listing_MOST_RECENT&zonename=Video%20Listing%20%28MOST_RECENT%29",
+                     "url":"/de/videos/109332-000-A/dance-von-latin-bis-voguing/",
+                     "programId":"109332-000-A",
+                     "teaserText":"Ein Feuerwerk der Bewegung: Die Tänzerin und Choreografin Sylvia Camarda zeigt Tanzstile aus allen Zeiten.",
+                     "duration":2779,
+                     "durationLabel":"47 Min.",
+                     "geoblocking":{
+                        "code":"ALL",
+                        "label":"Weltweit verfügbar",
+                        "inclusion":[
+                           
+                        ],
+                        "exclusion":[
+                           
+                        ]
+                     },
+                     "genre":{
+                        "label":"Bühne und Konzert",
+                        "url":"/de/arte-concert/",
+                        "deeplink":"arte://emac/ARTE_CONCERT"
+                     },
+                     "audioVersions":[
+                        
+                     ],
+                     "availability":{
+                        "type":"VOD",
+                        "start":"2024-02-11T04:00:00Z",
+                        "end":"2024-05-11T03:00:00Z",
+                        "upcomingDate":"2024-02-11T04:00:00Z",
+                        "label":"Verfügbar vom 11/02/2024 bis 10/05/2024"
+                     },
+                     "ageRating":0,
+                     "callToAction":"Abspielen",
+                     "clip":null,
+                     "trailer":null,
+                     "childrenCount":null
+                  },
+                  {
+                     "id":"111063-000-A_de",
+                     "type":"teaser",
+                     "kind":{
+                        "code":"SHOW",
+                        "label":"Programm",
+                        "isCollection":false
+                     },
+                     "deeplink":"arte://program/111063-000-A",
+                     "title":"Händel: Giulio Cesare",
+                     "subtitle":"Julie Fuchs in Amsterdam",
+                     "shortDescription":"Die berühmte Händel-Oper \"Giulio Cesare\" in Amsterdam unter der musikalischen Leitung der französischen Dirigentin Emmanuelle Haïm und in einer Inszenierung von Calixto Bieito: Christophe Dumaux und Julie Fuchs sind Cäsar und Kleopatra. Um die grenzenlose Machtgier der superreichen Eliten bloßzustellen, überträgt Calixto Bieito die Handlung in eine namenlose Hightech-Oligarchie.",
+                     "mainImage":{
+                        "caption":null,
+                        "url":"https://api-cdn.arte.tv/img/v2/image/Harb4PQNnBVSRh6Liz2NJP/__SIZE__?type=TEXT"
+                     },
+                     "stickers":[
+                        {
+                           "code":"PLAYABLE",
+                           "label":"PLAYABLE"
+                        },
+                        {
+                           "code":"FULL_VIDEO",
+                           "label":"Das Programm sehen"
+                        },
+                        {
+                           "code":"ARTE_CONCERT",
+                           "label":"ARTE Concert"
+                        }
+                     ],
+                     "trackingPixel":"/ct/?abv=B&em=111063-000-A&language=de&pageid=MOST_RECENT&position=5&support=web&teaserid=111063-000-A_de&teasertitle=H%C3%A4ndel%3A%20Giulio%20Cesare&zoneCode=listing_MOST_RECENT&zoneIndexInPage=0&zoneTemplate=vertical_landscape&zoneid=listing_MOST_RECENT&zonename=Video%20Listing%20%28MOST_RECENT%29",
+                     "url":"/de/videos/111063-000-A/haendel-giulio-cesare/",
+                     "programId":"111063-000-A",
+                     "teaserText":"Die berühmte Händel-Oper unter der musikalischen Leitung von Dirigentin Emmanuelle Haïm und inszeniert von Calixto Bieito",
+                     "duration":11499,
+                     "durationLabel":"192 Min.",
+                     "geoblocking":{
+                        "code":"SAT",
+                        "label":"Verfügbar in Europa",
+                        "inclusion":[
+                           
+                        ],
+                        "exclusion":[
+                           
+                        ]
+                     },
+                     "genre":{
+                        "label":"Bühne und Konzert",
+                        "url":"/de/arte-concert/",
+                        "deeplink":"arte://emac/ARTE_CONCERT"
+                     },
+                     "audioVersions":[
+                        {
+                           "code":"OmU",
+                           "label":"Untertitel"
+                        }
+                     ],
+                     "availability":{
+                        "type":"VOD",
+                        "start":"2024-02-11T04:00:00Z",
+                        "end":"2024-03-19T04:00:00Z",
+                        "upcomingDate":"2024-02-11T04:00:00Z",
+                        "label":"Verfügbar vom 11/02/2024 bis 18/03/2024"
+                     },
+                     "ageRating":0,
+                     "callToAction":"Abspielen",
+                     "clip":null,
+                     "trailer":null,
+                     "childrenCount":null
+                  }
+               ],
+               "pagination":{
+                  "page":1,
+                  "pages":100,
+                  "totalCount":2000,
+                  "links":{
+                     "first":"/api/emac/v4/de/web/zones/daeadc71-4306-411a-8590-1c1f484ef5aa/content?abv=B&authorizedCountry=DE&page=1&pageId=MOST_RECENT&zoneIndexInPage=0",
+                     "next":"/api/emac/v4/de/web/zones/daeadc71-4306-411a-8590-1c1f484ef5aa/content?abv=B&authorizedCountry=DE&page=2&pageId=MOST_RECENT&zoneIndexInPage=0",
+                     "last":"/api/emac/v4/de/web/zones/daeadc71-4306-411a-8590-1c1f484ef5aa/content?abv=B&authorizedCountry=DE&page=100&pageId=MOST_RECENT&zoneIndexInPage=0"
+                  }
+               }
+            }
+         }
+      ]
+   }
+}
