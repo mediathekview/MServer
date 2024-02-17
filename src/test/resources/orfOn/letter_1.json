@@ -1,0 +1,1490 @@
+{
+    "page": 1,
+    "limit": 20,
+    "pages": 1,
+    "total": 9,
+    "_links": {
+        "self": {
+            "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/profiles\/lettergroup\/G?page=1&limit=20"
+        },
+        "first": {
+            "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/profiles\/lettergroup\/G?page=1&limit=20"
+        },
+        "last": {
+            "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/profiles\/lettergroup\/G?page=1&limit=20"
+        }
+    },
+    "_embedded": {
+        "items": [
+            {
+                "audio_description": false,
+                "break_text": null,
+                "break_title": null,
+                "dataset_name": null,
+                "description": "Gesundheitsmagazin mit Christine Reiler",
+                "has_active_youth_protection": false,
+                "has_youth_protection": false,
+                "headline": "G'sund in \u00d6sterreich",
+                "hide_in_letter_group": false,
+                "id": 13894465,
+                "letter_group": "G",
+                "livestream_sub_headline": null,
+                "newest_episode_id": 14207677,
+                "oegs": false,
+                "oewa_base_path": "Redcont\/Homepage\/Homepage",
+                "online_episode_count": 2,
+                "profile_website": null,
+                "secondary_genres": [],
+                "sub_headline": null,
+                "title": "G'sund in \u00d6sterreich",
+                "type": "temporary",
+                "updated_at": "2023-11-17T12:07:16+01:00",
+                "youth_protection_type": "limited-20-06",
+                "_links": {
+                    "self": {
+                        "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/profile\/13894465"
+                    },
+                    "image": {
+                        "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/media\/16182644"
+                    },
+                    "image16x9_with_logo": {
+                        "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/media\/16182644"
+                    },
+                    "image2x3_with_logo": {
+                        "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/media\/16596204"
+                    },
+                    "image2x3": {
+                        "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/media\/16596204"
+                    },
+                    "genre": {
+                        "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/genre\/1176"
+                    },
+                    "links": {
+                        "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/profile\/13894465\/links"
+                    },
+                    "episodes": {
+                        "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/profile\/13894465\/episodes"
+                    },
+                    "related_profiles": {
+                        "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/profile\/13894465\/related"
+                    },
+                    "latest_episode": {
+                        "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/profile\/13894465\/episode\/latest"
+                    },
+                    "tags": {
+                        "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/profile\/13894465\/tags"
+                    },
+                    "advertising_tags": {
+                        "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/profile\/13894465\/advertising\/tags"
+                    },
+                    "oegs_profile": {
+                        "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/profile\/13895063"
+                    }
+                },
+                "_embedded": {
+                    "image": {
+                        "public_urls": {
+                            "highlight_teaser": {
+                                "url": "https:\/\/api-tvthek.orf.at\/assets\/profiles\/0162\/83\/thumb_16182644_profiles_highlight_teaser.jpeg"
+                            },
+                            "player": {
+                                "url": "https:\/\/api-tvthek.orf.at\/assets\/profiles\/0162\/83\/thumb_16182644_profiles_player.jpeg"
+                            },
+                            "list": {
+                                "url": "https:\/\/api-tvthek.orf.at\/assets\/profiles\/0162\/83\/thumb_16182644_profiles_list.jpeg"
+                            },
+                            "small": {
+                                "url": "https:\/\/api-tvthek.orf.at\/assets\/profiles\/0162\/83\/thumb_16182644_profiles_small.jpeg"
+                            },
+                            "reference": {
+                                "url": "https:\/\/api-tvthek.orf.at\/assets\/profiles\/0162\/83\/a91f495a8fe27e1a426b24c5f09bfbb4251718d3.jpeg"
+                            }
+                        },
+                        "dynamic_color": "#691f11"
+                    },
+                    "image16x9_with_logo": {
+                        "public_urls": {
+                            "highlight_teaser": {
+                                "url": "https:\/\/api-tvthek.orf.at\/assets\/profiles\/0162\/83\/thumb_16182644_profiles_highlight_teaser.jpeg"
+                            },
+                            "player": {
+                                "url": "https:\/\/api-tvthek.orf.at\/assets\/profiles\/0162\/83\/thumb_16182644_profiles_player.jpeg"
+                            },
+                            "list": {
+                                "url": "https:\/\/api-tvthek.orf.at\/assets\/profiles\/0162\/83\/thumb_16182644_profiles_list.jpeg"
+                            },
+                            "small": {
+                                "url": "https:\/\/api-tvthek.orf.at\/assets\/profiles\/0162\/83\/thumb_16182644_profiles_small.jpeg"
+                            },
+                            "reference": {
+                                "url": "https:\/\/api-tvthek.orf.at\/assets\/profiles\/0162\/83\/a91f495a8fe27e1a426b24c5f09bfbb4251718d3.jpeg"
+                            }
+                        },
+                        "dynamic_color": "#691f11"
+                    },
+                    "image2x3_with_logo": {
+                        "public_urls": {
+                            "highlight_teaser": {
+                                "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0166\/97\/thumb_16596204_default_2x3_highlight_teaser.jpeg"
+                            },
+                            "player": {
+                                "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0166\/97\/thumb_16596204_default_2x3_player.jpeg"
+                            },
+                            "legacy": {
+                                "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0166\/97\/thumb_16596204_default_2x3_legacy.jpeg"
+                            },
+                            "list": {
+                                "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0166\/97\/thumb_16596204_default_2x3_list.jpeg"
+                            },
+                            "small": {
+                                "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0166\/97\/thumb_16596204_default_2x3_small.jpeg"
+                            },
+                            "reference": {
+                                "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0166\/97\/56745f92b28e3a6f176e66acf9e9d0aea5e0c611.jpeg"
+                            }
+                        },
+                        "dynamic_color": "#691f11"
+                    },
+                    "image2x3": {
+                        "public_urls": {
+                            "highlight_teaser": {
+                                "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0166\/97\/thumb_16596204_default_2x3_highlight_teaser.jpeg"
+                            },
+                            "player": {
+                                "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0166\/97\/thumb_16596204_default_2x3_player.jpeg"
+                            },
+                            "legacy": {
+                                "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0166\/97\/thumb_16596204_default_2x3_legacy.jpeg"
+                            },
+                            "list": {
+                                "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0166\/97\/thumb_16596204_default_2x3_list.jpeg"
+                            },
+                            "small": {
+                                "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0166\/97\/thumb_16596204_default_2x3_small.jpeg"
+                            },
+                            "reference": {
+                                "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0166\/97\/56745f92b28e3a6f176e66acf9e9d0aea5e0c611.jpeg"
+                            }
+                        },
+                        "dynamic_color": "#691f11"
+                    }
+                }
+            },
+            {
+                "audio_description": false,
+                "break_text": null,
+                "break_title": null,
+                "dataset_name": "",
+                "description": "Antworten auf  aktuelle Fragen von Kindern",
+                "has_active_youth_protection": false,
+                "has_youth_protection": false,
+                "headline": "Ganz Ohr",
+                "hide_in_letter_group": false,
+                "id": 13895942,
+                "letter_group": "G",
+                "livestream_sub_headline": null,
+                "newest_episode_id": 14207877,
+                "oegs": false,
+                "oewa_base_path": "Redcont\/KulturUndFreizeit\/Sonstiges",
+                "online_episode_count": 1,
+                "profile_website": null,
+                "secondary_genres": [],
+                "sub_headline": null,
+                "title": "Ganz Ohr",
+                "type": "temporary",
+                "updated_at": "2024-01-05T11:39:04+01:00",
+                "youth_protection_type": "limited-20-06",
+                "_links": {
+                    "self": {
+                        "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/profile\/13895942"
+                    },
+                    "image": {
+                        "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/media\/16593345"
+                    },
+                    "image16x9_with_logo": {
+                        "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/media\/16593345"
+                    },
+                    "image2x3_with_logo": {
+                        "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/media\/16596204"
+                    },
+                    "image2x3": {
+                        "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/media\/16596204"
+                    },
+                    "genre": {
+                        "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/genre\/2703801"
+                    },
+                    "links": {
+                        "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/profile\/13895942\/links"
+                    },
+                    "episodes": {
+                        "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/profile\/13895942\/episodes"
+                    },
+                    "related_profiles": {
+                        "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/profile\/13895942\/related"
+                    },
+                    "latest_episode": {
+                        "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/profile\/13895942\/episode\/latest"
+                    },
+                    "tags": {
+                        "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/profile\/13895942\/tags"
+                    },
+                    "advertising_tags": {
+                        "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/profile\/13895942\/advertising\/tags"
+                    }
+                },
+                "_embedded": {
+                    "image": {
+                        "public_urls": {
+                            "highlight_teaser": {
+                                "url": "https:\/\/api-tvthek.orf.at\/assets\/profiles\/0166\/94\/thumb_16593345_profiles_highlight_teaser.jpeg"
+                            },
+                            "player": {
+                                "url": "https:\/\/api-tvthek.orf.at\/assets\/profiles\/0166\/94\/thumb_16593345_profiles_player.jpeg"
+                            },
+                            "list": {
+                                "url": "https:\/\/api-tvthek.orf.at\/assets\/profiles\/0166\/94\/thumb_16593345_profiles_list.jpeg"
+                            },
+                            "small": {
+                                "url": "https:\/\/api-tvthek.orf.at\/assets\/profiles\/0166\/94\/thumb_16593345_profiles_small.jpeg"
+                            },
+                            "reference": {
+                                "url": "https:\/\/api-tvthek.orf.at\/assets\/profiles\/0166\/94\/0df72bab81e7d93ccff25d352d525369241f730c.jpeg"
+                            }
+                        },
+                        "dynamic_color": "#691f11"
+                    },
+                    "image16x9_with_logo": {
+                        "public_urls": {
+                            "highlight_teaser": {
+                                "url": "https:\/\/api-tvthek.orf.at\/assets\/profiles\/0166\/94\/thumb_16593345_profiles_highlight_teaser.jpeg"
+                            },
+                            "player": {
+                                "url": "https:\/\/api-tvthek.orf.at\/assets\/profiles\/0166\/94\/thumb_16593345_profiles_player.jpeg"
+                            },
+                            "list": {
+                                "url": "https:\/\/api-tvthek.orf.at\/assets\/profiles\/0166\/94\/thumb_16593345_profiles_list.jpeg"
+                            },
+                            "small": {
+                                "url": "https:\/\/api-tvthek.orf.at\/assets\/profiles\/0166\/94\/thumb_16593345_profiles_small.jpeg"
+                            },
+                            "reference": {
+                                "url": "https:\/\/api-tvthek.orf.at\/assets\/profiles\/0166\/94\/0df72bab81e7d93ccff25d352d525369241f730c.jpeg"
+                            }
+                        },
+                        "dynamic_color": "#691f11"
+                    },
+                    "image2x3_with_logo": {
+                        "public_urls": {
+                            "highlight_teaser": {
+                                "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0166\/97\/thumb_16596204_default_2x3_highlight_teaser.jpeg"
+                            },
+                            "player": {
+                                "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0166\/97\/thumb_16596204_default_2x3_player.jpeg"
+                            },
+                            "legacy": {
+                                "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0166\/97\/thumb_16596204_default_2x3_legacy.jpeg"
+                            },
+                            "list": {
+                                "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0166\/97\/thumb_16596204_default_2x3_list.jpeg"
+                            },
+                            "small": {
+                                "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0166\/97\/thumb_16596204_default_2x3_small.jpeg"
+                            },
+                            "reference": {
+                                "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0166\/97\/56745f92b28e3a6f176e66acf9e9d0aea5e0c611.jpeg"
+                            }
+                        },
+                        "dynamic_color": "#691f11"
+                    },
+                    "image2x3": {
+                        "public_urls": {
+                            "highlight_teaser": {
+                                "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0166\/97\/thumb_16596204_default_2x3_highlight_teaser.jpeg"
+                            },
+                            "player": {
+                                "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0166\/97\/thumb_16596204_default_2x3_player.jpeg"
+                            },
+                            "legacy": {
+                                "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0166\/97\/thumb_16596204_default_2x3_legacy.jpeg"
+                            },
+                            "list": {
+                                "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0166\/97\/thumb_16596204_default_2x3_list.jpeg"
+                            },
+                            "small": {
+                                "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0166\/97\/thumb_16596204_default_2x3_small.jpeg"
+                            },
+                            "reference": {
+                                "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0166\/97\/56745f92b28e3a6f176e66acf9e9d0aea5e0c611.jpeg"
+                            }
+                        },
+                        "dynamic_color": "#691f11"
+                    }
+                }
+            },
+            {
+                "audio_description": false,
+                "break_text": null,
+                "break_title": null,
+                "dataset_name": "",
+                "description": "Tipps und Tricks f\u00fcr die Gartengestaltung",
+                "has_active_youth_protection": false,
+                "has_youth_protection": false,
+                "headline": "Garteln in Salzburg",
+                "hide_in_letter_group": false,
+                "id": 8850620,
+                "letter_group": "G",
+                "livestream_sub_headline": null,
+                "newest_episode_id": 14207914,
+                "oegs": false,
+                "oewa_base_path": "Redcont\/Nachrichten\/LokaleNachrichten",
+                "online_episode_count": 1,
+                "profile_website": null,
+                "secondary_genres": [],
+                "sub_headline": null,
+                "title": "Garteln in Salzburg",
+                "type": "temporary",
+                "updated_at": "2022-01-12T16:18:33+01:00",
+                "youth_protection_type": "limited-20-06",
+                "_links": {
+                    "self": {
+                        "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/profile\/8850620"
+                    },
+                    "image": {
+                        "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/media\/7471671"
+                    },
+                    "image16x9_with_logo": {
+                        "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/media\/7471671"
+                    },
+                    "image2x3_with_logo": {
+                        "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/media\/16596204"
+                    },
+                    "image2x3": {
+                        "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/media\/16596204"
+                    },
+                    "genre": {
+                        "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/genre\/3309573"
+                    },
+                    "links": {
+                        "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/profile\/8850620\/links"
+                    },
+                    "episodes": {
+                        "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/profile\/8850620\/episodes"
+                    },
+                    "related_profiles": {
+                        "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/profile\/8850620\/related"
+                    },
+                    "latest_episode": {
+                        "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/profile\/8850620\/episode\/latest"
+                    },
+                    "tags": {
+                        "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/profile\/8850620\/tags"
+                    },
+                    "advertising_tags": {
+                        "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/profile\/8850620\/advertising\/tags"
+                    }
+                },
+                "_embedded": {
+                    "image": {
+                        "public_urls": {
+                            "highlight_teaser": {
+                                "url": "https:\/\/api-tvthek.orf.at\/assets\/profiles\/0075\/72\/thumb_7471671_profiles_highlight_teaser.jpeg"
+                            },
+                            "player": {
+                                "url": "https:\/\/api-tvthek.orf.at\/assets\/profiles\/0075\/72\/thumb_7471671_profiles_player.jpeg"
+                            },
+                            "list": {
+                                "url": "https:\/\/api-tvthek.orf.at\/assets\/profiles\/0075\/72\/thumb_7471671_profiles_list.jpeg"
+                            },
+                            "small": {
+                                "url": "https:\/\/api-tvthek.orf.at\/assets\/profiles\/0075\/72\/thumb_7471671_profiles_small.jpeg"
+                            },
+                            "reference": {
+                                "url": "https:\/\/api-tvthek.orf.at\/assets\/profiles\/0075\/72\/cd477576f9883154a1bdfd98f9bf3ff5435a8a6b.jpeg"
+                            }
+                        },
+                        "dynamic_color": "#691f11"
+                    },
+                    "image16x9_with_logo": {
+                        "public_urls": {
+                            "highlight_teaser": {
+                                "url": "https:\/\/api-tvthek.orf.at\/assets\/profiles\/0075\/72\/thumb_7471671_profiles_highlight_teaser.jpeg"
+                            },
+                            "player": {
+                                "url": "https:\/\/api-tvthek.orf.at\/assets\/profiles\/0075\/72\/thumb_7471671_profiles_player.jpeg"
+                            },
+                            "list": {
+                                "url": "https:\/\/api-tvthek.orf.at\/assets\/profiles\/0075\/72\/thumb_7471671_profiles_list.jpeg"
+                            },
+                            "small": {
+                                "url": "https:\/\/api-tvthek.orf.at\/assets\/profiles\/0075\/72\/thumb_7471671_profiles_small.jpeg"
+                            },
+                            "reference": {
+                                "url": "https:\/\/api-tvthek.orf.at\/assets\/profiles\/0075\/72\/cd477576f9883154a1bdfd98f9bf3ff5435a8a6b.jpeg"
+                            }
+                        },
+                        "dynamic_color": "#691f11"
+                    },
+                    "image2x3_with_logo": {
+                        "public_urls": {
+                            "highlight_teaser": {
+                                "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0166\/97\/thumb_16596204_default_2x3_highlight_teaser.jpeg"
+                            },
+                            "player": {
+                                "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0166\/97\/thumb_16596204_default_2x3_player.jpeg"
+                            },
+                            "legacy": {
+                                "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0166\/97\/thumb_16596204_default_2x3_legacy.jpeg"
+                            },
+                            "list": {
+                                "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0166\/97\/thumb_16596204_default_2x3_list.jpeg"
+                            },
+                            "small": {
+                                "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0166\/97\/thumb_16596204_default_2x3_small.jpeg"
+                            },
+                            "reference": {
+                                "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0166\/97\/56745f92b28e3a6f176e66acf9e9d0aea5e0c611.jpeg"
+                            }
+                        },
+                        "dynamic_color": "#691f11"
+                    },
+                    "image2x3": {
+                        "public_urls": {
+                            "highlight_teaser": {
+                                "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0166\/97\/thumb_16596204_default_2x3_highlight_teaser.jpeg"
+                            },
+                            "player": {
+                                "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0166\/97\/thumb_16596204_default_2x3_player.jpeg"
+                            },
+                            "legacy": {
+                                "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0166\/97\/thumb_16596204_default_2x3_legacy.jpeg"
+                            },
+                            "list": {
+                                "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0166\/97\/thumb_16596204_default_2x3_list.jpeg"
+                            },
+                            "small": {
+                                "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0166\/97\/thumb_16596204_default_2x3_small.jpeg"
+                            },
+                            "reference": {
+                                "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0166\/97\/56745f92b28e3a6f176e66acf9e9d0aea5e0c611.jpeg"
+                            }
+                        },
+                        "dynamic_color": "#691f11"
+                    }
+                }
+            },
+            {
+                "audio_description": false,
+                "break_text": null,
+                "break_title": "Derzeit kein Video verf\u00fcgbar",
+                "dataset_name": "",
+                "description": "Frech, humorvoll und politisch unkorrekt",
+                "has_active_youth_protection": false,
+                "has_youth_protection": false,
+                "headline": "Gemischtes Doppel - Beinahe wahre Geschichten",
+                "hide_in_letter_group": false,
+                "id": 13732047,
+                "letter_group": "G",
+                "livestream_sub_headline": null,
+                "newest_episode_id": 14207399,
+                "oegs": false,
+                "oewa_base_path": "Redcont\/KulturUndFreizeit\/Sonstiges",
+                "online_episode_count": 4,
+                "profile_website": null,
+                "secondary_genres": [],
+                "sub_headline": null,
+                "title": "Gemischtes Doppel - Beinahe wahre Geschichten",
+                "type": "temporary",
+                "updated_at": "2023-11-28T17:25:45+01:00",
+                "youth_protection_type": "limited-20-06",
+                "_links": {
+                    "self": {
+                        "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/profile\/13732047"
+                    },
+                    "image": {
+                        "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/media\/13283"
+                    },
+                    "image16x9_with_logo": {
+                        "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/media\/13283"
+                    },
+                    "image2x3_with_logo": {
+                        "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/media\/16596204"
+                    },
+                    "image2x3": {
+                        "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/media\/16596204"
+                    },
+                    "theme": {
+                        "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/theme\/13740650"
+                    },
+                    "genre": {
+                        "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/genre\/2703835"
+                    },
+                    "links": {
+                        "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/profile\/13732047\/links"
+                    },
+                    "episodes": {
+                        "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/profile\/13732047\/episodes"
+                    },
+                    "related_profiles": {
+                        "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/profile\/13732047\/related"
+                    },
+                    "latest_episode": {
+                        "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/profile\/13732047\/episode\/latest"
+                    },
+                    "tags": {
+                        "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/profile\/13732047\/tags"
+                    },
+                    "advertising_tags": {
+                        "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/profile\/13732047\/advertising\/tags"
+                    }
+                },
+                "_embedded": {
+                    "image": {
+                        "public_urls": {
+                            "highlight_teaser": {
+                                "url": "https:\/\/api-tvthek.orf.at\/assets\/profiles\/0001\/14\/thumb_13283_profiles_highlight_teaser.jpeg"
+                            },
+                            "player": {
+                                "url": "https:\/\/api-tvthek.orf.at\/assets\/profiles\/0001\/14\/thumb_13283_profiles_player.jpeg"
+                            },
+                            "list": {
+                                "url": "https:\/\/api-tvthek.orf.at\/assets\/profiles\/0001\/14\/thumb_13283_profiles_list.jpeg"
+                            },
+                            "small": {
+                                "url": "https:\/\/api-tvthek.orf.at\/assets\/profiles\/0001\/14\/thumb_13283_profiles_small.jpeg"
+                            },
+                            "reference": {
+                                "url": "https:\/\/api-tvthek.orf.at\/assets\/profiles\/0001\/14\/ee7356298e3a138450ca92146f2a62a03b5a828f.jpeg"
+                            }
+                        },
+                        "dynamic_color": "#691f11"
+                    },
+                    "image16x9_with_logo": {
+                        "public_urls": {
+                            "highlight_teaser": {
+                                "url": "https:\/\/api-tvthek.orf.at\/assets\/profiles\/0001\/14\/thumb_13283_profiles_highlight_teaser.jpeg"
+                            },
+                            "player": {
+                                "url": "https:\/\/api-tvthek.orf.at\/assets\/profiles\/0001\/14\/thumb_13283_profiles_player.jpeg"
+                            },
+                            "list": {
+                                "url": "https:\/\/api-tvthek.orf.at\/assets\/profiles\/0001\/14\/thumb_13283_profiles_list.jpeg"
+                            },
+                            "small": {
+                                "url": "https:\/\/api-tvthek.orf.at\/assets\/profiles\/0001\/14\/thumb_13283_profiles_small.jpeg"
+                            },
+                            "reference": {
+                                "url": "https:\/\/api-tvthek.orf.at\/assets\/profiles\/0001\/14\/ee7356298e3a138450ca92146f2a62a03b5a828f.jpeg"
+                            }
+                        },
+                        "dynamic_color": "#691f11"
+                    },
+                    "image2x3_with_logo": {
+                        "public_urls": {
+                            "highlight_teaser": {
+                                "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0166\/97\/thumb_16596204_default_2x3_highlight_teaser.jpeg"
+                            },
+                            "player": {
+                                "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0166\/97\/thumb_16596204_default_2x3_player.jpeg"
+                            },
+                            "legacy": {
+                                "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0166\/97\/thumb_16596204_default_2x3_legacy.jpeg"
+                            },
+                            "list": {
+                                "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0166\/97\/thumb_16596204_default_2x3_list.jpeg"
+                            },
+                            "small": {
+                                "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0166\/97\/thumb_16596204_default_2x3_small.jpeg"
+                            },
+                            "reference": {
+                                "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0166\/97\/56745f92b28e3a6f176e66acf9e9d0aea5e0c611.jpeg"
+                            }
+                        },
+                        "dynamic_color": "#691f11"
+                    },
+                    "image2x3": {
+                        "public_urls": {
+                            "highlight_teaser": {
+                                "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0166\/97\/thumb_16596204_default_2x3_highlight_teaser.jpeg"
+                            },
+                            "player": {
+                                "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0166\/97\/thumb_16596204_default_2x3_player.jpeg"
+                            },
+                            "legacy": {
+                                "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0166\/97\/thumb_16596204_default_2x3_legacy.jpeg"
+                            },
+                            "list": {
+                                "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0166\/97\/thumb_16596204_default_2x3_list.jpeg"
+                            },
+                            "small": {
+                                "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0166\/97\/thumb_16596204_default_2x3_small.jpeg"
+                            },
+                            "reference": {
+                                "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0166\/97\/56745f92b28e3a6f176e66acf9e9d0aea5e0c611.jpeg"
+                            }
+                        },
+                        "dynamic_color": "#691f11"
+                    }
+                }
+            },
+            {
+                "audio_description": false,
+                "break_text": null,
+                "break_title": null,
+                "dataset_name": "",
+                "description": "Christine-N\u00f6stlinger-Verfilmung",
+                "has_active_youth_protection": false,
+                "has_youth_protection": false,
+                "headline": "Geschichten vom Franz",
+                "hide_in_letter_group": false,
+                "id": 13895899,
+                "letter_group": "G",
+                "livestream_sub_headline": null,
+                "newest_episode_id": 14207343,
+                "oegs": false,
+                "oewa_base_path": "Redcont\/KulturUndFreizeit\/FilmUndKino",
+                "online_episode_count": 1,
+                "profile_website": null,
+                "secondary_genres": [
+                    {
+                        "id": 2703833,
+                        "advertising_mapping": {
+                            "live": {
+                                "web": {
+                                    "sb": 4420063,
+                                    "tbar": 4420064,
+                                    "pre": 4420065,
+                                    "post": 4420066
+                                },
+                                "mob": {
+                                    "par": 4420067,
+                                    "pre": 4420221,
+                                    "post": 4420069
+                                },
+                                "app": {
+                                    "par": 4420070,
+                                    "pre": 4420071,
+                                    "post": 4420072
+                                },
+                                "smart": {
+                                    "pre": 4420073,
+                                    "post": 4420074
+                                }
+                            },
+                            "vod": {
+                                "web": {
+                                    "sb": 4420438,
+                                    "tbar": 4420439,
+                                    "pre": 4420440,
+                                    "post": 4420441
+                                },
+                                "mob": {
+                                    "par": 4420442,
+                                    "pre": 4420443,
+                                    "post": 4420444
+                                },
+                                "app": {
+                                    "par": 4420445,
+                                    "pre": 4420446,
+                                    "post": 4420447
+                                },
+                                "smart": {
+                                    "pre": 4420448,
+                                    "post": 4420449
+                                }
+                            }
+                        },
+                        "sorting": 10,
+                        "title": "Film & Serie",
+                        "updated_at": "2023-12-31T16:38:57+01:00",
+                        "_links": {
+                            "self": {
+                                "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/genre\/2703833"
+                            },
+                            "image": {
+                                "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/media\/16596302"
+                            },
+                            "profiles": {
+                                "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/genre\/2703833\/profiles"
+                            },
+                            "episodes": {
+                                "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/genre\/2703833\/episodes"
+                            },
+                            "latest_episode": {
+                                "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/genre\/2703833\/episode\/latest"
+                            },
+                            "tags": {
+                                "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/genre\/2703833\/tags"
+                            },
+                            "advertising_tags": {
+                                "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/genre\/2703833\/advertising\/tags"
+                            }
+                        },
+                        "_embedded": {
+                            "image": {
+                                "public_urls": {
+                                    "highlight_teaser": {
+                                        "url": "https:\/\/api-tvthek.orf.at\/assets\/genres\/0166\/97\/thumb_16596302_genres_highlight_teaser.jpeg"
+                                    },
+                                    "player": {
+                                        "url": "https:\/\/api-tvthek.orf.at\/assets\/genres\/0166\/97\/thumb_16596302_genres_player.jpeg"
+                                    },
+                                    "list": {
+                                        "url": "https:\/\/api-tvthek.orf.at\/assets\/genres\/0166\/97\/thumb_16596302_genres_list.jpeg"
+                                    },
+                                    "small": {
+                                        "url": "https:\/\/api-tvthek.orf.at\/assets\/genres\/0166\/97\/thumb_16596302_genres_small.jpeg"
+                                    },
+                                    "reference": {
+                                        "url": "https:\/\/api-tvthek.orf.at\/assets\/genres\/0166\/97\/a6885e2f8ea6f778dcac9af57dfea24006218d76.jpeg"
+                                    }
+                                },
+                                "dynamic_color": "#691f11"
+                            }
+                        }
+                    }
+                ],
+                "sub_headline": null,
+                "title": "Geschichten vom Franz",
+                "type": "temporary",
+                "updated_at": "2023-12-29T20:29:49+01:00",
+                "youth_protection_type": "limited-20-06",
+                "_links": {
+                    "self": {
+                        "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/profile\/13895899"
+                    },
+                    "image": {
+                        "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/media\/16535569"
+                    },
+                    "image16x9_with_logo": {
+                        "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/media\/16535569"
+                    },
+                    "image2x3_with_logo": {
+                        "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/media\/16596204"
+                    },
+                    "image2x3": {
+                        "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/media\/16596204"
+                    },
+                    "genre": {
+                        "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/genre\/2703801"
+                    },
+                    "links": {
+                        "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/profile\/13895899\/links"
+                    },
+                    "episodes": {
+                        "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/profile\/13895899\/episodes"
+                    },
+                    "related_profiles": {
+                        "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/profile\/13895899\/related"
+                    },
+                    "latest_episode": {
+                        "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/profile\/13895899\/episode\/latest"
+                    },
+                    "tags": {
+                        "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/profile\/13895899\/tags"
+                    },
+                    "advertising_tags": {
+                        "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/profile\/13895899\/advertising\/tags"
+                    },
+                    "audio_description_profile": {
+                        "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/profile\/13895900"
+                    }
+                },
+                "_embedded": {
+                    "image": {
+                        "public_urls": {
+                            "highlight_teaser": {
+                                "url": "https:\/\/api-tvthek.orf.at\/assets\/profiles\/0166\/36\/thumb_16535569_profiles_highlight_teaser.jpeg"
+                            },
+                            "player": {
+                                "url": "https:\/\/api-tvthek.orf.at\/assets\/profiles\/0166\/36\/thumb_16535569_profiles_player.jpeg"
+                            },
+                            "list": {
+                                "url": "https:\/\/api-tvthek.orf.at\/assets\/profiles\/0166\/36\/thumb_16535569_profiles_list.jpeg"
+                            },
+                            "small": {
+                                "url": "https:\/\/api-tvthek.orf.at\/assets\/profiles\/0166\/36\/thumb_16535569_profiles_small.jpeg"
+                            },
+                            "reference": {
+                                "url": "https:\/\/api-tvthek.orf.at\/assets\/profiles\/0166\/36\/151b8422eb054f50e837b472e8490616eced1c9b.jpeg"
+                            }
+                        },
+                        "dynamic_color": "#691f11"
+                    },
+                    "image16x9_with_logo": {
+                        "public_urls": {
+                            "highlight_teaser": {
+                                "url": "https:\/\/api-tvthek.orf.at\/assets\/profiles\/0166\/36\/thumb_16535569_profiles_highlight_teaser.jpeg"
+                            },
+                            "player": {
+                                "url": "https:\/\/api-tvthek.orf.at\/assets\/profiles\/0166\/36\/thumb_16535569_profiles_player.jpeg"
+                            },
+                            "list": {
+                                "url": "https:\/\/api-tvthek.orf.at\/assets\/profiles\/0166\/36\/thumb_16535569_profiles_list.jpeg"
+                            },
+                            "small": {
+                                "url": "https:\/\/api-tvthek.orf.at\/assets\/profiles\/0166\/36\/thumb_16535569_profiles_small.jpeg"
+                            },
+                            "reference": {
+                                "url": "https:\/\/api-tvthek.orf.at\/assets\/profiles\/0166\/36\/151b8422eb054f50e837b472e8490616eced1c9b.jpeg"
+                            }
+                        },
+                        "dynamic_color": "#691f11"
+                    },
+                    "image2x3_with_logo": {
+                        "public_urls": {
+                            "highlight_teaser": {
+                                "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0166\/97\/thumb_16596204_default_2x3_highlight_teaser.jpeg"
+                            },
+                            "player": {
+                                "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0166\/97\/thumb_16596204_default_2x3_player.jpeg"
+                            },
+                            "legacy": {
+                                "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0166\/97\/thumb_16596204_default_2x3_legacy.jpeg"
+                            },
+                            "list": {
+                                "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0166\/97\/thumb_16596204_default_2x3_list.jpeg"
+                            },
+                            "small": {
+                                "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0166\/97\/thumb_16596204_default_2x3_small.jpeg"
+                            },
+                            "reference": {
+                                "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0166\/97\/56745f92b28e3a6f176e66acf9e9d0aea5e0c611.jpeg"
+                            }
+                        },
+                        "dynamic_color": "#691f11"
+                    },
+                    "image2x3": {
+                        "public_urls": {
+                            "highlight_teaser": {
+                                "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0166\/97\/thumb_16596204_default_2x3_highlight_teaser.jpeg"
+                            },
+                            "player": {
+                                "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0166\/97\/thumb_16596204_default_2x3_player.jpeg"
+                            },
+                            "legacy": {
+                                "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0166\/97\/thumb_16596204_default_2x3_legacy.jpeg"
+                            },
+                            "list": {
+                                "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0166\/97\/thumb_16596204_default_2x3_list.jpeg"
+                            },
+                            "small": {
+                                "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0166\/97\/thumb_16596204_default_2x3_small.jpeg"
+                            },
+                            "reference": {
+                                "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0166\/97\/56745f92b28e3a6f176e66acf9e9d0aea5e0c611.jpeg"
+                            }
+                        },
+                        "dynamic_color": "#691f11"
+                    }
+                }
+            },
+            {
+                "audio_description": false,
+                "break_text": null,
+                "break_title": null,
+                "dataset_name": "",
+                "description": "Tipps f\u00fcr ein gesundes Leben",
+                "has_active_youth_protection": false,
+                "has_youth_protection": false,
+                "headline": "Gesund in Salzburg",
+                "hide_in_letter_group": false,
+                "id": 8850612,
+                "letter_group": "G",
+                "livestream_sub_headline": null,
+                "newest_episode_id": 14207624,
+                "oegs": false,
+                "oewa_base_path": "Redcont\/Nachrichten\/LokaleNachrichten",
+                "online_episode_count": 1,
+                "profile_website": null,
+                "secondary_genres": [],
+                "sub_headline": null,
+                "title": "Gesund in Salzburg",
+                "type": "temporary",
+                "updated_at": "2022-01-12T16:18:22+01:00",
+                "youth_protection_type": "limited-20-06",
+                "_links": {
+                    "self": {
+                        "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/profile\/8850612"
+                    },
+                    "image": {
+                        "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/media\/7471669"
+                    },
+                    "image16x9_with_logo": {
+                        "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/media\/7471669"
+                    },
+                    "image2x3_with_logo": {
+                        "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/media\/16596204"
+                    },
+                    "image2x3": {
+                        "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/media\/16596204"
+                    },
+                    "genre": {
+                        "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/genre\/3309573"
+                    },
+                    "links": {
+                        "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/profile\/8850612\/links"
+                    },
+                    "episodes": {
+                        "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/profile\/8850612\/episodes"
+                    },
+                    "related_profiles": {
+                        "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/profile\/8850612\/related"
+                    },
+                    "latest_episode": {
+                        "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/profile\/8850612\/episode\/latest"
+                    },
+                    "tags": {
+                        "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/profile\/8850612\/tags"
+                    },
+                    "advertising_tags": {
+                        "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/profile\/8850612\/advertising\/tags"
+                    }
+                },
+                "_embedded": {
+                    "image": {
+                        "public_urls": {
+                            "highlight_teaser": {
+                                "url": "https:\/\/api-tvthek.orf.at\/assets\/profiles\/0075\/72\/thumb_7471669_profiles_highlight_teaser.jpeg"
+                            },
+                            "player": {
+                                "url": "https:\/\/api-tvthek.orf.at\/assets\/profiles\/0075\/72\/thumb_7471669_profiles_player.jpeg"
+                            },
+                            "list": {
+                                "url": "https:\/\/api-tvthek.orf.at\/assets\/profiles\/0075\/72\/thumb_7471669_profiles_list.jpeg"
+                            },
+                            "small": {
+                                "url": "https:\/\/api-tvthek.orf.at\/assets\/profiles\/0075\/72\/thumb_7471669_profiles_small.jpeg"
+                            },
+                            "reference": {
+                                "url": "https:\/\/api-tvthek.orf.at\/assets\/profiles\/0075\/72\/73f7fa14577ceea42bd6d08520c40ac1f12a26a9.jpeg"
+                            }
+                        },
+                        "dynamic_color": "#691f11"
+                    },
+                    "image16x9_with_logo": {
+                        "public_urls": {
+                            "highlight_teaser": {
+                                "url": "https:\/\/api-tvthek.orf.at\/assets\/profiles\/0075\/72\/thumb_7471669_profiles_highlight_teaser.jpeg"
+                            },
+                            "player": {
+                                "url": "https:\/\/api-tvthek.orf.at\/assets\/profiles\/0075\/72\/thumb_7471669_profiles_player.jpeg"
+                            },
+                            "list": {
+                                "url": "https:\/\/api-tvthek.orf.at\/assets\/profiles\/0075\/72\/thumb_7471669_profiles_list.jpeg"
+                            },
+                            "small": {
+                                "url": "https:\/\/api-tvthek.orf.at\/assets\/profiles\/0075\/72\/thumb_7471669_profiles_small.jpeg"
+                            },
+                            "reference": {
+                                "url": "https:\/\/api-tvthek.orf.at\/assets\/profiles\/0075\/72\/73f7fa14577ceea42bd6d08520c40ac1f12a26a9.jpeg"
+                            }
+                        },
+                        "dynamic_color": "#691f11"
+                    },
+                    "image2x3_with_logo": {
+                        "public_urls": {
+                            "highlight_teaser": {
+                                "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0166\/97\/thumb_16596204_default_2x3_highlight_teaser.jpeg"
+                            },
+                            "player": {
+                                "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0166\/97\/thumb_16596204_default_2x3_player.jpeg"
+                            },
+                            "legacy": {
+                                "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0166\/97\/thumb_16596204_default_2x3_legacy.jpeg"
+                            },
+                            "list": {
+                                "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0166\/97\/thumb_16596204_default_2x3_list.jpeg"
+                            },
+                            "small": {
+                                "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0166\/97\/thumb_16596204_default_2x3_small.jpeg"
+                            },
+                            "reference": {
+                                "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0166\/97\/56745f92b28e3a6f176e66acf9e9d0aea5e0c611.jpeg"
+                            }
+                        },
+                        "dynamic_color": "#691f11"
+                    },
+                    "image2x3": {
+                        "public_urls": {
+                            "highlight_teaser": {
+                                "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0166\/97\/thumb_16596204_default_2x3_highlight_teaser.jpeg"
+                            },
+                            "player": {
+                                "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0166\/97\/thumb_16596204_default_2x3_player.jpeg"
+                            },
+                            "legacy": {
+                                "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0166\/97\/thumb_16596204_default_2x3_legacy.jpeg"
+                            },
+                            "list": {
+                                "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0166\/97\/thumb_16596204_default_2x3_list.jpeg"
+                            },
+                            "small": {
+                                "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0166\/97\/thumb_16596204_default_2x3_small.jpeg"
+                            },
+                            "reference": {
+                                "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0166\/97\/56745f92b28e3a6f176e66acf9e9d0aea5e0c611.jpeg"
+                            }
+                        },
+                        "dynamic_color": "#691f11"
+                    }
+                }
+            },
+            {
+                "audio_description": false,
+                "break_text": null,
+                "break_title": null,
+                "dataset_name": null,
+                "description": null,
+                "has_active_youth_protection": false,
+                "has_youth_protection": false,
+                "headline": "Glanz f\u00fcr die Ewigkeit - Die Restaurierung von Stift Melk",
+                "hide_in_letter_group": false,
+                "id": 13892414,
+                "letter_group": "G",
+                "livestream_sub_headline": null,
+                "newest_episode_id": 14087719,
+                "oegs": false,
+                "oewa_base_path": "Redcont\/Homepage\/Homepage",
+                "online_episode_count": 1,
+                "profile_website": null,
+                "secondary_genres": [],
+                "sub_headline": null,
+                "title": "Glanz f\u00fcr die Ewigkeit - Die Restaurierung von Stift Melk",
+                "type": "temporary",
+                "updated_at": "2021-01-05T11:12:31+01:00",
+                "youth_protection_type": "limited-20-06",
+                "_links": {
+                    "self": {
+                        "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/profile\/13892414"
+                    },
+                    "image": {
+                        "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/media\/11312079"
+                    },
+                    "image16x9_with_logo": {
+                        "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/media\/11312079"
+                    },
+                    "image2x3_with_logo": {
+                        "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/media\/16596204"
+                    },
+                    "image2x3": {
+                        "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/media\/16596204"
+                    },
+                    "genre": {
+                        "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/genre\/1173"
+                    },
+                    "links": {
+                        "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/profile\/13892414\/links"
+                    },
+                    "episodes": {
+                        "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/profile\/13892414\/episodes"
+                    },
+                    "related_profiles": {
+                        "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/profile\/13892414\/related"
+                    },
+                    "latest_episode": {
+                        "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/profile\/13892414\/episode\/latest"
+                    },
+                    "tags": {
+                        "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/profile\/13892414\/tags"
+                    },
+                    "advertising_tags": {
+                        "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/profile\/13892414\/advertising\/tags"
+                    }
+                },
+                "_embedded": {
+                    "image": {
+                        "public_urls": {
+                            "highlight_teaser": {
+                                "url": "https:\/\/api-tvthek.orf.at\/assets\/profiles\/0114\/13\/thumb_11312079_profiles_highlight_teaser.jpeg"
+                            },
+                            "player": {
+                                "url": "https:\/\/api-tvthek.orf.at\/assets\/profiles\/0114\/13\/thumb_11312079_profiles_player.jpeg"
+                            },
+                            "list": {
+                                "url": "https:\/\/api-tvthek.orf.at\/assets\/profiles\/0114\/13\/thumb_11312079_profiles_list.jpeg"
+                            },
+                            "small": {
+                                "url": "https:\/\/api-tvthek.orf.at\/assets\/profiles\/0114\/13\/thumb_11312079_profiles_small.jpeg"
+                            },
+                            "reference": {
+                                "url": "https:\/\/api-tvthek.orf.at\/assets\/profiles\/0114\/13\/dd0478a018e4cd631c1eed182a303e2cc2198a58.jpeg"
+                            }
+                        },
+                        "dynamic_color": "#691f11"
+                    },
+                    "image16x9_with_logo": {
+                        "public_urls": {
+                            "highlight_teaser": {
+                                "url": "https:\/\/api-tvthek.orf.at\/assets\/profiles\/0114\/13\/thumb_11312079_profiles_highlight_teaser.jpeg"
+                            },
+                            "player": {
+                                "url": "https:\/\/api-tvthek.orf.at\/assets\/profiles\/0114\/13\/thumb_11312079_profiles_player.jpeg"
+                            },
+                            "list": {
+                                "url": "https:\/\/api-tvthek.orf.at\/assets\/profiles\/0114\/13\/thumb_11312079_profiles_list.jpeg"
+                            },
+                            "small": {
+                                "url": "https:\/\/api-tvthek.orf.at\/assets\/profiles\/0114\/13\/thumb_11312079_profiles_small.jpeg"
+                            },
+                            "reference": {
+                                "url": "https:\/\/api-tvthek.orf.at\/assets\/profiles\/0114\/13\/dd0478a018e4cd631c1eed182a303e2cc2198a58.jpeg"
+                            }
+                        },
+                        "dynamic_color": "#691f11"
+                    },
+                    "image2x3_with_logo": {
+                        "public_urls": {
+                            "highlight_teaser": {
+                                "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0166\/97\/thumb_16596204_default_2x3_highlight_teaser.jpeg"
+                            },
+                            "player": {
+                                "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0166\/97\/thumb_16596204_default_2x3_player.jpeg"
+                            },
+                            "legacy": {
+                                "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0166\/97\/thumb_16596204_default_2x3_legacy.jpeg"
+                            },
+                            "list": {
+                                "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0166\/97\/thumb_16596204_default_2x3_list.jpeg"
+                            },
+                            "small": {
+                                "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0166\/97\/thumb_16596204_default_2x3_small.jpeg"
+                            },
+                            "reference": {
+                                "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0166\/97\/56745f92b28e3a6f176e66acf9e9d0aea5e0c611.jpeg"
+                            }
+                        },
+                        "dynamic_color": "#691f11"
+                    },
+                    "image2x3": {
+                        "public_urls": {
+                            "highlight_teaser": {
+                                "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0166\/97\/thumb_16596204_default_2x3_highlight_teaser.jpeg"
+                            },
+                            "player": {
+                                "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0166\/97\/thumb_16596204_default_2x3_player.jpeg"
+                            },
+                            "legacy": {
+                                "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0166\/97\/thumb_16596204_default_2x3_legacy.jpeg"
+                            },
+                            "list": {
+                                "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0166\/97\/thumb_16596204_default_2x3_list.jpeg"
+                            },
+                            "small": {
+                                "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0166\/97\/thumb_16596204_default_2x3_small.jpeg"
+                            },
+                            "reference": {
+                                "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0166\/97\/56745f92b28e3a6f176e66acf9e9d0aea5e0c611.jpeg"
+                            }
+                        },
+                        "dynamic_color": "#691f11"
+                    }
+                }
+            },
+            {
+                "audio_description": false,
+                "break_text": null,
+                "break_title": null,
+                "dataset_name": null,
+                "description": "Die Liga der PGA Tour",
+                "has_active_youth_protection": false,
+                "has_youth_protection": false,
+                "headline": "Golf DP World Tour",
+                "hide_in_letter_group": false,
+                "id": 13887359,
+                "letter_group": "G",
+                "livestream_sub_headline": null,
+                "newest_episode_id": 14183755,
+                "oegs": false,
+                "oewa_base_path": "Redcont\/Sport\/Sonstiges",
+                "online_episode_count": 1,
+                "profile_website": null,
+                "secondary_genres": [],
+                "sub_headline": null,
+                "title": "Golf DP World Tour",
+                "type": "temporary",
+                "updated_at": "2023-06-23T08:54:20+02:00",
+                "youth_protection_type": "limited-20-06",
+                "_links": {
+                    "self": {
+                        "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/profile\/13887359"
+                    },
+                    "image": {
+                        "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/media\/8308866"
+                    },
+                    "image16x9_with_logo": {
+                        "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/media\/8308866"
+                    },
+                    "image2x3_with_logo": {
+                        "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/media\/16596204"
+                    },
+                    "image2x3": {
+                        "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/media\/16596204"
+                    },
+                    "theme": {
+                        "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/theme\/6644855"
+                    },
+                    "genre": {
+                        "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/genre\/1178"
+                    },
+                    "links": {
+                        "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/profile\/13887359\/links"
+                    },
+                    "episodes": {
+                        "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/profile\/13887359\/episodes"
+                    },
+                    "related_profiles": {
+                        "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/profile\/13887359\/related"
+                    },
+                    "latest_episode": {
+                        "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/profile\/13887359\/episode\/latest"
+                    },
+                    "tags": {
+                        "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/profile\/13887359\/tags"
+                    },
+                    "advertising_tags": {
+                        "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/profile\/13887359\/advertising\/tags"
+                    }
+                },
+                "_embedded": {
+                    "image": {
+                        "public_urls": {
+                            "highlight_teaser": {
+                                "url": "https:\/\/api-tvthek.orf.at\/assets\/profiles\/0084\/09\/thumb_8308866_profiles_highlight_teaser.jpeg"
+                            },
+                            "player": {
+                                "url": "https:\/\/api-tvthek.orf.at\/assets\/profiles\/0084\/09\/thumb_8308866_profiles_player.jpeg"
+                            },
+                            "list": {
+                                "url": "https:\/\/api-tvthek.orf.at\/assets\/profiles\/0084\/09\/thumb_8308866_profiles_list.jpeg"
+                            },
+                            "small": {
+                                "url": "https:\/\/api-tvthek.orf.at\/assets\/profiles\/0084\/09\/thumb_8308866_profiles_small.jpeg"
+                            },
+                            "reference": {
+                                "url": "https:\/\/api-tvthek.orf.at\/assets\/profiles\/0084\/09\/7f99dcab31ff36882f4a2564e3f55f0241b36c1f.jpeg"
+                            }
+                        },
+                        "dynamic_color": "#691f11"
+                    },
+                    "image16x9_with_logo": {
+                        "public_urls": {
+                            "highlight_teaser": {
+                                "url": "https:\/\/api-tvthek.orf.at\/assets\/profiles\/0084\/09\/thumb_8308866_profiles_highlight_teaser.jpeg"
+                            },
+                            "player": {
+                                "url": "https:\/\/api-tvthek.orf.at\/assets\/profiles\/0084\/09\/thumb_8308866_profiles_player.jpeg"
+                            },
+                            "list": {
+                                "url": "https:\/\/api-tvthek.orf.at\/assets\/profiles\/0084\/09\/thumb_8308866_profiles_list.jpeg"
+                            },
+                            "small": {
+                                "url": "https:\/\/api-tvthek.orf.at\/assets\/profiles\/0084\/09\/thumb_8308866_profiles_small.jpeg"
+                            },
+                            "reference": {
+                                "url": "https:\/\/api-tvthek.orf.at\/assets\/profiles\/0084\/09\/7f99dcab31ff36882f4a2564e3f55f0241b36c1f.jpeg"
+                            }
+                        },
+                        "dynamic_color": "#691f11"
+                    },
+                    "image2x3_with_logo": {
+                        "public_urls": {
+                            "highlight_teaser": {
+                                "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0166\/97\/thumb_16596204_default_2x3_highlight_teaser.jpeg"
+                            },
+                            "player": {
+                                "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0166\/97\/thumb_16596204_default_2x3_player.jpeg"
+                            },
+                            "legacy": {
+                                "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0166\/97\/thumb_16596204_default_2x3_legacy.jpeg"
+                            },
+                            "list": {
+                                "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0166\/97\/thumb_16596204_default_2x3_list.jpeg"
+                            },
+                            "small": {
+                                "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0166\/97\/thumb_16596204_default_2x3_small.jpeg"
+                            },
+                            "reference": {
+                                "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0166\/97\/56745f92b28e3a6f176e66acf9e9d0aea5e0c611.jpeg"
+                            }
+                        },
+                        "dynamic_color": "#691f11"
+                    },
+                    "image2x3": {
+                        "public_urls": {
+                            "highlight_teaser": {
+                                "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0166\/97\/thumb_16596204_default_2x3_highlight_teaser.jpeg"
+                            },
+                            "player": {
+                                "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0166\/97\/thumb_16596204_default_2x3_player.jpeg"
+                            },
+                            "legacy": {
+                                "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0166\/97\/thumb_16596204_default_2x3_legacy.jpeg"
+                            },
+                            "list": {
+                                "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0166\/97\/thumb_16596204_default_2x3_list.jpeg"
+                            },
+                            "small": {
+                                "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0166\/97\/thumb_16596204_default_2x3_small.jpeg"
+                            },
+                            "reference": {
+                                "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0166\/97\/56745f92b28e3a6f176e66acf9e9d0aea5e0c611.jpeg"
+                            }
+                        },
+                        "dynamic_color": "#691f11"
+                    }
+                }
+            },
+            {
+                "audio_description": false,
+                "break_text": null,
+                "break_title": null,
+                "dataset_name": null,
+                "description": "Late-Night-Show mit Peter Klien",
+                "has_active_youth_protection": false,
+                "has_youth_protection": false,
+                "headline": "Gute Nacht \u00d6sterreich",
+                "hide_in_letter_group": false,
+                "id": 13890803,
+                "letter_group": "G",
+                "livestream_sub_headline": null,
+                "newest_episode_id": 14205378,
+                "oegs": false,
+                "oewa_base_path": "Redcont\/KulturUndFreizeit\/Sonstiges",
+                "online_episode_count": 1,
+                "profile_website": null,
+                "secondary_genres": [],
+                "sub_headline": null,
+                "title": "Gute Nacht \u00d6sterreich",
+                "type": "temporary",
+                "updated_at": "2024-01-03T15:01:16+01:00",
+                "youth_protection_type": "limited-20-06",
+                "_links": {
+                    "self": {
+                        "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/profile\/13890803"
+                    },
+                    "image": {
+                        "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/media\/8789040"
+                    },
+                    "image16x9_with_logo": {
+                        "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/media\/8789040"
+                    },
+                    "image2x3_with_logo": {
+                        "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/media\/16596204"
+                    },
+                    "image2x3": {
+                        "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/media\/16596204"
+                    },
+                    "genre": {
+                        "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/genre\/2703835"
+                    },
+                    "links": {
+                        "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/profile\/13890803\/links"
+                    },
+                    "episodes": {
+                        "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/profile\/13890803\/episodes"
+                    },
+                    "related_profiles": {
+                        "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/profile\/13890803\/related"
+                    },
+                    "latest_episode": {
+                        "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/profile\/13890803\/episode\/latest"
+                    },
+                    "tags": {
+                        "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/profile\/13890803\/tags"
+                    },
+                    "advertising_tags": {
+                        "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/profile\/13890803\/advertising\/tags"
+                    }
+                },
+                "_embedded": {
+                    "image": {
+                        "public_urls": {
+                            "highlight_teaser": {
+                                "url": "https:\/\/api-tvthek.orf.at\/assets\/profiles\/0088\/90\/thumb_8789040_profiles_highlight_teaser.jpeg"
+                            },
+                            "player": {
+                                "url": "https:\/\/api-tvthek.orf.at\/assets\/profiles\/0088\/90\/thumb_8789040_profiles_player.jpeg"
+                            },
+                            "list": {
+                                "url": "https:\/\/api-tvthek.orf.at\/assets\/profiles\/0088\/90\/thumb_8789040_profiles_list.jpeg"
+                            },
+                            "small": {
+                                "url": "https:\/\/api-tvthek.orf.at\/assets\/profiles\/0088\/90\/thumb_8789040_profiles_small.jpeg"
+                            },
+                            "reference": {
+                                "url": "https:\/\/api-tvthek.orf.at\/assets\/profiles\/0088\/90\/8c860e96736333e545f62dc039f6b29c56859b2d.jpeg"
+                            }
+                        },
+                        "dynamic_color": "#691f11"
+                    },
+                    "image16x9_with_logo": {
+                        "public_urls": {
+                            "highlight_teaser": {
+                                "url": "https:\/\/api-tvthek.orf.at\/assets\/profiles\/0088\/90\/thumb_8789040_profiles_highlight_teaser.jpeg"
+                            },
+                            "player": {
+                                "url": "https:\/\/api-tvthek.orf.at\/assets\/profiles\/0088\/90\/thumb_8789040_profiles_player.jpeg"
+                            },
+                            "list": {
+                                "url": "https:\/\/api-tvthek.orf.at\/assets\/profiles\/0088\/90\/thumb_8789040_profiles_list.jpeg"
+                            },
+                            "small": {
+                                "url": "https:\/\/api-tvthek.orf.at\/assets\/profiles\/0088\/90\/thumb_8789040_profiles_small.jpeg"
+                            },
+                            "reference": {
+                                "url": "https:\/\/api-tvthek.orf.at\/assets\/profiles\/0088\/90\/8c860e96736333e545f62dc039f6b29c56859b2d.jpeg"
+                            }
+                        },
+                        "dynamic_color": "#691f11"
+                    },
+                    "image2x3_with_logo": {
+                        "public_urls": {
+                            "highlight_teaser": {
+                                "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0166\/97\/thumb_16596204_default_2x3_highlight_teaser.jpeg"
+                            },
+                            "player": {
+                                "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0166\/97\/thumb_16596204_default_2x3_player.jpeg"
+                            },
+                            "legacy": {
+                                "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0166\/97\/thumb_16596204_default_2x3_legacy.jpeg"
+                            },
+                            "list": {
+                                "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0166\/97\/thumb_16596204_default_2x3_list.jpeg"
+                            },
+                            "small": {
+                                "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0166\/97\/thumb_16596204_default_2x3_small.jpeg"
+                            },
+                            "reference": {
+                                "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0166\/97\/56745f92b28e3a6f176e66acf9e9d0aea5e0c611.jpeg"
+                            }
+                        },
+                        "dynamic_color": "#691f11"
+                    },
+                    "image2x3": {
+                        "public_urls": {
+                            "highlight_teaser": {
+                                "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0166\/97\/thumb_16596204_default_2x3_highlight_teaser.jpeg"
+                            },
+                            "player": {
+                                "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0166\/97\/thumb_16596204_default_2x3_player.jpeg"
+                            },
+                            "legacy": {
+                                "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0166\/97\/thumb_16596204_default_2x3_legacy.jpeg"
+                            },
+                            "list": {
+                                "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0166\/97\/thumb_16596204_default_2x3_list.jpeg"
+                            },
+                            "small": {
+                                "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0166\/97\/thumb_16596204_default_2x3_small.jpeg"
+                            },
+                            "reference": {
+                                "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0166\/97\/56745f92b28e3a6f176e66acf9e9d0aea5e0c611.jpeg"
+                            }
+                        },
+                        "dynamic_color": "#691f11"
+                    }
+                }
+            }
+        ]
+    }
+}

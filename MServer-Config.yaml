@@ -1,7 +1,7 @@
 #### Server configurations ####
 
 # The maximum amount of cpu threads to be used.
-maximumCpuThreads: 10
+maximumCpuThreads: 1
 
 # The maximum duration in minutes the server should run.<br>
 # If set to 0 the server runs without a time limit.
@@ -24,15 +24,17 @@ senderIncluded:
   #- ARTE_PL
   #- ARTE_IT
   #- ARTE_ES
-  #- 3SAT
+  #- DREISAT
   #- FUNK
   #- KIKA
-  #- DW
-  #- ORF
+  # - DW
+   - ORF
   #- PHOENIX
   #- SRF
-  - SR
+  #- SR
   #- ZDF
+  
+#SRF,SR,PHONIX,ORF,KIKA,DW,3SAT<
 
 # If set the server will be awake after the crawler run and restarts the run after the given amount.
 #schedules:
@@ -133,7 +135,7 @@ topicsSearchEnabled: true
 # The maximum amount of sub pages to be crawled.<br>
 # Example: If a Sendung overview side has 10 pages with videos for this Sendung and
 # the amount set by this is 5 then the crawler crawls pages 1 to 5.
-maximumSubpages: 1
+maximumSubpages: 5
 
 # The maximum amount of days going to past will be crawled for the "Sendung Verpasst?" section.
 maximumDaysForSendungVerpasstSection: 7
@@ -155,8 +157,7 @@ senderConfigurations:
     #10,20,40 ok
     maximumSubpages: 0
   ORF:
-    #2,4,8 ok
-    maximumUrlsPerTask: 40
+    maximumRequestsPerSecond: 10.0
   ARTE_DE:
     maximumUrlsPerTask: 1
     maximumDaysForSendungVerpasstSectionFuture: 0
@@ -178,10 +179,12 @@ senderConfigurations:
     maximumRequestsPerSecond: 10.0
   FUNK:
     maximumUrlsPerTask: 99
-  DW:
-    maximumSubpages: 0
-  SR:
+  DREISAT:
     maximumSubpages: 5
+    maximumDaysForSendungVerpasstSection: 60
+  PHOENIX:
+    maximumSubpages: 500
+
 
 # configure string variables
 crawlerApiParams:
