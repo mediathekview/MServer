@@ -31,32 +31,33 @@ public class OrfOnHistoryDeserializer implements JsonDeserializer<PagedElementLi
     //
     Optional<JsonElement> itemArrayTop = JsonUtils.getElement(jsonElement, TAG_ITEM_ARRAY_TOP);
     if (itemArrayTop.isPresent() && itemArrayTop.get().isJsonArray()) {
-      for (JsonElement item : itemArrayTop.get().getAsJsonArray()) {
-        Optional<String> url = JsonUtils.getElementValueAsString(item, TAG_TARGET_URL);
-        if (url.isPresent()) {
-          page.addElement(new OrfOnBreadCrumsUrlDTO(
-              JsonUtils.getElementValueAsString(item, TAG_ITEM_TITLE).orElse("EMPTY"),
-              url.get()
-          ));
-        }
-        LOG.debug("{} {}", JsonUtils.getElementValueAsString(item, TAG_ITEM_TITLE), JsonUtils.getElementValueAsString(item, TAG_TARGET_URL));
-      }
+      page.addElements(parseSection(itemArrayTop.get().getAsJsonArray()).getElements());
     }
+    //
     Optional<JsonElement> itemArrayButtom = JsonUtils.getElement(jsonElement, TAG_ITEM_ARRAY_BUTTOM);
-    if (itemArrayButtom.isPresent() &&itemArrayButtom.get().isJsonArray()) {
-      for (JsonElement item : itemArrayButtom.get().getAsJsonArray()) {
-        Optional<String> url = JsonUtils.getElementValueAsString(item, TAG_TARGET_URL);
-        if (url.isPresent()) {
-          page.addElement(new OrfOnBreadCrumsUrlDTO(
-              JsonUtils.getElementValueAsString(item, TAG_ITEM_TITLE).orElse("EMPTY"),
-              url.get()
-          ));
-        }
-        LOG.debug("{} {}", JsonUtils.getElementValueAsString(item, TAG_ITEM_TITLE), JsonUtils.getElementValueAsString(item, TAG_TARGET_URL));
-      }
+    if (itemArrayButtom.isPresent() && itemArrayButtom.get().isJsonArray()) {
+      page.addElements(parseSection(itemArrayButtom.get().getAsJsonArray()).getElements());
     }
     //
     return page;
+  }
+  
+  public PagedElementListDTO<OrfOnBreadCrumsUrlDTO> parseSection(JsonArray itemArray) {
+    PagedElementListDTO<OrfOnBreadCrumsUrlDTO> items = new PagedElementListDTO<>();
+    for (JsonElement item : itemArray) {
+      Optional<String> url = JsonUtils.getElementValueAsString(item, TAG_TARGET_URL);
+      Optional<String> title = JsonUtils.getElementValueAsString(item, TAG_ITEM_TITLE);
+      if (url.isPresent()) {
+        items.addElement(new OrfOnBreadCrumsUrlDTO(
+            title.orElse("EMPTY"),
+            url.get()
+        ));
+      } else {
+        LOG.debug("missing url for {}", title);
+      }
+      //LOG.debug("History Item {} {}", title, url);
+    }
+    return items;
   }
   
   

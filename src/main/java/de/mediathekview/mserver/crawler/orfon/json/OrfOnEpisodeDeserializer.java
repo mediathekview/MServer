@@ -66,18 +66,18 @@ public class OrfOnEpisodeDeserializer implements JsonDeserializer<OrfOnVideoInfo
     
     if (aFilm.getVideoUrls().isEmpty()){
       LOG.debug("#####videoUrlEmpty#######");
-    LOG.debug("{} (id)", aFilm.getId().get());
-    LOG.debug("{} (genre_title)", JsonUtils.getElementValueAsString(jsonElement, "genre_title").get());
-    LOG.debug("{} (headline)", JsonUtils.getElementValueAsString(jsonElement, "headline").get());
-    LOG.debug("{} (profile_title*)", JsonUtils.getElementValueAsString(jsonElement, "profile_title").get());
-    LOG.debug("{} (title*)", JsonUtils.getElementValueAsString(jsonElement, "title").get());
-    LOG.debug("{} (sub_headline)", JsonUtils.getElementValueAsString(jsonElement, "sub_headline").get());
-    LOG.debug("{} (share_subject)", JsonUtils.getElementValueAsString(jsonElement, "share_subject").get());
-    LOG.debug("{} (TAG_RIGHT)", parseGeoLocations(JsonUtils.getElementValueAsString(jsonElement, TAG_RIGHT)));
-    LOG.debug("{} (url)", parseUrl(jsonElement));
-    LOG.debug("{} (segments)", JsonUtils.getElementValueAsString(jsonElement, TAG_SEGMENTS));
-    LOG.debug("{}",jsonElement );
-    LOG.debug("############");
+      LOG.debug("{} (id)", aFilm.getId().get());
+      LOG.debug("{} (genre_title)", JsonUtils.getElementValueAsString(jsonElement, "genre_title").get());
+      LOG.debug("{} (headline)", JsonUtils.getElementValueAsString(jsonElement, "headline").get());
+      LOG.debug("{} (profile_title*)", JsonUtils.getElementValueAsString(jsonElement, "profile_title").get());
+      LOG.debug("{} (title*)", JsonUtils.getElementValueAsString(jsonElement, "title").get());
+      LOG.debug("{} (sub_headline)", JsonUtils.getElementValueAsString(jsonElement, "sub_headline").get());
+      LOG.debug("{} (share_subject)", JsonUtils.getElementValueAsString(jsonElement, "share_subject").get());
+      LOG.debug("{} (TAG_RIGHT)", parseGeoLocations(JsonUtils.getElementValueAsString(jsonElement, TAG_RIGHT)));
+      LOG.debug("{} (url)", parseUrl(jsonElement));
+      LOG.debug("{} (segments)", JsonUtils.getElementValueAsString(jsonElement, TAG_SEGMENTS));
+      LOG.debug("{}",jsonElement );
+      LOG.debug("############");
     }
     // "genre_title": "Wetter",
     // "headline": "Wetter Tirol vom 05.01.2024",

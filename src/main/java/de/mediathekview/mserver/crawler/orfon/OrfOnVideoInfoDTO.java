@@ -69,6 +69,9 @@ public class OrfOnVideoInfoDTO {
   public Optional<String> getTopic() {
     return topic;
   }
+  public void setTopic(Optional<String> newTopic) {
+    topic = newTopic;
+  }
   public Optional<LocalDateTime> getAired() {
     return aired;
   }

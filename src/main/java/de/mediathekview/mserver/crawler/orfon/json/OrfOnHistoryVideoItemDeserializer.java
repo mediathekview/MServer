@@ -12,13 +12,14 @@ import java.util.Optional;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-
 public class OrfOnHistoryVideoItemDeserializer implements JsonDeserializer<PagedElementListDTO<OrfOnBreadCrumsUrlDTO>> {
-  private static final Logger LOG = LogManager.getLogger(OrfOnHistoryVideoItemDeserializer.class);
   private String[] TAG_NEXT_PAGE = { "next" };
   private String[] TAG_ITEM_ARRAY = { "_items" };
   private String[] TAG_ITEM_TITLE = {"title"};
   private String[] TAG_TARGET_URL = {"_links", "self", "href"};
+  private String[] TAG_TARGET_URL_EPISODE = {"_links", "episode", "href"};
+  
+  protected final Logger LOG = LogManager.getLogger(this.getClass());
   
   @Override
   public PagedElementListDTO<OrfOnBreadCrumsUrlDTO> deserialize(
@@ -31,19 +32,28 @@ public class OrfOnHistoryVideoItemDeserializer implements JsonDeserializer<Paged
     Optional<JsonElement> itemArrayTop = JsonUtils.getElement(jsonElement, TAG_ITEM_ARRAY);
     if (itemArrayTop.isPresent() && itemArrayTop.get().isJsonArray()) {
       for (JsonElement item : itemArrayTop.get().getAsJsonArray()) {
-        Optional<String> url = JsonUtils.getElementValueAsString(item, TAG_TARGET_URL);
-        if (url.isPresent()) {
+        Optional<String> urlSelf = JsonUtils.getElementValueAsString(item, TAG_TARGET_URL);
+        Optional<String> urlEpisode = JsonUtils.getElementValueAsString(item, TAG_TARGET_URL_EPISODE);
+        Optional<String> title = JsonUtils.getElementValueAsString(item, TAG_ITEM_TITLE);
+        // self should be an episode but in some cases a segment - only in this cases we have an additional episode element
+        if (urlSelf.isPresent() && !urlSelf.get().contains("/segment/")) {
           page.addElement(new OrfOnBreadCrumsUrlDTO(
-              JsonUtils.getElementValueAsString(item, TAG_ITEM_TITLE).get(),
-              JsonUtils.getElementValueAsString(item, TAG_TARGET_URL).get()
+              title.orElse("MISSING TITLE"),
+              urlSelf.get()
           ));
-        }
+        } else if (urlEpisode.isPresent()) {
+          page.addElement(new OrfOnBreadCrumsUrlDTO(
+              title.orElse("MISSING TITLE"),
+              urlEpisode.get()
+          ));
+        }  
       }
     }
     //
     return page;
   }
   
+
   
   
 }

@@ -5,6 +5,7 @@ import com.google.gson.*;
 import de.mediathekview.mserver.base.utils.JsonUtils;
 import de.mediathekview.mserver.crawler.basic.PagedElementListDTO;
 import de.mediathekview.mserver.crawler.orfon.OrfOnBreadCrumsUrlDTO;
+import de.mediathekview.mserver.crawler.orfon.OrfOnConstants;
 
 import java.lang.reflect.Type;
 import java.util.Optional;
@@ -32,32 +33,32 @@ public class OrfOnHistoryChildrenDeserializer implements JsonDeserializer<PagedE
     Optional<JsonElement> itemArrayTop = JsonUtils.getElement(jsonElement, TAG_ITEM_ARRAY);
     if (itemArrayTop.isPresent() && itemArrayTop.get().isJsonArray()) {
       for (JsonElement item : itemArrayTop.get().getAsJsonArray()) {
-        Optional<String> url = JsonUtils.getElementValueAsString(item, TAG_TARGET_URL);
-        Optional<String> url2 = JsonUtils.getElementValueAsString(item, TAG_TARGET_URL2);
-        if (url.isPresent()) {
+        Optional<String> videoItemUrl = JsonUtils.getElementValueAsString(item, TAG_TARGET_URL);
+        Optional<String> childrenUrl = JsonUtils.getElementValueAsString(item, TAG_TARGET_URL2);
+        Optional<String> title = JsonUtils.getElementValueAsString(item, TAG_ITEM_TITLE);
+        if (videoItemUrl.isPresent()) {
           page.addElement(new OrfOnBreadCrumsUrlDTO(
-              JsonUtils.getElementValueAsString(item, TAG_ITEM_TITLE).get(),
-              url.get()
+              title.orElse("MISSING TITLE"),
+              OrfOnConstants.createMaxLimmitUrl(videoItemUrl.get())
           ));
-        } else if (url2.isPresent()) {
+        } else if (childrenUrl.isPresent()) {
           page.addElement(new OrfOnBreadCrumsUrlDTO(
-              JsonUtils.getElementValueAsString(item, TAG_ITEM_TITLE).get(),
-              url2.get()
+              title.orElse("MISSING TITLE"),
+              OrfOnConstants.createMaxLimmitUrl(childrenUrl.get())
           ));
         } else {
           LOG.info("No video_items or children tag found {}",JsonUtils.getElementValueAsString(item, TAG_ITEM_TITLE) );
         }
-        LOG.debug("{} - {} - {}", 
+        /*
+        LOG.debug("OrfOnHistoryChildrenDeserializer {} - {} - {}", 
             JsonUtils.getElementValueAsString(item, TAG_ITEM_TITLE),
             JsonUtils.getElementValueAsString(item, TAG_TARGET_URL),
-            JsonUtils.getElementValueAsString(item, TAG_TARGET_URL2));
+            JsonUtils.getElementValueAsString(item, TAG_TARGET_URL2));*/
 
       }
     }
     //
     return page;
   }
-  
-  
-  
+
 }

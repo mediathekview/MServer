@@ -2,6 +2,7 @@ package de.mediathekview.mserver.crawler.orfon.task;
 
 import java.lang.reflect.Type;
 import java.net.URI;
+import java.util.Optional;
 import java.util.Queue;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -52,7 +53,13 @@ public class OrfOnEpisodeTask extends AbstractJsonRestTask<OrfOnVideoInfoDTO, Or
       LOG.debug("Missing videoUrls for {}", aDTO);
       return;
     }
-    LOG.debug(" bread crums {}", String.join("|", aDTO.getBreadCrums()) + " # " + aResponseObj.getTitle().get());
+    // ARCHIVE
+    // archive does not have a proper topic
+    if (aResponseObj.getTopic().get().equalsIgnoreCase("Archiv") && aDTO.getBreadCrums().size() > 1) {
+      aResponseObj.setTopic(Optional.of(aDTO.getBreadCrums().get(1)));
+    }
+    
+    LOG.debug(" bread crums {} # {} # {}", String.join("|", aDTO.getBreadCrums()), aResponseObj.getTopic().get(), aResponseObj.getTitle().get());
     taskResults.add(aResponseObj);    
   }
 

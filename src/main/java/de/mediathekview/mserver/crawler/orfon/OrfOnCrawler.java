@@ -52,13 +52,13 @@ public class OrfOnCrawler extends AbstractCrawler {
     try {
       // Sendungen Verpasst (letzten 14 Tage)
       // TAG > Episode > Episode2Film
-      //final Set<OrfOnVideoInfoDTO> epsiodesFromDay = processDayUrlsToCrawl();
-      //allVideos.addAll(epsiodesFromDay);
+      final Set<OrfOnVideoInfoDTO> epsiodesFromDay = processDayUrlsToCrawl();
+      allVideos.addAll(epsiodesFromDay);
       //
       // Sendungen a-z
       // Buchstabe > Episoden > Episode2Film
-      //final Set<OrfOnVideoInfoDTO> videosFromTopics = processAZUrlsToCrawl();
-      //allVideos.addAll(videosFromTopics);
+      final Set<OrfOnVideoInfoDTO> videosFromTopics = processAZUrlsToCrawl();
+      allVideos.addAll(videosFromTopics);
       //
       // History (top categories) > children > 
       final Set<OrfOnVideoInfoDTO> historyVideos = processHistoryUrlToCrawl();

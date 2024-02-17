@@ -17,4 +17,7 @@ public final class OrfOnConstants {
   //
   private OrfOnConstants() {}
   //
+  public static String createMaxLimmitUrl(String plainUrl) {
+    return plainUrl + "?limit=" + OrfOnConstants.PAGE_SIZE;
+  }
 }

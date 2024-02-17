@@ -36,12 +36,15 @@ public class OrfOnHistoryChildrenTask extends OrfOnPagedTask {
   @Override
   protected void postProcessingElements(Set<OrfOnBreadCrumsUrlDTO> elements, OrfOnBreadCrumsUrlDTO originalDTO) {
     for (OrfOnBreadCrumsUrlDTO element : elements)  {
-      if (element.getUrl().endsWith("children")) {
+      if (element.getUrl().contains("/children")) {
         final Queue<OrfOnBreadCrumsUrlDTO> moreContentOnNewPage = new ConcurrentLinkedQueue<>();
         moreContentOnNewPage.add(element);
         AbstractRecursiveConverterTask<OrfOnBreadCrumsUrlDTO, OrfOnBreadCrumsUrlDTO> resolveChildren = createNewOwnInstance(moreContentOnNewPage);
         resolveChildren.fork();
-        taskResults.addAll(resolveChildren.join());
+        for(OrfOnBreadCrumsUrlDTO moreElements : resolveChildren.join()) {
+          moreElements.setBreadCrumsPath(originalDTO.getBreadCrums());
+          taskResults.add(moreElements);
+        }
       } else {
         element.setBreadCrumsPath(originalDTO.getBreadCrums());
         taskResults.add(element);
