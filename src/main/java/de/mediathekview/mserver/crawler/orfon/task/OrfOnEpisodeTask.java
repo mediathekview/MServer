@@ -12,7 +12,7 @@ import com.google.gson.reflect.TypeToken;
 import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
 import de.mediathekview.mserver.crawler.basic.AbstractJsonRestTask;
 import de.mediathekview.mserver.crawler.basic.AbstractRecursiveConverterTask;
-import de.mediathekview.mserver.crawler.basic.TopicUrlDTO;
+import de.mediathekview.mserver.crawler.orfon.OrfOnBreadCrumsUrlDTO;
 import de.mediathekview.mserver.crawler.orfon.OrfOnConstants;
 import de.mediathekview.mserver.crawler.orfon.OrfOnVideoInfoDTO;
 import de.mediathekview.mserver.crawler.orfon.json.OrfOnEpisodeDeserializer;
@@ -20,16 +20,16 @@ import jakarta.ws.rs.core.Response;
 
 // <T, R, D extends CrawlerUrlDTO> extends AbstractRestTask<T, D>
 // return T Class from this task, desirialisation of class R , D , Reasearch in this url
-public class OrfOnEpisodeTask extends AbstractJsonRestTask<OrfOnVideoInfoDTO, OrfOnVideoInfoDTO, TopicUrlDTO> {
+public class OrfOnEpisodeTask extends AbstractJsonRestTask<OrfOnVideoInfoDTO, OrfOnVideoInfoDTO, OrfOnBreadCrumsUrlDTO> {
   private static final long serialVersionUID = 1L;
   private static final Logger LOG = LogManager.getLogger(OrfOnEpisodeTask.class);
 
-  public OrfOnEpisodeTask(AbstractCrawler crawler, Queue<TopicUrlDTO> urlToCrawlDTOs) {
+  public OrfOnEpisodeTask(AbstractCrawler crawler, Queue<OrfOnBreadCrumsUrlDTO> urlToCrawlDTOs) {
     super(crawler, urlToCrawlDTOs, OrfOnConstants.bearer);
   }
 
   @Override
-  protected JsonDeserializer<OrfOnVideoInfoDTO> getParser(TopicUrlDTO aDTO) {
+  protected JsonDeserializer<OrfOnVideoInfoDTO> getParser(OrfOnBreadCrumsUrlDTO aDTO) {
     return new OrfOnEpisodeDeserializer();
   }
 
@@ -39,31 +39,31 @@ public class OrfOnEpisodeTask extends AbstractJsonRestTask<OrfOnVideoInfoDTO, Or
   }
 
   @Override
-  protected void postProcessing(OrfOnVideoInfoDTO aResponseObj, TopicUrlDTO aDTO) {
-    if (!aResponseObj.getTitle().isPresent()) {
+  protected void postProcessing(OrfOnVideoInfoDTO aResponseObj, OrfOnBreadCrumsUrlDTO aDTO) {
+    if (aResponseObj.getTitle().isEmpty() && aResponseObj.getTitleWithDate().isEmpty()) {
       LOG.debug("Missing title for {}", aDTO);
       return;
     }
-    if (aResponseObj.getTopic().isPresent()) {
+    if (aResponseObj.getTopic().isEmpty()) {
       LOG.debug("Missing topic for {}", aDTO);
       return;
     }
-    if (aResponseObj.getVideoUrls().isPresent()) {
+    if (aResponseObj.getVideoUrls().isEmpty()) {
       LOG.debug("Missing videoUrls for {}", aDTO);
       return;
     }
-    LOG.debug(" bread crums {}", aDTO.getTopic() + " # " + aResponseObj.getTitle().get());
+    LOG.debug(" bread crums {}", String.join("|", aDTO.getBreadCrums()) + " # " + aResponseObj.getTitle().get());
     taskResults.add(aResponseObj);    
   }
 
   @Override
-  protected AbstractRecursiveConverterTask<OrfOnVideoInfoDTO, TopicUrlDTO> createNewOwnInstance(
-      Queue<TopicUrlDTO> aElementsToProcess) {
+  protected AbstractRecursiveConverterTask<OrfOnVideoInfoDTO, OrfOnBreadCrumsUrlDTO> createNewOwnInstance(
+      Queue<OrfOnBreadCrumsUrlDTO> aElementsToProcess) {
     return new OrfOnEpisodeTask(crawler, aElementsToProcess);
   } 
 
   @Override
-  protected void handleHttpError(TopicUrlDTO dto, URI url, Response response) {
+  protected void handleHttpError(OrfOnBreadCrumsUrlDTO dto, URI url, Response response) {
       crawler.printErrorMessage();
       LOG.fatal(
           "A HTTP error {} occurred when getting REST information from: \"{}\".",

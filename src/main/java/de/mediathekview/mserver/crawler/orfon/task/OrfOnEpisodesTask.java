@@ -16,7 +16,7 @@ import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
 import de.mediathekview.mserver.crawler.basic.AbstractJsonRestTask;
 import de.mediathekview.mserver.crawler.basic.AbstractRecursiveConverterTask;
 import de.mediathekview.mserver.crawler.basic.PagedElementListDTO;
-import de.mediathekview.mserver.crawler.basic.TopicUrlDTO;
+import de.mediathekview.mserver.crawler.orfon.OrfOnBreadCrumsUrlDTO;
 import de.mediathekview.mserver.crawler.orfon.OrfOnConstants;
 import de.mediathekview.mserver.crawler.orfon.OrfOnVideoInfoDTO;
 import de.mediathekview.mserver.crawler.orfon.json.OrfOnEpisodesDeserializer;
@@ -24,16 +24,16 @@ import jakarta.ws.rs.core.Response;
 
 // <T, R, D extends CrawlerUrlDTO> extends AbstractRestTask<T, D>
 // return T Class from this task, desirialisation of class R , D , Reasearch in this url
-public class OrfOnEpisodesTask extends AbstractJsonRestTask<OrfOnVideoInfoDTO, PagedElementListDTO<OrfOnVideoInfoDTO>, TopicUrlDTO> {
+public class OrfOnEpisodesTask extends AbstractJsonRestTask<OrfOnVideoInfoDTO, PagedElementListDTO<OrfOnVideoInfoDTO>, OrfOnBreadCrumsUrlDTO> {
   private static final long serialVersionUID = 1L;
   private static final Logger LOG = LogManager.getLogger(OrfOnEpisodesTask.class);
 
-  public OrfOnEpisodesTask(AbstractCrawler crawler, Queue<TopicUrlDTO> urlToCrawlDTOs) {
+  public OrfOnEpisodesTask(AbstractCrawler crawler, Queue<OrfOnBreadCrumsUrlDTO> urlToCrawlDTOs) {
     super(crawler, urlToCrawlDTOs, OrfOnConstants.bearer);
   }
 
   @Override
-  protected JsonDeserializer<PagedElementListDTO<OrfOnVideoInfoDTO>> getParser(TopicUrlDTO aDTO) {
+  protected JsonDeserializer<PagedElementListDTO<OrfOnVideoInfoDTO>> getParser(OrfOnBreadCrumsUrlDTO aDTO) {
     return new OrfOnEpisodesDeserializer();
   }
 
@@ -43,11 +43,11 @@ public class OrfOnEpisodesTask extends AbstractJsonRestTask<OrfOnVideoInfoDTO, P
   }
 
   @Override
-  protected void postProcessing(PagedElementListDTO<OrfOnVideoInfoDTO> aResponseObj, TopicUrlDTO aDTO) {
-    final Optional<AbstractRecursiveConverterTask<OrfOnVideoInfoDTO, TopicUrlDTO>> subpageCrawler;
+  protected void postProcessing(PagedElementListDTO<OrfOnVideoInfoDTO> aResponseObj, OrfOnBreadCrumsUrlDTO aDTO) {
+    final Optional<AbstractRecursiveConverterTask<OrfOnVideoInfoDTO, OrfOnBreadCrumsUrlDTO>> subpageCrawler;
     if (aResponseObj.getNextPage().isPresent()) {
-      final Queue<TopicUrlDTO> nextPageLinks = new ConcurrentLinkedQueue<>();
-      nextPageLinks.add(new TopicUrlDTO("", aResponseObj.getNextPage().get()));
+      final Queue<OrfOnBreadCrumsUrlDTO> nextPageLinks = new ConcurrentLinkedQueue<>();
+      nextPageLinks.add(new OrfOnBreadCrumsUrlDTO("", aResponseObj.getNextPage().get()));
       subpageCrawler = Optional.of(createNewOwnInstance(nextPageLinks));
       subpageCrawler.get().fork();
       LOG.debug("started paging to url {} for {}", aResponseObj.getNextPage().get(), aDTO.getUrl());
@@ -60,13 +60,13 @@ public class OrfOnEpisodesTask extends AbstractJsonRestTask<OrfOnVideoInfoDTO, P
   }
 
   @Override
-  protected AbstractRecursiveConverterTask<OrfOnVideoInfoDTO, TopicUrlDTO> createNewOwnInstance(Queue<TopicUrlDTO> aElementsToProcess) {
+  protected AbstractRecursiveConverterTask<OrfOnVideoInfoDTO, OrfOnBreadCrumsUrlDTO> createNewOwnInstance(Queue<OrfOnBreadCrumsUrlDTO> aElementsToProcess) {
     return new OrfOnEpisodesTask(crawler, aElementsToProcess);
   }
 
 
   @Override
-  protected void handleHttpError(TopicUrlDTO dto, URI url, Response response) {
+  protected void handleHttpError(OrfOnBreadCrumsUrlDTO dto, URI url, Response response) {
       crawler.printErrorMessage();
       LOG.fatal(
           "A HTTP error {} occurred when getting REST information from: \"{}\".",

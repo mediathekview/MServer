@@ -16,6 +16,7 @@ public class OrfOnEpisodesDeserializer implements JsonDeserializer<PagedElementL
   private static final Logger LOG = LogManager.getLogger(OrfOnEpisodesDeserializer.class);
   private static final String[] TAG_NEXT_PAGE = {"_links", "next", "href"};
   private static final String[] TAG_ITEMS = {"_embedded", "items"};
+  private static final OrfOnEpisodeDeserializer itemDeserializer = new OrfOnEpisodeDeserializer();
   
   @Override
   public PagedElementListDTO<OrfOnVideoInfoDTO> deserialize(
@@ -26,7 +27,7 @@ public class OrfOnEpisodesDeserializer implements JsonDeserializer<PagedElementL
     PagedElementListDTO<OrfOnVideoInfoDTO> page = new PagedElementListDTO<OrfOnVideoInfoDTO>();
     page.setNextPage(JsonUtils.getElementValueAsString(jsonElement, TAG_NEXT_PAGE));
     //
-    OrfOnEpisodeDeserializer itemDeserializer = new OrfOnEpisodeDeserializer();
+    //OrfOnEpisodeDeserializer itemDeserializer = new OrfOnEpisodeDeserializer();
     if (jsonPage.has(TAG_ITEMS[0]) && jsonPage.get(TAG_ITEMS[0]).isJsonObject() &&
         jsonPage.get(TAG_ITEMS[0]).getAsJsonObject().has(TAG_ITEMS[1]) &&
         jsonPage.get(TAG_ITEMS[0]).getAsJsonObject().get(TAG_ITEMS[1]).isJsonArray()) {

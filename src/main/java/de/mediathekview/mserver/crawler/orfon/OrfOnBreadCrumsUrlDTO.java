@@ -27,8 +27,10 @@ public class OrfOnBreadCrumsUrlDTO extends CrawlerUrlDTO {
   }
 
   public void setBreadCrumsPath(List<String> breadCrums) {
-    breadCrums.addAll(getBreadCrums());
-    setBreadCrums(breadCrums);
+    List<String> fullPath = new ArrayList<>();
+    fullPath.addAll(breadCrums);
+    fullPath.addAll(getBreadCrums());
+    setBreadCrums(fullPath);
   }
   
   public boolean addBreadCrum(String value) {
@@ -38,7 +40,7 @@ public class OrfOnBreadCrumsUrlDTO extends CrawlerUrlDTO {
     }
     return false;
   }
-  
+    
   @Override
   public boolean equals(final Object obj) {
     if (obj == null || getClass() != obj.getClass()) {

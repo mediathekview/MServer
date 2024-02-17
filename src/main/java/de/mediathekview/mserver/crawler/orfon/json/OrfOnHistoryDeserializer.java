@@ -35,8 +35,8 @@ public class OrfOnHistoryDeserializer implements JsonDeserializer<PagedElementLi
         Optional<String> url = JsonUtils.getElementValueAsString(item, TAG_TARGET_URL);
         if (url.isPresent()) {
           page.addElement(new OrfOnBreadCrumsUrlDTO(
-              JsonUtils.getElementValueAsString(item, TAG_ITEM_TITLE).get(),
-              JsonUtils.getElementValueAsString(item, TAG_TARGET_URL).get()
+              JsonUtils.getElementValueAsString(item, TAG_ITEM_TITLE).orElse("EMPTY"),
+              url.get()
           ));
         }
         LOG.debug("{} {}", JsonUtils.getElementValueAsString(item, TAG_ITEM_TITLE), JsonUtils.getElementValueAsString(item, TAG_TARGET_URL));
@@ -48,8 +48,8 @@ public class OrfOnHistoryDeserializer implements JsonDeserializer<PagedElementLi
         Optional<String> url = JsonUtils.getElementValueAsString(item, TAG_TARGET_URL);
         if (url.isPresent()) {
           page.addElement(new OrfOnBreadCrumsUrlDTO(
-              JsonUtils.getElementValueAsString(item, TAG_ITEM_TITLE).get(),
-              JsonUtils.getElementValueAsString(item, TAG_TARGET_URL).get()
+              JsonUtils.getElementValueAsString(item, TAG_ITEM_TITLE).orElse("EMPTY"),
+              url.get()
           ));
         }
         LOG.debug("{} {}", JsonUtils.getElementValueAsString(item, TAG_ITEM_TITLE), JsonUtils.getElementValueAsString(item, TAG_TARGET_URL));

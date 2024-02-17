@@ -22,8 +22,8 @@ import jakarta.ws.rs.core.Response;
 // return T Class from this task, desirialisation of class R , D , Reasearch in this url
 public abstract class OrfOnPagedTask extends AbstractJsonRestTask<OrfOnBreadCrumsUrlDTO, PagedElementListDTO<OrfOnBreadCrumsUrlDTO>, OrfOnBreadCrumsUrlDTO> {
   private static final long serialVersionUID = 1L;
-  private final Logger LOG = LogManager.getLogger(this.getClass());
-  private Optional<AbstractRecursiveConverterTask<OrfOnBreadCrumsUrlDTO, OrfOnBreadCrumsUrlDTO>> nextPageTask = Optional.empty();
+  protected final Logger LOG = LogManager.getLogger(this.getClass());
+  protected Optional<AbstractRecursiveConverterTask<OrfOnBreadCrumsUrlDTO, OrfOnBreadCrumsUrlDTO>> nextPageTask = Optional.empty();
 
   public OrfOnPagedTask(AbstractCrawler crawler, Queue<OrfOnBreadCrumsUrlDTO> urlToCrawlDTOs) {
     super(crawler, urlToCrawlDTOs, OrfOnConstants.bearer);

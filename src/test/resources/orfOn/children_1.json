@@ -1,0 +1,190 @@
+{
+    "page": "1",
+    "limit": "20",
+    "page_count": 1,
+    "total": 2,
+    "next": null,
+    "id": 13558010,
+    "title": "Februark\u00e4mpfe: Zeitzeug:innen berichten",
+    "description": "Im Februar 1934 m\u00fcndete der\u00a0politische Konflikt zwischen den Christlichsozialen und den Sozialisten in einer gewaltvollen Konfrontation. Zeitzeug:innen-Berichte machen die Ereignisse der Februark\u00e4mpfe greifbar.",
+    "oewa_base_path": "Redcont\/Politik\/PolitikInland",
+    "_items": [
+        {
+            "children_count": 0,
+            "description": "Im Februar 1934 m\u00fcndete der\u00a0politische Konflikt zwischen den Christlichsozialen und den Sozialisten in einer gewaltvollen Konfrontation. Zeitzeug:innen-Berichte machen die Ereignisse der Februark\u00e4mpfe greifbar.",
+            "headline": "Zeitzeug:innen erz\u00e4hlen",
+            "id": 13558009,
+            "sub_headline": null,
+            "oewa_base_path": "Redcont\/Politik\/PolitikInland",
+            "title": "Zeitzeug:innen erz\u00e4hlen",
+            "videos": 11,
+            "_links": {
+                "self": {
+                    "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/history\/13558009"
+                },
+                "image": {
+                    "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/media\/16778753"
+                },
+                "image12x5": {
+                    "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/media\/16778751"
+                },
+                "image2x3": {
+                    "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/media\/16596204"
+                },
+                "parent": {
+                    "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/history\/13558010"
+                },
+                "video_items": {
+                    "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/history\/13558009\/videoitems"
+                }
+            },
+            "_embedded": {
+                "image": {
+                    "public_urls": {
+                        "highlight_teaser": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/archive_topics\/0168\/79\/thumb_16778753_archive_topics_highlight_teaser.jpeg"
+                        },
+                        "player": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/archive_topics\/0168\/79\/thumb_16778753_archive_topics_player.jpeg"
+                        },
+                        "legacy": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/archive_topics\/0168\/79\/thumb_16778753_archive_topics_legacy.jpeg"
+                        },
+                        "list": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/archive_topics\/0168\/79\/thumb_16778753_archive_topics_list.jpeg"
+                        },
+                        "small": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/archive_topics\/0168\/79\/thumb_16778753_archive_topics_small.jpeg"
+                        },
+                        "reference": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/archive_topics\/0168\/79\/5fc6f6d33528ecbf5c338cdb7ea59492cabbcce6.jpeg"
+                        }
+                    },
+                    "dynamic_color": "#691f11"
+                },
+                "image12x5": {
+                    "public_urls": {
+                        "highlight_teaser": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/archive_topic_12x5\/0168\/79\/thumb_16778751_archive_topic_12x5_highlight_teaser.jpeg"
+                        },
+                        "player": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/archive_topic_12x5\/0168\/79\/thumb_16778751_archive_topic_12x5_player.jpeg"
+                        },
+                        "legacy": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/archive_topic_12x5\/0168\/79\/thumb_16778751_archive_topic_12x5_legacy.jpeg"
+                        },
+                        "list": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/archive_topic_12x5\/0168\/79\/thumb_16778751_archive_topic_12x5_list.jpeg"
+                        },
+                        "small": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/archive_topic_12x5\/0168\/79\/thumb_16778751_archive_topic_12x5_small.jpeg"
+                        },
+                        "reference": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/archive_topic_12x5\/0168\/79\/cc240b109ba8fe2aabd417e79ad76881b02077b1.jpeg"
+                        }
+                    },
+                    "dynamic_color": "#691f11"
+                },
+                "image2x3": {
+                    "public_urls": {
+                        "highlight_teaser": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0166\/97\/thumb_16596204_default_2x3_highlight_teaser.jpeg"
+                        },
+                        "player": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0166\/97\/thumb_16596204_default_2x3_player.jpeg"
+                        },
+                        "legacy": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0166\/97\/thumb_16596204_default_2x3_legacy.jpeg"
+                        },
+                        "list": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0166\/97\/thumb_16596204_default_2x3_list.jpeg"
+                        },
+                        "small": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0166\/97\/thumb_16596204_default_2x3_small.jpeg"
+                        },
+                        "reference": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0166\/97\/56745f92b28e3a6f176e66acf9e9d0aea5e0c611.jpeg"
+                        }
+                    },
+                    "dynamic_color": "#691f11"
+                }
+            }
+        },
+        {
+            "children_count": 0,
+            "description": "Im Februar 1934 m\u00fcndete der\u00a0politische Konflikt zwischen den Christlichsozialen und den Sozialisten in einer gewaltvollen Konfrontation. Umfassende Dokus mit Zeitzeug:innen-Berichten machen die Ereignisse der Februark\u00e4mpfe greifbar.",
+            "headline": "Die Hintergr\u00fcnde",
+            "id": 13558011,
+            "sub_headline": null,
+            "oewa_base_path": "Redcont\/Politik\/PolitikInland",
+            "title": "Die Hintergr\u00fcnde",
+            "videos": 4,
+            "_links": {
+                "self": {
+                    "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/history\/13558011"
+                },
+                "image": {
+                    "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/media\/16800411"
+                },
+                "image2x3": {
+                    "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/media\/16596204"
+                },
+                "parent": {
+                    "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/history\/13558010"
+                },
+                "video_items": {
+                    "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/history\/13558011\/videoitems"
+                }
+            },
+            "_embedded": {
+                "image": {
+                    "public_urls": {
+                        "highlight_teaser": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/archive_topics\/0169\/01\/thumb_16800411_archive_topics_highlight_teaser.jpeg"
+                        },
+                        "player": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/archive_topics\/0169\/01\/thumb_16800411_archive_topics_player.jpeg"
+                        },
+                        "legacy": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/archive_topics\/0169\/01\/thumb_16800411_archive_topics_legacy.jpeg"
+                        },
+                        "list": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/archive_topics\/0169\/01\/thumb_16800411_archive_topics_list.jpeg"
+                        },
+                        "small": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/archive_topics\/0169\/01\/thumb_16800411_archive_topics_small.jpeg"
+                        },
+                        "reference": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/archive_topics\/0169\/01\/084da592a59070a1d544b1eccd3937c32471eb45.jpeg"
+                        }
+                    },
+                    "dynamic_color": "#691f11"
+                },
+                "image12x5": null,
+                "image2x3": {
+                    "public_urls": {
+                        "highlight_teaser": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0166\/97\/thumb_16596204_default_2x3_highlight_teaser.jpeg"
+                        },
+                        "player": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0166\/97\/thumb_16596204_default_2x3_player.jpeg"
+                        },
+                        "legacy": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0166\/97\/thumb_16596204_default_2x3_legacy.jpeg"
+                        },
+                        "list": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0166\/97\/thumb_16596204_default_2x3_list.jpeg"
+                        },
+                        "small": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0166\/97\/thumb_16596204_default_2x3_small.jpeg"
+                        },
+                        "reference": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0166\/97\/56745f92b28e3a6f176e66acf9e9d0aea5e0c611.jpeg"
+                        }
+                    },
+                    "dynamic_color": "#691f11"
+                }
+            }
+        }
+    ]
+}

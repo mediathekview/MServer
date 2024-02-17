@@ -64,8 +64,8 @@ public class OrfOnEpisodeDeserializer implements JsonDeserializer<OrfOnVideoInfo
         );
     //LOG.debug("{}",jsonElement );
     
-    if (aFilm.getGeorestriction().isEmpty() ||
-        aFilm.getVideoUrls().isEmpty()){
+    if (aFilm.getVideoUrls().isEmpty()){
+      LOG.debug("#####videoUrlEmpty#######");
     LOG.debug("{} (id)", aFilm.getId().get());
     LOG.debug("{} (genre_title)", JsonUtils.getElementValueAsString(jsonElement, "genre_title").get());
     LOG.debug("{} (headline)", JsonUtils.getElementValueAsString(jsonElement, "headline").get());
@@ -108,7 +108,7 @@ public class OrfOnEpisodeDeserializer implements JsonDeserializer<OrfOnVideoInfo
     for (Map.Entry<String, JsonElement> entry : jsonElement.getAsJsonObject().getAsJsonObject(TAG_VIDEO).entrySet()) {
 
       if (!"hlshdssmoothdashprogressive_download".contains(entry.getKey())) {
-        LOG.debug(" {} ", jsonElement);
+        LOG.debug("unkown video type {} ", jsonElement);
       }
     }
     
