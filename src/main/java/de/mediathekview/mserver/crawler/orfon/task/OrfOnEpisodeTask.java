@@ -42,24 +42,21 @@ public class OrfOnEpisodeTask extends AbstractJsonRestTask<OrfOnVideoInfoDTO, Or
   @Override
   protected void postProcessing(OrfOnVideoInfoDTO aResponseObj, OrfOnBreadCrumsUrlDTO aDTO) {
     if (aResponseObj.getTitle().isEmpty() && aResponseObj.getTitleWithDate().isEmpty()) {
-      LOG.debug("Missing title for {}", aDTO);
+      LOG.warn("Missing title for {}", aDTO);
+      crawler.incrementAndGetErrorCount();
       return;
     }
     if (aResponseObj.getTopic().isEmpty()) {
-      LOG.debug("Missing topic for {}", aDTO);
+      LOG.warn("Missing topic for {}", aDTO);
+      crawler.incrementAndGetErrorCount();
       return;
     }
     if (aResponseObj.getVideoUrls().isEmpty()) {
-      LOG.debug("Missing videoUrls for {}", aDTO);
+      LOG.warn("Missing videoUrls for {}", aDTO);
+      crawler.incrementAndGetErrorCount();
       return;
     }
-    // ARCHIVE
-    // archive does not have a proper topic
-    if (aResponseObj.getTopic().get().equalsIgnoreCase("Archiv") && aDTO.getBreadCrums().size() > 1) {
-      aResponseObj.setTopic(Optional.of(aDTO.getBreadCrums().get(1)));
-    }
-    
-    LOG.debug(" bread crums {} # {} # {}", String.join("|", aDTO.getBreadCrums()), aResponseObj.getTopic().get(), aResponseObj.getTitle().get());
+    //LOG.debug(" bread crums {} # {} # {}", String.join("|", aDTO.getBreadCrums()), aResponseObj.getTopic().get(), aResponseObj.getTitle().get());
     taskResults.add(aResponseObj);    
   }
 
@@ -77,14 +74,5 @@ public class OrfOnEpisodeTask extends AbstractJsonRestTask<OrfOnVideoInfoDTO, Or
           response.getStatus(),
           url);
   }
-
-
-
-
-
-
-
-
-
 
 }

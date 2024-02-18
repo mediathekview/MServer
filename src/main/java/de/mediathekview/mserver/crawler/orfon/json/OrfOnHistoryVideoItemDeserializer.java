@@ -32,9 +32,9 @@ public class OrfOnHistoryVideoItemDeserializer implements JsonDeserializer<Paged
     Optional<JsonElement> itemArrayTop = JsonUtils.getElement(jsonElement, TAG_ITEM_ARRAY);
     if (itemArrayTop.isPresent() && itemArrayTop.get().isJsonArray()) {
       for (JsonElement item : itemArrayTop.get().getAsJsonArray()) {
-        Optional<String> urlSelf = JsonUtils.getElementValueAsString(item, TAG_TARGET_URL);
-        Optional<String> urlEpisode = JsonUtils.getElementValueAsString(item, TAG_TARGET_URL_EPISODE);
-        Optional<String> title = JsonUtils.getElementValueAsString(item, TAG_ITEM_TITLE);
+        final Optional<String> urlSelf = JsonUtils.getElementValueAsString(item, TAG_TARGET_URL);
+        final Optional<String> urlEpisode = JsonUtils.getElementValueAsString(item, TAG_TARGET_URL_EPISODE);
+        final Optional<String> title = JsonUtils.getElementValueAsString(item, TAG_ITEM_TITLE);
         // self should be an episode but in some cases a segment - only in this cases we have an additional episode element
         if (urlSelf.isPresent() && !urlSelf.get().contains("/segment/")) {
           page.addElement(new OrfOnBreadCrumsUrlDTO(

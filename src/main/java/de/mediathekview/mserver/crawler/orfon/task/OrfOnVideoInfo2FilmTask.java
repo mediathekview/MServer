@@ -3,9 +3,6 @@ package de.mediathekview.mserver.crawler.orfon.task;
 import java.util.Queue;
 import java.util.UUID;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
 import de.mediathekview.mlib.daten.Film;
 import de.mediathekview.mlib.daten.Sender;
 import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
@@ -14,7 +11,6 @@ import de.mediathekview.mserver.crawler.orfon.OrfOnVideoInfoDTO;
 
 public class OrfOnVideoInfo2FilmTask extends AbstractRecursiveConverterTask<Film, OrfOnVideoInfoDTO> {
   private static final long serialVersionUID = 1L;
-  private static final Logger LOG = LogManager.getLogger(OrfOnVideoInfo2FilmTask.class);
   
   public OrfOnVideoInfo2FilmTask(AbstractCrawler aCrawler, Queue<OrfOnVideoInfoDTO> aUrlToCrawlDTOs) {
     super(aCrawler, aUrlToCrawlDTOs);
@@ -35,7 +31,7 @@ public class OrfOnVideoInfo2FilmTask extends AbstractRecursiveConverterTask<Film
         UUID.randomUUID(),
         Sender.ORF,
         buildTitle(aElement.getTitle().get(), aElement.getTopic().get()),
-        buildTopic(aElement.getTitle().get(), aElement.getTopic().get()),
+        buildTopic(aElement.getTitle().get(), aElement.getTopic().get(), aElement.getTopicForArchive().orElse("")),
         aElement.getAired().get(),
         aElement.getDuration().get()
         );
@@ -43,16 +39,21 @@ public class OrfOnVideoInfo2FilmTask extends AbstractRecursiveConverterTask<Film
     aElement.getDescription().ifPresent(aFilm::setBeschreibung);
     aElement.getVideoUrls().ifPresent(aFilm::setUrls);
     aElement.getWebsite().ifPresent(aFilm::setWebsite);
-    
+    aElement.getSubtitleUrls().ifPresent(aFilm::addAllSubtitleUrls);
+    crawler.incrementAndGetActualCount();
     taskResults.add(aFilm);
     
   }
   
-  private String buildTopic(String title, String topic) {
-    if (topic.startsWith("AD | ")) {
-      return topic.replace("AD | ", "");
+  private String buildTopic(String title, String topic, String archiveTopic) {
+    String newTopic = topic;
+    if (newTopic.startsWith("AD | ")) {
+      newTopic = newTopic.replace("AD | ", "");
     }
-    return topic;
+    if (newTopic.equalsIgnoreCase("archiv")) {
+      newTopic = newTopic.replace("History | ", "");
+    }
+    return newTopic;
   }
   
   private String buildTitle(String title, String topic) {
@@ -61,15 +62,5 @@ public class OrfOnVideoInfo2FilmTask extends AbstractRecursiveConverterTask<Film
     }
     return title;
   }
-
-  
-
-
-
-
-
-
-
-
 
 }

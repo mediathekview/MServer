@@ -30,12 +30,12 @@ public class OrfOnHistoryChildrenDeserializer implements JsonDeserializer<PagedE
     PagedElementListDTO<OrfOnBreadCrumsUrlDTO> page = new PagedElementListDTO<>();
     page.setNextPage(JsonUtils.getElementValueAsString(jsonElement, TAG_NEXT_PAGE));
     //
-    Optional<JsonElement> itemArrayTop = JsonUtils.getElement(jsonElement, TAG_ITEM_ARRAY);
-    if (itemArrayTop.isPresent() && itemArrayTop.get().isJsonArray()) {
-      for (JsonElement item : itemArrayTop.get().getAsJsonArray()) {
-        Optional<String> videoItemUrl = JsonUtils.getElementValueAsString(item, TAG_TARGET_URL);
-        Optional<String> childrenUrl = JsonUtils.getElementValueAsString(item, TAG_TARGET_URL2);
-        Optional<String> title = JsonUtils.getElementValueAsString(item, TAG_ITEM_TITLE);
+    Optional<JsonElement> itemArray = JsonUtils.getElement(jsonElement, TAG_ITEM_ARRAY);
+    if (itemArray.isPresent() && itemArray.get().isJsonArray()) {
+      for (JsonElement item : itemArray.get().getAsJsonArray()) {
+        final Optional<String> videoItemUrl = JsonUtils.getElementValueAsString(item, TAG_TARGET_URL);
+        final Optional<String> childrenUrl = JsonUtils.getElementValueAsString(item, TAG_TARGET_URL2);
+        final Optional<String> title = JsonUtils.getElementValueAsString(item, TAG_ITEM_TITLE);
         if (videoItemUrl.isPresent()) {
           page.addElement(new OrfOnBreadCrumsUrlDTO(
               title.orElse("MISSING TITLE"),

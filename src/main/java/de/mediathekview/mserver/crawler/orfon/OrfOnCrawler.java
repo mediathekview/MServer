@@ -4,6 +4,7 @@ import de.mediathekview.mlib.daten.Film;
 import de.mediathekview.mlib.daten.Sender;
 import de.mediathekview.mlib.messages.listener.MessageListener;
 import de.mediathekview.mserver.base.config.MServerConfigManager;
+import de.mediathekview.mserver.base.messages.ServerMessages;
 import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
 import de.mediathekview.mserver.crawler.orfon.task.OrfOnAZTask;
 import de.mediathekview.mserver.crawler.orfon.task.OrfOnEpisodeTask;
@@ -52,17 +53,23 @@ public class OrfOnCrawler extends AbstractCrawler {
     try {
       // Sendungen Verpasst (letzten 14 Tage)
       // TAG > Episode > Episode2Film
-      final Set<OrfOnVideoInfoDTO> epsiodesFromDay = processDayUrlsToCrawl();
-      allVideos.addAll(epsiodesFromDay);
+      //final Set<OrfOnVideoInfoDTO> epsiodesFromDay = processDayUrlsToCrawl();
+      //allVideos.addAll(epsiodesFromDay);
+      //printMessage(ServerMessages.DEBUG_ALL_SENDUNG_FOLGEN_COUNT, getSender().getName(), allVideos.size());
+      //getAndSetMaxCount(allVideos.size());
       //
       // Sendungen a-z
       // Buchstabe > Episoden > Episode2Film
       final Set<OrfOnVideoInfoDTO> videosFromTopics = processAZUrlsToCrawl();
       allVideos.addAll(videosFromTopics);
+      printMessage(ServerMessages.DEBUG_ALL_SENDUNG_FOLGEN_COUNT, getSender().getName(), allVideos.size());
+      getAndSetMaxCount(allVideos.size());
       //
       // History (top categories) > children > 
-      final Set<OrfOnVideoInfoDTO> historyVideos = processHistoryUrlToCrawl();
-      allVideos.addAll(historyVideos);
+      //final Set<OrfOnVideoInfoDTO> historyVideos = processHistoryUrlToCrawl();
+      //allVideos.addAll(historyVideos);
+      //printMessage(ServerMessages.DEBUG_ALL_SENDUNG_FOLGEN_COUNT, getSender().getName(), allVideos.size());
+      //getAndSetMaxCount(allVideos.size());
       //
       return new OrfOnVideoInfo2FilmTask(this, new ConcurrentLinkedQueue<>(allVideos));
     } catch (final Exception ex) {
@@ -113,15 +120,21 @@ public class OrfOnCrawler extends AbstractCrawler {
   private Set<OrfOnVideoInfoDTO> processHistoryUrlToCrawl() throws InterruptedException, ExecutionException {
     final ForkJoinTask<Set<OrfOnBreadCrumsUrlDTO>> histroyTask = forkJoinPool.submit(new OrfOnHistoryTask(this, createHistoryUrlToCrawl()));
     final Set<OrfOnBreadCrumsUrlDTO> historyChidrenUrls = histroyTask.get();
+    LOG.debug("Found {} entries in OrfOnHistoryTask ", historyChidrenUrls.size());
     //
     final ForkJoinTask<Set<OrfOnBreadCrumsUrlDTO>> historyChildrenTask = forkJoinPool.submit(new OrfOnHistoryChildrenTask(this, new ConcurrentLinkedQueue<>(historyChidrenUrls)));
     final Set<OrfOnBreadCrumsUrlDTO> historyItemUrls = historyChildrenTask.get();
+    LOG.debug("Found {} entries in OrfOnHistoryChildrenTask ", historyItemUrls.size());
     //
     final ForkJoinTask<Set<OrfOnBreadCrumsUrlDTO>> historyItemTask = forkJoinPool.submit(new OrfOnHistoryVideoItemTask(this, new ConcurrentLinkedQueue<>(historyItemUrls)));
     final Set<OrfOnBreadCrumsUrlDTO> historyEpisodesUrls = historyItemTask.get();
+    LOG.debug("Found {} entries in OrfOnHistoryVideoItemTask ", historyEpisodesUrls.size());
     //
     final ForkJoinTask<Set<OrfOnVideoInfoDTO>> historyEpisodeTask = forkJoinPool.submit(new OrfOnEpisodeTask(this, new ConcurrentLinkedQueue<>(historyEpisodesUrls)));
-    return historyEpisodeTask.get();
+    final Set<OrfOnVideoInfoDTO> historyEpisodeVideos = historyEpisodeTask.get();
+    LOG.debug("Found {} entries in OrfOnEpisodeTask ", historyEpisodeVideos.size());
+    //
+    return historyEpisodeVideos;
   }
   
   private Queue<OrfOnBreadCrumsUrlDTO> createHistoryUrlToCrawl() {

@@ -36,10 +36,10 @@ public class OrfOnHistoryChainDeserializer implements JsonDeserializer<PagedElem
     PagedElementListDTO<CrawlerUrlDTO> page = new PagedElementListDTO<>();
     page.setNextPage(JsonUtils.getElementValueAsString(jsonElement, TAG_NEXT_PAGE));
     //
-    Optional<JsonElement> itemArray = JsonUtils.getElement(jsonElement, TAG_ITEM_ARRAY);
+    final Optional<JsonElement> itemArray = JsonUtils.getElement(jsonElement, TAG_ITEM_ARRAY);
     if (itemArray.isPresent() && itemArray.get().isJsonArray()) {
       for (JsonElement item : itemArray.get().getAsJsonArray()) {
-        Optional<String> url = JsonUtils.getElementValueAsString(item, TAG_TARGET_URL);
+        final Optional<String> url = JsonUtils.getElementValueAsString(item, TAG_TARGET_URL);
         if (url.isPresent()) {
           page.addElement(new CrawlerUrlDTO(JsonUtils.getElementValueAsString(item, TAG_TARGET_URL).get()));
         }

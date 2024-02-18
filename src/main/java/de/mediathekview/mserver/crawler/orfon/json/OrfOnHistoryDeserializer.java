@@ -29,12 +29,12 @@ public class OrfOnHistoryDeserializer implements JsonDeserializer<PagedElementLi
     PagedElementListDTO<OrfOnBreadCrumsUrlDTO> page = new PagedElementListDTO<>();
     page.setNextPage(JsonUtils.getElementValueAsString(jsonElement, TAG_NEXT_PAGE));
     //
-    Optional<JsonElement> itemArrayTop = JsonUtils.getElement(jsonElement, TAG_ITEM_ARRAY_TOP);
+    final Optional<JsonElement> itemArrayTop = JsonUtils.getElement(jsonElement, TAG_ITEM_ARRAY_TOP);
     if (itemArrayTop.isPresent() && itemArrayTop.get().isJsonArray()) {
       page.addElements(parseSection(itemArrayTop.get().getAsJsonArray()).getElements());
     }
     //
-    Optional<JsonElement> itemArrayButtom = JsonUtils.getElement(jsonElement, TAG_ITEM_ARRAY_BUTTOM);
+    final Optional<JsonElement> itemArrayButtom = JsonUtils.getElement(jsonElement, TAG_ITEM_ARRAY_BUTTOM);
     if (itemArrayButtom.isPresent() && itemArrayButtom.get().isJsonArray()) {
       page.addElements(parseSection(itemArrayButtom.get().getAsJsonArray()).getElements());
     }
@@ -45,8 +45,8 @@ public class OrfOnHistoryDeserializer implements JsonDeserializer<PagedElementLi
   public PagedElementListDTO<OrfOnBreadCrumsUrlDTO> parseSection(JsonArray itemArray) {
     PagedElementListDTO<OrfOnBreadCrumsUrlDTO> items = new PagedElementListDTO<>();
     for (JsonElement item : itemArray) {
-      Optional<String> url = JsonUtils.getElementValueAsString(item, TAG_TARGET_URL);
-      Optional<String> title = JsonUtils.getElementValueAsString(item, TAG_ITEM_TITLE);
+      final Optional<String> url = JsonUtils.getElementValueAsString(item, TAG_TARGET_URL);
+      final Optional<String> title = JsonUtils.getElementValueAsString(item, TAG_ITEM_TITLE);
       if (url.isPresent()) {
         items.addElement(new OrfOnBreadCrumsUrlDTO(
             title.orElse("EMPTY"),

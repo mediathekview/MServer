@@ -7,13 +7,9 @@ import de.mediathekview.mserver.crawler.basic.PagedElementListDTO;
 import de.mediathekview.mserver.crawler.orfon.OrfOnVideoInfoDTO;
 
 import java.lang.reflect.Type;
-
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
+import java.util.Optional;
 
 public class OrfOnEpisodesDeserializer implements JsonDeserializer<PagedElementListDTO<OrfOnVideoInfoDTO>> {
-  private static final Logger LOG = LogManager.getLogger(OrfOnEpisodesDeserializer.class);
   private static final String[] TAG_NEXT_PAGE = {"_links", "next", "href"};
   private static final String[] TAG_ITEMS = {"_embedded", "items"};
   private static final OrfOnEpisodeDeserializer itemDeserializer = new OrfOnEpisodeDeserializer();
@@ -27,14 +23,12 @@ public class OrfOnEpisodesDeserializer implements JsonDeserializer<PagedElementL
     PagedElementListDTO<OrfOnVideoInfoDTO> page = new PagedElementListDTO<OrfOnVideoInfoDTO>();
     page.setNextPage(JsonUtils.getElementValueAsString(jsonElement, TAG_NEXT_PAGE));
     //
-    //OrfOnEpisodeDeserializer itemDeserializer = new OrfOnEpisodeDeserializer();
-    if (jsonPage.has(TAG_ITEMS[0]) && jsonPage.get(TAG_ITEMS[0]).isJsonObject() &&
-        jsonPage.get(TAG_ITEMS[0]).getAsJsonObject().has(TAG_ITEMS[1]) &&
-        jsonPage.get(TAG_ITEMS[0]).getAsJsonObject().get(TAG_ITEMS[1]).isJsonArray()) {
-       for (JsonElement item : jsonPage.get(TAG_ITEMS[0]).getAsJsonObject().get(TAG_ITEMS[1]).getAsJsonArray()) {
-         page.addElement(itemDeserializer.deserialize(item, null, null));
-       }
-     }
+    final Optional<JsonElement> items = JsonUtils.getElement(jsonPage, TAG_ITEMS);
+    if (items.isPresent() && items.get().isJsonArray()) {
+      for (JsonElement item : items.get().getAsJsonArray()) {
+        page.addElement(itemDeserializer.deserialize(item, null, null));
+      }
+    }
     return page;
   }
   

@@ -10,12 +10,8 @@ import de.mediathekview.mserver.crawler.orfon.OrfOnConstants;
 import java.lang.reflect.Type;
 import java.util.Optional;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
 
 public class OrfOnScheduleDeserializer implements JsonDeserializer<PagedElementListDTO<OrfOnBreadCrumsUrlDTO>> {
-  private static final Logger LOG = LogManager.getLogger(OrfOnScheduleDeserializer.class);
   private static final String TAG_FILM_NAME = "title";
   private static final String TAG_FILM_ID = "id";
   
@@ -26,8 +22,8 @@ public class OrfOnScheduleDeserializer implements JsonDeserializer<PagedElementL
     PagedElementListDTO<OrfOnBreadCrumsUrlDTO> collectIds = new PagedElementListDTO<OrfOnBreadCrumsUrlDTO>();
     final JsonArray elements = jsonElement.getAsJsonArray();
     for (JsonElement element : elements) {
-      Optional<String> name = JsonUtils.getElementValueAsString(element, TAG_FILM_NAME);
-      Optional<String> id = JsonUtils.getElementValueAsString(element, TAG_FILM_ID);
+      final Optional<String> name = JsonUtils.getElementValueAsString(element, TAG_FILM_NAME);
+      final Optional<String> id = JsonUtils.getElementValueAsString(element, TAG_FILM_ID);
       if (id.isPresent()) {
         final String url = OrfOnConstants.EPISODE + "/" + id.get();
         //LOG.debug("found {} {} {}", id, name, url);

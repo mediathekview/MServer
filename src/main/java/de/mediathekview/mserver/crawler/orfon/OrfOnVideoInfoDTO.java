@@ -6,6 +6,7 @@ import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.Map;
 import java.util.Optional;
+import java.util.Set;
 
 import de.mediathekview.mlib.daten.FilmUrl;
 import de.mediathekview.mlib.daten.GeoLocations;
@@ -18,6 +19,7 @@ public class OrfOnVideoInfoDTO {
   private Optional<String> title;
   private Optional<String> titleWithDate;
   private Optional<String> topic;
+  private Optional<String> topicForArchive;
   private Optional<LocalDateTime> aired;
   private Optional<Duration> duration;
   private Optional<String> description;
@@ -25,6 +27,7 @@ public class OrfOnVideoInfoDTO {
   private Optional<Collection<GeoLocations>> georestriction;
   private Optional<URL> subtitleSource;
   private Optional<Map<Resolution, FilmUrl>> videoUrls;
+  private Optional<Set<URL>> subtitleUrls;
   
   public OrfOnVideoInfoDTO(
       Optional<String> id, 
@@ -32,19 +35,22 @@ public class OrfOnVideoInfoDTO {
       Optional<String> title, 
       Optional<String> titleWithDate, 
       Optional<String> topic,
+      Optional<String> topicForArchive,
       Optional<LocalDateTime> aired, 
       Optional<Duration> duration, 
       Optional<String> description, 
       Optional<URL> website,
       Optional<Collection<GeoLocations>> georestriction, 
       Optional<URL> subtitleSource,
-      Optional<Map<Resolution, FilmUrl>> videoUrls) {
+      Optional<Map<Resolution, FilmUrl>> videoUrls,
+      Optional<Set<URL>> subtitleUrls) {
     super();
     this.id = id;
     this.channel = channel;
     this.title = title;
     this.titleWithDate = titleWithDate;
     this.topic = topic;
+    this.topicForArchive = topicForArchive;
     this.aired = aired;
     this.duration = duration;
     this.description = description;
@@ -52,6 +58,7 @@ public class OrfOnVideoInfoDTO {
     this.georestriction = georestriction;
     this.subtitleSource = subtitleSource;
     this.videoUrls = videoUrls;
+    this.subtitleUrls = subtitleUrls;
   }
   
   public Optional<String> getId() {
@@ -69,8 +76,8 @@ public class OrfOnVideoInfoDTO {
   public Optional<String> getTopic() {
     return topic;
   }
-  public void setTopic(Optional<String> newTopic) {
-    topic = newTopic;
+  public Optional<String> getTopicForArchive() {
+    return topicForArchive;
   }
   public Optional<LocalDateTime> getAired() {
     return aired;
@@ -92,6 +99,9 @@ public class OrfOnVideoInfoDTO {
   }
   public Optional<Map<Resolution, FilmUrl>> getVideoUrls() {
     return videoUrls;
+  }
+  public Optional<Set<URL>> getSubtitleUrls() {
+    return subtitleUrls;
   }
 
   @Override

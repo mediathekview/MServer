@@ -5,6 +5,7 @@ import com.google.gson.*;
 import de.mediathekview.mserver.base.utils.JsonUtils;
 import de.mediathekview.mserver.crawler.basic.PagedElementListDTO;
 import de.mediathekview.mserver.crawler.orfon.OrfOnBreadCrumsUrlDTO;
+import de.mediathekview.mserver.crawler.orfon.OrfOnConstants;
 
 import java.lang.reflect.Type;
 import java.util.Optional;
@@ -29,14 +30,13 @@ public class OrfOnAZDeserializer implements JsonDeserializer<PagedElementListDTO
     PagedElementListDTO<OrfOnBreadCrumsUrlDTO> page = new PagedElementListDTO<>();
     page.setNextPage(JsonUtils.getElementValueAsString(jsonElement, TAG_NEXT_PAGE));
     //
-    if (jsonPage.has(TAG_ITEMS[0]) && jsonPage.get(TAG_ITEMS[0]).isJsonObject() &&
-       jsonPage.get(TAG_ITEMS[0]).getAsJsonObject().has(TAG_ITEMS[1]) &&
-       jsonPage.get(TAG_ITEMS[0]).getAsJsonObject().get(TAG_ITEMS[1]).isJsonArray()) {
-      for (JsonElement topic : jsonPage.get(TAG_ITEMS[0]).getAsJsonObject().get(TAG_ITEMS[1]).getAsJsonArray()) {
-        Optional<String> id = JsonUtils.getElementValueAsString(topic, TAG_ITEM_ID);
-        Optional<String> url = JsonUtils.getElementValueAsString(topic, TAG_ITEM_EPISODES);
+    final Optional<JsonElement> items = JsonUtils.getElement(jsonPage, TAG_ITEMS);
+    if (items.isPresent() && items.get().isJsonArray()) {
+      for (JsonElement topic : items.get().getAsJsonArray()) {
+        final Optional<String> id = JsonUtils.getElementValueAsString(topic, TAG_ITEM_ID);
+        final Optional<String> url = JsonUtils.getElementValueAsString(topic, TAG_ITEM_EPISODES);
         if (id.isPresent() && url.isPresent()) {
-          page.addElement(new OrfOnBreadCrumsUrlDTO(id.get(), url.get()));
+          page.addElement(new OrfOnBreadCrumsUrlDTO(id.get(), OrfOnConstants.createMaxLimmitUrl(url.get())));
         } else {
           LOG.debug("No episodes found in item {}", id);
         }
