@@ -25,8 +25,8 @@ public abstract class OrfOnPagedTask extends AbstractJsonRestTask<OrfOnBreadCrum
   protected final Logger LOG = LogManager.getLogger(this.getClass());
   protected Optional<AbstractRecursiveConverterTask<OrfOnBreadCrumsUrlDTO, OrfOnBreadCrumsUrlDTO>> nextPageTask = Optional.empty();
 
-  public OrfOnPagedTask(AbstractCrawler crawler, Queue<OrfOnBreadCrumsUrlDTO> urlToCrawlDTOs) {
-    super(crawler, urlToCrawlDTOs, OrfOnConstants.bearer);
+  protected OrfOnPagedTask(AbstractCrawler crawler, Queue<OrfOnBreadCrumsUrlDTO> urlToCrawlDTOs) {
+    super(crawler, urlToCrawlDTOs, OrfOnConstants.AUTH);
   }
   
   protected void postProcessingNextPage(PagedElementListDTO<OrfOnBreadCrumsUrlDTO> aResponseObj, OrfOnBreadCrumsUrlDTO aDTO) {

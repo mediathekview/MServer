@@ -20,7 +20,7 @@ public class OrfOnEpisodesDeserializer implements JsonDeserializer<PagedElementL
       throws JsonParseException {
     JsonObject jsonPage = jsonElement.getAsJsonObject();
     //
-    PagedElementListDTO<OrfOnVideoInfoDTO> page = new PagedElementListDTO<OrfOnVideoInfoDTO>();
+    PagedElementListDTO<OrfOnVideoInfoDTO> page = new PagedElementListDTO<>();
     page.setNextPage(JsonUtils.getElementValueAsString(jsonElement, TAG_NEXT_PAGE));
     //
     final Optional<JsonElement> items = JsonUtils.getElement(jsonPage, TAG_ITEMS);

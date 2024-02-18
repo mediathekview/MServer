@@ -15,11 +15,11 @@ import org.apache.logging.log4j.Logger;
 
 public class OrfOnHistoryDeserializer implements JsonDeserializer<PagedElementListDTO<OrfOnBreadCrumsUrlDTO>> {
   private static final Logger LOG = LogManager.getLogger(OrfOnHistoryDeserializer.class);
-  private String[] TAG_NEXT_PAGE = {};
-  private String[] TAG_ITEM_ARRAY_TOP = {"history_highlights"};
-  private String[] TAG_ITEM_TITLE = {"title"};
-  private String[] TAG_ITEM_ARRAY_BUTTOM = {"history_items"};
-  private String[] TAG_TARGET_URL = {"_links", "children", "href"};
+  private static final String[] TAG_NEXT_PAGE = {};
+  private static final String[] TAG_ITEM_ARRAY_TOP = {"history_highlights"};
+  private static final String[] TAG_ITEM_TITLE = {"title"};
+  private static final String[] TAG_ITEM_ARRAY_BUTTOM = {"history_items"};
+  private static final String[] TAG_TARGET_URL = {"_links", "children", "href"};
   
   @Override
   public PagedElementListDTO<OrfOnBreadCrumsUrlDTO> deserialize(

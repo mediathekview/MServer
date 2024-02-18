@@ -112,5 +112,11 @@ public class OrfOnVideoInfoDTO {
     return super.hashCode();
   }
   
-  
+  @Override
+  public boolean equals(final Object obj) {
+    if (obj == null || getClass() != obj.getClass()) {
+      return false;
+    }
+   return this.hashCode() == obj.hashCode();
+  }
 }

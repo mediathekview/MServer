@@ -2,7 +2,6 @@ package de.mediathekview.mserver.crawler.orfon.task;
 
 import java.lang.reflect.Type;
 import java.net.URI;
-import java.util.Optional;
 import java.util.Queue;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -26,7 +25,7 @@ public class OrfOnEpisodeTask extends AbstractJsonRestTask<OrfOnVideoInfoDTO, Or
   private static final Logger LOG = LogManager.getLogger(OrfOnEpisodeTask.class);
 
   public OrfOnEpisodeTask(AbstractCrawler crawler, Queue<OrfOnBreadCrumsUrlDTO> urlToCrawlDTOs) {
-    super(crawler, urlToCrawlDTOs, OrfOnConstants.bearer);
+    super(crawler, urlToCrawlDTOs, OrfOnConstants.AUTH);
   }
 
   @Override

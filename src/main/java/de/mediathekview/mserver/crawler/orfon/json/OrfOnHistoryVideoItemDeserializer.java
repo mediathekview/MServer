@@ -13,11 +13,11 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 public class OrfOnHistoryVideoItemDeserializer implements JsonDeserializer<PagedElementListDTO<OrfOnBreadCrumsUrlDTO>> {
-  private String[] TAG_NEXT_PAGE = { "next" };
-  private String[] TAG_ITEM_ARRAY = { "_items" };
-  private String[] TAG_ITEM_TITLE = {"title"};
-  private String[] TAG_TARGET_URL = {"_links", "self", "href"};
-  private String[] TAG_TARGET_URL_EPISODE = {"_links", "episode", "href"};
+  private static final String[] TAG_NEXT_PAGE = { "next" };
+  private static final String[] TAG_ITEM_ARRAY = { "_items" };
+  private static final String[] TAG_ITEM_TITLE = {"title"};
+  private static final String[] TAG_TARGET_URL = {"_links", "self", "href"};
+  private static final String[] TAG_TARGET_URL_EPISODE = {"_links", "episode", "href"};
   
   protected final Logger LOG = LogManager.getLogger(this.getClass());
   

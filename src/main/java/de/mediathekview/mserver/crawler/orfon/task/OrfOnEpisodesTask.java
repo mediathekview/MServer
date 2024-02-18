@@ -29,7 +29,7 @@ public class OrfOnEpisodesTask extends AbstractJsonRestTask<OrfOnVideoInfoDTO, P
   private static final Logger LOG = LogManager.getLogger(OrfOnEpisodesTask.class);
 
   public OrfOnEpisodesTask(AbstractCrawler crawler, Queue<OrfOnBreadCrumsUrlDTO> urlToCrawlDTOs) {
-    super(crawler, urlToCrawlDTOs, OrfOnConstants.bearer);
+    super(crawler, urlToCrawlDTOs, OrfOnConstants.AUTH);
   }
 
   @Override

@@ -16,6 +16,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.EnumMap;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
@@ -121,12 +122,12 @@ public class OrfOnEpisodeDeserializer implements JsonDeserializer<OrfOnVideoInfo
   
   private Optional<Set<URL>> parseSubtitleUrls(JsonElement element) {
     Set<URL> urls = new HashSet<>();
-    JsonUtils.getElementValueAsString(element, TAG_SUBTITLE_SMI).ifPresent( stringUrl -> toURL(stringUrl).ifPresent(url -> urls.add(url)));
-    JsonUtils.getElementValueAsString(element, TAG_SUBTITLE_SRT).ifPresent( stringUrl -> toURL(stringUrl).ifPresent(url -> urls.add(url)));
-    JsonUtils.getElementValueAsString(element, TAG_SUBTITLE_TTML).ifPresent( stringUrl -> toURL(stringUrl).ifPresent(url -> urls.add(url)));
-    JsonUtils.getElementValueAsString(element, TAG_SUBTITLE_VTT).ifPresent( stringUrl -> toURL(stringUrl).ifPresent(url -> urls.add(url)));
-    JsonUtils.getElementValueAsString(element, TAG_SUBTITLE_XML).ifPresent( stringUrl -> toURL(stringUrl).ifPresent(url -> urls.add(url)));
-    if (urls.size() == 0) {
+    JsonUtils.getElementValueAsString(element, TAG_SUBTITLE_SMI).ifPresent( stringUrl -> toURL(stringUrl).ifPresent(urls::add));
+    JsonUtils.getElementValueAsString(element, TAG_SUBTITLE_SRT).ifPresent( stringUrl -> toURL(stringUrl).ifPresent(urls::add));
+    JsonUtils.getElementValueAsString(element, TAG_SUBTITLE_TTML).ifPresent( stringUrl -> toURL(stringUrl).ifPresent(urls::add));
+    JsonUtils.getElementValueAsString(element, TAG_SUBTITLE_VTT).ifPresent( stringUrl -> toURL(stringUrl).ifPresent(urls::add));
+    JsonUtils.getElementValueAsString(element, TAG_SUBTITLE_XML).ifPresent( stringUrl -> toURL(stringUrl).ifPresent(urls::add));
+    if (urls.isEmpty()) {
       return Optional.empty();
     }
     return Optional.of(urls);
@@ -170,7 +171,7 @@ public class OrfOnEpisodeDeserializer implements JsonDeserializer<OrfOnVideoInfo
       codec = Optional.of("dash");
     }
     if (codec.isPresent()) {
-      urls = Optional.of(new HashMap<Resolution, FilmUrl>());
+      urls = Optional.of(new EnumMap<>(Resolution.class));
       for (JsonElement codecUrls : jsonElement.getAsJsonObject().getAsJsonObject(TAG_VIDEO).getAsJsonArray(codec.get())) {
         try {
           String qualityString = codecUrls.getAsJsonObject().get(TAG_VIDEO_QUALITY).getAsString();
@@ -210,11 +211,11 @@ public class OrfOnEpisodeDeserializer implements JsonDeserializer<OrfOnVideoInfo
   private Optional<Collection<GeoLocations>> parseGeoLocations(Optional<String> text) {
     if (text.isPresent()) {
       if (text.get().equalsIgnoreCase("worldwide")) {
-        ArrayList<GeoLocations> a = new ArrayList<GeoLocations>();
+        ArrayList<GeoLocations> a = new ArrayList<>();
         a.add(GeoLocations.GEO_NONE);
         return Optional.of(a);
       } else if (text.get().equalsIgnoreCase("austria")) {
-        ArrayList<GeoLocations> a = new ArrayList<GeoLocations>();
+        ArrayList<GeoLocations> a = new ArrayList<>();
         a.add(GeoLocations.GEO_AT);
         return Optional.of(a);
       } else {

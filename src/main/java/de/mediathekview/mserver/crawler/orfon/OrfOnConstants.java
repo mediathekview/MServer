@@ -13,7 +13,7 @@ public final class OrfOnConstants {
   //
   public static final String EPISODE = HOST + "/episode";
   //
-  public static final String bearer = "Basic b3JmX29uX3Y0MzpqRlJzYk5QRmlQU3h1d25MYllEZkNMVU41WU5aMjhtdA==";
+  public static final String AUTH = "Basic b3JmX29uX3Y0MzpqRlJzYk5QRmlQU3h1d25MYllEZkNMVU41WU5aMjhtdA==";
   //
   private OrfOnConstants() {}
   //

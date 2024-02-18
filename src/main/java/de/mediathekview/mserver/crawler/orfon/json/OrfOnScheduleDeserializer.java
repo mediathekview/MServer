@@ -19,7 +19,7 @@ public class OrfOnScheduleDeserializer implements JsonDeserializer<PagedElementL
   public PagedElementListDTO<OrfOnBreadCrumsUrlDTO> deserialize(
       final JsonElement jsonElement, final Type typeOfT, final JsonDeserializationContext context)
       throws JsonParseException {
-    PagedElementListDTO<OrfOnBreadCrumsUrlDTO> collectIds = new PagedElementListDTO<OrfOnBreadCrumsUrlDTO>();
+    PagedElementListDTO<OrfOnBreadCrumsUrlDTO> collectIds = new PagedElementListDTO<>();
     final JsonArray elements = jsonElement.getAsJsonArray();
     for (JsonElement element : elements) {
       final Optional<String> name = JsonUtils.getElementValueAsString(element, TAG_FILM_NAME);
