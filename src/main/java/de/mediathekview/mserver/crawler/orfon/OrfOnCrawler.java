@@ -53,10 +53,10 @@ public class OrfOnCrawler extends AbstractCrawler {
     try {
       // Sendungen Verpasst (letzten 14 Tage)
       // TAG > Episode > Episode2Film
-      //final Set<OrfOnVideoInfoDTO> epsiodesFromDay = processDayUrlsToCrawl();
-      //allVideos.addAll(epsiodesFromDay);
-      //printMessage(ServerMessages.DEBUG_ALL_SENDUNG_FOLGEN_COUNT, getSender().getName(), allVideos.size());
-      //getAndSetMaxCount(allVideos.size());
+      final Set<OrfOnVideoInfoDTO> epsiodesFromDay = processDayUrlsToCrawl();
+      allVideos.addAll(epsiodesFromDay);
+      printMessage(ServerMessages.DEBUG_ALL_SENDUNG_FOLGEN_COUNT, getSender().getName(), allVideos.size());
+      getAndSetMaxCount(allVideos.size());
       //
       // Sendungen a-z
       // Buchstabe > Episoden > Episode2Film
@@ -66,10 +66,10 @@ public class OrfOnCrawler extends AbstractCrawler {
       getAndSetMaxCount(allVideos.size());
       //
       // History (top categories) > children > 
-      //final Set<OrfOnVideoInfoDTO> historyVideos = processHistoryUrlToCrawl();
-      //allVideos.addAll(historyVideos);
-      //printMessage(ServerMessages.DEBUG_ALL_SENDUNG_FOLGEN_COUNT, getSender().getName(), allVideos.size());
-      //getAndSetMaxCount(allVideos.size());
+      final Set<OrfOnVideoInfoDTO> historyVideos = processHistoryUrlToCrawl();
+      allVideos.addAll(historyVideos);
+      printMessage(ServerMessages.DEBUG_ALL_SENDUNG_FOLGEN_COUNT, getSender().getName(), allVideos.size());
+      getAndSetMaxCount(allVideos.size());
       //
       return new OrfOnVideoInfo2FilmTask(this, new ConcurrentLinkedQueue<>(allVideos));
     } catch (final Exception ex) {
