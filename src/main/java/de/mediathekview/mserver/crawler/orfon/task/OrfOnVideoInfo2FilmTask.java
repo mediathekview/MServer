@@ -51,7 +51,7 @@ public class OrfOnVideoInfo2FilmTask extends AbstractRecursiveConverterTask<Film
       newTopic = newTopic.replace("AD | ", "");
     }
     if (newTopic.equalsIgnoreCase("archiv")) {
-      newTopic = newTopic.replace("History | ", "");
+      newTopic = archiveTopic.replace("History | ", "");
     }
     return newTopic;
   }
