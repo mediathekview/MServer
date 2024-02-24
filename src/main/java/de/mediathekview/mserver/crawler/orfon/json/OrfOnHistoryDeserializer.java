@@ -55,7 +55,6 @@ public class OrfOnHistoryDeserializer implements JsonDeserializer<PagedElementLi
       } else {
         LOG.debug("missing url for {}", title);
       }
-      //LOG.debug("History Item {} {}", title, url);
     }
     return items;
   }

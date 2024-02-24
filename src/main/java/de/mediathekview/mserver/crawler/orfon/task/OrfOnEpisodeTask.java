@@ -30,7 +30,7 @@ public class OrfOnEpisodeTask extends AbstractJsonRestTask<OrfOnVideoInfoDTO, Or
 
   @Override
   protected JsonDeserializer<OrfOnVideoInfoDTO> getParser(OrfOnBreadCrumsUrlDTO aDTO) {
-    return new OrfOnEpisodeDeserializer();
+    return new OrfOnEpisodeDeserializer(this.crawler);
   }
 
   @Override

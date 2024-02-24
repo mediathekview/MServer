@@ -26,7 +26,6 @@ public class OrfOnScheduleDeserializer implements JsonDeserializer<PagedElementL
       final Optional<String> id = JsonUtils.getElementValueAsString(element, TAG_FILM_ID);
       if (id.isPresent()) {
         final String url = OrfOnConstants.EPISODE + "/" + id.get();
-        //LOG.debug("found {} {} {}", id, name, url);
         collectIds.addElement(new OrfOnBreadCrumsUrlDTO(id.get(), url));
       }
     }

@@ -49,12 +49,6 @@ public class OrfOnHistoryChildrenDeserializer implements JsonDeserializer<PagedE
         } else {
           LOG.info("No video_items or children tag found {}",JsonUtils.getElementValueAsString(item, TAG_ITEM_TITLE) );
         }
-        /*
-        LOG.debug("OrfOnHistoryChildrenDeserializer {} - {} - {}", 
-            JsonUtils.getElementValueAsString(item, TAG_ITEM_TITLE),
-            JsonUtils.getElementValueAsString(item, TAG_TARGET_URL),
-            JsonUtils.getElementValueAsString(item, TAG_TARGET_URL2));*/
-
       }
     }
     //

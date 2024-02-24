@@ -3,6 +3,7 @@ package de.mediathekview.mserver.crawler.orfon.json;
 import com.google.gson.*;
 
 import de.mediathekview.mserver.base.utils.JsonUtils;
+import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
 import de.mediathekview.mserver.crawler.basic.PagedElementListDTO;
 import de.mediathekview.mserver.crawler.orfon.OrfOnVideoInfoDTO;
 
@@ -12,7 +13,11 @@ import java.util.Optional;
 public class OrfOnEpisodesDeserializer implements JsonDeserializer<PagedElementListDTO<OrfOnVideoInfoDTO>> {
   private static final String[] TAG_NEXT_PAGE = {"_links", "next", "href"};
   private static final String[] TAG_ITEMS = {"_embedded", "items"};
-  private static final OrfOnEpisodeDeserializer itemDeserializer = new OrfOnEpisodeDeserializer();
+  private OrfOnEpisodeDeserializer itemDeserializer = null;
+  
+  public OrfOnEpisodesDeserializer(AbstractCrawler crawler) {
+    itemDeserializer = new OrfOnEpisodeDeserializer(crawler);
+  }
   
   @Override
   public PagedElementListDTO<OrfOnVideoInfoDTO> deserialize(

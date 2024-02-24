@@ -65,7 +65,7 @@ public class OrfOnCrawler extends AbstractCrawler {
       printMessage(ServerMessages.DEBUG_ALL_SENDUNG_FOLGEN_COUNT, getSender().getName(), allVideos.size());
       getAndSetMaxCount(allVideos.size());
       //
-      // History (top categories) > children > 
+      // History (top categories) > children > VideoItem > Episode > Episode2Film
       final Set<OrfOnVideoInfoDTO> historyVideos = processHistoryUrlToCrawl();
       allVideos.addAll(historyVideos);
       printMessage(ServerMessages.DEBUG_ALL_SENDUNG_FOLGEN_COUNT, getSender().getName(), allVideos.size());

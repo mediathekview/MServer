@@ -6,8 +6,11 @@ import de.mediathekview.mlib.daten.FilmUrl;
 import de.mediathekview.mlib.daten.GeoLocations;
 import de.mediathekview.mlib.daten.Resolution;
 import de.mediathekview.mserver.base.utils.JsonUtils;
+import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
+import de.mediathekview.mserver.crawler.orfon.OrfOnConstants;
 import de.mediathekview.mserver.crawler.orfon.OrfOnVideoInfoDTO;
 
+import java.io.IOException;
 import java.lang.reflect.Type;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -47,11 +50,19 @@ public class OrfOnEpisodeDeserializer implements JsonDeserializer<OrfOnVideoInfo
   private static final String TAG_VIDEO_QUALITY = "quality_key";
   private static final String TAG_VIDEO_URL = "src";
   //
-  private static final String[] TAG_SUBTITLE_SMI = {"_embedded", "subtitle", "sami_url"};
-  private static final String[] TAG_SUBTITLE_SRT = {"_embedded", "subtitle", "srt_url"};
-  private static final String[] TAG_SUBTITLE_TTML = {"_embedded", "subtitle", "ttml_url"};
-  private static final String[] TAG_SUBTITLE_VTT = {"_embedded", "subtitle", "vtt_url"};
-  private static final String[] TAG_SUBTITLE_XML = {"_embedded", "subtitle", "xml_url"};
+  private static final String[] TAG_SUBTITLE_SECTION = {"_embedded", "subtitle"};
+  private static final String TAG_SUBTITLE_SMI = "sami_url";
+  private static final String TAG_SUBTITLE_SRT = "srt_url";
+  private static final String TAG_SUBTITLE_TTML = "ttml_url";
+  private static final String TAG_SUBTITLE_VTT = "vtt_url";
+  private static final String TAG_SUBTITLE_XML = "xml_url";
+  //
+  private AbstractCrawler crawler = null;
+  //
+  
+  public OrfOnEpisodeDeserializer(AbstractCrawler crawler) {
+    this.crawler = crawler;
+  }
   
   @Override
   public OrfOnVideoInfoDTO deserialize(
@@ -71,10 +82,9 @@ public class OrfOnEpisodeDeserializer implements JsonDeserializer<OrfOnVideoInfo
         parseGeoLocations(JsonUtils.getElementValueAsString(jsonElement, TAG_RIGHT)),
         parseSubtitleSource(JsonUtils.getElementValueAsString(jsonElement, TAG_SUBTITLE)),
         parseUrl(jsonElement),
-        parseSubtitleUrls(jsonElement)
+        buildOrResolveSubs(jsonElement)
         
         );
-    //LOG.debug("{}",jsonElement );
     
     if (aFilm.getVideoUrls().isEmpty()){
       LOG.debug("#####videoUrlEmpty#######");
@@ -91,21 +101,34 @@ public class OrfOnEpisodeDeserializer implements JsonDeserializer<OrfOnVideoInfo
       LOG.debug("{}",jsonElement );
       LOG.debug("############");
     }
-    if (aFilm.getSubtitleSource().isPresent() && aFilm.getSubtitleUrls().isEmpty()) {
-      LOG.debug("getSubtitleSource but no getSubtitleUrls {}", aFilm.getId().get());
-    }
-    
-    // "genre_title": "Wetter",
-    // "headline": "Wetter Tirol vom 05.01.2024",
-    // "profile_title": "Wetter Tirol",
-    // "title": "Wetter Tirol vom 05.01.2024",
-    // "share_subject": "Wetter Tirol vom 05.01.2024 vom 05.01.2024 um 19:20 Uhr",
-    // "sub_headline": "Wetter Tirol",
-    
     // 
     return aFilm;
   }
   
+  private Optional<Set<URL>> buildOrResolveSubs(JsonElement jsonElement) {
+    Optional<String> subtitleSource = JsonUtils.getElementValueAsString(jsonElement, TAG_SUBTITLE);
+    Optional<JsonElement> embeddedSubtitleSection = JsonUtils.getElement(jsonElement, TAG_SUBTITLE_SECTION);
+    Optional<Set<URL>> setOfSubs = Optional.empty();
+    if (embeddedSubtitleSection.isPresent()) {
+      setOfSubs = parseSubtitleUrls(embeddedSubtitleSection.get());  
+    } else if (subtitleSource.isPresent()) {
+      Map<String, String> myMap = Map.ofEntries(
+          Map.entry("Authorization", OrfOnConstants.AUTH),
+          Map.entry("Accept-Charset", "UTF_8"),
+          Map.entry("User-Agent", "Mozilla"),
+          Map.entry("Accept-Encoding", "*"));
+      JsonElement newRequestForSubs = null;
+      try {
+        newRequestForSubs = crawler.getConnection().requestBodyAsJsonElement(subtitleSource.get().toString(), myMap);
+        setOfSubs = parseSubtitleUrls(newRequestForSubs);
+      } catch (IOException e) {
+        LOG.error("Failed to resolve subtitle from {} error {}", subtitleSource, e);
+      }
+      
+    }
+    return setOfSubs;
+  }
+
   private Optional<URL> parseSubtitleSource(Optional<String> text) {
     Optional<URL> sub = Optional.empty();
     if (text.isPresent()) {
@@ -118,7 +141,6 @@ public class OrfOnEpisodeDeserializer implements JsonDeserializer<OrfOnVideoInfo
     return sub;
     
   }
-  
   
   private Optional<Set<URL>> parseSubtitleUrls(JsonElement element) {
     Set<URL> urls = new HashSet<>();
@@ -150,8 +172,7 @@ public class OrfOnEpisodeDeserializer implements JsonDeserializer<OrfOnVideoInfo
         LOG.debug("unkown video type {} ", jsonElement);
       }
     }
-    
-    
+
     Optional<Map<Resolution, FilmUrl>> urls = Optional.empty();
     Optional<String> codec = Optional.empty(); //
     if (jsonElement.getAsJsonObject().has(TAG_VIDEO) &&

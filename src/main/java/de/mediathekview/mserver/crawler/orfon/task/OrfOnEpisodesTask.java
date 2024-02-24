@@ -34,7 +34,7 @@ public class OrfOnEpisodesTask extends AbstractJsonRestTask<OrfOnVideoInfoDTO, P
 
   @Override
   protected JsonDeserializer<PagedElementListDTO<OrfOnVideoInfoDTO>> getParser(OrfOnBreadCrumsUrlDTO aDTO) {
-    return new OrfOnEpisodesDeserializer();
+    return new OrfOnEpisodesDeserializer(this.crawler);
   }
 
   @Override
