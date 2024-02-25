@@ -120,7 +120,9 @@ public class OrfOnEpisodeDeserializer implements JsonDeserializer<OrfOnVideoInfo
       JsonElement newRequestForSubs = null;
       try {
         newRequestForSubs = crawler.getConnection().requestBodyAsJsonElement(subtitleSource.get().toString(), myMap);
-        setOfSubs = parseSubtitleUrls(newRequestForSubs);
+        if (newRequestForSubs != null) {
+          setOfSubs = parseSubtitleUrls(newRequestForSubs);
+        }
       } catch (IOException e) {
         LOG.error("Failed to resolve subtitle from {} error {}", subtitleSource, e);
       }
