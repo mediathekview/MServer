@@ -55,6 +55,16 @@ public class OrfOnEpisodeTask extends AbstractJsonRestTask<OrfOnVideoInfoDTO, Or
       crawler.incrementAndGetErrorCount();
       return;
     }
+    if (aResponseObj.getDuration().isEmpty()) {
+      LOG.warn("Missing duration for {}", aDTO);
+    }
+    if (aResponseObj.getAired().isEmpty()) {
+      LOG.warn("Missing aired date for {}", aDTO);
+    }
+    if (aResponseObj.getWebsite().isEmpty()) {
+      LOG.warn("Missing website for {}", aDTO);
+    }
+
     //LOG.debug(" bread crums {} # {} # {}", String.join("|", aDTO.getBreadCrums()), aResponseObj.getTopic().get(), aResponseObj.getTitle().get());
     taskResults.add(aResponseObj);    
   }

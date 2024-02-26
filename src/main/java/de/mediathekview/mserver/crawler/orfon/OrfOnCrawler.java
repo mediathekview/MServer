@@ -74,6 +74,7 @@ public class OrfOnCrawler extends AbstractCrawler {
       return new OrfOnVideoInfo2FilmTask(this, new ConcurrentLinkedQueue<>(allVideos));
     } catch (final Exception ex) {
       LOG.fatal("Exception in ORFON crawler.", ex);
+      Thread.currentThread().interrupt();
     }
 
     return null;

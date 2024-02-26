@@ -9,9 +9,6 @@ import de.mediathekview.mserver.crawler.orfon.OrfOnBreadCrumsUrlDTO;
 import java.lang.reflect.Type;
 import java.util.Optional;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
 public class OrfOnHistoryVideoItemDeserializer implements JsonDeserializer<PagedElementListDTO<OrfOnBreadCrumsUrlDTO>> {
   private static final String[] TAG_NEXT_PAGE = { "next" };
   private static final String[] TAG_ITEM_ARRAY = { "_items" };
@@ -19,7 +16,7 @@ public class OrfOnHistoryVideoItemDeserializer implements JsonDeserializer<Paged
   private static final String[] TAG_TARGET_URL = {"_links", "self", "href"};
   private static final String[] TAG_TARGET_URL_EPISODE = {"_links", "episode", "href"};
   
-  protected final Logger LOG = LogManager.getLogger(this.getClass());
+
   
   @Override
   public PagedElementListDTO<OrfOnBreadCrumsUrlDTO> deserialize(

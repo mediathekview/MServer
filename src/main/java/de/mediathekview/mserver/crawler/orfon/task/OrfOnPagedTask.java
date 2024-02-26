@@ -22,7 +22,7 @@ import jakarta.ws.rs.core.Response;
 // return T Class from this task, desirialisation of class R , D , Reasearch in this url
 public abstract class OrfOnPagedTask extends AbstractJsonRestTask<OrfOnBreadCrumsUrlDTO, PagedElementListDTO<OrfOnBreadCrumsUrlDTO>, OrfOnBreadCrumsUrlDTO> {
   private static final long serialVersionUID = 1L;
-  protected final Logger LOG = LogManager.getLogger(this.getClass());
+  protected final transient Logger log = LogManager.getLogger(this.getClass());
   protected Optional<AbstractRecursiveConverterTask<OrfOnBreadCrumsUrlDTO, OrfOnBreadCrumsUrlDTO>> nextPageTask = Optional.empty();
 
   protected OrfOnPagedTask(AbstractCrawler crawler, Queue<OrfOnBreadCrumsUrlDTO> urlToCrawlDTOs) {
@@ -37,7 +37,7 @@ public abstract class OrfOnPagedTask extends AbstractJsonRestTask<OrfOnBreadCrum
     nextPageLinks.add(new OrfOnBreadCrumsUrlDTO(aDTO.getBreadCrums(), aResponseObj.getNextPage().get()));
     nextPageTask = Optional.of(createNewOwnInstance(nextPageLinks));
     nextPageTask.get().fork();
-    LOG.debug("started paging to url {} for {}", aResponseObj.getNextPage().get(), aDTO.getUrl());
+    log.debug("started paging to url {} for {}", aResponseObj.getNextPage().get(), aDTO.getUrl());
   }
   
   protected void postProcessingElements(Set<OrfOnBreadCrumsUrlDTO> elements, OrfOnBreadCrumsUrlDTO originalDTO) {
@@ -57,7 +57,7 @@ public abstract class OrfOnPagedTask extends AbstractJsonRestTask<OrfOnBreadCrum
   @Override
   protected void handleHttpError(OrfOnBreadCrumsUrlDTO dto, URI url, Response response) {
       crawler.printErrorMessage();
-      LOG.fatal(
+      log.fatal(
           "A HTTP error {} occurred when getting REST information from: \"{}\".",
           response.getStatus(),
           url);

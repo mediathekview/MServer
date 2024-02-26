@@ -54,8 +54,34 @@ public class OrfOnEpisodesTask extends AbstractJsonRestTask<OrfOnVideoInfoDTO, P
     } else {
       subpageCrawler = Optional.empty();
     }
-
-    taskResults.addAll(aResponseObj.getElements());
+    //
+    for (OrfOnVideoInfoDTO rs : aResponseObj.getElements()) {
+      if (rs.getTitle().isEmpty() && rs.getTitleWithDate().isEmpty()) {
+        LOG.warn("Missing title for {} in {}", rs.getId(), aDTO);
+        crawler.incrementAndGetErrorCount();
+        return;
+      }
+      if (rs.getTopic().isEmpty()) {
+        LOG.warn("Missing topic for {} in {}", rs.getId(), aDTO);
+        crawler.incrementAndGetErrorCount();
+        return;
+      }
+      if (rs.getVideoUrls().isEmpty()) {
+        LOG.warn("Missing videoUrls for {} in {}", rs.getId(), aDTO);
+        crawler.incrementAndGetErrorCount();
+        return;
+      }
+      if (rs.getDuration().isEmpty()) {
+        LOG.warn("Missing duration for {} in {}", rs.getId(), aDTO);
+      }
+      if (rs.getAired().isEmpty()) {
+        LOG.warn("Missing aired date for {} in {}", rs.getId(), aDTO);
+      }
+      if (rs.getWebsite().isEmpty()) {
+        LOG.warn("Missing website for {} in {}", rs.getId(), aDTO);
+      }
+      taskResults.add(rs);
+    }
     subpageCrawler.ifPresent(paginationResults -> taskResults.addAll(paginationResults.join()));
   }
 

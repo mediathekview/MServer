@@ -1,5 +1,7 @@
 package de.mediathekview.mserver.crawler.orfon.task;
 
+import java.time.Duration;
+import java.time.LocalDateTime;
 import java.util.Queue;
 import java.util.UUID;
 
@@ -11,6 +13,7 @@ import de.mediathekview.mserver.crawler.orfon.OrfOnVideoInfoDTO;
 
 public class OrfOnVideoInfo2FilmTask extends AbstractRecursiveConverterTask<Film, OrfOnVideoInfoDTO> {
   private static final long serialVersionUID = 1L;
+  private static final String ORF_AUDIODESCRIPTION_PREFIX = "AD | ";
   
   public OrfOnVideoInfo2FilmTask(AbstractCrawler aCrawler, Queue<OrfOnVideoInfoDTO> aUrlToCrawlDTOs) {
     super(aCrawler, aUrlToCrawlDTOs);
@@ -32,8 +35,8 @@ public class OrfOnVideoInfo2FilmTask extends AbstractRecursiveConverterTask<Film
         Sender.ORF,
         buildTitle(aElement.getTitle().get(), aElement.getTopic().get()),
         buildTopic(aElement.getTitle().get(), aElement.getTopic().get(), aElement.getTopicForArchive().orElse("")),
-        aElement.getAired().get(),
-        aElement.getDuration().get()
+        aElement.getAired().orElse(LocalDateTime.of(1970,1,1,00,00,00)),
+        aElement.getDuration().orElse(Duration.ofMinutes(0L))
         );
     aElement.getGeorestriction().ifPresent(aFilm::addAllGeoLocations);
     aElement.getDescription().ifPresent(aFilm::setBeschreibung);
@@ -47,8 +50,8 @@ public class OrfOnVideoInfo2FilmTask extends AbstractRecursiveConverterTask<Film
   
   private String buildTopic(String title, String topic, String archiveTopic) {
     String newTopic = topic;
-    if (newTopic.startsWith("AD | ")) {
-      newTopic = newTopic.replace("AD | ", "");
+    if (newTopic.startsWith(ORF_AUDIODESCRIPTION_PREFIX)) {
+      newTopic = newTopic.replace(ORF_AUDIODESCRIPTION_PREFIX, "");
     }
     if (newTopic.equalsIgnoreCase("archiv")) {
       newTopic = archiveTopic.replace("History | ", "");
@@ -57,8 +60,8 @@ public class OrfOnVideoInfo2FilmTask extends AbstractRecursiveConverterTask<Film
   }
   
   private String buildTitle(String title, String topic) {
-    if (title.startsWith("AD | ")) {
-      return title.replace("AD | ", "").concat(" (Audiodeskription)");
+    if (title.startsWith(ORF_AUDIODESCRIPTION_PREFIX)) {
+      return title.replace(ORF_AUDIODESCRIPTION_PREFIX, "").concat(" (Audiodeskription)");
     }
     return title;
   }

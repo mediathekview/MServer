@@ -20,7 +20,6 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.EnumMap;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Optional;
@@ -85,23 +84,6 @@ public class OrfOnEpisodeDeserializer implements JsonDeserializer<OrfOnVideoInfo
         buildOrResolveSubs(jsonElement)
         
         );
-    
-    if (aFilm.getVideoUrls().isEmpty()){
-      LOG.debug("#####videoUrlEmpty#######");
-      LOG.debug("{} (id)", aFilm.getId().get());
-      LOG.debug("{} (genre_title)", JsonUtils.getElementValueAsString(jsonElement, "genre_title").get());
-      LOG.debug("{} (headline)", JsonUtils.getElementValueAsString(jsonElement, "headline").get());
-      LOG.debug("{} (profile_title*)", JsonUtils.getElementValueAsString(jsonElement, "profile_title").get());
-      LOG.debug("{} (title*)", JsonUtils.getElementValueAsString(jsonElement, "title").get());
-      LOG.debug("{} (sub_headline)", JsonUtils.getElementValueAsString(jsonElement, "sub_headline").get());
-      LOG.debug("{} (share_subject)", JsonUtils.getElementValueAsString(jsonElement, "share_subject").get());
-      LOG.debug("{} (TAG_RIGHT)", parseGeoLocations(JsonUtils.getElementValueAsString(jsonElement, TAG_RIGHT)));
-      LOG.debug("{} (url)", parseUrl(jsonElement));
-      LOG.debug("{} (segments)", JsonUtils.getElementValueAsString(jsonElement, TAG_SEGMENTS));
-      LOG.debug("{}",jsonElement );
-      LOG.debug("############");
-    }
-    // 
     return aFilm;
   }
   
@@ -119,7 +101,7 @@ public class OrfOnEpisodeDeserializer implements JsonDeserializer<OrfOnVideoInfo
           Map.entry("Accept-Encoding", "*"));
       JsonElement newRequestForSubs = null;
       try {
-        newRequestForSubs = crawler.getConnection().requestBodyAsJsonElement(subtitleSource.get().toString(), myMap);
+        newRequestForSubs = crawler.getConnection().requestBodyAsJsonElement(subtitleSource.get(), myMap);
         if (newRequestForSubs != null) {
           setOfSubs = parseSubtitleUrls(newRequestForSubs);
         }
