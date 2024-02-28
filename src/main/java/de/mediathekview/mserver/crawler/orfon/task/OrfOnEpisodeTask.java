@@ -66,7 +66,7 @@ public class OrfOnEpisodeTask extends AbstractJsonRestTask<OrfOnVideoInfoDTO, Or
     }
 
     //LOG.debug(" bread crums {} # {} # {}", String.join("|", aDTO.getBreadCrums()), aResponseObj.getTopic().get(), aResponseObj.getTitle().get());
-    taskResults.add(aResponseObj);    
+    taskResults.add(aResponseObj);
   }
 
   @Override

@@ -151,7 +151,7 @@ public class OrfOnEpisodeDeserializer implements JsonDeserializer<OrfOnVideoInfo
   
   private Optional<Map<Resolution, FilmUrl>> parseUrl(JsonElement jsonElement) {
     Optional<JsonElement> videoPath1 = JsonUtils.getElement(jsonElement, TAG_VIDEO_PATH_1);
-    if (videoPath1.isEmpty() || !videoPath1.get().isJsonArray()) {
+    if (videoPath1.isEmpty() || !videoPath1.get().isJsonArray() || videoPath1.get().getAsJsonArray().size() == 0) {
       return Optional.empty();
     }
     Optional<JsonElement> videoPath2 = JsonUtils.getElement(videoPath1.get().getAsJsonArray().get(0), TAG_VIDEO_PATH_2);
