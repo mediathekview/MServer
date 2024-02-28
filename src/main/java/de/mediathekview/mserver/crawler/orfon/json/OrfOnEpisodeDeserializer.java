@@ -43,12 +43,12 @@ public class OrfOnEpisodeDeserializer implements JsonDeserializer<OrfOnVideoInfo
   private static final String TAG_SHARE_BODY = "share_body";
   private static final String TAG_RIGHT = "right";
   private static final String TAG_VIDEO_TYPE ="video_type";
-  private static final String[] TAG_SEGMENTS = {"_links", "segments", "href"};
   private static final String[] TAG_SUBTITLE = {"_links", "subtitle", "href"};
-  private static final String TAG_VIDEO = "sources";
-  private static final String TAG_VIDEO_QUALITY = "quality_key";
+  private static final String[] TAG_VIDEO_PATH_1 = {"_embedded","segments"};
+  private static final String[] TAG_VIDEO_PATH_2 = {"_embedded", "playlist", "sources"};
   private static final String TAG_VIDEO_URL = "src";
-  //
+  private static final String TAG_VIDEO_CODEC = "delivery";
+  private static final String TAG_VIDEO_QUALITY = "quality";
   private static final String[] TAG_SUBTITLE_SECTION = {"_embedded", "subtitle"};
   private static final String TAG_SUBTITLE_SMI = "sami_url";
   private static final String TAG_SUBTITLE_SRT = "srt_url";
@@ -57,6 +57,7 @@ public class OrfOnEpisodeDeserializer implements JsonDeserializer<OrfOnVideoInfo
   private static final String TAG_SUBTITLE_XML = "xml_url";
   //
   private AbstractCrawler crawler = null;
+  private static final String[] PREFERED_CODEC = {"hls", "hds", "streaming", "progressive"};
   //
   
   public OrfOnEpisodeDeserializer(AbstractCrawler crawler) {
@@ -149,57 +150,48 @@ public class OrfOnEpisodeDeserializer implements JsonDeserializer<OrfOnVideoInfo
   }
   
   private Optional<Map<Resolution, FilmUrl>> parseUrl(JsonElement jsonElement) {
-    
-    for (Map.Entry<String, JsonElement> entry : jsonElement.getAsJsonObject().getAsJsonObject(TAG_VIDEO).entrySet()) {
-
-      if (!"hlshdssmoothdashprogressive_download".contains(entry.getKey())) {
-        LOG.debug("unkown video type {} ", jsonElement);
+    Optional<JsonElement> videoPath1 = JsonUtils.getElement(jsonElement, TAG_VIDEO_PATH_1);
+    if (videoPath1.isEmpty() || !videoPath1.get().isJsonArray()) {
+      return Optional.empty();
+    }
+    Optional<JsonElement> videoPath2 = JsonUtils.getElement(videoPath1.get().getAsJsonArray().get(0), TAG_VIDEO_PATH_2);
+    if (videoPath2.isEmpty() || !videoPath2.get().isJsonArray()) {
+      return Optional.empty();
+    }
+    for (String key : PREFERED_CODEC) {
+      Optional<Map<Resolution,FilmUrl>> resultingVideos = readVideoForTargetCodec(videoPath2.get(),key);
+      if (resultingVideos.isPresent()) {
+        return resultingVideos;
       }
     }
 
-    Optional<Map<Resolution, FilmUrl>> urls = Optional.empty();
-    Optional<String> codec = Optional.empty(); //
-    if (jsonElement.getAsJsonObject().has(TAG_VIDEO) &&
-        jsonElement.getAsJsonObject().getAsJsonObject(TAG_VIDEO).has("progressive_download")) {
-      codec = Optional.of("progressive_download");
-    } else if (jsonElement.getAsJsonObject().has(TAG_VIDEO) &&
-        jsonElement.getAsJsonObject().getAsJsonObject(TAG_VIDEO).has("hls")) {
-      codec = Optional.of("hls");
-    } else if (jsonElement.getAsJsonObject().has(TAG_VIDEO) &&
-        jsonElement.getAsJsonObject().getAsJsonObject(TAG_VIDEO).has("hds")) {
-      codec = Optional.of("hds");
-    } else if (jsonElement.getAsJsonObject().has(TAG_VIDEO) &&
-        jsonElement.getAsJsonObject().getAsJsonObject(TAG_VIDEO).has("smooth")) {
-      codec = Optional.of("smooth");
-    } else if (jsonElement.getAsJsonObject().has(TAG_VIDEO) &&
-        jsonElement.getAsJsonObject().getAsJsonObject(TAG_VIDEO).has("dash")) {
-      codec = Optional.of("dash");
-    }
-    if (codec.isPresent()) {
-      urls = Optional.of(new EnumMap<>(Resolution.class));
-      for (JsonElement codecUrls : jsonElement.getAsJsonObject().getAsJsonObject(TAG_VIDEO).getAsJsonArray(codec.get())) {
+    return Optional.empty();
+  }
+  
+  private Optional<Map<Resolution, FilmUrl>> readVideoForTargetCodec(JsonElement urlArray, String targetCodec) {
+    Map<Resolution, FilmUrl> urls = new EnumMap<>(Resolution.class);
+    for (JsonElement videoElement : urlArray.getAsJsonArray()) {
+      Optional<String> codec = JsonUtils.getElementValueAsString(videoElement, TAG_VIDEO_CODEC);
+      Optional<String> quality = JsonUtils.getElementValueAsString(videoElement, TAG_VIDEO_QUALITY);
+      Optional<String> url = JsonUtils.getElementValueAsString(videoElement, TAG_VIDEO_URL);
+      if (url.isPresent() && codec.isPresent() && quality.isPresent() && targetCodec.equalsIgnoreCase(codec.get())) {
         try {
-          String qualityString = codecUrls.getAsJsonObject().get(TAG_VIDEO_QUALITY).getAsString();
-          String url = codecUrls.getAsJsonObject().get(TAG_VIDEO_URL).getAsString();
-          urls.get().put(
-            OrfOnEpisodeDeserializer.getQuality(qualityString).get(),
-            new FilmUrl(url, 0L)
-          );
-        } catch (Exception e) {
-          LOG.error(
-              "parseUrl failed for quality {} and url {} exception {}", 
-              codecUrls.getAsJsonObject().get("quality_key").getAsString(), 
-              codecUrls.getAsJsonObject().get("src").getAsString(), 
-              e
-          );
+          long fileSize = crawler.determineFileSizeInKB(url.get());
+          urls.put(
+            OrfOnEpisodeDeserializer.getQuality(quality.get()).get(),
+            new FilmUrl(url.get(), fileSize)
+            );
+        } catch (MalformedURLException e) {
+          LOG.error("Malformed video url {} {}", url.get(), e);
         }
       }
-      if (urls.get().size() == 0) {
-        return Optional.empty();
-      }
     }
-    return urls;
+    if (urls.isEmpty()) {
+      Optional.empty();
+    }
+    return Optional.of(urls);
   }
+  
   
   private Optional<URL> parseWebsite(Optional<String> text) {
     Optional<URL> result = Optional.empty();

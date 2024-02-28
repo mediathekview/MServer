@@ -101,8 +101,12 @@ public class OrfOnCrawler extends AbstractCrawler {
   private Set<OrfOnVideoInfoDTO> processAZUrlsToCrawl() throws InterruptedException, ExecutionException {
     final ForkJoinTask<Set<OrfOnBreadCrumsUrlDTO>> letterTask = forkJoinPool.submit(new OrfOnAZTask(this, createAZUrlsToCrawl()));
     final Set<OrfOnBreadCrumsUrlDTO> letterTaskTopics = letterTask.get();
-    final ForkJoinTask<Set<OrfOnVideoInfoDTO>> videosFromTopicsTask = forkJoinPool.submit(new OrfOnEpisodesTask(this, new ConcurrentLinkedQueue<>(letterTaskTopics)));
-    return videosFromTopicsTask.get();    
+    final ForkJoinTask<Set<OrfOnBreadCrumsUrlDTO>> episodesFromTopicsTask = forkJoinPool.submit(new OrfOnEpisodesTask(this, new ConcurrentLinkedQueue<>(letterTaskTopics)));
+    final Set<OrfOnBreadCrumsUrlDTO> episodesFromTopics = episodesFromTopicsTask.get();
+    final ForkJoinTask<Set<OrfOnVideoInfoDTO>> videoEpisodeTask = forkJoinPool.submit(new OrfOnEpisodeTask(this, new ConcurrentLinkedQueue<>(episodesFromTopics)));
+    final Set<OrfOnVideoInfoDTO> videoEpisode = videoEpisodeTask.get();
+    return videoEpisode;
+    
   }
 
   

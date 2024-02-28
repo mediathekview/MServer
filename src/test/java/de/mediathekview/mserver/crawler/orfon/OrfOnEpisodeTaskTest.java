@@ -70,7 +70,12 @@ public class OrfOnEpisodeTaskTest extends OrfOnEpisodesTaskTest {
             Optional.of(new URL("https://tvthek.orf.at/profile/Servus-Kasperl/3272601/Servus-Kasperl-Kasperl-Strolchi-Koko-und-Maximilian/14207792")),
             Optional.of(List.of(GeoLocations.GEO_NONE)),
             Optional.of(new URL("https://api-tvthek.orf.at/api/v4.3/subtitle/885340")),
-            Optional.of(Map.of(Resolution.NORMAL, new FilmUrl("https://apasfiis.sf.apa.at/ipad/cms-worldwide/2024-01-04_0707_tl_01_Servus-Kasperl-_____14207792__o__6332192865__s15543049_9__ORF1HD_07081012P_07300711P_QXB.mp4/playlist.m3u8", 0L))),
+            Optional.of(Map.of(
+                Resolution.HD, new FilmUrl("https://dapasfiis.sf.apa.at/ipad/cms-worldwide/2024-01-04_0707_tl_01_Servus-Kasperl-_____14207792__o__6332192865__s15543049_9__ORF1HD_07081012P_07300711P_Q8C.mp4/playlist.m3u8", 0L),
+                Resolution.NORMAL, new FilmUrl("https://apasfiis.sf.apa.at/ipad/cms-worldwide/2024-01-04_0707_tl_01_Servus-Kasperl-_____14207792__o__6332192865__s15543049_9__ORF1HD_07081012P_07300711P_QXB.mp4/playlist.m3u8", 0L),
+                Resolution.SMALL, new FilmUrl("https://apasfiis.sf.apa.at/ipad/cms-worldwide/2024-01-04_0707_tl_01_Servus-Kasperl-_____14207792__o__6332192865__s15543049_9__ORF1HD_07081012P_07300711P_Q4A.mp4/playlist.m3u8", 0L),
+                Resolution.VERY_SMALL, new FilmUrl("https://apasfiis.sf.apa.at/ipad/cms-worldwide/2024-01-04_0707_tl_01_Servus-Kasperl-_____14207792__o__6332192865__s15543049_9__ORF1HD_07081012P_07300711P_Q1A.3gp/playlist.m3u8", 0L)
+                )),
             Optional.of(Set.of(
                 new URL("https://api-tvthek.orf.at/assets/subtitles/0166/92/07aead27b4c0b09b36750db54b8ce15ff9b8499c.ttml"),
                 new URL("https://api-tvthek.orf.at/assets/subtitles/0166/92/4dd6932d7cf6ceaad90a536c3e03981267e32941.vtt"),
@@ -92,7 +97,12 @@ public class OrfOnEpisodeTaskTest extends OrfOnEpisodesTaskTest {
                 Optional.of(new URL("https://tvthek.orf.at/profile/ABC-Baer/4611813/ABC-Baer/14207790")),
                 Optional.of(List.of(GeoLocations.GEO_AT)),
                 Optional.of(new URL("https://api-tvthek.orf.at/api/v4.3/subtitle/885332")),
-                Optional.of(Map.of(Resolution.NORMAL, new FilmUrl("https://apasfiis.sf.apa.at/ipad/cms-austria/2024-01-04_0645_tl_00_ABC-Baer_____14207790__o__4346842346__s15542921_1__KIDS1_06363007P_06500003P_QXB.mp4/playlist.m3u8", 0L))),
+                Optional.of(Map.of(
+                    Resolution.HD, new FilmUrl("https://apasfiis.sf.apa.at/ipad/cms-austria/2024-01-04_0645_tl_00_ABC-Baer_____14207790__o__4346842346__s15542921_1__KIDS1_06363007P_06500003P_Q8C.mp4/playlist.m3u8", 0L),
+                    Resolution.NORMAL, new FilmUrl("https://apasfiis.sf.apa.at/ipad/cms-austria/2024-01-04_0645_tl_00_ABC-Baer_____14207790__o__4346842346__s15542921_1__KIDS1_06363007P_06500003P_QXB.mp4/playlist.m3u8", 0L),
+                    Resolution.SMALL, new FilmUrl("https://apasfiis.sf.apa.at/ipad/cms-austria/2024-01-04_0645_tl_00_ABC-Baer_____14207790__o__4346842346__s15542921_1__KIDS1_06363007P_06500003P_Q4A.mp4/playlist.m3u8", 0L),
+                    Resolution.VERY_SMALL, new FilmUrl("https://apasfiis.sf.apa.at/ipad/cms-austria/2024-01-04_0645_tl_00_ABC-Baer_____14207790__o__4346842346__s15542921_1__KIDS1_06363007P_06500003P_Q1A.3gp/playlist.m3u8", 0L)
+                    )),
                 Optional.of(Set.of(
                     new URL("https://api-tvthek.orf.at/assets/subtitles/0166/92/b682365a2a3fd1d45a2f029a597735a9df5b7524.ttml"),
                     new URL("https://api-tvthek.orf.at/assets/subtitles/0166/92/20c53ed98f58a5045da663191516bc7fbf09e3d2.srt"),
