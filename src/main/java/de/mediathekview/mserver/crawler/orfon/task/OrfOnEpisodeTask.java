@@ -2,13 +2,19 @@ package de.mediathekview.mserver.crawler.orfon.task;
 
 import java.lang.reflect.Type;
 import java.net.URI;
+import java.time.Duration;
+import java.time.LocalDateTime;
 import java.util.Queue;
+import java.util.UUID;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import com.google.gson.JsonDeserializer;
 import com.google.gson.reflect.TypeToken;
 
+import de.mediathekview.mlib.daten.Film;
+import de.mediathekview.mlib.daten.Sender;
 import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
 import de.mediathekview.mserver.crawler.basic.AbstractJsonRestTask;
 import de.mediathekview.mserver.crawler.basic.AbstractRecursiveConverterTask;
@@ -20,9 +26,10 @@ import jakarta.ws.rs.core.Response;
 
 // <T, R, D extends CrawlerUrlDTO> extends AbstractRestTask<T, D>
 // return T Class from this task, desirialisation of class R , D , Reasearch in this url
-public class OrfOnEpisodeTask extends AbstractJsonRestTask<OrfOnVideoInfoDTO, OrfOnVideoInfoDTO, OrfOnBreadCrumsUrlDTO> {
-  private static final long serialVersionUID = 1L;
+public class OrfOnEpisodeTask extends AbstractJsonRestTask<Film, OrfOnVideoInfoDTO, OrfOnBreadCrumsUrlDTO> {
+  private static final long serialVersionUID = 3272445100769901305L;
   private static final Logger LOG = LogManager.getLogger(OrfOnEpisodeTask.class);
+  private static final String ORF_AUDIODESCRIPTION_PREFIX = "AD | ";
 
   public OrfOnEpisodeTask(AbstractCrawler crawler, Queue<OrfOnBreadCrumsUrlDTO> urlToCrawlDTOs) {
     super(crawler, urlToCrawlDTOs, OrfOnConstants.AUTH);
@@ -64,13 +71,25 @@ public class OrfOnEpisodeTask extends AbstractJsonRestTask<OrfOnVideoInfoDTO, Or
     if (aResponseObj.getWebsite().isEmpty()) {
       LOG.warn("Missing website for {}", aDTO);
     }
-
-    //LOG.debug(" bread crums {} # {} # {}", String.join("|", aDTO.getBreadCrums()), aResponseObj.getTopic().get(), aResponseObj.getTitle().get());
-    taskResults.add(aResponseObj);
+    Film aFilm = new Film(
+        UUID.randomUUID(),
+        Sender.ORF,
+        buildTitle(aResponseObj.getTitle().get(), aResponseObj.getTopic().get()),
+        buildTopic(aResponseObj.getTitle().get(), aResponseObj.getTopic().get(), aResponseObj.getTopicForArchive().orElse("")),
+        aResponseObj.getAired().orElse(LocalDateTime.of(1970,1,1,00,00,00)),
+        aResponseObj.getDuration().orElse(Duration.ofMinutes(0L))
+        );
+    aResponseObj.getGeorestriction().ifPresent(aFilm::addAllGeoLocations);
+    aResponseObj.getDescription().ifPresent(aFilm::setBeschreibung);
+    aResponseObj.getVideoUrls().ifPresent(aFilm::setUrls);
+    aResponseObj.getWebsite().ifPresent(aFilm::setWebsite);
+    aResponseObj.getSubtitleUrls().ifPresent(aFilm::addAllSubtitleUrls);
+    crawler.incrementAndGetActualCount();
+    taskResults.add(aFilm);
   }
 
   @Override
-  protected AbstractRecursiveConverterTask<OrfOnVideoInfoDTO, OrfOnBreadCrumsUrlDTO> createNewOwnInstance(
+  protected AbstractRecursiveConverterTask<Film, OrfOnBreadCrumsUrlDTO> createNewOwnInstance(
       Queue<OrfOnBreadCrumsUrlDTO> aElementsToProcess) {
     return new OrfOnEpisodeTask(crawler, aElementsToProcess);
   } 
@@ -84,4 +103,21 @@ public class OrfOnEpisodeTask extends AbstractJsonRestTask<OrfOnVideoInfoDTO, Or
           url);
   }
 
+  private String buildTopic(String title, String topic, String archiveTopic) {
+    String newTopic = topic;
+    if (newTopic.startsWith(ORF_AUDIODESCRIPTION_PREFIX)) {
+      newTopic = newTopic.replace(ORF_AUDIODESCRIPTION_PREFIX, "");
+    }
+    if (newTopic.equalsIgnoreCase("archiv")) {
+      newTopic = archiveTopic.replace("History | ", "");
+    }
+    return newTopic;
+  }
+  
+  private String buildTitle(String title, String topic) {
+    if (title.startsWith(ORF_AUDIODESCRIPTION_PREFIX)) {
+      return title.replace(ORF_AUDIODESCRIPTION_PREFIX, "").concat(" (Audiodeskription)");
+    }
+    return title;
+  }
 }

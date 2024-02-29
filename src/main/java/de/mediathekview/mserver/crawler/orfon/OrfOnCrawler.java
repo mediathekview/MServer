@@ -13,7 +13,6 @@ import de.mediathekview.mserver.crawler.orfon.task.OrfOnHistoryChildrenTask;
 import de.mediathekview.mserver.crawler.orfon.task.OrfOnHistoryTask;
 import de.mediathekview.mserver.crawler.orfon.task.OrfOnHistoryVideoItemTask;
 import de.mediathekview.mserver.crawler.orfon.task.OrfOnScheduleTask;
-import de.mediathekview.mserver.crawler.orfon.task.OrfOnVideoInfo2FilmTask;
 import de.mediathekview.mserver.progress.listeners.SenderProgressListener;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -71,9 +70,7 @@ public class OrfOnCrawler extends AbstractCrawler {
       printMessage(ServerMessages.DEBUG_ALL_SENDUNG_FOLGEN_COUNT, getSender().getName(), allVideos.size());
       getAndSetMaxCount(allVideos.size());
       //
-      final ForkJoinTask<Set<OrfOnVideoInfoDTO>> videoInfoTask = forkJoinPool.submit(new OrfOnEpisodeTask(this, new ConcurrentLinkedQueue<>(allVideos)));
-      final Set<OrfOnVideoInfoDTO> videoInfo = videoInfoTask.get();
-      return new OrfOnVideoInfo2FilmTask(this, new ConcurrentLinkedQueue<>(videoInfo));
+      return new OrfOnEpisodeTask(this, new ConcurrentLinkedQueue<>(allVideos));
     } catch (final Exception ex) {
       LOG.fatal("Exception in ORFON crawler.", ex);
       Thread.currentThread().interrupt();
