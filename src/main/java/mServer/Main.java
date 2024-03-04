@@ -29,6 +29,9 @@ import mServer.tool.MserverDaten;
 import mServer.tool.MserverDatumZeit;
 import mServer.tool.MserverLog;
 
+import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
+
 public class Main {
 
     public Main() {
@@ -88,11 +91,15 @@ public class Main {
     }
 
     private static void runServer(String[] ar) throws InterruptedException {
+        LocalDateTime beforeRun = LocalDateTime.now().truncatedTo(ChronoUnit.DAYS);
         while (new MServer(ar).starten()) {
-            long timeToSleep = (MserverDatumZeit.getSecondsUntilNextDay() + 120) * 1000; // 0:02
-            MserverLog.systemMeldung("Schlafenlegen bis zum nächsten Tag (" + timeToSleep + "ms)");
-            Thread.sleep(timeToSleep);
-            MserverLog.systemMeldung("Neustart der Suche");
+            if (!LocalDateTime.now().truncatedTo(ChronoUnit.DAYS).isAfter(beforeRun)) { // do not sleep if day changed
+                long timeToSleep = (MserverDatumZeit.getSecondsUntilNextDay() + 120) * 1000; // 0:02
+                MserverLog.systemMeldung("Schlafenlegen bis zum nächsten Tag (" + timeToSleep + "ms)");
+                Thread.sleep(timeToSleep);
+                MserverLog.systemMeldung("Neustart der Suche");
+            }
+            beforeRun = LocalDateTime.now().truncatedTo(ChronoUnit.DAYS);
         }
     }
 
