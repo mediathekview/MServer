@@ -10,6 +10,7 @@ import mServer.crawler.sender.base.CrawlerUrlDTO;
 import mServer.crawler.sender.base.JsonUtils;
 
 import java.lang.reflect.Type;
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
@@ -23,8 +24,12 @@ public class ArdTopicsLetterDeserializer implements JsonDeserializer<PaginationU
   private static final String ELEMENT_TOTAL_ELEMENTS = "totalElements";
   private static final String ELEMENT_PAGE_SIZE = "pageSize";
   private static final String ELEMENT_PAGINATION = "pagination";
+  private static final String ELEMENT_PUBLICATION_SERVICE = "publicationService";
+  private static final String ATTRIBUTE_NAME = "name";
 
   private static final String ATTRIBUTE_ID = "id";
+
+  private static final String[] IGNORED_SENDER = new String[] {"zdf", "kika", "3sat", "arte"};
 
   @Override
   public PaginationUrlDto deserialize(
@@ -79,13 +84,31 @@ public class ArdTopicsLetterDeserializer implements JsonDeserializer<PaginationU
       id = JsonUtils.getAttributeAsString(teaserObject, ATTRIBUTE_ID);
     }
 
-    id.ifPresent(
-            nonNullId ->
-                    results.add(
-                            new CrawlerUrlDTO(
-                                    String.format(
-                                            ArdConstants.TOPIC_URL, nonNullId, ArdConstants.TOPIC_PAGE_SIZE))));
+    if (isRelevant(teaserObject)) {
+      id.ifPresent(
+              nonNullId ->
+                      results.add(
+                              new CrawlerUrlDTO(
+                                      String.format(
+                                              ArdConstants.TOPIC_URL, nonNullId, ArdConstants.TOPIC_PAGE_SIZE))));
+    }
 
     return results;
+  }
+
+  private boolean isRelevant(final JsonObject teaserObject) {
+    if (teaserObject.has(ELEMENT_PUBLICATION_SERVICE)) {
+      final JsonObject publicationService =
+              teaserObject.get(ELEMENT_PUBLICATION_SERVICE).getAsJsonObject();
+      final Optional<String> attributeAsString =
+              JsonUtils.getAttributeAsString(publicationService, ATTRIBUTE_NAME);
+      if (attributeAsString.isPresent()) {
+
+        return !Arrays.stream(IGNORED_SENDER)
+                .anyMatch(sender -> sender.equalsIgnoreCase(attributeAsString.get()));
+      }
+    }
+
+    return true;
   }
 }
