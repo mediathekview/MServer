@@ -15,7 +15,7 @@ import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
 public class DWOverviewTask extends DWTaskBase<CrawlerUrlDTO, CrawlerUrlDTO> {
-
+  private static final long serialVersionUID = 4050423702709695861L;
   private static final Type OPTIONAL_OVERVIEW_DTO_TYPE_TOKEN =
       new TypeToken<Optional<PagedElementListDTO<CrawlerUrlDTO>>>() {}.getType();
   private final int subpage;
