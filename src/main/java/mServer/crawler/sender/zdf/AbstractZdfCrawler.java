@@ -43,7 +43,7 @@ public abstract class AbstractZdfCrawler extends MediathekCrawler {
       final ZdfConfiguration configuration = loadConfiguration();
       if (configuration.getSearchAuthKey().isPresent() && configuration.getVideoAuthKey().isPresent()) {
 
-        //shows = new HashSet<>(getDaysEntries(configuration));
+        shows = new HashSet<>(getDaysEntries(configuration));
 
         if (CrawlerTool.loadLongMax()) {
           shows.addAll(getTopicsEntries());
