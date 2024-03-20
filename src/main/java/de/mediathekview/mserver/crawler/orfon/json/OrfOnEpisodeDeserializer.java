@@ -49,6 +49,9 @@ public class OrfOnEpisodeDeserializer implements JsonDeserializer<OrfOnVideoInfo
   private static final String TAG_VIDEO_URL = "src";
   private static final String TAG_VIDEO_CODEC = "delivery";
   private static final String TAG_VIDEO_QUALITY = "quality";
+  private static final String TAG_VIDEO_FALLBACK = "sources";
+  private static final String TAG_VIDEO_FALLBACK_URL = "src";
+  
   private static final String[] TAG_SUBTITLE_SECTION = {"_embedded", "subtitle"};
   private static final String TAG_SUBTITLE_SMI = "sami_url";
   private static final String TAG_SUBTITLE_SRT = "srt_url";
@@ -154,6 +157,11 @@ public class OrfOnEpisodeDeserializer implements JsonDeserializer<OrfOnVideoInfo
     if (videoPath1.isEmpty() || !videoPath1.get().isJsonArray() || videoPath1.get().getAsJsonArray().size() == 0) {
       return Optional.empty();
     }
+    // We need to fallback to episode.sources in case there are many elements in the playlist
+    if (videoPath1.get().getAsJsonArray().size() > 1) {
+      return parseFallbackVideo(jsonElement);
+    }
+    
     Optional<JsonElement> videoPath2 = JsonUtils.getElement(videoPath1.get().getAsJsonArray().get(0), TAG_VIDEO_PATH_2);
     if (videoPath2.isEmpty() || !videoPath2.get().isJsonArray()) {
       return Optional.empty();
@@ -168,13 +176,37 @@ public class OrfOnEpisodeDeserializer implements JsonDeserializer<OrfOnVideoInfo
     return Optional.empty();
   }
   
+  private Optional<Map<Resolution, FilmUrl>> parseFallbackVideo(JsonElement root) {
+    Optional<JsonElement> videoSources = JsonUtils.getElement(root, TAG_VIDEO_FALLBACK);
+    if (videoSources.isPresent()) {
+      Map<Resolution, FilmUrl> urls = new EnumMap<>(Resolution.class);
+      for (String key : PREFERED_CODEC) {
+        Optional<JsonElement> codecs = JsonUtils.getElement(videoSources.get(), key);
+        if (codecs.isPresent() && codecs.get().isJsonArray()) {
+          for (JsonElement singleVideo : codecs.get().getAsJsonArray()) {
+            Optional<String> tgtUrl = JsonUtils.getElementValueAsString(singleVideo, TAG_VIDEO_FALLBACK_URL);
+            if (tgtUrl.isPresent()) {
+              try {
+                urls.put(Resolution.NORMAL, new FilmUrl(tgtUrl.get(), 0L));
+              } catch (MalformedURLException e) {
+                LOG.warn("invalid video url {} error {}", tgtUrl, e );
+              }
+              return Optional.of(urls);
+            }
+          }
+        }
+      }
+    }
+    return Optional.empty();
+  }
+  
   private Optional<Map<Resolution, FilmUrl>> readVideoForTargetCodec(JsonElement urlArray, String targetCodec) {
     Map<Resolution, FilmUrl> urls = new EnumMap<>(Resolution.class);
     for (JsonElement videoElement : urlArray.getAsJsonArray()) {
       Optional<String> codec = JsonUtils.getElementValueAsString(videoElement, TAG_VIDEO_CODEC);
       Optional<String> quality = JsonUtils.getElementValueAsString(videoElement, TAG_VIDEO_QUALITY);
       Optional<String> url = JsonUtils.getElementValueAsString(videoElement, TAG_VIDEO_URL);
-      if (url.isPresent() && codec.isPresent() && quality.isPresent() && targetCodec.equalsIgnoreCase(codec.get())) {
+      if (url.isPresent() && codec.isPresent() && quality.isPresent() && targetCodec.equalsIgnoreCase(codec.get()) && OrfOnEpisodeDeserializer.getQuality(quality.get()).isPresent()) {
         try {
           long fileSize = crawler.determineFileSizeInKB(url.get());
           urls.put(
@@ -221,6 +253,7 @@ public class OrfOnEpisodeDeserializer implements JsonDeserializer<OrfOnVideoInfo
     }
     return Optional.empty();
   }
+
   private Optional<LocalDateTime> parseAiredDate(Optional<String> text) {
     Optional<LocalDateTime> result = Optional.empty();
     if (text.isPresent()) {
@@ -264,7 +297,7 @@ public class OrfOnEpisodeDeserializer implements JsonDeserializer<OrfOnVideoInfo
       case "QXB":
       case "QXBDRM":
       case "Q8A":
-        return Optional.of(Resolution.NORMAL);
+        return Optional.empty();
       default:
         LOG.debug("ORF: unknown quality: {}", aQuality);
     }
