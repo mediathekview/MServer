@@ -253,7 +253,6 @@ public class OrfOnEpisodeDeserializer implements JsonDeserializer<OrfOnVideoInfo
     }
     return Optional.empty();
   }
-
   private Optional<LocalDateTime> parseAiredDate(Optional<String> text) {
     Optional<LocalDateTime> result = Optional.empty();
     if (text.isPresent()) {
