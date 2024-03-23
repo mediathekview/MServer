@@ -84,13 +84,27 @@ public class OrfOnEpisodeDeserializer implements JsonDeserializer<OrfOnVideoInfo
         parseWebsite(JsonUtils.getElementValueAsString(jsonElement, TAG_SHARE_BODY)),
         parseGeoLocations(JsonUtils.getElementValueAsString(jsonElement, TAG_RIGHT)),
         parseSubtitleSource(JsonUtils.getElementValueAsString(jsonElement, TAG_SUBTITLE)),
-        parseUrl(jsonElement),
+        optimizeUrls(parseUrl(jsonElement)),
         buildOrResolveSubs(jsonElement)
         
         );
     return aFilm;
   }
-  
+
+  private Optional<Map<Resolution, FilmUrl>> optimizeUrls(Optional<Map<Resolution, FilmUrl>> urls) {
+    if (urls.isPresent() && urls.get().size() == 1) {
+      final Map<Resolution, FilmUrl> urlMap = urls.get();
+      final FilmUrl url = urlMap.get(Resolution.NORMAL);
+      final String urlToOptimize = url.getUrl().toString();
+      try {
+        urlMap.put(Resolution.SMALL, new FilmUrl(urlToOptimize.replace("QXA", "Q4A"), 0L));
+        urlMap.put(Resolution.NORMAL, new FilmUrl(urlToOptimize.replace("QXA", "Q6A"), 0L));
+        urlMap.put(Resolution.HD, new FilmUrl(urlToOptimize.replace("QXA", "Q8C"), 0L));
+      } catch (MalformedURLException e) {}
+    }
+    return urls;
+  }
+
   private Optional<Set<URL>> buildOrResolveSubs(JsonElement jsonElement) {
     Optional<String> subtitleSource = JsonUtils.getElementValueAsString(jsonElement, TAG_SUBTITLE);
     Optional<JsonElement> embeddedSubtitleSection = JsonUtils.getElement(jsonElement, TAG_SUBTITLE_SECTION);

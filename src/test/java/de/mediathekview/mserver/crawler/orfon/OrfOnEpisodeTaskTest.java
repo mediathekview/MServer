@@ -3,7 +3,12 @@ package de.mediathekview.mserver.crawler.orfon;
 import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-
+import de.mediathekview.mlib.daten.*;
+import de.mediathekview.mlib.messages.listener.MessageListener;
+import de.mediathekview.mserver.base.config.MServerConfigManager;
+import de.mediathekview.mserver.crawler.orfon.task.OrfOnEpisodeTask;
+import de.mediathekview.mserver.progress.listeners.SenderProgressListener;
+import de.mediathekview.mserver.testhelper.AssertFilm;
 import java.net.URL;
 import java.time.Duration;
 import java.time.LocalDateTime;
@@ -16,20 +21,16 @@ import java.util.Queue;
 import java.util.Set;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.ForkJoinPool;
-
 import org.junit.Test;
 
-import de.mediathekview.mlib.daten.Film;
-import de.mediathekview.mlib.daten.FilmUrl;
-import de.mediathekview.mlib.daten.GeoLocations;
-import de.mediathekview.mlib.daten.Resolution;
-import de.mediathekview.mlib.messages.listener.MessageListener;
-import de.mediathekview.mserver.base.config.MServerConfigManager;
-import de.mediathekview.mserver.crawler.orfon.task.OrfOnEpisodeTask;
-import de.mediathekview.mserver.progress.listeners.SenderProgressListener;
-
-
 public class OrfOnEpisodeTaskTest extends OrfOnEpisodesTaskTest {
+  
+  protected static OrfOnCrawler createCrawler() {
+    final ForkJoinPool forkJoinPool = new ForkJoinPool();
+    final Collection<MessageListener> nachrichten = new ArrayList<>();
+    final Collection<SenderProgressListener> fortschritte = new ArrayList<>();
+    return new OrfOnCrawler(forkJoinPool, nachrichten, fortschritte, new MServerConfigManager("MServer-JUnit-Config.yaml"));
+  }
   
   @Test
   public void testNormal_1() {
@@ -63,7 +64,7 @@ public class OrfOnEpisodeTaskTest extends OrfOnEpisodesTaskTest {
       assertTrue(false);
     }
   }
-  
+
   @Test
   public void testNormal_2() {
     setupSuccessfulJsonResponse("/episode2", "/orfOn/episode_2.json");
@@ -95,6 +96,29 @@ public class OrfOnEpisodeTaskTest extends OrfOnEpisodesTaskTest {
     } catch (Exception e) {
       assertTrue(false);
     }
+  }
+  
+  @Test
+  public void testZib() {
+    setupSuccessfulJsonResponse("/zib", "/orfOn/episode_zib.json");
+    Set<Film> result = executeTask("/zib");
+    assertTrue(result.size() == 1);
+    Film actual = result.toArray(new Film[1])[0];
+
+    AssertFilm.assertEquals(
+        actual,
+        Sender.ORF,
+        "ZIB 13:00",
+        "ZIB 13:00 vom 20.03.2024",
+        LocalDateTime.of(2024, 3, 20, 13, 0, 0),
+        Duration.ofSeconds(1177),
+        "Wohnbaupaket passiert Nationalrat | ORF-Analyse: Details zum Wohnbaupaket | Neue Lehrerausbildung kommt ein Jahr später | Agrarprodukte aus Ukraine werden wieder verzollt | ORF-Analyse: Zölle auf Landwirtschaftsgüter aus Ukraine | London: Zweiter Anlauf für \"Ruanda-Plan\" | Vorschau: GB stimmt über \"Ruanda-Plan\"  ab | 2023: Über 1.300 Vorfälle von Rassismus in Österreich | Rekordhoch bei Insolvenze\n.....",
+        "https://tvthek.orf.at/profile/ZIB-1300/71280/ZIB-1300-vom-20-03-2024/14218665",
+        new GeoLocations[] { GeoLocations.GEO_NONE},
+        "https://apasfiis.sf.apa.at/ipad/cms-worldwide_episodes/14218665_0017_Q4A.mp4/playlist.m3u8",
+        "https://apasfiis.sf.apa.at/ipad/cms-worldwide_episodes/14218665_0017_Q6A.mp4/playlist.m3u8",
+        "https://apasfiis.sf.apa.at/ipad/cms-worldwide_episodes/14218665_0017_Q8C.mp4/playlist.m3u8",
+        "https://api-tvthek.orf.at/assets/subtitles/0171/59/69a0deabec546a7fb5fabc7ebb44e55a031987ac.ttml");
   }
   
   @Test
@@ -171,13 +195,6 @@ public class OrfOnEpisodeTaskTest extends OrfOnEpisodesTaskTest {
       input.add(new OrfOnBreadCrumsUrlDTO("",getWireMockBaseUrlSafe() + url));
     }
     return new OrfOnEpisodeTask(OrfOnEpisodeTaskTest.createCrawler(), input).invoke();
-  }
-  
-  protected static OrfOnCrawler createCrawler() {
-    final ForkJoinPool forkJoinPool = new ForkJoinPool();
-    final Collection<MessageListener> nachrichten = new ArrayList<>();
-    final Collection<SenderProgressListener> fortschritte = new ArrayList<>();
-    return new OrfOnCrawler(forkJoinPool, nachrichten, fortschritte, new MServerConfigManager("MServer-JUnit-Config.yaml"));
   }
   
   
