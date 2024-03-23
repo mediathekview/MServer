@@ -56,19 +56,24 @@ public class OrfOnCrawler extends AbstractCrawler {
       allVideos.addAll(epsiodesFromDay);
       printMessage(ServerMessages.DEBUG_ALL_SENDUNG_FOLGEN_COUNT, getSender().getName(), allVideos.size());
       getAndSetMaxCount(allVideos.size());
-      //
-      // Sendungen a-z
-      // Buchstabe > Episoden > Episode2Film
-      final Set<OrfOnBreadCrumsUrlDTO> videosFromTopics = processAZUrlsToCrawl();
-      allVideos.addAll(videosFromTopics);
-      printMessage(ServerMessages.DEBUG_ALL_SENDUNG_FOLGEN_COUNT, getSender().getName(), allVideos.size());
-      getAndSetMaxCount(allVideos.size());
-      //
-      // History (top categories) > children > VideoItem > Episode > Episode2Film
-      final Set<OrfOnBreadCrumsUrlDTO> historyVideos = processHistoryUrlToCrawl();
-      allVideos.addAll(historyVideos);
-      printMessage(ServerMessages.DEBUG_ALL_SENDUNG_FOLGEN_COUNT, getSender().getName(), allVideos.size());
-      getAndSetMaxCount(allVideos.size());
+
+      if (Boolean.TRUE.equals(crawlerConfig.getTopicsSearchEnabled())) {
+        //
+        // Sendungen a-z
+        // Buchstabe > Episoden > Episode2Film
+        final Set<OrfOnBreadCrumsUrlDTO> videosFromTopics = processAZUrlsToCrawl();
+        allVideos.addAll(videosFromTopics);
+        printMessage(
+            ServerMessages.DEBUG_ALL_SENDUNG_FOLGEN_COUNT, getSender().getName(), allVideos.size());
+        getAndSetMaxCount(allVideos.size());
+        //
+        // History (top categories) > children > VideoItem > Episode > Episode2Film
+        final Set<OrfOnBreadCrumsUrlDTO> historyVideos = processHistoryUrlToCrawl();
+        allVideos.addAll(historyVideos);
+        printMessage(
+            ServerMessages.DEBUG_ALL_SENDUNG_FOLGEN_COUNT, getSender().getName(), allVideos.size());
+        getAndSetMaxCount(allVideos.size());
+      }
       //
       return new OrfOnEpisodeTask(this, new ConcurrentLinkedQueue<>(allVideos));
     } catch (final Exception ex) {
