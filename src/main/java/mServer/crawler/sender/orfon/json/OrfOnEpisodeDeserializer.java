@@ -5,7 +5,6 @@ import com.google.gson.JsonDeserializer;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParseException;
 import de.mediathekview.mlib.tool.Log;
-import mServer.crawler.sender.base.GeoLocations;
 import mServer.crawler.sender.base.JsonUtils;
 import mServer.crawler.sender.base.Qualities;
 import mServer.crawler.sender.orfon.OrfHttpClient;
@@ -16,7 +15,6 @@ import org.apache.logging.log4j.Logger;
 
 import java.io.IOException;
 import java.lang.reflect.Type;
-import java.net.URL;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
