@@ -11,7 +11,7 @@ import mServer.crawler.sender.ard.tasks.ArdTaskBase;
 import mServer.crawler.sender.base.AbstractRecursivConverterTask;
 import mServer.crawler.sender.base.CrawlerUrlDTO;
 import mServer.crawler.sender.base.PagedElementListDTO;
-import mServer.crawler.sender.orf.TopicUrlDTO;
+import mServer.crawler.sender.base.TopicUrlDTO;
 import mServer.crawler.sender.srf.SrfConstants;
 import mServer.crawler.sender.srf.parser.SrfTopicDeserializer;
 

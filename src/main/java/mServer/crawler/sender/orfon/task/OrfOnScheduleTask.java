@@ -5,7 +5,7 @@ import com.google.gson.reflect.TypeToken;
 import mServer.crawler.sender.MediathekReader;
 import mServer.crawler.sender.base.AbstractRecursivConverterTask;
 import mServer.crawler.sender.base.PagedElementListDTO;
-import mServer.crawler.sender.orf.TopicUrlDTO;
+import mServer.crawler.sender.base.TopicUrlDTO;
 import mServer.crawler.sender.orfon.OrfOnBreadCrumsUrlDTO;
 import mServer.crawler.sender.orfon.json.OrfOnScheduleDeserializer;
 

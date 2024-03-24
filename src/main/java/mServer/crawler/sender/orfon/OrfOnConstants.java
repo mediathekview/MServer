@@ -1,6 +1,8 @@
 package mServer.crawler.sender.orfon;
 
 public final class OrfOnConstants {
+
+  public static final String FILTER_JUGENDSCHUTZ = ".*/Jugendschutz[0-9][0-9][0-9][0-9]b[0-9][0-9][0-9][0-9]_.*";
   //
   public static final String HOST = "https://api-tvthek.orf.at/api/v4.3";
   //

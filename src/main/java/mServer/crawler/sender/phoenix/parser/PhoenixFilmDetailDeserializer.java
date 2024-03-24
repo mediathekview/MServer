@@ -5,9 +5,10 @@ import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonDeserializer;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import mServer.crawler.sender.base.JsonUtils;
+
 import java.lang.reflect.Type;
 import java.util.Optional;
-import mServer.crawler.sender.orf.JsonUtils;
 
 public class PhoenixFilmDetailDeserializer implements JsonDeserializer<Optional<PhoenixFilmDetailDto>> {
 

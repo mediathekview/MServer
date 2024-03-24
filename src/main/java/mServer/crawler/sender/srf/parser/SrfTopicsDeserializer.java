@@ -9,7 +9,7 @@ import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
 import mServer.crawler.sender.base.JsonUtils;
-import mServer.crawler.sender.orf.TopicUrlDTO;
+import mServer.crawler.sender.base.TopicUrlDTO;
 import mServer.crawler.sender.srf.SrfConstants;
 
 public class SrfTopicsDeserializer implements JsonDeserializer<Set<TopicUrlDTO>> {

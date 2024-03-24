@@ -4,7 +4,7 @@ import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
 
-import mServer.crawler.sender.orf.TopicUrlDTO;
+import mServer.crawler.sender.base.TopicUrlDTO;
 
 
 public class KikaApiTopicDto {
