@@ -98,7 +98,7 @@ public abstract class AbstractZdfCrawler extends MediathekCrawler {
   private ConcurrentLinkedQueue<CrawlerUrlDTO> getDayUrls() {
 
     int daysPast = CrawlerTool.loadLongMax() ? 30 : 20;
-    int daysFuture = CrawlerTool.loadLongMax() ? 30 : 10;
+    int daysFuture = CrawlerTool.loadLongMax() ? 20 : 10;
 
     final ConcurrentLinkedQueue<CrawlerUrlDTO> urls = new ConcurrentLinkedQueue<>();
     for (int i = 0;

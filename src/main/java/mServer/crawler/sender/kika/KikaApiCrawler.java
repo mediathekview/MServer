@@ -13,7 +13,7 @@ import mServer.crawler.sender.MediathekCrawler;
 import mServer.crawler.sender.base.JsoupConnection;
 import mServer.crawler.sender.kika.tasks.KikaApiFilmTask;
 import mServer.crawler.sender.kika.tasks.KikaApiTopicTask;
-import mServer.crawler.sender.orf.TopicUrlDTO;
+import mServer.crawler.sender.base.TopicUrlDTO;
 
 import java.util.Set;
 import java.util.concurrent.ConcurrentLinkedQueue;

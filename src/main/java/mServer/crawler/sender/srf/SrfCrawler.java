@@ -12,7 +12,7 @@ import mServer.crawler.CrawlerTool;
 import mServer.crawler.FilmeSuchen;
 import mServer.crawler.sender.MediathekCrawler;
 import mServer.crawler.sender.base.CrawlerUrlDTO;
-import mServer.crawler.sender.orf.TopicUrlDTO;
+import mServer.crawler.sender.base.TopicUrlDTO;
 import mServer.crawler.sender.srf.tasks.SrfTopicOverviewTask;
 import mServer.crawler.sender.srf.tasks.SrfTopicsOverviewTask;
 import org.apache.logging.log4j.LogManager;

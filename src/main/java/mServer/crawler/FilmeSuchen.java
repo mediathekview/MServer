@@ -32,7 +32,7 @@ import mServer.crawler.sender.dreisat.DreiSatCrawler;
 import mServer.crawler.sender.dw.DwCrawler;
 import mServer.crawler.sender.funk.FunkCrawler;
 import mServer.crawler.sender.kika.KikaApiCrawler;
-import mServer.crawler.sender.orf.OrfCrawler;
+import mServer.crawler.sender.orfon.OrfOnCrawler;
 import mServer.crawler.sender.phoenix.PhoenixCrawler;
 import mServer.crawler.sender.sr.SrCrawler;
 import mServer.crawler.sender.srf.SrfCrawler;
@@ -113,7 +113,7 @@ public class FilmeSuchen {
       mediathekListe.add(new MediathekSrfPod(this, 1));
     }
     if (crawlerList.contains("ORF")) {
-      mediathekListe.add(new OrfCrawler(this, 1));
+      mediathekListe.add(new OrfOnCrawler(this, 1));
     }
     if (crawlerList.contains("PHONIX")) {
       mediathekListe.add(new PhoenixCrawler(this, 1));

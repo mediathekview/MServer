@@ -10,7 +10,7 @@ import mServer.crawler.sender.base.AbstractRecursivConverterTask;
 import mServer.crawler.sender.kika.KikaApiFilmDto;
 import mServer.crawler.sender.kika.KikaApiTopicDto;
 import mServer.crawler.sender.kika.json.KikaApiTopicPageDeserializer;
-import mServer.crawler.sender.orf.TopicUrlDTO;
+import mServer.crawler.sender.base.TopicUrlDTO;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 

@@ -39,6 +39,6 @@ public class ZdfTopicsPageHtmlDeserializer {
     if (teaserElement == null) {
       return true;
     }
-    return !("ARD".equalsIgnoreCase(teaserElement.text()));
+    return !("ARD".equalsIgnoreCase(teaserElement.text()) || "funk".equalsIgnoreCase(teaserElement.text()));
   }
 }

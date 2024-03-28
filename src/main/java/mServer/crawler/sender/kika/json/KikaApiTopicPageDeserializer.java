@@ -2,7 +2,7 @@ package mServer.crawler.sender.kika.json;
 
 import com.google.gson.*;
 
-import mServer.crawler.sender.orf.TopicUrlDTO;
+import mServer.crawler.sender.base.TopicUrlDTO;
 import mServer.crawler.sender.base.JsonUtils;
 import mServer.crawler.sender.base.UrlUtils;
 import mServer.crawler.sender.kika.KikaApiConstants;

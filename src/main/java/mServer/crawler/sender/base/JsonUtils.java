@@ -133,7 +133,18 @@ public final class JsonUtils {
   }
   
   public static Optional<String> getElementValueAsString(final JsonElement aJsonElement, final String... aElementIds) {
-    Optional<String> rs = Optional.empty();
+    Optional<JsonElement> rs = JsonUtils.getElement(aJsonElement, aElementIds);
+    if (rs.isPresent()) {
+      return Optional.of(rs.get().getAsString());
+    }
+    return Optional.empty();
+  }
+
+  public static Optional<JsonElement> getElement(final JsonElement aJsonElement, final String... aElementIds) {
+    Optional<JsonElement> rs = Optional.empty();
+    if (aElementIds == null || aElementIds.length == 0) {
+      return rs;
+    }
     JsonObject aJsonObject = aJsonElement.getAsJsonObject();
     for (int i = 0; i < aElementIds.length-1; i++) {
       String elementId = aElementIds[i];
@@ -147,7 +158,7 @@ public final class JsonUtils {
     //
     String elementId = aElementIds[aElementIds.length-1];
     if (aJsonObject != null && aJsonObject.has(elementId) && !aJsonObject.get(elementId).isJsonNull()) {
-      rs =  Optional.of(aJsonObject.get(elementId).getAsString());
+      rs =  Optional.of(aJsonObject.get(elementId));
     }
     //
     return rs;
