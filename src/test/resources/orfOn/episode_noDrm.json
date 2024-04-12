@@ -1,0 +1,1558 @@
+{
+    "adition_advertising_query_string": "stype:vod,scat:doku-reportage,scatid:1173,spro:spektakulaere-raubueberfaelle-mit-pierce-brosnan,sproid:13896153,episodeid:14216629,duration:2446000,advertisingtags:",
+    "advertising_mapping": {
+        "live": {
+            "web": {
+                "sb": 4716830,
+                "tbar": 4420052,
+                "pre": 4420053,
+                "post": 4420054
+            },
+            "mob": {
+                "par": 4420055,
+                "pre": 4420220,
+                "post": 4420057
+            },
+            "app": {
+                "par": 4420058,
+                "pre": 4420059,
+                "post": 4420060
+            },
+            "smart": {
+                "pre": 4420061,
+                "post": 4420062
+            }
+        },
+        "vod": {
+            "web": {
+                "sb": 4420426,
+                "tbar": 4420427,
+                "pre": 4420428,
+                "post": 4420429
+            },
+            "mob": {
+                "par": 4420430,
+                "pre": 4420431,
+                "post": 4420432
+            },
+            "app": {
+                "par": 4420433,
+                "pre": 4420434,
+                "post": 4420435
+            },
+            "smart": {
+                "pre": 4420436,
+                "post": 4420437
+            }
+        }
+    },
+    "advertising_query_string": "stype=vod&scat=doku-reportage&scatid=1173&spro=spektakulaere-raubueberfaelle-mit-pierce-brosnan&sproid=13896153&episodeid=14216629&duration=2446000&advertisingtags=",
+    "age_classification": "12+",
+    "countdown": "1024 Tage",
+    "date": "2024-03-13T23:49:50+01:00",
+    "delete_date": "2027-02-07T00:00:00+01:00",
+    "vod_ressort": null,
+    "description": "Pierce Brosnan pr\u00e4sentiert in der spannenden Krimi-Doku-Reihe die spektakul\u00e4rsten Raub\u00fcberf\u00e4lle der Geschichte.",
+    "drm_token": "qaP8q0kHjO6D9w1Nrp2wLaz%2BzbuarITso8dCCeRSRgdkl7VKJpHKnor7tPC9smP7lHZykhEsWJsKTN4EpIEM10T9rqaax%2FR30ChjYqMAiP%2FGIALB3yntBVmGGALs62DKY68T0VDZ3KZpdKur%2BmB0oFTilVbYiKGNF9TA1ikfWqwPJkLFB2xD1w7JuIO%2F1OvYSrQPmn93uYQM355uDcOIBpI%2Fjk8yQrZjgqONjGknxAhvuG6TmqPosadWvRKx3d6B",
+    "duration_seconds": 2446,
+    "encrypted_id": "M2RTbGZlazAzbnNMS2RqNEpzZDE0MjE2NjI5",
+    "exact_duration": 2446000,
+    "field_descriptor": "Gewalt",
+    "flimmit_link_text": "",
+    "flimmit_link": "",
+    "gapless_sources_austria": {
+        "hls": [],
+        "dash": []
+    },
+    "genre_id": 1173,
+    "genre_title": "Doku & Reportage",
+    "right": "austria",
+    "growing": true,
+    "growing_type": "chronology",
+    "has_active_youth_protection": false,
+    "focus": false,
+    "show_countdown": true,
+    "has_subtitle": true,
+    "has_thumbnail": true,
+    "has_youth_protection": false,
+    "headline": "Bankeinbruch in Kalifornien",
+    "hide_in_new_section": false,
+    "hide_in_schedule_section": false,
+    "hide_latest_episodes": false,
+    "id": 14216629,
+    "is_archive": false,
+    "audio_description_service_available": false,
+    "is_drm_protected": true,
+    "is_gapless_austria": false,
+    "is_gapless": true,
+    "gmf_merged_content": false,
+    "is_oegs": false,
+    "two_channel_audio": false,
+    "uhd": false,
+    "killdate_extern": "2027-01-31T00:00:00+01:00",
+    "killdate": "2027-01-31T00:00:00+01:00",
+    "livedate": "2024-03-13T23:50:00+01:00",
+    "livedate_extern": "2024-03-13T23:50:00+01:00",
+    "orf_label": null,
+    "disable_display_ads_orf_platforms": false,
+    "disable_instream_ads_orf_platforms": false,
+    "production_country_is_europe": false,
+    "production_country": "Vereinigte Staaten",
+    "production_year": 2023,
+    "profile_title": "Spektakul\u00e4re Raub\u00fcberf\u00e4lle mit Pierce Brosnan",
+    "website": "",
+    "recommendation_episode": null,
+    "related_audiodescription_episode_image_url": null,
+    "related_audiodescription_episode_title": null,
+    "related_oegs_episode_image_url": null,
+    "related_oegs_episode_title": null,
+    "release_date": "2024-03-13T23:50:02+01:00",
+    "secondary_genres": [],
+    "segments_complete": true,
+    "episodes_reference": "",
+    "share_body": "https:\/\/tvthek.orf.at\/profile\/Spektakulaere-Raubueberfaelle-mit-Pierce-Brosnan\/13896153\/Spektakulaere-Raubueberfaelle-mit-Pierce-Brosnan-Bankeinbruch-in-Kalifornien\/14216629",
+    "share_subject": "Spektakul\u00e4re Raub\u00fcberf\u00e4lle mit Pierce Brosnan: Bankeinbruch in Kalifornien vom 13.03.2024 um 23:49 Uhr",
+    "show_display_ads": true,
+    "show_instream_ads": true,
+    "sources": {
+        "hls": [
+            {
+                "is_uhd": false,
+                "quality_key": "QXADRM",
+                "quality_description": "Adaptiv",
+                "src": "https:\/\/apasfiis.sf.apa.at\/ipad\/cms-austria\/2024-03-13_2349_in_01_Spektakulaere-R_____14216629__o__1333685799__s15595990_QXA.mp4\/playlist.m3u8",
+                "is_adaptive_stream": true,
+                "is_drm_protected": true
+            },
+            {
+                "is_uhd": false,
+                "quality_key": "QXBDRM",
+                "quality_description": "Adaptiv",
+                "src": "https:\/\/apasfiis.sf.apa.at\/ipad\/cms-austria\/2024-03-13_2349_in_01_Spektakulaere-R_____14216629__o__1333685799__s15595990_QXB.mp4\/playlist.m3u8",
+                "is_adaptive_stream": true,
+                "is_drm_protected": true
+            }
+        ],
+        "dash": [
+            {
+                "is_uhd": false,
+                "quality_key": "QXADRM",
+                "quality_description": "Adaptiv",
+                "src": "https:\/\/apasfiis.sf.apa.at\/dash\/cms-austria\/2024-03-13_2349_in_01_Spektakulaere-R_____14216629__o__1333685799__s15595990_QXA.mp4\/manifest.mpd",
+                "is_adaptive_stream": true,
+                "is_drm_protected": true
+            },
+            {
+                "is_uhd": false,
+                "quality_key": "QXBDRM",
+                "quality_description": "Adaptiv",
+                "src": "https:\/\/apasfiis.sf.apa.at\/dash\/cms-austria\/2024-03-13_2349_in_01_Spektakulaere-R_____14216629__o__1333685799__s15595990_QXB.mp4\/manifest.mpd",
+                "is_adaptive_stream": true,
+                "is_drm_protected": true
+            }
+        ]
+    },
+    "sub_headline": "Spektakul\u00e4re Raub\u00fcberf\u00e4lle",
+    "teaser_text": "In 'Bankeinbruch in Kalifornien' geht es um ein mit der Mafia in Verbindung stehendes Gangsterteam, das vom FBI als das 'beste aller Zeiten' bezeichnet worden ist.",
+    "teaser_title": "Bankeinbruch in Kalifornien",
+    "text": null,
+    "thumbnail_activated": true,
+    "thumbnail_distributed": false,
+    "thumbnail_folder": null,
+    "thumbnail_sources": {
+        "hls": [
+            {
+                "quality_key": "Q6A",
+                "src": "https:\/\/apasfiis.sf.apa.at\/ipad\/cms-preview-clips\/2024-03-13_2349_in_01_Spektakulaere-R_____14216629__o__1333685799__s15595990_clip_Q6A.mp4\/playlist.m3u8"
+            },
+            {
+                "quality_key": "Q8C",
+                "src": "https:\/\/apasfiis.sf.apa.at\/ipad\/cms-preview-clips\/2024-03-13_2349_in_01_Spektakulaere-R_____14216629__o__1333685799__s15595990_clip_Q8C.mp4\/playlist.m3u8"
+            }
+        ],
+        "dash": [
+            {
+                "quality_key": "Q6A",
+                "src": "https:\/\/apasfiis.sf.apa.at\/dash\/cms-preview-clips\/2024-03-13_2349_in_01_Spektakulaere-R_____14216629__o__1333685799__s15595990_clip_Q6A.mp4\/manifest.mpd"
+            },
+            {
+                "quality_key": "Q8C",
+                "src": "https:\/\/apasfiis.sf.apa.at\/dash\/cms-preview-clips\/2024-03-13_2349_in_01_Spektakulaere-R_____14216629__o__1333685799__s15595990_clip_Q8C.mp4\/manifest.mpd"
+            }
+        ]
+    },
+    "sprite_sources": [],
+    "title": "Spektakul\u00e4re Raub\u00fcberf\u00e4lle mit Pierce Brosnan: Bankeinbruch in Kalifornien",
+    "type": "default",
+    "updated_at": "2024-03-26T12:16:53+01:00",
+    "video_type": "episode",
+    "youth_protection_type": "limited-20-06",
+    "_links": {
+        "self": {
+            "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/episode\/14216629"
+        },
+        "channel": {
+            "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/channel\/1180"
+        },
+        "profile": {
+            "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/profile\/13896153"
+        },
+        "segments": {
+            "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/episode\/14216629\/segments"
+        },
+        "tags": {
+            "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/episode\/14216629\/tags"
+        },
+        "advertising_tags": {
+            "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/episode\/14216629\/advertising\/tags"
+        },
+        "links": {
+            "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/episode\/14216629\/links"
+        },
+        "image": {
+            "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/media\/16997261"
+        },
+        "image16x9_with_logo": {
+            "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/media\/16997261"
+        },
+        "image2x3_with_logo": {
+            "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/media\/17003265"
+        },
+        "image2x3": {
+            "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/media\/16596204"
+        },
+        "subtitle": {
+            "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/subtitle\/914030"
+        },
+        "related_episodes": {
+            "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/episode\/14216629\/related"
+        },
+        "dds_item": {
+            "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/dds\/ddsitem\/393293"
+        }
+    },
+    "_embedded": {
+        "channel": {
+            "bitmovin_stream_id": "f9a36691-7bd7-4c36-9009-a0b9d7009b29",
+            "channel_restart_url_hbbtv": "https:\/\/playerapi-restarttv.ors.at\/livestreams\/f9a36691-7bd7-4c36-9009-a0b9d7009b29\/sections\/?state=active&X-Api-Key=66ae5065a94f40f9b00f7de4a9f96ead",
+            "id": 1180,
+            "is_drm_protected": true,
+            "is_main_channel": true,
+            "name": "ORF 1",
+            "reel": "orf1",
+            "updated_at": "2024-02-28T16:06:34+01:00",
+            "_links": {
+                "self": {
+                    "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/channel\/1180"
+                },
+                "children": {
+                    "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/channel\/1180\/children"
+                },
+                "color_logo": {
+                    "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/media\/13457917"
+                },
+                "black_and_white_logo": {
+                    "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/media\/13457918"
+                },
+                "audio_description_channel": {
+                    "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/channel\/4391789"
+                }
+            },
+            "_embedded": {
+                "parent": null,
+                "color_logo": {
+                    "dynamic_color": "#691f11",
+                    "public_urls": {
+                        "tiny": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/channels\/0135\/58\/thumb_13457917_channels_tiny.png"
+                        },
+                        "list": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/channels\/0135\/58\/thumb_13457917_channels_list.png"
+                        },
+                        "schedule": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/channels\/0135\/58\/thumb_13457917_channels_schedule.png"
+                        },
+                        "reference": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/channels\/0135\/58\/e88267e73205e46affb97e99d34f715f74bd1f1b.png"
+                        }
+                    }
+                },
+                "black_and_white_logo": {
+                    "dynamic_color": "#691f11",
+                    "public_urls": {
+                        "tiny": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/channels\/0135\/58\/thumb_13457918_channels_tiny.png"
+                        },
+                        "list": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/channels\/0135\/58\/thumb_13457918_channels_list.png"
+                        },
+                        "schedule": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/channels\/0135\/58\/thumb_13457918_channels_schedule.png"
+                        },
+                        "reference": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/channels\/0135\/58\/b1b2c5b46edc8fdb3781957de434fbeeed4e8e44.png"
+                        }
+                    }
+                }
+            }
+        },
+        "profile": {
+            "audio_description": false,
+            "break_text": null,
+            "break_title": null,
+            "dataset_name": "",
+            "dds_identifier": "",
+            "description": "Spannende Krimi-Doku-Reihe",
+            "has_active_youth_protection": false,
+            "has_youth_protection": false,
+            "headline": "Spektakul\u00e4re Raub\u00fcberf\u00e4lle mit Pierce Brosnan",
+            "hide_in_letter_group": false,
+            "id": 13896153,
+            "letter_group": "S",
+            "livestream_sub_headline": null,
+            "oegs": false,
+            "oewa_base_path": "Redcont\/Nachrichten\/Chronik",
+            "profile_website": null,
+            "secondary_genres": [],
+            "sub_headline": null,
+            "title": "Spektakul\u00e4re Raub\u00fcberf\u00e4lle mit Pierce Brosnan",
+            "type": "temporary",
+            "updated_at": "2024-03-13T09:51:58+01:00",
+            "youth_protection_type": "limited-20-06",
+            "_links": {
+                "self": {
+                    "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/profile\/13896153"
+                },
+                "image": {
+                    "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/media\/16991314"
+                },
+                "image16x9_with_logo": {
+                    "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/media\/16991314"
+                },
+                "image2x3_with_logo": {
+                    "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/media\/17003265"
+                },
+                "image2x3": {
+                    "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/media\/16596204"
+                },
+                "genre": {
+                    "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/genre\/1173"
+                },
+                "links": {
+                    "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/profile\/13896153\/links"
+                },
+                "episodes": {
+                    "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/profile\/13896153\/episodes"
+                },
+                "related_profiles": {
+                    "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/profile\/13896153\/related"
+                },
+                "latest_episode": {
+                    "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/profile\/13896153\/episode\/latest"
+                },
+                "tags": {
+                    "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/profile\/13896153\/tags"
+                },
+                "advertising_tags": {
+                    "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/profile\/13896153\/advertising\/tags"
+                }
+            },
+            "_embedded": {
+                "image": {
+                    "dynamic_color": "#691f11",
+                    "public_urls": {
+                        "highlight_teaser": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/profiles\/0170\/92\/thumb_16991314_profiles_highlight_teaser.jpeg"
+                        },
+                        "player": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/profiles\/0170\/92\/thumb_16991314_profiles_player.jpeg"
+                        },
+                        "list": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/profiles\/0170\/92\/thumb_16991314_profiles_list.jpeg"
+                        },
+                        "small": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/profiles\/0170\/92\/thumb_16991314_profiles_small.jpeg"
+                        },
+                        "reference": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/profiles\/0170\/92\/c3bbfbb314b936589dd9c5804ac283641a050a83.jpeg"
+                        }
+                    }
+                },
+                "image16x9_with_logo": {
+                    "dynamic_color": "#691f11",
+                    "public_urls": {
+                        "highlight_teaser": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/profiles\/0170\/92\/thumb_16991314_profiles_highlight_teaser.jpeg"
+                        },
+                        "player": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/profiles\/0170\/92\/thumb_16991314_profiles_player.jpeg"
+                        },
+                        "list": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/profiles\/0170\/92\/thumb_16991314_profiles_list.jpeg"
+                        },
+                        "small": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/profiles\/0170\/92\/thumb_16991314_profiles_small.jpeg"
+                        },
+                        "reference": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/profiles\/0170\/92\/c3bbfbb314b936589dd9c5804ac283641a050a83.jpeg"
+                        }
+                    }
+                },
+                "image2x3_with_logo": {
+                    "dynamic_color": "#691f11",
+                    "public_urls": {
+                        "highlight_teaser": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/profile_2x3-with-logo\/0171\/04\/thumb_17003265_profile_2x3-with-logo_highlight_teaser.jpeg"
+                        },
+                        "player": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/profile_2x3-with-logo\/0171\/04\/thumb_17003265_profile_2x3-with-logo_player.jpeg"
+                        },
+                        "list": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/profile_2x3-with-logo\/0171\/04\/thumb_17003265_profile_2x3-with-logo_list.jpeg"
+                        },
+                        "small": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/profile_2x3-with-logo\/0171\/04\/thumb_17003265_profile_2x3-with-logo_small.jpeg"
+                        },
+                        "reference": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/profile_2x3-with-logo\/0171\/04\/87d0d07cfb0f7cc83377df1a7ce7b28b9af8d976.jpeg"
+                        }
+                    }
+                },
+                "image2x3": {
+                    "dynamic_color": "#691f11",
+                    "public_urls": {
+                        "highlight_teaser": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0166\/97\/thumb_16596204_default_2x3_highlight_teaser.jpeg"
+                        },
+                        "player": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0166\/97\/thumb_16596204_default_2x3_player.jpeg"
+                        },
+                        "legacy": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0166\/97\/thumb_16596204_default_2x3_legacy.jpeg"
+                        },
+                        "list": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0166\/97\/thumb_16596204_default_2x3_list.jpeg"
+                        },
+                        "small": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0166\/97\/thumb_16596204_default_2x3_small.jpeg"
+                        },
+                        "reference": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0166\/97\/56745f92b28e3a6f176e66acf9e9d0aea5e0c611.jpeg"
+                        }
+                    }
+                },
+                "theme": null,
+                "genre": {
+                    "id": 1173,
+                    "advertising_mapping": {
+                        "live": {
+                            "web": {
+                                "sb": 4716830,
+                                "tbar": 4420052,
+                                "pre": 4420053,
+                                "post": 4420054
+                            },
+                            "mob": {
+                                "par": 4420055,
+                                "pre": 4420220,
+                                "post": 4420057
+                            },
+                            "app": {
+                                "par": 4420058,
+                                "pre": 4420059,
+                                "post": 4420060
+                            },
+                            "smart": {
+                                "pre": 4420061,
+                                "post": 4420062
+                            }
+                        },
+                        "vod": {
+                            "web": {
+                                "sb": 4420426,
+                                "tbar": 4420427,
+                                "pre": 4420428,
+                                "post": 4420429
+                            },
+                            "mob": {
+                                "par": 4420430,
+                                "pre": 4420431,
+                                "post": 4420432
+                            },
+                            "app": {
+                                "par": 4420433,
+                                "pre": 4420434,
+                                "post": 4420435
+                            },
+                            "smart": {
+                                "pre": 4420436,
+                                "post": 4420437
+                            }
+                        }
+                    },
+                    "sorting": 7,
+                    "title": "Doku & Reportage",
+                    "updated_at": "2023-12-31T16:37:59+01:00",
+                    "_links": {
+                        "self": {
+                            "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/genre\/1173"
+                        },
+                        "image": {
+                            "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/media\/16596302"
+                        },
+                        "profiles": {
+                            "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/genre\/1173\/profiles"
+                        },
+                        "episodes": {
+                            "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/genre\/1173\/episodes"
+                        },
+                        "latest_episode": {
+                            "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/genre\/1173\/episode\/latest"
+                        },
+                        "tags": {
+                            "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/genre\/1173\/tags"
+                        },
+                        "advertising_tags": {
+                            "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/genre\/1173\/advertising\/tags"
+                        }
+                    },
+                    "_embedded": {
+                        "image": {
+                            "dynamic_color": "#691f11",
+                            "public_urls": {
+                                "highlight_teaser": {
+                                    "url": "https:\/\/api-tvthek.orf.at\/assets\/genres\/0166\/97\/thumb_16596302_genres_highlight_teaser.jpeg"
+                                },
+                                "player": {
+                                    "url": "https:\/\/api-tvthek.orf.at\/assets\/genres\/0166\/97\/thumb_16596302_genres_player.jpeg"
+                                },
+                                "list": {
+                                    "url": "https:\/\/api-tvthek.orf.at\/assets\/genres\/0166\/97\/thumb_16596302_genres_list.jpeg"
+                                },
+                                "small": {
+                                    "url": "https:\/\/api-tvthek.orf.at\/assets\/genres\/0166\/97\/thumb_16596302_genres_small.jpeg"
+                                },
+                                "reference": {
+                                    "url": "https:\/\/api-tvthek.orf.at\/assets\/genres\/0166\/97\/a6885e2f8ea6f778dcac9af57dfea24006218d76.jpeg"
+                                }
+                            }
+                        },
+                        "tags": [],
+                        "advertising_tags": []
+                    }
+                },
+                "links": [],
+                "tags": [],
+                "advertising_tags": [],
+                "audio_description_profile": null,
+                "oegs_profile": null
+            }
+        },
+        "segments": [
+            {
+                "adition_advertising_query_string": "stype:vod,scat:doku-reportage,scatid:1173,spro:spektakulaere-raubueberfaelle-mit-pierce-brosnan,sproid:13896153,episodeid:14216629,duration:2446000,advertisingtags:",
+                "advertising_mapping": {
+                    "live": {
+                        "web": {
+                            "sb": 4716830,
+                            "tbar": 4420052,
+                            "pre": 4420053,
+                            "post": 4420054
+                        },
+                        "mob": {
+                            "par": 4420055,
+                            "pre": 4420220,
+                            "post": 4420057
+                        },
+                        "app": {
+                            "par": 4420058,
+                            "pre": 4420059,
+                            "post": 4420060
+                        },
+                        "smart": {
+                            "pre": 4420061,
+                            "post": 4420062
+                        }
+                    },
+                    "vod": {
+                        "web": {
+                            "sb": 4420426,
+                            "tbar": 4420427,
+                            "pre": 4420428,
+                            "post": 4420429
+                        },
+                        "mob": {
+                            "par": 4420430,
+                            "pre": 4420431,
+                            "post": 4420432
+                        },
+                        "app": {
+                            "par": 4420433,
+                            "pre": 4420434,
+                            "post": 4420435
+                        },
+                        "smart": {
+                            "pre": 4420436,
+                            "post": 4420437
+                        }
+                    }
+                },
+                "advertising_query_string": "stype=vod&scat=doku-reportage&scatid=1173&spro=spektakulaere-raubueberfaelle-mit-pierce-brosnan&sproid=13896153&episodeid=14216629&duration=2446000&advertisingtags=",
+                "blackfades": [],
+                "episode_date": "2024-03-13T23:49:50+01:00",
+                "date_as_string": "Mi, 13.3.2024",
+                "vod_ressort": null,
+                "description": "Pierce Brosnan pr\u00e4sentiert in der spannenden Krimi-Doku-Reihe die spektakul\u00e4rsten Raub\u00fcberf\u00e4lle der Geschichte.\r\nIn 'Bankeinbruch in Kalifornien' geht es um ein mit der Mafia in Verbindung stehendes Gangsterteam, das vom FBI als das 'beste aller Zeiten' bezeichnet worden ist. 1972 erbeutete die Bande bei dem \u00dcberfall auf eine s\u00fcdkalifornischen Bank, die angeblich Pr\u00e4sident Richard Nixons Wahlkampfgelder eingebunkert hatte, gesch\u00e4tzte 30 Millionen Dollar in bar.\r\nMit Pierce Brosnan\r\nRegie: Brendan Murphy, Kieran Murphy",
+                "drm_token": "uZH9yZK791mApoQnhaOQPR4H7wCXwjWvlsj2KR7P65Dw6X3SEiO6j376a3lpxNs4HHzLwDx3f5PsLuJmLiifVufJB%2FNCA0k3WpOy%2FbBEBReWp4E3IfVFPVmjbjCAAtB6wpR3K5xQ%2FtNZaRGDUQh%2BQnDkst6PJMzSLg7vpvpu5pnMFCzUPe5OP1ST%2BdrEMVwGC%2Fs%2BpmeM0Vvdd1293uywOu7gdQDh9bl7zxFd4E%2BJYHxO4sX%2FdKYJOIB63rVL3nKG",
+                "duration_as_string": "40:46 Min.",
+                "duration_seconds": 2446,
+                "enabled": true,
+                "encrypted_id": "ODc4M2hqZDcyOTNrbWQxNTU5NTk5MA==",
+                "episode_id": 14216629,
+                "exact_duration": 2446000,
+                "genre_id": 1173,
+                "genre_title": "Doku & Reportage",
+                "right": "austria",
+                "focus": false,
+                "show_countdown": true,
+                "has_thumbnail": true,
+                "headline": "Spektakul\u00e4re Raub\u00fcberf\u00e4lle mit Pierce Brosnan: Bankeinbruch in Kalifornien",
+                "id": 15595990,
+                "is_archive": false,
+                "is_drm_protected": true,
+                "jump_mark": false,
+                "jump_marks": [],
+                "killdate_extern": "2027-01-31T00:00:00+01:00",
+                "killdate": "2027-01-31T00:00:00+01:00",
+                "livedate": "2024-03-13T23:50:00+01:00",
+                "livedate_extern": "2024-03-13T23:50:00+01:00",
+                "SSA": {
+                    "cliptype": "Sendung",
+                    "videoid": 15595990,
+                    "videopartid": "1_1",
+                    "videocategory": "Doku-Reportage",
+                    "videotitle": "Spektakulaere-Raubueberfaelle-mit-Pierce-Brosnan-Bankeinbruch-in-Kalifornien",
+                    "videoduration": 2446,
+                    "episodeduration": 2446,
+                    "episodeid": 14216629,
+                    "airdate": "2024-03-13T23:50:00+01:00",
+                    "clipreleasetime": "2024-03-13T23:50:02+01:00",
+                    "programname": "Spektakulaere-Raubueberfaelle-mit-Pierce-Brosnan",
+                    "channel": "orf1"
+                },
+                "disable_display_ads_orf_platforms": false,
+                "disable_instream_ads_orf_platforms": false,
+                "position": 0,
+                "episodes_reference": "",
+                "share_body": "https:\/\/tvthek.orf.at\/profile\/Spektakulaere-Raubueberfaelle-mit-Pierce-Brosnan\/13896153\/Spektakulaere-Raubueberfaelle-mit-Pierce-Brosnan-Bankeinbruch-in-Kalifornien\/14216629\/Spektakulaere-Raubueberfaelle-mit-Pierce-Brosnan-Bankeinbruch-in-Kalifornien\/15595990",
+                "share_subject": "Spektakul\u00e4re Raub\u00fcberf\u00e4lle mit Pierce Brosnan: Bankeinbruch in Kalifornien - Spektakul\u00e4re Raub\u00fcberf\u00e4lle mit Pierce Brosnan: Bankeinbruch in Kalifornien vom 13.03.2024 um 23:49 Uhr",
+                "show_display_ads": true,
+                "show_instream_ads": true,
+                "sources": {
+                    "hls": [
+                        {
+                            "is_uhd": false,
+                            "quality_key": "QXADRM",
+                            "quality_description": "Adaptiv",
+                            "src": "https:\/\/apasfiis.sf.apa.at\/ipad\/cms-austria\/2024-03-13_2349_in_01_Spektakulaere-R_____14216629__o__1333685799__s15595990_QXA.mp4\/playlist.m3u8",
+                            "is_adaptive_stream": true,
+                            "is_drm_protected": true
+                        },
+                        {
+                            "is_uhd": false,
+                            "quality_key": "QXBDRM",
+                            "quality_description": "Adaptiv",
+                            "src": "https:\/\/apasfiis.sf.apa.at\/ipad\/cms-austria\/2024-03-13_2349_in_01_Spektakulaere-R_____14216629__o__1333685799__s15595990_QXB.mp4\/playlist.m3u8",
+                            "is_adaptive_stream": true,
+                            "is_drm_protected": true
+                        }
+                    ],
+                    "dash": [
+                        {
+                            "is_uhd": false,
+                            "quality_key": "QXADRM",
+                            "quality_description": "Adaptiv",
+                            "src": "https:\/\/apasfiis.sf.apa.at\/dash\/cms-austria\/2024-03-13_2349_in_01_Spektakulaere-R_____14216629__o__1333685799__s15595990_QXA.mp4\/manifest.mpd",
+                            "is_adaptive_stream": true,
+                            "is_drm_protected": true
+                        },
+                        {
+                            "is_uhd": false,
+                            "quality_key": "QXBDRM",
+                            "quality_description": "Adaptiv",
+                            "src": "https:\/\/apasfiis.sf.apa.at\/dash\/cms-austria\/2024-03-13_2349_in_01_Spektakulaere-R_____14216629__o__1333685799__s15595990_QXB.mp4\/manifest.mpd",
+                            "is_adaptive_stream": true,
+                            "is_drm_protected": true
+                        }
+                    ]
+                },
+                "state": "distributed",
+                "sub_headline": "Spektakul\u00e4re Raub\u00fcberf\u00e4lle",
+                "teaser_text": null,
+                "teaser_title": null,
+                "thumbnail_activated": true,
+                "thumbnail_distributed": true,
+                "thumbnail_folder": "cms-preview-clips",
+                "thumbnail_sources": {
+                    "hls": [
+                        {
+                            "quality_key": "Q6A",
+                            "src": "https:\/\/apasfiis.sf.apa.at\/ipad\/cms-preview-clips\/2024-03-13_2349_in_01_Spektakulaere-R_____14216629__o__1333685799__s15595990_clip_Q6A.mp4\/playlist.m3u8"
+                        },
+                        {
+                            "quality_key": "Q8C",
+                            "src": "https:\/\/apasfiis.sf.apa.at\/ipad\/cms-preview-clips\/2024-03-13_2349_in_01_Spektakulaere-R_____14216629__o__1333685799__s15595990_clip_Q8C.mp4\/playlist.m3u8"
+                        }
+                    ],
+                    "dash": [
+                        {
+                            "quality_key": "Q6A",
+                            "src": "https:\/\/apasfiis.sf.apa.at\/dash\/cms-preview-clips\/2024-03-13_2349_in_01_Spektakulaere-R_____14216629__o__1333685799__s15595990_clip_Q6A.mp4\/manifest.mpd"
+                        },
+                        {
+                            "quality_key": "Q8C",
+                            "src": "https:\/\/apasfiis.sf.apa.at\/dash\/cms-preview-clips\/2024-03-13_2349_in_01_Spektakulaere-R_____14216629__o__1333685799__s15595990_clip_Q8C.mp4\/manifest.mpd"
+                        }
+                    ]
+                },
+                "sprite_sources": [],
+                "title": "Spektakul\u00e4re Raub\u00fcberf\u00e4lle mit Pierce Brosnan: Bankeinbruch in Kalifornien",
+                "updated_at": "2024-03-14T00:42:13+01:00",
+                "videobumper": {
+                    "prevideobumper": {
+                        "active": false,
+                        "sources": {
+                            "hls": [],
+                            "progressive_download": []
+                        }
+                    },
+                    "postvideobumper": {
+                        "active": false,
+                        "sources": {
+                            "hls": [],
+                            "progressive_download": []
+                        }
+                    }
+                },
+                "video_file_name": "2024-03-13_2349_in_01_Spektakulaere-R_____14216629__o__1333685799__s15595990",
+                "video_stream_url": null,
+                "video_type": "segment",
+                "voez": false,
+                "voez_ads_allowed": false,
+                "_links": {
+                    "self": {
+                        "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/segment\/15595990"
+                    },
+                    "episode": {
+                        "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/episode\/14216629"
+                    },
+                    "image": {
+                        "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/media\/16997261"
+                    },
+                    "image16x9_with_logo": {
+                        "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/media\/16997261"
+                    },
+                    "image2x3_with_logo": {
+                        "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/media\/17003265"
+                    },
+                    "image2x3": {
+                        "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/media\/16596204"
+                    },
+                    "links": {
+                        "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/segment\/15595990\/links"
+                    },
+                    "subtitle": {
+                        "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/subtitle\/914031"
+                    },
+                    "playlist": {
+                        "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/segment\/15595990\/playlist"
+                    },
+                    "tags": {
+                        "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/segment\/15595990\/tags"
+                    },
+                    "profile": {
+                        "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/profile\/13896153"
+                    }
+                },
+                "_embedded": {
+                    "image": {
+                        "dynamic_color": "#691f11",
+                        "public_urls": {
+                            "highlight_teaser": {
+                                "url": "https:\/\/api-tvthek.orf.at\/assets\/segments\/0170\/98\/thumb_16997261_segments_highlight_teaser.jpeg"
+                            },
+                            "player": {
+                                "url": "https:\/\/api-tvthek.orf.at\/assets\/segments\/0170\/98\/thumb_16997261_segments_player.jpeg"
+                            },
+                            "list": {
+                                "url": "https:\/\/api-tvthek.orf.at\/assets\/segments\/0170\/98\/thumb_16997261_segments_list.jpeg"
+                            },
+                            "small": {
+                                "url": "https:\/\/api-tvthek.orf.at\/assets\/segments\/0170\/98\/thumb_16997261_segments_small.jpeg"
+                            },
+                            "reference": {
+                                "url": "https:\/\/api-tvthek.orf.at\/assets\/segments\/0170\/98\/2f1988137f18f84c8b23e3ad02f90f94aec642ef.jpeg"
+                            }
+                        }
+                    },
+                    "image16x9_with_logo": {
+                        "dynamic_color": "#691f11",
+                        "public_urls": {
+                            "highlight_teaser": {
+                                "url": "https:\/\/api-tvthek.orf.at\/assets\/segments\/0170\/98\/thumb_16997261_segments_highlight_teaser.jpeg"
+                            },
+                            "player": {
+                                "url": "https:\/\/api-tvthek.orf.at\/assets\/segments\/0170\/98\/thumb_16997261_segments_player.jpeg"
+                            },
+                            "list": {
+                                "url": "https:\/\/api-tvthek.orf.at\/assets\/segments\/0170\/98\/thumb_16997261_segments_list.jpeg"
+                            },
+                            "small": {
+                                "url": "https:\/\/api-tvthek.orf.at\/assets\/segments\/0170\/98\/thumb_16997261_segments_small.jpeg"
+                            },
+                            "reference": {
+                                "url": "https:\/\/api-tvthek.orf.at\/assets\/segments\/0170\/98\/2f1988137f18f84c8b23e3ad02f90f94aec642ef.jpeg"
+                            }
+                        }
+                    },
+                    "image2x3_with_logo": {
+                        "dynamic_color": "#691f11",
+                        "public_urls": {
+                            "highlight_teaser": {
+                                "url": "https:\/\/api-tvthek.orf.at\/assets\/profile_2x3-with-logo\/0171\/04\/thumb_17003265_profile_2x3-with-logo_highlight_teaser.jpeg"
+                            },
+                            "player": {
+                                "url": "https:\/\/api-tvthek.orf.at\/assets\/profile_2x3-with-logo\/0171\/04\/thumb_17003265_profile_2x3-with-logo_player.jpeg"
+                            },
+                            "list": {
+                                "url": "https:\/\/api-tvthek.orf.at\/assets\/profile_2x3-with-logo\/0171\/04\/thumb_17003265_profile_2x3-with-logo_list.jpeg"
+                            },
+                            "small": {
+                                "url": "https:\/\/api-tvthek.orf.at\/assets\/profile_2x3-with-logo\/0171\/04\/thumb_17003265_profile_2x3-with-logo_small.jpeg"
+                            },
+                            "reference": {
+                                "url": "https:\/\/api-tvthek.orf.at\/assets\/profile_2x3-with-logo\/0171\/04\/87d0d07cfb0f7cc83377df1a7ce7b28b9af8d976.jpeg"
+                            }
+                        }
+                    },
+                    "image2x3": {
+                        "dynamic_color": "#691f11",
+                        "public_urls": {
+                            "highlight_teaser": {
+                                "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0166\/97\/thumb_16596204_default_2x3_highlight_teaser.jpeg"
+                            },
+                            "player": {
+                                "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0166\/97\/thumb_16596204_default_2x3_player.jpeg"
+                            },
+                            "legacy": {
+                                "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0166\/97\/thumb_16596204_default_2x3_legacy.jpeg"
+                            },
+                            "list": {
+                                "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0166\/97\/thumb_16596204_default_2x3_list.jpeg"
+                            },
+                            "small": {
+                                "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0166\/97\/thumb_16596204_default_2x3_small.jpeg"
+                            },
+                            "reference": {
+                                "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0166\/97\/56745f92b28e3a6f176e66acf9e9d0aea5e0c611.jpeg"
+                            }
+                        }
+                    },
+                    "links": [],
+                    "subtitle": {
+                        "id": 914031,
+                        "parsed_at": null,
+                        "sami_url": "https:\/\/api-tvthek.orf.at\/assets\/subtitles\/0171\/15\/fe7a33b4649d309b64a8533e0d042d2adcc1b3db.smi",
+                        "srt_url": "https:\/\/api-tvthek.orf.at\/assets\/subtitles\/0171\/15\/9cf923418cdda3395e4ab20fa7cab0514b0425a2.srt",
+                        "stl_url": null,
+                        "ttml_url": "https:\/\/api-tvthek.orf.at\/assets\/subtitles\/0171\/15\/bae4fee3721136bf92ead4eaea19c2ac368531fe.ttml",
+                        "updated_at": "2024-03-14T00:45:14+01:00",
+                        "vtt_url": "https:\/\/api-tvthek.orf.at\/assets\/subtitles\/0171\/15\/6b6430a64f134d6fb118efe6c32310c038b6448f.vtt",
+                        "xml_url": "https:\/\/api-tvthek.orf.at\/assets\/subtitles\/0171\/15\/6936fd90f903a4ae5a58ed5380306de0edce8e1e.xml",
+                        "_links": {
+                            "self": {
+                                "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/subtitle\/914031"
+                            },
+                            "xml_file": {
+                                "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/media\/17014318"
+                            },
+                            "srt_file": {
+                                "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/media\/17014319"
+                            },
+                            "vtt_file": {
+                                "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/media\/17014320"
+                            },
+                            "sami_file": {
+                                "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/media\/17014322"
+                            },
+                            "ttml_file": {
+                                "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/media\/17014321"
+                            }
+                        },
+                        "_embedded": {
+                            "xml_file": {
+                                "public_urls": {
+                                    "reference": {
+                                        "url": "https:\/\/api-tvthek.orf.at\/assets\/subtitles\/0171\/15\/6936fd90f903a4ae5a58ed5380306de0edce8e1e.xml"
+                                    }
+                                }
+                            },
+                            "stl_file": null,
+                            "srt_file": {
+                                "public_urls": {
+                                    "reference": {
+                                        "url": "https:\/\/api-tvthek.orf.at\/assets\/subtitles\/0171\/15\/9cf923418cdda3395e4ab20fa7cab0514b0425a2.srt"
+                                    }
+                                }
+                            },
+                            "vtt_file": {
+                                "public_urls": {
+                                    "reference": {
+                                        "url": "https:\/\/api-tvthek.orf.at\/assets\/subtitles\/0171\/15\/6b6430a64f134d6fb118efe6c32310c038b6448f.vtt"
+                                    }
+                                }
+                            },
+                            "sami_file": {
+                                "public_urls": {
+                                    "reference": {
+                                        "url": "https:\/\/api-tvthek.orf.at\/assets\/subtitles\/0171\/15\/fe7a33b4649d309b64a8533e0d042d2adcc1b3db.smi"
+                                    }
+                                }
+                            },
+                            "ttml_file": {
+                                "public_urls": {
+                                    "reference": {
+                                        "url": "https:\/\/api-tvthek.orf.at\/assets\/subtitles\/0171\/15\/bae4fee3721136bf92ead4eaea19c2ac368531fe.ttml"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "playlist": {
+                        "id": 15595990,
+                        "episode_id": 14216629,
+                        "title_prefix": "Spektakul\u00e4re Raub\u00fcberf\u00e4lle mit Pierce Brosnan: Bankeinbruch in Kalifornien",
+                        "title_separator": "|",
+                        "title": "Spektakul\u00e4re Raub\u00fcberf\u00e4lle mit Pierce Brosnan: Bankeinbruch in Kalifornien",
+                        "description": "Pierce Brosnan pr\u00e4sentiert in der spannenden Krimi-Doku-Reihe die spektakul\u00e4rsten Raub\u00fcberf\u00e4lle der Geschichte.\r\nIn 'Bankeinbruch in Kalifornien' geht es um ein mit der Mafia in Verbindung stehendes Gangsterteam, das vom FBI als das 'beste aller Zeiten' bezeichnet worden ist. 1972 erbeutete die Bande bei dem \u00dcberfall auf eine s\u00fcdkalifornischen Bank, die angeblich Pr\u00e4sident Richard Nixons Wahlkampfgelder eingebunkert hatte, gesch\u00e4tzte 30 Millionen Dollar in bar.\r\nMit Pierce Brosnan\r\nRegie: Brendan Murphy, Kieran Murphy",
+                        "duration": 2446000,
+                        "preview_image_url": "https:\/\/api-tvthek.orf.at\/assets\/segments\/0170\/98\/thumb_16997261_segments_player.jpeg",
+                        "sources": [
+                            {
+                                "quality": "Q1A",
+                                "quality_string": "Niedrig",
+                                "src": "rtmp:\/\/apasfw.apa.at\/cms-austria\/mp4:2024-03-13_2349_in_01_Spektakulaere-R_____14216629__o__1333685799__s15595990_Q1A.3gp",
+                                "type": "video\/mp4",
+                                "delivery": "streaming",
+                                "protocol": "rtmp"
+                            },
+                            {
+                                "quality": "Q4A",
+                                "quality_string": "Mittel",
+                                "src": "rtmp:\/\/apasfw.apa.at\/cms-austria\/mp4:2024-03-13_2349_in_01_Spektakulaere-R_____14216629__o__1333685799__s15595990_Q4A.mp4",
+                                "type": "video\/mp4",
+                                "delivery": "streaming",
+                                "protocol": "rtmp"
+                            },
+                            {
+                                "quality": "Q6A",
+                                "quality_string": "Hoch",
+                                "src": "rtmp:\/\/apasfw.apa.at\/cms-austria\/mp4:2024-03-13_2349_in_01_Spektakulaere-R_____14216629__o__1333685799__s15595990_Q6A.mp4",
+                                "type": "video\/mp4",
+                                "delivery": "streaming",
+                                "protocol": "rtmp"
+                            },
+                            {
+                                "quality": "Q8C",
+                                "quality_string": "Sehr hoch",
+                                "src": "rtmp:\/\/apasfw.apa.at\/cms-austria\/mp4:2024-03-13_2349_in_01_Spektakulaere-R_____14216629__o__1333685799__s15595990_Q8C.mp4",
+                                "type": "video\/mp4",
+                                "delivery": "streaming",
+                                "protocol": "rtmp"
+                            },
+                            {
+                                "quality": "Q1A",
+                                "quality_string": "Niedrig",
+                                "src": "rtsp:\/\/apasfw.apa.at:1935\/cms-austria\/mp4:2024-03-13_2349_in_01_Spektakulaere-R_____14216629__o__1333685799__s15595990_Q1A.3gp",
+                                "type": "video\/mp4",
+                                "delivery": "streaming",
+                                "protocol": "rtsp"
+                            },
+                            {
+                                "quality": "SMIL",
+                                "quality_string": "Hoch",
+                                "src": "rtsp:\/\/apasfw.apa.at:1935\/cms-austria\/mp4:2024-03-13_2349_in_01_Spektakulaere-R_____14216629__o__1333685799__s15595990_Q6A.mp4",
+                                "type": "video\/mp4",
+                                "delivery": "streaming",
+                                "protocol": "rtsp"
+                            },
+                            {
+                                "quality": "Q4A",
+                                "quality_string": "Mittel",
+                                "src": "rtsp:\/\/apasfw.apa.at:1935\/cms-austria\/mp4:2024-03-13_2349_in_01_Spektakulaere-R_____14216629__o__1333685799__s15595990_Q4A.mp4",
+                                "type": "video\/mp4",
+                                "delivery": "streaming",
+                                "protocol": "rtsp"
+                            },
+                            {
+                                "quality": "Q8C",
+                                "quality_string": "Sehr hoch",
+                                "src": "rtsp:\/\/apasfw.apa.at:1935\/cms-austria\/mp4:2024-03-13_2349_in_01_Spektakulaere-R_____14216629__o__1333685799__s15595990_Q8C.mp4",
+                                "type": "video\/mp4",
+                                "delivery": "streaming",
+                                "protocol": "rtsp"
+                            },
+                            {
+                                "src": "https:\/\/apasfiis.sf.apa.at\/ipad\/gp\/no_drm_support_q6a.mp4\/playlist.m3u8",
+                                "is_uhd": false,
+                                "quality": "Q0A",
+                                "quality_string": "Kein DRM",
+                                "delivery": "hls",
+                                "type": "video\/mp4",
+                                "protocol": "http"
+                            },
+                            {
+                                "src": "https:\/\/apasfiis.sf.apa.at\/ipad\/gp\/no_drm_support_q6a.mp4\/playlist.m3u8",
+                                "is_uhd": false,
+                                "quality": "Q1A",
+                                "quality_string": "Kein DRM",
+                                "delivery": "hls",
+                                "type": "video\/mp4",
+                                "protocol": "http"
+                            },
+                            {
+                                "src": "https:\/\/apasfiis.sf.apa.at\/ipad\/gp\/no_drm_support_q6a.mp4\/playlist.m3u8",
+                                "is_uhd": false,
+                                "quality": "Q4A",
+                                "quality_string": "Kein DRM",
+                                "delivery": "hls",
+                                "type": "video\/mp4",
+                                "protocol": "http"
+                            },
+                            {
+                                "src": "https:\/\/apasfiis.sf.apa.at\/ipad\/gp\/no_drm_support_q6a.mp4\/playlist.m3u8",
+                                "is_uhd": false,
+                                "quality": "Q6A",
+                                "quality_string": "Kein DRM",
+                                "delivery": "hls",
+                                "type": "video\/mp4",
+                                "protocol": "http"
+                            },
+                            {
+                                "src": "https:\/\/apasfiis.sf.apa.at\/ipad\/gp\/no_drm_support_q6a.mp4\/playlist.m3u8",
+                                "is_uhd": false,
+                                "quality": "Q8C",
+                                "quality_string": "Kein DRM",
+                                "delivery": "hls",
+                                "type": "video\/mp4",
+                                "protocol": "http"
+                            },
+                            {
+                                "src": "https:\/\/apasfiis.sf.apa.at\/ipad\/gp\/no_drm_support_q6a.mp4\/playlist.m3u8",
+                                "is_uhd": false,
+                                "quality": "QXA",
+                                "quality_string": "Kein DRM",
+                                "delivery": "hls",
+                                "type": "video\/mp4",
+                                "protocol": "http"
+                            },
+                            {
+                                "src": "https:\/\/apasfiis.sf.apa.at\/ipad\/gp\/no_drm_support_q6a.mp4\/playlist.m3u8",
+                                "is_uhd": false,
+                                "quality": "QXB",
+                                "quality_string": "Kein DRM",
+                                "delivery": "hls",
+                                "type": "video\/mp4",
+                                "protocol": "http"
+                            },
+                            {
+                                "quality": "Q1A",
+                                "quality_string": "Niedrig",
+                                "src": "https:\/\/localhost:6666\/cms-austria\/online\/440102b9f68434fbb577d17114dd9182\/1713132000\/2024-03-13_2349_in_01_Spektakulaere-R_____14216629__o__1333685799__s15595990_Q1A.3gp",
+                                "type": "video\/mp4",
+                                "delivery": "progressive",
+                                "protocol": "http"
+                            },
+                            {
+                                "quality": "Q4A",
+                                "quality_string": "Mittel",
+                                "src": "https:\/\/localhost:6666\/cms-austria\/online\/a96476a0eab40b11ef517feefe0d2973\/1713132000\/2024-03-13_2349_in_01_Spektakulaere-R_____14216629__o__1333685799__s15595990_Q4A.mp4",
+                                "type": "video\/mp4",
+                                "delivery": "progressive",
+                                "protocol": "http"
+                            },
+                            {
+                                "quality": "Q6A",
+                                "quality_string": "Hoch",
+                                "src": "https:\/\/localhost:6666\/cms-austria\/online\/de9bd8775f46ea293a9db4b0711d4de5\/1713132000\/2024-03-13_2349_in_01_Spektakulaere-R_____14216629__o__1333685799__s15595990_Q6A.mp4",
+                                "type": "video\/mp4",
+                                "delivery": "progressive",
+                                "protocol": "http"
+                            },
+                            {
+                                "quality": "Q8C",
+                                "quality_string": "Sehr hoch",
+                                "src": "https:\/\/localhost:6666\/cms-austria\/online\/6b2d672267c81e196472b564abf8c8fe\/1713132000\/2024-03-13_2349_in_01_Spektakulaere-R_____14216629__o__1333685799__s15595990_Q8C.mp4",
+                                "type": "video\/mp4",
+                                "delivery": "progressive",
+                                "protocol": "http"
+                            }
+                        ],
+                        "position": 0,
+                        "last_segment": true,
+                        "subtitles": [
+                            {
+                                "src": "https:\/\/api-tvthek.orf.at\/assets\/subtitles\/0171\/15\/6936fd90f903a4ae5a58ed5380306de0edce8e1e.xml",
+                                "type": "xml",
+                                "lang": "de-AT"
+                            },
+                            {
+                                "src": "https:\/\/api-tvthek.orf.at\/assets\/subtitles\/0171\/15\/9cf923418cdda3395e4ab20fa7cab0514b0425a2.srt",
+                                "type": "srt",
+                                "lang": "de-AT"
+                            },
+                            {
+                                "src": "https:\/\/api-tvthek.orf.at\/assets\/subtitles\/0171\/15\/6b6430a64f134d6fb118efe6c32310c038b6448f.vtt",
+                                "type": "vtt",
+                                "lang": "de-AT"
+                            },
+                            {
+                                "src": "https:\/\/api-tvthek.orf.at\/assets\/subtitles\/0171\/15\/fe7a33b4649d309b64a8533e0d042d2adcc1b3db.smi",
+                                "type": "sami",
+                                "lang": "de-AT"
+                            },
+                            {
+                                "src": "https:\/\/api-tvthek.orf.at\/assets\/subtitles\/0171\/15\/bae4fee3721136bf92ead4eaea19c2ac368531fe.ttml",
+                                "type": "ttml",
+                                "lang": "de-AT"
+                            }
+                        ],
+                        "right": "austria",
+                        "is_enabled": true,
+                        "has_active_youthprotection": false,
+                        "pre_bumper": {
+                            "active": false,
+                            "sources": []
+                        },
+                        "post_bumper": {
+                            "active": false,
+                            "sources": []
+                        },
+                        "hash": "9368c341ed83453303634fbd0f913f90"
+                    },
+                    "tags": [],
+                    "profile": {
+                        "audio_description": false,
+                        "break_text": null,
+                        "break_title": null,
+                        "dataset_name": "",
+                        "dds_identifier": "",
+                        "description": "Spannende Krimi-Doku-Reihe",
+                        "has_active_youth_protection": false,
+                        "has_youth_protection": false,
+                        "headline": "Spektakul\u00e4re Raub\u00fcberf\u00e4lle mit Pierce Brosnan",
+                        "hide_in_letter_group": false,
+                        "id": 13896153,
+                        "letter_group": "S",
+                        "livestream_sub_headline": null,
+                        "oegs": false,
+                        "oewa_base_path": "Redcont\/Nachrichten\/Chronik",
+                        "profile_website": null,
+                        "secondary_genres": [],
+                        "sub_headline": null,
+                        "title": "Spektakul\u00e4re Raub\u00fcberf\u00e4lle mit Pierce Brosnan",
+                        "type": "temporary",
+                        "updated_at": "2024-03-13T09:51:58+01:00",
+                        "youth_protection_type": "limited-20-06",
+                        "_links": {
+                            "self": {
+                                "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/profile\/13896153"
+                            },
+                            "image": {
+                                "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/media\/16991314"
+                            },
+                            "image16x9_with_logo": {
+                                "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/media\/16991314"
+                            },
+                            "image2x3_with_logo": {
+                                "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/media\/17003265"
+                            },
+                            "image2x3": {
+                                "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/media\/16596204"
+                            },
+                            "genre": {
+                                "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/genre\/1173"
+                            },
+                            "links": {
+                                "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/profile\/13896153\/links"
+                            },
+                            "episodes": {
+                                "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/profile\/13896153\/episodes"
+                            },
+                            "related_profiles": {
+                                "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/profile\/13896153\/related"
+                            },
+                            "latest_episode": {
+                                "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/profile\/13896153\/episode\/latest"
+                            },
+                            "tags": {
+                                "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/profile\/13896153\/tags"
+                            },
+                            "advertising_tags": {
+                                "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/profile\/13896153\/advertising\/tags"
+                            }
+                        },
+                        "_embedded": {
+                            "image": {
+                                "dynamic_color": "#691f11",
+                                "public_urls": {
+                                    "highlight_teaser": {
+                                        "url": "https:\/\/api-tvthek.orf.at\/assets\/profiles\/0170\/92\/thumb_16991314_profiles_highlight_teaser.jpeg"
+                                    },
+                                    "player": {
+                                        "url": "https:\/\/api-tvthek.orf.at\/assets\/profiles\/0170\/92\/thumb_16991314_profiles_player.jpeg"
+                                    },
+                                    "list": {
+                                        "url": "https:\/\/api-tvthek.orf.at\/assets\/profiles\/0170\/92\/thumb_16991314_profiles_list.jpeg"
+                                    },
+                                    "small": {
+                                        "url": "https:\/\/api-tvthek.orf.at\/assets\/profiles\/0170\/92\/thumb_16991314_profiles_small.jpeg"
+                                    },
+                                    "reference": {
+                                        "url": "https:\/\/api-tvthek.orf.at\/assets\/profiles\/0170\/92\/c3bbfbb314b936589dd9c5804ac283641a050a83.jpeg"
+                                    }
+                                }
+                            },
+                            "image16x9_with_logo": {
+                                "dynamic_color": "#691f11",
+                                "public_urls": {
+                                    "highlight_teaser": {
+                                        "url": "https:\/\/api-tvthek.orf.at\/assets\/profiles\/0170\/92\/thumb_16991314_profiles_highlight_teaser.jpeg"
+                                    },
+                                    "player": {
+                                        "url": "https:\/\/api-tvthek.orf.at\/assets\/profiles\/0170\/92\/thumb_16991314_profiles_player.jpeg"
+                                    },
+                                    "list": {
+                                        "url": "https:\/\/api-tvthek.orf.at\/assets\/profiles\/0170\/92\/thumb_16991314_profiles_list.jpeg"
+                                    },
+                                    "small": {
+                                        "url": "https:\/\/api-tvthek.orf.at\/assets\/profiles\/0170\/92\/thumb_16991314_profiles_small.jpeg"
+                                    },
+                                    "reference": {
+                                        "url": "https:\/\/api-tvthek.orf.at\/assets\/profiles\/0170\/92\/c3bbfbb314b936589dd9c5804ac283641a050a83.jpeg"
+                                    }
+                                }
+                            },
+                            "image2x3_with_logo": {
+                                "dynamic_color": "#691f11",
+                                "public_urls": {
+                                    "highlight_teaser": {
+                                        "url": "https:\/\/api-tvthek.orf.at\/assets\/profile_2x3-with-logo\/0171\/04\/thumb_17003265_profile_2x3-with-logo_highlight_teaser.jpeg"
+                                    },
+                                    "player": {
+                                        "url": "https:\/\/api-tvthek.orf.at\/assets\/profile_2x3-with-logo\/0171\/04\/thumb_17003265_profile_2x3-with-logo_player.jpeg"
+                                    },
+                                    "list": {
+                                        "url": "https:\/\/api-tvthek.orf.at\/assets\/profile_2x3-with-logo\/0171\/04\/thumb_17003265_profile_2x3-with-logo_list.jpeg"
+                                    },
+                                    "small": {
+                                        "url": "https:\/\/api-tvthek.orf.at\/assets\/profile_2x3-with-logo\/0171\/04\/thumb_17003265_profile_2x3-with-logo_small.jpeg"
+                                    },
+                                    "reference": {
+                                        "url": "https:\/\/api-tvthek.orf.at\/assets\/profile_2x3-with-logo\/0171\/04\/87d0d07cfb0f7cc83377df1a7ce7b28b9af8d976.jpeg"
+                                    }
+                                }
+                            },
+                            "image2x3": {
+                                "dynamic_color": "#691f11",
+                                "public_urls": {
+                                    "highlight_teaser": {
+                                        "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0166\/97\/thumb_16596204_default_2x3_highlight_teaser.jpeg"
+                                    },
+                                    "player": {
+                                        "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0166\/97\/thumb_16596204_default_2x3_player.jpeg"
+                                    },
+                                    "legacy": {
+                                        "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0166\/97\/thumb_16596204_default_2x3_legacy.jpeg"
+                                    },
+                                    "list": {
+                                        "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0166\/97\/thumb_16596204_default_2x3_list.jpeg"
+                                    },
+                                    "small": {
+                                        "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0166\/97\/thumb_16596204_default_2x3_small.jpeg"
+                                    },
+                                    "reference": {
+                                        "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0166\/97\/56745f92b28e3a6f176e66acf9e9d0aea5e0c611.jpeg"
+                                    }
+                                }
+                            },
+                            "theme": null,
+                            "genre": {
+                                "id": 1173,
+                                "advertising_mapping": {
+                                    "live": {
+                                        "web": {
+                                            "sb": 4716830,
+                                            "tbar": 4420052,
+                                            "pre": 4420053,
+                                            "post": 4420054
+                                        },
+                                        "mob": {
+                                            "par": 4420055,
+                                            "pre": 4420220,
+                                            "post": 4420057
+                                        },
+                                        "app": {
+                                            "par": 4420058,
+                                            "pre": 4420059,
+                                            "post": 4420060
+                                        },
+                                        "smart": {
+                                            "pre": 4420061,
+                                            "post": 4420062
+                                        }
+                                    },
+                                    "vod": {
+                                        "web": {
+                                            "sb": 4420426,
+                                            "tbar": 4420427,
+                                            "pre": 4420428,
+                                            "post": 4420429
+                                        },
+                                        "mob": {
+                                            "par": 4420430,
+                                            "pre": 4420431,
+                                            "post": 4420432
+                                        },
+                                        "app": {
+                                            "par": 4420433,
+                                            "pre": 4420434,
+                                            "post": 4420435
+                                        },
+                                        "smart": {
+                                            "pre": 4420436,
+                                            "post": 4420437
+                                        }
+                                    }
+                                },
+                                "sorting": 7,
+                                "title": "Doku & Reportage",
+                                "updated_at": "2023-12-31T16:37:59+01:00",
+                                "_links": {
+                                    "self": {
+                                        "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/genre\/1173"
+                                    },
+                                    "image": {
+                                        "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/media\/16596302"
+                                    },
+                                    "profiles": {
+                                        "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/genre\/1173\/profiles"
+                                    },
+                                    "episodes": {
+                                        "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/genre\/1173\/episodes"
+                                    },
+                                    "latest_episode": {
+                                        "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/genre\/1173\/episode\/latest"
+                                    },
+                                    "tags": {
+                                        "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/genre\/1173\/tags"
+                                    },
+                                    "advertising_tags": {
+                                        "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/genre\/1173\/advertising\/tags"
+                                    }
+                                },
+                                "_embedded": {
+                                    "image": {
+                                        "dynamic_color": "#691f11",
+                                        "public_urls": {
+                                            "highlight_teaser": {
+                                                "url": "https:\/\/api-tvthek.orf.at\/assets\/genres\/0166\/97\/thumb_16596302_genres_highlight_teaser.jpeg"
+                                            },
+                                            "player": {
+                                                "url": "https:\/\/api-tvthek.orf.at\/assets\/genres\/0166\/97\/thumb_16596302_genres_player.jpeg"
+                                            },
+                                            "list": {
+                                                "url": "https:\/\/api-tvthek.orf.at\/assets\/genres\/0166\/97\/thumb_16596302_genres_list.jpeg"
+                                            },
+                                            "small": {
+                                                "url": "https:\/\/api-tvthek.orf.at\/assets\/genres\/0166\/97\/thumb_16596302_genres_small.jpeg"
+                                            },
+                                            "reference": {
+                                                "url": "https:\/\/api-tvthek.orf.at\/assets\/genres\/0166\/97\/a6885e2f8ea6f778dcac9af57dfea24006218d76.jpeg"
+                                            }
+                                        }
+                                    },
+                                    "tags": [],
+                                    "advertising_tags": []
+                                }
+                            },
+                            "links": [],
+                            "tags": [],
+                            "advertising_tags": [],
+                            "audio_description_profile": null,
+                            "oegs_profile": null
+                        }
+                    }
+                }
+            }
+        ],
+        "tags": [],
+        "advertising_tags": [],
+        "links": [],
+        "audio_description_episode": null,
+        "oegs_episode": null,
+        "image": {
+            "dynamic_color": "#691f11",
+            "public_urls": {
+                "highlight_teaser": {
+                    "url": "https:\/\/api-tvthek.orf.at\/assets\/segments\/0170\/98\/thumb_16997261_segments_highlight_teaser.jpeg"
+                },
+                "player": {
+                    "url": "https:\/\/api-tvthek.orf.at\/assets\/segments\/0170\/98\/thumb_16997261_segments_player.jpeg"
+                },
+                "list": {
+                    "url": "https:\/\/api-tvthek.orf.at\/assets\/segments\/0170\/98\/thumb_16997261_segments_list.jpeg"
+                },
+                "small": {
+                    "url": "https:\/\/api-tvthek.orf.at\/assets\/segments\/0170\/98\/thumb_16997261_segments_small.jpeg"
+                },
+                "reference": {
+                    "url": "https:\/\/api-tvthek.orf.at\/assets\/segments\/0170\/98\/2f1988137f18f84c8b23e3ad02f90f94aec642ef.jpeg"
+                }
+            }
+        },
+        "image16x9_with_logo": {
+            "dynamic_color": "#691f11",
+            "public_urls": {
+                "highlight_teaser": {
+                    "url": "https:\/\/api-tvthek.orf.at\/assets\/segments\/0170\/98\/thumb_16997261_segments_highlight_teaser.jpeg"
+                },
+                "player": {
+                    "url": "https:\/\/api-tvthek.orf.at\/assets\/segments\/0170\/98\/thumb_16997261_segments_player.jpeg"
+                },
+                "list": {
+                    "url": "https:\/\/api-tvthek.orf.at\/assets\/segments\/0170\/98\/thumb_16997261_segments_list.jpeg"
+                },
+                "small": {
+                    "url": "https:\/\/api-tvthek.orf.at\/assets\/segments\/0170\/98\/thumb_16997261_segments_small.jpeg"
+                },
+                "reference": {
+                    "url": "https:\/\/api-tvthek.orf.at\/assets\/segments\/0170\/98\/2f1988137f18f84c8b23e3ad02f90f94aec642ef.jpeg"
+                }
+            }
+        },
+        "image2x3_with_logo": {
+            "dynamic_color": "#691f11",
+            "public_urls": {
+                "highlight_teaser": {
+                    "url": "https:\/\/api-tvthek.orf.at\/assets\/profile_2x3-with-logo\/0171\/04\/thumb_17003265_profile_2x3-with-logo_highlight_teaser.jpeg"
+                },
+                "player": {
+                    "url": "https:\/\/api-tvthek.orf.at\/assets\/profile_2x3-with-logo\/0171\/04\/thumb_17003265_profile_2x3-with-logo_player.jpeg"
+                },
+                "list": {
+                    "url": "https:\/\/api-tvthek.orf.at\/assets\/profile_2x3-with-logo\/0171\/04\/thumb_17003265_profile_2x3-with-logo_list.jpeg"
+                },
+                "small": {
+                    "url": "https:\/\/api-tvthek.orf.at\/assets\/profile_2x3-with-logo\/0171\/04\/thumb_17003265_profile_2x3-with-logo_small.jpeg"
+                },
+                "reference": {
+                    "url": "https:\/\/api-tvthek.orf.at\/assets\/profile_2x3-with-logo\/0171\/04\/87d0d07cfb0f7cc83377df1a7ce7b28b9af8d976.jpeg"
+                }
+            }
+        },
+        "image2x3": {
+            "dynamic_color": "#691f11",
+            "public_urls": {
+                "highlight_teaser": {
+                    "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0166\/97\/thumb_16596204_default_2x3_highlight_teaser.jpeg"
+                },
+                "player": {
+                    "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0166\/97\/thumb_16596204_default_2x3_player.jpeg"
+                },
+                "legacy": {
+                    "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0166\/97\/thumb_16596204_default_2x3_legacy.jpeg"
+                },
+                "list": {
+                    "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0166\/97\/thumb_16596204_default_2x3_list.jpeg"
+                },
+                "small": {
+                    "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0166\/97\/thumb_16596204_default_2x3_small.jpeg"
+                },
+                "reference": {
+                    "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0166\/97\/56745f92b28e3a6f176e66acf9e9d0aea5e0c611.jpeg"
+                }
+            }
+        },
+        "subtitle": {
+            "id": 914030,
+            "parsed_at": null,
+            "sami_url": "https:\/\/api-tvthek.orf.at\/assets\/subtitles\/0171\/15\/e83f6eabbdbcf49e894d1a58d77fcf3a9b951f3c.smi",
+            "srt_url": "https:\/\/api-tvthek.orf.at\/assets\/subtitles\/0171\/15\/e2536ac2b80a5152e54b047073ab327c223579ec.srt",
+            "stl_url": null,
+            "ttml_url": "https:\/\/api-tvthek.orf.at\/assets\/subtitles\/0171\/15\/c95472a931fe3ea8407734f95df242bce2f06b09.ttml",
+            "updated_at": "2024-03-14T00:45:14+01:00",
+            "vtt_url": "https:\/\/api-tvthek.orf.at\/assets\/subtitles\/0171\/15\/13759cf0d408fe11965ff16d03a564bbabbf5bc1.vtt",
+            "xml_url": "https:\/\/api-tvthek.orf.at\/assets\/subtitles\/0171\/15\/be922c3765a25ec3d7fa13e9265dabad7f986b75.xml",
+            "_links": {
+                "self": {
+                    "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/subtitle\/914030"
+                },
+                "xml_file": {
+                    "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/media\/17014313"
+                },
+                "srt_file": {
+                    "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/media\/17014314"
+                },
+                "vtt_file": {
+                    "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/media\/17014315"
+                },
+                "sami_file": {
+                    "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/media\/17014317"
+                },
+                "ttml_file": {
+                    "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/media\/17014316"
+                }
+            },
+            "_embedded": {
+                "xml_file": {
+                    "public_urls": {
+                        "reference": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/subtitles\/0171\/15\/be922c3765a25ec3d7fa13e9265dabad7f986b75.xml"
+                        }
+                    }
+                },
+                "stl_file": null,
+                "srt_file": {
+                    "public_urls": {
+                        "reference": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/subtitles\/0171\/15\/e2536ac2b80a5152e54b047073ab327c223579ec.srt"
+                        }
+                    }
+                },
+                "vtt_file": {
+                    "public_urls": {
+                        "reference": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/subtitles\/0171\/15\/13759cf0d408fe11965ff16d03a564bbabbf5bc1.vtt"
+                        }
+                    }
+                },
+                "sami_file": {
+                    "public_urls": {
+                        "reference": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/subtitles\/0171\/15\/e83f6eabbdbcf49e894d1a58d77fcf3a9b951f3c.smi"
+                        }
+                    }
+                },
+                "ttml_file": {
+                    "public_urls": {
+                        "reference": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/subtitles\/0171\/15\/c95472a931fe3ea8407734f95df242bce2f06b09.ttml"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "accompanying_videos": []
+}

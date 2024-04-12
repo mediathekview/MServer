@@ -60,7 +60,7 @@ public class OrfOnEpisodeDeserializer implements JsonDeserializer<OrfOnVideoInfo
   private static final String TAG_SUBTITLE_XML = "xml_url";
   //
   private AbstractCrawler crawler = null;
-  private static final String[] PREFERED_CODEC = {"hls", "hds", "streaming", "progressive"};
+  private static final String[] PREFERED_CODEC = {"hls", "hds", "progressive"};
   //
   
   public OrfOnEpisodeDeserializer(AbstractCrawler crawler) {
@@ -172,22 +172,19 @@ public class OrfOnEpisodeDeserializer implements JsonDeserializer<OrfOnVideoInfo
       return Optional.empty();
     }
     // We need to fallback to episode.sources in case there are many elements in the playlist
-    if (videoPath1.get().getAsJsonArray().size() > 1) {
-      return parseFallbackVideo(jsonElement);
-    }
-    
-    Optional<JsonElement> videoPath2 = JsonUtils.getElement(videoPath1.get().getAsJsonArray().get(0), TAG_VIDEO_PATH_2);
-    if (videoPath2.isEmpty() || !videoPath2.get().isJsonArray()) {
-      return Optional.empty();
-    }
-    for (String key : PREFERED_CODEC) {
-      Optional<Map<Resolution,FilmUrl>> resultingVideos = readVideoForTargetCodec(videoPath2.get(),key);
-      if (resultingVideos.isPresent()) {
-        return resultingVideos;
+    if (videoPath1.get().getAsJsonArray().size() == 1) {
+      Optional<JsonElement> videoPath2 = JsonUtils.getElement(videoPath1.get().getAsJsonArray().get(0), TAG_VIDEO_PATH_2);
+      if (videoPath2.isEmpty() || !videoPath2.get().isJsonArray()) {
+        return Optional.empty();
+      }
+      for (String key : PREFERED_CODEC) {
+        Optional<Map<Resolution,FilmUrl>> resultingVideos = readVideoForTargetCodec(videoPath2.get(),key);
+        if (resultingVideos.isPresent()) {
+          return resultingVideos;
+        }
       }
     }
-
-    return Optional.empty();
+    return parseFallbackVideo(jsonElement);
   }
   
   private Optional<Map<Resolution, FilmUrl>> parseFallbackVideo(JsonElement root) {
@@ -199,7 +196,7 @@ public class OrfOnEpisodeDeserializer implements JsonDeserializer<OrfOnVideoInfo
         if (codecs.isPresent() && codecs.get().isJsonArray()) {
           for (JsonElement singleVideo : codecs.get().getAsJsonArray()) {
             Optional<String> tgtUrl = JsonUtils.getElementValueAsString(singleVideo, TAG_VIDEO_FALLBACK_URL);
-            if (tgtUrl.isPresent()) {
+            if (tgtUrl.isPresent() && !tgtUrl.get().contains("/Jugendschutz") && !tgtUrl.get().contains("/no_drm_support") && !tgtUrl.get().contains("/schwarzung")) {
               try {
                 urls.put(Resolution.NORMAL, new FilmUrl(tgtUrl.get(), 0L));
               } catch (MalformedURLException e) {
@@ -221,19 +218,22 @@ public class OrfOnEpisodeDeserializer implements JsonDeserializer<OrfOnVideoInfo
       Optional<String> quality = JsonUtils.getElementValueAsString(videoElement, TAG_VIDEO_QUALITY);
       Optional<String> url = JsonUtils.getElementValueAsString(videoElement, TAG_VIDEO_URL);
       if (url.isPresent() && codec.isPresent() && quality.isPresent() && targetCodec.equalsIgnoreCase(codec.get()) && OrfOnEpisodeDeserializer.getQuality(quality.get()).isPresent()) {
-        try {
-          long fileSize = crawler.determineFileSizeInKB(url.get());
-          urls.put(
-            OrfOnEpisodeDeserializer.getQuality(quality.get()).get(),
-            new FilmUrl(url.get(), fileSize)
-            );
-        } catch (MalformedURLException e) {
-          LOG.error("Malformed video url {} {}", url.get(), e);
+        // dummy urls
+        if (!url.get().contains("/Jugendschutz") && !url.get().contains("/no_drm_support") && !url.get().contains("/schwarzung")) {
+          try {
+            long fileSize = crawler.determineFileSizeInKB(url.get());
+            urls.put(
+              OrfOnEpisodeDeserializer.getQuality(quality.get()).get(),
+              new FilmUrl(url.get(), fileSize)
+              );
+          } catch (MalformedURLException e) {
+            LOG.error("Malformed video url {} {}", url.get(), e);
+          }
         }
       }
     }
     if (urls.isEmpty()) {
-      Optional.empty();
+      return Optional.empty();
     }
     return Optional.of(urls);
   }

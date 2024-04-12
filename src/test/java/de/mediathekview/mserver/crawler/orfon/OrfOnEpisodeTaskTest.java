@@ -189,6 +189,48 @@ public class OrfOnEpisodeTaskTest extends OrfOnEpisodesTaskTest {
     }
   }
   
+  @Test
+  public void testDummyUrls() {
+    setupSuccessfulJsonResponse("/episodeDummyUrl", "/orfOn/episode_noDrm.json");
+    setupSuccessfulJsonResponse("/cms-austria/online/6b2d672267c81e196472b564abf8c8fe/1713132000/2024-03-13_2349_in_01_Spektakulaere-R_____14216629__o__1333685799__s15595990_Q8C.mp4", "/orfOn/episode_noDrm.json");
+    setupSuccessfulJsonResponse("/cms-austria/online/de9bd8775f46ea293a9db4b0711d4de5/1713132000/2024-03-13_2349_in_01_Spektakulaere-R_____14216629__o__1333685799__s15595990_Q6A.mp4", "/orfOn/episode_noDrm.json");
+    setupSuccessfulJsonResponse("/cms-austria/online/a96476a0eab40b11ef517feefe0d2973/1713132000/2024-03-13_2349_in_01_Spektakulaere-R_____14216629__o__1333685799__s15595990_Q4A.mp4", "/orfOn/episode_noDrm.json");
+    setupSuccessfulJsonResponse("/cms-austria/online/440102b9f68434fbb577d17114dd9182/1713132000/2024-03-13_2349_in_01_Spektakulaere-R_____14216629__o__1333685799__s15595990_Q1A.3gp", "/orfOn/episode_noDrm.json");
+    setupHeadRequestForFileSize();
+    //
+    Set<Film> result = executeTask("/episodeDummyUrl");
+    assertTrue(result.size() == 1);
+    Film actual = result.toArray(new Film[1])[0];
+    //
+    try {
+    assertEquals("Spektakuläre Raubüberfälle mit Pierce Brosnan: Bankeinbruch in Kalifornien",actual.getTitel());
+    assertEquals("Spektakuläre Raubüberfälle mit Pierce Brosnan",actual.getThema());
+    assertEquals(LocalDateTime.of(2024,03,13,23,49,50),actual.getTime());
+    assertEquals("Pierce Brosnan präsentiert in der spannenden Krimi-Doku-Reihe die spektakulärsten Raubüberfälle der Geschichte.",actual.getBeschreibung());
+    assertEquals(Duration.parse("PT40M46S"),actual.getDuration());
+    assertEquals(Optional.of(new URL("https://tvthek.orf.at/profile/Spektakulaere-Raubueberfaelle-mit-Pierce-Brosnan/13896153/Spektakulaere-Raubueberfaelle-mit-Pierce-Brosnan-Bankeinbruch-in-Kalifornien/14216629")),actual.getWebsite());
+    assertTrue(List.of(GeoLocations.GEO_AT).containsAll(actual.getGeoLocations()));
+    assertTrue(Set.of(
+        new URL("https://api-tvthek.orf.at/assets/subtitles/0171/15/e83f6eabbdbcf49e894d1a58d77fcf3a9b951f3c.smi"),
+        new URL("https://api-tvthek.orf.at/assets/subtitles/0171/15/c95472a931fe3ea8407734f95df242bce2f06b09.ttml"),
+        new URL("https://api-tvthek.orf.at/assets/subtitles/0171/15/13759cf0d408fe11965ff16d03a564bbabbf5bc1.vtt"),
+        new URL("https://api-tvthek.orf.at/assets/subtitles/0171/15/e2536ac2b80a5152e54b047073ab327c223579ec.srt"),
+        new URL("https://api-tvthek.orf.at/assets/subtitles/0171/15/be922c3765a25ec3d7fa13e9265dabad7f986b75.xml")
+        ).containsAll(actual.getSubtitles()));
+    assertEquals(Map.of(
+        Resolution.HD, new FilmUrl(getWireMockBaseUrlSafe()+"/cms-austria/online/6b2d672267c81e196472b564abf8c8fe/1713132000/2024-03-13_2349_in_01_Spektakulaere-R_____14216629__o__1333685799__s15595990_Q8C.mp4", 0L),
+        Resolution.NORMAL, new FilmUrl(getWireMockBaseUrlSafe()+"/cms-austria/online/de9bd8775f46ea293a9db4b0711d4de5/1713132000/2024-03-13_2349_in_01_Spektakulaere-R_____14216629__o__1333685799__s15595990_Q6A.mp4", 0L),
+        Resolution.SMALL, new FilmUrl(getWireMockBaseUrlSafe()+"/cms-austria/online/a96476a0eab40b11ef517feefe0d2973/1713132000/2024-03-13_2349_in_01_Spektakulaere-R_____14216629__o__1333685799__s15595990_Q4A.mp4", 0L),
+        Resolution.VERY_SMALL, new FilmUrl(getWireMockBaseUrlSafe()+"/cms-austria/online/440102b9f68434fbb577d17114dd9182/1713132000/2024-03-13_2349_in_01_Spektakulaere-R_____14216629__o__1333685799__s15595990_Q1A.3gp", 0L)
+        ), actual.getUrls());
+    } catch (Exception e) {
+      assertTrue(false);
+    }
+    
+    
+    
+  }
+  
   private Set<Film> executeTask(String... requestUrl) {
     final Queue<OrfOnBreadCrumsUrlDTO> input = new ConcurrentLinkedQueue<>();
     for (String url : requestUrl) {
